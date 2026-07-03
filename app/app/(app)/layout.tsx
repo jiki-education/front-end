@@ -1,3 +1,4 @@
+import "../app.css";
 import { ClientAuthGuard } from "../../components/layout/auth/internal/ClientAuthGuard";
 import { CheckoutReturnHandler } from "@/components/checkout/CheckoutReturnHandler";
 import { WelcomeModalHandler } from "@/components/WelcomeModalHandler";

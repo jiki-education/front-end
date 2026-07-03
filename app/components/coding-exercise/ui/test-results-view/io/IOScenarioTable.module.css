@@ -1,4 +1,4 @@
-@reference "../../../../../app/globals.css";
+@reference "../../../../../app/app.css";
 
 .wrapper {
     @apply rounded-lg border bg-white border-gray-200;

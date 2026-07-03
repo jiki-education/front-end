@@ -3,7 +3,7 @@
  * Border widths, border radius, z-index, and spacing values
  */
 
-@theme inline {
+:root {
     /* Border widths */
     --border-width-1: 1px;
     --border-width-2: 2px;
