@@ -27,9 +27,9 @@ export function LandingPage({ latestPosts = [] }: LandingPageProps) {
         <BootcampSection />
         <TestimonialsSection />
         <SignupSection />
-        <Image className="w-[100px] mx-auto my-64" src={divider} alt="" width={100} height={100} />
+        <Image className={styles.divider} src={divider} alt="" width={100} height={100} />
         <Exercism />
-        <Image className="w-[100px] mx-auto my-64" src={divider} alt="" width={100} height={100} />
+        <Image className={styles.divider} src={divider} alt="" width={100} height={100} />
         <FAQs />
         <LatestNewsSection posts={latestPosts} />
       </HeaderLayout>

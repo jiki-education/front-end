@@ -67,7 +67,7 @@ export function TestimonialsSection() {
         <h2>{t("heading")}</h2>
         <p className={styles.subheading}>
           {t("subheadingPrefix")}
-          <Link className="underline font-semibold" href={routes.testimonials()}>
+          <Link className={styles.subheadingLink} href={routes.testimonials()}>
             {t("subheadingLink")}
           </Link>
         </p>
@@ -112,7 +112,7 @@ function Quote({ data }: { data: QuoteData }) {
       </div>
       <div className={styles.person}>
         <div className={styles.stars}></div>
-        <div className="flex flex-row items-center justify-end gap-8">
+        <div className={styles.personRow}>
           <div className={styles.text}>
             <div className={styles.name}>{data.name}</div>
             <div className={styles.description}>{data.roleKey ? t(data.roleKey as Parameters<typeof t>[0]) : ""}</div>
