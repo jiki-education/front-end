@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { isSupportedLocale } from "@/lib/i18n/config";
 import { alternatesFromRequest } from "@/lib/seo/alternates";
 
 // Emit hreflang alternates + a self-referential canonical for every public page
@@ -10,6 +12,19 @@ export async function generateMetadata(): Promise<Metadata> {
   return alternatesFromRequest();
 }
 
-export default function LocaleLayout({ children }: { children: React.ReactNode }) {
+// Gate the whole [locale] tree on a served locale. With production serving en
+// only, a hand-typed /hu/... (or any unsupported /xx/...) 404s here instead of
+// rendering the English page at a foreign-locale URL.
+export default async function LocaleLayout({
+  children,
+  params
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  if (!isSupportedLocale(locale)) {
+    notFound();
+  }
   return children;
 }

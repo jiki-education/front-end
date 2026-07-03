@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { isSupportedLocale } from "@/lib/i18n/config";
 import { alternatesFromRequest } from "@/lib/seo/alternates";
 
 // Server layout wrapping the external [locale] flows (auth). It exists to emit
@@ -10,6 +12,18 @@ export async function generateMetadata(): Promise<Metadata> {
   return alternatesFromRequest();
 }
 
-export default function ExternalLocaleLayout({ children }: { children: React.ReactNode }) {
+// Gate the external [locale] auth flows on a served locale, matching the hybrid
+// tree: an unsupported /hu/auth/... (or /xx/auth/...) 404s here.
+export default async function ExternalLocaleLayout({
+  children,
+  params
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  if (!isSupportedLocale(locale)) {
+    notFound();
+  }
   return children;
 }
