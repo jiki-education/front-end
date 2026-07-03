@@ -9,6 +9,14 @@ export type { Locale };
 // to the edge runtime on every request.
 export const LOCALE_COOKIE_NAME = "NEXT_LOCALE";
 
+// Fixed time zone next-intl formats dates in, on both the server (UTC on the
+// Cloudflare Worker) and the client. Pinning it avoids hydration mismatches and
+// the ENVIRONMENT_FALLBACK warning. Shared by the server request config
+// (request.ts) and the client provider (ClientLocaleProvider) so they can't
+// drift. Site dates are mostly date-only blog/article dates, so a fixed zone is
+// correct; a per-user zone can come later from /me.
+export const DEFAULT_TIME_ZONE = "UTC";
+
 // Request header set by middleware to the URL's locale segment (e.g. "hu" for
 // /hu/blog). Read by resolveLocale() so an explicit URL locale wins over the
 // cookie. Middleware always sets or clears it from the trusted path, so it can't

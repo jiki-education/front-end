@@ -2,7 +2,7 @@
 
 import LoadingJiki from "@/components/ui/LoadingJiki";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { normalizeLocale, type Locale } from "@/lib/i18n/config";
+import { DEFAULT_TIME_ZONE, normalizeLocale, type Locale } from "@/lib/i18n/config";
 import { setLocaleCookie } from "@/lib/i18n/localeCookie";
 import { NextIntlClientProvider, type AbstractIntlMessages } from "next-intl";
 import { useEffect, useState, type ReactNode } from "react";
@@ -67,7 +67,7 @@ export function ClientLocaleProvider({ initialLocale, initialMessages, children 
   }, [needsSwap, authoritative]);
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
+    <NextIntlClientProvider locale={locale} messages={messages} timeZone={DEFAULT_TIME_ZONE}>
       {needsSwap ? <LoadingJiki /> : children}
     </NextIntlClientProvider>
   );
