@@ -41,14 +41,14 @@ describe("ErrorState", () => {
 
   it("renders with sidebar layout when authenticated", () => {
     mockUseAuthStore.mockImplementation((selector) => selector({ isAuthenticated: true } as any));
-    const { container } = render(<ErrorState {...defaultProps} />);
-    expect(container.querySelector(".ml-\\[260px\\]")).toBeInTheDocument();
+    render(<ErrorState {...defaultProps} />);
+    expect(screen.getByTestId("error-state")).toHaveAttribute("data-variant", "sidebar");
   });
 
   it("renders without sidebar layout when not authenticated", () => {
     mockUseAuthStore.mockImplementation((selector) => selector({ isAuthenticated: false } as any));
-    const { container } = render(<ErrorState {...defaultProps} />);
-    expect(container.querySelector(".container")).toBeInTheDocument();
+    render(<ErrorState {...defaultProps} />);
+    expect(screen.getByTestId("error-state")).toHaveAttribute("data-variant", "full");
   });
 });
 

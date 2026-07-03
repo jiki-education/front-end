@@ -1,0 +1,20 @@
+.center {
+    text-align: center;
+}
+
+.message {
+    margin-bottom: 4px;
+    color: var(--color-red-600);
+    font-size: 1.125rem;
+}
+
+.backButton {
+    border-radius: 0.375rem;
+    background: var(--color-gray-600);
+    padding: 2px 4px;
+    color: #fff;
+
+    &:hover {
+        background: var(--color-gray-700);
+    }
+}

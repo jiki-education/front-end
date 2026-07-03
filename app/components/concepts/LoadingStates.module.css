@@ -151,3 +151,147 @@
 .conceptsGrid.searching .placeholderCard {
     display: flex;
 }
+
+/* Pulse skeleton (LoadingSkeleton / InlineLoading) */
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.withSidebar {
+    margin-left: 260px;
+    padding: 6px;
+}
+
+.fullWidth {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.headerGroup {
+    margin-bottom: 12px;
+}
+
+.barA {
+    margin-bottom: 4px;
+    height: 12px;
+    width: 64px;
+    background: var(--color-gray-200);
+    border-radius: 0.25rem;
+}
+
+.barB {
+    height: 6px;
+    width: 96px;
+    background: var(--color-gray-200);
+    border-radius: 0.25rem;
+}
+
+.barC {
+    margin-top: 6px;
+    height: 10px;
+    width: 80px;
+    background: var(--color-gray-200);
+    border-radius: 0.25rem;
+}
+
+.grid {
+    display: grid;
+    gap: 8px;
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (min-width: 1024px) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+.card {
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-gray-200);
+    background: #fff;
+    padding: 6px;
+}
+
+.cardTitle {
+    margin-bottom: 12px;
+    height: 6px;
+    width: 75%;
+    background: var(--color-gray-200);
+    border-radius: 0.25rem;
+}
+
+.cardLines {
+    margin-bottom: 4px;
+
+    > * + * {
+        margin-top: 2px;
+    }
+}
+
+.lineFull {
+    height: 4px;
+    width: 100%;
+    background: var(--color-gray-200);
+    border-radius: 0.25rem;
+}
+
+.lineShort {
+    height: 4px;
+    width: 83.3333%;
+    background: var(--color-gray-200);
+    border-radius: 0.25rem;
+}
+
+.inlineWrap {
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+.inlineBadge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 4px;
+    font-size: 0.875rem;
+    color: var(--color-blue-600);
+    background: var(--color-blue-50);
+    border-radius: 0.5rem;
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+    margin-left: -4px;
+    margin-right: 2px;
+    height: 4px;
+    width: 4px;
+}
+
+.spinnerTrack {
+    opacity: 0.25;
+}
+
+.spinnerHead {
+    opacity: 0.75;
+}

@@ -25,7 +25,7 @@ export function ConceptGroupView({ concept, ancestors, initialSubconcepts }: Con
 
         <header>
           <h1 className={styles.pageHeading}>
-            <FolderIcon className={`${styles.headingIcon} w-8 h-8`} />
+            <FolderIcon className={styles.headingIcon} />
             {concept.title}
           </h1>
         </header>
