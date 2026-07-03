@@ -1,10 +1,12 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./SignupSection.module.css";
 import shared from "./shared.module.css";
 
 export function SignupSection() {
   const t = useTranslations("landing.signupSection");
+  const routes = useLocaleRoutes();
   const strong = (chunks: React.ReactNode) => <strong className="font-semibold">{chunks}</strong>;
   return (
     <section className={styles["signup-section"]}>
@@ -16,7 +18,7 @@ export function SignupSection() {
           {strong(t("headingHighlight"))}
         </h2>
         <p className={`${styles.intro} text-balance`}>{t.rich("intro", { strong })}</p>
-        <Link href="/auth/signup" className="ui-btn ui-btn-xlarge ui-btn-primary">
+        <Link href={routes.authSignup()} className="ui-btn ui-btn-xlarge ui-btn-primary">
           {t("button")}
         </Link>
       </div>

@@ -1,4 +1,5 @@
 import { getBlogPosts } from "@/lib/content";
+import { localePath } from "@/lib/i18n/routes";
 import Pagination from "@/components/ui/Pagination";
 import BlogPostsGrid from "./BlogPostsGrid";
 import FeaturedLatestPost from "./FeaturedLatestPost";
@@ -30,7 +31,7 @@ export default function BlogPage({ authenticated: _, locale, page }: BlogPagePro
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
-          hrefForPage={(p) => (p === 1 ? "/blog" : `/blog?page=${p}`)}
+          hrefForPage={(p) => (p === 1 ? localePath("/blog", locale) : localePath(`/blog?page=${p}`, locale))}
           className="mt-12"
         />
       </div>

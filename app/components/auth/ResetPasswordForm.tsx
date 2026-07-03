@@ -1,6 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/lib/auth/authStore";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -9,11 +10,12 @@ import { useState } from "react";
 
 export function ResetPasswordForm() {
   const t = useTranslations("auth.resetPassword");
+  const routes = useLocaleRoutes();
   const router = useRouter();
   const searchParams = useSearchParams();
   const { resetPassword, isLoading, error, clearError } = useAuthStore();
 
-  const [token] = useState(() => searchParams.get("reset_password_token") || searchParams.get("token") || "");
+  const [token] = useState(() => searchParams?.get("reset_password_token") || searchParams?.get("token") || "");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
@@ -61,7 +63,7 @@ export function ResetPasswordForm() {
 
       // Redirect to login after 3 seconds
       setTimeout(() => {
-        router.push("/auth/login");
+        router.push(routes.authLogin());
       }, 3000);
     } catch (err) {
       console.error("Password reset failed:", err);
@@ -81,7 +83,7 @@ export function ResetPasswordForm() {
         </div>
 
         <div className="text-center">
-          <Link href="/auth/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
+          <Link href={routes.authForgotPassword()} className="font-medium text-indigo-600 hover:text-indigo-500">
             {t("requestNewLink")}
           </Link>
         </div>
@@ -173,7 +175,7 @@ export function ResetPasswordForm() {
 
         <div className="text-center text-sm">
           <span className="text-gray-600">{t("rememberedPrefix")}</span>
-          <Link href="/auth/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+          <Link href={routes.authLogin()} className="font-medium text-indigo-600 hover:text-indigo-500">
             {t("signInLink")}
           </Link>
         </div>

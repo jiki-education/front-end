@@ -6,11 +6,13 @@ import { useSearchParams } from "next/navigation";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { useAuth } from "@/lib/auth/useAuth";
 import { consumeExercismCallback } from "@/lib/auth/exercism";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { AuthErrorCard } from "./AuthErrorCard";
 import { AuthPendingMessage } from "./AuthPendingMessage";
 
 export function ExercismCallbackHandler() {
   const t = useTranslations("auth.exercismCallback");
+  const routes = useLocaleRoutes();
   const searchParams = useSearchParams();
   const { exercismLogin } = useAuthStore();
   const { handleAuthResponse, TwoFactorForm } = useAuth();
@@ -26,7 +28,7 @@ export function ExercismCallbackHandler() {
     }
     hasStartedRef.current = true;
 
-    const callback = consumeExercismCallback(searchParams.get("code"), searchParams.get("state"));
+    const callback = consumeExercismCallback(searchParams?.get("code") ?? null, searchParams?.get("state") ?? null);
     if (callback.status === "error") {
       setError(callback.message);
       return;
@@ -50,7 +52,9 @@ export function ExercismCallbackHandler() {
   }
 
   if (error) {
-    return <AuthErrorCard title={t("errorTitle")} message={error} ctaHref="/auth/login" ctaText={t("errorCta")} />;
+    return (
+      <AuthErrorCard title={t("errorTitle")} message={error} ctaHref={routes.authLogin()} ctaText={t("errorCta")} />
+    );
   }
 
   return <AuthPendingMessage title={t("pendingTitle")} description={t("pendingDescription")} />;

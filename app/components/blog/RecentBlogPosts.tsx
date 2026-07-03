@@ -1,12 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { BlogPostMeta } from "@/lib/content/types";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 
 interface RecentBlogPostsProps {
   posts: BlogPostMeta[];
 }
 
 export default function RecentBlogPosts({ posts }: RecentBlogPostsProps) {
+  const routes = useLocaleRoutes();
   if (posts.length === 0) {
     return null;
   }
@@ -20,7 +22,7 @@ export default function RecentBlogPosts({ posts }: RecentBlogPostsProps) {
         {posts.map((post) => (
           <Link
             key={post.slug}
-            href={`/blog/${post.slug}`}
+            href={routes.blogPost(post.slug)}
             className="group relative bg-white border-none rounded-16 p-20 md:p-32 transition-all cursor-pointer flex flex-col shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:-translate-y-4 hover:shadow-[0_12px_32px_rgba(102,126,234,0.2)] before:content-[''] before:absolute before:inset-0 before:rounded-16 before:p-2 before:bg-gradient-to-br before:from-[#667eea] before:to-[#764ba2] before:[mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] before:[mask-composite:exclude] before:opacity-30 before:transition-opacity hover:before:opacity-100"
           >
             {post.coverImage && (

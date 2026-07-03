@@ -1,4 +1,5 @@
 import { useAuthStore } from "@/lib/auth/authStore";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -9,6 +10,7 @@ export function useLogoutActions() {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const { logout: logoutFromStore } = useAuthStore();
   const router = useRouter();
+  const routes = useLocaleRoutes();
 
   const handleLogoutFromThisDevice = async () => {
     if (isLoggingOut) {
@@ -22,7 +24,7 @@ export function useLogoutActions() {
     toast.dismiss();
     if (result.success) {
       toast.success(t("success"));
-      router.push("/auth/login");
+      router.push(routes.authLogin());
     } else {
       toast.error(t("failed"));
     }

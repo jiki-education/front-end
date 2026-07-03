@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./ConceptPill.module.css";
 
 interface ConceptPillProps {
@@ -8,9 +9,10 @@ interface ConceptPillProps {
 }
 
 export function ConceptPill({ title, slug, isUnlocked }: ConceptPillProps) {
+  const routes = useLocaleRoutes();
   if (isUnlocked) {
     return (
-      <Link href={`/concepts/${slug}`} className={`${styles.pill} ${styles.unlocked}`}>
+      <Link href={routes.concept(slug)} className={`${styles.pill} ${styles.unlocked}`}>
         <span className={styles.dot} />
         {title}
       </Link>

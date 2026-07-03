@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./UpgradeCard.module.css";
 
 export function UpgradeCard() {
+  const routes = useLocaleRoutes();
   return (
     <div className={styles.card}>
       <div className={styles.row}>
@@ -15,7 +17,7 @@ export function UpgradeCard() {
         Sign up to Jiki and learn to code with interactive exercises, real projects, and personalised support. Best of
         all, <span className={styles.free}>it&apos;s free!</span>
       </p>
-      <Link href="/auth/signup" className="ui-btn ui-btn-small ui-btn-primary" style={{ width: "100%" }}>
+      <Link href={routes.authSignup()} className="ui-btn ui-btn-small ui-btn-primary" style={{ width: "100%" }}>
         Sign Up For Free
       </Link>
     </div>

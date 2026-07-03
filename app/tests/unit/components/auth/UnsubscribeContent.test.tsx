@@ -128,7 +128,7 @@ describe("UnsubscribeContent", () => {
 
   describe("when token is missing", () => {
     beforeEach(() => {
-      mockedUseParams.mockReturnValue({ token: undefined });
+      mockedUseParams.mockReturnValue({});
     });
 
     it("should render error state immediately when token is missing", () => {

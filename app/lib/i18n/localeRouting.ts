@@ -1,23 +1,4 @@
-import { DEFAULT_LOCALE, PUBLIC_PAGES, PUBLIC_SECTIONS, isSupportedLocale, stripLocalePrefix } from "./config";
-
-/**
- * Flows that are reachable logged-out and localized like the public pages, but are
- * never edge-cached: auth carries OAuth/CSRF state, and delete-account/unsubscribe
- * carry per-user tokens the cache key would strip (a shared entry would leak across
- * users). Hence they drive routing but not `isCacheableRoute`.
- */
-const UNCACHED_FLOWS = ["/auth", "/delete-account", "/unsubscribe"] as const;
-
-/**
- * Path bases (with any locale segment stripped) that have a `[locale]` route tree
- * and participate in locale prefixing. Add a base here only once the corresponding
- * `app/(hybrid)/[locale]/<base>` (or `(external)/[locale]/<base>`) route exists.
- */
-const LOCALIZABLE_BASES = [...PUBLIC_SECTIONS, ...PUBLIC_PAGES, ...UNCACHED_FLOWS] as const;
-
-function isLocalizableBase(basePath: string): boolean {
-  return LOCALIZABLE_BASES.some((base) => basePath === base || basePath.startsWith(`${base}/`));
-}
+import { DEFAULT_LOCALE, isLocalizableBase, isSupportedLocale, stripLocalePrefix } from "./config";
 
 /**
  * - `rewrite`: serve `target` internally while keeping the visible URL naked (the

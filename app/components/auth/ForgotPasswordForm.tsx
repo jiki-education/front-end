@@ -2,6 +2,7 @@
 
 import { ApiError } from "@/lib/api/client";
 import { useAuthStore } from "@/lib/auth/authStore";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useTurnstile } from "@/lib/turnstile/useTurnstile";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -13,6 +14,7 @@ import styles from "./AuthForm.module.css";
 export function ForgotPasswordForm() {
   const t = useTranslations("auth.forgotPassword");
   const tc = useTranslations("auth");
+  const routes = useLocaleRoutes();
   const { requestPasswordReset, isLoading } = useAuthStore();
   const turnstile = useTurnstile();
 
@@ -128,7 +130,7 @@ export function ForgotPasswordForm() {
           <div className={styles.footerLinks}>
             <p>
               {t("rememberedPrompt")}
-              <Link href="/auth/login" className="ui-link">
+              <Link href={routes.authLogin()} className="ui-link">
                 {t("loginLink")}
               </Link>
             </p>

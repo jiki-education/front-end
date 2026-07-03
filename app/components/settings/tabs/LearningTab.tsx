@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useSettingsStore } from "@/lib/settings/settingsStore";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import ActionField from "../ui/ActionField";
@@ -10,6 +11,7 @@ import Link from "next/link";
 
 export default function LearningTab() {
   const t = useTranslations("settings.learning");
+  const routes = useLocaleRoutes();
   const { settings, loading, fetchSettings, updateStreaks } = useSettingsStore();
 
   // Fetch settings on mount
@@ -50,7 +52,7 @@ export default function LearningTab() {
           />
         </ActionField>
         <Link
-          href="/articles/streaks"
+          href={routes.article("streaks")}
           className="text-sm text-gray-500 underline hover:text-gray-700 mt-1 inline-block"
         >
           {t("learnMore")}

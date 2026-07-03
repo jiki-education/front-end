@@ -1,6 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/lib/auth/authStore";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -12,10 +13,11 @@ import styles from "./AuthForm.module.css";
 export function ResendConfirmationForm() {
   const t = useTranslations("auth.resendConfirmation");
   const tc = useTranslations("auth");
+  const routes = useLocaleRoutes();
   const { resendConfirmation, isLoading, error, clearError } = useAuthStore();
   const searchParams = useSearchParams();
 
-  const [email, setEmail] = useState(searchParams.get("email") || "");
+  const [email, setEmail] = useState(searchParams?.get("email") || "");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -109,7 +111,7 @@ export function ResendConfirmationForm() {
           <div className={styles.footerLinks}>
             <p>
               {t("confirmedPrompt")}
-              <Link href="/auth/login" className="ui-link">
+              <Link href={routes.authLogin()} className="ui-link">
                 {t("loginLink")}
               </Link>
             </p>

@@ -5,14 +5,17 @@ import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { confirmEmail as confirmEmailApi } from "@/lib/auth/service";
 import { useAuthStore } from "@/lib/auth/authStore";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { AuthErrorCard } from "./AuthErrorCard";
 import { AuthPendingMessage } from "./AuthPendingMessage";
 import { EmailConfirmedMessage } from "./EmailConfirmedMessage";
 
 export function ConfirmEmailForm() {
   const t = useTranslations("auth.confirmEmail");
+  const routes = useLocaleRoutes();
+  const dashboardPath = routes.dashboard();
   const searchParams = useSearchParams();
-  const token = searchParams.get("token");
+  const token = searchParams?.get("token") ?? null;
   const router = useRouter();
   const setUser = useAuthStore((state) => state.setUser);
 
@@ -31,7 +34,7 @@ export function ConfirmEmailForm() {
         setStatus("success");
 
         setTimeout(() => {
-          router.push("/dashboard");
+          router.push(dashboardPath);
         }, 2000);
       } catch {
         setStatus("error");
@@ -39,7 +42,7 @@ export function ConfirmEmailForm() {
     };
 
     void doConfirmEmail();
-  }, [token, router, setUser]);
+  }, [token, router, setUser, dashboardPath]);
 
   if (status === "confirming") {
     return <AuthPendingMessage title={t("pendingTitle")} description={t("pendingDescription")} />;
@@ -53,7 +56,7 @@ export function ConfirmEmailForm() {
     <AuthErrorCard
       title={t("errorTitle")}
       message={t("errorMessage")}
-      ctaHref="/auth/resend-confirmation"
+      ctaHref={routes.authResendConfirmation()}
       ctaText={t("errorCta")}
     />
   );

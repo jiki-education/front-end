@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useAuthStore } from "../../../../lib/auth/authStore";
 
 /**
@@ -19,18 +20,19 @@ export function ClientAuthGuard({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, hasCheckedAuth } = useAuthStore();
   const router = useRouter();
   const pathname = usePathname();
+  const routes = useLocaleRoutes();
 
   // Handle unauthenticated redirect in useEffect (not during render)
   useEffect(() => {
     if (hasCheckedAuth && !isAuthenticated) {
       // /dashboard's public equivalent is the landing page, not a same-URL twin.
       if (pathname === "/dashboard") {
-        router.push("/");
+        router.push(routes.home());
         return;
       }
-      router.push("/auth/login");
+      router.push(routes.authLogin());
     }
-  }, [isAuthenticated, hasCheckedAuth, pathname, router]);
+  }, [isAuthenticated, hasCheckedAuth, pathname, router, routes]);
 
   // Show nothing while auth is checking (loading spinner shown by ClientAuthInitializer above)
   // or while redirecting unauthenticated users

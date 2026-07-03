@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { localePath } from "@/lib/i18n/routes";
 import type { BlogPostMeta } from "@/lib/content/types";
 import { formatBlogDate } from "@/lib/utils";
 import styles from "./RelatedPosts.module.css";
@@ -31,7 +32,7 @@ interface RelatedPostCardProps {
 }
 
 function RelatedPostCard({ post, locale }: RelatedPostCardProps) {
-  const postUrl = locale === "en" ? `/blog/${post.slug}` : `/${locale}/blog/${post.slug}`;
+  const postUrl = localePath(`/blog/${post.slug}`, locale);
   const firstTag = post.tags[0];
 
   return (

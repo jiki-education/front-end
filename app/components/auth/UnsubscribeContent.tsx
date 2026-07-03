@@ -10,7 +10,7 @@ import styles from "./AuthForm.module.css";
 export function UnsubscribeContent() {
   const t = useTranslations("auth.unsubscribe");
   const params = useParams();
-  const token = params.token as string;
+  const token = params?.token as string;
 
   const [status, setStatus] = useState<"processing" | "success" | "error">("processing");
   // Store a message key (resolved via `t` at render) so the effect stays keyed on token only.

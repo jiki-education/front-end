@@ -13,6 +13,7 @@ import { fetchUnlockedConceptSlugs, expandUnlocked, isUnlocked } from "@/lib/api
 import { fetchLessonStatusesBySlugs, type LessonStatus } from "@/lib/api/lesson-progress";
 import { fetchProjects, type ProjectData, type ProjectStatus } from "@/lib/api/projects";
 import { useAuthStore } from "@/lib/auth/authStore";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import type { ConceptMeta, ConceptAncestor, ExerciseInfo, ProjectInfo } from "@/types/concepts";
 import type { VideoSource } from "@/types/lesson";
 
@@ -46,6 +47,10 @@ interface ConceptDetailData {
 interface ConceptSetupContext {
   slug: string;
   router: ReturnType<typeof useRouter>;
+  // Localized "/concepts" path (naked or /<locale>-prefixed) to redirect to when the
+  // requested concept is locked. Resolved in the hook where the ambient locale is
+  // readable; passed as a plain string so it stays stable in the effect deps.
+  conceptsPath: string;
   isCancelled: () => boolean;
   setRelatedExercises: (value: ExerciseInfo[]) => void;
   setRelatedProjects: (value: ProjectInfo[]) => void;
@@ -113,7 +118,7 @@ async function setupForLoggedInUser(exercises: ExerciseInfo[], ctx: ConceptSetup
   ctx.setVideoData(video);
 
   if (!unlockedSlugs.has(ctx.slug)) {
-    ctx.router.push("/concepts");
+    ctx.router.push(ctx.conceptsPath);
   }
 }
 
@@ -129,6 +134,7 @@ async function setupForExternalUser(exercises: ExerciseInfo[], ctx: ConceptSetup
 
 export function useConceptDetailData(slug: string, initialData: ConceptDetailSeed | null = null): ConceptDetailData {
   const router = useRouter();
+  const conceptsPath = useLocaleRoutes().concepts();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   // Logged-out visitors are seeded with the server-rendered leaf (all unlocked).
   // Authenticated users re-fetch to layer on unlock state, statuses, and projects.
@@ -159,6 +165,7 @@ export function useConceptDetailData(slug: string, initialData: ConceptDetailSee
     const ctx: ConceptSetupContext = {
       slug,
       router,
+      conceptsPath,
       isCancelled: () => cancelled,
       setRelatedExercises,
       setRelatedProjects,
@@ -245,7 +252,7 @@ export function useConceptDetailData(slug: string, initialData: ConceptDetailSee
     return () => {
       cancelled = true;
     };
-  }, [slug, isAuthenticated, router, seeded]);
+  }, [slug, isAuthenticated, router, seeded, conceptsPath]);
 
   const isConceptUnlocked = (conceptSlug: string) => isUnlocked(unlockedConceptSlugs, conceptSlug, isAuthenticated);
 

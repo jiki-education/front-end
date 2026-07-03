@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import RocketIcon from "./icons/rocket.svg";
 import styles from "./SignupButton.module.css";
 import rocket from "./rocketLaunch.module.css";
@@ -13,11 +14,12 @@ interface SignupButtonProps {
 
 export function SignupButton({ className = "" }: SignupButtonProps) {
   const t = useTranslations("landing.signupButton");
-  const ctaLaunch = useRocketLaunch("/auth/signup");
+  const routes = useLocaleRoutes();
+  const ctaLaunch = useRocketLaunch(routes.authSignup());
 
   return (
     <Link
-      href="/auth/signup"
+      href={routes.authSignup()}
       className={["ui-btn", styles.btn, rocket.bounceOnHover, className].join(" ")}
       onClick={ctaLaunch.handleClick}
     >

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { LessonStatus } from "@/lib/api/lesson-progress";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { LessonIcon } from "@/components/icons/LessonIcon";
 import styles from "./RelatedExercises.module.css";
 
@@ -15,6 +16,7 @@ interface RelatedExercisesProps {
 }
 
 export function RelatedExercises({ exercises, getStatus, isAuthenticated }: RelatedExercisesProps) {
+  const routes = useLocaleRoutes();
   if (exercises.length === 0) {
     return null;
   }
@@ -25,7 +27,7 @@ export function RelatedExercises({ exercises, getStatus, isAuthenticated }: Rela
       <p className={styles.description}>These exercises are great ways for you to practice this concept!</p>
       {!isAuthenticated && (
         <p className={styles.signupPrompt}>
-          <Link href="/auth/signup" className={styles.signupLink}>
+          <Link href={routes.authSignup()} className={styles.signupLink}>
             Sign up
           </Link>{" "}
           to solve them!

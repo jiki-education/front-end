@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { getConcept, getAncestors, getConcepts } from "@/lib/api/concepts";
 import { fetchUnlockedConceptSlugs, expandUnlocked } from "@/lib/api/concept-unlocks";
 import { useAuthStore } from "@/lib/auth/authStore";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import type { ConceptMeta, ConceptAncestor } from "@/types/concepts";
 
 interface ConceptResolution {
@@ -32,6 +33,7 @@ export function useConceptResolution(
   { initialConcept = null, initialAncestors = [] }: UseConceptResolutionOptions = {}
 ): ConceptResolution {
   const router = useRouter();
+  const conceptsPath = useLocaleRoutes().concepts();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const seeded = initialConcept !== null && !isAuthenticated;
 
@@ -71,7 +73,7 @@ export function useConceptResolution(
             return;
           }
           if (!expandUnlocked(allConcepts, rawUnlocked).has(slug)) {
-            router.push("/concepts");
+            router.push(conceptsPath);
             return;
           }
         }
@@ -92,7 +94,7 @@ export function useConceptResolution(
     return () => {
       cancelled = true;
     };
-  }, [slug, isAuthenticated, initialConcept, router]);
+  }, [slug, isAuthenticated, initialConcept, router, conceptsPath]);
 
   return { concept, ancestors, isLoading, error };
 }

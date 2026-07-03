@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useConceptResolution } from "@/components/concepts/lib/useConceptResolution";
 import { ConceptLoadingView } from "@/components/concepts/ConceptLoadingView";
 import { ConceptErrorView } from "@/components/concepts/ConceptErrorView";
@@ -25,6 +26,7 @@ export default function ConceptDetailPage({
   initialLeafData
 }: ConceptDetailPageProps) {
   const router = useRouter();
+  const routes = useLocaleRoutes();
   const { concept, ancestors, isLoading, error } = useConceptResolution(slug, { initialConcept, initialAncestors });
 
   if (isLoading) {
@@ -32,7 +34,7 @@ export default function ConceptDetailPage({
   }
 
   if (error || !concept) {
-    return <ConceptErrorView message={error} onBack={() => router.push("/concepts")} />;
+    return <ConceptErrorView message={error} onBack={() => router.push(routes.concepts())} />;
   }
 
   if (concept.category) {

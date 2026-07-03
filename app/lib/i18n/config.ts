@@ -26,6 +26,30 @@ export const PUBLIC_SECTIONS = ["/blog", "/articles", "/concepts"] as const;
 // Public single pages, matched exactly (no sub-paths). Cacheable and locale-routed.
 export const PUBLIC_PAGES = ["/premium", "/roadmap", "/testimonials"] as const;
 
+/**
+ * Flows that are reachable logged-out and localized like the public pages, but are
+ * never edge-cached: auth carries OAuth/CSRF state, and delete-account/unsubscribe
+ * carry per-user tokens the cache key would strip (a shared entry would leak across
+ * users). Hence they drive routing/link-building but not `isCacheableRoute`.
+ */
+export const UNCACHED_FLOWS = ["/auth", "/delete-account", "/unsubscribe"] as const;
+
+/**
+ * Path bases (with any locale segment stripped) that have a `[locale]` route tree
+ * and participate in locale prefixing. Add a base here only once the corresponding
+ * `app/(hybrid)/[locale]/<base>` (or `(external)/[locale]/<base>`) route exists.
+ *
+ * This is the single source of truth shared by middleware locale routing
+ * (`resolveLocaleRouting`) and link-building (`localePath`): a path not listed here
+ * has no `[locale]` tree (e.g. the auth-gated `/dashboard`, `/settings`), so it is
+ * served — and linked — naked in every locale.
+ */
+export const LOCALIZABLE_BASES = [...PUBLIC_SECTIONS, ...PUBLIC_PAGES, ...UNCACHED_FLOWS] as const;
+
+export function isLocalizableBase(basePath: string): boolean {
+  return LOCALIZABLE_BASES.some((base) => basePath === base || basePath.startsWith(`${base}/`));
+}
+
 export function isSupportedLocale(value: string | undefined | null): value is Locale {
   return value != null && (SUPPORTED_LOCALES as readonly string[]).includes(value);
 }

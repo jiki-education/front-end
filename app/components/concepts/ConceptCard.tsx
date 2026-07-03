@@ -3,6 +3,7 @@ import SubConceptIcon from "@/icons/subconcept.svg";
 import LockedIcon from "@/icons/locked.svg";
 import styles from "@/app/styles/modules/concepts.module.css";
 import { assembleClassNames } from "@/lib/assemble-classnames";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { ConceptIcon } from "@/components/icons/ConceptIcon";
 
 interface ConceptCardData {
@@ -19,6 +20,7 @@ interface ConceptCardProps {
 }
 
 export default function ConceptCard({ concept, smallVersion = false }: ConceptCardProps) {
+  const routes = useLocaleRoutes();
   const isLocked = concept.userMayAccess === false;
   const hasSubConcepts = (concept.subConceptCount ?? 0) > 0;
   const nodeClass = hasSubConcepts ? styles.parentNode : styles.leafNode;
@@ -58,7 +60,7 @@ export default function ConceptCard({ concept, smallVersion = false }: ConceptCa
   return (
     <Link
       className={assembleClassNames(styles.conceptCard, nodeClass, smallVersion && styles.small)}
-      href={`/concepts/${concept.slug || ""}`}
+      href={routes.concept(concept.slug || "")}
     >
       {cardContent}
     </Link>

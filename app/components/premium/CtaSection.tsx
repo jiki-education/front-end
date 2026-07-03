@@ -2,11 +2,13 @@
 
 import { useAuthStore } from "@/lib/auth/authStore";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useTranslations } from "next-intl";
 import styles from "./PremiumPage.module.css";
 
 export default function CtaSection() {
   const t = useTranslations("premium.cta");
+  const routes = useLocaleRoutes();
   const user = useAuthStore((state) => state.user);
   const isPremium = user?.membership_type === "premium";
 
@@ -45,7 +47,7 @@ export default function CtaSection() {
         <p className={styles["cta-desc"]}>{t("freeDesc")}</p>
         <button
           className="ui-btn ui-btn-large ui-btn-white w-[260px] font-semibold"
-          onClick={() => (window.location.href = "/auth/signup")}
+          onClick={() => (window.location.href = routes.authSignup())}
         >
           {t("freeButton")}
         </button>

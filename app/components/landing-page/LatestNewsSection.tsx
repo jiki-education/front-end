@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import type { BlogPostMeta } from "@/lib/content/types";
 import { formatBlogDate } from "@/lib/utils";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import AuthorAvatar from "@/components/ui/AuthorAvatar";
 import styles from "./LatestNewsSection.module.css";
 
@@ -11,6 +12,7 @@ interface LatestNewsSectionProps {
 
 export function LatestNewsSection({ posts }: LatestNewsSectionProps) {
   const t = useTranslations("landing.latestNews");
+  const routes = useLocaleRoutes();
   if (posts.length === 0) {
     return null;
   }
@@ -21,7 +23,7 @@ export function LatestNewsSection({ posts }: LatestNewsSectionProps) {
         <h2 className={styles.heading}>{t("heading")}</h2>
         <p className={styles.subheading}>
           {t("subheadingPrefix")}
-          <Link href="/blog" className={styles.blogLink}>
+          <Link href={routes.blog()} className={styles.blogLink}>
             {t("subheadingLink")}
           </Link>
           .
@@ -38,8 +40,9 @@ export function LatestNewsSection({ posts }: LatestNewsSectionProps) {
 
 function BlogPostCard({ post }: { post: BlogPostMeta }) {
   const t = useTranslations("landing.latestNews");
+  const routes = useLocaleRoutes();
   return (
-    <Link href={`/blog/${post.slug}`} className={styles.blogPostCard}>
+    <Link href={routes.blogPost(post.slug)} className={styles.blogPostCard}>
       <div
         className={styles.postImage}
         style={post.coverImage ? { backgroundImage: `url(${post.coverImage})` } : undefined}
