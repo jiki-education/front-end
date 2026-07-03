@@ -1,6 +1,8 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import RocketIcon from "./icons/rocket.svg";
 import styles from "./SignupButton.module.css";
 import rocket from "./rocketLaunch.module.css";
@@ -11,16 +13,19 @@ interface SignupButtonProps {
 }
 
 export function SignupButton({ className = "" }: SignupButtonProps) {
-  const ctaLaunch = useRocketLaunch("/auth/signup");
+  const t = useTranslations("landing.signupButton");
+  const routes = useLocaleRoutes();
+  const ctaLaunch = useRocketLaunch(routes.authSignup());
 
   return (
     <Link
-      href="/auth/signup"
+      href={routes.authSignup()}
       className={["ui-btn", styles.btn, rocket.bounceOnHover, className].join(" ")}
       onClick={ctaLaunch.handleClick}
     >
       <span>
-        Sign Up<span className={styles.free}> (it&apos;s free!)</span>
+        {t("signUp")}
+        <span className={styles.free}>{t("free")}</span>
       </span>
       <span
         className={`inline-block align-middle ${rocket.rocketWrapper} ${rocket.rocketWrapperLg} ${ctaLaunch.launching ? rocket.launching : ""}`}

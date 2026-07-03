@@ -8,6 +8,7 @@ import { BasicPlanSection } from "./BasicPlanSection";
 import { PremiumPlanSection } from "./PremiumPlanSection";
 import { useUpgradeFlow } from "./useUpgradeFlow";
 import styles from "./PremiumUpgradeModal.module.css";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 interface PremiumUpgradeModalProps {
@@ -31,6 +32,7 @@ export function PremiumUpgradeModal({
   onSuccess,
   onCancel
 }: PremiumUpgradeModalProps) {
+  const t = useTranslations("modals.premiumUpgrade");
   const [isLoading, setIsLoading] = useState(false);
   const user = useAuthStore((state: any) => state.user);
 
@@ -77,7 +79,7 @@ export function PremiumUpgradeModal({
       </div>
 
       <button className={styles.skipLink} onClick={handleClose}>
-        Not now, maybe later
+        {t("skipLink")}
       </button>
     </div>
   );

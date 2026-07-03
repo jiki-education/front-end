@@ -8,7 +8,9 @@ import MedalIcon from "@/icons/medal.svg";
 import ProjectsIcon from "@/icons/projects.svg";
 import SettingsIcon from "@/icons/settings.svg";
 import type { ComponentType } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { useAuthStore } from "@/lib/auth/authStore";
+import { localePath } from "@/lib/i18n/routes";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { tierIncludes } from "@/lib/pricing";
 import rocket from "@/components/landing-page/rocketLaunch.module.css";
@@ -22,21 +24,22 @@ interface SidebarProps {
 }
 
 const navigationItems: Array<{
-  id: string;
-  label: string;
-  href?: string;
+  id: "learn" | "build" | "projects" | "concepts" | "achievements" | "settings";
+  href: string;
   icon?: ComponentType<{ className?: string }>;
   showPremiumPill?: boolean;
 }> = [
-  { id: "learn", label: "Coding Fundamentals", href: "/dashboard", icon: BrainLightningIcon },
-  { id: "build", label: "Build with Jeremy", href: "/build", icon: LearningComputerIcon },
-  { id: "projects", label: "Projects", href: "/projects", icon: ProjectsIcon, showPremiumPill: true },
-  { id: "concepts", label: "Concept Library", href: "/concepts", icon: FolderIcon },
-  { id: "achievements", label: "Achievements", href: "/achievements", icon: MedalIcon },
-  { id: "settings", label: "Settings", href: "/settings", icon: SettingsIcon }
+  { id: "learn", href: "/dashboard", icon: BrainLightningIcon },
+  { id: "build", href: "/build", icon: LearningComputerIcon },
+  { id: "projects", href: "/projects", icon: ProjectsIcon, showPremiumPill: true },
+  { id: "concepts", href: "/concepts", icon: FolderIcon },
+  { id: "achievements", href: "/achievements", icon: MedalIcon },
+  { id: "settings", href: "/settings", icon: SettingsIcon }
 ];
 
 export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
+  const t = useTranslations("layout.sidebar");
+  const locale = useLocale();
   const user = useAuthStore((state) => state.user);
   const isPremium = user && tierIncludes(user.membership_type, "premium");
   const { launching, handleClick } = useRocketLaunch(() => showPremiumUpgradeModal("upgrade_cta_nav"), {
@@ -53,9 +56,9 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
             <NavigationItem
               key={item.id}
               id={item.id}
-              label={item.label}
+              label={t(`nav.${item.id}`)}
               isActive={activeItem === item.id}
-              href={item.href}
+              href={localePath(item.href, locale)}
               icon={item.icon}
               showPremiumPill={item.showPremiumPill}
               isUserPremium={Boolean(isPremium)}
@@ -68,8 +71,8 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
       {!isPremium && (
         <button className={`nav-upsell ${rocket.bounceOnHover}`} onClick={handleClick} type="button">
           <p>
-            You&apos;re currently on the free plan. <span className="upgrade-text">Upgrade to Premium</span> to
-            accelerate your learning&nbsp;
+            {t("upsell.free")} <span className="upgrade-text">{t("upsell.upgrade")}</span> {t("upsell.accelerate")}
+            &nbsp;
             <span className={`inline-block align-middle ${rocket.rocketWrapper} ${launching ? rocket.launching : ""}`}>
               <RocketIcon width={16} height={16} className={rocket.rocket} />
             </span>

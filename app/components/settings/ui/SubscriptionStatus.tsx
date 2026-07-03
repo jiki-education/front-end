@@ -1,6 +1,7 @@
 import type { MembershipTier } from "@/lib/pricing";
 import { PRICING_TIERS } from "@/lib/pricing";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
+import { useTranslations } from "next-intl";
 import type { SubscriptionStatus as SubscriptionStatusType } from "../subscription/types";
 import styles from "../Settings.module.css";
 
@@ -12,6 +13,7 @@ interface SubscriptionStatusProps {
 }
 
 export default function SubscriptionStatus({ tier, status, nextBillingDate, className = "" }: SubscriptionStatusProps) {
+  const t = useTranslations("settings.subscriptionStatus");
   const tierDetails = PRICING_TIERS[tier];
   const isActiveSubscription = tier !== "standard" && status === "active";
   const isCancelling = tier !== "standard" && status === "cancelling";
@@ -19,37 +21,37 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
   // Status badge configuration
   const statusConfig = {
     active: {
-      text: "Active",
+      text: t("statusActive"),
       color: "text-green-700",
       bgColor: "bg-green-50"
     },
     canceled: {
-      text: "Canceled",
+      text: t("statusCanceled"),
       color: "text-orange-700",
       bgColor: "bg-orange-50"
     },
     payment_failed: {
-      text: "Payment Failed",
+      text: t("statusPaymentFailed"),
       color: "text-red-700",
       bgColor: "bg-red-50"
     },
     cancelling: {
-      text: "Cancelling",
+      text: t("statusCancelling"),
       color: "text-orange-700",
       bgColor: "bg-orange-50"
     },
     incomplete: {
-      text: "Incomplete",
+      text: t("statusIncomplete"),
       color: "text-yellow-700",
       bgColor: "bg-yellow-50"
     },
     incomplete_expired: {
-      text: "Session Expired",
+      text: t("statusSessionExpired"),
       color: "text-red-700",
       bgColor: "bg-red-50"
     },
     never_subscribed: {
-      text: "Not Subscribed",
+      text: t("statusNotSubscribed"),
       color: "text-gray-700",
       bgColor: "bg-gray-50"
     }
@@ -63,17 +65,20 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
     return (
       <div className={`${styles.settingItem} ${styles.currentPlanItem} ${className}`}>
         <div className="flex items-center justify-between">
-          <h3>Current Plan</h3>
+          <h3>{t("currentPlan")}</h3>
         </div>
         <p>
-          You are on the <span className={styles.gradientText}>Jiki {tierDetails.name}</span> plan at{" "}
+          {t("activePrefix")}
+          <span className={styles.gradientText}>{t("activePlanName", { tier: tierDetails.name })}</span>
+          {t("activeMiddle")}
           <strong>
             <PremiumPrice interval="monthly" />
-            /month
+            {t("activePerMonth")}
           </strong>
           {nextBillingDate && (
             <>
-              . Your next billing date is <strong>{nextBillingDate}</strong>
+              {t("activeNextBillingPrefix")}
+              <strong>{nextBillingDate}</strong>
             </>
           )}
           .
@@ -88,23 +93,22 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
 
     return (
       <div className={`${styles.settingItem} ${styles.currentPlanItemCancelled} ${className}`}>
-        <h3>Current Plan</h3>
+        <h3>{t("currentPlan")}</h3>
         <p>
-          Your Jiki Premium subscription has been cancelled.
+          {t("cancellingMessage")}
           {daysRemaining !== null && (
             <>
-              {" "}
-              You have{" "}
+              {t("cancellingRemainingPrefix")}
               <strong>
-                {daysRemaining} {daysRemaining === 1 ? "day" : "days"}
-              </strong>{" "}
-              remaining to enjoy all Premium features.
+                {daysRemaining} {daysRemaining === 1 ? t("cancellingDay") : t("cancellingDays")}
+              </strong>
+              {t("cancellingRemainingSuffix")}
             </>
           )}
           {nextBillingDate && (
             <>
-              {" "}
-              Your Premium plan will end on <strong>{nextBillingDate}</strong>.
+              {t("cancellingEndsPrefix")}
+              <strong>{nextBillingDate}</strong>.
             </>
           )}
         </p>
@@ -116,10 +120,11 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
   if (tier === "standard" || status === "never_subscribed") {
     return (
       <div className={`${styles.settingItem} ${className}`}>
-        <h3>Current Plan</h3>
+        <h3>{t("currentPlan")}</h3>
         <p style={{ marginBottom: 0 }}>
-          You are on the <strong>Free</strong> plan. This gives you all the content plus Jiki AI to help you out for one
-          exercise per month.
+          {t("freePrefix")}
+          <strong>{t("freePlanName")}</strong>
+          {t("freeSuffix")}
         </p>
       </div>
     );
@@ -131,21 +136,22 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
     <div
       className={`p-4 bg-bg-primary rounded border border-border-secondary ${className}`}
       role="region"
-      aria-label="Current subscription status"
+      aria-label={t("statusAriaLabel", { status: statusInfo.text })}
     >
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-3">
           <div
             className="px-3 py-1 rounded-full text-sm font-medium bg-blue-50 text-blue-700"
             role="status"
-            aria-label={`Current plan: ${tierDetails.name} Plan`}
+            aria-label={t("currentPlanAriaLabel", { plan: tierDetails.name })}
           >
-            {tierDetails.name} Plan
+            {tierDetails.name}
+            {t("planSuffix")}
           </div>
           <div
             className={`px-2 py-1 rounded text-xs font-medium ${statusInfo.bgColor} ${statusInfo.color}`}
             role="status"
-            aria-label={`Subscription status: ${statusInfo.text}`}
+            aria-label={t("statusAriaLabel", { status: statusInfo.text })}
           >
             {statusInfo.text}
           </div>
@@ -155,21 +161,15 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
       <div className="text-text-secondary text-sm">
         <p>
           <PremiumPrice interval="monthly" />
-          /month
+          {t("perMonth")}
         </p>
 
         {/* Status-specific messages */}
-        {status === "canceled" && <p className="mt-1">Service continues until period end</p>}
-        {status === "payment_failed" && (
-          <p className="mt-1 text-red-600">Payment failed - please update payment method</p>
-        )}
-        {status === "cancelling" && <p className="mt-1">Cancellation scheduled - access until period end</p>}
-        {status === "incomplete" && (
-          <p className="mt-1 text-yellow-600">Payment setup incomplete - please complete setup</p>
-        )}
-        {status === "incomplete_expired" && (
-          <p className="mt-1 text-red-600">Previous checkout session expired - please start a new subscription</p>
-        )}
+        {status === "canceled" && <p className="mt-1">{t("messageCanceled")}</p>}
+        {status === "payment_failed" && <p className="mt-1 text-red-600">{t("messagePaymentFailed")}</p>}
+        {status === "cancelling" && <p className="mt-1">{t("messageCancelling")}</p>}
+        {status === "incomplete" && <p className="mt-1 text-yellow-600">{t("messageIncomplete")}</p>}
+        {status === "incomplete_expired" && <p className="mt-1 text-red-600">{t("messageIncompleteExpired")}</p>}
       </div>
     </div>
   );

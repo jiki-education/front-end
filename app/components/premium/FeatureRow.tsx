@@ -1,17 +1,22 @@
+import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import styles from "./PremiumPage.module.css";
 
 interface Props {
   title: ReactNode;
   desc: string;
+  // A boolean for tick/cross, or a value-key resolved under premium.values.
   free: boolean | string;
   premium: boolean | string;
 }
 
 export function CellValue({ value, variant }: { value: boolean | string; variant: "free" | "premium" }) {
+  const tv = useTranslations("premium.values");
+  const tt = useTranslations("premium.table");
+
   if (typeof value === "string") {
     const cls = variant === "free" ? styles["feature-value-free"] : styles["feature-value-premium"];
-    return <span className={cls}>{value}</span>;
+    return <span className={cls}>{tv(value as Parameters<typeof tv>[0])}</span>;
   }
 
   if (value) {
@@ -25,7 +30,7 @@ export function CellValue({ value, variant }: { value: boolean | string; variant
     );
   }
 
-  return <span className={styles["check-no"]}>✕</span>;
+  return <span className={styles["check-no"]}>{tt("checkNo")}</span>;
 }
 
 export default function FeatureRow({ title, desc, free, premium }: Props) {

@@ -1,7 +1,9 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import BuildIcon from "./icons/build.svg";
 import CalendarIcon from "./icons/calendar.svg";
 import CodersMindIcon from "./icons/coders-mind.svg";
@@ -20,6 +22,10 @@ import { useArrowAnimation } from "./hooks/useArrowAnimations";
 import { useConfetti } from "./hooks/useConfetti";
 
 export function BootcampSection() {
+  const t = useTranslations("landing.bootcamp");
+  const routes = useLocaleRoutes();
+  const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
+  const highlight = (chunks: React.ReactNode) => <span className="rough-highlight font-medium">{chunks}</span>;
   const portfolioArrowRef = useArrowAnimation<HTMLDivElement>("portfolio-arrow");
   const buildingSectionArrowRef = useArrowAnimation<HTMLDivElement>("building-section-arrow");
   const certificateArrowRef = useArrowAnimation<HTMLDivElement>("certificate-arrow");
@@ -29,69 +35,56 @@ export function BootcampSection() {
     <section className={styles.bootcamp} data-bootcamp-section>
       <div className={shared["lg-container"]}>
         <div className={`${styles.container} ${styles.syllabus}`}>
-          <div className={styles.tag}>What we cover</div>
-          <h2>
-            What&apos;s on the <strong>menu?</strong>
-          </h2>
-          <p className={`${styles.intro} mb-24 text-balance max-w-[820px]`}>
-            The course has two strands: <strong>Coding Fundamentals</strong> and{" "}
-            <strong>Building in the Age of LLMs</strong>.
-          </p>
+          <div className={styles.tag}>{t("tagWhatWeCover")}</div>
+          <h2>{t.rich("menuHeading", { strong })}</h2>
+          <p className={`${styles.intro} mb-24 text-balance max-w-[820px]`}>{t.rich("menuIntro", { strong })}</p>
           <div className={styles.sections}>
             <div className={styles.section}>
               <div className="flex flex-row">
                 <div className={styles.lhs}>
                   <h3 className="mb-8">
-                    1. Coding Fundamentals <span className="ui-emoji">🧑‍🔬</span>
-                    <div className={styles.bubble}>Absolute Beginners</div>
+                    {t("part1Heading")}
+                    <span className="ui-emoji">🧑‍🔬</span>
+                    <div className={styles.bubble}>{t("part1Bubble")}</div>
                   </h3>
-                  <div className={`${styles["part-intro"]} mb-20`}>
-                    We&apos;re going to help you{" "}
-                    <span className="rough-highlight font-medium">build rock solid coding foundations.</span> We&apos;ll
-                    cover all the core concepts in programming and give you tons of exercises and projects to practice
-                    with.
-                  </div>
+                  <div className={`${styles["part-intro"]} mb-20`}>{t.rich("part1Intro", { highlight })}</div>
                   <ul>
                     <li>
                       <UnderstandingIcon width={20} height={20} />
                       <div className={styles.text}>
-                        <strong>Build a solid understanding</strong> of{" "}
-                        <Link href="/concepts" className="underline">
-                          core programming principles
+                        {t.rich("part1Item1Prefix", { strong })}
+                        <Link href={routes.concepts()} className="underline">
+                          {t("part1Item1Link")}
                         </Link>
-                        , including flow control, conditionals, data types, functions, and much more, using a
-                        beginner-friendly version of JavaScript.
+                        {t("part1Item1Suffix")}
                       </div>
                     </li>
                     <li>
                       <ConfidenceIcon width={20} height={20} />
-                      <div className={styles.text}>
-                        <strong>Gain the confidence</strong> to put your knowledge into practice, being able to solve a
-                        wide variety of problems, using the right concept at the right time.
-                      </div>
+                      <div className={styles.text}>{t.rich("part1Item2", { strong })}</div>
                     </li>
                     <li>
                       <CodersMindIcon width={20} height={20} />
-                      <div className={styles.text}>
-                        <strong>Develop the Coder&apos;s Mind.</strong> You&apos;ll notice that your critical thinking,
-                        problem solving, and logic skills are all improving.
-                      </div>
+                      <div className={styles.text}>{t.rich("part1Item3", { strong })}</div>
                     </li>
                     <li>
                       <BuildIcon width={20} height={20} />
-                      <div className={styles.text}>
-                        <strong>A base to build on</strong>. Whatever type of programming you want to do, this is the
-                        base you need, and one you can easily build on.
-                      </div>
+                      <div className={styles.text}>{t.rich("part1Item4", { strong })}</div>
                     </li>
                   </ul>
                 </div>
                 <div className={styles.rhs}>
                   <div className={`${styles.dates} ${styles["h3-sideheading"]} relative`}>
                     <CalendarIcon width={20} height={20} />
-                    Takes 12-20 weeks
+                    {t("part1Duration")}
                   </div>
-                  <Image className="w-[350px] -mr-32 -mt-[60px]" src={part1} alt="Part 1" width={350} height={350} />
+                  <Image
+                    className="w-[350px] -mr-32 -mt-[60px]"
+                    src={part1}
+                    alt={t("part1Alt")}
+                    width={350}
+                    height={350}
+                  />
                 </div>
               </div>
             </div>
@@ -102,30 +95,20 @@ export function BootcampSection() {
         <div className={`${styles.subcontainer} ${styles["portfolio-subsection"]} relative`}>
           <div className={styles["portfolio-arrow"]} ref={portfolioArrowRef}></div>
           <div className="flex flex-col mb-8 lg:flex-row">
-            <h2 className="mr-auto">
-              The <strong>Levels</strong> of Coding Fundamentals
-            </h2>
-            <div className={styles["h3-sideheading"]}>Students normally take 1-2 weeks per level.</div>
+            <h2 className="mr-auto">{t.rich("levelsHeading", { strong })}</h2>
+            <div className={styles["h3-sideheading"]}>{t("levelsSideheading")}</div>
           </div>
-          <p className="mb-8">
-            From day one you&apos;ll be building fun things. You&apos;ll start by drawing, then animating, then making
-            games, then building intelligence into your programs. Every level has lots of fun challenges!
-          </p>
-          <p className="mb-16">
-            <strong>Here are just a few of the fun things you&apos;ll make! 👇</strong>
-          </p>
+          <p className="mb-8">{t("levelsIntro")}</p>
+          <p className="mb-16">{t.rich("levelsSubIntro", { strong })}</p>
           <div className={styles.levels}>
             <div className={styles.level}>
-              <Image src={penguin} alt="Penguin drawing exercise" width={400} height={300} />
-              <h4>
-                In <strong>level 2</strong> you get familiar with <strong>coding basics</strong> through some drawing
-                puzzles.
-              </h4>
+              <Image src={penguin} alt={t("penguinAlt")} width={400} height={300} />
+              <h4>{t.rich("level2", { strong })}</h4>
             </div>
             <div className={styles.level}>
               <video
                 src="/static/images/landing-page/golf.mp4"
-                aria-label="Golf animation exercise"
+                aria-label={t("golfLabel")}
                 width={400}
                 height={300}
                 autoPlay
@@ -133,15 +116,12 @@ export function BootcampSection() {
                 loop
                 playsInline
               />
-              <h4>
-                In <strong>level 3</strong> you&apos;ll learn how to <strong>make things move</strong> for the first
-                time.
-              </h4>
+              <h4>{t.rich("level3", { strong })}</h4>
             </div>
             <div className={styles.level}>
               <video
                 src="/static/images/landing-page/flower.mp4"
-                aria-label="Flower flipbook animation"
+                aria-label={t("flowerLabel")}
                 width={400}
                 height={300}
                 autoPlay
@@ -149,15 +129,12 @@ export function BootcampSection() {
                 loop
                 playsInline
               />
-              <h4>
-                Your first <strong>major project</strong> is to <strong>animate flipbook-style</strong> using variables
-                and loops.
-              </h4>
+              <h4>{t.rich("flowerLevel", { strong })}</h4>
             </div>
             <div className={styles.level}>
               <video
                 src="/static/images/landing-page/space-invaders.mp4"
-                aria-label="Space invaders game"
+                aria-label={t("spaceInvadersLabel")}
                 width={400}
                 height={300}
                 autoPlay
@@ -165,15 +142,12 @@ export function BootcampSection() {
                 loop
                 playsInline
               />
-              <h4>
-                By <strong>level 7</strong> you&apos;ll start <strong>building some intelligence</strong> into your
-                code.
-              </h4>
+              <h4>{t.rich("level7", { strong })}</h4>
             </div>
             <div className={styles.level}>
               <video
                 src="/static/images/landing-page/wall.mp4"
-                aria-label="Wall building exercise"
+                aria-label={t("wallLabel")}
                 width={400}
                 height={300}
                 autoPlay
@@ -181,21 +155,16 @@ export function BootcampSection() {
                 loop
                 playsInline
               />
-              <h4>
-                In <strong>level 10</strong> you use <strong>repeatable chunks</strong> of code to eliminate
-                duplication.
-              </h4>
+              <h4>{t.rich("level10", { strong })}</h4>
             </div>
             <div className={styles.level}>
-              <Image src={wordle} alt="Wordle game exercise" width={400} height={300} />
-              <h4>
-                <strong>Level 12</strong> introduces lists, your first <strong>compound data type,</strong> and Wordle!
-              </h4>
+              <Image src={wordle} alt={t("wordleAlt")} width={400} height={300} />
+              <h4>{t.rich("level12", { strong })}</h4>
             </div>
             <div className={styles.level}>
               <video
                 src="/static/images/landing-page/tic-tac-toe.mp4"
-                aria-label="Tic-tac-toe game"
+                aria-label={t("ticTacToeLabel")}
                 width={400}
                 height={300}
                 autoPlay
@@ -203,51 +172,42 @@ export function BootcampSection() {
                 loop
                 playsInline
               />
-              <h4>
-                <strong>Level 14</strong> focusses on <strong>coding mindset</strong> and solving a hard project.
-              </h4>
+              <h4>{t.rich("level14", { strong })}</h4>
             </div>
             <div className={styles.level}>
               <video
                 src="/static/images/landing-page/maze.mp4"
-                aria-label="Maze solving exercise"
+                aria-label={t("mazeLabel")}
                 autoPlay
                 muted
                 loop
                 playsInline
               />
-              <h4>
-                In <strong>Level 16</strong> you unlock <strong>dictionaries</strong> making Emoji Collector possible.
-              </h4>
+              <h4>{t.rich("level16", { strong })}</h4>
             </div>
             {/* Intentional empty cell — spacer to align the next tile in the grid */}
             <div className={styles.level}></div>
             <div className={styles.level}>
               <video
                 src="/static/images/landing-page/dreaming-house.mp4"
-                aria-label="Dreaming house exercise"
+                aria-label={t("dreamingHouseLabel")}
                 autoPlay
                 muted
                 loop
                 playsInline
               />
-              <h4>
-                By <strong>Level 20</strong> you&apos;re able to build <strong>complex programs</strong> with
-                intertwining ideas.
-              </h4>
+              <h4>{t.rich("level20", { strong })}</h4>
             </div>
             <div className={styles.level}>
               <video
                 src="/static/images/landing-page/breakout.mp4"
-                aria-label="Breakout game"
+                aria-label={t("breakoutLabel")}
                 autoPlay
                 muted
                 loop
                 playsInline
               />
-              <h4>
-                And by the <strong>end of the course</strong> you&apos;re building games like <strong>Breakout!</strong>
-              </h4>
+              <h4>{t.rich("levelEnd", { strong })}</h4>
             </div>
           </div>
         </div>
@@ -256,62 +216,42 @@ export function BootcampSection() {
         <div className={`${styles.container} ${styles.syllabus} ${styles["building-subsection"]} relative`}>
           <div className={styles["building-section-arrow"]} ref={buildingSectionArrowRef}></div>
 
-          <div className={styles.tag}>What we cover</div>
-          <h2 className="text-center">
-            But learning to code <strong>isn&apos;t enough</strong>
-          </h2>
-          <p className={`${styles.intro} mb-24 text-balance max-w-[820px]`}>
-            In the LLM-era, you also need to get up to speed on how to create things, how to work with an LLM safely.
-            So...
-          </p>
+          <div className={styles.tag}>{t("tagWhatWeCover")}</div>
+          <h2 className="text-center">{t.rich("buildingHeading", { strong })}</h2>
+          <p className={`${styles.intro} mb-24 text-balance max-w-[820px]`}>{t("buildingIntro")}</p>
           <div className={styles.sections}>
             <div className={styles.section}>
               <div className="flex flex-row">
                 <div className={styles.lhs}>
                   <h3 className="mb-8">
-                    2. Building in the Age of LLMs 🚀
-                    <div className={styles.bubble}>Beginners / Juniors</div>
+                    {t("part2Heading")}
+                    <div className={styles.bubble}>{t("part2Bubble")}</div>
                   </h3>
-                  <div className={`${styles["part-intro"]} mb-20`}>
-                    Alongside learning to code, we&apos;ll deep dive into how technology works. We&apos;ll{" "}
-                    <span className="rough-highlight font-medium">build real projects together</span>, digging into
-                    databases, creating secure auth, learning about frontends vs backends, and much much more.
-                  </div>
+                  <div className={`${styles["part-intro"]} mb-20`}>{t.rich("part2Intro", { highlight })}</div>
                   <ul>
                     <li>
                       <UnderstandingIcon width={20} height={20} />
-                      <div className={styles.text}>
-                        <strong>Building From Scratch</strong>: Join me as I build a whole platform from scratch. Spin
-                        up an LLM and you can follow along with your own project idea. I&apos;ll teach you how to make
-                        good decisions and guide your LLM safely.
-                      </div>
+                      <div className={styles.text}>{t.rich("part2Item1", { strong })}</div>
                     </li>
                     <li>
                       <ConfidenceIcon width={20} height={20} />
-                      <div className={styles.text}>
-                        <strong>Topic Deep Dives</strong>: I&apos;ll talk you through how complex platforms like
-                        Exercism and Jiki work, deep-diving into the code we&apos;ve written and share my learnings with
-                        you!
-                      </div>
+                      <div className={styles.text}>{t.rich("part2Item2", { strong })}</div>
                     </li>
                     <li>
                       <CodersMindIcon width={20} height={20} />
-                      <div className={styles.text}>
-                        <strong>Regular Q&A Livestreams</strong>. Something not clicking? Need help with your projects?
-                        Submit your questions and I&apos;ll answer them with you on our regular livestreams.
-                      </div>
+                      <div className={styles.text}>{t.rich("part2Item3", { strong })}</div>
                     </li>
                   </ul>
                 </div>
                 <div className={styles.rhs}>
                   <div className={`${styles.dates} ${styles["h3-sideheading"]} relative`}>
                     <CalendarIcon width={20} height={20} />
-                    Regular New Episodes
+                    {t("part2Duration")}
                   </div>
                   <Image
                     className="w-[350px] -mr-32 -mt-[46px]"
                     src={jeremyLivestream}
-                    alt="Jeremy livestreaming with tech logos"
+                    alt={t("jeremyLivestreamAlt")}
                     width={900}
                     height={851}
                   />
@@ -327,15 +267,10 @@ export function BootcampSection() {
           <div className={styles["certificate-subsection"]}>
             <div className="flex lg:flex-row flex-col items-center gap-0">
               <div className={`${styles.lhs} flex flex-col items-start`}>
-                <div className={styles.bubble}>Celebrate your new skills!</div>
-                <h3 className="mb-8">Get a verified certificate</h3>
-                <p className="text-16 mb-12">
-                  At the end of the course, we&apos;ll issue you an official certificate to recognise your participation
-                  and completion of the course.
-                </p>
-                <p className="text-16">
-                  Show off your skills on your resume and in the Certifications section of your LinkedIn profile.
-                </p>
+                <div className={styles.bubble}>{t("certificateBubble")}</div>
+                <h3 className="mb-8">{t("certificateHeading")}</h3>
+                <p className="text-16 mb-12">{t("certificatePara1")}</p>
+                <p className="text-16">{t("certificatePara2")}</p>
               </div>
               <Image
                 className="w-[100px] self-middle mt-[100px] mb-10 mr-40 my-10 lg:block hidden"
@@ -347,13 +282,13 @@ export function BootcampSection() {
                   className="lg:w-[350px] w-100 rounded-[5px]"
                   style={{ boxShadow: "0 0 20px rgba(0,0,0,0.4)" }}
                   src={certificate}
-                  alt="Jiki course completion certificate"
+                  alt={t("certificateAlt")}
                 />
               </div>
             </div>
             <div className={styles.linkedin} ref={confettiRef}>
-              <Image src={linkedin} alt="LinkedIn" />
-              <span>Share your certificate in your network</span>
+              <Image src={linkedin} alt={t("linkedinAlt")} />
+              <span>{t("linkedinShare")}</span>
             </div>
           </div>
         </div>

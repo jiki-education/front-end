@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { hideModal, showModal } from "@/lib/modal/store";
 import ExclamationCircleIcon from "@/icons/exclamation-circle.svg";
 import TickCircleIcon from "@/icons/tick-circle.svg";
@@ -14,6 +15,7 @@ export function CancelSubscriptionConfirmModal({
   onConfirmCancel,
   premiumEndDate
 }: CancelSubscriptionConfirmModalProps) {
+  const t = useTranslations("settings.cancelConfirm");
   const handleKeepSubscription = () => {
     hideModal();
   };
@@ -28,38 +30,30 @@ export function CancelSubscriptionConfirmModal({
       <div className={`${styles.icon} ${styles.iconWarning}`}>
         <ExclamationCircleIcon />
       </div>
-      <h3 className={styles.title}>Cancel your subscription?</h3>
-      <p className={styles.message}>
-        We&apos;d hate to see you go! If you cancel, you&apos;ll lose access to Premium at the end of your current
-        billing period.
-      </p>
+      <h3 className={styles.title}>{t("title")}</h3>
+      <p className={styles.message}>{t("message")}</p>
 
       <BenefitsPanel />
 
       <div className={styles.buttons}>
         <button className="ui-btn ui-btn-default ui-btn-primary ui-btn-purple" onClick={handleKeepSubscription}>
-          Keep my subscription
+          {t("keep")}
         </button>
         <button className="ui-btn ui-btn-default ui-btn-tertiary" onClick={handleCancelSubscription}>
-          Cancel subscription
+          {t("cancel")}
         </button>
       </div>
     </div>
   );
 }
 
-const BENEFITS = [
-  "Unlimited AI help from Jiki",
-  "All projects and learning paths",
-  "Completion certificates",
-  "Ad-free experience"
-];
-
 function BenefitsPanel() {
+  const t = useTranslations("settings.cancelConfirm");
+  const benefits = [t("benefit1"), t("benefit2"), t("benefit3"), t("benefit4")];
   return (
     <div className={styles.benefitsPanel}>
-      <h4 className={styles.benefitsTitle}>You&apos;re currently enjoying:</h4>
-      {BENEFITS.map((benefit) => (
+      <h4 className={styles.benefitsTitle}>{t("benefitsTitle")}</h4>
+      {benefits.map((benefit) => (
         <div key={benefit} className={styles.benefitItem}>
           <TickCircleIcon />
           <span>{benefit}</span>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { fetchExternalPricing } from "@/lib/api/externalPricing";
 import type { PremiumPrices } from "@/lib/pricing";
@@ -25,6 +26,7 @@ function formatMonthly(prices: PremiumPrices): string {
 }
 
 export function PublicPremiumPrice() {
+  const t = useTranslations("premium.publicPrice");
   const user = useAuthStore((state) => state.user);
   const [publicPrices, setPublicPrices] = useState<PremiumPrices | null>(null);
 
@@ -47,7 +49,7 @@ export function PublicPremiumPrice() {
 
   const prices = user?.premium_prices ?? publicPrices;
   if (!prices) {
-    return <>—</>;
+    return <>{t("unavailable")}</>;
   }
 
   return <>{formatMonthly(prices)}</>;

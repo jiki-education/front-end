@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import settingsStyles from "../Settings.module.css";
 import styles from "./CancelSection.module.css";
 
@@ -6,16 +7,14 @@ interface CancelSectionProps {
 }
 
 export function CancelSection({ onCancelClick }: CancelSectionProps) {
+  const t = useTranslations("settings.cancelSectionPanel");
   return (
     <div className={settingsStyles.settingItem}>
-      <h3>Cancel Subscription</h3>
+      <h3>{t("title")}</h3>
       <div className={styles.settingRow}>
-        <p>
-          If you cancel, you&apos;ll lose access to Premium features at the end of your billing period. You can always
-          resubscribe later.
-        </p>
+        <p>{t("description")}</p>
         <button className="ui-btn ui-btn-small ui-btn-secondary ui-btn-gray" onClick={onCancelClick}>
-          Cancel
+          {t("cancel")}
         </button>
       </div>
     </div>

@@ -4,11 +4,12 @@ import ProjectsSidebar from "@/components/dashboard/projects-sidebar/ProjectsSid
 import SidebarLayout from "../../../components/layout/SidebarLayout";
 import styles from "./dashboard.module.css";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Dashboard - Jiki",
-  description: "Track your learning progress, continue coding exercises, and view your achievements."
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("seo.dashboard");
+  return { title: t("title"), description: t("description") };
+}
 
 export default function DashboardPage() {
   return (

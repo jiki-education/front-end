@@ -1,6 +1,7 @@
 "use client";
 
 import type { ProgrammingLanguage } from "@/types/course";
+import { useTranslations } from "next-intl";
 import styles from "../ChooseLanguage.module.css";
 
 type LanguageOption = ProgrammingLanguage | "random";
@@ -16,9 +17,10 @@ export function LanguageSelectorStep({
   selectedLanguage,
   onLanguageSelect
 }: LanguageSelectorStepProps) {
+  const t = useTranslations("misc.chooseLanguage");
   return (
     <div className={styles.questionBox}>
-      <h2 className={styles.questionTitle}>Choose which language you want to learn?</h2>
+      <h2 className={styles.questionTitle}>{t("questionTitle")}</h2>
 
       <div className={styles.optionsList}>
         {languageOptions.includes("javascript") && (
@@ -26,7 +28,7 @@ export function LanguageSelectorStep({
             className={`${styles.optionBtn} ${selectedLanguage === "javascript" ? styles.selected : ""}`}
             onClick={() => onLanguageSelect("javascript")}
           >
-            <span>JavaScript</span>
+            <span>{t("javascript")}</span>
             <span className={styles.optionCheckbox}>
               <svg viewBox="0 0 24 24">
                 <polyline points="4 12 9 17 20 6" />
@@ -40,7 +42,7 @@ export function LanguageSelectorStep({
             className={`${styles.optionBtn} ${selectedLanguage === "python" ? styles.selected : ""}`}
             onClick={() => onLanguageSelect("python")}
           >
-            <span>Python</span>
+            <span>{t("python")}</span>
             <span className={styles.optionCheckbox}>
               <svg viewBox="0 0 24 24">
                 <polyline points="4 12 9 17 20 6" />
@@ -53,7 +55,7 @@ export function LanguageSelectorStep({
           className={`${styles.optionBtn} ${selectedLanguage === "random" ? styles.selected : ""}`}
           onClick={() => onLanguageSelect("random")}
         >
-          <span>Choose for me</span>
+          <span>{t("chooseForMe")}</span>
           <span className={styles.optionCheckbox}>
             <svg viewBox="0 0 24 24">
               <polyline points="4 12 9 17 20 6" />
@@ -62,7 +64,7 @@ export function LanguageSelectorStep({
         </button>
       </div>
 
-      <p className={styles.warningText}>You can&apos;t change once selected.</p>
+      <p className={styles.warningText}>{t("cantChange")}</p>
     </div>
   );
 }

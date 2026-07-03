@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import styles from "@/app/styles/modules/concepts.module.css";
 import type { ConceptForDisplay } from "@/types/concepts";
 import ConceptCard from "./ConceptCard";
@@ -10,14 +11,9 @@ interface ConceptsGridProps {
 }
 
 export default function ConceptsGrid({ concepts, showEmptyState = false }: ConceptsGridProps) {
+  const t = useTranslations("concepts.list");
   if (showEmptyState) {
-    return (
-      <EmptyState
-        icon={FolderIcon}
-        title="No concepts yet"
-        body="Complete lessons to unlock new Concepts. Each concept you master in your lessons becomes available for you to review here."
-      />
-    );
+    return <EmptyState icon={FolderIcon} title={t("emptyTitle")} body={t("emptyBody")} />;
   }
 
   return (

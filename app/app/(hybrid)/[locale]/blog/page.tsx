@@ -1,8 +1,8 @@
 import BlogPage from "@/components/blog/BlogPage";
 import AuthenticatedHeaderLayout from "@/components/layout/HeaderLayout";
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "@/lib/locales";
+import { SUPPORTED_LOCALES } from "@/lib/locales";
 import { getAvailableLocales } from "@/lib/content";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
 interface Props {
@@ -33,11 +33,8 @@ export default async function AuthenticatedLocaleBlogPage({ params, searchParams
   const { locale } = await params;
   const { page } = await searchParams;
 
-  // Redirect default locale to naked URL
-  if (locale === DEFAULT_LOCALE) {
-    redirect("/blog");
-  }
-
+  // The default locale is served here under the naked URL (/blog), rewritten to
+  // /en/blog by middleware; an explicit /en/blog is redirected back to /blog there.
   // Check if locale is supported and has blog posts
   const locales = getAvailableLocales("blog", SUPPORTED_LOCALES);
   if (!locales.includes(locale)) {

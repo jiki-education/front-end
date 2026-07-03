@@ -1,14 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { useAuth } from "@/lib/auth/useAuth";
 import { consumeExercismCallback } from "@/lib/auth/exercism";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { AuthErrorCard } from "./AuthErrorCard";
 import { AuthPendingMessage } from "./AuthPendingMessage";
 
 export function ExercismCallbackHandler() {
+  const t = useTranslations("auth.exercismCallback");
+  const routes = useLocaleRoutes();
   const searchParams = useSearchParams();
   const { exercismLogin } = useAuthStore();
   const { handleAuthResponse, TwoFactorForm } = useAuth();
@@ -24,7 +28,7 @@ export function ExercismCallbackHandler() {
     }
     hasStartedRef.current = true;
 
-    const callback = consumeExercismCallback(searchParams.get("code"), searchParams.get("state"));
+    const callback = consumeExercismCallback(searchParams?.get("code") ?? null, searchParams?.get("state") ?? null);
     if (callback.status === "error") {
       setError(callback.message);
       return;
@@ -35,21 +39,23 @@ export function ExercismCallbackHandler() {
         const result = await exercismLogin(callback.code, callback.codeVerifier);
         handleAuthResponse(result);
       } catch (err) {
-        const message = err instanceof Error ? err.message : "Exercism authentication failed";
+        const message = err instanceof Error ? err.message : t("authFailed");
         setError(message);
       }
     };
 
     void completeLogin();
-  }, [searchParams, exercismLogin, handleAuthResponse]);
+  }, [searchParams, exercismLogin, handleAuthResponse, t]);
 
   if (TwoFactorForm) {
     return TwoFactorForm;
   }
 
   if (error) {
-    return <AuthErrorCard title="Sign in failed" message={error} ctaHref="/auth/login" ctaText="Back to log in" />;
+    return (
+      <AuthErrorCard title={t("errorTitle")} message={error} ctaHref={routes.authLogin()} ctaText={t("errorCta")} />
+    );
   }
 
-  return <AuthPendingMessage title="Signing you in..." description="Please wait while we sign you in with Exercism." />;
+  return <AuthPendingMessage title={t("pendingTitle")} description={t("pendingDescription")} />;
 }

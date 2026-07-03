@@ -1,5 +1,7 @@
 import "@testing-library/jest-dom";
 import React from "react";
+// `mock`-prefixed so jest's mock-factory hoisting allows referencing it below.
+import mockEnMessages from "./messages/en.json";
 
 // Polyfill Web APIs for testing (Request, Response, etc.)
 // These are available in Workers/browsers but not in Node.js Jest environment
@@ -62,6 +64,76 @@ if (typeof global.IntersectionObserver === "undefined") {
     }
   };
 }
+
+// Polyfill ResizeObserver (used by HeaderHeightSync and other layout hooks).
+if (typeof global.ResizeObserver === "undefined") {
+  global.ResizeObserver = class ResizeObserver {
+    constructor(callback) {
+      this.callback = callback;
+    }
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+}
+
+// Mock next-intl so components using translations render real English strings
+// (read from messages/en.json) without needing a NextIntlClientProvider in each
+// test. Supports namespaces, dotted keys, {var} interpolation, and t.rich.
+jest.mock("next-intl", () => {
+  const messages = mockEnMessages;
+
+  const resolve = (namespace, key) => {
+    const path = namespace ? `${namespace}.${key}` : key;
+    return path.split(".").reduce((node, part) => (node == null ? undefined : node[part]), messages);
+  };
+
+  const interpolate = (template, values = {}) =>
+    String(template).replace(/\{(\w+)\}/g, (match, name) => (name in values ? String(values[name]) : match));
+
+  const createTranslator = (namespace) => {
+    const t = (key, values) => {
+      const value = resolve(namespace, key);
+      return typeof value === "string" ? interpolate(value, values) : key;
+    };
+    // t.rich: strip the <tag>…</tag> markup down to the rendered chunks.
+    t.rich = (key, tags = {}) => {
+      const value = resolve(namespace, key);
+      if (typeof value !== "string") {
+        return key;
+      }
+      const parts = [];
+      const regex = /<(\w+)>(.*?)<\/\1>|([^<]+)/g;
+      let match;
+      while ((match = regex.exec(value)) !== null) {
+        const [, tag, inner, text] = match;
+        if (tag && typeof tags[tag] === "function") {
+          parts.push(tags[tag](inner));
+        } else {
+          parts.push(tag ? inner : text);
+        }
+      }
+      return parts;
+    };
+    t.markup = (key, values) => t(key, values);
+    t.raw = (key) => resolve(namespace, key);
+    t.has = (key) => resolve(namespace, key) !== undefined;
+    return t;
+  };
+
+  return {
+    useTranslations: (namespace) => createTranslator(namespace),
+    useLocale: () => "en",
+    useMessages: () => messages,
+    useFormatter: () => ({
+      dateTime: (value) => String(value),
+      number: (value) => String(value),
+      relativeTime: (value) => String(value),
+      list: (value) => Array.from(value).join(", ")
+    }),
+    NextIntlClientProvider: ({ children }) => children
+  };
+});
 
 // Mock the problematic ES module package
 jest.mock("@exercism/highlightjs-jikiscript", () => {

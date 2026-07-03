@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useSettingsStore } from "@/lib/settings/settingsStore";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import ActionField from "../ui/ActionField";
@@ -8,6 +10,8 @@ import styles from "../Settings.module.css";
 import Link from "next/link";
 
 export default function LearningTab() {
+  const t = useTranslations("settings.learning");
+  const routes = useLocaleRoutes();
   const { settings, loading, fetchSettings, updateStreaks } = useSettingsStore();
 
   // Fetch settings on mount
@@ -38,20 +42,20 @@ export default function LearningTab() {
   return (
     <div className={styles.settingsContent}>
       <div className={styles.settingsField}>
-        <ActionField label="Study Streaks" description="Enable streaks on my account.">
+        <ActionField label={t("streaksLabel")} description={t("streaksDescription")}>
           <button
             className={`ui-toggle-switch ${enabled ? "active" : ""}`}
             onClick={handleToggle}
-            aria-label="Toggle study streaks"
+            aria-label={t("toggleAriaLabel")}
             aria-checked={enabled}
             role="switch"
           />
         </ActionField>
         <Link
-          href="/articles/streaks"
+          href={routes.article("streaks")}
           className="text-sm text-gray-500 underline hover:text-gray-700 mt-1 inline-block"
         >
-          Learn more
+          {t("learnMore")}
         </Link>
       </div>
     </div>

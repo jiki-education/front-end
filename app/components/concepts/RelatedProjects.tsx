@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import type { ProjectStatus } from "@/lib/api/projects";
 import { ProjectIcon } from "@/components/icons/ProjectIcon";
 import styles from "./RelatedExercises.module.css";
@@ -10,14 +11,15 @@ interface RelatedProjectsProps {
 }
 
 export function RelatedProjects({ projects, getStatus }: RelatedProjectsProps) {
+  const t = useTranslations("concepts.relatedProjects");
   if (projects.length === 0) {
     return null;
   }
 
   return (
     <div className={styles.card}>
-      <h3 className={styles.header}>Related Projects</h3>
-      <p className={styles.description}>These projects let you put this concept into practice on a bigger build.</p>
+      <h3 className={styles.header}>{t("heading")}</h3>
+      <p className={styles.description}>{t("description")}</p>
       <div className={styles.list}>
         {projects.map((p) => (
           <ProjectItem key={p.slug} project={p} status={getStatus(p.slug)} />
@@ -28,12 +30,13 @@ export function RelatedProjects({ projects, getStatus }: RelatedProjectsProps) {
 }
 
 function ProjectItem({ project, status }: { project: ProjectInfo; status: ProjectStatus | "locked" }) {
+  const t = useTranslations("concepts.relatedProjects");
   const stateClass = statusToClass(status);
   const className = `${styles.item} ${stateClass}`;
 
   if (status === "locked") {
     return (
-      <span className={className} title="This project is locked">
+      <span className={className} title={t("locked")}>
         <ProjectIcon slug={project.slug} width={48} height={48} />
         <span className={styles.itemName}>{project.title}</span>
       </span>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { localePath } from "@/lib/i18n/routes";
 import type { BlogPostMeta } from "@/lib/content/types";
 
 interface BlogPostCardProps {
@@ -7,7 +8,7 @@ interface BlogPostCardProps {
 }
 
 export default function BlogPostCard({ post, locale }: BlogPostCardProps) {
-  const postUrl = locale === "en" ? `/blog/${post.slug}` : `/${locale}/blog/${post.slug}`;
+  const postUrl = localePath(`/blog/${post.slug}`, locale);
 
   return (
     <article className="border-b border-border-primary pb-12 last:border-0">

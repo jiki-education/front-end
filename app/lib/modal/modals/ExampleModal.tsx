@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { hideModal } from "../store";
 
 interface ExampleModalProps {
@@ -7,17 +8,18 @@ interface ExampleModalProps {
   message?: string;
 }
 
-export function ExampleModal({ title = "Example Modal", message = "This is an example modal!" }: ExampleModalProps) {
+export function ExampleModal({ title, message }: ExampleModalProps) {
+  const t = useTranslations("modals.example");
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
-      <p className="text-gray-600">{message}</p>
+      <h2 className="text-xl font-semibold text-gray-900">{title ?? t("defaultTitle")}</h2>
+      <p className="text-gray-600">{message ?? t("defaultMessage")}</p>
       <div className="flex gap-2 justify-end mt-6">
         <button
           onClick={hideModal}
           className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition-colors"
         >
-          Cancel
+          {t("cancel")}
         </button>
         <button
           onClick={() => {
@@ -26,7 +28,7 @@ export function ExampleModal({ title = "Example Modal", message = "This is an ex
           }}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
         >
-          Confirm
+          {t("confirm")}
         </button>
       </div>
     </div>

@@ -1,8 +1,10 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import styles from "./ConnectionErrorModal.module.css";
 
 export function ConnectionErrorModal() {
+  const t = useTranslations("modals.connectionError");
   return (
     <div className={styles.container}>
       <div className={styles.logo}>JIKI</div>
@@ -11,27 +13,24 @@ export function ConnectionErrorModal() {
         <RobotSvg />
       </div>
 
-      <h1 className={styles.title}>Whoops! Lost connection</h1>
+      <h1 className={styles.title}>{t("title")}</h1>
 
-      <p className={styles.subtitle}>
-        Jiki got a little tangled up and dropped the connection. Don&apos;t worry though - we&apos;re working on getting
-        things plugged back in!
-      </p>
+      <p className={styles.subtitle}>{t("subtitle")}</p>
 
       <div className={styles.statusCard}>
         <div className={styles.spinner} />
         <span className={styles.statusText}>
-          Reconnecting
+          {t("reconnecting")}
           <span className={styles.dots} />
         </span>
       </div>
 
       <p className={styles.helpText}>
-        Just sit tight - this usually fixes itself in a few moments.
+        {t("helpTextPrefix")}
         <br />
-        If the problem persists,{" "}
+        {t("helpTextPersists")}
         <a href="https://jiki.instatus.com/" target="_blank" rel="noopener noreferrer" className={styles.statusLink}>
-          check our status page
+          {t("checkStatusPage")}
         </a>
         .
       </p>

@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { hideModal } from "@/lib/modal/store";
 import { requestAccountDeletion } from "@/lib/auth/service";
 import styles from "./DeleteAccountModal.module.css";
 
 export function DeleteAccountModal() {
+  const t = useTranslations("settings.deleteAccount");
   const [step, setStep] = useState<"confirm" | "security-check">("confirm");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -18,7 +20,7 @@ export function DeleteAccountModal() {
       await requestAccountDeletion();
       setStep("security-check");
     } catch {
-      setError("Failed to send confirmation email. Please try again.");
+      setError(t("sendFailed"));
     } finally {
       setIsLoading(false);
     }
@@ -40,19 +42,18 @@ function ConfirmStep({
   isLoading: boolean;
   error: string | null;
 }) {
+  const t = useTranslations("settings.deleteAccount");
   return (
     <div className={styles.content}>
-      <h3 className={styles.title}>Are you sure?</h3>
-      <p className={styles.message}>
-        Do you really want to delete your account? You will lose all your work. This is irreversible.
-      </p>
+      <h3 className={styles.title}>{t("confirmTitle")}</h3>
+      <p className={styles.message}>{t("confirmMessage")}</p>
       {error && <p className={styles.error}>{error}</p>}
       <div className={styles.buttons}>
         <button className="ui-btn ui-btn-small ui-btn-primary" onClick={hideModal} disabled={isLoading}>
-          Cancel
+          {t("cancel")}
         </button>
         <button className="ui-btn ui-btn-default ui-btn-danger" onClick={onConfirm} disabled={isLoading}>
-          {isLoading ? "Sending..." : "Delete Account"}
+          {isLoading ? t("submitting") : t("submit")}
         </button>
       </div>
     </div>
@@ -60,16 +61,14 @@ function ConfirmStep({
 }
 
 function SecurityCheckStep() {
+  const t = useTranslations("settings.deleteAccount");
   return (
     <div className={styles.content}>
-      <h3 className={styles.title}>Security Check</h3>
-      <p className={styles.message}>
-        We&apos;ve sent you an email to confirm this is really you. Please click the button in that email to delete your
-        account.
-      </p>
+      <h3 className={styles.title}>{t("securityTitle")}</h3>
+      <p className={styles.message}>{t("securityMessage")}</p>
       <div className={styles.buttons}>
         <button className="ui-btn ui-btn-default ui-btn-primary" onClick={hideModal}>
-          I understand
+          {t("understand")}
         </button>
       </div>
     </div>

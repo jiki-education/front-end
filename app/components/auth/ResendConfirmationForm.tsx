@@ -1,6 +1,8 @@
 "use client";
 
 import { useAuthStore } from "@/lib/auth/authStore";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import type { FormEvent } from "react";
@@ -9,10 +11,13 @@ import EmailIcon from "../../icons/email.svg";
 import styles from "./AuthForm.module.css";
 
 export function ResendConfirmationForm() {
+  const t = useTranslations("auth.resendConfirmation");
+  const tc = useTranslations("auth");
+  const routes = useLocaleRoutes();
   const { resendConfirmation, isLoading, error, clearError } = useAuthStore();
   const searchParams = useSearchParams();
 
-  const [email, setEmail] = useState(searchParams.get("email") || "");
+  const [email, setEmail] = useState(searchParams?.get("email") || "");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [successMessage, setSuccessMessage] = useState("");
 
@@ -20,9 +25,9 @@ export function ResendConfirmationForm() {
     const errors: Record<string, string> = {};
 
     if (!email) {
-      errors.email = "Email is required";
+      errors.email = tc("fields.emailRequired");
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errors.email = "Please enter a valid email address";
+      errors.email = t("emailInvalid");
     }
 
     setValidationErrors(errors);
@@ -40,7 +45,7 @@ export function ResendConfirmationForm() {
 
     try {
       await resendConfirmation(email);
-      setSuccessMessage("If an account with that email exists, you'll receive confirmation instructions shortly.");
+      setSuccessMessage(t("successMessage"));
       setEmail("");
     } catch (err) {
       console.error("Resend confirmation failed:", err);
@@ -51,8 +56,8 @@ export function ResendConfirmationForm() {
     <div className={styles.leftSide}>
       <div className={styles.formContainer}>
         <header>
-          <h1>Resend confirmation instructions</h1>
-          <p>Not received a confirmation email? Use the form below and we&apos;ll send you another.</p>
+          <h1>{t("title")}</h1>
+          <p>{t("subtitle")}</p>
         </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
@@ -69,13 +74,13 @@ export function ResendConfirmationForm() {
           )}
 
           <div className="ui-form-field-large" id="email-field" style={{ marginBottom: "8px" }}>
-            <label htmlFor="confirmation-email">Email</label>
+            <label htmlFor="confirmation-email">{tc("fields.emailLabel")}</label>
             <div>
               <EmailIcon />
               <input
                 type="email"
                 id="confirmation-email"
-                placeholder="Enter your email address"
+                placeholder={tc("fields.emailPlaceholder")}
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -100,14 +105,14 @@ export function ResendConfirmationForm() {
             style={{ width: "100%" }}
             disabled={isLoading}
           >
-            {isLoading ? "Sending..." : "Resend confirmation instructions"}
+            {isLoading ? t("submitting") : t("submit")}
           </button>
 
           <div className={styles.footerLinks}>
             <p>
-              Already confirmed?{" "}
-              <Link href="/auth/login" className="ui-link">
-                Log in
+              {t("confirmedPrompt")}
+              <Link href={routes.authLogin()} className="ui-link">
+                {t("loginLink")}
               </Link>
             </p>
           </div>

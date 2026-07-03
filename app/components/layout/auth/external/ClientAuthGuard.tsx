@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useAuthStore } from "../../../../lib/auth/authStore";
 
 /**
@@ -14,14 +15,15 @@ import { useAuthStore } from "../../../../lib/auth/authStore";
 export function ClientAuthGuard({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, hasCheckedAuth } = useAuthStore();
   const router = useRouter();
+  const routes = useLocaleRoutes();
 
   // Handle unexpected authenticated user by redirecting
   // them back to the dashboard
   useEffect(() => {
     if (hasCheckedAuth && isAuthenticated) {
-      router.push("/dashboard");
+      router.push(routes.dashboard());
     }
-  }, [isAuthenticated, hasCheckedAuth, router]);
+  }, [isAuthenticated, hasCheckedAuth, router, routes]);
 
   // Show nothing while auth is checking (loading spinner shown by ClientAuthInitializer above)
   // or while redirecting authenticated users to dashboard

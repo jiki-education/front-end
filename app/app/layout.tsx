@@ -7,6 +7,8 @@ import { SITE_URL } from "@/lib/site";
 import { ThemeProvider } from "@/lib/theme";
 import "@/lib/whyDidYouRender";
 import type { Metadata } from "next";
+import { ClientLocaleProvider } from "@/components/i18n/ClientLocaleProvider";
+import { getLocale, getMessages } from "next-intl/server";
 import { Poppins, Source_Code_Pro, Baloo_2 } from "next/font/google";
 import Script from "next/script";
 import { ServerAuthProvider } from "../components/layout/auth/global/ServerAuthProvider";
@@ -49,32 +51,40 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  // `seo` is server-only (consumed by generateMetadata via getTranslations) and no
+  // client component reads it, so we omit it from the catalog handed to the client
+  // provider rather than serializing it into every route's hydration payload.
+  const { seo: _seo, ...messages } = await getMessages();
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={`${poppins.variable} ${sourceCodePro.variable} ${baloo2.variable} antialiased ui-body`}>
-        <GlobalErrorHandler />
-        <AttributionCapture />
-        <ServerAuthProvider>
-          <PostHogPageview />
-          <ThemeProvider>
-            <main className="w-full">{children}</main>
-            <GlobalModalProvider />
-            <ToasterProvider />
-          </ThemeProvider>
-        </ServerAuthProvider>
-        {process.env.NODE_ENV === "production" && (
-          <Script
-            defer
-            src="https://static.cloudflareinsights.com/beacon.min.js"
-            data-cf-beacon='{"token": "116ada30355346edb0a7e818b80ed2ae"}'
-            strategy="afterInteractive"
-          />
-        )}
+        <ClientLocaleProvider initialLocale={locale} initialMessages={messages}>
+          <GlobalErrorHandler />
+          <AttributionCapture />
+          <ServerAuthProvider>
+            <PostHogPageview />
+            <ThemeProvider>
+              <main className="w-full">{children}</main>
+              <GlobalModalProvider />
+              <ToasterProvider />
+            </ThemeProvider>
+          </ServerAuthProvider>
+          {process.env.NODE_ENV === "production" && (
+            <Script
+              defer
+              src="https://static.cloudflareinsights.com/beacon.min.js"
+              data-cf-beacon='{"token": "116ada30355346edb0a7e818b80ed2ae"}'
+              strategy="afterInteractive"
+            />
+          )}
+        </ClientLocaleProvider>
       </body>
     </html>
   );

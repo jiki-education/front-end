@@ -1,5 +1,7 @@
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import ShieldXIcon from "@/icons/shield-x.svg";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./AuthForm.module.css";
 
 interface AuthErrorCardProps {
@@ -14,6 +16,8 @@ interface AuthErrorCardProps {
  * (expired confirmation link, failed OAuth sign-in, etc.).
  */
 export function AuthErrorCard({ title, message, ctaHref, ctaText }: AuthErrorCardProps) {
+  const t = useTranslations("auth.errorCard");
+  const routes = useLocaleRoutes();
   return (
     <div className={styles.leftSide}>
       <div className={styles.formContainer}>
@@ -32,9 +36,9 @@ export function AuthErrorCard({ title, message, ctaHref, ctaText }: AuthErrorCar
               {ctaText}
             </Link>
             <p className={styles.confirmationCardFooter}>
-              Need help?{" "}
-              <Link href="/articles/support" className="ui-link">
-                Contact support
+              {t("needHelpPrefix")}
+              <Link href={routes.article("support")} className="ui-link">
+                {t("contactSupport")}
               </Link>
             </p>
           </div>

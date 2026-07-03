@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { useLocale } from "next-intl";
 import { getTopLevelConcepts, getConcepts, searchConcepts as searchConceptsAction } from "@/lib/api/concepts";
 import { getUnlockedConceptSet, isUnlocked } from "@/lib/api/concept-unlocks";
 import { useAuthStore } from "@/lib/auth/authStore";
@@ -6,6 +7,7 @@ import type { ConceptMeta, ConceptForDisplay } from "@/types/concepts";
 
 export function useConcepts(initialConcepts: ConceptMeta[] = []) {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const locale = useLocale();
   const hasInitial = initialConcepts.length > 0;
   // Only seed logged-out visitors with the server-rendered list (all unlocked).
   // Seeding authenticated users would briefly render every concept as locked
@@ -35,7 +37,7 @@ export function useConcepts(initialConcepts: ConceptMeta[] = []) {
         setIsLoading(true);
         setError(null);
 
-        const [topConcepts, fullConcepts] = await Promise.all([getTopLevelConcepts(), getConcepts()]);
+        const [topConcepts, fullConcepts] = await Promise.all([getTopLevelConcepts(locale), getConcepts(locale)]);
 
         setAllConcepts(topConcepts);
         setDisplayedConcepts(topConcepts);
@@ -47,7 +49,7 @@ export function useConcepts(initialConcepts: ConceptMeta[] = []) {
       }
     }
     void load();
-  }, [isAuthenticated, hasInitial]);
+  }, [isAuthenticated, hasInitial, locale]);
 
   // Handle search
   const handleSearch = useCallback(
@@ -58,13 +60,13 @@ export function useConcepts(initialConcepts: ConceptMeta[] = []) {
         return;
       }
       try {
-        const results = await searchConceptsAction(query, null);
+        const results = await searchConceptsAction(query, null, locale);
         setDisplayedConcepts(results);
       } catch {
         setDisplayedConcepts(allConcepts);
       }
     },
-    [allConcepts]
+    [allConcepts, locale]
   );
 
   const concepts: ConceptForDisplay[] = displayedConcepts.map((c) => ({

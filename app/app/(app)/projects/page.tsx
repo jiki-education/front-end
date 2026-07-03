@@ -2,11 +2,12 @@ import BetaTag from "@/components/common/BetaTag";
 import SidebarLayout from "../../../components/layout/SidebarLayout";
 import { ProjectsContent } from "./ProjectsContent";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Projects - Jiki",
-  description: "Build real-world coding projects to practice your programming skills and create portfolio pieces."
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("seo.projects");
+  return { title: t("title"), description: t("description") };
+}
 
 export default function ProjectsPage() {
   return (

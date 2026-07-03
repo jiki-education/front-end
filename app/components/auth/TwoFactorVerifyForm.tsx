@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { ApiError } from "@/lib/api/client";
 import { OTPInput } from "@/components/ui/OTPInput";
+import { useTranslations } from "next-intl";
 import authStyles from "./AuthForm.module.css";
 import styles from "./TwoFactorVerifyForm.module.css";
 
@@ -14,6 +15,7 @@ interface TwoFactorVerifyFormProps {
 }
 
 export function TwoFactorVerifyForm({ onSuccess, onCancel, onSessionExpired }: TwoFactorVerifyFormProps) {
+  const t = useTranslations("auth.twoFactorVerify");
   const { verify2FA, isLoading } = useAuthStore();
   const [otpCode, setOtpCode] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -35,9 +37,9 @@ export function TwoFactorVerifyForm({ onSuccess, onCancel, onSessionExpired }: T
           onSessionExpired();
           return;
         }
-        setError(errorData?.error?.message || "Invalid verification code");
+        setError(errorData?.error?.message || t("invalidCode"));
       } else {
-        setError("Verification failed. Please try again.");
+        setError(t("verificationFailed"));
       }
       setOtpCode("");
     }
@@ -55,19 +57,19 @@ export function TwoFactorVerifyForm({ onSuccess, onCancel, onSessionExpired }: T
       <div className={authStyles.formContainer}>
         <div className={styles.container}>
           <header className={styles.header}>
-            <h1>Two-Factor Authentication</h1>
-            <p>Enter the 6-digit code from your authenticator app.</p>
+            <h1>{t("title")}</h1>
+            <p>{t("subtitle")}</p>
           </header>
 
           <div>
             {error && <div className={styles.errorMessage}>{error}</div>}
 
             <div className={styles.otpSection}>
-              <label>Verification code</label>
+              <label>{t("codeLabel")}</label>
               <OTPInput value={otpCode} onChange={handleOtpChange} disabled={isLoading} hasError={!!error} autoFocus />
             </div>
 
-            {isLoading && <p className={styles.verifyingText}>Verifying...</p>}
+            {isLoading && <p className={styles.verifyingText}>{t("verifying")}</p>}
 
             <div className={styles.actions}>
               <button
@@ -77,7 +79,7 @@ export function TwoFactorVerifyForm({ onSuccess, onCancel, onSessionExpired }: T
                 style={{ width: "100%" }}
                 disabled={isLoading}
               >
-                Cancel and sign in again
+                {t("cancel")}
               </button>
             </div>
           </div>

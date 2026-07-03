@@ -2,6 +2,7 @@
 
 import type { ProgrammingLanguage } from "@/types/course";
 import Tooltip from "@/components/ui/Tooltip";
+import { useTranslations } from "next-intl";
 import styles from "../ChooseLanguage.module.css";
 
 type LanguageOption = ProgrammingLanguage | "random";
@@ -25,6 +26,7 @@ export function ButtonRow({
   onSelectLanguage,
   onConfirmChoice
 }: ButtonRowProps) {
+  const t = useTranslations("misc.chooseLanguage");
   // Video step: only show button if user has visited selector before
   if (step === "video") {
     if (!hasVisitedSelector) {
@@ -35,7 +37,7 @@ export function ButtonRow({
       <div className={styles.buttonRow}>
         <div />
         <button className="ui-btn ui-btn-default ui-btn-primary ui-btn-purple" onClick={onSelectLanguage}>
-          <span>Select Language</span>
+          <span>{t("selectLanguage")}</span>
           <svg style={{ width: 18, height: 18, fill: "currentColor" }} viewBox="0 0 24 24">
             <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
           </svg>
@@ -51,17 +53,17 @@ export function ButtonRow({
         <svg style={{ width: 18, height: 18, fill: "currentColor" }} viewBox="0 0 24 24">
           <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
         </svg>
-        <span>Back to video</span>
+        <span>{t("backToVideo")}</span>
       </button>
 
-      <Tooltip content="Select one of the options to proceed." variant="dark" disabled={!!selectedLanguage}>
+      <Tooltip content={t("tooltip")} variant="dark" disabled={!!selectedLanguage}>
         <span className={styles.tooltipWrapper}>
           <button
             className={`ui-btn ui-btn-default ui-btn-primary ui-btn-purple ${!selectedLanguage || isSubmitting ? "ui-btn-disabled" : ""}`}
             onClick={onConfirmChoice}
             disabled={!selectedLanguage || isSubmitting}
           >
-            <span>{isSubmitting ? "Saving..." : "Confirm Choice"}</span>
+            <span>{isSubmitting ? t("saving") : t("confirmChoice")}</span>
             {selectedLanguage && !isSubmitting && (
               <svg style={{ width: 18, height: 18, fill: "currentColor" }} viewBox="0 0 24 24">
                 <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import Lottie from "react-lottie-player";
 import { hideModal } from "../store";
 import styles from "./PaymentProcessingModal.module.css";
@@ -10,6 +11,7 @@ interface PaymentProcessingModalProps {
 }
 
 export function PaymentProcessingModal({ onClose }: PaymentProcessingModalProps) {
+  const t = useTranslations("modals.paymentProcessing");
   const handleClose = () => {
     onClose?.();
     hideModal();
@@ -20,13 +22,10 @@ export function PaymentProcessingModal({ onClose }: PaymentProcessingModalProps)
       <div className={styles.icon}>
         <Lottie animationData={paymentProcessingAnimation} play loop={false} style={{ height: 72, width: 72 }} />
       </div>
-      <h2 className={styles.title}>Payment Processing</h2>
-      <p className={styles.description}>
-        Thank you. We&apos;re waiting for your payment provider to send us the funds. Once they do we&apos;ll upgrade
-        your plan to Premium and send you an email.
-      </p>
+      <h2 className={styles.title}>{t("title")}</h2>
+      <p className={styles.description}>{t("description")}</p>
       <button onClick={handleClose} className="ui-btn ui-btn-primary ui-btn-large">
-        Continue using Jiki
+        {t("continue")}
       </button>
     </div>
   );

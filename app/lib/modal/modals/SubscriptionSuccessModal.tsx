@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { hideModal } from "../store";
 import { PRICING_TIERS } from "@/lib/pricing";
@@ -19,6 +20,7 @@ interface SubscriptionSuccessModalProps {
 }
 
 export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onClose }: SubscriptionSuccessModalProps) {
+  const t = useTranslations("modals.subscriptionSuccess");
   const tierInfo = PRICING_TIERS[tier];
 
   // Calculate renewal date once at render time to avoid calling Date.now() during render
@@ -28,32 +30,28 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
     switch (triggerContext) {
       case "chat-gate":
         return {
-          title: "Welcome to AI Chat!",
-          description: "Your AI assistant is now unlocked and ready to help with your coding exercises.",
-          features: [
-            "Ask questions about your code",
-            "Get explanations for complex concepts",
-            "Receive personalized hints and guidance"
-          ]
+          title: t("chatGate.title"),
+          description: t("chatGate.description"),
+          features: [t("chatGate.feature1"), t("chatGate.feature2"), t("chatGate.feature3")]
         };
       case "feature-gate":
         return {
-          title: "Feature Unlocked!",
-          description: "You now have access to premium features that will enhance your learning experience.",
+          title: t("featureGate.title"),
+          description: t("featureGate.description"),
           features: tierInfo.features.slice(1, 4) // Show subset of relevant features
         };
       case "settings":
         return {
-          title: `Welcome to ${tierInfo.name}!`,
-          description: "Your subscription has been activated. Explore your new features in the settings.",
+          title: t("settings.title", { tier: tierInfo.name }),
+          description: t("settings.description"),
           features: tierInfo.features.slice(1, 4) // Show subset of key features
         };
       case "general":
       case undefined:
       default:
         return {
-          title: `Welcome to ${tierInfo.name}!`,
-          description: "Thank you for upgrading your plan. You now have access to all premium features.",
+          title: t("general.title", { tier: tierInfo.name }),
+          description: t("general.description"),
           features: tierInfo.features.slice(1, 4) // Show subset of key features
         };
     }
@@ -93,16 +91,16 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
       {/* Subscription Details */}
       <div className="bg-bg-secondary p-4 rounded-lg border border-border-secondary">
         <div className="flex items-center justify-between mb-3">
-          <span className="font-medium text-text-primary">{tierInfo.name} Plan</span>
+          <span className="font-medium text-text-primary">{t("planLabel", { tier: tierInfo.name })}</span>
           <span className="text-2xl font-bold text-text-primary">
             <PremiumPrice interval="monthly" />
-            <span className="text-sm font-normal text-text-secondary">/month</span>
+            <span className="text-sm font-normal text-text-secondary">{t("perMonth")}</span>
           </span>
         </div>
 
         {content.features.length > 0 && (
           <div>
-            <h4 className="font-medium text-text-primary mb-2 text-sm">What you can do now:</h4>
+            <h4 className="font-medium text-text-primary mb-2 text-sm">{t("whatYouCanDo")}</h4>
             <ul className="space-y-1 text-left">
               {content.features.map((feature, index) => (
                 <li key={index} className="flex items-start text-sm text-text-secondary">
@@ -126,7 +124,7 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
             onClick={handleNextSteps}
             className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
           >
-            {nextSteps.buttonText || "Get Started"}
+            {nextSteps.buttonText || t("getStarted")}
           </button>
         </div>
       )}
@@ -138,20 +136,18 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
             onClick={handleClose}
             className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
           >
-            Continue Learning
+            {t("continueLearning")}
           </button>
         )}
 
         <button onClick={handleClose} className="text-text-secondary hover:text-text-primary text-sm underline">
-          {nextSteps ? "Skip for now" : "Close"}
+          {nextSteps ? t("skipForNow") : t("close")}
         </button>
       </div>
 
       {/* Footer Info */}
       <div className="pt-4 border-t border-border-secondary">
-        <p className="text-xs text-text-tertiary">
-          Your subscription will renew automatically on {renewalDate}. Manage your subscription in Settings.
-        </p>
+        <p className="text-xs text-text-tertiary">{t("renewalNotice", { date: renewalDate })}</p>
       </div>
     </div>
   );

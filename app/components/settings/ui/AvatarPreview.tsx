@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import PersonIcon from "@/icons/person.svg";
 import { resolveApiAssetUrl } from "@/lib/api/config";
 
@@ -15,6 +16,7 @@ const sizeClasses = {
 };
 
 export default function AvatarPreview({ url, size }: AvatarPreviewProps) {
+  const t = useTranslations("settings.avatarPreview");
   const [imgError, setImgError] = useState(false);
   const classes = sizeClasses[size];
 
@@ -24,7 +26,7 @@ export default function AvatarPreview({ url, size }: AvatarPreviewProps) {
       // eslint-disable-next-line @next/next/no-img-element
       <img
         src={resolveApiAssetUrl(url)}
-        alt="Your avatar"
+        alt={t("alt")}
         className={`${classes.container} rounded-full object-cover flex-shrink-0`}
         onError={() => setImgError(true)}
       />

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import CheckmarkCircle from "@/icons/checkmark-circle.svg";
 import { PremiumPrice, PremiumDailyPrice } from "@/components/common/PremiumPrice";
 import styles from "./PremiumUpsell.module.css";
@@ -9,35 +10,18 @@ interface PremiumUpsellProps {
   className?: string;
 }
 
-interface Feature {
-  title: string;
-  description: string;
-}
-
-const features: Feature[] = [
-  {
-    title: "Unlimited AI help",
-    description: "Get personalised guidance from Jiki whenever you're stuck"
-  },
-  {
-    title: "Unlimited content",
-    description: "Access all exercises, projects, and learning paths"
-  },
-  {
-    title: "Certificates",
-    description: "Earn shareable certificates when you complete courses"
-  },
-  {
-    title: "Ad-free",
-    description: "Enjoy a distraction-free learning experience"
-  }
-];
-
 export default function PremiumUpsell({
   onUpgrade,
   isLoading: externalLoading = false,
   className = ""
 }: PremiumUpsellProps) {
+  const t = useTranslations("settings.premiumUpsell");
+  const features = [
+    { title: t("unlimitedAiTitle"), description: t("unlimitedAiDescription") },
+    { title: t("unlimitedContentTitle"), description: t("unlimitedContentDescription") },
+    { title: t("certificatesTitle"), description: t("certificatesDescription") },
+    { title: t("adFreeTitle"), description: t("adFreeDescription") }
+  ];
   const [internalLoading, setInternalLoading] = useState(false);
   const isLoading = externalLoading || internalLoading;
 
@@ -53,11 +37,11 @@ export default function PremiumUpsell({
   return (
     <div className={`${styles.premiumUpsell} ${className}`}>
       <h2 className={styles.premiumUpsellHeadline}>
-        Unlock a <span className={styles.highlight}>better</span> way to learn
+        {t("headlinePrefix")}
+        <span className={styles.highlight}>{t("headlineHighlight")}</span>
+        {t("headlineSuffix")}
       </h2>
-      <p className={styles.premiumUpsellSubtitle}>
-        You&apos;re currently on the Free plan. Upgrade to Premium to unlock:
-      </p>
+      <p className={styles.premiumUpsellSubtitle}>{t("subtitle")}</p>
 
       <div className={styles.premiumUpsellFeatures}>
         {features.map((feature, index) => (
@@ -72,16 +56,18 @@ export default function PremiumUpsell({
 
       <div className={styles.premiumUpsellCard}>
         <div className={styles.premiumUpsellCardInfo}>
-          <h3 className={styles.premiumUpsellTitle}>Jiki Premium</h3>
+          <h3 className={styles.premiumUpsellTitle}>{t("planName")}</h3>
           <div className={styles.premiumUpsellPricing}>
             <div className={styles.premiumUpsellPrice}>
               <span className={styles.amount}>
                 <PremiumPrice interval="monthly" />
               </span>
-              <span className={styles.period}>/month</span>
+              <span className={styles.period}>{t("perMonth")}</span>
             </div>
             <p className={styles.premiumUpsellNote}>
-              That&apos;s only <PremiumDailyPrice interval="monthly" /> a day
+              {t("dailyNotePrefix")}
+              <PremiumDailyPrice interval="monthly" />
+              {t("dailyNoteSuffix")}
             </p>
           </div>
         </div>
@@ -90,7 +76,7 @@ export default function PremiumUpsell({
           onClick={handleUpgrade}
           disabled={isLoading}
         >
-          {isLoading ? "Processing..." : "Upgrade to Premium"}
+          {isLoading ? t("processing") : t("upgrade")}
         </button>
       </div>
     </div>

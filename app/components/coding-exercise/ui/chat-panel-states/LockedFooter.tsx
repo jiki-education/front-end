@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import styles from "./LockedFooter.module.css";
 
@@ -14,6 +15,7 @@ interface LockedFooterProps {
 // - free-limit-reached: non-premium user who has used their free conversation
 // - premium-blocked: premium user who hit fair use limits
 export function LockedFooter({ variant }: LockedFooterProps) {
+  const routes = useLocaleRoutes();
   const handleUpgradeClick = () => {
     showPremiumUpgradeModal("assistant_limit_reached");
   };
@@ -34,7 +36,7 @@ export function LockedFooter({ variant }: LockedFooterProps) {
             <p className={styles.footerText}>You&apos;ve hit our fair use limits. Please try again tomorrow.</p>
             <p className={styles.footerLink}>
               <Link
-                href="/articles/fair-usage-jiki-ai-policy"
+                href={routes.article("fair-usage-jiki-ai-policy")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.footerLinkGray}

@@ -1,3 +1,6 @@
+"use client";
+
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import AnimatedDots from "./AnimatedDots";
 import styles from "./LoadingJiki.module.css";
@@ -7,6 +10,8 @@ interface LoadingJikiProps {
 }
 
 export default function LoadingJiki({ delayed = false }: LoadingJikiProps) {
+  const t = useTranslations("layout.loading");
+
   return (
     <div className={`${styles.container} ${delayed ? styles.delayed : ""}`}>
       <div className={styles.imageWrapper}>
@@ -21,10 +26,10 @@ export default function LoadingJiki({ delayed = false }: LoadingJikiProps) {
 
       <div className={styles.text}>
         <h1 className={styles.title}>
-          Waking up Jiki
+          {t("title")}
           <AnimatedDots />
         </h1>
-        <p className={styles.subtitle}>Preparing your learning experience</p>
+        <p className={styles.subtitle}>{t("subtitle")}</p>
       </div>
     </div>
   );

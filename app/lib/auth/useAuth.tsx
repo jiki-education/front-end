@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { useAuthStore } from "@/lib/auth/authStore";
@@ -20,6 +21,7 @@ interface UseAuthReturn {
 }
 
 export function useAuth(): UseAuthReturn {
+  const tToast = useTranslations("toasts.auth");
   const router = useRouter();
   const searchParams = useSearchParams();
   const { googleLogin } = useAuthStore();
@@ -27,7 +29,7 @@ export function useAuth(): UseAuthReturn {
   const [twoFactorState, setTwoFactorState] = useState<TwoFactorState>({ type: "none" });
   const [googleAuthError, setGoogleAuthError] = useState<string | null>(null);
 
-  const returnTo = searchParams.get("return_to");
+  const returnTo = searchParams?.get("return_to") ?? null;
 
   // Store return_to in sessionStorage on mount so it persists across page navigations
   useEffect(() => {
@@ -80,7 +82,7 @@ export function useAuth(): UseAuthReturn {
 
   const handleSessionExpired = () => {
     setTwoFactorState({ type: "none" });
-    toast.error("Your session has expired. Please sign in again.");
+    toast.error(tToast("sessionExpired"));
   };
 
   let TwoFactorForm: React.ReactNode | null = null;

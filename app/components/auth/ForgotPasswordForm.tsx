@@ -2,7 +2,9 @@
 
 import { ApiError } from "@/lib/api/client";
 import { useAuthStore } from "@/lib/auth/authStore";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useTurnstile } from "@/lib/turnstile/useTurnstile";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import type { FormEvent } from "react";
 import { useState } from "react";
@@ -10,6 +12,9 @@ import EmailIcon from "../../icons/email.svg";
 import styles from "./AuthForm.module.css";
 
 export function ForgotPasswordForm() {
+  const t = useTranslations("auth.forgotPassword");
+  const tc = useTranslations("auth");
+  const routes = useLocaleRoutes();
   const { requestPasswordReset, isLoading } = useAuthStore();
   const turnstile = useTurnstile();
 
@@ -23,9 +28,9 @@ export function ForgotPasswordForm() {
     const errors: Record<string, string> = {};
 
     if (!email) {
-      errors.email = "Email is required";
+      errors.email = tc("fields.emailRequired");
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errors.email = "Please enter a valid email address";
+      errors.email = tc("fields.emailInvalidAddress");
     }
 
     setValidationErrors(errors);
@@ -55,7 +60,7 @@ export function ForgotPasswordForm() {
     try {
       await requestPasswordReset(email, token);
       setVerifying(false);
-      setSuccessMessage("If an account with that email exists, you'll receive reset instructions shortly.");
+      setSuccessMessage(t("successMessage"));
       setEmail("");
     } catch (err) {
       setVerifying(false);
@@ -74,8 +79,8 @@ export function ForgotPasswordForm() {
     <div className={styles.leftSide}>
       <div className={styles.formContainer}>
         <header>
-          <h1>Forgot your password?</h1>
-          <p>If you&apos;ve forgotten your password, use the form below to request a link to change it.</p>
+          <h1>{t("title")}</h1>
+          <p>{t("subtitle")}</p>
         </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
@@ -86,13 +91,13 @@ export function ForgotPasswordForm() {
           )}
 
           <div className="ui-form-field-large" id="email-field" style={{ marginBottom: "8px" }}>
-            <label htmlFor="reset-email">Email</label>
+            <label htmlFor="reset-email">{tc("fields.emailLabel")}</label>
             <div>
               <EmailIcon />
               <input
                 type="email"
                 id="reset-email"
-                placeholder="Enter your email address"
+                placeholder={tc("fields.emailPlaceholder")}
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -110,12 +115,7 @@ export function ForgotPasswordForm() {
             )}
           </div>
 
-          {captchaError && (
-            <div className={styles.errorMessage}>
-              Our systems tried to determine whether you were a bot or a human, but couldn&apos;t. Please try again
-              using the button below.
-            </div>
-          )}
+          {captchaError && <div className={styles.errorMessage}>{tc("captchaError.generic")}</div>}
 
           <button
             type="submit"
@@ -124,14 +124,14 @@ export function ForgotPasswordForm() {
             style={{ width: "100%" }}
             disabled={isLoading || verifying}
           >
-            {isLoading ? "Sending..." : verifying ? "Verifying..." : "Send Reset Link"}
+            {isLoading ? t("submitting") : verifying ? t("verifying") : t("submit")}
           </button>
 
           <div className={styles.footerLinks}>
             <p>
-              Remembered your password?{" "}
-              <Link href="/auth/login" className="ui-link">
-                Log in
+              {t("rememberedPrompt")}
+              <Link href={routes.authLogin()} className="ui-link">
+                {t("loginLink")}
               </Link>
             </p>
           </div>
