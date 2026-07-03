@@ -37,6 +37,8 @@
 }
 
 .rocketWrapper {
+    display: inline-block;
+    vertical-align: middle;
     position: relative;
     line-height: 0;
 }

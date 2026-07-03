@@ -111,7 +111,7 @@ export function Hero() {
         <div className={styles["hero-lhs"]}>
           <h1 ref={headlineRef} className={styles["rock-solid"]} data-rock-solid>
             {t("headlinePart1")}
-            <span data-anim="highlight-headline" className="inline">
+            <span data-anim="highlight-headline" className={styles.headlineHighlight}>
               {t("headlineHighlight")}
             </span>
             {t("headlinePart2")}
@@ -119,20 +119,20 @@ export function Hero() {
           <p ref={taglineRef} className={`${styles.tagline}`} data-tagline>
             {t.rich("tagline", {
               year: new Date().getFullYear(),
-              strong: (chunks) => <strong className="font-semibold">{chunks}</strong>
+              strong: (chunks) => <strong>{chunks}</strong>
             })}
           </p>
           <p ref={audienceRef} className={`${styles.tagline} `}>
             {t("audiencePrefix")}
-            <span data-anim="highlight-audience" className="font-medium text-white">
+            <span data-anim="highlight-audience" className={styles.highlightWhite}>
               {t("audience1")}
             </span>
             {t("audienceMiddle")}
-            <span data-anim="highlight-audience" className="font-medium text-white">
+            <span data-anim="highlight-audience" className={styles.highlightWhite}>
               {t("audience2")}
             </span>
             {t("audienceAfter2")}
-            <span data-anim="highlight-audience" className="font-medium text-white">
+            <span data-anim="highlight-audience" className={styles.highlightWhite}>
               {t("audience3")}
             </span>
             {t("audienceSuffix")}
@@ -213,7 +213,7 @@ function WatchPrompt() {
   return (
     <div className={styles["watch-prompt"]}>
       <ArrowIcon width={48} height={100} className={styles["watch-arrow"]} />
-      <p>{t.rich("watchPrompt", { strong: (chunks) => <span className="font-medium text-white">{chunks}</span> })}</p>
+      <p>{t.rich("watchPrompt", { strong: (chunks) => <span className={styles.highlightWhite}>{chunks}</span> })}</p>
     </div>
   );
 }

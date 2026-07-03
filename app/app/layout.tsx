@@ -64,14 +64,14 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={`${poppins.variable} ${sourceCodePro.variable} ${baloo2.variable} antialiased ui-body`}>
+      <body className={`${poppins.variable} ${sourceCodePro.variable} ${baloo2.variable} ui-body`}>
         <ClientLocaleProvider initialLocale={locale} initialMessages={messages}>
           <GlobalErrorHandler />
           <AttributionCapture />
           <ServerAuthProvider>
             <PostHogPageview />
             <ThemeProvider>
-              <main className="w-full">{children}</main>
+              <main style={{ width: "100%" }}>{children}</main>
               <GlobalModalProvider />
               <ToasterProvider />
             </ThemeProvider>

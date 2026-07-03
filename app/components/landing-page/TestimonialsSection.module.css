@@ -27,6 +27,19 @@
         }
     }
 
+    .subheadingLink {
+        text-decoration: underline;
+        font-weight: 600;
+    }
+
+    .personRow {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+    }
+
     .primary-quote {
         margin-bottom: 40px;
 

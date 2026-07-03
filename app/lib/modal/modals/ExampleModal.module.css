@@ -1,0 +1,44 @@
+.body > * + * {
+    margin-top: 4px;
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-gray-900);
+}
+
+.message {
+    color: var(--color-gray-600);
+}
+
+.buttonRow {
+    display: flex;
+    gap: 2px;
+    justify-content: flex-end;
+    margin-top: 6px;
+}
+
+.buttonSecondary {
+    padding: 2px 4px;
+    border-radius: 0.25rem;
+    background: var(--color-gray-200);
+    color: var(--color-gray-800);
+    transition: background-color 0.15s ease;
+
+    &:hover {
+        background: var(--color-gray-300);
+    }
+}
+
+.buttonPrimary {
+    padding: 2px 4px;
+    border-radius: 0.25rem;
+    background: var(--color-blue-600);
+    color: #fff;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+        background: var(--color-blue-700);
+    }
+}

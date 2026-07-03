@@ -10,7 +10,7 @@ interface AuthLayoutProps {
 
 export function AuthLayout({ children }: AuthLayoutProps) {
   return (
-    <div className="flex flex-col lg:flex-row">
+    <div className={styles.layout}>
       {children}
 
       {/* Right Side - Gradient Background */}

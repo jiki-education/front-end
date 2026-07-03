@@ -1,6 +1,7 @@
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import styles from "./InternalButtons.module.css";
 
 export default function InternalButtons() {
   const t = useTranslations("layout.internalHeader");
@@ -8,7 +9,7 @@ export default function InternalButtons() {
 
   return (
     <>
-      <div className="flex items-center gap-12">
+      <div className={styles.buttons}>
         <Link href={routes.dashboard()} className="ui-btn ui-btn-small ui-btn-primary">
           {t("backToJiki")}
         </Link>

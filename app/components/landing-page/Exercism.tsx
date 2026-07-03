@@ -8,9 +8,9 @@ export function Exercism() {
     <section className={styles.exercism}>
       <div className={shared["lg-container"]}>
         <h2>{t("heading")}</h2>
-        <p className={`${styles.intro} text-balance`}>
+        <p className={styles.intro}>
           {t.rich("intro", {
-            strong: (chunks) => <strong className="font-medium">{chunks}</strong>
+            strong: (chunks) => <strong className={styles.strong}>{chunks}</strong>
           })}
         </p>
         <ul>

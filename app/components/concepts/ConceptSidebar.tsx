@@ -7,6 +7,7 @@ import type { ConceptMeta, ExerciseInfo, ProjectInfo } from "@/types/concepts";
 import type { LessonStatus } from "@/lib/api/lesson-progress";
 import type { ProjectStatus } from "@/lib/api/projects";
 import type { VideoSource } from "@/types/lesson";
+import styles from "./ConceptSidebar.module.css";
 
 interface ConceptSidebarProps {
   conceptSlug: string;
@@ -34,7 +35,7 @@ export function ConceptSidebar({
   return (
     <div>
       {!isAuthenticated && (
-        <div className="hidden md:block">
+        <div className={styles.desktopOnly}>
           <UpgradeCard />
         </div>
       )}

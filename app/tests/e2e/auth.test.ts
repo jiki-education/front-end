@@ -260,7 +260,7 @@ test.describe("Authentication E2E", () => {
       test.describe("With valid token", () => {
         test.beforeEach(async ({ page }) => {
           await page.goto("/auth/reset-password?token=valid-reset-token");
-          await page.locator("h2").waitFor();
+          await page.getByRole("heading", { name: "Reset your password" }).waitFor();
         });
 
         test("should display reset password form with password fields", async ({ page }) => {
@@ -288,8 +288,7 @@ test.describe("Authentication E2E", () => {
 
           // Wait for validation error or check form behavior
           try {
-            const errorText = page.locator(".text-red-600");
-            await expect(errorText).toContainText("Password is required");
+            await expect(page.getByText("Password is required")).toBeVisible();
           } catch {
             // Check HTML5 validation instead
             const passwordInput = page.locator('input[name="password"]');
@@ -305,7 +304,7 @@ test.describe("Authentication E2E", () => {
           await page.locator('button[type="submit"]').click();
 
           // Wait for validation error
-          await expect(page.locator(".text-red-600")).toContainText("Password must be at least 6 characters");
+          await expect(page.getByText("Password must be at least 6 characters")).toBeVisible();
         });
 
         test("should show validation error when passwords don't match", async ({ page }) => {
@@ -315,7 +314,7 @@ test.describe("Authentication E2E", () => {
           await page.locator('button[type="submit"]').click();
 
           // Wait for validation error
-          await expect(page.locator(".text-red-600")).toContainText("Passwords don't match");
+          await expect(page.getByText("Passwords don't match")).toBeVisible();
         });
 
         test("should clear validation errors when user starts typing", async ({ page }) => {
@@ -334,7 +333,7 @@ test.describe("Authentication E2E", () => {
       test.describe("Without token", () => {
         test.beforeEach(async ({ page }) => {
           await page.goto("/auth/reset-password");
-          await page.locator("h2").waitFor();
+          await page.getByRole("heading", { name: "Invalid Reset Link" }).waitFor();
         });
 
         test("should show invalid reset link message when no token provided", async ({ page }) => {
@@ -342,9 +341,7 @@ test.describe("Authentication E2E", () => {
           await expect(page.getByRole("heading", { name: "Invalid Reset Link" })).toBeVisible();
 
           // Check for error message
-          await expect(page.locator(".bg-red-50 .text-red-800")).toContainText(
-            "This password reset link is invalid or has expired"
-          );
+          await expect(page.getByText("This password reset link is invalid or has expired")).toBeVisible();
 
           // Check for link to request new reset
           const newResetLink = page.locator('a[href="/auth/forgot-password"]');
@@ -364,7 +361,7 @@ test.describe("Authentication E2E", () => {
       test.describe("With token from URL parameter variations", () => {
         test("should work with reset_password_token parameter", async ({ page }) => {
           await page.goto("/auth/reset-password?reset_password_token=valid-token");
-          await page.locator("h2").waitFor();
+          await page.getByRole("heading", { name: "Reset your password" }).waitFor();
 
           await expect(page.getByRole("heading", { name: "Reset your password" })).toBeVisible();
 
@@ -375,7 +372,7 @@ test.describe("Authentication E2E", () => {
 
         test("should work with token parameter", async ({ page }) => {
           await page.goto("/auth/reset-password?token=valid-token");
-          await page.locator("h2").waitFor();
+          await page.getByRole("heading", { name: "Reset your password" }).waitFor();
 
           await expect(page.getByRole("heading", { name: "Reset your password" })).toBeVisible();
 

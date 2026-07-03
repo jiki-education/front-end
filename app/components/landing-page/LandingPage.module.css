@@ -14,3 +14,8 @@
     --light-blue: #f2f5ff;
     --pink: rgb(183, 0, 144);
 }
+
+.divider {
+    width: 100px;
+    margin: 64px auto;
+}

@@ -16,6 +16,15 @@
         text-align: center;
     }
 
+    .heading {
+        text-align: center;
+        font-weight: 400;
+    }
+
+    .strong {
+        font-weight: 600;
+    }
+
     .container {
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;
@@ -69,6 +78,7 @@
         font-size: 18px;
         font-weight: 300;
         text-align: center;
+        text-wrap: balance;
         max-width: 850px;
         margin-left: auto;
         margin-right: auto;

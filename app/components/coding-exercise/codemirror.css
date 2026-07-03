@@ -1,4 +1,4 @@
-@reference "../../app/globals.css";
+@reference "../../app/app.css";
 
 .cm-breakpoint-gutter .cm-gutterElement {
     @apply flex;

@@ -32,7 +32,7 @@ export default function BlogPage({ authenticated: _, locale, page }: BlogPagePro
           currentPage={currentPage}
           totalPages={totalPages}
           hrefForPage={(p) => (p === 1 ? localePath("/blog", locale) : localePath(`/blog?page=${p}`, locale))}
-          className="mt-12"
+          className={styles.pagination}
         />
       </div>
     </div>

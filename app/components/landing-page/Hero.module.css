@@ -1,3 +1,12 @@
+.headlineHighlight {
+    display: inline;
+}
+
+.highlightWhite {
+    font-weight: 500;
+    color: #fff;
+}
+
 .hero {
     background-image:
         url("/static/images/landing-page/hero-grid.svg"), linear-gradient(rgb(13, 18, 33), rgb(19, 47, 68));

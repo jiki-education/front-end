@@ -91,7 +91,7 @@ function Quote({ testimonial }: { testimonial: Testimonial }) {
       </div>
       <div className={styles.person}>
         <div className={styles.stars}></div>
-        <div className="flex flex-row items-center justify-end gap-8">
+        <div className={styles.personRow}>
           <div className={styles.text}>
             <div className={styles.name}>{testimonial.name}</div>
             <div className={styles.description}>{testimonial.role}</div>

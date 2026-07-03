@@ -65,7 +65,7 @@ export function TwoFactorSetupForm({
         <div className={styles.container}>
           <header className={styles.header}>
             {/* <h1>Set Up Two-Factor Authentication</h1> */}
-            <p className="font-semibold">{t("instructionsHeading")}</p>
+            <p className={styles.instructionsHeading}>{t("instructionsHeading")}</p>
           </header>
 
           <div className={styles.qrCodeWrapper}>

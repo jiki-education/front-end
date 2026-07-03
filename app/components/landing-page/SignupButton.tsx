@@ -28,7 +28,7 @@ export function SignupButton({ className = "" }: SignupButtonProps) {
         <span className={styles.free}>{t("free")}</span>
       </span>
       <span
-        className={`inline-block align-middle ${rocket.rocketWrapper} ${rocket.rocketWrapperLg} ${ctaLaunch.launching ? rocket.launching : ""}`}
+        className={`${rocket.rocketWrapper} ${rocket.rocketWrapperLg} ${ctaLaunch.launching ? rocket.launching : ""}`}
       >
         <RocketIcon width={32} height={32} className={rocket.rocket} />
       </span>

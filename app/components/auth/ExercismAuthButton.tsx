@@ -2,6 +2,7 @@
 
 import { isExercismAuthEnabled, beginExercismAuth } from "@/lib/auth/exercism";
 import ExercismIcon from "@/icons/exercism.svg";
+import styles from "./AuthForm.module.css";
 
 interface ExercismAuthButtonProps {
   children: React.ReactNode;
@@ -25,7 +26,7 @@ export function ExercismAuthButton({ children, onError }: ExercismAuthButtonProp
 
   return (
     <button type="button" onClick={handleClick} className="ui-btn ui-btn-large ui-btn-tertiary">
-      <ExercismIcon className="w-[24px] h-[24px]" />
+      <ExercismIcon className={styles.oauthIcon} />
       {children}
     </button>
   );
