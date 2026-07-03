@@ -1,5 +1,10 @@
 /* Premium page */
 
+.upgradeButton {
+    width: 260px;
+    font-weight: 600;
+}
+
 .page-header {
     position: relative;
     z-index: 1;

@@ -1,3 +1,11 @@
+.personRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
 .page {
     padding-top: 56px;
     padding-bottom: 80px;
