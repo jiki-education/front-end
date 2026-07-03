@@ -1,3 +1,21 @@
+.navLinks {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--color-gray-700);
+
+    @media (max-width: 719px) {
+        display: none;
+    }
+}
+
+.authButtons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+}
+
 .navLink {
     display: flex;
     align-items: center;

@@ -1,0 +1,25 @@
+.header {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    border-bottom: 2px solid var(--color-gray-200);
+    z-index: var(--z-index-modal);
+}
+
+.inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+}
+
+.logoLink {
+    display: flex;
+    align-items: center;
+    color: var(--color-gray-900);
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+}

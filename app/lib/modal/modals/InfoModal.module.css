@@ -1,0 +1,31 @@
+.body > * + * {
+    margin-top: 4px;
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-gray-900);
+}
+
+.content {
+    color: var(--color-gray-600);
+}
+
+.buttonRow {
+    display: flex;
+    justify-content: center;
+    margin-top: 6px;
+}
+
+.button {
+    padding: 2px 6px;
+    border-radius: 0.25rem;
+    background: var(--color-blue-600);
+    color: #fff;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+        background: var(--color-blue-700);
+    }
+}

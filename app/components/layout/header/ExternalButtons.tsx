@@ -9,7 +9,7 @@ export default function ExternalButtons() {
 
   return (
     <>
-      <div className="flex items-center gap-4 text-gray-700 max-[719px]:hidden">
+      <div className={styles.navLinks}>
         <Link href="https://jiki.io/blog/the-backstory-of-jiki" className={styles.navLink}>
           {t("aboutJiki")}
         </Link>
@@ -24,7 +24,7 @@ export default function ExternalButtons() {
         </Link>
       </div>
 
-      <div className="flex items-center gap-12 ml-auto">
+      <div className={styles.authButtons}>
         <Link href={routes.authLogin()} className="ui-btn ui-btn-small ui-btn-secondary">
           {t("login")}
         </Link>

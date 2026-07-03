@@ -1,6 +1,7 @@
 import { LocaleBanner } from "../i18n/LocaleBanner";
 import { ExternalFooter } from "./ExternalFooter";
 import Header from "./header/Header";
+import styles from "./HeaderLayout.module.css";
 
 interface AuthenticatedHeaderLayoutProps {
   children: React.ReactNode;
@@ -11,9 +12,9 @@ interface AuthenticatedHeaderLayoutProps {
 // headers (Accept-Language) and is skipped for crawlers.
 export default function HeaderLayout({ children }: AuthenticatedHeaderLayoutProps) {
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className={styles.layout}>
       <Header banner={<LocaleBanner />} />
-      <main className="flex-1">{children}</main>
+      <main className={styles.main}>{children}</main>
       <ExternalFooter />
     </div>
   );
