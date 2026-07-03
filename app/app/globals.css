@@ -6,6 +6,11 @@
  * get just the design tokens + hand-written ui-kit below.
  */
 
+/* Declare the cascade-layer order up front (globals loads before app.css)
+   so the base reset sits below Tailwind's utilities layer. Matches the order
+   Tailwind establishes, so app-page utilities override the reset. */
+@layer theme, base, components, utilities;
+
 /* ============================================
    BASE - reset (replaces Tailwind preflight)
    ============================================ */
