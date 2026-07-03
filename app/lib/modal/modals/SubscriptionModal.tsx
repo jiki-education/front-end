@@ -122,13 +122,13 @@ export function SubscriptionModal({
       {/* Feature Context Benefits */}
       {featuresContext && (
         <div className="bg-bg-secondary p-4 rounded-lg border border-border-secondary">
-          <h3 className="font-medium text-text-primary mb-3">
+          <h3 className="font-medium text-text-primary mb-12">
             {t("unlockWith", { feature: featuresContext.feature })}
           </h3>
           <ul className="space-y-2">
             {featuresContext.benefits.map((benefit, index) => (
               <li key={index} className="flex items-center text-sm text-text-secondary">
-                <span className="text-green-500 mr-3 flex-shrink-0" aria-hidden="true">
+                <span className="text-green-500 mr-12 flex-shrink-0" aria-hidden="true">
                   ✓
                 </span>
                 {benefit}
@@ -149,8 +149,8 @@ export function SubscriptionModal({
           }`}
         >
           {suggestedTier === "premium" && (
-            <div className="absolute -top-3 left-4">
-              <span className="bg-blue-600 text-white text-xs px-3 py-1 rounded-full">{t("recommended")}</span>
+            <div className="absolute -top-12 left-4">
+              <span className="bg-blue-600 text-white text-xs px-12 py-4 rounded-full">{t("recommended")}</span>
             </div>
           )}
 
@@ -168,7 +168,7 @@ export function SubscriptionModal({
           <ul className="space-y-2 mb-6">
             {premiumTier.features.map((feature: string, index: number) => (
               <li key={index} className="flex items-start text-sm text-text-secondary">
-                <span className="text-green-500 mr-3 mt-0.5 flex-shrink-0" aria-hidden="true">
+                <span className="text-green-500 mr-12 mt-0.5 flex-shrink-0" aria-hidden="true">
                   ✓
                 </span>
                 {feature}
@@ -190,7 +190,7 @@ export function SubscriptionModal({
 
       {/* Footer */}
       <div className="text-center pt-4 border-t border-border-secondary">
-        <p className="text-xs text-text-tertiary mb-3">{t("renewNotice")}</p>
+        <p className="text-xs text-text-tertiary mb-12">{t("renewNotice")}</p>
 
         <button onClick={handleClose} className="text-text-secondary hover:text-text-primary text-sm underline">
           {t("notNow")}

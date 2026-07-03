@@ -139,9 +139,9 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
       aria-label={t("statusAriaLabel", { status: statusInfo.text })}
     >
       <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-12">
           <div
-            className="px-3 py-1 rounded-full text-sm font-medium bg-blue-50 text-blue-700"
+            className="px-12 py-4 rounded-full text-sm font-medium bg-blue-50 text-blue-700"
             role="status"
             aria-label={t("currentPlanAriaLabel", { plan: tierDetails.name })}
           >
@@ -149,7 +149,7 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
             {t("planSuffix")}
           </div>
           <div
-            className={`px-2 py-1 rounded text-xs font-medium ${statusInfo.bgColor} ${statusInfo.color}`}
+            className={`px-2 py-4 rounded text-xs font-medium ${statusInfo.bgColor} ${statusInfo.color}`}
             role="status"
             aria-label={t("statusAriaLabel", { status: statusInfo.text })}
           >
@@ -165,11 +165,11 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
         </p>
 
         {/* Status-specific messages */}
-        {status === "canceled" && <p className="mt-1">{t("messageCanceled")}</p>}
-        {status === "payment_failed" && <p className="mt-1 text-red-600">{t("messagePaymentFailed")}</p>}
-        {status === "cancelling" && <p className="mt-1">{t("messageCancelling")}</p>}
-        {status === "incomplete" && <p className="mt-1 text-yellow-600">{t("messageIncomplete")}</p>}
-        {status === "incomplete_expired" && <p className="mt-1 text-red-600">{t("messageIncompleteExpired")}</p>}
+        {status === "canceled" && <p className="mt-4">{t("messageCanceled")}</p>}
+        {status === "payment_failed" && <p className="mt-4 text-red-600">{t("messagePaymentFailed")}</p>}
+        {status === "cancelling" && <p className="mt-4">{t("messageCancelling")}</p>}
+        {status === "incomplete" && <p className="mt-4 text-yellow-600">{t("messageIncomplete")}</p>}
+        {status === "incomplete_expired" && <p className="mt-4 text-red-600">{t("messageIncompleteExpired")}</p>}
       </div>
     </div>
   );

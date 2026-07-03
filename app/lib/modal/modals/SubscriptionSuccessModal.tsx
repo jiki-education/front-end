@@ -90,7 +90,7 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
 
       {/* Subscription Details */}
       <div className="bg-bg-secondary p-4 rounded-lg border border-border-secondary">
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-12">
           <span className="font-medium text-text-primary">{t("planLabel", { tier: tierInfo.name })}</span>
           <span className="text-2xl font-bold text-text-primary">
             <PremiumPrice interval="monthly" />
@@ -101,7 +101,7 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
         {content.features.length > 0 && (
           <div>
             <h4 className="font-medium text-text-primary mb-2 text-sm">{t("whatYouCanDo")}</h4>
-            <ul className="space-y-1 text-left">
+            <ul className="space-y-4 text-left">
               {content.features.map((feature, index) => (
                 <li key={index} className="flex items-start text-sm text-text-secondary">
                   <span className="text-green-500 mr-2 mt-0.5 flex-shrink-0" aria-hidden="true">
@@ -119,7 +119,7 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
       {nextSteps && (
         <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
           <h3 className="font-medium text-blue-900 mb-2">{nextSteps.title}</h3>
-          <p className="text-blue-800 text-sm mb-3">{nextSteps.description}</p>
+          <p className="text-blue-800 text-sm mb-12">{nextSteps.description}</p>
           <button
             onClick={handleNextSteps}
             className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
@@ -130,11 +130,11 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
       )}
 
       {/* Action Buttons */}
-      <div className="space-y-3">
+      <div className="space-y-12">
         {!nextSteps && (
           <button
             onClick={handleClose}
-            className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="w-full px-6 py-12 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
           >
             {t("continueLearning")}
           </button>

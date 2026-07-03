@@ -15,7 +15,7 @@ export function ResetPasswordForm() {
   const searchParams = useSearchParams();
   const { resetPassword, isLoading, error, clearError } = useAuthStore();
 
-  const [token] = useState(() => searchParams?.get("reset_password_token") || searchParams?.get("token") || "");
+  const [token] = useState(() => searchParams.get("reset_password_token") || searchParams.get("token") || "");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
@@ -115,7 +115,7 @@ export function ResetPasswordForm() {
           <label htmlFor="password" className="block text-sm font-medium text-gray-700">
             {t("newPasswordLabel")}
           </label>
-          <div className="mt-1">
+          <div className="mt-4">
             <input
               id="password"
               name="password"
@@ -129,7 +129,7 @@ export function ResetPasswordForm() {
                   setValidationErrors({ ...validationErrors, password: "" });
                 }
               }}
-              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              className="block w-full appearance-none rounded-md border border-gray-300 px-12 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               placeholder={t("newPasswordPlaceholder")}
             />
             {validationErrors.password && <p className="mt-2 text-sm text-red-600">{validationErrors.password}</p>}
@@ -140,7 +140,7 @@ export function ResetPasswordForm() {
           <label htmlFor="passwordConfirmation" className="block text-sm font-medium text-gray-700">
             {t("confirmPasswordLabel")}
           </label>
-          <div className="mt-1">
+          <div className="mt-4">
             <input
               id="passwordConfirmation"
               name="passwordConfirmation"
@@ -154,7 +154,7 @@ export function ResetPasswordForm() {
                   setValidationErrors({ ...validationErrors, passwordConfirmation: "" });
                 }
               }}
-              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              className="block w-full appearance-none rounded-md border border-gray-300 px-12 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
               placeholder={t("confirmPasswordPlaceholder")}
             />
             {validationErrors.passwordConfirmation && (

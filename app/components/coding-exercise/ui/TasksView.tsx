@@ -26,7 +26,7 @@ export default function TasksView({ tasks, orchestrator, className = "" }: Tasks
 
   return (
     <div className={`p-4 ${className}`}>
-      <ul className="space-y-3">
+      <ul className="space-y-12">
         {tasks.map((task, index) => {
           const progress = taskProgress.get(task.id);
           const isCompleted = completedTasks.has(task.id);
@@ -34,7 +34,7 @@ export default function TasksView({ tasks, orchestrator, className = "" }: Tasks
           const status = progress?.status || "not-started";
 
           return (
-            <li key={task.id} className="flex items-start gap-3">
+            <li key={task.id} className="flex items-start gap-12">
               <TaskStatusIndicator
                 index={index}
                 status={status}
@@ -69,12 +69,12 @@ export default function TasksView({ tasks, orchestrator, className = "" }: Tasks
                     </span>
                   )}
                 </div>
-                {task.description && <p className="text-xs text-gray-500 mt-1">{task.description}</p>}
+                {task.description && <p className="text-xs text-gray-500 mt-4">{task.description}</p>}
                 {progress && status === "in-progress" && (
                   <div className="mt-2">
-                    <div className="w-full bg-gray-200 rounded-full h-1">
+                    <div className="w-full bg-gray-200 rounded-full h-4">
                       <div
-                        className="bg-blue-500 h-1 rounded-full transition-all duration-300"
+                        className="bg-blue-500 h-4 rounded-full transition-all duration-300"
                         style={{
                           width: `${progress.totalScenarios > 0 ? (progress.passedScenarios.length / progress.totalScenarios) * 100 : 0}%`
                         }}

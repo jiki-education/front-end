@@ -53,7 +53,7 @@ export default function LearningTab() {
         </ActionField>
         <Link
           href={routes.article("streaks")}
-          className="text-sm text-gray-500 underline hover:text-gray-700 mt-1 inline-block"
+          className="text-sm text-gray-500 underline hover:text-gray-700 mt-4 inline-block"
         >
           {t("learnMore")}
         </Link>

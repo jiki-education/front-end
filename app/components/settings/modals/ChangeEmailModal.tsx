@@ -70,12 +70,12 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
 
       <form onSubmit={handleSubmit} className="space-y-16 ">
         <div className="ui-form-field-large">
-          <label className="block text-sm font-semibold mb-1">{t("currentEmailLabel")}</label>
+          <label className="block text-sm font-semibold mb-4">{t("currentEmailLabel")}</label>
           <input type="email" value={currentEmail} disabled />
         </div>
 
         <div className="ui-form-field-large">
-          <label htmlFor="new-email" className="block text-sm font-semibold mb-1">
+          <label htmlFor="new-email" className="block text-sm font-semibold mb-4">
             {t("newEmailLabel")}
           </label>
           <input
@@ -90,7 +90,7 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
         </div>
 
         <div className="ui-form-field-large">
-          <label htmlFor="current-password" className="block text-sm font-semibold mb-1">
+          <label htmlFor="current-password" className="block text-sm font-semibold mb-4">
             {t("passwordLabel")}
           </label>
           <input
@@ -101,12 +101,12 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
             placeholder={t("passwordPlaceholder")}
             disabled={isSaving}
           />
-          <p className="text-xs text-text-secondary mt-1">{t("passwordHint")}</p>
+          <p className="text-xs text-text-secondary mt-4">{t("passwordHint")}</p>
         </div>
 
-        {error && <div className="bg-red-50 text-red-600 p-3 rounded-md text-sm">{error}</div>}
+        {error && <div className="bg-red-50 text-red-600 p-12 rounded-md text-sm">{error}</div>}
 
-        <div className="flex gap-3 pt-4">
+        <div className="flex gap-12 pt-4">
           <button type="submit" disabled={isSaving} className="ui-btn ui-btn-small ui-btn-primary flex-1">
             {isSaving ? <LoadingSpinner size="sm" /> : t("submit")}
           </button>

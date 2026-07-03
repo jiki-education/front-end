@@ -68,7 +68,7 @@ export default function HintsPanel({ hints, walkthroughVideoData, lessonSlug, cl
 
       <div className="py-24 px-32">
         {hasHints && (
-          <ul className="space-y-3">
+          <ul className="space-y-12">
             {hints.map((hint, index) => {
               const isRevealed = revealedHints.has(index);
 

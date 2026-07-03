@@ -38,7 +38,7 @@ export default class SubscriptionErrorBoundary extends Component<
       return (
         <div className="bg-red-50 border border-red-200 rounded-lg p-6">
           <div className="flex items-center mb-4">
-            <div className="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+            <div className="w-12 h-12 bg-red-500 rounded-full mr-12"></div>
             <h3 className="font-medium text-red-900">Subscription System Error</h3>
           </div>
 
@@ -50,7 +50,7 @@ export default class SubscriptionErrorBoundary extends Component<
             <p>Please try refreshing the page, or contact support if the issue persists.</p>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex gap-12">
             <button
               onClick={() => window.location.reload()}
               className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors focus-ring"
@@ -66,7 +66,7 @@ export default class SubscriptionErrorBoundary extends Component<
           </div>
 
           {process.env.NODE_ENV === "development" && this.state.error && (
-            <details className="mt-4 p-3 bg-red-100 border border-red-300 rounded text-xs">
+            <details className="mt-4 p-12 bg-red-100 border border-red-300 rounded text-xs">
               <summary className="cursor-pointer font-medium text-red-900 mb-2">Error Details (Development)</summary>
               <pre className="text-red-800 whitespace-pre-wrap break-words">
                 {this.state.error.message}

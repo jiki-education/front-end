@@ -279,7 +279,7 @@ export function BootcampSection() {
               />
               <div className={`${styles.certificate} flex-shrink-0 mt-24 lg:mt-0`}>
                 <Image
-                  className="lg:w-[350px] w-100 rounded-[5px]"
+                  className="lg:w-[350px] rounded-[5px]"
                   style={{ boxShadow: "0 0 20px rgba(0,0,0,0.4)" }}
                   src={certificate}
                   alt={t("certificateAlt")}
