@@ -3,7 +3,7 @@
  * Tailwind theme colors and semantic color tokens
  */
 
-@theme {
+:root {
     /* UI Kit Color Palette */
     /* Blue Scale (Azure Radiance) */
     --color-blue-50: #eff5ff;
@@ -156,6 +156,10 @@
     --color-background-primary: white;
     --color-background-secondary: var(--color-gray-50);
     --color-background-tertiary: var(--color-gray-200);
+    /* bg-* aliases (also registered with Tailwind in app.css) */
+    --color-bg-primary: var(--color-background-primary);
+    --color-bg-secondary: var(--color-background-secondary);
+    --color-bg-tertiary: var(--color-background-tertiary);
     --color-text-primary: var(--color-gray-900);
     --color-text-secondary: var(--color-gray-500);
     --color-text-tertiary: var(--color-gray-400);
@@ -188,38 +192,8 @@
     --color-info-border: var(--color-blue-500);
 }
 
-@theme inline {
-    /* Semantic tokens for new theming system */
-    --color-bg-primary: var(--color-background-primary);
-    --color-bg-secondary: var(--color-background-secondary);
-    --color-bg-tertiary: var(--color-background-tertiary);
-    --color-text-primary: var(--color-text-primary);
-    --color-text-secondary: var(--color-text-secondary);
-    --color-text-tertiary: var(--color-text-tertiary);
-    --color-text-muted: var(--color-text-muted);
-    --color-border-primary: var(--color-border-primary);
-    --color-border-secondary: var(--color-border-secondary);
-    --color-surface-elevated: var(--color-surface-elevated);
-    --color-surface-overlay: var(--color-surface-overlay);
-    --color-button-primary-bg: var(--color-button-primary-bg);
-    --color-button-primary-text: var(--color-button-primary-text);
-    --color-button-secondary-bg: var(--color-button-secondary-bg);
-    --color-button-secondary-text: var(--color-button-secondary-text);
-    --color-link-primary: var(--color-link-primary);
-    --color-link-hover: var(--color-link-hover);
-    --color-success-bg: var(--color-success-bg);
-    --color-success-text: var(--color-success-text);
-    --color-success-border: var(--color-success-border);
-    --color-error-bg: var(--color-error-bg);
-    --color-error-text: var(--color-error-text);
-    --color-error-border: var(--color-error-border);
-    --color-warning-bg: var(--color-warning-bg);
-    --color-warning-text: var(--color-warning-text);
-    --color-warning-border: var(--color-warning-border);
-    --color-info-bg: var(--color-info-bg);
-    --color-info-text: var(--color-info-text);
-    --color-info-border: var(--color-info-border);
-}
+/* Semantic-token Tailwind registration (bg-*, text-*, ...) lives in app.css.
+   The underlying values are the plain :root custom properties above. */
 
 [data-theme="dark"] {
     --background: #0a0a0a;

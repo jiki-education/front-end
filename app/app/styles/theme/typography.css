@@ -3,7 +3,7 @@
  * Font families, sizes, and line heights
  */
 
-@theme {
+:root {
     --font-sans:
         var(--font-poppins), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
@@ -23,9 +23,8 @@ body {
         monospace;
 }
 
-@theme inline {
+:root {
     /* Font family configuration */
-    --font-poppins: var(--font-poppins);
     --font-mono:
         var(--font-source-code-pro), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
         monospace;
