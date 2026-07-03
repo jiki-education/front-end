@@ -13,11 +13,11 @@ export default function BlogPostCard({ post, locale }: BlogPostCardProps) {
   return (
     <article className="border-b border-border-primary pb-12 last:border-0">
       <Link href={postUrl} className="group">
-        <h2 className="mb-3 text-3xl font-bold text-text-primary transition-colors group-hover:text-link-primary">
+        <h2 className="mb-12 text-3xl font-bold text-text-primary transition-colors group-hover:text-link-primary">
           {post.title}
         </h2>
       </Link>
-      <div className="mb-4 flex items-center gap-3 text-sm text-text-secondary">
+      <div className="mb-4 flex items-center gap-12 text-sm text-text-secondary">
         <time dateTime={post.date}>
           {new Date(post.date).toLocaleDateString("en-US", {
             year: "numeric",
@@ -31,7 +31,7 @@ export default function BlogPostCard({ post, locale }: BlogPostCardProps) {
       <p className="mb-4 text-lg leading-relaxed text-text-primary">{post.excerpt}</p>
       <div className="flex flex-wrap gap-2">
         {post.tags.map((tag) => (
-          <span key={tag} className="rounded-full bg-info-bg px-3 py-1 text-sm text-info-text">
+          <span key={tag} className="rounded-full bg-info-bg px-12 py-4 text-sm text-info-text">
             {tag}
           </span>
         ))}

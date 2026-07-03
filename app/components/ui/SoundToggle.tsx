@@ -13,9 +13,9 @@ export function SoundToggle() {
       aria-label={muted ? "Unmute sounds" : "Mute sounds"}
     >
       {muted ? (
-        <VolumeX className="w-5 h-5 text-text-secondary" />
+        <VolumeX className="w-20 h-20 text-text-secondary" />
       ) : (
-        <Volume2 className="w-5 h-5 text-text-secondary" />
+        <Volume2 className="w-20 h-20 text-text-secondary" />
       )}
     </button>
   );

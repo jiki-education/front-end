@@ -65,7 +65,7 @@ export function ChangePasswordModal({ onSave }: ChangePasswordModalProps) {
 
       <form onSubmit={handleSubmit} className="space-y-16">
         <div className="ui-form-field-large">
-          <label htmlFor="current-password" className="block text-sm font-medium mb-1">
+          <label htmlFor="current-password" className="block text-sm font-medium mb-4">
             {t("currentLabel")}
           </label>
           <input
@@ -80,7 +80,7 @@ export function ChangePasswordModal({ onSave }: ChangePasswordModalProps) {
         </div>
 
         <div className="ui-form-field-large">
-          <label htmlFor="new-password" className="block text-sm font-medium mb-1">
+          <label htmlFor="new-password" className="block text-sm font-medium mb-4">
             {t("newLabel")}
           </label>
           <input
@@ -91,11 +91,11 @@ export function ChangePasswordModal({ onSave }: ChangePasswordModalProps) {
             placeholder={t("newPlaceholder")}
             disabled={isSaving}
           />
-          <p className="text-xs text-text-secondary mt-1">{t("newHint")}</p>
+          <p className="text-xs text-text-secondary mt-4">{t("newHint")}</p>
         </div>
 
         <div className="ui-form-field-large">
-          <label htmlFor="confirm-password" className="block text-sm font-medium mb-1">
+          <label htmlFor="confirm-password" className="block text-sm font-medium mb-4">
             {t("confirmLabel")}
           </label>
           <input
@@ -108,9 +108,9 @@ export function ChangePasswordModal({ onSave }: ChangePasswordModalProps) {
           />
         </div>
 
-        {error && <div className="bg-red-50 text-red-600 p-3 rounded-md text-sm">{error}</div>}
+        {error && <div className="bg-red-50 text-red-600 p-12 rounded-md text-sm">{error}</div>}
 
-        <div className="flex gap-3 pt-4">
+        <div className="flex gap-12 pt-4">
           <button type="submit" disabled={isSaving} className="ui-btn ui-btn-primary ui-btn-small flex-1">
             {isSaving ? <LoadingSpinner size="sm" /> : t("submit")}
           </button>

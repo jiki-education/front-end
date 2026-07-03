@@ -24,7 +24,7 @@ export default function NavigationLoadingOverlay({
         </div>
         <p className="mt-4 text-lg text-gray-700 font-medium">{message}</p>
         {/* Simple loading dots using Tailwind animations */}
-        <div className="mt-2 flex justify-center gap-1">
+        <div className="mt-2 flex justify-center gap-4">
           <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
           <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse [animation-delay:150ms]" />
           <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse [animation-delay:300ms]" />

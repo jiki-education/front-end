@@ -93,7 +93,7 @@ export default function ProfileSection({ settings, updateName, updateHandle, upd
               {t("confirmationPendingPrefix")}
               <strong>{settings.unconfirmed_email}</strong>
             </p>
-            <p className="text-xs mt-1">{t("confirmationPendingHint")}</p>
+            <p className="text-xs mt-4">{t("confirmationPendingHint")}</p>
           </StatusNotification>
         )}
         {!settings.email_confirmed && !settings.unconfirmed_email && (
