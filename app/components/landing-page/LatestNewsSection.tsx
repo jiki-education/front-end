@@ -1,9 +1,8 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import type { BlogPostMeta } from "@/lib/content/types";
-import { formatBlogDate } from "@/lib/utils";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
-import AuthorAvatar from "@/components/ui/AuthorAvatar";
+import BlogPostCard from "@/components/blog/BlogPostCard";
 import styles from "./LatestNewsSection.module.css";
 
 interface LatestNewsSectionProps {
@@ -30,33 +29,10 @@ export function LatestNewsSection({ posts }: LatestNewsSectionProps) {
         </p>
         <div className={styles.grid}>
           {posts.map((post) => (
-            <BlogPostCard key={post.slug} post={post} />
+            <BlogPostCard key={post.slug} post={post} styles={styles} headingLevel="h3" />
           ))}
         </div>
       </div>
     </section>
-  );
-}
-
-function BlogPostCard({ post }: { post: BlogPostMeta }) {
-  const t = useTranslations("landing.latestNews");
-  const routes = useLocaleRoutes();
-  return (
-    <Link href={routes.blogPost(post.slug)} className={styles.blogPostCard}>
-      <div
-        className={styles.postImage}
-        style={post.coverImage ? { backgroundImage: `url(${post.coverImage})` } : undefined}
-      />
-      <div className={styles.postMeta}>
-        <span className={styles.postDate}>{formatBlogDate(post.date)}</span>
-        {post.tags[0] && <span className={styles.postBadge}>{post.tags[0]}</span>}
-      </div>
-      <h3 className={styles.postTitle}>{post.title}</h3>
-      <p className={styles.postExcerpt}>{post.excerpt}</p>
-      <div className={styles.postAuthor}>
-        <AuthorAvatar author={post.author} />
-        <span>{t("byAuthor", { name: post.author.name })}</span>
-      </div>
-    </Link>
   );
 }

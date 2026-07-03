@@ -27,7 +27,7 @@ export default function BlogPage({ authenticated: _, locale, page }: BlogPagePro
           subtitle="Deep dives into programming languages, coding challenges, and the art of learning to code."
         />
         <FeaturedLatestPost post={latestPost} locale={locale} />
-        {remainingPosts.length > 0 && <BlogPostsGrid posts={remainingPosts} locale={locale} />}
+        {remainingPosts.length > 0 && <BlogPostsGrid posts={remainingPosts} />}
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
