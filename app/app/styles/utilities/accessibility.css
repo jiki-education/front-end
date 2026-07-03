@@ -4,12 +4,14 @@
  */
 
 /* Accessibility and focus states */
-.focus-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-link-primary focus:ring-offset-2;
+.focus-ring:focus-visible {
+    outline: 2px solid var(--color-link-primary);
+    outline-offset: 2px;
 }
 
-.focus-ring-inset {
-    @apply focus:outline-none focus:ring-2 focus:ring-link-primary focus:ring-inset;
+.focus-ring-inset:focus-visible {
+    outline: 2px solid var(--color-link-primary);
+    outline-offset: -2px;
 }
 
 .sr-only {
