@@ -1,4 +1,27 @@
 import { GoogleGenAI } from "@google/genai";
+import { debugLog } from "./log";
+
+/**
+ * Token usage for a completed request. Output is split into thinking vs visible
+ * (both billed as output); cachedTokens is the prefix-cached portion of the input.
+ */
+export interface GeminiUsage {
+  inputTokens: number;
+  cachedTokens: number;
+  outputTokens: number;
+  thinkingTokens: number;
+  visibleTokens: number;
+  totalTokens: number;
+}
+
+/** Result of opening a Gemini stream: the text stream, the model that served it,
+ *  and a promise resolving to token usage once streaming completes (null if the
+ *  final chunk carried no usageMetadata). */
+export interface GeminiStreamResult {
+  stream: ReadableStream;
+  model: string;
+  usage: Promise<GeminiUsage | null>;
+}
 
 const MODEL_CHAIN = [
   {
@@ -72,18 +95,18 @@ async function tryModel(
         contents: prompt,
         config: { ...config, systemInstruction }
       });
-      console.log(`[Gemini] Using model: ${model}`);
+      debugLog(`[Gemini] Using model: ${model}`);
       return result;
     } catch (error) {
       if (isRateLimitError(error)) {
-        console.log(`[Gemini] Rate limited on ${model}, trying next model`);
+        debugLog(`[Gemini] Rate limited on ${model}, trying next model`);
         return "rate-limited";
       }
       if (!isRetryableError(error) || attempt === MAX_RETRIES) {
         throw error;
       }
       const backoff = RETRY_BASE_DELAY_MS * 2 ** attempt;
-      console.log(
+      debugLog(
         `[Gemini] Retryable error on ${model} (attempt ${attempt + 1}/${MAX_RETRIES}), retrying in ${backoff}ms`
       );
       await delay(backoff);
@@ -112,39 +135,43 @@ async function openModelStream(
 }
 
 /**
- * Logs token usage for a completed request. Breaks output into thinking vs
- * visible tokens (thinking is billed as output) and surfaces cached prefix
- * tokens, so we can measure the impact of the thinking budget and prefix caching.
+ * Extracts token usage from the final stream chunk. Breaks output into thinking
+ * vs visible tokens (thinking is billed as output) and surfaces cached prefix
+ * tokens, so callers can measure the thinking budget and prefix-caching impact.
+ * Returns null if the chunk carried no usageMetadata.
  */
-function logUsage(model: string, usage: GeminiChunk): void {
-  const meta = (usage as { usageMetadata?: Record<string, number> }).usageMetadata;
+function extractUsage(chunk: GeminiChunk): GeminiUsage | null {
+  const meta = (chunk as { usageMetadata?: Record<string, number> }).usageMetadata;
   if (!meta) {
-    return;
+    return null;
   }
 
-  const promptTokens = meta.promptTokenCount ?? 0;
-  const cachedTokens = meta.cachedContentTokenCount ?? 0;
   // thoughtsTokenCount is billed as output but reported SEPARATELY from
   // candidatesTokenCount (the visible answer). Billed output = candidates + thoughts.
   const visibleTokens = meta.candidatesTokenCount ?? 0;
   const thinkingTokens = meta.thoughtsTokenCount ?? 0;
-  const outputTokens = visibleTokens + thinkingTokens;
-  const totalTokens = meta.totalTokenCount ?? 0;
-  const cachedPct = promptTokens > 0 ? Math.round((cachedTokens / promptTokens) * 100) : 0;
 
-  console.log(
-    `[Gemini Usage] model=${model} input=${promptTokens} (cached=${cachedTokens}, ${cachedPct}%) ` +
-      `output=${outputTokens} (thinking=${thinkingTokens}, visible=${visibleTokens}) ` +
-      `total=${totalTokens}`
-  );
+  return {
+    inputTokens: meta.promptTokenCount ?? 0,
+    cachedTokens: meta.cachedContentTokenCount ?? 0,
+    outputTokens: visibleTokens + thinkingTokens,
+    thinkingTokens,
+    visibleTokens,
+    totalTokens: meta.totalTokenCount ?? 0
+  };
 }
 
 /**
  * Wraps a Gemini stream as a ReadableStream of text chunks, invoking onChunk
  * for each non-empty chunk. Captures usage metadata (which arrives on the final
- * chunk, often with empty text) and logs it once streaming completes.
+ * chunk, often with empty text) and resolves `onUsage` with it once streaming
+ * completes, so the caller can attribute cost in its own summary log.
  */
-function toTextStream(result: GeminiStream, model: string, onChunk?: (chunk: string) => void): ReadableStream {
+function toTextStream(
+  result: GeminiStream,
+  onChunk: ((chunk: string) => void) | undefined,
+  onUsage: (usage: GeminiUsage | null) => void
+): ReadableStream {
   const encoder = new TextEncoder();
 
   return new ReadableStream({
@@ -162,12 +189,11 @@ function toTextStream(result: GeminiStream, model: string, onChunk?: (chunk: str
           onChunk?.(text);
           controller.enqueue(encoder.encode(text));
         }
-        if (lastChunk !== undefined) {
-          logUsage(model, lastChunk);
-        }
+        onUsage(lastChunk !== undefined ? extractUsage(lastChunk) : null);
         controller.close();
       } catch (error) {
         console.error("Gemini streaming error:", error);
+        onUsage(null);
         controller.error(error);
       }
     }
@@ -182,15 +208,23 @@ function toTextStream(result: GeminiStream, model: string, onChunk?: (chunk: str
  * @param apiKey - Google Gemini API key
  * @param systemInstruction - The persona + tutor rules, sent as systemInstruction
  * @param onChunk - Optional callback for each chunk (for collecting full response)
- * @returns A ReadableStream of text chunks
+ * @returns The text stream, the model that served it, and a promise resolving to
+ *          token usage once streaming completes.
  */
 export async function streamGeminiResponse(
   prompt: string,
   apiKey: string,
   systemInstruction: string,
   onChunk?: (chunk: string) => void
-): Promise<ReadableStream> {
+): Promise<GeminiStreamResult> {
   const ai = new GoogleGenAI({ apiKey });
   const { result, model } = await openModelStream(ai, prompt, systemInstruction);
-  return toTextStream(result, model, onChunk);
+
+  let resolveUsage: (usage: GeminiUsage | null) => void;
+  const usage = new Promise<GeminiUsage | null>((resolve) => {
+    resolveUsage = resolve;
+  });
+
+  const stream = toTextStream(result, onChunk, (u) => resolveUsage(u));
+  return { stream, model, usage };
 }

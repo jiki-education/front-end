@@ -1,4 +1,5 @@
 import { jwtVerify } from "jose";
+import { debugLog } from "./log";
 
 export interface JWTResult {
   userId: string | null;
@@ -23,29 +24,28 @@ export async function verifyJWT(token: string, secret: string): Promise<JWTResul
 
     // User ID is in the 'sub' claim (accept string or number)
     if (typeof payload.sub !== "string" && typeof payload.sub !== "number") {
-      console.log("Invalid token: missing or invalid sub claim");
+      debugLog("Invalid token: missing or invalid sub claim");
       return { userId: null, error: "missing_claim" };
     }
     const userId = String(payload.sub);
 
     // Exercise slug is required for chat tokens
     if (typeof payload.exercise_slug !== "string") {
-      console.log("Invalid token: missing or invalid exercise_slug claim");
+      debugLog("Invalid token: missing or invalid exercise_slug claim");
       return { userId: null, error: "missing_claim" };
     }
 
     return { userId, exerciseSlug: payload.exercise_slug };
   } catch (error) {
-    console.error("JWT verification failed:", error);
-
-    // Check if error is specifically due to expiration
-    if (error && typeof error === "object" && "code" in error) {
-      if (error.code === "ERR_JWT_EXPIRED") {
-        console.log("Token is expired");
-        return { userId: null, error: "expired" };
-      }
+    // Expired tokens are a routine client condition (the frontend auto-retries),
+    // so they are dev-only noise. Genuinely invalid tokens (bad signature,
+    // malformed) are unexpected and logged as errors even in production.
+    if (error && typeof error === "object" && "code" in error && error.code === "ERR_JWT_EXPIRED") {
+      debugLog("Token is expired");
+      return { userId: null, error: "expired" };
     }
 
+    console.error("JWT verification failed:", error);
     // All other errors (invalid signature, malformed token, etc.)
     return { userId: null, error: "invalid" };
   }
