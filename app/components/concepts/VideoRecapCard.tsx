@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { showVideoWalkthrough } from "@/lib/modal/app";
 import type { VideoSource } from "@/types/lesson";
 import styles from "./VideoRecapCard.module.css";
@@ -19,23 +20,25 @@ export function VideoRecapCard({ conceptSlug, videoData, isAuthenticated }: Vide
 }
 
 function LoggedInVideoRecapCard({ conceptSlug, playbackId }: { conceptSlug: string; playbackId: string }) {
+  const t = useTranslations("concepts.videoRecap");
   return (
     <VideoRecapCardShell
       conceptSlug={conceptSlug}
       playbackId={playbackId}
-      header="Rewatch the Lesson"
-      description="Remind yourself of when you learned this concept by watching back the teaching session"
+      header={t("loggedInHeader")}
+      description={t("loggedInDescription")}
     />
   );
 }
 
 function ExternalVideoRecapCard({ conceptSlug, playbackId }: { conceptSlug: string; playbackId: string }) {
+  const t = useTranslations("concepts.videoRecap");
   return (
     <VideoRecapCardShell
       conceptSlug={conceptSlug}
       playbackId={playbackId}
-      header="Watch the Lesson"
-      description="Learn this concept with Jeremy and Jiki!"
+      header={t("loggedOutHeader")}
+      description={t("loggedOutDescription")}
     />
   );
 }
@@ -48,6 +51,7 @@ interface VideoRecapCardShellProps {
 }
 
 function VideoRecapCardShell({ conceptSlug, playbackId, header, description }: VideoRecapCardShellProps) {
+  const t = useTranslations("concepts.videoRecap");
   const thumbnailUrl = `https://image.mux.com/${playbackId}/thumbnail.jpg?width=640&height=360`;
 
   const handleClick = () => {
@@ -71,10 +75,10 @@ function VideoRecapCardShell({ conceptSlug, playbackId, header, description }: V
         onKeyDown={handleKeyDown}
         role="button"
         tabIndex={0}
-        aria-label="Play lesson recap video"
+        aria-label={t("playAriaLabel")}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={thumbnailUrl} alt="Lesson recap thumbnail" />
+        <img src={thumbnailUrl} alt={t("thumbnailAlt")} />
         <div className={styles.playBtn}>
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <polygon points="6,4 20,12 6,20" />

@@ -972,7 +972,70 @@
       "quoteCloseAlt": "”"
     }
   },
+  "concepts": {
+    "breadcrumb": {
+      "root": "Coding Concepts"
+    },
+    "list": {
+      "heading": "Concept Library",
+      "intro": "Here you can review and revisit the concepts you've learned.",
+      "searchPlaceholder": "Search concepts...",
+      "tryAgain": "Try Again",
+      "emptyTitle": "No concepts yet",
+      "emptyBody": "Complete lessons to unlock new Concepts. Each concept you master in your lessons becomes available for you to review here.",
+      "noResultsTitle": "0 results for \"<query></query>\"",
+      "noResultsMessage": "Try a different search term or browse the library."
+    },
+    "card": {
+      "locked": "Locked",
+      "subConcepts": "{count} sub-concepts"
+    },
+    "error": {
+      "notFound": "Concept not found.",
+      "back": "Back to Concepts"
+    },
+    "relatedConcepts": {
+      "heading": "Related Concepts",
+      "description": "Check out these other related concepts:",
+      "locked": "This concept is locked"
+    },
+    "relatedExercises": {
+      "heading": "Related Exercises",
+      "description": "These exercises are great ways for you to practice this concept!",
+      "signupPrompt": "<link>Sign up</link> to solve them!",
+      "locked": "This exercise is locked"
+    },
+    "relatedProjects": {
+      "heading": "Related Projects",
+      "description": "These projects let you put this concept into practice on a bigger build.",
+      "locked": "This project is locked"
+    },
+    "videoRecap": {
+      "loggedInHeader": "Rewatch the Lesson",
+      "loggedInDescription": "Remind yourself of when you learned this concept by watching back the teaching session",
+      "loggedOutHeader": "Watch the Lesson",
+      "loggedOutDescription": "Learn this concept with Jeremy and Jiki!",
+      "playAriaLabel": "Play lesson recap video",
+      "thumbnailAlt": "Lesson recap thumbnail"
+    },
+    "signupCta": {
+      "title": "Ready to Start Your Coding Journey?",
+      "subtitle": "Join thousands of learners on Jiki. Practice coding exercises, get feedback from mentors, and level up your skills — it's free!",
+      "button": "Sign Up For Free"
+    },
+    "upgradeCard": {
+      "logoAlt": "Jiki",
+      "heading": "Start your <highlight>coding journey</highlight> today!",
+      "text": "Sign up to Jiki and learn to code with interactive exercises, real projects, and personalised support. Best of all, <free>it's free!</free>",
+      "button": "Sign Up For Free"
+    }
+  },
   "seo": {
+    "concepts": {
+      "title": "Concepts - Jiki",
+      "description": "Browse programming concepts and fundamentals to strengthen your understanding of computer science and software development.",
+      "notFound": "Concept Not Found"
+    },
     "achievements": {
       "title": "Achievements - Jiki",
       "description": "Track your progress and unlock achievements as you learn to code."

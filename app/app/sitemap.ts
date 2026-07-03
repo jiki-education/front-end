@@ -37,6 +37,7 @@ function articleEntries(): MetadataRoute.Sitemap {
 }
 
 function conceptEntries(): MetadataRoute.Sitemap {
-  const concepts = conceptMetaServer as { slug: string }[];
+  // Slugs are locale-independent; the en set is the canonical full list.
+  const concepts = (conceptMetaServer as Record<string, { slug: string }[] | undefined>).en ?? [];
   return concepts.map((concept) => entry(`/concepts/${concept.slug}`));
 }

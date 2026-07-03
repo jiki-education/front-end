@@ -16,6 +16,7 @@
     "exercise-cache:watch": "onchange '../curriculum/src/exercises/**/instructions/**' '../curriculum/src/exercises/**/stub.*' '../curriculum/src/exercises/**/solution.*' '../curriculum/src/exercises/**/metadata.json' -- node scripts/generate-exercise-cache.js",
     "concept-cache:generate": "node scripts/generate-concept-cache.js",
     "concept-cache:watch": "onchange '../curriculum/src/concepts/**' -- node scripts/generate-concept-cache.js",
+    "seed-language": "node scripts/seed-language.js",
     "icons:generate": "node scripts/generate-icon-types.js",
     "icons:watch": "pnpm run icons:generate && onchange 'icons/**/*.svg' -- pnpm run icons:generate",
     "test": "pnpm run icons:generate && jest",

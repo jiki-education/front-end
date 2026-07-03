@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./ConceptPill.module.css";
 
@@ -10,6 +11,7 @@ interface ConceptPillProps {
 
 export function ConceptPill({ title, slug, isUnlocked }: ConceptPillProps) {
   const routes = useLocaleRoutes();
+  const t = useTranslations("concepts.relatedConcepts");
   if (isUnlocked) {
     return (
       <Link href={routes.concept(slug)} className={`${styles.pill} ${styles.unlocked}`}>
@@ -20,7 +22,7 @@ export function ConceptPill({ title, slug, isUnlocked }: ConceptPillProps) {
   }
 
   return (
-    <span className={`${styles.pill} ${styles.locked}`} title="This concept is locked">
+    <span className={`${styles.pill} ${styles.locked}`} title={t("locked")}>
       <LockIcon />
       {title}
     </span>
@@ -33,14 +35,15 @@ interface RelatedConceptsPillsProps {
 }
 
 export function RelatedConceptsPills({ concepts, isUnlocked }: RelatedConceptsPillsProps) {
+  const t = useTranslations("concepts.relatedConcepts");
   if (concepts.length === 0) {
     return null;
   }
 
   return (
     <div className={styles.pillsCard}>
-      <h3 className={styles.pillsHeader}>Related Concepts</h3>
-      <p className={styles.pillsDescription}>Check out these other related concepts:</p>
+      <h3 className={styles.pillsHeader}>{t("heading")}</h3>
+      <p className={styles.pillsDescription}>{t("description")}</p>
       <div className={styles.pillsList}>
         {concepts.map((concept) => (
           <ConceptPill

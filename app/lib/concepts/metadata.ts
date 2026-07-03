@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import conceptMetaServer from "@/lib/generated/concept-meta-server.json";
 
 interface ConceptMetaEntry {
@@ -8,12 +9,14 @@ interface ConceptMetaEntry {
   image: string | null;
 }
 
-const concepts = conceptMetaServer as ConceptMetaEntry[];
+const conceptsByLocale = conceptMetaServer as Record<string, ConceptMetaEntry[] | undefined>;
 
-export function getConceptMetadata(slug: string): Metadata {
+export async function getConceptMetadata(slug: string, locale: string = "en"): Promise<Metadata> {
+  const concepts = conceptsByLocale[locale] ?? conceptsByLocale["en"] ?? [];
   const concept = concepts.find((c) => c.slug === slug);
   if (!concept) {
-    return { title: "Concept Not Found" };
+    const t = await getTranslations("seo.concepts");
+    return { title: t("notFound") };
   }
   return {
     title: concept.title,

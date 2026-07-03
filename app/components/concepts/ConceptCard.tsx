@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import SubConceptIcon from "@/icons/subconcept.svg";
 import LockedIcon from "@/icons/locked.svg";
 import styles from "@/app/styles/modules/concepts.module.css";
@@ -21,6 +22,7 @@ interface ConceptCardProps {
 
 export default function ConceptCard({ concept, smallVersion = false }: ConceptCardProps) {
   const routes = useLocaleRoutes();
+  const t = useTranslations("concepts.card");
   const isLocked = concept.userMayAccess === false;
   const hasSubConcepts = (concept.subConceptCount ?? 0) > 0;
   const nodeClass = hasSubConcepts ? styles.parentNode : styles.leafNode;
@@ -30,7 +32,7 @@ export default function ConceptCard({ concept, smallVersion = false }: ConceptCa
       {isLocked && (
         <div className={styles.lockBadge}>
           <LockedIcon />
-          Locked
+          {t("locked")}
         </div>
       )}
       <div className={styles.conceptIcon}>
@@ -42,7 +44,7 @@ export default function ConceptCard({ concept, smallVersion = false }: ConceptCa
         {!isLocked && hasSubConcepts && (
           <div className={styles.subConceptCount}>
             <SubConceptIcon />
-            <span>{concept.subConceptCount} sub-concepts</span>
+            <span>{t("subConcepts", { count: concept.subConceptCount ?? 0 })}</span>
           </div>
         )}
       </div>

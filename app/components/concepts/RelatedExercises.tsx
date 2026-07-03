@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import type { LessonStatus } from "@/lib/api/lesson-progress";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { LessonIcon } from "@/components/icons/LessonIcon";
@@ -17,20 +18,24 @@ interface RelatedExercisesProps {
 
 export function RelatedExercises({ exercises, getStatus, isAuthenticated }: RelatedExercisesProps) {
   const routes = useLocaleRoutes();
+  const t = useTranslations("concepts.relatedExercises");
   if (exercises.length === 0) {
     return null;
   }
 
   return (
     <div className={styles.card}>
-      <h3 className={styles.header}>Related Exercises</h3>
-      <p className={styles.description}>These exercises are great ways for you to practice this concept!</p>
+      <h3 className={styles.header}>{t("heading")}</h3>
+      <p className={styles.description}>{t("description")}</p>
       {!isAuthenticated && (
         <p className={styles.signupPrompt}>
-          <Link href={routes.authSignup()} className={styles.signupLink}>
-            Sign up
-          </Link>{" "}
-          to solve them!
+          {t.rich("signupPrompt", {
+            link: (chunks) => (
+              <Link href={routes.authSignup()} className={styles.signupLink}>
+                {chunks}
+              </Link>
+            )
+          })}
         </p>
       )}
       <div className={styles.list}>
@@ -43,12 +48,13 @@ export function RelatedExercises({ exercises, getStatus, isAuthenticated }: Rela
 }
 
 function ExerciseItem({ exercise, status }: { exercise: ExerciseItem; status: LessonStatus }) {
+  const t = useTranslations("concepts.relatedExercises");
   const stateClass = statusToClass(status);
   const className = `${styles.item} ${stateClass}`;
 
   if (status === "locked") {
     return (
-      <span className={className} title="This exercise is locked">
+      <span className={className} title={t("locked")}>
         <LessonIcon slug={exercise.slug} width={48} height={48} />
         <span className={styles.itemName}>{exercise.title}</span>
       </span>

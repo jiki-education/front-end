@@ -1,19 +1,18 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./SignupCta.module.css";
 
 export function SignupCta() {
   const routes = useLocaleRoutes();
+  const t = useTranslations("concepts.signupCta");
   return (
     <div className={styles.wrapper}>
       <div className={styles.cta}>
-        <h2 className={styles.title}>Ready to Start Your Coding Journey?</h2>
-        <p className={styles.subtitle}>
-          Join thousands of learners on Jiki. Practice coding exercises, get feedback from mentors, and level up your
-          skills — it&apos;s free!
-        </p>
+        <h2 className={styles.title}>{t("title")}</h2>
+        <p className={styles.subtitle}>{t("subtitle")}</p>
         <Link href={routes.authSignup()} className={styles.button}>
-          Sign Up For Free
+          {t("button")}
         </Link>
       </div>
     </div>

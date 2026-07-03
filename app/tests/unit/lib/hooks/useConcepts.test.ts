@@ -117,7 +117,7 @@ describe("useConcepts", () => {
     });
 
     expect(result.current.searchQuery).toBe("variables");
-    expect(mockSearchConcepts).toHaveBeenCalledWith("variables", null);
+    expect(mockSearchConcepts).toHaveBeenCalledWith("variables", null, "en");
   });
 
   it("resets to all concepts when search is cleared", async () => {

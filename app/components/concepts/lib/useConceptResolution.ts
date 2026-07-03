@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 import { getConcept, getAncestors, getConcepts } from "@/lib/api/concepts";
 import { fetchUnlockedConceptSlugs, expandUnlocked } from "@/lib/api/concept-unlocks";
 import { useAuthStore } from "@/lib/auth/authStore";
@@ -33,6 +34,7 @@ export function useConceptResolution(
   { initialConcept = null, initialAncestors = [] }: UseConceptResolutionOptions = {}
 ): ConceptResolution {
   const router = useRouter();
+  const locale = useLocale();
   const conceptsPath = useLocaleRoutes().concepts();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const seeded = initialConcept !== null && !isAuthenticated;
@@ -53,7 +55,7 @@ export function useConceptResolution(
     const load = async () => {
       try {
         setError(null);
-        const [conceptData, ancestorData] = await Promise.all([getConcept(slug), getAncestors(slug)]);
+        const [conceptData, ancestorData] = await Promise.all([getConcept(slug, locale), getAncestors(slug, locale)]);
         if (cancelled) {
           return;
         }
@@ -67,7 +69,7 @@ export function useConceptResolution(
         // Categories are never returned by the unlock API directly, so a logged-in
         // user viewing a category whose subtree is entirely locked is redirected.
         if (isAuthenticated && conceptData.category) {
-          const [allConcepts, rawUnlocked] = await Promise.all([getConcepts(), fetchUnlockedConceptSlugs()]);
+          const [allConcepts, rawUnlocked] = await Promise.all([getConcepts(locale), fetchUnlockedConceptSlugs()]);
           // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           if (cancelled) {
             return;
@@ -94,7 +96,7 @@ export function useConceptResolution(
     return () => {
       cancelled = true;
     };
-  }, [slug, isAuthenticated, initialConcept, router, conceptsPath]);
+  }, [slug, isAuthenticated, initialConcept, router, conceptsPath, locale]);
 
   return { concept, ancestors, isLoading, error };
 }

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { useTranslations } from "next-intl";
 import styles from "@/app/styles/modules/concepts.module.css";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import type { ConceptAncestor } from "@/types/concepts";
@@ -18,13 +19,14 @@ interface BreadcrumbProps {
 
 export default function Breadcrumb({ conceptTitle, ancestors = [] }: BreadcrumbProps) {
   const routes = useLocaleRoutes();
+  const t = useTranslations("concepts.breadcrumb");
   const breadcrumbItems: BreadcrumbItem[] = [];
 
   // If no concept title, we're on the "Coding Concepts" page
   if (!conceptTitle) {
-    breadcrumbItems.push({ label: "Coding Concepts", isCurrent: true });
+    breadcrumbItems.push({ label: t("root"), isCurrent: true });
   } else {
-    breadcrumbItems.push({ label: "Coding Concepts", href: routes.concepts() });
+    breadcrumbItems.push({ label: t("root"), href: routes.concepts() });
 
     // Add ancestors to breadcrumb path
     for (const ancestor of ancestors) {

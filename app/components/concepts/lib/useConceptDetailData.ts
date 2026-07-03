@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 import {
   getConcept,
   getConcepts,
@@ -46,6 +47,7 @@ interface ConceptDetailData {
 
 interface ConceptSetupContext {
   slug: string;
+  locale: string;
   router: ReturnType<typeof useRouter>;
   // Localized "/concepts" path (naked or /<locale>-prefixed) to redirect to when the
   // requested concept is locked. Resolved in the hook where the ambient locale is
@@ -63,7 +65,7 @@ interface ConceptSetupContext {
 async function setupForLoggedInUser(exercises: ExerciseInfo[], ctx: ConceptSetupContext) {
   const [rawUnlockedSlugs, allConcepts, projectsResponse, video] = await Promise.all([
     fetchUnlockedConceptSlugs(),
-    getConcepts(),
+    getConcepts(ctx.locale),
     fetchProjects({ per: 100 }).catch(() => ({ results: [] as ProjectData[] })),
     fetchConceptVideoData(ctx.slug)
   ]);
@@ -134,6 +136,7 @@ async function setupForExternalUser(exercises: ExerciseInfo[], ctx: ConceptSetup
 
 export function useConceptDetailData(slug: string, initialData: ConceptDetailSeed | null = null): ConceptDetailData {
   const router = useRouter();
+  const locale = useLocale();
   const conceptsPath = useLocaleRoutes().concepts();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   // Logged-out visitors are seeded with the server-rendered leaf (all unlocked).
@@ -164,6 +167,7 @@ export function useConceptDetailData(slug: string, initialData: ConceptDetailSee
 
     const ctx: ConceptSetupContext = {
       slug,
+      locale,
       router,
       conceptsPath,
       isCancelled: () => cancelled,
@@ -185,7 +189,7 @@ export function useConceptDetailData(slug: string, initialData: ConceptDetailSee
         // Phase 1: resolve concept + ancestors (fast — served from in-memory cache).
         // This gives us the real title and breadcrumb immediately so the correct
         // skeleton renders without any intermediate wrong-layout flash.
-        const [conceptData, ancestorData] = await Promise.all([getConcept(slug), getAncestors(slug)]);
+        const [conceptData, ancestorData] = await Promise.all([getConcept(slug, locale), getAncestors(slug, locale)]);
         if (cancelled) {
           return;
         }
@@ -205,7 +209,7 @@ export function useConceptDetailData(slug: string, initialData: ConceptDetailSee
         // depends on the slug + category flag from Phase 1, not on related/exercise data.
         if (!conceptData.category) {
           setIsContentLoading(true);
-          void getConceptContent(slug)
+          void getConceptContent(slug, locale)
             .then((contentHtml) => {
               if (!cancelled) {
                 setContent(contentHtml);
@@ -224,7 +228,10 @@ export function useConceptDetailData(slug: string, initialData: ConceptDetailSee
         }
 
         // Phase 2: fetch the slower secondary data in the background.
-        const [related, exercises] = await Promise.all([getRelatedConcepts(slug), getExercisesForConcept(slug)]);
+        const [related, exercises] = await Promise.all([
+          getRelatedConcepts(slug, locale),
+          getExercisesForConcept(slug, locale)
+        ]);
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (cancelled) {
           return;
@@ -252,7 +259,7 @@ export function useConceptDetailData(slug: string, initialData: ConceptDetailSee
     return () => {
       cancelled = true;
     };
-  }, [slug, isAuthenticated, router, seeded, conceptsPath]);
+  }, [slug, isAuthenticated, router, seeded, conceptsPath, locale]);
 
   const isConceptUnlocked = (conceptSlug: string) => isUnlocked(unlockedConceptSlugs, conceptSlug, isAuthenticated);
 
