@@ -9,15 +9,15 @@ It should look something like this:
 
 <img src="/static/images/exercise-assets/rainbow-ball/example.gif" alt="Animated rainbow ball bouncing around the canvas leaving a coloured trail" style="width: 100%; max-width: 200px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-As part of this exercise, you have a function called `Math.randomInt(min, max)` which returns a random integer between the `min` and `max` you give it.
+As part of this exercise, you have the `Math.randomInt(min, max)` function which returns a random integer between the `min` and `max` you give it.
 
-Take a few minutes to think through how you could solve this. This is the most valuable part of the exercise, so take your time and **write down your ideas before you read the instructions below.** When you've got an idea of your approach, read on.
+Take a few minutes to think through how you could solve this. This is the most valuable part of the exercise, so take your time and **write down your ideas before you read the formula below.**
 
----
+When you've got an idea of your approach, read on. But don't read on until you've spent some time thinking!
 
-## Instructions
+## The Formula
 
-This exercise is all about having some variables that are responsible for the position of the ball, which steadily increase or decrease. And other variables that control **how** the ball is moving and change when certain criteria are met.
+This project is all about having some variables that are responsible for the position of the ball, which steadily increase or decrease. And other variables that control **how** the ball is moving and change when certain criteria are met.
 
 ### Drawing
 
@@ -32,7 +32,7 @@ This exercise is all about having some variables that are responsible for the po
 
 ### Bouncing
 
-- Once the ball reaches the edge of the canvas it should change direction. (Check the hints below if you can't work out how to do this.)
+- Once the ball reaches the edge of the canvas it should change direction. (Check the hints if you can't work out how to do this.)
 - To make things more fun you should change direction using the `Math.randomInt(min, max)` function. Choose `min` and `max` that give the style of animation you want.
 
 ## To pass the checks
@@ -44,7 +44,7 @@ We've given you a lot of leeway in this exercise. We check that:
 
 The numbers that you choose to achieve that are up to you. You probably want a repeat block that iterates between `500` and `1000` times.
 
-## Hints
+## Break it down...
 
 The key to this exercise is to do things one at a time:
 
