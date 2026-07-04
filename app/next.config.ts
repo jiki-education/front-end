@@ -13,7 +13,8 @@ const nextConfig: NextConfig = {
   // sends a real Chrome UA so neither would see metadata in <head> without this.
   htmlLimitedBots: /.*/,
   experimental: {
-    reactCompiler: true
+    reactCompiler: true,
+    cssChunking: "strict"
   },
   images: {
     unoptimized: true,
