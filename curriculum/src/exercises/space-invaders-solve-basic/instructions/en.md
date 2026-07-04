@@ -3,7 +3,7 @@ title: "Space Invaders: Solve Basic"
 description: "Shoot down some aliens in your first taste of Space Invaders."
 ---
 
-Welcome to your second exercise - Space Invaders! Over the coming weeks you're going to build a fully automated laser to shoot down the aliens. But for now, your job is just to shoot down all the aliens manually!
+Welcome to your second exercise - Space Invaders! This is a classic 1970s arcade game, and one of the first I ever played. Over the coming weeks you're going to build a fully automated laser to shoot down the aliens. But for now, your job is just to shoot down all the aliens manually!
 
 You have two functions:
 
