@@ -3,24 +3,24 @@
   "levelId": "conditionals-and-state",
   "hints": [
     {
-      "question": "How do I draw a whole grid of squares?",
-      "answer": "Use nested `repeat` loops with two counters. The outer loop walks down the rows (changing `row`), and the inner loop walks across the columns (changing `col`). Draw one square each time the inner loop runs."
+      "question": "How do I draw a whole grid of squares rather than just one?",
+      "answer": "Use nested loops: an outer loop that steps through the rows and an inner loop that steps through the columns. Draw one square each time the inner loop runs."
     },
     {
-      "question": "How do I leave a 2-unit border and keep the squares a whole number?",
-      "answer": "The board fills the canvas minus a `2` border on each side, so the usable space is `100 - 2 * 2 = 96`. Split that across 8 squares: `cell = 96 / 8 = 12`. A square at (row, col) has its top-left at `2 + col * 12`, `2 + row * 12`."
+      "question": "How do I make it work whatever the board size is?",
+      "answer": "Don't pick a fixed square size. Ask `getBoardSize()` how many squares there are, work out a single `cell` size from that and the space available, and build every position as a multiple of it."
     },
     {
-      "question": "How do I decide if a square is dark or light?",
-      "answer": "Add the row and column and look at the remainder. `(row + col) % 2 === 1` is true for the dark squares and false for the light ones. That single test gives you the whole checkerboard pattern."
+      "question": "How do I make the squares alternate colours?",
+      "answer": "Look at a square's row and column together. The remainder operator (`%`) lets you split every square into one of two groups based on `row` and `col`, and those two groups are exactly the light and dark squares."
     },
     {
-      "question": "Where do the pieces go?",
-      "answer": "Pieces only sit on the **dark** squares, so reuse the `(row + col) % 2` test. The top three rows (`row` 0, 1, 2) get red pieces; the bottom three rows (`row` 5, 6, 7) get blue. The middle two rows stay empty. Draw each piece as a circle centred in its square."
+      "question": "Which squares get pieces?",
+      "answer": "Pieces only sit on the **dark** squares, so you can reuse the same test you used to colour them. Then narrow it further to only the top and bottom rows, leaving the middle two empty."
     },
     {
-      "question": "How big should each piece be?",
-      "answer": "Centre the circle in its square: `2 + col * 12 + 6` across and `2 + row * 12 + 6` down. Give it a radius of `5` (half a square, minus 1) so it sits neatly inside with a small gap."
+      "question": "How do I draw a ridged piece?",
+      "answer": "Draw two circles at the same centre: a larger one for the rim, then a slightly smaller one on top in the piece's colour. Base both radii on the cell size so the pieces scale with the board."
     }
   ]
 }

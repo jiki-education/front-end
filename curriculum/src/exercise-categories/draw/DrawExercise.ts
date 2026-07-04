@@ -151,12 +151,38 @@ export abstract class DrawExercise extends VisualExercise {
     const rect = getRectangleAt(this.shapes, x, y, width, height);
     return rect !== undefined && rect.fillColor === resolveNamedColor(color);
   }
+  // Match a point being covered by any rectangle of the given colour, regardless of that
+  // rectangle's exact bounds. Lets a filled area (e.g. a border) be drawn as one big
+  // rectangle or several smaller ones and still be recognised.
+  public hasRectangleCoveringPointWithColor(x: number, y: number, color: string): boolean {
+    const resolved = resolveNamedColor(color);
+    return this.shapes.some(
+      (shape) =>
+        shape instanceof Rectangle &&
+        shape.fillColor === resolved &&
+        shape.x <= x &&
+        x <= shape.x + shape.width &&
+        shape.y <= y &&
+        y <= shape.y + shape.height
+    );
+  }
   public hasCircleAt(cx: number, cy: number, radius: number): boolean {
     return getCircleAt(this.shapes, cx, cy, radius) !== undefined;
   }
   public hasCircleAtWithColor(cx: number, cy: number, radius: number, color: string): boolean {
     const circle = getCircleAt(this.shapes, cx, cy, radius);
     return circle !== undefined && circle.fillColor === resolveNamedColor(color);
+  }
+  // Match a circle by its centre only (any radius) - useful when the radius is derived
+  // from a scaling factor and so isn't a predictable whole number.
+  public hasCircleCenteredAt(cx: number, cy: number): boolean {
+    return this.shapes.some((shape) => shape instanceof Circle && shape.cx === cx && shape.cy === cy);
+  }
+  public hasCircleCenteredAtWithColor(cx: number, cy: number, color: string): boolean {
+    return this.shapes.some(
+      (shape) =>
+        shape instanceof Circle && shape.cx === cx && shape.cy === cy && shape.fillColor === resolveNamedColor(color)
+    );
   }
   public hasEllipseAt(x: number, y: number, rx: number, ry: number): boolean {
     return getEllipseAt(this.shapes, x, y, rx, ry) !== undefined;
