@@ -113,7 +113,7 @@
     font-size: 16px;
     color: var(--color-gray-500);
     line-height: 1.6;
-    margin-bottom: 32px;
+    margin-bottom: 16px;
 }
 
 .modalMessage strong {
@@ -191,7 +191,7 @@
 
     p {
         margin: 0;
-        font-size: 14px;
+        font-size: 15px;
         color: var(--color-gray-700);
         line-height: 1.5;
     }
