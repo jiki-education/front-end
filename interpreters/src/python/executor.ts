@@ -146,6 +146,7 @@ export interface ExecutorResult {
     assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
     numFunctionCallsInCode: (funcName: string) => number;
     assertOperatorUsed: (operator: string) => boolean;
+    assertStatement: (type: string, opts?: { args?: Array<unknown>; count?: number }) => boolean;
   };
 }
 
@@ -333,6 +334,8 @@ export class Executor {
           ).length;
         },
         assertOperatorUsed: (operator: string) => extractOperators(statements).includes(operator),
+        // TODO: JS-only for now. Implement statement matching for Python when needed.
+        assertStatement: () => false,
       },
     };
   }

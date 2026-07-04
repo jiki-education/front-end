@@ -117,6 +117,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         assertFunctionCalledOutsideOwnDefinition: () => true,
         numFunctionCallsInCode: () => 0,
         assertOperatorUsed: () => true,
+        assertStatement: () => true,
       },
     };
   }

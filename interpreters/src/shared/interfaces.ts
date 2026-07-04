@@ -89,5 +89,6 @@ export interface InterpretResult {
     assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
     numFunctionCallsInCode: (funcName: string) => number;
     assertOperatorUsed: (operator: string) => boolean;
+    assertStatement: (type: string, opts?: { args?: Array<unknown>; count?: number }) => boolean;
   };
 }

@@ -90,6 +90,7 @@ import {
   countArrayExpressions,
   extractCallExpressionsExcludingFunctionBody,
   extractOperators,
+  findMatchingStatements,
 } from "./assertion-helpers";
 import { createRandomFn } from "../shared/random";
 
@@ -176,6 +177,7 @@ export interface ExecutorResult {
     assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
     numFunctionCallsInCode: (funcName: string) => number;
     assertOperatorUsed: (operator: string) => boolean;
+    assertStatement: (type: string, opts?: { args?: Array<unknown>; count?: number }) => boolean;
   };
 }
 
@@ -435,6 +437,10 @@ export class Executor {
           ).length;
         },
         assertOperatorUsed: (operator: string) => extractOperators(statements).includes(operator),
+        assertStatement: (type: string, opts?: { args?: Array<unknown>; count?: number }) => {
+          const matches = findMatchingStatements(statements, type, opts?.args);
+          return opts?.count !== undefined ? matches.length === opts.count : matches.length >= 1;
+        },
       },
     };
   }

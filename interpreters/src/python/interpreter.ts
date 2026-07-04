@@ -96,6 +96,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         assertFunctionCalledOutsideOwnDefinition: () => true,
         numFunctionCallsInCode: () => 0,
         assertOperatorUsed: () => true,
+        assertStatement: () => true,
       },
     };
   }
@@ -244,6 +245,8 @@ export function evaluateFunction(
         ).length;
       },
       assertOperatorUsed: (operator: string) => extractOperators(statements).includes(operator),
+      // TODO: JS-only for now. Implement statement matching for Python when needed.
+      assertStatement: () => false,
     },
   };
 }

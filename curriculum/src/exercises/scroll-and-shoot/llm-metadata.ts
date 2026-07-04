@@ -9,23 +9,17 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise lets a student explore position/direction state, boundary reversal, and conditional shooting inside a game loop. There are many valid structures; encourage breaking it into movement first, then shooting.
+    Automate winning Space Invaders by scrolling the laser back and forth and shooting aliens. The core is the same bounce-at-the-edges pattern as the rainbow-ball exercise, but tracked with a position/direction pair rather than coordinates.
   `,
 
   tasks: {
     "scroll-and-shoot": {
       description: `
-        Track position and direction, reverse at the edges, check isAlienAbove() before shooting, and move each tick.
+        One task graded across five waves of increasing density: one-alien, one-row, two-rows, three-rows, then full-rows. The same solution should clear them all, so the progression is about confidence, not new logic — get it working on one-alien first, then trust it scales.
 
-        Common mistakes: not tracking position and going off-screen; calling shoot() without checking for an alien (wastes ammo, loses); not reversing at boundaries; shooting twice in a row without moving (overheats).
+        The final wave (full-rows) enables respawning aliens and enforces a code check: the loop must be a run-forever repeat() with no counted repeat(n), because the number of shots needed is unknowable. A student who solved earlier waves with a fixed repeat(30) will pass those but fail full-rows on the code check, not the game — point them at converting to repeat().
 
-        Teaching strategy: get movement working before adding shooting. The bounce-at-edges logic mirrors the rainbow-ball-bouncing exercise.
-      `
-    },
-
-    "bonus-challenges": {
-      description: `
-        Builds on the working solution under tighter constraints. "No repeat" forces the repeatUntilGameOver loop instead of a fixed count. "One shoot()" forces a single conditional shoot() call rather than duplicating it, pushing toward one consolidated game loop.
+        Common mistakes: going off-screen (not reversing at the boundary); calling shoot() without an isAlienAbove() check (wastes ammo, instant loss); shooting twice without moving in between (the cannon overheats).
       `
     }
   }
