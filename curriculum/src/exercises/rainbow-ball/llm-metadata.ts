@@ -23,7 +23,7 @@ export const llmMetadata: LLMMetadata = {
 
         Common mistakes worth watching for:
         - Testing hueDirection instead of hue for the colour boundary.
-        - Using fixed values rather than randomNumber() for the new direction.
+        - Using fixed values rather than Math.randomInt() for the new direction.
         - Wrong sign on a reversed direction.
         - Updating x/y/hue after the boundary checks instead of before.
       `

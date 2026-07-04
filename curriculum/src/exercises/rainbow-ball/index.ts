@@ -27,7 +27,8 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  interpreterOptions: { maxTotalLoopIterations: 1000 }
+  conceptSlugs: ["variables", "updating-variables", "if", "state", "repeat", "random", "hsl"],
+  interpreterOptions: { maxTotalLoopIterations: 1000, repeatDelay: 10 }
 };
 
 export default exerciseDefinition;
