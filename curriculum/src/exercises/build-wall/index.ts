@@ -19,7 +19,8 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["nested-loops", "modulo", "if", "else", "updating-variables"]
 };
 
 export default exerciseDefinition;

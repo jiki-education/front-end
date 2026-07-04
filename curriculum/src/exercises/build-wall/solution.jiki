@@ -1,23 +1,25 @@
 set height to 10
 set width to 20
 
-set col to -1
-set row to -1
+set col to 0
+set y to 100
 
+set row_index to -1
 set num_iterations to 0
 
 repeat 10 times do
-  change row to row + 1
-  if row % 2 == 0 do
-    change col to -1
+  change y to y - height
+  change row_index to row_index + 1
+  if row_index % 2 == 0 do
+    change col to 0
     change num_iterations to 5
   else do
-    change col to -1.5
+    change col to -0.5
     change num_iterations to 6
   end
 
   repeat num_iterations times do
+    rectangle(col * width, y, width, height, "brick")
     change col to col + 1
-    rectangle(col * width, row * height, width, height, "brick")
   end
 end

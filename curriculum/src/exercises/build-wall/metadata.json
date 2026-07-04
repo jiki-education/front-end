@@ -12,11 +12,11 @@
     },
     {
       "question": "How do I deal with the rows being offset differently?",
-      "answer": "Treat odd-numbered rows differently from even-numbered ones. Rows `0, 2, 4, ...` start at `x = 0` with 5 bricks; rows `1, 3, 5, ...` start at `x = -10` with 6 bricks (the extra brick hangs off-screen)."
+      "answer": "Look closely at the picture. Every other row is shifted sideways and has a different number of bricks. So you'll want to handle the two kinds of row differently, choosing a starting position and a brick count for each."
     },
     {
       "question": "How do I tell if a row number is odd or even?",
-      "answer": "Use the `%` operator. `row % 2 === 0` is true for even rows, and false for odd rows. Use that inside an `if` to pick the starting x and brick count."
+      "answer": "The `%` (modulo) operator gives you the remainder after dividing. Dividing a row number by 2 gives you a way to tell odd rows apart from even ones, which you can then test inside an `if`."
     },
     {
       "question": "What sizes and spacings do I use?",
