@@ -39,6 +39,12 @@ function boardExpectations(ex: CheckerboardExercise, n: number) {
   const cy = (row: number) => round5(margin + row * cell + mid);
   const c = round5(cell);
 
+  // Expected piece radii: the full piece is 80% as wide as the square (rim radius = 40% of
+  // the cell) and the inner face is 75% as wide as the full piece (inner radius = 30% of the
+  // cell). These scale with the board, so we round them the same way as every other value.
+  const rimRadius = round5(cell * 0.4);
+  const innerRadius = round5(cell * 0.3);
+
   // A dark square in one of the (empty) middle rows - the column that is dark there
   // depends on whether the middle row index is odd or even.
   const midRow = n / 2;
@@ -98,6 +104,26 @@ function boardExpectations(ex: CheckerboardExercise, n: number) {
     {
       pass: ex.hasCircleCenteredAtWithColor(cx(0), cy(last), "grey"),
       errorHtml: "The pieces in the bottom rows should have a rim around them."
+    },
+
+    // The pieces must be sized relationally: the rim (outer circle) is 40% of the cell and the
+    // inner face is 30% of the cell (75% of the piece). Check one piece of each colour - the
+    // sizing is uniform, so a single sample per colour catches a wrong ratio.
+    {
+      pass: ex.hasCircleAtWithColor(cx(1), cy(0), rimRadius, "black"),
+      errorHtml: "The rim of a piece should be 80% as wide as its square - check the outer circle's radius."
+    },
+    {
+      pass: ex.hasCircleAtWithColor(cx(1), cy(0), innerRadius, "charcoal"),
+      errorHtml: "The centre of a piece should be 75% as wide as the whole piece - check the inner circle's radius."
+    },
+    {
+      pass: ex.hasCircleAtWithColor(cx(0), cy(last), rimRadius, "grey"),
+      errorHtml: "The rim of a piece should be 80% as wide as its square - check the outer circle's radius."
+    },
+    {
+      pass: ex.hasCircleAtWithColor(cx(0), cy(last), innerRadius, "white"),
+      errorHtml: "The centre of a piece should be 75% as wide as the whole piece - check the inner circle's radius."
     },
 
     // Pieces only go on dark squares, and the middle rows stay empty.
