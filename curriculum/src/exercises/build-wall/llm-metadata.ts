@@ -9,8 +9,9 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise allows a student to explore nested loops and conditionals by drawing a brick wall.
-    The constraint that rectangle can only appear once is what forces the nested-loop structure.
+    The single-rectangle-call constraint is the crux: it forces the student away from
+    hard-coded calls and into a nested-loop structure. Enforced by a code check (rectangle
+    must appear exactly once in source) plus a runtime check that exactly 55 bricks are drawn.
   `,
 
   tasks: {
@@ -19,8 +20,11 @@ export const llmMetadata: LLMMetadata = {
         The whole exercise is one task: a complete 55-brick wall.
 
         Anchor steps:
-        1. Outer loop over the 10 rows.
-        2. Per row, decide even vs odd (row % 2) to pick brick count and start x.
+        1. Outer loop over the 10 rows, building from the bottom up (the bottom row is
+           laid first, like a real bricklayer). The y position starts at the bottom and
+           moves up each row.
+        2. Per row, decide even vs odd (row % 2) to pick brick count and start x. The
+           bottom row is a full row of 5 bricks; offset rows have 6 (one hanging off each side).
         3. Inner loop draws the bricks, computing positions from the loop counters.
 
         Note: the student does not see these steps broken down.

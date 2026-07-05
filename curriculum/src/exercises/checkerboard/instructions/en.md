@@ -1,32 +1,36 @@
 ---
 title: "Checkerboard"
-description: "Draw a checkerboard with nested loops and modulo, then lay out the pieces ready to play."
+description: "Draw a checkerboard of any size and set it up for a game, deriving every position from the board size."
 ---
 
-In this project you'll draw a full **8x8 checkerboard** and set up the pieces on it, ready for a game of draughts.
+In this project you'll draw a checkerboard and set up the pieces on it, ready for a game of draughts (also known as checkers).
 
-The canvas is `100` wide and `100` tall. Leave a **2-unit border** all the way around, so the board itself fills the space from `2` to `98`. That gives each of the 8 squares a width and height of `12`.
+Your code needs to work for **any board size**. We've given you three sample boards to try. One puzzle uses the classic 8x8 board, another a smaller 6x6, another a larger 10x10. You can use `getBoardSize()` to find out how many squares wide and tall the board is this time (the boards are always square).
 
-## Step 1: Draw the board
+<div style="display: flex; gap: 8px; margin: 12px 0;">
+  <img src="/static/images/exercise-assets/checkerboard/board-6.svg" alt="6x6 checkerboard" style="width: 33.333%; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);" />
+  <img src="/static/images/exercise-assets/checkerboard/board-8.svg" alt="8x8 checkerboard" style="width: 33.333%; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);" />
+  <img src="/static/images/exercise-assets/checkerboard/board-10.svg" alt="10x10 checkerboard" style="width: 33.333%; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);" />
+</div>
 
-Use **nested loops** with a `row` and a `col` counter to walk over all 64 squares. The square at `(row, col)` has:
+### The Board
 
-- its left edge at `2 + col * 12`
-- its top edge at `2 + row * 12`
-- a width and height of `12`
+As normal, the canvas is always `100` wide and `100` tall. Follow these two rules:
 
-Colour each square so the board alternates. A square is **dark** (`charcoal`) when `(row + col)` is odd, and **light** (`white`) otherwise. The remainder operator makes this easy: `(row + col) % 2 === 1` is true for the dark squares.
+- The board has a `"black"` border around the edge that has a width of `2`.
+- The squares should alternate between `"dark brown"` and `"white"`, sharing the space inside the border neatly. The bottom-left square is always dark brown, not white.
 
-## Step 2: Lay out the pieces
+### The pieces
 
-In draughts, the pieces only sit on the **dark** squares, so you can reuse the same `(row + col) % 2` test you used for the board.
-
-- The **top three rows** (`row` 0, 1 and 2) get **red** pieces.
-- The **bottom three rows** (`row` 5, 6 and 7) get **blue** (`skyblue`) pieces.
-- The middle two rows stay empty.
-
-Draw each piece as a `circle` centred in its square: `2 + col * 12 + 6` across, `2 + row * 12 + 6` down, with a radius of `5`.
+- Each piece lives in the center of a square.
+- The pieces are ridged circles, with an outer border and an inner color:
+  - The full piece is 80% as wide as the square.
+  - The inner circle is 75% as wide as the full piece.
+- The rows at the **top** of the board get **"charcoal"** pieces (each with a **"black"** rim).
+- The rows at the **bottom** get **white** pieces (each with a **grey** rim).
+- Pieces only ever sit on the **dark** squares.
+- The **middle two rows** are always left empty. All the other rows have pieces on.
 
 ## Think relationally
 
-Don't hardcode the `12`s and `6`s everywhere. Work out a `cell` size once (`cell = (100 - 2 * 2) / 8`) and build every position from it. If you do it well, your code reads like the rules above rather than a list of magic numbers.
+The heart of this exercise is to **never hardcode** the sizes and positions. Work out a single "cell" size from the board size, then build every square and every piece from it. Get it right and the exact same code will draw a small 6x6 board and a larger 10x10 one without changing a single number.

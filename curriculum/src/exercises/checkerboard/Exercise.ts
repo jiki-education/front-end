@@ -1,4 +1,5 @@
 import { DrawExercise } from "../../exercise-categories/draw";
+import type { ExecutionContext } from "@jiki/interpreters";
 import metadata from "./metadata.json";
 
 export class CheckerboardExercise extends DrawExercise {
@@ -6,9 +7,27 @@ export class CheckerboardExercise extends DrawExercise {
     return metadata.slug;
   }
 
+  private boardSize = 8;
+
+  public setupBoardSize(n: number) {
+    this.boardSize = n;
+  }
+
+  public getBoardSize(_executionCtx: ExecutionContext): number {
+    return this.boardSize;
+  }
+
   public get availableFunctions() {
     const { rectangle, circle } = this.getAllAvailableFunctions();
-    return [rectangle, circle];
+    return [
+      rectangle,
+      circle,
+      {
+        name: "get_board_size",
+        func: this.getBoardSize.bind(this),
+        description: "retrieved the size of the board (the number of squares along each edge)"
+      }
+    ];
   }
 }
 

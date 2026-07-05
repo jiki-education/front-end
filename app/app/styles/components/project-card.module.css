@@ -15,7 +15,6 @@
     padding: 30px;
     margin: 0 auto;
     width: 320px;
-    height: 320px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -91,7 +90,6 @@
     right: 0;
     margin: 0 auto;
     width: 320px;
-    height: 320px;
     background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
     border-radius: 16px;
     backface-visibility: hidden;
@@ -117,7 +115,6 @@
     right: 0;
     margin: 0 auto;
     width: 320px;
-    height: 320px;
     z-index: 0;
 }
 
@@ -149,7 +146,7 @@
 }
 
 .projectCardSimpleName {
-    font-size: 18px;
+    font-size: 19px;
     font-weight: 700;
     color: #1a202c;
     text-align: center;
@@ -157,7 +154,7 @@
 }
 
 .projectCardSimpleDescription {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--color-gray-500);
     text-align: center;
     line-height: 1.4;

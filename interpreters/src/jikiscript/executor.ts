@@ -375,6 +375,8 @@ export class Executor {
             .length;
         },
         assertOperatorUsed: (operator: string) => extractOperators(statements).includes(operator),
+        // TODO: JS-only for now. Implement statement matching for Jikiscript when needed.
+        assertStatement: () => false,
       },
     };
   }

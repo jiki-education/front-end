@@ -9,8 +9,8 @@ const functions: FunctionInfo[] = [
     signature: "rectangle(left, top, width, height, color)",
     description: "Draw a rectangle at position (left, top) with the given width, height, and color",
     examples: [
-      'rectangle(2, 2, 12, 12, "white")',
-      "rectangle(margin + col * cell, margin + row * cell, cell, cell, squareColor)"
+      'rectangle(0, 0, 100, 100, "black")',
+      "rectangle(squareX, squareY, squareSize, squareSize, squareColor)"
     ],
     category: "Drawing Shapes"
   },
@@ -19,10 +19,17 @@ const functions: FunctionInfo[] = [
     signature: "circle(centerX, centerY, radius, color)",
     description: "Draw a circle centered at (centerX, centerY) with the given radius and color",
     examples: [
-      'circle(20, 8, 5, "red")',
-      "circle(margin + col * cell + cell / 2, margin + row * cell + cell / 2, cell / 2 - 1, color)"
+      'circle(centerX, centerY, squareSize * 0.4, "black")',
+      'circle(centerX, centerY, squareSize * 0.3, "charcoal")'
     ],
     category: "Drawing Shapes"
+  },
+  {
+    name: "getBoardSize",
+    signature: "getBoardSize()",
+    description: "Returns the size of the board (the number of squares along each edge) for the current puzzle",
+    examples: ["let boardSize = getBoardSize()"],
+    category: "Information"
   }
 ];
 
@@ -33,7 +40,16 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["modulo", "nested-loops", "if", "else"]
+  conceptSlugs: [
+    "modulo",
+    "nested-loops",
+    "if",
+    "else",
+    "else-if",
+    "updating-variables",
+    "using-functions-with-return-values"
+  ],
+  interpreterOptions: { maxTotalLoopIterations: 300 }
 };
 
 export default exerciseDefinition;

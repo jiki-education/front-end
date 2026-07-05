@@ -6,81 +6,159 @@ export const tasks = [
     id: "set-up-the-board" as const,
     name: "Set up the board",
     description:
-      "Draw an 8x8 checkerboard with a 2-unit border, then place the pieces on the dark squares of the top and bottom three rows.",
+      "Draw the checkerboard and place the pieces on the dark squares of the top and bottom rows - and make it work for any board size.",
     hints: [],
-    requiredScenarios: ["set-up-the-board"],
+    requiredScenarios: ["board-8", "board-6", "board-10"],
     bonus: false
   }
 ] as const satisfies readonly Task[];
 
+// Board: n x n, 2-unit border, so cell = (100 - 2 * 2) / n. Square (row, col) sits at
+// (2 + col * cell, 2 + row * cell). Dark squares are where (row + col) is odd. Pieces sit on
+// the dark squares of the top rows (row < n / 2 - 1) and bottom rows (row >= n / 2 + 1),
+// leaving the middle two rows empty. Each piece is a ridged disc - a rim circle with a
+// slightly smaller face circle of the piece colour centred on top. The piece radii scale
+// with the cell, so we match pieces by centre + colour rather than by exact radius.
+//
+// Coordinates are rounded to the interpreter's display precision (5 dp) before matching.
+// When n doesn't divide 96 evenly (e.g. n = 10 -> cell = 9.6) the student's arithmetic is
+// rounded to 5 dp by the interpreter, so the expected values must be rounded the same way
+// or the exact (===) shape lookups would spuriously miss.
+function boardExpectations(ex: CheckerboardExercise, n: number) {
+  const round5 = (v: number) => Math.round(v * 100000) / 100000;
+
+  const margin = 2;
+  const cell = (100 - 2 * margin) / n;
+  const mid = cell / 2;
+  const last = n - 1;
+
+  // Top-left corner and centre of square (row, col).
+  const sx = (col: number) => round5(margin + col * cell);
+  const sy = (row: number) => round5(margin + row * cell);
+  const cx = (col: number) => round5(margin + col * cell + mid);
+  const cy = (row: number) => round5(margin + row * cell + mid);
+  const c = round5(cell);
+
+  // A dark square in one of the (empty) middle rows - the column that is dark there
+  // depends on whether the middle row index is odd or even.
+  const midRow = n / 2;
+  const midDarkCol = midRow % 2 === 0 ? 1 : 0;
+
+  // Points in the border margin (outside the board, which spans margin..98). Each must be
+  // covered by a black rectangle - however the student chose to draw the border (one big
+  // filled square behind the board, or a frame of separate rectangles).
+  const borderPoints = [
+    [0, 0],
+    [100, 0],
+    [0, 100],
+    [100, 100],
+    [50, 0],
+    [50, 100],
+    [0, 50],
+    [100, 50]
+  ];
+
+  return [
+    {
+      pass: borderPoints.every(([px, py]) => ex.hasRectangleCoveringPointWithColor(px, py, "black")),
+      errorHtml: "The board should have a black border all the way around the edge."
+    },
+    {
+      pass: ex.hasRectangleAtWithColor(sx(0), sy(0), c, c, "white"),
+      errorHtml: "The top-left square should be white (it's a light square)."
+    },
+    {
+      pass: ex.hasRectangleAtWithColor(sx(1), sy(0), c, c, "dark brown"),
+      errorHtml: "The square to the right of the top-left one should be dark brown (a dark square)."
+    },
+    {
+      pass: ex.hasRectangleAtWithColor(sx(0), sy(last), c, c, "dark brown"),
+      errorHtml: "The bottom-left square should be dark brown (a dark square)."
+    },
+    {
+      pass: ex.hasRectangleAtWithColor(sx(last), sy(last), c, c, "white"),
+      errorHtml: "The bottom-right square should be white."
+    },
+
+    // A charcoal piece (with a rim) on the dark square in the top row.
+    {
+      pass: ex.hasCircleCenteredAtWithColor(cx(1), cy(0), "charcoal"),
+      errorHtml: "There should be a charcoal piece on the dark square in the top row."
+    },
+    {
+      pass: ex.hasCircleCenteredAtWithColor(cx(1), cy(0), "black"),
+      errorHtml: "The pieces in the top rows should have a rim around them."
+    },
+
+    // A white piece (with a rim) on the dark square in the bottom row.
+    {
+      pass: ex.hasCircleCenteredAtWithColor(cx(0), cy(last), "white"),
+      errorHtml: "There should be a white piece on the dark square in the bottom row."
+    },
+    {
+      pass: ex.hasCircleCenteredAtWithColor(cx(0), cy(last), "grey"),
+      errorHtml: "The pieces in the bottom rows should have a rim around them."
+    },
+
+    // Pieces only go on dark squares, and the middle rows stay empty.
+    {
+      pass: !ex.hasCircleCenteredAt(cx(0), cy(0)),
+      errorHtml: "There shouldn't be a piece on the top-left square - pieces only go on the dark squares."
+    },
+    {
+      pass: !ex.hasCircleCenteredAt(cx(midDarkCol), cy(midRow)),
+      errorHtml: "The middle rows should be empty - only the top and bottom rows have pieces."
+    }
+  ];
+}
+
 export const scenarios: VisualScenario[] = [
   {
-    slug: "set-up-the-board",
-    name: "Set up the checkerboard",
-    description: "Draw the board and lay out the pieces ready to play.",
+    slug: "board-8",
+    name: "Set up an 8×8 board",
+    description: "Draw the classic 8×8 checkerboard and lay out the pieces ready to play.",
     taskId: "set-up-the-board",
 
     setup(exercise) {
       const ex = exercise as CheckerboardExercise;
+      ex.setupBoardSize(8);
       ex.setDrawDelayMs(8);
     },
 
     expectations(exercise) {
+      return boardExpectations(exercise as CheckerboardExercise, 8);
+    }
+  },
+  {
+    slug: "board-6",
+    name: "Set up a 6×6 board",
+    description: "The same code should scale down to a smaller 6×6 board.",
+    taskId: "set-up-the-board",
+
+    setup(exercise) {
       const ex = exercise as CheckerboardExercise;
+      ex.setupBoardSize(6);
+      ex.setDrawDelayMs(12);
+    },
 
-      // Board: 8x8, 2-unit border, 12-unit squares. Square (row, col) is at
-      // (2 + col * 12, 2 + row * 12). Dark squares are where (row + col) is odd.
-      return [
-        {
-          pass: ex.hasRectangleAtWithColor(2, 2, 12, 12, "white"),
-          errorHtml: "The top-left square should be white. Light squares are where (row + col) is even."
-        },
-        {
-          pass: ex.hasRectangleAtWithColor(14, 2, 12, 12, "charcoal"),
-          errorHtml: "The square to the right of the top-left one should be charcoal (a dark square)."
-        },
-        {
-          pass: ex.hasRectangleAtWithColor(50, 50, 12, 12, "white"),
-          errorHtml: "The squares in the middle of the board aren't placed or coloured correctly."
-        },
-        {
-          pass: ex.hasRectangleAtWithColor(2, 86, 12, 12, "charcoal"),
-          errorHtml: "The bottom-left square should be charcoal (a dark square)."
-        },
-        {
-          pass: ex.hasRectangleAtWithColor(86, 86, 12, 12, "white"),
-          errorHtml: "The bottom-right square should be white."
-        },
+    expectations(exercise) {
+      return boardExpectations(exercise as CheckerboardExercise, 6);
+    }
+  },
+  {
+    slug: "board-10",
+    name: "Set up a 10×10 board",
+    description: "And it should scale up to a larger 10×10 board.",
+    taskId: "set-up-the-board",
 
-        // Pieces: red on dark squares in the top three rows, blue on dark squares in
-        // the bottom three rows. Each piece is a circle of radius 5 centred in its square.
-        {
-          pass: ex.hasCircleAtWithColor(20, 8, 5, "red"),
-          errorHtml: "There should be a red piece on the dark square in the top row."
-        },
-        {
-          pass: ex.hasCircleAtWithColor(8, 20, 5, "red"),
-          errorHtml: "There should be a red piece on the dark square in the second row."
-        },
-        {
-          pass: ex.hasCircleAtWithColor(8, 92, 5, "skyblue"),
-          errorHtml: "There should be a blue piece on the dark square in the bottom row."
-        },
-        {
-          pass: ex.hasCircleAtWithColor(20, 80, 5, "skyblue"),
-          errorHtml: "There should be a blue piece on the dark square in the seventh row."
-        },
+    setup(exercise) {
+      const ex = exercise as CheckerboardExercise;
+      ex.setupBoardSize(10);
+      ex.setDrawDelayMs(5);
+    },
 
-        // The pieces must only sit on dark squares, and the middle two rows stay empty.
-        {
-          pass: !ex.hasCircleAt(8, 8, 5),
-          errorHtml: "There shouldn't be a piece on the top-left square - pieces only go on the dark squares."
-        },
-        {
-          pass: !ex.hasCircleAt(8, 44, 5),
-          errorHtml: "The middle two rows should be empty - only the top and bottom three rows have pieces."
-        }
-      ];
+    expectations(exercise) {
+      return boardExpectations(exercise as CheckerboardExercise, 10);
     }
   }
 ];

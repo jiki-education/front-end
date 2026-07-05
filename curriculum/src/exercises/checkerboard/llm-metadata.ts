@@ -9,37 +9,38 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    A capstone-style drawing project for the conditionals-and-state level. The student
-    draws an 8x8 checkerboard and lays out draughts/checkers pieces on it. It combines
-    nested loops, modulo, and layered conditionals, and rewards deriving positions from a
-    single 'cell' size rather than hardcoding coordinates.
+    A drawing project built up in layers. There is a single scenario, but the work has a natural
+    order - always help the student with the NEXT piece they're stuck on, not the whole thing at
+    once. Work out from their code and canvas how far they've got, then nudge them to the next step:
+
+    1. Get the board size from getBoardSize() and derive ONE cell size from it (canvas minus border,
+       divided by the board size). Everything else is built from this - nothing hardcoded.
+    2. Draw the border around the edge.
+    3. Draw the grid of squares with nested loops (rows x columns), each positioned from the cell size.
+    4. Colour the squares so they alternate (dark and light).
+    5. Put pieces on the dark squares only.
+    6. Restrict the pieces to the top and bottom rows, leaving the middle two rows empty.
+    7. Give each end its own colour and make each piece ridged (a rim circle plus a smaller centre
+       circle), centred in its square.
+
+    Diagnosing common sticking points:
+    - Squares in the wrong place or overlapping -> position/cell-size arithmetic (step 1/3).
+    - Whole board one colour or a stripe pattern -> the alternate-colour test (step 4).
+    - Pieces on every square, or on the light ones -> the dark-square test isn't being reused (step 5).
+    - Pieces filling the whole board -> the top/bottom-rows-only restriction is missing (step 6).
+    - Works on 8x8 but not 6x6 or 10x10 -> a hardcoded size, row number, or coordinate that only
+      happens to be right for 8. The three sizes exist specifically to catch this.
+
+    Testing details the student can't see (so you can reassure them):
+    - The border can be one filled square behind the board OR four frame rectangles - both pass.
+    - Pieces are matched by centre + colour, not radius, so any sensible piece size is fine.
   `,
 
   tasks: {
     "set-up-the-board": {
       description: `
-        One task: draw the board and place the pieces.
-
-        Geometry: 8x8 board, 2-unit border, so cell = (100 - 2 * 2) / 8 = 12. Square
-        (row, col) is at (2 + col * 12, 2 + row * 12), size 12x12.
-
-        Board: a square is dark when (row + col) % 2 === 1 (charcoal), otherwise light
-        (white). That one modulo test produces the whole alternating pattern.
-
-        Pieces: pieces sit ONLY on dark squares, so the placement reuses the same
-        (row + col) % 2 test. Red pieces on the top three rows (row <= 2), blue pieces on
-        the bottom three rows (row >= 5). The middle two rows stay empty. Each piece is a
-        circle centred in its square (offset by cell / 2) with radius cell / 2 - 1.
-
-        Why it's a good project:
-        - The modulo does double duty: the board pattern AND which squares get pieces.
-        - It layers a relational check (row <= 2 / row >= 5) inside the modulo check.
-        - Deriving every coordinate from 'cell' is the relational-thinking lesson, the
-          same skill practised in structured-house.
-
-        Common stumbling points: hardcoding the 12s instead of deriving cell; putting
-        pieces on light squares; filling the middle rows; forgetting that the piece
-        placement should reuse the dark-square test rather than colour every square.
+        One scenario covering the whole board (border, squares, pieces), run at three sizes. Use the
+        numbered steps above to locate where the student is and help them with the next one only.
       `
     }
   }

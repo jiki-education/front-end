@@ -17,6 +17,7 @@ import {
   countArrayExpressions,
   extractCallExpressionsExcludingFunctionBody,
   extractOperators,
+  findMatchingStatements,
 } from "./assertion-helpers";
 import type { CallExpression } from "./expression";
 import { LiteralExpression, IdentifierExpression, type Expression } from "./expression";
@@ -103,6 +104,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         assertFunctionCalledOutsideOwnDefinition: () => true,
         numFunctionCallsInCode: () => 0,
         assertOperatorUsed: () => true,
+        assertStatement: () => true,
       },
     };
   }
@@ -242,6 +244,10 @@ export function evaluateFunction(
         ).length;
       },
       assertOperatorUsed: (operator: string) => extractOperators(statements).includes(operator),
+      assertStatement: (type: string, opts?: { args?: Array<unknown>; count?: number }) => {
+        const matches = findMatchingStatements(statements, type, opts?.args);
+        return opts?.count !== undefined ? matches.length === opts.count : matches.length >= 1;
+      },
     },
   };
 }

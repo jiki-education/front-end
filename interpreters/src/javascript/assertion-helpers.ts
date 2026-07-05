@@ -115,6 +115,65 @@ function getSubStatements(stmt: Statement): Statement[] {
   return [];
 }
 
+/**
+ * Recursively collect all statements whose AST node type matches `type`
+ * (e.g. "RepeatStatement", "IfStatement"). Recurses through sub-statements
+ * via getSubStatements, mirroring extractExpressions for the statement side.
+ */
+export function extractStatementsByType(statements: Statement[], type: string): Statement[] {
+  const results: Statement[] = [];
+  for (const stmt of statements) {
+    if (stmt.type === type) {
+      results.push(stmt);
+    }
+    for (const sub of getSubStatements(stmt)) {
+      results.push(...extractStatementsByType([sub], type));
+    }
+  }
+  return results;
+}
+
+/**
+ * The "argument" expressions of a statement, used to match against an args
+ * pattern. Only statements with a meaningful arg slot are defined here; all
+ * others have no args. RepeatStatement's arg is its optional count, so
+ * `repeat()` has zero args and `repeat(n)` has one.
+ */
+export function statementArguments(stmt: Statement): Expression[] {
+  if (stmt instanceof RepeatStatement) {
+    return stmt.count ? [stmt.count] : [];
+  }
+  return [];
+}
+
+/**
+ * Find statements of `type` whose arguments match `args`.
+ *
+ * - `args` omitted → any statement of that type (arguments ignored).
+ * - `args.length` must equal the statement's arity.
+ * - each slot: `undefined` matches anything; any other value requires the
+ *   argument to be a literal equal to it.
+ */
+export function findMatchingStatements(statements: Statement[], type: string, args?: Array<unknown>): Statement[] {
+  const matches = extractStatementsByType(statements, type);
+  if (args === undefined) {
+    return matches;
+  }
+  return matches.filter(stmt => {
+    const stmtArgs = statementArguments(stmt);
+    if (stmtArgs.length !== args.length) {
+      return false;
+    }
+    return args.every((expected, i) => {
+      if (expected === undefined) {
+        return true;
+      }
+      const arg = stmtArgs[i];
+      return arg instanceof LiteralExpression && arg.value === expected;
+    });
+  });
+}
+
 export function countLinesOfCode(sourceCode: string): number {
   const lines = sourceCode.split("\n");
   let inMultiLineComment = false;
