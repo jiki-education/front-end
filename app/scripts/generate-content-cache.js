@@ -46,6 +46,7 @@ marked.use(markedFootnote());
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONTENT_DIR = path.join(__dirname, "../../content/src/posts");
 const AUTHORS_FILE = path.join(__dirname, "../../content/src/authors.json");
+const IMAGES_SRC_DIR = path.join(__dirname, "../../content/images");
 const STATIC_DIR = path.join(__dirname, "../public/static/content");
 const GENERATED_DIR = path.join(__dirname, "../lib/generated");
 
@@ -76,21 +77,56 @@ function writeFile(filePath, content) {
 }
 
 /**
- * Fix image paths in markdown content
- * Rewrites /images/ to /static/images/ for correct public/ serving
+ * Content-hash an image referenced as "/images/..." and copy it to the
+ * immutable content cache, returning its fingerprinted public URL
+ * (e.g. "/static/content/images/blog/foo.a1b2c3d4e5f6.webp").
+ *
+ * Source images live in the content package (content/images); the copies land
+ * under /static/content/* which is served with an immutable cache lifetime, so
+ * changing an image produces a new URL and busts the cache automatically.
+ * Results are memoised so a shared asset (e.g. an author avatar) is hashed once.
  */
-function fixImagePaths(content) {
-  return content.replace(/!\[([^\]]*)\]\(\/images\//g, "![$1](/static/images/");
+const imageUrlCache = new Map();
+function hashAndCopyImage(imageRef) {
+  if (!imageRef || !imageRef.startsWith("/images/")) {
+    return imageRef;
+  }
+  if (imageUrlCache.has(imageRef)) {
+    return imageUrlCache.get(imageRef);
+  }
+
+  const relPath = imageRef.slice("/images/".length);
+  const srcPath = path.join(IMAGES_SRC_DIR, relPath);
+  if (!fs.existsSync(srcPath)) {
+    throw new Error(`Referenced image not found: ${imageRef} (looked in ${srcPath})`);
+  }
+
+  const bytes = fs.readFileSync(srcPath);
+  const hash = computeHash(bytes);
+  const ext = path.extname(relPath);
+  const outRel = `${relPath.slice(0, -ext.length)}-${hash}${ext}`;
+  writeFile(path.join(STATIC_DIR, "images", outRel), bytes);
+
+  const url = `/static/content/images/${outRel}`;
+  imageUrlCache.set(imageRef, url);
+  return url;
 }
 
 /**
- * Fix coverImage path in config
+ * Rewrite markdown image paths ("/images/...") to their fingerprinted URLs.
+ */
+function fixImagePaths(content) {
+  return content.replace(
+    /!\[([^\]]*)\]\((\/images\/[^)\s]+)\)/g,
+    (_match, alt, imagePath) => `![${alt}](${hashAndCopyImage(imagePath)})`
+  );
+}
+
+/**
+ * Fingerprint a coverImage/avatar path ("/images/...") for immutable caching.
  */
 function fixCoverImagePath(coverImage) {
-  if (coverImage && coverImage.startsWith("/images/")) {
-    return coverImage.replace("/images/", "/static/images/");
-  }
-  return coverImage;
+  return hashAndCopyImage(coverImage);
 }
 
 /**
