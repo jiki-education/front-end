@@ -43,6 +43,14 @@
         font-weight: inherit;
     }
 
+    /* Emphasis renders semibold (not the browser-default bold) everywhere,
+       including hybrid/external routes where Tailwind utilities aren't loaded.
+       In @layer base, so Tailwind utilities and CSS modules still override it. */
+    strong,
+    b {
+        font-weight: 600;
+    }
+
     p,
     figure,
     blockquote,

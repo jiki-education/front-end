@@ -1,0 +1,40 @@
+/*
+ * LoadingSpinner renders on (hybrid) routes (e.g. /unsubscribe) where the
+ * Tailwind utility bundle is not loaded, so its styles live here rather than in
+ * Tailwind classes. Values mirror the previous utilities exactly, referencing
+ * the same design tokens Tailwind generated them from.
+ */
+
+.wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner {
+    border: 2px solid var(--color-gray-300);
+    border-top-color: var(--color-blue-500);
+    border-radius: 9999px;
+    animation: spin 1s linear infinite;
+}
+
+.sm {
+    width: var(--spacing-4);
+    height: var(--spacing-4);
+}
+
+.md {
+    width: var(--spacing-6);
+    height: var(--spacing-6);
+}
+
+.lg {
+    width: var(--spacing-8);
+    height: var(--spacing-8);
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
