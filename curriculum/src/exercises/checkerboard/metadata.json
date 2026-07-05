@@ -21,6 +21,10 @@
     {
       "question": "How do I draw a ridged piece?",
       "answer": "Draw two circles at the same centre: a larger one for the rim, then a slightly smaller one on top in the piece's colour. Base both radii on the cell size so the pieces scale with the board."
+    },
+    {
+      "question": "The size of the rim doesn't look like the sample diagram.",
+      "answer": "Check that the inner circle is 75% of the outer circle (not 75% of the square)."
     }
   ]
 }
