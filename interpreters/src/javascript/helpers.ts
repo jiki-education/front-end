@@ -8,7 +8,7 @@ export function formatJSObject(value?: any): string {
   }
 
   if (value instanceof JikiObject) {
-    return value.toString();
+    return value.toDisplayString();
   }
 
   return JSON.stringify(value);
@@ -17,7 +17,7 @@ export function formatJSObject(value?: any): string {
 export function codeTag(code: string | JikiObject, location: Location): string {
   let parsedCode: string;
   if (code instanceof JikiObject) {
-    parsedCode = code.toString();
+    parsedCode = code.toDisplayString();
   } else {
     parsedCode = code;
   }

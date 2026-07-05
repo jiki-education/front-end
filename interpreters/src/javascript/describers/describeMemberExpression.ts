@@ -10,8 +10,8 @@ export function describeMemberExpression(
   const indexValue = result.property.immutableJikiObject;
 
   if (objectValue.type === "string") {
-    return `Accessed character at index ${indexValue.toString()} of the string, got ${jikiObject.toString()}`;
+    return `Accessed character at index ${indexValue.toString()} of the string, got ${jikiObject.toDisplayString()}`;
   }
 
-  return `Accessed element at index ${indexValue.toString()} of the list, got ${jikiObject.toString()}`;
+  return `Accessed element at index ${indexValue.toString()} of the list, got ${jikiObject.toDisplayString()}`;
 }

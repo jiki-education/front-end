@@ -1,5 +1,13 @@
 # JavaScript Interpreter Evolution
 
+## 2026-07-05: Quote strings in descriptions via `toDisplayString()`
+
+A student reported that variable declaration descriptions showed string values unquoted, e.g. `let border_color = "black"` described as "set it to `black`" instead of "set it to `"black"`". The root cause was `JSString.toString()` returning the raw value, which describers inherited through `formatJSObject()`.
+
+JikiScript avoids this by baking `JSON.stringify` into its primitive `toString()`, but the JS interpreter cannot: unlike JikiScript, JS `toString()` is the value/coercion representation and is relied on by real program-behaviour paths that must stay unquoted (`console.log` output, `array.join`/`toString`/`sort`, object property keys). Conflating value and display into `toString()` would break those. The code already hinted at this by ad-hoc quoting `JSString` inside `JSArray.toString()`/`JSDictionary.toString()`.
+
+The fix introduces a dedicated display representation, `toDisplayString()`, as a concrete default on the shared `JikiObject` base (returns `this.toString()`), overridden only in `JSString` to return `JSON.stringify(this._value)`. The display bottlenecks `formatJSObject()` and `codeTag()` (both in `src/javascript/helpers.ts`) now call `toDisplayString()`, and the describers that bypassed those helpers by calling `.toString()` directly (return, array expression, member access, for-in key, for-of element) were switched to `.toDisplayString()`. Value paths were left untouched. Arrays/dicts inherit the default and keep their existing (already-quoting) `toString()` for display, so nested strings still render correctly. Python inherits the default no-op and is unaffected.
+
 ## 2026-06-27: No-arg `repeat()` raises MaxIterationsReached at the cap
 
 A no-argument `repeat() { ... }` is meant to run until the exercise signals completion (`_exerciseFinished`), bounded only by the infinite-loop guard. Previously `executeRepeatStatement` passed `maxTotalLoopIterations` as the loop's literal `count`, so `while (iteration < count)` stopped the loop at exactly the cap, one iteration before `guardInfiniteLoop` (which throws only when `totalLoopIterations > max`) could fire. The result: a never-finishing loop like `repeat() { turnLeft() }` ran exactly `max` times and then exited cleanly with `status: SUCCESS` and no error frame, so the student got no feedback that they were stuck in an unproductive loop. (Before the per-exercise caps landed, the default cap of 10,000 meant this silently generated 10,000 frames and froze the browser.)

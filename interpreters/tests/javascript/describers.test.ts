@@ -37,6 +37,21 @@ describe("describers", () => {
       expect(description).toContain("hello world");
     });
 
+    test("string variable declaration quotes the assigned value", () => {
+      // Regression: a string initializer should be shown quoted in the
+      // description, e.g. `set it to "black"`, not `set it to black`.
+      const code = 'let border_color = "black";';
+      const result = interpret(code);
+
+      expect(result.success).toBe(true);
+
+      const frame = result.frames[0];
+      const description = describeFrame(frame);
+
+      expect(description).toContain('set it to <code>"black"</code>');
+      expect(description).toContain('assigned it the value <code>"black"</code>');
+    });
+
     test("boolean expression", () => {
       const code = "true && false;";
       const result = interpret(code);

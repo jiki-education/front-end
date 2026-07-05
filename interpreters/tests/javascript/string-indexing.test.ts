@@ -208,7 +208,7 @@ describe("JavaScript String Indexing", () => {
 
       const frame = result.frames[1] as TestFrame;
       expect(frame.description).toContain("Accessed character at index 0");
-      expect(frame.description).toContain("got h");
+      expect(frame.description).toContain('got "h"');
     });
 
     test("description does not say list", () => {
