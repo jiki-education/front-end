@@ -6,13 +6,9 @@
  */
 
 import { api } from "./client";
+import type { EmailPreferences } from "@/lib/notifications/config";
 
-export interface EmailPreferences {
-  newsletters: boolean;
-  event_emails: boolean;
-  milestone_emails: boolean;
-  activity_emails: boolean;
-}
+export type { EmailPreferences };
 
 interface EmailPreferencesResponse {
   email_preferences: EmailPreferences;
