@@ -173,7 +173,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 ## Images
 
-Images are symlinked from the content package source:
+Source images live in the content package and are symlinked into `public/`:
 
 ```bash
 public/static/images/blog -> ../../../../content/images/blog
@@ -183,8 +183,24 @@ public/static/images/avatars -> ../../../../content/images/avatars
 
 - Symlinks point to source images in `content/images/` (not `content/dist/images/`)
 - Source images are committed to git and always available
-- No build step required - images work in both development and deployment
 - Symlinks are tracked in git for consistent deployment
+
+### Content-hashed serving
+
+`generate-content-cache.js` does not serve images from those symlinks directly.
+For every `/images/...` reference (cover images, author avatars, and inline
+markdown images) it reads the source bytes, content-hashes them, and copies the
+file to a fingerprinted path under the immutable content cache:
+
+```
+/images/blog/foo.webp → /static/content/images/blog/foo.<hash>.webp
+```
+
+The hashed URL is baked into the generated metadata/HTML, so consumers just
+render `post.coverImage` / `author.avatar` unchanged. Because `/static/content/*`
+is served `immutable` (see `public/_headers`), changing an image produces a new
+URL and busts the cache automatically. The `/static/images/*` symlinks remain the
+build-time source only.
 
 ## Locale Handling
 

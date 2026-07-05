@@ -53,6 +53,9 @@ public/static/exercises/
 # generated concept cache (build-time generation)
 public/static/concepts/
 
+# generated icon cache (content-hashed lesson/badge/project icons)
+public/static/icons-hashed/
+
 # generated TypeScript/JSON files (build-time generation)
 lib/generated/
 

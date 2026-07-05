@@ -59,6 +59,10 @@ jobs:
         working-directory: app
         run: pnpm run icons:generate
 
+      - name: Generate icon cache
+        working-directory: app
+        run: pnpm run icon-cache:generate
+
       - name: Run typecheck
         working-directory: app
         run: npx tsc --noEmit
@@ -111,6 +115,10 @@ jobs:
         working-directory: app
         run: pnpm run icons:generate
 
+      - name: Generate icon cache
+        working-directory: app
+        run: pnpm run icon-cache:generate
+
       - name: Run linter
         working-directory: app
         run: pnpm run lint
@@ -154,6 +162,10 @@ jobs:
         working-directory: app
         run: pnpm run icons:generate
 
+      - name: Generate icon cache
+        working-directory: app
+        run: pnpm run icon-cache:generate
+
       - name: Run unit tests
         working-directory: app
         run: pnpm run test --ci
@@ -196,6 +208,10 @@ jobs:
       - name: Generate icon types
         working-directory: app
         run: pnpm run icons:generate
+
+      - name: Generate icon cache
+        working-directory: app
+        run: pnpm run icon-cache:generate
 
       - name: Install Playwright browsers
         working-directory: app

@@ -121,7 +121,7 @@ export function WelcomeSection() {
         <div className={styles.videoGrid}>
           <video
             className={styles.video}
-            src="/static/images/landing-page/space-invaders.mp4"
+            src="/static/images/landing-page/space-invaders-74644.mp4"
             aria-label={t("spaceInvadersLabel")}
             width={400}
             height={300}
@@ -132,7 +132,7 @@ export function WelcomeSection() {
           />
           <video
             className={styles.video}
-            src="/static/images/landing-page/tic-tac-toe.mp4"
+            src="/static/images/landing-page/tic-tac-toe-736a8.mp4"
             aria-label={t("ticTacToeLabel")}
             width={400}
             height={300}
@@ -143,7 +143,7 @@ export function WelcomeSection() {
           />
           <video
             className={styles.video}
-            src="/static/images/landing-page/breakout.mp4"
+            src="/static/images/landing-page/breakout-bcaa3.mp4"
             aria-label={t("breakoutLabel")}
             width={400}
             height={300}
@@ -154,7 +154,7 @@ export function WelcomeSection() {
           />
           <video
             className={styles.video}
-            src="/static/images/landing-page/maze.mp4"
+            src="/static/images/landing-page/maze-59a6d.mp4"
             aria-label={t("mazeLabel")}
             width={400}
             height={300}
