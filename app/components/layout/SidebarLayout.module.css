@@ -1,0 +1,28 @@
+/*
+ * SidebarLayout is rendered on (hybrid) routes (e.g. /concepts) where the
+ * Tailwind utility bundle is not loaded, so its layout must be expressed as a
+ * CSS module rather than Tailwind classes.
+ */
+
+.appShell {
+    min-height: 100vh;
+    display: flex;
+    background-color: #fff;
+}
+
+.main {
+    flex: 1 1 0%;
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+.externalShell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+}
+
+.externalMain {
+    flex: 1 1 0%;
+}
