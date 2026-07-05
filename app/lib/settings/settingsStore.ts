@@ -8,12 +8,8 @@
 import { create } from "zustand";
 import { settingsApi } from "@/lib/api/settings";
 import { setLocaleCookie } from "@/lib/i18n/localeCookie";
-import type {
-  UserSettings,
-  UpdateSettingParams,
-  UpdateNotificationParams,
-  NotificationSlug
-} from "@/lib/api/types/settings";
+import type { UserSettings, UpdateSettingParams, UpdateNotificationParams } from "@/lib/api/types/settings";
+import { notificationField } from "@/lib/notifications/config";
 import toast from "react-hot-toast";
 
 interface SettingsState {
@@ -142,15 +138,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
       return;
     }
 
-    // Map slug to field name for optimistic update
-    const fieldMap: Record<NotificationSlug, keyof UserSettings> = {
-      newsletters: "receive_newsletters",
-      event_emails: "receive_event_emails",
-      milestone_emails: "receive_milestone_emails",
-      activity_emails: "receive_activity_emails"
-    };
-
-    const field = fieldMap[slug];
+    const field = notificationField(slug);
 
     // Optimistic update
     const optimisticSettings = {

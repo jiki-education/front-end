@@ -3,19 +3,19 @@
  * Type definitions for user settings and related operations
  */
 
-export interface UserSettings {
+import type { NotificationField, NotificationSlug } from "@/lib/notifications/config";
+
+export type { NotificationSlug };
+
+export type UserSettings = {
   name: string;
   handle: string;
   email: string;
   unconfirmed_email: string | null;
   email_confirmed: boolean;
   locale: string;
-  receive_newsletters: boolean;
-  receive_event_emails: boolean;
-  receive_milestone_emails: boolean;
-  receive_activity_emails: boolean;
   streaks_enabled: boolean;
-}
+} & Record<NotificationField, boolean>;
 
 export interface SettingsResponse {
   settings: UserSettings;
@@ -28,8 +28,6 @@ export interface SettingsError {
     errors?: Record<string, string[]>;
   };
 }
-
-export type NotificationSlug = "newsletters" | "event_emails" | "milestone_emails" | "activity_emails";
 
 export type SettingField = "name" | "email" | "password" | "locale" | "handle";
 

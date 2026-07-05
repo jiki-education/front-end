@@ -3,13 +3,13 @@
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useSettingsStore } from "@/lib/settings/settingsStore";
-import type { NotificationSlug } from "@/lib/api/types/settings";
+import { NOTIFICATION_TYPES, notificationField, type NotificationSlug } from "@/lib/notifications/config";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import ActionField from "../ui/ActionField";
 import styles from "../Settings.module.css";
 
 interface NotificationSetting {
-  id: "essential" | "features" | "livestreams" | "milestones" | "activity";
+  id: string;
   titleKey: string;
   descriptionKey: string;
   apiSlug?: NotificationSlug;
@@ -23,30 +23,12 @@ const NOTIFICATION_CONFIGS: NotificationSetting[] = [
     descriptionKey: "essentialDescription",
     disabled: true // Cannot be toggled off
   },
-  {
-    id: "features",
-    titleKey: "featuresTitle",
-    descriptionKey: "featuresDescription",
-    apiSlug: "newsletters"
-  },
-  {
-    id: "livestreams",
-    titleKey: "livestreamsTitle",
-    descriptionKey: "livestreamsDescription",
-    apiSlug: "event_emails"
-  },
-  {
-    id: "milestones",
-    titleKey: "milestonesTitle",
-    descriptionKey: "milestonesDescription",
-    apiSlug: "milestone_emails"
-  },
-  {
-    id: "activity",
-    titleKey: "activityTitle",
-    descriptionKey: "activityDescription",
-    apiSlug: "activity_emails"
-  }
+  ...NOTIFICATION_TYPES.map((type) => ({
+    id: type.settingsI18nId,
+    titleKey: `${type.settingsI18nId}Title`,
+    descriptionKey: `${type.settingsI18nId}Description`,
+    apiSlug: type.slug
+  }))
 ];
 
 export default function NotificationsTab() {
@@ -64,16 +46,7 @@ export default function NotificationsTab() {
       return;
     }
 
-    // Get current value from settings
-    const fieldMap: Record<NotificationSlug, keyof typeof settings> = {
-      newsletters: "receive_newsletters",
-      event_emails: "receive_event_emails",
-      milestone_emails: "receive_milestone_emails",
-      activity_emails: "receive_activity_emails"
-    };
-
-    const field = fieldMap[notification.apiSlug];
-    const currentValue = settings[field] as boolean;
+    const currentValue = settings[notificationField(notification.apiSlug)];
 
     // Toggle the value
     await updateNotification({
@@ -96,15 +69,7 @@ export default function NotificationsTab() {
       return false;
     }
 
-    const fieldMap: Record<NotificationSlug, keyof typeof settings> = {
-      newsletters: "receive_newsletters",
-      event_emails: "receive_event_emails",
-      milestone_emails: "receive_milestone_emails",
-      activity_emails: "receive_activity_emails"
-    };
-
-    const field = fieldMap[notification.apiSlug];
-    return settings[field] as boolean;
+    return settings[notificationField(notification.apiSlug)];
   };
 
   if (loading || !settings) {

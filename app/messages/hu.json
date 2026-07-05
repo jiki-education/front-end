@@ -480,7 +480,9 @@
       "milestonesTitle": "Emails when you reach new milestones",
       "milestonesDescription": "Celebrate your achievements and progress on Jiki.",
       "activityTitle": "Other emails in response to things that you do on Jiki",
-      "activityDescription": "Activity-based notifications like unlocking badges and completing challenges."
+      "activityDescription": "Activity-based notifications like unlocking badges and completing challenges.",
+      "onboardingTitle": "Emails to help you get the most from Jiki",
+      "onboardingDescription": "Tips and guidance on how to get the most from Jiki."
     },
     "editableField": {
       "update": "Update",
