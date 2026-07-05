@@ -46,7 +46,7 @@ export default function CtaSection() {
         <h2 className={styles["cta-title"]}>{t("freeTitle")}</h2>
         <p className={styles["cta-desc"]}>{t("freeDesc")}</p>
         <button
-          className="ui-btn ui-btn-large ui-btn-white w-[260px] font-semibold"
+          className={`ui-btn ui-btn-large ui-btn-white ${styles.upgradeButton}`}
           onClick={() => (window.location.href = routes.authSignup())}
         >
           {t("freeButton")}
