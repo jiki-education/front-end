@@ -47,6 +47,12 @@
         padding-left: 12px;
     }
 
+    /* Vertical rhythm between nav items (replaces Tailwind space-y-2, which is
+       not available on hybrid routes like /concepts). --spacing-2 is 2px. */
+    .nav-list > * + * {
+        margin-top: var(--spacing-2);
+    }
+
     /* Navigation items */
     .nav-item {
         display: flex;

@@ -51,7 +51,7 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
       <Logo />
 
       <nav>
-        <ul className="space-y-2">
+        <ul className="nav-list">
           {navigationItems.map((item) => (
             <NavigationItem
               key={item.id}
@@ -73,7 +73,7 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
           <p>
             {t("upsell.free")} <span className="upgrade-text">{t("upsell.upgrade")}</span> {t("upsell.accelerate")}
             &nbsp;
-            <span className={`inline-block align-middle ${rocket.rocketWrapper} ${launching ? rocket.launching : ""}`}>
+            <span className={`${rocket.rocketWrapper} ${launching ? rocket.launching : ""}`}>
               <RocketIcon width={16} height={16} className={rocket.rocket} />
             </span>
           </p>
