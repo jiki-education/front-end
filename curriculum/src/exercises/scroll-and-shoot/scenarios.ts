@@ -90,7 +90,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "full-rows",
     name: "Full rows",
-    description: "Three packed rows — and the aliens keep coming back!",
+    description: "Three packed rows. The aliens keep coming back!",
     taskId: "scroll-and-shoot",
 
     setup(exercise) {
@@ -109,7 +109,7 @@ export const scenarios: VisualScenario[] = [
       {
         pass: (result) => result.assertors.assertStatement("RepeatStatement", { args: [undefined], count: 0 }),
         errorHtml:
-          "For this final wave, use a run-forever <code>repeat()</code> loop rather than a counted <code>repeat(n)</code> — you can't know how many shots the respawning aliens will take."
+          "You can't use <code>repeat(n) {}</code> in this exercise. You should only use <code>repeat() {}</code> loops without inputs."
       }
     ]
   }

@@ -30,8 +30,8 @@ describe("scroll-and-shoot", () => {
     const fullRows = results.find((r) => r.slug === "full-rows");
 
     expect(fullRows).toBeDefined();
-    expect(fullRows!.expects.some((e) => !e.pass && e.errorHtml != null && e.errorHtml.includes("run-forever"))).toBe(
-      true
-    );
+    expect(
+      fullRows!.expects.some((e) => !e.pass && e.errorHtml != null && e.errorHtml.includes("without inputs"))
+    ).toBe(true);
   });
 });

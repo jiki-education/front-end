@@ -24,8 +24,8 @@ As normal, the canvas is always `100` wide and `100` tall. Follow these two rule
 
 - Each piece lives in the center of a square.
 - The pieces are ridged circles, with an outer border and an inner color:
-  - The full piece size is 40% of the square's size.
-  - The inner circle is 30% of the square's size.
+  - The full piece is 80% as wide as the square.
+  - The inner circle is 75% as wide as the full piece.
 - The rows at the **top** of the board get **"charcoal"** pieces (each with a **"black"** rim).
 - The rows at the **bottom** get **white** pieces (each with a **grey** rim).
 - Pieces only ever sit on the **dark** squares.

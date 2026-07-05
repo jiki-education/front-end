@@ -20,7 +20,7 @@
     },
     {
       "question": "What sizes and spacings do I use?",
-      "answer": "Every brick is `20` wide and `10` tall, so x goes up by `20` between bricks in a row, and y goes up by `10` between rows."
+      "answer": "Every brick is `20` wide and `10` tall, so x goes up by `20` between bricks in a row, and y changes by `10` between rows."
     }
   ]
 }
