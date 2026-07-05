@@ -16,7 +16,7 @@ export function describeReturnStatement(frame: FrameWithResult, _context: Descri
     };
   }
 
-  const value = result.jikiObject.toString();
+  const value = result.jikiObject.toDisplayString();
   return {
     result: `<p>Jiki returned the value <code>${value}</code> from the function.</p>`,
     steps: [

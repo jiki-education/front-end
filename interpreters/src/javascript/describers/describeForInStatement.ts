@@ -27,7 +27,7 @@ function describeFinalStep(result: EvaluationResultForInStatement, statement: Fo
     }
 
     if (result.currentKey) {
-      const keyValue = result.currentKey.toString();
+      const keyValue = result.currentKey.toDisplayString();
       return `<li>Set <code>${variableName}</code> to <code>${keyValue}</code> (iteration ${result.iteration}).</li>`;
     }
   }
@@ -45,7 +45,7 @@ function describeResult(result: EvaluationResultForInStatement, statement: ForIn
     }
 
     if (result.currentKey) {
-      const keyValue = result.currentKey.toString();
+      const keyValue = result.currentKey.toDisplayString();
       return `<p>Set <code>${variableName}</code> to <code>${keyValue}</code> for iteration ${result.iteration}.</p>`;
     }
   }

@@ -8,7 +8,7 @@ export function describeArrayExpression(expression: ArrayExpression, result: Eva
   if (count === 0) {
     return "Created an empty list";
   } else if (count === 1) {
-    return `Created a list with 1 element: ${jikiObject.toString()}`;
+    return `Created a list with 1 element: ${jikiObject.toDisplayString()}`;
   }
-  return `Created a list with ${count} elements: ${jikiObject.toString()}`;
+  return `Created a list with ${count} elements: ${jikiObject.toDisplayString()}`;
 }
