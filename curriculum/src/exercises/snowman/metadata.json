@@ -4,7 +4,7 @@
   "hints": [
     {
       "question": "I don't know where to start",
-      "answer": "The original code draws a white circle to the left side. You need to change the values of snowmanCx, baseCy and baseRadius to be correct to put it over the bottom ring in the template. You should then add variables for the other circles."
+      "answer": "The original code draws a white circle to the left side. You need to change the values of snowmanCenterX, baseCenterY and baseRadius to be correct to put it over the bottom ring in the template. You should then add variables for the other circles."
     },
     {
       "question": "I get an error like \"The variable 'XXX' has not been declared\"",
@@ -12,7 +12,7 @@
     },
     {
       "question": "I've added the variables but I still get a \"not declared\" error",
-      "answer": "Check your spelling - it's likely that you have a typo. Remember casing is important: `bodycx` is not the same as `bodyCx` or `bodyCX`."
+      "answer": "Check your spelling - it's likely that you have a typo. Remember casing is important: `bodycentery` is not the same as `bodyCenterY`."
     }
   ]
 }
