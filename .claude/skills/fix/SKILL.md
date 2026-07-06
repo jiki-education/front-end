@@ -13,10 +13,10 @@ You are fixing a GitHub issue for the jiki-education/front-end repository.
 ## Issue details
 
 ```json
-!`gh issue view $ARGUMENTS --json number,title,body,labels,comments`
+!`gh issue view "$(echo "$ARGUMENTS" | grep -oE 'issues/[0-9]+|[0-9]+' | grep -oE '[0-9]+' | head -1)" --json number,title,body,labels,comments`
 ```
 
-Issue number: !`echo "$ARGUMENTS" | grep -oE '[0-9]+$'`
+Issue number: !`echo "$ARGUMENTS" | grep -oE 'issues/[0-9]+|[0-9]+' | grep -oE '[0-9]+' | head -1`
 
 ## Critical: Two phase.
 
