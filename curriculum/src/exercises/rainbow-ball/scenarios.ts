@@ -2,13 +2,19 @@ import type { Task, VisualScenario } from "../types";
 import { hslToHexString } from "../../exercise-categories/draw/DrawExercise";
 import type { RainbowBallExercise } from "./Exercise";
 
-// The hue should sweep up to its maximum then back down to its minimum, reversing at
-// each end. We detect each bounce by a colour just inside that end appearing at least
-// twice: once approaching the edge, once leaving it. A hue moving by 1 can only repeat
-// a value if it changes direction. We avoid hue 0/360 themselves because they are both
-// pure red and share a hex, so they can't tell the top bounce apart from the bottom.
-const HUE_359 = hslToHexString(359, 80, 50); // just below the maximum (360)
-const HUE_1 = hslToHexString(1, 80, 50); // just above the minimum (0)
+// Sample the hue along its sweep to confirm the trail climbs through the spectrum, then
+// require the two values nearest the top to appear twice each to confirm the hue reaches
+// the maximum and bounces back down. A hue moving by 1 can only repeat a value if it
+// changes direction. We avoid hue 0/360 themselves because they are both pure red and
+// share a hex, so they can't tell the top of the sweep apart from the bottom.
+const HUE_CHECKS: { hue: number; times: number }[] = [
+  { hue: 99, times: 1 },
+  { hue: 153, times: 1 },
+  { hue: 206, times: 1 },
+  { hue: 253, times: 1 },
+  { hue: 356, times: 2 },
+  { hue: 359, times: 2 }
+];
 
 export const tasks = [
   {
@@ -41,14 +47,13 @@ export const scenarios: VisualScenario[] = [
           pass: ex.checkUniquePositionedCircles(30),
           errorHtml: "Expected at least 30 different positions."
         },
-        {
-          pass: ex.countCirclesWithFillColor(HUE_359) >= 2,
-          errorHtml: "Expected the hue to reach the top of the range and bounce back down."
-        },
-        {
-          pass: ex.countCirclesWithFillColor(HUE_1) >= 2,
-          errorHtml: "Expected the hue to reach the bottom of the range and bounce back up."
-        }
+        ...HUE_CHECKS.map(({ hue, times }) => ({
+          pass: ex.countCirclesWithFillColor(hslToHexString(hue, 80, 50)) >= times,
+          errorHtml:
+            times > 1
+              ? `Expected the hue to pass through ${hue} at least ${times} times (climbing, then bouncing back down).`
+              : `Expected the hue to pass through ${hue} as it sweeps through the spectrum.`
+        }))
       ];
     }
   }
