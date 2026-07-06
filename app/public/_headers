@@ -1,20 +1,34 @@
+# Cloudflare Workers Static Assets COMBINES the headers of every matching rule
+# below (duplicate header values are comma-joined) — there is no "most specific
+# wins". Each content-hashed path here also matches the /static/* catch-all at the
+# bottom, so without intervention it would get
+#   Cache-Control: public, max-age=86400, public, max-age=31536000, immutable
+# and browsers honour the FIRST max-age (86400 → 1 day), defeating the immutable
+# intent. So each immutable rule first drops the inherited value with
+# `! Cache-Control`, then sets its own. (/_next/static/* needs no `!` — nothing
+# else matches it.)
+
 /_next/static/*
   Cache-Control: public, max-age=31536000, immutable
 
 /static/content/*
+  ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
 
 # Concept + exercise caches: every file is content-hashed (index JSON, per-slug
 # HTML/JSON, and concept icons under concepts/icons/), so the whole prefix is
 # safe to serve immutably.
 /static/concepts/*
+  ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
 
 /static/exercises/*
+  ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
 
 # Lesson/badge/project icons copied to content-hashed filenames by generate-icon-cache.js.
 /static/icons-hashed/*
+  ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
 
 # Landing-page media (videos + background svgs) carries a content hash in its
@@ -23,6 +37,7 @@
 # get captured by the SVGR rule), so the hash is applied by hand — bump the hash
 # in the filename to bust the cache when the file changes.
 /static/images/landing-page/*
+  ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
 
 /static/*
