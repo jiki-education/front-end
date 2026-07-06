@@ -16,7 +16,7 @@
     },
     {
       "question": "How do I size the leaves so they grow with the flower?",
-      "answer": "The leaves' `xRadius` and `yRadius` are fractions of `flowerRadius`. That way they scale together. Anchor their vertical position to the stem, not to a fixed canvas Y, so they ride up with the flower."
+      "answer": "The leaves' `radiusX` and `radiusY` are fractions of `flowerRadius`. That way they scale together. Anchor their vertical position to the stem, not to a fixed canvas Y, so they ride up with the flower."
     },
     {
       "question": "My flower draws once and never changes. What's wrong?",

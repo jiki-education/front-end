@@ -6,8 +6,8 @@ import type { VisualExerciseCore, FunctionInfo } from "../types";
 const functions: FunctionInfo[] = [
   {
     name: "circle",
-    signature: "circle(cx, cy, radius, color)",
-    description: "Draw a circle centered at (cx, cy) with the given radius and color",
+    signature: "circle(centerX, centerY, radius, color)",
+    description: "Draw a circle centered at (centerX, centerY) with the given radius and color",
     examples: ['circle(50, 50, 15, "white")'],
     category: "Drawing Shapes"
   }

@@ -5,8 +5,8 @@ description: "Build a snowman from three circles."
 
 This exercise introduces you to the `circle` function, which we use with 3 inputs:
 
-- `cx`: The central horizontal (x) position of the center of the circle
-- `cy`: The central vertical (y) position of the center of the circle
+- `centerX`: The central horizontal (x) position of the center of the circle
+- `centerY`: The central vertical (y) position of the center of the circle
 - `radius`: How big the circle is
 
 This image should make things clearer:

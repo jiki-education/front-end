@@ -31,8 +31,8 @@ Here are some other things you need to know:
 - Everything is centered on the horizontal axis.
 - The leaves sit flush against the stalk on each side.
 - The leaves sit halfway down the stem.
-- The `xRadius` of the leaves is 50% of the radius of the flower.
-- The `yRadius` of the leaves is 20% of the radius of the flower.
+- The `radiusX` of the leaves is 50% of the radius of the flower.
+- The `radiusY` of the leaves is 20% of the radius of the flower.
 - The flower head can be `"red"` or `"pink"` depending on your taste. The pistil (the flower center) should be `"yellow"`. The grass should be `"green"`. The background should be `"skyblue"`.
 
 It is **essential** to work on one thing at a time:

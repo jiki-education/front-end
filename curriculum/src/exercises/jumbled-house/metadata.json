@@ -8,7 +8,7 @@
     },
     {
       "question": "How do coordinates work?",
-      "answer": "The canvas coordinates go from (0,0) at top-left to (100,100) at bottom-right. For rectangles, the x and y are the top-left corner."
+      "answer": "The canvas coordinates go from (0,0) at top-left to (100,100) at bottom-right. For rectangles, the left and top are the top-left corner."
     },
     {
       "question": "How do I figure out the roof position?",

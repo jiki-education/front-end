@@ -18,7 +18,7 @@ export const llmMetadata: LLMMetadata = {
         Draw three centred circles (head smallest/top, body medium/middle, base largest/bottom).
 
         Common mistakes:
-        - Treating cx/cy as the top-left rather than the centre
+        - Treating centerX/centerY as the top-left rather than the centre
         - Confusing radius with diameter
         - Getting the three sizes in the wrong order
       `
