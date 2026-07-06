@@ -8,7 +8,7 @@
     },
     {
       "question": "What's the repeating pattern in the alien positions?",
-      "answer": "The aliens are in every other column, so the pattern is: `shoot`, `move`, `move`. That three-step group is what you want to repeat."
+      "answer": "Your laser cannon starts to the left of the aliens, and they sit in every other column with three aliens stacked in each. So the pattern for each column is: `move`, `move`, `shoot`, `shoot`, `shoot`. You move across the empty gap onto the alien column, then shoot down all three rows. That five-step group is what you want to repeat."
     },
     {
       "question": "How many times should I repeat the pattern?",
@@ -16,7 +16,7 @@
     },
     {
       "question": "Why does the target ask for only 7 lines?",
-      "answer": "One line for the `repeat` header, the repeating actions inside, the closing brace, and one or two actions outside is plenty. If you're writing more, you're probably not using the loop yet."
+      "answer": "One line for the `repeat` header, the five repeating actions inside, and one line for the closing brace makes seven. Everything you need fits inside the loop, with nothing outside it. If you're writing more, you're probably not using the loop yet."
     }
   ]
 }
