@@ -32,7 +32,7 @@ export const scenarios: VisualScenario[] = [
   {
     slug: "rainbow-ball",
     name: "Rainbow ball",
-    description: "A bouncing ball that leaves a rainbow trail of different circles.",
+    description: "Draw a rainbow trail from different circles.",
     taskId: "rainbow-ball",
     randomSeed: true,
     expectations(exercise) {
@@ -47,12 +47,16 @@ export const scenarios: VisualScenario[] = [
           pass: ex.checkUniquePositionedCircles(30),
           errorHtml: "Expected at least 30 different positions."
         },
+        {
+          pass: ex.checkCanvasCoverage(80),
+          errorHtml: "The ball didn't paint enough of the canvas. It should bounce around until over 80% is covered."
+        },
         ...HUE_CHECKS.map(({ hue, times }) => ({
           pass: ex.countCirclesWithFillColor(hslToHexString(hue, 80, 50)) >= times,
           errorHtml:
             times > 1
-              ? `Expected the hue to pass through ${hue} at least ${times} times (climbing, then bouncing back down).`
-              : `Expected the hue to pass through ${hue} as it sweeps through the spectrum.`
+              ? "The hue didn't hit 360 then climb back down again."
+              : "The rainbow trail didn't sweep through all the colours."
         }))
       ];
     }
