@@ -2,11 +2,13 @@ import type { Task, VisualScenario } from "../types";
 import { hslToHexString } from "../../exercise-categories/draw/DrawExercise";
 import type { RainbowBallExercise } from "./Exercise";
 
-// The hue climbs to its maximum (360) then reverses. We detect the bounce by the
-// colours either side of the peak: hue 360 must be reached, and hue 359 must appear
-// at least twice (once on the way up, once on the way back down).
-const HUE_360 = hslToHexString(360, 80, 50);
-const HUE_359 = hslToHexString(359, 80, 50);
+// The hue should sweep up to its maximum then back down to its minimum, reversing at
+// each end. We detect each bounce by a colour just inside that end appearing at least
+// twice: once approaching the edge, once leaving it. A hue moving by 1 can only repeat
+// a value if it changes direction. We avoid hue 0/360 themselves because they are both
+// pure red and share a hex, so they can't tell the top bounce apart from the bottom.
+const HUE_359 = hslToHexString(359, 80, 50); // just below the maximum (360)
+const HUE_1 = hslToHexString(1, 80, 50); // just above the minimum (0)
 
 export const tasks = [
   {
@@ -40,12 +42,12 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "Expected at least 30 different positions."
         },
         {
-          pass: ex.countCirclesWithFillColor(HUE_360) >= 1,
-          errorHtml: "Expected the hue to climb all the way to its maximum (360)."
+          pass: ex.countCirclesWithFillColor(HUE_359) >= 2,
+          errorHtml: "Expected the hue to reach the top of the range and bounce back down."
         },
         {
-          pass: ex.countCirclesWithFillColor(HUE_359) >= 2,
-          errorHtml: "Expected the hue to bounce back down once it reached the maximum."
+          pass: ex.countCirclesWithFillColor(HUE_1) >= 2,
+          errorHtml: "Expected the hue to reach the bottom of the range and bounce back up."
         }
       ];
     }
