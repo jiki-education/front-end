@@ -10,6 +10,13 @@ if (process.env.NODE_ENV === "production") {
     tracesSampleRate: 0.1,
     enableLogs: true,
     sendDefaultPii: true,
+    ignoreErrors: [
+      // Microsoft Outlook SafeLinks / email-scanner crawlers inject a script that fires a
+      // non-Error promise rejection with this value. It has no stack trace and is not a real
+      // error, so it slips past the frame-based beforeSend filter below.
+      // https://github.com/getsentry/sentry-javascript/issues/3440
+      "Object Not Found Matching Id"
+    ],
     beforeSend(event) {
       // Drop aborted-request errors - these happen when the user navigates away
       // while a fetch is still in flight, which is expected, not a bug.
