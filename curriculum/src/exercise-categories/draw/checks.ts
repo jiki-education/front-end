@@ -67,6 +67,10 @@ export function checkUniqueColoredCircles(shapes: Shape[], count: number) {
   return colors.size >= count;
 }
 
+export function countCirclesWithFillColor(shapes: Shape[], fillColor: string) {
+  return shapes.filter((shape) => shape instanceof Circle && shape.fillColor === fillColor).length;
+}
+
 export function checkUniquePositionedCircles(shapes: Shape[], count: number) {
   const positions = new Set();
   shapes.forEach((shape) => {

@@ -10,7 +10,8 @@ import {
   checkUniqueColoredLines,
   checkUniqueColoredCircles,
   checkUniqueColoredRectangles,
-  checkUniquePositionedCircles
+  checkUniquePositionedCircles,
+  countCirclesWithFillColor
 } from "./checks";
 import type { Shape } from "./shapes";
 import { Circle, Line, Rectangle, Triangle, Ellipse } from "./shapes";
@@ -210,6 +211,10 @@ export abstract class DrawExercise extends VisualExercise {
 
   public checkCanvasCoverage(requiredPercentage: number) {
     return checkCanvasCoverage(this.shapes, requiredPercentage);
+  }
+
+  public countCirclesWithFillColor(fillColor: string) {
+    return countCirclesWithFillColor(this.shapes, fillColor);
   }
 
   public assertAllArgumentsAreVariables(interpreterResult: InterpretResult) {
@@ -525,7 +530,7 @@ export abstract class DrawExercise extends VisualExercise {
   }
 }
 
-function hslToHexString(h: number, s: number, l: number): string {
+export function hslToHexString(h: number, s: number, l: number): string {
   s /= 100;
   l /= 100;
 
