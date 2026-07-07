@@ -39,6 +39,9 @@
   "pnpm": {
     "overrides": {
       "@lezer/javascript": "npm:@jiki.io/lezer-javascript@^1.5.4"
+    },
+    "patchedDependencies": {
+      "animejs@4.2.2": "patches/animejs@4.2.2.patch"
     }
   }
 }

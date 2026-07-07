@@ -1,0 +1,32 @@
+diff --git a/dist/modules/core/render.cjs b/dist/modules/core/render.cjs
+index d4349157fc329c30a320a8f17ab20581a505bbd1..18e5ad235d93fba28a27cffcb97fdb33234e2797 100644
+--- a/dist/modules/core/render.cjs
++++ b/dist/modules/core/render.cjs
+@@ -133,7 +133,10 @@ const render = (tickable, time, muteCallbacks, internalRender, tickMode) => {
+ 
+       // Time has jumped more than globals.tickThreshold so consider this tick manual
+       const forcedRender = forcedTick || (isRunningBackwards ? deltaTime * -1 : deltaTime) >= globals.globals.tickThreshold;
+-      const absoluteTime = tickable._offset + (parent ? parent._offset : 0) + tickableDelay + iterationTime;
++      // Rounding is necessary here to match the rounding applied to tween._absoluteStartTime at creation time,
++      // otherwise floating point residue in offsets can make `absoluteTime <= tweenAbsEndTime` style
++      // comparisons fail by ~1e-13 and permanently skip short tweens during playback.
++      const absoluteTime = helpers.round(tickable._offset + (parent ? parent._offset : 0) + tickableDelay + iterationTime, 12);
+ 
+       // Only Animation can have tweens, Timer returns undefined
+       let tween = /** @type {Tween} */(/** @type {JSAnimation} */(tickable)._head);
+diff --git a/dist/modules/core/render.js b/dist/modules/core/render.js
+index 1ea5f8dd14b3759dc36a97fdf5f84e5bbe399e0c..c2dca2bb40b42599d8451f60eb1c30a8e3215647 100644
+--- a/dist/modules/core/render.js
++++ b/dist/modules/core/render.js
+@@ -131,7 +131,10 @@ const render = (tickable, time, muteCallbacks, internalRender, tickMode) => {
+ 
+       // Time has jumped more than globals.tickThreshold so consider this tick manual
+       const forcedRender = forcedTick || (isRunningBackwards ? deltaTime * -1 : deltaTime) >= globals.tickThreshold;
+-      const absoluteTime = tickable._offset + (parent ? parent._offset : 0) + tickableDelay + iterationTime;
++      // Rounding is necessary here to match the rounding applied to tween._absoluteStartTime at creation time,
++      // otherwise floating point residue in offsets can make `absoluteTime <= tweenAbsEndTime` style
++      // comparisons fail by ~1e-13 and permanently skip short tweens during playback.
++      const absoluteTime = round(tickable._offset + (parent ? parent._offset : 0) + tickableDelay + iterationTime, 12);
+ 
+       // Only Animation can have tweens, Timer returns undefined
+       let tween = /** @type {Tween} */(/** @type {JSAnimation} */(tickable)._head);
