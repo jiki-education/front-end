@@ -45,8 +45,8 @@ export const scenarios: VisualScenario[] = [
             "None of your circles touched the edges of the canvas. If you're confident your code is correct, it might be that the random numbers didn't happen to land a circle exactly on an edge. Try running it again!"
         },
         {
-          pass: ex.checkSaturationAndLuminosityInRange(20, 80),
-          errorHtml: "Saturation and luminosity must both be between 20 and 80."
+          pass: ex.checkSaturationAndLightnessInRange(20, 80),
+          errorHtml: "Saturation and lightness must both be between 20 and 80."
         }
       ];
     }

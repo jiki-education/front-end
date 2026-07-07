@@ -6,7 +6,7 @@ set hue to 99
 
 // These never need to change
 set saturation to 80
-set luminosity to 50
+set lightness to 50
 
 set x_direction to 2
 set y_direction to 1

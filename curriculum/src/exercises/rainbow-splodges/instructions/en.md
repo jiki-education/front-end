@@ -11,7 +11,7 @@ You need to draw **200 circles** with random radii, at random positions, with ra
 
 There are only three rules:
 
-1. Keep saturation and luminosity in the range of between 20 and 80. You can either just stick to fixed values (maybe 50 for each, which will probably look better) or go more wild and vary them both.
+1. Keep saturation and lightness in the range of between 20 and 80. You can either just stick to fixed values (maybe 50 for each, which will probably look better) or go more wild and vary them both.
 2. The radius of the circles needs to be greater than 1 and less than 30 (else the circles will be waaaaaay too big!). You can choose a different range, but you can't go outside of this.
 3. The circles cannot go outside of the box. But lots of circles should touch the edges.
 

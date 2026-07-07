@@ -23,12 +23,12 @@ This project is all about having some variables that are responsible for the pos
 
 - The first circle you draw should be at `(5, 5)`.
 - All the circles should have a radius of `10`.
-- The colour of the circle should use HSL, starting with a hue of `100` (green), a saturation of `80` (bold colours), and a luminosity of `50` (mid-brightness).
+- The colour of the circle should use HSL, starting with a hue of `100` (green), a saturation of `80` (bold colours), and a lightness of `50` (mid-brightness).
 
 ### Animating
 
 - To start with, in each iteration you should move the ball `2` to the right and `1` down.
-- The hue should increase by `1` each time, until it gets to the maximum (`360`), then start reducing again. The saturation and luminosity don't need to change.
+- The hue should increase by `1` each time, until it gets to the maximum (`360`), then start reducing again. The saturation and lightness don't need to change.
 
 ### Bouncing
 

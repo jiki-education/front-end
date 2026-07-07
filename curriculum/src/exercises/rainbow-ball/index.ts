@@ -13,8 +13,8 @@ const functions: FunctionInfo[] = [
   },
   {
     name: "hsl",
-    signature: "hsl(hue, saturation, luminosity)",
-    description: "Convert HSL color values (hue 0-360, saturation 0-100, luminosity 0-100) to a hex color string",
+    signature: "hsl(hue, saturation, lightness)",
+    description: "Convert HSL color values (hue 0-360, saturation 0-100, lightness 0-100) to a hex color string",
     examples: ["hsl(0, 80, 50)", "hsl(120, 80, 50)"],
     category: "Colors"
   }

@@ -9,4 +9,4 @@ Your task is to make a beautiful rainbow pattern made up of 100 vertical bars. I
 
 The rainbow is made up of `100` bars, each going from top to bottom with a width of `1`. The first bar should have an `x` of `0`, and the final bar should have an `x` of `99`.
 
-To set the color, use the `hsl(...)` function. This returns a color string that you can then use as the final input in `rectangle(...)`. Setting the saturation and luminosity values to around `50` is probably best. The first bar should have a **hue** of `0`. The hue should increase for each bar and end up somewhere near 300.
+To set the color, use the `hsl(...)` function. This returns a color string that you can then use as the final input in `rectangle(...)`. Setting the saturation and lightness values to around `50` is probably best. The first bar should have a **hue** of `0`. The hue should increase for each bar and end up somewhere near 300.

@@ -32,8 +32,8 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "The last rectangle is missing."
         },
         {
-          pass: ex.allRectanglesHaveMinSaturationAndLuminosity(20, 20),
-          errorHtml: "All rectangles should have saturation and luminosity of at least 20."
+          pass: ex.allRectanglesHaveMinSaturationAndLightness(20, 20),
+          errorHtml: "All rectangles should have saturation and lightness of at least 20."
         },
         {
           pass: ex.checkUniqueColoredRectangles(100),
