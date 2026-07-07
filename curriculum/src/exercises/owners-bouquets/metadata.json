@@ -3,8 +3,8 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "What's the formula I need to calculate where to play things",
-      "answer": "It's:\n\n```javascript\n100 / (numberOfFlowers + 1)\n```"
+      "question": "How do I work out where to plant each flower?",
+      "answer": "First work out the gap between flowers:\n\n```javascript\n100 / (numberOfFlowers + 1)\n```\n\nThe first flower goes at that position, and each next flower is one more gap along. So if there are 3 flowers the gap is 25, and they go at 25, 50 and 75."
     },
     {
       "question": "How do I see the different scenarios",

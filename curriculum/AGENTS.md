@@ -453,9 +453,9 @@ Validates all TypeScript without emitting files.
 
 ## Repository Links
 
-- **Frontend**: https://github.com/exercism/jiki-fe
+- **Monorepo**: https://github.com/jiki-education/front-end (the frontend, content, curriculum, and interpreters all live here)
 - **Overview**: ../overview (Strategic documentation)
-- **This Repository**: https://github.com/exercism/jiki-curriculum (assumed)
+- **This package**: the `curriculum/` directory of the monorepo above
 
 ## Contact for Questions
 
