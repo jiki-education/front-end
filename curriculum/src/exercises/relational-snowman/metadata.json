@@ -8,11 +8,11 @@
     },
     {
       "question": "How do I work out where the base sits?",
-      "answer": "The bottom edge of the base sits `size` above the ground (Y=100). The centre of the base is one base-radius further up from its bottom edge."
+      "answer": "The bottom edge of the base sits `size` above the ground (Y=100). The center of the base is one base-radius further up from its bottom edge."
     },
     {
       "question": "How do I stack the body on the base?",
-      "answer": "When two circles touch with one directly above the other, the distance between their centres equals the sum of their two radii."
+      "answer": "When two circles touch with one directly above the other, the distance between their centers equals the sum of their two radii."
     },
     {
       "question": "What about the head?",
