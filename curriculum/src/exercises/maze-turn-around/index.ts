@@ -59,7 +59,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["creating-functions"],
+  conceptSlugs: ["creating-functions", "using-functions", "repeat", "if", "else-if"],
   interpreterOptions: { maxTotalLoopIterations: 50 }
 };
 

@@ -1,63 +1,53 @@
-import type { Task, VisualScenario } from "../types";
+import type { CodeCheck, Task, VisualScenario } from "../types";
 import type MazeTurnAroundExercise from "./Exercise";
 
 export const tasks = [
   {
-    id: "straight-path" as const,
-    name: "A straight path",
-    description: "Move forward to the end of the maze.",
-    hints: [],
-    requiredScenarios: ["maze-1"],
-    bonus: false
-  },
-  {
-    id: "turn-left" as const,
-    name: "Turn left if you can",
-    description: "If there's a path to the left, take it!",
-    hints: [],
-    requiredScenarios: ["left-turn"],
-    bonus: false
-  },
-  {
-    id: "turn-right" as const,
-    name: "Turn right if you can't move straight or left",
-    description: "If there's not a path to the left or straight ahead, take the path to the right.",
-    hints: [],
-    requiredScenarios: ["right-turn", "forks"],
-    bonus: false
-  },
-  {
-    id: "turn-around-task" as const,
-    name: "Turn around if needed",
+    id: "turn-around" as const,
+    name: "Turn around at dead ends",
     description:
-      "Handle dead ends by creating a turnAround() function. Define it at the top of your code — it should call turnLeft() twice. Then use it in the final else block.",
+      "Define a turnAround() function at the top of your code that calls turnLeft() twice, then use it in the final else block. Your solver should escape the dead ends in all three mazes.",
     hints: [],
-    requiredScenarios: ["turn-around", "forks-2"],
+    requiredScenarios: ["maze-1", "maze-2", "maze-3"],
     bonus: false
   }
 ] as const satisfies readonly Task[];
 
+// Every scenario in this exercise is about the turnAround() function, so each one
+// verifies that it is both defined and actually called (not inlined as two turnLeft()s).
+const turnAroundCodeChecks: CodeCheck[] = [
+  {
+    pass: (result) => result.assertors.assertFunctionDefined("turn_around"),
+    errorHtml: "You need to define a <code>turnAround</code> function at the top of your code."
+  },
+  {
+    pass: (result) => result.assertors.assertFunctionCalledOutsideOwnDefinition("turn_around"),
+    errorHtml:
+      "You've defined <code>turnAround</code>, but you need to actually call it in your final <code>else</code> block."
+  }
+];
+
 export const scenarios: VisualScenario[] = [
   {
     slug: "maze-1",
-    name: "Guide person to the end of the maze",
-    description: "A straight path down",
-    taskId: "straight-path",
+    name: "A single dead end",
+    description: "A straight corridor with one dead-end spur that forces a turn-around",
+    taskId: "turn-around",
 
     setup(exercise) {
       const ex = exercise as MazeTurnAroundExercise;
       ex.setupMaze(
         [
-          [1, 1, 1, 1, 2, 1, 1],
-          [1, 1, 1, 1, 0, 1, 1],
-          [1, 1, 1, 1, 0, 1, 1],
-          [1, 1, 1, 1, 0, 1, 1],
-          [1, 1, 1, 1, 0, 1, 1],
-          [1, 1, 1, 1, 0, 1, 1],
-          [1, 1, 1, 1, 3, 1, 1]
+          [1, 2, 1, 1, 1, 1, 1],
+          [1, 0, 1, 1, 1, 1, 1],
+          [1, 0, 0, 0, 1, 1, 1],
+          [1, 0, 1, 1, 1, 1, 1],
+          [1, 0, 1, 1, 1, 1, 1],
+          [1, 3, 1, 1, 1, 1, 1],
+          [1, 1, 1, 1, 1, 1, 1]
         ],
         0,
-        4,
+        1,
         "down"
       );
     },
@@ -66,34 +56,34 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as MazeTurnAroundExercise;
       return [
         {
-          pass: ex.characterRow === 6 && ex.characterCol === 4,
+          pass: ex.characterRow === 5 && ex.characterCol === 1,
           errorHtml: "You didn't reach the end of the maze."
         }
       ];
-    }
+    },
+
+    codeChecks: turnAroundCodeChecks
   },
   {
-    slug: "left-turn",
-    name: "A single left turn",
-    description: "Navigate a left turn",
-    taskId: "turn-left",
+    slug: "maze-2",
+    name: "A dead end and a turn",
+    description: "A winding path with a dead-end spur before turning to the exit",
+    taskId: "turn-around",
 
     setup(exercise) {
       const ex = exercise as MazeTurnAroundExercise;
       ex.setupMaze(
         [
-          [2, 1, 1, 1, 1, 1, 1, 1, 1],
-          [0, 1, 1, 1, 1, 1, 1, 1, 1],
-          [0, 1, 1, 1, 1, 1, 1, 1, 1],
-          [0, 1, 1, 1, 1, 1, 1, 1, 1],
-          [0, 1, 1, 1, 1, 1, 1, 1, 1],
-          [0, 0, 0, 0, 0, 0, 0, 0, 3],
-          [1, 1, 1, 1, 1, 1, 1, 1, 1],
-          [1, 1, 1, 1, 1, 1, 1, 1, 1],
-          [1, 1, 1, 1, 1, 1, 1, 1, 1]
+          [1, 2, 1, 1, 1, 1, 1],
+          [1, 0, 0, 0, 0, 1, 1],
+          [1, 0, 1, 1, 1, 1, 1],
+          [1, 0, 0, 0, 0, 0, 1],
+          [1, 1, 1, 1, 1, 0, 1],
+          [1, 1, 1, 1, 1, 3, 1],
+          [1, 1, 1, 1, 1, 1, 1]
         ],
         0,
-        0,
+        1,
         "down"
       );
     },
@@ -102,39 +92,35 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as MazeTurnAroundExercise;
       return [
         {
-          pass: ex.characterRow === 5 && ex.characterCol === 8,
+          pass: ex.characterRow === 5 && ex.characterCol === 5,
           errorHtml: "You didn't reach the end of the maze."
-        },
-        {
-          pass: ex.direction === "right",
-          errorHtml: "You seem to have done an extra unnecessary turn at the end."
         }
       ];
-    }
+    },
+
+    codeChecks: turnAroundCodeChecks
   },
   {
-    slug: "right-turn",
-    name: "A single right turn",
-    description: "Navigate a right turn",
-    taskId: "turn-right",
+    slug: "maze-3",
+    name: "Two dead ends",
+    description: "A corridor with two dead-end spurs, each requiring a turn-around",
+    taskId: "turn-around",
 
     setup(exercise) {
       const ex = exercise as MazeTurnAroundExercise;
       ex.setupMaze(
         [
-          [1, 1, 1, 1, 1, 1, 1, 1, 2],
-          [1, 1, 1, 1, 1, 1, 1, 1, 0],
-          [1, 1, 1, 1, 1, 1, 1, 1, 0],
-          [1, 1, 1, 1, 1, 1, 1, 1, 0],
-          [1, 1, 1, 1, 1, 1, 1, 1, 0],
-          [3, 0, 0, 0, 0, 0, 0, 0, 0],
-          [1, 1, 1, 1, 1, 1, 1, 1, 1],
-          [1, 1, 1, 1, 1, 1, 1, 1, 1],
-          [1, 1, 1, 1, 1, 1, 1, 1, 1]
+          [1, 1, 1, 1, 1, 1, 1],
+          [1, 1, 0, 1, 0, 1, 1],
+          [1, 2, 0, 0, 0, 0, 1],
+          [1, 1, 1, 1, 1, 0, 1],
+          [1, 1, 1, 1, 1, 3, 1],
+          [1, 1, 1, 1, 1, 1, 1],
+          [1, 1, 1, 1, 1, 1, 1]
         ],
-        0,
-        8,
-        "down"
+        2,
+        1,
+        "right"
       );
     },
 
@@ -142,125 +128,12 @@ export const scenarios: VisualScenario[] = [
       const ex = exercise as MazeTurnAroundExercise;
       return [
         {
-          pass: ex.characterRow === 5 && ex.characterCol === 0,
-          errorHtml: "You didn't reach the end of the maze."
-        }
-      ];
-    }
-  },
-  {
-    slug: "forks",
-    name: "Choose left if you can, otherwise choose right",
-    description: "A maze with forks that tests left-priority",
-    taskId: "turn-right",
-
-    setup(exercise) {
-      const ex = exercise as MazeTurnAroundExercise;
-      ex.setupMaze(
-        [
-          [2, 1, 1, 1, 1, 1, 1, 1, 1],
-          [0, 1, 1, 1, 1, 1, 1, 1, 1],
-          [0, 1, 1, 1, 0, 0, 0, 0, 3],
-          [0, 1, 1, 1, 0, 1, 1, 1, 1],
-          [0, 1, 1, 1, 0, 1, 1, 1, 1],
-          [0, 0, 0, 0, 0, 1, 1, 1, 1],
-          [1, 4, 1, 1, 4, 1, 1, 1, 1],
-          [1, 4, 4, 4, 4, 1, 1, 1, 1],
-          [1, 1, 1, 1, 4, 1, 1, 1, 1]
-        ],
-        0,
-        0,
-        "down"
-      );
-    },
-
-    expectations(exercise) {
-      const ex = exercise as MazeTurnAroundExercise;
-      return [
-        {
-          pass: ex.characterRow === 2 && ex.characterCol === 8,
-          errorHtml: "You didn't reach the end of the maze."
-        }
-      ];
-    }
-  },
-  {
-    slug: "turn-around",
-    name: "Turn around at a dead end",
-    description: "A maze that requires turning around",
-    taskId: "turn-around-task",
-
-    setup(exercise) {
-      const ex = exercise as MazeTurnAroundExercise;
-      ex.setupMaze(
-        [
-          [1, 1, 1, 2, 1, 1, 1, 1, 1],
-          [1, 1, 1, 0, 1, 1, 1, 1, 1],
-          [1, 1, 1, 0, 1, 1, 1, 1, 1],
-          [1, 4, 4, 0, 1, 1, 0, 1, 1],
-          [1, 4, 1, 0, 1, 1, 0, 1, 1],
-          [1, 4, 4, 0, 0, 0, 0, 0, 1],
-          [1, 1, 1, 0, 1, 1, 1, 1, 1],
-          [3, 0, 0, 0, 1, 1, 1, 1, 1],
-          [1, 1, 1, 0, 1, 1, 1, 1, 1]
-        ],
-        0,
-        3,
-        "down"
-      );
-    },
-
-    expectations(exercise) {
-      const ex = exercise as MazeTurnAroundExercise;
-      return [
-        {
-          pass: ex.characterRow === 7 && ex.characterCol === 0,
-          errorHtml: "You didn't reach the end of the maze."
-        }
-      ];
-    }
-  },
-  {
-    slug: "forks-2",
-    name: "Complex maze with forks and dead ends",
-    description: "A complex maze testing the full algorithm with turnAround function",
-    taskId: "turn-around-task",
-
-    setup(exercise) {
-      const ex = exercise as MazeTurnAroundExercise;
-      ex.setupMaze(
-        [
-          [2, 1, 1, 1, 1, 1, 1, 1, 1],
-          [0, 1, 1, 0, 0, 1, 1, 1, 1],
-          [0, 1, 1, 1, 0, 0, 0, 0, 1],
-          [0, 1, 1, 0, 0, 1, 0, 1, 1],
-          [0, 1, 1, 1, 0, 1, 0, 1, 1],
-          [0, 0, 0, 0, 0, 1, 0, 0, 1],
-          [1, 4, 1, 1, 0, 1, 1, 0, 1],
-          [1, 4, 4, 4, 0, 1, 0, 0, 1],
-          [1, 1, 1, 1, 3, 1, 1, 1, 1]
-        ],
-        0,
-        0,
-        "down"
-      );
-    },
-
-    expectations(exercise) {
-      const ex = exercise as MazeTurnAroundExercise;
-      return [
-        {
-          pass: ex.characterRow === 8 && ex.characterCol === 4,
+          pass: ex.characterRow === 4 && ex.characterCol === 5,
           errorHtml: "You didn't reach the end of the maze."
         }
       ];
     },
 
-    codeChecks: [
-      {
-        pass: (result) => result.assertors.assertFunctionDefined("turn_around"),
-        errorHtml: "You should define a <code>turnAround</code> function and use it in your solution."
-      }
-    ]
+    codeChecks: turnAroundCodeChecks
   }
 ];
