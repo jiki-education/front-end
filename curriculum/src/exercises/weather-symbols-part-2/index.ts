@@ -14,15 +14,16 @@ const functions: FunctionInfo[] = [
   },
   {
     name: "circle",
-    signature: "circle(cx, cy, radius, color)",
-    description: "Draw a circle centered at (cx, cy) with the given radius and color",
+    signature: "circle(centerX, centerY, radius, color)",
+    description: "Draw a circle centered at (centerX, centerY) with the given radius and color",
     examples: ['circle(75, 30, 15, "#ffed06")'],
     category: "Drawing Shapes"
   },
   {
     name: "ellipse",
-    signature: "ellipse(x, y, rx, ry, color)",
-    description: "Draw an ellipse centered at (cx, cy) with horizontal radius rx, vertical radius ry, and color",
+    signature: "ellipse(centerX, centerY, radiusX, radiusY, color)",
+    description:
+      "Draw an ellipse centered at (centerX, centerY) with horizontal radius radiusX, vertical radius radiusY, and color",
     examples: ['ellipse(30, 70, 3, 5, "#56AEFF")'],
     category: "Drawing Shapes"
   }

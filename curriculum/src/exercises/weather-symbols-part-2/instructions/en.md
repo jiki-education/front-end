@@ -45,7 +45,7 @@ The elements list can contain: `"sun"`, `"cloud"`, `"rain"`, and `"snow"`.
 ### Quick Reminder
 
 - `rectangle(left, top, width, height, color)` -- draws a rectangle
-- `circle(cx, cy, radius, color)` -- draws a circle
-- `ellipse(cx, cy, rx, ry, color)` -- draws an ellipse
+- `circle(centerX, centerY, radius, color)` -- draws a circle
+- `ellipse(centerX, centerY, radiusX, radiusY, color)` -- draws an ellipse
 
 The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`.

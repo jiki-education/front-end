@@ -1,5 +1,5 @@
 let sunRadius = 5
-let sunCy = 10
+let sunCenterY = 10
 
 let sunRed = 255
 let sunGreen = 237
@@ -17,10 +17,10 @@ repeat(100) {
 
   // The Sun
   sunGreen = sunGreen - 1
-  sunCy = sunCy + 1
+  sunCenterY = sunCenterY + 1
   sunRadius = sunRadius + 0.2
   let sunColor = rgb(sunRed, sunGreen, sunBlue)
-  circle(50, sunCy, sunRadius, sunColor)
+  circle(50, sunCenterY, sunRadius, sunColor)
 
   // The sea
   rectangle(0, 85, 100, 5, "#0308ce")
