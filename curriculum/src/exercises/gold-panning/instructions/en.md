@@ -11,4 +11,4 @@ You have a `pan()` function that returns the amount of nuggets you find each tim
 
 Your robot follows the same pattern each time. It heads to the river, pans **5 times** and then sells the total number of nuggets it finds in these 5 pans at the end.
 
-Solve the puzzle in **5 lines of code!**
+Solve the puzzle in **5 lines of code** (or less)!
