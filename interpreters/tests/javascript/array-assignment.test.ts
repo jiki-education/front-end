@@ -177,7 +177,7 @@ describe("JavaScript - Array Element Assignment", () => {
 
       const assignmentFrame = result.frames[1] as TestFrame;
       expect(assignmentFrame.status).toBe("ERROR");
-      expect(assignmentFrame.error?.message).toContain("TypeError");
+      expect(assignmentFrame.error?.message).toContain("CannotSetPropertyOfType");
     });
 
     it("should error with non-numeric index", () => {
@@ -192,7 +192,7 @@ describe("JavaScript - Array Element Assignment", () => {
 
       const assignmentFrame = result.frames[1] as TestFrame;
       expect(assignmentFrame.status).toBe("ERROR");
-      expect(assignmentFrame.error?.message).toContain("TypeError");
+      expect(assignmentFrame.error?.message).toContain("ArrayIndexNotNumber");
     });
 
     it("should error with non-integer numeric index", () => {
@@ -207,7 +207,7 @@ describe("JavaScript - Array Element Assignment", () => {
 
       const assignmentFrame = result.frames[1] as TestFrame;
       expect(assignmentFrame.status).toBe("ERROR");
-      expect(assignmentFrame.error?.message).toContain("TypeError");
+      expect(assignmentFrame.error?.message).toContain("ArrayIndexNotInteger");
     });
 
     it("should error with negative index", () => {
@@ -237,7 +237,7 @@ describe("JavaScript - Array Element Assignment", () => {
 
       const assignmentFrame = result.frames[1] as TestFrame;
       expect(assignmentFrame.status).toBe("ERROR");
-      expect(assignmentFrame.error?.message).toContain("TypeError");
+      expect(assignmentFrame.error?.message).toContain("CannotSetPropertyOfType");
     });
   });
 

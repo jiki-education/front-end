@@ -11,9 +11,7 @@ describe("Array computed access errors", () => {
     expect(result.error).toBe(null);
     const errorFrame = result.frames.find(f => f.status === "ERROR");
     expect(errorFrame).toBeDefined();
-    expect(errorFrame?.error?.message).toBe(
-      "TypeError: message: Cannot use computed property access for stdlib members"
-    );
+    expect(errorFrame?.error?.message).toBe("ComputedAccessNotAllowedForStdlib");
   });
 
   test("gives runtime error when using string computed access", () => {
@@ -25,6 +23,6 @@ describe("Array computed access errors", () => {
     expect(result.error).toBe(null);
     const errorFrame = result.frames.find(f => f.status === "ERROR");
     expect(errorFrame).toBeDefined();
-    expect(errorFrame?.error?.message).toBe("TypeError: message: Array indices must be numbers");
+    expect(errorFrame?.error?.message).toBe("ArrayIndexNotNumber");
   });
 });

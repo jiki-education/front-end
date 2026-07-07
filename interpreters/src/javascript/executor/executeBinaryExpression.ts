@@ -3,7 +3,7 @@ import type { BinaryExpression } from "../expression";
 import type { EvaluationResultBinaryExpression, EvaluationResultExpression } from "../evaluation-result";
 import { createJSObject, type JikiObject, JSDictionary, JSArray, type JSNumber } from "../jikiObjects";
 import { numberArithmetic, arithmeticWithCoercion } from "./arithmetic";
-import { RuntimeError } from "../executor";
+import { InterpreterInternalError } from "../error";
 
 export function executeBinaryExpression(
   executor: Executor,
@@ -126,47 +126,33 @@ function handleBinaryOperation(
       // Array: gated behind allowInWithArrays language feature
       if (rightResult.jikiObject instanceof JSArray) {
         if (!executor.languageFeatures.allowInWithArrays) {
-          throw new RuntimeError(`InWithArrayNotAllowed`, expression.location, "InWithArrayNotAllowed");
+          executor.error("InWithArrayNotAllowed", expression.location);
         }
         // When enabled, check if index exists in array
         const index = Number(left);
         if (Number.isNaN(index) || !Number.isInteger(index)) {
-          throw new RuntimeError(
-            `InOperatorRequiresIntegerIndex: type: ${leftType}`,
-            expression.location,
-            "InOperatorRequiresIntegerIndex"
-          );
+          executor.error("InOperatorRequiresIntegerIndex", expression.location, { type: leftType });
         }
         return createJSObject(index >= 0 && index < rightResult.jikiObject.length);
       }
 
       // Right-hand side must be a dictionary
       if (!(rightResult.jikiObject instanceof JSDictionary)) {
-        throw new RuntimeError(
-          `InOperatorRequiresObject: type: ${rightType}`,
-          expression.location,
-          "InOperatorRequiresObject"
-        );
+        executor.error("InOperatorRequiresObject", expression.location, { type: rightType });
       }
 
       // Left-hand side must be a string (the key to check)
       if (leftType !== "string") {
-        throw new RuntimeError(
-          `InOperatorRequiresStringKey: type: ${leftType}`,
-          expression.location,
-          "InOperatorRequiresStringKey"
-        );
+        executor.error("InOperatorRequiresStringKey", expression.location, { type: leftType });
       }
 
       return createJSObject(rightResult.jikiObject.value.has(left));
     }
 
     default:
-      throw new RuntimeError(
-        `Unsupported binary operator: ${expression.operator.type}`,
-        expression.location,
-        "InvalidBinaryExpression"
-      );
+      // The parser only emits binary operators the cases above handle, so
+      // reaching here is an interpreter bug, not a student error.
+      throw new InterpreterInternalError(`Unsupported binary operator: ${expression.operator.type}`);
   }
 }
 
@@ -177,17 +163,17 @@ function verifyNumbersForComparison(
   rightResult: EvaluationResultExpression
 ): void {
   if (typeof leftResult.jikiObject.value !== "number") {
-    throw new RuntimeError(
-      `ComparisonRequiresNumber: operator: ${expression.operator.lexeme}: left: ${leftResult.jikiObject.type}`,
-      expression.location,
-      "ComparisonRequiresNumber"
-    );
+    executor.error("ComparisonRequiresNumber", expression.location, {
+      operator: expression.operator.lexeme,
+      side: "left",
+      type: leftResult.jikiObject.type,
+    });
   }
   if (typeof rightResult.jikiObject.value !== "number") {
-    throw new RuntimeError(
-      `ComparisonRequiresNumber: operator: ${expression.operator.lexeme}: right: ${rightResult.jikiObject.type}`,
-      expression.location,
-      "ComparisonRequiresNumber"
-    );
+    executor.error("ComparisonRequiresNumber", expression.location, {
+      operator: expression.operator.lexeme,
+      side: "right",
+      type: rightResult.jikiObject.type,
+    });
   }
 }

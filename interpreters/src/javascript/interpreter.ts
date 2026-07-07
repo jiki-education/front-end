@@ -1,6 +1,6 @@
 import { Parser } from "./parser";
 import { Executor } from "./executor";
-import type { SyntaxError as JSSyntaxError } from "./error";
+import { InterpreterInternalError, type SyntaxError as JSSyntaxError } from "./error";
 import type { CompilationResult } from "../shared/errors";
 import type { LanguageFeatures } from "./interfaces";
 import type { ExternalFunction, InterpretResult } from "../shared/interfaces";
@@ -79,6 +79,11 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
       assertors: result.assertors,
     };
   } catch (error: unknown) {
+    // Internal interpreter bugs must not be swallowed - let them propagate as a
+    // genuine top-level exception rather than being returned as a soft error.
+    if (error instanceof InterpreterInternalError) {
+      throw error;
+    }
     // Only parsing/compilation errors are returned as errors
     return {
       frames: [],

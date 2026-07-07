@@ -4,6 +4,7 @@ const DEFAULT_LANGUAGE = "en";
 const DEBUG = false;
 
 import enLangPack from "./locales/en/translation.json";
+import huLangPack from "./locales/hu/translation.json";
 import systemLangPack from "./locales/system/translation.json";
 
 const javascriptI18n = createInstance();
@@ -11,12 +12,14 @@ const javascriptI18n = createInstance();
 void javascriptI18n.init({
   debug: DEBUG,
   lng: DEFAULT_LANGUAGE,
+  fallbackLng: DEFAULT_LANGUAGE,
   initImmediate: false,
   showSupportNotice: false,
 });
 
 javascriptI18n.addResourceBundle("system", "translation", systemLangPack);
 javascriptI18n.addResourceBundle("en", "translation", enLangPack);
+javascriptI18n.addResourceBundle("hu", "translation", huLangPack);
 
 export function getLanguage(): string {
   return javascriptI18n.language;

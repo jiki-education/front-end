@@ -288,7 +288,7 @@ describe("Object Property Writing", () => {
 
       const lastFrame = result.frames[1] as TestAugmentedFrame;
       expect(lastFrame.status).toBe("ERROR");
-      expect(lastFrame.error?.type).toBe("TypeError");
+      expect(lastFrame.error?.type).toBe("CannotSetPropertyOfType");
     });
 
     it("should error when setting property on string", () => {
@@ -303,7 +303,7 @@ describe("Object Property Writing", () => {
 
       const lastFrame = result.frames[1] as TestAugmentedFrame;
       expect(lastFrame.status).toBe("ERROR");
-      expect(lastFrame.error?.type).toBe("TypeError");
+      expect(lastFrame.error?.type).toBe("CannotSetPropertyOfType");
     });
 
     it("should error when setting property on null", () => {
@@ -318,7 +318,7 @@ describe("Object Property Writing", () => {
 
       const lastFrame = result.frames[1] as TestAugmentedFrame;
       expect(lastFrame.status).toBe("ERROR");
-      expect(lastFrame.error?.type).toBe("TypeError");
+      expect(lastFrame.error?.type).toBe("CannotSetPropertyOfType");
     });
 
     it("should error when setting property on undefined", () => {
@@ -333,7 +333,7 @@ describe("Object Property Writing", () => {
 
       const lastFrame = result.frames[1] as TestAugmentedFrame;
       expect(lastFrame.status).toBe("ERROR");
-      expect(lastFrame.error?.type).toBe("TypeError");
+      expect(lastFrame.error?.type).toBe("CannotSetPropertyOfType");
     });
   });
 });

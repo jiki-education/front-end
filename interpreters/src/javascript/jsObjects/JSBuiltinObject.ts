@@ -20,6 +20,10 @@ export class JSBuiltinObject extends JikiObject {
     return this.methods.get(name);
   }
 
+  public get name(): string {
+    return this.objectName;
+  }
+
   public get value(): Map<string, JSStdLibFunction> {
     return this.methods;
   }

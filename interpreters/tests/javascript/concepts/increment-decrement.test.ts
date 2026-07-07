@@ -154,7 +154,7 @@ describe("JavaScript increment and decrement operators", () => {
       expect(error).toBeNull();
       expect(frames.length).toBeGreaterThan(0);
       expect(frames[frames.length - 1].status).toBe("ERROR");
-      expect(frames[frames.length - 1].error?.type).toBe("InvalidUnaryExpression");
+      expect(frames[frames.length - 1].error?.type).toBe("UpdateOperatorRequiresNumber");
     });
 
     test("cannot increment boolean", () => {
@@ -166,7 +166,7 @@ describe("JavaScript increment and decrement operators", () => {
       expect(error).toBeNull();
       expect(frames.length).toBeGreaterThan(0);
       expect(frames[frames.length - 1].status).toBe("ERROR");
-      expect(frames[frames.length - 1].error?.type).toBe("InvalidUnaryExpression");
+      expect(frames[frames.length - 1].error?.type).toBe("UpdateOperatorRequiresNumber");
     });
   });
 });

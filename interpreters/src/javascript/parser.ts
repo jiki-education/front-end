@@ -1,4 +1,4 @@
-import { SyntaxError, LintError, type SyntaxErrorType, type LintErrorType } from "./error";
+import { SyntaxError, LintError, InterpreterInternalError, type SyntaxErrorType, type LintErrorType } from "./error";
 import type { Expression } from "./expression";
 import {
   LiteralExpression,
@@ -74,42 +74,8 @@ export class Parser {
 
   private checkNodeAllowed(nodeType: NodeType, errorType: SyntaxErrorType, location: Location): void {
     if (!this.isNodeAllowed(nodeType)) {
-      const friendlyName = this.getNodeFriendlyName(nodeType);
-      this.error(errorType, location, { nodeType, friendlyName });
+      this.error(errorType, location, { nodeType });
     }
-  }
-
-  private getNodeFriendlyName(nodeType: NodeType): string {
-    const friendlyNames: Record<NodeType, string> = {
-      LiteralExpression: "Literals",
-      BinaryExpression: "Binary expressions",
-      UnaryExpression: "Unary expressions",
-      GroupingExpression: "Grouping expressions",
-      IdentifierExpression: "Identifiers",
-      AssignmentExpression: "Assignments",
-      UpdateExpression: "Update expressions",
-      TemplateLiteralExpression: "Template literals",
-      ArrayExpression: "Arrays",
-      IndexExpression: "Index access",
-      MemberExpression: "Member access (dot notation)",
-      DictionaryExpression: "Objects",
-      CallExpression: "Function calls",
-      NewExpression: "New expressions",
-      ExpressionStatement: "Expression statements",
-      VariableDeclaration: "Variable declarations",
-      BlockStatement: "Block statements",
-      IfStatement: "If statements",
-      ForStatement: "For loops",
-      ForOfStatement: "For...of loops",
-      ForInStatement: "For...in loops",
-      RepeatStatement: "Repeat loops",
-      WhileStatement: "While loops",
-      BreakStatement: "Break statements",
-      ContinueStatement: "Continue statements",
-      FunctionDeclaration: "Function declarations",
-      ReturnStatement: "Return statements",
-    };
-    return friendlyNames[nodeType] || nodeType;
   }
 
   public parse(sourceCode: string): Statement[] {
@@ -138,13 +104,14 @@ export class Parser {
       if (statement) {
         statements.push(statement);
       } else if (this.current === startPosition && !this.isAtEnd()) {
-        // statement() returned null without advancing - unexpected token
-        // Use a specific error based on the token type
-        if (this.peek().type === "RIGHT_BRACE") {
-          this.error("UnexpectedRightBrace", this.peek().location);
-        } else {
-          this.error("GenericSyntaxError", this.peek().location, { token: this.peek().lexeme });
-        }
+        // statement() consumed no tokens and didn't throw. Every real
+        // unparseable token throws a specific error from inside statement()
+        // (usually MissingExpression), so reaching here means a statement()
+        // path returned null without advancing - an interpreter bug that would
+        // otherwise spin this loop forever. Explode instead of looping.
+        throw new InterpreterInternalError(
+          `Parser made no progress on token: ${this.peek().type} (${this.peek().lexeme})`
+        );
       }
     }
 
@@ -728,7 +695,7 @@ export class Parser {
       this.checkNodeAllowed("NewExpression", "NewExpressionNotAllowed", this.previous().location);
 
       const newToken = this.previous();
-      const classNameToken = this.consume("IDENTIFIER", "MissingExpression");
+      const classNameToken = this.consume("IDENTIFIER", "MissingClassNameAfterNew");
       const className = new IdentifierExpression(classNameToken, classNameToken.location);
 
       this.consume("LEFT_PAREN", "MissingLeftParenthesisAfterFunctionName");
@@ -782,6 +749,12 @@ export class Parser {
       if (this.match("LEFT_PAREN")) {
         // Check if CallExpression is allowed
         this.checkNodeAllowed("CallExpression", "CallExpressionNotAllowed", this.previous().location);
+
+        // This member is being called, so it's a method call, not a bare
+        // method reference. Flag it so the executor allows the method here.
+        if (expr instanceof MemberExpression) {
+          expr.isCalled = true;
+        }
 
         // Function call: func(arg1, arg2)
         expr = this.finishCallExpression(expr);
@@ -940,7 +913,7 @@ export class Parser {
       return this.parseDictionary();
     }
 
-    this.error("MissingExpression", this.peek().location);
+    this.error("MissingExpression", this.peek().location, { token: this.peek().lexeme });
   }
 
   private match(...tokenTypes: TokenType[]): boolean;
@@ -1194,7 +1167,7 @@ export class Parser {
         parts.push(expr);
       } else {
         // Unexpected token in template literal
-        this.error("UnexpectedTokenInTemplateLiteral", this.peek().location);
+        this.error("UnexpectedTokenInTemplateLiteral", this.peek().location, { token: this.peek().lexeme });
       }
     }
 

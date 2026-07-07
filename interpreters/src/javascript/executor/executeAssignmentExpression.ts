@@ -58,18 +58,14 @@ export function executeAssignmentExpression(
 
       // Check if index is a number
       if (typeof indexResult.jikiObject.value !== "number") {
-        executor.error("TypeError", memberExpr.property.location, {
-          message: "Array index must be a number",
-        });
+        executor.error("ArrayIndexNotNumber", memberExpr.property.location);
       }
 
       const index = indexResult.jikiObject.value;
 
       // Check if index is an integer
       if (!Number.isInteger(index)) {
-        executor.error("TypeError", memberExpr.property.location, {
-          message: "Array index must be an integer",
-        });
+        executor.error("ArrayIndexNotInteger", memberExpr.property.location);
       }
 
       // Handle negative indices - in JavaScript, they don't wrap around, they extend the array
@@ -99,9 +95,7 @@ export function executeAssignmentExpression(
     // Handle instance property assignment via setter
     if (object instanceof JSInstance) {
       if (memberExpr.computed) {
-        executor.error("TypeError", memberExpr.location, {
-          message: "Bracket notation is not supported for setting properties on class instances.",
-        });
+        executor.error("BracketNotationNotAllowedOnInstance", memberExpr.location);
       }
 
       const propertyName = (memberExpr.property as LiteralExpression).value as string;
@@ -133,9 +127,7 @@ export function executeAssignmentExpression(
     }
 
     // Error: trying to set property on non-object/non-array
-    executor.error("TypeError", memberExpr.object.location, {
-      message: `Cannot set property of ${object.type}`,
-    });
+    executor.error("CannotSetPropertyOfType", memberExpr.object.location, { type: object.type });
   }
 
   // Handle regular identifier assignment

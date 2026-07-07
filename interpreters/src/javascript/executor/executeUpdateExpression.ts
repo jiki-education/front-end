@@ -17,7 +17,7 @@ export function executeUpdateExpression(
   }
 
   if (!(currentValue instanceof JSNumber)) {
-    executor.error("InvalidUnaryExpression", expression.location, {
+    executor.error("UpdateOperatorRequiresNumber", expression.location, {
       operator: expression.operator.lexeme,
       type: currentValue.type,
     });
