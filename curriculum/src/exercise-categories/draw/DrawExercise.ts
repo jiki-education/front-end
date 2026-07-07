@@ -191,6 +191,55 @@ export abstract class DrawExercise extends VisualExercise {
   public hasTriangleAt(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number): boolean {
     return getTriangleAt(this.shapes, x1, y1, x2, y2, x3, y3) !== undefined;
   }
+  public hasTriangleAtWithColor(
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+    x3: number,
+    y3: number,
+    color: string
+  ): boolean {
+    const triangle = getTriangleAt(this.shapes, x1, y1, x2, y2, x3, y3);
+    return triangle !== undefined && triangle.fillColor === resolveNamedColor(color);
+  }
+  // True if the `lower` triangle is drawn before the `upper` triangle, so `upper` renders
+  // on top where they overlap. Both triangles must exist. Coordinates are order-agnostic
+  // (they delegate to getTriangleAt's vertex matching).
+  public triangleDrawnBefore(
+    lower: [number, number, number, number, number, number],
+    upper: [number, number, number, number, number, number]
+  ): boolean {
+    const lowerTriangle = getTriangleAt(this.shapes, ...lower);
+    const upperTriangle = getTriangleAt(this.shapes, ...upper);
+    if (lowerTriangle === undefined || upperTriangle === undefined) {
+      return false;
+    }
+    return this.shapes.indexOf(lowerTriangle) < this.shapes.indexOf(upperTriangle);
+  }
+  // True if every triangle filled with `topColor` is drawn after every triangle filled with
+  // `bottomColor`, so the top colour always renders above the bottom colour where they overlap.
+  public trianglesColorDrawnAbove(topColor: string, bottomColor: string): boolean {
+    const resolvedTop = resolveNamedColor(topColor);
+    const resolvedBottom = resolveNamedColor(bottomColor);
+    const topIndices: number[] = [];
+    const bottomIndices: number[] = [];
+    this.shapes.forEach((shape, index) => {
+      if (!(shape instanceof Triangle)) {
+        return;
+      }
+      if (shape.fillColor === resolvedTop) {
+        topIndices.push(index);
+      }
+      if (shape.fillColor === resolvedBottom) {
+        bottomIndices.push(index);
+      }
+    });
+    if (topIndices.length === 0 || bottomIndices.length === 0) {
+      return false;
+    }
+    return Math.min(...topIndices) > Math.max(...bottomIndices);
+  }
 
   // These all delegate to checks.
   public checkUniqueColoredLines(count: number) {
