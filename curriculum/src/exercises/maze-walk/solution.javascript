@@ -1,5 +1,5 @@
-function walk(steps) {
-  repeat(steps) {
+function walk(numSteps) {
+  repeat(numSteps) {
     move()
   }
 }

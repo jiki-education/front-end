@@ -37,7 +37,22 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["creating-functions-with-inputs", "creating-functions", "repeat", "using-functions"],
+  readonlyRanges: {
+    javascript: [
+      { fromLine: 1, toLine: 1 },
+      { fromLine: 5, toLine: 11 }
+    ],
+    jikiscript: [
+      { fromLine: 1, toLine: 1 },
+      { fromLine: 5, toLine: 11 }
+    ],
+    python: [
+      { fromLine: 1, toLine: 1 },
+      { fromLine: 5, toLine: 9 }
+    ]
+  }
 };
 
 export default exerciseDefinition;
