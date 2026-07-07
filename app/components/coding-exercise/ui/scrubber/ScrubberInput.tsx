@@ -1,6 +1,8 @@
 import React, { forwardRef, useRef, useCallback, useEffect } from "react";
 import type { Frame } from "@jiki/interpreters/shared";
 import type { AnimationTimeline } from "../../lib/AnimationTimeline";
+import type { Orchestrator } from "../../lib/Orchestrator";
+import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import styles from "../../CodingExercise.module.css";
 
@@ -14,6 +16,7 @@ interface ScrubberInputProps {
 const ScrubberInput = forwardRef<HTMLDivElement, ScrubberInputProps>(
   ({ frames, animationTimeline, time, enabled }, ref) => {
     const orchestrator = useOrchestrator();
+    const { isPlaying } = useOrchestratorStore(orchestrator);
     const isDraggingRef = useRef(false);
 
     const min = calculateMinInputValue(frames);
@@ -82,19 +85,9 @@ const ScrubberInput = forwardRef<HTMLDivElement, ScrubberInputProps>(
         if (!enabled) {
           return;
         }
-        handleOnKeyDown(event, animationTimeline, frames);
+        handleOnKeyDown(event, orchestrator, isPlaying);
       },
-      [enabled, animationTimeline, frames]
-    );
-
-    const handleKeyUp = useCallback(
-      (event: React.KeyboardEvent) => {
-        if (!enabled) {
-          return;
-        }
-        handleOnKeyUp(event, animationTimeline);
-      },
-      [enabled, animationTimeline]
+      [enabled, orchestrator, isPlaying]
     );
 
     // Cleanup event listeners on unmount
@@ -119,7 +112,6 @@ const ScrubberInput = forwardRef<HTMLDivElement, ScrubberInputProps>(
         aria-disabled={!enabled}
         onMouseDown={handleMouseDown}
         onKeyDown={handleKeyDown}
-        onKeyUp={handleKeyUp}
       >
         <div className={styles.scrubberProgress} style={{ width: `${progress}%` }} />
       </div>
@@ -135,12 +127,42 @@ export default ScrubberInput;
 /* EVENT HANDLERS */
 /* **************** */
 
-function handleOnKeyUp(_event: React.KeyboardEvent, _animationTimeline: AnimationTimeline | null) {
-  // TODO: Implement keyboard shortcuts
-}
+function handleOnKeyDown(event: React.KeyboardEvent, orchestrator: Orchestrator, isPlaying: boolean) {
+  switch (event.key) {
+    case "ArrowLeft":
+      // Preventing default stops the range input from also nudging itself,
+      // which would fight the frame we're snapping to.
+      event.preventDefault();
+      orchestrator.goToPrevFrame();
+      break;
 
-function handleOnKeyDown(_event: React.KeyboardEvent, _animationTimeline: AnimationTimeline | null, _frames: Frame[]) {
-  // TODO: Implement keyboard shortcuts
+    case "ArrowRight":
+      event.preventDefault();
+      orchestrator.goToNextFrame();
+      break;
+
+    case "ArrowDown":
+      event.preventDefault();
+      orchestrator.goToFirstFrame();
+      break;
+
+    case "ArrowUp":
+      event.preventDefault();
+      orchestrator.goToLastFrame();
+      break;
+
+    case " ":
+      event.preventDefault();
+      if (isPlaying) {
+        orchestrator.pause();
+      } else {
+        orchestrator.play();
+      }
+      break;
+
+    default:
+      break;
+  }
 }
 
 /* **************** */
