@@ -14,9 +14,9 @@ function setCSP(response: NextResponse): void {
   const cspHeader = `
     default-src 'self';
     script-src 'self' 'unsafe-inline' https://*.jiki.io https://*.stripe.com https://accounts.google.com https://www.gstatic.com https://www.youtube.com https://www.youtube-nocookie.com https://www.ytimg.com https://s.ytimg.com https://challenges.cloudflare.com https://static.cloudflareinsights.com ${isProduction ? "" : "'unsafe-eval' http://www.youtube.com http://www.ytimg.com http://s.ytimg.com"};
-    style-src 'self' 'unsafe-inline' https://accounts.google.com;
+    style-src 'self' 'unsafe-inline' https://*.jiki.io https://accounts.google.com;
     img-src 'self' blob: data: https://*.stripe.com https://*.mux.com https://*.litix.io https://*.jiki.io https://assets.exercism.org ${isProduction ? "" : "http://localhost:* http://local.jiki.io:*"};
-    font-src 'self';
+    font-src 'self' https://*.jiki.io;
     media-src 'self' blob: https://*.mux.com;
     connect-src 'self' https://*.jiki.io https://*.stripe.com https://accounts.google.com https://*.mux.com https://*.litix.io https://storage.googleapis.com https://*.sentry.io https://cloudflareinsights.com ${isProduction ? "" : "http://localhost:* https://localhost:* http://local.jiki.io:* https://local.jiki.io:* ws://localhost:* ws://127.0.0.1:*"};
     frame-src 'self' https://*.stripe.com https://accounts.google.com https://www.youtube.com https://www.youtube-nocookie.com https://challenges.cloudflare.com;
