@@ -7,6 +7,15 @@ const withNextIntl = createNextIntlPlugin("./lib/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   productionBrowserSourceMaps: false,
+  // Serve _next/* assets from the persistent, CDN-fronted R2 bucket (assets.jiki.io)
+  // instead of Workers Assets, which delete-on-deploy. Uploads are additive and
+  // content-hashed, so chunks from older builds survive and pages loaded across a
+  // deploy keep working (fixes ChunkLoadError on lazy-loaded chunks). Prod-only:
+  // assetPrefix only rewrites _next/* URLs, not /public files.
+  assetPrefix: process.env.NODE_ENV === "production" ? "https://assets.jiki.io" : undefined,
+  // Chunks are now cross-origin; anonymous CORS mode lets Sentry capture real stack
+  // traces from chunk errors instead of an opaque "Script error.".
+  crossOrigin: "anonymous",
   // Disable metadata streaming for all user agents. Next 15.2+ defers metadata
   // to body for dynamic pages and only injects in <head> for known bot UAs —
   // but its default bot regex doesn't include plain "Googlebot", and Lighthouse
