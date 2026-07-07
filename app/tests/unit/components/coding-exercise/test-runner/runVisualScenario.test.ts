@@ -253,9 +253,55 @@ describe("runVisualScenario", () => {
       const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
 
       expect(result.status).toBe("fail");
-      expect(result.expects[0].pass).toBe(true); // Expectations still pass
+      // On a frame error the scenario's expectations are suppressed (they would be
+      // meaningless / contradictory) and replaced with a single pointer message.
+      expect(result.expects).toHaveLength(1);
+      expect(result.expects[0].pass).toBe(false);
+      expect(result.expects[0].errorHtml).toBe(
+        "Your code hit an error while it was running. Fix the error message above to continue."
+      );
       expect(result.frames).toHaveLength(3);
       expect(result.frames[2].status).toBe("ERROR");
+    });
+
+    it("should not surface contradictory failing expectations when a frame errored", () => {
+      // Regression: finish-wall student calls rectangle() with too few args. The
+      // interpreter throws (frame ERROR) before anything is drawn, yet the scenario's
+      // per-shape expectations still failed with "The left brick isn't correct" etc.
+      // Those messages contradict the real error and must be suppressed.
+      mockInterpreter = createMockInterpreter({
+        interpret: jest.fn().mockReturnValue({
+          frames: [{ time: 100, line: 3, status: "ERROR", error: { message: "InvalidNumberOfArguments" } }],
+          logLines: [],
+          meta: { sourceCode: "rectangle(0, 0, 20, 10)" }
+        })
+      });
+
+      const scenario: VisualScenario = {
+        slug: "finish-wall",
+        name: "Finish off the wall",
+        description: "Add a top layer to the wall!",
+        taskId: "task-1",
+        expectations: jest.fn().mockReturnValue([
+          { pass: false, errorHtml: "The left brick isn't correct." },
+          { pass: false, errorHtml: "The second brick isn't correct." }
+        ])
+      };
+
+      const result = runVisualScenario(
+        scenario,
+        "rectangle(0, 0, 20, 10)",
+        MockExercise as any,
+        "javascript",
+        mockInterpreter
+      );
+
+      expect(result.status).toBe("fail");
+      expect(result.expects).toHaveLength(1);
+      expect(result.expects[0].errorHtml).not.toContain("brick");
+      expect(result.expects[0].errorHtml).toBe(
+        "Your code hit an error while it was running. Fix the error message above to continue."
+      );
     });
 
     it("should pass when all frames have SUCCESS status and expectations pass", () => {
