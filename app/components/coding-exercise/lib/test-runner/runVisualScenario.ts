@@ -37,7 +37,7 @@ export function runVisualScenario(
     expects = [
       {
         pass: false,
-        errorHtml: "Your code threw an error while running. Look at the error message on the timeline below."
+        errorHtml: "Your code hit an error while it was running. Fix the error message above to continue."
       }
     ];
   } else {

@@ -258,7 +258,7 @@ describe("runVisualScenario", () => {
       expect(result.expects).toHaveLength(1);
       expect(result.expects[0].pass).toBe(false);
       expect(result.expects[0].errorHtml).toBe(
-        "Your code threw an error while running. Look at the error message on the timeline below."
+        "Your code hit an error while it was running. Fix the error message above to continue."
       );
       expect(result.frames).toHaveLength(3);
       expect(result.frames[2].status).toBe("ERROR");
@@ -300,7 +300,7 @@ describe("runVisualScenario", () => {
       expect(result.expects).toHaveLength(1);
       expect(result.expects[0].errorHtml).not.toContain("brick");
       expect(result.expects[0].errorHtml).toBe(
-        "Your code threw an error while running. Look at the error message on the timeline below."
+        "Your code hit an error while it was running. Fix the error message above to continue."
       );
     });
 
