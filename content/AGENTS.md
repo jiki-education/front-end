@@ -152,6 +152,43 @@ seo:
 
 See `.context/frontmatter.md` for complete schema reference.
 
+### Guides
+
+**Guides** are a third content type, alongside blog posts and articles, living in `src/posts/guides/[slug]/`. A guide is a hybrid:
+
+- It has a **cover image** (like a blog post).
+- It has **fixed, searchable tags** and a full-text search index (like an article). Guide tags come from a fixed set defined in the app (`GUIDE_TAG_SLUGS`); add new slugs there before using them.
+- It has **no author**.
+- Its `date` is rendered as a **"Last updated"** date, not a creation date.
+- It can be marked **premium**.
+
+**config.json** for a guide (no `author`, no `featured`, no `listed`):
+
+```json
+{
+  "date": "2026-07-06",
+  "coverImage": "/images/guides/using-a-code-editor.webp",
+  "premium": false
+}
+```
+
+The markdown frontmatter (`title`, `excerpt`, `tags`, `seo`) is the same as blog posts and articles. Cover images live in `images/guides/`.
+
+**Premium guides** (`"premium": true`) are gated in the app:
+
+- They are hidden from logged-out visitors and kept out of the sitemap (they should not surface externally).
+- Logged-in non-premium users see them as a locked card (purple tinge + a premium lock badge) and, on the detail page, get the first paragraph followed by an "unlock with Premium" call to action.
+- Premium members see them in full.
+
+#### Installation guides
+
+For guides that explain how to install a piece of software, follow this convention:
+
+- **Start by explaining what the product is** in a sentence or two, and link to an overview guide or article if one exists (for example, the VS Code install guide links to the "Using a Code Editor" guide).
+- **Give per-OS instructions in this order: Windows, then macOS, then Linux.**
+- **Prefer official binaries and installers** over package managers where a binary is available.
+- If a step requires installing something else first (for example Homebrew), **do not inline those instructions**. Write a separate dedicated guide or article for that product and link to it.
+
 ### Validation Strategy
 
 All validation happens in the **app package** during build:
@@ -274,10 +311,12 @@ export interface ProcessedPost {
 ### Content Writing
 
 - **Clear titles** - Descriptive and concise
+- **Start with an h2** - Every post (blog, article, and guide) must open with an `## ` heading, not a paragraph or an `# ` heading. The title comes from frontmatter, so the body's first heading is an h2 (for example `## Introduction`).
 - **Useful excerpts** - Summarize key value (1-2 sentences)
 - **Proper tags** - Use lowercase kebab-case, be consistent
 - **SEO optimization** - Write unique descriptions and keywords
 - **Image quality** - Use appropriate resolution and file size
+- **No horizontal rules between sections** - Do NOT insert `---` dividers between sections in blog posts or articles. Separate sections with headings alone; never scaffold a post with a `---` between every section.
 
 ### Content Organization
 

@@ -29,7 +29,7 @@ export const PATHNAME_HEADER = "x-pathname";
 
 // Public sections: an index plus detail pages, matched by prefix (/blog,
 // /blog/my-post). Cacheable and locale-routed, in naked and locale-prefixed form.
-export const PUBLIC_SECTIONS = ["/blog", "/help", "/concepts"] as const;
+export const PUBLIC_SECTIONS = ["/blog", "/help", "/guides", "/concepts"] as const;
 
 // Public single pages, matched exactly (no sub-paths). Cacheable and locale-routed.
 export const PUBLIC_PAGES = ["/premium", "/roadmap", "/testimonials"] as const;

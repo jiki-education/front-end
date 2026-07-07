@@ -1,21 +1,21 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import lunr from "lunr";
 import { useDebounce } from "./useDebounce";
-import { getSearchIndex } from "@/lib/api/content-search";
+import { getGuidesSearchIndex } from "@/lib/api/content-search";
 
 interface SearchIndex {
   index: lunr.Index;
   items: Array<{ slug: string; title: string; excerpt: string }>;
 }
 
-interface UseArticlesSearchResult {
+interface UseGuidesSearchResult {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
   searchResults: string[] | null; // null = no search, empty array = no matches
   isLoading: boolean;
 }
 
-export function useArticlesSearch(locale: string): UseArticlesSearchResult {
+export function useGuidesSearch(locale: string): UseGuidesSearchResult {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<string[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,7 +30,7 @@ export function useArticlesSearch(locale: string): UseArticlesSearchResult {
 
     setIsLoading(true);
     try {
-      const data = await getSearchIndex(locale);
+      const data = await getGuidesSearchIndex(locale);
       const index = lunr.Index.load(data.index);
       indexRef.current = { index, items: data.items };
       return indexRef.current;
@@ -50,15 +50,12 @@ export function useArticlesSearch(locale: string): UseArticlesSearchResult {
       const searchIndex = await loadIndex();
 
       try {
-        // First try exact/stemmed search, then fall back to wildcard for partial matches
         let results = searchIndex.index.search(debouncedQuery);
         if (results.length === 0) {
-          // Try wildcard for partial prefix matches
           results = searchIndex.index.search(`${debouncedQuery}*`);
         }
         setSearchResults(results.map((r) => r.ref));
       } catch {
-        // If search fails (e.g., invalid query), return empty results
         setSearchResults([]);
       }
     };

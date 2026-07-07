@@ -14,6 +14,20 @@ export function getArticleTagLabel(slug: ArticleTagSlug, locale: string): string
   return ARTICLE_TAG_LABELS[slug][locale] || ARTICLE_TAG_LABELS[slug].en;
 }
 
+// Guide tag slugs - used in URLs and frontmatter
+export const GUIDE_TAG_SLUGS = ["editors", "installation"] as const;
+export type GuideTagSlug = (typeof GUIDE_TAG_SLUGS)[number];
+
+// Tag labels for each locale
+export const GUIDE_TAG_LABELS: Record<GuideTagSlug, Record<string, string>> = {
+  editors: { en: "Editors", hu: "Szerkesztők" },
+  installation: { en: "Installation", hu: "Telepítés" }
+};
+
+export function getGuideTagLabel(slug: GuideTagSlug, locale: string): string {
+  return GUIDE_TAG_LABELS[slug][locale] || GUIDE_TAG_LABELS[slug].en;
+}
+
 export interface Frontmatter {
   title: string;
   excerpt: string;
@@ -72,6 +86,30 @@ export interface ProcessedArticle extends ArticleMeta {
   content: string;
 }
 
+// Guides have a cover image (like blog posts) and fixed, searchable tags (like
+// articles), but no author. `premium` gates the guide behind a premium
+// subscription. `date` is treated as a "last updated" date, not a creation date.
+export interface GuideMeta {
+  slug: string;
+  title: string;
+  date: string;
+  excerpt: string;
+  tags: string[];
+  seo: {
+    description: string;
+    keywords: string[];
+  };
+  coverImage: string;
+  premium: boolean;
+  readingTime: number;
+  contentHash: string;
+  locale: string;
+}
+
+export interface ProcessedGuide extends GuideMeta {
+  content: string;
+}
+
 export type BuildVideoProvider = "youtube" | "mux";
 
 export interface BuildSeriesMeta {
@@ -122,5 +160,5 @@ export interface AuthorRegistry {
 
 export interface SearchIndexData {
   index: object;
-  articles: Array<{ slug: string; title: string; excerpt: string }>;
+  items: Array<{ slug: string; title: string; excerpt: string }>;
 }

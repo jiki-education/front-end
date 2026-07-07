@@ -9,6 +9,7 @@ import { getApiUrl } from "@/lib/api/config";
  */
 export type ModalTrigger =
   | "locked_challenge"
+  | "locked_guide"
   | "locked_episode"
   | "locked_episode_video"
   | "assistant_send_message"

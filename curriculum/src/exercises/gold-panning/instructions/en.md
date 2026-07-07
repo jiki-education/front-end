@@ -12,5 +12,4 @@ You have a `pan()` function, which you can use to pan some gold out of the water
 You also have a `sell(numberOfNuggets)` function that you can use to sell the total number of nuggets you find.
 
 Your robot has enough capacity to pan a few times before selling. You need to write code so that it heads to the river, pans **5 times**, keeping track of how much gold it's collected as it goes, and then sells the total number of nuggets it has found (across all 5 pans at the end).
-
 Solve the puzzle in **5 lines of code** (or less)!

@@ -113,13 +113,20 @@ function hashAndCopyImage(imageRef) {
 }
 
 /**
- * Rewrite markdown image paths ("/images/...") to their fingerprinted URLs.
+ * Rewrite image paths ("/images/...") to their fingerprinted URLs. Handles both
+ * markdown images (![alt](/images/...)) and raw <img src="/images/..."> tags,
+ * the latter so posts can use <figure>/<figcaption> HTML for captioned images.
  */
 function fixImagePaths(content) {
-  return content.replace(
+  let out = content.replace(
     /!\[([^\]]*)\]\((\/images\/[^)\s]+)\)/g,
     (_match, alt, imagePath) => `![${alt}](${hashAndCopyImage(imagePath)})`
   );
+  out = out.replace(
+    /(<img\b[^>]*\bsrc=")(\/images\/[^"]+)(")/g,
+    (_match, pre, imagePath, post) => `${pre}${hashAndCopyImage(imagePath)}${post}`
+  );
+  return out;
 }
 
 /**
@@ -200,11 +207,16 @@ function processContentDir(type, requiredFields, extraFields) {
         const frontmatter = parsed.data;
         const fixedMarkdown = fixImagePaths(parsed.content);
 
-        const rawAuthor = authorsData[config.author];
-        if (!rawAuthor) {
-          throw new Error(`Author not found: ${config.author} in ${filePath}`);
+        // Author is optional: guides have no author, whereas blog posts and
+        // articles do. Only look it up (and include it in the meta) when set.
+        let author;
+        if (config.author !== undefined) {
+          const rawAuthor = authorsData[config.author];
+          if (!rawAuthor) {
+            throw new Error(`Author not found: ${config.author} in ${filePath}`);
+          }
+          author = fixAuthorAvatar(rawAuthor);
         }
-        const author = fixAuthorAvatar(rawAuthor);
 
         // Pre-render markdown to HTML
         const html = marked.parse(fixedMarkdown);
@@ -223,7 +235,7 @@ function processContentDir(type, requiredFields, extraFields) {
           title: frontmatter.title,
           date: config.date,
           excerpt: frontmatter.excerpt,
-          author,
+          ...(author ? { author } : {}),
           tags: frontmatter.tags || [],
           seo: frontmatter.seo || { description: frontmatter.excerpt, keywords: [] },
           readingTime,
@@ -572,14 +584,20 @@ function buildStaticFiles(type, content) {
 }
 
 /**
- * Generate Lunr search indexes for articles (one per locale)
- * Returns search index hashes per locale
+ * Generate Lunr search indexes for a content type (one per locale).
+ *
+ * `type` is the filename prefix (e.g. "articles", "guides"). `filterFn` selects
+ * which entries to index (articles index only `listed` ones; guides index all,
+ * including premium ones so premium guides remain searchable). The JSON shape is
+ * shared across types: { index, items }.
+ *
+ * Returns search index hashes per locale.
  */
-function generateSearchIndexes(articlesByLocale) {
+function generateSearchIndexes(type, byLocale, filterFn) {
   const searchHashes = {};
 
-  for (const [locale, articles] of Object.entries(articlesByLocale)) {
-    const listedArticles = articles.filter((a) => a.listed);
+  for (const [locale, entries] of Object.entries(byLocale)) {
+    const items = entries.filter(filterFn);
 
     const idx = lunr(function () {
       this.ref("slug");
@@ -588,30 +606,30 @@ function generateSearchIndexes(articlesByLocale) {
       this.field("description", { boost: 4 });
       this.field("keywords", { boost: 3 });
 
-      for (const article of listedArticles) {
+      for (const item of items) {
         this.add({
-          slug: article.slug,
-          title: article.title,
-          excerpt: article.excerpt,
-          description: article.seo.description,
-          keywords: article.seo.keywords.join(" ")
+          slug: item.slug,
+          title: item.title,
+          excerpt: item.excerpt,
+          description: item.seo.description,
+          keywords: item.seo.keywords.join(" ")
         });
       }
     });
 
-    const metadata = listedArticles.map((a) => ({
-      slug: a.slug,
-      title: a.title,
-      excerpt: a.excerpt
+    const metadata = items.map((item) => ({
+      slug: item.slug,
+      title: item.title,
+      excerpt: item.excerpt
     }));
 
-    const output = JSON.stringify({ index: idx.toJSON(), articles: metadata });
+    const output = JSON.stringify({ index: idx.toJSON(), items: metadata });
     const searchHash = computeHash(output);
     searchHashes[locale] = searchHash;
 
-    const searchPath = path.join(STATIC_DIR, "search", `articles-${locale}-${searchHash}.json`);
+    const searchPath = path.join(STATIC_DIR, "search", `${type}-${locale}-${searchHash}.json`);
     writeFile(searchPath, output);
-    console.log(`   Search index: articles-${locale}-${searchHash}.json (${listedArticles.length} articles)`);
+    console.log(`   Search index: ${type}-${locale}-${searchHash}.json (${items.length} ${type})`);
   }
 
   return searchHashes;
@@ -620,7 +638,14 @@ function generateSearchIndexes(articlesByLocale) {
 /**
  * Write the TypeScript hash manifest
  */
-function writeHashManifest(blogHashes, articleHashes, searchHashes, buildEpisodesHashes) {
+function writeHashManifest(
+  blogHashes,
+  articleHashes,
+  guideHashes,
+  searchHashes,
+  guideSearchHashes,
+  buildEpisodesHashes
+) {
   function formatEntries(hashes) {
     return Object.entries(hashes)
       .sort(([a], [b]) => a.localeCompare(b))
@@ -645,7 +670,8 @@ function writeHashManifest(blogHashes, articleHashes, searchHashes, buildEpisode
 export const contentIndexHashes: {
   blog: Record<string, string>;
   articles: Record<string, string>;
-  search: Record<string, string>;
+  guides: Record<string, string>;
+  search: { articles: Record<string, string>; guides: Record<string, string> };
   buildEpisodes: Record<string, Record<string, string>>;
 } = {
   blog: {
@@ -654,8 +680,16 @@ ${formatEntries(blogHashes)},
   articles: {
 ${formatEntries(articleHashes)},
   },
+  guides: {
+${formatEntries(guideHashes)},
+  },
   search: {
+    articles: {
 ${formatEntries(searchHashes)},
+    },
+    guides: {
+${formatEntries(guideSearchHashes)},
+    },
   },
   buildEpisodes: {
 ${formatNestedEntries(buildEpisodesHashes)},
@@ -670,19 +704,22 @@ ${formatNestedEntries(buildEpisodesHashes)},
  * Write the server-side metadata JSON
  * Contains full metadata for all blog posts and articles (no HTML content)
  */
-function writeServerMeta(blogByLocale, articlesByLocale, buildByLocale) {
+function writeServerMeta(blogByLocale, articlesByLocale, guidesByLocale, buildByLocale) {
   const serverMeta = {
     blog: {},
     articles: {},
+    guides: {},
     build: { series: {} },
     locales: {
       blog: Object.keys(blogByLocale).sort(),
       articles: Object.keys(articlesByLocale).sort(),
+      guides: Object.keys(guidesByLocale).sort(),
       build: Object.keys(buildByLocale).sort()
     },
     slugsWithLocales: {
       blog: [],
-      articles: []
+      articles: [],
+      guides: []
     }
   };
 
@@ -697,6 +734,13 @@ function writeServerMeta(blogByLocale, articlesByLocale, buildByLocale) {
     serverMeta.articles[locale] = articles;
     for (const article of articles) {
       serverMeta.slugsWithLocales.articles.push({ slug: article.slug, locale });
+    }
+  }
+
+  for (const [locale, guides] of Object.entries(guidesByLocale)) {
+    serverMeta.guides[locale] = guides;
+    for (const guide of guides) {
+      serverMeta.slugsWithLocales.guides.push({ slug: guide.slug, locale });
     }
   }
 
@@ -731,16 +775,25 @@ function generateContentCache() {
     listed: config.listed
   }));
 
+  // Process guides (cover image like blog posts, premium flag, no author)
+  const guides = processContentDir("guides", ["date", "coverImage", "premium"], (config) => ({
+    coverImage: fixCoverImagePath(config.coverImage) || "",
+    premium: Boolean(config.premium)
+  }));
+
   // Process build series + episodes
   const buildProcessed = processBuild();
 
   // Build static files
   const { indexHashes: blogHashes, byLocale: blogByLocale } = buildStaticFiles("blog", blog);
   const { indexHashes: articleHashes, byLocale: articlesByLocale } = buildStaticFiles("articles", articles);
+  const { indexHashes: guideHashes, byLocale: guidesByLocale } = buildStaticFiles("guides", guides);
   const { buildByLocale } = buildBuildStaticFiles(buildProcessed);
 
-  // Generate search indexes
-  const searchHashes = generateSearchIndexes(articlesByLocale);
+  // Generate search indexes. Articles index only `listed` ones; guides index all
+  // (including premium guides, which stay searchable but are kept out of the sitemap).
+  const searchHashes = generateSearchIndexes("articles", articlesByLocale, (a) => a.listed);
+  const guideSearchHashes = generateSearchIndexes("guides", guidesByLocale, () => true);
 
   // Per-series episode-list hash manifest, keyed seriesSlug -> locale -> hash
   const buildEpisodesHashes = {};
@@ -754,10 +807,10 @@ function generateContentCache() {
   }
 
   // Write hash manifest
-  writeHashManifest(blogHashes, articleHashes, searchHashes, buildEpisodesHashes);
+  writeHashManifest(blogHashes, articleHashes, guideHashes, searchHashes, guideSearchHashes, buildEpisodesHashes);
 
   // Write server-side metadata
-  writeServerMeta(blogByLocale, articlesByLocale, buildByLocale);
+  writeServerMeta(blogByLocale, articlesByLocale, guidesByLocale, buildByLocale);
 
   // Count totals
   let contentFileCount = 0;
@@ -765,6 +818,9 @@ function generateContentCache() {
     contentFileCount += Object.keys(locales).length;
   }
   for (const locales of Object.values(articles)) {
+    contentFileCount += Object.keys(locales).length;
+  }
+  for (const locales of Object.values(guides)) {
     contentFileCount += Object.keys(locales).length;
   }
 
@@ -776,12 +832,18 @@ function generateContentCache() {
   console.log("\nContent cache generated successfully:\n");
   console.log(`   Blog posts: ${Object.keys(blog).length} slugs`);
   console.log(`   Articles: ${Object.keys(articles).length} slugs`);
+  console.log(`   Guides: ${Object.keys(guides).length} slugs`);
   console.log(`   Build series: ${buildSeriesCount}`);
   console.log(`   Build episodes: ${buildEpisodeCount} (locale-files)`);
   console.log(`   Content files: ${contentFileCount}`);
   console.log(
     `   Locales: ${[
-      ...new Set([...Object.keys(blogByLocale), ...Object.keys(articlesByLocale), ...Object.keys(buildByLocale)])
+      ...new Set([
+        ...Object.keys(blogByLocale),
+        ...Object.keys(articlesByLocale),
+        ...Object.keys(guidesByLocale),
+        ...Object.keys(buildByLocale)
+      ])
     ]
       .sort()
       .join(", ")}`

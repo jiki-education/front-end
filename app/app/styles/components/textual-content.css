@@ -364,6 +364,39 @@
             margin-bottom: var(--spacing-4);
         }
     }
+
+    /* Blog post figures: image + caption framed together with a slate-500 (gray-500) border */
+    &.blog-post-content {
+        figure.post-figure {
+            display: table;
+            margin: 24px 0;
+            border: 2px solid var(--color-gray-300);
+            box-sizing: border-box;
+            max-width: 50%;
+            max-height: 350px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        figure.post-figure img {
+            display: block;
+            max-width: 100%;
+            padding: 2px;
+            width: auto;
+            height: auto;
+        }
+
+        figure.post-figure figcaption {
+            border-top: 2px solid var(--color-gray-300);
+            padding: 8px 12px;
+            font-size: 14px;
+            font-style: italic;
+            color: var(--color-gray-500);
+            text-align: center;
+            line-height: 1.4;
+            background: var(--color-gray-100);
+        }
+    }
 }
 
 /* Typography - Compact Variant (for panels, sidebars) */

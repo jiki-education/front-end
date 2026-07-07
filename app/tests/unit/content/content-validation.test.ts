@@ -4,6 +4,7 @@ import matter from "gray-matter";
 import {
   validateBlogConfig,
   validateArticleConfig,
+  validateGuideConfig,
   validateFrontmatter,
   validateAuthors,
   validateNoDuplicateSlugs,
@@ -133,8 +134,62 @@ describe("Content Validation", () => {
     }
   });
 
+  describe("Guides", () => {
+    const guidesDir = path.join(POSTS_DIR, "guides");
+
+    if (fs.existsSync(guidesDir)) {
+      const slugDirs = fs.readdirSync(guidesDir).filter((item) => {
+        return fs.statSync(path.join(guidesDir, item)).isDirectory();
+      });
+
+      slugDirs.forEach((slug) => {
+        describe(`Guide: ${slug}`, () => {
+          const postDir = path.join(guidesDir, slug);
+
+          it("should have config.json file", () => {
+            const configFile = path.join(postDir, "config.json");
+            expect(fs.existsSync(configFile)).toBe(true);
+          });
+
+          it("should have valid config.json", () => {
+            const configFile = path.join(postDir, "config.json");
+            const configContent = fs.readFileSync(configFile, "utf-8");
+            const config = JSON.parse(configContent);
+
+            expect(() => {
+              validateGuideConfig(slug, config, IMAGES_DIR);
+            }).not.toThrow();
+          });
+
+          const mdFiles = fs.readdirSync(postDir).filter((f) => f.endsWith(".md"));
+          const existingLocales = mdFiles.map((f) => path.basename(f, ".md"));
+
+          it("should have all required locale files", () => {
+            expect(() => {
+              validateRequiredLocales("guide", slug, postDir, existingLocales);
+            }).not.toThrow();
+          });
+
+          mdFiles.forEach((mdFile) => {
+            const locale = path.basename(mdFile, ".md");
+
+            it(`should have valid frontmatter (${locale})`, () => {
+              const filePath = path.join(postDir, mdFile);
+              const fileContent = fs.readFileSync(filePath, "utf-8");
+              const parsed = matter(fileContent);
+
+              expect(() => {
+                validateFrontmatter(slug, locale, parsed.data);
+              }).not.toThrow();
+            });
+          });
+        });
+      });
+    }
+  });
+
   describe("Slug Uniqueness", () => {
-    it("should have no duplicate slugs across blog and articles", () => {
+    it("should have no duplicate slugs across blog, articles, and guides", () => {
       const allSlugs: string[] = [];
 
       // Collect blog slugs
@@ -153,6 +208,15 @@ describe("Content Validation", () => {
           return fs.statSync(path.join(articlesDir, item)).isDirectory();
         });
         allSlugs.push(...articleSlugs);
+      }
+
+      // Collect guide slugs
+      const guidesDir = path.join(POSTS_DIR, "guides");
+      if (fs.existsSync(guidesDir)) {
+        const guideSlugs = fs.readdirSync(guidesDir).filter((item) => {
+          return fs.statSync(path.join(guidesDir, item)).isDirectory();
+        });
+        allSlugs.push(...guideSlugs);
       }
 
       expect(() => {
