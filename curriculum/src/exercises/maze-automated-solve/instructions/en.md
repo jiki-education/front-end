@@ -1,5 +1,5 @@
 ---
-title: "Programmatically Solve a Maze"
+title: "Solve the Maze Programmatically"
 description: "Write code that navigates any maze by itself."
 ---
 

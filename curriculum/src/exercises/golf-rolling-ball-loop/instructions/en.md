@@ -1,5 +1,5 @@
 ---
-title: "Golf: Rolling Ball"
+title: "Rolling Ball"
 description: "Roll a golf ball into the hole using a loop."
 ---
 

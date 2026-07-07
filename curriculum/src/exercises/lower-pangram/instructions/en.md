@@ -1,5 +1,5 @@
 ---
-title: "Lower Pangram"
+title: "Simple Pangram"
 description: "Check if a sentence uses every letter of the alphabet."
 ---
 

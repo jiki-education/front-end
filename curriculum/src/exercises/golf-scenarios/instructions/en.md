@@ -1,5 +1,5 @@
 ---
-title: "Golf: Scenarios"
+title: "Golf Shot Scenarios"
 description: "Roll a ball to the correct spot in different scenarios."
 ---
 

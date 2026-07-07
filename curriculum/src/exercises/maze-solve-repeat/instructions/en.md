@@ -1,5 +1,5 @@
 ---
-title: "Solve a Maze with Repeat"
+title: "Loopy Maze"
 description: "Refactor a maze solution to use loops instead of repeated code."
 ---
 

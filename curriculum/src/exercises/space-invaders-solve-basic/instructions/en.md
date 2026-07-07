@@ -1,5 +1,5 @@
 ---
-title: "Space Invaders: Solve Basic"
+title: "Space Invaders"
 description: "Shoot down some aliens in your first taste of Space Invaders."
 ---
 
