@@ -1,5 +1,5 @@
 ---
-title: "Golf: Shot Checker"
+title: "Shot Checker"
 description: "Work out whether a golf shot landed close enough to sink."
 ---
 

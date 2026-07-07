@@ -1,5 +1,5 @@
 ---
-title: "Golf: Rolling Ball"
+title: "Stateful Ball"
 description: "Roll a golf ball into the hole by tracking its position."
 ---
 

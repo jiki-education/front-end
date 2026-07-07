@@ -1,5 +1,5 @@
 ---
-title: "Manually Solve a Maze"
+title: "Solve the Maze"
 description: "Guide Jiki through a maze using simple instructions."
 ---
 
