@@ -25,13 +25,37 @@ export function runVisualScenario(
     resolvedSeed
   );
 
-  const isolatedExpects: VisualTestExpect[] = (scenario.isolatedChecks ?? []).flatMap((check) =>
-    runIsolatedCheck(check, scenario, studentCode, ExerciseClass, language, interpreter, languageFeatures, resolvedSeed)
-  );
-
-  const expects = [...primary.expects, ...isolatedExpects];
-
   const hasFrameError = primary.frames.some((f) => f.status === "ERROR");
+
+  // When the student's code throws at runtime, the scenario's expectations are
+  // meaningless (nothing was drawn), and surfacing them produces contradictory
+  // messages like "The left brick isn't correct" alongside the real runtime error.
+  // Suppress them and surface a single message pointing at the actual error on the
+  // timeline, mirroring how runIsolatedCheck already behaves on a frame error.
+  let expects: VisualTestExpect[];
+  if (hasFrameError) {
+    expects = [
+      {
+        pass: false,
+        errorHtml: "Your code threw an error while running. Look at the error message on the timeline below."
+      }
+    ];
+  } else {
+    const isolatedExpects: VisualTestExpect[] = (scenario.isolatedChecks ?? []).flatMap((check) =>
+      runIsolatedCheck(
+        check,
+        scenario,
+        studentCode,
+        ExerciseClass,
+        language,
+        interpreter,
+        languageFeatures,
+        resolvedSeed
+      )
+    );
+    expects = [...primary.expects, ...isolatedExpects];
+  }
+
   const allExpectsPass = expects.every((e) => e.pass) && !hasFrameError;
   const status = allExpectsPass ? (primary.lintErrors.length > 0 ? "lint_warning" : "pass") : "fail";
 
