@@ -23,7 +23,7 @@
       "MissingRightParenthesisAfterFunctionCall": "Did you forget the closing parenthesis `)` when calling the {{function}} function?",
       "MissingEndOfLine": "Jiki didn't expect `{{current}}` to appear here after the `{{previous}}`.",
       "MissingVariableName": "Missing variable name in declaration. You must provide a name after `let`.",
-      "MultipleStatementsPerLine": "Multiple statements found on line {{line}}. Only one statement per line is allowed when oneStatementPerLine is enabled.",
+      "MultipleStatementsPerLine": "In Jiki, you can only put one statement per line. You can't separate multiple statements with semicolons. Please put the second statement on its own line.",
       "TrailingCommaInArray": "Trailing commas are not allowed in lists.",
       "TrailingCommaInDictionary": "Trailing commas are not allowed in objects.",
       "InvalidDictionaryKey": "Invalid object key. Keys must be identifiers, strings, or numbers.",
