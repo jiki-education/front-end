@@ -7,8 +7,7 @@
 .modal {
     max-width: 760px;
     padding: 36px 36px 28px;
-    background-image:
-        url("/static/images/landing-page/hero-grid.svg"), linear-gradient(rgb(13, 18, 33), rgb(19, 47, 68));
+    background-image: url("../../../icons/hero-grid.svg"), linear-gradient(rgb(13, 18, 33), rgb(19, 47, 68));
     background-repeat: repeat, repeat-y;
     background-size: 20px, 100%;
     color: #fff;
