@@ -365,18 +365,29 @@ class Orchestrator {
     return this.exercise.readonlyRanges?.[this.language] ?? [];
   }
 
-  // Returns the saved readonly ranges from localStorage if present (so the
-  // locked lines stay in sync with the saved code after refresh), otherwise
-  // falls back to the exercise's default ranges. Malformed entries (from a
-  // corrupted or older-version localStorage payload) are rejected so they
-  // can't crash CodeMirror's doc.line() at editor mount.
+  // Returns the readonly ranges to apply when the editor mounts.
+  //
+  // The exercise's default ranges are defined against the *stub's* line
+  // numbers, so they are only correct while the editor still holds the stub.
+  // Once a snapshot is saved to localStorage the code may be student-edited,
+  // and the stored ranges are the only ones that have been mapped through those
+  // edits. Applying stub-relative defaults on top of edited code would risk
+  // locking lines the student wrote, so:
+  //   - no saved snapshot  -> pristine stub, use the exercise defaults
+  //   - saved snapshot     -> use its ranges, or no locks if they are
+  //                           missing/malformed (never guess with defaults)
+  // Malformed entries (from a corrupted or older-version payload) are rejected
+  // so they can't crash CodeMirror's doc.line() at editor mount.
   getStoredOrDefaultReadonlyRanges(): ReadonlyRange[] {
     const stored = loadCodeMirrorContent(this.exercise.slug);
-    const raw = stored.success ? stored.data?.readonlyRanges : undefined;
+    if (!stored.success) {
+      return this.getDefaultReadonlyRanges();
+    }
+    const raw = stored.data?.readonlyRanges;
     if (Array.isArray(raw) && raw.every(isValidReadonlyRange)) {
       return raw;
     }
-    return this.getDefaultReadonlyRanges();
+    return [];
   }
 
   // Clean up method to destroy the orchestrator and its managers
