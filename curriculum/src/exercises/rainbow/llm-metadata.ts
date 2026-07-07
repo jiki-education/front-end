@@ -22,7 +22,7 @@ export const llmMetadata: LLMMetadata = {
 
         Drawing before updating is the key ordering point: update-first pushes the
         first bar to x=1 and skips x=0. Other slips are forgetting to change hue
-        (uniform color) and using saturation/luminosity that's too low.
+        (uniform color) and using saturation/lightness that's too low.
       `
     }
   }

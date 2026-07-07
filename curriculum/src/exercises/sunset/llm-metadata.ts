@@ -22,7 +22,7 @@ export const llmMetadata: LLMMetadata = {
         - Updating variables after drawing instead of before (animation runs one frame behind)
         - Wrong draw order (the sun ends up hidden behind the sky rectangle)
         - Mixing up the two color systems: rgb is 0-255 per channel; hsl is hue 0-360,
-          saturation/luminosity 0-100
+          saturation/lightness 0-100
       `
     }
   }

@@ -36,7 +36,7 @@ export class RainbowSplodgesExercise extends DrawExercise {
     );
   }
 
-  public checkSaturationAndLuminosityInRange(min: number, max: number): boolean {
+  public checkSaturationAndLightnessInRange(min: number, max: number): boolean {
     if (this.circles.length === 0) return false;
     return this.circles.every((c) => {
       const { s, l } = hexToHsl(c.fillColor);

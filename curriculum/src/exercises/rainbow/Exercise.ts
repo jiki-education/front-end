@@ -20,7 +20,7 @@ export class RainbowExercise extends DrawExercise {
     });
   }
 
-  public allRectanglesHaveMinSaturationAndLuminosity(minSat: number, minLum: number): boolean {
+  public allRectanglesHaveMinSaturationAndLightness(minSat: number, minLum: number): boolean {
     const rects = this.shapes.filter((s) => s instanceof Rectangle);
     if (rects.length === 0) return false;
     return rects.every((shape) => {

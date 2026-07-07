@@ -287,7 +287,7 @@ export abstract class DrawExercise extends VisualExercise {
       return executionCtx.logicError("Saturation must be between 0 and 100");
     }
     if (l.value < 0 || l.value > 100) {
-      return executionCtx.logicError("Luminosity must be between 0 and 100");
+      return executionCtx.logicError("Lightness must be between 0 and 100");
     }
     return hslToHexString(h.value, s.value, l.value);
   }
@@ -568,7 +568,7 @@ export abstract class DrawExercise extends VisualExercise {
       hsl: {
         name: "hsl",
         func: this.hsl.bind(this),
-        description: "converted HSL color (hue: ${arg1}, saturation: ${arg2}, luminosity: ${arg3}) to a hex string"
+        description: "converted HSL color (hue: ${arg1}, saturation: ${arg2}, lightness: ${arg3}) to a hex string"
       },
       rgb: {
         name: "rgb",

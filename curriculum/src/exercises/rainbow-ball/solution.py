@@ -6,7 +6,7 @@ hue = 99
 
 # These never need to change
 saturation = 80
-luminosity = 50
+lightness = 50
 
 x_direction = 2
 y_direction = 1
