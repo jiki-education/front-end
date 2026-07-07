@@ -145,11 +145,23 @@ const nextConfig: NextConfig = {
       fileLoaderRule.exclude = /\.svg$/i;
     }
 
+    // SVGs referenced from CSS via url() must be emitted as raw file assets (into
+    // _next/static/media), NOT run through SVGR - otherwise SVGR turns them into
+    // React component JS modules that get served with a .svg name and render as
+    // nothing. Split by issuer: CSS-referenced SVGs are file assets; SVGs imported
+    // from JS/TS stay SVGR components.
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.css$/,
+      type: "asset/resource"
+    });
+
     // Add SVGR loader
     // Exclude Next.js metadata requests (e.g. app/icon.svg favicon) so they are
     // handled by next-metadata-image-loader as raw images, not React components
     config.module.rules.push({
       test: /\.svg$/i,
+      issuer: { not: [/\.css$/] },
       resourceQuery: { not: [/__next_metadata__/] },
       use: [
         {
