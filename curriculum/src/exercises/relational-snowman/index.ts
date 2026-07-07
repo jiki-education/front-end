@@ -20,6 +20,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
+  conceptSlugs: ["variables", "arithmetic", "using-functions-with-inputs"],
   readonlyRanges: {
     javascript: [
       { fromLine: 1, toLine: 2, toChar: 11 },
