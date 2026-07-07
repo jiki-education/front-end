@@ -3,7 +3,7 @@ title: "Learn to Walk"
 description: "Create a walk function that moves multiple steps at once."
 ---
 
-We've back with the maze, and we're going to take a step away from the automated solving for a moment. When you manually solved the maze before, if you had to move three steps forward, you had to write `move()` three times.
+We're back with the maze, and we're going to take a step away from the automated solving for a moment. When you manually solved the maze before, if you had to move three steps forward, you had to write `move()` three times.
 
 In this exercise, you're going to create a new function `walk(numSteps)` that takes a number of steps as its input, and moves forward that many times.
 
