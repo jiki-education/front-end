@@ -52,6 +52,14 @@ The `.context/` folder contains comprehensive documentation about:
 
 **Any deviation from this pattern WILL break UI compatibility. See [Common Errors](./context/shared/common-errors.md) for detailed examples of what NOT to do.**
 
+### Student-facing errors vs. internal invariant violations
+
+There are two distinct error channels. Do not confuse them:
+
+- **Student-facing errors** (`RuntimeError` via `executor.error(type, location, context)`, parser/scanner `this.error(...)`, and `StdlibError`). These become error frames or parse errors and are shown to students. **All of their English MUST live in the i18n translation JSON** (`en/translation.json`), keyed by error type. NEVER pass a hardcoded English string into `executor.error(...)` (e.g. `{ message: "Array indices must be numbers" }`) — promote it to a real error key with its own `en` + `system` entry and pass only structured context. The only English that reaches a student comes from a translation file.
+
+- **Internal invariant violations** (`InterpreterInternalError`, in `src/javascript/error.ts`). Thrown for "this should never happen" cases — an unreachable `default:`/dispatcher fall-through, or a broken interpreter/external-function contract. These are **bugs in Jiki, not in the student's code**. They are intentionally NOT turned into nice error frames and NOT translated: `interpret()` re-throws them so they explode loudly at the top level and get noticed and fixed. **Their messages are developer-facing English literals and are deliberately EXEMPT from the i18n rule** — do not move them into the translation files, and do not add locale keys for them. Any `catch` that wraps arbitrary errors (e.g. external-function or class-instantiation `catch` blocks) MUST re-throw `InterpreterInternalError` first so it is never swallowed into a student-facing frame.
+
 ## 🚨 ESSENTIAL DEVELOPMENT REMINDERS
 
 **On EVERY development task, you MUST:**

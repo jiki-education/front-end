@@ -1,12 +1,12 @@
 import type { Location } from "../shared/location";
 
 export type SyntaxErrorType =
-  | "GenericSyntaxError"
   | "InvalidAssignmentTargetExpression"
   | "AssignmentInExpression"
   | "MissingBacktickToTerminateTemplateLiteral"
   | "MissingDoubleQuoteToTerminateString"
   | "MissingExpression"
+  | "MissingClassNameAfterNew"
   | "MissingInitializerInConstDeclaration"
   | "MissingInitializerInVariableDeclaration"
   | "ConstInForLoopInit"
@@ -28,12 +28,12 @@ export type SyntaxErrorType =
   | "MissingColonInDictionary"
   | "DuplicateDictionaryKey"
   | "MissingRightBraceInDictionary"
-  | "UnexpectedRightBrace"
   | "UnexpectedElseWithoutMatchingIf"
   | "UnexpectedTokenInTemplateLiteral"
   | "UnimplementedToken"
   | "PermanentlyExcludedToken"
   | "UnknownCharacter"
+  | "UnterminatedBlockComment"
   // Node restriction errors
   | "LiteralExpressionNotAllowed"
   | "BinaryExpressionNotAllowed"
@@ -103,3 +103,10 @@ export class LintError {
 }
 
 export class LogicError extends Error {}
+
+// Signals a broken invariant inside the interpreter itself (a bug in Jiki, not
+// in the student's code) - a situation that should never happen. Unlike
+// RuntimeError, this is NOT turned into a nice error frame; it propagates all
+// the way out of interpret() so it explodes loudly at the top level and gets
+// noticed/fixed, rather than being shown to a student.
+export class InterpreterInternalError extends Error {}

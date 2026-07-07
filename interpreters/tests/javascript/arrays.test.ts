@@ -314,7 +314,7 @@ describe("JavaScript Arrays", () => {
 
       const frame = result.frames[1] as TestFrame;
       expect(frame.status).toBe("ERROR");
-      expect(frame.error?.type).toBe("TypeError");
+      expect(frame.error?.type).toBe("ArrayIndexNotNumber");
     });
 
     test("non-integer index", async () => {
@@ -329,7 +329,7 @@ describe("JavaScript Arrays", () => {
 
       const frame = result.frames[1] as TestFrame;
       expect(frame.status).toBe("ERROR");
-      expect(frame.error?.type).toBe("TypeError");
+      expect(frame.error?.type).toBe("ArrayIndexNotInteger");
     });
 
     test("accessing non-array", async () => {
@@ -344,7 +344,7 @@ describe("JavaScript Arrays", () => {
 
       const frame = result.frames[1] as TestFrame;
       expect(frame.status).toBe("ERROR");
-      expect(frame.error?.type).toBe("TypeError");
+      expect(frame.error?.type).toBe("CannotReadPropertiesOfType");
     });
   });
 
@@ -454,7 +454,7 @@ describe("JavaScript Arrays", () => {
 
       const frame = result.frames[1] as TestFrame;
       expect(frame.status).toBe("ERROR");
-      expect(frame.error?.type).toBe("TypeError");
+      expect(frame.error?.type).toBe("CannotReadPropertiesOfType");
     });
 
     test("chained access with mixed data types", () => {

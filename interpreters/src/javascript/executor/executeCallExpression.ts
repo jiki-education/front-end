@@ -7,7 +7,7 @@ import { JSBoundMethod } from "../jsObjects/JSBoundMethod";
 import type { JikiObject } from "../jikiObjects";
 import type { Arity } from "../../shared/interfaces";
 import { isCallable, type JSCallable, JSUserDefinedFunction, ReturnValue } from "../functions";
-import { LogicError } from "../error";
+import { LogicError, InterpreterInternalError } from "../error";
 import { Environment } from "../environment";
 import { StdlibError } from "../stdlib";
 import { translate } from "../translator";
@@ -19,9 +19,7 @@ export function executeCallExpression(executor: Executor, expression: CallExpres
 
   // Check if the value is callable
   if (!isCallable(calleeValue)) {
-    throw new RuntimeError(`TypeError: ${expression.callee.type} is not callable`, expression.location, "TypeError", {
-      callee: expression.callee.type,
-    });
+    executor.error("NotCallable", expression.location, { callableType: calleeValue.type });
   }
 
   // Type assertion since we know it's a JSCallable from our implementation
@@ -82,18 +80,20 @@ export function executeCallExpression(executor: Executor, expression: CallExpres
       args: argResults, // Store full evaluation results for describers
     };
   } catch (error) {
+    // Never swallow internal interpreter bugs - let them explode past here.
+    if (error instanceof InterpreterInternalError) {
+      throw error;
+    }
     // Handle LogicError from custom functions
     if (error instanceof LogicError) {
       executor.error("LogicErrorInExecution", expression.location, { message: error.message });
     }
     // Handle any other errors from the external function
     if (error instanceof Error) {
-      throw new RuntimeError(
-        `FunctionExecutionError: function: ${callable.name}: message: ${error.message}`,
-        expression.location,
-        "FunctionExecutionError",
-        { function: callable.name, message: error.message }
-      );
+      executor.error("FunctionExecutionError", expression.location, {
+        function: callable.name,
+        message: error.message,
+      });
     }
     throw error;
   }
@@ -109,25 +109,20 @@ function checkArity(
   const [minArity, maxArity] = typeof arity === "number" ? [arity, arity] : arity;
 
   if (argCount < minArity || argCount > maxArity) {
-    const arityMessage =
-      minArity === maxArity
-        ? `${minArity}`
-        : maxArity === Infinity
-          ? `at least ${minArity}`
-          : `between ${minArity} and ${maxArity}`;
-
-    // TODO: This is problematic as we're inserting English words from code
-    // rather than handling pluralization in the translation system
-    const slots = minArity === 1 && minArity === maxArity ? "slot" : "slots";
-    const inputs = argCount === 1 ? "input" : "inputs";
-    const gotMessage = argCount === 0 ? "no" : `${argCount}`;
+    // Pass only structured data to the translation layer. All grammar
+    // (pluralisation, articles, "no" vs a number) is owned by the locale
+    // files via i18next's `context` + `count` machinery, so that languages
+    // with different rules (e.g. Hungarian, where nouns stay singular after
+    // numerals) can render this correctly without any code changes here.
+    const context = minArity === maxArity ? "exact" : maxArity === Infinity ? "atLeast" : "range";
 
     executor.error("InvalidNumberOfArguments", expression.location, {
       function: functionName,
-      expected: arityMessage,
-      slots,
-      got: gotMessage,
-      inputs,
+      context,
+      expected: minArity,
+      got: argCount,
+      min: minArity,
+      max: maxArity,
     });
   }
 }
@@ -233,6 +228,9 @@ function executeBoundMethod(
       args: argResults,
     };
   } catch (error) {
+    if (error instanceof InterpreterInternalError) {
+      throw error;
+    }
     if (error instanceof LogicError) {
       executor.error("LogicErrorInExecution", expression.location, { message: error.message });
     }
@@ -240,12 +238,10 @@ function executeBoundMethod(
       throw error;
     }
     if (error instanceof Error) {
-      throw new RuntimeError(
-        `FunctionExecutionError: function: ${callable.name}: message: ${error.message}`,
-        expression.location,
-        "FunctionExecutionError",
-        { function: callable.name, message: error.message }
-      );
+      executor.error("FunctionExecutionError", expression.location, {
+        function: callable.name,
+        message: error.message,
+      });
     }
     throw error;
   }

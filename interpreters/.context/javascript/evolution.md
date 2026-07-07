@@ -1,5 +1,27 @@
 # JavaScript Interpreter Evolution
 
+## 2026-07-07: Error-message i18n overhaul — all student-facing English moved to translation JSON
+
+A wide pass over the JS interpreter's runtime/parser errors to fix a structural problem: much of the English students saw was either built in code (pluralisation, articles, "no"/"an") or hardcoded as raw `system`-format strings passed straight through `executor.error(..., { message: "..." })`, bypassing i18n entirely. The end state: **every student-facing string is rendered from `en/translation.json`; code passes only structured context.**
+
+Key changes:
+
+- **`InvalidNumberOfArguments` rebuilt around i18next.** Code now passes a `context` discriminator (`exact`/`atLeast`/`range`) plus raw numbers instead of assembling words. Pluralisation lives in the locale via `context` + `count` + nested `$t()`, with reusable quantity fragments in a new top-level `phrases` namespace (`slotCount`/`inputCount`). A **Hungarian (`hu`) bundle** was added (with `fallbackLng: "en"`) as a proof the design survives languages where nouns stay singular after numerals and zero is a negated existential. `executeNewExpression` was aligned to pass `context` too (it previously rendered a raw key string).
+
+- **Overloaded/mislabelled errors split into properly-named keys:** `MissingClassNameAfterNew` (was borrowing `MissingExpression`), `UnterminatedBlockComment` (was a fake `UnknownCharacter`), `UpdateOperatorRequiresNumber` (was the misnamed `InvalidUnaryExpression`). `MissingExpression`/`UnknownCharacter`/`GenericSyntaxError` copy now uses the `{{token}}`/`{{character}}` context they already received.
+
+- **Raw `system`-format throws rerouted** through `executor.error(type, context)` so their `en` copy renders (the `In*` operators, `ComparisonRequiresNumber`, `MethodNotYet*`, `IndexOutOfRange`, `FunctionExecutionError`, `PropertyNotFound`, etc.). `PropertyNotFound` and `IndexOutOfRange` now thread a `type` so they name the real container (arrays/strings/`Math`) instead of hardcoding "arrays".
+
+- **The generic `TypeError` catch-all was promoted** into distinct keys (`ArrayIndexNotNumber`, `ArrayIndexNotInteger`, `StringIndexNotNumber`, `StringIndexNotInteger`, `ComputedAccessNotAllowedForStdlib`, `ComputedAccessNotAllowedForBuiltin`, `CannotReadPropertiesOfType`, `CannotSetPropertyOfType`, `BracketNotationNotAllowedOnInstance`, `NotCallable`), each with reworded educational copy and a system-message test. `TypeError` remains only as the stdlib-arg label (rendered via `error.stdlib.*`).
+
+- **`MethodUsedWithoutParentheses`** — bare method references (`arr.push` without `()`) are now an error, not a first-class function value. Implemented as a parser lookahead: a `MemberExpression` that is immediately the callee of a call is flagged `isCalled`; the executor errors on any method resolved from an unflagged member. **`PropertyNotYetAvailable`** was split out from `MethodNotYetAvailable` so level-gated property access (e.g. `arr.length`) reports "property" rather than "method".
+
+- **`InterpreterInternalError`** now backs all "this should never happen" cases (unreachable `default:`/dispatcher branches, the non-JikiObject guard). It is NOT a `RuntimeError`, is re-thrown out of `interpret()`, and is deliberately exempt from i18n (dev-facing crash, never shown to a student). `catch` blocks that wrap arbitrary errors re-throw it first. This convention is documented in `AGENTS.md`.
+
+- **Dead code/keys removed:** `ArgumentError` (never raised), the `ValueError`/`TypeError` runtime `"{{message}}"` echoes, `GenericSyntaxError` + `UnexpectedRightBrace` (unreachable — a stray token throws `MissingExpression` first, so the parser's no-progress branch became an `InterpreterInternalError` guard), and the `getNodeFriendlyName` English map in `parser.ts` (passed as `friendlyName` context but rendered by no template, and unused in `app`/`curriculum` source — only present in built bundles).
+
+Scope: JavaScript interpreter only. Python still carries the pre-overhaul patterns (raw-message TypeErrors, code-built pluralisation, `InvalidUnaryExpression`) and is the obvious follow-up.
+
 ## 2026-07-05: Quote strings in descriptions via `toDisplayString()`
 
 A student reported that variable declaration descriptions showed string values unquoted, e.g. `let border_color = "black"` described as "set it to `black`" instead of "set it to `"black"`". The root cause was `JSString.toString()` returning the raw value, which describers inherited through `formatJSObject()`.

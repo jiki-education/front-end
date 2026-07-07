@@ -405,7 +405,7 @@ export class Scanner {
       }
       this.advance();
     }
-    this.error("UnknownCharacter", { character: "/*" });
+    this.error("UnterminatedBlockComment");
   }
 
   private tokenizeString(): void {

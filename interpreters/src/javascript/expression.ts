@@ -130,6 +130,11 @@ export class ArrayExpression extends Expression {
 }
 
 export class MemberExpression extends Expression {
+  // Set by the parser when this member is immediately the callee of a call
+  // (e.g. `arr.push()`). Lets the executor distinguish a called method from a
+  // bare method reference like `arr.push` (a "forgot the brackets" mistake).
+  public isCalled = false;
+
   constructor(
     public object: Expression,
     public property: Expression,

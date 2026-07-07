@@ -66,9 +66,7 @@ describe("String properties", () => {
       expect(result.error).toBe(null);
       const errorFrame = result.frames.find(f => (f as TestAugmentedFrame).status === "ERROR");
       expect(errorFrame).toBeDefined();
-      expect((errorFrame as TestAugmentedFrame)?.error?.message).toBe(
-        "TypeError: message: Cannot use computed property access for stdlib members"
-      );
+      expect((errorFrame as TestAugmentedFrame)?.error?.message).toBe("ComputedAccessNotAllowedForStdlib");
     });
 
     test("gives runtime error for unknown property", () => {

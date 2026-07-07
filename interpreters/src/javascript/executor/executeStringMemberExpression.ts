@@ -1,5 +1,5 @@
 import type { EvaluationResultExpression, EvaluationResultMemberExpression } from "../evaluation-result";
-import { type Executor, RuntimeError } from "../executor";
+import { type Executor } from "../executor";
 import type { MemberExpression } from "../expression";
 import { type JSString, JSNumber, JSString as JSStringClass, JSUndefined } from "../jsObjects";
 import { executeStdlibMemberExpression } from "./executeStdlibMemberExpression";
@@ -28,36 +28,22 @@ export function executeStringMemberExpression(
     const hasStdlibProperty = propertyName in stdlib.string.properties;
     const hasStdlibMethod = propertyName in stdlib.string.methods;
     if (hasStdlibProperty || hasStdlibMethod) {
-      throw new RuntimeError(
-        `TypeError: message: Cannot use computed property access for stdlib members`,
-        expression.location,
-        "TypeError",
-        { message: "Cannot use computed property access for stdlib members" }
-      );
+      executor.error("ComputedAccessNotAllowedForStdlib", expression.location);
     }
     // If it's a string that doesn't match stdlib, it's still an error for strings
-    throw new RuntimeError(`TypeError: message: String indices must be numbers`, expression.location, "TypeError", {
-      message: "String indices must be numbers",
-    });
+    executor.error("StringIndexNotNumber", expression.location);
   }
 
   // Check that the property is a number
   if (!(property instanceof JSNumber)) {
-    throw new RuntimeError(`TypeError: message: String indices must be numbers`, expression.location, "TypeError", {
-      message: "String indices must be numbers",
-    });
+    executor.error("StringIndexNotNumber", expression.location);
   }
 
   const index = property.value;
 
   // Check for negative indices
   if (index < 0) {
-    throw new RuntimeError(
-      `IndexOutOfRange: index: ${index}: length: ${str.value.length}`,
-      expression.location,
-      "IndexOutOfRange",
-      { index: index, length: str.value.length }
-    );
+    executor.error("IndexOutOfRange", expression.location, { index: index, length: str.value.length });
   }
 
   // Check bounds - in JavaScript, reading out of bounds returns undefined
@@ -73,9 +59,7 @@ export function executeStringMemberExpression(
 
   // Check for non-integer indices
   if (!Number.isInteger(index)) {
-    throw new RuntimeError(`TypeError: message: String indices must be integers`, expression.location, "TypeError", {
-      message: "String indices must be integers",
-    });
+    executor.error("StringIndexNotInteger", expression.location);
   }
 
   // Get the character

@@ -1,7 +1,7 @@
 import { Environment } from "./environment";
 import type { Expression } from "./expression";
 import type { LanguageFeatures, NodeType } from "./interfaces";
-import { LogicError } from "./error";
+import { LogicError, InterpreterInternalError } from "./error";
 import {
   LiteralExpression,
   BinaryExpression,
@@ -101,9 +101,7 @@ export type ExecutionContext = SharedExecutionContext & {
 };
 
 export type RuntimeErrorType =
-  | "InvalidBinaryExpression"
-  | "InvalidUnaryExpression"
-  | "UnsupportedOperation"
+  | "UpdateOperatorRequiresNumber"
   | "VariableNotDeclared"
   | "VariableAlreadyDeclared"
   | "ShadowingDisabled"
@@ -115,8 +113,18 @@ export type RuntimeErrorType =
   | "StrictEqualityRequired"
   | "IndexOutOfRange"
   | "TypeError"
+  | "ArrayIndexNotNumber"
+  | "ArrayIndexNotInteger"
+  | "StringIndexNotNumber"
+  | "StringIndexNotInteger"
+  | "ComputedAccessNotAllowedForStdlib"
+  | "ComputedAccessNotAllowedForBuiltin"
+  | "CannotReadPropertiesOfType"
+  | "CannotSetPropertyOfType"
+  | "BracketNotationNotAllowedOnInstance"
+  | "NotCallable"
   | "PropertyNotFound"
-  | "ArgumentError"
+  | "MethodUsedWithoutParentheses"
   | "NodeNotAllowed"
   | "FunctionNotFound"
   | "InvalidNumberOfArguments"
@@ -128,8 +136,8 @@ export type RuntimeErrorType =
   | "ForOfLoopTargetNotIterable"
   | "MethodNotYetImplemented"
   | "MethodNotYetAvailable"
+  | "PropertyNotYetAvailable"
   | "MaxIterationsReached"
-  | "NonJikiObjectDetectedInExecution"
   | "RepeatCountMustBeNumber"
   | "RepeatCountMustBeNonNegative"
   | "RepeatCountTooHigh"
@@ -598,11 +606,9 @@ export class Executor {
       return executeNewExpression(this, expression);
     }
 
-    throw new RuntimeError(
-      `Unsupported expression type: ${expression.type}`,
-      expression.location,
-      "UnsupportedOperation"
-    );
+    // Every expression type the parser produces is handled above, so an
+    // unknown type here is an interpreter bug, not a student error.
+    throw new InterpreterInternalError(`Unsupported expression type: ${expression.type}`);
   }
 
   public executeBlock(statements: Statement[], environment: Environment): void {
@@ -723,15 +729,17 @@ export class Executor {
     }
   }
 
-  public guardNonJikiObject(value: any, location: Location): void {
+  public guardNonJikiObject(value: any, _location: Location): void {
     // Import JikiObject from shared to check inheritance
     if (value instanceof JikiObjectBase) {
       return;
     }
-    this.error("NonJikiObjectDetectedInExecution", location, {
-      receivedType: typeof value,
-      receivedValue: value,
-    });
+    // A non-JikiObject reaching execution means the interpreter (or an external
+    // function) is broken - this is our bug, not the student's. Explode hard so
+    // it surfaces in dev/tests instead of being dressed up as a nice error frame.
+    throw new InterpreterInternalError(
+      `NonJikiObjectDetectedInExecution: Expected a JikiObject but received ${typeof value}: ${String(value)}`
+    );
   }
 
   public guardInfiniteLoop(location: Location): void {

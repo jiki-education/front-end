@@ -5,7 +5,7 @@ import type { EvaluationResultNewExpression } from "../evaluation-result";
 import type { EvaluationResultExpression } from "../evaluation-result";
 import { JSClass } from "../jsObjects/JSClass";
 import type { JikiObject } from "../jsObjects";
-import { LogicError } from "../error";
+import { LogicError, InterpreterInternalError } from "../error";
 
 export function executeNewExpression(executor: Executor, expression: NewExpression): EvaluationResultNewExpression {
   // Look up the class in the environment
@@ -36,17 +36,18 @@ export function executeNewExpression(executor: Executor, expression: NewExpressi
   const arity = jsClass.arity;
   const [minArity, maxArity] = typeof arity === "number" ? [arity, arity] : arity;
   if (argJikiObjects.length < minArity || argJikiObjects.length > maxArity) {
-    const arityMessage =
-      minArity === maxArity
-        ? `${minArity}`
-        : maxArity === Infinity
-          ? `at least ${minArity}`
-          : `between ${minArity} and ${maxArity}`;
+    // Pass structured data; the locale owns pluralisation via context + count
+    // (mirrors executeCallExpression). Passing a context is required so en
+    // resolves one of the _exact/_atLeast/_range variants.
+    const context = minArity === maxArity ? "exact" : maxArity === Infinity ? "atLeast" : "range";
 
     executor.error("InvalidNumberOfArguments", expression.location, {
       function: className,
-      expected: arityMessage,
+      context,
+      expected: minArity,
       got: argJikiObjects.length,
+      min: minArity,
+      max: maxArity,
     });
   }
 
@@ -61,17 +62,18 @@ export function executeNewExpression(executor: Executor, expression: NewExpressi
       immutableJikiObject: instance.clone(),
     };
   } catch (e) {
+    if (e instanceof InterpreterInternalError) {
+      throw e;
+    }
     if (e instanceof LogicError) {
       executor.error("LogicErrorInExecution", expression.location, { message: e.message });
     }
     if (e instanceof RuntimeError) {
       throw e;
     }
-    throw new RuntimeError(
-      `FunctionExecutionError: function: ${className}: message: ${(e as Error).message}`,
-      expression.location,
-      "FunctionExecutionError",
-      { function: className, message: (e as Error).message }
-    );
+    executor.error("FunctionExecutionError", expression.location, {
+      function: className,
+      message: (e as Error).message,
+    });
   }
 }

@@ -19,24 +19,21 @@ describe("JavaScript stdlib errors", () => {
       expect(lastFrame.error?.context?.method).toBe("map");
     });
 
-    it("should return a function for stub methods but throw when called", () => {
+    it("errors when a method is referenced without parentheses", () => {
+      // Bare method access (no brackets) is a mistake, not a first-class
+      // function reference - the student almost certainly meant to call it.
       const code = `
         let arr = [1, 2, 3];
         let mapFn = arr.map;
-        mapFn();
       `;
       const result = interpret(code);
       expect(result.success).toBe(false);
       expect(result.error).toBe(null);
 
-      // Should be able to access the method (frame 1)
-      const accessFrame = result.frames[1] as TestAugmentedFrame;
-      expect(accessFrame.status).toBe("SUCCESS");
-
-      // But calling it should fail (last frame)
       const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
       expect(lastFrame.status).toBe("ERROR");
-      expect(lastFrame.error?.type).toBe("MethodNotYetImplemented");
+      expect(lastFrame.error?.type).toBe("MethodUsedWithoutParentheses");
+      expect(lastFrame.error?.context?.property).toBe("map");
     });
 
     it("should list all unimplemented array methods", () => {
@@ -150,8 +147,8 @@ describe("JavaScript stdlib errors", () => {
 
       const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
       expect(lastFrame.status).toBe("ERROR");
-      expect(lastFrame.error?.type).toBe("MethodNotYetAvailable");
-      expect(lastFrame.error?.context?.method).toBe("length");
+      expect(lastFrame.error?.type).toBe("PropertyNotYetAvailable");
+      expect(lastFrame.error?.context?.property).toBe("length");
     });
   });
 
@@ -198,8 +195,8 @@ describe("JavaScript stdlib errors", () => {
 
       const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
       expect(lastFrame.status).toBe("ERROR");
-      expect(lastFrame.error?.type).toBe("TypeError");
-      expect(lastFrame.error?.context?.message).toContain("number");
+      expect(lastFrame.error?.type).toBe("CannotReadPropertiesOfType");
+      expect(lastFrame.error?.context?.type).toBe("number");
     });
 
     it("should throw TypeError when accessing property on boolean", () => {
@@ -212,8 +209,8 @@ describe("JavaScript stdlib errors", () => {
 
       const lastFrame = result.frames[result.frames.length - 1] as TestAugmentedFrame;
       expect(lastFrame.status).toBe("ERROR");
-      expect(lastFrame.error?.type).toBe("TypeError");
-      expect(lastFrame.error?.context?.message).toContain("boolean");
+      expect(lastFrame.error?.type).toBe("CannotReadPropertiesOfType");
+      expect(lastFrame.error?.context?.type).toBe("boolean");
     });
   });
 });

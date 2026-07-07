@@ -2,7 +2,7 @@ import type { Executor } from "../executor";
 import type { UnaryExpression } from "../expression";
 import type { EvaluationResultUnaryExpression, EvaluationResultExpression } from "../evaluation-result";
 import { createJSObject, type JikiObject, JSNumber } from "../jikiObjects";
-import { RuntimeError } from "../executor";
+import { InterpreterInternalError } from "../error";
 
 export function executeUnaryExpression(
   executor: Executor,
@@ -59,10 +59,9 @@ function handleUnaryOperation(
       // Logical NOT doesn't need type coercion check as it works with all types
       return createJSObject(!operand);
     default:
-      throw new RuntimeError(
-        `Unsupported unary operator: ${expression.operator.type}`,
-        expression.location,
-        "InvalidUnaryExpression"
-      );
+      // The parser only ever produces MINUS, PLUS and NOT unary operators, so
+      // reaching here means the interpreter is broken - explode, don't dress it
+      // up as a student-facing error.
+      throw new InterpreterInternalError(`Unsupported unary operator: ${expression.operator.type}`);
   }
 }

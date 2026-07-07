@@ -167,7 +167,7 @@ describe("JavaScript String Indexing", () => {
 
       const frame = result.frames[1] as TestFrame;
       expect(frame.status).toBe("ERROR");
-      expect(frame.error?.type).toBe("TypeError");
+      expect(frame.error?.type).toBe("StringIndexNotInteger");
     });
 
     test("non-numeric string index throws TypeError", () => {
@@ -182,7 +182,7 @@ describe("JavaScript String Indexing", () => {
 
       const frame = result.frames[1] as TestFrame;
       expect(frame.status).toBe("ERROR");
-      expect(frame.error?.type).toBe("TypeError");
+      expect(frame.error?.type).toBe("StringIndexNotNumber");
     });
 
     test("stdlib member via bracket throws TypeError", () => {
@@ -197,7 +197,7 @@ describe("JavaScript String Indexing", () => {
 
       const frame = result.frames[1] as TestFrame;
       expect(frame.status).toBe("ERROR");
-      expect(frame.error?.type).toBe("TypeError");
+      expect(frame.error?.type).toBe("ComputedAccessNotAllowedForStdlib");
     });
   });
 

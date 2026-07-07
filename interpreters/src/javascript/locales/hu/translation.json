@@ -1,0 +1,17 @@
+{
+  "error": {
+    "runtime": {
+      "InvalidNumberOfArguments_exact": "Ennek a függvénynek $t(phrases.slotCount, {\"count\": {{expected}} }), de te $t(phrases.inputCount, {\"count\": {{got}} }) a Jikinek.",
+      "InvalidNumberOfArguments_atLeast": "Ennek a függvénynek legalább $t(phrases.slotCount, {\"count\": {{expected}} }), de te $t(phrases.inputCount, {\"count\": {{got}} }) a Jikinek.",
+      "InvalidNumberOfArguments_range": "Ennek a függvénynek {{min}} és {{max}} közötti számú bemeneti helye van, de te $t(phrases.inputCount, {\"count\": {{got}} }) a Jikinek."
+    }
+  },
+  "phrases": {
+    "slotCount_zero": "nincs bemeneti helye",
+    "slotCount_one": "egy bemeneti helye van",
+    "slotCount_other": "{{count}} bemeneti helye van",
+    "inputCount_zero": "nem adtál meg bemenetet",
+    "inputCount_one": "egy bemenetet adtál meg",
+    "inputCount_other": "{{count}} bemenetet adtál meg"
+  }
+}

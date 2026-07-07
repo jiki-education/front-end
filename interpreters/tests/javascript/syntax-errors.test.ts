@@ -128,7 +128,7 @@ describe("syntax errors", () => {
 
   describe("comment errors", () => {
     test("unterminated multi-line comment", () => {
-      expect(() => parse("/* hello world")).toThrow("Unknown character");
+      expect(() => parse("/* hello world")).toThrow("UnterminatedBlockComment");
     });
 
     test("nested multi-line comments", () => {

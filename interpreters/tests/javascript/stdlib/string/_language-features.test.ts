@@ -24,8 +24,8 @@ test("restricts length property when not allowed", () => {
   expect(result.error).toBe(null);
   const errorFrame = result.frames.find(f => (f as TestAugmentedFrame).status === "ERROR");
   expect(errorFrame).toBeDefined();
-  expect((errorFrame as TestAugmentedFrame)?.error?.type).toBe("MethodNotYetAvailable");
-  expect((errorFrame as TestAugmentedFrame)?.error?.context?.method).toBe("length");
+  expect((errorFrame as TestAugmentedFrame)?.error?.type).toBe("PropertyNotYetAvailable");
+  expect((errorFrame as TestAugmentedFrame)?.error?.context?.property).toBe("length");
 });
 
 test("restricts charAt method when not allowed", () => {

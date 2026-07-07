@@ -13,9 +13,7 @@ export function executeInstanceMemberExpression(
 ): EvaluationResultMemberExpression {
   // Only dot notation allowed for instances (not computed)
   if (expression.computed) {
-    executor.error("TypeError", expression.location, {
-      message: "Bracket notation is not supported on class instances. Use dot notation instead.",
-    });
+    executor.error("BracketNotationNotAllowedOnInstance", expression.location);
   }
 
   const propertyName = (expression.property as LiteralExpression).value as string;
