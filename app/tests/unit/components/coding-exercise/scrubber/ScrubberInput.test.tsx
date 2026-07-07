@@ -1,4 +1,5 @@
 import type { Orchestrator } from "@/components/coding-exercise/lib/Orchestrator";
+import { useOrchestratorStore } from "@/components/coding-exercise/lib/Orchestrator";
 import ScrubberInput from "@/components/coding-exercise/ui/scrubber/ScrubberInput";
 import { createMockAnimationTimeline, createMockFrame } from "@/tests/mocks";
 import OrchestratorTestProvider from "@/tests/test-utils/OrchestratorTestProvider";
@@ -6,6 +7,11 @@ import type { Frame } from "@jiki/interpreters";
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
+
+// Mock the orchestrator store hook so we can control prev/next frame and play state
+jest.mock("@/components/coding-exercise/lib/Orchestrator", () => ({
+  useOrchestratorStore: jest.fn()
+}));
 
 // Helper to create mock frames
 function createMockFrames(count: number): Frame[] {
@@ -30,14 +36,27 @@ function createMockOrchestrator(): Orchestrator {
     getNearestCurrentFrame: jest.fn().mockReturnValue(null),
     runCode: jest.fn(),
     getStore: jest.fn(),
+    play: jest.fn(),
     pause: jest.fn(),
+    showInformationWidget: jest.fn(),
+    goToPrevFrame: jest.fn(),
+    goToNextFrame: jest.fn(),
+    goToFirstFrame: jest.fn(),
+    goToLastFrame: jest.fn(),
     snapToNearestFrame: jest.fn()
   } as unknown as Orchestrator;
+}
+
+// Helper to setup store mock. ScrubberInput only reads isPlaying (for the
+// space-bar toggle); frame navigation targets are resolved inside the orchestrator.
+function setupStoreMock({ isPlaying = false }: { isPlaying?: boolean } = {}) {
+  (useOrchestratorStore as jest.Mock).mockReturnValue({ isPlaying });
 }
 
 describe("ScrubberInput Component", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    setupStoreMock();
   });
 
   describe("range input properties", () => {
@@ -347,44 +366,93 @@ describe("ScrubberInput Component", () => {
   });
 
   describe("keyboard handlers", () => {
-    it("should handle keyUp events", () => {
-      const mockOrchestrator = createMockOrchestrator();
+    function renderScrubber(mockOrchestrator: Orchestrator, enabled = true) {
       const mockTimeline = createMockAnimationTimeline({ duration: 10 });
-
       render(
         <OrchestratorTestProvider orchestrator={mockOrchestrator}>
-          <ScrubberInput frames={createMockFrames(5)} animationTimeline={mockTimeline} time={0} enabled={true} />
+          <ScrubberInput frames={createMockFrames(5)} animationTimeline={mockTimeline} time={0} enabled={enabled} />
         </OrchestratorTestProvider>
       );
+      return screen.getByRole("slider");
+    }
 
-      const input = screen.getByRole("slider");
+    it("ArrowLeft goes to the previous frame", () => {
+      const mockOrchestrator = createMockOrchestrator();
+      const input = renderScrubber(mockOrchestrator);
 
-      // Currently these are TODO implementations, so just verify they don't crash
-      fireEvent.keyUp(input, { key: "ArrowRight" });
-      fireEvent.keyUp(input, { key: "Space" });
+      fireEvent.keyDown(input, { key: "ArrowLeft" });
 
-      // No specific assertions as handlers are not yet implemented
-      expect(true).toBe(true);
+      expect(mockOrchestrator.goToPrevFrame).toHaveBeenCalledTimes(1);
     });
 
-    it("should handle keyDown events", () => {
+    it("ArrowRight goes to the next frame", () => {
       const mockOrchestrator = createMockOrchestrator();
-      const mockTimeline = createMockAnimationTimeline({ duration: 10 });
+      const input = renderScrubber(mockOrchestrator);
 
-      render(
-        <OrchestratorTestProvider orchestrator={mockOrchestrator}>
-          <ScrubberInput frames={createMockFrames(5)} animationTimeline={mockTimeline} time={0} enabled={true} />
-        </OrchestratorTestProvider>
-      );
+      fireEvent.keyDown(input, { key: "ArrowRight" });
 
-      const input = screen.getByRole("slider");
+      expect(mockOrchestrator.goToNextFrame).toHaveBeenCalledTimes(1);
+    });
 
-      // Currently these are TODO implementations, so just verify they don't crash
-      fireEvent.keyDown(input, { key: "ArrowLeft" });
+    it("ArrowDown goes to the first frame", () => {
+      const mockOrchestrator = createMockOrchestrator();
+      const input = renderScrubber(mockOrchestrator);
+
+      fireEvent.keyDown(input, { key: "ArrowDown" });
+
+      expect(mockOrchestrator.goToFirstFrame).toHaveBeenCalledTimes(1);
+    });
+
+    it("ArrowUp goes to the last frame", () => {
+      const mockOrchestrator = createMockOrchestrator();
+      const input = renderScrubber(mockOrchestrator);
+
+      fireEvent.keyDown(input, { key: "ArrowUp" });
+
+      expect(mockOrchestrator.goToLastFrame).toHaveBeenCalledTimes(1);
+    });
+
+    it("Space plays when paused", () => {
+      setupStoreMock({ isPlaying: false });
+      const mockOrchestrator = createMockOrchestrator();
+      const input = renderScrubber(mockOrchestrator);
+
+      fireEvent.keyDown(input, { key: " " });
+
+      expect(mockOrchestrator.play).toHaveBeenCalledTimes(1);
+      expect(mockOrchestrator.pause).not.toHaveBeenCalled();
+    });
+
+    it("Space pauses when playing", () => {
+      setupStoreMock({ isPlaying: true });
+      const mockOrchestrator = createMockOrchestrator();
+      const input = renderScrubber(mockOrchestrator);
+
+      fireEvent.keyDown(input, { key: " " });
+
+      expect(mockOrchestrator.pause).toHaveBeenCalledTimes(1);
+      expect(mockOrchestrator.play).not.toHaveBeenCalled();
+    });
+
+    it("does nothing when disabled", () => {
+      const mockOrchestrator = createMockOrchestrator();
+      const input = renderScrubber(mockOrchestrator, false);
+
+      fireEvent.keyDown(input, { key: "ArrowRight" });
+
+      expect(mockOrchestrator.goToNextFrame).not.toHaveBeenCalled();
+    });
+
+    it("ignores unrelated keys", () => {
+      const mockOrchestrator = createMockOrchestrator();
+      const input = renderScrubber(mockOrchestrator);
+
       fireEvent.keyDown(input, { key: "Enter" });
 
-      // No specific assertions as handlers are not yet implemented
-      expect(true).toBe(true);
+      expect(mockOrchestrator.goToPrevFrame).not.toHaveBeenCalled();
+      expect(mockOrchestrator.goToNextFrame).not.toHaveBeenCalled();
+      expect(mockOrchestrator.play).not.toHaveBeenCalled();
+      expect(mockOrchestrator.pause).not.toHaveBeenCalled();
     });
   });
 

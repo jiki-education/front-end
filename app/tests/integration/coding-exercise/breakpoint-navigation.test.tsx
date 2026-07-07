@@ -123,6 +123,25 @@ describe("Breakpoint Navigation Integration", () => {
       expect(state.currentFrame?.line).toBe(3);
     });
 
+    it("pauses playback and shows the information widget, like the frame steppers", () => {
+      const frames = [
+        createMockFrame(0, { line: 1 }),
+        createMockFrame(100, { line: 2 }),
+        createMockFrame(200, { line: 3 })
+      ];
+      const breakpoints = [1, 3];
+      const orchestrator = setupOrchestrator(frames, breakpoints);
+      orchestrator.setCurrentTestTime(0);
+
+      const pauseSpy = jest.spyOn(orchestrator, "pause");
+      const showWidgetSpy = jest.spyOn(orchestrator, "showInformationWidget");
+
+      orchestrator.goToNextBreakpoint();
+
+      expect(pauseSpy).toHaveBeenCalledTimes(1);
+      expect(showWidgetSpy).toHaveBeenCalledTimes(1);
+    });
+
     it("should skip folded lines when navigating", () => {
       const frames = [
         createMockFrame(0, { line: 1 }),

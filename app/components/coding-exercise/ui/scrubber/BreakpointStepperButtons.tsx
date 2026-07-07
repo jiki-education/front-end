@@ -1,7 +1,6 @@
 import React from "react";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
-import type { Frame } from "@jiki/interpreters/shared";
 import styles from "../../CodingExercise.module.css";
 
 interface BreakpointStepperButtonsProps {
@@ -18,7 +17,7 @@ export default function BreakpointStepperButtons({ enabled }: BreakpointStepperB
         <>
           <button
             disabled={!enabled || !prevBreakpointFrame}
-            onClick={() => handleGoToPrevBreakpoint(orchestrator, prevBreakpointFrame)}
+            onClick={() => orchestrator.goToPrevBreakpoint()}
             className={styles.codeNavBtn}
             aria-label="Previous breakpoint"
           >
@@ -26,7 +25,7 @@ export default function BreakpointStepperButtons({ enabled }: BreakpointStepperB
           </button>
           <button
             disabled={!enabled || !nextBreakpointFrame}
-            onClick={() => handleGoToNextBreakpoint(orchestrator, nextBreakpointFrame)}
+            onClick={() => orchestrator.goToNextBreakpoint()}
             className={styles.codeNavBtn}
             aria-label="Next breakpoint"
           >
@@ -36,28 +35,4 @@ export default function BreakpointStepperButtons({ enabled }: BreakpointStepperB
       )}
     </>
   );
-}
-
-/* **************** */
-/* EVENT HANDLERS */
-/* **************** */
-
-function handleGoToPrevBreakpoint(
-  orchestrator: ReturnType<typeof useOrchestrator>,
-  prevBreakpointFrame: Frame | undefined
-) {
-  orchestrator.pause();
-  if (prevBreakpointFrame) {
-    orchestrator.goToPrevBreakpoint();
-  }
-}
-
-function handleGoToNextBreakpoint(
-  orchestrator: ReturnType<typeof useOrchestrator>,
-  nextBreakpointFrame: Frame | undefined
-) {
-  orchestrator.pause();
-  if (nextBreakpointFrame) {
-    orchestrator.goToNextBreakpoint();
-  }
 }

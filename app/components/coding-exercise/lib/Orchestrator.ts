@@ -3,11 +3,11 @@
 // passed around, controls the state, etc.
 
 import type { EditorView } from "@codemirror/view";
+import type { Frame } from "@jiki/interpreters/shared";
 import type { ExerciseDefinition, Language, ReadonlyRange } from "@jiki/curriculum";
 import { getLanguageFeatures } from "@jiki/curriculum";
 import { debounce } from "lodash";
 import type { StoreApi } from "zustand/vanilla";
-import { BreakpointManager } from "./orchestrator/BreakpointManager";
 import { EditorManager } from "./orchestrator/EditorManager";
 import { loadCodeMirrorContent } from "./localStorage";
 import { createOrchestratorStore } from "./orchestrator/store";
@@ -21,7 +21,6 @@ import type { ExerciseContext, InformationWidgetData, OrchestratorStore, Underli
 class Orchestrator {
   readonly store: StoreApi<OrchestratorStore>; // Made readonly instead of private for methods to access
   private readonly timelineManager: TimelineManager;
-  private readonly breakpointManager: BreakpointManager;
   private readonly testSuiteManager: TestSuiteManager;
   private readonly taskManager: TaskManager;
   private editorManager: EditorManager | null = null;
@@ -47,7 +46,6 @@ class Orchestrator {
 
     // Initialize managers
     this.timelineManager = new TimelineManager(this.store);
-    this.breakpointManager = new BreakpointManager(this.store);
     this.taskManager = new TaskManager(this.store);
     this.testSuiteManager = new TestSuiteManager(this.store, this.taskManager, context);
     // EditorManager will be created lazily when setupEditor is called
@@ -242,13 +240,43 @@ class Orchestrator {
     return this.timelineManager.getNearestCurrentFrame();
   }
 
-  // Breakpoint navigation methods - delegate to BreakpointManager
+  // Frame navigation methods
+  goToPrevFrame() {
+    this.moveToFrame(this.store.getState().prevFrame);
+  }
+
+  goToNextFrame() {
+    this.moveToFrame(this.store.getState().nextFrame);
+  }
+
+  goToFirstFrame() {
+    const frames = this.store.getState().currentTest?.frames ?? [];
+    this.moveToFrame(frames[0]);
+  }
+
+  goToLastFrame() {
+    const frames = this.store.getState().currentTest?.frames ?? [];
+    this.moveToFrame(frames[frames.length - 1]);
+  }
+
+  // Breakpoint navigation methods
   goToPrevBreakpoint() {
-    this.breakpointManager.goToPrevBreakpoint();
+    this.moveToFrame(this.store.getState().prevBreakpointFrame);
   }
 
   goToNextBreakpoint() {
-    this.breakpointManager.goToNextBreakpoint();
+    this.moveToFrame(this.store.getState().nextBreakpointFrame);
+  }
+
+  // Shared navigation behaviour for every stepper (frame + breakpoint) and the
+  // scrubber keyboard shortcuts: pause playback, jump to the frame, and surface
+  // the information widget so they all behave identically.
+  private moveToFrame(frame: Frame | undefined) {
+    this.pause();
+    if (frame) {
+      this.setCurrentTestTime(frame.time);
+    }
+    this.showInformationWidget();
   }
 
   private readonly lintCodeDebounced = debounce((code: string) => {
