@@ -94,7 +94,7 @@
 @keyframes lockOpen {
     0% {
         /* Closed lock */
-        background-image: url("../../../icons/locked.svg");
+        background-image: url("/static/icons/locked.svg");
         background-position: center;
         background-repeat: no-repeat;
         background-size: 14px 14px;
@@ -104,7 +104,7 @@
     0.1%,
     90% {
         /* Instant switch to unlocked, stays for ~30 seconds */
-        background-image: url("../../../icons/unlocked.svg");
+        background-image: url("/static/icons/unlocked.svg");
         background-position: center;
         background-repeat: no-repeat;
         background-size: 14px 14px;
@@ -113,7 +113,7 @@
     }
     100% {
         /* Slowly fade out over last 3 seconds */
-        background-image: url("../../../icons/unlocked.svg");
+        background-image: url("/static/icons/unlocked.svg");
         background-position: center;
         background-repeat: no-repeat;
         background-size: 14px 14px;
