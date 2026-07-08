@@ -40,7 +40,14 @@ export function MonthlyPrice() {
       .then((data) => {
         if (!cancelled) setPrices(data.premium_prices);
       })
-      .catch(reportError);
+      .catch((error: unknown) => {
+        // A rejected fetch (blocked by an extension, dropped connection, or the
+        // visitor navigating away) throws a TypeError. That's expected ambient
+        // noise and the USD fallback already covers it, so don't report it.
+        // A bad HTTP status throws a plain Error and is worth surfacing.
+        if (error instanceof TypeError) return;
+        reportError(error);
+      });
     return () => {
       cancelled = true;
     };
