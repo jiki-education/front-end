@@ -9,9 +9,9 @@ Your job is to check what the person is wearing alongside their age and decide w
 
 ### The rules
 
-- Anyone in **formal** or **smart** clothes is let in and offered canapés.
-- Adults (18 or over) in formal clothes also get offered champagne.
-- Children (under 18) in any other clothes are allowed in only if they're on the guest list.
+- **Anyone** in **formal** or **smart** clothes is let in (regardless of whether they're on the guest list) and offered canapés.
+- **Adults** (18 or over) in **formal** clothes **also** get offered champagne.
+- **Children** (under 18) in any other clothes are allowed in **only if** they're on the guest list.
 - Everyone else is turned away.
 
 The dress code categories:
