@@ -13,7 +13,7 @@ interface FilterSidebarProps {
 }
 
 export default function FilterSidebar({ tagSlugs, selectedTag, locale }: FilterSidebarProps) {
-  const pathname = usePathname() ?? "";
+  const pathname = usePathname();
   const routes = useLocaleRoutes();
 
   const buildTagUrl = (tag: ArticleTagSlug | null) => {

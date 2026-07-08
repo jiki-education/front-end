@@ -15,7 +15,7 @@ export function ConfirmEmailForm() {
   const routes = useLocaleRoutes();
   const dashboardPath = routes.dashboard();
   const searchParams = useSearchParams();
-  const token = searchParams?.get("token") ?? null;
+  const token = searchParams.get("token");
   const router = useRouter();
   const setUser = useAuthStore((state) => state.setUser);
 
