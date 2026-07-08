@@ -14,7 +14,7 @@ type Status = "deleting" | "success" | "expired" | "error";
 
 export default function DeleteAccountConfirmContent() {
   const searchParams = useSearchParams();
-  const token = searchParams?.get("token") ?? null;
+  const token = searchParams.get("token");
   const setNoUser = useAuthStore((state) => state.setNoUser);
 
   const [status, setStatus] = useState<Status>("deleting");

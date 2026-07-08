@@ -29,7 +29,7 @@ export function useAuth(): UseAuthReturn {
   const [twoFactorState, setTwoFactorState] = useState<TwoFactorState>({ type: "none" });
   const [googleAuthError, setGoogleAuthError] = useState<string | null>(null);
 
-  const returnTo = searchParams?.get("return_to") ?? null;
+  const returnTo = searchParams.get("return_to");
 
   // Store return_to in sessionStorage on mount so it persists across page navigations
   useEffect(() => {

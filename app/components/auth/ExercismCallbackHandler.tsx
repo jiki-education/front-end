@@ -28,7 +28,7 @@ export function ExercismCallbackHandler() {
     }
     hasStartedRef.current = true;
 
-    const callback = consumeExercismCallback(searchParams?.get("code") ?? null, searchParams?.get("state") ?? null);
+    const callback = consumeExercismCallback(searchParams.get("code"), searchParams.get("state"));
     if (callback.status === "error") {
       setError(callback.message);
       return;

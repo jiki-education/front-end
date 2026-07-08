@@ -17,7 +17,7 @@ export function ResendConfirmationForm() {
   const { resendConfirmation, isLoading, error, clearError } = useAuthStore();
   const searchParams = useSearchParams();
 
-  const [email, setEmail] = useState(searchParams?.get("email") || "");
+  const [email, setEmail] = useState(searchParams.get("email") || "");
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [successMessage, setSuccessMessage] = useState("");
 
