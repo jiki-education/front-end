@@ -31,12 +31,26 @@ From the `app` directory:
 pnpm run deploy
 ```
 
-This runs: `npx opennextjs-cloudflare build && wrangler deploy`
+This runs (see the `deploy` / `static:upload` scripts in `package.json`):
+
+1. `opennextjs-cloudflare build` - runs the app `build` (including the asset-hash
+   generators) and transforms the output for Workers.
+2. `static:upload` - `aws s3 sync`s the built assets to the `assets` R2 bucket
+   (served at `assets.jiki.io`). See [Static Asset Serving](#static-asset-serving).
+3. `wrangler deploy` - deploys the Worker (with `DEPLOY_ID` set to the git SHA).
+
+The upload runs **before** `wrangler deploy` so new assets are on the CDN before
+the new Worker goes live; if the sync fails the deploy aborts before switching.
 
 **Required environment variables:**
 
 - `CLOUDFLARE_API_TOKEN` - API token with Workers Routes permission
 - `CLOUDFLARE_ACCOUNT_ID` - Cloudflare account ID
+- `R2_ACCESS_KEY_ID` / `R2_SECRET_ACCESS_KEY` - R2 S3 credentials for `static:upload`
+  (the same R2 access-key pair used by the Rails API). `aws` CLI reads them via
+  the `AWS_*` env in `deploy.yml`, with `AWS_REGION=auto` and
+  `AWS_REQUEST_CHECKSUM_CALCULATION=when_required` (R2 rejects the SDK's default
+  multi-checksum).
 
 ### GitHub Secrets
 
@@ -44,6 +58,7 @@ The following secrets must be configured in repository settings:
 
 - `CLOUDFLARE_API_TOKEN` - Must have Workers Routes and Workers Scripts Write permissions
 - `CLOUDFLARE_ACCOUNT_ID` - Account ID: `0a0e6f92decf825364b860e2286ceebf`
+- `R2_ACCESS_KEY_ID` / `R2_SECRET_ACCESS_KEY` - R2 S3 credentials for the asset sync
 
 ## Build Process
 
@@ -51,10 +66,48 @@ The following secrets must be configured in repository settings:
 - OpenNext Cloudflare adapter transforms for Workers compatibility
 - Exercises compiled alongside Next.js application
 - Markdown content processed at build time
-- Static assets optimized and served from Workers Assets
+- Static assets served from the `assets` R2 bucket (`assets.jiki.io`), not Workers
+  Assets - see [Static Asset Serving](#static-asset-serving)
 - TypeScript compilation with strict mode
 - Interpreters package bundled as workspace dependency
 - R2 bucket stores incremental build cache
+
+## Static Asset Serving
+
+All hashed build output (`_next/*`) and CSS-referenced `/static/*` assets are served
+cross-origin from the **`assets` R2 bucket** at `https://assets.jiki.io`, not from
+Workers Assets. This exists to fix a `ChunkLoadError` class of bug: Workers Assets
+delete old files on every deploy, so a user holding a page across a deploy 404'd on
+lazy-loaded chunks. The R2 bucket is uploaded **additively** (nothing deleted), so
+content-hashed assets from older builds survive and old pages keep working.
+
+**How it fits together:**
+
+- `next.config.ts` sets `assetPrefix: "https://assets.jiki.io"` (production only) and
+  `crossOrigin: "anonymous"` (so Sentry gets real cross-origin stack traces). This
+  rewrites `_next/*` URLs to the bucket. `/public` files referenced from JSX stay
+  document-relative (served from Workers Assets on `jiki.io`).
+- **CSS `url("/static/...")`** refs resolve against the _stylesheet's_ origin
+  (`assets.jiki.io`), so those assets must be on the bucket too. They are
+  **content-hash fingerprinted** at build time: `scripts/generate-css-asset-hashes.js`
+  scans app + curriculum CSS, hashes each target, emits `public/static/hashed/...`,
+  and writes a manifest; the PostCSS plugin `postcss-plugins/rewrite-static-css-urls.cjs`
+  rewrites the `url()`s to the hashed copies. One PostCSS pass covers both packages
+  (curriculum CSS is imported by the app). Wired into `dev` and `build`; output is
+  gitignored (mirrors the icon-cache pattern).
+- The `static:upload` script syncs three trees: `_next/static` (immutable),
+  `public/static` (short TTL, fallback for any un-hashed ref), and
+  `public/static/hashed` (immutable). Because every CSS-referenced asset is hashed,
+  the immutable tree is safe; a missed ref degrades to the short-TTL copy rather than
+  breaking or getting stuck.
+- **Cache-Control** is set per object at upload and honoured by a Cloudflare cache
+  rule on `assets.jiki.io` (`terraform/cloudflare/cache_rules.tf`). The bucket has a
+  **CORS** policy allowing `GET` from `jiki.io` (required: fonts and, with
+  `crossOrigin`, all chunks are fetched in CORS mode).
+
+**Dev/prod parity:** the fingerprinting and PostCSS rewrite run in both `next dev`
+(turbopack) and `next build` (webpack), so CSS references the same hashed URLs in
+both; dev serves them from localhost, prod from `assets.jiki.io`.
 
 ## Local Development
 
@@ -66,7 +119,9 @@ The following secrets must be configured in repository settings:
 ### Cloudflare Resources (Managed via Terraform)
 
 - **Workers Custom Domain**: `jiki.io` (configured in `terraform/cloudflare/workers.tf`)
-- **R2 Bucket**: `build-cache` for incremental caching
+- **R2 Buckets**: `build-cache` (incremental cache), `assets` (public, served at
+  `assets.jiki.io` with CDN + CORS), `uploads` (user uploads) - see
+  `terraform/cloudflare/r2.tf` and `cdn.tf`
 - **DNS Records**: Auto-created AAAA records (read-only, managed by Cloudflare)
 
 ### Configuration Files
@@ -114,7 +169,10 @@ Custom Worker wrapper (`worker-wrapper.js`) implements Cloudflare Cache API for 
   - Article routes (`/articles/*`, `/[locale]/articles/*`)
   - Concept routes (`/concepts/*`)
   - Unsubscribe pages (`/unsubscribe/*`)
-- **Static Assets**: `/_next/*`, `/static/*`, `/favicon.ico` already cached by OpenNext (not handled by wrapper)
+- **Static Assets**: `/_next/*` and CSS-referenced `/static/*` are served from
+  `assets.jiki.io` (see [Static Asset Serving](#static-asset-serving)), not the Worker;
+  `/favicon.ico` and JSX-referenced `/static/*` are served by Workers Assets. Neither
+  is handled by this wrapper.
 
 **Cache Key Generation**:
 
