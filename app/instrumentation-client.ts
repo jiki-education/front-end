@@ -21,6 +21,15 @@ if (process.env.NODE_ENV === "production") {
       // Drop aborted-request errors - these happen when the user navigates away
       // while a fetch is still in flight, which is expected, not a bug.
       const exception = event.exception?.values?.[0];
+      // Opaque DOM resource-load rejections. A failed <img>/<audio>/<video> load
+      // (or a media player that wraps loading in a promise) rejects with a raw
+      // `Event` of type "error" that carries no stack, so Sentry can only record
+      // the useless "Event `Event` (type=error) captured as promise rejection".
+      // We re-capture these as a real Error with the failing resource URL in the
+      // unhandledrejection listener below, so drop the stackless originals here.
+      if (exception?.type === "Event" && (exception.value?.includes("(type=error)") ?? false)) {
+        return null;
+      }
       if (
         exception?.type === "RequestAbortedError" ||
         exception?.type === "AbortError" ||
@@ -42,6 +51,26 @@ if (process.env.NODE_ENV === "production") {
       });
       return hasAppFrame ? event : null;
     }
+  });
+
+  // Upgrade opaque DOM resource-load rejections into actionable errors. A failed
+  // <img>/<audio>/<video> load (or a third-party media player that wraps loading
+  // in a promise, e.g. mux-player/hls.js) surfaces as an unhandled rejection whose
+  // `reason` is a raw error `Event` with no stack - Sentry can only record the
+  // non-actionable "Event (type=error) captured as promise rejection" (see #587).
+  // Read the failing element's tag + URL and re-report a real Error so the source
+  // is diagnosable; the beforeSend rule above drops the original opaque event.
+  window.addEventListener("unhandledrejection", (event) => {
+    const reason: unknown = event.reason;
+    if (!(reason instanceof Event) || reason.type !== "error") {
+      return;
+    }
+    const target = reason.target as (Element & { src?: string; currentSrc?: string; href?: string }) | null;
+    const tag = target?.tagName.toLowerCase() ?? "unknown";
+    const url = target?.currentSrc || target?.src || target?.href || "unknown";
+    Sentry.captureException(new Error(`Resource load failed (unhandled rejection): <${tag}> ${url}`), {
+      tags: { resource_tag: tag }
+    });
   });
 }
 
