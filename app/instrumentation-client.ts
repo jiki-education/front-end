@@ -67,6 +67,14 @@ if (process.env.NODE_ENV === "production") {
     }
     const target = reason.target as (Element & { src?: string; currentSrc?: string; href?: string }) | null;
     const tag = target?.tagName.toLowerCase() ?? "unknown";
+    // Only media loads (mux-player/hls.js, images, audio) are worth diagnosing here (see #587).
+    // A failed <link> stylesheet or <script> chunk load is transient CDN/network noise - a user
+    // on a flaky connection, or an old page after a deploy replaced the fingerprinted asset - not
+    // an actionable app bug, and the error Event carries no HTTP status to tell 404 from a dropped
+    // connection anyway. Don't re-report those.
+    if (tag !== "img" && tag !== "audio" && tag !== "video") {
+      return;
+    }
     const url = target?.currentSrc || target?.src || target?.href || "unknown";
     Sentry.captureException(new Error(`Resource load failed (unhandled rejection): <${tag}> ${url}`), {
       tags: { resource_tag: tag }
