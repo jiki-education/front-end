@@ -62,7 +62,7 @@
     "@stripe/stripe-js": "^8.6.1",
     "@types/react-modal": "^3.16.3",
     "@uiw/codemirror-themes": "^4.25.4",
-    "animejs": "4.2.2",
+    "animejs": "4.5.0",
     "canvas-confetti": "^1.9.4",
     "codemirror": "^6.0.2",
     "date-fns": "^4.1.0",
