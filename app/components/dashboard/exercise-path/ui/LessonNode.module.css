@@ -107,7 +107,7 @@
     width: 28px;
     height: 28px;
     background-color: var(--color-gray-300);
-    background-image: url("../../../../icons/locked.svg");
+    background-image: url("/static/icons/locked.svg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 14px 14px;
@@ -373,7 +373,7 @@
     width: 28px;
     height: 28px;
     background-color: var(--color-gray-200);
-    background-image: url("../../../../icons/locked.svg");
+    background-image: url("/static/icons/locked.svg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 14px 14px;
