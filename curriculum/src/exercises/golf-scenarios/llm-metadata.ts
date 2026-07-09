@@ -18,7 +18,7 @@ export const llmMetadata: LLMMetadata = {
     "roll-and-celebrate": {
       description: `
         The student needs to store getShotLength() in a variable and loop that many times,
-        incrementing x before each rollTo so the ball passes through every position.
+        incrementing x before each moveTo so the ball passes through every position.
 
         The most common trap is hardcoding the loop count to one scenario's value instead of
         using the returned shotLength, which then fails the other scenarios.

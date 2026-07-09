@@ -8,9 +8,9 @@ export default class GolfShotCheckerExercise extends GolfExercise {
 
   public availableFunctions = [
     {
-      name: "roll_to",
-      func: this.rollTo.bind(this),
-      description: "rolled the ball to position (${arg1}, ${arg2})"
+      name: "move_to",
+      func: this.moveTo.bind(this),
+      description: "moved the ball to position (${arg1}, ${arg2})"
     },
     {
       name: "get_shot_length",

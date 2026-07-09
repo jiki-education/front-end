@@ -4,13 +4,13 @@ set shot_length to get_shot_length()
 
 repeat shot_length times do
   change x to x + 1
-  roll_to(x, y)
+  move_to(x, y)
 end
 
 if shot_length >= 58 and shot_length <= 62 do
   repeat 9 times do
     change y to y + 1
-    roll_to(x, y)
+    move_to(x, y)
   end
   fire_fireworks()
 end

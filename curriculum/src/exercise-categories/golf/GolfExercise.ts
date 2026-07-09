@@ -29,9 +29,9 @@ export default class GolfExercise extends VisualExercise {
       description: "rolled the ball one unit to the right"
     },
     {
-      name: "roll_to",
-      func: this.rollTo.bind(this),
-      description: "rolled the ball to the given position"
+      name: "move_to",
+      func: this.moveTo.bind(this),
+      description: "moved the ball to the given position"
     },
     {
       name: "get_shot_length",
@@ -59,7 +59,7 @@ export default class GolfExercise extends VisualExercise {
     executionCtx.fastForward(this.moveDuration);
   }
 
-  rollTo(executionCtx: ExecutionContext, x: Shared.JikiObject, y?: Shared.JikiObject) {
+  moveTo(executionCtx: ExecutionContext, x: Shared.JikiObject, y?: Shared.JikiObject) {
     if (!isNumber(x)) {
       return executionCtx.logicError("x must be a number");
     }
