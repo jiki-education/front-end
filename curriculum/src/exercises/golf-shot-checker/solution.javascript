@@ -4,13 +4,13 @@ let shotLength = getShotLength()
 
 repeat(shotLength) {
   x = x + 1
-  rollTo(x, y)
+  moveTo(x, y)
 }
 
 if (shotLength >= 58 && shotLength <= 62) {
   repeat(9) {
     y = y + 1
-    rollTo(x, y)
+    moveTo(x, y)
   }
   fireFireworks()
 }

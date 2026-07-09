@@ -6,10 +6,10 @@ import type { VisualExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
   {
-    name: "rollTo",
-    signature: "rollTo(x, y)",
-    description: "Rolls the ball to position **(x, y)**.",
-    examples: ["rollTo(30, 75)", "rollTo(50, 84)"],
+    name: "moveTo",
+    signature: "moveTo(x, y)",
+    description: "Moves the ball to position **(x, y)**.",
+    examples: ["moveTo(30, 75)", "moveTo(50, 84)"],
     category: "Movement"
   },
   {

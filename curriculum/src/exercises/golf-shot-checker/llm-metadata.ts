@@ -20,7 +20,7 @@ export const llmMetadata: LLMMetadata = {
         the shot lands in the hole. Suggest getting the horizontal movement working first.
 
         Watch for: combining the two range bounds into one condition, off-by-one errors in the
-        roll count, and forgetting to update x/y before each rollTo (jumping instead of stepping).
+        roll count, and forgetting to update x/y before each moveTo (jumping instead of stepping).
       `
     }
   }
