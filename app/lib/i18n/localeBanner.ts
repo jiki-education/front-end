@@ -84,7 +84,10 @@ export function localeCacheBucket(acceptLanguage: string | null): string {
 
 /**
  * First supported locale in an Accept-Language header, honouring its ordering.
- * Tries an exact match then the base language (e.g. "pt-BR" -> "pt").
+ * Each tag is fully resolved (an exact case-normalized match, else its
+ * region-collapsed content variant / base language) before moving on, so a later
+ * exact match never leapfrogs an earlier tag that already collapses to something
+ * supported.
  */
 export function firstSupportedLanguage(acceptLanguage: string): Locale | undefined {
   const tags = acceptLanguage
@@ -99,13 +102,79 @@ export function firstSupportedLanguage(acceptLanguage: string): Locale | undefin
     .sort((a, b) => b.quality - a.quality);
 
   for (const { tag } of tags) {
-    if (isSupportedLocale(tag)) {
-      return tag;
-    }
-    const base = tag.split("-")[0];
-    if (isSupportedLocale(base)) {
-      return base;
+    const resolved = resolveTag(tag);
+    if (resolved != null) {
+      return resolved;
     }
   }
   return undefined;
+}
+
+/**
+ * Some languages ship more than one content variant, and which one a browser
+ * gets depends on the region in its tag. Maps each such language to:
+ * - `bare`: the variant for a region-less tag (e.g. "pt" -> pt-BR)
+ * - `regions`: explicit region -> variant overrides
+ * - `fallback`: the variant for any region not listed above
+ *
+ * Chromium sends "es-419" directly, but Firefox and Safari send country codes
+ * ("es-CL", "es-AR"), so every non-ES region must collapse to the Latin American
+ * variant. A language absent here simply collapses to its base language.
+ *
+ * Mirrors the API's User::DetermineLocale LANGUAGE_VARIANTS — keep them in sync.
+ */
+const LANGUAGE_VARIANTS: Record<
+  string,
+  { bare: string; regions: Record<string, string>; fallback: string } | undefined
+> = {
+  pt: { bare: "pt-BR", regions: { BR: "pt-BR" }, fallback: "pt-PT" },
+  es: { bare: "es-419", regions: { ES: "es-ES" }, fallback: "es-419" }
+};
+
+/** Resolve one Accept-Language tag to a supported locale, or undefined. */
+function resolveTag(tag: string): Locale | undefined {
+  const parsed = parseTag(tag);
+  if (parsed == null) {
+    return undefined;
+  }
+  if (isSupportedLocale(parsed.canonical)) {
+    return parsed.canonical;
+  }
+  const collapsed = collapseTag(parsed.language, parsed.region);
+  if (isSupportedLocale(collapsed)) {
+    return collapsed;
+  }
+  return undefined;
+}
+
+/** The content variant (or bare base language) a language+region collapses to. */
+function collapseTag(language: string, region: string | undefined): string {
+  const variants = LANGUAGE_VARIANTS[language];
+  if (variants == null) {
+    return language;
+  }
+  if (region == null) {
+    return variants.bare;
+  }
+  return variants.regions[region] ?? variants.fallback;
+}
+
+/**
+ * Split a tag into language/region/canonical, normalizing case since
+ * Accept-Language isn't case-stable ("pt-br", "ES"): language lowercased, region
+ * uppercased. Region is the first 2-alpha or 3-digit subtag, so script subtags
+ * (the "Latn" in "es-Latn-MX") are skipped. Undefined for a language-less tag.
+ */
+function parseTag(tag: string): { language: string; region: string | undefined; canonical: string } | undefined {
+  const parts = tag.split("-");
+  const language = parts[0]?.toLowerCase();
+  if (!language) {
+    return undefined;
+  }
+  const region = parts
+    .slice(1)
+    .find((part) => /^([A-Za-z]{2}|\d{3})$/.test(part))
+    ?.toUpperCase();
+  const canonical = region != null ? `${language}-${region}` : language;
+  return { language, region, canonical };
 }
