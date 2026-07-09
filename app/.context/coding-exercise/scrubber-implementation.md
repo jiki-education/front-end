@@ -88,6 +88,8 @@ Handled in `ScrubberInput` (the focused slider), routed to orchestrator navigati
 
 - **Arrow Left**: Previous frame (`goToPrevFrame`)
 - **Arrow Right**: Next frame (`goToNextFrame`)
+- **Shift + Arrow Left**: Previous breakpoint (`goToPrevBreakpoint`)
+- **Shift + Arrow Right**: Next breakpoint (`goToNextBreakpoint`)
 - **Arrow Down**: First frame (`goToFirstFrame`)
 - **Arrow Up**: Last frame (`goToLastFrame`)
 - **Spacebar**: Play/pause (`play`/`pause`)
