@@ -12,7 +12,7 @@
     },
     {
       "question": "How do I check 'any two sides are equal' for isosceles?",
-      "answer": "Three comparisons: a == b, b == c, or a == c. Any one of those being true is enough."
+      "answer": "Three comparisons: a === b, b === c, or a === c. Any one of those being true is enough."
     },
     {
       "question": "How do I know it's scalene?",
