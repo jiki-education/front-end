@@ -4,7 +4,7 @@
   "hints": [
     {
       "question": "What's the basic rule for a leap year?",
-      "answer": "Years divisible by 4 are leap years. So `year % 4 == 0` is the starting test."
+      "answer": "Years divisible by 4 are leap years. So `year % 4 === 0` is the starting test."
     },
     {
       "question": "Are there exceptions?",
@@ -16,7 +16,7 @@
     },
     {
       "question": "How do I check divisibility?",
-      "answer": "Use the remainder operator `%`. `year % 4 == 0` is true when the year divides exactly by 4 with nothing left over. Same trick with 100 and 400."
+      "answer": "Use the remainder operator `%`. `year % 4 === 0` is true when the year divides exactly by 4 with nothing left over. Same trick with 100 and 400."
     }
   ]
 }
