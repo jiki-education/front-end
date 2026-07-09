@@ -2,7 +2,15 @@
  * Tests for pricing configuration
  */
 
-import { getPricingTier, tierIncludes, getAllTiers, PRICING_TIERS, type MembershipTier } from "@/lib/pricing";
+import {
+  getPricingTier,
+  tierIncludes,
+  getAllTiers,
+  formatMonthlyPrice,
+  PRICING_TIERS,
+  type MembershipTier,
+  type PremiumPrices
+} from "@/lib/pricing";
 
 describe("PRICING_TIERS", () => {
   it("defines standard tier correctly", () => {
@@ -116,5 +124,44 @@ describe("getAllTiers", () => {
     const tiers = getAllTiers();
     expect(tiers[0]).toBe(PRICING_TIERS.standard);
     expect(tiers[1]).toBe(PRICING_TIERS.premium);
+  });
+});
+
+describe("formatMonthlyPrice", () => {
+  function prices(overrides: Partial<PremiumPrices>): PremiumPrices {
+    return { currency: "usd", monthly: 999, annual: 9900, country_code: "US", ...overrides };
+  }
+
+  it("formats a two-decimal currency by scaling minor units", () => {
+    // 799 pence -> £7.99
+    const result = formatMonthlyPrice(prices({ currency: "gbp", monthly: 799 }));
+    expect(result).toContain("£");
+    expect(result).toContain("7.99");
+  });
+
+  it("formats a zero-decimal currency without dividing by 100", () => {
+    // JPY has no minor unit, so 500 stays 500, not 5.00
+    const result = formatMonthlyPrice(prices({ currency: "jpy", monthly: 500 }));
+    expect(result).toContain("500");
+    expect(result).not.toContain("5.00");
+  });
+
+  it("drops trailing zeroes on a whole amount", () => {
+    // £6, not £6.00
+    const result = formatMonthlyPrice(prices({ currency: "gbp", monthly: 600 }));
+    expect(result).toContain("6");
+    expect(result).not.toContain(".00");
+  });
+
+  it("accepts a lowercase currency code", () => {
+    // 1050 cents -> €10.50
+    const result = formatMonthlyPrice(prices({ currency: "eur", monthly: 1050 }));
+    expect(result).toContain("10.5");
+  });
+
+  it("uses the narrow currency symbol rather than the code", () => {
+    const result = formatMonthlyPrice(prices({ currency: "usd", monthly: 999 }));
+    expect(result).toContain("$");
+    expect(result).not.toContain("USD");
   });
 });

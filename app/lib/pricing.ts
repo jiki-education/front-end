@@ -14,6 +14,29 @@ export interface PremiumPrices {
   country_code: string | null;
 }
 
+// Prices arrive as minor units (e.g. cents/pence), so scale by the currency's
+// fraction digits before formatting.
+function currencyFractionDigits(currency: string): number {
+  return new Intl.NumberFormat(undefined, { style: "currency", currency }).resolvedOptions().minimumFractionDigits ?? 2;
+}
+
+/**
+ * Formats the monthly Premium price in the visitor's locale, e.g. "£6" or
+ * "$9.99", using the currency's narrow symbol and no trailing zeroes.
+ */
+export function formatMonthlyPrice(prices: PremiumPrices): string {
+  const currency = prices.currency.toUpperCase();
+  const amount = prices.monthly / Math.pow(10, currencyFractionDigits(currency));
+
+  return new Intl.NumberFormat(undefined, {
+    style: "currency",
+    currency,
+    currencyDisplay: "narrowSymbol",
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2
+  }).format(amount);
+}
+
 export interface PricingTier {
   id: MembershipTier;
   name: string;
