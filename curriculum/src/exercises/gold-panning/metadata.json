@@ -7,6 +7,10 @@
       "answer": "You need to sell ALL the gold you find in the 5 pans in one go at the end, not selling after each pan."
     },
     {
+      "question": "I am using pan multiple times but I don't know how to keep track of how much I have.",
+      "answer": "Think about what you've learned in recent video lessons. You need to use a variable to keep track of the **total** amount of gold that you have collected across **all** the pans together."
+    },
+    {
       "question": "I've got it working, but I can't get down to 5 lines.",
       "answer": "Do you have repetitive code in your solution? If so, what can we use to reduce that repetitiveness?"
     },
