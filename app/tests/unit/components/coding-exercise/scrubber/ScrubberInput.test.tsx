@@ -43,6 +43,8 @@ function createMockOrchestrator(): Orchestrator {
     goToNextFrame: jest.fn(),
     goToFirstFrame: jest.fn(),
     goToLastFrame: jest.fn(),
+    goToPrevBreakpoint: jest.fn(),
+    goToNextBreakpoint: jest.fn(),
     snapToNearestFrame: jest.fn()
   } as unknown as Orchestrator;
 }
@@ -392,6 +394,26 @@ describe("ScrubberInput Component", () => {
       fireEvent.keyDown(input, { key: "ArrowRight" });
 
       expect(mockOrchestrator.goToNextFrame).toHaveBeenCalledTimes(1);
+    });
+
+    it("Shift+ArrowLeft goes to the previous breakpoint", () => {
+      const mockOrchestrator = createMockOrchestrator();
+      const input = renderScrubber(mockOrchestrator);
+
+      fireEvent.keyDown(input, { key: "ArrowLeft", shiftKey: true });
+
+      expect(mockOrchestrator.goToPrevBreakpoint).toHaveBeenCalledTimes(1);
+      expect(mockOrchestrator.goToPrevFrame).not.toHaveBeenCalled();
+    });
+
+    it("Shift+ArrowRight goes to the next breakpoint", () => {
+      const mockOrchestrator = createMockOrchestrator();
+      const input = renderScrubber(mockOrchestrator);
+
+      fireEvent.keyDown(input, { key: "ArrowRight", shiftKey: true });
+
+      expect(mockOrchestrator.goToNextBreakpoint).toHaveBeenCalledTimes(1);
+      expect(mockOrchestrator.goToNextFrame).not.toHaveBeenCalled();
     });
 
     it("ArrowDown goes to the first frame", () => {

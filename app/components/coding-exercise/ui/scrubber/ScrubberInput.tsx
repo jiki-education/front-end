@@ -133,12 +133,21 @@ function handleOnKeyDown(event: React.KeyboardEvent, orchestrator: Orchestrator,
       // Preventing default stops the range input from also nudging itself,
       // which would fight the frame we're snapping to.
       event.preventDefault();
-      orchestrator.goToPrevFrame();
+      // Holding Shift steps between breakpoints instead of individual frames.
+      if (event.shiftKey) {
+        orchestrator.goToPrevBreakpoint();
+      } else {
+        orchestrator.goToPrevFrame();
+      }
       break;
 
     case "ArrowRight":
       event.preventDefault();
-      orchestrator.goToNextFrame();
+      if (event.shiftKey) {
+        orchestrator.goToNextBreakpoint();
+      } else {
+        orchestrator.goToNextFrame();
+      }
       break;
 
     case "ArrowDown":
