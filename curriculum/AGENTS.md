@@ -87,6 +87,8 @@ gh pr create --title "Add new exercise: [name]" --body "Description of the exerc
 
 Also, when creating branches do NOT use slashes in the branch names (e.g. use username-xxx not username/xxx).
 
+**Never use `git add -A` (or `git add .`) unless you are certain the only changes present are your own.** The monorepo often contains untracked generated artifacts (e.g. `app/public/static/hashed/`) that are unrelated to your task. Stage files explicitly by path, and check `git status` before committing.
+
 ## Project Structure
 
 ```
