@@ -11,6 +11,8 @@ export type ModalStep = "success" | "difficulty-rating" | "completed" | "concept
 
 interface UseExerciseCompletionModalProps {
   onTidyCode?: () => void;
+  onSolveBonuses?: () => void;
+  outstandingBonusCount: number;
   onCompleteExercise?: () => Promise<CompletionResponseData[]>;
   onGoToDashboard?: () => void;
   exerciseTitle: string;
@@ -27,6 +29,8 @@ interface UseExerciseCompletionModalProps {
 
 export function useExerciseCompletionModal({
   onTidyCode,
+  onSolveBonuses,
+  outstandingBonusCount,
   onCompleteExercise,
   onGoToDashboard,
   exerciseTitle,
@@ -60,6 +64,8 @@ export function useExerciseCompletionModal({
         "exercise-completion-modal",
         {
           onTidyCode,
+          onSolveBonuses,
+          outstandingBonusCount,
           onCompleteExercise,
           onGoToDashboard,
           exerciseTitle,
@@ -75,6 +81,8 @@ export function useExerciseCompletionModal({
   }, [
     step,
     onTidyCode,
+    onSolveBonuses,
+    outstandingBonusCount,
     onCompleteExercise,
     onGoToDashboard,
     exerciseTitle,
@@ -86,6 +94,11 @@ export function useExerciseCompletionModal({
 
   const handleTidyCode = () => {
     onTidyCode?.();
+    hideModal();
+  };
+
+  const handleSolveBonuses = () => {
+    onSolveBonuses?.();
     hideModal();
   };
 
@@ -155,6 +168,7 @@ export function useExerciseCompletionModal({
     completionResponse,
     handlers: {
       handleTidyCode,
+      handleSolveBonuses,
       handleCompleteExercise,
       handleRatingsSubmit,
       handleContinueFromConcept,

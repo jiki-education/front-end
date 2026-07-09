@@ -200,6 +200,92 @@ describe("runTests", () => {
     });
   });
 
+  describe("bonus scenarios", () => {
+    const bonusExercise = () =>
+      createMockExercise({
+        ExerciseClass: TestExercise,
+        tasks: [
+          { id: "required-task", name: "Required", bonus: false },
+          { id: "bonus-task", name: "Bonus", bonus: true }
+        ],
+        scenarios: [
+          {
+            slug: "required-1",
+            name: "Required 1",
+            description: "",
+            taskId: "required-task",
+            setup: jest.fn(),
+            expectations: jest.fn(() => [
+              { type: "visual" as const, pass: true, actual: 1, expected: 1, errorHtml: "" }
+            ])
+          },
+          {
+            slug: "bonus-1",
+            name: "Bonus 1",
+            description: "",
+            taskId: "bonus-task",
+            setup: jest.fn(),
+            expectations: jest.fn(() => [
+              { type: "visual" as const, pass: false, actual: 0, expected: 1, errorHtml: "x" }
+            ])
+          }
+        ]
+      });
+
+    beforeEach(() => {
+      (mockJikiscript.interpret as jest.Mock).mockReturnValue({
+        frames: [{ time: 100000, timeInMs: 100, status: "SUCCESS", line: 1 }],
+        value: undefined,
+        status: "SUCCESS",
+        lintErrors: []
+      });
+    });
+
+    it("does not count a failing bonus scenario against the overall pass", async () => {
+      const result = await runTests("move()", bonusExercise(), "jikiscript");
+
+      expect(result.tests.find((t) => t.slug === "required-1")?.status).toBe("pass");
+      expect(result.tests.find((t) => t.slug === "bonus-1")?.status).toBe("fail");
+      // Bonus scenario failing must NOT block completion.
+      expect(result.passed).toBe(true);
+    });
+
+    it("is not passed when a required scenario fails, even if bonuses pass", async () => {
+      const exercise = createMockExercise({
+        ExerciseClass: TestExercise,
+        tasks: [
+          { id: "required-task", name: "Required", bonus: false },
+          { id: "bonus-task", name: "Bonus", bonus: true }
+        ],
+        scenarios: [
+          {
+            slug: "required-1",
+            name: "Required 1",
+            description: "",
+            taskId: "required-task",
+            setup: jest.fn(),
+            expectations: jest.fn(() => [
+              { type: "visual" as const, pass: false, actual: 0, expected: 1, errorHtml: "x" }
+            ])
+          },
+          {
+            slug: "bonus-1",
+            name: "Bonus 1",
+            description: "",
+            taskId: "bonus-task",
+            setup: jest.fn(),
+            expectations: jest.fn(() => [
+              { type: "visual" as const, pass: true, actual: 1, expected: 1, errorHtml: "" }
+            ])
+          }
+        ]
+      });
+
+      const result = await runTests("move()", exercise, "jikiscript");
+      expect(result.passed).toBe(false);
+    });
+  });
+
   describe("level features integration", () => {
     const mockGetLanguageFeatures = getLanguageFeatures as jest.Mock;
 

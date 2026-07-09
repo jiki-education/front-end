@@ -71,6 +71,51 @@ describe("getTestToInspect", () => {
     expect(result.slug).toBe("test-2");
   });
 
+  describe("with excluded (bonus) slugs", () => {
+    it("skips a failing excluded scenario and lands on the last non-excluded test", () => {
+      const tests = [
+        createMockTestResult({ slug: "required-1", status: "pass" }),
+        createMockTestResult({ slug: "required-2", status: "pass" }),
+        createMockTestResult({ slug: "bonus-1", status: "fail" })
+      ];
+
+      const result = getTestToInspect(tests, null, new Set(["bonus-1"]));
+      expect(result.slug).toBe("required-2");
+    });
+
+    it("does not stay on a failing excluded current test", () => {
+      const current = createMockTestResult({ slug: "bonus-1", status: "fail" });
+      const tests = [
+        createMockTestResult({ slug: "required-1", status: "pass" }),
+        createMockTestResult({ slug: "bonus-1", status: "fail" })
+      ];
+
+      const result = getTestToInspect(tests, current, new Set(["bonus-1"]));
+      expect(result.slug).toBe("required-1");
+    });
+
+    it("still selects a failing bonus when no exclusion is passed (post-completion)", () => {
+      const tests = [
+        createMockTestResult({ slug: "required-1", status: "pass" }),
+        createMockTestResult({ slug: "bonus-1", status: "fail" })
+      ];
+
+      const result = getTestToInspect(tests, null);
+      expect(result.slug).toBe("bonus-1");
+    });
+
+    it("falls back to the full suite when exclusion would empty the pool", () => {
+      const tests = [
+        createMockTestResult({ slug: "bonus-1", status: "fail" }),
+        createMockTestResult({ slug: "bonus-2", status: "pass" })
+      ];
+
+      // Pool empties, so it falls back to the full suite and picks first failing.
+      const result = getTestToInspect(tests, null, new Set(["bonus-1", "bonus-2"]));
+      expect(result.slug).toBe("bonus-1");
+    });
+  });
+
   it("returns the updated version of the current test from new results", () => {
     const current = createMockTestResult({ slug: "test-2", status: "fail" });
     const updatedTest2 = createMockTestResult({ slug: "test-2", status: "fail" });

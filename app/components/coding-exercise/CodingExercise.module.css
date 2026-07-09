@@ -296,6 +296,60 @@
     border-top-color: var(--color-orange-500);
 }
 
+/* Bonus scenario dots: purple when not-yet-run, emerald/pink for right/wrong,
+   with a white (or darker-purple) star centred in the dot. */
+.Dot.bonus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-purple-200);
+    color: var(--color-purple-400);
+    border: 1.5px solid var(--color-purple-400);
+    box-sizing: border-box;
+}
+
+.Dot.bonus.pass {
+    background: var(--color-green-600);
+    color: #fff;
+    border: none;
+}
+
+.Dot.bonus.fail {
+    background: var(--color-pink-600);
+    color: #fff;
+    border: none;
+}
+
+.DotStar {
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+}
+
+.Dot.bonus.active {
+    box-shadow: 0 0 0 2px var(--color-purple-100);
+}
+
+.Dot.bonus.active::after {
+    border-top-color: var(--color-purple-200);
+}
+
+.Dot.bonus.pass.active {
+    box-shadow: 0 0 0 3px var(--color-green-300);
+}
+
+.Dot.bonus.pass.active::after {
+    border-top-color: var(--color-green-600);
+}
+
+.Dot.bonus.fail.active {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-pink-600) 35%, white);
+}
+
+.Dot.bonus.fail.active::after {
+    border-top-color: var(--color-pink-600);
+}
+
 .Counter {
     text-align: center;
     font-size: 13px;

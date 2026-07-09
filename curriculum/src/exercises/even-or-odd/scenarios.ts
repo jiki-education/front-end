@@ -1,11 +1,21 @@
-import type { Task, IOScenario } from "../types";
+import type { Task, IOScenario, CodeCheck } from "../types";
+
+const sixLinesCheck: CodeCheck[] = [
+  {
+    pass: (result, language) => {
+      const limit = language === "python" ? 4 : 6;
+      return result.assertors.assertMaxLinesOfCode(limit);
+    },
+    errorHtml: "Your solution has too many lines of code. Can you make it shorter?"
+  }
+];
 
 export const tasks = [
   {
     id: "identify-even-or-odd" as const,
     name: "Identify even and odd numbers",
     description:
-      'Write a function called even_or_odd that takes a number and returns "Even" if it\'s divisible by 2, or "Odd" otherwise. Zero is even.',
+      'Write a function called evenOrOdd that takes a number and returns "Even" if it\'s divisible by 2, or "Odd" otherwise. Zero is even.',
     hints: [],
     requiredScenarios: ["number-14", "number-28", "number--1", "number-17", "number-0"],
     bonus: false
@@ -73,6 +83,7 @@ export const scenarios: IOScenario[] = [
     taskId: "solve-in-six-lines",
     functionName: "even_or_odd",
     args: [0],
-    expected: "Even"
+    expected: "Even",
+    codeChecks: sixLinesCheck
   }
 ];

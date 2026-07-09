@@ -1,6 +1,7 @@
 import type { ExerciseDefinition, Language } from "@jiki/curriculum";
 import { getLanguageFeatures } from "@jiki/curriculum";
 import type { TestResult, TestSuiteResult } from "../test-results-types";
+import { bonusScenarioSlugs } from "../bonusScenarios";
 import { runIOScenario } from "./runIOScenario";
 import { runVisualScenario } from "./runVisualScenario";
 import { getInterpreter } from "./getInterpreter";
@@ -67,9 +68,15 @@ export async function runTests(
     }
   }
 
+  // Bonus scenarios are optional: they don't block completion. The exercise is
+  // "passed" once every non-bonus scenario passes. Exercises without bonus tasks
+  // fall through to the same "all tests pass" behaviour.
+  const bonusSlugs = bonusScenarioSlugs(exercise);
+  const requiredTests = bonusSlugs.size > 0 ? tests.filter((t) => !bonusSlugs.has(t.slug)) : tests;
+
   const result: TestSuiteResult = {
     tests,
-    passed: tests.every((t) => t.status === "pass")
+    passed: requiredTests.every((t) => t.status === "pass")
   };
 
   return result;

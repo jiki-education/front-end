@@ -9,18 +9,23 @@ interface CompletedStepProps {
   exerciseTitle: string;
   exerciseSlug: string;
   isProject?: boolean;
+  outstandingBonusCount?: number;
   onContinue: () => void;
   onTidyCode: () => void;
+  onSolveBonuses: () => void;
 }
 
 export function CompletedStep({
   exerciseTitle,
   exerciseSlug,
   isProject = false,
+  outstandingBonusCount = 0,
   onContinue,
-  onTidyCode
+  onTidyCode,
+  onSolveBonuses
 }: CompletedStepProps) {
   const t = useTranslations("modals.exerciseCompletion.completed");
+  const hasOutstandingBonuses = outstandingBonusCount > 0;
   return (
     <>
       <div className={timelineStyles.exerciseTimeline}>
@@ -38,16 +43,30 @@ export function CompletedStep({
         <div className={`${timelineStyles.timelineLine} ${timelineStyles.timelineLineDashed}`}></div>
       </div>
       <h2 className={styles.modalTitle}>{isProject ? t("titleProject") : t("titleExercise")}</h2>
+      <p className={styles.modalMessage}>{t("greatWork", { title: exerciseTitle })}</p>
       <p className={styles.modalMessage}>
-        {isProject ? t("messageProject", { title: exerciseTitle }) : t("messageExercise", { title: exerciseTitle })}
+        {isProject
+          ? t("readyProject")
+          : hasOutstandingBonuses
+            ? t.rich("bonusPrompt", {
+                count: outstandingBonusCount,
+                strong: (chunks) => <strong style={{ fontWeight: 600 }}>{chunks}</strong>
+              })
+            : t("readyExercise")}
       </p>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
-        <button onClick={onTidyCode} className="ui-btn ui-btn-tertiary ui-btn-large flex-1">
-          {t("tidyCode")}
+        <button
+          onClick={hasOutstandingBonuses ? onSolveBonuses : onTidyCode}
+          className={`ui-btn ui-btn-large flex-1 ${hasOutstandingBonuses ? "ui-btn-primary" : "ui-btn-tertiary"}`}
+        >
+          {hasOutstandingBonuses ? t("solveBonuses", { count: outstandingBonusCount }) : t("tidyCode")}
         </button>
-        <button onClick={onContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
-          {t("continue")}
+        <button
+          onClick={onContinue}
+          className={`ui-btn ui-btn-large flex-1 ${hasOutstandingBonuses ? "ui-btn-secondary" : "ui-btn-primary"}`}
+        >
+          {hasOutstandingBonuses ? t("moveOn") : t("continue")}
         </button>
       </div>
     </>

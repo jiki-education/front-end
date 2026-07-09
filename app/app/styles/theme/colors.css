@@ -32,6 +32,9 @@
     --color-purple-900: #531c87;
     --color-purple-950: #370764;
 
+    /* Pink Scale (Tailwind pink) */
+    --color-pink-600: #e30076;
+
     /* Green Scale (using Tailwind emerald palette) */
     --color-green-30: #f5fefa;
     --color-green-50: #ecfdf5;

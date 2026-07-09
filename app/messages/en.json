@@ -1306,7 +1306,8 @@
     },
     "exerciseCompletion": {
       "success": {
-        "title": "All tests passed!",
+        "title": "All Scenarios Passed",
+        "titleBonus": "All Core Scenarios Passed",
         "messageExercise": "Great work! You're ready to complete this exercise and move on to the next challenge.",
         "messageProject": "Great work! You're ready to complete this project and move on to the next challenge.",
         "completeExercise": "Complete Exercise",
@@ -1321,10 +1322,14 @@
       "completed": {
         "titleExercise": "Exercise completed!",
         "titleProject": "Project completed!",
-        "messageExercise": "Great work completing {title}! Ready to continue to the next exercise?",
-        "messageProject": "Great work completing {title}! Ready to continue to the next project?",
+        "greatWork": "Great work completing {title}!",
+        "readyExercise": "Ready to continue to the next exercise?",
+        "readyProject": "Ready to continue to the next project?",
+        "bonusPrompt": "{count, plural, one {This exercise has <strong>a bonus scenario</strong>. Would you like to solve it before moving on?} other {This exercise has <strong>bonus scenarios</strong>. Would you like to solve them before moving on?}}",
         "tidyCode": "Tidy code",
-        "continue": "Continue"
+        "solveBonuses": "{count, plural, one {Solve Bonus} other {Solve Bonuses}}",
+        "continue": "Continue",
+        "moveOn": "Move on"
       },
       "difficultyRating": {
         "title": "Rate your experience",
