@@ -9,10 +9,10 @@ import { trackEvent } from "@/lib/analytics";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { localePath } from "@/lib/i18n/routes";
 import { tierIncludes } from "@/lib/pricing";
-import type { EpisodeMeta, ProjectMeta } from "@/lib/content/types";
+import type { EpisodeMeta, GuideMeta, ProjectMeta } from "@/lib/content/types";
 import { UpcomingStreams } from "@/components/build/UpcomingStreams";
-import ComingSoonProjectCard from "./ComingSoonProjectCard";
 import { EpisodeCard } from "./EpisodeCard";
+import GuidesSidebar from "./GuidesSidebar";
 import styles from "./ProjectPage.module.css";
 
 const WATCHED_THRESHOLD = 95;
@@ -20,13 +20,12 @@ const WATCHED_THRESHOLD = 95;
 interface ProjectPageProps {
   project: ProjectMeta;
   episodes: EpisodeMeta[];
-  otherProjects: ProjectMeta[];
+  guides: GuideMeta[];
   locale: string;
 }
 
-export default function ProjectPage({ project, episodes, otherProjects, locale }: ProjectPageProps) {
+export default function ProjectPage({ project, episodes, guides, locale }: ProjectPageProps) {
   const sorted = [...episodes].sort((a, b) => a.order - b.order);
-  const comingSoonProjects = otherProjects.filter((p) => p.episodeCount === 0);
   const [progressByUuid, setProgressByUuid] = useState<Record<string, number>>({});
   const [progressLoaded, setProgressLoaded] = useState(false);
   const user = useAuthStore((state) => state.user);
@@ -69,15 +68,12 @@ export default function ProjectPage({ project, episodes, otherProjects, locale }
   const sidebar = (
     <div className={styles.sidebar}>
       <UpcomingStreams projects={[project]} />
-      {comingSoonProjects.length > 0 && (
-        <div>
-          <h3 className={styles.sidebarHeading}>More projects coming soon</h3>
-          <div className={styles.comingSoonList}>
-            {comingSoonProjects.map((p) => (
-              <ComingSoonProjectCard key={p.slug} project={p} />
-            ))}
-          </div>
-        </div>
+      {guides.length > 0 && (
+        <GuidesSidebar
+          guides={guides}
+          locale={locale}
+          description="Written guides covering what we use in this project."
+        />
       )}
     </div>
   );

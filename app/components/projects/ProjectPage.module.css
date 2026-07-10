@@ -62,16 +62,3 @@
     flex-direction: column;
     gap: 32px;
 }
-
-.sidebarHeading {
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--color-gray-700);
-    margin-bottom: 12px;
-}
-
-.comingSoonList {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}

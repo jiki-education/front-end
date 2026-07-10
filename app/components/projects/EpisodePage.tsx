@@ -6,8 +6,8 @@ import ConceptLayout from "@/components/concepts/ConceptLayout";
 import MarkdownContent from "@/components/content/MarkdownContent";
 import { localePath } from "@/lib/i18n/routes";
 import type { GuideMeta, ProcessedEpisode, ProjectMeta } from "@/lib/content/types";
-import EpisodeGuides from "./EpisodeGuides";
 import EpisodeVideo from "./EpisodeVideo";
+import GuidesSidebar from "./GuidesSidebar";
 import styles from "./EpisodePage.module.css";
 
 interface EpisodePageProps {
@@ -22,7 +22,17 @@ export default function EpisodePage({ project, episode, guides, locale }: Episod
 
   return (
     <ConceptsLayout>
-      <ConceptLayout rightPanel={guides.length > 0 ? <EpisodeGuides guides={guides} locale={locale} /> : undefined}>
+      <ConceptLayout
+        rightPanel={
+          guides.length > 0 ? (
+            <GuidesSidebar
+              guides={guides}
+              locale={locale}
+              description="Written guides covering what we use in this episode."
+            />
+          ) : undefined
+        }
+      >
         <Link href={projectPath} className={styles.backLink}>
           ← Back to {project.title}
         </Link>
