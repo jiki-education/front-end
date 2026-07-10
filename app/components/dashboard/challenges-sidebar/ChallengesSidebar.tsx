@@ -8,7 +8,7 @@ import { useAuthStore } from "@/lib/auth/authStore";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { tierIncludes } from "@/lib/pricing";
 import { useEffect, useMemo, useState } from "react";
-import styles from "./challenges-sidebar.module.css";
+import styles from "./ChallengesSidebar.module.css";
 import { ChallengesUpsellCard } from "./ui/ChallengesUpsellCard";
 import { RecentChallenges } from "./ui/RecentChallenges";
 import { UserProfile, type UserProfileData } from "./ui/UserProfile";

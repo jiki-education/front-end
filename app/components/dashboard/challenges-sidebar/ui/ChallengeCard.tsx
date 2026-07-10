@@ -1,7 +1,7 @@
 import { ChallengeIcon } from "@/components/icons/ChallengeIcon";
 import type { ChallengeData } from "@/lib/api/challenges";
 import Link from "next/link";
-import styles from "../challenges-sidebar.module.css";
+import styles from "../ChallengesSidebar.module.css";
 
 interface ChallengeCardProps {
   challenge: ChallengeData;

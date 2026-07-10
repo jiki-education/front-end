@@ -1,4 +1,4 @@
-import styles from "../challenges-sidebar.module.css";
+import styles from "../ChallengesSidebar.module.css";
 
 export function EmptyChallengesState() {
   return (

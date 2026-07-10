@@ -1,7 +1,7 @@
 import type { ChallengeData } from "@/lib/api/challenges";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import Link from "next/link";
-import styles from "../challenges-sidebar.module.css";
+import styles from "../ChallengesSidebar.module.css";
 import { ChallengeCard } from "./ChallengeCard";
 import { EmptyChallengesState } from "./EmptyChallengesState";
 import { RecentChallengesSkeleton } from "./RecentChallengesSkeleton";
