@@ -1,5 +1,6 @@
 import { assembleClassNames } from "@/lib/assemble-classnames";
 import type { IOExerciseDefinition } from "@jiki/curriculum";
+import { formatIdentifier } from "@jiki/interpreters/shared";
 import { useMemo } from "react";
 import styles from "../../../CodingExercise.module.css";
 import { useOrchestratorStore } from "../../../lib/Orchestrator";
@@ -31,7 +32,7 @@ function IOInspectedPreviewView() {
   const scenario = exercise.scenarios[currentTestIdx];
 
   const argsStr = scenario.args.map((arg) => JSON.stringify(arg)).join(", ");
-  const codeRun = `${scenario.functionName}(${argsStr})`;
+  const codeRun = `${formatIdentifier(scenario.functionName, language)}(${argsStr})`;
   const expectedStr = JSON.stringify(scenario.expected);
 
   return (

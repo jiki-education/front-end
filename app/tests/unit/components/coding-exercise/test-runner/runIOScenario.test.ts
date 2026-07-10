@@ -411,6 +411,50 @@ describe("runIOScenario", () => {
     });
   });
 
+  describe("codeRun display formatting", () => {
+    const scenario: IOScenario = {
+      slug: "format-test",
+      name: "Format Test",
+      description: "Test codeRun formatting",
+      taskId: "task-1",
+      functionName: "is_leap_year",
+      args: [2015],
+      expected: false
+    };
+
+    it("should format the function name for display using the interpreter's identifier convention", () => {
+      // Mimic the JavaScript interpreter, which camelCases identifiers
+      const camelCasingInterpreter = createMockInterpreter({
+        formatIdentifier: (name: string) => name.replace(/_([a-z])/g, (_, c: string) => c.toUpperCase())
+      });
+      (camelCasingInterpreter.evaluateFunction as jest.Mock).mockReturnValue({
+        value: false,
+        error: null,
+        frames: [],
+        logLines: [],
+        meta: { sourceCode: "code" }
+      });
+
+      const result = runIOScenario(scenario, "code", mockAvailableFunctions, "javascript", camelCasingInterpreter);
+
+      expect(result.expects[0].codeRun).toBe("isLeapYear(2015)");
+    });
+
+    it("should keep snake_case in codeRun when the interpreter does not convert identifiers", () => {
+      (mockInterpreter.evaluateFunction as jest.Mock).mockReturnValue({
+        value: false,
+        error: null,
+        frames: [],
+        logLines: [],
+        meta: { sourceCode: "code" }
+      });
+
+      const result = runIOScenario(scenario, "code", mockAvailableFunctions, "jikiscript", mockInterpreter);
+
+      expect(result.expects[0].codeRun).toBe("is_leap_year(2015)");
+    });
+  });
+
   describe("backward compatibility", () => {
     it("should work correctly when scenario has no code checks", () => {
       (mockInterpreter.evaluateFunction as jest.Mock).mockReturnValue({
