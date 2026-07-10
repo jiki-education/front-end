@@ -116,6 +116,34 @@ describe("resolveLocaleRouting", () => {
     });
   });
 
+  describe("miscased locale segments (308 to the canonical casing)", () => {
+    it("redirects a miscased non-default locale to its canonical casing", () => {
+      expect(resolveLocaleRouting("/HU/blog")).toEqual({ action: "redirect", target: "/hu/blog" });
+      expect(resolveLocaleRouting("/Hu/articles/my-article")).toEqual({
+        action: "redirect",
+        target: "/hu/articles/my-article"
+      });
+    });
+
+    it("redirects the miscased localized home to its canonical casing", () => {
+      expect(resolveLocaleRouting("/HU")).toEqual({ action: "redirect", target: "/hu" });
+    });
+
+    it("redirects a miscased default-locale prefix straight to the naked URL (single hop)", () => {
+      expect(resolveLocaleRouting("/EN/blog")).toEqual({ action: "redirect", target: "/blog" });
+      expect(resolveLocaleRouting("/EN")).toEqual({ action: "redirect", target: "/" });
+    });
+
+    it("normalizes the casing even for non-localizable paths", () => {
+      expect(resolveLocaleRouting("/HU/dashboard")).toEqual({ action: "redirect", target: "/hu/dashboard" });
+    });
+
+    it("leaves segments that aren't a locale in any casing alone", () => {
+      expect(resolveLocaleRouting("/XX/blog")).toEqual({ action: "none" });
+      expect(resolveLocaleRouting("/HUNGARY/blog")).toEqual({ action: "none" });
+    });
+  });
+
   describe("non-localizable paths (untouched)", () => {
     it("leaves app routes alone", () => {
       expect(resolveLocaleRouting("/dashboard")).toEqual({ action: "none" });

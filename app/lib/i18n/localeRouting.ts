@@ -1,4 +1,10 @@
-import { DEFAULT_LOCALE, isLocalizableBase, isSupportedLocale, stripLocalePrefix } from "./config";
+import {
+  DEFAULT_LOCALE,
+  isLocalizableBase,
+  isSupportedLocale,
+  matchLocaleIgnoringCase,
+  stripLocalePrefix
+} from "./config";
 
 /**
  * - `rewrite`: serve `target` internally while keeping the visible URL naked (the
@@ -22,6 +28,20 @@ export type LocaleRouting =
 export function resolveLocaleRouting(pathname: string): LocaleRouting {
   const segments = pathname.split("/");
   const first = segments[1];
+
+  // A miscased locale segment (/HU, /pt-br) is not a page of its own: 308 it to
+  // its canonical form so mistyped inbound links neither 404 nor mint duplicate
+  // URLs. Resolving the corrected path again collapses double hops (e.g. /EN/blog
+  // goes straight to /blog, not via /en/blog). Bounded to known locale segments;
+  // nothing else is case-normalized.
+  if (first && !isSupportedLocale(first)) {
+    const canonical = matchLocaleIgnoringCase(first);
+    if (canonical != null) {
+      const normalized = ["", canonical, ...segments.slice(2)].join("/");
+      const rerouted = resolveLocaleRouting(normalized);
+      return { action: "redirect", target: rerouted.action === "redirect" ? rerouted.target : normalized };
+    }
+  }
 
   if (isSupportedLocale(first)) {
     const base = stripLocalePrefix(pathname);

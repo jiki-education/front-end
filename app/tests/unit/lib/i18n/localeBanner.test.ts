@@ -68,6 +68,11 @@ describe("firstSupportedLanguage", () => {
     expect(firstSupportedLanguage("hu-HU,en;q=0.9")).toBe("hu");
   });
 
+  it("normalizes tag casing (Accept-Language isn't case-stable)", () => {
+    expect(firstSupportedLanguage("HU")).toBe("hu");
+    expect(firstSupportedLanguage("hu-hu")).toBe("hu");
+  });
+
   it("returns undefined when nothing is supported", () => {
     expect(firstSupportedLanguage("de,fr,pt-BR")).toBeUndefined();
   });

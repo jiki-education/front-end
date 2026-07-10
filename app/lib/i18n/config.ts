@@ -62,6 +62,17 @@ export function isSupportedLocale(value: string | undefined | null): value is Lo
   return value != null && (SUPPORTED_LOCALES as readonly string[]).includes(value);
 }
 
+/**
+ * The canonically-cased supported locale matching `value` case-insensitively
+ * (e.g. "pt-br" -> "pt-BR"), or undefined when it isn't a locale at all. URL
+ * paths are case-sensitive (RFC 3986), so a miscased locale segment isn't a
+ * page of its own; middleware uses this to 308 it to the canonical casing.
+ */
+export function matchLocaleIgnoringCase(value: string): Locale | undefined {
+  const lower = value.toLowerCase();
+  return SUPPORTED_LOCALES.find((locale) => locale.toLowerCase() === lower);
+}
+
 export function normalizeLocale(value: string | undefined | null): Locale {
   return isSupportedLocale(value) ? value : DEFAULT_LOCALE;
 }

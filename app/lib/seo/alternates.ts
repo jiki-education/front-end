@@ -27,16 +27,28 @@ export function buildAlternates(localelessPath: string, currentLocale: Locale): 
 /**
  * The reciprocal hreflang map for a locale-less path: one absolute URL per
  * supported locale plus `x-default` (the default-locale URL). Shared by page
- * metadata and the sitemap so the two never drift.
+ * metadata and the sitemap so the two never drift. Keys are hreflang values
+ * (see `hreflangLocale`); URL paths always carry the full internal locale id.
  */
 export function alternateLanguages(localelessPath: string): Record<string, string> {
   const absolute = (locale: Locale) => `${SITE_URL}${swapLocaleInPath(localelessPath, locale)}`;
 
   const languages: Record<string, string> = { "x-default": absolute(DEFAULT_LOCALE) };
   for (const locale of SUPPORTED_LOCALES) {
-    languages[locale] = absolute(locale);
+    languages[hreflangLocale(locale)] = absolute(locale);
   }
   return languages;
+}
+
+// Google's hreflang accepts only ISO-639-1 language + ISO-3166-1 alpha-2 region
+// subtags; UN M.49 bloc codes like the 419 in es-419 are silently ignored. Ids
+// without a valid hreflang form collapse to the nearest valid one here. Only the
+// hreflang key collapses — URLs and <html lang> keep the full internal id.
+const HREFLANG_OVERRIDES: Record<string, string> = { "es-419": "es" };
+
+/** The Google-valid hreflang value for an internal locale id. */
+export function hreflangLocale(locale: Locale): string {
+  return HREFLANG_OVERRIDES[locale] ?? locale;
 }
 
 /**
