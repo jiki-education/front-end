@@ -15,11 +15,11 @@ describe("cacheable-routes", () => {
         expect(isCacheableRoute("/hu/blog/post-title")).toBe(true);
       });
 
-      it("returns true for articles routes (naked and localized)", () => {
-        expect(isCacheableRoute("/articles")).toBe(true);
-        expect(isCacheableRoute("/articles/my-article")).toBe(true);
-        expect(isCacheableRoute("/hu/articles")).toBe(true);
-        expect(isCacheableRoute("/hu/articles/article-title")).toBe(true);
+      it("returns true for help routes (naked and localized)", () => {
+        expect(isCacheableRoute("/help")).toBe(true);
+        expect(isCacheableRoute("/help/my-article")).toBe(true);
+        expect(isCacheableRoute("/hu/help")).toBe(true);
+        expect(isCacheableRoute("/hu/help/article-title")).toBe(true);
       });
 
       it("returns true for concepts routes (naked and localized)", () => {

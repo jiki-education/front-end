@@ -170,10 +170,10 @@ describe("cache-key-generator", () => {
 
     it("handles complex URLs with multiple param types", () => {
       const request = new Request(
-        "https://jiki.io/de/articles?criteria=top&page=3&utm_source=google&utm_medium=cpc&ref=home"
+        "https://jiki.io/de/help?criteria=top&page=3&utm_source=google&utm_medium=cpc&ref=home"
       );
       const result = generateCacheKey(request, deployId);
-      expect(result).toBe("/de/articles?criteria=top&page=3#abc1234@none");
+      expect(result).toBe("/de/help?criteria=top&page=3#abc1234@none");
     });
 
     it("strips _rsc param from cache key", () => {

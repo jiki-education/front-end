@@ -42,10 +42,10 @@ describe("buildAlternates", () => {
 
 describe("alternateLanguages", () => {
   it("maps every supported locale plus x-default to absolute URLs", () => {
-    expect(alternateLanguages("/articles/streaks")).toEqual({
-      en: `${SITE}/articles/streaks`,
-      hu: `${SITE}/hu/articles/streaks`,
-      "x-default": `${SITE}/articles/streaks`
+    expect(alternateLanguages("/help/streaks")).toEqual({
+      en: `${SITE}/help/streaks`,
+      hu: `${SITE}/hu/help/streaks`,
+      "x-default": `${SITE}/help/streaks`
     });
   });
 });

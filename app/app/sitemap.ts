@@ -4,7 +4,7 @@ import { getAllArticles } from "@/lib/content/getAllArticles";
 import { getAllBlogPosts } from "@/lib/content/getAllBlogPosts";
 import { alternateLanguages } from "@/lib/seo/alternates";
 
-const STATIC_ROUTES = ["/", "/blog", "/articles", "/concepts", "/testimonials", "/premium", "/roadmap"];
+const STATIC_ROUTES = ["/", "/blog", "/help", "/concepts", "/testimonials", "/premium", "/roadmap"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [...staticEntries(), ...blogEntries(), ...articleEntries(), ...conceptEntries()];
@@ -33,7 +33,7 @@ function blogEntries(): MetadataRoute.Sitemap {
 function articleEntries(): MetadataRoute.Sitemap {
   return getAllArticles("en")
     .filter((article) => article.listed)
-    .map((article) => entry(`/articles/${article.slug}`, { lastModified: article.date }));
+    .map((article) => entry(`/help/${article.slug}`, { lastModified: article.date }));
 }
 
 function conceptEntries(): MetadataRoute.Sitemap {

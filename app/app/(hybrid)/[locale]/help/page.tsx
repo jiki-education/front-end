@@ -14,13 +14,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
 
   const titles: Record<string, string> = {
-    en: "Articles - Jiki",
-    es: "Artículos - Jiki"
+    en: "Help Center - Jiki",
+    es: "Centro de ayuda - Jiki"
   };
 
   const descriptions: Record<string, string> = {
-    en: "Explore in-depth programming tutorials, guides, and technical articles to level up your coding skills.",
-    es: "Explora tutoriales de programación en profundidad, guías y artículos técnicos para mejorar tus habilidades de codificación."
+    en: "Answers, how-tos, and policies to help you get the most out of Jiki.",
+    es: "Respuestas, tutoriales y políticas para ayudarte a sacar el máximo partido a Jiki."
   };
 
   return {
@@ -33,8 +33,8 @@ export default async function AuthenticatedLocaleArticlesPage({ params, searchPa
   const { locale } = await params;
   const { tag, page } = await searchParams;
 
-  // The default locale is served here under the naked URL (/articles), rewritten
-  // to /en/articles by middleware; an explicit /en/articles is redirected back there.
+  // The default locale is served here under the naked URL (/help), rewritten
+  // to /en/help by middleware; an explicit /en/help is redirected back there.
   // Check if locale is supported and has articles
   const locales = getAvailableLocales("articles", SUPPORTED_LOCALES);
   if (!locales.includes(locale)) {

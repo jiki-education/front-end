@@ -31,14 +31,16 @@ All content validation happens in the content package's test suite, ensuring dat
 
 ### Article Routes (English - Default)
 
-- **`/articles`** - English articles index page
-- **`/articles/[slug]`** - Individual English article
+Articles are served under `/help` (the Help Center). Legacy `/articles/*` URLs 308 to `/help/*`.
+
+- **`/help`** - English Help Center index page
+- **`/help/[slug]`** - Individual English article
 
 ### Article Routes (Localized)
 
-- **`/[locale]/articles`** - Localized articles index (e.g., `/hu/articles`)
-- **`/[locale]/articles/[slug]`** - Localized article (e.g., `/hu/articles/about-jiki`)
-- **`/en/articles/*`** - Redirects to naked `/articles/*` URLs
+- **`/[locale]/help`** - Localized Help Center index (e.g., `/hu/help`)
+- **`/[locale]/help/[slug]`** - Localized article (e.g., `/hu/help/about-jiki`)
+- **`/en/help/*`** - Redirects to naked `/help/*` URLs
 
 ## Using Content Functions
 
@@ -216,8 +218,8 @@ export const DEFAULT_LOCALE: Locale = "en";
 
 ### How It Works
 
-1. **Default locale (English)**: Served at naked URLs (`/blog`, `/articles`)
-2. **Non-default locales**: Served at locale-prefixed URLs (`/hu/blog`, `/hu/articles`)
+1. **Default locale (English)**: Served at naked URLs (`/blog`, `/help`)
+2. **Non-default locales**: Served at locale-prefixed URLs (`/hu/blog`, `/hu/help`)
 3. **English locale prefix**: Redirects to naked URLs (`/en/blog` → `/blog`)
 4. **Content filtering**: Only locales in BOTH content AND SUPPORTED_LOCALES are exposed
 

@@ -70,7 +70,7 @@ describe("makeRoutes", () => {
     const routes = makeRoutes("hu");
     expect(routes.authLogin()).toBe("/hu/auth/login");
     expect(routes.blogPost("hello")).toBe("/hu/blog/hello");
-    expect(routes.article("intro")).toBe("/hu/articles/intro");
+    expect(routes.article("intro")).toBe("/hu/help/intro");
     expect(routes.home()).toBe("/hu");
     // App route has no [locale] tree -> naked even in a non-default locale.
     expect(routes.dashboard()).toBe("/dashboard");

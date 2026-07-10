@@ -10,11 +10,11 @@ describe("resolveLocaleRouting", () => {
       expect(resolveLocaleRouting("/blog/my-post")).toEqual({ action: "rewrite", target: "/en/blog/my-post" });
     });
 
-    it("rewrites the articles index and details", () => {
-      expect(resolveLocaleRouting("/articles")).toEqual({ action: "rewrite", target: "/en/articles" });
-      expect(resolveLocaleRouting("/articles/my-article")).toEqual({
+    it("rewrites the help index and details", () => {
+      expect(resolveLocaleRouting("/help")).toEqual({ action: "rewrite", target: "/en/help" });
+      expect(resolveLocaleRouting("/help/my-article")).toEqual({
         action: "rewrite",
-        target: "/en/articles/my-article"
+        target: "/en/help/my-article"
       });
     });
 
@@ -56,8 +56,8 @@ describe("resolveLocaleRouting", () => {
       expect(resolveLocaleRouting("/en/blog/my-post")).toEqual({ action: "redirect", target: "/blog/my-post" });
     });
 
-    it("redirects /en/articles to /articles", () => {
-      expect(resolveLocaleRouting("/en/articles")).toEqual({ action: "redirect", target: "/articles" });
+    it("redirects /en/help to /help", () => {
+      expect(resolveLocaleRouting("/en/help")).toEqual({ action: "redirect", target: "/help" });
     });
 
     it("redirects /en/concepts and /en/concepts/loops to their naked URLs", () => {
@@ -89,8 +89,8 @@ describe("resolveLocaleRouting", () => {
       expect(resolveLocaleRouting("/hu/blog")).toEqual({ action: "none" });
     });
 
-    it("leaves /hu/articles/my-article untouched", () => {
-      expect(resolveLocaleRouting("/hu/articles/my-article")).toEqual({ action: "none" });
+    it("leaves /hu/help/my-article untouched", () => {
+      expect(resolveLocaleRouting("/hu/help/my-article")).toEqual({ action: "none" });
     });
 
     it("leaves /hu/concepts untouched", () => {
@@ -119,9 +119,9 @@ describe("resolveLocaleRouting", () => {
   describe("miscased locale segments (308 to the canonical casing)", () => {
     it("redirects a miscased non-default locale to its canonical casing", () => {
       expect(resolveLocaleRouting("/HU/blog")).toEqual({ action: "redirect", target: "/hu/blog" });
-      expect(resolveLocaleRouting("/Hu/articles/my-article")).toEqual({
+      expect(resolveLocaleRouting("/Hu/help/my-article")).toEqual({
         action: "redirect",
-        target: "/hu/articles/my-article"
+        target: "/hu/help/my-article"
       });
     });
 

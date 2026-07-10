@@ -10,7 +10,7 @@ interface ArticleCardProps {
 }
 
 export default function ArticleCard({ article, locale, compact = false }: ArticleCardProps) {
-  const articleUrl = localePath(`/articles/${article.slug}`, locale);
+  const articleUrl = localePath(`/help/${article.slug}`, locale);
   const firstTag = article.tags[0];
 
   return (

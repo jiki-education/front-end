@@ -30,7 +30,7 @@
     color: var(--color-purple-500);
     padding: 4px 10px;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
@@ -45,7 +45,6 @@
 }
 
 .compact .articleCardBadge {
-    font-size: 12px;
     padding: 3px 8px;
 }
 
