@@ -15,13 +15,14 @@ export function getArticleTagLabel(slug: ArticleTagSlug, locale: string): string
 }
 
 // Guide tag slugs - used in URLs and frontmatter
-export const GUIDE_TAG_SLUGS = ["editors", "installation"] as const;
+export const GUIDE_TAG_SLUGS = ["editors", "installation", "agentic-coding"] as const;
 export type GuideTagSlug = (typeof GUIDE_TAG_SLUGS)[number];
 
 // Tag labels for each locale
 export const GUIDE_TAG_LABELS: Record<GuideTagSlug, Record<string, string>> = {
   editors: { en: "Editors", hu: "Szerkesztők" },
-  installation: { en: "Installation", hu: "Telepítés" }
+  installation: { en: "Installation", hu: "Telepítés" },
+  "agentic-coding": { en: "Agentic Coding", hu: "Agentikus kódolás" }
 };
 
 export function getGuideTagLabel(slug: GuideTagSlug, locale: string): string {
