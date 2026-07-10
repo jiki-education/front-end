@@ -256,29 +256,31 @@ function processContentDir(type, requiredFields, extraFields) {
 }
 
 /**
- * Process the build/ directory.
+ * Process the projects/ directory.
  *
  * Structure:
- *   build/
- *     config.json                 — { series: ["slug1", "slug2", ...] } (ordered)
- *     {series-slug}/
- *       config.json               — series details + episodes: [uuid, ...] (ordered)
+ *   projects/
+ *     config.json                 — { projects: ["slug1", "slug2", ...] } (ordered)
+ *     {project-slug}/
+ *       config.json               — project details + episodes: [uuid, ...] (ordered)
  *       {uuid}/
- *         config.json             — episode metadata (no series, no order)
- *         {locale}.md             — episode content per locale
+ *         config.json             — episode metadata (no project, no order)
+ *         {locale}.md             — episode content per locale (body is the transcript)
  *
- * Returns: { seriesData, episodes: [{ uuid, seriesSlug, order, config, locales }] }
- *   where seriesData.series is an ordered array of { slug, ...details }
+ * A project with an empty episodes array is "coming soon".
+ *
+ * Returns: { projectsData, episodes: [{ uuid, projectSlug, order, config, locales }] }
+ *   where projectsData.projects is an ordered array of { slug, ...details }
  */
-function processBuild() {
-  const buildDir = path.join(CONTENT_DIR, "build");
-  if (!fs.existsSync(buildDir)) {
+function processProjects() {
+  const projectsDir = path.join(CONTENT_DIR, "projects");
+  if (!fs.existsSync(projectsDir)) {
     return null;
   }
 
-  const topConfigPath = path.join(buildDir, "config.json");
+  const topConfigPath = path.join(projectsDir, "config.json");
   if (!fs.existsSync(topConfigPath)) {
-    throw new Error(`Missing build/config.json at ${topConfigPath}`);
+    throw new Error(`Missing projects/config.json at ${topConfigPath}`);
   }
 
   let topConfig;
@@ -288,73 +290,73 @@ function processBuild() {
     throw new Error(`Invalid JSON in ${topConfigPath}: ${error.message}`);
   }
 
-  if (!Array.isArray(topConfig.series)) {
-    throw new Error(`build/config.json must have a "series" array of slugs`);
+  if (!Array.isArray(topConfig.projects)) {
+    throw new Error(`projects/config.json must have a "projects" array of slugs`);
   }
 
   const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
   const requiredEpisodeFields = ["slug", "date", "author", "videoProvider", "videoKey", "durationSeconds", "image"];
 
-  const seriesList = [];
+  const projectsList = [];
   const episodes = [];
   const seenUuids = new Set();
-  const seenSeriesSlugs = new Set();
+  const seenProjectSlugs = new Set();
 
-  for (const seriesSlug of topConfig.series) {
-    if (typeof seriesSlug !== "string" || !seriesSlug) {
-      throw new Error(`build/config.json "series" entries must be non-empty slug strings`);
+  for (const projectSlug of topConfig.projects) {
+    if (typeof projectSlug !== "string" || !projectSlug) {
+      throw new Error(`projects/config.json "projects" entries must be non-empty slug strings`);
     }
-    if (seenSeriesSlugs.has(seriesSlug)) {
-      throw new Error(`Duplicate series slug in build/config.json: "${seriesSlug}"`);
+    if (seenProjectSlugs.has(projectSlug)) {
+      throw new Error(`Duplicate project slug in projects/config.json: "${projectSlug}"`);
     }
-    seenSeriesSlugs.add(seriesSlug);
+    seenProjectSlugs.add(projectSlug);
 
-    const seriesDir = path.join(buildDir, seriesSlug);
-    if (!fs.existsSync(seriesDir) || !fs.statSync(seriesDir).isDirectory()) {
-      throw new Error(`Series "${seriesSlug}" listed in build/config.json has no directory at ${seriesDir}`);
-    }
-
-    const seriesConfigPath = path.join(seriesDir, "config.json");
-    if (!fs.existsSync(seriesConfigPath)) {
-      throw new Error(`Missing config.json for series "${seriesSlug}" at ${seriesConfigPath}`);
+    const projectDir = path.join(projectsDir, projectSlug);
+    if (!fs.existsSync(projectDir) || !fs.statSync(projectDir).isDirectory()) {
+      throw new Error(`Project "${projectSlug}" listed in projects/config.json has no directory at ${projectDir}`);
     }
 
-    let seriesConfig;
+    const projectConfigPath = path.join(projectDir, "config.json");
+    if (!fs.existsSync(projectConfigPath)) {
+      throw new Error(`Missing config.json for project "${projectSlug}" at ${projectConfigPath}`);
+    }
+
+    let projectConfig;
     try {
-      seriesConfig = JSON.parse(fs.readFileSync(seriesConfigPath, "utf-8"));
+      projectConfig = JSON.parse(fs.readFileSync(projectConfigPath, "utf-8"));
     } catch (error) {
-      throw new Error(`Invalid JSON in ${seriesConfigPath}: ${error.message}`);
+      throw new Error(`Invalid JSON in ${projectConfigPath}: ${error.message}`);
     }
 
-    if (!Array.isArray(seriesConfig.episodes)) {
-      throw new Error(`Series "${seriesSlug}" config.json must have an "episodes" array of UUIDs`);
+    if (!Array.isArray(projectConfig.episodes)) {
+      throw new Error(`Project "${projectSlug}" config.json must have an "episodes" array of UUIDs`);
     }
-    if (typeof seriesConfig.image !== "string" || !seriesConfig.image) {
-      throw new Error(`Series "${seriesSlug}" is missing required "image" field`);
+    if (typeof projectConfig.image !== "string" || !projectConfig.image) {
+      throw new Error(`Project "${projectSlug}" is missing required "image" field`);
     }
 
-    seriesList.push({ slug: seriesSlug, ...seriesConfig });
+    projectsList.push({ slug: projectSlug, ...projectConfig });
 
-    const slugsInSeries = new Set();
-    for (let i = 0; i < seriesConfig.episodes.length; i++) {
-      const uuid = seriesConfig.episodes[i];
+    const slugsInProject = new Set();
+    for (let i = 0; i < projectConfig.episodes.length; i++) {
+      const uuid = projectConfig.episodes[i];
       if (typeof uuid !== "string" || !uuidPattern.test(uuid)) {
-        throw new Error(`Series "${seriesSlug}" episodes[${i}] is not a valid UUID: ${uuid}`);
+        throw new Error(`Project "${projectSlug}" episodes[${i}] is not a valid UUID: ${uuid}`);
       }
       const uuidLower = uuid.toLowerCase();
       if (seenUuids.has(uuidLower)) {
-        throw new Error(`Duplicate build episode UUID across series: ${uuid}`);
+        throw new Error(`Duplicate episode UUID across projects: ${uuid}`);
       }
       seenUuids.add(uuidLower);
 
-      const dirPath = path.join(seriesDir, uuid);
+      const dirPath = path.join(projectDir, uuid);
       if (!fs.existsSync(dirPath) || !fs.statSync(dirPath).isDirectory()) {
-        throw new Error(`Series "${seriesSlug}" references missing episode directory: ${dirPath}`);
+        throw new Error(`Project "${projectSlug}" references missing episode directory: ${dirPath}`);
       }
 
       const configPath = path.join(dirPath, "config.json");
       if (!fs.existsSync(configPath)) {
-        throw new Error(`Missing config.json for build episode ${uuid}`);
+        throw new Error(`Missing config.json for episode ${uuid}`);
       }
 
       let config;
@@ -370,13 +372,19 @@ function processBuild() {
         }
       }
 
-      if (slugsInSeries.has(config.slug)) {
-        throw new Error(`Duplicate episode slug "${config.slug}" in series "${seriesSlug}"`);
+      if (config.guides !== undefined) {
+        if (!Array.isArray(config.guides) || config.guides.some((g) => typeof g !== "string" || !g)) {
+          throw new Error(`Episode "${config.slug}" "guides" must be an array of guide slug strings`);
+        }
       }
-      slugsInSeries.add(config.slug);
+
+      if (slugsInProject.has(config.slug)) {
+        throw new Error(`Duplicate episode slug "${config.slug}" in project "${projectSlug}"`);
+      }
+      slugsInProject.add(config.slug);
 
       const order = i + 1;
-      const configJson = JSON.stringify({ ...config, series: seriesSlug, order });
+      const configJson = JSON.stringify({ ...config, project: projectSlug, order });
 
       const rawAuthor = authorsData[config.author];
       if (!rawAuthor) {
@@ -401,6 +409,8 @@ function processBuild() {
           const fixedMarkdown = fixImagePaths(parsed.content);
           const html = marked.parse(fixedMarkdown);
 
+          const summary = normalizeEpisodeSummary(frontmatter.summary, `${filePath}`);
+
           const hashInput = crypto.createHash("sha256");
           hashInput.update(fileContent);
           hashInput.update(configJson);
@@ -410,7 +420,7 @@ function processBuild() {
           const meta = {
             uuid,
             slug: config.slug,
-            series: seriesSlug,
+            project: projectSlug,
             order,
             title: frontmatter.title,
             excerpt: frontmatter.excerpt,
@@ -421,6 +431,8 @@ function processBuild() {
             durationSeconds: config.durationSeconds,
             premium: Boolean(config.premium),
             image: config.image,
+            guides: config.guides || [],
+            summary,
             seo: frontmatter.seo || { description: frontmatter.excerpt, keywords: [] },
             contentHash,
             locale
@@ -433,37 +445,60 @@ function processBuild() {
         }
       }
 
-      episodes.push({ uuid, seriesSlug, order, config, locales: localesOut });
+      episodes.push({ uuid, projectSlug, order, config, locales: localesOut });
     }
   }
 
-  return { seriesData: { series: seriesList }, episodes };
+  return { projectsData: { projects: projectsList }, episodes };
 }
 
 /**
- * Build static files for the build/ section.
+ * Validate and normalize an episode's frontmatter `summary` block
+ * ({ from, to, keyConcepts }). All fields are freeform localized prose.
+ * Returns null when no summary is authored.
+ */
+function normalizeEpisodeSummary(summary, sourcePath) {
+  if (summary === undefined || summary === null) {
+    return null;
+  }
+  if (typeof summary !== "object" || Array.isArray(summary)) {
+    throw new Error(`"summary" must be a mapping with from/to/keyConcepts in ${sourcePath}`);
+  }
+  const { from, to } = summary;
+  if (typeof from !== "string" || !from || typeof to !== "string" || !to) {
+    throw new Error(`"summary" requires non-empty "from" and "to" strings in ${sourcePath}`);
+  }
+  const keyConcepts = summary.keyConcepts ?? [];
+  if (!Array.isArray(keyConcepts) || keyConcepts.some((c) => typeof c !== "string" || !c)) {
+    throw new Error(`"summary.keyConcepts" must be an array of strings in ${sourcePath}`);
+  }
+  return { from, to, keyConcepts };
+}
+
+/**
+ * Build static files for the projects/ section.
  *
  * Emits:
- *   - public/static/content/build/{seriesSlug}/{uuid}/{locale}-{htmlHash}.html
- *   - public/static/content/build/{seriesSlug}/episodes-{locale}-{indexHash}.json
+ *   - public/static/content/projects/{projectSlug}/{uuid}/{locale}-{htmlHash}.html
+ *   - public/static/content/projects/{projectSlug}/episodes-{locale}-{indexHash}.json
  *
- * Returns: { buildByLocale } where buildByLocale[locale] = [seriesEntry], each seriesEntry
+ * Returns: { projectsByLocale } where projectsByLocale[locale] = [projectEntry], each projectEntry
  *   contains slug, order, title, description, episodeCount, episodesIndexHash.
  */
-function buildBuildStaticFiles(processed) {
+function buildProjectStaticFiles(processed) {
   if (!processed) {
-    return { buildByLocale: {} };
+    return { projectsByLocale: {} };
   }
 
-  const { seriesData, episodes } = processed;
+  const { projectsData, episodes } = processed;
 
-  // episodesBy[locale][seriesSlug] = [episodeMeta]
+  // episodesBy[locale][projectSlug] = [episodeMeta]
   const episodesBy = {};
 
   for (const episode of episodes) {
     for (const [locale, { meta, html }] of Object.entries(episode.locales)) {
       const htmlHash = computeHash(html);
-      const htmlPath = path.join(STATIC_DIR, "build", meta.series, episode.uuid, `${locale}-${htmlHash}.html`);
+      const htmlPath = path.join(STATIC_DIR, "projects", meta.project, episode.uuid, `${locale}-${htmlHash}.html`);
       writeFile(htmlPath, html);
 
       const finalMeta = { ...meta, contentHash: htmlHash };
@@ -471,20 +506,20 @@ function buildBuildStaticFiles(processed) {
       if (!episodesBy[locale]) {
         episodesBy[locale] = {};
       }
-      if (!episodesBy[locale][meta.series]) {
-        episodesBy[locale][meta.series] = [];
+      if (!episodesBy[locale][meta.project]) {
+        episodesBy[locale][meta.project] = [];
       }
-      episodesBy[locale][meta.series].push(finalMeta);
+      episodesBy[locale][meta.project].push(finalMeta);
     }
   }
 
-  const buildByLocale = {};
+  const projectsByLocale = {};
 
-  // Determine all locales that have any series content. Series titles only use
-  // locales declared in series.json title maps; episodes contribute locales too.
+  // Determine all locales that have any project content. Project titles only use
+  // locales declared in config title maps; episodes contribute locales too.
   const allLocales = new Set();
-  for (const s of seriesData.series) {
-    for (const loc of Object.keys(s.title || {})) {
+  for (const p of projectsData.projects) {
+    for (const loc of Object.keys(p.title || {})) {
       allLocales.add(loc);
     }
   }
@@ -493,46 +528,41 @@ function buildBuildStaticFiles(processed) {
   }
 
   for (const locale of allLocales) {
-    buildByLocale[locale] = [];
+    projectsByLocale[locale] = [];
 
     let order = 0;
-    for (const series of seriesData.series) {
+    for (const project of projectsData.projects) {
       order += 1;
-      const title = (series.title && (series.title[locale] || series.title.en)) || series.slug;
-      const description = (series.description && (series.description[locale] || series.description.en)) || "";
-      const audience = (series.audience && (series.audience[locale] || series.audience.en)) || "";
-      const cadence = (series.cadence && (series.cadence[locale] || series.cadence.en)) || "";
-      const upcomingStreams = Array.isArray(series.upcoming_streams) ? series.upcoming_streams : [];
-      if (typeof series.image !== "string" || !series.image) {
-        throw new Error(`Series "${series.slug}" is missing required "image" field`);
+      const title = (project.title && (project.title[locale] || project.title.en)) || project.slug;
+      const description = (project.description && (project.description[locale] || project.description.en)) || "";
+      const audience = (project.audience && (project.audience[locale] || project.audience.en)) || "";
+      const cadence = (project.cadence && (project.cadence[locale] || project.cadence.en)) || "";
+      const upcomingStreams = Array.isArray(project.upcoming_streams) ? project.upcoming_streams : [];
+      if (typeof project.image !== "string" || !project.image) {
+        throw new Error(`Project "${project.slug}" is missing required "image" field`);
       }
-      const image = series.image;
-      const status = series.status ?? "live";
-      if (status !== "live" && status !== "pending") {
-        throw new Error(`Series "${series.slug}" has invalid status "${status}" (expected "live" or "pending")`);
+      const image = project.image;
+      if (typeof project.livestream !== "boolean") {
+        throw new Error(`Project "${project.slug}" is missing required boolean "livestream" field`);
       }
-      if (typeof series.livestream !== "boolean") {
-        throw new Error(`Series "${series.slug}" is missing required boolean "livestream" field`);
-      }
-      const livestream = series.livestream;
+      const livestream = project.livestream;
 
-      const seriesEpisodes = (episodesBy[locale] && episodesBy[locale][series.slug]) || [];
-      const sortedEpisodes = [...seriesEpisodes].sort((a, b) => a.order - b.order);
+      const projectEpisodes = (episodesBy[locale] && episodesBy[locale][project.slug]) || [];
+      const sortedEpisodes = [...projectEpisodes].sort((a, b) => a.order - b.order);
 
       const indexJson = JSON.stringify(sortedEpisodes);
       const indexHash = computeHash(indexJson);
-      const indexPath = path.join(STATIC_DIR, "build", series.slug, `episodes-${locale}-${indexHash}.json`);
+      const indexPath = path.join(STATIC_DIR, "projects", project.slug, `episodes-${locale}-${indexHash}.json`);
       writeFile(indexPath, indexJson);
 
-      buildByLocale[locale].push({
-        slug: series.slug,
+      projectsByLocale[locale].push({
+        slug: project.slug,
         order,
         title,
         description,
         audience,
         cadence,
         image,
-        status,
         livestream,
         upcomingStreams,
         episodeCount: sortedEpisodes.length,
@@ -542,7 +572,7 @@ function buildBuildStaticFiles(processed) {
     }
   }
 
-  return { buildByLocale };
+  return { projectsByLocale };
 }
 
 /**
@@ -644,7 +674,7 @@ function writeHashManifest(
   guideHashes,
   searchHashes,
   guideSearchHashes,
-  buildEpisodesHashes
+  projectEpisodesHashes
 ) {
   function formatEntries(hashes) {
     return Object.entries(hashes)
@@ -657,8 +687,8 @@ function writeHashManifest(
     return Object.entries(nested)
       .sort(([a], [b]) => a.localeCompare(b))
       .map(
-        ([seriesSlug, byLocale]) =>
-          `    ${JSON.stringify(seriesSlug)}: {\n${Object.entries(byLocale)
+        ([projectSlug, byLocale]) =>
+          `    ${JSON.stringify(projectSlug)}: {\n${Object.entries(byLocale)
             .sort(([a], [b]) => a.localeCompare(b))
             .map(([locale, hash]) => `      ${JSON.stringify(locale)}: ${JSON.stringify(hash)}`)
             .join(",\n")}\n    }`
@@ -672,7 +702,7 @@ export const contentIndexHashes: {
   articles: Record<string, string>;
   guides: Record<string, string>;
   search: { articles: Record<string, string>; guides: Record<string, string> };
-  buildEpisodes: Record<string, Record<string, string>>;
+  projectEpisodes: Record<string, Record<string, string>>;
 } = {
   blog: {
 ${formatEntries(blogHashes)},
@@ -691,8 +721,8 @@ ${formatEntries(searchHashes)},
 ${formatEntries(guideSearchHashes)},
     },
   },
-  buildEpisodes: {
-${formatNestedEntries(buildEpisodesHashes)},
+  projectEpisodes: {
+${formatNestedEntries(projectEpisodesHashes)},
   },
 };
 `;
@@ -704,17 +734,17 @@ ${formatNestedEntries(buildEpisodesHashes)},
  * Write the server-side metadata JSON
  * Contains full metadata for all blog posts and articles (no HTML content)
  */
-function writeServerMeta(blogByLocale, articlesByLocale, guidesByLocale, buildByLocale) {
+function writeServerMeta(blogByLocale, articlesByLocale, guidesByLocale, projectsByLocale) {
   const serverMeta = {
     blog: {},
     articles: {},
     guides: {},
-    build: { series: {} },
+    projects: {},
     locales: {
       blog: Object.keys(blogByLocale).sort(),
       articles: Object.keys(articlesByLocale).sort(),
       guides: Object.keys(guidesByLocale).sort(),
-      build: Object.keys(buildByLocale).sort()
+      projects: Object.keys(projectsByLocale).sort()
     },
     slugsWithLocales: {
       blog: [],
@@ -744,8 +774,8 @@ function writeServerMeta(blogByLocale, articlesByLocale, guidesByLocale, buildBy
     }
   }
 
-  for (const [locale, seriesList] of Object.entries(buildByLocale)) {
-    serverMeta.build.series[locale] = seriesList;
+  for (const [locale, projectsList] of Object.entries(projectsByLocale)) {
+    serverMeta.projects[locale] = projectsList;
   }
 
   writeFile(path.join(GENERATED_DIR, "content-meta-server.json"), JSON.stringify(serverMeta));
@@ -782,36 +812,36 @@ function generateContentCache() {
     order: typeof config.order === "number" ? config.order : 1000
   }));
 
-  // Process build series + episodes
-  const buildProcessed = processBuild();
+  // Process projects + episodes
+  const projectsProcessed = processProjects();
 
   // Build static files
   const { indexHashes: blogHashes, byLocale: blogByLocale } = buildStaticFiles("blog", blog);
   const { indexHashes: articleHashes, byLocale: articlesByLocale } = buildStaticFiles("articles", articles);
   const { indexHashes: guideHashes, byLocale: guidesByLocale } = buildStaticFiles("guides", guides);
-  const { buildByLocale } = buildBuildStaticFiles(buildProcessed);
+  const { projectsByLocale } = buildProjectStaticFiles(projectsProcessed);
 
   // Generate search indexes. Articles index only `listed` ones; guides index all
   // (including premium guides, which stay searchable but are kept out of the sitemap).
   const searchHashes = generateSearchIndexes("articles", articlesByLocale, (a) => a.listed);
   const guideSearchHashes = generateSearchIndexes("guides", guidesByLocale, () => true);
 
-  // Per-series episode-list hash manifest, keyed seriesSlug -> locale -> hash
-  const buildEpisodesHashes = {};
-  for (const [locale, seriesList] of Object.entries(buildByLocale)) {
-    for (const series of seriesList) {
-      if (!buildEpisodesHashes[series.slug]) {
-        buildEpisodesHashes[series.slug] = {};
+  // Per-project episode-list hash manifest, keyed projectSlug -> locale -> hash
+  const projectEpisodesHashes = {};
+  for (const [locale, projectsList] of Object.entries(projectsByLocale)) {
+    for (const project of projectsList) {
+      if (!projectEpisodesHashes[project.slug]) {
+        projectEpisodesHashes[project.slug] = {};
       }
-      buildEpisodesHashes[series.slug][locale] = series.episodesIndexHash;
+      projectEpisodesHashes[project.slug][locale] = project.episodesIndexHash;
     }
   }
 
   // Write hash manifest
-  writeHashManifest(blogHashes, articleHashes, guideHashes, searchHashes, guideSearchHashes, buildEpisodesHashes);
+  writeHashManifest(blogHashes, articleHashes, guideHashes, searchHashes, guideSearchHashes, projectEpisodesHashes);
 
   // Write server-side metadata
-  writeServerMeta(blogByLocale, articlesByLocale, guidesByLocale, buildByLocale);
+  writeServerMeta(blogByLocale, articlesByLocale, guidesByLocale, projectsByLocale);
 
   // Count totals
   let contentFileCount = 0;
@@ -825,17 +855,17 @@ function generateContentCache() {
     contentFileCount += Object.keys(locales).length;
   }
 
-  const buildEpisodeCount = buildProcessed
-    ? buildProcessed.episodes.reduce((acc, ep) => acc + Object.keys(ep.locales).length, 0)
+  const episodeCount = projectsProcessed
+    ? projectsProcessed.episodes.reduce((acc, ep) => acc + Object.keys(ep.locales).length, 0)
     : 0;
-  const buildSeriesCount = buildProcessed ? buildProcessed.seriesData.series.length : 0;
+  const projectCount = projectsProcessed ? projectsProcessed.projectsData.projects.length : 0;
 
   console.log("\nContent cache generated successfully:\n");
   console.log(`   Blog posts: ${Object.keys(blog).length} slugs`);
   console.log(`   Articles: ${Object.keys(articles).length} slugs`);
   console.log(`   Guides: ${Object.keys(guides).length} slugs`);
-  console.log(`   Build series: ${buildSeriesCount}`);
-  console.log(`   Build episodes: ${buildEpisodeCount} (locale-files)`);
+  console.log(`   Projects: ${projectCount}`);
+  console.log(`   Project episodes: ${episodeCount} (locale-files)`);
   console.log(`   Content files: ${contentFileCount}`);
   console.log(
     `   Locales: ${[
@@ -843,7 +873,7 @@ function generateContentCache() {
         ...Object.keys(blogByLocale),
         ...Object.keys(articlesByLocale),
         ...Object.keys(guidesByLocale),
-        ...Object.keys(buildByLocale)
+        ...Object.keys(projectsByLocale)
       ])
     ]
       .sort()

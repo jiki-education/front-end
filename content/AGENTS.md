@@ -85,14 +85,27 @@ content/
 │       │       ├── config.json  # Structural metadata (required)
 │       │       ├── en.md        # English (required)
 │       │       └── hu.md        # Hungarian (optional)
-│       └── articles/         # Evergreen articles
-│           └── [slug]/
-│               ├── config.json  # Structural metadata (required)
-│               ├── en.md
-│               └── hu.md
+│       ├── articles/         # Evergreen articles
+│       │   └── [slug]/
+│       │       ├── config.json  # Structural metadata (required)
+│       │       ├── en.md
+│       │       └── hu.md
+│       ├── guides/           # Guides (see Guides section)
+│       │   └── [slug]/
+│       │       ├── config.json
+│       │       ├── en.md
+│       │       └── hu.md
+│       └── projects/         # Build with Jeremy projects + episodes
+│           ├── config.json   # { "projects": [ordered slugs] }
+│           └── [project-slug]/
+│               ├── config.json  # Project details + episodes: [uuid, ...] (ordered)
+│               └── [episode-uuid]/
+│                   ├── config.json  # Episode metadata (video, premium, guides)
+│                   └── en.md        # Frontmatter + transcript body
 ├── images/
 │   ├── blog/                 # Blog post images
 │   ├── articles/             # Article images
+│   ├── guides/               # Guide cover images
 │   └── avatars/              # Author avatars
 └── scripts/
     └── pre-commit            # Git hook script
@@ -190,6 +203,16 @@ For guides that explain how to install a piece of software, follow this conventi
 - **Give per-OS instructions in this order: Windows, then macOS, then Linux.**
 - **Prefer official binaries and installers** over package managers where a binary is available.
 - If a step requires installing something else first (for example Homebrew), **do not inline those instructions**. Write a separate dedicated guide or article for that product and link to it.
+
+### Projects
+
+**Projects** ("Build with Jeremy") live in `src/posts/projects/` and have a two-level structure: a top-level `config.json` lists project slugs in display order, each project directory has a `config.json` (localized `title`/`description`/`audience`/`cadence` maps, `image`, `livestream`, `upcoming_streams`, and an ordered `episodes` array of UUIDs), and each episode lives in a UUID-named directory.
+
+- A project with an **empty `episodes` array is "coming soon"**: it renders as a non-clickable teaser and has no detail page. There is no explicit status field.
+- Episode **config.json** holds structural metadata: `slug` (used in the URL), `date`, `author`, `videoProvider` (`youtube` or `mux`), `videoKey`, `durationSeconds`, `premium`, `image`, and `guides` (an array of guide slugs shown as a sidebar on the episode page).
+- Episode **markdown** frontmatter has `title`, `excerpt`, `seo`, and an optional `summary` block (`from`, `to`, `keyConcepts` — freeform prose describing the episode's journey). The markdown body is the episode's **transcript**, rendered below the video.
+
+URLs: the hub is `/build`; projects are `/projects/{slug}`; episodes are `/projects/{slug}/episodes/{episode-slug}`.
 
 ### Validation Strategy
 

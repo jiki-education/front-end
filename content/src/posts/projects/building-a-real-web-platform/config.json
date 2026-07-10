@@ -1,0 +1,18 @@
+{
+  "audience": {
+    "en": "Beginners and Juniors"
+  },
+  "cadence": {
+    "en": "New episodes each week"
+  },
+  "title": {
+    "en": "Building a Japanese-learning Platform"
+  },
+  "description": {
+    "en": "Join Jeremy as he builds a full Japanese language-learning platform. Wrestle with every decision, feature and bug alongside him, and learn along the way."
+  },
+  "image": "jiki-waiting.png",
+  "livestream": true,
+  "upcoming_streams": ["2026-07-12T14:00:00Z"],
+  "episodes": []
+}

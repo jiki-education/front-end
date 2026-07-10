@@ -3,12 +3,30 @@ import conceptMetaServer from "@/lib/generated/concept-meta-server.json";
 import { getAllArticles } from "@/lib/content/getAllArticles";
 import { getAllBlogPosts } from "@/lib/content/getAllBlogPosts";
 import { getAllGuides } from "@/lib/content/getAllGuides";
+import { getAllProjects } from "@/lib/content/getAllProjects";
 import { alternateLanguages } from "@/lib/seo/alternates";
 
-const STATIC_ROUTES = ["/", "/blog", "/help", "/guides", "/concepts", "/testimonials", "/premium", "/roadmap"];
+const STATIC_ROUTES = [
+  "/",
+  "/blog",
+  "/help",
+  "/guides",
+  "/concepts",
+  "/build",
+  "/testimonials",
+  "/premium",
+  "/roadmap"
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [...staticEntries(), ...blogEntries(), ...articleEntries(), ...guideEntries(), ...conceptEntries()];
+  return [
+    ...staticEntries(),
+    ...blogEntries(),
+    ...articleEntries(),
+    ...guideEntries(),
+    ...projectEntries(),
+    ...conceptEntries()
+  ];
 }
 
 // Every entry carries reciprocal hreflang alternates (xhtml:link) so Google
@@ -43,6 +61,14 @@ function guideEntries(): MetadataRoute.Sitemap {
   return getAllGuides("en")
     .filter((guide) => !guide.premium)
     .map((guide) => entry(`/guides/${guide.slug}`, { lastModified: guide.date }));
+}
+
+function projectEntries(): MetadataRoute.Sitemap {
+  // Coming-soon projects (no episodes) have no detail page. Episode pages are
+  // not listed individually — the episode list lives on the project page.
+  return getAllProjects("en")
+    .filter((project) => project.episodeCount > 0)
+    .map((project) => entry(`/projects/${project.slug}`));
 }
 
 function conceptEntries(): MetadataRoute.Sitemap {

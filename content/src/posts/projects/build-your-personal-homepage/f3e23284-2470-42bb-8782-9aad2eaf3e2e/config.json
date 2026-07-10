@@ -1,0 +1,11 @@
+{
+  "slug": "our-first-page",
+  "date": "2026-05-15",
+  "author": "ihid",
+  "videoProvider": "mux",
+  "videoKey": "v2kO7cS7n8IhguzE013jOmPHmkXrrIwFNcM5qgz1P17c",
+  "durationSeconds": 1530,
+  "premium": true,
+  "image": "jiki-waiting.png",
+  "guides": ["using-a-code-editor"]
+}

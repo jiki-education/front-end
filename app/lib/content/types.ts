@@ -112,9 +112,11 @@ export interface ProcessedGuide extends GuideMeta {
   content: string;
 }
 
-export type BuildVideoProvider = "youtube" | "mux";
+export type VideoProvider = "youtube" | "mux";
 
-export interface BuildSeriesMeta {
+// A project with no episodes yet is "coming soon" — there is no explicit
+// status field.
+export interface ProjectMeta {
   slug: string;
   order: number;
   title: string;
@@ -122,7 +124,6 @@ export interface BuildSeriesMeta {
   audience: string;
   cadence: string;
   image: string;
-  status: "live" | "pending";
   livestream: boolean;
   upcomingStreams: string[];
   episodeCount: number;
@@ -130,20 +131,29 @@ export interface BuildSeriesMeta {
   locale: string;
 }
 
-export interface BuildEpisodeMeta {
+// Freeform, localized prose describing the journey an episode takes you on.
+export interface EpisodeSummary {
+  from: string;
+  to: string;
+  keyConcepts: string[];
+}
+
+export interface EpisodeMeta {
   uuid: string;
   slug: string;
-  series: string;
+  project: string;
   order: number;
   title: string;
   excerpt: string;
   date: string;
   author: Author;
-  videoProvider: BuildVideoProvider;
+  videoProvider: VideoProvider;
   videoKey: string;
   durationSeconds: number;
   premium: boolean;
   image: string;
+  guides: string[];
+  summary: EpisodeSummary | null;
   seo: {
     description: string;
     keywords: string[];
@@ -152,7 +162,8 @@ export interface BuildEpisodeMeta {
   locale: string;
 }
 
-export interface ProcessedBuildEpisode extends BuildEpisodeMeta {
+// `content` is the episode's transcript, pre-rendered to HTML.
+export interface ProcessedEpisode extends EpisodeMeta {
   content: string;
 }
 

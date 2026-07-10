@@ -42,6 +42,16 @@ Articles are served under `/help` (the Help Center). Legacy `/articles/*` URLs 3
 - **`/[locale]/help/[slug]`** - Localized article (e.g., `/hu/help/about-jiki`)
 - **`/en/help/*`** - Redirects to naked `/help/*` URLs
 
+### Build / Project Routes
+
+The "Build with Jeremy" section. All routes are locale-routed like blog/help.
+
+- **`/build`** - Hub page: intro video, project portfolio, upcoming live streams sidebar
+- **`/projects/[slug]`** - Project page: summary, episode list, sidebar (project's streams + coming-soon projects). Projects with no episodes are "coming soon" and have no detail page.
+- **`/projects/[slug]/episodes/[episodeSlug]`** - Episode page: from→to summary box, video (Mux or YouTube), transcript, related-guides sidebar
+
+Content is authored in `content/src/posts/projects/` (see `content/AGENTS.md`). Loaders: `getAllProjects`, `getProject`, `getProjectEpisode` in `lib/content/`. Types: `ProjectMeta`, `EpisodeMeta`, `ProcessedEpisode`.
+
 ## Using Content Functions
 
 Import content functions from `@jiki/content`:
