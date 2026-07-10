@@ -19,7 +19,7 @@ export default function GuidesSidebar({ guides, locale, description }: GuidesSid
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.heading}>Guides</h3>
+      <h3 className={styles.heading}>Jiki Guides</h3>
       <p className={styles.lead}>{description}</p>
       <div className={styles.list}>
         {guides.map((guide) => (

@@ -4,14 +4,14 @@
 }
 
 .heading {
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 600;
     color: var(--color-gray-700);
     margin-bottom: 4px;
 }
 
 .lead {
-    font-size: 14px;
+    font-size: 15px;
     color: var(--color-gray-500);
     margin-bottom: 16px;
 }

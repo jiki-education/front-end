@@ -28,7 +28,7 @@ export default function EpisodePage({ project, episode, guides, locale }: Episod
             <GuidesSidebar
               guides={guides}
               locale={locale}
-              description="Written guides covering what we use in this episode."
+              description="Guides covering the topics we use in this episode."
             />
           ) : undefined
         }

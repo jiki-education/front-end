@@ -72,7 +72,7 @@ export default function ProjectPage({ project, episodes, guides, locale }: Proje
         <GuidesSidebar
           guides={guides}
           locale={locale}
-          description="Written guides covering what we use in this project."
+          description="Guides covering the topics we use in this project."
         />
       )}
     </div>
