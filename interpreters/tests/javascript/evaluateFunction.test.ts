@@ -21,7 +21,7 @@ describe("evaluateFunction", () => {
     expect(errorFrame).toBeDefined();
     expect(errorFrame!.error).not.toBeNull();
     expect(errorFrame!.error!.category).toBe("RuntimeError");
-    expect(errorFrame!.error!.type).toBe("VariableNotDeclared");
+    expect(errorFrame!.error!.type).toBe("FunctionNotFound");
     expect(error).toBeNull();
   });
 
@@ -41,7 +41,7 @@ describe("evaluateFunction", () => {
     expect(errorFrame).toBeDefined();
     expect(errorFrame!.error).not.toBeNull();
     expect(errorFrame!.error!.category).toBe("RuntimeError");
-    expect(errorFrame!.error!.type).toBe("VariableNotDeclared");
+    expect(errorFrame!.error!.type).toBe("FunctionNotFound");
     expect(error).toBeNull();
   });
 
