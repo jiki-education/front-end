@@ -9,6 +9,7 @@ import type { IOTestExpect } from "../../../lib/test-results-types";
 import { IOTestResultView } from "../IOTestResultView";
 import { HighlightedCode } from "../HighlightedCode";
 import { ScenarioHeader } from "../ScenarioHeader";
+import Scrubber from "../../scrubber/Scrubber";
 import CheckCircleIcon from "@/icons/check-circle.svg";
 import CrossCircleIcon from "@/icons/cross-circle.svg";
 import ExclamationCircleIcon from "@/icons/exclamation-circle.svg";
@@ -66,6 +67,7 @@ function IOInspectedPreviewView() {
           </table>
         </div>
       </div>
+      <Scrubber />
     </div>
   );
 }
@@ -119,6 +121,7 @@ function IOInspectedResultView() {
         />
         {firstExpect ? <IOTestResultView expect={firstExpect} language={language} /> : null}
       </div>
+      <Scrubber />
     </div>
   );
 }

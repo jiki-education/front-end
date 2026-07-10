@@ -20,7 +20,11 @@ const ScrubberInput = forwardRef<HTMLDivElement, ScrubberInputProps>(
     const isDraggingRef = useRef(false);
 
     const min = calculateMinInputValue(frames);
-    const max = calculateMaxInputValue(animationTimeline ?? { duration: 0 });
+    // IO tests have no animationTimeline, so fall back to the last frame's time
+    // (matching the timeline duration for visual tests, which is floored to the last frame).
+    const max = animationTimeline
+      ? calculateMaxInputValue(animationTimeline)
+      : Math.round(frames[frames.length - 1]?.time ?? 0);
     const currentValue = time ?? 0;
 
     // Calculate progress percentage
@@ -51,6 +55,10 @@ const ScrubberInput = forwardRef<HTMLDivElement, ScrubberInputProps>(
         orchestrator.pause();
         const newValue = getValueFromMousePosition(event.clientX);
         orchestrator.setCurrentTestTime(newValue, "nearest");
+        // Match the stepper buttons and keyboard scrubbing (moveToFrame), which
+        // surface the information widget. Shown once here; it stays visible and
+        // its content tracks the highlighted line as the drag continues.
+        orchestrator.showInformationWidget();
 
         document.addEventListener("mousemove", handleMouseMove);
         document.addEventListener("mouseup", handleMouseUp);
