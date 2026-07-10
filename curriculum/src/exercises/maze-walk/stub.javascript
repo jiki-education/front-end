@@ -1,4 +1,6 @@
-function walk(steps) {
+function walk(numSteps) {
+  // TODO: Write your code here
+
 
 }
 

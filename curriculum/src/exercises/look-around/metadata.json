@@ -12,11 +12,11 @@
     },
     {
       "question": "Which results mean it is safe to go that way?",
-      "answer": "Anything that is not `\"wall\"`, `\"fire\"`, or `\"poop\"` is fine. So `look(\"ahead\") !== \"wall\" && look(\"ahead\") !== \"fire\" && look(\"ahead\") !== \"poop\"` is what `canMove` should return."
+      "answer": "Of the six things `look()` can return, three are things you really don't want to walk into. Your function should return `true` only when what you see is none of those three."
     },
     {
       "question": "I am repeating the same logic in three functions. How do I avoid that?",
-      "answer": "Write one helper, e.g. `isSafe(direction)`, that does the `look` and the comparisons. Then `canMove` returns `isSafe(\"ahead\")`, `canTurnLeft` returns `isSafe(\"left\")`, and `canTurnRight` returns `isSafe(\"right\")`."
+      "answer": "The three functions differ only in which direction they look. Could you write one extra function that takes a direction as an input, and have all three use it?"
     }
   ]
 }

@@ -9,7 +9,7 @@ const functions: FunctionInfo[] = [
     name: "move",
     signature: "move()",
     description:
-      "Moves the character **one step forward** in the current direction. The character will only move if the target position is not blocked by a wall, fire, or poop.",
+      "Moves the character **one step forward** in the current direction. Walking into a wall, fire, or poop ends your program with an error, so check what's ahead before moving!",
     examples: ["move()"],
     category: "Movement"
   },
@@ -46,6 +46,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
+  conceptSlugs: ["creating-functions-with-return-values", "creating-functions", "using-functions-with-return-values"],
   interpreterOptions: { maxTotalLoopIterations: 50 }
 };
 

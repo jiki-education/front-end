@@ -23,7 +23,18 @@ export default function TestRunnerTestPage() {
     const exercise = createMockExercise({
       slug: "test-runner-e2e",
       stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode },
-      title: "Test Runner E2E Exercise"
+      title: "Test Runner E2E Exercise",
+      // The auto-play, test-switching and test-runner specs that drive this page
+      // rely on an exercise that never fully completes (so it keeps a failing
+      // scenario to play/switch through). The shared mock's third task is a
+      // bonus, which would be excluded from the "passed" check and let the
+      // exercise complete, popping the completion modal and suppressing
+      // auto-play. Treat every task as required here; the bonus-scenario
+      // behaviour itself is covered by unit tests.
+      tasks: [
+        { id: "test-task-1", name: "Basic Test Task", bonus: false },
+        { id: "test-task-bonus", name: "Third Test Task", bonus: false }
+      ]
     });
     const orch = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
     setOrchestrator(orch);

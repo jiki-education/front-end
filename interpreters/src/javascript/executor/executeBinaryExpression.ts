@@ -81,22 +81,14 @@ function handleBinaryOperation(
       return createJSObject(left || right);
 
     case "EQUAL_EQUAL":
-      // Check if strict equality is enforced
-      if (executor.languageFeatures.enforceStrictEquality) {
-        executor.error("StrictEqualityRequired", expression.location, {
-          operator: expression.operator.lexeme,
-        });
-      }
+      // `==` is rejected at parse time when enforceStrictEquality is on (the default),
+      // so reaching here means loose equality is explicitly permitted.
       // eslint-disable-next-line eqeqeq
       return createJSObject(left == right);
 
     case "NOT_EQUAL":
-      // Check if strict equality is enforced
-      if (executor.languageFeatures.enforceStrictEquality) {
-        executor.error("StrictEqualityRequired", expression.location, {
-          operator: expression.operator.lexeme,
-        });
-      }
+      // `!=` is rejected at parse time when enforceStrictEquality is on (the default),
+      // so reaching here means loose inequality is explicitly permitted.
       // eslint-disable-next-line eqeqeq
       return createJSObject(left != right);
 

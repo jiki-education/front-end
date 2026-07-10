@@ -7,7 +7,7 @@
       "answer": "The original code draws a white circle to the left side. You need to change the values of snowmanCenterX, baseCenterY and baseRadius to be correct to put it over the bottom ring in the template. You should then add variables for the other circles."
     },
     {
-      "question": "I get an error like \"The variable 'XXX' has not been declared\"",
+      "question": "I get an error like \"Jiki could not find a variable called 'XXX'\"",
       "answer": "This means that you've not created the variable (the box on Jiki's shelves) using the `let` keyword. When Jiki reads the code that's drawing the circles, he expects to find the boxes referenced, but they're not there. So you need to add them."
     },
     {

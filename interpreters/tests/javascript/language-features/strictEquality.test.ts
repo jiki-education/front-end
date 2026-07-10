@@ -1,34 +1,34 @@
 import { interpret } from "@javascript/interpreter";
 import type { TestAugmentedFrame } from "@shared/frames";
-import { RuntimeErrorType } from "@javascript/executor";
-import { Frame } from "@shared/frames";
-
-function expectFrameToBeError(frame: Frame, code: string, type: RuntimeErrorType) {
-  expect(frame.code.trim()).toBe(code.trim());
-  expect(frame.status).toBe("ERROR");
-  expect(frame.error).not.toBeNull();
-  expect(frame.error!.category).toBe("RuntimeError");
-  expect(frame.error!.type).toBe(type);
-}
 
 describe("JavaScript strict equality feature", () => {
   describe("enforceStrictEquality: true (default)", () => {
     const features = { enforceStrictEquality: true };
 
-    test("using == throws StrictEqualityRequired error", () => {
+    test("using == is a syntax error (StrictEqualityRequired)", () => {
       const code = `let result = 5 == "5";`;
       const { frames, error } = interpret(code, { languageFeatures: features });
-      expect(error).toBeNull();
-      expectFrameToBeError(frames[0], '5 == "5"', "StrictEqualityRequired");
-      expect(frames[0].error!.message).toBe("StrictEqualityRequired: operator: ==");
+      // Loose equality is rejected at parse time, so there are no frames.
+      expect(frames).toHaveLength(0);
+      expect(error).not.toBeNull();
+      expect(error!.type).toBe("StrictEqualityRequired");
+      expect(error!.message).toBe("StrictEqualityRequired");
+      // The error highlights only the `==` operator, not the whole expression.
+      expect(error!.location.relative.begin).toBe(16);
+      expect(error!.location.relative.end).toBe(18);
     });
 
-    test("using != throws StrictEqualityRequired error", () => {
+    test("using != is a syntax error (StrictInequalityRequired)", () => {
       const code = `let result = 5 != "5";`;
       const { frames, error } = interpret(code, { languageFeatures: features });
-      expect(error).toBeNull();
-      expectFrameToBeError(frames[0], '5 != "5"', "StrictEqualityRequired");
-      expect(frames[0].error!.message).toBe("StrictEqualityRequired: operator: !=");
+      // Loose inequality is rejected at parse time, so there are no frames.
+      expect(frames).toHaveLength(0);
+      expect(error).not.toBeNull();
+      expect(error!.type).toBe("StrictInequalityRequired");
+      expect(error!.message).toBe("StrictInequalityRequired");
+      // The error highlights only the `!=` operator, not the whole expression.
+      expect(error!.location.relative.begin).toBe(16);
+      expect(error!.location.relative.end).toBe(18);
     });
 
     test("using === works correctly with same types", () => {
@@ -234,8 +234,9 @@ describe("JavaScript strict equality feature", () => {
     test("default enforces strict equality (enforceStrictEquality: true)", () => {
       const code = `let result = 5 == "5";`;
       const { frames, error } = interpret(code); // No features specified, should use default
-      expect(error).toBeNull();
-      expectFrameToBeError(frames[0], '5 == "5"', "StrictEqualityRequired");
+      expect(frames).toHaveLength(0);
+      expect(error).not.toBeNull();
+      expect(error!.type).toBe("StrictEqualityRequired");
     });
 
     test("strict operators work by default", () => {

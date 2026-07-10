@@ -1,11 +1,11 @@
 def collatz_steps(number):
-    i = 0
+    idx = 0
     while True:
         if number == 1:
-            return i
+            return idx
 
         if number % 2 == 0:
             number = number / 2
         else:
             number = (number * 3) + 1
-        i = i + 1
+        idx = idx + 1

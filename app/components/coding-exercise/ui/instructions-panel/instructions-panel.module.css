@@ -219,7 +219,14 @@
         margin-top: 16px;
         margin-bottom: 16px;
         padding-left: 24px;
+    }
+
+    ul {
         list-style: disc;
+    }
+
+    ol {
+        list-style: decimal;
     }
 
     p + ul,

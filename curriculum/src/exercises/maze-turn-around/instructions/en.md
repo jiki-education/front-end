@@ -14,3 +14,5 @@ Well, this is your opportunity to fix that!
 Create a new function called `turnAround` at the top of your code. It has no inputs and doesn't return anything. It should simply call `turnLeft()` twice.
 
 Then use that function in the solution in the final else statement.
+
+Try and ensure your whole final program is 17 lines of code.

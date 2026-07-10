@@ -1,5 +1,17 @@
 # JavaScript Interpreter Evolution
 
+## 2026-07-10: Loose equality (`==`/`!=`) rejected at parse time, with distinct messages
+
+Rejecting `==`/`!=` when `enforceStrictEquality` is on (the default) moved from a **runtime** check in `executeBinaryExpression` to a **parse-time** check in `parser.ts` (`equality()`). Rationale:
+
+- The feature is "this syntax is disabled in Jiki", not a runtime condition. As a runtime error, `==` inside a branch that never executed produced no error at all. As a `SyntaxError` it is flagged regardless of whether the expression would run.
+- Syntax errors already flow through the app's `handleSyntaxError`, so the offending operator gets a red underline and the line gets `cm-highlightedLine--error` for free — runtime error frames never got that treatment.
+
+Two other changes went with it:
+
+- **`==` and `!=` now use distinct error keys** — `StrictEqualityRequired` (change `==` → `===`) and the new `StrictInequalityRequired` (change `!=` → `!==`), each with its own `en` + `system` copy. Previously both shared one message that always talked about `==`. The keys moved from `error.runtime.*` to `error.syntax.*`, and were removed from `RuntimeErrorType`. The error location is the operator token only, not the whole binary expression.
+- **App side (`store.ts` `setCurrentFrame`):** runtime **error frames** now set `highlightedLineColor = ERROR_HIGHLIGHT_COLOR` (so the line gets `cm-highlightedLine--error`) while success frames reset to `INFO_HIGHLIGHT_COLOR`. Runtime error frames deliberately do **not** set an `underlineRange` — only syntax errors underline a specific location.
+
 ## 2026-07-07: Error-message i18n overhaul — all student-facing English moved to translation JSON
 
 A wide pass over the JS interpreter's runtime/parser errors to fix a structural problem: much of the English students saw was either built in code (pluralisation, articles, "no"/"an") or hardcoded as raw `system`-format strings passed straight through `executor.error(..., { message: "..." })`, bypassing i18n entirely. The end state: **every student-facing string is rendered from `en/translation.json`; code passes only structured context.**

@@ -1,5 +1,5 @@
-function walk with steps do
-  repeat steps times do
+function walk with numSteps do
+  repeat numSteps times do
     move()
   end
 end

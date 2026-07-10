@@ -7,27 +7,47 @@ import { useStore } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { useShallow } from "zustand/react/shallow";
 import { createStore, type StoreApi } from "zustand/vanilla";
+import { ERROR_HIGHLIGHT_COLOR, INFO_HIGHLIGHT_COLOR } from "../../ui/codemirror/extensions/lineHighlighter";
 import { processMessageContent } from "../../ui/messageUtils";
 import { loadCodeMirrorContent } from "../localStorage";
 import type { TestResult, TestSuiteResult } from "../test-results-types";
 import type { ExerciseContext, OrchestratorState, OrchestratorStore } from "../types";
+import {
+  bonusScenarioSlugs,
+  countOutstandingBonusTasks,
+  firstFailingBonusScenario,
+  firstOutstandingBonusTaskId
+} from "../bonusScenarios";
 import { BreakpointManager } from "./BreakpointManager";
 import { TimelineManager } from "./TimelineManager";
 
 const ONE_MINUTE = 60 * 1000;
 
-export function getTestToInspect(tests: TestResult[], currentTest: TestResult | null): TestResult {
+// `excludeSlugs` narrows the pool of scenarios eligible for auto-selection. It's
+// used at the completion moment to keep the celebratory spotlight off outstanding
+// bonus scenarios (which are still failing) - we want to land on a passing
+// required scenario instead. When the student is later working on a bonus, no
+// exclusion is passed, so the failing bonus they're on is selected as normal.
+export function getTestToInspect(
+  tests: TestResult[],
+  currentTest: TestResult | null,
+  excludeSlugs?: Set<string>
+): TestResult {
+  const pool = excludeSlugs && excludeSlugs.size > 0 ? tests.filter((t) => !excludeSlugs.has(t.slug)) : tests;
+  // Fall back to the full suite if exclusion emptied the pool (e.g. all bonus).
+  const eligible = pool.length > 0 ? pool : tests;
+
   if (currentTest) {
-    const updatedCurrent = tests.find((t) => t.slug === currentTest.slug);
+    const updatedCurrent = eligible.find((t) => t.slug === currentTest.slug);
     if (updatedCurrent && updatedCurrent.status === "fail") {
       return updatedCurrent;
     }
   }
 
-  const firstFailing = tests.find((t) => t.status === "fail");
+  const firstFailing = eligible.find((t) => t.status === "fail");
   if (firstFailing) return firstFailing;
 
-  return tests[tests.length - 1];
+  return eligible[eligible.length - 1];
 }
 
 // The spotlight dims the page around the exercise and is only ever cleared when
@@ -62,11 +82,31 @@ export function createOrchestratorStore(
         if (!state.testSuiteResult?.passed || state.wasSuccessModalShown || state.isExerciseCompleted) {
           return;
         }
+
+        // Bonus tasks are optional, so completion can be reached with them still
+        // outstanding. Surface how many remain so the modal can nudge toward them.
+        const result = state.testSuiteResult;
+        const outstandingBonusCount = countOutstandingBonusTasks(exercise, result);
+        const firstBonusTaskId = firstOutstandingBonusTaskId(exercise, result);
+        const firstFailingBonusTest = firstFailingBonusScenario(exercise, result);
+
         showModal("exercise-completion-modal", {
           exerciseTitle: state.exerciseTitle,
           exerciseSlug: state.exerciseSlug,
           isProject: state.context.type === "project",
           initialStep: "success",
+          outstandingBonusCount,
+          onSolveBonuses: () => {
+            // The modal is closed by the modal hook; here we focus the first
+            // outstanding bonus task and shift the scenario view to its first
+            // failing scenario so the student lands on the bonus to tackle.
+            if (firstBonusTaskId) {
+              get().setCurrentTaskId(firstBonusTaskId);
+            }
+            if (firstFailingBonusTest) {
+              get().setCurrentTest(firstFailingBonusTest);
+            }
+          },
           onGoToDashboard,
           onCompleteExercise: async () => {
             try {
@@ -355,9 +395,16 @@ export function createOrchestratorStore(
           const rawContent = frame.status === "SUCCESS" ? frame.generateDescription() : (frame.error?.message ?? "");
           const infoWidgetHtml = processMessageContent(rawContent);
 
+          // Runtime error frames highlight the line in red (cm-highlightedLine--error);
+          // success frames use the default info styling. Unlike syntax errors, runtime
+          // error frames do NOT underline a specific location.
+          const isError = frame.status === "ERROR";
+
           set({
             currentFrame: frame,
             highlightedLine: frame.line,
+            highlightedLineColor: isError ? ERROR_HIGHLIGHT_COLOR : INFO_HIGHLIGHT_COLOR,
+            underlineRange: undefined,
             // Update information widget data whenever frame changes
             informationWidgetData: {
               html: infoWidgetHtml,
@@ -412,8 +459,18 @@ export function createOrchestratorStore(
 
           // Select the best test to inspect: stay on current if still failing,
           // otherwise first failing, otherwise last test (all pass).
+          //
+          // At the completion moment (required scenarios pass, exercise not yet
+          // completed) a still-failing bonus scenario would otherwise be picked
+          // as the "first failing" test and get the celebratory spotlight. Exclude
+          // bonus scenarios from the selection so we land on a passing required
+          // one. Once the exercise is completed and the student is working on the
+          // bonus, no exclusion applies, so the bonus they're on is selected.
+          const excludeSlugs = result?.passed && !state.isExerciseCompleted ? bonusScenarioSlugs(exercise) : undefined;
           const testToInspect =
-            result && result.tests.length > 0 ? getTestToInspect(result.tests, state.currentTest) : undefined;
+            result && result.tests.length > 0
+              ? getTestToInspect(result.tests, state.currentTest, excludeSlugs)
+              : undefined;
 
           // Set the test suite result and reset things.
           set({

@@ -621,6 +621,19 @@ export class Parser {
       this.checkNodeAllowed("BinaryExpression", "BinaryExpressionNotAllowed", this.previous().location);
 
       const operator = this.previous();
+
+      // Loose equality is disabled by default in Jiki. Reject `==`/`!=` at parse time
+      // (rather than at execution) so the offending operator is flagged regardless of
+      // whether the expression would actually run.
+      if (this.languageFeatures.enforceStrictEquality ?? true) {
+        if (operator.type === "EQUAL_EQUAL") {
+          this.error("StrictEqualityRequired", operator.location);
+        }
+        if (operator.type === "NOT_EQUAL") {
+          this.error("StrictInequalityRequired", operator.location);
+        }
+      }
+
       const right = this.comparison();
       expr = new BinaryExpression(expr, operator, right, Location.between(expr, right));
     }

@@ -1,5 +1,6 @@
 import { assembleClassNames } from "@/lib/assemble-classnames";
 import type { IOExerciseDefinition } from "@jiki/curriculum";
+import { formatIdentifier } from "@jiki/interpreters/shared";
 import { useMemo } from "react";
 import styles from "../../../CodingExercise.module.css";
 import { useOrchestratorStore } from "../../../lib/Orchestrator";
@@ -8,6 +9,7 @@ import type { IOTestExpect } from "../../../lib/test-results-types";
 import { IOTestResultView } from "../IOTestResultView";
 import { HighlightedCode } from "../HighlightedCode";
 import { ScenarioHeader } from "../ScenarioHeader";
+import Scrubber from "../../scrubber/Scrubber";
 import CheckCircleIcon from "@/icons/check-circle.svg";
 import CrossCircleIcon from "@/icons/cross-circle.svg";
 import ExclamationCircleIcon from "@/icons/exclamation-circle.svg";
@@ -31,7 +33,7 @@ function IOInspectedPreviewView() {
   const scenario = exercise.scenarios[currentTestIdx];
 
   const argsStr = scenario.args.map((arg) => JSON.stringify(arg)).join(", ");
-  const codeRun = `${scenario.functionName}(${argsStr})`;
+  const codeRun = `${formatIdentifier(scenario.functionName, language)}(${argsStr})`;
   const expectedStr = JSON.stringify(scenario.expected);
 
   return (
@@ -65,6 +67,7 @@ function IOInspectedPreviewView() {
           </table>
         </div>
       </div>
+      <Scrubber />
     </div>
   );
 }
@@ -118,6 +121,7 @@ function IOInspectedResultView() {
         />
         {firstExpect ? <IOTestResultView expect={firstExpect} language={language} /> : null}
       </div>
+      <Scrubber />
     </div>
   );
 }

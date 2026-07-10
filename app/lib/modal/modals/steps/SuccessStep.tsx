@@ -8,16 +8,18 @@ import checkmarkAnimationData from "@/public/static/animations/checkmark.json";
 interface SuccessStepProps {
   onCompleteExercise: () => void;
   isProject?: boolean;
+  outstandingBonusCount?: number;
 }
 
-export function SuccessStep({ onCompleteExercise, isProject = false }: SuccessStepProps) {
+export function SuccessStep({ onCompleteExercise, isProject = false, outstandingBonusCount = 0 }: SuccessStepProps) {
   const t = useTranslations("modals.exerciseCompletion.success");
+  const hasOutstandingBonuses = outstandingBonusCount > 0;
   return (
     <>
       <div className={styles.modalCheckmark}>
         <Lottie animationData={checkmarkAnimationData} play loop={false} style={{ height: 144, width: 144 }} />
       </div>
-      <h2 className={styles.modalTitle}>{t("title")}</h2>
+      <h2 className={styles.modalTitle}>{hasOutstandingBonuses ? t("titleBonus") : t("title")}</h2>
       <p className={styles.modalMessage}>{isProject ? t("messageProject") : t("messageExercise")}</p>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>

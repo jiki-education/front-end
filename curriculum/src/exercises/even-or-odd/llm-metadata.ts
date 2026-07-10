@@ -9,8 +9,9 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise lets a student explore the remainder operator (%) and a simple
-    conditional return: decide whether a number is "Even" or "Odd".
+    Task progression: task 1 gets the whole function working (even/odd/zero
+    all pass at once — there is no partial-credit chunking here). The bonus
+    re-runs the same logic under a line-count limit.
   `,
 
   tasks: {

@@ -3,6 +3,8 @@
     "syntax": {
       "InvalidAssignmentTargetExpression": "InvalidAssignmentTargetExpression",
       "AssignmentInExpression": "AssignmentInExpression",
+      "StrictEqualityRequired": "StrictEqualityRequired",
+      "StrictInequalityRequired": "StrictInequalityRequired",
       "MissingBacktickToTerminateTemplateLiteral": "MissingBacktickToTerminateTemplateLiteral",
       "MissingDoubleQuoteToTerminateString": "Did you forget to add end quote? Maybe you meant to write:\n\n```\"{{string}}\"```",
       "MissingExpression": "MissingExpression",
@@ -114,7 +116,6 @@
       "FunctionAlreadyDefined": "FunctionAlreadyDefined: name: {{name}}",
       "TypeCoercionNotAllowed": "TypeCoercionNotAllowed: leftType: {{leftType}}: rightType: {{rightType}}: operator: {{operator}}",
       "UnaryTypeCoercionNotAllowed": "UnaryTypeCoercionNotAllowed: operand: {{operand}}: operator: {{operator}}",
-      "StrictEqualityRequired": "StrictEqualityRequired: operator: {{operator}}",
       "ComparisonRequiresNumber": "ComparisonRequiresNumber: operator: {{operator}}",
       "NodeNotAllowed": "NodeNotAllowed: nodeType: {{nodeType}}",
       "InvalidNumberOfArguments": "InvalidNumberOfArguments: function: {{function}}: expected: {{expected}}: got: {{got}}",

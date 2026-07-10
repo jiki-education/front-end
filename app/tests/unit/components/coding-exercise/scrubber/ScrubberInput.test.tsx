@@ -126,7 +126,7 @@ describe("ScrubberInput Component", () => {
       expect(slider).toHaveAttribute("aria-valuenow", "2500");
     });
 
-    it("should handle null animationTimeline", () => {
+    it("should fall back to the last frame's time when there is no animationTimeline (IO tests)", () => {
       const mockOrchestrator = createMockOrchestrator();
 
       render(
@@ -136,7 +136,9 @@ describe("ScrubberInput Component", () => {
       );
 
       const slider = screen.getByRole("slider");
-      expect(slider).toHaveAttribute("aria-valuemax", "0"); // Default duration of 0
+      // IO tests have no animationTimeline, so the range spans up to the last frame's time.
+      // createMockFrames(3) => frames at 0, 100000, 200000 microseconds.
+      expect(slider).toHaveAttribute("aria-valuemax", "200000");
     });
 
     it("should use animation timeline duration directly in microseconds without scaling", () => {
@@ -234,6 +236,45 @@ describe("ScrubberInput Component", () => {
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledTimes(1);
       // With 60% position on a 500000 microsecond timeline, should be around 300000
       expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledWith(300000, "nearest");
+    });
+
+    it("should surface the information widget when dragging, matching the stepper buttons", () => {
+      const mockOrchestrator = createMockOrchestrator();
+      const mockTimeline = createMockAnimationTimeline({ duration: 500000 });
+
+      const TestWrapper = () => {
+        const ref = React.useRef<HTMLDivElement>(null);
+        return (
+          <OrchestratorTestProvider orchestrator={mockOrchestrator}>
+            <ScrubberInput
+              ref={ref}
+              frames={createMockFrames(5)}
+              animationTimeline={mockTimeline}
+              time={0}
+              enabled={true}
+            />
+          </OrchestratorTestProvider>
+        );
+      };
+
+      render(<TestWrapper />);
+
+      const slider = screen.getByRole("slider");
+      slider.getBoundingClientRect = jest.fn(() => ({
+        left: 0,
+        width: 100,
+        top: 0,
+        height: 20,
+        right: 100,
+        bottom: 20,
+        x: 0,
+        y: 0,
+        toJSON: () => {}
+      }));
+
+      fireEvent.mouseDown(slider, { clientX: 60 });
+
+      expect(mockOrchestrator.showInformationWidget).toHaveBeenCalledTimes(1);
     });
 
     it("should handle multiple mouse interactions", () => {

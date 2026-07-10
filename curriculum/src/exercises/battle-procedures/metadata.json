@@ -16,7 +16,7 @@
     },
     {
       "question": "How do I keep track of where the cannon is and which way it is going?",
-      "answer": "Use two variables that you update each iteration. For example, a `position` variable that goes up or down, and a `direction` variable that is `1` or `-1` and flips when you hit an edge."
+      "answer": "Use two variables that you update each iteration. For example, a `position` variable that goes up or down, and a `direction` variable that is `\"right\"` or `\"left\"` and flips when you hit an edge."
     }
   ]
 }

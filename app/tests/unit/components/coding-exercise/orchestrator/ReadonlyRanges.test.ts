@@ -56,13 +56,16 @@ describe("Orchestrator.getStoredOrDefaultReadonlyRanges", () => {
     expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual(defaults);
   });
 
-  it("returns exercise defaults when localStorage entry has no readonlyRanges field", () => {
+  it("returns no locks (not defaults) when a stored snapshot has no readonlyRanges field", () => {
+    // A saved snapshot exists, so its code may be student-edited. Applying the
+    // stub-relative exercise defaults here could lock lines the student wrote,
+    // so we fall back to no locks rather than guessing.
     const defaults: ReadonlyRange[] = [{ fromLine: 3, toLine: 3 }];
     mockStored({ readonlyRanges: undefined });
 
     const orchestrator = makeOrchestrator(defaults);
 
-    expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual(defaults);
+    expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual([]);
   });
 
   it("returns empty array when neither localStorage nor exercise provide ranges", () => {
@@ -82,67 +85,69 @@ describe("Orchestrator.getStoredOrDefaultReadonlyRanges", () => {
     expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual(stored);
   });
 
-  describe("malformed input falls back to exercise defaults", () => {
+  describe("malformed input in a stored snapshot falls back to no locks", () => {
+    // A snapshot exists (student may have edited), so a corrupt/older-version
+    // ranges payload must not resurrect the stub-relative exercise defaults.
     const defaults: ReadonlyRange[] = [{ fromLine: 3, toLine: 3 }];
 
     it("rejects non-array readonlyRanges value", () => {
       mockStored({ readonlyRanges: "not-an-array" });
       const orchestrator = makeOrchestrator(defaults);
-      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual(defaults);
+      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual([]);
     });
 
     it("rejects array entries that are not objects", () => {
       mockStored({ readonlyRanges: [null, 42, "x"] });
       const orchestrator = makeOrchestrator(defaults);
-      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual(defaults);
+      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual([]);
     });
 
     it("rejects entries missing fromLine", () => {
       mockStored({ readonlyRanges: [{ toLine: 5 }] });
       const orchestrator = makeOrchestrator(defaults);
-      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual(defaults);
+      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual([]);
     });
 
     it("rejects entries missing toLine", () => {
       mockStored({ readonlyRanges: [{ fromLine: 5 }] });
       const orchestrator = makeOrchestrator(defaults);
-      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual(defaults);
+      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual([]);
     });
 
     it("rejects non-integer fromLine", () => {
       mockStored({ readonlyRanges: [{ fromLine: 1.5, toLine: 2 }] });
       const orchestrator = makeOrchestrator(defaults);
-      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual(defaults);
+      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual([]);
     });
 
     it("rejects fromLine less than 1", () => {
       mockStored({ readonlyRanges: [{ fromLine: 0, toLine: 2 }] });
       const orchestrator = makeOrchestrator(defaults);
-      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual(defaults);
+      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual([]);
     });
 
     it("rejects toLine smaller than fromLine", () => {
       mockStored({ readonlyRanges: [{ fromLine: 5, toLine: 3 }] });
       const orchestrator = makeOrchestrator(defaults);
-      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual(defaults);
+      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual([]);
     });
 
     it("rejects string-typed line numbers", () => {
       mockStored({ readonlyRanges: [{ fromLine: "5", toLine: "5" }] });
       const orchestrator = makeOrchestrator(defaults);
-      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual(defaults);
+      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual([]);
     });
 
     it("rejects negative fromChar", () => {
       mockStored({ readonlyRanges: [{ fromLine: 2, toLine: 2, fromChar: -1 }] });
       const orchestrator = makeOrchestrator(defaults);
-      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual(defaults);
+      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual([]);
     });
 
     it("rejects non-integer toChar", () => {
       mockStored({ readonlyRanges: [{ fromLine: 2, toLine: 2, toChar: 1.5 }] });
       const orchestrator = makeOrchestrator(defaults);
-      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual(defaults);
+      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual([]);
     });
 
     it("rejects the whole array if even one entry is malformed", () => {
@@ -150,7 +155,7 @@ describe("Orchestrator.getStoredOrDefaultReadonlyRanges", () => {
       const invalid = { fromLine: 5 };
       mockStored({ readonlyRanges: [valid, invalid] });
       const orchestrator = makeOrchestrator(defaults);
-      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual(defaults);
+      expect(orchestrator.getStoredOrDefaultReadonlyRanges()).toEqual([]);
     });
   });
 });

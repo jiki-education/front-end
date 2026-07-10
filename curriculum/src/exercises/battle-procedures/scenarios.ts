@@ -23,9 +23,9 @@ export const scenarios: VisualScenario[] = [
     setup(exercise) {
       const ex = exercise as BattleProceduresExercise;
       ex.setupAliens([
-        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
+        [0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0],
+        [0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+        [0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0]
       ]);
       ex.enableAlienRespawning();
     },
@@ -44,7 +44,11 @@ export const scenarios: VisualScenario[] = [
     codeChecks: [
       {
         pass: (result) => result.assertors.assertFunctionDefined("shoot_if_alien_above"),
-        errorHtml: "You should define a <code>shootIfAlienAbove</code> function and use it in your solution."
+        errorHtml: "You need to define a <code>shootIfAlienAbove</code> function."
+      },
+      {
+        pass: (result) => result.assertors.assertFunctionCalledOutsideOwnDefinition("shoot_if_alien_above"),
+        errorHtml: "You've defined <code>shootIfAlienAbove</code>, but you need to actually call it in your solution."
       }
     ]
   }

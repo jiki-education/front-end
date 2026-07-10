@@ -3,11 +3,15 @@ title: "Look Around"
 description: "Build the functions that check what's around you in the maze."
 ---
 
-Last time you added a new function to help navigate the maze: `turnAround()`.
+Last time you added a new function to help navigate the maze: `turnAround()`. We've got your code on the left for you to continue working on.
 
-Now it's time to implement some of the functions that already existed! We've taken away the `canTurnLeft()`, `canTurnRight()` and `canMove()` functions, and your job is to add them back!
+This time we've removed three of the functions you were previously relying on. Your job in this exercise is to implement them yourself!
 
-None of the functions have any inputs and all should return a boolean specifying whether it's possible to move in that direction.
+### The functions you need to write
+
+The three functions you need to create are `canTurnLeft()`, `canTurnRight()` and `canMove()`.
+
+None of the functions have any inputs. All should return a boolean specifying whether it's possible to move in that direction.
 
 To help you, we've added a new `look(direction)` function. This function takes one input - a direction that can be `"left"`, `"right"`, or `"ahead"`. It returns one of:
 
@@ -18,8 +22,10 @@ To help you, we've added a new `look(direction)` function. This function takes o
 - `"poop"` (Ewww)
 - `"wall"` (Ouch!)
 
-You shouldn't need to change any of the existing code for this exercise. Instead add the three functions to the top of the code.
+### Notes to help you
 
-A best practice in an exercise like this is to start by creating the functions that the code needs to run (i.e. `canTurnLeft()`, `canTurnRight()` and `canMove()`). Set their return values to be some sensible default (either `true` or `false` in this case).
+Here are three notes to help you.
 
-You can then implement the logic of each function and make some progress each time, rather than just consistently getting an error that a function doesn't exist until you've written the whole program.
+1. A best practice in an exercise like this is to **start by creating the functions** that the code needs to run (i.e. `canTurnLeft()`, `canTurnRight()` and `canMove()`). Set their return values to be some sensible default (either `true` or `false` in this case). You can then implement the logic of each function and make some progress each time, rather than just consistently getting an error that a function doesn't exist until you've written the whole program.
+2. **You shouldn't need to change any of your existing code** for this exercise. Instead add the three functions to the top of the code.
+3. You can write **more functions** than just the ones required if it helps you.

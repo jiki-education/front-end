@@ -9,20 +9,17 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches students to define functions with parameters. Students create a walk(steps)
-    function that uses a repeat loop with the steps parameter to call move() multiple times. This builds
-    on the previous exercise (maze-turn-around) where they defined a parameterless function, now adding
-    the concept of inputs to functions.
+    Objective: define a function that takes an input and uses it as a loop count. This is the student's
+    first function-with-a-parameter, following maze-turn-around (a parameterless function).
   `,
 
   tasks: {
     "write-walk": {
       description: `
-        Students define a walk function that takes a steps parameter and uses a loop to move that many
-        times. The key concept is using the parameter inside the function body as the loop count.
-        The navigation code (walk/turn calls) is already provided — students only write the function.
-        Common mistakes: forgetting the parameter name, not using repeat with the parameter, or
-        trying to call walk() without defining it first.
+        Only the body of walk(numSteps) is editable — the signature, the closing brace, and the
+        navigation calls (walk/turnLeft/turnRight) are locked, so the student's whole job is filling in
+        the body. Watch for: using the numSteps parameter as the repeat count (not a hard-coded number),
+        and not shadowing/renaming the parameter.
       `
     }
   }

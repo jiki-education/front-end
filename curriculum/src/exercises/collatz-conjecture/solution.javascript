@@ -1,8 +1,8 @@
 function collatzSteps(number) {
-  let i = 0
+  let idx = 0
   repeat() {
     if (number === 1) {
-      return i
+      return idx
     }
 
     if (number % 2 === 0) {
@@ -10,6 +10,6 @@ function collatzSteps(number) {
     } else {
       number = (number * 3) + 1
     }
-    i = i + 1
+    idx = idx + 1
   }
 }

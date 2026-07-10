@@ -70,7 +70,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "year-1800",
     name: "Year 1800",
-    description: "1800 is divisible by 200 but not by 400 so is not a leap year.",
+    description: "1800 is divisible by 100 but not by 400 so is not a leap year.",
     taskId: "determine-leap-year",
     functionName: "is_leap_year",
     args: [1800],
@@ -106,7 +106,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "year-1960",
     name: "Year 1960",
-    description: "1960 is divisible by 4 so is a leap year.",
+    description: "1960 is divisible by 4 but not by 100 so is a leap year.",
     taskId: "determine-leap-year",
     functionName: "is_leap_year",
     args: [1960],

@@ -13,7 +13,10 @@ export function IOTestResultView({ expect, language }: IOTestResultViewProps) {
   if (expect.errorHtml) {
     return (
       <div className={tableStyles.wrapper}>
-        <div className="p-2 text-sm text-red-700" dangerouslySetInnerHTML={{ __html: expect.errorHtml }} />
+        <div
+          className="py-12 px-16 text-15 leading-150 text-red-700"
+          dangerouslySetInnerHTML={{ __html: expect.errorHtml }}
+        />
       </div>
     );
   }

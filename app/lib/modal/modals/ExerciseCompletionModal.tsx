@@ -11,6 +11,8 @@ import { ProjectUnlockedStep } from "./steps/ProjectUnlockedStep";
 
 interface ExerciseCompletionModalProps {
   onTidyCode?: () => void;
+  onSolveBonuses?: () => void;
+  outstandingBonusCount?: number;
   onCompleteExercise?: () => Promise<CompletionResponseData[]>;
   onGoToDashboard?: () => void;
   exerciseTitle?: string;
@@ -27,6 +29,8 @@ interface ExerciseCompletionModalProps {
 
 export function ExerciseCompletionModal({
   onTidyCode,
+  onSolveBonuses,
+  outstandingBonusCount = 0,
   onCompleteExercise,
   onGoToDashboard,
   exerciseTitle = "Navigate the Maze",
@@ -46,6 +50,8 @@ export function ExerciseCompletionModal({
     handlers
   } = useExerciseCompletionModal({
     onTidyCode,
+    onSolveBonuses,
+    outstandingBonusCount,
     onCompleteExercise,
     onGoToDashboard,
     exerciseTitle,
@@ -83,13 +89,21 @@ export function ExerciseCompletionModal({
           exerciseTitle={exerciseTitle}
           exerciseSlug={exerciseSlug}
           isProject={isProject}
+          outstandingBonusCount={outstandingBonusCount}
           onContinue={handlers.handleContinue}
           onTidyCode={handlers.handleTidyCode}
+          onSolveBonuses={handlers.handleSolveBonuses}
         />
       );
 
     case "success":
     default:
-      return <SuccessStep onCompleteExercise={handlers.handleCompleteExercise} isProject={isProject} />;
+      return (
+        <SuccessStep
+          onCompleteExercise={handlers.handleCompleteExercise}
+          isProject={isProject}
+          outstandingBonusCount={outstandingBonusCount}
+        />
+      );
   }
 }

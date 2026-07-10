@@ -9,7 +9,7 @@ export function executeCalleeIdentifierExpression(
   const value = executor.environment.get(expression.name.lexeme);
 
   if (value === undefined) {
-    executor.error("VariableNotDeclared", expression.location, { name: expression.name.lexeme });
+    executor.error("FunctionNotFound", expression.location, { name: expression.name.lexeme });
   }
 
   return {

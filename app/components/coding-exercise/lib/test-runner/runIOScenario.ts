@@ -117,7 +117,7 @@ export function runIOScenario(
 
   // Format function call for display
   const argsStr = scenario.args.map((arg) => JSON.stringify(arg)).join(", ");
-  const codeRun = `${scenario.functionName}(${argsStr})`;
+  const codeRun = `${interpreter.formatIdentifier(scenario.functionName)}(${argsStr})`;
 
   // Determine which error to show:
   // - If functional test failed, show its error

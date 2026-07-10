@@ -193,6 +193,8 @@ export default class MazeExercise extends VisualExercise {
         if (cellValue === 1) cell.classList.add("blocked");
         if (cellValue === 2) cell.classList.add("begin");
         if (cellValue === 3) cell.classList.add("target");
+        if (cellValue === 4) cell.classList.add("fire");
+        if (cellValue === 5) cell.classList.add("poop");
 
         cellsContainer.appendChild(cell);
       }

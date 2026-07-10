@@ -1,5 +1,5 @@
-def walk(steps):
-    repeat(steps):
+def walk(numSteps):
+    repeat(numSteps):
         move()
 
 walk(3)

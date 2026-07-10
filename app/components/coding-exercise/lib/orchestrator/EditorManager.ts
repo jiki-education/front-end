@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { foldEffect, unfoldEffect } from "@codemirror/language";
-import type { Extension, StateEffectType } from "@codemirror/state";
+import type { Extension, StateEffectType, TransactionSpec } from "@codemirror/state";
 import { EditorState } from "@codemirror/state";
 import type { ViewUpdate } from "@codemirror/view";
 import { EditorView } from "@codemirror/view";
@@ -452,22 +452,30 @@ export class EditorManager {
   ) {
     updateUnfoldableFunctions(this.editorView, unfoldableFunctionNames);
 
+    // Apply the doc change and the readonly-ranges effect in a *single*
+    // transaction. Dispatching them separately fires the docChanged update
+    // listener (which autosaves code + the current ranges field) *before* the
+    // ranges effect lands, so the autosave captures a stale/empty ranges field
+    // and overwrites localStorage with mismatched data. Combining them means
+    // the listener sees the final ranges. See resetContent for the caller.
+    const spec: TransactionSpec = {};
     if (code) {
-      this.editorView.dispatch({
-        changes: {
-          from: 0,
-          to: this.editorView.state.doc.length,
-          insert: code
-        }
-      });
+      spec.changes = {
+        from: 0,
+        to: this.editorView.state.doc.length,
+        insert: code
+      };
     }
     if (readonlyRanges) {
-      // Clamp against the document we just set, so ranges that reference lines
-      // beyond the new code don't crash the decoration computation.
-      const safeReadonlyRanges = clampRangesToDoc(readonlyRanges, this.editorView.state.doc);
-      this.editorView.dispatch({
-        effects: updateReadOnlyRangesEffect.of(safeReadonlyRanges)
-      });
+      // Clamp against the document *after* the code change so ranges that
+      // reference lines beyond the new code don't crash decoration computation.
+      const nextDoc = spec.changes
+        ? this.editorView.state.update({ changes: spec.changes }).state.doc
+        : this.editorView.state.doc;
+      spec.effects = updateReadOnlyRangesEffect.of(clampRangesToDoc(readonlyRanges, nextDoc));
+    }
+    if (spec.changes || spec.effects) {
+      this.editorView.dispatch(spec);
     }
   }
 

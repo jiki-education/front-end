@@ -14,8 +14,8 @@ function canMove() {
 }
 
 function turnAround() {
-  turnRight()
-  turnRight()
+  turnLeft()
+  turnLeft()
 }
 
 repeat() {
