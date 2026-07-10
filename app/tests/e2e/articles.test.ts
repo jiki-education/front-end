@@ -4,13 +4,13 @@ test.describe("Articles Page E2E", () => {
   // Warm up the page compilation before running tests in parallel
   test.beforeAll(async ({ browser }) => {
     const page = await browser.newPage();
-    await page.goto("/articles");
+    await page.goto("/help");
     await page.locator("h1").waitFor();
     await page.close();
   });
 
   test.beforeEach(async ({ page }) => {
-    await page.goto("/articles");
+    await page.goto("/help");
     // Wait for articles content to load - look for the h1
     await page.locator("h1").waitFor();
   });
@@ -33,18 +33,18 @@ test.describe("Articles Page E2E", () => {
     expect(firstArticleTitle).toBeTruthy();
 
     // Check first article has excerpt
-    const firstArticleExcerpt = await page.locator('a[href^="/articles/"] p').first().textContent();
+    const firstArticleExcerpt = await page.locator('a[href^="/help/"] p').first().textContent();
     expect(firstArticleExcerpt).toBeTruthy();
   });
 
   test("should display tags for the article", async ({ page }) => {
     // Check for at least one tag span in article cards
-    const tags = await page.locator('a[href^="/articles/"] span').count();
+    const tags = await page.locator('a[href^="/help/"] span').count();
     expect(tags).toBeGreaterThan(0);
   });
 
   test("should have links to individual articles", async ({ page }) => {
-    const articleLink = page.locator('a[href^="/articles/"]').first();
+    const articleLink = page.locator('a[href^="/help/"]').first();
     await expect(articleLink).toBeVisible();
   });
 
@@ -59,12 +59,26 @@ test.describe("Articles Page E2E", () => {
   });
 });
 
+test.describe("Legacy /articles redirects", () => {
+  test("308s /articles to /help", async ({ request }) => {
+    const response = await request.get("/articles", { maxRedirects: 0 });
+    expect(response.status()).toBe(308);
+    expect(new URL(response.headers()["location"], "http://localhost").pathname).toBe("/help");
+  });
+
+  test("308s /articles/:slug to /help/:slug", async ({ request }) => {
+    const response = await request.get("/articles/faqs", { maxRedirects: 0 });
+    expect(response.status()).toBe(308);
+    expect(new URL(response.headers()["location"], "http://localhost").pathname).toBe("/help/faqs");
+  });
+});
+
 test.describe("Article Page E2E", () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to the first article
-    await page.goto("/articles");
-    await page.locator('a[href^="/articles/"]').first().waitFor();
-    await page.locator('a[href^="/articles/"]').first().click();
+    await page.goto("/help");
+    await page.locator('a[href^="/help/"]').first().waitFor();
+    await page.locator('a[href^="/help/"]').first().click();
     await page.locator("h1").waitFor();
   });
 

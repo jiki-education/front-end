@@ -76,8 +76,8 @@ const nextConfig: NextConfig = {
         // when the Projects feature became Challenges. Temporary (307) rather
         // than permanent, since a new article may claim the how-projects-work
         // slug in the future.
-        source: "/articles/how-projects-work",
-        destination: "/articles/how-challenges-work",
+        source: "/help/how-projects-work",
+        destination: "/help/how-challenges-work",
         permanent: false
       }
     ]);

@@ -166,7 +166,7 @@ Custom Worker wrapper (`worker-wrapper.js`) implements Cloudflare Cache API for 
 - **Cached Routes** (unauthenticated only):
   - Landing page (`/`)
   - Blog routes (`/blog`, `/blog/*`, `/[locale]/blog/*`)
-  - Article routes (`/articles/*`, `/[locale]/articles/*`)
+  - Article routes (`/help/*`, `/[locale]/help/*`)
   - Concept routes (`/concepts/*`)
   - Unsubscribe pages (`/unsubscribe/*`)
 - **Static Assets**: `/_next/*` and CSS-referenced `/static/*` are served from

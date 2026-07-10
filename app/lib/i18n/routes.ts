@@ -74,8 +74,9 @@ export function makeRoutes(locale: Locale) {
     testimonials: () => path("/testimonials"),
     blog: () => path("/blog"),
     blogPost: (slug: string) => path(`/blog/${slug}`),
-    articles: () => path("/articles"),
-    article: (slug: string) => path(`/articles/${slug}`),
+    // The Help Center serves article content at /help; the content type stays "articles".
+    articles: () => path("/help"),
+    article: (slug: string) => path(`/help/${slug}`),
     concepts: () => path("/concepts"),
     concept: (slug: string) => path(`/concepts/${slug}`),
 
