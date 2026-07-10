@@ -1,68 +1,72 @@
-.layout {
-  display: flex;
-  gap: 72px;
+.header {
+    margin-bottom: 32px;
+}
+
+.title {
+    font-size: 34px;
+    font-weight: 600;
+    margin-bottom: 13px;
+    color: var(--color-gray-950);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-wrap-style: balance;
+}
+
+.title svg {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    color: var(--color-blue-500);
 }
 
 .titleBadge {
-  display: inline-block;
-  margin-left: 12px;
-  padding: 4px 10px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  background: var(--color-pink-600);
-  color: white;
-  border-radius: 999px;
-  vertical-align: middle;
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    background: var(--color-pink-600);
+    color: white;
+    border-radius: 999px;
+    vertical-align: middle;
+}
+
+.description {
+    font-size: 18px;
+    color: var(--color-gray-600);
+    text-wrap-style: balance;
+}
+
+.layout {
+    display: flex;
+    gap: 72px;
 }
 
 .main {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
+    flex: 1;
+    min-width: 0;
 }
 
 .projectsList {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-
-.sectionDivider {
-  display: block;
-  width: 78px;
-  height: 20px;
-  margin: 40px 0 12px;
-  color: var(--color-pink-500);
-}
-
-.sectionHeading {
-  margin-bottom: 4px;
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--color-gray-900);
-}
-
-.sectionLead {
-  margin-bottom: 16px;
-  font-size: 16px;
-  color: var(--color-gray-600);
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
 }
 
 .sidebar {
-  width: 280px;
-  flex-shrink: 0;
+    width: 300px;
+    flex-shrink: 0;
 }
 
 @media (max-width: 1024px) {
-  .layout {
-    flex-direction: column;
-    gap: 32px;
-  }
+    .layout {
+        flex-direction: column;
+        gap: 32px;
+    }
 
-  .sidebar {
-    width: 100%;
-  }
+    .sidebar {
+        width: 100%;
+    }
 }

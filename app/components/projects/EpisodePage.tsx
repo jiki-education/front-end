@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { ConceptsLayout } from "@/components/concepts";
+import ConceptLayout from "@/components/concepts/ConceptLayout";
 import MarkdownContent from "@/components/content/MarkdownContent";
 import { localePath } from "@/lib/i18n/routes";
 import type { GuideMeta, ProcessedEpisode, ProjectMeta } from "@/lib/content/types";
@@ -17,39 +21,31 @@ export default function EpisodePage({ project, episode, guides, locale }: Episod
   const projectPath = localePath(`/projects/${project.slug}`, locale);
 
   return (
-    <div className={styles.wrapper}>
-      <Link href={projectPath} className={styles.backLink}>
-        ← Back to {project.title}
-      </Link>
+    <ConceptsLayout>
+      <ConceptLayout rightPanel={guides.length > 0 ? <EpisodeGuides guides={guides} locale={locale} /> : undefined}>
+        <Link href={projectPath} className={styles.backLink}>
+          ← Back to {project.title}
+        </Link>
 
-      <div className={styles.layout}>
-        <div className={styles.main}>
-          <h1 className={styles.title}>{episode.title}</h1>
-          <p className={styles.excerpt}>{episode.excerpt}</p>
+        <h1 className={styles.title}>{episode.title}</h1>
+        <p className={styles.excerpt}>{episode.excerpt}</p>
 
-          {episode.summary && <EpisodeSummaryBox summary={episode.summary} />}
+        {episode.summary && <EpisodeSummaryBox summary={episode.summary} />}
 
-          <EpisodeVideo
-            uuid={episode.uuid}
-            projectPath={projectPath}
-            videoProvider={episode.videoProvider}
-            videoKey={episode.videoKey}
-            premium={episode.premium}
-          />
+        <EpisodeVideo
+          uuid={episode.uuid}
+          projectPath={projectPath}
+          videoProvider={episode.videoProvider}
+          videoKey={episode.videoKey}
+          premium={episode.premium}
+        />
 
-          <section className={styles.transcript}>
-            <h2 className={styles.transcriptHeading}>Transcript</h2>
-            <MarkdownContent content={episode.content} variant="base" />
-          </section>
-        </div>
-
-        {guides.length > 0 && (
-          <aside className={styles.sidebar}>
-            <EpisodeGuides guides={guides} locale={locale} />
-          </aside>
-        )}
-      </div>
-    </div>
+        <section className={styles.transcript}>
+          <h2 className={styles.transcriptHeading}>Transcript</h2>
+          <MarkdownContent content={episode.content} variant="base" />
+        </section>
+      </ConceptLayout>
+    </ConceptsLayout>
   );
 }
 

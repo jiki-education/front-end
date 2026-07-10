@@ -1,15 +1,3 @@
-.wrapper {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 32px 48px;
-}
-
-@media (max-width: 640px) {
-    .wrapper {
-        padding: 20px 16px;
-    }
-}
-
 .backLink {
     display: inline-flex;
     align-items: center;
@@ -24,32 +12,6 @@
     text-decoration: underline;
 }
 
-.layout {
-    display: flex;
-    gap: 48px;
-}
-
-.main {
-    flex: 1;
-    min-width: 0;
-}
-
-.sidebar {
-    width: 300px;
-    flex-shrink: 0;
-}
-
-@media (max-width: 1024px) {
-    .layout {
-        flex-direction: column;
-        gap: 32px;
-    }
-
-    .sidebar {
-        width: 100%;
-    }
-}
-
 .title {
     font-size: 32px;
     font-weight: 700;
@@ -61,7 +23,6 @@
     font-size: 18px;
     color: var(--color-gray-600);
     margin-bottom: 24px;
-    max-width: 720px;
 }
 
 .summaryBox {

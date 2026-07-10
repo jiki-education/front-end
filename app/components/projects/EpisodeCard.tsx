@@ -28,8 +28,8 @@ export function EpisodeCard({ project, episode, locale, watchedPercentage }: Epi
         <Image
           src={`/static/images/projects/episodes/${episode.image}`}
           alt=""
-          width={480}
-          height={270}
+          width={240}
+          height={135}
           className={styles.cardImage}
         />
         {showAsPremium && (
@@ -44,8 +44,10 @@ export function EpisodeCard({ project, episode, locale, watchedPercentage }: Epi
           </div>
         )}
       </div>
-      <h2 className={styles.cardTitle}>{episode.title}</h2>
-      <p className={styles.cardExcerpt}>{episode.excerpt}</p>
+      <div className={styles.cardBody}>
+        <h2 className={styles.cardTitle}>{episode.title}</h2>
+        <p className={styles.cardExcerpt}>{episode.excerpt}</p>
+      </div>
     </>
   );
 
