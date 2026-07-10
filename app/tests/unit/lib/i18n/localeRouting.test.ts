@@ -144,43 +144,6 @@ describe("resolveLocaleRouting", () => {
     });
   });
 
-  describe("moved sections (308 to the new base)", () => {
-    it("redirects the naked legacy articles URLs to /help", () => {
-      expect(resolveLocaleRouting("/articles")).toEqual({ action: "redirect", target: "/help" });
-      expect(resolveLocaleRouting("/articles/my-article")).toEqual({ action: "redirect", target: "/help/my-article" });
-    });
-
-    it("redirects default-locale-prefixed legacy URLs straight to the naked new URL (single hop)", () => {
-      expect(resolveLocaleRouting("/en/articles")).toEqual({ action: "redirect", target: "/help" });
-      expect(resolveLocaleRouting("/en/articles/my-article")).toEqual({
-        action: "redirect",
-        target: "/help/my-article"
-      });
-    });
-
-    it("redirects non-default-locale legacy URLs keeping the locale prefix", () => {
-      expect(resolveLocaleRouting("/hu/articles/my-article")).toEqual({
-        action: "redirect",
-        target: "/hu/help/my-article"
-      });
-    });
-
-    it("redirects a miscased locale on a legacy URL straight to the final URL (single hop)", () => {
-      expect(resolveLocaleRouting("/EN/articles/my-article")).toEqual({
-        action: "redirect",
-        target: "/help/my-article"
-      });
-      expect(resolveLocaleRouting("/Hu/articles/my-article")).toEqual({
-        action: "redirect",
-        target: "/hu/help/my-article"
-      });
-    });
-
-    it("leaves lookalike paths alone", () => {
-      expect(resolveLocaleRouting("/articles-archive")).toEqual({ action: "none" });
-    });
-  });
-
   describe("non-localizable paths (untouched)", () => {
     it("leaves app routes alone", () => {
       expect(resolveLocaleRouting("/dashboard")).toEqual({ action: "none" });

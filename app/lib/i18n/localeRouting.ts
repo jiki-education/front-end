@@ -19,26 +19,6 @@ export type LocaleRouting =
   | { action: "redirect"; target: string }
   | { action: "none" };
 
-// Old section URLs that permanently moved: any request whose (locale-stripped)
-// base matches a key is 308'd to the same path under the new base, preserving
-// locale prefix, sub-path, and query string.
-const LEGACY_BASE_MOVES: Record<string, string> = {
-  "/articles": "/help"
-};
-
-function applyLegacyBaseMove(pathname: string): string | undefined {
-  const segments = pathname.split("/");
-  const localePrefix = isSupportedLocale(segments[1]) ? `/${segments[1]}` : "";
-  const base = localePrefix ? `/${segments.slice(2).join("/")}` : pathname;
-
-  for (const [oldBase, newBase] of Object.entries(LEGACY_BASE_MOVES)) {
-    if (base === oldBase || base.startsWith(`${oldBase}/`)) {
-      return `${localePrefix}${newBase}${base.slice(oldBase.length)}`;
-    }
-  }
-  return undefined;
-}
-
 /**
  * Decide how middleware should route a request so that a single `[locale]` tree
  * can serve both the naked (default-locale) URL and the prefixed non-default ones,
@@ -48,15 +28,6 @@ function applyLegacyBaseMove(pathname: string): string | undefined {
 export function resolveLocaleRouting(pathname: string): LocaleRouting {
   const segments = pathname.split("/");
   const first = segments[1];
-
-  // A moved section (e.g. /articles -> /help) 308s to its new home. Resolving the
-  // moved path again collapses double hops (e.g. /en/articles/x goes straight to
-  // /help/x, not via /en/help/x).
-  const moved = applyLegacyBaseMove(pathname);
-  if (moved != null) {
-    const rerouted = resolveLocaleRouting(moved);
-    return { action: "redirect", target: rerouted.action === "redirect" ? rerouted.target : moved };
-  }
 
   // A miscased locale segment (/HU, /pt-br) is not a page of its own: 308 it to
   // its canonical form so mistyped inbound links neither 404 nor mint duplicate

@@ -72,6 +72,14 @@ const nextConfig: NextConfig = {
         permanent: false
       },
       {
+        // The Help Center used to live at /articles. :path* also matches zero
+        // segments, so this covers the index too. Only naked paths need
+        // handling: no non-default locale was live before the move.
+        source: "/articles/:path*",
+        destination: "/help/:path*",
+        permanent: true
+      },
+      {
         // The "how-projects-work" article was renamed to "how-challenges-work"
         // when the Projects feature became Challenges. Temporary (307) rather
         // than permanent, since a new article may claim the how-projects-work
