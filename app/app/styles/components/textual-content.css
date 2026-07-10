@@ -510,6 +510,10 @@ pre .hljs-title,
 pre .hljs-title.class_,
 pre .hljs-title.function_ {
     color: rgb(184, 0, 255);
+    font-weight: 600;
+}
+.hljs-title {
+    font-weight: 600;
 }
 pre .hljs-attr,
 pre .hljs-attribute,
