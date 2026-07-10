@@ -102,6 +102,7 @@ export interface GuideMeta {
   };
   coverImage: string;
   premium: boolean;
+  order: number;
   readingTime: number;
   contentHash: string;
   locale: string;

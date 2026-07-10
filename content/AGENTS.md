@@ -161,6 +161,7 @@ See `.context/frontmatter.md` for complete schema reference.
 - It has **no author**.
 - Its `date` is rendered as a **"Last updated"** date, not a creation date.
 - It can be marked **premium**.
+- It has an **`order`** for listing position: guides sort by `order` ascending, then alphabetically by title. Curated introductory guides use low numbers; everything else uses `1000`.
 
 **config.json** for a guide (no `author`, no `featured`, no `listed`):
 
@@ -168,7 +169,8 @@ See `.context/frontmatter.md` for complete schema reference.
 {
   "date": "2026-07-06",
   "coverImage": "/images/guides/using-a-code-editor.webp",
-  "premium": false
+  "premium": false,
+  "order": 1000
 }
 ```
 

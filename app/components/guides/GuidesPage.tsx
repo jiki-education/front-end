@@ -26,7 +26,7 @@ export default function GuidesPage({ locale, tag }: GuidesPageProps) {
         <PageHeader
           label="Guides"
           title="Guides and how-tos"
-          subtitle="Step by step guides to help you set up your tools and get the most out of Jiki."
+          subtitle="Step by step guides to help you learn to code and build like a pro!"
         />
         <GuidesContent guides={guides} locale={locale} selectedTag={validTag} tagSlugs={GUIDE_TAG_SLUGS} />
       </div>

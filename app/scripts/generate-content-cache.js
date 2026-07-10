@@ -775,10 +775,11 @@ function generateContentCache() {
     listed: config.listed
   }));
 
-  // Process guides (cover image like blog posts, premium flag, no author)
+  // Process guides (cover image like blog posts, premium flag, order, no author)
   const guides = processContentDir("guides", ["date", "coverImage", "premium"], (config) => ({
     coverImage: fixCoverImagePath(config.coverImage) || "",
-    premium: Boolean(config.premium)
+    premium: Boolean(config.premium),
+    order: typeof config.order === "number" ? config.order : 1000
   }));
 
   // Process build series + episodes

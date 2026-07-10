@@ -27,6 +27,7 @@
       "getHelp": {
         "heading": "Get Help",
         "helpCenter": "Help Center",
+        "guides": "Jiki Guides",
         "faqs": "FAQs",
         "contactUs": "Contact us",
         "siteStatus": "Site Status"
@@ -56,6 +57,7 @@
         "challenges": "Challenges",
         "concepts": "Concept Library",
         "achievements": "Achievements",
+        "guides": "Guides",
         "settings": "Settings"
       },
       "premiumPill": "Premium",

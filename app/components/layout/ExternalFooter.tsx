@@ -74,6 +74,9 @@ export function ExternalFooter() {
             <Link href={routes.articles()} className={styles.link}>
               {t("getHelp.helpCenter")}
             </Link>
+            <Link href={routes.guides()} className={styles.link}>
+              {t("getHelp.guides")}
+            </Link>
             <Link href={routes.article("faqs")} className={styles.link}>
               {t("getHelp.faqs")}
             </Link>

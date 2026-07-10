@@ -77,6 +77,8 @@ export function makeRoutes(locale: Locale) {
     // The Help Center serves article content at /help; the content type stays "articles".
     articles: () => path("/help"),
     article: (slug: string) => path(`/help/${slug}`),
+    guides: () => path("/guides"),
+    guide: (slug: string) => path(`/guides/${slug}`),
     concepts: () => path("/concepts"),
     concept: (slug: string) => path(`/concepts/${slug}`),
 
