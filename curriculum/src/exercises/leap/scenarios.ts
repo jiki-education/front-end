@@ -106,7 +106,7 @@ export const scenarios: IOScenario[] = [
   {
     slug: "year-1960",
     name: "Year 1960",
-    description: "1960 is divisible by 4 so is a leap year.",
+    description: "1960 is divisible by 4 but not by 100 so is a leap year.",
     taskId: "determine-leap-year",
     functionName: "is_leap_year",
     args: [1960],

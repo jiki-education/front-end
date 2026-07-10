@@ -19,9 +19,12 @@ export const llmMetadata: LLMMetadata = {
       description: `
         The student writes isLeapYear combining the three divisibility checks.
 
-        The precedence trap is the teaching point: the structure is divisible-by-4 AND
-        (not-divisible-by-100 OR divisible-by-400), so the OR must be parenthesised. Watch for
-        students who stop at divisible-by-4, or who invert the 100/400 exception.
+        The canonical form is divisible-by-4 AND (not-divisible-by-100 OR divisible-by-400).
+        Note that the unparenthesised version is ALSO correct: because && binds tighter than ||,
+        it evaluates as (divisible-by-4 AND not-divisible-by-100) OR divisible-by-400, which is an
+        equivalent formulation (divisible-by-400 implies divisible-by-4). Do not tell a student
+        their unparenthesised expression is wrong if it passes. Watch for students who stop at
+        divisible-by-4, or who invert the 100/400 exception.
       `
     },
     "solve-in-one-line": {
