@@ -20,19 +20,6 @@
     color: var(--color-blue-500);
 }
 
-.titleBadge {
-    display: inline-block;
-    padding: 4px 10px;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    background: var(--color-pink-600);
-    color: white;
-    border-radius: 999px;
-    vertical-align: middle;
-}
-
 .description {
     font-size: 18px;
     color: var(--color-gray-600);

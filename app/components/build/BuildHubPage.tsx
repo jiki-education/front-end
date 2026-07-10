@@ -19,7 +19,6 @@ export default function BuildHubPage({ projects, locale }: BuildHubPageProps) {
         <h1 className={styles.title}>
           <LearningComputerIcon />
           Learn to Build
-          <span className={styles.titleBadge}>Launching July 11th</span>
         </h1>
         <p className={styles.description}>Join Jeremy as he builds real projects from scratch, episode by episode.</p>
       </header>
