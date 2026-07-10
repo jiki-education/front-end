@@ -34,6 +34,9 @@ export type SyntaxErrorType =
   | "PermanentlyExcludedToken"
   | "UnknownCharacter"
   | "UnterminatedBlockComment"
+  // Language-feature restrictions
+  | "StrictEqualityRequired"
+  | "StrictInequalityRequired"
   // Node restriction errors
   | "LiteralExpressionNotAllowed"
   | "BinaryExpressionNotAllowed"

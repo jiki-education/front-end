@@ -110,7 +110,6 @@ export type RuntimeErrorType =
   | "TruthinessDisabled"
   | "TypeCoercionNotAllowed"
   | "UnaryTypeCoercionNotAllowed"
-  | "StrictEqualityRequired"
   | "IndexOutOfRange"
   | "TypeError"
   | "ArrayIndexNotNumber"

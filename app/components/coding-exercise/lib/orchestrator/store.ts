@@ -7,6 +7,7 @@ import { useStore } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { useShallow } from "zustand/react/shallow";
 import { createStore, type StoreApi } from "zustand/vanilla";
+import { ERROR_HIGHLIGHT_COLOR, INFO_HIGHLIGHT_COLOR } from "../../ui/codemirror/extensions/lineHighlighter";
 import { processMessageContent } from "../../ui/messageUtils";
 import { loadCodeMirrorContent } from "../localStorage";
 import type { TestResult, TestSuiteResult } from "../test-results-types";
@@ -394,9 +395,16 @@ export function createOrchestratorStore(
           const rawContent = frame.status === "SUCCESS" ? frame.generateDescription() : (frame.error?.message ?? "");
           const infoWidgetHtml = processMessageContent(rawContent);
 
+          // Runtime error frames highlight the line in red (cm-highlightedLine--error);
+          // success frames use the default info styling. Unlike syntax errors, runtime
+          // error frames do NOT underline a specific location.
+          const isError = frame.status === "ERROR";
+
           set({
             currentFrame: frame,
             highlightedLine: frame.line,
+            highlightedLineColor: isError ? ERROR_HIGHLIGHT_COLOR : INFO_HIGHLIGHT_COLOR,
+            underlineRange: undefined,
             // Update information widget data whenever frame changes
             informationWidgetData: {
               html: infoWidgetHtml,

@@ -3,6 +3,8 @@
     "syntax": {
       "InvalidAssignmentTargetExpression": "Invalid assignment target. You can only assign to variables.",
       "AssignmentInExpression": "You probably meant to use `===`, not `=` here in order to compare two values, not update the variable. Assigning variables inside a statement is not allowed in this editor.",
+      "StrictEqualityRequired": "Please change `==` to `===`.\n\nIn full JavaScript, you can use `==` or `===` to see if two things are equal. However, it's generally considered best practice to use `===` so we have disabled `==` in Jiki.",
+      "StrictInequalityRequired": "Please change `!=` to `!==`.\n\nIn full JavaScript, you can use `!=` or `!==` to see if two things are different. However, it's generally considered best practice to use `!==` so we have disabled `!=` in Jiki.",
       "MissingBacktickToTerminateTemplateLiteral": "Missing closing backtick `` ` `` to terminate template literal.",
       "MissingDoubleQuoteToTerminateString": "Did you forget to add end quote? Maybe you meant to write:\n\n```\"{{string}}\"```",
       "MissingExpression": "Jiki didn't understand what to do with {{token}} here.",
@@ -114,7 +116,6 @@
       "FunctionAlreadyDefined": "There is already a function called `{{name}}`. Please choose a different name.",
       "TypeCoercionNotAllowed": "Type coercion is not allowed between {{leftType}} and {{rightType}} with operator `{{operator}}`.",
       "UnaryTypeCoercionNotAllowed": "Type coercion is not allowed: the `{{operator}}` operator can't be applied to a {{operand}}.",
-      "StrictEqualityRequired": "Please change `==` to `===`.\n\nIn full JavaScript, you can use `==` or `===` to see if two things are equal. However, it's generally considered best practice to use `===` so we have disabled `==` in Jiki.",
       "ComparisonRequiresNumber": "The `{{operator}}` operator requires both values to be numbers.",
       "NodeNotAllowed": "{{nodeType}} is not allowed at your current learning level.",
       "InvalidNumberOfArguments_exact": "This function has $t(phrases.slotCount, {\"count\": {{expected}} }) but you provided $t(phrases.inputCount, {\"count\": {{got}} }) for Jiki to use with it.",
