@@ -9,7 +9,7 @@ const functions: FunctionInfo[] = [
     name: "move",
     signature: "move()",
     description:
-      "Moves the character **one step forward** in the current direction. The character will only move if the target position is not blocked by a wall.",
+      "Moves the character **one step forward** in the current direction. Walking into a wall ends your program with an error, so check what's ahead before moving!",
     examples: ["move()"],
     category: "Movement"
   },
@@ -59,7 +59,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["creating-functions", "using-functions", "repeat", "if", "else-if"],
+  conceptSlugs: ["creating-functions", "using-functions", "repeat", "if", "else-if", "else"],
   interpreterOptions: { maxTotalLoopIterations: 50 }
 };
 

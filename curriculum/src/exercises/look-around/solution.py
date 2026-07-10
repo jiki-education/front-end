@@ -12,8 +12,8 @@ def can_move():
     return check_direction("ahead")
 
 def turn_around():
-    turn_right()
-    turn_right()
+    turn_left()
+    turn_left()
 
 repeat():
     if can_turn_left():

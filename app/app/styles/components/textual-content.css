@@ -68,7 +68,7 @@
     }
 
     ol {
-        list-style: auto;
+        list-style: decimal;
         margin-left: 20px;
         margin-bottom: 20px;
     }

@@ -10,10 +10,10 @@ interface LLMMetadata {
 export const llmMetadata: LLMMetadata = {
   description: `
     This exercise has the student extract the "turn left twice" logic from the previous exercise's
-    maze solver into their own turnAround() function. They already know the left-priority solver
-    (if canTurnLeft -> turn left + move, else if canMove -> move, else if canTurnRight -> turn right
-    + move, else -> turn around); the new work is defining turnAround() and calling it in the final
-    else. All three mazes contain dead ends that force that else branch to run.
+    maze solver into their own turnAround() function. The stub is the student's own solver carried
+    forward from maze-automated-solve (via a placeholder), so its exact shape varies per student.
+    Every maze (two in the main task, one in the bonus) contains dead ends that force the final
+    else branch to run.
   `,
 
   tasks: {
@@ -26,6 +26,15 @@ export const llmMetadata: LLMMetadata = {
         be CALLED outside its own definition, so inlining turnLeft() twice fails even though it would
         otherwise solve the maze. Common mistakes: leaving the body empty, adding parameters when none
         are needed, or forgetting to replace the inline turns with the new call.
+      `
+    },
+    "bonus-short-solution": {
+      description: `
+        Same code as the main task, but a code check caps the program at 17 lines. The reference
+        solution is exactly 17: the 15-line solver, plus the 4-line turnAround() function, minus the
+        2 lines saved by replacing the 3-line inline else body (turnLeft/turnLeft/move) with a single
+        turnAround() call. If a student is over the limit, look for leftover inline turns alongside
+        the new function, or an unnecessary move() left in the else block.
       `
     }
   }

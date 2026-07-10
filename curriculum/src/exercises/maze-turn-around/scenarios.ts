@@ -8,8 +8,16 @@ export const tasks = [
     description:
       "Define a turnAround() function at the top of your code that calls turnLeft() twice, then use it in the final else block. Your solver should escape the dead ends in all three mazes.",
     hints: [],
-    requiredScenarios: ["maze-1", "maze-2", "maze-3"],
+    requiredScenarios: ["maze-1", "maze-2"],
     bonus: false
+  },
+  {
+    id: "bonus-short-solution" as const,
+    name: "Bonus: keep it short",
+    description: "Solve a maze with two dead ends, keeping your whole program to 17 lines of code or fewer.",
+    hints: [],
+    requiredScenarios: ["maze-3"],
+    bonus: true
   }
 ] as const satisfies readonly Task[];
 
@@ -102,9 +110,9 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "maze-3",
-    name: "Two dead ends",
-    description: "A corridor with two dead-end spurs, each requiring a turn-around",
-    taskId: "turn-around",
+    name: "Keep it short",
+    description: "Try and ensure your whole final program is 17 lines of code.",
+    taskId: "bonus-short-solution",
 
     setup(exercise) {
       const ex = exercise as MazeTurnAroundExercise;
@@ -134,6 +142,14 @@ export const scenarios: VisualScenario[] = [
       ];
     },
 
-    codeChecks: turnAroundCodeChecks
+    codeChecks: [
+      ...turnAroundCodeChecks,
+      {
+        // The carried-forward solver is 15 lines; adding turnAround() and calling
+        // it in the else block gives 17.
+        pass: (result) => result.assertors.assertMaxLinesOfCode(17),
+        errorHtml: "Your program should be no more than 17 lines of code."
+      }
+    ]
   }
 ];

@@ -12,7 +12,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["creating-functions", "modulo", "if", "creating-functions-with-return-values"],
+  conceptSlugs: ["creating-functions", "modulo", "if", "repeat", "creating-functions-with-return-values"],
   interpreterOptions: { maxTotalLoopIterations: 200 }
 };
 

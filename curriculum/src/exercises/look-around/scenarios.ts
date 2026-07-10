@@ -354,7 +354,14 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "You didn't reach the end of the maze."
         }
       ];
-    }
+    },
+
+    codeChecks: [
+      {
+        pass: (result) => result.assertors.numFunctionCallsInCode("look") === 1,
+        errorHtml: "<code>look()</code> should only appear once in your whole program."
+      }
+    ]
   },
   {
     slug: "bonus-2",
@@ -390,6 +397,15 @@ export const scenarios: VisualScenario[] = [
           errorHtml: "You didn't reach the end of the maze."
         }
       ];
-    }
+    },
+
+    codeChecks: [
+      {
+        // The carried-forward program from maze-turn-around is ~18 lines of code,
+        // so adding 13 gives a maximum of 31.
+        pass: (result) => result.assertors.assertMaxLinesOfCode(31),
+        errorHtml: "You should add no more than 13 lines of code."
+      }
+    ]
   }
 ];
