@@ -196,9 +196,9 @@ jest.mock("../public/icons/house.svg", () => {
   };
 });
 
-jest.mock("../public/icons/projects.svg", () => {
-  return function ProjectsIcon(props) {
-    return React.createElement("div", { ...props, "data-testid": "projects-icon" });
+jest.mock("../public/icons/challenges.svg", () => {
+  return function ChallengesIcon(props) {
+    return React.createElement("div", { ...props, "data-testid": "challenges-icon" });
   };
 });
 

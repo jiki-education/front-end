@@ -26,9 +26,9 @@ export function RHS({ orchestrator }: RHSProps) {
   const [activeTab, setActiveTab] = useState("instructions");
   const router = useRouter();
   const { isExerciseCompleted } = useOrchestratorStore(orchestrator);
-  const isProject = orchestrator.isProject();
-  const navTarget = isProject ? "/projects" : "/dashboard";
-  const navLabel = isProject ? "Projects" : "Dashboard";
+  const isChallenge = orchestrator.isChallenge();
+  const navTarget = isChallenge ? "/challenges" : "/dashboard";
+  const navLabel = isChallenge ? "Challenges" : "Dashboard";
   const logTabDisabled = orchestrator.getExercise().disableLogTab === true;
 
   // Define tabs data for PageTabs
@@ -72,7 +72,7 @@ export function RHS({ orchestrator }: RHSProps) {
             exerciseTitle={exercise.title}
             exerciseSlug={exercise.slug}
             levelId={exercise.levelId}
-            isProject={orchestrator.isProject()}
+            isChallenge={orchestrator.isChallenge()}
           />
         );
       case "tasks":
@@ -104,7 +104,7 @@ export function RHS({ orchestrator }: RHSProps) {
             exerciseTitle={exercise.title}
             exerciseSlug={exercise.slug}
             levelId={exercise.levelId}
-            isProject={orchestrator.isProject()}
+            isChallenge={orchestrator.isChallenge()}
           />
         );
     }

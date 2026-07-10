@@ -43,7 +43,7 @@ export interface ChatTokenResponse {
 
 export async function fetchChatToken(params: FetchChatTokenParams): Promise<string> {
   const { context, cfTurnstileResponse } = params;
-  const slug = context.type === "project" ? { project_slug: context.slug } : { lesson_slug: context.slug };
+  const slug = context.type === "challenge" ? { challenge_slug: context.slug } : { lesson_slug: context.slug };
   const body = { ...slug, cf_turnstile_response: cfTurnstileResponse };
 
   const response = await fetch(getApiUrl("/internal/assistant_conversations"), {

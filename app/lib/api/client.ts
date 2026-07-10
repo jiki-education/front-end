@@ -94,7 +94,7 @@ export class CheckoutIncompleteError extends ApiError {
 }
 
 /**
- * Extract the backend error `type` string (e.g. "project_locked",
+ * Extract the backend error `type` string (e.g. "challenge_locked",
  * "premium_required") from an ApiError's response body, which has the shape
  * `{ error: { type, message } }`. Returns undefined for non-ApiErrors or
  * bodies that don't match that shape.

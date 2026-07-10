@@ -17,8 +17,8 @@ export const FEATURE_CATEGORIES: FeatureCategoryData[] = [
         premium: true
       },
       {
-        titleKey: "jikiProjectsTitle",
-        descKey: "jikiProjectsDesc",
+        titleKey: "jikiChallengesTitle",
+        descKey: "jikiChallengesDesc",
         free: false,
         premium: true
       },

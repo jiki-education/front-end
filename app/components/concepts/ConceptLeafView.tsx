@@ -29,11 +29,11 @@ export function ConceptLeafView({ slug, initialData }: ConceptLeafViewProps) {
     isContentLoading,
     relatedConcepts,
     relatedExercises,
-    relatedProjects,
+    relatedChallenges,
     videoData,
     isConceptUnlocked,
     getExerciseStatus,
-    getProjectStatus,
+    getChallengeStatus,
     isAuthenticated,
     isLoading,
     error
@@ -57,11 +57,11 @@ export function ConceptLeafView({ slug, initialData }: ConceptLeafViewProps) {
               conceptSlug={concept.slug}
               relatedConcepts={relatedConcepts}
               relatedExercises={relatedExercises}
-              relatedProjects={relatedProjects}
+              relatedChallenges={relatedChallenges}
               videoData={videoData}
               isConceptUnlocked={isConceptUnlocked}
               getExerciseStatus={getExerciseStatus}
-              getProjectStatus={getProjectStatus}
+              getChallengeStatus={getChallengeStatus}
               isAuthenticated={isAuthenticated}
             />
           }

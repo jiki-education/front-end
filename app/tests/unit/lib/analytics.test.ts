@@ -15,14 +15,14 @@ describe("trackEvent", () => {
   });
 
   it("POSTs to /internal/events with keepalive and credentials", () => {
-    trackEvent("premium_modal_shown", { trigger: "locked_project" });
+    trackEvent("premium_modal_shown", { trigger: "locked_challenge" });
 
     expect(mockGetApiUrl).toHaveBeenCalledWith("/internal/events");
     expect(mockFetch).toHaveBeenCalledTimes(1);
     expect(mockFetch).toHaveBeenCalledWith("http://api.test/internal/events", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event: "premium_modal_shown", properties: { trigger: "locked_project" } }),
+      body: JSON.stringify({ event: "premium_modal_shown", properties: { trigger: "locked_challenge" } }),
       credentials: "include",
       keepalive: true
     });

@@ -23,7 +23,7 @@
     "icons:generate": "node scripts/generate-icon-types.js",
     "icons:watch": "pnpm run icons:generate && onchange 'icons/**/*.svg' -- pnpm run icons:generate",
     "icon-cache:generate": "node scripts/generate-icon-cache.js",
-    "icon-cache:watch": "onchange 'icons/lessons/**/*.svg' 'icons/badges/**/*.svg' 'icons/projects/**/*.svg' -- node scripts/generate-icon-cache.js",
+    "icon-cache:watch": "onchange 'icons/lessons/**/*.svg' 'icons/badges/**/*.svg' 'icons/challenges/**/*.svg' -- node scripts/generate-icon-cache.js",
     "test": "pnpm run icons:generate && pnpm run icon-cache:generate && jest",
     "test:watch": "jest --watch",
     "test:e2e": "playwright test",

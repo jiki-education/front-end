@@ -59,7 +59,7 @@ export function useExerciseLoader({
           solutions: { [language]: content.solution } as Record<Language, string>
         };
 
-        // Override levelId if provided (used for projects where level comes from the API)
+        // Override levelId if provided (used for challenges where level comes from the API)
         if (levelId) {
           exercise.levelId = levelId;
         }

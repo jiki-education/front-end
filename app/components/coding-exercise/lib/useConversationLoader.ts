@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback, useRef } from "react";
-import { fetchUserLesson } from "@/lib/api/lessons";
-import { fetchUserProject } from "@/lib/api/projects";
+import { fetchUserChallenge } from "@/lib/api/challenges";
 import { NotFoundError } from "@/lib/api/client";
+import { fetchUserLesson } from "@/lib/api/lessons";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { ChatMessage } from "./chat-types";
 import type { ExerciseContext } from "./types";
 
@@ -18,7 +18,7 @@ export interface ConversationLoaderState {
 }
 
 async function fetchConversationData(type: ExerciseContext["type"], slug: string) {
-  return type === "project" ? fetchUserProject(slug) : fetchUserLesson(slug);
+  return type === "challenge" ? fetchUserChallenge(slug) : fetchUserLesson(slug);
 }
 
 export function useConversationLoader(context: ExerciseContext) {

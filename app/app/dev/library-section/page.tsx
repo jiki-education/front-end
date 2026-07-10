@@ -5,7 +5,7 @@ import {
   LibrarySection,
   LibraryWithConcepts,
   LibraryEmptyState,
-  LibraryProjectsState
+  LibraryChallengesState
 } from "@/components/coding-exercise/ui/instructions-panel";
 import type { ConceptCardData } from "@/components/concepts/ConceptCard";
 
@@ -32,7 +32,7 @@ const mockConcepts: ConceptCardData[] = [
   }
 ];
 
-type LibraryState = "loading" | "with-concepts" | "empty" | "projects";
+type LibraryState = "loading" | "with-concepts" | "empty" | "challenges";
 
 export default function LibrarySectionDevPage() {
   const [selectedState, setSelectedState] = useState<LibraryState>("with-concepts");
@@ -42,7 +42,7 @@ export default function LibrarySectionDevPage() {
     { value: "loading", label: "Loading" },
     { value: "with-concepts", label: "With Concepts" },
     { value: "empty", label: "Empty State" },
-    { value: "projects", label: "Projects State" }
+    { value: "challenges", label: "Challenges State" }
   ];
 
   return (
@@ -98,7 +98,7 @@ export default function LibrarySectionDevPage() {
             <LibrarySection
               concepts={selectedState === "with-concepts" ? mockConcepts.slice(0, conceptCount) : []}
               isLoading={selectedState === "loading"}
-              isProject={selectedState === "projects"}
+              isChallenge={selectedState === "challenges"}
             />
           </div>
         </div>
@@ -125,9 +125,9 @@ export default function LibrarySectionDevPage() {
             </div>
 
             <div>
-              <h3 className="text-sm font-medium text-gray-500 mb-2">LibraryProjectsState</h3>
+              <h3 className="text-sm font-medium text-gray-500 mb-2">LibraryChallengesState</h3>
               <div className="border border-gray-200 rounded-lg p-4">
-                <LibraryProjectsState />
+                <LibraryChallengesState />
               </div>
             </div>
           </div>

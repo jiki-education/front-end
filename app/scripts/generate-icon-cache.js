@@ -4,7 +4,7 @@
 /**
  * Icon Cache Generation Script
  *
- * Content-hashes the slug-addressed icon sets (lessons, badges, projects) so
+ * Content-hashes the slug-addressed icon sets (lessons, badges, challenges) so
  * they can be served immutably. For each icon it copies the source SVG to a
  * fingerprinted filename and records the URL in a manifest:
  *
@@ -14,7 +14,7 @@
  *   lib/generated/icon-hashes.ts
  *     - Per-type slug -> URL manifests + fallback URLs
  *
- * Consumed by the LessonIcon / BadgeIcon / ProjectIcon components, which look
+ * Consumed by the LessonIcon / BadgeIcon / ChallengeIcon components, which look
  * up the hashed URL by slug and fall back to the hashed fallback icon.
  *
  * Concept icons are handled separately by generate-concept-cache.js (their URL
@@ -36,7 +36,7 @@ const GENERATED_DIR = path.join(__dirname, "../lib/generated");
 const ICON_SETS = [
   { dir: "lessons", exportName: "lesson" },
   { dir: "badges", exportName: "badge" },
-  { dir: "projects", exportName: "project" }
+  { dir: "challenges", exportName: "challenge" }
 ];
 
 const FALLBACK_SLUG = "fallback";

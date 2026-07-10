@@ -8,7 +8,7 @@ import timelineStyles from "@/app/styles/components/exercise-timeline.module.css
 interface CompletedStepProps {
   exerciseTitle: string;
   exerciseSlug: string;
-  isProject?: boolean;
+  isChallenge?: boolean;
   outstandingBonusCount?: number;
   onContinue: () => void;
   onTidyCode: () => void;
@@ -18,7 +18,7 @@ interface CompletedStepProps {
 export function CompletedStep({
   exerciseTitle,
   exerciseSlug,
-  isProject = false,
+  isChallenge = false,
   outstandingBonusCount = 0,
   onContinue,
   onTidyCode,
@@ -29,9 +29,9 @@ export function CompletedStep({
   return (
     <>
       <CompletionTimeline exerciseSlug={exerciseSlug} />
-      <h2 className={styles.modalTitle}>{isProject ? t("titleProject") : t("titleExercise")}</h2>
+      <h2 className={styles.modalTitle}>{isChallenge ? t("titleChallenge") : t("titleExercise")}</h2>
       <p className={styles.modalMessage}>{t("greatWork", { title: exerciseTitle })}</p>
-      <CompletionMessage isProject={isProject} outstandingBonusCount={outstandingBonusCount} />
+      <CompletionMessage isChallenge={isChallenge} outstandingBonusCount={outstandingBonusCount} />
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
         {hasOutstandingBonuses ? (
@@ -68,16 +68,16 @@ function CompletionTimeline({ exerciseSlug }: { exerciseSlug: string }) {
 }
 
 function CompletionMessage({
-  isProject,
+  isChallenge,
   outstandingBonusCount
 }: {
-  isProject: boolean;
+  isChallenge: boolean;
   outstandingBonusCount: number;
 }) {
   const t = useTranslations("modals.exerciseCompletion.completed");
 
-  if (isProject) {
-    return <p className={styles.modalMessage}>{t("readyProject")}</p>;
+  if (isChallenge) {
+    return <p className={styles.modalMessage}>{t("readyChallenge")}</p>;
   }
 
   if (outstandingBonusCount > 0) {

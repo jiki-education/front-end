@@ -116,11 +116,11 @@ export default function DevPage() {
               <span className="text-gray-600 text-sm ml-2">- HintsPanel with walkthrough video section</span>
             </li>
             <li>
-              <Link href="/dev/projects-sidebar" className="text-blue-600 hover:underline">
-                Projects Sidebar States
+              <Link href="/dev/challenges-sidebar" className="text-blue-600 hover:underline">
+                Challenges Sidebar States
               </Link>
               <span className="text-gray-600 text-sm ml-2">
-                - All projects sidebar states (loading, free user, premium empty, premium with projects)
+                - All challenges sidebar states (loading, free user, premium empty, premium with challenges)
               </span>
             </li>
             <li>
@@ -132,10 +132,10 @@ export default function DevPage() {
               </span>
             </li>
             <li>
-              <Link href="/dev/project-unlocked-modal" className="text-blue-600 hover:underline">
-                Project Unlocked Modal
+              <Link href="/dev/challenge-unlocked-modal" className="text-blue-600 hover:underline">
+                Challenge Unlocked Modal
               </Link>
-              <span className="text-gray-600 text-sm ml-2">- Isolated test page for the project-unlocked step</span>
+              <span className="text-gray-600 text-sm ml-2">- Isolated test page for the challenge-unlocked step</span>
             </li>
             <li>
               <Link href="/dev/curriculum-videos" className="text-blue-600 hover:underline">

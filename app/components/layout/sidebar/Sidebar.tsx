@@ -5,7 +5,7 @@ import FolderIcon from "@/icons/folder.svg";
 import BrainLightningIcon from "@/icons/brain-lightning.svg";
 import LearningComputerIcon from "@/icons/learning-computer.svg";
 import MedalIcon from "@/icons/medal.svg";
-import ProjectsIcon from "@/icons/projects.svg";
+import ChallengesIcon from "@/icons/challenges.svg";
 import SettingsIcon from "@/icons/settings.svg";
 import type { ComponentType } from "react";
 import { useLocale, useTranslations } from "next-intl";
@@ -24,14 +24,14 @@ interface SidebarProps {
 }
 
 const navigationItems: Array<{
-  id: "learn" | "build" | "projects" | "concepts" | "achievements" | "settings";
+  id: "learn" | "build" | "challenges" | "concepts" | "achievements" | "settings";
   href: string;
   icon?: ComponentType<{ className?: string }>;
   showPremiumPill?: boolean;
 }> = [
   { id: "learn", href: "/dashboard", icon: BrainLightningIcon },
   { id: "build", href: "/build", icon: LearningComputerIcon },
-  { id: "projects", href: "/projects", icon: ProjectsIcon, showPremiumPill: true },
+  { id: "challenges", href: "/challenges", icon: ChallengesIcon, showPremiumPill: true },
   { id: "concepts", href: "/concepts", icon: FolderIcon },
   { id: "achievements", href: "/achievements", icon: MedalIcon },
   { id: "settings", href: "/settings", icon: SettingsIcon }

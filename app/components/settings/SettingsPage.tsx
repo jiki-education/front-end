@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/ui-kit/PageHeader";
 import AccountSettingsIcon from "@/icons/account-settings.svg";
 import DangerSettingsIcon from "@/icons/danger-settings.svg";
 import NotificationsSettingsIcon from "@/icons/notifications-settings.svg";
-import ProjectsIcon from "@/icons/projects.svg";
+import ChallengesIcon from "@/icons/challenges.svg";
 import SettingsIcon from "@/icons/settings.svg";
 import SubscriptionIcon from "@/icons/subscription.svg";
 import { useAuthStore } from "@/lib/auth/authStore";
@@ -45,7 +45,7 @@ export default function SettingsPage() {
             {t("tabNotifications")}
           </button>
           <button className={activeTab === "learning" ? "active" : ""} onClick={() => setActiveTab("learning")}>
-            <ProjectsIcon />
+            <ChallengesIcon />
             {t("tabLearning")}
           </button>
           <button

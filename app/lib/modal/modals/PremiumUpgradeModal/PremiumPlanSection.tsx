@@ -18,8 +18,8 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
       <strong>{t("featureLearnToBuild")}</strong>
     </>,
     <>
-      {t("featureProjectsPrefix")}
-      <strong>{t("featureProjects")}</strong>
+      {t("featureChallengesPrefix")}
+      <strong>{t("featureChallenges")}</strong>
     </>,
     <>
       {t("featureAiPrefix")}

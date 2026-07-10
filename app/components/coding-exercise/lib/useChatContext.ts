@@ -4,7 +4,7 @@ import type { ExerciseContext } from "./types";
 
 export interface ChatContext {
   exerciseSlug: string;
-  context: ExerciseContext; // Lesson/project context used for backend API calls
+  context: ExerciseContext; // Lesson/challenge context used for backend API calls
   exerciseTitle: string;
   exerciseInstructions: string;
   currentTaskId: string | null;

@@ -1,5 +1,5 @@
+import { markChallengeComplete } from "@/lib/api/challenges";
 import { markLessonComplete } from "@/lib/api/lessons";
-import { markProjectComplete } from "@/lib/api/projects";
 import { showModal } from "@/lib/modal";
 import type { ExerciseDefinition, Language, ReadonlyRange } from "@jiki/curriculum";
 import { TIME_SCALE_FACTOR } from "@jiki/interpreters/shared";
@@ -9,15 +9,15 @@ import { useShallow } from "zustand/react/shallow";
 import { createStore, type StoreApi } from "zustand/vanilla";
 import { ERROR_HIGHLIGHT_COLOR, INFO_HIGHLIGHT_COLOR } from "../../ui/codemirror/extensions/lineHighlighter";
 import { processMessageContent } from "../../ui/messageUtils";
-import { loadCodeMirrorContent } from "../localStorage";
-import type { TestResult, TestSuiteResult } from "../test-results-types";
-import type { ExerciseContext, OrchestratorState, OrchestratorStore } from "../types";
 import {
   bonusScenarioSlugs,
   countOutstandingBonusTasks,
   firstFailingBonusScenario,
   firstOutstandingBonusTaskId
 } from "../bonusScenarios";
+import { loadCodeMirrorContent } from "../localStorage";
+import type { TestResult, TestSuiteResult } from "../test-results-types";
+import type { ExerciseContext, OrchestratorState, OrchestratorStore } from "../types";
 import { BreakpointManager } from "./BreakpointManager";
 import { TimelineManager } from "./TimelineManager";
 
@@ -93,7 +93,7 @@ export function createOrchestratorStore(
         showModal("exercise-completion-modal", {
           exerciseTitle: state.exerciseTitle,
           exerciseSlug: state.exerciseSlug,
-          isProject: state.context.type === "project",
+          isChallenge: state.context.type === "challenge",
           initialStep: "success",
           outstandingBonusCount,
           onSolveBonuses: () => {
@@ -111,8 +111,8 @@ export function createOrchestratorStore(
           onCompleteExercise: async () => {
             try {
               const response =
-                state.context.type === "project"
-                  ? await markProjectComplete(state.context.slug)
+                state.context.type === "challenge"
+                  ? await markChallengeComplete(state.context.slug)
                   : await markLessonComplete(state.context.slug);
               const events = response?.meta?.events || [];
               get().setCompletionResponse(events);

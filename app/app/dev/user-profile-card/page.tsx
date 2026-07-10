@@ -1,11 +1,11 @@
 "use client";
 
-import { Badges } from "@/components/dashboard/projects-sidebar/ui/UserProfile/Badges";
-import { Streak } from "@/components/dashboard/projects-sidebar/ui/UserProfile/Streak";
-import type { UserProfileData } from "@/components/dashboard/projects-sidebar/ui/UserProfile";
-import type { BadgeData } from "@/lib/api/badges";
+import type { UserProfileData } from "@/components/dashboard/challenges-sidebar/ui/UserProfile";
+import { Badges } from "@/components/dashboard/challenges-sidebar/ui/UserProfile/Badges";
+import { Streak } from "@/components/dashboard/challenges-sidebar/ui/UserProfile/Streak";
 import PencilIcon from "@/icons/pencil.svg";
 import PremiumStarIcon from "@/icons/premium-star.svg";
+import type { BadgeData } from "@/lib/api/badges";
 import style from "./page.module.css";
 
 const mockProfile: UserProfileData = {

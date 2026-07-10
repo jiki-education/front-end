@@ -70,6 +70,15 @@ const nextConfig: NextConfig = {
         source: "/r/discord",
         destination: "https://discord.gg/ph6erP7P7G",
         permanent: false
+      },
+      {
+        // The "how-projects-work" article was renamed to "how-challenges-work"
+        // when the Projects feature became Challenges. Temporary (307) rather
+        // than permanent, since a new article may claim the how-projects-work
+        // slug in the future.
+        source: "/articles/how-projects-work",
+        destination: "/articles/how-challenges-work",
+        permanent: false
       }
     ]);
   },
