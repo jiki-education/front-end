@@ -53,7 +53,7 @@
       "nav": {
         "learn": "Coding Fundamentals",
         "build": "Build with Jeremy",
-        "projects": "Projects",
+        "challenges": "Challenges",
         "concepts": "Concept Library",
         "achievements": "Achievements",
         "settings": "Settings"
@@ -835,8 +835,8 @@
       "codingExercisesDesc": "Learn by doing with our growing library of interactive exercises.",
       "conceptLibraryTitle": "Full Concept Library",
       "conceptLibraryDesc": "Bite-sized lessons covering every coding concept you need to know.",
-      "jikiProjectsTitle": "Jiki Projects",
-      "jikiProjectsDesc": "Combine the skills you've learned into real, end-to-end projects.",
+      "jikiChallengesTitle": "Challenges",
+      "jikiChallengesDesc": "Take on harder challenges that push your skills further.",
       "talkToJikiTitle": "Talk to Jiki",
       "talkToJikiDesc": "Get unstuck with AI-powered hints and explanations from Jiki.",
       "buildingFundamentalsTitle": "Building Fundamentals series",
@@ -1007,10 +1007,10 @@
       "signupPrompt": "<link>Sign up</link> to solve them!",
       "locked": "This exercise is locked"
     },
-    "relatedProjects": {
-      "heading": "Related Projects",
-      "description": "These projects let you put this concept into practice on a bigger build.",
-      "locked": "This project is locked"
+    "relatedChallenges": {
+      "heading": "Related Challenges",
+      "description": "These challenges let you put this concept into practice.",
+      "locked": "This challenge is locked"
     },
     "videoRecap": {
       "loggedInHeader": "Rewatch the Lesson",
@@ -1050,9 +1050,9 @@
       "title": "Dashboard - Jiki",
       "description": "Track your learning progress, continue coding exercises, and view your achievements."
     },
-    "projects": {
-      "title": "Projects - Jiki",
-      "description": "Build real-world coding projects to practice your programming skills and create portfolio pieces."
+    "challenges": {
+      "title": "Challenges - Jiki",
+      "description": "Harder coding challenges to push your skills further as you progress."
     },
     "settings": {
       "title": "Settings - Jiki",
@@ -1309,9 +1309,9 @@
         "title": "All Scenarios Passed",
         "titleBonus": "All Core Scenarios Passed",
         "messageExercise": "Great work! You're ready to complete this exercise and move on to the next challenge.",
-        "messageProject": "Great work! You're ready to complete this project and move on to the next challenge.",
+        "messageChallenge": "Great work! You're ready to complete this challenge and move on.",
         "completeExercise": "Complete Exercise",
-        "completeProject": "Complete Project"
+        "completeChallenge": "Complete Challenge"
       },
       "conceptUnlocked": {
         "title": "Concept unlocked!",
@@ -1321,10 +1321,10 @@
       },
       "completed": {
         "titleExercise": "Exercise completed!",
-        "titleProject": "Project completed!",
+        "titleChallenge": "Challenge completed!",
         "greatWork": "Great work completing {title}!",
         "readyExercise": "Ready to continue to the next exercise?",
-        "readyProject": "Ready to continue to the next project?",
+        "readyChallenge": "Ready to continue to the next challenge?",
         "bonusPrompt": "{count, plural, one {This exercise has <strong>a bonus scenario</strong>. Would you like to solve it before moving on?} other {This exercise has <strong>bonus scenarios</strong>. Would you like to solve them before moving on?}}",
         "tidyCode": "Tidy code",
         "solveBonuses": "{count, plural, one {Solve Bonus} other {Solve Bonuses}}",
@@ -1349,13 +1349,13 @@
         "funOptionFallback": "option {number}",
         "continue": "Continue"
       },
-      "projectUnlocked": {
-        "title": "Project unlocked!",
-        "message": "All that practice means you're ready to combine what you've learned in a new project.",
+      "challengeUnlocked": {
+        "title": "Challenge unlocked!",
+        "message": "All that practice means you're ready to take on a tougher challenge.",
         "newLabel": "New",
         "premiumOnly": "Exclusively for Premium members.",
         "upgradeLink": "Upgrade your account",
-        "premiumInfoSuffix": " to access all the Projects as you unlock them.",
+        "premiumInfoSuffix": " to access all the Challenges as you unlock them.",
         "continue": "Continue"
       }
     },
@@ -1370,8 +1370,8 @@
       "dailyNoteSuffix": " a day)",
       "featureLearnToBuildPrefix": "Full access to ",
       "featureLearnToBuild": "Learn to Build",
-      "featureProjectsPrefix": "Combine your skills in ",
-      "featureProjects": "Jiki Projects",
+      "featureChallengesPrefix": "Take on harder ",
+      "featureChallenges": "Challenges",
       "featureAiPrefix": "Unlimited ",
       "featureAi": "AI support",
       "featureAiSuffix": " from Jiki",

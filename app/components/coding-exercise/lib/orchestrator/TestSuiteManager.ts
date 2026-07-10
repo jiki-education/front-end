@@ -1,12 +1,12 @@
+import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
 import type { ExerciseDefinition } from "@jiki/curriculum";
 import type { SyntaxError } from "@jiki/interpreters";
 import toast from "react-hot-toast";
 import type { StoreApi } from "zustand/vanilla";
-import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
-import { processMessageContent } from "../../ui/messageUtils";
-import type { TestSuiteResult, TestExpect } from "../test-results-types";
-import type { ExerciseContext, OrchestratorStore } from "../types";
 import { ERROR_HIGHLIGHT_COLOR } from "../../ui/codemirror/extensions/lineHighlighter";
+import { processMessageContent } from "../../ui/messageUtils";
+import type { TestExpect, TestSuiteResult } from "../test-results-types";
+import type { ExerciseContext, OrchestratorStore } from "../types";
 
 /**
  * Manages test suite execution, results, and processing
@@ -71,9 +71,9 @@ export class TestSuiteManager {
     const files = [{ filename: "solution.js", code }];
 
     const submission =
-      this.context.type === "project"
-        ? import("@/lib/api/projects").then(({ submitProjectExercise }) =>
-            submitProjectExercise(this.context!.slug, files)
+      this.context.type === "challenge"
+        ? import("@/lib/api/challenges").then(({ submitChallengeExercise }) =>
+            submitChallengeExercise(this.context!.slug, files)
           )
         : import("@/lib/api/lessons").then(({ submitLessonExercise }) =>
             submitLessonExercise(this.context!.slug, files)

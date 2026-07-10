@@ -1,5 +1,5 @@
+import { ChallengeIcon } from "@/components/icons/ChallengeIcon";
 import { LessonIcon } from "@/components/icons/LessonIcon";
-import { ProjectIcon } from "@/components/icons/ProjectIcon";
 import NavigationButtons from "./NavigationButtons";
 import styles from "./instructions-panel.module.css";
 
@@ -7,7 +7,7 @@ interface ExerciseData {
   title: string;
   level: string;
   exerciseSlug: string;
-  isProject: boolean;
+  isChallenge: boolean;
 }
 
 interface DynamicHeaderProps {
@@ -37,8 +37,8 @@ export default function DynamicHeader({
         /* Expanded Header */
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-16">
-            {exerciseData.isProject ? (
-              <ProjectIcon slug={exerciseData.exerciseSlug} width={54} height={54} />
+            {exerciseData.isChallenge ? (
+              <ChallengeIcon slug={exerciseData.exerciseSlug} width={54} height={54} />
             ) : (
               <LessonIcon slug={exerciseData.exerciseSlug} width={54} height={54} />
             )}
@@ -46,7 +46,7 @@ export default function DynamicHeader({
             <div className="flex flex-col gap-4">
               <h1 className={styles.exerciseTitle}>{exerciseData.title}</h1>
               <p className={styles.exerciseInfoText}>
-                {exerciseData.isProject ? "Premium Project" : `Exercise • ${exerciseData.level}`}
+                {exerciseData.isChallenge ? "Premium Challenge" : `Exercise • ${exerciseData.level}`}
               </p>
             </div>
           </div>

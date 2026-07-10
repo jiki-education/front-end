@@ -29,7 +29,7 @@ export default function CodingExercise({
   onReady
 }: CodingExerciseProps) {
   const router = useRouter();
-  const continueHref = context.type === "project" ? "/projects" : "/dashboard";
+  const continueHref = context.type === "challenge" ? "/challenges" : "/dashboard";
   const { orchestrator, isLoading, loadError } = useExerciseLoader({
     language,
     exerciseSlug,

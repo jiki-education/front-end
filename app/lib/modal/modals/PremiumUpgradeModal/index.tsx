@@ -15,7 +15,7 @@ interface PremiumUpgradeModalProps {
   trigger?: ModalTrigger;
   contextType?: string;
   // Backend stores three type-accurate fields and never both at once.
-  // Pass `contextSlug` for slug-keyed entities (lesson, project) and
+  // Pass `contextSlug` for slug-keyed entities (lesson, challenge) and
   // `contextUuid` for uuid-keyed ones (episode). `context_id` is the
   // backend's integer PK — materialised server-side, never sent here.
   contextSlug?: string;

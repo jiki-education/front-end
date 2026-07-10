@@ -185,8 +185,8 @@ export default function TestGlobalModals() {
                 showModal("exercise-completion-modal", {
                   onGoToDashboard: () => console.debug("Go to dashboard clicked"),
                   exerciseTitle: "Test Exercise",
-                  initialStep: "project-unlocked",
-                  unlockedProject: {
+                  initialStep: "challenge-unlocked",
+                  unlockedChallenge: {
                     name: "Space Invaders",
                     description: "Build a classic arcade game with aliens, lasers, and defensive barriers.",
                     slug: "space-invaders"
@@ -195,7 +195,7 @@ export default function TestGlobalModals() {
               }
               className="px-4 py-2 bg-pink-600 text-white rounded hover:bg-pink-700 transition-colors"
             >
-              Project Unlocked Step
+              Challenge Unlocked Step
             </button>
           </div>
           <p className="text-sm text-gray-600 mt-2">

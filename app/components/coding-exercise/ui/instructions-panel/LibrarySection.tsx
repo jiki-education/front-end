@@ -1,30 +1,30 @@
-import { forwardRef } from "react";
 import type { ConceptCardData } from "@/components/concepts/ConceptCard";
-import LibraryWithConcepts from "./LibraryWithConcepts";
+import { forwardRef } from "react";
+import LibraryChallengesState from "./LibraryChallengesState";
 import LibraryEmptyState from "./LibraryEmptyState";
-import LibraryProjectsState from "./LibraryProjectsState";
+import LibraryWithConcepts from "./LibraryWithConcepts";
 import styles from "./instructions-panel.module.css";
 
-type LibraryState = "loading" | "with-concepts" | "empty" | "projects";
+type LibraryState = "loading" | "with-concepts" | "empty" | "challenges";
 
 interface LibrarySectionProps {
   concepts: ConceptCardData[];
   isLoading: boolean;
-  isProject: boolean;
+  isChallenge: boolean;
 }
 
 const LibrarySection = forwardRef<HTMLDivElement, LibrarySectionProps>(function LibrarySection(
-  { concepts, isLoading, isProject },
+  { concepts, isLoading, isChallenge },
   ref
 ) {
-  const state = getLibraryState({ concepts, isLoading, isProject });
+  const state = getLibraryState({ concepts, isLoading, isChallenge });
 
   return (
     <div ref={ref}>
       {state === "loading" && <LibraryLoading />}
       {state === "with-concepts" && <LibraryWithConcepts concepts={concepts} />}
       {state === "empty" && <LibraryEmptyState />}
-      {state === "projects" && <LibraryProjectsState />}
+      {state === "challenges" && <LibraryChallengesState />}
     </div>
   );
 });
@@ -51,11 +51,11 @@ function LibraryWrapper({ children }: { children: React.ReactNode }) {
 function getLibraryState({
   concepts,
   isLoading,
-  isProject
+  isChallenge
 }: {
   concepts: ConceptCardData[];
   isLoading: boolean;
-  isProject: boolean;
+  isChallenge: boolean;
 }): LibraryState {
   if (isLoading) {
     return "loading";
@@ -63,8 +63,8 @@ function getLibraryState({
   if (concepts.length > 0) {
     return "with-concepts";
   }
-  if (isProject) {
-    return "projects";
+  if (isChallenge) {
+    return "challenges";
   }
   return "empty";
 }

@@ -17,7 +17,7 @@ interface InstructionsPanelProps {
   exerciseTitle: string;
   exerciseSlug: string;
   levelId: string;
-  isProject?: boolean;
+  isChallenge?: boolean;
   className?: string;
 }
 
@@ -28,7 +28,7 @@ export default function InstructionsPanel({
   exerciseTitle,
   exerciseSlug,
   levelId,
-  isProject = false,
+  isChallenge = false,
   className = ""
 }: InstructionsPanelProps) {
   const [activeSection, setActiveSection] = useState("instructions");
@@ -48,7 +48,7 @@ export default function InstructionsPanel({
     title: exerciseTitle,
     level: levelId.charAt(0).toUpperCase() + levelId.slice(1).replace(/-/g, " "),
     exerciseSlug,
-    isProject
+    isChallenge
   };
 
   // Fetch concepts on mount - conceptSlugs are static for a given exercise
@@ -200,7 +200,7 @@ export default function InstructionsPanel({
           ref={conceptLibraryRef}
           concepts={concepts}
           isLoading={isLoadingConcepts}
-          isProject={isProject}
+          isChallenge={isChallenge}
         />
       </div>
     </div>

@@ -7,11 +7,11 @@ import checkmarkAnimationData from "@/public/static/animations/checkmark.json";
 
 interface SuccessStepProps {
   onCompleteExercise: () => void;
-  isProject?: boolean;
+  isChallenge?: boolean;
   outstandingBonusCount?: number;
 }
 
-export function SuccessStep({ onCompleteExercise, isProject = false, outstandingBonusCount = 0 }: SuccessStepProps) {
+export function SuccessStep({ onCompleteExercise, isChallenge = false, outstandingBonusCount = 0 }: SuccessStepProps) {
   const t = useTranslations("modals.exerciseCompletion.success");
   const hasOutstandingBonuses = outstandingBonusCount > 0;
   return (
@@ -20,11 +20,11 @@ export function SuccessStep({ onCompleteExercise, isProject = false, outstanding
         <Lottie animationData={checkmarkAnimationData} play loop={false} style={{ height: 144, width: 144 }} />
       </div>
       <h2 className={styles.modalTitle}>{hasOutstandingBonuses ? t("titleBonus") : t("title")}</h2>
-      <p className={styles.modalMessage}>{isProject ? t("messageProject") : t("messageExercise")}</p>
+      <p className={styles.modalMessage}>{isChallenge ? t("messageChallenge") : t("messageExercise")}</p>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
         <button onClick={onCompleteExercise} className="ui-btn ui-btn-primary ui-btn-large flex-1">
-          {isProject ? t("completeProject") : t("completeExercise")}
+          {isChallenge ? t("completeChallenge") : t("completeExercise")}
         </button>
       </div>
     </>

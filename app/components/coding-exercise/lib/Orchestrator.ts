@@ -333,8 +333,8 @@ class Orchestrator {
     return this.exercise;
   }
 
-  isProject(): boolean {
-    return this.store.getState().context.type === "project";
+  isChallenge(): boolean {
+    return this.store.getState().context.type === "challenge";
   }
 
   // Test result processing methods - delegate to TestSuiteManager

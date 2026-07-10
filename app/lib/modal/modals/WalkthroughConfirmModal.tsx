@@ -1,7 +1,7 @@
 import LearningSettingsIcon from "@/icons/learning-settings.svg";
 import ChatIcon from "@/icons/chat.svg";
 import EyeOpenIcon from "@/icons/eye-open.svg";
-import ProjectsIcon from "@/icons/projects.svg";
+import ChallengesIcon from "@/icons/challenges.svg";
 import { useTranslations } from "next-intl";
 import { hideModal } from "../store";
 import styles from "./WalkthroughConfirmModal.module.css";
@@ -51,7 +51,7 @@ export function WalkthroughConfirmModal({ onConfirm }: WalkthroughConfirmModalPr
         </li>
         <li>
           <span className={`${styles.resourceIcon} ${styles.amber}`}>
-            <ProjectsIcon width={16} height={16} />
+            <ChallengesIcon width={16} height={16} />
           </span>
           <p>
             <strong>{t("revealHintsLabel")}</strong>
