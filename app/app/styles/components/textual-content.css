@@ -77,6 +77,13 @@
         margin-bottom: 4px;
     }
 
+    /* Blockquotes */
+    blockquote {
+        border-left: 8px solid var(--color-blue-200);
+        padding-left: 12px;
+        margin-bottom: 16px;
+    }
+
     /* Horizontal Rule (decorative chevron divider) */
     hr {
         border: none;

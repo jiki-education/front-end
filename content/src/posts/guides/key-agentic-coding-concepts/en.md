@@ -15,7 +15,7 @@ You can use an agentic coding tool without understanding how it works, in the sa
 
 ## Models
 
-The **model** (or LLM, for "large language model") is the actual AI. Tools like OpenCode and Claude Code are not intelligent themselves. They are the harness: they gather up your request and your code, send it off to a model, and act on whatever comes back. The model is the brain; the tool is the hands.
+The **model** (or LLM, for "large language model") is the actual AI. Tools like OpenCode and Claude Code are not intelligent themselves. They are the harness: they gather up your request and your code, send it off to a model, and act on whatever comes back. The model is the "brain".
 
 There are lots of models, made by different companies, and they differ in three ways that matter to you:
 
@@ -27,7 +27,7 @@ There is no permanent "best model". The leaderboard reshuffles every few months,
 
 ## Tokens
 
-Models do not read letters or words. They read **tokens**: small chunks of text, roughly three-quarters of a word each on average. "Understanding" is one token; "misunderstanding" might be three. Everything you send to a model is chopped into tokens, and everything it writes comes back token by token. That is why you see responses appear as a stream of words rather than all at once.
+Models do not read letters or words. They read **tokens**: small chunks of text, roughly three-quarters of a word each on average. "Understanding" is one token. "Misunderstanding" might be three. Everything you send to a model is chopped into tokens, and everything it writes comes back token by token. That is why you see responses appear as a stream of words rather than all at once.
 
 Tokens matter for one big reason: **they are what you pay for**. Model pricing is quoted per million tokens, both for what the model reads ("input") and what it writes ("output"). When an agent reads five files of your code, that might be tens of thousands of input tokens. This is why free tiers have limits, and why an agent working on a big project costs more than one answering a quick question.
 
@@ -59,7 +59,7 @@ Watching this loop is genuinely instructive: it is a decent model of how experie
 
 ## Hallucinations, or: the model is confidently wrong sometimes
 
-Models do not know things the way you do. They generate the most plausible-looking response, and sometimes the most plausible-looking response is simply false: a function that does not exist, a setting that was never real, an explanation that sounds airtight and is wrong. This is called **hallucination**, and it never fully goes away, even in the best models.
+Models do not know things the way you do. They generate the most plausible-looking response, and sometimes the most plausible-looking response is simply wrong: a function that does not exist, a setting that was never real, an explanation that sounds airtight but actually is incorrect. This is called **hallucination**, and it never fully goes away, even in the best models.
 
 The defence is the same one professionals use: **never trust, always verify**. Run the code. Read the change before you accept it. If an explanation matters, ask the model to show you the line of code it is based on. Agents are far less prone to this than chatbots, precisely because their loop involves running things and seeing real results, but the habit of verifying is one you should build from day one.
 
@@ -69,4 +69,4 @@ One more thing worth knowing, especially on free tiers: free models are usually 
 
 ## That's the foundation
 
-Models are the brains, tokens are the currency, context is the memory, prompts are the steering wheel, and the loop is what makes it an agent. Everything else you will pick up by using the thing, which is exactly what we suggest you go and do. If you have not set up a tool yet, our [installation guide](/guides/installing-an-agentic-coding-platform) will get you there in ten minutes.
+Models are the "brains", tokens are the currency, context is the memory, prompts are the steering wheel, and the loop is what makes it an agent. Everything else you will pick up by getting your hands dirty, which is exactly what we suggest you go and do. If you have not set up a tool yet, our [installation guide](/guides/installing-an-agentic-coding-platform) will get you there in ten minutes. Then watch the first [Frontend Basics](/build/frontend-basics/setting-up-the-project) session in Build with Jeremy to see it all in action.

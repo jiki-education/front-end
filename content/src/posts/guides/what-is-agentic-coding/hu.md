@@ -1,5 +1,5 @@
 ---
-title: "Agentic Coding Fundamentals"
+title: "What is Agentic Coding?"
 excerpt: "What agentic coding is, why it is changing how software gets made, and where to start if you are learning to code today."
 tags: ["agentic-coding"]
 seo:

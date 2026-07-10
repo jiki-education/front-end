@@ -36,7 +36,7 @@ export default async function GuideDetailPage({ slug, locale }: GuideDetailPageP
   }
 
   const allGuides = getAllGuides(locale);
-  const relatedGuides = getRelatedGuides(slug, allGuides, 3);
+  const relatedGuides = getRelatedGuides(slug, allGuides, 5);
 
   return <GuideDetailContent guide={guide} relatedGuides={relatedGuides} locale={locale} />;
 }
