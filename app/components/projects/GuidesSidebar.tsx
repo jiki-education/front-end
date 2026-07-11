@@ -1,9 +1,9 @@
 "use client";
 
-import GuideCard from "@/components/guides/GuideCard";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { tierIncludes } from "@/lib/pricing";
 import type { GuideMeta } from "@/lib/content/types";
+import SidebarGuideCard from "./SidebarGuideCard";
 import styles from "./GuidesSidebar.module.css";
 
 interface GuidesSidebarProps {
@@ -23,12 +23,11 @@ export default function GuidesSidebar({ guides, locale, description }: GuidesSid
       <p className={styles.lead}>{description}</p>
       <div className={styles.list}>
         {guides.map((guide) => (
-          <GuideCard
+          <SidebarGuideCard
             key={guide.slug}
             guide={guide}
             locale={locale}
             premiumLocked={guide.premium && !userIsPremium}
-            compact
           />
         ))}
       </div>
