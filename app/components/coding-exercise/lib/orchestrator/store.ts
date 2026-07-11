@@ -79,7 +79,7 @@ export function createOrchestratorStore(
     subscribeWithSelector((set, get) => {
       const showCompletionModalIfReady = () => {
         const state = get();
-        if (!state.testSuiteResult?.passed || state.wasSuccessModalShown || state.isExerciseCompleted) {
+        if (!state.testSuiteResult?.passed || state.isExerciseCompleted) {
           return;
         }
 
@@ -124,7 +124,6 @@ export function createOrchestratorStore(
             }
           }
         });
-        state.setWasSuccessModalShown(true);
         state.setIsSpotlightActive(false);
       };
 
@@ -140,7 +139,6 @@ export function createOrchestratorStore(
         currentTestIdx: 0,
         hasCodeBeenEdited: false,
         isSpotlightActive: false,
-        wasSuccessModalShown: false,
         isExerciseCompleted: false,
         completionResponse: [],
         foldedLines: [],
@@ -419,7 +417,6 @@ export function createOrchestratorStore(
         },
         setHasCodeBeenEdited: (value) => set({ hasCodeBeenEdited: value }),
         setIsSpotlightActive: (value) => set({ isSpotlightActive: value }),
-        setWasSuccessModalShown: (value) => set({ wasSuccessModalShown: value }),
         setIsExerciseCompleted: (value) => set({ isExerciseCompleted: value }),
         setCompletionResponse: (response) => set({ completionResponse: response }),
         setFoldedLines: (lines) => {
@@ -479,7 +476,6 @@ export function createOrchestratorStore(
             hasCodeBeenEdited: false,
             status: "success", // This will get reset via the setCurrentTest below.
             testCurrentTimes: {},
-            // wasSuccessModalShown is NOT reset - it's a one-way flag (false -> true)
             isSpotlightActive: shouldShowSpotlight(result, testToInspect, state.isExerciseCompleted),
             // Reset playing state to allow animations to play on new test suite
             isPlaying: false
@@ -624,7 +620,6 @@ export function createOrchestratorStore(
             currentTestIdx: 0,
             hasCodeBeenEdited: false,
             isSpotlightActive: false,
-            wasSuccessModalShown: false,
             foldedLines: [],
             language: language,
 
@@ -692,7 +687,6 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
       currentTestIdx: state.currentTestIdx,
       hasCodeBeenEdited: state.hasCodeBeenEdited,
       isSpotlightActive: state.isSpotlightActive,
-      wasSuccessModalShown: state.wasSuccessModalShown,
       isExerciseCompleted: state.isExerciseCompleted,
       completionResponse: state.completionResponse,
       foldedLines: state.foldedLines,

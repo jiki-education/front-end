@@ -248,49 +248,30 @@ When all tests pass, the orchestrator triggers a celebration flow with visual fe
 
 ### Flow Sequence
 
-1. **Test Execution Completes**: All tests pass
+1. **Test Execution Completes**: All required (non-bonus) tests pass
 2. **Spotlight Activation**: `isSpotlightActive` set to `true` in `setTestSuiteResult()`
-3. **Test Animation Plays**: First test animates with spotlight effect on the test view
+3. **Test Animation Plays**: The inspected test animates with spotlight effect on the test view
 4. **Animation Completes**: Timeline `onComplete` callback triggers
-5. **Modal Display**: Success modal appears with congratulations message
-6. **State Reset**: `isSpotlightActive` set to `false`, `wasSuccessModalShown` set to `true`
+5. **Modal Display**: Completion modal appears; `isSpotlightActive` set back to `false`
 
 ### State Management
 
 **`isSpotlightActive: boolean`**
 
-- Set to `true` when all tests pass (in `setTestSuiteResult()`)
-- Controls whether spotlight class is applied to test result view
-- Set to `false` after success modal is shown
-- Prevents UI interaction during celebration animation
+- Set to `true` when the suite passes and the exercise is not yet completed (in `setTestSuiteResult()`)
+- Controls whether spotlight class is applied to test result view; the exercise container is `inert` while active
+- Set to `false` when the completion modal is shown - this is the only thing that clears it, so the spotlight and the modal share the same gating condition (`passed && !isExerciseCompleted`)
 
-**`wasSuccessModalShown: boolean`**
+**`isExerciseCompleted: boolean`**
 
-- Tracks whether success modal has been displayed for current test run
-- Set to `true` after modal is shown
-- Reset to `false` on new test run (in `setTestSuiteResult()`)
-- Ensures modal only appears once per successful test run
+- Seeded from the server on load and set to `true` when the completion API call succeeds
+- Gates both the spotlight and the completion modal: once completed, later passing runs play normally with no celebration
+- If the completion API fails, the exercise stays not-completed and the modal simply re-shows on the next passing run
 
-### Implementation Details
-
-The success modal is triggered in the `onComplete` callback registered when setting the current test:
-
-```typescript
-test.animationTimeline.onComplete(() => {
-  const allTestsPassed = state.testSuiteResult?.tests.every((t) => t.status === "pass") ?? false;
-  if (allTestsPassed && !state.wasSuccessModalShown) {
-    showModal("exercise-success-modal");
-    state.setWasSuccessModalShown(true);
-    state.setIsSpotlightActive(false);
-  }
-});
-```
-
-See `components/complex-exercise/lib/orchestrator/store.ts:175-187` for implementation.
+The modal itself is triggered by `showCompletionModalIfReady()` in `components/coding-exercise/lib/orchestrator/store.ts`, called from the inspected test's `onComplete` callback, or directly from `setTestSuiteResult()` when the passing suite has no animation to play (IO suites, animation-less visual scenarios).
 
 ### User Experience
 
 - **Visual Spotlight**: Test view highlighted during animation
 - **Automatic Trigger**: No user action required
-- **One-Time Display**: Modal shown once per successful test run
-- **Clean Reset**: New test runs reset state for fresh celebration
+- **Shown Until Completed**: The modal appears on every passing run until the exercise is successfully marked complete

@@ -580,27 +580,36 @@ describe("Store Auto-Play Behavior", () => {
         expect(store.getState().isSpotlightActive).toBe(false);
       });
 
-      it("should NOT reset wasSuccessModalShown when running tests again", () => {
+      it("should re-show the modal and clear the spotlight on a second passing run while not completed", () => {
+        // Regression test: the spotlight is only ever cleared by the completion
+        // modal flow. If the modal is shown once but the exercise never gets
+        // completed (e.g. the completion API failed), a later passing run must
+        // show the modal again - otherwise the spotlight is stuck on forever
+        // and the exercise UI (which is inert while the spotlight is active)
+        // becomes unusable.
         const exercise = createMockExercise({
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
         });
         const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
 
-        // Simulate modal was shown previously
-        store.getState().setWasSuccessModalShown(true);
-        expect(store.getState().wasSuccessModalShown).toBe(true);
+        // First passing run: animation completes, modal shows, spotlight clears
+        const test1 = createMockTest("test-1");
+        store.getState().setTestSuiteResult({ tests: [test1], passed: true });
+        const firstOnComplete = (test1.animationTimeline!.onComplete as jest.Mock).mock.calls[0][0];
+        firstOnComplete();
+        expect(showModal).toHaveBeenCalledTimes(1);
+        expect(store.getState().isSpotlightActive).toBe(false);
 
-        const testResults = {
-          tests: [createMockTest("test-1")],
-          passed: true
-        };
+        // Exercise was never completed (e.g. API failure). Second passing run:
+        const test2 = createMockTest("test-1");
+        store.getState().setTestSuiteResult({ tests: [test2], passed: true });
+        expect(store.getState().isSpotlightActive).toBe(true);
 
-        // Run tests again (without code changes)
-        store.getState().setTestSuiteResult(testResults);
-
-        // Modal state should persist - it should NOT be reset
-        expect(store.getState().wasSuccessModalShown).toBe(true);
+        const secondOnComplete = (test2.animationTimeline!.onComplete as jest.Mock).mock.calls[0][0];
+        secondOnComplete();
+        expect(showModal).toHaveBeenCalledTimes(2);
+        expect(store.getState().isSpotlightActive).toBe(false);
       });
     });
 
@@ -627,17 +636,18 @@ describe("Store Auto-Play Behavior", () => {
         onCompleteCallback();
 
         expect(showModal).toHaveBeenCalledWith("exercise-completion-modal", expect.any(Object));
-        expect(store.getState().wasSuccessModalShown).toBe(true);
         expect(store.getState().isSpotlightActive).toBe(false);
       });
 
-      it("should not show modal when wasSuccessModalShown is true", () => {
+      it("should not show modal when the exercise is already completed", () => {
         const exercise = createMockExercise({
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
         });
         const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
         const test1 = createMockTest("test-1");
+
+        store.getState().setIsExerciseCompleted(true);
 
         const testResults = {
           tests: [test1],
@@ -646,8 +656,8 @@ describe("Store Auto-Play Behavior", () => {
 
         store.getState().setTestSuiteResult(testResults);
 
-        // Manually set wasSuccessModalShown to true
-        store.getState().setWasSuccessModalShown(true);
+        // Completed exercises don't get the spotlight
+        expect(store.getState().isSpotlightActive).toBe(false);
 
         // Get the onComplete callback
         const onCompleteCallback = (test1.animationTimeline!.onComplete as jest.Mock).mock.calls[0][0];
@@ -656,8 +666,6 @@ describe("Store Auto-Play Behavior", () => {
         onCompleteCallback();
 
         expect(showModal).not.toHaveBeenCalled();
-        // Spotlight should remain active since modal wasn't shown
-        expect(store.getState().isSpotlightActive).toBe(true);
       });
 
       it("should not show modal when not all tests pass", () => {
@@ -726,7 +734,6 @@ describe("Store Auto-Play Behavior", () => {
         });
 
         expect(showModal).toHaveBeenCalledWith("exercise-completion-modal", expect.any(Object));
-        expect(store.getState().wasSuccessModalShown).toBe(true);
         expect(store.getState().isSpotlightActive).toBe(false);
       });
 
@@ -745,7 +752,9 @@ describe("Store Auto-Play Behavior", () => {
         expect(showModal).not.toHaveBeenCalled();
       });
 
-      it("should not show modal twice when IO suite is re-run", () => {
+      it("should re-show the modal when IO suite is re-run while not completed", () => {
+        // If the exercise never got completed (e.g. the completion API failed),
+        // a re-run must surface the modal again so the student can retry.
         const exercise = createMockExercise({
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
@@ -756,6 +765,26 @@ describe("Store Auto-Play Behavior", () => {
           tests: [createMockIOTest("io-1")],
           passed: true
         });
+        store.getState().setTestSuiteResult({
+          tests: [createMockIOTest("io-1")],
+          passed: true
+        });
+
+        expect(showModal).toHaveBeenCalledTimes(2);
+      });
+
+      it("should not re-show the modal on IO re-run once the exercise is completed", () => {
+        const exercise = createMockExercise({
+          slug: "test-uuid",
+          stubs: { javascript: "", python: "", jikiscript: "" }
+        });
+        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+
+        store.getState().setTestSuiteResult({
+          tests: [createMockIOTest("io-1")],
+          passed: true
+        });
+        store.getState().setIsExerciseCompleted(true);
         store.getState().setTestSuiteResult({
           tests: [createMockIOTest("io-1")],
           passed: true
