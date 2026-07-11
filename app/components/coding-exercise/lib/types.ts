@@ -56,7 +56,6 @@ export interface OrchestratorState {
   currentTestIdx: number; // Index of current test/scenario (synced with currentTest)
   hasCodeBeenEdited: boolean;
   isSpotlightActive: boolean;
-  wasSuccessModalShown: boolean;
   isExerciseCompleted: boolean;
   completionResponse: CompletionResponseData[];
   foldedLines: number[]; // Line numbers that are currently folded in the editor
@@ -124,7 +123,6 @@ export interface OrchestratorActions {
   setCurrentTestTime: (time: number, nearestOrExactFrame?: "nearest" | "exact", force?: boolean) => void;
   setHasCodeBeenEdited: (value: boolean) => void;
   setIsSpotlightActive: (value: boolean) => void;
-  setWasSuccessModalShown: (value: boolean) => void;
   setIsExerciseCompleted: (value: boolean) => void;
   setCompletionResponse: (response: CompletionResponseData[]) => void;
   setFoldedLines: (lines: number[]) => void;

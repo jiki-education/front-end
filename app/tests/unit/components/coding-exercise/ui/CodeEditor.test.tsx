@@ -48,7 +48,6 @@ describe("CodeEditor", () => {
       currentTestIdx: 0,
       hasCodeBeenEdited: false,
       isSpotlightActive: false,
-      wasSuccessModalShown: false,
       isExerciseCompleted: false,
       completionResponse: [],
       foldedLines: [],
