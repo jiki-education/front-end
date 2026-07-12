@@ -1,19 +1,20 @@
 ---
-title: "Episode 2: Our first page"
-excerpt: "We render our very first HTML page and learn how the browser turns text into something we can see."
+title: "Episode 2: Navigation, Styling and Going Live"
+excerpt: "We link our pages together with navigation, add some styling, and deploy the site to the internet with GitHub. We might even get you a free custom domain."
 summary:
-  from: "An empty project that runs but shows nothing."
-  to: "Your first HTML page, rendered in the browser."
-  keyConcepts: ["HTML", "How the browser renders a page"]
+  from: "A series of separate, unstyled HTML pages."
+  to: "A styled, linked-up website, live on the internet."
+  keyConcepts: ["Links and navigation", "Styling with CSS", "Deploying with GitHub", "Custom domains"]
 seo:
-  description: "Render your first HTML page and understand how the browser displays it."
-  keywords: ["html", "browser", "beginner"]
+  description: "Link your pages together with navigation, style them with CSS, and deploy your personal website for free using GitHub."
+  keywords: ["html", "css", "navigation", "github", "deploy", "custom domain", "beginner"]
 ---
 
-Now that the project runs, let's actually put something on the screen.
+Now that we have a few barebones pages, let's turn them into a real website.
 
 ## What we cover
 
-- A minimal HTML file
-- Refreshing in the browser
-- A few words about what the browser is doing
+- Linking our pages together with navigation
+- Adding some styling
+- Deploying the site with GitHub
+- Getting a free custom domain

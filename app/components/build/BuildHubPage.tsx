@@ -18,9 +18,9 @@ export default function BuildHubPage({ projects, locale }: BuildHubPageProps) {
       <header className={styles.header}>
         <h1 className={styles.title}>
           <LearningComputerIcon />
-          Learn to Build
+          Learn to Build - Projects
         </h1>
-        <p className={styles.description}>Join Jeremy as he builds real projects from scratch, episode by episode.</p>
+        <p className={styles.description}>Build real projects from scratch with Jeremy, learning bit by bit.</p>
       </header>
       <div className={styles.layout}>
         <div className={styles.main}>

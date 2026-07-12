@@ -16,7 +16,7 @@
     h2 {
         font-weight: 700;
         color: var(--color-gray-900);
-        margin: var(--spacing-48) 0 var(--spacing-24) 0;
+        margin: var(--spacing-48) 0 var(--spacing-12) 0;
         line-height: var(--leading-120);
 
         &:first-child {
@@ -82,18 +82,6 @@
         border-left: 8px solid var(--color-blue-200);
         padding-left: 12px;
         margin-bottom: 16px;
-    }
-
-    /* Horizontal Rule (decorative chevron divider) */
-    hr {
-        border: none;
-        width: 70px;
-        height: 12px;
-        margin: var(--spacing-24) 0;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='12' viewBox='0 0 240 40' fill='none'%3E%3Cpolyline points='0,32 30,8 60,32 90,8 120,32 150,8 180,32 210,8 240,32' stroke='%23dab4fe' stroke-width='12' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: left center;
-        background-size: 70px 12px;
     }
 
     /* Footnotes (marked-footnote generated section) */
@@ -626,4 +614,18 @@ pre .hljs-meta {
             padding: var(--spacing-12) var(--spacing-16);
         }
     }
+}
+
+/* Horizontal Rule (decorative chevron divider).
+   Applies to hrs inside textual content, and anywhere via .ui-chevron-divider */
+.ui-textual-content hr,
+hr.ui-chevron-divider {
+    border: none;
+    width: 70px;
+    height: 12px;
+    margin: var(--spacing-24) 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='12' viewBox='0 0 240 40' fill='none'%3E%3Cpolyline points='0,32 30,8 60,32 90,8 120,32 150,8 180,32 210,8 240,32' stroke='%23dab4fe' stroke-width='12' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 70px 12px;
 }

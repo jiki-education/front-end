@@ -24,10 +24,14 @@
         "reportAbuse": "Report abuse",
         "sitemap": "Sitemap"
       },
+      "freeContent": {
+        "heading": "Free Content",
+        "codingConcepts": "Coding Concepts",
+        "agenticGuides": "Agentic Guides"
+      },
       "getHelp": {
         "heading": "Get Help",
         "helpCenter": "Help Center",
-        "guides": "Jiki Guides",
         "faqs": "FAQs",
         "contactUs": "Contact us",
         "siteStatus": "Site Status"
@@ -38,7 +42,6 @@
       "homeAriaLabel": "Jiki home",
       "logoAlt": "Jiki",
       "aboutJiki": "About Jiki",
-      "codingConcepts": "Coding Concepts",
       "premium": "Premium",
       "testimonials": "Testimonials",
       "login": "Login",
@@ -50,30 +53,28 @@
       "backToJiki": "Back to Jiki →"
     },
     "sidebar": {
-      "logoAlt": "Jiki",
+      "groups": {
+        "learnToCode": "Learn to Code",
+        "learnToBuild": "Learn to Build",
+        "community": "Community",
+        "more": "More"
+      },
       "nav": {
         "learn": "Coding Fundamentals",
-        "build": "Build with Jeremy",
+        "build": "Projects",
         "challenges": "Challenges",
-        "concepts": "Concept Library",
+        "concepts": "Coding Concepts",
         "achievements": "Achievements",
         "guides": "Guides",
-        "settings": "Settings"
-      },
-      "premiumPill": "Premium",
-      "moreMenu": {
-        "label": "More",
-        "helpCenter": "Help Center",
-        "youtube": "YouTube",
-        "forum": "Forum",
+        "videos": "Videos",
         "blog": "Blog",
+        "forum": "Forum",
+        "settings": "Settings",
+        "help": "Help",
+        "upgrade": "Upgrade to Premium",
         "logOut": "Log Out"
       },
-      "upsell": {
-        "free": "You're currently on the free plan.",
-        "upgrade": "Upgrade to Premium",
-        "accelerate": "to accelerate your learning"
-      }
+      "premiumPill": "Premium"
     },
     "loading": {
       "title": "Waking up Jiki",

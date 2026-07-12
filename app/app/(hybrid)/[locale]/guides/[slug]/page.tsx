@@ -1,5 +1,5 @@
 import GuideDetailPage, { getGuideMetadata } from "@/components/guides/GuideDetailPage";
-import AuthenticatedHeaderLayout from "@/components/layout/HeaderLayout";
+import SidebarLayout from "@/components/layout/SidebarLayout";
 import type { Metadata } from "next";
 
 interface Props {
@@ -15,8 +15,8 @@ export default async function AuthenticatedLocaleGuidePage({ params }: Props) {
   const { locale, slug } = await params;
 
   return (
-    <AuthenticatedHeaderLayout>
+    <SidebarLayout activeItem="guides">
       <GuideDetailPage slug={slug} locale={locale} />
-    </AuthenticatedHeaderLayout>
+    </SidebarLayout>
   );
 }

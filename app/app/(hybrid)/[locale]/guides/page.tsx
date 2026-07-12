@@ -1,5 +1,5 @@
 import GuidesPage from "@/components/guides/GuidesPage";
-import AuthenticatedHeaderLayout from "@/components/layout/HeaderLayout";
+import SidebarLayout from "@/components/layout/SidebarLayout";
 import { SUPPORTED_LOCALES } from "@/lib/locales";
 import { getAvailableLocales } from "@/lib/content";
 import { notFound } from "next/navigation";
@@ -39,8 +39,8 @@ export default async function AuthenticatedLocaleGuidesPage({ params, searchPara
   }
 
   return (
-    <AuthenticatedHeaderLayout>
+    <SidebarLayout activeItem="guides">
       <GuidesPage locale={locale} tag={tag} />
-    </AuthenticatedHeaderLayout>
+    </SidebarLayout>
   );
 }

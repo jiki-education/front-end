@@ -5,11 +5,21 @@ jest.mock("@/lib/api/user-videos", () => ({
   fetchUserVideo: jest.fn(),
   updateUserVideoPercentage: jest.fn()
 }));
+jest.mock("@/lib/auth/authStore");
 
 import { fetchUserVideo, updateUserVideoPercentage } from "@/lib/api/user-videos";
+import { useAuthStore } from "@/lib/auth/authStore";
 
 const mockedFetch = fetchUserVideo as jest.MockedFunction<typeof fetchUserVideo>;
 const mockedPatch = updateUserVideoPercentage as jest.MockedFunction<typeof updateUserVideoPercentage>;
+const mockedUseAuthStore = useAuthStore as unknown as jest.Mock;
+
+function setAuthUser(user: { membership_type: string } | null) {
+  const state = { user };
+  mockedUseAuthStore.mockImplementation((selector?: (s: typeof state) => unknown) =>
+    selector ? selector(state) : state
+  );
+}
 
 const UUID = "065e457e-4e9d-478b-bd0a-bbe384d8347f";
 
@@ -26,6 +36,28 @@ describe("useEpisodeProgress", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockedPatch.mockResolvedValue(undefined);
+    setAuthUser({ membership_type: "standard" });
+  });
+
+  it("neither fetches nor reports progress when logged out", async () => {
+    setAuthUser(null);
+    mockedFetch.mockResolvedValue(null);
+    const { result } = renderHook(() => useEpisodeProgress(UUID, "youtube"));
+
+    const seekTo = jest.fn();
+    act(() => {
+      result.current.handleYouTubeReady(makeYouTubeEvent({ currentTime: 0, duration: 100, seekTo }));
+      result.current.handleYouTubeStateChange({
+        data: 0,
+        target: { getCurrentTime: () => 100, getDuration: () => 100, seekTo }
+      });
+    });
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    });
+
+    expect(mockedFetch).not.toHaveBeenCalled();
+    expect(mockedPatch).not.toHaveBeenCalled();
   });
 
   it("reports rounded percentage and dedupes repeated values", async () => {

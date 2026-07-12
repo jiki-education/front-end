@@ -1,7 +1,8 @@
-import { getGuide, getAllGuides, getRelatedGuides } from "@/lib/content";
+import { getGuide, getAllGuides, getAllProjects, getProject, getRelatedGuides } from "@/lib/content";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import GuideDetailContent from "./GuideDetailContent";
+import type { FeaturedInEpisode } from "./FeaturedInProjects";
 
 interface GuideDetailPageProps {
   slug: string;
@@ -27,6 +28,31 @@ export function getGuideMetadata(slug: string, locale: string = "en"): Metadata 
   }
 }
 
+/**
+ * The project episodes that reference this guide in their `guides` list, in
+ * project order then episode order.
+ */
+async function getFeaturedInEpisodes(guideSlug: string, locale: string): Promise<FeaturedInEpisode[]> {
+  const featuredIn: FeaturedInEpisode[] = [];
+  for (const projectMeta of getAllProjects(locale)) {
+    if (projectMeta.episodeCount === 0) {
+      continue;
+    }
+    const { project, episodes } = await getProject(projectMeta.slug, locale);
+    for (const episode of [...episodes].sort((a, b) => a.order - b.order)) {
+      if (episode.guides.includes(guideSlug)) {
+        featuredIn.push({
+          projectSlug: project.slug,
+          projectTitle: project.title,
+          episodeSlug: episode.slug,
+          episodeTitle: episode.title
+        });
+      }
+    }
+  }
+  return featuredIn;
+}
+
 export default async function GuideDetailPage({ slug, locale }: GuideDetailPageProps) {
   let guide;
   try {
@@ -37,6 +63,14 @@ export default async function GuideDetailPage({ slug, locale }: GuideDetailPageP
 
   const allGuides = getAllGuides(locale);
   const relatedGuides = getRelatedGuides(slug, allGuides, 5);
+  const featuredInEpisodes = await getFeaturedInEpisodes(slug, locale);
 
-  return <GuideDetailContent guide={guide} relatedGuides={relatedGuides} locale={locale} />;
+  return (
+    <GuideDetailContent
+      guide={guide}
+      relatedGuides={relatedGuides}
+      featuredInEpisodes={featuredInEpisodes}
+      locale={locale}
+    />
+  );
 }

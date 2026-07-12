@@ -1,6 +1,7 @@
 import type { MuxPlayerRefAttributes } from "@mux/mux-player-react";
 import { useEffect, useRef, useState } from "react";
 import { fetchUserVideo, updateUserVideoPercentage, type UserVideoData } from "@/lib/api/user-videos";
+import { useAuthStore } from "@/lib/auth/authStore";
 import { reportError } from "@/lib/reportError";
 
 interface ProgressPlayer {
@@ -17,6 +18,11 @@ export function useEpisodeProgress(uuid: string, videoProvider?: "mux" | "youtub
   const [userVideo, setUserVideo] = useState<UserVideoData | null>(null);
   const userVideoLoadedRef = useRef(false);
 
+  // Progress is per-user state: logged-out visitors (episodes are public
+  // pages) get no fetch and no reporting.
+  const user = useAuthStore((state) => state.user);
+  const isLoggedIn = !!user;
+
   // Reset all internal state when the uuid changes (e.g. client-side
   // navigation between episodes without a remount).
   useEffect(() => {
@@ -25,6 +31,10 @@ export function useEpisodeProgress(uuid: string, videoProvider?: "mux" | "youtub
     userVideoLoadedRef.current = false;
     ytPlayerRef.current = null;
     setUserVideo(null);
+
+    if (!isLoggedIn) {
+      return;
+    }
 
     let cancelled = false;
     void fetchUserVideo(uuid).then((data) => {
@@ -37,9 +47,12 @@ export function useEpisodeProgress(uuid: string, videoProvider?: "mux" | "youtub
     return () => {
       cancelled = true;
     };
-  }, [uuid]);
+  }, [uuid, isLoggedIn]);
 
   const reportProgress = (percentage: number) => {
+    if (!isLoggedIn) {
+      return;
+    }
     const rounded = Math.round(percentage);
     if (rounded === lastReportedPercentRef.current) {
       return;

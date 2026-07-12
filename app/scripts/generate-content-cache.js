@@ -535,8 +535,7 @@ function buildProjectStaticFiles(processed) {
       order += 1;
       const title = (project.title && (project.title[locale] || project.title.en)) || project.slug;
       const description = (project.description && (project.description[locale] || project.description.en)) || "";
-      const audience = (project.audience && (project.audience[locale] || project.audience.en)) || "";
-      const cadence = (project.cadence && (project.cadence[locale] || project.cadence.en)) || "";
+      const tags = (project.tags && (project.tags[locale] || project.tags.en)) || [];
       const upcomingStreams = Array.isArray(project.upcoming_streams) ? project.upcoming_streams : [];
       if (typeof project.image !== "string" || !project.image) {
         throw new Error(`Project "${project.slug}" is missing required "image" field`);
@@ -560,8 +559,7 @@ function buildProjectStaticFiles(processed) {
         order,
         title,
         description,
-        audience,
-        cadence,
+        tags,
         image,
         livestream,
         upcomingStreams,

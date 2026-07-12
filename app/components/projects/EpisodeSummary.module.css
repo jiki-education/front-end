@@ -1,0 +1,65 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: var(--color-blue-50);
+    border: 1px solid var(--color-blue-200);
+    border-radius: 10px;
+    padding: 16px 20px;
+}
+
+.heading {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-gray-700);
+    margin-bottom: 4px;
+}
+
+.start,
+.stop {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.stop {
+    margin-top: 8px;
+}
+
+.label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-blue-600);
+}
+
+.text {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--color-gray-800);
+}
+
+.concepts {
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px solid var(--color-blue-200);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.conceptsList {
+    list-style: disc;
+    margin: 0;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.conceptsItem {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--color-gray-800);
+}

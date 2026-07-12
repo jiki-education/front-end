@@ -4,6 +4,8 @@ import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import SearchIcon from "@/icons/search.svg";
 import CrossIcon from "@/icons/cross.svg";
+import StudyBookIcon from "@/icons/study-book.svg";
+import { ConceptsLayout } from "@/components/concepts";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { tierIncludes } from "@/lib/pricing";
 import { getGuideTagLabel, type GuideMeta, type GuideTagSlug } from "@/lib/content/types";
@@ -65,66 +67,63 @@ export default function GuidesContent({ guides, locale, selectedTag, tagSlugs }:
   const showNoResults = searchQuery && searchResults !== null && pagedGuides.length === 0;
 
   return (
-    <div className={styles.contentLayout}>
-      <div className={styles.contentMain}>
-        <div className={`ui-search-input ${styles.searchBar} ${searchQuery ? styles.hasValue : ""}`}>
-          <SearchIcon />
-          <input
-            type="text"
-            placeholder="Search guides..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button onClick={() => setSearchQuery("")} type="button" className={styles.searchClearBtn}>
-            <CrossIcon />
-          </button>
-        </div>
+    <ConceptsLayout>
+      <header>
+        <h1 className={styles.pageHeading}>
+          <StudyBookIcon className={styles.headingIcon} />
+          Guides and how-tos
+        </h1>
+      </header>
 
-        {showNoResults ? (
-          <div className={styles.noResults}>
-            <p className={styles.noResultsTitle}>0 results for &ldquo;{searchQuery}&rdquo;</p>
-            <p className={styles.noResultsMessage}>Try a different search term or browse the guides.</p>
-          </div>
-        ) : (
-          <div className={styles.guidesGrid}>
-            {pagedGuides.map((guide) => (
-              <GuideCard
-                key={guide.slug}
-                guide={guide}
-                locale={locale}
-                premiumLocked={guide.premium && !userIsPremium}
-              />
-            ))}
-          </div>
-        )}
-
-        {showPagination && (
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            hrefForPage={hrefForPage}
-            className={styles.pagination}
-          />
-        )}
+      <div className={`ui-search-input ${styles.searchBar} ${searchQuery ? styles.hasValue : ""}`}>
+        <SearchIcon />
+        <input
+          type="text"
+          placeholder="Search guides..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <button onClick={() => setSearchQuery("")} type="button" className={styles.searchClearBtn}>
+          <CrossIcon />
+        </button>
       </div>
 
-      <div className={styles.filterSidebar}>
-        <div className={styles.filterTags}>
-          <span className={styles.filterTagsLabel}>Filter by</span>
-          <Link href={buildTagUrl(null)} className={`${styles.filterTag} ${selectedTag === null ? styles.active : ""}`}>
-            All
+      <div className={styles.filterTags}>
+        <Link href={buildTagUrl(null)} className={`${styles.filterTag} ${selectedTag === null ? styles.active : ""}`}>
+          All
+        </Link>
+        {tagSlugs.map((slug) => (
+          <Link
+            key={slug}
+            href={buildTagUrl(slug)}
+            className={`${styles.filterTag} ${selectedTag === slug ? styles.active : ""}`}
+          >
+            {getGuideTagLabel(slug, locale)}
           </Link>
-          {tagSlugs.map((slug) => (
-            <Link
-              key={slug}
-              href={buildTagUrl(slug)}
-              className={`${styles.filterTag} ${selectedTag === slug ? styles.active : ""}`}
-            >
-              {getGuideTagLabel(slug, locale)}
-            </Link>
+        ))}
+      </div>
+
+      {showNoResults ? (
+        <div className={styles.noResults}>
+          <p className={styles.noResultsTitle}>0 results for &ldquo;{searchQuery}&rdquo;</p>
+          <p className={styles.noResultsMessage}>Try a different search term or browse the guides.</p>
+        </div>
+      ) : (
+        <div className={styles.guidesGrid}>
+          {pagedGuides.map((guide) => (
+            <GuideCard key={guide.slug} guide={guide} locale={locale} premiumLocked={guide.premium && !userIsPremium} />
           ))}
         </div>
-      </div>
-    </div>
+      )}
+
+      {showPagination && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          hrefForPage={hrefForPage}
+          className={styles.pagination}
+        />
+      )}
+    </ConceptsLayout>
   );
 }

@@ -25,10 +25,15 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
       <div className={styles.cardBody}>
         <h2 className={styles.cardTitle}>{project.title}</h2>
         <p className={styles.cardDescription}>{project.description}</p>
-        <div className={styles.pillRow}>
-          {project.audience && <span className={`${styles.pill} ${styles.pillAudience}`}>{project.audience}</span>}
-          {project.cadence && <span className={`${styles.pill} ${styles.pillCadence}`}>{project.cadence}</span>}
-        </div>
+        {project.tags.length > 0 && (
+          <div className={styles.pillRow}>
+            {project.tags.map((tag) => (
+              <span key={tag} className={styles.pill}>
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
       {comingSoon && (
         <div className={styles.comingSoonRibbon} aria-label="Coming soon">

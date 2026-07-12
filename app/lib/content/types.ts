@@ -121,8 +121,7 @@ export interface ProjectMeta {
   order: number;
   title: string;
   description: string;
-  audience: string;
-  cadence: string;
+  tags: string[];
   image: string;
   livestream: boolean;
   upcomingStreams: string[];

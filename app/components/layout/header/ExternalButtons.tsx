@@ -13,9 +13,6 @@ export default function ExternalButtons() {
         <Link href="https://jiki.io/blog/the-backstory-of-jiki" className={styles.navLink}>
           {t("aboutJiki")}
         </Link>
-        <Link href={routes.concepts()} className={styles.navLink}>
-          {t("codingConcepts")}
-        </Link>
         <Link href={routes.premium()} className={styles.navLink}>
           {t("premium")}
         </Link>

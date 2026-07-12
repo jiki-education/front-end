@@ -25,92 +25,19 @@
     margin-bottom: 24px;
 }
 
-.summaryBox {
-    background: var(--color-blue-50);
-    border: 1px solid var(--color-blue-200);
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 24px;
+.sidebar {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-}
-
-.summaryJourney {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-}
-
-.summaryStop {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.summaryArrow {
-    flex-shrink: 0;
-    font-size: 24px;
-    color: var(--color-blue-500);
-}
-
-@media (max-width: 640px) {
-    .summaryJourney {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
-    }
-
-    .summaryArrow {
-        transform: rotate(90deg);
-        align-self: center;
-    }
-}
-
-.summaryLabel {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-blue-600);
-}
-
-.summaryText {
-    font-size: 15px;
-    color: var(--color-gray-800);
-}
-
-.summaryConcepts {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.summaryConceptPills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.summaryConceptPill {
-    display: inline-block;
-    padding: 4px 12px;
-    font-size: 13px;
-    font-weight: 600;
-    background: white;
-    border: 1px solid var(--color-blue-200);
-    color: var(--color-gray-700);
-    border-radius: 999px;
+    gap: 32px;
 }
 
 .transcript {
     margin-top: 32px;
 }
 
-.transcriptHeading {
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--color-gray-900);
-    margin-bottom: 16px;
+.transcript img {
+    border: 2px solid var(--color-blue-400);
+    padding: 3px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 5px var(--color-blue-300);
 }

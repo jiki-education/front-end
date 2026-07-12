@@ -1,11 +1,11 @@
 {
   "slug": "setting-up-the-project",
-  "date": "2026-05-08",
+  "date": "2026-07-11",
   "author": "ihid",
   "videoProvider": "youtube",
-  "videoKey": "ao5pfcKXDCo",
-  "durationSeconds": 1240,
+  "videoKey": "aEmZE-VnxsQ",
+  "durationSeconds": 5334,
   "premium": false,
-  "image": "jiki-waiting.png",
+  "image": "build-yourself-a-homepage.webp",
   "guides": ["installing-vscode", "using-a-code-editor", "installing-wsl"]
 }

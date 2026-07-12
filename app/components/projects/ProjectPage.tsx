@@ -31,7 +31,13 @@ export default function ProjectPage({ project, episodes, guides, locale }: Proje
   const user = useAuthStore((state) => state.user);
   const userIsPremium = !!user && tierIncludes(user.membership_type, "premium");
 
+  // Watch progress is per-user state: logged-out visitors (this is a public
+  // page) get no fetch and no progress bars.
   useEffect(() => {
+    if (!user) {
+      return;
+    }
+
     let cancelled = false;
     void fetchUserVideos().then((videos) => {
       if (cancelled) {
@@ -47,7 +53,7 @@ export default function ProjectPage({ project, episodes, guides, locale }: Proje
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [user]);
 
   // If a free user has watched all the free episodes in this project and only
   // premium ones remain, the page is effectively a paywall for them. Wait for
@@ -69,11 +75,7 @@ export default function ProjectPage({ project, episodes, guides, locale }: Proje
     <div className={styles.sidebar}>
       <UpcomingStreams projects={[project]} />
       {guides.length > 0 && (
-        <GuidesSidebar
-          guides={guides}
-          locale={locale}
-          description="Guides covering the topics we use in this project."
-        />
+        <GuidesSidebar guides={guides} locale={locale} description="Guides useful for you in this project" />
       )}
     </div>
   );
@@ -86,10 +88,15 @@ export default function ProjectPage({ project, episodes, guides, locale }: Proje
         </Link>
         <h1 className={styles.title}>{project.title}</h1>
         <p className={styles.description}>{project.description}</p>
-        <div className={styles.pillRow}>
-          {project.audience && <span className={`${styles.pill} ${styles.pillAudience}`}>{project.audience}</span>}
-          {project.cadence && <span className={`${styles.pill} ${styles.pillCadence}`}>{project.cadence}</span>}
-        </div>
+        {project.tags.length > 0 && (
+          <div className={styles.pillRow}>
+            {project.tags.map((tag) => (
+              <span key={tag} className={styles.pill}>
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
 
         <div className={styles.episodesList}>
           {sorted.map((episode) => (

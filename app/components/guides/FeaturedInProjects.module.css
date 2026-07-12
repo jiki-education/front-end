@@ -1,0 +1,42 @@
+.container {
+    margin-bottom: 32px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background: var(--color-gray-50);
+    border: 2px solid var(--color-gray-200);
+    border-radius: 10px;
+    padding: 12px 16px;
+    text-decoration: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.card:hover {
+    border-color: var(--color-gray-300);
+    box-shadow: 0 2px 6px color-mix(in srgb, var(--color-gray-500) 15%, transparent);
+}
+
+.projectTitle {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--color-blue-600);
+}
+
+.episodeTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-gray-900);
+}

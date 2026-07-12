@@ -1,7 +1,5 @@
 import { getAllGuides, GUIDE_TAG_SLUGS, type GuideTagSlug } from "@/lib/content";
-import PageHeader from "@/components/blog/PageHeader";
 import GuidesContent from "./GuidesContent";
-import styles from "./GuidesPage.module.css";
 
 interface GuidesPageProps {
   locale: string;
@@ -20,16 +18,5 @@ export default function GuidesPage({ locale, tag }: GuidesPageProps) {
     guides = guides.filter((guide) => guide.tags.includes(validTag));
   }
 
-  return (
-    <div className={styles.pageWrapper}>
-      <div className={styles.pageContent}>
-        <PageHeader
-          label="Guides"
-          title="Guides and how-tos"
-          subtitle="Step by step guides to help you learn to code and build like a pro!"
-        />
-        <GuidesContent guides={guides} locale={locale} selectedTag={validTag} tagSlugs={GUIDE_TAG_SLUGS} />
-      </div>
-    </div>
-  );
+  return <GuidesContent guides={guides} locale={locale} selectedTag={validTag} tagSlugs={GUIDE_TAG_SLUGS} />;
 }
