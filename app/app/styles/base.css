@@ -12,10 +12,13 @@
  */
 
 @layer base {
+    /* Like Tailwind's preflight: zero-width solid borders everywhere, so a
+       rule can set just border-width/border-color and get a visible border. */
     *,
     *::before,
     *::after {
         box-sizing: border-box;
+        border: 0 solid;
     }
 
     * {

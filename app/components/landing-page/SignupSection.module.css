@@ -95,6 +95,7 @@
         padding-top: 24px;
         padding-bottom: 24px;
         border-top-width: 7px;
+        border-top-style: solid;
         position: relative;
         overflow: hidden;
 

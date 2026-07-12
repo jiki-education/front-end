@@ -60,8 +60,8 @@
     }
 
     hr {
-        border-bottom-width: 1px;
-        border-color: var(--color-gray-200);
+        border: none;
+        border-bottom: 1px solid var(--color-gray-200);
         margin-top: 20px;
         margin-bottom: 20px;
     }

@@ -119,8 +119,8 @@
         }
 
         hr {
-            border-bottom-width: 1px;
-            border-color: var(--color-gray-50);
+            border: none;
+            border-bottom: 1px solid var(--color-gray-50);
             margin-top: 32px;
             margin-bottom: 32px;
             width: 80%;
@@ -279,8 +279,7 @@
 
             li {
                 z-index: 10;
-                border-left-width: 5px;
-                border-color: #7029f5;
+                border-left: 5px solid #7029f5;
                 display: flex;
                 flex-direction: column;
                 align-items: stretch;
@@ -456,8 +455,7 @@
                 width: 100%;
                 border-top-left-radius: 8px;
                 border-top-right-radius: 8px;
-                border-width: 3px;
-                border-color: rgba(183, 0, 144, 1);
+                border: 3px solid rgba(183, 0, 144, 1);
             }
         }
 
@@ -611,6 +609,8 @@
 
     .underline {
         text-decoration: underline;
+        font-weight: 500;
+        color: var(--color-blue-600);
     }
 
     .highlight {
