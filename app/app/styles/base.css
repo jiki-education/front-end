@@ -23,11 +23,13 @@
 
     * {
         margin: 0;
+        padding: 0;
     }
 
     html {
         -webkit-text-size-adjust: 100%;
         tab-size: 4;
+        -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -63,7 +65,8 @@
     }
 
     ul,
-    ol {
+    ol,
+    menu {
         margin: 0;
         padding: 0;
         list-style: none;
@@ -79,7 +82,25 @@
     select,
     textarea {
         font: inherit;
+        letter-spacing: inherit;
         color: inherit;
+        border-radius: 0;
+        background-color: transparent;
+        opacity: 1;
+    }
+
+    button,
+    input:where([type="button"], [type="reset"], [type="submit"]) {
+        appearance: button;
+    }
+
+    ::placeholder {
+        opacity: 1;
+        color: color-mix(in oklab, currentColor 50%, transparent);
+    }
+
+    textarea {
+        resize: vertical;
     }
 
     button {
@@ -93,8 +114,13 @@
     picture,
     video,
     canvas,
-    svg {
+    svg,
+    audio,
+    iframe,
+    embed,
+    object {
         display: block;
+        vertical-align: middle;
         max-width: 100%;
     }
 
@@ -109,6 +135,56 @@
 
     table {
         border-collapse: collapse;
+        border-color: inherit;
+        text-indent: 0;
+    }
+
+    code,
+    kbd,
+    samp,
+    pre {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 1em;
+    }
+
+    small {
+        font-size: 80%;
+    }
+
+    sub,
+    sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+    }
+
+    sub {
+        bottom: -0.25em;
+    }
+
+    sup {
+        top: -0.25em;
+    }
+
+    abbr:where([title]) {
+        text-decoration: underline dotted;
+    }
+
+    summary {
+        display: list-item;
+    }
+
+    progress {
+        vertical-align: baseline;
+    }
+
+    :-moz-focusring {
+        outline: auto;
+    }
+
+    [hidden]:where(:not([hidden="until-found"])) {
+        display: none !important;
     }
 
     hr {
