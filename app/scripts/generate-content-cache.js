@@ -39,9 +39,34 @@ import { fileURLToPath } from "url";
 import matter from "gray-matter";
 import { marked } from "marked";
 import markedFootnote from "marked-footnote";
+import hljs from "highlight.js/lib/core";
+import xml from "highlight.js/lib/languages/xml";
+import cssLanguage from "highlight.js/lib/languages/css";
+import javascript from "highlight.js/lib/languages/javascript";
+import bash from "highlight.js/lib/languages/bash";
+import json from "highlight.js/lib/languages/json";
 import lunr from "lunr";
 
+hljs.registerLanguage("html", xml);
+hljs.registerLanguage("xml", xml);
+hljs.registerLanguage("css", cssLanguage);
+hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("js", javascript);
+hljs.registerLanguage("bash", bash);
+hljs.registerLanguage("shell", bash);
+hljs.registerLanguage("json", json);
+
 marked.use(markedFootnote());
+marked.use({
+  renderer: {
+    code({ text, lang }) {
+      const language = (lang || "").split(/\s+/)[0].toLowerCase();
+      if (!language || !hljs.getLanguage(language)) return false;
+      const highlighted = hljs.highlight(text, { language }).value;
+      return `<pre><code class="hljs language-${language}">${highlighted}</code></pre>\n`;
+    }
+  }
+});
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONTENT_DIR = path.join(__dirname, "../../content/src/posts");
