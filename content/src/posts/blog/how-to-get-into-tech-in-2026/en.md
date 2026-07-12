@@ -53,7 +53,7 @@ It's trivial with Claude to say "Make me a homepage" and then iteratively say "M
 
 You have to resist the urge to ask Claude to make something and then feel good from **the little dopamine hit you get**. You have to realise that just because Claude has made something, you have not necessarily added any value. In fact, at the beginning, you're literally just doing the same as what anyone else could do.
 
-But coming up with a real vision, understanding and planning how all the bits will fit together, and then being able to successfully guide an LLM to make it, keeping it on track, knowing where it's going wrong, or going to cause you pain later... **That's a real skill.**
+But coming up with a real vision, understanding and planning how all the bits will fit together, and then being able to successfully [use agentic coding](/guides/what-is-agentic-coding) to make it, keeping it on track, knowing where it's going wrong, or going to cause you pain later... **That's a real skill.**
 
 Every day I use Claude Code, it does stuff that is very obviously wrong to me. It tries to take me down paths that range from suboptimal to outright bad. But it makes it so easy, and it does so much right, that it's hard to know that at first. And as these models are increasingly designed to be run autonomously, the skill of the developer is increasingly in that overseeing, guiding place.
 
@@ -61,6 +61,6 @@ Every day I use Claude Code, it does stuff that is very obviously wrong to me. I
 
 You need **someone to teach you** how everything works and the right mental pathways to follow. Then you need to build things, make mistakes, see what happens when Claude screws you over, and learn from those things. So that you can add value to a company that's building things. You need to understand technology, understand how software is built, learn to read code so you can understand what's going on, and feel confident with the whole flow and process of making things.
 
-And [Jiki](https://jiki.io) will teach you all that. Follow our Coding Fundamentals pathway to get the coding basics down, then **come and learn to build things with me**. Understand why you need GitHub and how it works, how Cloudflare will protect you, how to design secure auth, how to make efficient databases, how to build lightning-fast front-ends and rock-solid back-ends. Learn how to deploy things so that they heal if they crash. Learn all these with me. **And have a ton of fun on the way.**
+And [Jiki](https://jiki.io) will teach you all that. Follow our Learn to Code pathway to get the coding basics down, then **come and learn to build things with me**. Understand why you need GitHub and how it works, how Cloudflare will protect you, how to design secure auth, how to make efficient databases, how to build lightning-fast front-ends and rock-solid back-ends. Learn how to deploy things so that they heal if they crash. Learn all these with me. **And have a ton of fun on the way.**
 
 See you inside!

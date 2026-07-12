@@ -1,3 +1,5 @@
+"use client";
+
 import SearchIcon from "@/icons/search.svg";
 import CrossIcon from "@/icons/cross.svg";
 import { useRef } from "react";

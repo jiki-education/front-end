@@ -50,8 +50,8 @@ export function ConceptLeafView({ slug, initialData }: ConceptLeafViewProps) {
   return (
     <>
       <ConceptsLayout>
+        <Breadcrumb conceptTitle={concept.title} ancestors={ancestors} />
         <ConceptLayout
-          breadcrumb={<Breadcrumb conceptTitle={concept.title} ancestors={ancestors} />}
           rightPanel={
             <ConceptSidebar
               conceptSlug={concept.slug}

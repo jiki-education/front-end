@@ -39,9 +39,9 @@ export default async function BlogPostPage({ slug, authenticated, locale }: Blog
     notFound();
   }
 
-  // Get related blog posts based on tag overlap
+  // Get related blog posts (tag overlap first, topped up to a minimum of 5)
   const allPosts = getAllBlogPosts(locale);
-  const relatedPosts = getRelatedBlogPosts(slug, allPosts, 3);
+  const relatedPosts = getRelatedBlogPosts(slug, allPosts, 5);
 
   if (authenticated) {
     return <BlogPostContent post={post} variant="authenticated" relatedPosts={relatedPosts} locale={locale} />;

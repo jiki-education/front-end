@@ -1,0 +1,41 @@
+.container {
+    margin: 40px 0;
+}
+
+.intro {
+    margin-bottom: 20px;
+}
+
+.heading {
+    font-size: 29px;
+    font-weight: 700;
+    color: var(--color-gray-900);
+    line-height: 1.2;
+    margin-bottom: 6px;
+}
+
+.lead {
+    font-size: 18px;
+    color: var(--color-gray-600);
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+@media (max-width: 1200px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}

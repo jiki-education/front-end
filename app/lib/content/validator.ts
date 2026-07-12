@@ -22,6 +22,12 @@ export interface ArticleConfig {
   listed: boolean;
 }
 
+export interface GuideConfig {
+  date: string;
+  coverImage: string;
+  premium: boolean;
+}
+
 /**
  * Validate common config fields (date, author, featured)
  */
@@ -154,6 +160,63 @@ export function validateArticleConfig(
 }
 
 /**
+ * Validate guide config.json
+ *
+ * Guides have a coverImage (like blog posts) and a premium flag, but no author
+ * and no `listed`/`featured` fields.
+ */
+export function validateGuideConfig(slug: string, config: unknown, imagesDir: string): asserts config is GuideConfig {
+  if (config === null || typeof config !== "object") {
+    throw new ValidationError(`Guide '${slug}' has invalid config.json: not an object`);
+  }
+
+  const cfg = config as Record<string, unknown>;
+
+  // Validate required fields (no author, no listed/featured for guides)
+  const requiredFields = ["date", "coverImage", "premium"];
+  for (const field of requiredFields) {
+    if (!(field in cfg)) {
+      throw new ValidationError(`Guide '${slug}' config.json missing required field: ${field}`);
+    }
+  }
+
+  // Validate date format (YYYY-MM-DD)
+  if (typeof cfg.date !== "string") {
+    throw new ValidationError(`Guide '${slug}' config.json has invalid date: must be string`);
+  }
+
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  if (!dateRegex.test(cfg.date)) {
+    throw new ValidationError(
+      `Guide '${slug}' config.json has invalid date format: '${cfg.date}' (expected YYYY-MM-DD)`
+    );
+  }
+
+  const dateObj = new Date(cfg.date);
+  if (isNaN(dateObj.getTime())) {
+    throw new ValidationError(`Guide '${slug}' config.json has invalid date: '${cfg.date}' is not a valid date`);
+  }
+
+  // Validate premium
+  if (typeof cfg.premium !== "boolean") {
+    throw new ValidationError(`Guide '${slug}' config.json has invalid premium: must be boolean`);
+  }
+
+  // Validate coverImage
+  if (typeof cfg.coverImage !== "string" || cfg.coverImage.trim() === "") {
+    throw new ValidationError(`Guide '${slug}' config.json has invalid coverImage: must be non-empty string`);
+  }
+
+  // Validate cover image exists
+  const coverImagePath = cfg.coverImage.replace(/^\/images\//, "").replace(/^\/static\/images\//, "");
+  const coverImageFullPath = path.join(imagesDir, coverImagePath);
+
+  if (!fs.existsSync(coverImageFullPath)) {
+    throw new ValidationError(`Guide '${slug}' config.json references missing cover image: ${coverImagePath}`);
+  }
+}
+
+/**
  * Validate markdown frontmatter (translatable fields only)
  * Structural fields (date, author, featured, coverImage) are ignored if present
  */
@@ -265,17 +328,20 @@ export const REQUIRED_LOCALES = ["en", "hu"] as const;
  * Validate that all required locale files exist for a content item
  */
 export function validateRequiredLocales(
-  type: "blog" | "article",
+  type: "blog" | "article" | "guide",
   slug: string,
   slugDir: string,
   existingLocales: string[]
 ): void {
+  const typeLabels: Record<typeof type, string> = {
+    blog: "Blog post",
+    article: "Article",
+    guide: "Guide"
+  };
   for (const locale of REQUIRED_LOCALES) {
     if (!existingLocales.includes(locale)) {
       const expectedFile = path.join(slugDir, `${locale}.md`);
-      throw new ValidationError(
-        `${type === "blog" ? "Blog post" : "Article"} '${slug}' is missing required locale file: ${expectedFile}`
-      );
+      throw new ValidationError(`${typeLabels[type]} '${slug}' is missing required locale file: ${expectedFile}`);
     }
   }
 }

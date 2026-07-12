@@ -1,0 +1,15 @@
+{
+  "tags": {
+    "en": ["Agentic Coding", "Full-Stack Web", "Advanced"]
+  },
+  "title": {
+    "en": "Build a Learning Platform"
+  },
+  "description": {
+    "en": "Join Jeremy as he builds a full Japanese language-learning platform. Choose your own learning platform to build, then wrestle with every decision, feature and bug alongside him, and learn along the way."
+  },
+  "image": "coming-soon.webp",
+  "livestream": true,
+  "upcoming_streams": ["2026-07-12T14:00:00Z"],
+  "episodes": []
+}

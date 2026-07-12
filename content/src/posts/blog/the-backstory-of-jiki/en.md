@@ -75,7 +75,7 @@ I 100% knew I wanted Jiki to be free. The whole point is to help people who need
 
 So I decided to take a Freemium approach. The core of Jiki is free - the videos and exercises are all available to everyone. But there are some nice extra features (AI support, some bonus projects, live-streams, behind-the-scenes content, etc) that people can access for a small monthly fee ($9.99 adjusted per location using [Purchasing Power Parity](https://en.wikipedia.org/wiki/Purchasing_power_parity)). That's an amount that is affordable to most people in the world, so if people want to either support what we're doing, or want access to those features, that's a great way to start.
 
-## Then came the LLMs
+## Then came agentic coding
 
 Just as I was getting ready to launch, Claude Code and its friends came along and changed coding forever. I spent a long time wondering whether to even launch Jiki - whether coding was even relevant anymore. But 6 months later, I'm more convinced than ever: code is here to stay, and software developers are more valuable than ever.
 

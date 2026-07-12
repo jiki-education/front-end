@@ -69,6 +69,17 @@ export function ExternalFooter() {
           </div>
         </div>
         <div className={styles.section}>
+          <h3 className={styles.heading}>{t("freeContent.heading")}</h3>
+          <div className={styles.links}>
+            <Link href={routes.concepts()} className={styles.link}>
+              {t("freeContent.codingConcepts")}
+            </Link>
+            <Link href={routes.guides()} className={styles.link}>
+              {t("freeContent.agenticGuides")}
+            </Link>
+          </div>
+        </div>
+        <div className={styles.section}>
           <h3 className={styles.heading}>{t("getHelp.heading")}</h3>
           <div className={styles.links}>
             <Link href={routes.articles()} className={styles.link}>

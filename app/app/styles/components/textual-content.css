@@ -16,7 +16,7 @@
     h2 {
         font-weight: 700;
         color: var(--color-gray-900);
-        margin: var(--spacing-48) 0 var(--spacing-24) 0;
+        margin: 48px 0 12px 0;
         line-height: var(--leading-120);
 
         &:first-child {
@@ -27,12 +27,12 @@
     h3 {
         font-weight: 600;
         color: var(--color-gray-900);
-        margin: var(--spacing-40) 0 var(--spacing-20) 0;
+        margin: 40px 0 20px 0;
         line-height: var(--leading-130);
     }
 
     p {
-        margin-bottom: var(--spacing-20);
+        margin-bottom: 20px;
 
         &:last-child {
             margin-bottom: 0;
@@ -45,7 +45,7 @@
     }
 
     strong {
-        color: var(--color-gray-900);
+        color: var(--color-gray-800);
         font-weight: 600;
     }
 
@@ -77,16 +77,11 @@
         margin-bottom: 4px;
     }
 
-    /* Horizontal Rule (decorative chevron divider) */
-    hr {
-        border: none;
-        width: 70px;
-        height: 12px;
-        margin: var(--spacing-24) 0;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='12' viewBox='0 0 240 40' fill='none'%3E%3Cpolyline points='0,32 30,8 60,32 90,8 120,32 150,8 180,32 210,8 240,32' stroke='%23dab4fe' stroke-width='12' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: left center;
-        background-size: 70px 12px;
+    /* Blockquotes */
+    blockquote {
+        border-left: 8px solid var(--color-blue-200);
+        padding-left: 12px;
+        margin-bottom: 16px;
     }
 
     /* Footnotes (marked-footnote generated section) */
@@ -104,13 +99,13 @@
            proportionally on narrow screens. Do not add width:auto or size caps. */
         max-width: 100%;
         height: auto;
-        margin: var(--spacing-24) auto;
+        margin: 24px auto;
     }
 
     /* Inline Code */
     code {
         background: var(--color-purple-100);
-        padding: var(--spacing-2) var(--spacing-6);
+        padding: 2px 6px;
         border-radius: var(--radius-4);
         font-family: var(--font-mono);
         color: var(--color-purple-700);
@@ -122,7 +117,7 @@
         box-shadow: 0 0 3px var(--color-gray-400);
         border-radius: 8px;
         padding: 50px 21px 20px;
-        margin: var(--spacing-20) 0;
+        margin: 20px 0;
         background: var(--color-gray-50);
         position: relative;
         overflow-x: auto;
@@ -171,16 +166,16 @@
     /* Admonition Base */
     .admonition {
         border-radius: var(--radius-12);
-        padding: var(--spacing-24) var(--spacing-28);
-        margin: var(--spacing-20) 0;
+        padding: 24px 28px;
+        margin: 20px 0;
     }
 
     .admonition-title {
         font-weight: 700;
-        margin-bottom: var(--spacing-12);
+        margin-bottom: 12px;
         display: flex;
         align-items: center;
-        gap: var(--spacing-8);
+        gap: 8px;
     }
 
     .admonition-content {
@@ -219,7 +214,7 @@
         background: var(--color-amber-100);
         border-left: 4px solid var(--color-amber-500);
         border-radius: 0 var(--radius-12) var(--radius-12) 0;
-        padding: var(--spacing-20) var(--spacing-24);
+        padding: 20px 24px;
 
         .admonition-title {
             color: var(--color-amber-800);
@@ -235,7 +230,7 @@
     .admonition-try-it {
         background: linear-gradient(135deg, var(--color-blue-500-5) 0%, var(--color-purple-500-6) 100%);
         border: 3px dashed var(--color-blue-500);
-        padding: var(--spacing-28) var(--spacing-32);
+        padding: 28px 32px;
 
         .admonition-title {
             color: var(--color-blue-500);
@@ -253,16 +248,16 @@
         border-spacing: 0;
         border: 2px solid var(--color-gray-200);
         border-radius: var(--radius-12);
-        margin: var(--spacing-24) 0;
+        margin: 24px 0;
         overflow: hidden;
     }
 
     thead th {
         text-align: left;
-        font-size: var(--text-16);
+        font-size: 16px;
         font-weight: 600;
         color: var(--color-gray-700);
-        padding: var(--spacing-16) var(--spacing-24);
+        padding: 16px 24px;
         background: var(--color-gray-50);
         border-bottom: 2px solid var(--color-gray-200);
     }
@@ -272,9 +267,9 @@
     }
 
     tbody td {
-        padding: var(--spacing-16) var(--spacing-24);
+        padding: 16px 24px;
         vertical-align: top;
-        font-size: var(--text-17);
+        font-size: 17px;
         color: var(--color-gray-700);
         line-height: var(--leading-160);
         border-bottom: 2px solid var(--color-gray-200);
@@ -291,7 +286,7 @@
 
     /* Table Section */
     .article-table-section {
-        margin: var(--spacing-32) 0;
+        margin: 32px 0;
     }
 
     /* Table */
@@ -304,10 +299,10 @@
 
         th {
             text-align: left;
-            font-size: var(--text-16);
+            font-size: 16px;
             font-weight: 500;
             color: var(--color-gray-600);
-            padding: var(--spacing-16) var(--spacing-20);
+            padding: 16px 20px;
             background: var(--color-gray-50);
             border-bottom: 2px solid var(--color-gray-200);
 
@@ -322,10 +317,10 @@
         }
 
         td {
-            padding: var(--spacing-16) var(--spacing-20);
+            padding: 16px 20px;
             vertical-align: top;
             border-bottom: 2px solid var(--color-gray-200);
-            font-size: var(--text-17);
+            font-size: 17px;
             color: var(--color-gray-700);
             line-height: var(--leading-160);
             background: white;
@@ -355,27 +350,60 @@
             display: inline-block;
             background: linear-gradient(135deg, var(--color-purple-50) 0%, var(--color-purple-100) 100%);
             color: var(--color-purple-500);
-            padding: var(--spacing-4) var(--spacing-10);
+            padding: 4px 10px;
             border-radius: var(--radius-6);
             font-family: var(--font-mono);
-            font-size: var(--text-15);
+            font-size: 15px;
             font-weight: 500;
-            margin-right: var(--spacing-4);
-            margin-bottom: var(--spacing-4);
+            margin-right: 4px;
+            margin-bottom: 4px;
+        }
+    }
+
+    /* Blog post figures: image + caption framed together with a slate-500 (gray-500) border */
+    &.blog-post-content {
+        figure.post-figure {
+            display: table;
+            margin: 24px 0;
+            border: 2px solid var(--color-gray-300);
+            box-sizing: border-box;
+            max-width: 50%;
+            max-height: 350px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        figure.post-figure img {
+            display: block;
+            max-width: 100%;
+            padding: 2px;
+            width: auto;
+            height: auto;
+        }
+
+        figure.post-figure figcaption {
+            border-top: 2px solid var(--color-gray-300);
+            padding: 8px 12px;
+            font-size: 14px;
+            font-style: italic;
+            color: var(--color-gray-500);
+            text-align: center;
+            line-height: 1.4;
+            background: var(--color-gray-100);
         }
     }
 }
 
 /* Typography - Compact Variant (for panels, sidebars) */
 .ui-textual-content-compact {
-    font-size: var(--text-14);
+    font-size: 14px;
     padding: 0;
     max-width: none;
     margin: 0;
     background: none;
 
     p {
-        margin-bottom: var(--spacing-12);
+        margin-bottom: 12px;
 
         &:last-child {
             padding-bottom: 0;
@@ -383,103 +411,103 @@
     }
 
     h2 {
-        font-size: var(--text-16);
-        margin: var(--spacing-16) 0 var(--spacing-8) 0;
+        font-size: 16px;
+        margin: 16px 0 8px 0;
     }
 
     h3 {
-        font-size: var(--text-14);
-        margin: var(--spacing-12) 0 var(--spacing-6) 0;
+        font-size: 14px;
+        margin: 12px 0 6px 0;
     }
 
     pre {
         border-radius: var(--radius-8);
-        padding: var(--spacing-12) var(--spacing-16);
-        margin: var(--spacing-12) 0;
+        padding: 12px 16px;
+        margin: 12px 0;
     }
 
     code {
-        font-size: var(--text-13);
+        font-size: 13px;
     }
 
     pre code {
-        font-size: var(--text-13);
+        font-size: 13px;
     }
 }
 
 /* Typography - Large Variant */
 .ui-textual-content-large {
-    font-size: var(--text-19);
+    font-size: 19px;
 
     h2 {
-        font-size: var(--text-36);
+        font-size: 36px;
     }
 
     h3 {
-        font-size: var(--text-28);
+        font-size: 28px;
     }
 
     code {
-        font-size: var(--text-18);
+        font-size: 18px;
     }
 
     pre code {
-        font-size: var(--text-14);
+        font-size: 14px;
     }
 
     .admonition-title {
-        font-size: var(--text-18);
+        font-size: 18px;
     }
 
     .admonition-icon {
-        font-size: var(--text-20);
+        font-size: 20px;
     }
 
     .admonition-content {
-        font-size: var(--text-18);
+        font-size: 18px;
     }
 
     .admonition-warning {
         .admonition-title {
-            font-size: var(--text-17);
+            font-size: 17px;
         }
 
         .admonition-content {
-            font-size: var(--text-17);
+            font-size: 17px;
         }
     }
 
     .admonition-try-it .admonition-title {
-        font-size: var(--text-20);
+        font-size: 20px;
     }
 }
 
 /* Typography - Base Variant */
 .ui-textual-content-base {
-    font-size: var(--text-18);
+    font-size: 18px;
 
     h2 {
-        font-size: var(--text-32);
+        font-size: 32px;
     }
 
     h3 {
-        font-size: var(--text-24);
+        font-size: 24px;
     }
 
     code {
-        font-size: var(--text-16);
+        font-size: 16px;
     }
 
     pre code {
-        font-size: var(--text-16);
+        font-size: 16px;
     }
 
     .admonition-title {
-        font-size: var(--text-16);
+        font-size: 16px;
     }
 
     .admonition-content {
-        font-size: var(--text-18);
+        font-size: 18px;
     }
 }
 
@@ -542,30 +570,30 @@ pre .hljs-meta {
 /* Responsive */
 @media (max-width: 768px) {
     .ui-textual-content {
-        padding: var(--spacing-32) var(--spacing-20) 0 var(--spacing-20);
+        padding: 32px 20px 0 20px;
     }
 
     .ui-textual-content-large {
-        font-size: var(--text-17);
+        font-size: 17px;
 
         h2 {
-            font-size: var(--text-28);
+            font-size: 28px;
         }
 
         h3 {
-            font-size: var(--text-22);
+            font-size: 22px;
         }
     }
 
     .ui-textual-content-base {
-        font-size: var(--text-16);
+        font-size: 16px;
 
         h2 {
-            font-size: var(--text-24);
+            font-size: 24px;
         }
 
         h3 {
-            font-size: var(--text-20);
+            font-size: 20px;
         }
     }
 
@@ -577,13 +605,31 @@ pre .hljs-meta {
         }
 
         thead th {
-            font-size: var(--text-14);
-            padding: var(--spacing-12) var(--spacing-16);
+            font-size: 14px;
+            padding: 12px 16px;
         }
 
         tbody td {
-            font-size: var(--text-15);
-            padding: var(--spacing-12) var(--spacing-16);
+            font-size: 15px;
+            padding: 12px 16px;
         }
     }
+}
+
+/* Horizontal Rule (decorative chevron divider).
+   Applies to hrs inside textual content, and anywhere via .ui-chevron-divider */
+.ui-textual-content hr,
+hr.ui-chevron-divider {
+    border: none;
+    width: 70px;
+    height: 12px;
+    margin: 24px 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='12' viewBox='0 0 240 40' fill='none'%3E%3Cpolyline points='0,32 30,8 60,32 90,8 120,32 150,8 180,32 210,8 240,32' stroke='%23dab4fe' stroke-width='12' stroke-linecap='round' stroke-linejoin='round' /%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 70px 12px;
+}
+
+hr.ui-chevron-divider {
+    margin: 40px 0 24px;
 }

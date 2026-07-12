@@ -1,0 +1,148 @@
+.pageHeading {
+    font-size: 34px;
+    font-weight: 600;
+    color: var(--color-gray-950);
+    margin-bottom: 13px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    @media (max-width: 1200px) {
+        font-size: 26px;
+    }
+
+    @media (max-width: 768px) {
+        font-size: 22px;
+    }
+}
+
+.headingIcon {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    color: var(--color-blue-500);
+
+    @media (max-width: 768px) {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.guidesGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 24px;
+    margin-bottom: 64px;
+}
+
+@media (max-width: 1200px) {
+    .guidesGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .guidesGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.pagination {
+    margin-top: 12px;
+}
+
+/* Search bar */
+.searchBar {
+    position: relative;
+}
+
+.searchClearBtn {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: none;
+    background-color: var(--color-gray-300);
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease;
+}
+
+.searchClearBtn:hover {
+    background-color: var(--color-gray-400);
+}
+
+.searchClearBtn svg {
+    width: 10px;
+    height: 10px;
+    color: var(--color-gray-600);
+}
+
+.searchBar.hasValue .searchClearBtn {
+    display: flex;
+}
+
+.searchBar.hasValue input {
+    padding-right: 44px;
+}
+
+/* No results */
+.noResults {
+    text-align: left;
+    padding: 0;
+    margin-top: 24px;
+}
+
+.noResultsTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-gray-700);
+    margin-bottom: 8px;
+}
+
+.noResultsMessage {
+    font-size: 15px;
+    color: var(--color-gray-500);
+}
+
+/* Tag filters, below the search bar */
+.filterTags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.filterTag {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    background: linear-gradient(135deg, rgba(148, 163, 184, 0.15) 0%, rgba(168, 85, 247, 0.1) 100%);
+    color: var(--color-purple-500);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.filterTag:hover {
+    background: linear-gradient(135deg, rgba(148, 163, 184, 0.25) 0%, rgba(168, 85, 247, 0.2) 100%);
+}
+
+.filterTag.active {
+    background: linear-gradient(135deg, var(--color-purple-500) 0%, var(--color-purple-600) 100%);
+    color: white;
+}

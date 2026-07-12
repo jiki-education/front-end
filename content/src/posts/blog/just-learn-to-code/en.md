@@ -17,7 +17,7 @@ And I can't blame them! One of the most confused, conflated messages that beginn
 
 But this is nonsense for a beginner. A beginner doesn't need to learn Python or JavaScript or any other language. They need to learn coding fundamentals and build a rock-solid platform that covers all the dozens of languages they'll end up using in time.
 
-Especially in the age of LLMs, when you could be putting TypeScript, Python, SQL, bash, JSON, Ruby and however many more languages into production in your first week. We need to help beginners understand what's going on at as wide a level as possible, not narrow into some specific language.
+Especially in the agentic-coding era, when you could be putting TypeScript, Python, SQL, bash, JSON, Ruby and however many more languages into production in your first week. We need to help beginners understand what's going on at as wide a level as possible, not narrow into some specific language.
 
 We've designed Jiki to teach the fundamentals. Right now it uses a slightly modified version of JavaScript. Later in the year we'll add Python and you can choose (or we can flip a coin for you to choose!), but honestly it doesn't matter.
 
