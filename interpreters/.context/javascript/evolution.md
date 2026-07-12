@@ -1,5 +1,18 @@
 # JavaScript Interpreter Evolution
 
+## 2026-07-12: `exerciseFinished()` halts execution at the end of the current statement
+
+Previously `exerciseFinished()` (called by exercises when the goal is reached, e.g. the maze character landing on the target) only broke **no-argument** `repeat()` loops. Counted repeats, `while`, `for`, `for-of` and `for-in` ignored it, so a student who wrote `repeat(50)` instead of the bare `repeat()` watched their character reach the maze target and then keep executing the remaining iterations - wandering off the target square and failing the scenario's final-position check despite visibly finishing.
+
+Now the flag halts execution entirely, at the end of the statement that triggered it:
+
+- `executeStatement` early-returns when `_exerciseFinished` is set, so every subsequent statement (rest of the loop body, rest of a function body, statements after the loop, remaining top-level statements) becomes a no-op.
+- Every loop construct (`repeat` counted and uncounted, `while`, `for`, `for-of`, `for-in`) breaks after the iteration in which the flag was set, so loop machinery stops generating condition/iteration frames.
+
+**Semantic change:** the old behaviour was "finish the current _iteration_, then break the no-arg repeat" - remaining statements in the finishing iteration still ran. The new behaviour stops after the current _statement_: nothing in the program executes once the exercise has finished. The expression containing the triggering call still completes normally and generates its frame.
+
+Python and JikiScript retain the old semantics (only their no-arg repeat loops check the flag); aligning them is deliberately out of scope for now. The `ExecutionContext.exerciseFinished` doc comment in `shared/interfaces.ts` records the divergence.
+
 ## 2026-07-10: Loose equality (`==`/`!=`) rejected at parse time, with distinct messages
 
 Rejecting `==`/`!=` when `enforceStrictEquality` is on (the default) moved from a **runtime** check in `executeBinaryExpression` to a **parse-time** check in `parser.ts` (`equality()`). Rationale:

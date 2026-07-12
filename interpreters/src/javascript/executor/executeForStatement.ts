@@ -47,6 +47,11 @@ export function executeForStatement(executor: Executor, statement: ForStatement)
           executor.executeStatement(statement.body);
         });
 
+        // Stop looping once the exercise signals completion
+        if (executor._exerciseFinished) {
+          break;
+        }
+
         // Delay repeat for things like animations
         executor.time += (executor.languageFeatures.repeatDelay ?? 0) * TIME_SCALE_FACTOR;
 

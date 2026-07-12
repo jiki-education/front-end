@@ -104,7 +104,6 @@ import { llmMetadata as spotifyLLM } from "./exercises/spotify/llm-metadata";
 import { llmMetadata as llmResponseLLM } from "./exercises/llm-response/llm-metadata";
 import { llmMetadata as leapLLM } from "./exercises/leap/llm-metadata";
 import { llmMetadata as lookAroundLLM } from "./exercises/look-around/llm-metadata";
-import { llmMetadata as emojiCollectorLLM } from "./exercises/emoji-collector/llm-metadata";
 import { llmMetadata as boundarieBallLLM } from "./exercises/boundaried-ball/llm-metadata";
 import { llmMetadata as smashingBlocksLLM } from "./exercises/smashing-blocks/llm-metadata";
 import { llmMetadata as mazeSolveWalkLLM } from "./exercises/maze-solve-walk/llm-metadata";
@@ -218,7 +217,6 @@ const llmMetadataRegistry = {
   "llm-response": llmResponseLLM,
   leap: leapLLM,
   "look-around": lookAroundLLM,
-  "emoji-collector": emojiCollectorLLM,
   "boundaried-ball": boundarieBallLLM,
   "smashing-blocks": smashingBlocksLLM,
   "maze-solve-walk": mazeSolveWalkLLM,

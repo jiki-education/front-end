@@ -98,7 +98,12 @@ export const exercises = {
   "tic-tac-toe": () => import("./tic-tac-toe"),
   leap: () => import("./leap"),
   "look-around": () => import("./look-around"),
-  "emoji-collector": () => import("./emoji-collector"),
+  // emoji-collector is unregistered for now: its design relies on student code
+  // running after exerciseFinished() (announceEmojis after the maze walk), which
+  // conflicts with exerciseFinished halting execution. It is unpublished (a
+  // challenge unlocked from the Dictionaries level, past the publish cutoff)
+  // and needs a redesign before it can be re-enabled.
+  // "emoji-collector": () => import("./emoji-collector"),
   "boundaried-ball": () => import("./boundaried-ball"),
   "smashing-blocks": () => import("./smashing-blocks"),
   "maze-solve-walk": () => import("./maze-solve-walk"),

@@ -10,6 +10,7 @@ export function executeRepeatStatement(executor: Executor, statement: RepeatStat
   // bounded only by the infinite-loop guard. Passing a null count makes the loop rely on
   // guardInfiniteLoop to stop it, so hitting maxTotalLoopIterations raises MaxIterationsReached
   // rather than silently exiting one iteration before the guard would fire.
+  // (Counted repeats also stop early when the exercise signals completion - see executeLoop.)
   if (statement.count === null) {
     executeLoop(executor, statement, null, null);
     return;
@@ -87,7 +88,8 @@ function executeLoop(
           executor.executeStatement(statement.body);
         });
 
-        if (countResult == null && executor._exerciseFinished) {
+        // Stop looping once the exercise signals completion (counted or not).
+        if (executor._exerciseFinished) {
           break;
         }
 
