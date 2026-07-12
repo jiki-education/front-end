@@ -499,6 +499,13 @@ export class Executor {
   }
 
   public executeStatement(statement: Statement): void {
+    // Once the exercise has signalled completion (via executionCtx.exerciseFinished()),
+    // execution halts at the end of the current statement: every subsequent statement
+    // - in loop bodies, function bodies, or after loops - becomes a no-op.
+    if (this._exerciseFinished) {
+      return;
+    }
+
     // Safety check: ensure this node type is allowed
     this.assertNodeAllowed(statement);
 

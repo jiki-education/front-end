@@ -77,6 +77,11 @@ export function executeForOfStatement(executor: Executor, statement: ForOfStatem
           executor.executeStatement(statement.body);
         });
 
+        // Stop looping once the exercise signals completion
+        if (executor._exerciseFinished) {
+          break;
+        }
+
         // Remove the loop variable before the next iteration
         // (it will be redefined in the next iteration)
       }

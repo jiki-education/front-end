@@ -75,6 +75,11 @@ export function executeForInStatement(executor: Executor, statement: ForInStatem
         executor.executeLoopIteration(() => {
           executor.executeStatement(statement.body);
         });
+
+        // Stop looping once the exercise signals completion
+        if (executor._exerciseFinished) {
+          break;
+        }
       }
     });
   } finally {
