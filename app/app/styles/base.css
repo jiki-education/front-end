@@ -95,6 +95,15 @@
         max-width: 100%;
     }
 
+    /* Preserve intrinsic aspect ratio when width is overridden (e.g. a CSS
+       module sets width but the element still carries width/height attrs, as
+       Next.js <Image> does). Scoped to img/video like Tailwind's preflight,
+       so SVG/canvas that rely on attribute height are unaffected. */
+    img,
+    video {
+        height: auto;
+    }
+
     table {
         border-collapse: collapse;
     }
