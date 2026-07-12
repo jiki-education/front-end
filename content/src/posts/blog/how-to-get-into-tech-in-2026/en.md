@@ -53,7 +53,7 @@ It's trivial with Claude to say "Make me a homepage" and then iteratively say "M
 
 You have to resist the urge to ask Claude to make something and then feel good from **the little dopamine hit you get**. You have to realise that just because Claude has made something, you have not necessarily added any value. In fact, at the beginning, you're literally just doing the same as what anyone else could do.
 
-But coming up with a real vision, understanding and planning how all the bits will fit together, and then being able to successfully guide an LLM to make it, keeping it on track, knowing where it's going wrong, or going to cause you pain later... **That's a real skill.**
+But coming up with a real vision, understanding and planning how all the bits will fit together, and then being able to successfully [use agentic coding](/guides/what-is-agentic-coding) to make it, keeping it on track, knowing where it's going wrong, or going to cause you pain later... **That's a real skill.**
 
 Every day I use Claude Code, it does stuff that is very obviously wrong to me. It tries to take me down paths that range from suboptimal to outright bad. But it makes it so easy, and it does so much right, that it's hard to know that at first. And as these models are increasingly designed to be run autonomously, the skill of the developer is increasingly in that overseeing, guiding place.
 
