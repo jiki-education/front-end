@@ -47,13 +47,8 @@
     flex-shrink: 0;
 }
 
-@media (max-width: 1024px) {
-    .layout {
-        flex-direction: column;
-        gap: 32px;
-    }
-
+@media (max-width: 1320px) {
     .sidebar {
-        width: 100%;
+        display: none;
     }
 }

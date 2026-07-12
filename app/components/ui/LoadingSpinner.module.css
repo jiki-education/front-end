@@ -1,8 +1,7 @@
 /*
  * LoadingSpinner renders on (hybrid) routes (e.g. /unsubscribe) where the
  * Tailwind utility bundle is not loaded, so its styles live here rather than in
- * Tailwind classes. Values mirror the previous utilities exactly, referencing
- * the same design tokens Tailwind generated them from.
+ * Tailwind classes. Values mirror the previous utilities exactly.
  */
 
 .wrapper {
@@ -19,18 +18,18 @@
 }
 
 .sm {
-    width: var(--spacing-4);
-    height: var(--spacing-4);
+    width: 4px;
+    height: 4px;
 }
 
 .md {
-    width: var(--spacing-6);
-    height: var(--spacing-6);
+    width: 6px;
+    height: 6px;
 }
 
 .lg {
-    width: var(--spacing-8);
-    height: var(--spacing-8);
+    width: 8px;
+    height: 8px;
 }
 
 @keyframes spin {

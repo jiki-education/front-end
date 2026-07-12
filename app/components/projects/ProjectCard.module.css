@@ -5,7 +5,7 @@
     align-items: stretch;
     gap: 24px;
     border-radius: 12px;
-    border: 2px solid var(--color-blue-200);
+    border: 2px solid var(--color-blue-300);
     background: #fff;
     padding: 24px;
     box-shadow: 0 0 5px color-mix(in srgb, var(--color-blue-500) 20%, transparent);
@@ -17,27 +17,29 @@
 }
 
 .card:hover {
-    border-color: var(--color-blue-300);
+    border-color: var(--color-blue-400);
     box-shadow: 0 0 12px color-mix(in srgb, var(--color-blue-500) 35%, transparent);
 }
 
 .cardComingSoon {
     cursor: default;
-    border-color: var(--color-blue-500);
+    border-color: var(--color-gray-300);
+    box-shadow: none;
+    opacity: 0.7;
 }
 
 .cardComingSoon:hover {
-    border-color: var(--color-blue-500);
-    box-shadow: 0 0 5px color-mix(in srgb, var(--color-blue-500) 20%, transparent);
+    border-color: var(--color-gray-300);
+    box-shadow: none;
 }
 
 .comingSoonRibbon {
     position: absolute;
-    top: 24px;
-    right: -56px;
+    top: 30px;
+    right: -57px;
     width: 200px;
     transform: rotate(45deg);
-    background: var(--color-blue-600);
+    background: var(--color-gray-500);
     color: white;
     text-align: center;
     font-size: 12px;
@@ -45,31 +47,27 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     padding: 6px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
     pointer-events: none;
 }
 
 .cardImage {
     width: 240px;
+    max-width: 33%;
     aspect-ratio: 16 / 9;
     height: auto;
     border-radius: 10px;
     border: 1px solid var(--color-gray-200);
     object-fit: cover;
-    flex-shrink: 0;
+    flex-shrink: 1;
     align-self: flex-start;
 }
 
-@media (max-width: 1320px) {
+@media (max-width: 1024px) {
     .card {
         flex-direction: column;
         gap: 16px;
         padding: 16px;
-    }
-
-    .cardImage {
-        max-height: 200px;
-        width: auto;
     }
 }
 

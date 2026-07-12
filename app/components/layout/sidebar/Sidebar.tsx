@@ -10,7 +10,7 @@ import VideoLibIcon from "@/icons/video-lib.svg";
 import RssIcon from "@/icons/rss.svg";
 import ChatBubbleIcon from "@/icons/chat-bubble.svg";
 import SettingsIcon from "@/icons/settings.svg";
-import HintIcon from "@/icons/hint.svg";
+import HelpIcon from "@/icons/help.svg";
 import WavingHandIcon from "@/icons/waving-hand.svg";
 import PremiumStarIcon from "@/icons/premium-star.svg";
 import type { ComponentType } from "react";
@@ -78,7 +78,7 @@ const navigationGroups: Array<{
     items: [
       { id: "achievements", href: "/achievements", icon: MedalIcon },
       { id: "settings", href: "/settings", icon: SettingsIcon },
-      { id: "help", href: "/help", icon: HintIcon }
+      { id: "help", href: "/help", icon: HelpIcon }
     ]
   }
 ];

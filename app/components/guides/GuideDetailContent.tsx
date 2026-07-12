@@ -1,5 +1,5 @@
-import MarkdownContent from "@/components/content/MarkdownContent";
 import type { ProcessedGuide, GuideMeta } from "@/lib/content/types";
+import GuideBody from "./GuideBody";
 import GuideDetailHeader from "./GuideDetailHeader";
 import FeaturedInProjects, { type FeaturedInEpisode } from "./FeaturedInProjects";
 import RelatedGuides from "./RelatedGuides";
@@ -27,7 +27,7 @@ export default function GuideDetailContent({
   const body = guide.premium ? (
     <PremiumGuideGate slug={guide.slug} content={guide.content} />
   ) : (
-    <MarkdownContent content={guide.content} />
+    <GuideBody content={guide.content} />
   );
 
   return (

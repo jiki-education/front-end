@@ -29,16 +29,20 @@ export default function PremiumGuideGate({ slug, content }: PremiumGuideGateProp
   const user = useAuthStore((state) => state.user);
   const userIsPremium = !!user && tierIncludes(user.membership_type, "premium");
 
+  // Logged-in viewers read at app scale; logged-out visitors get the larger
+  // marketing-page type (matching the hero header split).
+  const variant = user ? "base" : "large";
+
   // Premium members (and only them) get the full guide. Everyone else sees a
   // teaser followed by an upgrade CTA. The pre-hydration/server render matches
   // the logged-out state, so there is no hydration mismatch.
   if (userIsPremium) {
-    return <MarkdownContent content={content} />;
+    return <MarkdownContent content={content} variant={variant} />;
   }
 
   return (
     <>
-      <MarkdownContent content={firstParagraph(content)} />
+      <MarkdownContent content={firstParagraph(content)} variant={variant} />
       <div className={styles.lockedCta}>
         <div className={styles.lockedIcon}>
           <LockIcon />

@@ -17,6 +17,7 @@ interface NavigationItemProps {
 }
 
 export function NavigationItem({
+  id,
   label,
   isActive,
   href,
@@ -49,15 +50,22 @@ export function NavigationItem({
   return (
     <li>
       {onClick ? (
-        <button type="button" onClick={onClick} className={className} data-label={label}>
+        <button type="button" onClick={onClick} className={className} data-nav-id={id} data-label={label}>
           {content}
         </button>
       ) : external ? (
-        <a href={href || "#"} target="_blank" rel="noopener noreferrer" className={className} data-label={label}>
+        <a
+          href={href || "#"}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={className}
+          data-nav-id={id}
+          data-label={label}
+        >
           {content}
         </a>
       ) : (
-        <Link href={href || "#"} className={className} data-label={label}>
+        <Link href={href || "#"} className={className} data-nav-id={id} data-label={label}>
           {content}
         </Link>
       )}

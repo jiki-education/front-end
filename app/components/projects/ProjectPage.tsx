@@ -82,11 +82,13 @@ export default function ProjectPage({ project, episodes, guides, locale }: Proje
 
   return (
     <ConceptsLayout>
+      <header className={styles.header}>
+        <h1 className={styles.title}>{project.title}</h1>
+      </header>
       <ConceptLayout rightPanel={sidebar}>
         <Link href={localePath("/build", locale)} className={styles.backLink}>
           ← Back to all Projects
         </Link>
-        <h1 className={styles.title}>{project.title}</h1>
         <p className={styles.description}>{project.description}</p>
         {project.tags.length > 0 && (
           <div className={styles.pillRow}>
@@ -97,7 +99,6 @@ export default function ProjectPage({ project, episodes, guides, locale }: Proje
             ))}
           </div>
         )}
-
         <div className={styles.episodesList}>
           {sorted.map((episode) => (
             <EpisodeCard

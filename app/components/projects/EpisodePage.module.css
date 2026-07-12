@@ -5,7 +5,11 @@
     font-size: 14px;
     color: var(--color-blue-600);
     text-decoration: none;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
+}
+
+.backLinkProject {
+    font-weight: 600;
 }
 
 .backLink:hover {

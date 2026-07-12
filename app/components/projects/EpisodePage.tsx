@@ -26,7 +26,11 @@ export default function EpisodePage({ project, episode, guides, locale }: Episod
       <div className={styles.sidebar}>
         {episode.summary && <EpisodeSummary summary={episode.summary} />}
         {guides.length > 0 && (
-          <GuidesSidebar guides={guides} locale={locale} description="Guides useful for you in this episode" />
+          <GuidesSidebar
+            guides={guides}
+            locale={locale}
+            description="Guides that might be useful to you when solving this step in the process."
+          />
         )}
       </div>
     ) : undefined;
@@ -35,7 +39,7 @@ export default function EpisodePage({ project, episode, guides, locale }: Episod
     <ConceptsLayout>
       <ConceptLayout rightPanel={sidebar}>
         <Link href={projectPath} className={styles.backLink}>
-          ← Back to {project.title}
+          ← Back to <span className={styles.backLinkProject}>{project.title}</span>
         </Link>
 
         <h1 className={styles.title}>{episode.title}</h1>

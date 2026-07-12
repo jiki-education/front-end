@@ -20,7 +20,7 @@ export default function BuildHubPage({ projects, locale }: BuildHubPageProps) {
           <LearningComputerIcon />
           Learn to Build - Projects
         </h1>
-        <p className={styles.description}>Build real projects from scratch with Jeremy, learning bit by bit.</p>
+        <p className={styles.description}>Build real projects from scratch with Jeremy. Learn everything he knows!</p>
       </header>
       <div className={styles.layout}>
         <div className={styles.main}>

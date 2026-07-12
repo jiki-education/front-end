@@ -2,8 +2,8 @@
 title: "Episode 1: Agentic Coding 101"
 excerpt: "We kick off this project with a deep dive into agentic coding. What LLMs and agents are, how models and effort work, how to get set up for free with OpenCode, and building your very first web page."
 summary:
-  from: "Never having used an agent or written a line of HTML."
-  to: "Understanding the agentic coding loop and your first barebones homepage in the browser."
+  from: "We presume you know nothing about the web or agentic coding."
+  to: "You understand the agentic coding loop and write your first barebones homepage in the browser."
   keyConcepts: ["Agentic coding", "Models and effort", "Tokens and context", "HTML basics"]
 seo:
   description: "Learn what agentic coding is, how LLMs, models and tokens work, and build your first web page with OpenCode."

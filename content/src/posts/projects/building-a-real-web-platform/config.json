@@ -1,12 +1,12 @@
 {
   "tags": {
-    "en": []
+    "en": ["Agentic Coding", "Full-Stack Web", "Advanced"]
   },
   "title": {
-    "en": "Building a Japanese-learning Platform"
+    "en": "Build a Learning Platform"
   },
   "description": {
-    "en": "Join Jeremy as he builds a full Japanese language-learning platform. Wrestle with every decision, feature and bug alongside him, and learn along the way."
+    "en": "Join Jeremy as he builds a full Japanese language-learning platform. Choose your own learning platform to build, then wrestle with every decision, feature and bug alongside him, and learn along the way."
   },
   "image": "coming-soon.webp",
   "livestream": true,

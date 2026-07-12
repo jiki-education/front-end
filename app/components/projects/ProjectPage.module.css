@@ -1,3 +1,7 @@
+.header {
+    margin-bottom: 16px;
+}
+
 .backLink {
     display: inline-flex;
     align-items: center;
@@ -5,7 +9,7 @@
     font-size: 14px;
     color: var(--color-blue-600);
     text-decoration: none;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 .backLink:hover {
