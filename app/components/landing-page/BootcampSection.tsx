@@ -220,7 +220,7 @@ export function BootcampSection() {
               <div className={styles.row}>
                 <div className={styles.lhs}>
                   <h3 className={styles.subHeading}>
-                    {t("part2Heading")}
+                    {t.rich("part2Heading", { strong })}
                     <div className={styles.bubble}>{t("part2Bubble")}</div>
                   </h3>
                   <div className={styles["part-intro"]}>{t.rich("part2Intro", { highlight })}</div>

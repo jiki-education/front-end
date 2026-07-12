@@ -551,7 +551,7 @@
     "hero": {
       "headlinePart1": "Learn to ",
       "headlineHighlight": "code and build",
-      "headlinePart2": " in the agentic-coding era!",
+      "headlinePart2": " in the LLM era!",
       "tagline": "Learn the skills you need to create awesome things, be productive, and <strong>stay relevant in {year}.</strong>",
       "audiencePrefix": "Designed for ",
       "audience1": "people getting into tech",
@@ -743,7 +743,7 @@
       "levelEnd": "And by the <strong>end of the course</strong> you're building games like <strong>Breakout!</strong>",
       "buildingHeading": "But learning to code <strong>isn't enough</strong>",
       "buildingIntro": "In the agentic-coding era, you also need to get up to speed on how to create things, how to work with an LLM safely. So...",
-      "part2Heading": "2. <strong>Learn to Build in the Agentic Coding Era</strong> 🚀",
+      "part2Heading": "2. <strong>Learn to Build in the LLM Era</strong> 🚀",
       "part2Bubble": "Beginners / Juniors",
       "part2Intro": "Alongside learning to code, we'll deep dive into how technology works. We'll <highlight>build real projects together</highlight>, digging into databases, creating secure auth, learning about frontends vs backends, and much much more.",
       "part2Item1": "<strong>Building From Scratch</strong>: Join me as I build a whole platform from scratch. Spin up an LLM and you can follow along with your own project idea. I'll teach you how to make good decisions and guide your LLM safely.",

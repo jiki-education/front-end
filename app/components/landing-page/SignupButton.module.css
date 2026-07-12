@@ -5,8 +5,7 @@
     font-weight: 600;
     border-radius: 12px;
     font-size: 20px;
-    border-width: 1px;
-    border-color: #c1b1dc;
+    border: 1px solid #c1b1dc;
     animation: btn-pulse 4.8s ease-in-out infinite;
 }
 

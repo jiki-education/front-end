@@ -250,8 +250,7 @@
                 right: 0;
                 bottom: 3px;
                 left: 0;
-                border-bottom-width: 1px;
-                border-color: #ffffffaa;
+                border-bottom: 1px solid #ffffffaa;
             }
         }
     }
@@ -272,8 +271,7 @@
         .bubble {
             font-size: 15px;
             font-weight: 600;
-            border-width: 1px;
-            border-color: #fff;
+            border: 1px solid #fff;
             background-color: #fff;
             color: var(--color-gray-700);
             padding-top: 4px;
