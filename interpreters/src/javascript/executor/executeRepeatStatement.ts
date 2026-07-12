@@ -35,7 +35,7 @@ export function executeRepeatStatement(executor: Executor, statement: RepeatStat
   }
 
   // Validate: must not exceed max iterations
-  const max = executor.languageFeatures.maxTotalLoopIterations ?? 10000;
+  const max = executor.languageFeatures.maxTotalLoopIterations ?? 1000;
   if (count.value > max) {
     executor.error("RepeatCountTooHigh", statement.count.location, {
       value: count.value,

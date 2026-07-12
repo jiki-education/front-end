@@ -213,10 +213,10 @@ export class Executor {
       allowShadowing: false, // Default to false (shadowing disabled)
       allowTypeCoercion: false, // Default to false (type coercion disabled)
       enforceStrictEquality: true, // Default to true (strict equality required)
-      maxTotalLoopIterations: 10000, // Default limit to prevent infinite loops
+      maxTotalLoopIterations: 1000, // Default limit to prevent infinite loops
       ...context.languageFeatures,
     };
-    this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations ?? 10000;
+    this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations ?? 1000;
     this.environment = new Environment(this.languageFeatures);
     this.globalEnvironment = this.environment;
 
