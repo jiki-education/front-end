@@ -11,8 +11,6 @@ seo:
 
 When you start writing code on your own computer, you need somewhere to write it. That "somewhere" is a code editor. It is one of the first tools you will reach for, and where you will spend a lot of time over your career. You will likely chop and change and try new ones as time goes on, so it is worth understanding what it is and how to pick a good one to start with.
 
-(P.S. If you want the longer story of the history of text editors from punch cards to today, I wrote about [the history of the text editor](/blog/the-history-of-the-text-editor)).
-
 ## A code editor is not a word processor
 
 It is easy to assume that any program that lets you type will do the job. The most common mistake is to reach for a word processor like Microsoft Word or Google Docs. Those are built for writing documents for people to read, so they quietly change what you type. They turn straight quotes into curly "smart" quotes, autocorrect your words, and save hidden formatting. All of that breaks code.

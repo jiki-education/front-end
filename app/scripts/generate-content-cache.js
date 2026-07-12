@@ -50,6 +50,12 @@ const IMAGES_SRC_DIR = path.join(__dirname, "../../content/images");
 const STATIC_DIR = path.join(__dirname, "../public/static/content");
 const GENERATED_DIR = path.join(__dirname, "../lib/generated");
 
+// Content temporarily pulled from the site without deleting its files. See
+// editors-blog-post.md (repo root) for why and how to bring it back.
+const DISABLED_SLUGS = {
+  blog: ["the-history-of-the-text-editor"]
+};
+
 // Load authors
 let authorsData;
 try {
@@ -165,7 +171,10 @@ function processContentDir(type, requiredFields, extraFields) {
     return result;
   }
 
-  const slugDirs = fs.readdirSync(contentDir, { withFileTypes: true }).filter((d) => d.isDirectory());
+  const disabledSlugs = DISABLED_SLUGS[type] ?? [];
+  const slugDirs = fs
+    .readdirSync(contentDir, { withFileTypes: true })
+    .filter((d) => d.isDirectory() && !disabledSlugs.includes(d.name));
 
   for (const slugDir of slugDirs) {
     const slug = slugDir.name;

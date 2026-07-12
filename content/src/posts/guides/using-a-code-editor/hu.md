@@ -23,8 +23,6 @@ A code editor is a kind of text editor. It works with plain text and never adds 
 - **Autocomplete** suggests the rest of what you are typing, so you write faster and make fewer typos.
 - **Extensions** let you add support for new languages and tools as you grow.
 
-If you want the longer story of how these tools came to be, we wrote about [the history of the text editor](/blog/the-history-of-the-text-editor).
-
 ## The one we recommend
 
 There are many good code editors, and you cannot make a bad choice here. That said, we recommend **Visual Studio Code**, usually shortened to VS Code. It is free, it runs on Windows, macOS, and Linux, it is friendly for beginners, and it is one of the most widely used editors in the world, so almost any tutorial you find will assume you are using it.

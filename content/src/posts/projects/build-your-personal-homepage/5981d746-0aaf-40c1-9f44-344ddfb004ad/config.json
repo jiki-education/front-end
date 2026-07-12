@@ -7,5 +7,11 @@
   "durationSeconds": 5334,
   "premium": false,
   "image": "build-yourself-a-homepage.webp",
-  "guides": ["installing-vscode", "using-a-code-editor", "installing-wsl"]
+  "guides": [
+    "what-is-agentic-coding",
+    "key-agentic-coding-concepts",
+    "installing-an-agentic-coding-platform",
+    "using-a-code-editor",
+    "installing-vscode"
+  ]
 }
