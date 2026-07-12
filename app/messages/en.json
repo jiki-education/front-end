@@ -551,7 +551,7 @@
     "hero": {
       "headlinePart1": "Learn to ",
       "headlineHighlight": "code and build",
-      "headlinePart2": " in the LLM-era!",
+      "headlinePart2": " in the agentic-coding era!",
       "tagline": "Learn the skills you need to create awesome things, be productive, and <strong>stay relevant in {year}.</strong>",
       "audiencePrefix": "Designed for ",
       "audience1": "people getting into tech",
@@ -618,7 +618,7 @@
     "signupSection": {
       "headingPrefix": "Get started - ",
       "headingHighlight": "it's free!",
-      "intro": "The <strong>Coding Fundamentals</strong> curriculum is <strong>completely free</strong>. No card. No trial. No catch.",
+      "intro": "The <strong>Learn to Code</strong> curriculum is <strong>completely free</strong>. No card. No trial. No catch.",
       "button": "Sign up & start coding →"
     },
     "signupButton": {
@@ -630,11 +630,11 @@
       "introPrefix": "These are the questions we get asked the most. Your question not answered here? ",
       "introLink": "Ping us an email!",
       "q1": "How much does it cost?",
-      "q1a1": "The <strong>Coding Fundamentals</strong> exercises — the core learn-to-code curriculum — are <strong>completely free</strong>. No card, no trial, no catch.",
+      "q1a1": "The <strong>Learn to Code</strong> exercises — the core learn-to-code curriculum — are <strong>completely free</strong>. No card, no trial, no catch.",
       "q1a2Prefix": "<strong>Jiki Premium</strong> is ",
       "q1a2Suffix": " (priced by country) and unlocks:",
       "q1PerMonth": "/month",
-      "q1Item1": "Full access to <strong>Build with Jeremy</strong>",
+      "q1Item1": "Full access to <strong>Learn to Build</strong>",
       "q1Item2": "Combine your skills in <strong>Jiki Projects</strong>",
       "q1Item3": "Unlimited <strong>Ask Jiki</strong> AI support",
       "q1Item4": "Regular <strong>Q&A livestreams</strong> you can join",
@@ -642,16 +642,16 @@
       "q1Item6": "An <strong>ad-free</strong> learning experience",
       "q1Item7": "<strong>Early access</strong> to new features",
       "q2": "How much time will I need to spend each week on the course?",
-      "q2a": "You can spend as long or as little as you like. Most people get through the <strong>Coding Fundamentals</strong> strand in 12–20 weeks at around 5–10 hours a week. The <strong>Build with Jeremy</strong> strand is ongoing — you can dip in and out as new episodes go up, and join livestreams when it suits you.",
+      "q2a": "You can spend as long or as little as you like. Most people get through <strong>Learn to Code</strong> in 12–20 weeks at around 5–10 hours a week. <strong>Learn to Build</strong> is ongoing — you can dip in and out as new episodes go up, and join livestreams when it suits you.",
       "q3": "How hard is the course? How smart do I need to be?",
       "q3a1": "The course is designed to be accessible to everyone, regardless of your background. We don't believe you need to be \"smart\" to learn to code. But you do need to put in the effort and be willing to be challenged.",
       "q3a2": "But if you put in the effort, ask for help when you get stuck, and embrace the challenge, you'll be amazed at how far you can go in a short time.",
       "q4": "Is Jiki available now?",
-      "q4a1": "Yes — you can sign up and start the free Coding Fundamentals curriculum today.",
-      "q4a2": "The first <strong>Build with Jeremy</strong> session will be in <strong>mid-June</strong>. You can sign up for a reminder once you're inside.",
+      "q4a1": "Yes — you can sign up and start the free Learn to Code curriculum today.",
+      "q4a2": "The first <strong>Learn to Build</strong> session will be in <strong>mid-June</strong>. You can sign up for a reminder once you're inside.",
       "q5": "I already signed up to the Bootcamp - is this different?",
       "q5a1": "Thanks for being part of the Bootcamp! Jiki is the next stage in the evolution of our Bootcamp. Most of the exercises you solved will appear in Jiki along with lots more. We've also broken down the 3 hour videos into smaller, 5-10 minute chunks to make watching easier!",
-      "q5a2": "As a member of the Bootcamp, you'll automatically get Jiki Premium for Life. This applies to both the initial Coding Fundamentals course and future courses."
+      "q5a2": "As a member of the Bootcamp, you'll automatically get Jiki Premium for Life. This applies to both the initial Learn to Code course and future courses."
     },
     "latestNews": {
       "heading": "Our latest news",
@@ -687,7 +687,7 @@
       "heading4": "<highlight>The two parts</highlight> to learning programming today...",
       "para13": "We've made a different type of course. One that teaches you the fundamentals of programming differently, and gets you <strong>building fun things</strong> and solving interesting problems alongside me. It has two parts:",
       "listItem1": "<strong>Learn coding fundamentals</strong>. We'll teach you the fundamentals of coding so you can understand what an LLM is building - as essential as ever.",
-      "listItem2": "<strong>Learn how to build</strong>. Work alongside me as I make real projects with LLMs and show you everything you need to know to be a real developer. Join me for livestreams, ask questions, come and have fun making stuff!",
+      "listItem2": "<strong>Learn how to build</strong>. Work alongside me as I make real projects using agentic coding and show you everything you need to know to be a real developer. Join me for livestreams, ask questions, come and have fun making stuff!",
       "para14": "Within a few months, you'll go from zero to being able to build games like <strong>Space Invaders, Tic Tac Toe, and</strong> <strong>Breakout</strong> in code from scratch. And in parallel, you'll be learning how to make real-world projects, <strong>using databases</strong>, adding auth, using APIs, deploying websites... Doing all the real stuff that developers do!",
       "spaceInvadersLabel": "Space Invaders game screenshot",
       "ticTacToeLabel": "Tic Tac Toe game screenshot",
@@ -705,8 +705,8 @@
     "bootcamp": {
       "tagWhatWeCover": "What we cover",
       "menuHeading": "What's on the <strong>menu?</strong>",
-      "menuIntro": "The course has two strands: <strong>Coding Fundamentals</strong> and <strong>Building in the Age of LLMs</strong>.",
-      "part1Heading": "1. Coding Fundamentals ",
+      "menuIntro": "The course has two strands: <strong>Learn to Code</strong> and <strong>Learn to Build</strong>.",
+      "part1Heading": "1. Learn to Code ",
       "part1Bubble": "Absolute Beginners",
       "part1Intro": "We're going to help you <highlight>build rock solid coding foundations.</highlight> We'll cover all the core concepts in programming and give you tons of exercises and projects to practice with.",
       "part1Item1Prefix": "<strong>Build a solid understanding</strong> of ",
@@ -742,8 +742,8 @@
       "breakoutLabel": "Breakout game",
       "levelEnd": "And by the <strong>end of the course</strong> you're building games like <strong>Breakout!</strong>",
       "buildingHeading": "But learning to code <strong>isn't enough</strong>",
-      "buildingIntro": "In the LLM-era, you also need to get up to speed on how to create things, how to work with an LLM safely. So...",
-      "part2Heading": "2. Building in the Age of LLMs 🚀",
+      "buildingIntro": "In the agentic-coding era, you also need to get up to speed on how to create things, how to work with an LLM safely. So...",
+      "part2Heading": "2. <strong>Learn to Build in the Agentic Coding Era</strong> 🚀",
       "part2Bubble": "Beginners / Juniors",
       "part2Intro": "Alongside learning to code, we'll deep dive into how technology works. We'll <highlight>build real projects together</highlight>, digging into databases, creating secure auth, learning about frontends vs backends, and much much more.",
       "part2Item1": "<strong>Building From Scratch</strong>: Join me as I build a whole platform from scratch. Spin up an LLM and you can follow along with your own project idea. I'll teach you how to make good decisions and guide your LLM safely.",
@@ -827,8 +827,8 @@
       "sampleEpisode": "Sample Episode"
     },
     "categories": {
-      "codingFundamentals": "Coding Fundamentals",
-      "buildWithJeremy": "Build with Jeremy",
+      "codingFundamentals": "Learn to Code",
+      "buildWithJeremy": "Learn to Build",
       "support": "Support",
       "certificates": "Certificates",
       "experience": "Experience"
@@ -919,7 +919,7 @@
       "nextSummary": "Designed and queued up.",
       "nextItem1Title": "Move from Beta to Fully Live",
       "nextItem1Description": "Jiki is currently in beta. Once the launch dust settles, we'll drop the beta label and graduate to a fully-live product, with stronger guarantees around reliability, a clearer pricing story, and a polished onboarding flow. This is also when we'll send the launch email to the Exercism community and kick off promotional pushes with our partners.",
-      "nextItem2Title": "Launch Build with Jeremy",
+      "nextItem2Title": "Launch Learn to Build",
       "nextItem2Description": "Launching July 11th, this is a brand new series where Jeremy builds real, useful projects from scratch alongside learners. Each project will be broken down into bite-sized lessons, showing not just the code but the thinking, mistakes, and decisions that go into shipping software.",
       "nextItem3Title": "Add Deep Dive Videos",
       "nextItem3Description": "Long-form videos that go beyond the core lessons to explore concepts in real depth. Perfect for learners who want to understand the why behind the how, and to see how ideas connect to the wider world of programming.",
@@ -1147,7 +1147,7 @@
       "badge": "Premium Member",
       "titlePrefix": "Welcome to ",
       "titleHighlight": "Premium!",
-      "description": "Thanks for upgrading! You now have access to all Premium benefits, including unlimited chats with Jiki, Projects, and Build with Jeremy!",
+      "description": "Thanks for upgrading! You now have access to all Premium benefits, including unlimited chats with Jiki, Projects, and Learn to Build!",
       "continue": "Continue"
     },
     "subscriptionSuccess": {

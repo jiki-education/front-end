@@ -11,7 +11,7 @@ seo:
 
 Since I started coding 30 years ago, I've used a text editor almost every day. I've tried many different ones and from time to time got somewhat religious about which is best.
 
-For that whole period, one of the first rites of passage of a new developer is to install and learn how to use a text editor. But as LLMs change what it means to be a developer, the era of the text editor's dominance is maybe coming to an end.
+For that whole period, one of the first rites of passage of a new developer is to install and learn how to use a text editor. But as agentic coding changes what it means to be a developer, the era of the text editor's dominance is maybe coming to an end.
 
 So I thought it would be interesting to look at the story of the text editor. From punching holes in cardboard and waiting hours, to editing one line at a time on a printer, to a rivalry between Vi and Emacs that's older than most of the people alive today.
 

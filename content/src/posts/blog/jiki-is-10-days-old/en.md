@@ -19,7 +19,7 @@ There's also been lots of people using "Ask Jiki", thousands of conversations. I
 
 A few of our power-testers (more senior developers) have reached milestone 7, where the content pauses. I'll be releasing the next few milestones in the next few days, so there will be more for you to play with soon!
 
-I'm really excited to launch the "Build with Jeremy" section in a few weeks!
+I'm really excited to launch the "Learn to Build" section in a few weeks!
 
 If you're enjoying Jiki, please consider signing up to **[Premium](https://jiki.io/premium)** to support us.
 

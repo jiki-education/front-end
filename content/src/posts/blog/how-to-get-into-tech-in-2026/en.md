@@ -61,6 +61,6 @@ Every day I use Claude Code, it does stuff that is very obviously wrong to me. I
 
 You need **someone to teach you** how everything works and the right mental pathways to follow. Then you need to build things, make mistakes, see what happens when Claude screws you over, and learn from those things. So that you can add value to a company that's building things. You need to understand technology, understand how software is built, learn to read code so you can understand what's going on, and feel confident with the whole flow and process of making things.
 
-And [Jiki](https://jiki.io) will teach you all that. Follow our Coding Fundamentals pathway to get the coding basics down, then **come and learn to build things with me**. Understand why you need GitHub and how it works, how Cloudflare will protect you, how to design secure auth, how to make efficient databases, how to build lightning-fast front-ends and rock-solid back-ends. Learn how to deploy things so that they heal if they crash. Learn all these with me. **And have a ton of fun on the way.**
+And [Jiki](https://jiki.io) will teach you all that. Follow our Learn to Code pathway to get the coding basics down, then **come and learn to build things with me**. Understand why you need GitHub and how it works, how Cloudflare will protect you, how to design secure auth, how to make efficient databases, how to build lightning-fast front-ends and rock-solid back-ends. Learn how to deploy things so that they heal if they crash. Learn all these with me. **And have a ton of fun on the way.**
 
 See you inside!

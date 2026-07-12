@@ -35,7 +35,8 @@ const baloo2 = Baloo_2({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Jiki",
-  description: "Welcome to Jiki - the best place to learn to code and build in the LLM-era. Fun, effective and free!",
+  description:
+    "Welcome to Jiki - the best place to learn to code and build in the agentic-coding era. Fun, effective and free!",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },

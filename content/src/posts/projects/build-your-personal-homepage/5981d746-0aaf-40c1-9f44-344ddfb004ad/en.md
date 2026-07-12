@@ -12,7 +12,7 @@ seo:
 
 ## Introduction
 
-Welcome to the first in this new series looking at how to use agents, how to use LLMs to build in this modern age where coding has changed so much. We've run many sessions like this over the years for Exercism, but this is the first official Build with Jeremy live session for Jiki.
+Welcome to the first in this new series looking at how to use agents, how to use LLMs to build in this modern age where coding has changed so much. We've run many sessions like this over the years for Exercism, but this is the first official Learn to Build live session for Jiki.
 
 Let me explain what this series is going to be, what we're covering today specifically, what we're going to be covering over the series, and who this is for. I'll start with that last question.
 

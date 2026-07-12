@@ -11,13 +11,13 @@ seo:
 
 ### How much does it cost?
 
-The Coding Fundamentals exercises, which form the core learn-to-code curriculum, are completely free. No card, no trial, no catch.
+The Learn to Code exercises, which form the core learn-to-code curriculum, are completely free. No card, no trial, no catch.
 
-Jiki Premium is priced by country and unlocks full access to Build with Jeremy, Jiki Projects, unlimited Ask Jiki AI support, regular Q&A livestreams you can join, certificates for courses, an ad-free learning experience, and early access to new features.
+Jiki Premium is priced by country and unlocks full access to Learn to Build, Jiki Projects, unlimited Ask Jiki AI support, regular Q&A livestreams you can join, certificates for courses, an ad-free learning experience, and early access to new features.
 
 ### How much time will I need to spend each week on the course?
 
-You can spend as long or as little as you like. Most people get through the Coding Fundamentals strand in 12 to 20 weeks at around 5 to 10 hours a week. The Build with Jeremy strand is ongoing, so you can dip in and out as new episodes go up, and join livestreams when it suits you.
+You can spend as long or as little as you like. Most people get through Learn to Code in 12 to 20 weeks at around 5 to 10 hours a week. Learn to Build is ongoing, so you can dip in and out as new episodes go up, and join livestreams when it suits you.
 
 ### How hard is the course? How smart do I need to be?
 
@@ -27,15 +27,15 @@ If you put in the effort, ask for help when you get stuck, and embrace the chall
 
 ### Is Jiki available now?
 
-Yes, you can sign up and start the free Coding Fundamentals curriculum today.
+Yes, you can sign up and start the free Learn to Code curriculum today.
 
-The first Build with Jeremy session will be in mid-June. You can sign up for a reminder once you're inside.
+The first Learn to Build session will be in mid-June. You can sign up for a reminder once you're inside.
 
 ### I already signed up to the Bootcamp, is this different?
 
 Thanks for being part of the Bootcamp! Jiki is the next stage in the evolution of our Bootcamp. Most of the exercises you solved will appear in Jiki along with lots more. We've also broken down the 3 hour videos into smaller, 5-10 minute chunks to make watching easier!
 
-As a member of the Bootcamp, you'll automatically get Jiki Premium for Life. This applies to both the initial Coding Fundamentals course and future courses.
+As a member of the Bootcamp, you'll automatically get Jiki Premium for Life. This applies to both the initial Learn to Code course and future courses.
 
 ## Jiki Premium
 
