@@ -257,6 +257,25 @@ Note: It is ok for the LLM instructions to have the answers! The LLM knows not t
 
 ---
 
+### Check 11: Loop Iteration Limit Is Appropriate
+
+**Rule**: The interpreter caps total loop iterations to prevent runaway/infinite loops. There is a **global default of 1000** (set in the JavaScript and Python executors), so most exercises need NOT set anything — they inherit it. An exercise should only add an explicit `interpreterOptions: { maxTotalLoopIterations: N }` override in its `index.ts` when it needs a bound **different** from the global default.
+
+**When an override IS warranted**:
+
+- **Higher than 1000**: The exercise has a legitimate solution that runs more than ~1000 total loop iterations across its scenarios (e.g. drawing/physics exercises that iterate per-pixel, or algorithmic exercises over large inputs). The limit must comfortably exceed the worst-case legitimate iteration count — including a reasonably inefficient-but-valid student solution — so no valid answer ever trips it.
+- **Lower than 1000**: The exercise deliberately wants a tighter teaching bound (e.g. a small, fixed-count exercise where a large loop indicates a misunderstanding).
+
+**Check each of these**:
+
+1. **No override needed by default**: If the exercise's worst-case sane solution is comfortably under 1000 iterations, it should NOT set `interpreterOptions.maxTotalLoopIterations` — it correctly relies on the global default. Flagging its absence is NOT a failure.
+
+2. **Override, when present, is sensible**: If an override IS set, verify the value against the solution and scenario inputs. FAIL if it's below the worst-case legitimate iteration count (would fail valid solutions), or if it's set to a large value with no justifying heavy solution (pointless override — prefer inheriting the global).
+
+**Note**: We do NOT accommodate pathological approaches (e.g. a per-pixel nested loop where a single loop is the obvious solution). The bound only needs to clear a _sane_ solution, however inefficient.
+
+---
+
 ## Step 3: Report Audit Results and Exercise Context
 
 Present the audit results, then the full exercise context:

@@ -173,10 +173,10 @@ export class Executor {
     this.languageFeatures = {
       allowTruthiness: false, // Default to false for educational purposes
       allowTypeCoercion: false,
-      maxTotalLoopIterations: 10000, // Default limit to prevent infinite loops
+      maxTotalLoopIterations: 1000, // Default limit to prevent infinite loops
       ...context.languageFeatures,
     };
-    this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations ?? 10000;
+    this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations ?? 1000;
 
     // Register builtin functions (like print) as PyStdLibFunction objects
     for (const [name, builtin] of Object.entries(builtinFunctions)) {
