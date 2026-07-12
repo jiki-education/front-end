@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import ProjectPage from "@/components/projects/ProjectPage";
 import SidebarLayout from "@/components/layout/SidebarLayout";
-import { getAllGuides, getAllProjects, getProject } from "@/lib/content";
+import { getAllProjects, getProject } from "@/lib/content";
 import type { Metadata } from "next";
 
 interface Props {
@@ -35,17 +35,9 @@ export default async function LocaleProjectPage({ params }: Props) {
     notFound();
   }
 
-  // The project's relevant guides: the union of its episodes' guides, in
-  // episode order, deduplicated.
-  const allGuides = getAllGuides(locale);
-  const guideSlugs = [...new Set(data.episodes.flatMap((episode) => episode.guides))];
-  const guides = guideSlugs
-    .map((guideSlug) => allGuides.find((g) => g.slug === guideSlug))
-    .filter((g) => g !== undefined);
-
   return (
     <SidebarLayout activeItem="build">
-      <ProjectPage project={data.project} episodes={data.episodes} guides={guides} locale={locale} />
+      <ProjectPage project={data.project} episodes={data.episodes} locale={locale} />
     </SidebarLayout>
   );
 }

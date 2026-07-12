@@ -8,7 +8,7 @@ import { localePath } from "@/lib/i18n/routes";
 import type { GuideMeta, ProcessedEpisode, ProjectMeta } from "@/lib/content/types";
 import EpisodeSummary from "./EpisodeSummary";
 import EpisodeVideo from "./EpisodeVideo";
-import GuidesSidebar from "./GuidesSidebar";
+import RelevantGuidesSection from "./RelevantGuidesSection";
 import styles from "./EpisodePage.module.css";
 
 interface EpisodePageProps {
@@ -21,27 +21,13 @@ interface EpisodePageProps {
 export default function EpisodePage({ project, episode, guides, locale }: EpisodePageProps) {
   const projectPath = localePath(`/projects/${project.slug}`, locale);
 
-  const sidebar =
-    episode.summary || guides.length > 0 ? (
-      <div className={styles.sidebar}>
-        {episode.summary && <EpisodeSummary summary={episode.summary} />}
-        {guides.length > 0 && (
-          <GuidesSidebar
-            guides={guides}
-            locale={locale}
-            description="Guides that might be useful to you when solving this step in the process."
-          />
-        )}
-      </div>
-    ) : undefined;
-
   return (
     <ConceptsLayout>
-      <ConceptLayout rightPanel={sidebar}>
-        <Link href={projectPath} className={styles.backLink}>
-          ← Back to <span className={styles.backLinkProject}>{project.title}</span>
-        </Link>
+      <Link href={projectPath} className={styles.backLink}>
+        ← Back to <span className={styles.backLinkProject}>{project.title}</span>
+      </Link>
 
+      <ConceptLayout rightPanel={episode.summary ? <EpisodeSummary summary={episode.summary} /> : undefined}>
         <h1 className={styles.title}>{episode.title}</h1>
         <p className={styles.excerpt}>{episode.excerpt}</p>
 
@@ -52,13 +38,24 @@ export default function EpisodePage({ project, episode, guides, locale }: Episod
           videoKey={episode.videoKey}
           premium={episode.premium}
         />
-
-        <hr className="ui-chevron-divider" />
-
-        <section className={styles.transcript}>
-          <MarkdownContent content={episode.content} variant="base" />
-        </section>
       </ConceptLayout>
+
+      {guides.length > 0 && (
+        <>
+          <hr className="ui-chevron-divider" />
+          <RelevantGuidesSection
+            guides={guides}
+            locale={locale}
+            description="Guides that might be useful to you when solving this step in the process."
+          />
+        </>
+      )}
+
+      <hr className="ui-chevron-divider" />
+
+      <section className={styles.transcript}>
+        <MarkdownContent content={episode.content} variant="base" />
+      </section>
     </ConceptsLayout>
   );
 }

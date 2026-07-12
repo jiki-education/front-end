@@ -29,12 +29,6 @@
     margin-bottom: 24px;
 }
 
-.sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-}
-
 .transcript {
     margin-top: 32px;
 }

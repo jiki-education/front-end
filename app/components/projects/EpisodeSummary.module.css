@@ -27,10 +27,9 @@
 }
 
 .label {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 2px;
     color: var(--color-blue-600);
 }
 
@@ -38,7 +37,10 @@
     font-size: 15px;
     line-height: 1.5;
     color: var(--color-gray-600);
-    font-weight: 500;
+}
+
+.text strong {
+    font-weight: 600;
 }
 
 .concepts {

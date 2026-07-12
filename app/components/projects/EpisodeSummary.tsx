@@ -1,3 +1,4 @@
+import { marked } from "marked";
 import type { EpisodeSummary as EpisodeSummaryData } from "@/lib/content/types";
 import styles from "./EpisodeSummary.module.css";
 
@@ -14,11 +15,11 @@ export default function EpisodeSummary({ summary }: EpisodeSummaryProps) {
       <h3 className={styles.heading}>Episode in Brief</h3>
       <div className={styles.start}>
         <span className={styles.label}>Where we start</span>
-        <span className={styles.text}>{summary.from}</span>
+        <span className={styles.text} dangerouslySetInnerHTML={{ __html: marked.parseInline(summary.from) }} />
       </div>
       <div className={styles.stop}>
         <span className={styles.label}>Where we end up</span>
-        <span className={styles.text}>{summary.to}</span>
+        <span className={styles.text} dangerouslySetInnerHTML={{ __html: marked.parseInline(summary.to) }} />
       </div>
       {summary.keyConcepts.length > 0 && (
         <div className={styles.concepts}>

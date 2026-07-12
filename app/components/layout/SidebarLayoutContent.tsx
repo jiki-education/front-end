@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import styles from "@/app/styles/modules/concepts.module.css";
+import styles from "./SidebarLayoutContent.module.css";
 import { useAuthStore } from "../../lib/auth/authStore";
 
-interface ConceptsLayoutProps {
+interface SidebarLayoutContentProps {
   children: React.ReactNode;
 }
 
-export default function ConceptsLayout({ children }: ConceptsLayoutProps) {
+export default function SidebarLayoutContent({ children }: SidebarLayoutContentProps) {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   useEffect(() => {

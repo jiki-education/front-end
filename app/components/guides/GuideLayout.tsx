@@ -1,12 +1,12 @@
 import React from "react";
-import styles from "./ConceptLayout.module.css";
+import styles from "./GuideLayout.module.css";
 
-interface ConceptLayoutProps {
+interface GuideLayoutProps {
   children: React.ReactNode;
   rightPanel?: React.ReactNode;
 }
 
-export default function ConceptLayout({ children, rightPanel }: ConceptLayoutProps) {
+export default function GuideLayout({ children, rightPanel }: GuideLayoutProps) {
   return (
     <div className={styles.grid}>
       <main className={styles.main}>{children}</main>

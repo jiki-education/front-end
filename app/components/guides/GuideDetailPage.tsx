@@ -45,7 +45,9 @@ async function getFeaturedInEpisodes(guideSlug: string, locale: string): Promise
           projectSlug: project.slug,
           projectTitle: project.title,
           episodeSlug: episode.slug,
-          episodeTitle: episode.title
+          episodeTitle: episode.title,
+          episodeImage: episode.image,
+          episodeExcerpt: episode.excerpt
         });
       }
     }
