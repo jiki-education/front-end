@@ -15,7 +15,7 @@
     gap: 12px;
     margin-left: auto;
 
-    @media (max-width: 1023px) {
+    @media (max-width: 719px) {
         display: none;
     }
 }
@@ -38,13 +38,22 @@
     }
 }
 
+/* Hamburger: hidden on the wide layout, shown once the nav links collapse. It
+   sits after .authButtons in the DOM, so margin-left keeps it snug to the right
+   of the buttons while they're still on the bar (720px-1023px). */
 .mobileMenu {
     display: none;
     position: relative;
-    margin-left: auto;
+    margin-left: 8px;
 
     @media (max-width: 1023px) {
         display: block;
+    }
+
+    /* Below 720px the auth buttons leave the bar, so the hamburger becomes the
+       only right-hand item and reclaims the auto margin. */
+    @media (max-width: 719px) {
+        margin-left: auto;
     }
 }
 
@@ -96,8 +105,18 @@
     }
 }
 
-.menuDivider {
-    height: 1px;
-    margin: 8px 4px;
-    background: var(--color-gray-200);
+/* The dropdown's auth section only appears below 720px, where the bar's own
+   Login/Sign Up have been hidden. Above that the buttons stay on the bar, so
+   this block (and its divider) collapses away. */
+.menuAuthButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+    padding-top: 16px;
+    border-top: 1px solid var(--color-gray-200);
+
+    @media (min-width: 720px) {
+        display: none;
+    }
 }

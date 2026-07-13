@@ -40,9 +40,12 @@ export default function ExternalButtons() {
   );
 }
 
-// Collapses the full nav + auth buttons into a single hamburger below the
-// breakpoint (see .mobileMenu in external.module.css). Self-contained: closes on
-// outside click, Escape, and navigation.
+// Progressive collapse (see external.module.css for the breakpoints):
+//   >= 1024px         nav links + auth buttons on the bar, no hamburger
+//   720px - 1023px    hamburger (nav links only) + auth buttons still on the bar
+//   < 720px           hamburger holds everything; auth buttons leave the bar
+// The auth buttons live in both the bar and the dropdown; CSS shows exactly one
+// set at each width, so there's no JS width tracking.
 function MobileMenu() {
   const t = useTranslations("layout.externalHeader");
   const routes = useLocaleRoutes();
@@ -94,13 +97,15 @@ function MobileMenu() {
           <Link href={routes.testimonials()} className={styles.menuLink} onClick={close}>
             {t("testimonials")}
           </Link>
-          <div className={styles.menuDivider} />
-          <Link href={routes.authLogin()} className="ui-btn ui-btn-small ui-btn-secondary" onClick={close}>
-            {t("login")}
-          </Link>
-          <Link href={routes.authSignup()} className="ui-btn ui-btn-small ui-btn-primary" onClick={close}>
-            {t("signUp")}
-          </Link>
+
+          <div className={styles.menuAuthButtons}>
+            <Link href={routes.authLogin()} className="ui-btn ui-btn-small ui-btn-secondary" onClick={close}>
+              {t("login")}
+            </Link>
+            <Link href={routes.authSignup()} className="ui-btn ui-btn-small ui-btn-primary" onClick={close}>
+              {t("signUp")}
+            </Link>
+          </div>
         </div>
       )}
     </div>
