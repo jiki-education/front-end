@@ -544,7 +544,7 @@
       "cancellingEndsPrefix": " Your Premium plan will end on ",
       "freePrefix": "You are on the ",
       "freePlanName": "Free",
-      "freeSuffix": " plan. This gives you all the content plus Jiki AI to help you out for one exercise per month.",
+      "freeSuffix": " plan. This gives you all the content plus Ask Jiki to help you out on one exercise.",
       "planSuffix": " Plan",
       "currentPlanAriaLabel": "Current plan: {plan} Plan",
       "statusAriaLabel": "Subscription status: {status}",
@@ -829,7 +829,7 @@
       "checkNo": "✕"
     },
     "values": {
-      "thirtyMins": "30 mins",
+      "oneConversation": "1 conversation",
       "unlimited": "Unlimited",
       "firstEpisodes": "First episodes",
       "fullAccess": "Full access",
@@ -849,8 +849,8 @@
       "conceptLibraryDesc": "Bite-sized lessons covering every coding concept you need to know.",
       "jikiChallengesTitle": "Challenges",
       "jikiChallengesDesc": "Take on harder challenges that push your skills further.",
-      "talkToJikiTitle": "Talk to Jiki",
-      "talkToJikiDesc": "Get unstuck with AI-powered hints and explanations from Jiki.",
+      "askJikiTitle": "Ask Jiki",
+      "askJikiDesc": "Get unstuck with AI-powered hints and explanations from Jiki.",
       "buildingFundamentalsTitle": "Building Fundamentals series",
       "buildingFundamentalsDesc": "Watch Jeremy build a web platform from scratch — servers, databases, auth, and more.",
       "howThingsWorkTitle": "How Things Work series",
@@ -1405,7 +1405,7 @@
         "planPrice": "Free forever",
         "feature1": "Over 80 Coding Exercises",
         "feature2": "Full Concept Library",
-        "feature3": "30 mins of AI support",
+        "feature3": "Ask Jiki on one exercise",
         "note": "+ Access to public YouTube videos and community forums for additional learning resources."
       }
     },

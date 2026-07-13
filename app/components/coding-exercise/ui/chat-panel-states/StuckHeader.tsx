@@ -1,5 +1,5 @@
 import ChatBubbleIcon from "@/icons/chat-bubble.svg";
-import styles from "./FreeUserCanStart.module.css";
+import styles from "./shared.module.css";
 
 export default function StuckHeader() {
   return (
@@ -7,7 +7,7 @@ export default function StuckHeader() {
       <div className={styles.avatar}>
         <ChatBubbleIcon width={32} height={32} />
       </div>
-      <h3 className={styles.title}>Feeling Stuck? Talk to Jiki!</h3>
+      <h3 className={styles.title}>Feeling Stuck? Ask Jiki!</h3>
     </>
   );
 }

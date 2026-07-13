@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 import OrchestratorContext from "../lib/OrchestratorContext";
 import { useChat } from "../lib/useChat";
 import { useConversationLoader } from "../lib/useConversationLoader";
@@ -52,18 +52,13 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationLoader.isLoading, conversationLoader.conversation, chat.loadConversation]);
 
-  // Track when free user has confirmed they want to start chatting
-  const [freeUserConfirmedStart, setFreeUserConfirmedStart] = useState(false);
-
   const chatState = getChatState(isPremium, conversationAllowed, hasExistingConversation);
-  const showConversation =
-    chatState === "in-progress" || (chatState === "free-user-can-start" && freeUserConfirmedStart);
 
   return (
     <div className={styles.chatPanel}>
       {conversationLoader.isLoading ? (
         <ChatLoading />
-      ) : showConversation ? (
+      ) : chatState === "in-progress" ? (
         <Conversation
           messages={chat.messages}
           currentResponse={chat.currentResponse}
@@ -78,7 +73,6 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
           chatState={chatState}
           conversation={conversationLoader.conversation}
           onSendMessage={chat.sendMessage}
-          onStartChat={() => setFreeUserConfirmedStart(true)}
         />
       )}
     </div>
@@ -89,9 +83,9 @@ function ChatPanelContent({ orchestrator }: { orchestrator: Orchestrator }) {
 // Premium | conversation_allowed | Conversation Exists | Result
 // --------|---------------------|---------------------|--------
 // Yes     | false               | -                   | PremiumUserBlocked
-// Yes     | true                | No                  | PremiumUserCanStart
+// Yes     | true                | No                  | CanStart (premium footer)
 // Yes     | true                | Yes                 | in-progress conversation
-// No      | true                | No                  | FreeUserCanStart
+// No      | true                | No                  | CanStart (free footer)
 // No      | true                | Yes                 | in-progress conversation
 // No      | false               | Yes                 | FreeUserLimitReachedWithHistory
 // No      | false               | No                  | FreeUserLimitReached

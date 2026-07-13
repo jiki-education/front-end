@@ -5,11 +5,12 @@ import TypeIt from "typeit-react";
 import ChatBubbleIcon from "@/icons/chat-bubble.svg";
 import CheckCircleFilledIcon from "@/icons/check-circle-filled.svg";
 import { useChatInput } from "../../hooks/useChatInput";
-import sharedStyles from "./FreeUserCanStart.module.css";
-import styles from "./PremiumUserCanStart.module.css";
+import sharedStyles from "./shared.module.css";
+import styles from "./CanStart.module.css";
 import StuckHeader from "./StuckHeader";
 
-interface PremiumUserCanStartProps {
+interface CanStartProps {
+  isFreeUser: boolean;
   onSendMessage: (message: string) => void;
 }
 
@@ -18,14 +19,20 @@ const rotatingPhrases = [
   "how to fix a bug",
   "what this error means",
   "how to approach this exercise",
-  "why this test is failing"
+  "how to get unstuck"
 ];
 
-// Premium user, conversation allowed, no existing conversation
-// Ready to start a new conversation with the chat input
-export default function PremiumUserCanStart({ onSendMessage }: PremiumUserCanStartProps) {
+// Conversation allowed, no existing conversation — the chat input is live and
+// ready to go. Free users see the same input as premium users; their single
+// free conversation is only consumed when they send their first message.
+export default function CanStart({ isFreeUser, onSendMessage }: CanStartProps) {
   const { message, setMessage, hasMessage, handleSend, handleKeyDown } = useChatInput({ onSendMessage });
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Focus the input as soon as the panel is shown
+  useEffect(() => {
+    textareaRef.current?.focus();
+  }, []);
 
   // Auto-resize textarea
   useEffect(() => {
@@ -48,9 +55,11 @@ export default function PremiumUserCanStart({ onSendMessage }: PremiumUserCanSta
               strings: rotatingPhrases,
               speed: 50,
               deleteSpeed: 30,
+              lifeLike: true,
               breakLines: false,
               loop: true,
-              nextStringDelay: 2000,
+              // [pause after a string is typed, pause between deletion and the next string]
+              nextStringDelay: [2000, 0],
               loopDelay: 1000
             }}
           />
@@ -79,7 +88,13 @@ export default function PremiumUserCanStart({ onSendMessage }: PremiumUserCanSta
 
         <p className={styles.includedText}>
           <CheckCircleFilledIcon width={18} height={18} className={styles.checkIcon} />
-          Included in your Premium plan
+          {isFreeUser ? (
+            "First conversation included in your Free plan"
+          ) : (
+            <>
+              Included in your <span className={sharedStyles.premiumText}>Premium</span> plan
+            </>
+          )}
         </p>
       </div>
     </div>

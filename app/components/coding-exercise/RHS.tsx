@@ -40,7 +40,7 @@ export function RHS({ orchestrator }: RHSProps) {
     },
     {
       id: "chat",
-      label: "Talk to Jiki",
+      label: "Ask Jiki",
       icon: <ChatIcon width={18} height={18} className="mr-2" />
     },
     ...(logTabDisabled

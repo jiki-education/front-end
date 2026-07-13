@@ -23,9 +23,9 @@ export const FEATURE_CATEGORIES: FeatureCategoryData[] = [
         premium: true
       },
       {
-        titleKey: "talkToJikiTitle",
-        descKey: "talkToJikiDesc",
-        free: "thirtyMins",
+        titleKey: "askJikiTitle",
+        descKey: "askJikiDesc",
+        free: "oneConversation",
         premium: "unlimited"
       }
     ]
