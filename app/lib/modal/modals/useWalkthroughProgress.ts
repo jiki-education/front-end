@@ -1,7 +1,6 @@
 import type { MuxPlayerRefAttributes } from "@mux/mux-player-react";
 import { useEffect, useRef } from "react";
 import { updateWalkthroughVideoPercentage } from "@/lib/api/lessons";
-import { reportError } from "@/lib/reportError";
 
 const STORAGE_KEY_PREFIX = "walkthrough-progress-";
 
@@ -20,7 +19,8 @@ export function useWalkthroughProgress(lessonSlug: string) {
       return;
     }
     lastReportedPercentRef.current = rounded;
-    updateWalkthroughVideoPercentage(lessonSlug, rounded).catch(reportError);
+    // Best-effort progress ping; the API client reports genuine /internal failures centrally.
+    updateWalkthroughVideoPercentage(lessonSlug, rounded).catch(() => {});
   };
 
   const handleTimeUpdate = () => {

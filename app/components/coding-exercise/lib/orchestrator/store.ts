@@ -1,6 +1,7 @@
 import { markChallengeComplete } from "@/lib/api/challenges";
 import { markLessonComplete } from "@/lib/api/lessons";
 import { showModal } from "@/lib/modal";
+import { showLessonSaveErrorToast } from "@/lib/toasts/lessonSaveError";
 import type { ExerciseDefinition, Language, ReadonlyRange } from "@jiki/curriculum";
 import { TIME_SCALE_FACTOR } from "@jiki/interpreters/shared";
 import { useStore } from "zustand";
@@ -120,6 +121,7 @@ export function createOrchestratorStore(
               return events;
             } catch (error) {
               console.error("Failed to mark exercise as complete:", error);
+              showLessonSaveErrorToast();
               return [];
             }
           }

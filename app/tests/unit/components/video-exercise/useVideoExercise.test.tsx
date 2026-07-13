@@ -10,15 +10,23 @@ jest.mock("@/lib/reportError", () => ({
   reportError: jest.fn()
 }));
 
-jest.mock("next/navigation", () => ({
-  useRouter: () => ({ push: jest.fn(), replace: jest.fn() })
+jest.mock("@/lib/toasts/lessonSaveError", () => ({
+  showLessonSaveErrorToast: jest.fn()
 }));
 
-import { fetchUserLesson } from "@/lib/api/lessons";
+const mockRouterPush = jest.fn();
+jest.mock("next/navigation", () => ({
+  useRouter: () => ({ push: mockRouterPush, replace: jest.fn() })
+}));
+
+import { fetchUserLesson, markLessonComplete } from "@/lib/api/lessons";
 import { reportError } from "@/lib/reportError";
+import { showLessonSaveErrorToast } from "@/lib/toasts/lessonSaveError";
 
 const mockedFetchUserLesson = fetchUserLesson as jest.MockedFunction<typeof fetchUserLesson>;
+const mockedMarkLessonComplete = markLessonComplete as jest.MockedFunction<typeof markLessonComplete>;
 const mockedReportError = reportError as jest.MockedFunction<typeof reportError>;
+const mockedShowToast = showLessonSaveErrorToast as jest.MockedFunction<typeof showLessonSaveErrorToast>;
 
 const SLUG = "intro-to-jiki";
 
@@ -291,5 +299,47 @@ describe("useVideoExercise first-watch seek cap", () => {
     } finally {
       jest.useRealTimers();
     }
+  });
+});
+
+describe("useVideoExercise handleContinue failure", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockedFetchUserLesson.mockResolvedValue({ status: "not_started" } as unknown as Awaited<
+      ReturnType<typeof fetchUserLesson>
+    >);
+  });
+
+  it("shows a toast when marking the lesson complete fails", async () => {
+    const failure = new Error("API Error: 422");
+    mockedMarkLessonComplete.mockRejectedValue(failure);
+
+    const { result } = renderHook(() => useVideoExercise(SLUG));
+    await waitFor(() => expect(mockedFetchUserLesson).toHaveBeenCalled());
+
+    await act(async () => {
+      await result.current.handleContinue();
+    });
+
+    // Telemetry is now the API client's job (reported centrally), so the hook
+    // only owns the UX: surface the failure and release the button to retry.
+    expect(mockedShowToast).toHaveBeenCalledTimes(1);
+    expect(mockedReportError).not.toHaveBeenCalled();
+    expect(mockRouterPush).not.toHaveBeenCalled();
+    expect(result.current.isMarking).toBe(false);
+  });
+
+  it("navigates to the dashboard and shows no toast on success", async () => {
+    mockedMarkLessonComplete.mockResolvedValue({ meta: { events: [] } });
+
+    const { result } = renderHook(() => useVideoExercise(SLUG));
+    await waitFor(() => expect(mockedFetchUserLesson).toHaveBeenCalled());
+
+    await act(async () => {
+      await result.current.handleContinue();
+    });
+
+    expect(mockedShowToast).not.toHaveBeenCalled();
+    expect(mockRouterPush).toHaveBeenCalledWith(`/dashboard?completed=${SLUG}`);
   });
 });

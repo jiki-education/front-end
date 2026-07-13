@@ -1,5 +1,6 @@
 import { markLessonComplete, fetchUserLesson } from "@/lib/api/lessons";
 import { reportError } from "@/lib/reportError";
+import { showLessonSaveErrorToast } from "@/lib/toasts/lessonSaveError";
 import type { MuxPlayerRefAttributes } from "@mux/mux-player-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -53,7 +54,9 @@ export function useVideoExercise(lessonSlug: string) {
           maxWatchedRef.current = Infinity;
         }
       })
-      .catch(reportError)
+      // A not-started lesson 404s here; that's expected (no UserLesson row yet)
+      // and suppressed by the client. Genuine failures are reported centrally.
+      .catch(() => {})
       .finally(() => setIsInitializing(false));
   }, [lessonSlug]);
 
@@ -126,8 +129,10 @@ export function useVideoExercise(lessonSlug: string) {
       router.push(
         unlocked ? `/dashboard?completed=${lessonSlug}&unlocked=${unlocked}` : `/dashboard?completed=${lessonSlug}`
       );
-    } catch (error) {
-      reportError(error);
+    } catch {
+      // The API client reports unexpected /internal failures to Sentry centrally;
+      // here we only own the UX (surface the failure and release the button).
+      showLessonSaveErrorToast();
     } finally {
       setIsMarking(false);
     }
