@@ -128,6 +128,19 @@ describe("getAllTiers", () => {
 });
 
 describe("formatMonthlyPrice", () => {
+  // formatMonthlyPrice formats in the runtime's default locale (Intl locale
+  // `undefined`). Pin it to en-US here so the dot-decimal assertions below don't
+  // depend on the machine's system locale (e.g. hu-HU renders "7,99 £").
+  const OriginalNumberFormat = Intl.NumberFormat;
+  beforeAll(() => {
+    jest
+      .spyOn(Intl, "NumberFormat")
+      .mockImplementation((locales, options) => new OriginalNumberFormat(locales ?? "en-US", options));
+  });
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
+
   function prices(overrides: Partial<PremiumPrices>): PremiumPrices {
     return { currency: "usd", monthly: 999, annual: 9900, country_code: "US", ...overrides };
   }
