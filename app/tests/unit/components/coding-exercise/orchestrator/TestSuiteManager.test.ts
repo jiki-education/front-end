@@ -7,6 +7,10 @@ jest.mock("@/components/coding-exercise/lib/test-runner/runTests", () => ({
   runTests: jest.fn()
 }));
 
+jest.mock("@/components/coding-exercise/lib/test-runner/runProgressionTest", () => ({
+  runProgressionTest: jest.fn().mockResolvedValue(null)
+}));
+
 jest.mock("@/lib/api/lessons", () => ({
   submitLessonExercise: jest.fn().mockResolvedValue(undefined)
 }));
@@ -44,8 +48,10 @@ describe("TestSuiteManager", () => {
     return new TestSuiteManager(mockStore, undefined, context);
   }
 
-  beforeEach(() => {
+  beforeEach(async () => {
     jest.clearAllMocks();
+    const { runProgressionTest } = await import("@/components/coding-exercise/lib/test-runner/runProgressionTest");
+    (runProgressionTest as jest.Mock).mockResolvedValue(null);
   });
 
   afterEach(() => {
@@ -229,6 +235,120 @@ describe("TestSuiteManager", () => {
       await expect(manager.runCode(mockCode, mockExercise)).rejects.toThrow("Some other error");
 
       expect(mockStore.getState().setHasSyntaxError).toHaveBeenCalledWith(false);
+    });
+  });
+
+  describe("progression test wiring", () => {
+    const syntaxError = {
+      message: "Unexpected token",
+      location: { line: 5, relative: { begin: 1, end: 9 }, absolute: { begin: 42, end: 50 } }
+    };
+
+    it("scores the progression test once per run with the code, exercise and language", async () => {
+      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+
+      const { runProgressionTest } = await import("@/components/coding-exercise/lib/test-runner/runProgressionTest");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
+
+      await manager.runCode(mockCode, mockExercise);
+      await flushMicrotasks();
+
+      expect(runProgressionTest).toHaveBeenCalledTimes(1);
+      expect(runProgressionTest).toHaveBeenCalledWith(mockCode, mockExercise, "javascript");
+    });
+
+    it("includes this run's scores in the submission payload as a keyed object", async () => {
+      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+
+      const { runProgressionTest } = await import("@/components/coding-exercise/lib/test-runner/runProgressionTest");
+      (runProgressionTest as jest.Mock).mockResolvedValue({
+        version: 1,
+        scores: { distance: 5, used_loop: 10, precision: 0 }
+      });
+      const { submitLessonExercise } = await import("@/lib/api/lessons");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
+
+      await manager.runCode(mockCode, mockExercise);
+      await flushMicrotasks();
+
+      expect(submitLessonExercise).toHaveBeenCalledWith("solve-a-maze", [{ filename: "solution.js", code: mockCode }], {
+        v: 1,
+        distance: 5,
+        used_loop: 10,
+        precision: 0
+      });
+    });
+
+    it("scores and submits on the syntax-error path", async () => {
+      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+
+      const { runProgressionTest } = await import("@/components/coding-exercise/lib/test-runner/runProgressionTest");
+      (runProgressionTest as jest.Mock).mockResolvedValue({
+        version: 1,
+        scores: { distance: 0, used_loop: 0, precision: 0 }
+      });
+      const { submitLessonExercise } = await import("@/lib/api/lessons");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      (runTests as jest.Mock).mockImplementation(() => {
+        throw syntaxError;
+      });
+
+      await manager.runCode(mockCode, mockExercise);
+      await flushMicrotasks();
+
+      expect(runProgressionTest).toHaveBeenCalledWith(mockCode, mockExercise, "javascript");
+      expect(mockStore.getState().setHasSyntaxError).toHaveBeenCalledWith(true);
+      expect(submitLessonExercise).toHaveBeenCalledWith("solve-a-maze", [{ filename: "solution.js", code: mockCode }], {
+        v: 1,
+        distance: 0,
+        used_loop: 0,
+        precision: 0
+      });
+    });
+
+    it("submits without scores when the exercise has no progression test", async () => {
+      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+
+      const { submitLessonExercise } = await import("@/lib/api/lessons");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
+
+      await manager.runCode(mockCode, mockExercise);
+      await flushMicrotasks();
+
+      expect(submitLessonExercise).toHaveBeenCalledWith("solve-a-maze", [{ filename: "solution.js", code: mockCode }]);
+    });
+
+    it("does not affect the visible run or block the submission when progression scoring rejects", async () => {
+      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+
+      const { runProgressionTest } = await import("@/components/coding-exercise/lib/test-runner/runProgressionTest");
+      (runProgressionTest as jest.Mock).mockRejectedValue(new Error("progression exploded"));
+      const { submitLessonExercise } = await import("@/lib/api/lessons");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
+
+      await expect(manager.runCode(mockCode, mockExercise)).resolves.not.toThrow();
+      await flushMicrotasks();
+
+      expect(mockStore.getState().setTestSuiteResult).toHaveBeenCalledWith({ tests: [], passed: true });
+      expect(submitLessonExercise).toHaveBeenCalledWith("solve-a-maze", [{ filename: "solution.js", code: mockCode }]);
+    });
+
+    it("does not affect the visible run when progression scoring throws synchronously", async () => {
+      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+
+      const { runProgressionTest } = await import("@/components/coding-exercise/lib/test-runner/runProgressionTest");
+      (runProgressionTest as jest.Mock).mockImplementation(() => {
+        throw new Error("sync explosion");
+      });
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
+
+      await expect(manager.runCode(mockCode, mockExercise)).resolves.not.toThrow();
+      expect(mockStore.getState().setTestSuiteResult).toHaveBeenCalledWith({ tests: [], passed: true });
     });
   });
 

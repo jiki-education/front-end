@@ -1,4 +1,5 @@
 import { api } from "./client";
+import type { ProgressionScores } from "./lessons";
 import type { UserConversationData } from "./types/conversation";
 
 export type ChallengeStatus = "locked" | "unlocked" | "started" | "completed";
@@ -59,9 +60,13 @@ export async function fetchChallenge(slug: string): Promise<ChallengeData> {
 /**
  * Submit exercise files for a challenge
  */
-export async function submitChallengeExercise(slug: string, files: ChallengeSubmissionFile[]): Promise<void> {
+export async function submitChallengeExercise(
+  slug: string,
+  files: ChallengeSubmissionFile[],
+  progressionScores?: ProgressionScores
+): Promise<void> {
   await api.post(`/internal/challenges/${slug}/exercise_submissions`, {
-    submission: { files }
+    submission: progressionScores ? { files, progression_scores: progressionScores } : { files }
   });
 }
 

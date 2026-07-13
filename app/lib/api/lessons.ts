@@ -53,12 +53,21 @@ export interface LessonSubmissionFile {
   code: string;
 }
 
+// Hidden progression test scores for a single run: the progression test
+// version plus integer points keyed by snake_cased metric name,
+// e.g. { v: 1, distance: 5, used_loop: 10, precision: 0 }.
+export type ProgressionScores = { v: number } & Record<string, number>;
+
 /**
  * Submit exercise files for a lesson
  */
-export async function submitLessonExercise(slug: string, files: LessonSubmissionFile[]): Promise<void> {
+export async function submitLessonExercise(
+  slug: string,
+  files: LessonSubmissionFile[],
+  progressionScores?: ProgressionScores
+): Promise<void> {
   await api.post(`/internal/lessons/${slug}/exercise_submissions`, {
-    submission: { files }
+    submission: progressionScores ? { files, progression_scores: progressionScores } : { files }
   });
 }
 

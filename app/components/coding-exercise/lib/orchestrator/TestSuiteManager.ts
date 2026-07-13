@@ -1,4 +1,5 @@
 import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
+import type { ProgressionScores } from "@/lib/api/lessons";
 import type { ExerciseDefinition } from "@jiki/curriculum";
 import type { SyntaxError } from "@jiki/interpreters";
 import toast from "react-hot-toast";
@@ -63,21 +64,28 @@ export class TestSuiteManager {
    * HTTP errors (e.g. 422/500) via a toast so the student knows their
    * submission wasn't recorded.
    */
-  private submitExerciseFiles(code: string): void {
+  private submitExerciseFiles(code: string, progressionScores: Promise<ProgressionScores | null>): void {
     if (!this.context) {
       return;
     }
 
     const files = [{ filename: "solution.js", code }];
 
-    const submission =
-      this.context.type === "challenge"
+    // The hidden progression scores for this run resolve alongside the run
+    // (or with null when the exercise has no progression test).
+    const submission = progressionScores.then((scores) =>
+      this.context!.type === "challenge"
         ? import("@/lib/api/challenges").then(({ submitChallengeExercise }) =>
-            submitChallengeExercise(this.context!.slug, files)
+            scores
+              ? submitChallengeExercise(this.context!.slug, files, scores)
+              : submitChallengeExercise(this.context!.slug, files)
           )
         : import("@/lib/api/lessons").then(({ submitLessonExercise }) =>
-            submitLessonExercise(this.context!.slug, files)
-          );
+            scores
+              ? submitLessonExercise(this.context!.slug, files, scores)
+              : submitLessonExercise(this.context!.slug, files)
+          )
+    );
 
     void submission.catch((error: unknown) => {
       // Network/auth/rate-limit errors get a global UI treatment already.
@@ -99,8 +107,14 @@ export class TestSuiteManager {
   async runCode(code: string, exercise: ExerciseDefinition): Promise<void> {
     this.prepareStateForTestRun();
 
+    // Score the hidden progression test for this run (all-zero on syntax
+    // errors, null when the exercise has no progression test). Runs
+    // concurrently with the visible test run and only feeds the submission
+    // payload - it never touches the store or the visible results.
+    const progressionScores = this.scoreProgressionRun(code, exercise);
+
     // Fire and forget - submission is recorded server-side but doesn't block the test run
-    this.submitExerciseFiles(code);
+    this.submitExerciseFiles(code, progressionScores);
 
     try {
       // Import and run our new test runner
@@ -136,6 +150,20 @@ export class TestSuiteManager {
         );
       }
       this.store.getState().setStatus("error");
+    }
+  }
+
+  // Never throws or rejects: progression scoring must not affect the visible run.
+  private async scoreProgressionRun(code: string, exercise: ExerciseDefinition): Promise<ProgressionScores | null> {
+    try {
+      const { runProgressionTest } = await import("../test-runner/runProgressionTest");
+      const result = await runProgressionTest(code, exercise, this.store.getState().language);
+      if (!result) {
+        return null;
+      }
+      return { v: result.version, ...result.scores };
+    } catch {
+      return null;
     }
   }
 

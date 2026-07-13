@@ -171,6 +171,17 @@ The TestSuiteManager orchestrates test execution:
 3. **Result Caching**: Maintains test suite results for reuse
 4. **Clearing Tests**: Resets test state when code changes
 
+## Hidden Progression Tests
+
+Visual exercises can define an optional `progressionTest` (see `ProgressionTest` / `ProgressionMetric` in `@jiki/curriculum`): a hidden, per-run measure of how close the student is to a working solution. It is never shown to the student and never affects the visible test results.
+
+- **Runner**: `runProgressionTest.ts` executes the student's code once against a fresh exercise instance with the progression test's setup. No animation timeline, view, or frames are produced.
+- **Scoring**: Each metric's `score` function returns a value in its natural units, clamped to `0..maxScore`, then converted to integer points weighted by the metric's `points`. Score functions run in their own try/catch (a throw scores 0). Syntax/compile errors score all metrics 0. Runtime errors still evaluate metrics against the halted exercise state (partial progress is the signal).
+- **Wiring**: `TestSuiteManager.runCode` scores the progression test alongside each run (including syntax-error runs) and attaches the result to the exercise submission POST as a `progression_scores` object keyed by snake_cased metric name plus the test version, e.g. `{"v": 1, "distance": 5, "used_loop": 10, "precision": 0}`. Scoring failures never affect the visible run.
+- **No client-side cross-run state**: every run's scores are submitted, so history and best-score tracking live server-side.
+
+Pilot exercise: `golf-rolling-ball-loop` in `@jiki/curriculum`.
+
 ## See Also
 
 - [Interpreters Integration](./interpreters.md) - How interpreters generate frames
