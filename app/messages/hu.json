@@ -45,7 +45,9 @@
       "premium": "Premium",
       "testimonials": "Vélemények",
       "login": "Bejelentkezés",
-      "signUp": "Regisztrálj ingyen"
+      "signUp": "Regisztrálj ingyen",
+      "menuAriaLabel": "Menü megnyitása",
+      "closeMenuAriaLabel": "Menü bezárása"
     },
     "internalHeader": {
       "homeAriaLabel": "Jiki főoldal",

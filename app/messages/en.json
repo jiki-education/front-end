@@ -45,7 +45,9 @@
       "premium": "Premium",
       "testimonials": "Testimonials",
       "login": "Login",
-      "signUp": "Sign Up For Free"
+      "signUp": "Sign Up For Free",
+      "menuAriaLabel": "Open menu",
+      "closeMenuAriaLabel": "Close menu"
     },
     "internalHeader": {
       "homeAriaLabel": "Jiki home",
