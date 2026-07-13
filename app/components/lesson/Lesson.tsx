@@ -2,7 +2,7 @@
 
 import LessonLoadingModal from "@/components/common/LessonLoadingModal/LessonLoadingModal";
 import { fetchUserCourse } from "@/lib/api/courses";
-import { fetchLesson, fetchUserLesson, startLesson } from "@/lib/api/lessons";
+import { fetchLesson, startLesson } from "@/lib/api/lessons";
 import type { UserCourse } from "@/types/course";
 import type { LessonWithData } from "@/types/lesson";
 import type { LastSubmissionData } from "@/lib/api/types/conversation";
@@ -39,29 +39,23 @@ export default function Lesson({ slug }: LessonProps) {
     async function loadData() {
       try {
         setLoading(true);
-        const [lessonData, userCourseData, userLessonResult] = await Promise.all([
+        // Starting the lesson is idempotent and returns the user lesson (created
+        // or existing), so a single request guarantees the row exists for every
+        // entry path into the page (direct link, bookmark, new tab, dashboard)
+        // and gives us its status — no read-404-start-reread dance.
+        const [lessonData, userCourseData, userLesson] = await Promise.all([
           fetchLesson(slug),
           fetchUserCourse(),
-          fetchUserLesson(slug).catch(() => null)
+          startLesson(slug)
         ]);
         if (cancelled) {
           return;
         }
 
-        // Ensure a UserLesson row exists for every entry path into a lesson page.
-        // The dashboard click is the only other place that starts a lesson, so a
-        // user arriving via a direct link, bookmark, new tab, or a silently-failed
-        // dashboard start would otherwise have no row and hit a 422 when clicking
-        // Continue. Start is idempotent server-side, so this is safe whenever the
-        // row is missing; unexpected failures are reported centrally by the client.
-        if (!userLessonResult) {
-          startLesson(slug).catch(() => {});
-        }
-
         setLesson(lessonData);
         setUserCourse(userCourseData);
-        setIsCompleted(userLessonResult?.status === "completed");
-        setServerSubmission(userLessonResult?.data?.last_submission ?? null);
+        setIsCompleted(userLesson.status === "completed");
+        setServerSubmission(userLesson.data?.last_submission ?? null);
       } catch (err) {
         if (!cancelled) {
           console.error("Failed to fetch lesson:", err);

@@ -31,10 +31,16 @@ export async function markLessonComplete(slug: string): Promise<any> {
 }
 
 /**
- * Start tracking a lesson - called when user clicks on a lesson
+ * Start tracking a lesson and return the resulting user lesson.
+ *
+ * Idempotent: creates the UserLesson row if it doesn't exist yet, otherwise
+ * returns the existing one. The lesson page calls this on mount so the row is
+ * guaranteed to exist (and its status is known) in a single request, rather
+ * than reading, 404ing, starting, then re-reading.
  */
-export async function startLesson(slug: string): Promise<void> {
-  await api.post(`/internal/user_lessons/${slug}/start`);
+export async function startLesson(slug: string): Promise<UserLessonData> {
+  const response = await api.post<UserLessonResponse>(`/internal/user_lessons/${slug}/start`);
+  return response.data.user_lesson;
 }
 
 export interface ExerciseSubmissionFile {

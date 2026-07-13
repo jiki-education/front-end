@@ -1,9 +1,8 @@
-import { render, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import Lesson from "@/components/lesson/Lesson";
 
 jest.mock("@/lib/api/lessons", () => ({
   fetchLesson: jest.fn(),
-  fetchUserLesson: jest.fn(),
   startLesson: jest.fn()
 }));
 
@@ -11,17 +10,13 @@ jest.mock("@/lib/api/courses", () => ({
   fetchUserCourse: jest.fn()
 }));
 
-jest.mock("@/lib/reportError", () => ({
-  reportError: jest.fn()
-}));
-
 // Stub the dynamic child so the test focuses on Lesson's data/start logic and
-// signals readiness immediately.
+// signals readiness immediately. It also exposes the isCompleted prop it receives.
 jest.mock("@/components/lesson/LessonContent", () => ({
   __esModule: true,
-  default: ({ onReady }: { onReady: () => void }) => {
+  default: ({ onReady, isCompleted }: { onReady: () => void; isCompleted: boolean }) => {
     onReady();
-    return <div data-testid="lesson-content" />;
+    return <div data-testid="lesson-content" data-completed={String(isCompleted)} />;
   }
 }));
 
@@ -30,17 +25,22 @@ jest.mock("@/components/common/LessonLoadingModal/LessonLoadingModal", () => ({
   default: () => <div data-testid="lesson-loading" />
 }));
 
-import { fetchLesson, fetchUserLesson, startLesson } from "@/lib/api/lessons";
+import { fetchLesson, startLesson } from "@/lib/api/lessons";
 import { fetchUserCourse } from "@/lib/api/courses";
 
 const mockedFetchLesson = fetchLesson as jest.MockedFunction<typeof fetchLesson>;
-const mockedFetchUserLesson = fetchUserLesson as jest.MockedFunction<typeof fetchUserLesson>;
 const mockedStartLesson = startLesson as jest.MockedFunction<typeof startLesson>;
 const mockedFetchUserCourse = fetchUserCourse as jest.MockedFunction<typeof fetchUserCourse>;
 
 const SLUG = "if-statements";
 
-describe("Lesson ensure-start on mount", () => {
+function userLesson(overrides: Record<string, unknown> = {}) {
+  return { lesson_slug: SLUG, status: "started", data: {}, ...overrides } as unknown as Awaited<
+    ReturnType<typeof startLesson>
+  >;
+}
+
+describe("Lesson starts the lesson on mount", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockedFetchLesson.mockResolvedValue({ slug: SLUG, type: "video", title: "If Statements" } as unknown as Awaited<
@@ -49,27 +49,37 @@ describe("Lesson ensure-start on mount", () => {
     mockedFetchUserCourse.mockResolvedValue({ language: "javascript" } as unknown as Awaited<
       ReturnType<typeof fetchUserCourse>
     >);
-    mockedStartLesson.mockResolvedValue(undefined);
+    mockedStartLesson.mockResolvedValue(userLesson());
   });
 
-  it("starts the lesson when no UserLesson row exists yet", async () => {
-    // A user arriving via a direct link / bookmark has no row, so fetchUserLesson 404s.
-    mockedFetchUserLesson.mockRejectedValue(new Error("API Error: 404"));
-
+  it("calls startLesson (idempotent, single request) for every entry path", async () => {
     render(<Lesson slug={SLUG} />);
 
     await waitFor(() => expect(mockedStartLesson).toHaveBeenCalledWith(SLUG));
     expect(mockedStartLesson).toHaveBeenCalledTimes(1);
   });
 
-  it("does not start the lesson when a UserLesson row already exists", async () => {
-    mockedFetchUserLesson.mockResolvedValue({ status: "started" } as unknown as Awaited<
-      ReturnType<typeof fetchUserLesson>
-    >);
+  it("marks the lesson completed when start returns a completed user lesson", async () => {
+    mockedStartLesson.mockResolvedValue(userLesson({ status: "completed" }));
 
     render(<Lesson slug={SLUG} />);
 
-    await waitFor(() => expect(mockedFetchLesson).toHaveBeenCalled());
-    expect(mockedStartLesson).not.toHaveBeenCalled();
+    await waitFor(() => expect(screen.getByTestId("lesson-content")).toHaveAttribute("data-completed", "true"));
+  });
+
+  it("is not completed when start returns a started user lesson", async () => {
+    mockedStartLesson.mockResolvedValue(userLesson({ status: "started" }));
+
+    render(<Lesson slug={SLUG} />);
+
+    await waitFor(() => expect(screen.getByTestId("lesson-content")).toHaveAttribute("data-completed", "false"));
+  });
+
+  it("shows an error when start fails", async () => {
+    mockedStartLesson.mockRejectedValue(new Error("API Error: 422"));
+
+    render(<Lesson slug={SLUG} />);
+
+    await waitFor(() => expect(screen.queryByTestId("lesson-content")).not.toBeInTheDocument());
   });
 });
