@@ -7,7 +7,6 @@ import type { BillingInterval } from "@/lib/pricing";
 import { extractAndClearCheckoutSessionId } from "@/lib/subscriptions/verification";
 import { verifyCheckoutSession } from "@/lib/api/subscriptions";
 import { handleSubscribe } from "@/lib/subscriptions/handlers";
-import { reportError } from "@/lib/reportError";
 import {
   showPaymentConfirming,
   showPaymentProcessing,
@@ -80,7 +79,8 @@ export function CheckoutReturnHandler() {
           void reopenCheckout(error.interval, error.declineReason);
           return;
         }
-        reportError(error);
+        // Genuine /internal failures are reported centrally by the API client;
+        // here we only fall back to the failure modal so the spinner doesn't hang.
         showPaymentVerificationFailed();
       });
   }, [hasCheckedAuth, isAuthenticated, refreshUser, user]);

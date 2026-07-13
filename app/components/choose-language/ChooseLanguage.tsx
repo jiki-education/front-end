@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { LessonQuitButton } from "@/components/lesson/LessonQuitButton";
 import { setLanguageChoice } from "@/lib/api/courses";
 import { markLessonComplete } from "@/lib/api/lessons";
+import { showLessonSaveErrorToast } from "@/lib/toasts/lessonSaveError";
 import type { Lesson, VideoSource } from "@/types/lesson";
 import type { ProgrammingLanguage } from "@/types/course";
 import { VideoStep } from "./ui/VideoStep";
@@ -87,6 +88,7 @@ export default function ChooseLanguage({ lessonData, onReady }: ChooseLanguagePr
       }
     } catch (error) {
       console.error("Failed to save language choice:", error);
+      showLessonSaveErrorToast();
     } finally {
       setIsSubmitting(false);
     }

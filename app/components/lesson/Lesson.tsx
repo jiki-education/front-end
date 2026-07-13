@@ -2,7 +2,7 @@
 
 import LessonLoadingModal from "@/components/common/LessonLoadingModal/LessonLoadingModal";
 import { fetchUserCourse } from "@/lib/api/courses";
-import { fetchLesson, fetchUserLesson } from "@/lib/api/lessons";
+import { fetchLesson, fetchUserLesson, startLesson } from "@/lib/api/lessons";
 import type { UserCourse } from "@/types/course";
 import type { LessonWithData } from "@/types/lesson";
 import type { LastSubmissionData } from "@/lib/api/types/conversation";
@@ -47,6 +47,17 @@ export default function Lesson({ slug }: LessonProps) {
         if (cancelled) {
           return;
         }
+
+        // Ensure a UserLesson row exists for every entry path into a lesson page.
+        // The dashboard click is the only other place that starts a lesson, so a
+        // user arriving via a direct link, bookmark, new tab, or a silently-failed
+        // dashboard start would otherwise have no row and hit a 422 when clicking
+        // Continue. Start is idempotent server-side, so this is safe whenever the
+        // row is missing; unexpected failures are reported centrally by the client.
+        if (!userLessonResult) {
+          startLesson(slug).catch(() => {});
+        }
+
         setLesson(lessonData);
         setUserCourse(userCourseData);
         setIsCompleted(userLessonResult?.status === "completed");

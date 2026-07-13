@@ -6,8 +6,50 @@
  */
 
 import type { BillingInterval } from "@/lib/pricing";
+import { reportError } from "@/lib/reportError";
 import { getApiUrl } from "./config";
 import { clearCriticalError, setCriticalError, useErrorHandlerStore } from "./errorHandlerStore";
+
+// Statuses the app treats as expected, not bugs, so they must NOT be reported to
+// Sentry: 401 (session invalid, handled globally), 403 (permission/premium gate),
+// 404 (missing/user-scoped record, often used to detect "no row yet"), and 429
+// (rate limited, handled globally). Everything else that reaches the client's
+// error path (400, 409, 422, 5xx, ...) is an unexpected failure worth capturing.
+const UNREPORTED_API_STATUSES = new Set([401, 403, 404, 429]);
+
+// Only authenticated internal endpoints (/internal/*) are reported. Public/marketing
+// or third-party calls are out of scope: a failure there isn't a signed-in user
+// hitting a broken app action.
+function isAuthedEndpoint(pathname: string): boolean {
+  return pathname.startsWith("/internal/");
+}
+
+/**
+ * Central policy for whether an error that failed a request should be reported
+ * to Sentry. Reporting happens once, here in the client, so individual callers
+ * don't each have to remember to call reportError — they only own the UX (toasts,
+ * error states). Scoped to authenticated (/internal/*) endpoints. Expected
+ * outcomes (auth/permission/not-found/rate-limit, connectivity, navigation
+ * aborts, payment declines) are suppressed.
+ */
+function shouldReportRequestError(error: unknown, pathname: string): boolean {
+  if (!isAuthedEndpoint(pathname)) {
+    return false;
+  }
+  // Environmental, not bugs: lost connection or the user navigating away mid-fetch.
+  if (error instanceof NetworkError || error instanceof RequestAbortedError) {
+    return false;
+  }
+  // Expected payment decline — surfaced to the user (reopen checkout), not a bug.
+  if (error instanceof CheckoutIncompleteError) {
+    return false;
+  }
+  if (error instanceof ApiError) {
+    return !UNREPORTED_API_STATUSES.has(error.status);
+  }
+  // Unknown, non-API error reaching the request path — unexpected, so report it.
+  return true;
+}
 
 // Retry configuration
 const INITIAL_RETRY_DELAY_MS = 50;
@@ -334,6 +376,13 @@ async function executeRequest<T>(url: URL, requestOptions: RequestInit, useRetri
   } catch (error) {
     // Re-throw ApiError (including AuthenticationError) and NetworkError
     if (error instanceof ApiError || error instanceof NetworkError) {
+      // Every request error passes through here, so this is the single place to
+      // report unexpected API failures (422/409/5xx/...) on authenticated
+      // endpoints to Sentry. Callers keep ownership of the UX; they no longer
+      // need to reportError themselves.
+      if (shouldReportRequestError(error, url.pathname)) {
+        reportError(error);
+      }
       throw error;
     }
 
@@ -348,7 +397,11 @@ async function executeRequest<T>(url: URL, requestOptions: RequestInit, useRetri
     }
 
     // Handle other errors (shouldn't happen, but keep as fallback)
-    throw new Error(`Request failed: ${error}`);
+    const unexpected = new Error(`Request failed: ${error}`);
+    if (isAuthedEndpoint(url.pathname)) {
+      reportError(unexpected);
+    }
+    throw unexpected;
   }
 }
 

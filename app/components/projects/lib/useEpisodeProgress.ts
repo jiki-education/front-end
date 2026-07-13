@@ -2,7 +2,6 @@ import type { MuxPlayerRefAttributes } from "@mux/mux-player-react";
 import { useEffect, useRef, useState } from "react";
 import { fetchUserVideo, updateUserVideoPercentage, type UserVideoData } from "@/lib/api/user-videos";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { reportError } from "@/lib/reportError";
 
 interface ProgressPlayer {
   getCurrentTime: () => number;
@@ -58,7 +57,8 @@ export function useEpisodeProgress(uuid: string, videoProvider?: "mux" | "youtub
       return;
     }
     lastReportedPercentRef.current = rounded;
-    updateUserVideoPercentage(uuid, rounded).catch(reportError);
+    // Best-effort progress ping; the API client reports genuine /internal failures centrally.
+    updateUserVideoPercentage(uuid, rounded).catch(() => {});
   };
 
   const reportFromPlayer = (player: ProgressPlayer | null) => {
