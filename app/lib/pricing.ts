@@ -3,6 +3,8 @@
  * Defines subscription tiers, pricing, and features
  */
 
+import { currencyNumberFormat } from "./formatCurrency";
+
 export type MembershipTier = "standard" | "premium";
 
 export type BillingInterval = "monthly" | "annual";
@@ -28,10 +30,8 @@ export function formatMonthlyPrice(prices: PremiumPrices): string {
   const currency = prices.currency.toUpperCase();
   const amount = prices.monthly / Math.pow(10, currencyFractionDigits(currency));
 
-  return new Intl.NumberFormat(undefined, {
-    style: "currency",
+  return currencyNumberFormat({
     currency,
-    currencyDisplay: "narrowSymbol",
     minimumFractionDigits: 0,
     maximumFractionDigits: 2
   }).format(amount);

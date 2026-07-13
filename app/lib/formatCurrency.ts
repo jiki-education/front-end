@@ -31,6 +31,18 @@ function minorUnitExponent(currency: string): number {
   return currencyFractionDigits(currency);
 }
 
+// Intl.NumberFormat in currency style with "narrowSymbol", falling back to
+// "symbol" on engines that reject narrowSymbol (older/niche browsers throw a
+// RangeError, which would otherwise take down the whole page render since we
+// format prices during render).
+export function currencyNumberFormat(options: Intl.NumberFormatOptions): Intl.NumberFormat {
+  try {
+    return new Intl.NumberFormat(undefined, { style: "currency", currencyDisplay: "narrowSymbol", ...options });
+  } catch {
+    return new Intl.NumberFormat(undefined, { style: "currency", currencyDisplay: "symbol", ...options });
+  }
+}
+
 function disambiguate(currency: string, formatted: string): string {
   const prefix = DOLLAR_PREFIX[currency];
   if (!prefix) return formatted;
@@ -50,10 +62,8 @@ export function formatCurrency(
 ): string {
   const currencyUpper = currency.toUpperCase();
   const amount = amountInMinorUnits / Math.pow(10, minorUnitExponent(currencyUpper));
-  const formatted = new Intl.NumberFormat(undefined, {
-    style: "currency",
+  const formatted = currencyNumberFormat({
     currency: currencyUpper,
-    currencyDisplay: "narrowSymbol",
     ...options
   }).format(amount);
   return disambiguate(currencyUpper, formatted);
