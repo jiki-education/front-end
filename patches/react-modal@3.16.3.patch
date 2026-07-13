@@ -1,0 +1,16 @@
+diff --git a/lib/helpers/scopeTab.js b/lib/helpers/scopeTab.js
+index c8fa5a6b83c2680d6f434429f2c8bdd241380911..4e218e797a151fe83c8434922b867585535f3f04 100644
+--- a/lib/helpers/scopeTab.js
++++ b/lib/helpers/scopeTab.js
+@@ -14,7 +14,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
+ function getActiveElement() {
+   var el = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : document;
+ 
+-  return el.activeElement.shadowRoot ? getActiveElement(el.activeElement.shadowRoot) : el.activeElement;
++  // Patched (Jiki): a shadow root's activeElement can be null (e.g. shadow DOM
++  // injected by extensions like Grammarly/password managers), which crashed the
++  // Tab-key focus trap. Guard before recursing.
++  return el.activeElement && el.activeElement.shadowRoot ? getActiveElement(el.activeElement.shadowRoot) : el.activeElement;
+ }
+ 
+ function scopeTab(node, event) {

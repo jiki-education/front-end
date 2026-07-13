@@ -7,6 +7,11 @@ settings:
 overrides:
   '@lezer/javascript': npm:@jiki.io/lezer-javascript@^1.5.4
 
+patchedDependencies:
+  react-modal@3.16.3:
+    hash: 5859843818013d7b18057e102d8339a3d293f8f3db01041ed3debc6e16f2e6d0
+    path: patches/react-modal@3.16.3.patch
+
 importers:
 
   .:
@@ -167,7 +172,7 @@ importers:
         version: 2.1.0(react@19.2.3)
       react-modal:
         specifier: ^3.16.3
-        version: 3.16.3(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+        version: 3.16.3(patch_hash=5859843818013d7b18057e102d8339a3d293f8f3db01041ed3debc6e16f2e6d0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       react-youtube:
         specifier: ^10.1.0
         version: 10.1.0(react@19.2.3)
@@ -16136,7 +16141,7 @@ snapshots:
       react: 19.2.3
       rfdc: 1.4.1
 
-  react-modal@3.16.3(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
+  react-modal@3.16.3(patch_hash=5859843818013d7b18057e102d8339a3d293f8f3db01041ed3debc6e16f2e6d0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:
       exenv: 1.2.2
       prop-types: 15.8.1
