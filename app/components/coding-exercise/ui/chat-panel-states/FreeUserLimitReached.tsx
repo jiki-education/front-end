@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
-import styles from "./FreeUserCanStart.module.css";
+import styles from "./shared.module.css";
 import StuckHeader from "./StuckHeader";
 
 // Non-premium user, conversation not allowed, no existing conversation

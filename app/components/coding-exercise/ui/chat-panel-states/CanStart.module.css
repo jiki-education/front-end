@@ -1,27 +1,11 @@
 .rotatingText {
-    color: var(--color-purple-600);
+    color: var(--color-purple-500);
     font-weight: 500;
 }
 
-.typingCursor {
-    display: inline-block;
-    width: 2px;
-    height: 1em;
-    background: var(--color-purple-500);
+.rotatingText :global(.ti-cursor) {
     margin-left: 2px;
-    animation: blink 1s infinite;
-    vertical-align: text-bottom;
-}
-
-@keyframes blink {
-    0%,
-    50% {
-        opacity: 1;
-    }
-    51%,
-    100% {
-        opacity: 0;
-    }
+    --ti-cursor-font-weight: 400;
 }
 
 .chatInputContainer {
@@ -31,7 +15,7 @@
     gap: 8px;
     flex-shrink: 0;
     padding: 0;
-    margin: 0 0 16px 0;
+    margin: 0 0 12px 0;
     width: 100%;
 }
 
@@ -40,10 +24,13 @@
 }
 
 .chatInput {
+    display: block;
     position: relative;
     padding: 14px 16px 56px 16px;
     border: 2px solid var(--color-purple-200);
     border-radius: 12px;
+    box-shadow: 0 0 16px var(--color-purple-500-20);
+    animation: glowPulse 5s ease-in-out infinite;
     font-size: 16px;
     line-height: 1.5;
     transition:
@@ -54,6 +41,16 @@
     min-height: 100px;
     width: 100%;
     overflow: hidden;
+}
+
+@keyframes glowPulse {
+    0%,
+    100% {
+        box-shadow: 0 0 12px var(--color-purple-500-20);
+    }
+    50% {
+        box-shadow: 0 0 22px var(--color-purple-500-30);
+    }
 }
 
 .chatInput:focus {
@@ -112,7 +109,7 @@
     gap: 6px;
     font-size: 15px;
     color: var(--color-gray-500);
-    margin: 5px 0 0 0;
+    margin: 0;
 }
 
 .checkIcon {

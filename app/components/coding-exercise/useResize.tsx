@@ -80,9 +80,11 @@ export function useResizablePanels() {
       const maxHorizontalPixels = container.getBoundingClientRect().height - 200;
       if (maxHorizontalPixels >= 200) {
         const clamped = Math.min(Math.max(stored.horizontalPixels, 200), maxHorizontalPixels);
-        container.style.gridTemplateRows = `${clamped}px 1fr`;
+        // The 50vh cap keeps the editor row from forcing the grid taller than
+        // the viewport if the window shrinks after the size was stored.
+        container.style.gridTemplateRows = `min(${clamped}px, 50vh) 1fr`;
         if (horizontalDividerRef.current) {
-          horizontalDividerRef.current.style.top = `${clamped}px`;
+          horizontalDividerRef.current.style.top = `min(${clamped}px, 50vh)`;
         }
       }
     }
@@ -175,8 +177,8 @@ export function useResizablePanels() {
 
       if (pixelPosition >= 200 && pixelPosition <= containerRect.height - 200) {
         latestPixels = pixelPosition;
-        horizontalDivider.style.top = pixelPosition + "px";
-        container.style.gridTemplateRows = `${pixelPosition}px 1fr`;
+        horizontalDivider.style.top = `min(${pixelPosition}px, 50vh)`;
+        container.style.gridTemplateRows = `min(${pixelPosition}px, 50vh) 1fr`;
       }
     };
 
