@@ -40,11 +40,31 @@ const fullLineDeco = Decoration.line({
 
 const partialLineMark = Decoration.mark({ class: "cm-partialLockedLine" });
 
-function isPartialRange(range: ReadonlyRange, doc: { line: (n: number) => { from: number; to: number } }): boolean {
+// Ranges can be stale against the current document (e.g. locked lines persisted
+// from previously-edited longer code applied while a shorter doc is being set),
+// so every doc.line() lookup must be clamped to the document or CodeMirror
+// throws "Invalid line number N in M-line document". Returns null when the
+// range lies entirely beyond the document.
+function clampRangeToDoc(range: ReadonlyRange, doc: { lines: number }): ReadonlyRange | null {
+  if (range.fromLine > doc.lines) {
+    return null;
+  }
+  if (range.toLine <= doc.lines) {
+    return range;
+  }
+  // The original toLine (and any toChar on it) no longer exists; lock through
+  // the end of the last line instead.
+  return { ...range, toLine: doc.lines, toChar: undefined };
+}
+
+function isPartialRange(
+  range: ReadonlyRange,
+  doc: { lines: number; line: (n: number) => { from: number; to: number } }
+): boolean {
   if (range.fromChar !== undefined && range.fromChar > 0) {
     return true;
   }
-  if (range.toChar !== undefined) {
+  if (range.toChar !== undefined && range.toLine <= doc.lines) {
     const lastLine = doc.line(range.toLine);
     const lineLength = lastLine.to - lastLine.from;
     if (range.toChar < lineLength) {
@@ -61,7 +81,11 @@ function lockedLineDeco(view: EditorView) {
   // Collect all decorations with their positions, then sort by from position
   const decos: Array<{ from: number; to: number; deco: Decoration }> = [];
 
-  for (const range of readOnlyRanges) {
+  for (const rawRange of readOnlyRanges) {
+    const range = clampRangeToDoc(rawRange, view.state.doc);
+    if (!range) {
+      continue;
+    }
     if (isPartialRange(range, view.state.doc)) {
       // Partial range: use mark decoration for the specific char range
       const from = view.state.doc.line(range.fromLine).from + (range.fromChar ?? 0);
@@ -111,7 +135,11 @@ const lockedLineGutterMarker = new (class extends GutterMarker {
 
 const lockedLineGutterHighlighter = gutterLineClass.compute([readOnlyRangesStateField, "doc"], (state) => {
   const marks = [];
-  for (const range of state.field(readOnlyRangesStateField)) {
+  for (const rawRange of state.field(readOnlyRangesStateField)) {
+    const range = clampRangeToDoc(rawRange, state.doc);
+    if (!range) {
+      continue;
+    }
     for (let line = range.fromLine; line <= range.toLine; line++) {
       const linePos = state.doc.line(line).from;
       marks.push(lockedLineGutterMarker.range(linePos));
