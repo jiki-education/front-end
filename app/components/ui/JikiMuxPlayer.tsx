@@ -47,7 +47,13 @@ function defaultOnError(event: Event) {
     return;
   }
 
-  reportError(error);
+  // Every variant funnels through this same stack frame, so without an explicit
+  // fingerprint Sentry lumps decode failures, unsupported formats, and unknown
+  // errors into one issue. Group per code/muxCode so each class is triaged on
+  // its own volume.
+  reportError(error, {
+    fingerprint: ["muxplayer-error", String(code ?? "none"), String(muxCode ?? "none")]
+  });
 }
 
 const JikiMuxPlayer = forwardRef<MuxPlayerRefAttributes, MuxPlayerProps>(function JikiMuxPlayer(props, ref) {

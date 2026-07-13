@@ -54,7 +54,11 @@ export function VideoStep({ lessonData, onReady, onProceedToSelector, hasVisited
   const autoplay = () => {
     if (!hasAutoPlayedRef.current && playerRef.current?.currentTime === 0) {
       hasAutoPlayedRef.current = true;
-      void playerRef.current.play();
+      // Autoplay denial (NotAllowedError) is expected when the browser blocks
+      // unmuted playback; don't let it surface as an unhandled rejection.
+      playerRef.current.play().catch(() => {
+        setIsVideoVisible(true);
+      });
     }
   };
 
