@@ -30,6 +30,7 @@ interface BaseExerciseCore {
   readonlyRanges?: Partial<Record<Language, ReadonlyRange[]>>; // Per-language readonly code regions
   interpreterOptions?: InterpreterOptions; // Per-exercise interpreter overrides (e.g., loop iteration limits)
   disableLogTab?: boolean; // Hide the Log tab in the RHS panel for this exercise
+  progressionTest?: ProgressionTest; // Hidden progress metrics evaluated against the scenario runs
 }
 
 // Per-exercise interpreter options (overrides defaults when passed to interpreter)
@@ -43,7 +44,6 @@ export interface VisualExerciseCore extends BaseExerciseCore {
   type: "visual";
   ExerciseClass: new () => VisualExercise;
   scenarios: VisualScenario[];
-  progressionTest?: ProgressionTest;
 }
 
 // IO exercise core (from curriculum module)
@@ -70,7 +70,6 @@ export interface VisualExerciseDefinition extends BaseExerciseCore, ExerciseCont
   type: "visual";
   ExerciseClass: new () => VisualExercise;
   scenarios: VisualScenario[];
-  progressionTest?: ProgressionTest;
 }
 
 export interface IOExerciseDefinition extends BaseExerciseCore, ExerciseContent {
@@ -148,23 +147,47 @@ export interface CodeCheck {
   errorHtml?: string;
 }
 
-// Hidden progression metric - measures partial progress toward a solution.
-// The score function returns a value in the metric's natural units (steps,
-// combos, 0/1 booleans); the runner clamps it to 0..maxScore and converts it
-// to integer points weighted by `points`.
-export interface ProgressionMetric {
-  name: string; // short identifier, e.g. "distance", "used-loop"
-  maxScore: number; // natural units the score fn returns in (steps, combos, 0/1)
-  points: number; // worth in the exercise tally (weighting)
-  score: (exercise: VisualExercise, result: InterpretResult, language: Language) => number; // returns 0..maxScore, runner clamps
+// Artifacts from one scenario run, made available to progression metrics.
+// Progression tests never execute student code themselves - they evaluate the
+// runs the visible scenarios already performed.
+export interface ScenarioRun {
+  scenarioSlug: string;
+  passed: boolean;
+  isolated?: boolean; // true for a hidden isolated-check re-run of the scenario
+  exercise?: VisualExercise; // visual runs only: the (possibly halted) exercise instance
+  result: InterpretResult | null; // null when the interpreter threw before producing a result
+  actual?: IOValue; // IO runs only: the function's return value
 }
 
-// Hidden progression test - run silently alongside the visible scenarios to
-// measure how close a student is to a working solution. Never shown to the
-// student; scores are recorded per run and ratcheted into a session best.
+// The collection of scenario runs a progression metric scores against.
+export interface ScenarioRuns {
+  all: ScenarioRun[];
+  bySlug: (slug: string) => ScenarioRun | undefined; // the primary (non-isolated) run for a scenario
+}
+
+// Hidden progression metric - measures partial progress toward a solution
+// from the scenario runs that already happened. The score function returns a
+// value in the metric's natural units (steps, matching scenarios, 0/1
+// booleans); the evaluator clamps it to 0..maxScore and converts it to
+// integer points weighted by `points`.
+//
+// Authoring notes:
+// - Metric-to-scenario coupling is by slug; the "solution scores full marks"
+//   curriculum test is what catches drift when scenarios change.
+// - Metrics on scenarios with randomSeed must be seed-agnostic.
+// - Bump the progression test's version when scenarios or metrics change.
+export interface ProgressionMetric {
+  name: string; // short identifier, e.g. "distance", "used-loop"
+  maxScore: number; // natural units the score fn returns in
+  points: number; // worth in the exercise tally (weighting)
+  score: (runs: ScenarioRuns, language: Language) => number; // returns 0..maxScore, evaluator clamps
+}
+
+// Hidden progression test - evaluated silently against the visible scenario
+// runs to measure how close a student is to a working solution. Never shown
+// to the student; scores are submitted per run.
 export interface ProgressionTest {
-  version: number; // bump when the metrics list changes (positional encoding guard)
-  setup?: (exercise: VisualExercise) => void;
+  version: number; // bump when the metrics list or the scenarios change (encoding guard)
   metrics: ProgressionMetric[];
 }
 

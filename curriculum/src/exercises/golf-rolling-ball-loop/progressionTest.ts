@@ -1,17 +1,16 @@
-import type { ProgressionTest } from "../types";
+import type { ProgressionTest, ScenarioRuns } from "../types";
 import type GolfRollingBallLoopExercise from "./Exercise";
 
+const SCENARIO_SLUG = "roll-ball";
 const HOLE_X = 88;
 const START_TO_HOLE_STEPS = 60;
 
+function golfExercise(runs: ScenarioRuns): GolfRollingBallLoopExercise | undefined {
+  return runs.bySlug(SCENARIO_SLUG)?.exercise as GolfRollingBallLoopExercise | undefined;
+}
+
 export const progressionTest: ProgressionTest = {
   version: 1,
-
-  setup(exercise) {
-    const ex = exercise as GolfRollingBallLoopExercise;
-    ex.setupBallPosition(28, 75);
-    ex.setupBackground("/static/images/exercise-assets/golf-rolling-ball-loop/background.webp");
-  },
 
   metrics: [
     {
@@ -19,8 +18,11 @@ export const progressionTest: ProgressionTest = {
       name: "distance",
       maxScore: START_TO_HOLE_STEPS,
       points: 5,
-      score: (exercise) => {
-        const ex = exercise as GolfRollingBallLoopExercise;
+      score: (runs) => {
+        const ex = golfExercise(runs);
+        if (!ex) {
+          return 0;
+        }
         return Math.max(0, START_TO_HOLE_STEPS - Math.abs(HOLE_X - ex.ballX));
       }
     },
@@ -29,10 +31,14 @@ export const progressionTest: ProgressionTest = {
       name: "used-loop",
       maxScore: 1,
       points: 10,
-      score: (exercise, result) => {
-        const ex = exercise as GolfRollingBallLoopExercise;
+      score: (runs) => {
+        const run = runs.bySlug(SCENARIO_SLUG);
+        const ex = golfExercise(runs);
+        if (!run?.result || !ex) {
+          return 0;
+        }
         const manyRuntimeRolls = ex.visitedPositions.length >= 5;
-        const fewStaticCalls = result.assertors.numFunctionCallsInCode("roll") <= 2;
+        const fewStaticCalls = run.result.assertors.numFunctionCallsInCode("roll") <= 2;
         return manyRuntimeRolls && fewStaticCalls ? 1 : 0;
       }
     },
@@ -41,8 +47,11 @@ export const progressionTest: ProgressionTest = {
       name: "precision",
       maxScore: 1,
       points: 2,
-      score: (exercise) => {
-        const ex = exercise as GolfRollingBallLoopExercise;
+      score: (runs) => {
+        const ex = golfExercise(runs);
+        if (!ex) {
+          return 0;
+        }
         const requiredPositions = [29, 40, 60, 88];
         return requiredPositions.every((p) => ex.visitedPositions.includes(p)) ? 1 : 0;
       }

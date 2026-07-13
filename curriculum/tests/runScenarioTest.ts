@@ -5,11 +5,14 @@ import type { VisualExercise } from "../src/VisualExercise";
 import type {
   VisualScenario,
   IOScenario,
+  IOValue,
   TestExpect,
   CodeCheckExpect,
   ExerciseCore,
-  InterpreterOptions
+  InterpreterOptions,
+  ScenarioRuns
 } from "../src/exercises/types";
+import { createScenarioRuns } from "../src/exercises/scenarioRuns";
 import { getLanguageFeatures } from "../src/levels";
 import type { Language } from "../src/types";
 
@@ -27,6 +30,28 @@ export interface ScenarioTestResult {
   name: string;
   status: "pass" | "fail";
   expects: TestExpect[];
+  // Run artifacts, mirroring the app's ScenarioRun shape so progression
+  // metrics can be exercised in curriculum tests via buildScenarioRuns.
+  exercise?: VisualExercise;
+  result: InterpretResult | null;
+  actual?: IOValue;
+}
+
+/**
+ * Wraps scenario test results in the ScenarioRuns collection progression
+ * metrics score against. Isolated-check re-runs are not included (curriculum
+ * tests only surface the primary run's artifacts).
+ */
+export function buildScenarioRuns(results: ScenarioTestResult[]): ScenarioRuns {
+  return createScenarioRuns(
+    results.map((result) => ({
+      scenarioSlug: result.slug,
+      passed: result.status === "pass",
+      exercise: result.exercise,
+      result: result.result,
+      actual: result.actual
+    }))
+  );
 }
 
 /**
@@ -182,7 +207,9 @@ export function runVisualScenarioTest(
     slug: scenario.slug,
     name: scenario.name,
     status,
-    expects: allExpects
+    expects: allExpects,
+    exercise,
+    result: evaluationResult
   };
 }
 
@@ -205,23 +232,42 @@ export function runIOScenarioTest(
   // Note: stdlib functions are automatically added by the interpreter based on languageFeatures.allowedStdlibFunctions
   const externalFunctions = ExerciseClass.getExternalFunctions(language);
 
-  // Call the student's function using evaluateFunction
+  // Call the student's function using evaluateFunction. Syntax errors (and
+  // any other interpreter throw) fail the scenario with no run artifacts,
+  // mirroring the app's compile-error handling.
   const interpreter = getInterpreter(language);
-  const evaluationResult = interpreter.evaluateFunction(
-    studentCode,
-    {
-      externalFunctions,
-      languageFeatures: {
-        timePerFrame: 1,
-        maxTotalLoopIterations: 10000,
-        ...languageFeatures,
-        ...interpreterOptions
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } as any
-    },
-    interpreter.formatIdentifier(scenario.functionName),
-    ...scenario.args
-  );
+  let evaluationResult: ReturnType<typeof interpreter.evaluateFunction>;
+  try {
+    evaluationResult = interpreter.evaluateFunction(
+      studentCode,
+      {
+        externalFunctions,
+        languageFeatures: {
+          timePerFrame: 1,
+          maxTotalLoopIterations: 10000,
+          ...languageFeatures,
+          ...interpreterOptions
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } as any
+      },
+      interpreter.formatIdentifier(scenario.functionName),
+      ...scenario.args
+    );
+  } catch (error) {
+    return {
+      slug: scenario.slug,
+      name: scenario.name,
+      status: "fail",
+      expects: [
+        {
+          pass: false,
+          errorHtml: `Error: ${error instanceof Error ? error.message : String(error)}`
+        }
+      ],
+      result: null,
+      actual: undefined
+    };
+  }
   // console.log(evaluationResult);
   // console.log(evaluationResult.error);
   // console.log(evaluationResult.frames[2]?.error);
@@ -294,7 +340,9 @@ export function runIOScenarioTest(
     slug: scenario.slug,
     name: scenario.name,
     status: overallPass ? "pass" : "fail",
-    expects
+    expects,
+    result: evaluationResult as InterpretResult,
+    actual: evaluationResult.error ? undefined : (evaluationResult.value as IOValue)
   };
 }
 

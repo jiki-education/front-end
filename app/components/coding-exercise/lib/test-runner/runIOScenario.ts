@@ -1,8 +1,9 @@
-import type { IOScenario, Language, CodeCheckExpect } from "@jiki/curriculum";
+import type { IOScenario, Language, CodeCheckExpect, ScenarioRun } from "@jiki/curriculum";
 import type { IOTestResult, IOTestExpect } from "../test-results-types";
 import isEqual from "lodash/isEqual";
 import { diffChars, diffWords, type Change } from "diff";
 import type { Frame } from "@jiki/interpreters/shared";
+import { evaluateIOFunction } from "./executeStudentCode";
 import { formatInterpreterObject } from "./formatInterpreterObject";
 import type { Interpreter } from "./getInterpreter";
 
@@ -41,40 +42,24 @@ export function runIOScenario(
   language: Language,
   interpreter: Interpreter,
   languageFeatures?: Record<string, any>
-): IOTestResult {
-  let actual: any;
-  let errorHtml: string | undefined;
+): { testResult: IOTestResult; run: ScenarioRun } {
   let functionalPass = false;
-  let frames: Frame[] = [];
-  let logLines: Array<{ time: number; output: string }> = [];
 
-  let interpretResult: any;
+  const outcome = evaluateIOFunction(studentCode, {
+    interpreter,
+    availableFunctions,
+    languageFeatures,
+    functionName: scenario.functionName,
+    args: scenario.args
+  });
 
-  try {
-    interpretResult = interpreter.evaluateFunction(
-      studentCode,
-      {
-        externalFunctions: availableFunctions,
-        languageFeatures: languageFeatures ?? { timePerFrame: 1 }
-      },
-      interpreter.formatIdentifier(scenario.functionName),
-      ...scenario.args
-    );
+  const interpretResult: any = outcome.result;
+  const actual = outcome.actual;
+  const errorHtml = outcome.errorMessage === undefined ? undefined : `<p>Error: ${outcome.errorMessage}</p>`;
 
-    if (interpretResult.error) {
-      errorHtml = `<p>Error: ${interpretResult.error.message}</p>`;
-      actual = undefined;
-    } else {
-      actual = interpretResult.value;
-    }
-
-    // Capture frames and logs from execution
-    frames = interpretResult.frames;
-    logLines = interpretResult.logLines;
-  } catch (error) {
-    errorHtml = `<p>Error: ${error instanceof Error ? error.message : String(error)}</p>`;
-    actual = undefined;
-  }
+  // Capture frames and logs from execution
+  const frames: Frame[] = interpretResult?.frames ?? [];
+  const logLines: Array<{ time: number; output: string }> = interpretResult?.logLines ?? [];
 
   // Compare actual vs expected
   const matcher = scenario.matcher || "toEqual";
@@ -146,7 +131,7 @@ export function runIOScenario(
   const lintErrors = interpretResult?.lintErrors ?? [];
   const status = overallPass ? (lintErrors.length > 0 ? "lint_warning" : "pass") : "fail";
 
-  return {
+  const testResult: IOTestResult = {
     type: "io",
     slug: scenario.slug,
     name: scenario.name,
@@ -158,4 +143,14 @@ export function runIOScenario(
     logLines,
     lintErrors
   };
+
+  // Run artifacts for the progression evaluator.
+  const run: ScenarioRun = {
+    scenarioSlug: scenario.slug,
+    passed: overallPass,
+    result: outcome.result,
+    actual
+  };
+
+  return { testResult, run };
 }

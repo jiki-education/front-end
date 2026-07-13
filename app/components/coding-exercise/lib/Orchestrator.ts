@@ -5,7 +5,6 @@
 import type { EditorView } from "@codemirror/view";
 import type { Frame } from "@jiki/interpreters/shared";
 import type { ExerciseDefinition, Language, ReadonlyRange } from "@jiki/curriculum";
-import { getLanguageFeatures } from "@jiki/curriculum";
 import { debounce } from "lodash";
 import type { StoreApi } from "zustand/vanilla";
 import { EditorManager } from "./orchestrator/EditorManager";
@@ -14,6 +13,7 @@ import { createOrchestratorStore } from "./orchestrator/store";
 import { TaskManager } from "./orchestrator/TaskManager";
 import { TestSuiteManager } from "./orchestrator/TestSuiteManager";
 import { TimelineManager } from "./orchestrator/TimelineManager";
+import { buildLanguageFeatures, getAvailableFunctions } from "./test-runner/executeStudentCode";
 import { getInterpreter } from "./test-runner/getInterpreter";
 import type { TestExpect, TestResult } from "./test-results-types";
 import type { ExerciseContext, InformationWidgetData, OrchestratorStore, UnderlineRange } from "./types";
@@ -286,20 +286,8 @@ class Orchestrator {
   async lintCode(code: string) {
     try {
       const interpreter = await getInterpreter(this.language);
-      const levelFeatures = getLanguageFeatures(this.exercise.levelId, this.language);
-      const languageFeatures = {
-        timePerFrame: 1,
-        ...levelFeatures,
-        ...this.exercise.interpreterOptions
-      };
-
-      let availableFunctions: Array<{ name: string; func: any; description: string }>;
-      if (this.exercise.type === "visual") {
-        const tempExercise = new this.exercise.ExerciseClass();
-        availableFunctions = tempExercise.getExternalFunctions(this.language);
-      } else {
-        availableFunctions = this.exercise.ExerciseClass.getExternalFunctions(this.language);
-      }
+      const languageFeatures = buildLanguageFeatures(this.exercise, this.language);
+      const availableFunctions = getAvailableFunctions(this.exercise, this.language);
 
       const result = interpreter.compile(code, {
         externalFunctions: availableFunctions,

@@ -7,6 +7,7 @@ import type { StoreApi } from "zustand/vanilla";
 import { ERROR_HIGHLIGHT_COLOR } from "../../ui/codemirror/extensions/lineHighlighter";
 import { processMessageContent } from "../../ui/messageUtils";
 import type { TestExpect, TestSuiteResult } from "../test-results-types";
+import { zeroProgressionScores } from "../test-runner/progression";
 import type { ExerciseContext, OrchestratorStore } from "../types";
 
 /**
@@ -70,22 +71,11 @@ export class TestSuiteManager {
     }
 
     const files = [{ filename: "solution.js", code }];
+    const context = this.context;
 
-    // The hidden progression scores for this run resolve alongside the run
-    // (or with null when the exercise has no progression test).
-    const submission = progressionScores.then((scores) =>
-      this.context!.type === "challenge"
-        ? import("@/lib/api/challenges").then(({ submitChallengeExercise }) =>
-            scores
-              ? submitChallengeExercise(this.context!.slug, files, scores)
-              : submitChallengeExercise(this.context!.slug, files)
-          )
-        : import("@/lib/api/lessons").then(({ submitLessonExercise }) =>
-            scores
-              ? submitLessonExercise(this.context!.slug, files, scores)
-              : submitLessonExercise(this.context!.slug, files)
-          )
-    );
+    // The hidden progression scores for this run resolve once the run has
+    // been evaluated (null only when the run failed in an unexpected way).
+    const submission = progressionScores.then((scores) => submitExercise(context, files, scores ?? undefined));
 
     void submission.catch((error: unknown) => {
       // Network/auth/rate-limit errors get a global UI treatment already.
@@ -107,11 +97,15 @@ export class TestSuiteManager {
   async runCode(code: string, exercise: ExerciseDefinition): Promise<void> {
     this.prepareStateForTestRun();
 
-    // Score the hidden progression test for this run (all-zero on syntax
-    // errors, null when the exercise has no progression test). Runs
-    // concurrently with the visible test run and only feeds the submission
-    // payload - it never touches the store or the visible results.
-    const progressionScores = this.scoreProgressionRun(code, exercise);
+    // The submission fires immediately but includes this run's hidden
+    // progression scores, which the test run evaluates from its scenario run
+    // artifacts (progression never re-executes student code). Bridge the two
+    // with a deferred that every exit path below resolves; null only when the
+    // run failed in an unexpected way.
+    let resolveProgressionScores: (scores: ProgressionScores | null) => void = () => undefined;
+    const progressionScores = new Promise<ProgressionScores | null>((resolve) => {
+      resolveProgressionScores = resolve;
+    });
 
     // Fire and forget - submission is recorded server-side but doesn't block the test run
     this.submitExerciseFiles(code, progressionScores);
@@ -123,23 +117,29 @@ export class TestSuiteManager {
       // Get the current language from the store
       const language = this.store.getState().language;
 
-      const testResults = await runTests(code, exercise, language);
+      const { testSuiteResult, progressionScores: runScores } = await runTests(code, exercise, language);
 
       // Set the results in the store (will also set the first test as current)
       const state = this.store.getState();
-      state.setTestSuiteResult(testResults);
+      state.setTestSuiteResult(testSuiteResult);
 
       // Update task progress if TaskManager is available
       if (this.taskManager) {
-        this.taskManager.updateTaskProgress(testResults, exercise);
+        this.taskManager.updateTaskProgress(testSuiteResult, exercise);
       }
+
+      resolveProgressionScores(runScores);
     } catch (error) {
       console.error(error);
 
       // Check if it's a SyntaxError (has location property)
       if (error && typeof error === "object" && "location" in error) {
         this.handleSyntaxError(error as SyntaxError);
+        // Nothing ran, so every progression score (including the free
+        // "scenarios" baseline) is zero.
+        resolveProgressionScores(zeroProgressionScores(exercise));
       } else {
+        resolveProgressionScores(null);
         if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test") {
           throw error;
         }
@@ -150,20 +150,6 @@ export class TestSuiteManager {
         );
       }
       this.store.getState().setStatus("error");
-    }
-  }
-
-  // Never throws or rejects: progression scoring must not affect the visible run.
-  private async scoreProgressionRun(code: string, exercise: ExerciseDefinition): Promise<ProgressionScores | null> {
-    try {
-      const { runProgressionTest } = await import("../test-runner/runProgressionTest");
-      const result = await runProgressionTest(code, exercise, this.store.getState().language);
-      if (!result) {
-        return null;
-      }
-      return { v: result.version, ...result.scores };
-    } catch {
-      return null;
     }
   }
 
@@ -178,4 +164,17 @@ export class TestSuiteManager {
     const firstFailing = currentTest.expects.find((expect) => expect.pass === false);
     return firstFailing || currentTest.expects[0] || null;
   }
+}
+
+async function submitExercise(
+  context: ExerciseContext,
+  files: { filename: string; code: string }[],
+  scores?: ProgressionScores
+) {
+  if (context.type === "challenge") {
+    const { submitChallengeExercise } = await import("@/lib/api/challenges");
+    return submitChallengeExercise(context.slug, files, scores);
+  }
+  const { submitLessonExercise } = await import("@/lib/api/lessons");
+  return submitLessonExercise(context.slug, files, scores);
 }

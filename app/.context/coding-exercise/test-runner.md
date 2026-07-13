@@ -173,14 +173,24 @@ The TestSuiteManager orchestrates test execution:
 
 ## Hidden Progression Tests
 
-Visual exercises can define an optional `progressionTest` (see `ProgressionTest` / `ProgressionMetric` in `@jiki/curriculum`): a hidden, per-run measure of how close the student is to a working solution. It is never shown to the student and never affects the visible test results.
+Any exercise (visual or IO) can define an optional `progressionTest` (see `ProgressionTest` / `ProgressionMetric` / `ScenarioRuns` in `@jiki/curriculum`): a hidden, per-run measure of how close the student is to a working solution. It is never shown to the student and never affects the visible test results.
 
-- **Runner**: `runProgressionTest.ts` executes the student's code once against a fresh exercise instance with the progression test's setup. No animation timeline, view, or frames are produced.
-- **Scoring**: Each metric's `score` function returns a value in its natural units, clamped to `0..maxScore`, then converted to integer points weighted by the metric's `points`. Score functions run in their own try/catch (a throw scores 0). Syntax/compile errors score all metrics 0. Runtime errors still evaluate metrics against the halted exercise state (partial progress is the signal).
-- **Wiring**: `TestSuiteManager.runCode` scores the progression test alongside each run (including syntax-error runs) and attaches the result to the exercise submission POST as a `progression_scores` object keyed by snake_cased metric name plus the test version, e.g. `{"v": 1, "distance": 5, "used_loop": 10, "precision": 0}`. Scoring failures never affect the visible run.
+**Progression never executes student code.** Metrics evaluate against the scenario runs the visible test suite already performed:
+
+- **Run artifacts**: `runVisualScenario` and `runIOScenario` return the artifacts they already have in scope alongside the visible `TestResult` - the exercise instance and `InterpretResult` for visual runs (including isolated-check re-runs, flagged `isolated`), and the `InterpretResult` plus `actual` return value for IO runs. A runtime-errored scenario still contributes its halted exercise instance (partial progress is the signal).
+- **Evaluation**: `runTests` collects the runs, evaluates the progression test via `progression.ts` (`evaluateProgression`), and returns `{ testSuiteResult, progressionScores }`. The artifacts then go out of scope - they never reach the store or the UI.
+- **Scoring**: Each metric's `score(runs, language)` receives a `ScenarioRuns` collection (`all` plus `bySlug(slug)` for the primary run of a scenario). The return value is clamped to `0..maxScore`, then converted to integer points weighted by the metric's `points`. Score functions run in their own try/catch (a throw scores 0).
+- **Free baseline**: every run's scores object always contains `v` (the progression test version, 0 when the exercise has none) and `scenarios` (count of passing visible scenarios) before any authored metrics, e.g. `{"v": 1, "scenarios": 1, "distance": 5, "used_loop": 10, "precision": 0}`. Exercises without a progression test still submit `{"v": 0, "scenarios": n}`.
+- **Wiring**: `TestSuiteManager.runCode` attaches the scores to the exercise submission POST as `progression_scores`. On syntax/compile errors nothing runs, so `zeroProgressionScores` submits zeros (including the baseline). Scoring failures never affect the visible run.
 - **No client-side cross-run state**: every run's scores are submitted, so history and best-score tracking live server-side.
 
-Pilot exercise: `golf-rolling-ball-loop` in `@jiki/curriculum`.
+Authoring caveats (metrics live in the exercise's `progressionTest.ts` in `@jiki/curriculum`):
+
+- Metric-to-scenario coupling is by slug; the "solution scores full marks" curriculum test is what catches drift when scenarios change.
+- Metrics on scenarios with `randomSeed` must be seed-agnostic.
+- Bump the progression test's `version` when scenarios or metrics change.
+
+Pilot exercises: `golf-rolling-ball-loop` (visual) and `even-or-odd` (IO) in `@jiki/curriculum`.
 
 ## See Also
 

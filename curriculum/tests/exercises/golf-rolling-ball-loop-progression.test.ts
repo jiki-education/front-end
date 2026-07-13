@@ -1,37 +1,25 @@
 import { describe, expect, it } from "vitest";
-import { jikiscript } from "@jiki/interpreters";
-import type { InterpretResult } from "@jiki/interpreters";
-import GolfRollingBallLoopExercise from "../../src/exercises/golf-rolling-ball-loop/Exercise";
+import golfExercise from "../../src/exercises/golf-rolling-ball-loop";
 import { progressionTest } from "../../src/exercises/golf-rolling-ball-loop/progressionTest";
 import solution from "../../src/exercises/golf-rolling-ball-loop/solution.jiki?raw";
 import stub from "../../src/exercises/golf-rolling-ball-loop/stub.jiki?raw";
-import { getLanguageFeatures } from "../../src/levels";
+import type { ScenarioRuns } from "../../src/exercises/types";
+import { buildScenarioRuns, runExerciseTests } from "../runScenarioTest";
 
-const LEVEL = "repeat-loop";
-
-// Mirrors the app's runProgressionTest scoring: run the code once against a
-// fresh exercise with the progression setup, then convert each metric's raw
-// score (clamped to 0..maxScore) into integer points.
+// Mirrors the app's progression evaluator scoring: run the visible scenarios,
+// hand the run artifacts to each metric, clamp to 0..maxScore, and convert to
+// integer points.
 function runProgression(studentCode: string): number[] {
-  const exercise = new GolfRollingBallLoopExercise();
-  progressionTest.setup?.(exercise);
+  const results = runExerciseTests(golfExercise, studentCode, "jikiscript");
+  const runs = buildScenarioRuns(results);
+  return scoreMetrics(runs);
+}
 
-  const languageFeatures = getLanguageFeatures(LEVEL, "jikiscript");
-  const result = jikiscript.interpret(studentCode, {
-    externalFunctions: exercise.getExternalFunctions("jikiscript"),
-    classes: exercise.getExternalClasses("jikiscript"),
-    languageFeatures: {
-      timePerFrame: 1,
-      maxTotalLoopIterations: 10000,
-      ...languageFeatures
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } as any
-  }) as InterpretResult;
-
+function scoreMetrics(runs: ScenarioRuns): number[] {
   return progressionTest.metrics.map((metric) => {
     let raw: number;
     try {
-      raw = metric.score(exercise, result, "jikiscript");
+      raw = metric.score(runs, "jikiscript");
     } catch {
       raw = 0;
     }
@@ -79,5 +67,11 @@ describe("golf-rolling-ball-loop progression test", () => {
     expect(scores[0]).toBeLessThan(5);
     expect(scores[1]).toBe(10);
     expect(scores[2]).toBe(0);
+  });
+
+  it("scores 0 across the board when no scenario runs are available", () => {
+    const scores = scoreMetrics(buildScenarioRuns([]));
+
+    expect(scores).toEqual([0, 0, 0]);
   });
 });
