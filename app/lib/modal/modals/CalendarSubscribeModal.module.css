@@ -1,0 +1,127 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 8px;
+}
+
+.title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-gray-900);
+}
+
+.description {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--color-gray-600);
+}
+
+.providers {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.providerButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--color-gray-900);
+    background: #fff;
+    transition:
+        border-color 0.15s ease,
+        background-color 0.15s ease;
+
+    &:hover {
+        border-color: var(--color-gray-300);
+        background: var(--color-gray-50);
+    }
+}
+
+.providerIcon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.other {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 4px;
+    padding-top: 20px;
+    border-top: 1px solid var(--color-gray-100);
+}
+
+.otherLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-gray-800);
+    text-align: center;
+}
+
+.otherHelp {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--color-gray-500);
+    text-align: center;
+}
+
+.copyRow {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.copyInput {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 10px;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--color-gray-700);
+    background: var(--color-gray-50);
+}
+
+.copyButton {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    border-radius: 6px;
+    background: var(--color-blue-600);
+    color: #fff;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+        background: var(--color-blue-700);
+    }
+}
+
+.copyIcon {
+    width: 18px;
+    height: 18px;
+}
+
+.copiedFlash {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--color-gray-900);
+    color: #fff;
+    font-size: 12px;
+    white-space: nowrap;
+}

@@ -57,3 +57,29 @@
   color: var(--color-gray-400);
   font-style: italic;
 }
+
+.subscribeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 16px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--color-blue-600);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background: var(--color-blue-700);
+  }
+}
+
+.subscribeIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}

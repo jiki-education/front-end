@@ -102,6 +102,13 @@
       "hu": "magyar"
     }
   },
+  "build": {
+    "upcomingStreams": {
+      "heading": "Upcoming Live Sessions",
+      "toBeAnnounced": "To be announced",
+      "subscribeButton": "Subscribe to Calendar"
+    }
+  },
   "auth": {
     "oauth": {
       "useGoogle": "Use Google",
@@ -1417,6 +1424,15 @@
       "orderTitle": "Jiki {tier}",
       "orderBilling": "Billed monthly. Cancel anytime.",
       "perMonthShort": "/mo"
+    },
+    "calendarSubscribe": {
+      "title": "Subscribe to Calendar",
+      "description": "Add Jiki's live sessions to your calendar. New sessions appear automatically as they're scheduled.",
+      "apple": "Subscribe on Apple",
+      "google": "Subscribe on Google",
+      "otherLabel": "Outlook & other calendars",
+      "otherHelp": "Copy this link and add it as a subscribed calendar.",
+      "copied": "Copied"
     }
   }
 }

@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
+import CalendarIcon from "@/icons/calendar.svg";
+import { showModal } from "@/lib/modal";
 import styles from "./UpcomingStreams.module.css";
 import type { ProjectMeta } from "@/lib/content/types";
 
@@ -9,6 +12,7 @@ interface UpcomingStreamsProps {
 }
 
 export function UpcomingStreams({ projects }: UpcomingStreamsProps) {
+  const t = useTranslations("build.upcomingStreams");
   const livestreamed = projects.filter((p) => p.livestream);
 
   if (livestreamed.length === 0) {
@@ -17,7 +21,7 @@ export function UpcomingStreams({ projects }: UpcomingStreamsProps) {
 
   return (
     <div className={styles.box}>
-      <h3 className={styles.heading}>Upcoming Live Sessions</h3>
+      <h3 className={styles.heading}>{t("heading")}</h3>
       <ul className={styles.streamsList}>
         {livestreamed.map((p) => (
           <li key={p.slug} className={styles.streamsItem}>
@@ -29,15 +33,20 @@ export function UpcomingStreams({ projects }: UpcomingStreamsProps) {
           </li>
         ))}
       </ul>
+      <button type="button" className={styles.subscribeButton} onClick={() => showModal("calendar-subscribe-modal")}>
+        <CalendarIcon className={styles.subscribeIcon} aria-hidden="true" />
+        {t("subscribeButton")}
+      </button>
     </div>
   );
 }
 
 function ProjectStreamDates({ streams }: { streams: string[] }) {
+  const t = useTranslations("build.upcomingStreams");
   const upcoming = streams.filter((iso) => Date.parse(iso) > Date.now()).sort();
 
   if (upcoming.length === 0) {
-    return <span className={styles.streamsTba}>To be announced</span>;
+    return <span className={styles.streamsTba}>{t("toBeAnnounced")}</span>;
   }
 
   return (
