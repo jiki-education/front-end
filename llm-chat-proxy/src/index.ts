@@ -115,7 +115,7 @@ app.post("/chat", async (c) => {
 
     // 2. Parse request
     const body = await c.req.json<ChatRequest>();
-    const { exerciseSlug, code, question, history = [], nextTaskId, language, contentHash } = body;
+    const { exerciseSlug, code, question, history = [], nextTaskId, language, contentHash, currentCodeDiff } = body;
 
     if (exerciseSlug === undefined || code === undefined || question === undefined || language === undefined) {
       return c.json({ error: "Missing required fields: exerciseSlug, code, question, language" }, 400);
@@ -155,7 +155,8 @@ app.post("/chat", async (c) => {
       history,
       nextTaskId,
       language,
-      contentUrl
+      contentUrl,
+      currentCodeDiff
     });
 
     // 4. Stream from Gemini and collect the full response. The stream is opened

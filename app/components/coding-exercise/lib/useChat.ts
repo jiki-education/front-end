@@ -9,6 +9,8 @@ import { ConversationSaveCaptchaError, saveConversation } from "./conversationAp
 import { ChatTokenAccessDeniedError, ChatTokenInvalidCaptchaError, fetchChatToken } from "./chatTokenApi";
 import { formatChatError } from "./chatErrorHandler";
 import { extractUsage } from "./chatUsage";
+import { saveSnapshot } from "./codeSnapshotStore";
+import { buildCodeDiffs } from "./codeDiff";
 import type Orchestrator from "./Orchestrator";
 
 export function useChat(orchestrator: Orchestrator) {
@@ -56,15 +58,28 @@ export function useChat(orchestrator: Orchestrator) {
       // taken at render time.
       const currentCode = orchestrator.getCurrentEditorValue() || orchestrator.getStore().getState().code || "";
 
+      // Snapshot the current code against the message being sent, then derive the
+      // per-message diffs so the proxy can show how the code evolved. `messages`
+      // here is the prior history (the question isn't appended yet), so the new
+      // message's index is the current length.
+      const conversationKey = `${context.context.type}:${context.context.slug}`;
+      const history = chatState.messages;
+      saveSnapshot(conversationKey, history.length, message, currentCode);
+
+      const diffs = buildCodeDiffs(conversationKey, [...history, { role: "user", content: message }]);
+      const currentCodeDiff = diffs[diffs.length - 1];
+      const historyWithDiffs = history.map((msg, i) => (diffs[i] !== undefined ? { ...msg, codeDiff: diffs[i] } : msg));
+
       await sendChatMessage(
         {
           exerciseSlug: context.exerciseSlug,
           code: currentCode,
           question: message,
           language: context.language,
-          history: chatState.messages,
+          history: historyWithDiffs,
           nextTaskId: context.currentTaskId || undefined,
-          contentHash: context.contentHash
+          contentHash: context.contentHash,
+          currentCodeDiff
         },
         {
           onTextChunk: (text) => {
