@@ -1,6 +1,7 @@
 import "../../exercise-categories/golf/exercise.css";
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
+import { progressionTest } from "./progressionTest";
 import metadata from "./metadata.json";
 import type { VisualExerciseCore, FunctionInfo } from "../types";
 
@@ -20,6 +21,7 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
+  progressionTest,
   functions,
   conceptSlugs: ["repeat", "using-functions"]
 };

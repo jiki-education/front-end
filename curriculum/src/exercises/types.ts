@@ -43,6 +43,7 @@ export interface VisualExerciseCore extends BaseExerciseCore {
   type: "visual";
   ExerciseClass: new () => VisualExercise;
   scenarios: VisualScenario[];
+  progressionTest?: ProgressionTest;
 }
 
 // IO exercise core (from curriculum module)
@@ -69,6 +70,7 @@ export interface VisualExerciseDefinition extends BaseExerciseCore, ExerciseCont
   type: "visual";
   ExerciseClass: new () => VisualExercise;
   scenarios: VisualScenario[];
+  progressionTest?: ProgressionTest;
 }
 
 export interface IOExerciseDefinition extends BaseExerciseCore, ExerciseContent {
@@ -144,6 +146,26 @@ export interface CodeCheckExpect {
 export interface CodeCheck {
   pass: (result: InterpretResult, language: Language) => boolean;
   errorHtml?: string;
+}
+
+// Hidden progression metric - measures partial progress toward a solution.
+// The score function returns a value in the metric's natural units (steps,
+// combos, 0/1 booleans); the runner clamps it to 0..maxScore and converts it
+// to integer points weighted by `points`.
+export interface ProgressionMetric {
+  name: string; // short identifier, e.g. "distance", "used-loop"
+  maxScore: number; // natural units the score fn returns in (steps, combos, 0/1)
+  points: number; // worth in the exercise tally (weighting)
+  score: (exercise: VisualExercise, result: InterpretResult, language: Language) => number; // returns 0..maxScore, runner clamps
+}
+
+// Hidden progression test - run silently alongside the visible scenarios to
+// measure how close a student is to a working solution. Never shown to the
+// student; scores are recorded per run and ratcheted into a session best.
+export interface ProgressionTest {
+  version: number; // bump when the metrics list changes (positional encoding guard)
+  setup?: (exercise: VisualExercise) => void;
+  metrics: ProgressionMetric[];
 }
 
 export interface IOScenario {

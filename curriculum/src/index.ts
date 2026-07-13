@@ -20,6 +20,8 @@ export type {
   IOScenario,
   IOTestExpect,
   IsolatedCheck,
+  ProgressionMetric,
+  ProgressionTest,
   ReadonlyRange,
   VisualScenario,
   Scenario,
