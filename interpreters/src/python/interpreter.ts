@@ -3,7 +3,11 @@ import { Executor } from "./executor";
 import type { SyntaxError as PySyntaxError } from "./error";
 import type { CompilationResult } from "../shared/errors";
 import type { LanguageFeatures } from "./interfaces";
-import type { ExternalFunction, InterpretResult } from "../shared/interfaces";
+import type {
+  EvaluateFunctionResult as SharedEvaluateFunctionResult,
+  ExternalFunction,
+  InterpretResult,
+} from "../shared/interfaces";
 import type { JikiObject } from "./jikiObjects";
 import {
   extractCallExpressions,
@@ -27,9 +31,9 @@ export interface EvaluationContext {
   randomSeed?: number; // Seed for deterministic random number generation
 }
 
-// Result type for evaluateFunction - extends InterpretResult with return value
-export type EvaluateFunctionResult = InterpretResult & {
-  value: any;
+// Result type for evaluateFunction - extends the shared result with this
+// language's wrapped jikiObject
+export type EvaluateFunctionResult = SharedEvaluateFunctionResult & {
   jikiObject?: JikiObject;
 };
 

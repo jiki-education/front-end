@@ -1,14 +1,7 @@
-import type {
-  IsolatedCheck,
-  Language,
-  ScenarioRun,
-  VisualExercise,
-  VisualScenario,
-  VisualTestExpect
-} from "@jiki/curriculum";
+import type { IsolatedCheck, Language, VisualExercise, VisualScenario, VisualTestExpect } from "@jiki/curriculum";
 import type { InterpretResult } from "@jiki/interpreters/shared";
 import { AnimationTimeline as AnimationTimelineClass } from "../AnimationTimeline";
-import type { VisualTestResult } from "../test-results-types";
+import type { IsolatedRunResult, VisualTestResult } from "../test-results-types";
 import { executeVisualStudentCode } from "./executeStudentCode";
 import type { Interpreter } from "./getInterpreter";
 
@@ -19,7 +12,7 @@ export function runVisualScenario(
   language: Language,
   interpreter: Interpreter,
   languageFeatures?: Record<string, any>
-): { testResult: VisualTestResult; runs: ScenarioRun[] } {
+): VisualTestResult {
   // Resolve seed once so the primary run and every isolated run share the same RNG stream.
   const resolvedSeed = scenario.randomSeed === true ? Math.floor(Math.random() * 2 ** 32) : scenario.randomSeed;
 
@@ -41,7 +34,7 @@ export function runVisualScenario(
   // Suppress them and surface a single message pointing at the actual error on the
   // timeline, mirroring how runIsolatedCheck already behaves on a frame error.
   let expects: VisualTestExpect[];
-  const isolatedRuns: ScenarioRun[] = [];
+  const isolatedRuns: IsolatedRunResult[] = [];
   if (hasFrameError) {
     expects = [
       {
@@ -72,7 +65,11 @@ export function runVisualScenario(
   const allExpectsPass = expects.every((e) => e.pass) && !hasFrameError;
   const status = allExpectsPass ? (primary.lintErrors.length > 0 ? "lint_warning" : "pass") : "fail";
 
-  const testResult: VisualTestResult = {
+  // `exercise`, `result` and `isolatedRuns` are run artifacts for the
+  // progression evaluator; the store and the UI never read them. A
+  // runtime-errored scenario still carries its (halted) exercise instance -
+  // partial progress is the signal.
+  return {
     type: "visual",
     slug: scenario.slug,
     name: scenario.name,
@@ -83,23 +80,11 @@ export function runVisualScenario(
     logLines: primary.logLines,
     view: primary.view,
     animationTimeline: primary.animationTimeline,
-    lintErrors: primary.lintErrors
+    lintErrors: primary.lintErrors,
+    exercise: primary.exercise,
+    result: primary.result,
+    isolatedRuns: isolatedRuns.length > 0 ? isolatedRuns : undefined
   };
-
-  // Run artifacts for the progression evaluator. A runtime-errored scenario
-  // still contributes its (halted) exercise instance - partial progress is
-  // the signal.
-  const runs: ScenarioRun[] = [
-    {
-      scenarioSlug: scenario.slug,
-      passed: allExpectsPass,
-      exercise: primary.exercise,
-      result: primary.result
-    },
-    ...isolatedRuns
-  ];
-
-  return { testResult, runs };
 }
 
 interface PrimaryCheckResult {
@@ -177,7 +162,7 @@ function runIsolatedCheck(
   interpreter: Interpreter,
   languageFeatures: Record<string, any> | undefined,
   randomSeed: number | undefined
-): { expects: VisualTestExpect[]; run?: ScenarioRun } {
+): { expects: VisualTestExpect[]; run?: IsolatedRunResult } {
   try {
     // `secretConstants` is the silent-constants hook: the interpreter seeds these in
     // global scope and no-ops any user declaration/assignment to those names. Isolated
@@ -200,10 +185,9 @@ function runIsolatedCheck(
       ? [{ pass: false, errorHtml: "Your code threw an error while running." }]
       : checkExpects;
 
-    const run: ScenarioRun = {
-      scenarioSlug: scenario.slug,
+    const run: IsolatedRunResult = {
+      checkSlug: check.slug,
       passed: expects.every((e) => e.pass),
-      isolated: true,
       exercise,
       result
     };

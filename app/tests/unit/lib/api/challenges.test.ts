@@ -3,14 +3,16 @@ import {
   fetchChallenges,
   fetchUserChallenge,
   startChallenge,
-  submitChallengeExercise
+  submitChallengeExercise,
+  updateChallengeExerciseSubmissionProgression
 } from "@/lib/api/challenges";
 
 // Mock the API client
 jest.mock("@/lib/api/client", () => ({
   api: {
     get: jest.fn(),
-    post: jest.fn()
+    post: jest.fn(),
+    patch: jest.fn()
   }
 }));
 
@@ -160,6 +162,34 @@ describe("Challenges API", () => {
       });
     });
 
+    it("returns the created submission's uuid", async () => {
+      mockApi.post.mockResolvedValue({
+        data: { submission: { uuid: "abc-123" } },
+        status: 201,
+        headers: new Headers()
+      });
+
+      const uuid = await submitChallengeExercise("test-challenge", [{ filename: "solution.js", code: "" }]);
+
+      expect(uuid).toBe("abc-123");
+    });
+
+    it("returns null when the response has no uuid", async () => {
+      mockApi.post.mockResolvedValue({ data: {}, status: 201, headers: new Headers() });
+
+      const uuid = await submitChallengeExercise("test-challenge", [{ filename: "solution.js", code: "" }]);
+
+      expect(uuid).toBeNull();
+    });
+
+    it("returns null when the response has no body", async () => {
+      mockApi.post.mockResolvedValue({ data: null, status: 201, headers: new Headers() });
+
+      const uuid = await submitChallengeExercise("test-challenge", [{ filename: "solution.js", code: "" }]);
+
+      expect(uuid).toBeNull();
+    });
+
     it("should handle multiple files", async () => {
       const mockResponse = {
         data: {},
@@ -177,6 +207,19 @@ describe("Challenges API", () => {
 
       expect(mockApi.post).toHaveBeenCalledWith("/internal/challenges/test-challenge/exercise_submissions", {
         submission: { files }
+      });
+    });
+  });
+
+  describe("updateChallengeExerciseSubmissionProgression", () => {
+    it("patches the progression scores onto the submission", async () => {
+      mockApi.patch.mockResolvedValue({ data: {}, status: 200, headers: new Headers() });
+
+      const scores = { v: 1, scenarios: 1, distance: 5 };
+      await updateChallengeExerciseSubmissionProgression("test-challenge", "abc-123", scores);
+
+      expect(mockApi.patch).toHaveBeenCalledWith("/internal/challenges/test-challenge/exercise_submissions/abc-123", {
+        progression_scores: scores
       });
     });
   });

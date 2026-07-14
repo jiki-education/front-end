@@ -3,7 +3,11 @@ import { Executor } from "./executor";
 import { InterpreterInternalError, type SyntaxError as JSSyntaxError } from "./error";
 import type { CompilationResult } from "../shared/errors";
 import type { LanguageFeatures } from "./interfaces";
-import type { ExternalFunction, InterpretResult } from "../shared/interfaces";
+import type {
+  EvaluateFunctionResult as SharedEvaluateFunctionResult,
+  ExternalFunction,
+  InterpretResult,
+} from "../shared/interfaces";
 import type { JikiObject } from "./jikiObjects";
 import type { JSClass } from "./jsObjects/JSClass";
 import {
@@ -34,9 +38,9 @@ export interface EvaluationContext {
   secretConstants?: Record<string, any>;
 }
 
-// Result type for evaluateFunction - extends InterpretResult with return value
-export type EvaluateFunctionResult = InterpretResult & {
-  value: any;
+// Result type for evaluateFunction - extends the shared result with this
+// language's wrapped jikiObject
+export type EvaluateFunctionResult = SharedEvaluateFunctionResult & {
   jikiObject?: JikiObject;
 };
 

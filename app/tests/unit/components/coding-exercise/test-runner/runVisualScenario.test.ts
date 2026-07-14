@@ -66,13 +66,7 @@ describe("runVisualScenario", () => {
         expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }])
       };
 
-      const { testResult: result } = runVisualScenario(
-        scenario,
-        "move()",
-        MockExercise as any,
-        "jikiscript",
-        mockInterpreter
-      );
+      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
 
       expect(result.status).toBe("pass");
       expect(result.expects).toHaveLength(1);
@@ -91,13 +85,7 @@ describe("runVisualScenario", () => {
         ])
       };
 
-      const { testResult: result } = runVisualScenario(
-        scenario,
-        "move()",
-        MockExercise as any,
-        "jikiscript",
-        mockInterpreter
-      );
+      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
 
       expect(result.status).toBe("fail");
       expect(result.expects).toHaveLength(2);
@@ -122,13 +110,7 @@ describe("runVisualScenario", () => {
         codeChecks: [passingCodeCheck]
       };
 
-      const { testResult: result } = runVisualScenario(
-        scenario,
-        "move()",
-        MockExercise as any,
-        "jikiscript",
-        mockInterpreter
-      );
+      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
 
       expect(result.status).toBe("pass");
       expect(result.expects).toHaveLength(2); // 1 functional + 1 code check
@@ -152,7 +134,7 @@ describe("runVisualScenario", () => {
         codeChecks: [failingCodeCheck]
       };
 
-      const { testResult: result } = runVisualScenario(
+      const result = runVisualScenario(
         scenario,
         "verbose code here",
         MockExercise as any,
@@ -182,13 +164,7 @@ describe("runVisualScenario", () => {
         codeChecks: [passingCodeCheck]
       };
 
-      const { testResult: result } = runVisualScenario(
-        scenario,
-        "bad code",
-        MockExercise as any,
-        "jikiscript",
-        mockInterpreter
-      );
+      const result = runVisualScenario(scenario, "bad code", MockExercise as any, "jikiscript", mockInterpreter);
 
       expect(result.status).toBe("fail");
       expect(result.expects).toHaveLength(2);
@@ -216,13 +192,7 @@ describe("runVisualScenario", () => {
         codeChecks: [passingCheck, failingCheck]
       };
 
-      const { testResult: result } = runVisualScenario(
-        scenario,
-        "code",
-        MockExercise as any,
-        "jikiscript",
-        mockInterpreter
-      );
+      const result = runVisualScenario(scenario, "code", MockExercise as any, "jikiscript", mockInterpreter);
 
       expect(result.status).toBe("fail");
       expect(result.expects).toHaveLength(3); // 1 functional + 2 code checks
@@ -249,13 +219,7 @@ describe("runVisualScenario", () => {
         codeChecks: [throwingCheck]
       };
 
-      const { testResult: result } = runVisualScenario(
-        scenario,
-        "code",
-        MockExercise as any,
-        "jikiscript",
-        mockInterpreter
-      );
+      const result = runVisualScenario(scenario, "code", MockExercise as any, "jikiscript", mockInterpreter);
 
       expect(result.status).toBe("fail");
       expect(result.expects).toHaveLength(2);
@@ -286,13 +250,7 @@ describe("runVisualScenario", () => {
         expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }])
       };
 
-      const { testResult: result } = runVisualScenario(
-        scenario,
-        "move()",
-        MockExercise as any,
-        "jikiscript",
-        mockInterpreter
-      );
+      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
 
       expect(result.status).toBe("fail");
       // On a frame error the scenario's expectations are suppressed (they would be
@@ -330,7 +288,7 @@ describe("runVisualScenario", () => {
         ])
       };
 
-      const { testResult: result } = runVisualScenario(
+      const result = runVisualScenario(
         scenario,
         "rectangle(0, 0, 20, 10)",
         MockExercise as any,
@@ -366,13 +324,7 @@ describe("runVisualScenario", () => {
         expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }])
       };
 
-      const { testResult: result } = runVisualScenario(
-        scenario,
-        "move()",
-        MockExercise as any,
-        "jikiscript",
-        mockInterpreter
-      );
+      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
 
       expect(result.status).toBe("pass");
     });
@@ -400,13 +352,7 @@ describe("runVisualScenario", () => {
         codeChecks: [passingCodeCheck]
       };
 
-      const { testResult: result } = runVisualScenario(
-        scenario,
-        "move()",
-        MockExercise as any,
-        "jikiscript",
-        mockInterpreter
-      );
+      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
 
       expect(result.status).toBe("fail");
     });
@@ -493,7 +439,7 @@ describe("runVisualScenario", () => {
         }
       };
 
-      const { testResult: result } = runVisualScenario(
+      const result = runVisualScenario(
         scenario,
         "function draw() {}",
         MockExercise as any,
@@ -604,13 +550,7 @@ describe("runVisualScenario", () => {
         // No codeChecks property
       };
 
-      const { testResult: result } = runVisualScenario(
-        scenario,
-        "move()",
-        MockExercise as any,
-        "jikiscript",
-        mockInterpreter
-      );
+      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
 
       expect(result.status).toBe("pass");
       expect(result.expects).toHaveLength(1);
@@ -626,13 +566,7 @@ describe("runVisualScenario", () => {
         codeChecks: []
       };
 
-      const { testResult: result } = runVisualScenario(
-        scenario,
-        "move()",
-        MockExercise as any,
-        "jikiscript",
-        mockInterpreter
-      );
+      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
 
       expect(result.status).toBe("pass");
       expect(result.expects).toHaveLength(1);

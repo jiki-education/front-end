@@ -125,6 +125,7 @@ export interface VisualScenario {
 // array, so authors control whether to surface one consolidated failure or one per shape
 // by what they return from `expectations`.
 export interface IsolatedCheck {
+  slug?: string; // name the check when progression metrics need to target its run (e.g. "size-1")
   secretConstants: Record<string, number | string | boolean>;
   expectations: (exercise: VisualExercise) => VisualTestExpect[];
 }
@@ -154,15 +155,18 @@ export interface ScenarioRun {
   scenarioSlug: string;
   passed: boolean;
   isolated?: boolean; // true for a hidden isolated-check re-run of the scenario
+  checkSlug?: string; // the isolated check's slug, when it has one
   exercise?: VisualExercise; // visual runs only: the (possibly halted) exercise instance
   result: InterpretResult | null; // null when the interpreter threw before producing a result
   actual?: IOValue; // IO runs only: the function's return value
 }
 
 // The collection of scenario runs a progression metric scores against.
+// bySlug(scenarioSlug) returns the scenario's primary (non-isolated) run;
+// bySlug(scenarioSlug, checkSlug) returns the named isolated-check run.
 export interface ScenarioRuns {
   all: ScenarioRun[];
-  bySlug: (slug: string) => ScenarioRun | undefined; // the primary (non-isolated) run for a scenario
+  bySlug: (scenarioSlug: string, checkSlug?: string) => ScenarioRun | undefined;
 }
 
 // Hidden progression metric - measures partial progress toward a solution
@@ -172,12 +176,14 @@ export interface ScenarioRuns {
 // integer points weighted by `points`.
 //
 // Authoring notes:
+// - Metric names are snake_case identifiers (e.g. "distance", "used_loop")
+//   because they become JSONB keys on submissions, verbatim.
 // - Metric-to-scenario coupling is by slug; the "solution scores full marks"
 //   curriculum test is what catches drift when scenarios change.
 // - Metrics on scenarios with randomSeed must be seed-agnostic.
 // - Bump the progression test's version when scenarios or metrics change.
 export interface ProgressionMetric {
-  name: string; // short identifier, e.g. "distance", "used-loop"
+  name: string; // snake_case identifier, e.g. "distance", "used_loop"
   maxScore: number; // natural units the score fn returns in
   points: number; // worth in the exercise tally (weighting)
   score: (runs: ScenarioRuns, language: Language) => number; // returns 0..maxScore, evaluator clamps

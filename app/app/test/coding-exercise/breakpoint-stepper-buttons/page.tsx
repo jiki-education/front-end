@@ -7,6 +7,7 @@ import BreakpointStepperButtons from "@/components/coding-exercise/ui/scrubber/B
 import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters/shared";
 import { useEffect, useRef } from "react";
+import { buildStubExercise, buildStubInterpretResult } from "../lib/testResultArtifacts";
 
 // Create frames for testing
 function mockFrames(): Frame[] {
@@ -51,6 +52,8 @@ export default function BreakpointStepperButtonsTestPage() {
       status: "pass" as const,
       expects: [],
       view: document.createElement("div"),
+      exercise: buildStubExercise(),
+      result: buildStubInterpretResult(),
       frames,
       logLines: [],
       lintErrors: [],

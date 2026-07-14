@@ -64,31 +64,56 @@ export class TestSuiteManager {
    * Network/auth/rate-limit errors are handled globally; surface other
    * HTTP errors (e.g. 422/500) via a toast so the student knows their
    * submission wasn't recorded.
+   *
+   * Resolves with the created submission's uuid so this run's hidden
+   * progression scores can be patched onto it, or null when there is no
+   * context, the API didn't return a uuid, or the submission failed.
    */
-  private submitExerciseFiles(code: string, progressionScores: Promise<ProgressionScores | null>): void {
+  private submitExerciseFiles(code: string): Promise<string | null> {
     if (!this.context) {
-      return;
+      return Promise.resolve(null);
     }
 
     const files = [{ filename: "solution.js", code }];
     const context = this.context;
 
-    // The hidden progression scores for this run resolve once the run has
-    // been evaluated (null only when the run failed in an unexpected way).
-    const submission = progressionScores.then((scores) => submitExercise(context, files, scores ?? undefined));
-
-    void submission.catch((error: unknown) => {
+    return submitExercise(context, files).catch((error: unknown) => {
       // Network/auth/rate-limit errors get a global UI treatment already.
       if (error instanceof NetworkError || error instanceof AuthenticationError || error instanceof RateLimitError) {
-        return;
+        return null;
       }
       if (error instanceof ApiError) {
         console.warn("Failed to submit exercise:", error);
         toast.error("Couldn't save your submission. Please try again.", { id: "exercise-submission-error" });
-        return;
+        return null;
       }
       console.warn("Failed to submit exercise:", error);
+      return null;
     });
+  }
+
+  /**
+   * Patch this run's hidden progression scores onto its submission (fire and
+   * forget). Pure telemetry decoration: skipped silently when the create
+   * didn't yield a uuid, and failures only warn - never bother the student.
+   */
+  private patchProgressionScores(submissionUuid: Promise<string | null>, scores: ProgressionScores): void {
+    if (!this.context) {
+      return;
+    }
+
+    const context = this.context;
+
+    void submissionUuid
+      .then((uuid) => {
+        if (uuid === null) {
+          return;
+        }
+        return patchSubmissionProgression(context, uuid, scores);
+      })
+      .catch((error: unknown) => {
+        console.warn("Failed to record progression scores:", error);
+      });
   }
 
   /**
@@ -97,18 +122,10 @@ export class TestSuiteManager {
   async runCode(code: string, exercise: ExerciseDefinition): Promise<void> {
     this.prepareStateForTestRun();
 
-    // The submission fires immediately but includes this run's hidden
-    // progression scores, which the test run evaluates from its scenario run
-    // artifacts (progression never re-executes student code). Bridge the two
-    // with a deferred that every exit path below resolves; null only when the
-    // run failed in an unexpected way.
-    let resolveProgressionScores: (scores: ProgressionScores | null) => void = () => undefined;
-    const progressionScores = new Promise<ProgressionScores | null>((resolve) => {
-      resolveProgressionScores = resolve;
-    });
-
-    // Fire and forget - submission is recorded server-side but doesn't block the test run
-    this.submitExerciseFiles(code, progressionScores);
+    // Fire and forget - submission is recorded server-side but doesn't block
+    // the test run. The uuid it resolves with is used to patch this run's
+    // hidden progression scores onto the submission once the run completes.
+    const submissionUuid = this.submitExerciseFiles(code);
 
     try {
       // Import and run our new test runner
@@ -117,7 +134,7 @@ export class TestSuiteManager {
       // Get the current language from the store
       const language = this.store.getState().language;
 
-      const { testSuiteResult, progressionScores: runScores } = await runTests(code, exercise, language);
+      const { testSuiteResult, progressionScores } = await runTests(code, exercise, language);
 
       // Set the results in the store (will also set the first test as current)
       const state = this.store.getState();
@@ -128,7 +145,7 @@ export class TestSuiteManager {
         this.taskManager.updateTaskProgress(testSuiteResult, exercise);
       }
 
-      resolveProgressionScores(runScores);
+      this.patchProgressionScores(submissionUuid, progressionScores);
     } catch (error) {
       console.error(error);
 
@@ -137,9 +154,9 @@ export class TestSuiteManager {
         this.handleSyntaxError(error as SyntaxError);
         // Nothing ran, so every progression score (including the free
         // "scenarios" baseline) is zero.
-        resolveProgressionScores(zeroProgressionScores(exercise));
+        this.patchProgressionScores(submissionUuid, zeroProgressionScores(exercise));
       } else {
-        resolveProgressionScores(null);
+        // Unexpected error: no progression patch for this run.
         if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test") {
           throw error;
         }
@@ -168,13 +185,25 @@ export class TestSuiteManager {
 
 async function submitExercise(
   context: ExerciseContext,
-  files: { filename: string; code: string }[],
-  scores?: ProgressionScores
-) {
+  files: { filename: string; code: string }[]
+): Promise<string | null> {
   if (context.type === "challenge") {
     const { submitChallengeExercise } = await import("@/lib/api/challenges");
-    return submitChallengeExercise(context.slug, files, scores);
+    return submitChallengeExercise(context.slug, files);
   }
   const { submitLessonExercise } = await import("@/lib/api/lessons");
-  return submitLessonExercise(context.slug, files, scores);
+  return submitLessonExercise(context.slug, files);
+}
+
+async function patchSubmissionProgression(
+  context: ExerciseContext,
+  uuid: string,
+  scores: ProgressionScores
+): Promise<void> {
+  if (context.type === "challenge") {
+    const { updateChallengeExerciseSubmissionProgression } = await import("@/lib/api/challenges");
+    return updateChallengeExerciseSubmissionProgression(context.slug, uuid, scores);
+  }
+  const { updateLessonExerciseSubmissionProgression } = await import("@/lib/api/lessons");
+  return updateLessonExerciseSubmissionProgression(context.slug, uuid, scores);
 }

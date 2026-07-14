@@ -1,5 +1,5 @@
 import type { ProgressionScores } from "@/lib/api/lessons";
-import type { ExerciseDefinition, Language, ScenarioRun } from "@jiki/curriculum";
+import type { ExerciseDefinition, Language } from "@jiki/curriculum";
 import type { TestResult, TestSuiteResult } from "../test-results-types";
 import { bonusScenarioSlugs } from "../bonusScenarios";
 import { buildLanguageFeatures, getAvailableFunctions } from "./executeStudentCode";
@@ -39,16 +39,15 @@ export async function runTests(
     throw compilationResult.error;
   }
 
-  // Compilation succeeded, run all scenarios, collecting the run artifacts
-  // (exercise instances, interpreter results, return values) alongside the
-  // visible test results.
+  // Compilation succeeded, run all scenarios. Each test result carries its
+  // run artifacts (exercise instance, interpreter result, return value) for
+  // the progression evaluator below.
   const tests: TestResult[] = [];
-  const runs: ScenarioRun[] = [];
 
   if (exercise.type === "visual") {
     // Run visual scenarios
     for (const scenario of exercise.scenarios) {
-      const { testResult, runs: scenarioRuns } = runVisualScenario(
+      const result = runVisualScenario(
         scenario,
         studentCode,
         exercise.ExerciseClass,
@@ -56,22 +55,13 @@ export async function runTests(
         interpreter,
         languageFeatures
       );
-      tests.push(testResult);
-      runs.push(...scenarioRuns);
+      tests.push(result);
     }
   } else {
     // Run IO scenarios
     for (const scenario of exercise.scenarios) {
-      const { testResult, run } = runIOScenario(
-        scenario,
-        studentCode,
-        availableFunctions,
-        language,
-        interpreter,
-        languageFeatures
-      );
-      tests.push(testResult);
-      runs.push(run);
+      const result = runIOScenario(scenario, studentCode, availableFunctions, language, interpreter, languageFeatures);
+      tests.push(result);
     }
   }
 
@@ -86,10 +76,9 @@ export async function runTests(
     passed: requiredTests.every((t) => t.status === "pass")
   };
 
-  // Evaluate the hidden progression test against the run artifacts, then let
-  // them go out of scope - they must not leak into the store or the UI.
-  const passingScenarioCount = tests.filter((t) => t.status !== "fail").length;
-  const progressionScores = evaluateProgression(exercise, language, runs, passingScenarioCount);
+  // Evaluate the hidden progression test against the artifacts attached to
+  // the test results. The store and the UI never read those artifacts.
+  const progressionScores = evaluateProgression(exercise, language, tests);
 
   return { testSuiteResult, progressionScores };
 }

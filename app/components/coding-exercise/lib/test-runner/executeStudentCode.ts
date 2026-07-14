@@ -88,8 +88,8 @@ export interface IOEvaluationOptions {
 }
 
 export interface IOEvaluationOutcome {
-  result: InterpretResult | null; // null when evaluateFunction itself threw
-  actual: any; // the function's return value; undefined when the run errored
+  interpretResult: InterpretResult | null; // null when evaluateFunction itself threw
+  actual: IOValue | undefined; // the function's return value; undefined when the run errored
   errorMessage?: string;
 }
 
@@ -99,7 +99,7 @@ export interface IOEvaluationOutcome {
  */
 export function evaluateIOFunction(studentCode: string, options: IOEvaluationOptions): IOEvaluationOutcome {
   try {
-    const result: InterpretResult = options.interpreter.evaluateFunction(
+    const interpretResult = options.interpreter.evaluateFunction(
       studentCode,
       {
         externalFunctions: options.availableFunctions,
@@ -109,13 +109,13 @@ export function evaluateIOFunction(studentCode: string, options: IOEvaluationOpt
       ...options.args
     );
 
-    if (result.error) {
-      return { result, actual: undefined, errorMessage: result.error.message };
+    if (interpretResult.error) {
+      return { interpretResult, actual: undefined, errorMessage: interpretResult.error.message };
     }
-    return { result, actual: (result as { value?: any }).value };
+    return { interpretResult, actual: interpretResult.value };
   } catch (error) {
     return {
-      result: null,
+      interpretResult: null,
       actual: undefined,
       errorMessage: error instanceof Error ? error.message : String(error)
     };

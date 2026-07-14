@@ -1,5 +1,7 @@
 import { evaluateProgression, zeroProgressionScores } from "@/components/coding-exercise/lib/test-runner/progression";
-import type { ExerciseDefinition, ProgressionTest, ScenarioRun } from "@jiki/curriculum";
+import type { TestResult, VisualTestResult } from "@/components/coding-exercise/lib/test-results-types";
+import { createMockInterpretResult } from "@/tests/mocks";
+import type { ExerciseDefinition, ProgressionTest, VisualExercise } from "@jiki/curriculum";
 
 function createExercise(progressionTest?: ProgressionTest): ExerciseDefinition {
   return {
@@ -12,20 +14,56 @@ function createExercise(progressionTest?: ProgressionTest): ExerciseDefinition {
   } as unknown as ExerciseDefinition;
 }
 
-function createRun(overrides?: Partial<ScenarioRun>): ScenarioRun {
+function createVisualTest(overrides?: Partial<VisualTestResult>): TestResult {
   return {
-    scenarioSlug: "scenario-1",
-    passed: true,
-    result: { frames: [] } as unknown as ScenarioRun["result"],
+    type: "visual",
+    slug: "scenario-1",
+    name: "Scenario 1",
+    status: "pass",
+    expects: [],
+    frames: [],
+    logLines: [],
+    lintErrors: [],
+    view: {} as HTMLElement,
+    animationTimeline: {} as VisualTestResult["animationTimeline"],
+    exercise: { id: "primary" } as unknown as VisualExercise,
+    result: createMockInterpretResult(),
+    ...overrides
+  };
+}
+
+function createIOTest(overrides?: Partial<Extract<TestResult, { type: "io" }>>): TestResult {
+  return {
+    type: "io",
+    slug: "number-14",
+    name: "Number 14",
+    status: "pass",
+    expects: [],
+    functionName: "even_or_odd",
+    args: [14],
+    frames: [],
+    logLines: [],
+    lintErrors: [],
+    result: createMockInterpretResult(),
     ...overrides
   };
 }
 
 describe("evaluateProgression", () => {
   it("emits only the v0 baseline when the exercise has no progression test", () => {
-    const scores = evaluateProgression(createExercise(undefined), "jikiscript", [createRun()], 2);
+    const tests = [createVisualTest(), createVisualTest({ slug: "scenario-2", status: "fail" })];
 
-    expect(scores).toEqual({ v: 0, scenarios: 2 });
+    const scores = evaluateProgression(createExercise(undefined), "jikiscript", tests);
+
+    expect(scores).toEqual({ v: 0, scenarios: 1 });
+  });
+
+  it("counts lint_warning tests as passing scenarios", () => {
+    const tests = [createVisualTest({ status: "lint_warning" }), createVisualTest({ slug: "s2", status: "fail" })];
+
+    const scores = evaluateProgression(createExercise(undefined), "jikiscript", tests);
+
+    expect(scores.scenarios).toBe(1);
   });
 
   it("emits the free scenarios baseline before authored metrics", () => {
@@ -34,49 +72,83 @@ describe("evaluateProgression", () => {
       metrics: [{ name: "distance", maxScore: 10, points: 5, score: () => 10 }]
     });
 
-    const scores = evaluateProgression(exercise, "jikiscript", [createRun()], 1);
+    const scores = evaluateProgression(exercise, "jikiscript", [createVisualTest()]);
 
     expect(scores).toEqual({ v: 1, scenarios: 1, distance: 5 });
     expect(Object.keys(scores)).toEqual(["v", "scenarios", "distance"]);
   });
 
-  it("passes the scenario runs and language to each metric", () => {
+  it("passes the runs assembled from the tests' artifacts and the language to each metric", () => {
     const score = jest.fn().mockReturnValue(1);
     const exercise = createExercise({ version: 1, metrics: [{ name: "metric", maxScore: 1, points: 1, score }] });
-    const run = createRun({ scenarioSlug: "roll-ball" });
+    const test = createVisualTest({ slug: "roll-ball" });
 
-    evaluateProgression(exercise, "python", [run], 0);
+    evaluateProgression(exercise, "python", [test]);
 
     const [runs, language] = score.mock.calls[0];
     expect(language).toBe("python");
-    expect(runs.all).toEqual([run]);
-    expect(runs.bySlug("roll-ball")).toBe(run);
+    expect(runs.all).toHaveLength(1);
+    expect(runs.bySlug("roll-ball")).toMatchObject({
+      scenarioSlug: "roll-ball",
+      passed: true,
+      exercise: (test as VisualTestResult).exercise,
+      result: (test as VisualTestResult).result
+    });
     expect(runs.bySlug("missing")).toBeUndefined();
   });
 
-  it("excludes isolated runs from bySlug but keeps them in all", () => {
-    const primary = createRun({ scenarioSlug: "shape" });
-    const isolated = createRun({ scenarioSlug: "shape", isolated: true });
+  it("exposes IO tests' interpreter result and actual return value", () => {
     const score = jest.fn().mockReturnValue(0);
     const exercise = createExercise({ version: 1, metrics: [{ name: "metric", maxScore: 1, points: 1, score }] });
+    const test = createIOTest({
+      expects: [{ pass: true, actual: "Even" }] as Extract<TestResult, { type: "io" }>["expects"]
+    });
 
-    evaluateProgression(exercise, "jikiscript", [isolated, primary], 0);
+    evaluateProgression(exercise, "javascript", [test]);
 
     const [runs] = score.mock.calls[0];
-    expect(runs.bySlug("shape")).toBe(primary);
-    expect(runs.all).toEqual([isolated, primary]);
+    expect(runs.bySlug("number-14")).toMatchObject({ scenarioSlug: "number-14", passed: true, actual: "Even" });
   });
 
-  it("converts raw scores to integer points, keyed by snake_cased metric name", () => {
+  it("exposes isolated-check runs via all and the two-arg bySlug lookup", () => {
+    const score = jest.fn().mockReturnValue(0);
+    const exercise = createExercise({ version: 1, metrics: [{ name: "metric", maxScore: 1, points: 1, score }] });
+    const isolatedExercise = { id: "isolated" } as unknown as VisualExercise;
+    const isolatedResult = createMockInterpretResult();
+    const test = createVisualTest({
+      slug: "shape",
+      isolatedRuns: [
+        { checkSlug: "size-1", passed: false, exercise: isolatedExercise, result: isolatedResult },
+        { passed: true, exercise: isolatedExercise, result: isolatedResult }
+      ]
+    });
+
+    evaluateProgression(exercise, "jikiscript", [test]);
+
+    const [runs] = score.mock.calls[0];
+    expect(runs.all).toHaveLength(3);
+    // One-arg lookup returns the primary run, never an isolated one.
+    expect(runs.bySlug("shape").isolated).toBeUndefined();
+    // Two-arg lookup returns the named isolated run.
+    expect(runs.bySlug("shape", "size-1")).toMatchObject({
+      scenarioSlug: "shape",
+      isolated: true,
+      checkSlug: "size-1",
+      passed: false
+    });
+    expect(runs.bySlug("shape", "unknown")).toBeUndefined();
+  });
+
+  it("converts raw scores to integer points, keyed by the metric name verbatim", () => {
     const exercise = createExercise({
       version: 1,
       metrics: [
         { name: "distance", maxScore: 60, points: 5, score: () => 30 }, // 2.5 -> 3
-        { name: "used-loop", maxScore: 1, points: 10, score: () => 1 }
+        { name: "used_loop", maxScore: 1, points: 10, score: () => 1 }
       ]
     });
 
-    const scores = evaluateProgression(exercise, "jikiscript", [createRun()], 1);
+    const scores = evaluateProgression(exercise, "jikiscript", [createVisualTest()]);
 
     expect(scores).toEqual({ v: 1, scenarios: 1, distance: 3, used_loop: 10 });
   });
@@ -90,7 +162,7 @@ describe("evaluateProgression", () => {
       ]
     });
 
-    const scores = evaluateProgression(exercise, "jikiscript", [], 0);
+    const scores = evaluateProgression(exercise, "jikiscript", []);
 
     expect(scores).toEqual({ v: 1, scenarios: 0, over: 5, under: 0 });
   });
@@ -111,7 +183,7 @@ describe("evaluateProgression", () => {
       ]
     });
 
-    const scores = evaluateProgression(exercise, "jikiscript", [], 0);
+    const scores = evaluateProgression(exercise, "jikiscript", []);
 
     expect(scores).toEqual({ v: 1, scenarios: 0, broken: 0, fine: 2 });
   });
@@ -122,11 +194,11 @@ describe("evaluateProgression", () => {
       metrics: [
         { name: "nan", maxScore: 1, points: 5, score: () => NaN },
         { name: "infinite", maxScore: 1, points: 5, score: () => Infinity },
-        { name: "zero-max", maxScore: 0, points: 5, score: () => 1 }
+        { name: "zero_max", maxScore: 0, points: 5, score: () => 1 }
       ]
     });
 
-    const scores = evaluateProgression(exercise, "jikiscript", [], 0);
+    const scores = evaluateProgression(exercise, "jikiscript", []);
 
     expect(scores).toEqual({ v: 1, scenarios: 0, nan: 0, infinite: 0, zero_max: 0 });
   });
@@ -138,7 +210,7 @@ describe("zeroProgressionScores", () => {
       version: 3,
       metrics: [
         { name: "distance", maxScore: 60, points: 5, score: () => 60 },
-        { name: "used-loop", maxScore: 1, points: 10, score: () => 1 }
+        { name: "used_loop", maxScore: 1, points: 10, score: () => 1 }
       ]
     });
 

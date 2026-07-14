@@ -22,13 +22,13 @@ export const progressionTest: ProgressionTest = {
 
   metrics: [
     {
-      name: "inputs-correct",
+      name: "inputs_correct",
       maxScore: INPUT_SCENARIOS.length,
       points: 8,
       score: (runs) => INPUT_SCENARIOS.filter(({ slug, expected }) => runs.bySlug(slug)?.actual === expected).length
     },
     {
-      name: "uses-modulo",
+      name: "uses_modulo",
       maxScore: 1,
       points: 3,
       score: (runs) => (anyResult(runs)?.assertors.assertOperatorUsed("%") === true ? 1 : 0)

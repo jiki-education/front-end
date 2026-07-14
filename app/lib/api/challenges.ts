@@ -57,16 +57,34 @@ export async function fetchChallenge(slug: string): Promise<ChallengeData> {
   return response.data.challenge;
 }
 
+interface CreatedExerciseSubmissionResponse {
+  submission?: { uuid?: string };
+}
+
 /**
- * Submit exercise files for a challenge
+ * Submit exercise files for a challenge. Returns the created submission's
+ * uuid, or null when the response doesn't include one (e.g. the API doesn't
+ * return it yet).
  */
-export async function submitChallengeExercise(
+export async function submitChallengeExercise(slug: string, files: ChallengeSubmissionFile[]): Promise<string | null> {
+  const response = await api.post<CreatedExerciseSubmissionResponse | null>(
+    `/internal/challenges/${slug}/exercise_submissions`,
+    { submission: { files } }
+  );
+  return response.data?.submission?.uuid ?? null;
+}
+
+/**
+ * Attach the hidden progression scores for a run to its submission.
+ * Telemetry decoration: fire-and-forget, never surfaced to the student.
+ */
+export async function updateChallengeExerciseSubmissionProgression(
   slug: string,
-  files: ChallengeSubmissionFile[],
-  progressionScores?: ProgressionScores
+  uuid: string,
+  progressionScores: ProgressionScores
 ): Promise<void> {
-  await api.post(`/internal/challenges/${slug}/exercise_submissions`, {
-    submission: progressionScores ? { files, progression_scores: progressionScores } : { files }
+  await api.patch(`/internal/challenges/${slug}/exercise_submissions/${uuid}`, {
+    progression_scores: progressionScores
   });
 }
 

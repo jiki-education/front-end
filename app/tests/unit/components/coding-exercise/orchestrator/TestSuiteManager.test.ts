@@ -8,11 +8,13 @@ jest.mock("@/components/coding-exercise/lib/test-runner/runTests", () => ({
 }));
 
 jest.mock("@/lib/api/lessons", () => ({
-  submitLessonExercise: jest.fn().mockResolvedValue(undefined)
+  submitLessonExercise: jest.fn(),
+  updateLessonExerciseSubmissionProgression: jest.fn()
 }));
 
 jest.mock("@/lib/api/challenges", () => ({
-  submitChallengeExercise: jest.fn().mockResolvedValue(undefined)
+  submitChallengeExercise: jest.fn(),
+  updateChallengeExerciseSubmissionProgression: jest.fn()
 }));
 
 jest.mock("react-hot-toast", () => ({
@@ -50,8 +52,14 @@ describe("TestSuiteManager", () => {
     return new TestSuiteManager(mockStore, undefined, context);
   }
 
-  beforeEach(() => {
+  beforeEach(async () => {
     jest.clearAllMocks();
+    const lessons = await import("@/lib/api/lessons");
+    (lessons.submitLessonExercise as jest.Mock).mockResolvedValue("submission-uuid");
+    (lessons.updateLessonExerciseSubmissionProgression as jest.Mock).mockResolvedValue(undefined);
+    const challenges = await import("@/lib/api/challenges");
+    (challenges.submitChallengeExercise as jest.Mock).mockResolvedValue("submission-uuid");
+    (challenges.updateChallengeExerciseSubmissionProgression as jest.Mock).mockResolvedValue(undefined);
   });
 
   afterEach(() => {
@@ -69,11 +77,7 @@ describe("TestSuiteManager", () => {
       await manager.runCode(mockCode, mockExercise);
       await flushMicrotasks();
 
-      expect(submitLessonExercise).toHaveBeenCalledWith(
-        "solve-a-maze",
-        [{ filename: "solution.js", code: mockCode }],
-        BASELINE_SCORES
-      );
+      expect(submitLessonExercise).toHaveBeenCalledWith("solve-a-maze", [{ filename: "solution.js", code: mockCode }]);
     });
 
     it("submits to the challenge endpoint when context is a challenge", async () => {
@@ -87,11 +91,9 @@ describe("TestSuiteManager", () => {
       await manager.runCode(mockCode, mockExercise);
       await flushMicrotasks();
 
-      expect(submitChallengeExercise).toHaveBeenCalledWith(
-        "build-a-blog",
-        [{ filename: "solution.js", code: mockCode }],
-        BASELINE_SCORES
-      );
+      expect(submitChallengeExercise).toHaveBeenCalledWith("build-a-blog", [
+        { filename: "solution.js", code: mockCode }
+      ]);
       expect(submitLessonExercise).not.toHaveBeenCalled();
     });
 
@@ -255,15 +257,15 @@ describe("TestSuiteManager", () => {
         version: 3,
         metrics: [
           { name: "distance", maxScore: 60, points: 5, score: () => 0 },
-          { name: "used-loop", maxScore: 1, points: 10, score: () => 0 }
+          { name: "used_loop", maxScore: 1, points: 10, score: () => 0 }
         ]
       }
     });
 
-    it("includes the scores evaluated by the test run in the submission payload", async () => {
+    it("patches the run's evaluated scores onto the created submission", async () => {
       const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
 
-      const { submitLessonExercise } = await import("@/lib/api/lessons");
+      const { updateLessonExerciseSubmissionProgression } = await import("@/lib/api/lessons");
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
       (runTests as jest.Mock).mockReturnValue(
         mockRunOutcome({ v: 1, scenarios: 1, distance: 5, used_loop: 10, precision: 0 })
@@ -272,7 +274,7 @@ describe("TestSuiteManager", () => {
       await manager.runCode(mockCode, mockExercise);
       await flushMicrotasks();
 
-      expect(submitLessonExercise).toHaveBeenCalledWith("solve-a-maze", [{ filename: "solution.js", code: mockCode }], {
+      expect(updateLessonExerciseSubmissionProgression).toHaveBeenCalledWith("solve-a-maze", "submission-uuid", {
         v: 1,
         scenarios: 1,
         distance: 5,
@@ -281,22 +283,29 @@ describe("TestSuiteManager", () => {
       });
     });
 
-    it("does not re-run the tests to score progression", async () => {
-      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+    it("patches via the challenge endpoint for challenge contexts", async () => {
+      const manager = buildManager({ type: "challenge", slug: "build-a-blog" });
 
+      const { updateChallengeExerciseSubmissionProgression } = await import("@/lib/api/challenges");
+      const { updateLessonExerciseSubmissionProgression } = await import("@/lib/api/lessons");
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
       (runTests as jest.Mock).mockReturnValue(mockRunOutcome());
 
       await manager.runCode(mockCode, mockExercise);
       await flushMicrotasks();
 
-      expect(runTests).toHaveBeenCalledTimes(1);
+      expect(updateChallengeExerciseSubmissionProgression).toHaveBeenCalledWith(
+        "build-a-blog",
+        "submission-uuid",
+        BASELINE_SCORES
+      );
+      expect(updateLessonExerciseSubmissionProgression).not.toHaveBeenCalled();
     });
 
-    it("submits all-zero scores (including the scenarios baseline) on the syntax-error path", async () => {
+    it("patches all-zero scores (including the scenarios baseline) on the syntax-error path", async () => {
       const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
 
-      const { submitLessonExercise } = await import("@/lib/api/lessons");
+      const { updateLessonExerciseSubmissionProgression } = await import("@/lib/api/lessons");
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
       (runTests as jest.Mock).mockImplementation(() => {
         throw syntaxError;
@@ -306,7 +315,7 @@ describe("TestSuiteManager", () => {
       await flushMicrotasks();
 
       expect(mockStore.getState().setHasSyntaxError).toHaveBeenCalledWith(true);
-      expect(submitLessonExercise).toHaveBeenCalledWith("solve-a-maze", [{ filename: "solution.js", code: mockCode }], {
+      expect(updateLessonExerciseSubmissionProgression).toHaveBeenCalledWith("solve-a-maze", "submission-uuid", {
         v: 3,
         scenarios: 0,
         distance: 0,
@@ -314,29 +323,24 @@ describe("TestSuiteManager", () => {
       });
     });
 
-    it("submits the v0 baseline on the syntax-error path when the exercise has no progression test", async () => {
+    it("skips the patch silently when the create didn't return a uuid", async () => {
       const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
 
-      const { submitLessonExercise } = await import("@/lib/api/lessons");
+      const { submitLessonExercise, updateLessonExerciseSubmissionProgression } = await import("@/lib/api/lessons");
+      (submitLessonExercise as jest.Mock).mockResolvedValue(null);
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
-      (runTests as jest.Mock).mockImplementation(() => {
-        throw syntaxError;
-      });
+      (runTests as jest.Mock).mockReturnValue(mockRunOutcome());
 
       await manager.runCode(mockCode, mockExercise);
       await flushMicrotasks();
 
-      expect(submitLessonExercise).toHaveBeenCalledWith(
-        "solve-a-maze",
-        [{ filename: "solution.js", code: mockCode }],
-        BASELINE_SCORES
-      );
+      expect(updateLessonExerciseSubmissionProgression).not.toHaveBeenCalled();
     });
 
-    it("submits without scores when the run fails in an unexpected way", async () => {
+    it("does not patch when the run fails in an unexpected way", async () => {
       const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
 
-      const { submitLessonExercise } = await import("@/lib/api/lessons");
+      const { updateLessonExerciseSubmissionProgression } = await import("@/lib/api/lessons");
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
       (runTests as jest.Mock).mockImplementation(() => {
         throw new Error("Some other error");
@@ -345,11 +349,53 @@ describe("TestSuiteManager", () => {
       await expect(manager.runCode(mockCode, mockExercise)).rejects.toThrow("Some other error");
       await flushMicrotasks();
 
-      expect(submitLessonExercise).toHaveBeenCalledWith(
-        "solve-a-maze",
-        [{ filename: "solution.js", code: mockCode }],
-        undefined
-      );
+      expect(updateLessonExerciseSubmissionProgression).not.toHaveBeenCalled();
+    });
+
+    it("does not patch when there is no context", async () => {
+      const manager = buildManager();
+
+      const { updateLessonExerciseSubmissionProgression } = await import("@/lib/api/lessons");
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      (runTests as jest.Mock).mockReturnValue(mockRunOutcome());
+
+      await manager.runCode(mockCode, mockExercise);
+      await flushMicrotasks();
+
+      expect(updateLessonExerciseSubmissionProgression).not.toHaveBeenCalled();
+    });
+
+    it("only warns when the patch fails - never toasts", async () => {
+      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+      const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => undefined);
+
+      const { updateLessonExerciseSubmissionProgression } = await import("@/lib/api/lessons");
+      (updateLessonExerciseSubmissionProgression as jest.Mock).mockRejectedValue(new ApiError(500, "boom"));
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      (runTests as jest.Mock).mockReturnValue(mockRunOutcome());
+
+      const toast = (await import("react-hot-toast")).default;
+
+      await manager.runCode(mockCode, mockExercise);
+      await flushMicrotasks();
+
+      expect(toast.error).not.toHaveBeenCalled();
+      expect(warnSpy).toHaveBeenCalledWith("Failed to record progression scores:", expect.any(ApiError));
+    });
+
+    it("does not affect the visible run when the whole progression patch flow fails", async () => {
+      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+      jest.spyOn(console, "warn").mockImplementation(() => undefined);
+
+      const { submitLessonExercise } = await import("@/lib/api/lessons");
+      (submitLessonExercise as jest.Mock).mockRejectedValue(new NetworkError("offline"));
+      const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
+      (runTests as jest.Mock).mockReturnValue(mockRunOutcome());
+
+      await expect(manager.runCode(mockCode, mockExercise)).resolves.not.toThrow();
+      await flushMicrotasks();
+
+      expect(mockStore.getState().setTestSuiteResult).toHaveBeenCalledWith({ tests: [], passed: true });
     });
   });
 

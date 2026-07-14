@@ -288,10 +288,10 @@ export function runIOScenarioTest(
         pass = JSON.stringify(evaluationResult.value) === JSON.stringify(scenario.expected);
         break;
       case "toBeGreaterThan":
-        pass = evaluationResult.value > scenario.expected;
+        pass = Number(evaluationResult.value) > Number(scenario.expected);
         break;
       case "toBeLessThan":
-        pass = evaluationResult.value < scenario.expected;
+        pass = Number(evaluationResult.value) < Number(scenario.expected);
         break;
     }
   }
@@ -342,7 +342,7 @@ export function runIOScenarioTest(
     status: overallPass ? "pass" : "fail",
     expects,
     result: evaluationResult as InterpretResult,
-    actual: evaluationResult.error ? undefined : (evaluationResult.value as IOValue)
+    actual: evaluationResult.error ? undefined : evaluationResult.value
   };
 }
 

@@ -1,4 +1,4 @@
-import type { IOScenario, Language, CodeCheckExpect, ScenarioRun } from "@jiki/curriculum";
+import type { IOScenario, Language, CodeCheckExpect } from "@jiki/curriculum";
 import type { IOTestResult, IOTestExpect } from "../test-results-types";
 import isEqual from "lodash/isEqual";
 import { diffChars, diffWords, type Change } from "diff";
@@ -42,10 +42,10 @@ export function runIOScenario(
   language: Language,
   interpreter: Interpreter,
   languageFeatures?: Record<string, any>
-): { testResult: IOTestResult; run: ScenarioRun } {
+): IOTestResult {
   let functionalPass = false;
 
-  const outcome = evaluateIOFunction(studentCode, {
+  const { interpretResult, actual, errorMessage } = evaluateIOFunction(studentCode, {
     interpreter,
     availableFunctions,
     languageFeatures,
@@ -53,9 +53,7 @@ export function runIOScenario(
     args: scenario.args
   });
 
-  const interpretResult: any = outcome.result;
-  const actual = outcome.actual;
-  const errorHtml = outcome.errorMessage === undefined ? undefined : `<p>Error: ${outcome.errorMessage}</p>`;
+  const errorHtml = errorMessage === undefined ? undefined : `<p>Error: ${errorMessage}</p>`;
 
   // Capture frames and logs from execution
   const frames: Frame[] = interpretResult?.frames ?? [];
@@ -131,7 +129,9 @@ export function runIOScenario(
   const lintErrors = interpretResult?.lintErrors ?? [];
   const status = overallPass ? (lintErrors.length > 0 ? "lint_warning" : "pass") : "fail";
 
-  const testResult: IOTestResult = {
+  // `result` is a run artifact for the progression evaluator (absent when
+  // the interpreter threw); the store and the UI never read it.
+  return {
     type: "io",
     slug: scenario.slug,
     name: scenario.name,
@@ -141,16 +141,7 @@ export function runIOScenario(
     args: scenario.args,
     frames,
     logLines,
-    lintErrors
+    lintErrors,
+    result: interpretResult ?? undefined
   };
-
-  // Run artifacts for the progression evaluator.
-  const run: ScenarioRun = {
-    scenarioSlug: scenario.slug,
-    passed: overallPass,
-    result: outcome.result,
-    actual
-  };
-
-  return { testResult, run };
 }

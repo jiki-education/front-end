@@ -28,7 +28,7 @@ export const progressionTest: ProgressionTest = {
     },
     {
       // Many runtime rolls produced by few static calls to roll() implies a loop.
-      name: "used-loop",
+      name: "used_loop",
       maxScore: 1,
       points: 10,
       score: (runs) => {

@@ -3,6 +3,8 @@ import { createMockFrame } from "@/tests/mocks";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters";
 import "@testing-library/jest-dom";
+import { createMockInterpretResult } from "@/tests/mocks";
+import { TestExercise } from "@jiki/curriculum";
 
 // Helper to setup orchestrator with test frames
 function setupOrchestrator(frames: Frame[], foldedLines: number[] = []) {
@@ -20,6 +22,8 @@ function setupOrchestrator(frames: Frame[], foldedLines: number[] = []) {
       status: "pass" as const,
       expects: [],
       view: document.createElement("div"),
+      exercise: new TestExercise(),
+      result: createMockInterpretResult(),
       frames,
       logLines: [],
       lintErrors: [],

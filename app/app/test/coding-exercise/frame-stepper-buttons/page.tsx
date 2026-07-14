@@ -13,6 +13,7 @@ import type { Frame } from "@jiki/interpreters/shared";
 import { useEffect, useState } from "react";
 import { FrameInfo } from "../ui-utils/FrameInfo";
 import { LineFoldingControls } from "../ui-utils/LineFoldingControls";
+import { buildStubExercise, buildStubInterpretResult } from "../lib/testResultArtifacts";
 
 // Create test frames similar to mockFrames
 function mockFrames(): Frame[] {
@@ -55,6 +56,8 @@ export default function FrameStepperButtonsTestPage() {
         status: "pass" as const,
         expects: [],
         view: document.createElement("div"),
+        exercise: buildStubExercise(),
+        result: buildStubInterpretResult(),
         frames,
         logLines: [],
         lintErrors: [],
