@@ -142,6 +142,6 @@ export function runIOScenario(
     frames,
     logLines,
     lintErrors,
-    result: interpretResult ?? undefined
+    result: interpretResult
   };
 }

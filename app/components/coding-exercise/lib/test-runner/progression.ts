@@ -51,7 +51,7 @@ function scenarioRunsFromTest(test: TestResult): ScenarioRun[] {
   if (test.type === "visual") {
     return [
       { scenarioSlug: test.slug, passed, exercise: test.exercise, result: test.result },
-      ...(test.isolatedRuns ?? []).map((isolated) => ({
+      ...test.isolatedRuns.map((isolated) => ({
         scenarioSlug: test.slug,
         passed: isolated.passed,
         isolated: true,

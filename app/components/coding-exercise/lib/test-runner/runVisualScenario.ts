@@ -83,7 +83,7 @@ export function runVisualScenario(
     lintErrors: primary.lintErrors,
     exercise: primary.exercise,
     result: primary.result,
-    isolatedRuns: isolatedRuns.length > 0 ? isolatedRuns : undefined
+    isolatedRuns
   };
 }
 

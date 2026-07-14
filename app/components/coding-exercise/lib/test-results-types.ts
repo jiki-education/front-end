@@ -35,7 +35,7 @@ export interface VisualTestResult extends BaseTestResult {
   animationTimeline: AnimationTimeline; // Required for auto-play
   exercise: VisualExercise; // the post-run exercise instance (halted state on runtime errors; progression evaluator only)
   result: InterpretResult; // the full interpreter result (progression evaluator only)
-  isolatedRuns?: IsolatedRunResult[]; // isolated-check re-run artifacts (progression evaluator only)
+  isolatedRuns: IsolatedRunResult[]; // isolated-check re-run artifacts (progression evaluator only); empty when the scenario has none
 }
 
 // IO test result - function call with expected/actual comparison

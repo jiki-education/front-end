@@ -24,6 +24,7 @@ function setupOrchestrator(frames: Frame[], foldedLines: number[] = []) {
       view: document.createElement("div"),
       exercise: new TestExercise(),
       result: createMockInterpretResult(),
+      isolatedRuns: [],
       frames,
       logLines: [],
       lintErrors: [],

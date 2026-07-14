@@ -88,7 +88,7 @@ export interface IOEvaluationOptions {
 }
 
 export interface IOEvaluationOutcome {
-  interpretResult: InterpretResult | null; // null when evaluateFunction itself threw
+  interpretResult: InterpretResult | undefined; // undefined when evaluateFunction itself threw
   actual: IOValue | undefined; // the function's return value; undefined when the run errored
   errorMessage?: string;
 }
@@ -115,7 +115,7 @@ export function evaluateIOFunction(studentCode: string, options: IOEvaluationOpt
     return { interpretResult, actual: interpretResult.value };
   } catch (error) {
     return {
-      interpretResult: null,
+      interpretResult: undefined,
       actual: undefined,
       errorMessage: error instanceof Error ? error.message : String(error)
     };

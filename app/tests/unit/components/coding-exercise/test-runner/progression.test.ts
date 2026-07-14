@@ -28,6 +28,7 @@ function createVisualTest(overrides?: Partial<VisualTestResult>): TestResult {
     animationTimeline: {} as VisualTestResult["animationTimeline"],
     exercise: { id: "primary" } as unknown as VisualExercise,
     result: createMockInterpretResult(),
+    isolatedRuns: [],
     ...overrides
   };
 }

@@ -36,6 +36,7 @@ describe("Store Animation Replay Bug", () => {
     view: document.createElement("div"),
     exercise: new TestExercise(),
     result: createMockInterpretResult(),
+    isolatedRuns: [],
     frames,
     logLines: [],
     lintErrors: [],

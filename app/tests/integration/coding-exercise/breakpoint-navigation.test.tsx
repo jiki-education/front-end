@@ -28,6 +28,7 @@ function setupOrchestrator(frames: Frame[], breakpoints: number[] = [], foldedLi
       view: document.createElement("div"),
       exercise: new TestExercise(),
       result: createMockInterpretResult(),
+      isolatedRuns: [],
       frames,
       logLines: [],
       lintErrors: [],

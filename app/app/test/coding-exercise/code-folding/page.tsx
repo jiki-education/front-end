@@ -57,6 +57,7 @@ export default function CodeFoldingTestPage() {
       view: document.createElement("div"),
       exercise: buildStubExercise(),
       result: buildStubInterpretResult(),
+      isolatedRuns: [],
       frames,
       logLines: [],
       lintErrors: [],

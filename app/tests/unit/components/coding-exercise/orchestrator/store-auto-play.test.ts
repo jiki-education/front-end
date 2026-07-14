@@ -36,6 +36,7 @@ describe("Store Auto-Play Behavior", () => {
     view: document.createElement("div"),
     exercise: new TestExercise(),
     result: createMockInterpretResult(),
+    isolatedRuns: [],
     frames: [
       {
         time: 0,
@@ -101,6 +102,7 @@ describe("Store Auto-Play Behavior", () => {
     view: document.createElement("div"),
     exercise: new TestExercise(),
     result: createMockInterpretResult(),
+    isolatedRuns: [],
     frames: [
       {
         time: 0,
@@ -144,6 +146,7 @@ describe("Store Auto-Play Behavior", () => {
     view: document.createElement("div"),
     exercise: new TestExercise(),
     result: createMockInterpretResult(),
+    isolatedRuns: [],
     frames: [
       {
         time: 0,

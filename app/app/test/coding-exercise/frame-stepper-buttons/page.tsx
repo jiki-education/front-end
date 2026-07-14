@@ -58,6 +58,7 @@ export default function FrameStepperButtonsTestPage() {
         view: document.createElement("div"),
         exercise: buildStubExercise(),
         result: buildStubInterpretResult(),
+        isolatedRuns: [],
         frames,
         logLines: [],
         lintErrors: [],
