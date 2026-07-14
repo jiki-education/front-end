@@ -24,6 +24,7 @@ import {
   readOnlyRangesStateField,
   updateReadOnlyRangesEffect
 } from "../../ui/codemirror/extensions/read-only-ranges/readOnlyRanges";
+import { clampRangesToDoc } from "../../ui/codemirror/extensions/read-only-ranges/resolveRange";
 import { addUnderlineEffect } from "../../ui/codemirror/extensions/underlineRange";
 import { setLintDecorationsEffect } from "../../ui/codemirror/extensions/lintDecorations";
 import { createEditorExtensions } from "../../ui/codemirror/setup/editorExtensions";
@@ -577,58 +578,7 @@ export class EditorManager {
   }
 }
 
-// Minimal shape of CodeMirror's `Text` doc needed to clamp ranges. Declared
-// locally so this helper stays unit-testable without constructing a real doc.
-interface ClampDoc {
-  readonly lines: number;
-  line: (n: number) => { from: number; to: number };
-}
-
-// Brings stored ranges back into bounds for the given document so they can't
-// crash CodeMirror's decoration computation. Stored ranges (from localStorage
-// or an exercise's defaults) can outlive the code they were saved against:
-// after a rework the stub may have fewer lines, or a line may be shorter than
-// when a `fromChar`/`toChar` offset was recorded.
-//
-// For each range we:
-//   - drop it entirely if `fromLine` is past the end of the doc;
-//   - clamp `toLine` down to the last line (dropping a now-meaningless `toChar`)
-//     if it overran the doc;
-//   - clamp `fromChar`/`toChar` to the length of their line, since an offset
-//     past the line end would push the computed position past the line (or the
-//     whole doc) and throw when the decoration range is built.
-// `fromLine`/`toLine` are 1-based.
-export function clampRangesToDoc(ranges: ReadonlyRange[], doc: ClampDoc): ReadonlyRange[] {
-  const lineCount = doc.lines;
-  const clamped: ReadonlyRange[] = [];
-  for (const range of ranges) {
-    if (range.fromLine > lineCount) {
-      continue;
-    }
-
-    let { toLine, toChar } = range;
-    if (toLine > lineCount) {
-      // toLine ran past the doc: clamp it and drop a now-meaningless toChar so
-      // the range extends to the end of the (new) last line.
-      toLine = lineCount;
-      toChar = undefined;
-    }
-
-    const next: ReadonlyRange = { ...range, toLine };
-
-    if (next.fromChar !== undefined) {
-      const fromLineInfo = doc.line(next.fromLine);
-      next.fromChar = Math.min(next.fromChar, fromLineInfo.to - fromLineInfo.from);
-    }
-
-    if (toChar !== undefined) {
-      const toLineInfo = doc.line(toLine);
-      next.toChar = Math.min(toChar, toLineInfo.to - toLineInfo.from);
-    } else {
-      delete next.toChar;
-    }
-
-    clamped.push(next);
-  }
-  return clamped;
-}
+// Stored ranges (localStorage / exercise defaults) are clamped back into bounds
+// before reaching CodeMirror by the shared resolver. Re-exported here so callers
+// that already import from this module keep a stable entry point.
+export { clampRangesToDoc };

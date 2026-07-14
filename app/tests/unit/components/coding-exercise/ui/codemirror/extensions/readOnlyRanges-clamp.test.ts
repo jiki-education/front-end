@@ -4,7 +4,11 @@ import {
   updateReadOnlyRangesEffect
 } from "@/components/coding-exercise/ui/codemirror/extensions/read-only-ranges/readOnlyRanges";
 import { readOnlyRangeDecoration } from "@/components/coding-exercise/ui/codemirror/extensions/read-only-ranges/readOnlyLineDeco";
-import { resolveRangePositions } from "@/components/coding-exercise/ui/codemirror/extensions/read-only-ranges/resolveRange";
+import {
+  clampRangeToDoc,
+  clampRangesToDoc,
+  resolveRangePositions
+} from "@/components/coding-exercise/ui/codemirror/extensions/read-only-ranges/resolveRange";
 import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 
@@ -156,5 +160,62 @@ describe("resolveRangePositions basics", () => {
     const state = makeState(SHRUNK_LINE_DOC);
     const pos = resolveRangePositions({ fromLine: 1, fromChar: 50, toLine: 1, toChar: 0 }, state.doc);
     expect(pos!.from).toBeLessThanOrEqual(pos!.to);
+  });
+});
+
+// Malformed ranges — a fromLine below 1, or an inverted fromLine > toLine — are
+// rejected rather than resolved. A sub-1 line would throw in doc.line() ("Invalid
+// line number 0"); an inverted range has no valid forward span. Either otherwise
+// poisons the changeFilter into silently vetoing every edit in the document.
+describe("malformed ranges", () => {
+  it("rejects a fromLine below 1 instead of throwing", () => {
+    const state = makeState(SHRUNK_LINE_DOC);
+    expect(clampRangeToDoc({ fromLine: 0, toLine: 2 }, state.doc)).toBeNull();
+    // The resolver must not throw "Invalid line number 0" — it returns null.
+    expect(resolveRangePositions({ fromLine: 0, toLine: 2 }, state.doc)).toBeNull();
+  });
+
+  it("rejects an inverted range (fromLine > toLine)", () => {
+    const state = makeState(SHRUNK_LINE_DOC);
+    expect(clampRangeToDoc({ fromLine: 3, toLine: 1 }, state.doc)).toBeNull();
+    expect(resolveRangePositions({ fromLine: 3, toLine: 1 }, state.doc)).toBeNull();
+  });
+
+  it("still allows edits when a fromLine=0 range is present", () => {
+    const view = makeView(SHRUNK_LINE_DOC);
+    expect(() => {
+      view.dispatch({ effects: updateReadOnlyRangesEffect.of([{ fromLine: 0, toLine: 2 }]) });
+    }).not.toThrow();
+
+    const before = view.state.doc.toString();
+    view.dispatch({ changes: { from: view.state.doc.line(3).from, insert: "X" } });
+    expect(view.state.doc.toString()).not.toBe(before);
+    view.destroy();
+  });
+
+  it("still allows edits when an inverted range is present", () => {
+    const view = makeView(SHRUNK_LINE_DOC);
+    view.dispatch({ effects: updateReadOnlyRangesEffect.of([{ fromLine: 3, toLine: 1 }]) });
+
+    const before = view.state.doc.toString();
+    view.dispatch({ changes: { from: view.state.doc.line(2).from, insert: "X" } });
+    expect(view.state.doc.toString()).not.toBe(before);
+    view.destroy();
+  });
+});
+
+// clampRangesToDoc is the stored-range entry point shared by the orchestrator
+// (EditorManager) and re-exported from there. Its per-range clamping is covered
+// in EditorManager.test.ts; these lock the list-level behaviour it inherits from
+// the malformed-range guard — a bad range is dropped, valid siblings survive.
+describe("clampRangesToDoc drops malformed ranges", () => {
+  it("keeps valid ranges and drops sub-1 and inverted ones", () => {
+    const state = makeState(SHRUNK_LINE_DOC);
+    const ranges = [
+      { fromLine: 1, toLine: 2 }, // valid
+      { fromLine: 0, toLine: 2 }, // sub-1, dropped
+      { fromLine: 3, toLine: 1 } // inverted, dropped
+    ];
+    expect(clampRangesToDoc(ranges, state.doc)).toEqual([{ fromLine: 1, toLine: 2 }]);
   });
 });
