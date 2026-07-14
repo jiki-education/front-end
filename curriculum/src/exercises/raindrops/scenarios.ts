@@ -30,11 +30,18 @@ export const tasks = [
   {
     id: "no-sound" as const,
     name: "Numbers with no raindrop sound",
-    description:
-      "Finally, if the number is not divisible by 3, 5, or 7, return the number itself as a string. Use numberToString() to convert the number.",
+    description: "Finally, if the number is not divisible by 3, 5, or 7, return the number itself as a string.",
     hints: [],
     requiredScenarios: ["number-8", "number-52"],
     bonus: false
+  },
+  {
+    id: "solve-in-sixteen-lines" as const,
+    name: "Solve in sixteen lines of code",
+    description: "Can you solve this with only sixteen lines of code?",
+    hints: [],
+    requiredScenarios: ["bonus-1"],
+    bonus: true
   }
 ] as const satisfies readonly Task[];
 
@@ -137,5 +144,20 @@ export const scenarios: IOScenario[] = [
     functionName: "raindrops",
     args: [52],
     expected: "52"
+  },
+  {
+    slug: "bonus-1",
+    name: "Sixteen lines of code",
+    description: "Solve the exercise with only sixteen lines of code.",
+    taskId: "solve-in-sixteen-lines",
+    functionName: "raindrops",
+    args: [105],
+    expected: "PlingPlangPlong",
+    codeChecks: [
+      {
+        pass: (result) => result.assertors.assertMaxLinesOfCode(16),
+        errorHtml: "You used more than sixteen lines of code."
+      }
+    ]
   }
 ];

@@ -3,15 +3,7 @@ import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";
 import type { IOExerciseCore, FunctionInfo } from "../types";
 
-const functions: FunctionInfo[] = [
-  {
-    name: "numberToString",
-    signature: "numberToString(number)",
-    description: "Convert a number to its string representation (provided by level stdlib)",
-    examples: ['numberToString(42) returns "42"'],
-    category: "Type Conversion"
-  }
-];
+const functions: FunctionInfo[] = [];
 
 const exerciseDefinition: IOExerciseCore = {
   type: "io",
@@ -20,7 +12,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["creating-functions", "modulo", "if", "string-concatenation"]
+  conceptSlugs: ["creating-functions", "modulo", "if", "string-concatenation", "string-templates"]
 };
 
 export default exerciseDefinition;

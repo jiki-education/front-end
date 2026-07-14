@@ -38,8 +38,16 @@ export const llmMetadata: LLMMetadata = {
     "no-sound": {
       description: `
         Final step: when no rule matched (result still ""), return the number itself as a
-        string. The non-obvious part is needing numberToString() rather than returning the
-        number directly.
+        string. The non-obvious part is converting the number to a string (e.g. with a
+        template literal) rather than returning the number directly.
+      `
+    },
+    "solve-in-sixteen-lines": {
+      description: `
+        Bonus: the solution must be at most 16 non-blank, non-comment lines. The reference
+        solution (accumulator with four separate ifs) is exactly 16 lines; students over
+        the limit have usually written a branch-per-combination else-if chain with early
+        returns, so steer them back to accumulating into one result string.
       `
     }
   }

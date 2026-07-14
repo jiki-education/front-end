@@ -1,3 +1,1 @@
-function raindrops(number) {
-
-}
+// Write the raindrops function

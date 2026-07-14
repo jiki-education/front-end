@@ -1,2 +1,1 @@
-def raindrops(number):
-    pass
+# Write the raindrops function

@@ -16,11 +16,7 @@ If a given number:
 - is divisible by 7, add "Plong" to the result.
 - is not divisible by 3, 5, or 7, the result should be the number as a string.
 
-You need to create a function called `raindrops` that takes the number as an input and returns its Raindrops sounds.
-
-To solve this, you have one helpful function:
-
-- `numberToString(number)`: Takes a number as an input and returns it as a string.
+You need to create a function called `raindrops(num)` that takes the number as an input and returns its Raindrops sounds.
 
 Build the result string using concatenation (`+`) or a template string.
 
