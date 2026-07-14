@@ -57,10 +57,10 @@ When working on the coding exercise component, also read from `.context/coding-e
 ### Development
 
 ```bash
-./bin/dev-claude
+./bin/dev
 ```
 
-Starts the development server on http://localhost:3071
+Starts the development server on http://localhost:3061. Never start or stop the dev server yourself — ask the human to run it.
 
 ### Build, TypeScript & Lint
 

@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npm-run-all icons:generate icon-cache:generate css-hashes:generate content:generate exercise-cache:generate concept-cache:generate --parallel dev:next content:watch exercise-cache:watch concept-cache:watch icon-cache:watch css-hashes:watch",
+    "dev": "npm-run-all icons:generate icon-cache:generate css-hashes:generate content:generate exercise-cache:generate concept-cache:generate && pnpm run --parallel \"/^(dev:next|content:watch|exercise-cache:watch|concept-cache:watch|icon-cache:watch|css-hashes:watch)$/\"",
     "css-hashes:generate": "node scripts/generate-css-asset-hashes.js",
     "css-hashes:watch": "onchange 'app/**/*.css' 'components/**/*.css' 'lib/**/*.css' '../curriculum/src/**/*.css' 'public/static/images/**' 'public/static/fonts/**' 'icons/**/*.svg' -- node scripts/generate-css-asset-hashes.js",
     "dev:next": "next dev --port 3061 --turbo",
@@ -21,7 +21,7 @@
     "concept-cache:watch": "onchange '../curriculum/src/concepts/**' -- node scripts/generate-concept-cache.js",
     "seed-language": "node scripts/seed-language.js",
     "icons:generate": "node scripts/generate-icon-types.js",
-    "icons:watch": "pnpm run icons:generate && onchange 'icons/**/*.svg' -- pnpm run icons:generate",
+    "icons:watch": "node scripts/generate-icon-types.js && onchange 'icons/**/*.svg' -- node scripts/generate-icon-types.js",
     "icon-cache:generate": "node scripts/generate-icon-cache.js",
     "icon-cache:watch": "onchange 'icons/lessons/**/*.svg' 'icons/badges/**/*.svg' 'icons/challenges/**/*.svg' -- node scripts/generate-icon-cache.js",
     "test": "pnpm run icons:generate && pnpm run icon-cache:generate && jest",

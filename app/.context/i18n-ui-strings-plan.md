@@ -197,7 +197,7 @@ Order by ROI (small/high-visibility first, hardest last):
 4. Replace literals with `t("...")` / `t.rich(...)` per §2. Make server components `async` as needed.
 5. Typecheck (key typing will catch typos): `cd app && npx tsc --noEmit`.
 6. Lint touched files: `cd app && npx eslint <files>`.
-7. Spot-check in the dev server (`./bin/dev-claude`, port 3071) that the area renders.
+7. Spot-check in the dev server (`./bin/dev`, port 3061) that the area renders.
 8. Commit per-area (only if the user has asked for commits — default is leave in working tree).
 
 ### Tests

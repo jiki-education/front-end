@@ -2,7 +2,7 @@
 
 ## Core Commands
 
-- `./bin/dev-claude` - Start development server on port 3071 (for AI assistants)
+- `./bin/dev` - Start development server on port 3061
 - `pnpm typecheck` - Check TypeScript types (run from monorepo root)
 - `pnpm run lint` - Run ESLint for code quality checks
 - `pnpm run format` - Format code with Prettier
@@ -53,8 +53,6 @@ The dev server runs on port 3061 by default:
 - URL: http://localhost:3061
 - Uses webpack (Turbopack disabled due to pnpm workspace compatibility issues)
 - Hot module replacement enabled
-
-**For AI assistants**: The `./bin/dev-claude` script runs on port 3071
 
 ### Important Notes
 
