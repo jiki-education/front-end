@@ -39,14 +39,24 @@ export interface ScenarioTestResult {
 
 /**
  * Wraps scenario test results in the ScenarioRuns collection progression
- * metrics score against. Isolated-check re-runs are not included (curriculum
- * tests only surface the primary run's artifacts).
+ * metrics score against. Pass the exercise so runs belonging to bonus tasks
+ * are flagged (allPassed() and the scenarios baseline exclude them).
+ * Isolated-check re-runs are not included (curriculum tests only surface the
+ * primary run's artifacts).
  */
-export function buildScenarioRuns(results: ScenarioTestResult[]): ScenarioRuns {
+export function buildScenarioRuns(results: ScenarioTestResult[], exercise?: ExerciseCore): ScenarioRuns {
+  const bonusTaskIds = new Set((exercise?.tasks ?? []).filter((task) => task.bonus === true).map((task) => task.id));
+  const bonusSlugs = new Set(
+    (exercise?.scenarios ?? [])
+      .filter((scenario: { taskId: string; slug: string }) => bonusTaskIds.has(scenario.taskId))
+      .map((scenario) => scenario.slug)
+  );
+
   return createScenarioRuns(
     results.map((result) => ({
       scenarioSlug: result.slug,
       passed: result.status === "pass",
+      bonus: bonusSlugs.has(result.slug),
       exercise: result.exercise,
       result: result.result,
       actual: result.actual

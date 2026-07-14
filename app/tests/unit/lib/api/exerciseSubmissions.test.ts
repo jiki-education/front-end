@@ -19,7 +19,7 @@ describe("Exercise Submissions API", () => {
     it("patches the progression scores onto the submission by uuid", async () => {
       mockApi.patch.mockResolvedValue({ data: {}, status: 200, headers: new Headers() });
 
-      const scores = { v: 1, scenarios: 1, distance: 5 };
+      const scores = { v: 1, score: 15, metrics: { scenarios: 10, distance: 5 } };
       await updateExerciseSubmissionProgression("abc-123", scores);
 
       expect(mockApi.patch).toHaveBeenCalledWith("/internal/exercise_submissions/abc-123", {

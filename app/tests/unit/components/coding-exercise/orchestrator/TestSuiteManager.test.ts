@@ -28,9 +28,11 @@ function flushMicrotasks() {
   return new Promise((resolve) => setTimeout(resolve, 0));
 }
 
-const BASELINE_SCORES = { v: 0, scenarios: 0 };
+const BASELINE_SCORES = { v: 0, score: 0, metrics: { scenarios: 0 } };
 
-function mockRunOutcome(progressionScores: Record<string, number> = BASELINE_SCORES) {
+function mockRunOutcome(
+  progressionScores: { v: number; score: number; metrics: Record<string, number> } = BASELINE_SCORES
+) {
   return { testSuiteResult: { tests: [], passed: true }, progressionScores };
 }
 
@@ -255,7 +257,7 @@ describe("TestSuiteManager", () => {
     };
 
     const progressionExercise = createMockExercise({
-      progression: {
+      progressionMetrics: {
         version: 3,
         metrics: [
           { name: "distance", maxScore: 60, points: 5, score: () => 0 },
@@ -270,7 +272,7 @@ describe("TestSuiteManager", () => {
       const { updateExerciseSubmissionProgression } = await import("@/lib/api/exerciseSubmissions");
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
       (runTests as jest.Mock).mockReturnValue(
-        mockRunOutcome({ v: 1, scenarios: 1, distance: 5, used_loop: 10, precision: 0 })
+        mockRunOutcome({ v: 1, score: 27, metrics: { scenarios: 10, distance: 5, used_loop: 10, precision: 2 } })
       );
 
       await manager.runCode(mockCode, mockExercise);
@@ -278,10 +280,8 @@ describe("TestSuiteManager", () => {
 
       expect(updateExerciseSubmissionProgression).toHaveBeenCalledWith("submission-uuid", {
         v: 1,
-        scenarios: 1,
-        distance: 5,
-        used_loop: 10,
-        precision: 0
+        score: 27,
+        metrics: { scenarios: 10, distance: 5, used_loop: 10, precision: 2 }
       });
     });
 
@@ -315,9 +315,8 @@ describe("TestSuiteManager", () => {
       expect(mockStore.getState().setHasSyntaxError).toHaveBeenCalledWith(true);
       expect(updateExerciseSubmissionProgression).toHaveBeenCalledWith("submission-uuid", {
         v: 3,
-        scenarios: 0,
-        distance: 0,
-        used_loop: 0
+        score: 0,
+        metrics: { scenarios: 0, distance: 0, used_loop: 0 }
       });
     });
 

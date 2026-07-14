@@ -173,7 +173,7 @@ The TestSuiteManager orchestrates test execution:
 
 ## Hidden Progression Scoring
 
-Every run silently evaluates the exercise's hidden progression calculator against the scenario runs it just performed and PATCHes the scores onto the run's submission. It never executes student code and never affects visible results. See [progression.md](./progression.md) for the full mechanism (run artifacts on `TestResult`, metrics, gauges, the 10-point scenarios baseline, and the persistence flow).
+Every run silently evaluates the exercise's hidden progression calculator against the scenario runs it just performed and PATCHes the scores onto the run's submission. It never executes student code and never affects visible results. See [progression.md](./progression.md) for the full mechanism (run artifacts on `TestResult`, metrics, the 10-point scenarios baseline, the progression stdlib, and the persistence flow).
 
 ## See Also
 

@@ -1,10 +1,14 @@
 import { api } from "./client";
 
-// Hidden progression test scores for a single run: the progression test
-// version, the free "scenarios" baseline, plus integer points keyed by
-// snake_case metric name,
-// e.g. { v: 1, scenarios: 1, distance: 5, used_loop: 10, precision: 0 }.
-export type ProgressionScores = { v: number } & Record<string, number>;
+// Hidden progression scores for a single run: the progression version, the
+// precomputed total, and the keyed breakdown - the framework "scenarios"
+// anchor plus one snake_case key per authored metric, e.g.
+// { v: 1, score: 27, metrics: { scenarios: 10, distance: 5, used_loop: 10, precision: 2 } }.
+export interface ProgressionScores {
+  v: number;
+  score: number;
+  metrics: Record<string, number>;
+}
 
 /**
  * Attach the hidden progression scores for a run to its submission.

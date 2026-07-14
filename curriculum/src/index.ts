@@ -6,6 +6,9 @@ export { exercises, getExercise, type ExerciseSlug } from "./exercises";
 // Export the scenario-runs factory used by progression evaluators
 export { createScenarioRuns } from "./exercises/scenarioRuns";
 
+// Export the progression stdlib (metrics shared across exercises)
+export { locMetric } from "./exercises/progressionStdlib";
+
 // Export core types
 export type { Language } from "./types";
 
@@ -25,9 +28,8 @@ export type {
   IOTestExpect,
   IOValue,
   IsolatedCheck,
-  Progression,
-  ProgressionGauge,
   ProgressionMetric,
+  ProgressionMetrics,
   ReadonlyRange,
   ScenarioRun,
   ScenarioRuns,

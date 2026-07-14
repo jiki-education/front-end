@@ -2,25 +2,23 @@ import { describe, expect, it } from "vitest";
 import { exercises } from "../src/exercises";
 import type { ExerciseSlug } from "../src/exercises";
 
-// Progression metric/gauge names become JSONB keys on submissions, verbatim.
-// They must be snake_case identifiers and unique within an exercise across
-// metrics, gauges, and the framework's reserved keys.
-const RESERVED_KEYS = ["v", "scenarios"];
+// Progression metric names become JSONB keys on submissions, verbatim. They
+// must be snake_case identifiers and unique within an exercise, including
+// against the framework's reserved keys ("scenarios" shares the metrics
+// namespace; "v" and "score" are the surrounding object's own keys).
+const RESERVED_KEYS = ["v", "score", "scenarios"];
 const SNAKE_CASE = /^[a-z][a-z0-9_]*$/;
 
-describe("progression metric and gauge names", () => {
+describe("progression metric names", () => {
   for (const slug of Object.keys(exercises) as ExerciseSlug[]) {
     it(`${slug}: names are unique and snake_case`, async () => {
       const module = await exercises[slug]();
-      const progression = module.default.progression;
+      const progression = module.default.progressionMetrics;
       if (!progression) {
         return;
       }
 
-      const names = [
-        ...progression.metrics.map((metric) => metric.name),
-        ...(progression.gauges ?? []).map((gauge) => gauge.name)
-      ];
+      const names = progression.metrics.map((metric) => metric.name);
 
       for (const name of names) {
         expect(name, `"${name}" must be snake_case`).toMatch(SNAKE_CASE);

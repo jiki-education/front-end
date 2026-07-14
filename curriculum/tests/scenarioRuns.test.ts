@@ -36,4 +36,46 @@ describe("createScenarioRuns", () => {
     expect(runs.bySlug("shape", "size-5")).toBeUndefined();
     expect(runs.bySlug("other", "size-1")).toBeUndefined();
   });
+
+  describe("allPassed", () => {
+    it("is true when every non-bonus primary run passed", () => {
+      expect(
+        createScenarioRuns([run({ passed: true }), run({ scenarioSlug: "other", passed: true })]).allPassed()
+      ).toBe(true);
+    });
+
+    it("is false when any non-bonus primary run failed", () => {
+      expect(
+        createScenarioRuns([run({ passed: true }), run({ scenarioSlug: "other", passed: false })]).allPassed()
+      ).toBe(false);
+    });
+
+    it("ignores bonus runs and isolated runs", () => {
+      const collection = createScenarioRuns([
+        run({ passed: true }),
+        run({ scenarioSlug: "bonus-1", bonus: true, passed: false }),
+        run({ scenarioSlug: "shape", isolated: true, passed: false })
+      ]);
+
+      expect(collection.allPassed()).toBe(true);
+    });
+
+    it("is false when there are no non-bonus primary runs", () => {
+      expect(createScenarioRuns([]).allPassed()).toBe(false);
+      expect(createScenarioRuns([run({ bonus: true, passed: true })]).allPassed()).toBe(false);
+    });
+  });
+
+  describe("anyResult", () => {
+    it("returns the first available InterpretResult", () => {
+      const result = { frames: [] } as unknown as NonNullable<ScenarioRun["result"]>;
+      const collection = createScenarioRuns([run({ result: null }), run({ scenarioSlug: "other", result })]);
+
+      expect(collection.anyResult()).toBe(result);
+    });
+
+    it("returns undefined when no run produced a result", () => {
+      expect(createScenarioRuns([run({ result: null })]).anyResult()).toBeUndefined();
+    });
+  });
 });

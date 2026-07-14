@@ -51,7 +51,7 @@ When working on the coding exercise component, also read from `.context/coding-e
 | `scrubber-frames.md`         | Frame system and timeline                                           |
 | `scrubber-implementation.md` | Scrubber UI                                                         |
 | `test-runner.md`             | Test execution system                                               |
-| `progression.md`             | Hidden progression scoring (metrics, gauges, submission decoration) |
+| `progression.md`             | Hidden progression scoring (metrics, stdlib, submission decoration) |
 
 ## Quick Start
 
