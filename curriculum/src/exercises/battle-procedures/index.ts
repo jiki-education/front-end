@@ -1,5 +1,6 @@
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
+import { progressionMetrics } from "./progressionMetrics";
 import metadata from "./metadata.json";
 import type { VisualExerciseCore, FunctionInfo } from "../types";
 
@@ -44,6 +45,7 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
+  progressionMetrics,
   functions,
   conceptSlugs: ["creating-functions", "repeat", "using-functions", "if", "else-if", "updating-variables", "state"]
 };

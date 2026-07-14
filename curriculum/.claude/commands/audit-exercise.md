@@ -16,6 +16,7 @@ Read all files in `src/exercises/$ARGUMENTS/`:
 - `Exercise.ts` — Exercise class implementation
 - `index.ts` — Exercise definition export (with `functions: FunctionInfo[]`)
 - `scenarios.ts` — Tasks and test scenarios
+- `progressionMetrics.ts` — Hidden progression calculator (see `app/.context/coding-exercise/progression.md`)
 - `metadata.json` — Slug, title, hints
 - `instructions/en.md` — Instructions (if it exists)
 - `llm-metadata.ts` — AI teaching guidance
@@ -273,6 +274,26 @@ Note: It is ok for the LLM instructions to have the answers! The LLM knows not t
 2. **Override, when present, is sensible**: If an override IS set, verify the value against the solution and scenario inputs. FAIL if it's below the worst-case legitimate iteration count (would fail valid solutions), or if it's set to a large value with no justifying heavy solution (pointless override — prefer inheriting the global).
 
 **Note**: We do NOT accommodate pathological approaches (e.g. a per-pixel nested loop where a single loop is the obvious solution). The bound only needs to clear a _sane_ solution, however inefficient.
+
+---
+
+### Check 12: Progression Metrics Are Present and Well-Formed
+
+**Rule**: Every published exercise must define `progressionMetrics` (in `progressionMetrics.ts`, wired into `index.ts`). This is the hidden progression calculator scored on every run — see `app/.context/coding-exercise/progression.md` for the full spec.
+
+**Check each of these**:
+
+1. **Present and wired**: `src/exercises/<slug>/progressionMetrics.ts` exists, exports `progressionMetrics: ProgressionMetrics` (with a `version`), and `index.ts` includes it in the exercise definition.
+
+2. **Metrics measure only what scenarios can't**: each metric captures either partial progress inside a failing scenario (e.g. path coverage, shapes placed, distance to target) or an understanding-vs-grinding distinction (e.g. used a loop vs unrolled calls). FAIL if a metric re-derives scenario pass/fail, re-declares scenario expected values, or hardcodes a scenario-slug list where `runs.allPassed()` / the baseline already covers it.
+
+3. **Stdlib over bespoke**: shared logic uses the stdlib (`locMetric` — only valid when the exercise has a line-count bonus scenario) and `ScenarioRuns` helpers (`allPassed()`, `anyResult()`, `bySlug()`). The file contains ONLY what is unique to this exercise.
+
+4. **Names and weights**: metric names are snake_case, unique, and not reserved (`v`, `score`, `scenarios`). `points` are weighted relative to the fixed 10 the baseline awards for full correctness — the exercise's headline concept should carry the most weight.
+
+5. **Seed safety**: metrics reading scenarios with `randomSeed: true` are seed-agnostic (measure properties, not exact positions).
+
+6. **Tests exist**: `tests/exercises/<slug>-progression.test.ts` asserts the solution scores full marks (exact `{v, score, metrics}` object), the stub scores ~0, and at least one meaningful intermediate state per metric earns partial credit.
 
 ---
 

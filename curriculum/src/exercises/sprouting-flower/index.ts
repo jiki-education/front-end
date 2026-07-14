@@ -1,5 +1,6 @@
 import { SproutingFlowerExercise } from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
+import { progressionMetrics } from "./progressionMetrics";
 import metadata from "./metadata.json";
 import type { VisualExerciseCore, FunctionInfo } from "../types";
 
@@ -35,6 +36,7 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass: SproutingFlowerExercise,
   tasks,
   scenarios,
+  progressionMetrics,
   functions,
   conceptSlugs: ["repeat", "variables", "updating-variables", "arithmetic"],
   interpreterOptions: {
