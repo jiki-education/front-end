@@ -4,7 +4,7 @@ import type { ViewUpdate } from "@codemirror/view";
 import { Decoration, GutterMarker, ViewPlugin, gutter, gutterLineClass, type DecorationSet } from "@codemirror/view";
 import { EditorView } from "codemirror";
 import { readOnlyRangesStateField } from "./readOnlyRanges";
-import { clampRangeToDoc, resolveRangePositions } from "./resolveRange";
+import { clampRangeLinesToDoc, resolveRangePositions } from "./resolveRange";
 
 const baseTheme = EditorView.baseTheme({
   ".cm-lockedLine, .cm-lockedGutter": { backgroundColor: "#5C558944" },
@@ -65,11 +65,7 @@ function lockedLineDeco(view: EditorView) {
   // Collect all decorations with their positions, then sort by from position
   const decos: Array<{ from: number; to: number; deco: Decoration }> = [];
 
-  for (const rawRange of readOnlyRanges) {
-    const range = clampRangeToDoc(rawRange, view.state.doc);
-    if (!range) {
-      continue;
-    }
+  for (const range of clampRangeLinesToDoc(readOnlyRanges, view.state.doc)) {
     if (isPartialRange(range, view.state.doc)) {
       // Partial range: use mark decoration for the specific char range
       const pos = resolveRangePositions(range, view.state.doc);
@@ -117,11 +113,7 @@ const lockedLineGutterMarker = new (class extends GutterMarker {
 
 const lockedLineGutterHighlighter = gutterLineClass.compute([readOnlyRangesStateField, "doc"], (state) => {
   const marks = [];
-  for (const rawRange of state.field(readOnlyRangesStateField)) {
-    const range = clampRangeToDoc(rawRange, state.doc);
-    if (!range) {
-      continue;
-    }
+  for (const range of clampRangeLinesToDoc(state.field(readOnlyRangesStateField), state.doc)) {
     for (let line = range.fromLine; line <= range.toLine; line++) {
       const linePos = state.doc.line(line).from;
       marks.push(lockedLineGutterMarker.range(linePos));
@@ -135,11 +127,7 @@ const lockGutterExtension = gutter({
   lineMarker: (view, line) => {
     const readOnlyRanges = view.state.field(readOnlyRangesStateField);
     const lineNumber = view.state.doc.lineAt(line.from).number;
-    for (const rawRange of readOnlyRanges) {
-      const range = clampRangeToDoc(rawRange, view.state.doc);
-      if (!range) {
-        continue;
-      }
+    for (const range of clampRangeLinesToDoc(readOnlyRanges, view.state.doc)) {
       if (lineNumber >= range.fromLine && lineNumber <= range.toLine) {
         if (isPartialRange(range, view.state.doc)) {
           return new PartialLockMarker();

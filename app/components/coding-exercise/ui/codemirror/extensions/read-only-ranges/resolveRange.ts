@@ -81,6 +81,17 @@ export function clampRangesToDoc(ranges: ReadonlyRange[], doc: Doc): ReadonlyRan
   });
 }
 
+// Line-only counterpart to clampRangesToDoc: clamps each range's line numbers
+// into the document and drops the ones that can't be anchored, but preserves
+// char offsets for callers (the decoration/gutter builders) that classify
+// partial vs whole-line ranges themselves.
+export function clampRangeLinesToDoc(ranges: ReadonlyRange[], doc: Pick<Doc, "lines">): ReadonlyRange[] {
+  return ranges.flatMap((range) => {
+    const clamped = clampRangeToDoc(range, doc);
+    return clamped ? [clamped] : [];
+  });
+}
+
 // Resolve a range to absolute { from, to } document positions, clamping every
 // coordinate to the current document. Returns null when the range starts beyond
 // the document. A fromChar/toChar that overshoots its (surviving) line clamps to
