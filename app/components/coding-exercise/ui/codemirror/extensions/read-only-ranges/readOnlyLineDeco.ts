@@ -153,7 +153,11 @@ const lockGutterExtension = gutter({
   lineMarker: (view, line) => {
     const readOnlyRanges = view.state.field(readOnlyRangesStateField);
     const lineNumber = view.state.doc.lineAt(line.from).number;
-    for (const range of readOnlyRanges) {
+    for (const rawRange of readOnlyRanges) {
+      const range = clampRangeToDoc(rawRange, view.state.doc);
+      if (!range) {
+        continue;
+      }
       if (lineNumber >= range.fromLine && lineNumber <= range.toLine) {
         if (isPartialRange(range, view.state.doc)) {
           return new PartialLockMarker();

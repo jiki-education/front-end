@@ -24,11 +24,21 @@ export const readOnlyRangesStateField = StateField.define<ReadonlyRange[]>({
     // insertions at the boundaries land *outside* the readonly span.
     const startDoc = tr.startState.doc;
     const endDoc = tr.state.doc;
-    return ranges.map((r) => {
+    return ranges.flatMap((r) => {
+      // Ranges can be stale against startDoc (e.g. set via the effect against a
+      // shorter doc), so clamp line lookups or startDoc.line() throws "Invalid
+      // line number". A range starting beyond the doc has nothing left to anchor.
+      if (r.fromLine > startDoc.lines) {
+        return [];
+      }
+      const toLine = Math.min(r.toLine, startDoc.lines);
       const oldFromLine = startDoc.line(r.fromLine);
-      const oldToLine = startDoc.line(r.toLine);
+      const oldToLine = startDoc.line(toLine);
       const oldFrom = oldFromLine.from + (r.fromChar ?? 0);
-      const oldTo = r.toChar !== undefined ? oldToLine.from + r.toChar : oldToLine.to;
+      // Drop toChar when the original toLine no longer exists — the clamped
+      // last line has a different length, so the offset is meaningless.
+      const useToChar = r.toChar !== undefined && toLine === r.toLine;
+      const oldTo = useToChar ? oldToLine.from + r.toChar! : oldToLine.to;
 
       const newFrom = tr.changes.mapPos(oldFrom, 1);
       const newTo = tr.changes.mapPos(oldTo, -1);
@@ -36,13 +46,19 @@ export const readOnlyRangesStateField = StateField.define<ReadonlyRange[]>({
       const newFromLine = endDoc.lineAt(newFrom);
       const newToLine = endDoc.lineAt(newTo);
 
-      return {
-        ...r,
+      // Rebuild explicitly rather than spreading `r`, so a clamped range that
+      // dropped its toChar doesn't carry the stale value through.
+      const mapped: ReadonlyRange = {
         fromLine: newFromLine.number,
-        toLine: newToLine.number,
-        ...(r.fromChar !== undefined ? { fromChar: newFrom - newFromLine.from } : {}),
-        ...(r.toChar !== undefined ? { toChar: newTo - newToLine.from } : {})
+        toLine: newToLine.number
       };
+      if (r.fromChar !== undefined) {
+        mapped.fromChar = newFrom - newFromLine.from;
+      }
+      if (useToChar) {
+        mapped.toChar = newTo - newToLine.from;
+      }
+      return [mapped];
     });
   }
 });
@@ -51,11 +67,22 @@ export function initReadOnlyRangesExtension() {
   return [
     readOnlyRangesStateField,
     readOnlyRangesExtension((state) => {
-      return state.field(readOnlyRangesStateField).map((r) => {
-        return {
-          from: state.doc.line(r.fromLine).from + (r.fromChar ?? 0),
-          to: r.toChar !== undefined ? state.doc.line(r.toLine).from + r.toChar : state.doc.line(r.toLine).to
-        };
+      const doc = state.doc;
+      // Clamp against the current doc: a stale range (persisted from longer code)
+      // would otherwise make doc.line() throw here, which the changeFilter catches
+      // and turns into a vetoed transaction — silently blocking every edit.
+      return state.field(readOnlyRangesStateField).flatMap((r) => {
+        if (r.fromLine > doc.lines) {
+          return [];
+        }
+        const toLine = Math.min(r.toLine, doc.lines);
+        const useToChar = r.toChar !== undefined && toLine === r.toLine;
+        return [
+          {
+            from: doc.line(r.fromLine).from + (r.fromChar ?? 0),
+            to: useToChar ? doc.line(toLine).from + r.toChar! : doc.line(toLine).to
+          }
+        ];
       });
     })
   ];
