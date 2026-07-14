@@ -1,2 +1,1 @@
-def two_fer(name):
-    pass
+# Write the two_fer function
