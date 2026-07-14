@@ -28,10 +28,12 @@ export function useExternalPremiumPrices({ enabled = true }: { enabled?: boolean
       })
       .catch((error: unknown) => {
         // A rejected fetch (blocked by an extension, dropped connection, or the
-        // visitor navigating away) throws a TypeError. That's expected ambient
-        // noise and the fallback already covers it, so don't report it.
+        // visitor navigating away) throws a TypeError. A captive portal or ISP
+        // block page returning 200 with HTML makes response.json() throw a
+        // SyntaxError. Both are expected ambient noise and the fallback already
+        // covers them, so don't report them.
         // A bad HTTP status throws a plain Error and is worth surfacing.
-        if (error instanceof TypeError) {
+        if (error instanceof TypeError || error instanceof SyntaxError) {
           return;
         }
         reportError(error);
