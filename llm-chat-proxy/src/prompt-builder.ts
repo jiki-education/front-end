@@ -1,5 +1,6 @@
 import { getExercise, getLanguageFeatures, getLLMMetadata, getTaughtConcepts } from "@jiki/curriculum";
 import type { ExerciseCore, LLMMetadata, Language } from "@jiki/curriculum";
+import { isDev } from "./log";
 import type { ChatMessage } from "./types";
 
 interface ExerciseContent {
@@ -144,13 +145,16 @@ export async function buildPrompt(options: PromptOptions): Promise<{ systemInstr
   // Filter out null/empty sections and join with double newlines
   const prompt = sections.filter((section) => section !== null && section !== "").join("\n\n");
 
-  // Log prompt for debugging in development
-  console.log("[Prompt Builder] Generated prompt:");
-  console.log("=".repeat(80));
-  console.log(systemInstruction);
-  console.log("-".repeat(80));
-  console.log(prompt);
-  console.log("=".repeat(80));
+  // Log prompt for debugging in development only. This dumps student code and
+  // questions, so it must never run in production (privacy + log volume).
+  if (isDev) {
+    console.log("[Prompt Builder] Generated prompt:");
+    console.log("=".repeat(80));
+    console.log(systemInstruction);
+    console.log("-".repeat(80));
+    console.log(prompt);
+    console.log("=".repeat(80));
+  }
 
   return { systemInstruction, prompt };
 }
@@ -482,8 +486,6 @@ ${code}
 }
 
 function buildTutorGuidelines(): string {
-  const isDev = process.env.NODE_ENV === "development";
-
   const rules = [
     "- Your aim is to UNBLOCK students. As soon as you can, encourage them to try things out themselves. Once they've made a step forward, push them back into code. Don't keep talking UNLESS the student needs it.",
     "- IMPORTANT: Do NOT give away the answer. Your job is to GUIDE the student to DISCOVER the answer THEMSELVES, not tell them the answer.",

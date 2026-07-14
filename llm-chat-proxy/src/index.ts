@@ -2,9 +2,10 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { verifyJWT } from "./auth";
 import { streamGeminiResponse } from "./gemini";
-import { buildPrompt } from "./prompt-builder";
+import { buildPrompt, INPUT_LIMITS } from "./prompt-builder";
 import { createSignaturePayload, generateSignature } from "./crypto";
 import { checkUsage, recordUsage, buildUsageMeta } from "./usage";
+import { debugLog, isDev } from "./log";
 import type { Bindings, ChatRequest } from "./types";
 
 const app = new Hono<{ Bindings: Bindings }>();
@@ -42,22 +43,22 @@ app.get("/health", (c) => {
 // Main chat endpoint
 app.post("/chat", async (c) => {
   try {
-    console.log("[Chat] Incoming request");
+    debugLog("[Chat] Incoming request");
 
     // 1. Extract and verify JWT from Authorization header
     const authHeader = c.req.header("Authorization");
     if (!authHeader) {
-      console.log("[Chat] ❌ No Authorization header");
+      debugLog("[Chat] ❌ No Authorization header");
       return c.json({ error: "Missing authorization token" }, 401);
     }
 
     const token = authHeader.replace("Bearer ", "");
 
-    console.log("[Chat] Token (first 20 chars):", token.substring(0, 20) + "...");
+    debugLog("[Chat] Token (first 20 chars):", token.substring(0, 20) + "...");
 
     const jwtResult = await verifyJWT(token, c.env.DEVISE_JWT_SECRET_KEY);
     if (!jwtResult.userId) {
-      console.log(`[Chat] ❌ JWT verification failed - ${jwtResult.error}`);
+      debugLog(`[Chat] ❌ JWT verification failed - ${jwtResult.error}`);
 
       if (jwtResult.error === "expired") {
         return c.json(
@@ -78,14 +79,14 @@ app.post("/chat", async (c) => {
       );
     }
 
-    console.log("[Chat] ✅ JWT verified, user ID:", jwtResult.userId);
+    debugLog("[Chat] ✅ JWT verified, user ID:", jwtResult.userId);
     const userId = jwtResult.userId;
 
     // 1b. Per-user burst limit: 10 requests/minute, keyed on JWT sub.
     // Checked before building the prompt so throttled requests never reach Gemini.
     const { success } = await c.env.RATE_LIMITER.limit({ key: userId });
     if (!success) {
-      console.log(`[Chat] ⛔ Rate limited user ${userId}`);
+      debugLog(`[Chat] ⛔ Rate limited user ${userId}`);
       return c.json(
         {
           error: "rate_limited",
@@ -100,7 +101,7 @@ app.post("/chat", async (c) => {
     const now = new Date();
     const usage = await checkUsage(c.env.USAGE_KV, userId, now);
     if (!usage.allowed) {
-      console.log(
+      debugLog(
         `[Chat] ⛔ ${usage.scope} cap reached for user ${userId} (day=${usage.counts.day}, month=${usage.counts.month})`
       );
       return c.json(
@@ -127,7 +128,7 @@ app.post("/chat", async (c) => {
 
     // 2b. Validate exerciseSlug in request matches JWT claim
     if (jwtResult.exerciseSlug !== exerciseSlug) {
-      console.log(`[Chat] ❌ Exercise mismatch: JWT=${jwtResult.exerciseSlug}, body=${exerciseSlug}`);
+      debugLog(`[Chat] ❌ Exercise mismatch: JWT=${jwtResult.exerciseSlug}, body=${exerciseSlug}`);
       return c.json(
         {
           error: "exercise_mismatch",
@@ -144,7 +145,6 @@ app.post("/chat", async (c) => {
     // so trusting it in production would let a direct API caller point us at
     // arbitrary/oversized JSON. The header is only honoured in development so
     // local testing can hit localhost.
-    const isDev = process.env.NODE_ENV === "development";
     const origin = isDev ? c.req.header("Origin") || "https://jiki.io" : "https://jiki.io";
     const contentUrl = `${origin}/static/exercises/${exerciseSlug}/en-${language}-${contentHash}.json`;
 
@@ -163,7 +163,11 @@ app.post("/chat", async (c) => {
     // an API error) does NOT consume the user's quota - we only count requests
     // Gemini actually accepted.
     let fullResponse = "";
-    const geminiStream = await streamGeminiResponse(prompt, c.env.GOOGLE_GEMINI_API_KEY, systemInstruction, (chunk) => {
+    const {
+      stream: geminiStream,
+      model,
+      usage: usagePromise
+    } = await streamGeminiResponse(prompt, c.env.GOOGLE_GEMINI_API_KEY, systemInstruction, (chunk) => {
       fullResponse += chunk;
     });
 
@@ -186,6 +190,33 @@ app.post("/chat", async (c) => {
             if (done) break;
             controller.enqueue(value);
           }
+
+          // One structured summary per successful request. Logged as an object
+          // (not a string) so Workers Logs indexes each field for querying. This
+          // is the ONLY log event a healthy request emits in production; all the
+          // per-step tracing above goes through debugLog (dev only). `model`
+          // doubles as the fallback signal (flash-lite => cascaded off flash).
+          const u = await usagePromise;
+          const cachedPct = u && u.inputTokens > 0 ? Math.round((u.cachedTokens / u.inputTokens) * 100) : 0;
+          console.log({
+            event: "chat",
+            outcome: "ok",
+            userId,
+            exerciseSlug,
+            language,
+            model,
+            inputTokens: u?.inputTokens ?? null,
+            cachedTokens: u?.cachedTokens ?? null,
+            cachedPct,
+            outputTokens: u?.outputTokens ?? null,
+            durationMs: Date.now() - now.getTime(),
+            dayCount: usageCounts.day,
+            monthCount: usageCounts.month,
+            questionLen: question.length,
+            codeLen: code.length,
+            historyCount: history.length,
+            codeCropped: code.length > INPUT_LIMITS.CODE_MAX_LENGTH
+          });
 
           // Generate signature after streaming completes
           try {
