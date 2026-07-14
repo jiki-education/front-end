@@ -1,3 +1,4 @@
-function acronym with word1, word2, word3 do
-  // Your code here
-end
+// Write a function called acronym that receives
+// three words as its inputs. It should return a
+// three-letter acronym made from the first letter
+// of each word.
