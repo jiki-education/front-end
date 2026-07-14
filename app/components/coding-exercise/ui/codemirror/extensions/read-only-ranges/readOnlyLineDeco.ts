@@ -4,6 +4,7 @@ import type { ViewUpdate } from "@codemirror/view";
 import { Decoration, GutterMarker, ViewPlugin, gutter, gutterLineClass, type DecorationSet } from "@codemirror/view";
 import { EditorView } from "codemirror";
 import { readOnlyRangesStateField } from "./readOnlyRanges";
+import { clampRangeToDoc, resolveRangePositions } from "./resolveRange";
 
 const baseTheme = EditorView.baseTheme({
   ".cm-lockedLine, .cm-lockedGutter": { backgroundColor: "#5C558944" },
@@ -40,23 +41,6 @@ const fullLineDeco = Decoration.line({
 
 const partialLineMark = Decoration.mark({ class: "cm-partialLockedLine" });
 
-// Ranges can be stale against the current document (e.g. locked lines persisted
-// from previously-edited longer code applied while a shorter doc is being set),
-// so every doc.line() lookup must be clamped to the document or CodeMirror
-// throws "Invalid line number N in M-line document". Returns null when the
-// range lies entirely beyond the document.
-function clampRangeToDoc(range: ReadonlyRange, doc: { lines: number }): ReadonlyRange | null {
-  if (range.fromLine > doc.lines) {
-    return null;
-  }
-  if (range.toLine <= doc.lines) {
-    return range;
-  }
-  // The original toLine (and any toChar on it) no longer exists; lock through
-  // the end of the last line instead.
-  return { ...range, toLine: doc.lines, toChar: undefined };
-}
-
 function isPartialRange(
   range: ReadonlyRange,
   doc: { lines: number; line: (n: number) => { from: number; to: number } }
@@ -88,12 +72,10 @@ function lockedLineDeco(view: EditorView) {
     }
     if (isPartialRange(range, view.state.doc)) {
       // Partial range: use mark decoration for the specific char range
-      const from = view.state.doc.line(range.fromLine).from + (range.fromChar ?? 0);
-      const to =
-        range.toChar !== undefined
-          ? view.state.doc.line(range.toLine).from + range.toChar
-          : view.state.doc.line(range.toLine).to;
-      decos.push({ from, to, deco: partialLineMark });
+      const pos = resolveRangePositions(range, view.state.doc);
+      if (pos) {
+        decos.push({ from: pos.from, to: pos.to, deco: partialLineMark });
+      }
     } else {
       // Whole-line range: use line decoration for each line
       for (let i = range.fromLine; i <= range.toLine; i++) {

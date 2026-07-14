@@ -1,6 +1,7 @@
 import { StateEffect, StateField } from "@codemirror/state";
 import type { ReadonlyRange } from "@jiki/curriculum";
 import readOnlyRangesExtension from "./readOnlyRangesExtension";
+import { resolveRangePositions } from "./resolveRange";
 
 export type { ReadonlyRange };
 export const updateReadOnlyRangesEffect = StateEffect.define<ReadonlyRange[]>();
@@ -25,20 +26,18 @@ export const readOnlyRangesStateField = StateField.define<ReadonlyRange[]>({
     const startDoc = tr.startState.doc;
     const endDoc = tr.state.doc;
     return ranges.flatMap((r) => {
-      // Ranges can be stale against startDoc (e.g. set via the effect against a
-      // shorter doc), so clamp line lookups or startDoc.line() throws "Invalid
-      // line number". A range starting beyond the doc has nothing left to anchor.
-      if (r.fromLine > startDoc.lines) {
+      // Resolve against startDoc first: a range can be stale there (e.g. set via
+      // the effect against a shorter doc), and an out-of-range position would
+      // make mapPos throw. resolveRangePositions clamps every coordinate and
+      // returns null when the range starts entirely beyond the doc.
+      const old = resolveRangePositions(r, startDoc);
+      if (!old) {
         return [];
       }
-      const toLine = Math.min(r.toLine, startDoc.lines);
-      const oldFromLine = startDoc.line(r.fromLine);
-      const oldToLine = startDoc.line(toLine);
-      const oldFrom = oldFromLine.from + (r.fromChar ?? 0);
-      // Drop toChar when the original toLine no longer exists — the clamped
-      // last line has a different length, so the offset is meaningless.
-      const useToChar = r.toChar !== undefined && toLine === r.toLine;
-      const oldTo = useToChar ? oldToLine.from + r.toChar! : oldToLine.to;
+      const { from: oldFrom, to: oldTo } = old;
+      // Keep toChar only when the original toLine still exists — the clamped last
+      // line has a different length, so a stale offset would be meaningless.
+      const useToChar = r.toChar !== undefined && r.toLine <= startDoc.lines;
 
       const newFrom = tr.changes.mapPos(oldFrom, 1);
       const newTo = tr.changes.mapPos(oldTo, -1);
@@ -67,22 +66,13 @@ export function initReadOnlyRangesExtension() {
   return [
     readOnlyRangesStateField,
     readOnlyRangesExtension((state) => {
-      const doc = state.doc;
-      // Clamp against the current doc: a stale range (persisted from longer code)
-      // would otherwise make doc.line() throw here, which the changeFilter catches
-      // and turns into a vetoed transaction — silently blocking every edit.
+      // Resolve against the current doc: a stale range (persisted from longer
+      // code) would otherwise produce an out-of-range position, which the
+      // changeFilter catches and turns into a vetoed transaction — silently
+      // blocking every edit. resolveRangePositions clamps every coordinate.
       return state.field(readOnlyRangesStateField).flatMap((r) => {
-        if (r.fromLine > doc.lines) {
-          return [];
-        }
-        const toLine = Math.min(r.toLine, doc.lines);
-        const useToChar = r.toChar !== undefined && toLine === r.toLine;
-        return [
-          {
-            from: doc.line(r.fromLine).from + (r.fromChar ?? 0),
-            to: useToChar ? doc.line(toLine).from + r.toChar! : doc.line(toLine).to
-          }
-        ];
+        const pos = resolveRangePositions(r, state.doc);
+        return pos ? [pos] : [];
       });
     })
   ];
