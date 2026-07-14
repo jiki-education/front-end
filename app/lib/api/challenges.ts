@@ -1,5 +1,4 @@
 import { api } from "./client";
-import type { ProgressionScores } from "./lessons";
 import type { UserConversationData } from "./types/conversation";
 
 export type ChallengeStatus = "locked" | "unlocked" | "started" | "completed";
@@ -72,20 +71,6 @@ export async function submitChallengeExercise(slug: string, files: ChallengeSubm
     { submission: { files } }
   );
   return response.data?.submission?.uuid ?? null;
-}
-
-/**
- * Attach the hidden progression scores for a run to its submission.
- * Telemetry decoration: fire-and-forget, never surfaced to the student.
- */
-export async function updateChallengeExerciseSubmissionProgression(
-  slug: string,
-  uuid: string,
-  progressionScores: ProgressionScores
-): Promise<void> {
-  await api.patch(`/internal/challenges/${slug}/exercise_submissions/${uuid}`, {
-    progression_scores: progressionScores
-  });
 }
 
 /**

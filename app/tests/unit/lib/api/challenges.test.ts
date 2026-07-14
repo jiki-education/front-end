@@ -3,8 +3,7 @@ import {
   fetchChallenges,
   fetchUserChallenge,
   startChallenge,
-  submitChallengeExercise,
-  updateChallengeExerciseSubmissionProgression
+  submitChallengeExercise
 } from "@/lib/api/challenges";
 
 // Mock the API client
@@ -207,19 +206,6 @@ describe("Challenges API", () => {
 
       expect(mockApi.post).toHaveBeenCalledWith("/internal/challenges/test-challenge/exercise_submissions", {
         submission: { files }
-      });
-    });
-  });
-
-  describe("updateChallengeExerciseSubmissionProgression", () => {
-    it("patches the progression scores onto the submission", async () => {
-      mockApi.patch.mockResolvedValue({ data: {}, status: 200, headers: new Headers() });
-
-      const scores = { v: 1, scenarios: 1, distance: 5 };
-      await updateChallengeExerciseSubmissionProgression("test-challenge", "abc-123", scores);
-
-      expect(mockApi.patch).toHaveBeenCalledWith("/internal/challenges/test-challenge/exercise_submissions/abc-123", {
-        progression_scores: scores
       });
     });
   });

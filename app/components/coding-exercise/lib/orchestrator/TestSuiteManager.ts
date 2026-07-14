@@ -1,5 +1,5 @@
 import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
-import type { ProgressionScores } from "@/lib/api/lessons";
+import type { ProgressionScores } from "@/lib/api/exerciseSubmissions";
 import type { ExerciseDefinition } from "@jiki/curriculum";
 import type { SyntaxError } from "@jiki/interpreters";
 import toast from "react-hot-toast";
@@ -98,18 +98,13 @@ export class TestSuiteManager {
    * didn't yield a uuid, and failures only warn - never bother the student.
    */
   private patchProgressionScores(submissionUuid: Promise<string | null>, scores: ProgressionScores): void {
-    if (!this.context) {
-      return;
-    }
-
-    const context = this.context;
-
     void submissionUuid
-      .then((uuid) => {
+      .then(async (uuid) => {
         if (uuid === null) {
           return;
         }
-        return patchSubmissionProgression(context, uuid, scores);
+        const { updateExerciseSubmissionProgression } = await import("@/lib/api/exerciseSubmissions");
+        await updateExerciseSubmissionProgression(uuid, scores);
       })
       .catch((error: unknown) => {
         console.warn("Failed to record progression scores:", error);
@@ -193,17 +188,4 @@ async function submitExercise(
   }
   const { submitLessonExercise } = await import("@/lib/api/lessons");
   return submitLessonExercise(context.slug, files);
-}
-
-async function patchSubmissionProgression(
-  context: ExerciseContext,
-  uuid: string,
-  scores: ProgressionScores
-): Promise<void> {
-  if (context.type === "challenge") {
-    const { updateChallengeExerciseSubmissionProgression } = await import("@/lib/api/challenges");
-    return updateChallengeExerciseSubmissionProgression(context.slug, uuid, scores);
-  }
-  const { updateLessonExerciseSubmissionProgression } = await import("@/lib/api/lessons");
-  return updateLessonExerciseSubmissionProgression(context.slug, uuid, scores);
 }

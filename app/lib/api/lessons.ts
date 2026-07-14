@@ -53,12 +53,6 @@ export interface LessonSubmissionFile {
   code: string;
 }
 
-// Hidden progression test scores for a single run: the progression test
-// version, the free "scenarios" baseline, plus integer points keyed by
-// snake_cased metric name,
-// e.g. { v: 1, scenarios: 1, distance: 5, used_loop: 10, precision: 0 }.
-export type ProgressionScores = { v: number } & Record<string, number>;
-
 interface CreatedExerciseSubmissionResponse {
   submission?: { uuid?: string };
 }
@@ -74,20 +68,6 @@ export async function submitLessonExercise(slug: string, files: LessonSubmission
     { submission: { files } }
   );
   return response.data?.submission?.uuid ?? null;
-}
-
-/**
- * Attach the hidden progression scores for a run to its submission.
- * Telemetry decoration: fire-and-forget, never surfaced to the student.
- */
-export async function updateLessonExerciseSubmissionProgression(
-  slug: string,
-  uuid: string,
-  progressionScores: ProgressionScores
-): Promise<void> {
-  await api.patch(`/internal/lessons/${slug}/exercise_submissions/${uuid}`, {
-    progression_scores: progressionScores
-  });
 }
 
 export interface LatestExerciseSubmission {

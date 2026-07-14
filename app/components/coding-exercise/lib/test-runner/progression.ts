@@ -1,4 +1,4 @@
-import type { ProgressionScores } from "@/lib/api/lessons";
+import type { ProgressionScores } from "@/lib/api/exerciseSubmissions";
 import type { ExerciseDefinition, Language, ProgressionMetric, ScenarioRun } from "@jiki/curriculum";
 import { createScenarioRuns } from "@jiki/curriculum";
 import type { TestResult } from "../test-results-types";
