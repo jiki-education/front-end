@@ -24,4 +24,6 @@ Here are some examples:
 | `twoFer("Jeremy")` | `"One for Jeremy, one for me."` |
 | `twoFer("")`       | `"One for you, one for me."`    |
 
-We will check your code against similar scenarios. Good luck!
+For the bonus, can you write this using **just 6 lines of code**?
+
+Good luck!
