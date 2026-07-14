@@ -10,7 +10,10 @@ import {
 } from "animejs";
 
 export class AnimationTimeline {
-  private animationTimeline: Timeline;
+  // Null after destroy(): callers can outlive the timeline (e.g. a document-level
+  // drag listener still firing while the exercise tears down), so playback
+  // methods no-op once destroyed instead of dereferencing null.
+  private animationTimeline: Timeline | null;
   private updateCallbacks: ((anim: Timeline) => void)[] = [];
   private completeCallbacks: ((anim: Timeline) => void)[] = [];
   public hasPlayedOrScrubbed = false;
@@ -32,8 +35,7 @@ export class AnimationTimeline {
   }
 
   public destroy() {
-    this.animationTimeline.pause();
-    // @ts-expect-error - Intentionally setting to null for cleanup
+    this.animationTimeline?.pause();
     this.animationTimeline = null;
   }
 
@@ -54,6 +56,10 @@ export class AnimationTimeline {
   }
 
   public populateTimeline(animations: CurriculumAnimation[], frames: Frame[] = []): this {
+    if (!this.animationTimeline) {
+      return this;
+    }
+    const timeline = this.animationTimeline;
     animations.forEach((animation) => {
       const { targets, offset, transformations, duration, easing, modifier } = animation;
 
@@ -65,7 +71,7 @@ export class AnimationTimeline {
         ...(modifier !== undefined && { modifier })
       };
 
-      this.animationTimeline.add(targets as TargetsParam, params, offset as TimelinePosition);
+      timeline.add(targets as TargetsParam, params, offset as TimelinePosition);
     });
 
     /*
@@ -82,19 +88,19 @@ export class AnimationTimeline {
      On the other hand ensure the full duration of the last animation is present. hence the max function.
     */
 
-    const animationDurationAfterAnimations = this.animationTimeline.duration;
+    const animationDurationAfterAnimations = timeline.duration;
     const lastFrame = frames[frames.length - 1];
 
     // ESLint doesn't realize lastFrame can be undefined when frames array is empty
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const lastFrameTime = lastFrame ? lastFrame.timeInMs : 0;
-    this.animationTimeline.duration = Math.max(animationDurationAfterAnimations, lastFrameTime);
+    timeline.duration = Math.max(animationDurationAfterAnimations, lastFrameTime);
     return this;
   }
 
   public get duration() {
     // Translate this back to microseconds
-    return this.animationTimeline.duration * TIME_SCALE_FACTOR;
+    return (this.animationTimeline?.duration ?? 0) * TIME_SCALE_FACTOR;
   }
 
   // public seekEndOfTimeline() {
@@ -107,28 +113,28 @@ export class AnimationTimeline {
     // collapse sub-millisecond frame times to 0 and skip past animations
     // whose offsets fall inside that range (e.g. exercises like digital-clock
     // that operate at microsecond granularity).
-    this.animationTimeline.seek(time / TIME_SCALE_FACTOR, muteCallbacks);
+    this.animationTimeline?.seek(time / TIME_SCALE_FACTOR, muteCallbacks);
   }
 
   public play(cb?: () => void) {
     if (cb) {
       cb();
     }
-    this.animationTimeline.play();
+    this.animationTimeline?.play();
   }
 
   public pause(cb?: () => void) {
-    this.animationTimeline.pause();
+    this.animationTimeline?.pause();
     if (cb) {
       cb();
     }
   }
 
   public get paused(): boolean {
-    return this.animationTimeline.paused;
+    return this.animationTimeline?.paused ?? true;
   }
 
   public get completed(): boolean {
-    return this.animationTimeline.completed;
+    return this.animationTimeline?.completed ?? false;
   }
 }
