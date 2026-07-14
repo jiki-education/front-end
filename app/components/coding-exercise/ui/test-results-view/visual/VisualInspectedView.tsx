@@ -39,7 +39,9 @@ function VisualInspectedPreviewView() {
     return () => {
       const v = exerciseInstance.getView();
       v.style.display = "none";
-      document.body.appendChild(v);
+      // document.body can be null when this cleanup runs during page teardown
+      // (typed non-null but seen null in production - JIKI-FRONT-END-3E/3K).
+      (document.body as HTMLElement | null)?.appendChild(v);
     };
   }, [currentTestIdx, exercise.ExerciseClass, scenario]);
 
