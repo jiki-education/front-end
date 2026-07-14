@@ -4,6 +4,7 @@ import type { ViewUpdate } from "@codemirror/view";
 import { Decoration, GutterMarker, ViewPlugin, gutter, gutterLineClass, type DecorationSet } from "@codemirror/view";
 import { EditorView } from "codemirror";
 import { readOnlyRangesStateField } from "./readOnlyRanges";
+import { clampRangeLinesToDoc, resolveRangePositions } from "./resolveRange";
 
 const baseTheme = EditorView.baseTheme({
   ".cm-lockedLine, .cm-lockedGutter": { backgroundColor: "#5C558944" },
@@ -40,11 +41,14 @@ const fullLineDeco = Decoration.line({
 
 const partialLineMark = Decoration.mark({ class: "cm-partialLockedLine" });
 
-function isPartialRange(range: ReadonlyRange, doc: { line: (n: number) => { from: number; to: number } }): boolean {
+function isPartialRange(
+  range: ReadonlyRange,
+  doc: { lines: number; line: (n: number) => { from: number; to: number } }
+): boolean {
   if (range.fromChar !== undefined && range.fromChar > 0) {
     return true;
   }
-  if (range.toChar !== undefined) {
+  if (range.toChar !== undefined && range.toLine <= doc.lines) {
     const lastLine = doc.line(range.toLine);
     const lineLength = lastLine.to - lastLine.from;
     if (range.toChar < lineLength) {
@@ -61,15 +65,13 @@ function lockedLineDeco(view: EditorView) {
   // Collect all decorations with their positions, then sort by from position
   const decos: Array<{ from: number; to: number; deco: Decoration }> = [];
 
-  for (const range of readOnlyRanges) {
+  for (const range of clampRangeLinesToDoc(readOnlyRanges, view.state.doc)) {
     if (isPartialRange(range, view.state.doc)) {
       // Partial range: use mark decoration for the specific char range
-      const from = view.state.doc.line(range.fromLine).from + (range.fromChar ?? 0);
-      const to =
-        range.toChar !== undefined
-          ? view.state.doc.line(range.toLine).from + range.toChar
-          : view.state.doc.line(range.toLine).to;
-      decos.push({ from, to, deco: partialLineMark });
+      const pos = resolveRangePositions(range, view.state.doc);
+      if (pos) {
+        decos.push({ from: pos.from, to: pos.to, deco: partialLineMark });
+      }
     } else {
       // Whole-line range: use line decoration for each line
       for (let i = range.fromLine; i <= range.toLine; i++) {
@@ -111,7 +113,7 @@ const lockedLineGutterMarker = new (class extends GutterMarker {
 
 const lockedLineGutterHighlighter = gutterLineClass.compute([readOnlyRangesStateField, "doc"], (state) => {
   const marks = [];
-  for (const range of state.field(readOnlyRangesStateField)) {
+  for (const range of clampRangeLinesToDoc(state.field(readOnlyRangesStateField), state.doc)) {
     for (let line = range.fromLine; line <= range.toLine; line++) {
       const linePos = state.doc.line(line).from;
       marks.push(lockedLineGutterMarker.range(linePos));
@@ -125,7 +127,7 @@ const lockGutterExtension = gutter({
   lineMarker: (view, line) => {
     const readOnlyRanges = view.state.field(readOnlyRangesStateField);
     const lineNumber = view.state.doc.lineAt(line.from).number;
-    for (const range of readOnlyRanges) {
+    for (const range of clampRangeLinesToDoc(readOnlyRanges, view.state.doc)) {
       if (lineNumber >= range.fromLine && lineNumber <= range.toLine) {
         if (isPartialRange(range, view.state.doc)) {
           return new PartialLockMarker();
