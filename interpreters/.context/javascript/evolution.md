@@ -1,5 +1,11 @@
 # JavaScript Interpreter Evolution
 
+## 2026-07-14: Only the first lint error is reported per parse
+
+`lintWarning` in `parser.ts` now drops all lint warnings after the first one recorded. Previously a single badly formatted line could stack several messages in the editor tooltip — e.g. `if(name === "") { name = "you" }` produced `OpeningBraceContentNotOnOwnLine`, `ClosingBraceNotOnOwnLine`, **and** a nonsensical `IncorrectIndentation` ("expected 2 spaces… indented by 33 spaces", because the mid-line closing brace's column was measured as indentation). Students fix one thing at a time, and later warnings are usually side-effects of the first, so only the first is surfaced.
+
+The `IncorrectIndentation` copy in `en/translation.json` was also reworded from "you only indented by {{actual}} spaces" to "this line is indented by {{actual}} spaces", since "only" read backwards whenever the line was over-indented.
+
 ## 2026-07-12: `exerciseFinished()` halts execution at the end of the current statement
 
 Previously `exerciseFinished()` (called by exercises when the goal is reached, e.g. the maze character landing on the target) only broke **no-argument** `repeat()` loops. Counted repeats, `while`, `for`, `for-of` and `for-in` ignored it, so a student who wrote `repeat(50)` instead of the bare `repeat()` watched their character reach the maze target and then keep executing the remaining iterations - wandering off the target square and failing the scenario's final-position check despite visibly finishing.

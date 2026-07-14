@@ -1,2 +1,1 @@
-def say_hello(name):
-    pass
+# Create the say_hello function

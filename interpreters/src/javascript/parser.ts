@@ -1289,6 +1289,12 @@ export class Parser {
   }
 
   private lintWarning(type: LintErrorType, location: Location, context?: any): void {
+    // Only surface the first lint error — students fix one thing at a time,
+    // and later warnings are often side-effects of the first (e.g. a
+    // same-line closing brace also failing the indentation check).
+    if (this.lintErrors.length > 0) {
+      return;
+    }
     this.lintErrors.push(new LintError(translate(`error.lint.${type}`, context), location, type, context));
   }
 

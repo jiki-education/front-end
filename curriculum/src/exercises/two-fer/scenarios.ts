@@ -9,6 +9,14 @@ export const tasks = [
     hints: [],
     requiredScenarios: ["two-fer-default", "two-fer-alice", "two-fer-tom"],
     bonus: false
+  },
+  {
+    id: "solve-in-six-lines" as const,
+    name: "Solve in six lines of code",
+    description: "Can you solve this with only six lines of code?",
+    hints: [],
+    requiredScenarios: ["bonus-1"],
+    bonus: true
   }
 ] as const satisfies readonly Task[];
 
@@ -39,5 +47,20 @@ export const scenarios: IOScenario[] = [
     functionName: "two_fer",
     args: ["Tom"],
     expected: "One for Tom, one for me."
+  },
+  {
+    slug: "bonus-1",
+    name: "Six lines of code",
+    description: "Solve the exercise with only six lines of code.",
+    taskId: "solve-in-six-lines",
+    functionName: "two_fer",
+    args: ["Alice"],
+    expected: "One for Alice, one for me.",
+    codeChecks: [
+      {
+        pass: (result) => result.assertors.assertMaxLinesOfCode(6),
+        errorHtml: "You used more than six lines of code."
+      }
+    ]
   }
 ];

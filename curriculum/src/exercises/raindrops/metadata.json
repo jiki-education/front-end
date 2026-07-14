@@ -15,6 +15,10 @@
       "answer": "If the result is still empty after all three checks, the answer is just the number itself as a string. Convert the number and return that."
     },
     {
+      "question": "I return the number but it wants me to return it as a string. How do I do that?",
+      "answer": "Numbers and strings are different types, even if they look the same. You can convert a number to a string by putting it inside a template string with `${...}`."
+    },
+    {
       "question": "How many return statements should I have?",
       "answer": "Just one or two, typically. The whole point is letting the if-statements modify the result string, then returning that result once at the end."
     }

@@ -22,6 +22,12 @@ export const llmMetadata: LLMMetadata = {
         Watch for: the empty-string case being unhandled, and a name being
         hardcoded rather than interpolated.
       `
+    },
+    "solve-in-six-lines": {
+      description: `
+        Bonus: solve in at most six lines. The branch-per-case shape exceeds
+        this; nudge toward defaulting the name to "you" and building one string.
+      `
     }
   }
 };
