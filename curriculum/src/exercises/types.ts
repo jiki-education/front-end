@@ -30,7 +30,7 @@ interface BaseExerciseCore {
   readonlyRanges?: Partial<Record<Language, ReadonlyRange[]>>; // Per-language readonly code regions
   interpreterOptions?: InterpreterOptions; // Per-exercise interpreter overrides (e.g., loop iteration limits)
   disableLogTab?: boolean; // Hide the Log tab in the RHS panel for this exercise
-  progressionTest?: ProgressionTest; // Hidden progress metrics evaluated against the scenario runs
+  progression?: Progression; // Hidden progression calculator evaluated against the scenario runs
 }
 
 // Per-exercise interpreter options (overrides defaults when passed to interpreter)
@@ -171,30 +171,42 @@ export interface ScenarioRuns {
 
 // Hidden progression metric - measures partial progress toward a solution
 // from the scenario runs that already happened. The score function returns a
-// value in the metric's natural units (steps, matching scenarios, 0/1
-// booleans); the evaluator clamps it to 0..maxScore and converts it to
-// integer points weighted by `points`.
+// value in the metric's natural units (steps, cells, 0/1 booleans); the
+// evaluator clamps it to 0..maxScore and converts it to integer points
+// weighted by `points` (the metric's worth relative to the fixed 10 points
+// full scenario correctness is worth).
 //
-// Authoring notes:
-// - Metric names are snake_case identifiers (e.g. "distance", "used_loop")
-//   because they become JSONB keys on submissions, verbatim.
-// - Metric-to-scenario coupling is by slug; the "solution scores full marks"
+// Authoring notes (see app/.context/coding-exercise/progression.md):
+// - Names are snake_case identifiers (JSONB keys on submissions, verbatim)
+//   and must be unique across metrics, gauges and the reserved keys
+//   ("v", "scenarios") - a curriculum test enforces this.
+// - Coupling to scenarios is by slug; the "solution scores full marks"
 //   curriculum test is what catches drift when scenarios change.
 // - Metrics on scenarios with randomSeed must be seed-agnostic.
-// - Bump the progression test's version when scenarios or metrics change.
+// - Bump the progression version when metrics/gauges or scenarios change.
 export interface ProgressionMetric {
   name: string; // snake_case identifier, e.g. "distance", "used_loop"
   maxScore: number; // natural units the score fn returns in
-  points: number; // worth in the exercise tally (weighting)
+  points: number; // worth relative to the 10-point scenarios anchor
   score: (runs: ScenarioRuns, language: Language) => number; // returns 0..maxScore, evaluator clamps
 }
 
-// Hidden progression test - evaluated silently against the visible scenario
-// runs to measure how close a student is to a working solution. Never shown
-// to the student; scores are submitted per run.
-export interface ProgressionTest {
-  version: number; // bump when the metrics list or the scenarios change (encoding guard)
+// Hidden progression gauge - a raw observed value recorded for trend
+// analysis (e.g. lines of code trending down toward a bonus target).
+// Emitted verbatim into the scores object, excluded from any tally;
+// returning undefined omits the key for that run entirely.
+export interface ProgressionGauge {
+  name: string; // snake_case identifier, e.g. "loc"
+  value: (runs: ScenarioRuns, language: Language) => number | undefined;
+}
+
+// Hidden progression calculator - evaluated silently against the visible
+// scenario runs to measure how far a student has got. Never shown to the
+// student; scores are submitted per run.
+export interface Progression {
+  version: number; // bump when the metric/gauge list or the scenarios change (encoding guard)
   metrics: ProgressionMetric[];
+  gauges?: ProgressionGauge[];
 }
 
 export interface IOScenario {

@@ -255,7 +255,7 @@ describe("TestSuiteManager", () => {
     };
 
     const progressionExercise = createMockExercise({
-      progressionTest: {
+      progression: {
         version: 3,
         metrics: [
           { name: "distance", maxScore: 60, points: 5, score: () => 0 },

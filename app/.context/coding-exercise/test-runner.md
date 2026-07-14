@@ -171,28 +171,9 @@ The TestSuiteManager orchestrates test execution:
 3. **Result Caching**: Maintains test suite results for reuse
 4. **Clearing Tests**: Resets test state when code changes
 
-## Hidden Progression Tests
+## Hidden Progression Scoring
 
-Any exercise (visual or IO) can define an optional `progressionTest` (see `ProgressionTest` / `ProgressionMetric` / `ScenarioRuns` in `@jiki/curriculum`): a hidden, per-run measure of how close the student is to a working solution. It is never shown to the student and never affects the visible test results.
-
-**Progression never executes student code.** Metrics evaluate against the scenario runs the visible test suite already performed:
-
-- **Run artifacts**: each `TestResult` carries the artifacts its runner already had in scope. Visual results have `exercise` (the post-run instance, halted state on runtime errors) and `result` (the full `InterpretResult`), plus `isolatedRuns` entries (`{ checkSlug?, passed, exercise, result }`) when the scenario has isolated checks. IO results have `result` (optional for a domain reason: when the interpreter throws instead of returning, no result exists). The store and the UI never read these fields.
-- **Evaluation**: `runTests` evaluates the progression test via `progression.ts` (`evaluateProgression`), assembling the metric-facing `ScenarioRuns` collection from the tests' attached artifacts, and returns `{ testSuiteResult, progressionScores }`.
-- **Scoring**: Each metric's `score(runs, language)` receives a `ScenarioRuns` collection: `all` (every run), `bySlug(scenarioSlug)` (the scenario's primary run) and `bySlug(scenarioSlug, checkSlug)` (a named isolated-check run). The return value is clamped to `0..maxScore`, then converted to integer points weighted by the metric's `points`. Score functions run in their own try/catch (a throw scores 0).
-- **Free baseline**: every run's scores object always contains `v` (the progression test version, 0 when the exercise has none) and `scenarios` (count of passing visible scenarios) before any authored metrics, e.g. `{"v": 1, "scenarios": 1, "distance": 5, "used_loop": 10, "precision": 0}`. Exercises without a progression test still produce `{"v": 0, "scenarios": n}`.
-- **Submission (two requests)**: `TestSuiteManager.runCode` POSTs the exercise files immediately (fire-and-forget, existing error handling); the create response returns the submission's uuid. Once the run completes, the scores are PATCHed onto `/internal/exercise_submissions/:uuid` as `progression_scores` (`lib/api/exerciseSubmissions.ts` - uuids are globally unique, so no lesson/challenge context is needed). Fire-and-forget telemetry: skipped silently when no uuid came back, failures only `console.warn` - never a toast. Syntax/compile errors PATCH `zeroProgressionScores` (all zeros including the baseline); unexpected run failures don't patch.
-- **No client-side cross-run state**: every run's scores are submitted, so history and best-score tracking live server-side.
-
-Authoring caveats (metrics live in the exercise's `progressionTest.ts` in `@jiki/curriculum`):
-
-- Metric names are snake_case identifiers (e.g. `used_loop`) because they become JSONB keys on submissions, verbatim.
-- Metric-to-scenario coupling is by slug; the "solution scores full marks" curriculum test is what catches drift when scenarios change.
-- Give isolated checks a `slug` when a metric needs to target a specific isolated run (`bySlug(scenarioSlug, checkSlug)`).
-- Metrics on scenarios with `randomSeed` must be seed-agnostic.
-- Bump the progression test's `version` when scenarios or metrics change.
-
-Pilot exercises: `golf-rolling-ball-loop` (visual) and `even-or-odd` (IO) in `@jiki/curriculum`.
+Every run silently evaluates the exercise's hidden progression calculator against the scenario runs it just performed and PATCHes the scores onto the run's submission. It never executes student code and never affects visible results. See [progression.md](./progression.md) for the full mechanism (run artifacts on `TestResult`, metrics, gauges, the 10-point scenarios baseline, and the persistence flow).
 
 ## See Also
 

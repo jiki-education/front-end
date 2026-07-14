@@ -1,4 +1,4 @@
-import type { ProgressionTest, ScenarioRuns } from "../types";
+import type { Progression, ScenarioRuns } from "../types";
 import type GolfRollingBallLoopExercise from "./Exercise";
 
 const SCENARIO_SLUG = "roll-ball";
@@ -9,7 +9,7 @@ function golfExercise(runs: ScenarioRuns): GolfRollingBallLoopExercise | undefin
   return runs.bySlug(SCENARIO_SLUG)?.exercise as GolfRollingBallLoopExercise | undefined;
 }
 
-export const progressionTest: ProgressionTest = {
+export const progression: Progression = {
   version: 1,
 
   metrics: [
