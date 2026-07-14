@@ -16,46 +16,60 @@ if (process.env.NODE_ENV === "production") {
       // error, so it slips past the frame-based beforeSend filter below.
       // https://github.com/getsentry/sentry-javascript/issues/3440
       "Object Not Found Matching Id",
+
       // WebExtension messaging errors: a content script talking to an unloaded
       // background page, or a Safari extension losing its tab. These bubble into
       // the page with no stack, so only a message filter can catch them.
       "Could not establish connection. Receiving end does not exist.",
       "Invalid call to runtime.sendMessage(). Tab not found.",
+
       // Crypto-wallet extensions erroring in their own injected page-context code.
       "Failed to connect to MetaMask",
       "MetaMask extension not found",
       /trap returned falsish for property 'tronlinkParams'/,
+
       // Instagram's Android in-app webview loses the Java bridge for its own
       // navigation-performance logger.
       /Java object is gone/,
+
       // Mux Data analytics beacons blocked by adblockers; mux-embed re-queues
       // internally, so a failed beacon flush is never actionable.
       /Failed to fetch \((?:[a-z0-9-]+\.)?litix\.io\)/,
+
       // Google Translate (and similar DOM-rewriting tools) replaces text nodes out
       // from under React, so the commit phase can no longer find its children. The
       // stacks are 100% react-dom internals with no app frames.
       /Failed to execute 'removeChild' on 'Node'/,
       /Failed to execute 'insertBefore' on 'Node'/,
+
       // The RSC flight stream was cut mid-read: the user navigated away, closed
       // the tab, or dropped network during a soft navigation.
       "Connection closed.",
+
       // A script download truncated by a dropped connection.
       "Unexpected end of script",
+
       // Injected document-level touch handlers; no first-party code reads .touches
       // (the scrubber uses pointer/mouse events).
       "Cannot read properties of undefined (reading 'touches')",
+
       // Chrome-on-iOS injected code rejects with two-letter minified messages
       // ("Aa", "he"). No real app error has a two-character message.
       /^[A-Za-z]{2}$/,
+
       // Autoplay being denied by the browser is expected behaviour, not a bug.
       /play method is not allowed by the user agent/,
+
       // media-chrome touching an extension-injected cross-origin stylesheet.
       /Not allowed to access cross-origin stylesheet/,
+
       // Firefox (Gecko) internal error in media-chrome's scrubber preview thumbnail.
       /^NS_ERROR_NOT_AVAILABLE/,
+
       // Our CSP correctly blocking injected/extension scripts from eval'ing.
       // First-party code never evals, so this can only come from foreign scripts.
       "violates the following Content Security Policy directive",
+
       // Canonical benign browser warning: the observer needed another pass within
       // one frame; the browser recovers and nothing is broken.
       "ResizeObserver loop limit exceeded",
