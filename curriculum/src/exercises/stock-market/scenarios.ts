@@ -25,15 +25,17 @@ function generateGrowthRates(startYear: number): Record<number, number> {
   return rates;
 }
 
-// Match the interpreter's 5dp rounding on every arithmetic operation
-function round5(v: number): number {
-  return Math.round(v * 100000) / 100000;
-}
-
+// Plain float arithmetic in the same order as the reference solution
+// (money = money * (100 + rate) / 100). The interpreter no longer rounds
+// each operation to 5dp, so the model must not either: per-op rounding
+// error compounds over 20 years and can cross a cent boundary for some
+// rate sequences, falsely failing correct solutions. The toFixed(2)
+// comparison in the expectations provides the tolerance for students
+// whose operation order differs slightly.
 function getExpectedBalance(startYear: number, rates: Record<number, number>): number {
   let money = 10;
   for (let year = startYear; year < startYear + 20; year++) {
-    money = round5(round5(money * round5(100 + rates[year])) / 100);
+    money = (money * (100 + rates[year])) / 100;
   }
   return money;
 }
@@ -42,7 +44,7 @@ function getExpectedTaxReports(startYear: number, rates: Record<number, number>)
   const reports: { year: number; balance: number }[] = [];
   let money = 10;
   for (let year = startYear; year < startYear + 20; year++) {
-    money = round5(round5(money * round5(100 + rates[year])) / 100);
+    money = (money * (100 + rates[year])) / 100;
     reports.push({ year, balance: money });
   }
   return reports;
