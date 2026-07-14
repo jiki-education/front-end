@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-pnpm install
-pnpm dev --port 3071

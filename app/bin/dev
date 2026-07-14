@@ -13,8 +13,8 @@ CURRICULUM_PID=$!
 pnpm run icons:watch &
 ICONS_PID=$!
 
-# Start Next.js dev server
-pnpm dev
-
 # Kill background processes when this script exits
 trap "kill $INTERPRETERS_PID $CURRICULUM_PID $ICONS_PID 2>/dev/null" EXIT
+
+# Start Next.js dev server
+pnpm dev

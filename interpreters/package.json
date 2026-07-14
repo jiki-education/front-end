@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.build.json && node build.mjs",
-    "dev": "npm-run-all --parallel dev:tsc dev:bundle",
+    "dev": "pnpm run --parallel \"/^dev:(tsc|bundle)$/\"",
     "dev:tsc": "tsc --watch",
     "dev:bundle": "node build.mjs --watch",
     "test": "vitest --exclude '**/benchmark*.test.ts'",

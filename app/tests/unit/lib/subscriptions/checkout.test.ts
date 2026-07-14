@@ -23,8 +23,8 @@ describe("createCheckoutReturnUrl", () => {
   });
 
   it("preserves origin with port", () => {
-    const url = createCheckoutReturnUrl("/subscribe", "http://localhost:3071");
-    expect(url).toBe("http://localhost:3071/subscribe?checkout_return=true&checkout_session_id={CHECKOUT_SESSION_ID}");
+    const url = createCheckoutReturnUrl("/subscribe", "http://localhost:3061");
+    expect(url).toBe("http://localhost:3061/subscribe?checkout_return=true&checkout_session_id={CHECKOUT_SESSION_ID}");
   });
 
   it("handles nested paths", () => {
