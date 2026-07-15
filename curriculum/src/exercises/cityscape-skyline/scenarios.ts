@@ -41,9 +41,34 @@ function getExpectedBuildings(numBuildings: number, seed: number): { width: numb
   return buildings;
 }
 
+// Scan the ground floor (row 2) for contiguous runs of built cells.
+// Each run is one building's ground floor, so we can tell a building that is
+// internally correct but in the wrong column apart from one that is broken.
+function groundFloorRuns(exercise: CityScapeSkylineExercise): { start: number; end: number }[] {
+  const runs: { start: number; end: number }[] = [];
+  let start: number | null = null;
+  for (let col = 1; col <= exercise.numCols(); col++) {
+    const occupied = exercise.getCellAt(col, 2) !== null;
+    if (occupied && start === null) {
+      start = col;
+    } else if (!occupied && start !== null) {
+      runs.push({ start, end: col - 1 });
+      start = null;
+    }
+  }
+  if (start !== null) {
+    runs.push({ start, end: exercise.numCols() });
+  }
+  return runs;
+}
+
 function skylineExpectations(exercise: CityScapeSkylineExercise, numBuildings: number) {
   const expectedBuildings = getExpectedBuildings(numBuildings, exercise.randomSeed!);
   const expects = [];
+
+  // Only usable for position feedback when buildings map 1:1 onto runs;
+  // merged or missing buildings fall through to the detailed checks below.
+  const runs = groundFloorRuns(exercise);
 
   // Check total cell count
   const expectedTotal = expectedBuildings.reduce((sum, b) => sum + (b.floors + 1) * b.width, 0);
@@ -58,6 +83,19 @@ function skylineExpectations(exercise: CityScapeSkylineExercise, numBuildings: n
     const { width, floors } = expectedBuildings[b];
     const entranceOffset = (width - 1) / 2;
     const roofY = floors + 2;
+
+    // A building that is internally fine but starts in the wrong column would
+    // fail every check below with misleading messages. Catch that case first
+    // and replace them with one precise message about the spacing.
+    const run = runs.length === numBuildings ? runs[b] : undefined;
+    if (run !== undefined && run.start !== x) {
+      expects.push({
+        pass: false,
+        errorHtml: `Building ${b + 1} isn't in the right place. It starts at column ${run.start} but should start at column ${x}.`
+      });
+      x += width + 1;
+      continue;
+    }
 
     // Ground floor: centered entrance
     expects.push({
