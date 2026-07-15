@@ -166,6 +166,10 @@ export default class CityScapeExercise extends VisualExercise {
     this.numBuildings = n;
   }
 
+  numCols(): number {
+    return this.COLS;
+  }
+
   hasCellAt(x: number, y: number, type: CellType): boolean {
     return this.grid.get(`${x},${y}`) === type;
   }
