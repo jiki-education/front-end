@@ -118,13 +118,14 @@ function BonusActions({
 
 function DefaultActions({ onTidyCode, onContinue }: { onTidyCode: () => void; onContinue: () => void }) {
   const t = useTranslations("modals.exerciseCompletion.completed");
+  const tCommon = useTranslations("common");
   return (
     <>
       <button onClick={onTidyCode} className="ui-btn ui-btn-tertiary ui-btn-large flex-1">
         {t("tidyCode")}
       </button>
       <button onClick={onContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
-        {t("continue")}
+        {tCommon("continue")}
       </button>
     </>
   );

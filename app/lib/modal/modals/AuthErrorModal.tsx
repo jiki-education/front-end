@@ -7,6 +7,7 @@ import styles from "./AuthErrorModal.module.css";
 
 export function AuthErrorModal() {
   const t = useTranslations("modals.authError");
+  const tCommon = useTranslations("common");
   const routes = useLocaleRoutes();
   const handleReload = () => {
     window.location.reload();
@@ -25,19 +26,22 @@ export function AuthErrorModal() {
 
       <button className={styles.reloadButton} onClick={handleReload}>
         <ReloadIcon />
-        {t("reload")}
+        {tCommon("reloadPage")}
       </button>
 
       <p className={styles.helpText}>
-        {t("helpTextPrefix")}
-        <Link href={routes.article("how-to-clear-your-cookies")} className={styles.helpLink}>
-          {t("clearCookies")}
-        </Link>
-        {t("helpTextOr")}
-        <Link href={routes.article("support")} className={styles.helpLink}>
-          {t("contactSupport")}
-        </Link>
-        .
+        {t.rich("helpText", {
+          cookiesLink: (chunks) => (
+            <Link href={routes.article("how-to-clear-your-cookies")} className={styles.helpLink}>
+              {chunks}
+            </Link>
+          ),
+          supportLink: (chunks) => (
+            <Link href={routes.article("support")} className={styles.helpLink}>
+              {chunks}
+            </Link>
+          )
+        })}
       </p>
     </div>
   );

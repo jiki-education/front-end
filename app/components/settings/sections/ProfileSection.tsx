@@ -15,6 +15,7 @@ interface ProfileSectionProps {
 
 export default function ProfileSection({ settings, updateName, updateHandle, updateEmail }: ProfileSectionProps) {
   const t = useTranslations("settings.profile");
+  const tCommon = useTranslations("common");
 
   // Validation functions
   const validateName = (value: string): string | null => {
@@ -48,7 +49,7 @@ export default function ProfileSection({ settings, updateName, updateHandle, upd
       return t("emailEmpty");
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      return t("emailInvalid");
+      return tCommon("validation.emailInvalid");
     }
     return null;
   };
@@ -90,8 +91,10 @@ export default function ProfileSection({ settings, updateName, updateHandle, upd
         {settings.unconfirmed_email && (
           <StatusNotification variant="info">
             <p>
-              {t("confirmationPendingPrefix")}
-              <strong>{settings.unconfirmed_email}</strong>
+              {t.rich("confirmationPending", {
+                email: settings.unconfirmed_email,
+                strong: (chunks) => <strong>{chunks}</strong>
+              })}
             </p>
             <p className="text-xs mt-4">{t("confirmationPendingHint")}</p>
           </StatusNotification>

@@ -14,6 +14,7 @@ import styles from "./AuthForm.module.css";
 export function ForgotPasswordForm() {
   const t = useTranslations("auth.forgotPassword");
   const tc = useTranslations("auth");
+  const tCommon = useTranslations("common");
   const routes = useLocaleRoutes();
   const { requestPasswordReset, isLoading } = useAuthStore();
   const turnstile = useTurnstile();
@@ -30,7 +31,7 @@ export function ForgotPasswordForm() {
     if (!email) {
       errors.email = tc("fields.emailRequired");
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errors.email = tc("fields.emailInvalidAddress");
+      errors.email = tCommon("validation.emailInvalid");
     }
 
     setValidationErrors(errors);
@@ -124,15 +125,18 @@ export function ForgotPasswordForm() {
             style={{ width: "100%" }}
             disabled={isLoading || verifying}
           >
-            {isLoading ? t("submitting") : verifying ? t("verifying") : t("submit")}
+            {isLoading ? tCommon("sending") : verifying ? tCommon("verifying") : t("submit")}
           </button>
 
           <div className={styles.footerLinks}>
             <p>
-              {t("rememberedPrompt")}
-              <Link href={routes.authLogin()} className="ui-link">
-                {t("loginLink")}
-              </Link>
+              {t.rich("remembered", {
+                link: (chunks) => (
+                  <Link href={routes.authLogin()} className="ui-link">
+                    {chunks}
+                  </Link>
+                )
+              })}
             </p>
           </div>
         </form>

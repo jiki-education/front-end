@@ -13,6 +13,7 @@ interface DifficultyRatingStepProps {
 
 export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: DifficultyRatingStepProps) {
   const t = useTranslations("modals.exerciseCompletion.difficultyRating");
+  const tCommon = useTranslations("common");
   const [difficultyRating, setDifficultyRating] = useState<number | null>(null);
   const [funRating, setFunRating] = useState<number | null>(null);
   const difficultyLabels = [
@@ -91,7 +92,7 @@ export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: Difficu
 
       <div className={modalStyles.modalButtons}>
         <button onClick={handleSubmit} disabled={!canSubmit} className="ui-btn ui-btn-primary ui-btn-large flex-1">
-          {t("continue")}
+          {tCommon("continue")}
         </button>
       </div>
     </>

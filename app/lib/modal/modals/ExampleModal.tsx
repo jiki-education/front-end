@@ -11,13 +11,14 @@ interface ExampleModalProps {
 
 export function ExampleModal({ title, message }: ExampleModalProps) {
   const t = useTranslations("modals.example");
+  const tCommon = useTranslations("common");
   return (
     <div className={styles.body}>
       <h2 className={styles.title}>{title ?? t("defaultTitle")}</h2>
       <p className={styles.message}>{message ?? t("defaultMessage")}</p>
       <div className={styles.buttonRow}>
         <button onClick={hideModal} className={styles.buttonSecondary}>
-          {t("cancel")}
+          {tCommon("cancel")}
         </button>
         <button
           onClick={() => {
@@ -26,7 +27,7 @@ export function ExampleModal({ title, message }: ExampleModalProps) {
           }}
           className={styles.buttonPrimary}
         >
-          {t("confirm")}
+          {tCommon("confirm")}
         </button>
       </div>
     </div>

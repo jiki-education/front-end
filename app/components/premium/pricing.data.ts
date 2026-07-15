@@ -98,6 +98,6 @@ export const FAQ_ITEMS: FaqItemData[] = [
   { questionKey: "q1", answerKey: "a1" },
   { questionKey: "q2", answerKey: "a2" },
   { questionKey: "q3", answerKey: "a3" },
-  { questionKey: "q4", answerLinkKeyPrefix: "a4" },
+  { questionKey: "q4", answerKey: "a4" },
   { questionKey: "q5", answerKey: "a5" }
 ];

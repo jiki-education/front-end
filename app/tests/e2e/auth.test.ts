@@ -314,7 +314,7 @@ test.describe("Authentication E2E", () => {
           await page.locator('button[type="submit"]').click();
 
           // Wait for validation error
-          await expect(page.getByText("Passwords don't match")).toBeVisible();
+          await expect(page.getByText("Passwords do not match")).toBeVisible();
         });
 
         test("should clear validation errors when user starts typing", async ({ page }) => {

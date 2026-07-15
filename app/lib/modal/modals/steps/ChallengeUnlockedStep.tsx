@@ -29,6 +29,7 @@ export function ChallengeUnlockedStep({
   onContinue
 }: ChallengeUnlockedStepProps) {
   const t = useTranslations("modals.exerciseCompletion.challengeUnlocked");
+  const tCommon = useTranslations("common");
   const routes = useLocaleRoutes();
   const unlockedChallengeData = completionResponse.find((item) => item.type === "challenge_unlocked")?.data.challenge;
 
@@ -68,15 +69,16 @@ export function ChallengeUnlockedStep({
       </div>
       <div className={styles.premiumInfoBox}>
         <p>
-          <span className="font-semibold">{t("premiumOnly")}</span>{" "}
-          <Link href={routes.premium()}>{t("upgradeLink")}</Link>
-          {t("premiumInfoSuffix")}
+          {t.rich("premiumInfo", {
+            strong: (chunks) => <span className="font-semibold">{chunks}</span>,
+            link: (chunks) => <Link href={routes.premium()}>{chunks}</Link>
+          })}
         </p>
       </div>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
         <button onClick={onContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
-          {t("continue")}
+          {tCommon("continue")}
         </button>
       </div>
     </>

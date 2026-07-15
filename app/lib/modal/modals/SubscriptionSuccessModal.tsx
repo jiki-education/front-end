@@ -21,6 +21,7 @@ interface SubscriptionSuccessModalProps {
 
 export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onClose }: SubscriptionSuccessModalProps) {
   const t = useTranslations("modals.subscriptionSuccess");
+  const tCommon = useTranslations("common");
   const tierInfo = PRICING_TIERS[tier];
 
   // Calculate renewal date once at render time to avoid calling Date.now() during render
@@ -94,7 +95,7 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
           <span className="font-medium text-text-primary">{t("planLabel", { tier: tierInfo.name })}</span>
           <span className="text-2xl font-bold text-text-primary">
             <PremiumPrice interval="monthly" />
-            <span className="text-sm font-normal text-text-secondary">{t("perMonth")}</span>
+            <span className="text-sm font-normal text-text-secondary">{tCommon("perMonth")}</span>
           </span>
         </div>
 
@@ -141,7 +142,7 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
         )}
 
         <button onClick={handleClose} className="text-text-secondary hover:text-text-primary text-sm underline">
-          {nextSteps ? t("skipForNow") : t("close")}
+          {nextSteps ? t("skipForNow") : tCommon("close")}
         </button>
       </div>
 

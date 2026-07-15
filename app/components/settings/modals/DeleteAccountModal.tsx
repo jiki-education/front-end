@@ -43,6 +43,7 @@ function ConfirmStep({
   error: string | null;
 }) {
   const t = useTranslations("settings.deleteAccount");
+  const tCommon = useTranslations("common");
   return (
     <div className={styles.content}>
       <h3 className={styles.title}>{t("confirmTitle")}</h3>
@@ -50,10 +51,10 @@ function ConfirmStep({
       {error && <p className={styles.error}>{error}</p>}
       <div className={styles.buttons}>
         <button className="ui-btn ui-btn-small ui-btn-primary" onClick={hideModal} disabled={isLoading}>
-          {t("cancel")}
+          {tCommon("cancel")}
         </button>
         <button className="ui-btn ui-btn-default ui-btn-danger" onClick={onConfirm} disabled={isLoading}>
-          {isLoading ? t("submitting") : t("submit")}
+          {isLoading ? tCommon("sending") : t("submit")}
         </button>
       </div>
     </div>

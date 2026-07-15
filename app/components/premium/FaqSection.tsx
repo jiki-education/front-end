@@ -19,17 +19,9 @@ export default function FaqSection() {
                 <summary>{question}</summary>
                 <div className={styles["faq-answer"]}>
                   <p>
-                    {item.answerLinkKeyPrefix ? (
-                      <>
-                        {t(`${item.answerLinkKeyPrefix}Prefix` as Parameters<typeof t>[0])}
-                        <Link href={routes.article("support")}>
-                          {t(`${item.answerLinkKeyPrefix}Link` as Parameters<typeof t>[0])}
-                        </Link>
-                        {t(`${item.answerLinkKeyPrefix}Suffix` as Parameters<typeof t>[0])}
-                      </>
-                    ) : (
-                      t(item.answerKey as Parameters<typeof t>[0])
-                    )}
+                    {t.rich(item.answerKey as Parameters<typeof t.rich>[0], {
+                      link: (chunks) => <Link href={routes.article("support")}>{chunks}</Link>
+                    })}
                   </p>
                 </div>
               </details>

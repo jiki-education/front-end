@@ -15,6 +15,7 @@ interface ConceptUnlockedStepProps {
 
 export function ConceptUnlockedStep({ completionResponse, onContinue }: ConceptUnlockedStepProps) {
   const t = useTranslations("modals.exerciseCompletion.conceptUnlocked");
+  const tCommon = useTranslations("common");
   const [concept, setConcept] = useState<ConceptMeta | null>(null);
 
   // Support both new format (concept_slug) and old format (concept object)
@@ -36,7 +37,7 @@ export function ConceptUnlockedStep({ completionResponse, onContinue }: ConceptU
         <div className={styles.modalButtonsDivider}></div>
         <div className={styles.modalButtons}>
           <button onClick={onContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
-            {t("continue")}
+            {tCommon("continue")}
           </button>
         </div>
       </>
@@ -56,7 +57,7 @@ export function ConceptUnlockedStep({ completionResponse, onContinue }: ConceptU
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
         <button onClick={onContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
-          {t("continue")}
+          {tCommon("continue")}
         </button>
       </div>
     </>

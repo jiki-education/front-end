@@ -66,10 +66,13 @@ export function TestimonialsSection() {
       <div className={shared["lg-container"]}>
         <h2>{t("heading")}</h2>
         <p className={styles.subheading}>
-          {t("subheadingPrefix")}
-          <Link className={styles.subheadingLink} href={routes.testimonials()}>
-            {t("subheadingLink")}
-          </Link>
+          {t.rich("subheading", {
+            link: (chunks) => (
+              <Link className={styles.subheadingLink} href={routes.testimonials()}>
+                {chunks}
+              </Link>
+            )
+          })}
         </p>
         <div className={styles["primary-quote"]}>
           <div className={styles.words}>

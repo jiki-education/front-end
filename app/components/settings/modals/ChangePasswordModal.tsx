@@ -11,6 +11,7 @@ interface ChangePasswordModalProps {
 
 export function ChangePasswordModal({ onSave }: ChangePasswordModalProps) {
   const t = useTranslations("settings.changePassword");
+  const tCommon = useTranslations("common");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -23,22 +24,22 @@ export function ChangePasswordModal({ onSave }: ChangePasswordModalProps) {
 
     // Validation
     if (!currentPassword) {
-      setError(t("currentRequired"));
+      setError(tCommon("validation.currentPasswordRequired"));
       return;
     }
 
     if (!newPassword) {
-      setError(t("newRequired"));
+      setError(tCommon("validation.newPasswordRequired"));
       return;
     }
 
-    if (newPassword.length < 8) {
-      setError(t("minLength"));
+    if (newPassword.length < 6) {
+      setError(tCommon("validation.passwordMinLength"));
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      setError(t("noMatch"));
+      setError(tCommon("validation.passwordsNoMatch"));
       return;
     }
 
@@ -120,7 +121,7 @@ export function ChangePasswordModal({ onSave }: ChangePasswordModalProps) {
             disabled={isSaving}
             className="ui-btn ui-btn-secondary ui-btn-small flex-1"
           >
-            {t("cancel")}
+            {tCommon("cancel")}
           </button>
         </div>
       </form>

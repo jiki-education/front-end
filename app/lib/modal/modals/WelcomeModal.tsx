@@ -14,6 +14,7 @@ const WELCOME_VIDEO_PLAYBACK_ID = "rhfF43a6sjaqX7E5Cxcvt7efmwn00knZZ202CvgViQRDc
 
 export function WelcomeModal() {
   const t = useTranslations("modals.welcome");
+  const tCommon = useTranslations("common");
   const playerRef = useRef<MuxPlayerRefAttributes>(null);
   const [watched, setWatched] = useState(false);
   const [confirmSkip, setConfirmSkip] = useState(false);
@@ -50,7 +51,7 @@ export function WelcomeModal() {
         />
       </div>
       <button onClick={handleContinue} className={`ui-btn ui-btn-primary ui-btn-purple ui-btn-large ${styles.cta}`}>
-        {t("continue")}
+        {tCommon("continue")}
       </button>
       {/* Nested dialog: cancel must leave WelcomeModal open, so closeOnAction={false}. */}
       <Modal

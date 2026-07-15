@@ -12,6 +12,7 @@ interface WalkthroughConfirmModalProps {
 
 export function WalkthroughConfirmModal({ onConfirm }: WalkthroughConfirmModalProps) {
   const t = useTranslations("modals.walkthroughConfirm");
+  const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
   const handleWatch = () => {
     hideModal();
     onConfirm?.();
@@ -26,37 +27,25 @@ export function WalkthroughConfirmModal({ onConfirm }: WalkthroughConfirmModalPr
           <span className={`${styles.resourceIcon} ${styles.blue}`}>
             <LearningSettingsIcon width={16} height={16} />
           </span>
-          <p>
-            <strong>{t("conceptPagesLabel")}</strong>
-            {t("conceptPagesText")}
-          </p>
+          <p>{t.rich("conceptPages", { strong })}</p>
         </li>
         <li>
           <span className={`${styles.resourceIcon} ${styles.purple}`}>
             <ChatIcon width={16} height={16} />
           </span>
-          <p>
-            <strong>{t("askJikiLabel")}</strong>
-            {t("askJikiText")}
-          </p>
+          <p>{t.rich("askJiki", { strong })}</p>
         </li>
         <li>
           <span className={`${styles.resourceIcon} ${styles.green}`}>
             <EyeOpenIcon width={16} height={16} />
           </span>
-          <p>
-            <strong>{t("whatHappenedLabel")}</strong>
-            {t("whatHappenedText")}
-          </p>
+          <p>{t.rich("whatHappened", { strong })}</p>
         </li>
         <li>
           <span className={`${styles.resourceIcon} ${styles.amber}`}>
             <ChallengesIcon width={16} height={16} />
           </span>
-          <p>
-            <strong>{t("revealHintsLabel")}</strong>
-            {t("revealHintsText")}
-          </p>
+          <p>{t.rich("revealHints", { strong })}</p>
         </li>
       </ul>
       <div className={styles.buttons}>

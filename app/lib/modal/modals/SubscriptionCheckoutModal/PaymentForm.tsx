@@ -10,6 +10,7 @@ import styles from "../SubscriptionCheckoutModal.module.css";
 
 export function PaymentForm({ priorError }: { priorError?: string | null }) {
   const t = useTranslations("modals.subscriptionCheckout");
+  const tCommon = useTranslations("common");
   // Seed the error banner with a previous attempt's failure (e.g. a declined retry);
   // it clears on the next submit like any other payment error.
   const [message, setMessage] = useState<string | null>(priorError ?? null);
@@ -94,7 +95,7 @@ export function PaymentForm({ priorError }: { priorError?: string | null }) {
         id="submit-btn"
       >
         {isLoading ? (
-          t("processing")
+          tCommon("processing")
         ) : (
           <>
             {t("pay")} <PremiumPrice interval="monthly" />
@@ -104,8 +105,7 @@ export function PaymentForm({ priorError }: { priorError?: string | null }) {
 
       <p className={styles.footerText}>
         <ShieldIcon />
-        {t("securedByPrefix")}
-        <span className={styles.stripeBrand}>{t("stripeBrand")}</span>
+        {t.rich("securedBy", { stripe: (chunks) => <span className={styles.stripeBrand}>{chunks}</span> })}
       </p>
     </form>
   );

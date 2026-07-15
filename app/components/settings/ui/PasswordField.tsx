@@ -12,6 +12,7 @@ interface PasswordFieldProps {
 
 export default function PasswordField({ onSave, disabled = false }: PasswordFieldProps) {
   const t = useTranslations("settings.passwordField");
+  const tCommon = useTranslations("common");
   const [isEditing, setIsEditing] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -29,19 +30,19 @@ export default function PasswordField({ onSave, disabled = false }: PasswordFiel
   const handleSave = async () => {
     // Validation
     if (!currentPassword) {
-      setError(t("currentRequired"));
+      setError(tCommon("validation.currentPasswordRequired"));
       return;
     }
     if (!newPassword) {
-      setError(t("newRequired"));
+      setError(tCommon("validation.newPasswordRequired"));
       return;
     }
-    if (newPassword.length < 8) {
-      setError(t("minLength"));
+    if (newPassword.length < 6) {
+      setError(tCommon("validation.passwordMinLength"));
       return;
     }
     if (newPassword !== confirmPassword) {
-      setError(t("noMatch"));
+      setError(tCommon("validation.passwordsNoMatch"));
       return;
     }
 
@@ -116,7 +117,7 @@ export default function PasswordField({ onSave, disabled = false }: PasswordFiel
           {error && <div className={styles.errorMessage}>{error}</div>}
           <div className={styles.buttonRow}>
             <button onClick={handleCancel} disabled={isSaving} className="ui-btn ui-btn-secondary ui-btn-small">
-              {t("cancel")}
+              {tCommon("cancel")}
             </button>
             <button onClick={handleSave} disabled={isSaving} className="ui-btn ui-btn-primary ui-btn-small">
               {isSaving ? <LoadingSpinner size="sm" /> : t("submit")}

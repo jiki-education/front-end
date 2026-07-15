@@ -24,8 +24,9 @@ export function SignupButton({ className = "" }: SignupButtonProps) {
       onClick={ctaLaunch.handleClick}
     >
       <span>
-        {t("signUp")}
-        <span className={styles.free}>{t("free")}</span>
+        {t.rich("label", {
+          free: (chunks) => <span className={styles.free}>{chunks}</span>
+        })}
       </span>
       <span
         className={`${rocket.rocketWrapper} ${rocket.rocketWrapperLg} ${ctaLaunch.launching ? rocket.launching : ""}`}

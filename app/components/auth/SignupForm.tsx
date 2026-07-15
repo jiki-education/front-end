@@ -22,6 +22,7 @@ import { GoogleAuthButton } from "./GoogleAuthButton";
 export function SignupForm() {
   const t = useTranslations("auth.signup");
   const tc = useTranslations("auth");
+  const tCommon = useTranslations("common");
   const activeLocale = useLocale();
   const routes = useLocaleRoutes();
   const { signup, isLoading } = useAuthStore();
@@ -43,13 +44,13 @@ export function SignupForm() {
     if (!email) {
       errors.email = tc("fields.emailRequired");
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errors.email = tc("fields.emailInvalid");
+      errors.email = tCommon("validation.emailInvalid");
     }
 
     if (!password) {
-      errors.password = tc("fields.passwordRequired");
+      errors.password = tCommon("validation.passwordRequired");
     } else if (password.length < 6) {
-      errors.password = tc("fields.passwordMinLength");
+      errors.password = tCommon("validation.passwordMinLength");
     }
 
     setValidationErrors(errors);
@@ -134,11 +135,13 @@ export function SignupForm() {
         <header>
           <h1>{t("title")}</h1>
           <p>
-            {t("haveAccountPrefix")}
-            <Link href={buildUrlWithReturnTo(routes.authLogin(), returnTo)} className="ui-link">
-              {t("loginLink")}
-            </Link>
-            .
+            {t.rich("haveAccount", {
+              link: (chunks) => (
+                <Link href={buildUrlWithReturnTo(routes.authLogin(), returnTo)} className="ui-link">
+                  {chunks}
+                </Link>
+              )
+            })}
           </p>
         </header>
 
@@ -233,15 +236,18 @@ export function SignupForm() {
             style={{ width: "100%" }}
             disabled={isLoading || verifying}
           >
-            {isLoading ? t("submitting") : verifying ? t("verifying") : t("submit")}
+            {isLoading ? t("submitting") : verifying ? tCommon("verifying") : t("submit")}
           </button>
 
           <div className={styles.footerLinks}>
             <p>
-              {t("resendPrompt")}
-              <Link href={routes.authResendConfirmation()} className="ui-link">
-                {t("resendLink")}
-              </Link>
+              {t.rich("resend", {
+                link: (chunks) => (
+                  <Link href={routes.authResendConfirmation()} className="ui-link">
+                    {chunks}
+                  </Link>
+                )
+              })}
             </p>
           </div>
         </form>

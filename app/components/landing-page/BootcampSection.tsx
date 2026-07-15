@@ -45,8 +45,7 @@ export function BootcampSection() {
               <div className={styles.row}>
                 <div className={styles.lhs}>
                   <h3 className={styles.subHeading}>
-                    {t("part1Heading")}
-                    <span className="ui-emoji">🧑‍🔬</span>
+                    {t("part1Heading")} <span className="ui-emoji">🧑‍🔬</span>
                     <div className={styles.bubble}>{t("part1Bubble")}</div>
                   </h3>
                   <div className={styles["part-intro"]}>{t.rich("part1Intro", { highlight })}</div>
@@ -54,11 +53,14 @@ export function BootcampSection() {
                     <li>
                       <UnderstandingIcon width={20} height={20} />
                       <div className={styles.text}>
-                        {t.rich("part1Item1Prefix", { strong })}
-                        <Link href={routes.concepts()} className={styles.underline}>
-                          {t("part1Item1Link")}
-                        </Link>
-                        {t("part1Item1Suffix")}
+                        {t.rich("part1Item1", {
+                          strong,
+                          link: (chunks) => (
+                            <Link href={routes.concepts()} className={styles.underline}>
+                              {chunks}
+                            </Link>
+                          )
+                        })}
                       </div>
                     </li>
                     <li>

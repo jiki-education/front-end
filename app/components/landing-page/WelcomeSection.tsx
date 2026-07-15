@@ -19,6 +19,7 @@ import { SignupButton } from "./SignupButton";
 
 export function WelcomeSection() {
   const t = useTranslations("landing.welcome");
+  const tCommon = useTranslations("common");
   const routes = useLocaleRoutes();
   const annotationsRef = useRoughAnnotations();
   const wavingHandRef = useWavingHand();
@@ -37,10 +38,11 @@ export function WelcomeSection() {
         <div className={styles.introBlock}>
           <div className={styles.introInner}>
             <h2>
-              <span className={`${styles.headingHighlight} intro-aspiring-coder rough-highlight`}>
-                {t("headingHighlight")}
-              </span>
-              {t("headingRest")}
+              {t.rich("heading", {
+                highlight: (chunks) => (
+                  <span className={`${styles.headingHighlight} intro-aspiring-coder rough-highlight`}>{chunks}</span>
+                )
+              })}
             </h2>
             <p>{t.rich("para1", { strong })}</p>
             <p>{t.rich("para2", { strong, highlight })}</p>
@@ -100,14 +102,19 @@ export function WelcomeSection() {
           </div>
         </div>
         <p className={styles.paraSpaced}>
-          {t("para10Prefix")}
-          <span className={styles.eventuallyShort}>{t("para10Eventually")}</span>
-          <span className={styles.eventuallyLong}>
-            <span className={`rough-underline ${styles.nowrap}`} id="eventually-underline">
-              {t("para10Eventually")}
-            </span>
-            <span className={styles["rhodri-arrow"]} ref={rhodriRef}></span>
-          </span>
+          {t.rich("para10", {
+            eventually: (chunks) => (
+              <>
+                <span className={styles.eventuallyShort}>{chunks}</span>
+                <span className={styles.eventuallyLong}>
+                  <span className={`rough-underline ${styles.nowrap}`} id="eventually-underline">
+                    {chunks}
+                  </span>
+                  <span className={styles["rhodri-arrow"]} ref={rhodriRef}></span>
+                </span>
+              </>
+            )
+          })}
         </p>
         <p>{t("para11")}</p>
         <p>{t.rich("para12", { strong })}</p>
@@ -167,18 +174,24 @@ export function WelcomeSection() {
         <h3 className={styles.sectionHeading}>{t("heading5")}</h3>
         <p>{t.rich("para15", { highlight: strongHighlight })}</p>
         <p>
-          {t.rich("para16Prefix", { strong })}
-          <strong>
-            <MonthlyPrice />
-            {t("para16PerMonth")}
-          </strong>
-          {t("para16Suffix")}
+          {t.rich("para16", {
+            strong,
+            price: () => (
+              <strong>
+                <MonthlyPrice />
+                {tCommon("perMonth")}
+              </strong>
+            )
+          })}
         </p>
         <p>
-          {t("para17Prefix")}
-          <Link href={routes.authSignup()} className={styles.inlineLink}>
-            {t("para17Link")}
-          </Link>
+          {t.rich("para17", {
+            link: (chunks) => (
+              <Link href={routes.authSignup()} className={styles.inlineLink}>
+                {chunks}
+              </Link>
+            )
+          })}
         </p>
         <div className={styles.ctaRow}>
           <span className={`${styles.ctaPointer} ${styles.ctaPointerRight}`} aria-hidden="true">
@@ -189,7 +202,7 @@ export function WelcomeSection() {
             className={`ui-btn ui-btn-xlarge ui-btn-primary ${rocket.bounceOnHover}`}
             onClick={ctaLaunch.handleClick}
           >
-            {t("ctaButton")}
+            {t("ctaButton")}{" "}
             <span
               className={`${rocket.rocketWrapper} ${rocket.rocketWrapperLg} ${ctaLaunch.launching ? rocket.launching : ""}`}
             >

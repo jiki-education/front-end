@@ -10,6 +10,7 @@ interface WelcomeToPremiumModalProps {
 
 export function WelcomeToPremiumModal({ onClose }: WelcomeToPremiumModalProps) {
   const t = useTranslations("modals.welcomeToPremium");
+  const tCommon = useTranslations("common");
   const handleClose = () => {
     onClose?.();
     hideModal();
@@ -28,15 +29,14 @@ export function WelcomeToPremiumModal({ onClose }: WelcomeToPremiumModalProps) {
       </span>
 
       <h2 className={styles.title}>
-        {t("titlePrefix")}
-        <span className={styles.highlight}>{t("titleHighlight")}</span>
+        {t.rich("title", { highlight: (chunks) => <span className={styles.highlight}>{chunks}</span> })}
       </h2>
 
       <p className={styles.description}>{t("description")}</p>
 
       <div className={styles.actions}>
         <button onClick={handleClose} className="ui-btn ui-btn-primary ui-btn-purple ui-btn-large">
-          {t("continue")}
+          {tCommon("continue")}
         </button>
       </div>
     </div>

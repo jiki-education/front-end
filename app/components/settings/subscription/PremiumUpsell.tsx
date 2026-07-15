@@ -16,11 +16,13 @@ export default function PremiumUpsell({
   className = ""
 }: PremiumUpsellProps) {
   const t = useTranslations("settings.premiumUpsell");
+  const tCommon = useTranslations("common");
+  const tBenefits = useTranslations("premium.benefits");
   const features = [
-    { title: t("unlimitedAiTitle"), description: t("unlimitedAiDescription") },
-    { title: t("unlimitedContentTitle"), description: t("unlimitedContentDescription") },
-    { title: t("certificatesTitle"), description: t("certificatesDescription") },
-    { title: t("adFreeTitle"), description: t("adFreeDescription") }
+    { title: tBenefits("unlimitedAiTitle"), description: tBenefits("unlimitedAiDescription") },
+    { title: tBenefits("unlimitedContentTitle"), description: tBenefits("unlimitedContentDescription") },
+    { title: tBenefits("certificatesTitle"), description: tBenefits("certificatesDescription") },
+    { title: tBenefits("adFreeTitle"), description: tBenefits("adFreeDescription") }
   ];
   const [internalLoading, setInternalLoading] = useState(false);
   const isLoading = externalLoading || internalLoading;
@@ -37,9 +39,7 @@ export default function PremiumUpsell({
   return (
     <div className={`${styles.premiumUpsell} ${className}`}>
       <h2 className={styles.premiumUpsellHeadline}>
-        {t("headlinePrefix")}
-        <span className={styles.highlight}>{t("headlineHighlight")}</span>
-        {t("headlineSuffix")}
+        {t.rich("headline", { highlight: (chunks) => <span className={styles.highlight}>{chunks}</span> })}
       </h2>
       <p className={styles.premiumUpsellSubtitle}>{t("subtitle")}</p>
 
@@ -62,12 +62,10 @@ export default function PremiumUpsell({
               <span className={styles.amount}>
                 <PremiumPrice interval="monthly" />
               </span>
-              <span className={styles.period}>{t("perMonth")}</span>
+              <span className={styles.period}>{tCommon("perMonth")}</span>
             </div>
             <p className={styles.premiumUpsellNote}>
-              {t("dailyNotePrefix")}
-              <PremiumDailyPrice interval="monthly" />
-              {t("dailyNoteSuffix")}
+              {t.rich("dailyNote", { price: () => <PremiumDailyPrice interval="monthly" /> })}
             </p>
           </div>
         </div>
@@ -76,7 +74,7 @@ export default function PremiumUpsell({
           onClick={handleUpgrade}
           disabled={isLoading}
         >
-          {isLoading ? t("processing") : t("upgrade")}
+          {isLoading ? tCommon("processing") : t("upgrade")}
         </button>
       </div>
     </div>

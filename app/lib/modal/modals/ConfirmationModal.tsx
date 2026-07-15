@@ -29,6 +29,7 @@ export function ConfirmationModal({
   closeOnAction = true
 }: ConfirmationModalProps) {
   const t = useTranslations("modals.confirmation");
+  const tCommon = useTranslations("common");
   const handleConfirm = () => {
     onConfirm?.();
     if (closeOnAction) hideModal();
@@ -45,10 +46,10 @@ export function ConfirmationModal({
       <p className={styles.modalMessage}>{message ?? t("defaultMessage")}</p>
       <div className={styles.modalButtons}>
         <button onClick={handleCancel} className="ui-btn ui-btn-tertiary ui-btn-default whitespace-nowrap">
-          {cancelText ?? t("defaultCancel")}
+          {cancelText ?? tCommon("cancel")}
         </button>
         <button onClick={handleConfirm} className="ui-btn ui-btn-primary ui-btn-default whitespace-nowrap">
-          {confirmText ?? t("defaultConfirm")}
+          {confirmText ?? tCommon("confirm")}
         </button>
       </div>
     </>

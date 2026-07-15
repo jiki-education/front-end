@@ -24,7 +24,7 @@ export default function SubscriptionButton({
   ariaLabel,
   ariaDescribedBy
 }: SubscriptionButtonProps) {
-  const t = useTranslations("settings.subscriptionButton");
+  const t = useTranslations("common");
   const baseClasses =
     "font-medium rounded transition-all duration-200 focus-ring disabled:opacity-50 disabled:cursor-not-allowed";
 

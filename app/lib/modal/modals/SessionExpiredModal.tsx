@@ -9,6 +9,7 @@ interface SessionExpiredModalProps {
 
 export function SessionExpiredModal({ error: _error }: SessionExpiredModalProps) {
   const t = useTranslations("modals.sessionExpired");
+  const tCommon = useTranslations("common");
   const handleReload = () => {
     window.location.reload();
   };
@@ -19,7 +20,7 @@ export function SessionExpiredModal({ error: _error }: SessionExpiredModalProps)
       <p className={styles.description}>{t("description")}</p>
       <div className={styles.buttonRow}>
         <button onClick={handleReload} className={`${styles.button} focus-ring`}>
-          {t("reload")}
+          {tCommon("reloadPage")}
         </button>
       </div>
     </div>

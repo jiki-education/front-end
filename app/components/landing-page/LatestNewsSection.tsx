@@ -21,11 +21,13 @@ export function LatestNewsSection({ posts }: LatestNewsSectionProps) {
       <div className={styles.inner}>
         <h2 className={styles.heading}>{t("heading")}</h2>
         <p className={styles.subheading}>
-          {t("subheadingPrefix")}
-          <Link href={routes.blog()} className={styles.blogLink}>
-            {t("subheadingLink")}
-          </Link>
-          .
+          {t.rich("subheading", {
+            link: (chunks) => (
+              <Link href={routes.blog()} className={styles.blogLink}>
+                {chunks}
+              </Link>
+            )
+          })}
         </p>
         <div className={styles.grid}>
           {posts.map((post) => (

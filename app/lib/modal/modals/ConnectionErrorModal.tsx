@@ -26,13 +26,19 @@ export function ConnectionErrorModal() {
       </div>
 
       <p className={styles.helpText}>
-        {t("helpTextPrefix")}
-        <br />
-        {t("helpTextPersists")}
-        <a href="https://jiki.instatus.com/" target="_blank" rel="noopener noreferrer" className={styles.statusLink}>
-          {t("checkStatusPage")}
-        </a>
-        .
+        {t.rich("helpText", {
+          br: () => <br />,
+          link: (chunks) => (
+            <a
+              href="https://jiki.instatus.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.statusLink}
+            >
+              {chunks}
+            </a>
+          )
+        })}
       </p>
     </div>
   );

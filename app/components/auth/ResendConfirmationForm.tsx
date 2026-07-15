@@ -13,6 +13,7 @@ import styles from "./AuthForm.module.css";
 export function ResendConfirmationForm() {
   const t = useTranslations("auth.resendConfirmation");
   const tc = useTranslations("auth");
+  const tCommon = useTranslations("common");
   const routes = useLocaleRoutes();
   const { resendConfirmation, isLoading, error, clearError } = useAuthStore();
   const searchParams = useSearchParams();
@@ -27,7 +28,7 @@ export function ResendConfirmationForm() {
     if (!email) {
       errors.email = tc("fields.emailRequired");
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errors.email = t("emailInvalid");
+      errors.email = tCommon("validation.emailInvalid");
     }
 
     setValidationErrors(errors);
@@ -105,15 +106,18 @@ export function ResendConfirmationForm() {
             style={{ width: "100%" }}
             disabled={isLoading}
           >
-            {isLoading ? t("submitting") : t("submit")}
+            {isLoading ? tCommon("sending") : t("submit")}
           </button>
 
           <div className={styles.footerLinks}>
             <p>
-              {t("confirmedPrompt")}
-              <Link href={routes.authLogin()} className="ui-link">
-                {t("loginLink")}
-              </Link>
+              {t.rich("confirmed", {
+                link: (chunks) => (
+                  <Link href={routes.authLogin()} className="ui-link">
+                    {chunks}
+                  </Link>
+                )
+              })}
             </p>
           </div>
         </form>

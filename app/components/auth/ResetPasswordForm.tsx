@@ -12,6 +12,7 @@ import styles from "./AuthForm.module.css";
 
 export function ResetPasswordForm() {
   const t = useTranslations("auth.resetPassword");
+  const tCommon = useTranslations("common");
   const routes = useLocaleRoutes();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -31,15 +32,15 @@ export function ResetPasswordForm() {
     }
 
     if (!password) {
-      errors.password = t("passwordRequired");
+      errors.password = tCommon("validation.passwordRequired");
     } else if (password.length < 6) {
-      errors.password = t("passwordMinLength");
+      errors.password = tCommon("validation.passwordMinLength");
     }
 
     if (!passwordConfirmation) {
       errors.passwordConfirmation = t("confirmationRequired");
     } else if (password !== passwordConfirmation) {
-      errors.passwordConfirmation = t("passwordsDontMatch");
+      errors.passwordConfirmation = tCommon("validation.passwordsNoMatch");
     }
 
     setValidationErrors(errors);
@@ -177,10 +178,13 @@ export function ResetPasswordForm() {
 
           <div className={styles.footerLinks}>
             <p>
-              {t("rememberedPrefix")}
-              <Link href={routes.authLogin()} className="ui-link">
-                {t("signInLink")}
-              </Link>
+              {t.rich("remembered", {
+                link: (chunks) => (
+                  <Link href={routes.authLogin()} className="ui-link">
+                    {chunks}
+                  </Link>
+                )
+              })}
             </p>
           </div>
         </form>

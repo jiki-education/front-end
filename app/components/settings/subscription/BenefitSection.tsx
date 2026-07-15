@@ -34,9 +34,7 @@ function ActiveBenefitSection({ className = "" }: { className?: string }) {
           className={`${styles.splashDecoration} ${styles.splashLeft}`}
         />
         <h3>
-          {t("activeHeadingPrefix")}
-          <span className={styles.gradientText}>{t("premium")}</span>
-          {t("activeHeadingSuffix")}
+          {t.rich("activeHeading", { highlight: (chunks) => <span className={styles.gradientText}>{chunks}</span> })}
         </h3>
         <Image
           src="/static/images/misc/splash.png"
@@ -51,10 +49,10 @@ function ActiveBenefitSection({ className = "" }: { className?: string }) {
       <BenefitsList />
 
       <p className={styles.benefitsFooter}>
-        {t("footerPrefix")}
-        <Link href={routes.premium()}>{t("footerWhatsIncluded")}</Link>
-        {t("footerOr")}
-        <Link href={routes.article("support")}>{t("footerContactSupport")}</Link>.
+        {t.rich("footer", {
+          includedLink: (chunks) => <Link href={routes.premium()}>{chunks}</Link>,
+          supportLink: (chunks) => <Link href={routes.article("support")}>{chunks}</Link>
+        })}
       </p>
     </div>
   );
@@ -68,13 +66,14 @@ function CancellingBenefitSection({
   className?: string;
 }) {
   const t = useTranslations("settings.benefits");
+  const tCommon = useTranslations("common");
   return (
     <div className={`${styles.benefitsSection} ${className}`}>
       <div className={styles.benefitsHeader}>
         <h3>
-          {t("cancellingHeadingPrefix")}
-          <span className={styles.gradientText}>{t("premium")}</span>
-          {t("cancellingHeadingSuffix")}
+          {t.rich("cancellingHeading", {
+            highlight: (chunks) => <span className={styles.gradientText}>{chunks}</span>
+          })}
         </h3>
       </div>
       <p className={styles.benefitsSubtitle}>{t("cancellingSubtitle")}</p>
@@ -85,12 +84,14 @@ function CancellingBenefitSection({
         <div className={styles.resubscribeCtaContent}>
           <h4>{t("resubscribeTitle")}</h4>
           <p>
-            {t("resubscribePrefix")}
-            <span className={styles.price}>
-              <PremiumPrice interval="monthly" />
-              {t("resubscribePerMonth")}
-            </span>
-            {t("resubscribeSuffix")}
+            {t.rich("resubscribe", {
+              price: () => (
+                <span className={styles.price}>
+                  <PremiumPrice interval="monthly" />
+                  {tCommon("perMonth")}
+                </span>
+              )
+            })}
           </p>
         </div>
         <button
@@ -105,14 +106,14 @@ function CancellingBenefitSection({
 }
 
 function BenefitsList() {
-  const t = useTranslations("settings.benefits");
+  const tBenefits = useTranslations("premium.benefits");
   const benefits = [
-    { title: t("unlimitedAiTitle"), description: t("unlimitedAiDescription") },
-    { title: t("unlimitedContentTitle"), description: t("unlimitedContentDescription") },
-    { title: t("certificatesTitle"), description: t("certificatesDescription") },
-    { title: t("adFreeTitle"), description: t("adFreeDescription") },
-    { title: t("prioritySupportTitle"), description: t("prioritySupportDescription") },
-    { title: t("earlyAccessTitle"), description: t("earlyAccessDescription") }
+    { title: tBenefits("unlimitedAiTitle"), description: tBenefits("unlimitedAiDescription") },
+    { title: tBenefits("unlimitedContentTitle"), description: tBenefits("unlimitedContentDescription") },
+    { title: tBenefits("certificatesTitle"), description: tBenefits("certificatesDescription") },
+    { title: tBenefits("adFreeTitle"), description: tBenefits("adFreeDescription") },
+    { title: tBenefits("prioritySupportTitle"), description: tBenefits("prioritySupportDescription") },
+    { title: tBenefits("earlyAccessTitle"), description: tBenefits("earlyAccessDescription") }
   ];
   return (
     <div className={styles.premiumBenefits}>
