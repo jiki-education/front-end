@@ -1,12 +1,15 @@
 {
   "tags": {
-    "en": ["Agentic Coding", "Git and GitHub", "HTML/CSS/JavaScript Basics"]
+    "en": ["Agentic Coding", "Git and GitHub", "HTML/CSS/JavaScript Basics"],
+    "hu": ["Agentic Coding", "Git and GitHub", "HTML/CSS/JavaScript Basics"]
   },
   "title": {
-    "en": "Build your Personal Homepage"
+    "en": "Build your Personal Homepage",
+    "hu": "Build your Personal Homepage"
   },
   "description": {
-    "en": "Join Jeremy as he builds his own homepage from scratch. Learn about how to use Agentic Coding, how the Web Works, and deploy your first website."
+    "en": "Join Jeremy as he builds his own homepage from scratch. Learn about how to use Agentic Coding, how the Web Works, and deploy your first website.",
+    "hu": "Join Jeremy as he builds his own homepage from scratch. Learn about how to use Agentic Coding, how the Web Works, and deploy your first website."
   },
   "image": "build-yourself-a-homepage.webp",
   "livestream": true,

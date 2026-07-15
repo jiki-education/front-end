@@ -8,7 +8,9 @@ import {
   validateFrontmatter,
   validateAuthors,
   validateNoDuplicateSlugs,
-  validateRequiredLocales
+  validateRequiredLocales,
+  validateProjectRequiredLocales,
+  validateEpisodeSummaryParity
 } from "@/lib/content/validator";
 import authorsData from "../../../../content/src/authors.json";
 import type { AuthorRegistry } from "@/lib/content/types";
@@ -181,6 +183,69 @@ describe("Content Validation", () => {
               expect(() => {
                 validateFrontmatter(slug, locale, parsed.data);
               }).not.toThrow();
+            });
+          });
+        });
+      });
+    }
+  });
+
+  describe("Projects", () => {
+    const projectsDir = path.join(POSTS_DIR, "projects");
+
+    if (fs.existsSync(projectsDir)) {
+      const projectSlugs = fs.readdirSync(projectsDir).filter((item) => {
+        return fs.statSync(path.join(projectsDir, item)).isDirectory();
+      });
+
+      projectSlugs.forEach((slug) => {
+        describe(`Project: ${slug}`, () => {
+          const projectDir = path.join(projectsDir, slug);
+
+          it("should have config.json file", () => {
+            const configFile = path.join(projectDir, "config.json");
+            expect(fs.existsSync(configFile)).toBe(true);
+          });
+
+          it("should have all required locale keys in config.json", () => {
+            const configFile = path.join(projectDir, "config.json");
+            const config = JSON.parse(fs.readFileSync(configFile, "utf-8"));
+
+            expect(() => {
+              validateProjectRequiredLocales(slug, config);
+            }).not.toThrow();
+          });
+
+          // Episodes live in UUID-named subdirectories, each with a config.json.
+          const episodeDirs = fs.readdirSync(projectDir).filter((item) => {
+            const itemPath = path.join(projectDir, item);
+            return fs.statSync(itemPath).isDirectory() && fs.existsSync(path.join(itemPath, "config.json"));
+          });
+
+          episodeDirs.forEach((episodeId) => {
+            describe(`Episode: ${episodeId}`, () => {
+              const episodeDir = path.join(projectDir, episodeId);
+              const mdFiles = fs.readdirSync(episodeDir).filter((f) => f.endsWith(".md"));
+              const existingLocales = mdFiles.map((f) => path.basename(f, ".md"));
+
+              it("should have all required locale files", () => {
+                expect(() => {
+                  validateRequiredLocales("episode", episodeId, episodeDir, existingLocales);
+                }).not.toThrow();
+              });
+
+              it("should have a summary block in every locale if en.md has one", () => {
+                const localeSummaries: Record<string, unknown> = {};
+                for (const mdFile of mdFiles) {
+                  const locale = path.basename(mdFile, ".md");
+                  const parsed = matter(fs.readFileSync(path.join(episodeDir, mdFile), "utf-8"));
+                  localeSummaries[locale] = (parsed.data as Record<string, unknown>).summary;
+                }
+
+                expect(() => {
+                  validateEpisodeSummaryParity(episodeId, localeSummaries);
+                }).not.toThrow();
+              });
             });
           });
         });
