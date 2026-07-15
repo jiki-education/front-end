@@ -409,6 +409,20 @@ const element = array[0]!; // Assert element exists
 const result = object.method!(); // Assert method exists
 ```
 
+### Translations in Tests (next-intl)
+
+`jest.setup.js` globally mocks next-intl: components using `useTranslations` render the real
+English strings from `messages/en.json` (no provider needed per test). The mock supports
+namespaces, dotted keys, `{var}` interpolation, simple ICU plurals
+(`{count, plural, one {...} other {...}}`), and `t.rich` with nested tags. Consequences:
+
+- Assert on the real English text (`screen.getByText(/Jiki Premium/)`), not on message keys.
+- `t.rich` markup is split across elements, so exact-string matchers may need regex or a
+  function matcher when a sentence contains inline tags.
+- The mock is a simplification, not the real ICU engine. `tests/unit/messages.test.ts`
+  validates every catalog message against the real parser (`intl-messageformat`), so invalid
+  ICU fails there even though the mock would tolerate it.
+
 ### Centralized Mock Utilities
 
 The project provides centralized mock utilities in `tests/mocks/`:
