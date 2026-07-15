@@ -1,5 +1,5 @@
 function findTile(rack, letter) {
-  let position = 0
+  let position = 1
   for (const tile of rack) {
     if (tile === letter) {
       return `Move to position ${position}`

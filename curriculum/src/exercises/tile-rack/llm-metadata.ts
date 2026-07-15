@@ -18,6 +18,7 @@ export const llmMetadata: LLMMetadata = {
     "find-tile-position": {
       description: `
         Common mistakes:
+        - Starting the position counter at 0 instead of 1 (positions are 1-indexed here)
         - Forgetting to increment the position counter
         - Incrementing before the comparison (off-by-one)
         - Returning the "not found" error inside the loop instead of after it

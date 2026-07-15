@@ -28,7 +28,7 @@ export const scenarios: IOScenario[] = [
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["ABCDE", "A"],
-    expected: "Move to position 0"
+    expected: "Move to position 1"
   },
   {
     slug: "tile-in-middle",
@@ -37,7 +37,7 @@ export const scenarios: IOScenario[] = [
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["ABCDE", "C"],
-    expected: "Move to position 2"
+    expected: "Move to position 3"
   },
   {
     slug: "tile-at-end",
@@ -46,7 +46,7 @@ export const scenarios: IOScenario[] = [
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["ABCDE", "E"],
-    expected: "Move to position 4"
+    expected: "Move to position 5"
   },
   {
     slug: "tile-not-found",
@@ -73,7 +73,7 @@ export const scenarios: IOScenario[] = [
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["BANANA", "A"],
-    expected: "Move to position 1"
+    expected: "Move to position 2"
   },
   {
     slug: "longer-rack",
@@ -82,6 +82,6 @@ export const scenarios: IOScenario[] = [
     taskId: "find-tile-position",
     functionName: "find_tile",
     args: ["SCRABBLE", "B"],
-    expected: "Move to position 4"
+    expected: "Move to position 5"
   }
 ];
