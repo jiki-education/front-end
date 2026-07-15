@@ -89,13 +89,19 @@ jest.mock("next-intl", () => {
     return path.split(".").reduce((node, part) => (node == null ? undefined : node[part]), messages);
   };
 
+  // Plural bodies may contain simple {var} placeholders but no deeper nesting;
+  // tests/unit/messages.test.ts enforces that catalog messages stay within this
+  // subset so the mock can't silently diverge from the real ICU engine.
   const interpolate = (template, values = {}) =>
     String(template)
-      .replace(/\{(\w+), plural, one \{([^{}]*)\} other \{([^{}]*)\}\}/g, (match, name, one, other) => {
-        if (!(name in values)) return match;
-        const count = Number(values[name]);
-        return (count === 1 ? one : other).replace(/#/g, String(count));
-      })
+      .replace(
+        /\{(\w+), plural, one \{((?:[^{}]|\{\w+\})*)\} other \{((?:[^{}]|\{\w+\})*)\}\}/g,
+        (match, name, one, other) => {
+          if (!(name in values)) return match;
+          const count = Number(values[name]);
+          return (count === 1 ? one : other).replace(/#/g, String(count));
+        }
+      )
       .replace(/\{(\w+)\}/g, (match, name) => (name in values ? String(values[name]) : match));
 
   const createTranslator = (namespace) => {

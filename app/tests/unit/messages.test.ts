@@ -42,6 +42,22 @@ describe("message catalogs", () => {
     expect(Object.keys(flatten(hu)).sort()).toEqual(Object.keys(flatten(en)).sort());
   });
 
+  it("plural messages stay within the subset the jest next-intl mock supports", () => {
+    // jest.setup.js mocks next-intl with a regex-based ICU approximation: plurals
+    // must be exactly `{arg, plural, one {...} other {...}}` where the bodies
+    // contain at most simple `{var}` placeholders (no nested plural/select).
+    // A message outside this subset would render correctly at runtime but
+    // silently produce wrong output in unit tests — fail loudly here instead.
+    // If you need a richer plural, upgrade the mock in jest.setup.js first.
+    const supportedPlural = /\{\w+, plural, one \{(?:[^{}]|\{\w+\})*\} other \{(?:[^{}]|\{\w+\})*\}\}/g;
+    for (const locale of Object.keys(CATALOGS) as (keyof typeof CATALOGS)[]) {
+      const unsupported = Object.entries(flatten(CATALOGS[locale]))
+        .filter(([, message]) => message.replace(supportedPlural, "").includes(", plural,"))
+        .map(([key]) => `${locale}:${key}`);
+      expect(unsupported).toEqual([]);
+    }
+  });
+
   it("no message has leading or trailing whitespace", () => {
     for (const locale of Object.keys(CATALOGS) as (keyof typeof CATALOGS)[]) {
       const padded = Object.entries(flatten(CATALOGS[locale]))
