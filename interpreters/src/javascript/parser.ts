@@ -418,6 +418,20 @@ export class Parser {
       }
       // Not a for...of or for...in loop, reset and parse as regular for loop
       this.current = checkpoint;
+    } else if (this.check("IDENTIFIER")) {
+      // Guard: `for (letter of rack)` — the student forgot let/const.
+      const checkpoint = this.current;
+      const variable = this.advance();
+      if (this.check("OF")) {
+        this.checkNodeAllowed("ForOfStatement", "ForOfStatementNotAllowed", forToken.location);
+        throw this.error("MissingLetInForOf", variable.location, { name: variable.lexeme });
+      }
+      if (this.check("IN")) {
+        this.checkNodeAllowed("ForInStatement", "ForInStatementNotAllowed", forToken.location);
+        throw this.error("MissingLetInForIn", variable.location, { name: variable.lexeme });
+      }
+      // Not a for...of/in, e.g. `for (i = 0; ...)` — reset and parse as regular for loop
+      this.current = checkpoint;
     }
 
     // Parse as regular C-style for loop
@@ -440,9 +454,9 @@ export class Parser {
         // would try to modify a constant variable
         throw this.error("ConstInForLoopInit", this.previous().location);
       } else {
-        // For-loop init is a statement position, so assignment is allowed (e.g. `i = 0`).
-        init = this.expression(true);
-        this.consumeForLoopSemicolon();
+        // The init must declare its loop variable with `let` (or be empty).
+        // Assigning to an outer variable (`for (i = 0; ...)`) is deliberately not supported.
+        throw this.error("MissingLetInForLoopInit", this.peek().location);
       }
 
       // Parse condition

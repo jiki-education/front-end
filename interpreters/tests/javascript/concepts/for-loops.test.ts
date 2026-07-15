@@ -14,7 +14,7 @@ describe("JavaScript for loops", () => {
       expect((frames[frames.length - 1] as TestAugmentedFrame).variables.sum.value).toBe(10); // 0+1+2+3+4
     });
 
-    test("loop with existing variable", () => {
+    test("loop with existing variable requires let", () => {
       const code = `
         let i = 10;
         let count = 0;
@@ -22,10 +22,9 @@ describe("JavaScript for loops", () => {
           count = count + 1;
         }
       `;
-      const { frames, error } = interpret(code);
-      expect(error).toBeNull();
-      expect((frames[frames.length - 1] as TestAugmentedFrame).variables.i.value).toBe(3);
-      expect((frames[frames.length - 1] as TestAugmentedFrame).variables.count.value).toBe(3);
+      const { error } = interpret(code);
+      expect(error).not.toBeNull();
+      expect(error?.type).toBe("MissingLetInForLoopInit");
     });
 
     test("loop with decrement", () => {
