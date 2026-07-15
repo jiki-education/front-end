@@ -28,4 +28,4 @@ Build the result string using concatenation (`+`) or a template string.
 
 - `raindrops(28)` returns "Plong" because 28 is divisible by 7, but not 3 or 5.
 - `raindrops(30)` returns "PlingPlang" because 30 is divisible by 3 and 5, but not 7.
-- `raindrops(34)` returns "34" because 34 is not divisible by 3, 5, or 7.
+- `raindrops(34)` returns the string "34" because the number 34 is not divisible by 3, 5, or 7.

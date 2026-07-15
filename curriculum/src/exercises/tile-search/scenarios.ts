@@ -1,4 +1,14 @@
-import type { Task, IOScenario } from "../types";
+import type { Task, IOScenario, CodeCheck } from "../types";
+
+const eightLinesCheck: CodeCheck[] = [
+  {
+    pass: (result, language) => {
+      const limit = language === "python" ? 5 : 8;
+      return result.assertors.assertMaxLinesOfCode(limit);
+    },
+    errorHtml: "Your solution has too many lines of code. Can you make it shorter?"
+  }
+];
 
 export const tasks = [
   {
@@ -18,6 +28,14 @@ export const tasks = [
       "single-tile-not-found"
     ],
     bonus: false
+  },
+  {
+    id: "solve-in-eight-lines" as const,
+    name: "Solve in 8 lines of code",
+    description: "Can you solve this exercise with only 8 lines of code?",
+    hints: [],
+    requiredScenarios: ["bonus-1"],
+    bonus: true
   }
 ] as const satisfies readonly Task[];
 
@@ -93,5 +111,15 @@ export const scenarios: IOScenario[] = [
     functionName: "contains",
     args: [["Q"], "X"],
     expected: false
+  },
+  {
+    slug: "bonus-1",
+    name: "8 lines of code",
+    description: "Solve the exercise with only 8 lines of code.",
+    taskId: "solve-in-eight-lines",
+    functionName: "contains",
+    args: [["S", "C", "R", "A", "B"], "A"],
+    expected: true,
+    codeChecks: eightLinesCheck
   }
 ];
