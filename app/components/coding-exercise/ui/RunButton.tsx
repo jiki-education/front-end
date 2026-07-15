@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { showConfirmation } from "@/lib/modal";
 import UndoArrowIcon from "@/icons/undo-arrow.svg";
 import Tooltip from "@/components/ui/Tooltip";
@@ -6,6 +7,8 @@ import { useOrchestrator } from "../lib/OrchestratorContext";
 import styles from "../CodingExercise.module.css";
 
 export default function RunButton() {
+  const t = useTranslations("codingExercise.runButton");
+  const tCommon = useTranslations("common");
   const orchestrator = useOrchestrator();
   const { status } = useOrchestratorStore(orchestrator);
 
@@ -15,23 +18,22 @@ export default function RunButton() {
 
   const handleReset = () => {
     showConfirmation({
-      title: "Reset your code?",
-      message:
-        "This will reset your code back to the start. Don't worry — this won't lose your conversations with Jiki.",
-      confirmText: "Yes, reset",
-      cancelText: "Cancel",
+      title: t("resetConfirmTitle"),
+      message: t("resetConfirmMessage"),
+      confirmText: t("resetConfirmButton"),
+      cancelText: tCommon("cancel"),
       onConfirm: () => orchestrator.resetExercise()
     });
   };
 
   return (
     <div className={styles.runButtonBlock}>
-      <Tooltip content="Click to Reset the exercise">
+      <Tooltip content={t("resetTooltip")}>
         <button
           data-testid="reset-button"
           onClick={handleReset}
           className={styles.pillBtnReset}
-          aria-label="Reset exercise"
+          aria-label={t("resetAriaLabel")}
         >
           <UndoArrowIcon width={16} height={16} />
         </button>
@@ -54,7 +56,7 @@ export default function RunButton() {
         >
           <polygon points="5 3 19 12 5 21 5 3" />
         </svg>
-        {status === "running" ? "Running..." : "Run Code"}
+        {status === "running" ? t("running") : t("run")}
       </button>
     </div>
   );

@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import styles from "./ScrollToActiveLessonButton.module.css";
 import ChevronUpIcon from "@/icons/chevron-up.svg";
@@ -9,6 +10,7 @@ interface ScrollToActiveLessonButtonProps {
 }
 
 export function ScrollToActiveLessonButton({ containerRef }: ScrollToActiveLessonButtonProps) {
+  const t = useTranslations("dashboard.exercisePath.scrollToActive");
   const [direction, setDirection] = useState<"up" | "down" | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -79,11 +81,7 @@ export function ScrollToActiveLessonButton({ containerRef }: ScrollToActiveLesso
 
   return (
     <div className={styles.anchor}>
-      <button
-        className={styles.button}
-        onClick={handleClick}
-        aria-label={direction === "up" ? "Scroll up to active lesson" : "Scroll down to active lesson"}
-      >
+      <button className={styles.button} onClick={handleClick} aria-label={direction === "up" ? t("up") : t("down")}>
         {direction === "up" ? <ChevronUpIcon width={20} /> : <ChevronDownIcon width={20} />}
       </button>
     </div>

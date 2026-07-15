@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import type { EmailPreferences } from "@/lib/api/emailPreferences";
 import { NOTIFICATION_TYPES } from "@/lib/notifications/config";
 import NotificationItem, { type NotificationConfig } from "./NotificationItem";
@@ -20,6 +21,8 @@ interface ManageNotificationsSectionProps {
 }
 
 export default function ManageNotificationsSection({ preferences, loading, onSave }: ManageNotificationsSectionProps) {
+  const t = useTranslations("unsubscribe.manage");
+  const tCommon = useTranslations("common");
   const [localPreferences, setLocalPreferences] = useState<EmailPreferences>(preferences);
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -41,8 +44,8 @@ export default function ManageNotificationsSection({ preferences, loading, onSav
 
   return (
     <section className={styles.sectionCard}>
-      <h2>Manage Your Notifications</h2>
-      <p>Fine-tune which emails you receive by toggling individual notification types on or off.</p>
+      <h2>{t("title")}</h2>
+      <p>{t("description")}</p>
 
       <div className={styles.notificationList}>
         {NOTIFICATION_CONFIGS.map((config) => (
@@ -60,7 +63,7 @@ export default function ManageNotificationsSection({ preferences, loading, onSav
         {showSuccess && !hasChanges && !loading ? (
           <div className={styles.inlineSuccessMessage}>
             <CheckCircleIcon />
-            <span>Your email preferences have been updated.</span>
+            <span>{t("updated")}</span>
           </div>
         ) : (
           <button
@@ -68,7 +71,7 @@ export default function ManageNotificationsSection({ preferences, loading, onSav
             onClick={handleSave}
             disabled={loading || !hasChanges}
           >
-            {loading ? "Saving..." : "Change Preferences"}
+            {loading ? tCommon("saving") : t("save")}
           </button>
         )}
       </div>

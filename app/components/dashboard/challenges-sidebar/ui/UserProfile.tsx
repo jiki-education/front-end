@@ -2,6 +2,7 @@
 
 import type { BadgeData } from "@/lib/api/badges";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
+import { useTranslations } from "next-intl";
 import { showAvatarEditModal } from "@/lib/modal/app";
 import UserAvatar from "@/components/common/UserAvatar";
 import { Icon } from "@/components/ui-kit/Icon";
@@ -37,6 +38,7 @@ interface UserProfileProps {
 }
 
 export function UserProfile({ profile, badges, onBadgeRevealed, loading, isPremium = false }: UserProfileProps) {
+  const t = useTranslations("dashboard.challengesSidebar.userProfile");
   const shouldShowSkeleton = useDelayedLoading(loading ?? false);
 
   const handleAvatarClick = () => {
@@ -61,7 +63,7 @@ export function UserProfile({ profile, badges, onBadgeRevealed, loading, isPremi
           </div>
           {isPremium && (
             <div className={style.starBadge}>
-              <div className={style.starTooltip}>Premium Member</div>
+              <div className={style.starTooltip}>{t("premiumMember")}</div>
               <Icon name="premium-star" size={17} />
             </div>
           )}

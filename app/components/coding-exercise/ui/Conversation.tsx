@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import type { ChatMessage, StreamStatus } from "../lib/chat-types";
 import ChatMessages from "./ChatMessages";
 import { ChatHeader } from "./ChatHeader";
@@ -25,15 +26,16 @@ export function Conversation({
   onRetryLoad,
   footer
 }: ConversationProps) {
+  const t = useTranslations("codingExercise.conversation");
   return (
     <div className={styles.conversation}>
       {conversationError && (
         <div className={styles.errorBanner}>
           <div className={styles.errorBannerRow}>
-            <p className={styles.errorBannerText}>Failed to load conversation history: {conversationError}</p>
+            <p className={styles.errorBannerText}>{t("loadError", { error: conversationError })}</p>
             {onRetryLoad && (
               <button onClick={onRetryLoad} className={styles.errorBannerRetry}>
-                Retry
+                {t("retry")}
               </button>
             )}
           </div>

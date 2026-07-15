@@ -2,6 +2,7 @@
 
 import { playSound } from "@/lib/sound";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { CodeWithBlanks, type CodeBlank } from "./CodeWithBlanks";
 import { InfoBox } from "./InfoBox";
 import { QuizContent } from "./QuizContent";
@@ -23,6 +24,7 @@ interface FillInQuizCardProps {
 }
 
 export function FillInQuizCard({ question, onNext }: FillInQuizCardProps) {
+  const t = useTranslations("quizCard.fillIn");
   const [values, setValues] = useState<Record<string, string | undefined>>({});
   const [submitted, setSubmitted] = useState(false);
   const [results, setResults] = useState<Record<string, boolean>>({});
@@ -74,16 +76,16 @@ export function FillInQuizCard({ question, onNext }: FillInQuizCardProps) {
     if (allCorrect) {
       return {
         type: "success" as const,
-        title: "Perfect!",
-        message: question.successMessage || "All blanks filled correctly!"
+        title: t("successTitle"),
+        message: question.successMessage || t("successMessage")
       };
     }
 
     const incorrectCount = Object.values(results).filter((r) => !r).length;
     return {
       type: "error" as const,
-      title: `${incorrectCount} blank${incorrectCount > 1 ? "s" : ""} incorrect`,
-      message: question.errorMessage || "Review your answers and try again."
+      title: t("incorrectTitle", { count: incorrectCount }),
+      message: question.errorMessage || t("errorMessage")
     };
   };
 

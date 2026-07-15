@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import type { UsageStatus } from "../lib/chatUsage";
 import { FAIR_USAGE_ARTICLE_SLUG, usageLimitText, usageWarningText } from "../lib/chatUsage";
@@ -14,6 +15,7 @@ interface ChatUsageNoticeProps {
 // the user approaches their limit, then a terminal "limit reached" notice once
 // they hit the cap (the composer is disabled separately by ChatInputArea).
 export default function ChatUsageNotice({ status }: ChatUsageNoticeProps) {
+  const t = useTranslations("codingExercise.chatUsageNotice");
   const routes = useLocaleRoutes();
 
   if (!status || (!status.warning && !status.atCap)) {
@@ -31,7 +33,7 @@ export default function ChatUsageNotice({ status }: ChatUsageNoticeProps) {
         rel="noopener noreferrer"
         className={styles.link}
       >
-        Learn More
+        {t("learnMore")}
       </Link>
     </div>
   );

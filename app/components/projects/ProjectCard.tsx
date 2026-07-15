@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { localePath } from "@/lib/i18n/routes";
 import { staticAsset } from "@/lib/static-asset";
 import type { ProjectMeta } from "@/lib/content/types";
@@ -11,6 +12,7 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, locale }: ProjectCardProps) {
+  const t = useTranslations("projects.projectCard");
   const comingSoon = project.episodeCount === 0;
   const cardClassName = `${styles.card} ${comingSoon ? styles.cardComingSoon : ""}`;
 
@@ -37,8 +39,8 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
         )}
       </div>
       {comingSoon && (
-        <div className={styles.comingSoonRibbon} aria-label="Coming soon">
-          <span>Coming Soon</span>
+        <div className={styles.comingSoonRibbon} aria-label={t("comingSoonLabel")}>
+          <span>{t("comingSoon")}</span>
         </div>
       )}
     </>

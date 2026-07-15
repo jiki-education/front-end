@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { localePath } from "@/lib/i18n/routes";
 import LockIcon from "@/icons/lock.svg";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
@@ -16,6 +17,7 @@ interface GuideCardProps {
 }
 
 export default function GuideCard({ guide, locale, premiumLocked = false, compact = false }: GuideCardProps) {
+  const t = useTranslations("guides.guideCard");
   const firstTag = guide.tags[0] as GuideTagSlug | undefined;
   const tagLabel = firstTag ? getGuideTagLabel(firstTag, locale) : null;
 
@@ -45,7 +47,7 @@ export default function GuideCard({ guide, locale, premiumLocked = false, compac
       >
         <div className={styles.lockBadge}>
           <LockIcon className={styles.lockIcon} />
-          Premium
+          {t("premium")}
         </div>
         {inner}
       </button>

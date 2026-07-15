@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import type { Task, TaskProgress } from "@jiki/curriculum";
 import type { Orchestrator } from "../lib/Orchestrator";
 import { useOrchestratorStore } from "../lib/orchestrator/store";
@@ -11,11 +12,12 @@ interface TasksViewProps {
 }
 
 export default function TasksView({ tasks, orchestrator, className = "" }: TasksViewProps) {
+  const t = useTranslations("codingExercise.tasksView");
   const { taskProgress, completedTasks, currentTaskId } = useOrchestratorStore(orchestrator);
   if (!tasks || tasks.length === 0) {
     return (
       <div className={`p-4 ${className}`}>
-        <p className="text-sm text-gray-500 italic">No tasks available for this exercise.</p>
+        <p className="text-sm text-gray-500 italic">{t("empty")}</p>
       </div>
     );
   }
@@ -60,7 +62,9 @@ export default function TasksView({ tasks, orchestrator, className = "" }: Tasks
                   >
                     {task.name}
                     {task.bonus && (
-                      <span className="ml-2 px-2 py-0.5 text-xs bg-yellow-100 text-yellow-700 rounded">Bonus</span>
+                      <span className="ml-2 px-2 py-0.5 text-xs bg-yellow-100 text-yellow-700 rounded">
+                        {t("bonus")}
+                      </span>
                     )}
                   </p>
                   {progress && progress.totalScenarios > 0 && (

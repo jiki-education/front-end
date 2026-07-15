@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { localePath } from "@/lib/i18n/routes";
 import styles from "./GuideBreadcrumb.module.css";
 
@@ -15,8 +16,9 @@ interface GuideBreadcrumbProps {
 }
 
 export default function GuideBreadcrumb({ guideTitle, locale }: GuideBreadcrumbProps) {
+  const t = useTranslations("guides.guideBreadcrumb");
   const breadcrumbItems: BreadcrumbItem[] = [
-    { label: "Guides", href: localePath("/guides", locale) },
+    { label: t("guides"), href: localePath("/guides", locale) },
     { label: "›", isLabel: true },
     { label: guideTitle, isCurrent: true }
   ];

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { PageTabs } from "@/components/ui-kit/PageTabs/PageTabs";
 import type { PageTabsProps } from "@/components/ui-kit/PageTabs/types";
 import ArrowRightIcon from "@/icons/arrow-right.svg";
@@ -23,24 +24,25 @@ interface RHSProps {
 }
 
 export function RHS({ orchestrator }: RHSProps) {
+  const t = useTranslations("codingExercise.rhs");
   const [activeTab, setActiveTab] = useState("instructions");
   const router = useRouter();
   const { isExerciseCompleted } = useOrchestratorStore(orchestrator);
   const isChallenge = orchestrator.isChallenge();
   const navTarget = isChallenge ? "/challenges" : "/dashboard";
-  const navLabel = isChallenge ? "Challenges" : "Dashboard";
+  const navLabel = isChallenge ? t("navChallenges") : t("navDashboard");
   const logTabDisabled = orchestrator.getExercise().disableLogTab === true;
 
   // Define tabs data for PageTabs
   const tabs = [
     {
       id: "instructions",
-      label: "Instructions",
+      label: t("tabInstructions"),
       icon: <HamburgerIcon width={18} height={18} className="mr-2" />
     },
     {
       id: "chat",
-      label: "Ask Jiki",
+      label: t("tabAskJiki"),
       icon: <ChatIcon width={18} height={18} className="mr-2" />
     },
     ...(logTabDisabled
@@ -48,13 +50,13 @@ export function RHS({ orchestrator }: RHSProps) {
       : [
           {
             id: "log",
-            label: "Log",
+            label: t("tabLog"),
             icon: <LogIcon width={18} height={18} className="mr-2" />
           }
         ]),
     {
       id: "hints",
-      label: "Hints",
+      label: t("tabHints"),
       icon: <HintIcon width={18} height={18} className="mr-2" />
     }
   ];

@@ -1,9 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export default function ChallengePremiumRequired() {
   const router = useRouter();
+  const t = useTranslations("challenge");
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -18,13 +20,13 @@ export default function ChallengePremiumRequired() {
             />
           </svg>
         </div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Premium Required</h2>
-        <p className="text-gray-600 mb-6">Challenges are a premium feature. Upgrade your plan to start building.</p>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">{t("premiumRequired.title")}</h2>
+        <p className="text-gray-600 mb-6">{t("premiumRequired.description")}</p>
         <button
           onClick={() => router.push("/challenges")}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
-          Back to Challenges
+          {t("backToChallenges")}
         </button>
       </div>
     </div>

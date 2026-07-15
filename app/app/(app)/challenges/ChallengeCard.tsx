@@ -1,6 +1,7 @@
 import { ChallengeIcon } from "@/components/icons/ChallengeIcon";
 import { type ChallengeData } from "@/lib/api/challenges";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import styles from "./ChallengeCard.module.css";
 
 interface ChallengeCardProps {
@@ -11,15 +12,16 @@ interface ChallengeCardProps {
   };
 }
 export function ChallengeCard({ challenge }: ChallengeCardProps) {
+  const t = useTranslations("challenges");
   const isClickable = challenge.status !== "locked";
   const progress = challenge.progress ?? 0;
 
   // Map status to display text to match HTML examples
   const statusConfig = {
-    locked: { text: "Locked" },
-    unlocked: { text: "Not started" },
-    started: { text: "In Progress" },
-    completed: { text: "Completed" }
+    locked: { text: t("status.locked") },
+    unlocked: { text: t("status.unlocked") },
+    started: { text: t("status.started") },
+    completed: { text: t("status.completed") }
   };
 
   // Map status to CSS data-state values
@@ -50,7 +52,7 @@ export function ChallengeCard({ challenge }: ChallengeCardProps) {
             <div className={styles.progressFill}></div>
           </div>
         ) : (
-          <div className={styles.challengeKind}>Coding Challenge</div>
+          <div className={styles.challengeKind}>{t("codingChallenge")}</div>
         )}
       </div>
       <div className={styles.content}>

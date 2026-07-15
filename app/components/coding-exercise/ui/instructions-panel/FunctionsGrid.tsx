@@ -1,4 +1,5 @@
 import { marked } from "marked";
+import { useTranslations } from "next-intl";
 import type { FunctionInfo } from "@jiki/curriculum";
 import styles from "./instructions-panel.module.css";
 
@@ -8,14 +9,15 @@ interface FunctionsGridProps {
 }
 
 export default function FunctionsGrid({ functions, className = "" }: FunctionsGridProps) {
+  const t = useTranslations("codingExercise.instructionsPanel");
   if (functions.length === 0) {
     return null;
   }
 
   return (
     <div className={`${styles.functionsContainer} ${className}`}>
-      <h2>Functions</h2>
-      <p className={styles.functionSectionInfo}>These are the functions you can use in this exercise</p>
+      <h2>{t("functionsTitle")}</h2>
+      <p className={styles.functionSectionInfo}>{t("functionsIntro")}</p>
       <div className={styles.functionsList}>
         {functions.map((func, index) => (
           <div key={index} className={styles.functionCard}>
@@ -30,7 +32,7 @@ export default function FunctionsGrid({ functions, className = "" }: FunctionsGr
             />
             {func.examples && func.examples.length > 0 && (
               <div className={styles.functionExamples}>
-                <p className={styles.functionExamplesLabel}>Examples:</p>
+                <p className={styles.functionExamplesLabel}>{t("functionsExamplesLabel")}</p>
                 <div className={styles.functionExamplesList}>
                   {func.examples.map((example, idx) => (
                     <div key={idx} className={`${styles.functionExample} hljs`}>

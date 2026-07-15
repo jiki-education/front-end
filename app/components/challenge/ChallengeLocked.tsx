@@ -1,9 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export default function ChallengeLocked() {
   const router = useRouter();
+  const t = useTranslations("challenge");
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -18,15 +20,13 @@ export default function ChallengeLocked() {
             />
           </svg>
         </div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Challenge Locked</h2>
-        <p className="text-gray-600 mb-6">
-          This challenge is currently locked. Complete previous lessons to unlock it.
-        </p>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">{t("locked.title")}</h2>
+        <p className="text-gray-600 mb-6">{t("locked.description")}</p>
         <button
           onClick={() => router.push("/challenges")}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
-          Back to Challenges
+          {t("backToChallenges")}
         </button>
       </div>
     </div>

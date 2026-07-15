@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import type { EmailPreferences } from "@/lib/api/emailPreferences";
 import styles from "./UnsubscribePage.module.css";
 
@@ -15,6 +16,7 @@ interface NotificationItemProps {
 }
 
 export default function NotificationItem({ config, enabled, loading, onToggle }: NotificationItemProps) {
+  const t = useTranslations("unsubscribe");
   return (
     <div className={styles.notificationItem}>
       <div className={styles.notificationInfo}>
@@ -25,7 +27,7 @@ export default function NotificationItem({ config, enabled, loading, onToggle }:
         className={`ui-toggle-switch ${enabled ? "active" : ""} ${loading ? "opacity-50" : ""}`}
         onClick={onToggle}
         disabled={loading}
-        aria-label={`Toggle ${config.title}`}
+        aria-label={t("toggleAria", { name: config.title })}
         aria-checked={enabled}
         role="switch"
       />

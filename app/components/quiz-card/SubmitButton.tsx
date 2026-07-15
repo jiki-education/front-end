@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 interface SubmitButtonProps {
   onClick: () => void;
   disabled?: boolean;
@@ -8,7 +10,8 @@ interface SubmitButtonProps {
 }
 
 export function SubmitButton({ onClick, disabled = false, variant = "submit", text }: SubmitButtonProps) {
-  const buttonText = text || (variant === "next" ? "Next Question" : "Submit");
+  const t = useTranslations("quizCard");
+  const buttonText = text || (variant === "next" ? t("nextQuestion") : t("submit"));
 
   const getButtonStyles = () => {
     const base = "w-full mt-6 px-6 py-3 font-semibold rounded-lg transition-colors duration-200";

@@ -1,4 +1,5 @@
 import TypeIt from "typeit-react";
+import { useTranslations } from "next-intl";
 import type { StreamStatus } from "../lib/chat-types";
 import { JikiAvatarImg } from "./ChatAvatars";
 import { processMessageContent } from "./messageUtils";
@@ -18,6 +19,7 @@ export default function TypeItAssistantMessage({
   typingSpeed = 20,
   onTypingComplete
 }: TypeItAssistantMessageProps) {
+  const t = useTranslations("codingExercise.typeItAssistant");
   // Show thinking state
   if (status === "thinking") {
     return (
@@ -27,7 +29,7 @@ export default function TypeItAssistantMessage({
         </div>
         <div className={messageStyles.responseContent}>
           <p className={styles.thinkingText}>
-            Jiki is thinking
+            {t("thinking")}
             <span className={styles.thinkingDots} />
           </p>
         </div>

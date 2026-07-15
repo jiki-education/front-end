@@ -1,4 +1,5 @@
 import TrophyIcon from "@/icons/trophy.svg";
+import { useTranslations } from "next-intl";
 import styles from "./CompletionCert.module.css";
 
 interface CompletionCertProps {
@@ -7,6 +8,7 @@ interface CompletionCertProps {
 }
 
 export function CompletionCert({ completedCount, totalCount }: CompletionCertProps) {
+  const t = useTranslations("dashboard.exercisePath.completionCert");
   const percentage = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
   return (
@@ -16,14 +18,12 @@ export function CompletionCert({ completedCount, totalCount }: CompletionCertPro
       </div>
       <div className={styles.outer}>
         <div className={styles.inner}>
-          <div className={styles.title}>Completion Certificate</div>
-          <div className={styles.subtitle}>
-            Complete all the exercises to get your completion certificate and showcase your new skills!
-          </div>
+          <div className={styles.title}>{t("title")}</div>
+          <div className={styles.subtitle}>{t("description")}</div>
           <div className={styles.bar}>
             <div className={styles.barFill} style={{ width: `${percentage}%` }} />
           </div>
-          <div className={styles.barText}>{percentage}% complete</div>
+          <div className={styles.barText}>{t("progress", { percentage })}</div>
         </div>
       </div>
     </div>

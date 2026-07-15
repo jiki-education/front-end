@@ -3,6 +3,7 @@
 import { PageTabs } from "@/components/ui-kit/PageTabs";
 import type { TabItem } from "@/components/ui-kit/PageTabs";
 import { PageHeader } from "@/components/ui-kit/PageHeader";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import MedalIcon from "@/icons/medal.svg";
 import { CertificatesEmptyState } from "./CertificatesEmptyState";
@@ -15,12 +16,12 @@ import { AchievementsLoadingState } from "./ui/AchievementsLoadingState";
 import { AchievementsErrorState } from "./ui/AchievementsErrorState";
 import { isRecentBadge, sortBadges } from "./lib/badgeUtils";
 
-const tabs: TabItem[] = [
-  { id: "badges", label: "Badges", color: "blue" },
-  { id: "certificates", label: "Certificates", color: "blue" }
-];
-
 export function AchievementsContent() {
+  const t = useTranslations("achievements");
+  const tabs: TabItem[] = [
+    { id: "badges", label: t("tabBadges"), color: "blue" },
+    { id: "certificates", label: t("tabCertificates"), color: "blue" }
+  ];
   const [activeTab, setActiveTab] = useState("badges");
   const [badges, setBadges] = useState<BadgeData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -70,11 +71,7 @@ export function AchievementsContent() {
   }
 
   return (
-    <PageHeader
-      icon={<MedalIcon />}
-      title="Achievements"
-      description="Every badge tells a story of your coding journey."
-    >
+    <PageHeader icon={<MedalIcon />} title={t("title")} description={t("description")}>
       <PageTabs className="mb-16" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
 
       {activeTab === "badges" && (

@@ -2,6 +2,7 @@ import { ChallengeIcon } from "@/components/icons/ChallengeIcon";
 import LockIcon from "@/icons/lock.svg";
 import { type ChallengeData } from "@/lib/api/challenges";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
+import { useTranslations } from "next-intl";
 import styles from "./ChallengeCard.module.css";
 
 interface PremiumChallengeCardProps {
@@ -12,6 +13,7 @@ interface PremiumChallengeCardProps {
 }
 
 export function PremiumChallengeCard({ challenge }: PremiumChallengeCardProps) {
+  const t = useTranslations("challenges");
   const handleClick = () => {
     showPremiumUpgradeModal("locked_challenge", {
       contextType: "challenge",
@@ -24,14 +26,14 @@ export function PremiumChallengeCard({ challenge }: PremiumChallengeCardProps) {
       <div className={styles.card} data-state="premium-locked">
         <div className={styles.statusBadge}>
           <LockIcon className={styles.statusBadgeIcon} />
-          Premium Only
+          {t("premiumOnly")}
         </div>
         <div className={styles.hero}>
           <div className={styles.challengeIcon}>
             <ChallengeIcon slug={challenge.slug} />
           </div>
           <div className={styles.challengeTitle}>{challenge.title}</div>
-          <div className={styles.challengeKind}>Coding Challenge</div>
+          <div className={styles.challengeKind}>{t("codingChallenge")}</div>
         </div>
         <div className={styles.content}>
           <div className={styles.challengeTitle}>{challenge.title}</div>

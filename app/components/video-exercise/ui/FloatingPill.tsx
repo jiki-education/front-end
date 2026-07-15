@@ -1,4 +1,5 @@
 import Tooltip from "@/components/ui/Tooltip";
+import { useTranslations } from "next-intl";
 import { ProgressRing } from "./ProgressRing";
 import styles from "../VideoExercise.module.css";
 
@@ -21,6 +22,9 @@ export function FloatingPill({
   isMarking,
   onContinue
 }: FloatingPillProps) {
+  const t = useTranslations("videoExercise");
+  const tCommon = useTranslations("common");
+
   return (
     <div className={`${styles.floatingPill} ${!videoWatched ? styles.floatingPillDisabled : ""}`}>
       <div className={styles.pillInfo}>
@@ -31,18 +35,25 @@ export function FloatingPill({
           isAlreadyCompleted={isAlreadyCompleted}
         />
         <div className={styles.pillText}>
-          <span className={styles.label}>{videoWatched ? "Lesson Complete" : "Lesson Progress"}</span>
+          <span className={styles.label}>{videoWatched ? t("pill.complete") : t("pill.progress")}</span>
           <span className={styles.value}>
-            {videoWatched ? "Finished" : "Watching"}{" "}
-            <span className={`${styles.videoTitle} ${videoWatched ? styles.videoTitleComplete : ""}`}>
-              {lessonTitle}
-            </span>
+            {videoWatched
+              ? t.rich("pill.finished", {
+                  name: lessonTitle,
+                  title: (chunks) => (
+                    <span className={`${styles.videoTitle} ${styles.videoTitleComplete}`}>{chunks}</span>
+                  )
+                })
+              : t.rich("pill.watching", {
+                  name: lessonTitle,
+                  title: (chunks) => <span className={styles.videoTitle}>{chunks}</span>
+                })}
           </span>
         </div>
       </div>
 
       <div className={styles.continueWrapper}>
-        <Tooltip content="Finish watching to continue" disabled={videoWatched}>
+        <Tooltip content={t("pill.finishTooltip")} disabled={videoWatched}>
           <button
             className={`ui-btn ui-btn-default ${
               videoWatched ? "ui-btn-primary ui-btn-green" : "ui-btn-secondary ui-btn-gray"
@@ -50,7 +61,7 @@ export function FloatingPill({
             onClick={onContinue}
             disabled={!videoWatched || isMarking}
           >
-            {isMarking ? "Saving..." : "Continue"}
+            {isMarking ? tCommon("saving") : tCommon("continue")}
             {!isMarking && (
               <svg viewBox="0 0 24 24" className={styles.buttonIcon}>
                 <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />

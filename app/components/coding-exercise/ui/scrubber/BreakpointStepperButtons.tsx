@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslations } from "next-intl";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import styles from "../../CodingExercise.module.css";
@@ -8,6 +9,7 @@ interface BreakpointStepperButtonsProps {
 }
 
 export default function BreakpointStepperButtons({ enabled }: BreakpointStepperButtonsProps) {
+  const t = useTranslations("codingExercise.scrubber");
   const orchestrator = useOrchestrator();
   const { currentTest, breakpoints, prevBreakpointFrame, nextBreakpointFrame } = useOrchestratorStore(orchestrator);
 
@@ -19,7 +21,7 @@ export default function BreakpointStepperButtons({ enabled }: BreakpointStepperB
             disabled={!enabled || !prevBreakpointFrame}
             onClick={() => orchestrator.goToPrevBreakpoint()}
             className={styles.codeNavBtn}
-            aria-label="Previous breakpoint"
+            aria-label={t("previousBreakpoint")}
           >
             ‹
           </button>
@@ -27,7 +29,7 @@ export default function BreakpointStepperButtons({ enabled }: BreakpointStepperB
             disabled={!enabled || !nextBreakpointFrame}
             onClick={() => orchestrator.goToNextBreakpoint()}
             className={styles.codeNavBtn}
-            aria-label="Next breakpoint"
+            aria-label={t("nextBreakpoint")}
           >
             ›
           </button>

@@ -2,6 +2,7 @@
 
 import { usePathname, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import SearchIcon from "@/icons/search.svg";
 import CrossIcon from "@/icons/cross.svg";
 import StudyBookIcon from "@/icons/study-book.svg";
@@ -25,6 +26,7 @@ interface GuidesContentProps {
 }
 
 export default function GuidesContent({ guides, locale, selectedTag, tagSlugs }: GuidesContentProps) {
+  const t = useTranslations("guides.guidesContent");
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { searchQuery, setSearchQuery, searchResults } = useGuidesSearch(locale);
@@ -71,7 +73,7 @@ export default function GuidesContent({ guides, locale, selectedTag, tagSlugs }:
       <header>
         <h1 className={styles.pageHeading}>
           <StudyBookIcon className={styles.headingIcon} />
-          Guides and how-tos
+          {t("pageHeading")}
         </h1>
       </header>
 
@@ -79,7 +81,7 @@ export default function GuidesContent({ guides, locale, selectedTag, tagSlugs }:
         <SearchIcon />
         <input
           type="text"
-          placeholder="Search guides..."
+          placeholder={t("searchPlaceholder")}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
@@ -90,7 +92,7 @@ export default function GuidesContent({ guides, locale, selectedTag, tagSlugs }:
 
       <div className={styles.filterTags}>
         <Link href={buildTagUrl(null)} className={`${styles.filterTag} ${selectedTag === null ? styles.active : ""}`}>
-          All
+          {t("filterAll")}
         </Link>
         {tagSlugs.map((slug) => (
           <Link
@@ -105,8 +107,8 @@ export default function GuidesContent({ guides, locale, selectedTag, tagSlugs }:
 
       {showNoResults ? (
         <div className={styles.noResults}>
-          <p className={styles.noResultsTitle}>0 results for &ldquo;{searchQuery}&rdquo;</p>
-          <p className={styles.noResultsMessage}>Try a different search term or browse the guides.</p>
+          <p className={styles.noResultsTitle}>{t("noResultsTitle", { query: searchQuery })}</p>
+          <p className={styles.noResultsMessage}>{t("noResultsMessage")}</p>
         </div>
       ) : (
         <div className={styles.guidesGrid}>

@@ -2,6 +2,7 @@ import CompleteIcon from "@/icons/complete.svg";
 import InProgressIcon from "@/icons/in-progress.svg";
 import NotStartedIcon from "@/icons/not-started.svg";
 import type { ChallengeData } from "@/lib/api/challenges";
+import { useTranslations } from "next-intl";
 import { ChallengesEmptyState } from "./ChallengesEmptyState";
 
 interface NoChallengesFoundProps {
@@ -10,10 +11,12 @@ interface NoChallengesFoundProps {
 }
 
 export function NoChallengesFound({ challenges, activeTabId }: NoChallengesFoundProps) {
+  const t = useTranslations("challenges.empty");
+
   if (challenges.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500 text-lg">No challenges available yet.</p>
+        <p className="text-gray-500 text-lg">{t("noneAvailable")}</p>
       </div>
     );
   }
@@ -24,10 +27,8 @@ export function NoChallengesFound({ challenges, activeTabId }: NoChallengesFound
         <ChallengesEmptyState
           variant="purple"
           icon={<InProgressIcon />}
-          title="No challenges in progress"
-          description={
-            'You haven\'t started any challenges yet. Browse available challenges and click "Get started" to begin your first challenge.'
-          }
+          title={t("inProgressTitle")}
+          description={t("inProgressDescription")}
         />
       );
     case "not-started": {
@@ -39,8 +40,8 @@ export function NoChallengesFound({ challenges, activeTabId }: NoChallengesFound
           <ChallengesEmptyState
             variant="blue"
             icon={<NotStartedIcon />}
-            title="All challenges have been started"
-            description="Great progress! You've started working on all available challenges. Keep going to complete them."
+            title={t("allStartedTitle")}
+            description={t("allStartedDescription")}
           />
         );
       }
@@ -48,8 +49,8 @@ export function NoChallengesFound({ challenges, activeTabId }: NoChallengesFound
         <ChallengesEmptyState
           variant="blue"
           icon={<NotStartedIcon />}
-          title="No challenges to start yet"
-          description="Challenges will appear here as you unlock them."
+          title={t("noneToStartTitle")}
+          description={t("noneToStartDescription")}
         />
       );
     }
@@ -58,14 +59,14 @@ export function NoChallengesFound({ challenges, activeTabId }: NoChallengesFound
         <ChallengesEmptyState
           variant="green"
           icon={<CompleteIcon />}
-          title="No completed challenges yet"
-          description="Complete your first challenge to see it here. Keep working on your in-progress challenges to reach this milestone."
+          title={t("completedTitle")}
+          description={t("completedDescription")}
         />
       );
     default:
       return (
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">No challenges found.</p>
+          <p className="text-gray-500 text-lg">{t("noneFound")}</p>
         </div>
       );
   }

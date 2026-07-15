@@ -3,6 +3,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { marked } from "marked";
 import hljs from "highlight.js/lib/core";
 import setupJikiscript from "@exercism/highlightjs-jikiscript";
@@ -29,6 +30,7 @@ interface HintsViewProps {
 }
 
 export default function HintsPanel({ hints, walkthroughVideoData, lessonSlug, className = "" }: HintsViewProps) {
+  const t = useTranslations("codingExercise.hintsPanel");
   const [revealedHints, setRevealedHints] = useState<Set<number>>(new Set());
   const [walkthroughUnlocked, setWalkthroughUnlocked] = useState(false);
 
@@ -38,7 +40,7 @@ export default function HintsPanel({ hints, walkthroughVideoData, lessonSlug, cl
   if (!hasHints && !hasWalkthrough) {
     return (
       <div className={`p-4 ${className}`}>
-        <p className="text-sm text-gray-500 italic">No hints available for this exercise.</p>
+        <p className="text-sm text-gray-500 italic">{t("empty")}</p>
       </div>
     );
   }
@@ -61,10 +63,7 @@ export default function HintsPanel({ hints, walkthroughVideoData, lessonSlug, cl
 
   return (
     <div className={`${className}`}>
-      <PanelHeader
-        title="Hints"
-        description="If you're stuck on this exercise, these hints can help guide you in the right direction. Click on a hint to reveal helpful tips."
-      />
+      <PanelHeader title={t("title")} description={t("description")} />
 
       <div className="py-24 px-32">
         {hasHints && (
@@ -96,15 +95,15 @@ export default function HintsPanel({ hints, walkthroughVideoData, lessonSlug, cl
 
         {hasWalkthrough && (
           <div className={style.walkthroughSection}>
-            <h3>Deep Dive</h3>
-            <p>Still stuck? Watch a deep dive of Jeremy solving this exercise.</p>
+            <h3>{t("deepDiveHeading")}</h3>
+            <p>{t("deepDiveDescription")}</p>
             {walkthroughUnlocked ? (
               <InlineWalkthroughPlayer playbackId={walkthroughVideoData[0].id} lessonSlug={lessonSlug} />
             ) : (
               <div className={style.walkthroughThumbWrapper} onClick={handleWalkthroughClick}>
                 <img
                   src={`https://image.mux.com/${walkthroughVideoData[0].id}/thumbnail.jpg?width=400&height=225`}
-                  alt="Deep Dive video thumbnail"
+                  alt={t("walkthroughThumbnailAlt")}
                   className={style.walkthroughThumb}
                 />
                 <div className={style.walkthroughPlayBtn}>
@@ -170,6 +169,7 @@ interface HintItemProps {
 }
 
 function HintItem({ question, answer, isRevealed = false, onReveal, onHide, style }: HintItemProps) {
+  const t = useTranslations("codingExercise.hintsPanel");
   const [showConfirmOverlay, setShowConfirmOverlay] = useState(false);
 
   const handleRevealClick = () => {
@@ -200,12 +200,12 @@ function HintItem({ question, answer, isRevealed = false, onReveal, onHide, styl
           {isRevealed ? (
             <>
               <EyeClosedIcon width={14} height={14} />
-              <span className={style?.hideText}>Hide</span>
+              <span className={style?.hideText}>{t("hide")}</span>
             </>
           ) : (
             <>
               <EyeOpenIcon width={14} height={14} />
-              <span className={style?.revealText}>Reveal</span>
+              <span className={style?.revealText}>{t("reveal")}</span>
             </>
           )}
         </div>
@@ -213,13 +213,13 @@ function HintItem({ question, answer, isRevealed = false, onReveal, onHide, styl
       <div className={style?.hintAnswer} onClick={(e) => e.stopPropagation()}>
         {showConfirmOverlay && (
           <div className={style?.hintConfirmOverlay} onClick={(e) => e.stopPropagation()}>
-            <div className={style?.hintConfirmText}>Are you sure you want to reveal this hint?</div>
+            <div className={style?.hintConfirmText}>{t("confirmReveal")}</div>
             <div className={style?.hintConfirmButtons}>
               <button className="ui-btn ui-btn-xs ui-btn-tertiary" onClick={handleCancelReveal}>
-                Not for now
+                {t("confirmNo")}
               </button>
               <button className="ui-btn ui-btn-xs ui-btn-primary" onClick={handleConfirmReveal}>
-                Yes
+                {t("confirmYes")}
               </button>
             </div>
           </div>

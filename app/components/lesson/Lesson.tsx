@@ -7,6 +7,7 @@ import type { UserCourse } from "@/types/course";
 import type { LessonWithData } from "@/types/lesson";
 import type { LastSubmissionData } from "@/lib/api/types/conversation";
 import { useCallback, useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import LessonContent from "./LessonContent";
 import LessonError from "./LessonError";
 
@@ -15,6 +16,7 @@ interface LessonProps {
 }
 
 export default function Lesson({ slug }: LessonProps) {
+  const t = useTranslations("lesson");
   const [lesson, setLesson] = useState<LessonWithData | null>(null);
   const [userCourse, setUserCourse] = useState<UserCourse | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -28,9 +30,9 @@ export default function Lesson({ slug }: LessonProps) {
   // Update document title when lesson loads
   useEffect(() => {
     if (lesson) {
-      document.title = `${lesson.title} - Jiki`;
+      document.title = t("documentTitle", { title: lesson.title });
     }
-  }, [lesson]);
+  }, [lesson, t]);
 
   // Load lesson and user course on mount
   useEffect(() => {
@@ -61,7 +63,7 @@ export default function Lesson({ slug }: LessonProps) {
           console.error("Failed to fetch lesson:", err);
           // Auth/network/rate-limit errors never reach here (handled globally)
           // Only application errors (404, 500, validation) reach this catch block
-          setError(err instanceof Error ? err.message : "Failed to load lesson");
+          setError(err instanceof Error ? err.message : t("loadError"));
         }
       } finally {
         if (!cancelled) {
@@ -75,7 +77,7 @@ export default function Lesson({ slug }: LessonProps) {
     return () => {
       cancelled = true;
     };
-  }, [slug]);
+  }, [slug, t]);
 
   if (error) {
     return <LessonError error={error} />;

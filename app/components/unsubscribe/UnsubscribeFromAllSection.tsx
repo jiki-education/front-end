@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import BlockCircleIcon from "@/icons/block-circle.svg";
 import CheckCircleIcon from "@/icons/check-circle.svg";
 import AlertCircleIcon from "@/icons/alert-circle.svg";
@@ -16,22 +17,21 @@ export default function UnsubscribeFromAllSection({
   error,
   onUnsubscribe
 }: UnsubscribeFromAllSectionProps) {
+  const t = useTranslations("unsubscribe");
+  const tCommon = useTranslations("common");
   return (
     <section className={styles.sectionCard}>
-      <h2>Unsubscribe from All Emails</h2>
-      <p>
-        Want to stop all email communications from Jiki? This will unsubscribe you from all marketing, notification, and
-        reminder emails.
-      </p>
+      <h2>{t("all.title")}</h2>
+      <p>{t("all.description")}</p>
       {success ? (
         <div className={styles.inlineSuccessMessage}>
           <CheckCircleIcon />
-          <span>You&apos;ve been unsubscribed from all Jiki emails.</span>
+          <span>{t("all.success")}</span>
         </div>
       ) : error ? (
         <div className={styles.inlineErrorMessage}>
           <AlertCircleIcon />
-          <span>Failed to update your preferences. Please try again.</span>
+          <span>{t("updateError")}</span>
         </div>
       ) : (
         <button
@@ -40,7 +40,7 @@ export default function UnsubscribeFromAllSection({
           disabled={loading}
         >
           <BlockCircleIcon />
-          {loading ? "Processing..." : "Unsubscribe from All Emails"}
+          {loading ? tCommon("processing") : t("all.button")}
         </button>
       )}
     </section>

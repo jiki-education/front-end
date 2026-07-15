@@ -1,4 +1,5 @@
 import WalkthroughIcon from "@/icons/walkthrough.svg";
+import { useTranslations } from "next-intl";
 import type { LessonDisplayData } from "../types";
 import { showVideoWalkthrough } from "@/lib/modal/app";
 import styles from "./WalkthroughCard.module.css";
@@ -9,6 +10,7 @@ interface WalkthroughCardProps {
 }
 
 export function WalkthroughCard({ lesson, isCompleting }: WalkthroughCardProps) {
+  const t = useTranslations("dashboard.exercisePath.walkthrough");
   const walkthroughVideoData = lesson.lesson.walkthrough_video_data;
   if (!walkthroughVideoData?.length) {
     return null;
@@ -63,13 +65,13 @@ export function WalkthroughCard({ lesson, isCompleting }: WalkthroughCardProps) 
         <div className={styles.progress}>
           <div className={styles.progressFill} style={{ width: `${percentage}%` }} />
         </div>
-        <div className={styles.label}>Deep Dive</div>
+        <div className={styles.label}>{t("label")}</div>
       </div>
       <div className={styles.back}>
         <svg viewBox="0 0 24 24">
           <polygon points="5,3 19,12 5,21" />
         </svg>
-        <div className={styles.backLabel}>Watch</div>
+        <div className={styles.backLabel}>{t("watch")}</div>
       </div>
     </div>
   );

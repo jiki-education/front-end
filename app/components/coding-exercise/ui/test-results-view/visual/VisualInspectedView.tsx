@@ -1,5 +1,6 @@
 import { assembleClassNames } from "@/lib/assemble-classnames";
 import { useMemo } from "react";
+import { useTranslations } from "next-intl";
 import styles from "../../../CodingExercise.module.css";
 import { useOrchestratorStore } from "../../../lib/Orchestrator";
 import { useOrchestrator } from "../../../lib/OrchestratorContext";
@@ -23,6 +24,7 @@ export function VisualInspectedView() {
 }
 
 function VisualInspectedPreviewView() {
+  const t = useTranslations("codingExercise.testResults");
   const orchestrator = useOrchestrator();
   const { currentTestIdx } = useOrchestratorStore(orchestrator);
   const exercise = orchestrator.getExercise() as VisualExerciseDefinition;
@@ -56,8 +58,8 @@ function VisualInspectedPreviewView() {
           <div className={styles.contentBelowTabs}>
             <VisualTestLHS name={scenario.name} status="pending">
               <div className={styles.testFeedback}>
-                <span className={styles.badge}>Pending</span>
-                <div className={styles.message}>Run your code to see whether this scenario passes or fails.</div>
+                <span className={styles.badge}>{t("pendingBadge")}</span>
+                <div className={styles.message}>{t("pendingMessage")}</div>
               </div>
             </VisualTestLHS>
 
@@ -98,6 +100,7 @@ function VisualInspectedResultView() {
 }
 
 function TestResultInfo({ firstExpect }: { firstExpect: TestExpect | null }) {
+  const t = useTranslations("codingExercise.testResults");
   const orchestrator = useOrchestrator();
   const { currentTest, testSuiteResult } = useOrchestratorStore(orchestrator);
 
@@ -114,17 +117,11 @@ function TestResultInfo({ firstExpect }: { firstExpect: TestExpect | null }) {
   }
 
   if (currentTest?.status === "lint_warning") {
-    return (
-      <VisualTestResultView
-        isPassing={false}
-        errorHtml="Your code worked correctly, but you need to fix your formatting. Look for orange underlines in your code."
-        testIdx={Math.max(0, testIdx)}
-      />
-    );
+    return <VisualTestResultView isPassing={false} errorHtml={t("lintWarningPlain")} testIdx={Math.max(0, testIdx)} />;
   }
 
   if (currentTest?.status === "fail" && firstExpect.pass) {
-    return <VisualTestResultView isPassing={false} errorHtml="Uh Oh. Your code has an error in it." />;
+    return <VisualTestResultView isPassing={false} errorHtml={t("genericError")} />;
   }
 
   return <VisualTestResultView isPassing={firstExpect.pass} errorHtml={errorHtml} testIdx={Math.max(0, testIdx)} />;

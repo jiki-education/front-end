@@ -1,6 +1,7 @@
 "use client";
 
 import { marked } from "marked";
+import { useTranslations } from "next-intl";
 import type { FunctionInfo } from "@jiki/curriculum";
 
 interface FunctionsViewProps {
@@ -8,8 +9,9 @@ interface FunctionsViewProps {
 }
 
 export default function FunctionsView({ functions }: FunctionsViewProps) {
+  const t = useTranslations("codingExercise.functionsView");
   if (!functions || functions.length === 0) {
-    return <div className="p-4 text-gray-500 text-sm">No functions available for this exercise.</div>;
+    return <div className="p-4 text-gray-500 text-sm">{t("empty")}</div>;
   }
 
   return (
@@ -30,7 +32,7 @@ export default function FunctionsView({ functions }: FunctionsViewProps) {
 
           {func.examples && func.examples.length > 0 && (
             <div className="mt-12">
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Examples</p>
+              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">{t("examples")}</p>
               <div className="space-y-2">
                 {func.examples.map((example, idx) => (
                   <div

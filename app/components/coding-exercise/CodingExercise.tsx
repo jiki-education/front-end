@@ -3,6 +3,7 @@
 import type { ExerciseSlug } from "@jiki/curriculum";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 import CodingExerciseContent from "./CodingExerciseContent";
 import { useExerciseLoader } from "./hooks/useExerciseLoader";
 import type { ExerciseContext } from "./lib/types";
@@ -28,6 +29,7 @@ export default function CodingExercise({
   serverSubmission,
   onReady
 }: CodingExerciseProps) {
+  const t = useTranslations("codingExercise");
   const router = useRouter();
   const continueHref = context.type === "challenge" ? "/challenges" : "/dashboard";
   const { orchestrator, isLoading, loadError } = useExerciseLoader({
@@ -52,7 +54,7 @@ export default function CodingExercise({
   if (loadError) {
     return (
       <div className="flex items-center justify-center h-screen bg-gray-50">
-        <div className="text-lg text-red-600">Error loading exercise: {loadError}</div>
+        <div className="text-lg text-red-600">{t("loadError", { error: loadError })}</div>
       </div>
     );
   }

@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import type { VideoSource } from "@/types/lesson";
 import styles from "../VideoExercise.module.css";
 
@@ -6,6 +7,8 @@ interface NoVideoPlaceholderProps {
 }
 
 export function NoVideoPlaceholder({ videoSource }: NoVideoPlaceholderProps) {
+  const t = useTranslations("videoExercise");
+
   return (
     <div className={styles.noVideoPlaceholder}>
       <div className={styles.noVideoContent}>
@@ -18,8 +21,8 @@ export function NoVideoPlaceholder({ videoSource }: NoVideoPlaceholderProps) {
           />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <p className={styles.noVideoText}>No video source available</p>
-        {videoSource && <p className={styles.noVideoHost}>Provider: {videoSource.provider}</p>}
+        <p className={styles.noVideoText}>{t("noVideoSource")}</p>
+        {videoSource && <p className={styles.noVideoHost}>{t("provider", { provider: videoSource.provider })}</p>}
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import QuizIcon from "@/icons/quiz.svg";
 import VideoIcon from "@/icons/video.svg";
 import VideoLibIcon from "@/icons/video-lib.svg";
 import QuizCardIcon from "@/icons/quiz-card.svg";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef } from "react";
 import type { LessonDisplayData } from "../types";
 import type { AnimationState } from "../hooks/useProgressAnimation";
@@ -36,6 +37,7 @@ export function LessonNode({
   isActiveLesson,
   connectorStyle
 }: LessonNodeProps) {
+  const t = useTranslations("dashboard.exercisePath.lessonNode");
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -109,7 +111,7 @@ export function LessonNode({
       data-active-lesson={isActiveLesson ? "true" : undefined}
     >
       <div className={styles.statusBadge}>
-        {lesson.completed ? "Complete" : lesson.locked ? "Locked" : "In Progress"}
+        {lesson.completed ? t("status.complete") : lesson.locked ? t("status.locked") : t("status.inProgress")}
       </div>
       <span className={styles.lessonConnector} />
       <div className={`${styles.partIcon}${lesson.lesson.type === "video" ? ` ${styles.videoIcon}` : ""}`}>
@@ -128,22 +130,22 @@ export function LessonNode({
           {lesson.lesson.type === "video" ? (
             <>
               <VideoIcon className={styles.partNumberIcon} />
-              Video
+              {t("type.video")}
             </>
           ) : lesson.lesson.type === "quiz" ? (
             <>
               <QuizIcon className={styles.partNumberIcon} />
-              Quiz
+              {t("type.quiz")}
             </>
           ) : lesson.lesson.type === "choose_language" ? (
             <>
               <ChooseLanguageSmallIcon className={styles.partNumberIcon} />
-              Choice
+              {t("type.choice")}
             </>
           ) : (
             <>
               <CodingIcon className={styles.partNumberIcon} />
-              Exercise
+              {t("type.exercise")}
             </>
           )}
         </div>

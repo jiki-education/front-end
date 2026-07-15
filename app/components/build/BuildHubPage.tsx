@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { ConceptsLayout } from "@/components/concepts";
 import LearningComputerIcon from "@/icons/learning-computer.svg";
 import type { ProjectMeta } from "@/lib/content/types";
@@ -13,14 +14,15 @@ interface BuildHubPageProps {
 }
 
 export default function BuildHubPage({ projects, locale }: BuildHubPageProps) {
+  const t = useTranslations("build.hub");
   return (
     <ConceptsLayout>
       <header className={styles.header}>
         <h1 className={styles.title}>
           <LearningComputerIcon />
-          Learn to Build - Projects
+          {t("title")}
         </h1>
-        <p className={styles.description}>Build real projects from scratch with Jeremy. Learn everything he knows!</p>
+        <p className={styles.description}>{t("description")}</p>
       </header>
       <div className={styles.layout}>
         <div className={styles.main}>

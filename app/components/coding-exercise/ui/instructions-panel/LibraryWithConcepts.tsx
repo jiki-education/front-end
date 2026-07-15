@@ -1,6 +1,7 @@
 import type { ConceptCardData } from "@/components/concepts/ConceptCard";
 import ConceptCard from "@/components/concepts/ConceptCard";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { LibraryWrapper } from "./LibrarySection";
 import styles from "./instructions-panel.module.css";
@@ -10,12 +11,10 @@ interface LibraryWithConceptsProps {
 }
 
 export default function LibraryWithConcepts({ concepts }: LibraryWithConceptsProps) {
+  const t = useTranslations("codingExercise.instructionsPanel");
   return (
     <LibraryWrapper>
-      <p className={styles.libraryDescriptionWithButton}>
-        These are the key concepts used in this exercise. Use them to refresh yourself on what you&apos;ve learned so
-        far.
-      </p>
+      <p className={styles.libraryDescriptionWithButton}>{t("libraryWithConcepts")}</p>
       <div className={styles.conceptsList}>
         {concepts.map((concept, index) => (
           <ConceptCard smallVersion key={index} concept={concept} />
@@ -27,10 +26,11 @@ export default function LibraryWithConcepts({ concepts }: LibraryWithConceptsPro
 }
 
 function OpenConceptLibraryButton() {
+  const t = useTranslations("codingExercise.instructionsPanel");
   const routes = useLocaleRoutes();
   return (
     <Link href={routes.concepts()} className="ui-btn ui-btn-small ui-btn-tertiary w-full">
-      Open Concept Library
+      {t("openConceptLibrary")}
     </Link>
   );
 }

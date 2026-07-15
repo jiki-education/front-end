@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { playSound } from "@/lib/sound";
 import { QuizContent } from "./QuizContent";
 import { CodeInput } from "./CodeInput";
@@ -22,6 +23,7 @@ interface CodingQuizCardProps {
 }
 
 export function CodingQuizCard({ question, onNext }: CodingQuizCardProps) {
+  const t = useTranslations("quizCard.coding");
   const [userCode, setUserCode] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
@@ -54,15 +56,15 @@ export function CodingQuizCard({ question, onNext }: CodingQuizCardProps) {
     if (isCorrect) {
       return {
         type: "success" as const,
-        title: "Excellent!",
-        message: question.successMessage || "Your code is correct!"
+        title: t("successTitle"),
+        message: question.successMessage || t("successMessage")
       };
     }
 
     return {
       type: "error" as const,
-      title: "Not quite right",
-      message: question.errorMessage || question.hint || "Check your syntax and try again."
+      title: t("errorTitle"),
+      message: question.errorMessage || question.hint || t("errorMessage")
     };
   };
 

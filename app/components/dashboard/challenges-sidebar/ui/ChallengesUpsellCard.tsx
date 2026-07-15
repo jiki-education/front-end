@@ -1,4 +1,5 @@
 import { ChallengeIcon } from "@/components/icons/ChallengeIcon";
+import { useTranslations } from "next-intl";
 import styles from "./ChallengesUpsellCard.module.css";
 
 interface ChallengesUpsellCardProps {
@@ -6,6 +7,7 @@ interface ChallengesUpsellCardProps {
 }
 
 export function ChallengesUpsellCard({ onUpgradeClick }: ChallengesUpsellCardProps) {
+  const t = useTranslations("dashboard.challengesSidebar.upsell");
   return (
     <div
       className={styles.card}
@@ -33,8 +35,8 @@ export function ChallengesUpsellCard({ onUpgradeClick }: ChallengesUpsellCardPro
           <span className={styles.fanMore}>+6</span>
         </div>
       </div>
-      <div className={styles.title}>New Challenges Await!</div>
-      <div className={styles.subtitle}>Combine your skills and challenge yourself with Premium Challenges.</div>
+      <div className={styles.title}>{t("title")}</div>
+      <div className={styles.subtitle}>{t("description")}</div>
     </div>
   );
 }
