@@ -1,12 +1,15 @@
 {
   "tags": {
-    "en": ["Agentic Coding", "Full-Stack Web", "Advanced"]
+    "en": ["Agentic Coding", "Full-Stack Web", "Advanced"],
+    "hu": ["Agentic Coding", "Full-Stack Web", "Advanced"]
   },
   "title": {
-    "en": "Build a Learning Platform"
+    "en": "Build a Learning Platform",
+    "hu": "Build a Learning Platform"
   },
   "description": {
-    "en": "Join Jeremy as he builds a full Japanese language-learning platform. Choose your own learning platform to build, then wrestle with every decision, feature and bug alongside him, and learn along the way."
+    "en": "Join Jeremy as he builds a full Japanese language-learning platform. Choose your own learning platform to build, then wrestle with every decision, feature and bug alongside him, and learn along the way.",
+    "hu": "Join Jeremy as he builds a full Japanese language-learning platform. Choose your own learning platform to build, then wrestle with every decision, feature and bug alongside him, and learn along the way."
   },
   "image": "coming-soon.webp",
   "livestream": true,

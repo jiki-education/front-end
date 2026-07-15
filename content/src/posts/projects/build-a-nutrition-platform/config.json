@@ -1,12 +1,15 @@
 {
   "tags": {
-    "en": ["Agentic Coding", "NextJS", "React", "Databases"]
+    "en": ["Agentic Coding", "NextJS", "React", "Databases"],
+    "hu": ["Agentic Coding", "NextJS", "React", "Databases"]
   },
   "title": {
-    "en": "Build a Nutrition Platform"
+    "en": "Build a Nutrition Platform",
+    "hu": "Build a Nutrition Platform"
   },
   "description": {
-    "en": "Join Jeremy as he builds a platform to calculate recipes from the ingredients in his house. Choose your own food-related project to build!"
+    "en": "Join Jeremy as he builds a platform to calculate recipes from the ingredients in his house. Choose your own food-related project to build!",
+    "hu": "Join Jeremy as he builds a platform to calculate recipes from the ingredients in his house. Choose your own food-related project to build!"
   },
   "image": "coming-soon.webp",
   "livestream": true,
