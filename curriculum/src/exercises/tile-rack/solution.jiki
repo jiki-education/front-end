@@ -1,5 +1,5 @@
 function find_tile with rack, letter do
-  set position to 0
+  set position to 1
   for each tile in rack do
     if tile == letter do
       return concatenate("Move to position ", number_to_string(position))
