@@ -4,6 +4,7 @@ export type SyntaxErrorType =
   | "InvalidAssignmentTargetExpression"
   | "AssignmentInExpression"
   | "MissingBacktickToTerminateTemplateLiteral"
+  | "QuoteUsedToTerminateTemplateLiteral"
   | "MissingDoubleQuoteToTerminateString"
   | "MissingExpression"
   | "MissingClassNameAfterNew"

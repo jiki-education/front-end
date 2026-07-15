@@ -479,39 +479,54 @@ export class Scanner {
   }
 
   private tokenizeTemplateLiteral(): void {
+    const openingBacktickIdx = this.start;
     this.addToken("BACKTICK");
 
-    while (this.peek() !== "`" && !this.isAtEnd()) {
+    // Keep consuming until we see the closing backtick.
+    // Newlines terminate the template literal — Jiki doesn't support
+    // multi-line template literals, so they behave like normal strings.
+    while (this.peek() !== "`" && !this.isAtEndOfLine()) {
       this.start = this.current;
 
       if (this.peek() === "$" && this.peekNext() === "{") {
-        if (this.current > this.start) {
-          this.addToken("TEMPLATE_LITERAL_TEXT", this.sourceCode.substring(this.start, this.current));
-        }
-
         this.advance(); // Consume the $
         this.advance(); // Consume the {
         this.addToken("LEFT_BRACE");
-        this.start = this.current;
 
         let braceCount = 1;
-        while (braceCount > 0 && !this.isAtEnd()) {
+        while (braceCount > 0 && this.peek() !== "`" && !this.isAtEndOfLine()) {
+          const numTokens = this.tokens.length;
           this.start = this.current;
           this.scanToken();
+
+          // Some tokenizers (e.g. whitespace) don't add a token,
+          // in which case there's nothing new to count braces on.
+          if (this.tokens.length === numTokens) {
+            continue;
+          }
           if (this.tokens[this.tokens.length - 1].type === "LEFT_BRACE") {
             braceCount++;
           } else if (this.tokens[this.tokens.length - 1].type === "RIGHT_BRACE") {
             braceCount--;
           }
         }
+
+        if (braceCount > 0) {
+          this.start = openingBacktickIdx;
+          this.error("MissingRightBraceInTemplateLiteral");
+        }
       } else {
         // Collect template literal text
-        while (this.peek() !== "$" && this.peek() !== "`" && !this.isAtEnd()) {
-          if (this.peek() === "\n") {
-            this.line++;
-            this.lineOffset = this.current + 1;
+        while (this.peek() !== "$" && this.peek() !== "`" && !this.isAtEndOfLine()) {
+          if (this.peek() === "\\") {
+            this.advance(); // consume backslash
+            if (this.isAtEndOfLine()) {
+              break; // don't let the escape swallow the terminating newline / EOF
+            }
+            this.advance(); // consume escaped character (may be ` or $)
+          } else {
+            this.advance();
           }
-          this.advance();
         }
 
         // If we stopped at a $ that's not followed by {, include it in the text
@@ -520,18 +535,55 @@ export class Scanner {
         }
 
         if (this.current > this.start) {
-          this.addToken("TEMPLATE_LITERAL_TEXT", this.sourceCode.substring(this.start, this.current));
+          const rawValue = this.sourceCode.substring(this.start, this.current);
+          this.addToken("TEMPLATE_LITERAL_TEXT", this.processTemplateEscapeSequences(rawValue));
         }
       }
     }
 
-    if (this.isAtEnd()) {
-      this.error("MissingBacktickToTerminateTemplateLiteral");
+    if (this.isAtEndOfLine()) {
+      this.start = openingBacktickIdx;
+      const string = this.sourceCode.substring(openingBacktickIdx + 1, this.current);
+
+      // Ending the line with a quote (possibly followed by a semicolon)
+      // is almost certainly a typo for the closing backtick, so suggest
+      // exactly that, with the stray quote stripped out.
+      const quoteTypo = string.match(/^(.*)(["'])\s*;?\s*$/);
+      if (quoteTypo) {
+        this.error("QuoteUsedToTerminateTemplateLiteral", {
+          quote: quoteTypo[2],
+          string: quoteTypo[1],
+        });
+      }
+      this.error("MissingBacktickToTerminateTemplateLiteral", { string });
     }
 
     this.start = this.current;
     this.advance();
     this.addToken("BACKTICK"); // Consume the closing `
+  }
+
+  private processTemplateEscapeSequences(str: string): string {
+    const escapes = new Map<string, string>([
+      ["n", "\n"],
+      ["t", "\t"],
+      ["r", "\r"],
+      ["`", "`"],
+      ["$", "$"],
+      ["\\", "\\"],
+    ]);
+
+    let result = "";
+    for (let i = 0; i < str.length; i++) {
+      const escaped = str[i] === "\\" ? escapes.get(str[i + 1]) : undefined;
+      if (escaped !== undefined) {
+        result += escaped;
+        i++;
+      } else {
+        result += str[i];
+      }
+    }
+    return result;
   }
 
   private tokenizeNumber(): void {
