@@ -13,6 +13,8 @@
       "MissingInitializerInConstDeclaration": "MissingInitializerInConstDeclaration",
       "MissingInitializerInVariableDeclaration": "MissingInitializerInVariableDeclaration",
       "ConstInForLoopInit": "ConstInForLoopInit",
+      "MissingLetInForOf": "MissingLetInForOf: name: {{name}}",
+      "MissingLetInForLoopInit": "MissingLetInForLoopInit",
       "UnexpectedDoubleIdentifier": "UnexpectedDoubleIdentifier: first: {{first}}: second: {{second}}",
       "MissingDeclarationKeywordWithSuggestion": "MissingDeclarationKeywordWithSuggestion: name: {{name}}: suggestion: {{suggestion}}",
       "MissingLeftParenthesisAfterIf": "MissingLeftParenthesisAfterIf",

@@ -48,8 +48,14 @@ describe("Footgun #16: Assignment in conditional (if (x = 5))", () => {
     expect(error?.type).toBe("AssignmentInExpression");
   });
 
-  test("assignment in for-loop init and update is still allowed", () => {
-    const { error } = interpret("let i = 0; for (i = 0; i < 3; i = i + 1) { let y = i }");
+  test("assignment in for-loop update is still allowed", () => {
+    const { error } = interpret("for (let i = 0; i < 3; i = i + 1) { let y = i }");
     expect(error).toBeNull();
+  });
+
+  test("assignment in for-loop init requires let", () => {
+    const { error } = interpret("let i = 0; for (i = 0; i < 3; i = i + 1) { let y = i }");
+    expect(error).toBeInstanceOf(SyntaxError);
+    expect(error?.type).toBe("MissingLetInForLoopInit");
   });
 });

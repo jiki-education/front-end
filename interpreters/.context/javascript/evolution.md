@@ -1,5 +1,11 @@
 # JavaScript Interpreter Evolution
 
+## 2026-07-15: `for` loops require `let` for their loop variable
+
+`for (letter of rack)` (no `let`) used to fall through to the C-style for-loop parse path, so on levels where only `ForOfStatement` was allowed the student got the misleading `ForStatementNotAllowed` ("no C-style for loops"). Now the parser detects `IDENTIFIER of`/`IDENTIFIER in` after `for (` and raises the new `MissingLetInForOf` syntax error (system context: the variable name). The node-allowed check for `ForOfStatement`/`ForInStatement` runs first, so levels without those constructs still report `ForOfStatementNotAllowed`/`ForInStatementNotAllowed` rather than advice to add `let`.
+
+For consistency, C-style init assignment was tightened too: `for (i = 0; ...)` is now the `MissingLetInForLoopInit` syntax error even when `i` is already declared. This deliberately removed the previously supported "reuse an outer variable" init form (there was an explicit test for it); real JavaScript allows both no-`let` forms when the variable is declared, but they are unusual and are disabled in Jiki's JavaScript, and the error messages say so. Empty init (`for (; i < 3; i++)`) is still allowed, as is assignment in the update clause.
+
 ## 2026-07-14: Only the first lint error is reported per parse
 
 `lintWarning` in `parser.ts` now drops all lint warnings after the first one recorded. Previously a single badly formatted line could stack several messages in the editor tooltip — e.g. `if(name === "") { name = "you" }` produced `OpeningBraceContentNotOnOwnLine`, `ClosingBraceNotOnOwnLine`, **and** a nonsensical `IncorrectIndentation` ("expected 2 spaces… indented by 33 spaces", because the mid-line closing brace's column was measured as indentation). Students fix one thing at a time, and later warnings are usually side-effects of the first, so only the first is surfaced.

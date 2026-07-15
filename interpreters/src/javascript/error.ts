@@ -10,6 +10,8 @@ export type SyntaxErrorType =
   | "MissingInitializerInConstDeclaration"
   | "MissingInitializerInVariableDeclaration"
   | "ConstInForLoopInit"
+  | "MissingLetInForOf"
+  | "MissingLetInForLoopInit"
   | "UnexpectedDoubleIdentifier"
   | "MissingDeclarationKeywordWithSuggestion"
   | "MissingLeftParenthesisAfterIf"
