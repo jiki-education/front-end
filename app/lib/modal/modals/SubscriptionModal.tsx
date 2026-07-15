@@ -40,6 +40,7 @@ export function SubscriptionModal({
   onCancel
 }: SubscriptionModalProps) {
   const t = useTranslations("modals.subscription");
+  const tCommon = useTranslations("common");
   const tToast = useTranslations("toasts.subscription");
   const [isLoading, setIsLoading] = useState(false);
   const user = useAuthStore((state: any) => state.user);
@@ -160,7 +161,7 @@ export function SubscriptionModal({
               <span className="text-3xl font-bold text-text-primary">
                 <PremiumPrice interval="monthly" />
               </span>
-              <span className="text-text-secondary">{t("perMonth")}</span>
+              <span className="text-text-secondary">{tCommon("perMonth")}</span>
             </div>
             <p className="text-text-secondary text-sm mt-2">{premiumTier.description}</p>
           </div>

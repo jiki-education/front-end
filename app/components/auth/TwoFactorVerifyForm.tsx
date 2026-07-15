@@ -16,6 +16,8 @@ interface TwoFactorVerifyFormProps {
 
 export function TwoFactorVerifyForm({ onSuccess, onCancel, onSessionExpired }: TwoFactorVerifyFormProps) {
   const t = useTranslations("auth.twoFactorVerify");
+  const tCommon = useTranslations("common");
+  const tShared = useTranslations("auth.twoFactor");
   const { verify2FA, isLoading } = useAuthStore();
   const [otpCode, setOtpCode] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -37,9 +39,9 @@ export function TwoFactorVerifyForm({ onSuccess, onCancel, onSessionExpired }: T
           onSessionExpired();
           return;
         }
-        setError(errorData?.error?.message || t("invalidCode"));
+        setError(errorData?.error?.message || tShared("invalidCode"));
       } else {
-        setError(t("verificationFailed"));
+        setError(tShared("verificationFailed"));
       }
       setOtpCode("");
     }
@@ -69,7 +71,7 @@ export function TwoFactorVerifyForm({ onSuccess, onCancel, onSessionExpired }: T
               <OTPInput value={otpCode} onChange={handleOtpChange} disabled={isLoading} hasError={!!error} autoFocus />
             </div>
 
-            {isLoading && <p className={styles.verifyingText}>{t("verifying")}</p>}
+            {isLoading && <p className={styles.verifyingText}>{tCommon("verifying")}</p>}
 
             <div className={styles.actions}>
               <button
@@ -79,7 +81,7 @@ export function TwoFactorVerifyForm({ onSuccess, onCancel, onSessionExpired }: T
                 style={{ width: "100%" }}
                 disabled={isLoading}
               >
-                {t("cancel")}
+                {tShared("cancel")}
               </button>
             </div>
           </div>

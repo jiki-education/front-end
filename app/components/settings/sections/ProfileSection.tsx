@@ -15,6 +15,7 @@ interface ProfileSectionProps {
 
 export default function ProfileSection({ settings, updateName, updateHandle, updateEmail }: ProfileSectionProps) {
   const t = useTranslations("settings.profile");
+  const tCommon = useTranslations("common");
 
   // Validation functions
   const validateName = (value: string): string | null => {
@@ -48,7 +49,7 @@ export default function ProfileSection({ settings, updateName, updateHandle, upd
       return t("emailEmpty");
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      return t("emailInvalid");
+      return tCommon("validation.emailInvalid");
     }
     return null;
   };

@@ -10,6 +10,7 @@ interface PaymentVerificationFailedModalProps {
 
 export function PaymentVerificationFailedModal({ onClose }: PaymentVerificationFailedModalProps) {
   const t = useTranslations("modals.paymentVerificationFailed");
+  const tCommon = useTranslations("common");
   const handleClose = () => {
     onClose?.();
     hideModal();
@@ -20,7 +21,7 @@ export function PaymentVerificationFailedModal({ onClose }: PaymentVerificationF
       <h2 className={styles.title}>{t("title")}</h2>
       <p className={styles.description}>{t("description")}</p>
       <button onClick={handleClose} className="ui-btn ui-btn-primary ui-btn-large">
-        {t("close")}
+        {tCommon("close")}
       </button>
     </div>
   );

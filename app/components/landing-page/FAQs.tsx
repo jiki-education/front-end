@@ -4,6 +4,7 @@ import styles from "./FAQs.module.css";
 
 export function FAQs() {
   const t = useTranslations("landing.faqs");
+  const tCommon = useTranslations("common");
   const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
   return (
     <section className={styles.faqs}>
@@ -21,7 +22,7 @@ export function FAQs() {
             {t.rich("q1a2Prefix", { strong })}
             <strong>
               <MonthlyPrice />
-              {t("q1PerMonth")}
+              {tCommon("perMonth")}
             </strong>
             {t("q1a2Suffix")}
           </p>

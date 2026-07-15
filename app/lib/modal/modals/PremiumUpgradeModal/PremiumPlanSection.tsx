@@ -11,6 +11,7 @@ interface PremiumPlanSectionProps {
 
 export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSectionProps) {
   const t = useTranslations("modals.premiumUpgrade");
+  const tCommon = useTranslations("common");
 
   const premiumFeatures: React.ReactNode[] = [
     <>
@@ -53,7 +54,7 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
         <span className={styles.amount}>
           <PremiumPrice interval="monthly" />
         </span>
-        <span className={styles.period}>{t("perMonth")}</span>
+        <span className={styles.period}>{tCommon("perMonth")}</span>
       </div>
       <p className={styles.annualNote}>
         {t("dailyNotePrefix")}
@@ -75,7 +76,7 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
             height={24}
           />
         )}
-        {isLoading ? t("processing") : t("upgrade")}
+        {isLoading ? tCommon("processing") : t("upgrade")}
       </button>
 
       <ul className={styles.premiumFeatures}>

@@ -11,6 +11,7 @@ interface ExerciseSuccessModalProps {
 
 export function ExerciseSuccessModal({ title, message, buttonText }: ExerciseSuccessModalProps) {
   const t = useTranslations("modals.exerciseSuccess");
+  const tCommon = useTranslations("common");
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-semibold text-green-700">{title ?? t("defaultTitle")}</h2>
@@ -22,7 +23,7 @@ export function ExerciseSuccessModal({ title, message, buttonText }: ExerciseSuc
           onClick={hideModal}
           className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
         >
-          {buttonText ?? t("defaultButton")}
+          {buttonText ?? tCommon("continue")}
         </button>
       </div>
     </div>

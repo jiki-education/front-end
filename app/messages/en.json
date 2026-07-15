@@ -100,6 +100,17 @@
     "languageNames": {
       "en": "English",
       "hu": "Hungarian"
+    },
+    "verifying": "Verifying...",
+    "sending": "Sending...",
+    "perMonth": "/month",
+    "validation": {
+      "emailInvalid": "Please enter a valid email address",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 6 characters",
+      "currentPasswordRequired": "Current password is required",
+      "newPasswordRequired": "New password is required",
+      "passwordsNoMatch": "Passwords do not match"
     }
   },
   "build": {
@@ -120,11 +131,7 @@
       "emailPlaceholder": "Enter your email address",
       "passwordLabel": "Password",
       "passwordPlaceholder": "Enter your password",
-      "emailRequired": "Email is required",
-      "emailInvalid": "Please enter a valid email",
-      "emailInvalidAddress": "Please enter a valid email address",
-      "passwordRequired": "Password is required",
-      "passwordMinLength": "Password must be at least 6 characters"
+      "emailRequired": "Email is required"
     },
     "captchaError": {
       "signup": "Our systems tried to determine whether you were a bot or a human, but couldn't. Please try signing up again using the button below.",
@@ -141,7 +148,6 @@
       "forgotPassword": "Forgot your password?",
       "submit": "Log In",
       "submitting": "Logging in...",
-      "verifying": "Verifying...",
       "resendPrompt": "Didn't receive your confirmation email? ",
       "resendLink": "Resend it."
     },
@@ -152,7 +158,6 @@
       "emailAlreadyRegistered": "This email is already registered",
       "submit": "Sign Up",
       "submitting": "Signing up...",
-      "verifying": "Verifying...",
       "resendPrompt": "Didn't receive your confirmation email? ",
       "resendLink": "Resend it."
     },
@@ -161,8 +166,6 @@
       "subtitle": "If you've forgotten your password, use the form below to request a link to change it.",
       "successMessage": "If an account with that email exists, you'll receive reset instructions shortly.",
       "submit": "Send Reset Link",
-      "submitting": "Sending...",
-      "verifying": "Verifying...",
       "rememberedPrompt": "Remembered your password? ",
       "loginLink": "Log in"
     },
@@ -173,10 +176,7 @@
       "title": "Reset your password",
       "subtitle": "Enter your new password below.",
       "tokenMissing": "Reset token is missing or invalid",
-      "passwordRequired": "Password is required",
-      "passwordMinLength": "Password must be at least 6 characters",
       "confirmationRequired": "Password confirmation is required",
-      "passwordsDontMatch": "Passwords don't match",
       "successMessage": "Password reset successfully! Redirecting to login...",
       "newPasswordLabel": "New Password",
       "newPasswordPlaceholder": "Enter your new password",
@@ -190,10 +190,8 @@
     "resendConfirmation": {
       "title": "Resend confirmation instructions",
       "subtitle": "Not received a confirmation email? Use the form below and we'll send you another.",
-      "emailInvalid": "Please enter a valid email address",
       "successMessage": "If an account with that email exists, you'll receive confirmation instructions shortly.",
       "submit": "Resend confirmation instructions",
-      "submitting": "Sending...",
       "confirmedPrompt": "Already confirmed? ",
       "loginLink": "Log in"
     },
@@ -228,20 +226,12 @@
     "twoFactorVerify": {
       "title": "Two-Factor Authentication",
       "subtitle": "Enter the 6-digit code from your authenticator app.",
-      "codeLabel": "Verification code",
-      "verifying": "Verifying...",
-      "cancel": "Cancel and sign in again",
-      "invalidCode": "Invalid verification code",
-      "verificationFailed": "Verification failed. Please try again."
+      "codeLabel": "Verification code"
     },
     "twoFactorSetup": {
       "instructionsHeading": "Scan the QR code with your authenticator app to secure your account.",
       "appsHint": "Use Google Authenticator, 1Password, Authy, or a similar app to scan the code above.",
-      "codeLabel": "Enter the 6-digit code from your app",
-      "verifying": "Verifying...",
-      "cancel": "Cancel and sign in again",
-      "invalidCode": "Invalid verification code",
-      "verificationFailed": "Verification failed. Please try again."
+      "codeLabel": "Enter the 6-digit code from your app"
     },
     "unsubscribe": {
       "noToken": "No unsubscribe token provided.",
@@ -255,6 +245,11 @@
       "successTitle": "Successfully Unsubscribed",
       "successDescription": "You have been unsubscribed from our mailing list.",
       "errorTitle": "Unsubscribe Failed"
+    },
+    "twoFactor": {
+      "cancel": "Cancel and sign in again",
+      "invalidCode": "Invalid verification code",
+      "verificationFailed": "Verification failed. Please try again."
     }
   },
   "settings": {
@@ -267,13 +262,6 @@
       "tabLearning": "Learning",
       "tabDanger": "Danger Zone"
     },
-    "common": {
-      "cancel": "Cancel",
-      "save": "Save",
-      "back": "Back",
-      "edit": "Edit",
-      "change": "Change"
-    },
     "avatarEdit": {
       "adjustTitle": "Adjust Photo",
       "adjustSubtitle": "Zoom and position your photo.",
@@ -283,8 +271,7 @@
       "changeSubtitlePart1": "Upload a new profile image.",
       "changeSubtitlePart2": "This will only be visible to you.",
       "uploadText": "Click to upload a new photo",
-      "uploadHint": "JPG, PNG or GIF. Max 5MB.",
-      "cancel": "Cancel"
+      "uploadHint": "JPG, PNG or GIF. Max 5MB."
     },
     "avatarUpload": {
       "label": "Profile Photo"
@@ -321,12 +308,9 @@
       "passwordPlaceholder": "Enter your current password",
       "passwordHint": "Required for security verification",
       "newEmailRequired": "New email is required",
-      "emailInvalid": "Please enter a valid email address",
       "emailSame": "New email must be different from current email",
-      "passwordRequired": "Current password is required",
       "updateFailed": "Failed to update email",
-      "submit": "Update Email",
-      "cancel": "Cancel"
+      "submit": "Update Email"
     },
     "changePassword": {
       "title": "Change Password",
@@ -334,24 +318,17 @@
       "currentPlaceholder": "Enter your current password",
       "newLabel": "New Password",
       "newPlaceholder": "Enter your new password",
-      "newHint": "Must be at least 8 characters long",
+      "newHint": "Must be at least 6 characters long",
       "confirmLabel": "Confirm New Password",
       "confirmPlaceholder": "Confirm your new password",
-      "currentRequired": "Current password is required",
-      "newRequired": "New password is required",
-      "minLength": "Password must be at least 8 characters long",
-      "noMatch": "Passwords do not match",
       "mustDiffer": "New password must be different from current password",
       "updateFailed": "Failed to update password",
-      "submit": "Update Password",
-      "cancel": "Cancel"
+      "submit": "Update Password"
     },
     "deleteAccount": {
       "sendFailed": "Failed to send confirmation email. Please try again.",
       "confirmTitle": "Are you sure?",
       "confirmMessage": "Do you really want to delete your account? You will lose all your work. This is irreversible.",
-      "cancel": "Cancel",
-      "submitting": "Sending...",
       "submit": "Delete Account",
       "securityTitle": "Security Check",
       "securityMessage": "We've sent you an email to confirm this is really you. Please click the button in that email to delete your account.",
@@ -386,7 +363,6 @@
       "emailPlaceholder": "Enter your email",
       "updateEmail": "Update Email",
       "emailEmpty": "Email cannot be empty",
-      "emailInvalid": "Please enter a valid email address",
       "confirmationPendingPrefix": "Confirmation pending for: ",
       "confirmationPendingHint": "Please check your email to confirm the change.",
       "emailNotConfirmed": "Your email address is not confirmed."
@@ -410,21 +386,8 @@
       "cancellingSubtitle": "Here's what you'll miss when your access ends",
       "resubscribeTitle": "Keep learning without limits",
       "resubscribePrefix": "Resubscribe now for just ",
-      "resubscribePerMonth": "/month",
       "resubscribeSuffix": " and continue your coding journey with Jiki's support.",
-      "resubscribeButton": "Resubscribe to Premium",
-      "unlimitedAiTitle": "Unlimited AI help",
-      "unlimitedAiDescription": "Get personalised guidance from Jiki whenever you're stuck",
-      "unlimitedContentTitle": "Unlimited content",
-      "unlimitedContentDescription": "Access all exercises, projects, and learning paths",
-      "certificatesTitle": "Certificates",
-      "certificatesDescription": "Earn shareable certificates when you complete courses",
-      "adFreeTitle": "Ad-free",
-      "adFreeDescription": "Enjoy a distraction-free learning experience",
-      "prioritySupportTitle": "Priority support",
-      "prioritySupportDescription": "Get faster responses when you need help",
-      "earlyAccessTitle": "Early access",
-      "earlyAccessDescription": "Be the first to try new features and content"
+      "resubscribeButton": "Resubscribe to Premium"
     },
     "cancelSectionPanel": {
       "title": "Cancel Subscription",
@@ -437,24 +400,13 @@
       "headlineSuffix": " way to learn",
       "subtitle": "You're currently on the Free plan. Upgrade to Premium to unlock:",
       "planName": "Jiki Premium",
-      "perMonth": "/month",
       "dailyNotePrefix": "That's only ",
       "dailyNoteSuffix": " a day",
-      "processing": "Processing...",
-      "upgrade": "Upgrade to Premium",
-      "unlimitedAiTitle": "Unlimited AI help",
-      "unlimitedAiDescription": "Get personalised guidance from Jiki whenever you're stuck",
-      "unlimitedContentTitle": "Unlimited content",
-      "unlimitedContentDescription": "Access all exercises, projects, and learning paths",
-      "certificatesTitle": "Certificates",
-      "certificatesDescription": "Earn shareable certificates when you complete courses",
-      "adFreeTitle": "Ad-free",
-      "adFreeDescription": "Enjoy a distraction-free learning experience"
+      "upgrade": "Upgrade to Premium"
     },
     "neverSubscribed": {
       "heading": "Upgrade Your Plan",
       "subtitle": "Unlock advanced features and enhanced learning experiences with our premium plans.",
-      "perMonth": "/month",
       "featuresLabel": "Premium plan features",
       "upgradeAriaLabel": "Upgrade to {plan} plan",
       "upgrade": "Upgrade to Premium"
@@ -498,15 +450,10 @@
     },
     "editableField": {
       "update": "Update",
-      "cancel": "Cancel",
       "edit": "Edit",
       "saveFailed": "Failed to save"
     },
     "passwordField": {
-      "currentRequired": "Current password is required",
-      "newRequired": "New password is required",
-      "minLength": "New password must be at least 8 characters",
-      "noMatch": "Passwords do not match",
       "updateFailed": "Failed to update password",
       "currentLabel": "Current password",
       "currentPlaceholder": "Enter current password",
@@ -514,13 +461,9 @@
       "newPlaceholder": "Enter new password",
       "confirmLabel": "Confirm new password",
       "confirmPlaceholder": "Confirm new password",
-      "cancel": "Cancel",
       "submit": "Update Password",
       "label": "Password",
       "change": "Change"
-    },
-    "subscriptionButton": {
-      "loading": "Loading..."
     },
     "subscriptionStatus": {
       "statusActive": "Active",
@@ -534,7 +477,6 @@
       "activePrefix": "You are on the ",
       "activePlanName": "Jiki {tier}",
       "activeMiddle": " plan at ",
-      "activePerMonth": "/month",
       "activeNextBillingPrefix": ". Your next billing date is ",
       "cancellingMessage": "Your Jiki Premium subscription has been cancelled.",
       "cancellingRemainingPrefix": " You have ",
@@ -548,7 +490,6 @@
       "planSuffix": " Plan",
       "currentPlanAriaLabel": "Current plan: {plan} Plan",
       "statusAriaLabel": "Subscription status: {status}",
-      "perMonth": "/month",
       "messageCanceled": "Service continues until period end",
       "messagePaymentFailed": "Payment failed - please update payment method",
       "messageCancelling": "Cancellation scheduled - access until period end",
@@ -642,7 +583,6 @@
       "q1a1": "The <strong>Learn to Code</strong> exercises — the core learn-to-code curriculum — are <strong>completely free</strong>. No card, no trial, no catch.",
       "q1a2Prefix": "<strong>Jiki Premium</strong> is ",
       "q1a2Suffix": " (priced by country) and unlocks:",
-      "q1PerMonth": "/month",
       "q1Item1": "Full access to <strong>Learn to Build</strong>",
       "q1Item2": "Combine your skills in <strong>Jiki Projects</strong>",
       "q1Item3": "Unlimited <strong>Ask Jiki</strong> AI support",
@@ -705,7 +645,6 @@
       "heading5": "Sound fun?",
       "para15": "If all <highlight>this sounds exciting</highlight>, then I'd love for you to join us! 💙",
       "para16Prefix": "The core \"learn to code\" curriculum is <strong>entirely free</strong> - over 200 hours of fun challenges to hone your skills. And the rest, where you get to follow me as I teach you how to build things, costs only ",
-      "para16PerMonth": "/month",
       "para16Suffix": " (as cheap as we can make it and still pay the bills!)",
       "para17Prefix": "Want more details? Or to hear from others that I've taught? Read on below for even more details or ",
       "para17Link": "just sign up!",
@@ -893,6 +832,20 @@
     },
     "publicPrice": {
       "unavailable": "—"
+    },
+    "benefits": {
+      "unlimitedAiTitle": "Unlimited AI help",
+      "unlimitedAiDescription": "Get personalised guidance from Jiki whenever you're stuck",
+      "unlimitedContentTitle": "Unlimited content",
+      "unlimitedContentDescription": "Access all exercises, projects, and learning paths",
+      "certificatesTitle": "Certificates",
+      "certificatesDescription": "Earn shareable certificates when you complete courses",
+      "adFreeTitle": "Ad-free",
+      "adFreeDescription": "Enjoy a distraction-free learning experience",
+      "prioritySupportTitle": "Priority support",
+      "prioritySupportDescription": "Get faster responses when you need help",
+      "earlyAccessTitle": "Early access",
+      "earlyAccessDescription": "Be the first to try new features and content"
     }
   },
   "roadmap": {
@@ -1156,8 +1109,7 @@
       "badge": "Premium Member",
       "titlePrefix": "Welcome to ",
       "titleHighlight": "Premium!",
-      "description": "Thanks for upgrading! You now have access to all Premium benefits, including unlimited chats with Jiki, Projects, and Learn to Build!",
-      "continue": "Continue"
+      "description": "Thanks for upgrading! You now have access to all Premium benefits, including unlimited chats with Jiki, Projects, and Learn to Build!"
     },
     "subscriptionSuccess": {
       "chatGate": {
@@ -1180,19 +1132,15 @@
         "description": "Thank you for upgrading your plan. You now have access to all premium features."
       },
       "planLabel": "{tier} Plan",
-      "perMonth": "/month",
       "whatYouCanDo": "What you can do now:",
       "getStarted": "Get Started",
       "continueLearning": "Continue Learning",
       "skipForNow": "Skip for now",
-      "close": "Close",
       "renewalNotice": "Your subscription will renew automatically on {date}. Manage your subscription in Settings."
     },
     "confirmation": {
       "defaultTitle": "Confirm Action",
-      "defaultMessage": "Are you sure you want to proceed?",
-      "defaultConfirm": "Confirm",
-      "defaultCancel": "Cancel"
+      "defaultMessage": "Are you sure you want to proceed?"
     },
     "info": {
       "defaultTitle": "Information",
@@ -1208,13 +1156,11 @@
     },
     "sessionExpired": {
       "title": "Session Expired",
-      "description": "Your session has expired. Please log in again.",
-      "reload": "Reload Page"
+      "description": "Your session has expired. Please log in again."
     },
     "paymentVerificationFailed": {
       "title": "We couldn't confirm your payment",
-      "description": "Something went wrong while checking with Stripe. Try refreshing the page in a moment — if Premium still isn't active, contact support.",
-      "close": "Close"
+      "description": "Something went wrong while checking with Stripe. Try refreshing the page in a moment — if Premium still isn't active, contact support."
     },
     "levelMilestone": {
       "title": "🎉 Level Complete!",
@@ -1232,7 +1178,6 @@
     "authError": {
       "title": "You've been Logged out.",
       "subtitle": "For some reason you've been logged out (maybe a security check, maybe you logged out on a different device?). Please reload the page to continue.",
-      "reload": "Reload Page",
       "helpTextPrefix": "If this keeps happening, try ",
       "clearCookies": "clearing your cookies",
       "helpTextOr": " or ",
@@ -1249,13 +1194,11 @@
     },
     "exerciseSuccess": {
       "defaultTitle": "Congratulations!",
-      "defaultMessage": "All tests passed! You've successfully completed this exercise.",
-      "defaultButton": "Continue"
+      "defaultMessage": "All tests passed! You've successfully completed this exercise."
     },
     "welcome": {
       "title": "Welcome to Jiki!",
       "subtitle": "Watch this short video to get started.",
-      "continue": "Continue",
       "skipTitle": "Skip the welcome video?",
       "skipMessage": "This video helps you get the most out of Jiki. Are you sure you want to skip it?",
       "skipConfirm": "Skip video",
@@ -1281,7 +1224,6 @@
       },
       "unlockWith": "What you'll unlock with {feature}:",
       "recommended": "Recommended",
-      "perMonth": "/month",
       "choosePremium": "Choose Premium",
       "subscribeAriaLabel": "Subscribe to {plan} plan",
       "renewNotice": "Your subscription will renew automatically each month. You can cancel anytime from your settings.",
@@ -1307,9 +1249,7 @@
     },
     "example": {
       "defaultTitle": "Example Modal",
-      "defaultMessage": "This is an example modal!",
-      "cancel": "Cancel",
-      "confirm": "Confirm"
+      "defaultMessage": "This is an example modal!"
     },
     "paymentProcessing": {
       "title": "Payment Processing",
@@ -1328,8 +1268,7 @@
       "conceptUnlocked": {
         "title": "Concept unlocked!",
         "messageGeneric": "You've unlocked a new concept to explore.",
-        "messageNamed": "You've unlocked a new concept: <strong>{title}</strong>",
-        "continue": "Continue"
+        "messageNamed": "You've unlocked a new concept: <strong>{title}</strong>"
       },
       "completed": {
         "titleExercise": "Exercise completed!",
@@ -1340,7 +1279,6 @@
         "bonusPrompt": "{count, plural, one {This exercise has <strong>a bonus scenario</strong>. Would you like to solve it before moving on?} other {This exercise has <strong>bonus scenarios</strong>. Would you like to solve them before moving on?}}",
         "tidyCode": "Tidy code",
         "solveBonuses": "{count, plural, one {Solve Bonus} other {Solve Bonuses}}",
-        "continue": "Continue",
         "moveOn": "Move on"
       },
       "difficultyRating": {
@@ -1358,8 +1296,7 @@
         "funAmazing": "Amazing!",
         "rateDifficultyAriaLabel": "Rate difficulty as {label}",
         "rateFunAriaLabel": "Rate fun as {label}",
-        "funOptionFallback": "option {number}",
-        "continue": "Continue"
+        "funOptionFallback": "option {number}"
       },
       "challengeUnlocked": {
         "title": "Challenge unlocked!",
@@ -1367,17 +1304,14 @@
         "newLabel": "New",
         "premiumOnly": "Exclusively for Premium members.",
         "upgradeLink": "Upgrade your account",
-        "premiumInfoSuffix": " to access all the Challenges as you unlock them.",
-        "continue": "Continue"
+        "premiumInfoSuffix": " to access all the Challenges as you unlock them."
       }
     },
     "premiumUpgrade": {
       "skipLink": "Not now, maybe later",
       "userAvatarAlt": "User",
-      "processing": "Processing...",
       "upgrade": "Upgrade to Premium",
       "planName": "Jiki Premium",
-      "perMonth": "/month",
       "dailyNotePrefix": "(That's only ",
       "dailyNoteSuffix": " a day)",
       "featureLearnToBuildPrefix": "Full access to ",
@@ -1415,12 +1349,10 @@
       "unexpectedError": "An unexpected error occurred. Please try again.",
       "paymentFailedTitle": "Payment failed",
       "paymentInfoAriaLabel": "Payment information",
-      "processing": "Processing...",
       "pay": "Pay",
       "securedByPrefix": "Secured by ",
       "stripeBrand": "stripe",
       "errorPrefix": "Error: ",
-      "close": "Close",
       "orderTitle": "Jiki {tier}",
       "orderBilling": "Billed monthly. Cancel anytime.",
       "perMonthShort": "/mo"

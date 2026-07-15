@@ -23,6 +23,8 @@ export function TwoFactorSetupForm({
   onSessionExpired
 }: TwoFactorSetupFormProps) {
   const t = useTranslations("auth.twoFactorSetup");
+  const tCommon = useTranslations("common");
+  const tShared = useTranslations("auth.twoFactor");
   const { setup2FA, isLoading } = useAuthStore();
   const [otpCode, setOtpCode] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -44,9 +46,9 @@ export function TwoFactorSetupForm({
           onSessionExpired();
           return;
         }
-        setError(errorData?.error?.message || t("invalidCode"));
+        setError(errorData?.error?.message || tShared("invalidCode"));
       } else {
-        setError(t("verificationFailed"));
+        setError(tShared("verificationFailed"));
       }
       setOtpCode("");
     }
@@ -82,7 +84,7 @@ export function TwoFactorSetupForm({
               <OTPInput value={otpCode} onChange={handleOtpChange} disabled={isLoading} hasError={!!error} autoFocus />
             </div>
 
-            {isLoading && <p className={styles.verifyingText}>{t("verifying")}</p>}
+            {isLoading && <p className={styles.verifyingText}>{tCommon("verifying")}</p>}
 
             <div className={styles.actions}>
               <button
@@ -92,7 +94,7 @@ export function TwoFactorSetupForm({
                 style={{ width: "100%" }}
                 disabled={isLoading}
               >
-                {t("cancel")}
+                {tShared("cancel")}
               </button>
             </div>
           </div>

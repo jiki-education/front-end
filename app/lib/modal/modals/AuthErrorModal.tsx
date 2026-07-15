@@ -7,6 +7,7 @@ import styles from "./AuthErrorModal.module.css";
 
 export function AuthErrorModal() {
   const t = useTranslations("modals.authError");
+  const tCommon = useTranslations("common");
   const routes = useLocaleRoutes();
   const handleReload = () => {
     window.location.reload();
@@ -25,7 +26,7 @@ export function AuthErrorModal() {
 
       <button className={styles.reloadButton} onClick={handleReload}>
         <ReloadIcon />
-        {t("reload")}
+        {tCommon("reloadPage")}
       </button>
 
       <p className={styles.helpText}>

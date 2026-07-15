@@ -12,6 +12,7 @@ interface ChangeEmailModalProps {
 
 export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps) {
   const t = useTranslations("settings.changeEmail");
+  const tCommon = useTranslations("common");
   const [newEmail, setNewEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -33,7 +34,7 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
     }
 
     if (!validateEmail(newEmail)) {
-      setError(t("emailInvalid"));
+      setError(tCommon("validation.emailInvalid"));
       return;
     }
 
@@ -43,7 +44,7 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
     }
 
     if (!currentPassword) {
-      setError(t("passwordRequired"));
+      setError(tCommon("validation.currentPasswordRequired"));
       return;
     }
 
@@ -116,7 +117,7 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
             disabled={isSaving}
             className="ui-btn ui-btn-small ui-btn-secondary flex-1"
           >
-            {t("cancel")}
+            {tCommon("cancel")}
           </button>
         </div>
       </form>

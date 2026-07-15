@@ -18,6 +18,7 @@ export function ModalBody({
   onCancel: () => void;
 }) {
   const t = useTranslations("modals.subscriptionCheckout");
+  const tCommon = useTranslations("common");
   const checkoutState = useCheckout();
   const tierInfo = PRICING_TIERS[selectedTier];
 
@@ -35,7 +36,7 @@ export function ModalBody({
           onClick={onCancel}
           className="w-full px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors"
         >
-          {t("close")}
+          {tCommon("close")}
         </button>
       </div>
     );

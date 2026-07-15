@@ -10,6 +10,7 @@ interface NeverSubscribedStateProps {
 
 export default function NeverSubscribedState({ onUpgradeToPremium, isLoading = false }: NeverSubscribedStateProps) {
   const t = useTranslations("settings.neverSubscribed");
+  const tCommon = useTranslations("common");
   const premiumTier = PRICING_TIERS.premium;
 
   return (
@@ -29,7 +30,7 @@ export default function NeverSubscribedState({ onUpgradeToPremium, isLoading = f
           </h4>
           <p className="text-2xl font-bold text-text-primary mb-4">
             <PremiumPrice interval="monthly" />
-            <span className="text-sm font-normal">{t("perMonth")}</span>
+            <span className="text-sm font-normal">{tCommon("perMonth")}</span>
           </p>
           <ul className="text-sm text-text-secondary space-y-4 mb-4" aria-label={t("featuresLabel")}>
             {premiumTier.features.map((feature: string, index: number) => (

@@ -68,6 +68,7 @@ function CancellingBenefitSection({
   className?: string;
 }) {
   const t = useTranslations("settings.benefits");
+  const tCommon = useTranslations("common");
   return (
     <div className={`${styles.benefitsSection} ${className}`}>
       <div className={styles.benefitsHeader}>
@@ -88,7 +89,7 @@ function CancellingBenefitSection({
             {t("resubscribePrefix")}
             <span className={styles.price}>
               <PremiumPrice interval="monthly" />
-              {t("resubscribePerMonth")}
+              {tCommon("perMonth")}
             </span>
             {t("resubscribeSuffix")}
           </p>
@@ -105,14 +106,14 @@ function CancellingBenefitSection({
 }
 
 function BenefitsList() {
-  const t = useTranslations("settings.benefits");
+  const tBenefits = useTranslations("premium.benefits");
   const benefits = [
-    { title: t("unlimitedAiTitle"), description: t("unlimitedAiDescription") },
-    { title: t("unlimitedContentTitle"), description: t("unlimitedContentDescription") },
-    { title: t("certificatesTitle"), description: t("certificatesDescription") },
-    { title: t("adFreeTitle"), description: t("adFreeDescription") },
-    { title: t("prioritySupportTitle"), description: t("prioritySupportDescription") },
-    { title: t("earlyAccessTitle"), description: t("earlyAccessDescription") }
+    { title: tBenefits("unlimitedAiTitle"), description: tBenefits("unlimitedAiDescription") },
+    { title: tBenefits("unlimitedContentTitle"), description: tBenefits("unlimitedContentDescription") },
+    { title: tBenefits("certificatesTitle"), description: tBenefits("certificatesDescription") },
+    { title: tBenefits("adFreeTitle"), description: tBenefits("adFreeDescription") },
+    { title: tBenefits("prioritySupportTitle"), description: tBenefits("prioritySupportDescription") },
+    { title: tBenefits("earlyAccessTitle"), description: tBenefits("earlyAccessDescription") }
   ];
   return (
     <div className={styles.premiumBenefits}>

@@ -19,6 +19,7 @@ import { SignupButton } from "./SignupButton";
 
 export function WelcomeSection() {
   const t = useTranslations("landing.welcome");
+  const tCommon = useTranslations("common");
   const routes = useLocaleRoutes();
   const annotationsRef = useRoughAnnotations();
   const wavingHandRef = useWavingHand();
@@ -170,7 +171,7 @@ export function WelcomeSection() {
           {t.rich("para16Prefix", { strong })}
           <strong>
             <MonthlyPrice />
-            {t("para16PerMonth")}
+            {tCommon("perMonth")}
           </strong>
           {t("para16Suffix")}
         </p>

@@ -14,6 +14,7 @@ interface SubscriptionStatusProps {
 
 export default function SubscriptionStatus({ tier, status, nextBillingDate, className = "" }: SubscriptionStatusProps) {
   const t = useTranslations("settings.subscriptionStatus");
+  const tCommon = useTranslations("common");
   const tierDetails = PRICING_TIERS[tier];
   const isActiveSubscription = tier !== "standard" && status === "active";
   const isCancelling = tier !== "standard" && status === "cancelling";
@@ -73,7 +74,7 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
           {t("activeMiddle")}
           <strong>
             <PremiumPrice interval="monthly" />
-            {t("activePerMonth")}
+            {tCommon("perMonth")}
           </strong>
           {nextBillingDate && (
             <>
@@ -161,7 +162,7 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
       <div className="text-text-secondary text-sm">
         <p>
           <PremiumPrice interval="monthly" />
-          {t("perMonth")}
+          {tCommon("perMonth")}
         </p>
 
         {/* Status-specific messages */}

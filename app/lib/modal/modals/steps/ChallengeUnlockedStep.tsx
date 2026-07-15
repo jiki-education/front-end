@@ -29,6 +29,7 @@ export function ChallengeUnlockedStep({
   onContinue
 }: ChallengeUnlockedStepProps) {
   const t = useTranslations("modals.exerciseCompletion.challengeUnlocked");
+  const tCommon = useTranslations("common");
   const routes = useLocaleRoutes();
   const unlockedChallengeData = completionResponse.find((item) => item.type === "challenge_unlocked")?.data.challenge;
 
@@ -76,7 +77,7 @@ export function ChallengeUnlockedStep({
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
         <button onClick={onContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
-          {t("continue")}
+          {tCommon("continue")}
         </button>
       </div>
     </>

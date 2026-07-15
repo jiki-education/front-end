@@ -19,6 +19,7 @@ import { GoogleAuthButton } from "./GoogleAuthButton";
 export function LoginForm() {
   const t = useTranslations("auth.login");
   const tc = useTranslations("auth");
+  const tCommon = useTranslations("common");
   const routes = useLocaleRoutes();
   const { login, isLoading } = useAuthStore();
   const { handleAuthResponse, handleGoogleSuccess, googleAuthError, returnTo, TwoFactorForm } = useAuth();
@@ -38,13 +39,13 @@ export function LoginForm() {
     if (!email) {
       errors.email = tc("fields.emailRequired");
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errors.email = tc("fields.emailInvalid");
+      errors.email = tCommon("validation.emailInvalid");
     }
 
     if (!password) {
-      errors.password = tc("fields.passwordRequired");
+      errors.password = tCommon("validation.passwordRequired");
     } else if (password.length < 6) {
-      errors.password = tc("fields.passwordMinLength");
+      errors.password = tCommon("validation.passwordMinLength");
     }
 
     setValidationErrors(errors);
@@ -232,7 +233,7 @@ export function LoginForm() {
             style={{ width: "100%" }}
             disabled={isLoading || verifying}
           >
-            {isLoading ? t("submitting") : verifying ? t("verifying") : t("submit")}
+            {isLoading ? t("submitting") : verifying ? tCommon("verifying") : t("submit")}
           </button>
 
           <div className={styles.footerLinks}>

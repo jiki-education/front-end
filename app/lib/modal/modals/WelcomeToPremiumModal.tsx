@@ -10,6 +10,7 @@ interface WelcomeToPremiumModalProps {
 
 export function WelcomeToPremiumModal({ onClose }: WelcomeToPremiumModalProps) {
   const t = useTranslations("modals.welcomeToPremium");
+  const tCommon = useTranslations("common");
   const handleClose = () => {
     onClose?.();
     hideModal();
@@ -36,7 +37,7 @@ export function WelcomeToPremiumModal({ onClose }: WelcomeToPremiumModalProps) {
 
       <div className={styles.actions}>
         <button onClick={handleClose} className="ui-btn ui-btn-primary ui-btn-purple ui-btn-large">
-          {t("continue")}
+          {tCommon("continue")}
         </button>
       </div>
     </div>

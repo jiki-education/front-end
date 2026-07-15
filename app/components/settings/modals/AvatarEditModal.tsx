@@ -24,6 +24,7 @@ const MAX_ZOOM = 3;
 export function AvatarEditModal() {
   const t = useTranslations("toasts.avatar");
   const ts = useTranslations("settings.avatarEdit");
+  const tCommon = useTranslations("common");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const user = useAuthStore((state) => state.user);
@@ -172,7 +173,7 @@ export function AvatarEditModal() {
 
       <div className={styles.buttons}>
         <button type="button" onClick={hideModal} className="ui-btn ui-btn-default ui-btn-tertiary">
-          {ts("cancel")}
+          {tCommon("cancel")}
         </button>
       </div>
 

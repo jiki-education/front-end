@@ -27,6 +27,7 @@ export default function EditableField({
   updateButtonText
 }: EditableFieldProps) {
   const t = useTranslations("settings.editableField");
+  const tCommon = useTranslations("common");
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(value);
   const [isSaving, setIsSaving] = useState(false);
@@ -100,7 +101,7 @@ export default function EditableField({
           </div>
           <div className={styles.buttonRow}>
             <button onClick={handleCancel} disabled={isSaving} className="ui-btn ui-btn-secondary ui-btn-small">
-              {t("cancel")}
+              {tCommon("cancel")}
             </button>
             <button
               onClick={handleSave}
