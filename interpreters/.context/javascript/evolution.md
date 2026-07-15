@@ -6,6 +6,17 @@
 
 For consistency, C-style init assignment was tightened too: `for (i = 0; ...)` is now the `MissingLetInForLoopInit` syntax error even when `i` is already declared. This deliberately removed the previously supported "reuse an outer variable" init form (there was an explicit test for it); real JavaScript allows both no-`let` forms when the variable is declared, but they are unusual and are disabled in Jiki's JavaScript, and the error messages say so. Empty init (`for (; i < 3; i++)`) is still allowed, as is assignment in the update clause.
 
+## 2026-07-15: Template literals get the same scanner guards as strings
+
+`tokenizeTemplateLiteral` in `scanner.ts` previously scanned to EOF looking for the closing backtick, so an unterminated template literal silently swallowed the rest of the program and reported a bare `MissingBacktickToTerminateTemplateLiteral` with no context and a location pointing at the last scanned fragment. It now has the same guards as `tokenizeString`:
+
+- **Newlines terminate**: multi-line template literals are no longer supported (a deliberate educational divergence from real JavaScript — the curriculum never uses them). Hitting end-of-line raises `MissingBacktickToTerminateTemplateLiteral` with a `string` context so the message can suggest the fixed line, mirroring `MissingDoubleQuoteToTerminateString`.
+- **Quote-typo detection**: if the unterminated line ends with `"` or `'` (optionally followed by whitespace/semicolon), the new `QuoteUsedToTerminateTemplateLiteral` error fires instead, telling the student they probably typed a quote where the closing backtick should be, with the quote stripped from the suggestion.
+- **Error location** spans from the opening backtick (`this.start` is restored before erroring).
+- **Escape sequences** are now processed in template text via `processTemplateEscapeSequences` (single-pass): `\n`, `\t`, `\r`, `` \` ``, `\$` (prevents interpolation), and `\\`. Unknown escapes are left as-is. A trailing backslash can't swallow the terminating newline.
+- **Unterminated interpolation** (`` `Hi, ${name `` hitting a backtick or end-of-line with unbalanced braces) now raises `MissingRightBraceInTemplateLiteral` from the scanner instead of the misleading missing-backtick error. Side effect: nested template literals inside interpolations are rejected (also fine educationally).
+- **Brace-counting fix**: whitespace inside `${ ... }` adds no token, and the counter previously re-inspected the last-added token, double-counting the interpolation's own `LEFT_BRACE`. The loop now skips iterations where `scanToken()` added nothing.
+
 ## 2026-07-14: Only the first lint error is reported per parse
 
 `lintWarning` in `parser.ts` now drops all lint warnings after the first one recorded. Previously a single badly formatted line could stack several messages in the editor tooltip — e.g. `if(name === "") { name = "you" }` produced `OpeningBraceContentNotOnOwnLine`, `ClosingBraceNotOnOwnLine`, **and** a nonsensical `IncorrectIndentation` ("expected 2 spaces… indented by 33 spaces", because the mid-line closing brace's column was measured as indentation). Students fix one thing at a time, and later warnings are usually side-effects of the first, so only the first is surfaced.
