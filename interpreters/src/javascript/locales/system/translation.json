@@ -14,6 +14,7 @@
       "MissingInitializerInVariableDeclaration": "MissingInitializerInVariableDeclaration",
       "ConstInForLoopInit": "ConstInForLoopInit",
       "MissingLetInForOf": "MissingLetInForOf: name: {{name}}",
+      "MissingLetInForIn": "MissingLetInForIn: name: {{name}}",
       "MissingLetInForLoopInit": "MissingLetInForLoopInit",
       "UnexpectedDoubleIdentifier": "UnexpectedDoubleIdentifier: first: {{first}}: second: {{second}}",
       "MissingDeclarationKeywordWithSuggestion": "MissingDeclarationKeywordWithSuggestion: name: {{name}}: suggestion: {{suggestion}}",

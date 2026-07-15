@@ -52,7 +52,36 @@ describe("missing let in for loops", () => {
       `;
       const { error } = interpret(code);
       expect(error).not.toBeNull();
-      expect(error?.type).toBe("MissingLetInForOf");
+      expect(error?.type).toBe("MissingLetInForIn");
+    });
+
+    test("system message includes the variable name", () => {
+      const code = `
+        let obj = {};
+        for (key in obj) {}
+      `;
+      const { error } = interpret(code);
+      expect(error?.message).toBe("MissingLetInForIn: name: key");
+    });
+
+    test("reports ForInStatementNotAllowed when for...in is not allowed on the level", () => {
+      const result = compile("for (key in obj) {}", {
+        languageFeatures: {
+          allowedNodes: ["ForStatement", "BlockStatement", "LiteralExpression", "IdentifierExpression"],
+        },
+      });
+      expect(result.success).toBe(false);
+      expect(result.success === false && result.error.type).toBe("ForInStatementNotAllowed");
+    });
+
+    test("reports MissingLetInForIn when for...in is allowed on the level", () => {
+      const result = compile("for (key in obj) {}", {
+        languageFeatures: {
+          allowedNodes: ["ForInStatement", "BlockStatement", "LiteralExpression", "IdentifierExpression"],
+        },
+      });
+      expect(result.success).toBe(false);
+      expect(result.success === false && result.error.type).toBe("MissingLetInForIn");
     });
   });
 

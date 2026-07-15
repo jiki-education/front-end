@@ -11,6 +11,7 @@ export type SyntaxErrorType =
   | "MissingInitializerInVariableDeclaration"
   | "ConstInForLoopInit"
   | "MissingLetInForOf"
+  | "MissingLetInForIn"
   | "MissingLetInForLoopInit"
   | "UnexpectedDoubleIdentifier"
   | "MissingDeclarationKeywordWithSuggestion"

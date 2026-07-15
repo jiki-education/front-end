@@ -428,7 +428,7 @@ export class Parser {
       }
       if (this.check("IN")) {
         this.checkNodeAllowed("ForInStatement", "ForInStatementNotAllowed", forToken.location);
-        throw this.error("MissingLetInForOf", variable.location, { name: variable.lexeme });
+        throw this.error("MissingLetInForIn", variable.location, { name: variable.lexeme });
       }
       // Not a for...of/in, e.g. `for (i = 0; ...)` — reset and parse as regular for loop
       this.current = checkpoint;
