@@ -42,7 +42,6 @@ export function AuthErrorModal() {
             </Link>
           )
         })}
-        .
       </p>
     </div>
   );

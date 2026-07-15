@@ -28,7 +28,6 @@ export function LatestNewsSection({ posts }: LatestNewsSectionProps) {
               </Link>
             )
           })}
-          .
         </p>
         <div className={styles.grid}>
           {posts.map((post) => (

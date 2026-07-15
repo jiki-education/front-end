@@ -566,7 +566,7 @@
     "latestNews": {
       "heading": "Our latest news",
       "byAuthor": "by {name}",
-      "subheading": "Keep up to date with what's happening at Jiki in <link>our blog</link>"
+      "subheading": "Keep up to date with what's happening at Jiki in <link>our blog</link>."
     },
     "monthlyPrice": {
       "fallback": "$9.99"
@@ -1125,7 +1125,7 @@
     "authError": {
       "title": "You've been Logged out.",
       "subtitle": "For some reason you've been logged out (maybe a security check, maybe you logged out on a different device?). Please reload the page to continue.",
-      "helpText": "If this keeps happening, try <cookiesLink>clearing your cookies</cookiesLink> or <supportLink>contact support</supportLink>"
+      "helpText": "If this keeps happening, try <cookiesLink>clearing your cookies</cookiesLink> or <supportLink>contact support</supportLink>."
     },
     "rateLimit": {
       "title": "You've moved too fast.",
