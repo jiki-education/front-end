@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@lezer/javascript': npm:@jiki.io/lezer-javascript@^1.5.4
+  '@lezer/javascript': npm:@jiki.io/lezer-javascript@^1.5.5
 
 patchedDependencies:
   react-modal@3.16.3:
@@ -2531,8 +2531,8 @@ packages:
     resolution: {integrity: sha512-JHm87k7bA33hpBngtU8h6UBub/fqqA9uXfw+21j5Hmk7ooPHlboRNxHq0JcMtC+n8VJGP1mcfnD3Mk+XKe1oSw==}
     engines: {node: ^18.14.0 || ^20.0.0 || ^22.0.0 || >=24.0.0}
 
-  '@jiki.io/lezer-javascript@1.5.4':
-    resolution: {integrity: sha512-pgS3fcxUNTaxd2gHKPlVGcehyQGCk/1arow1fqmdJQplSbqVyk0PeUI8RbPPgjywKW57OFWXXWAhZIfC++/5Lg==}
+  '@jiki.io/lezer-javascript@1.5.5':
+    resolution: {integrity: sha512-nyMD9QL9tVOiVDGnTQgM3gXYo2oyd8KK9OjDZj19SpzbrjrG0GY/siwXktZVvCzRlfC6Hmro4GrnBy9K+i1K3w==}
 
   '@jiki/highlightjs-javascript@https://codeload.github.com/jiki-education/highlightjs-javascript/tar.gz/180157677b2637335e7677e81d6d0aeb0210546d':
     resolution: {tarball: https://codeload.github.com/jiki-education/highlightjs-javascript/tar.gz/180157677b2637335e7677e81d6d0aeb0210546d}
@@ -9948,7 +9948,7 @@ snapshots:
       '@codemirror/state': 6.6.0
       '@codemirror/view': 6.41.1
       '@lezer/common': 1.5.2
-      '@lezer/javascript': '@jiki.io/lezer-javascript@1.5.4'
+      '@lezer/javascript': '@jiki.io/lezer-javascript@1.5.5'
 
   '@codemirror/lang-python@6.2.1':
     dependencies:
@@ -10806,7 +10806,7 @@ snapshots:
       '@types/yargs': 17.0.35
       chalk: 4.1.2
 
-  '@jiki.io/lezer-javascript@1.5.4':
+  '@jiki.io/lezer-javascript@1.5.5':
     dependencies:
       '@lezer/common': 1.5.2
       '@lezer/highlight': 1.2.3
