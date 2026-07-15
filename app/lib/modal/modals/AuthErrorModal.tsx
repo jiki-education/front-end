@@ -30,14 +30,18 @@ export function AuthErrorModal() {
       </button>
 
       <p className={styles.helpText}>
-        {t("helpTextPrefix")}
-        <Link href={routes.article("how-to-clear-your-cookies")} className={styles.helpLink}>
-          {t("clearCookies")}
-        </Link>
-        {t("helpTextOr")}
-        <Link href={routes.article("support")} className={styles.helpLink}>
-          {t("contactSupport")}
-        </Link>
+        {t.rich("helpText", {
+          cookiesLink: (chunks) => (
+            <Link href={routes.article("how-to-clear-your-cookies")} className={styles.helpLink}>
+              {chunks}
+            </Link>
+          ),
+          supportLink: (chunks) => (
+            <Link href={routes.article("support")} className={styles.helpLink}>
+              {chunks}
+            </Link>
+          )
+        })}
         .
       </p>
     </div>

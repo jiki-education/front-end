@@ -1,8 +1,6 @@
 export interface FaqItemData {
   questionKey: string;
-  answerKey?: string;
-  // When set, the answer is rendered with an embedded support link (a4Prefix/a4Link/a4Suffix).
-  answerLinkKeyPrefix?: string;
+  answerKey: string;
 }
 
 export interface FeatureRowData {

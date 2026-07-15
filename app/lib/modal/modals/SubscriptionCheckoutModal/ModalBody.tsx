@@ -27,10 +27,7 @@ export function ModalBody({
     return (
       <div className="bg-bg-primary p-4">
         <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-          <p className="text-sm text-red-800">
-            {t("errorPrefix")}
-            {checkoutState.error.message}
-          </p>
+          <p className="text-sm text-red-800">{t("error", { message: checkoutState.error.message })}</p>
         </div>
         <button
           onClick={onCancel}

@@ -60,7 +60,7 @@ export function RateLimitModal({ retryAfterSeconds = 15 }: RateLimitModalProps) 
         </div>
         <div>
           <div className={styles.statusText}>
-            {t("reconnectingIn")} <span>{timeLeft}</span> {t("seconds")}
+            {t.rich("reconnecting", { count: timeLeft, timer: (chunks) => <span>{chunks}</span> })}
           </div>
           <div className={styles.statusSubtext}>{t("autoRefresh")}</div>
         </div>

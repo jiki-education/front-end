@@ -23,10 +23,16 @@ export function CheckInboxMessage({ email }: CheckInboxMessageProps) {
             <p className={styles.confirmationText}>{t("sentTo")}</p>
             <p className={styles.confirmationEmail}>{email}</p>
             <p className={styles.confirmationHint}>
-              {t("hintPrefix")}
-              <Link href={`${routes.authResendConfirmation()}?email=${encodeURIComponent(email)}`} className="ui-link">
-                {t("resendLink")}
-              </Link>
+              {t.rich("hint", {
+                link: (chunks) => (
+                  <Link
+                    href={`${routes.authResendConfirmation()}?email=${encodeURIComponent(email)}`}
+                    className="ui-link"
+                  >
+                    {chunks}
+                  </Link>
+                )
+              })}
             </p>
           </div>
         </div>

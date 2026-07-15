@@ -36,10 +36,13 @@ export function AuthErrorCard({ title, message, ctaHref, ctaText }: AuthErrorCar
               {ctaText}
             </Link>
             <p className={styles.confirmationCardFooter}>
-              {t("needHelpPrefix")}
-              <Link href={routes.article("support")} className="ui-link">
-                {t("contactSupport")}
-              </Link>
+              {t.rich("needHelp", {
+                link: (chunks) => (
+                  <Link href={routes.article("support")} className="ui-link">
+                    {chunks}
+                  </Link>
+                )
+              })}
             </p>
           </div>
         </div>

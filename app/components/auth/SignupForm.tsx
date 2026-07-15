@@ -135,11 +135,13 @@ export function SignupForm() {
         <header>
           <h1>{t("title")}</h1>
           <p>
-            {t("haveAccountPrefix")}
-            <Link href={buildUrlWithReturnTo(routes.authLogin(), returnTo)} className="ui-link">
-              {t("loginLink")}
-            </Link>
-            .
+            {t.rich("haveAccount", {
+              link: (chunks) => (
+                <Link href={buildUrlWithReturnTo(routes.authLogin(), returnTo)} className="ui-link">
+                  {chunks}
+                </Link>
+              )
+            })}
           </p>
         </header>
 
@@ -239,10 +241,13 @@ export function SignupForm() {
 
           <div className={styles.footerLinks}>
             <p>
-              {t("resendPrompt")}
-              <Link href={routes.authResendConfirmation()} className="ui-link">
-                {t("resendLink")}
-              </Link>
+              {t.rich("resend", {
+                link: (chunks) => (
+                  <Link href={routes.authResendConfirmation()} className="ui-link">
+                    {chunks}
+                  </Link>
+                )
+              })}
             </p>
           </div>
         </form>

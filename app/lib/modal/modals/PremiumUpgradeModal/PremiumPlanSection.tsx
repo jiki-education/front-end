@@ -13,38 +13,15 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
   const t = useTranslations("modals.premiumUpgrade");
   const tCommon = useTranslations("common");
 
+  const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
   const premiumFeatures: React.ReactNode[] = [
-    <>
-      {t("featureLearnToBuildPrefix")}
-      <strong>{t("featureLearnToBuild")}</strong>
-    </>,
-    <>
-      {t("featureChallengesPrefix")}
-      <strong>{t("featureChallenges")}</strong>
-    </>,
-    <>
-      {t("featureAiPrefix")}
-      <strong>{t("featureAi")}</strong>
-      {t("featureAiSuffix")}
-    </>,
-    <>
-      {t("featureLivestreamsPrefix")}
-      <strong>{t("featureLivestreams")}</strong>
-      {t("featureLivestreamsSuffix")}
-    </>,
-    <>
-      {t("featureCertificatesPrefix")}
-      <strong>{t("featureCertificates")}</strong>
-      {t("featureCertificatesSuffix")}
-    </>,
-    <>
-      <strong>{t("featureAdFree")}</strong>
-      {t("featureAdFreeSuffix")}
-    </>,
-    <>
-      <strong>{t("featureEarlyAccess")}</strong>
-      {t("featureEarlyAccessSuffix")}
-    </>
+    t.rich("featureLearnToBuild", { strong }),
+    t.rich("featureChallenges", { strong }),
+    t.rich("featureAi", { strong }),
+    t.rich("featureLivestreams", { strong }),
+    t.rich("featureCertificates", { strong }),
+    t.rich("featureAdFree", { strong }),
+    t.rich("featureEarlyAccess", { strong })
   ];
 
   return (
@@ -57,9 +34,7 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
         <span className={styles.period}>{tCommon("perMonth")}</span>
       </div>
       <p className={styles.annualNote}>
-        {t("dailyNotePrefix")}
-        <PremiumDailyPrice interval="monthly" />
-        {t("dailyNoteSuffix")}
+        {t.rich("dailyNote", { price: () => <PremiumDailyPrice interval="monthly" /> })}
       </p>
 
       <button

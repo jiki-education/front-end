@@ -69,9 +69,10 @@ export function ChallengeUnlockedStep({
       </div>
       <div className={styles.premiumInfoBox}>
         <p>
-          <span className="font-semibold">{t("premiumOnly")}</span>{" "}
-          <Link href={routes.premium()}>{t("upgradeLink")}</Link>
-          {t("premiumInfoSuffix")}
+          {t.rich("premiumInfo", {
+            strong: (chunks) => <span className="font-semibold">{chunks}</span>,
+            link: (chunks) => <Link href={routes.premium()}>{chunks}</Link>
+          })}
         </p>
       </div>
       <div className={styles.modalButtonsDivider}></div>

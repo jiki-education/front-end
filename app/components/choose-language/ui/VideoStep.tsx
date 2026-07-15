@@ -98,10 +98,13 @@ export function VideoStep({ lessonData, onReady, onProceedToSelector, hasVisited
 
       {!hasVisitedSelector && (
         <p className={styles.videoInstruction}>
-          {t("videoInstructionPrefix")}
-          <button className={styles.skipButton} onClick={handleSkip}>
-            {t("skipVideo")}
-          </button>
+          {t.rich("videoInstruction", {
+            skip: (chunks) => (
+              <button className={styles.skipButton} onClick={handleSkip}>
+                {chunks}
+              </button>
+            )
+          })}
         </p>
       )}
     </>

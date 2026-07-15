@@ -12,19 +12,21 @@ export function FAQs() {
       <div className={styles.container}>
         <h2>{t("heading")}</h2>
         <p className={styles.intro}>
-          {t("introPrefix")}
-          <a href="mailto:hello@jiki.io">{t("introLink")}</a>
+          {t.rich("intro", { link: (chunks) => <a href="mailto:hello@jiki.io">{chunks}</a> })}
         </p>
         <div className={styles.faq}>
           <h4>{t("q1")}</h4>
           <p>{t.rich("q1a1", { strong })}</p>
           <p>
-            {t.rich("q1a2Prefix", { strong })}
-            <strong>
-              <MonthlyPrice />
-              {tCommon("perMonth")}
-            </strong>
-            {t("q1a2Suffix")}
+            {t.rich("q1a2", {
+              strong,
+              price: () => (
+                <strong>
+                  <MonthlyPrice />
+                  {tCommon("perMonth")}
+                </strong>
+              )
+            })}
           </p>
           <ul>
             <li>{t.rich("q1Item1", { strong })}</li>

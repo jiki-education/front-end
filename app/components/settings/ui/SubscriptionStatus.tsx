@@ -69,20 +69,13 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
           <h3>{t("currentPlan")}</h3>
         </div>
         <p>
-          {t("activePrefix")}
-          <span className={styles.gradientText}>{t("activePlanName", { tier: tierDetails.name })}</span>
-          {t("activeMiddle")}
-          <strong>
-            <PremiumPrice interval="monthly" />
-            {tCommon("perMonth")}
-          </strong>
-          {nextBillingDate && (
-            <>
-              {t("activeNextBillingPrefix")}
-              <strong>{nextBillingDate}</strong>
-            </>
-          )}
-          .
+          {t.rich(nextBillingDate ? "activeWithBilling" : "active", {
+            tier: tierDetails.name,
+            date: nextBillingDate ?? "",
+            plan: (chunks) => <span className={styles.gradientText}>{chunks}</span>,
+            strong: (chunks) => <strong>{chunks}</strong>,
+            price: () => <PremiumPrice interval="monthly" />
+          })}
         </p>
       </div>
     );
@@ -99,17 +92,20 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
           {t("cancellingMessage")}
           {daysRemaining !== null && (
             <>
-              {t("cancellingRemainingPrefix")}
-              <strong>
-                {daysRemaining} {daysRemaining === 1 ? t("cancellingDay") : t("cancellingDays")}
-              </strong>
-              {t("cancellingRemainingSuffix")}
+              {" "}
+              {t.rich("cancellingRemaining", {
+                count: daysRemaining,
+                strong: (chunks) => <strong>{chunks}</strong>
+              })}
             </>
           )}
           {nextBillingDate && (
             <>
-              {t("cancellingEndsPrefix")}
-              <strong>{nextBillingDate}</strong>.
+              {" "}
+              {t.rich("cancellingEnds", {
+                date: nextBillingDate,
+                strong: (chunks) => <strong>{chunks}</strong>
+              })}
             </>
           )}
         </p>
@@ -122,11 +118,7 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
     return (
       <div className={`${styles.settingItem} ${className}`}>
         <h3>{t("currentPlan")}</h3>
-        <p style={{ marginBottom: 0 }}>
-          {t("freePrefix")}
-          <strong>{t("freePlanName")}</strong>
-          {t("freeSuffix")}
-        </p>
+        <p style={{ marginBottom: 0 }}>{t.rich("free", { strong: (chunks) => <strong>{chunks}</strong> })}</p>
       </div>
     );
   }
@@ -146,8 +138,7 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
             role="status"
             aria-label={t("currentPlanAriaLabel", { plan: tierDetails.name })}
           >
-            {tierDetails.name}
-            {t("planSuffix")}
+            {t("planLabel", { tier: tierDetails.name })}
           </div>
           <div
             className={`px-2 py-4 rounded text-xs font-medium ${statusInfo.bgColor} ${statusInfo.color}`}

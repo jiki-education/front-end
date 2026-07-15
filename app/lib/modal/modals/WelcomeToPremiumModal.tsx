@@ -29,8 +29,7 @@ export function WelcomeToPremiumModal({ onClose }: WelcomeToPremiumModalProps) {
       </span>
 
       <h2 className={styles.title}>
-        {t("titlePrefix")}
-        <span className={styles.highlight}>{t("titleHighlight")}</span>
+        {t.rich("title", { highlight: (chunks) => <span className={styles.highlight}>{chunks}</span> })}
       </h2>
 
       <p className={styles.description}>{t("description")}</p>

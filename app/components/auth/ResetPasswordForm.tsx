@@ -178,10 +178,13 @@ export function ResetPasswordForm() {
 
           <div className={styles.footerLinks}>
             <p>
-              {t("rememberedPrefix")}
-              <Link href={routes.authLogin()} className="ui-link">
-                {t("signInLink")}
-              </Link>
+              {t.rich("remembered", {
+                link: (chunks) => (
+                  <Link href={routes.authLogin()} className="ui-link">
+                    {chunks}
+                  </Link>
+                )
+              })}
             </p>
           </div>
         </form>

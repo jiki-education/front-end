@@ -130,10 +130,13 @@ export function ForgotPasswordForm() {
 
           <div className={styles.footerLinks}>
             <p>
-              {t("rememberedPrompt")}
-              <Link href={routes.authLogin()} className="ui-link">
-                {t("loginLink")}
-              </Link>
+              {t.rich("remembered", {
+                link: (chunks) => (
+                  <Link href={routes.authLogin()} className="ui-link">
+                    {chunks}
+                  </Link>
+                )
+              })}
             </p>
           </div>
         </form>

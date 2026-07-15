@@ -105,8 +105,7 @@ export function PaymentForm({ priorError }: { priorError?: string | null }) {
 
       <p className={styles.footerText}>
         <ShieldIcon />
-        {t("securedByPrefix")}
-        <span className={styles.stripeBrand}>{t("stripeBrand")}</span>
+        {t.rich("securedBy", { stripe: (chunks) => <span className={styles.stripeBrand}>{chunks}</span> })}
       </p>
     </form>
   );

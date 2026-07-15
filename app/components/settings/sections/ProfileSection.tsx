@@ -91,8 +91,10 @@ export default function ProfileSection({ settings, updateName, updateHandle, upd
         {settings.unconfirmed_email && (
           <StatusNotification variant="info">
             <p>
-              {t("confirmationPendingPrefix")}
-              <strong>{settings.unconfirmed_email}</strong>
+              {t.rich("confirmationPending", {
+                email: settings.unconfirmed_email,
+                strong: (chunks) => <strong>{chunks}</strong>
+              })}
             </p>
             <p className="text-xs mt-4">{t("confirmationPendingHint")}</p>
           </StatusNotification>

@@ -111,10 +111,13 @@ export function LoginForm() {
         <header>
           <h1>{t("title")}</h1>
           <p>
-            {t("noAccountPrefix")}
-            <Link href={buildUrlWithReturnTo(routes.authSignup(), returnTo)} className="ui-link">
-              {t("signUpLink")}
-            </Link>
+            {t.rich("noAccount", {
+              link: (chunks) => (
+                <Link href={buildUrlWithReturnTo(routes.authSignup(), returnTo)} className="ui-link">
+                  {chunks}
+                </Link>
+              )
+            })}
           </p>
         </header>
 
@@ -201,13 +204,16 @@ export function LoginForm() {
               )}
               {unconfirmedEmail && (
                 <div className="ui-form-field-error-message" style={{ display: "block" }}>
-                  {t("unconfirmedPrefix")}
-                  <Link
-                    href={`${routes.authResendConfirmation()}?email=${encodeURIComponent(unconfirmedEmail)}`}
-                    className="ui-link"
-                  >
-                    {t("resendConfirmationLink")}
-                  </Link>
+                  {t.rich("unconfirmed", {
+                    link: (chunks) => (
+                      <Link
+                        href={`${routes.authResendConfirmation()}?email=${encodeURIComponent(unconfirmedEmail)}`}
+                        className="ui-link"
+                      >
+                        {chunks}
+                      </Link>
+                    )
+                  })}
                 </div>
               )}
               {googleAuthError && (
@@ -238,10 +244,13 @@ export function LoginForm() {
 
           <div className={styles.footerLinks}>
             <p>
-              {t("resendPrompt")}
-              <Link href={routes.authResendConfirmation()} className="ui-link">
-                {t("resendLink")}
-              </Link>
+              {t.rich("resend", {
+                link: (chunks) => (
+                  <Link href={routes.authResendConfirmation()} className="ui-link">
+                    {chunks}
+                  </Link>
+                )
+              })}
             </p>
           </div>
         </form>

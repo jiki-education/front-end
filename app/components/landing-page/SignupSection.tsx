@@ -13,10 +13,7 @@ export function SignupSection() {
       <div className={styles["lhs-bg"]}></div>
       <div className={styles["rhs-bg"]}></div>
       <div className={`${shared["lg-container"]} ${styles.inner}`}>
-        <h2 className={styles.heading}>
-          {t("headingPrefix")}
-          {strong(t("headingHighlight"))}
-        </h2>
+        <h2 className={styles.heading}>{t.rich("heading", { strong })}</h2>
         <p className={styles.intro}>{t.rich("intro", { strong })}</p>
         <Link href={routes.authSignup()} className="ui-btn ui-btn-xlarge ui-btn-primary">
           {t("button")}

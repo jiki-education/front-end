@@ -110,11 +110,13 @@ export function Hero() {
       <div className={[styles["container"], shared["lg-container"]].join(" ")}>
         <div className={styles["hero-lhs"]}>
           <h1 ref={headlineRef} className={styles["rock-solid"]} data-rock-solid>
-            {t("headlinePart1")}
-            <span data-anim="highlight-headline" className={styles.headlineHighlight}>
-              {t("headlineHighlight")}
-            </span>
-            {t("headlinePart2")}
+            {t.rich("headline", {
+              highlight: (chunks) => (
+                <span data-anim="highlight-headline" className={styles.headlineHighlight}>
+                  {chunks}
+                </span>
+              )
+            })}
           </h1>
           <p ref={taglineRef} className={`${styles.tagline}`} data-tagline>
             {t.rich("tagline", {
@@ -123,19 +125,13 @@ export function Hero() {
             })}
           </p>
           <p ref={audienceRef} className={`${styles.tagline} `}>
-            {t("audiencePrefix")}
-            <span data-anim="highlight-audience" className={styles.highlightWhite}>
-              {t("audience1")}
-            </span>
-            {t("audienceMiddle")}
-            <span data-anim="highlight-audience" className={styles.highlightWhite}>
-              {t("audience2")}
-            </span>
-            {t("audienceAfter2")}
-            <span data-anim="highlight-audience" className={styles.highlightWhite}>
-              {t("audience3")}
-            </span>
-            {t("audienceSuffix")}
+            {t.rich("audience", {
+              highlight: (chunks) => (
+                <span data-anim="highlight-audience" className={styles.highlightWhite}>
+                  {chunks}
+                </span>
+              )
+            })}
           </p>
           <div className={styles["cta-wrapper"]}>
             <SignupButton />

@@ -39,9 +39,7 @@ export default function PremiumUpsell({
   return (
     <div className={`${styles.premiumUpsell} ${className}`}>
       <h2 className={styles.premiumUpsellHeadline}>
-        {t("headlinePrefix")}
-        <span className={styles.highlight}>{t("headlineHighlight")}</span>
-        {t("headlineSuffix")}
+        {t.rich("headline", { highlight: (chunks) => <span className={styles.highlight}>{chunks}</span> })}
       </h2>
       <p className={styles.premiumUpsellSubtitle}>{t("subtitle")}</p>
 
@@ -67,9 +65,7 @@ export default function PremiumUpsell({
               <span className={styles.period}>{tCommon("perMonth")}</span>
             </div>
             <p className={styles.premiumUpsellNote}>
-              {t("dailyNotePrefix")}
-              <PremiumDailyPrice interval="monthly" />
-              {t("dailyNoteSuffix")}
+              {t.rich("dailyNote", { price: () => <PremiumDailyPrice interval="monthly" /> })}
             </p>
           </div>
         </div>

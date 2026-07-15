@@ -8,8 +8,7 @@ export function BasicPlanSection() {
   return (
     <div className={styles.leftSide}>
       <h1 className={styles.mainHeading}>
-        <span className={styles.highlight}>{t("headlineHighlight")}</span>
-        {t("headlineSuffix")}
+        {t.rich("headline", { highlight: (chunks) => <span className={styles.highlight}>{chunks}</span> })}
       </h1>
       <p className={styles.mainSubheading}>{t("subheading")}</p>
 
