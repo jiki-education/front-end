@@ -18,7 +18,10 @@ export function VisualTestCanvas({ view, isSpotlightActive = false }: VisualTest
     // Clean up old view
     if (viewContainerRef.current.children.length > 0) {
       const oldView = viewContainerRef.current.children[0] as HTMLElement;
-      document.body.appendChild(oldView);
+      // document.body is a temporary parking parent and can genuinely be null
+      // during page teardown (typed non-null but seen null in production -
+      // JIKI-FRONT-END-3R, same class as #873), so skip it safely.
+      (document.body as HTMLElement | null)?.appendChild(oldView);
       oldView.style.display = "none";
     }
 
@@ -31,7 +34,10 @@ export function VisualTestCanvas({ view, isSpotlightActive = false }: VisualTest
 
     return () => {
       view.style.display = "none";
-      document.body.appendChild(view);
+      // document.body can be null when this cleanup runs during page teardown
+      // (typed non-null but seen null in production - JIKI-FRONT-END-3R, same
+      // class as #873).
+      (document.body as HTMLElement | null)?.appendChild(view);
     };
   }, [view]);
 
