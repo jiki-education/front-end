@@ -48,12 +48,14 @@ export default class SpaceInvadersExercise extends VisualExercise {
     (_, idx) => this.laserStart + idx * this.laserStep
   );
   private laserPosition = 0;
-  protected shotCooldown: number | false = 50;
+  // When true, shooting twice without moving in between is a logic error.
+  // Subclasses can disable this to allow rapid-fire shooting.
+  protected preventRepeatShot: boolean = true;
   private features = { alienRespawning: false };
   private laser!: HTMLElement;
   private aliens: (Alien | null)[][] = [];
   private startingAliens: (Alien | null)[][] = [];
-  private lastShotAt = -100;
+  private justShot = false;
 
   constructor() {
     super();
@@ -173,6 +175,9 @@ export default class SpaceInvadersExercise extends VisualExercise {
   }
 
   private moveLaser(executionCtx: ExecutionContext) {
+    // Moving clears the repeat-shot guard: the student is free to shoot again
+    // once they've moved.
+    this.justShot = false;
     this.addAnimation({
       targets: `#${this.view.id} .laser`,
       duration: this.moveDuration,
@@ -209,12 +214,12 @@ export default class SpaceInvadersExercise extends VisualExercise {
   }
 
   public shoot(executionCtx: ExecutionContext) {
-    if (this.shotCooldown !== false && this.lastShotAt > executionCtx.getCurrentTimeInMs() - this.shotCooldown) {
+    if (this.preventRepeatShot && this.justShot) {
       executionCtx.logicError(
         "Oh no! Your laser canon overheated from shooting too fast! You need to move before you can shoot a second time."
       );
     }
-    this.lastShotAt = executionCtx.getCurrentTimeInMs();
+    this.justShot = true;
 
     let targetRow = null;
     let targetAlien: Alien | null = null;

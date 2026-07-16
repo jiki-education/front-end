@@ -1,7 +1,7 @@
 import SpaceInvadersExercise from "../../exercise-categories/space-invaders/SpaceInvadersExercise";
 
 export default class SpaceInvadersRepeatExercise extends SpaceInvadersExercise {
-  protected shotCooldown: number | false = false;
+  protected preventRepeatShot: boolean = false;
 
   public availableFunctions = [
     {
