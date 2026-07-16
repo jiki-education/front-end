@@ -1546,7 +1546,7 @@
     "freeUserLimitReached": {
       "description": "You've used your free conversation. Continue learning with Jiki's help with concepts, debugging, and moving forward on exercises.",
       "upgradeButton": "Upgrade to Jiki Premium",
-      "price": "Just £3.99/month!"
+      "price": "Just <price></price>!"
     },
     "lockedFooter": {
       "freeLimitText": "You're no longer on the Premium Plan. <upgrade>Upgrade</upgrade> to continue the conversation.",

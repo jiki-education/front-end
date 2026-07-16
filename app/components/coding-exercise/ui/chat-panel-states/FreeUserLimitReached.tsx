@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { PremiumPrice } from "@/components/common/PremiumPrice";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { staticAsset } from "@/lib/static-asset";
 import styles from "./shared.module.css";
@@ -9,6 +10,7 @@ import StuckHeader from "./StuckHeader";
 // They've used their free conversation limit
 export default function FreeUserLimitReached() {
   const t = useTranslations("codingExercise.freeUserLimitReached");
+  const tCommon = useTranslations("common");
   const handleUpgradeClick = () => {
     showPremiumUpgradeModal("assistant_limit_reached");
   };
@@ -26,7 +28,16 @@ export default function FreeUserLimitReached() {
           </button>
         </div>
 
-        <p className={styles.subtleText}>{t("price")}</p>
+        <p className={styles.subtleText}>
+          {t.rich("price", {
+            price: () => (
+              <>
+                <PremiumPrice interval="monthly" />
+                {tCommon("perMonth")}
+              </>
+            )
+          })}
+        </p>
       </div>
     </div>
   );
