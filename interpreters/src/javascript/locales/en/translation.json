@@ -21,7 +21,7 @@
       "MissingDeclarationKeywordWithSuggestion": "Did you mean `{{suggestion}}` instead of `{{name}}`? Variable declarations must start with `let` or `const`.",
       "MissingLeftParenthesisAfterIf": "Missing opening parenthesis `(` after `if` keyword.",
       "MissingRightBraceAfterBlock": "Missing closing brace `}` after block statement.",
-      "MissingRightBraceInTemplateLiteral": "Missing closing brace `}` in template literal interpolation.",
+      "MissingRightBraceInTemplateLiteral": "Jiki couldn't find a closing brace (`}`) in this template literal. Check in case you missed it or made a typo. The correct shape is ``` `...${...}...` ```.",
       "MissingRightBracketInArray": "Missing closing bracket `]` to close the array.",
       "MissingRightBracketInMemberAccess": "Missing closing bracket `]` after array index.",
       "MissingRightParenthesisAfterExpression": "Missing closing parenthesis `)` after expression.",
