@@ -47,6 +47,15 @@ function defaultOnError(event: Event) {
     return;
   }
 
+  // A codeless plain Event (no detail, null event.target.error, so no code and no
+  // message) carries nothing actionable. These fire from the native-video path as a
+  // duplicate signal of the paired rich CustomEvent, which lands in its own Sentry
+  // issue with a real code. Log it but keep the empty duplicate out of Sentry.
+  if (code == null && !mediaError?.message) {
+    console.error(error);
+    return;
+  }
+
   // Every variant funnels through this same stack frame, so without an explicit
   // fingerprint Sentry lumps decode failures, unsupported formats, and unknown
   // errors into one issue. Group per code/muxCode so each class is triaged on

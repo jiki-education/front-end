@@ -56,11 +56,35 @@ describe("JikiMuxPlayer defaultOnError", () => {
     expect(reported.message).toBe("MuxPlayer error: code 4: muxCode 2404000: Source not supported.");
   });
 
-  it("falls back to a bare message when no error detail is present", () => {
+  it("does not report codeless events with no detail but still logs them", () => {
+    // No detail and no event.target.error means no code and no message. These are
+    // duplicate signals of the paired rich CustomEvent, so keep them out of Sentry.
     fireMuxError(undefined);
 
+    expect(mockReportError).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+    expect((consoleErrorSpy.mock.calls[0][0] as Error).message).toBe("MuxPlayer error");
+  });
+
+  it("does not report a plain Event with a null event.target.error but still logs it", () => {
+    // The native-video path dispatches a plain Event whose target.error is null.
+    const target = document.createElement("video");
+    Object.defineProperty(target, "error", { configurable: true, value: null });
+    const event = new Event("error");
+    Object.defineProperty(event, "target", { value: target });
+
+    capturedOnError?.(event);
+
+    expect(mockReportError).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+    expect((consoleErrorSpy.mock.calls[0][0] as Error).message).toBe("MuxPlayer error");
+  });
+
+  it("reports an error that has a message but no code", () => {
+    fireMuxError({ message: "Something broke." });
+
     expect(mockReportError).toHaveBeenCalledTimes(1);
-    expect((mockReportError.mock.calls[0][0] as Error).message).toBe("MuxPlayer error");
+    expect((mockReportError.mock.calls[0][0] as Error).message).toBe("MuxPlayer error: Something broke.");
   });
 
   it("reads error info from event.target.error on the native-video fallback path", () => {
