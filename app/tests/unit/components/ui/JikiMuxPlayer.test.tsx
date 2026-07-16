@@ -56,6 +56,24 @@ describe("JikiMuxPlayer defaultOnError", () => {
     expect(reported.message).toBe("MuxPlayer error: code 4: muxCode 2404000: Source not supported.");
   });
 
+  it("does not report decode errors to Sentry but still logs them", () => {
+    // code 3 (MEDIA_ERR_DECODE) comes from codec-limited clients (Firefox/Linux
+    // without H.264, in-app webviews), not corrupt media or an app bug.
+    fireMuxError({
+      code: 3,
+      muxCode: 2000003,
+      message:
+        "The media playback was aborted due to a corruption problem or because the media used features your browser did not support."
+    });
+
+    expect(mockReportError).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+    const [logged] = consoleErrorSpy.mock.calls[0];
+    expect(logged).toBeInstanceOf(Error);
+    expect((logged as Error).message).toContain("code 3");
+    expect((logged as Error).message).toContain("muxCode 2000003");
+  });
+
   it("does not report codeless events with no detail but still logs them", () => {
     // No detail and no event.target.error means no code and no message. These are
     // duplicate signals of the paired rich CustomEvent, so keep them out of Sentry.
@@ -92,7 +110,7 @@ describe("JikiMuxPlayer defaultOnError", () => {
     const target = document.createElement("video");
     Object.defineProperty(target, "error", {
       configurable: true,
-      value: { code: 3, message: "Decode failed." }
+      value: { code: 4, message: "Source not supported." }
     });
     const event = new Event("error");
     Object.defineProperty(event, "target", { value: target });
@@ -100,7 +118,7 @@ describe("JikiMuxPlayer defaultOnError", () => {
     capturedOnError?.(event);
 
     expect(mockReportError).toHaveBeenCalledTimes(1);
-    expect((mockReportError.mock.calls[0][0] as Error).message).toBe("MuxPlayer error: code 3: Decode failed.");
+    expect((mockReportError.mock.calls[0][0] as Error).message).toBe("MuxPlayer error: code 4: Source not supported.");
   });
 
   it("silences network errors that arrive via event.target.error (native fallback path)", () => {
@@ -110,6 +128,23 @@ describe("JikiMuxPlayer defaultOnError", () => {
     Object.defineProperty(target, "error", {
       configurable: true,
       value: { code: 2, message: "Network error." }
+    });
+    const event = new Event("error");
+    Object.defineProperty(event, "target", { value: target });
+
+    capturedOnError?.(event);
+
+    expect(mockReportError).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it("silences decode errors that arrive via event.target.error (native fallback path)", () => {
+    // Decode skip keys off the HTML5 `code`, present on both the Mux detail
+    // payload and the native MediaError, so this path is silenced too.
+    const target = document.createElement("video");
+    Object.defineProperty(target, "error", {
+      configurable: true,
+      value: { code: 3, message: "Decode failed." }
     });
     const event = new Event("error");
     Object.defineProperty(event, "target", { value: target });
