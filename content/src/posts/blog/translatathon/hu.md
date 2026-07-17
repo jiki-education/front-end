@@ -9,7 +9,7 @@ seo:
 
 ## TL;DR
 
-_We're translating Jiki and Exercism into as many languages as we can, over the weekend of **Friday July 31st - Sunday August 2nd**. Want to help? Join the **[kickoff live stream](YOUTUBE_LINK)** at 1pm UTC (3pm CEST) on the Friday, or get stuck in on **[Discord](https://discord.gg/VNrGu4D4R)** and **[the forum](https://forum.jiki.io/c/i18n/67)** any time over the weekend. Everyone who contributes gets badges on both Jiki and Exercism!_
+_We're translating Jiki and Exercism into as many languages as we can, over the weekend of **Friday July 31st - Sunday August 2nd**. Want to help? Join the **[kickoff live stream](https://youtube.com/live/UAxC5J4H2n0)** at 1pm UTC (3pm CEST) on the Friday, or get stuck in on **[Discord](https://discord.gg/VNrGu4D4R)** and **[the forum](https://forum.jiki.io/c/i18n/67)** any time over the weekend. Everyone who contributes gets badges on both Jiki and Exercism!_
 
 ## Why we're doing this
 
@@ -25,7 +25,7 @@ Read on to understand how we're doing this and how you can help.
 
 The Translatathon is like a hackathon, but with less hacking and more translating. It runs across a long weekend:
 
-- **Friday July 31st, 1pm UTC (3pm CEST):** Kickoff live stream on [YouTube](YOUTUBE_LINK). I'll explain everything, show you the whole process in action, and get everyone started.
+- **Friday July 31st, 1pm UTC (3pm CEST):** Kickoff live stream on [YouTube](https://youtube.com/live/UAxC5J4H2n0). I'll explain everything, show you the whole process in action, and get everyone started.
 - **Saturday and Sunday:** We work. I'll be streaming and around for most of the weekend, and you'll be working with other speakers of your language on the forum and Discord.
 - **Sunday August 2nd, 4pm UTC (6pm CEST):** Closing stream, where we'll look at which languages are ready to launch and celebrate what we've done together.
 
@@ -59,7 +59,7 @@ No! If you're a native speaker and you can read something and say "that sounds w
 
 Here's how the weekend works:
 
-1. **Join the kickoff stream** on [YouTube](YOUTUBE_LINK) at 1pm UTC on Friday July 31st. I'll set the scene and walk through everything.
+1. **Join the kickoff stream** on [YouTube](https://youtube.com/live/UAxC5J4H2n0) at 1pm UTC on Friday July 31st. I'll set the scene and walk through everything.
 2. **Jump into the [translation channel on Discord](https://discord.gg/VNrGu4D4R)**. That's our shared space for the weekend - discussing terms in real time, asking questions, and hanging out while we work.
 3. **Make it official on [the forum](https://forum.jiki.io/c/i18n/67)**. The forum is where the agreed glossary terms and feedback live, and it's what the AI actually learns from. So decisions get discussed on Discord, then recorded on the forum.
 
