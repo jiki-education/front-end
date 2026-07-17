@@ -58,7 +58,7 @@ No! If you can read something in your language and tell us when it sounds weird,
 So, to get involved:
 
 1. **Join the [kickoff stream](https://youtube.com/live/UAxC5J4H2n0)** at 1pm UTC on Friday July 31st.
-2. **Jump into the [translation channel on Discord](https://discord.gg/VNrGu4D4R)**. That's where we'll all be working over the weekend, and the best place to discuss terms with other speakers of your language.
+2. **Jump into the [#translation channel on Discord](https://discord.gg/VNrGu4D4R)**. That's where we'll all be working over the weekend, and the best place to discuss terms with other speakers of your language.
 3. **Post the decisions on [the forum](https://forum.jiki.io/c/i18n/67)**. The forum is what the AI actually learns from, so anything you agree on Discord needs to end up there.
 
 Everyone who contributes will get a **badge on both Jiki and Exercism** as a thank you.
