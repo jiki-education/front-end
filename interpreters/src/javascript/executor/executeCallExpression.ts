@@ -10,7 +10,6 @@ import { isCallable, type JSCallable, JSUserDefinedFunction, ReturnValue } from 
 import { LogicError, InterpreterInternalError } from "../error";
 import { Environment } from "../environment";
 import { StdlibError } from "../stdlib";
-import { translate } from "../translator";
 
 export function executeCallExpression(executor: Executor, expression: CallExpression): EvaluationResultCallExpression {
   // Evaluate the callee
@@ -199,7 +198,7 @@ function executeStdLibFunction(
     // Convert StdlibError to RuntimeError with translated message
     if (error instanceof StdlibError) {
       // error.message is a translation key (e.g., "StdlibArgTypeMismatch")
-      const message = translate(`error.stdlib.${error.message}`, error.context);
+      const message = executor.translate(`error.stdlib.${error.message}`, error.context);
       throw new RuntimeError(message, expression.location, error.errorType as RuntimeErrorType, error.context);
     }
     // Re-throw other errors

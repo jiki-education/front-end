@@ -1,5 +1,6 @@
 import { Parser } from "./parser";
 import { Executor } from "./executor";
+import { buildTranslator } from "./translator";
 import { InterpreterInternalError, type SyntaxError as JSSyntaxError } from "./error";
 import type { CompilationResult } from "../shared/errors";
 import type { LanguageFeatures } from "./interfaces";
@@ -21,6 +22,7 @@ import {
 } from "./assertion-helpers";
 import type { CallExpression } from "./expression";
 import { LiteralExpression, IdentifierExpression, type Expression } from "./expression";
+import type { Messages } from "../shared/i18n";
 
 // Evaluation context that includes external functions
 export interface EvaluationContext {
@@ -32,6 +34,10 @@ export interface EvaluationContext {
   // at the top level or reassign these names are silently ignored. Inner
   // scopes may still shadow them.
   secretConstants?: Record<string, any>;
+  // The active locale's message dict for this run, injected by the app (the
+  // interpreter never bundles the full locale set). Resolves this run's
+  // student-facing diagnostics; when omitted, the `system` pseudo-locale is used.
+  localeMessages?: Messages;
 }
 
 // Result type for evaluateFunction - extends InterpretResult with return value
@@ -46,7 +52,7 @@ export type EvaluateFunctionResult = InterpretResult & {
  */
 export function compile(sourceCode: string, context: EvaluationContext = {}): CompilationResult {
   try {
-    const parser = new Parser(context);
+    const parser = new Parser(context, buildTranslator(context.localeMessages));
     parser.parse(sourceCode);
     return { success: true, lintErrors: parser.lintErrors };
   } catch (error: unknown) {
@@ -56,13 +62,17 @@ export function compile(sourceCode: string, context: EvaluationContext = {}): Co
 
 export function interpret(sourceCode: string, context: EvaluationContext = {}): InterpretResult {
   try {
+    // Build the per-run translator once and share it across parse + execution
+    // (the active locale's message dict is injected via context.localeMessages).
+    const translate = buildTranslator(context.localeMessages);
+
     // Parse the source code (compilation step)
-    const parser = new Parser(context);
+    const parser = new Parser(context, translate);
     const statements = parser.parse(sourceCode);
     const lintErrors = parser.lintErrors;
 
     // Execute statements
-    const executor = new Executor(sourceCode, context);
+    const executor = new Executor(sourceCode, context, translate);
     const result = executor.execute(statements);
 
     return {
@@ -132,8 +142,12 @@ export function evaluateFunction(
   functionName: string,
   ...args: any[]
 ): EvaluateFunctionResult {
+  // Build the per-run translator once and share it across both parsers + the executor
+  // (the active locale's message dict is injected via context.localeMessages).
+  const translate = buildTranslator(context.localeMessages);
+
   // Parse the student's source code - let parse errors throw (matches JikiScript behavior)
-  const parser = new Parser(context);
+  const parser = new Parser(context, translate);
   const statements = parser.parse(sourceCode);
   const lintErrors = parser.lintErrors;
 
@@ -142,7 +156,7 @@ export function evaluateFunction(
 
   // Parse the calling code without node restrictions - this is infrastructure code, not student code
   const callingContext = { ...context, languageFeatures: { ...context.languageFeatures, allowedNodes: null } };
-  const callingParser = new Parser(callingContext);
+  const callingParser = new Parser(callingContext, translate);
   const callingStatements = callingParser.parse(callingCode);
 
   if (callingStatements.length !== 1) {
@@ -153,7 +167,7 @@ export function evaluateFunction(
   // 1. Execute student code (defines functions)
   // 2. Execute function call (calls the function)
   // Runtime errors are captured in frames, not thrown
-  const executor = new Executor(sourceCode, context);
+  const executor = new Executor(sourceCode, context, translate);
 
   // Phase 1: Execute student code to define functions
   executor.execute(statements);

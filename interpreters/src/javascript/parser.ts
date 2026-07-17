@@ -37,7 +37,8 @@ import {
   ContinueStatement,
 } from "./statement";
 import { type Token, type TokenType, KeywordTokens } from "./token";
-import { translate } from "./translator";
+import { buildTranslator } from "./translator";
+import type { Translator } from "../shared/i18n";
 import type { LanguageFeatures, NodeType } from "./interfaces";
 import type { EvaluationContext } from "./interpreter";
 
@@ -50,17 +51,19 @@ export class Parser {
   private current: number = 0;
   private tokens: Token[] = [];
   private readonly languageFeatures: LanguageFeatures;
+  private readonly translate: Translator;
   private blockDepth: number = 0;
   private baseIndentation: number | null = null;
   private baseIndentationTokens: Token[] = [];
   public lintErrors: LintError[] = [];
 
-  constructor(context: EvaluationContext = {}) {
+  constructor(context: EvaluationContext = {}, translate: Translator = buildTranslator(context.localeMessages)) {
     this.languageFeatures = context.languageFeatures || {};
     if (this.languageFeatures.enforceFormatting && !this.languageFeatures.oneStatementPerLine) {
       throw new Error("enforceFormatting requires oneStatementPerLine to be enabled");
     }
-    this.scanner = new Scanner(this.languageFeatures);
+    this.translate = translate;
+    this.scanner = new Scanner(this.languageFeatures, this.translate);
   }
 
   private isNodeAllowed(nodeType: NodeType): boolean {
@@ -80,7 +83,7 @@ export class Parser {
 
   public parse(sourceCode: string): Statement[] {
     this.tokens = this.scanner.scanTokens(sourceCode);
-    preParse(this.tokens);
+    preParse(this.tokens, this.translate);
     this.baseIndentation = null;
     this.baseIndentationTokens = [];
     this.blockDepth = 0;
@@ -1309,11 +1312,11 @@ export class Parser {
     if (this.lintErrors.length > 0) {
       return;
     }
-    this.lintErrors.push(new LintError(translate(`error.lint.${type}`, context), location, type, context));
+    this.lintErrors.push(new LintError(this.translate(`error.lint.${type}`, context), location, type, context));
   }
 
   private error(type: SyntaxErrorType, location: Location, context?: any): never {
-    throw new SyntaxError(translate(`error.syntax.${type}`, context), location, type, context);
+    throw new SyntaxError(this.translate(`error.syntax.${type}`, context), location, type, context);
   }
 
   private isAtEnd(): boolean {

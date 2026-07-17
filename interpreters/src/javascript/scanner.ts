@@ -8,7 +8,8 @@ import { DisabledLanguageFeatureError, type DisabledLanguageFeatureErrorType } f
 import type { Token, TokenType } from "./token";
 import { Location } from "../shared/location";
 import type { LanguageFeatures } from "./interfaces";
-import { translate } from "./translator";
+import { buildTranslator } from "./translator";
+import type { Translator } from "../shared/i18n";
 
 export class Scanner {
   private tokens: Token[] = [];
@@ -168,7 +169,8 @@ export class Scanner {
     private readonly languageFeatures: LanguageFeatures = {
       includeList: undefined,
       excludeList: undefined,
-    }
+    },
+    private readonly translate: Translator = buildTranslator()
   ) {}
 
   scanTokens(sourceCode: string): Token[] {
@@ -817,12 +819,12 @@ export class Scanner {
   }
 
   private error(type: SyntaxErrorType, context: any = {}): never {
-    throw new SyntaxError(translate(`error.syntax.${type}`, context), this.location(), type, context);
+    throw new SyntaxError(this.translate(`error.syntax.${type}`, context), this.location(), type, context);
   }
 
   private disabledLanguageFeatureError(type: DisabledLanguageFeatureErrorType, context: any): never {
     throw new DisabledLanguageFeatureError(
-      translate(`error.disabledLanguageFeature.${type}`, context),
+      this.translate(`error.disabledLanguageFeature.${type}`, context),
       this.location(),
       type,
       context

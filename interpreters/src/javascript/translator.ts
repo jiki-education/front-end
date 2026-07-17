@@ -1,38 +1,20 @@
-import { createInstance } from "i18next";
+import systemMessages from "./locales/system/translation.json";
+import { createTranslator, type Messages, type Translator } from "../shared/i18n";
 
-const DEFAULT_LANGUAGE = "en";
-const DEBUG = false;
+export type { Messages, Translator };
+export { systemMessages };
 
-import enLangPack from "./locales/en/translation.json";
-import huLangPack from "./locales/hu/translation.json";
-import systemLangPack from "./locales/system/translation.json";
-
-const javascriptI18n = createInstance();
-
-void javascriptI18n.init({
-  debug: DEBUG,
-  lng: DEFAULT_LANGUAGE,
-  fallbackLng: DEFAULT_LANGUAGE,
-  initImmediate: false,
-  showSupportNotice: false,
-});
-
-javascriptI18n.addResourceBundle("system", "translation", systemLangPack);
-javascriptI18n.addResourceBundle("en", "translation", enLangPack);
-javascriptI18n.addResourceBundle("hu", "translation", huLangPack);
-
-export function getLanguage(): string {
-  return javascriptI18n.language;
-}
-
-export async function changeLanguage(language: string): Promise<void> {
-  if (javascriptI18n.language === language) {
-    return;
-  }
-
-  await javascriptI18n.changeLanguage(language);
-}
-
-export function translate(key: string, options = {}): string {
-  return javascriptI18n.t(key, { ...options, interpolation: { escapeValue: false } }).toString();
+/**
+ * Build the per-run translator for a single JavaScript interpretation.
+ *
+ * The active locale's message dict is injected per run (via
+ * `EvaluationContext.localeMessages`); there is no global instance and no
+ * `changeLanguage`. When nothing is injected we resolve against the `system`
+ * pseudo-locale (structured "Type: context: value" strings) — never English — so
+ * a forgotten injection surfaces as a loud, obvious canary rather than plausible
+ * silent English. There is no runtime fallback (`fallbackLng: false`): a missing
+ * key in an injected locale surfaces as the key.
+ */
+export function buildTranslator(localeMessages?: Messages): Translator {
+  return createTranslator(localeMessages ?? systemMessages);
 }
