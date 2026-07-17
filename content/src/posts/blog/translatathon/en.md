@@ -67,8 +67,6 @@ Everyone who contributes will get an **exclusive one-off Translatathon badge** o
 
 After the weekend, languages will launch as soon as they're ready. Then we'll start on the next phase: **audio and video dubbing**. We're using [ElevenLabs](https://start.elevenlabs.io/c/exercism) for the audio, plus some custom video dubbing that changes my mouth, so it looks like I'm actually speaking your language.
 
-Later in the year we're adding Python alongside JavaScript, and all of this translation work carries straight over.
-
 ## Thank you
 
 I've wanted to do this for a long time, and it's finally possible. Thank you to everyone who's already started working on their language on the forum - I can't wait to see how many languages we can launch together.
