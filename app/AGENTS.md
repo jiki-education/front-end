@@ -89,6 +89,8 @@ This is the frontend for Jiki, a learn-to-code platform.
 
 **Note**: React Compiler is enabled, so manual memoization (`useMemo`, `useCallback`, `memo()`) is generally not needed.
 
+**Staging**: `staging.jiki.io` (`jiki-app-staging` Worker) must be deployed via the Deploy Staging GitHub Action **before** the Terraform custom-domain apply — the domain can't attach to a Worker service that doesn't exist yet.
+
 ### Organizational Patterns
 
 #### Component Organization
