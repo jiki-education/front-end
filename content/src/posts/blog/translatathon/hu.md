@@ -31,7 +31,7 @@ For each language, we're hoping to have at least **three native speakers**, at l
 
 ## How does this work, practically?
 
-We're not just going to run everything through Google Translate. If you've ever used a website that's been machine translated, you'll know how strange it feels to read. Instead, we're going to use AI to do the translating, with **native speakers checking its work** and teaching it the mistakes it's making.
+We're using LLMs (a mixture of them) to translate the platforms, but using strict guides and glossaries that we'll create. We're running a loop, where we translate, **get human feedback**, update the systems, and go again. Until we're happy.
 
 This is how it'll work:
 
