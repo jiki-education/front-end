@@ -13,7 +13,7 @@ _We're translating Jiki and Exercism into as many languages as we can, over the 
 
 ## Why we're doing this
 
-Learning to code is a massive level up. We want to help as many people as possible get that level up, and being able to learn in **your own language** makes a huge difference.
+[More than ever](https://jiki.io/blog/should-i-still-learn-to-code-in-2026), I believe that coding and building skills [open up huge opportunities](https://jiki.io/blog/how-to-get-into-tech-in-2026). We want to help as many people as possible get those skills, and being able to learn in **your own language** makes a huge difference.
 
 Most people in the world don't speak English, but most coding resources are only in English. So we're translating the whole of Jiki - the UI, the videos, the exercises, even the **error messages** you get from the programming language itself.
 
