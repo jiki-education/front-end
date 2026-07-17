@@ -5,7 +5,7 @@
 // primitive).
 
 import type { Orchestrator } from "./Orchestrator";
-import type { ToolSchema } from "./openrouter";
+import type { ToolSchema } from "./llmClient";
 
 export const MAX_FILES = 20;
 export const MAX_FILE_CHARS = 64_000;

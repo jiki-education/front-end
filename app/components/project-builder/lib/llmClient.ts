@@ -1,11 +1,9 @@
-// Minimal streaming client for OpenRouter's OpenAI-compatible
-// chat/completions API, with tool-calling support. BYOK: the key is the
-// user's own OpenRouter key, sent directly from the browser.
+// Minimal streaming client for OpenAI-compatible chat/completions APIs
+// (OpenRouter, OpenCode Zen) with tool-calling support. BYOK: the key is the
+// user's own, sent directly from the browser.
 
 import { debugLog } from "./debug/debugBus";
 import type { ChatCompletionMessage, ChatToolCall } from "./types";
-
-const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 
 export interface ToolSchema {
   type: "function";
@@ -22,7 +20,7 @@ export interface StreamResult {
   finishReason: string | null;
 }
 
-export class OpenRouterError extends Error {
+export class ModelRequestError extends Error {
   status: number;
 
   constructor(status: number, message: string) {
@@ -31,7 +29,12 @@ export class OpenRouterError extends Error {
   }
 }
 
+const DEV_RELAY_URL = "/dev/project-builder/api/llm";
+
 interface StreamOptions {
+  baseUrl: string;
+  // Route through the same-origin dev relay (for providers without CORS)
+  viaDevRelay: boolean;
   apiKey: string;
   model: string;
   messages: ChatCompletionMessage[];
@@ -43,28 +46,31 @@ interface StreamOptions {
 export async function streamChatCompletion(options: StreamOptions): Promise<StreamResult> {
   debugLog("agent", `request → ${options.model}`, { messageCount: options.messages.length });
 
-  const response = await fetch(OPENROUTER_URL, {
+  const payload = {
+    model: options.model,
+    messages: options.messages,
+    tools: options.tools,
+    stream: true,
+    stream_options: { include_usage: true }
+  };
+
+  const response = await fetch(options.viaDevRelay ? DEV_RELAY_URL : options.baseUrl, {
     method: "POST",
     signal: options.signal,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${options.apiKey}`,
+      // OpenRouter attribution headers; harmless on other providers
       "HTTP-Referer": "https://jiki.io",
       "X-Title": "Jiki Project Builder (dev)"
     },
-    body: JSON.stringify({
-      model: options.model,
-      messages: options.messages,
-      tools: options.tools,
-      stream: true,
-      stream_options: { include_usage: true }
-    })
+    body: JSON.stringify(options.viaDevRelay ? { upstreamUrl: options.baseUrl, ...payload } : payload)
   });
 
   if (!response.ok || !response.body) {
     const message = await extractErrorMessage(response);
     debugLog("agent", `error ${response.status}`, message);
-    throw new OpenRouterError(response.status, message);
+    throw new ModelRequestError(response.status, message);
   }
 
   return readStream(response.body, options.onTextDelta);
@@ -79,6 +85,7 @@ async function readStream(
 
   let buffer = "";
   let text = "";
+  let reasoning = "";
   let finishReason: string | null = null;
   const toolCallsByIndex = new Map<number, ChatToolCall>();
 
@@ -127,6 +134,9 @@ async function readStream(
         text += delta.content;
         onTextDelta(delta.content);
       }
+      if (delta.reasoning_content) {
+        reasoning += delta.reasoning_content;
+      }
       for (const toolDelta of delta.tool_calls ?? []) {
         accumulateToolCall(toolCallsByIndex, toolDelta);
       }
@@ -138,6 +148,9 @@ async function readStream(
     textLength: text.length,
     toolCalls: toolCalls.map((c) => c.function.name)
   });
+  if (reasoning) {
+    debugLog("agent", "reasoning", reasoning);
+  }
   return { text, toolCalls, finishReason };
 }
 
@@ -147,6 +160,8 @@ interface StreamChunk {
     finish_reason?: string | null;
     delta?: {
       content?: string | null;
+      // Some providers (e.g. DeepSeek via OpenCode Zen) stream thinking here
+      reasoning_content?: string | null;
       tool_calls?: Array<{
         index: number;
         id?: string;

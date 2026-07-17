@@ -8,7 +8,7 @@
 import { useState } from "react";
 import { useStore } from "zustand";
 import { clearDebugEvents, debugBusStore, type DebugEvent } from "../lib/debug/debugBus";
-import { devSettingsStore, SUGGESTED_MODELS, updateDevSettings } from "../lib/debug/devSettingsStore";
+import { devSettingsStore, PROVIDERS, updateDevSettings, type LlmEndpoint } from "../lib/debug/devSettingsStore";
 import type { Orchestrator } from "../lib/Orchestrator";
 import { useProjectBuilderStore } from "../lib/store";
 
@@ -70,11 +70,25 @@ function ControlsTab() {
   return (
     <div className="flex max-w-xl flex-col gap-2">
       <label className="flex items-center gap-2">
-        <span className="w-28 text-gray-500">OpenRouter key</span>
+        <span className="w-28 text-gray-500">Provider</span>
+        <select
+          value={settings.endpoint}
+          onChange={(e) => updateDevSettings({ endpoint: e.target.value as LlmEndpoint })}
+          className="flex-1 rounded border border-border-primary px-2 py-1"
+        >
+          {Object.entries(PROVIDERS).map(([id, provider]) => (
+            <option key={id} value={id}>
+              {provider.label}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label className="flex items-center gap-2">
+        <span className="w-28 text-gray-500">API key</span>
         <input
           type="password"
-          value={settings.openrouterKey}
-          onChange={(e) => updateDevSettings({ openrouterKey: e.target.value })}
+          value={settings.llmKey}
+          onChange={(e) => updateDevSettings({ llmKey: e.target.value })}
           className="flex-1 rounded border border-border-primary px-2 py-1"
         />
       </label>
@@ -87,7 +101,7 @@ function ControlsTab() {
           className="flex-1 rounded border border-border-primary px-2 py-1"
         />
         <datalist id="project-builder-models">
-          {SUGGESTED_MODELS.map((model) => (
+          {PROVIDERS[settings.endpoint].suggestedModels.map((model) => (
             <option key={model} value={model} />
           ))}
         </datalist>

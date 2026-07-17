@@ -2,9 +2,9 @@
 // execution in a loop, final prose out. The proxy-less BYOK version of the
 // planned production loop - history lives here, the model is stateless.
 
-import { devSettingsStore } from "./debug/devSettingsStore";
+import { devSettingsStore, PROVIDERS } from "./debug/devSettingsStore";
 import type { Orchestrator } from "./Orchestrator";
-import { OpenRouterError, streamChatCompletion } from "./openrouter";
+import { ModelRequestError, streamChatCompletion } from "./llmClient";
 import { buildSystemPrompt } from "./systemPrompt";
 import { executeTool, TOOL_SCHEMAS } from "./tools";
 import type { ChatCompletionMessage } from "./types";
@@ -26,7 +26,7 @@ export async function runAgentTurn(orchestrator: Orchestrator, userText: string)
 }
 
 async function runLoop(orchestrator: Orchestrator): Promise<void> {
-  const { openrouterKey, model } = devSettingsStore.getState();
+  const { llmKey, endpoint, model } = devSettingsStore.getState();
 
   for (let call = 0; call < MAX_MODEL_CALLS_PER_TURN; call++) {
     const messages: ChatCompletionMessage[] = [
@@ -36,7 +36,9 @@ async function runLoop(orchestrator: Orchestrator): Promise<void> {
 
     let assistantItemId: string | null = null;
     const { text, toolCalls, finishReason } = await streamChatCompletion({
-      apiKey: openrouterKey,
+      baseUrl: PROVIDERS[endpoint].baseUrl,
+      viaDevRelay: PROVIDERS[endpoint].viaDevRelay,
+      apiKey: llmKey,
       model,
       messages,
       tools: TOOL_SCHEMAS,
@@ -56,6 +58,9 @@ async function runLoop(orchestrator: Orchestrator): Promise<void> {
     });
 
     if (toolCalls.length === 0) {
+      if (finishReason === "length") {
+        orchestrator.appendTranscript({ kind: "notice", content: "The response was cut off (length limit)." });
+      }
       return;
     }
 
@@ -76,9 +81,11 @@ async function runLoop(orchestrator: Orchestrator): Promise<void> {
       orchestrator.history.push({ role: "tool", tool_call_id: toolCall.id, content: execution.result });
     }
 
-    if (finishReason !== "tool_calls" && finishReason !== null && finishReason !== "stop") {
-      orchestrator.appendTranscript({ kind: "notice", content: `The model stopped unexpectedly (${finishReason}).` });
-      return;
+    if (finishReason === "length") {
+      orchestrator.appendTranscript({
+        kind: "notice",
+        content: "The response was cut off (length limit) - tool results may be incomplete."
+      });
     }
   }
 
@@ -111,15 +118,15 @@ function labelFor(toolName: string): string {
 }
 
 function noticeForError(error: unknown): string {
-  if (error instanceof OpenRouterError) {
+  if (error instanceof ModelRequestError) {
     if (error.status === 401) {
-      return "Your OpenRouter key was rejected - check it in the debug drawer.";
+      return "Your API key was rejected - check it in the debug drawer.";
     }
     if (error.status === 402) {
-      return "OpenRouter says this model needs credits - pick a :free model or top up.";
+      return "The provider says this model needs credits - pick a free model or top up.";
     }
     if (error.status === 429) {
-      return "Rate limited by OpenRouter - wait a moment and try again.";
+      return "Rate limited by the model provider - wait a moment and try again.";
     }
     return `The model request failed: ${error.message}`;
   }

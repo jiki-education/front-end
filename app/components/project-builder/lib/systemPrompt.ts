@@ -21,7 +21,8 @@ Rules:
 - Vanilla HTML, CSS and JavaScript only. No frameworks, no build tools, no npm. You may only use the third-party libraries listed for this lesson, imported by their bare name.
 - Keep files small. If a file grows past ~150 lines, suggest splitting it (e.g. CSS by concern).
 - All project files are shown below - prefer acting on what you can see over re-listing or re-reading it.
-- After changing code, use run_code to check it works before telling the learner it's done. Report errors honestly.`;
+- After changing code, use run_code to check it works before telling the learner it's done. Report errors honestly.
+- The learner sees their page live in the preview pane next to this chat. Never paste screenshots, image links or URLs, and never claim to show them anything - just tell them to look at the preview.`;
 }
 
 function lessonSection(lesson: LessonConfig): string {
