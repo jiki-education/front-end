@@ -216,7 +216,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
   public shoot(executionCtx: ExecutionContext) {
     if (this.preventRepeatShot && this.justShot) {
       executionCtx.logicError(
-        "Oh no! Your laser canon overheated from shooting too fast! You need to move before you can shoot a second time."
+        "Oh no! Your laser cannon overheated from shooting too fast! You need to move before you can shoot a second time."
       );
     }
     this.justShot = true;
@@ -337,12 +337,12 @@ export default class SpaceInvadersExercise extends VisualExercise {
     {
       name: "move_left",
       func: this.moveLeft.bind(this),
-      description: "moved the laser canon to the left"
+      description: "moved the laser cannon to the left"
     },
     {
       name: "move_right",
       func: this.moveRight.bind(this),
-      description: "moved the laser canon to the right"
+      description: "moved the laser cannon to the right"
     },
     {
       name: "shoot",
@@ -352,7 +352,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
     {
       name: "is_alien_above",
       func: this.isAlienAbove.bind(this),
-      description: "determined if there was an alien above the laser canon"
+      description: "determined if there was an alien above the laser cannon"
     },
     {
       name: "get_starting_aliens_in_row",

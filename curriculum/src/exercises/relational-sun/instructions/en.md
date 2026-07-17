@@ -8,7 +8,7 @@ In this exercise, your task is to position a sun in the top-right corner of the 
 We've preset four variables for you at the top of the file:
 
 - `canvasSize`: the size of the canvas, which is `100`.
-- `color`: set it to `"yellow"`.
+- `color`: set to `"yellow"`.
 - `gap`: how far the sun's edge sits from the top and right edges of the canvas.
 - `radius`: the sun's radius.
 
