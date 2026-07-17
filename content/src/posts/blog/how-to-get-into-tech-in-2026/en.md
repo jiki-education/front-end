@@ -8,6 +8,8 @@ seo:
     ["how to get into tech", "get into tech in 2026", "learn to code", "tech careers", "ai coding", "llms", "jiki"]
 ---
 
+## Introduction
+
 Being able to create is one of life's big joys. I've never been good at drawing or painting, but for 30 years, code has been my tool of choice to create. It's allowed me to build products that help millions of people, it's been an outlet for my creativity and a place to challenge me intellectually.
 
 And for that 30-year period, **the route into tech has been stable:**

@@ -14,8 +14,10 @@ seo:
       "LLM",
       "jiki"
     ]
-en_md5: 96e06a7cdbda67318b5eefefc44d8b9b
+en_md5: d599444eaa258a866a62affc6dd0ae1f
 ---
+
+## Bevezetés
 
 Az alkotás az élet egyik legnagyobb öröme. Sohasem voltam jó a rajzolásban vagy a festészetben, de 30 éve a kód az alkotás kedvenc eszközöm. Lehetővé tette, hogy emberek millióit segítő termékeket fejlesszek, kreativitásom kiteljesítésének terepe és intellektuális kihívások forrása lett.
 
