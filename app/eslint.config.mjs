@@ -21,7 +21,9 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
-      "components/ui-kit/icon-types.ts"
+      "components/ui-kit/icon-types.ts",
+      // Vendored third-party ESM libraries served to preview iframes
+      "public/static/vendor/**"
     ]
   },
 
