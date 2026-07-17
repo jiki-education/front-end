@@ -47,7 +47,7 @@ If you watched [Episode 1 of Learn to Build](https://jiki.io/projects/build-your
 
 ### What if my language isn't listed yet?
 
-Find **two other native speakers** who'll work on it with you, then post in [the forum](https://forum.jiki.io/c/i18n/67). Once there are three of you, I'll set everything up - a forum section for your language and a starting glossary to discuss.
+Post in [the forum](https://forum.jiki.io/c/i18n/67) and we'll bootstrap it - a forum section for your language and a starting glossary to discuss. And if you know other native speakers who'd help out, get them to post too. The more people working on a language, the better it'll be.
 
 ### Do I need to be technical?
 
