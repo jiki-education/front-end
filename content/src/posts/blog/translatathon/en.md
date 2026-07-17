@@ -9,7 +9,7 @@ seo:
 
 ## TL;DR
 
-_We're translating Jiki and Exercism into as many languages as we can, over the weekend of **Friday July 31st - Sunday August 2nd**. Want to help? Join the **[kickoff live stream](https://youtube.com/live/UAxC5J4H2n0)** at 1pm UTC on the Friday, or get stuck in on **[Discord](https://discord.gg/VNrGu4D4R)** and **[the forum](https://forum.jiki.io/c/i18n/67)** any time over the weekend. Everyone who contributes gets badges on both Jiki and Exercism!_
+_We're translating Jiki and Exercism into as many languages as we can, over the weekend of **Friday July 31st - Sunday August 2nd**. Want to help? Join the **[kickoff live stream](https://youtube.com/live/UAxC5J4H2n0)** at 1pm UTC on the Friday, or get stuck in on **[Discord](https://discord.gg/VNrGu4D4R)** and **[the forum](https://forum.jiki.io/c/i18n/67)** any time over the weekend. Everyone who contributes gets an exclusive one-off Translatathon badge on both Jiki and Exercism!_
 
 ## Why we're doing this
 
@@ -61,11 +61,11 @@ So, to get involved:
 2. **Jump into the [#translation channel on Discord](https://discord.gg/VNrGu4D4R)**. That's where we'll all be working over the weekend, and the best place to discuss terms with other speakers of your language.
 3. **Post the decisions on [the forum](https://forum.jiki.io/c/i18n/67)**. The forum is what the AI actually learns from, so anything you agree on Discord needs to end up there.
 
-Everyone who contributes will get a **badge on both Jiki and Exercism** as a thank you.
+Everyone who contributes will get an **exclusive one-off Translatathon badge** on both Jiki and Exercism as a thank you.
 
 ## What's next
 
-After the weekend, languages will launch as soon as they're ready. Then we'll start on the next phase: **audio and video dubbing**. We're using ElevenLabs for the audio, plus some custom video dubbing that changes my mouth, so it looks like I'm actually speaking your language.
+After the weekend, languages will launch as soon as they're ready. Then we'll start on the next phase: **audio and video dubbing**. We're using [ElevenLabs](https://start.elevenlabs.io/c/exercism) for the audio, plus some custom video dubbing that changes my mouth, so it looks like I'm actually speaking your language.
 
 Later in the year we're adding Python alongside JavaScript, and all of this translation work carries straight over.
 
