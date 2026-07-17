@@ -19,8 +19,6 @@ Most people in the world don't speak English, but most coding resources are only
 
 And it's not just Jiki. Exercism is also ready to be translated, using the same process and the same glossaries, so we'll be working on **both platforms** at the same time.
 
-Read on to understand how we're doing this and how you can help.
-
 ## What's happening
 
 The Translatathon is like a hackathon, but with less hacking and more translating. It runs across a long weekend:
@@ -29,7 +27,7 @@ The Translatathon is like a hackathon, but with less hacking and more translatin
 - **Saturday and Sunday:** We ~~hack~~ translate. We'll base ourselves on [Discord](https://discord.gg/VNrGu4D4R), where I'll have a livestream running, and you can work with other speakers of your language in real time. We'll keep a proper record of decisions on the [forum](https://forum.jiki.io/c/i18n/67).
 - **Sunday August 2nd, 4pm UTC:** Closing stream, where we'll look at which languages are ready to launch.
 
-For each language, my aim is to have a team of at least **three native speakers**, at least one of whom also speaks English to a high level. There are already lots of languages underway on **[the forum](https://forum.jiki.io/c/i18n/67)**, so have a look and see if yours is there.
+For each language, we're hoping to have at least **three native speakers**, at least one of whom also speaks English to a high level. There are already lots of languages underway on **[the forum](https://forum.jiki.io/c/i18n/67)**, so have a look and see if yours is there.
 
 ## How does this work, practically?
 
