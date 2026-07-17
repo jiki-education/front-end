@@ -13,6 +13,7 @@ interface NavigationItemProps {
   showPremiumPill?: boolean;
   isUserPremium?: boolean;
   external?: boolean;
+  prefetch?: boolean;
   onClick?: () => void;
 }
 
@@ -25,6 +26,7 @@ export function NavigationItem({
   showPremiumPill,
   isUserPremium,
   external,
+  prefetch,
   onClick
 }: NavigationItemProps) {
   const t = useTranslations("layout.sidebar");
@@ -65,7 +67,7 @@ export function NavigationItem({
           {content}
         </a>
       ) : (
-        <Link href={href || "#"} className={className} data-nav-id={id} data-label={label}>
+        <Link href={href || "#"} prefetch={prefetch} className={className} data-nav-id={id} data-label={label}>
           {content}
         </Link>
       )}
