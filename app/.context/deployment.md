@@ -11,6 +11,38 @@ Cloudflare Workers with Next.js Edge Runtime
 - **Custom Domain**: Automatic DNS management via Cloudflare
 - **Caching**: R2 bucket for incremental builds with 30-minute regional cache
 
+## Staging Environment
+
+`staging.jiki.io` is a second deployment of the app Worker (`jiki-app-staging`),
+used to preview unmerged branches against the real backend.
+
+- **Same everything as prod except the deployment tier.** It is a full production
+  build (`NODE_ENV=production`), talks to the **same API** (`api.jiki.io`), and
+  shares the `.jiki.io` auth cookie, so a user logged in on `jiki.io` is logged in
+  on staging as the same real user against real data. This is intentional.
+- **The only differentiator is `ENVIRONMENT=staging`** (a Worker `var` in
+  `wrangler.staging.jsonc`). This is a separate axis from `NODE_ENV` - never set
+  `NODE_ENV` to anything but `production` on staging, or the auth cookie name, API
+  base URL, `assetPrefix`, and CSP all change. `lib/env.ts` exposes `isStaging()`
+  (fail-safe: unknown/unset `ENVIRONMENT` resolves to `production`).
+- **Hidden, not sandboxed.** `robots.ts` blocks all crawling, `middleware.ts` adds
+  `X-Robots-Tag: noindex` and forces `Cache-Control: no-store` (so neither browser,
+  CDN, nor Worker edge cache serve staging content). The Worker edge cache is also
+  off because it requires `ENVIRONMENT=production`.
+- **Shared buckets.** Staging reuses the prod `assets` and `build-cache` R2 buckets.
+  Safe because asset uploads are additive/content-hashed and the incremental cache
+  is namespaced by build ID.
+- **Deploy**: manual only via the `Deploy Staging` GitHub Action
+  (`workflow_dispatch`, pick a ref) which runs `pnpm run deploy:staging`. Uses the
+  same secrets as prod.
+- **Infra**: a `cloudflare_workers_custom_domain` for `staging.jiki.io` -> the
+  `jiki-app-staging` service (in the Terraform repo). The wildcard cert
+  (`*.jiki.io`), unconditional asset CORS, and cookie-based cache bypass already
+  cover staging with no further Cloudflare changes.
+- **Provider allowlists**: `staging.jiki.io` must be added to the Google OAuth
+  redirect URIs, the Exercism Doorkeeper callback, and the Turnstile hostnames or
+  those flows fail on staging.
+
 ## Deployment Process
 
 ### Automatic Deployment (CI/CD)

@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { AUTHENTICATION_COOKIE_NAME } from "./lib/auth/cookie-config";
+import { isStaging } from "./lib/env";
 import { PATHNAME_HEADER, URL_LOCALE_HEADER, isSupportedLocale } from "./lib/i18n/config";
 import { resolveLocaleRouting } from "./lib/i18n/localeRouting";
 import { isCacheableRoute } from "./lib/cache/cacheable-routes";
@@ -96,18 +97,31 @@ export function middleware(request: NextRequest) {
   setInternalNavigationCookie(request, response);
 
   //
+  // Staging shares the production domain and API but must never be indexed or
+  // cached (browser or CDN). This is a separate cache layer from the Worker edge
+  // cache (disabled via ENVIRONMENT=staging) - the Cache-Control header below is
+  // what the Cloudflare zone honours - so it must be suppressed here too.
+  //
+  const staging = isStaging();
+  if (staging) {
+    response.headers.set("X-Robots-Tag", "noindex");
+  }
+
+  //
   // Set cache headers for unauthenticated external URL requests
   // Skip for RSC requests (client-side navigation)
   //
   const isAuthenticated = request.cookies.has(AUTHENTICATION_COOKIE_NAME);
   const isRscRequest = request.headers.has("rsc");
-  if (!isAuthenticated && !isRscRequest && isCacheableRoute(path)) {
+  if (staging) {
+    response.headers.set("Cache-Control", "no-store");
+  } else if (!isAuthenticated && !isRscRequest && isCacheableRoute(path)) {
     response.headers.set("Cache-Control", "public, max-age=600, s-maxage=600");
     response.headers.set("Vary", "Cookie");
   }
 
-  // Cache favicon for 10 minutes
-  if (path === "/favicon.ico") {
+  // Cache favicon for 10 minutes (never on staging)
+  if (!staging && path === "/favicon.ico") {
     response.headers.set("Cache-Control", "public, max-age=600");
   }
 

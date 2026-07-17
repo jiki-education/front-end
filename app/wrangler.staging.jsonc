@@ -1,0 +1,43 @@
+{
+  // Staging deployment of the app Worker.
+  //
+  // Identical to wrangler.jsonc EXCEPT:
+  //   - a distinct Worker `name` (so a staging deploy can never overwrite prod)
+  //   - `ENVIRONMENT: "staging"` (disables the edge cache and drives the
+  //     noindex/no-store behaviour in robots.ts + middleware.ts)
+  //   - the `staging.jiki.io` route
+  //   - WORKER_SELF_REFERENCE points at this staging service, not prod
+  //
+  // Buckets are intentionally SHARED with prod: the `assets` uploads are
+  // additive/content-hashed and the incremental cache is namespaced by build ID,
+  // so sharing is safe. Staging keeps NODE_ENV=production (set by the build), so
+  // the API base URL, auth cookie name, assetPrefix and CSP all match prod.
+  "name": "jiki-app-staging",
+  "main": "worker-wrapper.js",
+  "compatibility_date": "2025-08-16",
+  "compatibility_flags": ["nodejs_compat", "nodejs_compat_populate_process_env", "global_fetch_strictly_public"],
+  "vars": {
+    "ENVIRONMENT": "staging"
+  },
+  "assets": {
+    "directory": ".open-next/assets"
+  },
+  "routes": [
+    {
+      "pattern": "staging.jiki.io",
+      "custom_domain": true
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "NEXT_INC_CACHE_R2_BUCKET",
+      "bucket_name": "build-cache"
+    }
+  ],
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "jiki-app-staging"
+    }
+  ]
+}
