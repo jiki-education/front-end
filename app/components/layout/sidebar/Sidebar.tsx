@@ -44,6 +44,10 @@ interface NavItem {
   icon?: ComponentType<{ className?: string }>;
   showPremiumPill?: boolean;
   external?: boolean;
+  // Disable RSC prefetch for internal paths that redirect off-site (e.g. /r/forum
+  // -> forum.jiki.io): the prefetch follows the redirect cross-origin and is
+  // CORS-blocked, so it only produces console noise and a wasted request.
+  prefetch?: boolean;
 }
 
 const navigationGroups: Array<{
@@ -70,7 +74,7 @@ const navigationGroups: Array<{
     items: [
       { id: "videos", href: YOUTUBE_URL, icon: VideoLibIcon, external: true },
       { id: "blog", href: "/blog", icon: RssIcon },
-      { id: "forum", href: "/r/forum", icon: ChatBubbleIcon }
+      { id: "forum", href: "/r/forum", icon: ChatBubbleIcon, prefetch: false }
     ]
   },
   {
@@ -106,6 +110,7 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
       isActive={activeItem === item.id}
       href={item.external ? item.href : localePath(item.href, locale)}
       external={item.external}
+      prefetch={item.prefetch}
       icon={item.icon}
       showPremiumPill={item.showPremiumPill}
       isUserPremium={Boolean(isPremium)}
