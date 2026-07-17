@@ -13,9 +13,9 @@ _We're translating Jiki and Exercism into as many languages as we can, over the 
 
 ## Why we're doing this
 
-Learning to code is a massive level up. It changes how you think, it opens doors, and for lots of people it changes their lives. We want to help as many people as possible get that level up, and being able to learn in **your own language** makes a huge difference to that.
+Learning to code is a massive level up. We want to help as many people as possible get that level up, and being able to learn in **your own language** makes a huge difference.
 
-Most people in the world don't speak English. Most coding resources are only in English. So we're fixing that for Jiki. And I mean everything: the UI, the videos, the exercises, even the **error messages from the programming language itself**, all in your language.
+Most people in the world don't speak English, but most coding resources are only in English. So we're translating the whole of Jiki - the UI, the videos, the exercises, even the **error messages** you get from the programming language itself.
 
 And it's not just Jiki. Exercism is ready for translation too, and we'll be using the exact same process to translate it. So one weekend of work helps **both platforms**.
 
@@ -26,20 +26,20 @@ Read on to understand how we're doing this and how you can help.
 The Translatathon is like a hackathon, but with less hacking and more translating. It runs across a long weekend:
 
 - **Friday July 31st, 1pm UTC:** Kickoff live stream on [YouTube](https://youtube.com/live/UAxC5J4H2n0). I'll explain everything, show you the whole process in action, and get everyone started.
-- **Saturday and Sunday:** We work. I'll be streaming and around for most of the weekend, and you'll be working with other speakers of your language on the forum and Discord.
+- **Saturday and Sunday:** We ~~hack~~ translate. We'll base ourselves on [Discord](https://discord.gg/VNrGu4D4R), where I'll have a livestream running, and you can work with other speakers of your language in real time. We'll keep a proper record of decisions on the [forum](https://forum.jiki.io/c/i18n/67).
 - **Sunday August 2nd, 4pm UTC:** Closing stream, where we'll look at which languages are ready to launch and celebrate what we've done together.
 
 For each language, my aim is to have a team of at least **three native speakers**, at least one of whom also speaks English to a high level. There are already lots of languages underway on **[the forum](https://forum.jiki.io/c/i18n/67)**, so have a look and see if yours is there.
 
 ## How does this work, practically?
 
-We're not just running everything through Google Translate and hoping for the best. Machine translation of technical teaching content is usually pretty bad, and if you've ever tried learning something through it, you'll know how jarring it feels. We're doing something different: **native speakers steering AI**, iterating until the output genuinely reads like a human wrote it.
+We're not just going to run everything through Google Translate. If you've ever used a website that's been machine translated, you'll know how strange it feels to read. Instead, we're going to use AI to do the translating, with **native speakers checking its work** and teaching it the mistakes it's making.
 
-Here's the loop:
+This is how it'll work:
 
 1. **We agree a glossary.** These are the technical terms we'll use consistently everywhere - what do we call a "function", a "variable", a "string" in your language? This is the foundation everything else builds on, and it's where we'll start on the Friday.
 2. **I post sample translations.** A blog post, a concept page, some video subtitles, generated using your glossary.
-3. **You tell us what's wrong.** This word sounds weird. Nobody actually says it that way. This sentence is too formal. That kind of feedback is exactly what we need, and you don't need to justify it - "it just sounds off" is valid.
+3. **You tell us what's wrong.** This word sounds weird. Nobody actually says it that way. This sentence is too formal. You don't need to explain why - "this just sounds off" is really useful feedback.
 4. **The AI learns from your corrections**, and a fresh sample appears.
 5. **Repeat** until the samples read naturally.
 
@@ -63,18 +63,18 @@ Here's how the weekend works:
 2. **Jump into the [translation channel on Discord](https://discord.gg/VNrGu4D4R)**. That's our shared space for the weekend - discussing terms in real time, asking questions, and hanging out while we work.
 3. **Make it official on [the forum](https://forum.jiki.io/c/i18n/67)**. The forum is where the agreed glossary terms and feedback live, and it's what the AI actually learns from. So decisions get discussed on Discord, then recorded on the forum.
 
-Everyone who contributes will get a **badge on Jiki and a badge on Exercism** to mark that you helped bring your language to life. And more importantly, you'll have helped open up coding education to everyone who speaks your language. That's a pretty special thing to be part of.
+Everyone who contributes will get a **badge on Jiki and a badge on Exercism** to mark that you helped bring your language to life. And more importantly, you'll have helped open coding up to everyone who speaks your language.
 
 ## What's next
 
-After the weekend, languages will launch as they're ready. And then comes the really fun bit: **audio and video dubbing**. We're setting things up so the videos will actually be voiced in your language, with the video adjusted so my mouth moves to match. Your language's learners won't just read Jiki in their language - they'll hear it too.
+After the weekend, languages will launch as they're ready. And then comes the really fun bit: **audio and video dubbing**. We're setting things up so the videos will actually be voiced in your language, with the video adjusted so my mouth moves to match. So you won't just be able to read Jiki in your language, you'll be able to watch it too.
 
 Later in the year we're adding Python alongside JavaScript, and all of this translation work carries straight over.
 
 ## Thank you
 
-This only works as a community effort. It's your languages, your communities, and your feedback that will make this good. I can't wait to see how many languages we can launch together.
+This whole thing only works with your help. You know how your language really sounds - I don't. I can't wait to see how many languages we can launch together.
 
-See you on Friday July 31st at 1pm UTC. Bring your language! 🌍
+See you on Friday July 31st at 1pm UTC 🌍
 
 Thanks for reading 🙂
