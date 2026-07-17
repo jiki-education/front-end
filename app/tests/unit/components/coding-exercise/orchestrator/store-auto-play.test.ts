@@ -1,6 +1,8 @@
 import { createMockExercise } from "@/tests/mocks/exercise";
 import { createOrchestratorStore } from "@/components/coding-exercise/lib/orchestrator/store";
 import type { TestResult } from "@/components/coding-exercise/lib/test-results-types";
+import { createMockInterpretResult } from "@/tests/mocks";
+import { TestExercise } from "@jiki/curriculum";
 
 // Mock modal system
 jest.mock("@/lib/modal", () => ({
@@ -32,6 +34,9 @@ describe("Store Auto-Play Behavior", () => {
     status: "fail" as const,
     expects: [],
     view: document.createElement("div"),
+    exercise: new TestExercise(),
+    result: createMockInterpretResult(),
+    isolatedRuns: [],
     frames: [
       {
         time: 0,
@@ -95,6 +100,9 @@ describe("Store Auto-Play Behavior", () => {
     status: "pass" as const,
     expects: [],
     view: document.createElement("div"),
+    exercise: new TestExercise(),
+    result: createMockInterpretResult(),
+    isolatedRuns: [],
     frames: [
       {
         time: 0,
@@ -136,6 +144,9 @@ describe("Store Auto-Play Behavior", () => {
     status: "fail" as const,
     expects: [],
     view: document.createElement("div"),
+    exercise: new TestExercise(),
+    result: createMockInterpretResult(),
+    isolatedRuns: [],
     frames: [
       {
         time: 0,

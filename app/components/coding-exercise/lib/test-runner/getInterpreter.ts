@@ -1,10 +1,10 @@
 import type { Language } from "@jiki/curriculum";
-import type { CompilationResult, InterpretResult } from "@jiki/interpreters/shared";
+import type { CompilationResult, EvaluateFunctionResult, InterpretResult } from "@jiki/interpreters/shared";
 
 export interface Interpreter {
   compile: (sourceCode: string, context?: any) => CompilationResult;
   interpret: (sourceCode: string, context?: any) => InterpretResult;
-  evaluateFunction: (sourceCode: string, context: any, functionCall: string, ...args: any[]) => any;
+  evaluateFunction: (sourceCode: string, context: any, functionCall: string, ...args: any[]) => EvaluateFunctionResult;
   formatIdentifier: (name: string) => string;
 }
 

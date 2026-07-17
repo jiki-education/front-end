@@ -7,6 +7,7 @@ import { createMockFrame } from "@/tests/mocks";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters/shared";
 import { useEffect, useRef } from "react";
+import { buildStubExercise, buildStubInterpretResult } from "../lib/testResultArtifacts";
 
 function mockFrames(): Frame[] {
   return [
@@ -59,6 +60,9 @@ export default function BreakpointGutterTestPage() {
       status: "pass" as const,
       expects: [],
       view: document.createElement("div"),
+      exercise: buildStubExercise(),
+      result: buildStubInterpretResult(),
+      isolatedRuns: [],
       frames,
       logLines: [],
       lintErrors: [],

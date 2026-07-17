@@ -7,6 +7,7 @@ import { createMockFrame } from "@/tests/mocks";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters/shared";
 import { useEffect, useRef } from "react";
+import { buildStubExercise, buildStubInterpretResult } from "../lib/testResultArtifacts";
 
 // Create frames for testing with specific timeline positions
 function mockFrames(): Frame[] {
@@ -52,6 +53,9 @@ export default function ScrubberInputTestPage() {
       status: "pass" as const,
       expects: [],
       view: document.createElement("div"),
+      exercise: buildStubExercise(),
+      result: buildStubInterpretResult(),
+      isolatedRuns: [],
       frames,
       logLines: [],
       lintErrors: [],

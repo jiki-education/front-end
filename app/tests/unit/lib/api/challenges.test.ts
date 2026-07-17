@@ -10,7 +10,8 @@ import {
 jest.mock("@/lib/api/client", () => ({
   api: {
     get: jest.fn(),
-    post: jest.fn()
+    post: jest.fn(),
+    patch: jest.fn()
   }
 }));
 
@@ -158,6 +159,34 @@ describe("Challenges API", () => {
       expect(mockApi.post).toHaveBeenCalledWith("/internal/challenges/test-challenge/exercise_submissions", {
         submission: { files }
       });
+    });
+
+    it("returns the created submission's uuid", async () => {
+      mockApi.post.mockResolvedValue({
+        data: { submission: { uuid: "abc-123" } },
+        status: 201,
+        headers: new Headers()
+      });
+
+      const uuid = await submitChallengeExercise("test-challenge", [{ filename: "solution.js", code: "" }]);
+
+      expect(uuid).toBe("abc-123");
+    });
+
+    it("returns null when the response has no uuid", async () => {
+      mockApi.post.mockResolvedValue({ data: {}, status: 201, headers: new Headers() });
+
+      const uuid = await submitChallengeExercise("test-challenge", [{ filename: "solution.js", code: "" }]);
+
+      expect(uuid).toBeNull();
+    });
+
+    it("returns null when the response has no body", async () => {
+      mockApi.post.mockResolvedValue({ data: null, status: 201, headers: new Headers() });
+
+      const uuid = await submitChallengeExercise("test-challenge", [{ filename: "solution.js", code: "" }]);
+
+      expect(uuid).toBeNull();
     });
 
     it("should handle multiple files", async () => {

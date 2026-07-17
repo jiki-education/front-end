@@ -8,7 +8,7 @@ import type { TokenType } from "./token";
 import { translate } from "./translator";
 import type { ExecutionContext, ExternalFunction } from "./executor";
 import type { CompilationResult } from "../shared/errors";
-import type { InterpretResult } from "../shared/interfaces";
+import type { EvaluateFunctionResult as SharedEvaluateFunctionResult, InterpretResult } from "../shared/interfaces";
 import type { Arity } from "./functions";
 import * as Jiki from "./jikiObjects";
 import { StdlibFunctionsForLibrary, filteredStdLibFunctions } from "./stdlib";
@@ -81,8 +81,7 @@ export interface EvaluationContext {
   randomSeed?: number; // Seed for deterministic random number generation
 }
 
-export type EvaluateFunctionResult = InterpretResult & {
-  value: any;
+export type EvaluateFunctionResult = SharedEvaluateFunctionResult & {
   jikiObject?: Jiki.JikiObject;
 };
 

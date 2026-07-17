@@ -44,13 +44,14 @@ You can read these files at **any point during your work** - even in the middle 
 
 When working on the coding exercise component, also read from `.context/coding-exercise/`:
 
-| File                         | When to Read                         |
-| ---------------------------- | ------------------------------------ |
-| `orchestrator-pattern.md`    | State management, orchestrator class |
-| `codemirror.md`              | Code editor integration              |
-| `scrubber-frames.md`         | Frame system and timeline            |
-| `scrubber-implementation.md` | Scrubber UI                          |
-| `test-runner.md`             | Test execution system                |
+| File                         | When to Read                                                        |
+| ---------------------------- | ------------------------------------------------------------------- |
+| `orchestrator-pattern.md`    | State management, orchestrator class                                |
+| `codemirror.md`              | Code editor integration                                             |
+| `scrubber-frames.md`         | Frame system and timeline                                           |
+| `scrubber-implementation.md` | Scrubber UI                                                         |
+| `test-runner.md`             | Test execution system                                               |
+| `progression.md`             | Hidden progression scoring (metrics, stdlib, submission decoration) |
 
 ## Quick Start
 

@@ -56,13 +56,21 @@ export async function fetchChallenge(slug: string): Promise<ChallengeData> {
   return response.data.challenge;
 }
 
+interface CreatedExerciseSubmissionResponse {
+  submission?: { uuid?: string };
+}
+
 /**
- * Submit exercise files for a challenge
+ * Submit exercise files for a challenge. Returns the created submission's
+ * uuid, or null when the response doesn't include one (e.g. the API doesn't
+ * return it yet).
  */
-export async function submitChallengeExercise(slug: string, files: ChallengeSubmissionFile[]): Promise<void> {
-  await api.post(`/internal/challenges/${slug}/exercise_submissions`, {
-    submission: { files }
-  });
+export async function submitChallengeExercise(slug: string, files: ChallengeSubmissionFile[]): Promise<string | null> {
+  const response = await api.post<CreatedExerciseSubmissionResponse | null>(
+    `/internal/challenges/${slug}/exercise_submissions`,
+    { submission: { files } }
+  );
+  return response.data?.submission?.uuid ?? null;
 }
 
 /**

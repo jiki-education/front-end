@@ -3,6 +3,7 @@ import type { IOTestResult, IOTestExpect } from "../test-results-types";
 import isEqual from "lodash/isEqual";
 import { diffChars, diffWords, type Change } from "diff";
 import type { Frame } from "@jiki/interpreters/shared";
+import { evaluateIOFunction } from "./executeStudentCode";
 import { formatInterpreterObject } from "./formatInterpreterObject";
 import type { Interpreter } from "./getInterpreter";
 
@@ -42,39 +43,21 @@ export function runIOScenario(
   interpreter: Interpreter,
   languageFeatures?: Record<string, any>
 ): IOTestResult {
-  let actual: any;
-  let errorHtml: string | undefined;
   let functionalPass = false;
-  let frames: Frame[] = [];
-  let logLines: Array<{ time: number; output: string }> = [];
 
-  let interpretResult: any;
+  const { interpretResult, actual, errorMessage } = evaluateIOFunction(studentCode, {
+    interpreter,
+    availableFunctions,
+    languageFeatures,
+    functionName: scenario.functionName,
+    args: scenario.args
+  });
 
-  try {
-    interpretResult = interpreter.evaluateFunction(
-      studentCode,
-      {
-        externalFunctions: availableFunctions,
-        languageFeatures: languageFeatures ?? { timePerFrame: 1 }
-      },
-      interpreter.formatIdentifier(scenario.functionName),
-      ...scenario.args
-    );
+  const errorHtml = errorMessage === undefined ? undefined : `<p>Error: ${errorMessage}</p>`;
 
-    if (interpretResult.error) {
-      errorHtml = `<p>Error: ${interpretResult.error.message}</p>`;
-      actual = undefined;
-    } else {
-      actual = interpretResult.value;
-    }
-
-    // Capture frames and logs from execution
-    frames = interpretResult.frames;
-    logLines = interpretResult.logLines;
-  } catch (error) {
-    errorHtml = `<p>Error: ${error instanceof Error ? error.message : String(error)}</p>`;
-    actual = undefined;
-  }
+  // Capture frames and logs from execution
+  const frames: Frame[] = interpretResult?.frames ?? [];
+  const logLines: Array<{ time: number; output: string }> = interpretResult?.logLines ?? [];
 
   // Compare actual vs expected
   const matcher = scenario.matcher || "toEqual";
@@ -146,6 +129,8 @@ export function runIOScenario(
   const lintErrors = interpretResult?.lintErrors ?? [];
   const status = overallPass ? (lintErrors.length > 0 ? "lint_warning" : "pass") : "fail";
 
+  // `result` is a run artifact for the progression evaluator (absent when
+  // the interpreter threw); the store and the UI never read it.
   return {
     type: "io",
     slug: scenario.slug,
@@ -156,6 +141,7 @@ export function runIOScenario(
     args: scenario.args,
     frames,
     logLines,
-    lintErrors
+    lintErrors,
+    result: interpretResult
   };
 }

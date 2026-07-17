@@ -53,13 +53,21 @@ export interface LessonSubmissionFile {
   code: string;
 }
 
+interface CreatedExerciseSubmissionResponse {
+  submission?: { uuid?: string };
+}
+
 /**
- * Submit exercise files for a lesson
+ * Submit exercise files for a lesson. Returns the created submission's uuid,
+ * or null when the response doesn't include one (e.g. the API doesn't return
+ * it yet).
  */
-export async function submitLessonExercise(slug: string, files: LessonSubmissionFile[]): Promise<void> {
-  await api.post(`/internal/lessons/${slug}/exercise_submissions`, {
-    submission: { files }
-  });
+export async function submitLessonExercise(slug: string, files: LessonSubmissionFile[]): Promise<string | null> {
+  const response = await api.post<CreatedExerciseSubmissionResponse | null>(
+    `/internal/lessons/${slug}/exercise_submissions`,
+    { submission: { files } }
+  );
+  return response.data?.submission?.uuid ?? null;
 }
 
 export interface LatestExerciseSubmission {

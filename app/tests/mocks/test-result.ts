@@ -1,5 +1,6 @@
 import type { TestResult } from "@/components/coding-exercise/lib/test-results-types";
-import { createMockAnimationTimeline } from "./index";
+import { TestExercise } from "@jiki/curriculum";
+import { createMockAnimationTimeline, createMockInterpretResult } from "./index";
 
 /**
  * Creates a mock TestResult with sensible defaults and optional overrides
@@ -26,6 +27,8 @@ export function createMockTestResult(overrides: Partial<TestResult> = {}): TestR
     logLines: [],
     lintErrors: [],
     animationTimeline: defaultAnimationTimeline,
+    exercise: new TestExercise(),
+    result: createMockInterpretResult({ frames }),
     ...overrides
   } as TestResult;
 }

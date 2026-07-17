@@ -1,6 +1,7 @@
 import "../../exercise-categories/golf/exercise.css";
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
+import { progressionMetrics } from "./progressionMetrics";
 import metadata from "./metadata.json";
 import type { VisualExerciseCore, FunctionInfo } from "../types";
 
@@ -35,6 +36,7 @@ const exerciseDefinition: VisualExerciseCore = {
   conceptSlugs: ["logical-and", "if", "repeat", "updating-variables", "using-functions-with-return-values"],
   tasks,
   scenarios,
+  progressionMetrics,
   functions,
   interpreterOptions: { maxTotalLoopIterations: 200 }
 };

@@ -30,6 +30,7 @@ interface BaseExerciseCore {
   readonlyRanges?: Partial<Record<Language, ReadonlyRange[]>>; // Per-language readonly code regions
   interpreterOptions?: InterpreterOptions; // Per-exercise interpreter overrides (e.g., loop iteration limits)
   disableLogTab?: boolean; // Hide the Log tab in the RHS panel for this exercise
+  progressionMetrics?: ProgressionMetrics; // Hidden progression calculator evaluated against the scenario runs
 }
 
 // Per-exercise interpreter options (overrides defaults when passed to interpreter)
@@ -124,6 +125,7 @@ export interface VisualScenario {
 // array, so authors control whether to surface one consolidated failure or one per shape
 // by what they return from `expectations`.
 export interface IsolatedCheck {
+  slug?: string; // name the check when progression metrics need to target its run (e.g. "size-1")
   secretConstants: Record<string, number | string | boolean>;
   expectations: (exercise: VisualExercise) => VisualTestExpect[];
 }
@@ -144,6 +146,68 @@ export interface CodeCheckExpect {
 export interface CodeCheck {
   pass: (result: InterpretResult, language: Language) => boolean;
   errorHtml?: string;
+}
+
+// Artifacts from one scenario run, made available to progression metrics.
+// Progression tests never execute student code themselves - they evaluate the
+// runs the visible scenarios already performed.
+export interface ScenarioRun {
+  scenarioSlug: string;
+  passed: boolean;
+  bonus?: boolean; // true when the scenario belongs to a bonus task
+  isolated?: boolean; // true for a hidden isolated-check re-run of the scenario
+  checkSlug?: string; // the isolated check's slug, when it has one
+  exercise?: VisualExercise; // visual runs only: the (possibly halted) exercise instance
+  result: InterpretResult | null; // null when the interpreter threw before producing a result
+  actual?: IOValue; // IO runs only: the function's return value
+}
+
+// The collection of scenario runs a progression metric scores against.
+// bySlug(scenarioSlug) returns the scenario's primary (non-isolated) run;
+// bySlug(scenarioSlug, checkSlug) returns the named isolated-check run.
+// allPassed() is true when every non-bonus primary run passed (i.e. the
+// exercise is solved); anyResult() returns the first available
+// InterpretResult (code-shape assertors reflect the parsed code, so any
+// run's result serves).
+export interface ScenarioRuns {
+  all: ScenarioRun[];
+  bySlug: (scenarioSlug: string, checkSlug?: string) => ScenarioRun | undefined;
+  allPassed: () => boolean;
+  anyResult: () => InterpretResult | undefined;
+}
+
+// Hidden progression metric - measures partial progress toward a solution
+// from the scenario runs that already happened. The score function returns a
+// value in the metric's natural units (steps, cells, 0/1 booleans); the
+// evaluator clamps it to 0..maxScore and converts it to integer points
+// weighted by `points` (the metric's worth relative to the fixed 10 points
+// full scenario correctness is worth).
+//
+// Authoring notes (see app/.context/coding-exercise/progression.md):
+// - Names are snake_case identifiers (JSONB keys on submissions, verbatim)
+//   and must be unique across metrics and the reserved "scenarios" key -
+//   a curriculum test enforces this.
+// - Coupling to scenarios is by slug; the "solution scores full marks"
+//   curriculum test is what catches drift when scenarios change.
+// - Metrics on scenarios with randomSeed must be seed-agnostic.
+// - Bump the progression version when metrics or scenarios change.
+export interface ProgressionMetric {
+  name: string; // snake_case identifier, e.g. "distance", "used_loop"
+  maxScore: number; // natural units the score fn returns in
+  points: number; // worth relative to the 10-point scenarios anchor
+  score: (runs: ScenarioRuns, language: Language) => number; // returns 0..maxScore, evaluator clamps
+}
+
+// Hidden progression calculator - evaluated silently against the visible
+// scenario runs to measure how far a student has got. Never shown to the
+// student; scores are submitted per run.
+//
+// Exercise progressionMetrics files contain ONLY what is unique to that
+// exercise; anything two exercises would write identically belongs in the
+// progression stdlib (see progressionStdlib.ts, e.g. locMetric).
+export interface ProgressionMetrics {
+  version: number; // bump when the metric list or the scenarios change (encoding guard)
+  metrics: ProgressionMetric[];
 }
 
 export interface IOScenario {

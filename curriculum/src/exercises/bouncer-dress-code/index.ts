@@ -1,5 +1,6 @@
 import ExerciseClass from "./Exercise";
 import { tasks, scenarios } from "./scenarios";
+import { progressionMetrics } from "./progressionMetrics";
 import metadata from "./metadata.json";
 import type { VisualExerciseCore, FunctionInfo } from "../types";
 
@@ -62,6 +63,7 @@ const exerciseDefinition: VisualExerciseCore = {
   conceptSlugs: ["logical-and", "logical-or", "if", "else-if", "else"],
   tasks,
   scenarios,
+  progressionMetrics,
   functions
 };
 

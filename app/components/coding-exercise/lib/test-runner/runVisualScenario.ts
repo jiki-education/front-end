@@ -1,7 +1,8 @@
 import type { IsolatedCheck, Language, VisualExercise, VisualScenario, VisualTestExpect } from "@jiki/curriculum";
 import type { InterpretResult } from "@jiki/interpreters/shared";
 import { AnimationTimeline as AnimationTimelineClass } from "../AnimationTimeline";
-import type { VisualTestResult } from "../test-results-types";
+import type { IsolatedRunResult, VisualTestResult } from "../test-results-types";
+import { executeVisualStudentCode } from "./executeStudentCode";
 import type { Interpreter } from "./getInterpreter";
 
 export function runVisualScenario(
@@ -33,6 +34,7 @@ export function runVisualScenario(
   // Suppress them and surface a single message pointing at the actual error on the
   // timeline, mirroring how runIsolatedCheck already behaves on a frame error.
   let expects: VisualTestExpect[];
+  const isolatedRuns: IsolatedRunResult[] = [];
   if (hasFrameError) {
     expects = [
       {
@@ -41,8 +43,8 @@ export function runVisualScenario(
       }
     ];
   } else {
-    const isolatedExpects: VisualTestExpect[] = (scenario.isolatedChecks ?? []).flatMap((check) =>
-      runIsolatedCheck(
+    const isolatedExpects: VisualTestExpect[] = (scenario.isolatedChecks ?? []).flatMap((check) => {
+      const isolated = runIsolatedCheck(
         check,
         scenario,
         studentCode,
@@ -51,14 +53,22 @@ export function runVisualScenario(
         interpreter,
         languageFeatures,
         resolvedSeed
-      )
-    );
+      );
+      if (isolated.run) {
+        isolatedRuns.push(isolated.run);
+      }
+      return isolated.expects;
+    });
     expects = [...primary.expects, ...isolatedExpects];
   }
 
   const allExpectsPass = expects.every((e) => e.pass) && !hasFrameError;
   const status = allExpectsPass ? (primary.lintErrors.length > 0 ? "lint_warning" : "pass") : "fail";
 
+  // `exercise`, `result` and `isolatedRuns` are run artifacts for the
+  // progression evaluator; the store and the UI never read them. A
+  // runtime-errored scenario still carries its (halted) exercise instance -
+  // partial progress is the signal.
   return {
     type: "visual",
     slug: scenario.slug,
@@ -70,54 +80,22 @@ export function runVisualScenario(
     logLines: primary.logLines,
     view: primary.view,
     animationTimeline: primary.animationTimeline,
-    lintErrors: primary.lintErrors
+    lintErrors: primary.lintErrors,
+    exercise: primary.exercise,
+    result: primary.result,
+    isolatedRuns
   };
 }
 
 interface PrimaryCheckResult {
+  exercise: VisualExercise;
+  result: InterpretResult;
   expects: VisualTestExpect[];
   frames: InterpretResult["frames"];
   logLines: InterpretResult["logLines"];
   view: HTMLElement;
   animationTimeline: AnimationTimelineClass;
   lintErrors: NonNullable<InterpretResult["lintErrors"]>;
-}
-
-// Creates a fresh Exercise, runs setup, executes the student's code, and returns both
-// the exercise (for expectations / view) and the InterpretResult (for frames / logLines).
-function executeStudentCode(
-  scenario: VisualScenario,
-  ExerciseClass: new () => VisualExercise,
-  studentCode: string,
-  language: Language,
-  interpreter: Interpreter,
-  languageFeatures: Record<string, any> | undefined,
-  randomSeed: number | undefined,
-  overrides?: { secretConstants?: Record<string, number | string | boolean> }
-): { exercise: VisualExercise; result: InterpretResult } {
-  const exercise = new ExerciseClass();
-  exercise.randomSeed = randomSeed;
-
-  scenario.setup?.(exercise);
-
-  const interpreterContext = {
-    externalFunctions: exercise.getExternalFunctions(language),
-    classes: exercise.getExternalClasses(language),
-    languageFeatures: languageFeatures ?? { timePerFrame: 1 },
-    randomSeed,
-    ...overrides
-  };
-
-  const result: InterpretResult = scenario.functionCall
-    ? interpreter.evaluateFunction(
-        studentCode,
-        interpreterContext,
-        interpreter.formatIdentifier(scenario.functionCall.name),
-        ...scenario.functionCall.args
-      )
-    : interpreter.interpret(studentCode, interpreterContext);
-
-  return { exercise, result };
 }
 
 function runPrimaryCheck(
@@ -129,15 +107,15 @@ function runPrimaryCheck(
   languageFeatures: Record<string, any> | undefined,
   randomSeed: number | undefined
 ): PrimaryCheckResult {
-  const { exercise, result } = executeStudentCode(
-    scenario,
+  const { exercise, result } = executeVisualStudentCode(studentCode, {
     ExerciseClass,
-    studentCode,
     language,
     interpreter,
     languageFeatures,
-    randomSeed
-  );
+    setup: scenario.setup,
+    randomSeed,
+    functionCall: scenario.functionCall
+  });
 
   const expects = scenario.expectations(exercise);
 
@@ -164,6 +142,8 @@ function runPrimaryCheck(
   const lintErrors = result.lintErrors ?? [];
 
   return {
+    exercise,
+    result,
     expects,
     frames: result.frames,
     logLines: result.logLines,
@@ -182,35 +162,44 @@ function runIsolatedCheck(
   interpreter: Interpreter,
   languageFeatures: Record<string, any> | undefined,
   randomSeed: number | undefined
-): VisualTestExpect[] {
+): { expects: VisualTestExpect[]; run?: IsolatedRunResult } {
   try {
     // `secretConstants` is the silent-constants hook: the interpreter seeds these in
     // global scope and no-ops any user declaration/assignment to those names. Isolated
     // checks inherit the scenario's canvas setup; only the silent constants differ.
-    const { exercise, result } = executeStudentCode(
-      scenario,
+    const { exercise, result } = executeVisualStudentCode(studentCode, {
       ExerciseClass,
-      studentCode,
       language,
       interpreter,
       languageFeatures,
+      setup: scenario.setup,
       randomSeed,
-      { secretConstants: check.secretConstants }
-    );
+      functionCall: scenario.functionCall,
+      secretConstants: check.secretConstants
+    });
 
     const checkExpects = check.expectations(exercise);
     const hasFrameError = result.frames.some((f) => f.status === "ERROR");
 
-    if (hasFrameError) {
-      return [{ pass: false, errorHtml: "Your code threw an error while running." }];
-    }
-    return checkExpects;
+    const expects: VisualTestExpect[] = hasFrameError
+      ? [{ pass: false, errorHtml: "Your code threw an error while running." }]
+      : checkExpects;
+
+    const run: IsolatedRunResult = {
+      checkSlug: check.slug,
+      passed: expects.every((e) => e.pass),
+      exercise,
+      result
+    };
+    return { expects, run };
   } catch (error) {
-    return [
-      {
-        pass: false,
-        errorHtml: `Your code threw an error while running. (${error instanceof Error ? error.message : String(error)})`
-      }
-    ];
+    return {
+      expects: [
+        {
+          pass: false,
+          errorHtml: `Your code threw an error while running. (${error instanceof Error ? error.message : String(error)})`
+        }
+      ]
+    };
   }
 }

@@ -92,3 +92,20 @@ export interface InterpretResult {
     assertStatement: (type: string, opts?: { args?: Array<unknown>; count?: number }) => boolean;
   };
 }
+
+// The unwrapped JavaScript value produced by evaluating a student's function:
+// primitives plus arrays/objects of the same.
+export type EvaluatedFunctionValue =
+  | string
+  | number
+  | boolean
+  | null
+  | undefined
+  | EvaluatedFunctionValue[]
+  | { [key: string]: EvaluatedFunctionValue };
+
+// Result of evaluateFunction: an interpretation plus the function's return
+// value. Language entry points extend this with their wrapped jikiObject.
+export interface EvaluateFunctionResult extends InterpretResult {
+  value: EvaluatedFunctionValue;
+}
