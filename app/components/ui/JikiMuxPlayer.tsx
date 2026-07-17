@@ -8,6 +8,12 @@ import { reportError } from "@/lib/reportError";
 // Mux's HTML5 media error code for a network failure (see MediaError.MEDIA_ERR_NETWORK).
 const MEDIA_ERR_NETWORK = 2;
 
+// Mux's HTML5 media error code for a decode failure (see MediaError.MEDIA_ERR_DECODE).
+// In practice these come from codec-limited clients — Firefox on Linux without an
+// H.264/ffmpeg codec (hls.js finds no playable rendition), in-app webviews, and the
+// like — rather than genuinely corrupt media or an actionable app bug.
+const MEDIA_ERR_DECODE = 3;
+
 // A Mux MediaError, carried on the error event's `detail`. It extends the native
 // MediaError with Mux-specific fields. Typed locally so we don't depend on the
 // playback-core internals just to read a few properties.
@@ -43,6 +49,14 @@ function defaultOnError(event: Event) {
   // Network failures are transient client-side connectivity drops (laptop sleep,
   // wifi loss) rather than actionable bugs — log them but keep them out of Sentry.
   if (code === MEDIA_ERR_NETWORK) {
+    console.error(error);
+    return;
+  }
+
+  // Decode failures are missing-codec problems on the client (Firefox/Linux without
+  // H.264, in-app webviews) rather than corrupt media or an actionable app bug — log
+  // them but keep them out of Sentry.
+  if (code === MEDIA_ERR_DECODE) {
     console.error(error);
     return;
   }
