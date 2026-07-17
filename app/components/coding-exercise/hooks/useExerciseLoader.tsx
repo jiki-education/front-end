@@ -14,7 +14,7 @@ interface UseExerciseLoaderProps {
   levelId?: string;
   isCompleted: boolean;
   serverSubmission?: LastSubmissionData | null;
-  onGoToDashboard?: () => void;
+  onGoToDashboard: () => void;
 }
 
 export function useExerciseLoader({

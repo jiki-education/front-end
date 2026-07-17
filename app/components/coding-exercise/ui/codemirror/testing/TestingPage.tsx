@@ -24,7 +24,7 @@ export default function TestingPage({
     stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
   });
   const orchestratorRef = useRef<Orchestrator>(
-    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" }, {})
+    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" }, {}, "", () => {})
   );
   const orchestrator = orchestratorRef.current;
 

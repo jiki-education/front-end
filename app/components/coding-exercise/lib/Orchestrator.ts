@@ -40,8 +40,8 @@ class Orchestrator {
     language: Language,
     context: ExerciseContext,
     localeMessages: Messages,
-    contentHash: string = "",
-    onGoToDashboard?: () => void,
+    contentHash: string,
+    onGoToDashboard: () => void,
     serverData?: { code: string; storedAt?: string }
   ) {
     this.exercise = exercise;

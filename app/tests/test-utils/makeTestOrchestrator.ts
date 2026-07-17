@@ -9,6 +9,8 @@ export function makeTestOrchestrator(
     exercise,
     opts.language ?? "jikiscript",
     { type: "lesson", slug: opts.slug ?? "test-lesson" },
-    {}
+    {},
+    "",
+    () => {}
   );
 }
