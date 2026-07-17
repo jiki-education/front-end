@@ -1,6 +1,6 @@
-import Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
 import { createMockFrame } from "@/tests/mocks";
 import { createMockExercise } from "@/tests/mocks/exercise";
+import { makeTestOrchestrator } from "@/tests/test-utils/makeTestOrchestrator";
 import type { Frame } from "@jiki/interpreters";
 import "@testing-library/jest-dom";
 
@@ -10,7 +10,7 @@ function setupOrchestrator(frames: Frame[], foldedLines: number[] = []) {
     slug: "test-uuid",
     stubs: { javascript: "// test code", python: "// test code", jikiscript: "// test code" }
   });
-  const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+  const orchestrator = makeTestOrchestrator(exercise);
 
   orchestrator.getStore().setState({
     currentTest: {

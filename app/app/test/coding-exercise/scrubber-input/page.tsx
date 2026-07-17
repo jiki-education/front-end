@@ -33,7 +33,7 @@ export default function ScrubberInputTestPage() {
     }
   });
   const orchestratorRef = useRef<Orchestrator>(
-    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" })
+    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" }, {})
   );
   const orchestrator = orchestratorRef.current;
   const scrubberRef = useRef<HTMLInputElement>(null);

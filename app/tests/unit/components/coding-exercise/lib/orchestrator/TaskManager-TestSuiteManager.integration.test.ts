@@ -80,7 +80,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
     })) as any;
 
     taskManager = new TaskManager(mockStore);
-    testSuiteManager = new TestSuiteManager(mockStore, taskManager);
+    testSuiteManager = new TestSuiteManager(mockStore, {}, taskManager);
   });
 
   describe("Integration flow", () => {
@@ -195,7 +195,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
 
     it("should work without TaskManager (backward compatibility)", async () => {
       // Create TestSuiteManager without TaskManager
-      const testSuiteManagerWithoutTaskManager = new TestSuiteManager(mockStore);
+      const testSuiteManagerWithoutTaskManager = new TestSuiteManager(mockStore, {});
 
       const exercise = createMockExercise();
       const testResults = createMockTestSuiteResult([]);

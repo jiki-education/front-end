@@ -9,6 +9,7 @@ import { translate } from "./translator";
 import type { ExecutionContext, ExternalFunction } from "./executor";
 import type { CompilationResult } from "../shared/errors";
 import type { InterpretResult } from "../shared/interfaces";
+import type { Messages } from "../shared/i18n";
 import type { Arity } from "./functions";
 import * as Jiki from "./jikiObjects";
 import { StdlibFunctionsForLibrary, filteredStdLibFunctions } from "./stdlib";
@@ -79,6 +80,10 @@ export interface EvaluationContext {
   languageFeatures?: InputLanguageFeatures;
   wrapTopLevelStatements?: boolean;
   randomSeed?: number; // Seed for deterministic random number generation
+  // The active locale's message dict, injected by the app for a uniform call path
+  // across interpreters. JikiScript does not yet localize its diagnostics, so this is
+  // accepted and ignored for now (see the JavaScript interpreter for the model).
+  localeMessages?: Messages;
 }
 
 export type EvaluateFunctionResult = InterpretResult & {

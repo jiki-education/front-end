@@ -1,5 +1,6 @@
 import type { IsolatedCheck, Language, VisualExercise, VisualScenario, VisualTestExpect } from "@jiki/curriculum";
 import type { InterpretResult } from "@jiki/interpreters/shared";
+import type { Messages } from "@jiki/interpreters";
 import { AnimationTimeline as AnimationTimelineClass } from "../AnimationTimeline";
 import type { VisualTestResult } from "../test-results-types";
 import type { Interpreter } from "./getInterpreter";
@@ -10,7 +11,8 @@ export function runVisualScenario(
   ExerciseClass: new () => VisualExercise,
   language: Language,
   interpreter: Interpreter,
-  languageFeatures?: Record<string, any>
+  languageFeatures: Record<string, any> | undefined,
+  localeMessages: Messages
 ): VisualTestResult {
   // Resolve seed once so the primary run and every isolated run share the same RNG stream.
   const resolvedSeed = scenario.randomSeed === true ? Math.floor(Math.random() * 2 ** 32) : scenario.randomSeed;
@@ -22,7 +24,8 @@ export function runVisualScenario(
     language,
     interpreter,
     languageFeatures,
-    resolvedSeed
+    resolvedSeed,
+    localeMessages
   );
 
   const hasFrameError = primary.frames.some((f) => f.status === "ERROR");
@@ -50,7 +53,8 @@ export function runVisualScenario(
         language,
         interpreter,
         languageFeatures,
-        resolvedSeed
+        resolvedSeed,
+        localeMessages
       )
     );
     expects = [...primary.expects, ...isolatedExpects];
@@ -93,6 +97,7 @@ function executeStudentCode(
   interpreter: Interpreter,
   languageFeatures: Record<string, any> | undefined,
   randomSeed: number | undefined,
+  localeMessages: Messages,
   overrides?: { secretConstants?: Record<string, number | string | boolean> }
 ): { exercise: VisualExercise; result: InterpretResult } {
   const exercise = new ExerciseClass();
@@ -105,6 +110,7 @@ function executeStudentCode(
     classes: exercise.getExternalClasses(language),
     languageFeatures: languageFeatures ?? { timePerFrame: 1 },
     randomSeed,
+    localeMessages,
     ...overrides
   };
 
@@ -127,7 +133,8 @@ function runPrimaryCheck(
   language: Language,
   interpreter: Interpreter,
   languageFeatures: Record<string, any> | undefined,
-  randomSeed: number | undefined
+  randomSeed: number | undefined,
+  localeMessages: Messages
 ): PrimaryCheckResult {
   const { exercise, result } = executeStudentCode(
     scenario,
@@ -136,7 +143,8 @@ function runPrimaryCheck(
     language,
     interpreter,
     languageFeatures,
-    randomSeed
+    randomSeed,
+    localeMessages
   );
 
   const expects = scenario.expectations(exercise);
@@ -181,7 +189,8 @@ function runIsolatedCheck(
   language: Language,
   interpreter: Interpreter,
   languageFeatures: Record<string, any> | undefined,
-  randomSeed: number | undefined
+  randomSeed: number | undefined,
+  localeMessages: Messages
 ): VisualTestExpect[] {
   try {
     // `secretConstants` is the silent-constants hook: the interpreter seeds these in
@@ -195,6 +204,7 @@ function runIsolatedCheck(
       interpreter,
       languageFeatures,
       randomSeed,
+      localeMessages,
       { secretConstants: check.secretConstants }
     );
 

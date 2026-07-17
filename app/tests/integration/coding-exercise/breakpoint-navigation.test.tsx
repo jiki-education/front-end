@@ -1,8 +1,8 @@
-import Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
 import BreakpointStepperButtons from "@/components/coding-exercise/ui/scrubber/BreakpointStepperButtons";
 import { createMockFrame } from "@/tests/mocks";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import OrchestratorTestProvider from "@/tests/test-utils/OrchestratorTestProvider";
+import { makeTestOrchestrator } from "@/tests/test-utils/makeTestOrchestrator";
 import type { Frame } from "@jiki/interpreters";
 import "@testing-library/jest-dom";
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
@@ -13,7 +13,7 @@ function setupOrchestrator(frames: Frame[], breakpoints: number[] = [], foldedLi
     slug: "test-uuid",
     stubs: { javascript: "// test code", python: "// test code", jikiscript: "// test code" }
   });
-  const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+  const orchestrator = makeTestOrchestrator(exercise);
 
   // Set up test state with proper animation timeline mock
   orchestrator.getStore().setState({

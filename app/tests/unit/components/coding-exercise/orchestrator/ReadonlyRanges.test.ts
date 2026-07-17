@@ -1,6 +1,6 @@
-import Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
 import * as localStorage from "@/components/coding-exercise/lib/localStorage";
 import { createMockExercise } from "@/tests/mocks/exercise";
+import { makeTestOrchestrator } from "@/tests/test-utils/makeTestOrchestrator";
 import type { ReadonlyRange } from "@jiki/curriculum";
 
 jest.mock("@/components/coding-exercise/lib/localStorage", () => ({
@@ -30,7 +30,7 @@ function makeOrchestrator(defaults?: ReadonlyRange[]) {
     slug: "ranges-test",
     readonlyRanges: defaults ? { javascript: defaults, python: defaults, jikiscript: defaults } : undefined
   });
-  return new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+  return makeTestOrchestrator(exercise);
 }
 
 describe("Orchestrator.getStoredOrDefaultReadonlyRanges", () => {

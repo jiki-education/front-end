@@ -127,7 +127,7 @@ describe("runTests", () => {
       });
 
       const code = "move()\nmove()\nmove()";
-      const result = await runTests(code, testExercise, "jikiscript");
+      const result = await runTests(code, testExercise, "jikiscript", {});
 
       // Check that tests have frames
       expect(result.tests[0].frames[0].time).toBe(100000);
@@ -143,7 +143,7 @@ describe("runTests", () => {
       });
 
       const code = "";
-      const result = await runTests(code, testExercise, "jikiscript");
+      const result = await runTests(code, testExercise, "jikiscript", {});
 
       // Should have empty frames array
       expect(result.tests[0].frames).toEqual([]);
@@ -165,7 +165,7 @@ describe("runTests", () => {
       });
 
       const code = "move()\nmove()";
-      const result = await runTests(code, testExercise, "jikiscript");
+      const result = await runTests(code, testExercise, "jikiscript", {});
 
       // Should have 2 test scenarios
       expect(result.tests).toHaveLength(2);
@@ -189,7 +189,7 @@ describe("runTests", () => {
       });
 
       const code = "for (let i = 0; i < 5; i++) {\n  move();\n}";
-      const result = await runTests(code, testExercise, "jikiscript");
+      const result = await runTests(code, testExercise, "jikiscript", {});
 
       // Each test result should have codeRun set to the student code
       expect(result.tests[0].codeRun).toBe(code);
@@ -242,7 +242,7 @@ describe("runTests", () => {
     });
 
     it("does not count a failing bonus scenario against the overall pass", async () => {
-      const result = await runTests("move()", bonusExercise(), "jikiscript");
+      const result = await runTests("move()", bonusExercise(), "jikiscript", {});
 
       expect(result.tests.find((t) => t.slug === "required-1")?.status).toBe("pass");
       expect(result.tests.find((t) => t.slug === "bonus-1")?.status).toBe("fail");
@@ -281,7 +281,7 @@ describe("runTests", () => {
         ]
       });
 
-      const result = await runTests("move()", exercise, "jikiscript");
+      const result = await runTests("move()", exercise, "jikiscript", {});
       expect(result.passed).toBe(false);
     });
   });
@@ -305,7 +305,7 @@ describe("runTests", () => {
       });
 
       const code = "move()";
-      await runTests(code, testExercise, "jikiscript");
+      await runTests(code, testExercise, "jikiscript", {});
 
       expect(mockJikiscript.compile).toHaveBeenCalledWith(
         code,
@@ -341,7 +341,7 @@ describe("runTests", () => {
       });
 
       const code = "move()";
-      await runTests(code, exerciseWithOptions, "jikiscript");
+      await runTests(code, exerciseWithOptions, "jikiscript", {});
 
       expect(mockJikiscript.compile).toHaveBeenCalledWith(
         code,
@@ -384,7 +384,7 @@ describe("runTests", () => {
 
     it("should use JavaScript interpreter when language is javascript", async () => {
       const code = "move()";
-      await runTests(code, testExercise, "javascript");
+      await runTests(code, testExercise, "javascript", {});
 
       // JavaScript interpreter should be called
       expect(mockJavascript.compile).toHaveBeenCalledWith(
@@ -415,7 +415,7 @@ describe("runTests", () => {
 
     it("should use Python interpreter when language is python", async () => {
       const code = "move()";
-      await runTests(code, testExercise, "python");
+      await runTests(code, testExercise, "python", {});
 
       // Python interpreter should be called
       expect(mockPython.compile).toHaveBeenCalledWith(
@@ -446,7 +446,7 @@ describe("runTests", () => {
 
     it("should use JikiScript interpreter when language is jikiscript", async () => {
       const code = "move()";
-      await runTests(code, testExercise, "jikiscript");
+      await runTests(code, testExercise, "jikiscript", {});
 
       // JikiScript interpreter should be called
       expect(mockJikiscript.compile).toHaveBeenCalledWith(
