@@ -71,6 +71,6 @@ After the weekend, languages will launch as soon as they're ready. Then we'll st
 
 I've wanted to do this for a long time, and it's finally possible. Thank you to everyone who's already started working on their language on the forum - I can't wait to see how many languages we can launch together.
 
-See you on Friday July 31st at 1pm UTC 🌍
+See you on [Friday July 31st at 1pm UTC](https://youtube.com/live/UAxC5J4H2n0) 🌍
 
 Thanks for reading 🙂
