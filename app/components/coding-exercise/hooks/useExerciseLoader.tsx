@@ -48,7 +48,7 @@ export function useExerciseLoader({
         // required part of the load (not a best-effort add-on): the interpreter is
         // never run until it resolves, so diagnostics always render in-locale (or,
         // for interpreters that don't yet localize, the catalog is simply ignored).
-        const [exerciseModule, content, localeMessages] = await Promise.all([
+        const [exerciseModule, content, interpreterLocaleMessages] = await Promise.all([
           loader().then((m) => m.default),
           fetchExerciseContent(exerciseSlug, "en", language),
           fetchInterpreterCatalog(language, locale)
@@ -92,7 +92,7 @@ export function useExerciseLoader({
           exercise,
           language,
           context,
-          localeMessages,
+          interpreterLocaleMessages,
           content.contentHash,
           onGoToDashboard,
           serverData

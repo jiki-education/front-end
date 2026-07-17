@@ -17,7 +17,7 @@ export class TestSuiteManager {
     // The active locale's interpreter catalog, injected into every interpreter run
     // (fetched in the blocking exercise load). Tests supply an empty dict, which
     // resolves to each interpreter's `system` default.
-    private readonly localeMessages: Messages,
+    private readonly interpreterLocaleMessages: Messages,
     private readonly taskManager?: {
       updateTaskProgress: (testResults: TestSuiteResult, exercise: ExerciseDefinition) => void;
     },
@@ -113,7 +113,7 @@ export class TestSuiteManager {
       // Get the current language from the store
       const language = this.store.getState().language;
 
-      const testResults = await runTests(code, exercise, language, this.localeMessages);
+      const testResults = await runTests(code, exercise, language, this.interpreterLocaleMessages);
 
       // Set the results in the store (will also set the first test as current)
       const state = this.store.getState();

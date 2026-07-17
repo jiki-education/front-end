@@ -33,13 +33,13 @@ class Orchestrator {
   // run so diagnostics resolve in the student's locale. Supplied by useExerciseLoader
   // for the real page (any language); tests pass an empty dict, which resolves to
   // each interpreter's `system` default.
-  private readonly localeMessages: Messages;
+  private readonly interpreterLocaleMessages: Messages;
 
   constructor(
     exercise: ExerciseDefinition,
     language: Language,
     context: ExerciseContext,
-    localeMessages: Messages,
+    interpreterLocaleMessages: Messages,
     contentHash: string,
     onGoToDashboard: () => void,
     serverData?: { code: string; storedAt?: string }
@@ -47,7 +47,7 @@ class Orchestrator {
     this.exercise = exercise;
     this.language = language;
     this.contentHash = contentHash;
-    this.localeMessages = localeMessages;
+    this.interpreterLocaleMessages = interpreterLocaleMessages;
 
     // Create instance-specific store with exercise, language, and context
     this.store = createOrchestratorStore(exercise, language, context, onGoToDashboard);
@@ -55,7 +55,7 @@ class Orchestrator {
     // Initialize managers
     this.timelineManager = new TimelineManager(this.store);
     this.taskManager = new TaskManager(this.store);
-    this.testSuiteManager = new TestSuiteManager(this.store, this.localeMessages, this.taskManager, context);
+    this.testSuiteManager = new TestSuiteManager(this.store, this.interpreterLocaleMessages, this.taskManager, context);
     // EditorManager will be created lazily when setupEditor is called
 
     // Initialize exercise data — merges the server's last submission (if any)
@@ -312,7 +312,7 @@ class Orchestrator {
       const result = interpreter.compile(code, {
         externalFunctions: availableFunctions,
         languageFeatures,
-        localeMessages: this.localeMessages
+        localeMessages: this.interpreterLocaleMessages
       });
       this.store.getState().setLintErrors(result.lintErrors);
     } catch {

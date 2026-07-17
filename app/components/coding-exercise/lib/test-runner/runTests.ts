@@ -11,7 +11,7 @@ export async function runTests(
   studentCode: string,
   exercise: ExerciseDefinition,
   language: Language,
-  localeMessages: Messages
+  interpreterLocaleMessages: Messages
 ): Promise<TestSuiteResult> {
   const interpreter = await getInterpreter(language);
 
@@ -39,7 +39,7 @@ export async function runTests(
   const compilationResult = interpreter.compile(studentCode, {
     externalFunctions: availableFunctions,
     languageFeatures,
-    localeMessages
+    localeMessages: interpreterLocaleMessages
   });
 
   // If compilation failed, throw the error
@@ -60,7 +60,7 @@ export async function runTests(
         language,
         interpreter,
         languageFeatures,
-        localeMessages
+        interpreterLocaleMessages
       );
       tests.push(result);
     }
@@ -74,7 +74,7 @@ export async function runTests(
         language,
         interpreter,
         languageFeatures,
-        localeMessages
+        interpreterLocaleMessages
       );
       tests.push(result);
     }

@@ -12,7 +12,7 @@ export function runVisualScenario(
   language: Language,
   interpreter: Interpreter,
   languageFeatures: Record<string, any> | undefined,
-  localeMessages: Messages
+  interpreterLocaleMessages: Messages
 ): VisualTestResult {
   // Resolve seed once so the primary run and every isolated run share the same RNG stream.
   const resolvedSeed = scenario.randomSeed === true ? Math.floor(Math.random() * 2 ** 32) : scenario.randomSeed;
@@ -25,7 +25,7 @@ export function runVisualScenario(
     interpreter,
     languageFeatures,
     resolvedSeed,
-    localeMessages
+    interpreterLocaleMessages
   );
 
   const hasFrameError = primary.frames.some((f) => f.status === "ERROR");
@@ -54,7 +54,7 @@ export function runVisualScenario(
         interpreter,
         languageFeatures,
         resolvedSeed,
-        localeMessages
+        interpreterLocaleMessages
       )
     );
     expects = [...primary.expects, ...isolatedExpects];
@@ -97,7 +97,7 @@ function executeStudentCode(
   interpreter: Interpreter,
   languageFeatures: Record<string, any> | undefined,
   randomSeed: number | undefined,
-  localeMessages: Messages,
+  interpreterLocaleMessages: Messages,
   overrides?: { secretConstants?: Record<string, number | string | boolean> }
 ): { exercise: VisualExercise; result: InterpretResult } {
   const exercise = new ExerciseClass();
@@ -110,7 +110,7 @@ function executeStudentCode(
     classes: exercise.getExternalClasses(language),
     languageFeatures: languageFeatures ?? { timePerFrame: 1 },
     randomSeed,
-    localeMessages,
+    localeMessages: interpreterLocaleMessages,
     ...overrides
   };
 
@@ -134,7 +134,7 @@ function runPrimaryCheck(
   interpreter: Interpreter,
   languageFeatures: Record<string, any> | undefined,
   randomSeed: number | undefined,
-  localeMessages: Messages
+  interpreterLocaleMessages: Messages
 ): PrimaryCheckResult {
   const { exercise, result } = executeStudentCode(
     scenario,
@@ -144,7 +144,7 @@ function runPrimaryCheck(
     interpreter,
     languageFeatures,
     randomSeed,
-    localeMessages
+    interpreterLocaleMessages
   );
 
   const expects = scenario.expectations(exercise);
@@ -190,7 +190,7 @@ function runIsolatedCheck(
   interpreter: Interpreter,
   languageFeatures: Record<string, any> | undefined,
   randomSeed: number | undefined,
-  localeMessages: Messages
+  interpreterLocaleMessages: Messages
 ): VisualTestExpect[] {
   try {
     // `secretConstants` is the silent-constants hook: the interpreter seeds these in
@@ -204,7 +204,7 @@ function runIsolatedCheck(
       interpreter,
       languageFeatures,
       randomSeed,
-      localeMessages,
+      interpreterLocaleMessages,
       { secretConstants: check.secretConstants }
     );
 

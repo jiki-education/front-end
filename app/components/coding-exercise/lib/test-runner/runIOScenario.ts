@@ -42,7 +42,7 @@ export function runIOScenario(
   language: Language,
   interpreter: Interpreter,
   languageFeatures: Record<string, any> | undefined,
-  localeMessages: Messages
+  interpreterLocaleMessages: Messages
 ): IOTestResult {
   let actual: any;
   let errorHtml: string | undefined;
@@ -58,7 +58,7 @@ export function runIOScenario(
       {
         externalFunctions: availableFunctions,
         languageFeatures: languageFeatures ?? { timePerFrame: 1 },
-        localeMessages
+        localeMessages: interpreterLocaleMessages
       },
       interpreter.formatIdentifier(scenario.functionName),
       ...scenario.args
