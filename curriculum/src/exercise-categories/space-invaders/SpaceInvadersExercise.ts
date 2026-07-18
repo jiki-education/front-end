@@ -215,9 +215,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
 
   public shoot(executionCtx: ExecutionContext) {
     if (this.preventRepeatShot && this.justShot) {
-      executionCtx.logicError(
-        "Oh no! Your laser cannon overheated from shooting too fast! You need to move before you can shoot a second time."
-      );
+      executionCtx.logicError(this.t("errors.laserOverheated"));
     }
     this.justShot = true;
 
@@ -270,7 +268,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
 
     if (targetAlien === null) {
       this.gameStatus = "lost";
-      executionCtx.logicError("Oh no, you missed. Wasting ammo is not allowed!");
+      executionCtx.logicError(this.t("errors.missedShot"));
     } else {
       this.killAlien(executionCtx, targetAlien, shot, executionCtx.getCurrentTimeInMs() + duration);
 
@@ -283,7 +281,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
 
   public moveLeft(executionCtx: ExecutionContext) {
     if (this.laserPosition === this.minLaserPosition) {
-      executionCtx.logicError("Oh no, you tried to move off the edge!");
+      executionCtx.logicError(this.t("errors.moveOffEdge"));
     }
 
     this.laserPosition -= 1;
@@ -292,7 +290,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
 
   public moveRight(executionCtx: ExecutionContext) {
     if (this.laserPosition === this.maxLaserPosition) {
-      executionCtx.logicError("Oh no, you tried to move off the edge!");
+      executionCtx.logicError(this.t("errors.moveOffEdge"));
     }
 
     this.laserPosition += 1;
@@ -302,13 +300,11 @@ export default class SpaceInvadersExercise extends VisualExercise {
   public getStartingAliensInRow(executionCtx: ExecutionContext, row: Shared.JikiObject | number): boolean[] {
     const rowNum = typeof row === "number" ? row : isNumber(row) ? row.value : undefined;
     if (rowNum === undefined) {
-      executionCtx.logicError("Oh no, the row input you provided is not a number.");
+      executionCtx.logicError(this.t("errors.rowNotNumber"));
     }
 
     if (rowNum < 1 || rowNum > this.startingAliens.length) {
-      executionCtx.logicError(
-        `Oh no, you tried to access a row of aliens that doesn't exist. You asked for row ${rowNum}, but there are only ${this.startingAliens.length} rows of aliens.`
-      );
+      executionCtx.logicError(this.t("errors.rowOutOfRange", { row: rowNum, total: this.startingAliens.length }));
     }
 
     const reversedAliens = this.startingAliens.slice().reverse();
@@ -321,7 +317,7 @@ export default class SpaceInvadersExercise extends VisualExercise {
 
   public fireFireworks(executionCtx: ExecutionContext) {
     if (!this.allAliensDead(executionCtx)) {
-      executionCtx.logicError("You need to defeat all the aliens before you can celebrate!");
+      executionCtx.logicError(this.t("errors.notAllAliensDead"));
     }
     // VisualExercise doesn't have fireFireworks, so just mark as won
     this.gameStatus = "won";

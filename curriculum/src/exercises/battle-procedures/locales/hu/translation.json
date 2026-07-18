@@ -1,9 +1,4 @@
 {
-  "errors": {
-    "laserOverheated": "Oh no! Your laser canon overheated from shooting too fast! You need to move before you can shoot a second time.",
-    "missedShot": "Oh no, you missed. Wasting ammo is not allowed!",
-    "moveOffEdge": "Oh no, you tried to move off the edge!"
-  },
   "checks": {
     "notShotAllAliens": "You didn't shoot down all the aliens.",
     "functionNotDefined": "You need to define a <code>shootIfAlienAbove</code> function.",
