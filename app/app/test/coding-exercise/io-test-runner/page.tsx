@@ -69,7 +69,7 @@ export default function IOTestRunnerPage() {
       tasks,
       scenarios
     };
-    const orch = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+    const orch = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" }, {}, "", () => {});
     setOrchestrator(orch);
 
     // Expose orchestrator to window for E2E testing

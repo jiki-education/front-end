@@ -38,7 +38,8 @@ import {
 import type { EvaluationResult, EvaluationResultExpression, EvaluationResultCallExpression } from "./evaluation-result";
 import type { JikiObject } from "./jikiObjects";
 import { JikiObject as JikiObjectBase } from "../shared/jikiObject";
-import { translate } from "./translator";
+import { buildTranslator } from "./translator";
+import type { Translator } from "../shared/i18n";
 import { timeToMs, type Frame, type FrameExecutionStatus } from "../shared/frames";
 import { type ExecutionContext as SharedExecutionContext } from "../shared/interfaces";
 import { createBaseExecutionContext } from "../shared/executionContext";
@@ -201,13 +202,16 @@ export class Executor {
   public globalEnvironment!: Environment;
   public languageFeatures: LanguageFeatures;
   public randomFn: () => number;
+  public readonly translate: Translator;
   private readonly protectedNames: Set<string> = new Set();
   public readonly secretConstantNames: Set<string> = new Set();
 
   constructor(
     private readonly sourceCode: string,
-    context: EvaluationContext
+    context: EvaluationContext,
+    translate: Translator = buildTranslator(context.localeMessages)
   ) {
+    this.translate = translate;
     this.randomFn = createRandomFn(context.randomSeed);
     this.languageFeatures = {
       allowShadowing: false, // Default to false (shadowing disabled)
@@ -217,7 +221,7 @@ export class Executor {
       ...context.languageFeatures,
     };
     this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations ?? 1000;
-    this.environment = new Environment(this.languageFeatures);
+    this.environment = new Environment(this.languageFeatures, null, this.translate);
     this.globalEnvironment = this.environment;
 
     // Console is always available (infrastructure/debugging tool, not a language feature)
@@ -338,9 +342,14 @@ export class Executor {
       ) {
         return;
       }
-      throw new RuntimeError(translate(`error.runtime.NodeNotAllowed`, { nodeType }), node.location, "NodeNotAllowed", {
-        nodeType,
-      });
+      throw new RuntimeError(
+        this.translate(`error.runtime.NodeNotAllowed`, { nodeType }),
+        node.location,
+        "NodeNotAllowed",
+        {
+          nodeType,
+        }
+      );
     }
   }
 
@@ -462,7 +471,11 @@ export class Executor {
         this.frames.pop();
         this.addErrorFrame(
           error.location,
-          new RuntimeError(translate(`error.runtime.ReturnOutsideFunction`), error.location, "ReturnOutsideFunction")
+          new RuntimeError(
+            this.translate(`error.runtime.ReturnOutsideFunction`),
+            error.location,
+            "ReturnOutsideFunction"
+          )
         );
         return false;
       }
@@ -471,7 +484,7 @@ export class Executor {
         this.frames.pop();
         this.addErrorFrame(
           error.location,
-          new RuntimeError(translate(`error.runtime.BreakOutsideLoop`), error.location, "BreakOutsideLoop")
+          new RuntimeError(this.translate(`error.runtime.BreakOutsideLoop`), error.location, "BreakOutsideLoop")
         );
         return false;
       }
@@ -480,7 +493,7 @@ export class Executor {
         this.frames.pop();
         this.addErrorFrame(
           error.location,
-          new RuntimeError(translate(`error.runtime.ContinueOutsideLoop`), error.location, "ContinueOutsideLoop")
+          new RuntimeError(this.translate(`error.runtime.ContinueOutsideLoop`), error.location, "ContinueOutsideLoop")
         );
         return false;
       }
@@ -763,7 +776,7 @@ export class Executor {
     if (type === "LogicErrorInExecution") {
       message = context.message;
     } else {
-      message = translate(`error.runtime.${type}`, context);
+      message = this.translate(`error.runtime.${type}`, context);
     }
     throw new RuntimeError(message, location, type, context);
   }

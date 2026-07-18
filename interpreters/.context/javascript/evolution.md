@@ -1,5 +1,17 @@
 # JavaScript Interpreter Evolution
 
+## 2026-07-17: i18n moves to the inject-the-dict model (no global translator)
+
+The JavaScript interpreter previously used a **module-global** i18next instance (`translator.ts`) that statically imported every locale pack (`en`+`hu`+`system`), with `fallbackLng: "en"` and a mutable `changeLanguage`. It now follows the monorepo's inject-the-dict model (mirroring `curriculum/src/i18n/translator.ts`; see `front-end/i18n_TODO.md`):
+
+- **`EvaluationContext.localeMessages`** carries the active locale's message dict, injected by the app per run. `interpret`/`compile`/`evaluateFunction` build **one** `translate` function via `buildTranslator(context.localeMessages)` and thread it into the `Parser` and `Executor`; it flows down to the `Scanner`, `Environment` (inherited along the scope chain), `preParse`, and stdlib error paths. Each object holds it as a plain `translate` field (`this.translate(key, ctx)`); there are no wrapper methods.
+- **Shared factory**: `src/shared/i18n.ts` exports `createTranslator(dict)` (fresh `createInstance`, `lng: "x"`, `fallbackLng: false`, `escapeValue: false`) — reusable by the other interpreters later.
+- **No runtime fallback** (`fallbackLng` removed): a missing key in an injected locale surfaces as the key, never silent English.
+- **Default = `system`, not `en`.** When nothing is injected, the translator resolves against the bundled `system` pseudo-locale — a loud canary for a forgotten injection rather than plausible silent English. Consequently `en` is no longer import-bundled at runtime; only `system` is. `Environment` throws `InterpreterInternalError` if constructed with neither a translate function nor an enclosing scope.
+- **Retired**: the global `changeLanguage`/`getLanguage` (JS only — Python/JikiScript still have them). `tests/setup.ts` no longer sets the JS language; JS tests default to `system` and inject `{ localeMessages: enMessages }` where they assert English. New guard: `tests/javascript/translations.test.ts`.
+
+⚠️ **Coupling**: this is not shippable to students until the app injects a locale (else the app renders `system` strings); it rides the cross-package merge gate in `i18n_TODO.md`. The error-catalog type-noun leak fixes and describer i18n are separate follow-up PRs stacked on this one.
+
 ## 2026-07-15: `for` loops require `let` for their loop variable
 
 `for (letter of rack)` (no `let`) used to fall through to the C-style for-loop parse path, so on levels where only `ForOfStatement` was allowed the student got the misleading `ForStatementNotAllowed` ("no C-style for loops"). Now the parser detects `IDENTIFIER of`/`IDENTIFIER in` after `for (` and raises the new `MissingLetInForOf`/`MissingLetInForIn` syntax errors (system context: the variable name). The node-allowed check for `ForOfStatement`/`ForInStatement` runs first, so levels without those constructs still report `ForOfStatementNotAllowed`/`ForInStatementNotAllowed` rather than advice to add `let`.

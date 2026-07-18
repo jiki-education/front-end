@@ -3,11 +3,11 @@ import { levenshtein } from "../shared/levenshtein";
 import { SyntaxError, type SyntaxErrorType } from "./error";
 import { STATEMENT_BOUNDARY_TOKENS, SKIPPABLE_TOKENS } from "./preParse";
 import type { Token } from "./token";
-import { translate } from "./translator";
+import type { Translator } from "../shared/i18n";
 
 const DECLARATION_KEYWORDS = ["let", "const"] as const;
 
-export function preParseAdjacentIdentifiers(tokens: Token[], index: number): void {
+export function preParseAdjacentIdentifiers(tokens: Token[], index: number, translator: Translator): void {
   const current = tokens[index];
 
   const next = nextSignificantToken(tokens, index + 1);
@@ -17,12 +17,12 @@ export function preParseAdjacentIdentifiers(tokens: Token[], index: number): voi
 
   const suggestion = suggestDeclarationKeyword(current.lexeme);
   if (suggestion !== null) {
-    throwSyntaxError("MissingDeclarationKeywordWithSuggestion", current.location, {
+    throwSyntaxError("MissingDeclarationKeywordWithSuggestion", current.location, translator, {
       name: current.lexeme,
       suggestion,
     });
   }
-  throwSyntaxError("UnexpectedDoubleIdentifier", Location.between(current, next), {
+  throwSyntaxError("UnexpectedDoubleIdentifier", Location.between(current, next), translator, {
     first: current.lexeme,
     second: next.lexeme,
   });
@@ -55,6 +55,11 @@ function suggestDeclarationKeyword(lexeme: string): string | null {
   return best;
 }
 
-function throwSyntaxError(type: SyntaxErrorType, location: Location, context: Record<string, unknown>): never {
-  throw new SyntaxError(translate(`error.syntax.${type}`, context), location, type, context);
+function throwSyntaxError(
+  type: SyntaxErrorType,
+  location: Location,
+  translator: Translator,
+  context: Record<string, unknown>
+): never {
+  throw new SyntaxError(translator(`error.syntax.${type}`, context), location, type, context);
 }

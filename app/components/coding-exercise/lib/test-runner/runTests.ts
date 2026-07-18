@@ -1,5 +1,6 @@
 import type { ExerciseDefinition, Language } from "@jiki/curriculum";
 import { getLanguageFeatures } from "@jiki/curriculum";
+import type { Messages } from "@jiki/interpreters";
 import type { TestResult, TestSuiteResult } from "../test-results-types";
 import { bonusScenarioSlugs } from "../bonusScenarios";
 import { runIOScenario } from "./runIOScenario";
@@ -9,7 +10,8 @@ import { getInterpreter } from "./getInterpreter";
 export async function runTests(
   studentCode: string,
   exercise: ExerciseDefinition,
-  language: Language
+  language: Language,
+  interpreterLocaleMessages: Messages
 ): Promise<TestSuiteResult> {
   const interpreter = await getInterpreter(language);
 
@@ -36,7 +38,8 @@ export async function runTests(
   // Compile ONCE before running any scenarios to catch syntax errors early
   const compilationResult = interpreter.compile(studentCode, {
     externalFunctions: availableFunctions,
-    languageFeatures
+    languageFeatures,
+    localeMessages: interpreterLocaleMessages
   });
 
   // If compilation failed, throw the error
@@ -56,14 +59,23 @@ export async function runTests(
         exercise.ExerciseClass,
         language,
         interpreter,
-        languageFeatures
+        languageFeatures,
+        interpreterLocaleMessages
       );
       tests.push(result);
     }
   } else {
     // Run IO scenarios
     for (const scenario of exercise.scenarios) {
-      const result = runIOScenario(scenario, studentCode, availableFunctions, language, interpreter, languageFeatures);
+      const result = runIOScenario(
+        scenario,
+        studentCode,
+        availableFunctions,
+        language,
+        interpreter,
+        languageFeatures,
+        interpreterLocaleMessages
+      );
       tests.push(result);
     }
   }

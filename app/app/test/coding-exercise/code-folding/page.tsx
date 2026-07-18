@@ -36,7 +36,7 @@ export default function CodeFoldingTestPage() {
     stubs: { javascript: TEST_CODE, python: TEST_CODE, jikiscript: TEST_CODE }
   });
   const orchestratorRef = useRef<Orchestrator>(
-    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" })
+    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" }, {}, "", () => {})
   );
   const orchestrator = orchestratorRef.current;
 

@@ -1,5 +1,4 @@
 import { getTestToInspect, shouldShowSpotlight } from "@/components/coding-exercise/lib/orchestrator/store";
-import Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
 import {
   createMockAnimationTimeline,
   createMockFrame,
@@ -7,6 +6,7 @@ import {
   createMockTestSuiteResult
 } from "@/tests/mocks";
 import { createMockExercise } from "@/tests/mocks/exercise";
+import { makeTestOrchestrator } from "@/tests/test-utils/makeTestOrchestrator";
 
 jest.mock("@/components/coding-exercise/lib/localStorage", () => ({
   loadCodeMirrorContent: jest.fn(() => ({ success: false })),
@@ -183,7 +183,7 @@ describe("setTestSuiteResult scenario selection", () => {
       slug: "test-exercise",
       stubs: { javascript: "", python: "", jikiscript: "" }
     });
-    return new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+    return makeTestOrchestrator(exercise);
   }
 
   it("selects the current test if it is still failing after re-run", () => {
@@ -252,7 +252,7 @@ describe("setCurrentTest isPlaying reset", () => {
       slug: "test-exercise",
       stubs: { javascript: "", python: "", jikiscript: "" }
     });
-    return new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+    return makeTestOrchestrator(exercise);
   }
 
   it("resets isPlaying to false when switching tests", () => {

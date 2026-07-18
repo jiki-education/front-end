@@ -4,7 +4,6 @@ import type { MemberExpression } from "../expression";
 import { type JikiObject, JSString, JSStdLibFunction } from "../jsObjects";
 import type { Property, Method } from "../stdlib";
 import { getStdlibType, stdlib, isStdlibMemberAllowed, StdlibError } from "../stdlib";
-import { translate } from "../translator";
 
 // Generic stdlib member resolution
 export function executeStdlibMemberExpression(
@@ -157,7 +156,7 @@ export function executeStdlibMemberExpression(
   function handleStdlibError(error: unknown): never {
     if (error instanceof StdlibError) {
       // error.message is a translation key (e.g., "StdlibArgTypeMismatch")
-      const message = translate(`error.stdlib.${error.message}`, error.context);
+      const message = executor.translate(`error.stdlib.${error.message}`, error.context);
       throw new RuntimeError(message, expression.location, error.errorType as RuntimeErrorType, error.context);
     }
     throw error;

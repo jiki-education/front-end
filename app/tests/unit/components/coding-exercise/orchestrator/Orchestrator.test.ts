@@ -1,7 +1,9 @@
-import Orchestrator, { useOrchestratorStore } from "@/components/coding-exercise/lib/Orchestrator";
+import type Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
+import { useOrchestratorStore } from "@/components/coding-exercise/lib/Orchestrator";
 import * as localStorage from "@/components/coding-exercise/lib/localStorage";
 import { createMockAnimationTimeline, createMockFrame } from "@/tests/mocks";
 import { createMockExercise } from "@/tests/mocks/exercise";
+import { makeTestOrchestrator } from "@/tests/test-utils/makeTestOrchestrator";
 import { renderHook } from "@testing-library/react";
 
 // Mock localStorage functions
@@ -30,7 +32,7 @@ describe("Orchestrator", () => {
         slug: "test-uuid",
         stubs: { javascript: "const x = 1;", python: "const x = 1;", jikiscript: "const x = 1;" }
       });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
       const state = orchestrator.getStore().getState();
 
       expect(state.exerciseSlug).toBe("test-uuid");
@@ -42,7 +44,7 @@ describe("Orchestrator", () => {
         slug: "test-uuid",
         stubs: { javascript: "", python: "", jikiscript: "" }
       });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
       const state = orchestrator.getStore().getState();
 
       expect(state.output).toBe("");
@@ -62,8 +64,8 @@ describe("Orchestrator", () => {
         slug: "uuid2",
         stubs: { javascript: "code2", python: "code2", jikiscript: "code2" }
       });
-      const orchestrator1 = new Orchestrator(exercise1, "jikiscript", { type: "lesson", slug: "test-lesson-1" });
-      const orchestrator2 = new Orchestrator(exercise2, "jikiscript", { type: "lesson", slug: "test-lesson-2" });
+      const orchestrator1 = makeTestOrchestrator(exercise1, { slug: "test-lesson-1" });
+      const orchestrator2 = makeTestOrchestrator(exercise2, { slug: "test-lesson-2" });
 
       const state1 = orchestrator1.getStore().getState();
       const state2 = orchestrator2.getStore().getState();
@@ -78,7 +80,7 @@ describe("Orchestrator", () => {
   describe("getStore", () => {
     it("should return the store instance", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
       const store = orchestrator.getStore();
 
       expect(store).toBeDefined();
@@ -90,7 +92,7 @@ describe("Orchestrator", () => {
   describe("animation completion", () => {
     it("should set isPlaying to false when animation completes", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
@@ -120,7 +122,7 @@ describe("Orchestrator", () => {
 
     it("should register onComplete callback when setting current test", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
@@ -142,7 +144,7 @@ describe("Orchestrator", () => {
 
     it("should clear complete callbacks when changing tests", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
       const mockTimeline1 = createMockAnimationTimeline();
       const mockTimeline2 = createMockAnimationTimeline();
 
@@ -180,7 +182,7 @@ describe("Orchestrator", () => {
 
     it("should allow multiple play/complete cycles", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
@@ -227,7 +229,7 @@ describe("Orchestrator", () => {
   describe("setCurrentTestTime", () => {
     it("should mute animation timeline callbacks when seeking to preserve precision", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
@@ -258,7 +260,7 @@ describe("Orchestrator", () => {
   describe("frame synchronization", () => {
     it("should only update currentFrame when landing exactly on a frame", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
 
       // Create custom test frames
       const testFrames = [
@@ -301,7 +303,7 @@ describe("Orchestrator", () => {
 
     it("should recalculate navigation frames when setFoldedLines is called", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
 
       // Create custom test frames
       const testFrames = [
@@ -352,7 +354,7 @@ describe("Orchestrator", () => {
         slug: "test-uuid",
         stubs: { javascript: "initial code", python: "initial code", jikiscript: "initial code" }
       });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
 
       const { result } = renderHook(() => useOrchestratorStore(orchestrator));
 
@@ -372,7 +374,7 @@ describe("Orchestrator", () => {
         slug: "test-uuid",
         stubs: { javascript: "code", python: "code", jikiscript: "code" }
       });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
 
       const { result, rerender } = renderHook(() => useOrchestratorStore(orchestrator));
 
@@ -396,7 +398,7 @@ describe("Orchestrator", () => {
         slug: "test-uuid",
         stubs: { javascript: "initial code", python: "initial code", jikiscript: "initial code" }
       });
-      orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      orchestrator = makeTestOrchestrator(exercise);
     });
 
     describe("showInformationWidget", () => {
@@ -445,7 +447,7 @@ describe("Orchestrator", () => {
         slug: "test-uuid",
         stubs: { javascript: "initial code", python: "initial code", jikiscript: "initial code" }
       });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
 
       // Assert - initializeExerciseData is now called in the constructor
       const state = orchestrator.getStore().getState();
@@ -473,7 +475,7 @@ describe("Orchestrator", () => {
         slug: "test-uuid",
         stubs: { javascript: serverCode, python: serverCode, jikiscript: serverCode }
       });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
 
       // Act - initializeExerciseData is called automatically in constructor
 
@@ -486,7 +488,7 @@ describe("Orchestrator", () => {
   describe("play() method", () => {
     it("should play timeline when shouldAutoPlay is true", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
@@ -509,7 +511,7 @@ describe("Orchestrator", () => {
 
     it("should play animation timeline when play() is called regardless of shouldAutoPlay flag", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
@@ -533,7 +535,7 @@ describe("Orchestrator", () => {
 
     it("should set isPlaying to true when playing", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
@@ -557,7 +559,7 @@ describe("Orchestrator", () => {
 
     it("should hide information widget when manually playing", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
@@ -588,14 +590,14 @@ describe("Orchestrator", () => {
 
     it("should not throw when currentTest is null", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
 
       expect(() => orchestrator.play()).not.toThrow();
     });
 
     it("should reset time to 0 when playing after completion", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
       const mockTimeline = createMockAnimationTimeline();
 
       // Make timeline appear completed
@@ -636,7 +638,7 @@ describe("Orchestrator", () => {
 
     it("should NOT reset time when playing if not completed", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
       const mockTimeline = createMockAnimationTimeline();
 
       // Timeline is NOT completed
@@ -670,7 +672,7 @@ describe("Orchestrator", () => {
   describe("pause() method", () => {
     it("should pause the timeline", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
@@ -693,7 +695,7 @@ describe("Orchestrator", () => {
 
     it("should set shouldAutoPlay to false", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
@@ -717,7 +719,7 @@ describe("Orchestrator", () => {
 
     it("should set isPlaying to false", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
       const mockTimeline = createMockAnimationTimeline();
 
       orchestrator.setCurrentTest({
@@ -744,7 +746,7 @@ describe("Orchestrator", () => {
 
     it("should not throw when currentTest is null", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
 
       expect(() => orchestrator.pause()).not.toThrow();
     });
@@ -763,7 +765,7 @@ describe("Orchestrator", () => {
         slug: "test-uuid",
         stubs: { javascript: "const x = 1;", python: "const x = 1;", jikiscript: "const x = 1;" }
       });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
 
       // Mock testSuiteManager.runCode to simulate successful execution
       const testSuiteManager = (orchestrator as any).testSuiteManager;
@@ -780,7 +782,7 @@ describe("Orchestrator", () => {
         slug: "test-uuid",
         stubs: { javascript: "invalid code", python: "invalid code", jikiscript: "invalid code" }
       });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
 
       // Mock testSuiteManager.runCode to simulate successful execution (but with syntax error state)
       const testSuiteManager = (orchestrator as any).testSuiteManager;
@@ -806,7 +808,7 @@ describe("Orchestrator", () => {
         slug: "test-uuid",
         stubs: { javascript: "initial", python: "initial", jikiscript: "initial" }
       });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
 
       // Mock getCurrentEditorValue to return different code
       jest.spyOn(orchestrator as any, "getCurrentEditorValue").mockReturnValue("editor code");
@@ -829,7 +831,7 @@ describe("Orchestrator", () => {
         slug: "test-uuid",
         stubs: { javascript: "store code", python: "store code", jikiscript: "store code" }
       });
-      const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const orchestrator = makeTestOrchestrator(exercise);
 
       // Mock getCurrentEditorValue to return undefined
       jest.spyOn(orchestrator as any, "getCurrentEditorValue").mockReturnValue(undefined);

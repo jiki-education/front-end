@@ -51,6 +51,10 @@ jobs:
         working-directory: app
         run: pnpm run exercise-cache:generate
 
+      - name: Generate interpreter catalog cache
+        working-directory: app
+        run: pnpm run interpreter-catalog:generate
+
       - name: Generate concept cache
         working-directory: app
         run: pnpm run concept-cache:generate
@@ -154,6 +158,10 @@ jobs:
         working-directory: app
         run: pnpm run exercise-cache:generate
 
+      - name: Generate interpreter catalog cache
+        working-directory: app
+        run: pnpm run interpreter-catalog:generate
+
       - name: Generate concept cache
         working-directory: app
         run: pnpm run concept-cache:generate
@@ -200,6 +208,10 @@ jobs:
       - name: Generate exercise cache
         working-directory: app
         run: pnpm run exercise-cache:generate
+
+      - name: Generate interpreter catalog cache
+        working-directory: app
+        run: pnpm run interpreter-catalog:generate
 
       - name: Generate concept cache
         working-directory: app

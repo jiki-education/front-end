@@ -1,7 +1,7 @@
-import Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
 import CodeEditor from "@/components/coding-exercise/ui/CodeEditor";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import OrchestratorTestProvider from "@/tests/test-utils/OrchestratorTestProvider";
+import { makeTestOrchestrator } from "@/tests/test-utils/makeTestOrchestrator";
 import "@testing-library/jest-dom";
 import { act, render } from "@testing-library/react";
 
@@ -188,7 +188,7 @@ describe("CodeMirror Integration with Real Orchestrator", () => {
         jikiscript: "console.log('Hello World');"
       }
     });
-    const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+    const orchestrator = makeTestOrchestrator(exercise);
 
     render(
       <OrchestratorTestProvider orchestrator={orchestrator}>
@@ -210,7 +210,7 @@ describe("CodeMirror Integration with Real Orchestrator", () => {
         jikiscript: "const initial = true;"
       }
     });
-    const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+    const orchestrator = makeTestOrchestrator(exercise);
 
     render(
       <OrchestratorTestProvider orchestrator={orchestrator}>
@@ -230,7 +230,7 @@ describe("CodeMirror Integration with Real Orchestrator", () => {
       slug: "change-test",
       stubs: { javascript: "const x = 1;", python: "const x = 1;", jikiscript: "const x = 1;" }
     });
-    const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+    const orchestrator = makeTestOrchestrator(exercise);
 
     render(
       <OrchestratorTestProvider orchestrator={orchestrator}>
@@ -262,8 +262,8 @@ describe("CodeMirror Integration with Real Orchestrator", () => {
       slug: "uuid-2",
       stubs: { javascript: "code2", python: "code2", jikiscript: "code2" }
     });
-    const orchestrator1 = new Orchestrator(exercise1, "jikiscript", { type: "lesson", slug: "test-lesson-1" });
-    const orchestrator2 = new Orchestrator(exercise2, "jikiscript", { type: "lesson", slug: "test-lesson-2" });
+    const orchestrator1 = makeTestOrchestrator(exercise1, { slug: "test-lesson-1" });
+    const orchestrator2 = makeTestOrchestrator(exercise2, { slug: "test-lesson-2" });
 
     const { rerender } = render(
       <OrchestratorTestProvider orchestrator={orchestrator1}>
@@ -300,7 +300,7 @@ describe("CodeMirror Integration with Real Orchestrator", () => {
       slug: "methods-test",
       stubs: { javascript: "test code", python: "test code", jikiscript: "test code" }
     });
-    const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+    const orchestrator = makeTestOrchestrator(exercise);
 
     render(
       <OrchestratorTestProvider orchestrator={orchestrator}>
@@ -330,7 +330,7 @@ describe("CodeMirror Integration with Real Orchestrator", () => {
       slug: "lifecycle-test",
       stubs: { javascript: "initial code", python: "initial code", jikiscript: "initial code" }
     });
-    const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+    const orchestrator = makeTestOrchestrator(exercise);
 
     const { unmount } = render(
       <OrchestratorTestProvider orchestrator={orchestrator}>
@@ -356,7 +356,7 @@ describe("CodeMirror Integration with Real Orchestrator", () => {
       slug: "config-test",
       stubs: { javascript: "test", python: "test", jikiscript: "test" }
     });
-    const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+    const orchestrator = makeTestOrchestrator(exercise);
 
     render(
       <OrchestratorTestProvider orchestrator={orchestrator}>

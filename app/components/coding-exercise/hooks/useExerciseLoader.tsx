@@ -3,21 +3,23 @@ import { exercises, type ExerciseSlug, type ExerciseDefinition, type Language } 
 import Orchestrator from "../lib/Orchestrator";
 import type { ExerciseContext } from "../lib/types";
 import { findFileForLanguage, hasPlaceholders, interpolateStub } from "../lib/stubInterpolation";
-import { fetchExerciseContent } from "@/lib/api/exercise-meta";
+import { fetchExerciseContent, fetchInterpreterCatalog } from "@/lib/api/exercise-meta";
 import type { LastSubmissionData } from "@/lib/api/types/conversation";
 
 interface UseExerciseLoaderProps {
   language: "javascript" | "jikiscript" | "python";
+  locale: string;
   exerciseSlug: ExerciseSlug;
   context: ExerciseContext;
   levelId?: string;
   isCompleted: boolean;
   serverSubmission?: LastSubmissionData | null;
-  onGoToDashboard?: () => void;
+  onGoToDashboard: () => void;
 }
 
 export function useExerciseLoader({
   language,
+  locale,
   exerciseSlug,
   context,
   levelId,
@@ -41,10 +43,15 @@ export function useExerciseLoader({
           );
         }
 
-        // Load exercise module (shared) and static content (locale/language-specific) in parallel
-        const [exerciseModule, content] = await Promise.all([
+        // Load exercise module (shared), static content, and the interpreter's
+        // message catalog for the active locale — all in parallel. The catalog is a
+        // required part of the load (not a best-effort add-on): the interpreter is
+        // never run until it resolves, so diagnostics always render in-locale (or,
+        // for interpreters that don't yet localize, the catalog is simply ignored).
+        const [exerciseModule, content, interpreterLocaleMessages] = await Promise.all([
           loader().then((m) => m.default),
-          fetchExerciseContent(exerciseSlug, "en", language)
+          fetchExerciseContent(exerciseSlug, "en", language),
+          fetchInterpreterCatalog(language, locale)
         ]);
 
         // Assemble into full ExerciseDefinition.
@@ -85,6 +92,7 @@ export function useExerciseLoader({
           exercise,
           language,
           context,
+          interpreterLocaleMessages,
           content.contentHash,
           onGoToDashboard,
           serverData

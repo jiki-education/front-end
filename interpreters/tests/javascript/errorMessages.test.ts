@@ -1,10 +1,17 @@
 import { interpret } from "@javascript/interpreter";
 import { parse } from "@javascript/parser";
-import { changeLanguage } from "@javascript/translator";
-import { describe, test, expect, beforeAll, afterAll } from "vitest";
+import enMessages from "@javascript/locales/en/translation.json";
+import { describe, test, expect } from "vitest";
 
+// No locale injected → the interpreter resolves in the `system` pseudo-locale.
 function errorFrame(code: string) {
   const { frames } = interpret(code);
+  return frames.find(f => f.status === "ERROR");
+}
+
+// English is injected the same way the app injects the active locale's dict.
+function errorFrameEn(code: string) {
+  const { frames } = interpret(code, { localeMessages: enMessages });
   return frames.find(f => f.status === "ERROR");
 }
 
@@ -43,34 +50,33 @@ describe("reworked error messages", () => {
   });
 
   describe("English copy with interpolated context", () => {
-    beforeAll(async () => {
-      await changeLanguage("en");
-    });
-    afterAll(async () => {
-      await changeLanguage("system");
-    });
-
     test("UpdateOperatorRequiresNumber names the operator and type", () => {
-      const f = errorFrame('let x = "hi";\nx++;');
+      const f = errorFrameEn('let x = "hi";\nx++;');
       expect(f?.error?.message).toBe("Jiki can't use ++ on a string - only on numbers.");
     });
 
     test("MissingExpression names the offending token", () => {
-      expect(() => parse("1 +;")).toThrow("Jiki didn't understand what to do with ; here.");
+      expect(() => parse("1 +;", { localeMessages: enMessages })).toThrow(
+        "Jiki didn't understand what to do with ; here."
+      );
     });
 
     test("MissingClassNameAfterNew", () => {
-      expect(() => parse("new 5();")).toThrow("Jiki expected the name of a class after `new`, but didn't find one.");
+      expect(() => parse("new 5();", { localeMessages: enMessages })).toThrow(
+        "Jiki expected the name of a class after `new`, but didn't find one."
+      );
     });
 
     test("UnterminatedBlockComment", () => {
-      expect(() => parse("/* hello world")).toThrow("Jiki couldn't find the `*/` needed to close this block comment.");
+      expect(() => parse("/* hello world", { localeMessages: enMessages })).toThrow(
+        "Jiki couldn't find the `*/` needed to close this block comment."
+      );
     });
 
     // These runtime errors used to hardcode a raw system-format string and
     // bypass translate(); they now render their English copy.
     test("InOperatorRequiresObject renders English (was raw system text)", () => {
-      const f = errorFrame('let y = "a" in 5;');
+      const f = errorFrameEn('let y = "a" in 5;');
       expect(f?.error?.type).toBe("InOperatorRequiresObject");
       expect(f?.error?.message).toBe(
         "The `in` operator requires an object/dictionary on the right side, but instead you gave it a number."
@@ -78,13 +84,13 @@ describe("reworked error messages", () => {
     });
 
     test("ArrayIndexNotNumber renders its English copy", () => {
-      const f = errorFrame('let a = [1];\nlet b = a["x"];');
+      const f = errorFrameEn('let a = [1];\nlet b = a["x"];');
       expect(f?.error?.type).toBe("ArrayIndexNotNumber");
       expect(f?.error?.message).toBe("You can only use a number as an array index, like `myArray[0]`.");
     });
 
     test("MethodUsedWithoutParentheses renders the full guidance", () => {
-      const f = errorFrame("let arr = [1, 2];\nlet x = arr.push;");
+      const f = errorFrameEn("let arr = [1, 2];\nlet x = arr.push;");
       expect(f?.error?.message).toBe(
         "The `push` property does not exist on arrays. Did you mean to use the `push` method? If so, remember you need to add brackets like you would with a normal function."
       );
