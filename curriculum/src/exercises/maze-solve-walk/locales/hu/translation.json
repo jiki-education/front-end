@@ -2,6 +2,9 @@
   "errors": {
     "walkExpectsNumber": "walk() expects a number of steps"
   },
+  "describers": {
+    "walk": "Walk forward a given number of steps"
+  },
   "checks": {
     "notReachedEnd": "You didn't reach the end of the maze."
   },

@@ -4,6 +4,11 @@
     "invalidDirection": "Invalid direction: {{dir}}. Use \"ahead\", \"left\", \"right\", or \"down\".",
     "emojisMustBeDictionary": "emojis must be a dictionary"
   },
+  "describers": {
+    "look": "Look in a direction and see what's there",
+    "removeEmoji": "Remove the emoji from the current square",
+    "announceEmojis": "Announce the collected emojis"
+  },
   "checks": {
     "notReachedEnd": "You didn't reach the end of the maze.",
     "wrongEmojis": "You didn't report the collected emojis correctly. We expected you to report: <br/><code>{{expected}}</code>",

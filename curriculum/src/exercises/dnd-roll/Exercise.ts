@@ -253,19 +253,19 @@ export default class DndRollExercise extends VisualExercise {
     {
       name: "roll",
       func: this.roll.bind(this),
-      description: "rolled a die and got ${return}",
+      descriptionKey: "describers.roll",
       arity: 1 as const
     },
     {
       name: "announce",
       func: this.announce.bind(this),
-      description: "announced ${arg1}",
+      descriptionKey: "describers.announce",
       arity: 1 as const
     },
     {
       name: "strike",
       func: this.strike.bind(this),
-      description: "struck the goblin with attack ${arg1} and damage ${arg2}",
+      descriptionKey: "describers.strike",
       arity: 2 as const
     }
   ];

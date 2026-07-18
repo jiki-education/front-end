@@ -5,6 +5,9 @@
     "lookDirectionType": "look() expects a string direction: \"left\", \"right\", or \"ahead\"",
     "lookDirectionValue": "look() direction must be \"left\", \"right\", or \"ahead\""
   },
+  "describers": {
+    "look": "Look in a direction and see what's there"
+  },
   "checks": {
     "notReachedEnd": "You didn't reach the end of the maze.",
     "extraTurn": "You seem to have done an extra unnecessary turn at the end.",

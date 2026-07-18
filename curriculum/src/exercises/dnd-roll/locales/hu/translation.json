@@ -5,6 +5,11 @@
     "attackNumber": "A támadásnak számnak kell lennie",
     "damageNumber": "A sebzésnek számnak kell lennie"
   },
+  "describers": {
+    "roll": "rolled a die and got ${return}",
+    "announce": "announced ${arg1}",
+    "strike": "struck the goblin with attack ${arg1} and damage ${arg2}"
+  },
   "checks": {
     "announcementCount": "3 bejelentést vártunk, de {{got}} érkezett. Ügyelj arra, hogy minden dobást bejelents.",
     "firstAnnouncement": "Az első bejelentés {{attack}} (a támadó dobás) kellett volna legyen, de {{got}} lett.",

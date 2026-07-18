@@ -1,4 +1,9 @@
 {
+  "describers": {
+    "canMove": "Check if the character can move forward",
+    "canTurnLeft": "Check if there is a path to the character's left",
+    "canTurnRight": "Check if there is a path to the character's right"
+  },
   "checks": {
     "notReachedEnd": "You didn't reach the end of the maze.",
     "turnAroundNotDefined": "You need to define a <code>turnAround</code> function at the top of your code.",

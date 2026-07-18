@@ -1,5 +1,6 @@
 import MazeExercise from "../../exercise-categories/maze/MazeExercise";
-import { type ExecutionContext, type ExternalFunction, type Shared, isString } from "@jiki/interpreters";
+import { type ExecutionContext, type Shared, isString } from "@jiki/interpreters";
+import type { AvailableFunction } from "../../types";
 import metadata from "./metadata.json";
 
 type Direction = "up" | "right" | "down" | "left";
@@ -18,26 +19,26 @@ export default class LookAroundExercise extends MazeExercise {
     return metadata.slug;
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "move",
       func: this.moveAndCheck.bind(this),
-      description: "Move the character forward one cell"
+      descriptionKey: "describers.move"
     },
     {
       name: "turn_left",
       func: this.turnLeft.bind(this),
-      description: "Turn the character 90 degrees left"
+      descriptionKey: "describers.turnLeft"
     },
     {
       name: "turn_right",
       func: this.turnRight.bind(this),
-      description: "Turn the character 90 degrees right"
+      descriptionKey: "describers.turnRight"
     },
     {
       name: "look",
       func: this.look.bind(this),
-      description: "Look in a direction and see what's there"
+      descriptionKey: "describers.look"
     }
   ];
 

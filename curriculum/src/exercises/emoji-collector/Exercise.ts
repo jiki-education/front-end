@@ -38,32 +38,32 @@ export default class EmojiCollectorExercise extends MazeExercise {
     {
       name: "move",
       func: this.moveAndCheck.bind(this),
-      description: "Move the character forward one cell"
+      descriptionKey: "describers.move"
     },
     {
       name: "turn_left",
       func: this.turnLeft.bind(this),
-      description: "Turn the character 90 degrees left"
+      descriptionKey: "describers.turnLeft"
     },
     {
       name: "turn_right",
       func: this.turnRight.bind(this),
-      description: "Turn the character 90 degrees right"
+      descriptionKey: "describers.turnRight"
     },
     {
       name: "look",
       func: this.look.bind(this),
-      description: "Look in a direction and see what's there"
+      descriptionKey: "describers.look"
     },
     {
       name: "remove_emoji",
       func: this.removeEmoji.bind(this),
-      description: "Remove the emoji from the current square"
+      descriptionKey: "describers.removeEmoji"
     },
     {
       name: "announce_emojis",
       func: this.announceEmojis.bind(this),
-      description: "Announce the collected emojis"
+      descriptionKey: "describers.announceEmojis"
     }
   ];
 

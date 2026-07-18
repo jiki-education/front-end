@@ -5,6 +5,11 @@
     "attackNumber": "Attack must be a number",
     "damageNumber": "Damage must be a number"
   },
+  "describers": {
+    "roll": "rolled a die and got ${return}",
+    "announce": "announced ${arg1}",
+    "strike": "struck the goblin with attack ${arg1} and damage ${arg2}"
+  },
   "checks": {
     "announcementCount": "Expected 3 announcements but got {{got}}. Make sure you announce each roll.",
     "firstAnnouncement": "Expected the first announcement to be {{attack}} (the attack roll) but got {{got}}.",
