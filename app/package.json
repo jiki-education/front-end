@@ -22,6 +22,7 @@
     "interpreter-i18n:watch": "onchange '../interpreters/src/*/locales/**/translation.json' -- node scripts/generate-interpreter-i18n-cache.js",
     "concept-cache:generate": "node scripts/generate-concept-cache.js",
     "concept-cache:watch": "onchange '../curriculum/src/concepts/**' -- node scripts/generate-concept-cache.js",
+    "verify:locale": "npm-run-all --parallel content:generate exercise-cache:generate interpreter-i18n:generate concept-cache:generate && node scripts/verify-locale.js",
     "seed-language": "node scripts/seed-language.js",
     "icons:generate": "node scripts/generate-icon-types.js",
     "icons:watch": "node scripts/generate-icon-types.js && onchange 'icons/**/*.svg' -- node scripts/generate-icon-types.js",
