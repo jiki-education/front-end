@@ -34,6 +34,7 @@ import { computeHash, writeFile } from "./lib/cache-utils.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const EXERCISES_DIR = path.join(__dirname, "../../curriculum/src/exercises");
+const EXERCISE_CATEGORIES_DIR = path.join(__dirname, "../../curriculum/src/exercise-categories");
 const STATIC_DIR = path.join(__dirname, "../public/static/exercises");
 const I18N_DIR = path.join(__dirname, "../public/static/i18n/exercises");
 const GENERATED_DIR = path.join(__dirname, "../lib/generated");
@@ -59,12 +60,87 @@ function readFileOrNull(filePath) {
 }
 
 /**
+ * Deep-merge two message dicts; keys in `override` win on collision.
+ */
+function deepMerge(base, override) {
+  const out = { ...base };
+  for (const [key, value] of Object.entries(override)) {
+    const existing = out[key];
+    const bothObjects =
+      value !== null &&
+      typeof value === "object" &&
+      !Array.isArray(value) &&
+      existing !== null &&
+      typeof existing === "object" &&
+      !Array.isArray(existing);
+    out[key] = bothObjects ? deepMerge(existing, value) : value;
+  }
+  return out;
+}
+
+/**
+ * Derive an exercise's family (its exercise-category base) from its Exercise.ts
+ * import of `../../exercise-categories/<family>/...`. Returns null for standalone
+ * exercises (no shared base). This is how base catalogs get merged in below.
+ */
+function deriveFamily(exercisePath) {
+  const raw = readFileOrNull(path.join(exercisePath, "Exercise.ts"));
+  if (raw === null) {
+    return null;
+  }
+  const match = raw.match(/exercise-categories\/([^/"'`\s]+)/);
+  return match ? match[1] : null;
+}
+
+/**
+ * Load per-family base catalogs (curriculum-owned shared strings, e.g. a base
+ * class's logicError messages) authored once under
+ * `exercise-categories/<family>/locales/<locale>/translation.json`. Merged into
+ * each family member's emitted pack at build time, so the shared strings are
+ * authored/translated once but every member's runtime dict is self-contained.
+ * Returns { [family]: { [locale]: dict } }.
+ */
+function loadBaseCatalogs() {
+  const bases = {};
+  if (!fs.existsSync(EXERCISE_CATEGORIES_DIR)) {
+    return bases;
+  }
+  for (const familyDir of fs.readdirSync(EXERCISE_CATEGORIES_DIR, { withFileTypes: true })) {
+    if (!familyDir.isDirectory()) {
+      continue;
+    }
+    const localesDir = path.join(EXERCISE_CATEGORIES_DIR, familyDir.name, "locales");
+    if (!fs.existsSync(localesDir)) {
+      continue;
+    }
+    const perLocale = {};
+    for (const localeDir of fs.readdirSync(localesDir, { withFileTypes: true })) {
+      if (!localeDir.isDirectory()) {
+        continue;
+      }
+      const raw = readFileOrNull(path.join(localesDir, localeDir.name, "translation.json"));
+      if (raw === null) {
+        continue;
+      }
+      try {
+        perLocale[localeDir.name] = JSON.parse(raw);
+      } catch (error) {
+        throw new Error(`Invalid JSON in base catalog ${familyDir.name}/${localeDir.name}: ${error.message}`);
+      }
+    }
+    bases[familyDir.name] = perLocale;
+  }
+  return bases;
+}
+
+/**
  * Process all exercises and return structured data
  *
  * Returns: { [slug]: { metadata, locales: { [locale]: { title, description, instructions } }, stubs: { [lang]: string }, solutions: { [lang]: string } } }
  */
 function processExercises() {
   const exercises = {};
+  const baseCatalogs = loadBaseCatalogs();
 
   if (!fs.existsSync(EXERCISES_DIR)) {
     console.error(`Exercises directory not found: ${EXERCISES_DIR}`);
@@ -158,6 +234,18 @@ function processExercises() {
         } catch (error) {
           throw new Error(`Invalid JSON in ${translationPath}: ${error.message}`);
         }
+      }
+    }
+
+    // Merge the family base catalog (authored once) into each locale's dict, so
+    // the shared base-class strings are duplicated only in build output, never in
+    // source. Member keys win over base keys on collision.
+    const family = deriveFamily(exercisePath);
+    const baseLocales = family ? baseCatalogs[family] : undefined;
+    if (baseLocales) {
+      const allLocales = new Set([...Object.keys(baseLocales), ...Object.keys(messages)]);
+      for (const locale of allLocales) {
+        messages[locale] = deepMerge(baseLocales[locale] || {}, messages[locale] || {});
       }
     }
 

@@ -16,6 +16,7 @@ import path from "node:path";
  */
 
 const EXERCISES_DIR = path.resolve(fileURLToPath(import.meta.url), "../../../src/exercises");
+const EXERCISE_CATEGORIES_DIR = path.resolve(fileURLToPath(import.meta.url), "../../../src/exercise-categories");
 
 type Tree = Record<string, unknown>;
 
@@ -34,10 +35,11 @@ function leafStrings(obj: Tree, prefix = ""): [string, string][] {
   });
 }
 
-function exercisesWithLocales(): { slug: string; localesDir: string }[] {
-  return readdirSync(EXERCISES_DIR, { withFileTypes: true })
+function catalogsIn(root: string, labelPrefix = ""): { slug: string; localesDir: string }[] {
+  if (!existsSync(root)) return [];
+  return readdirSync(root, { withFileTypes: true })
     .filter((d) => d.isDirectory())
-    .map((d) => ({ slug: d.name, localesDir: path.join(EXERCISES_DIR, d.name, "locales") }))
+    .map((d) => ({ slug: labelPrefix + d.name, localesDir: path.join(root, d.name, "locales") }))
     .filter((e) => existsSync(e.localesDir));
 }
 
@@ -45,7 +47,9 @@ function loadCatalog(localesDir: string, locale: string): Tree {
   return JSON.parse(readFileSync(path.join(localesDir, locale, "translation.json"), "utf-8")) as Tree;
 }
 
-const catalogs = exercisesWithLocales();
+// Both per-exercise catalogs and per-family base catalogs (authored once, merged
+// into members at build time) are guarded — same parity + whitespace rules.
+const catalogs = [...catalogsIn(EXERCISES_DIR), ...catalogsIn(EXERCISE_CATEGORIES_DIR, "exercise-categories/")];
 
 describe("curriculum message catalogs", () => {
   it("has at least one exercise catalog to guard (prototype: dnd-roll)", () => {

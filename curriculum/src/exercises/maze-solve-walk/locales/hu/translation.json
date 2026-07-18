@@ -1,7 +1,5 @@
 {
   "errors": {
-    "fellOffEdge": "Oh no - you tried to fall off the edge of the maze!",
-    "hitWall": "Ouch - you walked into a wall!",
     "walkExpectsNumber": "walk() expects a number of steps"
   },
   "checks": {

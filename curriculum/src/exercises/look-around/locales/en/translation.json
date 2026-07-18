@@ -1,7 +1,5 @@
 {
   "errors": {
-    "fellOffEdge": "Oh no - you tried to fall off the edge of the maze!",
-    "hitWall": "Ouch - you walked into a wall!",
     "walkedIntoFire": "You walked into fire!",
     "steppedInPoop": "You stepped in poop!",
     "lookDirectionType": "look() expects a string direction: \"left\", \"right\", or \"ahead\"",

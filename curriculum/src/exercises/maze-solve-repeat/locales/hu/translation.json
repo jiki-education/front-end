@@ -1,8 +1,4 @@
 {
-  "errors": {
-    "fellOffEdge": "Oh no - you tried to fall off the edge of the maze!",
-    "hitWall": "Ouch - you walked into a wall!"
-  },
   "checks": {
     "notReachedEnd": "You didn't reach the end of the maze.",
     "tooManyLines": "Your solution has too many lines of code. Look for groups of consecutive move() calls and replace each group with a repeat loop.",
