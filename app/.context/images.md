@@ -15,12 +15,12 @@ For content that has associated icons (badges, concepts, lessons, projects), use
 | `<ConceptIcon slug="..." />` | `curriculum/images/concept-icons/` | `IconWithFallback` | Concept cards   |
 | `<ProjectIcon slug="..." />` | `curriculum/images/project-icons/` | `IconWithFallback` | Project cards   |
 
-All four render a plain `<img>` whose `src` is a **content-hashed** URL looked up by slug, with an `onError` fallback to a hashed fallback icon. (`IconProps` — exported from `IconWithFallback.tsx` — is just the shared `{ slug, width, height }` interface, not a loader.) Hashing lets the icons be served `immutable` (see `public/_headers`), so repeat visits never re-request them:
+All four render a plain `<img>` whose `src` is a **content-hashed** URL looked up by slug, with an `onError` fallback to a hashed fallback icon. (`IconProps` — exported from `IconWithFallback.tsx` — is just the shared `{ slug, width, height }` interface, not a loader.) Hashing lets the icons be served `immutable` from R2, so repeat visits never re-request them:
 
-- `LessonIcon`, `BadgeIcon`, `ProjectIcon` — `generate-icon-cache.js` copies each SVG to `/static/icons-hashed/{type}/{slug}-{hash}.svg` and writes the `lib/generated/icon-hashes.ts` manifest (`lessonIconUrls`, `badgeIconUrls`, `projectIconUrls` + `*FallbackUrl`).
-- `ConceptIcon` — handled by `generate-concept-cache.js` (its URL is also the concept OG image), copying to `/static/concepts/icons/{slug}-{hash}.webp` and writing `lib/generated/concept-icon-hashes.ts`.
+- `LessonIcon`, `BadgeIcon`, `ChallengeIcon` — `generate-asset-cache.js` fingerprints each SVG into `/static/hashed/assets/icons/{set}/{slug}-{hash}.svg` and records it in the shared `lib/generated/asset-hashes.ts` manifest. The component resolves `staticAsset(\`icons/{set}/${slug}.svg\`)`, using `hasStaticAsset()`to fall back to`icons/{set}/fallback.svg` for slugs without an icon.
+- `ConceptIcon` — handled by `generate-concept-cache.js` (its URL is also the concept OG image), copying to `/static/concepts/icons/{slug}-{hash}.webp` and writing `lib/generated/concept-icon-hashes.ts`; wrapped in `assetsUrl()`.
 
-Each component looks the URL up by slug, falling back to the hashed fallback for slugs without an icon.
+See [Static Asset Serving](deployment.md#static-asset-serving) for the shared `hashed/` tree and the `staticAsset()` resolver used for all hand-authored images/sounds/icons.
 
 All accept `width` and `height` props.
 

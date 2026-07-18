@@ -130,14 +130,26 @@ content-hashed assets from older builds survive and old pages keep working.
   can never fall through to worker-bundled copies that a redeploy would have deleted
   mid-session. Standard leaf naming is `{kind}-{hash}.{ext}` (`index` | `content` |
   `messages`), with every dimension (locale, language, slug) a directory.
+- **Hand-authored assets referenced by URL** — images, sounds, and slug-addressed
+  icons (`LessonIcon`/`BadgeIcon`/`ChallengeIcon`) — are fingerprinted by
+  `scripts/generate-asset-cache.js` into `public/static/hashed/assets/**` with a
+  `lib/generated/asset-hashes.ts` manifest. Every runtime reference goes through the
+  **`staticAsset("images/logo.png")`** resolver (`lib/static-asset.ts`) — path
+  relative to `/static`, no prefix — which returns the hashed R2 URL (or, in dev, the
+  relative path). The raw `static/images`/`static/sounds` sources stay worker-served
+  (so the curriculum/content symlinks under `static/images`, e.g. `exercise-assets`,
+  keep resolving) and are also on R2 at short TTL, so a dynamic/missed lookup degrades
+  gracefully rather than 404ing.
 - **CSS `url("/static/...")`** refs resolve against the _stylesheet's_ origin
   (`assets.jiki.io`), so those assets must be on the bucket too. They are
   **content-hash fingerprinted** at build time: `scripts/generate-css-asset-hashes.js`
-  scans app + curriculum CSS, hashes each target, emits `public/static/hashed/...`,
+  scans app + curriculum CSS, hashes each target, emits `public/static/hashed/css/...`,
   and writes a manifest; the PostCSS plugin `postcss-plugins/rewrite-static-css-urls.cjs`
   rewrites the `url()`s to the hashed copies. One PostCSS pass covers both packages
   (curriculum CSS is imported by the app). Wired into `dev` and `build`; output is
-  gitignored (mirrors the icon-cache pattern).
+  gitignored. CSS assets and runtime assets share one `public/static/hashed/` tree
+  (subdirs `css/` and `assets/`) — each generator resets only its own subdir, so the
+  parallel build never races.
 - The `static:upload` script syncs, per object Cache-Control: `_next/static`
   (immutable); `public/static` (short TTL fallback for un-hashed refs, with the fully
   hashed trees excluded); `public/static/hashed` (immutable); and each content-hashed
@@ -213,11 +225,14 @@ Custom Worker wrapper (`worker-wrapper.js`) implements Cloudflare Cache API for 
   - Article routes (`/help/*`, `/[locale]/help/*`)
   - Concept routes (`/concepts/*`)
   - Unsubscribe pages (`/unsubscribe/*`)
-- **Static Assets**: `/_next/*`, CSS-referenced `/static/*`, and the content-hashed
-  cache trees (`/static/{i18n,exercises,concepts,content}/*`) are served from
-  `assets.jiki.io` (see [Static Asset Serving](#static-asset-serving)), not the Worker;
-  `/favicon.ico` and other JSX-referenced `/static/*` (images, sounds, un-hashed icons)
-  are served by Workers Assets. Neither is handled by this wrapper.
+- **Static Assets**: `/_next/*`, the content-hashed cache trees
+  (`/static/{i18n,exercises,concepts,content}/*`), and the fingerprinted asset tree
+  (`/static/hashed/*` — CSS-referenced assets, images, sounds, icons, all via
+  `staticAsset()`) are served from `assets.jiki.io`
+  (see [Static Asset Serving](#static-asset-serving)), not the Worker. Still served by
+  Workers Assets: `/favicon.ico`, `theme-script.js`, the raw `static/images` sources
+  and their curriculum/content symlinks (e.g. `exercise-assets`). Neither is handled
+  by this wrapper.
 
 **Cache Key Generation**:
 

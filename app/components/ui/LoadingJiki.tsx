@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { staticAsset } from "@/lib/static-asset";
 import AnimatedDots from "./AnimatedDots";
 import styles from "./LoadingJiki.module.css";
 
@@ -16,7 +17,7 @@ export default function LoadingJiki({ delayed = false }: LoadingJikiProps) {
     <div className={`${styles.container} ${delayed ? styles.delayed : ""}`}>
       <div className={styles.imageWrapper}>
         <Image
-          src="/static/images/graphics/jiki-wakeup.webp"
+          src={staticAsset("images/graphics/jiki-wakeup.webp")}
           alt="Jiki character waking up"
           width={560}
           height={560}

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { staticAsset } from "@/lib/static-asset";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
@@ -11,12 +12,12 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: "#3b82f6",
     icons: [
       {
-        src: "/static/images/logo-192.png",
+        src: staticAsset("images/logo-192.png"),
         sizes: "192x192",
         type: "image/png"
       },
       {
-        src: "/static/images/logo.png",
+        src: staticAsset("images/logo.png"),
         sizes: "512x512",
         type: "image/png"
       }

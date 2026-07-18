@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
+import { staticAsset } from "@/lib/static-asset";
 import styles from "./UpgradeCard.module.css";
 
 export function UpgradeCard() {
@@ -10,7 +11,13 @@ export function UpgradeCard() {
   return (
     <div className={styles.card}>
       <div className={styles.row}>
-        <Image src="/static/images/jiki-face.png" alt={t("logoAlt")} width={56} height={56} className={styles.logo} />
+        <Image
+          src={staticAsset("images/jiki-face.png")}
+          alt={t("logoAlt")}
+          width={56}
+          height={56}
+          className={styles.logo}
+        />
         <div className={styles.heading}>
           {t.rich("heading", {
             highlight: (chunks) => <span className={styles.highlight}>{chunks}</span>

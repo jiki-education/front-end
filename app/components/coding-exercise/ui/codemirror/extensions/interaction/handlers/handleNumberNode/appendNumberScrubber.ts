@@ -1,6 +1,7 @@
 import type { EditorView } from "@codemirror/view";
 import type { SyntaxNode } from "@lezer/common";
 import { syntaxTree } from "@codemirror/language";
+import { staticAsset } from "@/lib/static-asset";
 import { FAUX_RANGE_INPUT_ID } from ".";
 import { formatNumber, getSensitivity } from "./utils";
 export function appendNumberScrubber({
@@ -30,7 +31,7 @@ export function appendNumberScrubber({
     width: "34px",
     height: "20px",
     backgroundColor: "white",
-    backgroundImage: `url(/static/icons/move.svg)`,
+    backgroundImage: `url(${staticAsset("icons/move.svg")})`,
     backgroundSize: "contain",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",

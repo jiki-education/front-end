@@ -14,8 +14,8 @@
  * `/static/...` url() references, content-hashes each target file under
  * public/static, copies it to a fingerprinted path, and writes a manifest:
  *
- *   public/static/hashed/<orig-path>-<hash>.<ext>   (fingerprinted copies, gitignored)
- *   lib/generated/css-asset-hashes.json             (/static/X -> /static/hashed/... , gitignored)
+ *   public/static/hashed/css/<orig-path>-<hash>.<ext>   (fingerprinted copies, gitignored)
+ *   lib/generated/css-asset-hashes.json                 (/static/X -> /static/hashed/css/... , gitignored)
  *
  * The manifest is consumed by the PostCSS plugin in postcss.config.mjs, which
  * rewrites the url() references at build/dev time. Because every CSS-referenced
@@ -30,7 +30,10 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const APP_DIR = path.join(__dirname, "..");
 const PUBLIC_STATIC = path.join(APP_DIR, "public/static");
-const HASHED_DIR = path.join(PUBLIC_STATIC, "hashed");
+// CSS-referenced assets live under the shared hashed tree in their own subdir
+// (hashed/css) so this generator can safely reset just its output without
+// clobbering the runtime assets that generate-asset-cache.js writes to hashed/assets.
+const HASHED_DIR = path.join(PUBLIC_STATIC, "hashed", "css");
 const MANIFEST_PATH = path.join(APP_DIR, "lib/generated/css-asset-hashes.json");
 
 // Roots to scan for CSS. Curriculum CSS is imported by the app and processed by
@@ -96,7 +99,7 @@ function main() {
     const dest = path.join(HASHED_DIR, hashedRel);
     fs.mkdirSync(path.dirname(dest), { recursive: true });
     fs.copyFileSync(src, dest);
-    manifest[ref] = `/static/hashed/${hashedRel}`;
+    manifest[ref] = `/static/hashed/css/${hashedRel}`;
   }
 
   fs.writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2) + "\n");

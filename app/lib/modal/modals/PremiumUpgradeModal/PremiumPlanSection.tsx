@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { PremiumPrice, PremiumDailyPrice } from "@/components/common/PremiumPrice";
+import { staticAsset } from "@/lib/static-asset";
 import styles from "./PremiumUpgradeModal.module.css";
 
 interface PremiumPlanSectionProps {
@@ -44,7 +45,7 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
       >
         {!isLoading && (
           <Image
-            src={user?.avatar || "/static/icons/user-fallback.svg"}
+            src={user?.avatar || staticAsset("icons/user-fallback.svg")}
             alt={t("userAvatarAlt")}
             className={styles.buttonAvatar}
             width={24}

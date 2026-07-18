@@ -56,8 +56,8 @@ public/static/i18n/
 # generated concept cache (build-time generation)
 public/static/concepts/
 
-# generated icon cache (content-hashed lesson/badge/project icons)
-public/static/icons-hashed/
+# generated hashed asset tree (CSS-referenced assets in hashed/css; runtime
+# images/sounds/icons in hashed/assets — content-hashed, served immutably from R2)
 public/static/hashed/
 
 # generated TypeScript/JSON files (build-time generation)

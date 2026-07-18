@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
+import { staticAsset } from "@/lib/static-asset";
 import ArrowIcon from "./icons/arrow-1.svg";
 import RocketIcon from "./icons/rocket.svg";
 import withRhodri from "./assets/with-rhodri.webp";
@@ -128,7 +129,7 @@ export function WelcomeSection() {
         <div className={styles.videoGrid}>
           <video
             className={styles.video}
-            src="/static/images/landing-page/space-invaders-74644.mp4"
+            src={staticAsset("images/landing-page/space-invaders-74644.mp4")}
             aria-label={t("spaceInvadersLabel")}
             width={400}
             height={300}
@@ -139,7 +140,7 @@ export function WelcomeSection() {
           />
           <video
             className={styles.video}
-            src="/static/images/landing-page/tic-tac-toe-736a8.mp4"
+            src={staticAsset("images/landing-page/tic-tac-toe-736a8.mp4")}
             aria-label={t("ticTacToeLabel")}
             width={400}
             height={300}
@@ -150,7 +151,7 @@ export function WelcomeSection() {
           />
           <video
             className={styles.video}
-            src="/static/images/landing-page/breakout-bcaa3.mp4"
+            src={staticAsset("images/landing-page/breakout-bcaa3.mp4")}
             aria-label={t("breakoutLabel")}
             width={400}
             height={300}
@@ -161,7 +162,7 @@ export function WelcomeSection() {
           />
           <video
             className={styles.video}
-            src="/static/images/landing-page/maze-59a6d.mp4"
+            src={staticAsset("images/landing-page/maze-59a6d.mp4")}
             aria-label={t("mazeLabel")}
             width={400}
             height={300}

@@ -4,6 +4,7 @@ import shared from "@/components/landing-page/shared.module.css";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
+import { staticAsset } from "@/lib/static-asset";
 import { Buttons } from "./Buttons";
 import { HeaderHeightSync } from "./HeaderHeightSync";
 import styles from "./Header.module.css";
@@ -21,7 +22,7 @@ export default function Header({ banner }: { banner?: React.ReactNode }) {
       <div className={`${shared["lg-container"]} ${styles.inner}`}>
         <Link href="/" aria-label={t("homeAriaLabel")} className={styles.logoLink}>
           <Image
-            src="/static/images/logo-peeking.webp"
+            src={staticAsset("images/logo-peeking.webp")}
             alt={t("logoAlt")}
             width={100}
             height={40}
