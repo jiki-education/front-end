@@ -79,6 +79,16 @@
       "answer": "Either way is enough on its own, so you have two options.\n\nThe first is to write a separate `if` for each way, both doing the same action:\n\n```javascript\nif (isHungry() && hasSnack()) {\n  eat()\n}\nif (isThirsty() && hasSnack()) {\n  eat()\n}\n```\n\nThe second is to combine both ways into a single `if` with `||`, wrapping each way's checks in brackets so the `&&` parts group together before the `||` splits them:\n\n```javascript\nif ((isHungry() && hasSnack()) || (isThirsty() && hasSnack())) {\n  eat()\n}\n```\n\nWork out each way's requirements on its own first, then use whichever style you find clearer."
     }
   },
+  "describers": {
+    "knightIsAwake": "checked whether the knight is awake",
+    "archerIsAwake": "checked whether the archer is awake",
+    "prisonerIsAwake": "checked whether the prisoner is awake",
+    "dogIsBehaving": "checked whether Annalyn's dog is behaving itself",
+    "fastAttack": "made a fast attack on the knight",
+    "spy": "spied on the group",
+    "signalPrisoner": "signalled the prisoner",
+    "freePrisoner": "freed the prisoner"
+  },
   "functions": {
     "knightIsAwake": {
       "description": "Returns `true` if the knight is awake, `false` if he is asleep.",

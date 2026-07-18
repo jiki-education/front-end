@@ -36,6 +36,9 @@
       "answer": "You probably only checked two walls. Add the same kind of check for the top (`ball.cy - ball.radius <= 0`) and bottom (`ball.cy + ball.radius >= 100`), flipping `yVelocity` instead of `xVelocity`."
     }
   },
+  "describers": {
+    "moveBall": "Moves the ball according to its velocity"
+  },
   "functions": {
     "ball": {
       "description": "Creates a new Ball instance with properties: `cx`, `cy` (center position), `radius`, `xVelocity`, and `yVelocity`.",

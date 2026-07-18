@@ -2,5 +2,11 @@
   "errors": {
     "xNotNumber": "x must be a number",
     "yNotNumber": "y must be a number"
+  },
+  "describers": {
+    "rollRight": "rolled the ball one unit to the right",
+    "moveTo": "moved the ball to the given position",
+    "getShotLength": "retrieved the shot length",
+    "fireFireworks": "fired off celebratory fireworks"
   }
 }

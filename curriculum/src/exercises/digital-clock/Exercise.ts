@@ -1,5 +1,6 @@
-import { type ExecutionContext, type ExternalFunction, type Shared, isNumber, isString } from "@jiki/interpreters";
+import { type ExecutionContext, type Shared, isNumber, isString } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
+import type { AvailableFunction } from "../../types";
 import metadata from "./metadata.json";
 
 export default class DigitalClockExercise extends VisualExercise {
@@ -16,21 +17,21 @@ export default class DigitalClockExercise extends VisualExercise {
     this.populateView();
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "current_time_hour",
       func: this.currentTimeHour.bind(this),
-      description: "retrieved the current hour"
+      descriptionKey: "describers.currentTimeHour"
     },
     {
       name: "current_time_minute",
       func: this.currentTimeMinute.bind(this),
-      description: "retrieved the current minute"
+      descriptionKey: "describers.currentTimeMinute"
     },
     {
       name: "display_time",
       func: this.displayTime.bind(this),
-      description: "displayed the time on the clock"
+      descriptionKey: "describers.displayTime"
     }
   ];
 

@@ -1,6 +1,7 @@
 import { DrawExercise } from "../../exercise-categories/draw";
-import type { ExecutionContext, ExternalFunction, Shared } from "@jiki/interpreters";
+import type { ExecutionContext, Shared } from "@jiki/interpreters";
 import { isNumber, isString } from "@jiki/interpreters";
+import type { AvailableFunction } from "../../types";
 import metadata from "./metadata.json";
 
 export class TicTacToeExercise extends DrawExercise {
@@ -11,7 +12,7 @@ export class TicTacToeExercise extends DrawExercise {
   // Track write calls for scenario validation
   private writeCalls: string[] = [];
 
-  public get availableFunctions(): ExternalFunction[] {
+  public get availableFunctions(): AvailableFunction[] {
     const { rectangle, circle, line } = this.getAllAvailableFunctions();
     return [
       rectangle,
@@ -20,12 +21,12 @@ export class TicTacToeExercise extends DrawExercise {
       {
         name: "change_stroke",
         func: this.changeStrokeCustom.bind(this),
-        description: "set the stroke width to ${arg1} and stroke color to ${arg2}"
+        descriptionKey: "describers.changeStroke"
       },
       {
         name: "write",
         func: this.writeText.bind(this),
-        description: "wrote '${arg1}' to the screen"
+        descriptionKey: "describers.write"
       }
     ];
   }

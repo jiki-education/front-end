@@ -1,5 +1,6 @@
-import { type ExecutionContext, type ExternalFunction, type Shared, isString } from "@jiki/interpreters";
+import { type ExecutionContext, type Shared, isString } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
+import type { AvailableFunction } from "../../types";
 
 export type Choice = "rock" | "paper" | "scissors";
 export type Result = "Yuki" | "Ando" | "tie";
@@ -92,21 +93,21 @@ export default abstract class RockPaperScissorsExercise extends VisualExercise {
     }
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "announce_result",
       func: this.announceResult.bind(this),
-      description: "announced the result of the game as ${arg1}"
+      descriptionKey: "describers.announceResult"
     },
     {
       name: "get_yuki_choice",
       func: this.getYukiChoice.bind(this),
-      description: "returned Yuki's choice"
+      descriptionKey: "describers.getYukiChoice"
     },
     {
       name: "get_ando_choice",
       func: this.getAndoChoice.bind(this),
-      description: "returned Ando's choice"
+      descriptionKey: "describers.getAndoChoice"
     }
   ];
 

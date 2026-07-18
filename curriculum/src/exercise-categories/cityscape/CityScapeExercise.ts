@@ -1,4 +1,5 @@
-import { type ExecutionContext, type ExternalFunction, type Shared, isNumber } from "@jiki/interpreters";
+import { type ExecutionContext, type Shared, isNumber } from "@jiki/interpreters";
+import type { AvailableFunction } from "../../types";
 import { VisualExercise } from "../../VisualExercise";
 
 type CellType = "wall" | "entrance" | "glass";
@@ -42,31 +43,31 @@ export default class CityScapeExercise extends VisualExercise {
     this.populateView();
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "build_wall",
       func: this.buildWall.bind(this),
-      description: "built a wall at position (${arg1}, ${arg2})"
+      descriptionKey: "describers.buildWall"
     },
     {
       name: "build_entrance",
       func: this.buildEntrance.bind(this),
-      description: "built an entrance at position (${arg1}, ${arg2})"
+      descriptionKey: "describers.buildEntrance"
     },
     {
       name: "build_glass",
       func: this.buildGlass.bind(this),
-      description: "built a glass panel at position (${arg1}, ${arg2})"
+      descriptionKey: "describers.buildGlass"
     },
     {
       name: "num_floors",
       func: this.getNumFloors.bind(this),
-      description: "retrieved the number of floors"
+      descriptionKey: "describers.numFloors"
     },
     {
       name: "num_buildings",
       func: this.getNumBuildings.bind(this),
-      description: "retrieved the number of buildings"
+      descriptionKey: "describers.numBuildings"
     }
   ];
 

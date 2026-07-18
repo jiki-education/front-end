@@ -121,6 +121,10 @@
       "answer": "Try the rules in order: first see if there's a move that wins immediately, then see if there's one that blocks the opponent's win, otherwise pick any empty square."
     }
   },
+  "describers": {
+    "changeStroke": "set the stroke width to ${arg1} and stroke color to ${arg2}",
+    "write": "wrote '${arg1}' to the screen"
+  },
   "functions": {
     "rectangle": {
       "description": "Draw a rectangle at position (left, top) with the given width, height, and color",

@@ -166,5 +166,10 @@
       "description": "Adds an element to a list and returns the new list. Does not change the original list.",
       "category": "Lists"
     }
+  },
+  "describers": {
+    "addWord": "added a word to the wordle board",
+    "getTargetWord": "retrieved the target word",
+    "commonWords": "retrieved the list of common words"
   }
 }

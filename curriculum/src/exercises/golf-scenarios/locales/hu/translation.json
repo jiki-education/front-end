@@ -46,5 +46,9 @@
       "description": "Returns the **length of the shot** — how many units the ball travels to the right.",
       "category": "Information"
     }
+  },
+  "describers": {
+    "moveTo": "moved the ball to position ${arg1}",
+    "getShotLength": "retrieved the shot length"
   }
 }

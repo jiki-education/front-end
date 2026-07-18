@@ -2,5 +2,10 @@
   "errors": {
     "invalidResult": "Oh no! You announced an invalid result. There's chaos in the playing hall! Please announce either \"Yuki\", \"Ando\" or \"tie\".",
     "wrongResult": "Oh no! You announced the wrong result. There's chaos in the playing hall!\n\nYou should have announced `\"{{expected}}\"` but you announced `\"{{got}}\"`."
+  },
+  "describers": {
+    "announceResult": "announced the result of the game as ${arg1}",
+    "getYukiChoice": "returned Yuki's choice",
+    "getAndoChoice": "returned Ando's choice"
   }
 }

@@ -2,6 +2,9 @@
   "errors": {
     "blockedUrl": "Oh no, you tried to fetch an unexpected URL, which got blocked."
   },
+  "describers": {
+    "fetch": "fetched data from the provided URL"
+  },
   "tasks": {
     "formatLlmResponse": {
       "name": "Format the response",

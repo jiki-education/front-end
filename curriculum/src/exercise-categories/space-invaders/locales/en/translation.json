@@ -1,4 +1,12 @@
 {
+  "describers": {
+    "moveLeft": "moved the laser cannon to the left",
+    "moveRight": "moved the laser cannon to the right",
+    "shoot": "shot the laser upwards",
+    "isAlienAbove": "determined if there was an alien above the laser cannon",
+    "getStartingAliensInRow": "retrieved the starting positions of row ${arg1} of aliens",
+    "fireFireworks": "fired off celebratory fireworks"
+  },
   "errors": {
     "laserOverheated": "Oh no! Your laser cannon overheated from shooting too fast! You need to move before you can shoot a second time.",
     "missedShot": "Oh no, you missed. Wasting ammo is not allowed!",

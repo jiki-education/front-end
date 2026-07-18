@@ -29,5 +29,8 @@
       "description": "Plants a flower at the given **position**.",
       "category": "Gardening"
     }
+  },
+  "describers": {
+    "plant": "planted a flower at position ${arg1}"
   }
 }

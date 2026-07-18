@@ -46,6 +46,9 @@
       "answer": "Write a small function that returns true when all blocks have `smashed === true`. When it returns true, `break` out of the main loop."
     }
   },
+  "describers": {
+    "moveBall": "Moves the ball according to its velocity"
+  },
   "functions": {
     "ball": {
       "description": "Creates a new Ball instance with properties: `cx`, `cy` (center position), `radius`, `xVelocity`, and `yVelocity`.",

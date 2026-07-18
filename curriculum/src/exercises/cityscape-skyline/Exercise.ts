@@ -1,4 +1,5 @@
 import CityScapeExercise from "../../exercise-categories/cityscape/CityScapeExercise";
+import type { AvailableFunction } from "../../types";
 import metadata from "./metadata.json";
 
 export default class CityScapeSkylineExercise extends CityScapeExercise {
@@ -6,36 +7,36 @@ export default class CityScapeSkylineExercise extends CityScapeExercise {
     return metadata.slug;
   }
 
-  public availableFunctions = [
+  public availableFunctions: AvailableFunction[] = [
     {
       name: "build_wall",
       func: this.buildWall.bind(this),
-      description: "built a wall at position (${arg1}, ${arg2})"
+      descriptionKey: "describers.buildWall"
     },
     {
       name: "build_entrance",
       func: this.buildEntrance.bind(this),
-      description: "built an entrance at position (${arg1}, ${arg2})"
+      descriptionKey: "describers.buildEntrance"
     },
     {
       name: "build_glass",
       func: this.buildGlass.bind(this),
-      description: "built a glass panel at position (${arg1}, ${arg2})"
+      descriptionKey: "describers.buildGlass"
     },
     {
       name: "num_buildings",
       func: this.getNumBuildings.bind(this),
-      description: "retrieved the number of buildings"
+      descriptionKey: "describers.numBuildings"
     },
     {
       name: "random_width",
       func: this.getRandomWidth.bind(this),
-      description: "retrieved a random building width (3-7)"
+      descriptionKey: "describers.randomWidth"
     },
     {
       name: "random_num_floors",
       func: this.getRandomNumFloors.bind(this),
-      description: "retrieved a random number of floors (1-12)"
+      descriptionKey: "describers.randomNumFloors"
     }
   ];
 }

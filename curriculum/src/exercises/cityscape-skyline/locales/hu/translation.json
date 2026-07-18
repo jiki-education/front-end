@@ -81,5 +81,13 @@
       "description": "Returns a **random number of floors** between 1 and 12.",
       "category": "Info"
     }
+  },
+  "describers": {
+    "buildWall": "built a wall at position (${arg1}, ${arg2})",
+    "buildEntrance": "built an entrance at position (${arg1}, ${arg2})",
+    "buildGlass": "built a glass panel at position (${arg1}, ${arg2})",
+    "numBuildings": "retrieved the number of buildings",
+    "randomWidth": "retrieved a random building width (3-7)",
+    "randomNumFloors": "retrieved a random number of floors (1-12)"
   }
 }

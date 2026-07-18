@@ -1,7 +1,7 @@
 import { VisualExercise } from "../../VisualExercise";
 import { jikiscript, javascript } from "@jiki/interpreters";
-import type { ExecutionContext, ExternalFunction, Shared } from "@jiki/interpreters";
-import type { Language } from "../../types";
+import type { ExecutionContext, Shared } from "@jiki/interpreters";
+import type { AvailableFunction, Language } from "../../types";
 import metadata from "./metadata.json";
 
 // Helper to read a numeric field from either a Jikiscript or JS instance
@@ -32,7 +32,7 @@ export default class BoundarieBallExercise extends VisualExercise {
   private velocityFieldX = "x_velocity";
   private velocityFieldY = "y_velocity";
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "move_ball",
       func: (executionCtx: ExecutionContext, ballArg: Shared.JikiObject) => {
@@ -65,7 +65,7 @@ export default class BoundarieBallExercise extends VisualExercise {
         });
         executionCtx.fastForward(1);
       },
-      description: "Moves the ball according to its velocity"
+      descriptionKey: "describers.moveBall"
     }
   ];
 

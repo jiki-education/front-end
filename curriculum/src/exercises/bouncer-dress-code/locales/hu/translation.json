@@ -131,6 +131,15 @@
       "answer": "You need to use the \"and\" operator that Jeremy taught in the previous video to combine conditionals. Re-read the <a href=\"/concepts/logical-and\" target=\"_blank\" rel=\"noopener noreferrer\">concept page</a> if you're not sure how to use it."
     }
   },
+  "describers": {
+    "getOutfit": "retrieved the person's outfit",
+    "getAge": "retrieved the person's age",
+    "onGuestList": "checked the guest list",
+    "offerChampagne": "offered champagne",
+    "offerCanapes": "offered canapés",
+    "letIn": "let the person in",
+    "turnAway": "turned the person away"
+  },
   "functions": {
     "getOutfit": {
       "description": "Returns the **outfit** the person is wearing (e.g. `\"ballgown\"`, `\"suit\"`, `\"denim\"`).",

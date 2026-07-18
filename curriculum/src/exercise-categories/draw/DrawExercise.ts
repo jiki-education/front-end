@@ -522,56 +522,46 @@ export abstract class DrawExercise extends VisualExercise {
         name: "rectangle",
         func: this.rectangle.bind(this),
         arity: fc ? 4 : 5,
-        description: fc
-          ? "drew a rectangle at coordinates (${arg1}, ${arg2}) with a width of ${arg3} and a height of ${arg4}"
-          : "drew a rectangle at coordinates (${arg1}, ${arg2}) with a width of ${arg3}, a height of ${arg4}, and a color of ${arg5}"
+        descriptionKey: fc ? "describers.rectangle.fixedColor" : "describers.rectangle.default"
       },
       triangle: {
         name: "triangle",
         func: this.triangle.bind(this),
         arity: fc ? 6 : 7,
-        description: fc
-          ? "drew a triangle with three points: (${arg1}, ${arg2}), (${arg3}, ${arg4}), and (${arg5}, ${arg6})"
-          : "drew a triangle with three points: (${arg1}, ${arg2}), (${arg3}, ${arg4}), and (${arg5}, ${arg6}) with a color of ${arg7}"
+        descriptionKey: fc ? "describers.triangle.fixedColor" : "describers.triangle.default"
       },
       circle: {
         name: "circle",
         func: this.circle.bind(this),
         arity: fc ? 3 : 4,
-        description: fc
-          ? "drew a circle with its center at (${arg1}, ${arg2}) and a radius of ${arg3}"
-          : "drew a circle with its center at (${arg1}, ${arg2}), a radius of ${arg3}, and a color of ${arg4}"
+        descriptionKey: fc ? "describers.circle.fixedColor" : "describers.circle.default"
       },
       ellipse: {
         name: "ellipse",
         func: this.ellipse.bind(this),
         arity: fc ? 4 : 5,
-        description: fc
-          ? "drew an ellipse with its center at (${arg1}, ${arg2}), a radial width of ${arg3}, and a radial height of ${arg4}"
-          : "drew an ellipse with its center at (${arg1}, ${arg2}), a radial width of ${arg3}, a radial height of ${arg4}, and a color of ${arg5}"
+        descriptionKey: fc ? "describers.ellipse.fixedColor" : "describers.ellipse.default"
       },
       line: {
         name: "line",
         func: this.line.bind(this),
         arity: fc ? 4 : 5,
-        description: fc
-          ? "drew a line from (${arg1}, ${arg2}) to (${arg3}, ${arg4})"
-          : "drew a line from (${arg1}, ${arg2}) to (${arg3}, ${arg4}) with a color of ${arg5}"
+        descriptionKey: fc ? "describers.line.fixedColor" : "describers.line.default"
       },
       clear: {
         name: "clear",
         func: this.clear.bind(this),
-        description: "cleared the canvas"
+        descriptionKey: "describers.clear"
       },
       hsl: {
         name: "hsl",
         func: this.hsl.bind(this),
-        description: "converted HSL color (hue: ${arg1}, saturation: ${arg2}, lightness: ${arg3}) to a hex string"
+        descriptionKey: "describers.hsl"
       },
       rgb: {
         name: "rgb",
         func: this.rgb.bind(this),
-        description: "converted RGB color (red: ${arg1}, green: ${arg2}, blue: ${arg3}) to a hex string"
+        descriptionKey: "describers.rgb"
       }
     };
   }

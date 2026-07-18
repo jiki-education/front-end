@@ -2,6 +2,9 @@
   "errors": {
     "blockedUrl": "Oh no, you tried to fetch an unexpected URL, which got blocked."
   },
+  "describers": {
+    "fetch": "Fetches data from a URL with the given parameters"
+  },
   "tasks": {
     "fetchAndFormatTime": {
       "name": "Fetch and format the time",

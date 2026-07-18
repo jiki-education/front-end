@@ -1,7 +1,8 @@
-import { type ExecutionContext, type ExternalFunction, type Shared, isNumber } from "@jiki/interpreters";
+import { type ExecutionContext, type Shared, isNumber } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
 import { fireFireworks } from "../../effects/fireworks";
 import "../../effects/fireworks.css";
+import type { AvailableFunction } from "../../types";
 
 export default class GolfExercise extends VisualExercise {
   protected get slug() {
@@ -22,26 +23,26 @@ export default class GolfExercise extends VisualExercise {
     this.populateView();
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "roll_right",
       func: this.rollRight.bind(this),
-      description: "rolled the ball one unit to the right"
+      descriptionKey: "describers.rollRight"
     },
     {
       name: "move_to",
       func: this.moveTo.bind(this),
-      description: "moved the ball to the given position"
+      descriptionKey: "describers.moveTo"
     },
     {
       name: "get_shot_length",
       func: this.getShotLength.bind(this),
-      description: "retrieved the shot length"
+      descriptionKey: "describers.getShotLength"
     },
     {
       name: "fire_fireworks",
       func: this.fireFireworks.bind(this),
-      description: "fired off celebratory fireworks"
+      descriptionKey: "describers.fireFireworks"
     }
   ];
 

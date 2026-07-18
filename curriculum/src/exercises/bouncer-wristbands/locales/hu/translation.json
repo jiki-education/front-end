@@ -65,6 +65,13 @@
       "answer": "You do not need a condition for them. A plain `else` that calls `giveSeniorWristband()` catches everyone aged 65 and over."
     }
   },
+  "describers": {
+    "getAge": "retrieved the person's age",
+    "giveChildWristband": "gave a child wristband",
+    "giveTeenWristband": "gave a teen wristband",
+    "giveAdultWristband": "gave an adult wristband",
+    "giveSeniorWristband": "gave a senior wristband"
+  },
   "functions": {
     "getAge": {
       "description": "Returns the **age** of the person waiting outside.",

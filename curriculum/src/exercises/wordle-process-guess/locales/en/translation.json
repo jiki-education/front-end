@@ -65,5 +65,8 @@
       "description": "Adds an element to a list and returns the new list. Does not change the original list.",
       "category": "Lists"
     }
+  },
+  "describers": {
+    "colorRow": "colored a row on the wordle board"
   }
 }

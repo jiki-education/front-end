@@ -1,5 +1,6 @@
-import type { ExternalFunction, ExecutionContext } from "@jiki/interpreters";
+import type { ExecutionContext } from "@jiki/interpreters";
 import { IOExercise } from "../../IOExercise";
+import type { AvailableFunction } from "../../types";
 import metadata from "./metadata.json";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -63,11 +64,11 @@ export default class LlmResponseExercise extends IOExercise {
     return { error: "Could not determine answer" };
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "fetch",
       func: this.fetch.bind(this),
-      description: "fetched data from the provided URL",
+      descriptionKey: "describers.fetch",
       arity: 2
     }
   ];

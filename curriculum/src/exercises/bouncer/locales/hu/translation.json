@@ -39,6 +39,10 @@
       "answer": "Use an `if` statement - check the concept if you need more help!"
     }
   },
+  "describers": {
+    "askAge": "asked the person's age",
+    "letIn": "let the person in"
+  },
   "functions": {
     "askAge": {
       "description": "Returns the **age** of the person waiting outside.",

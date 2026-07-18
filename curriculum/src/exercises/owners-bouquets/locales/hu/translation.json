@@ -48,5 +48,9 @@
       "description": "Plants a flower at the given **position**.",
       "category": "Gardening"
     }
+  },
+  "describers": {
+    "askNumberOfFlowers": "asked for the number of flowers to plant",
+    "plant": "planted a flower at position ${arg1}"
   }
 }

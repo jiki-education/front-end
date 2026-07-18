@@ -1,5 +1,6 @@
-import type { ExternalFunction, ExecutionContext } from "@jiki/interpreters";
+import type { ExecutionContext } from "@jiki/interpreters";
 import { IOExercise } from "../../IOExercise";
+import type { AvailableFunction } from "../../types";
 import metadata from "./metadata.json";
 
 const mockApiData: Record<string, Record<string, string>> = {
@@ -33,11 +34,11 @@ export default class LookupTimeExercise extends IOExercise {
     return { error: "Could not determine the time." };
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "fetch",
       func: this.fetch.bind(this),
-      description: "Fetches data from a URL with the given parameters",
+      descriptionKey: "describers.fetch",
       arity: 2
     }
   ];

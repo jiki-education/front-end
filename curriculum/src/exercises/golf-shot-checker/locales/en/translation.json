@@ -73,5 +73,10 @@
       "description": "Fires celebratory fireworks!",
       "category": "Action"
     }
+  },
+  "describers": {
+    "moveTo": "moved the ball to position (${arg1}, ${arg2})",
+    "getShotLength": "retrieved the shot length",
+    "fireFireworks": "fired off celebratory fireworks"
   }
 }

@@ -58,6 +58,11 @@
       "answer": "On a 12 hour clock, 13:00 is represented as 1:00pm, 14:00 is represented as 2:00pm, so you need to work out the relationship between 13->1 and 14->2 etc, and amend the clock accordingly!"
     }
   },
+  "describers": {
+    "currentTimeHour": "retrieved the current hour",
+    "currentTimeMinute": "retrieved the current minute",
+    "displayTime": "displayed the time on the clock"
+  },
   "functions": {
     "currentTimeHour": {
       "description": "Returns the current hour using 24-hour time (e.g. 23 for 11pm) as a number.",

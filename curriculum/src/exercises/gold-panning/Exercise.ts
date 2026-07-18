@@ -177,13 +177,13 @@ export default class GoldPanningExercise extends VisualExercise {
     {
       name: "pan",
       func: this.pan.bind(this),
-      description: "panned and found ${return} nuggets",
+      descriptionKey: "describers.pan",
       arity: 0 as const
     },
     {
       name: "sell",
       func: this.sell.bind(this),
-      description: "sold ${arg1} nuggets at the trading post",
+      descriptionKey: "describers.sell",
       arity: 1 as const
     }
   ];

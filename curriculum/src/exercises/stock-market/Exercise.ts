@@ -197,19 +197,19 @@ export default class StockMarketExercise extends VisualExercise {
     {
       name: "market_growth",
       func: this.marketGrowth.bind(this),
-      description: "got market growth of ${return}% for year ${arg1}",
+      descriptionKey: "describers.marketGrowth",
       arity: 1 as const
     },
     {
       name: "report_tax",
       func: this.reportTax.bind(this),
-      description: "reported tax for year ${arg1}: $${arg2}",
+      descriptionKey: "describers.reportTax",
       arity: 2 as const
     },
     {
       name: "announce_to_family",
       func: this.announceToFamily.bind(this),
-      description: "announced $${arg1} to the family",
+      descriptionKey: "describers.announceToFamily",
       arity: 1 as const
     }
   ];

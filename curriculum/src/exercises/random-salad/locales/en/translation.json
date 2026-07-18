@@ -50,6 +50,9 @@
       "answer": "Once you've worked out how many ingredients you need for each, input leaves, tomatoes, croutons, olives into makeSalad()."
     }
   },
+  "describers": {
+    "makeSalad": "made a salad with ${arg1} leaves, ${arg2} tomatoes, ${arg3} croutons, and ${arg4} olives"
+  },
   "functions": {
     "makeSalad": {
       "description": "Makes a salad with the given amounts of each ingredient.",

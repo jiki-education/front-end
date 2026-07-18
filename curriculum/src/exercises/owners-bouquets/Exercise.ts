@@ -13,12 +13,12 @@ export default class PlantTheFlowersScenariosExercise extends FlowerPlantingExer
     {
       name: "ask_number_of_flowers",
       func: this.getNumFlowers.bind(this),
-      description: "asked for the number of flowers to plant"
+      descriptionKey: "describers.askNumberOfFlowers"
     },
     {
       name: "plant",
       func: this.plant.bind(this),
-      description: "planted a flower at position ${arg1}"
+      descriptionKey: "describers.plant"
     }
   ];
 

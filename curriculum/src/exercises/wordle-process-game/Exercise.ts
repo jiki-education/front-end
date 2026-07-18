@@ -10,7 +10,7 @@ export default class ProcessGameExercise extends WordleExercise {
     {
       name: "color_row",
       func: this.colorRow.bind(this),
-      description: "colored a row on the wordle board"
+      descriptionKey: "describers.colorRow"
     }
   ];
 }

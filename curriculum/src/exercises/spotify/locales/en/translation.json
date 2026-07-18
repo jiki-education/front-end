@@ -1,4 +1,7 @@
 {
+  "describers": {
+    "fetch": "fetched data from the provided URL"
+  },
   "tasks": {
     "formatResponse": {
       "name": "Format the response",

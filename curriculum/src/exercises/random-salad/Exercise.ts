@@ -197,7 +197,7 @@ export default class RandomSaladExercise extends VisualExercise {
     {
       name: "make_salad",
       func: this.make_salad.bind(this),
-      description: "made a salad with ${arg1} leaves, ${arg2} tomatoes, ${arg3} croutons, and ${arg4} olives",
+      descriptionKey: "describers.makeSalad",
       arity: 4 as const
     }
   ];

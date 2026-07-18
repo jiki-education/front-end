@@ -66,5 +66,11 @@
       "description": "Returns the **number of floors** for this building.",
       "category": "Info"
     }
+  },
+  "describers": {
+    "buildWall": "built a wall at position (${arg1}, ${arg2})",
+    "buildEntrance": "built an entrance at position (${arg1}, ${arg2})",
+    "buildGlass": "built a glass panel at position (${arg1}, ${arg2})",
+    "numFloors": "retrieved the number of floors"
   }
 }

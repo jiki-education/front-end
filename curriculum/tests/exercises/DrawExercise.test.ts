@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { DrawExercise } from "../../src/exercise-categories/draw";
-import type { ExecutionContext, ExternalFunction } from "@jiki/interpreters";
+import type { ExecutionContext } from "@jiki/interpreters";
 import type { Shared } from "@jiki/interpreters";
 import { Circle, Rectangle, Ellipse, Triangle, Line } from "../../src/exercise-categories/draw/shapes";
 
@@ -10,7 +10,7 @@ class TestDrawExercise extends DrawExercise {
     return "test-draw-exercise";
   }
 
-  public get availableFunctions(): ExternalFunction[] {
+  public get availableFunctions() {
     const funcs = this.getAllAvailableFunctions();
     return Object.values(funcs);
   }

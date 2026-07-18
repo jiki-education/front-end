@@ -1,5 +1,6 @@
-import { type ExecutionContext, type ExternalFunction } from "@jiki/interpreters";
+import { type ExecutionContext } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
+import type { AvailableFunction } from "../../types";
 import metadata from "./metadata.json";
 
 export default class BouncerDressCodeExercise extends VisualExercise {
@@ -24,41 +25,41 @@ export default class BouncerDressCodeExercise extends VisualExercise {
     this.populateView();
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "get_outfit",
       func: this.getOutfit.bind(this),
-      description: "retrieved the person's outfit"
+      descriptionKey: "describers.getOutfit"
     },
     {
       name: "get_age",
       func: this.getAge.bind(this),
-      description: "retrieved the person's age"
+      descriptionKey: "describers.getAge"
     },
     {
       name: "on_guest_list",
       func: this.onGuestList.bind(this),
-      description: "checked the guest list"
+      descriptionKey: "describers.onGuestList"
     },
     {
       name: "offer_champagne",
       func: this.offerChampagne.bind(this),
-      description: "offered champagne"
+      descriptionKey: "describers.offerChampagne"
     },
     {
       name: "offer_canapes",
       func: this.offerCanapes.bind(this),
-      description: "offered canapés"
+      descriptionKey: "describers.offerCanapes"
     },
     {
       name: "let_in",
       func: this.letIn.bind(this),
-      description: "let the person in"
+      descriptionKey: "describers.letIn"
     },
     {
       name: "turn_away",
       func: this.turnAway.bind(this),
-      description: "turned the person away"
+      descriptionKey: "describers.turnAway"
     }
   ];
 

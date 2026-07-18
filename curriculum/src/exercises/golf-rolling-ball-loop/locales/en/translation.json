@@ -29,5 +29,8 @@
       "description": "Rolls the ball **one step to the right**.",
       "category": "Movement"
     }
+  },
+  "describers": {
+    "roll": "rolled the ball one step to the right"
   }
 }

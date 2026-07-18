@@ -43,6 +43,11 @@
       "answer": "You should report 20 tax returns for 20 years. Use the scrubber to count how many times you use the `reportTax()` function."
     }
   },
+  "describers": {
+    "marketGrowth": "got market growth of ${return}% for year ${arg1}",
+    "reportTax": "reported tax for year ${arg1}: $${arg2}",
+    "announceToFamily": "announced $${arg1} to the family"
+  },
   "functions": {
     "marketGrowth": {
       "description": "Returns the market growth percentage for a given year (between -25 and 40). You'll need to **increase** the amount of money you have by this number each time. (So 40 means that your $10 should be worth $14, and -10 means your $10 goes down to $9)",

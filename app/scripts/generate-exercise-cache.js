@@ -79,17 +79,31 @@ function deepMerge(base, override) {
 }
 
 /**
- * Derive an exercise's family (its exercise-category base) from its Exercise.ts
- * import of `../../exercise-categories/<family>/...`. Returns null for standalone
- * exercises (no shared base). This is how base catalogs get merged in below.
+ * Derive an exercise's family (its exercise-category base) from an
+ * `../../exercise-categories/<family>/...` import in any of the exercise's source
+ * files. Scans every `.ts` file in the dir rather than only `Exercise.ts`, since
+ * some exercises name their class file differently (e.g. scroll-and-shoot uses
+ * `ScrollAndShootExercise.ts`). Returns null for standalone exercises (no shared
+ * base). This is how base catalogs get merged in below.
  */
 function deriveFamily(exercisePath) {
-  const raw = readFileOrNull(path.join(exercisePath, "Exercise.ts"));
-  if (raw === null) {
+  let files;
+  try {
+    files = fs.readdirSync(exercisePath).filter((f) => f.endsWith(".ts"));
+  } catch {
     return null;
   }
-  const match = raw.match(/exercise-categories\/([^/"'`\s]+)/);
-  return match ? match[1] : null;
+  for (const file of files) {
+    const raw = readFileOrNull(path.join(exercisePath, file));
+    if (raw === null) {
+      continue;
+    }
+    const match = raw.match(/exercise-categories\/([^/"'`\s]+)/);
+    if (match) {
+      return match[1];
+    }
+  }
+  return null;
 }
 
 /**

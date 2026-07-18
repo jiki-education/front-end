@@ -5,5 +5,12 @@
     "yNotWhole": "You must use whole numbers for `x` and `y`. You provided `y` as `{{y}}`, which isn't allowed.",
     "outsideGrid": "Position ({{x}}, {{y}}) is outside the grid",
     "alreadyBuilt": "The builders are stuck. There's already a {{existing}} at the coordinates `({{x}}, {{y}})` so they can't build here!"
+  },
+  "describers": {
+    "buildWall": "built a wall at position (${arg1}, ${arg2})",
+    "buildEntrance": "built an entrance at position (${arg1}, ${arg2})",
+    "buildGlass": "built a glass panel at position (${arg1}, ${arg2})",
+    "numFloors": "retrieved the number of floors",
+    "numBuildings": "retrieved the number of buildings"
   }
 }

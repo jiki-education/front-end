@@ -67,6 +67,12 @@
       "answer": "That person can't match, so they should be turned away. Check the lengths before you start comparing and handle that case."
     }
   },
+  "describers": {
+    "askName": "asked the person their name",
+    "getAllowedStart": "checked tonight's allowed starting letters",
+    "letIn": "let the person in",
+    "turnAway": "turned the person away"
+  },
   "functions": {
     "askName": {
       "description": "Returns the **name** of the person at the door.",

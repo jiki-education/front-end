@@ -10,17 +10,17 @@ export default class WordleSolverExercise extends WordleExercise {
     {
       name: "add_word",
       func: this.addWord.bind(this),
-      description: "added a word to the wordle board"
+      descriptionKey: "describers.addWord"
     },
     {
       name: "get_target_word",
       func: this.getTargetWord.bind(this),
-      description: "retrieved the target word"
+      descriptionKey: "describers.getTargetWord"
     },
     {
       name: "common_words",
       func: this.getCommonWords.bind(this),
-      description: "retrieved the list of common words"
+      descriptionKey: "describers.commonWords"
     }
   ];
 }

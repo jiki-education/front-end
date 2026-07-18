@@ -1,4 +1,7 @@
 {
+  "describers": {
+    "move": "moved the laser cannon to the right"
+  },
   "checks": {
     "notShotAllAliens": "You didn't shoot down all the aliens."
   },

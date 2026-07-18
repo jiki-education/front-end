@@ -38,6 +38,10 @@
       "answer": "You should only need to use one variable. Are you using more?"
     }
   },
+  "describers": {
+    "pan": "panned and found ${return} nuggets",
+    "sell": "sold ${arg1} nuggets at the trading post"
+  },
   "functions": {
     "pan": {
       "description": "Dips your pan in the river and **gives back** the number of gold nuggets found.",

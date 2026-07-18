@@ -7,17 +7,17 @@ export default class SpaceInvadersConditionalExercise extends SpaceInvadersExerc
     {
       name: "move",
       func: this.moveRight.bind(this),
-      description: "moved the laser cannon to the right"
+      descriptionKey: "describers.move"
     },
     {
       name: "shoot",
       func: this.shoot.bind(this),
-      description: "shot the laser upwards"
+      descriptionKey: "describers.shoot"
     },
     {
       name: "is_alien_above",
       func: this.isAlienAbove.bind(this),
-      description: "determined if there was an alien above the laser cannon"
+      descriptionKey: "describers.isAlienAbove"
     }
   ];
 }
