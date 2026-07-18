@@ -186,7 +186,16 @@ describe("runIOScenario", () => {
         codeChecks: [failingCodeCheck]
       };
 
-      const result = runIOScenario(scenario, "verbose code here", MockExerciseClass, "jikiscript", mockInterpreter, undefined, {}, {});
+      const result = runIOScenario(
+        scenario,
+        "verbose code here",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
       expect(result.expects[0].pass).toBe(false);
@@ -220,7 +229,16 @@ describe("runIOScenario", () => {
         codeChecks: [failingCodeCheck]
       };
 
-      const result = runIOScenario(scenario, "bad code", MockExerciseClass, "jikiscript", mockInterpreter, undefined, {}, {});
+      const result = runIOScenario(
+        scenario,
+        "bad code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
       expect(result.expects[0].pass).toBe(false);
@@ -263,7 +281,16 @@ describe("runIOScenario", () => {
         codeChecks: [passingCheck, firstFailingCheck, secondFailingCheck]
       };
 
-      const result = runIOScenario(scenario, "code", MockExerciseClass, "jikiscript", mockInterpreter, undefined, {}, {});
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
       expect(result.expects[0].errorHtml).toBe("First failing check error");
@@ -300,7 +327,16 @@ describe("runIOScenario", () => {
         codeChecks: [throwingCheck]
       };
 
-      const result = runIOScenario(scenario, "code", MockExerciseClass, "jikiscript", mockInterpreter, undefined, {}, {});
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
       expect(result.expects[0].pass).toBe(false);
@@ -328,7 +364,16 @@ describe("runIOScenario", () => {
         codeChecks: [codeCheck]
       };
 
-      const result = runIOScenario(scenario, "bad syntax", MockExerciseClass, "jikiscript", mockInterpreter, undefined, {}, {});
+      const result = runIOScenario(
+        scenario,
+        "bad syntax",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
       expect(result.expects[0].errorHtml).toContain("Interpreter crashed!");
@@ -360,7 +405,16 @@ describe("runIOScenario", () => {
         expected: "HW"
       };
 
-      const result = runIOScenario(scenario, "code", MockExerciseClass, "jikiscript", mockInterpreter, undefined, {}, {});
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
       expect(result.expects[0].actual).toBe("HW"); // Functional result is correct
@@ -390,7 +444,16 @@ describe("runIOScenario", () => {
         expected: "HW"
       };
 
-      const result = runIOScenario(scenario, "code", MockExerciseClass, "jikiscript", mockInterpreter, undefined, {}, {});
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("pass");
     });
@@ -420,7 +483,16 @@ describe("runIOScenario", () => {
         codeChecks: [passingCodeCheck]
       };
 
-      const result = runIOScenario(scenario, "code", MockExerciseClass, "jikiscript", mockInterpreter, undefined, {}, {});
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
     });
@@ -450,7 +522,16 @@ describe("runIOScenario", () => {
         meta: { sourceCode: "code" }
       });
 
-      const result = runIOScenario(scenario, "code", MockExerciseClass, "javascript", camelCasingInterpreter, undefined, {}, {});
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "javascript",
+        camelCasingInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.expects[0].codeRun).toBe("isLeapYear(2015)");
     });
@@ -464,7 +545,16 @@ describe("runIOScenario", () => {
         meta: { sourceCode: "code" }
       });
 
-      const result = runIOScenario(scenario, "code", MockExerciseClass, "jikiscript", mockInterpreter, undefined, {}, {});
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.expects[0].codeRun).toBe("is_leap_year(2015)");
     });
@@ -491,7 +581,16 @@ describe("runIOScenario", () => {
         // No codeChecks property
       };
 
-      const result = runIOScenario(scenario, "code", MockExerciseClass, "jikiscript", mockInterpreter, undefined, {}, {});
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("pass");
       expect(result.expects[0].pass).toBe(true);
@@ -520,7 +619,16 @@ describe("runIOScenario", () => {
         codeChecks: []
       };
 
-      const result = runIOScenario(scenario, "code", MockExerciseClass, "jikiscript", mockInterpreter, undefined, {}, {});
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("pass");
       expect(result.expects[0].pass).toBe(true);

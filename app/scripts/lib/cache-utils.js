@@ -1,5 +1,3 @@
- 
-
 /**
  * Shared helpers for the build-time cache generators (generate-*-cache.js).
  */
