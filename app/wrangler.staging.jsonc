@@ -14,7 +14,7 @@
   // the API base URL, auth cookie name, assetPrefix and CSP all match prod.
   "name": "jiki-app-staging",
   "main": "worker-wrapper.js",
-  "compatibility_date": "2025-08-16",
+  "compatibility_date": "2026-07-18",
   "compatibility_flags": ["nodejs_compat", "nodejs_compat_populate_process_env", "global_fetch_strictly_public"],
   "vars": {
     "ENVIRONMENT": "staging"
