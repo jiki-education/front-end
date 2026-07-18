@@ -1,8 +1,9 @@
 import type { IconProps } from "./IconWithFallback";
 import { conceptIconFallbackUrl, conceptIconUrls } from "@/lib/generated/concept-icon-hashes";
+import { assetsUrl } from "@/lib/assets";
 
 export function ConceptIcon({ slug, width = 100, height = 100 }: IconProps) {
-  const src = conceptIconUrls[slug] ?? conceptIconFallbackUrl;
+  const src = assetsUrl(conceptIconUrls[slug] ?? conceptIconFallbackUrl);
   return (
     // Concept icons are content-hashed webp images looked up by slug (see
     // lib/generated/concept-icon-hashes.ts), not suitable for next/image optimization
@@ -13,7 +14,7 @@ export function ConceptIcon({ slug, width = 100, height = 100 }: IconProps) {
       height={height}
       alt=""
       onError={(e) => {
-        e.currentTarget.src = conceptIconFallbackUrl;
+        e.currentTarget.src = assetsUrl(conceptIconFallbackUrl);
       }}
     />
   );

@@ -16,6 +16,8 @@ export async function getBlogPost(slug: string, locale: string): Promise<Process
     throw new Error(`Blog post not found: ${slug}`);
   }
 
-  const content = await fetchStaticContent(`/static/content/blog/${slug}/${meta.locale}-${meta.contentHash}.html`);
+  const content = await fetchStaticContent(
+    `/static/content/blog/${slug}/${meta.locale}/content-${meta.contentHash}.html`
+  );
   return { ...meta, content };
 }

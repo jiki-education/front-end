@@ -16,6 +16,8 @@ export async function getArticle(slug: string, locale: string): Promise<Processe
     throw new Error(`Article not found: ${slug}`);
   }
 
-  const content = await fetchStaticContent(`/static/content/articles/${slug}/${meta.locale}-${meta.contentHash}.html`);
+  const content = await fetchStaticContent(
+    `/static/content/articles/${slug}/${meta.locale}/content-${meta.contentHash}.html`
+  );
   return { ...meta, content };
 }

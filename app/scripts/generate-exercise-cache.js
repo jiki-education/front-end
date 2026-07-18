@@ -6,18 +6,24 @@
  *
  * Reads exercise source files from curriculum and produces:
  *
- *   public/static/exercises/{locale}-{hash}.json
+ *   public/static/exercises/{locale}/index-{hash}.json
  *     - Metadata index: all exercises with title, description, contentHashes
  *
- *   public/static/exercises/{slug}/{locale}-{language}-{hash}.json
+ *   public/static/exercises/{slug}/{locale}/{language}/content-{hash}.json
  *     - Content files: instructions, stub, solution per exercise/locale/language
+ *
+ *   public/static/i18n/exercises/{slug}/{locale}/messages-{hash}.json
+ *     - Curriculum-owned i18n message dicts (runtime logic-error/errorHtml strings)
  *
  *   lib/generated/exercise-hashes.ts
  *     - Hash manifest mapping locale -> metadata index hash
  *
+ *   lib/generated/exercise-message-hashes.ts
+ *     - Hash manifest mapping slug -> locale -> messages hash
+ *
  * Used by:
  * - Client-side exercise metadata API (title/description lookups)
- * - useExerciseLoader (instructions, stubs, solutions)
+ * - useExerciseLoader (instructions, stubs, solutions, runtime message dict)
  */
 
 import fs from "fs";
@@ -29,6 +35,7 @@ import matter from "gray-matter";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const EXERCISES_DIR = path.join(__dirname, "../../curriculum/src/exercises");
 const STATIC_DIR = path.join(__dirname, "../public/static/exercises");
+const I18N_DIR = path.join(__dirname, "../public/static/i18n/exercises");
 const GENERATED_DIR = path.join(__dirname, "../lib/generated");
 
 // Language name -> file extension mapping
@@ -176,18 +183,25 @@ function processExercises() {
 }
 
 /**
- * Build metadata indexes (per locale) and content files (per exercise/locale/language).
- * Returns the index hashes for the manifest.
+ * Build metadata indexes (per locale), content files (per exercise/locale/language),
+ * and i18n message dicts (per exercise/locale). Returns { indexHashes, messageHashes }.
  */
 function buildStaticFiles(exercises) {
-  // Emit per-exercise per-locale message catalogs as standalone artifacts.
-  // These are fetched by the active UI locale at runtime and injected into the
-  // exercise instance via `setMessages` — decoupled from the instruction/content
-  // locale, so a `hu` dict can be delivered even without `hu` instructions.
+  // Emit per-exercise per-locale message dicts as standalone, content-hashed
+  // artifacts under the i18n tree. Fetched by the active UI locale at runtime and
+  // injected into the exercise instance via `setMessages` — decoupled from the
+  // instruction/content locale, so a `hu` dict can be delivered even without `hu`
+  // instructions. messageHashes[slug][locale] = hash.
+  const messageHashes = {};
   for (const [slug, exercise] of Object.entries(exercises)) {
     for (const [locale, dict] of Object.entries(exercise.messages)) {
-      const messagesPath = path.join(STATIC_DIR, slug, `i18n-${locale}.json`);
-      writeFile(messagesPath, JSON.stringify(dict));
+      const content = JSON.stringify(dict);
+      const hash = computeHash(content);
+      if (!messageHashes[slug]) {
+        messageHashes[slug] = {};
+      }
+      messageHashes[slug][locale] = hash;
+      writeFile(path.join(I18N_DIR, slug, locale, `messages-${hash}.json`), content);
     }
   }
 
@@ -221,7 +235,7 @@ function buildStaticFiles(exercises) {
         const contentHash = computeHash(contentFile);
         contentHashes[language] = contentHash;
 
-        const contentPath = path.join(STATIC_DIR, slug, `${locale}-${language}-${contentHash}.json`);
+        const contentPath = path.join(STATIC_DIR, slug, locale, language, `content-${contentHash}.json`);
         writeFile(contentPath, contentFile);
       }
 
@@ -247,15 +261,15 @@ function buildStaticFiles(exercises) {
     const indexHash = computeHash(indexContent);
     indexHashes[locale] = indexHash;
 
-    const indexPath = path.join(STATIC_DIR, `${locale}-${indexHash}.json`);
+    const indexPath = path.join(STATIC_DIR, locale, `index-${indexHash}.json`);
     writeFile(indexPath, indexContent);
   }
 
-  return indexHashes;
+  return { indexHashes, messageHashes };
 }
 
 /**
- * Write the TypeScript hash manifest
+ * Write the metadata-index hash manifest (locale -> index hash).
  */
 function writeHashManifest(indexHashes) {
   const entries = Object.entries(indexHashes)
@@ -273,6 +287,31 @@ ${entries},
 }
 
 /**
+ * Write the i18n message-dict hash manifest (slug -> locale -> messages hash),
+ * deterministically ordered.
+ */
+function writeMessageHashManifest(messageHashes) {
+  const body = Object.keys(messageHashes)
+    .sort()
+    .map((slug) => {
+      const inner = Object.keys(messageHashes[slug])
+        .sort()
+        .map((locale) => `    ${JSON.stringify(locale)}: ${JSON.stringify(messageHashes[slug][locale])}`)
+        .join(",\n");
+      return `  ${JSON.stringify(slug)}: {\n${inner}\n  }`;
+    })
+    .join(",\n");
+
+  const content = `// Auto-generated by scripts/generate-exercise-cache.js — DO NOT EDIT
+export const exerciseMessageHashes: Record<string, Record<string, string>> = {
+${body}
+};
+`;
+
+  writeFile(path.join(GENERATED_DIR, "exercise-message-hashes.ts"), content);
+}
+
+/**
  * Main generation function
  */
 function generateExerciseCache() {
@@ -282,6 +321,9 @@ function generateExerciseCache() {
   if (fs.existsSync(STATIC_DIR)) {
     fs.rmSync(STATIC_DIR, { recursive: true });
   }
+  if (fs.existsSync(I18N_DIR)) {
+    fs.rmSync(I18N_DIR, { recursive: true });
+  }
   fs.mkdirSync(STATIC_DIR, { recursive: true });
   fs.mkdirSync(GENERATED_DIR, { recursive: true });
 
@@ -289,10 +331,11 @@ function generateExerciseCache() {
   const exercises = processExercises();
 
   // Build static files
-  const indexHashes = buildStaticFiles(exercises);
+  const { indexHashes, messageHashes } = buildStaticFiles(exercises);
 
-  // Write hash manifest
+  // Write hash manifests
   writeHashManifest(indexHashes);
+  writeMessageHashManifest(messageHashes);
 
   // Count totals
   const exerciseCount = Object.keys(exercises).length;

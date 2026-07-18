@@ -1,4 +1,5 @@
 import { contentIndexHashes } from "@/lib/generated/content-hashes";
+import { assetsUrl } from "@/lib/assets";
 import type { SearchIndexData } from "@/lib/content/types";
 
 async function fetchSearchIndex(type: "articles" | "guides", locale: string): Promise<SearchIndexData> {
@@ -6,7 +7,7 @@ async function fetchSearchIndex(type: "articles" | "guides", locale: string): Pr
   const hash = hashes[locale] || hashes["en"];
   const effectiveLocale = hashes[locale] ? locale : "en";
 
-  const res = await fetch(`/static/content/search/${type}-${effectiveLocale}-${hash}.json`);
+  const res = await fetch(assetsUrl(`/static/content/search/${type}/${effectiveLocale}/index-${hash}.json`));
   if (!res.ok) {
     throw new Error(`Failed to fetch ${type} search index`);
   }

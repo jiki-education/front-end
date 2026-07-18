@@ -19,6 +19,8 @@ export async function getGuide(slug: string, locale: string): Promise<ProcessedG
     throw new Error(`Guide not found: ${slug}`);
   }
 
-  const content = await fetchStaticContent(`/static/content/guides/${slug}/${meta.locale}-${meta.contentHash}.html`);
+  const content = await fetchStaticContent(
+    `/static/content/guides/${slug}/${meta.locale}/content-${meta.contentHash}.html`
+  );
   return { ...meta, content };
 }

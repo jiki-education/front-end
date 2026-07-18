@@ -118,7 +118,18 @@ content-hashed assets from older builds survive and old pages keep working.
 - `next.config.ts` sets `assetPrefix: "https://assets.jiki.io"` (production only) and
   `crossOrigin: "anonymous"` (so Sentry gets real cross-origin stack traces). This
   rewrites `_next/*` URLs to the bucket. `/public` files referenced from JSX stay
-  document-relative (served from Workers Assets on `jiki.io`).
+  document-relative (served from Workers Assets on `jiki.io`), **except** the
+  content-hashed cache trees below.
+- **Content-hashed cache trees** — `static/i18n/*`, `static/exercises/*`,
+  `static/concepts/*`, `static/content/*` — are generated at build time (one file per
+  content fingerprint, so every path is immutable) and served from R2, never from
+  Workers Assets. They're excluded from the worker bundle via `.assetsignore` and
+  every fetch goes through the `assetsUrl()` helper (`lib/assets.ts` for client code,
+  the async twin in `lib/server/origin.ts` for Server Components): prod → `assets.jiki.io`,
+  dev → relative/origin. This is the same additive-R2 fix as `_next/*` — the runtime
+  can never fall through to worker-bundled copies that a redeploy would have deleted
+  mid-session. Standard leaf naming is `{kind}-{hash}.{ext}` (`index` | `content` |
+  `messages`), with every dimension (locale, language, slug) a directory.
 - **CSS `url("/static/...")`** refs resolve against the _stylesheet's_ origin
   (`assets.jiki.io`), so those assets must be on the bucket too. They are
   **content-hash fingerprinted** at build time: `scripts/generate-css-asset-hashes.js`
@@ -127,11 +138,12 @@ content-hashed assets from older builds survive and old pages keep working.
   rewrites the `url()`s to the hashed copies. One PostCSS pass covers both packages
   (curriculum CSS is imported by the app). Wired into `dev` and `build`; output is
   gitignored (mirrors the icon-cache pattern).
-- The `static:upload` script syncs three trees: `_next/static` (immutable),
-  `public/static` (short TTL, fallback for any un-hashed ref), and
-  `public/static/hashed` (immutable). Because every CSS-referenced asset is hashed,
-  the immutable tree is safe; a missed ref degrades to the short-TTL copy rather than
-  breaking or getting stuck.
+- The `static:upload` script syncs, per object Cache-Control: `_next/static`
+  (immutable); `public/static` (short TTL fallback for un-hashed refs, with the fully
+  hashed trees excluded); `public/static/hashed` (immutable); and each content-hashed
+  cache tree — `public/static/{hashed,i18n,exercises,concepts,content}` — immutable.
+  Because every file in those trees is content-hashed, immutable is safe; a missed
+  CSS ref degrades to the short-TTL `public/static` copy rather than breaking.
 - **Cache-Control** is set per object at upload and honoured by a Cloudflare cache
   rule on `assets.jiki.io` (`terraform/cloudflare/cache_rules.tf`). The bucket has a
   **CORS** policy allowing `GET` from `jiki.io` (required: fonts and, with
@@ -201,10 +213,11 @@ Custom Worker wrapper (`worker-wrapper.js`) implements Cloudflare Cache API for 
   - Article routes (`/help/*`, `/[locale]/help/*`)
   - Concept routes (`/concepts/*`)
   - Unsubscribe pages (`/unsubscribe/*`)
-- **Static Assets**: `/_next/*` and CSS-referenced `/static/*` are served from
+- **Static Assets**: `/_next/*`, CSS-referenced `/static/*`, and the content-hashed
+  cache trees (`/static/{i18n,exercises,concepts,content}/*`) are served from
   `assets.jiki.io` (see [Static Asset Serving](#static-asset-serving)), not the Worker;
-  `/favicon.ico` and JSX-referenced `/static/*` are served by Workers Assets. Neither
-  is handled by this wrapper.
+  `/favicon.ico` and other JSX-referenced `/static/*` (images, sounds, un-hashed icons)
+  are served by Workers Assets. Neither is handled by this wrapper.
 
 **Cache Key Generation**:
 

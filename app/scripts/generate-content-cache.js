@@ -6,20 +6,20 @@
  *
  * Processes markdown files from the content package and produces:
  *
- *   public/static/content/blog/{locale}-{hash}.json
- *     - Metadata index: all blog posts with slug, title, date, etc.
+ *   public/static/content/{type}/{locale}/index-{hash}.json   (type: blog|articles|guides)
+ *     - Metadata index: all entries with slug, title, date, etc.
  *
- *   public/static/content/blog/{slug}/{locale}-{hash}.html
+ *   public/static/content/{type}/{slug}/{locale}/content-{hash}.html
  *     - Content files: pre-rendered HTML from markdown
  *
- *   public/static/content/articles/{locale}-{hash}.json
- *     - Metadata index: all articles
+ *   public/static/content/projects/{slug}/{locale}/index-{hash}.json
+ *     - Per-project episode index
  *
- *   public/static/content/articles/{slug}/{locale}-{hash}.html
- *     - Content files: pre-rendered HTML from markdown
+ *   public/static/content/projects/{slug}/{uuid}/{locale}/content-{hash}.html
+ *     - Episode content files: pre-rendered HTML from markdown
  *
- *   public/static/content/search/articles-{locale}-{hash}.json
- *     - Lunr search indexes for articles
+ *   public/static/content/search/{type}/{locale}/index-{hash}.json
+ *     - Lunr search indexes for articles + guides
  *
  *   lib/generated/content-hashes.ts
  *     - Hash manifest mapping type+locale -> metadata index hash
@@ -532,7 +532,14 @@ function buildProjectStaticFiles(processed) {
   for (const episode of episodes) {
     for (const [locale, { meta, html }] of Object.entries(episode.locales)) {
       const htmlHash = computeHash(html);
-      const htmlPath = path.join(STATIC_DIR, "projects", meta.project, episode.uuid, `${locale}-${htmlHash}.html`);
+      const htmlPath = path.join(
+        STATIC_DIR,
+        "projects",
+        meta.project,
+        episode.uuid,
+        locale,
+        `content-${htmlHash}.html`
+      );
       writeFile(htmlPath, html);
 
       const finalMeta = { ...meta, contentHash: htmlHash };
@@ -585,7 +592,7 @@ function buildProjectStaticFiles(processed) {
 
       const indexJson = JSON.stringify(sortedEpisodes);
       const indexHash = computeHash(indexJson);
-      const indexPath = path.join(STATIC_DIR, "projects", project.slug, `episodes-${locale}-${indexHash}.json`);
+      const indexPath = path.join(STATIC_DIR, "projects", project.slug, locale, `index-${indexHash}.json`);
       writeFile(indexPath, indexJson);
 
       projectsByLocale[locale].push({
@@ -622,7 +629,7 @@ function buildStaticFiles(type, content) {
 
       // Write pre-rendered HTML content file
       const htmlHash = computeHash(html);
-      const contentPath = path.join(STATIC_DIR, type, slug, `${locale}-${htmlHash}.html`);
+      const contentPath = path.join(STATIC_DIR, type, slug, locale, `content-${htmlHash}.html`);
       writeFile(contentPath, html);
 
       // Use the HTML hash as contentHash in the index (for URL construction)
@@ -638,7 +645,7 @@ function buildStaticFiles(type, content) {
     const indexHash = computeHash(indexContent);
     indexHashes[locale] = indexHash;
 
-    const indexPath = path.join(STATIC_DIR, type, `${locale}-${indexHash}.json`);
+    const indexPath = path.join(STATIC_DIR, type, locale, `index-${indexHash}.json`);
     writeFile(indexPath, indexContent);
   }
 
@@ -689,9 +696,9 @@ function generateSearchIndexes(type, byLocale, filterFn) {
     const searchHash = computeHash(output);
     searchHashes[locale] = searchHash;
 
-    const searchPath = path.join(STATIC_DIR, "search", `${type}-${locale}-${searchHash}.json`);
+    const searchPath = path.join(STATIC_DIR, "search", type, locale, `index-${searchHash}.json`);
     writeFile(searchPath, output);
-    console.log(`   Search index: ${type}-${locale}-${searchHash}.json (${items.length} ${type})`);
+    console.log(`   Search index: search/${type}/${locale}/index-${searchHash}.json (${items.length} ${type})`);
   }
 
   return searchHashes;

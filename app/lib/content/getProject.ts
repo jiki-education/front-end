@@ -21,7 +21,7 @@ export async function getProject(projectSlug: string, locale: string): Promise<P
     throw new Error(`Project not found: ${projectSlug}`);
   }
 
-  const url = `/static/content/projects/${project.slug}/episodes-${project.locale}-${project.episodesIndexHash}.json`;
+  const url = `/static/content/projects/${project.slug}/${project.locale}/index-${project.episodesIndexHash}.json`;
   const json = await fetchStaticContent(url);
   const episodes = JSON.parse(json) as EpisodeMeta[];
 

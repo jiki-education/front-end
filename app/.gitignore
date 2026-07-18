@@ -50,8 +50,8 @@ public/static/content/
 # generated exercise cache (build-time generation)
 public/static/exercises/
 
-# generated interpreter catalog cache (build-time generation)
-public/static/interpreter-catalogs/
+# generated i18n message cache (interpreter + exercise dicts, build-time generation)
+public/static/i18n/
 
 # generated concept cache (build-time generation)
 public/static/concepts/

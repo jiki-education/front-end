@@ -4,7 +4,7 @@ import { exercises, type ExerciseSlug, type ExerciseDefinition, type Language } 
 import Orchestrator from "../lib/Orchestrator";
 import type { ExerciseContext } from "../lib/types";
 import { findFileForLanguage, hasPlaceholders, interpolateStub } from "../lib/stubInterpolation";
-import { fetchExerciseContent, fetchExerciseMessages, fetchInterpreterCatalog } from "@/lib/api/exercise-meta";
+import { fetchExerciseContent, fetchExerciseMessages, fetchInterpreterMessages } from "@/lib/api/exercise-meta";
 import { localizeExerciseDefinition } from "@/lib/i18n/localizeExercise";
 import type { LastSubmissionData } from "@/lib/api/types/conversation";
 
@@ -60,7 +60,7 @@ export function useExerciseLoader({
           loader().then((m) => m.default),
           fetchExerciseContent(exerciseSlug, uiLocale, language),
           fetchExerciseMessages(exerciseSlug, uiLocale),
-          fetchInterpreterCatalog(language, uiLocale)
+          fetchInterpreterMessages(language, uiLocale)
         ]);
 
         // Assemble into full ExerciseDefinition.

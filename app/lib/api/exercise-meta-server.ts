@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { exerciseIndexHashes } from "@/lib/generated/exercise-hashes";
-import { originUrl } from "@/lib/server/origin";
+import { assetsUrl } from "@/lib/server/origin";
 import type { ExerciseMetaEntry } from "@/lib/api/exercise-meta";
 
 /**
@@ -13,7 +13,7 @@ const fetchExerciseIndex = cache(async (locale: string): Promise<ExerciseMetaEnt
   if (!hash) {
     return [];
   }
-  const url = await originUrl(`/static/exercises/${locale}-${hash}.json`);
+  const url = await assetsUrl(`/static/exercises/${locale}/index-${hash}.json`);
   const res = await fetch(url);
   if (!res.ok) {
     throw new Error(`Failed to fetch exercise index: ${url} (${res.status})`);

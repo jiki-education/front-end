@@ -20,7 +20,7 @@ export async function getProjectEpisode(
   }
 
   const content = await fetchStaticContent(
-    `/static/content/projects/${projectSlug}/${meta.uuid}/${meta.locale}-${meta.contentHash}.html`
+    `/static/content/projects/${projectSlug}/${meta.uuid}/${meta.locale}/content-${meta.contentHash}.html`
   );
   return { ...meta, content };
 }

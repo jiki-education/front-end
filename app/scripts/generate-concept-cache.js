@@ -6,10 +6,10 @@
  *
  * Reads concept source files from curriculum and produces:
  *
- *   public/static/concepts/{locale}-{hash}.json
+ *   public/static/concepts/{locale}/index-{hash}.json
  *     - Metadata index: all concepts with slug, title, description, hierarchy, contentHash
  *
- *   public/static/concepts/{slug}/{locale}-{hash}.html
+ *   public/static/concepts/{slug}/{locale}/content-{hash}.html
  *     - Content files: pre-rendered HTML from markdown
  *
  *   lib/generated/concept-hashes.ts
@@ -254,7 +254,7 @@ function buildStaticFiles(concepts) {
       let contentHash = null;
       if (localeData.html !== null) {
         contentHash = computeHash(localeData.html);
-        const contentPath = path.join(STATIC_DIR, slug, `${locale}-${contentHash}.html`);
+        const contentPath = path.join(STATIC_DIR, slug, locale, `content-${contentHash}.html`);
         writeFile(contentPath, localeData.html);
       }
 
@@ -286,7 +286,7 @@ function buildStaticFiles(concepts) {
     const indexHash = computeHash(indexContent);
     indexHashes[locale] = indexHash;
 
-    const indexPath = path.join(STATIC_DIR, `${locale}-${indexHash}.json`);
+    const indexPath = path.join(STATIC_DIR, locale, `index-${indexHash}.json`);
     writeFile(indexPath, indexContent);
   }
 

@@ -1,5 +1,6 @@
 import { api } from "./client";
 import { conceptIndexHashes } from "@/lib/generated/concept-hashes";
+import { assetsUrl } from "@/lib/assets";
 import {
   selectTopLevelConcepts,
   selectConcept,
@@ -23,7 +24,7 @@ async function fetchAllConcepts(locale: string = "en"): Promise<ConceptMeta[]> {
   const effectiveLocale = conceptIndexHashes[locale] ? locale : "en";
 
   cachedLocale = locale;
-  cachedPromise = fetch(`/static/concepts/${effectiveLocale}-${hash}.json`).then((res) => {
+  cachedPromise = fetch(assetsUrl(`/static/concepts/${effectiveLocale}/index-${hash}.json`)).then((res) => {
     if (!res.ok) {
       throw new Error("Failed to fetch concepts");
     }
@@ -93,7 +94,7 @@ export async function getConceptContent(slug: string, locale: string = "en"): Pr
   if (!concept?.contentHash) {
     return "";
   }
-  const res = await fetch(`/static/concepts/${slug}/${locale}-${concept.contentHash}.html`);
+  const res = await fetch(assetsUrl(`/static/concepts/${slug}/${locale}/content-${concept.contentHash}.html`));
   if (!res.ok) {
     throw new Error("Failed to fetch concept content");
   }

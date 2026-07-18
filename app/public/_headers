@@ -7,23 +7,14 @@
 # intent. So each immutable rule first drops the inherited value with
 # `! Cache-Control`, then sets its own. (/_next/static/* needs no `!` — nothing
 # else matches it.)
+#
+# NOTE: the content-hashed cache trees (static/i18n, static/exercises,
+# static/concepts, static/content) are NOT listed here — they are excluded from
+# the worker bundle (.assetsignore) and served from R2 (assets.jiki.io), whose
+# Cache-Control comes from `static:upload`. Only assets still served BY the worker
+# need rules here.
 
 /_next/static/*
-  Cache-Control: public, max-age=31536000, immutable
-
-/static/content/*
-  ! Cache-Control
-  Cache-Control: public, max-age=31536000, immutable
-
-# Concept + exercise caches: every file is content-hashed (index JSON, per-slug
-# HTML/JSON, and concept icons under concepts/icons/), so the whole prefix is
-# safe to serve immutably.
-/static/concepts/*
-  ! Cache-Control
-  Cache-Control: public, max-age=31536000, immutable
-
-/static/exercises/*
-  ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
 
 # Lesson/badge/project icons copied to content-hashed filenames by generate-icon-cache.js.
