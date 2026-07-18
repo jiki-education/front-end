@@ -136,10 +136,13 @@ content-hashed assets from older builds survive and old pages keep working.
   `lib/generated/asset-hashes.ts` manifest. Every runtime reference goes through the
   **`staticAsset("images/logo.png")`** resolver (`lib/static-asset.ts`) — path
   relative to `/static`, no prefix — which returns the hashed R2 URL (or, in dev, the
-  relative path). The raw `static/images`/`static/sounds` sources stay worker-served
-  (so the curriculum/content symlinks under `static/images`, e.g. `exercise-assets`,
-  keep resolving) and are also on R2 at short TTL, so a dynamic/missed lookup degrades
-  gracefully rather than 404ing.
+  relative path). The raw (real, non-symlinked) `static/images`/`static/sounds` sources
+  are also synced to R2 at short TTL as a fallback, so a dynamic/missed lookup degrades
+  gracefully rather than 404ing. The curriculum/content **symlinks** under
+  `static/images` (`exercise-assets`, `concept-assets`, `blog`, `avatars`, …) are
+  referenced by bare `/static/...` paths from curriculum/content and served by the
+  worker same-origin; `static:upload` uses `--no-follow-symlinks` so those cross-package
+  files aren't needlessly re-uploaded to R2 (nothing fetches the R2 copy).
 - **CSS `url("/static/...")`** refs resolve against the _stylesheet's_ origin
   (`assets.jiki.io`), so those assets must be on the bucket too. They are
   **content-hash fingerprinted** at build time: `scripts/generate-css-asset-hashes.js`
