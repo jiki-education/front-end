@@ -1,10 +1,11 @@
 import { fetchStaticContent } from "./fetchStaticContent";
 import { getAllArticles } from "./getAllArticles";
+import { contentBodyPath } from "@/lib/assets-paths";
 import type { ProcessedArticle } from "./types";
 
 /**
- * Get a single article by slug and locale (metadata + rendered content)
- * Falls back to English if the requested locale doesn't exist
+ * Get a single article by slug and locale (metadata + rendered content).
+ * No English fallback — the article must exist for the requested locale.
  *
  * @throws Error if the article doesn't exist at all
  */
@@ -16,8 +17,6 @@ export async function getArticle(slug: string, locale: string): Promise<Processe
     throw new Error(`Article not found: ${slug}`);
   }
 
-  const content = await fetchStaticContent(
-    `/static/content/articles/${slug}/${meta.locale}/content-${meta.contentHash}.html`
-  );
+  const content = await fetchStaticContent(contentBodyPath("articles", slug, meta.locale, meta.contentHash));
   return { ...meta, content };
 }

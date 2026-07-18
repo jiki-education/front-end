@@ -28,9 +28,9 @@
 
 import fs from "fs";
 import path from "path";
-import crypto from "crypto";
 import { fileURLToPath } from "url";
 import matter from "gray-matter";
+import { computeHash, writeFile } from "./lib/cache-utils.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const EXERCISES_DIR = path.join(__dirname, "../../curriculum/src/exercises");
@@ -46,21 +46,6 @@ const LANGUAGE_EXTENSIONS = {
 };
 
 const LANGUAGES = Object.keys(LANGUAGE_EXTENSIONS);
-
-/**
- * Compute a 12-char SHA-256 hash of content
- */
-function computeHash(content) {
-  return crypto.createHash("sha256").update(content).digest("hex").slice(0, 12);
-}
-
-/**
- * Write a file, creating directories as needed
- */
-function writeFile(filePath, content) {
-  fs.mkdirSync(path.dirname(filePath), { recursive: true });
-  fs.writeFileSync(filePath, content);
-}
 
 /**
  * Read a file, returning null if it doesn't exist

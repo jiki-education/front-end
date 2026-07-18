@@ -25,8 +25,8 @@
 
 import fs from "fs";
 import path from "path";
-import crypto from "crypto";
 import { fileURLToPath } from "url";
+import { computeHash, writeFile } from "./lib/cache-utils.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const INTERPRETERS_SRC = path.join(__dirname, "../../interpreters/src");
@@ -38,15 +38,6 @@ const LANGUAGES = ["javascript", "python", "jikiscript"];
 // The pseudo-locale bundled inside each interpreter as the no-injection default —
 // never fetched, so never exported.
 const EXCLUDED_LOCALES = new Set(["system"]);
-
-function computeHash(content) {
-  return crypto.createHash("sha256").update(content).digest("hex").slice(0, 12);
-}
-
-function writeFile(filePath, content) {
-  fs.mkdirSync(path.dirname(filePath), { recursive: true });
-  fs.writeFileSync(filePath, content);
-}
 
 /**
  * Build message files (per language/locale). Returns the hash manifest:

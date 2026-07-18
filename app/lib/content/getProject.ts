@@ -1,5 +1,6 @@
 import { fetchStaticContent } from "./fetchStaticContent";
 import { getAllProjects } from "./getAllProjects";
+import { projectEpisodesIndexPath } from "@/lib/assets-paths";
 import type { EpisodeMeta, ProjectMeta } from "./types";
 
 export interface ProjectWithEpisodes {
@@ -21,7 +22,7 @@ export async function getProject(projectSlug: string, locale: string): Promise<P
     throw new Error(`Project not found: ${projectSlug}`);
   }
 
-  const url = `/static/content/projects/${project.slug}/${project.locale}/index-${project.episodesIndexHash}.json`;
+  const url = projectEpisodesIndexPath(project.slug, project.locale, project.episodesIndexHash);
   const json = await fetchStaticContent(url);
   const episodes = JSON.parse(json) as EpisodeMeta[];
 

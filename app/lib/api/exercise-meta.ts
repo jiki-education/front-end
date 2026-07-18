@@ -2,6 +2,12 @@ import { exerciseIndexHashes } from "@/lib/generated/exercise-hashes";
 import { exerciseMessageHashes } from "@/lib/generated/exercise-message-hashes";
 import { interpreterMessageHashes } from "@/lib/generated/interpreter-message-hashes";
 import { assetsUrl } from "@/lib/assets";
+import {
+  exerciseIndexPath,
+  exerciseContentPath,
+  exerciseMessagesPath,
+  interpreterMessagesPath
+} from "@/lib/assets-paths";
 import type { Messages } from "@jiki/interpreters";
 
 export interface ExerciseMetaEntry {
@@ -35,7 +41,7 @@ async function fetchExerciseIndex(locale: string = "en"): Promise<ExerciseMetaEn
   }
 
   cachedLocale = locale;
-  cachedPromise = fetch(assetsUrl(`/static/exercises/${locale}/index-${hash}.json`)).then((res) => {
+  cachedPromise = fetch(assetsUrl(exerciseIndexPath(locale, hash))).then((res) => {
     if (!res.ok) {
       throw new Error(`Failed to fetch exercise index for locale "${locale}"`);
     }
@@ -81,14 +87,12 @@ export async function fetchInterpreterMessages(language: string, locale: string)
     return empty;
   }
 
-  const promise = fetch(assetsUrl(`/static/i18n/interpreter/${language}/${locale}/messages-${hash}.json`)).then(
-    (res) => {
-      if (!res.ok) {
-        throw new Error(`Failed to fetch interpreter messages for "${language}" locale "${locale}"`);
-      }
-      return res.json() as Promise<Messages>;
+  const promise = fetch(assetsUrl(interpreterMessagesPath(language, locale, hash))).then((res) => {
+    if (!res.ok) {
+      throw new Error(`Failed to fetch interpreter messages for "${language}" locale "${locale}"`);
     }
-  );
+    return res.json() as Promise<Messages>;
+  });
   interpreterMessagesCache.set(key, promise);
   return promise;
 }
@@ -127,7 +131,7 @@ export function fetchExerciseMessages(slug: string, locale: string): Promise<Rec
 
   const promise = (async () => {
     try {
-      const res = await fetch(assetsUrl(`/static/i18n/exercises/${slug}/${locale}/messages-${hash}.json`));
+      const res = await fetch(assetsUrl(exerciseMessagesPath(slug, locale, hash)));
       if (!res.ok) {
         return {};
       }
@@ -152,7 +156,7 @@ export async function fetchExerciseContent(slug: string, locale: string, languag
     throw new Error(`No content hash for exercise "${slug}" language "${language}" locale "${locale}"`);
   }
 
-  const res = await fetch(assetsUrl(`/static/exercises/${slug}/${locale}/${language}/content-${contentHash}.json`));
+  const res = await fetch(assetsUrl(exerciseContentPath(slug, locale, language, contentHash)));
   if (!res.ok) {
     throw new Error(`Failed to fetch content for exercise "${slug}" (${locale}/${language})`);
   }

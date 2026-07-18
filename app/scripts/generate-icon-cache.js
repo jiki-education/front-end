@@ -23,8 +23,8 @@
 
 import fs from "fs";
 import path from "path";
-import crypto from "crypto";
 import { fileURLToPath } from "url";
+import { computeHash, writeFile } from "./lib/cache-utils.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ICONS_DIR = path.join(__dirname, "../icons");
@@ -40,21 +40,6 @@ const ICON_SETS = [
 ];
 
 const FALLBACK_SLUG = "fallback";
-
-/**
- * Compute a 12-char SHA-256 hash of content
- */
-function computeHash(content) {
-  return crypto.createHash("sha256").update(content).digest("hex").slice(0, 12);
-}
-
-/**
- * Write a file, creating directories as needed
- */
-function writeFile(filePath, content) {
-  fs.mkdirSync(path.dirname(filePath), { recursive: true });
-  fs.writeFileSync(filePath, content);
-}
 
 /**
  * Copy an icon to a content-hashed filename and return its immutable public URL.
