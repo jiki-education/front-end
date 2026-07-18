@@ -1,0 +1,9 @@
+{
+  "errors": {
+    "xyMustBeNumbers": "x and y must be numbers",
+    "xNotWhole": "You must use whole numbers for `x` and `y`. You provided `x` as `{{x}}`, which isn't allowed.",
+    "yNotWhole": "You must use whole numbers for `x` and `y`. You provided `y` as `{{y}}`, which isn't allowed.",
+    "outsideGrid": "Position ({{x}}, {{y}}) is outside the grid",
+    "alreadyBuilt": "The builders are stuck. There's already a {{existing}} at the coordinates `({{x}}, {{y}})` so they can't build here!"
+  }
+}

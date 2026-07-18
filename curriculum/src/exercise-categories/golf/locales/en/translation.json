@@ -1,0 +1,6 @@
+{
+  "errors": {
+    "xNotNumber": "x must be a number",
+    "yNotNumber": "y must be a number"
+  }
+}

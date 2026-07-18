@@ -1,23 +1,4 @@
 {
-  "errors": {
-    "allInputsNumbers": "All inputs must be numbers",
-    "hueRange": "Hue must be between 0 and 360",
-    "saturationRange": "Saturation must be between 0 and 100",
-    "lightnessRange": "Lightness must be between 0 and 100",
-    "redRange": "Red must be between 0 and 255",
-    "greenRange": "Green must be between 0 and 255",
-    "blueRange": "Blue must be between 0 and 255",
-    "rectInputsNumbers": "The x, y, width, and height inputs must be numbers",
-    "widthPositive": "Width must be greater than 0",
-    "heightPositive": "Height must be greater than 0",
-    "lineInputsNumbers": "The x1, y1, x2, and y2 inputs must be numbers",
-    "circleInputsNumbers": "The x, y, and radius inputs must be numbers",
-    "ellipseInputsNumbers": "The x, y, rx, and ry inputs must be numbers",
-    "triangleInputsNumbers": "The x1, y1, x2, y2, x3, and y3 inputs must be numbers",
-    "colorNotAllowed": "Color should not be specified for this exercise",
-    "colorNotString": "Color must be a string",
-    "colorNamedOrHex": "Color must be a named color (\"orange\", \"blue\", \"white\", etc) specified in the instructions, or a hex color starting with #"
-  },
   "checks": {
     "housingWrong": "The housing rectangle is either in the wrong place or the wrong size. Check `housingX`, `housingY`, `housingWidth`, and `housingHeight`.",
     "redWrong": "The red light is either in the wrong place or the wrong size. Check `redY`.",

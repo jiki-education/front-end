@@ -1,8 +1,6 @@
 {
   "errors": {
-    "positionNotNumber": "position must be a number",
-    "xNotNumber": "x must be a number",
-    "yNotNumber": "y must be a number"
+    "positionNotNumber": "position must be a number"
   },
   "checks": {
     "ballNotAtEnd": "The ball didn't reach the hole. It's at position {{ballX}}, but needs to be at position 88.",

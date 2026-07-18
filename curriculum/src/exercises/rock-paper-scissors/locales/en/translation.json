@@ -1,8 +1,4 @@
 {
-  "errors": {
-    "invalidResult": "Oh no! You announced an invalid result. There's chaos in the playing hall! Please announce either \"Yuki\", \"Ando\" or \"tie\".",
-    "wrongResult": "Oh no! You announced the wrong result. There's chaos in the playing hall!\n\nYou should have announced `\"{{expected}}\"` but you announced `\"{{got}}\"`."
-  },
   "checks": {
     "noResult": "You didn't announce a result!",
     "paperVsPaperResult": "Paper vs Paper should be a tie but it was \"{{got}}\".",

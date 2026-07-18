@@ -1,8 +1,4 @@
 {
-  "errors": {
-    "xNotNumber": "x must be a number",
-    "yNotNumber": "y must be a number"
-  },
   "checks": {
     "wrongShotEnd": "The ball didn't end up in the right place for this shot. Check it travels the full shot length.",
     "missingPositions": "The ball must roll through each position one step at a time, not jump straight to the end."

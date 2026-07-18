@@ -1,7 +1,4 @@
 {
-  "errors": {
-    "positionNumber": "Position must be a number"
-  },
   "checks": {
     "flowerCount_one": "The owner expected to see {{count}} flower planted. But you planted {{got}}.",
     "flowerCount_other": "The owner expected to see {{count}} flowers planted. But you planted {{got}}.",

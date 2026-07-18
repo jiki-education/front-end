@@ -1,7 +1,4 @@
 {
-  "errors": {
-    "positionNumber": "Position must be a number"
-  },
   "checks": {
     "flowerCount": "Expected 9 flowers, but found {{got}}.",
     "missingFlowerAt10": "Missing a flower at position 10.",
