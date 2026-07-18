@@ -3,26 +3,24 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "create-letter-values-function" as const,
-    name: "Create the letterValues function",
-    description:
-      "Write a letterValues function that returns a dictionary mapping each uppercase letter to its Scrabble point value. Start with the provided list of letter groups and their values, and convert it into a dictionary.",
+    name: "tasks.createLetterValuesFunction.name",
+    description: "tasks.createLetterValuesFunction.description",
     hints: [],
     requiredScenarios: ["letter-values"],
     bonus: false
   },
   {
     id: "single-letters" as const,
-    name: "Score single letters",
-    description:
-      "Write a scrabbleScore function that takes a word and returns its total Scrabble score. Start by getting it working for single letters.",
+    name: "tasks.singleLetters.name",
+    description: "tasks.singleLetters.description",
     hints: [],
     requiredScenarios: ["scrabble-lowercase-letter", "scrabble-uppercase-letter", "scrabble-valuable-letter"],
     bonus: false
   },
   {
     id: "words" as const,
-    name: "Score words",
-    description: "Now get scrabbleScore working with full words of different lengths.",
+    name: "tasks.words.name",
+    description: "tasks.words.description",
     hints: [],
     requiredScenarios: [
       "scrabble-short-word",
@@ -36,8 +34,8 @@ export const tasks = [
   },
   {
     id: "edge-cases" as const,
-    name: "Handle edge cases",
-    description: "Finally, make sure your function handles edge cases like empty strings and the full alphabet.",
+    name: "tasks.edgeCases.name",
+    description: "tasks.edgeCases.description",
     hints: [],
     requiredScenarios: ["scrabble-empty-input", "scrabble-entire-alphabet"],
     bonus: false
@@ -47,8 +45,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "letter-values",
-    name: "The letterValues function",
-    description: "The letterValues function should return a complete dictionary of letter scores.",
+    name: "scenarios.letterValues.name",
+    description: "scenarios.letterValues.description",
     taskId: "create-letter-values-function",
     functionName: "letter_values",
     args: [],
@@ -83,8 +81,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "scrabble-lowercase-letter",
-    name: "Lowercase letter",
-    description: "Calculate the score for a single lowercase letter.",
+    name: "scenarios.scrabbleLowercaseLetter.name",
+    description: "scenarios.scrabbleLowercaseLetter.description",
     taskId: "single-letters",
     functionName: "scrabble_score",
     args: ["a"],
@@ -92,8 +90,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "scrabble-uppercase-letter",
-    name: "Uppercase letter",
-    description: "Calculate the score for a single uppercase letter.",
+    name: "scenarios.scrabbleUppercaseLetter.name",
+    description: "scenarios.scrabbleUppercaseLetter.description",
     taskId: "single-letters",
     functionName: "scrabble_score",
     args: ["A"],
@@ -101,8 +99,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "scrabble-valuable-letter",
-    name: "Valuable letter",
-    description: "Calculate the score for a valuable letter.",
+    name: "scenarios.scrabbleValuableLetter.name",
+    description: "scenarios.scrabbleValuableLetter.description",
     taskId: "single-letters",
     functionName: "scrabble_score",
     args: ["f"],
@@ -110,8 +108,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "scrabble-short-word",
-    name: "Short word",
-    description: "Calculate the score for a short word.",
+    name: "scenarios.scrabbleShortWord.name",
+    description: "scenarios.scrabbleShortWord.description",
     taskId: "words",
     functionName: "scrabble_score",
     args: ["at"],
@@ -119,8 +117,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "scrabble-short-valuable-word",
-    name: "Short, valuable word",
-    description: "Calculate the score for a short word with valuable letters.",
+    name: "scenarios.scrabbleShortValuableWord.name",
+    description: "scenarios.scrabbleShortValuableWord.description",
     taskId: "words",
     functionName: "scrabble_score",
     args: ["zoo"],
@@ -128,8 +126,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "scrabble-medium-word",
-    name: "Medium word",
-    description: "Calculate the score for a medium-length word.",
+    name: "scenarios.scrabbleMediumWord.name",
+    description: "scenarios.scrabbleMediumWord.description",
     taskId: "words",
     functionName: "scrabble_score",
     args: ["street"],
@@ -137,8 +135,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "scrabble-medium-valuable-word",
-    name: "Medium, valuable word",
-    description: "Calculate the score for a medium-length word with valuable letters.",
+    name: "scenarios.scrabbleMediumValuableWord.name",
+    description: "scenarios.scrabbleMediumValuableWord.description",
     taskId: "words",
     functionName: "scrabble_score",
     args: ["quirky"],
@@ -146,8 +144,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "scrabble-long-mixed-case-word",
-    name: "Long, mixed-case word",
-    description: "Calculate the score for a long word with mixed case letters.",
+    name: "scenarios.scrabbleLongMixedCaseWord.name",
+    description: "scenarios.scrabbleLongMixedCaseWord.description",
     taskId: "words",
     functionName: "scrabble_score",
     args: ["OxyphenButazone"],
@@ -155,8 +153,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "scrabble-english-like-word",
-    name: "English-like word",
-    description: "Calculate the score for an English-like word.",
+    name: "scenarios.scrabbleEnglishLikeWord.name",
+    description: "scenarios.scrabbleEnglishLikeWord.description",
     taskId: "words",
     functionName: "scrabble_score",
     args: ["pinata"],
@@ -164,8 +162,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "scrabble-empty-input",
-    name: "Empty input",
-    description: "Calculate the score for an empty string.",
+    name: "scenarios.scrabbleEmptyInput.name",
+    description: "scenarios.scrabbleEmptyInput.description",
     taskId: "edge-cases",
     functionName: "scrabble_score",
     args: [""],
@@ -173,8 +171,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "scrabble-entire-alphabet",
-    name: "Entire alphabet",
-    description: "Calculate the score for a string with every letter of the alphabet.",
+    name: "scenarios.scrabbleEntireAlphabet.name",
+    description: "scenarios.scrabbleEntireAlphabet.description",
     taskId: "edge-cases",
     functionName: "scrabble_score",
     args: ["abcdefghijklmnopqrstuvwxyz"],

@@ -3,24 +3,24 @@
   "levelId": "dictionaries",
   "hints": [
     {
-      "question": "How do I actually call the API?",
-      "answer": "Use the `fetch(url, params)` function. The URL is given to you, and `params` is a dictionary describing what you're asking for."
+      "question": "hints.callApi.question",
+      "answer": "hints.callApi.answer"
     },
     {
-      "question": "What should the params look like?",
-      "answer": "A dictionary with a single key `\"city\"`, whose value is the city name you were given as an argument."
+      "question": "hints.paramsShape.question",
+      "answer": "hints.paramsShape.answer"
     },
     {
-      "question": "What does the response look like?",
-      "answer": "It's a dictionary. If the city wasn't found, it'll have an `\"error\"` key. Otherwise it'll contain the time info you can use to build the result string."
+      "question": "hints.responseShape.question",
+      "answer": "hints.responseShape.answer"
     },
     {
-      "question": "How do I handle the error case?",
-      "answer": "Check for the `\"error\"` key before trying to build the time string. If the error key is present, return whatever the spec asks for in that case."
+      "question": "hints.handleError.question",
+      "answer": "hints.handleError.answer"
     },
     {
-      "question": "How do I build the final string?",
-      "answer": "Use concatenation (`+`) or a template string to combine the response data with the surrounding text into the format the exercise wants."
+      "question": "hints.buildString.question",
+      "answer": "hints.buildString.answer"
     }
   ]
 }

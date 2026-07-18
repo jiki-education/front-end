@@ -89,6 +89,42 @@ export async function fetchInterpreterCatalog(language: string, locale: string):
   return promise;
 }
 
+/**
+ * Fetch the curriculum-owned message dict for an exercise in the active UI locale.
+ *
+ * These catalogs are decoupled from the instruction/content locale: the dict is
+ * injected into the exercise instance (via `setMessages`) so runtime logic-error
+ * strings render in the student's locale, independent of whether translated
+ * instructions exist. On any miss (no catalog for this exercise/locale) this
+ * resolves to `{}` — no en-fallback — so untranslated keys surface as the key,
+ * which is intended.
+ */
+// Module-level singleton cache: the persistent app fetches each exercise's
+// per-locale message pack once and hands the same reference to every consumer
+// (so the translator memoization downstream reuses one i18next instance).
+const messagesCache = new Map<string, Promise<Record<string, unknown>>>();
+
+export function fetchExerciseMessages(slug: string, locale: string): Promise<Record<string, unknown>> {
+  const key = `${slug}:${locale}`;
+  const cached = messagesCache.get(key);
+  if (cached !== undefined) {
+    return cached;
+  }
+  const promise = (async () => {
+    try {
+      const res = await fetch(`/static/exercises/${slug}/i18n-${locale}.json`);
+      if (!res.ok) {
+        return {};
+      }
+      return (await res.json()) as Record<string, unknown>;
+    } catch {
+      return {};
+    }
+  })();
+  messagesCache.set(key, promise);
+  return promise;
+}
+
 export async function fetchExerciseContent(slug: string, locale: string, language: string): Promise<ExerciseContent> {
   const index = await fetchExerciseIndex(locale);
   const entry = index.find((e) => e.slug === slug);

@@ -2,6 +2,10 @@ import MazeExercise from "../../exercise-categories/maze/MazeExercise";
 import { type ExecutionContext, type Shared, isString, isDictionary, isNumber } from "@jiki/interpreters";
 import metadata from "./metadata.json";
 
+// Logic-error messages are resolved against the message dict injected into this
+// exercise (via `setMessages`) and passed to `logicError` as finished,
+// pre-translated strings; the interpreter relays them verbatim.
+
 type Direction = "up" | "right" | "down" | "left";
 
 // Mapping from relative look direction to absolute direction, based on current facing
@@ -78,7 +82,7 @@ export default class EmojiCollectorExercise extends MazeExercise {
 
   look(_executionCtx: ExecutionContext, direction: Shared.JikiObject): string {
     if (!isString(direction)) {
-      _executionCtx.logicError("direction must be a string");
+      _executionCtx.logicError(this.t("errors.directionMustBeString"));
       return "";
     }
 
@@ -93,7 +97,7 @@ export default class EmojiCollectorExercise extends MazeExercise {
     const facing = this.direction as Direction;
     const absoluteDir = DIRECTION_MAP[facing]?.[dir];
     if (!absoluteDir) {
-      _executionCtx.logicError(`Invalid direction: ${dir}. Use "ahead", "left", "right", or "down".`);
+      _executionCtx.logicError(this.t("errors.invalidDirection", { dir }));
       return "";
     }
 
@@ -129,7 +133,7 @@ export default class EmojiCollectorExercise extends MazeExercise {
 
   announceEmojis(_executionCtx: ExecutionContext, emojisArg: Shared.JikiObject) {
     if (!isDictionary(emojisArg)) {
-      _executionCtx.logicError("emojis must be a dictionary");
+      _executionCtx.logicError(this.t("errors.emojisMustBeDictionary"));
       return;
     }
 

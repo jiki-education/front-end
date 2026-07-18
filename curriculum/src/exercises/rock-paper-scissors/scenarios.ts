@@ -4,8 +4,8 @@ import type RockPaperScissorsDetermineWinnerExercise from "./Exercise";
 export const tasks = [
   {
     id: "determine-winner" as const,
-    name: "Determine the winner",
-    description: 'Get both players\' choices and announce the correct result: "Yuki", "Ando", or "tie".',
+    name: "tasks.determineWinner.name",
+    description: "tasks.determineWinner.description",
     hints: [],
     requiredScenarios: [
       "paper-vs-paper",
@@ -25,8 +25,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "paper-vs-paper",
-    name: "Paper vs Paper",
-    description: "It's a draw. Announce it correctly!",
+    name: "scenarios.paperVsPaper.name",
+    description: "scenarios.paperVsPaper.description",
     taskId: "determine-winner",
 
     setup(exercise) {
@@ -39,19 +39,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.result !== null,
-          errorHtml: "You didn't announce a result!"
+          errorHtml: ex.t("checks.noResult")
         },
         {
           pass: ex.result === "tie",
-          errorHtml: `Paper vs Paper should be a tie but it was "${ex.result}".`
+          errorHtml: ex.t("checks.paperVsPaperResult", { got: ex.result })
         }
       ];
     }
   },
   {
     slug: "paper-vs-rock",
-    name: "Paper vs Rock",
-    description: "Yuki's paper beats Ando's rock. Announce Yuki as the winner!",
+    name: "scenarios.paperVsRock.name",
+    description: "scenarios.paperVsRock.description",
     taskId: "determine-winner",
 
     setup(exercise) {
@@ -64,19 +64,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.result !== null,
-          errorHtml: "You didn't announce a result!"
+          errorHtml: ex.t("checks.noResult")
         },
         {
           pass: ex.result === "Yuki",
-          errorHtml: `Paper vs Rock should be a win for Yuki but it was "${ex.result}".`
+          errorHtml: ex.t("checks.paperVsRockResult", { got: ex.result })
         }
       ];
     }
   },
   {
     slug: "paper-vs-scissors",
-    name: "Paper vs Scissors",
-    description: "Ando's scissors beat Yuki's paper. Announce Ando as the winner.",
+    name: "scenarios.paperVsScissors.name",
+    description: "scenarios.paperVsScissors.description",
     taskId: "determine-winner",
 
     setup(exercise) {
@@ -89,19 +89,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.result !== null,
-          errorHtml: "You didn't announce a result!"
+          errorHtml: ex.t("checks.noResult")
         },
         {
           pass: ex.result === "Ando",
-          errorHtml: `Paper vs Scissors should be a win for Ando but it was "${ex.result}".`
+          errorHtml: ex.t("checks.paperVsScissorsResult", { got: ex.result })
         }
       ];
     }
   },
   {
     slug: "rock-vs-paper",
-    name: "Rock vs Paper",
-    description: "Ando's paper beats Yuki's rock. Announce Ando as the winner.",
+    name: "scenarios.rockVsPaper.name",
+    description: "scenarios.rockVsPaper.description",
     taskId: "determine-winner",
 
     setup(exercise) {
@@ -114,19 +114,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.result !== null,
-          errorHtml: "You didn't announce a result!"
+          errorHtml: ex.t("checks.noResult")
         },
         {
           pass: ex.result === "Ando",
-          errorHtml: `Rock vs Paper should be a win for Ando but it was "${ex.result}".`
+          errorHtml: ex.t("checks.rockVsPaperResult", { got: ex.result })
         }
       ];
     }
   },
   {
     slug: "rock-vs-rock",
-    name: "Rock vs Rock",
-    description: "It's a draw. Announce it correctly!",
+    name: "scenarios.rockVsRock.name",
+    description: "scenarios.rockVsRock.description",
     taskId: "determine-winner",
 
     setup(exercise) {
@@ -139,19 +139,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.result !== null,
-          errorHtml: "You didn't announce a result!"
+          errorHtml: ex.t("checks.noResult")
         },
         {
           pass: ex.result === "tie",
-          errorHtml: `Rock vs Rock should be a tie but it was "${ex.result}".`
+          errorHtml: ex.t("checks.rockVsRockResult", { got: ex.result })
         }
       ];
     }
   },
   {
     slug: "rock-vs-scissors",
-    name: "Rock vs Scissors",
-    description: "Yuki's rock beats Ando's scissors. Announce Yuki as the winner.",
+    name: "scenarios.rockVsScissors.name",
+    description: "scenarios.rockVsScissors.description",
     taskId: "determine-winner",
 
     setup(exercise) {
@@ -164,19 +164,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.result !== null,
-          errorHtml: "You didn't announce a result!"
+          errorHtml: ex.t("checks.noResult")
         },
         {
           pass: ex.result === "Yuki",
-          errorHtml: `Rock vs Scissors should be a win for Yuki but it was "${ex.result}".`
+          errorHtml: ex.t("checks.rockVsScissorsResult", { got: ex.result })
         }
       ];
     }
   },
   {
     slug: "scissors-vs-paper",
-    name: "Scissors vs Paper",
-    description: "Yuki's scissors beat Ando's paper. Announce Yuki as the winner.",
+    name: "scenarios.scissorsVsPaper.name",
+    description: "scenarios.scissorsVsPaper.description",
     taskId: "determine-winner",
 
     setup(exercise) {
@@ -189,19 +189,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.result !== null,
-          errorHtml: "You didn't announce a result!"
+          errorHtml: ex.t("checks.noResult")
         },
         {
           pass: ex.result === "Yuki",
-          errorHtml: `Scissors vs Paper should be a win for Yuki but it was "${ex.result}".`
+          errorHtml: ex.t("checks.scissorsVsPaperResult", { got: ex.result })
         }
       ];
     }
   },
   {
     slug: "scissors-vs-rock",
-    name: "Scissors vs Rock",
-    description: "Ando's rock beats Yuki's scissors. Announce Ando as the winner.",
+    name: "scenarios.scissorsVsRock.name",
+    description: "scenarios.scissorsVsRock.description",
     taskId: "determine-winner",
 
     setup(exercise) {
@@ -214,19 +214,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.result !== null,
-          errorHtml: "You didn't announce a result!"
+          errorHtml: ex.t("checks.noResult")
         },
         {
           pass: ex.result === "Ando",
-          errorHtml: `Scissors vs Rock should be a win for Ando but it was "${ex.result}".`
+          errorHtml: ex.t("checks.scissorsVsRockResult", { got: ex.result })
         }
       ];
     }
   },
   {
     slug: "scissors-vs-scissors",
-    name: "Scissors vs Scissors",
-    description: "It's a draw. Announce it correctly!",
+    name: "scenarios.scissorsVsScissors.name",
+    description: "scenarios.scissorsVsScissors.description",
     taskId: "determine-winner",
 
     setup(exercise) {
@@ -239,11 +239,11 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.result !== null,
-          errorHtml: "You didn't announce a result!"
+          errorHtml: ex.t("checks.noResult")
         },
         {
           pass: ex.result === "tie",
-          errorHtml: `Scissors vs Scissors should be a tie but it was "${ex.result}".`
+          errorHtml: ex.t("checks.scissorsVsScissorsResult", { got: ex.result })
         }
       ];
     }

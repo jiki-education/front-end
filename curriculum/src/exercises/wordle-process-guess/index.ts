@@ -8,16 +8,16 @@ const functions: FunctionInfo[] = [
   {
     name: "colorRow",
     signature: "colorRow(rowIndex, states)",
-    description: "Colors a row on the Wordle board with the given states.",
+    description: "functions.colorRow.description",
     examples: ['colorRow(1, ["correct", "present", "absent", "absent", "correct"])'],
-    category: "Wordle"
+    category: "functions.colorRow.category"
   },
   {
     name: "push",
     signature: "push(list, element)",
-    description: "Adds an element to a list and returns the new list. Does not change the original list.",
+    description: "functions.push.description",
     examples: ['push(["a", "b"], "c") // returns ["a", "b", "c"]'],
-    category: "Lists"
+    category: "functions.push.category"
   }
 ];
 

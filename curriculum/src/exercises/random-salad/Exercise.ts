@@ -99,10 +99,10 @@ export default class RandomSaladExercise extends VisualExercise {
     croutons: Shared.JikiObject,
     olives: Shared.JikiObject
   ) {
-    if (!isNumber(leaves)) return executionCtx.logicError("Leaves must be a number");
-    if (!isNumber(tomatoes)) return executionCtx.logicError("Tomatoes must be a number");
-    if (!isNumber(croutons)) return executionCtx.logicError("Croutons must be a number");
-    if (!isNumber(olives)) return executionCtx.logicError("Olives must be a number");
+    if (!isNumber(leaves)) return executionCtx.logicError(this.t("errors.leavesNumber"));
+    if (!isNumber(tomatoes)) return executionCtx.logicError(this.t("errors.tomatoesNumber"));
+    if (!isNumber(croutons)) return executionCtx.logicError(this.t("errors.croutonsNumber"));
+    if (!isNumber(olives)) return executionCtx.logicError(this.t("errors.olivesNumber"));
 
     this.saladLeaves = leaves.value;
     this.saladTomatoes = tomatoes.value;

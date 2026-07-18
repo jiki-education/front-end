@@ -7,9 +7,9 @@ const functions: FunctionInfo[] = [
   {
     name: "rectangle",
     signature: "rectangle(left, top, width, height, color)",
-    description: "Draw a rectangle at position (left, top) with the given width, height, and color",
+    description: "functions.rectangle.description",
     examples: ['rectangle(0, 0, 5, 100, "purple")', "rectangle((i - 1) * 5, 0, 5, 100, color)"],
-    category: "Drawing Shapes"
+    category: "functions.rectangle.category"
   }
 ];
 

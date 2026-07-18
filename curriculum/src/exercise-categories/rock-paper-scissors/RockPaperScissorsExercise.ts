@@ -76,22 +76,18 @@ export default abstract class RockPaperScissorsExercise extends VisualExercise {
 
   protected announceResult(executionCtx: ExecutionContext, result: Shared.JikiObject) {
     if (!isString(result)) {
-      return executionCtx.logicError(
-        'Oh no! You announced an invalid result. There\'s chaos in the playing hall! Please announce either "Yuki", "Ando" or "tie".'
-      );
+      return executionCtx.logicError(this.t("errors.invalidResult"));
     }
 
     const resultStr = result.value;
     if (resultStr !== "Yuki" && resultStr !== "Ando" && resultStr !== "tie") {
-      return executionCtx.logicError(
-        'Oh no! You announced an invalid result. There\'s chaos in the playing hall! Please announce either "Yuki", "Ando" or "tie".'
-      );
+      return executionCtx.logicError(this.t("errors.invalidResult"));
     }
 
     this.result = resultStr;
     if (resultStr !== this.expectedResult) {
       return executionCtx.logicError(
-        `Oh no! You announced the wrong result. There's chaos in the playing hall!\n\nYou should have announced \`"${this.expectedResult ?? ""}"\` but you announced \`"${resultStr}"\`.`
+        this.t("errors.wrongResult", { expected: this.expectedResult ?? "", got: resultStr })
       );
     }
   }

@@ -4,9 +4,8 @@ import type ProcessGameExercise from "./Exercise";
 export const tasks = [
   {
     id: "process-game" as const,
-    name: "Process a full game",
-    description:
-      "Create a function called processGame that takes a target word and a list of guesses, and calls colorRow for each guess with the correct states.",
+    name: "tasks.processGame.name",
+    description: "tasks.processGame.description",
     hints: [],
     requiredScenarios: ["hole-in-one", "two-guesses", "three-guesses", "phew"],
     bonus: false
@@ -16,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "hole-in-one",
-    name: "First time!",
-    description: "Deal with a first correct guess.",
+    name: "scenarios.holeInOne.name",
+    description: "scenarios.holeInOne.description",
     taskId: "process-game",
     functionCall: { name: "process_game", args: ["hello", ["hello"]] },
     setup(exercise) {
@@ -30,15 +29,15 @@ export const scenarios: VisualScenario[] = [
           pass:
             JSON.stringify(ex.statesForRow(0)) ===
             JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: "We expected all the letters to be green"
+          errorHtml: exercise.t("checks.holeInOne.firstRow")
         }
       ];
     }
   },
   {
     slug: "two-guesses",
-    name: "Nailed it in two",
-    description: "Deal with two guesses.",
+    name: "scenarios.twoGuesses.name",
+    description: "scenarios.twoGuesses.description",
     taskId: "process-game",
     functionCall: { name: "process_game", args: ["hello", ["hallo", "hello"]] },
     setup(exercise) {
@@ -51,21 +50,21 @@ export const scenarios: VisualScenario[] = [
           pass:
             JSON.stringify(ex.statesForRow(0)) ===
             JSON.stringify(["correct", "absent", "correct", "correct", "correct"]),
-          errorHtml: "We expected the second letter to be absent"
+          errorHtml: exercise.t("checks.twoGuesses.firstRow")
         },
         {
           pass:
             JSON.stringify(ex.statesForRow(1)) ===
             JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: "We expected all the letters to be green"
+          errorHtml: exercise.t("checks.twoGuesses.secondRow")
         }
       ];
     }
   },
   {
     slug: "three-guesses",
-    name: "Got there in three",
-    description: "Deal with three guesses.",
+    name: "scenarios.threeGuesses.name",
+    description: "scenarios.threeGuesses.description",
     taskId: "process-game",
     functionCall: { name: "process_game", args: ["hello", ["hulal", "hallo", "hello"]] },
     setup(exercise) {
@@ -78,27 +77,27 @@ export const scenarios: VisualScenario[] = [
           pass:
             JSON.stringify(ex.statesForRow(0)) ===
             JSON.stringify(["correct", "absent", "correct", "absent", "present"]),
-          errorHtml: "We expected the second and fourth letters to be absent"
+          errorHtml: exercise.t("checks.threeGuesses.firstRow")
         },
         {
           pass:
             JSON.stringify(ex.statesForRow(1)) ===
             JSON.stringify(["correct", "absent", "correct", "correct", "correct"]),
-          errorHtml: "We expected the second letter to be absent"
+          errorHtml: exercise.t("checks.threeGuesses.secondRow")
         },
         {
           pass:
             JSON.stringify(ex.statesForRow(2)) ===
             JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: "We expected all the letters to be green"
+          errorHtml: exercise.t("checks.threeGuesses.thirdRow")
         }
       ];
     }
   },
   {
     slug: "phew",
-    name: "Phew!",
-    description: "Phew! That was close!",
+    name: "scenarios.phew.name",
+    description: "scenarios.phew.description",
     taskId: "process-game",
     functionCall: {
       name: "process_game",
@@ -113,33 +112,33 @@ export const scenarios: VisualScenario[] = [
         {
           pass:
             JSON.stringify(ex.statesForRow(0)) === JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
-          errorHtml: "We expected everything to be absent."
+          errorHtml: exercise.t("checks.phew.firstRow")
         },
         {
           pass:
             JSON.stringify(ex.statesForRow(1)) === JSON.stringify(["absent", "absent", "absent", "absent", "absent"]),
-          errorHtml: "We expected everything to be absent."
+          errorHtml: exercise.t("checks.phew.secondRow")
         },
         {
           pass:
             JSON.stringify(ex.statesForRow(2)) === JSON.stringify(["absent", "absent", "absent", "present", "present"]),
-          errorHtml: "We expected the last two to be present and the rest absent."
+          errorHtml: exercise.t("checks.phew.thirdRow")
         },
         {
           pass:
             JSON.stringify(ex.statesForRow(3)) === JSON.stringify(["present", "absent", "absent", "absent", "absent"]),
-          errorHtml: "We expected the first to be present and the rest absent."
+          errorHtml: exercise.t("checks.phew.fourthRow")
         },
         {
           pass:
             JSON.stringify(ex.statesForRow(4)) === JSON.stringify(["absent", "present", "absent", "absent", "absent"]),
-          errorHtml: "We expected the second to be present and the rest absent"
+          errorHtml: exercise.t("checks.phew.fifthRow")
         },
         {
           pass:
             JSON.stringify(ex.statesForRow(5)) ===
             JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: "We expected all the letters to be green"
+          errorHtml: exercise.t("checks.phew.sixthRow")
         }
       ];
     }

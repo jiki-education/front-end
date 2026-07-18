@@ -1,0 +1,60 @@
+{
+  "errors": {
+    "laserOverheated": "Oh no! Your laser canon overheated from shooting too fast! You need to move before you can shoot a second time.",
+    "missedShot": "Oh no, you missed. Wasting ammo is not allowed!",
+    "moveOffEdge": "Oh no, you tried to move off the edge!"
+  },
+  "checks": {
+    "notShotAllAliens": "You didn't shoot down all the aliens.",
+    "functionNotDefined": "You need to define a <code>shootIfAlienAbove</code> function.",
+    "functionNotCalled": "You've defined <code>shootIfAlienAbove</code>, but you need to actually call it in your solution."
+  },
+  "tasks": {
+    "battleProcedures": {
+      "name": "Create a shootIfAlienAbove function and use it to win the game",
+      "description": "Extract the shooting logic into a shootIfAlienAbove() function, then use it alongside the movement logic to defeat all aliens."
+    }
+  },
+  "scenarios": {
+    "battleProcedures": {
+      "name": "Battle Procedures",
+      "description": "Defeat all aliens using your shootIfAlienAbove function"
+    }
+  },
+  "hints": {
+    "wherePutFunction": {
+      "question": "Where should I put the `shootIfAlienAbove` function?",
+      "answer": "Define it at the top of your code, before the loop. Once it is defined you can call it from inside the loop as many times as you like."
+    },
+    "whatGoesInside": {
+      "question": "What goes inside `shootIfAlienAbove`?",
+      "answer": "Use an `if` statement that checks `isAlienAbove()`. When that returns `true`, call `shoot()`. That is the whole body of the function."
+    },
+    "whatStaysInLoop": {
+      "question": "What stays in the loop?",
+      "answer": "All the movement logic stays in the loop, the same as in the scroll-and-shoot exercise. Each iteration: call `shootIfAlienAbove()`, then move the cannon, then flip direction at the boundaries."
+    },
+    "trackCannon": {
+      "question": "How do I keep track of where the cannon is and which way it is going?",
+      "answer": "Use two variables that you update each iteration. For example, a `position` variable that goes up or down, and a `direction` variable that is `\"right\"` or `\"left\"` and flips when you hit an edge."
+    }
+  },
+  "functions": {
+    "moveLeft": {
+      "description": "Moves the laser cannon **one position to the left**. If you try to move off the left edge of the screen, you'll lose the game!",
+      "category": "Movement"
+    },
+    "moveRight": {
+      "description": "Moves the laser cannon **one position to the right**. If you try to move off the right edge of the screen, you'll lose the game!",
+      "category": "Movement"
+    },
+    "shoot": {
+      "description": "Shoots the laser upwards. **Only shoot when there's an alien above you**, or you'll lose the game! The laser cannon overheats easily, so you must move before shooting again.",
+      "category": "Action"
+    },
+    "isAlienAbove": {
+      "description": "Returns `true` if there's an alien directly above the laser cannon, or `false` if not. Use this to check before shooting!",
+      "category": "Detection"
+    }
+  }
+}

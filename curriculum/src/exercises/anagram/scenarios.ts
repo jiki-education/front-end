@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "find-anagrams" as const,
-    name: "Find Anagrams",
-    description:
-      "Write a function that finds all anagrams of a target word from a list of possibilities. An anagram uses the same letters rearranged. The function should be case-insensitive, exclude the target word itself, and return results sorted alphabetically.",
+    name: "tasks.findAnagrams.name",
+    description: "tasks.findAnagrams.description",
     hints: [],
     requiredScenarios: [
       "no-matches",
@@ -21,8 +20,8 @@ export const tasks = [
   },
   {
     id: "sorted-results" as const,
-    name: "Alphabetical Sorting",
-    description: "Ensure your results are returned in alphabetical order (bonus challenge).",
+    name: "tasks.sortedResults.name",
+    description: "tasks.sortedResults.description",
     hints: [],
     requiredScenarios: ["alphabetical-sorting"],
     bonus: true
@@ -32,8 +31,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "no-matches",
-    name: "No matches",
-    description: "If no anagrams exist in the candidates, return an empty list.",
+    name: "scenarios.noMatches.name",
+    description: "scenarios.noMatches.description",
     taskId: "find-anagrams",
     functionName: "find_anagrams",
     args: ["diaper", ["hello", "world", "zombies", "pants"]],
@@ -41,8 +40,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "two-anagrams",
-    name: "Detects two anagrams",
-    description: "Find two anagrams from a list of candidates.",
+    name: "scenarios.twoAnagrams.name",
+    description: "scenarios.twoAnagrams.description",
     taskId: "find-anagrams",
     functionName: "find_anagrams",
     args: ["master", ["maters", "stream", "pigeon"]],
@@ -50,8 +49,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "no-subsets",
-    name: "Does not detect anagram subsets",
-    description: "An anagram must use all letters exactly once.",
+    name: "scenarios.noSubsets.name",
+    description: "scenarios.noSubsets.description",
     taskId: "find-anagrams",
     functionName: "find_anagrams",
     args: ["good", ["dog", "goody"]],
@@ -59,8 +58,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "single-match",
-    name: "Detects single anagram",
-    description: "Find a single anagram from a list.",
+    name: "scenarios.singleMatch.name",
+    description: "scenarios.singleMatch.description",
     taskId: "find-anagrams",
     functionName: "find_anagrams",
     args: ["listen", ["enlists", "google", "inlets", "banana"]],
@@ -68,8 +67,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "different-case",
-    name: "Detects multiple anagrams with different case",
-    description: "Anagrams should be detected regardless of case.",
+    name: "scenarios.differentCase.name",
+    description: "scenarios.differentCase.description",
     taskId: "find-anagrams",
     functionName: "find_anagrams",
     args: ["nose", ["Eons", "ONES"]],
@@ -77,8 +76,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "case-insensitive",
-    name: "Detects anagrams case-insensitively",
-    description: "Case should not affect anagram detection.",
+    name: "scenarios.caseInsensitive.name",
+    description: "scenarios.caseInsensitive.description",
     taskId: "find-anagrams",
     functionName: "find_anagrams",
     args: ["Orchestra", ["cashregister", "Carthorse", "radishes"]],
@@ -86,8 +85,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "not-itself",
-    name: "Words are not anagrams of themselves (case-insensitive)",
-    description: "A word should not be considered an anagram of itself.",
+    name: "scenarios.notItself.name",
+    description: "scenarios.notItself.description",
     taskId: "find-anagrams",
     functionName: "find_anagrams",
     args: ["BANANA", ["BANANA", "Banana", "banana"]],
@@ -95,8 +94,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "other-than-itself",
-    name: "Words other than themselves can be anagrams",
-    description: "Detect valid anagrams excluding the target word itself.",
+    name: "scenarios.otherThanItself.name",
+    description: "scenarios.otherThanItself.description",
     taskId: "find-anagrams",
     functionName: "find_anagrams",
     args: ["LISTEN", ["Listen", "Silent", "LISTEN"]],
@@ -104,8 +103,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "alphabetical-sorting",
-    name: "Results sorted alphabetically",
-    description: "Verify anagrams are returned in alphabetical order.",
+    name: "scenarios.alphabeticalSorting.name",
+    description: "scenarios.alphabeticalSorting.description",
     taskId: "sorted-results",
     functionName: "find_anagrams",
     args: ["stone", ["stone", "tones", "banana", "tons", "notes", "Seton"]],

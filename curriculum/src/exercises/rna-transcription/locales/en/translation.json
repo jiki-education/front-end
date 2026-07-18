@@ -1,0 +1,48 @@
+{
+  "tasks": {
+    "transcribeDnaToRna": {
+      "name": "Transcribe DNA to RNA",
+      "description": "Write a function that takes a DNA strand and returns its RNA complement. Each nucleotide should be replaced with its complement: G->C, C->G, T->A, A->U."
+    }
+  },
+  "scenarios": {
+    "rnaEmptySequence": {
+      "name": "Empty RNA sequence",
+      "description": "An empty DNA sequence should return an empty RNA sequence."
+    },
+    "rnaCytosineToGuanine": {
+      "name": "Cytosine to guanine",
+      "description": "The RNA complement of cytosine (C) is guanine (G)."
+    },
+    "rnaGuanineToCytosine": {
+      "name": "Guanine to cytosine",
+      "description": "The RNA complement of guanine (G) is cytosine (C)."
+    },
+    "rnaThymineToAdenine": {
+      "name": "Thymine to adenine",
+      "description": "The RNA complement of thymine (T) is adenine (A)."
+    },
+    "rnaAdenineToUracil": {
+      "name": "Adenine to uracil",
+      "description": "The RNA complement of adenine (A) is uracil (U)."
+    },
+    "rnaFullSequence": {
+      "name": "Full RNA complement",
+      "description": "Convert a full DNA sequence to its RNA complement."
+    }
+  },
+  "hints": {
+    "transcriptionRule": {
+      "question": "What's the transcription rule?",
+      "answer": "Each DNA nucleotide maps to one RNA nucleotide: G to C, C to G, T to A, and A to U. Your job is to apply this rule to every character in the input."
+    },
+    "mappingInCode": {
+      "question": "How do I do that mapping in code?",
+      "answer": "One option is two 'parallel' strings, `\"GCTA\"` for DNA and `\"CGAU\"` for RNA. The RNA complement of a DNA letter is the letter at the same position in the RNA string. You'll need to find the position in the DNA string first."
+    },
+    "processStrand": {
+      "question": "How do I process the whole strand?",
+      "answer": "Loop through each character of the DNA string, find its RNA complement, and append it onto a result string using concatenation with `+`."
+    }
+  }
+}

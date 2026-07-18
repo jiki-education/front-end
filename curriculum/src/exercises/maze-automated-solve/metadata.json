@@ -3,24 +3,24 @@
   "levelId": "complex-conditionals",
   "hints": [
     {
-      "question": "Do I have to solve each maze separately?",
-      "answer": "No. You write one algorithm that works for any maze, and the same code runs on every scenario."
+      "question": "hints.solveEachMaze.question",
+      "answer": "hints.solveEachMaze.answer"
     },
     {
-      "question": "How do I get my code to run for every step of the maze?",
-      "answer": "Wrap your logic in the repeat loop. It runs your code over and over until you reach the end, so you only need to describe what to do for a single step."
+      "question": "hints.runEveryStep.question",
+      "answer": "hints.runEveryStep.answer"
     },
     {
-      "question": "How do I make sure only one of my checks happens each step?",
-      "answer": "Use a single `if` / `else if` / `else` chain rather than several separate `if`s. That way exactly one branch runs each time through the loop."
+      "question": "hints.oneCheckPerStep.question",
+      "answer": "hints.oneCheckPerStep.answer"
     },
     {
-      "question": "I turn, but the character gets stuck in the same spot.",
-      "answer": "Turning only changes the direction the character faces, it doesn't take a step. After turning, you still need to `move()`."
+      "question": "hints.stuckAfterTurn.question",
+      "answer": "hints.stuckAfterTurn.answer"
     },
     {
-      "question": "How do I turn around at a dead end?",
-      "answer": "There's no turn-around function. Turning the same way twice (two left turns, or two right turns) leaves the character facing back the way it came."
+      "question": "hints.turnAroundDeadEnd.question",
+      "answer": "hints.turnAroundDeadEnd.answer"
     }
   ]
 }

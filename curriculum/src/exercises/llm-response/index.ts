@@ -7,24 +7,23 @@ const functions: FunctionInfo[] = [
   {
     name: "fetch",
     signature: "fetch(url, params)",
-    description:
-      "Fetch data from an API. Takes a URL string and a params dictionary. Returns the API response as a dictionary.",
+    description: "functions.fetch.description",
     examples: ['let data = fetch("https://myllm.com/api/v2/qanda", { "question": "What is 1+1?" })'],
-    category: "API"
+    category: "functions.fetch.category"
   },
   {
     name: "stringToNumber",
     signature: "stringToNumber(str)",
-    description: "Convert a string to a number (provided by level stdlib)",
+    description: "functions.stringToNumber.description",
     examples: ['stringToNumber("42") // returns 42'],
-    category: "Type Conversion"
+    category: "functions.stringToNumber.category"
   },
   {
     name: "numberToString",
     signature: "numberToString(num)",
-    description: "Convert a number to a string (provided by level stdlib)",
+    description: "functions.numberToString.description",
     examples: ['numberToString(42) // returns "42"'],
-    category: "Type Conversion"
+    category: "functions.numberToString.category"
   }
 ];
 

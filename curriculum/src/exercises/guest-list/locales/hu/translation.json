@@ -1,0 +1,40 @@
+{
+  "tasks": {
+    "checkGuestList": {
+      "name": "Check the Guest List",
+      "description": "Write a function that checks if a person's name is on the guest list. Return true if they are, false if they aren't."
+    }
+  },
+  "scenarios": {
+    "nameSingleListTrue": {
+      "name": "Person is on a single person list",
+      "description": "Return true if a person is on the guest list."
+    },
+    "nameSingleListFalse": {
+      "name": "Person is not on a single person list",
+      "description": "Return false if a person is not on the guest list."
+    },
+    "nameListTrue": {
+      "name": "Person is on a larger list",
+      "description": "Return true if a person is on a larger guest list."
+    },
+    "nameListFalse": {
+      "name": "Person is not on a larger list",
+      "description": "Return false if a person is not on a larger guest list."
+    }
+  },
+  "hints": {
+    "realLifeList": {
+      "question": "How would I do this in real life with a paper list?",
+      "answer": "You'd read down the list, one name at a time, comparing each to the name you're looking for. As soon as you found a match, you'd stop. If you reached the end without a match, the person isn't on the list. Your code does the same thing."
+    },
+    "loopAndCompare": {
+      "question": "How do I loop through the list and compare each entry?",
+      "answer": "A for-each loop gives you each name in turn. Inside, use an if-statement to compare the current name to the target."
+    },
+    "returnTrueVsFalse": {
+      "question": "When should I return true vs false?",
+      "answer": "Return `true` as soon as you find a match. There's no reason to keep looking. Only return `false` after the loop has finished and you've checked every name without finding it. (A common mistake is returning `false` inside the loop, which gives up after just the first name.)"
+    }
+  }
+}

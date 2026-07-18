@@ -28,7 +28,7 @@ export default class MazeSolveWalkExercise extends MazeExercise {
 
   walk(executionCtx: ExecutionContext, steps: Shared.JikiObject) {
     if (!isNumber(steps)) {
-      executionCtx.logicError("walk() expects a number of steps");
+      executionCtx.logicError(this.t("errors.walkExpectsNumber"));
       return;
     }
 

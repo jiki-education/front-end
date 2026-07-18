@@ -38,7 +38,7 @@ export default abstract class FlowerPlantingExercise extends VisualExercise {
 
   plant(executionCtx: ExecutionContext, position: Shared.JikiObject) {
     if (!isNumber(position)) {
-      return executionCtx.logicError("Position must be a number");
+      return executionCtx.logicError(this.t("errors.positionNumber"));
     }
 
     this.flowers.push(position.value);

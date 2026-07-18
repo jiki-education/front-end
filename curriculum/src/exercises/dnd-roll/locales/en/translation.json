@@ -1,0 +1,49 @@
+{
+  "errors": {
+    "unknownDice": "Sorry - Jiki doesn't have a {{sides}} sided dice handy!",
+    "announceNumber": "You can only announce a number",
+    "attackNumber": "Attack must be a number",
+    "damageNumber": "Damage must be a number"
+  },
+  "checks": {
+    "announcementCount": "Expected 3 announcements but got {{got}}. Make sure you announce each roll.",
+    "firstAnnouncement": "Expected the first announcement to be {{attack}} (the attack roll) but got {{got}}.",
+    "secondAnnouncement": "Expected the second announcement to be {{damage}} (the base damage roll) but got {{got}}.",
+    "thirdAnnouncement": "Expected the third announcement to be {{bonus}} (the bonus roll) but got {{got}}.",
+    "notStruck": "You didn't strike the goblin. Make sure you call <code>strike()</code>.",
+    "wrongAttack": "Expected the attack to be {{attack}} but got {{got}}. Pass the attack roll to <code>strike()</code>.",
+    "wrongDamage": "Expected total damage to be {{totalDamage}} ({{damage}} + {{bonus}}) but got {{got}}. Add the base damage and bonus together."
+  },
+  "tasks": {
+    "rollAndStrike": {
+      "name": "Roll the dice and strike the goblin",
+      "description": "Roll three dice (d20 for attack, d12 for base damage, d10 for bonus), announce each roll, then strike the goblin with your attack roll and total damage (base + bonus)."
+    }
+  },
+  "scenarios": {
+    "randomRolls": {
+      "name": "Roll and strike",
+      "description": "Roll d20 for attack, d12 for base damage, d10 for bonus. Strike the goblin with your attack and total damage."
+    }
+  },
+  "hints": {
+    "chooseDie": {
+      "question": "How do I choose what type of die to use?",
+      "answer": "For a 20 sided dice, use 20 as the input to roll - e.g. `roll(20)`. For a 12 sided dice, call `roll(12)`."
+    }
+  },
+  "functions": {
+    "roll": {
+      "description": "Rolls a die with the given number of sides and **returns** the result.",
+      "category": "Dice"
+    },
+    "announce": {
+      "description": "Announces a dice roll value.",
+      "category": "Action"
+    },
+    "strike": {
+      "description": "Strikes the goblin with the given attack roll and total damage.",
+      "category": "Action"
+    }
+  }
+}

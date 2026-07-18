@@ -1,0 +1,31 @@
+{
+  "errors": {
+    "fellOffEdge": "Oh no - you tried to fall off the edge of the maze!",
+    "hitWall": "Ouch - you walked into a wall!"
+  },
+  "checks": {
+    "didNotReachEnd": "You didn't reach the end of the maze."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Guide the person to the end of the maze",
+      "description": "Navigate through the maze to reach the green target"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Guide the person to the end of the maze",
+      "description": "Your job is to navigate your person through the maze to the green goal square."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "What am I moving where?",
+      "answer": "You're moving the little person, who starts at the top-left, to the green circle at the bottom right, avoiding any red striped cells."
+    },
+    "turnLeftTurnsRight": {
+      "question": "When I turn left, the person turns right!",
+      "answer": "The person turns relative to the position they're facing. So if you are facing right, and turn left, the person will change to face up."
+    }
+  }
+}

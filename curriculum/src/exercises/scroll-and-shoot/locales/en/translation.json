@@ -1,0 +1,82 @@
+{
+  "errors": {
+    "laserOverheated": "Oh no! Your laser canon overheated from shooting too fast! You need to move before you can shoot a second time.",
+    "missedShot": "Oh no, you missed. Wasting ammo is not allowed!",
+    "moveOffEdge": "Oh no, you tried to move off the edge!",
+    "rowNotNumber": "Oh no, the row input you provided is not a number.",
+    "rowOutOfRange": "Oh no, you tried to access a row of aliens that doesn't exist. You asked for row {{row}}, but there are only {{total}} rows of aliens.",
+    "notAllAliensDead": "You need to defeat all the aliens before you can celebrate!"
+  },
+  "checks": {
+    "notShotAllAliens": "You didn't shoot down all the aliens.",
+    "noRepeatWithArg": "You can't use <code>repeat(n) {}</code> in this exercise. You should only use <code>repeat() {}</code> loops without inputs."
+  },
+  "tasks": {
+    "scrollAndShoot": {
+      "name": "Scroll across the screen and shoot every alien",
+      "description": "Move the laser back and forth across the screen, checking for an alien above you and shooting it down. Don't move off the edge or shoot when there's no alien, or you'll lose! The waves get busier as you go."
+    }
+  },
+  "scenarios": {
+    "oneAlien": {
+      "name": "One alien",
+      "description": "A single alien to hunt down"
+    },
+    "oneRow": {
+      "name": "One sparse row",
+      "description": "A scattering of aliens in the bottom row"
+    },
+    "twoRows": {
+      "name": "Two rows",
+      "description": "Aliens spread across two rows"
+    },
+    "threeRows": {
+      "name": "Three rows",
+      "description": "Aliens across all three rows"
+    },
+    "fullRows": {
+      "name": "Full rows",
+      "description": "Three packed rows. The aliens keep coming back!"
+    }
+  },
+  "hints": {
+    "whereDoIStart": {
+      "question": "Where do I start? This feels like a lot.",
+      "answer": "Break it down. Get the laser moving from side to side first, ignoring the shooting. Once movement works, add the shooting logic."
+    },
+    "trackLaserPosition": {
+      "question": "How do I track where the laser is?",
+      "answer": "Keep a variable for the laser's position. Update it each loop iteration as you call `moveLeft()` or `moveRight()`."
+    },
+    "whenToTurnAround": {
+      "question": "How do I know when to turn around?",
+      "answer": "Track a direction variable (e.g. `1` for right, `-1` for left). When the position hits the left or right boundary, flip the direction. This is the same bounce pattern from Rainbow Ball."
+    },
+    "whenToShoot": {
+      "question": "When should I call `shoot()`?",
+      "answer": "Before calling `shoot()`, check `isAlienAbove()`. Only shoot if it returns `true`, otherwise you'll waste ammo and lose."
+    },
+    "laserOverheating": {
+      "question": "The laser keeps overheating. What do I do?",
+      "answer": "Don't shoot every iteration. Move at least once between shots so the cannon has time to cool down."
+    }
+  },
+  "functions": {
+    "moveLeft": {
+      "description": "Moves the laser cannon **one position to the left**. If you try to move off the left edge of the screen, you'll lose the game!",
+      "category": "Movement"
+    },
+    "moveRight": {
+      "description": "Moves the laser cannon **one position to the right**. If you try to move off the right edge of the screen, you'll lose the game!",
+      "category": "Movement"
+    },
+    "shoot": {
+      "description": "Shoots the laser upwards. **Only shoot when there's an alien above you**, or you'll lose the game! The laser cannon overheats easily, so you must move before shooting again.",
+      "category": "Action"
+    },
+    "isAlienAbove": {
+      "description": "Returns `true` if there's an alien directly above the laser cannon, or `false` if not. Use this to check before shooting!",
+      "category": "Detection"
+    }
+  }
+}

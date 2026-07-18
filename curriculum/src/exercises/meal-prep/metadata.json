@@ -3,16 +3,16 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "How would I do this in real life?",
-      "answer": "You'd go through the recipe one ingredient at a time and check the fridge for each. Anything missing goes on the shopping list. Your code does the same thing."
+      "question": "hints.realLifeApproach.question",
+      "answer": "hints.realLifeApproach.answer"
     },
     {
-      "question": "How do I check if a fridge item is there?",
-      "answer": "A small helper, something like 'is this item in this list?', keeps the main loop readable. Inside it, loop through the list and compare each entry to the item you're looking for."
+      "question": "hints.checkFridgeItem.question",
+      "answer": "hints.checkFridgeItem.answer"
     },
     {
-      "question": "How do I build up the shopping list?",
-      "answer": "Start with an empty list. For each recipe item that the fridge doesn't contain, `push()` it onto the shopping list."
+      "question": "hints.buildShoppingList.question",
+      "answer": "hints.buildShoppingList.answer"
     }
   ]
 }

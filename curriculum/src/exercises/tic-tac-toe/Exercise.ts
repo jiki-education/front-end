@@ -36,10 +36,10 @@ export class TicTacToeExercise extends DrawExercise {
     color: Shared.JikiObject
   ): void {
     if (!isNumber(width)) {
-      return _executionCtx.logicError("Width must be a number");
+      return _executionCtx.logicError(this.t("errors.widthMustBeNumber"));
     }
     if (!isString(color)) {
-      return _executionCtx.logicError("Color must be a string");
+      return _executionCtx.logicError(this.t("errors.colorMustBeString"));
     }
     this.strokeWidth = width.value;
     this.strokeColor = color.value;
@@ -47,7 +47,7 @@ export class TicTacToeExercise extends DrawExercise {
 
   private writeText(executionCtx: ExecutionContext, text: Shared.JikiObject): void {
     if (!isString(text)) {
-      return executionCtx.logicError("Text must be a string");
+      return executionCtx.logicError(this.t("errors.textMustBeString"));
     }
     this.writeCalls.push(text.value);
 

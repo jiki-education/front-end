@@ -31,7 +31,7 @@ describe("scroll-and-shoot", () => {
 
     expect(fullRows).toBeDefined();
     expect(
-      fullRows!.expects.some((e) => !e.pass && e.errorHtml != null && e.errorHtml.includes("without inputs"))
+      fullRows!.expects.some((e) => !e.pass && e.errorHtml != null && e.errorHtml.includes("noRepeatWithArg"))
     ).toBe(true);
   });
 });

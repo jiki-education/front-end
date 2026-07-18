@@ -4,18 +4,16 @@ import type SmashingBlocksExercise from "./Exercise";
 export const tasks = [
   {
     id: "add-and-smash-blocks" as const,
-    name: "Add and smash 5 blocks",
-    description:
-      "Create 5 blocks at the top of the game area, then bounce the ball to smash them all. Stop the ball once all blocks are smashed.",
+    name: "tasks.addAndSmashBlocks.name",
+    description: "tasks.addAndSmashBlocks.description",
     hints: [],
     requiredScenarios: ["add-blocks"],
     bonus: false
   },
   {
     id: "different-dimensions" as const,
-    name: "Different dimensions",
-    description:
-      "In the full breakout game, the ball's radius and block height can change. Check your code works with different dimensions.",
+    name: "tasks.differentDimensions.name",
+    description: "tasks.differentDimensions.description",
     hints: [],
     requiredScenarios: ["different-dimensions"],
     bonus: true
@@ -25,8 +23,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "add-blocks",
-    name: "Add and smash 5 blocks",
-    description: "Add 5 blocks to the game area, then smash them!",
+    name: "scenarios.addBlocks.name",
+    description: "scenarios.addBlocks.description",
     taskId: "add-and-smash-blocks",
 
     expectations(exercise) {
@@ -35,23 +33,23 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: state.numBlocks === 5,
-          errorHtml: "You didn't create exactly 5 blocks."
+          errorHtml: exercise.t("checks.wrongBlockCount")
         },
         {
           pass: state.numSmashedBlocks === 5,
-          errorHtml: "You didn't smash all the blocks."
+          errorHtml: exercise.t("checks.notAllSmashed")
         },
         {
           pass: state.numBallPositions === 504,
-          errorHtml: "You moved the ball more times than you needed to!"
+          errorHtml: exercise.t("checks.tooManyBallMoves")
         }
       ];
     }
   },
   {
     slug: "different-dimensions",
-    name: "Different dimensions",
-    description: "Check your code still works if the dimensions change!",
+    name: "scenarios.differentDimensions.name",
+    description: "scenarios.differentDimensions.description",
     taskId: "different-dimensions",
 
     setup(exercise) {
@@ -66,15 +64,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: state.numBlocks === 5,
-          errorHtml: "You didn't create exactly 5 blocks."
+          errorHtml: exercise.t("checks.wrongBlockCount")
         },
         {
           pass: state.numSmashedBlocks === 5,
-          errorHtml: "You didn't smash all the blocks."
+          errorHtml: exercise.t("checks.notAllSmashed")
         },
         {
           pass: state.numBallPositions === 459,
-          errorHtml: "You moved the ball more times than you needed to!"
+          errorHtml: exercise.t("checks.tooManyBallMoves")
         }
       ];
     }

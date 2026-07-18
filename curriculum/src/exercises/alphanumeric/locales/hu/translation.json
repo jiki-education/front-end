@@ -1,0 +1,52 @@
+{
+  "tasks": {
+    "classifyString": {
+      "name": "Classify a string",
+      "description": "Write helper functions to check if a string is alpha, numeric, or alphanumeric, then use them to classify the input string."
+    }
+  },
+  "scenarios": {
+    "duck": {
+      "name": "Duck",
+      "description": "A purely alphabetic string should be classified as \"Alpha\"."
+    },
+    "number": {
+      "name": "42",
+      "description": "A purely numeric string should be classified as \"Numeric\"."
+    },
+    "alphanumeric": {
+      "name": "Duck42",
+      "description": "A string with both letters and numbers should be classified as \"Alphanumeric\"."
+    },
+    "notAlphanumeric1": {
+      "name": "It's not 42!",
+      "description": "A string with special characters should be classified as \"Unknown\"."
+    },
+    "notAlphanumeric2": {
+      "name": "42 Rubber Duck!",
+      "description": "A string with spaces and special characters should be classified as \"Unknown\"."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Where should I start when there are several functions to write?",
+      "answer": "Pick the smallest helper first. A `contains()` function (which asks 'does this character appear in this string?') is the foundation that everything else can build on."
+    },
+    "checkAllLetters": {
+      "question": "How do I check if every character in the input is a letter?",
+      "answer": "Use `contains()` against the alphabet `\"abcdefghijklmnopqrstuvwxyz\"`. Loop through each character of the input and ask 'is this one in the alphabet?'. If any aren't, it isn't all alpha."
+    },
+    "checkAllDigits": {
+      "question": "How do I do the same check for digits?",
+      "answer": "Exactly the same pattern, but check against `\"0123456789\"` instead of the alphabet."
+    },
+    "alphanumericMeaning": {
+      "question": "What does 'alphanumeric' mean. Does it mean both?",
+      "answer": "Alphanumeric means each character is either a letter OR a digit. So for each character, if it's alpha you're happy, and if it's numeric you're also happy. Use `continue` to skip on. Only if it's neither should you reject."
+    },
+    "pickingLabels": {
+      "question": "How do I pick between the four labels in whatAmI()?",
+      "answer": "Call all three helpers and use if/else. The order matters. Check the stricter cases ('alpha only' and 'numeric only') before 'alphanumeric', which is the looser case."
+    }
+  }
+}

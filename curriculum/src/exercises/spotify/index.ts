@@ -7,27 +7,26 @@ const functions: FunctionInfo[] = [
   {
     name: "fetch",
     signature: "fetch(url, params)",
-    description:
-      "Fetch data from an API. Takes a URL string and a params dictionary. Returns the API response as a dictionary.",
+    description: "functions.fetch.description",
     examples: [
       'fetch("https://api.spotify.com/v1/users/fred", {}) // returns {items: [...]}',
       'fetch("https://api.spotify.com/v1/artists/abc123", {}) // returns {name: "Artist Name"}'
     ],
-    category: "API"
+    category: "functions.fetch.category"
   },
   {
     name: "push",
     signature: "push(list, element)",
-    description: "Add an element to a list and return the new list (provided by level stdlib)",
+    description: "functions.push.description",
     examples: ['push(["a"], "b") // returns ["a", "b"]'],
-    category: "List Operations"
+    category: "functions.push.category"
   },
   {
     name: "hasKey",
     signature: "hasKey(dictionary, key)",
-    description: "Check if a key exists in a dictionary, returns true or false (provided by level stdlib)",
+    description: "functions.hasKey.description",
     examples: ['hasKey({"name": "Jeremy"}, "name") // returns true'],
-    category: "Dictionary Operations"
+    category: "functions.hasKey.category"
   }
 ];
 

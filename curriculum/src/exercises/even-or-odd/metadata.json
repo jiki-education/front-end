@@ -3,20 +3,20 @@
   "levelId": "make-your-own-functions",
   "hints": [
     {
-      "question": "How can I tell if a number is even or odd in code?",
-      "answer": "Mathematically, a number is even if it divides exactly by 2 with nothing left over, and odd if there's a remainder of 1. So you need a way to ask 'what's left over after dividing by 2?'."
+      "question": "hints.howToTell.question",
+      "answer": "hints.howToTell.answer"
     },
     {
-      "question": "Is there an operator that gives me the remainder of a division?",
-      "answer": "Yes. The remainder operator `%` (sometimes called modulo) does exactly this. For example, `14 % 2` gives `0`, and `17 % 2` gives `1`. It returns whatever is left after dividing the first number by the second."
+      "question": "hints.remainderOperator.question",
+      "answer": "hints.remainderOperator.answer"
     },
     {
-      "question": "I've got the remainder. Now how do I turn that into \"Even\" or \"Odd\"?",
-      "answer": "Use an `if` statement to compare the remainder to `0`. If `number % 2` equals `0`, return `\"Even\"`. Otherwise, return `\"Odd\"`."
+      "question": "hints.turnIntoEvenOdd.question",
+      "answer": "hints.turnIntoEvenOdd.answer"
     },
     {
-      "question": "I can't work out how to handle 0 and negative numbers",
-      "answer": "You don't need any special case for them. `0 % 2` is `0`, so zero is treated as even automatically. And `-1 % 2` is non-zero, so `-1` is treated as odd, which is exactly what you want."
+      "question": "hints.zeroAndNegative.question",
+      "answer": "hints.zeroAndNegative.answer"
     }
   ]
 }

@@ -4,8 +4,8 @@ import type { FoxyFaceExercise } from "./Exercise";
 export const tasks = [
   {
     id: "draw-fox" as const,
-    name: "Draw the fox face",
-    description: "Use triangles to build a geometric fox face on the grey background.",
+    name: "tasks.drawFox.name",
+    description: "tasks.drawFox.description",
     hints: [],
     requiredScenarios: ["draw-fox"],
     bonus: false
@@ -15,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "draw-fox",
-    name: "Draw the fox face",
-    description: "Build a geometric fox face using triangles.",
+    name: "scenarios.drawFox.name",
+    description: "scenarios.drawFox.description",
     taskId: "draw-fox",
 
     setup(exercise) {
@@ -30,27 +30,27 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasTriangleAtWithColor(10, 40, 5, 60, 50, 95, "white"),
-          errorHtml: "The left cheek should be a white triangle in the right place."
+          errorHtml: ex.t("checks.leftCheek")
         },
         {
           pass: ex.hasTriangleAtWithColor(90, 40, 95, 60, 50, 95, "white"),
-          errorHtml: "The right cheek should be a white triangle in the right place."
+          errorHtml: ex.t("checks.rightCheek")
         },
         {
           pass: ex.hasTriangleAtWithColor(10, 40, 10, 5, 50, 40, "brown"),
-          errorHtml: "The left ear should be a brown triangle in the right place."
+          errorHtml: ex.t("checks.leftEar")
         },
         {
           pass: ex.hasTriangleAtWithColor(90, 40, 90, 5, 50, 40, "brown"),
-          errorHtml: "The right ear should be a brown triangle in the right place."
+          errorHtml: ex.t("checks.rightEar")
         },
         {
           pass: ex.hasTriangleAtWithColor(50, 30, 50, 95, 10, 40, "orange"),
-          errorHtml: "The left face should be an orange triangle in the right place."
+          errorHtml: ex.t("checks.leftFace")
         },
         {
           pass: ex.hasTriangleAtWithColor(50, 30, 50, 95, 90, 40, "orange"),
-          errorHtml: "The right face should be an orange triangle in the right place."
+          errorHtml: ex.t("checks.rightFace")
         },
         {
           pass:
@@ -58,19 +58,19 @@ export const scenarios: VisualScenario[] = [
               ex.hasTriangleAtWithColor(50, 95, 40, 90, 60, 90, "charcoal")) ||
             (ex.hasTriangleAtWithColor(40, 90, 50, 85, 50, 95, "charcoal") &&
               ex.hasTriangleAtWithColor(60, 90, 50, 85, 50, 95, "charcoal")),
-          errorHtml: "The nose needs two charcoal triangles. You can split it top/bottom or left/right."
+          errorHtml: ex.t("checks.nose")
         },
         {
           pass: ex.triangleDrawnBefore([10, 40, 10, 5, 50, 40], [50, 30, 50, 95, 10, 40]),
-          errorHtml: "The left face should be drawn **on top of** the left ear."
+          errorHtml: ex.t("checks.leftFaceAboveEar")
         },
         {
           pass: ex.triangleDrawnBefore([90, 40, 90, 5, 50, 40], [50, 30, 50, 95, 90, 40]),
-          errorHtml: "The right face should be drawn **on top of** the right ear."
+          errorHtml: ex.t("checks.rightFaceAboveEar")
         },
         {
           pass: ex.trianglesColorDrawnAbove("charcoal", "orange"),
-          errorHtml: "The nose should sit **on top of** the face."
+          errorHtml: ex.t("checks.noseAboveFace")
         }
       ];
     }

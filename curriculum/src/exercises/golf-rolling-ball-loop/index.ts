@@ -8,9 +8,9 @@ const functions: FunctionInfo[] = [
   {
     name: "roll",
     signature: "roll()",
-    description: "Rolls the ball **one step to the right**.",
+    description: "functions.roll.description",
     examples: ["roll()"],
-    category: "Movement"
+    category: "functions.roll.category"
   }
 ];
 

@@ -1,0 +1,36 @@
+{
+  "errors": {
+    "positionNumber": "Position must be a number"
+  },
+  "checks": {
+    "flowerCount": "Expected 9 flowers, but found {{got}}.",
+    "missingFlowerAt10": "Missing a flower at position 10.",
+    "missingFlowerAt50": "Missing a flower at position 50.",
+    "missingFlowerAt90": "Missing a flower at position 90.",
+    "tooManyLines": "Your solution has too many lines of code. Try to find a way to make it shorter."
+  },
+  "tasks": {
+    "plantFlowers": {
+      "name": "Plant 9 flowers",
+      "description": "Use a variable and a repeat loop to plant 9 flowers at positions 10, 20, 30, ..., 90."
+    }
+  },
+  "scenarios": {
+    "plantFlowers": {
+      "name": "Plant 9 flowers",
+      "description": "Plant flowers at positions 10, 20, 30, 40, 50, 60, 70, 80, and 90."
+    }
+  },
+  "hints": {
+    "stuck": {
+      "question": "I'm totally stuck",
+      "answer": "Check the recent videos on how to use repeat loops and how to update variables to track state. They should tell you everything you need to know."
+    }
+  },
+  "functions": {
+    "plant": {
+      "description": "Plants a flower at the given **position**.",
+      "category": "Gardening"
+    }
+  }
+}

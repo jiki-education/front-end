@@ -4,8 +4,8 @@
 
 import type { EditorView } from "@codemirror/view";
 import type { Frame } from "@jiki/interpreters/shared";
-import type { Messages } from "@jiki/interpreters";
-import type { ExerciseDefinition, Language, ReadonlyRange } from "@jiki/curriculum";
+import type { Messages as InterpreterMessages } from "@jiki/interpreters";
+import type { ExerciseDefinition, Language, ReadonlyRange, Messages as CurriculumMessages } from "@jiki/curriculum";
 import { getLanguageFeatures } from "@jiki/curriculum";
 import { debounce } from "lodash";
 import type { StoreApi } from "zustand/vanilla";
@@ -33,13 +33,19 @@ class Orchestrator {
   // run so diagnostics resolve in the student's locale. Supplied by useExerciseLoader
   // for the real page (any language); tests pass an empty dict, which resolves to
   // each interpreter's `system` default.
-  private readonly interpreterLocaleMessages: Messages;
+  private readonly interpreterLocaleMessages: InterpreterMessages;
+  // The active locale's curriculum message dict (logicError/errorHtml/code-check
+  // strings), injected into each exercise instance before it runs. Supplied by
+  // useExerciseLoader (fetched in the blocking load); tests default to an empty
+  // dict, which resolves keys as-is.
+  private readonly exerciseLocaleMessages: CurriculumMessages;
 
   constructor(
     exercise: ExerciseDefinition,
     language: Language,
     context: ExerciseContext,
-    interpreterLocaleMessages: Messages,
+    interpreterLocaleMessages: InterpreterMessages,
+    exerciseLocaleMessages: CurriculumMessages,
     contentHash: string,
     onGoToDashboard: () => void,
     serverData?: { code: string; storedAt?: string }
@@ -48,6 +54,7 @@ class Orchestrator {
     this.language = language;
     this.contentHash = contentHash;
     this.interpreterLocaleMessages = interpreterLocaleMessages;
+    this.exerciseLocaleMessages = exerciseLocaleMessages;
 
     // Create instance-specific store with exercise, language, and context
     this.store = createOrchestratorStore(exercise, language, context, onGoToDashboard);
@@ -55,7 +62,13 @@ class Orchestrator {
     // Initialize managers
     this.timelineManager = new TimelineManager(this.store);
     this.taskManager = new TaskManager(this.store);
-    this.testSuiteManager = new TestSuiteManager(this.store, this.interpreterLocaleMessages, this.taskManager, context);
+    this.testSuiteManager = new TestSuiteManager(
+      this.store,
+      this.interpreterLocaleMessages,
+      this.exerciseLocaleMessages,
+      this.taskManager,
+      context
+    );
     // EditorManager will be created lazily when setupEditor is called
 
     // Initialize exercise data — merges the server's last submission (if any)
@@ -301,13 +314,10 @@ class Orchestrator {
         ...this.exercise.interpreterOptions
       };
 
-      let availableFunctions: Array<{ name: string; func: any; description: string }>;
-      if (this.exercise.type === "visual") {
-        const tempExercise = new this.exercise.ExerciseClass();
-        availableFunctions = tempExercise.getExternalFunctions(this.language);
-      } else {
-        availableFunctions = this.exercise.ExerciseClass.getExternalFunctions(this.language);
-      }
+      // Instantiate the exercise (uniform for visual and IO) to get its functions.
+      const tempExercise = new this.exercise.ExerciseClass();
+      const availableFunctions: Array<{ name: string; func: any; description: string }> =
+        tempExercise.getExternalFunctions(this.language);
 
       const result = interpreter.compile(code, {
         externalFunctions: availableFunctions,

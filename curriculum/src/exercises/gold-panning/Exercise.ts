@@ -49,12 +49,12 @@ export default class GoldPanningExercise extends VisualExercise {
 
   private pan(executionCtx: ExecutionContext): number {
     if (this.sold) {
-      executionCtx.logicError("The robot needs to recharge after selling.");
+      executionCtx.logicError(this.t("errors.needsRecharge"));
       return 0;
     }
 
     if (this.panCount >= 5) {
-      executionCtx.logicError("The robot needs to go and sell before it does anything else.");
+      executionCtx.logicError(this.t("errors.sellBeforeAnythingElse"));
       return 0;
     }
 
@@ -77,7 +77,7 @@ export default class GoldPanningExercise extends VisualExercise {
 
   private sell(executionCtx: ExecutionContext, nuggets: Shared.JikiObject) {
     if (!isNumber(nuggets)) {
-      return executionCtx.logicError("You can only sell a number of nuggets");
+      return executionCtx.logicError(this.t("errors.sellNumber"));
     }
     this.soldNuggets = nuggets.value;
     this.sold = true;

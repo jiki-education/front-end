@@ -3,20 +3,20 @@
   "levelId": "methods-and-properties",
   "hints": [
     {
-      "question": "How do I check that the character I'm asked about is valid?",
-      "answer": "Write a small helper that asks 'is this character one of A, C, G, T?'. Use it to validate the nucleotide before doing anything else."
+      "question": "hints.checkValid.question",
+      "answer": "hints.checkValid.answer"
     },
     {
-      "question": "What do I do if the nucleotide is invalid?",
-      "answer": "Return `-1` immediately. The spec uses that value to signal an invalid input."
+      "question": "hints.invalidNucleotide.question",
+      "answer": "hints.invalidNucleotide.answer"
     },
     {
-      "question": "How do I count occurrences in the strand?",
-      "answer": "Loop through each character of the strand. If the character matches the nucleotide you're counting, add 1 to a counter. Return the counter at the end."
+      "question": "hints.countOccurrences.question",
+      "answer": "hints.countOccurrences.answer"
     },
     {
-      "question": "Should I validate the strand too?",
-      "answer": "Yes. If any character in the strand isn't a valid nucleotide, return `-1`. Check each character before counting."
+      "question": "hints.validateStrand.question",
+      "answer": "hints.validateStrand.answer"
     }
   ]
 }

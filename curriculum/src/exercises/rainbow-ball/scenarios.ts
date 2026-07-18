@@ -19,9 +19,8 @@ const HUE_CHECKS: { hue: number; times: number }[] = [
 export const tasks = [
   {
     id: "rainbow-ball" as const,
-    name: "Create a bouncing rainbow ball",
-    description:
-      "Create a ball that bounces around the canvas, leaving a trail of colorful circles that cycle through rainbow colors.",
+    name: "tasks.rainbowBall.name",
+    description: "tasks.rainbowBall.description",
     hints: [],
     requiredScenarios: ["rainbow-ball"],
     bonus: false
@@ -31,8 +30,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "rainbow-ball",
-    name: "Rainbow ball",
-    description: "Draw a rainbow trail from different circles.",
+    name: "scenarios.rainbowBall.name",
+    description: "scenarios.rainbowBall.description",
     taskId: "rainbow-ball",
     randomSeed: true,
     expectations(exercise) {
@@ -41,22 +40,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.checkUniqueColoredCircles(50),
-          errorHtml: "Expected at least 50 uniquely colored circles."
+          errorHtml: ex.t("checks.uniqueColoredCircles")
         },
         {
           pass: ex.checkUniquePositionedCircles(30),
-          errorHtml: "Expected at least 30 different positions."
+          errorHtml: ex.t("checks.uniquePositionedCircles")
         },
         {
           pass: ex.checkCanvasCoverage(80),
-          errorHtml: "The ball didn't paint enough of the canvas. It should bounce around until over 80% is covered."
+          errorHtml: ex.t("checks.canvasCoverage")
         },
         ...HUE_CHECKS.map(({ hue, times }) => ({
           pass: ex.countCirclesWithFillColor(hslToHexString(hue, 80, 50)) >= times,
-          errorHtml:
-            times > 1
-              ? "The hue didn't hit 360 then climb back down again."
-              : "The rainbow trail didn't sweep through all the colours."
+          errorHtml: times > 1 ? ex.t("checks.hueBounced") : ex.t("checks.hueSweep")
         }))
       ];
     }

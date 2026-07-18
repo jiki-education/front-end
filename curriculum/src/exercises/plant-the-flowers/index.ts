@@ -7,9 +7,9 @@ const functions: FunctionInfo[] = [
   {
     name: "plant",
     signature: "plant(position)",
-    description: "Plants a flower at the given **position**.",
+    description: "functions.plant.description",
     examples: ["plant(10)", "plant(20)"],
-    category: "Gardening"
+    category: "functions.plant.category"
   }
 ];
 

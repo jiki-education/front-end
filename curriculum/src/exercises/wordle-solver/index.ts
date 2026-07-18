@@ -8,30 +8,30 @@ const functions: FunctionInfo[] = [
   {
     name: "addWord",
     signature: "addWord(row, word, states)",
-    description: "Adds a word to the Wordle board at the given row (1-6) with its letter states.",
+    description: "functions.addWord.description",
     examples: ['addWord(1, "hello", ["correct", "present", "absent", "absent", "correct"])'],
-    category: "Wordle"
+    category: "functions.addWord.category"
   },
   {
     name: "getTargetWord",
     signature: "getTargetWord()",
-    description: "Returns the secret target word. Use this to check your guess, not to cheat!",
+    description: "functions.getTargetWord.description",
     examples: ["let target = getTargetWord()"],
-    category: "Wordle"
+    category: "functions.getTargetWord.category"
   },
   {
     name: "commonWords",
     signature: "commonWords()",
-    description: "Returns a list of 100+ common five-letter words to use as guesses.",
+    description: "functions.commonWords.description",
     examples: ["let words = commonWords()"],
-    category: "Wordle"
+    category: "functions.commonWords.category"
   },
   {
     name: "push",
     signature: "push(list, element)",
-    description: "Adds an element to a list and returns the new list. Does not change the original list.",
+    description: "functions.push.description",
     examples: ['push(["a", "b"], "c") // returns ["a", "b", "c"]'],
-    category: "Lists"
+    category: "functions.push.category"
   }
 ];
 

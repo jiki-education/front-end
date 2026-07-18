@@ -31,6 +31,10 @@ export type {
   VisualTestExpect
 } from "./exercises/types";
 
+// Export the translator factory so the app can resolve static display strings
+// against the same fetched per-exercise message dict.
+export { createTranslator, type Messages, type Translator } from "./i18n/translator";
+
 // Export the base Exercise classes and Animation type
 export { Exercise } from "./Exercise";
 export { IOExercise } from "./IOExercise";

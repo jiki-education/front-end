@@ -3,18 +3,16 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "check-guest-list" as const,
-    name: "Check the Guest List",
-    description:
-      "Write a function that checks if a person is on the guest list by their first name. A person is on the list if any name on the list starts with their first name (followed by a space or end of string).",
+    name: "tasks.checkGuestList.name",
+    description: "tasks.checkGuestList.description",
     hints: [],
     requiredScenarios: ["empty-list", "name-missing", "name-present", "similar-name", "double-barrelled"],
     bonus: false
   },
   {
     id: "bonus-single-names" as const,
-    name: "Single Name Celebrities",
-    description:
-      "Handle celebrities who only have one name, like Cher. Make sure not to accidentally match partial names.",
+    name: "tasks.bonusSingleNames.name",
+    description: "tasks.bonusSingleNames.description",
     hints: [],
     requiredScenarios: ["cher", "cheryl"],
     bonus: true
@@ -24,8 +22,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "empty-list",
-    name: "Empty register",
-    description: "No-one's allowed in when the list is empty.",
+    name: "scenarios.emptyList.name",
+    description: "scenarios.emptyList.description",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [[], "Brad"],
@@ -33,8 +31,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "name-missing",
-    name: "Brad's turned away",
-    description: "The name's not on the list.",
+    name: "scenarios.nameMissing.name",
+    description: "scenarios.nameMissing.description",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [["Brian May", "Bryn Harrison", "Albert Einstein"], "Brad"],
@@ -42,8 +40,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "name-present",
-    name: "Brad's allowed in",
-    description: "The name's on the list.",
+    name: "scenarios.namePresent.name",
+    description: "scenarios.namePresent.description",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [["Brian May", "Brad Pitt", "Albert Einstein"], "Brad"],
@@ -51,8 +49,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "similar-name",
-    name: "Close, but nope",
-    description: "The name isn't on the list - Bradley is not Brad.",
+    name: "scenarios.similarName.name",
+    description: "scenarios.similarName.description",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [["Brian May", "Bradley Cooper", "Albert Einstein"], "Brad"],
@@ -60,8 +58,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "double-barrelled",
-    name: "A dutchman",
-    description: "The name's on the list, but it's hyphenated.",
+    name: "scenarios.doubleBarrelled.name",
+    description: "scenarios.doubleBarrelled.description",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [["Brian May", "Brad Pitt", "Derk-Jan Karrenbeld", "Albert Einstein"], "Derk-Jan"],
@@ -69,8 +67,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "cher",
-    name: "Cher's in town",
-    description: "Some people only have one name.",
+    name: "scenarios.cher.name",
+    description: "scenarios.cher.description",
     taskId: "bonus-single-names",
     functionName: "on_guest_list",
     args: [["Cher", "Brian May", "Brad Pitt", "Albert Einstein"], "Cher"],
@@ -78,8 +76,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "cheryl",
-    name: "Getting tough now",
-    description: "Are Cheryl Crow and Cher friends? Doesn't matter - Cheryl is not Cher.",
+    name: "scenarios.cheryl.name",
+    description: "scenarios.cheryl.description",
     taskId: "bonus-single-names",
     functionName: "on_guest_list",
     args: [["Cher", "Brian May", "Brad Pitt", "Albert Einstein"], "Cheryl"],

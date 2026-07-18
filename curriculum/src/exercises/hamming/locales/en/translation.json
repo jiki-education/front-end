@@ -1,0 +1,44 @@
+{
+  "tasks": {
+    "calculateHammingDistance": {
+      "name": "Calculate the Hamming Distance",
+      "description": "Write a function that calculates the Hamming distance between two DNA strands of equal length. The Hamming distance is the number of positions where the corresponding characters differ."
+    }
+  },
+  "scenarios": {
+    "hammingEmptyStrands": {
+      "name": "Empty strands",
+      "description": "Empty strands have a Hamming distance of 0."
+    },
+    "hammingSingleLetterIdentical": {
+      "name": "Single letter identical strands",
+      "description": "Single-letter identical strands have a Hamming distance of 0."
+    },
+    "hammingLongIdenticalStrands": {
+      "name": "Long identical strands",
+      "description": "Long identical strands have a Hamming distance of 0."
+    },
+    "hammingSingleLetterDifferent": {
+      "name": "Single letter different strands",
+      "description": "Single-letter different strands have a Hamming distance of 1."
+    },
+    "hammingLongDifferentStrands": {
+      "name": "Long different strands",
+      "description": "Long strands with differences have a calculated Hamming distance."
+    }
+  },
+  "hints": {
+    "hammingDistanceMeaning": {
+      "question": "What does 'Hamming distance' mean in plain terms?",
+      "answer": "It's the number of positions where the two strings differ. So 'GAGA' vs 'GATA' differ at position 3 only, giving a distance of 1."
+    },
+    "compareCharactersAtPosition": {
+      "question": "How do I compare characters at the same position in both strings?",
+      "answer": "Loop through one string with a position counter. At each step, look at the character at that position in the first string and the character at the same position in the second."
+    },
+    "trackDifferenceCount": {
+      "question": "How do I track 'how many differences'?",
+      "answer": "Keep a counter starting at 0. Each time you find a position where the characters don't match, add 1. Return the counter at the end."
+    }
+  }
+}

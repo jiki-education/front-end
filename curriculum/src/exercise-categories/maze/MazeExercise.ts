@@ -1,6 +1,11 @@
 import { type ExecutionContext, type ExternalFunction } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
 
+// Logic-error messages are resolved against the message dict injected into this
+// exercise (via `setMessages`) and passed to `logicError` as finished,
+// pre-translated strings; the interpreter relays them verbatim. Every subclass'
+// catalog must define the "errors.fellOffEdge" / "errors.hitWall" keys used here.
+
 type Direction = "up" | "right" | "down" | "left";
 
 export default class MazeExercise extends VisualExercise {
@@ -60,12 +65,12 @@ export default class MazeExercise extends VisualExercise {
 
     // Check if move is valid (within bounds and not blocked)
     if (newRow < 0 || newRow >= this.grid.length || newCol < 0 || newCol >= this.grid[0].length) {
-      executionCtx.logicError("Oh no - you tried to fall off the edge of the maze!");
+      executionCtx.logicError(this.t("errors.fellOffEdge"));
       return;
     }
 
     if (this.grid[newRow][newCol] === 1) {
-      executionCtx.logicError("Ouch - you walked into a wall!");
+      executionCtx.logicError(this.t("errors.hitWall"));
       return;
     }
 

@@ -1,0 +1,52 @@
+{
+  "tasks": {
+    "didTheyPass": {
+      "name": "Did They Pass?",
+      "description": "Write a function that analyzes driving test marks and determines if the student passed. A student fails if they have any major faults (💥) or 5 or more minor faults (❌)."
+    }
+  },
+  "scenarios": {
+    "perfectMarks": {
+      "name": "The perfect student!",
+      "description": "They did everything right - wow!"
+    },
+    "dangerous": {
+      "name": "Danger to society",
+      "description": "We can't let this one on the road!"
+    },
+    "oneBigMistake": {
+      "name": "One big mistake",
+      "description": "One big mistake is all it takes to fail!"
+    },
+    "scrapedThrough": {
+      "name": "Scraped through",
+      "description": "They cut it close but they passed!"
+    },
+    "oneMistakeTooMany": {
+      "name": "One mistake too many!",
+      "description": "All those little errors added up."
+    }
+  },
+  "hints": {
+    "lookAtEachMark": {
+      "question": "How do I look at each individual mark?",
+      "answer": "Loop through the marks string one character at a time. Each character is either ✅, ❌, or 💥."
+    },
+    "emojiInQuotes": {
+      "question": "Why is my code complaining about 💥?",
+      "answer": "Emoji like 💥 and ❌ still need to be wrapped in quotation marks. They're characters in a string just like letters are."
+    },
+    "majorFault": {
+      "question": "What should I do when I see a 💥 (major)?",
+      "answer": "Any single major fails the test, no matter what else has happened. So you can return `false` straight away as soon as you see one. There's no need to keep looking."
+    },
+    "minorCount": {
+      "question": "How do I handle minors, where the count matters?",
+      "answer": "Keep a counter variable and add 1 to it each time you see a ❌. Ignore the ✅s, they don't change anything."
+    },
+    "finalCheck": {
+      "question": "What do I check at the end?",
+      "answer": "Once the loop's finished and you haven't seen a major, the test passes if there were fewer than 5 minors. Return `true` if the minor count is less than 5, otherwise `false`."
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "errors": {
+    "allInputsNumbers": "All inputs must be numbers",
+    "hueRange": "Hue must be between 0 and 360",
+    "saturationRange": "Saturation must be between 0 and 100",
+    "lightnessRange": "Lightness must be between 0 and 100",
+    "redRange": "Red must be between 0 and 255",
+    "greenRange": "Green must be between 0 and 255",
+    "blueRange": "Blue must be between 0 and 255",
+    "rectInputsNumbers": "The x, y, width, and height inputs must be numbers",
+    "widthPositive": "Width must be greater than 0",
+    "heightPositive": "Height must be greater than 0",
+    "lineInputsNumbers": "The x1, y1, x2, and y2 inputs must be numbers",
+    "circleInputsNumbers": "The x, y, and radius inputs must be numbers",
+    "ellipseInputsNumbers": "The x, y, rx, and ry inputs must be numbers",
+    "triangleInputsNumbers": "The x1, y1, x2, y2, x3, and y3 inputs must be numbers",
+    "colorNotAllowed": "Color should not be specified for this exercise",
+    "colorNotString": "Color must be a string",
+    "colorNamedOrHex": "Color must be a named color (\"orange\", \"blue\", \"white\", etc) specified in the instructions, or a hex color starting with #"
+  },
+  "checks": {
+    "border": "The board should have a black border all the way around the edge.",
+    "topLeftWhite": "The top-left square should be white (it's a light square).",
+    "rightOfTopLeftDark": "The square to the right of the top-left one should be dark brown (a dark square).",
+    "bottomLeftDark": "The bottom-left square should be dark brown (a dark square).",
+    "bottomRightWhite": "The bottom-right square should be white.",
+    "charcoalPiece": "There should be a charcoal piece on the dark square in the top row.",
+    "topRim": "The pieces in the top rows should have a rim around them.",
+    "whitePiece": "There should be a white piece on the dark square in the bottom row.",
+    "bottomRim": "The pieces in the bottom rows should have a rim around them.",
+    "rimRatio": "The rim of a piece should be 80% as wide as its square - check the outer circle's radius.",
+    "innerRatio": "The centre of a piece should be 75% as wide as the whole piece - check the inner circle's radius.",
+    "noPieceOnLight": "There shouldn't be a piece on the top-left square - pieces only go on the dark squares.",
+    "middleRowsEmpty": "The middle rows should be empty - only the top and bottom rows have pieces."
+  },
+  "tasks": {
+    "setUpTheBoard": {
+      "name": "Set up the board",
+      "description": "Draw the checkerboard and place the pieces on the dark squares of the top and bottom rows - and make it work for any board size."
+    }
+  },
+  "scenarios": {
+    "board8": {
+      "name": "Set up an 8×8 board",
+      "description": "Draw the classic 8×8 checkerboard and lay out the pieces ready to play."
+    },
+    "board6": {
+      "name": "Set up a 6×6 board",
+      "description": "The same code should scale down to a smaller 6×6 board."
+    },
+    "board10": {
+      "name": "Set up a 10×10 board",
+      "description": "And it should scale up to a larger 10×10 board."
+    }
+  },
+  "hints": {
+    "wholeGrid": {
+      "question": "How do I draw a whole grid of squares rather than just one?",
+      "answer": "Use nested loops: an outer loop that steps through the rows and an inner loop that steps through the columns. Draw one square each time the inner loop runs."
+    },
+    "anyBoardSize": {
+      "question": "How do I make it work whatever the board size is?",
+      "answer": "Don't pick a fixed square size. Ask `getBoardSize()` how many squares there are, work out a single `cell` size from that and the space available, and build every position as a multiple of it."
+    },
+    "alternateColours": {
+      "question": "How do I make the squares alternate colours?",
+      "answer": "Look at a square's row and column together. The remainder operator (`%`) lets you split every square into one of two groups based on `row` and `col`, and those two groups are exactly the light and dark squares."
+    },
+    "whichSquaresGetPieces": {
+      "question": "Which squares get pieces?",
+      "answer": "Pieces only sit on the **dark** squares, so you can reuse the same test you used to colour them. Then narrow it further to only the top and bottom rows, leaving the middle two empty."
+    },
+    "ridgedPiece": {
+      "question": "How do I draw a ridged piece?",
+      "answer": "Draw two circles at the same centre: a larger one for the rim, then a slightly smaller one on top in the piece's colour. Base both radii on the cell size so the pieces scale with the board."
+    },
+    "rimSize": {
+      "question": "The size of the rim doesn't look like the sample diagram.",
+      "answer": "Check that the inner circle is 75% of the outer circle (not 75% of the square)."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Draw a rectangle at position (left, top) with the given width, height, and color",
+      "category": "Drawing Shapes"
+    },
+    "circle": {
+      "description": "Draw a circle centered at (centerX, centerY) with the given radius and color",
+      "category": "Drawing Shapes"
+    },
+    "getBoardSize": {
+      "description": "Returns the size of the board (the number of squares along each edge) for the current puzzle",
+      "category": "Information"
+    }
+  }
+}

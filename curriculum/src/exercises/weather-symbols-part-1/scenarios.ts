@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "map-descriptions" as const,
-    name: "Map descriptions to components",
-    description:
-      "Write a function that takes a weather description string and returns the list of drawing components for that weather type.",
+    name: "tasks.mapDescriptions.name",
+    description: "tasks.mapDescriptions.description",
     hints: [],
     requiredScenarios: ["sunny", "dull", "miserable", "hopeful", "rainbow-territory", "exciting", "snowboarding-time"],
     bonus: false
@@ -15,8 +14,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "sunny",
-    name: "Sunny",
-    description: "Sunny days only need a sun.",
+    name: "scenarios.sunny.name",
+    description: "scenarios.sunny.description",
     taskId: "map-descriptions",
     functionName: "description_to_elements",
     args: ["sunny"],
@@ -24,8 +23,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "dull",
-    name: "Dull",
-    description: "Dull days need clouds.",
+    name: "scenarios.dull.name",
+    description: "scenarios.dull.description",
     taskId: "map-descriptions",
     functionName: "description_to_elements",
     args: ["dull"],
@@ -33,8 +32,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "miserable",
-    name: "Miserable",
-    description: "Miserable days need clouds and rain.",
+    name: "scenarios.miserable.name",
+    description: "scenarios.miserable.description",
     taskId: "map-descriptions",
     functionName: "description_to_elements",
     args: ["miserable"],
@@ -42,8 +41,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "hopeful",
-    name: "Hopeful",
-    description: "Hopeful days need sun and cloud.",
+    name: "scenarios.hopeful.name",
+    description: "scenarios.hopeful.description",
     taskId: "map-descriptions",
     functionName: "description_to_elements",
     args: ["hopeful"],
@@ -51,8 +50,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "rainbow-territory",
-    name: "Rainbow Territory",
-    description: "Rainbow territory needs sun, cloud, and rain.",
+    name: "scenarios.rainbowTerritory.name",
+    description: "scenarios.rainbowTerritory.description",
     taskId: "map-descriptions",
     functionName: "description_to_elements",
     args: ["rainbow-territory"],
@@ -60,8 +59,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "exciting",
-    name: "Exciting",
-    description: "Exciting days need cloud and snow.",
+    name: "scenarios.exciting.name",
+    description: "scenarios.exciting.description",
     taskId: "map-descriptions",
     functionName: "description_to_elements",
     args: ["exciting"],
@@ -69,8 +68,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "snowboarding-time",
-    name: "Snowboarding Time",
-    description: "Snowboarding time needs sun, cloud, and snow.",
+    name: "scenarios.snowboardingTime.name",
+    description: "scenarios.snowboardingTime.description",
     taskId: "map-descriptions",
     functionName: "description_to_elements",
     args: ["snowboarding-time"],

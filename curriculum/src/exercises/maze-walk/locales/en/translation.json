@@ -1,0 +1,46 @@
+{
+  "errors": {
+    "fellOffEdge": "Oh no - you tried to fall off the edge of the maze!",
+    "hitWall": "Ouch - you walked into a wall!"
+  },
+  "checks": {
+    "notReachedEnd": "You didn't reach the end of the maze.",
+    "walkNotDefined": "You should define a <code>walk</code> function that takes a number of steps and moves forward that many times."
+  },
+  "tasks": {
+    "writeWalk": {
+      "name": "Write a walk function",
+      "description": "Define a function called walk that takes a number of steps as its input and moves forward that many times."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Navigate the maze",
+      "description": "Walk 3, turn left, walk 2, turn right, walk 4 to reach the target."
+    }
+  },
+  "hints": {
+    "howToMoveForward": {
+      "question": "How do I move forward?",
+      "answer": "Use the `move()` function."
+    },
+    "howToMoveSpecificTimes": {
+      "question": "How do I move forward a specific number of times?",
+      "answer": "You have solved other exercises where you had to do something a specific number of times (think back to making the golf ball roll a specific distance). Use the same ideas here."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Moves the character **one step forward** in the current direction. The character will only move if the target position is not blocked by a wall.",
+      "category": "Movement"
+    },
+    "turnLeft": {
+      "description": "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
+      "category": "Movement"
+    },
+    "turnRight": {
+      "description": "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
+      "category": "Movement"
+    }
+  }
+}

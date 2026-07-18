@@ -7,17 +7,16 @@ const functions: FunctionInfo[] = [
   {
     name: "push",
     signature: "push(list, element)",
-    description: "Returns a new list with the element added to the end (provided by level stdlib)",
+    description: "functions.push.description",
     examples: ['push(["a", "b"], "c") -> ["a", "b", "c"]', "push([1, 2], 3) -> [1, 2, 3]"],
-    category: "List Operations"
+    category: "functions.push.category"
   },
   {
     name: "concat",
     signature: "concat(list1, list2)",
-    description:
-      "Takes two lists, joins them together into one list, then returns the result (provided by level stdlib)",
+    description: "functions.concat.description",
     examples: ['concat(["a"], ["b"]) -> ["a", "b"]', "concat([1, 2], [3, 4]) -> [1, 2, 3, 4]"],
-    category: "List Operations"
+    category: "functions.concat.category"
   }
 ];
 

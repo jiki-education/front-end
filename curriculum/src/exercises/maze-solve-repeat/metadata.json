@@ -3,12 +3,12 @@
   "levelId": "repeat-loop",
   "hints": [
     {
-      "question": "I have no idea what to do",
-      "answer": "Look for groups of consecutive `move()` calls. For example, instead of:\n\n```javascript\nmove()\nmove()\nmove()\n```\n\nYou can write:\n\n```javascript\nrepeat(3) {\n  move()\n}\n```\n\nFind the groups and replace them!"
+      "question": "hints.noIdea.question",
+      "answer": "hints.noIdea.answer"
     },
     {
-      "question": "Using repeats but got too many lines?",
-      "answer": "Is it always better to use a repeat? In some cases, it might be shorter to just have two moves next to each other."
+      "question": "hints.tooManyLines.question",
+      "answer": "hints.tooManyLines.answer"
     }
   ]
 }

@@ -4,9 +4,8 @@ import type DigitalClockExercise from "./Exercise";
 export const tasks = [
   {
     id: "display-time" as const,
-    name: "Display the time on the clock",
-    description:
-      "Get the current hour and minute, convert to 12-hour format with am/pm, and display it using displayTime().",
+    name: "tasks.displayTime.name",
+    description: "tasks.displayTime.description",
     hints: [],
     requiredScenarios: ["morning-1", "morning-2", "afternoon-1", "afternoon-2", "midnight", "noon", "now"],
     bonus: false
@@ -27,8 +26,8 @@ function computeExpectedTime(hour: number, minute: number): string {
 export const scenarios: VisualScenario[] = [
   {
     slug: "morning-1",
-    name: "Early morning",
-    description: 'Display 6:35 as "6:35am"',
+    name: "scenarios.morning1.name",
+    description: "scenarios.morning1.description",
     taskId: "display-time",
 
     setup(exercise) {
@@ -41,19 +40,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.displayedTime !== undefined,
-          errorHtml: "The clock didn't get updated. Make sure you use the <code>displayTime</code> function."
+          errorHtml: exercise.t("checks.notUpdated")
         },
         {
           pass: ex.displayedTime === "6:35am",
-          errorHtml: `Expected "6:35am" but got "${ex.displayedTime}"`
+          errorHtml: exercise.t("checks.wrongTime", { expected: "6:35am", got: ex.displayedTime })
         }
       ];
     }
   },
   {
     slug: "morning-2",
-    name: "Late morning",
-    description: 'Display 11:04 as "11:04am"',
+    name: "scenarios.morning2.name",
+    description: "scenarios.morning2.description",
     taskId: "display-time",
 
     setup(exercise) {
@@ -66,19 +65,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.displayedTime !== undefined,
-          errorHtml: "The clock didn't get updated. Make sure you use the <code>displayTime</code> function."
+          errorHtml: exercise.t("checks.notUpdated")
         },
         {
           pass: ex.displayedTime === "11:04am",
-          errorHtml: `Expected "11:04am" but got "${ex.displayedTime}"`
+          errorHtml: exercise.t("checks.wrongTime", { expected: "11:04am", got: ex.displayedTime })
         }
       ];
     }
   },
   {
     slug: "afternoon-1",
-    name: "Early afternoon",
-    description: 'Display 12:19 as "12:19pm"',
+    name: "scenarios.afternoon1.name",
+    description: "scenarios.afternoon1.description",
     taskId: "display-time",
 
     setup(exercise) {
@@ -91,19 +90,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.displayedTime !== undefined,
-          errorHtml: "The clock didn't get updated. Make sure you use the <code>displayTime</code> function."
+          errorHtml: exercise.t("checks.notUpdated")
         },
         {
           pass: ex.displayedTime === "12:19pm",
-          errorHtml: `Expected "12:19pm" but got "${ex.displayedTime}"`
+          errorHtml: exercise.t("checks.wrongTime", { expected: "12:19pm", got: ex.displayedTime })
         }
       ];
     }
   },
   {
     slug: "afternoon-2",
-    name: "Late evening",
-    description: 'Display 23:32 as "11:32pm"',
+    name: "scenarios.afternoon2.name",
+    description: "scenarios.afternoon2.description",
     taskId: "display-time",
 
     setup(exercise) {
@@ -116,19 +115,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.displayedTime !== undefined,
-          errorHtml: "The clock didn't get updated. Make sure you use the <code>displayTime</code> function."
+          errorHtml: exercise.t("checks.notUpdated")
         },
         {
           pass: ex.displayedTime === "11:32pm",
-          errorHtml: `Expected "11:32pm" but got "${ex.displayedTime}"`
+          errorHtml: exercise.t("checks.wrongTime", { expected: "11:32pm", got: ex.displayedTime })
         }
       ];
     }
   },
   {
     slug: "midnight",
-    name: "Midnight",
-    description: 'Display midnight as "12:00am"',
+    name: "scenarios.midnight.name",
+    description: "scenarios.midnight.description",
     taskId: "display-time",
 
     setup(exercise) {
@@ -141,19 +140,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.displayedTime !== undefined,
-          errorHtml: "The clock didn't get updated. Make sure you use the <code>displayTime</code> function."
+          errorHtml: exercise.t("checks.notUpdated")
         },
         {
           pass: ex.displayedTime === "12:00am",
-          errorHtml: `Expected "12:00am" but got "${ex.displayedTime}"`
+          errorHtml: exercise.t("checks.wrongTime", { expected: "12:00am", got: ex.displayedTime })
         }
       ];
     }
   },
   {
     slug: "noon",
-    name: "Noon",
-    description: 'Display noon as "12:00pm"',
+    name: "scenarios.noon.name",
+    description: "scenarios.noon.description",
     taskId: "display-time",
 
     setup(exercise) {
@@ -166,19 +165,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.displayedTime !== undefined,
-          errorHtml: "The clock didn't get updated. Make sure you use the <code>displayTime</code> function."
+          errorHtml: exercise.t("checks.notUpdated")
         },
         {
           pass: ex.displayedTime === "12:00pm",
-          errorHtml: `Expected "12:00pm" but got "${ex.displayedTime}"`
+          errorHtml: exercise.t("checks.wrongTime", { expected: "12:00pm", got: ex.displayedTime })
         }
       ];
     }
   },
   {
     slug: "now",
-    name: "Display the current time",
-    description: "Display the current time",
+    name: "scenarios.now.name",
+    description: "scenarios.now.description",
     taskId: "display-time",
 
     setup(exercise) {
@@ -195,11 +194,11 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.displayedTime !== undefined,
-          errorHtml: "The clock didn't get updated. Make sure you use the <code>displayTime</code> function."
+          errorHtml: exercise.t("checks.notUpdated")
         },
         {
           pass: ex.displayedTime === expectedTime,
-          errorHtml: `Expected "${expectedTime}" but got "${ex.displayedTime}"`
+          errorHtml: exercise.t("checks.wrongTime", { expected: expectedTime, got: ex.displayedTime })
         }
       ];
     }

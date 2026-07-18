@@ -47,8 +47,11 @@ const scenarios: IOScenario[] = [
 
 // Create a test exercise class
 class TestIOExercise extends IOExercise {
-  static slug = "io-test-runner-e2e";
-  static availableFunctions = [];
+  protected get slug() {
+    return "io-test-runner-e2e";
+  }
+
+  availableFunctions = [];
 }
 
 export default function IOTestRunnerPage() {
@@ -69,7 +72,7 @@ export default function IOTestRunnerPage() {
       tasks,
       scenarios
     };
-    const orch = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" }, {}, "", () => {});
+    const orch = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" }, {}, {}, "", () => {});
     setOrchestrator(orch);
 
     // Expose orchestrator to window for E2E testing

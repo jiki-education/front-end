@@ -1,0 +1,72 @@
+{
+  "errors": {
+    "allInputsNumbers": "All inputs must be numbers",
+    "hueRange": "Hue must be between 0 and 360",
+    "saturationRange": "Saturation must be between 0 and 100",
+    "lightnessRange": "Lightness must be between 0 and 100",
+    "redRange": "Red must be between 0 and 255",
+    "greenRange": "Green must be between 0 and 255",
+    "blueRange": "Blue must be between 0 and 255",
+    "rectInputsNumbers": "The x, y, width, and height inputs must be numbers",
+    "widthPositive": "Width must be greater than 0",
+    "heightPositive": "Height must be greater than 0",
+    "lineInputsNumbers": "The x1, y1, x2, and y2 inputs must be numbers",
+    "circleInputsNumbers": "The x, y, and radius inputs must be numbers",
+    "ellipseInputsNumbers": "The x, y, rx, and ry inputs must be numbers",
+    "triangleInputsNumbers": "The x1, y1, x2, y2, x3, and y3 inputs must be numbers",
+    "colorNotAllowed": "Color should not be specified for this exercise",
+    "colorNotString": "Color must be a string",
+    "colorNamedOrHex": "Color must be a named color (\"orange\", \"blue\", \"white\", etc) specified in the instructions, or a hex color starting with #"
+  },
+  "checks": {
+    "housingWrong": "The housing rectangle is either in the wrong place or the wrong size. Check `housingX`, `housingY`, `housingWidth`, and `housingHeight`.",
+    "redWrong": "The red light is either in the wrong place or the wrong size. Check `redY`.",
+    "yellowWrong": "The yellow light is either in the wrong place or the wrong size. Check `yellowY`.",
+    "greenWrong": "The green light is either in the wrong place or the wrong size. Check `greenY`.",
+    "doesntScale": "Your code doesn't scale correctly when `radius` is {{radius}}. Every position and size should be derived from `center` and `radius`."
+  },
+  "tasks": {
+    "buildRelationalTrafficLights": {
+      "name": "Build the relational traffic lights",
+      "description": "Derive every position and size from `center` and `radius` so the traffic light scales correctly."
+    }
+  },
+  "scenarios": {
+    "buildRelationalTrafficLights": {
+      "name": "Build the relational traffic lights",
+      "description": "Derive every position and size from `center` and `radius`."
+    }
+  },
+  "hints": {
+    "howToWorkOutYellowCenter": {
+      "question": "How do I work out the yellow light's center?",
+      "answer": "You have a variable for `center` provided to you. You can set `yellowY` to equal it."
+    },
+    "howToWorkOutRedCenter": {
+      "question": "How do I work out the center of the red light?",
+      "answer": "If the two circles are touching, how far apart are their centers? You can subtract this from `center` to get the red light."
+    },
+    "whereHousingStarts": {
+      "question": "Where does the housing rectangle start?",
+      "answer": "If you know the center of the red circle, you can calculate the top of the red circle. The housing starts 1 radius above (before) the top of the red circle. Similarly you can calculate the left of a light and then go 1 radius further for the start."
+    },
+    "howBigHousing": {
+      "question": "How big should the housing be?",
+      "answer": "It's the width of a light, plus padding of 1 radius either side. Height is 2 radii per light plus a radius top and bottom for padding."
+    },
+    "whyMultipleOfSomething": {
+      "question": "Why must everything be a multiple of something else?",
+      "answer": "If you hardcode a number, changing `radius` will leave the housing the wrong size for the lights. Using formulas involving `radius` and `center` keep the whole drawing in proportion."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Draw a rectangle at position (left, top) with the given width, height, and color",
+      "category": "Drawing Shapes"
+    },
+    "circle": {
+      "description": "Draw a circle centered at (centerX, centerY) with the given radius and color",
+      "category": "Drawing Shapes"
+    }
+  }
+}

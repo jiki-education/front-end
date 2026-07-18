@@ -278,32 +278,32 @@ export abstract class DrawExercise extends VisualExercise {
 
   public hsl(executionCtx: ExecutionContext, h: Shared.JikiObject, s: Shared.JikiObject, l: Shared.JikiObject) {
     if (!isNumber(h) || !isNumber(s) || !isNumber(l)) {
-      return executionCtx.logicError("All inputs must be numbers");
+      return executionCtx.logicError(this.t("errors.allInputsNumbers"));
     }
     if (h.value < 0 || h.value > 360) {
-      return executionCtx.logicError("Hue must be between 0 and 360");
+      return executionCtx.logicError(this.t("errors.hueRange"));
     }
     if (s.value < 0 || s.value > 100) {
-      return executionCtx.logicError("Saturation must be between 0 and 100");
+      return executionCtx.logicError(this.t("errors.saturationRange"));
     }
     if (l.value < 0 || l.value > 100) {
-      return executionCtx.logicError("Lightness must be between 0 and 100");
+      return executionCtx.logicError(this.t("errors.lightnessRange"));
     }
     return hslToHexString(h.value, s.value, l.value);
   }
 
   public rgb(executionCtx: ExecutionContext, r: Shared.JikiObject, g: Shared.JikiObject, b: Shared.JikiObject) {
     if (!isNumber(r) || !isNumber(g) || !isNumber(b)) {
-      return executionCtx.logicError("All inputs must be numbers");
+      return executionCtx.logicError(this.t("errors.allInputsNumbers"));
     }
     if (r.value < 0 || r.value > 255) {
-      return executionCtx.logicError("Red must be between 0 and 255");
+      return executionCtx.logicError(this.t("errors.redRange"));
     }
     if (g.value < 0 || g.value > 255) {
-      return executionCtx.logicError("Green must be between 0 and 255");
+      return executionCtx.logicError(this.t("errors.greenRange"));
     }
     if (b.value < 0 || b.value > 255) {
-      return executionCtx.logicError("Blue must be between 0 and 255");
+      return executionCtx.logicError(this.t("errors.blueRange"));
     }
     return rgbToHexString(r.value, g.value, b.value);
   }
@@ -317,15 +317,15 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(width) || !isNumber(height)) {
-      return executionCtx.logicError("The x, y, width, and height inputs must be numbers");
+      return executionCtx.logicError(this.t("errors.rectInputsNumbers"));
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
     if (width.value <= 0) {
-      return executionCtx.logicError("Width must be greater than 0");
+      return executionCtx.logicError(this.t("errors.widthPositive"));
     }
     if (height.value <= 0) {
-      return executionCtx.logicError("Height must be greater than 0");
+      return executionCtx.logicError(this.t("errors.heightPositive"));
     }
     const [absX, absY, absWidth, absHeight] = [x.value, y.value, width.value, height.value].map((val) => rToA(val));
 
@@ -346,7 +346,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x1) || !isNumber(y1) || !isNumber(x2) || !isNumber(y2)) {
-      return executionCtx.logicError("The x1, y1, x2, and y2 inputs must be numbers");
+      return executionCtx.logicError(this.t("errors.lineInputsNumbers"));
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
@@ -369,7 +369,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(radius)) {
-      return executionCtx.logicError("The x, y, and radius inputs must be numbers");
+      return executionCtx.logicError(this.t("errors.circleInputsNumbers"));
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
@@ -393,7 +393,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(rx) || !isNumber(ry)) {
-      return executionCtx.logicError("The x, y, rx, and ry inputs must be numbers");
+      return executionCtx.logicError(this.t("errors.ellipseInputsNumbers"));
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
@@ -419,7 +419,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x1) || !isNumber(y1) || !isNumber(x2) || !isNumber(y2) || !isNumber(x3) || !isNumber(y3)) {
-      return executionCtx.logicError("The x1, y1, x2, y2, x3, and y3 inputs must be numbers");
+      return executionCtx.logicError(this.t("errors.triangleInputsNumbers"));
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
@@ -459,20 +459,18 @@ export abstract class DrawExercise extends VisualExercise {
   private resolveColor(executionCtx: ExecutionContext, color?: Shared.JikiObject): string | null {
     if (this.fixedColor !== null) {
       if (color !== undefined) {
-        executionCtx.logicError("Color should not be specified for this exercise");
+        executionCtx.logicError(this.t("errors.colorNotAllowed"));
         return null;
       }
       return resolveNamedColor(this.fixedColor);
     }
     if (!color || !isString(color)) {
-      executionCtx.logicError("Color must be a string");
+      executionCtx.logicError(this.t("errors.colorNotString"));
       return null;
     }
     const resolved = resolveNamedColor(color.value);
     if (resolved === null) {
-      executionCtx.logicError(
-        'Color must be a named color ("orange", "blue", "white", etc) specified in the instructions, or a hex color starting with #'
-      );
+      executionCtx.logicError(this.t("errors.colorNamedOrHex"));
       return null;
     }
     return resolved;

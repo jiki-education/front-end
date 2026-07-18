@@ -7,29 +7,29 @@ const functions: FunctionInfo[] = [
   {
     name: "rectangle",
     signature: "rectangle(left, top, width, height, color)",
-    description: "Draw a rectangle at position (left, top) with the given width, height, and color",
+    description: "functions.rectangle.description",
     examples: [
       'rectangle(0, 0, 100, 100, "black")',
       "rectangle(squareX, squareY, squareSize, squareSize, squareColor)"
     ],
-    category: "Drawing Shapes"
+    category: "functions.rectangle.category"
   },
   {
     name: "circle",
     signature: "circle(centerX, centerY, radius, color)",
-    description: "Draw a circle centered at (centerX, centerY) with the given radius and color",
+    description: "functions.circle.description",
     examples: [
       'circle(centerX, centerY, squareSize * 0.4, "black")',
       'circle(centerX, centerY, squareSize * 0.3, "charcoal")'
     ],
-    category: "Drawing Shapes"
+    category: "functions.circle.category"
   },
   {
     name: "getBoardSize",
     signature: "getBoardSize()",
-    description: "Returns the size of the board (the number of squares along each edge) for the current puzzle",
+    description: "functions.getBoardSize.description",
     examples: ["let boardSize = getBoardSize()"],
-    category: "Information"
+    category: "functions.getBoardSize.category"
   }
 ];
 

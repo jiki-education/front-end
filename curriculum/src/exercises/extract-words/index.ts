@@ -7,9 +7,9 @@ const functions: FunctionInfo[] = [
   {
     name: "push",
     signature: "push(list, element)",
-    description: "Returns a new list with the element added to the end (provided by level stdlib)",
+    description: "functions.push.description",
     examples: ['push(["a", "b"], "c") -> ["a", "b", "c"]'],
-    category: "List Operations"
+    category: "functions.push.category"
   }
 ];
 

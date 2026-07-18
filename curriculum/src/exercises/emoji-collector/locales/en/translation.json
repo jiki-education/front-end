@@ -1,0 +1,94 @@
+{
+  "errors": {
+    "fellOffEdge": "Oh no - you tried to fall off the edge of the maze!",
+    "hitWall": "Ouch - you walked into a wall!",
+    "directionMustBeString": "direction must be a string",
+    "invalidDirection": "Invalid direction: {{dir}}. Use \"ahead\", \"left\", \"right\", or \"down\".",
+    "emojisMustBeDictionary": "emojis must be a dictionary"
+  },
+  "checks": {
+    "notReachedEnd": "You didn't reach the end of the maze.",
+    "wrongEmojis": "You didn't report the collected emojis correctly. We expected you to report: <br/><code>{{expected}}</code>",
+    "reportedIncorrectly": "You didn't report the collected emojis correctly."
+  },
+  "tasks": {
+    "collectEmojis": {
+      "name": "Collect emojis",
+      "description": "Navigate the maze, collecting emojis along the way, and announce your collection when you reach the finish."
+    },
+    "randomEmojis": {
+      "name": "Random emojis",
+      "description": "Handle mazes with random emojis that change each time!"
+    }
+  },
+  "scenarios": {
+    "diamonds": {
+      "name": "Collect the diamonds",
+      "description": "Collect and announce the diamonds."
+    },
+    "faces": {
+      "name": "Two types of emojis!",
+      "description": "Collect two types of emojis this time!"
+    },
+    "poo": {
+      "name": "Watch out!",
+      "description": "Collect the animals - not their waste!"
+    },
+    "onlyOnce": {
+      "name": "Only once!",
+      "description": "Make sure you only collect things once!"
+    },
+    "randomEmojis": {
+      "name": "Random Emojis!",
+      "description": "Different emojis every time!"
+    }
+  },
+  "hints": {
+    "seeCurrentSquare": {
+      "question": "How do I see what is on the square I am standing on?",
+      "answer": "Use the new direction: `look(\"down\")`. It returns the emoji on your current square, which is the one you might want to pick up."
+    },
+    "specialEmojisToIgnore": {
+      "question": "Which special emojis should I ignore?",
+      "answer": "Skip anything in the standard list: `\"star\"`, `\"flag\"`, `\"white square\"`, `\"fire\"`, `\"poop\"`, `\"brick\"`. Any other emoji is fair game to collect."
+    },
+    "countingWithDictionary": {
+      "question": "How do I count emojis using a dictionary?",
+      "answer": "Use `hasKey(dict, emoji)` to see if you have seen it before. If yes, add `1` to `dict[emoji]`. If no, set `dict[emoji] = 1` to start the count."
+    },
+    "avoidRecounting": {
+      "question": "How do I stop picking up the same emoji every time I step on it?",
+      "answer": "Call `removeEmoji()` straight after counting it. The square becomes empty so it will not be counted again on a future pass."
+    },
+    "reachingFlag": {
+      "question": "What do I do once I reach the flag?",
+      "answer": "Call `announceEmojis(result)` with your dictionary as the argument. Do this once, after you have moved onto the finishing square."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Moves the character **one step forward** in the current direction. The character will only move if the target position is not blocked by a wall.",
+      "category": "Movement"
+    },
+    "turnLeft": {
+      "description": "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
+      "category": "Movement"
+    },
+    "turnRight": {
+      "description": "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
+      "category": "Movement"
+    },
+    "look": {
+      "description": "Returns the **emoji** in the given direction. Use `\"ahead\"`, `\"left\"`, or `\"right\"` to look around, or `\"down\"` to see the current square.",
+      "category": "Sensing"
+    },
+    "removeEmoji": {
+      "description": "Removes the emoji from the **current square**. Use this after collecting an emoji to avoid counting it again.",
+      "category": "Collection"
+    },
+    "announceEmojis": {
+      "description": "Announces your collected emojis. Pass a **dictionary** where keys are emoji strings and values are counts.",
+      "category": "Collection"
+    }
+  }
+}

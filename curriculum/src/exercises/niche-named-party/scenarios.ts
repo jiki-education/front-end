@@ -12,9 +12,8 @@ function setupScenario(exercise: NicheNamedPartyExercise, name: string, allowedS
 export const tasks = [
   {
     id: "check-the-name" as const,
-    name: "Check the name",
-    description:
-      "Ask the person their name and check if it starts with the allowed letters for tonight's party. If it does, let them in. Otherwise, turn them away.",
+    name: "tasks.checkTheName.name",
+    description: "tasks.checkTheName.description",
     hints: [],
     requiredScenarios: [
       "sarah-s-party",
@@ -31,8 +30,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "sarah-s-party",
-    name: "S Party: Sarah arrives",
-    description: 'Tonight only names starting with "S" are allowed. Sarah should get in!',
+    name: "scenarios.sarahSParty.name",
+    description: "scenarios.sarahSParty.description",
     taskId: "check-the-name",
 
     setup(exercise) {
@@ -44,19 +43,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wasLetIn === true,
-          errorHtml: "Sarah's name starts with \"S\" — she should be let in, but she wasn't."
+          errorHtml: ex.t("checks.sarahLetIn")
         },
         {
           pass: ex.wasTurnedAway === false,
-          errorHtml: 'Sarah\'s name starts with "S" — she should NOT be turned away.'
+          errorHtml: ex.t("checks.sarahNotTurnedAway")
         }
       ];
     }
   },
   {
     slug: "brad-s-party",
-    name: "S Party: Brad arrives",
-    description: 'Tonight only names starting with "S" are allowed. Brad should be turned away.',
+    name: "scenarios.bradSParty.name",
+    description: "scenarios.bradSParty.description",
     taskId: "check-the-name",
 
     setup(exercise) {
@@ -68,19 +67,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wasLetIn === false,
-          errorHtml: "Brad's name doesn't start with \"S\" — he should NOT be let in."
+          errorHtml: ex.t("checks.bradNotLetIn")
         },
         {
           pass: ex.wasTurnedAway === true,
-          errorHtml: "Brad's name doesn't start with \"S\" — he should be turned away, but he wasn't."
+          errorHtml: ex.t("checks.bradTurnedAway")
         }
       ];
     }
   },
   {
     slug: "bradley-brad-party",
-    name: "Brad Party: Bradley arrives",
-    description: 'Tonight only names starting with "Brad" are allowed. Bradley should get in!',
+    name: "scenarios.bradleyBradParty.name",
+    description: "scenarios.bradleyBradParty.description",
     taskId: "check-the-name",
 
     setup(exercise) {
@@ -92,19 +91,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wasLetIn === true,
-          errorHtml: "Bradley's name starts with \"Brad\" — he should be let in, but he wasn't."
+          errorHtml: ex.t("checks.bradleyLetIn")
         },
         {
           pass: ex.wasTurnedAway === false,
-          errorHtml: 'Bradley\'s name starts with "Brad" — he should NOT be turned away.'
+          errorHtml: ex.t("checks.bradleyNotTurnedAway")
         }
       ];
     }
   },
   {
     slug: "brian-brad-party",
-    name: "Brad Party: Brian arrives",
-    description: 'Tonight only names starting with "Brad" are allowed. Brian should be turned away.',
+    name: "scenarios.brianBradParty.name",
+    description: "scenarios.brianBradParty.description",
     taskId: "check-the-name",
 
     setup(exercise) {
@@ -116,19 +115,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wasLetIn === false,
-          errorHtml: "Brian's name doesn't start with \"Brad\" — he should NOT be let in."
+          errorHtml: ex.t("checks.brianNotLetIn")
         },
         {
           pass: ex.wasTurnedAway === true,
-          errorHtml: "Brian's name doesn't start with \"Brad\" — he should be turned away, but he wasn't."
+          errorHtml: ex.t("checks.brianTurnedAway")
         }
       ];
     }
   },
   {
     slug: "silence",
-    name: "S Party: Silence...",
-    description: "The person doesn't say their name. An empty name can't start with anything — turn them away!",
+    name: "scenarios.silence.name",
+    description: "scenarios.silence.description",
     taskId: "check-the-name",
 
     setup(exercise) {
@@ -140,19 +139,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wasLetIn === false,
-          errorHtml: "The person didn't say their name — they should NOT be let in."
+          errorHtml: ex.t("checks.silenceNotLetIn")
         },
         {
           pass: ex.wasTurnedAway === true,
-          errorHtml: "The person didn't say their name — they should be turned away, but they weren't."
+          errorHtml: ex.t("checks.silenceTurnedAway")
         }
       ];
     }
   },
   {
     slug: "cher-cher-party",
-    name: "Cher Party: Cher arrives",
-    description: 'Tonight only names starting with "Cher" are allowed. Cher\'s name is exactly "Cher" — let her in!',
+    name: "scenarios.cherCherParty.name",
+    description: "scenarios.cherCherParty.description",
     taskId: "check-the-name",
 
     setup(exercise) {
@@ -164,11 +163,11 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wasLetIn === true,
-          errorHtml: "Cher's name is exactly \"Cher\" — she should be let in, but she wasn't."
+          errorHtml: ex.t("checks.cherLetIn")
         },
         {
           pass: ex.wasTurnedAway === false,
-          errorHtml: 'Cher\'s name is exactly "Cher" — she should NOT be turned away.'
+          errorHtml: ex.t("checks.cherNotTurnedAway")
         }
       ];
     }

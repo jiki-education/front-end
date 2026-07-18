@@ -1,0 +1,116 @@
+{
+  "errors": {
+    "fellOffEdge": "Oh no - you tried to fall off the edge of the maze!",
+    "hitWall": "Ouch - you walked into a wall!",
+    "walkedIntoFire": "You walked into fire!",
+    "steppedInPoop": "You stepped in poop!",
+    "lookDirectionType": "look() expects a string direction: \"left\", \"right\", or \"ahead\"",
+    "lookDirectionValue": "look() direction must be \"left\", \"right\", or \"ahead\""
+  },
+  "checks": {
+    "notReachedEnd": "You didn't reach the end of the maze.",
+    "extraTurn": "You seem to have done an extra unnecessary turn at the end.",
+    "canTurnLeftMissing": "You should define a <code>canTurnLeft</code> function.",
+    "canTurnRightMissing": "You should define a <code>canTurnRight</code> function.",
+    "canMoveMissing": "You should define a <code>canMove</code> function.",
+    "turnAroundMissing": "You should define a <code>turnAround</code> function.",
+    "lookOnlyOnce": "<code>look()</code> should only appear once in your whole program.",
+    "maxExtraLines": "You should add no more than 13 lines of code."
+  },
+  "tasks": {
+    "straightPath": {
+      "name": "A straight path",
+      "description": "Implement canMove() so the character can move forward to the end of the maze."
+    },
+    "turnLeft": {
+      "name": "Turn left if you can",
+      "description": "Implement canTurnLeft() so the character turns left when there's a path."
+    },
+    "turnRight": {
+      "name": "Turn right if you can't move straight or left",
+      "description": "Implement canTurnRight() so the character turns right when it can't go left or straight."
+    },
+    "turnAround": {
+      "name": "Turn around if needed",
+      "description": "Handle dead ends by turning around. All three sensing functions should now work together to solve any maze."
+    },
+    "bonusChallenges": {
+      "name": "Bonus challenges",
+      "description": "Can you only use the look() function once in the whole program? And can you solve it by only adding 13 lines of code?"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Guide person to the end of the maze",
+      "description": "A straight path down"
+    },
+    "leftTurn": {
+      "name": "A single left turn",
+      "description": "Navigate a left turn"
+    },
+    "rightTurn": {
+      "name": "A single right turn",
+      "description": "Navigate a right turn"
+    },
+    "forks": {
+      "name": "Choose left if you can, otherwise choose right",
+      "description": "A maze with forks that tests left-priority"
+    },
+    "turnAround": {
+      "name": "Turn around at a dead end",
+      "description": "A maze that requires turning around"
+    },
+    "forks2": {
+      "name": "Complex maze with forks and dead ends",
+      "description": "A complex maze testing the full algorithm"
+    },
+    "coverOldGround": {
+      "name": "Cover old ground if you need to",
+      "description": "A maze where you must backtrack to find the exit"
+    },
+    "bonus1": {
+      "name": "Only write look() once",
+      "description": "Solve the maze with look() appearing only once in your code"
+    },
+    "bonus2": {
+      "name": "Add only 13 lines",
+      "description": "Solve the maze by adding only 13 lines of code"
+    }
+  },
+  "hints": {
+    "start": {
+      "question": "Where do I even start when the program won't run at all?",
+      "answer": "Define `canTurnLeft()`, `canTurnRight()`, and `canMove()` at the top of your code, each just returning `false` for now. The program will then run and you can replace the bodies one at a time."
+    },
+    "findDirection": {
+      "question": "How do I find out what is in a given direction?",
+      "answer": "Use the new `look(direction)` function. Pass `\"left\"`, `\"right\"`, or `\"ahead\"` and it returns a string like `\"empty\"`, `\"wall\"`, `\"fire\"`, or `\"poop\"`."
+    },
+    "safeResults": {
+      "question": "Which results mean it is safe to go that way?",
+      "answer": "Of the six things `look()` can return, three are things you really don't want to walk into. Your function should return `true` only when what you see is none of those three."
+    },
+    "avoidRepetition": {
+      "question": "I am repeating the same logic in three functions. How do I avoid that?",
+      "answer": "The three functions differ only in which direction they look. Could you write one extra function that takes a direction as an input, and have all three use it?"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Moves the character **one step forward** in the current direction. Walking into a wall, fire, or poop ends your program with an error, so check what's ahead before moving!",
+      "category": "Movement"
+    },
+    "turnLeft": {
+      "description": "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
+      "category": "Movement"
+    },
+    "turnRight": {
+      "description": "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
+      "category": "Movement"
+    },
+    "look": {
+      "description": "Looks in the given direction and returns what's there. The direction must be `\"left\"`, `\"right\"`, or `\"ahead\"`. Returns one of: `\"empty\"`, `\"wall\"`, `\"fire\"`, `\"poop\"`, `\"start\"`, or `\"target\"`.",
+      "category": "Sensing"
+    }
+  }
+}

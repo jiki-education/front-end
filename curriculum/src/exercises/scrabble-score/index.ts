@@ -7,9 +7,9 @@ const functions: FunctionInfo[] = [
   {
     name: "toUpperCase",
     signature: "toUpperCase(text)",
-    description: "Convert a string to uppercase (provided by level stdlib)",
+    description: "functions.toUpperCase.description",
     examples: ['toUpperCase("hello") → "HELLO"', 'toUpperCase("a") → "A"'],
-    category: "String Operations"
+    category: "functions.toUpperCase.category"
   }
 ];
 

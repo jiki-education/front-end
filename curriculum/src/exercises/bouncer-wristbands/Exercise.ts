@@ -74,7 +74,7 @@ export default class BouncerWristbandsExercise extends VisualExercise {
 
   private giveWristband(executionCtx: ExecutionContext, type: WristbandType) {
     if (this.issued) {
-      return executionCtx.logicError("You've already given this person a wristband - each person should only get one.");
+      return executionCtx.logicError(this.t("errors.alreadyIssued"));
     }
     this.issued = true;
     this.wristband = type;

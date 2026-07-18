@@ -1,0 +1,81 @@
+{
+  "tasks": {
+    "invalidTriangles": {
+      "name": "Invalid triangles",
+      "description": "Detect invalid triangles. A triangle is invalid if any side is zero, or if the sum of any two sides is less than or equal to the third side."
+    },
+    "equilateralTriangles": {
+      "name": "Equilateral triangles",
+      "description": "Detect equilateral triangles where all three sides are the same length."
+    },
+    "isoscelesTriangles": {
+      "name": "Isosceles triangles",
+      "description": "Detect isosceles triangles where exactly two sides are the same length."
+    },
+    "scaleneTriangles": {
+      "name": "Scalene triangles",
+      "description": "Detect scalene triangles where all three sides have different lengths."
+    }
+  },
+  "scenarios": {
+    "invalidEquilateralAllZero": {
+      "name": "Equilateral with all sides zero (0, 0, 0)",
+      "description": "A triangle with all sides zero should return \"invalid\"."
+    },
+    "isoscelesFirstInequality": {
+      "name": "Isosceles with invalid side lengths (1, 1, 3)",
+      "description": "A triangle with too short sides should return \"invalid\"."
+    },
+    "isoscelesSecondInequality": {
+      "name": "Isosceles with invalid side lengths (1, 3, 1)",
+      "description": "A triangle with too short sides should return \"invalid\"."
+    },
+    "isoscelesThirdInequality": {
+      "name": "Isosceles with invalid side lengths (3, 1, 1)",
+      "description": "A triangle with too short sides should return \"invalid\"."
+    },
+    "scaleneTriangleInequality": {
+      "name": "Scalene with invalid side lengths (7, 3, 2)",
+      "description": "A triangle with too short sides should return \"invalid\"."
+    },
+    "validEquilateral": {
+      "name": "Equilateral triangle (2, 2, 2)",
+      "description": "A triangle with all sides equal should return \"equilateral\"."
+    },
+    "validIsoscelesFirstTwoEqual": {
+      "name": "Isosceles triangle (4, 4, 3)",
+      "description": "A triangle with the first two sides equal should return \"isosceles\"."
+    },
+    "validIsoscelesLastTwoEqual": {
+      "name": "Isosceles triangle (3, 4, 4)",
+      "description": "A triangle with the last two sides equal should return \"isosceles\"."
+    },
+    "validIsoscelesFirstAndLastEqual": {
+      "name": "Isosceles triangle (4, 3, 4)",
+      "description": "A triangle with the same first and last sides should return \"isosceles\"."
+    },
+    "validScalene": {
+      "name": "Scalene triangle (5, 4, 6)",
+      "description": "A triangle with all sides different should return \"scalene\"."
+    }
+  },
+  "hints": {
+    "whatMakesInvalid": {
+      "question": "What makes a triangle invalid?",
+      "answer": "Two things. First, any side being zero. Second, the sum of any two sides being less than or equal to the third (the triangle inequality). Check this first, since there's no point classifying a shape that isn't actually a triangle."
+    },
+    "checkOrder": {
+      "question": "What order should I check the categories?",
+      "answer": "Most specific first: equilateral (all three sides equal), then isosceles (any two sides equal), then everything else is scalene. Doing them in the wrong order means equilateral triangles get wrongly classified as isosceles."
+    },
+    "checkAnyTwoEqual": {
+      "question": "How do I check 'any two sides are equal' for isosceles?",
+      "answer": "Three comparisons: a === b, b === c, or a === c. Any one of those being true is enough."
+    },
+    "knowScalene": {
+      "question": "How do I know it's scalene?",
+      "answer": "If you've ruled out invalid, equilateral, and isosceles, scalene is the only thing left. Return it without further checks."
+    }
+  },
+  "functions": {}
+}

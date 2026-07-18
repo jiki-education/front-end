@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "create-acronym-function" as const,
-    name: "Create acronym function",
-    description:
-      "Write an acronym function that takes three words and returns a three-letter acronym formed by taking the first letter of each word.",
+    name: "tasks.createAcronymFunction.name",
+    description: "tasks.createAcronymFunction.description",
     hints: [],
     requiredScenarios: ["png", "css", "www", "lol"],
     bonus: false
@@ -15,8 +14,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "png",
-    name: "Portable Network Graphics",
-    description: "Create the acronym 'PNG' from 'Portable', 'Network', 'Graphics'.",
+    name: "scenarios.png.name",
+    description: "scenarios.png.description",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["Portable", "Network", "Graphics"],
@@ -24,8 +23,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "css",
-    name: "Cascading Style Sheets",
-    description: "Create the acronym 'CSS' from 'Cascading', 'Style', 'Sheets'.",
+    name: "scenarios.css.name",
+    description: "scenarios.css.description",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["Cascading", "Style", "Sheets"],
@@ -33,8 +32,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "www",
-    name: "World Wide Web",
-    description: "Create the acronym 'WWW' from 'World', 'Wide', 'Web'.",
+    name: "scenarios.www.name",
+    description: "scenarios.www.description",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["World", "Wide", "Web"],
@@ -42,8 +41,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "lol",
-    name: "Lowercase words",
-    description: "Create the acronym 'lol' from 'laugh', 'out', 'loud'.",
+    name: "scenarios.lol.name",
+    description: "scenarios.lol.description",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["laugh", "out", "loud"],

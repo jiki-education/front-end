@@ -1,0 +1,73 @@
+{
+  "errors": {
+    "allInputsNumbers": "All inputs must be numbers",
+    "hueRange": "Hue must be between 0 and 360",
+    "saturationRange": "Saturation must be between 0 and 100",
+    "lightnessRange": "Lightness must be between 0 and 100",
+    "redRange": "Red must be between 0 and 255",
+    "greenRange": "Green must be between 0 and 255",
+    "blueRange": "Blue must be between 0 and 255",
+    "rectInputsNumbers": "The x, y, width, and height inputs must be numbers",
+    "widthPositive": "Width must be greater than 0",
+    "heightPositive": "Height must be greater than 0",
+    "lineInputsNumbers": "The x1, y1, x2, and y2 inputs must be numbers",
+    "circleInputsNumbers": "The x, y, and radius inputs must be numbers",
+    "ellipseInputsNumbers": "The x, y, rx, and ry inputs must be numbers",
+    "triangleInputsNumbers": "The x1, y1, x2, y2, x3, and y3 inputs must be numbers",
+    "colorNotAllowed": "Color should not be specified for this exercise",
+    "colorNotString": "Color must be a string",
+    "colorNamedOrHex": "Color must be a named color (\"orange\", \"blue\", \"white\", etc) specified in the instructions, or a hex color starting with #"
+  },
+  "checks": {
+    "leftCheek": "The left cheek should be a white triangle in the right place.",
+    "rightCheek": "The right cheek should be a white triangle in the right place.",
+    "leftEar": "The left ear should be a brown triangle in the right place.",
+    "rightEar": "The right ear should be a brown triangle in the right place.",
+    "leftFace": "The left face should be an orange triangle in the right place.",
+    "rightFace": "The right face should be an orange triangle in the right place.",
+    "nose": "The nose needs two charcoal triangles. You can split it top/bottom or left/right.",
+    "leftFaceAboveEar": "The left face should be drawn **on top of** the left ear.",
+    "rightFaceAboveEar": "The right face should be drawn **on top of** the right ear.",
+    "noseAboveFace": "The nose should sit **on top of** the face."
+  },
+  "tasks": {
+    "drawFox": {
+      "name": "Draw the fox face",
+      "description": "Use triangles to build a geometric fox face on the grey background."
+    }
+  },
+  "scenarios": {
+    "drawFox": {
+      "name": "Draw the fox face",
+      "description": "Build a geometric fox face using triangles."
+    }
+  },
+  "hints": {
+    "callTriangle": {
+      "question": "How do I call the `triangle` function?",
+      "answer": "Pass 7 arguments in order: the three corner points (`x1, y1, x2, y2, x3, y3`) and then the color string, e.g. `triangle(50, 10, 30, 50, 70, 50, \"orange\")`."
+    },
+    "drawOrder": {
+      "question": "What order should I draw the parts in so they overlap correctly?",
+      "answer": "Later shapes sit on top of earlier ones. Draw the white cheeks first so the orange face halves cover most of them, leaving just the cheek tips showing."
+    },
+    "colors": {
+      "question": "Which colors go where?",
+      "answer": "The ears are `\"brown\"`, the face halves are `\"orange\"`, the cheeks are `\"white\"`, and the nose is `\"charcoal\"`. Remember the colors are strings, so they need quotes."
+    },
+    "symmetry": {
+      "question": "How do I work out the coordinates on the right side without hovering?",
+      "answer": "The fox is symmetrical around the vertical middle. If a left-side point is at x=`30` and the centre is at x=`50`, the mirror point is at x=`70` (the same distance the other side of the centre). The y values stay the same."
+    },
+    "multiplesOf5": {
+      "question": "Why aren't my coordinates working?",
+      "answer": "All the values you need are multiples of 5. If a corner looks slightly off, you have probably used a number like `12` or `38`. Snap it to the nearest multiple of 5 (`10`, `15`, `40`, etc)."
+    }
+  },
+  "functions": {
+    "triangle": {
+      "description": "Draw a triangle with three corner points and a color",
+      "category": "Drawing Shapes"
+    }
+  }
+}

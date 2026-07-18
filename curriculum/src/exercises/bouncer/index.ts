@@ -7,16 +7,16 @@ const functions: FunctionInfo[] = [
   {
     name: "askAge",
     signature: "askAge()",
-    description: "Returns the **age** of the person waiting outside.",
+    description: "functions.askAge.description",
     examples: ["let age = askAge()"],
-    category: "Information"
+    category: "functions.askAge.category"
   },
   {
     name: "letIn",
     signature: "letIn()",
-    description: "Lets the person in.",
+    description: "functions.letIn.description",
     examples: ["letIn()"],
-    category: "Action"
+    category: "functions.letIn.category"
   }
 ];
 

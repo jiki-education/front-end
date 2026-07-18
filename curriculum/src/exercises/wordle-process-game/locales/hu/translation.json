@@ -1,0 +1,76 @@
+{
+  "checks": {
+    "holeInOne": {
+      "firstRow": "We expected all the letters to be green"
+    },
+    "twoGuesses": {
+      "firstRow": "We expected the second letter to be absent",
+      "secondRow": "We expected all the letters to be green"
+    },
+    "threeGuesses": {
+      "firstRow": "We expected the second and fourth letters to be absent",
+      "secondRow": "We expected the second letter to be absent",
+      "thirdRow": "We expected all the letters to be green"
+    },
+    "phew": {
+      "firstRow": "We expected everything to be absent.",
+      "secondRow": "We expected everything to be absent.",
+      "thirdRow": "We expected the last two to be present and the rest absent.",
+      "fourthRow": "We expected the first to be present and the rest absent.",
+      "fifthRow": "We expected the second to be present and the rest absent",
+      "sixthRow": "We expected all the letters to be green"
+    }
+  },
+  "tasks": {
+    "processGame": {
+      "name": "Process a full game",
+      "description": "Create a function called processGame that takes a target word and a list of guesses, and calls colorRow for each guess with the correct states."
+    }
+  },
+  "scenarios": {
+    "holeInOne": {
+      "name": "First time!",
+      "description": "Deal with a first correct guess."
+    },
+    "twoGuesses": {
+      "name": "Nailed it in two",
+      "description": "Deal with two guesses."
+    },
+    "threeGuesses": {
+      "name": "Got there in three",
+      "description": "Deal with three guesses."
+    },
+    "phew": {
+      "name": "Phew!",
+      "description": "Phew! That was close!"
+    }
+  },
+  "hints": {
+    "reuseWork": {
+      "question": "How do I reuse my work from `processGuess`?",
+      "answer": "The logic that turns one guess into a list of states is the same. Pull it into a helper function (or copy it) and call it for each guess in the list."
+    },
+    "trackRow": {
+      "question": "How do I track which row each guess belongs to?",
+      "answer": "Loop through the guesses with an index. The row number is the index plus `1` (since `colorRow` expects rows numbered `1-6`)."
+    },
+    "colourRow": {
+      "question": "How do I actually colour each row?",
+      "answer": "Once you have the `states` list for a guess, call `colorRow(rowNumber, states)`."
+    },
+    "fewerGuesses": {
+      "question": "What if the player has made fewer than 6 guesses?",
+      "answer": "Only colour rows for the guesses that exist. The list length tells you how many to process, so you naturally stop at the right point."
+    }
+  },
+  "functions": {
+    "colorRow": {
+      "description": "Colors a row on the Wordle board with the given states.",
+      "category": "Wordle"
+    },
+    "push": {
+      "description": "Adds an element to a list and returns the new list. Does not change the original list.",
+      "category": "Lists"
+    }
+  }
+}

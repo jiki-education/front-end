@@ -3,28 +3,28 @@
   "levelId": "complex-conditionals",
   "hints": [
     {
-      "question": "How do I check things about the camp?",
-      "answer": "You can check four things, each with a function that returns `true` or `false`:\n\n- Is the knight awake? `knightIsAwake()`\n- Is the archer awake? `archerIsAwake()`\n- Is the prisoner awake? `prisonerIsAwake()`\n- Is the dog behaving? `dogIsBehaving()`"
+      "question": "hints.checkCampState.question",
+      "answer": "hints.checkCampState.answer"
     },
     {
-      "question": "How do I make Annalyn do each of the actions?",
-      "answer": "There are four actions, each its own function:\n\n- Make a fast attack: `fastAttack()`\n- Spy on the camp: `spy()`\n- Signal the prisoner: `signalPrisoner()`\n- Free the prisoner: `freePrisoner()`"
+      "question": "hints.performActions.question",
+      "answer": "hints.performActions.answer"
     },
     {
-      "question": "A fast attack needs the knight to be ASLEEP. How do I check that?",
-      "answer": "There's no `isAsleep()` function, but asleep is just the opposite of awake. Use `!` to flip a condition. Imagine we want to tell someone to stop eating when they're full, but we only have an `isHungry()` function. We can reverse it:\n\n```javascript\nif (!isHungry()) {\n  stopEating()\n}\n```\n\nApply the same idea to check the knight is asleep."
+      "question": "hints.knightAsleep.question",
+      "answer": "hints.knightAsleep.answer"
     },
     {
-      "question": "Spying works if AT LEAST ONE of them is awake. How do I write that?",
-      "answer": "Use `||` (or) between checks so the whole condition is `true` if any single one is `true`. For example, this runs when someone is hungry, thirsty, or both:\n\n```javascript\nif (isHungry() || isThirsty()) {\n  rest()\n}\n```"
+      "question": "hints.spyAnyoneAwake.question",
+      "answer": "hints.spyAnyoneAwake.answer"
     },
     {
-      "question": "Signalling needs TWO things to be true at once. How do I combine them?",
-      "answer": "Use `&&` (and) so both sides must be `true`. For example, this only runs when someone is hungry AND thirsty:\n\n```javascript\nif (isHungry() && isThirsty()) {\n  drink()\n}\n```"
+      "question": "hints.signalBothConditions.question",
+      "answer": "hints.signalBothConditions.answer"
     },
     {
-      "question": "An action has two completely separate ways to succeed. How do I handle that?",
-      "answer": "Either way is enough on its own, so you have two options.\n\nThe first is to write a separate `if` for each way, both doing the same action:\n\n```javascript\nif (isHungry() && hasSnack()) {\n  eat()\n}\nif (isThirsty() && hasSnack()) {\n  eat()\n}\n```\n\nThe second is to combine both ways into a single `if` with `||`, wrapping each way's checks in brackets so the `&&` parts group together before the `||` splits them:\n\n```javascript\nif ((isHungry() && hasSnack()) || (isThirsty() && hasSnack())) {\n  eat()\n}\n```\n\nWork out each way's requirements on its own first, then use whichever style you find clearer."
+      "question": "hints.twoWaysToSucceed.question",
+      "answer": "hints.twoWaysToSucceed.answer"
     }
   ]
 }

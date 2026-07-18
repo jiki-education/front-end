@@ -1,0 +1,59 @@
+{
+  "errors": {
+    "leavesNumber": "Leaves must be a number",
+    "tomatoesNumber": "Tomatoes must be a number",
+    "croutonsNumber": "Croutons must be a number",
+    "olivesNumber": "Olives must be a number"
+  },
+  "checks": {
+    "saladNotMade": "You didn't make the salad. Make sure you call <code>makeSalad()</code> with all four ingredients.",
+    "needLeavesRandomInt": "You need to call <code>Math.randomInt(40, 100)</code> to generate the number of leaves.",
+    "needTomatoesRandomInt": "You need to call <code>Math.randomInt(5, leaves / 5)</code> to generate the number of tomatoes.",
+    "needCroutonsRandomInt": "You need to call <code>Math.randomInt(tomatoes, tomatoes * 2)</code> to generate the number of croutons.",
+    "needOlivesRandomInt": "You need to call <code>Math.randomInt(1, tomatoes / 2)</code> to generate the number of olives."
+  },
+  "tasks": {
+    "makeRandomSalad": {
+      "name": "Make a random salad",
+      "description": "Generate a random amount of each ingredient using Math.randomInt() and make the salad."
+    }
+  },
+  "scenarios": {
+    "randomSalad": {
+      "name": "Random salad",
+      "description": "Make a salad with random amounts of each ingredient."
+    }
+  },
+  "hints": {
+    "leavesExample": {
+      "question": "Give me an example of how to work out the leaves",
+      "answer": "Use `let leaves = Math.randomInt(40, 100)` to generate a random amount of salad leaves that you can then use in the other functions."
+    },
+    "leavesCount": {
+      "question": "How many leaves do I need?",
+      "answer": "Between 40 and 100."
+    },
+    "tomatoesCount": {
+      "question": "How many tomatoes do I need?",
+      "answer": "At least 5, but no more than leaves / 5"
+    },
+    "croutonsCount": {
+      "question": "How many croutons do I need?",
+      "answer": "At least as many as tomatoes, up to double the amount of tomatoes"
+    },
+    "olivesCount": {
+      "question": "How many olives do I need?",
+      "answer": "At least 1, up to half the number of tomatoes"
+    },
+    "makeSalad": {
+      "question": "How do I make the salad?",
+      "answer": "Once you've worked out how many ingredients you need for each, input leaves, tomatoes, croutons, olives into makeSalad()."
+    }
+  },
+  "functions": {
+    "makeSalad": {
+      "description": "Makes a salad with the given amounts of each ingredient.",
+      "category": "Action"
+    }
+  }
+}

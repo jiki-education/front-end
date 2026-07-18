@@ -18,7 +18,7 @@ export default class GolfRollingBallStateExercise extends GolfExercise {
 
   moveTo(executionCtx: ExecutionContext, position: Shared.JikiObject) {
     if (!isNumber(position)) {
-      return executionCtx.logicError("position must be a number");
+      return executionCtx.logicError(this.t("errors.positionNotNumber"));
     }
     this.ballX = position.value;
     this.visitedPositions.push(this.ballX);

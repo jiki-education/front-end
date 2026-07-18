@@ -3,24 +3,24 @@
   "levelId": "complex-conditionals",
   "hints": [
     {
-      "question": "How do I start?",
-      "answer": "Get Yuki's and Ando's choices using the provided functions and store them in variables so you can compare them."
+      "question": "hints.howToStart.question",
+      "answer": "hints.howToStart.answer"
     },
     {
-      "question": "What's the simplest case to handle first?",
-      "answer": "A tie. If both choices are equal, you can announce a tie straight away and skip the rest."
+      "question": "hints.simplestCase.question",
+      "answer": "hints.simplestCase.answer"
     },
     {
-      "question": "How do I check a specific winning combination?",
-      "answer": "Use `&&` (and) to combine two conditions that must both be true, e.g. \"Yuki chose rock AND Ando chose scissors\" means Yuki wins."
+      "question": "hints.checkCombination.question",
+      "answer": "hints.checkCombination.answer"
     },
     {
-      "question": "I'm ending up with loads of `if` statements. Is there a shorter way?",
-      "answer": "Default the result to one player winning, then only check the three combinations where the other player wins. That cuts the cases roughly in half."
+      "question": "hints.shorterWay.question",
+      "answer": "hints.shorterWay.answer"
     },
     {
-      "question": "What if a player enters something other than rock, paper or scissors?",
-      "answer": "You don't need to worry about that here. The provided functions only ever return one of the three valid choices."
+      "question": "hints.invalidChoice.question",
+      "answer": "hints.invalidChoice.answer"
     }
   ]
 }

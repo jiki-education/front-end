@@ -3,8 +3,8 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "I can't get to 7 lines of code.",
-      "answer": "Think about this level as two blocks of things that need to happen.\n\n- The first block is the inner one, where we shoot 4 times - make sure that is three lines long.\n- The outer block is the inner block with some movement either side. That outer block needs to be repeated a few times too.\n\nIf you structure your code in this way, it should naturally end up at 7 lines of code."
+      "question": "hints.cantGetTo7Lines.question",
+      "answer": "hints.cantGetTo7Lines.answer"
     }
   ]
 }

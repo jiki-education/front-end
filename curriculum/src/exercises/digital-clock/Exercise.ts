@@ -49,15 +49,15 @@ export default class DigitalClockExercise extends VisualExercise {
     indicator: Shared.JikiObject
   ) {
     if (!isNumber(hour)) {
-      executionCtx.logicError("hour must be a number");
+      executionCtx.logicError(this.t("errors.hourNotNumber"));
       return;
     }
     if (!isNumber(minutes)) {
-      executionCtx.logicError("minutes must be a number");
+      executionCtx.logicError(this.t("errors.minutesNotNumber"));
       return;
     }
     if (!isString(indicator)) {
-      executionCtx.logicError("indicator must be a string");
+      executionCtx.logicError(this.t("errors.indicatorNotString"));
       return;
     }
     this.displayedTime = `${hour.value}:${String(minutes.value).padStart(2, "0")}${indicator.value}`;

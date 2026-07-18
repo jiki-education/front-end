@@ -3,12 +3,12 @@
   "levelId": "using-functions",
   "hints": [
     {
-      "question": "What am I moving where?",
-      "answer": "You're moving the little person, who starts at the top-left, to the green circle at the bottom right, avoiding any red striped cells."
+      "question": "hints.whatAmIMoving.question",
+      "answer": "hints.whatAmIMoving.answer"
     },
     {
-      "question": "When I turn left, the person turns right!",
-      "answer": "The person turns relative to the position they're facing. So if you are facing right, and turn left, the person will change to face up."
+      "question": "hints.turnLeftTurnsRight.question",
+      "answer": "hints.turnLeftTurnsRight.answer"
     }
   ]
 }

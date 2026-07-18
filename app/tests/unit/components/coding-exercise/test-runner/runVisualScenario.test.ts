@@ -45,6 +45,8 @@ class MockExercise implements Partial<VisualExercise> {
   getState() {
     return this.state;
   }
+
+  setMessages() {}
 }
 
 describe("runVisualScenario", () => {
@@ -73,6 +75,7 @@ describe("runVisualScenario", () => {
         "jikiscript",
         mockInterpreter,
         undefined,
+        {},
         {}
       );
 
@@ -100,6 +103,7 @@ describe("runVisualScenario", () => {
         "jikiscript",
         mockInterpreter,
         undefined,
+        {},
         {}
       );
 
@@ -114,7 +118,7 @@ describe("runVisualScenario", () => {
     it("should pass when functional expectations pass and all code checks pass", () => {
       const passingCodeCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(true),
-        errorHtml: "This should not appear"
+        errorKey: "This should not appear"
       };
 
       const scenario: VisualScenario = {
@@ -133,6 +137,7 @@ describe("runVisualScenario", () => {
         "jikiscript",
         mockInterpreter,
         undefined,
+        {},
         {}
       );
 
@@ -146,7 +151,7 @@ describe("runVisualScenario", () => {
     it("should fail when functional expectations pass but code check fails", () => {
       const failingCodeCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(false),
-        errorHtml: "Your solution has more than 10 lines of code."
+        errorKey: "Your solution has more than 10 lines of code."
       };
 
       const scenario: VisualScenario = {
@@ -165,6 +170,7 @@ describe("runVisualScenario", () => {
         "jikiscript",
         mockInterpreter,
         undefined,
+        {},
         {}
       );
 
@@ -178,7 +184,7 @@ describe("runVisualScenario", () => {
     it("should fail when functional expectation fails (code check result included)", () => {
       const passingCodeCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(true),
-        errorHtml: "Should not see this"
+        errorKey: "Should not see this"
       };
 
       const scenario: VisualScenario = {
@@ -197,6 +203,7 @@ describe("runVisualScenario", () => {
         "jikiscript",
         mockInterpreter,
         undefined,
+        {},
         {}
       );
 
@@ -209,12 +216,12 @@ describe("runVisualScenario", () => {
     it("should handle multiple code checks", () => {
       const passingCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(true),
-        errorHtml: "Passing check"
+        errorKey: "Passing check"
       };
 
       const failingCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(false),
-        errorHtml: "First failing check"
+        errorKey: "First failing check"
       };
 
       const scenario: VisualScenario = {
@@ -233,6 +240,7 @@ describe("runVisualScenario", () => {
         "jikiscript",
         mockInterpreter,
         undefined,
+        {},
         {}
       );
 
@@ -249,7 +257,7 @@ describe("runVisualScenario", () => {
         pass: jest.fn().mockImplementation(() => {
           throw new Error("Check crashed!");
         }),
-        errorHtml: "Normal error message"
+        errorKey: "Normal error message"
       };
 
       const scenario: VisualScenario = {
@@ -268,6 +276,7 @@ describe("runVisualScenario", () => {
         "jikiscript",
         mockInterpreter,
         undefined,
+        {},
         {}
       );
 
@@ -307,6 +316,7 @@ describe("runVisualScenario", () => {
         "jikiscript",
         mockInterpreter,
         undefined,
+        {},
         {}
       );
 
@@ -353,6 +363,7 @@ describe("runVisualScenario", () => {
         "javascript",
         mockInterpreter,
         undefined,
+        {},
         {}
       );
 
@@ -391,6 +402,7 @@ describe("runVisualScenario", () => {
         "jikiscript",
         mockInterpreter,
         undefined,
+        {},
         {}
       );
 
@@ -408,7 +420,7 @@ describe("runVisualScenario", () => {
 
       const passingCodeCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(true),
-        errorHtml: "Should not appear"
+        errorKey: "Should not appear"
       };
 
       const scenario: VisualScenario = {
@@ -427,6 +439,7 @@ describe("runVisualScenario", () => {
         "jikiscript",
         mockInterpreter,
         undefined,
+        {},
         {}
       );
 
@@ -445,7 +458,7 @@ describe("runVisualScenario", () => {
         randomSeed: 42
       };
 
-      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter, undefined, {});
+      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter, undefined, {}, {});
 
       expect(mockInterpreter.interpret).toHaveBeenCalledWith(
         "move()",
@@ -465,7 +478,7 @@ describe("runVisualScenario", () => {
         randomSeed: true
       };
 
-      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter, undefined, {});
+      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter, undefined, {}, {});
 
       expect(mockInterpreter.interpret).toHaveBeenCalledWith(
         "move()",
@@ -484,7 +497,7 @@ describe("runVisualScenario", () => {
         expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }])
       };
 
-      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter, undefined, {});
+      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter, undefined, {}, {});
 
       expect(mockInterpreter.interpret).toHaveBeenCalledWith(
         "move()",
@@ -522,6 +535,7 @@ describe("runVisualScenario", () => {
         "jikiscript",
         mockInterpreter,
         undefined,
+        {},
         {}
       );
 
@@ -548,7 +562,7 @@ describe("runVisualScenario", () => {
         expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }])
       };
 
-      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter, undefined, {});
+      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter, undefined, {}, {});
 
       expect(mockInterpreter.interpret).toHaveBeenCalled();
       expect(mockInterpreter.evaluateFunction).not.toHaveBeenCalled();
@@ -581,6 +595,7 @@ describe("runVisualScenario", () => {
         "jikiscript",
         mockInterpreter,
         undefined,
+        {},
         {}
       );
 
@@ -620,6 +635,7 @@ describe("runVisualScenario", () => {
         "jikiscript",
         mockInterpreter,
         undefined,
+        {},
         {}
       );
 
@@ -651,6 +667,7 @@ describe("runVisualScenario", () => {
         "jikiscript",
         mockInterpreter,
         undefined,
+        {},
         {}
       );
 
@@ -675,6 +692,7 @@ describe("runVisualScenario", () => {
         "jikiscript",
         mockInterpreter,
         undefined,
+        {},
         {}
       );
 

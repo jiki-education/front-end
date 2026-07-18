@@ -1,0 +1,74 @@
+{
+  "errors": {
+    "allInputsNumbers": "All inputs must be numbers",
+    "hueRange": "Hue must be between 0 and 360",
+    "saturationRange": "Saturation must be between 0 and 100",
+    "lightnessRange": "Lightness must be between 0 and 100",
+    "redRange": "Red must be between 0 and 255",
+    "greenRange": "Green must be between 0 and 255",
+    "blueRange": "Blue must be between 0 and 255",
+    "rectInputsNumbers": "The x, y, width, and height inputs must be numbers",
+    "widthPositive": "Width must be greater than 0",
+    "heightPositive": "Height must be greater than 0",
+    "lineInputsNumbers": "The x1, y1, x2, and y2 inputs must be numbers",
+    "circleInputsNumbers": "The x, y, and radius inputs must be numbers",
+    "ellipseInputsNumbers": "The x, y, rx, and ry inputs must be numbers",
+    "triangleInputsNumbers": "The x1, y1, x2, y2, x3, and y3 inputs must be numbers",
+    "colorNotAllowed": "Color should not be specified for this exercise",
+    "colorNotString": "Color must be a string",
+    "colorNamedOrHex": "Color must be a named color (\"orange\", \"blue\", \"white\", etc) specified in the instructions, or a hex color starting with #"
+  },
+  "checks": {
+    "sun": "The sun isn't right.",
+    "cloudBody": "The cloud body isn't right.",
+    "leftPuff": "The left cloud puff isn't right.",
+    "leftCenterPuff": "The left-center cloud puff isn't right.",
+    "rightCenterPuff": "The right-center cloud puff isn't right.",
+    "rightPuff": "The right cloud puff isn't right.",
+    "rainDrop": "One of the rain drops isn't right."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "Draw the weather scene",
+      "description": "Create a weather scene with a yellow sun, a white cloud, and blue rain drops."
+    }
+  },
+  "scenarios": {
+    "drawScene": {
+      "name": "Draw the weather scene",
+      "description": "Create the complete weather scene with sun, cloud, and rain."
+    }
+  },
+  "hints": {
+    "cloudShape": {
+      "question": "How do I build the fluffy cloud shape from simple shapes?",
+      "answer": "The cloud is one rectangle (already drawn for you as the base) with `circle`s placed along its top edge to give it the bumpy outline."
+    },
+    "raindropShape": {
+      "question": "How do I make a raindrop with `ellipse`?",
+      "answer": "Raindrops are tall and thin, so the vertical radius is bigger than the horizontal one. The horizontal radius is `3` (the one number not divisible by 5)."
+    },
+    "sunOnTop": {
+      "question": "Why is my sun showing on top of the cloud?",
+      "answer": "Shapes drawn later sit in front of earlier ones. Draw the sun first, then the cloud on top, so the cloud appears to be in front of the sun."
+    },
+    "notMatchingTemplate": {
+      "question": "Why isn't my drawing matching the template lines?",
+      "answer": "Your shapes should sit just inside the guide lines, not on top of them. Nearly every number you need is divisible by 5, so try the nearest multiple of 5 if a shape looks slightly off."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Draw a rectangle at position (left, top) with the given width, height, and color",
+      "category": "Drawing Shapes"
+    },
+    "circle": {
+      "description": "Draw a circle centered at (centerX, centerY) with the given radius and color",
+      "category": "Drawing Shapes"
+    },
+    "ellipse": {
+      "description": "Draw an ellipse centered at (centerX, centerY) with horizontal radius radiusX, vertical radius radiusY, and color",
+      "category": "Drawing Shapes"
+    }
+  }
+}

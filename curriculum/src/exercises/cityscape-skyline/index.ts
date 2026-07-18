@@ -8,44 +8,44 @@ const functions: FunctionInfo[] = [
   {
     name: "buildWall",
     signature: "buildWall(x, y)",
-    description: "Places a **wall block** at grid position (x, y).",
+    description: "functions.buildWall.description",
     examples: ["buildWall(1, 1)", "buildWall(5, 3)"],
-    category: "Building"
+    category: "functions.buildWall.category"
   },
   {
     name: "buildGlass",
     signature: "buildGlass(x, y)",
-    description: "Places a **glass panel** at grid position (x, y).",
+    description: "functions.buildGlass.description",
     examples: ["buildGlass(2, 1)", "buildGlass(3, 4)"],
-    category: "Building"
+    category: "functions.buildGlass.category"
   },
   {
     name: "buildEntrance",
     signature: "buildEntrance(x, y)",
-    description: "Places an **entrance door** at grid position (x, y).",
+    description: "functions.buildEntrance.description",
     examples: ["buildEntrance(3, 1)"],
-    category: "Building"
+    category: "functions.buildEntrance.category"
   },
   {
     name: "numBuildings",
     signature: "numBuildings()",
-    description: "Returns the **number of buildings** to construct.",
+    description: "functions.numBuildings.description",
     examples: ["let buildings = numBuildings()"],
-    category: "Info"
+    category: "functions.numBuildings.category"
   },
   {
     name: "randomWidth",
     signature: "randomWidth()",
-    description: "Returns a **random building width**: 3, 5, or 7.",
+    description: "functions.randomWidth.description",
     examples: ["let width = randomWidth()"],
-    category: "Info"
+    category: "functions.randomWidth.category"
   },
   {
     name: "randomNumFloors",
     signature: "randomNumFloors()",
-    description: "Returns a **random number of floors** between 1 and 12.",
+    description: "functions.randomNumFloors.description",
     examples: ["let floors = randomNumFloors()"],
-    category: "Info"
+    category: "functions.randomNumFloors.category"
   }
 ];
 

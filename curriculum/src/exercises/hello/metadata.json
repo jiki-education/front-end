@@ -3,12 +3,12 @@
   "levelId": "string-manipulation",
   "hints": [
     {
-      "question": "What's the basic shape of the answer I'm trying to build?",
-      "answer": "Three pieces joined together: the fixed start `\"Hello, \"`, then the name, then the fixed end `\"!\"`."
+      "question": "hints.answerShape.question",
+      "answer": "hints.answerShape.answer"
     },
     {
-      "question": "How do I join strings together?",
-      "answer": "Use concatenation with `+`, or a template string with `${}` placeholders, to stick all three pieces together into a single string."
+      "question": "hints.joinStrings.question",
+      "answer": "hints.joinStrings.answer"
     }
   ]
 }

@@ -4,9 +4,8 @@ import type { CheckerboardExercise } from "./Exercise";
 export const tasks = [
   {
     id: "set-up-the-board" as const,
-    name: "Set up the board",
-    description:
-      "Draw the checkerboard and place the pieces on the dark squares of the top and bottom rows - and make it work for any board size.",
+    name: "tasks.setUpTheBoard.name",
+    description: "tasks.setUpTheBoard.description",
     hints: [],
     requiredScenarios: ["board-8", "board-6", "board-10"],
     bonus: false
@@ -67,43 +66,43 @@ function boardExpectations(ex: CheckerboardExercise, n: number) {
   return [
     {
       pass: borderPoints.every(([px, py]) => ex.hasRectangleCoveringPointWithColor(px, py, "black")),
-      errorHtml: "The board should have a black border all the way around the edge."
+      errorHtml: ex.t("checks.border")
     },
     {
       pass: ex.hasRectangleAtWithColor(sx(0), sy(0), c, c, "white"),
-      errorHtml: "The top-left square should be white (it's a light square)."
+      errorHtml: ex.t("checks.topLeftWhite")
     },
     {
       pass: ex.hasRectangleAtWithColor(sx(1), sy(0), c, c, "dark brown"),
-      errorHtml: "The square to the right of the top-left one should be dark brown (a dark square)."
+      errorHtml: ex.t("checks.rightOfTopLeftDark")
     },
     {
       pass: ex.hasRectangleAtWithColor(sx(0), sy(last), c, c, "dark brown"),
-      errorHtml: "The bottom-left square should be dark brown (a dark square)."
+      errorHtml: ex.t("checks.bottomLeftDark")
     },
     {
       pass: ex.hasRectangleAtWithColor(sx(last), sy(last), c, c, "white"),
-      errorHtml: "The bottom-right square should be white."
+      errorHtml: ex.t("checks.bottomRightWhite")
     },
 
     // A charcoal piece (with a rim) on the dark square in the top row.
     {
       pass: ex.hasCircleCenteredAtWithColor(cx(1), cy(0), "charcoal"),
-      errorHtml: "There should be a charcoal piece on the dark square in the top row."
+      errorHtml: ex.t("checks.charcoalPiece")
     },
     {
       pass: ex.hasCircleCenteredAtWithColor(cx(1), cy(0), "black"),
-      errorHtml: "The pieces in the top rows should have a rim around them."
+      errorHtml: ex.t("checks.topRim")
     },
 
     // A white piece (with a rim) on the dark square in the bottom row.
     {
       pass: ex.hasCircleCenteredAtWithColor(cx(0), cy(last), "white"),
-      errorHtml: "There should be a white piece on the dark square in the bottom row."
+      errorHtml: ex.t("checks.whitePiece")
     },
     {
       pass: ex.hasCircleCenteredAtWithColor(cx(0), cy(last), "grey"),
-      errorHtml: "The pieces in the bottom rows should have a rim around them."
+      errorHtml: ex.t("checks.bottomRim")
     },
 
     // The pieces must be sized relationally: the rim (outer circle) is 40% of the cell and the
@@ -111,29 +110,29 @@ function boardExpectations(ex: CheckerboardExercise, n: number) {
     // sizing is uniform, so a single sample per colour catches a wrong ratio.
     {
       pass: ex.hasCircleAtWithColor(cx(1), cy(0), rimRadius, "black"),
-      errorHtml: "The rim of a piece should be 80% as wide as its square - check the outer circle's radius."
+      errorHtml: ex.t("checks.rimRatio")
     },
     {
       pass: ex.hasCircleAtWithColor(cx(1), cy(0), innerRadius, "charcoal"),
-      errorHtml: "The centre of a piece should be 75% as wide as the whole piece - check the inner circle's radius."
+      errorHtml: ex.t("checks.innerRatio")
     },
     {
       pass: ex.hasCircleAtWithColor(cx(0), cy(last), rimRadius, "grey"),
-      errorHtml: "The rim of a piece should be 80% as wide as its square - check the outer circle's radius."
+      errorHtml: ex.t("checks.rimRatio")
     },
     {
       pass: ex.hasCircleAtWithColor(cx(0), cy(last), innerRadius, "white"),
-      errorHtml: "The centre of a piece should be 75% as wide as the whole piece - check the inner circle's radius."
+      errorHtml: ex.t("checks.innerRatio")
     },
 
     // Pieces only go on dark squares, and the middle rows stay empty.
     {
       pass: !ex.hasCircleCenteredAt(cx(0), cy(0)),
-      errorHtml: "There shouldn't be a piece on the top-left square - pieces only go on the dark squares."
+      errorHtml: ex.t("checks.noPieceOnLight")
     },
     {
       pass: !ex.hasCircleCenteredAt(cx(midDarkCol), cy(midRow)),
-      errorHtml: "The middle rows should be empty - only the top and bottom rows have pieces."
+      errorHtml: ex.t("checks.middleRowsEmpty")
     }
   ];
 }
@@ -141,8 +140,8 @@ function boardExpectations(ex: CheckerboardExercise, n: number) {
 export const scenarios: VisualScenario[] = [
   {
     slug: "board-8",
-    name: "Set up an 8×8 board",
-    description: "Draw the classic 8×8 checkerboard and lay out the pieces ready to play.",
+    name: "scenarios.board8.name",
+    description: "scenarios.board8.description",
     taskId: "set-up-the-board",
 
     setup(exercise) {
@@ -157,8 +156,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "board-6",
-    name: "Set up a 6×6 board",
-    description: "The same code should scale down to a smaller 6×6 board.",
+    name: "scenarios.board6.name",
+    description: "scenarios.board6.description",
     taskId: "set-up-the-board",
 
     setup(exercise) {
@@ -173,8 +172,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "board-10",
-    name: "Set up a 10×10 board",
-    description: "And it should scale up to a larger 10×10 board.",
+    name: "scenarios.board10.name",
+    description: "scenarios.board10.description",
     taskId: "set-up-the-board",
 
     setup(exercise) {

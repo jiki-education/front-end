@@ -1,0 +1,67 @@
+{
+  "checks": {
+    "wrongBlockCount": "You didn't create exactly 5 blocks.",
+    "notAllSmashed": "You didn't smash all the blocks.",
+    "tooManyBallMoves": "You moved the ball more times than you needed to!"
+  },
+  "tasks": {
+    "addAndSmashBlocks": {
+      "name": "Add and smash 5 blocks",
+      "description": "Create 5 blocks at the top of the game area, then bounce the ball to smash them all. Stop the ball once all blocks are smashed."
+    },
+    "differentDimensions": {
+      "name": "Different dimensions",
+      "description": "In the full breakout game, the ball's radius and block height can change. Check your code works with different dimensions."
+    }
+  },
+  "scenarios": {
+    "addBlocks": {
+      "name": "Add and smash 5 blocks",
+      "description": "Add 5 blocks to the game area, then smash them!"
+    },
+    "differentDimensions": {
+      "name": "Different dimensions",
+      "description": "Check your code still works if the dimensions change!"
+    }
+  },
+  "hints": {
+    "createFiveBlocks": {
+      "question": "How do I create the five blocks?",
+      "answer": "Use a `for` loop, e.g. `for (let x = 1; x <= 5; x++) { ... }`, and call `new Block(left, top)` inside it."
+    },
+    "blockLeftPosition": {
+      "question": "How do I work out each block's `left` position?",
+      "answer": "The first sits at `8`, and each block is `16` wide with a `1` gap, so the left is `8 + ((x - 1) * 17)`."
+    },
+    "detectHit": {
+      "question": "How do I detect the ball hitting a block?",
+      "answer": "Check if the ball's top edge equals the block's bottom edge (`block.top + block.height`), and that the ball is horizontally aligned with the block."
+    },
+    "skipSmashed": {
+      "question": "How do I skip blocks that are already smashed?",
+      "answer": "Inside your loop, check `block.smashed` and use `continue` to jump to the next block if it's already true."
+    },
+    "stopWhenAllSmashed": {
+      "question": "How do I stop the ball when every block is gone?",
+      "answer": "Write a small function that returns true when all blocks have `smashed === true`. When it returns true, `break` out of the main loop."
+    }
+  },
+  "functions": {
+    "ball": {
+      "description": "Creates a new Ball instance with properties: `cx`, `cy` (center position), `radius`, `xVelocity`, and `yVelocity`.",
+      "category": "Objects"
+    },
+    "block": {
+      "description": "Creates a new Block instance with properties: `left`, `top`, `width` (16), `height`, and `smashed` (initially false).",
+      "category": "Objects"
+    },
+    "moveBall": {
+      "description": "Moves the ball according to its current `xVelocity` and `yVelocity`.",
+      "category": "Movement"
+    },
+    "push": {
+      "description": "Adds an element to a list and returns the new list.",
+      "category": "Lists"
+    }
+  }
+}

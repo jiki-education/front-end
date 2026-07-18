@@ -7,16 +7,16 @@ const functions: FunctionInfo[] = [
   {
     name: "fetch",
     signature: "fetch(url, params)",
-    description: "Fetches data from a URL with the given parameters and returns a dictionary",
+    description: "functions.fetch.description",
     examples: ['let data = fetch("https://timeapi.io/api/time/current/city", { city: "Amsterdam" })'],
-    category: "API"
+    category: "functions.fetch.category"
   },
   {
     name: "hasKey",
     signature: "hasKey(dictionary, key)",
-    description: "Check if a key exists in a dictionary, returns true or false (provided by level stdlib)",
+    description: "functions.hasKey.description",
     examples: ['hasKey({"name": "Jeremy"}, "name") → true'],
-    category: "Dictionary Operations"
+    category: "functions.hasKey.category"
   }
 ];
 

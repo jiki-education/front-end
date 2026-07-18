@@ -1,0 +1,102 @@
+{
+  "errors": {
+    "fellOffEdge": "Oh no - you tried to fall off the edge of the maze!",
+    "hitWall": "Ouch - you walked into a wall!"
+  },
+  "checks": {
+    "reachedEnd": "You didn't reach the end of the maze.",
+    "extraTurn": "You seem to have done an extra unnecessary turn at the end."
+  },
+  "tasks": {
+    "straightPath": {
+      "name": "A straight path",
+      "description": "Move forward to the end of the maze."
+    },
+    "turnLeft": {
+      "name": "Turn left if you can",
+      "description": "If there's a path to the left, take it!"
+    },
+    "turnRight": {
+      "name": "Turn right if you can't move straight or left",
+      "description": "If there's not a path to the left or straight ahead, take the path to the right."
+    },
+    "turnAround": {
+      "name": "Turn around if needed",
+      "description": "Handle dead ends by turning around. If you can't go left, straight, or right, turn around and move forward."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Guide person to the end of the maze",
+      "description": "A straight path down"
+    },
+    "leftTurn": {
+      "name": "A single left turn",
+      "description": "Navigate a left turn"
+    },
+    "rightTurn": {
+      "name": "A single right turn",
+      "description": "Navigate a right turn"
+    },
+    "forks": {
+      "name": "Choose left if you can, otherwise choose right",
+      "description": "A maze with forks that tests left-priority"
+    },
+    "turnAround": {
+      "name": "Turn around at a dead end",
+      "description": "A maze that requires turning around"
+    },
+    "forks2": {
+      "name": "Complex maze with forks and dead ends",
+      "description": "A complex maze testing the full algorithm"
+    }
+  },
+  "hints": {
+    "solveEachMaze": {
+      "question": "Do I have to solve each maze separately?",
+      "answer": "No. You write one algorithm that works for any maze, and the same code runs on every scenario."
+    },
+    "runEveryStep": {
+      "question": "How do I get my code to run for every step of the maze?",
+      "answer": "Wrap your logic in the repeat loop. It runs your code over and over until you reach the end, so you only need to describe what to do for a single step."
+    },
+    "oneCheckPerStep": {
+      "question": "How do I make sure only one of my checks happens each step?",
+      "answer": "Use a single `if` / `else if` / `else` chain rather than several separate `if`s. That way exactly one branch runs each time through the loop."
+    },
+    "stuckAfterTurn": {
+      "question": "I turn, but the character gets stuck in the same spot.",
+      "answer": "Turning only changes the direction the character faces, it doesn't take a step. After turning, you still need to `move()`."
+    },
+    "turnAroundDeadEnd": {
+      "question": "How do I turn around at a dead end?",
+      "answer": "There's no turn-around function. Turning the same way twice (two left turns, or two right turns) leaves the character facing back the way it came."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Moves the character **one step forward** in the current direction. The character will only move if the target position is not blocked by a wall.",
+      "category": "Movement"
+    },
+    "turnLeft": {
+      "description": "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
+      "category": "Movement"
+    },
+    "turnRight": {
+      "description": "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
+      "category": "Movement"
+    },
+    "canMove": {
+      "description": "Returns **true** if the space ahead of the character is not a wall, **false** otherwise.",
+      "category": "Sensing"
+    },
+    "canTurnLeft": {
+      "description": "Returns **true** if the space to the character's left is not a wall, **false** otherwise.",
+      "category": "Sensing"
+    },
+    "canTurnRight": {
+      "description": "Returns **true** if the space to the character's right is not a wall, **false** otherwise.",
+      "category": "Sensing"
+    }
+  }
+}

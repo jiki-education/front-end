@@ -6,10 +6,11 @@ import type { Language } from "./types";
 // Base class for IO exercises that test function return values
 
 export abstract class IOExercise extends Exercise {
-  static slug: string;
-  static availableFunctions: ExternalFunction[];
+  protected abstract get slug(): string;
 
-  static getExternalFunctions(language: Language): ExternalFunction[] {
+  abstract availableFunctions: ExternalFunction[];
+
+  getExternalFunctions(language: Language): ExternalFunction[] {
     return this.availableFunctions.map((f) => ({
       ...f,
       name: formatIdentifier(f.name, language)

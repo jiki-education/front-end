@@ -1,0 +1,81 @@
+{
+  "errors": {
+    "xNotNumber": "x must be a number",
+    "yNotNumber": "y must be a number"
+  },
+  "checks": {
+    "wrongDistance": "The ball didn't roll the right distance for this shot. It should travel exactly the shot length from the tee.",
+    "missingPositions": "The ball must roll through each position one step at a time.",
+    "stayOnGrassPlain": "The ball should stay on the grass for this shot — it shouldn't drop into the hole.",
+    "stayOnGrassOvershot": "The ball overshot the hole, so it should stay on the grass — it shouldn't drop in.",
+    "droppedIncorrectly": "The ball reached the hole but didn't drop down into it correctly.",
+    "noFireworksPeriod": "You shouldn't have fired the fireworks.",
+    "noFireworksNoPeriod": "You shouldn't have fired the fireworks",
+    "noFireworksAtEnd": "You shouldn't have fired the fireworks at the end.",
+    "shouldFireFireworks": "You should fire the fireworks at the end."
+  },
+  "tasks": {
+    "checkShot": {
+      "name": "Check if the shot lands in the hole",
+      "description": "Roll the ball based on the shot length, and if it lands over the hole, sink it! Then fire fireworks."
+    }
+  },
+  "scenarios": {
+    "tooShort": {
+      "name": "Shot too short",
+      "description": "The golfer hits the ball 23 — it doesn't reach the hole."
+    },
+    "justTooShort": {
+      "name": "Just too short",
+      "description": "The golfer hits the ball 57 and it just doesn't quite roll in."
+    },
+    "justTooFar": {
+      "name": "Just too far",
+      "description": "The golfer hits the ball 63 and it just pops out the other side"
+    },
+    "tooLong": {
+      "name": "Shot too long",
+      "description": "The golfer hits the ball 68 — it goes past the hole."
+    },
+    "justInsideLeft": {
+      "name": "Just in the hole",
+      "description": "The golfer hits the ball 58 — it just reaches the hole!"
+    },
+    "justInsideRight": {
+      "name": "Nearly too far but ok!",
+      "description": "The golfer hits the ball 62 — it just about stays in the hole!"
+    }
+  },
+  "hints": {
+    "howDoIRollRightDistance": {
+      "question": "How do I roll the ball the right distance for each shot?",
+      "answer": "Use `getShotLength()` to find out how far the golfer hit the ball, and store it in a variable. That tells you how many times to roll."
+    },
+    "howDoIMoveOneStep": {
+      "question": "How do I move the ball one step at a time instead of jumping it to the end?",
+      "answer": "Keep a variable for the ball's `x` position. Each time round the loop, increase it by one and then roll to the new position."
+    },
+    "whenShouldBallDrop": {
+      "question": "When should the ball drop into the hole?",
+      "answer": "Only when the shot lands in the hole. Check whether the shot length is within the winning range by testing the lower and upper bounds together in one condition."
+    },
+    "whenShouldFireworksFire": {
+      "question": "When should the fireworks fire?",
+      "answer": "Only for a shot that landed in the hole, and only once the ball has finished dropping to the bottom. Keep the drop and the fireworks together inside the same condition."
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "Moves the ball to position **(x, y)**.",
+      "category": "Movement"
+    },
+    "getShotLength": {
+      "description": "Returns the **length of the shot** — how many units the ball travels to the right.",
+      "category": "Information"
+    },
+    "fireFireworks": {
+      "description": "Fires celebratory fireworks!",
+      "category": "Action"
+    }
+  }
+}

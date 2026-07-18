@@ -4,9 +4,8 @@ import type { StructuredHouseExercise } from "./Exercise";
 export const tasks = [
   {
     id: "draw-house" as const,
-    name: "Draw the house",
-    description:
-      "Build the house from `houseWidth` and `houseHeight` so it stays centered, planted on the grass, and correctly proportioned at any size.",
+    name: "tasks.drawHouse.name",
+    description: "tasks.drawHouse.description",
     hints: [],
     requiredScenarios: ["draw-the-house"],
     bonus: false
@@ -81,27 +80,27 @@ function detailedCheck(houseWidth: number, houseHeight: number): IsolatedCheck {
       return [
         {
           pass: ex.hasRectangleAt(...e.frame),
-          errorHtml: "The frame of the house is not at the correct position."
+          errorHtml: ex.t("checks.frameWrong")
         },
         {
           pass: ex.hasTriangleAt(...e.roof),
-          errorHtml: "The roof of the house is not at the correct position."
+          errorHtml: ex.t("checks.roofWrong")
         },
         {
           pass: ex.hasRectangleAt(...e.leftWindow),
-          errorHtml: "The left window isn't positioned correctly."
+          errorHtml: ex.t("checks.leftWindowWrong")
         },
         {
           pass: ex.hasRectangleAt(...e.rightWindow),
-          errorHtml: "The right window isn't positioned correctly."
+          errorHtml: ex.t("checks.rightWindowWrong")
         },
         {
           pass: ex.hasRectangleAt(...e.door),
-          errorHtml: "The door isn't positioned correctly."
+          errorHtml: ex.t("checks.doorWrong")
         },
         {
           pass: ex.hasCircleAt(...e.knob),
-          errorHtml: "The door knob isn't positioned correctly."
+          errorHtml: ex.t("checks.knobWrong")
         }
       ];
     }
@@ -126,9 +125,7 @@ function responsivenessCheck(houseWidth: number, houseHeight: number): IsolatedC
       return [
         {
           pass: allMatch,
-          errorHtml: allMatch
-            ? undefined
-            : `Your house doesn't scale correctly when houseWidth=${houseWidth} and houseHeight=${houseHeight}. Every position and size should be derived from houseWidth and houseHeight, not hardcoded numbers.`
+          errorHtml: allMatch ? undefined : ex.t("checks.doesNotScale", { houseWidth, houseHeight })
         }
       ];
     }
@@ -138,8 +135,8 @@ function responsivenessCheck(houseWidth: number, houseHeight: number): IsolatedC
 export const scenarios: VisualScenario[] = [
   {
     slug: "draw-the-house",
-    name: "Draw the house",
-    description: "Build the house from houseWidth and houseHeight so it scales correctly.",
+    name: "scenarios.drawTheHouse.name",
+    description: "scenarios.drawTheHouse.description",
     taskId: "draw-house",
 
     // No primary expectations — the canvas the student sees uses their own anchor

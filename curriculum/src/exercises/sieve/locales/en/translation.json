@@ -1,0 +1,54 @@
+{
+  "tasks": {
+    "implementSieve": {
+      "name": "Implement the Sieve",
+      "description": "Write a function called sieve that takes a number and returns a list of all prime numbers up to and including that number, using the Sieve of Eratosthenes algorithm."
+    }
+  },
+  "scenarios": {
+    "sieveNoPrimesUnderTwo": {
+      "name": "No primes under two",
+      "description": "There are no prime numbers less than 2."
+    },
+    "sieveFirstPrime": {
+      "name": "Find first prime",
+      "description": "The first prime number is 2."
+    },
+    "sievePrimesUpTo10": {
+      "name": "Find primes up to 10",
+      "description": "Find prime numbers up to 10."
+    },
+    "sieveLimitIsPrime": {
+      "name": "Limit is prime",
+      "description": "Find prime numbers up to a limit that is itself prime."
+    },
+    "sievePrimesUpTo100": {
+      "name": "Find primes up to 100",
+      "description": "Find all prime numbers up to 100."
+    }
+  },
+  "hints": {
+    "basicIdea": {
+      "question": "What's the basic idea of the sieve?",
+      "answer": "Write down every number from 2 up to your limit. Take 2. It's prime, but cross out all its multiples (4, 6, 8, and so on). Move to the next unmarked number (3). It's prime, so cross out all its multiples. Repeat. Anything still unmarked at the end is prime."
+    },
+    "representMarked": {
+      "question": "How do I represent 'marked' or 'unmarked'?",
+      "answer": "A dictionary keyed by the number, with a true or false value for 'marked'. Looking up `marked[n]` tells you whether n has been struck off."
+    },
+    "crossOutMultiples": {
+      "question": "How do I cross out the multiples of a number?",
+      "answer": "Loop through the multiples (n*2, n*3, n*4, ...) up to the limit, marking each one in your dictionary as not prime."
+    },
+    "collectAnswer": {
+      "question": "How do I collect the answer at the end?",
+      "answer": "After the marking phase, loop from 2 to the limit. For any number that's still unmarked, `push()` it onto the result list."
+    }
+  },
+  "functions": {
+    "push": {
+      "description": "Returns a new list with the element added to the end (provided by level stdlib)",
+      "category": "List Operations"
+    }
+  }
+}

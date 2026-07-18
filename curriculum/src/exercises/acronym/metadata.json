@@ -3,20 +3,20 @@
   "levelId": "methods-and-properties",
   "hints": [
     {
-      "question": "How do I pick out which letters become the acronym?",
-      "answer": "The letters you want are the ones that start each word. That's usually the very first character of the phrase, plus any character that comes right after a space or hyphen."
+      "question": "hints.pickLetters.question",
+      "answer": "hints.pickLetters.answer"
     },
     {
-      "question": "How do I find the characters that come right after a space or hyphen?",
-      "answer": "Loop through the phrase one character at a time, keeping track of what the previous character was. If the previous character was a space or hyphen (or you're at the very start), the current character is the start of a word."
+      "question": "hints.findWordStarts.question",
+      "answer": "hints.findWordStarts.answer"
     },
     {
-      "question": "How do I build up the result as I go?",
-      "answer": "Start with an empty result string and append each chosen letter onto the end using concatenation with `+`."
+      "question": "hints.buildResult.question",
+      "answer": "hints.buildResult.answer"
     },
     {
-      "question": "I've got the right letters but my answer's lowercase",
-      "answer": "Once you've built the full string, convert it to uppercase in one go using `toUpperCase()` before returning it."
+      "question": "hints.lowercaseResult.question",
+      "answer": "hints.lowercaseResult.answer"
     }
   ]
 }

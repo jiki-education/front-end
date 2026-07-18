@@ -56,8 +56,10 @@ function mockFetch(_ctx: ExecutionContext, url: any, _params: any): Record<strin
 }
 
 export default class SpotifyExercise extends IOExercise {
-  static slug = metadata.slug;
-  static availableFunctions: ExternalFunction[] = [
+  protected get slug() {
+    return metadata.slug;
+  }
+  availableFunctions: ExternalFunction[] = [
     {
       name: "fetch",
       func: mockFetch,

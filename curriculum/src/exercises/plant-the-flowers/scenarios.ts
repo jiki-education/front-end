@@ -4,8 +4,8 @@ import type PlantTheFlowersExercise from "./Exercise";
 export const tasks = [
   {
     id: "plant-flowers" as const,
-    name: "Plant 9 flowers",
-    description: "Use a variable and a repeat loop to plant 9 flowers at positions 10, 20, 30, ..., 90.",
+    name: "tasks.plantFlowers.name",
+    description: "tasks.plantFlowers.description",
     hints: [],
     requiredScenarios: ["plant-flowers"],
     bonus: false
@@ -15,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "plant-flowers",
-    name: "Plant 9 flowers",
-    description: "Plant flowers at positions 10, 20, 30, 40, 50, 60, 70, 80, and 90.",
+    name: "scenarios.plantFlowers.name",
+    description: "scenarios.plantFlowers.description",
     taskId: "plant-flowers",
 
     setup(exercise) {
@@ -28,19 +28,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.flowers.length === 9,
-          errorHtml: `Expected 9 flowers, but found ${ex.flowers.length}.`
+          errorHtml: ex.t("checks.flowerCount", { got: ex.flowers.length })
         },
         {
           pass: ex.hasFlowerAt(10),
-          errorHtml: "Missing a flower at position 10."
+          errorHtml: ex.t("checks.missingFlowerAt10")
         },
         {
           pass: ex.hasFlowerAt(50),
-          errorHtml: "Missing a flower at position 50."
+          errorHtml: ex.t("checks.missingFlowerAt50")
         },
         {
           pass: ex.hasFlowerAt(90),
-          errorHtml: "Missing a flower at position 90."
+          errorHtml: ex.t("checks.missingFlowerAt90")
         }
       ];
     },
@@ -51,7 +51,7 @@ export const scenarios: VisualScenario[] = [
           const limit = language === "python" ? 4 : 5;
           return result.assertors.assertMaxLinesOfCode(limit);
         },
-        errorHtml: "Your solution has too many lines of code. Try to find a way to make it shorter."
+        errorKey: "checks.tooManyLines"
       }
     ]
   }

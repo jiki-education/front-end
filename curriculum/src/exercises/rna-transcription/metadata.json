@@ -3,16 +3,16 @@
   "levelId": "dictionaries",
   "hints": [
     {
-      "question": "What's the transcription rule?",
-      "answer": "Each DNA nucleotide maps to one RNA nucleotide: G to C, C to G, T to A, and A to U. Your job is to apply this rule to every character in the input."
+      "question": "hints.transcriptionRule.question",
+      "answer": "hints.transcriptionRule.answer"
     },
     {
-      "question": "How do I do that mapping in code?",
-      "answer": "One option is two 'parallel' strings, `\"GCTA\"` for DNA and `\"CGAU\"` for RNA. The RNA complement of a DNA letter is the letter at the same position in the RNA string. You'll need to find the position in the DNA string first."
+      "question": "hints.mappingInCode.question",
+      "answer": "hints.mappingInCode.answer"
     },
     {
-      "question": "How do I process the whole strand?",
-      "answer": "Loop through each character of the DNA string, find its RNA complement, and append it onto a result string using concatenation with `+`."
+      "question": "hints.processStrand.question",
+      "answer": "hints.processStrand.answer"
     }
   ]
 }

@@ -7,58 +7,58 @@ const functions: FunctionInfo[] = [
   {
     name: "knightIsAwake",
     signature: "knightIsAwake()",
-    description: "Returns `true` if the knight is awake, `false` if he is asleep.",
+    description: "functions.knightIsAwake.description",
     examples: ["if (knightIsAwake()) {", "if (!knightIsAwake()) {"],
-    category: "Information"
+    category: "functions.knightIsAwake.category"
   },
   {
     name: "archerIsAwake",
     signature: "archerIsAwake()",
-    description: "Returns `true` if the archer is awake, `false` if she is asleep.",
+    description: "functions.archerIsAwake.description",
     examples: ["if (archerIsAwake()) {", "if (!archerIsAwake()) {"],
-    category: "Information"
+    category: "functions.archerIsAwake.category"
   },
   {
     name: "prisonerIsAwake",
     signature: "prisonerIsAwake()",
-    description: "Returns `true` if the prisoner is awake, `false` if they are asleep.",
+    description: "functions.prisonerIsAwake.description",
     examples: ["if (prisonerIsAwake()) {"],
-    category: "Information"
+    category: "functions.prisonerIsAwake.category"
   },
   {
     name: "dogIsBehaving",
     signature: "dogIsBehaving()",
-    description: "Returns `true` if Annalyn's (somewhat naughty) dog is behaving itself.",
+    description: "functions.dogIsBehaving.description",
     examples: ["if (dogIsBehaving()) {"],
-    category: "Information"
+    category: "functions.dogIsBehaving.category"
   },
   {
     name: "fastAttack",
     signature: "fastAttack()",
-    description: "Makes a fast attack on the knight.",
+    description: "functions.fastAttack.description",
     examples: ["fastAttack()"],
-    category: "Action"
+    category: "functions.fastAttack.category"
   },
   {
     name: "spy",
     signature: "spy()",
-    description: "Spies on the group.",
+    description: "functions.spy.description",
     examples: ["spy()"],
-    category: "Action"
+    category: "functions.spy.category"
   },
   {
     name: "signalPrisoner",
     signature: "signalPrisoner()",
-    description: "Signals the prisoner using bird sounds.",
+    description: "functions.signalPrisoner.description",
     examples: ["signalPrisoner()"],
-    category: "Action"
+    category: "functions.signalPrisoner.category"
   },
   {
     name: "freePrisoner",
     signature: "freePrisoner()",
-    description: "Sneaks into the camp to free the prisoner.",
+    description: "functions.freePrisoner.description",
     examples: ["freePrisoner()"],
-    category: "Action"
+    category: "functions.freePrisoner.category"
   }
 ];
 

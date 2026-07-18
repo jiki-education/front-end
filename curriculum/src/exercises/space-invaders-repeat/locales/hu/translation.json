@@ -1,0 +1,51 @@
+{
+  "errors": {
+    "laserOverheated": "Oh no! Your laser canon overheated from shooting too fast! You need to move before you can shoot a second time.",
+    "missedShot": "Oh no, you missed. Wasting ammo is not allowed!",
+    "moveOffEdge": "Oh no, you tried to move off the edge!"
+  },
+  "checks": {
+    "notShotAllAliens": "You didn't shoot down all the aliens.",
+    "tooManyLines": "Your solution has too many lines of code. Try using a repeat loop to make it shorter!"
+  },
+  "tasks": {
+    "repeatShoot": {
+      "name": "Use a repeat loop to shoot all the aliens",
+      "description": "Find the pattern in the alien positions and use a repeat loop to destroy them all in 7 lines of code or fewer."
+    }
+  },
+  "scenarios": {
+    "repeatShoot": {
+      "name": "Repeat and Shoot",
+      "description": "Use a repeat loop to shoot all the aliens"
+    }
+  },
+  "hints": {
+    "avoidRepeating": {
+      "question": "How can I avoid writing `move()` and `shoot()` over and over?",
+      "answer": "Use a `repeat` loop. `repeat(n) { ... }` runs the same block of code `n` times."
+    },
+    "repeatingPattern": {
+      "question": "What's the repeating pattern in the alien positions?",
+      "answer": "Your laser cannon starts to the left of the aliens, and they sit in every other column with three aliens stacked in each. So the pattern for each column is: `move`, `move`, `shoot`, `shoot`, `shoot`. You move across the empty gap onto the alien column, then shoot down all three rows. That five-step group is what you want to repeat."
+    },
+    "howManyTimes": {
+      "question": "How many times should I repeat the pattern?",
+      "answer": "Count the groups of aliens across the screen and use that number as the argument to `repeat`."
+    },
+    "why7Lines": {
+      "question": "Why does the target ask for only 7 lines?",
+      "answer": "One line for the `repeat` header, the five repeating actions inside, and one line for the closing brace makes seven. Everything you need fits inside the loop, with nothing outside it. If you're writing more, you're probably not using the loop yet."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Moves the laser cannon **one position to the right**. If you move off the right edge of the screen, you lose!",
+      "category": "Movement"
+    },
+    "shoot": {
+      "description": "Shoots the laser upwards. **Only shoot when there's an alien above you**, or you lose the game!",
+      "category": "Action"
+    }
+  }
+}

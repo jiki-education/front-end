@@ -4,9 +4,8 @@ import type SpaceInvadersRepeatExercise from "./Exercise";
 export const tasks = [
   {
     id: "repeat-shoot" as const,
-    name: "Use a repeat loop to shoot all the aliens",
-    description:
-      "Find the pattern in the alien positions and use a repeat loop to destroy them all in 7 lines of code or fewer.",
+    name: "tasks.repeatShoot.name",
+    description: "tasks.repeatShoot.description",
     hints: [],
     requiredScenarios: ["repeat-shoot"],
     bonus: false
@@ -16,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "repeat-shoot",
-    name: "Repeat and Shoot",
-    description: "Use a repeat loop to shoot all the aliens",
+    name: "scenarios.repeatShoot.name",
+    description: "scenarios.repeatShoot.description",
     taskId: "repeat-shoot",
 
     setup(exercise) {
@@ -35,7 +34,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: state.gameStatus === "won",
-          errorHtml: "You didn't shoot down all the aliens."
+          errorHtml: ex.t("checks.notShotAllAliens")
         }
       ];
     },
@@ -46,7 +45,7 @@ export const scenarios: VisualScenario[] = [
           const limit = language === "python" ? 6 : 7;
           return result.assertors.assertMaxLinesOfCode(limit);
         },
-        errorHtml: "Your solution has too many lines of code. Try using a repeat loop to make it shorter!"
+        errorKey: "checks.tooManyLines"
       }
     ]
   }

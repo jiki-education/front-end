@@ -1,0 +1,54 @@
+{
+  "checks": {
+    "oneListOnly": "You should only create one list. Make sure you only use <code>[]</code> once.",
+    "usePush": "You should use <code>push()</code> to add items to your list."
+  },
+  "tasks": {
+    "packALunch": {
+      "name": "Pack a Lunch",
+      "description": "Write a function that packs a lunchbox with a sandwich, drink, and snack. If the drink is a milkshake, leave it out of the lunchbox because it's too big."
+    }
+  },
+  "scenarios": {
+    "regularLunch": {
+      "name": "Regular lunch",
+      "description": "A normal lunch with water - everything fits in the lunchbox."
+    },
+    "milkshakeLunch": {
+      "name": "Milkshake lunch",
+      "description": "The milkshake is too big for the lunchbox, so it gets left out."
+    },
+    "anotherRegular": {
+      "name": "Another regular lunch",
+      "description": "Another normal lunch where everything fits."
+    },
+    "anotherMilkshake": {
+      "name": "Another milkshake lunch",
+      "description": "Another lunch with a milkshake that doesn't fit."
+    }
+  },
+  "hints": {
+    "basicShape": {
+      "question": "What's the basic shape of my answer?",
+      "answer": "A list. Start with an empty list and add the allowed items to it one at a time."
+    },
+    "addItems": {
+      "question": "How do I add items to a list?",
+      "answer": "Use `push()`. It takes the list and the item, and gives back the new (longer) list."
+    },
+    "leaveMilkshakeOut": {
+      "question": "How do I leave the milkshake out?",
+      "answer": "Use an if-statement. Only push the drink if it's not equal to `\"milkshake\"`."
+    },
+    "listNotGrowing": {
+      "question": "Why isn't my list growing?",
+      "answer": "`push()` doesn't modify the list in place. It returns the new list. You need to reassign, for example `lunchbox = lunchbox.push(item)` (or the equivalent in your language)."
+    }
+  },
+  "functions": {
+    "push": {
+      "description": "Returns a new list with the element added to the end (provided by level stdlib)",
+      "category": "List Operations"
+    }
+  }
+}

@@ -4,8 +4,8 @@ import type { TrafficLightsExercise } from "./Exercise";
 export const tasks = [
   {
     id: "draw-lights" as const,
-    name: "Draw the traffic lights",
-    description: "Use the provided variables to draw the three colored lights on the traffic light.",
+    name: "tasks.drawLights.name",
+    description: "tasks.drawLights.description",
     hints: [],
     requiredScenarios: ["draw-lights"],
     bonus: false
@@ -15,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "draw-lights",
-    name: "Draw the traffic lights",
-    description: "Draw the three colored circles using the provided variables.",
+    name: "scenarios.drawLights.name",
+    description: "scenarios.drawLights.description",
     taskId: "draw-lights",
 
     setup(exercise) {
@@ -30,15 +30,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasCircleWithColorAt(50, 16, 8, "#FF0000"),
-          errorHtml: "The red light (top) isn't right."
+          errorHtml: ex.t("checks.redLight")
         },
         {
           pass: ex.hasCircleWithColorAt(50, 39, 8, "#FFFF00"),
-          errorHtml: "The amber light (middle) isn't right."
+          errorHtml: ex.t("checks.amberLight")
         },
         {
           pass: ex.hasCircleWithColorAt(50, 62, 8, "#008000"),
-          errorHtml: "The green light (bottom) isn't right."
+          errorHtml: ex.t("checks.greenLight")
         }
       ];
     },
@@ -47,7 +47,7 @@ export const scenarios: VisualScenario[] = [
       {
         pass: (result) =>
           result.assertors.assertSomeArgumentsAreVariablesForFunction("circle", [true, true, true, false]),
-        errorHtml: "You should use the variables rather than using numbers directly as the function inputs."
+        errorKey: "checks.useVariables"
       }
     ]
   }

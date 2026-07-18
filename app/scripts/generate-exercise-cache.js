@@ -146,7 +146,30 @@ function processExercises() {
       }
     }
 
-    exercises[slug] = { metadata, locales, stubs, solutions };
+    // Read per-locale message catalogs (curriculum-owned i18n dicts). These are
+    // decoupled from instruction locales: an exercise can ship a `hu` message
+    // dict for its runtime logic-error strings without a `hu` instructions file.
+    // Each catalog is emitted as a standalone artifact and fetched by the ACTIVE
+    // UI locale at runtime, independent of the (content) instruction locale.
+    const messages = {};
+    const localesDir = path.join(exercisePath, "locales");
+    if (fs.existsSync(localesDir)) {
+      const localeDirs = fs.readdirSync(localesDir, { withFileTypes: true }).filter((d) => d.isDirectory());
+      for (const localeDir of localeDirs) {
+        const translationPath = path.join(localesDir, localeDir.name, "translation.json");
+        const raw = readFileOrNull(translationPath);
+        if (raw === null) {
+          continue;
+        }
+        try {
+          messages[localeDir.name] = JSON.parse(raw);
+        } catch (error) {
+          throw new Error(`Invalid JSON in ${translationPath}: ${error.message}`);
+        }
+      }
+    }
+
+    exercises[slug] = { metadata, locales, stubs, solutions, messages };
   }
 
   return exercises;
@@ -157,6 +180,17 @@ function processExercises() {
  * Returns the index hashes for the manifest.
  */
 function buildStaticFiles(exercises) {
+  // Emit per-exercise per-locale message catalogs as standalone artifacts.
+  // These are fetched by the active UI locale at runtime and injected into the
+  // exercise instance via `setMessages` — decoupled from the instruction/content
+  // locale, so a `hu` dict can be delivered even without `hu` instructions.
+  for (const [slug, exercise] of Object.entries(exercises)) {
+    for (const [locale, dict] of Object.entries(exercise.messages)) {
+      const messagesPath = path.join(STATIC_DIR, slug, `i18n-${locale}.json`);
+      writeFile(messagesPath, JSON.stringify(dict));
+    }
+  }
+
   // Group exercises by locale for metadata indexes
   const byLocale = {};
 

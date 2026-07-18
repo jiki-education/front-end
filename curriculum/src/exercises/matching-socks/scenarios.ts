@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "find-matching-socks" as const,
-    name: "Find Matching Socks",
-    description:
-      "Write a function that takes two baskets of clothes (as lists of strings) and returns a list of all the pairs of socks found across both baskets. Items that are socks end with ' sock' and always start with 'left ' or 'right '.",
+    name: "tasks.findMatchingSocks.name",
+    description: "tasks.findMatchingSocks.description",
     hints: [],
     requiredScenarios: [
       "empty-baskets",
@@ -23,8 +22,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "empty-baskets",
-    name: "Empty baskets",
-    description: "Both baskets are empty.",
+    name: "scenarios.emptyBaskets.name",
+    description: "scenarios.emptyBaskets.description",
     taskId: "find-matching-socks",
     functionName: "matching_socks",
     args: [[], []],
@@ -32,8 +31,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "nothing-clean",
-    name: "Nothing clean",
-    description: "There's nothing clean.",
+    name: "scenarios.nothingClean.name",
+    description: "scenarios.nothingClean.description",
     taskId: "find-matching-socks",
     functionName: "matching_socks",
     args: [[], ["sweater"]],
@@ -41,8 +40,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "nothing-dirty",
-    name: "Nothing dirty",
-    description: "There's nothing dirty.",
+    name: "scenarios.nothingDirty.name",
+    description: "scenarios.nothingDirty.description",
     taskId: "find-matching-socks",
     functionName: "matching_socks",
     args: [["left spotty sock"], []],
@@ -50,8 +49,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "no-socks",
-    name: "No socks",
-    description: "There are no socks anywhere.",
+    name: "scenarios.noSocks.name",
+    description: "scenarios.noSocks.description",
     taskId: "find-matching-socks",
     functionName: "matching_socks",
     args: [["blue sweater"], ["green trousers"]],
@@ -59,8 +58,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "one-in-each",
-    name: "One in each",
-    description: "There's a matching sock in each basket.",
+    name: "scenarios.oneInEach.name",
+    description: "scenarios.oneInEach.description",
     taskId: "find-matching-socks",
     functionName: "matching_socks",
     args: [["left red sock"], ["right red sock"]],
@@ -68,8 +67,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "a-big-mix",
-    name: "A big mix!",
-    description: "A mix of clothes with multiple matching pairs.",
+    name: "scenarios.aBigMix.name",
+    description: "scenarios.aBigMix.description",
     taskId: "find-matching-socks",
     functionName: "matching_socks",
     args: [
@@ -81,8 +80,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "some-added-pain",
-    name: "Odds and ends",
-    description: "A few oddities snuck in.",
+    name: "scenarios.someAddedPain.name",
+    description: "scenarios.someAddedPain.description",
     taskId: "find-matching-socks",
     functionName: "matching_socks",
     args: [

@@ -10,30 +10,33 @@ const mockApiData: Record<string, Record<string, string>> = {
 
 const API_URL = "https://timeapi.io/api/time/current/city";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function mockFetch(executionCtx: ExecutionContext, url: any, params: any): Record<string, string> {
-  const urlValue = url?.value ?? url;
-  if (urlValue !== API_URL) {
-    return executionCtx.logicError("Oh no, you tried to fetch an unexpected URL, which got blocked.");
-  }
-
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  const cityObj = params.getProperty ? params.getProperty("city") : params.value?.get?.("city");
-  const city = cityObj?.value ?? cityObj;
-
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  if (city && mockApiData[city]) {
-    return mockApiData[city];
-  }
-  return { error: "Could not determine the time." };
-}
-
 export default class LookupTimeExercise extends IOExercise {
-  static slug = metadata.slug;
-  static availableFunctions: ExternalFunction[] = [
+  protected get slug() {
+    return metadata.slug;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private fetch(executionCtx: ExecutionContext, url: any, params: any): Record<string, string> {
+    const urlValue = url?.value ?? url;
+    if (urlValue !== API_URL) {
+      return executionCtx.logicError(this.t("errors.blockedUrl"));
+    }
+
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    const cityObj = params.getProperty ? params.getProperty("city") : params.value?.get?.("city");
+    const city = cityObj?.value ?? cityObj;
+
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (city && mockApiData[city]) {
+      return mockApiData[city];
+    }
+    return { error: "Could not determine the time." };
+  }
+
+  availableFunctions: ExternalFunction[] = [
     {
       name: "fetch",
-      func: mockFetch,
+      func: this.fetch.bind(this),
       description: "Fetches data from a URL with the given parameters",
       arity: 2
     }

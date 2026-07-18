@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "moreThanSixLines": "You used more than six lines of code."
+  },
+  "tasks": {
+    "createTwoFerFunction": {
+      "name": "Create two-fer function",
+      "description": "Write a twoFer function that takes a name and returns 'One for [name], one for me.' If no name is given (empty string), use 'you' instead of the name."
+    },
+    "solveInSixLines": {
+      "name": "Solve in six lines of code",
+      "description": "Can you solve this with only six lines of code?"
+    }
+  },
+  "scenarios": {
+    "twoFerDefault": {
+      "name": "No name given",
+      "description": "No name is given so return 'One for you, one for me.'"
+    },
+    "twoFerAlice": {
+      "name": "Name given as Alice",
+      "description": "Her name is 'Alice' so return 'One for Alice, one for me.'"
+    },
+    "twoFerTom": {
+      "name": "Name given as Tom",
+      "description": "His name is 'Tom' so return 'One for Tom, one for me.'"
+    },
+    "bonus1": {
+      "name": "Six lines of code",
+      "description": "Solve the exercise with only six lines of code."
+    }
+  },
+  "hints": {
+    "whatChanges": {
+      "question": "What changes based on the input?",
+      "answer": "Just one thing. The name in the middle of the sentence. If you were given a name, use it. If not, use the default `\"you\"`."
+    },
+    "checkGivenName": {
+      "question": "How do I check 'was I given a name'?",
+      "answer": "An if-statement comparing the input to the empty string `\"\"`. If it's empty, use `\"you\"`. Otherwise, use the input."
+    },
+    "buildSentence": {
+      "question": "How do I build the final sentence?",
+      "answer": "Join the three pieces (`\"One for \"`, the chosen name, and `\", one for me.\"`) using concatenation (`+`) or a template string."
+    }
+  }
+}

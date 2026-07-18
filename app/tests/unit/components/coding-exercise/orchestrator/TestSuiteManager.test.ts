@@ -41,7 +41,7 @@ describe("TestSuiteManager", () => {
       currentTest: null,
       language: "javascript"
     });
-    return new TestSuiteManager(mockStore, {}, undefined, context);
+    return new TestSuiteManager(mockStore, {}, {}, undefined, context);
   }
 
   beforeEach(() => {
@@ -106,7 +106,7 @@ describe("TestSuiteManager", () => {
 
       await manager.runCode(mockCode, mockExercise);
 
-      expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise, "javascript", {});
+      expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise, "javascript", {}, {});
     });
 
     it("does not block test execution when submission fails", async () => {

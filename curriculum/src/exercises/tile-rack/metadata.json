@@ -3,24 +3,24 @@
   "levelId": "string-iteration",
   "hints": [
     {
-      "question": "How do I keep track of where I am in the rack?",
-      "answer": "Use a position variable starting at 1. Each time you look at a new tile, you'll increase it by 1."
+      "question": "hints.trackPosition.question",
+      "answer": "hints.trackPosition.answer"
     },
     {
-      "question": "How do I look at each tile?",
-      "answer": "A for-each loop gives you each character of the rack in turn."
+      "question": "hints.lookAtEachTile.question",
+      "answer": "hints.lookAtEachTile.answer"
     },
     {
-      "question": "What do I do when I find the letter?",
-      "answer": "Build the success message. Convert the position number to a string, then combine it with the surrounding text the exercise asks for using concatenation (`+`) or a template string. Return immediately. There's no need to keep looking."
+      "question": "hints.onFound.question",
+      "answer": "hints.onFound.answer"
     },
     {
-      "question": "Why is my position always wrong?",
-      "answer": "Make sure you're increasing the position counter every iteration, not just sometimes. Otherwise every tile reports the same position."
+      "question": "hints.positionAlwaysWrong.question",
+      "answer": "hints.positionAlwaysWrong.answer"
     },
     {
-      "question": "What if the letter isn't in the rack?",
-      "answer": "Only after the loop has finished without finding the letter should you return the error message. Returning the error inside the loop would give up after the first non-matching tile."
+      "question": "hints.notInRack.question",
+      "answer": "hints.notInRack.answer"
     }
   ]
 }

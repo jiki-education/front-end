@@ -7,9 +7,9 @@ const functions: FunctionInfo[] = [
   {
     name: "triangle",
     signature: "triangle(x1, y1, x2, y2, x3, y3, color)",
-    description: "Draw a triangle with three corner points and a color",
+    description: "functions.triangle.description",
     examples: ['triangle(10, 40, 10, 5, 50, 40, "brown")'],
-    category: "Drawing Shapes"
+    category: "functions.triangle.category"
   }
 ];
 

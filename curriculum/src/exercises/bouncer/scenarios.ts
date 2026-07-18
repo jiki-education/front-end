@@ -4,8 +4,8 @@ import type BouncerExercise from "./Exercise";
 export const tasks = [
   {
     id: "check-age" as const,
-    name: "Check the person's age",
-    description: "Get the person's age and check if they're over 20. If they are, let them in.",
+    name: "tasks.checkAge.name",
+    description: "tasks.checkAge.description",
     hints: [],
     requiredScenarios: ["age-25", "age-18", "age-21", "age-20"],
     bonus: false
@@ -21,8 +21,8 @@ function setupExercise(exercise: BouncerExercise, age: number) {
 export const scenarios: VisualScenario[] = [
   {
     slug: "age-25",
-    name: "Age 25",
-    description: "The person is 25 years old — they should be let in.",
+    name: "scenarios.age25.name",
+    description: "scenarios.age25.description",
     taskId: "check-age",
 
     setup(exercise) {
@@ -34,15 +34,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasLetIn === true,
-          errorHtml: "The person is 25 — they should have been let in, but weren't."
+          errorHtml: ex.t("checks.age25NotLetIn")
         }
       ];
     }
   },
   {
     slug: "age-18",
-    name: "Age 18",
-    description: "The person is 18 years old — they should not be let in.",
+    name: "scenarios.age18.name",
+    description: "scenarios.age18.description",
     taskId: "check-age",
 
     setup(exercise) {
@@ -54,15 +54,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasLetIn === false,
-          errorHtml: "The person is 18 — they should not have been let in, but were."
+          errorHtml: ex.t("checks.age18LetIn")
         }
       ];
     }
   },
   {
     slug: "age-21",
-    name: "Age 21",
-    description: "The person is 21 years old — just above 20, they should be let in.",
+    name: "scenarios.age21.name",
+    description: "scenarios.age21.description",
     taskId: "check-age",
 
     setup(exercise) {
@@ -74,15 +74,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasLetIn === true,
-          errorHtml: "The person is 21 — they should have been let in, but weren't."
+          errorHtml: ex.t("checks.age21NotLetIn")
         }
       ];
     }
   },
   {
     slug: "age-20",
-    name: "Age 20",
-    description: "The person is exactly 20 — not over 20, so they should not be let in.",
+    name: "scenarios.age20.name",
+    description: "scenarios.age20.description",
     taskId: "check-age",
 
     setup(exercise) {
@@ -94,7 +94,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasLetIn === false,
-          errorHtml: "The person is exactly 20 — not over 20, so they should not have been let in, but were."
+          errorHtml: ex.t("checks.age20LetIn")
         }
       ];
     }

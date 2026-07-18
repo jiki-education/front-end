@@ -4,9 +4,8 @@ import type GoldPanningExercise from "./Exercise";
 export const tasks = [
   {
     id: "pan-and-sell" as const,
-    name: "Pan for gold and sell your haul",
-    description:
-      "Pan 5 times to collect gold nuggets, keeping a running total, then sell everything at the trading post.",
+    name: "tasks.panAndSell.name",
+    description: "tasks.panAndSell.description",
     hints: [],
     requiredScenarios: ["random-pans"],
     bonus: false
@@ -16,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "random-pans",
-    name: "Pan and sell",
-    description: "Pan 5 times for a random number of nuggets each time, then sell the total.",
+    name: "scenarios.randomPans.name",
+    description: "scenarios.randomPans.description",
     taskId: "pan-and-sell",
     setup(exercise) {
       const values = Array.from({ length: 5 }, () => Math.floor(Math.random() * 6) + 1);
@@ -29,11 +28,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.sold === true,
-          errorHtml: "You didn't sell your nuggets. Make sure you call <code>sell()</code> after panning."
+          errorHtml: exercise.t("checks.notSold")
         },
         {
           pass: ex.soldNuggets === expectedTotal,
-          errorHtml: `Expected to sell ${expectedTotal} nuggets (${ex.initialPanValues.join(" + ")}) but you sold ${ex.soldNuggets}. Make sure you add each pan result to your running total.`
+          errorHtml: exercise.t("checks.wrongSoldTotal", {
+            expectedTotal,
+            panValues: ex.initialPanValues.join(" + "),
+            got: ex.soldNuggets
+          })
         }
       ];
     }

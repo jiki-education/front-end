@@ -1,0 +1,61 @@
+{
+  "errors": {
+    "allInputsNumbers": "All inputs must be numbers",
+    "hueRange": "Hue must be between 0 and 360",
+    "saturationRange": "Saturation must be between 0 and 100",
+    "lightnessRange": "Lightness must be between 0 and 100",
+    "redRange": "Red must be between 0 and 255",
+    "greenRange": "Green must be between 0 and 255",
+    "blueRange": "Blue must be between 0 and 255",
+    "rectInputsNumbers": "The x, y, width, and height inputs must be numbers",
+    "widthPositive": "Width must be greater than 0",
+    "heightPositive": "Height must be greater than 0",
+    "lineInputsNumbers": "The x1, y1, x2, and y2 inputs must be numbers",
+    "circleInputsNumbers": "The x, y, and radius inputs must be numbers",
+    "ellipseInputsNumbers": "The x, y, rx, and ry inputs must be numbers",
+    "triangleInputsNumbers": "The x1, y1, x2, y2, x3, and y3 inputs must be numbers",
+    "colorNotAllowed": "Color should not be specified for this exercise",
+    "colorNotString": "Color must be a string",
+    "colorNamedOrHex": "Color must be a named color (\"orange\", \"blue\", \"white\", etc) specified in the instructions, or a hex color starting with #"
+  },
+  "checks": {
+    "uniqueColoredCircles": "Expected at least 50 uniquely colored circles. Make sure each circle has a random color.",
+    "uniquePositionedCircles": "Expected at least 30 different positions. Make sure each circle has a random position.",
+    "radiiRange": "All circle radii must be at least 1 and less than 30.",
+    "insideBox": "Circles must not go outside the box. Account for each circle's radius when choosing its position.",
+    "touchEdges": "None of your circles touched the edges of the canvas. If you're confident your code is correct, it might be that the random numbers didn't happen to land a circle exactly on an edge. Try running it again!",
+    "saturationLightnessRange": "Saturation and lightness must both be between 20 and 80."
+  },
+  "tasks": {
+    "drawSplodges": {
+      "name": "Draw rainbow splodges",
+      "description": "Draw 200 circles at random positions with random colors."
+    }
+  },
+  "scenarios": {
+    "rainbowSplodges": {
+      "name": "Rainbow splodges",
+      "description": "Draw 200 randomly colored circles at random positions."
+    }
+  },
+  "hints": {
+    "keepCirclesInBox": {
+      "question": "How do I keep the circles inside the box?",
+      "answer": "The order is important. You need to decide on the radius of the circle, then make sure it's left and top positions never allow it to be pushed outside the box."
+    },
+    "circlesEscapingBox": {
+      "question": "I can't keep my circles in the box",
+      "answer": "Remember that a circle's position is its center, so you'll need to account for its radius to keep the whole circle inside. If you currently let a position be as low as 0, the circle's edge will stick out past the box by its radius. So what does that minimum need to change to so the circle never sits outside the box? Then apply the same logic to the maximum."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Draw a circle with its center at (centerX, centerY) with the given radius and color",
+      "category": "Drawing Shapes"
+    },
+    "hsl": {
+      "description": "Convert HSL color values (hue 0-360, saturation 0-100, lightness 0-100) to a hex color string",
+      "category": "Colors"
+    }
+  }
+}

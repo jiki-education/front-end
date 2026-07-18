@@ -8,23 +8,23 @@ const functions: FunctionInfo[] = [
   {
     name: "currentTimeHour",
     signature: "currentTimeHour()",
-    description: "Returns the current hour using 24-hour time (e.g. 23 for 11pm) as a number.",
+    description: "functions.currentTimeHour.description",
     examples: ["let hour = currentTimeHour()"],
-    category: "Time"
+    category: "functions.currentTimeHour.category"
   },
   {
     name: "currentTimeMinute",
     signature: "currentTimeMinute()",
-    description: "Returns the current minute as a number.",
+    description: "functions.currentTimeMinute.description",
     examples: ["let minutes = currentTimeMinute()"],
-    category: "Time"
+    category: "functions.currentTimeMinute.category"
   },
   {
     name: "displayTime",
     signature: "displayTime(hour, minutes, indicator)",
-    description: 'Displays the time on the digital clock. The indicator should be "am" or "pm".',
+    description: "functions.displayTime.description",
     examples: ['displayTime(7, 45, "am")'],
-    category: "Action"
+    category: "functions.displayTime.category"
   }
 ];
 

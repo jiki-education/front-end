@@ -1,0 +1,94 @@
+{
+  "tasks": {
+    "basicWordCounting": {
+      "name": "Basic cases",
+      "description": "Write a countWords function that takes a sentence and returns a dictionary with each word as a key and its frequency as the value. Handle spaces, commas, punctuation, and numbers."
+    },
+    "caseNormalization": {
+      "name": "Case normalization",
+      "description": "Ensure your function handles mixed case words correctly, treats apostrophes as part of words, and handles multiple spaces."
+    },
+    "bonusApostrophes": {
+      "name": "Bonus: Apostrophes and quotations",
+      "description": "Handle edge cases where apostrophes are used as quotation marks around words, not as part of contractions. Only apostrophes in the middle of a word should be kept."
+    }
+  },
+  "scenarios": {
+    "wordCountSingleWord": {
+      "name": "Count one word",
+      "description": "Count a single word."
+    },
+    "wordCountMultipleUniqueWords": {
+      "name": "Count one of each word",
+      "description": "Count one of each word in a sentence."
+    },
+    "wordCountMultipleOccurrences": {
+      "name": "Multiple occurrences",
+      "description": "Count multiple occurrences of a word."
+    },
+    "wordCountCrampedList": {
+      "name": "Cramped list",
+      "description": "Handle lists with cramped formatting."
+    },
+    "wordCountIgnorePunctuation": {
+      "name": "Ignore punctuation",
+      "description": "Ignore punctuation while counting words."
+    },
+    "wordCountIncludeNumbers": {
+      "name": "Include numbers",
+      "description": "Count words and include numbers."
+    },
+    "wordCountNormalizeCase": {
+      "name": "Normalize case",
+      "description": "Count words regardless of case."
+    },
+    "wordCountWithApostrophes": {
+      "name": "Words with apostrophes",
+      "description": "Correctly handle words with apostrophes."
+    },
+    "wordCountMultipleSpaces": {
+      "name": "Multiple spaces",
+      "description": "Handle multiple spaces correctly."
+    },
+    "wordCountWithApostrophesAndQuotations": {
+      "name": "Words with apostrophes and quotations",
+      "description": "Handle words with apostrophes and quotations."
+    },
+    "wordCountApostropheWordVariation": {
+      "name": "Apostrophe word variation",
+      "description": "Correctly count variations of words with apostrophes."
+    }
+  },
+  "hints": {
+    "caseInsensitive": {
+      "question": "How do I make the counting case-insensitive?",
+      "answer": "Lowercase the whole sentence once at the start. Then 'The' and 'the' both become 'the' and your dictionary will count them together."
+    },
+    "splitWords": {
+      "question": "How do I split the sentence into words?",
+      "answer": "Loop through each character. If it's a letter, digit, or apostrophe, it's part of the current word, so append it. Otherwise (space, punctuation), the word is finished, so push it to your list of words and start fresh."
+    },
+    "countEachWord": {
+      "question": "How do I count each word?",
+      "answer": "Use a dictionary keyed by the word. For each word, check whether it already exists as a key. If yes, add 1 to its count. If no, set it to 1."
+    },
+    "checkKeyExists": {
+      "question": "How do I check if a key already exists?",
+      "answer": "Use `hasKey(dict, word)`. It returns true if that word is already in the dictionary."
+    }
+  },
+  "functions": {
+    "toLowerCase": {
+      "description": "Convert a string to lowercase (provided by level stdlib)",
+      "category": "String Operations"
+    },
+    "push": {
+      "description": "Add an element to a list and return the new list (provided by level stdlib)",
+      "category": "List Operations"
+    },
+    "hasKey": {
+      "description": "Check if a key exists in a dictionary, returns true or false (provided by level stdlib)",
+      "category": "Dictionary Operations"
+    }
+  }
+}

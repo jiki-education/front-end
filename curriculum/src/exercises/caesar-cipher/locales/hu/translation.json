@@ -1,0 +1,48 @@
+{
+  "tasks": {
+    "encodeMessage": {
+      "name": "Encode a message",
+      "description": "Write an encode function that shifts each letter in a message by a given amount. Spaces should remain as spaces. Letters that shift past 'z' should wrap around to the beginning of the alphabet."
+    }
+  },
+  "scenarios": {
+    "caesarSimpleShift": {
+      "name": "Simple shift by 1",
+      "description": "Shift each letter forward by 1: a->b, b->c, c->d."
+    },
+    "caesarShiftBy3": {
+      "name": "Shift by 3",
+      "description": "Shift each letter forward by 3: h->k, e->h, l->o, o->r."
+    },
+    "caesarWrapAround": {
+      "name": "Wrap around the alphabet",
+      "description": "When shifting goes past 'z', it wraps around: x->a, y->b, z->c."
+    },
+    "caesarWithSpaces": {
+      "name": "Message with spaces",
+      "description": "Spaces should remain as spaces, only letters are shifted."
+    },
+    "caesarRot13": {
+      "name": "ROT13 encryption",
+      "description": "ROT13 is a special case of the Caesar cipher with a shift of 13."
+    }
+  },
+  "hints": {
+    "shiftingLetterByN": {
+      "question": "How do I think about shifting a letter by N positions?",
+      "answer": "Each letter has a position in the alphabet (a=1, b=2, and so on). To shift, you find that position, add the shift amount, then convert back into a letter. Writing helpers for 'letter to position' and 'position to letter' will keep things tidy."
+    },
+    "letterPosition": {
+      "question": "How do I find the position of a letter in the alphabet?",
+      "answer": "Write a small helper that loops through the alphabet string until it finds the letter, returning the index when it does. The reverse helper does the opposite, taking a position and returning the letter at that index."
+    },
+    "wrapPastZ": {
+      "question": "What happens when the shift goes past 'z'?",
+      "answer": "It needs to wrap around back to 'a'. The modulo operator (`%`) is perfect for this. Taking the position modulo 26 brings any number back into the 0 to 25 range."
+    },
+    "applyToWholeMessage": {
+      "question": "How do I apply this to a whole message?",
+      "answer": "Loop through each character of the message, shift it using your single-letter helper, and use concatenation (`+`) to build up the result string from the shifted letters."
+    }
+  }
+}

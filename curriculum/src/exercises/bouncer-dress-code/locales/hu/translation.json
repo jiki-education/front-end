@@ -1,0 +1,164 @@
+{
+  "checks": {
+    "ballgown": {
+      "champagne": "She's an adult in formal wear, so she should be offered champagne, but she wasn't.",
+      "canapes": "Formal guests are offered canapés too, but she wasn't.",
+      "letIn": "Anyone in formal wear should be let in, but she wasn't.",
+      "notTurnedAway": "A guest in formal wear should NOT be turned away."
+    },
+    "tuxedo": {
+      "champagne": "He's 18, which counts as an adult, so he should be offered champagne, but he wasn't.",
+      "canapes": "Formal guests are offered canapés too, but he wasn't.",
+      "letIn": "Anyone in formal wear should be let in, but he wasn't.",
+      "notTurnedAway": "A guest in formal wear should NOT be turned away."
+    },
+    "dress": {
+      "canapes": "She's in smart wear, so she should be offered canapés, but she wasn't.",
+      "noChampagne": "Champagne is for formal wear, so a smart guest shouldn't be offered it.",
+      "letIn": "A guest in smart wear should be let in, but she wasn't.",
+      "notTurnedAway": "A guest in smart wear should NOT be turned away."
+    },
+    "suit": {
+      "canapes": "He's in smart wear, so he should be offered canapés, but he wasn't.",
+      "noChampagne": "Champagne is for formal wear, so a smart guest shouldn't be offered it.",
+      "letIn": "A guest in smart wear should be let in, but he wasn't.",
+      "notTurnedAway": "A guest in smart wear should NOT be turned away."
+    },
+    "formalTeen": {
+      "letIn": "Anyone in formal wear is let in, whatever their age, but she wasn't.",
+      "canapes": "Formal guests are offered canapés whatever their age, but she wasn't.",
+      "noChampagne": "She's under 18, so she shouldn't be offered champagne. Champagne is for adults only.",
+      "notTurnedAway": "A guest in formal wear should NOT be turned away."
+    },
+    "smartTeen": {
+      "canapes": "Smart wear gets canapés whatever their age, but he wasn't offered any.",
+      "noChampagne": "Champagne is for formal wear, so a smart guest shouldn't be offered it.",
+      "letIn": "A guest in smart wear should be let in, but he wasn't.",
+      "notTurnedAway": "A guest in smart wear should NOT be turned away."
+    },
+    "casualChildListed": {
+      "letIn": "An under-18 on the guest list is allowed in, even in casual clothes, but they weren't.",
+      "notTurnedAway": "An under-18 on the guest list should NOT be turned away.",
+      "noChampagne": "They're not in formal wear, so no champagne.",
+      "noCanapes": "They're not in formal or smart wear, so no canapés."
+    },
+    "casualChildUnlisted": {
+      "turnedAway": "An under-18 in casual clothes who isn't on the guest list should be turned away.",
+      "notLetIn": "An under-18 in casual clothes who isn't on the guest list should NOT be let in.",
+      "noChampagne": "They're not in formal wear, so no champagne.",
+      "noCanapes": "They're not in formal or smart wear, so no canapés."
+    },
+    "casualAdultListed": {
+      "turnedAway": "The guest-list exception is only for under-18s, so an adult in casual clothes is turned away even if they're on the list.",
+      "notLetIn": "An adult in casual clothes should NOT be let in, even if they're on the guest list.",
+      "noChampagne": "They're not in formal wear, so no champagne.",
+      "noCanapes": "They're not in formal or smart wear, so no canapés."
+    },
+    "codeQuality": {
+      "getOutfitCalledOnce": "You should only use <code>getOutfit()</code> once.",
+      "getAgeCalledOnce": "You should only use <code>getAge()</code> once.",
+      "onGuestListCalledOnce": "You should only use <code>onGuestList()</code> once.",
+      "combinesConditions": "This challenge is about combining conditions. Try using what you've learned in the previous lesson."
+    }
+  },
+  "tasks": {
+    "checkDressCode": {
+      "name": "Enforce the door policy",
+      "description": "Check each person's outfit, age, and guest-list status, then apply the rules. Formal or smart clothes get in with canapés. Adults in formal clothes also get champagne. Under-18s in other clothes get in only if they're on the guest list. Everyone else is turned away."
+    }
+  },
+  "scenarios": {
+    "ballgown": {
+      "name": "Ballgown",
+      "description": "A woman in her 60s wearing a ballgown. She gets champagne and canapés, and is let in."
+    },
+    "tuxedo": {
+      "name": "Tuxedo",
+      "description": "A man in a tuxedo who has just turned 18. He gets champagne and canapés, and is let in."
+    },
+    "dress": {
+      "name": "Dress",
+      "description": "A woman in a dress. She's let in with canapés."
+    },
+    "suit": {
+      "name": "Suit",
+      "description": "A man in a suit. He's let in with canapés."
+    },
+    "formalTeen": {
+      "name": "Child in a ballgown",
+      "description": "A 13-year-old in a ballgown. She's let in with canapés, but is too young for champagne."
+    },
+    "smartTeen": {
+      "name": "Teenager in a suit",
+      "description": "A 15-year-old in a suit. He's let in with canapés, regardless of age."
+    },
+    "casualChildListed": {
+      "name": "Child in denim, on the list",
+      "description": "A 15-year-old in denim who's on the guest list. They're let in."
+    },
+    "casualChildUnlisted": {
+      "name": "Child in a tracksuit, not on the list",
+      "description": "A 15-year-old in a tracksuit who isn't on the guest list. They're turned away."
+    },
+    "casualAdultListed": {
+      "name": "Adult in denim, on the list",
+      "description": "A 30-year-old in denim who's on the guest list. They're still turned away."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Where do I start?",
+      "answer": "Fetch the outfit and the age once each and store them in variables, e.g. `let outfit = getOutfit()`. Then you can build all your conditions from those variables."
+    },
+    "groupingOutfits": {
+      "question": "Several outfits lead to the same outcome. Do I need a branch for each one?",
+      "answer": "No. You can check for more than one value in a single condition using `||` (or), so a group of outfits can share one branch."
+    },
+    "champagneRule": {
+      "question": "How do I decide who gets champagne?",
+      "answer": "Champagne is its own decision: offer it when the person is an adult AND wearing something formal. That combines `&&` (and) with `||` (or), so put parentheses around the 'or' part to group it correctly."
+    },
+    "canapesRule": {
+      "question": "Who gets canapés and gets let in?",
+      "answer": "Everyone dressed up does, which is any of the four formal or smart outfits. You can list them all in a single condition with `||`."
+    },
+    "everyoneElse": {
+      "question": "What about everyone else?",
+      "answer": "The only other people allowed in are under-18s on the guest list, which needs two things to both be true (`&&`). Finish with a plain `else` that turns everyone else away."
+    },
+    "previousLessonOperator": {
+      "question": "I don't know what it means by \"what I learned in the previous lesson\".",
+      "answer": "You need to use the \"and\" operator that Jeremy taught in the previous video to combine conditionals. Re-read the <a href=\"/concepts/logical-and\" target=\"_blank\" rel=\"noopener noreferrer\">concept page</a> if you're not sure how to use it."
+    }
+  },
+  "functions": {
+    "getOutfit": {
+      "description": "Returns the **outfit** the person is wearing (e.g. `\"ballgown\"`, `\"suit\"`, `\"denim\"`).",
+      "category": "Information"
+    },
+    "getAge": {
+      "description": "Returns the **age** of the person waiting at the door.",
+      "category": "Information"
+    },
+    "onGuestList": {
+      "description": "Returns `true` if the person is on tonight's guest list, otherwise `false`.",
+      "category": "Information"
+    },
+    "offerChampagne": {
+      "description": "Offers the person a glass of champagne.",
+      "category": "Action"
+    },
+    "offerCanapes": {
+      "description": "Offers the person some canapés (salmon tartare).",
+      "category": "Action"
+    },
+    "letIn": {
+      "description": "Lets the person into the venue.",
+      "category": "Action"
+    },
+    "turnAway": {
+      "description": "Turns the person away from the venue.",
+      "category": "Action"
+    }
+  }
+}

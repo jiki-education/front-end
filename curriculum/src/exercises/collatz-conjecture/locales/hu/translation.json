@@ -1,0 +1,40 @@
+{
+  "tasks": {
+    "calculateCollatzSteps": {
+      "name": "Calculate Collatz steps",
+      "description": "Write a function that takes a number and returns how many steps it takes to reach 1 following the Collatz Conjecture rules: if even, divide by 2; if odd, multiply by 3 and add 1."
+    }
+  },
+  "scenarios": {
+    "number1": {
+      "name": "Number 1",
+      "description": "Zero steps for one."
+    },
+    "number16": {
+      "name": "Number 16",
+      "description": "Divide if even."
+    },
+    "number12": {
+      "name": "Number 12",
+      "description": "Even and odd steps."
+    },
+    "number1000000": {
+      "name": "Number 1000000",
+      "description": "Large number of even and odd steps."
+    }
+  },
+  "hints": {
+    "loopUntilOne": {
+      "question": "How do I keep going until the number reaches 1?",
+      "answer": "Use a `repeat()` loop with no number — it repeats forever until you `return` out of it. Inside the loop, replace the number with the next number in the sequence, and return once it reaches 1."
+    },
+    "chooseRule": {
+      "question": "How do I decide which rule to apply on each step?",
+      "answer": "Check whether the number is even. The modulo operator does this. `number % 2 === 0` means it's even. If even, halve it. Otherwise, do `3 * number + 1`."
+    },
+    "trackSteps": {
+      "question": "How do I track the answer (the number of steps)?",
+      "answer": "Keep a counter variable for how many times you've applied the rules. Think about what needs to happen to it each time round the loop, and what your function should return when the number reaches 1."
+    }
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "tasks": {
+    "checkPangram": {
+      "name": "Check Pangram",
+      "description": "Write a function that checks if a sentence is a pangram (contains every letter of the alphabet at least once). The check should be case-insensitive."
+    }
+  },
+  "scenarios": {
+    "pangramEmptySentence": {
+      "name": "Empty sentence",
+      "description": "An empty sentence is not a pangram."
+    },
+    "pangramPerfectLowercase": {
+      "name": "Perfect lowercase",
+      "description": "A perfect lowercase alphabet is a pangram."
+    },
+    "pangramOnlyLowercase": {
+      "name": "Only lowercase",
+      "description": "A sentence with only lowercase letters covering all letters is a pangram."
+    },
+    "pangramMissingX": {
+      "name": "Missing letter 'x'",
+      "description": "A sentence missing the letter 'x' is not a pangram."
+    },
+    "pangramMissingH": {
+      "name": "Missing letter 'h'",
+      "description": "A sentence missing the letter 'h' is not a pangram."
+    },
+    "pangramMissingAM": {
+      "name": "Missing letters beyond a-m",
+      "description": "A string with 'a' to 'm' in lowercase and uppercase is not a pangram."
+    },
+    "pangramWithUnderscores": {
+      "name": "With underscores",
+      "description": "A pangram sentence with underscores."
+    },
+    "pangramWithNumbers": {
+      "name": "With numbers",
+      "description": "A pangram sentence with numbers included."
+    },
+    "pangramNumbersReplacingLetters": {
+      "name": "Numbers replacing letters",
+      "description": "A sentence where letters are replaced by numbers is not a pangram."
+    },
+    "pangramMixedCasePunctuation": {
+      "name": "Mixed case and punctuation",
+      "description": "A pangram with mixed case and punctuation."
+    },
+    "pangramCaseInsensitive": {
+      "name": "Case insensitive missing letters",
+      "description": "A case-insensitive sentence without all letters is not a pangram."
+    }
+  },
+  "hints": {
+    "helpers": {
+      "question": "What helpers will save me trouble here?",
+      "answer": "A `contains()` helper (which asks 'does this character appear in this string?') and a `toLower()` helper (so case differences don't trip you up) make the main logic short and clear."
+    },
+    "whyLowercase": {
+      "question": "Why should I lowercase the sentence?",
+      "answer": "'The quick brown fox...' contains both 'T' and 't'. If you only check against lowercase letters, the capitals won't match. Convert the sentence to lowercase once at the start so every comparison is consistent."
+    },
+    "checkEveryLetter": {
+      "question": "How do I check every letter is there?",
+      "answer": "Loop through each letter of the alphabet `\"abcdefghijklmnopqrstuvwxyz\"`. For each, use `contains()` to check if it appears in the lowercased sentence."
+    },
+    "stopEarly": {
+      "question": "When can I stop early?",
+      "answer": "As soon as you find a letter that's missing, return `false`. There's no point checking the rest. Only return `true` after the entire alphabet has been confirmed."
+    }
+  },
+  "functions": {
+    "keys": {
+      "description": "Returns a list of all keys in the dictionary (provided by level stdlib)",
+      "category": "Dictionary Operations"
+    }
+  }
+}

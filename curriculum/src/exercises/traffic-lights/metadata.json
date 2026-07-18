@@ -3,16 +3,16 @@
   "levelId": "variables",
   "hints": [
     {
-      "question": "I don't know where to start",
-      "answer": "You're going to draw three circles, exactly as you have been doing previously. The only difference is that you're using the variables, not the numbers directly. Watch back the variables video if you don't understand how that works."
+      "question": "hints.whereToStart.question",
+      "answer": "hints.whereToStart.answer"
     },
     {
-      "question": "I'm getting \"You should use the variables rather than using numbers directly as the function inputs\"",
-      "answer": "This exercise is about using the variables we've defined for you. Rather than putting numbers like 50 or 16 into the functions directly, tell Jiki to use the boxes we've already created."
+      "question": "hints.useVariablesError.question",
+      "answer": "hints.useVariablesError.answer"
     },
     {
-      "question": "I've drawn the circles correctly, but it says they're wrong",
-      "answer": "Make sure you have the red circle at the top, the amber in the middle, and the green at the bottom."
+      "question": "hints.circlesWrong.question",
+      "answer": "hints.circlesWrong.answer"
     }
   ]
 }

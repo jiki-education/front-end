@@ -4,9 +4,8 @@ import type ScrollAndShootExercise from "./ScrollAndShootExercise";
 export const tasks = [
   {
     id: "scroll-and-shoot" as const,
-    name: "Scroll across the screen and shoot every alien",
-    description:
-      "Move the laser back and forth across the screen, checking for an alien above you and shooting it down. Don't move off the edge or shoot when there's no alien, or you'll lose! The waves get busier as you go.",
+    name: "tasks.scrollAndShoot.name",
+    description: "tasks.scrollAndShoot.description",
     hints: [],
     requiredScenarios: ["one-alien", "one-row", "two-rows", "three-rows", "full-rows"],
     bonus: false
@@ -17,7 +16,7 @@ function wonExpectation(exercise: ScrollAndShootExercise) {
   return [
     {
       pass: exercise.getState().gameStatus === "won",
-      errorHtml: "You didn't shoot down all the aliens."
+      errorHtml: exercise.t("checks.notShotAllAliens")
     }
   ];
 }
@@ -25,8 +24,8 @@ function wonExpectation(exercise: ScrollAndShootExercise) {
 export const scenarios: VisualScenario[] = [
   {
     slug: "one-alien",
-    name: "One alien",
-    description: "A single alien to hunt down",
+    name: "scenarios.oneAlien.name",
+    description: "scenarios.oneAlien.description",
     taskId: "scroll-and-shoot",
 
     setup(exercise) {
@@ -41,8 +40,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "one-row",
-    name: "One sparse row",
-    description: "A scattering of aliens in the bottom row",
+    name: "scenarios.oneRow.name",
+    description: "scenarios.oneRow.description",
     taskId: "scroll-and-shoot",
 
     setup(exercise) {
@@ -57,8 +56,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "two-rows",
-    name: "Two rows",
-    description: "Aliens spread across two rows",
+    name: "scenarios.twoRows.name",
+    description: "scenarios.twoRows.description",
     taskId: "scroll-and-shoot",
 
     setup(exercise) {
@@ -73,8 +72,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "three-rows",
-    name: "Three rows",
-    description: "Aliens across all three rows",
+    name: "scenarios.threeRows.name",
+    description: "scenarios.threeRows.description",
     taskId: "scroll-and-shoot",
 
     setup(exercise) {
@@ -89,8 +88,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "full-rows",
-    name: "Full rows",
-    description: "Three packed rows. The aliens keep coming back!",
+    name: "scenarios.fullRows.name",
+    description: "scenarios.fullRows.description",
     taskId: "scroll-and-shoot",
 
     setup(exercise) {
@@ -108,8 +107,7 @@ export const scenarios: VisualScenario[] = [
     codeChecks: [
       {
         pass: (result) => result.assertors.assertStatement("RepeatStatement", { args: [undefined], count: 0 }),
-        errorHtml:
-          "You can't use <code>repeat(n) {}</code> in this exercise. You should only use <code>repeat() {}</code> loops without inputs."
+        errorKey: "checks.noRepeatWithArg"
       }
     ]
   }

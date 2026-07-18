@@ -7,23 +7,23 @@ const functions: FunctionInfo[] = [
   {
     name: "toLowerCase",
     signature: "toLowerCase(text)",
-    description: "Convert a string to lowercase (provided by level stdlib)",
+    description: "functions.toLowerCase.description",
     examples: ['toLowerCase("HELLO") → "hello"'],
-    category: "String Operations"
+    category: "functions.toLowerCase.category"
   },
   {
     name: "push",
     signature: "push(list, element)",
-    description: "Add an element to a list and return the new list (provided by level stdlib)",
+    description: "functions.push.description",
     examples: ['push(["a"], "b") → ["a", "b"]'],
-    category: "List Operations"
+    category: "functions.push.category"
   },
   {
     name: "hasKey",
     signature: "hasKey(dictionary, key)",
-    description: "Check if a key exists in a dictionary, returns true or false (provided by level stdlib)",
+    description: "functions.hasKey.description",
     examples: ['hasKey({"name": "Jeremy"}, "name") → true'],
-    category: "Dictionary Operations"
+    category: "functions.hasKey.category"
   }
 ];
 

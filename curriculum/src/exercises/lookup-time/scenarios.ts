@@ -3,18 +3,16 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "fetch-and-format-time" as const,
-    name: "Fetch and format the time",
-    description:
-      "Write a function that takes a city name, fetches the time data using the API, and returns a formatted time string.",
+    name: "tasks.fetchAndFormatTime.name",
+    description: "tasks.fetchAndFormatTime.description",
     hints: [],
     requiredScenarios: ["amsterdam", "tokyo", "lima"],
     bonus: false
   },
   {
     id: "handle-errors" as const,
-    name: "Handle errors",
-    description:
-      'Handle error responses gracefully. If the response contains an "error" key, return the error message instead of building the time string.',
+    name: "tasks.handleErrors.name",
+    description: "tasks.handleErrors.description",
     hints: [],
     requiredScenarios: ["error"],
     bonus: false
@@ -24,8 +22,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "amsterdam",
-    name: "Amsterdam",
-    description: "Return the time in Amsterdam.",
+    name: "scenarios.amsterdam.name",
+    description: "scenarios.amsterdam.description",
     taskId: "fetch-and-format-time",
     functionName: "get_time",
     args: ["Amsterdam"],
@@ -33,8 +31,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "tokyo",
-    name: "Tokyo",
-    description: "Return the time in Tokyo.",
+    name: "scenarios.tokyo.name",
+    description: "scenarios.tokyo.description",
     taskId: "fetch-and-format-time",
     functionName: "get_time",
     args: ["Tokyo"],
@@ -42,8 +40,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "lima",
-    name: "Lima",
-    description: "Return the time in Lima.",
+    name: "scenarios.lima.name",
+    description: "scenarios.lima.description",
     taskId: "fetch-and-format-time",
     functionName: "get_time",
     args: ["Lima"],
@@ -51,8 +49,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "error",
-    name: "Handle Error",
-    description: "Handle an error correctly when the city is not found.",
+    name: "scenarios.error.name",
+    description: "scenarios.error.description",
     taskId: "handle-errors",
     functionName: "get_time",
     args: ["London"],

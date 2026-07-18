@@ -4,26 +4,24 @@ import type AlienDetectorExercise from "./Exercise";
 export const tasks = [
   {
     id: "shoot-the-aliens" as const,
-    name: "Track and shoot down all the aliens",
-    description:
-      "Use getStartingAliensInRow() to get the alien positions, then move across the screen shooting them down. Track which aliens you've already shot by updating the arrays.",
+    name: "tasks.shootTheAliens.name",
+    description: "tasks.shootTheAliens.description",
     hints: [],
     requiredScenarios: ["one-alien", "one-row", "two-rows", "full-rows"],
     bonus: false
   },
   {
     id: "fire-the-fireworks" as const,
-    name: "Fire the fireworks when all aliens are shot down",
-    description:
-      "After shooting all the aliens, call fireFireworks() to celebrate. This must happen in the same loop iteration as shooting the final alien.",
+    name: "tasks.fireTheFireworks.name",
+    description: "tasks.fireTheFireworks.description",
     hints: [],
     requiredScenarios: ["three-rows", "full-rows-fireworks"],
     bonus: false
   },
   {
     id: "fireworks-inside-loop" as const,
-    name: "Fire fireworks inside the loop",
-    description: "Can you solve it by putting fireFireworks() within the repeat loop, rather than after it?",
+    name: "tasks.fireworksInsideLoop.name",
+    description: "tasks.fireworksInsideLoop.description",
     hints: [],
     requiredScenarios: ["fireworks-inside-loop"],
     bonus: true
@@ -33,8 +31,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "one-alien",
-    name: "Shoot the alien",
-    description: "A single alien in the bottom row",
+    name: "scenarios.oneAlien.name",
+    description: "scenarios.oneAlien.description",
     taskId: "shoot-the-aliens",
 
     setup(exercise) {
@@ -52,15 +50,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: state.gameStatus === "won",
-          errorHtml: "You didn't shoot down the alien."
+          errorHtml: ex.t("checks.notShotAlien")
         }
       ];
     }
   },
   {
     slug: "one-row",
-    name: "One sparse row",
-    description: "Sparse aliens in the bottom row",
+    name: "scenarios.oneRow.name",
+    description: "scenarios.oneRow.description",
     taskId: "shoot-the-aliens",
 
     setup(exercise) {
@@ -78,15 +76,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: state.gameStatus === "won",
-          errorHtml: "You didn't shoot down all the aliens."
+          errorHtml: ex.t("checks.notShotAllAliens")
         }
       ];
     }
   },
   {
     slug: "two-rows",
-    name: "Two busy rows",
-    description: "Aliens across two rows",
+    name: "scenarios.twoRows.name",
+    description: "scenarios.twoRows.description",
     taskId: "shoot-the-aliens",
 
     setup(exercise) {
@@ -104,15 +102,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: state.gameStatus === "won",
-          errorHtml: "You didn't shoot down all the aliens."
+          errorHtml: ex.t("checks.notShotAllAliens")
         }
       ];
     }
   },
   {
     slug: "full-rows",
-    name: "Three packed rows",
-    description: "Three full rows of aliens",
+    name: "scenarios.fullRows.name",
+    description: "scenarios.fullRows.description",
     taskId: "shoot-the-aliens",
 
     setup(exercise) {
@@ -130,15 +128,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: state.gameStatus === "won",
-          errorHtml: "You didn't shoot down all the aliens."
+          errorHtml: ex.t("checks.notShotAllAliens")
         }
       ];
     }
   },
   {
     slug: "three-rows",
-    name: "Three rows with fireworks",
-    description: "Three rows of aliens — fire the fireworks when done!",
+    name: "scenarios.threeRows.name",
+    description: "scenarios.threeRows.description",
     taskId: "fire-the-fireworks",
 
     setup(exercise) {
@@ -156,7 +154,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: state.gameStatus === "won",
-          errorHtml: "You didn't shoot down all the aliens."
+          errorHtml: ex.t("checks.notShotAllAliens")
         }
       ];
     }
@@ -170,8 +168,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "full-rows-fireworks",
-    name: "Three packed rows with fireworks",
-    description: "A full grid — fire the fireworks when done!",
+    name: "scenarios.fullRowsFireworks.name",
+    description: "scenarios.fullRowsFireworks.description",
     taskId: "fire-the-fireworks",
 
     setup(exercise) {
@@ -189,7 +187,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: state.gameStatus === "won",
-          errorHtml: "You didn't shoot down all the aliens."
+          errorHtml: ex.t("checks.notShotAllAliens")
         }
       ];
     }
@@ -203,8 +201,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "fireworks-inside-loop",
-    name: "Fireworks inside the loop",
-    description: "Can you fire the fireworks from within the repeat loop?",
+    name: "scenarios.fireworksInsideLoop.name",
+    description: "scenarios.fireworksInsideLoop.description",
     taskId: "fireworks-inside-loop",
 
     setup(exercise) {
@@ -222,7 +220,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: state.gameStatus === "won",
-          errorHtml: "You didn't shoot down all the aliens."
+          errorHtml: ex.t("checks.notShotAllAliens")
         }
       ];
     }

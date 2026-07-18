@@ -1,0 +1,89 @@
+{
+  "errors": {
+    "allInputsNumbers": "All inputs must be numbers",
+    "hueRange": "Hue must be between 0 and 360",
+    "saturationRange": "Saturation must be between 0 and 100",
+    "lightnessRange": "Lightness must be between 0 and 100",
+    "redRange": "Red must be between 0 and 255",
+    "greenRange": "Green must be between 0 and 255",
+    "blueRange": "Blue must be between 0 and 255",
+    "rectInputsNumbers": "The x, y, width, and height inputs must be numbers",
+    "widthPositive": "Width must be greater than 0",
+    "heightPositive": "Height must be greater than 0",
+    "lineInputsNumbers": "The x1, y1, x2, and y2 inputs must be numbers",
+    "circleInputsNumbers": "The x, y, and radius inputs must be numbers",
+    "ellipseInputsNumbers": "The x, y, rx, and ry inputs must be numbers",
+    "triangleInputsNumbers": "The x1, y1, x2, y2, x3, and y3 inputs must be numbers",
+    "colorNotAllowed": "Color should not be specified for this exercise",
+    "colorNotString": "Color must be a string",
+    "colorNamedOrHex": "Color must be a named color (\"orange\", \"blue\", \"white\", etc) specified in the instructions, or a hex color starting with #"
+  },
+  "checks": {
+    "firstFlowerHeadWrong": "The first Flower Head isn't correct.",
+    "finalFlowerHeadWrong": "The final Flower Head isn't correct.",
+    "firstPistilWrong": "The first Pistil isn't correct.",
+    "finalPistilWrong": "The final Pistil isn't correct.",
+    "firstStemWrong": "The first Stem isn't correct.",
+    "finalStemWrong": "The final Stem isn't correct.",
+    "firstLeftLeafWrong": "The first Left Leaf isn't correct.",
+    "finalLeftLeafWrong": "The final Left Leaf isn't correct.",
+    "firstRightLeafWrong": "The first Right Leaf isn't correct.",
+    "finalRightLeafWrong": "The final Right Leaf isn't correct."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "Draw the scene",
+      "description": "Make the flower sprout. Take it one step at a time!"
+    }
+  },
+  "scenarios": {
+    "drawSproutingFlower": {
+      "name": "Make the flower sprout",
+      "description": "Take it one step at a time!"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Where should I start when laying out the scene?",
+      "answer": "Pick one central point. The centre of the flower is a good anchor. The stem, pistil, and leaves can all be derived from it. That way the whole flower stays connected as it animates."
+    },
+    "growEachIteration": {
+      "question": "How do I make the flower rise and grow each iteration?",
+      "answer": "At the very top of the loop body, before any drawing, update `flowerCenterY` and `flowerRadius` to their new values for this frame. The instructions give the amounts. What matters is updating *before* the draw calls, not after."
+    },
+    "stemAttached": {
+      "question": "How do I keep the stem attached to the flower as it moves up?",
+      "answer": "Don't give the stem a fixed top. Its top *is* `flowerCenterY`. Its bottom is the ground. So its height is the distance between them. Its width can then be derived from that height."
+    },
+    "leafSizing": {
+      "question": "How do I size the leaves so they grow with the flower?",
+      "answer": "The leaves' `radiusX` and `radiusY` are fractions of `flowerRadius`. That way they scale together. Anchor their vertical position to the stem, not to a fixed canvas Y, so they ride up with the flower."
+    },
+    "flowerNeverChanges": {
+      "question": "My flower draws once and never changes. What's wrong?",
+      "answer": "You're probably setting the initial values once before the loop but not updating them *inside* the loop. The loop body has to mutate your variables every iteration, before the draw calls."
+    },
+    "firstFlowerCoords": {
+      "question": "Can you give me the coordinates for the first flower to check against?",
+      "answer": "On the first iteration, the shapes should be:\n\n- Flower: `circle(50, 89, 0.4)`\n- Pistil: `circle(50, 89, 0.1)`\n- Stem: `rectangle(49.95, 89, 0.1, 1)`\n- Left leaf: `ellipse(49.75, 89.5, 0.2, 0.08)`\n- Right leaf: `ellipse(50.25, 89.5, 0.2, 0.08)`\n\nToggle the info switch on the scrubber bar to see your own values at that frame."
+    },
+    "finalFlowerCoords": {
+      "question": "Can you give me the coordinates for the final flower to check against?",
+      "answer": "On the last iteration, the shapes should be:\n\n- Flower: `circle(50, 30, 24)`\n- Pistil: `circle(50, 30, 6)`\n- Stem: `rectangle(47, 30, 6, 60)`\n- Left leaf: `ellipse(35, 60, 12, 4.8)`\n- Right leaf: `ellipse(65, 60, 12, 4.8)`\n\nToggle the info switch on the scrubber bar to see your own values at that frame."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Draws a **rectangle** at position (left, top) with the specified width, height, and color. The position represents the top-left corner of the rectangle.",
+      "category": "Drawing Shapes"
+    },
+    "circle": {
+      "description": "Draws a **circle** at center position (centerX, centerY) with the specified radius and color.",
+      "category": "Drawing Shapes"
+    },
+    "ellipse": {
+      "description": "Draws an **ellipse** at center position (centerX, centerY) with the specified radiusX, radiusY, and color.",
+      "category": "Drawing Shapes"
+    }
+  }
+}

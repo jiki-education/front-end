@@ -1,0 +1,51 @@
+{
+  "errors": {
+    "needsRecharge": "The robot needs to recharge after selling.",
+    "sellBeforeAnythingElse": "The robot needs to go and sell before it does anything else.",
+    "sellNumber": "You can only sell a number of nuggets"
+  },
+  "checks": {
+    "notSold": "You didn't sell your nuggets. Make sure you call <code>sell()</code> after panning.",
+    "wrongSoldTotal": "Expected to sell {{expectedTotal}} nuggets ({{panValues}}) but you sold {{got}}. Make sure you add each pan result to your running total."
+  },
+  "tasks": {
+    "panAndSell": {
+      "name": "Pan for gold and sell your haul",
+      "description": "Pan 5 times to collect gold nuggets, keeping a running total, then sell everything at the trading post."
+    }
+  },
+  "scenarios": {
+    "randomPans": {
+      "name": "Pan and sell",
+      "description": "Pan 5 times for a random number of nuggets each time, then sell the total."
+    }
+  },
+  "hints": {
+    "wrongSellAmount": {
+      "question": "It says I'm selling the wrong amount of gold.",
+      "answer": "You need to sell ALL the gold you find in the 5 pans in one go at the end, not selling after each pan."
+    },
+    "trackingTotal": {
+      "question": "I am using pan multiple times but I don't know how to keep track of how much I have.",
+      "answer": "Think about what you've learned in recent video lessons. You need to use a variable to keep track of the **total** amount of gold that you have collected across **all** the pans together."
+    },
+    "fiveLines": {
+      "question": "I've got it working, but I can't get down to 5 lines.",
+      "answer": "Do you have repetitive code in your solution? If so, what can we use to reduce that repetitiveness?"
+    },
+    "stillFiveLines": {
+      "question": "I still can't get it down to 5 lines of code.",
+      "answer": "You should only need to use one variable. Are you using more?"
+    }
+  },
+  "functions": {
+    "pan": {
+      "description": "Dips your pan in the river and **gives back** the number of gold nuggets found.",
+      "category": "Mining"
+    },
+    "sell": {
+      "description": "Sells your gold nuggets at the trading post.",
+      "category": "Action"
+    }
+  }
+}

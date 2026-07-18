@@ -1,0 +1,54 @@
+{
+  "errors": {
+    "xNotNumber": "x must be a number",
+    "yNotNumber": "y must be a number"
+  },
+  "checks": {
+    "wrongShotEnd": "The ball didn't end up in the right place for this shot. Check it travels the full shot length.",
+    "missingPositions": "The ball must roll through each position one step at a time, not jump straight to the end."
+  },
+  "tasks": {
+    "rollAndCelebrate": {
+      "name": "Roll the ball",
+      "description": "Get the shot length and roll the ball right by that amount."
+    }
+  },
+  "scenarios": {
+    "shortShot": {
+      "name": "Short shot (20)",
+      "description": "In this scenario, `getShotLength()` will return 20. Roll the ball 20 steps from the tee."
+    },
+    "mediumShot": {
+      "name": "Medium shot (35)",
+      "description": "In this scenario, `getShotLength()` will return 35. Roll the ball 35 steps from the tee."
+    },
+    "longShot": {
+      "name": "Long shot (50)",
+      "description": "In this scenario, `getShotLength()` will return 50. Roll the ball 50 steps from the tee."
+    },
+    "veryLongShot": {
+      "name": "Very long shot (60)",
+      "description": "In this scenario, `getShotLength()` will return 60. Roll the ball 60 steps from the tee."
+    }
+  },
+  "hints": {
+    "notSureWhereToStart": {
+      "question": "I'm not sure where to start",
+      "answer": "This is just like the previous golf exercise, where you rolled the ball a fixed number of steps. The only difference is that the number of steps is no longer a fixed value — it comes from `getShotLength()` instead. Wherever you used a number before, you can use the result of a function instead."
+    },
+    "ballStopsShort": {
+      "question": "My ball stops one step short (or goes one too far)",
+      "answer": "Think carefully about your starting position and how many times you roll. The ball sits on the tee at 28, so its first roll should take it to 29. Count the steps from there to where it needs to end up."
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "Moves the ball to position **x**.",
+      "category": "Movement"
+    },
+    "getShotLength": {
+      "description": "Returns the **length of the shot** — how many units the ball travels to the right.",
+      "category": "Information"
+    }
+  }
+}

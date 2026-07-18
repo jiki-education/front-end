@@ -61,13 +61,13 @@ export default class GolfExercise extends VisualExercise {
 
   moveTo(executionCtx: ExecutionContext, x: Shared.JikiObject, y?: Shared.JikiObject) {
     if (!isNumber(x)) {
-      return executionCtx.logicError("x must be a number");
+      return executionCtx.logicError(this.t("errors.xNotNumber"));
     }
     this.ballX = x.value;
     this.visitedPositions.push(this.ballX);
     if (y !== undefined) {
       if (!isNumber(y)) {
-        return executionCtx.logicError("y must be a number");
+        return executionCtx.logicError(this.t("errors.yNotNumber"));
       }
       this.ballY = y.value;
     }

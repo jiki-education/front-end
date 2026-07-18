@@ -3,8 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "basic-translations" as const,
-    name: "Basic Translations",
-    description: "Translate single codons to their corresponding amino acids.",
+    name: "tasks.basicTranslations.name",
+    description: "tasks.basicTranslations.description",
     hints: [],
     requiredScenarios: [
       "empty-rna-sequence",
@@ -18,16 +18,16 @@ export const tasks = [
   },
   {
     id: "multiple-codons" as const,
-    name: "Multiple Codons",
-    description: "Translate RNA sequences containing multiple codons.",
+    name: "tasks.multipleCodons.name",
+    description: "tasks.multipleCodons.description",
     hints: [],
     requiredScenarios: ["sequence-two-proteins", "sequence-different-codons", "sequence-three-proteins"],
     bonus: false
   },
   {
     id: "stop-codon-behavior" as const,
-    name: "Stop Codon Behavior",
-    description: "Handle STOP codons correctly - translation should stop when a STOP codon is encountered.",
+    name: "tasks.stopCodonBehavior.name",
+    description: "tasks.stopCodonBehavior.description",
     hints: [],
     requiredScenarios: ["stop-codon-at-start", "stop-codon-at-end", "stop-codon-in-middle"],
     bonus: false
@@ -38,8 +38,8 @@ export const scenarios: IOScenario[] = [
   // Basic translations
   {
     slug: "empty-rna-sequence",
-    name: "Empty RNA sequence",
-    description: "An empty RNA sequence should result in an empty protein list.",
+    name: "scenarios.emptyRnaSequence.name",
+    description: "scenarios.emptyRnaSequence.description",
     taskId: "basic-translations",
     functionName: "translate_rna",
     args: [""],
@@ -47,8 +47,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "methionine-sequence",
-    name: "Methionine RNA sequence",
-    description: "The RNA sequence 'AUG' should translate to 'Methionine'.",
+    name: "scenarios.methionineSequence.name",
+    description: "scenarios.methionineSequence.description",
     taskId: "basic-translations",
     functionName: "translate_rna",
     args: ["AUG"],
@@ -56,8 +56,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "phenylalanine-sequence-1",
-    name: "Phenylalanine RNA sequence 1",
-    description: "The RNA sequence 'UUU' should translate to 'Phenylalanine'.",
+    name: "scenarios.phenylalanineSequence1.name",
+    description: "scenarios.phenylalanineSequence1.description",
     taskId: "basic-translations",
     functionName: "translate_rna",
     args: ["UUU"],
@@ -65,8 +65,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "phenylalanine-sequence-2",
-    name: "Phenylalanine RNA sequence 2",
-    description: "The RNA sequence 'UUC' should translate to 'Phenylalanine'.",
+    name: "scenarios.phenylalanineSequence2.name",
+    description: "scenarios.phenylalanineSequence2.description",
     taskId: "basic-translations",
     functionName: "translate_rna",
     args: ["UUC"],
@@ -74,8 +74,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "leucine-sequence-1",
-    name: "Leucine RNA sequence 1",
-    description: "The RNA sequence 'UUA' should translate to 'Leucine'.",
+    name: "scenarios.leucineSequence1.name",
+    description: "scenarios.leucineSequence1.description",
     taskId: "basic-translations",
     functionName: "translate_rna",
     args: ["UUA"],
@@ -83,8 +83,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "leucine-sequence-2",
-    name: "Leucine RNA sequence 2",
-    description: "The RNA sequence 'UUG' should translate to 'Leucine'.",
+    name: "scenarios.leucineSequence2.name",
+    description: "scenarios.leucineSequence2.description",
     taskId: "basic-translations",
     functionName: "translate_rna",
     args: ["UUG"],
@@ -93,8 +93,8 @@ export const scenarios: IOScenario[] = [
   // Multiple codons
   {
     slug: "sequence-two-proteins",
-    name: "Sequence of two protein codons",
-    description: "The RNA sequence 'UUUUUU' should translate to ['Phenylalanine', 'Phenylalanine'].",
+    name: "scenarios.sequenceTwoProteins.name",
+    description: "scenarios.sequenceTwoProteins.description",
     taskId: "multiple-codons",
     functionName: "translate_rna",
     args: ["UUUUUU"],
@@ -102,8 +102,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "sequence-different-codons",
-    name: "Sequence of two different protein codons",
-    description: "The RNA sequence 'UUAUUG' should translate to ['Leucine', 'Leucine'].",
+    name: "scenarios.sequenceDifferentCodons.name",
+    description: "scenarios.sequenceDifferentCodons.description",
     taskId: "multiple-codons",
     functionName: "translate_rna",
     args: ["UUAUUG"],
@@ -111,8 +111,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "sequence-three-proteins",
-    name: "Sequence of three proteins",
-    description: "The RNA sequence 'AUGUUUUGG' should translate to ['Methionine', 'Phenylalanine', 'Tryptophan'].",
+    name: "scenarios.sequenceThreeProteins.name",
+    description: "scenarios.sequenceThreeProteins.description",
     taskId: "multiple-codons",
     functionName: "translate_rna",
     args: ["AUGUUUUGG"],
@@ -121,8 +121,8 @@ export const scenarios: IOScenario[] = [
   // Stop codon behavior
   {
     slug: "stop-codon-at-start",
-    name: "Stop codon at start",
-    description: "Translation should stop if a stop codon is at the beginning of the sequence.",
+    name: "scenarios.stopCodonAtStart.name",
+    description: "scenarios.stopCodonAtStart.description",
     taskId: "stop-codon-behavior",
     functionName: "translate_rna",
     args: ["UAGUGG"],
@@ -130,8 +130,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "stop-codon-at-end",
-    name: "Stop codon at end",
-    description: "Translation should stop if a stop codon is at the end of the sequence.",
+    name: "scenarios.stopCodonAtEnd.name",
+    description: "scenarios.stopCodonAtEnd.description",
     taskId: "stop-codon-behavior",
     functionName: "translate_rna",
     args: ["UGGUAG"],
@@ -139,8 +139,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "stop-codon-in-middle",
-    name: "Stop codon in middle",
-    description: "Translation should stop if a stop codon is in the middle of the sequence.",
+    name: "scenarios.stopCodonInMiddle.name",
+    description: "scenarios.stopCodonInMiddle.description",
     taskId: "stop-codon-behavior",
     functionName: "translate_rna",
     args: ["UGGUAGUGG"],

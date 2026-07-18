@@ -3,7 +3,7 @@ import type { Task, IOScenario, CodeCheck } from "../types";
 const codeChecks: CodeCheck[] = [
   {
     pass: (result) => result.assertors.countArrayLiterals() === 1,
-    errorHtml: "You should only create one list. Make sure you only use <code>[]</code> once."
+    errorKey: "checks.oneListOnly"
   },
   {
     pass: (result, language) => {
@@ -12,16 +12,15 @@ const codeChecks: CodeCheck[] = [
       const methodName = language === "python" ? "append" : "push";
       return result.assertors.assertMethodCalled(methodName);
     },
-    errorHtml: "You should use <code>push()</code> to add items to your list."
+    errorKey: "checks.usePush"
   }
 ];
 
 export const tasks = [
   {
     id: "pack-a-lunch" as const,
-    name: "Pack a Lunch",
-    description:
-      "Write a function that packs a lunchbox with a sandwich, drink, and snack. If the drink is a milkshake, leave it out of the lunchbox because it's too big.",
+    name: "tasks.packALunch.name",
+    description: "tasks.packALunch.description",
     hints: [],
     requiredScenarios: ["regular-lunch", "milkshake-lunch", "another-regular", "another-milkshake"],
     bonus: false
@@ -31,8 +30,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "regular-lunch",
-    name: "Regular lunch",
-    description: "A normal lunch with water - everything fits in the lunchbox.",
+    name: "scenarios.regularLunch.name",
+    description: "scenarios.regularLunch.description",
     taskId: "pack-a-lunch",
     functionName: "pack_a_lunch",
     args: ["ham sandwich", "water", "cookies"],
@@ -41,8 +40,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "milkshake-lunch",
-    name: "Milkshake lunch",
-    description: "The milkshake is too big for the lunchbox, so it gets left out.",
+    name: "scenarios.milkshakeLunch.name",
+    description: "scenarios.milkshakeLunch.description",
     taskId: "pack-a-lunch",
     functionName: "pack_a_lunch",
     args: ["PBJ", "milkshake", "grapes"],
@@ -51,8 +50,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "another-regular",
-    name: "Another regular lunch",
-    description: "Another normal lunch where everything fits.",
+    name: "scenarios.anotherRegular.name",
+    description: "scenarios.anotherRegular.description",
     taskId: "pack-a-lunch",
     functionName: "pack_a_lunch",
     args: ["turkey wrap", "juice", "chips"],
@@ -61,8 +60,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "another-milkshake",
-    name: "Another milkshake lunch",
-    description: "Another lunch with a milkshake that doesn't fit.",
+    name: "scenarios.anotherMilkshake.name",
+    description: "scenarios.anotherMilkshake.description",
     taskId: "pack-a-lunch",
     functionName: "pack_a_lunch",
     args: ["BLT", "milkshake", "apple"],
