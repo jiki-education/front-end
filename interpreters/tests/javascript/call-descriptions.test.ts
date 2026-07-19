@@ -29,17 +29,10 @@ describe("Jiki Call Descriptions", () => {
     if (frame.generateDescription) {
       const description = frame.generateDescription();
 
-      // Jiki should now say "Jiki used the testFunc function"
+      // Summary + step both use the friendly "Jiki used the X function" form
       expect(description).toContain("Jiki used the");
       expect(description).toContain("testFunc");
       expect(description).toContain("function");
-      expect(description).toContain("got");
-      expect(description).toContain("42");
-
-      // Steps should include function lookup and call
-      expect(description).toContain("Looked up the function");
-      expect(description).toContain("testFunc");
-      expect(description).toContain("Called");
       expect(description).toContain("got");
       expect(description).toContain("42");
     }
@@ -157,7 +150,7 @@ describe("Jiki Call Descriptions", () => {
     const frame = result.frames[0];
     if (frame.generateDescription) {
       const description = frame.generateDescription();
-      expect(description).toContain("Called");
+      expect(description).toContain("used the");
       expect(description).toContain("rectangle");
       expect(description).not.toContain("undefined");
       expect(description).not.toContain("got");
@@ -184,7 +177,7 @@ describe("Jiki Call Descriptions", () => {
     const frame = result.frames[0];
     if (frame.generateDescription) {
       const description = frame.generateDescription();
-      expect(description).toContain("Called");
+      expect(description).toContain("used the");
       expect(description).toContain("rectangle");
       expect(description).toContain("20");
       expect(description).toContain("60");
@@ -211,7 +204,7 @@ describe("Jiki Call Descriptions", () => {
     const frame = result.frames[0];
     if (frame.generateDescription) {
       const description = frame.generateDescription();
-      expect(description).toContain("Called");
+      expect(description).toContain("used the");
       expect(description).toContain("getAge");
       expect(description).toContain("got");
       expect(description).toContain("25");
@@ -247,7 +240,7 @@ describe("Jiki Call Descriptions", () => {
       expect(description).toContain("3");
 
       // Then calling foobar with the result
-      expect(description).toContain("Called");
+      expect(description).toContain("used the");
       expect(description).toContain("foobar");
       expect(description).toContain("with");
       expect(description).toContain("3");
