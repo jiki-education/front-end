@@ -846,38 +846,78 @@
     "changelog": {
       "title": "Changelog",
       "subtitle": "Recent improvements we've shipped to Jiki.",
-      "entry1Date": "June 7, 2026",
-      "entry1Title": "Launched Jiki!",
-      "entry1Description": "Jiki is officially live (albeit in beta!)"
+      "learnToBuildLaunch": {
+        "date": "July 11, 2026",
+        "title": "Launched Learn to Build",
+        "description": "Jeremy's new series, where he builds real, useful projects from scratch alongside learners, is now live."
+      },
+      "milestones6To10": {
+        "date": "July 2026",
+        "title": "Launched Milestones 6-10 on Learn to Code",
+        "description": "Five new milestones are now live on the Learn to Code track, extending the journey well beyond the fundamentals."
+      },
+      "jikiLaunch": {
+        "date": "June 7, 2026",
+        "title": "Launched Jiki!",
+        "description": "Jiki is officially live (albeit in beta!)"
+      }
     },
     "phases": {
-      "nowLabel": "Now",
-      "nowTimeframe": "June 2026",
-      "nowSummary": "What we're focused on this month.",
-      "nowItem1Title": "Ironing out launch bugs",
-      "nowItem1Description": "Now that Jiki is live, we're spending June squashing bugs and smoothing rough edges as real learners use the platform. Expect a steady stream of small fixes and quality-of-life improvements across the app.",
-      "nowItem2Title": "Responding to early feedback",
-      "nowItem2Description": "We're reading every message, support thread, and suggestion that comes in. The most impactful pieces of feedback are being turned into tweaks and small features so the experience improves week by week.",
-      "nowItem3Title": "Stabilising the foundations",
-      "nowItem3Description": "Behind the scenes we're tightening up reliability, performance, and observability so we have a rock-solid base to build the next wave of features on. Less visible, but the most important work we can do right now.",
-      "nextLabel": "Next",
-      "nextTimeframe": "Q3 2026",
-      "nextSummary": "Designed and queued up.",
-      "nextItem1Title": "Move from Beta to Fully Live",
-      "nextItem1Description": "Jiki is currently in beta. Once the launch dust settles, we'll drop the beta label and graduate to a fully-live product, with stronger guarantees around reliability, a clearer pricing story, and a polished onboarding flow. This is also when we'll send the launch email to the Exercism community and kick off promotional pushes with our partners.",
-      "nextItem2Title": "Launch Learn to Build",
-      "nextItem2Description": "Launching July 11th, this is a brand new series where Jeremy builds real, useful projects from scratch alongside learners. Each project will be broken down into bite-sized lessons, showing not just the code but the thinking, mistakes, and decisions that go into shipping software.",
-      "nextItem3Title": "Add Deep Dive Videos",
-      "nextItem3Description": "Long-form videos that go beyond the core lessons to explore concepts in real depth. Perfect for learners who want to understand the why behind the how, and to see how ideas connect to the wider world of programming.",
-      "nextItem4Title": "Add first translations to other languages",
-      "nextItem4Description": "Bringing Jiki to learners in their own language, starting with <strong>European Portuguese</strong>, <strong>Spanish</strong>, <strong>Japanese</strong>, and <strong>Brazilian Portuguese</strong>. The whole interface and curriculum will be translated, not just the marketing pages.",
-      "futureLabel": "Future",
-      "futureTimeframe": "Q4 2026",
-      "futureSummary": "On the horizon. Subject to change as we learn.",
-      "futureItem1Title": "Launch Python version",
-      "futureItem1Description": "A fully-fledged Python track that mirrors the depth of our JavaScript curriculum. Same exercise philosophy, same step-through visualiser, same level of polish, but with Python as the language of instruction.",
-      "futureItem2Title": "Add 10 more languages",
-      "futureItem2Description": "Expanding Jiki to ten additional spoken languages so even more learners can use the platform in their native tongue. We'll prioritise based on demand from the community and where we can have the biggest impact."
+      "now": {
+        "label": "Now",
+        "timeframe": "July 2026",
+        "summary": "What we're focused on this month.",
+        "learnToBuild": {
+          "title": "Launched Learn to Build",
+          "description": "Jeremy's brand new series is now live, where he builds real, useful projects from scratch alongside learners. Each project is broken into bite-sized lessons that show not just the code, but the thinking, mistakes, and decisions that go into shipping software."
+        },
+        "launchBugs": {
+          "title": "Ironing out launch bugs",
+          "description": "Now that Jiki is live, we're squashing bugs and smoothing rough edges as real learners use the platform. Expect a steady stream of small fixes and quality-of-life improvements across the app."
+        },
+        "earlyFeedback": {
+          "title": "Responding to early feedback",
+          "description": "We're reading every message, support thread, and suggestion that comes in. The most impactful pieces of feedback are being turned into tweaks and small features so the experience improves week by week."
+        },
+        "foundations": {
+          "title": "Stabilising the foundations",
+          "description": "Behind the scenes we're tightening up reliability, performance, and observability so we have a rock-solid base to build the next wave of features on. Less visible, but the most important work we can do right now."
+        }
+      },
+      "next": {
+        "label": "Next",
+        "timeframe": "Q3 2026",
+        "summary": "Designed and queued up.",
+        "betaToLive": {
+          "title": "Move from Beta to Fully Live",
+          "description": "Jiki is currently in beta. Once the launch dust settles, we'll drop the beta label and graduate to a fully-live product, with stronger guarantees around reliability, a clearer pricing story, and a polished onboarding flow. This is also when we'll send the launch email to the Exercism community and kick off promotional pushes with our partners."
+        },
+        "deepDiveVideos": {
+          "title": "Add Deep Dive Videos",
+          "description": "Long-form videos that go beyond the core lessons to explore concepts in real depth. Perfect for learners who want to understand the why behind the how, and to see how ideas connect to the wider world of programming."
+        },
+        "newLanguages": {
+          "title": "Launch multiple new languages",
+          "description": "Starting in August, we're bringing Jiki to learners in their own language, translating the whole interface and curriculum, not just the marketing pages. It kicks off with our <link>community translatathon</link> over the weekend of July 31st to August 2nd."
+        },
+        "pythonVersion": {
+          "title": "Launch Python version",
+          "description": "Arriving in September, a fully-fledged Python track that mirrors the depth of our JavaScript curriculum. Same exercise philosophy, same step-through visualiser, same level of polish, but with Python as the language of instruction."
+        }
+      },
+      "future": {
+        "label": "Future",
+        "timeframe": "Q4 2026",
+        "summary": "On the horizon. Subject to change as we learn.",
+        "moreLanguages": {
+          "title": "Add more languages",
+          "description": "Building on August's first wave, we'll keep translating Jiki into more spoken languages through the rest of the year, so even more learners can use the platform in their native tongue. We'll prioritise based on demand from the community and where we can have the biggest impact."
+        },
+        "sql": {
+          "title": "Launch SQL",
+          "description": "Later in the year, we'll add SQL to Jiki, giving learners a hands-on way to understand databases and querying with the same step-through, learn-by-doing approach as the rest of the curriculum."
+        }
+      }
     }
   },
   "misc": {
