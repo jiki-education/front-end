@@ -1,7 +1,7 @@
 import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
 import type { ExerciseDefinition, Messages as CurriculumMessages } from "@jiki/curriculum";
 import type { Messages as InterpreterMessages, SyntaxError } from "@jiki/interpreters";
-import toast from "react-hot-toast";
+import { toastError } from "@/lib/toast";
 import type { StoreApi } from "zustand/vanilla";
 import { ERROR_HIGHLIGHT_COLOR } from "../../ui/codemirror/extensions/lineHighlighter";
 import { processMessageContent } from "../../ui/messageUtils";
@@ -94,7 +94,7 @@ export class TestSuiteManager {
       }
       if (error instanceof ApiError) {
         console.warn("Failed to submit exercise:", error);
-        toast.error("Couldn't save your submission. Please try again.", { id: "exercise-submission-error" });
+        toastError("exercise.submissionFailed", undefined, { id: "exercise-submission-error" });
         return;
       }
       console.warn("Failed to submit exercise:", error);

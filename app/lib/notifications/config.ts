@@ -7,7 +7,8 @@
  *   - `/external/email_preferences/:token` returns it as `<slug>`
  *
  * Adding a new preference type is a single entry in `NOTIFICATION_TYPES` (plus
- * the settings copy under `settings.notifications` in the message catalogues).
+ * the settings copy under `settings.notifications` and the external unsubscribe
+ * copy under `unsubscribe.types.<slug>` in the message catalogues).
  */
 
 export interface NotificationType {
@@ -15,49 +16,28 @@ export interface NotificationType {
   slug: string;
   /** Key used to build the settings-tab i18n keys (`<id>Title` / `<id>Description`). */
   settingsI18nId: string;
-  /** Title shown on the external (logged-out) unsubscribe page. */
-  title: string;
-  /** Description shown on the external unsubscribe page. */
-  description: string;
-  /** Human label used in the one-click unsubscribe confirmation copy. */
-  shortLabel: string;
 }
 
 export const NOTIFICATION_TYPES = [
   {
     slug: "newsletters",
-    settingsI18nId: "features",
-    title: "Product Updates",
-    description: "Stay informed about new features and improvements.",
-    shortLabel: "product updates"
+    settingsI18nId: "features"
   },
   {
     slug: "event_emails",
-    settingsI18nId: "livestreams",
-    title: "Event Notifications",
-    description: "Get notified about upcoming livestreams and events.",
-    shortLabel: "event notifications"
+    settingsI18nId: "livestreams"
   },
   {
     slug: "milestone_emails",
-    settingsI18nId: "milestones",
-    title: "Achievement Notifications",
-    description: "Receive notifications when you unlock new skills or achievements.",
-    shortLabel: "achievement notifications"
+    settingsI18nId: "milestones"
   },
   {
     slug: "activity_emails",
-    settingsI18nId: "activity",
-    title: "Activity Emails",
-    description: "Activity-based notifications like unlocking badges and completing challenges.",
-    shortLabel: "activity emails"
+    settingsI18nId: "activity"
   },
   {
     slug: "onboarding_emails",
-    settingsI18nId: "onboarding",
-    title: "Getting-Started Emails",
-    description: "Tips and guidance on how to get the most from Jiki.",
-    shortLabel: "getting-started emails"
+    settingsI18nId: "onboarding"
   }
 ] as const satisfies readonly NotificationType[];
 

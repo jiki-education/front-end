@@ -102,6 +102,16 @@ Discovered during extraction — the dnd-roll pattern doesn't reach these; left 
   execution-frame log via `${arg1}`/`${return}` templating, a separate mechanism from `t()`. Even
   dnd-roll leaves these. **Fix:** integrate the frame-log describer with the injected dict, then sweep.
 
+### API — locale-prefixed unsubscribe links in emails
+
+The app's unsubscribe page lives in the `(hybrid)/[locale]` tree, so `/hu/unsubscribe?token=...`
+already renders localized for anonymous visitors (URL segment wins in `resolveLocale`, no cookie
+needed). But the api repo's email templates generate naked `/unsubscribe?token=...` links, which
+resolve to the default locale. **Fix (api repo):** the mailer URL helpers prefix unsubscribe (and
+any other email-deep-link) URLs with the recipient's locale. No front-end work needed. Do this
+alongside extracting the notification-type strings from `app/lib/notifications/config.ts` into the
+`unsubscribe.*` catalog namespace.
+
 ### IO exercises with runtime strings (DEFERRED — needs an IO runtime mechanism)
 
 Most IO exercises use `expected:` value-comparison (the runner generates the diff), so they're

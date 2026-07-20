@@ -24,6 +24,7 @@ import { PremiumChallengeCard } from "./PremiumChallengeCard";
 
 export function ChallengesContent() {
   const t = useTranslations("challenges");
+  const tCommon = useTranslations("common");
   const tabs: TabItem[] = [
     { id: "all", label: t("tabAll"), icon: <AllIcon />, color: "blue" },
     { id: "in-progress", label: t("tabInProgress"), icon: <InProgressIcon />, color: "purple" },
@@ -106,7 +107,7 @@ export function ChallengesContent() {
               onClick={() => window.location.reload()}
               className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
             >
-              {t("retry")}
+              {tCommon("retry")}
             </button>
           </div>
         </div>

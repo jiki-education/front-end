@@ -8,6 +8,7 @@ interface AchievementsErrorStateProps {
 
 export function AchievementsErrorState({ error }: AchievementsErrorStateProps) {
   const t = useTranslations("achievements");
+  const tCommon = useTranslations("common");
   return (
     <PageHeader icon={<MedalIcon />} title={t("title")} description={t("description")}>
       <div className="flex items-center justify-center min-h-[400px]">
@@ -17,7 +18,7 @@ export function AchievementsErrorState({ error }: AchievementsErrorStateProps) {
             onClick={() => window.location.reload()}
             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
           >
-            {t("retry")}
+            {tCommon("retry")}
           </button>
         </div>
       </div>

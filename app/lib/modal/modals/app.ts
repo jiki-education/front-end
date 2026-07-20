@@ -19,9 +19,6 @@ const SubscriptionCheckoutModal = dynamic(() =>
   import("./SubscriptionCheckoutModal").then((m) => m.SubscriptionCheckoutModal)
 );
 const BadgeModal = dynamic(() => import("./BadgeModal").then((m) => m.BadgeModal));
-const ChangePasswordModal = dynamic(() =>
-  import("@/components/settings/modals/ChangePasswordModal").then((m) => m.ChangePasswordModal)
-);
 const ChangeEmailModal = dynamic(() =>
   import("@/components/settings/modals/ChangeEmailModal").then((m) => m.ChangeEmailModal)
 );
@@ -58,7 +55,6 @@ export const appModals = {
   "subscription-success-modal": SubscriptionSuccessModal,
   "subscription-checkout-modal": SubscriptionCheckoutModal,
   "badge-modal": BadgeModal,
-  "change-password-modal": ChangePasswordModal,
   "change-email-modal": ChangeEmailModal,
   "cancel-subscription-confirm-modal": CancelSubscriptionConfirmModal,
   "cancel-subscription-success-modal": CancelSubscriptionSuccessModal,

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useFormatter, useTranslations } from "next-intl";
+import { useFormatter } from "next-intl";
 import { showModal } from "@/lib/modal";
-import toast from "react-hot-toast";
+import { toastError } from "@/lib/toast";
 import { getSubscriptionState } from "./utils";
 import * as handlers from "./handlers";
 import type { User, SubscriptionData } from "./types";
@@ -12,7 +12,6 @@ interface UseSubscriptionProps {
 }
 
 export function useSubscription({ user, refreshUser }: UseSubscriptionProps) {
-  const tToast = useTranslations("toasts.subscription");
   const format = useFormatter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -75,7 +74,7 @@ export function useSubscription({ user, refreshUser }: UseSubscriptionProps) {
         });
       } else {
         // Already on premium - this shouldn't happen if UI is correct
-        toast.error(tToast("alreadyPremium"));
+        toastError("subscription.alreadyPremium");
       }
     });
 

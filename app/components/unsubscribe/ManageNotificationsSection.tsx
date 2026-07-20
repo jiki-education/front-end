@@ -9,9 +9,7 @@ import CheckCircleIcon from "@/icons/check-circle.svg";
 import styles from "./UnsubscribePage.module.css";
 
 const NOTIFICATION_CONFIGS: NotificationConfig[] = NOTIFICATION_TYPES.map((type) => ({
-  id: type.slug,
-  title: type.title,
-  description: type.description
+  id: type.slug
 }));
 
 interface ManageNotificationsSectionProps {
