@@ -91,7 +91,7 @@ This is the frontend for Jiki, a learn-to-code platform.
 
 **Staging**: `staging.jiki.io` (`jiki-app-staging` Worker) must be deployed via the Deploy Staging GitHub Action **before** the Terraform custom-domain apply — the domain can't attach to a Worker service that doesn't exist yet.
 
-**Deploying a branch/PR to staging**: run the `Deploy Staging` workflow (`gh workflow run deploy-staging.yml -f ref=<branch>`), which deploys that ref to `staging.jiki.io`. **Only ever do this if the user explicitly asks** — it publishes real, working code to a live environment against the production API.
+**Deploying a branch/PR to staging**: run the `Deploy Staging` workflow (`gh workflow run deploy-staging.yml --ref <branch>`) — the dispatched ref is what deploys to `staging.jiki.io` (there is no separate `ref` input). **Only ever do this if the user explicitly asks, and treat each run as needing its own fresh explicit request** — it publishes real, working code to a live environment against the production API.
 
 ### Organizational Patterns
 

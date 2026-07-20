@@ -1,16 +1,13 @@
 name: Deploy Staging
 
-# Manual-only. Pick the branch/ref to ship to staging.jiki.io.
+# Manual-only. The branch/tag you dispatch from (the "Use workflow from" ref) is
+# what ships to staging.jiki.io — there is deliberately no separate `ref` input,
+# so the branch selector can't disagree with what actually deploys.
 # Staging is a full production build (NODE_ENV=production) that talks to the same
 # API and shares the .jiki.io cookie; it differs from prod only via ENVIRONMENT=staging
 # (set in wrangler.staging.jsonc), which disables indexing and caching.
 on:
   workflow_dispatch:
-    inputs:
-      ref:
-        description: "Branch, tag or SHA to deploy to staging"
-        required: true
-        default: "main"
 
 concurrency:
   group: deploy-staging
@@ -24,7 +21,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
         with:
-          ref: ${{ inputs.ref }}
+          ref: ${{ github.ref_name }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
