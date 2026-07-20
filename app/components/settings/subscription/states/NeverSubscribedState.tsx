@@ -1,5 +1,4 @@
 import SubscriptionButton from "../../ui/SubscriptionButton";
-import { PRICING_TIERS } from "@/lib/pricing";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 import { useTranslations } from "next-intl";
 
@@ -11,7 +10,15 @@ interface NeverSubscribedStateProps {
 export default function NeverSubscribedState({ onUpgradeToPremium, isLoading = false }: NeverSubscribedStateProps) {
   const t = useTranslations("settings.neverSubscribed");
   const tCommon = useTranslations("common");
-  const premiumTier = PRICING_TIERS.premium;
+  const tPremium = useTranslations("subscription.tiers.premium");
+  const premiumName = tPremium("name");
+  const premiumFeatures = [
+    tPremium("features.allFreeFeatures"),
+    tPremium("features.unlimitedAi"),
+    tPremium("features.allExercises"),
+    tPremium("features.certificates"),
+    tPremium("features.adFree")
+  ];
 
   return (
     <section
@@ -26,14 +33,14 @@ export default function NeverSubscribedState({ onUpgradeToPremium, isLoading = f
       <div className="grid grid-cols-1 gap-4" role="group" aria-labelledby="upgrade-plans-heading">
         <div className="border border-border-secondary rounded p-4" role="article" aria-labelledby="premium-plan-title">
           <h4 id="premium-plan-title" className="font-medium text-text-primary mb-2">
-            {premiumTier.name}
+            {premiumName}
           </h4>
           <p className="text-2xl font-bold text-text-primary mb-4">
             <PremiumPrice interval="monthly" />
             <span className="text-sm font-normal">{tCommon("perMonth")}</span>
           </p>
           <ul className="text-sm text-text-secondary space-y-4 mb-4" aria-label={t("featuresLabel")}>
-            {premiumTier.features.map((feature: string, index: number) => (
+            {premiumFeatures.map((feature, index) => (
               <li key={index}>• {feature}</li>
             ))}
           </ul>
@@ -42,7 +49,7 @@ export default function NeverSubscribedState({ onUpgradeToPremium, isLoading = f
             onClick={onUpgradeToPremium}
             loading={isLoading}
             className="w-full"
-            ariaLabel={t("upgradeAriaLabel", { plan: premiumTier.name })}
+            ariaLabel={t("upgradeAriaLabel", { plan: premiumName })}
           >
             {t("upgrade")}
           </SubscriptionButton>

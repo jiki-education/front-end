@@ -1,7 +1,6 @@
 "use client";
 
 import type { MembershipTier } from "@/lib/pricing";
-import { PRICING_TIERS } from "@/lib/pricing";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 import { useCheckout } from "@stripe/react-stripe-js/checkout";
 import { useTranslations } from "next-intl";
@@ -19,8 +18,9 @@ export function ModalBody({
 }) {
   const t = useTranslations("modals.subscriptionCheckout");
   const tCommon = useTranslations("common");
+  const tTiers = useTranslations("subscription.tiers");
   const checkoutState = useCheckout();
-  const tierInfo = PRICING_TIERS[selectedTier];
+  const tierName = tTiers(`${selectedTier}.name`);
 
   // Show error state
   if (checkoutState.type === "error") {
@@ -44,7 +44,7 @@ export function ModalBody({
       {/* Order Header */}
       <div className={styles.orderHeader}>
         <div>
-          <div className={styles.orderTitle}>{t("orderTitle", { tier: tierInfo.name })}</div>
+          <div className={styles.orderTitle}>{t("orderTitle", { tier: tierName })}</div>
           <div className={styles.orderBilling}>{t("orderBilling")}</div>
         </div>
         <div className={styles.orderPrice}>
