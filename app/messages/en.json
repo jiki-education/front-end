@@ -1561,6 +1561,14 @@
       "learnMoreFairUse": "Learn more about fair use limits"
     },
     "chatUsageNotice": {
+      "warning": {
+        "daily": "You're getting close to your daily limit ({used}/{limit} messages today).",
+        "monthly": "You're getting close to your monthly limit ({used}/{limit} messages this month)."
+      },
+      "limitReached": {
+        "daily": "You've used all {limit} of today's messages. They reset at midnight UTC.",
+        "monthly": "You've used all {limit} messages this month. They reset on the 1st."
+      },
       "learnMore": "Learn More"
     },
     "stuckHeader": {

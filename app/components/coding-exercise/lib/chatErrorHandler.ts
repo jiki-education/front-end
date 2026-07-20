@@ -1,6 +1,5 @@
 import { ChatApiError, ChatRateLimitedError, ChatTokenExpiredError, ChatUsageLimitError } from "./chatApi";
 import { ChatTokenError, ChatTokenInvalidCaptchaError } from "./chatTokenApi";
-import { usageLimitText } from "./chatUsage";
 
 export function formatChatError(error: unknown): string {
   // ChatTokenExpiredError should rarely show (auto-retry handles it)
@@ -12,7 +11,10 @@ export function formatChatError(error: unknown): string {
   // scope and limit since the proxy intentionally omits a human-readable message.
   if (error instanceof ChatUsageLimitError) {
     const limit = error.scope === "monthly" ? error.usage.monthlyLimit : error.usage.dailyLimit;
-    return usageLimitText(error.scope, limit);
+    if (error.scope === "monthly") {
+      return `You've used all ${limit} messages this month. They reset on the 1st.`;
+    }
+    return `You've used all ${limit} of today's messages. They reset at midnight UTC.`;
   }
 
   // Burst throttle — transient. The proxy provides the user-facing copy.

@@ -59,19 +59,3 @@ export function deriveUsageStatus(usage: UsageMeta | null): UsageStatus | null {
 
   return { scope, used, limit, atCap, warning };
 }
-
-// Copy for the soft "getting close" warning shown under the composer.
-export function usageWarningText(status: UsageStatus): string {
-  if (status.scope === "monthly") {
-    return `You're getting close to your monthly limit (${status.used}/${status.limit} messages this month).`;
-  }
-  return `You're getting close to your daily limit (${status.used}/${status.limit} messages today).`;
-}
-
-// Copy for the terminal "you've hit the cap" notice. Reset times are UTC.
-export function usageLimitText(scope: UsageScope, limit: number): string {
-  if (scope === "monthly") {
-    return `You've used all ${limit} messages this month. They reset on the 1st.`;
-  }
-  return `You've used all ${limit} of today's messages. They reset at midnight UTC.`;
-}
