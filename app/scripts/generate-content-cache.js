@@ -73,6 +73,7 @@ marked.use({
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONTENT_DIR = path.join(__dirname, "../../content/src/posts");
 const AUTHORS_FILE = path.join(__dirname, "../../content/src/authors.json");
+const TESTIMONIALS_DIR = path.join(__dirname, "../../content/src/testimonials");
 const IMAGES_SRC_DIR = path.join(__dirname, "../../content/images");
 const STATIC_DIR = path.join(__dirname, "../public/static/content");
 const GENERATED_DIR = path.join(__dirname, "../lib/generated");
@@ -719,12 +720,50 @@ ${formatEntries(guideSearchHashes)},
  * Write the server-side metadata JSON
  * Contains full metadata for all blog posts and articles (no HTML content)
  */
-function writeServerMeta(blogByLocale, articlesByLocale, guidesByLocale, projectsByLocale) {
+/**
+ * Process landing-page testimonials.
+ *
+ * Structure:
+ *   testimonials/
+ *     {locale}.json   — full testimonials data (heading, primary, quotes, marquee)
+ *
+ * Testimonials are structured editorial data (not markdown), so they are baked
+ * verbatim into content-meta-server.json for synchronous SSR delivery. Images
+ * are referenced by filename only; the presentational avatar assets live with
+ * the landing-page component.
+ *
+ * Returns: { [locale]: testimonialsData }
+ */
+function processTestimonials() {
+  const result = {};
+  if (!fs.existsSync(TESTIMONIALS_DIR)) {
+    return result;
+  }
+
+  const files = fs
+    .readdirSync(TESTIMONIALS_DIR, { withFileTypes: true })
+    .filter((f) => f.isFile() && f.name.endsWith(".json"));
+
+  for (const file of files) {
+    const locale = path.basename(file.name, ".json");
+    const filePath = path.join(TESTIMONIALS_DIR, file.name);
+    try {
+      result[locale] = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+    } catch (error) {
+      throw new Error(`Invalid JSON in ${filePath}: ${error.message}`);
+    }
+  }
+
+  return result;
+}
+
+function writeServerMeta(blogByLocale, articlesByLocale, guidesByLocale, projectsByLocale, testimonialsByLocale) {
   const serverMeta = {
     blog: {},
     articles: {},
     guides: {},
     projects: {},
+    testimonials: {},
     locales: {
       blog: Object.keys(blogByLocale).sort(),
       articles: Object.keys(articlesByLocale).sort(),
@@ -761,6 +800,10 @@ function writeServerMeta(blogByLocale, articlesByLocale, guidesByLocale, project
 
   for (const [locale, projectsList] of Object.entries(projectsByLocale)) {
     serverMeta.projects[locale] = projectsList;
+  }
+
+  for (const [locale, testimonials] of Object.entries(testimonialsByLocale)) {
+    serverMeta.testimonials[locale] = testimonials;
   }
 
   writeFile(path.join(GENERATED_DIR, "content-meta-server.json"), JSON.stringify(serverMeta));
@@ -800,6 +843,9 @@ function generateContentCache() {
   // Process projects + episodes
   const projectsProcessed = processProjects();
 
+  // Process landing-page testimonials (structured editorial data)
+  const testimonialsByLocale = processTestimonials();
+
   // Build static files
   const { byLocale: blogByLocale } = buildStaticFiles("blog", blog);
   const { byLocale: articlesByLocale } = buildStaticFiles("articles", articles);
@@ -815,7 +861,7 @@ function generateContentCache() {
   writeHashManifest(searchHashes, guideSearchHashes);
 
   // Write server-side metadata
-  writeServerMeta(blogByLocale, articlesByLocale, guidesByLocale, projectsByLocale);
+  writeServerMeta(blogByLocale, articlesByLocale, guidesByLocale, projectsByLocale, testimonialsByLocale);
 
   // Count totals
   let contentFileCount = 0;
@@ -839,6 +885,7 @@ function generateContentCache() {
   console.log(`   Articles: ${Object.keys(articles).length} slugs`);
   console.log(`   Guides: ${Object.keys(guides).length} slugs`);
   console.log(`   Projects: ${projectCount}`);
+  console.log(`   Testimonials: ${Object.keys(testimonialsByLocale).length} locales`);
   console.log(`   Project episodes: ${episodeCount} (locale-files)`);
   console.log(`   Content files: ${contentFileCount}`);
   console.log(

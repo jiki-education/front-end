@@ -1,6 +1,8 @@
-import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
+import { getTestimonials } from "@/lib/content/getTestimonials";
+import type { Testimonial } from "@/lib/content/types";
 import quote from "./assets/quote.webp";
 import abhinav from "./assets/testimonials/abhinav.webp";
 import drac from "./assets/testimonials/drac.webp";
@@ -26,73 +28,69 @@ import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./TestimonialsSection.module.css";
 import shared from "./shared.module.css";
 
-interface QuoteData {
-  textKey: string;
-  name: string;
-  roleKey?: string;
-  img: StaticImageData;
-}
+// Quote text is authored HTML (only <strong>) and rendered via
+// dangerouslySetInnerHTML — a decorative quotation-mark glyph, universal across
+// locales, is used as the alt text for the quote-mark images.
+const QUOTE_OPEN_ALT = "“";
+const QUOTE_CLOSE_ALT = "”";
 
-// Names/handles are proper nouns and stay verbatim; roleKey resolves under landing.testimonials.
-const QUOTES: QuoteData[] = [
-  { textKey: "fred", name: "Fred", roleKey: "roleTotalBeginner", img: fred },
-  { textKey: "shaun", name: "Shaun", roleKey: "roleAbsoluteBeginner", img: shaun },
-  { textKey: "lucas", name: "Lucas", roleKey: "roleTotalBeginner", img: lukas },
-  { textKey: "nolan", name: "Nolan Lounsbery", roleKey: "roleBeginner", img: giantlemur },
-  { textKey: "redrobio", name: "@RedRobio", roleKey: "roleJuniorDeveloper", img: redrobio },
-  { textKey: "matt", name: "Matt", roleKey: "rolePythonDev", img: github },
-  { textKey: "abhinav", name: "@abhinav", roleKey: "roleBeginner", img: abhinav },
-  { textKey: "laura", name: "Laura", roleKey: "roleWasInTutorialHell", img: laura },
-  { textKey: "oleksandra2", name: "Oleksandra", roleKey: "roleBeginner", img: github },
-  { textKey: "kazzybits", name: "@Kazzybits", roleKey: "roleBeginner", img: kazzybits },
-  { textKey: "vignesh", name: "Vignesh", roleKey: "roleIntermediateDev", img: vignesh },
-  { textKey: "rick", name: "Rick", roleKey: "roleBeginner", img: ricksn },
-  { textKey: "artigiani", name: "@m_artigiani", img: mArtigiani },
-  { textKey: "robert", name: "Robert", roleKey: "roleJuniorDeveloper", img: rob },
-  { textKey: "karen", name: "Karen", roleKey: "roleBeginner", img: github },
-  { textKey: "kcash", name: "@kcash", roleKey: "roleIntermediateDev", img: kcash },
-  { textKey: "drac", name: "Cpt Drac", roleKey: "roleTotalBeginner", img: drac },
-  { textKey: "jj", name: "@JJ", roleKey: "roleJuniorDeveloper", img: jj },
-  { textKey: "nanouss", name: "@nanouss01", roleKey: "roleBeginner", img: nanouss01 },
-  { textKey: "thom", name: "Thom Chittom", roleKey: "roleBeginner", img: thom },
-  { textKey: "chris", name: "Chris", roleKey: "roleSerialBeginner", img: sharpiemath }
-];
+// Testimonial copy lives in the content package; the presentational avatar assets
+// stay here and are looked up by the filename the content references.
+const avatars: Record<string, StaticImageData> = {
+  "abhinav.webp": abhinav,
+  "drac.webp": drac,
+  "fred.webp": fred,
+  "giantlemur.webp": giantlemur,
+  "github.webp": github,
+  "jj.webp": jj,
+  "kazzybits.webp": kazzybits,
+  "kcash.webp": kcash,
+  "laura.webp": laura,
+  "lukas.webp": lukas,
+  "m_artigiani.webp": mArtigiani,
+  "nanouss01.webp": nanouss01,
+  "oleksandra.webp": oleksandra,
+  "redrobio.webp": redrobio,
+  "ricksn.webp": ricksn,
+  "rob.webp": rob,
+  "sharpiemath.webp": sharpiemath,
+  "shaun.webp": shaun,
+  "thom.webp": thom,
+  "vignesh.webp": vignesh
+};
 
 export function TestimonialsSection() {
-  const t = useTranslations("landing.testimonials");
+  const locale = useLocale();
   const routes = useLocaleRoutes();
+  const testimonials = getTestimonials(locale);
+  const { primary } = testimonials;
+
   return (
     <section className={styles["testimonial-section"]}>
       <div className={shared["lg-container"]}>
-        <h2>{t("heading")}</h2>
+        <h2>{testimonials.heading}</h2>
         <p className={styles.subheading}>
-          {t.rich("subheading", {
-            link: (chunks) => (
-              <Link className={styles.subheadingLink} href={routes.testimonials()}>
-                {chunks}
-              </Link>
-            )
-          })}
+          <Subheading text={testimonials.subheading} href={routes.testimonials()} />
         </p>
         <div className={styles["primary-quote"]}>
           <div className={styles.words}>
-            <Image className={`${styles.mark} ${styles["left-mark"]}`} src={quote} alt={t("quoteOpenAlt")} />
+            <Image className={`${styles.mark} ${styles["left-mark"]}`} src={quote} alt={QUOTE_OPEN_ALT} />
             <span>
-              {t("primaryQuote")}
-              <Image className={`${styles.mark} ${styles["right-mark"]}`} src={quote} alt={t("quoteCloseAlt")} />
+              {primary.quote}
+              <Image className={`${styles.mark} ${styles["right-mark"]}`} src={quote} alt={QUOTE_CLOSE_ALT} />
             </span>
           </div>
           <div className={styles.person}>
             <div className={styles.text}>
-              <div className={styles.name}>{t("primaryName")}</div>
-              <div className={styles.description}>{t("primaryRole")}</div>
+              <div className={styles.name}>{primary.name}</div>
+              <div className={styles.description}>{primary.role}</div>
             </div>
-            <Image src={oleksandra} alt={t("primaryName")} />
+            <Image src={avatars[primary.image]} alt={primary.name} />
           </div>
         </div>
         <div className={styles.quotes}>
-          {QUOTES.map((q) => (
-            <Quote key={q.textKey} data={q} />
+          {testimonials.quotes.map((q) => (
+            <Quote key={q.slug} data={q} />
           ))}
         </div>
       </div>
@@ -100,17 +98,34 @@ export function TestimonialsSection() {
   );
 }
 
-function Quote({ data }: { data: QuoteData }) {
-  const t = useTranslations("landing.testimonials");
+// The subheading is a single editorial sentence containing one <link>…</link>
+// span (kept intact so the whole sentence stays translatable). Split it into
+// before/link/after and wrap the link text in a locale-aware <Link>.
+function Subheading({ text, href }: { text: string; href: string }) {
+  const match = text.match(/^([\s\S]*)<link>([\s\S]*)<\/link>([\s\S]*)$/);
+  if (!match) {
+    return <>{text}</>;
+  }
+  const [, before, linkText, after] = match;
+  return (
+    <>
+      {before}
+      <Link className={styles.subheadingLink} href={href}>
+        {linkText}
+      </Link>
+      {after}
+    </>
+  );
+}
+
+function Quote({ data }: { data: Testimonial }) {
   return (
     <div className={styles.quote}>
       <div className={styles.words}>
-        <Image className={`${styles.mark} ${styles["left-mark"]}`} src={quote} alt={t("quoteOpenAlt")} />
+        <Image className={`${styles.mark} ${styles["left-mark"]}`} src={quote} alt={QUOTE_OPEN_ALT} />
         <span>
-          <p>
-            {t.rich(data.textKey as Parameters<typeof t.rich>[0], { strong: (chunks) => <strong>{chunks}</strong> })}
-          </p>
-          <Image className={`${styles.mark} ${styles["right-mark"]}`} src={quote} alt={t("quoteCloseAlt")} />
+          <p dangerouslySetInnerHTML={{ __html: data.html }} />
+          <Image className={`${styles.mark} ${styles["right-mark"]}`} src={quote} alt={QUOTE_CLOSE_ALT} />
         </span>
       </div>
       <div className={styles.person}>
@@ -118,9 +133,9 @@ function Quote({ data }: { data: QuoteData }) {
         <div className={styles.personRow}>
           <div className={styles.text}>
             <div className={styles.name}>{data.name}</div>
-            <div className={styles.description}>{data.roleKey ? t(data.roleKey as Parameters<typeof t>[0]) : ""}</div>
+            <div className={styles.description}>{data.role}</div>
           </div>
-          <Image src={data.img} alt={data.name} />
+          <Image src={avatars[data.image]} alt={data.name} />
         </div>
       </div>
     </div>

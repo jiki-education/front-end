@@ -422,3 +422,72 @@ export function validateEpisodeSummaryParity(slug: string, localeSummaries: Reco
     }
   }
 }
+
+/**
+ * Validate a landing-page testimonials file (content/src/testimonials/{locale}.json).
+ *
+ * Testimonials are structured editorial data (not markdown), authored as one JSON
+ * file per locale. This enforces the shape the app and the generation script rely
+ * on: heading/subheading strings, a primary quote, a non-empty list of student
+ * quotes, and a non-empty marquee.
+ */
+export function validateTestimonials(locale: string, data: unknown): void {
+  if (data === null || typeof data !== "object" || Array.isArray(data)) {
+    throw new ValidationError(`Testimonials '${locale}.json' must be an object`);
+  }
+
+  const d = data as Record<string, unknown>;
+
+  for (const field of ["heading", "subheading"] as const) {
+    if (typeof d[field] !== "string" || d[field].trim() === "") {
+      throw new ValidationError(`Testimonials '${locale}.json' has invalid ${field}: must be a non-empty string`);
+    }
+  }
+
+  if (!(d.subheading as string).includes("<link>") || !(d.subheading as string).includes("</link>")) {
+    throw new ValidationError(`Testimonials '${locale}.json' subheading must contain a <link>…</link> span`);
+  }
+
+  const primary = d.primary;
+  if (primary === null || typeof primary !== "object" || Array.isArray(primary)) {
+    throw new ValidationError(`Testimonials '${locale}.json' primary must be an object`);
+  }
+  for (const field of ["quote", "name", "role", "image"] as const) {
+    if (typeof (primary as Record<string, unknown>)[field] !== "string") {
+      throw new ValidationError(`Testimonials '${locale}.json' primary.${field} must be a string`);
+    }
+  }
+
+  if (!Array.isArray(d.quotes) || d.quotes.length === 0) {
+    throw new ValidationError(`Testimonials '${locale}.json' quotes must be a non-empty array`);
+  }
+  const seenSlugs = new Set<string>();
+  for (const quote of d.quotes as unknown[]) {
+    if (quote === null || typeof quote !== "object" || Array.isArray(quote)) {
+      throw new ValidationError(`Testimonials '${locale}.json' has an invalid quote (not an object)`);
+    }
+    const q = quote as Record<string, unknown>;
+    for (const field of ["slug", "name", "image", "html"] as const) {
+      if (typeof q[field] !== "string" || q[field].trim() === "") {
+        throw new ValidationError(`Testimonials '${locale}.json' quote is missing a valid ${field}`);
+      }
+    }
+    // role may be an empty string (some quotes have no role), but must be present.
+    if (typeof q.role !== "string") {
+      throw new ValidationError(`Testimonials '${locale}.json' quote '${q.slug}' role must be a string`);
+    }
+    if (seenSlugs.has(q.slug as string)) {
+      throw new ValidationError(`Testimonials '${locale}.json' has a duplicate quote slug: '${q.slug as string}'`);
+    }
+    seenSlugs.add(q.slug as string);
+  }
+
+  if (!Array.isArray(d.marquee) || d.marquee.length === 0) {
+    throw new ValidationError(`Testimonials '${locale}.json' marquee must be a non-empty array`);
+  }
+  for (const blurb of d.marquee as unknown[]) {
+    if (typeof blurb !== "string" || blurb.trim() === "") {
+      throw new ValidationError(`Testimonials '${locale}.json' marquee entries must be non-empty strings`);
+    }
+  }
+}

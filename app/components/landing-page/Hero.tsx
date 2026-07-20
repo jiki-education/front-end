@@ -25,7 +25,7 @@ import { useScrollingTestimonials } from "./hooks/useScrollingTestimonials";
 import { useHamster } from "./hooks/useHamster";
 import { SignupButton } from "./SignupButton";
 
-export function Hero() {
+export function Hero({ marquee }: { marquee: string[] }) {
   const t = useTranslations("landing.hero");
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const taglineRef = useRef<HTMLParagraphElement>(null);
@@ -199,7 +199,7 @@ export function Hero() {
           <WatchPrompt />
         </div>
       </div>
-      <ScrollingTestimonials />
+      <ScrollingTestimonials marquee={marquee} />
     </div>
   );
 }
@@ -214,8 +214,7 @@ function WatchPrompt() {
   );
 }
 
-function ScrollingTestimonials() {
-  const t = useTranslations("landing.hero.marquee");
+function ScrollingTestimonials({ marquee }: { marquee: string[] }) {
   const { hamsterRef, smokeRef, containerRef: hamsterContainerRef } = useHamster();
   const { containerRef: marqueeContainerRef, ulRef } = useScrollingTestimonials(hamsterRef);
 
@@ -225,8 +224,8 @@ function ScrollingTestimonials() {
       <div ref={smokeRef}></div>
       <div className={styles.inner} ref={marqueeContainerRef}>
         <ul ref={ulRef}>
-          {Array.from({ length: 32 }, (_, i) => (
-            <li key={i}>{t(`t${i + 1}` as Parameters<typeof t>[0])}</li>
+          {marquee.map((blurb, i) => (
+            <li key={i}>{blurb}</li>
           ))}
         </ul>
       </div>

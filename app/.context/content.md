@@ -52,6 +52,33 @@ The "Build with Jeremy" section. All routes are locale-routed like blog/help.
 
 Content is authored in `content/src/posts/projects/` (see `content/AGENTS.md`). Loaders: `getAllProjects`, `getProject`, `getProjectEpisode` in `lib/content/`. Types: `ProjectMeta`, `EpisodeMeta`, `ProcessedEpisode`.
 
+## Landing-Page Testimonials
+
+The landing page's student testimonials and hero marquee blurbs are **editorial content**, not UI
+chrome, so they live in the content package rather than the i18n catalog. Unlike blog/article/guide
+bodies (markdown fetched from R2 at runtime), testimonials are small structured data authored as one
+JSON file per locale:
+
+```
+content/src/testimonials/en.json   # canonical English
+content/src/testimonials/hu.json   # per-locale variant (English verbatim until translated)
+```
+
+Each file has the `TestimonialsData` shape: `heading`, `subheading` (a single sentence carrying one
+`<link>…</link>` span linking to the full testimonials page), a `primary` featured quote, a `quotes`
+array (each `{ slug, name, role, image, html }`), and a `marquee` array of short blurbs. Quote `html`
+is trusted hand-authored markup (only `<strong>`) rendered via `dangerouslySetInnerHTML`. The `image`
+field is a **filename only** — the presentational avatar assets stay bundled with the landing-page
+component (`components/landing-page/assets/testimonials/`), which maps the filename to a
+`StaticImageData`. This keeps the optimized `next/image` output identical while the copy lives in
+content.
+
+`scripts/generate-content-cache.js` reads these files and bakes them into
+`lib/generated/content-meta-server.json` under `testimonials`. `getTestimonials(locale)` (from
+`@/lib/content`) reads them **synchronously** (no fetch), so the landing page renders server-side and
+stays cacheable. It falls back to English when a locale has no testimonials. Validation lives in
+`lib/content/validator.ts` (`validateTestimonials`) and runs in `tests/unit/content/`.
+
 ## Using Content Functions
 
 Import content functions from `@jiki/content`:

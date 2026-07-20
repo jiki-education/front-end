@@ -31,6 +31,9 @@ export { getProject } from "./getProject";
 export type { ProjectWithEpisodes } from "./getProject";
 export { getProjectEpisode } from "./getProjectEpisode";
 
+// Testimonials (landing page)
+export { getTestimonials } from "./getTestimonials";
+
 // Utilities
 export { getAvailableLocales } from "./loader";
 
@@ -49,7 +52,10 @@ export type {
   EpisodeMeta,
   EpisodeSummary,
   ProcessedEpisode,
-  VideoProvider
+  VideoProvider,
+  Testimonial,
+  PrimaryTestimonial,
+  TestimonialsData
 } from "./types";
 export { ARTICLE_TAG_SLUGS, ARTICLE_TAG_LABELS, getArticleTagLabel } from "./types";
 export { GUIDE_TAG_SLUGS, GUIDE_TAG_LABELS, getGuideTagLabel } from "./types";

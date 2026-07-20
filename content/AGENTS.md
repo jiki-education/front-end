@@ -79,6 +79,9 @@ content/
 │   └── validation.md        # Validation rules
 ├── src/
 │   ├── authors.json          # Author registry
+│   ├── testimonials/         # Landing-page testimonials (structured, per-locale)
+│   │   ├── en.json           # English (required)
+│   │   └── hu.json           # Hungarian (English verbatim until translated)
 │   └── posts/
 │       ├── blog/             # Blog posts
 │       │   └── [slug]/
@@ -213,6 +216,18 @@ For guides that explain how to install a piece of software, follow this conventi
 - Episode **markdown** frontmatter has `title`, `excerpt`, `seo`, and an optional `summary` block (`from`, `to`, `keyConcepts` — freeform prose describing the episode's journey). The markdown body is the episode's **transcript**, rendered below the video.
 
 URLs: the hub is `/build`; projects are `/projects/{slug}`; episodes are `/projects/{slug}/episodes/{episode-slug}`.
+
+### Testimonials
+
+**Testimonials** are the landing-page student quotes and hero marquee blurbs. Unlike posts, they are
+**structured editorial data**, not markdown, so they live in `src/testimonials/` as one JSON file per
+locale (`en.json`, `hu.json`) rather than in a slug directory. Each file holds a `heading`, a
+`subheading` (with one `<link>…</link>` span), a `primary` featured quote, a `quotes` array
+(`{ slug, name, role, image, html }`), and a `marquee` array of short blurbs. Quote `html` is trusted
+markup (only `<strong>`); `image` is a filename only (avatar assets live with the app's landing-page
+component). The app bakes these into its server metadata at build time and serves them synchronously
+for SSR. Validation (shape, required fields, `<link>` span, unique quote slugs) runs in the app's
+`tests/unit/content/`.
 
 ### Validation Strategy
 
