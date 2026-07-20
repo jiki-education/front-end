@@ -37,7 +37,7 @@ export function LessonQuitButton({ onQuit, className = "", variant = "light" }: 
     <CloseButton
       onClick={handleQuit}
       variant={variant}
-      className={assembleClassNames(className, "absolute top-[16px] right-[16px]")}
+      className={assembleClassNames(className, "absolute top-[16px] end-[16px]")}
       aria-label={t("ariaLabel")}
     />
   );

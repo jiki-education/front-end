@@ -11,7 +11,7 @@
 .ribbon {
     position: absolute;
     bottom: 0;
-    left: 50%;
+    inset-inline-start: 50%;
     transform: translateX(-50%) translateY(100%);
     width: 36px;
     height: 20px;
@@ -30,14 +30,14 @@
 }
 
 .ribbon::before {
-    left: 0;
+    inset-inline-start: 0;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 70%, 0 100%);
     transform-origin: top center;
     transform: rotate(15deg);
 }
 
 .ribbon::after {
-    right: 0;
+    inset-inline-end: 0;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 70%, 0 100%);
     transform-origin: top center;
     transform: rotate(-15deg);

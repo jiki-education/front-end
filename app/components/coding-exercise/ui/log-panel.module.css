@@ -17,10 +17,10 @@
 
 .consoleLogEntry:hover {
     background: var(--color-blue-50);
-    padding-left: 8px;
-    padding-right: 8px;
-    margin-left: -8px;
-    margin-right: -8px;
+    padding-inline-start: 8px;
+    padding-inline-end: 8px;
+    margin-inline-start: -8px;
+    margin-inline-end: -8px;
     border-radius: 4px;
     transition: none;
 }
@@ -29,10 +29,10 @@
     border: 1px solid var(--color-blue-500);
     border-radius: 4px;
     background: var(--color-blue-50);
-    padding-left: 8px;
-    padding-right: 8px;
-    margin-left: -8px;
-    margin-right: -8px;
+    padding-inline-start: 8px;
+    padding-inline-end: 8px;
+    margin-inline-start: -8px;
+    margin-inline-end: -8px;
 }
 
 .consoleLogTimestamp {
@@ -43,7 +43,7 @@
     min-width: 30px;
     display: flex;
     align-items: center;
-    padding-left: 0;
+    padding-inline-start: 0;
 }
 
 .consoleLogLineWrapper {

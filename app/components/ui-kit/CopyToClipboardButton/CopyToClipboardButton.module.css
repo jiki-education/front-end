@@ -24,7 +24,7 @@
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
     font-weight: 400;
     font-size: 13px;
-    text-align: left;
+    text-align: start;
     cursor: pointer;
 }
 
@@ -42,17 +42,17 @@
 }
 
 .icon {
-    margin-left: 16px;
+    margin-inline-start: 16px;
     color: var(--color-gray-500);
     flex-shrink: 0;
 }
 
 .message {
     position: absolute;
-    left: 50%;
+    inset-inline-start: 50%;
     z-index: 50;
     padding: 8px 16px 8px 40px;
-    margin-left: -53px;
+    margin-inline-start: -53px;
     border-radius: 8px;
     background-color: var(--color-gray-900);
     color: white;

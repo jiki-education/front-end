@@ -1,6 +1,6 @@
 .walkthroughCard {
     position: absolute;
-    left: calc(100% + 25px);
+    inset-inline-start: calc(100% + 25px);
     top: 50%;
     transform: translateY(-50%);
     width: 90px;
@@ -13,7 +13,7 @@
 .walkthroughCard::before {
     content: "";
     position: absolute;
-    right: 100%;
+    inset-inline-end: 100%;
     top: 50%;
     transform: translateY(-50%);
     width: 25px;

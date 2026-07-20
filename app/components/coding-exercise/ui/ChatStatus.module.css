@@ -19,13 +19,13 @@
 
 .errorIcon {
     color: var(--color-red-500);
-    margin-right: 4px;
+    margin-inline-end: 4px;
 }
 
 .errorLabel {
     font-size: 14px;
     font-weight: 500;
-    margin-right: 2px;
+    margin-inline-end: 2px;
 }
 
 .errorText {

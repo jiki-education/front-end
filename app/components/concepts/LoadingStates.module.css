@@ -170,16 +170,16 @@
 }
 
 .withSidebar {
-    margin-left: 260px;
+    margin-inline-start: 260px;
     padding: 6px;
 }
 
 .fullWidth {
     max-width: 80rem;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 4px;
-    padding-right: 4px;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    padding-inline-start: 4px;
+    padding-inline-end: 4px;
     padding-top: 12px;
     padding-bottom: 12px;
 }
@@ -282,8 +282,8 @@
 
 .spinner {
     animation: spin 1s linear infinite;
-    margin-left: -4px;
-    margin-right: 2px;
+    margin-inline-start: -4px;
+    margin-inline-end: 2px;
     height: 4px;
     width: 4px;
 }

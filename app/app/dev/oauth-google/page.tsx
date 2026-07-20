@@ -241,7 +241,7 @@ function TestScenario({ title, description }: { title: string; description: stri
   return (
     <div>
       <h3 className="font-semibold text-gray-900">{title}</h3>
-      <p className="text-gray-600 ml-4">{description}</p>
+      <p className="text-gray-600 ms-4">{description}</p>
     </div>
   );
 }

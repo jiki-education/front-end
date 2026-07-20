@@ -62,7 +62,7 @@ export default function ChatMarkdownTest() {
             setContent("");
             setStatus("idle");
           }}
-          className="bg-gray-500 text-white px-4 py-2 rounded ml-2"
+          className="bg-gray-500 text-white px-4 py-2 rounded ms-2"
         >
           Reset
         </button>

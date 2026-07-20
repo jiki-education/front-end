@@ -8,10 +8,10 @@
     background: white;
     height: 100vh;
     position: sticky;
-    left: 0;
+    inset-inline-start: 0;
     top: 0;
     padding: 20px 20px 32px 20px;
-    border-right: 2px solid var(--color-gray-100);
+    border-inline-end: 2px solid var(--color-gray-100);
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
@@ -31,7 +31,7 @@
         text-transform: uppercase;
         letter-spacing: 0.4px;
         margin-bottom: 4px;
-        padding-left: 12px;
+        padding-inline-start: 12px;
     }
 
     .nav-list {
@@ -61,7 +61,7 @@
             border: none;
             font-family: inherit;
             cursor: pointer;
-            text-align: left;
+            text-align: start;
         }
 
         &:hover {
@@ -151,8 +151,8 @@
             content: "";
             position: absolute;
             top: -10px;
-            left: 0;
-            right: 0;
+            inset-inline-start: 0;
+            inset-inline-end: 0;
             height: 1px;
             background: var(--color-gray-100);
             display: none;

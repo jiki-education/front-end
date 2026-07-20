@@ -45,16 +45,16 @@ export default function TestToastsPage() {
       >
         <div className="flex-1 w-0 p-4">
           <div className="flex items-start">
-            <div className="ml-3 flex-1">
+            <div className="ms-3 flex-1">
               <p className="text-sm font-medium text-gray-900">Custom Notification</p>
               <p className="mt-1 text-sm text-gray-500">This is a custom styled toast!</p>
             </div>
           </div>
         </div>
-        <div className="flex border-l border-gray-200">
+        <div className="flex border-s border-gray-200">
           <button
             onClick={() => toast.dismiss(t.id)}
-            className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full border border-transparent rounded-none rounded-e-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           >
             Close
           </button>

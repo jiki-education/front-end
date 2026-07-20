@@ -113,7 +113,7 @@ function IOTestRunnerContent() {
       {/* Main content area */}
       <div className="flex flex-1 overflow-hidden">
         {/* Left panel - Code Editor */}
-        <div className="w-1/2 border-r border-gray-200 flex flex-col bg-white">
+        <div className="w-1/2 border-e border-gray-200 flex flex-col bg-white">
           <div className="border-b border-gray-200 px-4 py-2 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-700">Code Editor</h2>
           </div>

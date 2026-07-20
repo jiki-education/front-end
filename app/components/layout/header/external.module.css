@@ -13,7 +13,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-left: auto;
+    margin-inline-start: auto;
 
     @media (max-width: 719px) {
         display: none;
@@ -44,7 +44,7 @@
 .mobileMenu {
     display: none;
     position: relative;
-    margin-left: 8px;
+    margin-inline-start: 8px;
 
     @media (max-width: 1023px) {
         display: block;
@@ -53,7 +53,7 @@
     /* Below 720px the auth buttons leave the bar, so the hamburger becomes the
        only right-hand item and reclaims the auto margin. */
     @media (max-width: 719px) {
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 }
 
@@ -76,7 +76,7 @@
 .menuDropdown {
     position: absolute;
     top: calc(100% + 8px);
-    right: 0;
+    inset-inline-end: 0;
     z-index: var(--z-index-dropdown);
     display: flex;
     flex-direction: column;

@@ -136,7 +136,7 @@ export function SubscriptionModal({
           <ul className="space-y-2">
             {featuresContext.benefits.map((benefit, index) => (
               <li key={index} className="flex items-center text-sm text-text-secondary">
-                <span className="text-green-500 mr-12 flex-shrink-0" aria-hidden="true">
+                <span className="text-green-500 me-12 flex-shrink-0" aria-hidden="true">
                   ✓
                 </span>
                 {benefit}
@@ -157,7 +157,7 @@ export function SubscriptionModal({
           }`}
         >
           {suggestedTier === "premium" && (
-            <div className="absolute -top-12 left-4">
+            <div className="absolute -top-12 start-4">
               <span className="bg-blue-600 text-white text-xs px-12 py-4 rounded-full">{t("recommended")}</span>
             </div>
           )}
@@ -176,7 +176,7 @@ export function SubscriptionModal({
           <ul className="space-y-2 mb-6">
             {premiumFeatures.map((feature, index) => (
               <li key={index} className="flex items-start text-sm text-text-secondary">
-                <span className="text-green-500 mr-12 mt-0.5 flex-shrink-0" aria-hidden="true">
+                <span className="text-green-500 me-12 mt-0.5 flex-shrink-0" aria-hidden="true">
                   ✓
                 </span>
                 {feature}

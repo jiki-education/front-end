@@ -40,7 +40,7 @@
 
 .cm-editor {
     font-family: "Source Code Pro", "Courier New", Courier, monospace;
-    text-align: left;
+    text-align: start;
     width: 100%;
     color: var(--color-text-secondary);
     font-size: 16px;
@@ -129,7 +129,7 @@
     .cm-gutterElement {
         @apply pr-8 pl-12;
     }
-    text-align: right;
+    text-align: end;
 }
 
 .cm-content {
@@ -150,7 +150,7 @@
     outline: 1.5px solid var(--highlighted-line-border-color);
     border-radius: 2px;
     @apply mx-[2px];
-    padding-left: 2px !important;
+    padding-inline-start: 2px !important;
 }
 
 /* Light theme highlighted line colors */

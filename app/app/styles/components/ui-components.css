@@ -30,7 +30,7 @@
 
         /* Input with icon has extra left padding */
         &:has(svg) input {
-            padding-left: 48px;
+            padding-inline-start: 48px;
         }
 
         &:focus-within svg {
@@ -64,7 +64,7 @@
     /* Icons - Large (Optional) */
     svg {
         position: absolute;
-        left: 16px;
+        inset-inline-start: 16px;
         top: 50%;
         transform: translateY(-50%);
         width: 18px;
@@ -113,7 +113,7 @@
     /* Search Icon */
     > svg:first-child {
         position: absolute;
-        left: 16px;
+        inset-inline-start: 16px;
         top: 50%;
         transform: translateY(-50%);
         width: 18px;

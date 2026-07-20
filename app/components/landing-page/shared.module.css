@@ -1,37 +1,37 @@
 .lg-container {
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
     max-width: 1300px;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-inline-start: 5%;
+    padding-inline-end: 5%;
 }
 
 .md-container {
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
     max-width: 940px;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-inline-start: 5%;
+    padding-inline-end: 5%;
 }
 
 .sm-container {
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
     max-width: 800px;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-inline-start: 5%;
+    padding-inline-end: 5%;
 }
 
 .xs-container {
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
     max-width: 720px;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-inline-start: 5%;
+    padding-inline-end: 5%;
 }
 
 .arrow-animation {

@@ -24,7 +24,7 @@
     border-radius: 50%;
     border: 3px solid transparent;
     border-top-color: var(--color-purple-500);
-    border-right-color: var(--color-blue-500);
+    border-inline-end-color: var(--color-blue-500);
     animation: rotate 1.5s linear infinite;
 }
 
@@ -35,7 +35,7 @@
     border-radius: 50%;
     border: 3px solid transparent;
     border-bottom-color: var(--color-blue-400);
-    border-left-color: var(--color-purple-400);
+    border-inline-start-color: var(--color-purple-400);
     animation: rotate 2s linear infinite reverse;
 }
 

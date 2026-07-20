@@ -162,7 +162,7 @@
     width: 3px;
     height: 45px;
     bottom: -45px;
-    left: 50%;
+    inset-inline-start: 50%;
     transform: translateX(-50%);
     pointer-events: none;
 }

@@ -103,13 +103,13 @@
 
 .card.earned.amber .iconWrapper::before {
     top: -8px;
-    left: -8px;
+    inset-inline-start: -8px;
     animation-delay: 0s;
 }
 
 .card.earned.amber .iconWrapper::after {
     bottom: -8px;
-    right: -8px;
+    inset-inline-end: -8px;
     animation-delay: 1s;
 }
 

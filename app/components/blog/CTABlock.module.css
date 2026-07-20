@@ -1,10 +1,10 @@
 /* Minimal variant */
 .minimal {
     max-width: 850px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 20px;
-    padding-right: 20px;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    padding-inline-start: 20px;
+    padding-inline-end: 20px;
     padding-top: 32px;
     padding-bottom: 32px;
     background: #fff;
@@ -14,8 +14,8 @@
     position: relative;
 
     @media (min-width: 768px) {
-        padding-left: 0;
-        padding-right: 0;
+        padding-inline-start: 0;
+        padding-inline-end: 0;
         padding-top: 48px;
         padding-bottom: 48px;
     }
@@ -40,8 +40,8 @@
     margin-bottom: 20px;
     line-height: 1.625;
     max-width: 650px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
 
     @media (min-width: 768px) {
         margin-bottom: 32px;
@@ -54,8 +54,8 @@
     gap: 10px;
     background: #fff;
     color: #667eea;
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-inline-start: 24px;
+    padding-inline-end: 24px;
     padding-top: 16px;
     padding-bottom: 16px;
     border-radius: 8px;
@@ -66,8 +66,8 @@
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 
     @media (min-width: 768px) {
-        padding-left: 40px;
-        padding-right: 40px;
+        padding-inline-start: 40px;
+        padding-inline-end: 40px;
     }
 
     &:hover {
@@ -89,24 +89,24 @@
 /* Gradient variant */
 .gradientOuter {
     max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
     margin-top: 32px;
     margin-bottom: 48px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-inline-start: 20px;
+    padding-inline-end: 20px;
 
     @media (min-width: 768px) {
         margin-top: 60px;
         margin-bottom: 128px;
-        padding-left: 80px;
-        padding-right: 80px;
+        padding-inline-start: 80px;
+        padding-inline-end: 80px;
     }
 }
 
 .gradientInner {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-inline-start: 20px;
+    padding-inline-end: 20px;
     padding-top: 32px;
     padding-bottom: 32px;
     background: linear-gradient(to bottom right, #667eea, #764ba2);
@@ -114,8 +114,8 @@
     text-align: center;
 
     @media (min-width: 768px) {
-        padding-left: 80px;
-        padding-right: 80px;
+        padding-inline-start: 80px;
+        padding-inline-end: 80px;
         padding-top: 48px;
         padding-bottom: 48px;
     }
@@ -144,8 +144,8 @@
     display: inline-block;
     background: #fff;
     color: #667eea;
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-inline-start: 40px;
+    padding-inline-end: 40px;
     padding-top: 16px;
     padding-bottom: 16px;
     border-radius: 8px;

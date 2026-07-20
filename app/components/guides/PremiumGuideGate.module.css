@@ -16,8 +16,8 @@
 .lockedCta::before {
     content: "";
     position: absolute;
-    left: 0;
-    right: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
     top: -96px;
     height: 96px;
     background: linear-gradient(180deg, rgb(from white r g b / 0) 0%, white 100%);

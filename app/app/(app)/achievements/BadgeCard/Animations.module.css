@@ -97,10 +97,10 @@
 
 @keyframes shimmerFront {
     0% {
-        left: -100%;
+        inset-inline-start: -100%;
     }
     100% {
-        left: 200%;
+        inset-inline-start: 200%;
     }
 }
 

@@ -11,7 +11,7 @@
     color: inherit;
     cursor: pointer;
     font-family: inherit;
-    text-align: left;
+    text-align: start;
     width: 100%;
     transition:
         border-color 0.15s ease,
@@ -63,7 +63,7 @@
 .premiumPill {
     position: absolute;
     top: 8px;
-    right: 8px;
+    inset-inline-end: 8px;
     display: inline-flex;
     align-items: center;
     gap: 4px;
@@ -84,8 +84,8 @@
 
 .progressTrack {
     position: absolute;
-    left: 5%;
-    right: 5%;
+    inset-inline-start: 5%;
+    inset-inline-end: 5%;
     bottom: 8px;
     height: 6px;
     background: var(--color-blue-200);

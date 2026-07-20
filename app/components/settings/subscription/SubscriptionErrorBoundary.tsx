@@ -50,7 +50,7 @@ export default class SubscriptionErrorBoundary extends Component<
       return (
         <div className="bg-red-50 border border-red-200 rounded-lg p-6">
           <div className="flex items-center mb-4">
-            <div className="w-12 h-12 bg-red-500 rounded-full mr-12"></div>
+            <div className="w-12 h-12 bg-red-500 rounded-full me-12"></div>
             <h3 className="font-medium text-red-900">{messages.title}</h3>
           </div>
 

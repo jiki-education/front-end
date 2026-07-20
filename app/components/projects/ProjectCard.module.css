@@ -36,7 +36,7 @@
 .comingSoonRibbon {
     position: absolute;
     top: 30px;
-    right: -57px;
+    inset-inline-end: -57px;
     width: 200px;
     transform: rotate(45deg);
     background: var(--color-gray-500);

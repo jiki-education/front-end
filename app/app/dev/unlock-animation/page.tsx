@@ -124,7 +124,7 @@ export default function UnlockAnimationTest() {
           <button onClick={resetAll} className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
             Reset
           </button>
-          <span className="ml-4 text-sm text-gray-600">
+          <span className="ms-4 text-sm text-gray-600">
             State: {animationState} | Completed: {lessonCompleted ? "Yes" : "No"} | Unlocked:{" "}
             {recentlyUnlocked ? "Yes" : "No"}
           </span>

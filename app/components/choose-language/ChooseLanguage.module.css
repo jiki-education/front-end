@@ -38,7 +38,7 @@
     color: rgba(255, 255, 255, 0.5);
     position: absolute;
     top: 15px;
-    right: 24px;
+    inset-inline-end: 24px;
     z-index: 10;
 }
 
@@ -197,7 +197,7 @@
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
-    text-align: left;
+    text-align: start;
     display: flex;
     align-items: center;
     justify-content: space-between;

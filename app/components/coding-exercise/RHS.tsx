@@ -38,12 +38,12 @@ export function RHS({ orchestrator }: RHSProps) {
     {
       id: "instructions",
       label: t("tabInstructions"),
-      icon: <HamburgerIcon width={18} height={18} className="mr-2" />
+      icon: <HamburgerIcon width={18} height={18} className="me-2" />
     },
     {
       id: "chat",
       label: t("tabAskJiki"),
-      icon: <ChatIcon width={18} height={18} className="mr-2" />
+      icon: <ChatIcon width={18} height={18} className="me-2" />
     },
     ...(logTabDisabled
       ? []
@@ -51,13 +51,13 @@ export function RHS({ orchestrator }: RHSProps) {
           {
             id: "log",
             label: t("tabLog"),
-            icon: <LogIcon width={18} height={18} className="mr-2" />
+            icon: <LogIcon width={18} height={18} className="me-2" />
           }
         ]),
     {
       id: "hints",
       label: t("tabHints"),
-      icon: <HintIcon width={18} height={18} className="mr-2" />
+      icon: <HintIcon width={18} height={18} className="me-2" />
     }
   ];
 

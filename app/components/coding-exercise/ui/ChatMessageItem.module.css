@@ -82,13 +82,13 @@
 .promptContent ul,
 .responseContent ul {
     list-style: disc;
-    margin-left: 18px;
+    margin-inline-start: 18px;
 }
 
 .promptContent ol,
 .responseContent ol {
     list-style: decimal;
-    margin-left: 18px;
+    margin-inline-start: 18px;
 }
 
 .prompt code,

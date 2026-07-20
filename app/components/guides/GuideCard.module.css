@@ -8,7 +8,7 @@
     padding: 24px;
     transition: all 0.3s ease;
     cursor: pointer;
-    text-align: left;
+    text-align: start;
     /* reset for when the card is a <button> (premium-locked) */
     width: 100%;
     font: inherit;
@@ -95,7 +95,7 @@
 .lockBadge {
     position: absolute;
     top: 0;
-    right: 20px;
+    inset-inline-end: 20px;
     display: inline-flex;
     align-items: center;
     gap: 6px;

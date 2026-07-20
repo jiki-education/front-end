@@ -104,7 +104,7 @@ export function CodeWithBlanks({
       {codeLines.map((line, index) => (
         <div key={index} className="flex hover:bg-gray-100">
           {showLineNumbers && (
-            <span className="select-none text-gray-400 mr-4 min-w-[2rem] text-right">{index + 1}.</span>
+            <span className="select-none text-gray-400 me-4 min-w-[2rem] text-end">{index + 1}.</span>
           )}
           <div className="flex-1 whitespace-pre">{renderCodeLine(line, index)}</div>
         </div>

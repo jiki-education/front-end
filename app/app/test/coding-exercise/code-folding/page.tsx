@@ -140,7 +140,7 @@ export default function CodeFoldingTestPage() {
                     <div
                       key={line}
                       data-testid={`folded-line-${line}`}
-                      className="inline-block px-2 py-1 mr-2 bg-blue-500 text-white rounded"
+                      className="inline-block px-2 py-1 me-2 bg-blue-500 text-white rounded"
                     >
                       Line {line}
                     </div>
@@ -205,7 +205,7 @@ export default function CodeFoldingTestPage() {
             </div>
             <div className="mt-2">
               <div className="font-semibold">Code Structure:</div>
-              <ul className="ml-4 text-xs">
+              <ul className="ms-4 text-xs">
                 <li>• add function: Lines 1-3</li>
                 <li>• multiply function: Lines 5-7</li>
                 <li>• result assignment: Line 9</li>
