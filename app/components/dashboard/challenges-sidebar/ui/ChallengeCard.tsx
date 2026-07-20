@@ -1,5 +1,6 @@
 import { ChallengeIcon } from "@/components/icons/ChallengeIcon";
 import type { ChallengeData } from "@/lib/api/challenges";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import styles from "../ChallengesSidebar.module.css";
 
@@ -8,19 +9,20 @@ interface ChallengeCardProps {
 }
 
 export function ChallengeCard({ challenge }: ChallengeCardProps) {
+  const t = useTranslations("dashboard.challengesSidebar.challengeCard.status");
   const getStatusText = () => {
     switch (challenge.status) {
       case "locked":
-        return "Locked";
+        return t("locked");
       case "unlocked":
-        return "Not started";
+        return t("notStarted");
       case "started":
-        return "In progress";
+        return t("inProgress");
       case "completed":
-        return "Completed";
+        return t("completed");
       case undefined:
       default:
-        return "Available";
+        return t("available");
     }
   };
 

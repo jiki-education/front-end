@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, type ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import type { ChatMessage, StreamStatus } from "../lib/chat-types";
 import TypeItAssistantMessage from "./TypeItAssistantMessage";
 import ChatMessageItem from "./ChatMessageItem";
@@ -22,6 +23,7 @@ export default function ChatMessages({
   onTypingComplete,
   header
 }: ChatMessagesProps) {
+  const t = useTranslations("codingExercise.chatMessages");
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
   const chatMessagesRef = useRef<HTMLDivElement>(null);
 
@@ -32,9 +34,7 @@ export default function ChatMessages({
       {header}
       <div ref={chatMessagesRef} className={styles.chatMessages}>
         {messages.length === 0 && !currentResponse && (
-          <ChatMessageItem
-            message={{ role: "assistant", content: "Hey there! What can I help you with on this exercise?" }}
-          />
+          <ChatMessageItem message={{ role: "assistant", content: t("greeting") }} />
         )}
 
         {messages.map((message, index) => (

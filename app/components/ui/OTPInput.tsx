@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { useTranslations } from "next-intl";
 import styles from "./OTPInput.module.css";
 
 interface OTPInputProps {
@@ -13,6 +14,7 @@ interface OTPInputProps {
 
 export function OTPInput({ value, onChange, disabled = false, hasError = false, autoFocus = false }: OTPInputProps) {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const t = useTranslations("common.otpInput");
 
   const handleChange = (index: number, inputValue: string) => {
     // Filter to digits only
@@ -55,7 +57,7 @@ export function OTPInput({ value, onChange, disabled = false, hasError = false, 
   };
 
   return (
-    <div className={styles.container} role="group" aria-label="One-time password">
+    <div className={styles.container} role="group" aria-label={t("label")}>
       {[0, 1, 2, 3, 4, 5].map((index) => (
         <input
           key={index}
@@ -67,7 +69,7 @@ export function OTPInput({ value, onChange, disabled = false, hasError = false, 
           maxLength={6}
           autoComplete={index === 0 ? "one-time-code" : "off"}
           autoFocus={autoFocus && index === 0}
-          aria-label={`Digit ${index + 1} of 6`}
+          aria-label={t("digitLabel", { number: index + 1 })}
           value={value[index] || ""}
           onChange={(e) => handleChange(index, e.target.value)}
           onKeyDown={(e) => handleKeyDown(index, e)}

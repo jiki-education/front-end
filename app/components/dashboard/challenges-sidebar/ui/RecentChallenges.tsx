@@ -1,5 +1,6 @@
 import type { ChallengeData } from "@/lib/api/challenges";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import styles from "../ChallengesSidebar.module.css";
 import { ChallengeCard } from "./ChallengeCard";
@@ -15,6 +16,7 @@ interface RecentChallengesProps {
 }
 
 export function RecentChallenges({ challenges, unlockedCount, loading }: RecentChallengesProps) {
+  const t = useTranslations("dashboard.challengesSidebar.recent");
   const shouldShowSkeleton = useDelayedLoading(loading ?? false);
 
   // If loading, show skeleton
@@ -31,8 +33,10 @@ export function RecentChallenges({ challenges, unlockedCount, loading }: RecentC
   return (
     <div className={styles.sectionBox}>
       <div className={styles.sectionTitle}>
-        Recent Challenges
-        {unlockedCount > 0 && <span className={styles.unlockedCount}>{unlockedCount} unlocked</span>}
+        {t("title")}
+        {unlockedCount > 0 && (
+          <span className={styles.unlockedCount}>{t("unlockedCount", { count: unlockedCount })}</span>
+        )}
       </div>
 
       <div className={styles.challengeCards}>
@@ -42,7 +46,7 @@ export function RecentChallenges({ challenges, unlockedCount, loading }: RecentC
       </div>
 
       <Link href="/challenges" className={styles.viewAllBtn}>
-        View All Challenges
+        {t("viewAll")}
       </Link>
     </div>
   );

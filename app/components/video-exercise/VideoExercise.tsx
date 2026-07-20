@@ -4,6 +4,7 @@ import { LessonQuitButton } from "@/components/lesson/LessonQuitButton";
 import type { Lesson, VideoSource } from "@/types/lesson";
 import MuxPlayer from "@/components/ui/JikiMuxPlayer";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 import LockIcon from "@/icons/lock.svg";
 import { FloatingPill } from "./ui/FloatingPill";
 import { NoVideoPlaceholder } from "./ui/NoVideoPlaceholder";
@@ -13,6 +14,7 @@ import styles from "./VideoExercise.module.css";
 type VideoLesson = Lesson & { type: "video"; data: { sources: VideoSource[] } };
 
 export default function VideoExercise({ lessonData, onReady }: { lessonData: VideoLesson; onReady: () => void }) {
+  const t = useTranslations("videoExercise");
   const videoSource = lessonData.data.sources[0] as VideoSource | undefined;
   const playbackId = videoSource?.id ?? "";
 
@@ -69,7 +71,7 @@ export default function VideoExercise({ lessonData, onReady }: { lessonData: Vid
             aria-live="polite"
           >
             <LockIcon className={styles.skipHintIcon} aria-hidden="true" />
-            <span>You can&rsquo;t skip ahead on your first watch, but you can rewind anytime.</span>
+            <span>{t("skipHint")}</span>
           </div>
         </div>
       </div>

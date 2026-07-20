@@ -1,5 +1,6 @@
 import type { ConceptCardData } from "@/components/concepts/ConceptCard";
 import { forwardRef } from "react";
+import { useTranslations } from "next-intl";
 import LibraryChallengesState from "./LibraryChallengesState";
 import LibraryEmptyState from "./LibraryEmptyState";
 import LibraryWithConcepts from "./LibraryWithConcepts";
@@ -32,17 +33,19 @@ const LibrarySection = forwardRef<HTMLDivElement, LibrarySectionProps>(function 
 export default LibrarySection;
 
 function LibraryLoading() {
+  const t = useTranslations("codingExercise.instructionsPanel");
   return (
     <LibraryWrapper>
-      <p className={styles.libraryDescription}>Loading concepts...</p>
+      <p className={styles.libraryDescription}>{t("loadingConcepts")}</p>
     </LibraryWrapper>
   );
 }
 
 function LibraryWrapper({ children }: { children: React.ReactNode }) {
+  const t = useTranslations("codingExercise.instructionsPanel");
   return (
     <div className={styles.conceptsContainer}>
-      <h2 className={styles.conceptsTitle}>Concept Library</h2>
+      <h2 className={styles.conceptsTitle}>{t("conceptLibraryTitle")}</h2>
       {children}
     </div>
   );

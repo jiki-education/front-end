@@ -15,21 +15,22 @@ import { RequestAbortedError } from "@/lib/api/client";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import { tierIncludes } from "@/lib/pricing";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { ChallengeCard } from "./ChallengeCard";
 import { ChallengeCardsLoadingSkeleton } from "./ChallengeCardSkeleton";
 import { NoChallengesFound } from "./NoChallengesFound";
 import { PremiumChallengeCard } from "./PremiumChallengeCard";
 
-const tabs: TabItem[] = [
-  { id: "all", label: "All", icon: <AllIcon />, color: "blue" },
-  { id: "in-progress", label: "In Progress", icon: <InProgressIcon />, color: "purple" },
-  { id: "not-started", label: "Not Started", icon: <NotStartedIcon />, color: "blue" },
-  { id: "complete", label: "Complete", icon: <CompleteIcon />, color: "green" },
-  { id: "locked", label: "Locked", icon: <LockedIcon />, color: "gray" }
-];
-
 export function ChallengesContent() {
+  const t = useTranslations("challenges");
+  const tabs: TabItem[] = [
+    { id: "all", label: t("tabAll"), icon: <AllIcon />, color: "blue" },
+    { id: "in-progress", label: t("tabInProgress"), icon: <InProgressIcon />, color: "purple" },
+    { id: "not-started", label: t("tabNotStarted"), icon: <NotStartedIcon />, color: "blue" },
+    { id: "complete", label: t("tabComplete"), icon: <CompleteIcon />, color: "green" },
+    { id: "locked", label: t("tabLocked"), icon: <LockedIcon />, color: "gray" }
+  ];
   const user = useAuthStore((state) => state.user);
   const isPremium = !!user && tierIncludes(user.membership_type, "premium");
   const [challenges, setChallenges] = useState<ChallengeData[]>([]);
@@ -100,12 +101,12 @@ export function ChallengesContent() {
       return (
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
-            <p className="text-red-600 mb-4">Error: {challengesError}</p>
+            <p className="text-red-600 mb-4">{t("error", { error: challengesError })}</p>
             <button
               onClick={() => window.location.reload()}
               className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
             >
-              Retry
+              {t("retry")}
             </button>
           </div>
         </div>
@@ -136,11 +137,7 @@ export function ChallengesContent() {
   };
 
   return (
-    <PageHeader
-      icon={<ChallengesIcon />}
-      title="Challenges"
-      description="Build real applications and games to practice your coding skills."
-    >
+    <PageHeader icon={<ChallengesIcon />} title={t("title")} description={t("description")}>
       {isPremium && <PageTabs className="mb-16" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />}
       {renderContent()}
     </PageHeader>

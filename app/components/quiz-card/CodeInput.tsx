@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslations } from "next-intl";
+
 interface CodeInputProps {
   value: string;
   onChange: (value: string) => void;
@@ -9,14 +11,10 @@ interface CodeInputProps {
   isIncorrect?: boolean;
 }
 
-export function CodeInput({
-  value,
-  onChange,
-  placeholder = "// Type your code here...",
-  disabled = false,
-  isCorrect,
-  isIncorrect
-}: CodeInputProps) {
+export function CodeInput({ value, onChange, placeholder, disabled = false, isCorrect, isIncorrect }: CodeInputProps) {
+  const t = useTranslations("quizCard");
+  const resolvedPlaceholder = placeholder ?? t("codeInputPlaceholder");
+
   const getBorderStyle = () => {
     if (isCorrect) {
       return "border-green-500 bg-green-50";
@@ -32,7 +30,7 @@ export function CodeInput({
       <textarea
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
+        placeholder={resolvedPlaceholder}
         disabled={disabled}
         className={`w-full h-32 px-4 py-3 font-mono text-sm rounded-lg border-2 
                    ${getBorderStyle()}

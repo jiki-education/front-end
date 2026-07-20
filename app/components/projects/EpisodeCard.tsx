@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import LockIcon from "@/icons/lock.svg";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { localePath } from "@/lib/i18n/routes";
@@ -19,6 +20,7 @@ interface EpisodeCardProps {
 }
 
 export function EpisodeCard({ project, episode, locale, watchedPercentage }: EpisodeCardProps) {
+  const t = useTranslations("projects.episodeCard");
   const user = useAuthStore((state) => state.user);
   const userIsPremium = !!user && tierIncludes(user.membership_type, "premium");
   const showAsPremium = episode.premium && !userIsPremium;
@@ -36,7 +38,7 @@ export function EpisodeCard({ project, episode, locale, watchedPercentage }: Epi
         {showAsPremium && (
           <span className={styles.premiumPill}>
             <LockIcon className={styles.premiumIcon} />
-            Premium
+            {t("premium")}
           </span>
         )}
         {showProgress && (

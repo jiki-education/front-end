@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import DynamicHeader, { type ExerciseData } from "./DynamicHeader";
 import InstructionsContent from "./InstructionsContent";
 import FunctionsGrid from "./FunctionsGrid";
@@ -31,6 +32,7 @@ export default function InstructionsPanel({
   isChallenge = false,
   className = ""
 }: InstructionsPanelProps) {
+  const t = useTranslations("codingExercise.instructionsPanel");
   const [activeSection, setActiveSection] = useState("instructions");
   const [isExpanded, setIsExpanded] = useState(true);
   const [concepts, setConcepts] = useState<ConceptCardData[]>([]);
@@ -161,11 +163,11 @@ export default function InstructionsPanel({
   const getSectionTitle = () => {
     switch (activeSection) {
       case "functions":
-        return "Functions";
+        return t("functionsTitle");
       case "concept-library":
-        return "Concept Library";
+        return t("conceptLibraryTitle");
       default:
-        return "Instructions";
+        return t("instructionsTitle");
     }
   };
 

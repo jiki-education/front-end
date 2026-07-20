@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslations } from "next-intl";
 import type { Change } from "diff";
 import type { IOTestExpect } from "../../lib/test-results-types";
 import tableStyles from "./io/IOScenarioTable.module.css";
@@ -10,6 +11,7 @@ interface IOTestResultViewProps {
 }
 
 export function IOTestResultView({ expect, language }: IOTestResultViewProps) {
+  const t = useTranslations("codingExercise.testResults");
   if (expect.errorHtml) {
     return (
       <div className={tableStyles.wrapper}>
@@ -26,7 +28,7 @@ export function IOTestResultView({ expect, language }: IOTestResultViewProps) {
       <table className={tableStyles.table}>
         <tbody>
           <tr>
-            <th>Code run</th>
+            <th>{t("codeRun")}</th>
             <td>
               <div className={tableStyles.cellScroll}>
                 <HighlightedCode code={expect.codeRun ?? ""} language={language} />
@@ -34,17 +36,17 @@ export function IOTestResultView({ expect, language }: IOTestResultViewProps) {
             </td>
           </tr>
           <tr>
-            <th>Expected</th>
+            <th>{t("expected")}</th>
             <td>
               <div className={`${tableStyles.cellScroll} whitespace-pre-wrap`}>{renderExpected(expect.diff)}</div>
             </td>
           </tr>
           <tr>
-            <th>Actual</th>
+            <th>{t("actual")}</th>
             <td>
               <div className={`${tableStyles.cellScroll} whitespace-pre-wrap`}>
                 {expect.actual === undefined || expect.actual === null ? (
-                  <span className={tableStyles.removedPart}>[Your function didn&apos;t return anything]</span>
+                  <span className={tableStyles.removedPart}>{t("noReturn")}</span>
                 ) : (
                   renderActual(expect.diff)
                 )}

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { ConceptsLayout } from "@/components/concepts";
 import ConceptLayout from "@/components/concepts/ConceptLayout";
 import MarkdownContent from "@/components/content/MarkdownContent";
@@ -19,12 +20,16 @@ interface EpisodePageProps {
 }
 
 export default function EpisodePage({ project, episode, guides, locale }: EpisodePageProps) {
+  const t = useTranslations("projects.episodePage");
   const projectPath = localePath(`/projects/${project.slug}`, locale);
 
   return (
     <ConceptsLayout>
       <Link href={projectPath} className={styles.backLink}>
-        ← Back to <span className={styles.backLinkProject}>{project.title}</span>
+        {t.rich("backToProject", {
+          title: project.title,
+          strong: (chunks) => <span className={styles.backLinkProject}>{chunks}</span>
+        })}
       </Link>
 
       <ConceptLayout rightPanel={episode.summary ? <EpisodeSummary summary={episode.summary} /> : undefined}>
@@ -43,11 +48,7 @@ export default function EpisodePage({ project, episode, guides, locale }: Episod
       {guides.length > 0 && (
         <>
           <hr className="ui-chevron-divider" />
-          <RelevantGuidesSection
-            guides={guides}
-            locale={locale}
-            description="Guides that might be useful to you when solving this step in the process."
-          />
+          <RelevantGuidesSection guides={guides} locale={locale} description={t("relevantGuidesDescription")} />
         </>
       )}
 

@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useTranslations } from "next-intl";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import Tooltip from "@/components/ui/Tooltip";
@@ -10,6 +11,7 @@ import ScrubberInput from "./ScrubberInput";
 import styles from "../../CodingExercise.module.css";
 
 export default function Scrubber() {
+  const t = useTranslations("codingExercise.scrubber");
   const orchestrator = useOrchestrator();
   const { currentTest, currentTestTime, hasCodeBeenEdited, isSpotlightActive } = useOrchestratorStore(orchestrator);
   const rangeRef = useRef<HTMLDivElement>(null);
@@ -28,17 +30,17 @@ export default function Scrubber() {
   // Tooltip reasons - separated by what they affect
   const getGlobalDisabledReason = () => {
     if (hasCodeBeenEdited) {
-      return 'The code has been edited so we\'ve disabled the scrubber. Press "Run code" to re-enable it.';
+      return t("disabledCodeEdited");
     }
     if (isSpotlightActive) {
-      return "Scrubber disabled: Spotlight mode is active.";
+      return t("disabledSpotlight");
     }
     return null;
   };
 
   const getScrubberOnlyDisabledReason = () => {
     if (frames.length < 2) {
-      return "Scrubber disabled: Not enough frames to scrub through.";
+      return t("disabledNotEnoughFrames");
     }
     return null;
   };

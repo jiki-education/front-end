@@ -16,6 +16,7 @@ import UnlockIcon from "@/icons/unlocked.svg";
 import type { BadgeData } from "@/lib/api/badges";
 import { revealBadge } from "@/lib/api/badges";
 import { showModal } from "@/lib/modal";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import style from "./Badges.module.css";
@@ -26,6 +27,7 @@ interface BadgesProps {
 }
 
 export function Badges({ badges, onBadgeRevealed }: BadgesProps) {
+  const t = useTranslations("dashboard.challengesSidebar.badges");
   const [revealingId, setRevealingId] = useState<number | null>(null);
   const [lockedDisplayIds, setLockedDisplayIds] = useState<number[] | null>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -109,7 +111,7 @@ export function Badges({ badges, onBadgeRevealed }: BadgesProps) {
 
   return (
     <div className={style.badgesSection}>
-      <div className={style.badgesTitle}>Badges</div>
+      <div className={style.badgesTitle}>{t("title")}</div>
       <div className={style.badges}>
         {displayBadges.map((badge) => {
           const isUnrevealed = badge.state === "unrevealed";

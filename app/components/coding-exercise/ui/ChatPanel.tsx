@@ -1,6 +1,7 @@
 "use client";
 
 import { useContext, useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import OrchestratorContext from "../lib/OrchestratorContext";
 import { useChat } from "../lib/useChat";
 import { useConversationLoader } from "../lib/useConversationLoader";
@@ -14,12 +15,13 @@ import type Orchestrator from "../lib/Orchestrator";
 import styles from "./ChatPanel.module.css";
 
 export default function ChatPanel() {
+  const t = useTranslations("codingExercise.chatPanel");
   const orchestrator = useContext(OrchestratorContext);
 
   if (!orchestrator) {
     return (
       <div className={styles.unavailable}>
-        <p className={styles.unavailableText}>Chat unavailable</p>
+        <p className={styles.unavailableText}>{t("unavailable")}</p>
       </div>
     );
   }

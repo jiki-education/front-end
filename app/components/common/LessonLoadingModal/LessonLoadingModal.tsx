@@ -1,6 +1,9 @@
+import { useTranslations } from "next-intl";
 import styles from "./LessonLoadingModal.module.css";
 
 export default function LessonLoadingModal() {
+  const t = useTranslations("lesson.loadingModal");
+
   return (
     <div className={styles.container}>
       <div className={styles.processingVisual}>
@@ -24,14 +27,14 @@ export default function LessonLoadingModal() {
 
       <div className={styles.loadingText}>
         <div className={styles.loadingTitle}>
-          Personalising your lesson
+          {t("title")}
           <span className={styles.ellipsis}>
             <span>.</span>
             <span>.</span>
             <span>.</span>
           </span>
         </div>
-        <div className={styles.loadingSubtitle}>Crafting something based on your preferences and progress</div>
+        <div className={styles.loadingSubtitle}>{t("subtitle")}</div>
       </div>
     </div>
   );

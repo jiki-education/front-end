@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import TypeIt from "typeit-react";
 import ChatBubbleIcon from "@/icons/chat-bubble.svg";
 import CheckCircleFilledIcon from "@/icons/check-circle-filled.svg";
@@ -14,18 +15,18 @@ interface CanStartProps {
   onSendMessage: (message: string) => void;
 }
 
-const rotatingPhrases = [
-  "why your code isn't working",
-  "how to fix a bug",
-  "what this error means",
-  "how to approach this exercise",
-  "how to get unstuck"
-];
-
 // Conversation allowed, no existing conversation — the chat input is live and
 // ready to go. Free users see the same input as premium users; their single
 // free conversation is only consumed when they send their first message.
 export default function CanStart({ isFreeUser, onSendMessage }: CanStartProps) {
+  const t = useTranslations("codingExercise.canStart");
+  const rotatingPhrases = [
+    t("phraseWhyNotWorking"),
+    t("phraseHowToFixBug"),
+    t("phraseWhatErrorMeans"),
+    t("phraseHowToApproach"),
+    t("phraseHowToGetUnstuck")
+  ];
   const { message, setMessage, hasMessage, handleSend, handleKeyDown } = useChatInput({ onSendMessage });
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -47,7 +48,7 @@ export default function CanStart({ isFreeUser, onSendMessage }: CanStartProps) {
       <div className={sharedStyles.content} style={{ width: "100%" }}>
         <StuckHeader />
         <p className={sharedStyles.description}>
-          Ask about...{" "}
+          {t("askAbout")}{" "}
           <TypeIt
             as="span"
             className={styles.rotatingText}
@@ -73,7 +74,7 @@ export default function CanStart({ isFreeUser, onSendMessage }: CanStartProps) {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Type your question here..."
+              placeholder={t("placeholder")}
             />
             <button
               onClick={handleSend}
@@ -81,20 +82,18 @@ export default function CanStart({ isFreeUser, onSendMessage }: CanStartProps) {
               className={`${styles.chatSendButton} ${hasMessage ? styles.chatSendButtonActive : ""}`}
             >
               <ChatBubbleIcon width={16} height={16} />
-              Ask Jiki
+              {t("askJiki")}
             </button>
           </div>
         </div>
 
         <p className={styles.includedText}>
           <CheckCircleFilledIcon width={18} height={18} className={styles.checkIcon} />
-          {isFreeUser ? (
-            "First conversation included in your Free plan"
-          ) : (
-            <>
-              Included in your <span className={sharedStyles.premiumText}>Premium</span> plan
-            </>
-          )}
+          {isFreeUser
+            ? t("freeIncluded")
+            : t.rich("premiumIncluded", {
+                premium: (chunks) => <span className={sharedStyles.premiumText}>{chunks}</span>
+              })}
         </p>
       </div>
     </div>

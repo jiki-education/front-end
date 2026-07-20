@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { tierIncludes } from "@/lib/pricing";
 import type { GuideMeta } from "@/lib/content/types";
@@ -18,13 +19,14 @@ interface RelevantGuidesSectionProps {
  * same GuideCard as the guides listing page.
  */
 export default function RelevantGuidesSection({ guides, locale, description }: RelevantGuidesSectionProps) {
+  const t = useTranslations("projects.relevantGuides");
   const user = useAuthStore((state) => state.user);
   const userIsPremium = !!user && tierIncludes(user.membership_type, "premium");
 
   return (
     <section className={styles.container}>
       <div className={styles.intro}>
-        <h2 className={styles.heading}>Relevant Guides</h2>
+        <h2 className={styles.heading}>{t("heading")}</h2>
         <p className={styles.lead}>{description}</p>
       </div>
       <div className={styles.grid}>

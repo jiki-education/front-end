@@ -1,6 +1,8 @@
+import { useTranslations } from "next-intl";
 import styles from "../ChallengesSidebar.module.css";
 
 export function EmptyChallengesState() {
+  const t = useTranslations("dashboard.challengesSidebar.empty");
   return (
     <div className={styles.challengesEmptyState}>
       <div className={styles.challengesEmptyIcon}>
@@ -23,11 +25,8 @@ export function EmptyChallengesState() {
           <circle cx="34" cy="16" r="3" fill="url(#challengeGradient)" />
         </svg>
       </div>
-      <div className={styles.challengesEmptyTitle}>Challenges await!</div>
-      <p className={styles.challengesEmptyText}>
-        Complete exercises to unlock real coding challenges. Build games, apps, and tools that bring your skills to
-        life.
-      </p>
+      <div className={styles.challengesEmptyTitle}>{t("title")}</div>
+      <p className={styles.challengesEmptyText}>{t("description")}</p>
     </div>
   );
 }

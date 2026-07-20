@@ -8,6 +8,7 @@ import type { LastSubmissionData } from "@/lib/api/types/conversation";
 import type { UserCourse } from "@/types/course";
 import type { ExerciseSlug } from "@jiki/curriculum";
 import dynamic from "next/dynamic";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 import ChallengeError from "./ChallengeError";
 import ChallengeLocked from "./ChallengeLocked";
@@ -22,6 +23,7 @@ interface ChallengeProps {
 }
 
 export default function Challenge({ slug }: ChallengeProps) {
+  const t = useTranslations("challenge");
   const [challenge, setChallenge] = useState<ChallengeData | null>(null);
   const [userCourse, setUserCourse] = useState<UserCourse | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -36,9 +38,9 @@ export default function Challenge({ slug }: ChallengeProps) {
   // Update document title when challenge loads
   useEffect(() => {
     if (challenge) {
-      document.title = `${challenge.title} - Jiki`;
+      document.title = t("documentTitle", { title: challenge.title });
     }
-  }, [challenge]);
+  }, [challenge, t]);
 
   useEffect(() => {
     let cancelled = false;
@@ -95,7 +97,7 @@ export default function Challenge({ slug }: ChallengeProps) {
         }
 
         console.error("Failed to load challenge:", err);
-        setError(err instanceof Error ? err.message : "Failed to load challenge");
+        setError(err instanceof Error ? err.message : t("loadError"));
       } finally {
         if (!cancelled) {
           setLoading(false);
@@ -108,7 +110,7 @@ export default function Challenge({ slug }: ChallengeProps) {
     return () => {
       cancelled = true;
     };
-  }, [slug]);
+  }, [slug, t]);
 
   if (error) {
     return <ChallengeError error={error} />;

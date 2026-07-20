@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import SendArrow from "@/icons/send-arrow.svg";
 import { useChatInput } from "../hooks/useChatInput";
 import { UserAvatarImg } from "./ChatAvatars";
@@ -11,11 +12,9 @@ interface ChatInputProps {
   placeholder?: string;
 }
 
-export default function ChatInput({
-  onSendMessage,
-  disabled = false,
-  placeholder = "Type your question here..."
-}: ChatInputProps) {
+export default function ChatInput({ onSendMessage, disabled = false, placeholder }: ChatInputProps) {
+  const t = useTranslations("codingExercise.chatInput");
+  const resolvedPlaceholder = placeholder ?? t("placeholder");
   const { message, setMessage, handleSend, handleKeyDown, maxLength, charCount } = useChatInput({
     onSendMessage,
     disabled
@@ -39,7 +38,7 @@ export default function ChatInput({
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder={placeholder}
+            placeholder={resolvedPlaceholder}
             disabled={disabled}
             maxLength={maxLength}
           />

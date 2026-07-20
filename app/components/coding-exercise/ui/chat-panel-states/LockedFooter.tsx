@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import styles from "./LockedFooter.module.css";
@@ -15,6 +16,7 @@ interface LockedFooterProps {
 // - free-limit-reached: non-premium user who has used their free conversation
 // - premium-blocked: premium user who hit fair use limits
 export function LockedFooter({ variant }: LockedFooterProps) {
+  const t = useTranslations("codingExercise.lockedFooter");
   const routes = useLocaleRoutes();
   const handleUpgradeClick = () => {
     showPremiumUpgradeModal("assistant_limit_reached");
@@ -25,15 +27,17 @@ export function LockedFooter({ variant }: LockedFooterProps) {
       <div className={styles.footerBox}>
         {variant === "free-limit-reached" ? (
           <p className={styles.footerText}>
-            You&apos;re no longer on the Premium Plan.{" "}
-            <button onClick={handleUpgradeClick} className={styles.upgradeLink}>
-              Upgrade
-            </button>{" "}
-            to continue the conversation.
+            {t.rich("freeLimitText", {
+              upgrade: (chunks) => (
+                <button onClick={handleUpgradeClick} className={styles.upgradeLink}>
+                  {chunks}
+                </button>
+              )
+            })}
           </p>
         ) : (
           <>
-            <p className={styles.footerText}>You&apos;ve hit our fair use limits. Please try again tomorrow.</p>
+            <p className={styles.footerText}>{t("premiumBlockedText")}</p>
             <p className={styles.footerLink}>
               <Link
                 href={routes.article("fair-usage-jiki-ai-policy")}
@@ -41,7 +45,7 @@ export function LockedFooter({ variant }: LockedFooterProps) {
                 rel="noopener noreferrer"
                 className={styles.footerLinkGray}
               >
-                Learn more about fair use limits
+                {t("learnMoreFairUse")}
               </Link>
             </p>
           </>

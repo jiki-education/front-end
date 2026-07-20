@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { ConceptsLayout } from "@/components/concepts";
 import ConceptLayout from "@/components/concepts/ConceptLayout";
@@ -23,6 +24,7 @@ interface ProjectPageProps {
 }
 
 export default function ProjectPage({ project, episodes, locale }: ProjectPageProps) {
+  const t = useTranslations("projects.projectPage");
   const sorted = [...episodes].sort((a, b) => a.order - b.order);
   const [progressByUuid, setProgressByUuid] = useState<Record<string, number>>({});
   const [progressLoaded, setProgressLoaded] = useState(false);
@@ -79,7 +81,9 @@ export default function ProjectPage({ project, episodes, locale }: ProjectPagePr
     <ConceptsLayout>
       <header className={styles.header}>
         <Link href={localePath("/build", locale)} className={styles.backLink}>
-          ← Back to <span className={styles.backLinkStrong}>All Projects</span>
+          {t.rich("backToAllProjects", {
+            strong: (chunks) => <span className={styles.backLinkStrong}>{chunks}</span>
+          })}
         </Link>
         <h1 className={styles.title}>{project.title}</h1>
       </header>

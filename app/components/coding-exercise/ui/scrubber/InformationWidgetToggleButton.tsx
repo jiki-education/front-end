@@ -1,9 +1,11 @@
+import { useTranslations } from "next-intl";
 import Tooltip from "@/components/ui/Tooltip";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import styles from "../../CodingExercise.module.css";
 
 export default function InformationWidgetToggleButton({ disabled }: { disabled: boolean }) {
+  const t = useTranslations("codingExercise.scrubber");
   const orchestrator = useOrchestrator();
   const { shouldShowInformationWidget } = useOrchestratorStore(orchestrator);
 
@@ -15,9 +17,7 @@ export default function InformationWidgetToggleButton({ disabled }: { disabled: 
     }
   };
 
-  const tooltipContent = shouldShowInformationWidget
-    ? "Toggle the information panel off"
-    : "Toggle the information panel on";
+  const tooltipContent = shouldShowInformationWidget ? t("toggleInfoOff") : t("toggleInfoOn");
 
   return (
     <Tooltip content={tooltipContent} disabled={disabled}>
@@ -26,7 +26,7 @@ export default function InformationWidgetToggleButton({ disabled }: { disabled: 
         onClick={handleToggle}
         disabled={disabled}
         className={`${styles.toggleBtn} ${shouldShowInformationWidget ? styles.on : ""}`}
-        aria-label={shouldShowInformationWidget ? "Hide information widget" : "Show information widget"}
+        aria-label={shouldShowInformationWidget ? t("hideInfoWidget") : t("showInfoWidget")}
         aria-pressed={shouldShowInformationWidget}
       />
     </Tooltip>

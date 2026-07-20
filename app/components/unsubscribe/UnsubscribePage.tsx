@@ -1,6 +1,7 @@
 "use client";
 
 import { notFound } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/lib/auth/authStore";
 import type { EmailPreferences } from "@/lib/api/emailPreferences";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
@@ -16,6 +17,7 @@ interface UnsubscribePageProps {
 }
 
 export default function UnsubscribePage({ token, emailKey }: UnsubscribePageProps) {
+  const t = useTranslations("unsubscribe");
   const { isAuthenticated } = useAuthStore();
   const {
     preferences,
@@ -45,8 +47,8 @@ export default function UnsubscribePage({ token, emailKey }: UnsubscribePageProp
     <div className={styles.pageWrapper}>
       <div className={styles.innerContent}>
         <header className={styles.pageHeader}>
-          <h1 className={styles.pageTitle}>Email Preferences</h1>
-          <p className={styles.pageSubtitle}>Manage how and when we communicate with you.</p>
+          <h1 className={styles.pageTitle}>{t("title")}</h1>
+          <p className={styles.pageSubtitle}>{t("subtitle")}</p>
         </header>
 
         <div className={styles.contentLayout}>

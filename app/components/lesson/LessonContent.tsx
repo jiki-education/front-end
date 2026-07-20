@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 import type { UserCourse } from "@/types/course";
 import type { LessonWithData } from "@/types/lesson";
 import type { LastSubmissionData } from "@/lib/api/types/conversation";
@@ -55,6 +56,7 @@ export default function LessonContent({
 function QuizNotImplemented({ onReady }: { onReady: () => void }) {
   const router = useRouter();
   const routes = useLocaleRoutes();
+  const t = useTranslations("lesson");
 
   useEffect(() => {
     onReady();
@@ -63,12 +65,12 @@ function QuizNotImplemented({ onReady }: { onReady: () => void }) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="text-center">
-        <p className="text-gray-600 mb-4">Quiz lessons are not yet implemented</p>
+        <p className="text-gray-600 mb-4">{t("quizNotImplemented")}</p>
         <button
           onClick={() => router.push(routes.dashboard())}
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
         >
-          Back to Dashboard
+          {t("backToDashboard")}
         </button>
       </div>
     </div>

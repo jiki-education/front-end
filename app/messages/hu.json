@@ -111,13 +111,51 @@
       "currentPasswordRequired": "Current password is required",
       "newPasswordRequired": "New password is required",
       "passwordsNoMatch": "Passwords do not match"
-    }
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previousPage": "Previous page",
+      "nextPage": "Next page"
+    },
+    "loadingJiki": {
+      "alt": "Jiki character waking up"
+    },
+    "otpInput": {
+      "label": "One-time password",
+      "digitLabel": "Digit {number} of 6"
+    },
+    "closeButton": {
+      "label": "Close modal"
+    },
+    "copyButton": {
+      "label": "Copy to clipboard",
+      "copied": "Copied"
+    },
+    "soundToggle": {
+      "mute": "Mute sounds",
+      "unmute": "Unmute sounds"
+    },
+    "themeToggle": {
+      "switchToDark": "Switch to dark theme",
+      "switchToSystem": "Switch to system theme",
+      "switchToLight": "Switch to light theme",
+      "toggle": "Toggle theme",
+      "description": "Current theme: {theme}. Click to cycle between light, dark, and system themes."
+    },
+    "badgeNewLabel": {
+      "label": "NEW"
+    },
+    "saving": "Saving..."
   },
   "build": {
     "upcomingStreams": {
       "heading": "Upcoming Live Sessions",
       "toBeAnnounced": "To be announced",
       "subscribeButton": "Subscribe to Calendar"
+    },
+    "hub": {
+      "title": "Learn to Build - Projects",
+      "description": "Build real projects from scratch with Jeremy. Learn everything he knows!"
     }
   },
   "auth": {
@@ -240,6 +278,13 @@
       "cancel": "Cancel and sign in again",
       "invalidCode": "Invalid verification code",
       "verificationFailed": "Verification failed. Please try again."
+    },
+    "layout": {
+      "logoAlt": "Jiki",
+      "tagline": "Your coding journey starts here",
+      "description": "Join millions of learners transforming their careers through hands-on coding practice.",
+      "createdBy": "Created By",
+      "brand": "The team behind Exercism"
     }
   },
   "settings": {
@@ -1289,6 +1334,444 @@
       "otherLabel": "Outlook & other calendars",
       "otherHelp": "Copy this link and add it as a subscribed calendar.",
       "copied": "Copied"
+    }
+  },
+  "challenge": {
+    "backToChallenges": "Back to Challenges",
+    "error": {
+      "message": "Error: {error}"
+    },
+    "loadError": "Failed to load challenge",
+    "documentTitle": "{title} - Jiki",
+    "locked": {
+      "title": "Challenge Locked",
+      "description": "This challenge is currently locked. Complete previous lessons to unlock it."
+    },
+    "premiumRequired": {
+      "title": "Premium Required",
+      "description": "Challenges are a premium feature. Upgrade your plan to start building."
+    }
+  },
+  "dashboard": {
+    "exercisePath": {
+      "comingSoon": {
+        "title": "More Lessons Coming Soon",
+        "description": "We're busy finalising the next lessons. Check back soon to continue your journey!"
+      },
+      "walkthrough": {
+        "label": "Deep Dive",
+        "watch": "Watch"
+      },
+      "start": {
+        "title": "The Start of your Journey"
+      },
+      "completionCert": {
+        "title": "Completion Certificate",
+        "description": "Complete all the exercises to get your completion certificate and showcase your new skills!",
+        "progress": "{percentage}% complete"
+      },
+      "lessonNode": {
+        "status": {
+          "complete": "Complete",
+          "locked": "Locked",
+          "inProgress": "In Progress"
+        },
+        "type": {
+          "video": "Video",
+          "quiz": "Quiz",
+          "choice": "Choice",
+          "exercise": "Exercise"
+        }
+      },
+      "scrollToActive": {
+        "up": "Scroll up to active lesson",
+        "down": "Scroll down to active lesson"
+      },
+      "milestone": {
+        "label": "Milestone {index}"
+      }
+    },
+    "challengesSidebar": {
+      "empty": {
+        "title": "Challenges await!",
+        "description": "Complete exercises to unlock real coding challenges. Build games, apps, and tools that bring your skills to life."
+      },
+      "upsell": {
+        "title": "New Challenges Await!",
+        "description": "Combine your skills and challenge yourself with Premium Challenges."
+      },
+      "userProfile": {
+        "premiumMember": "Premium Member"
+      },
+      "challengeCard": {
+        "status": {
+          "locked": "Locked",
+          "notStarted": "Not started",
+          "inProgress": "In progress",
+          "completed": "Completed",
+          "available": "Available"
+        }
+      },
+      "streak": {
+        "activeDays": "{count, plural, one {You studied for # day in total.} other {You studied for # days in total.}}",
+        "noStreak": "Practice today to kick off your streak!",
+        "oneDayStreak": "Practice daily to build a streak!",
+        "multiDayStreak": "{count, plural, one {You have a # day streak!} other {You have a # day streak!}}"
+      },
+      "badges": {
+        "title": "Badges"
+      },
+      "recent": {
+        "title": "Recent Challenges",
+        "unlockedCount": "{count} unlocked",
+        "viewAll": "View All Challenges"
+      }
+    }
+  },
+  "codingExercise": {
+    "loadError": "Error loading exercise: {error}",
+    "runButton": {
+      "run": "Run Code",
+      "running": "Running...",
+      "resetAriaLabel": "Reset exercise",
+      "resetTooltip": "Click to Reset the exercise",
+      "resetConfirmTitle": "Reset your code?",
+      "resetConfirmMessage": "This will reset your code back to the start. Don't worry — this won't lose your conversations with Jiki.",
+      "resetConfirmButton": "Yes, reset"
+    },
+    "hintsPanel": {
+      "title": "Hints",
+      "description": "If you're stuck on this exercise, these hints can help guide you in the right direction. Click on a hint to reveal helpful tips.",
+      "empty": "No hints available for this exercise.",
+      "reveal": "Reveal",
+      "hide": "Hide",
+      "confirmReveal": "Are you sure you want to reveal this hint?",
+      "confirmNo": "Not for now",
+      "confirmYes": "Yes",
+      "deepDiveHeading": "Deep Dive",
+      "deepDiveDescription": "Still stuck? Watch a deep dive of Jeremy solving this exercise.",
+      "walkthroughThumbnailAlt": "Deep Dive video thumbnail"
+    },
+    "chatHeader": {
+      "title": "Ask Jiki",
+      "description": "Ask questions and get help from your AI coding assistant"
+    },
+    "chatStatus": {
+      "errorLabel": "Error:",
+      "tryAgain": "Try Again"
+    },
+    "chatPanel": {
+      "unavailable": "Chat unavailable"
+    },
+    "chatMessages": {
+      "greeting": "Hey there! What can I help you with on this exercise?"
+    },
+    "chatInput": {
+      "placeholder": "Type your question here...",
+      "limitReachedPlaceholder": "You've reached your message limit",
+      "respondPlaceholder": "Respond to Jiki..."
+    },
+    "conversation": {
+      "loadError": "Failed to load conversation history: {error}",
+      "retry": "Retry"
+    },
+    "typeItAssistant": {
+      "thinking": "Jiki is thinking"
+    },
+    "functionsView": {
+      "empty": "No functions available for this exercise.",
+      "examples": "Examples"
+    },
+    "tasksView": {
+      "empty": "No tasks available for this exercise.",
+      "bonus": "Bonus"
+    },
+    "logPanel": {
+      "title": "Scenario Log",
+      "emptyDescription": "This is the output from your code execution. Here you can analyse the changes you've made. Use <code>console.log()</code> to log values.",
+      "description": "This is the output from your code execution for <scenario>{name}</scenario> scenario. Here you can analyse the changes you've made. Use <code>console.log()</code> to log values.",
+      "emptyState": "You've not logged anything out yet"
+    },
+    "instructionsPanel": {
+      "instructionsTitle": "Instructions",
+      "functionsTitle": "Functions",
+      "conceptLibraryTitle": "Concept Library",
+      "functionsIntro": "These are the functions you can use in this exercise",
+      "functionsExamplesLabel": "Examples:",
+      "loadingConcepts": "Loading concepts...",
+      "premiumChallenge": "Premium Challenge",
+      "exerciseLevel": "Exercise • {level}",
+      "libraryEmpty": "This is where you will see Concepts as you progress through the exercises. These will be references you can use to refresh your memory on what you've learned.",
+      "libraryChallenges": "You can use any concepts you've learned so far in this exercise. Refer back to your Concept Library when you want to remind yourself of what you've learned.",
+      "libraryWithConcepts": "These are the key concepts used in this exercise. Use them to refresh yourself on what you've learned so far.",
+      "openConceptLibrary": "Open Concept Library"
+    },
+    "scrubber": {
+      "previousFrame": "Previous frame",
+      "nextFrame": "Next frame",
+      "previousBreakpoint": "Previous breakpoint",
+      "nextBreakpoint": "Next breakpoint",
+      "toggleInfoOn": "Toggle the information panel on",
+      "toggleInfoOff": "Toggle the information panel off",
+      "showInfoWidget": "Show information widget",
+      "hideInfoWidget": "Hide information widget",
+      "disabledCodeEdited": "The code has been edited so we've disabled the scrubber. Press \"Run code\" to re-enable it.",
+      "disabledSpotlight": "Scrubber disabled: Spotlight mode is active.",
+      "disabledNotEnoughFrames": "Scrubber disabled: Not enough frames to scrub through."
+    },
+    "avatars": {
+      "jikiAlt": "Jiki",
+      "userAlt": "You"
+    },
+    "rhs": {
+      "tabInstructions": "Instructions",
+      "tabAskJiki": "Ask Jiki",
+      "tabLog": "Log",
+      "tabHints": "Hints",
+      "navChallenges": "Challenges",
+      "navDashboard": "Dashboard"
+    },
+    "canStart": {
+      "placeholder": "Type your question here...",
+      "askAbout": "Ask about...",
+      "askJiki": "Ask Jiki",
+      "freeIncluded": "First conversation included in your Free plan",
+      "premiumIncluded": "Included in your <premium>Premium</premium> plan",
+      "phraseWhyNotWorking": "why your code isn't working",
+      "phraseHowToFixBug": "how to fix a bug",
+      "phraseWhatErrorMeans": "what this error means",
+      "phraseHowToApproach": "how to approach this exercise",
+      "phraseHowToGetUnstuck": "how to get unstuck"
+    },
+    "freeUserLimitReached": {
+      "description": "You've used your free conversation. Continue learning with Jiki's help with concepts, debugging, and moving forward on exercises.",
+      "upgradeButton": "Upgrade to Jiki Premium",
+      "price": "Just <price></price>!"
+    },
+    "lockedFooter": {
+      "freeLimitText": "You're no longer on the Premium Plan. <upgrade>Upgrade</upgrade> to continue the conversation.",
+      "premiumBlockedText": "You've hit our fair use limits. Please try again tomorrow.",
+      "learnMoreFairUse": "Learn more about fair use limits"
+    },
+    "chatUsageNotice": {
+      "learnMore": "Learn More"
+    },
+    "stuckHeader": {
+      "title": "Feeling Stuck? Ask Jiki!"
+    },
+    "testResults": {
+      "passBadge": "Pass",
+      "failBadge": "Fail",
+      "pendingBadge": "Pending",
+      "pendingMessage": "Run your code to see whether this scenario passes or fails.",
+      "codeRun": "Code run",
+      "expected": "Expected",
+      "actual": "Actual",
+      "noReturn": "[Your function didn't return anything]",
+      "clickRunCode": "Click “Run Code” to see what your code does.",
+      "lintWarning": "<strong>Nearly there...</strong> Your code worked correctly, but you need to fix your formatting. Look for orange underlines in your code.",
+      "lintWarningPlain": "Your code worked correctly, but you need to fix your formatting. Look for orange underlines in your code.",
+      "genericError": "Uh Oh. Your code has an error in it.",
+      "congratsWellDone": "Well done!",
+      "congratsNiceWork": "Nice work!",
+      "congratsFantasticJob": "Fantastic job!",
+      "congratsAmazingEffort": "Amazing effort!",
+      "congratsGreatAchievement": "Great achievement!",
+      "congratsCongratulations": "Congratulations!",
+      "congratsCongrats": "Congrats!"
+    },
+    "syntaxError": {
+      "heading": "Jiki couldn't understand your code.",
+      "message": "No need to panic. Read and fix the error in the message above, and then run the code again."
+    },
+    "unhandledError": {
+      "heading": "Oops! Something went <strong>very</strong> wrong.",
+      "message": "<strong>This is our error, not yours!</strong> Please tell us about this error so we can fix it. Copy the mysterious text below and share it with us on <link>the forum</link>. Thank you! 💙"
+    }
+  },
+  "lesson": {
+    "documentTitle": "{title} - Jiki",
+    "loadError": "Failed to load lesson",
+    "backToDashboard": "Back to Dashboard",
+    "error": {
+      "message": "Error: {error}"
+    },
+    "quizNotImplemented": "Quiz lessons are not yet implemented",
+    "quitButton": {
+      "title": "Quit Lesson",
+      "message": "Are you sure you want to quit this lesson? Your progress won't be saved.",
+      "confirm": "Quit",
+      "cancel": "Continue Learning",
+      "ariaLabel": "Quit lesson"
+    },
+    "loadingPage": {
+      "loading": "Loading",
+      "message": {
+        "video": "Preparing video lesson",
+        "chooseLanguage": "Loading language options",
+        "exercise": "Setting up code editor"
+      },
+      "tip": {
+        "video": "💡 Tip: You can adjust video playback speed using the controls",
+        "chooseLanguage": "💡 Tip: Choose the language you want to learn with",
+        "exercise": "💡 Tip: Use Cmd/Ctrl + Enter to quickly run your code"
+      }
+    },
+    "loadingModal": {
+      "title": "Personalising your lesson",
+      "subtitle": "Crafting something based on your preferences and progress"
+    }
+  },
+  "quizCard": {
+    "submit": "Submit",
+    "nextQuestion": "Next Question",
+    "codeInputPlaceholder": "// Type your code here...",
+    "feedback": {
+      "correct": "Correct!",
+      "incorrect": "Not quite right!"
+    },
+    "fillIn": {
+      "successTitle": "Perfect!",
+      "successMessage": "All blanks filled correctly!",
+      "incorrectTitle": "{count, plural, one {# blank incorrect} other {# blanks incorrect}}",
+      "errorMessage": "Review your answers and try again."
+    },
+    "coding": {
+      "successTitle": "Excellent!",
+      "successMessage": "Your code is correct!",
+      "errorTitle": "Not quite right",
+      "errorMessage": "Check your syntax and try again."
+    }
+  },
+  "videoExercise": {
+    "noVideoSource": "No video source available",
+    "provider": "Provider: {provider}",
+    "skipHint": "You can’t skip ahead on your first watch, but you can rewind anytime.",
+    "pill": {
+      "complete": "Lesson Complete",
+      "progress": "Lesson Progress",
+      "watching": "Watching <title>{name}</title>",
+      "finished": "Finished <title>{name}</title>",
+      "finishTooltip": "Finish watching to continue"
+    }
+  },
+  "projects": {
+    "projectCard": {
+      "comingSoon": "Coming Soon",
+      "comingSoonLabel": "Coming soon"
+    },
+    "episodeCard": {
+      "premium": "Premium"
+    },
+    "episodeSummary": {
+      "heading": "Episode in Brief",
+      "whereWeStart": "Where we start",
+      "whereWeEnd": "Where we end up",
+      "whatWeCover": "What we cover"
+    },
+    "projectPage": {
+      "backToAllProjects": "← Back to <strong>All Projects</strong>"
+    },
+    "episodePage": {
+      "backToProject": "← Back to <strong>{title}</strong>",
+      "relevantGuidesDescription": "Guides that might be useful to you when solving this step in the process."
+    },
+    "relevantGuides": {
+      "heading": "Relevant Guides"
+    }
+  },
+  "guides": {
+    "guidesContent": {
+      "pageHeading": "Guides and how-tos",
+      "searchPlaceholder": "Search guides...",
+      "filterAll": "All",
+      "noResultsTitle": "0 results for “{query}”",
+      "noResultsMessage": "Try a different search term or browse the guides."
+    },
+    "guideCard": {
+      "premium": "Premium"
+    },
+    "guideBreadcrumb": {
+      "guides": "Guides"
+    },
+    "premiumGate": {
+      "lockedTitle": "This guide is for Premium members",
+      "lockedSubtitle": "Unlock this guide, and everything else Jiki Premium has to offer, to keep reading.",
+      "unlockButton": "Unlock with Premium"
+    },
+    "relatedGuides": {
+      "heading": "Related Guides"
+    },
+    "featuredInProjects": {
+      "heading": "Featured in Projects"
+    }
+  },
+  "unsubscribe": {
+    "title": "Email Preferences",
+    "subtitle": "Manage how and when we communicate with you.",
+    "updateError": "Failed to update your preferences. Please try again.",
+    "toggleAria": "Toggle {name}",
+    "manage": {
+      "title": "Manage Your Notifications",
+      "description": "Fine-tune which emails you receive by toggling individual notification types on or off.",
+      "updated": "Your email preferences have been updated.",
+      "save": "Change Preferences"
+    },
+    "all": {
+      "title": "Unsubscribe from All Emails",
+      "description": "Want to stop all email communications from Jiki? This will unsubscribe you from all marketing, notification, and reminder emails.",
+      "success": "You've been unsubscribed from all Jiki emails.",
+      "button": "Unsubscribe from All Emails"
+    },
+    "email": {
+      "alreadyTitle": "Already Unsubscribed",
+      "alreadyDescription": "You are not currently subscribed to <highlight>{emailType}</highlight> emails.",
+      "title": "Unsubscribe from This Email",
+      "description": "No longer want to receive this type of email? Click below to unsubscribe from <highlight>{emailType}</highlight> emails.",
+      "success": "You've been unsubscribed from {emailType}.",
+      "button": "Unsubscribe from {emailType}"
+    }
+  },
+  "achievements": {
+    "title": "Achievements",
+    "description": "Every badge tells a story of your coding journey.",
+    "tabBadges": "Badges",
+    "tabCertificates": "Certificates",
+    "loading": "Loading achievements...",
+    "error": "Error: {error}",
+    "retry": "Retry",
+    "certificatesEmptyTitle": "No certificates yet",
+    "certificatesEmptyBody": "Complete courses to earn certificates that showcase your skills. Your certificates will appear here once you've finished a course."
+  },
+  "challenges": {
+    "title": "Challenges",
+    "description": "Build real applications and games to practice your coding skills.",
+    "tabAll": "All",
+    "tabInProgress": "In Progress",
+    "tabNotStarted": "Not Started",
+    "tabComplete": "Complete",
+    "tabLocked": "Locked",
+    "error": "Error: {error}",
+    "retry": "Retry",
+    "codingChallenge": "Coding Challenge",
+    "premiumOnly": "Premium Only",
+    "status": {
+      "locked": "Locked",
+      "unlocked": "Not started",
+      "started": "In Progress",
+      "completed": "Completed"
+    },
+    "empty": {
+      "noneAvailable": "No challenges available yet.",
+      "noneFound": "No challenges found.",
+      "inProgressTitle": "No challenges in progress",
+      "inProgressDescription": "You haven't started any challenges yet. Browse available challenges and click \"Get started\" to begin your first challenge.",
+      "allStartedTitle": "All challenges have been started",
+      "allStartedDescription": "Great progress! You've started working on all available challenges. Keep going to complete them.",
+      "noneToStartTitle": "No challenges to start yet",
+      "noneToStartDescription": "Challenges will appear here as you unlock them.",
+      "completedTitle": "No completed challenges yet",
+      "completedDescription": "Complete your first challenge to see it here. Keep working on your in-progress challenges to reach this milestone."
     }
   }
 }

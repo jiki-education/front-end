@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { localePath } from "@/lib/i18n/routes";
 import { staticAsset } from "@/lib/static-asset";
 import styles from "./FeaturedInProjects.module.css";
@@ -24,13 +25,14 @@ interface FeaturedInProjectsProps {
  * this guide.
  */
 export default function FeaturedInProjects({ episodes, locale }: FeaturedInProjectsProps) {
+  const t = useTranslations("guides.featuredInProjects");
   if (episodes.length === 0) {
     return null;
   }
 
   return (
     <div className={styles.container}>
-      <h3 className={relatedStyles.relatedArticlesTitle}>Featured in Projects</h3>
+      <h3 className={relatedStyles.relatedArticlesTitle}>{t("heading")}</h3>
       <div className={styles.list}>
         {episodes.map((episode) => (
           <Link

@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { ChallengeIcon } from "@/components/icons/ChallengeIcon";
 import { LessonIcon } from "@/components/icons/LessonIcon";
 import NavigationButtons from "./NavigationButtons";
@@ -31,6 +32,7 @@ export default function DynamicHeader({
   onNavigateToConceptLibrary,
   getSectionTitle
 }: DynamicHeaderProps) {
+  const t = useTranslations("codingExercise.instructionsPanel");
   return (
     <div className={`${styles.dynamicHeader} ${isExpanded ? styles.expandedHeader : styles.collapsedHeader}`}>
       {isExpanded ? (
@@ -46,7 +48,7 @@ export default function DynamicHeader({
             <div className="flex flex-col gap-4">
               <h1 className={styles.exerciseTitle}>{exerciseData.title}</h1>
               <p className={styles.exerciseInfoText}>
-                {exerciseData.isChallenge ? "Premium Challenge" : `Exercise • ${exerciseData.level}`}
+                {exerciseData.isChallenge ? t("premiumChallenge") : t("exerciseLevel", { level: exerciseData.level })}
               </p>
             </div>
           </div>

@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { CopyToClipboardButton } from "@/components/ui-kit/CopyToClipboardButton";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
@@ -6,6 +7,7 @@ import styles from "./SyntaxErrorView.module.css";
 import unhandledStyles from "./UnhandledErrorView.module.css";
 
 export function UnhandledErrorView() {
+  const t = useTranslations("codingExercise.unhandledError");
   const orchestrator = useOrchestrator();
   const { unhandledErrorBase64 } = useOrchestratorStore(orchestrator);
 
@@ -22,15 +24,19 @@ export function UnhandledErrorView() {
           </svg>
         </div>
         <h3 className={styles.heading}>
-          Oops! Something went <strong className={unhandledStyles.headingStrong}>very</strong> wrong.
+          {t.rich("heading", {
+            strong: (chunks) => <strong className={unhandledStyles.headingStrong}>{chunks}</strong>
+          })}
         </h3>
         <p className={styles.message}>
-          <strong className={unhandledStyles.bodyStrong}>This is our error, not yours!</strong> Please tell us about
-          this error so we can fix it. Copy the mysterious text below and share it with us on{" "}
-          <a href="https://forum.jiki.io" target="_blank" rel="noreferrer">
-            the forum
-          </a>
-          . Thank you! 💙
+          {t.rich("message", {
+            strong: (chunks) => <strong className={unhandledStyles.bodyStrong}>{chunks}</strong>,
+            link: (chunks) => (
+              <a href="https://forum.jiki.io" target="_blank" rel="noreferrer">
+                {chunks}
+              </a>
+            )
+          })}
         </p>
         <CopyToClipboardButton textToCopy={unhandledErrorBase64} className={unhandledStyles.copyButton} />
         <div className="flex justify-center mt-16">

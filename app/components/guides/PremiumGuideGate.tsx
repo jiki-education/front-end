@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { tierIncludes } from "@/lib/pricing";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
@@ -26,6 +27,7 @@ function firstParagraph(html: string): string {
 }
 
 export default function PremiumGuideGate({ slug, content }: PremiumGuideGateProps) {
+  const t = useTranslations("guides.premiumGate");
   const user = useAuthStore((state) => state.user);
   const userIsPremium = !!user && tierIncludes(user.membership_type, "premium");
 
@@ -47,16 +49,14 @@ export default function PremiumGuideGate({ slug, content }: PremiumGuideGateProp
         <div className={styles.lockedIcon}>
           <LockIcon />
         </div>
-        <h2 className={styles.lockedTitle}>This guide is for Premium members</h2>
-        <p className={styles.lockedSubtitle}>
-          Unlock this guide, and everything else Jiki Premium has to offer, to keep reading.
-        </p>
+        <h2 className={styles.lockedTitle}>{t("lockedTitle")}</h2>
+        <p className={styles.lockedSubtitle}>{t("lockedSubtitle")}</p>
         <button
           type="button"
           className={styles.lockedButton}
           onClick={() => showPremiumUpgradeModal("locked_guide", { contextType: "guide", contextSlug: slug })}
         >
-          Unlock with Premium
+          {t("unlockButton")}
         </button>
       </div>
     </>

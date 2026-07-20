@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import type { useChat } from "../lib/useChat";
 import { deriveUsageStatus } from "../lib/chatUsage";
 import ChatInput from "./ChatInput";
@@ -11,6 +12,7 @@ interface ChatInputAreaProps {
 // The footer for an active conversation: error/status bar, usage notice, and
 // the message input.
 export function ChatInputArea({ chat }: ChatInputAreaProps) {
+  const t = useTranslations("codingExercise.chatInput");
   const usageStatus = deriveUsageStatus(chat.usage);
   const atCap = usageStatus?.atCap ?? false;
 
@@ -22,7 +24,7 @@ export function ChatInputArea({ chat }: ChatInputAreaProps) {
         onSendMessage={chat.sendMessage}
         disabled={chat.isDisabled || atCap}
         placeholder={
-          atCap ? "You've reached your message limit" : chat.messages.length > 0 ? "Respond to Jiki..." : undefined
+          atCap ? t("limitReachedPlaceholder") : chat.messages.length > 0 ? t("respondPlaceholder") : undefined
         }
       />
     </>

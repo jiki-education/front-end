@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import EmailEnvelopeIcon from "@/icons/email-envelope.svg";
 import CheckCircleIcon from "@/icons/check-circle.svg";
 import AlertCircleIcon from "@/icons/alert-circle.svg";
@@ -21,35 +22,33 @@ export default function UnsubscribeFromEmailSection({
   error,
   onUnsubscribe
 }: UnsubscribeFromEmailSectionProps) {
+  const t = useTranslations("unsubscribe");
+  const tCommon = useTranslations("common");
   const emailTypeName = formatKeyName(emailKey);
+  const highlight = (chunks: React.ReactNode) => <span className={styles.emailTypeHighlight}>{chunks}</span>;
 
   if (!isSubscribed && !success) {
     return (
       <section className={styles.sectionCard}>
-        <h2>Already Unsubscribed</h2>
-        <p>
-          You are not currently subscribed to <span className={styles.emailTypeHighlight}>{emailTypeName}</span> emails.
-        </p>
+        <h2>{t("email.alreadyTitle")}</h2>
+        <p>{t.rich("email.alreadyDescription", { emailType: emailTypeName, highlight })}</p>
       </section>
     );
   }
 
   return (
     <section className={styles.sectionCard}>
-      <h2>Unsubscribe from This Email</h2>
-      <p>
-        No longer want to receive this type of email? Click below to unsubscribe from{" "}
-        <span className={styles.emailTypeHighlight}>{emailTypeName}</span> emails.
-      </p>
+      <h2>{t("email.title")}</h2>
+      <p>{t.rich("email.description", { emailType: emailTypeName, highlight })}</p>
       {success ? (
         <div className={styles.inlineSuccessMessage}>
           <CheckCircleIcon />
-          <span>You&apos;ve been unsubscribed from {emailTypeName}.</span>
+          <span>{t("email.success", { emailType: emailTypeName })}</span>
         </div>
       ) : error ? (
         <div className={styles.inlineErrorMessage}>
           <AlertCircleIcon />
-          <span>Failed to update your preferences. Please try again.</span>
+          <span>{t("updateError")}</span>
         </div>
       ) : (
         <button
@@ -58,7 +57,7 @@ export default function UnsubscribeFromEmailSection({
           disabled={loading}
         >
           <EmailEnvelopeIcon />
-          {loading ? "Processing..." : `Unsubscribe from ${emailTypeName}`}
+          {loading ? tCommon("processing") : t("email.button", { emailType: emailTypeName })}
         </button>
       )}
     </section>
