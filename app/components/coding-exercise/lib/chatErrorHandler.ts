@@ -1,27 +1,14 @@
+import type { useTranslations } from "next-intl";
 import { ChatApiError, ChatRateLimitedError, ChatTokenExpiredError, ChatUsageLimitError } from "./chatApi";
 import { ChatTokenError, ChatTokenInvalidCaptchaError } from "./chatTokenApi";
 
-// Message keys relative to the `codingExercise` namespace. The caller (useChat)
-// translates with `useTranslations("codingExercise")`, so next-intl's typed `t`
-// validates every member of this union against the catalog.
-// The usage-limit entries reuse the ChatUsageNotice cap copy — same meaning,
-// same message.
-export type ChatErrorKey =
-  | "chatError.sessionExpired"
-  | "chatError.verificationFailed"
-  | "chatError.authFailed"
-  | "chatError.tokenServerError"
-  | "chatError.tokenInitFailed"
-  | "chatError.exerciseMismatch"
-  | "chatError.authExpired"
-  | "chatError.tooManyRequests"
-  | "chatError.serviceUnavailable"
-  | "chatError.serverError"
-  | "chatError.networkError"
-  | "chatError.timeout"
-  | "chatError.unexpected"
-  | "chatUsageNotice.limitReached.daily"
-  | "chatUsageNotice.limitReached.monthly";
+// Message keys relative to the `codingExercise` namespace, derived from the
+// catalog via next-intl's typing (the ToastKey pattern in lib/toast.tsx) so
+// every `key(...)` call is validated at typecheck — the catalog is the single
+// source of truth. The caller (useChat) translates with
+// `useTranslations("codingExercise")`. The usage-limit branches reuse the
+// ChatUsageNotice cap keys — same meaning, same message.
+export type ChatErrorKey = Parameters<ReturnType<typeof useTranslations<"codingExercise">>>[0];
 
 // The translatable result of classifying a chat error: either a catalog key
 // (plus ICU params) for copy we own, or verbatim text for copy the proxy/server
