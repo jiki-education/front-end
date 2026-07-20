@@ -55,6 +55,10 @@ jobs:
         working-directory: app
         run: pnpm run interpreter-i18n:generate
 
+      - name: Generate messages cache
+        working-directory: app
+        run: pnpm run messages-cache:generate
+
       - name: Generate concept cache
         working-directory: app
         run: pnpm run concept-cache:generate
@@ -162,6 +166,10 @@ jobs:
         working-directory: app
         run: pnpm run interpreter-i18n:generate
 
+      - name: Generate messages cache
+        working-directory: app
+        run: pnpm run messages-cache:generate
+
       - name: Generate concept cache
         working-directory: app
         run: pnpm run concept-cache:generate
@@ -212,6 +220,10 @@ jobs:
       - name: Generate interpreter i18n cache
         working-directory: app
         run: pnpm run interpreter-i18n:generate
+
+      - name: Generate messages cache
+        working-directory: app
+        run: pnpm run messages-cache:generate
 
       - name: Generate concept cache
         working-directory: app

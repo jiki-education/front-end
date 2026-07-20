@@ -56,30 +56,6 @@ tick items as they land. The curriculum-side detail lives in `curriculum/.contex
 - [ ] Per-exercise content fallback: `exercise-meta.ts` currently throws if a locale's index is
       missing — decide graceful handling vs. guaranteeing coverage via the guard.
 
-### App — UI catalogs → R2-fetched (required before the ~50-locale expansion)
-
-The app UI catalogs are the one surface still violating "never bundle the locale set":
-`lib/i18n/request.ts` bundler-imports `messages/{locale}.json`, so every locale's catalog compiles
-into the worker (only the active one is *evaluated*, but all ship — megabytes inside a 10MB-gzipped
-worker at 50 locales). Move delivery onto the existing static-content pipeline (the
-`fetchStaticContent` pattern blog/articles use). No component changes: `useTranslations`/`t.rich`
-call sites, the `messages/*.json` source files, key typing (`global.d.ts` reads `en.json` at compile
-time), and the jest mock are all untouched. Side benefit: translation updates stop requiring a
-redeploy.
-
-- [ ] `generate-messages-cache.js` (clone the `generate-*-cache.js` shape): emit
-      `public/static/messages/{locale}-{hash}.json` + a manifest in `lib/generated/`, wired into
-      `dev` and `build`; synced to R2 by the existing `static:upload`.
-- [ ] `lib/i18n/request.ts`: fetch the manifest-addressed JSON at SSR with a module-scope cache
-      keyed by the immutable hash (the real work — verify SSR latency on cold isolates; single
-      fetch retry). **No bundled fallback catalog** (decided): a failed fetch fails the request,
-      never silent English.
-- [ ] `ClientLocaleProvider`: swap its `import()` for a fetch of the same URL (existing failed-load
-      handling already covers it).
-- [ ] Known cost it does NOT address: the active locale's whole catalog is serialized into each SSR
-      response as `initialMessages` (scales with catalog size, not locale count). If heavy,
-      next-intl supports per-page message subsets — separate decision.
-
 ### Interpreter — de-bundle + inject + no fallback
 
 - [ ] Stop static-importing all locale packs in `src/*/translator.ts`; the interpreter still **owns**

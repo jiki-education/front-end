@@ -1,7 +1,10 @@
 "use client";
 
 import LoadingJiki from "@/components/ui/LoadingJiki";
+import { assetsUrl } from "@/lib/assets";
+import { appMessagesPath } from "@/lib/assets-paths";
 import { useAuthStore } from "@/lib/auth/authStore";
+import { messageHashes } from "@/lib/generated/messages-hashes";
 import { DEFAULT_TIME_ZONE, normalizeLocale, type Locale } from "@/lib/i18n/config";
 import { setLocaleCookie } from "@/lib/i18n/localeCookie";
 import { NextIntlClientProvider, type AbstractIntlMessages } from "next-intl";
@@ -73,18 +76,18 @@ export function ClientLocaleProvider({ initialLocale, initialMessages, children 
   );
 }
 
-// Dynamically loads a locale's message catalog and reports the outcome. Returns a
-// cleanup that cancels the pending swap (so an unmount / superseding locale change
-// doesn't apply a stale catalog).
+// Fetches a locale's message catalog from R2 (the content-hashed cache tree) and
+// reports the outcome. Returns a cleanup that cancels the pending swap (so an
+// unmount / superseding locale change doesn't apply a stale catalog).
 function loadLocaleCatalog(
   locale: Locale,
   { onLoaded, onFailed }: { onLoaded: (messages: AbstractIntlMessages) => void; onFailed: () => void }
 ): () => void {
   let cancelled = false;
-  void import(`@/messages/${locale}.json`)
-    .then((mod) => {
+  void fetchCatalog(locale)
+    .then((messages) => {
       if (!cancelled) {
-        onLoaded(mod.default as AbstractIntlMessages);
+        onLoaded(messages);
       }
     })
     .catch(() => {
@@ -95,4 +98,37 @@ function loadLocaleCatalog(
   return () => {
     cancelled = true;
   };
+}
+
+// In-flight/settled catalog fetches keyed by `${locale}:${hash}`, shared across
+// swaps so a re-entered locale reuses one request. The hash is immutable per
+// build, so a resolved entry stays valid; a rejected fetch is evicted so the next
+// swap retries. Mirrors `lib/i18n/request.ts` — there is NO bundled fallback.
+const catalogCache = new Map<string, Promise<AbstractIntlMessages>>();
+
+function fetchCatalog(locale: Locale): Promise<AbstractIntlMessages> {
+  const hash = messageHashes[locale];
+  if (!hash) {
+    return Promise.reject(new Error(`No UI message catalog hash for locale "${locale}"`));
+  }
+
+  const key = `${locale}:${hash}`;
+  const cached = catalogCache.get(key);
+  if (cached) {
+    return cached;
+  }
+
+  const promise = fetch(assetsUrl(appMessagesPath(locale, hash)))
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(`Failed to fetch UI message catalog for locale "${locale}"`);
+      }
+      return res.json() as Promise<AbstractIntlMessages>;
+    })
+    .catch((error) => {
+      catalogCache.delete(key);
+      throw error;
+    });
+  catalogCache.set(key, promise);
+  return promise;
 }
