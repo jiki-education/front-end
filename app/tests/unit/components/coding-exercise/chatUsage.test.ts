@@ -1,9 +1,4 @@
-import {
-  deriveUsageStatus,
-  extractUsage,
-  usageLimitText,
-  usageWarningText
-} from "@/components/coding-exercise/lib/chatUsage";
+import { deriveUsageStatus, extractUsage } from "@/components/coding-exercise/lib/chatUsage";
 import type { SignatureData, UsageMeta } from "@/components/coding-exercise/lib/chat-types";
 
 const baseSignature: SignatureData = {
@@ -91,28 +86,6 @@ describe("chatUsage", () => {
     it("prefers monthly scope when both limits are hit", () => {
       const status = deriveUsageStatus(usage({ messagesToday: 100, messagesThisMonth: 500 }));
       expect(status).toMatchObject({ scope: "monthly", atCap: true });
-    });
-  });
-
-  describe("copy", () => {
-    it("builds daily warning copy", () => {
-      const status = deriveUsageStatus(usage({ messagesToday: 90 }))!;
-      expect(usageWarningText(status)).toBe("You're getting close to your daily limit (90/100 messages today).");
-    });
-
-    it("builds monthly warning copy", () => {
-      const status = deriveUsageStatus(usage({ messagesThisMonth: 450 }))!;
-      expect(usageWarningText(status)).toBe(
-        "You're getting close to your monthly limit (450/500 messages this month)."
-      );
-    });
-
-    it("builds daily cap copy with the UTC reset", () => {
-      expect(usageLimitText("daily", 100)).toBe("You've used all 100 of today's messages. They reset at midnight UTC.");
-    });
-
-    it("builds monthly cap copy with the 1st reset", () => {
-      expect(usageLimitText("monthly", 500)).toBe("You've used all 500 messages this month. They reset on the 1st.");
     });
   });
 });

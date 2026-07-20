@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import type { UsageStatus } from "../lib/chatUsage";
-import { FAIR_USAGE_ARTICLE_SLUG, usageLimitText, usageWarningText } from "../lib/chatUsage";
+import { FAIR_USAGE_ARTICLE_SLUG } from "../lib/chatUsage";
 import styles from "./ChatUsageNotice.module.css";
 
 interface ChatUsageNoticeProps {
@@ -22,7 +22,13 @@ export default function ChatUsageNotice({ status }: ChatUsageNoticeProps) {
     return null;
   }
 
-  const text = status.atCap ? usageLimitText(status.scope, status.limit) : usageWarningText(status);
+  const text = status.atCap
+    ? status.scope === "monthly"
+      ? t("limitReached.monthly", { limit: status.limit })
+      : t("limitReached.daily", { limit: status.limit })
+    : status.scope === "monthly"
+      ? t("warning.monthly", { used: status.used, limit: status.limit })
+      : t("warning.daily", { used: status.used, limit: status.limit });
 
   return (
     <div className={`${styles.bar} ${status.atCap ? styles.cap : ""}`}>
