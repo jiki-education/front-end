@@ -10,7 +10,9 @@ import {
   validateNoDuplicateSlugs,
   validateRequiredLocales,
   validateProjectRequiredLocales,
-  validateEpisodeSummaryParity
+  validateEpisodeSummaryParity,
+  validateTestimonials,
+  REQUIRED_LOCALES
 } from "@/lib/content/validator";
 import authorsData from "../../../../content/src/authors.json";
 import type { AuthorRegistry } from "@/lib/content/types";
@@ -287,6 +289,35 @@ describe("Content Validation", () => {
       expect(() => {
         validateNoDuplicateSlugs(allSlugs);
       }).not.toThrow();
+    });
+  });
+
+  describe("Testimonials", () => {
+    const testimonialsDir = path.join(__dirname, "..", "..", "..", "..", "content", "src", "testimonials");
+
+    for (const locale of REQUIRED_LOCALES) {
+      describe(`${locale}.json`, () => {
+        const filePath = path.join(testimonialsDir, `${locale}.json`);
+
+        it("should exist", () => {
+          expect(fs.existsSync(filePath)).toBe(true);
+        });
+
+        it("should be valid", () => {
+          const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+          expect(() => validateTestimonials(locale, data)).not.toThrow();
+        });
+      });
+    }
+
+    it("should have identical quote slugs across all locales", () => {
+      const slugsByLocale = REQUIRED_LOCALES.map((locale) => {
+        const data = JSON.parse(fs.readFileSync(path.join(testimonialsDir, `${locale}.json`), "utf-8"));
+        return (data.quotes as Array<{ slug: string }>).map((q) => q.slug);
+      });
+      for (const slugs of slugsByLocale) {
+        expect(slugs).toEqual(slugsByLocale[0]);
+      }
     });
   });
 });

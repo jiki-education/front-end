@@ -171,6 +171,40 @@ export interface AuthorRegistry {
   [key: string]: Author;
 }
 
+// Landing-page testimonials. Editorial content (student quotes + marquee blurbs),
+// authored per-locale in the content package (content/src/testimonials/{locale}.json)
+// and baked into content-meta-server.json for synchronous SSR delivery.
+//
+// `image` is a filename only (e.g. "fred.webp"); the presentational avatar assets
+// live with the landing-page component, which maps the filename to a bundled
+// StaticImageData. `html` is trusted, hand-authored markup (only <strong> is used)
+// rendered via dangerouslySetInnerHTML.
+export interface Testimonial {
+  slug: string;
+  name: string;
+  role: string;
+  image: string;
+  html: string;
+}
+
+export interface PrimaryTestimonial {
+  quote: string;
+  name: string;
+  role: string;
+  image: string;
+}
+
+export interface TestimonialsData {
+  heading: string;
+  // Sentence containing a single <link>…</link> span linking to the full
+  // testimonials page. Rendered by splitting on the <link> tag.
+  subheading: string;
+  primary: PrimaryTestimonial;
+  quotes: Testimonial[];
+  // Short attribution-free blurbs for the hero marquee.
+  marquee: string[];
+}
+
 export interface SearchIndexData {
   index: object;
   items: Array<{ slug: string; title: string; excerpt: string }>;
