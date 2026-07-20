@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "basic-word-counting" as const,
-    name: "Basic cases",
-    description:
-      "Write a countWords function that takes a sentence and returns a dictionary with each word as a key and its frequency as the value. Handle spaces, commas, punctuation, and numbers.",
+    name: "tasks.basicWordCounting.name",
+    description: "tasks.basicWordCounting.description",
     hints: [],
     requiredScenarios: [
       "word-count-single-word",
@@ -19,18 +18,16 @@ export const tasks = [
   },
   {
     id: "case-normalization" as const,
-    name: "Case normalization",
-    description:
-      "Ensure your function handles mixed case words correctly, treats apostrophes as part of words, and handles multiple spaces.",
+    name: "tasks.caseNormalization.name",
+    description: "tasks.caseNormalization.description",
     hints: [],
     requiredScenarios: ["word-count-normalize-case", "word-count-with-apostrophes", "word-count-multiple-spaces"],
     bonus: false
   },
   {
     id: "bonus-apostrophes" as const,
-    name: "Bonus: Apostrophes and quotations",
-    description:
-      "Handle edge cases where apostrophes are used as quotation marks around words, not as part of contractions. Only apostrophes in the middle of a word should be kept.",
+    name: "tasks.bonusApostrophes.name",
+    description: "tasks.bonusApostrophes.description",
     hints: [],
     requiredScenarios: ["word-count-with-apostrophes-and-quotations", "word-count-apostrophe-word-variation"],
     bonus: true
@@ -41,8 +38,8 @@ export const scenarios: IOScenario[] = [
   // Task 1: Basic cases
   {
     slug: "word-count-single-word",
-    name: "Count one word",
-    description: "Count a single word.",
+    name: "scenarios.wordCountSingleWord.name",
+    description: "scenarios.wordCountSingleWord.description",
     taskId: "basic-word-counting",
     functionName: "count_words",
     args: ["word"],
@@ -50,8 +47,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "word-count-multiple-unique-words",
-    name: "Count one of each word",
-    description: "Count one of each word in a sentence.",
+    name: "scenarios.wordCountMultipleUniqueWords.name",
+    description: "scenarios.wordCountMultipleUniqueWords.description",
     taskId: "basic-word-counting",
     functionName: "count_words",
     args: ["one of each"],
@@ -59,8 +56,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "word-count-multiple-occurrences",
-    name: "Multiple occurrences",
-    description: "Count multiple occurrences of a word.",
+    name: "scenarios.wordCountMultipleOccurrences.name",
+    description: "scenarios.wordCountMultipleOccurrences.description",
     taskId: "basic-word-counting",
     functionName: "count_words",
     args: ["one fish two fish red fish blue fish"],
@@ -68,8 +65,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "word-count-cramped-list",
-    name: "Cramped list",
-    description: "Handle lists with cramped formatting.",
+    name: "scenarios.wordCountCrampedList.name",
+    description: "scenarios.wordCountCrampedList.description",
     taskId: "basic-word-counting",
     functionName: "count_words",
     args: ["one,two,three"],
@@ -77,8 +74,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "word-count-ignore-punctuation",
-    name: "Ignore punctuation",
-    description: "Ignore punctuation while counting words.",
+    name: "scenarios.wordCountIgnorePunctuation.name",
+    description: "scenarios.wordCountIgnorePunctuation.description",
     taskId: "basic-word-counting",
     functionName: "count_words",
     args: ["car: carpet as java: javascript!!&@$%^&"],
@@ -86,8 +83,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "word-count-include-numbers",
-    name: "Include numbers",
-    description: "Count words and include numbers.",
+    name: "scenarios.wordCountIncludeNumbers.name",
+    description: "scenarios.wordCountIncludeNumbers.description",
     taskId: "basic-word-counting",
     functionName: "count_words",
     args: ["testing, 1, 2 testing"],
@@ -97,8 +94,8 @@ export const scenarios: IOScenario[] = [
   // Task 2: Case normalization
   {
     slug: "word-count-normalize-case",
-    name: "Normalize case",
-    description: "Count words regardless of case.",
+    name: "scenarios.wordCountNormalizeCase.name",
+    description: "scenarios.wordCountNormalizeCase.description",
     taskId: "case-normalization",
     functionName: "count_words",
     args: ["go Go GO Stop stop"],
@@ -106,8 +103,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "word-count-with-apostrophes",
-    name: "Words with apostrophes",
-    description: "Correctly handle words with apostrophes.",
+    name: "scenarios.wordCountWithApostrophes.name",
+    description: "scenarios.wordCountWithApostrophes.description",
     taskId: "case-normalization",
     functionName: "count_words",
     args: ["First: don't laugh. Then: don't cry."],
@@ -115,8 +112,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "word-count-multiple-spaces",
-    name: "Multiple spaces",
-    description: "Handle multiple spaces correctly.",
+    name: "scenarios.wordCountMultipleSpaces.name",
+    description: "scenarios.wordCountMultipleSpaces.description",
     taskId: "case-normalization",
     functionName: "count_words",
     args: [" multiple   whitespaces"],
@@ -126,8 +123,8 @@ export const scenarios: IOScenario[] = [
   // Task 3: Bonus
   {
     slug: "word-count-with-apostrophes-and-quotations",
-    name: "Words with apostrophes and quotations",
-    description: "Handle words with apostrophes and quotations.",
+    name: "scenarios.wordCountWithApostrophesAndQuotations.name",
+    description: "scenarios.wordCountWithApostrophesAndQuotations.description",
     taskId: "bonus-apostrophes",
     functionName: "count_words",
     args: ["Joe can't tell between 'large' and large."],
@@ -135,8 +132,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "word-count-apostrophe-word-variation",
-    name: "Apostrophe word variation",
-    description: "Correctly count variations of words with apostrophes.",
+    name: "scenarios.wordCountApostropheWordVariation.name",
+    description: "scenarios.wordCountApostropheWordVariation.description",
     taskId: "bonus-apostrophes",
     functionName: "count_words",
     args: ["can, can't, 'can't'"],

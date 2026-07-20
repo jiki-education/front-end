@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "did-they-pass" as const,
-    name: "Did They Pass?",
-    description:
-      "Write a function that analyzes driving test marks and determines if the student passed. A student fails if they have any major faults (💥) or 5 or more minor faults (❌).",
+    name: "tasks.didTheyPass.name",
+    description: "tasks.didTheyPass.description",
     hints: [],
     requiredScenarios: ["perfect-marks", "dangerous", "one-big-mistake", "scraped-through", "one-mistake-too-many"],
     bonus: false
@@ -15,8 +14,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "perfect-marks",
-    name: "The perfect student!",
-    description: "They did everything right - wow!",
+    name: "scenarios.perfectMarks.name",
+    description: "scenarios.perfectMarks.description",
     taskId: "did-they-pass",
     functionName: "did_they_pass",
     args: ["✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅"],
@@ -24,8 +23,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "dangerous",
-    name: "Danger to society",
-    description: "We can't let this one on the road!",
+    name: "scenarios.dangerous.name",
+    description: "scenarios.dangerous.description",
     taskId: "did-they-pass",
     functionName: "did_they_pass",
     args: ["✅✅💥💥✅✅✅💥💥✅✅✅❌✅❌✅✅❌❌✅"],
@@ -33,8 +32,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "one-big-mistake",
-    name: "One big mistake",
-    description: "One big mistake is all it takes to fail!",
+    name: "scenarios.oneBigMistake.name",
+    description: "scenarios.oneBigMistake.description",
     taskId: "did-they-pass",
     functionName: "did_they_pass",
     args: ["✅✅✅✅✅✅✅✅✅💥✅✅✅✅✅✅✅✅✅✅"],
@@ -42,8 +41,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "scraped-through",
-    name: "Scraped through",
-    description: "They cut it close but they passed!",
+    name: "scenarios.scrapedThrough.name",
+    description: "scenarios.scrapedThrough.description",
     taskId: "did-they-pass",
     functionName: "did_they_pass",
     args: ["✅✅✅❌✅✅✅❌✅✅✅❌️✅✅✅✅✅❌️✅✅"],
@@ -51,8 +50,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "one-mistake-too-many",
-    name: "One mistake too many!",
-    description: "All those little errors added up.",
+    name: "scenarios.oneMistakeTooMany.name",
+    description: "scenarios.oneMistakeTooMany.description",
     taskId: "did-they-pass",
     functionName: "did_they_pass",
     args: ["✅✅✅❌✅✅✅❌✅✅✅❌️✅✅✅✅✅❌️❌️✅"],

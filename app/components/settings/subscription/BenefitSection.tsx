@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import CheckmarkCircle from "@/icons/checkmark-circle.svg";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
+import { staticAsset } from "@/lib/static-asset";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 import styles from "./BenefitSection.module.css";
 
@@ -27,7 +28,7 @@ function ActiveBenefitSection({ className = "" }: { className?: string }) {
     <div className={`${styles.benefitsSection} ${className}`}>
       <div className={styles.benefitsHeader}>
         <Image
-          src="/static/images/misc/splash.png"
+          src={staticAsset("images/misc/splash.png")}
           alt=""
           width={60}
           height={60}
@@ -37,7 +38,7 @@ function ActiveBenefitSection({ className = "" }: { className?: string }) {
           {t.rich("activeHeading", { highlight: (chunks) => <span className={styles.gradientText}>{chunks}</span> })}
         </h3>
         <Image
-          src="/static/images/misc/splash.png"
+          src={staticAsset("images/misc/splash.png")}
           alt=""
           width={60}
           height={60}

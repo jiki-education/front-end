@@ -1,0 +1,122 @@
+{
+  "tasks": {
+    "validateBasicIsbn": {
+      "name": "Validate a basic ISBN",
+      "description": "Write a function called isValidIsbn that takes an ISBN-10 string and returns true if valid, false if not. ISBN-10s contain dashes which should be skipped. Multiply each digit by a weight counting down from 10 to 1, sum them, and check if the total is divisible by 11."
+    },
+    "handleXCheckDigit": {
+      "name": "Handle X as a check digit",
+      "description": "Sometimes an ISBN ends with an X, which represents 10. Update your function to handle X in the last position."
+    },
+    "handleEdgeCases": {
+      "name": "Handle edge cases",
+      "description": "Make your function robust: handle ISBNs without dashes, reject invalid characters, reject X in non-last positions, and ensure exactly 10 digits are processed."
+    }
+  },
+  "scenarios": {
+    "isbnValid": {
+      "name": "Valid ISBN",
+      "description": "A valid ISBN-10 should return true."
+    },
+    "isbnValidCheckDigitX": {
+      "name": "Valid ISBN with X as check digit",
+      "description": "A valid ISBN-10 with check digit 'X' should return true."
+    },
+    "isbnValidNoDashes": {
+      "name": "Valid ISBN without dashes",
+      "description": "A valid ISBN-10 without separating dashes should return true."
+    },
+    "isbnValidNoDashesXCheck": {
+      "name": "Valid ISBN without dashes and X as check digit",
+      "description": "A valid ISBN-10 without dashes and check digit 'X' should return true."
+    },
+    "isbnInvalidCheckDigit": {
+      "name": "Invalid ISBN check digit",
+      "description": "An ISBN-10 with an incorrect check digit should return false."
+    },
+    "isbnInvalidCharacter": {
+      "name": "Check digit is a character other than X",
+      "description": "An ISBN-10 containing an invalid character should return false."
+    },
+    "isbnInvalidCharacterNotZero": {
+      "name": "Invalid check digit not treated as zero",
+      "description": "An invalid check digit should not be treated as zero."
+    },
+    "isbnInvalidNonNumeric": {
+      "name": "Invalid character in ISBN",
+      "description": "Invalid characters in ISBN should not be ignored."
+    },
+    "isbnInvalidXPosition": {
+      "name": "X only valid as a check digit",
+      "description": "An 'X' should only be valid as a check digit."
+    },
+    "isbnInvalidMissingCheckDigit": {
+      "name": "ISBN without check digit",
+      "description": "An ISBN-10 without a check digit should return false."
+    },
+    "isbnInvalidTooLong": {
+      "name": "Too long ISBN",
+      "description": "An ISBN-10 that is too long should return false."
+    },
+    "isbnInvalidTooShort": {
+      "name": "Too short ISBN",
+      "description": "An ISBN-10 that is too short should return false."
+    },
+    "isbnInvalidEmpty": {
+      "name": "Empty ISBN",
+      "description": "An empty ISBN string should return false."
+    },
+    "isbnInvalidLengthNine": {
+      "name": "ISBN is 9 characters",
+      "description": "An input with 9 characters should return false."
+    },
+    "isbnInvalidNonNumericBeforeCheck": {
+      "name": "Invalid character before checking length",
+      "description": "Invalid characters should not be ignored before checking length."
+    },
+    "isbnInvalidExtraLength": {
+      "name": "Input too long but contains a valid ISBN",
+      "description": "An input longer than 10 characters should return false."
+    }
+  },
+  "hints": {
+    "howChecked": {
+      "question": "How does an ISBN-10 actually get checked?",
+      "answer": "Each of the 10 digits is multiplied by a decreasing weight. The first digit by 10, the second by 9, all the way down to the last by 1. You sum all those products. If the total is divisible by 11, the ISBN is valid."
+    },
+    "dashes": {
+      "question": "What do I do with the dashes?",
+      "answer": "Dashes are just for human readability. Skip over them entirely. They don't count as a digit and they don't move you forward in the weighting."
+    },
+    "trackWeight": {
+      "question": "How do I keep track of the weight?",
+      "answer": "Start a multiplier variable at 10. Every time you process a digit, multiply it by the current multiplier, add the product to the running sum, then decrease the multiplier by 1."
+    },
+    "stringToNumber": {
+      "question": "How do I turn the string into a number?",
+      "answer": "You have two options. Firstly, the intended way in this exercise is to find a way using the `indexOf` method. Have a think about that. If you can't figure that out, check the next hint for an answer, and the Deep Dive video for the full indexOf solution."
+    },
+    "stringToNumberAgain": {
+      "question": "No seriously, how do I turn the string into a number?",
+      "answer": "Two options. Firstly you can use the `Number()` function (with a capital \"N\"), so `Number(\"5\")` gives `5`. There's also a nice indexOf solution you can see in the Deep Dive video afterwards."
+    },
+    "handleX": {
+      "question": "How do I handle 'X'. That's not a digit, is it?",
+      "answer": "'X' is special. It represents the value 10, but only as the very last character. Treat it like a digit with value 10 when you see it at the end, and reject the ISBN if 'X' appears anywhere else."
+    },
+    "exactlyTenDigits": {
+      "question": "How do I make sure there are exactly 10 digits?",
+      "answer": "Your multiplier started at 10 and decreased by 1 per digit. If you processed exactly 10 digits, it'll have ended up at 0. Anything else means the wrong number of digits, so reject it."
+    },
+    "finalCheck": {
+      "question": "What's the final validity check?",
+      "answer": "After processing everything, the ISBN is valid if the total sum is divisible by 11 (i.e. `sum % 11 == 0`)."
+    }
+  },
+  "functions": {
+    "stringToNumber": {
+      "description": "Convert a string containing digits to a number (provided by level stdlib)",
+      "category": "Type Conversion"
+    }
+  }
+}

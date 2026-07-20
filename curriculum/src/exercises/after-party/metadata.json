@@ -3,20 +3,20 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "How do I approach checking whether a name is on a list?",
-      "answer": "Imagine doing it by hand. You'd read down the list, and for each entry decide whether it matches what you're looking for. Code works the same way. Loop through the names one at a time."
+      "question": "hints.approachChecking.question",
+      "answer": "hints.approachChecking.answer"
     },
     {
-      "question": "What helper functions might make this easier?",
-      "answer": "A `length()` function (to know how long a string is) and a `startsWith()` function (to check if a string begins with certain characters) would make the matching much simpler. Try writing those first."
+      "question": "hints.helperFunctions.question",
+      "answer": "hints.helperFunctions.answer"
     },
     {
-      "question": "What does 'matching' actually mean here?",
-      "answer": "A name matches if it starts with the first name followed by a space (e.g. 'Andy Smith' for Andy), OR if it's exactly the first name on its own (for single-name celebrities like 'Cher'). Just checking 'starts with Andy' would wrongly match 'Andrew' too."
+      "question": "hints.whatIsMatching.question",
+      "answer": "hints.whatIsMatching.answer"
     },
     {
-      "question": "When should I return true vs false?",
-      "answer": "Return `true` as soon as you find a match. There's no need to keep looking. Only return `false` once you've checked every name and none matched."
+      "question": "hints.returnTrueOrFalse.question",
+      "answer": "hints.returnTrueOrFalse.answer"
     }
   ]
 }

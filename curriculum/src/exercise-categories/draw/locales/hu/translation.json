@@ -1,0 +1,46 @@
+{
+  "errors": {
+    "allInputsNumbers": "All inputs must be numbers",
+    "blueRange": "Blue must be between 0 and 255",
+    "circleInputsNumbers": "The x, y, and radius inputs must be numbers",
+    "colorNamedOrHex": "Color must be a named color (\"orange\", \"blue\", \"white\", etc) specified in the instructions, or a hex color starting with #",
+    "colorNotAllowed": "Color should not be specified for this exercise",
+    "colorNotString": "Color must be a string",
+    "ellipseInputsNumbers": "The x, y, rx, and ry inputs must be numbers",
+    "greenRange": "Green must be between 0 and 255",
+    "heightPositive": "Height must be greater than 0",
+    "hueRange": "Hue must be between 0 and 360",
+    "lightnessRange": "Lightness must be between 0 and 100",
+    "lineInputsNumbers": "The x1, y1, x2, and y2 inputs must be numbers",
+    "rectInputsNumbers": "The x, y, width, and height inputs must be numbers",
+    "redRange": "Red must be between 0 and 255",
+    "saturationRange": "Saturation must be between 0 and 100",
+    "triangleInputsNumbers": "The x1, y1, x2, y2, x3, and y3 inputs must be numbers",
+    "widthPositive": "Width must be greater than 0"
+  },
+  "describers": {
+    "rectangle": {
+      "default": "drew a rectangle at coordinates (${arg1}, ${arg2}) with a width of ${arg3}, a height of ${arg4}, and a color of ${arg5}",
+      "fixedColor": "drew a rectangle at coordinates (${arg1}, ${arg2}) with a width of ${arg3} and a height of ${arg4}"
+    },
+    "triangle": {
+      "default": "drew a triangle with three points: (${arg1}, ${arg2}), (${arg3}, ${arg4}), and (${arg5}, ${arg6}) with a color of ${arg7}",
+      "fixedColor": "drew a triangle with three points: (${arg1}, ${arg2}), (${arg3}, ${arg4}), and (${arg5}, ${arg6})"
+    },
+    "circle": {
+      "default": "drew a circle with its center at (${arg1}, ${arg2}), a radius of ${arg3}, and a color of ${arg4}",
+      "fixedColor": "drew a circle with its center at (${arg1}, ${arg2}) and a radius of ${arg3}"
+    },
+    "ellipse": {
+      "default": "drew an ellipse with its center at (${arg1}, ${arg2}), a radial width of ${arg3}, a radial height of ${arg4}, and a color of ${arg5}",
+      "fixedColor": "drew an ellipse with its center at (${arg1}, ${arg2}), a radial width of ${arg3}, and a radial height of ${arg4}"
+    },
+    "line": {
+      "default": "drew a line from (${arg1}, ${arg2}) to (${arg3}, ${arg4}) with a color of ${arg5}",
+      "fixedColor": "drew a line from (${arg1}, ${arg2}) to (${arg3}, ${arg4})"
+    },
+    "clear": "cleared the canvas",
+    "hsl": "converted HSL color (hue: ${arg1}, saturation: ${arg2}, lightness: ${arg3}) to a hex string",
+    "rgb": "converted RGB color (red: ${arg1}, green: ${arg2}, blue: ${arg3}) to a hex string"
+  }
+}

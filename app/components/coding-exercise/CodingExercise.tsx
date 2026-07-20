@@ -2,7 +2,6 @@
 
 import type { ExerciseSlug } from "@jiki/curriculum";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
 import { useEffect } from "react";
 import CodingExerciseContent from "./CodingExerciseContent";
 import { useExerciseLoader } from "./hooks/useExerciseLoader";
@@ -30,11 +29,9 @@ export default function CodingExercise({
   onReady
 }: CodingExerciseProps) {
   const router = useRouter();
-  const locale = useLocale();
   const continueHref = context.type === "challenge" ? "/challenges" : "/dashboard";
   const { orchestrator, isLoading, loadError } = useExerciseLoader({
     language,
-    locale,
     exerciseSlug,
     context,
     levelId,

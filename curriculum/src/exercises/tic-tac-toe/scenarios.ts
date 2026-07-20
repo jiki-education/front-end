@@ -4,9 +4,8 @@ import type { TicTacToeExercise } from "./Exercise";
 export const tasks = [
   {
     id: "play-tic-tac-toe" as const,
-    name: "Build the Tic Tac Toe game",
-    description:
-      "Create a runGame(moves) function that draws a board, places pieces, handles invalid moves, detects wins and draws, and implements basic AI for '?' moves.",
+    name: "tasks.playTicTacToe.name",
+    description: "tasks.playTicTacToe.description",
     hints: [],
     requiredScenarios: [
       "partial-game",
@@ -28,8 +27,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "partial-game",
-    name: "The first few moves of a game",
-    description: "Draw the grid and place the first few pieces correctly. The game is still in progress.",
+    name: "scenarios.partialGame.name",
+    description: "scenarios.partialGame.description",
     taskId: "play-tic-tac-toe",
     functionCall: {
       name: "run_game",
@@ -45,29 +44,29 @@ export const scenarios: VisualScenario[] = [
     expectations(exercise) {
       const ex = exercise as TicTacToeExercise;
       return [
-        { pass: ex.hasRectangleAt(5, 5, 90, 90), errorHtml: "The game outline is wrong or missing." },
-        { pass: ex.hasLineAt(5, 35, 95, 35), errorHtml: "The grid line from 5,35 to 95,35 is wrong or missing." },
-        { pass: ex.hasLineAt(5, 65, 95, 65), errorHtml: "The grid line from 5,65 to 95,65 is wrong or missing." },
-        { pass: ex.hasLineAt(35, 5, 35, 95), errorHtml: "The grid line from 35,5 to 35,95 is wrong or missing." },
-        { pass: ex.hasLineAt(65, 5, 65, 95), errorHtml: "The grid line from 65,5 to 65,95 is wrong or missing." },
-        { pass: ex.writeCallCount() === 0, errorHtml: "You wrote to the screen when the game is still going." },
+        { pass: ex.hasRectangleAt(5, 5, 90, 90), errorHtml: ex.t("checks.gameOutlineWrongOrMissing") },
+        { pass: ex.hasLineAt(5, 35, 95, 35), errorHtml: ex.t("checks.gridLine535To9535WrongOrMissing") },
+        { pass: ex.hasLineAt(5, 65, 95, 65), errorHtml: ex.t("checks.gridLine565To9565WrongOrMissing") },
+        { pass: ex.hasLineAt(35, 5, 35, 95), errorHtml: ex.t("checks.gridLine355To3595WrongOrMissing") },
+        { pass: ex.hasLineAt(65, 5, 65, 95), errorHtml: ex.t("checks.gridLine655To6595WrongOrMissing") },
+        { pass: ex.writeCallCount() === 0, errorHtml: ex.t("checks.wroteWhileGameInProgress") },
         // Crosses at (2,3) -> cx=80,cy=50 and (2,2) -> cx=50,cy=50
-        { pass: ex.hasLineAt(70, 10, 90, 30), errorHtml: "The cross line from 70,10 to 90,30 is wrong or missing." },
-        { pass: ex.hasLineAt(70, 30, 90, 10), errorHtml: "The cross line from 70,30 to 90,10 is wrong or missing." },
-        { pass: ex.hasLineAt(40, 40, 60, 60), errorHtml: "The cross line from 40,40 to 60,60 is wrong or missing." },
-        { pass: ex.hasLineAt(40, 60, 60, 40), errorHtml: "The cross line from 40,60 to 60,40 is wrong or missing." },
+        { pass: ex.hasLineAt(70, 10, 90, 30), errorHtml: ex.t("checks.crossLine7010To9030WrongOrMissing") },
+        { pass: ex.hasLineAt(70, 30, 90, 10), errorHtml: ex.t("checks.crossLine7030To9010WrongOrMissing") },
+        { pass: ex.hasLineAt(40, 40, 60, 60), errorHtml: ex.t("checks.crossLine4040To6060WrongOrMissing") },
+        { pass: ex.hasLineAt(40, 60, 60, 40), errorHtml: ex.t("checks.crossLine4060To6040WrongOrMissing") },
         // Noughts at (1,3) -> 80,20 and (3,1) -> 20,80
-        { pass: ex.hasCircleAt(80, 50, 10), errorHtml: "The nought at 80,50 is missing or wrong." },
-        { pass: ex.hasCircleAt(20, 80, 10), errorHtml: "The nought at 20,80 is missing or wrong." },
-        { pass: !ex.hasRectangleAt(0, 0, 100, 100), errorHtml: "You drew a results screen but the game hasn't ended." }
+        { pass: ex.hasCircleAt(80, 50, 10), errorHtml: ex.t("checks.nought8050MissingOrWrong") },
+        { pass: ex.hasCircleAt(20, 80, 10), errorHtml: ex.t("checks.nought2080MissingOrWrong") },
+        { pass: !ex.hasRectangleAt(0, 0, 100, 100), errorHtml: ex.t("checks.drewResultsScreenGameNotEnded") }
       ];
     }
   },
 
   {
     slug: "draw",
-    name: "A drawn game",
-    description: "Play a full game that ends in a draw. All pieces should be greyed out with a draw message.",
+    name: "scenarios.draw.name",
+    description: "scenarios.draw.description",
     taskId: "play-tic-tac-toe",
     functionCall: {
       name: "run_game",
@@ -88,61 +87,61 @@ export const scenarios: VisualScenario[] = [
     expectations(exercise) {
       const ex = exercise as TicTacToeExercise;
       return [
-        { pass: ex.hasRectangleAt(5, 5, 90, 90), errorHtml: "The game outline is wrong or missing." },
-        { pass: ex.hasLineAt(5, 35, 95, 35), errorHtml: "The grid line from 5,35 to 95,35 is wrong or missing." },
-        { pass: ex.hasLineAt(5, 65, 95, 65), errorHtml: "The grid line from 5,65 to 95,65 is wrong or missing." },
-        { pass: ex.hasLineAt(35, 5, 35, 95), errorHtml: "The grid line from 35,5 to 35,95 is wrong or missing." },
-        { pass: ex.hasLineAt(65, 5, 65, 95), errorHtml: "The grid line from 65,5 to 65,95 is wrong or missing." },
-        { pass: ex.hasCircleAt(20, 20, 10), errorHtml: "The nought at 20,20 is missing or wrong." },
+        { pass: ex.hasRectangleAt(5, 5, 90, 90), errorHtml: ex.t("checks.gameOutlineWrongOrMissing") },
+        { pass: ex.hasLineAt(5, 35, 95, 35), errorHtml: ex.t("checks.gridLine535To9535WrongOrMissing") },
+        { pass: ex.hasLineAt(5, 65, 95, 65), errorHtml: ex.t("checks.gridLine565To9565WrongOrMissing") },
+        { pass: ex.hasLineAt(35, 5, 35, 95), errorHtml: ex.t("checks.gridLine355To3595WrongOrMissing") },
+        { pass: ex.hasLineAt(65, 5, 65, 95), errorHtml: ex.t("checks.gridLine655To6595WrongOrMissing") },
+        { pass: ex.hasCircleAt(20, 20, 10), errorHtml: ex.t("checks.nought2020MissingOrWrong") },
         {
           pass: ex.hasLineAt(40, 40, 60, 60),
-          errorHtml: "The cross line from 40,40 to 60,60 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine4040To6060MissingOrWrong")
         },
         {
           pass: ex.hasLineAt(40, 60, 60, 40),
-          errorHtml: "The cross line from 40,60 to 60,40 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine4060To6040MissingOrWrong")
         },
-        { pass: ex.hasCircleAt(50, 20, 10), errorHtml: "The nought at 50,20 is missing or wrong." },
+        { pass: ex.hasCircleAt(50, 20, 10), errorHtml: ex.t("checks.nought5020MissingOrWrong") },
         {
           pass: ex.hasLineAt(70, 10, 90, 30),
-          errorHtml: "The cross line from 70,10 to 90,30 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine7010To9030MissingOrWrong")
         },
         {
           pass: ex.hasLineAt(70, 30, 90, 10),
-          errorHtml: "The cross line from 70,30 to 90,10 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine7030To9010MissingOrWrong")
         },
-        { pass: ex.hasCircleAt(20, 80, 10), errorHtml: "The nought at 20,80 is missing or wrong." },
+        { pass: ex.hasCircleAt(20, 80, 10), errorHtml: ex.t("checks.nought2080MissingOrWrong") },
         {
           pass: ex.hasLineAt(10, 40, 30, 60),
-          errorHtml: "The cross line from 10,40 to 30,60 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine1040To3060MissingOrWrong")
         },
         {
           pass: ex.hasLineAt(10, 60, 30, 40),
-          errorHtml: "The cross line from 10,60 to 30,40 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine1060To3040MissingOrWrong")
         },
-        { pass: ex.hasCircleAt(80, 80, 10), errorHtml: "The nought at 80,80 is missing or wrong." },
+        { pass: ex.hasCircleAt(80, 80, 10), errorHtml: ex.t("checks.nought8080MissingOrWrong") },
         {
           pass: ex.hasLineAt(40, 70, 60, 90),
-          errorHtml: "The cross line from 40,70 to 60,90 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine4070To6090MissingOrWrong")
         },
         {
           pass: ex.hasLineAt(40, 90, 60, 70),
-          errorHtml: "The cross line from 40,90 to 60,70 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine4090To6070MissingOrWrong")
         },
-        { pass: ex.hasCircleAt(80, 50, 10), errorHtml: "The nought at 80,50 is missing or wrong." },
+        { pass: ex.hasCircleAt(80, 50, 10), errorHtml: ex.t("checks.nought8050MissingOrWrong") },
         {
           pass: ex.wasWriteCalledWith("The game was a draw!"),
-          errorHtml: "You didn't write the result on the screen correctly."
+          errorHtml: ex.t("checks.didntWriteResultCorrectly")
         },
-        { pass: ex.writeCallCount() === 1, errorHtml: "You wrote to the screen multiple times." },
-        { pass: ex.hasRectangleAt(0, 0, 100, 100), errorHtml: "You didn't draw the overlay correctly." },
+        { pass: ex.writeCallCount() === 1, errorHtml: ex.t("checks.wroteToScreenMultipleTimes") },
+        { pass: ex.hasRectangleAt(0, 0, 100, 100), errorHtml: ex.t("checks.didntDrawOverlayCorrectly") },
         {
           pass: ex.checkUniqueColoredLines(2),
-          errorHtml: "We expected the crosses to be greyed out."
+          errorHtml: ex.t("checks.expectedCrossesGreyedOut")
         },
         {
           pass: ex.checkUniqueColoredCircles(2),
-          errorHtml: "We expected the noughts to be greyed out."
+          errorHtml: ex.t("checks.expectedNoughtsGreyedOut")
         }
       ];
     }
@@ -150,8 +149,8 @@ export const scenarios: VisualScenario[] = [
 
   {
     slug: "double-placement-duplicate",
-    name: "Placing an 'o' on an 'o'",
-    description: "Placing a piece on an already occupied square should show an error.",
+    name: "scenarios.doublePlacementDuplicate.name",
+    description: "scenarios.doublePlacementDuplicate.description",
     taskId: "play-tic-tac-toe",
     functionCall: {
       name: "run_game",
@@ -168,18 +167,18 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wasWriteCalledWith("Invalid move!"),
-          errorHtml: "You didn't write the invalid move on the screen correctly."
+          errorHtml: ex.t("checks.didntWriteInvalidMoveCorrectly")
         },
-        { pass: ex.writeCallCount() === 1, errorHtml: "You wrote to the screen multiple times." },
-        { pass: ex.hasRectangleAt(0, 0, 100, 100), errorHtml: "You didn't draw the overlay correctly." }
+        { pass: ex.writeCallCount() === 1, errorHtml: ex.t("checks.wroteToScreenMultipleTimes") },
+        { pass: ex.hasRectangleAt(0, 0, 100, 100), errorHtml: ex.t("checks.didntDrawOverlayCorrectly") }
       ];
     }
   },
 
   {
     slug: "double-placement-on-top",
-    name: "Placing an 'x' on an 'o'",
-    description: "Placing a piece on top of an opponent's piece should show an error.",
+    name: "scenarios.doublePlacementOnTop.name",
+    description: "scenarios.doublePlacementOnTop.description",
     taskId: "play-tic-tac-toe",
     functionCall: {
       name: "run_game",
@@ -195,18 +194,18 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wasWriteCalledWith("Invalid move!"),
-          errorHtml: "You didn't write the invalid move on the screen correctly."
+          errorHtml: ex.t("checks.didntWriteInvalidMoveCorrectly")
         },
-        { pass: ex.writeCallCount() === 1, errorHtml: "You wrote to the screen multiple times." },
-        { pass: ex.hasRectangleAt(0, 0, 100, 100), errorHtml: "You didn't draw the overlay correctly." }
+        { pass: ex.writeCallCount() === 1, errorHtml: ex.t("checks.wroteToScreenMultipleTimes") },
+        { pass: ex.hasRectangleAt(0, 0, 100, 100), errorHtml: ex.t("checks.didntDrawOverlayCorrectly") }
       ];
     }
   },
 
   {
     slug: "win-x",
-    name: "The crosses win!",
-    description: "Play a game where the crosses win. The winning line should be highlighted.",
+    name: "scenarios.winX.name",
+    description: "scenarios.winX.description",
     taskId: "play-tic-tac-toe",
     functionCall: {
       name: "run_game",
@@ -228,23 +227,22 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.checkUniqueColoredLines(3),
-          errorHtml:
-            "We expected to see black crosses during the game, then once the game was won, light-grey crosses and purple winning crosses."
+          errorHtml: ex.t("checks.expectedCrossColorProgression")
         },
         {
           pass: ex.wasWriteCalledWith("The x's won!"),
-          errorHtml: "You didn't write the result on the screen correctly."
+          errorHtml: ex.t("checks.didntWriteResultCorrectly")
         },
-        { pass: ex.writeCallCount() === 1, errorHtml: "You wrote to the screen multiple times." },
-        { pass: ex.hasRectangleAt(0, 0, 100, 100), errorHtml: "You didn't draw the overlay correctly." }
+        { pass: ex.writeCallCount() === 1, errorHtml: ex.t("checks.wroteToScreenMultipleTimes") },
+        { pass: ex.hasRectangleAt(0, 0, 100, 100), errorHtml: ex.t("checks.didntDrawOverlayCorrectly") }
       ];
     }
   },
 
   {
     slug: "win-o",
-    name: "The noughts win!",
-    description: "Play a game where the noughts win. The winning circles should be highlighted.",
+    name: "scenarios.winO.name",
+    description: "scenarios.winO.description",
     taskId: "play-tic-tac-toe",
     functionCall: {
       name: "run_game",
@@ -263,53 +261,52 @@ export const scenarios: VisualScenario[] = [
     expectations(exercise) {
       const ex = exercise as TicTacToeExercise;
       return [
-        { pass: ex.hasCircleAt(20, 20, 10), errorHtml: "The nought at 20,20 is missing or wrong." },
+        { pass: ex.hasCircleAt(20, 20, 10), errorHtml: ex.t("checks.nought2020MissingOrWrong") },
         {
           pass: ex.hasLineAt(40, 10, 60, 30),
-          errorHtml: "The cross line from 40,10 to 60,30 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine4010To6030MissingOrWrong")
         },
         {
           pass: ex.hasLineAt(40, 30, 60, 10),
-          errorHtml: "The cross line from 40,30 to 60,10 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine4030To6010MissingOrWrong")
         },
-        { pass: ex.hasCircleAt(80, 20, 10), errorHtml: "The nought at 80,20 is missing or wrong." },
+        { pass: ex.hasCircleAt(80, 20, 10), errorHtml: ex.t("checks.nought8020MissingOrWrong") },
         {
           pass: ex.hasLineAt(10, 40, 30, 60),
-          errorHtml: "The cross line from 10,40 to 30,60 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine1040To3060MissingOrWrong")
         },
         {
           pass: ex.hasLineAt(10, 60, 30, 40),
-          errorHtml: "The cross line from 10,60 to 30,40 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine1060To3040MissingOrWrong")
         },
-        { pass: ex.hasCircleAt(50, 50, 10), errorHtml: "The nought at 50,50 is missing or wrong." },
+        { pass: ex.hasCircleAt(50, 50, 10), errorHtml: ex.t("checks.nought5050MissingOrWrong") },
         {
           pass: ex.hasLineAt(70, 40, 90, 60),
-          errorHtml: "The cross line from 70,40 to 90,60 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine7040To9060MissingOrWrong")
         },
         {
           pass: ex.hasLineAt(70, 60, 90, 40),
-          errorHtml: "The cross line from 70,60 to 90,40 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine7060To9040MissingOrWrong")
         },
-        { pass: ex.hasCircleAt(20, 80, 10), errorHtml: "The nought at 20,80 is missing or wrong." },
+        { pass: ex.hasCircleAt(20, 80, 10), errorHtml: ex.t("checks.nought2080MissingOrWrong") },
         {
           pass: ex.checkUniqueColoredCircles(3),
-          errorHtml:
-            "We expected to see normal noughts during the game, then light-grey noughts and purple winning noughts."
+          errorHtml: ex.t("checks.expectedNoughtColorProgression")
         },
         {
           pass: ex.wasWriteCalledWith("The o's won!"),
-          errorHtml: "You didn't write the result on the screen correctly."
+          errorHtml: ex.t("checks.didntWriteResultCorrectly")
         },
-        { pass: ex.writeCallCount() === 1, errorHtml: "You wrote to the screen multiple times." },
-        { pass: ex.hasRectangleAt(0, 0, 100, 100), errorHtml: "You didn't draw the overlay correctly." }
+        { pass: ex.writeCallCount() === 1, errorHtml: ex.t("checks.wroteToScreenMultipleTimes") },
+        { pass: ex.hasRectangleAt(0, 0, 100, 100), errorHtml: ex.t("checks.didntDrawOverlayCorrectly") }
       ];
     }
   },
 
   {
     slug: "ai-o-finish",
-    name: "AI 'o' finish",
-    description: "Can your AI finish the game successfully?",
+    name: "scenarios.aiOFinish.name",
+    description: "scenarios.aiOFinish.description",
     taskId: "play-tic-tac-toe",
     functionCall: {
       name: "run_game",
@@ -318,21 +315,21 @@ export const scenarios: VisualScenario[] = [
     expectations(exercise) {
       const ex = exercise as TicTacToeExercise;
       return [
-        { pass: ex.hasLineAt(70, 10, 90, 30), errorHtml: "Did you add the blocking cross?" },
-        { pass: ex.hasLineAt(70, 30, 90, 10), errorHtml: "Did you add the blocking cross?" },
+        { pass: ex.hasLineAt(70, 10, 90, 30), errorHtml: ex.t("checks.addedBlockingCross") },
+        { pass: ex.hasLineAt(70, 30, 90, 10), errorHtml: ex.t("checks.addedBlockingCross") },
         {
           pass: ex.wasWriteCalledWith("The game was a draw!"),
-          errorHtml: "You didn't write the result on the screen correctly."
+          errorHtml: ex.t("checks.didntWriteResultCorrectly")
         },
-        { pass: ex.writeCallCount() === 1, errorHtml: "You wrote to the screen multiple times." }
+        { pass: ex.writeCallCount() === 1, errorHtml: ex.t("checks.wroteToScreenMultipleTimes") }
       ];
     }
   },
 
   {
     slug: "ai-x-win",
-    name: "AI 'x' win",
-    description: "Can your AI win a game for crosses?",
+    name: "scenarios.aiXWin.name",
+    description: "scenarios.aiXWin.description",
     taskId: "play-tic-tac-toe",
     functionCall: {
       name: "run_game",
@@ -343,25 +340,25 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasLineAt(70, 40, 90, 60),
-          errorHtml: "Did you add the cross to the winning spot?"
+          errorHtml: ex.t("checks.addedWinningCross")
         },
         {
           pass: ex.hasLineAt(70, 60, 90, 40),
-          errorHtml: "Did you add the cross to the winning spot?"
+          errorHtml: ex.t("checks.addedWinningCross")
         },
         {
           pass: ex.wasWriteCalledWith("The x's won!"),
-          errorHtml: "You didn't write the result on the screen correctly."
+          errorHtml: ex.t("checks.didntWriteResultCorrectly")
         },
-        { pass: ex.writeCallCount() === 1, errorHtml: "You wrote to the screen multiple times." }
+        { pass: ex.writeCallCount() === 1, errorHtml: ex.t("checks.wroteToScreenMultipleTimes") }
       ];
     }
   },
 
   {
     slug: "ai-o-win",
-    name: "AI 'o' win",
-    description: "Can your AI win a game for noughts?",
+    name: "scenarios.aiOWin.name",
+    description: "scenarios.aiOWin.description",
     taskId: "play-tic-tac-toe",
     functionCall: {
       name: "run_game",
@@ -370,20 +367,20 @@ export const scenarios: VisualScenario[] = [
     expectations(exercise) {
       const ex = exercise as TicTacToeExercise;
       return [
-        { pass: ex.hasCircleAt(80, 80, 10), errorHtml: "Did you add the nought to the winning spot?" },
+        { pass: ex.hasCircleAt(80, 80, 10), errorHtml: ex.t("checks.addedWinningNought") },
         {
           pass: ex.wasWriteCalledWith("The o's won!"),
-          errorHtml: "You didn't write the result on the screen correctly."
+          errorHtml: ex.t("checks.didntWriteResultCorrectly")
         },
-        { pass: ex.writeCallCount() === 1, errorHtml: "You wrote to the screen multiple times." }
+        { pass: ex.writeCallCount() === 1, errorHtml: ex.t("checks.wroteToScreenMultipleTimes") }
       ];
     }
   },
 
   {
     slug: "ai-x-block",
-    name: "AI 'x' block",
-    description: "Can your AI block the opponent's win?",
+    name: "scenarios.aiXBlock.name",
+    description: "scenarios.aiXBlock.description",
     taskId: "play-tic-tac-toe",
     functionCall: {
       name: "run_game",
@@ -392,11 +389,11 @@ export const scenarios: VisualScenario[] = [
     expectations(exercise) {
       const ex = exercise as TicTacToeExercise;
       return [
-        { pass: ex.hasLineAt(70, 10, 90, 30), errorHtml: "Did you add the blocking cross?" },
-        { pass: ex.hasLineAt(70, 30, 90, 10), errorHtml: "Did you add the blocking cross?" },
+        { pass: ex.hasLineAt(70, 10, 90, 30), errorHtml: ex.t("checks.addedBlockingCross") },
+        { pass: ex.hasLineAt(70, 30, 90, 10), errorHtml: ex.t("checks.addedBlockingCross") },
         {
           pass: ex.writeCallCount() === 0,
-          errorHtml: "You wrote to the screen when the game is still going."
+          errorHtml: ex.t("checks.wroteWhileGameInProgress")
         }
       ];
     }
@@ -404,8 +401,8 @@ export const scenarios: VisualScenario[] = [
 
   {
     slug: "ai-game",
-    name: "AI game",
-    description: "Can your AI play this game out to a draw?",
+    name: "scenarios.aiGame.name",
+    description: "scenarios.aiGame.description",
     taskId: "play-tic-tac-toe",
     functionCall: {
       name: "run_game",
@@ -414,39 +411,39 @@ export const scenarios: VisualScenario[] = [
     expectations(exercise) {
       const ex = exercise as TicTacToeExercise;
       return [
-        { pass: ex.hasCircleAt(20, 20, 10), errorHtml: "The nought at 20,20 is missing or wrong." },
+        { pass: ex.hasCircleAt(20, 20, 10), errorHtml: ex.t("checks.nought2020MissingOrWrong") },
         {
           pass: ex.hasLineAt(40, 40, 60, 60),
-          errorHtml: "The cross line from 40,40 to 60,60 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine4040To6060MissingOrWrong")
         },
         {
           pass: ex.hasLineAt(40, 60, 60, 40),
-          errorHtml: "The cross line from 40,60 to 60,40 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine4060To6040MissingOrWrong")
         },
-        { pass: ex.hasCircleAt(50, 20, 10), errorHtml: "The nought at 50,20 is missing or wrong." },
+        { pass: ex.hasCircleAt(50, 20, 10), errorHtml: ex.t("checks.nought5020MissingOrWrong") },
         {
           pass: ex.hasLineAt(70, 10, 90, 30),
-          errorHtml: "The cross line from 70,10 to 90,30 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine7010To9030MissingOrWrong")
         },
         {
           pass: ex.hasLineAt(70, 30, 90, 10),
-          errorHtml: "The cross line from 70,30 to 90,10 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine7030To9010MissingOrWrong")
         },
-        { pass: ex.hasCircleAt(20, 80, 10), errorHtml: "The nought at 20,80 is missing or wrong." },
+        { pass: ex.hasCircleAt(20, 80, 10), errorHtml: ex.t("checks.nought2080MissingOrWrong") },
         {
           pass: ex.hasLineAt(10, 40, 30, 60),
-          errorHtml: "The cross line from 10,40 to 30,60 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine1040To3060MissingOrWrong")
         },
         {
           pass: ex.hasLineAt(10, 60, 30, 40),
-          errorHtml: "The cross line from 10,60 to 30,40 is missing or wrong."
+          errorHtml: ex.t("checks.crossLine1060To3040MissingOrWrong")
         },
-        { pass: ex.hasCircleAt(80, 50, 10), errorHtml: "The nought at 80,50 is missing or wrong." },
+        { pass: ex.hasCircleAt(80, 50, 10), errorHtml: ex.t("checks.nought8050MissingOrWrong") },
         {
           pass: ex.wasWriteCalledWith("The game was a draw!"),
-          errorHtml: "You didn't write the result on the screen correctly."
+          errorHtml: ex.t("checks.didntWriteResultCorrectly")
         },
-        { pass: ex.writeCallCount() === 1, errorHtml: "You wrote to the screen multiple times." }
+        { pass: ex.writeCallCount() === 1, errorHtml: ex.t("checks.wroteToScreenMultipleTimes") }
       ];
     }
   }

@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "leftBrick": "The left brick isn't correct.",
+    "secondBrick": "The second brick isn't correct.",
+    "middleBrick": "The middle brick isn't correct.",
+    "fourthBrick": "The fourth brick isn't correct.",
+    "rightBrick": "The right brick isn't correct.",
+    "codeQuality": {
+      "rectangleCalledOnce": "You are using the <code>rectangle</code> function in multiple places in your code. It should only appear once!"
+    }
+  },
+  "tasks": {
+    "finishWall": {
+      "name": "Finish the wall",
+      "description": "Add a top layer to the wall!"
+    }
+  },
+  "scenarios": {
+    "finishWall": {
+      "name": "Finish off the wall",
+      "description": "Add a top layer to the wall!"
+    }
+  },
+  "hints": {
+    "positionSecondBrick": {
+      "question": "I can't work out how to position the second brick further along from the first",
+      "answer": "If each brick is 20 wide then you need to place the first at 0, the second at 20, the third at 40, etc. You can use multiplication to do this. What variable could you track that enables you to have the pattern 0, 20 then 40, etc?"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Draw a rectangle at position (left, top) with the given width, height, and color",
+      "category": "Drawing Shapes"
+    }
+  }
+}

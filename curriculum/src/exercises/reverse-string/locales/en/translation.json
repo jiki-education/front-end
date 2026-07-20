@@ -1,0 +1,60 @@
+{
+  "tasks": {
+    "reverseStrings": {
+      "name": "Reverse Strings",
+      "description": "Reverse a string so that it reads from right to left instead of left to right."
+    }
+  },
+  "scenarios": {
+    "reverseEmptyString": {
+      "name": "Empty string",
+      "description": "An empty string should return an empty string when reversed."
+    },
+    "reverseWord": {
+      "name": "A word",
+      "description": "Reverse the word 'robot'."
+    },
+    "reverseCapitalizedWord": {
+      "name": "A capitalized word",
+      "description": "Reverse a capitalized word 'Ramen'."
+    },
+    "reverseSentencePunctuation": {
+      "name": "Sentence with punctuation",
+      "description": "Reverse a sentence with punctuation 'I'm hungry!'"
+    },
+    "reversePalindrome": {
+      "name": "Palindrome",
+      "description": "A palindrome remains the same when reversed."
+    },
+    "reverseEvenSizedWord": {
+      "name": "Even-sized word",
+      "description": "Reverse an even-sized word 'drawer'."
+    },
+    "reverseWideCharacters": {
+      "name": "Wide characters",
+      "description": "Reverse wide Unicode characters '子猫'."
+    },
+    "reverseEmojiFamily": {
+      "name": "Emoji Family",
+      "description": "Reverse an emoji family."
+    },
+    "reverseEmojiRainbowFlag": {
+      "name": "Rainbow Flag",
+      "description": "Make a rainbow flag by reversing."
+    }
+  },
+  "hints": {
+    "reverseByHand": {
+      "question": "How would I reverse a word by hand?",
+      "answer": "You'd read it left-to-right but write it right-to-left. Equivalently, you'd take each letter in turn and put it in front of what you've written so far."
+    },
+    "mapToCode": {
+      "question": "How does that map to code?",
+      "answer": "Loop through the input string character by character. For each character, build the result by prepending. That means putting it at the FRONT of your result, not the back."
+    },
+    "prepend": {
+      "question": "How do I 'prepend' instead of append?",
+      "answer": "With the `+` operator, prepending is just a matter of order. Instead of `result + char` (which appends), use `char + result` (which prepends)."
+    }
+  }
+}

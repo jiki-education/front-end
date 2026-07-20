@@ -3,12 +3,12 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "How do I work out where to plant each flower?",
-      "answer": "First work out the gap between flowers:\n\n```javascript\n100 / (numberOfFlowers + 1)\n```\n\nThe first flower goes at that position, and each next flower is one more gap along. So if there are 3 flowers the gap is 25, and they go at 25, 50 and 75."
+      "question": "hints.chooseGap.question",
+      "answer": "hints.chooseGap.answer"
     },
     {
-      "question": "How do I see the different scenarios",
-      "answer": "Click on the circles on the left hand side in between your code and the results."
+      "question": "hints.seeScenarios.question",
+      "answer": "hints.seeScenarios.answer"
     }
   ]
 }

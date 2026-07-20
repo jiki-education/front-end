@@ -48,7 +48,7 @@ export interface VisualExerciseCore extends BaseExerciseCore {
 // IO exercise core (from curriculum module)
 export interface IOExerciseCore extends BaseExerciseCore {
   type: "io";
-  ExerciseClass: typeof IOExercise;
+  ExerciseClass: new () => IOExercise;
   scenarios: IOScenario[];
 }
 
@@ -73,7 +73,7 @@ export interface VisualExerciseDefinition extends BaseExerciseCore, ExerciseCont
 
 export interface IOExerciseDefinition extends BaseExerciseCore, ExerciseContent {
   type: "io";
-  ExerciseClass: typeof IOExercise;
+  ExerciseClass: new () => IOExercise;
   scenarios: IOScenario[];
 }
 
@@ -143,7 +143,11 @@ export interface CodeCheckExpect {
 // Code check definition
 export interface CodeCheck {
   pass: (result: InterpretResult, language: Language) => boolean;
-  errorHtml?: string;
+  // Curriculum-owned i18n key + params, resolved by the runner against the
+  // exercise's injected message dict (codeChecks have no exercise instance in
+  // scope, so they can't call `t` themselves).
+  errorKey: string;
+  errorParams?: Record<string, unknown>;
 }
 
 export interface IOScenario {

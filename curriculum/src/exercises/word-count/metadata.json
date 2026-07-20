@@ -3,20 +3,20 @@
   "levelId": "dictionaries",
   "hints": [
     {
-      "question": "How do I make the counting case-insensitive?",
-      "answer": "Lowercase the whole sentence once at the start. Then 'The' and 'the' both become 'the' and your dictionary will count them together."
+      "question": "hints.caseInsensitive.question",
+      "answer": "hints.caseInsensitive.answer"
     },
     {
-      "question": "How do I split the sentence into words?",
-      "answer": "Loop through each character. If it's a letter, digit, or apostrophe, it's part of the current word, so append it. Otherwise (space, punctuation), the word is finished, so push it to your list of words and start fresh."
+      "question": "hints.splitWords.question",
+      "answer": "hints.splitWords.answer"
     },
     {
-      "question": "How do I count each word?",
-      "answer": "Use a dictionary keyed by the word. For each word, check whether it already exists as a key. If yes, add 1 to its count. If no, set it to 1."
+      "question": "hints.countEachWord.question",
+      "answer": "hints.countEachWord.answer"
     },
     {
-      "question": "How do I check if a key already exists?",
-      "answer": "Use `hasKey(dict, word)`. It returns true if that word is already in the dictionary."
+      "question": "hints.checkKeyExists.question",
+      "answer": "hints.checkKeyExists.answer"
     }
   ]
 }

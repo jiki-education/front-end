@@ -3,8 +3,8 @@
   "levelId": "basic-state",
   "hints": [
     {
-      "question": "I can't work out how to position the second brick further along from the first",
-      "answer": "If each brick is 20 wide then you need to place the first at 0, the second at 20, the third at 40, etc. You can use multiplication to do this. What variable could you track that enables you to have the pattern 0, 20 then 40, etc?"
+      "question": "hints.positionSecondBrick.question",
+      "answer": "hints.positionSecondBrick.answer"
     }
   ]
 }

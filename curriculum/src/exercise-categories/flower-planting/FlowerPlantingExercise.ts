@@ -1,9 +1,10 @@
-import { type ExecutionContext, type ExternalFunction, type Shared, isNumber } from "@jiki/interpreters";
+import { type ExecutionContext, type Shared, isNumber } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
+import type { AvailableFunction } from "../../types";
 import "./exercise.css";
 
 export default abstract class FlowerPlantingExercise extends VisualExercise {
-  abstract availableFunctions: ExternalFunction[];
+  abstract availableFunctions: AvailableFunction[];
   protected get slug() {
     return "flower-planting";
   }
@@ -38,7 +39,7 @@ export default abstract class FlowerPlantingExercise extends VisualExercise {
 
   plant(executionCtx: ExecutionContext, position: Shared.JikiObject) {
     if (!isNumber(position)) {
-      return executionCtx.logicError("Position must be a number");
+      return executionCtx.logicError(this.t("errors.positionNumber"));
     }
 
     this.flowers.push(position.value);

@@ -4,6 +4,7 @@ import PostHogPageview from "@/components/PostHogPageview";
 import { ToasterProvider } from "@/components/toaster-config";
 import { GlobalModalProvider } from "@/lib/modal";
 import { SITE_URL } from "@/lib/site";
+import { staticAsset } from "@/lib/static-asset";
 import { ThemeProvider } from "@/lib/theme";
 import "@/lib/whyDidYouRender";
 import type { Metadata } from "next";
@@ -40,12 +41,12 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },
-      { url: "/static/images/icon.svg", type: "image/svg+xml" }
+      { url: staticAsset("images/icon.svg"), type: "image/svg+xml" }
     ],
-    apple: "/static/images/apple-icon.png"
+    apple: staticAsset("images/apple-icon.png")
   },
   openGraph: {
-    images: [{ url: "/static/images/og-image.png", width: 1200, height: 630, alt: "Jiki - learn to code" }]
+    images: [{ url: staticAsset("images/og-image.png"), width: 1200, height: 630, alt: "Jiki - learn to code" }]
   },
   twitter: {
     card: "summary_large_image"

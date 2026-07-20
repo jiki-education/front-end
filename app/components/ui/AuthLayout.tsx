@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import Image from "next/image";
+import { staticAsset } from "@/lib/static-asset";
 import styles from "./AuthLayout.module.css";
 
 interface AuthLayoutProps {
@@ -16,7 +17,7 @@ export function AuthLayout({ children }: AuthLayoutProps) {
       {/* Right Side - Gradient Background */}
       <div className={styles.rightSide}>
         <Image
-          src="/static/images/jiki-word.png"
+          src={staticAsset("images/jiki-word.png")}
           alt="Jiki"
           width={206}
           height={96}

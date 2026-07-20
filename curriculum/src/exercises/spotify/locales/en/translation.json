@@ -1,0 +1,57 @@
+{
+  "describers": {
+    "fetch": "fetched data from the provided URL"
+  },
+  "tasks": {
+    "formatResponse": {
+      "name": "Format the response",
+      "description": "Create a favoriteArtists function that takes a username, fetches their data from the Spotify API, and returns a formatted sentence listing their favorite artists."
+    }
+  },
+  "scenarios": {
+    "spotifyFred": {
+      "name": "Fred's favourites",
+      "description": "Retrieve and format Fred's favourite artists."
+    },
+    "spotifyIhid": {
+      "name": "iHiD's favourites",
+      "description": "Retrieve and format iHiD's favourite artists."
+    },
+    "spotifyGriffin": {
+      "name": "griffin is hiding",
+      "description": "Handle an unknown user error gracefully."
+    }
+  },
+  "hints": {
+    "fetchUserData": {
+      "question": "How do I fetch the user's data?",
+      "answer": "Use `fetch()` with the user endpoint URL. The URL is built by concatenating the base URL with the username you're given as input."
+    },
+    "handleUnknownUser": {
+      "question": "How do I handle the case where the user doesn't exist?",
+      "answer": "The response might come back with an `\"error\"` key. Use `hasKey()` to check for it before trying to process any items. If it's there, return whatever the spec asks for in that case."
+    },
+    "getArtistNames": {
+      "question": "How do I get artist names from the items?",
+      "answer": "Each item contains an artist API URL. Loop through the items, fetch each artist URL individually, and pull the artist name out of each artist response."
+    },
+    "buildFinalSentence": {
+      "question": "How do I build the final sentence?",
+      "answer": "Join the artist names with commas, but put `\", and \"` before the very last one (e.g. `\"Adele, Beyoncé, and Coldplay\"`). You'll need special handling for the last item in the loop."
+    }
+  },
+  "functions": {
+    "fetch": {
+      "description": "Fetch data from an API. Takes a URL string and a params dictionary. Returns the API response as a dictionary.",
+      "category": "API"
+    },
+    "push": {
+      "description": "Add an element to a list and return the new list (provided by level stdlib)",
+      "category": "List Operations"
+    },
+    "hasKey": {
+      "description": "Check if a key exists in a dictionary, returns true or false (provided by level stdlib)",
+      "category": "Dictionary Operations"
+    }
+  }
+}

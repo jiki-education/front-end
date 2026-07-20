@@ -7,32 +7,30 @@ const functions: FunctionInfo[] = [
   {
     name: "Ball",
     signature: "new Ball()",
-    description:
-      "Creates a new Ball instance with properties: `cx`, `cy` (center position), `radius`, `xVelocity`, and `yVelocity`.",
+    description: "functions.ball.description",
     examples: ["let ball = new Ball()"],
-    category: "Objects"
+    category: "functions.ball.category"
   },
   {
     name: "Block",
     signature: "new Block(left, top)",
-    description:
-      "Creates a new Block instance with properties: `left`, `top`, `width` (16), `height`, and `smashed` (initially false).",
+    description: "functions.block.description",
     examples: ["let block = new Block(8, 31)"],
-    category: "Objects"
+    category: "functions.block.category"
   },
   {
     name: "moveBall",
     signature: "moveBall(ball)",
-    description: "Moves the ball according to its current `xVelocity` and `yVelocity`.",
+    description: "functions.moveBall.description",
     examples: ["moveBall(ball)"],
-    category: "Movement"
+    category: "functions.moveBall.category"
   },
   {
     name: "push",
     signature: "push(list, element)",
-    description: "Adds an element to a list and returns the new list.",
+    description: "functions.push.description",
     examples: ['let list = push(list, "item")'],
-    category: "Lists"
+    category: "functions.push.category"
   }
 ];
 

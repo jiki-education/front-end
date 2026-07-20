@@ -8,23 +8,23 @@ const functions: FunctionInfo[] = [
   {
     name: "moveTo",
     signature: "moveTo(x, y)",
-    description: "Moves the ball to position **(x, y)**.",
+    description: "functions.moveTo.description",
     examples: ["moveTo(30, 75)", "moveTo(50, 84)"],
-    category: "Movement"
+    category: "functions.moveTo.category"
   },
   {
     name: "getShotLength",
     signature: "getShotLength()",
-    description: "Returns the **length of the shot** — how many units the ball travels to the right.",
+    description: "functions.getShotLength.description",
     examples: ["let shotLength = getShotLength()"],
-    category: "Information"
+    category: "functions.getShotLength.category"
   },
   {
     name: "fireFireworks",
     signature: "fireFireworks()",
-    description: "Fires celebratory fireworks!",
+    description: "functions.fireFireworks.description",
     examples: ["fireFireworks()"],
-    category: "Action"
+    category: "functions.fireFireworks.category"
   }
 ];
 

@@ -2,7 +2,9 @@ import { IOExercise } from "../../IOExercise";
 import metadata from "./metadata.json";
 
 export default class ScrabbleScoreExercise extends IOExercise {
-  static slug = metadata.slug;
+  protected get slug() {
+    return metadata.slug;
+  }
 
-  static availableFunctions = [];
+  availableFunctions = [];
 }

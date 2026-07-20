@@ -3,27 +3,24 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "validate-basic-isbn" as const,
-    name: "Validate a basic ISBN",
-    description:
-      "Write a function called isValidIsbn that takes an ISBN-10 string and returns true if valid, false if not. ISBN-10s contain dashes which should be skipped. Multiply each digit by a weight counting down from 10 to 1, sum them, and check if the total is divisible by 11.",
+    name: "tasks.validateBasicIsbn.name",
+    description: "tasks.validateBasicIsbn.description",
     hints: [],
     requiredScenarios: ["isbn-valid"],
     bonus: false
   },
   {
     id: "handle-x-check-digit" as const,
-    name: "Handle X as a check digit",
-    description:
-      "Sometimes an ISBN ends with an X, which represents 10. Update your function to handle X in the last position.",
+    name: "tasks.handleXCheckDigit.name",
+    description: "tasks.handleXCheckDigit.description",
     hints: [],
     requiredScenarios: ["isbn-valid-check-digit-x"],
     bonus: false
   },
   {
     id: "handle-edge-cases" as const,
-    name: "Handle edge cases",
-    description:
-      "Make your function robust: handle ISBNs without dashes, reject invalid characters, reject X in non-last positions, and ensure exactly 10 digits are processed.",
+    name: "tasks.handleEdgeCases.name",
+    description: "tasks.handleEdgeCases.description",
     hints: [],
     requiredScenarios: [
       "isbn-valid-no-dashes",
@@ -48,8 +45,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "isbn-valid",
-    name: "Valid ISBN",
-    description: "A valid ISBN-10 should return true.",
+    name: "scenarios.isbnValid.name",
+    description: "scenarios.isbnValid.description",
     taskId: "validate-basic-isbn",
     functionName: "is_valid_isbn",
     args: ["3-598-21508-8"],
@@ -57,8 +54,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isbn-valid-check-digit-x",
-    name: "Valid ISBN with X as check digit",
-    description: "A valid ISBN-10 with check digit 'X' should return true.",
+    name: "scenarios.isbnValidCheckDigitX.name",
+    description: "scenarios.isbnValidCheckDigitX.description",
     taskId: "handle-x-check-digit",
     functionName: "is_valid_isbn",
     args: ["3-598-21507-X"],
@@ -66,8 +63,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isbn-valid-no-dashes",
-    name: "Valid ISBN without dashes",
-    description: "A valid ISBN-10 without separating dashes should return true.",
+    name: "scenarios.isbnValidNoDashes.name",
+    description: "scenarios.isbnValidNoDashes.description",
     taskId: "handle-edge-cases",
     functionName: "is_valid_isbn",
     args: ["3598215088"],
@@ -75,8 +72,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isbn-valid-no-dashes-x-check",
-    name: "Valid ISBN without dashes and X as check digit",
-    description: "A valid ISBN-10 without dashes and check digit 'X' should return true.",
+    name: "scenarios.isbnValidNoDashesXCheck.name",
+    description: "scenarios.isbnValidNoDashesXCheck.description",
     taskId: "handle-edge-cases",
     functionName: "is_valid_isbn",
     args: ["359821507X"],
@@ -84,8 +81,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isbn-invalid-check-digit",
-    name: "Invalid ISBN check digit",
-    description: "An ISBN-10 with an incorrect check digit should return false.",
+    name: "scenarios.isbnInvalidCheckDigit.name",
+    description: "scenarios.isbnInvalidCheckDigit.description",
     taskId: "handle-edge-cases",
     functionName: "is_valid_isbn",
     args: ["3-598-21508-9"],
@@ -93,8 +90,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isbn-invalid-character",
-    name: "Check digit is a character other than X",
-    description: "An ISBN-10 containing an invalid character should return false.",
+    name: "scenarios.isbnInvalidCharacter.name",
+    description: "scenarios.isbnInvalidCharacter.description",
     taskId: "handle-edge-cases",
     functionName: "is_valid_isbn",
     args: ["3-598-21507-A"],
@@ -102,8 +99,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isbn-invalid-character-not-zero",
-    name: "Invalid check digit not treated as zero",
-    description: "An invalid check digit should not be treated as zero.",
+    name: "scenarios.isbnInvalidCharacterNotZero.name",
+    description: "scenarios.isbnInvalidCharacterNotZero.description",
     taskId: "handle-edge-cases",
     functionName: "is_valid_isbn",
     args: ["4-598-21507-B"],
@@ -111,8 +108,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isbn-invalid-non-numeric",
-    name: "Invalid character in ISBN",
-    description: "Invalid characters in ISBN should not be ignored.",
+    name: "scenarios.isbnInvalidNonNumeric.name",
+    description: "scenarios.isbnInvalidNonNumeric.description",
     taskId: "handle-edge-cases",
     functionName: "is_valid_isbn",
     args: ["3-598-P1581-X"],
@@ -120,8 +117,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isbn-invalid-x-position",
-    name: "X only valid as a check digit",
-    description: "An 'X' should only be valid as a check digit.",
+    name: "scenarios.isbnInvalidXPosition.name",
+    description: "scenarios.isbnInvalidXPosition.description",
     taskId: "handle-edge-cases",
     functionName: "is_valid_isbn",
     args: ["3-598-2X507-9"],
@@ -129,8 +126,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isbn-invalid-missing-check-digit",
-    name: "ISBN without check digit",
-    description: "An ISBN-10 without a check digit should return false.",
+    name: "scenarios.isbnInvalidMissingCheckDigit.name",
+    description: "scenarios.isbnInvalidMissingCheckDigit.description",
     taskId: "handle-edge-cases",
     functionName: "is_valid_isbn",
     args: ["3-598-21507"],
@@ -138,8 +135,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isbn-invalid-too-long",
-    name: "Too long ISBN",
-    description: "An ISBN-10 that is too long should return false.",
+    name: "scenarios.isbnInvalidTooLong.name",
+    description: "scenarios.isbnInvalidTooLong.description",
     taskId: "handle-edge-cases",
     functionName: "is_valid_isbn",
     args: ["3598215078X"],
@@ -147,8 +144,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isbn-invalid-too-short",
-    name: "Too short ISBN",
-    description: "An ISBN-10 that is too short should return false.",
+    name: "scenarios.isbnInvalidTooShort.name",
+    description: "scenarios.isbnInvalidTooShort.description",
     taskId: "handle-edge-cases",
     functionName: "is_valid_isbn",
     args: ["00"],
@@ -156,8 +153,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isbn-invalid-empty",
-    name: "Empty ISBN",
-    description: "An empty ISBN string should return false.",
+    name: "scenarios.isbnInvalidEmpty.name",
+    description: "scenarios.isbnInvalidEmpty.description",
     taskId: "handle-edge-cases",
     functionName: "is_valid_isbn",
     args: [""],
@@ -165,8 +162,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isbn-invalid-length-nine",
-    name: "ISBN is 9 characters",
-    description: "An input with 9 characters should return false.",
+    name: "scenarios.isbnInvalidLengthNine.name",
+    description: "scenarios.isbnInvalidLengthNine.description",
     taskId: "handle-edge-cases",
     functionName: "is_valid_isbn",
     args: ["134456729"],
@@ -174,8 +171,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isbn-invalid-non-numeric-before-check",
-    name: "Invalid character before checking length",
-    description: "Invalid characters should not be ignored before checking length.",
+    name: "scenarios.isbnInvalidNonNumericBeforeCheck.name",
+    description: "scenarios.isbnInvalidNonNumericBeforeCheck.description",
     taskId: "handle-edge-cases",
     functionName: "is_valid_isbn",
     args: ["3598P215088"],
@@ -183,8 +180,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isbn-invalid-extra-length",
-    name: "Input too long but contains a valid ISBN",
-    description: "An input longer than 10 characters should return false.",
+    name: "scenarios.isbnInvalidExtraLength.name",
+    description: "scenarios.isbnInvalidExtraLength.description",
     taskId: "handle-edge-cases",
     functionName: "is_valid_isbn",
     args: ["98245726788"],

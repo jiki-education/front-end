@@ -33,7 +33,7 @@ describe("maze-turn-around code checks", () => {
     for (const result of results) {
       expect(result.status, `${result.slug} should fail`).toBe("fail");
       const messages = result.expects.map((e) => e.errorHtml ?? "").join(" ");
-      expect(messages).toContain("actually call it");
+      expect(messages).toContain("checks.turnAroundNotCalled");
     }
   });
 });

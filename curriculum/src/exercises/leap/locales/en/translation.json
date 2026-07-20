@@ -1,0 +1,75 @@
+{
+  "checks": {
+    "moreThanOneLine": "You used more than one line of code within the function."
+  },
+  "tasks": {
+    "determineLeapYear": {
+      "name": "Determine if the year is a leap year",
+      "description": "Write a function called isLeapYear that takes a year as its input and returns true if it is a leap year, or false if it is not."
+    },
+    "solveInOneLine": {
+      "name": "Solve in one line of code",
+      "description": "Can you solve this with only one line of code within the function?"
+    }
+  },
+  "scenarios": {
+    "year2015": {
+      "name": "Year 2015",
+      "description": "2015 is not divisible by 4 so is not a leap year."
+    },
+    "year1970": {
+      "name": "Year 1970",
+      "description": "1970 is not divisible by 4 so is not a leap year."
+    },
+    "year2100": {
+      "name": "Year 2100",
+      "description": "2100 is divisible by 100 but not by 400 so is not a leap year."
+    },
+    "year1900": {
+      "name": "Year 1900",
+      "description": "1900 is divisible by 100 but not by 400 so is not a leap year."
+    },
+    "year1800": {
+      "name": "Year 1800",
+      "description": "1800 is divisible by 100 but not by 400 so is not a leap year."
+    },
+    "year2000": {
+      "name": "Year 2000",
+      "description": "2000 is divisible by 400 so is a leap year."
+    },
+    "year2400": {
+      "name": "Year 2400",
+      "description": "2400 is divisible by 400 so is a leap year."
+    },
+    "year1996": {
+      "name": "Year 1996",
+      "description": "1996 is divisible by 4 but not by 100 so is a leap year."
+    },
+    "year1960": {
+      "name": "Year 1960",
+      "description": "1960 is divisible by 4 but not by 100 so is a leap year."
+    },
+    "bonus1": {
+      "name": "One line of code",
+      "description": "Solve the exercise with only one line of code within the function."
+    }
+  },
+  "hints": {
+    "basicRule": {
+      "question": "What's the basic rule for a leap year?",
+      "answer": "Years divisible by 4 are leap years. So `year % 4 === 0` is the starting test."
+    },
+    "exceptions": {
+      "question": "Are there exceptions?",
+      "answer": "Yes. Years divisible by 100 are NOT leap years, even though they're divisible by 4. For example, 1900 isn't a leap year."
+    },
+    "exceptionsToExceptions": {
+      "question": "Are there exceptions to the exception?",
+      "answer": "Yes. Years divisible by 400 ARE leap years after all. For example, 2000 is. So the rule cascades: divisible by 4, but not by 100, unless also by 400."
+    },
+    "checkDivisibility": {
+      "question": "How do I check divisibility?",
+      "answer": "Use the remainder operator `%`. `year % 4 === 0` is true when the year divides exactly by 4 with nothing left over. Same trick with 100 and 400."
+    }
+  }
+}

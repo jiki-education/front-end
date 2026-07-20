@@ -33,7 +33,7 @@ export default function BreakpointStepperButtonsTestPage() {
     }
   });
   const orchestratorRef = useRef<Orchestrator>(
-    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" }, {}, "", () => {})
+    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" }, {}, {}, "", () => {})
   );
   const orchestrator = orchestratorRef.current;
 

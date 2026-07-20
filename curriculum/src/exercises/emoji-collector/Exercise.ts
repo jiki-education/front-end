@@ -2,6 +2,10 @@ import MazeExercise from "../../exercise-categories/maze/MazeExercise";
 import { type ExecutionContext, type Shared, isString, isDictionary, isNumber } from "@jiki/interpreters";
 import metadata from "./metadata.json";
 
+// Logic-error messages are resolved against the message dict injected into this
+// exercise (via `setMessages`) and passed to `logicError` as finished,
+// pre-translated strings; the interpreter relays them verbatim.
+
 type Direction = "up" | "right" | "down" | "left";
 
 // Mapping from relative look direction to absolute direction, based on current facing
@@ -34,32 +38,32 @@ export default class EmojiCollectorExercise extends MazeExercise {
     {
       name: "move",
       func: this.moveAndCheck.bind(this),
-      description: "Move the character forward one cell"
+      descriptionKey: "describers.move"
     },
     {
       name: "turn_left",
       func: this.turnLeft.bind(this),
-      description: "Turn the character 90 degrees left"
+      descriptionKey: "describers.turnLeft"
     },
     {
       name: "turn_right",
       func: this.turnRight.bind(this),
-      description: "Turn the character 90 degrees right"
+      descriptionKey: "describers.turnRight"
     },
     {
       name: "look",
       func: this.look.bind(this),
-      description: "Look in a direction and see what's there"
+      descriptionKey: "describers.look"
     },
     {
       name: "remove_emoji",
       func: this.removeEmoji.bind(this),
-      description: "Remove the emoji from the current square"
+      descriptionKey: "describers.removeEmoji"
     },
     {
       name: "announce_emojis",
       func: this.announceEmojis.bind(this),
-      description: "Announce the collected emojis"
+      descriptionKey: "describers.announceEmojis"
     }
   ];
 
@@ -78,7 +82,7 @@ export default class EmojiCollectorExercise extends MazeExercise {
 
   look(_executionCtx: ExecutionContext, direction: Shared.JikiObject): string {
     if (!isString(direction)) {
-      _executionCtx.logicError("direction must be a string");
+      _executionCtx.logicError(this.t("errors.directionMustBeString"));
       return "";
     }
 
@@ -93,7 +97,7 @@ export default class EmojiCollectorExercise extends MazeExercise {
     const facing = this.direction as Direction;
     const absoluteDir = DIRECTION_MAP[facing]?.[dir];
     if (!absoluteDir) {
-      _executionCtx.logicError(`Invalid direction: ${dir}. Use "ahead", "left", "right", or "down".`);
+      _executionCtx.logicError(this.t("errors.invalidDirection", { dir }));
       return "";
     }
 
@@ -129,7 +133,7 @@ export default class EmojiCollectorExercise extends MazeExercise {
 
   announceEmojis(_executionCtx: ExecutionContext, emojisArg: Shared.JikiObject) {
     if (!isDictionary(emojisArg)) {
-      _executionCtx.logicError("emojis must be a dictionary");
+      _executionCtx.logicError(this.t("errors.emojisMustBeDictionary"));
       return;
     }
 

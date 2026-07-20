@@ -6,10 +6,10 @@
  *
  * Reads concept source files from curriculum and produces:
  *
- *   public/static/concepts/{locale}-{hash}.json
+ *   public/static/concepts/{locale}/index-{hash}.json
  *     - Metadata index: all concepts with slug, title, description, hierarchy, contentHash
  *
- *   public/static/concepts/{slug}/{locale}-{hash}.html
+ *   public/static/concepts/{slug}/{locale}/content-{hash}.html
  *     - Content files: pre-rendered HTML from markdown
  *
  *   lib/generated/concept-hashes.ts
@@ -26,9 +26,9 @@
 
 import fs from "fs";
 import path from "path";
-import crypto from "crypto";
 import { fileURLToPath } from "url";
 import matter from "gray-matter";
+import { computeHash, writeFile } from "./lib/cache-utils.js";
 import { marked } from "marked";
 import hljs from "highlight.js/lib/core";
 import setupJikiscript from "@exercism/highlightjs-jikiscript";
@@ -106,21 +106,6 @@ export const conceptIconFallbackUrl = ${JSON.stringify(fallbackUrl)};
 `;
 
   writeFile(path.join(GENERATED_DIR, "concept-icon-hashes.ts"), content);
-}
-
-/**
- * Compute a 12-char SHA-256 hash of content
- */
-function computeHash(content) {
-  return crypto.createHash("sha256").update(content).digest("hex").slice(0, 12);
-}
-
-/**
- * Write a file, creating directories as needed
- */
-function writeFile(filePath, content) {
-  fs.mkdirSync(path.dirname(filePath), { recursive: true });
-  fs.writeFileSync(filePath, content);
 }
 
 /**
@@ -254,7 +239,7 @@ function buildStaticFiles(concepts) {
       let contentHash = null;
       if (localeData.html !== null) {
         contentHash = computeHash(localeData.html);
-        const contentPath = path.join(STATIC_DIR, slug, `${locale}-${contentHash}.html`);
+        const contentPath = path.join(STATIC_DIR, slug, locale, `content-${contentHash}.html`);
         writeFile(contentPath, localeData.html);
       }
 
@@ -286,7 +271,7 @@ function buildStaticFiles(concepts) {
     const indexHash = computeHash(indexContent);
     indexHashes[locale] = indexHash;
 
-    const indexPath = path.join(STATIC_DIR, `${locale}-${indexHash}.json`);
+    const indexPath = path.join(STATIC_DIR, locale, `index-${indexHash}.json`);
     writeFile(indexPath, indexContent);
   }
 

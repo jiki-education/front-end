@@ -10,6 +10,7 @@ import { useUpgradeFlow } from "./useUpgradeFlow";
 import styles from "./PremiumUpgradeModal.module.css";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { staticAsset } from "@/lib/static-asset";
 
 interface PremiumUpgradeModalProps {
   trigger?: ModalTrigger;
@@ -66,7 +67,7 @@ export function PremiumUpgradeModal({
     <div className={styles.modalContent}>
       <Image
         className={styles.arrowDecoration}
-        src="/static/images/misc/arrow.png"
+        src={staticAsset("images/misc/arrow.png")}
         alt=""
         width={150}
         height={150}

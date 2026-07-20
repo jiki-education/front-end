@@ -1,6 +1,7 @@
 import type { EditorState } from "@codemirror/state";
 import { StateEffect, StateField } from "@codemirror/state";
 import { EditorView, type Tooltip, showTooltip } from "@codemirror/view";
+import { staticAsset } from "@/lib/static-asset";
 
 export const showTutorTooltip = StateEffect.define<boolean>();
 interface TooltipState {
@@ -49,7 +50,7 @@ function getCursorTooltips(state: EditorState): readonly Tooltip[] {
         create: () => {
           const dom = document.createElement("div");
           dom.innerHTML = `
-          <img src="/static/robot.png" width='50' height='50' class='rounded-8'>
+          <img src="${staticAsset("robot.png")}" width='50' height='50' class='rounded-8'>
           `;
           dom.className = "cm-tooltip-cursor";
           return { dom };

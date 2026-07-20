@@ -1,0 +1,64 @@
+{
+  "errors": {
+    "blockedUrl": "Oh no, you tried to fetch an unexpected URL, which got blocked."
+  },
+  "describers": {
+    "fetch": "fetched data from the provided URL"
+  },
+  "tasks": {
+    "formatLlmResponse": {
+      "name": "Format the response",
+      "description": "Create an askLlm function that takes a question, fetches the LLM response, selects the answer with the highest certainty, and returns a formatted string."
+    }
+  },
+  "scenarios": {
+    "football": {
+      "name": "The 1966 World Cup",
+      "description": "Return the response to a very important question."
+    },
+    "cooking": {
+      "name": "Cooking",
+      "description": "Return the best response for a cooking question!"
+    },
+    "ltc": {
+      "name": "Learn to Code websites",
+      "description": "Return the best response for a question with a clear answer!"
+    }
+  },
+  "hints": {
+    "apiCall": {
+      "question": "How do I make the API call?",
+      "answer": "Use `fetch(url, params)` where `params` is a dictionary `{ \"question\": question }`, passing the question you were given as an argument."
+    },
+    "responseShape": {
+      "question": "What does the response data look like?",
+      "answer": "It's nested. There's a `\"response\"` key holding an `\"answers\"` list (each answer is a dictionary with `\"text\"` and `\"certainty\"`), and a `\"meta\"` key holding a `\"time\"` string like `\"500ms\"`."
+    },
+    "pickBest": {
+      "question": "How do I pick the best answer?",
+      "answer": "Loop through the answers and keep track of the one with the highest `certainty`. Note that the certainty values are strings, so you'll need to convert each to a number before comparing."
+    },
+    "convertMs": {
+      "question": "How do I convert '500ms' into seconds?",
+      "answer": "Strip off the 'ms' part to leave just the digits, convert that to a number, then divide by 1000."
+    },
+    "putTogether": {
+      "question": "How do I put it all together at the end?",
+      "answer": "Use concatenation (`+`) or a template string to build the final formatted string from the chosen answer's text and the converted time."
+    }
+  },
+  "functions": {
+    "fetch": {
+      "description": "Fetch data from an API. Takes a URL string and a params dictionary. Returns the API response as a dictionary.",
+      "category": "API"
+    },
+    "stringToNumber": {
+      "description": "Convert a string to a number (provided by level stdlib)",
+      "category": "Type Conversion"
+    },
+    "numberToString": {
+      "description": "Convert a number to a string (provided by level stdlib)",
+      "category": "Type Conversion"
+    }
+  }
+}

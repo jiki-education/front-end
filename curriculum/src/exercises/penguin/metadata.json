@@ -3,16 +3,16 @@
   "levelId": "strings-and-colors",
   "hints": [
     {
-      "question": "Where do I start?",
-      "answer": "Work through the TODO comments one at a time, starting from the top."
+      "question": "hints.whereToStart.question",
+      "answer": "hints.whereToStart.answer"
     },
     {
-      "question": "How does symmetry work on the canvas?",
-      "answer": "If something's left edge is 20, its symmetrical right edge will be 80 (100 - 20)."
+      "question": "hints.symmetryOnCanvas.question",
+      "answer": "hints.symmetryOnCanvas.answer"
     },
     {
-      "question": "Why can't I get the nose to work?",
-      "answer": "You shouldn't add a new triangle for the nose - instead you should CHANGE the existing triangle to work correctly. You only need to change ONE value."
+      "question": "hints.noseTrouble.question",
+      "answer": "hints.noseTrouble.answer"
     }
   ]
 }

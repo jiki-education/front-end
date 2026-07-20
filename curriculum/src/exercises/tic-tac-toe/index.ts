@@ -8,37 +8,37 @@ const functions: FunctionInfo[] = [
   {
     name: "rectangle",
     signature: "rectangle(left, top, width, height, color)",
-    description: "Draw a rectangle at position (left, top) with the given width, height, and color",
+    description: "functions.rectangle.description",
     examples: ['rectangle(5, 5, 90, 90, "#ffffff")', 'rectangle(0, 0, 100, 100, "#604fcd")'],
-    category: "Drawing Shapes"
+    category: "functions.rectangle.category"
   },
   {
     name: "circle",
     signature: "circle(centerX, centerY, radius, color)",
-    description: "Draw a circle centered at (centerX, centerY) with the given radius and color",
+    description: "functions.circle.description",
     examples: ['circle(50, 50, 10, "#ffffff")'],
-    category: "Drawing Shapes"
+    category: "functions.circle.category"
   },
   {
     name: "line",
     signature: "line(x1, y1, x2, y2, color)",
-    description: "Draw a line from (x1, y1) to (x2, y2) with the given color",
+    description: "functions.line.description",
     examples: ['line(5, 35, 95, 35, "#000000")'],
-    category: "Drawing Shapes"
+    category: "functions.line.category"
   },
   {
     name: "changeStroke",
     signature: "changeStroke(width, color)",
-    description: "Set the stroke width and color for subsequent shapes. Lines are drawn using the stroke color.",
+    description: "functions.changeStroke.description",
     examples: ['changeStroke(1, "#333333")', 'changeStroke(1.5, "#604fcd")'],
-    category: "Stroke Settings"
+    category: "functions.changeStroke.category"
   },
   {
     name: "write",
     signature: "write(text)",
-    description: "Write text to the center of the screen in white",
+    description: "functions.write.description",
     examples: ['write("The game was a draw!")'],
-    category: "Text"
+    category: "functions.write.category"
   }
 ];
 

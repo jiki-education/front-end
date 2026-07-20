@@ -4,9 +4,8 @@ import type MazeWalkExercise from "./Exercise";
 export const tasks = [
   {
     id: "write-walk" as const,
-    name: "Write a walk function",
-    description:
-      "Define a function called walk that takes a number of steps as its input and moves forward that many times.",
+    name: "tasks.writeWalk.name",
+    description: "tasks.writeWalk.description",
     hints: [],
     requiredScenarios: ["maze-1"],
     bonus: false
@@ -16,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "maze-1",
-    name: "Navigate the maze",
-    description: "Walk 3, turn left, walk 2, turn right, walk 4 to reach the target.",
+    name: "scenarios.maze1.name",
+    description: "scenarios.maze1.description",
     taskId: "write-walk",
 
     setup(exercise) {
@@ -45,11 +44,11 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 7 && ex.characterCol === 6,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         },
         {
           pass: ex.getGameResult() === "win",
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         }
       ];
     },
@@ -57,8 +56,7 @@ export const scenarios: VisualScenario[] = [
     codeChecks: [
       {
         pass: (result) => result.assertors.assertFunctionDefined("walk"),
-        errorHtml:
-          "You should define a <code>walk</code> function that takes a number of steps and moves forward that many times."
+        errorKey: "checks.walkNotDefined"
       }
     ]
   }

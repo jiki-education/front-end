@@ -1,0 +1,99 @@
+{
+  "checks": {
+    "moreThanSixteenLines": "You used more than sixteen lines of code."
+  },
+  "tasks": {
+    "plings": {
+      "name": "Plings",
+      "description": "Start off by getting the Pling sounds right. If the number is divisible by 3, return \"Pling\"."
+    },
+    "plangs": {
+      "name": "Plangs",
+      "description": "Now get the Plang sounds right. If the number is divisible by 5, add \"Plang\" to the result. If it's divisible by both 3 and 5, return \"PlingPlang\"."
+    },
+    "plongs": {
+      "name": "Plongs",
+      "description": "Now get the Plong sounds right. If the number is divisible by 7, add \"Plong\" to the result. Numbers can be divisible by multiple factors."
+    },
+    "noSound": {
+      "name": "Numbers with no raindrop sound",
+      "description": "Finally, if the number is not divisible by 3, 5, or 7, return the number itself as a string."
+    },
+    "solveInSixteenLines": {
+      "name": "Solve in sixteen lines of code",
+      "description": "Can you solve this with only sixteen lines of code?"
+    }
+  },
+  "scenarios": {
+    "number3": {
+      "name": "Number 3",
+      "description": "If 3 is input, return \"Pling\"."
+    },
+    "number27": {
+      "name": "Number 27",
+      "description": "If 27 is input, return \"Pling\"."
+    },
+    "number5": {
+      "name": "Number 5",
+      "description": "If 5 is input, return \"Plang\"."
+    },
+    "number3125": {
+      "name": "Number 3125",
+      "description": "If 3125 is input, return \"Plang\"."
+    },
+    "number15": {
+      "name": "Number 15",
+      "description": "If 15 is input, return \"PlingPlang\"."
+    },
+    "number7": {
+      "name": "Number 7",
+      "description": "If 7 is input, return \"Plong\"."
+    },
+    "number21": {
+      "name": "Number 21",
+      "description": "If 21 is input, return \"PlingPlong\"."
+    },
+    "number35": {
+      "name": "Number 35",
+      "description": "If 35 is input, return \"PlangPlong\"."
+    },
+    "number105": {
+      "name": "Number 105",
+      "description": "If 105 is input, return \"PlingPlangPlong\"."
+    },
+    "number8": {
+      "name": "Number 8",
+      "description": "If 8 is input, return \"8\"."
+    },
+    "number52": {
+      "name": "Number 52",
+      "description": "If 52 is input, return \"52\"."
+    },
+    "bonus1": {
+      "name": "Sixteen lines of code",
+      "description": "Solve the exercise with only sixteen lines of code."
+    }
+  },
+  "hints": {
+    "onlyOneSound": {
+      "question": "Why does my function only return one sound?",
+      "answer": "If you `return` inside each `if`, you give up as soon as the first divisor matches. You want to combine them. Instead of returning, append the sound to a result string and keep going."
+    },
+    "buildCombinedSound": {
+      "question": "How do I build up the combined sound?",
+      "answer": "Start with an empty result string. For each divisor (3, 5, 7), if it divides the number, append the corresponding sound onto the end of the result using concatenation with `+`."
+    },
+    "noneMatch": {
+      "question": "What if none of the divisors match?",
+      "answer": "If the result is still empty after all three checks, the answer is just the number itself as a string. Convert the number and return that."
+    },
+    "convertToString": {
+      "question": "I return the number but it wants me to return it as a string. How do I do that?",
+      "answer": "Numbers and strings are different types, even if they look the same. You can convert a number to a string by putting it inside a template string with `${...}`."
+    },
+    "howManyReturns": {
+      "question": "How many return statements should I have?",
+      "answer": "Just one or two, typically. The whole point is letting the if-statements modify the result string, then returning that result once at the end."
+    }
+  }
+}

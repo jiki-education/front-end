@@ -1,6 +1,6 @@
-import type { ExerciseDefinition, Language } from "@jiki/curriculum";
+import type { ExerciseDefinition, Language, Messages as CurriculumMessages } from "@jiki/curriculum";
 import { getLanguageFeatures } from "@jiki/curriculum";
-import type { Messages } from "@jiki/interpreters";
+import type { Messages as InterpreterMessages } from "@jiki/interpreters";
 import type { TestResult, TestSuiteResult } from "../test-results-types";
 import { bonusScenarioSlugs } from "../bonusScenarios";
 import { runIOScenario } from "./runIOScenario";
@@ -11,21 +11,22 @@ export async function runTests(
   studentCode: string,
   exercise: ExerciseDefinition,
   language: Language,
-  interpreterLocaleMessages: Messages
+  interpreterLocaleMessages: InterpreterMessages,
+  exerciseLocaleMessages: CurriculumMessages
 ): Promise<TestSuiteResult> {
   const interpreter = await getInterpreter(language);
 
-  // Get available functions based on exercise type, with names formatted for the target language
-  let availableFunctions: Array<{ name: string; func: any; description: string }>;
+  // Curriculum-owned message dict for the active UI locale, injected into each
+  // exercise instance before student code runs so logic-error strings resolve.
+  // Threaded through the Orchestrator rail (was `exercise.i18n`); empty (no
+  // en-fallback) when the exercise has no catalog for this locale.
+  const messages = exerciseLocaleMessages;
 
-  if (exercise.type === "visual") {
-    // Visual exercises: create instance to get functions
-    const tempExercise = new exercise.ExerciseClass();
-    availableFunctions = tempExercise.getExternalFunctions(language);
-  } else {
-    // IO exercises: get static functions
-    availableFunctions = exercise.ExerciseClass.getExternalFunctions(language);
-  }
+  // Get available functions by instantiating the exercise (uniform for visual and IO),
+  // with names formatted for the target language.
+  const tempExercise = new exercise.ExerciseClass();
+  const availableFunctions: Array<{ name: string; func: any; description: string }> =
+    tempExercise.getExternalFunctions(language);
 
   // Build language features: level features + exercise overrides
   const levelFeatures = getLanguageFeatures(exercise.levelId, language);
@@ -60,7 +61,8 @@ export async function runTests(
         language,
         interpreter,
         languageFeatures,
-        interpreterLocaleMessages
+        interpreterLocaleMessages,
+        messages
       );
       tests.push(result);
     }
@@ -70,11 +72,12 @@ export async function runTests(
       const result = runIOScenario(
         scenario,
         studentCode,
-        availableFunctions,
+        exercise.ExerciseClass,
         language,
         interpreter,
         languageFeatures,
-        interpreterLocaleMessages
+        interpreterLocaleMessages,
+        messages
       );
       tests.push(result);
     }

@@ -4,9 +4,8 @@ import type { SunsetExercise } from "./Exercise";
 export const tasks = [
   {
     id: "draw-scene" as const,
-    name: "Animate the sunset",
-    description:
-      "Animate the sun and the sky to make it look like the sun is setting. The sun should grow larger and move down, while both the sun and sky change colors.",
+    name: "tasks.drawScene.name",
+    description: "tasks.drawScene.description",
     hints: [],
     requiredScenarios: ["draw-scene"],
     bonus: false
@@ -16,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "draw-scene",
-    name: "Make the sun set",
-    description: "Animate the sun and the sky to make it look like the sun is setting.",
+    name: "scenarios.drawScene.name",
+    description: "scenarios.drawScene.description",
     taskId: "draw-scene",
 
     expectations(exercise) {
@@ -26,23 +25,23 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasCircleAt(50, 11, 5.2),
-          errorHtml: "The sun seems wrong near the beginning."
+          errorHtml: ex.t("checks.sunWrongBeginning")
         },
         {
           pass: ex.hasCircleAt(50, 20, 7),
-          errorHtml: "The sun seems wrong near the middle."
+          errorHtml: ex.t("checks.sunWrongMiddle")
         },
         {
           pass: ex.hasCircleAt(50, 109, 24.8),
-          errorHtml: "The sun seems wrong near the end."
+          errorHtml: ex.t("checks.sunWrongEnd")
         },
         {
           pass: ex.checkUniqueColoredRectangles(10),
-          errorHtml: "The sky doesn't seem to be changing color."
+          errorHtml: ex.t("checks.skyNotChangingColor")
         },
         {
           pass: ex.checkUniqueColoredCircles(10),
-          errorHtml: "The sun doesn't seem to be changing color."
+          errorHtml: ex.t("checks.sunNotChangingColor")
         }
       ];
     }

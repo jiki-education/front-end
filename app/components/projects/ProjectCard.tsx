@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { localePath } from "@/lib/i18n/routes";
+import { staticAsset } from "@/lib/static-asset";
 import type { ProjectMeta } from "@/lib/content/types";
 import styles from "./ProjectCard.module.css";
 
@@ -16,7 +17,7 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
   const content = (
     <>
       <Image
-        src={`/static/images/projects/covers/${project.image}`}
+        src={staticAsset(`images/projects/covers/${project.image}`)}
         alt=""
         width={240}
         height={135}

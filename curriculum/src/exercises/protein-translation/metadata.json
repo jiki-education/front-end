@@ -3,20 +3,20 @@
   "levelId": "dictionaries",
   "hints": [
     {
-      "question": "How do I break this down?",
-      "answer": "Two independent steps. First, split the RNA string into codons (groups of 3 characters). Second, translate each codon into the matching amino acid. Solving them separately is much easier than mixing them."
+      "question": "hints.breakDown.question",
+      "answer": "hints.breakDown.answer"
     },
     {
-      "question": "How should I do the codon to amino acid lookup?",
-      "answer": "A dictionary mapping each codon (e.g. `\"AUG\"`) to its amino acid (e.g. `\"Methionine\"`) is the right shape for this. STOP codons map to `\"STOP\"`."
+      "question": "hints.lookup.question",
+      "answer": "hints.lookup.answer"
     },
     {
-      "question": "How do I split the string into chunks of 3?",
-      "answer": "Walk through with a position counter that goes up by 3 each time. At each step, take the substring of length 3 starting at your position. That's the current codon."
+      "question": "hints.splitChunks.question",
+      "answer": "hints.splitChunks.answer"
     },
     {
-      "question": "What do I do when I hit a STOP codon?",
-      "answer": "Stop translating completely. Use `break` to exit the loop. Don't add STOP to your protein list."
+      "question": "hints.stopCodon.question",
+      "answer": "hints.stopCodon.answer"
     }
   ]
 }

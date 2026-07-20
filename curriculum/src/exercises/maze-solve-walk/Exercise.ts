@@ -1,5 +1,6 @@
 import MazeExercise from "../../exercise-categories/maze/MazeExercise";
-import { type ExecutionContext, type ExternalFunction, type Shared, isNumber } from "@jiki/interpreters";
+import { type ExecutionContext, type Shared, isNumber } from "@jiki/interpreters";
+import type { AvailableFunction } from "../../types";
 import metadata from "./metadata.json";
 
 export default class MazeSolveWalkExercise extends MazeExercise {
@@ -7,28 +8,28 @@ export default class MazeSolveWalkExercise extends MazeExercise {
     return metadata.slug;
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "walk",
       func: this.walk.bind(this),
-      description: "Walk forward a given number of steps",
+      descriptionKey: "describers.walk",
       arity: 1
     },
     {
       name: "turn_left",
       func: this.turnLeft.bind(this),
-      description: "Turn the character 90 degrees left"
+      descriptionKey: "describers.turnLeft"
     },
     {
       name: "turn_right",
       func: this.turnRight.bind(this),
-      description: "Turn the character 90 degrees right"
+      descriptionKey: "describers.turnRight"
     }
   ];
 
   walk(executionCtx: ExecutionContext, steps: Shared.JikiObject) {
     if (!isNumber(steps)) {
-      executionCtx.logicError("walk() expects a number of steps");
+      executionCtx.logicError(this.t("errors.walkExpectsNumber"));
       return;
     }
 

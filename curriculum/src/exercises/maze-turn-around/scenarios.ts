@@ -4,17 +4,16 @@ import type MazeTurnAroundExercise from "./Exercise";
 export const tasks = [
   {
     id: "turn-around" as const,
-    name: "Turn around at dead ends",
-    description:
-      "Define a turnAround() function at the top of your code that calls turnLeft() twice, then use it in the final else block. Your solver should escape the dead ends in all three mazes.",
+    name: "tasks.turnAround.name",
+    description: "tasks.turnAround.description",
     hints: [],
     requiredScenarios: ["maze-1", "maze-2"],
     bonus: false
   },
   {
     id: "bonus-short-solution" as const,
-    name: "Bonus: keep it short",
-    description: "Solve a maze with two dead ends, keeping your whole program to 17 lines of code or fewer.",
+    name: "tasks.bonusShortSolution.name",
+    description: "tasks.bonusShortSolution.description",
     hints: [],
     requiredScenarios: ["maze-3"],
     bonus: true
@@ -26,20 +25,19 @@ export const tasks = [
 const turnAroundCodeChecks: CodeCheck[] = [
   {
     pass: (result) => result.assertors.assertFunctionDefined("turn_around"),
-    errorHtml: "You need to define a <code>turnAround</code> function at the top of your code."
+    errorKey: "checks.turnAroundNotDefined"
   },
   {
     pass: (result) => result.assertors.assertFunctionCalledOutsideOwnDefinition("turn_around"),
-    errorHtml:
-      "You've defined <code>turnAround</code>, but you need to actually call it in your final <code>else</code> block."
+    errorKey: "checks.turnAroundNotCalled"
   }
 ];
 
 export const scenarios: VisualScenario[] = [
   {
     slug: "maze-1",
-    name: "A single dead end",
-    description: "A straight corridor with one dead-end spur that forces a turn-around",
+    name: "scenarios.maze1.name",
+    description: "scenarios.maze1.description",
     taskId: "turn-around",
 
     setup(exercise) {
@@ -65,7 +63,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 5 && ex.characterCol === 1,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         }
       ];
     },
@@ -74,8 +72,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "maze-2",
-    name: "A dead end and a turn",
-    description: "A winding path with a dead-end spur before turning to the exit",
+    name: "scenarios.maze2.name",
+    description: "scenarios.maze2.description",
     taskId: "turn-around",
 
     setup(exercise) {
@@ -101,7 +99,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 5 && ex.characterCol === 5,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         }
       ];
     },
@@ -110,8 +108,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "maze-3",
-    name: "Keep it short",
-    description: "Try and ensure your whole final program is 17 lines of code.",
+    name: "scenarios.maze3.name",
+    description: "scenarios.maze3.description",
     taskId: "bonus-short-solution",
 
     setup(exercise) {
@@ -137,7 +135,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 4 && ex.characterCol === 5,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         }
       ];
     },
@@ -148,7 +146,7 @@ export const scenarios: VisualScenario[] = [
         // The carried-forward solver is 15 lines; adding turnAround() and calling
         // it in the else block gives 17.
         pass: (result) => result.assertors.assertMaxLinesOfCode(17),
-        errorHtml: "Your program should be no more than 17 lines of code."
+        errorKey: "checks.maxLines"
       }
     ]
   }

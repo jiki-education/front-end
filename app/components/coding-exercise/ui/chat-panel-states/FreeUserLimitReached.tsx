@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
+import { staticAsset } from "@/lib/static-asset";
 import styles from "./shared.module.css";
 import StuckHeader from "./StuckHeader";
 
@@ -20,7 +21,7 @@ export default function FreeUserLimitReached() {
         </p>
 
         <div className={styles.buttonWrapper}>
-          <Image src="/static/images/misc/arrow.png" alt="" width={60} height={60} className={styles.arrow} />
+          <Image src={staticAsset("images/misc/arrow.png")} alt="" width={60} height={60} className={styles.arrow} />
           <button onClick={handleUpgradeClick} className="ui-btn ui-btn-primary ui-btn-purple ui-btn-default">
             Upgrade to Jiki Premium
           </button>

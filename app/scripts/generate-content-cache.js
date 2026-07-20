@@ -6,23 +6,24 @@
  *
  * Processes markdown files from the content package and produces:
  *
- *   public/static/content/blog/{locale}-{hash}.json
- *     - Metadata index: all blog posts with slug, title, date, etc.
+ *   public/static/content/{type}/{locale}/index-{hash}.json   (type: blog|articles|guides)
+ *     - Metadata index: all entries with slug, title, date, etc.
  *
- *   public/static/content/blog/{slug}/{locale}-{hash}.html
+ *   public/static/content/{type}/{slug}/{locale}/content-{hash}.html
  *     - Content files: pre-rendered HTML from markdown
  *
- *   public/static/content/articles/{locale}-{hash}.json
- *     - Metadata index: all articles
+ *   public/static/content/projects/{slug}/{locale}/index-{hash}.json
+ *     - Per-project episode index
  *
- *   public/static/content/articles/{slug}/{locale}-{hash}.html
- *     - Content files: pre-rendered HTML from markdown
+ *   public/static/content/projects/{slug}/{uuid}/{locale}/content-{hash}.html
+ *     - Episode content files: pre-rendered HTML from markdown
  *
- *   public/static/content/search/articles-{locale}-{hash}.json
- *     - Lunr search indexes for articles
+ *   public/static/content/search/{type}/{locale}/index-{hash}.json
+ *     - Lunr search indexes for articles + guides
  *
  *   lib/generated/content-hashes.ts
- *     - Hash manifest mapping type+locale -> metadata index hash
+ *     - Hash manifest for the search indexes (type -> locale -> hash). Blog/
+ *       article/guide metadata ships in content-meta-server.json instead.
  *
  *   lib/generated/content-meta-server.json
  *     - Full metadata for server-side rendering (SEO, list pages)
@@ -46,6 +47,7 @@ import javascript from "highlight.js/lib/languages/javascript";
 import bash from "highlight.js/lib/languages/bash";
 import json from "highlight.js/lib/languages/json";
 import lunr from "lunr";
+import { computeHash, writeFile } from "./lib/cache-utils.js";
 
 hljs.registerLanguage("html", xml);
 hljs.registerLanguage("xml", xml);
@@ -91,21 +93,6 @@ try {
 }
 
 const authorsJson = JSON.stringify(authorsData);
-
-/**
- * Compute a 12-char SHA-256 hash of content
- */
-function computeHash(content) {
-  return crypto.createHash("sha256").update(content).digest("hex").slice(0, 12);
-}
-
-/**
- * Write a file, creating directories as needed
- */
-function writeFile(filePath, content) {
-  fs.mkdirSync(path.dirname(filePath), { recursive: true });
-  fs.writeFileSync(filePath, content);
-}
 
 /**
  * Content-hash an image referenced as "/images/..." and copy it to the
@@ -532,7 +519,14 @@ function buildProjectStaticFiles(processed) {
   for (const episode of episodes) {
     for (const [locale, { meta, html }] of Object.entries(episode.locales)) {
       const htmlHash = computeHash(html);
-      const htmlPath = path.join(STATIC_DIR, "projects", meta.project, episode.uuid, `${locale}-${htmlHash}.html`);
+      const htmlPath = path.join(
+        STATIC_DIR,
+        "projects",
+        meta.project,
+        episode.uuid,
+        locale,
+        `content-${htmlHash}.html`
+      );
       writeFile(htmlPath, html);
 
       const finalMeta = { ...meta, contentHash: htmlHash };
@@ -585,7 +579,7 @@ function buildProjectStaticFiles(processed) {
 
       const indexJson = JSON.stringify(sortedEpisodes);
       const indexHash = computeHash(indexJson);
-      const indexPath = path.join(STATIC_DIR, "projects", project.slug, `episodes-${locale}-${indexHash}.json`);
+      const indexPath = path.join(STATIC_DIR, "projects", project.slug, locale, `index-${indexHash}.json`);
       writeFile(indexPath, indexJson);
 
       projectsByLocale[locale].push({
@@ -622,27 +616,17 @@ function buildStaticFiles(type, content) {
 
       // Write pre-rendered HTML content file
       const htmlHash = computeHash(html);
-      const contentPath = path.join(STATIC_DIR, type, slug, `${locale}-${htmlHash}.html`);
+      const contentPath = path.join(STATIC_DIR, type, slug, locale, `content-${htmlHash}.html`);
       writeFile(contentPath, html);
 
-      // Use the HTML hash as contentHash in the index (for URL construction)
+      // Use the HTML hash as contentHash (for URL construction). Per-entry
+      // metadata is served from the bundled content-meta-server.json, so no
+      // separate per-locale index file is emitted for blog/articles/guides.
       byLocale[locale].push({ ...meta, contentHash: htmlHash });
     }
   }
 
-  // Write metadata indexes and collect hashes
-  const indexHashes = {};
-
-  for (const [locale, entries] of Object.entries(byLocale)) {
-    const indexContent = JSON.stringify(entries);
-    const indexHash = computeHash(indexContent);
-    indexHashes[locale] = indexHash;
-
-    const indexPath = path.join(STATIC_DIR, type, `${locale}-${indexHash}.json`);
-    writeFile(indexPath, indexContent);
-  }
-
-  return { indexHashes, byLocale };
+  return { byLocale };
 }
 
 /**
@@ -689,62 +673,34 @@ function generateSearchIndexes(type, byLocale, filterFn) {
     const searchHash = computeHash(output);
     searchHashes[locale] = searchHash;
 
-    const searchPath = path.join(STATIC_DIR, "search", `${type}-${locale}-${searchHash}.json`);
+    const searchPath = path.join(STATIC_DIR, "search", type, locale, `index-${searchHash}.json`);
     writeFile(searchPath, output);
-    console.log(`   Search index: ${type}-${locale}-${searchHash}.json (${items.length} ${type})`);
+    console.log(`   Search index: search/${type}/${locale}/index-${searchHash}.json (${items.length} ${type})`);
   }
 
   return searchHashes;
 }
 
 /**
- * Write the TypeScript hash manifest
+ * Write the TypeScript hash manifest.
+ *
+ * Only the search-index hashes are emitted: blog/articles/guides metadata is
+ * served from the bundled content-meta-server.json (so no per-locale index files
+ * are generated), and per-project episode indexes are fetched via the
+ * `episodesIndexHash` carried in that same bundled metadata.
  */
-function writeHashManifest(
-  blogHashes,
-  articleHashes,
-  guideHashes,
-  searchHashes,
-  guideSearchHashes,
-  projectEpisodesHashes
-) {
+function writeHashManifest(searchHashes, guideSearchHashes) {
   function formatEntries(hashes) {
     return Object.entries(hashes)
       .sort(([a], [b]) => a.localeCompare(b))
-      .map(([locale, hash]) => `    ${JSON.stringify(locale)}: ${JSON.stringify(hash)}`)
-      .join(",\n");
-  }
-
-  function formatNestedEntries(nested) {
-    return Object.entries(nested)
-      .sort(([a], [b]) => a.localeCompare(b))
-      .map(
-        ([projectSlug, byLocale]) =>
-          `    ${JSON.stringify(projectSlug)}: {\n${Object.entries(byLocale)
-            .sort(([a], [b]) => a.localeCompare(b))
-            .map(([locale, hash]) => `      ${JSON.stringify(locale)}: ${JSON.stringify(hash)}`)
-            .join(",\n")}\n    }`
-      )
+      .map(([locale, hash]) => `      ${JSON.stringify(locale)}: ${JSON.stringify(hash)}`)
       .join(",\n");
   }
 
   const content = `// Auto-generated by scripts/generate-content-cache.js — DO NOT EDIT
 export const contentIndexHashes: {
-  blog: Record<string, string>;
-  articles: Record<string, string>;
-  guides: Record<string, string>;
   search: { articles: Record<string, string>; guides: Record<string, string> };
-  projectEpisodes: Record<string, Record<string, string>>;
 } = {
-  blog: {
-${formatEntries(blogHashes)},
-  },
-  articles: {
-${formatEntries(articleHashes)},
-  },
-  guides: {
-${formatEntries(guideHashes)},
-  },
   search: {
     articles: {
 ${formatEntries(searchHashes)},
@@ -752,9 +708,6 @@ ${formatEntries(searchHashes)},
     guides: {
 ${formatEntries(guideSearchHashes)},
     },
-  },
-  projectEpisodes: {
-${formatNestedEntries(projectEpisodesHashes)},
   },
 };
 `;
@@ -848,9 +801,9 @@ function generateContentCache() {
   const projectsProcessed = processProjects();
 
   // Build static files
-  const { indexHashes: blogHashes, byLocale: blogByLocale } = buildStaticFiles("blog", blog);
-  const { indexHashes: articleHashes, byLocale: articlesByLocale } = buildStaticFiles("articles", articles);
-  const { indexHashes: guideHashes, byLocale: guidesByLocale } = buildStaticFiles("guides", guides);
+  const { byLocale: blogByLocale } = buildStaticFiles("blog", blog);
+  const { byLocale: articlesByLocale } = buildStaticFiles("articles", articles);
+  const { byLocale: guidesByLocale } = buildStaticFiles("guides", guides);
   const { projectsByLocale } = buildProjectStaticFiles(projectsProcessed);
 
   // Generate search indexes. Articles index only `listed` ones; guides index all
@@ -858,19 +811,8 @@ function generateContentCache() {
   const searchHashes = generateSearchIndexes("articles", articlesByLocale, (a) => a.listed);
   const guideSearchHashes = generateSearchIndexes("guides", guidesByLocale, () => true);
 
-  // Per-project episode-list hash manifest, keyed projectSlug -> locale -> hash
-  const projectEpisodesHashes = {};
-  for (const [locale, projectsList] of Object.entries(projectsByLocale)) {
-    for (const project of projectsList) {
-      if (!projectEpisodesHashes[project.slug]) {
-        projectEpisodesHashes[project.slug] = {};
-      }
-      projectEpisodesHashes[project.slug][locale] = project.episodesIndexHash;
-    }
-  }
-
-  // Write hash manifest
-  writeHashManifest(blogHashes, articleHashes, guideHashes, searchHashes, guideSearchHashes, projectEpisodesHashes);
+  // Write hash manifest (search indexes only — see writeHashManifest)
+  writeHashManifest(searchHashes, guideSearchHashes);
 
   // Write server-side metadata
   writeServerMeta(blogByLocale, articlesByLocale, guidesByLocale, projectsByLocale);

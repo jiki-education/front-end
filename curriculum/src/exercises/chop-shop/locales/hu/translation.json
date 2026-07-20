@@ -1,0 +1,48 @@
+{
+  "tasks": {
+    "canFitIn": {
+      "name": "Can You Fit Them In?",
+      "description": "Write a function that determines if a new customer can be served before closing time, given the current queue and time remaining."
+    }
+  },
+  "scenarios": {
+    "emptyQueue": {
+      "name": "No one in the queue",
+      "description": "No-one in the queue, plenty of time."
+    },
+    "emptyQueueButNoTime": {
+      "name": "Late in the day",
+      "description": "No-one in the queue but not enough time."
+    },
+    "busyDayNoTime": {
+      "name": "A full day",
+      "description": "A full queue and not enough time."
+    },
+    "busyDayButTime": {
+      "name": "Just squeezes in",
+      "description": "A full day but there's just enough time."
+    },
+    "stillEarly": {
+      "name": "Still early",
+      "description": "It's still early in the day."
+    },
+    "cuttingItFine": {
+      "name": "Just in time",
+      "description": "They've made it just in time!"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Where should I start. The queue, or the new customer?",
+      "answer": "First work out how much time the queue will eat up, then see what's left over for the new customer. A helper that turns a haircut name into its duration (in minutes) will make this much cleaner."
+    },
+    "subtractQueueTime": {
+      "question": "How do I subtract each haircut's time from the remaining time?",
+      "answer": "Loop through the queue. For each haircut, look up its duration with your helper and subtract that from your running total of time left in the day."
+    },
+    "decideIfFits": {
+      "question": "How do I decide if the new haircut fits?",
+      "answer": "After processing the queue, compare the remaining time against the duration of the new haircut. If the new haircut's time is less than or equal to the time left, it fits."
+    }
+  }
+}

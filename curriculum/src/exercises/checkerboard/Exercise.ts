@@ -25,7 +25,7 @@ export class CheckerboardExercise extends DrawExercise {
       {
         name: "get_board_size",
         func: this.getBoardSize.bind(this),
-        description: "retrieved the size of the board (the number of squares along each edge)"
+        descriptionKey: "describers.getBoardSize"
       }
     ];
   }

@@ -3,12 +3,12 @@
   "levelId": "make-your-own-functions",
   "hints": [
     {
-      "question": "How do I move forward?",
-      "answer": "Use the `move()` function."
+      "question": "hints.howToMoveForward.question",
+      "answer": "hints.howToMoveForward.answer"
     },
     {
-      "question": "How do I move forward a specific number of times?",
-      "answer": "You have solved other exercises where you had to do something a specific number of times (think back to making the golf ball roll a specific distance). Use the same ideas here."
+      "question": "hints.howToMoveSpecificTimes.question",
+      "answer": "hints.howToMoveSpecificTimes.answer"
     }
   ]
 }

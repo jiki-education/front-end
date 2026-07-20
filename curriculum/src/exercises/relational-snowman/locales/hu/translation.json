@@ -1,0 +1,48 @@
+{
+  "checks": {
+    "base": "The base (bottom) circle is either in the wrong place or the wrong size. Check `baseRadius` and `baseY`.",
+    "body": "The body (middle) circle is either in the wrong place or the wrong size. Check `bodyRadius` and `bodyY`.",
+    "head": "The head (top) circle is either in the wrong place or the wrong size. Check `headRadius` and `headY`.",
+    "notResponsive": "Your code doesn't scale correctly when `size` is {{size}}. Every radius and y position should be derived from `size`."
+  },
+  "tasks": {
+    "buildRelationalSnowman": {
+      "name": "Build the relational snowman",
+      "description": "Derive all sizes and positions from `size` so the snowman scales correctly."
+    }
+  },
+  "scenarios": {
+    "buildRelationalSnowman": {
+      "name": "Build the relational snowman",
+      "description": "Derive every radius and y position from `size`."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Where should I start?",
+      "answer": "Start with the base, because it's the only circle anchored to anything fixed (the bottom of the canvas). Once you know `baseY`, you can stack the body on top of it, and then the head on top of the body."
+    },
+    "baseSits": {
+      "question": "How do I work out where the base sits?",
+      "answer": "The bottom edge of the base sits `size` above the ground (Y=100). The center of the base is one base-radius further up from its bottom edge."
+    },
+    "stackBody": {
+      "question": "How do I stack the body on the base?",
+      "answer": "When two circles touch with one directly above the other, the distance between their centers equals the sum of their two radii."
+    },
+    "head": {
+      "question": "What about the head?",
+      "answer": "The head sits on the body in exactly the same way as the body sits on the base."
+    },
+    "whyDeriveFromSize": {
+      "question": "Why must everything be derived from `size`?",
+      "answer": "If you hardcode a number, changing `size` will leave gaps or overlaps between the circles. Using formulas keeps everything in proportion."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Draw a circle centered at (centerX, centerY) with the given radius and color",
+      "category": "Drawing Shapes"
+    }
+  }
+}

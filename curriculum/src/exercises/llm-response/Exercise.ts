@@ -1,5 +1,6 @@
-import type { ExternalFunction, ExecutionContext } from "@jiki/interpreters";
+import type { ExecutionContext } from "@jiki/interpreters";
 import { IOExercise } from "../../IOExercise";
+import type { AvailableFunction } from "../../types";
 import metadata from "./metadata.json";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -40,31 +41,34 @@ const mockResponses: Record<string, any> = {
 
 const API_URL = "https://myllm.com/api/v2/qanda";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function mockFetch(executionCtx: ExecutionContext, url: any, params: any): Record<string, any> {
-  const urlValue = url?.value ?? url;
-  if (urlValue !== API_URL) {
-    return executionCtx.logicError("Oh no, you tried to fetch an unexpected URL, which got blocked.");
-  }
-
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  const questionObj = params.getProperty ? params.getProperty("question") : params.value?.get?.("question");
-  const question = questionObj?.value ?? questionObj;
-
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-  if (question && mockResponses[question]) {
-    return mockResponses[question];
-  }
-  return { error: "Could not determine answer" };
-}
-
 export default class LlmResponseExercise extends IOExercise {
-  static slug = metadata.slug;
-  static availableFunctions: ExternalFunction[] = [
+  protected get slug() {
+    return metadata.slug;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private fetch(executionCtx: ExecutionContext, url: any, params: any): Record<string, any> {
+    const urlValue = url?.value ?? url;
+    if (urlValue !== API_URL) {
+      return executionCtx.logicError(this.t("errors.blockedUrl"));
+    }
+
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    const questionObj = params.getProperty ? params.getProperty("question") : params.value?.get?.("question");
+    const question = questionObj?.value ?? questionObj;
+
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (question && mockResponses[question]) {
+      return mockResponses[question];
+    }
+    return { error: "Could not determine answer" };
+  }
+
+  availableFunctions: AvailableFunction[] = [
     {
       name: "fetch",
-      func: mockFetch,
-      description: "fetched data from the provided URL",
+      func: this.fetch.bind(this),
+      descriptionKey: "describers.fetch",
       arity: 2
     }
   ];

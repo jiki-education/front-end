@@ -3,20 +3,20 @@
   "levelId": "multiple-functions",
   "hints": [
     {
-      "question": "Where do I start?",
-      "answer": "Write a small `includes(string, char)` helper first. It just asks 'does this character appear in this string?'. The main pangram check then becomes a few clean lines on top of it."
+      "question": "hints.whereToStart.question",
+      "answer": "hints.whereToStart.answer"
     },
     {
-      "question": "How do I write that includes() helper?",
-      "answer": "Loop through each character of the string. If any of them equals the character you're looking for, return true. If the loop finishes without a match, return false."
+      "question": "hints.writeIncludesHelper.question",
+      "answer": "hints.writeIncludesHelper.answer"
     },
     {
-      "question": "How do I check that every letter of the alphabet is there?",
-      "answer": "Loop through `\"abcdefghijklmnopqrstuvwxyz\"`, one letter at a time. For each, ask `includes(sentence, letter)`."
+      "question": "hints.checkEveryLetter.question",
+      "answer": "hints.checkEveryLetter.answer"
     },
     {
-      "question": "How do I know when to give up early?",
-      "answer": "As soon as you find a letter that isn't in the sentence, return `false`. There's no point checking the rest. Only return `true` after every letter has been found."
+      "question": "hints.giveUpEarly.question",
+      "answer": "hints.giveUpEarly.answer"
     }
   ]
 }

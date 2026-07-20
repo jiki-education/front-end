@@ -1,0 +1,76 @@
+{
+  "checks": {
+    "totalCells": "Expected {{expected}} cells but found {{got}}.",
+    "groundWalls": "The ground floor should have walls at positions (17, 2) and (21, 2).",
+    "groundGlass": "The ground floor should have glass at positions (18, 2) and (20, 2).",
+    "groundEntrance": "The ground floor should have an entrance at position (19, 2).",
+    "floorWalls": "Floor {{y}} should have walls at positions (17, {{y}}) and (21, {{y}}).",
+    "floorGlass": "Floor {{y}} should have glass at positions (18, {{y}}), (19, {{y}}), and (20, {{y}}).",
+    "roof": "The roof at y={{roofY}} should be all walls.",
+    "codeQuality": {
+      "allArgumentsAreVariables": "You should use <strong>variables</strong> as arguments to functions, not literal values. Store values in variables first, then pass the variables."
+    }
+  },
+  "tasks": {
+    "buildSkyscraper": {
+      "name": "Build the skyscraper",
+      "description": "Build a skyscraper with the correct number of floors, including a ground floor with entrance, upper floors with glass, and a wall roof."
+    }
+  },
+  "scenarios": {
+    "floors6": {
+      "name": "6-floor skyscraper",
+      "description": "Build a skyscraper with 6 floors."
+    },
+    "floors8": {
+      "name": "8-floor skyscraper",
+      "description": "Build a skyscraper with 8 floors."
+    },
+    "floors10": {
+      "name": "10-floor skyscraper",
+      "description": "Build a skyscraper with 10 floors."
+    },
+    "floors12": {
+      "name": "12-floor skyscraper",
+      "description": "Build a skyscraper with 12 floors."
+    },
+    "floors16": {
+      "name": "16-floor skyscraper",
+      "description": "Build a skyscraper with 16 floors."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "I don't know where to start.",
+      "answer": "Firstly try drawing a wall, some glass, and an entrance to check you understand the functions. Then draw the base floor - this is always the same. Then use the `numFloors()` function to find out how many floors there are in total and draw the remaining floors and then the roof."
+    },
+    "tooManyTooFewFloors": {
+      "question": "I have too many/too few floors.",
+      "answer": "If `numFloors()` returns 5, that should be one entrance floor, 4 glass floors, and 1 roof. Check your logic is correct!"
+    }
+  },
+  "functions": {
+    "buildWall": {
+      "description": "Places a **wall block** at grid position (x, y).",
+      "category": "Building"
+    },
+    "buildGlass": {
+      "description": "Places a **glass panel** at grid position (x, y).",
+      "category": "Building"
+    },
+    "buildEntrance": {
+      "description": "Places an **entrance door** at grid position (x, y).",
+      "category": "Building"
+    },
+    "numFloors": {
+      "description": "Returns the **number of floors** for this building.",
+      "category": "Info"
+    }
+  },
+  "describers": {
+    "buildWall": "built a wall at position (${arg1}, ${arg2})",
+    "buildEntrance": "built an entrance at position (${arg1}, ${arg2})",
+    "buildGlass": "built a glass panel at position (${arg1}, ${arg2})",
+    "numFloors": "retrieved the number of floors"
+  }
+}

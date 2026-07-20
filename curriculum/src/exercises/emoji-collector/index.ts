@@ -8,50 +8,44 @@ const functions: FunctionInfo[] = [
   {
     name: "move",
     signature: "move()",
-    description:
-      "Moves the character **one step forward** in the current direction. The character will only move if the target position is not blocked by a wall.",
+    description: "functions.move.description",
     examples: ["move()"],
-    category: "Movement"
+    category: "functions.move.category"
   },
   {
     name: "turnLeft",
     signature: "turnLeft()",
-    description:
-      "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
+    description: "functions.turnLeft.description",
     examples: ["turnLeft()"],
-    category: "Movement"
+    category: "functions.turnLeft.category"
   },
   {
     name: "turnRight",
     signature: "turnRight()",
-    description:
-      "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
+    description: "functions.turnRight.description",
     examples: ["turnRight()"],
-    category: "Movement"
+    category: "functions.turnRight.category"
   },
   {
     name: "look",
     signature: "look(direction)",
-    description:
-      'Returns the **emoji** in the given direction. Use `"ahead"`, `"left"`, or `"right"` to look around, or `"down"` to see the current square.',
+    description: "functions.look.description",
     examples: ['look("ahead")', 'look("down")'],
-    category: "Sensing"
+    category: "functions.look.category"
   },
   {
     name: "removeEmoji",
     signature: "removeEmoji()",
-    description:
-      "Removes the emoji from the **current square**. Use this after collecting an emoji to avoid counting it again.",
+    description: "functions.removeEmoji.description",
     examples: ["removeEmoji()"],
-    category: "Collection"
+    category: "functions.removeEmoji.category"
   },
   {
     name: "announceEmojis",
     signature: "announceEmojis(emojis)",
-    description:
-      "Announces your collected emojis. Pass a **dictionary** where keys are emoji strings and values are counts.",
+    description: "functions.announceEmojis.description",
     examples: ['announceEmojis({"💎": 3})'],
-    category: "Collection"
+    category: "functions.announceEmojis.category"
   }
 ];
 

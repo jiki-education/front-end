@@ -4,8 +4,8 @@ import type { RelationalSunExercise } from "./Exercise";
 export const tasks = [
   {
     id: "position-sun" as const,
-    name: "Position the sun",
-    description: "Derive `sunX` and `sunY` from `canvasSize`, `gap`, and `radius` so the sun scales correctly.",
+    name: "tasks.positionSun.name",
+    description: "tasks.positionSun.description",
     hints: [],
     requiredScenarios: ["position-sun"],
     bonus: false
@@ -28,8 +28,7 @@ function detailedCheck(gap: number, radius: number): IsolatedCheck {
       return [
         {
           pass: ex.hasCircleAt(...e.sun),
-          errorHtml:
-            "The sun is either in the wrong place or the wrong size. Check your `sunX` and `sunY` calculations, and make sure you're passing `radius` to `circle`."
+          errorHtml: ex.t("checks.wrongPosition")
         }
       ];
     }
@@ -47,9 +46,7 @@ function responsivenessCheck(gap: number, radius: number): IsolatedCheck {
       return [
         {
           pass,
-          errorHtml: pass
-            ? undefined
-            : `Your code doesn't scale correctly when \`gap\` is ${gap} and \`radius\` is ${radius}. \`sunX\` and \`sunY\` should be derived from \`gap\` and \`radius\`, not hardcoded numbers.`
+          errorHtml: pass ? undefined : ex.t("checks.notResponsive", { gap, radius })
         }
       ];
     }
@@ -59,8 +56,8 @@ function responsivenessCheck(gap: number, radius: number): IsolatedCheck {
 export const scenarios: VisualScenario[] = [
   {
     slug: "position-sun",
-    name: "Position the sun",
-    description: "Derive the sun's position from `gap` and `radius` so it scales.",
+    name: "scenarios.positionSun.name",
+    description: "scenarios.positionSun.description",
     taskId: "position-sun",
 
     setup(exercise) {

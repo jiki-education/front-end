@@ -1,0 +1,46 @@
+{
+  "tasks": {
+    "createStarsFunction": {
+      "name": "Create stars function",
+      "description": "Write a stars function that takes a count and returns a list of strings, where each string has an increasing number of stars. For example, stars(3) returns [\"*\", \"**\", \"***\"]."
+    }
+  },
+  "scenarios": {
+    "count0": {
+      "name": "Count is 0",
+      "description": "Zero stars returns an empty list."
+    },
+    "count1": {
+      "name": "Count is 1",
+      "description": "One star returns a list with a single star string."
+    },
+    "count3": {
+      "name": "Count is 3",
+      "description": "Three stars returns three strings with increasing stars."
+    },
+    "count5": {
+      "name": "Count is 5",
+      "description": "Five stars returns five strings with increasing stars."
+    }
+  },
+  "hints": {
+    "shapeOfAnswer": {
+      "question": "What's the shape of my answer?",
+      "answer": "A list of strings, each one a bit longer than the last. Start with an empty list and an empty string. Each iteration, the string grows by one star, and the new string goes into the list."
+    },
+    "loopCount": {
+      "question": "How do I run the loop the right number of times?",
+      "answer": "A `repeat(n)` loop matches the input directly. If `n` is 3, you go around 3 times."
+    },
+    "insideLoop": {
+      "question": "What happens inside the loop?",
+      "answer": "Two steps. First, append a star onto your growing string using concatenation with `+`. Second, `push()` the growing string onto your list. Order matters here. Do the concatenation first, so the first thing pushed is `\"*\"`, not the empty string."
+    }
+  },
+  "functions": {
+    "push": {
+      "description": "Add an item to the end of a list (provided by level stdlib)",
+      "category": "List Operations"
+    }
+  }
+}

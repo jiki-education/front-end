@@ -4,8 +4,8 @@ import type GolfRollingBallLoopExercise from "./Exercise";
 export const tasks = [
   {
     id: "roll-ball" as const,
-    name: "Roll the ball into the hole",
-    description: "Roll the ball into the hole.",
+    name: "tasks.rollBall.name",
+    description: "tasks.rollBall.description",
     hints: [],
     requiredScenarios: ["roll-ball"],
     bonus: false
@@ -15,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "roll-ball",
-    name: "Roll the ball into the hole",
-    description: "Roll the ball into the hole.",
+    name: "scenarios.rollBall.name",
+    description: "scenarios.rollBall.description",
     taskId: "roll-ball",
 
     setup(exercise) {
@@ -32,11 +32,11 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.ballX === 88,
-          errorHtml: `The ball rolled to ${ex.ballX}, which isn't 60 from where it started.`
+          errorHtml: ex.t("checks.ballNotAtEnd", { ballX: ex.ballX })
         },
         {
           pass: missingPositions.length === 0,
-          errorHtml: `The ball must roll through each position one step at a time, starting from 29.`
+          errorHtml: ex.t("checks.missingPositions")
         }
       ];
     },
@@ -47,7 +47,7 @@ export const scenarios: VisualScenario[] = [
           const limit = language === "python" ? 2 : 3;
           return result.assertors.assertMaxLinesOfCode(limit);
         },
-        errorHtml: "Your solution has too many lines of code. Try using a loop to make it shorter."
+        errorKey: "checks.codeQuality.tooManyLines"
       }
     ]
   }

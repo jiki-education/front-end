@@ -51,9 +51,9 @@ jobs:
         working-directory: app
         run: pnpm run exercise-cache:generate
 
-      - name: Generate interpreter catalog cache
+      - name: Generate interpreter i18n cache
         working-directory: app
-        run: pnpm run interpreter-catalog:generate
+        run: pnpm run interpreter-i18n:generate
 
       - name: Generate concept cache
         working-directory: app
@@ -63,9 +63,9 @@ jobs:
         working-directory: app
         run: pnpm run icons:generate
 
-      - name: Generate icon cache
+      - name: Generate asset cache
         working-directory: app
-        run: pnpm run icon-cache:generate
+        run: pnpm run asset-cache:generate
 
       - name: Run typecheck
         working-directory: app
@@ -119,9 +119,9 @@ jobs:
         working-directory: app
         run: pnpm run icons:generate
 
-      - name: Generate icon cache
+      - name: Generate asset cache
         working-directory: app
-        run: pnpm run icon-cache:generate
+        run: pnpm run asset-cache:generate
 
       - name: Run linter
         working-directory: app
@@ -158,9 +158,9 @@ jobs:
         working-directory: app
         run: pnpm run exercise-cache:generate
 
-      - name: Generate interpreter catalog cache
+      - name: Generate interpreter i18n cache
         working-directory: app
-        run: pnpm run interpreter-catalog:generate
+        run: pnpm run interpreter-i18n:generate
 
       - name: Generate concept cache
         working-directory: app
@@ -170,9 +170,9 @@ jobs:
         working-directory: app
         run: pnpm run icons:generate
 
-      - name: Generate icon cache
+      - name: Generate asset cache
         working-directory: app
-        run: pnpm run icon-cache:generate
+        run: pnpm run asset-cache:generate
 
       - name: Run unit tests
         working-directory: app
@@ -209,9 +209,9 @@ jobs:
         working-directory: app
         run: pnpm run exercise-cache:generate
 
-      - name: Generate interpreter catalog cache
+      - name: Generate interpreter i18n cache
         working-directory: app
-        run: pnpm run interpreter-catalog:generate
+        run: pnpm run interpreter-i18n:generate
 
       - name: Generate concept cache
         working-directory: app
@@ -221,9 +221,9 @@ jobs:
         working-directory: app
         run: pnpm run icons:generate
 
-      - name: Generate icon cache
+      - name: Generate asset cache
         working-directory: app
-        run: pnpm run icon-cache:generate
+        run: pnpm run asset-cache:generate
 
       - name: Install Playwright browsers
         working-directory: app

@@ -306,6 +306,9 @@ importers:
       diff:
         specifier: ^8.0.3
         version: 8.0.4
+      i18next:
+        specifier: ^25.7.4
+        version: 25.10.10(typescript@5.9.3)
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3.3.3

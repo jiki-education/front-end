@@ -8,25 +8,23 @@ const functions: FunctionInfo[] = [
   {
     name: "marketGrowth",
     signature: "marketGrowth(year)",
-    description:
-      "Returns the market growth percentage for a given year (between -25 and 40). You'll need to **increase** the amount of money you have by this number each time. (So 40 means that your $10 should be worth $14, and -10 means your $10 goes down to $9)",
+    description: "functions.marketGrowth.description",
     examples: ["let growth = marketGrowth(2026)"],
-    category: "Action"
+    category: "functions.marketGrowth.category"
   },
   {
     name: "reportTax",
     signature: "reportTax(year, balance)",
-    description:
-      "Reports your tax for a given year. You should call this every year, with the year and the current amount of money you have.",
+    description: "functions.reportTax.description",
     examples: ["reportTax(year, money)"],
-    category: "Action"
+    category: "functions.reportTax.category"
   },
   {
     name: "announceToFamily",
     signature: "announceToFamily(money)",
-    description: "Announces your final balance to your family.",
+    description: "functions.announceToFamily.description",
     examples: ["announceToFamily(money)"],
-    category: "Action"
+    category: "functions.announceToFamily.category"
   }
 ];
 

@@ -1,0 +1,52 @@
+{
+  "checks": {
+    "wrongMoveCount": "We expected the ball to move twice around the game area and land back in the same starting place.",
+    "missedLeftWall": "The ball didn't seem to touch the middle of the left hand side.",
+    "missedRightWall": "The ball didn't seem to touch the middle of the right hand side.",
+    "missedTopMiddle": "The ball didn't seem to touch the top middle.",
+    "missedBottomMiddle": "The ball didn't seem to touch the bottom middle."
+  },
+  "tasks": {
+    "bounceBall": {
+      "name": "Make the ball bounce around",
+      "description": "Create a ball and make it bounce off all four walls of the game area."
+    }
+  },
+  "scenarios": {
+    "addBall": {
+      "name": "Add the ball",
+      "description": "Add the ball and make it bounce around the game area."
+    }
+  },
+  "hints": {
+    "createBall": {
+      "question": "How do I get a ball to work with?",
+      "answer": "Use `new` to make one: `let ball = new Ball()`. Then pass `ball` to `moveBall(ball)` inside the loop to make it move."
+    },
+    "detectWall": {
+      "question": "How do I tell when the ball has reached a wall?",
+      "answer": "The ball's edge is `radius` away from its centre. For the left wall, check `ball.cx - ball.radius <= 0`. For the right wall, `ball.cx + ball.radius >= 100`."
+    },
+    "reverseVelocity": {
+      "question": "What should I do when the ball hits a wall?",
+      "answer": "Set the velocity so it moves the other way next step. At the left wall set `ball.xVelocity = 1`; at the right wall set it to `-1`. Use `=`, not `+=`, so the velocity stays exactly `1` or `-1`."
+    },
+    "checkAllWalls": {
+      "question": "Why does my ball still escape sometimes?",
+      "answer": "You probably only checked two walls. Add the same kind of check for the top (`ball.cy - ball.radius <= 0`) and bottom (`ball.cy + ball.radius >= 100`), flipping `yVelocity` instead of `xVelocity`."
+    }
+  },
+  "describers": {
+    "moveBall": "Moves the ball according to its velocity"
+  },
+  "functions": {
+    "ball": {
+      "description": "Creates a new Ball instance with properties: `cx`, `cy` (center position), `radius`, `xVelocity`, and `yVelocity`.",
+      "category": "Objects"
+    },
+    "moveBall": {
+      "description": "Moves the ball according to its current `xVelocity` and `yVelocity`.",
+      "category": "Movement"
+    }
+  }
+}

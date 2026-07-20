@@ -9,7 +9,7 @@ seo:
 
 ## TL;DR
 
-_We're translating Jiki and Exercism into as many languages as we can, over the weekend of **Friday July 31st - Sunday August 2nd**. Want to help? Join the **[kickoff live stream](https://youtube.com/live/UAxC5J4H2n0)** at 1pm UTC on the Friday, or get stuck in on **[Discord](https://discord.gg/VNrGu4D4R)** and **[the forum](https://forum.jiki.io/c/i18n/67)** any time over the weekend. Everyone who contributes gets an exclusive one-off Translatathon badge on both Jiki and Exercism!_
+_We're translating Jiki and Exercism into as many languages as we can, over the weekend of **Friday July 31st - Sunday August 2nd**. Want to help? Join the **[kickoff live stream](https://youtube.com/live/UAxC5J4H2n0)** at 1pm UTC on the Friday, or get stuck in on **[Discord](https://discord.gg/JFty3vbqRZ)** and **[the forum](https://forum.jiki.io/c/i18n/67)** any time over the weekend. Everyone who contributes gets an exclusive one-off Translatathon badge on both Jiki and Exercism!_
 
 ## Why we're doing this
 
@@ -24,7 +24,7 @@ And it's not just Jiki. Exercism is also ready to be translated, using the same 
 The Translatathon is like a hackathon, but with less hacking and more translating. It runs across a long weekend:
 
 - **Friday July 31st, 1pm UTC:** Kickoff live stream on [YouTube](https://youtube.com/live/UAxC5J4H2n0). I'll explain how everything works, show you the process in action, and get everyone started.
-- **Saturday and Sunday:** We ~~hack~~ translate. We'll base ourselves on [Discord](https://discord.gg/VNrGu4D4R), where I'll have a livestream running, and you can work with other speakers of your language in real time. We'll keep a proper record of decisions on the [forum](https://forum.jiki.io/c/i18n/67).
+- **Saturday and Sunday:** We ~~hack~~ translate. We'll base ourselves on [Discord](https://discord.gg/JFty3vbqRZ), where I'll have a livestream running, and you can work with other speakers of your language in real time. We'll keep a proper record of decisions on the [forum](https://forum.jiki.io/c/i18n/67).
 - **Sunday August 2nd, 4pm UTC:** Closing stream, where we'll look at which languages are ready to launch.
 
 For each language, we're hoping to have at least **three native speakers**, at least one of whom also speaks English to a high level. There are already lots of languages underway on **[the forum](https://forum.jiki.io/c/i18n/67)**, so have a look and see if yours is there.
@@ -58,7 +58,7 @@ No! If you can read something in your language and tell us when it sounds weird,
 So, to get involved:
 
 1. **Join the [kickoff stream](https://youtube.com/live/UAxC5J4H2n0)** at 1pm UTC on Friday July 31st.
-2. **Jump into the [#translation channel on Discord](https://discord.gg/VNrGu4D4R)**. That's where we'll all be working over the weekend, and the best place to discuss terms with other speakers of your language.
+2. **Jump into the [#translation channel on Discord](https://discord.gg/JFty3vbqRZ)**. That's where we'll all be working over the weekend, and the best place to discuss terms with other speakers of your language.
 3. **Post the decisions on [the forum](https://forum.jiki.io/c/i18n/67)**. The forum is what the AI actually learns from, so anything you agree on Discord needs to end up there.
 
 Everyone who contributes will get an **exclusive one-off Translatathon badge** on both Jiki and Exercism as a thank you.

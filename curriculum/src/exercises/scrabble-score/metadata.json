@@ -3,20 +3,20 @@
   "levelId": "everything",
   "hints": [
     {
-      "question": "Where should I start with the letter values?",
-      "answer": "Don't write a 26-line lookup by hand. Start with a list of groups, for example `[\"AEIOULNRST\", \"DG\", \"BCMP\", \"FHVWY\", \"K\", \"JX\", \"QZ\"]` and their matching values `[1, 2, 3, 4, 5, 8, 10]`."
+      "question": "hints.startingPoint.question",
+      "answer": "hints.startingPoint.answer"
     },
     {
-      "question": "How do I turn those groups into a usable lookup?",
-      "answer": "Build a dictionary by iterating through each group's letters and mapping each individual letter to the group's value. Now `dict[\"A\"]` directly gives you `1`."
+      "question": "hints.buildLookup.question",
+      "answer": "hints.buildLookup.answer"
     },
     {
-      "question": "Why don't my lookups work for lowercase input?",
-      "answer": "If your dictionary keys are uppercase, looking up `'a'` won't match `'A'`. Convert each letter to uppercase before looking up its value."
+      "question": "hints.lowercaseInput.question",
+      "answer": "hints.lowercaseInput.answer"
     },
     {
-      "question": "How do I add up the score?",
-      "answer": "Loop through the word, look up each letter's value in your dictionary, and add it to a running total. Return the total at the end."
+      "question": "hints.addUpScore.question",
+      "answer": "hints.addUpScore.answer"
     }
   ]
 }

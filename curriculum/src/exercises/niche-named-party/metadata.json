@@ -3,24 +3,24 @@
   "levelId": "multiple-functions",
   "hints": [
     {
-      "question": "How do I get the name and the allowed start?",
-      "answer": "Call `askName()` and `getAllowedStart()` and store the results in variables so you can use them in your comparison."
+      "question": "hints.getNameAndStart.question",
+      "answer": "hints.getNameAndStart.answer"
     },
     {
-      "question": "How do I check that a name starts with certain letters?",
-      "answer": "Compare each character of the allowed start with the character at the same position in the name. If any character differs, the name doesn't match."
+      "question": "hints.checkStartsWith.question",
+      "answer": "hints.checkStartsWith.answer"
     },
     {
-      "question": "How do I look at one character at a time?",
-      "answer": "Use a counter variable starting at `1` and step through each position with a loop, comparing `name` and `allowedStart` at that position."
+      "question": "hints.loopCharacters.question",
+      "answer": "hints.loopCharacters.answer"
     },
     {
-      "question": "How do I know when to stop comparing?",
-      "answer": "Stop when you've checked every character of the allowed start. You'll need its length for that, similar to what you did in Sign Painter Price."
+      "question": "hints.stopComparing.question",
+      "answer": "hints.stopComparing.answer"
     },
     {
-      "question": "What if the allowed start is longer than the name?",
-      "answer": "That person can't match, so they should be turned away. Check the lengths before you start comparing and handle that case."
+      "question": "hints.longerAllowedStart.question",
+      "answer": "hints.longerAllowedStart.answer"
     }
   ]
 }

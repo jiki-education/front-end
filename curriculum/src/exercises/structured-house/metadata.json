@@ -3,24 +3,24 @@
   "levelId": "variables",
   "hints": [
     {
-      "question": "Where do I start?",
-      "answer": "You're given `houseWidth`, `houseHeight`, and `canvasWidth`. Work out the two things the frame needs first: its left edge (so the house is centered) and its top edge (so it sits on the grass). Every other shape can then be built from the frame."
+      "question": "hints.whereDoIStart.question",
+      "answer": "hints.whereDoIStart.answer"
     },
     {
-      "question": "How do I keep the house centered when the width changes?",
-      "answer": "The middle of the canvas is always `canvasWidth / 2`. If the frame is centered on that point, its left edge is half a width to the left of the middle. Anything else that's centered (the roof peak, the door) can use that same middle point."
+      "question": "hints.keepCentered.question",
+      "answer": "hints.keepCentered.answer"
     },
     {
-      "question": "How do I keep the house planted on the grass?",
-      "answer": "Find the y value where the bottom of the house should sit (a little below the top of the grass). The top of the frame is then one house-height above that. Working from the bottom upward means a taller house grows up into the sky rather than down through the grass."
+      "question": "hints.keepPlantedOnGrass.question",
+      "answer": "hints.keepPlantedOnGrass.answer"
     },
     {
-      "question": "How do I size the roof, windows, and door?",
-      "answer": "Each size in the instructions is a fraction of the frame's width or height (for example, '1/5th of the width' is `houseWidth / 5`). Build every width from `houseWidth` and every height from `houseHeight`, so they all scale together."
+      "question": "hints.sizeRoofWindowsDoor.question",
+      "answer": "hints.sizeRoofWindowsDoor.answer"
     },
     {
-      "question": "It looks right at the default size but breaks when I resize. Why?",
-      "answer": "You've probably hardcoded a number somewhere instead of deriving it. Look for any literal that isn't a value taken straight from the instructions, like the canvas size or grass height. It should almost certainly be derived from another variable instead. That might be an anchor, or something already built from an anchor, like the door's width."
+      "question": "hints.breaksOnResize.question",
+      "answer": "hints.breaksOnResize.answer"
     }
   ]
 }

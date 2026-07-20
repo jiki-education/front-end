@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "check-formal-guest-list" as const,
-    name: "Check the Formal Guest List",
-    description:
-      "Write a function that checks if a person is on the guest list by their surname. Given an honorific and surname (e.g., 'Mr Pitt'), check if any name on the list ends with that surname.",
+    name: "tasks.checkFormalGuestList.name",
+    description: "tasks.checkFormalGuestList.description",
     hints: [],
     requiredScenarios: [
       "empty-list",
@@ -19,8 +18,8 @@ export const tasks = [
   },
   {
     id: "bonus-multi-word-surname" as const,
-    name: "Multi-word Surnames",
-    description: "Handle surnames that have multiple words, like 'Lloyd Webber'.",
+    name: "tasks.bonusMultiWordSurname.name",
+    description: "tasks.bonusMultiWordSurname.description",
     hints: [],
     requiredScenarios: ["lloyd-webber", "mark-webber"],
     bonus: true
@@ -30,8 +29,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "empty-list",
-    name: "Empty register",
-    description: "No-one's allowed in when the list is empty.",
+    name: "scenarios.emptyList.name",
+    description: "scenarios.emptyList.description",
     taskId: "check-formal-guest-list",
     functionName: "on_guest_list",
     args: [[], "Mr Pitt"],
@@ -39,8 +38,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "name-missing",
-    name: "Brad's turned away",
-    description: "The name's not on the list.",
+    name: "scenarios.nameMissing.name",
+    description: "scenarios.nameMissing.description",
     taskId: "check-formal-guest-list",
     functionName: "on_guest_list",
     args: [["Brian May", "Albert Einstein", "James Watt"], "Mr Pitt"],
@@ -48,8 +47,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "name-present",
-    name: "Brad's allowed in",
-    description: "The name's on the list (Brad Pitt matches Mr Pitt).",
+    name: "scenarios.namePresent.name",
+    description: "scenarios.namePresent.description",
     taskId: "check-formal-guest-list",
     functionName: "on_guest_list",
     args: [["Brian May", "Brad Pitt", "Albert Einstein"], "Mr Pitt"],
@@ -57,8 +56,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "different-honorific",
-    name: "Knight of the realm",
-    description: "Handle a different honorific (Lord Doyle matches Arthur Conan Doyle).",
+    name: "scenarios.differentHonorific.name",
+    description: "scenarios.differentHonorific.description",
     taskId: "check-formal-guest-list",
     functionName: "on_guest_list",
     args: [["Arthur Conan Doyle", "Bradley Cooper", "Albert Einstein"], "Lord Doyle"],
@@ -66,8 +65,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "bond-allowed",
-    name: "Mr Bond, I presume",
-    description: "James Bond is on the list.",
+    name: "scenarios.bondAllowed.name",
+    description: "scenarios.bondAllowed.description",
     taskId: "check-formal-guest-list",
     functionName: "on_guest_list",
     args: [["James Bond"], "Mr Bond"],
@@ -75,8 +74,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "bond-not-allowed",
-    name: "Hmmm.. Mr Bond, I presume",
-    description: "Only Jason Bourne on the list, not James Bond.",
+    name: "scenarios.bondNotAllowed.name",
+    description: "scenarios.bondNotAllowed.description",
     taskId: "check-formal-guest-list",
     functionName: "on_guest_list",
     args: [["Jason Bourne"], "Dr Bond"],
@@ -84,8 +83,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "lloyd-webber",
-    name: "How about a Baron?",
-    description: "Baron Lloyd Webber has two words in his surname.",
+    name: "scenarios.lloydWebber.name",
+    description: "scenarios.lloydWebber.description",
     taskId: "bonus-multi-word-surname",
     functionName: "on_guest_list",
     args: [["Brian May", "Brad Pitt", "Albert Einstein", "Andrew Lloyd Webber"], "Baron Lloyd Webber"],
@@ -93,8 +92,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "mark-webber",
-    name: "Is Mark the Baron?",
-    description: "A different Webber doesn't count - surname must match fully.",
+    name: "scenarios.markWebber.name",
+    description: "scenarios.markWebber.description",
     taskId: "bonus-multi-word-surname",
     functionName: "on_guest_list",
     args: [["Brian May", "Brad Pitt", "Albert Einstein", "Mark Webber"], "Baron Lloyd Webber"],

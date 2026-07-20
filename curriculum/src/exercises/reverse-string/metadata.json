@@ -3,16 +3,16 @@
   "levelId": "string-iteration",
   "hints": [
     {
-      "question": "How would I reverse a word by hand?",
-      "answer": "You'd read it left-to-right but write it right-to-left. Equivalently, you'd take each letter in turn and put it in front of what you've written so far."
+      "question": "hints.reverseByHand.question",
+      "answer": "hints.reverseByHand.answer"
     },
     {
-      "question": "How does that map to code?",
-      "answer": "Loop through the input string character by character. For each character, build the result by prepending. That means putting it at the FRONT of your result, not the back."
+      "question": "hints.mapToCode.question",
+      "answer": "hints.mapToCode.answer"
     },
     {
-      "question": "How do I 'prepend' instead of append?",
-      "answer": "With the `+` operator, prepending is just a matter of order. Instead of `result + char` (which appends), use `char + result` (which prepends)."
+      "question": "hints.prepend.question",
+      "answer": "hints.prepend.answer"
     }
   ]
 }

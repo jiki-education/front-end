@@ -1,4 +1,4 @@
-import type { Task, VisualScenario } from "../types";
+import type { Task, VisualScenario, VisualTestExpect } from "../types";
 import type AnnalynsInfiltrationExercise from "./Exercise";
 
 const IMAGE_BASE = "/static/images/exercise-assets/annalyns-infiltration";
@@ -6,9 +6,8 @@ const IMAGE_BASE = "/static/images/exercise-assets/annalyns-infiltration";
 export const tasks = [
   {
     id: "plan-the-rescue" as const,
-    name: "Plan the rescue",
-    description:
-      "For each camp, perform every action Annalyn can safely take: fast attack if the knight is asleep, spy if at least one of them is awake, signal the prisoner if the prisoner is awake and the archer asleep, and free the prisoner via either the behaving-dog route or the sneaky route.",
+    name: "tasks.planTheRescue.name",
+    description: "tasks.planTheRescue.description",
     hints: [],
     requiredScenarios: [
       "all-asleep-naughty-dog",
@@ -29,69 +28,46 @@ interface ExpectedActions {
   free: boolean;
 }
 
+type ActionKey = "fastAttack" | "spy" | "signal" | "free";
+
 function actionExpectation(
+  exercise: AnnalynsInfiltrationExercise,
   count: number,
   shouldDo: boolean,
-  actionLabel: string,
-  shouldMsg: string,
-  shouldNotMsg: string
-) {
+  actionKey: ActionKey
+): VisualTestExpect {
   if (shouldDo) {
     if (count === 0) {
-      return { pass: false, errorHtml: shouldMsg };
+      return { pass: false, errorHtml: exercise.t(`checks.${actionKey}.should`) };
     }
     if (count > 1) {
       return {
         pass: false,
-        errorHtml: `Annalyn <strong>should</strong> only ${actionLabel} once here, but she did it ${count} times.`
+        errorHtml: exercise.t(`checks.${actionKey}.tooMany`, { count })
       };
     }
     return { pass: true, errorHtml: "" };
   }
   return {
     pass: count === 0,
-    errorHtml: shouldNotMsg
+    errorHtml: exercise.t(`checks.${actionKey}.shouldNot`)
   };
 }
 
 function buildExpectations(exercise: AnnalynsInfiltrationExercise, expected: ExpectedActions) {
   return [
-    actionExpectation(
-      exercise.fastAttackCount,
-      expected.fastAttack,
-      "fast attack",
-      "Annalyn <strong>should</strong> make a fast attack here, but she didn't. The knight is asleep, so she can strike before he wakes.",
-      "Annalyn <strong>should not</strong> make a fast attack here. The knight is awake, so attacking would get her caught."
-    ),
-    actionExpectation(
-      exercise.spyCount,
-      expected.spy,
-      "spy",
-      "Annalyn <strong>should</strong> spy here, but she didn't. At least one person in the camp is awake, so there's something to watch.",
-      "Annalyn <strong>should not</strong> spy here. Everyone is asleep, so there's nothing to learn."
-    ),
-    actionExpectation(
-      exercise.signalCount,
-      expected.signal,
-      "signal the prisoner",
-      "Annalyn <strong>should</strong> signal the prisoner here, but she didn't. The prisoner is awake and the archer is asleep, so the signal will get through.",
-      "Annalyn <strong>should not</strong> signal the prisoner here. Either the prisoner is asleep or the archer is awake, so signalling would fail."
-    ),
-    actionExpectation(
-      exercise.freeCount,
-      expected.free,
-      "free the prisoner",
-      "Annalyn <strong>should</strong> free the prisoner here, but she didn't. She can do it here without getting caught.",
-      "Annalyn <strong>should not</strong> try to free the prisoner here. She'd get caught."
-    )
+    actionExpectation(exercise, exercise.fastAttackCount, expected.fastAttack, "fastAttack"),
+    actionExpectation(exercise, exercise.spyCount, expected.spy, "spy"),
+    actionExpectation(exercise, exercise.signalCount, expected.signal, "signal"),
+    actionExpectation(exercise, exercise.freeCount, expected.free, "free")
   ];
 }
 
 export const scenarios: VisualScenario[] = [
   {
     slug: "all-asleep-naughty-dog",
-    name: "Everyone asleep, dog misbehaving",
-    description: "The whole camp is asleep, but Annalyn's dog is misbehaving so it's no help.",
+    name: "scenarios.allAsleepNaughtyDog.name",
+    description: "scenarios.allAsleepNaughtyDog.description",
     taskId: "plan-the-rescue",
     setup(exercise) {
       const ex = exercise as AnnalynsInfiltrationExercise;
@@ -109,8 +85,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "all-asleep-behaving-dog",
-    name: "Everyone asleep, dog behaving",
-    description: "The whole camp is asleep and Annalyn's dog is behaving itself.",
+    name: "scenarios.allAsleepBehavingDog.name",
+    description: "scenarios.allAsleepBehavingDog.description",
     taskId: "plan-the-rescue",
     setup(exercise) {
       const ex = exercise as AnnalynsInfiltrationExercise;
@@ -128,8 +104,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "knight-awake-naughty-dog",
-    name: "Only the knight is awake",
-    description: "The knight is on watch while the archer and prisoner sleep. The dog is misbehaving.",
+    name: "scenarios.knightAwakeNaughtyDog.name",
+    description: "scenarios.knightAwakeNaughtyDog.description",
     taskId: "plan-the-rescue",
     setup(exercise) {
       const ex = exercise as AnnalynsInfiltrationExercise;
@@ -147,9 +123,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "prisoner-awake-naughty-dog",
-    name: "Only the prisoner is awake",
-    description:
-      "Both kidnappers sleep while the prisoner lies awake. The dog is misbehaving — the sneaky route is open.",
+    name: "scenarios.prisonerAwakeNaughtyDog.name",
+    description: "scenarios.prisonerAwakeNaughtyDog.description",
     taskId: "plan-the-rescue",
     setup(exercise) {
       const ex = exercise as AnnalynsInfiltrationExercise;
@@ -167,8 +142,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "archer-and-prisoner-awake-behaving-dog",
-    name: "Archer and prisoner awake",
-    description: "The archer is on watch and the prisoner is awake too. The dog is behaving.",
+    name: "scenarios.archerAndPrisonerAwakeBehavingDog.name",
+    description: "scenarios.archerAndPrisonerAwakeBehavingDog.description",
     taskId: "plan-the-rescue",
     setup(exercise) {
       const ex = exercise as AnnalynsInfiltrationExercise;
@@ -186,8 +161,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "all-awake-behaving-dog",
-    name: "Everyone awake, dog behaving",
-    description: "The whole camp is wide awake. Even with the dog behaving, freeing isn't safe.",
+    name: "scenarios.allAwakeBehavingDog.name",
+    description: "scenarios.allAwakeBehavingDog.description",
     taskId: "plan-the-rescue",
     setup(exercise) {
       const ex = exercise as AnnalynsInfiltrationExercise;

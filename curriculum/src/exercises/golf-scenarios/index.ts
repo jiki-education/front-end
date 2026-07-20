@@ -8,16 +8,16 @@ const functions: FunctionInfo[] = [
   {
     name: "moveTo",
     signature: "moveTo(x)",
-    description: "Moves the ball to position **x**.",
+    description: "functions.moveTo.description",
     examples: ["moveTo(30)", "moveTo(50)"],
-    category: "Movement"
+    category: "functions.moveTo.category"
   },
   {
     name: "getShotLength",
     signature: "getShotLength()",
-    description: "Returns the **length of the shot** — how many units the ball travels to the right.",
+    description: "functions.getShotLength.description",
     examples: ["let shotLength = getShotLength()"],
-    category: "Information"
+    category: "functions.getShotLength.category"
   }
 ];
 

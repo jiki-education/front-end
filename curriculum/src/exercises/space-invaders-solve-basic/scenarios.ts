@@ -4,9 +4,8 @@ import type SpaceInvadersSolveBasicExercise from "./Exercise";
 export const tasks = [
   {
     id: "shoot-the-aliens" as const,
-    name: "Shoot all the aliens",
-    description:
-      "Move your laser cannon to the right and shoot each alien as you pass underneath it. Don't miss or move off the edge!",
+    name: "tasks.shootTheAliens.name",
+    description: "tasks.shootTheAliens.description",
     hints: [],
     requiredScenarios: ["shoot-the-aliens"],
     bonus: false
@@ -16,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "shoot-the-aliens",
-    name: "Shoot the Aliens",
-    description: "Move right and shoot all the aliens",
+    name: "scenarios.shootTheAliens.name",
+    description: "scenarios.shootTheAliens.description",
     taskId: "shoot-the-aliens",
 
     setup(exercise) {
@@ -31,7 +30,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: state.gameStatus === "won",
-          errorHtml: "You didn't shoot down all the aliens."
+          errorHtml: ex.t("checks.notShotAllAliens")
         }
       ];
     }

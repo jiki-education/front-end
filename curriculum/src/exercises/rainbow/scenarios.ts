@@ -4,8 +4,8 @@ import type { RainbowExercise } from "./Exercise";
 export const tasks = [
   {
     id: "draw-rainbow" as const,
-    name: "Draw the rainbow",
-    description: "Draw 100 vertical bars across the canvas, each with a different hue to create a rainbow effect.",
+    name: "tasks.drawRainbow.name",
+    description: "tasks.drawRainbow.description",
     hints: [],
     requiredScenarios: ["draw-rainbow"],
     bonus: false
@@ -15,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "draw-rainbow",
-    name: "Draw the rainbow",
-    description: "Paint 100 beautiful rectangles to create a rainbow.",
+    name: "scenarios.drawRainbow.name",
+    description: "scenarios.drawRainbow.description",
     taskId: "draw-rainbow",
 
     expectations(exercise) {
@@ -25,27 +25,27 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasRectangleAt(0, 0, 1, 100),
-          errorHtml: "The first rectangle is missing."
+          errorHtml: ex.t("checks.firstRectangle")
         },
         {
           pass: ex.hasRectangleAt(99, 0, 1, 100),
-          errorHtml: "The last rectangle is missing."
+          errorHtml: ex.t("checks.lastRectangle")
         },
         {
           pass: ex.allRectanglesHaveMinSaturationAndLightness(20, 20),
-          errorHtml: "All rectangles should have saturation and lightness of at least 20."
+          errorHtml: ex.t("checks.minSaturationLightness")
         },
         {
           pass: ex.checkUniqueColoredRectangles(100),
-          errorHtml: "There are not 100 different colored rectangles."
+          errorHtml: ex.t("checks.uniqueColors")
         },
         {
           pass: ex.hasRectangleWithHue(0),
-          errorHtml: "There should be a rectangle with a hue close to 0 (red)."
+          errorHtml: ex.t("checks.hueRed")
         },
         {
           pass: ex.hasRectangleWithHue(300),
-          errorHtml: "There should be a rectangle with a hue close to 300 (purple)."
+          errorHtml: ex.t("checks.huePurple")
         }
       ];
     }

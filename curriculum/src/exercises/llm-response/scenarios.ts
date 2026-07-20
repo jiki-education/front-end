@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "format-llm-response" as const,
-    name: "Format the response",
-    description:
-      "Create an askLlm function that takes a question, fetches the LLM response, selects the answer with the highest certainty, and returns a formatted string.",
+    name: "tasks.formatLlmResponse.name",
+    description: "tasks.formatLlmResponse.description",
     hints: [],
     requiredScenarios: ["football", "cooking", "ltc"],
     bonus: false
@@ -15,8 +14,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "football",
-    name: "The 1966 World Cup",
-    description: "Return the response to a very important question.",
+    name: "scenarios.football.name",
+    description: "scenarios.football.description",
     taskId: "format-llm-response",
     functionName: "ask_llm",
     args: ["Who won the 1966 Football Men's World Cup?"],
@@ -24,8 +23,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "cooking",
-    name: "Cooking",
-    description: "Return the best response for a cooking question!",
+    name: "scenarios.cooking.name",
+    description: "scenarios.cooking.description",
     taskId: "format-llm-response",
     functionName: "ask_llm",
     args: ["What's the best cacao percentage in chocolate?"],
@@ -34,8 +33,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "ltc",
-    name: "Learn to Code websites",
-    description: "Return the best response for a question with a clear answer!",
+    name: "scenarios.ltc.name",
+    description: "scenarios.ltc.description",
     taskId: "format-llm-response",
     functionName: "ask_llm",
     args: ["What's the best website to learn to code?"],

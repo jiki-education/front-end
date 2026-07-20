@@ -1,0 +1,65 @@
+{
+  "checks": {
+    "sky": "The sky has gone wrong.",
+    "ground": "The ground has gone wrong.",
+    "leftWing": "The left wing doesn't seem right.",
+    "rightWing": "The right wing doesn't seem right.",
+    "outerBody": "The outer body has gone wrong.",
+    "innerBody": "The inner body has gone wrong.",
+    "head": "The head has gone wrong.",
+    "leftFace": "The left side of the face doesn't look right.",
+    "rightFace": "The right side of the face doesn't look right.",
+    "lowerFace": "The lower part of the face doesn't look right.",
+    "leftEye": "The left eye seems off.",
+    "leftIris": "The left iris seems off.",
+    "rightEye": "The right eye seems off.",
+    "rightIris": "The right iris seems off.",
+    "leftFoot": "The left foot's gone astray.",
+    "rightFoot": "The right foot's not right.",
+    "nose": "The nose isn't right."
+  },
+  "tasks": {
+    "drawPenguin": {
+      "name": "Draw the symmetrical penguin",
+      "description": "Complete the penguin drawing by adding the missing parts to make it symmetrical."
+    }
+  },
+  "scenarios": {
+    "makePenguinSymmetrical": {
+      "name": "Make the penguin symmetrical",
+      "description": "Fix all the TODO comments to make the penguin symmetrical."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Where do I start?",
+      "answer": "Work through the TODO comments one at a time, starting from the top."
+    },
+    "symmetryOnCanvas": {
+      "question": "How does symmetry work on the canvas?",
+      "answer": "If something's left edge is 20, its symmetrical right edge will be 80 (100 - 20)."
+    },
+    "noseTrouble": {
+      "question": "Why can't I get the nose to work?",
+      "answer": "You shouldn't add a new triangle for the nose - instead you should CHANGE the existing triangle to work correctly. You only need to change ONE value."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Draw a rectangle at position (left, top) with the given width, height, and color",
+      "category": "Drawing Shapes"
+    },
+    "circle": {
+      "description": "Draw a circle centered at (centerX, centerY) with the given radius and color",
+      "category": "Drawing Shapes"
+    },
+    "ellipse": {
+      "description": "Draw an ellipse centered at (centerX, centerY) with horizontal and vertical radii and color",
+      "category": "Drawing Shapes"
+    },
+    "triangle": {
+      "description": "Draw a triangle with three corner points and a color",
+      "category": "Drawing Shapes"
+    }
+  }
+}

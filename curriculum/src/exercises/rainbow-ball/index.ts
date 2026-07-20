@@ -7,16 +7,16 @@ const functions: FunctionInfo[] = [
   {
     name: "circle",
     signature: "circle(centerX, centerY, radius, color)",
-    description: "Draw a circle with its center at (centerX, centerY) with the given radius and color",
+    description: "functions.circle.description",
     examples: ['circle(50, 50, 10, "#ff0000")', "circle(25, 75, 3, hsl(180, 80, 50))"],
-    category: "Drawing Shapes"
+    category: "functions.circle.category"
   },
   {
     name: "hsl",
     signature: "hsl(hue, saturation, lightness)",
-    description: "Convert HSL color values (hue 0-360, saturation 0-100, lightness 0-100) to a hex color string",
+    description: "functions.hsl.description",
     examples: ["hsl(0, 80, 50)", "hsl(120, 80, 50)"],
-    category: "Colors"
+    category: "functions.hsl.category"
   }
 ];
 

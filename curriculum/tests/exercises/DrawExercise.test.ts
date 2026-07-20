@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { DrawExercise } from "../../src/exercise-categories/draw";
-import type { ExecutionContext, ExternalFunction } from "@jiki/interpreters";
+import type { ExecutionContext } from "@jiki/interpreters";
 import type { Shared } from "@jiki/interpreters";
 import { Circle, Rectangle, Ellipse, Triangle, Line } from "../../src/exercise-categories/draw/shapes";
 
@@ -10,7 +10,7 @@ class TestDrawExercise extends DrawExercise {
     return "test-draw-exercise";
   }
 
-  public get availableFunctions(): ExternalFunction[] {
+  public get availableFunctions() {
     const funcs = this.getAllAvailableFunctions();
     return Object.values(funcs);
   }
@@ -61,12 +61,39 @@ function createString(value: string): Shared.String {
 
 const defaultColor = createString("#ff0000");
 
+// Messages for the DrawExercise shared `errors.*` keys, resolved via `this.t` in the
+// base class. Injected here so `logicError` assertions can check the resolved text,
+// mirroring how the app injects a per-locale dict via `setMessages`.
+const drawErrorMessages = {
+  errors: {
+    allInputsNumbers: "All inputs must be numbers",
+    hueRange: "Hue must be between 0 and 360",
+    saturationRange: "Saturation must be between 0 and 100",
+    lightnessRange: "Lightness must be between 0 and 100",
+    redRange: "Red must be between 0 and 255",
+    greenRange: "Green must be between 0 and 255",
+    blueRange: "Blue must be between 0 and 255",
+    rectInputsNumbers: "The x, y, width, and height inputs must be numbers",
+    widthPositive: "Width must be greater than 0",
+    heightPositive: "Height must be greater than 0",
+    lineInputsNumbers: "The x1, y1, x2, and y2 inputs must be numbers",
+    circleInputsNumbers: "The x, y, and radius inputs must be numbers",
+    ellipseInputsNumbers: "The x, y, rx, and ry inputs must be numbers",
+    triangleInputsNumbers: "The x1, y1, x2, y2, x3, and y3 inputs must be numbers",
+    colorNotAllowed: "Color should not be specified for this exercise",
+    colorNotString: "Color must be a string",
+    colorNamedOrHex:
+      'Color must be a named color ("orange", "blue", "white", etc) specified in the instructions, or a hex color starting with #'
+  }
+};
+
 describe("DrawExercise", () => {
   let exercise: TestDrawExercise;
   let ctx: ExecutionContext;
 
   beforeEach(() => {
     exercise = new TestDrawExercise();
+    exercise.setMessages(drawErrorMessages);
     ctx = createMockExecutionContext();
   });
 

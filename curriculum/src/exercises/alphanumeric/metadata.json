@@ -3,24 +3,24 @@
   "levelId": "advanced-loops",
   "hints": [
     {
-      "question": "Where should I start when there are several functions to write?",
-      "answer": "Pick the smallest helper first. A `contains()` function (which asks 'does this character appear in this string?') is the foundation that everything else can build on."
+      "question": "hints.whereToStart.question",
+      "answer": "hints.whereToStart.answer"
     },
     {
-      "question": "How do I check if every character in the input is a letter?",
-      "answer": "Use `contains()` against the alphabet `\"abcdefghijklmnopqrstuvwxyz\"`. Loop through each character of the input and ask 'is this one in the alphabet?'. If any aren't, it isn't all alpha."
+      "question": "hints.checkAllLetters.question",
+      "answer": "hints.checkAllLetters.answer"
     },
     {
-      "question": "How do I do the same check for digits?",
-      "answer": "Exactly the same pattern, but check against `\"0123456789\"` instead of the alphabet."
+      "question": "hints.checkAllDigits.question",
+      "answer": "hints.checkAllDigits.answer"
     },
     {
-      "question": "What does 'alphanumeric' mean. Does it mean both?",
-      "answer": "Alphanumeric means each character is either a letter OR a digit. So for each character, if it's alpha you're happy, and if it's numeric you're also happy. Use `continue` to skip on. Only if it's neither should you reject."
+      "question": "hints.alphanumericMeaning.question",
+      "answer": "hints.alphanumericMeaning.answer"
     },
     {
-      "question": "How do I pick between the four labels in whatAmI()?",
-      "answer": "Call all three helpers and use if/else. The order matters. Check the stricter cases ('alpha only' and 'numeric only') before 'alphanumeric', which is the looser case."
+      "question": "hints.pickingLabels.question",
+      "answer": "hints.pickingLabels.answer"
     }
   ]
 }

@@ -7,16 +7,16 @@ const functions: FunctionInfo[] = [
   {
     name: "askNumberOfFlowers",
     signature: "askNumberOfFlowers()",
-    description: "Returns the **number of flowers** to plant.",
+    description: "functions.askNumberOfFlowers.description",
     examples: ["let count = askNumberOfFlowers()"],
-    category: "Gardening"
+    category: "functions.askNumberOfFlowers.category"
   },
   {
     name: "plant",
     signature: "plant(position)",
-    description: "Plants a flower at the given **position**.",
+    description: "functions.plant.description",
     examples: ["plant(10)", "plant(25)"],
-    category: "Gardening"
+    category: "functions.plant.category"
   }
 ];
 

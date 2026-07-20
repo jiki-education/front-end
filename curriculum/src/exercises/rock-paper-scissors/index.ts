@@ -8,23 +8,23 @@ const functions: FunctionInfo[] = [
   {
     name: "getYukiChoice",
     signature: "getYukiChoice()",
-    description: 'Returns Yuki\'s choice — one of `"rock"`, `"paper"`, or `"scissors"`.',
+    description: "functions.getYukiChoice.description",
     examples: ["let choice = getYukiChoice()"],
-    category: "Game"
+    category: "functions.getYukiChoice.category"
   },
   {
     name: "getAndoChoice",
     signature: "getAndoChoice()",
-    description: 'Returns Ando\'s choice — one of `"rock"`, `"paper"`, or `"scissors"`.',
+    description: "functions.getAndoChoice.description",
     examples: ["let choice = getAndoChoice()"],
-    category: "Game"
+    category: "functions.getAndoChoice.category"
   },
   {
     name: "announceResult",
     signature: "announceResult(result)",
-    description: 'Announces the result of the game. Pass `"Yuki"`, `"Ando"`, or `"tie"`.',
+    description: "functions.announceResult.description",
     examples: ['announceResult("Yuki")', 'announceResult("tie")'],
-    category: "Game"
+    category: "functions.announceResult.category"
   }
 ];
 

@@ -3,24 +3,24 @@
   "levelId": "string-iteration",
   "hints": [
     {
-      "question": "How do I look at each individual mark?",
-      "answer": "Loop through the marks string one character at a time. Each character is either ✅, ❌, or 💥."
+      "question": "hints.lookAtEachMark.question",
+      "answer": "hints.lookAtEachMark.answer"
     },
     {
-      "question": "Why is my code complaining about 💥?",
-      "answer": "Emoji like 💥 and ❌ still need to be wrapped in quotation marks. They're characters in a string just like letters are."
+      "question": "hints.emojiInQuotes.question",
+      "answer": "hints.emojiInQuotes.answer"
     },
     {
-      "question": "What should I do when I see a 💥 (major)?",
-      "answer": "Any single major fails the test, no matter what else has happened. So you can return `false` straight away as soon as you see one. There's no need to keep looking."
+      "question": "hints.majorFault.question",
+      "answer": "hints.majorFault.answer"
     },
     {
-      "question": "How do I handle minors, where the count matters?",
-      "answer": "Keep a counter variable and add 1 to it each time you see a ❌. Ignore the ✅s, they don't change anything."
+      "question": "hints.minorCount.question",
+      "answer": "hints.minorCount.answer"
     },
     {
-      "question": "What do I check at the end?",
-      "answer": "Once the loop's finished and you haven't seen a major, the test passes if there were fewer than 5 minors. Return `true` if the minor count is less than 5, otherwise `false`."
+      "question": "hints.finalCheck.question",
+      "answer": "hints.finalCheck.answer"
     }
   ]
 }

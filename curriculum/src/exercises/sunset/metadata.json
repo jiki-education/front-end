@@ -3,16 +3,16 @@
   "levelId": "basic-state",
   "hints": [
     {
-      "question": "How do I animate?",
-      "answer": "To animate, we're following the flipbook style - redraw the whole scene each time over the top of the previous versions."
+      "question": "hints.howToAnimate.question",
+      "answer": "hints.howToAnimate.answer"
     },
     {
-      "question": "I don't know where to start.",
-      "answer": "You need to draw 100 times. So start by moving the existing drawing functions into a repeat loop that runs 100 times. Then you need to change the variables (radius, colors, etc), for each time the loop runs."
+      "question": "hints.whereToStart.question",
+      "answer": "hints.whereToStart.answer"
     },
     {
-      "question": "Where do I put my variables?",
-      "answer": "You need to set your variables BEFORE the loop, then update them INSIDE the loop, BEFORE drawing the shapes. Think through Jiki creating boxes and updating them each time."
+      "question": "hints.whereToPutVariables.question",
+      "answer": "hints.whereToPutVariables.answer"
     }
   ]
 }

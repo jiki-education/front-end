@@ -73,9 +73,6 @@ export function describeCallExpressionSteps(
     return steps;
   }
 
-  // Then describe the function lookup
-  steps.push(`<li>Looked up the function <code>${functionName}</code></li>`);
-
   // Omit "and got undefined" for void functions
   let retText = "";
   if (!(result.jikiObject instanceof JSUndefined)) {
@@ -89,7 +86,10 @@ export function describeCallExpressionSteps(
     const argValues = result.args.map(arg => `<code>${formatJSObject(arg.jikiObject)}</code>`).join(", ");
     argsText = ` with ${argValues}`;
   }
-  steps.push(`<li>Called <code>${functionName}</code>${argsText}${retText}</li>`);
+  // Single, student-friendly step consistent with JikiScript/Python ("used the X
+  // function") and the statement summary — rather than the old low-level
+  // "Looked up the function X" + "Called X" pair.
+  steps.push(`<li>Jiki used the <code>${functionName}</code> function${argsText}${retText}</li>`);
 
   return steps;
 }

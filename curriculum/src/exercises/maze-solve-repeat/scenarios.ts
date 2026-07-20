@@ -4,8 +4,8 @@ import type MazeSolveRepeatExercise from "./Exercise";
 export const tasks = [
   {
     id: "solve-maze-with-repeat" as const,
-    name: "Refactor the maze solution using repeat loops",
-    description: "Replace consecutive `move()` calls with repeat loops to make the code shorter.",
+    name: "tasks.solveMazeWithRepeat.name",
+    description: "tasks.solveMazeWithRepeat.description",
     hints: [],
     requiredScenarios: ["maze-repeat-1"],
     bonus: false
@@ -15,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "maze-repeat-1",
-    name: "Refactor the maze solution using repeat loops",
-    description: "Use repeat loops to avoid consecutive `move()` calls.",
+    name: "scenarios.mazeRepeat1.name",
+    description: "scenarios.mazeRepeat1.description",
     taskId: "solve-maze-with-repeat",
 
     setup(exercise) {
@@ -43,11 +43,11 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 6 && ex.characterCol === 6,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         },
         {
           pass: ex.getGameResult() === "win",
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         }
       ];
     },
@@ -57,13 +57,16 @@ export const scenarios: VisualScenario[] = [
       // feedback matches the likely cause. Each fires only in its own band:
       //   - 2 or more over  -> there are still runs of move() calls to collapse
       //   - exactly 1 over  -> usually a short repeat that costs more lines than it saves
+      //
+      // NOTE (i18n): CodeCheck.pass is (result: InterpretResult, language: Language) => boolean
+      // with no exercise instance in scope, so there is no translator to call `.t()` on here.
+      // errorKey is resolved against the catalog instead.
       {
         pass: (result, language) => {
           const limit = language === "python" ? 18 : 22;
           return result.assertors.countLinesOfCode() <= limit + 1;
         },
-        errorHtml:
-          "Your solution has too many lines of code. Look for groups of consecutive move() calls and replace each group with a repeat loop."
+        errorKey: "checks.tooManyLines"
       },
       {
         pass: (result, language) => {
@@ -73,8 +76,7 @@ export const scenarios: VisualScenario[] = [
           // — so this message only shows when the solution is exactly one line over.
           return count !== limit + 1;
         },
-        errorHtml:
-          "You're just one line too long! A repeat loop isn't always shorter: repeating something only two or three times can take more lines than writing the calls out, so look for a repeat that isn't actually saving you anything."
+        errorKey: "checks.oneLineOver"
       }
     ]
   }

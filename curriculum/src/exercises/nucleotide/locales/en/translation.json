@@ -1,0 +1,56 @@
+{
+  "tasks": {
+    "countNucleotide": {
+      "name": "Count a Nucleotide",
+      "description": "Write a function that counts how many times a specific nucleotide (A, C, G, or T) appears in a DNA strand. Return -1 if the nucleotide or any character in the strand is invalid."
+    }
+  },
+  "scenarios": {
+    "nucleotideEmptyStrand": {
+      "name": "Empty strand",
+      "description": "An empty strand should return 0 for any valid nucleotide."
+    },
+    "nucleotideSingleMatch": {
+      "name": "Single nucleotide strand",
+      "description": "A single-character strand matching the target should return 1."
+    },
+    "nucleotideRepeated": {
+      "name": "Repeated nucleotide",
+      "description": "A strand of repeated nucleotides should count all of them."
+    },
+    "nucleotideMixedStrandA": {
+      "name": "Count A in mixed strand",
+      "description": "Count a specific nucleotide in a mixed strand."
+    },
+    "nucleotideMixedStrandT": {
+      "name": "Count T in mixed strand",
+      "description": "Count a different nucleotide in the same strand."
+    },
+    "nucleotideInvalidNucleotide": {
+      "name": "Invalid nucleotide",
+      "description": "An invalid nucleotide character should return -1."
+    },
+    "nucleotideInvalidStrand": {
+      "name": "Invalid strand",
+      "description": "A strand containing invalid characters should return -1."
+    }
+  },
+  "hints": {
+    "checkValid": {
+      "question": "How do I check that the character I'm asked about is valid?",
+      "answer": "Write a small helper that asks 'is this character one of A, C, G, T?'. Use it to validate the nucleotide before doing anything else."
+    },
+    "invalidNucleotide": {
+      "question": "What do I do if the nucleotide is invalid?",
+      "answer": "Return `-1` immediately. The spec uses that value to signal an invalid input."
+    },
+    "countOccurrences": {
+      "question": "How do I count occurrences in the strand?",
+      "answer": "Loop through each character of the strand. If the character matches the nucleotide you're counting, add 1 to a counter. Return the counter at the end."
+    },
+    "validateStrand": {
+      "question": "Should I validate the strand too?",
+      "answer": "Yes. If any character in the strand isn't a valid nucleotide, return `-1`. Check each character before counting."
+    }
+  }
+}

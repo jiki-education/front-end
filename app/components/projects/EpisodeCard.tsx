@@ -7,6 +7,7 @@ import { useAuthStore } from "@/lib/auth/authStore";
 import { localePath } from "@/lib/i18n/routes";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { tierIncludes } from "@/lib/pricing";
+import { staticAsset } from "@/lib/static-asset";
 import type { EpisodeMeta, ProjectMeta } from "@/lib/content/types";
 import styles from "./EpisodeCard.module.css";
 
@@ -26,7 +27,7 @@ export function EpisodeCard({ project, episode, locale, watchedPercentage }: Epi
     <>
       <div className={styles.cardImageWrapper}>
         <Image
-          src={`/static/images/projects/episodes/${episode.image}`}
+          src={staticAsset(`images/projects/episodes/${episode.image}`)}
           alt=""
           width={240}
           height={135}

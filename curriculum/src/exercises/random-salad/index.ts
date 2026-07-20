@@ -7,9 +7,9 @@ const functions: FunctionInfo[] = [
   {
     name: "makeSalad",
     signature: "makeSalad(leaves, tomatoes, croutons, olives)",
-    description: "Makes a salad with the given amounts of each ingredient.",
+    description: "functions.makeSalad.description",
     examples: ["makeSalad(50, 12, 30, 10)"],
-    category: "Action"
+    category: "functions.makeSalad.category"
   }
 ];
 

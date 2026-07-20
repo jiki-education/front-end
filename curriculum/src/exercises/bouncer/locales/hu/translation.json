@@ -1,0 +1,56 @@
+{
+  "checks": {
+    "age25NotLetIn": "The person is 25 — they should have been let in, but weren't.",
+    "age18LetIn": "The person is 18 — they should not have been let in, but were.",
+    "age21NotLetIn": "The person is 21 — they should have been let in, but weren't.",
+    "age20LetIn": "The person is exactly 20 — not over 20, so they should not have been let in, but were."
+  },
+  "tasks": {
+    "checkAge": {
+      "name": "Check the person's age",
+      "description": "Get the person's age and check if they're over 20. If they are, let them in."
+    }
+  },
+  "scenarios": {
+    "age25": {
+      "name": "Age 25",
+      "description": "The person is 25 years old — they should be let in."
+    },
+    "age18": {
+      "name": "Age 18",
+      "description": "The person is 18 years old — they should not be let in."
+    },
+    "age21": {
+      "name": "Age 21",
+      "description": "The person is 21 years old — just above 20, they should be let in."
+    },
+    "age20": {
+      "name": "Age 20",
+      "description": "The person is exactly 20 — not over 20, so they should not be let in."
+    }
+  },
+  "hints": {
+    "askAge": {
+      "question": "How do I know their age?",
+      "answer": "Use the `askAge()` function. It will return a different value in each scenario."
+    },
+    "ifStatement": {
+      "question": "How do I vary what I do?",
+      "answer": "Use an `if` statement - check the concept if you need more help!"
+    }
+  },
+  "describers": {
+    "askAge": "asked the person's age",
+    "letIn": "let the person in"
+  },
+  "functions": {
+    "askAge": {
+      "description": "Returns the **age** of the person waiting outside.",
+      "category": "Information"
+    },
+    "letIn": {
+      "description": "Lets the person in.",
+      "category": "Action"
+    }
+  }
+}

@@ -5,27 +5,27 @@ export default class AlienDetectorExercise extends SpaceInvadersExercise {
     {
       name: "move_left",
       func: this.moveLeft.bind(this),
-      description: "moved the laser cannon to the left"
+      descriptionKey: "describers.moveLeft"
     },
     {
       name: "move_right",
       func: this.moveRight.bind(this),
-      description: "moved the laser cannon to the right"
+      descriptionKey: "describers.moveRight"
     },
     {
       name: "shoot",
       func: this.shoot.bind(this),
-      description: "shot the laser upwards"
+      descriptionKey: "describers.shoot"
     },
     {
       name: "get_starting_aliens_in_row",
       func: this.getStartingAliensInRow.bind(this),
-      description: "retrieved the starting positions of row ${arg1} of aliens"
+      descriptionKey: "describers.getStartingAliensInRow"
     },
     {
       name: "fire_fireworks",
       func: this.fireFireworks.bind(this),
-      description: "fired off celebratory fireworks"
+      descriptionKey: "describers.fireFireworks"
     }
   ];
 }

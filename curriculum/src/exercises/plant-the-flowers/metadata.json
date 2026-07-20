@@ -3,8 +3,8 @@
   "levelId": "basic-state",
   "hints": [
     {
-      "question": "I'm totally stuck",
-      "answer": "Check the recent videos on how to use repeat loops and how to update variables to track state. They should tell you everything you need to know."
+      "question": "hints.stuck.question",
+      "answer": "hints.stuck.answer"
     }
   ]
 }

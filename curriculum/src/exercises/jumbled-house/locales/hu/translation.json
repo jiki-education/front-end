@@ -1,0 +1,58 @@
+{
+  "checks": {
+    "frame": "The frame of the house is not correct.",
+    "roof": "The roof of the house is not at the correct position.",
+    "leftWindow": "The left window frame isn't positioned correctly.",
+    "rightWindow": "The right window frame isn't positioned correctly.",
+    "door": "The door frame isn't positioned correctly.",
+    "doorKnob": "The door knob isn't positioned correctly."
+  },
+  "tasks": {
+    "arrangeHouse": {
+      "name": "Correctly arrange the house",
+      "description": "Rearrange all the shapes to their correct positions to form a house. Work through each piece methodically."
+    }
+  },
+  "scenarios": {
+    "drawTheHouse": {
+      "name": "Draw the house",
+      "description": "Arrange all shapes in their correct positions to form a complete house."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Where do I start?",
+      "answer": "Work through each shape in order - sky, grass, house frame, roof, windows, door, knob. Get each one right before moving on."
+    },
+    "coordinates": {
+      "question": "How do coordinates work?",
+      "answer": "The canvas coordinates go from (0,0) at top-left to (100,100) at bottom-right. For rectangles, the left and top are the top-left corner."
+    },
+    "roofPosition": {
+      "question": "How do I figure out the roof position?",
+      "answer": "The roof is a triangle that sits on top of the house frame. Think about where the left and right base points need to be given the overhang, and where the peak sits."
+    },
+    "windowPosition": {
+      "question": "How do I position the windows?",
+      "answer": "Each window is offset from the house frame's edges. Use the house frame's position and size along with the inset values to calculate each window's top-left corner."
+    },
+    "centerDoor": {
+      "question": "How do I center the door?",
+      "answer": "To center something inside a larger shape, think about the leftover space. If the house is wider than the door, the gap is split equally on both sides."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Draw a rectangle at position (left, top) with the given width, height, and color",
+      "category": "Drawing Shapes"
+    },
+    "circle": {
+      "description": "Draw a circle centered at (centerX, centerY) with the given radius and color",
+      "category": "Drawing Shapes"
+    },
+    "triangle": {
+      "description": "Draw a triangle with three corner points and a color",
+      "category": "Drawing Shapes"
+    }
+  }
+}

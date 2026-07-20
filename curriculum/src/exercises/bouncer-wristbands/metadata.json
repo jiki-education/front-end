@@ -3,20 +3,20 @@
   "levelId": "conditionals",
   "hints": [
     {
-      "question": "How do I get hold of the person's age?",
-      "answer": "Call `getAge()` and put the result in a variable, e.g. `let age = getAge()`. Then you can compare `age` to numbers in your conditions."
+      "question": "hints.gettingAge.question",
+      "answer": "hints.gettingAge.answer"
     },
     {
-      "question": "Which structure do I use when there are several age ranges?",
-      "answer": "An `if` / `else if` / `else` chain. Each branch handles one wristband, and only one branch will run."
+      "question": "hints.structureForRanges.question",
+      "answer": "hints.structureForRanges.answer"
     },
     {
-      "question": "Does the order of the branches matter?",
-      "answer": "Yes. Start with the youngest (`age < 13`), then `age < 18`, then `age < 65`. Because each branch only runs if the earlier ones failed, you do not need to write things like `age >= 13 && age < 18`."
+      "question": "hints.branchOrder.question",
+      "answer": "hints.branchOrder.answer"
     },
     {
-      "question": "What about the seniors at the end?",
-      "answer": "You do not need a condition for them. A plain `else` that calls `giveSeniorWristband()` catches everyone aged 65 and over."
+      "question": "hints.seniorsElse.question",
+      "answer": "hints.seniorsElse.answer"
     }
   ]
 }

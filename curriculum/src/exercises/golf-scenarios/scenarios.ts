@@ -4,8 +4,8 @@ import type GolfScenariosExercise from "./Exercise";
 export const tasks = [
   {
     id: "roll-and-celebrate" as const,
-    name: "Roll the ball",
-    description: "Get the shot length and roll the ball right by that amount.",
+    name: "tasks.rollAndCelebrate.name",
+    description: "tasks.rollAndCelebrate.description",
     hints: [],
     requiredScenarios: ["short-shot", "medium-shot", "long-shot", "very-long-shot"],
     bonus: false
@@ -15,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "short-shot",
-    name: "Short shot (20)",
-    description: "In this scenario, `getShotLength()` will return 20. Roll the ball 20 steps from the tee.",
+    name: "scenarios.shortShot.name",
+    description: "scenarios.shortShot.description",
     taskId: "roll-and-celebrate",
 
     setup(exercise) {
@@ -33,19 +33,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.ballX === 48,
-          errorHtml: `The ball didn't end up in the right place for this shot. Check it travels the full shot length.`
+          errorHtml: ex.t("checks.wrongShotEnd")
         },
         {
           pass: missingPositions.length === 0,
-          errorHtml: `The ball must roll through each position one step at a time, not jump straight to the end.`
+          errorHtml: ex.t("checks.missingPositions")
         }
       ];
     }
   },
   {
     slug: "medium-shot",
-    name: "Medium shot (35)",
-    description: "In this scenario, `getShotLength()` will return 35. Roll the ball 35 steps from the tee.",
+    name: "scenarios.mediumShot.name",
+    description: "scenarios.mediumShot.description",
     taskId: "roll-and-celebrate",
 
     setup(exercise) {
@@ -62,19 +62,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.ballX === 63,
-          errorHtml: `The ball didn't end up in the right place for this shot. Check it travels the full shot length.`
+          errorHtml: ex.t("checks.wrongShotEnd")
         },
         {
           pass: missingPositions.length === 0,
-          errorHtml: `The ball must roll through each position one step at a time, not jump straight to the end.`
+          errorHtml: ex.t("checks.missingPositions")
         }
       ];
     }
   },
   {
     slug: "long-shot",
-    name: "Long shot (50)",
-    description: "In this scenario, `getShotLength()` will return 50. Roll the ball 50 steps from the tee.",
+    name: "scenarios.longShot.name",
+    description: "scenarios.longShot.description",
     taskId: "roll-and-celebrate",
 
     setup(exercise) {
@@ -91,19 +91,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.ballX === 78,
-          errorHtml: `The ball didn't end up in the right place for this shot. Check it travels the full shot length.`
+          errorHtml: ex.t("checks.wrongShotEnd")
         },
         {
           pass: missingPositions.length === 0,
-          errorHtml: `The ball must roll through each position one step at a time, not jump straight to the end.`
+          errorHtml: ex.t("checks.missingPositions")
         }
       ];
     }
   },
   {
     slug: "very-long-shot",
-    name: "Very long shot (60)",
-    description: "In this scenario, `getShotLength()` will return 60. Roll the ball 60 steps from the tee.",
+    name: "scenarios.veryLongShot.name",
+    description: "scenarios.veryLongShot.description",
     taskId: "roll-and-celebrate",
 
     setup(exercise) {
@@ -120,11 +120,11 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.ballX === 88,
-          errorHtml: `The ball didn't end up in the right place for this shot. Check it travels the full shot length.`
+          errorHtml: ex.t("checks.wrongShotEnd")
         },
         {
           pass: missingPositions.length === 0,
-          errorHtml: `The ball must roll through each position one step at a time, not jump straight to the end.`
+          errorHtml: ex.t("checks.missingPositions")
         }
       ];
     }

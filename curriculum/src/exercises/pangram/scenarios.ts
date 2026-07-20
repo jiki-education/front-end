@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "check-pangram" as const,
-    name: "Check Pangram",
-    description:
-      "Write a function that checks if a sentence is a pangram (contains every letter of the alphabet at least once). The check should be case-insensitive.",
+    name: "tasks.checkPangram.name",
+    description: "tasks.checkPangram.description",
     hints: [],
     requiredScenarios: [
       "pangram-empty-sentence",
@@ -27,8 +26,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "pangram-empty-sentence",
-    name: "Empty sentence",
-    description: "An empty sentence is not a pangram.",
+    name: "scenarios.pangramEmptySentence.name",
+    description: "scenarios.pangramEmptySentence.description",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: [""],
@@ -36,8 +35,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "pangram-perfect-lowercase",
-    name: "Perfect lowercase",
-    description: "A perfect lowercase alphabet is a pangram.",
+    name: "scenarios.pangramPerfectLowercase.name",
+    description: "scenarios.pangramPerfectLowercase.description",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["abcdefghijklmnopqrstuvwxyz"],
@@ -45,8 +44,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "pangram-only-lowercase",
-    name: "Only lowercase",
-    description: "A sentence with only lowercase letters covering all letters is a pangram.",
+    name: "scenarios.pangramOnlyLowercase.name",
+    description: "scenarios.pangramOnlyLowercase.description",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["the quick brown fox jumps over the lazy dog"],
@@ -54,8 +53,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "pangram-missing-x",
-    name: "Missing letter 'x'",
-    description: "A sentence missing the letter 'x' is not a pangram.",
+    name: "scenarios.pangramMissingX.name",
+    description: "scenarios.pangramMissingX.description",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["a quick movement of the enemy will jeopardize five gunboats"],
@@ -63,8 +62,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "pangram-missing-h",
-    name: "Missing letter 'h'",
-    description: "A sentence missing the letter 'h' is not a pangram.",
+    name: "scenarios.pangramMissingH.name",
+    description: "scenarios.pangramMissingH.description",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["five boxing wizards jump quickly at it"],
@@ -72,8 +71,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "pangram-missing-a-m",
-    name: "Missing letters beyond a-m",
-    description: "A string with 'a' to 'm' in lowercase and uppercase is not a pangram.",
+    name: "scenarios.pangramMissingAM.name",
+    description: "scenarios.pangramMissingAM.description",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["abcdefghijklm ABCDEFGHIJKLM"],
@@ -81,8 +80,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "pangram-with-underscores",
-    name: "With underscores",
-    description: "A pangram sentence with underscores.",
+    name: "scenarios.pangramWithUnderscores.name",
+    description: "scenarios.pangramWithUnderscores.description",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["the_quick_brown_fox_jumps_over_the_lazy_dog"],
@@ -90,8 +89,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "pangram-with-numbers",
-    name: "With numbers",
-    description: "A pangram sentence with numbers included.",
+    name: "scenarios.pangramWithNumbers.name",
+    description: "scenarios.pangramWithNumbers.description",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["the 1 quick brown fox jumps over the 2 lazy dogs"],
@@ -99,8 +98,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "pangram-numbers-replacing-letters",
-    name: "Numbers replacing letters",
-    description: "A sentence where letters are replaced by numbers is not a pangram.",
+    name: "scenarios.pangramNumbersReplacingLetters.name",
+    description: "scenarios.pangramNumbersReplacingLetters.description",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["7h3 qu1ck brown fox jumps ov3r 7h3 lazy dog"],
@@ -108,8 +107,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "pangram-mixed-case-punctuation",
-    name: "Mixed case and punctuation",
-    description: "A pangram with mixed case and punctuation.",
+    name: "scenarios.pangramMixedCasePunctuation.name",
+    description: "scenarios.pangramMixedCasePunctuation.description",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["Five quacking Zephyrs jolt my wax bed."],
@@ -117,8 +116,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "pangram-case-insensitive",
-    name: "Case insensitive missing letters",
-    description: "A case-insensitive sentence without all letters is not a pangram.",
+    name: "scenarios.pangramCaseInsensitive.name",
+    description: "scenarios.pangramCaseInsensitive.description",
     taskId: "check-pangram",
     functionName: "is_pangram",
     args: ["the quick brown fox jumps over with lazy FX"],

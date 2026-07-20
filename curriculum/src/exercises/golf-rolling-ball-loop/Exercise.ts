@@ -10,7 +10,7 @@ export default class GolfRollingBallLoopExercise extends GolfExercise {
     {
       name: "roll",
       func: this.rollRight.bind(this),
-      description: "rolled the ball one step to the right"
+      descriptionKey: "describers.roll"
     }
   ];
 }

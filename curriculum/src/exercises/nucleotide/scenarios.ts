@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "count-nucleotide" as const,
-    name: "Count a Nucleotide",
-    description:
-      "Write a function that counts how many times a specific nucleotide (A, C, G, or T) appears in a DNA strand. Return -1 if the nucleotide or any character in the strand is invalid.",
+    name: "tasks.countNucleotide.name",
+    description: "tasks.countNucleotide.description",
     hints: [],
     requiredScenarios: [
       "nucleotide-empty-strand",
@@ -23,8 +22,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "nucleotide-empty-strand",
-    name: "Empty strand",
-    description: "An empty strand should return 0 for any valid nucleotide.",
+    name: "scenarios.nucleotideEmptyStrand.name",
+    description: "scenarios.nucleotideEmptyStrand.description",
     taskId: "count-nucleotide",
     functionName: "count_nucleotide",
     args: ["", "A"],
@@ -32,8 +31,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "nucleotide-single-match",
-    name: "Single nucleotide strand",
-    description: "A single-character strand matching the target should return 1.",
+    name: "scenarios.nucleotideSingleMatch.name",
+    description: "scenarios.nucleotideSingleMatch.description",
     taskId: "count-nucleotide",
     functionName: "count_nucleotide",
     args: ["G", "G"],
@@ -41,8 +40,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "nucleotide-repeated",
-    name: "Repeated nucleotide",
-    description: "A strand of repeated nucleotides should count all of them.",
+    name: "scenarios.nucleotideRepeated.name",
+    description: "scenarios.nucleotideRepeated.description",
     taskId: "count-nucleotide",
     functionName: "count_nucleotide",
     args: ["GGGGGGG", "G"],
@@ -50,8 +49,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "nucleotide-mixed-strand-a",
-    name: "Count A in mixed strand",
-    description: "Count a specific nucleotide in a mixed strand.",
+    name: "scenarios.nucleotideMixedStrandA.name",
+    description: "scenarios.nucleotideMixedStrandA.description",
     taskId: "count-nucleotide",
     functionName: "count_nucleotide",
     args: ["GATTACA", "A"],
@@ -59,8 +58,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "nucleotide-mixed-strand-t",
-    name: "Count T in mixed strand",
-    description: "Count a different nucleotide in the same strand.",
+    name: "scenarios.nucleotideMixedStrandT.name",
+    description: "scenarios.nucleotideMixedStrandT.description",
     taskId: "count-nucleotide",
     functionName: "count_nucleotide",
     args: ["GATTACA", "T"],
@@ -68,8 +67,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "nucleotide-invalid-nucleotide",
-    name: "Invalid nucleotide",
-    description: "An invalid nucleotide character should return -1.",
+    name: "scenarios.nucleotideInvalidNucleotide.name",
+    description: "scenarios.nucleotideInvalidNucleotide.description",
     taskId: "count-nucleotide",
     functionName: "count_nucleotide",
     args: ["GATTACA", "X"],
@@ -77,8 +76,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "nucleotide-invalid-strand",
-    name: "Invalid strand",
-    description: "A strand containing invalid characters should return -1.",
+    name: "scenarios.nucleotideInvalidStrand.name",
+    description: "scenarios.nucleotideInvalidStrand.description",
     taskId: "count-nucleotide",
     functionName: "count_nucleotide",
     args: ["AGXXACT", "A"],

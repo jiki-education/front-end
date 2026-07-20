@@ -4,8 +4,8 @@ import type BoundarieBallExercise from "./Exercise";
 export const tasks = [
   {
     id: "bounce-ball" as const,
-    name: "Make the ball bounce around",
-    description: "Create a ball and make it bounce off all four walls of the game area.",
+    name: "tasks.bounceBall.name",
+    description: "tasks.bounceBall.description",
     hints: [],
     requiredScenarios: ["add-ball"],
     bonus: false
@@ -15,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "add-ball",
-    name: "Add the ball",
-    description: "Add the ball and make it bounce around the game area.",
+    name: "scenarios.addBall.name",
+    description: "scenarios.addBall.description",
     taskId: "bounce-ball",
 
     expectations(exercise) {
@@ -24,23 +24,23 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.getState().moveBallCallCount === 376,
-          errorHtml: "We expected the ball to move twice around the game area and land back in the same starting place."
+          errorHtml: exercise.t("checks.wrongMoveCount")
         },
         {
           pass: ex.didBallAppearAt(3, 50),
-          errorHtml: "The ball didn't seem to touch the middle of the left hand side."
+          errorHtml: exercise.t("checks.missedLeftWall")
         },
         {
           pass: ex.didBallAppearAt(97, 50),
-          errorHtml: "The ball didn't seem to touch the middle of the right hand side."
+          errorHtml: exercise.t("checks.missedRightWall")
         },
         {
           pass: ex.didBallAppearAt(50, 3),
-          errorHtml: "The ball didn't seem to touch the top middle."
+          errorHtml: exercise.t("checks.missedTopMiddle")
         },
         {
           pass: ex.didBallAppearAt(50, 97),
-          errorHtml: "The ball didn't seem to touch the bottom middle."
+          errorHtml: exercise.t("checks.missedBottomMiddle")
         }
       ];
     }

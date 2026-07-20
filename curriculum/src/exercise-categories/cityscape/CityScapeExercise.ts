@@ -1,4 +1,5 @@
-import { type ExecutionContext, type ExternalFunction, type Shared, isNumber } from "@jiki/interpreters";
+import { type ExecutionContext, type Shared, isNumber } from "@jiki/interpreters";
+import type { AvailableFunction } from "../../types";
 import { VisualExercise } from "../../VisualExercise";
 
 type CellType = "wall" | "entrance" | "glass";
@@ -42,61 +43,55 @@ export default class CityScapeExercise extends VisualExercise {
     this.populateView();
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "build_wall",
       func: this.buildWall.bind(this),
-      description: "built a wall at position (${arg1}, ${arg2})"
+      descriptionKey: "describers.buildWall"
     },
     {
       name: "build_entrance",
       func: this.buildEntrance.bind(this),
-      description: "built an entrance at position (${arg1}, ${arg2})"
+      descriptionKey: "describers.buildEntrance"
     },
     {
       name: "build_glass",
       func: this.buildGlass.bind(this),
-      description: "built a glass panel at position (${arg1}, ${arg2})"
+      descriptionKey: "describers.buildGlass"
     },
     {
       name: "num_floors",
       func: this.getNumFloors.bind(this),
-      description: "retrieved the number of floors"
+      descriptionKey: "describers.numFloors"
     },
     {
       name: "num_buildings",
       func: this.getNumBuildings.bind(this),
-      description: "retrieved the number of buildings"
+      descriptionKey: "describers.numBuildings"
     }
   ];
 
   private buildCell(executionCtx: ExecutionContext, x: Shared.JikiObject, y: Shared.JikiObject, type: CellType) {
     if (!isNumber(x) || !isNumber(y)) {
-      return executionCtx.logicError("x and y must be numbers");
+      return executionCtx.logicError(this.t("errors.xyMustBeNumbers"));
     }
     const xVal = x.value;
     const yVal = y.value;
 
     if (!Number.isInteger(xVal)) {
-      return executionCtx.logicError(
-        `You must use whole numbers for \`x\` and \`y\`. You provided \`x\` as \`${xVal}\`, which isn't allowed.`
-      );
+      return executionCtx.logicError(this.t("errors.xNotWhole", { x: xVal }));
     }
     if (!Number.isInteger(yVal)) {
-      return executionCtx.logicError(
-        `You must use whole numbers for \`x\` and \`y\`. You provided \`y\` as \`${yVal}\`, which isn't allowed.`
-      );
+      return executionCtx.logicError(this.t("errors.yNotWhole", { y: yVal }));
     }
 
     if (xVal < 1 || xVal > this.COLS || yVal < 1 || yVal > this.ROWS) {
-      return executionCtx.logicError(`Position (${xVal}, ${yVal}) is outside the grid`);
+      return executionCtx.logicError(this.t("errors.outsideGrid", { x: xVal, y: yVal }));
     }
 
     const existing = this.grid.get(`${xVal},${yVal}`);
     if (existing !== undefined) {
-      return executionCtx.logicError(
-        `The builders are stuck. There's already a ${existing} at the coordinates \`(${xVal}, ${yVal})\` so they can't build here!`
-      );
+      return executionCtx.logicError(this.t("errors.alreadyBuilt", { existing, x: xVal, y: yVal }));
     }
 
     this.grid.set(`${xVal},${yVal}`, type);

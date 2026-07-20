@@ -101,11 +101,11 @@ describe("SproutingFlowerExercise", () => {
       });
     });
 
-    it("Each function should have `description` property", () => {
+    it("Each function should have a `descriptionKey` property", () => {
       const funcs = exercise.availableFunctions;
 
       funcs.forEach((fn) => {
-        expect(fn).toHaveProperty("description");
+        expect(fn).toHaveProperty("descriptionKey");
       });
     });
 

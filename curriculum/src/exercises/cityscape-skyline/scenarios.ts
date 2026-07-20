@@ -5,8 +5,8 @@ import type CityScapeSkylineExercise from "./Exercise";
 export const tasks = [
   {
     id: "build-skyline" as const,
-    name: "Build the city skyline",
-    description: "Build multiple buildings of random widths and heights to create a city skyline.",
+    name: "tasks.buildSkyline.name",
+    description: "tasks.buildSkyline.description",
     hints: [],
     requiredScenarios: ["buildings-1", "buildings-2", "buildings-3", "buildings-4"],
     bonus: false
@@ -74,7 +74,7 @@ function skylineExpectations(exercise: CityScapeSkylineExercise, numBuildings: n
   const expectedTotal = expectedBuildings.reduce((sum, b) => sum + (b.floors + 1) * b.width, 0);
   expects.push({
     pass: exercise.totalCells() === expectedTotal,
-    errorHtml: `Expected ${expectedTotal} total cells but found ${exercise.totalCells()}.`
+    errorHtml: exercise.t("checks.totalCells", { expectedTotal, got: exercise.totalCells() })
   });
 
   // Check each building's structure
@@ -91,7 +91,7 @@ function skylineExpectations(exercise: CityScapeSkylineExercise, numBuildings: n
     if (run !== undefined && run.start !== x) {
       expects.push({
         pass: false,
-        errorHtml: `Building ${b + 1} isn't in the right place. It starts at column ${run.start} but should start at column ${x}.`
+        errorHtml: exercise.t("checks.wrongPosition", { building: b + 1, start: run.start, expected: x })
       });
       x += width + 1;
       continue;
@@ -100,13 +100,13 @@ function skylineExpectations(exercise: CityScapeSkylineExercise, numBuildings: n
     // Ground floor: centered entrance
     expects.push({
       pass: exercise.hasCellAt(x + entranceOffset, 2, "entrance"),
-      errorHtml: `Building ${b + 1}: the entrance isn't in the right place.`
+      errorHtml: exercise.t("checks.wrongEntrance", { building: b + 1 })
     });
 
     // Ground floor: walls at edges
     expects.push({
       pass: exercise.hasCellAt(x, 2, "wall") && exercise.hasCellAt(x + width - 1, 2, "wall"),
-      errorHtml: `Building ${b + 1}: the ground-floor side walls aren't right.`
+      errorHtml: exercise.t("checks.wrongGroundWalls", { building: b + 1 })
     });
 
     // Roof: all walls across the full width
@@ -118,7 +118,7 @@ function skylineExpectations(exercise: CityScapeSkylineExercise, numBuildings: n
     }
     expects.push({
       pass: roofComplete,
-      errorHtml: `Building ${b + 1}: the roof isn't complete.`
+      errorHtml: exercise.t("checks.wrongRoof", { building: b + 1 })
     });
 
     x += width + 1;
@@ -130,8 +130,8 @@ function skylineExpectations(exercise: CityScapeSkylineExercise, numBuildings: n
 export const scenarios: VisualScenario[] = [
   {
     slug: "buildings-1",
-    name: "1 building",
-    description: "Build a single building with random width and height.",
+    name: "scenarios.buildings1.name",
+    description: "scenarios.buildings1.description",
     taskId: "build-skyline",
     randomSeed: true,
     setup(exercise) {
@@ -143,8 +143,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "buildings-2",
-    name: "2 buildings",
-    description: "Build 2 buildings with random widths and heights.",
+    name: "scenarios.buildings2.name",
+    description: "scenarios.buildings2.description",
     taskId: "build-skyline",
     randomSeed: true,
     setup(exercise) {
@@ -156,8 +156,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "buildings-3",
-    name: "3 buildings",
-    description: "Build 3 buildings with random widths and heights.",
+    name: "scenarios.buildings3.name",
+    description: "scenarios.buildings3.description",
     taskId: "build-skyline",
     randomSeed: true,
     setup(exercise) {
@@ -169,8 +169,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "buildings-4",
-    name: "4 buildings",
-    description: "Build 4 buildings with random widths and heights.",
+    name: "scenarios.buildings4.name",
+    description: "scenarios.buildings4.description",
     taskId: "build-skyline",
     randomSeed: true,
     setup(exercise) {

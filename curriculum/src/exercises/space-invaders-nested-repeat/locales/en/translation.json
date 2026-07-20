@@ -1,0 +1,37 @@
+{
+  "describers": {
+    "move": "moved the laser cannon to the right"
+  },
+  "checks": {
+    "notShotAllAliens": "You didn't shoot down all the aliens.",
+    "tooManyLines": "Your solution has too many lines of code. Try using a repeat loop inside another repeat loop to make it shorter!"
+  },
+  "tasks": {
+    "nestedRepeatShoot": {
+      "name": "Use nested repeat loops to shoot all the aliens",
+      "description": "Find the pattern in the alien positions and use a repeat loop inside another repeat loop to destroy them all in 7 lines of code or fewer."
+    }
+  },
+  "scenarios": {
+    "nestedRepeatShoot": {
+      "name": "Nested Repeat and Shoot",
+      "description": "Use nested repeat loops to shoot all the aliens"
+    }
+  },
+  "hints": {
+    "cantGetTo7Lines": {
+      "question": "I can't get to 7 lines of code.",
+      "answer": "Think about this level as two blocks of things that need to happen.\n\n- The first block is the inner one, where we shoot 4 times - make sure that is three lines long.\n- The outer block is the inner block with some movement either side. That outer block needs to be repeated a few times too.\n\nIf you structure your code in this way, it should naturally end up at 7 lines of code."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Moves the laser cannon **one position to the right**. If you move off the right edge of the screen, you lose!",
+      "category": "Movement"
+    },
+    "shoot": {
+      "description": "Shoots the laser upwards. **Only shoot when there's an alien above you**, or you lose the game!",
+      "category": "Action"
+    }
+  }
+}

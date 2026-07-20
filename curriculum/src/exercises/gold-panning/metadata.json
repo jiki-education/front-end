@@ -3,20 +3,20 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "It says I'm selling the wrong amount of gold.",
-      "answer": "You need to sell ALL the gold you find in the 5 pans in one go at the end, not selling after each pan."
+      "question": "hints.wrongSellAmount.question",
+      "answer": "hints.wrongSellAmount.answer"
     },
     {
-      "question": "I am using pan multiple times but I don't know how to keep track of how much I have.",
-      "answer": "Think about what you've learned in recent video lessons. You need to use a variable to keep track of the **total** amount of gold that you have collected across **all** the pans together."
+      "question": "hints.trackingTotal.question",
+      "answer": "hints.trackingTotal.answer"
     },
     {
-      "question": "I've got it working, but I can't get down to 5 lines.",
-      "answer": "Do you have repetitive code in your solution? If so, what can we use to reduce that repetitiveness?"
+      "question": "hints.fiveLines.question",
+      "answer": "hints.fiveLines.answer"
     },
     {
-      "question": "I still can't get it down to 5 lines of code.",
-      "answer": "You should only need to use one variable. Are you using more?"
+      "question": "hints.stillFiveLines.question",
+      "answer": "hints.stillFiveLines.answer"
     }
   ]
 }

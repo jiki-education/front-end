@@ -1,0 +1,58 @@
+{
+  "tasks": {
+    "extractWords": {
+      "name": "Extract words",
+      "description": "Write an extract_words function that takes a sentence and returns a list of words. Words are separated by spaces, and periods should be ignored."
+    }
+  },
+  "scenarios": {
+    "simpleTwoWords": {
+      "name": "Two words",
+      "description": "Extract two simple words separated by a space."
+    },
+    "sentenceWithPeriod": {
+      "name": "Sentence with period",
+      "description": "Extract words from a sentence that ends with a period."
+    },
+    "longerSentence": {
+      "name": "Longer sentence",
+      "description": "Extract words from a longer sentence with a period."
+    },
+    "singleWord": {
+      "name": "Single word",
+      "description": "Extract a single word with no spaces or periods."
+    },
+    "singleWordWithPeriod": {
+      "name": "Single word with period",
+      "description": "Extract a single word from a string ending with a period."
+    }
+  },
+  "hints": {
+    "buildingUpWord": {
+      "question": "How should I build up the list of words as I go?",
+      "answer": "Keep two things alongside each other: an empty list for the finished words, and an empty string that you're currently building up letter by letter. When the current word is 'finished', push it into the list and start a new empty word."
+    },
+    "wordFinished": {
+      "question": "How do I know when a word is finished?",
+      "answer": "Loop through each character. When you hit a space, the current word has ended. Push it to the list and reset the building-up string to empty. Otherwise, append the character to the building-up string."
+    },
+    "doubleSpaces": {
+      "question": "What if there are two spaces in a row?",
+      "answer": "That would give you an empty word. Only push the current word to the list if it's not empty, otherwise skip."
+    },
+    "punctuation": {
+      "question": "What about punctuation like a full stop?",
+      "answer": "Just skip it. Don't add periods to the current word. So when looping, if the character is a period, ignore it entirely."
+    },
+    "missingLastWord": {
+      "question": "Why am I missing the last word?",
+      "answer": "After the loop ends, your final word is still sitting in the building-up string and hasn't been pushed yet. Push it (if non-empty) after the loop finishes."
+    }
+  },
+  "functions": {
+    "push": {
+      "description": "Returns a new list with the element added to the end (provided by level stdlib)",
+      "category": "List Operations"
+    }
+  }
+}

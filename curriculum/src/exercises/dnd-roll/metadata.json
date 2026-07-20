@@ -3,8 +3,8 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "How do I choose what type of die to use?",
-      "answer": "For a 20 sided dice, use 20 as the input to roll - e.g. `roll(20)`. For a 12 sided dice, call `roll(12)`."
+      "question": "hints.chooseDie.question",
+      "answer": "hints.chooseDie.answer"
     }
   ]
 }

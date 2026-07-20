@@ -1,5 +1,6 @@
-import { type ExecutionContext, type ExternalFunction } from "@jiki/interpreters";
+import { type ExecutionContext } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
+import type { AvailableFunction } from "../../types";
 import metadata from "./metadata.json";
 
 export default class AnnalynsInfiltrationExercise extends VisualExercise {
@@ -27,46 +28,46 @@ export default class AnnalynsInfiltrationExercise extends VisualExercise {
     this.populateView();
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "knight_is_awake",
       func: this.knightIsAwake.bind(this),
-      description: "checked whether the knight is awake"
+      descriptionKey: "describers.knightIsAwake"
     },
     {
       name: "archer_is_awake",
       func: this.archerIsAwake.bind(this),
-      description: "checked whether the archer is awake"
+      descriptionKey: "describers.archerIsAwake"
     },
     {
       name: "prisoner_is_awake",
       func: this.prisonerIsAwake.bind(this),
-      description: "checked whether the prisoner is awake"
+      descriptionKey: "describers.prisonerIsAwake"
     },
     {
       name: "dog_is_behaving",
       func: this.dogIsBehaving.bind(this),
-      description: "checked whether Annalyn's dog is behaving itself"
+      descriptionKey: "describers.dogIsBehaving"
     },
     {
       name: "fast_attack",
       func: this.fastAttack.bind(this),
-      description: "made a fast attack on the knight"
+      descriptionKey: "describers.fastAttack"
     },
     {
       name: "spy",
       func: this.spy.bind(this),
-      description: "spied on the group"
+      descriptionKey: "describers.spy"
     },
     {
       name: "signal_prisoner",
       func: this.signalPrisoner.bind(this),
-      description: "signalled the prisoner"
+      descriptionKey: "describers.signalPrisoner"
     },
     {
       name: "free_prisoner",
       func: this.freePrisoner.bind(this),
-      description: "freed the prisoner"
+      descriptionKey: "describers.freePrisoner"
     }
   ];
 

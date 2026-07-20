@@ -8,7 +8,8 @@ import {
   selectRelatedConcepts
 } from "@/lib/concepts/select";
 import { getExerciseMetaBySlugsServer } from "@/lib/api/exercise-meta-server";
-import { originUrl } from "@/lib/server/origin";
+import { assetsUrl } from "@/lib/server/origin";
+import { conceptIndexPath, conceptContentPath } from "@/lib/assets-paths";
 import { fetchStaticContent } from "@/lib/content/fetchStaticContent";
 import { getApiUrl } from "@/lib/api/config";
 import type { ConceptMeta, ConceptAncestor, ExerciseInfo } from "@/types/concepts";
@@ -26,10 +27,14 @@ import type { VideoSource } from "@/types/lesson";
  * fetch+parse per request.
  */
 const fetchConceptIndex = cache(async (locale: string): Promise<ConceptMeta[]> => {
-  const hash = conceptIndexHashes[locale] || conceptIndexHashes["en"];
-  const effectiveLocale = conceptIndexHashes[locale] ? locale : "en";
+  // No English fallback: a locale with no concept index resolves to an empty
+  // list rather than silently serving English concepts.
+  const hash = conceptIndexHashes[locale];
+  if (!hash) {
+    return [];
+  }
 
-  const url = await originUrl(`/static/concepts/${effectiveLocale}-${hash}.json`);
+  const url = await assetsUrl(conceptIndexPath(locale, hash));
   const res = await fetch(url);
   if (!res.ok) {
     throw new Error(`Failed to fetch concepts index: ${url} (${res.status})`);
@@ -68,7 +73,7 @@ export async function getConceptContentServer(slug: string, locale: string = "en
   if (!concept?.contentHash) {
     return "";
   }
-  return fetchStaticContent(`/static/concepts/${slug}/${locale}-${concept.contentHash}.html`);
+  return fetchStaticContent(conceptContentPath(slug, locale, concept.contentHash));
 }
 
 /** Exercises linked to a concept (slug + title) for the sidebar. */

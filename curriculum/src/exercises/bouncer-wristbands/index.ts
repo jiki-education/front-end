@@ -7,37 +7,37 @@ const functions: FunctionInfo[] = [
   {
     name: "getAge",
     signature: "getAge()",
-    description: "Returns the **age** of the person waiting outside.",
+    description: "functions.getAge.description",
     examples: ["let age = getAge()"],
-    category: "Information"
+    category: "functions.getAge.category"
   },
   {
     name: "giveChildWristband",
     signature: "giveChildWristband()",
-    description: "Gives the person a **child** wristband (under 13).",
+    description: "functions.giveChildWristband.description",
     examples: ["giveChildWristband()"],
-    category: "Wristbands"
+    category: "functions.giveChildWristband.category"
   },
   {
     name: "giveTeenWristband",
     signature: "giveTeenWristband()",
-    description: "Gives the person a **teen** wristband (13-17).",
+    description: "functions.giveTeenWristband.description",
     examples: ["giveTeenWristband()"],
-    category: "Wristbands"
+    category: "functions.giveTeenWristband.category"
   },
   {
     name: "giveAdultWristband",
     signature: "giveAdultWristband()",
-    description: "Gives the person an **adult** wristband (18-64).",
+    description: "functions.giveAdultWristband.description",
     examples: ["giveAdultWristband()"],
-    category: "Wristbands"
+    category: "functions.giveAdultWristband.category"
   },
   {
     name: "giveSeniorWristband",
     signature: "giveSeniorWristband()",
-    description: "Gives the person a **senior** wristband (65+).",
+    description: "functions.giveSeniorWristband.description",
     examples: ["giveSeniorWristband()"],
-    category: "Wristbands"
+    category: "functions.giveSeniorWristband.category"
   }
 ];
 

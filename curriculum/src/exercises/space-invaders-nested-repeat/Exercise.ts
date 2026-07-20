@@ -7,12 +7,12 @@ export default class SpaceInvadersNestedRepeatExercise extends SpaceInvadersExer
     {
       name: "move",
       func: this.moveRight.bind(this),
-      description: "moved the laser cannon to the right"
+      descriptionKey: "describers.move"
     },
     {
       name: "shoot",
       func: this.shoot.bind(this),
-      description: "shot the laser upwards"
+      descriptionKey: "describers.shoot"
     }
   ];
 }

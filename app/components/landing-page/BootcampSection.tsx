@@ -9,6 +9,7 @@ import CalendarIcon from "./icons/calendar.svg";
 import CodersMindIcon from "./icons/coders-mind.svg";
 import ConfidenceIcon from "./icons/confidence.svg";
 import UnderstandingIcon from "./icons/understanding.svg";
+import { staticAsset } from "@/lib/static-asset";
 import certificate from "./assets/certificate.webp";
 import certificateArrow from "./assets/certificate-arrow.webp";
 import jeremyLivestream from "./assets/jeremy-livestream.webp";
@@ -105,7 +106,7 @@ export function BootcampSection() {
             </div>
             <div className={styles.level}>
               <video
-                src="/static/images/landing-page/golf-29474.mp4"
+                src={staticAsset("images/landing-page/golf-29474.mp4")}
                 aria-label={t("golfLabel")}
                 width={400}
                 height={300}
@@ -118,7 +119,7 @@ export function BootcampSection() {
             </div>
             <div className={styles.level}>
               <video
-                src="/static/images/landing-page/flower-22e43.mp4"
+                src={staticAsset("images/landing-page/flower-22e43.mp4")}
                 aria-label={t("flowerLabel")}
                 width={400}
                 height={300}
@@ -131,7 +132,7 @@ export function BootcampSection() {
             </div>
             <div className={styles.level}>
               <video
-                src="/static/images/landing-page/space-invaders-74644.mp4"
+                src={staticAsset("images/landing-page/space-invaders-74644.mp4")}
                 aria-label={t("spaceInvadersLabel")}
                 width={400}
                 height={300}
@@ -144,7 +145,7 @@ export function BootcampSection() {
             </div>
             <div className={styles.level}>
               <video
-                src="/static/images/landing-page/wall-017cd.mp4"
+                src={staticAsset("images/landing-page/wall-017cd.mp4")}
                 aria-label={t("wallLabel")}
                 width={400}
                 height={300}
@@ -161,7 +162,7 @@ export function BootcampSection() {
             </div>
             <div className={styles.level}>
               <video
-                src="/static/images/landing-page/tic-tac-toe-736a8.mp4"
+                src={staticAsset("images/landing-page/tic-tac-toe-736a8.mp4")}
                 aria-label={t("ticTacToeLabel")}
                 width={400}
                 height={300}
@@ -174,7 +175,7 @@ export function BootcampSection() {
             </div>
             <div className={styles.level}>
               <video
-                src="/static/images/landing-page/maze-59a6d.mp4"
+                src={staticAsset("images/landing-page/maze-59a6d.mp4")}
                 aria-label={t("mazeLabel")}
                 autoPlay
                 muted
@@ -187,7 +188,7 @@ export function BootcampSection() {
             <div className={styles.level}></div>
             <div className={styles.level}>
               <video
-                src="/static/images/landing-page/dreaming-house-eeda7.mp4"
+                src={staticAsset("images/landing-page/dreaming-house-eeda7.mp4")}
                 aria-label={t("dreamingHouseLabel")}
                 autoPlay
                 muted
@@ -198,7 +199,7 @@ export function BootcampSection() {
             </div>
             <div className={styles.level}>
               <video
-                src="/static/images/landing-page/breakout-bcaa3.mp4"
+                src={staticAsset("images/landing-page/breakout-bcaa3.mp4")}
                 aria-label={t("breakoutLabel")}
                 autoPlay
                 muted

@@ -136,14 +136,14 @@ export default class StockMarketExercise extends VisualExercise {
 
   private marketGrowth(executionCtx: ExecutionContext, year: Shared.JikiObject): number {
     if (!isNumber(year)) {
-      return executionCtx.logicError("Year must be a number");
+      return executionCtx.logicError(this.t("errors.yearNumber"));
     }
     const y = year.value;
     if (y < this.startYear) {
-      return executionCtx.logicError(`We can't check the stock market for old years! ${y} is in the past.`);
+      return executionCtx.logicError(this.t("errors.yearInPast", { year: y }));
     }
     if (y >= this.startYear + 20) {
-      return executionCtx.logicError(`We don't know about more than 20 years from now! ${y} is too far in the future.`);
+      return executionCtx.logicError(this.t("errors.yearTooFarFuture", { year: y }));
     }
     const rate = this.growthRates[y];
 
@@ -171,17 +171,17 @@ export default class StockMarketExercise extends VisualExercise {
 
   private reportTax(executionCtx: ExecutionContext, year: Shared.JikiObject, balance: Shared.JikiObject) {
     if (!isNumber(year)) {
-      return executionCtx.logicError("Year must be a number");
+      return executionCtx.logicError(this.t("errors.yearNumber"));
     }
     if (!isNumber(balance)) {
-      return executionCtx.logicError("Balance must be a number");
+      return executionCtx.logicError(this.t("errors.balanceNumber"));
     }
     this.taxReports.push({ year: year.value, balance: balance.value });
   }
 
   private announceToFamily(executionCtx: ExecutionContext, money: Shared.JikiObject) {
     if (!isNumber(money)) {
-      return executionCtx.logicError("Money must be a number");
+      return executionCtx.logicError(this.t("errors.moneyNumber"));
     }
     this.announcedBalance = money.value;
     this.announceCount++;
@@ -197,19 +197,19 @@ export default class StockMarketExercise extends VisualExercise {
     {
       name: "market_growth",
       func: this.marketGrowth.bind(this),
-      description: "got market growth of ${return}% for year ${arg1}",
+      descriptionKey: "describers.marketGrowth",
       arity: 1 as const
     },
     {
       name: "report_tax",
       func: this.reportTax.bind(this),
-      description: "reported tax for year ${arg1}: $${arg2}",
+      descriptionKey: "describers.reportTax",
       arity: 2 as const
     },
     {
       name: "announce_to_family",
       func: this.announceToFamily.bind(this),
-      description: "announced $${arg1} to the family",
+      descriptionKey: "describers.announceToFamily",
       arity: 1 as const
     }
   ];

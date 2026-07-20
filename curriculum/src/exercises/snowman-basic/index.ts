@@ -7,9 +7,9 @@ const functions: FunctionInfo[] = [
   {
     name: "circle",
     signature: "circle(centerX, centerY, radius)",
-    description: "Draw a circle centered at (centerX, centerY) with the given radius",
+    description: "functions.circle.description",
     examples: ["circle(50, 40, 15)", "circle(50, 70, 20)"],
-    category: "Drawing Shapes"
+    category: "functions.circle.category"
   }
 ];
 

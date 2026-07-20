@@ -1,0 +1,36 @@
+{
+  "tasks": {
+    "createAcronymFunction": {
+      "name": "Create acronym function",
+      "description": "Write an acronym function that takes three words and returns a three-letter acronym formed by taking the first letter of each word."
+    }
+  },
+  "scenarios": {
+    "png": {
+      "name": "Portable Network Graphics",
+      "description": "Create the acronym 'PNG' from 'Portable', 'Network', 'Graphics'."
+    },
+    "css": {
+      "name": "Cascading Style Sheets",
+      "description": "Create the acronym 'CSS' from 'Cascading', 'Style', 'Sheets'."
+    },
+    "www": {
+      "name": "World Wide Web",
+      "description": "Create the acronym 'WWW' from 'World', 'Wide', 'Web'."
+    },
+    "lol": {
+      "name": "Lowercase words",
+      "description": "Create the acronym 'lol' from 'laugh', 'out', 'loud'."
+    }
+  },
+  "hints": {
+    "firstCharacter": {
+      "question": "How do I get just the first character of a word?",
+      "answer": "Indexing into the string. The first character is at index `[0]`."
+    },
+    "buildResult": {
+      "question": "How do I build the three-letter result?",
+      "answer": "Take the first character of each word and join them together in order using concatenation (`+`) or a template string."
+    }
+  }
+}

@@ -1,5 +1,7 @@
 import { api } from "./client";
 import { conceptIndexHashes } from "@/lib/generated/concept-hashes";
+import { assetsUrl } from "@/lib/assets";
+import { conceptIndexPath, conceptContentPath } from "@/lib/assets-paths";
 import {
   selectTopLevelConcepts,
   selectConcept,
@@ -19,11 +21,15 @@ async function fetchAllConcepts(locale: string = "en"): Promise<ConceptMeta[]> {
     return cachedPromise;
   }
 
-  const hash = conceptIndexHashes[locale] || conceptIndexHashes["en"];
-  const effectiveLocale = conceptIndexHashes[locale] ? locale : "en";
+  // No English fallback: a locale with no concept index resolves to an empty
+  // list rather than silently serving English concepts.
+  const hash = conceptIndexHashes[locale];
+  if (!hash) {
+    return [];
+  }
 
   cachedLocale = locale;
-  cachedPromise = fetch(`/static/concepts/${effectiveLocale}-${hash}.json`).then((res) => {
+  cachedPromise = fetch(assetsUrl(conceptIndexPath(locale, hash))).then((res) => {
     if (!res.ok) {
       throw new Error("Failed to fetch concepts");
     }
@@ -93,7 +99,7 @@ export async function getConceptContent(slug: string, locale: string = "en"): Pr
   if (!concept?.contentHash) {
     return "";
   }
-  const res = await fetch(`/static/concepts/${slug}/${locale}-${concept.contentHash}.html`);
+  const res = await fetch(assetsUrl(conceptContentPath(slug, locale, concept.contentHash)));
   if (!res.ok) {
     throw new Error("Failed to fetch concept content");
   }

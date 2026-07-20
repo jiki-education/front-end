@@ -1,0 +1,97 @@
+{
+  "errors": {
+    "alreadyIssued": "You've already given this person a wristband - each person should only get one."
+  },
+  "checks": {
+    "childWristband": "The person is 8. They should get a child wristband, but got: {{got}}.",
+    "teenWristband": "The person is 15. They should get a teen wristband, but got: {{got}}.",
+    "adultWristband": "The person is 30. They should get an adult wristband, but got: {{got}}.",
+    "seniorWristband": "The person is 70. They should get a senior wristband, but got: {{got}}.",
+    "boundary13": "The person is 13. They should get a teen wristband (13 is not under 13), but got: {{got}}.",
+    "boundary18": "The person is 18. They should get an adult wristband (18 is not under 18), but got: {{got}}.",
+    "boundary65": "The person is 65. They should get a senior wristband (65 is not under 65), but got: {{got}}."
+  },
+  "tasks": {
+    "assignWristband": {
+      "name": "Assign the correct wristband",
+      "description": "Get the person's age and give them the correct wristband: child (under 13), teen (13-17), adult (18-64), or senior (65+)."
+    }
+  },
+  "scenarios": {
+    "childAge8": {
+      "name": "Age 8 (child)",
+      "description": "An 8-year-old. They should get a child wristband."
+    },
+    "teenAge15": {
+      "name": "Age 15 (teen)",
+      "description": "A 15-year-old. They should get a teen wristband."
+    },
+    "adultAge30": {
+      "name": "Age 30 (adult)",
+      "description": "A 30-year-old. They should get an adult wristband."
+    },
+    "seniorAge70": {
+      "name": "Age 70 (senior)",
+      "description": "A 70-year-old. They should get a senior wristband."
+    },
+    "boundary13": {
+      "name": "Age 13 (teen)",
+      "description": "Exactly 13. They're a teen, not a child."
+    },
+    "boundary18": {
+      "name": "Age 18 (adult)",
+      "description": "Exactly 18. They're an adult, not a teen."
+    },
+    "boundary65": {
+      "name": "Age 65 (senior)",
+      "description": "Exactly 65. They're a senior, not an adult."
+    }
+  },
+  "hints": {
+    "gettingAge": {
+      "question": "How do I get hold of the person's age?",
+      "answer": "Call `getAge()` and put the result in a variable, e.g. `let age = getAge()`. Then you can compare `age` to numbers in your conditions."
+    },
+    "structureForRanges": {
+      "question": "Which structure do I use when there are several age ranges?",
+      "answer": "An `if` / `else if` / `else` chain. Each branch handles one wristband, and only one branch will run."
+    },
+    "branchOrder": {
+      "question": "Does the order of the branches matter?",
+      "answer": "Yes. Start with the youngest (`age < 13`), then `age < 18`, then `age < 65`. Because each branch only runs if the earlier ones failed, you do not need to write things like `age >= 13 && age < 18`."
+    },
+    "seniorsElse": {
+      "question": "What about the seniors at the end?",
+      "answer": "You do not need a condition for them. A plain `else` that calls `giveSeniorWristband()` catches everyone aged 65 and over."
+    }
+  },
+  "describers": {
+    "getAge": "retrieved the person's age",
+    "giveChildWristband": "gave a child wristband",
+    "giveTeenWristband": "gave a teen wristband",
+    "giveAdultWristband": "gave an adult wristband",
+    "giveSeniorWristband": "gave a senior wristband"
+  },
+  "functions": {
+    "getAge": {
+      "description": "Returns the **age** of the person waiting outside.",
+      "category": "Information"
+    },
+    "giveChildWristband": {
+      "description": "Gives the person a **child** wristband (under 13).",
+      "category": "Wristbands"
+    },
+    "giveTeenWristband": {
+      "description": "Gives the person a **teen** wristband (13-17).",
+      "category": "Wristbands"
+    },
+    "giveAdultWristband": {
+      "description": "Gives the person an **adult** wristband (18-64).",
+      "category": "Wristbands"
+    },
+    "giveSeniorWristband": {
+      "description": "Gives the person a **senior** wristband (65+).",
+      "category": "Wristbands"
+    }
+  }
+}

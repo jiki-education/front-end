@@ -3,28 +3,28 @@
   "levelId": "conditionals-and-state",
   "hints": [
     {
-      "question": "How do I draw a whole grid of squares rather than just one?",
-      "answer": "Use nested loops: an outer loop that steps through the rows and an inner loop that steps through the columns. Draw one square each time the inner loop runs."
+      "question": "hints.wholeGrid.question",
+      "answer": "hints.wholeGrid.answer"
     },
     {
-      "question": "How do I make it work whatever the board size is?",
-      "answer": "Don't pick a fixed square size. Ask `getBoardSize()` how many squares there are, work out a single `cell` size from that and the space available, and build every position as a multiple of it."
+      "question": "hints.anyBoardSize.question",
+      "answer": "hints.anyBoardSize.answer"
     },
     {
-      "question": "How do I make the squares alternate colours?",
-      "answer": "Look at a square's row and column together. The remainder operator (`%`) lets you split every square into one of two groups based on `row` and `col`, and those two groups are exactly the light and dark squares."
+      "question": "hints.alternateColours.question",
+      "answer": "hints.alternateColours.answer"
     },
     {
-      "question": "Which squares get pieces?",
-      "answer": "Pieces only sit on the **dark** squares, so you can reuse the same test you used to colour them. Then narrow it further to only the top and bottom rows, leaving the middle two empty."
+      "question": "hints.whichSquaresGetPieces.question",
+      "answer": "hints.whichSquaresGetPieces.answer"
     },
     {
-      "question": "How do I draw a ridged piece?",
-      "answer": "Draw two circles at the same centre: a larger one for the rim, then a slightly smaller one on top in the piece's colour. Base both radii on the cell size so the pieces scale with the board."
+      "question": "hints.ridgedPiece.question",
+      "answer": "hints.ridgedPiece.answer"
     },
     {
-      "question": "The size of the rim doesn't look like the sample diagram.",
-      "answer": "Check that the inner circle is 75% of the outer circle (not 75% of the square)."
+      "question": "hints.rimSize.question",
+      "answer": "hints.rimSize.answer"
     }
   ]
 }

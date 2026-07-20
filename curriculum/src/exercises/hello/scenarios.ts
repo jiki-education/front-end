@@ -3,8 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "create-say-hello-function" as const,
-    name: "Create sayHello function",
-    description: "Write a sayHello function that takes a name and returns a greeting in the format 'Hello, [name]!'.",
+    name: "tasks.createSayHelloFunction.name",
+    description: "tasks.createSayHelloFunction.description",
     hints: [],
     requiredScenarios: ["hello-aiko", "hello-priya", "hello-mei"],
     bonus: false
@@ -14,8 +14,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "hello-aiko",
-    name: "Greet Aiko",
-    description: "Return 'Hello, Aiko!'",
+    name: "scenarios.helloAiko.name",
+    description: "scenarios.helloAiko.description",
     taskId: "create-say-hello-function",
     functionName: "say_hello",
     args: ["Aiko"],
@@ -23,8 +23,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "hello-priya",
-    name: "Greet Priya",
-    description: "Return 'Hello, Priya!'",
+    name: "scenarios.helloPriya.name",
+    description: "scenarios.helloPriya.description",
     taskId: "create-say-hello-function",
     functionName: "say_hello",
     args: ["Priya"],
@@ -32,8 +32,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "hello-mei",
-    name: "Greet Mei",
-    description: "Return 'Hello, Mei!'",
+    name: "scenarios.helloMei.name",
+    description: "scenarios.helloMei.description",
     taskId: "create-say-hello-function",
     functionName: "say_hello",
     args: ["Mei"],

@@ -3,20 +3,20 @@
   "levelId": "complex-conditionals",
   "hints": [
     {
-      "question": "How do I roll the ball the right distance for each shot?",
-      "answer": "Use `getShotLength()` to find out how far the golfer hit the ball, and store it in a variable. That tells you how many times to roll."
+      "question": "hints.howDoIRollRightDistance.question",
+      "answer": "hints.howDoIRollRightDistance.answer"
     },
     {
-      "question": "How do I move the ball one step at a time instead of jumping it to the end?",
-      "answer": "Keep a variable for the ball's `x` position. Each time round the loop, increase it by one and then roll to the new position."
+      "question": "hints.howDoIMoveOneStep.question",
+      "answer": "hints.howDoIMoveOneStep.answer"
     },
     {
-      "question": "When should the ball drop into the hole?",
-      "answer": "Only when the shot lands in the hole. Check whether the shot length is within the winning range by testing the lower and upper bounds together in one condition."
+      "question": "hints.whenShouldBallDrop.question",
+      "answer": "hints.whenShouldBallDrop.answer"
     },
     {
-      "question": "When should the fireworks fire?",
-      "answer": "Only for a shot that landed in the hole, and only once the ball has finished dropping to the bottom. Keep the drop and the fireworks together inside the same condition."
+      "question": "hints.whenShouldFireworksFire.question",
+      "answer": "hints.whenShouldFireworksFire.answer"
     }
   ]
 }

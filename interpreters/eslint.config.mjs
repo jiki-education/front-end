@@ -42,6 +42,24 @@ export default [
     },
   },
 
+  // Node CLI scripts - Node globals + console output allowed
+  {
+    files: ["scripts/**/*.{js,mjs}"],
+    languageOptions: {
+      globals: {
+        process: "readonly",
+        console: "readonly",
+        URL: "readonly",
+        Buffer: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
+      },
+    },
+    rules: {
+      "no-console": "off",
+    },
+  },
+
   // TypeScript files - full rule set with type information
   {
     files: ["**/*.{ts,tsx}"],

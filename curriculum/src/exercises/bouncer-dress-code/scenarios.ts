@@ -20,9 +20,8 @@ function setupScenario(
 export const tasks = [
   {
     id: "check-dress-code" as const,
-    name: "Enforce the door policy",
-    description:
-      "Check each person's outfit, age, and guest-list status, then apply the rules. Formal or smart clothes get in with canapés. Adults in formal clothes also get champagne. Under-18s in other clothes get in only if they're on the guest list. Everyone else is turned away.",
+    name: "tasks.checkDressCode.name",
+    description: "tasks.checkDressCode.description",
     hints: [],
     requiredScenarios: [
       "ballgown",
@@ -42,8 +41,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "ballgown",
-    name: "Ballgown",
-    description: "A woman in her 60s wearing a ballgown. She gets champagne and canapés, and is let in.",
+    name: "scenarios.ballgown.name",
+    description: "scenarios.ballgown.description",
     taskId: "check-dress-code",
 
     setup(exercise) {
@@ -55,27 +54,27 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.champagneOffered === true,
-          errorHtml: "She's an adult in formal wear, so she should be offered champagne, but she wasn't."
+          errorHtml: ex.t("checks.ballgown.champagne")
         },
         {
           pass: ex.canapesOffered === true,
-          errorHtml: "Formal guests are offered canapés too, but she wasn't."
+          errorHtml: ex.t("checks.ballgown.canapes")
         },
         {
           pass: ex.wasLetIn === true,
-          errorHtml: "Anyone in formal wear should be let in, but she wasn't."
+          errorHtml: ex.t("checks.ballgown.letIn")
         },
         {
           pass: ex.wasTurnedAway === false,
-          errorHtml: "A guest in formal wear should NOT be turned away."
+          errorHtml: ex.t("checks.ballgown.notTurnedAway")
         }
       ];
     }
   },
   {
     slug: "tuxedo",
-    name: "Tuxedo",
-    description: "A man in a tuxedo who has just turned 18. He gets champagne and canapés, and is let in.",
+    name: "scenarios.tuxedo.name",
+    description: "scenarios.tuxedo.description",
     taskId: "check-dress-code",
 
     setup(exercise) {
@@ -87,27 +86,27 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.champagneOffered === true,
-          errorHtml: "He's 18, which counts as an adult, so he should be offered champagne, but he wasn't."
+          errorHtml: ex.t("checks.tuxedo.champagne")
         },
         {
           pass: ex.canapesOffered === true,
-          errorHtml: "Formal guests are offered canapés too, but he wasn't."
+          errorHtml: ex.t("checks.tuxedo.canapes")
         },
         {
           pass: ex.wasLetIn === true,
-          errorHtml: "Anyone in formal wear should be let in, but he wasn't."
+          errorHtml: ex.t("checks.tuxedo.letIn")
         },
         {
           pass: ex.wasTurnedAway === false,
-          errorHtml: "A guest in formal wear should NOT be turned away."
+          errorHtml: ex.t("checks.tuxedo.notTurnedAway")
         }
       ];
     }
   },
   {
     slug: "dress",
-    name: "Dress",
-    description: "A woman in a dress. She's let in with canapés.",
+    name: "scenarios.dress.name",
+    description: "scenarios.dress.description",
     taskId: "check-dress-code",
 
     setup(exercise) {
@@ -119,27 +118,27 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.canapesOffered === true,
-          errorHtml: "She's in smart wear, so she should be offered canapés, but she wasn't."
+          errorHtml: ex.t("checks.dress.canapes")
         },
         {
           pass: ex.champagneOffered === false,
-          errorHtml: "Champagne is for formal wear, so a smart guest shouldn't be offered it."
+          errorHtml: ex.t("checks.dress.noChampagne")
         },
         {
           pass: ex.wasLetIn === true,
-          errorHtml: "A guest in smart wear should be let in, but she wasn't."
+          errorHtml: ex.t("checks.dress.letIn")
         },
         {
           pass: ex.wasTurnedAway === false,
-          errorHtml: "A guest in smart wear should NOT be turned away."
+          errorHtml: ex.t("checks.dress.notTurnedAway")
         }
       ];
     }
   },
   {
     slug: "suit",
-    name: "Suit",
-    description: "A man in a suit. He's let in with canapés.",
+    name: "scenarios.suit.name",
+    description: "scenarios.suit.description",
     taskId: "check-dress-code",
 
     setup(exercise) {
@@ -151,27 +150,27 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.canapesOffered === true,
-          errorHtml: "He's in smart wear, so he should be offered canapés, but he wasn't."
+          errorHtml: ex.t("checks.suit.canapes")
         },
         {
           pass: ex.champagneOffered === false,
-          errorHtml: "Champagne is for formal wear, so a smart guest shouldn't be offered it."
+          errorHtml: ex.t("checks.suit.noChampagne")
         },
         {
           pass: ex.wasLetIn === true,
-          errorHtml: "A guest in smart wear should be let in, but he wasn't."
+          errorHtml: ex.t("checks.suit.letIn")
         },
         {
           pass: ex.wasTurnedAway === false,
-          errorHtml: "A guest in smart wear should NOT be turned away."
+          errorHtml: ex.t("checks.suit.notTurnedAway")
         }
       ];
     }
   },
   {
     slug: "formal-teen",
-    name: "Child in a ballgown",
-    description: "A 13-year-old in a ballgown. She's let in with canapés, but is too young for champagne.",
+    name: "scenarios.formalTeen.name",
+    description: "scenarios.formalTeen.description",
     taskId: "check-dress-code",
 
     setup(exercise) {
@@ -183,27 +182,27 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wasLetIn === true,
-          errorHtml: "Anyone in formal wear is let in, whatever their age, but she wasn't."
+          errorHtml: ex.t("checks.formalTeen.letIn")
         },
         {
           pass: ex.canapesOffered === true,
-          errorHtml: "Formal guests are offered canapés whatever their age, but she wasn't."
+          errorHtml: ex.t("checks.formalTeen.canapes")
         },
         {
           pass: ex.champagneOffered === false,
-          errorHtml: "She's under 18, so she shouldn't be offered champagne. Champagne is for adults only."
+          errorHtml: ex.t("checks.formalTeen.noChampagne")
         },
         {
           pass: ex.wasTurnedAway === false,
-          errorHtml: "A guest in formal wear should NOT be turned away."
+          errorHtml: ex.t("checks.formalTeen.notTurnedAway")
         }
       ];
     }
   },
   {
     slug: "smart-teen",
-    name: "Teenager in a suit",
-    description: "A 15-year-old in a suit. He's let in with canapés, regardless of age.",
+    name: "scenarios.smartTeen.name",
+    description: "scenarios.smartTeen.description",
     taskId: "check-dress-code",
 
     setup(exercise) {
@@ -215,27 +214,27 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.canapesOffered === true,
-          errorHtml: "Smart wear gets canapés whatever their age, but he wasn't offered any."
+          errorHtml: ex.t("checks.smartTeen.canapes")
         },
         {
           pass: ex.champagneOffered === false,
-          errorHtml: "Champagne is for formal wear, so a smart guest shouldn't be offered it."
+          errorHtml: ex.t("checks.smartTeen.noChampagne")
         },
         {
           pass: ex.wasLetIn === true,
-          errorHtml: "A guest in smart wear should be let in, but he wasn't."
+          errorHtml: ex.t("checks.smartTeen.letIn")
         },
         {
           pass: ex.wasTurnedAway === false,
-          errorHtml: "A guest in smart wear should NOT be turned away."
+          errorHtml: ex.t("checks.smartTeen.notTurnedAway")
         }
       ];
     }
   },
   {
     slug: "casual-child-listed",
-    name: "Child in denim, on the list",
-    description: "A 15-year-old in denim who's on the guest list. They're let in.",
+    name: "scenarios.casualChildListed.name",
+    description: "scenarios.casualChildListed.description",
     taskId: "check-dress-code",
 
     setup(exercise) {
@@ -247,27 +246,27 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wasLetIn === true,
-          errorHtml: "An under-18 on the guest list is allowed in, even in casual clothes, but they weren't."
+          errorHtml: ex.t("checks.casualChildListed.letIn")
         },
         {
           pass: ex.wasTurnedAway === false,
-          errorHtml: "An under-18 on the guest list should NOT be turned away."
+          errorHtml: ex.t("checks.casualChildListed.notTurnedAway")
         },
         {
           pass: ex.champagneOffered === false,
-          errorHtml: "They're not in formal wear, so no champagne."
+          errorHtml: ex.t("checks.casualChildListed.noChampagne")
         },
         {
           pass: ex.canapesOffered === false,
-          errorHtml: "They're not in formal or smart wear, so no canapés."
+          errorHtml: ex.t("checks.casualChildListed.noCanapes")
         }
       ];
     }
   },
   {
     slug: "casual-child-unlisted",
-    name: "Child in a tracksuit, not on the list",
-    description: "A 15-year-old in a tracksuit who isn't on the guest list. They're turned away.",
+    name: "scenarios.casualChildUnlisted.name",
+    description: "scenarios.casualChildUnlisted.description",
     taskId: "check-dress-code",
 
     setup(exercise) {
@@ -279,27 +278,27 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wasTurnedAway === true,
-          errorHtml: "An under-18 in casual clothes who isn't on the guest list should be turned away."
+          errorHtml: ex.t("checks.casualChildUnlisted.turnedAway")
         },
         {
           pass: ex.wasLetIn === false,
-          errorHtml: "An under-18 in casual clothes who isn't on the guest list should NOT be let in."
+          errorHtml: ex.t("checks.casualChildUnlisted.notLetIn")
         },
         {
           pass: ex.champagneOffered === false,
-          errorHtml: "They're not in formal wear, so no champagne."
+          errorHtml: ex.t("checks.casualChildUnlisted.noChampagne")
         },
         {
           pass: ex.canapesOffered === false,
-          errorHtml: "They're not in formal or smart wear, so no canapés."
+          errorHtml: ex.t("checks.casualChildUnlisted.noCanapes")
         }
       ];
     }
   },
   {
     slug: "casual-adult-listed",
-    name: "Adult in denim, on the list",
-    description: "A 30-year-old in denim who's on the guest list. They're still turned away.",
+    name: "scenarios.casualAdultListed.name",
+    description: "scenarios.casualAdultListed.description",
     taskId: "check-dress-code",
 
     setup(exercise) {
@@ -311,20 +310,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wasTurnedAway === true,
-          errorHtml:
-            "The guest-list exception is only for under-18s, so an adult in casual clothes is turned away even if they're on the list."
+          errorHtml: ex.t("checks.casualAdultListed.turnedAway")
         },
         {
           pass: ex.wasLetIn === false,
-          errorHtml: "An adult in casual clothes should NOT be let in, even if they're on the guest list."
+          errorHtml: ex.t("checks.casualAdultListed.notLetIn")
         },
         {
           pass: ex.champagneOffered === false,
-          errorHtml: "They're not in formal wear, so no champagne."
+          errorHtml: ex.t("checks.casualAdultListed.noChampagne")
         },
         {
           pass: ex.canapesOffered === false,
-          errorHtml: "They're not in formal or smart wear, so no canapés."
+          errorHtml: ex.t("checks.casualAdultListed.noCanapes")
         }
       ];
     },
@@ -332,19 +330,19 @@ export const scenarios: VisualScenario[] = [
     codeChecks: [
       {
         pass: (result) => result.assertors.numFunctionCallsInCode("get_outfit") <= 1,
-        errorHtml: "You should only use <code>getOutfit()</code> once."
+        errorKey: "checks.codeQuality.getOutfitCalledOnce"
       },
       {
         pass: (result) => result.assertors.numFunctionCallsInCode("get_age") <= 1,
-        errorHtml: "You should only use <code>getAge()</code> once."
+        errorKey: "checks.codeQuality.getAgeCalledOnce"
       },
       {
         pass: (result) => result.assertors.numFunctionCallsInCode("on_guest_list") <= 1,
-        errorHtml: "You should only use <code>onGuestList()</code> once."
+        errorKey: "checks.codeQuality.onGuestListCalledOnce"
       },
       {
         pass: (result) => result.assertors.assertOperatorUsed("&&") || result.assertors.assertOperatorUsed("||"),
-        errorHtml: "This challenge is about combining conditions. Try using what you've learned in the previous lesson."
+        errorKey: "checks.codeQuality.combinesConditions"
       }
     ]
   }

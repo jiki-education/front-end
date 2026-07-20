@@ -3,28 +3,28 @@
   "levelId": "conditionals-and-state",
   "hints": [
     {
-      "question": "What state do I need to track?",
-      "answer": "The ball's position, and how it's moving. Keep those separate: one variable for *where* the ball is, another for *how it's changing*. The same idea applies to the hue: you need its current value plus a direction it's heading in."
+      "question": "hints.stateToTrack.question",
+      "answer": "hints.stateToTrack.answer"
     },
     {
-      "question": "How do I make the ball move and the colour shift each frame?",
-      "answer": "At the start of each loop iteration, add your direction variables to the position and to `hue`. That way the direction variables fully control the motion. Flipping their sign or changing their size instantly changes how the ball moves and how the colour shifts."
+      "question": "hints.moveAndShift.question",
+      "answer": "hints.moveAndShift.answer"
     },
     {
-      "question": "I can't work out how to do this. Any tips?",
-      "answer": "What are these numbers that `x` and `y` change by? They're a mixture of speed (the size of the number) and direction (whether it moves the ball forward or back). So `2` would be a speed of 2 moving to the right or bottom. And `-3` would be a speed of 3 moving to the left or top. A number that is a speed and a distance is called a **velocity** (time to update your variable names?) So when you want to change the direction of the ball, you change the sign of the velocity, from positive to negative or vice versa."
+      "question": "hints.velocityTip.question",
+      "answer": "hints.velocityTip.answer"
     },
     {
-      "question": "How do I make the ball bounce off the edges?",
-      "answer": "After updating position, check whether `x` or `y` has crossed the canvas boundary. When it has, reverse the direction variable for that axis. The instructions specify the canvas range."
+      "question": "hints.bounceOffEdges.question",
+      "answer": "hints.bounceOffEdges.answer"
     },
     {
-      "question": "How do I give the bounce a random new speed each time?",
-      "answer": "When the ball hits an edge, set the direction variable using `Math.randomInt(min, max)` instead of just flipping its sign. Pick a positive range when bouncing off the left or top, and a negative range when bouncing off the right or bottom."
+      "question": "hints.randomBounceSpeed.question",
+      "answer": "hints.randomBounceSpeed.answer"
     },
     {
-      "question": "How do I cycle the hue through the rainbow?",
-      "answer": "Apply the same trick to `hue` as to position. When it leaves its valid range, flip `hueDirection`. The colour will then sweep up to the top of the spectrum and back down again on its own."
+      "question": "hints.cycleHue.question",
+      "answer": "hints.cycleHue.answer"
     }
   ]
 }

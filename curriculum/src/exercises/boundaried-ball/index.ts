@@ -7,17 +7,16 @@ const functions: FunctionInfo[] = [
   {
     name: "Ball",
     signature: "new Ball()",
-    description:
-      "Creates a new Ball instance with properties: `cx`, `cy` (center position), `radius`, `xVelocity`, and `yVelocity`.",
+    description: "functions.ball.description",
     examples: ["let ball = new Ball()"],
-    category: "Objects"
+    category: "functions.ball.category"
   },
   {
     name: "moveBall",
     signature: "moveBall(ball)",
-    description: "Moves the ball according to its current `xVelocity` and `yVelocity`.",
+    description: "functions.moveBall.description",
     examples: ["moveBall(ball)"],
-    category: "Movement"
+    category: "functions.moveBall.category"
   }
 ];
 

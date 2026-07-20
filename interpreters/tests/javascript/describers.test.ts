@@ -112,8 +112,7 @@ describe("describers", () => {
           <hr/>
           <h3>Steps Jiki Took</h3>
           <ul>
-            <li>Looked up the function <code>marketGrowth</code></li>
-        <li>Called <code>marketGrowth</code> with <code>2026</code> and got <code>8</code></li>
+            <li>Jiki used the <code>marketGrowth</code> function with <code>2026</code> and got <code>8</code></li>
         <li>Jiki evaluated <code data-hl-from="77" data-hl-to="101">100 + 8</code> and determined it was <code data-hl-from="77" data-hl-to="101">108</code>.</li>
         <li>Jiki evaluated <code data-hl-from="68" data-hl-to="102">100 * 108</code> and determined it was <code data-hl-from="68" data-hl-to="102">10800</code>.</li>
         <li>Jiki evaluated <code data-hl-from="68" data-hl-to="107">10800 / 99</code> and determined it was <code data-hl-from="68" data-hl-to="107">109.09091</code>.</li>

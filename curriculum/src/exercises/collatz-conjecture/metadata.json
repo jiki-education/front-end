@@ -3,16 +3,16 @@
   "levelId": "make-your-own-functions",
   "hints": [
     {
-      "question": "How do I keep going until the number reaches 1?",
-      "answer": "Use a `repeat()` loop with no number — it repeats forever until you `return` out of it. Inside the loop, replace the number with the next number in the sequence, and return once it reaches 1."
+      "question": "hints.loopUntilOne.question",
+      "answer": "hints.loopUntilOne.answer"
     },
     {
-      "question": "How do I decide which rule to apply on each step?",
-      "answer": "Check whether the number is even. The modulo operator does this. `number % 2 === 0` means it's even. If even, halve it. Otherwise, do `3 * number + 1`."
+      "question": "hints.chooseRule.question",
+      "answer": "hints.chooseRule.answer"
     },
     {
-      "question": "How do I track the answer (the number of steps)?",
-      "answer": "Keep a counter variable for how many times you've applied the rules. Think about what needs to happen to it each time round the loop, and what your function should return when the number reaches 1."
+      "question": "hints.trackSteps.question",
+      "answer": "hints.trackSteps.answer"
     }
   ]
 }

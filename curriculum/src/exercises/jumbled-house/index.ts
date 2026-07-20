@@ -7,23 +7,23 @@ const functions: FunctionInfo[] = [
   {
     name: "rectangle",
     signature: "rectangle(left, top, width, height, color)",
-    description: "Draw a rectangle at position (left, top) with the given width, height, and color",
+    description: "functions.rectangle.description",
     examples: ['rectangle(0, 0, 100, 50, "skyblue")', 'rectangle(20, 50, 60, 40, "brown")'],
-    category: "Drawing Shapes"
+    category: "functions.rectangle.category"
   },
   {
     name: "circle",
     signature: "circle(centerX, centerY, radius, color)",
-    description: "Draw a circle centered at (centerX, centerY) with the given radius and color",
+    description: "functions.circle.description",
     examples: ['circle(50, 50, 10, "black")', 'circle(55, 81, 1, "yellow")'],
-    category: "Drawing Shapes"
+    category: "functions.circle.category"
   },
   {
     name: "triangle",
     signature: "triangle(x1, y1, x2, y2, x3, y3, color)",
-    description: "Draw a triangle with three corner points and a color",
+    description: "functions.triangle.description",
     examples: ['triangle(16, 50, 50, 30, 84, 50, "brick")'],
-    category: "Drawing Shapes"
+    category: "functions.triangle.category"
   }
 ];
 

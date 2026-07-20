@@ -1,5 +1,6 @@
 import { fetchStaticContent } from "./fetchStaticContent";
 import { getProject } from "./getProject";
+import { projectEpisodeContentPath } from "@/lib/assets-paths";
 import type { ProcessedEpisode } from "./types";
 
 /**
@@ -20,7 +21,7 @@ export async function getProjectEpisode(
   }
 
   const content = await fetchStaticContent(
-    `/static/content/projects/${projectSlug}/${meta.uuid}/${meta.locale}-${meta.contentHash}.html`
+    projectEpisodeContentPath(projectSlug, meta.uuid, meta.locale, meta.contentHash)
   );
   return { ...meta, content };
 }

@@ -3,8 +3,8 @@
   "levelId": "using-functions",
   "hints": [
     {
-      "question": "Why doesn't `move()` work any more?",
-      "answer": "Each exercise in Jiki has different functions you can use. In this exercise, you have the `walk(...)` function. Replace the `n` with the number of steps you want to walk. So `walk(1)` does exactly the same as `move()` did last time."
+      "question": "hints.moveNotWorking.question",
+      "answer": "hints.moveNotWorking.answer"
     }
   ]
 }

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { localePath } from "@/lib/i18n/routes";
+import { staticAsset } from "@/lib/static-asset";
 import styles from "./FeaturedInProjects.module.css";
 import relatedStyles from "../articles/RelatedArticles.module.css";
 
@@ -38,7 +39,7 @@ export default function FeaturedInProjects({ episodes, locale }: FeaturedInProje
             className={styles.card}
           >
             <Image
-              src={`/static/images/projects/episodes/${episode.episodeImage}`}
+              src={staticAsset(`images/projects/episodes/${episode.episodeImage}`)}
               alt=""
               width={80}
               height={45}

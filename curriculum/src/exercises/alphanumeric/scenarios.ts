@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "classify-string" as const,
-    name: "Classify a string",
-    description:
-      "Write helper functions to check if a string is alpha, numeric, or alphanumeric, then use them to classify the input string.",
+    name: "tasks.classifyString.name",
+    description: "tasks.classifyString.description",
     hints: [],
     requiredScenarios: ["duck", "number", "alphanumeric", "not-alphanumeric-1", "not-alphanumeric-2"],
     bonus: false
@@ -15,8 +14,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "duck",
-    name: "Duck",
-    description: 'A purely alphabetic string should be classified as "Alpha".',
+    name: "scenarios.duck.name",
+    description: "scenarios.duck.description",
     taskId: "classify-string",
     functionName: "what_am_i",
     args: ["Duck"],
@@ -24,8 +23,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "number",
-    name: "42",
-    description: 'A purely numeric string should be classified as "Numeric".',
+    name: "scenarios.number.name",
+    description: "scenarios.number.description",
     taskId: "classify-string",
     functionName: "what_am_i",
     args: ["42"],
@@ -33,8 +32,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "alphanumeric",
-    name: "Duck42",
-    description: 'A string with both letters and numbers should be classified as "Alphanumeric".',
+    name: "scenarios.alphanumeric.name",
+    description: "scenarios.alphanumeric.description",
     taskId: "classify-string",
     functionName: "what_am_i",
     args: ["Duck42"],
@@ -42,8 +41,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "not-alphanumeric-1",
-    name: "It's not 42!",
-    description: 'A string with special characters should be classified as "Unknown".',
+    name: "scenarios.notAlphanumeric1.name",
+    description: "scenarios.notAlphanumeric1.description",
     taskId: "classify-string",
     functionName: "what_am_i",
     args: ["It's not 42!"],
@@ -51,8 +50,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "not-alphanumeric-2",
-    name: "42 Rubber Duck!",
-    description: 'A string with spaces and special characters should be classified as "Unknown".',
+    name: "scenarios.notAlphanumeric2.name",
+    description: "scenarios.notAlphanumeric2.description",
     taskId: "classify-string",
     functionName: "what_am_i",
     args: ["42 Rubber Duck!"],

@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "create-shopping-list" as const,
-    name: "Create Shopping List",
-    description:
-      "Write a function that takes the contents of your fridge and a recipe's ingredients, and returns the items you need to buy (items in the recipe that aren't in the fridge).",
+    name: "tasks.createShoppingList.name",
+    description: "tasks.createShoppingList.description",
     hints: [],
     requiredScenarios: ["empty-fridge", "you-have-everything", "one-thing", "few-things"],
     bonus: false
@@ -15,8 +14,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "empty-fridge",
-    name: "Empty fridge",
-    description: "When the fridge is empty, you need to buy everything.",
+    name: "scenarios.emptyFridge.name",
+    description: "scenarios.emptyFridge.description",
     taskId: "create-shopping-list",
     functionName: "shopping_list",
     args: [[], ["peas", "tomatoes", "garlic", "basil", "olives"]],
@@ -24,8 +23,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "you-have-everything",
-    name: "You have everything",
-    description: "When you have all ingredients, the shopping list is empty.",
+    name: "scenarios.youHaveEverything.name",
+    description: "scenarios.youHaveEverything.description",
     taskId: "create-shopping-list",
     functionName: "shopping_list",
     args: [
@@ -36,8 +35,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "one-thing",
-    name: "One thing",
-    description: "When you're missing just one ingredient.",
+    name: "scenarios.oneThing.name",
+    description: "scenarios.oneThing.description",
     taskId: "create-shopping-list",
     functionName: "shopping_list",
     args: [
@@ -48,8 +47,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "few-things",
-    name: "A few things",
-    description: "When you're missing a few ingredients.",
+    name: "scenarios.fewThings.name",
+    description: "scenarios.fewThings.description",
     taskId: "create-shopping-list",
     functionName: "shopping_list",
     args: [

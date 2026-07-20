@@ -7,25 +7,23 @@ const functions: FunctionInfo[] = [
   {
     name: "move",
     signature: "move()",
-    description:
-      "Moves the laser cannon **one position to the right**. If you move off the right edge of the screen, you lose!",
+    description: "functions.move.description",
     examples: ["move()"],
-    category: "Movement"
+    category: "functions.move.category"
   },
   {
     name: "shoot",
     signature: "shoot()",
-    description: "Shoots the laser upwards. **Only shoot when there's an alien above you**, or you lose the game!",
+    description: "functions.shoot.description",
     examples: ["shoot()"],
-    category: "Action"
+    category: "functions.shoot.category"
   },
   {
     name: "isAlienAbove",
     signature: "isAlienAbove()",
-    description:
-      "Returns `true` if there's an alien directly above the laser cannon, or `false` if not. Use this to check before shooting!",
+    description: "functions.isAlienAbove.description",
     examples: ["if (isAlienAbove()) { shoot(); }"],
-    category: "Detection"
+    category: "functions.isAlienAbove.category"
   }
 ];
 

@@ -1,5 +1,6 @@
-import { type ExecutionContext, type ExternalFunction } from "@jiki/interpreters";
+import { type ExecutionContext } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
+import type { AvailableFunction } from "../../types";
 import metadata from "./metadata.json";
 
 type WristbandType = "child" | "teen" | "adult" | "senior";
@@ -24,31 +25,31 @@ export default class BouncerWristbandsExercise extends VisualExercise {
     this.populateView();
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "get_age",
       func: this.getAge.bind(this),
-      description: "retrieved the person's age"
+      descriptionKey: "describers.getAge"
     },
     {
       name: "give_child_wristband",
       func: this.giveChildWristband.bind(this),
-      description: "gave a child wristband"
+      descriptionKey: "describers.giveChildWristband"
     },
     {
       name: "give_teen_wristband",
       func: this.giveTeenWristband.bind(this),
-      description: "gave a teen wristband"
+      descriptionKey: "describers.giveTeenWristband"
     },
     {
       name: "give_adult_wristband",
       func: this.giveAdultWristband.bind(this),
-      description: "gave an adult wristband"
+      descriptionKey: "describers.giveAdultWristband"
     },
     {
       name: "give_senior_wristband",
       func: this.giveSeniorWristband.bind(this),
-      description: "gave a senior wristband"
+      descriptionKey: "describers.giveSeniorWristband"
     }
   ];
 
@@ -74,7 +75,7 @@ export default class BouncerWristbandsExercise extends VisualExercise {
 
   private giveWristband(executionCtx: ExecutionContext, type: WristbandType) {
     if (this.issued) {
-      return executionCtx.logicError("You've already given this person a wristband - each person should only get one.");
+      return executionCtx.logicError(this.t("errors.alreadyIssued"));
     }
     this.issued = true;
     this.wristband = type;

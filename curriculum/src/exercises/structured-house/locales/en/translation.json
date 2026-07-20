@@ -1,0 +1,59 @@
+{
+  "checks": {
+    "frameWrong": "The frame of the house is not at the correct position.",
+    "roofWrong": "The roof of the house is not at the correct position.",
+    "leftWindowWrong": "The left window isn't positioned correctly.",
+    "rightWindowWrong": "The right window isn't positioned correctly.",
+    "doorWrong": "The door isn't positioned correctly.",
+    "knobWrong": "The door knob isn't positioned correctly.",
+    "doesNotScale": "Your house doesn't scale correctly when houseWidth={{houseWidth}} and houseHeight={{houseHeight}}. Every position and size should be derived from houseWidth and houseHeight, not hardcoded numbers."
+  },
+  "tasks": {
+    "drawHouse": {
+      "name": "Draw the house",
+      "description": "Build the house from `houseWidth` and `houseHeight` so it stays centered, planted on the grass, and correctly proportioned at any size."
+    }
+  },
+  "scenarios": {
+    "drawTheHouse": {
+      "name": "Draw the house",
+      "description": "Build the house from houseWidth and houseHeight so it scales correctly."
+    }
+  },
+  "hints": {
+    "whereDoIStart": {
+      "question": "Where do I start?",
+      "answer": "You're given `houseWidth`, `houseHeight`, and `canvasWidth`. Work out the two things the frame needs first: its left edge (so the house is centered) and its top edge (so it sits on the grass). Every other shape can then be built from the frame."
+    },
+    "keepCentered": {
+      "question": "How do I keep the house centered when the width changes?",
+      "answer": "The middle of the canvas is always `canvasWidth / 2`. If the frame is centered on that point, its left edge is half a width to the left of the middle. Anything else that's centered (the roof peak, the door) can use that same middle point."
+    },
+    "keepPlantedOnGrass": {
+      "question": "How do I keep the house planted on the grass?",
+      "answer": "Find the y value where the bottom of the house should sit (a little below the top of the grass). The top of the frame is then one house-height above that. Working from the bottom upward means a taller house grows up into the sky rather than down through the grass."
+    },
+    "sizeRoofWindowsDoor": {
+      "question": "How do I size the roof, windows, and door?",
+      "answer": "Each size in the instructions is a fraction of the frame's width or height (for example, '1/5th of the width' is `houseWidth / 5`). Build every width from `houseWidth` and every height from `houseHeight`, so they all scale together."
+    },
+    "breaksOnResize": {
+      "question": "It looks right at the default size but breaks when I resize. Why?",
+      "answer": "You've probably hardcoded a number somewhere instead of deriving it. Look for any literal that isn't a value taken straight from the instructions, like the canvas size or grass height. It should almost certainly be derived from another variable instead. That might be an anchor, or something already built from an anchor, like the door's width."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Draw a rectangle at position (left, top) with the given width, height, and color",
+      "category": "Drawing Shapes"
+    },
+    "circle": {
+      "description": "Draw a circle centered at (centerX, centerY) with the given radius and color",
+      "category": "Drawing Shapes"
+    },
+    "triangle": {
+      "description": "Draw a triangle with three corner points and a color",
+      "category": "Drawing Shapes"
+    }
+  }
+}

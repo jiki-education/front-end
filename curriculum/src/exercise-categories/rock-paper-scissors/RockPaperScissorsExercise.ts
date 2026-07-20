@@ -1,5 +1,6 @@
-import { type ExecutionContext, type ExternalFunction, type Shared, isString } from "@jiki/interpreters";
+import { type ExecutionContext, type Shared, isString } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
+import type { AvailableFunction } from "../../types";
 
 export type Choice = "rock" | "paper" | "scissors";
 export type Result = "Yuki" | "Ando" | "tie";
@@ -76,41 +77,37 @@ export default abstract class RockPaperScissorsExercise extends VisualExercise {
 
   protected announceResult(executionCtx: ExecutionContext, result: Shared.JikiObject) {
     if (!isString(result)) {
-      return executionCtx.logicError(
-        'Oh no! You announced an invalid result. There\'s chaos in the playing hall! Please announce either "Yuki", "Ando" or "tie".'
-      );
+      return executionCtx.logicError(this.t("errors.invalidResult"));
     }
 
     const resultStr = result.value;
     if (resultStr !== "Yuki" && resultStr !== "Ando" && resultStr !== "tie") {
-      return executionCtx.logicError(
-        'Oh no! You announced an invalid result. There\'s chaos in the playing hall! Please announce either "Yuki", "Ando" or "tie".'
-      );
+      return executionCtx.logicError(this.t("errors.invalidResult"));
     }
 
     this.result = resultStr;
     if (resultStr !== this.expectedResult) {
       return executionCtx.logicError(
-        `Oh no! You announced the wrong result. There's chaos in the playing hall!\n\nYou should have announced \`"${this.expectedResult ?? ""}"\` but you announced \`"${resultStr}"\`.`
+        this.t("errors.wrongResult", { expected: this.expectedResult ?? "", got: resultStr })
       );
     }
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "announce_result",
       func: this.announceResult.bind(this),
-      description: "announced the result of the game as ${arg1}"
+      descriptionKey: "describers.announceResult"
     },
     {
       name: "get_yuki_choice",
       func: this.getYukiChoice.bind(this),
-      description: "returned Yuki's choice"
+      descriptionKey: "describers.getYukiChoice"
     },
     {
       name: "get_ando_choice",
       func: this.getAndoChoice.bind(this),
-      description: "returned Ando's choice"
+      descriptionKey: "describers.getAndoChoice"
     }
   ];
 

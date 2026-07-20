@@ -1,0 +1,9 @@
+# Content-hashed cache trees are served from the persistent R2 bucket
+# (assets.jiki.io) via assetsUrl(), never from the worker's bundled static assets
+# (which are destroyed on every redeploy, breaking in-flight sessions). Keep them
+# out of the worker bundle — they're uploaded to R2 immutably by `static:upload`.
+static/i18n/*
+static/exercises/*
+static/concepts/*
+static/content/*
+static/hashed/*
