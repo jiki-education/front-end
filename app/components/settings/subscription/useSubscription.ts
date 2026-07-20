@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { showModal } from "@/lib/modal";
-import { PRICING_TIERS } from "@/lib/pricing";
 import toast from "react-hot-toast";
 import { getSubscriptionState } from "./utils";
 import * as handlers from "./handlers";
@@ -14,6 +13,7 @@ interface UseSubscriptionProps {
 
 export function useSubscription({ user, refreshUser }: UseSubscriptionProps) {
   const tToast = useTranslations("toasts.subscription");
+  const format = useFormatter();
   const [isLoading, setIsLoading] = useState(false);
 
   // Get subscription state and data
@@ -32,22 +32,19 @@ export function useSubscription({ user, refreshUser }: UseSubscriptionProps) {
       }
     : null;
 
-  // Helper function to format date
+  // Helper function to format date in the active locale (respects the
+  // request-configured time zone via next-intl's formatter).
   const formatBillingDate = (dateString: string | null | undefined) => {
     if (!dateString) {
       return null;
     }
-    const date = new Date(dateString);
-    const options: Intl.DateTimeFormatOptions = {
+    return format.dateTime(new Date(dateString), {
       month: "short",
       day: "numeric",
       year: "numeric"
-    };
-    return date.toLocaleDateString("en-US", options);
+    });
   };
 
-  // Get tier details for display
-  const tierDetails = PRICING_TIERS[currentTier];
   const nextBillingDate = formatBillingDate(subscriptionData?.nextBillingDate);
 
   // Helper function to handle async operations with loading state
@@ -144,7 +141,6 @@ export function useSubscription({ user, refreshUser }: UseSubscriptionProps) {
     currentTier,
     subscriptionStatus,
     subscriptionData,
-    tierDetails,
     nextBillingDate,
 
     // Handlers

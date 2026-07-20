@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { hideModal } from "../store";
-import { PRICING_TIERS } from "@/lib/pricing";
 import type { MembershipTier } from "@/lib/pricing";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 
@@ -22,7 +21,15 @@ interface SubscriptionSuccessModalProps {
 export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onClose }: SubscriptionSuccessModalProps) {
   const t = useTranslations("modals.subscriptionSuccess");
   const tCommon = useTranslations("common");
-  const tierInfo = PRICING_TIERS[tier];
+  const tTiers = useTranslations("subscription.tiers");
+  const tPremium = useTranslations("subscription.tiers.premium");
+  const tierName = tTiers(`${tier}.name`);
+  // Highlight the three most relevant Premium benefits on the success screen.
+  const premiumHighlights = [
+    tPremium("features.unlimitedAi"),
+    tPremium("features.allExercises"),
+    tPremium("features.certificates")
+  ];
 
   // Calculate renewal date once at render time to avoid calling Date.now() during render
   const [renewalDate] = useState(() => new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString());
@@ -39,21 +46,21 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
         return {
           title: t("featureGate.title"),
           description: t("featureGate.description"),
-          features: tierInfo.features.slice(1, 4) // Show subset of relevant features
+          features: premiumHighlights
         };
       case "settings":
         return {
-          title: t("settings.title", { tier: tierInfo.name }),
+          title: t("settings.title", { tier: tierName }),
           description: t("settings.description"),
-          features: tierInfo.features.slice(1, 4) // Show subset of key features
+          features: premiumHighlights
         };
       case "general":
       case undefined:
       default:
         return {
-          title: t("general.title", { tier: tierInfo.name }),
+          title: t("general.title", { tier: tierName }),
           description: t("general.description"),
-          features: tierInfo.features.slice(1, 4) // Show subset of key features
+          features: premiumHighlights
         };
     }
   };
@@ -92,7 +99,7 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
       {/* Subscription Details */}
       <div className="bg-bg-secondary p-4 rounded-lg border border-border-secondary">
         <div className="flex items-center justify-between mb-12">
-          <span className="font-medium text-text-primary">{t("planLabel", { tier: tierInfo.name })}</span>
+          <span className="font-medium text-text-primary">{t("planLabel", { tier: tierName })}</span>
           <span className="text-2xl font-bold text-text-primary">
             <PremiumPrice interval="monthly" />
             <span className="text-sm font-normal text-text-secondary">{tCommon("perMonth")}</span>

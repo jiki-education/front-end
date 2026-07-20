@@ -1773,5 +1773,30 @@
       "completedTitle": "No completed challenges yet",
       "completedDescription": "Complete your first challenge to see it here. Keep working on your in-progress challenges to reach this milestone."
     }
+  },
+  "subscription": {
+    "tiers": {
+      "standard": {
+        "name": "Free",
+        "description": "Perfect for getting started",
+        "features": {
+          "freeCourses": "Access to free courses",
+          "basicExercises": "Basic coding exercises",
+          "communitySupport": "Community support",
+          "aiHelpPerMonth": "1 AI help per month"
+        }
+      },
+      "premium": {
+        "name": "Premium",
+        "description": "Unlock advanced features",
+        "features": {
+          "allFreeFeatures": "All Free features",
+          "unlimitedAi": "Unlimited AI help",
+          "allExercises": "Access to all exercises",
+          "certificates": "Certificates",
+          "adFree": "Ad-free experience"
+        }
+      }
+    }
   }
 }

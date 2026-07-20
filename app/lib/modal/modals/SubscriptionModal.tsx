@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { hideModal } from "../store";
 import { handleSubscribe } from "@/lib/subscriptions/handlers";
-import { PRICING_TIERS } from "@/lib/pricing";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 import SubscriptionButton from "@/components/settings/ui/SubscriptionButton";
 import { useTranslations } from "next-intl";
@@ -42,10 +41,19 @@ export function SubscriptionModal({
   const t = useTranslations("modals.subscription");
   const tCommon = useTranslations("common");
   const tToast = useTranslations("toasts.subscription");
+  const tPremium = useTranslations("subscription.tiers.premium");
   const [isLoading, setIsLoading] = useState(false);
   const user = useAuthStore((state: any) => state.user);
 
-  const premiumTier = PRICING_TIERS.premium;
+  const premiumName = tPremium("name");
+  const premiumDescription = tPremium("description");
+  const premiumFeatures = [
+    tPremium("features.allFreeFeatures"),
+    tPremium("features.unlimitedAi"),
+    tPremium("features.allExercises"),
+    tPremium("features.certificates"),
+    tPremium("features.adFree")
+  ];
 
   // Default content based on context
   const getDefaultContent = () => {
@@ -156,18 +164,18 @@ export function SubscriptionModal({
           )}
 
           <div className="mb-4">
-            <h3 className="text-xl font-bold text-text-primary">{premiumTier.name}</h3>
+            <h3 className="text-xl font-bold text-text-primary">{premiumName}</h3>
             <div className="mt-2">
               <span className="text-3xl font-bold text-text-primary">
                 <PremiumPrice interval="monthly" />
               </span>
               <span className="text-text-secondary">{tCommon("perMonth")}</span>
             </div>
-            <p className="text-text-secondary text-sm mt-2">{premiumTier.description}</p>
+            <p className="text-text-secondary text-sm mt-2">{premiumDescription}</p>
           </div>
 
           <ul className="space-y-2 mb-6">
-            {premiumTier.features.map((feature: string, index: number) => (
+            {premiumFeatures.map((feature, index) => (
               <li key={index} className="flex items-start text-sm text-text-secondary">
                 <span className="text-green-500 mr-12 mt-0.5 flex-shrink-0" aria-hidden="true">
                   ✓
@@ -182,7 +190,7 @@ export function SubscriptionModal({
             onClick={() => handleTierSelection()}
             loading={isLoading}
             className="w-full"
-            ariaLabel={t("subscribeAriaLabel", { plan: premiumTier.name })}
+            ariaLabel={t("subscribeAriaLabel", { plan: premiumName })}
           >
             {t("choosePremium")}
           </SubscriptionButton>
