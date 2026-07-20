@@ -1,5 +1,4 @@
 import type { MembershipTier } from "@/lib/pricing";
-import { PRICING_TIERS } from "@/lib/pricing";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 import { useTranslations } from "next-intl";
 import type { SubscriptionStatus as SubscriptionStatusType } from "../subscription/types";
@@ -15,7 +14,8 @@ interface SubscriptionStatusProps {
 export default function SubscriptionStatus({ tier, status, nextBillingDate, className = "" }: SubscriptionStatusProps) {
   const t = useTranslations("settings.subscriptionStatus");
   const tCommon = useTranslations("common");
-  const tierDetails = PRICING_TIERS[tier];
+  const tTiers = useTranslations("subscription.tiers");
+  const tierName = tTiers(`${tier}.name`);
   const isActiveSubscription = tier !== "standard" && status === "active";
   const isCancelling = tier !== "standard" && status === "cancelling";
 
@@ -70,7 +70,7 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
         </div>
         <p>
           {t.rich(nextBillingDate ? "activeWithBilling" : "active", {
-            tier: tierDetails.name,
+            tier: tierName,
             date: nextBillingDate ?? "",
             plan: (chunks) => <span className={styles.gradientText}>{chunks}</span>,
             strong: (chunks) => <strong>{chunks}</strong>,
@@ -136,9 +136,9 @@ export default function SubscriptionStatus({ tier, status, nextBillingDate, clas
           <div
             className="px-12 py-4 rounded-full text-sm font-medium bg-blue-50 text-blue-700"
             role="status"
-            aria-label={t("currentPlanAriaLabel", { plan: tierDetails.name })}
+            aria-label={t("currentPlanAriaLabel", { plan: tierName })}
           >
-            {t("planLabel", { tier: tierDetails.name })}
+            {t("planLabel", { tier: tierName })}
           </div>
           <div
             className={`px-2 py-4 rounded text-xs font-medium ${statusInfo.bgColor} ${statusInfo.color}`}

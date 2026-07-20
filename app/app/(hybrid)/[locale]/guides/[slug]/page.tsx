@@ -8,7 +8,7 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
-  return getGuideMetadata(slug, locale);
+  return await getGuideMetadata(slug, locale);
 }
 
 export default async function AuthenticatedLocaleGuidePage({ params }: Props) {

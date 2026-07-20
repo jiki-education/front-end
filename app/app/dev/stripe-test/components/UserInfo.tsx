@@ -1,5 +1,5 @@
-import { getPricingTier } from "@/lib/pricing";
 import type { MembershipTier } from "@/lib/pricing";
+import { DEV_TIER_DISPLAY } from "../tiers";
 
 interface UserInfoProps {
   handle: string;
@@ -24,7 +24,7 @@ export function UserInfo({ handle, email, membershipTier }: UserInfoProps) {
           <dt className="inline font-medium">Membership Tier:</dt>
           <dd className="inline ml-2">
             <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getTierBadgeColor(membershipTier)}`}>
-              {getPricingTier(membershipTier).name}
+              {DEV_TIER_DISPLAY[membershipTier].name}
             </span>
           </dd>
         </div>

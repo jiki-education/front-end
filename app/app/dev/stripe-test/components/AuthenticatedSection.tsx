@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { getPricingTier } from "@/lib/pricing";
 import type { User } from "@/types/auth";
+import { DEV_TIER_DISPLAY } from "../tiers";
 import { SubscriptionActionsSwitch } from "./SubscriptionActionsSwitch";
 import { UserInfo } from "./UserInfo";
 import { DeleteStripeHistory } from "./DeleteStripeHistory";
@@ -34,7 +34,7 @@ export function AuthenticatedSection({ user, refreshUser }: AuthenticatedSection
 
       {/* Subscription Actions */}
       <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold mb-4">Current Tier: {getPricingTier(currentTier).name}</h2>
+        <h2 className="text-xl font-semibold mb-4">Current Tier: {DEV_TIER_DISPLAY[currentTier].name}</h2>
         <SubscriptionActionsSwitch user={user} refreshUser={refreshUser} />
       </div>
 
