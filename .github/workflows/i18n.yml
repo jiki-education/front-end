@@ -1,0 +1,66 @@
+name: i18n
+
+# Verifies that every translation key referenced in code exists in the dict
+# files, for every production locale (SUPPORTED_LOCALES in app/lib/locales.ts —
+# currently en; a PR that puts hu live is checked against hu too). Each package
+# has its own audit script under <pkg>/scripts/audit-i18n-keys.mjs; they share
+# the locale resolver in scripts/i18n-locales.mjs.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "app/**"
+      - "curriculum/**"
+      - "interpreters/**"
+      - "scripts/i18n-locales.mjs"
+      - ".github/workflows/i18n.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "app/**"
+      - "curriculum/**"
+      - "interpreters/**"
+      - "scripts/i18n-locales.mjs"
+      - ".github/workflows/i18n.yml"
+
+jobs:
+  audit-keys:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+
+      # Run every package's audit against the production locale set. Each script
+      # exits non-zero and lists the missing keys if any are absent. We run all
+      # of them and fail at the end so a single CI run surfaces every problem
+      # across packages, not just the first.
+      - name: Audit i18n keys (all packages)
+        run: |
+          set +e
+          status=0
+
+          echo "::group::interpreters"
+          node interpreters/scripts/audit-i18n-keys.mjs
+          [ $? -ne 0 ] && status=1
+          echo "::endgroup::"
+
+          echo "::group::curriculum"
+          node curriculum/scripts/audit-i18n-keys.mjs
+          [ $? -ne 0 ] && status=1
+          echo "::endgroup::"
+
+          echo "::group::app"
+          node app/scripts/audit-i18n-keys.mjs
+          [ $? -ne 0 ] && status=1
+          echo "::endgroup::"
+
+          if [ $status -ne 0 ]; then
+            echo "::error::i18n audit found translation keys missing from a production locale. See the grouped output above for the specific keys."
+          fi
+          exit $status
