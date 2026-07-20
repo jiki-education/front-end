@@ -1,72 +1,49 @@
 export type ItemStatus = "shipped" | "in-progress" | "planned";
 
 export interface RoadmapItem {
-  titleKey: string;
-  descriptionKey: string;
+  key: string;
   status: ItemStatus;
 }
 
 export interface RoadmapPhase {
-  labelKey: string;
-  timeframeKey: string;
-  summaryKey?: string;
+  key: string;
   items: RoadmapItem[];
 }
 
 export interface ChangelogEntry {
-  dateKey: string;
-  titleKey: string;
-  descriptionKey: string;
+  key: string;
 }
 
 export const changelog: ChangelogEntry[] = [
-  {
-    dateKey: "entry2Date",
-    titleKey: "entry2Title",
-    descriptionKey: "entry2Description"
-  },
-  {
-    dateKey: "entry3Date",
-    titleKey: "entry3Title",
-    descriptionKey: "entry3Description"
-  },
-  {
-    dateKey: "entry1Date",
-    titleKey: "entry1Title",
-    descriptionKey: "entry1Description"
-  }
+  { key: "learnToBuildLaunch" },
+  { key: "milestones6To10" },
+  { key: "jikiLaunch" }
 ];
 
 export const phases: RoadmapPhase[] = [
   {
-    labelKey: "nowLabel",
-    timeframeKey: "nowTimeframe",
-    summaryKey: "nowSummary",
+    key: "now",
     items: [
-      { titleKey: "nowItem4Title", descriptionKey: "nowItem4Description", status: "shipped" },
-      { titleKey: "nowItem1Title", descriptionKey: "nowItem1Description", status: "in-progress" },
-      { titleKey: "nowItem2Title", descriptionKey: "nowItem2Description", status: "in-progress" },
-      { titleKey: "nowItem3Title", descriptionKey: "nowItem3Description", status: "in-progress" }
+      { key: "learnToBuild", status: "shipped" },
+      { key: "launchBugs", status: "in-progress" },
+      { key: "earlyFeedback", status: "in-progress" },
+      { key: "foundations", status: "in-progress" }
     ]
   },
   {
-    labelKey: "nextLabel",
-    timeframeKey: "nextTimeframe",
-    summaryKey: "nextSummary",
+    key: "next",
     items: [
-      { titleKey: "nextItem1Title", descriptionKey: "nextItem1Description", status: "planned" },
-      { titleKey: "nextItem3Title", descriptionKey: "nextItem3Description", status: "planned" },
-      { titleKey: "nextItem4Title", descriptionKey: "nextItem4Description", status: "planned" },
-      { titleKey: "nextItem5Title", descriptionKey: "nextItem5Description", status: "planned" }
+      { key: "betaToLive", status: "planned" },
+      { key: "deepDiveVideos", status: "planned" },
+      { key: "newLanguages", status: "planned" },
+      { key: "pythonVersion", status: "planned" }
     ]
   },
   {
-    labelKey: "futureLabel",
-    timeframeKey: "futureTimeframe",
-    summaryKey: "futureSummary",
+    key: "future",
     items: [
-      { titleKey: "futureItem1Title", descriptionKey: "futureItem1Description", status: "planned" },
-      { titleKey: "futureItem2Title", descriptionKey: "futureItem2Description", status: "planned" }
+      { key: "moreLanguages", status: "planned" },
+      { key: "sql", status: "planned" }
     ]
   }
 ];

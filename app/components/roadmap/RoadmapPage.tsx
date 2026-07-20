@@ -31,7 +31,7 @@ export function RoadmapPage() {
         <div className={styles["main-content"]}>
           <ol className={styles.timeline}>
             {phases.map((phase) => (
-              <PhaseBlock key={phase.labelKey} phase={phase} />
+              <PhaseBlock key={phase.key} phase={phase} />
             ))}
           </ol>
 
@@ -59,8 +59,8 @@ function ChangelogSection() {
         <p className={styles["changelog-subtitle"]}>{t("subtitle")}</p>
       </header>
       <ul className={styles["changelog-list"]}>
-        {changelog.map((entry, i) => (
-          <ChangelogRow key={i} entry={entry} />
+        {changelog.map((entry) => (
+          <ChangelogRow key={entry.key} entry={entry} />
         ))}
       </ul>
     </section>
@@ -71,10 +71,10 @@ function ChangelogRow({ entry }: { entry: ChangelogEntry }) {
   const t = useTranslations("roadmap.changelog");
   return (
     <li className={styles["changelog-item"]}>
-      <span className={styles["changelog-date"]}>{t(entry.dateKey as Parameters<typeof t>[0])}</span>
+      <span className={styles["changelog-date"]}>{t(`${entry.key}.date` as Parameters<typeof t>[0])}</span>
       <div className={styles["changelog-body"]}>
-        <h3 className={styles["changelog-item-title"]}>{t(entry.titleKey as Parameters<typeof t>[0])}</h3>
-        <p className={styles["changelog-desc"]}>{t(entry.descriptionKey as Parameters<typeof t>[0])}</p>
+        <h3 className={styles["changelog-item-title"]}>{t(`${entry.key}.title` as Parameters<typeof t>[0])}</h3>
+        <p className={styles["changelog-desc"]}>{t(`${entry.key}.description` as Parameters<typeof t>[0])}</p>
       </div>
     </li>
   );
@@ -85,20 +85,20 @@ function PhaseBlock({ phase }: { phase: RoadmapPhase }) {
   return (
     <li className={styles.phase}>
       <div className={styles["phase-band"]}>
-        <span className={styles["phase-label"]}>{t(phase.labelKey as Parameters<typeof t>[0])}</span>
-        <span className={styles["phase-timeframe"]}>{t(phase.timeframeKey as Parameters<typeof t>[0])}</span>
+        <span className={styles["phase-label"]}>{t(`${phase.key}.label` as Parameters<typeof t>[0])}</span>
+        <span className={styles["phase-timeframe"]}>{t(`${phase.key}.timeframe` as Parameters<typeof t>[0])}</span>
       </div>
-      {phase.summaryKey && <p className={styles["phase-summary"]}>{t(phase.summaryKey as Parameters<typeof t>[0])}</p>}
+      <p className={styles["phase-summary"]}>{t(`${phase.key}.summary` as Parameters<typeof t>[0])}</p>
       <ul className={styles["item-list"]}>
         {phase.items.map((item) => (
-          <ItemCard key={item.titleKey} item={item} />
+          <ItemCard key={item.key} phaseKey={phase.key} item={item} />
         ))}
       </ul>
     </li>
   );
 }
 
-function ItemCard({ item }: { item: RoadmapItem }) {
+function ItemCard({ phaseKey, item }: { phaseKey: string; item: RoadmapItem }) {
   const t = useTranslations("roadmap.phases");
   const tStatus = useTranslations("roadmap.status");
   const routes = useLocaleRoutes();
@@ -107,13 +107,13 @@ function ItemCard({ item }: { item: RoadmapItem }) {
       <span className={styles.dot} data-status={item.status} aria-hidden="true" />
       <div className={styles["item-body"]}>
         <div className={styles["item-head"]}>
-          <h3 className={styles["item-title"]}>{t(item.titleKey as Parameters<typeof t>[0])}</h3>
+          <h3 className={styles["item-title"]}>{t(`${phaseKey}.${item.key}.title` as Parameters<typeof t>[0])}</h3>
           <span className={styles.badge} data-status={item.status}>
             {tStatus(statusLabelKeys[item.status] as Parameters<typeof tStatus>[0])}
           </span>
         </div>
         <p className={styles["item-desc"]}>
-          {t.rich(item.descriptionKey as Parameters<typeof t>[0], {
+          {t.rich(`${phaseKey}.${item.key}.description` as Parameters<typeof t>[0], {
             link: (chunks) => (
               <Link href={routes.blogPost("translatathon")} className="ui-link">
                 {chunks}
