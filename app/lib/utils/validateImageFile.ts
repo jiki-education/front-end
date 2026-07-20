@@ -1,12 +1,16 @@
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp"];
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
-export function validateImageFile(file: File): string | null {
+/**
+ * Validate an uploaded image file. Returns a `toasts` translation key describing
+ * the problem (for a keyed error toast), or null when the file is acceptable.
+ */
+export function validateImageFile(file: File): "avatar.invalidImageType" | "avatar.imageTooLarge" | null {
   if (!ACCEPTED_TYPES.includes(file.type)) {
-    return "Please select a JPEG, PNG, GIF, or WebP image";
+    return "avatar.invalidImageType";
   }
   if (file.size > MAX_FILE_SIZE) {
-    return "Image must be less than 5MB";
+    return "avatar.imageTooLarge";
   }
   return null;
 }

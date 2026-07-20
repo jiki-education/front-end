@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import toast from "react-hot-toast";
 
 const FORUM_URL = "https://forum.jiki.io";
@@ -8,17 +9,25 @@ const FORUM_URL = "https://forum.jiki.io";
  * persistent failure gets reported rather than silently swallowed.
  */
 export function showLessonSaveErrorToast() {
-  toast.error(
+  toast.error(<LessonSaveErrorMessage />);
+}
+
+function LessonSaveErrorMessage() {
+  const t = useTranslations("toasts");
+  return (
     <span>
-      Sorry, the lesson could not be completed. Please try again. If this continues, please report on{" "}
-      <a
-        href={FORUM_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ fontWeight: 500, textDecoration: "underline", textUnderlineOffset: "1px" }}
-      >
-        {FORUM_URL}
-      </a>
+      {t.rich("exercise.lessonSaveError", {
+        link: (chunks) => (
+          <a
+            href={FORUM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ fontWeight: 500, textDecoration: "underline", textUnderlineOffset: "1px" }}
+          >
+            {chunks}
+          </a>
+        )
+      })}
     </span>
   );
 }

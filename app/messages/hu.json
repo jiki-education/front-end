@@ -1083,7 +1083,14 @@
     "subscription": {
       "loginRequired": "Please log in to upgrade your account",
       "checkoutFailed": "Failed to start checkout process. Please try again.",
-      "alreadyPremium": "Already on Premium tier"
+      "alreadyPremium": "Already on Premium tier",
+      "checkoutSessionFailed": "Failed to create checkout session",
+      "portalFailed": "Failed to open customer portal",
+      "canceled": "Subscription canceled. You'll keep access until {date}",
+      "cancelFailed": "Failed to cancel subscription",
+      "reactivated": "Subscription reactivated!",
+      "reactivateFailed": "Failed to reactivate subscription",
+      "paymentPortalFailed": "Failed to open payment portal"
     },
     "auth": {
       "sessionExpired": "Your session has expired. Please sign in again."
@@ -1096,7 +1103,22 @@
     "avatar": {
       "updated": "Avatar updated",
       "uploadFailed": "Failed to upload avatar",
-      "networkError": "Network error. Please try again."
+      "networkError": "Network error. Please try again.",
+      "invalidImageType": "Please select a JPEG, PNG, GIF, or WebP image",
+      "imageTooLarge": "Image must be less than 5MB"
+    },
+    "settings": {
+      "fetchFailed": "Failed to fetch settings",
+      "settingUpdated": "{field, select, name {Name} email {Email} password {Password} locale {Language preference} handle {Handle} other {{field}}} updated successfully",
+      "updateFailed": "Update failed",
+      "notificationUpdateFailed": "Failed to update notification preference",
+      "streaksUpdateFailed": "Failed to update streaks setting"
+    },
+    "exercise": {
+      "submissionFailed": "Couldn't save your submission. Please try again.",
+      "chatSaveFailed": "Couldn't save this message. It won't be here when you come back.",
+      "chatSaveCaptchaFailed": "Verification failed while saving. This message won't be here when you come back.",
+      "lessonSaveError": "Sorry, the lesson could not be completed. Please try again. If this continues, please report on <link>https://forum.jiki.io</link>"
     }
   },
   "modals": {
