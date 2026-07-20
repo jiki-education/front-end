@@ -10,7 +10,7 @@ import { getCroppedImage } from "@/lib/utils/cropImage";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { ApiError } from "@/lib/api/client";
 import { useTranslations } from "next-intl";
-import toast from "react-hot-toast";
+import { toastError, toastSuccess } from "@/lib/toast";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import UploadIcon from "@/icons/upload.svg";
 import ZoomOutIcon from "@/icons/zoom-out.svg";
@@ -22,7 +22,6 @@ const MIN_ZOOM = 0.9;
 const MAX_ZOOM = 3;
 
 export function AvatarEditModal() {
-  const t = useTranslations("toasts.avatar");
   const ts = useTranslations("settings.avatarEdit");
   const tCommon = useTranslations("common");
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -59,7 +58,7 @@ export function AvatarEditModal() {
     }
     const validationError = validateImageFile(file);
     if (validationError) {
-      toast.error(validationError);
+      toastError(validationError);
       return;
     }
     setImageSrc(URL.createObjectURL(file));
@@ -78,10 +77,10 @@ export function AvatarEditModal() {
       if (user) {
         setUser({ ...user, avatar_url: url });
       }
-      toast.success(t("updated"));
+      toastSuccess("avatar.updated");
       hideModal();
     } catch (err) {
-      toast.error(err instanceof ApiError ? t("uploadFailed") : t("networkError"));
+      toastError(err instanceof ApiError ? "avatar.uploadFailed" : "avatar.networkError");
       setIsSaving(false);
     }
   };

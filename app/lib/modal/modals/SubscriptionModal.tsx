@@ -8,7 +8,7 @@ import { PRICING_TIERS } from "@/lib/pricing";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 import SubscriptionButton from "@/components/settings/ui/SubscriptionButton";
 import { useTranslations } from "next-intl";
-import toast from "react-hot-toast";
+import { toastError } from "@/lib/toast";
 
 interface SubscriptionModalProps {
   // Entry context for analytics and flow optimization
@@ -41,7 +41,6 @@ export function SubscriptionModal({
 }: SubscriptionModalProps) {
   const t = useTranslations("modals.subscription");
   const tCommon = useTranslations("common");
-  const tToast = useTranslations("toasts.subscription");
   const [isLoading, setIsLoading] = useState(false);
   const user = useAuthStore((state: any) => state.user);
 
@@ -82,7 +81,7 @@ export function SubscriptionModal({
 
   const handleTierSelection = async () => {
     if (!user) {
-      toast.error(tToast("loginRequired"));
+      toastError("subscription.loginRequired");
       return;
     }
 
@@ -99,7 +98,7 @@ export function SubscriptionModal({
       });
     } catch (error) {
       console.error("Subscription error:", error);
-      toast.error(tToast("checkoutFailed"));
+      toastError("subscription.checkoutFailed");
     } finally {
       setIsLoading(false);
     }

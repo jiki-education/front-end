@@ -5,6 +5,7 @@ import * as subscriptionApi from "@/lib/api/subscriptions";
 import * as checkoutUtils from "@/lib/subscriptions/checkout";
 import * as handlers from "@/components/settings/subscription/handlers";
 import { showSubscriptionCheckout } from "@/lib/modal/app";
+import { toastError, toastSuccess } from "@/lib/toast";
 import toast from "react-hot-toast";
 
 // Mock the external dependencies
@@ -12,11 +13,15 @@ jest.mock("@/lib/api/subscriptions");
 jest.mock("@/lib/subscriptions/checkout");
 jest.mock("@/lib/modal");
 jest.mock("@/lib/modal/app");
+jest.mock("@/lib/toast");
 jest.mock("react-hot-toast");
 
 const mockSubscriptionApi = subscriptionApi as jest.Mocked<typeof subscriptionApi>;
 const mockCheckoutUtils = checkoutUtils as jest.Mocked<typeof checkoutUtils>;
 const mockShowSubscriptionCheckout = showSubscriptionCheckout as jest.MockedFunction<typeof showSubscriptionCheckout>;
+const mockToastError = toastError as jest.MockedFunction<typeof toastError>;
+const mockToastSuccess = toastSuccess as jest.MockedFunction<typeof toastSuccess>;
+// Raw react-hot-toast is still used directly for dynamic server error messages.
 const mockToast = toast as jest.Mocked<typeof toast>;
 
 describe("Subscription handlers", () => {
@@ -65,7 +70,7 @@ describe("Subscription handlers", () => {
 
       await expect(handlers.handleSubscribe(mockParams)).rejects.toThrow("Network error");
 
-      expect(mockToast.error).toHaveBeenCalledWith("Failed to create checkout session");
+      expect(mockToastError).toHaveBeenCalledWith("subscription.checkoutSessionFailed");
       expect(console.error).toHaveBeenCalledWith(mockError);
     });
   });
@@ -87,7 +92,7 @@ describe("Subscription handlers", () => {
 
       await handlers.handleOpenPortal();
 
-      expect(mockToast.error).toHaveBeenCalledWith("Failed to open customer portal");
+      expect(mockToastError).toHaveBeenCalledWith("subscription.portalFailed");
       expect(console.error).toHaveBeenCalledWith(mockError);
     });
   });
@@ -104,9 +109,7 @@ describe("Subscription handlers", () => {
       await handlers.handleCancelSubscription(mockRefreshUser);
 
       expect(mockSubscriptionApi.cancelSubscription).toHaveBeenCalled();
-      expect(mockToast.success).toHaveBeenCalledWith(
-        expect.stringContaining("Subscription canceled. You'll keep access until")
-      );
+      expect(mockToastSuccess).toHaveBeenCalledWith("subscription.canceled", { date: expect.any(String) });
       expect(mockRefreshUser).toHaveBeenCalled();
     });
 
@@ -133,7 +136,7 @@ describe("Subscription handlers", () => {
       await handlers.handleReactivateSubscription(mockRefreshUser);
 
       expect(mockSubscriptionApi.reactivateSubscription).toHaveBeenCalled();
-      expect(mockToast.success).toHaveBeenCalledWith("Subscription reactivated!");
+      expect(mockToastSuccess).toHaveBeenCalledWith("subscription.reactivated");
       expect(mockRefreshUser).toHaveBeenCalled();
     });
   });
@@ -158,7 +161,7 @@ describe("Subscription handlers", () => {
 
       await handlers.handleRetryPayment(mockRefreshUser);
 
-      expect(mockToast.error).toHaveBeenCalledWith("Failed to open customer portal");
+      expect(mockToastError).toHaveBeenCalledWith("subscription.portalFailed");
       expect(console.error).toHaveBeenCalledWith(mockError);
     });
   });

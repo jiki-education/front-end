@@ -15,9 +15,8 @@ jest.mock("@/lib/api/challenges", () => ({
   submitChallengeExercise: jest.fn().mockResolvedValue(undefined)
 }));
 
-jest.mock("react-hot-toast", () => ({
-  __esModule: true,
-  default: { error: jest.fn() }
+jest.mock("@/lib/toast", () => ({
+  toastError: jest.fn()
 }));
 
 function flushMicrotasks() {
@@ -133,13 +132,15 @@ describe("TestSuiteManager", () => {
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
       (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
 
-      const toast = (await import("react-hot-toast")).default;
+      const { toastError } = await import("@/lib/toast");
 
       await manager.runCode(mockCode, mockExercise);
       await flushMicrotasks();
 
-      expect(toast.error).toHaveBeenCalledTimes(1);
-      expect((toast.error as jest.Mock).mock.calls[0][0]).toMatch(/submission|attempt/i);
+      expect(toastError).toHaveBeenCalledTimes(1);
+      expect(toastError).toHaveBeenCalledWith("exercise.submissionFailed", undefined, {
+        id: "exercise-submission-error"
+      });
     });
 
     it("does not toast on NetworkError (handled globally)", async () => {
@@ -151,18 +152,18 @@ describe("TestSuiteManager", () => {
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
       (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
 
-      const toast = (await import("react-hot-toast")).default;
+      const { toastError } = await import("@/lib/toast");
 
       await manager.runCode(mockCode, mockExercise);
       await flushMicrotasks();
 
-      expect(toast.error).not.toHaveBeenCalled();
+      expect(toastError).not.toHaveBeenCalled();
     });
 
     it("does not toast on AuthenticationError or RateLimitError (handled globally)", async () => {
       const { submitLessonExercise } = await import("@/lib/api/lessons");
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
-      const toast = (await import("react-hot-toast")).default;
+      const { toastError } = await import("@/lib/toast");
 
       for (const error of [new AuthenticationError("Unauthorized"), new RateLimitError("Too Many Requests", 1)]) {
         const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
@@ -173,7 +174,7 @@ describe("TestSuiteManager", () => {
         await flushMicrotasks();
       }
 
-      expect(toast.error).not.toHaveBeenCalled();
+      expect(toastError).not.toHaveBeenCalled();
     });
   });
 

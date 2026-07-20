@@ -1,5 +1,5 @@
 import { useCallback, useRef } from "react";
-import toast from "react-hot-toast";
+import { toastError } from "@/lib/toast";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { useTurnstile } from "@/lib/turnstile/useTurnstile";
 import { useChatState } from "./useChatState";
@@ -92,11 +92,13 @@ export function useChat(orchestrator: Orchestrator) {
                 chatState.setSignature(signature);
                 saveConversation(context.context, message, fullResponse, signature).catch((error: unknown) => {
                   console.error("Failed to save conversation:", error);
-                  const toastMessage =
+                  toastError(
                     error instanceof ConversationSaveCaptchaError
-                      ? "Verification failed while saving. This message won't be here when you come back."
-                      : "Couldn't save this message. It won't be here when you come back.";
-                  toast.error(toastMessage, { duration: 8000 });
+                      ? "exercise.chatSaveCaptchaFailed"
+                      : "exercise.chatSaveFailed",
+                    undefined,
+                    { duration: 8000 }
+                  );
                 });
               }
 
