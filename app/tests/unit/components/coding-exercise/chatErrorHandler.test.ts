@@ -5,49 +5,74 @@ const usage = { messagesToday: 100, messagesThisMonth: 480, dailyLimit: 100, mon
 
 describe("chatErrorHandler", () => {
   describe("formatChatError", () => {
-    it("formats generic auth errors", () => {
+    it("keys generic auth errors", () => {
       const error = new ChatApiError("Unauthorized", 401);
-      expect(formatChatError(error)).toBe("Authentication expired. Please refresh the page.");
+      expect(formatChatError(error)).toEqual({ type: "key", key: "chatError.authExpired", params: undefined });
     });
 
-    it("formats token expired errors (shown after auto-retry fails)", () => {
+    it("keys token expired errors (shown after auto-retry fails)", () => {
       const error = new ChatApiError("Token expired", 401, { error: "token_expired", message: "Token has expired" });
-      expect(formatChatError(error)).toBe("Session expired. Please try again.");
+      expect(formatChatError(error)).toEqual({ type: "key", key: "chatError.sessionExpired", params: undefined });
     });
 
-    it("formats exercise mismatch errors", () => {
+    it("keys exercise mismatch errors", () => {
       const error = new ChatApiError("Forbidden", 403, { error: "exercise_mismatch" });
-      expect(formatChatError(error)).toBe("Exercise mismatch. Please refresh and try again.");
+      expect(formatChatError(error)).toEqual({ type: "key", key: "chatError.exerciseMismatch", params: undefined });
     });
 
-    it("formats invalid token errors", () => {
+    it("keys invalid token errors", () => {
       const error = new ChatApiError("Invalid token", 401, { error: "invalid_token", message: "Invalid token" });
-      expect(formatChatError(error)).toBe("Authentication failed. Please sign in again.");
+      expect(formatChatError(error)).toEqual({ type: "key", key: "chatError.authFailed", params: undefined });
     });
 
-    it("formats rate limit errors", () => {
+    it("keys rate limit errors", () => {
       const error = new ChatApiError("Too Many Requests", 429);
-      expect(formatChatError(error)).toBe("Too many requests. Please wait a moment and try again.");
+      expect(formatChatError(error)).toEqual({ type: "key", key: "chatError.tooManyRequests", params: undefined });
     });
 
-    it("formats network errors", () => {
+    it("keys network errors", () => {
       const error = new Error("Failed to fetch");
-      expect(formatChatError(error)).toBe("Network error. Please check your connection and try again.");
+      expect(formatChatError(error)).toEqual({ type: "key", key: "chatError.networkError", params: undefined });
     });
 
-    it("formats daily usage-limit errors with the UTC reset", () => {
+    it("keys daily usage-limit errors to the shared cap message, passing the limit", () => {
       const error = new ChatUsageLimitError("daily", usage);
-      expect(formatChatError(error)).toBe("You've used all 100 of today's messages. They reset at midnight UTC.");
+      expect(formatChatError(error)).toEqual({
+        type: "key",
+        key: "chatUsageNotice.limitReached.daily",
+        params: { limit: 100 }
+      });
     });
 
-    it("formats monthly usage-limit errors with the 1st reset", () => {
+    it("keys monthly usage-limit errors to the shared cap message, passing the limit", () => {
       const error = new ChatUsageLimitError("monthly", usage);
-      expect(formatChatError(error)).toBe("You've used all 500 messages this month. They reset on the 1st.");
+      expect(formatChatError(error)).toEqual({
+        type: "key",
+        key: "chatUsageNotice.limitReached.monthly",
+        params: { limit: 500 }
+      });
     });
 
-    it("formats rate-limited errors using the proxy message", () => {
+    it("passes rate-limited errors through with the proxy's own copy", () => {
       const error = new ChatRateLimitedError("Too many requests. Please wait a moment and try again.");
-      expect(formatChatError(error)).toBe("Too many requests. Please wait a moment and try again.");
+      expect(formatChatError(error)).toEqual({
+        type: "text",
+        text: "Too many requests. Please wait a moment and try again."
+      });
+    });
+
+    it("passes unclassified ChatApiError statuses through with the server message", () => {
+      const error = new ChatApiError("I'm a teapot", 418);
+      expect(formatChatError(error)).toEqual({ type: "text", text: "I'm a teapot" });
+    });
+
+    it("passes unclassified runtime errors through verbatim", () => {
+      const error = new Error("Something odd happened");
+      expect(formatChatError(error)).toEqual({ type: "text", text: "Something odd happened" });
+    });
+
+    it("keys completely unknown errors to the generic fallback", () => {
+      expect(formatChatError("nope")).toEqual({ type: "key", key: "chatError.unexpected", params: undefined });
     });
   });
 

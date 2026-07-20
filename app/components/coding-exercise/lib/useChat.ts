@@ -1,4 +1,5 @@
 import { useCallback, useRef } from "react";
+import { useTranslations } from "next-intl";
 import { toastError } from "@/lib/toast";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { useTurnstile } from "@/lib/turnstile/useTurnstile";
@@ -12,6 +13,7 @@ import { extractUsage } from "./chatUsage";
 import type Orchestrator from "./Orchestrator";
 
 export function useChat(orchestrator: Orchestrator) {
+  const t = useTranslations("codingExercise");
   const chatState = useChatState();
   const context = useChatContext(orchestrator);
   const turnstile = useTurnstile();
@@ -154,7 +156,7 @@ export function useChat(orchestrator: Orchestrator) {
         }
 
         if (error instanceof ChatTokenInvalidCaptchaError) {
-          chatState.setError("Verification failed, please try again.");
+          chatState.setError(t("chatError.verificationFailed"));
           chatState.setStatus("error");
           return;
         }
@@ -168,12 +170,14 @@ export function useChat(orchestrator: Orchestrator) {
           return;
         }
 
-        const errorMessage = formatChatError(error);
-        chatState.setError(errorMessage);
+        // Translate keyed messages here (the hook has locale context); proxy/
+        // server-provided copy passes through verbatim.
+        const formatted = formatChatError(error);
+        chatState.setError(formatted.type === "key" ? t(formatted.key, formatted.params) : formatted.text);
         chatState.setStatus("error");
       }
     },
-    [chatState, ensureValidToken, performChatRequest, context.context.type, context.context.slug]
+    [chatState, ensureValidToken, performChatRequest, context.context.type, context.context.slug, t]
   );
 
   const clearConversation = useCallback(() => {

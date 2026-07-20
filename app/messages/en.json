@@ -1571,6 +1571,21 @@
       },
       "learnMore": "Learn More"
     },
+    "chatError": {
+      "sessionExpired": "Session expired. Please try again.",
+      "verificationFailed": "Verification failed. Please try again.",
+      "authFailed": "Authentication failed. Please sign in again.",
+      "tokenServerError": "Server error while initializing chat. Please try again.",
+      "tokenInitFailed": "Failed to initialize chat. Please try again.",
+      "exerciseMismatch": "Exercise mismatch. Please refresh and try again.",
+      "authExpired": "Authentication expired. Please refresh the page.",
+      "tooManyRequests": "Too many requests. Please wait a moment and try again.",
+      "serviceUnavailable": "Chat service is temporarily unavailable. Please try again later.",
+      "serverError": "Server error. Please try again in a few moments.",
+      "networkError": "Network error. Please check your connection and try again.",
+      "timeout": "Request timed out. Please try again.",
+      "unexpected": "An unexpected error occurred. Please try again."
+    },
     "stuckHeader": {
       "title": "Feeling Stuck? Ask Jiki!"
     },
