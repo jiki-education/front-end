@@ -11,6 +11,7 @@ interface ChatStatusProps {
 
 export default function ChatStatus({ error, onRetry, canRetry = false }: ChatStatusProps) {
   const t = useTranslations("codingExercise.chatStatus");
+  const tCommon = useTranslations("common");
   if (!error) {
     return null;
   }
@@ -26,7 +27,7 @@ export default function ChatStatus({ error, onRetry, canRetry = false }: ChatSta
         <div className={styles.errorActions}>
           {canRetry && onRetry && (
             <button onClick={onRetry} className={styles.retryButton}>
-              {t("tryAgain")}
+              {tCommon("tryAgain")}
             </button>
           )}
         </div>
