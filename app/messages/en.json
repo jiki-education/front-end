@@ -1736,7 +1736,35 @@
       "title": "Unsubscribe from This Email",
       "description": "No longer want to receive this type of email? Click below to unsubscribe from <highlight>{emailType}</highlight> emails.",
       "success": "You've been unsubscribed from {emailType}.",
-      "button": "Unsubscribe from {emailType}"
+      "button": "Unsubscribe from {emailType}",
+      "fallbackType": "these"
+    },
+    "types": {
+      "newsletters": {
+        "title": "Product Updates",
+        "description": "Stay informed about new features and improvements.",
+        "shortLabel": "product updates"
+      },
+      "event_emails": {
+        "title": "Event Notifications",
+        "description": "Get notified about upcoming livestreams and events.",
+        "shortLabel": "event notifications"
+      },
+      "milestone_emails": {
+        "title": "Achievement Notifications",
+        "description": "Receive notifications when you unlock new skills or achievements.",
+        "shortLabel": "achievement notifications"
+      },
+      "activity_emails": {
+        "title": "Activity Emails",
+        "description": "Activity-based notifications like unlocking badges and completing challenges.",
+        "shortLabel": "activity emails"
+      },
+      "onboarding_emails": {
+        "title": "Getting-Started Emails",
+        "description": "Tips and guidance on how to get the most from Jiki.",
+        "shortLabel": "getting-started emails"
+      }
     }
   },
   "achievements": {

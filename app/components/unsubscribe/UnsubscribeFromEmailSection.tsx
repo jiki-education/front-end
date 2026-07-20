@@ -3,7 +3,7 @@ import EmailEnvelopeIcon from "@/icons/email-envelope.svg";
 import CheckCircleIcon from "@/icons/check-circle.svg";
 import AlertCircleIcon from "@/icons/alert-circle.svg";
 import styles from "./UnsubscribePage.module.css";
-import { formatKeyName } from "./utils";
+import { notificationSlugForKey } from "./utils";
 
 interface UnsubscribeFromEmailSectionProps {
   emailKey: string;
@@ -24,7 +24,8 @@ export default function UnsubscribeFromEmailSection({
 }: UnsubscribeFromEmailSectionProps) {
   const t = useTranslations("unsubscribe");
   const tCommon = useTranslations("common");
-  const emailTypeName = formatKeyName(emailKey);
+  const emailSlug = notificationSlugForKey(emailKey);
+  const emailTypeName = emailSlug ? t(`types.${emailSlug}.shortLabel`) : t("email.fallbackType");
   const highlight = (chunks: React.ReactNode) => <span className={styles.emailTypeHighlight}>{chunks}</span>;
 
   if (!isSubscribed && !success) {
