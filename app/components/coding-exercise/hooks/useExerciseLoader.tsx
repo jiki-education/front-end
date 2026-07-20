@@ -4,6 +4,7 @@ import { exercises, type ExerciseSlug, type ExerciseDefinition, type Language } 
 import Orchestrator from "../lib/Orchestrator";
 import type { ExerciseContext } from "../lib/types";
 import { findFileForLanguage, hasPlaceholders, interpolateStub } from "../lib/stubInterpolation";
+import { getInterpreter } from "../lib/test-runner/getInterpreter";
 import { fetchExerciseContent, fetchExerciseMessages, fetchInterpreterMessages } from "@/lib/api/exercise-meta";
 import { localizeExerciseDefinition } from "@/lib/i18n/localizeExercise";
 import type { LastSubmissionData } from "@/lib/api/types/conversation";
@@ -47,6 +48,12 @@ export function useExerciseLoader({
             `Exercise "${exerciseSlug}" not found in curriculum. Available exercises: ${Object.keys(exercises).join(", ")}`
           );
         }
+
+        // Warm the interpreter chunk in the background. getInterpreter() uses a
+        // dynamic import(); firing it here (unawaited) starts the fetch at exercise
+        // load so the student's first Run Code has it cached, without blocking the
+        // loader. The module cache dedupes the real call in runTests/lintCode.
+        void getInterpreter(language).catch(() => {});
 
         // Load exercise module (shared), static content, the curriculum message
         // dict, and the interpreter's message catalog for the active locale — all
