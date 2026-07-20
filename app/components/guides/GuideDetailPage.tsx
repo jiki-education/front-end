@@ -1,5 +1,6 @@
 import { getGuide, getAllGuides, getAllProjects, getProject, getRelatedGuides } from "@/lib/content";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import GuideDetailContent from "./GuideDetailContent";
 import type { FeaturedInEpisode } from "./FeaturedInProjects";
@@ -10,12 +11,13 @@ interface GuideDetailPageProps {
 }
 
 // Helper for generateMetadata
-export function getGuideMetadata(slug: string, locale: string = "en"): Metadata {
+export async function getGuideMetadata(slug: string, locale: string = "en"): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: "guides.metadata" });
   try {
     const allGuides = getAllGuides(locale);
     const guide = allGuides.find((g) => g.slug === slug);
     if (!guide) {
-      return { title: "Guide Not Found" };
+      return { title: t("notFoundTitle") };
     }
 
     return {
@@ -24,7 +26,7 @@ export function getGuideMetadata(slug: string, locale: string = "en"): Metadata 
       keywords: guide.seo.keywords.join(", ")
     };
   } catch {
-    return { title: "Guide Not Found" };
+    return { title: t("notFoundTitle") };
   }
 }
 
