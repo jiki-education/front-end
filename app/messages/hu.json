@@ -1711,6 +1711,9 @@
     },
     "featuredInProjects": {
       "heading": "Featured in Projects"
+    },
+    "metadata": {
+      "notFoundTitle": "Guide Not Found"
     }
   },
   "unsubscribe": {
