@@ -12,6 +12,7 @@ interface SubscriptionTabProps {
 
 export default function SubscriptionTab({ user, refreshUser }: SubscriptionTabProps) {
   const t = useTranslations("settings.errorBoundary");
+  const tCommon = useTranslations("common");
   return (
     <SubscriptionErrorBoundary
       messages={{
@@ -19,7 +20,7 @@ export default function SubscriptionTab({ user, refreshUser }: SubscriptionTabPr
         messagePart1: t("messagePart1"),
         messagePart2: t("messagePart2"),
         refresh: t("refresh"),
-        tryAgain: t("tryAgain"),
+        tryAgain: tCommon("tryAgain"),
         detailsSummary: t("detailsSummary")
       }}
     >

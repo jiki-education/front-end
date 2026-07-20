@@ -13,7 +13,7 @@ interface ErrorStateProps {
 
 export function ErrorState({ error, onRetry }: ErrorStateProps) {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-  const t = useTranslations("concepts.list");
+  const tCommon = useTranslations("common");
 
   if (isAuthenticated) {
     return (
@@ -21,7 +21,7 @@ export function ErrorState({ error, onRetry }: ErrorStateProps) {
         <div className={errorStyles.center}>
           <div className={errorStyles.errorMessage}>{error}</div>
           <button onClick={onRetry} className={`${errorStyles.retryButton} focus-ring`}>
-            {t("tryAgain")}
+            {tCommon("tryAgain")}
           </button>
         </div>
       </div>
@@ -33,7 +33,7 @@ export function ErrorState({ error, onRetry }: ErrorStateProps) {
       <div className={errorStyles.center}>
         <div className={errorStyles.guestMessage}>{error}</div>
         <button onClick={onRetry} className={errorStyles.guestButton}>
-          {t("tryAgain")}
+          {tCommon("tryAgain")}
         </button>
       </div>
     </div>

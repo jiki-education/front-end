@@ -27,6 +27,7 @@ export function Conversation({
   footer
 }: ConversationProps) {
   const t = useTranslations("codingExercise.conversation");
+  const tCommon = useTranslations("common");
   return (
     <div className={styles.conversation}>
       {conversationError && (
@@ -35,7 +36,7 @@ export function Conversation({
             <p className={styles.errorBannerText}>{t("loadError", { error: conversationError })}</p>
             {onRetryLoad && (
               <button onClick={onRetryLoad} className={styles.errorBannerRetry}>
-                {t("retry")}
+                {tCommon("retry")}
               </button>
             )}
           </div>
