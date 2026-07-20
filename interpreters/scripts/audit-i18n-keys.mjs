@@ -258,7 +258,9 @@ for (const lang of LANGS) {
   console.log(`LANGUAGE: ${lang}`);
   console.log("#".repeat(72));
   console.log(
-    `union members -> ${Object.entries(a.unionSummary).map(([u, n]) => `${u}:${n}`).join("  ")}`
+    `union members -> ${Object.entries(a.unionSummary)
+      .map(([u, n]) => `${u}:${n}`)
+      .join("  ")}`
   );
   console.log(`referenced (required) keys: ${a.usedKeys.size}`);
 
@@ -271,9 +273,7 @@ for (const lang of LANGS) {
       continue;
     }
 
-    const missing = [...a.usedKeys]
-      .filter(k => !loc.dictKeys.has(k) && !loc.dictBaseKeys.has(k))
-      .sort();
+    const missing = [...a.usedKeys].filter(k => !loc.dictKeys.has(k) && !loc.dictBaseKeys.has(k)).sort();
 
     if (missing.length === 0) {
       console.log(`\n[ok] locale "${locale}": all ${a.usedKeys.size} referenced keys present.`);
@@ -288,7 +288,9 @@ for (const lang of LANGS) {
       if (!byNs.has(ns)) byNs.set(ns, []);
       byNs.get(ns).push(k);
     }
-    console.log(`\n[CRITICAL] locale "${locale}": ${missing.length} referenced key(s) MISSING from ${lang}/locales/${locale}/translation.json`);
+    console.log(
+      `\n[CRITICAL] locale "${locale}": ${missing.length} referenced key(s) MISSING from ${lang}/locales/${locale}/translation.json`
+    );
     for (const [ns, keys] of [...byNs].sort()) {
       console.log(`   ${ns}.*`);
       for (const k of keys) {
@@ -316,7 +318,9 @@ for (const lang of LANGS) {
   console.log(`\n[info] dynamic / cannot statically verify (not failures):`);
   console.log(`   template-key prefixes in code: ${[...a.dynamicPrefixes].sort().join(", ") || "(none)"}`);
   if (a.typeTagOnly.size) {
-    console.log(`   stdlib type-tag runtime members (no error.runtime entry expected): ${[...a.typeTagOnly].sort().join(", ")}`);
+    console.log(
+      `   stdlib type-tag runtime members (no error.runtime entry expected): ${[...a.typeTagOnly].sort().join(", ")}`
+    );
   }
   if (a.literalTextKeys.size) {
     console.log(`   literal-text translate() keys (resolve-to-self English, not error.*): ${a.literalTextKeys.size}`);
@@ -325,9 +329,11 @@ for (const lang of LANGS) {
 }
 
 console.log(`\n${"=".repeat(72)}`);
-console.log(totalFailures === 0
-  ? `RESULT: OK — every referenced key resolves in all production locales (${locales.join(", ")}).`
-  : `RESULT: ${totalFailures} failure(s) across locales ${locales.join(", ")} — see [CRITICAL] sections above.`);
+console.log(
+  totalFailures === 0
+    ? `RESULT: OK — every referenced key resolves in all production locales (${locales.join(", ")}).`
+    : `RESULT: ${totalFailures} failure(s) across locales ${locales.join(", ")} — see [CRITICAL] sections above.`
+);
 console.log("=".repeat(72));
 
 process.exit(totalFailures === 0 ? 0 : 1);
