@@ -2,44 +2,44 @@
   "layout": {
     "footer": {
       "about": {
-        "heading": "About",
-        "aboutJiki": "About Jiki",
-        "testimonials": "Testimonials",
-        "ourTeam": "Our team",
+        "heading": "Rólunk",
+        "aboutJiki": "A Jikiről",
+        "testimonials": "Vélemények",
+        "ourTeam": "Csapatunk",
         "premium": "Jiki Premium",
-        "roadmap": "Roadmap"
+        "roadmap": "Ütemterv"
       },
       "legal": {
-        "heading": "Legal",
-        "termsOfUsage": "Terms of usage",
-        "privacyPolicy": "Privacy policy",
-        "cookiePolicy": "Cookie policy",
-        "codeOfConduct": "Code of conduct",
-        "accessibility": "Accessibility"
+        "heading": "Jogi információk",
+        "termsOfUsage": "Felhasználási feltételek",
+        "privacyPolicy": "Adatvédelmi irányelvek",
+        "cookiePolicy": "Cookie-szabályzat",
+        "codeOfConduct": "Magatartási kódex",
+        "accessibility": "Akadálymentesség"
       },
       "keepInTouch": {
-        "heading": "Keep in Touch",
-        "blog": "Jiki's blog",
-        "youtube": "Jiki's YouTube Channel",
-        "reportAbuse": "Report abuse",
-        "sitemap": "Sitemap"
+        "heading": "Maradjunk kapcsolatban",
+        "blog": "Jiki blogja",
+        "youtube": "Jiki YouTube-csatornája",
+        "reportAbuse": "Visszaélés bejelentése",
+        "sitemap": "Oldaltérkép"
       },
       "freeContent": {
-        "heading": "Free Content",
-        "codingConcepts": "Coding Concepts",
-        "agenticGuides": "Coding Guides in the era of Agentic Coding"
+        "heading": "Ingyenes tartalmak",
+        "codingConcepts": "Programozási fogalmak",
+        "agenticGuides": "Programozási útmutatók az AI-ügynökök korához"
       },
       "getHelp": {
-        "heading": "Get Help",
-        "helpCenter": "Help Center",
-        "faqs": "FAQs",
-        "contactUs": "Contact us",
-        "siteStatus": "Site Status"
+        "heading": "Segítség",
+        "helpCenter": "Súgóközpont",
+        "faqs": "Gyakori kérdések",
+        "contactUs": "Kapcsolat",
+        "siteStatus": "Oldal állapota"
       },
       "copyright": "© {year} Jiki Ltd"
     },
     "externalHeader": {
-      "homeAriaLabel": "Jiki főoldal",
+      "homeAriaLabel": "Jiki kezdőlap",
       "logoAlt": "Jiki",
       "aboutJiki": "A Jikiről",
       "premium": "Premium",
@@ -50,1776 +50,1776 @@
       "closeMenuAriaLabel": "Menü bezárása"
     },
     "internalHeader": {
-      "homeAriaLabel": "Jiki főoldal",
+      "homeAriaLabel": "Jiki kezdőlap",
       "logoAlt": "Jiki",
       "backToJiki": "Vissza a Jikihez →"
     },
     "sidebar": {
       "groups": {
-        "learnToCode": "Learn to Code",
-        "learnToBuild": "Learn to Build",
-        "community": "Community",
-        "more": "More"
+        "learnToCode": "Tanulj programozni",
+        "learnToBuild": "Tanulj fejleszteni",
+        "community": "Közösség",
+        "more": "Továbbiak"
       },
       "nav": {
-        "learn": "Coding Fundamentals",
-        "build": "Projects",
-        "challenges": "Challenges",
-        "concepts": "Coding Concepts",
-        "achievements": "Achievements",
-        "guides": "Guides",
-        "videos": "Videos",
+        "learn": "Programozási alapok",
+        "build": "Projektek",
+        "challenges": "Kihívások",
+        "concepts": "Programozási fogalmak",
+        "achievements": "Eredmények",
+        "guides": "Útmutatók",
+        "videos": "Videók",
         "blog": "Blog",
-        "forum": "Forum",
-        "settings": "Settings",
-        "help": "Help",
-        "upgrade": "Upgrade to Premium",
-        "logOut": "Log Out"
+        "forum": "Fórum",
+        "settings": "Beállítások",
+        "help": "Súgó",
+        "upgrade": "Válts Premiumra",
+        "logOut": "Kijelentkezés"
       },
       "premiumPill": "Premium"
     },
     "loading": {
-      "title": "Jiki ébresztése",
-      "subtitle": "A tanulási élményed előkészítése"
+      "title": "Jiki éppen ébredezik",
+      "subtitle": "Előkészítjük a tanulási élményed"
     },
     "localeBanner": {
-      "prefix": "Az oldal {language} nyelvű változatát nézed.",
-      "cta": "Válts erre: {language}",
+      "prefix": "Az oldal {language} nyelvű verzióját látod.",
+      "cta": "Váltás erre: {language}",
       "or": "vagy",
-      "close": "bezárod ezt az értesítést"
+      "close": "értesítés bezárása"
     }
   },
   "common": {
-    "continue": "Continue",
-    "close": "Close",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "processing": "Processing...",
-    "reloadPage": "Reload Page",
-    "loading": "Loading...",
+    "continue": "Folytatás",
+    "close": "Bezárás",
+    "cancel": "Mégse",
+    "confirm": "Megerősítés",
+    "processing": "Feldolgozás...",
+    "reloadPage": "Oldal újratöltése",
+    "loading": "Betöltés...",
     "languageNames": {
-      "en": "angol",
-      "hu": "magyar"
+      "en": "Angol",
+      "hu": "Magyar"
     },
-    "verifying": "Verifying...",
-    "sending": "Sending...",
-    "perMonth": "/month",
+    "verifying": "Ellenőrzés...",
+    "sending": "Küldés...",
+    "perMonth": "/hó",
     "validation": {
-      "emailInvalid": "Please enter a valid email address",
-      "passwordRequired": "Password is required",
-      "passwordMinLength": "Password must be at least 6 characters",
-      "currentPasswordRequired": "Current password is required",
-      "newPasswordRequired": "New password is required",
-      "passwordsNoMatch": "Passwords do not match"
+      "emailInvalid": "Adj meg egy érvényes e-mail-címet",
+      "passwordRequired": "A jelszó megadása kötelező",
+      "passwordMinLength": "A jelszónak legalább 6 karakterből kell állnia",
+      "currentPasswordRequired": "A jelenlegi jelszó megadása kötelező",
+      "newPasswordRequired": "Az új jelszó megadása kötelező",
+      "passwordsNoMatch": "A jelszavak nem egyeznek"
     },
     "pagination": {
-      "label": "Pagination",
-      "previousPage": "Previous page",
-      "nextPage": "Next page"
+      "label": "Lapozás",
+      "previousPage": "Előző oldal",
+      "nextPage": "Következő oldal"
     },
     "loadingJiki": {
-      "alt": "Jiki character waking up"
+      "alt": "Az ébredező Jiki figura"
     },
     "otpInput": {
-      "label": "One-time password",
-      "digitLabel": "Digit {number} of 6"
+      "label": "Egyszer használatos jelszó",
+      "digitLabel": "{number}. számjegy a 6-ból"
     },
     "closeButton": {
-      "label": "Close modal"
+      "label": "Ablak bezárása"
     },
     "copyButton": {
-      "label": "Copy to clipboard",
-      "copied": "Copied"
+      "label": "Másolás a vágólapra",
+      "copied": "Kimásolva"
     },
     "soundToggle": {
-      "mute": "Mute sounds",
-      "unmute": "Unmute sounds"
+      "mute": "Hangok némítása",
+      "unmute": "Némítás feloldása"
     },
     "themeToggle": {
-      "switchToDark": "Switch to dark theme",
-      "switchToSystem": "Switch to system theme",
-      "switchToLight": "Switch to light theme",
-      "toggle": "Toggle theme",
-      "description": "Current theme: {theme}. Click to cycle between light, dark, and system themes."
+      "switchToDark": "Váltás sötét témára",
+      "switchToSystem": "Váltás rendszertémára",
+      "switchToLight": "Váltás világos témára",
+      "toggle": "Téma váltása",
+      "description": "Jelenlegi téma: {theme}. Kattints a világos, a sötét és a rendszertéma közötti váltáshoz."
     },
     "badgeNewLabel": {
-      "label": "NEW"
+      "label": "ÚJ"
     },
-    "saving": "Saving...",
-    "retry": "Retry",
-    "tryAgain": "Try Again"
+    "saving": "Mentés...",
+    "retry": "Újra",
+    "tryAgain": "Próbáld újra"
   },
   "build": {
     "upcomingStreams": {
-      "heading": "Upcoming Live Sessions",
-      "toBeAnnounced": "To be announced",
-      "subscribeButton": "Subscribe to Calendar"
+      "heading": "Közelgő élő adások",
+      "toBeAnnounced": "Hamarosan kiderül",
+      "subscribeButton": "Feliratkozás a naptárra"
     },
     "hub": {
-      "title": "Learn to Build - Projects",
-      "description": "Build real projects from scratch with Jeremy. Learn everything he knows!"
+      "title": "Tanulj fejleszteni - Projektek",
+      "description": "Építs valódi projekteket a nulláról Jeremyvel. Tanuld el mindazt, amit ő tud!"
     }
   },
   "auth": {
     "oauth": {
-      "useGoogle": "Use Google",
-      "useExercism": "Use Exercism",
-      "divider": "OR"
+      "useGoogle": "Folytatás Google-lal",
+      "useExercism": "Folytatás Exercismmel",
+      "divider": "VAGY"
     },
     "fields": {
-      "emailLabel": "Email",
-      "emailPlaceholder": "Enter your email address",
-      "passwordLabel": "Password",
-      "passwordPlaceholder": "Enter your password",
-      "emailRequired": "Email is required"
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "Add meg az e-mail-címed",
+      "passwordLabel": "Jelszó",
+      "passwordPlaceholder": "Add meg a jelszavad",
+      "emailRequired": "Az e-mail-cím megadása kötelező"
     },
     "captchaError": {
-      "signup": "Our systems tried to determine whether you were a bot or a human, but couldn't. Please try signing up again using the button below.",
-      "login": "Our systems tried to determine whether you were a bot or a human, but couldn't. Please try logging in again using the button below.",
-      "generic": "Our systems tried to determine whether you were a bot or a human, but couldn't. Please try again using the button below."
+      "signup": "Rendszereink megpróbálták eldönteni, hogy ember vagy-e vagy robot, de nem sikerült. Próbáld meg újra a regisztrációt az alábbi gombbal.",
+      "login": "Rendszereink megpróbálták eldönteni, hogy ember vagy-e vagy robot, de nem sikerült. Próbáld meg újra a bejelentkezést az alábbi gombbal.",
+      "generic": "Rendszereink megpróbálták eldönteni, hogy ember vagy-e vagy robot, de nem sikerült. Próbáld újra az alábbi gombbal."
     },
     "login": {
-      "title": "Log In",
-      "invalidCredentials": "Invalid email or password",
-      "forgotPassword": "Forgot your password?",
-      "submit": "Log In (HU!)",
-      "submitting": "Logging in...",
-      "unconfirmed": "Please confirm your email before logging in. <link>Resend confirmation</link>",
-      "resend": "Didn't receive your confirmation email? <link>Resend it.</link>",
-      "noAccount": "Don't have an account? <link>Sign up for free.</link>"
+      "title": "Bejelentkezés",
+      "invalidCredentials": "Hibás e-mail-cím vagy jelszó",
+      "forgotPassword": "Elfelejtetted a jelszavad?",
+      "submit": "Bejelentkezés",
+      "submitting": "Bejelentkezés...",
+      "unconfirmed": "Bejelentkezés előtt erősítsd meg az e-mail-címed. <link>Megerősítő e-mail újraküldése</link>",
+      "resend": "Nem kaptad meg a megerősítő e-mailt? <link>Küldd el újra.</link>",
+      "noAccount": "Nincs még fiókod? <link>Regisztrálj ingyen.</link>"
     },
     "signup": {
-      "title": "Sign Up",
-      "emailAlreadyRegistered": "This email is already registered",
-      "submit": "Sign Up",
-      "submitting": "Signing up...",
-      "haveAccount": "Already got an account? <link>Log in</link>.",
-      "resend": "Didn't receive your confirmation email? <link>Resend it.</link>"
+      "title": "Regisztráció",
+      "emailAlreadyRegistered": "Ezzel az e-mail-címmel már regisztráltak",
+      "submit": "Regisztráció",
+      "submitting": "Regisztráció...",
+      "haveAccount": "Van már fiókod? <link>Jelentkezz be</link>.",
+      "resend": "Nem kaptad meg a megerősítő e-mailt? <link>Küldd el újra.</link>"
     },
     "forgotPassword": {
-      "title": "Forgot your password?",
-      "subtitle": "If you've forgotten your password, use the form below to request a link to change it.",
-      "successMessage": "If an account with that email exists, you'll receive reset instructions shortly.",
-      "submit": "Send Reset Link",
-      "remembered": "Remembered your password? <link>Log in</link>"
+      "title": "Elfelejtetted a jelszavad?",
+      "subtitle": "Ha elfelejtetted a jelszavad, az alábbi űrlappal kérhetsz egy linket a megváltoztatásához.",
+      "successMessage": "Ha létezik fiók ezzel az e-mail-címmel, hamarosan megkapod a jelszó visszaállításához szükséges utasításokat.",
+      "submit": "Visszaállító link küldése",
+      "remembered": "Mégis emlékszel a jelszavadra? <link>Jelentkezz be</link>"
     },
     "resetPassword": {
-      "invalidTitle": "Invalid Reset Link",
-      "invalidMessage": "This password reset link is invalid or has expired. Please request a new one.",
-      "requestNewLink": "Request a new password reset",
-      "title": "Reset your password",
-      "subtitle": "Enter your new password below.",
-      "tokenMissing": "Reset token is missing or invalid",
-      "confirmationRequired": "Password confirmation is required",
-      "successMessage": "Password reset successfully! Redirecting to login...",
-      "newPasswordLabel": "New Password",
-      "newPasswordPlaceholder": "Enter your new password",
-      "confirmPasswordLabel": "Confirm New Password",
-      "confirmPasswordPlaceholder": "Confirm your new password",
-      "submit": "Reset password",
-      "submitting": "Resetting...",
-      "remembered": "Remember your password? <link>Sign in</link>"
+      "invalidTitle": "Érvénytelen visszaállító link",
+      "invalidMessage": "Ez a jelszó-visszaállító link érvénytelen vagy lejárt. Kérj egy újat.",
+      "requestNewLink": "Új jelszó-visszaállítás kérése",
+      "title": "Jelszó visszaállítása",
+      "subtitle": "Add meg alább az új jelszavad.",
+      "tokenMissing": "A visszaállító token hiányzik vagy érvénytelen",
+      "confirmationRequired": "A jelszó megerősítése kötelező",
+      "successMessage": "A jelszó visszaállítása sikerült! Átirányítunk a bejelentkezéshez...",
+      "newPasswordLabel": "Új jelszó",
+      "newPasswordPlaceholder": "Add meg az új jelszavad",
+      "confirmPasswordLabel": "Új jelszó megerősítése",
+      "confirmPasswordPlaceholder": "Erősítsd meg az új jelszavad",
+      "submit": "Jelszó visszaállítása",
+      "submitting": "Visszaállítás...",
+      "remembered": "Emlékszel a jelszavadra? <link>Jelentkezz be</link>"
     },
     "resendConfirmation": {
-      "title": "Resend confirmation instructions",
-      "subtitle": "Not received a confirmation email? Use the form below and we'll send you another.",
-      "successMessage": "If an account with that email exists, you'll receive confirmation instructions shortly.",
-      "submit": "Resend confirmation instructions",
-      "confirmed": "Already confirmed? <link>Log in</link>"
+      "title": "Megerősítő e-mail újraküldése",
+      "subtitle": "Nem kaptál megerősítő e-mailt? Töltsd ki az alábbi űrlapot, és küldünk egy újat.",
+      "successMessage": "Ha létezik fiók ezzel az e-mail-címmel, hamarosan megkapod a megerősítő e-mailt.",
+      "submit": "Megerősítő e-mail újraküldése",
+      "confirmed": "Már megerősítetted? <link>Jelentkezz be</link>"
     },
     "checkInbox": {
-      "heading": "Check your inbox",
-      "sentTo": "We've sent a confirmation email to",
-      "hint": "Click the link in the email to activate your account. Didn't receive it? <link>Resend email</link>"
+      "heading": "Nézd meg a postaládád",
+      "sentTo": "Megerősítő e-mailt küldtünk erre a címre:",
+      "hint": "A fiókod aktiválásához kattints az e-mailben lévő linkre. Nem kaptad meg? <link>E-mail újraküldése</link>"
     },
     "emailConfirmed": {
-      "heading": "Email Confirmed!",
-      "message": "Your email has been confirmed successfully. Redirecting to dashboard..."
+      "heading": "E-mail-cím megerősítve!",
+      "message": "Az e-mail-címed megerősítése sikerült. Átirányítunk az irányítópultra..."
     },
     "confirmEmail": {
-      "pendingTitle": "Confirming your email...",
-      "pendingDescription": "Please wait while we confirm your email address.",
-      "errorTitle": "Link expired",
-      "errorMessage": "This confirmation link is no longer valid. Request a new one to continue.",
-      "errorCta": "Resend confirmation email"
+      "pendingTitle": "E-mail-cím megerősítése...",
+      "pendingDescription": "Várj egy pillanatot, amíg megerősítjük az e-mail-címed.",
+      "errorTitle": "A link lejárt",
+      "errorMessage": "Ez a megerősítő link már nem érvényes. A folytatáshoz kérj egy újat.",
+      "errorCta": "Megerősítő e-mail újraküldése"
     },
     "exercismCallback": {
-      "errorTitle": "Sign in failed",
-      "errorCta": "Back to log in",
-      "pendingTitle": "Signing you in...",
-      "pendingDescription": "Please wait while we sign you in with Exercism.",
-      "authFailed": "Exercism authentication failed"
+      "errorTitle": "Sikertelen bejelentkezés",
+      "errorCta": "Vissza a bejelentkezéshez",
+      "pendingTitle": "Bejelentkeztetünk...",
+      "pendingDescription": "Várj egy pillanatot, amíg bejelentkeztetünk az Exercismmel.",
+      "authFailed": "Az Exercism-hitelesítés nem sikerült"
     },
     "errorCard": {
-      "needHelp": "Need help? <link>Contact support</link>"
+      "needHelp": "Segítségre van szükséged? <link>Fordulj az ügyfélszolgálathoz</link>"
     },
     "twoFactorVerify": {
-      "title": "Two-Factor Authentication",
-      "subtitle": "Enter the 6-digit code from your authenticator app.",
-      "codeLabel": "Verification code"
+      "title": "Kétlépcsős hitelesítés",
+      "subtitle": "Írd be a 6 számjegyű kódot a hitelesítő alkalmazásodból.",
+      "codeLabel": "Ellenőrző kód"
     },
     "twoFactorSetup": {
-      "instructionsHeading": "Scan the QR code with your authenticator app to secure your account.",
-      "appsHint": "Use Google Authenticator, 1Password, Authy, or a similar app to scan the code above.",
-      "codeLabel": "Enter the 6-digit code from your app"
+      "instructionsHeading": "A fiókod védelméhez olvasd be a QR-kódot a hitelesítő alkalmazásoddal.",
+      "appsHint": "A fenti kód beolvasásához használd a Google Authenticatort, az 1Passwordot, az Authyt vagy egy hasonló alkalmazást.",
+      "codeLabel": "Írd be a 6 számjegyű kódot az alkalmazásodból"
     },
     "unsubscribe": {
-      "noToken": "No unsubscribe token provided.",
-      "linkInvalid": "This unsubscribe link is invalid or has expired.",
-      "tooManyRequests": "Too many requests. Please wait a moment and try again.",
-      "serviceUnavailable": "Service temporarily unavailable. Please try again later.",
-      "unableToProcess": "Unable to process your request. Please contact support if this continues.",
-      "networkError": "Network error. Please check your connection and try again.",
-      "processingTitle": "Unsubscribing...",
-      "processingDescription": "Please wait while we process your request.",
-      "successTitle": "Successfully Unsubscribed",
-      "successDescription": "You have been unsubscribed from our mailing list.",
-      "errorTitle": "Unsubscribe Failed"
+      "noToken": "Hiányzik a leiratkozási token.",
+      "linkInvalid": "Ez a leiratkozási link érvénytelen vagy lejárt.",
+      "tooManyRequests": "Túl sok kérés érkezett. Várj egy kicsit, és próbáld újra.",
+      "serviceUnavailable": "A szolgáltatás átmenetileg nem érhető el. Próbáld újra később.",
+      "unableToProcess": "A kérésedet nem sikerült feldolgozni. Ha a hiba továbbra is fennáll, fordulj az ügyfélszolgálathoz.",
+      "networkError": "Hálózati hiba. Ellenőrizd az internetkapcsolatod, és próbáld újra.",
+      "processingTitle": "Leiratkozás...",
+      "processingDescription": "Várj egy pillanatot, amíg feldolgozzuk a kérésed.",
+      "successTitle": "Sikeres leiratkozás",
+      "successDescription": "Leiratkoztál a levelezőlistánkról.",
+      "errorTitle": "A leiratkozás nem sikerült"
     },
     "twoFactor": {
-      "cancel": "Cancel and sign in again",
-      "invalidCode": "Invalid verification code",
-      "verificationFailed": "Verification failed. Please try again."
+      "cancel": "Mégse, jelentkezz be újra",
+      "invalidCode": "Érvénytelen ellenőrző kód",
+      "verificationFailed": "Az ellenőrzés nem sikerült. Próbáld újra."
     },
     "layout": {
       "logoAlt": "Jiki",
-      "tagline": "Your coding journey starts here",
-      "description": "Join millions of learners transforming their careers through hands-on coding practice.",
-      "createdBy": "Created By",
-      "brand": "The team behind Exercism"
+      "tagline": "Itt kezdődik a programozási utad",
+      "description": "Csatlakozz a tanulók millióihoz, akik gyakorlati programozási feladatokkal újítják meg a karrierjüket.",
+      "createdBy": "Készítette",
+      "brand": "Az Exercism mögött álló csapat"
     }
   },
   "settings": {
     "page": {
-      "title": "Settings",
-      "description": "Manage your account and preferences.",
-      "tabAccount": "Account",
-      "tabSubscription": "Subscription",
-      "tabNotifications": "Notifications",
-      "tabLearning": "Learning",
-      "tabDanger": "Danger Zone"
+      "title": "Beállítások",
+      "description": "Kezeld a fiókod és a beállításaid.",
+      "tabAccount": "Fiók",
+      "tabSubscription": "Előfizetés",
+      "tabNotifications": "Értesítések",
+      "tabLearning": "Tanulás",
+      "tabDanger": "Veszélyzóna"
     },
     "avatarEdit": {
-      "adjustTitle": "Adjust Photo",
-      "adjustSubtitle": "Zoom and position your photo.",
-      "back": "Back",
-      "save": "Save",
-      "changeTitle": "Change Profile Photo",
-      "changeSubtitlePart1": "Upload a new profile image.",
-      "changeSubtitlePart2": "This will only be visible to you.",
-      "uploadText": "Click to upload a new photo",
-      "uploadHint": "JPG, PNG or GIF. Max 5MB."
+      "adjustTitle": "Fénykép igazítása",
+      "adjustSubtitle": "Nagyítsd és igazítsd a fényképed.",
+      "back": "Vissza",
+      "save": "Mentés",
+      "changeTitle": "Profilkép módosítása",
+      "changeSubtitlePart1": "Tölts fel új profilképet.",
+      "changeSubtitlePart2": "Ezt csak te fogod látni.",
+      "uploadText": "Kattints új fénykép feltöltéséhez",
+      "uploadHint": "JPG, PNG vagy GIF. Max. 5 MB."
     },
     "avatarUpload": {
-      "label": "Profile Photo"
+      "label": "Profilkép"
     },
     "avatarPreview": {
-      "alt": "Your avatar"
+      "alt": "A profilképed"
     },
     "cancelConfirm": {
-      "title": "Cancel your subscription?",
-      "message": "We'd hate to see you go! If you cancel, you'll lose access to Premium at the end of your current billing period.",
-      "benefitsTitle": "You're currently enjoying:",
-      "benefit1": "Unlimited AI help from Jiki",
-      "benefit2": "All projects and learning paths",
-      "benefit3": "Completion certificates",
-      "benefit4": "Ad-free experience",
-      "keep": "Keep my subscription",
-      "cancel": "Cancel subscription"
+      "title": "Lemondod az előfizetésed?",
+      "message": "Sajnálnánk, ha elmennél! Ha lemondod, a jelenlegi számlázási időszak végén elveszíted a hozzáférést a Premiumhoz.",
+      "benefitsTitle": "Jelenleg ezeket élvezed:",
+      "benefit1": "Korlátlan AI-segítség Jikitől",
+      "benefit2": "Minden projekt és tanulási útvonal",
+      "benefit3": "Teljesítési tanúsítványok",
+      "benefit4": "Reklámmentes élmény",
+      "keep": "Megtartom az előfizetésem",
+      "cancel": "Előfizetés lemondása"
     },
     "cancelSuccess": {
-      "title": "Subscription cancelled",
-      "message": "Your Premium subscription has been cancelled. You can continue enjoying all Premium features until your current billing period ends.",
-      "accessUntil": "Premium access until",
-      "resubscribeNote": "Changed your mind? You can resubscribe anytime.",
-      "gotIt": "Got it"
+      "title": "Előfizetés lemondva",
+      "message": "A Premium előfizetésed le lett mondva. A jelenlegi számlázási időszak végéig továbbra is élvezheted az összes Premium funkciót.",
+      "accessUntil": "Premium hozzáférés eddig:",
+      "resubscribeNote": "Meggondoltad magad? Bármikor újra előfizethetsz.",
+      "gotIt": "Értem"
     },
     "changeEmail": {
-      "title": "Change Email Address",
-      "importantLabel": "Important:",
-      "importantText": "A confirmation email will be sent to your new email address. You'll need to confirm it before the change takes effect.",
-      "currentEmailLabel": "Current Email",
-      "newEmailLabel": "New Email Address",
-      "newEmailPlaceholder": "Enter your new email address",
-      "passwordLabel": "Confirm with Current Password",
-      "passwordPlaceholder": "Enter your current password",
-      "passwordHint": "Required for security verification",
-      "newEmailRequired": "New email is required",
-      "emailSame": "New email must be different from current email",
-      "updateFailed": "Failed to update email",
-      "submit": "Update Email"
+      "title": "E-mail-cím módosítása",
+      "importantLabel": "Fontos:",
+      "importantText": "Az új e-mail-címedre megerősítő e-mailt küldünk. A módosítás csak azután lép életbe, hogy megerősítetted.",
+      "currentEmailLabel": "Jelenlegi e-mail-cím",
+      "newEmailLabel": "Új e-mail-cím",
+      "newEmailPlaceholder": "Add meg az új e-mail-címed",
+      "passwordLabel": "Erősítsd meg a jelenlegi jelszavaddal",
+      "passwordPlaceholder": "Add meg a jelenlegi jelszavad",
+      "passwordHint": "Biztonsági ellenőrzéshez szükséges",
+      "newEmailRequired": "Az új e-mail-cím megadása kötelező",
+      "emailSame": "Az új e-mail-címnek különböznie kell a jelenlegitől",
+      "updateFailed": "Az e-mail-cím frissítése nem sikerült",
+      "submit": "E-mail frissítése"
     },
     "deleteAccount": {
-      "sendFailed": "Failed to send confirmation email. Please try again.",
-      "confirmTitle": "Are you sure?",
-      "confirmMessage": "Do you really want to delete your account? You will lose all your work. This is irreversible.",
-      "submit": "Delete Account",
-      "securityTitle": "Security Check",
-      "securityMessage": "We've sent you an email to confirm this is really you. Please click the button in that email to delete your account.",
-      "understand": "I understand"
+      "sendFailed": "A megerősítő e-mail küldése nem sikerült. Próbáld újra.",
+      "confirmTitle": "Biztos vagy benne?",
+      "confirmMessage": "Biztosan törölni szeretnéd a fiókod? Minden munkád elveszik. Ez nem visszavonható.",
+      "submit": "Fiók törlése",
+      "securityTitle": "Biztonsági ellenőrzés",
+      "securityMessage": "Küldtünk egy e-mailt, hogy megerősítsük, tényleg te vagy az. A fiókod törléséhez kattints az e-mailben található gombra.",
+      "understand": "Értem"
     },
     "paymentHistory": {
-      "title": "Payment History",
-      "subtitle": "View and download receipts for your past payments.",
-      "loading": "Loading payment history...",
-      "error": "Unable to load payment history. Please try again later.",
-      "empty": "No payment history available.",
-      "columnDate": "Date",
-      "columnAmount": "Amount",
-      "columnType": "Type",
-      "columnMethod": "Method",
-      "downloadReceipt": "Download Receipt"
+      "title": "Fizetési előzmények",
+      "subtitle": "Nézd meg és töltsd le a korábbi fizetéseid nyugtáit.",
+      "loading": "Fizetési előzmények betöltése...",
+      "error": "A fizetési előzmények nem tölthetők be. Próbáld újra később.",
+      "empty": "Nincsenek fizetési előzmények.",
+      "columnDate": "Dátum",
+      "columnAmount": "Összeg",
+      "columnType": "Típus",
+      "columnMethod": "Mód",
+      "downloadReceipt": "Nyugta letöltése"
     },
     "profile": {
-      "nameLabel": "Name",
-      "namePlaceholder": "Enter your name",
-      "updateName": "Update Name",
-      "nameEmpty": "Name cannot be empty",
-      "nameTooLong": "Name must be less than 100 characters",
-      "handleLabel": "Handle",
-      "handlePlaceholder": "Enter your handle",
-      "updateHandle": "Update Handle",
-      "handleEmpty": "Handle cannot be empty",
-      "handleInvalid": "Handle can only contain letters, numbers, underscores, and hyphens",
-      "handleTooShort": "Handle must be at least 3 characters",
-      "handleTooLong": "Handle must be less than 30 characters",
-      "emailLabel": "Email",
-      "emailPlaceholder": "Enter your email",
-      "updateEmail": "Update Email",
-      "emailEmpty": "Email cannot be empty",
-      "confirmationPendingHint": "Please check your email to confirm the change.",
-      "emailNotConfirmed": "Your email address is not confirmed.",
-      "confirmationPending": "Confirmation pending for: <strong>{email}</strong>"
+      "nameLabel": "Név",
+      "namePlaceholder": "Add meg a neved",
+      "updateName": "Név frissítése",
+      "nameEmpty": "A név nem lehet üres",
+      "nameTooLong": "A névnek 100 karakternél rövidebbnek kell lennie",
+      "handleLabel": "Felhasználónév",
+      "handlePlaceholder": "Add meg a felhasználóneved",
+      "updateHandle": "Felhasználónév frissítése",
+      "handleEmpty": "A felhasználónév nem lehet üres",
+      "handleInvalid": "A felhasználónév csak betűket, számokat, aláhúzásjelet és kötőjelet tartalmazhat",
+      "handleTooShort": "A felhasználónévnek legalább 3 karakterből kell állnia",
+      "handleTooLong": "A felhasználónévnek 30 karakternél rövidebbnek kell lennie",
+      "emailLabel": "E-mail",
+      "emailPlaceholder": "Add meg az e-mail-címed",
+      "updateEmail": "E-mail frissítése",
+      "emailEmpty": "Az e-mail-cím nem lehet üres",
+      "confirmationPendingHint": "Nézd meg az e-mailjeid, és erősítsd meg a módosítást.",
+      "emailNotConfirmed": "Az e-mail-címed nincs megerősítve.",
+      "confirmationPending": "Megerősítésre vár: <strong>{email}</strong>"
     },
     "subscriptionSection": {
-      "loadingCardTitle": "Subscription",
-      "loadingCardDescription": "Manage your subscription plan and billing details",
-      "loadingData": "Loading subscription data..."
+      "loadingCardTitle": "Előfizetés",
+      "loadingCardDescription": "Kezeld az előfizetési csomagod és a számlázási adataid",
+      "loadingData": "Előfizetési adatok betöltése..."
     },
     "benefits": {
-      "activeSubtitle": "Here's what you're unlocking every day",
-      "cancellingSubtitle": "Here's what you'll miss when your access ends",
-      "resubscribeTitle": "Keep learning without limits",
-      "resubscribeButton": "Resubscribe to Premium",
-      "activeHeading": "You're enjoying <highlight>Premium</highlight> benefits",
-      "cancellingHeading": "Don't lose your <highlight>Premium</highlight> benefits",
-      "footer": "Got a question? Learn more about <includedLink>what's included</includedLink> or <supportLink>contact support</supportLink>.",
-      "resubscribe": "Resubscribe now for just <price></price> and continue your coding journey with Jiki's support."
+      "activeSubtitle": "Ezt kapod minden nap",
+      "cancellingSubtitle": "Ezekről maradsz le, amikor a hozzáférésed véget ér",
+      "resubscribeTitle": "Tanulj tovább korlátok nélkül",
+      "resubscribeButton": "Fizess elő újra a Premiumra",
+      "activeHeading": "Élvezed a <highlight>Premium</highlight> előnyeit",
+      "cancellingHeading": "Ne veszítsd el a <highlight>Premium</highlight> előnyeit",
+      "footer": "Kérdésed van? Nézd meg, <includedLink>mit tartalmaz a csomag</includedLink>, vagy <supportLink>írj az ügyfélszolgálatnak</supportLink>.",
+      "resubscribe": "Fizess elő újra mindössze <price></price> áron, és folytasd a programozási utad Jiki támogatásával."
     },
     "cancelSectionPanel": {
-      "title": "Cancel Subscription",
-      "description": "If you cancel, you'll lose access to Premium features at the end of your billing period. You can always resubscribe later.",
-      "cancel": "Cancel"
+      "title": "Előfizetés lemondása",
+      "description": "Ha lemondod, a számlázási időszak végén elveszíted a hozzáférést a Premium funkciókhoz. Később bármikor újra előfizethetsz.",
+      "cancel": "Lemondás"
     },
     "premiumUpsell": {
-      "subtitle": "You're currently on the Free plan. Upgrade to Premium to unlock:",
+      "subtitle": "Jelenleg az Ingyenes csomagot használod. Válts Premiumra, és oldd fel ezeket:",
       "planName": "Jiki Premium",
-      "upgrade": "Upgrade to Premium",
-      "headline": "Unlock a <highlight>better</highlight> way to learn",
-      "dailyNote": "That's only <price></price> a day"
+      "upgrade": "Váltás Premiumra",
+      "headline": "Fedezz fel egy <highlight>jobb</highlight> tanulási módot",
+      "dailyNote": "Ez naponta csak <price></price>"
     },
     "neverSubscribed": {
-      "heading": "Upgrade Your Plan",
-      "subtitle": "Unlock advanced features and enhanced learning experiences with our premium plans.",
-      "featuresLabel": "Premium plan features",
-      "upgradeAriaLabel": "Upgrade to {plan} plan",
-      "upgrade": "Upgrade to Premium"
+      "heading": "Válts nagyobb csomagra",
+      "subtitle": "Oldj fel haladó funkciókat és teljesebb tanulási élményt a prémium csomagjainkkal.",
+      "featuresLabel": "A Premium csomag funkciói",
+      "upgradeAriaLabel": "Váltás a {plan} csomagra",
+      "upgrade": "Váltás Premiumra"
     },
     "errorBoundary": {
-      "title": "Subscription System Error",
-      "messagePart1": "We're experiencing issues loading your subscription information. This might be a temporary problem with our payment system.",
-      "messagePart2": "Please try refreshing the page, or contact support if the issue persists.",
-      "refresh": "Refresh Page",
-      "detailsSummary": "Error Details (Development)"
+      "title": "Előfizetési rendszerhiba",
+      "messagePart1": "Nem sikerül betölteni az előfizetési adataidat. Ez átmeneti hiba lehet a fizetési rendszerünkben.",
+      "messagePart2": "Frissítsd az oldalt, vagy ha a hiba továbbra is fennáll, írj az ügyfélszolgálatnak.",
+      "refresh": "Oldal frissítése",
+      "detailsSummary": "Hiba részletei (fejlesztői)"
     },
     "danger": {
-      "sessionLabel": "Session Management",
-      "sessionDescription": "Manage your active sessions across all devices.",
-      "logout": "Log out",
-      "deleteLabel": "Delete Account",
-      "deleteDescription": "Permanently delete your account and all associated data. This action cannot be undone.",
-      "deleteButton": "Delete Account"
+      "sessionLabel": "Munkamenetek kezelése",
+      "sessionDescription": "Kezeld az aktív munkameneteid az összes eszközödön.",
+      "logout": "Kijelentkezés",
+      "deleteLabel": "Fiók törlése",
+      "deleteDescription": "A fiókod és minden hozzá tartozó adat végleges törlése. Ez a művelet nem visszavonható.",
+      "deleteButton": "Fiók törlése"
     },
     "learning": {
-      "streaksLabel": "Study Streaks",
-      "streaksDescription": "Enable streaks on my account.",
-      "toggleAriaLabel": "Toggle study streaks",
-      "learnMore": "Learn more"
+      "streaksLabel": "Tanulási sorozatok",
+      "streaksDescription": "Sorozatok engedélyezése a fiókomon.",
+      "toggleAriaLabel": "Tanulási sorozatok be- és kikapcsolása",
+      "learnMore": "Tudj meg többet"
     },
     "notifications": {
-      "toggleAriaLabel": "Toggle {title}",
-      "essentialTitle": "Essential Service/Account messages",
-      "essentialDescription": "Important updates about your account, security, and service changes.",
-      "featuresTitle": "Emails about new features or content",
-      "featuresDescription": "Stay updated with the latest features and content added to Jiki.",
-      "livestreamsTitle": "Emails about livestreams",
-      "livestreamsDescription": "Get notified about upcoming livestreams and events.",
-      "milestonesTitle": "Emails when you reach new milestones",
-      "milestonesDescription": "Celebrate your achievements and progress on Jiki.",
-      "activityTitle": "Other emails in response to things that you do on Jiki",
-      "activityDescription": "Activity-based notifications like unlocking badges and completing challenges.",
-      "onboardingTitle": "Emails to help you get the most from Jiki",
-      "onboardingDescription": "Tips and guidance on how to get the most from Jiki."
+      "toggleAriaLabel": "{title} be- és kikapcsolása",
+      "essentialTitle": "Alapvető szolgáltatási és fióküzenetek",
+      "essentialDescription": "Fontos értesítések a fiókodról, a biztonságról és a szolgáltatás változásairól.",
+      "featuresTitle": "E-mailek új funkciókról és tartalmakról",
+      "featuresDescription": "Értesülj elsőként a Jiki új funkcióiról és tartalmairól.",
+      "livestreamsTitle": "E-mailek az élő adásokról",
+      "livestreamsDescription": "Értesülj a közelgő élő adásokról és eseményekről.",
+      "milestonesTitle": "E-mail, amikor új mérföldkövet érsz el",
+      "milestonesDescription": "Ünnepeld az eredményeid és a fejlődésed a Jikin.",
+      "activityTitle": "Egyéb e-mailek a Jikin végzett tevékenységeidről",
+      "activityDescription": "Tevékenységalapú értesítések, például jelvények feloldása vagy kihívások teljesítése.",
+      "onboardingTitle": "E-mailek, amelyek segítenek a legtöbbet kihozni Jikiből",
+      "onboardingDescription": "Tippek és útmutatás, hogy a legtöbbet hozd ki Jikiből."
     },
     "editableField": {
-      "update": "Update",
-      "edit": "Edit",
-      "saveFailed": "Failed to save"
+      "update": "Frissítés",
+      "edit": "Szerkesztés",
+      "saveFailed": "A mentés nem sikerült"
     },
     "passwordField": {
-      "updateFailed": "Failed to update password",
-      "currentLabel": "Current password",
-      "currentPlaceholder": "Enter current password",
-      "newLabel": "New password",
-      "newPlaceholder": "Enter new password",
-      "confirmLabel": "Confirm new password",
-      "confirmPlaceholder": "Confirm new password",
-      "submit": "Update Password",
-      "label": "Password",
-      "change": "Change"
+      "updateFailed": "A jelszó frissítése nem sikerült",
+      "currentLabel": "Jelenlegi jelszó",
+      "currentPlaceholder": "Add meg a jelenlegi jelszavad",
+      "newLabel": "Új jelszó",
+      "newPlaceholder": "Add meg az új jelszavad",
+      "confirmLabel": "Új jelszó megerősítése",
+      "confirmPlaceholder": "Erősítsd meg az új jelszavad",
+      "submit": "Jelszó frissítése",
+      "label": "Jelszó",
+      "change": "Módosítás"
     },
     "subscriptionStatus": {
-      "statusActive": "Active",
-      "statusCanceled": "Canceled",
-      "statusPaymentFailed": "Payment Failed",
-      "statusCancelling": "Cancelling",
-      "statusIncomplete": "Incomplete",
-      "statusSessionExpired": "Session Expired",
-      "statusNotSubscribed": "Not Subscribed",
-      "currentPlan": "Current Plan",
-      "cancellingMessage": "Your Jiki Premium subscription has been cancelled.",
-      "currentPlanAriaLabel": "Current plan: {plan} Plan",
-      "statusAriaLabel": "Subscription status: {status}",
-      "messageCanceled": "Service continues until period end",
-      "messagePaymentFailed": "Payment failed - please update payment method",
-      "messageCancelling": "Cancellation scheduled - access until period end",
-      "messageIncomplete": "Payment setup incomplete - please complete setup",
-      "messageIncompleteExpired": "Previous checkout session expired - please start a new subscription",
-      "active": "You are on the <plan>Jiki {tier}</plan> plan at <strong><price></price>/month</strong>.",
-      "activeWithBilling": "You are on the <plan>Jiki {tier}</plan> plan at <strong><price></price>/month</strong>. Your next billing date is <strong>{date}</strong>.",
-      "cancellingRemaining": "You have <strong>{count, plural, one {# day} other {# days}}</strong> remaining to enjoy all Premium features.",
-      "cancellingEnds": "Your Premium plan will end on <strong>{date}</strong>.",
-      "free": "You are on the <strong>Free</strong> plan. This gives you all the content plus Ask Jiki to help you out on one exercise.",
-      "planLabel": "{tier} Plan"
+      "statusActive": "Aktív",
+      "statusCanceled": "Lemondva",
+      "statusPaymentFailed": "Sikertelen fizetés",
+      "statusCancelling": "Lemondás alatt",
+      "statusIncomplete": "Hiányos",
+      "statusSessionExpired": "A munkamenet lejárt",
+      "statusNotSubscribed": "Nincs előfizetés",
+      "currentPlan": "Jelenlegi csomag",
+      "cancellingMessage": "A Jiki Premium előfizetésed le lett mondva.",
+      "currentPlanAriaLabel": "Jelenlegi csomag: {plan} csomag",
+      "statusAriaLabel": "Előfizetés állapota: {status}",
+      "messageCanceled": "A szolgáltatás az időszak végéig elérhető",
+      "messagePaymentFailed": "Sikertelen fizetés, frissítsd a fizetési módot",
+      "messageCancelling": "Lemondás ütemezve, hozzáférés az időszak végéig",
+      "messageIncomplete": "A fizetés beállítása hiányos, fejezd be a beállítást",
+      "messageIncompleteExpired": "A korábbi fizetési munkamenet lejárt, indíts új előfizetést",
+      "active": "A <plan>Jiki {tier}</plan> csomagot használod <strong>havi <price></price></strong> áron.",
+      "activeWithBilling": "A <plan>Jiki {tier}</plan> csomagot használod <strong>havi <price></price></strong> áron. A következő számlázási dátum: <strong>{date}</strong>.",
+      "cancellingRemaining": "Még <strong>{count, plural, one {# napod} other {# napod}}</strong> van hátra, hogy élvezd az összes Premium funkciót.",
+      "cancellingEnds": "A Premium csomagod ekkor jár le: <strong>{date}</strong>.",
+      "free": "Az <strong>Ingyenes</strong> csomagot használod. Ezzel minden tartalomhoz hozzáférsz, és egy feladatnál az Ask Jiki is segít neked.",
+      "planLabel": "{tier} csomag"
     }
   },
   "landing": {
     "hero": {
-      "tagline": "Learn the skills you need to create awesome things, be productive, and <strong>stay relevant in {year}.</strong>",
-      "ctaSubtext": "...or read on to learn more!",
-      "loadingVideo": "Loading video",
-      "playVideo": "Play video",
-      "watchPrompt": "(Reading not your thing? <strong>Click play</strong> and I'll tell you everything you need to know!)",
-      "headline": "Learn to <highlight>code and build</highlight> in the LLM era!",
-      "audience": "Designed for <highlight>people getting into tech</highlight>, <highlight>junior developers</highlight> who want to accelerate, and <highlight>vibe-coders</highlight> wanting to do things properly!"
+      "tagline": "Sajátítsd el azokat a készségeket, amelyekkel nagyszerű dolgokat alkothatsz, hatékonyan dolgozhatsz, és <strong>{year}-ban is versenyben maradhatsz.</strong>",
+      "ctaSubtext": "...vagy olvass tovább, és tudj meg többet!",
+      "loadingVideo": "A videó betöltése",
+      "playVideo": "Videó lejátszása",
+      "watchPrompt": "(Nem szeretsz olvasni? <strong>Nyomd meg a lejátszás gombot</strong>, és elmondok mindent, amit tudnod kell!)",
+      "headline": "Tanulj meg <highlight>programozni és alkotni</highlight> az LLM-korszakban!",
+      "audience": "Azoknak terveztük, akik <highlight>most lépnek be a tech-iparba</highlight>, a gyorsabban fejlődni vágyó <highlight>junior fejlesztőknek</highlight>, és azoknak a <highlight>vibe-codereknek</highlight>, akik rendesen akarják csinálni a dolgokat!"
     },
     "exercism": {
-      "heading": "What makes Exercism special?",
-      "intro": "Exercism is a <strong>longstanding nonprofit</strong> that's helped over <strong>2.5 million people</strong> level-up their coding skills.",
-      "studentsCount": "2,500,000",
-      "studentsTitle": "Exercism students",
-      "studentsDesc": "We've grown entirely by word of mouth. Good friends tell their friends about Exercism!",
-      "testimonialsCount": "85,000",
-      "testimonialsTitle": "Testimonials",
-      "testimonialsDesc": "We've been one of the most trusted resources for coding education for over a decade.",
-      "exercisesCount": "47,082,260",
-      "exercisesTitle": "Exercises Solved",
-      "exercisesDesc": "Our exercises are trusted by the coding community as the perfect way to level up!",
-      "mentoringCount": "384,906",
-      "mentoringTitle": "Mentoring Sessions",
-      "mentoringDesc": "Our unique mentoring program is one of the best ways to get tips from experts!"
+      "heading": "Mitől különleges az Exercism?",
+      "intro": "Az Exercism <strong>régóta működő nonprofit szervezet</strong>, amely már több mint <strong>2,5 millió embernek</strong> segített fejleszteni a programozási készségeit.",
+      "studentsCount": "2 500 000",
+      "studentsTitle": "Exercism-tanuló",
+      "studentsDesc": "Kizárólag azáltal nőttünk, hogy az emberek ajánlottak minket. A jó barátok mesélnek az Exercismről a barátaiknak!",
+      "testimonialsCount": "85 000",
+      "testimonialsTitle": "Vélemény",
+      "testimonialsDesc": "Több mint egy évtizede vagyunk a programozásoktatás egyik legmegbízhatóbb forrása.",
+      "exercisesCount": "47 082 260",
+      "exercisesTitle": "Megoldott feladat",
+      "exercisesDesc": "A programozó közösség is úgy tartja: a feladataink a fejlődés tökéletes eszközei!",
+      "mentoringCount": "384 906",
+      "mentoringTitle": "Mentorálási alkalom",
+      "mentoringDesc": "Egyedülálló mentorprogramunk az egyik legjobb módja annak, hogy szakértőktől kapj tippeket!"
     },
     "signupSection": {
-      "intro": "The <strong>Learn to Code</strong> curriculum is <strong>completely free</strong>. No card. No trial. No catch.",
-      "button": "Sign up & start coding →",
-      "heading": "Get started - <strong>it's free!</strong>"
+      "intro": "A <strong>Learn to Code</strong> tananyag <strong>teljesen ingyenes</strong>. Se bankkártya, se próbaidőszak, se rejtett feltételek.",
+      "button": "Regisztrálj és kezdj programozni →",
+      "heading": "Vágj bele - <strong>ingyenes!</strong>"
     },
     "signupButton": {
-      "label": "Sign Up <free>(it's free!)</free>"
+      "label": "Regisztrálj <free>(ingyenes!)</free>"
     },
     "faqs": {
-      "heading": "Frequently Asked Questions",
-      "q1": "How much does it cost?",
-      "q1a1": "The <strong>Learn to Code</strong> exercises — the core learn-to-code curriculum — are <strong>completely free</strong>. No card, no trial, no catch.",
-      "q1Item1": "Full access to <strong>Learn to Build</strong>",
-      "q1Item2": "Combine your skills in <strong>Jiki Projects</strong>",
-      "q1Item3": "Unlimited <strong>Ask Jiki</strong> AI support",
-      "q1Item4": "Regular <strong>Q&A livestreams</strong> you can join",
-      "q1Item5": "Earn <strong>certificates</strong> for courses",
-      "q1Item6": "An <strong>ad-free</strong> learning experience",
-      "q1Item7": "<strong>Early access</strong> to new features",
-      "q2": "How much time will I need to spend each week on the course?",
-      "q2a": "You can spend as long or as little as you like. Most people get through <strong>Learn to Code</strong> in 12–20 weeks at around 5–10 hours a week. <strong>Learn to Build</strong> is ongoing — you can dip in and out as new episodes go up, and join livestreams when it suits you.",
-      "q3": "How hard is the course? How smart do I need to be?",
-      "q3a1": "The course is designed to be accessible to everyone, regardless of your background. We don't believe you need to be \"smart\" to learn to code. But you do need to put in the effort and be willing to be challenged.",
-      "q3a2": "But if you put in the effort, ask for help when you get stuck, and embrace the challenge, you'll be amazed at how far you can go in a short time.",
-      "q4": "Is Jiki available now?",
-      "q4a1": "Yes — you can sign up and start the free Learn to Code curriculum today.",
-      "q4a2": "The first <strong>Learn to Build</strong> session will be in <strong>mid-June</strong>. You can sign up for a reminder once you're inside.",
-      "q5": "I already signed up to the Bootcamp - is this different?",
-      "q5a1": "Thanks for being part of the Bootcamp! Jiki is the next stage in the evolution of our Bootcamp. Most of the exercises you solved will appear in Jiki along with lots more. We've also broken down the 3 hour videos into smaller, 5-10 minute chunks to make watching easier!",
-      "q5a2": "As a member of the Bootcamp, you'll automatically get Jiki Premium for Life. This applies to both the initial Learn to Code course and future courses.",
-      "intro": "These are the questions we get asked the most. Your question not answered here? <link>Ping us an email!</link>",
-      "q1a2": "<strong>Jiki Premium</strong> is <price></price> (priced by country) and unlocks:"
+      "heading": "Gyakran ismételt kérdések",
+      "q1": "Mennyibe kerül?",
+      "q1a1": "A <strong>Learn to Code</strong> feladatok (maga az alap programozástanuló tananyag) <strong>teljesen ingyenesek</strong>. Se bankkártya, se próbaidőszak, se rejtett feltételek.",
+      "q1Item1": "Teljes hozzáférés a <strong>Learn to Build</strong> tartalmaihoz",
+      "q1Item2": "Kapcsold össze a készségeidet a <strong>Jiki Projects</strong> keretében",
+      "q1Item3": "Korlátlan <strong>Ask Jiki</strong> AI-segítség",
+      "q1Item4": "Rendszeres <strong>kérdés-felelet élő adások</strong>, amelyekbe bekapcsolódhatsz",
+      "q1Item5": "Szerezz <strong>tanúsítványt</strong> a kurzusok elvégzéséért",
+      "q1Item6": "<strong>Reklámmentes</strong> tanulási élmény",
+      "q1Item7": "<strong>Korai hozzáférés</strong> az új funkciókhoz",
+      "q2": "Mennyi időt kell hetente a kurzusra szánnom?",
+      "q2a": "Annyi időt szánsz rá, amennyit szeretnél. A legtöbben 12-20 hét alatt végeznek a <strong>Learn to Code</strong> tananyaggal, heti 5-10 órával. A <strong>Learn to Build</strong> folyamatosan bővül: akkor nézed meg az új epizódokat, amikor neked kényelmes, és akkor csatlakozol az élő adásokhoz, amikor belefér.",
+      "q3": "Mennyire nehéz a kurzus? Mennyire kell okosnak lennem?",
+      "q3a1": "A kurzust úgy terveztük, hogy mindenki számára elérhető legyen, függetlenül attól, honnan indulsz. Nem hisszük, hogy „okosnak” kell lenned ahhoz, hogy megtanulj programozni. De energiát kell fektetned bele, és nyitottnak kell lenned a kihívásokra.",
+      "q3a2": "Ha viszont beleteszed a munkát, segítséget kérsz, amikor elakadsz, és felvállalod a kihívásokat, meg fogsz lepődni, milyen messzire juthatsz rövid idő alatt.",
+      "q4": "Elérhető már a Jiki?",
+      "q4a1": "Igen, már ma regisztrálhatsz, és elkezdheted az ingyenes Learn to Code tananyagot.",
+      "q4a2": "Az első <strong>Learn to Build</strong> alkalom <strong>június közepén</strong> lesz. Regisztráció után kérhetsz róla emlékeztetőt.",
+      "q5": "Már jelentkeztem a Bootcampre - ez most valami más?",
+      "q5a1": "Köszönjük, hogy részt vettél a Bootcampben! A Jiki a Bootcamp fejlődésének következő állomása. A legtöbb feladat, amit megoldottál, a Jikiben is megjelenik, sok újdonsággal együtt. A 3 órás videókat ráadásul rövidebb, 5-10 perces részekre bontottuk, hogy könnyebb legyen nézni őket!",
+      "q5a2": "A Bootcamp tagjaként automatikusan életre szóló Jiki Premiumot kapsz. Ez az első Learn to Code kurzusra és a jövőbeli kurzusokra is vonatkozik.",
+      "intro": "Ezeket a kérdéseket kapjuk a leggyakrabban. Nem találod a választ a kérdésedre? <link>Írj nekünk egy e-mailt!</link>",
+      "q1a2": "A <strong>Jiki Premium</strong> ára <price></price> (az árat országonként igazítjuk), és a következőket nyitja meg:"
     },
     "latestNews": {
-      "heading": "Our latest news",
-      "byAuthor": "by {name}",
-      "subheading": "Keep up to date with what's happening at Jiki in <link>our blog</link>."
+      "heading": "Legfrissebb híreink",
+      "byAuthor": "írta: {name}",
+      "subheading": "Kövesd nyomon <link>a blogunkon</link>, mi történik éppen a Jikinél."
     },
     "welcome": {
-      "para1": "In 2026, anyone can open Cursor and create a fully-functional product in minutes. Maybe you've done it yourself! Something that would have taken you <strong>years to learn</strong> to make in the past is now available in seconds. So what does it mean to be a developer now? What does it mean to have a <strong>career in tech</strong>?",
-      "para2": "Here's a secret no-one tells you. <highlight><strong>Software engineering has never been about writing code.</strong></highlight> Coding is how you communicate with the computer, but the real skill has always been in <strong>critical-thinking</strong>, in <strong>problem solving</strong>, in <strong>building and architecting</strong>. It's always been about taking ideas and <strong>turning them into reality</strong>.",
-      "para3": "Thanks to LLMs <highlight><strong>you don't have to spend years mastering coding</strong></highlight> in order to be useful. But you still have a lot to learn! You still need to learn <strong>coding fundamentals</strong>. You need to learn <strongHighlight>how everything works</strongHighlight>. You need to learn <strongHighlight>how to build</strongHighlight>. But the journey is <strong>much more fun</strong> than it's ever been before. And I'm here <strong><you>to be your guide on that journey!</you></strong>",
-      "hiThere": "Hi there! <wave>👋</wave> I'm Jeremy, and I've helped over <highlight>two million people</highlight> level up their coding skills.",
-      "para4": "For 20 years, I've been telling people that want to get into tech to get really good at writing code, and then start to work out how to make real apps. But now, thanks to LLMs - <strong>that advice is upside down</strong>.",
-      "para5": "If you're starting out today then most of your work is going to be <strong>reading code, not writing it.</strong> And that means something that's a little sad for me to admit...",
-      "heading2": "<strong>Getting good</strong> at writing code is <highlight>becoming irrelevant</highlight> 😢",
-      "para6": "You are never going to be better than an LLM at writing code. I have been coding for 34 years and LLMs are at my level. <strong>You won't catch up.</strong>",
-      "para7": "BUT, and this is the big but, <strong>you don't need to!</strong> I almost never write code now. I let the LLMs do it for me, and you can too. Instead we get to <strongHighlight>do more of the actual interesting stuff</strongHighlight>. And that's what I'm going to teach you in this course!",
-      "para8": "I think it's <strong>incredibly exciting for you</strong> to be starting out today. You don't need to spend 10 years mastering a skill to be useful. <strong>You can start doing real things straight away!</strong>",
-      "heading3": "<highlight>You learn by making stuff!</highlight>",
-      "para9": "I started coding when I was 8. Back then, YouTube didn't exist. There weren't any \"learn to code\" websites. I didn't even have the internet. There was basically only one way to learn. <strong>Make stuff. Lots of stuff!</strong>",
-      "rhodriAlt": "Jeremy and Rhodri in 1998 making their first paid website",
-      "captionShort": "1998: Me making the first website I ever got paid for.",
-      "captionLong": "1998: Me and Rhodri making the first website we ever got paid for.",
-      "para11": "I created, I played, I experimented. I had fun!",
-      "para12": "And through this, I got really good. <strong>I learned the coder mindset,</strong> and I laid the foundations that I've built my whole career on.",
-      "heading4": "<highlight>The two parts</highlight> to learning programming today...",
-      "para13": "We've made a different type of course. One that teaches you the fundamentals of programming differently, and gets you <strong>building fun things</strong> and solving interesting problems alongside me. It has two parts:",
-      "listItem1": "<strong>Learn coding fundamentals</strong>. We'll teach you the fundamentals of coding so you can understand what an LLM is building - as essential as ever.",
-      "listItem2": "<strong>Learn how to build</strong>. Work alongside me as I make real projects using agentic coding and show you everything you need to know to be a real developer. Join me for livestreams, ask questions, come and have fun making stuff!",
-      "para14": "Within a few months, you'll go from zero to being able to build games like <strong>Space Invaders, Tic Tac Toe, and</strong> <strong>Breakout</strong> in code from scratch. And in parallel, you'll be learning how to make real-world projects, <strong>using databases</strong>, adding auth, using APIs, deploying websites... Doing all the real stuff that developers do!",
-      "spaceInvadersLabel": "Space Invaders game screenshot",
-      "ticTacToeLabel": "Tic Tac Toe game screenshot",
-      "breakoutLabel": "Breakout game screenshot",
-      "mazeLabel": "Maze solving bot screenshot",
-      "heading5": "Sound fun?",
-      "para15": "If all <highlight>this sounds exciting</highlight>, then I'd love for you to join us! 💙",
-      "ctaButton": "Enough with all the talking! Let's do this!",
-      "heading": "<highlight>Coding has changed.</highlight> The way you learn needs to change too.",
-      "para10": "And make stuff I did! I started making games and then graduated to making little bots to play against. And as I grew older I made websites for me and my friends, and <eventually>eventually for customers.</eventually>",
-      "para17": "Want more details? Or to hear from others that I've taught? Read on below for even more details or <link>just sign up!</link>",
-      "para16": "The core \"learn to code\" curriculum is <strong>entirely free</strong> - over 200 hours of fun challenges to hone your skills. And the rest, where you get to follow me as I teach you how to build things, costs only <price></price> (as cheap as we can make it and still pay the bills!)"
+      "para1": "2026-ban bárki megnyithatja a Cursort, és percek alatt összerakhat egy teljesen működő terméket. Lehet, hogy te magad is kipróbáltad már! Amit régen <strong>évekig tartott volna megtanulni</strong> elkészíteni, az ma másodpercek alatt elérhető. Mit jelent hát ma fejlesztőnek lenni? Mit jelent <strong>karriert építeni a tech-iparban</strong>?",
+      "para2": "Eláruljuk a titkot, amiről senki sem beszél. <highlight><strong>A szoftverfejlesztés sosem a kódírásról szólt.</strong></highlight> A kódírás csak az a mód, ahogyan a számítógéppel kommunikálsz. Az igazi készség mindig is a <strong>kritikus gondolkodás</strong>, a <strong>problémamegoldás</strong>, az <strong>építés és a rendszertervezés</strong> volt. Mindig is arról szólt, hogy az ötleteket <strong>valósággá formáljuk</strong>.",
+      "para3": "Az LLM-eknek köszönhetően <highlight><strong>nem kell éveket töltened a kódírás mesteri elsajátításával</strong></highlight> ahhoz, hogy hasznos munkát végezz. De tanulnivalód így is bőven akad! Meg kell tanulnod a <strong>programozás alapjait</strong>. Meg kell értened, <strongHighlight>hogyan működik minden</strongHighlight>. Meg kell tanulnod, <strongHighlight>hogyan építs</strongHighlight>. De ez az út <strong>sokkal szórakoztatóbb</strong>, mint valaha. Én pedig azért vagyok itt, <strong><you>hogy végigkísérjelek ezen az úton!</you></strong>",
+      "hiThere": "Szia! <wave>👋</wave> Jeremy vagyok, és már több mint <highlight>kétmillió embernek</highlight> segítettem fejleszteni a programozási készségeit.",
+      "para4": "Húsz éven át azt mondtam mindenkinek, aki a tech-iparba készült: tanulj meg nagyon jól kódot írni, és utána kezdd el kitalálni, hogyan készülnek az igazi alkalmazások. Az LLM-eknek köszönhetően viszont <strong>ez a tanács mostanra a feje tetejére állt</strong>.",
+      "para5": "Ha ma kezdesz, a munkád nagy része <strong>a kód olvasása lesz, nem az írása.</strong> Ez pedig valami olyasmit jelent, amit kicsit szomorú bevallanom...",
+      "heading2": "Kódírásban <strong>igazán jónak lenni</strong> <highlight>kezd lényegtelenné válni</highlight> 😢",
+      "para6": "Kódírásban sosem leszel jobb egy LLM-nél. Én 34 éve programozom, és az LLM-ek már az én szintemen járnak. <strong>Nem fogod utolérni őket.</strong>",
+      "para7": "DE, és ez a nagy de: <strong>nem is kell!</strong> Én ma már szinte sosem írok kódot. Hagyom, hogy az LLM-ek megírják helyettem, és ezt te is megteheted. Cserébe <strongHighlight>több idő jut az igazán érdekes dolgokra</strongHighlight>. És ebben a kurzusban pontosan ezt fogom megtanítani neked!",
+      "para8": "Szerintem <strong>hihetetlenül izgalmas számodra</strong>, hogy ma kezdhetsz. Nem kell 10 évet töltened egy készség mesteri elsajátításával ahhoz, hogy hasznos legyél. <strong>Azonnal elkezdhetsz igazi dolgokat csinálni!</strong>",
+      "heading3": "<highlight>Úgy tanulsz, hogy alkotsz!</highlight>",
+      "para9": "Nyolcévesen kezdtem programozni. Akkoriban nem létezett a YouTube. Nem voltak „tanulj meg programozni” oldalak. Még internetem sem volt. Lényegében egyetlen módon lehetett tanulni: <strong>alkotni kellett. Méghozzá rengeteget!</strong>",
+      "rhodriAlt": "Jeremy és Rhodri 1998-ban, első fizetett weboldaluk készítése közben",
+      "captionShort": "1998: Épp az első weboldalamat készítem, amiért fizettek.",
+      "captionLong": "1998: Rhodrival az első weboldalunkat készítjük, amiért fizettek.",
+      "para11": "Alkottam, játszottam, kísérleteztem. Jól szórakoztam!",
+      "para12": "És eközben igazán jó lettem. <strong>Elsajátítottam a programozói gondolkodásmódot,</strong> és leraktam azokat az alapokat, amelyekre az egész karrieremet építettem.",
+      "heading4": "<highlight>A két rész</highlight>, amelyből ma a programozás megtanulása áll...",
+      "para13": "Másfajta kurzust készítettünk. Olyat, amely másképp tanítja a programozás alapjait, és amelyben velem együtt <strong>építesz szórakoztató dolgokat</strong> és oldasz meg érdekes problémákat. Két részből áll:",
+      "listItem1": "<strong>Tanuld meg a programozás alapjait</strong>. Megtanítjuk az alapokat, hogy értsd, mit épít éppen az LLM. Ez ma is ugyanolyan nélkülözhetetlen, mint valaha.",
+      "listItem2": "<strong>Tanuld meg, hogyan építs</strong>. Dolgozz velem együtt, miközben agentikus kódolással igazi projekteket készítek, és mindent megmutatok, amit egy igazi fejlesztőnek tudnia kell. Csatlakozz az élő adásokhoz, kérdezz, és gyere alkotni velünk!",
+      "para14": "Néhány hónapon belül eljutsz a nulláról odáig, hogy a semmiből, kódban építesz olyan játékokat, mint a <strong>Space Invaders, a Tic Tac Toe és a</strong> <strong>Breakout</strong>. Közben pedig megtanulod, hogyan készíts valódi projekteket: <strong>adatbázisokat használsz</strong>, hitelesítést építesz be, API-kkal dolgozol, weboldalakat élesítesz... Csupa olyat csinálsz, amit az igazi fejlesztők!",
+      "spaceInvadersLabel": "Képernyőkép a Space Invaders játékból",
+      "ticTacToeLabel": "Képernyőkép a Tic Tac Toe játékból",
+      "breakoutLabel": "Képernyőkép a Breakout játékból",
+      "mazeLabel": "Képernyőkép a labirintusmegoldó botról",
+      "heading5": "Jól hangzik?",
+      "para15": "Ha mindez <highlight>izgalmasan hangzik</highlight>, örülnék, ha csatlakoznál hozzánk! 💙",
+      "ctaButton": "Elég a beszédből! Vágjunk bele!",
+      "heading": "<highlight>A programozás megváltozott.</highlight> A tanulás módjának is változnia kell.",
+      "para10": "És alkottam is! Először játékokat készítettem, aztán kis botokat, amelyek ellen játszani lehetett. Ahogy nőttem, weboldalakat csináltam magamnak és a barátaimnak, <eventually>végül pedig ügyfeleknek is.</eventually>",
+      "para17": "Több részletre vagy kíváncsi? Vagy meghallgatnád azokat, akiket már tanítottam? Olvass tovább lentebb, vagy <link>regisztrálj most!</link>",
+      "para16": "Az alap „tanulj meg programozni” tananyag <strong>teljesen ingyenes</strong>: több mint 200 órányi szórakoztató kihívás, amivel csiszolhatod a tudásod. A többinek pedig, ahol követhetsz, miközben megtanítom, hogyan építs dolgokat, mindössze <price></price> az ára (ennél olcsóbban már nem tudnánk adni úgy, hogy a számláinkat is kifizessük!)"
     },
     "bootcamp": {
-      "tagWhatWeCover": "What we cover",
-      "menuHeading": "What's on the <strong>menu?</strong>",
-      "menuIntro": "The course has two strands: <strong>Learn to Code</strong> and <strong>Learn to Build</strong>.",
-      "part1Heading": "1. Learn to Code",
-      "part1Bubble": "Absolute Beginners",
-      "part1Intro": "We're going to help you <highlight>build rock solid coding foundations.</highlight> We'll cover all the core concepts in programming and give you tons of exercises and projects to practice with.",
-      "part1Item2": "<strong>Gain the confidence</strong> to put your knowledge into practice, being able to solve a wide variety of problems, using the right concept at the right time.",
-      "part1Item3": "<strong>Develop the Coder's Mind.</strong> You'll notice that your critical thinking, problem solving, and logic skills are all improving.",
-      "part1Item4": "<strong>A base to build on</strong>. Whatever type of programming you want to do, this is the base you need, and one you can easily build on.",
-      "part1Duration": "Takes 12-20 weeks",
-      "part1Alt": "Part 1",
-      "levelsHeading": "The <strong>Levels</strong> of Coding Fundamentals",
-      "levelsSideheading": "Students normally take 1-2 weeks per level.",
-      "levelsIntro": "From day one you'll be building fun things. You'll start by drawing, then animating, then making games, then building intelligence into your programs. Every level has lots of fun challenges!",
-      "levelsSubIntro": "<strong>Here are just a few of the fun things you'll make! 👇</strong>",
-      "penguinAlt": "Penguin drawing exercise",
-      "level2": "In <strong>level 2</strong> you get familiar with <strong>coding basics</strong> through some drawing puzzles.",
-      "golfLabel": "Golf animation exercise",
-      "level3": "In <strong>level 3</strong> you'll learn how to <strong>make things move</strong> for the first time.",
-      "flowerLabel": "Flower flipbook animation",
-      "flowerLevel": "Your first <strong>major project</strong> is to <strong>animate flipbook-style</strong> using variables and loops.",
-      "spaceInvadersLabel": "Space invaders game",
-      "level7": "By <strong>level 7</strong> you'll start <strong>building some intelligence</strong> into your code.",
-      "wallLabel": "Wall building exercise",
-      "level10": "In <strong>level 10</strong> you use <strong>repeatable chunks</strong> of code to eliminate duplication.",
-      "wordleAlt": "Wordle game exercise",
-      "level12": "<strong>Level 12</strong> introduces lists, your first <strong>compound data type,</strong> and Wordle!",
-      "ticTacToeLabel": "Tic-tac-toe game",
-      "level14": "<strong>Level 14</strong> focusses on <strong>coding mindset</strong> and solving a hard project.",
-      "mazeLabel": "Maze solving exercise",
-      "level16": "In <strong>Level 16</strong> you unlock <strong>dictionaries</strong> making Emoji Collector possible.",
-      "dreamingHouseLabel": "Dreaming house exercise",
-      "level20": "By <strong>Level 20</strong> you're able to build <strong>complex programs</strong> with intertwining ideas.",
-      "breakoutLabel": "Breakout game",
-      "levelEnd": "And by the <strong>end of the course</strong> you're building games like <strong>Breakout!</strong>",
-      "buildingHeading": "But learning to code <strong>isn't enough</strong>",
-      "buildingIntro": "In the agentic-coding era, you also need to get up to speed on how to create things, how to work with an LLM safely. So...",
-      "part2Heading": "2. <strong>Learn to Build in the LLM Era</strong> 🚀",
-      "part2Bubble": "Beginners / Juniors",
-      "part2Intro": "Alongside learning to code, we'll deep dive into how technology works. We'll <highlight>build real projects together</highlight>, digging into databases, creating secure auth, learning about frontends vs backends, and much much more.",
-      "part2Item1": "<strong>Building From Scratch</strong>: Join me as I build a whole platform from scratch. Spin up an LLM and you can follow along with your own project idea. I'll teach you how to make good decisions and guide your LLM safely.",
-      "part2Item2": "<strong>Topic Deep Dives</strong>: I'll talk you through how complex platforms like Exercism and Jiki work, deep-diving into the code we've written and share my learnings with you!",
-      "part2Item3": "<strong>Regular Q&A Livestreams</strong>. Something not clicking? Need help with your projects? Submit your questions and I'll answer them with you on our regular livestreams.",
-      "part2Duration": "Regular New Episodes",
-      "jeremyLivestreamAlt": "Jeremy livestreaming with tech logos",
-      "certificateBubble": "Celebrate your new skills!",
-      "certificateHeading": "Get a verified certificate",
-      "certificatePara1": "At the end of the course, we'll issue you an official certificate to recognise your participation and completion of the course.",
-      "certificatePara2": "Show off your skills on your resume and in the Certifications section of your LinkedIn profile.",
-      "certificateAlt": "Jiki course completion certificate",
+      "tagWhatWeCover": "Miről lesz szó",
+      "menuHeading": "Mi van az <strong>étlapon?</strong>",
+      "menuIntro": "A kurzus két szálon fut: <strong>Learn to Code</strong> és <strong>Learn to Build</strong>.",
+      "part1Heading": "1. Tanulj meg programozni",
+      "part1Bubble": "Teljesen kezdőknek",
+      "part1Intro": "Segítünk <highlight>sziklaszilárd programozási alapokat építeni.</highlight> Végigvesszük a programozás összes alapfogalmát, és rengeteg feladatot meg projektet adunk a gyakorláshoz.",
+      "part1Item2": "<strong>Válj magabiztossá</strong> a tudásod gyakorlati alkalmazásában: sokféle problémát tudj megoldani, mindig a megfelelő fogalmat használva a megfelelő pillanatban.",
+      "part1Item3": "<strong>Alakítsd ki a programozói gondolkodásmódot.</strong> Észreveszed majd, hogy a kritikus gondolkodásod, a problémamegoldó készséged és a logikád is folyamatosan fejlődik.",
+      "part1Item4": "<strong>Alap, amire építhetsz</strong>. Bármilyen programozással szeretnél is foglalkozni, ez az az alap, amire szükséged van, és amire könnyen építkezhetsz tovább.",
+      "part1Duration": "12-20 hét alatt elvégezhető",
+      "part1Alt": "1. rész",
+      "levelsHeading": "A programozási alapok <strong>szintjei</strong>",
+      "levelsSideheading": "A tanulók általában 1-2 hetet töltenek egy szinttel.",
+      "levelsIntro": "Az első naptól kezdve szórakoztató dolgokat készítesz. Először rajzolsz, aztán animálsz, majd játékokat készítesz, végül intelligenciát építesz a programjaidba. Minden szinten rengeteg izgalmas kihívás vár!",
+      "levelsSubIntro": "<strong>Íme néhány a sok mókás dolog közül, amit elkészítesz majd! 👇</strong>",
+      "penguinAlt": "Pingvinrajzoló feladat",
+      "level2": "A <strong>2. szinten</strong> rajzos fejtörőkön keresztül ismerkedsz meg a <strong>programozás alapjaival</strong>.",
+      "golfLabel": "Golfanimációs feladat",
+      "level3": "A <strong>3. szinten</strong> tanulod meg először, hogyan <strong>mozgass dolgokat</strong>.",
+      "flowerLabel": "Virágos pörgetőfüzet-animáció",
+      "flowerLevel": "Az első <strong>nagy projektedben</strong> változók és ciklusok segítségével <strong>pörgetőfüzet-stílusban animálsz</strong>.",
+      "spaceInvadersLabel": "Space Invaders játék",
+      "level7": "A <strong>7. szintre</strong> már <strong>intelligenciát építesz</strong> a kódodba.",
+      "wallLabel": "Falépítő feladat",
+      "level10": "A <strong>10. szinten</strong> <strong>újrafelhasználható kódrészletekkel</strong> szünteted meg az ismétlődést.",
+      "wordleAlt": "Wordle játékfeladat",
+      "level12": "A <strong>12. szint</strong> hozza a listákat, az első <strong>összetett adattípusodat,</strong> és a Wordle-t!",
+      "ticTacToeLabel": "Tic-tac-toe játék",
+      "level14": "A <strong>14. szint</strong> a <strong>programozói gondolkodásmódról</strong> és egy nehéz projekt megoldásáról szól.",
+      "mazeLabel": "Labirintusmegoldó feladat",
+      "level16": "A <strong>16. szinten</strong> feloldod a <strong>szótárakat</strong>, így elkészítheted az Emoji Collectort.",
+      "dreamingHouseLabel": "Álmodó ház feladat",
+      "level20": "A <strong>20. szintre</strong> már <strong>összetett programokat</strong> építesz, egymásba fonódó ötletekkel.",
+      "breakoutLabel": "Breakout játék",
+      "levelEnd": "A <strong>kurzus végére</strong> pedig már olyan játékokat építesz, mint a <strong>Breakout!</strong>",
+      "buildingHeading": "De a programozás megtanulása <strong>önmagában nem elég</strong>",
+      "buildingIntro": "Az agentikus kódolás korában azt is meg kell tanulnod, hogyan hozz létre dolgokat, és hogyan dolgozz biztonságosan egy LLM-mel. Ezért...",
+      "part2Heading": "2. <strong>Learn to Build az LLM-korszakban</strong> 🚀",
+      "part2Bubble": "Kezdőknek / junioroknak",
+      "part2Intro": "A programozástanulás mellett mélyre ásunk abban is, hogyan működik a technológia. <highlight>Valódi projekteket építünk együtt</highlight>: adatbázisokba ásunk bele, biztonságos hitelesítést készítünk, megismerjük a frontend és a backend világát, és még sok minden mást.",
+      "part2Item1": "<strong>Építkezés a nulláról</strong>: Tarts velem, miközben egy teljes platformot építek fel a semmiből. Indíts el egy LLM-et, és követheted a saját projektötleteddel. Megtanítom, hogyan hozz jó döntéseket, és hogyan tereld biztonságosan az LLM-edet.",
+      "part2Item2": "<strong>Tematikus mélymerülések</strong>: Végigvezetlek azon, hogyan működnek az olyan összetett platformok, mint az Exercism és a Jiki. Beleásunk a kódba, amit írtunk, és megosztom veled a tapasztalataimat!",
+      "part2Item3": "<strong>Rendszeres kérdés-felelet élő adások</strong>. Valami nem áll össze? Segítség kell a projektjeidhez? Küldd be a kérdéseidet, és a rendszeres élő adásokban közösen megválaszoljuk őket.",
+      "part2Duration": "Rendszeresen új epizódok",
+      "jeremyLivestreamAlt": "Jeremy élő adásban, tech-logókkal",
+      "certificateBubble": "Ünnepeld meg az új tudásod!",
+      "certificateHeading": "Szerezz hitelesített tanúsítványt",
+      "certificatePara1": "A kurzus végén hivatalos tanúsítványt állítunk ki, amely igazolja a részvételedet és a kurzus elvégzését.",
+      "certificatePara2": "Mutasd meg a tudásod az önéletrajzodban és a LinkedIn-profilod tanúsítványok szakaszában.",
+      "certificateAlt": "Jiki kurzuselvégzési tanúsítvány",
       "linkedinAlt": "LinkedIn",
-      "linkedinShare": "Share your certificate in your network",
-      "part1Item1": "<strong>Build a solid understanding</strong> of <link>core programming principles</link>, including flow control, conditionals, data types, functions, and much more, using a beginner-friendly version of JavaScript."
+      "linkedinShare": "Oszd meg a tanúsítványod a kapcsolati hálódban",
+      "part1Item1": "<strong>Szerezz szilárd alapokat</strong> az <link>alapvető programozási elvekből</link>, beleértve a vezérlést, az elágazásokat, az adattípusokat, a függvényeket és még sok mást, a JavaScript egy kezdőbarát változatát használva."
     }
   },
   "premium": {
     "page": {
       "heading": "Jiki Premium",
-      "subheading": "Accelerate your road to job-ready. Unlock every course, every project, unlimited AI support, and everything else Jiki has to offer."
+      "subheading": "Gyorsítsd fel az utad a munkára kész tudásig. Nyisd meg az összes kurzust és projektet, a korlátlan AI-támogatást és minden mást, amit a Jiki kínál."
     },
     "planPrice": {
       "basic": "Basic",
       "premium": "Premium",
-      "free": "Free",
-      "perMonth": "per month"
+      "free": "Ingyenes",
+      "perMonth": "havonta"
     },
     "planBadge": {
-      "free": "Free",
+      "free": "Ingyenes",
       "premium": "Premium"
     },
     "table": {
-      "comparePlans": "Compare plans",
-      "comparePlansDesc": "Here's what's included in each plan, so you can choose with confidence.",
+      "comparePlans": "Hasonlítsd össze a csomagokat",
+      "comparePlansDesc": "Itt látod, mit tartalmaznak az egyes csomagok, így magabiztosan dönthetsz.",
       "checkNo": "✕"
     },
     "values": {
-      "oneConversation": "1 conversation",
-      "unlimited": "Unlimited",
-      "firstEpisodes": "First episodes",
-      "fullAccess": "Full access",
-      "sampleEpisode": "Sample Episode"
+      "oneConversation": "1 beszélgetés",
+      "unlimited": "Korlátlan",
+      "firstEpisodes": "Első epizódok",
+      "fullAccess": "Teljes hozzáférés",
+      "sampleEpisode": "Mintaepizód"
     },
     "categories": {
-      "codingFundamentals": "Learn to Code",
-      "buildWithJeremy": "Learn to Build",
-      "support": "Support",
-      "certificates": "Certificates",
-      "experience": "Experience"
+      "codingFundamentals": "Tanulj meg programozni",
+      "buildWithJeremy": "Tanulj fejleszteni",
+      "support": "Támogatás",
+      "certificates": "Tanúsítványok",
+      "experience": "Élmény"
     },
     "features": {
-      "codingExercisesTitle": "Coding Exercises",
-      "codingExercisesDesc": "Learn by doing with our growing library of interactive exercises.",
-      "conceptLibraryTitle": "Full Concept Library",
-      "conceptLibraryDesc": "Bite-sized lessons covering every coding concept you need to know.",
-      "jikiChallengesTitle": "Challenges",
-      "jikiChallengesDesc": "Take on harder challenges that push your skills further.",
-      "askJikiTitle": "Ask Jiki",
-      "askJikiDesc": "Get unstuck with AI-powered hints and explanations from Jiki.",
-      "buildingFundamentalsTitle": "Building Fundamentals series",
-      "buildingFundamentalsDesc": "Watch Jeremy build a web platform from scratch — servers, databases, auth, and more.",
-      "howThingsWorkTitle": "How Things Work series",
-      "howThingsWorkDesc": "Deep dives into the trickier bits of Exercism and Jiki, and why they're built that way.",
-      "earlyAccessTitle": "Early access to new features",
-      "earlyAccessDesc": "Try out new features before everyone else.",
-      "communityForumsTitle": "Community forums",
-      "communityForumsDesc": "Ask questions and learn alongside other Jiki students.",
-      "livestreamsTitle": "Q&A livestreams with Jeremy",
-      "livestreamsDesc": "Join live Q&A sessions where Jeremy answers your coding and building questions.",
-      "certificatesTitle": "Earn certificates for courses",
-      "certificatesDesc": "Show off what you've learned with shareable certificates.",
-      "adFreeTitle": "Ad-free learning",
-      "adFreeDesc": "Focus on learning without distractions."
+      "codingExercisesTitle": "Programozási feladatok",
+      "codingExercisesDesc": "Tanulj gyakorlás közben, folyamatosan bővülő interaktív feladataink segítségével.",
+      "conceptLibraryTitle": "Teljes fogalomtár",
+      "conceptLibraryDesc": "Falatnyi leckék minden programozási fogalomról, amit ismerned kell.",
+      "jikiChallengesTitle": "Kihívások",
+      "jikiChallengesDesc": "Vállalj nehezebb kihívásokat, amelyek tovább fejlesztik a tudásodat.",
+      "askJikiTitle": "Kérdezd Jikit",
+      "askJikiDesc": "Ha elakadsz, Jiki AI-alapú tippekkel és magyarázatokkal segít tovább.",
+      "buildingFundamentalsTitle": "Building Fundamentals sorozat",
+      "buildingFundamentalsDesc": "Nézd végig, ahogy Jeremy a nulláról felépít egy webes platformot, szerverekkel, adatbázisokkal, hitelesítéssel és sok minden mással.",
+      "howThingsWorkTitle": "How Things Work sorozat",
+      "howThingsWorkDesc": "Mélymerülések az Exercism és a Jiki trükkösebb részeibe, és hogy miért éppen így épülnek fel.",
+      "earlyAccessTitle": "Korai hozzáférés az új funkciókhoz",
+      "earlyAccessDesc": "Próbáld ki az új funkciókat mindenki más előtt.",
+      "communityForumsTitle": "Közösségi fórumok",
+      "communityForumsDesc": "Tegyél fel kérdéseket, és tanulj együtt a Jiki többi tanulójával.",
+      "livestreamsTitle": "Élő kérdés-felelet Jeremyvel",
+      "livestreamsDesc": "Csatlakozz az élő kérdés-felelet alkalmakhoz, ahol Jeremy válaszol a programozással és az építéssel kapcsolatos kérdéseidre.",
+      "certificatesTitle": "Szerezz tanúsítványt a kurzusokért",
+      "certificatesDesc": "Mutasd meg, mit tanultál, megosztható tanúsítványokkal.",
+      "adFreeTitle": "Reklámmentes tanulás",
+      "adFreeDesc": "Koncentrálj a tanulásra, zavaró tényezők nélkül."
     },
     "faq": {
-      "title": "Frequently asked questions",
-      "q1": "Can I try Jiki for free?",
-      "a1": "Yes! You can sign up for free and use the Basic plan for as long as you like. Upgrade to Premium whenever you need full access — there's no obligation.",
-      "q2": "Is there a minimum contract length?",
-      "a2": "No minimum contract — Premium is billed monthly and you can cancel at any time from your account settings.",
-      "q3": "What happens if I cancel my Premium subscription?",
-      "a3": "You'll keep Premium access until the end of your current billing period, and then your account will move back to the Basic plan. You don't lose any of your progress — you just lose access to Premium-only features.",
-      "q4": "Do you offer discounts for students or those who can't afford Premium?",
-      "q5": "Can I upgrade or downgrade later?",
-      "a5": "Absolutely. You can upgrade to Premium at any time from your account, and you can cancel just as easily whenever you'd like.",
-      "a4": "We want Jiki to be accessible to everyone. If cost is a barrier, please <link>get in touch</link> and we'll do what we can to help."
+      "title": "Gyakran ismételt kérdések",
+      "q1": "Kipróbálhatom a Jikit ingyen?",
+      "a1": "Igen! Ingyen regisztrálhatsz, és addig használhatod a Basic csomagot, ameddig csak szeretnéd. Amikor teljes hozzáférésre van szükséged, bármikor válthatsz Premiumra, semmire sem kötelez.",
+      "q2": "Van minimális szerződési idő?",
+      "a2": "Nincs minimális szerződési idő. A Premium havonta fizetendő, és bármikor lemondhatod a fiókbeállításaidban.",
+      "q3": "Mi történik, ha lemondom a Premium-előfizetésemet?",
+      "a3": "A jelenlegi számlázási időszak végéig megmarad a Premium-hozzáférésed, utána a fiókod visszakerül a Basic csomagra. A haladásodból semmit sem veszítesz el, csak a Premium-funkciókhoz nem férsz hozzá többé.",
+      "q4": "Adtok kedvezményt diákoknak vagy azoknak, akik nem engedhetik meg maguknak a Premiumot?",
+      "q5": "Válthatok később nagyobb vagy kisebb csomagra?",
+      "a5": "Természetesen. A fiókodból bármikor válthatsz Premiumra, és ugyanilyen egyszerűen le is mondhatod, amikor csak szeretnéd.",
+      "a4": "Szeretnénk, ha a Jiki mindenki számára elérhető lenne. Ha az ár akadályt jelent, <link>írj nekünk</link>, és igyekszünk segíteni."
     },
     "cta": {
-      "alreadyPremiumTitle": "You're already a Premium member",
-      "alreadyPremiumDesc": "Thanks for supporting Jiki — enjoy full access to everything!",
-      "upgradeTitle": "Ready to accelerate your learning?",
-      "upgradeDesc": "Upgrade to Premium and unlock everything Jiki has to offer.",
-      "upgradeButton": "Upgrade to Premium",
-      "freeTitle": "Get started for free",
-      "freeDesc": "Get started today for free and access hundreds of hours of free content. Upgrade to Premium when you want to go even deeper.",
-      "freeButton": "Sign up for free"
+      "alreadyPremiumTitle": "Már Premium-tag vagy",
+      "alreadyPremiumDesc": "Köszönjük, hogy támogatod a Jikit! Élvezd a teljes hozzáférést mindenhez!",
+      "upgradeTitle": "Készen állsz felgyorsítani a tanulásod?",
+      "upgradeDesc": "Válts Premiumra, és nyisd meg mindazt, amit a Jiki kínál.",
+      "upgradeButton": "Váltás Premiumra",
+      "freeTitle": "Kezdd el ingyen",
+      "freeDesc": "Vágj bele még ma ingyen, és férj hozzá több száz órányi ingyenes tartalomhoz. Válts Premiumra, amikor még mélyebbre mennél.",
+      "freeButton": "Ingyenes regisztráció"
     },
     "publicPrice": {
       "unavailable": "—"
     },
     "benefits": {
-      "unlimitedAiTitle": "Unlimited AI help",
-      "unlimitedAiDescription": "Get personalised guidance from Jiki whenever you're stuck",
-      "unlimitedContentTitle": "Unlimited content",
-      "unlimitedContentDescription": "Access all exercises, projects, and learning paths",
-      "certificatesTitle": "Certificates",
-      "certificatesDescription": "Earn shareable certificates when you complete courses",
-      "adFreeTitle": "Ad-free",
-      "adFreeDescription": "Enjoy a distraction-free learning experience",
-      "prioritySupportTitle": "Priority support",
-      "prioritySupportDescription": "Get faster responses when you need help",
-      "earlyAccessTitle": "Early access",
-      "earlyAccessDescription": "Be the first to try new features and content"
+      "unlimitedAiTitle": "Korlátlan AI-segítség",
+      "unlimitedAiDescription": "Kapj személyre szabott útmutatást Jikitől, amikor elakadsz",
+      "unlimitedContentTitle": "Korlátlan tartalom",
+      "unlimitedContentDescription": "Hozzáférés az összes feladathoz, projekthez és tanulási útvonalhoz",
+      "certificatesTitle": "Tanúsítványok",
+      "certificatesDescription": "Szerezz megosztható tanúsítványokat a kurzusok elvégzésekor",
+      "adFreeTitle": "Reklámmentes",
+      "adFreeDescription": "Tanulj zavaró tényezők nélkül",
+      "prioritySupportTitle": "Elsőbbségi támogatás",
+      "prioritySupportDescription": "Kapj gyorsabb választ, amikor segítségre van szükséged",
+      "earlyAccessTitle": "Korai hozzáférés",
+      "earlyAccessDescription": "Próbáld ki elsőként az új funkciókat és tartalmakat"
     }
   },
   "roadmap": {
     "page": {
-      "heading": "Roadmap",
-      "subheading": "Where Jiki is heading. A quarter-by-quarter view of what we're shipping, what's next, and what we're still dreaming up.",
-      "disclaimer": "This roadmap is a snapshot of our current plans. Priorities shift as we learn from our community, so dates and scope may change."
+      "heading": "Ütemterv",
+      "subheading": "Merre tart a Jiki. Negyedéves bontásban mutatjuk, min dolgozunk éppen, mi jön ezután, és miről álmodozunk még.",
+      "disclaimer": "Ez az ütemterv a jelenlegi terveink pillanatképe. A prioritások változhatnak, ahogy tanulunk a közösségünktől, így a dátumok és a tartalom is módosulhatnak."
     },
     "status": {
-      "shipped": "Shipped",
-      "inProgress": "In progress",
-      "planned": "Planned"
+      "shipped": "Elkészült",
+      "inProgress": "Folyamatban",
+      "planned": "Tervezett"
     },
     "changelog": {
-      "title": "Changelog",
-      "subtitle": "Recent improvements we've shipped to Jiki.",
+      "title": "Változásnapló",
+      "subtitle": "A Jiki legutóbbi fejlesztései.",
       "learnToBuildLaunch": {
-        "date": "July 11, 2026",
-        "title": "Launched Learn to Build",
-        "description": "Jeremy's new series, where he builds real, useful projects from scratch alongside learners, is now live."
+        "date": "2026. július 11.",
+        "title": "Elindult a Learn to Build",
+        "description": "Már elérhető Jeremy új sorozata, amelyben a tanulókkal együtt, a nulláról épít valódi, hasznos projekteket."
       },
       "milestones6To10": {
-        "date": "July 2026",
-        "title": "Launched Milestones 6-10 on Learn to Code",
-        "description": "Five new milestones are now live on the Learn to Code track, extending the journey well beyond the fundamentals."
+        "date": "2026. július",
+        "title": "Elindultak a 6-10. mérföldkövek a Learn to Code kurzuson",
+        "description": "Öt új mérföldkő érhető el a Learn to Code kurzuson, amelyek jóval az alapokon túlra viszik tovább az utad."
       },
       "jikiLaunch": {
-        "date": "June 7, 2026",
-        "title": "Launched Jiki!",
-        "description": "Jiki is officially live (albeit in beta!)"
+        "date": "2026. június 7.",
+        "title": "Elindult a Jiki!",
+        "description": "A Jiki hivatalosan is elérhető (egyelőre bétában!)"
       }
     },
     "phases": {
       "now": {
-        "label": "Now",
-        "timeframe": "July 2026",
-        "summary": "What we're focused on this month.",
+        "label": "Most",
+        "timeframe": "2026. július",
+        "summary": "Ebben a hónapban ezekre koncentrálunk.",
         "learnToBuild": {
-          "title": "Launched Learn to Build",
-          "description": "Jeremy's brand new series is now live, where he builds real, useful projects from scratch alongside learners. Each project is broken into bite-sized lessons that show not just the code, but the thinking, mistakes, and decisions that go into shipping software."
+          "title": "Elindult a Learn to Build",
+          "description": "Már elérhető Jeremy vadonatúj sorozata, amelyben a tanulókkal együtt, a nulláról épít valódi, hasznos projekteket. Minden projekt falatnyi leckékre bontva mutatja meg nemcsak a kódot, hanem a gondolkodást, a hibákat és a döntéseket is, amelyek egy szoftver elkészítéséhez vezetnek."
         },
         "launchBugs": {
-          "title": "Ironing out launch bugs",
-          "description": "Now that Jiki is live, we're squashing bugs and smoothing rough edges as real learners use the platform. Expect a steady stream of small fixes and quality-of-life improvements across the app."
+          "title": "Az indulás utáni hibák javítása",
+          "description": "Most, hogy a Jiki elindult, hibákat javítunk és döcögős részeket csiszolunk, miközben valódi tanulók használják a platformot. Folyamatosan érkeznek majd az apró javítások és kényelmi fejlesztések az egész alkalmazásban."
         },
         "earlyFeedback": {
-          "title": "Responding to early feedback",
-          "description": "We're reading every message, support thread, and suggestion that comes in. The most impactful pieces of feedback are being turned into tweaks and small features so the experience improves week by week."
+          "title": "Reagálunk a korai visszajelzésekre",
+          "description": "Minden beérkező üzenetet, támogatási kérést és javaslatot elolvasunk. A legnagyobb hatású visszajelzésekből finomítások és kisebb funkciók lesznek, így az élmény hétről hétre javul."
         },
         "foundations": {
-          "title": "Stabilising the foundations",
-          "description": "Behind the scenes we're tightening up reliability, performance, and observability so we have a rock-solid base to build the next wave of features on. Less visible, but the most important work we can do right now."
+          "title": "Az alapok stabilizálása",
+          "description": "A színfalak mögött a megbízhatóságot, a teljesítményt és a megfigyelhetőséget erősítjük, hogy sziklaszilárd alapra építhessük a funkciók következő hullámát. Kevésbé látványos, de most ez a legfontosabb munka, amit végezhetünk."
         }
       },
       "next": {
-        "label": "Next",
-        "timeframe": "Q3 2026",
-        "summary": "Designed and queued up.",
+        "label": "Következik",
+        "timeframe": "2026. III. negyedév",
+        "summary": "Megterveztük, és sorban áll.",
         "betaToLive": {
-          "title": "Move from Beta to Fully Live",
-          "description": "Jiki is currently in beta. Once the launch dust settles, we'll drop the beta label and graduate to a fully-live product, with stronger guarantees around reliability, a clearer pricing story, and a polished onboarding flow. This is also when we'll send the launch email to the Exercism community and kick off promotional pushes with our partners."
+          "title": "Átállás bétából teljes indulásra",
+          "description": "A Jiki jelenleg bétában fut. Amint leül az indulás pora, levesszük a béta címkét, és teljes értékű termékké lépünk elő: erősebb megbízhatósági garanciákkal, átláthatóbb árazással és kicsiszolt bevezető folyamattal. Ekkor küldjük ki az indulási e-mailt az Exercism-közösségnek, és ekkor indítjuk el a promóciós kampányokat a partnereinkkel."
         },
         "deepDiveVideos": {
-          "title": "Add Deep Dive Videos",
-          "description": "Long-form videos that go beyond the core lessons to explore concepts in real depth. Perfect for learners who want to understand the why behind the how, and to see how ideas connect to the wider world of programming."
+          "title": "Mélymerülés-videók",
+          "description": "Hosszabb videók, amelyek az alapleckéken túl igazán mélyen járják körül a fogalmakat. Tökéletes azoknak, akik a hogyan mögött a miértet is érteni szeretnék, és látni, hogyan kapcsolódnak az ötletek a programozás tágabb világához."
         },
         "newLanguages": {
-          "title": "Launch multiple new languages",
-          "description": "Starting in August, we're bringing Jiki to learners in their own language, translating the whole interface and curriculum, not just the marketing pages. It kicks off with our <link>community translatathon</link> over the weekend of July 31st to August 2nd."
+          "title": "Több új nyelv indítása",
+          "description": "Augusztustól a tanulók a saját nyelvükön használhatják a Jikit: a teljes felületet és tananyagot lefordítjuk, nem csak a marketingoldalakat. A kezdést a <link>közösségi fordítómaratonunk</link> jelenti, július 31. és augusztus 2. között."
         },
         "pythonVersion": {
-          "title": "Launch Python version",
-          "description": "Arriving in September, a fully-fledged Python track that mirrors the depth of our JavaScript curriculum. Same exercise philosophy, same step-through visualiser, same level of polish, but with Python as the language of instruction."
+          "title": "A Python-verzió indítása",
+          "description": "Szeptemberben érkezik a teljes értékű Python kurzus, amely a JavaScript-tananyagunk mélységét tükrözi. Ugyanaz a feladatfilozófia, ugyanaz a lépésenkénti vizualizáció, ugyanaz a kidolgozottság, csak Python nyelven."
         }
       },
       "future": {
-        "label": "Future",
-        "timeframe": "Q4 2026",
-        "summary": "On the horizon. Subject to change as we learn.",
+        "label": "Később",
+        "timeframe": "2026. IV. negyedév",
+        "summary": "A láthatáron. Menet közben még változhat.",
         "moreLanguages": {
-          "title": "Add more languages",
-          "description": "Building on August's first wave, we'll keep translating Jiki into more spoken languages through the rest of the year, so even more learners can use the platform in their native tongue. We'll prioritise based on demand from the community and where we can have the biggest impact."
+          "title": "További nyelvek hozzáadása",
+          "description": "Az augusztusi első hullámra építve az év hátralévő részében is folytatjuk a Jiki fordítását újabb beszélt nyelvekre, hogy még több tanuló használhassa a platformot az anyanyelvén. A közösség igényei alapján rangsorolunk, és aszerint, hol érhetjük el a legnagyobb hatást."
         },
         "sql": {
-          "title": "Launch SQL",
-          "description": "Later in the year, we'll add SQL to Jiki, giving learners a hands-on way to understand databases and querying with the same step-through, learn-by-doing approach as the rest of the curriculum."
+          "title": "Az SQL indítása",
+          "description": "Az év későbbi részében az SQL is bekerül a Jikibe, így a tanulók gyakorlatias módon ismerhetik meg az adatbázisokat és a lekérdezéseket, ugyanazzal a lépésenkénti, gyakorlat-központú megközelítéssel, mint a tananyag többi része."
         }
       }
     }
   },
   "misc": {
     "chooseLanguage": {
-      "selectLanguage": "Select Language",
-      "backToVideo": "Back to video",
-      "tooltip": "Select one of the options to proceed.",
-      "saving": "Saving...",
-      "confirmChoice": "Confirm Choice",
-      "questionTitle": "Choose which language you want to learn?",
+      "selectLanguage": "Válassz nyelvet",
+      "backToVideo": "Vissza a videóhoz",
+      "tooltip": "A folytatáshoz válaszd az egyik lehetőséget.",
+      "saving": "Mentés...",
+      "confirmChoice": "Választás megerősítése",
+      "questionTitle": "Melyik nyelvet szeretnéd megtanulni?",
       "javascript": "JavaScript",
       "python": "Python",
-      "chooseForMe": "Choose for me",
-      "cantChange": "You can't change once selected.",
-      "noVideo": "No video available",
-      "videoInstruction": "Watch the video then choose your language. Already know? <skip>Skip the video</skip>"
+      "chooseForMe": "Válassz helyettem",
+      "cantChange": "A választás után már nem módosíthatod.",
+      "noVideo": "Nincs elérhető videó",
+      "videoInstruction": "Nézd meg a videót, majd válassz nyelvet. Már tudod? <skip>Videó kihagyása</skip>"
     },
     "deleteAccount": {
-      "deletedTitle": "Your account has been deleted",
-      "deletedSubtitle": "We're sorry to see you go. We hope you've enjoyed Jiki. Good luck with your coding journey!",
-      "deletingTitle": "Deleting your account",
-      "deletingSubtitle": "Please wait",
-      "errorTitle": "There's been an error",
-      "errorSubtitle": "There has been an error deleting your account. We have been notified and will delete it manually for you.",
-      "expiredTitle": "Link expired or invalid",
-      "expiredSubtitle": "This deletion link is no longer valid. It may have already been used or has expired.",
-      "expiredSecondary": "If you still want to delete your account, please log in and request a new deletion link from your settings.",
-      "goHome": "Go to homepage"
+      "deletedTitle": "A fiókodat töröltük",
+      "deletedSubtitle": "Sajnáljuk, hogy elmész. Reméljük, élvezted a Jikit. Sok sikert a programozási utadon!",
+      "deletingTitle": "Fiókod törlése folyamatban",
+      "deletingSubtitle": "Várj egy pillanatot",
+      "errorTitle": "Hiba történt",
+      "errorSubtitle": "Hiba történt a fiókod törlése közben. Megkaptuk a hibajelzést, és kézzel töröljük majd helyetted.",
+      "expiredTitle": "A link lejárt vagy érvénytelen",
+      "expiredSubtitle": "Ez a törlési link már nem érvényes. Lehet, hogy már felhasználtad, vagy lejárt.",
+      "expiredSecondary": "Ha továbbra is törölni szeretnéd a fiókod, jelentkezz be, és kérj új törlési linket a beállításokban.",
+      "goHome": "Vissza a kezdőlapra"
     },
     "errorPage": {
-      "serverErrorTitle": "Something went wrong",
-      "serverErrorMessage": "We encountered an unexpected error. Sorry about that!",
-      "serverErrorAction": "Try again",
-      "notFoundTitle": "Page not found",
-      "notFoundMessage": "Looks like we can't find that page. Sorry!",
-      "notFoundAction": "Take me home"
+      "serverErrorTitle": "Valami hiba történt",
+      "serverErrorMessage": "Váratlan hibába ütköztünk. Elnézést érte!",
+      "serverErrorAction": "Próbáld újra",
+      "notFoundTitle": "Az oldal nem található",
+      "notFoundMessage": "Úgy tűnik, nem találjuk ezt az oldalt. Elnézést!",
+      "notFoundAction": "Vissza a kezdőlapra"
     },
     "testimonialsPage": {
-      "title": "Testimonials",
-      "subtitle": "We asked our students if they'd enjoyed the course. Here's what they said...",
-      "quoteOpenAlt": "“",
+      "title": "Vélemények",
+      "subtitle": "Megkérdeztük a tanulóinkat, hogy tetszett-e nekik a kurzus. Íme, mit mondtak...",
+      "quoteOpenAlt": "„",
       "quoteCloseAlt": "”"
     }
   },
   "concepts": {
     "breadcrumb": {
-      "root": "Coding Concepts"
+      "root": "Programozási fogalmak"
     },
     "list": {
-      "heading": "Concept Library",
-      "intro": "Here you can review and revisit the concepts you've learned.",
-      "searchPlaceholder": "Search concepts...",
-      "emptyTitle": "No concepts yet",
-      "emptyBody": "Complete lessons to unlock new Concepts. Each concept you master in your lessons becomes available for you to review here.",
-      "noResultsTitle": "0 results for \"<query></query>\"",
-      "noResultsMessage": "Try a different search term or browse the library."
+      "heading": "Fogalomtár",
+      "intro": "Itt nézheted át és ismételheted a már megtanult fogalmakat.",
+      "searchPlaceholder": "Keresés a fogalmak között...",
+      "emptyTitle": "Még nincsenek fogalmak",
+      "emptyBody": "Teljesíts leckéket, hogy új fogalmakat oldj fel. Minden fogalom, amelyet a leckékben elsajátítasz, itt válik átnézhetővé.",
+      "noResultsTitle": "0 találat erre: „<query></query>”",
+      "noResultsMessage": "Próbálkozz másik keresőszóval, vagy böngéssz a fogalomtárban."
     },
     "card": {
-      "locked": "Locked",
-      "subConcepts": "{count, plural, one {# sub-concepts} other {# sub-concepts}}"
+      "locked": "Zárolva",
+      "subConcepts": "{count, plural, one {# részfogalom} other {# részfogalom}}"
     },
     "error": {
-      "notFound": "Concept not found.",
-      "back": "Back to Concepts"
+      "notFound": "A fogalom nem található.",
+      "back": "Vissza a fogalmakhoz"
     },
     "relatedConcepts": {
-      "heading": "Related Concepts",
-      "description": "Check out these other related concepts:",
-      "locked": "This concept is locked"
+      "heading": "Kapcsolódó fogalmak",
+      "description": "Nézd meg ezeket a kapcsolódó fogalmakat is:",
+      "locked": "Ez a fogalom zárolva van"
     },
     "relatedExercises": {
-      "heading": "Related Exercises",
-      "description": "These exercises are great ways for you to practice this concept!",
-      "signupPrompt": "<link>Sign up</link> to solve them!",
-      "locked": "This exercise is locked"
+      "heading": "Kapcsolódó feladatok",
+      "description": "Ezekkel a feladatokkal remekül gyakorolhatod ezt a fogalmat!",
+      "signupPrompt": "<link>Regisztrálj</link>, és oldd meg őket!",
+      "locked": "Ez a feladat zárolva van"
     },
     "relatedChallenges": {
-      "heading": "Related Challenges",
-      "description": "These challenges let you put this concept into practice.",
-      "locked": "This challenge is locked"
+      "heading": "Kapcsolódó kihívások",
+      "description": "Ezekkel a kihívásokkal a gyakorlatban is kipróbálhatod ezt a fogalmat.",
+      "locked": "Ez a kihívás zárolva van"
     },
     "videoRecap": {
-      "loggedInHeader": "Rewatch the Lesson",
-      "loggedInDescription": "Remind yourself of when you learned this concept by watching back the teaching session",
-      "loggedOutHeader": "Watch the Lesson",
-      "loggedOutDescription": "Learn this concept with Jeremy and Jiki!",
-      "playAriaLabel": "Play lesson recap video",
-      "thumbnailAlt": "Lesson recap thumbnail"
+      "loggedInHeader": "Nézd újra a leckét",
+      "loggedInDescription": "Frissítsd fel az emlékeidet: nézd vissza a leckét, amelyben ezt a fogalmat tanultad",
+      "loggedOutHeader": "Nézd meg a leckét",
+      "loggedOutDescription": "Tanuld meg ezt a fogalmat Jeremyvel és Jikivel!",
+      "playAriaLabel": "Leckeösszefoglaló videó lejátszása",
+      "thumbnailAlt": "A leckeösszefoglaló előnézeti képe"
     },
     "signupCta": {
-      "title": "Ready to Start Your Coding Journey?",
-      "subtitle": "Join thousands of learners on Jiki. Practice coding exercises, get feedback from mentors, and level up your skills — it's free!",
-      "button": "Sign Up For Free"
+      "title": "Készen állsz elkezdeni a programozási utad?",
+      "subtitle": "Csatlakozz a Jiki tanulóinak ezreihez. Gyakorolj programozási feladatokon, kapj visszajelzést mentoroktól, és fejleszd a tudásod. Ráadásul ingyenes!",
+      "button": "Ingyenes regisztráció"
     },
     "upgradeCard": {
       "logoAlt": "Jiki",
-      "heading": "Start your <highlight>coding journey</highlight> today!",
-      "text": "Sign up to Jiki and learn to code with interactive exercises, real projects, and personalised support. Best of all, <free>it's free!</free>",
-      "button": "Sign Up For Free"
+      "heading": "Kezdd el a <highlight>programozási utad</highlight> még ma!",
+      "text": "Regisztrálj a Jikire, és tanulj meg programozni interaktív feladatokkal, valódi projektekkel és személyre szabott támogatással. És ami a legjobb: <free>ingyenes!</free>",
+      "button": "Ingyenes regisztráció"
     }
   },
   "seo": {
     "concepts": {
-      "title": "Concepts - Jiki",
-      "description": "Browse programming concepts and fundamentals to strengthen your understanding of computer science and software development.",
-      "notFound": "Concept Not Found"
+      "title": "Fogalmak - Jiki",
+      "description": "Böngéssz programozási fogalmak és alapok között, hogy elmélyítsd a számítástechnikai és szoftverfejlesztési tudásod.",
+      "notFound": "A fogalom nem található"
     },
     "achievements": {
-      "title": "Achievements - Jiki",
-      "description": "Track your progress and unlock achievements as you learn to code."
+      "title": "Eredmények - Jiki",
+      "description": "Kövesd a haladásod, és oldj fel eredményeket, miközben programozni tanulsz."
     },
     "build": {
-      "title": "Learn to Build - Jiki",
-      "description": "Watch video series on building real projects, deep-dives into how things work, and live Q&A sessions."
+      "title": "Tanulj fejleszteni - Jiki",
+      "description": "Nézz videósorozatokat valódi projektek építéséről, mélymerüléseket a dolgok működésébe és élő kérdés-felelet alkalmakat."
     },
     "dashboard": {
-      "title": "Dashboard - Jiki",
-      "description": "Track your learning progress, continue coding exercises, and view your achievements."
+      "title": "Irányítópult - Jiki",
+      "description": "Kövesd a tanulási haladásod, folytasd a programozási feladatokat, és nézd meg az eredményeidet."
     },
     "challenges": {
-      "title": "Challenges - Jiki",
-      "description": "Harder coding challenges to push your skills further as you progress."
+      "title": "Kihívások - Jiki",
+      "description": "Nehezebb programozási kihívások, amelyek tovább fejlesztik a tudásodat, ahogy haladsz."
     },
     "settings": {
-      "title": "Settings - Jiki",
-      "description": "Manage your account settings, subscription, and preferences."
+      "title": "Beállítások - Jiki",
+      "description": "Kezeld a fiókbeállításaidat, az előfizetésedet és a preferenciáidat."
     },
     "checkEmail": {
-      "title": "Check your email - Jiki",
-      "description": "We've sent you a confirmation email. Check your inbox to verify your address and finish signing up."
+      "title": "Nézd meg az e-mailjeidet - Jiki",
+      "description": "Küldtünk neked egy megerősítő e-mailt. Nézd meg a postaládádat, erősítsd meg a címedet, és fejezd be a regisztrációt."
     },
     "confirmEmail": {
-      "title": "Confirm Email - Jiki",
-      "description": "Confirm your email address"
+      "title": "E-mail-cím megerősítése - Jiki",
+      "description": "Erősítsd meg az e-mail-címedet"
     },
     "exercismCallback": {
-      "title": "Signing in with Exercism - Jiki",
-      "description": "Completing your Exercism sign in"
+      "title": "Bejelentkezés Exercismmel - Jiki",
+      "description": "Az Exercism-bejelentkezésed befejezése"
     },
     "forgotPassword": {
-      "title": "Forgot Password - Jiki",
-      "description": "Reset your password"
+      "title": "Elfelejtett jelszó - Jiki",
+      "description": "Állítsd vissza a jelszavad"
     },
     "login": {
-      "title": "Log In - Jiki",
-      "description": "Sign in to your Jiki account"
+      "title": "Bejelentkezés - Jiki",
+      "description": "Jelentkezz be a Jiki-fiókodba"
     },
     "resendConfirmation": {
-      "title": "Resend Confirmation - Jiki",
-      "description": "Resend confirmation instructions"
+      "title": "Megerősítés újraküldése - Jiki",
+      "description": "Megerősítő útmutató újraküldése"
     },
     "resetPassword": {
-      "title": "Reset Password - Jiki",
-      "description": "Set your new password"
+      "title": "Jelszó visszaállítása - Jiki",
+      "description": "Adj meg új jelszót"
     },
     "signup": {
-      "title": "Sign Up - Jiki",
-      "description": "Create your Jiki account"
+      "title": "Regisztráció - Jiki",
+      "description": "Hozd létre a Jiki-fiókodat"
     },
     "home": {
-      "title": "Jiki - Learn to Code the Fun Way",
-      "description": "The best way to learn to code and build in the LLM-era! By the team behind Exercism"
+      "title": "Jiki - Tanulj meg programozni játékosan",
+      "description": "A legjobb módja annak, hogy az AI-korszakban megtanulj programozni és fejleszteni! Az Exercism csapatától."
     },
     "premium": {
       "title": "Premium - Jiki",
-      "description": "Accelerate your road to job-ready with Jiki Premium. Full access to courses, projects, AI support, and more."
+      "description": "Gyorsítsd fel az utad a munkára kész tudásig a Jiki Premiummal. Teljes hozzáférés a kurzusokhoz, projektekhez, AI-támogatáshoz és még sok máshoz."
     },
     "roadmap": {
-      "title": "Roadmap - Jiki",
-      "description": "What we're building next on Jiki. A quarter-by-quarter look at upcoming courses, projects, and features."
+      "title": "Ütemterv - Jiki",
+      "description": "Ezt építjük legközelebb a Jikin. Negyedéves bontás a készülő kurzusokról, projektekről és funkciókról."
     },
     "testimonials": {
-      "title": "Testimonials - Jiki",
-      "description": "We asked our students if they'd enjoyed the course. Here's what they said."
+      "title": "Vélemények - Jiki",
+      "description": "Megkérdeztük a tanulóinkat, hogy tetszett-e nekik a kurzus. Íme, mit mondtak."
     },
     "deleteAccount": {
-      "title": "Delete Account - Jiki",
-      "description": "Confirm account deletion"
+      "title": "Fiók törlése - Jiki",
+      "description": "Fióktörlés megerősítése"
     },
     "unsubscribePreferences": {
-      "title": "Email Preferences - Jiki",
-      "description": "Manage your email preferences and unsubscribe from Jiki emails."
+      "title": "E-mail-beállítások - Jiki",
+      "description": "Kezeld az e-mail-beállításaidat, és iratkozz le a Jiki leveleiről."
     },
     "unsubscribe": {
-      "title": "Unsubscribe - Jiki",
-      "description": "Unsubscribe from Jiki emails"
+      "title": "Leiratkozás - Jiki",
+      "description": "Leiratkozás a Jiki e-mailjeiről"
     }
   },
   "toasts": {
     "subscription": {
-      "loginRequired": "Please log in to upgrade your account",
-      "checkoutFailed": "Failed to start checkout process. Please try again.",
-      "alreadyPremium": "Already on Premium tier",
-      "checkoutSessionFailed": "Failed to create checkout session",
-      "portalFailed": "Failed to open customer portal",
-      "canceled": "Subscription canceled. You'll keep access until {date}",
-      "cancelFailed": "Failed to cancel subscription",
-      "reactivated": "Subscription reactivated!",
-      "reactivateFailed": "Failed to reactivate subscription",
-      "paymentPortalFailed": "Failed to open payment portal"
+      "loginRequired": "Jelentkezz be a csomagváltáshoz",
+      "checkoutFailed": "Nem sikerült elindítani a fizetési folyamatot. Próbáld újra.",
+      "alreadyPremium": "Már a Premium csomagot használod",
+      "checkoutSessionFailed": "Nem sikerült létrehozni a fizetési munkamenetet",
+      "portalFailed": "Nem sikerült megnyitni az ügyfélportált",
+      "canceled": "Előfizetés lemondva. A hozzáférésed eddig érvényes: {date}",
+      "cancelFailed": "Nem sikerült lemondani az előfizetést",
+      "reactivated": "Előfizetés újraaktiválva!",
+      "reactivateFailed": "Nem sikerült újraaktiválni az előfizetést",
+      "paymentPortalFailed": "Nem sikerült megnyitni a fizetési portált"
     },
     "auth": {
-      "sessionExpired": "Your session has expired. Please sign in again."
+      "sessionExpired": "A munkameneted lejárt. Jelentkezz be újra."
     },
     "logout": {
-      "loading": "Logging out...",
-      "success": "Logged out successfully",
-      "failed": "Logout failed - couldn't reach server"
+      "loading": "Kijelentkezés...",
+      "success": "Sikeresen kijelentkeztél",
+      "failed": "A kijelentkezés nem sikerült - a szerver nem érhető el"
     },
     "avatar": {
-      "updated": "Avatar updated",
-      "uploadFailed": "Failed to upload avatar",
-      "networkError": "Network error. Please try again.",
-      "invalidImageType": "Please select a JPEG, PNG, GIF, or WebP image",
-      "imageTooLarge": "Image must be less than 5MB"
+      "updated": "Profilkép frissítve",
+      "uploadFailed": "Nem sikerült feltölteni a profilképet",
+      "networkError": "Hálózati hiba. Próbáld újra.",
+      "invalidImageType": "Válassz JPEG, PNG, GIF vagy WebP formátumú képet",
+      "imageTooLarge": "A kép legfeljebb 5 MB lehet"
     },
     "settings": {
-      "fetchFailed": "Failed to fetch settings",
-      "settingUpdated": "{field, select, name {Name} email {Email} password {Password} locale {Language preference} handle {Handle} other {{field}}} updated successfully",
-      "updateFailed": "Update failed",
-      "notificationUpdateFailed": "Failed to update notification preference",
-      "streaksUpdateFailed": "Failed to update streaks setting"
+      "fetchFailed": "Nem sikerült betölteni a beállításokat",
+      "settingUpdated": "{field, select, name {Név} email {E-mail-cím} password {Jelszó} locale {Nyelvi beállítás} handle {Felhasználónév} other {{field}}} sikeresen frissítve",
+      "updateFailed": "A frissítés nem sikerült",
+      "notificationUpdateFailed": "Nem sikerült frissíteni az értesítési beállítást",
+      "streaksUpdateFailed": "Nem sikerült frissíteni a sorozatok beállítását"
     },
     "exercise": {
-      "submissionFailed": "Couldn't save your submission. Please try again.",
-      "chatSaveFailed": "Couldn't save this message. It won't be here when you come back.",
-      "chatSaveCaptchaFailed": "Verification failed while saving. This message won't be here when you come back.",
-      "lessonSaveError": "Sorry, the lesson could not be completed. Please try again. If this continues, please report on <link>https://forum.jiki.io</link>"
+      "submissionFailed": "Nem sikerült menteni a megoldásodat. Próbáld újra.",
+      "chatSaveFailed": "Nem sikerült menteni ezt az üzenetet. Amikor visszatérsz, már nem lesz itt.",
+      "chatSaveCaptchaFailed": "Mentés közben nem sikerült az ellenőrzés. Ez az üzenet nem lesz itt, amikor visszatérsz.",
+      "lessonSaveError": "Sajnáljuk, a leckét nem sikerült befejezni. Próbáld újra. Ha a hiba továbbra is fennáll, jelezd itt: <link>https://forum.jiki.io</link>"
     }
   },
   "modals": {
     "welcomeToPremium": {
-      "badge": "Premium Member",
-      "description": "Thanks for upgrading! You now have access to all Premium benefits, including unlimited chats with Jiki, Projects, and Learn to Build!",
-      "title": "Welcome to <highlight>Premium!</highlight>"
+      "badge": "Premium tag",
+      "description": "Köszönjük, hogy előfizettél! Mostantól hozzáférsz az összes Premium előnyhöz, köztük a korlátlan beszélgetésekhez Jikivel, a Projektekhez és a Learn to Buildhez!",
+      "title": "Üdvözlünk a <highlight>Premiumban!</highlight>"
     },
     "subscriptionSuccess": {
       "chatGate": {
-        "title": "Welcome to AI Chat!",
-        "description": "Your AI assistant is now unlocked and ready to help with your coding exercises.",
-        "feature1": "Ask questions about your code",
-        "feature2": "Get explanations for complex concepts",
-        "feature3": "Receive personalized hints and guidance"
+        "title": "Üdvözlünk az AI-csevegésben!",
+        "description": "Az AI-asszisztensed mostantól elérhető, és készen áll, hogy segítsen a programozási feladatokban.",
+        "feature1": "Kérdezz a kódodról",
+        "feature2": "Kapj magyarázatot az összetettebb fogalmakhoz",
+        "feature3": "Kapj személyre szabott tippeket és útmutatást"
       },
       "featureGate": {
-        "title": "Feature Unlocked!",
-        "description": "You now have access to premium features that will enhance your learning experience."
+        "title": "Funkció feloldva!",
+        "description": "Mostantól hozzáférsz azokhoz a prémium funkciókhoz, amelyek még jobbá teszik a tanulást."
       },
       "settings": {
-        "title": "Welcome to {tier}!",
-        "description": "Your subscription has been activated. Explore your new features in the settings."
+        "title": "Üdvözlünk a {tier} csomagban!",
+        "description": "Az előfizetésed aktív. Fedezd fel az új funkcióidat a beállításokban."
       },
       "general": {
-        "title": "Welcome to {tier}!",
-        "description": "Thank you for upgrading your plan. You now have access to all premium features."
+        "title": "Üdvözlünk a {tier} csomagban!",
+        "description": "Köszönjük, hogy előfizettél! Mostantól minden prémium funkcióhoz hozzáférsz."
       },
-      "planLabel": "{tier} Plan",
-      "whatYouCanDo": "What you can do now:",
-      "getStarted": "Get Started",
-      "continueLearning": "Continue Learning",
-      "skipForNow": "Skip for now",
-      "renewalNotice": "Your subscription will renew automatically on {date}. Manage your subscription in Settings."
+      "planLabel": "{tier} csomag",
+      "whatYouCanDo": "Íme, mit tehetsz mostantól:",
+      "getStarted": "Kezdjük el",
+      "continueLearning": "Tanulás folytatása",
+      "skipForNow": "Most kihagyom",
+      "renewalNotice": "Az előfizetésed {date} napján automatikusan megújul. Az előfizetésedet a Beállításokban kezelheted."
     },
     "confirmation": {
-      "defaultTitle": "Confirm Action",
-      "defaultMessage": "Are you sure you want to proceed?"
+      "defaultTitle": "Megerősítés",
+      "defaultMessage": "Biztosan folytatod?"
     },
     "info": {
-      "defaultTitle": "Information",
-      "defaultButton": "Got it!"
+      "defaultTitle": "Információ",
+      "defaultButton": "Értem!"
     },
     "connectionError": {
-      "title": "Whoops! Lost connection",
-      "subtitle": "Jiki got a little tangled up and dropped the connection. Don't worry though - we're working on getting things plugged back in!",
-      "reconnecting": "Reconnecting",
-      "helpText": "Just sit tight - this usually fixes itself in a few moments.<br></br>If the problem persists, <link>check our status page</link>."
+      "title": "Hoppá! Megszakadt a kapcsolat",
+      "subtitle": "Jiki kicsit belegabalyodott a vezetékekbe, és megszakadt a kapcsolat. De ne aggódj, már dolgozunk azon, hogy minden újra a helyére kerüljön!",
+      "reconnecting": "Újracsatlakozás",
+      "helpText": "Egy kis türelmet, ez általában néhány pillanat alatt magától helyreáll.<br></br>Ha a probléma továbbra is fennáll, <link>nézd meg az állapotoldalunkat</link>."
     },
     "sessionExpired": {
-      "title": "Session Expired",
-      "description": "Your session has expired. Please log in again."
+      "title": "Lejárt a munkamenet",
+      "description": "A munkameneted lejárt. Jelentkezz be újra."
     },
     "paymentVerificationFailed": {
-      "title": "We couldn't confirm your payment",
-      "description": "Something went wrong while checking with Stripe. Try refreshing the page in a moment — if Premium still isn't active, contact support."
+      "title": "Nem tudtuk megerősíteni a fizetésedet",
+      "description": "Valami hiba történt a Stripe-pal való egyeztetés közben. Frissítsd az oldalt egy kicsit később. Ha a Premium továbbra sem aktív, fordulj az ügyfélszolgálathoz."
     },
     "levelMilestone": {
-      "title": "🎉 Level Complete!",
-      "message": "Congratulations! You've successfully completed <strong>{levelTitle}</strong> and mastered all its concepts.",
-      "lessonsCompleted": "Lessons Completed",
-      "xpEarned": "XP Earned",
-      "readyNext": "You're now ready to unlock the next level and continue your learning journey!",
-      "goToDashboard": "Go to Dashboard",
-      "continueNextLevel": "Continue to Next Level"
+      "title": "🎉 Szint teljesítve!",
+      "message": "Gratulálunk! Sikeresen teljesítetted a(z) <strong>{levelTitle}</strong> szintet, és elsajátítottad az összes hozzá tartozó koncepciót.",
+      "lessonsCompleted": "Teljesített leckék",
+      "xpEarned": "Szerzett XP",
+      "readyNext": "Készen állsz, hogy feloldd a következő szintet, és folytasd a tanulást!",
+      "goToDashboard": "Ugrás az irányítópultra",
+      "continueNextLevel": "Tovább a következő szintre"
     },
     "badge": {
-      "funFact": "Fun Fact",
-      "keepGoing": "Keep Going!"
+      "funFact": "Érdekesség",
+      "keepGoing": "Csak így tovább!"
     },
     "authError": {
-      "title": "You've been Logged out.",
-      "subtitle": "For some reason you've been logged out (maybe a security check, maybe you logged out on a different device?). Please reload the page to continue.",
-      "helpText": "If this keeps happening, try <cookiesLink>clearing your cookies</cookiesLink> or <supportLink>contact support</supportLink>."
+      "title": "Kijelentkeztettünk.",
+      "subtitle": "Valamiért kijelentkeztél (talán egy biztonsági ellenőrzés miatt, vagy egy másik eszközön léptél ki?). Töltsd újra az oldalt a folytatáshoz.",
+      "helpText": "Ha ez rendszeresen előfordul, próbáld meg <cookiesLink>törölni a sütiket</cookiesLink>, vagy <supportLink>fordulj az ügyfélszolgálathoz</supportLink>."
     },
     "rateLimit": {
-      "title": "You've moved too fast.",
-      "subtitle": "You've sent too many requests to our servers and so we're putting you on pause for a few seconds. Please wait and you'll be automatically reconnected.",
-      "autoRefresh": "This page will automatically refresh",
-      "noteLabel": "Note:",
-      "noteText": "Opening new tabs or making additional requests will extend your wait time.",
-      "reconnecting": "Reconnecting in <timer>{count}</timer> {count, plural, one {seconds} other {seconds}}"
+      "title": "Túl gyors voltál.",
+      "subtitle": "Túl sok kérést küldtél a szervereinknek, ezért néhány másodpercre megállítottunk. Várj egy kicsit, és automatikusan újracsatlakozunk.",
+      "autoRefresh": "Az oldal automatikusan frissül",
+      "noteLabel": "Megjegyzés:",
+      "noteText": "Ha új füleket nyitsz vagy további kéréseket küldesz, tovább kell várnod.",
+      "reconnecting": "Újracsatlakozás <timer>{count}</timer> {count, plural, one {másodperc} other {másodperc}} múlva"
     },
     "exerciseSuccess": {
-      "defaultTitle": "Congratulations!",
-      "defaultMessage": "All tests passed! You've successfully completed this exercise."
+      "defaultTitle": "Gratulálunk!",
+      "defaultMessage": "Minden teszt átment! Sikeresen megoldottad ezt a feladatot."
     },
     "welcome": {
-      "title": "Welcome to Jiki!",
-      "subtitle": "Watch this short video to get started.",
-      "skipTitle": "Skip the welcome video?",
-      "skipMessage": "This video helps you get the most out of Jiki. Are you sure you want to skip it?",
-      "skipConfirm": "Skip video",
-      "skipCancel": "Keep watching"
+      "title": "Üdvözlünk a Jikin!",
+      "subtitle": "Nézd meg ezt a rövid videót a kezdéshez.",
+      "skipTitle": "Kihagyod a bemutatkozó videót?",
+      "skipMessage": "Ez a videó segít, hogy a legtöbbet hozd ki a Jikiből. Biztosan kihagyod?",
+      "skipConfirm": "Videó kihagyása",
+      "skipCancel": "Tovább nézem"
     },
     "subscription": {
       "chatGate": {
-        "headline": "Unlock AI Chat Assistant",
-        "description": "Get instant help with your coding exercises from our AI assistant."
+        "headline": "Oldd fel az AI-asszisztenst",
+        "description": "Kapj azonnali segítséget a programozási feladatokhoz az AI-asszisztensünktől."
       },
       "featureGate": {
-        "headlineFallback": "Premium Features",
-        "headline": "Unlock {feature}",
-        "description": "Upgrade your plan to access advanced features and enhanced learning experiences."
+        "headlineFallback": "Prémium funkciók",
+        "headline": "{feature} feloldása",
+        "description": "Válts nagyobb csomagra, hogy hozzáférj a haladó funkciókhoz, és még többet hozz ki a tanulásból."
       },
       "settings": {
-        "headline": "Choose Your Plan",
-        "description": "Select the subscription plan that best fits your learning needs."
+        "headline": "Válassz csomagot",
+        "description": "Válaszd ki azt az előfizetési csomagot, amelyik a legjobban illik a tanulási céljaidhoz."
       },
       "general": {
-        "headline": "Upgrade Your Plan",
-        "description": "Choose the plan that fits your learning goals and unlock advanced features."
+        "headline": "Válts nagyobb csomagra",
+        "description": "Válaszd ki a tanulási céljaidhoz illő csomagot, és oldd fel a haladó funkciókat."
       },
-      "unlockWith": "What you'll unlock with {feature}:",
-      "recommended": "Recommended",
-      "choosePremium": "Choose Premium",
-      "subscribeAriaLabel": "Subscribe to {plan} plan",
-      "renewNotice": "Your subscription will renew automatically each month. You can cancel anytime from your settings.",
-      "notNow": "Not now, maybe later"
+      "unlockWith": "Amit a(z) {feature} feloldásával kapsz:",
+      "recommended": "Ajánlott",
+      "choosePremium": "Premium választása",
+      "subscribeAriaLabel": "Előfizetés a(z) {plan} csomagra",
+      "renewNotice": "Az előfizetésed minden hónapban automatikusan megújul. Bármikor lemondhatod a beállításokban.",
+      "notNow": "Most nem, talán később"
     },
     "walkthroughConfirm": {
-      "title": "Try solving it yourself first?",
-      "intro": "Before watching the Deep Dive, you might want use these resources to help you pass the tests yourself:",
-      "tryFirst": "I'll try first",
-      "watchDeepDive": "Watch the Deep Dive",
-      "conceptPages": "<strong>Concept Pages</strong> — review the concepts used in this exercise",
-      "askJiki": "<strong>Ask Jiki</strong> — get personalised help from Jiki without spoilers",
-      "whatHappened": "<strong>“What happened?” tips</strong> — step through your code line by line to see what went wrong",
-      "revealHints": "<strong>Reveal all the Hints</strong> — read through all the hints above for guidance"
+      "title": "Előbb megpróbálod egyedül megoldani?",
+      "intro": "Mielőtt megnézed a Deep Dive-ot, érdemes lehet ezekkel az eszközökkel próbálkoznod, hogy magadtól teljesítsd a teszteket:",
+      "tryFirst": "Előbb megpróbálom",
+      "watchDeepDive": "Deep Dive megtekintése",
+      "conceptPages": "<strong>Koncepcióoldalak</strong>: nézd át a feladatban használt koncepciókat",
+      "askJiki": "<strong>Kérdezd Jikit</strong>: kapj személyre szabott segítséget Jikitől anélkül, hogy lelőné a megoldást",
+      "whatHappened": "<strong>„Mi történt?” tippek</strong>: lépj végig a kódodon sorról sorra, és nézd meg, hol csúszott el",
+      "revealHints": "<strong>Összes tipp felfedése</strong>: olvasd végig útmutatásért a fenti tippeket"
     },
     "paymentConfirming": {
-      "title": "Confirming your payment…",
-      "description": "Hang tight while we confirm your payment with Stripe. This usually only takes a moment."
+      "title": "Fizetés megerősítése…",
+      "description": "Egy pillanat, épp egyeztetjük a fizetésedet a Stripe-pal. Ez általában csak néhány másodperc."
     },
     "example": {
-      "defaultTitle": "Example Modal",
-      "defaultMessage": "This is an example modal!"
+      "defaultTitle": "Példaablak",
+      "defaultMessage": "Ez egy példaablak!"
     },
     "paymentProcessing": {
-      "title": "Payment Processing",
-      "description": "Thank you. We're waiting for your payment provider to send us the funds. Once they do we'll upgrade your plan to Premium and send you an email.",
-      "continue": "Continue using Jiki"
+      "title": "Fizetés feldolgozása",
+      "description": "Köszönjük! Arra várunk, hogy a fizetési szolgáltatód elküldje nekünk az összeget. Amint megérkezik, Premiumra váltjuk a csomagodat, és küldünk egy e-mailt.",
+      "continue": "Használd tovább a Jikit"
     },
     "exerciseCompletion": {
       "success": {
-        "title": "All Scenarios Passed",
-        "titleBonus": "All Core Scenarios Passed",
-        "messageExercise": "Great work! You're ready to complete this exercise and move on to the next challenge.",
-        "messageChallenge": "Great work! You're ready to complete this challenge and move on.",
-        "completeExercise": "Complete Exercise",
-        "completeChallenge": "Complete Challenge"
+        "title": "Minden forgatókönyv teljesítve",
+        "titleBonus": "Minden alapforgatókönyv teljesítve",
+        "messageExercise": "Szép munka! Készen állsz, hogy befejezd ezt a feladatot, és továbblépj a következő kihívásra.",
+        "messageChallenge": "Szép munka! Készen állsz, hogy befejezd ezt a kihívást, és továbblépj.",
+        "completeExercise": "Feladat befejezése",
+        "completeChallenge": "Kihívás befejezése"
       },
       "conceptUnlocked": {
-        "title": "Concept unlocked!",
-        "messageGeneric": "You've unlocked a new concept to explore.",
-        "messageNamed": "You've unlocked a new concept: <strong>{title}</strong>"
+        "title": "Koncepció feloldva!",
+        "messageGeneric": "Feloldottál egy új koncepciót, amit felfedezhetsz.",
+        "messageNamed": "Feloldottál egy új koncepciót: <strong>{title}</strong>"
       },
       "completed": {
-        "titleExercise": "Exercise completed!",
-        "titleChallenge": "Challenge completed!",
-        "greatWork": "Great work completing {title}!",
-        "readyExercise": "Ready to continue to the next exercise?",
-        "readyChallenge": "Ready to continue to the next challenge?",
-        "bonusPrompt": "{count, plural, one {This exercise has <strong>a bonus scenario</strong>. Would you like to solve it before moving on?} other {This exercise has <strong>bonus scenarios</strong>. Would you like to solve them before moving on?}}",
-        "tidyCode": "Tidy code",
+        "titleExercise": "Feladat teljesítve!",
+        "titleChallenge": "Kihívás teljesítve!",
+        "greatWork": "Szép munka, teljesítetted: {title}!",
+        "readyExercise": "Mehetünk tovább a következő feladatra?",
+        "readyChallenge": "Mehetünk tovább a következő kihívásra?",
+        "bonusPrompt": "{count, plural, one {Ehhez a feladathoz tartozik <strong>egy bónuszforgatókönyv</strong> is. Megoldod, mielőtt továbblépsz?} other {Ehhez a feladathoz <strong>bónuszforgatókönyvek</strong> is tartoznak. Megoldod őket, mielőtt továbblépsz?}}",
+        "tidyCode": "Kód rendezése",
         "solveBonuses": "{count, plural, one {Bónusz megoldása} other {Bónuszok megoldása}}",
-        "moveOn": "Move on"
+        "moveOn": "Továbblépés"
       },
       "difficultyRating": {
-        "title": "Rate your experience",
-        "message": "Help us improve {title} by rating it.",
-        "rateDifficulty": "Rate the difficulty",
-        "rateFun": "Rate the fun factor",
-        "difficultyTooEasy": "Too easy",
-        "difficultyEasy": "Easy",
-        "difficultyJustRight": "Just right",
-        "difficultyHard": "Hard",
-        "difficultyTooHard": "Too hard",
-        "funFrustrating": "Frustrating",
-        "funPrettyGood": "Pretty good",
-        "funAmazing": "Amazing!",
-        "rateDifficultyAriaLabel": "Rate difficulty as {label}",
-        "rateFunAriaLabel": "Rate fun as {label}",
-        "funOptionFallback": "option {number}"
+        "title": "Értékeld az élményt",
+        "message": "Segíts nekünk jobbá tenni a(z) {title} feladatot azzal, hogy értékeled.",
+        "rateDifficulty": "Értékeld a nehézségét",
+        "rateFun": "Értékeld, mennyire volt szórakoztató",
+        "difficultyTooEasy": "Túl könnyű",
+        "difficultyEasy": "Könnyű",
+        "difficultyJustRight": "Pont jó",
+        "difficultyHard": "Nehéz",
+        "difficultyTooHard": "Túl nehéz",
+        "funFrustrating": "Frusztráló",
+        "funPrettyGood": "Egész jó",
+        "funAmazing": "Fantasztikus!",
+        "rateDifficultyAriaLabel": "Nehézség értékelése: {label}",
+        "rateFunAriaLabel": "Szórakoztatóság értékelése: {label}",
+        "funOptionFallback": "{number}. lehetőség"
       },
       "challengeUnlocked": {
-        "title": "Challenge unlocked!",
-        "message": "All that practice means you're ready to take on a tougher challenge.",
-        "newLabel": "New",
-        "premiumInfo": "<strong>Exclusively for Premium members.</strong> <link>Upgrade your account</link> to access all the Challenges as you unlock them."
+        "title": "Kihívás feloldva!",
+        "message": "A sok gyakorlás után készen állsz egy nehezebb kihívásra.",
+        "newLabel": "Új",
+        "premiumInfo": "<strong>Kizárólag Premium tagoknak.</strong> <link>Válts Premiumra</link>, hogy hozzáférj az összes kihíváshoz, ahogy feloldod őket."
       }
     },
     "premiumUpgrade": {
-      "skipLink": "Not now, maybe later",
-      "userAvatarAlt": "User",
-      "upgrade": "Upgrade to Premium",
+      "skipLink": "Most nem, talán később",
+      "userAvatarAlt": "Felhasználó",
+      "upgrade": "Válts Premiumra",
       "planName": "Jiki Premium",
-      "featureLearnToBuild": "Full access to <strong>Learn to Build</strong>",
-      "featureChallenges": "Take on harder <strong>Challenges</strong>",
-      "featureAi": "Unlimited <strong>AI support</strong> from Jiki",
-      "featureLivestreams": "Regular <strong>Q&A livestreams</strong> you can join",
-      "featureCertificates": "Earn <strong>certificates</strong> for courses",
-      "featureAdFree": "<strong>Ad-free</strong> learning experience",
-      "featureEarlyAccess": "<strong>Early access</strong> to new features",
+      "featureLearnToBuild": "A <strong>Learn to Build</strong> teljes tartalma",
+      "featureChallenges": "Vágj bele a nehezebb <strong>kihívásokba</strong>",
+      "featureAi": "Korlátlan <strong>AI-támogatás</strong> Jikitől",
+      "featureLivestreams": "Rendszeres <strong>kérdés-felelet élő adások</strong>, amikhez csatlakozhatsz",
+      "featureCertificates": "Szerezz <strong>tanúsítványt</strong> a kurzusok elvégzéséért",
+      "featureAdFree": "<strong>Reklámmentes</strong> tanulási élmény",
+      "featureEarlyAccess": "<strong>Korai hozzáférés</strong> az új funkciókhoz",
       "basic": {
-        "subheading": "Upgrade to Premium to accelerate your road to job-ready.",
-        "planName": "Basic Plan",
-        "planPrice": "Free forever",
-        "feature1": "Over 80 Coding Exercises",
-        "feature2": "Full Concept Library",
-        "feature3": "Ask Jiki on one exercise",
-        "note": "+ Access to public YouTube videos and community forums for additional learning resources.",
-        "headline": "<highlight>Accelerate</highlight> your learning!"
+        "subheading": "Válts Premiumra, és gyorsítsd fel az utad a munkára kész tudásig.",
+        "planName": "Basic csomag",
+        "planPrice": "Örökre ingyenes",
+        "feature1": "Több mint 80 programozási feladat",
+        "feature2": "Teljes koncepciókönyvtár",
+        "feature3": "Kérdezd Jikit egy feladatnál",
+        "note": "+ Hozzáférés a nyilvános YouTube-videókhoz és a közösségi fórumokhoz további tanulási lehetőségekért.",
+        "headline": "<highlight>Gyorsítsd fel</highlight> a tanulásod!"
       },
-      "dailyNote": "(That's only <price></price> a day)"
+      "dailyNote": "(Ez naponta csak <price></price>)"
     },
     "subscriptionCheckout": {
-      "connectingToStripe": "Connecting to Stripe",
-      "paymentFailed": "Payment failed",
-      "unexpectedError": "An unexpected error occurred. Please try again.",
-      "paymentFailedTitle": "Payment failed",
-      "paymentInfoAriaLabel": "Payment information",
-      "pay": "Pay",
+      "connectingToStripe": "Kapcsolódás a Stripe-hoz",
+      "paymentFailed": "Sikertelen fizetés",
+      "unexpectedError": "Váratlan hiba történt. Próbáld újra.",
+      "paymentFailedTitle": "Sikertelen fizetés",
+      "paymentInfoAriaLabel": "Fizetési adatok",
+      "pay": "Fizetés",
       "orderTitle": "Jiki {tier}",
-      "orderBilling": "Billed monthly. Cancel anytime.",
-      "perMonthShort": "/mo",
-      "securedBy": "Secured by <stripe>stripe</stripe>",
-      "error": "Error: {message}"
+      "orderBilling": "Havi számlázás. Bármikor lemondhatod.",
+      "perMonthShort": "/hó",
+      "securedBy": "Biztosítja: <stripe>stripe</stripe>",
+      "error": "Hiba: {message}"
     },
     "calendarSubscribe": {
-      "title": "Subscribe to Calendar",
-      "description": "Add Jiki's live sessions to your calendar. New sessions appear automatically as they're scheduled.",
-      "apple": "Subscribe on Apple",
-      "google": "Subscribe on Google",
-      "otherLabel": "Outlook & other calendars",
-      "otherHelp": "Copy this link and add it as a subscribed calendar.",
-      "copied": "Copied"
+      "title": "Feliratkozás a naptárra",
+      "description": "Add hozzá a Jiki élő alkalmait a naptáradhoz. Az új alkalmak automatikusan megjelennek, ahogy kiírjuk őket.",
+      "apple": "Feliratkozás Apple-naptárra",
+      "google": "Feliratkozás Google-naptárra",
+      "otherLabel": "Outlook és más naptárak",
+      "otherHelp": "Másold ki ezt a linket, és add hozzá feliratkozott naptárként.",
+      "copied": "Másolva"
     }
   },
   "challenge": {
-    "backToChallenges": "Back to Challenges",
+    "backToChallenges": "Vissza a kihívásokhoz",
     "error": {
-      "message": "Error: {error}"
+      "message": "Hiba: {error}"
     },
-    "loadError": "Failed to load challenge",
+    "loadError": "A kihívás betöltése nem sikerült",
     "documentTitle": "{title} - Jiki",
     "locked": {
-      "title": "Challenge Locked",
-      "description": "This challenge is currently locked. Complete previous lessons to unlock it."
+      "title": "Zárolt kihívás",
+      "description": "Ez a kihívás jelenleg zárolva van. Az előző leckék teljesítésével oldhatod fel."
     },
     "premiumRequired": {
-      "title": "Premium Required",
-      "description": "Challenges are a premium feature. Upgrade your plan to start building."
+      "title": "Premium szükséges",
+      "description": "A kihívások a Premium részei. Válts csomagot, és kezdj el fejleszteni."
     }
   },
   "dashboard": {
     "exercisePath": {
       "comingSoon": {
-        "title": "More Lessons Coming Soon",
-        "description": "We're busy finalising the next lessons. Check back soon to continue your journey!"
+        "title": "Hamarosan újabb leckék érkeznek",
+        "description": "Már dolgozunk a következő leckéken. Nézz vissza hamarosan, és folytasd az utad!"
       },
       "walkthrough": {
-        "label": "Deep Dive",
-        "watch": "Watch"
+        "label": "Mélymerülés",
+        "watch": "Megnézem"
       },
       "start": {
-        "title": "The Start of your Journey"
+        "title": "Az utad kezdete"
       },
       "completionCert": {
-        "title": "Completion Certificate",
-        "description": "Complete all the exercises to get your completion certificate and showcase your new skills!",
-        "progress": "{percentage}% complete"
+        "title": "Teljesítési tanúsítvány",
+        "description": "Teljesítsd az összes feladatot, szerezd meg a tanúsítványod, és mutasd meg az új tudásod!",
+        "progress": "{percentage}% kész"
       },
       "lessonNode": {
         "status": {
-          "complete": "Complete",
-          "locked": "Locked",
-          "inProgress": "In Progress"
+          "complete": "Kész",
+          "locked": "Zárolva",
+          "inProgress": "Folyamatban"
         },
         "type": {
-          "video": "Video",
-          "quiz": "Quiz",
-          "choice": "Choice",
-          "exercise": "Exercise"
+          "video": "Videó",
+          "quiz": "Kvíz",
+          "choice": "Választás",
+          "exercise": "Feladat"
         }
       },
       "scrollToActive": {
-        "up": "Scroll up to active lesson",
-        "down": "Scroll down to active lesson"
+        "up": "Görgess fel az aktuális leckéhez",
+        "down": "Görgess le az aktuális leckéhez"
       },
       "milestone": {
-        "label": "Milestone {index}"
+        "label": "{index}. mérföldkő"
       }
     },
     "challengesSidebar": {
       "empty": {
-        "title": "Challenges await!",
-        "description": "Complete exercises to unlock real coding challenges. Build games, apps, and tools that bring your skills to life."
+        "title": "Kihívások várnak!",
+        "description": "Teljesítsd a feladatokat, és oldj fel igazi programozási kihívásokat. Készíts játékokat, appokat és eszközöket, amelyekkel életre kelted a tudásod."
       },
       "upsell": {
-        "title": "New Challenges Await!",
-        "description": "Combine your skills and challenge yourself with Premium Challenges."
+        "title": "Új kihívások várnak!",
+        "description": "Kombináld a tudásod, és tedd próbára magad a Premium kihívásokkal."
       },
       "userProfile": {
-        "premiumMember": "Premium Member"
+        "premiumMember": "Premium tag"
       },
       "challengeCard": {
         "status": {
-          "locked": "Locked",
-          "notStarted": "Not started",
-          "inProgress": "In progress",
-          "completed": "Completed",
-          "available": "Available"
+          "locked": "Zárolva",
+          "notStarted": "Nem kezdted el",
+          "inProgress": "Folyamatban",
+          "completed": "Teljesítve",
+          "available": "Elérhető"
         }
       },
       "streak": {
-        "activeDays": "{count, plural, one {You studied for # day in total.} other {You studied for # days in total.}}",
-        "noStreak": "Practice today to kick off your streak!",
-        "oneDayStreak": "Practice daily to build a streak!",
-        "multiDayStreak": "{count, plural, one {You have a # day streak!} other {You have a # day streak!}}"
+        "activeDays": "{count, plural, one {Összesen # napot tanultál.} other {Összesen # napot tanultál.}}",
+        "noStreak": "Gyakorolj ma, és indítsd el a sorozatod!",
+        "oneDayStreak": "Gyakorolj minden nap, és építs sorozatot!",
+        "multiDayStreak": "{count, plural, one {# napos sorozatod van!} other {# napos sorozatod van!}}"
       },
       "badges": {
-        "title": "Badges"
+        "title": "Jelvények"
       },
       "recent": {
-        "title": "Recent Challenges",
-        "unlockedCount": "{count} unlocked",
-        "viewAll": "View All Challenges"
+        "title": "Legutóbbi kihívások",
+        "unlockedCount": "{count} feloldva",
+        "viewAll": "Összes kihívás megtekintése"
       }
     }
   },
   "codingExercise": {
-    "loadError": "Error loading exercise: {error}",
-    "unknownError": "Unknown error",
+    "loadError": "Hiba a feladat betöltésekor: {error}",
+    "unknownError": "Ismeretlen hiba",
     "runButton": {
-      "run": "Run Code",
-      "running": "Running...",
-      "resetAriaLabel": "Reset exercise",
-      "resetTooltip": "Click to Reset the exercise",
-      "resetConfirmTitle": "Reset your code?",
-      "resetConfirmMessage": "This will reset your code back to the start. Don't worry — this won't lose your conversations with Jiki.",
-      "resetConfirmButton": "Yes, reset"
+      "run": "Kód futtatása",
+      "running": "Futtatás...",
+      "resetAriaLabel": "Feladat visszaállítása",
+      "resetTooltip": "Kattints a feladat visszaállításához",
+      "resetConfirmTitle": "Visszaállítod a kódodat?",
+      "resetConfirmMessage": "Ez visszaállítja a kódodat a kiindulási állapotra. Ne aggódj, a Jikivel folytatott beszélgetéseid nem vesznek el.",
+      "resetConfirmButton": "Igen, visszaállítom"
     },
     "hintsPanel": {
-      "title": "Hints",
-      "description": "If you're stuck on this exercise, these hints can help guide you in the right direction. Click on a hint to reveal helpful tips.",
-      "empty": "No hints available for this exercise.",
-      "reveal": "Reveal",
-      "hide": "Hide",
-      "confirmReveal": "Are you sure you want to reveal this hint?",
-      "confirmNo": "Not for now",
-      "confirmYes": "Yes",
-      "deepDiveHeading": "Deep Dive",
-      "deepDiveDescription": "Still stuck? Watch a deep dive of Jeremy solving this exercise.",
-      "walkthroughThumbnailAlt": "Deep Dive video thumbnail"
+      "title": "Tippek",
+      "description": "Ha elakadtál ebben a feladatban, ezek a tippek jó irányba terelhetnek. Kattints egy tippre, és hasznos ötleteket kapsz.",
+      "empty": "Ehhez a feladathoz nincsenek tippek.",
+      "reveal": "Felfedés",
+      "hide": "Elrejtés",
+      "confirmReveal": "Biztosan felfeded ezt a tippet?",
+      "confirmNo": "Most nem",
+      "confirmYes": "Igen",
+      "deepDiveHeading": "Mélyebb betekintés",
+      "deepDiveDescription": "Még mindig elakadtál? Nézd meg, ahogy Jeremy lépésről lépésre megoldja ezt a feladatot.",
+      "walkthroughThumbnailAlt": "A megoldóvideó előnézeti képe"
     },
     "chatHeader": {
-      "title": "Ask Jiki",
-      "description": "Ask questions and get help from your AI coding assistant"
+      "title": "Kérdezd Jikit",
+      "description": "Tegyél fel kérdéseket, és kérj segítséget az AI programozási asszisztensedtől"
     },
     "chatStatus": {
-      "errorLabel": "Error:"
+      "errorLabel": "Hiba:"
     },
     "chatPanel": {
-      "unavailable": "Chat unavailable"
+      "unavailable": "A chat nem érhető el"
     },
     "chatMessages": {
-      "greeting": "Hey there! What can I help you with on this exercise?"
+      "greeting": "Szia! Miben segíthetek ebben a feladatban?"
     },
     "chatInput": {
-      "placeholder": "Type your question here...",
-      "limitReachedPlaceholder": "You've reached your message limit",
-      "respondPlaceholder": "Respond to Jiki..."
+      "placeholder": "Írd ide a kérdésed...",
+      "limitReachedPlaceholder": "Elérted az üzenetkorlátodat",
+      "respondPlaceholder": "Válaszolj Jikinek..."
     },
     "conversation": {
-      "loadError": "Failed to load conversation history: {error}"
+      "loadError": "Nem sikerült betölteni a beszélgetés előzményeit: {error}"
     },
     "typeItAssistant": {
-      "thinking": "Jiki is thinking"
+      "thinking": "Jiki gondolkodik"
     },
     "functionsView": {
-      "empty": "No functions available for this exercise.",
-      "examples": "Examples"
+      "empty": "Ehhez a feladathoz nincsenek elérhető függvények.",
+      "examples": "Példák"
     },
     "tasksView": {
-      "empty": "No tasks available for this exercise.",
-      "bonus": "Bonus"
+      "empty": "Ehhez a feladathoz nincsenek részfeladatok.",
+      "bonus": "Bónusz"
     },
     "logPanel": {
-      "title": "Scenario Log",
-      "emptyDescription": "This is the output from your code execution. Here you can analyse the changes you've made. Use <code>console.log()</code> to log values.",
-      "description": "This is the output from your code execution for <scenario>{name}</scenario> scenario. Here you can analyse the changes you've made. Use <code>console.log()</code> to log values.",
-      "emptyState": "You've not logged anything out yet"
+      "title": "Forgatókönyv-napló",
+      "emptyDescription": "Ez a kódod futtatásának kimenete. Itt elemezheted a módosításaidat. Használd a <code>console.log()</code> függvényt értékek naplózásához.",
+      "description": "Ez a kódod futtatásának kimenete a(z) <scenario>{name}</scenario> forgatókönyvhöz. Itt elemezheted a módosításaidat. Használd a <code>console.log()</code> függvényt értékek naplózásához.",
+      "emptyState": "Még nem naplóztál semmit"
     },
     "instructionsPanel": {
-      "instructionsTitle": "Instructions",
-      "functionsTitle": "Functions",
-      "conceptLibraryTitle": "Concept Library",
-      "functionsIntro": "These are the functions you can use in this exercise",
-      "functionsExamplesLabel": "Examples:",
-      "loadingConcepts": "Loading concepts...",
-      "premiumChallenge": "Premium Challenge",
-      "exerciseLevel": "Exercise • {level}",
-      "libraryEmpty": "This is where you will see Concepts as you progress through the exercises. These will be references you can use to refresh your memory on what you've learned.",
-      "libraryChallenges": "You can use any concepts you've learned so far in this exercise. Refer back to your Concept Library when you want to remind yourself of what you've learned.",
-      "libraryWithConcepts": "These are the key concepts used in this exercise. Use them to refresh yourself on what you've learned so far.",
-      "openConceptLibrary": "Open Concept Library"
+      "instructionsTitle": "Útmutató",
+      "functionsTitle": "Függvények",
+      "conceptLibraryTitle": "Fogalomtár",
+      "functionsIntro": "Ezeket a függvényeket használhatod ebben a feladatban",
+      "functionsExamplesLabel": "Példák:",
+      "loadingConcepts": "Fogalmak betöltése...",
+      "premiumChallenge": "Premium kihívás",
+      "exerciseLevel": "Feladat • {level}",
+      "libraryEmpty": "Itt jelennek meg majd a fogalmak, ahogy haladsz a feladatokkal. Ezekhez bármikor visszatérhetsz, ha fel akarod frissíteni, amit tanultál.",
+      "libraryChallenges": "Ebben a feladatban bármelyik eddig tanult fogalmat használhatod. Ha szeretnéd feleleveníteni, amit tanultál, nézd meg a Fogalomtáradat.",
+      "libraryWithConcepts": "Ezek a feladat legfontosabb fogalmai. Segítségükkel felelevenítheted, amit eddig tanultál.",
+      "openConceptLibrary": "Fogalomtár megnyitása"
     },
     "scrubber": {
-      "previousFrame": "Previous frame",
-      "nextFrame": "Next frame",
-      "previousBreakpoint": "Previous breakpoint",
-      "nextBreakpoint": "Next breakpoint",
-      "toggleInfoOn": "Toggle the information panel on",
-      "toggleInfoOff": "Toggle the information panel off",
-      "showInfoWidget": "Show information widget",
-      "hideInfoWidget": "Hide information widget",
-      "disabledCodeEdited": "The code has been edited so we've disabled the scrubber. Press \"Run code\" to re-enable it.",
-      "disabledSpotlight": "Scrubber disabled: Spotlight mode is active.",
-      "disabledNotEnoughFrames": "Scrubber disabled: Not enough frames to scrub through."
+      "previousFrame": "Előző képkocka",
+      "nextFrame": "Következő képkocka",
+      "previousBreakpoint": "Előző töréspont",
+      "nextBreakpoint": "Következő töréspont",
+      "toggleInfoOn": "Információs panel bekapcsolása",
+      "toggleInfoOff": "Információs panel kikapcsolása",
+      "showInfoWidget": "Információs widget megjelenítése",
+      "hideInfoWidget": "Információs widget elrejtése",
+      "disabledCodeEdited": "A kódot szerkesztetted, ezért kikapcsoltuk a csúszkát. Nyomd meg a „Kód futtatása” gombot, hogy újra használhasd.",
+      "disabledSpotlight": "A csúszka le van tiltva: a Spotlight mód aktív.",
+      "disabledNotEnoughFrames": "A csúszka le van tiltva: nincs elég képkocka a lejátszáshoz."
     },
     "avatars": {
       "jikiAlt": "Jiki",
-      "userAlt": "You"
+      "userAlt": "Te"
     },
     "rhs": {
-      "tabInstructions": "Instructions",
-      "tabAskJiki": "Ask Jiki",
-      "tabLog": "Log",
-      "tabHints": "Hints",
-      "navChallenges": "Challenges",
-      "navDashboard": "Dashboard"
+      "tabInstructions": "Útmutató",
+      "tabAskJiki": "Kérdezd Jikit",
+      "tabLog": "Napló",
+      "tabHints": "Tippek",
+      "navChallenges": "Kihívások",
+      "navDashboard": "Irányítópult"
     },
     "canStart": {
-      "placeholder": "Type your question here...",
-      "askAbout": "Ask about...",
-      "askJiki": "Ask Jiki",
-      "freeIncluded": "First conversation included in your Free plan",
-      "premiumIncluded": "Included in your <premium>Premium</premium> plan",
-      "phraseWhyNotWorking": "why your code isn't working",
-      "phraseHowToFixBug": "how to fix a bug",
-      "phraseWhatErrorMeans": "what this error means",
-      "phraseHowToApproach": "how to approach this exercise",
-      "phraseHowToGetUnstuck": "how to get unstuck"
+      "placeholder": "Írd ide a kérdésed...",
+      "askAbout": "Kérdezz arról...",
+      "askJiki": "Kérdezd Jikit",
+      "freeIncluded": "Az első beszélgetés az ingyenes csomagodban is benne van",
+      "premiumIncluded": "A <premium>Premium</premium> csomagod tartalmazza",
+      "phraseWhyNotWorking": "miért nem működik a kódod",
+      "phraseHowToFixBug": "hogyan javíts ki egy bugot",
+      "phraseWhatErrorMeans": "mit jelent ez a hiba",
+      "phraseHowToApproach": "hogyan állj neki ennek a feladatnak",
+      "phraseHowToGetUnstuck": "hogyan lendülj át a holtponton"
     },
     "freeUserLimitReached": {
-      "description": "You've used your free conversation. Continue learning with Jiki's help with concepts, debugging, and moving forward on exercises.",
-      "upgradeButton": "Upgrade to Jiki Premium",
-      "price": "Just <price></price>!"
+      "description": "Felhasználtad az ingyenes beszélgetésedet. Folytasd a tanulást Jiki segítségével: kérdezz a fogalmakról, a hibakeresésről és arról, hogyan haladj tovább a feladatokkal.",
+      "upgradeButton": "Válts Jiki Premiumra",
+      "price": "Mindössze <price></price>!"
     },
     "lockedFooter": {
-      "freeLimitText": "You're no longer on the Premium Plan. <upgrade>Upgrade</upgrade> to continue the conversation.",
-      "premiumBlockedText": "You've hit our fair use limits. Please try again tomorrow.",
-      "learnMoreFairUse": "Learn more about fair use limits"
+      "freeLimitText": "Már nincs Premium csomagod. <upgrade>Válts Premiumra</upgrade>, hogy folytathasd a beszélgetést.",
+      "premiumBlockedText": "Elérted a méltányos használati korlátunkat. Próbáld újra holnap!",
+      "learnMoreFairUse": "Tudj meg többet a méltányos használati korlátokról"
     },
     "chatUsageNotice": {
       "warning": {
-        "daily": "You're getting close to your daily limit ({used}/{limit} messages today).",
-        "monthly": "You're getting close to your monthly limit ({used}/{limit} messages this month)."
+        "daily": "Közeledsz a napi korlátodhoz ({used}/{limit} üzenet ma).",
+        "monthly": "Közeledsz a havi korlátodhoz ({used}/{limit} üzenet ebben a hónapban)."
       },
       "limitReached": {
-        "daily": "You've used all {limit} of today's messages. They reset at midnight UTC.",
-        "monthly": "You've used all {limit} messages this month. They reset on the 1st."
+        "daily": "Felhasználtad mind a {limit} mai üzenetedet. A keret éjfélkor (UTC szerint) nullázódik.",
+        "monthly": "Felhasználtad mind a {limit} üzenetedet ebben a hónapban. A keret a hónap első napján nullázódik."
       },
-      "learnMore": "Learn More"
+      "learnMore": "Tudj meg többet"
     },
     "chatError": {
-      "sessionExpired": "Session expired. Please try again.",
-      "verificationFailed": "Verification failed. Please try again.",
-      "authFailed": "Authentication failed. Please sign in again.",
-      "tokenServerError": "Server error while initializing chat. Please try again.",
-      "tokenInitFailed": "Failed to initialize chat. Please try again.",
-      "exerciseMismatch": "Exercise mismatch. Please refresh and try again.",
-      "authExpired": "Authentication expired. Please refresh the page.",
-      "tooManyRequests": "Too many requests. Please wait a moment and try again.",
-      "serviceUnavailable": "Chat service is temporarily unavailable. Please try again later.",
-      "serverError": "Server error. Please try again in a few moments.",
-      "networkError": "Network error. Please check your connection and try again.",
-      "timeout": "Request timed out. Please try again.",
-      "unexpected": "An unexpected error occurred. Please try again."
+      "sessionExpired": "A munkamenet lejárt. Próbáld újra.",
+      "verificationFailed": "Az ellenőrzés nem sikerült. Próbáld újra.",
+      "authFailed": "A hitelesítés nem sikerült. Jelentkezz be újra.",
+      "tokenServerError": "Szerverhiba történt a chat indításakor. Próbáld újra.",
+      "tokenInitFailed": "Nem sikerült elindítani a chatet. Próbáld újra.",
+      "exerciseMismatch": "A feladat nem egyezik. Frissítsd az oldalt, és próbáld újra.",
+      "authExpired": "A hitelesítés lejárt. Frissítsd az oldalt.",
+      "tooManyRequests": "Túl sok kérés érkezett. Várj egy kicsit, és próbáld újra.",
+      "serviceUnavailable": "A chat szolgáltatás átmenetileg nem érhető el. Próbáld újra később.",
+      "serverError": "Szerverhiba. Próbáld újra pár pillanat múlva.",
+      "networkError": "Hálózati hiba. Ellenőrizd a kapcsolatodat, és próbáld újra.",
+      "timeout": "A kérés túllépte az időkorlátot. Próbáld újra.",
+      "unexpected": "Váratlan hiba történt. Próbáld újra."
     },
     "stuckHeader": {
-      "title": "Feeling Stuck? Ask Jiki!"
+      "title": "Elakadtál? Kérdezd Jikit!"
     },
     "testResults": {
-      "passBadge": "Pass",
-      "failBadge": "Fail",
-      "pendingBadge": "Pending",
-      "pendingMessage": "Run your code to see whether this scenario passes or fails.",
-      "codeRun": "Code run",
-      "expected": "Expected",
-      "actual": "Actual",
-      "noReturn": "[Your function didn't return anything]",
-      "clickRunCode": "Click “Run Code” to see what your code does.",
-      "lintWarning": "<strong>Nearly there...</strong> Your code worked correctly, but you need to fix your formatting. Look for orange underlines in your code.",
-      "lintWarningPlain": "Your code worked correctly, but you need to fix your formatting. Look for orange underlines in your code.",
-      "genericError": "Uh Oh. Your code has an error in it.",
-      "congratsWellDone": "Well done!",
-      "congratsNiceWork": "Nice work!",
-      "congratsFantasticJob": "Fantastic job!",
-      "congratsAmazingEffort": "Amazing effort!",
-      "congratsGreatAchievement": "Great achievement!",
-      "congratsCongratulations": "Congratulations!",
-      "congratsCongrats": "Congrats!"
+      "passBadge": "Sikeres",
+      "failBadge": "Sikertelen",
+      "pendingBadge": "Függőben",
+      "pendingMessage": "Futtasd le a kódodat, hogy lásd, ez a forgatókönyv sikeres-e.",
+      "codeRun": "Kódfuttatás",
+      "expected": "Elvárt",
+      "actual": "Kapott",
+      "noReturn": "[A függvényed nem adott vissza semmit]",
+      "clickRunCode": "Kattints a „Kód futtatása” gombra, hogy lásd, mit csinál a kódod.",
+      "lintWarning": "<strong>Majdnem kész...</strong> A kódod jól működik, de a formázást még javítanod kell. Keresd a narancssárga aláhúzásokat a kódodban.",
+      "lintWarningPlain": "A kódod jól működik, de a formázást még javítanod kell. Keresd a narancssárga aláhúzásokat a kódodban.",
+      "genericError": "Ajjaj! Hiba van a kódodban.",
+      "congratsWellDone": "Szép munka!",
+      "congratsNiceWork": "Ügyes vagy!",
+      "congratsFantasticJob": "Fantasztikus munka!",
+      "congratsAmazingEffort": "Lenyűgöző teljesítmény!",
+      "congratsGreatAchievement": "Nagyszerű eredmény!",
+      "congratsCongratulations": "Gratulálunk!",
+      "congratsCongrats": "Gratula!"
     },
     "syntaxError": {
-      "heading": "Jiki couldn't understand your code.",
-      "message": "No need to panic. Read and fix the error in the message above, and then run the code again."
+      "heading": "Jiki nem értette a kódodat.",
+      "message": "Semmi pánik! Olvasd el és javítsd ki a fenti üzenetben jelzett hibát, majd futtasd újra a kódot."
     },
     "unhandledError": {
-      "heading": "Oops! Something went <strong>very</strong> wrong.",
-      "message": "<strong>This is our error, not yours!</strong> Please tell us about this error so we can fix it. Copy the mysterious text below and share it with us on <link>the forum</link>. Thank you! 💙"
+      "heading": "Hoppá! Valami <strong>nagyon</strong> félrement.",
+      "message": "<strong>Ez a mi hibánk, nem a tiéd!</strong> Kérünk, jelezd nekünk ezt a hibát, hogy kijavíthassuk. Másold ki a lenti rejtélyes szöveget, és oszd meg velünk <link>a fórumon</link>. Köszönjük! 💙"
     }
   },
   "lesson": {
     "documentTitle": "{title} - Jiki",
-    "loadError": "Failed to load lesson",
-    "backToDashboard": "Back to Dashboard",
+    "loadError": "A lecke betöltése nem sikerült",
+    "backToDashboard": "Vissza az irányítópultra",
     "error": {
-      "message": "Error: {error}"
+      "message": "Hiba: {error}"
     },
-    "quizNotImplemented": "Quiz lessons are not yet implemented",
+    "quizNotImplemented": "A kvízleckék még nem elérhetők",
     "quitButton": {
-      "title": "Quit Lesson",
-      "message": "Are you sure you want to quit this lesson? Your progress won't be saved.",
-      "confirm": "Quit",
-      "cancel": "Continue Learning",
-      "ariaLabel": "Quit lesson"
+      "title": "Kilépés a leckéből",
+      "message": "Biztosan kilépsz ebből a leckéből? A haladásod nem mentődik el.",
+      "confirm": "Kilépés",
+      "cancel": "Tanulás folytatása",
+      "ariaLabel": "Kilépés a leckéből"
     },
     "loadingPage": {
-      "loading": "Loading",
+      "loading": "Betöltés",
       "message": {
-        "video": "Preparing video lesson",
-        "chooseLanguage": "Loading language options",
-        "exercise": "Setting up code editor"
+        "video": "Videólecke előkészítése",
+        "chooseLanguage": "Nyelvi lehetőségek betöltése",
+        "exercise": "Kódszerkesztő előkészítése"
       },
       "tip": {
-        "video": "💡 Tip: You can adjust video playback speed using the controls",
-        "chooseLanguage": "💡 Tip: Choose the language you want to learn with",
-        "exercise": "💡 Tip: Use Cmd/Ctrl + Enter to quickly run your code"
+        "video": "💡 Tipp: A vezérlőkkel módosíthatod a videó lejátszási sebességét",
+        "chooseLanguage": "💡 Tipp: Válaszd ki a nyelvet, amivel tanulni szeretnél",
+        "exercise": "💡 Tipp: A Cmd/Ctrl + Enter billentyűkkel gyorsan lefuttathatod a kódodat"
       }
     },
     "loadingModal": {
-      "title": "Personalising your lesson",
-      "subtitle": "Crafting something based on your preferences and progress"
+      "title": "Leckéd személyre szabása",
+      "subtitle": "Valami olyat készítünk, ami illik a beállításaidhoz és a haladásodhoz"
     }
   },
   "quizCard": {
-    "submit": "Submit",
-    "nextQuestion": "Next Question",
-    "codeInputPlaceholder": "// Type your code here...",
+    "submit": "Beküldés",
+    "nextQuestion": "Következő kérdés",
+    "codeInputPlaceholder": "// Ide írd a kódot...",
     "feedback": {
-      "correct": "Correct!",
-      "incorrect": "Not quite right!"
+      "correct": "Helyes!",
+      "incorrect": "Nem egészen!"
     },
     "fillIn": {
-      "successTitle": "Perfect!",
-      "successMessage": "All blanks filled correctly!",
-      "incorrectTitle": "{count, plural, one {# blank incorrect} other {# blanks incorrect}}",
-      "errorMessage": "Review your answers and try again."
+      "successTitle": "Tökéletes!",
+      "successMessage": "Minden mezőt helyesen töltöttél ki!",
+      "incorrectTitle": "{count, plural, one {# mező hibás} other {# mező hibás}}",
+      "errorMessage": "Nézd át a válaszaid, és próbáld újra."
     },
     "coding": {
-      "successTitle": "Excellent!",
-      "successMessage": "Your code is correct!",
-      "errorTitle": "Not quite right",
-      "errorMessage": "Check your syntax and try again."
+      "successTitle": "Kiváló!",
+      "successMessage": "A kódod helyes!",
+      "errorTitle": "Nem egészen",
+      "errorMessage": "Ellenőrizd a szintaxist, és próbáld újra."
     }
   },
   "videoExercise": {
-    "noVideoSource": "No video source available",
-    "provider": "Provider: {provider}",
-    "skipHint": "You can’t skip ahead on your first watch, but you can rewind anytime.",
+    "noVideoSource": "Nincs elérhető videóforrás",
+    "provider": "Szolgáltató: {provider}",
+    "skipHint": "Első megtekintéskor nem ugorhatsz előre, de visszatekerni bármikor tudsz.",
     "pill": {
-      "complete": "Lesson Complete",
-      "progress": "Lesson Progress",
-      "watching": "Watching <title>{name}</title>",
-      "finished": "Finished <title>{name}</title>",
-      "finishTooltip": "Finish watching to continue"
+      "complete": "Lecke teljesítve",
+      "progress": "Lecke előrehaladása",
+      "watching": "Most nézed: <title>{name}</title>",
+      "finished": "Megnézted: <title>{name}</title>",
+      "finishTooltip": "A folytatáshoz nézd végig a videót"
     }
   },
   "projects": {
     "projectCard": {
-      "comingSoon": "Coming Soon",
-      "comingSoonLabel": "Coming soon"
+      "comingSoon": "Hamarosan",
+      "comingSoonLabel": "Hamarosan"
     },
     "episodeCard": {
       "premium": "Premium"
     },
     "episodeSummary": {
-      "heading": "Episode in Brief",
-      "whereWeStart": "Where we start",
-      "whereWeEnd": "Where we end up",
-      "whatWeCover": "What we cover"
+      "heading": "Az epizód röviden",
+      "whereWeStart": "Innen indulunk",
+      "whereWeEnd": "Ide jutunk el",
+      "whatWeCover": "Ezekről lesz szó"
     },
     "projectPage": {
-      "backToAllProjects": "← Back to <strong>All Projects</strong>"
+      "backToAllProjects": "← Vissza az <strong>összes projekthez</strong>"
     },
     "episodePage": {
-      "backToProject": "← Back to <strong>{title}</strong>",
-      "relevantGuidesDescription": "Guides that might be useful to you when solving this step in the process."
+      "backToProject": "← Vissza: <strong>{title}</strong>",
+      "relevantGuidesDescription": "Útmutatók, amelyek hasznosak lehetnek a folyamat ezen lépésének megoldásához."
     },
     "relevantGuides": {
-      "heading": "Relevant Guides"
+      "heading": "Hasznos útmutatók"
     }
   },
   "guides": {
     "guidesContent": {
-      "pageHeading": "Guides and how-tos",
-      "searchPlaceholder": "Search guides...",
-      "filterAll": "All",
-      "noResultsTitle": "0 results for “{query}”",
-      "noResultsMessage": "Try a different search term or browse the guides."
+      "pageHeading": "Útmutatók és leírások",
+      "searchPlaceholder": "Keresés az útmutatók között...",
+      "filterAll": "Összes",
+      "noResultsTitle": "0 találat a következőre: „{query}”",
+      "noResultsMessage": "Próbálj más keresőszót, vagy böngéssz az útmutatók között."
     },
     "guideCard": {
       "premium": "Premium"
     },
     "guideBreadcrumb": {
-      "guides": "Guides"
+      "guides": "Útmutatók"
     },
     "premiumGate": {
-      "lockedTitle": "This guide is for Premium members",
-      "lockedSubtitle": "Unlock this guide, and everything else Jiki Premium has to offer, to keep reading.",
-      "unlockButton": "Unlock with Premium"
+      "lockedTitle": "Ez az útmutató Premium tagoknak szól",
+      "lockedSubtitle": "Oldd fel ezt az útmutatót és minden mást, amit a Jiki Premium kínál, hogy tovább olvashass.",
+      "unlockButton": "Feloldás Premiummal"
     },
     "relatedGuides": {
-      "heading": "Related Guides"
+      "heading": "Kapcsolódó útmutatók"
     },
     "featuredInProjects": {
-      "heading": "Featured in Projects"
+      "heading": "Ezekben a projektekben szerepel"
     },
     "metadata": {
-      "notFoundTitle": "Guide Not Found"
+      "notFoundTitle": "Az útmutató nem található"
     }
   },
   "unsubscribe": {
-    "title": "Email Preferences",
-    "subtitle": "Manage how and when we communicate with you.",
-    "updateError": "Failed to update your preferences. Please try again.",
-    "toggleAria": "Toggle {name}",
+    "title": "E-mail-beállítások",
+    "subtitle": "Állítsd be, hogyan és mikor kommunikálunk veled.",
+    "updateError": "Nem sikerült frissíteni a beállításaidat. Próbáld újra.",
+    "toggleAria": "{name} be- és kikapcsolása",
     "manage": {
-      "title": "Manage Your Notifications",
-      "description": "Fine-tune which emails you receive by toggling individual notification types on or off.",
-      "updated": "Your email preferences have been updated.",
-      "save": "Change Preferences"
+      "title": "Értesítések kezelése",
+      "description": "Állítsd be pontosan, milyen e-maileket kapsz: kapcsold be vagy ki az egyes értesítéstípusokat.",
+      "updated": "Az e-mail-beállításaidat frissítettük.",
+      "save": "Beállítások módosítása"
     },
     "all": {
-      "title": "Unsubscribe from All Emails",
-      "description": "Want to stop all email communications from Jiki? This will unsubscribe you from all marketing, notification, and reminder emails.",
-      "success": "You've been unsubscribed from all Jiki emails.",
-      "button": "Unsubscribe from All Emails"
+      "title": "Leiratkozás minden e-mailről",
+      "description": "Nem szeretnél több e-mailt kapni a Jikitől? Ezzel leiratkozol az összes marketing-, értesítő és emlékeztető e-mailről.",
+      "success": "Leiratkoztál az összes Jiki-e-mailről.",
+      "button": "Leiratkozás minden e-mailről"
     },
     "email": {
-      "alreadyTitle": "Already Unsubscribed",
-      "alreadyDescription": "You are not currently subscribed to <highlight>{emailType}</highlight> emails.",
-      "title": "Unsubscribe from This Email",
-      "description": "No longer want to receive this type of email? Click below to unsubscribe from <highlight>{emailType}</highlight> emails.",
-      "success": "You've been unsubscribed from {emailType}.",
-      "button": "Unsubscribe from {emailType}",
-      "fallbackType": "these"
+      "alreadyTitle": "Már leiratkoztál",
+      "alreadyDescription": "Jelenleg nem vagy feliratkozva a(z) <highlight>{emailType}</highlight> e-mailekre.",
+      "title": "Leiratkozás erről az e-mailről",
+      "description": "Nem szeretnél több ilyen e-mailt kapni? Kattints lentebb, és leiratkozol a(z) <highlight>{emailType}</highlight> e-mailekről.",
+      "success": "Leiratkoztál a(z) {emailType} e-mailekről.",
+      "button": "Leiratkozás a(z) {emailType} e-mailekről",
+      "fallbackType": "ilyen típusú"
     },
     "types": {
       "newsletters": {
-        "title": "Product Updates",
-        "description": "Stay informed about new features and improvements.",
-        "shortLabel": "product updates"
+        "title": "Termékfrissítések",
+        "description": "Értesülj első kézből az új funkciókról és fejlesztésekről.",
+        "shortLabel": "termékfrissítések"
       },
       "event_emails": {
-        "title": "Event Notifications",
-        "description": "Get notified about upcoming livestreams and events.",
-        "shortLabel": "event notifications"
+        "title": "Eseményértesítések",
+        "description": "Kapj értesítést a közelgő élő adásokról és eseményekről.",
+        "shortLabel": "eseményértesítések"
       },
       "milestone_emails": {
-        "title": "Achievement Notifications",
-        "description": "Receive notifications when you unlock new skills or achievements.",
-        "shortLabel": "achievement notifications"
+        "title": "Eredményértesítések",
+        "description": "Kapj értesítést, amikor új készségeket vagy eredményeket oldasz fel.",
+        "shortLabel": "eredményértesítések"
       },
       "activity_emails": {
-        "title": "Activity Emails",
-        "description": "Activity-based notifications like unlocking badges and completing challenges.",
-        "shortLabel": "activity emails"
+        "title": "Aktivitási e-mailek",
+        "description": "Aktivitáshoz kötött értesítések, például jelvények feloldása és kihívások teljesítése.",
+        "shortLabel": "aktivitási e-mailek"
       },
       "onboarding_emails": {
-        "title": "Getting-Started Emails",
-        "description": "Tips and guidance on how to get the most from Jiki.",
-        "shortLabel": "getting-started emails"
+        "title": "Bevezető e-mailek",
+        "description": "Tippek és útmutatás, hogyan hozd ki a legtöbbet a Jikiből.",
+        "shortLabel": "bevezető e-mailek"
       }
     }
   },
   "achievements": {
-    "title": "Achievements",
-    "description": "Every badge tells a story of your coding journey.",
-    "tabBadges": "Badges",
-    "tabCertificates": "Certificates",
-    "loading": "Loading achievements...",
-    "error": "Error: {error}",
-    "certificatesEmptyTitle": "No certificates yet",
-    "certificatesEmptyBody": "Complete courses to earn certificates that showcase your skills. Your certificates will appear here once you've finished a course."
+    "title": "Eredmények",
+    "description": "Minden jelvény a programozási utad egy-egy történetét meséli el.",
+    "tabBadges": "Jelvények",
+    "tabCertificates": "Tanúsítványok",
+    "loading": "Eredmények betöltése...",
+    "error": "Hiba: {error}",
+    "certificatesEmptyTitle": "Még nincs tanúsítványod",
+    "certificatesEmptyBody": "Végezz el kurzusokat, és szerezz tanúsítványokat, amelyek megmutatják a tudásod. A tanúsítványaid itt jelennek meg, amint befejeztél egy kurzust."
   },
   "challenges": {
-    "title": "Challenges",
-    "description": "Build real applications and games to practice your coding skills.",
-    "tabAll": "All",
-    "tabInProgress": "In Progress",
-    "tabNotStarted": "Not Started",
-    "tabComplete": "Complete",
-    "tabLocked": "Locked",
-    "error": "Error: {error}",
-    "codingChallenge": "Coding Challenge",
-    "premiumOnly": "Premium Only",
+    "title": "Kihívások",
+    "description": "Építs valódi alkalmazásokat és játékokat, és gyakorold közben a programozást.",
+    "tabAll": "Összes",
+    "tabInProgress": "Folyamatban",
+    "tabNotStarted": "El nem kezdett",
+    "tabComplete": "Befejezett",
+    "tabLocked": "Zárolt",
+    "error": "Hiba: {error}",
+    "codingChallenge": "Programozási kihívás",
+    "premiumOnly": "Csak Premiummal",
     "status": {
-      "locked": "Locked",
-      "unlocked": "Not started",
-      "started": "In Progress",
-      "completed": "Completed"
+      "locked": "Zárolt",
+      "unlocked": "El nem kezdett",
+      "started": "Folyamatban",
+      "completed": "Befejezett"
     },
     "empty": {
-      "noneAvailable": "No challenges available yet.",
-      "noneFound": "No challenges found.",
-      "inProgressTitle": "No challenges in progress",
-      "inProgressDescription": "You haven't started any challenges yet. Browse available challenges and click \"Get started\" to begin your first challenge.",
-      "allStartedTitle": "All challenges have been started",
-      "allStartedDescription": "Great progress! You've started working on all available challenges. Keep going to complete them.",
-      "noneToStartTitle": "No challenges to start yet",
-      "noneToStartDescription": "Challenges will appear here as you unlock them.",
-      "completedTitle": "No completed challenges yet",
-      "completedDescription": "Complete your first challenge to see it here. Keep working on your in-progress challenges to reach this milestone."
+      "noneAvailable": "Még nincsenek elérhető kihívások.",
+      "noneFound": "Nem találtunk kihívásokat.",
+      "inProgressTitle": "Nincs folyamatban lévő kihívás",
+      "inProgressDescription": "Még egyetlen kihívást sem kezdtél el. Nézd meg az elérhető kihívásokat, és kattints a „Kezdjük el” gombra az első kihívásodhoz.",
+      "allStartedTitle": "Már minden kihívást elkezdtél",
+      "allStartedDescription": "Szép haladás! Már minden elérhető kihíváson elkezdtél dolgozni. Csak így tovább, fejezd is be őket!",
+      "noneToStartTitle": "Még nincs elkezdhető kihívás",
+      "noneToStartDescription": "A kihívások itt jelennek meg, ahogy feloldod őket.",
+      "completedTitle": "Még nincs befejezett kihívás",
+      "completedDescription": "Fejezd be az első kihívásodat, hogy itt lásd. Dolgozz tovább a folyamatban lévő kihívásaidon, hogy elérd ezt a mérföldkövet."
     }
   },
   "subscription": {
     "tiers": {
       "standard": {
-        "name": "Free",
-        "description": "Perfect for getting started",
+        "name": "Ingyenes",
+        "description": "Tökéletes a kezdéshez",
         "features": {
-          "freeCourses": "Access to free courses",
-          "basicExercises": "Basic coding exercises",
-          "communitySupport": "Community support",
-          "aiHelpPerMonth": "1 AI help per month"
+          "freeCourses": "Hozzáférés az ingyenes kurzusokhoz",
+          "basicExercises": "Alapszintű programozási feladatok",
+          "communitySupport": "Közösségi támogatás",
+          "aiHelpPerMonth": "Havi 1 AI-segítség"
         }
       },
       "premium": {
         "name": "Premium",
-        "description": "Unlock advanced features",
+        "description": "Oldj fel haladó funkciókat",
         "features": {
-          "allFreeFeatures": "All Free features",
-          "unlimitedAi": "Unlimited AI help",
-          "allExercises": "Access to all exercises",
-          "certificates": "Certificates",
-          "adFree": "Ad-free experience"
+          "allFreeFeatures": "Minden Ingyenes funkció",
+          "unlimitedAi": "Korlátlan AI-segítség",
+          "allExercises": "Hozzáférés az összes feladathoz",
+          "certificates": "Tanúsítványok",
+          "adFree": "Reklámmentes élmény"
         }
       }
     }

@@ -1,6 +1,11 @@
 ---
-title: "state - hu"
-description: "Stub description for state"
+title: "Az állapot használata"
+description: "Elágazások kombinálása olyan változókkal, amelyek idővel változnak, hogy a programod futás közben reagáljon, és mindig a helyzetnek megfelelően viselkedjen."
+en_md5: 23fd351d691dc0a7ebb0e3d4621e72a4
 ---
 
-Stub content for hu
+Üdv újra itt! Eddig olyan dolgokra használtunk változókat (variable), amelyeknek önmagukban van jelentésük: valakinek az életkora, az idő, egy szín. Frissítettük is őket, de alapvetően elég statikusak voltak. A programozásban viszont a változók egyik leggyakoribb feladata az, hogy nyomon kövessük velük, hol tartunk éppen egy munkában. Képzeld el, hogy falat építesz (nemsokára tényleg ezt fogod csinálni). A való életben tudnád, hogy éppen melyik téglasoron dolgozol, a legalsón, a legfelsőn vagy valamelyik középsőn, és azt is tudnád, hányadik téglát kell leraknod: a harmadikat, a negyediket, és így tovább. Ugyanerre a digitális világban is szükségünk van. Vagy képzeld el, hogy egy automata Space Invaders-botot készítesz. Annak tudnia kell, hogy a képernyőn balról jobbra haladva éppen hol jár. A programozásban ezt állapotnak (state) hívjuk, arra a kérdésre utalva, hogy „milyen állapotban van éppen?".
+
+Az állapot már önmagában is hasznos, mert tudjuk belőle, mi történik éppen. Igazán hasznossá viszont akkor válik, amikor elágazásokkal (if statements) kombináljuk. Ha falat építünk, minden tégla után ellenőriznünk kell, hogy az adott sor utolsó tégláját raktuk-e le, és ha igen, át kell lépnünk a következő sorra, és megint az első téglával kell kezdenünk. Ha a Space Invaders-botunkat építjük, mozgás előtt ellenőriznünk kell, hogy a képernyő szélén vagyunk-e, és ha igen, meg kell fordulnunk. Ráadásul az irány maga is állapot: azt rögzíti, hogy éppen balra vagy jobbra haladunk.
+
+Ahogy haladsz tovább, az állapot a programozás egyik legfontosabb eleme lesz: annak a tudása, hogy valami hol tart, milyen állapotban van, vagy hogy a feladataink listájában hol járunk. A következő két gyakorlatban állapot segítségével fogsz falat építeni és Space Invaderst játszani, pontosan az imént megbeszélt ötletek alapján. Nagyon fontos, hogy ezeket a feladatokat apró lépésekre bontsd. Gondold végig, pontosan mit kell tudnod a megoldásukhoz: például hogy melyik téglasoron állsz, vagy hol van éppen az aktuális tégla. Gondold végig azokat a szabályokat is, amelyeket a számítógépnek követnie kell ahhoz, hogy felépítse az egész falat. Ez már igazi programozás. Pontosan az ilyesmit csináljuk programozóként nap mint nap. Egyre összetettebb, de egyre szórakoztatóbb is. Ezeket a mintákat eleinte időbe telik megszokni, úgyhogy ne siess, érezd jól magad, és hamarosan találkozunk!
