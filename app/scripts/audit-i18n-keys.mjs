@@ -24,6 +24,11 @@
  *     `namespace + "." + literal`. We resolve against the message tree.
  *   - `t.has("k")` is an existence probe, so a missing key there is legitimate —
  *     those references are NOT required (they're reported separately, quietly).
+ *   - The keyed toast helpers in `lib/toast.tsx` — toastError / toastSuccess /
+ *     toastMessage / toastLoading(key, …) — take a `toasts`-namespace key as
+ *     their first arg, resolved at render time by `<ToastMessage>`, so their
+ *     call sites carry no `useTranslations` binding. A dedicated pass scans them
+ *     and treats a literal first arg as a required ref at `toasts.<key>`.
  *   - Dynamic keys — `t(\`nav.${id}\`)`, `t(item.key as ...)`, `t(variable)` —
  *     cannot be resolved statically. They are reported as "unverifiable", never
  *     flagged as missing (no false positives).
@@ -254,6 +259,52 @@ function scanFile(file, refs, dynamics, hasProbes) {
 }
 
 // ---------------------------------------------------------------------------
+// Keyed toast helpers (lib/toast.tsx)
+// ---------------------------------------------------------------------------
+
+// The four keyed toast helpers each take a `toasts`-namespace key as their first
+// argument; the copy is resolved later by <ToastMessage>, so these call sites
+// have no useTranslations/getTranslations binding for the scan above to catch.
+// The names are globally unique and always imported under their own name (no
+// aliasing), so a plain name match is enough. lib/toast.tsx is the source of
+// truth for this list.
+const TOAST_HELPERS = ["toastError", "toastSuccess", "toastMessage", "toastLoading"];
+const TOAST_NAMESPACE = "toasts";
+const TOAST_SOURCE = path.join("lib", "toast.tsx"); // where the helpers are defined — skip so their signatures aren't scanned as calls
+const TOAST_CALL_RE = new RegExp(`\\b(${TOAST_HELPERS.join("|")})\\s*\\(`, "g");
+
+/**
+ * Scan a file for keyed toast-helper calls. A literal first arg becomes a
+ * required ref at `toasts.<key>`; a template literal with ${} or a non-literal
+ * first arg (variable, ternary, …) goes into the dynamics bucket like any other
+ * unverifiable reference.
+ */
+function scanToastCalls(file, refs, dynamics) {
+  const rel = path.relative(APP_DIR, file);
+  if (rel === TOAST_SOURCE) {
+    return; // the helper definitions themselves, not call sites
+  }
+  const src = fs.readFileSync(file, "utf8");
+  let cm;
+  TOAST_CALL_RE.lastIndex = 0;
+  while ((cm = TOAST_CALL_RE.exec(src)) !== null) {
+    const openParen = cm.index + cm[0].length; // index right after "("
+    const arg = firstArgLiteral(src, openParen);
+    const line = src.slice(0, cm.index).split("\n").length;
+    const where = `${rel}:${line}`;
+    if (arg.kind === "dynamic") {
+      dynamics.push({ where, reason: "dynamic toast key", namespace: TOAST_NAMESPACE, varName: cm[1] });
+      continue;
+    }
+    const fullKey = `${TOAST_NAMESPACE}.${arg.value}`;
+    if (!refs.has(fullKey)) {
+      refs.set(fullKey, new Set());
+    }
+    refs.get(fullKey).add(where);
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -275,6 +326,7 @@ function main() {
     for (const file of walk(dir)) {
       fileCount++;
       scanFile(file, refs, dynamics, hasProbes);
+      scanToastCalls(file, refs, dynamics);
     }
   }
 
