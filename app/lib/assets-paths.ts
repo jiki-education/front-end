@@ -26,6 +26,10 @@ export function exerciseMessagesPath(slug: string, locale: string, hash: string)
   return `/static/i18n/exercises/${slug}/${locale}/messages-${hash}.json`;
 }
 
+export function appMessagesPath(locale: string, hash: string): string {
+  return `/static/i18n/app/${locale}/messages-${hash}.json`;
+}
+
 export function interpreterMessagesPath(language: string, locale: string, hash: string): string {
   return `/static/i18n/interpreter/${language}/${locale}/messages-${hash}.json`;
 }

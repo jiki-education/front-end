@@ -1,7 +1,9 @@
 "use client";
 
 import LoadingJiki from "@/components/ui/LoadingJiki";
+import { assetsUrl } from "@/lib/assets";
 import { useAuthStore } from "@/lib/auth/authStore";
+import { createCatalogLoader } from "@/lib/i18n/catalogLoader";
 import { DEFAULT_TIME_ZONE, normalizeLocale, type Locale } from "@/lib/i18n/config";
 import { setLocaleCookie } from "@/lib/i18n/localeCookie";
 import { NextIntlClientProvider, type AbstractIntlMessages } from "next-intl";
@@ -73,18 +75,18 @@ export function ClientLocaleProvider({ initialLocale, initialMessages, children 
   );
 }
 
-// Dynamically loads a locale's message catalog and reports the outcome. Returns a
-// cleanup that cancels the pending swap (so an unmount / superseding locale change
-// doesn't apply a stale catalog).
+// Fetches a locale's message catalog from R2 (the content-hashed cache tree) and
+// reports the outcome. Returns a cleanup that cancels the pending swap (so an
+// unmount / superseding locale change doesn't apply a stale catalog).
 function loadLocaleCatalog(
   locale: Locale,
   { onLoaded, onFailed }: { onLoaded: (messages: AbstractIntlMessages) => void; onFailed: () => void }
 ): () => void {
   let cancelled = false;
-  void import(`@/messages/${locale}.json`)
-    .then((mod) => {
+  void fetchCatalog(locale)
+    .then((messages) => {
       if (!cancelled) {
-        onLoaded(mod.default as AbstractIntlMessages);
+        onLoaded(messages);
       }
     })
     .catch(() => {
@@ -95,4 +97,15 @@ function loadLocaleCatalog(
   return () => {
     cancelled = true;
   };
+}
+
+// R2-fetched catalog loader (see lib/i18n/catalogLoader.ts), shared across swaps
+// so a re-entered locale reuses one request: promise cache keyed
+// `${locale}:${hash}` (the hash is immutable per build, so a resolved entry stays
+// valid), one retry on failure, and eviction of a rejected fetch so a later swap
+// attempt retries. Mirrors `lib/i18n/request.ts` — there is NO bundled fallback.
+const loadCatalog = createCatalogLoader(assetsUrl);
+
+function fetchCatalog(locale: Locale): Promise<AbstractIntlMessages> {
+  return loadCatalog(locale) as Promise<AbstractIntlMessages>;
 }
