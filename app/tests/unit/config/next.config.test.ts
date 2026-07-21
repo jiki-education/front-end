@@ -13,4 +13,24 @@ describe("Next.js Configuration", () => {
     expect(nextConfig).toBeDefined();
     expect(nextConfig.productionBrowserSourceMaps).toBe(false);
   });
+
+  it("redirects bare /articles to /help with an exact permanent rule ordered before the wildcard", async () => {
+    const redirects = await nextConfig.redirects!();
+
+    const exactIndex = redirects.findIndex((r) => r.source === "/articles");
+    const wildcardIndex = redirects.findIndex((r) => r.source === "/articles/:path*");
+
+    expect(exactIndex).toBeGreaterThanOrEqual(0);
+    expect(wildcardIndex).toBeGreaterThanOrEqual(0);
+    // The exact rule must win, so it has to come first: :path* does not match
+    // zero segments, so a bare /articles would otherwise 308 to the literal
+    // "/help/:path*" and 404.
+    expect(exactIndex).toBeLessThan(wildcardIndex);
+
+    expect(redirects[exactIndex]).toMatchObject({
+      source: "/articles",
+      destination: "/help",
+      permanent: true
+    });
+  });
 });

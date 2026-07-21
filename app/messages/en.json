@@ -567,9 +567,6 @@
       "byAuthor": "by {name}",
       "subheading": "Keep up to date with what's happening at Jiki in <link>our blog</link>."
     },
-    "monthlyPrice": {
-      "fallback": "$9.99"
-    },
     "welcome": {
       "para1": "In 2026, anyone can open Cursor and create a fully-functional product in minutes. Maybe you've done it yourself! Something that would have taken you <strong>years to learn</strong> to make in the past is now available in seconds. So what does it mean to be a developer now? What does it mean to have a <strong>career in tech</strong>?",
       "para2": "Here's a secret no-one tells you. <highlight><strong>Software engineering has never been about writing code.</strong></highlight> Coding is how you communicate with the computer, but the real skill has always been in <strong>critical-thinking</strong>, in <strong>problem solving</strong>, in <strong>building and architecting</strong>. It's always been about taking ideas and <strong>turning them into reality</strong>.",
@@ -1407,6 +1404,7 @@
   },
   "codingExercise": {
     "loadError": "Error loading exercise: {error}",
+    "unknownError": "Unknown error",
     "runButton": {
       "run": "Run Code",
       "running": "Running...",

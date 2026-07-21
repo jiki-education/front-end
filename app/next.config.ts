@@ -72,9 +72,16 @@ const nextConfig: NextConfig = {
         permanent: false
       },
       {
-        // The Help Center used to live at /articles. :path* also matches zero
-        // segments, so this covers the index too. Only naked paths need
-        // handling: no non-default locale was live before the move.
+        // The Help Center used to live at /articles. Bare "/articles" needs its
+        // own exact rule: :path* does NOT match zero segments here, so without
+        // this the index would 308 to the literal "/help/:path*" and 404.
+        source: "/articles",
+        destination: "/help",
+        permanent: true
+      },
+      {
+        // Sub-paths of the old Help Center. Only naked paths need handling: no
+        // non-default locale was live before the move.
         source: "/articles/:path*",
         destination: "/help/:path*",
         permanent: true

@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
 import { hideModal } from "../store";
 import type { MembershipTier } from "@/lib/pricing";
@@ -20,6 +20,7 @@ interface SubscriptionSuccessModalProps {
 
 export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onClose }: SubscriptionSuccessModalProps) {
   const t = useTranslations("modals.subscriptionSuccess");
+  const format = useFormatter();
   const tCommon = useTranslations("common");
   const tTiers = useTranslations("subscription.tiers");
   const tPremium = useTranslations("subscription.tiers.premium");
@@ -31,8 +32,16 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
     tPremium("features.certificates")
   ];
 
-  // Calculate renewal date once at render time to avoid calling Date.now() during render
-  const [renewalDate] = useState(() => new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString());
+  // Calculate the renewal date once at render time to avoid calling Date.now() during render.
+  // Format in the active locale via next-intl's formatter (short month/day/year), matching the
+  // billing-date formatting in components/settings/subscription/useSubscription.ts.
+  const [renewalDate] = useState(() =>
+    format.dateTime(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), {
+      month: "short",
+      day: "numeric",
+      year: "numeric"
+    })
+  );
 
   const getContextualContent = () => {
     switch (triggerContext) {
