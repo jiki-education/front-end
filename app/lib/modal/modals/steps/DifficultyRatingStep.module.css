@@ -21,8 +21,8 @@
 .sliderTrack {
     position: absolute;
     top: 12px;
-    left: 12px;
-    right: 12px;
+    inset-inline-start: 12px;
+    inset-inline-end: 12px;
     height: 3px;
     background: var(--color-gray-200);
     border-radius: 2px;
@@ -109,8 +109,8 @@
 .emojiRatingLine {
     position: absolute;
     top: 28px;
-    left: 28px;
-    right: 28px;
+    inset-inline-start: 28px;
+    inset-inline-end: 28px;
     height: 3px;
     background: #f5d78e;
     border-radius: 2px;

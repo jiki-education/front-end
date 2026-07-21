@@ -80,8 +80,8 @@
         text-align: center;
         text-wrap: balance;
         max-width: 850px;
-        margin-left: auto;
-        margin-right: auto;
+        margin-inline-start: auto;
+        margin-inline-end: auto;
         margin-bottom: 20px;
 
         @media (min-width: 768px) {
@@ -90,8 +90,8 @@
     }
 
     .header {
-        padding-left: 24px;
-        padding-right: 24px;
+        padding-inline-start: 24px;
+        padding-inline-end: 24px;
         padding-top: 24px;
         padding-bottom: 24px;
         border-top-width: 7px;
@@ -124,7 +124,7 @@
             opacity: 0.02;
             position: absolute;
             top: 5%;
-            right: 10px;
+            inset-inline-end: 10px;
             bottom: 5%;
             width: auto !important;
             height: 90% !important;
@@ -143,8 +143,8 @@
                 border-radius: 10px;
                 padding-top: 4px;
                 padding-bottom: 4px;
-                padding-left: 12px;
-                padding-right: 12px;
+                padding-inline-start: 12px;
+                padding-inline-end: 12px;
                 font-size: 13px;
                 color: #fff;
 
@@ -186,8 +186,8 @@
         flex-grow: 1;
         padding-top: 24px;
         padding-bottom: 24px;
-        padding-left: 24px;
-        padding-right: 24px;
+        padding-inline-start: 24px;
+        padding-inline-end: 24px;
         border: 3px solid;
 
         .point {
@@ -200,7 +200,7 @@
             }
 
             ul {
-                padding-left: 20px;
+                padding-inline-start: 20px;
             }
 
             p,
@@ -224,8 +224,8 @@
             text-align: center;
             font-size: 18px;
             font-weight: 600;
-            padding-left: 20px;
-            padding-right: 20px;
+            padding-inline-start: 20px;
+            padding-inline-end: 20px;
             padding-top: 12px;
             padding-bottom: 12px;
             border-radius: 8px;
@@ -242,7 +242,7 @@
 
     .lhs-bg {
         top: 20%;
-        left: 0;
+        inset-inline-start: 0;
         transform: translateX(-25%);
         width: 50%;
         height: 50%;
@@ -251,7 +251,7 @@
 
     .rhs-bg {
         bottom: -50%;
-        right: 0;
+        inset-inline-end: 0;
         width: 50%;
         height: 100%;
         background-size: cover;

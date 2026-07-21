@@ -197,9 +197,9 @@ export default function AccessibilityTestPage() {
                 <input type="checkbox" className="sr-only" />
                 <div className="relative">
                   <div className="block bg-bg-secondary w-14 h-8 rounded-full border border-border-primary"></div>
-                  <div className="absolute left-1 top-1 bg-button-primary-bg w-6 h-6 rounded-full transition focus-ring"></div>
+                  <div className="absolute start-1 top-1 bg-button-primary-bg w-6 h-6 rounded-full transition focus-ring"></div>
                 </div>
-                <span className="ml-3 text-text-primary">Enable dark mode</span>
+                <span className="ms-3 text-text-primary">Enable dark mode</span>
               </label>
             </div>
           </div>

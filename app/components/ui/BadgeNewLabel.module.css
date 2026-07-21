@@ -1,7 +1,7 @@
 .newLabel {
     position: absolute;
     top: -10px;
-    right: 12px;
+    inset-inline-end: 12px;
     background: linear-gradient(135deg, var(--color-blue-500) 0%, var(--color-purple-500) 100%);
     color: white;
     padding: 4px 10px;

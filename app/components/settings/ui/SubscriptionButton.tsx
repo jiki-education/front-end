@@ -55,7 +55,7 @@ export default function SubscriptionButton({
       {loading && (
         <div className="inline-flex items-center">
           <div
-            className="animate-spin rounded-full h-4 w-4 border-b-2 border-current mr-2"
+            className="animate-spin rounded-full h-4 w-4 border-b-2 border-current me-2"
             role="status"
             aria-label={t("loading")}
           />

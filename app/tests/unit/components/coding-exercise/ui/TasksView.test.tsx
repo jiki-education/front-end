@@ -293,12 +293,12 @@ describe("TasksView", () => {
       expect(taskContainer).toBeInTheDocument();
       expect(taskContainer).toHaveClass(
         "bg-blue-50",
-        "border-l-4",
+        "border-s-4",
         "border-blue-400",
         "-mx-2",
         "px-2",
         "py-2",
-        "rounded-r",
+        "rounded-e",
         "shadow-sm"
       );
     });

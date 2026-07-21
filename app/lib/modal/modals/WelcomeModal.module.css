@@ -58,8 +58,8 @@
 }
 
 .cta {
-    padding-left: 64px !important;
-    padding-right: 64px !important;
+    padding-inline-start: 64px !important;
+    padding-inline-end: 64px !important;
     font-size: 18px;
 }
 

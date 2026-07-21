@@ -46,7 +46,7 @@ export default function TasksView({ tasks, orchestrator, className = "" }: Tasks
               />
               <div
                 className={`flex-1 cursor-pointer transition-all hover:opacity-80 ${
-                  isCurrent ? "bg-blue-50 border-l-4 border-blue-400 -mx-2 px-2 py-2 rounded-r shadow-sm" : ""
+                  isCurrent ? "bg-blue-50 border-s-4 border-blue-400 -mx-2 px-2 py-2 rounded-e shadow-sm" : ""
                 }`}
                 onClick={() => handleTaskClick(task.id)}
               >
@@ -62,7 +62,7 @@ export default function TasksView({ tasks, orchestrator, className = "" }: Tasks
                   >
                     {task.name}
                     {task.bonus && (
-                      <span className="ml-2 px-2 py-0.5 text-xs bg-yellow-100 text-yellow-700 rounded">
+                      <span className="ms-2 px-2 py-0.5 text-xs bg-yellow-100 text-yellow-700 rounded">
                         {t("bonus")}
                       </span>
                     )}

@@ -37,7 +37,7 @@
     content: "";
     position: absolute;
     top: -50%;
-    left: -50%;
+    inset-inline-start: -50%;
     width: 200%;
     height: 200%;
     background: linear-gradient(
@@ -86,8 +86,8 @@
 .challengeCardSimpleBack {
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
     margin: 0 auto;
     width: 320px;
     background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
@@ -111,8 +111,8 @@
     border-radius: 16px;
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
     margin: 0 auto;
     width: 320px;
     z-index: 0;
@@ -121,7 +121,7 @@
 .challengeCardSimpleNewLabel {
     position: absolute;
     top: 12px;
-    right: 12px;
+    inset-inline-end: 12px;
     background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
     color: white;
     font-size: 11px;

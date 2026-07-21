@@ -37,7 +37,7 @@
 }
 
 .sectionTitle .unlockedCount {
-    margin-left: auto;
+    margin-inline-start: auto;
     font-size: 14px;
     font-weight: 500;
     color: var(--color-gray-500);
@@ -98,7 +98,7 @@
     color: #1a202c;
     position: absolute;
     top: 50%;
-    left: 50%;
+    inset-inline-start: 50%;
     transform: translate(-50%, -50%);
     opacity: 0;
     transition: all 0.3s ease;
@@ -120,8 +120,8 @@
 .cardProgressBar {
     position: absolute;
     bottom: 12px;
-    left: 12px;
-    right: 12px;
+    inset-inline-start: 12px;
+    inset-inline-end: 12px;
     height: 6px;
     background: var(--color-gray-100);
     border-radius: 3px;

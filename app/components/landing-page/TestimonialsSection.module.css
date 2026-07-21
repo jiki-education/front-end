@@ -68,7 +68,7 @@
             .right-mark {
                 transform: scaleX(-1);
                 display: inline;
-                margin-left: 12px;
+                margin-inline-start: 12px;
             }
         }
 
@@ -83,7 +83,7 @@
                 height: 50px;
                 width: 50px;
                 border-radius: 100%;
-                margin-left: 6px;
+                margin-inline-start: 6px;
             }
 
             .text {
@@ -136,8 +136,8 @@
         display: inline-block;
         filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.1));
         border-radius: 20px;
-        padding-left: 24px;
-        padding-right: 24px;
+        padding-inline-start: 24px;
+        padding-inline-end: 24px;
         padding-top: 24px;
 
         .words {
@@ -171,7 +171,7 @@
             .right-mark {
                 transform: scaleX(-1);
                 display: inline;
-                margin-left: 6px;
+                margin-inline-start: 6px;
             }
         }
 
@@ -183,10 +183,10 @@
             background-position: center;
             background-repeat: no-repeat;
             background-size: 100px;
-            margin-left: auto;
+            margin-inline-start: auto;
             background-color: #fff;
             border-radius: 20px;
-            left: 16px;
+            inset-inline-start: 16px;
         }
 
         .person {
@@ -195,11 +195,11 @@
             position: absolute;
             background-color: #fff;
             border-radius: 20px;
-            padding-left: 20px;
-            padding-right: 20px;
+            padding-inline-start: 20px;
+            padding-inline-end: 20px;
             padding-top: 12px;
             padding-bottom: 12px;
-            right: 16px;
+            inset-inline-end: 16px;
             filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.1));
 
             img {

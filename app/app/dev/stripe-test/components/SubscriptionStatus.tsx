@@ -35,21 +35,21 @@ export function SubscriptionStatus({ user }: SubscriptionStatusProps) {
         <dl className="space-y-1 text-sm">
           <div>
             <dt className="inline font-medium">Raw Status:</dt>
-            <dd className="inline ml-2">{user.subscription_status}</dd>
+            <dd className="inline ms-2">{user.subscription_status}</dd>
           </div>
           <div>
             <dt className="inline font-medium">In Grace Period:</dt>
-            <dd className="inline ml-2">{user.subscription?.in_grace_period ? "Yes" : "No"}</dd>
+            <dd className="inline ms-2">{user.subscription?.in_grace_period ? "Yes" : "No"}</dd>
           </div>
           {user.subscription?.grace_period_ends_at && (
             <div>
               <dt className="inline font-medium">Grace Period Ends:</dt>
-              <dd className="inline ml-2">{new Date(user.subscription.grace_period_ends_at).toLocaleDateString()}</dd>
+              <dd className="inline ms-2">{new Date(user.subscription.grace_period_ends_at).toLocaleDateString()}</dd>
             </div>
           )}
           <div>
             <dt className="inline font-medium">Subscription Object:</dt>
-            <dd className="inline ml-2">{user.subscription ? "Present" : "Null"}</dd>
+            <dd className="inline ms-2">{user.subscription ? "Present" : "Null"}</dd>
           </div>
         </dl>
       </div>

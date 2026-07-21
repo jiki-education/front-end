@@ -11,12 +11,12 @@
 
     ol li {
         list-style: decimal;
-        margin-left: 18px;
+        margin-inline-start: 18px;
     }
 
     ul li {
         list-style: disc;
-        margin-left: 18px;
+        margin-inline-start: 18px;
     }
 
     strong {
@@ -88,7 +88,7 @@
         &:before {
             content: "";
             position: absolute;
-            left: -2px;
+            inset-inline-start: -2px;
             top: -2px;
             background: linear-gradient(
                 45deg,
@@ -138,7 +138,7 @@
         align-items: center;
         margin-top: 8px;
         margin-bottom: 12px;
-        margin-right: 80px;
+        margin-inline-end: 80px;
         transform: scaleX(-1);
     }
 
@@ -152,16 +152,16 @@
 
     .rhodriCard {
         margin-top: 20px;
-        margin-right: 0;
+        margin-inline-end: 0;
 
         @media (min-width: 640px) {
             float: right;
-            margin-left: 24px;
+            margin-inline-start: 24px;
             margin-bottom: 24px;
         }
 
         @media (min-width: 1280px) {
-            margin-right: -100px;
+            margin-inline-end: -100px;
         }
     }
 
@@ -190,8 +190,8 @@
         text-align: center;
         font-weight: 400;
         padding-top: 8px;
-        padding-left: 8px;
-        padding-right: 8px;
+        padding-inline-start: 8px;
+        padding-inline-end: 8px;
         line-height: 140%;
     }
 
@@ -267,7 +267,7 @@
     position: absolute;
     height: 70px;
     width: 70px;
-    right: -60px;
+    inset-inline-end: -60px;
     top: -13px;
     transform: rotate(140deg);
 }

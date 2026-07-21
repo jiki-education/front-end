@@ -16,7 +16,7 @@
 }
 
 .duration {
-    margin-left: auto;
+    margin-inline-start: auto;
     font-size: 14px;
     font-weight: 500;
     color: var(--color-gray-500);
@@ -54,7 +54,7 @@
 .playBtn {
     position: absolute;
     top: 50%;
-    left: 50%;
+    inset-inline-start: 50%;
     transform: translate(-50%, -50%);
     width: 56px;
     height: 56px;
@@ -72,6 +72,6 @@
         width: 22px;
         height: 22px;
         fill: var(--color-gray-800);
-        margin-left: 3px;
+        margin-inline-start: 3px;
     }
 }

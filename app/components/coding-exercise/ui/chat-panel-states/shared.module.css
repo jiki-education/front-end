@@ -64,7 +64,7 @@
     height: auto;
     position: absolute;
     top: -30px;
-    right: -60px;
+    inset-inline-end: -60px;
     transform: rotate(135deg);
 }
 

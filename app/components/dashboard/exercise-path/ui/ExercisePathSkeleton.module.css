@@ -44,7 +44,7 @@
     width: 3px;
     height: 25px;
     bottom: -25px;
-    left: 50%;
+    inset-inline-start: 50%;
     transform: translateX(-50%);
     pointer-events: none;
 }
@@ -52,7 +52,7 @@
 .skeletonStatusBadge {
     position: absolute;
     top: 16px;
-    right: 16px;
+    inset-inline-end: 16px;
     width: 28px;
     height: 28px;
     border-radius: 50%;
@@ -114,7 +114,7 @@
     background: var(--color-gray-200);
     width: 3px;
     height: 45px;
-    left: 50%;
+    inset-inline-start: 50%;
     transform: translateX(-50%);
     pointer-events: none;
 }

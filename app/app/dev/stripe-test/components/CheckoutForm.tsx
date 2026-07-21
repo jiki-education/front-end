@@ -59,7 +59,7 @@ export function CheckoutForm({ tier, onCancel }: { tier: MembershipTier; onCance
             <p className="font-medium">{pricingTier.name} Plan</p>
             <p className="text-sm text-gray-600">{pricingTier.description}</p>
           </div>
-          <div className="text-right">
+          <div className="text-end">
             <p className="text-2xl font-bold">
               <PremiumPrice interval="monthly" />
             </p>

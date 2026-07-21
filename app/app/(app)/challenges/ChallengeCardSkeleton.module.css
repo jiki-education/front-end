@@ -17,7 +17,7 @@
 .skeletonBadge {
     position: absolute;
     top: 0;
-    right: 20px;
+    inset-inline-end: 20px;
     width: 80px;
     height: 32px;
     background: linear-gradient(90deg, var(--color-gray-100) 25%, var(--color-gray-200) 50%, var(--color-gray-100) 75%);

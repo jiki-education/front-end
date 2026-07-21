@@ -61,7 +61,7 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
   };
 
   return (
-    <div className="p-24 max-w-md mx-auto text-left">
+    <div className="p-24 max-w-md mx-auto text-start">
       <h2 className="text-2xl font-bold mb-16">{t("title")}</h2>
 
       <div className="bg-blue-50 text-blue-700 p-12 rounded-md text-sm mb-16">

@@ -1,7 +1,7 @@
 .statusBadge {
     position: absolute;
     top: 0;
-    right: 20px;
+    inset-inline-end: 20px;
     background: rgba(59, 130, 246, 0.1);
     color: var(--color-blue-500);
     padding: 7px 12px;
@@ -28,7 +28,7 @@
     margin: 0;
     border: 0;
     background: transparent;
-    text-align: left;
+    text-align: start;
     cursor: pointer;
     font: inherit;
     color: inherit;
@@ -137,7 +137,7 @@
 .actionLink {
     position: absolute;
     bottom: 20px;
-    right: 20px;
+    inset-inline-end: 20px;
     font-size: 14px;
     font-weight: 500;
     color: var(--color-blue-500);

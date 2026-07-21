@@ -1,7 +1,7 @@
 .dots {
     display: inline-block;
     width: 24px;
-    text-align: left;
+    text-align: start;
 }
 
 .dots::after {

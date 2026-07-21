@@ -17,8 +17,8 @@ export default function LessonLoadingPage({ title, type }: LessonLoadingPageProp
       <div className="relative opacity-0 animate-[fadeIn_300ms_ease-in-out_forwards]">
         {/* Background circles for depth - using transform for better performance */}
         <div className="absolute -inset-20 opacity-20">
-          <div className="absolute top-0 left-0 w-32 h-32 bg-blue-400 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-0 w-40 h-40 bg-purple-400 rounded-full blur-3xl" />
+          <div className="absolute top-0 start-0 w-32 h-32 bg-blue-400 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 end-0 w-40 h-40 bg-purple-400 rounded-full blur-3xl" />
         </div>
 
         {/* Main content */}

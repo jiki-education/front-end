@@ -60,7 +60,7 @@ export default function TestGlobalModals() {
                 content: (
                   <div className="space-y-2">
                     <p>The global modal system provides:</p>
-                    <ul className="list-disc list-inside pl-4">
+                    <ul className="list-disc list-inside ps-4">
                       <li>Simple API - just import and use</li>
                       <li>No context providers needed at component level</li>
                       <li>Works from any page or component</li>

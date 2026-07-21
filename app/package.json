@@ -38,6 +38,7 @@
     "test:e2e:report": "playwright show-report playwright-report",
     "test:all": "pnpm test && pnpm test:e2e",
     "lint": "eslint",
+    "lint:css": "stylelint \"**/*.css\"",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "knip": "knip"
@@ -127,8 +128,10 @@
     "knip": "^5.82.0",
     "npm-run-all": "^4.1.5",
     "onchange": "^7.1.0",
+    "postcss": "^8.5.21",
     "prettier": "^3.8.0",
     "raw-loader": "^4.0.2",
+    "stylelint": "^17.14.1",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
     "wrangler": "^4.59.2"

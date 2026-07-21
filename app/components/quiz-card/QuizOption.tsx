@@ -25,7 +25,7 @@ export function QuizOption({ text, index, state, onSelect, disabled }: QuizOptio
 
   const getButtonStyles = () => {
     const base =
-      "w-full px-4 py-12 text-left rounded-lg transition-all duration-200 flex items-center justify-between group";
+      "w-full px-4 py-12 text-start rounded-lg transition-all duration-200 flex items-center justify-between group";
 
     switch (state) {
       case "default":
@@ -62,7 +62,7 @@ export function QuizOption({ text, index, state, onSelect, disabled }: QuizOptio
         <span className="text-gray-800">{text}</span>
       </div>
       {showIcon && (
-        <div className="ml-2">
+        <div className="ms-2">
           {state === "correct" && <Check className="w-20 h-20 text-green-600" />}
           {state === "incorrect" && <X className="w-20 h-20 text-red-600" />}
           {state === "correct-reveal" && <Check className="w-20 h-20 text-green-600" />}

@@ -13,11 +13,11 @@ export default function DevPage() {
           <dl className="space-y-2">
             <div>
               <dt className="inline font-medium">Node Environment:</dt>
-              <dd className="inline ml-2">{process.env.NODE_ENV}</dd>
+              <dd className="inline ms-2">{process.env.NODE_ENV}</dd>
             </div>
             <div>
               <dt className="inline font-medium">Next.js Version:</dt>
-              <dd className="inline ml-2">{process.env.NEXT_RUNTIME ? "Edge Runtime" : "Node Runtime"}</dd>
+              <dd className="inline ms-2">{process.env.NEXT_RUNTIME ? "Edge Runtime" : "Node Runtime"}</dd>
             </div>
           </dl>
         </div>
@@ -29,13 +29,13 @@ export default function DevPage() {
               <Link href="/dev/llm-chat" className="text-blue-600 hover:underline">
                 LLM Chat Proxy Test
               </Link>
-              <span className="text-gray-600 text-sm ml-2">- Test the LLM chat proxy with SSE streaming</span>
+              <span className="text-gray-600 text-sm ms-2">- Test the LLM chat proxy with SSE streaming</span>
             </li>
             <li>
               <Link href="/dev/stripe-test" className="text-blue-600 hover:underline">
                 Stripe Subscription Test
               </Link>
-              <span className="text-gray-600 text-sm ml-2">
+              <span className="text-gray-600 text-sm ms-2">
                 - Test Stripe subscription flows, upgrades, downgrades, and customer portal43
               </span>
             </li>
@@ -43,7 +43,7 @@ export default function DevPage() {
               <Link href="/dev/typing-test" className="text-blue-600 hover:underline">
                 Typing Effect Test
               </Link>
-              <span className="text-gray-600 text-sm ml-2">
+              <span className="text-gray-600 text-sm ms-2">
                 - Test TypeIt.js chat typing animation without API calls
               </span>
             </li>
@@ -51,19 +51,19 @@ export default function DevPage() {
               <Link href="/dev/ui-kit" className="text-blue-600 hover:underline">
                 UI Kit Demo
               </Link>
-              <span className="text-gray-600 text-sm ml-2">- Simple demo of all UI kit components</span>
+              <span className="text-gray-600 text-sm ms-2">- Simple demo of all UI kit components</span>
             </li>
             <li>
               <Link href="/dev/oauth-google" className="text-blue-600 hover:underline">
                 Google OAuth Test
               </Link>
-              <span className="text-gray-600 text-sm ml-2">- Test Google Sign-In integration with backend</span>
+              <span className="text-gray-600 text-sm ms-2">- Test Google Sign-In integration with backend</span>
             </li>
             <li>
               <Link href="/dev/subscription-modal-test" className="text-blue-600 hover:underline">
                 Subscription Modal Test
               </Link>
-              <span className="text-gray-600 text-sm ml-2">
+              <span className="text-gray-600 text-sm ms-2">
                 - Test the new global subscription modal system with different contexts
               </span>
             </li>
@@ -71,7 +71,7 @@ export default function DevPage() {
               <Link href="/dev/test-global-modals" className="text-blue-600 hover:underline">
                 Global Modal System Test
               </Link>
-              <span className="text-gray-600 text-sm ml-2">
+              <span className="text-gray-600 text-sm ms-2">
                 - Test all global modals including subscription, confirmation, and info modals
               </span>
             </li>
@@ -79,25 +79,25 @@ export default function DevPage() {
               <Link href="/dev/premium-upgrade-modal-test" className="text-blue-600 hover:underline">
                 Premium Upgrade Modal Test
               </Link>
-              <span className="text-gray-600 text-sm ml-2">- Test the new premium upgrade modal with clean design</span>
+              <span className="text-gray-600 text-sm ms-2">- Test the new premium upgrade modal with clean design</span>
             </li>
             <li>
               <Link href="/dev/buttons" className="text-blue-600 hover:underline">
                 Buttons
               </Link>
-              <span className="text-gray-600 text-sm ml-2">- All ui-btn variants and styles</span>
+              <span className="text-gray-600 text-sm ms-2">- All ui-btn variants and styles</span>
             </li>
             <li>
               <Link href="/dev/chat-panel-states" className="text-blue-600 hover:underline">
                 Chat Panel States
               </Link>
-              <span className="text-gray-600 text-sm ml-2">- All chat panel state components</span>
+              <span className="text-gray-600 text-sm ms-2">- All chat panel state components</span>
             </li>
             <li>
               <Link href="/dev/textual-content" className="text-blue-600 hover:underline">
                 Textual Content Styling
               </Link>
-              <span className="text-gray-600 text-sm ml-2">
+              <span className="text-gray-600 text-sm ms-2">
                 - Typography and admonition styles for markdown content
               </span>
             </li>
@@ -105,7 +105,7 @@ export default function DevPage() {
               <Link href="/dev/walkthrough-card" className="text-blue-600 hover:underline">
                 Walkthrough Card
               </Link>
-              <span className="text-gray-600 text-sm ml-2">
+              <span className="text-gray-600 text-sm ms-2">
                 - All walkthrough card states (locked, unwatched, watching, watched)
               </span>
             </li>
@@ -113,13 +113,13 @@ export default function DevPage() {
               <Link href="/dev/hints-walkthrough" className="text-blue-600 hover:underline">
                 Hints Walkthrough
               </Link>
-              <span className="text-gray-600 text-sm ml-2">- HintsPanel with walkthrough video section</span>
+              <span className="text-gray-600 text-sm ms-2">- HintsPanel with walkthrough video section</span>
             </li>
             <li>
               <Link href="/dev/challenges-sidebar" className="text-blue-600 hover:underline">
                 Challenges Sidebar States
               </Link>
-              <span className="text-gray-600 text-sm ml-2">
+              <span className="text-gray-600 text-sm ms-2">
                 - All challenges sidebar states (loading, free user, premium empty, premium with challenges)
               </span>
             </li>
@@ -127,7 +127,7 @@ export default function DevPage() {
               <Link href="/dev/user-profile-card" className="text-blue-600 hover:underline">
                 User Profile Card
               </Link>
-              <span className="text-gray-600 text-sm ml-2">
+              <span className="text-gray-600 text-sm ms-2">
                 - Before/after comparison: current icon badge vs. premium star badge design
               </span>
             </li>
@@ -135,13 +135,13 @@ export default function DevPage() {
               <Link href="/dev/challenge-unlocked-modal" className="text-blue-600 hover:underline">
                 Challenge Unlocked Modal
               </Link>
-              <span className="text-gray-600 text-sm ml-2">- Isolated test page for the challenge-unlocked step</span>
+              <span className="text-gray-600 text-sm ms-2">- Isolated test page for the challenge-unlocked step</span>
             </li>
             <li>
               <Link href="/dev/curriculum-videos" className="text-blue-600 hover:underline">
                 Curriculum Videos
               </Link>
-              <span className="text-gray-600 text-sm ml-2">
+              <span className="text-gray-600 text-sm ms-2">
                 - All videos from api&apos;s curriculum.json, grouped by level
               </span>
             </li>

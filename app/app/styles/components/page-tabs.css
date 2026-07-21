@@ -43,8 +43,8 @@
                 content: "";
                 position: absolute;
                 bottom: 0;
-                left: 0;
-                right: 0;
+                inset-inline-start: 0;
+                inset-inline-end: 0;
                 height: 2px;
                 border-radius: 2px;
                 background: var(--color-blue-500); /* Default underline color */

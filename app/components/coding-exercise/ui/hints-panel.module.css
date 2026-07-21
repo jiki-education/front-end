@@ -72,8 +72,8 @@
 .hintConfirmOverlay {
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
     bottom: 0;
     background: var(--color-gray-50);
     border-top: 1px solid var(--color-gray-200);
@@ -145,7 +145,7 @@
 
 .hintAnswerContent ul,
 .hintAnswerContent ol {
-    margin-left: 16px;
+    margin-inline-start: 16px;
 }
 
 .hintAnswerContent ul {
@@ -235,7 +235,7 @@
 .walkthroughPlayBtn {
     position: absolute;
     top: 50%;
-    left: 50%;
+    inset-inline-start: 50%;
     transform: translate(-50%, -50%);
     width: 56px;
     height: 56px;
@@ -251,7 +251,7 @@
         width: 22px;
         height: 22px;
         fill: var(--color-gray-800);
-        margin-left: 3px;
+        margin-inline-start: 3px;
     }
 }
 

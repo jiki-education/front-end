@@ -109,10 +109,10 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
         {content.features.length > 0 && (
           <div>
             <h4 className="font-medium text-text-primary mb-2 text-sm">{t("whatYouCanDo")}</h4>
-            <ul className="space-y-4 text-left">
+            <ul className="space-y-4 text-start">
               {content.features.map((feature, index) => (
                 <li key={index} className="flex items-start text-sm text-text-secondary">
-                  <span className="text-green-500 mr-2 mt-0.5 flex-shrink-0" aria-hidden="true">
+                  <span className="text-green-500 me-2 mt-0.5 flex-shrink-0" aria-hidden="true">
                     ✓
                   </span>
                   {feature}

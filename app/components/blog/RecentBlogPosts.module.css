@@ -1,15 +1,15 @@
 .section {
     max-width: 1400px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
     margin-bottom: 40px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-inline-start: 20px;
+    padding-inline-end: 20px;
 
     @media (min-width: 768px) {
         margin-bottom: 80px;
-        padding-left: 80px;
-        padding-right: 80px;
+        padding-inline-start: 80px;
+        padding-inline-end: 80px;
     }
 }
 
@@ -19,7 +19,7 @@
     color: #1a202c;
     margin-bottom: 20px;
     padding-top: 40px;
-    text-align: left;
+    text-align: start;
 
     @media (min-width: 768px) {
         font-size: 36px;
@@ -109,8 +109,8 @@
     display: inline-block;
     background: linear-gradient(to bottom right, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
     color: #667eea;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-inline-start: 10px;
+    padding-inline-end: 10px;
     padding-top: 4px;
     padding-bottom: 4px;
     border-radius: 6px;

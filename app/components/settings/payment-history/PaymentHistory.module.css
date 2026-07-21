@@ -6,7 +6,7 @@
 }
 
 .paymentHistoryTable th {
-    text-align: left;
+    text-align: start;
     font-weight: 600;
     color: var(--color-gray-500);
     padding: 0 0 12px 0;
@@ -15,7 +15,7 @@
 }
 
 .paymentHistoryTable th:last-child {
-    text-align: right;
+    text-align: end;
 }
 
 .paymentHistoryTable td {
@@ -25,7 +25,7 @@
 }
 
 .paymentHistoryTable td:last-child {
-    text-align: right;
+    text-align: end;
 }
 
 .paymentHistoryTable tbody tr:last-child td {

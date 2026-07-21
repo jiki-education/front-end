@@ -29,7 +29,7 @@
 .closeButton {
     position: absolute !important;
     top: 16px;
-    right: 10px;
+    inset-inline-end: 10px;
     z-index: 10;
 }
 
@@ -79,7 +79,7 @@
 
 .informationTooltip ul {
     list-style: disc;
-    margin-left: 20px;
+    margin-inline-start: 20px;
 }
 
 .content li {
@@ -90,10 +90,10 @@
     width: 12px;
     height: 12px;
     background-color: var(--color-surface-elevated);
-    border-left: 2px solid;
+    border-inline-start: 2px solid;
     border-bottom: 2px solid;
     position: absolute;
-    left: -8px;
+    inset-inline-start: -8px;
     transform: rotate(45deg);
     z-index: 1; /* sit on top of the tooltip border/background */
     /* top is set dynamically via JS */

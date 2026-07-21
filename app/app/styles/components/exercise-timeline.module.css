@@ -93,7 +93,7 @@
     content: "";
     position: absolute;
     top: -4px;
-    left: 0;
+    inset-inline-start: 0;
     width: 0;
     height: 4px;
     background: rgba(16, 163, 163, 0.5);
@@ -171,7 +171,7 @@
 .exerciseIconOverlay {
     position: absolute;
     top: 50%;
-    left: 50%;
+    inset-inline-start: 50%;
     transform: translate(-50%, -50%);
     width: 144px;
     height: 144px;
@@ -189,8 +189,8 @@
 .exerciseIconGreenOverlay {
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
     bottom: 0;
     background: rgba(16, 185, 129, 0.85);
     border-radius: 10px;

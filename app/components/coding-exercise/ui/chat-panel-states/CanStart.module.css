@@ -4,7 +4,7 @@
 }
 
 .rotatingText :global(.ti-cursor) {
-    margin-left: 2px;
+    margin-inline-start: 2px;
     --ti-cursor-font-weight: 400;
 }
 
@@ -65,7 +65,7 @@
 .chatSendButton {
     position: absolute;
     bottom: 19px;
-    right: 14px;
+    inset-inline-end: 14px;
     display: inline-flex;
     align-items: center;
     justify-content: center;

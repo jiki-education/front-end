@@ -141,7 +141,7 @@ export default function BreakpointGutterTestPage() {
                   <div
                     key={line}
                     data-testid={`breakpoint-line-${line}`}
-                    className="inline-block px-2 py-1 mr-2 bg-red-500 text-white rounded"
+                    className="inline-block px-2 py-1 me-2 bg-red-500 text-white rounded"
                   >
                     Line {line}
                   </div>
