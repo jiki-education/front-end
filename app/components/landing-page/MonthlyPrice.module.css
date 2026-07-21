@@ -1,0 +1,31 @@
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/*
+ * Inline placeholder shown until the geolocated price resolves. Sized like a
+ * price ("$9.99") so the surrounding sentence doesn't reflow when the real
+ * value arrives.
+ */
+.skeleton {
+    display: inline-block;
+    width: 3.5em;
+    height: 1em;
+    vertical-align: middle;
+    border-radius: 4px;
+    background: linear-gradient(
+        90deg,
+        var(--color-gray-100) 0%,
+        var(--color-gray-50) 25%,
+        var(--color-gray-100) 50%,
+        var(--color-gray-50) 75%,
+        var(--color-gray-100) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+}

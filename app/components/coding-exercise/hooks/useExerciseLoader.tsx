@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { exercises, type ExerciseSlug, type ExerciseDefinition, type Language } from "@jiki/curriculum";
 import Orchestrator from "../lib/Orchestrator";
 import type { ExerciseContext } from "../lib/types";
@@ -36,6 +36,7 @@ export function useExerciseLoader({
   // (instructions/stub/solution). No fallback: an exercise without a content blob
   // for this locale fails to load (only dnd-roll ships non-en content in the pilot).
   const uiLocale = useLocale();
+  const t = useTranslations("codingExercise");
 
   useEffect(() => {
     const loadExercise = async () => {
@@ -123,7 +124,7 @@ export function useExerciseLoader({
 
         setIsLoading(false);
       } catch (error) {
-        setLoadError(error instanceof Error ? error.message : "Unknown error");
+        setLoadError(error instanceof Error ? error.message : t("unknownError"));
         setIsLoading(false);
       }
     };

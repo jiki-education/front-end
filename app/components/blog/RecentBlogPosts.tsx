@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useFormatter } from "next-intl";
 import type { BlogPostMeta } from "@/lib/content/types";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./RecentBlogPosts.module.css";
@@ -10,6 +11,7 @@ interface RecentBlogPostsProps {
 
 export default function RecentBlogPosts({ posts }: RecentBlogPostsProps) {
   const routes = useLocaleRoutes();
+  const format = useFormatter();
   if (posts.length === 0) {
     return null;
   }
@@ -25,7 +27,7 @@ export default function RecentBlogPosts({ posts }: RecentBlogPostsProps) {
             )}
             <div className={styles.meta}>
               <span className={styles.date}>
-                {new Date(post.date).toLocaleDateString("en-US", {
+                {format.dateTime(new Date(post.date), {
                   day: "numeric",
                   month: "short",
                   year: "numeric"
