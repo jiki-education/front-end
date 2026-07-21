@@ -8,7 +8,7 @@ const mockContent = {
   solution: "move_right()\nmove_down()\nmove_right()"
 };
 
-const CONTENT_URL = "https://jiki.io/static/exercises/maze-solve-basic/en-jikiscript-abc123.json";
+const CONTENT_URL = "https://assets.jiki.io/static/exercises/maze-solve-basic/en/jikiscript/content-abc123def456.json";
 
 // Mock global fetch for content URL requests
 beforeEach(() => {

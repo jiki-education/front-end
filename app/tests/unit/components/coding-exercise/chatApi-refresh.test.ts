@@ -54,6 +54,7 @@ describe("Chat API JWT Authentication", () => {
     question: "How does this work?",
     language: "javascript",
     history: [],
+    locale: "en",
     contentHash: "test-hash"
   };
 

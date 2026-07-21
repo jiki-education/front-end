@@ -115,7 +115,7 @@ app.post("/chat", async (c) => {
 
     // 2. Parse request
     const body = await c.req.json<ChatRequest>();
-    const { exerciseSlug, code, question, history = [], nextTaskId, language, contentHash } = body;
+    const { exerciseSlug, code, question, history = [], nextTaskId, language, contentHash, locale = "en" } = body;
 
     if (exerciseSlug === undefined || code === undefined || question === undefined || language === undefined) {
       return c.json({ error: "Missing required fields: exerciseSlug, code, question, language" }, 400);
@@ -137,16 +137,25 @@ app.post("/chat", async (c) => {
       );
     }
 
-    // 3. Fetch exercise content from app's static files and build prompt.
+    // 2c. Validate locale/hash shape. Both are interpolated into the content URL,
+    // so reject anything that could smuggle in path segments or query strings.
+    if (!/^[a-z0-9-]{2,20}$/i.test(locale) || !/^[a-f0-9]{6,64}$/i.test(contentHash)) {
+      return c.json({ error: "Invalid locale or contentHash" }, 400);
+    }
+
+    // 3. Fetch exercise content from the assets cache tree and build prompt.
     //
-    // In production we ALWAYS fetch from our own static bucket. The Origin header
-    // is client-controlled (only browsers are forced to send a truthful value),
-    // so trusting it in production would let a direct API caller point us at
-    // arbitrary/oversized JSON. The header is only honoured in development so
-    // local testing can hit localhost.
+    // In production we ALWAYS fetch from the persistent R2 asset host
+    // (assets.jiki.io) that serves the content-hashed cache tree — the same
+    // files the app itself loads (see app/lib/assets-paths.ts for the layout).
+    // The Origin header is client-controlled (only browsers are forced to send
+    // a truthful value), so trusting it in production would let a direct API
+    // caller point us at arbitrary/oversized JSON. The header is only honoured
+    // in development so local testing can hit the local Next server, which
+    // serves the same paths relatively from public/.
     const isDev = process.env.NODE_ENV === "development";
-    const origin = isDev ? c.req.header("Origin") || "https://jiki.io" : "https://jiki.io";
-    const contentUrl = `${origin}/static/exercises/${exerciseSlug}/en-${language}-${contentHash}.json`;
+    const origin = isDev ? c.req.header("Origin") || "https://assets.jiki.io" : "https://assets.jiki.io";
+    const contentUrl = `${origin}/static/exercises/${exerciseSlug}/${locale}/${language}/content-${contentHash}.json`;
 
     const { systemInstruction, prompt } = await buildPrompt({
       exerciseSlug,

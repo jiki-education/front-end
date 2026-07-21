@@ -10,7 +10,8 @@ export interface ChatRequestPayload {
   language: string;
   history: ChatMessage[];
   nextTaskId?: string;
-  contentHash: string; // Hash for Worker to fetch exercise content from app's static files
+  locale: string; // Locale segment of the content path the Worker fetches
+  contentHash: string; // Hash for Worker to fetch exercise content from the assets cache tree
 }
 
 export interface StreamCallbacks {
