@@ -48,6 +48,22 @@ else
     echo "No JavaScript/TypeScript files to lint"
 fi
 
+# Run stylelint on staged CSS files only
+echo "🎨 Running stylelint on staged CSS files..."
+STAGED_CSS_FILES_RELATIVE=$(git diff --cached --name-only --diff-filter=ACMR | grep "^app/" | grep -E '\.css$' | sed 's|^app/||' || true)
+if [ -n "$STAGED_CSS_FILES_RELATIVE" ]; then
+    echo "Linting CSS: $STAGED_CSS_FILES_RELATIVE"
+    # Convert relative paths to absolute paths for stylelint
+    STAGED_CSS_FILES_ABSOLUTE=$(echo "$STAGED_CSS_FILES_RELATIVE" | sed "s|^|$APP_DIR/|")
+    pnpm exec stylelint $STAGED_CSS_FILES_ABSOLUTE
+    if [ $? -ne 0 ]; then
+        echo "❌ CSS lint check failed. Commit aborted."
+        exit 1
+    fi
+else
+    echo "No CSS files to lint"
+fi
+
 # Run tests
 echo "🧪 Running tests..."
 pnpm test

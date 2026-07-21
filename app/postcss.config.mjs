@@ -10,7 +10,11 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // from a different base than webpack, so it must be absolute to load in both.
 // Covers app and curriculum CSS (both flow through this pipeline).
 const config = {
-  plugins: ["@tailwindcss/postcss", path.join(__dirname, "postcss-plugins/rewrite-static-css-urls.cjs")]
+  plugins: [
+    "@tailwindcss/postcss",
+    path.join(__dirname, "postcss-plugins/rewrite-static-css-urls.cjs"),
+    path.join(__dirname, "postcss-plugins/shorthand-physical-to-logical.cjs")
+  ]
 };
 
 export default config;
