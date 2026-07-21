@@ -14,6 +14,17 @@ const MEDIA_ERR_NETWORK = 2;
 // like — rather than genuinely corrupt media or an actionable app bug.
 const MEDIA_ERR_DECODE = 3;
 
+// Mux's HTML5 media error code for an unsupported source (see
+// MediaError.MEDIA_ERR_SRC_NOT_SUPPORTED). Mux's own message spells out the two
+// causes — "The server or network failed, or your browser does not support this
+// format." — and both are the viewer's environment, not our upload: a dropped
+// HLS manifest/segment fetch (transient network, same class as code 2) or a client
+// with no compatible rendition/codec (same class as code 3). A genuinely broken
+// asset fails Mux's encode step and never reaches the player, and would hit
+// effectively every viewer rather than one — asset health is tracked by Mux Data
+// dashboards, not Sentry. So treat code 4 like 2/3: log, but don't report.
+const MEDIA_ERR_SRC_NOT_SUPPORTED = 4;
+
 // A Mux MediaError, carried on the error event's `detail`. It extends the native
 // MediaError with Mux-specific fields. Typed locally so we don't depend on the
 // playback-core internals just to read a few properties.
@@ -57,6 +68,15 @@ function defaultOnError(event: Event) {
   // H.264, in-app webviews) rather than corrupt media or an actionable app bug — log
   // them but keep them out of Sentry.
   if (code === MEDIA_ERR_DECODE) {
+    console.error(error);
+    return;
+  }
+
+  // Unsupported-source failures are a per-viewer environment problem (a dropped
+  // HLS fetch or a client with no compatible codec/rendition), not a broken upload —
+  // log them but keep them out of Sentry. See MEDIA_ERR_SRC_NOT_SUPPORTED above.
+  // JIKI-FRONT-END-3X (6 events / 1 user on a lesson video).
+  if (code === MEDIA_ERR_SRC_NOT_SUPPORTED) {
     console.error(error);
     return;
   }

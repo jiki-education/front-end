@@ -47,13 +47,34 @@ describe("JikiMuxPlayer defaultOnError", () => {
     expect((logged as Error).message).toContain("muxCode 2000002");
   });
 
-  it("reports non-network errors with rich detail to Sentry", () => {
-    fireMuxError({ code: 4, muxCode: 2404000, message: "Source not supported." });
+  it("reports errors with rich detail (code, muxCode, message) to Sentry", () => {
+    // code 1 (MEDIA_ERR_ABORTED) is not one of the suppressed classes, so it takes
+    // the reporting path and exercises the full rich-detail message formatting.
+    fireMuxError({ code: 1, muxCode: 2400000, message: "Playback aborted." });
 
     expect(mockReportError).toHaveBeenCalledTimes(1);
     const reported = mockReportError.mock.calls[0][0] as Error;
     expect(reported).toBeInstanceOf(Error);
-    expect(reported.message).toBe("MuxPlayer error: code 4: muxCode 2404000: Source not supported.");
+    expect(reported.message).toBe("MuxPlayer error: code 1: muxCode 2400000: Playback aborted.");
+  });
+
+  it("does not report unsupported-source errors (code 4) to Sentry but still logs them", () => {
+    // code 4 (MEDIA_ERR_SRC_NOT_SUPPORTED) is a per-viewer environment problem
+    // (dropped HLS fetch or a client with no compatible codec/rendition), not a
+    // broken upload, so it stays out of Sentry. JIKI-FRONT-END-3X.
+    fireMuxError({
+      code: 4,
+      muxCode: 2404000,
+      message:
+        "An unsupported error occurred. The server or network failed, or your browser does not support this format."
+    });
+
+    expect(mockReportError).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+    const [logged] = consoleErrorSpy.mock.calls[0];
+    expect(logged).toBeInstanceOf(Error);
+    expect((logged as Error).message).toContain("code 4");
+    expect((logged as Error).message).toContain("muxCode 2404000");
   });
 
   it("does not report decode errors to Sentry but still logs them", () => {
@@ -106,7 +127,25 @@ describe("JikiMuxPlayer defaultOnError", () => {
   });
 
   it("reads error info from event.target.error on the native-video fallback path", () => {
-    // No detail; the error hangs off the media element instead.
+    // No detail; the error hangs off the media element instead. code 1 (aborted)
+    // is not a suppressed class, so it takes the reporting path.
+    const target = document.createElement("video");
+    Object.defineProperty(target, "error", {
+      configurable: true,
+      value: { code: 1, message: "Playback aborted." }
+    });
+    const event = new Event("error");
+    Object.defineProperty(event, "target", { value: target });
+
+    capturedOnError?.(event);
+
+    expect(mockReportError).toHaveBeenCalledTimes(1);
+    expect((mockReportError.mock.calls[0][0] as Error).message).toBe("MuxPlayer error: code 1: Playback aborted.");
+  });
+
+  it("silences unsupported-source errors that arrive via event.target.error (native fallback path)", () => {
+    // The code-4 skip keys off the HTML5 `code`, present on both the Mux detail
+    // payload and the native MediaError, so this path is silenced too.
     const target = document.createElement("video");
     Object.defineProperty(target, "error", {
       configurable: true,
@@ -117,8 +156,8 @@ describe("JikiMuxPlayer defaultOnError", () => {
 
     capturedOnError?.(event);
 
-    expect(mockReportError).toHaveBeenCalledTimes(1);
-    expect((mockReportError.mock.calls[0][0] as Error).message).toBe("MuxPlayer error: code 4: Source not supported.");
+    expect(mockReportError).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
   });
 
   it("silences network errors that arrive via event.target.error (native fallback path)", () => {
