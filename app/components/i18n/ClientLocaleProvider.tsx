@@ -2,9 +2,8 @@
 
 import LoadingJiki from "@/components/ui/LoadingJiki";
 import { assetsUrl } from "@/lib/assets";
-import { appMessagesPath } from "@/lib/assets-paths";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { messageHashes } from "@/lib/generated/messages-hashes";
+import { createCatalogLoader } from "@/lib/i18n/catalogLoader";
 import { DEFAULT_TIME_ZONE, normalizeLocale, type Locale } from "@/lib/i18n/config";
 import { setLocaleCookie } from "@/lib/i18n/localeCookie";
 import { NextIntlClientProvider, type AbstractIntlMessages } from "next-intl";
@@ -100,35 +99,13 @@ function loadLocaleCatalog(
   };
 }
 
-// In-flight/settled catalog fetches keyed by `${locale}:${hash}`, shared across
-// swaps so a re-entered locale reuses one request. The hash is immutable per
-// build, so a resolved entry stays valid; a rejected fetch is evicted so the next
-// swap retries. Mirrors `lib/i18n/request.ts` — there is NO bundled fallback.
-const catalogCache = new Map<string, Promise<AbstractIntlMessages>>();
+// R2-fetched catalog loader (see lib/i18n/catalogLoader.ts), shared across swaps
+// so a re-entered locale reuses one request: promise cache keyed
+// `${locale}:${hash}` (the hash is immutable per build, so a resolved entry stays
+// valid), one retry on failure, and eviction of a rejected fetch so a later swap
+// attempt retries. Mirrors `lib/i18n/request.ts` — there is NO bundled fallback.
+const loadCatalog = createCatalogLoader(assetsUrl);
 
 function fetchCatalog(locale: Locale): Promise<AbstractIntlMessages> {
-  const hash = messageHashes[locale];
-  if (!hash) {
-    return Promise.reject(new Error(`No UI message catalog hash for locale "${locale}"`));
-  }
-
-  const key = `${locale}:${hash}`;
-  const cached = catalogCache.get(key);
-  if (cached) {
-    return cached;
-  }
-
-  const promise = fetch(assetsUrl(appMessagesPath(locale, hash)))
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error(`Failed to fetch UI message catalog for locale "${locale}"`);
-      }
-      return res.json() as Promise<AbstractIntlMessages>;
-    })
-    .catch((error) => {
-      catalogCache.delete(key);
-      throw error;
-    });
-  catalogCache.set(key, promise);
-  return promise;
+  return loadCatalog(locale) as Promise<AbstractIntlMessages>;
 }
