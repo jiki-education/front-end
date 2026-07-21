@@ -1,6 +1,6 @@
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES, type Locale } from "@/lib/locales";
+import { DEFAULT_LOCALE, getLocaleDirection, RTL_LOCALES, SUPPORTED_LOCALES, type Locale } from "@/lib/locales";
 
-export { DEFAULT_LOCALE, SUPPORTED_LOCALES };
+export { DEFAULT_LOCALE, getLocaleDirection, RTL_LOCALES, SUPPORTED_LOCALES };
 export type { Locale };
 
 // Cookie that carries the active UI locale into SSR/edge requests. Written when

@@ -4,7 +4,7 @@ import LoadingJiki from "@/components/ui/LoadingJiki";
 import { assetsUrl } from "@/lib/assets";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { createCatalogLoader } from "@/lib/i18n/catalogLoader";
-import { DEFAULT_TIME_ZONE, normalizeLocale, type Locale } from "@/lib/i18n/config";
+import { DEFAULT_TIME_ZONE, getLocaleDirection, normalizeLocale, type Locale } from "@/lib/i18n/config";
 import { setLocaleCookie } from "@/lib/i18n/localeCookie";
 import { NextIntlClientProvider, type AbstractIntlMessages } from "next-intl";
 import { useEffect, useState, type ReactNode } from "react";
@@ -61,6 +61,7 @@ export function ClientLocaleProvider({ initialLocale, initialMessages, children 
         setLocaleCookie(authoritative);
         if (typeof document !== "undefined") {
           document.documentElement.lang = authoritative;
+          document.documentElement.dir = getLocaleDirection(authoritative);
         }
       },
       // Give up on this locale rather than gate forever; keep current messages.
