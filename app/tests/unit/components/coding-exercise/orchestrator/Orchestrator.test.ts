@@ -848,5 +848,34 @@ describe("Orchestrator", () => {
       // Should use store code
       expect(mockRunCode).toHaveBeenCalledWith("store code", exercise);
     });
+
+    it("should submit an empty string (never undefined) when both editor value and store code are empty", async () => {
+      // Regression test for JIKI-FRONT-END-3S: hammering run with an empty editor
+      // before the store code was populated sent `code: undefined`, which JSON.stringify
+      // drops, so the API received no `code` and returned 422. runCode() must always
+      // pass a string to the submission pipeline.
+      const exercise = createMockExercise({
+        slug: "test-uuid",
+        stubs: { javascript: "", python: "", jikiscript: "" }
+      });
+      const orchestrator = makeTestOrchestrator(exercise);
+
+      // Editor manager not mounted -> undefined; store code forced to undefined to
+      // reproduce the pre-initialisation state seen in production.
+      jest.spyOn(orchestrator as any, "getCurrentEditorValue").mockReturnValue(undefined);
+      orchestrator.getStore().setState({ code: undefined as unknown as string });
+
+      const testSuiteManager = (orchestrator as any).testSuiteManager;
+      const mockRunCode = jest.spyOn(testSuiteManager, "runCode").mockResolvedValue(undefined);
+      jest.spyOn(orchestrator, "play").mockImplementation(() => {});
+
+      await orchestrator.runCode();
+
+      expect(mockRunCode).toHaveBeenCalledWith("", exercise);
+      const submittedCode = mockRunCode.mock.calls[0][0];
+      expect(submittedCode).toBe("");
+      expect(submittedCode).not.toBeUndefined();
+      expect(submittedCode).not.toBeNull();
+    });
   });
 });

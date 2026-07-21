@@ -332,7 +332,7 @@ class Orchestrator {
 
   async runCode() {
     // Get the current code from the editor
-    const currentCode = this.getCurrentEditorValue() || this.store.getState().code;
+    const currentCode = this.getCurrentEditorValue() || this.store.getState().code || "";
 
     // Delegate to TestSuiteManager with exercise definition
     // This automatically plays the first scenario.
