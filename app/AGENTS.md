@@ -202,6 +202,12 @@ import SettingsIcon from "@/icons/settings.svg";
 
 See `.context/images.md` for detailed icon usage guidelines.
 
+## Internationalization (i18n)
+
+See `.context/i18n.md` for the full model and the **Adding a New Locale** checklist.
+
+**RTL languages:** when adding a right-to-left locale (Arabic `ar`, Hebrew `he`, Persian `fa`, Urdu `ur`, etc.), you MUST also add its code to `RTL_LOCALES` in `lib/locales.ts`. That set drives `dir` on `<html>` via `getLocaleDirection()`, so omitting it leaves the whole UI stuck left-to-right for that locale. (LTR-only locales need no direction change - the default is `ltr`.)
+
 ## Testing Guidelines
 
 **IMPORTANT: Always read `.context/testing.md` before writing tests**
