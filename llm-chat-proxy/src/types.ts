@@ -7,7 +7,8 @@ export interface ChatRequest {
   history?: ChatMessage[];
   nextTaskId?: string;
   language: Language;
-  contentHash: string; // Hash for fetching exercise content from app's static files
+  contentHash: string; // Hash for fetching exercise content from the assets cache tree
+  locale?: string; // Locale segment of the content path; defaults to "en" for older clients
 }
 
 export interface ChatMessage {

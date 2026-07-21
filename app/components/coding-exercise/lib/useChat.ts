@@ -66,6 +66,7 @@ export function useChat(orchestrator: Orchestrator) {
           language: context.language,
           history: chatState.messages,
           nextTaskId: context.currentTaskId || undefined,
+          locale: context.locale,
           contentHash: context.contentHash
         },
         {

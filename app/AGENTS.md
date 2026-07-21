@@ -163,8 +163,8 @@ If you need an arbitrary color, always confirm with the user first, explaining w
 Exercise content (title, description, instructions, stubs, solutions) is served as static JSON files, separate from the exercise modules in `@jiki/curriculum`.
 
 - **Build script**: `scripts/generate-exercise-cache.js` reads curriculum source files and produces:
-  - `public/static/exercises/{locale}-{hash}.json` — metadata index (all exercises, slug/title/description/contentHashes)
-  - `public/static/exercises/{slug}/{locale}-{language}-{hash}.json` — content files (instructions, stub, solution)
+  - `public/static/exercises/{locale}/index-{hash}.json` — metadata index (all exercises, slug/title/description/contentHashes)
+  - `public/static/exercises/{slug}/{locale}/{language}/content-{hash}.json` — content files (instructions, stub, solution)
   - `lib/generated/exercise-hashes.ts` — hash manifest for the app to construct index URLs
 - **Client API**: `lib/api/exercise-meta.ts` provides `getExerciseMeta()`, `getExerciseMetaBySlugs()`, and `fetchExerciseContent()` with module-level caching
 - **Exercise loading**: `useExerciseLoader` loads the exercise module (ExerciseCore) and static content in parallel, then assembles into `ExerciseDefinition`
