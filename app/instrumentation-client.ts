@@ -49,6 +49,27 @@ if (process.env.NODE_ENV === "production") {
       // A script download truncated by a dropped connection.
       "Unexpected end of script",
 
+      // Transient client-side fetch failures where the request never completed:
+      // the user navigated away mid-request, a mobile connection dropped, the device
+      // was offline, or an ad/tracking blocker killed the request. These carry no
+      // HTTP status and are not server bugs. Anchored so our own explicit
+      // HTTP-status errors — e.g. "Failed to fetch external pricing (500)" from
+      // lib/api/externalPricing.ts — still report.
+      // JIKI-FRONT-END-5 (Chromium wording, 423 events / 162 users).
+      /^Failed to fetch$/,
+      // JIKI-FRONT-END-9 (Firefox wording of the same failure, 40 events / 40 users).
+      /^NetworkError when attempting to fetch resource\.$/,
+
+      // A browser extension / password manager patches the WebAuthn API and tries to
+      // redefine a non-configurable property. Origin is <anonymous code>, not ours.
+      // JIKI-FRONT-END-3V (1 event, Firefox).
+      /can't redefine non-configurable property "isConditionalMediationAvailable"/,
+
+      // Firefox-internal media/network abort with no stack trace, raised from the
+      // browser's own input-stream handling rather than our code.
+      // JIKI-FRONT-END-3T (1 event, Firefox).
+      /^Error in input stream$/,
+
       // Injected document-level touch handlers; no first-party code reads .touches
       // (the scrubber uses pointer/mouse events).
       "Cannot read properties of undefined (reading 'touches')",
