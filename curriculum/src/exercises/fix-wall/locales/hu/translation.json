@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "topHole": "The top hole isn't filled correctly.",
+    "middleHole": "The middle hole isn't filled correctly.",
+    "bottomHole": "The bottom hole isn't filled correctly."
+  },
+  "tasks": {
+    "fillHoles": {
+      "name": "Fill the holes in the wall",
+      "description": "Cover each hole with a rectangle using the rectangle function."
+    }
+  },
+  "scenarios": {
+    "fillHoles": {
+      "name": "Fill the holes",
+      "description": "Cover each hole with a rectangle."
+    }
+  },
+  "hints": {
+    "howToDrawBricks": {
+      "question": "How do I draw bricks?",
+      "answer": "Draw a rectangle that covers each holes. Check the instructions for information on the different inputs that the `rectangle` function expects."
+    },
+    "holeSizes": {
+      "question": "What sizes are the holes?",
+      "answer": "Hover over the canvas to measure each space. All numbers are divisible by 10."
+    },
+    "holeSizesReally": {
+      "question": "No, really, what sizes are the holes?",
+      "answer": "Each hole is 20 wide and 10 tall"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Draw a rectangle at position (left, top) with the given width and height",
+      "category": "Drawing Shapes"
+    }
+  }
+}

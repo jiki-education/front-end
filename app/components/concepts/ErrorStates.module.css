@@ -1,0 +1,52 @@
+.authWrapper {
+    margin-inline-start: 260px;
+    padding: 6px;
+}
+
+.guestWrapper {
+    max-width: 80rem;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    padding-inline-start: 4px;
+    padding-inline-end: 4px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.center {
+    text-align: center;
+}
+
+.errorMessage {
+    margin-bottom: 4px;
+    color: var(--color-error-text);
+    font-size: 1.125rem;
+}
+
+.guestMessage {
+    margin-bottom: 4px;
+    color: var(--color-red-600);
+    font-size: 1.125rem;
+}
+
+.retryButton {
+    border-radius: 0.375rem;
+    background: var(--color-button-primary-bg);
+    padding: 2px 4px;
+    color: var(--color-button-primary-text);
+
+    &:hover {
+        opacity: 0.9;
+    }
+}
+
+.guestButton {
+    border-radius: 0.375rem;
+    background: var(--color-blue-600);
+    padding: 2px 4px;
+    color: #fff;
+
+    &:hover {
+        background: var(--color-blue-700);
+    }
+}

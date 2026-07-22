@@ -4,8 +4,8 @@ import type GolfRollingBallStateExercise from "./Exercise";
 export const tasks = [
   {
     id: "roll-ball" as const,
-    name: "Roll the ball into the hole",
-    description: "Roll the ball into the hole.",
+    name: "tasks.rollBall.name",
+    description: "tasks.rollBall.description",
     hints: [],
     requiredScenarios: ["roll-ball"],
     bonus: false
@@ -15,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "roll-ball",
-    name: "Roll the ball into the hole",
-    description: "Roll the ball into the hole.",
+    name: "scenarios.rollBall.name",
+    description: "scenarios.rollBall.description",
     taskId: "roll-ball",
 
     setup(exercise) {
@@ -33,11 +33,11 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.ballX === 88,
-          errorHtml: `The ball didn't reach the hole. It's at position ${ex.ballX}, but needs to be at position 88.`
+          errorHtml: ex.t("checks.ballNotAtEnd", { ballX: ex.ballX })
         },
         {
           pass: missingPositions.length === 0,
-          errorHtml: `The ball must roll through each position individually, not jump directly to the end.`
+          errorHtml: ex.t("checks.missingPositions")
         }
       ];
     }

@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "invalid-triangles" as const,
-    name: "Invalid triangles",
-    description:
-      "Detect invalid triangles. A triangle is invalid if any side is zero, or if the sum of any two sides is less than or equal to the third side.",
+    name: "tasks.invalidTriangles.name",
+    description: "tasks.invalidTriangles.description",
     hints: [],
     requiredScenarios: [
       "invalid-equilateral-all-zero",
@@ -18,16 +17,16 @@ export const tasks = [
   },
   {
     id: "equilateral-triangles" as const,
-    name: "Equilateral triangles",
-    description: "Detect equilateral triangles where all three sides are the same length.",
+    name: "tasks.equilateralTriangles.name",
+    description: "tasks.equilateralTriangles.description",
     hints: [],
     requiredScenarios: ["valid-equilateral"],
     bonus: false
   },
   {
     id: "isosceles-triangles" as const,
-    name: "Isosceles triangles",
-    description: "Detect isosceles triangles where exactly two sides are the same length.",
+    name: "tasks.isoscelesTriangles.name",
+    description: "tasks.isoscelesTriangles.description",
     hints: [],
     requiredScenarios: [
       "valid-isosceles-first-two-equal",
@@ -38,8 +37,8 @@ export const tasks = [
   },
   {
     id: "scalene-triangles" as const,
-    name: "Scalene triangles",
-    description: "Detect scalene triangles where all three sides have different lengths.",
+    name: "tasks.scaleneTriangles.name",
+    description: "tasks.scaleneTriangles.description",
     hints: [],
     requiredScenarios: ["valid-scalene"],
     bonus: false
@@ -49,8 +48,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "invalid-equilateral-all-zero",
-    name: "Equilateral with all sides zero (0, 0, 0)",
-    description: 'A triangle with all sides zero should return "invalid".',
+    name: "scenarios.invalidEquilateralAllZero.name",
+    description: "scenarios.invalidEquilateralAllZero.description",
     taskId: "invalid-triangles",
     functionName: "determine_triangle_type",
     args: [0, 0, 0],
@@ -58,8 +57,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isosceles-first-inequality",
-    name: "Isosceles with invalid side lengths (1, 1, 3)",
-    description: 'A triangle with too short sides should return "invalid".',
+    name: "scenarios.isoscelesFirstInequality.name",
+    description: "scenarios.isoscelesFirstInequality.description",
     taskId: "invalid-triangles",
     functionName: "determine_triangle_type",
     args: [1, 1, 3],
@@ -67,8 +66,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isosceles-second-inequality",
-    name: "Isosceles with invalid side lengths (1, 3, 1)",
-    description: 'A triangle with too short sides should return "invalid".',
+    name: "scenarios.isoscelesSecondInequality.name",
+    description: "scenarios.isoscelesSecondInequality.description",
     taskId: "invalid-triangles",
     functionName: "determine_triangle_type",
     args: [1, 3, 1],
@@ -76,8 +75,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "isosceles-third-inequality",
-    name: "Isosceles with invalid side lengths (3, 1, 1)",
-    description: 'A triangle with too short sides should return "invalid".',
+    name: "scenarios.isoscelesThirdInequality.name",
+    description: "scenarios.isoscelesThirdInequality.description",
     taskId: "invalid-triangles",
     functionName: "determine_triangle_type",
     args: [3, 1, 1],
@@ -85,8 +84,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "scalene-triangle-inequality",
-    name: "Scalene with invalid side lengths (7, 3, 2)",
-    description: 'A triangle with too short sides should return "invalid".',
+    name: "scenarios.scaleneTriangleInequality.name",
+    description: "scenarios.scaleneTriangleInequality.description",
     taskId: "invalid-triangles",
     functionName: "determine_triangle_type",
     args: [7, 3, 2],
@@ -94,8 +93,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "valid-equilateral",
-    name: "Equilateral triangle (2, 2, 2)",
-    description: 'A triangle with all sides equal should return "equilateral".',
+    name: "scenarios.validEquilateral.name",
+    description: "scenarios.validEquilateral.description",
     taskId: "equilateral-triangles",
     functionName: "determine_triangle_type",
     args: [2, 2, 2],
@@ -103,8 +102,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "valid-isosceles-first-two-equal",
-    name: "Isosceles triangle (4, 4, 3)",
-    description: 'A triangle with the first two sides equal should return "isosceles".',
+    name: "scenarios.validIsoscelesFirstTwoEqual.name",
+    description: "scenarios.validIsoscelesFirstTwoEqual.description",
     taskId: "isosceles-triangles",
     functionName: "determine_triangle_type",
     args: [4, 4, 3],
@@ -112,8 +111,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "valid-isosceles-last-two-equal",
-    name: "Isosceles triangle (3, 4, 4)",
-    description: 'A triangle with the last two sides equal should return "isosceles".',
+    name: "scenarios.validIsoscelesLastTwoEqual.name",
+    description: "scenarios.validIsoscelesLastTwoEqual.description",
     taskId: "isosceles-triangles",
     functionName: "determine_triangle_type",
     args: [3, 4, 4],
@@ -121,8 +120,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "valid-isosceles-first-and-last-equal",
-    name: "Isosceles triangle (4, 3, 4)",
-    description: 'A triangle with the same first and last sides should return "isosceles".',
+    name: "scenarios.validIsoscelesFirstAndLastEqual.name",
+    description: "scenarios.validIsoscelesFirstAndLastEqual.description",
     taskId: "isosceles-triangles",
     functionName: "determine_triangle_type",
     args: [4, 3, 4],
@@ -130,8 +129,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "valid-scalene",
-    name: "Scalene triangle (5, 4, 6)",
-    description: 'A triangle with all sides different should return "scalene".',
+    name: "scenarios.validScalene.name",
+    description: "scenarios.validScalene.description",
     taskId: "scalene-triangles",
     functionName: "determine_triangle_type",
     args: [5, 4, 6],

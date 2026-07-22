@@ -13,6 +13,10 @@ export class JSString extends JikiObject {
     return this._value;
   }
 
+  public toDisplayString(): string {
+    return JSON.stringify(this._value);
+  }
+
   public clone(): JSString {
     // Strings are immutable, so return self
     return this;

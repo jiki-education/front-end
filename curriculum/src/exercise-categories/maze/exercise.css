@@ -57,6 +57,22 @@
                     );
                 background-blend-mode: multiply;
             }
+            &.fire,
+            &.poop {
+                display: grid;
+                place-items: center;
+
+                &:before {
+                    font-size: calc(70cqw / var(--gridSize));
+                    line-height: 1;
+                }
+            }
+            &.fire:before {
+                content: "🔥";
+            }
+            &.poop:before {
+                content: "💩";
+            }
         }
     }
 

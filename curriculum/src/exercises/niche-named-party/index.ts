@@ -7,30 +7,30 @@ const functions: FunctionInfo[] = [
   {
     name: "askName",
     signature: "askName()",
-    description: "Returns the **name** of the person at the door.",
+    description: "functions.askName.description",
     examples: ["let name = askName()"],
-    category: "Information"
+    category: "functions.askName.category"
   },
   {
     name: "getAllowedStart",
     signature: "getAllowedStart()",
-    description: "Returns the required **starting letters** for tonight's party.",
+    description: "functions.getAllowedStart.description",
     examples: ["let allowedStart = getAllowedStart()"],
-    category: "Information"
+    category: "functions.getAllowedStart.category"
   },
   {
     name: "letIn",
     signature: "letIn()",
-    description: "Lets the person into the party.",
+    description: "functions.letIn.description",
     examples: ["letIn()"],
-    category: "Action"
+    category: "functions.letIn.category"
   },
   {
     name: "turnAway",
     signature: "turnAway()",
-    description: "Turns the person away from the party.",
+    description: "functions.turnAway.description",
     examples: ["turnAway()"],
-    category: "Action"
+    category: "functions.turnAway.category"
   }
 ];
 

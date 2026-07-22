@@ -1,23 +1,23 @@
-import { renderHook, waitFor, act } from "@testing-library/react";
-import { useConversationLoader } from "@/components/coding-exercise/lib/useConversationLoader";
-import { fetchUserLesson } from "@/lib/api/lessons";
-import { fetchUserProject } from "@/lib/api/projects";
-import { NotFoundError } from "@/lib/api/client";
 import type { ChatMessage } from "@/components/coding-exercise/lib/chat-types";
 import type { ExerciseContext } from "@/components/coding-exercise/lib/types";
+import { useConversationLoader } from "@/components/coding-exercise/lib/useConversationLoader";
+import { fetchUserChallenge } from "@/lib/api/challenges";
+import { NotFoundError } from "@/lib/api/client";
+import { fetchUserLesson } from "@/lib/api/lessons";
+import { act, renderHook, waitFor } from "@testing-library/react";
 
 jest.mock("@/lib/api/lessons");
-jest.mock("@/lib/api/projects");
+jest.mock("@/lib/api/challenges");
 const mockFetchUserLesson = fetchUserLesson as jest.MockedFunction<typeof fetchUserLesson>;
-const mockFetchUserProject = fetchUserProject as jest.MockedFunction<typeof fetchUserProject>;
+const mockFetchUserChallenge = fetchUserChallenge as jest.MockedFunction<typeof fetchUserChallenge>;
 
 const lessonContext: ExerciseContext = { type: "lesson", slug: "test-exercise" };
-const projectContext: ExerciseContext = { type: "project", slug: "test-project" };
+const challengeContext: ExerciseContext = { type: "challenge", slug: "test-challenge" };
 
 describe("useConversationLoader", () => {
   beforeEach(() => {
     mockFetchUserLesson.mockClear();
-    mockFetchUserProject.mockClear();
+    mockFetchUserChallenge.mockClear();
     // Clear console.warn to avoid cluttering test output
     jest.spyOn(console, "warn").mockImplementation(() => {});
   });
@@ -58,24 +58,24 @@ describe("useConversationLoader", () => {
     expect(mockFetchUserLesson).toHaveBeenCalledWith("test-exercise");
   });
 
-  it("should load project conversations via fetchUserProject", async () => {
-    const mockConversation: ChatMessage[] = [{ role: "user", content: "Project question" }];
+  it("should load challenge conversations via fetchUserChallenge", async () => {
+    const mockConversation: ChatMessage[] = [{ role: "user", content: "Challenge question" }];
 
-    mockFetchUserProject.mockResolvedValue({
-      project_slug: "test-project",
+    mockFetchUserChallenge.mockResolvedValue({
+      challenge_slug: "test-challenge",
       status: "started",
       conversation: mockConversation,
       conversation_allowed: true
     });
 
-    const { result } = renderHook(() => useConversationLoader(projectContext));
+    const { result } = renderHook(() => useConversationLoader(challengeContext));
 
     await waitFor(() => {
       expect(result.current.isLoading).toBe(false);
     });
 
     expect(result.current.conversation).toEqual(mockConversation);
-    expect(mockFetchUserProject).toHaveBeenCalledWith("test-project");
+    expect(mockFetchUserChallenge).toHaveBeenCalledWith("test-challenge");
     expect(mockFetchUserLesson).not.toHaveBeenCalled();
   });
 
@@ -184,9 +184,9 @@ describe("useConversationLoader", () => {
     expect(result.current.conversation).toEqual(mockConversation);
   });
 
-  it("should keep lesson and project caches separate even with the same slug", async () => {
+  it("should keep lesson and challenge caches separate even with the same slug", async () => {
     const lessonConversation: ChatMessage[] = [{ role: "user", content: "Lesson message" }];
-    const projectConversation: ChatMessage[] = [{ role: "user", content: "Project message" }];
+    const challengeConversation: ChatMessage[] = [{ role: "user", content: "Challenge message" }];
 
     mockFetchUserLesson.mockResolvedValue({
       lesson_slug: "shared-slug",
@@ -195,10 +195,10 @@ describe("useConversationLoader", () => {
       conversation_allowed: true,
       data: {}
     });
-    mockFetchUserProject.mockResolvedValue({
-      project_slug: "shared-slug",
+    mockFetchUserChallenge.mockResolvedValue({
+      challenge_slug: "shared-slug",
       status: "started",
-      conversation: projectConversation,
+      conversation: challengeConversation,
       conversation_allowed: true
     });
 
@@ -210,14 +210,14 @@ describe("useConversationLoader", () => {
       expect(result.current.conversation).toEqual(lessonConversation);
     });
 
-    rerender({ context: { type: "project", slug: "shared-slug" } as ExerciseContext });
+    rerender({ context: { type: "challenge", slug: "shared-slug" } as ExerciseContext });
 
     await waitFor(() => {
-      expect(result.current.conversation).toEqual(projectConversation);
+      expect(result.current.conversation).toEqual(challengeConversation);
     });
 
     expect(mockFetchUserLesson).toHaveBeenCalledTimes(1);
-    expect(mockFetchUserProject).toHaveBeenCalledTimes(1);
+    expect(mockFetchUserChallenge).toHaveBeenCalledTimes(1);
   });
 
   it("should reload when a different context slug is provided", async () => {

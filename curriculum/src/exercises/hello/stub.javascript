@@ -1,3 +1,1 @@
-function sayHello(name) {
-
-}
+// Create the sayHello function

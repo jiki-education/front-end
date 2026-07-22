@@ -1,7 +1,25 @@
-import { type ExecutionContext, type ExternalFunction, type Shared, isNumber } from "@jiki/interpreters";
+import { type ExecutionContext, type Shared, isNumber } from "@jiki/interpreters";
+import type { AvailableFunction } from "../../types";
 import { VisualExercise } from "../../VisualExercise";
 
 type CellType = "wall" | "entrance" | "glass";
+
+// Mulberry32 - a simple, fast seeded PRNG (matches interpreters/src/shared/random.ts).
+// The width and floors sequences are kept independent so a student's results
+// don't depend on the order in which they call randomWidth()/randomNumFloors().
+function mulberry32(seed: number): () => number {
+  let state = seed | 0;
+  return () => {
+    state = (state + 0x6d2b79f5) | 0;
+    let t = Math.imul(state ^ (state >>> 15), 1 | state);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// Offset applied to the seed for the floors stream so it is independent of the
+// width stream. The test suite (scenarios.ts) mirrors this constant.
+export const FLOORS_SEED_OFFSET = 0x9e3779b9;
 
 export default class CityScapeExercise extends VisualExercise {
   protected get slug() {
@@ -16,6 +34,8 @@ export default class CityScapeExercise extends VisualExercise {
   private numFloors = 3;
   private numBuildings = 1;
   private gridContainer!: HTMLElement;
+  private widthRng?: () => number;
+  private floorsRng?: () => number;
 
   constructor() {
     super();
@@ -23,43 +43,55 @@ export default class CityScapeExercise extends VisualExercise {
     this.populateView();
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "build_wall",
       func: this.buildWall.bind(this),
-      description: "built a wall at position (${arg1}, ${arg2})"
+      descriptionKey: "describers.buildWall"
     },
     {
       name: "build_entrance",
       func: this.buildEntrance.bind(this),
-      description: "built an entrance at position (${arg1}, ${arg2})"
+      descriptionKey: "describers.buildEntrance"
     },
     {
       name: "build_glass",
       func: this.buildGlass.bind(this),
-      description: "built a glass panel at position (${arg1}, ${arg2})"
+      descriptionKey: "describers.buildGlass"
     },
     {
       name: "num_floors",
       func: this.getNumFloors.bind(this),
-      description: "retrieved the number of floors"
+      descriptionKey: "describers.numFloors"
     },
     {
       name: "num_buildings",
       func: this.getNumBuildings.bind(this),
-      description: "retrieved the number of buildings"
+      descriptionKey: "describers.numBuildings"
     }
   ];
 
   private buildCell(executionCtx: ExecutionContext, x: Shared.JikiObject, y: Shared.JikiObject, type: CellType) {
     if (!isNumber(x) || !isNumber(y)) {
-      return executionCtx.logicError("x and y must be numbers");
+      return executionCtx.logicError(this.t("errors.xyMustBeNumbers"));
     }
     const xVal = x.value;
     const yVal = y.value;
 
+    if (!Number.isInteger(xVal)) {
+      return executionCtx.logicError(this.t("errors.xNotWhole", { x: xVal }));
+    }
+    if (!Number.isInteger(yVal)) {
+      return executionCtx.logicError(this.t("errors.yNotWhole", { y: yVal }));
+    }
+
     if (xVal < 1 || xVal > this.COLS || yVal < 1 || yVal > this.ROWS) {
-      return executionCtx.logicError(`Position (${xVal}, ${yVal}) is outside the grid`);
+      return executionCtx.logicError(this.t("errors.outsideGrid", { x: xVal, y: yVal }));
+    }
+
+    const existing = this.grid.get(`${xVal},${yVal}`);
+    if (existing !== undefined) {
+      return executionCtx.logicError(this.t("errors.alreadyBuilt", { existing, x: xVal, y: yVal }));
     }
 
     this.grid.set(`${xVal},${yVal}`, type);
@@ -97,13 +129,28 @@ export default class CityScapeExercise extends VisualExercise {
     return this.numBuildings;
   }
 
-  getRandomWidth(executionCtx: ExecutionContext): number {
-    // Returns 3, 5, or 7 (odd widths only, so entrance is always centered)
-    return Math.floor(executionCtx.random() * 3) * 2 + 3;
+  private ensureRngs() {
+    if (this.widthRng && this.floorsRng) {
+      return;
+    }
+    // Each quantity draws from its own stream so the Nth call to randomWidth()
+    // always returns the Nth building's width, regardless of how it is
+    // interleaved with randomNumFloors() calls.
+    // Unseeded (free-play) runs alias Math.random for both, which is fine:
+    // nothing reconstructs the sequence by position, so call order is irrelevant.
+    this.widthRng = this.randomSeed === undefined ? Math.random : mulberry32(this.randomSeed);
+    this.floorsRng = this.randomSeed === undefined ? Math.random : mulberry32(this.randomSeed ^ FLOORS_SEED_OFFSET);
   }
 
-  getRandomNumFloors(executionCtx: ExecutionContext): number {
-    return Math.floor(executionCtx.random() * 12) + 1;
+  getRandomWidth(_executionCtx: ExecutionContext): number {
+    this.ensureRngs();
+    // Returns 3, 5, or 7 (odd widths only, so entrance is always centered)
+    return Math.floor(this.widthRng!() * 3) * 2 + 3;
+  }
+
+  getRandomNumFloors(_executionCtx: ExecutionContext): number {
+    this.ensureRngs();
+    return Math.floor(this.floorsRng!() * 12) + 1;
   }
 
   setupNumFloors(n: number) {
@@ -112,6 +159,10 @@ export default class CityScapeExercise extends VisualExercise {
 
   setupNumBuildings(n: number) {
     this.numBuildings = n;
+  }
+
+  numCols(): number {
+    return this.COLS;
   }
 
   hasCellAt(x: number, y: number, type: CellType): boolean {

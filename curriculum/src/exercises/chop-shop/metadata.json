@@ -3,16 +3,16 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "Where should I start. The queue, or the new customer?",
-      "answer": "First work out how much time the queue will eat up, then see what's left over for the new customer. A helper that turns a haircut name into its duration (in minutes) will make this much cleaner."
+      "question": "hints.whereToStart.question",
+      "answer": "hints.whereToStart.answer"
     },
     {
-      "question": "How do I subtract each haircut's time from the remaining time?",
-      "answer": "Loop through the queue. For each haircut, look up its duration with your helper and subtract that from your running total of time left in the day."
+      "question": "hints.subtractQueueTime.question",
+      "answer": "hints.subtractQueueTime.answer"
     },
     {
-      "question": "How do I decide if the new haircut fits?",
-      "answer": "After processing the queue, compare the remaining time against the duration of the new haircut. If the new haircut's time is less than or equal to the time left, it fits."
+      "question": "hints.decideIfFits.question",
+      "answer": "hints.decideIfFits.answer"
     }
   ]
 }

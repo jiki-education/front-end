@@ -8,9 +8,9 @@ const functions: FunctionInfo[] = [
   {
     name: "moveTo",
     signature: "moveTo(position)",
-    description: "Moves the ball to **position**.",
+    description: "functions.moveTo.description",
     examples: ["moveTo(30)", "moveTo(50)"],
-    category: "Movement"
+    category: "functions.moveTo.category"
   }
 ];
 
@@ -21,7 +21,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["state", "variables"]
+  conceptSlugs: ["updating-variables", "variables"]
 };
 
 export default exerciseDefinition;

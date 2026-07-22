@@ -1,6 +1,9 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import CheckmarkCircle from "@/icons/checkmark-circle.svg";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
+import { staticAsset } from "@/lib/static-asset";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 import styles from "./BenefitSection.module.css";
 
@@ -9,38 +12,6 @@ interface BenefitSectionProps {
   onResubscribe?: () => void;
   className?: string;
 }
-
-interface Benefit {
-  title: string;
-  description: string;
-}
-
-const BENEFITS: Benefit[] = [
-  {
-    title: "Unlimited AI help",
-    description: "Get personalised guidance from Jiki whenever you're stuck"
-  },
-  {
-    title: "Unlimited content",
-    description: "Access all exercises, projects, and learning paths"
-  },
-  {
-    title: "Certificates",
-    description: "Earn shareable certificates when you complete courses"
-  },
-  {
-    title: "Ad-free",
-    description: "Enjoy a distraction-free learning experience"
-  },
-  {
-    title: "Priority support",
-    description: "Get faster responses when you need help"
-  },
-  {
-    title: "Early access",
-    description: "Be the first to try new features and content"
-  }
-];
 
 export default function BenefitSection({ isCancelling = false, onResubscribe, className = "" }: BenefitSectionProps) {
   if (isCancelling) {
@@ -51,34 +22,38 @@ export default function BenefitSection({ isCancelling = false, onResubscribe, cl
 }
 
 function ActiveBenefitSection({ className = "" }: { className?: string }) {
+  const t = useTranslations("settings.benefits");
+  const routes = useLocaleRoutes();
   return (
     <div className={`${styles.benefitsSection} ${className}`}>
       <div className={styles.benefitsHeader}>
         <Image
-          src="/static/images/misc/splash.png"
+          src={staticAsset("images/misc/splash.png")}
           alt=""
           width={60}
           height={60}
           className={`${styles.splashDecoration} ${styles.splashLeft}`}
         />
         <h3>
-          You&apos;re enjoying <span className={styles.gradientText}>Premium</span> benefits
+          {t.rich("activeHeading", { highlight: (chunks) => <span className={styles.gradientText}>{chunks}</span> })}
         </h3>
         <Image
-          src="/static/images/misc/splash.png"
+          src={staticAsset("images/misc/splash.png")}
           alt=""
           width={60}
           height={60}
           className={`${styles.splashDecoration} ${styles.splashRight}`}
         />
       </div>
-      <p className={styles.benefitsSubtitle}>Here&apos;s what you&apos;re unlocking every day</p>
+      <p className={styles.benefitsSubtitle}>{t("activeSubtitle")}</p>
 
       <BenefitsList />
 
       <p className={styles.benefitsFooter}>
-        Got a question? Learn more about <Link href="/premium">what&apos;s included</Link> or{" "}
-        <Link href="/articles/support">contact support</Link>.
+        {t.rich("footer", {
+          includedLink: (chunks) => <Link href={routes.premium()}>{chunks}</Link>,
+          supportLink: (chunks) => <Link href={routes.article("support")}>{chunks}</Link>
+        })}
       </p>
     </div>
   );
@@ -91,34 +66,40 @@ function CancellingBenefitSection({
   onResubscribe?: () => void;
   className?: string;
 }) {
+  const t = useTranslations("settings.benefits");
+  const tCommon = useTranslations("common");
   return (
     <div className={`${styles.benefitsSection} ${className}`}>
       <div className={styles.benefitsHeader}>
         <h3>
-          Don&apos;t lose your <span className={styles.gradientText}>Premium</span> benefits
+          {t.rich("cancellingHeading", {
+            highlight: (chunks) => <span className={styles.gradientText}>{chunks}</span>
+          })}
         </h3>
       </div>
-      <p className={styles.benefitsSubtitle}>Here&apos;s what you&apos;ll miss when your access ends</p>
+      <p className={styles.benefitsSubtitle}>{t("cancellingSubtitle")}</p>
 
       <BenefitsList />
 
       <div className={styles.resubscribeCta}>
         <div className={styles.resubscribeCtaContent}>
-          <h4>Keep learning without limits</h4>
+          <h4>{t("resubscribeTitle")}</h4>
           <p>
-            Resubscribe now for just{" "}
-            <span className={styles.price}>
-              <PremiumPrice interval="monthly" />
-              /month
-            </span>{" "}
-            and continue your coding journey with Jiki&apos;s support.
+            {t.rich("resubscribe", {
+              price: () => (
+                <span className={styles.price}>
+                  <PremiumPrice interval="monthly" />
+                  {tCommon("perMonth")}
+                </span>
+              )
+            })}
           </p>
         </div>
         <button
           className="ui-btn ui-btn-default ui-btn-primary ui-btn-purple whitespace-nowrap"
           onClick={onResubscribe}
         >
-          Resubscribe to Premium
+          {t("resubscribeButton")}
         </button>
       </div>
     </div>
@@ -126,9 +107,18 @@ function CancellingBenefitSection({
 }
 
 function BenefitsList() {
+  const tBenefits = useTranslations("premium.benefits");
+  const benefits = [
+    { title: tBenefits("unlimitedAiTitle"), description: tBenefits("unlimitedAiDescription") },
+    { title: tBenefits("unlimitedContentTitle"), description: tBenefits("unlimitedContentDescription") },
+    { title: tBenefits("certificatesTitle"), description: tBenefits("certificatesDescription") },
+    { title: tBenefits("adFreeTitle"), description: tBenefits("adFreeDescription") },
+    { title: tBenefits("prioritySupportTitle"), description: tBenefits("prioritySupportDescription") },
+    { title: tBenefits("earlyAccessTitle"), description: tBenefits("earlyAccessDescription") }
+  ];
   return (
     <div className={styles.premiumBenefits}>
-      {BENEFITS.map((benefit) => (
+      {benefits.map((benefit) => (
         <div key={benefit.title} className={styles.premiumBenefit}>
           <CheckmarkCircle />
           <div>

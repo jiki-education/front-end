@@ -9,38 +9,29 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches logical operators (and, or) and the remainder operator (%)
-    in the context of determining leap years. Students must combine multiple divisibility
-    checks into a single conditional expression.
-    Key concepts: remainder operator, logical operators, function definition, return values.
+    This exercise allows a student to explore combining logical operators with the remainder
+    operator (%) to express the leap-year divisibility rules. The interesting part is getting
+    the operator precedence right when nesting the 100/400 exception inside the divisible-by-4 rule.
   `,
 
   tasks: {
     "determine-leap-year": {
       description: `
-        Students need to write a function that checks three divisibility rules:
-        1. Divisible by 4 → leap year
-        2. But divisible by 100 → NOT a leap year
-        3. But divisible by 400 → leap year
+        The student writes isLeapYear combining the three divisibility checks.
 
-        Common mistakes:
-        - Only checking divisibility by 4 and missing the 100/400 rules
-        - Getting the logic backwards (returning true when it should be false)
-        - Not using parentheses correctly when combining and/or
-        - Using nested if statements when a single expression would work
-
-        Guide students to think about the rules step by step, then combine them.
-        The key insight is: divisible by 4 AND (not divisible by 100 OR divisible by 400).
+        The canonical form is divisible-by-4 AND (not-divisible-by-100 OR divisible-by-400).
+        Note that the unparenthesised version is ALSO correct: because && binds tighter than ||,
+        it evaluates as (divisible-by-4 AND not-divisible-by-100) OR divisible-by-400, which is an
+        equivalent formulation (divisible-by-400 implies divisible-by-4). Do not tell a student
+        their unparenthesised expression is wrong if it passes. Watch for students who stop at
+        divisible-by-4, or who invert the 100/400 exception.
       `
     },
     "solve-in-one-line": {
       description: `
-        The bonus challenge asks students to solve it in one line of code.
-        The optimal solution is a single return statement:
-        return year % 4 == 0 and (year % 100 != 0 or year % 400 == 0)
-
-        If students already used this approach for the main task, they've already completed the bonus.
-        If they used nested if statements, guide them to combine conditions into one expression.
+        Bonus: collapse the logic into a single return expression. If the student already wrote it
+        as one expression for the main task they are done; if they used nested ifs, guide them to
+        merge the conditions rather than handing over the line.
       `
     }
   }

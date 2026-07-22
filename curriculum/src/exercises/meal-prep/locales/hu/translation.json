@@ -1,0 +1,46 @@
+{
+  "tasks": {
+    "createShoppingList": {
+      "name": "Create Shopping List",
+      "description": "Write a function that takes the contents of your fridge and a recipe's ingredients, and returns the items you need to buy (items in the recipe that aren't in the fridge)."
+    }
+  },
+  "scenarios": {
+    "emptyFridge": {
+      "name": "Empty fridge",
+      "description": "When the fridge is empty, you need to buy everything."
+    },
+    "youHaveEverything": {
+      "name": "You have everything",
+      "description": "When you have all ingredients, the shopping list is empty."
+    },
+    "oneThing": {
+      "name": "One thing",
+      "description": "When you're missing just one ingredient."
+    },
+    "fewThings": {
+      "name": "A few things",
+      "description": "When you're missing a few ingredients."
+    }
+  },
+  "hints": {
+    "realLifeApproach": {
+      "question": "How would I do this in real life?",
+      "answer": "You'd go through the recipe one ingredient at a time and check the fridge for each. Anything missing goes on the shopping list. Your code does the same thing."
+    },
+    "checkFridgeItem": {
+      "question": "How do I check if a fridge item is there?",
+      "answer": "A small helper, something like 'is this item in this list?', keeps the main loop readable. Inside it, loop through the list and compare each entry to the item you're looking for."
+    },
+    "buildShoppingList": {
+      "question": "How do I build up the shopping list?",
+      "answer": "Start with an empty list. For each recipe item that the fridge doesn't contain, `push()` it onto the shopping list."
+    }
+  },
+  "functions": {
+    "push": {
+      "description": "Returns a new list with the element added to the end (provided by level stdlib)",
+      "category": "List Operations"
+    }
+  }
+}

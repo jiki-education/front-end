@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import DynamicHeader, { type ExerciseData } from "./DynamicHeader";
 import InstructionsContent from "./InstructionsContent";
 import FunctionsGrid from "./FunctionsGrid";
@@ -17,7 +18,7 @@ interface InstructionsPanelProps {
   exerciseTitle: string;
   exerciseSlug: string;
   levelId: string;
-  isProject?: boolean;
+  isChallenge?: boolean;
   className?: string;
 }
 
@@ -28,9 +29,10 @@ export default function InstructionsPanel({
   exerciseTitle,
   exerciseSlug,
   levelId,
-  isProject = false,
+  isChallenge = false,
   className = ""
 }: InstructionsPanelProps) {
+  const t = useTranslations("codingExercise.instructionsPanel");
   const [activeSection, setActiveSection] = useState("instructions");
   const [isExpanded, setIsExpanded] = useState(true);
   const [concepts, setConcepts] = useState<ConceptCardData[]>([]);
@@ -40,12 +42,15 @@ export default function InstructionsPanel({
   const functionsRef = useRef<HTMLDivElement>(null);
   const conceptLibraryRef = useRef<HTMLDivElement>(null);
 
+  // Distance below the container top at which a section's heading counts as "reached".
+  const SECTION_OFFSET = 30;
+
   // Build exercise data from props
   const exerciseData: ExerciseData = {
     title: exerciseTitle,
-    progress: "", // TODO: Get actual progress from API/orchestrator when available
     level: levelId.charAt(0).toUpperCase() + levelId.slice(1).replace(/-/g, " "),
-    exerciseSlug
+    exerciseSlug,
+    isChallenge
   };
 
   // Fetch concepts on mount - conceptSlugs are static for a given exercise
@@ -88,11 +93,6 @@ export default function InstructionsPanel({
 
     const handleScroll = () => {
       const scrollTop = scrollContainer.scrollTop;
-      const scrollHeight = scrollContainer.scrollHeight;
-      const clientHeight = scrollContainer.clientHeight;
-      const conceptLibraryTop = conceptLibraryRef.current?.offsetTop || 0;
-      const hasFns = functions.length > 0;
-      const functionsTop = hasFns ? functionsRef.current?.offsetTop || 0 : 0;
 
       // Use different thresholds for expanding/collapsing header based on current state to prevent jitter
       setIsExpanded((prev) => {
@@ -102,16 +102,19 @@ export default function InstructionsPanel({
         return scrollTop <= 10;
       });
 
-      // Check if user has scrolled to the bottom (within 5px threshold)
-      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 5;
+      // Active section = the lowest one whose (clamped) scroll target has been reached.
+      const targets = sectionScrollTargets();
+      if (!targets) {
+        return;
+      }
 
-      // Update active section
-      if (isAtBottom) {
-        // Always switch to concept library when at the bottom
+      const reached = scrollTop + 1; // +1 absorbs sub-pixel rounding
+      if (targets.functions !== null && targets.functions <= reached && targets.functions >= targets.conceptLibrary) {
+        // Functions and Concept Library clamp to the same bottom target: Functions wins.
+        setActiveSection("functions");
+      } else if (reached >= targets.conceptLibrary) {
         setActiveSection("concept-library");
-      } else if (scrollTop >= conceptLibraryTop - 100) {
-        setActiveSection("concept-library");
-      } else if (hasFns && scrollTop >= functionsTop - 100) {
+      } else if (targets.functions !== null && reached >= targets.functions) {
         setActiveSection("functions");
       } else {
         setActiveSection("instructions");
@@ -122,20 +125,37 @@ export default function InstructionsPanel({
     return () => scrollContainer.removeEventListener("scroll", handleScroll);
   }, [functions.length]);
 
-  // Navigation functions
+  // Clamped scroll position at which each section becomes active; shared by detection and navigation so they can't disagree.
+  const sectionScrollTargets = () => {
+    const container = scrollContainerRef.current;
+    if (!container || !instructionsRef.current || !conceptLibraryRef.current) {
+      return null;
+    }
+
+    const maxScroll = container.scrollHeight - container.clientHeight;
+    const targetFor = (el: HTMLDivElement) => Math.max(0, Math.min(el.offsetTop - SECTION_OFFSET, maxScroll));
+
+    return {
+      instructions: targetFor(instructionsRef.current),
+      functions: functionsRef.current ? targetFor(functionsRef.current) : null,
+      conceptLibrary: targetFor(conceptLibraryRef.current)
+    };
+  };
+
   const scrollToSection = (sectionRef: React.RefObject<HTMLDivElement | null>) => {
-    if (!sectionRef.current || !scrollContainerRef.current) {
+    const container = scrollContainerRef.current;
+    if (!sectionRef.current || !container) {
       return;
     }
 
-    const container = scrollContainerRef.current;
-    const targetElement = sectionRef.current;
-    const containerTop = container.getBoundingClientRect().top;
-    const targetTop = targetElement.getBoundingClientRect().top;
-    const scrollOffset = targetTop - containerTop + container.scrollTop + 30;
+    // Scroll to the same clamped target handleScroll uses, so arriving highlights this button.
+    const target = Math.max(
+      0,
+      Math.min(sectionRef.current.offsetTop - SECTION_OFFSET, container.scrollHeight - container.clientHeight)
+    );
 
     container.scrollTo({
-      top: scrollOffset,
+      top: target,
       behavior: "smooth"
     });
   };
@@ -143,11 +163,11 @@ export default function InstructionsPanel({
   const getSectionTitle = () => {
     switch (activeSection) {
       case "functions":
-        return "Functions";
+        return t("functionsTitle");
       case "concept-library":
-        return "Concept Library";
+        return t("conceptLibraryTitle");
       default:
-        return "Instructions";
+        return t("instructionsTitle");
     }
   };
 
@@ -182,7 +202,7 @@ export default function InstructionsPanel({
           ref={conceptLibraryRef}
           concepts={concepts}
           isLoading={isLoadingConcepts}
-          isProject={isProject}
+          isChallenge={isChallenge}
         />
       </div>
     </div>

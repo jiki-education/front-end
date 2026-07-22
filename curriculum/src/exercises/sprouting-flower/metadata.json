@@ -3,24 +3,32 @@
   "levelId": "basic-state",
   "hints": [
     {
-      "question": "How do I make the flower grow and rise over time?",
-      "answer": "Create variables like `flowerCenterY` and `flowerRadius` before the loop, then update them on each iteration before drawing."
+      "question": "hints.whereToStart.question",
+      "answer": "hints.whereToStart.answer"
     },
     {
-      "question": "What should change on each iteration of the loop?",
-      "answer": "Decrease `flowerCenterY` by `1` (so the flower moves up) and increase `flowerRadius` by `0.4` (so it grows). Update the pistil radius by `0.1` too."
+      "question": "hints.growEachIteration.question",
+      "answer": "hints.growEachIteration.answer"
     },
     {
-      "question": "How do I keep the stem and leaves attached to the flower?",
-      "answer": "Don't hardcode their positions. Derive them from the flower variables. For example, the stem height is `groundTop - flowerCenterY`, and the stem width is `stemHeight / 10`."
+      "question": "hints.stemAttached.question",
+      "answer": "hints.stemAttached.answer"
     },
     {
-      "question": "What size should the leaves be relative to the flower?",
-      "answer": "The leaves' `xRadius` is `flowerRadius * 0.5` and the `yRadius` is `flowerRadius * 0.2`. They sit halfway down the stem, flush against the stalk on each side."
+      "question": "hints.leafSizing.question",
+      "answer": "hints.leafSizing.answer"
     },
     {
-      "question": "My flower draws once and never changes. What's going on?",
-      "answer": "Make sure you're updating the variables inside the loop before each draw, not just before the loop starts. The loop body needs to mutate the state every iteration."
+      "question": "hints.flowerNeverChanges.question",
+      "answer": "hints.flowerNeverChanges.answer"
+    },
+    {
+      "question": "hints.firstFlowerCoords.question",
+      "answer": "hints.firstFlowerCoords.answer"
+    },
+    {
+      "question": "hints.finalFlowerCoords.question",
+      "answer": "hints.finalFlowerCoords.answer"
     }
   ]
 }

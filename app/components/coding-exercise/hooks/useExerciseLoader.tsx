@@ -1,9 +1,12 @@
 import { useEffect, useRef, useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { exercises, type ExerciseSlug, type ExerciseDefinition, type Language } from "@jiki/curriculum";
 import Orchestrator from "../lib/Orchestrator";
 import type { ExerciseContext } from "../lib/types";
 import { findFileForLanguage, hasPlaceholders, interpolateStub } from "../lib/stubInterpolation";
-import { fetchExerciseContent } from "@/lib/api/exercise-meta";
+import { getInterpreter } from "../lib/test-runner/getInterpreter";
+import { fetchExerciseContent, fetchExerciseMessages, fetchInterpreterMessages } from "@/lib/api/exercise-meta";
+import { localizeExerciseDefinition } from "@/lib/i18n/localizeExercise";
 import type { LastSubmissionData } from "@/lib/api/types/conversation";
 
 interface UseExerciseLoaderProps {
@@ -13,7 +16,7 @@ interface UseExerciseLoaderProps {
   levelId?: string;
   isCompleted: boolean;
   serverSubmission?: LastSubmissionData | null;
-  onGoToDashboard?: () => void;
+  onGoToDashboard: () => void;
 }
 
 export function useExerciseLoader({
@@ -29,6 +32,12 @@ export function useExerciseLoader({
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
 
+  // Active UI locale. Drives both the runtime message dict AND the content fetch
+  // (instructions/stub/solution). No fallback: an exercise without a content blob
+  // for this locale fails to load (only dnd-roll ships non-en content in the pilot).
+  const uiLocale = useLocale();
+  const t = useTranslations("codingExercise");
+
   useEffect(() => {
     const loadExercise = async () => {
       try {
@@ -41,17 +50,36 @@ export function useExerciseLoader({
           );
         }
 
-        // Load exercise module (shared) and static content (locale/language-specific) in parallel
-        const [exerciseModule, content] = await Promise.all([
+        // Warm the interpreter chunk in the background. getInterpreter() uses a
+        // dynamic import(); firing it here (unawaited) starts the fetch at exercise
+        // load so the student's first Run Code has it cached, without blocking the
+        // loader. The module cache dedupes the real call in runTests/lintCode.
+        void getInterpreter(language).catch(() => {});
+
+        // Load exercise module (shared), static content, the curriculum message
+        // dict, and the interpreter's message catalog for the active locale — all
+        // in parallel. Both dicts are a required part of the load (not best-effort
+        // add-ons): neither the exercise nor the interpreter runs until they
+        // resolve, so diagnostics always render in-locale. Content follows the
+        // active UI locale with NO fallback: an exercise that lacks a blob for this
+        // locale simply fails to load (only dnd-roll ships non-en content during
+        // the pilot).
+        const [exerciseModule, content, exerciseLocaleMessages, interpreterLocaleMessages] = await Promise.all([
           loader().then((m) => m.default),
-          fetchExerciseContent(exerciseSlug, "en", language)
+          fetchExerciseContent(exerciseSlug, uiLocale, language),
+          fetchExerciseMessages(exerciseSlug, uiLocale),
+          fetchInterpreterMessages(language, uiLocale)
         ]);
 
         // Assemble into full ExerciseDefinition.
         // Only the active language's stub/solution are loaded; the cast is safe because
         // all downstream consumers (Orchestrator, store) only access exercise.stubs[language].
+        // Static display strings (task/scenario name+description, hints, function
+        // description+category) are keyed in the curriculum and resolved here against
+        // the fetched dict; the runtime dict is injected via the Orchestrator rail below.
+        const localizedModule = localizeExerciseDefinition(exerciseModule, exerciseLocaleMessages);
         const exercise: ExerciseDefinition = {
-          ...exerciseModule,
+          ...localizedModule,
           title: content.title,
           description: content.description,
           instructions: content.instructions,
@@ -59,7 +87,7 @@ export function useExerciseLoader({
           solutions: { [language]: content.solution } as Record<Language, string>
         };
 
-        // Override levelId if provided (used for projects where level comes from the API)
+        // Override levelId if provided (used for challenges where level comes from the API)
         if (levelId) {
           exercise.levelId = levelId;
         }
@@ -85,6 +113,8 @@ export function useExerciseLoader({
           exercise,
           language,
           context,
+          interpreterLocaleMessages,
+          exerciseLocaleMessages,
           content.contentHash,
           onGoToDashboard,
           serverData
@@ -94,7 +124,7 @@ export function useExerciseLoader({
 
         setIsLoading(false);
       } catch (error) {
-        setLoadError(error instanceof Error ? error.message : "Unknown error");
+        setLoadError(error instanceof Error ? error.message : t("unknownError"));
         setIsLoading(false);
       }
     };

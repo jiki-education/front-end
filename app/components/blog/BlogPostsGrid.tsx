@@ -1,49 +1,17 @@
-import Link from "next/link";
 import type { BlogPostMeta } from "@/lib/content/types";
-import { formatBlogDate } from "@/lib/utils";
-import AuthorIcon from "@/icons/author.svg";
+import BlogPostCard from "./BlogPostCard";
 import styles from "./BlogPostCard.module.css";
 
 interface BlogPostsGridProps {
   posts: BlogPostMeta[];
-  locale: string;
 }
 
-export default function BlogPostsGrid({ posts, locale }: BlogPostsGridProps) {
+export default function BlogPostsGrid({ posts }: BlogPostsGridProps) {
   return (
     <div className={styles.blogPostsGrid}>
       {posts.map((post) => (
-        <BlogPostCard key={post.slug} post={post} locale={locale} />
+        <BlogPostCard key={post.slug} post={post} styles={styles} headingLevel="h2" />
       ))}
     </div>
-  );
-}
-
-interface BlogPostCardProps {
-  post: BlogPostMeta;
-  locale: string;
-}
-
-function BlogPostCard({ post, locale }: BlogPostCardProps) {
-  const postUrl = locale === "en" ? `/blog/${post.slug}` : `/${locale}/blog/${post.slug}`;
-  const firstTag = post.tags[0];
-
-  return (
-    <Link href={postUrl} className={styles.blogPostCard}>
-      <div
-        className={styles.postImage}
-        style={post.coverImage ? { backgroundImage: `url(${post.coverImage})` } : undefined}
-      />
-      <div className={styles.postMeta}>
-        <span className={styles.postDate}>{formatBlogDate(post.date)}</span>
-        {firstTag && <span className={styles.postBadge}>{firstTag}</span>}
-      </div>
-      <h2 className={styles.postTitle}>{post.title}</h2>
-      <p className={styles.postExcerpt}>{post.excerpt}</p>
-      <div className={styles.postAuthor}>
-        <AuthorIcon />
-        <span>by {post.author.name}</span>
-      </div>
-    </Link>
   );
 }

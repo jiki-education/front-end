@@ -1,7 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { staticAsset } from "@/lib/static-asset";
 import styles from "./AuthLayout.module.css";
 
 interface AuthLayoutProps {
@@ -9,28 +11,28 @@ interface AuthLayoutProps {
 }
 
 export function AuthLayout({ children }: AuthLayoutProps) {
+  const t = useTranslations("auth.layout");
+
   return (
-    <div className="flex flex-col lg:flex-row">
+    <div className={styles.layout}>
       {children}
 
       {/* Right Side - Gradient Background */}
       <div className={styles.rightSide}>
         <Image
-          src="/static/images/jiki-word.png"
-          alt="Jiki"
+          src={staticAsset("images/jiki-word.png")}
+          alt={t("logoAlt")}
           width={206}
           height={96}
           className={styles.logoLarge}
           priority
         />
-        <h1 className={styles.tagline}>Your coding journey starts here</h1>
-        <p className={styles.description}>
-          Join millions of learners transforming their careers through hands-on coding practice.
-        </p>
+        <h1 className={styles.tagline}>{t("tagline")}</h1>
+        <p className={styles.description}>{t("description")}</p>
 
         <div className={styles.creatorsBadge}>
-          <div className={styles.label}>Created By</div>
-          <div className={styles.brand}>The team behind Exercism</div>
+          <div className={styles.label}>{t("createdBy")}</div>
+          <div className={styles.brand}>{t("brand")}</div>
         </div>
       </div>
     </div>

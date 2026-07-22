@@ -3,20 +3,20 @@
   "levelId": "make-your-own-functions",
   "hints": [
     {
-      "question": "What makes a triangle invalid?",
-      "answer": "Two things. First, any side being zero. Second, the sum of any two sides being less than or equal to the third (the triangle inequality). Check this first, since there's no point classifying a shape that isn't actually a triangle."
+      "question": "hints.whatMakesInvalid.question",
+      "answer": "hints.whatMakesInvalid.answer"
     },
     {
-      "question": "What order should I check the categories?",
-      "answer": "Most specific first: equilateral (all three sides equal), then isosceles (any two sides equal), then everything else is scalene. Doing them in the wrong order means equilateral triangles get wrongly classified as isosceles."
+      "question": "hints.checkOrder.question",
+      "answer": "hints.checkOrder.answer"
     },
     {
-      "question": "How do I check 'any two sides are equal' for isosceles?",
-      "answer": "Three comparisons: a == b, b == c, or a == c. Any one of those being true is enough."
+      "question": "hints.checkAnyTwoEqual.question",
+      "answer": "hints.checkAnyTwoEqual.answer"
     },
     {
-      "question": "How do I know it's scalene?",
-      "answer": "If you've ruled out invalid, equilateral, and isosceles, scalene is the only thing left. Return it without further checks."
+      "question": "hints.knowScalene.question",
+      "answer": "hints.knowScalene.answer"
     }
   ]
 }

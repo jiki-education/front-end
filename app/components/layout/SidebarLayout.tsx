@@ -2,8 +2,9 @@
 
 import { useAuthStore } from "../../lib/auth/authStore";
 import { ExternalFooter } from "./ExternalFooter";
-import ExternalHeader from "./header/external";
+import Header from "./header/Header";
 import Sidebar from "./sidebar/Sidebar";
+import styles from "./SidebarLayout.module.css";
 
 interface SidebarLayoutProps {
   activeItem: string;
@@ -14,16 +15,16 @@ export default function SidebarLayout({ activeItem, children }: SidebarLayoutPro
   const { isAuthenticated } = useAuthStore();
   if (isAuthenticated) {
     return (
-      <div className="min-h-screen flex bg-white">
+      <div className={styles.appShell}>
         <Sidebar activeItem={activeItem} />
-        <main className="flex-1 min-w-0 overflow-x-hidden">{children}</main>
+        <main className={styles.main}>{children}</main>
       </div>
     );
   }
   return (
-    <div className="min-h-screen flex flex-col bg-white">
-      <ExternalHeader />
-      <main className="flex-1 mt-[var(--header-height)]">{children}</main>
+    <div className={styles.externalShell}>
+      <Header />
+      <main className={styles.externalMain}>{children}</main>
       <ExternalFooter />
     </div>
   );

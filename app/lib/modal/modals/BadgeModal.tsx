@@ -2,6 +2,7 @@
 
 import type { BadgeModalData } from "@/app/(app)/achievements/badgeData";
 import { BadgeIcon } from "@/components/icons/BadgeIcon";
+import { useTranslations } from "next-intl";
 import { hideModal } from "../store";
 import styles from "./BadgeModal.module.css";
 import { assembleClassNames } from "../../assemble-classnames";
@@ -13,6 +14,7 @@ interface BadgeModalProps {
 }
 
 export function BadgeModal({ badgeData, firstTime, onClose }: BadgeModalProps) {
+  const t = useTranslations("modals.badge");
   const handleClose = () => {
     onClose?.();
     hideModal();
@@ -30,12 +32,12 @@ export function BadgeModal({ badgeData, firstTime, onClose }: BadgeModalProps) {
         <p className={styles.description}>{badgeData.description}</p>
 
         {/* Fun Fact Box */}
-        <div className={styles.factLabel}>Fun Fact</div>
+        <div className={styles.factLabel}>{t("funFact")}</div>
         <div className={styles.factValue}>{badgeData.funFact}</div>
 
         {/* Action Button */}
         <button onClick={handleClose} className="ui-btn ui-btn-xlarge ui-btn-for-colorful-background w-[100%]">
-          Keep Going!
+          {t("keepGoing")}
         </button>
       </div>
     </div>

@@ -3,20 +3,20 @@
   "levelId": "repeat-loop",
   "hints": [
     {
-      "question": "How can I avoid writing `move()` and `shoot()` over and over?",
-      "answer": "Use a `repeat` loop. `repeat(n) { ... }` runs the same block of code `n` times."
+      "question": "hints.avoidRepeating.question",
+      "answer": "hints.avoidRepeating.answer"
     },
     {
-      "question": "What's the repeating pattern in the alien positions?",
-      "answer": "The aliens are in every other column, so the pattern is: `shoot`, `move`, `move`. That three-step group is what you want to repeat."
+      "question": "hints.repeatingPattern.question",
+      "answer": "hints.repeatingPattern.answer"
     },
     {
-      "question": "How many times should I repeat the pattern?",
-      "answer": "Count the groups of aliens across the screen and use that number as the argument to `repeat`."
+      "question": "hints.howManyTimes.question",
+      "answer": "hints.howManyTimes.answer"
     },
     {
-      "question": "Why does the target ask for only 7 lines?",
-      "answer": "One line for the `repeat` header, the repeating actions inside, the closing brace, and one or two actions outside is plenty. If you're writing more, you're probably not using the loop yet."
+      "question": "hints.why7Lines.question",
+      "answer": "hints.why7Lines.answer"
     }
   ]
 }

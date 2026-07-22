@@ -20,21 +20,21 @@ export function InfoBox({ type, title, message }: InfoBoxProps) {
           bg: "bg-green-50",
           border: "border-green-200",
           text: "text-green-900",
-          icon: <CheckCircle className="w-5 h-5 text-green-600" />
+          icon: <CheckCircle className="w-20 h-20 text-green-600" />
         };
       case "error":
         return {
           bg: "bg-red-50",
           border: "border-red-200",
           text: "text-red-900",
-          icon: <XCircle className="w-5 h-5 text-red-600" />
+          icon: <XCircle className="w-20 h-20 text-red-600" />
         };
       case "info":
         return {
           bg: "bg-blue-50",
           border: "border-blue-200",
           text: "text-blue-900",
-          icon: <Info className="w-5 h-5 text-blue-600" />
+          icon: <Info className="w-20 h-20 text-blue-600" />
         };
       default:
         return {
@@ -50,10 +50,10 @@ export function InfoBox({ type, title, message }: InfoBoxProps) {
 
   return (
     <div className={`mt-4 p-4 ${styles.bg} border ${styles.border} rounded-lg`}>
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-12">
         {styles.icon && <div className="mt-0.5 flex-shrink-0">{styles.icon}</div>}
         <div className={`text-sm ${styles.text}`}>
-          {title && <p className="font-semibold mb-1">{title}</p>}
+          {title && <p className="font-semibold mb-4">{title}</p>}
           {message && <p>{message}</p>}
         </div>
       </div>

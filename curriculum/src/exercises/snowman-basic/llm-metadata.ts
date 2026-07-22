@@ -9,31 +9,18 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise introduces the circle function.
-    Students draw three circles to build a snowman on a provided background.
-    Key concepts: function calls with multiple arguments, coordinate positioning.
+    This exercise lets a student explore the circle function, drawing three circles to build a snowman matching the target image.
   `,
 
   tasks: {
     "build-snowman": {
       description: `
-        Students must draw three circles to build a snowman.
-
-        Key teaching points:
-        1. Circle parameters: (cx, cy, radius)
-        2. cx and cy are the CENTER of the circle, not the top-left
-        3. Coordinate system: (0,0) is top-left, (100,100) is bottom-right
-        4. The color is automatically set to white
-
-        Circle positions:
-        - Base (bottom, biggest): center (50, 70), radius 20
-        - Body (middle): center (50, 40), radius 15
-        - Head (top, smallest): center (50, 20), radius 10
+        Draw three centred circles (head smallest/top, body medium/middle, base largest/bottom).
 
         Common mistakes:
-        - Using wrong coordinates for the centers
+        - Treating centerX/centerY as the top-left rather than the centre
         - Confusing radius with diameter
-        - Getting the sizes in the wrong order
+        - Getting the three sizes in the wrong order
       `
     }
   }

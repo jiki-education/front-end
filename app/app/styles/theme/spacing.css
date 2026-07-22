@@ -3,7 +3,7 @@
  * Border widths, border radius, z-index, and spacing values
  */
 
-@theme inline {
+:root {
     /* Border widths */
     --border-width-1: 1px;
     --border-width-2: 2px;
@@ -34,7 +34,7 @@
     --z-index-tooltip-content: 10101;
     --z-index-nav: 100;
     --z-index-nav-popover: 110;
-    --z-index-beta-tag: 999;
+    --z-index-beta-tag: 1001;
     --z-index-modal-backdrop: 1000;
     --z-index-modal: 1001;
     --z-index-modal-nested: 1050;
@@ -44,7 +44,7 @@
     --z-index-notification: 1300;
 
     /* Layout tokens */
-    --header-height: 70px;
+    --header-height: 72px;
     --sticky-offset: 24px;
 
     /* Spacing tokens */

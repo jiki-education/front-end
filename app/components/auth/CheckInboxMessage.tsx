@@ -1,5 +1,7 @@
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import EnvelopeIcon from "@/icons/envelope.svg";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./AuthForm.module.css";
 
 interface CheckInboxMessageProps {
@@ -7,6 +9,8 @@ interface CheckInboxMessageProps {
 }
 
 export function CheckInboxMessage({ email }: CheckInboxMessageProps) {
+  const t = useTranslations("auth.checkInbox");
+  const routes = useLocaleRoutes();
   return (
     <div className={styles.leftSide}>
       <div className={styles.formContainer}>
@@ -14,15 +18,21 @@ export function CheckInboxMessage({ email }: CheckInboxMessageProps) {
           <div className={styles.confirmationIcon}>
             <EnvelopeIcon />
           </div>
-          <h2>Check your inbox</h2>
+          <h2>{t("heading")}</h2>
           <div className={styles.confirmationCard}>
-            <p className={styles.confirmationText}>We&apos;ve sent a confirmation email to</p>
+            <p className={styles.confirmationText}>{t("sentTo")}</p>
             <p className={styles.confirmationEmail}>{email}</p>
             <p className={styles.confirmationHint}>
-              Click the link in the email to activate your account. Didn&apos;t receive it?{" "}
-              <Link href={`/auth/resend-confirmation?email=${encodeURIComponent(email)}`} className="ui-link">
-                Resend email
-              </Link>
+              {t.rich("hint", {
+                link: (chunks) => (
+                  <Link
+                    href={`${routes.authResendConfirmation()}?email=${encodeURIComponent(email)}`}
+                    className="ui-link"
+                  >
+                    {chunks}
+                  </Link>
+                )
+              })}
             </p>
           </div>
         </div>

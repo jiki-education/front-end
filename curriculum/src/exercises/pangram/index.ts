@@ -7,9 +7,9 @@ const functions: FunctionInfo[] = [
   {
     name: "keys",
     signature: "keys(dictionary)",
-    description: "Returns a list of all keys in the dictionary (provided by level stdlib)",
+    description: "functions.keys.description",
     examples: ['keys({ "A": 1, "B": 2 }) -> ["A", "B"]'],
-    category: "Dictionary Operations"
+    category: "functions.keys.category"
   }
 ];
 

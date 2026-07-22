@@ -96,12 +96,6 @@
     font-weight: 500;
 }
 
-.postAuthor svg {
-    width: 16px;
-    height: 16px;
-    color: var(--color-gray-400);
-}
-
 @media (max-width: 1024px) {
     .blogPostsGrid {
         grid-template-columns: repeat(2, 1fr);

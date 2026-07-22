@@ -14,6 +14,7 @@ const exerciseDefinition: IOExerciseCore = {
   functions,
   conceptSlugs: [
     "creating-functions",
+    "creating-functions-with-inputs",
     "string-concatenation",
     "string-templates",
     "creating-functions-with-return-values"

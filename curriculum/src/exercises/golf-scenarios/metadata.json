@@ -3,8 +3,12 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "I'm not sure where to start",
-      "answer": "Firstly, repeat what you did previously. Roll the ball from its starting position to however far the `getShotLength()` function returns. Just remember to roll one step at a time. Once you've done that, think about how to animate it down."
+      "question": "hints.notSureWhereToStart.question",
+      "answer": "hints.notSureWhereToStart.answer"
+    },
+    {
+      "question": "hints.ballStopsShort.question",
+      "answer": "hints.ballStopsShort.answer"
     }
   ]
 }

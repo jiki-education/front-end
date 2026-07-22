@@ -5,7 +5,10 @@ import { readAttribution } from "@/lib/attribution";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { useAuth } from "@/lib/auth/useAuth";
 import { buildUrlWithReturnTo } from "@/lib/auth/return-to";
+import { detectSeedLocale } from "@/lib/i18n/detectSeedLocale";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useTurnstile } from "@/lib/turnstile/useTurnstile";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import type { FormEvent } from "react";
@@ -17,6 +20,11 @@ import { ExercismAuthButton } from "./ExercismAuthButton";
 import { GoogleAuthButton } from "./GoogleAuthButton";
 
 export function SignupForm() {
+  const t = useTranslations("auth.signup");
+  const tc = useTranslations("auth");
+  const tCommon = useTranslations("common");
+  const activeLocale = useLocale();
+  const routes = useLocaleRoutes();
   const { signup, isLoading } = useAuthStore();
   const { handleAuthResponse, handleGoogleSuccess, googleAuthError, returnTo, TwoFactorForm } = useAuth();
   const turnstile = useTurnstile();
@@ -34,15 +42,15 @@ export function SignupForm() {
     const errors: Record<string, string> = {};
 
     if (!email) {
-      errors.email = "Email is required";
+      errors.email = tc("fields.emailRequired");
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errors.email = "Please enter a valid email";
+      errors.email = tCommon("validation.emailInvalid");
     }
 
     if (!password) {
-      errors.password = "Password is required";
+      errors.password = tCommon("validation.passwordRequired");
     } else if (password.length < 6) {
-      errors.password = "Password must be at least 6 characters";
+      errors.password = tCommon("validation.passwordMinLength");
     }
 
     setValidationErrors(errors);
@@ -71,11 +79,13 @@ export function SignupForm() {
     }
 
     try {
+      const seedLocale = detectSeedLocale(activeLocale);
       const user = await signup(
         {
           email,
           password,
           password_confirmation: password,
+          ...(seedLocale ? { locale: seedLocale } : {}),
           attribution: readAttribution()
         },
         token
@@ -89,7 +99,7 @@ export function SignupForm() {
         } catch {
           // Storage may be disabled — the check-email page will fall back gracefully.
         }
-        router.push("/auth/check-email");
+        router.push(routes.authCheckEmail());
       }
     } catch (err) {
       setVerifying(false);
@@ -123,38 +133,40 @@ export function SignupForm() {
     <div className={styles.leftSide}>
       <div className={styles.formContainer}>
         <header>
-          <h1>Sign Up</h1>
+          <h1>{t("title")}</h1>
           <p>
-            Already got an account?{" "}
-            <Link href={buildUrlWithReturnTo("/auth/login", returnTo)} className="ui-link">
-              Log in
-            </Link>
-            .
+            {t.rich("haveAccount", {
+              link: (chunks) => (
+                <Link href={buildUrlWithReturnTo(routes.authLogin(), returnTo)} className="ui-link">
+                  {chunks}
+                </Link>
+              )
+            })}
           </p>
         </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           <div className={styles.oauthButtons}>
             <GoogleAuthButton onSuccess={handleGoogleSuccess} onError={() => console.error("ERROR WITH GOOGLE SIGNUP")}>
-              Use Google
+              {tc("oauth.useGoogle")}
             </GoogleAuthButton>
             <ExercismAuthButton onError={() => console.error("ERROR WITH EXERCISM SIGNUP")}>
-              Use Exercism
+              {tc("oauth.useExercism")}
             </ExercismAuthButton>
           </div>
 
-          <div className={styles.divider}>OR</div>
+          <div className={styles.divider}>{tc("oauth.divider")}</div>
 
           <div
             className={`ui-form-field-large ${validationErrors.email || (hasAuthError && authErrorField === "email") ? "ui-form-field-error" : ""}`}
           >
-            <label htmlFor="signup-email">Email</label>
+            <label htmlFor="signup-email">{tc("fields.emailLabel")}</label>
             <div>
               <EmailIcon />
               <input
                 type="email"
                 id="signup-email"
-                placeholder="Enter your email address"
+                placeholder={tc("fields.emailPlaceholder")}
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -176,7 +188,7 @@ export function SignupForm() {
             )}
             {hasAuthError && authErrorField === "email" && !validationErrors.email && (
               <div className="ui-form-field-error-message" style={{ display: "block" }}>
-                This email is already registered
+                {t("emailAlreadyRegistered")}
               </div>
             )}
           </div>
@@ -186,13 +198,13 @@ export function SignupForm() {
             id="password-field"
             style={{ marginBottom: "8px" }}
           >
-            <label htmlFor="signup-password">Password</label>
+            <label htmlFor="signup-password">{tc("fields.passwordLabel")}</label>
             <div>
               <PasswordIcon />
               <input
                 type="password"
                 id="signup-password"
-                placeholder="Enter your password"
+                placeholder={tc("fields.passwordPlaceholder")}
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value);
@@ -215,12 +227,7 @@ export function SignupForm() {
             )}
           </div>
 
-          {captchaError && (
-            <div className={styles.errorMessage}>
-              Our systems tried to determine whether you were a bot or a human, but couldn&apos;t. Please try signing up
-              again using the button below.
-            </div>
-          )}
+          {captchaError && <div className={styles.errorMessage}>{tc("captchaError.signup")}</div>}
 
           <button
             type="submit"
@@ -229,15 +236,18 @@ export function SignupForm() {
             style={{ width: "100%" }}
             disabled={isLoading || verifying}
           >
-            {isLoading ? "Signing up..." : verifying ? "Verifying..." : "Sign Up"}
+            {isLoading ? t("submitting") : verifying ? tCommon("verifying") : t("submit")}
           </button>
 
           <div className={styles.footerLinks}>
             <p>
-              Didn&apos;t receive your confirmation email?{" "}
-              <Link href="/auth/resend-confirmation" className="ui-link">
-                Resend it.
-              </Link>
+              {t.rich("resend", {
+                link: (chunks) => (
+                  <Link href={routes.authResendConfirmation()} className="ui-link">
+                    {chunks}
+                  </Link>
+                )
+              })}
             </p>
           </div>
         </form>

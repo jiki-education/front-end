@@ -6,37 +6,30 @@ import type { VisualExerciseCore, FunctionInfo } from "../types";
 const functions: FunctionInfo[] = [
   {
     name: "rectangle",
-    signature: "rectangle(x, y, width, height, color)",
-    description: "Draw a rectangle at position (x, y) with the given width, height, and color",
+    signature: "rectangle(left, top, width, height, color)",
+    description: "functions.rectangle.description",
     examples: [
       'rectangle(0, 0, 100, 50, "skyblue")',
       "rectangle(houseLeft, houseTop, houseWidth, houseHeight, houseColor)"
     ],
-    category: "Drawing Shapes"
+    category: "functions.rectangle.category"
   },
   {
     name: "circle",
     signature: "circle(centerX, centerY, radius, color)",
-    description: "Draw a circle centered at (centerX, centerY) with the given radius and color",
+    description: "functions.circle.description",
     examples: ['circle(50, 50, 10, "black")', "circle(knobCenterX, knobCenterY, knobRadius, knobColor)"],
-    category: "Drawing Shapes"
-  },
-  {
-    name: "ellipse",
-    signature: "ellipse(centerX, centerY, radiusX, radiusY, color)",
-    description: "Draw an ellipse centered at (centerX, centerY) with horizontal and vertical radii and color",
-    examples: ['ellipse(50, 50, 20, 10, "black")', 'ellipse(30, 60, 15, 5, "white")'],
-    category: "Drawing Shapes"
+    category: "functions.circle.category"
   },
   {
     name: "triangle",
     signature: "triangle(x1, y1, x2, y2, x3, y3, color)",
-    description: "Draw a triangle with three corner points and a color",
+    description: "functions.triangle.description",
     examples: [
-      'triangle(50, 20, 40, 40, 60, 40, "brown")',
+      'triangle(50, 20, 40, 40, 60, 40, "brick")',
       "triangle(roofLeft, roofBaseY, roofPeakX, roofPeakY, roofRight, roofBaseY, roofColor)"
     ],
-    category: "Drawing Shapes"
+    category: "functions.triangle.category"
   }
 ];
 
@@ -46,7 +39,25 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["variables", "arithmetic", "using-functions-with-inputs"],
+  readonlyRanges: {
+    javascript: [
+      { fromLine: 1, toLine: 14 },
+      { fromLine: 15, toLine: 15, toChar: 17 },
+      { fromLine: 16, toLine: 16, toChar: 18 }
+    ],
+    python: [
+      { fromLine: 1, toLine: 14 },
+      { fromLine: 15, toLine: 15, toChar: 14 },
+      { fromLine: 16, toLine: 16, toChar: 15 }
+    ],
+    jikiscript: [
+      { fromLine: 1, toLine: 14 },
+      { fromLine: 15, toLine: 15, toChar: 19 },
+      { fromLine: 16, toLine: 16, toChar: 20 }
+    ]
+  }
 };
 
 export default exerciseDefinition;

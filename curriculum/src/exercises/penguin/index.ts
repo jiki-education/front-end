@@ -6,31 +6,31 @@ import type { VisualExerciseCore, FunctionInfo } from "../types";
 const functions: FunctionInfo[] = [
   {
     name: "rectangle",
-    signature: "rectangle(x, y, width, height, color)",
-    description: "Draw a rectangle at position (x, y) with the given width, height, and color",
+    signature: "rectangle(left, top, width, height, color)",
+    description: "functions.rectangle.description",
     examples: ['rectangle(0, 0, 100, 50, "skyblue")', 'rectangle(10, 20, 50, 30, "black")'],
-    category: "Drawing Shapes"
+    category: "functions.rectangle.category"
   },
   {
     name: "circle",
     signature: "circle(centerX, centerY, radius, color)",
-    description: "Draw a circle centered at (centerX, centerY) with the given radius and color",
+    description: "functions.circle.description",
     examples: ['circle(50, 50, 10, "black")', 'circle(25, 75, 15, "white")'],
-    category: "Drawing Shapes"
+    category: "functions.circle.category"
   },
   {
     name: "ellipse",
     signature: "ellipse(centerX, centerY, radiusX, radiusY, color)",
-    description: "Draw an ellipse centered at (centerX, centerY) with horizontal and vertical radii and color",
+    description: "functions.ellipse.description",
     examples: ['ellipse(50, 50, 20, 10, "black")', 'ellipse(30, 60, 15, 5, "white")'],
-    category: "Drawing Shapes"
+    category: "functions.ellipse.category"
   },
   {
     name: "triangle",
     signature: "triangle(x1, y1, x2, y2, x3, y3, color)",
-    description: "Draw a triangle with three corner points and a color",
+    description: "functions.triangle.description",
     examples: ['triangle(50, 20, 40, 40, 60, 40, "orange")', 'triangle(10, 10, 20, 10, 15, 20, "black")'],
-    category: "Drawing Shapes"
+    category: "functions.triangle.category"
   }
 ];
 

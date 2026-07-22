@@ -1,7 +1,7 @@
 import { VisualExercise } from "../../VisualExercise";
 import { jikiscript, javascript } from "@jiki/interpreters";
-import type { ExecutionContext, ExternalFunction, Shared } from "@jiki/interpreters";
-import type { Language } from "../../types";
+import type { ExecutionContext, Shared } from "@jiki/interpreters";
+import type { AvailableFunction, Language } from "../../types";
 import metadata from "./metadata.json";
 
 // Helper to read a field value from either a Jikiscript or JS instance
@@ -45,7 +45,7 @@ export default class SmashingBlocksExercise extends VisualExercise {
     this.defaultBlockHeight = height;
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "move_ball",
       func: (executionCtx: ExecutionContext, ballArg: Shared.JikiObject) => {
@@ -74,7 +74,7 @@ export default class SmashingBlocksExercise extends VisualExercise {
         });
         executionCtx.fastForward(1);
       },
-      description: "Moves the ball according to its velocity"
+      descriptionKey: "describers.moveBall"
     }
   ];
 

@@ -3,8 +3,8 @@
   "levelId": "repeat-loop",
   "hints": [
     {
-      "question": "I can't work it out",
-      "answer": "You have two tools to use:\n- A repeat loop, which you use by writing `repeat(n) { }` where `n` is the amount of times you want to roll and where you can put anything inside the braces (`{ }`).\n- A `roll()` function that rolls the ball one step to the right.\n\nHow can you combine them?"
+      "question": "hints.icantWorkItOut.question",
+      "answer": "hints.icantWorkItOut.answer"
     }
   ]
 }

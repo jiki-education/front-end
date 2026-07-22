@@ -1,7 +1,8 @@
 import Link from "next/link";
+import { localePath } from "@/lib/i18n/routes";
 import type { BlogPostMeta } from "@/lib/content/types";
 import { formatBlogDate } from "@/lib/utils";
-import AuthorIcon from "@/icons/author.svg";
+import AuthorAvatar from "@/components/ui/AuthorAvatar";
 import CalendarIcon from "@/icons/calendar.svg";
 import styles from "./FeaturedLatestPost.module.css";
 
@@ -11,7 +12,7 @@ interface FeaturedLatestPostProps {
 }
 
 export default function FeaturedLatestPost({ post, locale }: FeaturedLatestPostProps) {
-  const postUrl = locale === "en" ? `/blog/${post.slug}` : `/${locale}/blog/${post.slug}`;
+  const postUrl = localePath(`/blog/${post.slug}`, locale);
 
   return (
     <Link href={postUrl} className={styles.featuredLatestPost}>
@@ -27,7 +28,7 @@ export default function FeaturedLatestPost({ post, locale }: FeaturedLatestPostP
             {formatBlogDate(post.date)}
           </span>
           <span className={styles.featuredLatestAuthor}>
-            <AuthorIcon />
+            <AuthorAvatar author={post.author} size={18} />
             by {post.author.name}
           </span>
         </div>

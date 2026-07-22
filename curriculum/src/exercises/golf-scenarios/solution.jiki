@@ -1,7 +1,7 @@
-set x to 29
+set x to 28
 set shot_length to get_shot_length()
 
-repeat shot_length + 1 times do
+repeat shot_length times do
   change x to x + 1
-  roll_to(x)
+  move_to(x)
 end

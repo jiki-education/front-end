@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "ballNotAtEnd": "The ball rolled to {{ballX}}, which isn't 60 from where it started.",
+    "missingPositions": "The ball must roll through each position one step at a time, starting from 29.",
+    "codeQuality": {
+      "tooManyLines": "Your solution has too many lines of code. Try using a loop to make it shorter."
+    }
+  },
+  "tasks": {
+    "rollBall": {
+      "name": "Roll the ball into the hole",
+      "description": "Roll the ball into the hole."
+    }
+  },
+  "scenarios": {
+    "rollBall": {
+      "name": "Roll the ball into the hole",
+      "description": "Roll the ball into the hole."
+    }
+  },
+  "hints": {
+    "icantWorkItOut": {
+      "question": "I can't work it out",
+      "answer": "You have two tools to use:\n- A repeat loop, which you use by writing `repeat(n) { }` where `n` is the amount of times you want to roll and where you can put anything inside the braces (`{ }`).\n- A `roll()` function that rolls the ball one step to the right.\n\nHow can you combine them?"
+    }
+  },
+  "functions": {
+    "roll": {
+      "description": "Rolls the ball **one step to the right**.",
+      "category": "Movement"
+    }
+  },
+  "describers": {
+    "roll": "rolled the ball one step to the right"
+  }
+}

@@ -1,6 +1,6 @@
 import type { ProcessedBlogPost } from "@/lib/content/types";
 import { formatBlogDate } from "@/lib/utils";
-import AuthorIcon from "@/icons/author.svg";
+import AuthorAvatar from "@/components/ui/AuthorAvatar";
 import CalendarIcon from "@/icons/calendar.svg";
 import ClockIcon from "@/icons/clock.svg";
 import shared from "@/components/landing-page/shared.module.css";
@@ -30,7 +30,7 @@ export default function BlogPostHeader({ post }: BlogPostHeaderProps) {
             </div>
             <div className={styles.metaItem}>
               <span className={styles.metaIcon}>
-                <AuthorIcon />
+                <AuthorAvatar author={post.author} size={18} />
               </span>
               <span>Written by {post.author.name}</span>
             </div>

@@ -23,9 +23,28 @@ export default function TestRunnerTestPage() {
     const exercise = createMockExercise({
       slug: "test-runner-e2e",
       stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode },
-      title: "Test Runner E2E Exercise"
+      title: "Test Runner E2E Exercise",
+      // The auto-play, test-switching and test-runner specs that drive this page
+      // rely on an exercise that never fully completes (so it keeps a failing
+      // scenario to play/switch through). The shared mock's third task is a
+      // bonus, which would be excluded from the "passed" check and let the
+      // exercise complete, popping the completion modal and suppressing
+      // auto-play. Treat every task as required here; the bonus-scenario
+      // behaviour itself is covered by unit tests.
+      tasks: [
+        { id: "test-task-1", name: "Basic Test Task", bonus: false },
+        { id: "test-task-bonus", name: "Third Test Task", bonus: false }
+      ]
     });
-    const orch = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+    const orch = new Orchestrator(
+      exercise,
+      "jikiscript",
+      { type: "lesson", slug: "test-lesson" },
+      {},
+      {},
+      "",
+      () => {}
+    );
     setOrchestrator(orch);
 
     // Expose orchestrator to window for E2E testing
@@ -62,7 +81,7 @@ function TestRunnerContent() {
       {/* Main content area */}
       <div className="flex flex-1 overflow-hidden">
         {/* Left panel - Code Editor */}
-        <div className="w-1/2 border-r border-gray-200 flex flex-col bg-white">
+        <div className="w-1/2 border-e border-gray-200 flex flex-col bg-white">
           <div className="border-b border-gray-200 px-4 py-2 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-700">Code Editor</h2>
           </div>

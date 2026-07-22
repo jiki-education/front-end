@@ -3,12 +3,12 @@
   "levelId": "conditionals",
   "hints": [
     {
-      "question": "How do I know their age?",
-      "answer": "Use the `askAge()` function. It will return a different value in each scenario."
+      "question": "hints.askAge.question",
+      "answer": "hints.askAge.answer"
     },
     {
-      "question": "How do I vary what I do?",
-      "answer": "Use an `if` statement - check the concept if you need more help!"
+      "question": "hints.ifStatement.question",
+      "answer": "hints.ifStatement.answer"
     }
   ]
 }

@@ -122,7 +122,7 @@ Each locale has its own markdown file with its own frontmatter:
 
 ```
 posts/blog/jiki-is-born/
-├── en.md
+├── source.md
 └── hu.md
 ```
 
@@ -130,7 +130,7 @@ Each file must have complete frontmatter. Fields like `title`, `excerpt`, and `s
 
 ### Example: English vs Hungarian
 
-**en.md:**
+**source.md (English):**
 
 ```yaml
 ---

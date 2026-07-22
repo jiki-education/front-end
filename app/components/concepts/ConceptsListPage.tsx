@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { ConceptsHeader, ConceptsSearch, ConceptsGrid, ConceptsLayout } from "@/components/concepts";
 import { ErrorState, ConceptCardsLoadingSkeleton } from "@/components/concepts";
 import { SignupCta } from "@/components/concepts/SignupCta";
@@ -7,10 +8,17 @@ import { useConcepts } from "@/lib/hooks/useConcepts";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import { useAuthStore } from "@/lib/auth/authStore";
 import styles from "@/app/styles/modules/concepts.module.css";
+import type { ConceptMeta } from "@/types/concepts";
 
-export default function ConceptsListPage() {
-  const { concepts, unlockedCount, totalCount, isLoading, error, searchQuery, handleSearch } = useConcepts();
+interface ConceptsListPageProps {
+  initialConcepts?: ConceptMeta[];
+}
+
+export default function ConceptsListPage({ initialConcepts }: ConceptsListPageProps) {
+  const { concepts, unlockedCount, totalCount, isLoading, error, searchQuery, handleSearch } =
+    useConcepts(initialConcepts);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const t = useTranslations("concepts.list");
 
   const showSkeleton = useDelayedLoading(isLoading, 300);
 
@@ -25,28 +33,30 @@ export default function ConceptsListPage() {
   const showEmptyState = unlockedCount === 0 && concepts.length > 0;
 
   return (
-    <ConceptsLayout>
-      <ConceptsHeader />
+    <>
+      <ConceptsLayout>
+        <ConceptsHeader />
 
-      {showEmptyState || isLoading ? (
-        <p className={styles.conceptsDescription}>Here you can review and revisit the concepts you&apos;ve learned.</p>
-      ) : (
-        <ConceptsSearch
-          searchQuery={searchQuery}
-          onSearchChange={handleSearchChange}
-          onClearSearch={clearSearch}
-          totalCount={totalCount}
-        />
-      )}
+        {showEmptyState || isLoading ? (
+          <p className={styles.conceptsDescription}>{t("intro")}</p>
+        ) : (
+          <ConceptsSearch
+            searchQuery={searchQuery}
+            onSearchChange={handleSearchChange}
+            onClearSearch={clearSearch}
+            totalCount={totalCount}
+          />
+        )}
 
-      {showSkeleton ? (
-        <ConceptCardsLoadingSkeleton />
-      ) : error && concepts.length === 0 ? (
-        <ErrorState error={error} onRetry={() => window.location.reload()} />
-      ) : (
-        <ConceptsGrid concepts={concepts} showEmptyState={showEmptyState} />
-      )}
+        {showSkeleton ? (
+          <ConceptCardsLoadingSkeleton />
+        ) : error && concepts.length === 0 ? (
+          <ErrorState error={error} onRetry={() => window.location.reload()} />
+        ) : (
+          <ConceptsGrid concepts={concepts} showEmptyState={showEmptyState} />
+        )}
+      </ConceptsLayout>
       {!isAuthenticated && !isLoading && <SignupCta />}
-    </ConceptsLayout>
+    </>
   );
 }

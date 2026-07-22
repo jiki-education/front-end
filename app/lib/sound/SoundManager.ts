@@ -1,14 +1,13 @@
+import { staticAsset } from "@/lib/static-asset";
 import type { SoundConfig, SoundManagerOptions, SoundName } from "./types";
 
 class SoundManager {
   private static instance: SoundManager | null = null;
   private readonly sounds: Map<SoundName, HTMLAudioElement> = new Map();
-  private readonly basePath: string;
   private globalVolume: number;
   private muted: boolean;
 
   private constructor(options: SoundManagerOptions = {}) {
-    this.basePath = options.basePath || "/static/sounds";
     this.globalVolume = options.defaultVolume || 0.5;
     this.muted = options.muted || false;
 
@@ -45,7 +44,7 @@ class SoundManager {
 
     for (const [name, file] of Object.entries(soundFiles) as Array<[SoundName, string]>) {
       try {
-        const audio = new Audio(`${this.basePath}/${file}`);
+        const audio = new Audio(staticAsset(`sounds/${file}`));
         audio.preload = "auto";
         audio.volume = this.globalVolume;
         this.sounds.set(name, audio);

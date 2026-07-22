@@ -1,11 +1,11 @@
 set age to get_age()
 
 if age < 13 do
-  child_wristband()
+  give_child_wristband()
 else if age < 18 do
-  teen_wristband()
+  give_teen_wristband()
 else if age < 65 do
-  adult_wristband()
+  give_adult_wristband()
 else do
-  senior_wristband()
+  give_senior_wristband()
 end

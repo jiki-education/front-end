@@ -1,4 +1,4 @@
-@reference "../../../../../app/globals.css";
+@reference "../../../../../app/app.css";
 
 .wrapper {
     @apply rounded-lg border bg-white border-gray-200;
@@ -17,7 +17,7 @@
     padding: 10px;
     font-size: 15px;
     color: var(--color-gray-800);
-    border-right: 1px solid var(--color-gray-200);
+    border-inline-end: 1px solid var(--color-gray-200);
     width: 100px;
     @apply text-left font-medium;
 }

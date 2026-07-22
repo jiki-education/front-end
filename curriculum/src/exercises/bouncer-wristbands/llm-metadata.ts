@@ -9,44 +9,17 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches if/else if/else chains. Students use getAge()
-    to retrieve a value, then use a chain of conditions to call the correct
-    wristband function based on age ranges.
-
-    The exercise has six scenarios: one clear case per age group (child, teen,
-    adult, senior) plus two boundary values (13 and 65).
+    This exercise allows a student to explore an if/else if/else chain that classifies a value into one
+    of several ranges. It builds on the single if from the bouncer exercise.
   `,
 
   tasks: {
     "assign-wristband": {
       description: `
-        Students need to:
-        1. Call getAge() and store the result in a variable
-        2. Use if/else if/else to check age ranges in order
-        3. Call the correct wristband function for each range
-
-        Age ranges:
-        - Under 13: childWristband()
-        - 13 to 17: teenWristband()
-        - 18 to 64: adultWristband()
-        - 65 and over: seniorWristband()
-
-        Key functions:
-        - getAge(): returns the person's age as a number
-        - childWristband(), teenWristband(), adultWristband(), seniorWristband()
-
-        Common mistakes:
-        - Using <= 13 instead of < 13 (the boundary-13 scenario catches this)
-        - Using <= 65 instead of < 65 (the boundary-65 scenario catches this)
-        - Not using else if — writing separate if statements instead of a chain
-        - Getting the order wrong (checking adult before teen)
-        - Forgetting the else block for seniors
-
-        Teaching strategy:
-        - Build on the simple if from the bouncer exercise
-        - Explain that else if lets you check multiple conditions in sequence
-        - Emphasize that order matters — once a condition is true, the rest are skipped
-        - The else at the end catches everything that didn't match earlier conditions
+        Two non-obvious traps. (1) Boundaries are inclusive at the lower edge: 13 is a teen, 18 an adult,
+        65 a senior, so conditions must be < 13, < 18, < 65 (the hidden boundary-13/18/65 scenarios catch
+        an off-by-one like <= 13). (2) The branches must be a single else if chain, not separate ifs, since
+        separate ifs can issue more than one wristband and the exercise errors if a person gets more than one.
       `
     }
   }

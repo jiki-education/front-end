@@ -9,41 +9,20 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches coordinate system understanding and precise positioning in visual design.
-    Students rearrange misplaced house shapes to their correct positions through careful calculation.
-    Key concepts: coordinate systems, shape positioning, methodical problem-solving, spatial reasoning.
+    This exercise allows a student to explore a coordinate system and precise positioning by
+    deriving each shape's coordinates from a written spec rather than guessing. The point is
+    slow, methodical calculation, so resist handing over finished numbers.
   `,
 
   tasks: {
     "arrange-house": {
       description: `
-        Students must reposition all house elements to their correct coordinates.
+        The student calculates and sets the position/size of each shape from the spec in order.
 
-        Key teaching points:
-        1. Coordinate system: (0,0) is top-left, (100,100) is bottom-right
-        2. Rectangle positioning: x,y is top-left corner, then width and height
-        3. Triangle positioning: three points define the vertices
-        4. Circle positioning: x,y is center, then radius
-
-        Shape specifications:
-        - House frame: position (20,50), size 60x40, "brown" color
-        - Roof: triangle at (16,50), (50,30), (84,50) with "brick" color - overhangs house by 4 each side
-        - Left window: position (30,55), size 12x13 - 10 in from left (20+10), 5 down from top (50+5)
-        - Right window: position (58,55), size 12x13 - 10 in from right (80-12-10=58)
-        - Door: position (43,72), size 14x18 - centered (20 + (60-14)/2 = 43)
-        - Door knob: center (55,81), radius 1 - inset 1 from right of door, vertically centered
-
-        Common mistakes:
-        - Confusing x,y as center vs top-left corner for rectangles
-        - Not accounting for shape dimensions when calculating positions
-        - Forgetting that y increases downward (not upward like math coordinates)
-        - Incorrect overhang calculation for the roof
-
-        Solution approach:
-        1. Work through shapes in order (sky, grass, frame, roof, windows, door, knob)
-        2. For each shape, read the specification carefully
-        3. Calculate exact coordinates step by step
-        4. Verify by checking if the numbers make geometric sense
+        Non-obvious traps to nudge on rather than solve: rectangles position by their top-left
+        corner (not their center) while circles position by center; y increases downward, not
+        upward; and the "inset" / "overhang" values require accounting for a shape's own size
+        (e.g. inset from the right means starting at width minus inset, not at the right edge).
       `
     }
   }

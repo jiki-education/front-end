@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "implement-sieve" as const,
-    name: "Implement the Sieve",
-    description:
-      "Write a function called sieve that takes a number and returns a list of all prime numbers up to and including that number, using the Sieve of Eratosthenes algorithm.",
+    name: "tasks.implementSieve.name",
+    description: "tasks.implementSieve.description",
     hints: [],
     requiredScenarios: [
       "sieve-no-primes-under-two",
@@ -21,8 +20,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "sieve-no-primes-under-two",
-    name: "No primes under two",
-    description: "There are no prime numbers less than 2.",
+    name: "scenarios.sieveNoPrimesUnderTwo.name",
+    description: "scenarios.sieveNoPrimesUnderTwo.description",
     taskId: "implement-sieve",
     functionName: "sieve",
     args: [1],
@@ -30,8 +29,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "sieve-first-prime",
-    name: "Find first prime",
-    description: "The first prime number is 2.",
+    name: "scenarios.sieveFirstPrime.name",
+    description: "scenarios.sieveFirstPrime.description",
     taskId: "implement-sieve",
     functionName: "sieve",
     args: [2],
@@ -39,8 +38,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "sieve-primes-up-to-10",
-    name: "Find primes up to 10",
-    description: "Find prime numbers up to 10.",
+    name: "scenarios.sievePrimesUpTo10.name",
+    description: "scenarios.sievePrimesUpTo10.description",
     taskId: "implement-sieve",
     functionName: "sieve",
     args: [10],
@@ -48,8 +47,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "sieve-limit-is-prime",
-    name: "Limit is prime",
-    description: "Find prime numbers up to a limit that is itself prime.",
+    name: "scenarios.sieveLimitIsPrime.name",
+    description: "scenarios.sieveLimitIsPrime.description",
     taskId: "implement-sieve",
     functionName: "sieve",
     args: [13],
@@ -57,8 +56,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "sieve-primes-up-to-100",
-    name: "Find primes up to 100",
-    description: "Find all prime numbers up to 100.",
+    name: "scenarios.sievePrimesUpTo100.name",
+    description: "scenarios.sievePrimesUpTo100.description",
     taskId: "implement-sieve",
     functionName: "sieve",
     args: [100],

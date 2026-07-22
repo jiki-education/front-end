@@ -6,25 +6,25 @@ import type { VisualExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
   {
-    name: "rollTo",
-    signature: "rollTo(x, y)",
-    description: "Rolls the ball to position **(x, y)**.",
-    examples: ["rollTo(30, 75)", "rollTo(50, 84)"],
-    category: "Movement"
+    name: "moveTo",
+    signature: "moveTo(x, y)",
+    description: "functions.moveTo.description",
+    examples: ["moveTo(30, 75)", "moveTo(50, 84)"],
+    category: "functions.moveTo.category"
   },
   {
     name: "getShotLength",
     signature: "getShotLength()",
-    description: "Returns the **length of the shot** — how many units the ball travels to the right.",
+    description: "functions.getShotLength.description",
     examples: ["let shotLength = getShotLength()"],
-    category: "Game"
+    category: "functions.getShotLength.category"
   },
   {
     name: "fireFireworks",
     signature: "fireFireworks()",
-    description: "Fires celebratory fireworks!",
+    description: "functions.fireFireworks.description",
     examples: ["fireFireworks()"],
-    category: "Action"
+    category: "functions.fireFireworks.category"
   }
 ];
 
@@ -32,9 +32,11 @@ const exerciseDefinition: VisualExerciseCore = {
   type: "visual",
   ...metadata,
   ExerciseClass,
+  conceptSlugs: ["logical-and", "if", "repeat", "updating-variables", "using-functions-with-return-values"],
   tasks,
   scenarios,
-  functions
+  functions,
+  interpreterOptions: { maxTotalLoopIterations: 200 }
 };
 
 export default exerciseDefinition;

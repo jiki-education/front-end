@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { BaseModal } from "./BaseModal";
-import { availableModals } from "./modals";
+import { getModal } from "./modals/registry";
 import { hideModal, useModalStore } from "./store";
 import CrossIcon from "@/icons/cross.svg";
 import styles from "./GlobalModalProvider.module.css";
@@ -32,11 +32,12 @@ export function GlobalModalProvider() {
     return null;
   }
 
-  // Get the current modal component
-  const ModalComponent = availableModals[modalName as keyof typeof availableModals];
+  // Get the current modal component from the registry. Core modals are
+  // available everywhere; (app)-only modals are registered by
+  // AppModalRegistrar when an (app) route mounts.
+  const ModalComponent = getModal(modalName);
 
   // Handle unknown modal names
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!ModalComponent) {
     console.warn(`Unknown modal name: ${modalName}`);
     return null;

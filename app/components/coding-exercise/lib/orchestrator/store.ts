@@ -1,33 +1,72 @@
+import { markChallengeComplete } from "@/lib/api/challenges";
 import { markLessonComplete } from "@/lib/api/lessons";
-import { markProjectComplete } from "@/lib/api/projects";
 import { showModal } from "@/lib/modal";
+import { showLessonSaveErrorToast } from "@/lib/toasts/lessonSaveError";
 import type { ExerciseDefinition, Language, ReadonlyRange } from "@jiki/curriculum";
 import { TIME_SCALE_FACTOR } from "@jiki/interpreters/shared";
 import { useStore } from "zustand";
 import { subscribeWithSelector } from "zustand/middleware";
 import { useShallow } from "zustand/react/shallow";
 import { createStore, type StoreApi } from "zustand/vanilla";
+import { ERROR_HIGHLIGHT_COLOR, INFO_HIGHLIGHT_COLOR } from "../../ui/codemirror/extensions/lineHighlighter";
 import { processMessageContent } from "../../ui/messageUtils";
+import {
+  bonusScenarioSlugs,
+  countOutstandingBonusTasks,
+  firstFailingBonusScenario,
+  firstOutstandingBonusTaskId
+} from "../bonusScenarios";
 import { loadCodeMirrorContent } from "../localStorage";
-import type { TestResult } from "../test-results-types";
+import type { TestResult, TestSuiteResult } from "../test-results-types";
 import type { ExerciseContext, OrchestratorState, OrchestratorStore } from "../types";
 import { BreakpointManager } from "./BreakpointManager";
 import { TimelineManager } from "./TimelineManager";
 
 const ONE_MINUTE = 60 * 1000;
 
-export function getTestToInspect(tests: TestResult[], currentTest: TestResult | null): TestResult {
+// `excludeSlugs` narrows the pool of scenarios eligible for auto-selection. It's
+// used at the completion moment to keep the celebratory spotlight off outstanding
+// bonus scenarios (which are still failing) - we want to land on a passing
+// required scenario instead. When the student is later working on a bonus, no
+// exclusion is passed, so the failing bonus they're on is selected as normal.
+export function getTestToInspect(
+  tests: TestResult[],
+  currentTest: TestResult | null,
+  excludeSlugs?: Set<string>
+): TestResult {
+  const pool = excludeSlugs && excludeSlugs.size > 0 ? tests.filter((t) => !excludeSlugs.has(t.slug)) : tests;
+  // Fall back to the full suite if exclusion emptied the pool (e.g. all bonus).
+  const eligible = pool.length > 0 ? pool : tests;
+
   if (currentTest) {
-    const updatedCurrent = tests.find((t) => t.slug === currentTest.slug);
+    const updatedCurrent = eligible.find((t) => t.slug === currentTest.slug);
     if (updatedCurrent && updatedCurrent.status === "fail") {
       return updatedCurrent;
     }
   }
 
-  const firstFailing = tests.find((t) => t.status === "fail");
+  const firstFailing = eligible.find((t) => t.status === "fail");
   if (firstFailing) return firstFailing;
 
-  return tests[tests.length - 1];
+  return eligible[eligible.length - 1];
+}
+
+// The spotlight dims the page around the exercise and is only ever cleared when
+// the inspected test's animation timeline finishes (its onComplete callback,
+// which also shows the completion modal). So it should only be shown when the
+// suite passes, the exercise isn't already complete, and the inspected test
+// actually has an animation that will play and then clear it.
+//
+// Tests with no animation to play would otherwise leave the spotlight stuck on
+// forever: IO suites (no timeline at all) and visual scenarios that produce no
+// animations (e.g. bouncer's "rejected" scenarios, where the correct outcome is
+// to do nothing). For those, the caller must trigger completion directly.
+export function shouldShowSpotlight(
+  result: TestSuiteResult | null,
+  inspectedTest: TestResult | undefined,
+  isExerciseCompleted: boolean
+): boolean {
+  return Boolean(result?.passed) && !isExerciseCompleted && (inspectedTest?.animationTimeline?.duration ?? 0) > 0;
 }
 
 // Factory function to create an instance-specific store
@@ -41,20 +80,40 @@ export function createOrchestratorStore(
     subscribeWithSelector((set, get) => {
       const showCompletionModalIfReady = () => {
         const state = get();
-        if (!state.testSuiteResult?.passed || state.wasSuccessModalShown || state.isExerciseCompleted) {
+        if (!state.testSuiteResult?.passed || state.isExerciseCompleted) {
           return;
         }
+
+        // Bonus tasks are optional, so completion can be reached with them still
+        // outstanding. Surface how many remain so the modal can nudge toward them.
+        const result = state.testSuiteResult;
+        const outstandingBonusCount = countOutstandingBonusTasks(exercise, result);
+        const firstBonusTaskId = firstOutstandingBonusTaskId(exercise, result);
+        const firstFailingBonusTest = firstFailingBonusScenario(exercise, result);
+
         showModal("exercise-completion-modal", {
           exerciseTitle: state.exerciseTitle,
           exerciseSlug: state.exerciseSlug,
-          isProject: state.context.type === "project",
+          isChallenge: state.context.type === "challenge",
           initialStep: "success",
+          outstandingBonusCount,
+          onSolveBonuses: () => {
+            // The modal is closed by the modal hook; here we focus the first
+            // outstanding bonus task and shift the scenario view to its first
+            // failing scenario so the student lands on the bonus to tackle.
+            if (firstBonusTaskId) {
+              get().setCurrentTaskId(firstBonusTaskId);
+            }
+            if (firstFailingBonusTest) {
+              get().setCurrentTest(firstFailingBonusTest);
+            }
+          },
           onGoToDashboard,
           onCompleteExercise: async () => {
             try {
               const response =
-                state.context.type === "project"
-                  ? await markProjectComplete(state.context.slug)
+                state.context.type === "challenge"
+                  ? await markChallengeComplete(state.context.slug)
                   : await markLessonComplete(state.context.slug);
               const events = response?.meta?.events || [];
               get().setCompletionResponse(events);
@@ -62,11 +121,11 @@ export function createOrchestratorStore(
               return events;
             } catch (error) {
               console.error("Failed to mark exercise as complete:", error);
+              showLessonSaveErrorToast();
               return [];
             }
           }
         });
-        state.setWasSuccessModalShown(true);
         state.setIsSpotlightActive(false);
       };
 
@@ -82,7 +141,6 @@ export function createOrchestratorStore(
         currentTestIdx: 0,
         hasCodeBeenEdited: false,
         isSpotlightActive: false,
-        wasSuccessModalShown: false,
         isExerciseCompleted: false,
         completionResponse: [],
         foldedLines: [],
@@ -259,7 +317,7 @@ export function createOrchestratorStore(
           });
 
           const errorFrame = test.frames.find((frame) => frame.status === "ERROR");
-          const shouldAutoPlay = state.shouldPlayOnTestChange && !!test.animationTimeline;
+          const shouldAutoPlay = state.shouldPlayOnTestChange && (test.animationTimeline?.duration ?? 0) > 0;
 
           if (errorFrame && !shouldAutoPlay) {
             // Not auto-playing: jump directly to error (or breakpoint before it)
@@ -337,9 +395,16 @@ export function createOrchestratorStore(
           const rawContent = frame.status === "SUCCESS" ? frame.generateDescription() : (frame.error?.message ?? "");
           const infoWidgetHtml = processMessageContent(rawContent);
 
+          // Runtime error frames highlight the line in red (cm-highlightedLine--error);
+          // success frames use the default info styling. Unlike syntax errors, runtime
+          // error frames do NOT underline a specific location.
+          const isError = frame.status === "ERROR";
+
           set({
             currentFrame: frame,
             highlightedLine: frame.line,
+            highlightedLineColor: isError ? ERROR_HIGHLIGHT_COLOR : INFO_HIGHLIGHT_COLOR,
+            underlineRange: undefined,
             // Update information widget data whenever frame changes
             informationWidgetData: {
               html: infoWidgetHtml,
@@ -354,7 +419,6 @@ export function createOrchestratorStore(
         },
         setHasCodeBeenEdited: (value) => set({ hasCodeBeenEdited: value }),
         setIsSpotlightActive: (value) => set({ isSpotlightActive: value }),
-        setWasSuccessModalShown: (value) => set({ wasSuccessModalShown: value }),
         setIsExerciseCompleted: (value) => set({ isExerciseCompleted: value }),
         setCompletionResponse: (response) => set({ completionResponse: response }),
         setFoldedLines: (lines) => {
@@ -392,8 +456,20 @@ export function createOrchestratorStore(
         setTestSuiteResult: (result) => {
           const state = get();
 
-          // Enable spotlight whenever tests pass and exercise is not already completed
-          const shouldActivateSpotlight = result?.passed && !state.isExerciseCompleted;
+          // Select the best test to inspect: stay on current if still failing,
+          // otherwise first failing, otherwise last test (all pass).
+          //
+          // At the completion moment (required scenarios pass, exercise not yet
+          // completed) a still-failing bonus scenario would otherwise be picked
+          // as the "first failing" test and get the celebratory spotlight. Exclude
+          // bonus scenarios from the selection so we land on a passing required
+          // one. Once the exercise is completed and the student is working on the
+          // bonus, no exclusion applies, so the bonus they're on is selected.
+          const excludeSlugs = result?.passed && !state.isExerciseCompleted ? bonusScenarioSlugs(exercise) : undefined;
+          const testToInspect =
+            result && result.tests.length > 0
+              ? getTestToInspect(result.tests, state.currentTest, excludeSlugs)
+              : undefined;
 
           // Set the test suite result and reset things.
           set({
@@ -402,23 +478,22 @@ export function createOrchestratorStore(
             hasCodeBeenEdited: false,
             status: "success", // This will get reset via the setCurrentTest below.
             testCurrentTimes: {},
-            // wasSuccessModalShown is NOT reset - it's a one-way flag (false -> true)
-            isSpotlightActive: shouldActivateSpotlight,
+            isSpotlightActive: shouldShowSpotlight(result, testToInspect, state.isExerciseCompleted),
             // Reset playing state to allow animations to play on new test suite
             isPlaying: false
           });
 
-          // Select the best test to inspect: stay on current if still failing,
-          // otherwise first failing, otherwise last test (all pass).
-          if (result && result.tests.length > 0) {
-            const testToInspect = getTestToInspect(result.tests, state.currentTest);
+          if (testToInspect) {
             get().setCurrentTest(testToInspect);
             set({ lintErrors: testToInspect.lintErrors });
           }
 
-          // IO suites have no animation timeline, so the onComplete-gated modal
-          // path in setCurrentTest never fires. Trigger directly here instead.
-          if (result?.passed && result.tests.every((t) => t.type === "io")) {
+          // The completion modal (and spotlight clear) is normally triggered when
+          // the inspected animation finishes (its onComplete). When the inspected
+          // passing test has no animation to play, onComplete never fires, so
+          // trigger completion directly. Covers IO suites and animation-less
+          // visual scenarios (e.g. bouncer's "rejected" cases).
+          if (result?.passed && !shouldShowSpotlight(result, testToInspect, state.isExerciseCompleted)) {
             showCompletionModalIfReady();
           }
         },
@@ -547,7 +622,6 @@ export function createOrchestratorStore(
             currentTestIdx: 0,
             hasCodeBeenEdited: false,
             isSpotlightActive: false,
-            wasSuccessModalShown: false,
             foldedLines: [],
             language: language,
 
@@ -615,7 +689,6 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
       currentTestIdx: state.currentTestIdx,
       hasCodeBeenEdited: state.hasCodeBeenEdited,
       isSpotlightActive: state.isSpotlightActive,
-      wasSuccessModalShown: state.wasSuccessModalShown,
       isExerciseCompleted: state.isExerciseCompleted,
       completionResponse: state.completionResponse,
       foldedLines: state.foldedLines,

@@ -41,7 +41,9 @@ export function getBadgeColor(badge: BadgeData): "blue" | "gold" {
 }
 
 export function sortBadges(badges: BadgeData[]): BadgeData[] {
-  return badges.toSorted((a, b) => {
+  // Not toSorted(): it needs Chrome 110+/Safari 16.4+ and crashes the dashboard
+  // render on older browsers (JIKI-FRONT-END-14). Copy-then-sort is equivalent.
+  return [...badges].sort((a, b) => {
     // Priority: 1=unrevealed, 2=new (recently revealed or less than a week old), 3=revealed, 4=locked
     const getCategory = (badge: BadgeData): number => {
       if (badge.state === "unrevealed") {

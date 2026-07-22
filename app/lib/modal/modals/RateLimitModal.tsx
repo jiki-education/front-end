@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import styles from "./RateLimitModal.module.css";
 
@@ -8,6 +9,7 @@ interface RateLimitModalProps {
 }
 
 export function RateLimitModal({ retryAfterSeconds = 15 }: RateLimitModalProps) {
+  const t = useTranslations("modals.rateLimit");
   const [timeLeft, setTimeLeft] = useState(retryAfterSeconds);
 
   useEffect(() => {
@@ -36,11 +38,8 @@ export function RateLimitModal({ retryAfterSeconds = 15 }: RateLimitModalProps) 
         <TiredRobotSvg />
       </div>
 
-      <h1 className={styles.title}>You&apos;ve moved too fast.</h1>
-      <p className={styles.subtitle}>
-        You&apos;ve sent too many requests to our servers and so we&apos;re putting you on pause for a few seconds.
-        Please wait and you&apos;ll be automatically reconnected.
-      </p>
+      <h1 className={styles.title}>{t("title")}</h1>
+      <p className={styles.subtitle}>{t("subtitle")}</p>
 
       <div className={styles.statusCard}>
         <div className={styles.timerRing}>
@@ -61,14 +60,14 @@ export function RateLimitModal({ retryAfterSeconds = 15 }: RateLimitModalProps) 
         </div>
         <div>
           <div className={styles.statusText}>
-            Reconnecting in <span>{timeLeft}</span> seconds
+            {t.rich("reconnecting", { count: timeLeft, timer: (chunks) => <span>{chunks}</span> })}
           </div>
-          <div className={styles.statusSubtext}>This page will automatically refresh</div>
+          <div className={styles.statusSubtext}>{t("autoRefresh")}</div>
         </div>
       </div>
 
       <p className={styles.helpText}>
-        <strong>Note:</strong> Opening new tabs or making additional requests will extend your wait time.
+        <strong>{t("noteLabel")}</strong> {t("noteText")}
       </p>
     </div>
   );

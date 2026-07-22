@@ -37,6 +37,21 @@ describe("describers", () => {
       expect(description).toContain("hello world");
     });
 
+    test("string variable declaration quotes the assigned value", () => {
+      // Regression: a string initializer should be shown quoted in the
+      // description, e.g. `set it to "black"`, not `set it to black`.
+      const code = 'let border_color = "black";';
+      const result = interpret(code);
+
+      expect(result.success).toBe(true);
+
+      const frame = result.frames[0];
+      const description = describeFrame(frame);
+
+      expect(description).toContain('set it to <code>"black"</code>');
+      expect(description).toContain('assigned it the value <code>"black"</code>');
+    });
+
     test("boolean expression", () => {
       const code = "true && false;";
       const result = interpret(code);
@@ -97,8 +112,7 @@ describe("describers", () => {
           <hr/>
           <h3>Steps Jiki Took</h3>
           <ul>
-            <li>Looked up the function <code>marketGrowth</code></li>
-        <li>Called <code>marketGrowth</code> with <code>2026</code> and got <code>8</code></li>
+            <li>Jiki used the <code>marketGrowth</code> function with <code>2026</code> and got <code>8</code></li>
         <li>Jiki evaluated <code data-hl-from="77" data-hl-to="101">100 + 8</code> and determined it was <code data-hl-from="77" data-hl-to="101">108</code>.</li>
         <li>Jiki evaluated <code data-hl-from="68" data-hl-to="102">100 * 108</code> and determined it was <code data-hl-from="68" data-hl-to="102">10800</code>.</li>
         <li>Jiki evaluated <code data-hl-from="68" data-hl-to="107">10800 / 99</code> and determined it was <code data-hl-from="68" data-hl-to="107">109.09091</code>.</li>

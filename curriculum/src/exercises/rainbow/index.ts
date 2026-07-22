@@ -7,16 +7,16 @@ const functions: FunctionInfo[] = [
   {
     name: "rectangle",
     signature: "rectangle(left, top, width, height, color)",
-    description: "Draw a rectangle at position (left, top) with the given width, height, and color",
+    description: "functions.rectangle.description",
     examples: ['rectangle(0, 0, 1, 100, "#ff0000")', "rectangle(50, 0, 1, 100, hsl(180, 50, 50))"],
-    category: "Drawing Shapes"
+    category: "functions.rectangle.category"
   },
   {
     name: "hsl",
-    signature: "hsl(hue, saturation, luminosity)",
-    description: "Convert HSL color values (hue 0-360, saturation 0-100, luminosity 0-100) to a color string",
+    signature: "hsl(hue, saturation, lightness)",
+    description: "functions.hsl.description",
     examples: ["hsl(0, 50, 50)", "hsl(120, 50, 50)"],
-    category: "Colors"
+    category: "functions.hsl.category"
   }
 ];
 

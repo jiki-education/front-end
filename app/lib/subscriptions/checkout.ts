@@ -15,7 +15,7 @@
  *
  * @example
  * createCheckoutReturnUrl("/subscribe")
- * // Returns: "http://localhost:3071/subscribe?session_id={CHECKOUT_SESSION_ID}"
+ * // Returns: "http://localhost:3061/subscribe?session_id={CHECKOUT_SESSION_ID}"
  */
 export function createCheckoutReturnUrl(pathname: string, origin?: string): string {
   const baseOrigin = origin || (typeof window !== "undefined" ? window.location.origin : "");

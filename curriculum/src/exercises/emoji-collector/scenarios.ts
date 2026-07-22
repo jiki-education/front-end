@@ -8,20 +8,26 @@ function emojisMatch(actual: Record<string, number>, expected: Record<string, nu
   return expectedKeys.every((k) => actual[k] === expected[k]);
 }
 
+// Formats an emoji dictionary to match the historical errorHtml rendering, e.g. {"💎": 3}
+function formatEmojiDict(dict: Record<string, number>): string {
+  return `{${Object.entries(dict)
+    .map(([key, value]) => `"${key}": ${value}`)
+    .join(", ")}}`;
+}
+
 export const tasks = [
   {
     id: "collect-emojis" as const,
-    name: "Collect emojis",
-    description:
-      "Navigate the maze, collecting emojis along the way, and announce your collection when you reach the finish.",
+    name: "tasks.collectEmojis.name",
+    description: "tasks.collectEmojis.description",
     hints: [],
     requiredScenarios: ["diamonds", "faces", "poo", "only-once"],
     bonus: false
   },
   {
     id: "random-emojis" as const,
-    name: "Random emojis",
-    description: "Handle mazes with random emojis that change each time!",
+    name: "tasks.randomEmojis.name",
+    description: "tasks.randomEmojis.description",
     hints: [],
     requiredScenarios: ["random-emojis"],
     bonus: true
@@ -31,8 +37,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "diamonds",
-    name: "Collect the diamonds",
-    description: "Collect and announce the diamonds.",
+    name: "scenarios.diamonds.name",
+    description: "scenarios.diamonds.description",
     taskId: "collect-emojis",
 
     setup(exercise) {
@@ -59,20 +65,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 6 && ex.characterCol === 4,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         },
         {
           pass: emojisMatch(ex.collectedEmojis, { "💎": 3 }),
-          errorHtml:
-            'You didn\'t report the collected emojis correctly. We expected you to report: <br/><code>{"💎": 3}</code>'
+          errorHtml: ex.t("checks.wrongEmojis", { expected: formatEmojiDict({ "💎": 3 }) })
         }
       ];
     }
   },
   {
     slug: "faces",
-    name: "Two types of emojis!",
-    description: "Collect two types of emojis this time!",
+    name: "scenarios.faces.name",
+    description: "scenarios.faces.description",
     taskId: "collect-emojis",
 
     setup(exercise) {
@@ -101,20 +106,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 2 && ex.characterCol === 8,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         },
         {
           pass: emojisMatch(ex.collectedEmojis, { "🤡": 2, "🥰": 1 }),
-          errorHtml:
-            'You didn\'t report the collected emojis correctly. We expected you to report: <br/><code>{"🤡": 2, "🥰": 1}</code>'
+          errorHtml: ex.t("checks.wrongEmojis", { expected: formatEmojiDict({ "🤡": 2, "🥰": 1 }) })
         }
       ];
     }
   },
   {
     slug: "poo",
-    name: "Watch out!",
-    description: "Collect the animals - not their waste!",
+    name: "scenarios.poo.name",
+    description: "scenarios.poo.description",
     taskId: "collect-emojis",
 
     setup(exercise) {
@@ -143,20 +147,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 8 && ex.characterCol === 4,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         },
         {
           pass: emojisMatch(ex.collectedEmojis, { "🐈": 1, "🐶": 2 }),
-          errorHtml:
-            'You didn\'t report the collected emojis correctly. We expected you to report: <br/><code>{"🐈": 1, "🐶": 2}</code>'
+          errorHtml: ex.t("checks.wrongEmojis", { expected: formatEmojiDict({ "🐈": 1, "🐶": 2 }) })
         }
       ];
     }
   },
   {
     slug: "only-once",
-    name: "Only once!",
-    description: "Make sure you only collect things once!",
+    name: "scenarios.onlyOnce.name",
+    description: "scenarios.onlyOnce.description",
     taskId: "collect-emojis",
 
     setup(exercise) {
@@ -185,20 +188,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 0 && ex.characterCol === 0,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         },
         {
           pass: emojisMatch(ex.collectedEmojis, { "🩷": 3, "🎀": 1, "👑": 2 }),
-          errorHtml:
-            'You didn\'t report the collected emojis correctly. We expected you to report: <br/><code>{"🩷": 3, "🎀": 1, "👑": 2}</code>'
+          errorHtml: ex.t("checks.wrongEmojis", { expected: formatEmojiDict({ "🩷": 3, "🎀": 1, "👑": 2 }) })
         }
       ];
     }
   },
   {
     slug: "random-emojis",
-    name: "Random Emojis!",
-    description: "Different emojis every time!",
+    name: "scenarios.randomEmojis.name",
+    description: "scenarios.randomEmojis.description",
     taskId: "random-emojis",
 
     setup(exercise) {
@@ -227,11 +229,11 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 1 && ex.characterCol === 0,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         },
         {
           pass: Object.keys(ex.collectedEmojis).length > 0,
-          errorHtml: "You didn't report the collected emojis correctly."
+          errorHtml: ex.t("checks.reportedIncorrectly")
         }
       ];
     }

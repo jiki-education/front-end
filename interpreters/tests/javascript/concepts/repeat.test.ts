@@ -241,7 +241,7 @@ describe("JavaScript repeat loops", () => {
       expect(echos).toEqual(["a", "a", "a"]);
     });
 
-    test("breaks at end of iteration, not mid-iteration", () => {
+    test("halts at end of the finishing statement, not mid-statement", () => {
       const echos: string[] = [];
       let callCount = 0;
       const { frames, error } = interpret(
@@ -268,7 +268,9 @@ describe("JavaScript repeat loops", () => {
         }
       );
       expect(error).toBeNull();
-      expect(echos).toEqual(["before", "after"]);
+      // The echo("before") statement completes, then execution halts:
+      // echo("after") never runs.
+      expect(echos).toEqual(["before"]);
     });
 
     test("works with break", () => {
@@ -284,6 +286,21 @@ describe("JavaScript repeat loops", () => {
       const { frames, error } = interpret(code);
       expect(error).toBeNull();
       expect((frames[frames.length - 1] as TestAugmentedFrame).variables.count.value).toBe(3);
+    });
+
+    test("raises MaxIterationsReached when it never finishes", () => {
+      const code = `
+        repeat() {
+          let x = 1
+        }
+      `;
+      const { frames, error } = interpret(code, {
+        languageFeatures: { maxTotalLoopIterations: 50 },
+      });
+      expect(error).toBeNull();
+      const errorFrame = frames.find(f => f.status === "ERROR");
+      expect(errorFrame).toBeDefined();
+      expect(errorFrame?.error?.type).toBe("MaxIterationsReached");
     });
   });
 

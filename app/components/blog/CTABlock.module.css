@@ -1,0 +1,164 @@
+/* Minimal variant */
+.minimal {
+    max-width: 850px;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    padding-inline-start: 20px;
+    padding-inline-end: 20px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    background: #fff;
+    text-align: center;
+    border-top: 1px solid var(--color-gray-200);
+    border-bottom: 1px solid var(--color-gray-200);
+    position: relative;
+
+    @media (min-width: 768px) {
+        padding-inline-start: 0;
+        padding-inline-end: 0;
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a202c;
+    margin-top: 0;
+    margin-bottom: 16px;
+    line-height: 1.25;
+
+    @media (min-width: 768px) {
+        font-size: 36px;
+    }
+}
+
+.subtitle {
+    font-size: 1.125rem;
+    color: var(--color-gray-500);
+    margin-bottom: 20px;
+    line-height: 1.625;
+    max-width: 650px;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+
+    @media (min-width: 768px) {
+        margin-bottom: 32px;
+    }
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fff;
+    color: #667eea;
+    padding-inline-start: 24px;
+    padding-inline-end: 24px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-radius: 8px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+
+    @media (min-width: 768px) {
+        padding-inline-start: 40px;
+        padding-inline-end: 40px;
+    }
+
+    &:hover {
+        transform: scale(1.02);
+        box-shadow:
+            0 0 0 6px rgba(102, 126, 234, 0.15),
+            0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+
+    .button:hover & {
+        transform: translateX(4px);
+    }
+}
+
+/* Gradient variant */
+.gradientOuter {
+    max-width: 1400px;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+    margin-top: 32px;
+    margin-bottom: 48px;
+    padding-inline-start: 20px;
+    padding-inline-end: 20px;
+
+    @media (min-width: 768px) {
+        margin-top: 60px;
+        margin-bottom: 128px;
+        padding-inline-start: 80px;
+        padding-inline-end: 80px;
+    }
+}
+
+.gradientInner {
+    padding-inline-start: 20px;
+    padding-inline-end: 20px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    background: linear-gradient(to bottom right, #667eea, #764ba2);
+    border-radius: 16px;
+    text-align: center;
+
+    @media (min-width: 768px) {
+        padding-inline-start: 80px;
+        padding-inline-end: 80px;
+        padding-top: 48px;
+        padding-bottom: 48px;
+    }
+}
+
+.gradientTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 16px;
+    line-height: 1.25;
+
+    @media (min-width: 768px) {
+        font-size: 32px;
+    }
+}
+
+.gradientSubtitle {
+    font-size: 1.125rem;
+    color: var(--color-purple-200);
+    margin-bottom: 24px;
+    line-height: 1.625;
+}
+
+.gradientButton {
+    display: inline-block;
+    background: #fff;
+    color: #667eea;
+    padding-inline-start: 40px;
+    padding-inline-end: 40px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-radius: 8px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+
+    &:hover {
+        transform: scale(1.02);
+        box-shadow:
+            0 0 0 6px rgba(102, 126, 234, 0.15),
+            0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+}

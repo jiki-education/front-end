@@ -1,14 +1,15 @@
 import BetaTag from "@/components/common/BetaTag";
+import ChallengesSidebar from "@/components/dashboard/challenges-sidebar/ChallengesSidebar";
 import ExercisePath from "@/components/dashboard/exercise-path/ExercisePath";
-import ProjectsSidebar from "@/components/dashboard/projects-sidebar/ProjectsSidebar";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import SidebarLayout from "../../../components/layout/SidebarLayout";
 import styles from "./dashboard.module.css";
-import type { Metadata } from "next";
 
-export const metadata: Metadata = {
-  title: "Dashboard - Jiki",
-  description: "Track your learning progress, continue coding exercises, and view your achievements."
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("seo.dashboard");
+  return { title: t("title"), description: t("description") };
+}
 
 export default function DashboardPage() {
   return (
@@ -18,7 +19,7 @@ export default function DashboardPage() {
         <div className={styles.mainContent}>
           <ExercisePath />
         </div>
-        <ProjectsSidebar />
+        <ChallengesSidebar />
       </div>
     </SidebarLayout>
   );

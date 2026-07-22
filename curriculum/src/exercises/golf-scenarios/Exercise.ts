@@ -8,15 +8,15 @@ export default class GolfScenariosExercise extends GolfExercise {
 
   public availableFunctions = [
     {
-      name: "roll_to",
-      func: this.rollTo.bind(this),
-      description: "rolled the ball to position ${arg1}",
+      name: "move_to",
+      func: this.moveTo.bind(this),
+      descriptionKey: "describers.moveTo",
       arity: 1 as const
     },
     {
       name: "get_shot_length",
       func: this.getShotLength.bind(this),
-      description: "retrieved the shot length"
+      descriptionKey: "describers.getShotLength"
     }
   ];
 }

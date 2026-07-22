@@ -7,46 +7,41 @@ const functions: FunctionInfo[] = [
   {
     name: "moveLeft",
     signature: "moveLeft()",
-    description:
-      "Moves the laser cannon **one position to the left**. If you try to move off the left edge of the screen, you'll lose the game!",
+    description: "functions.moveLeft.description",
     examples: ["moveLeft()"],
-    category: "Movement"
+    category: "functions.moveLeft.category"
   },
   {
     name: "moveRight",
     signature: "moveRight()",
-    description:
-      "Moves the laser cannon **one position to the right**. If you try to move off the right edge of the screen, you'll lose the game!",
+    description: "functions.moveRight.description",
     examples: ["moveRight()"],
-    category: "Movement"
+    category: "functions.moveRight.category"
   },
   {
     name: "shoot",
     signature: "shoot()",
-    description:
-      "Shoots the laser upwards. **Only shoot when there's an alien above you**, or you'll lose the game! The laser cannon overheats easily, so you must move before shooting again.",
+    description: "functions.shoot.description",
     examples: ["shoot()"],
-    category: "Action"
+    category: "functions.shoot.category"
   },
   {
     name: "getStartingAliensInRow",
     signature: "getStartingAliensInRow(idx)",
-    description:
-      "Returns a list of 11 booleans representing the alien positions in the given row at the **start** of the exercise. Row `1` is the bottom row, `2` is the middle, and `3` is the top.",
+    description: "functions.getStartingAliensInRow.description",
     examples: [
       "let bottomRow = getStartingAliensInRow(1);",
       "let middleRow = getStartingAliensInRow(2);",
       "let topRow = getStartingAliensInRow(3);"
     ],
-    category: "Detection"
+    category: "functions.getStartingAliensInRow.category"
   },
   {
     name: "fireFireworks",
     signature: "fireFireworks()",
-    description:
-      "Fires celebratory fireworks! **Only call this when all aliens have been shot down**, or you'll get an error.",
+    description: "functions.fireFireworks.description",
     examples: ["fireFireworks()"],
-    category: "Action"
+    category: "functions.fireFireworks.category"
   }
 ];
 
@@ -56,7 +51,11 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["arrays", "variables", "if", "repeat", "using-functions-with-return-values"],
+  // Nested loop (for inside the game repeat); bootcamp's 100-tick game-over cap maps to
+  // ~1214 cumulative iterations here, so allow headroom for suboptimal solutions.
+  interpreterOptions: { maxTotalLoopIterations: 2000 }
 };
 
 export default exerciseDefinition;

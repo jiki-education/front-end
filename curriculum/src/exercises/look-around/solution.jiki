@@ -14,8 +14,8 @@ function can_move do
 end
 
 function turn_around do
-  turn_right()
-  turn_right()
+  turn_left()
+  turn_left()
 end
 
 repeat do

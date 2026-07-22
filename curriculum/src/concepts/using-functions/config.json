@@ -1,4 +1,5 @@
 {
+  "parent": "functions-group",
   "order": 1,
   "category": false
 }

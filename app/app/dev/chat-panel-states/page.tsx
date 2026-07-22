@@ -73,7 +73,6 @@ export default function ChatPanelStatesDevPage() {
         chatState={selectedState}
         conversation={mockMessages}
         onSendMessage={(message) => console.debug("Message sent:", message)}
-        onStartChat={() => console.debug("Start chat clicked")}
       />
     );
   };

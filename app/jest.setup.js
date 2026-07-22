@@ -1,5 +1,7 @@
 import "@testing-library/jest-dom";
 import React from "react";
+// `mock`-prefixed so jest's mock-factory hoisting allows referencing it below.
+import mockEnMessages from "./messages/en.json";
 
 // Polyfill Web APIs for testing (Request, Response, etc.)
 // These are available in Workers/browsers but not in Node.js Jest environment
@@ -63,6 +65,103 @@ if (typeof global.IntersectionObserver === "undefined") {
   };
 }
 
+// Polyfill ResizeObserver (used by HeaderHeightSync and other layout hooks).
+if (typeof global.ResizeObserver === "undefined") {
+  global.ResizeObserver = class ResizeObserver {
+    constructor(callback) {
+      this.callback = callback;
+    }
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  };
+}
+
+// Mock next-intl so components using translations render real English strings
+// (read from messages/en.json) without needing a NextIntlClientProvider in each
+// test. Supports namespaces, dotted keys, {var} interpolation, simple ICU
+// plurals ({count, plural, one {...} other {...}}), and t.rich with nested tags.
+jest.mock("next-intl", () => {
+  const messages = mockEnMessages;
+
+  const resolve = (namespace, key) => {
+    const path = namespace ? `${namespace}.${key}` : key;
+    return path.split(".").reduce((node, part) => (node == null ? undefined : node[part]), messages);
+  };
+
+  // Plural bodies may contain simple {var} placeholders but no deeper nesting;
+  // tests/unit/messages.test.ts enforces that catalog messages stay within this
+  // subset so the mock can't silently diverge from the real ICU engine.
+  const interpolate = (template, values = {}) =>
+    String(template)
+      .replace(
+        /\{(\w+), plural, one \{((?:[^{}]|\{\w+\})*)\} other \{((?:[^{}]|\{\w+\})*)\}\}/g,
+        (match, name, one, other) => {
+          if (!(name in values)) return match;
+          const count = Number(values[name]);
+          return (count === 1 ? one : other).replace(/#/g, String(count));
+        }
+      )
+      .replace(/\{(\w+)\}/g, (match, name) => (name in values ? String(values[name]) : match));
+
+  const createTranslator = (namespace) => {
+    const t = (key, values) => {
+      const value = resolve(namespace, key);
+      return typeof value === "string" ? interpolate(value, values) : key;
+    };
+    // t.rich: render <tag>…</tag> markup via the passed handlers (functions),
+    // interpolating the remaining options as ICU values. Handles nested tags
+    // of different names (e.g. <strong><price></price>/month</strong>).
+    t.rich = (key, options = {}) => {
+      const value = resolve(namespace, key);
+      if (typeof value !== "string") {
+        return key;
+      }
+      const tags = {};
+      const values = {};
+      for (const [name, v] of Object.entries(options)) {
+        (typeof v === "function" ? tags : values)[name] = v;
+      }
+      const renderRich = (template) => {
+        const parts = [];
+        const regex = /<(\w+)>(.*?)<\/\1>|([^<]+)/g;
+        let match;
+        while ((match = regex.exec(template)) !== null) {
+          const [, tag, inner, text] = match;
+          if (tag) {
+            const chunks = renderRich(inner);
+            const content = chunks.length === 1 ? chunks[0] : chunks;
+            parts.push(typeof tags[tag] === "function" ? tags[tag](content) : content);
+          } else {
+            parts.push(interpolate(text, values));
+          }
+        }
+        return parts;
+      };
+      return renderRich(value).map((part, i) =>
+        React.isValidElement(part) ? React.cloneElement(part, { key: i }) : part
+      );
+    };
+    t.markup = (key, values) => t(key, values);
+    t.raw = (key) => resolve(namespace, key);
+    t.has = (key) => resolve(namespace, key) !== undefined;
+    return t;
+  };
+
+  return {
+    useTranslations: (namespace) => createTranslator(namespace),
+    useLocale: () => "en",
+    useMessages: () => messages,
+    useFormatter: () => ({
+      dateTime: (value) => String(value),
+      number: (value) => String(value),
+      relativeTime: (value) => String(value),
+      list: (value) => Array.from(value).join(", ")
+    }),
+    NextIntlClientProvider: ({ children }) => children
+  };
+});
+
 // Mock the problematic ES module package
 jest.mock("@exercism/highlightjs-jikiscript", () => {
   return {
@@ -124,9 +223,9 @@ jest.mock("../public/icons/house.svg", () => {
   };
 });
 
-jest.mock("../public/icons/projects.svg", () => {
-  return function ProjectsIcon(props) {
-    return React.createElement("div", { ...props, "data-testid": "projects-icon" });
+jest.mock("../public/icons/challenges.svg", () => {
+  return function ChallengesIcon(props) {
+    return React.createElement("div", { ...props, "data-testid": "challenges-icon" });
   };
 });
 

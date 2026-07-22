@@ -4,19 +4,20 @@ import styles from "@/app/styles/components/modals.module.css";
 import SoundManager from "@/lib/sound/SoundManager";
 import { launchConfetti, cleanupCanvas } from "@/lib/confetti";
 import { rateLesson } from "@/lib/api/lessons";
-import { reportError } from "@/lib/reportError";
 import type { CompletionResponseData } from "@/components/coding-exercise/lib/types";
 
-export type ModalStep = "success" | "difficulty-rating" | "completed" | "concept-unlocked" | "project-unlocked";
+export type ModalStep = "success" | "difficulty-rating" | "completed" | "concept-unlocked" | "challenge-unlocked";
 
 interface UseExerciseCompletionModalProps {
   onTidyCode?: () => void;
+  onSolveBonuses?: () => void;
+  outstandingBonusCount: number;
   onCompleteExercise?: () => Promise<CompletionResponseData[]>;
   onGoToDashboard?: () => void;
   exerciseTitle: string;
   exerciseSlug: string;
-  isProject: boolean;
-  unlockedProject: {
+  isChallenge: boolean;
+  unlockedChallenge: {
     name: string;
     description: string;
     slug: string;
@@ -27,12 +28,14 @@ interface UseExerciseCompletionModalProps {
 
 export function useExerciseCompletionModal({
   onTidyCode,
+  onSolveBonuses,
+  outstandingBonusCount,
   onCompleteExercise,
   onGoToDashboard,
   exerciseTitle,
   exerciseSlug,
-  isProject,
-  unlockedProject,
+  isChallenge,
+  unlockedChallenge,
   initialStep,
   completionResponse: initialCompletionResponse
 }: UseExerciseCompletionModalProps) {
@@ -53,39 +56,48 @@ export function useExerciseCompletionModal({
     };
   }, [step]);
 
-  // Update overlay class when step changes to project-unlocked
+  // Update overlay class when step changes to challenge-unlocked
   useEffect(() => {
-    if (step === "project-unlocked") {
+    if (step === "challenge-unlocked") {
       showModal(
         "exercise-completion-modal",
         {
           onTidyCode,
+          onSolveBonuses,
+          outstandingBonusCount,
           onCompleteExercise,
           onGoToDashboard,
           exerciseTitle,
           exerciseSlug,
-          isProject,
-          unlockedProject,
+          isChallenge,
+          unlockedChallenge,
           completionResponse,
-          initialStep: "project-unlocked"
+          initialStep: "challenge-unlocked"
         },
-        styles.projectModalOverlay
+        styles.challengeModalOverlay
       );
     }
   }, [
     step,
     onTidyCode,
+    onSolveBonuses,
+    outstandingBonusCount,
     onCompleteExercise,
     onGoToDashboard,
     exerciseTitle,
     exerciseSlug,
-    isProject,
-    unlockedProject,
+    isChallenge,
+    unlockedChallenge,
     completionResponse
   ]);
 
   const handleTidyCode = () => {
     onTidyCode?.();
+    hideModal();
+  };
+
+  const handleSolveBonuses = () => {
+    onSolveBonuses?.();
     hideModal();
   };
 
@@ -96,12 +108,12 @@ export function useExerciseCompletionModal({
 
     const conceptEvent = events.find((item) => item.type === "concept_unlocked");
     const unlockedConcept = conceptEvent?.data.concept_slug ?? conceptEvent?.data.concept;
-    const unlockedProjectData = events.find((item) => item.type === "project_unlocked")?.data.project;
+    const unlockedChallengeData = events.find((item) => item.type === "challenge_unlocked")?.data.challenge;
 
     if (unlockedConcept) {
       setStep("concept-unlocked");
-    } else if (unlockedProjectData) {
-      setStep("project-unlocked");
+    } else if (unlockedChallengeData) {
+      setStep("challenge-unlocked");
     } else {
       setStep("completed");
     }
@@ -111,7 +123,7 @@ export function useExerciseCompletionModal({
     const promise = Promise.resolve(onCompleteExercise?.()).then((result) => result ?? []);
     completionPromiseRef.current = promise;
 
-    if (isProject) {
+    if (isChallenge) {
       const events = await promise;
       completionResponseRef.current = events;
       setCompletionResponse(events);
@@ -126,22 +138,23 @@ export function useExerciseCompletionModal({
   };
 
   const handleRatingsSubmit = async (difficultyRating: number, funRating: number) => {
-    rateLesson(exerciseSlug, difficultyRating, funRating).catch(reportError);
+    // Best-effort rating; the API client reports genuine /internal failures centrally.
+    rateLesson(exerciseSlug, difficultyRating, funRating).catch(() => {});
     await advanceAfterCompletion();
   };
 
   const handleContinueFromConcept = () => {
-    const unlockedProjectData = completionResponseRef.current.find((item) => item.type === "project_unlocked")?.data
-      .project;
+    const unlockedChallengeData = completionResponseRef.current.find((item) => item.type === "challenge_unlocked")?.data
+      .challenge;
 
-    if (unlockedProjectData) {
-      setStep("project-unlocked");
+    if (unlockedChallengeData) {
+      setStep("challenge-unlocked");
     } else {
       setStep("completed");
     }
   };
 
-  const handleContinueFromProject = () => {
+  const handleContinueFromChallenge = () => {
     setStep("completed");
   };
 
@@ -155,10 +168,11 @@ export function useExerciseCompletionModal({
     completionResponse,
     handlers: {
       handleTidyCode,
+      handleSolveBonuses,
       handleCompleteExercise,
       handleRatingsSubmit,
       handleContinueFromConcept,
-      handleContinueFromProject,
+      handleContinueFromChallenge,
       handleContinue
     }
   };

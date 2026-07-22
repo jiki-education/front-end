@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "baseCircle": "The base (bottom) circle isn't right.",
+    "bodyCircle": "The body (middle) circle isn't right.",
+    "headCircle": "The head (top) circle isn't right."
+  },
+  "tasks": {
+    "buildSnowman": {
+      "name": "Build the snowman",
+      "description": "Draw three circles to build the snowman."
+    }
+  },
+  "scenarios": {
+    "buildSnowman": {
+      "name": "Build the snowman",
+      "description": "Draw three circles to build the snowman."
+    }
+  },
+  "hints": {
+    "howToDrawCircle": {
+      "question": "How do I draw a circle on the canvas?",
+      "answer": "Call `circle(centerX, centerY, radius)` where `centerX` and `centerY` are the center coordinates, and `radius` is how big it is."
+    },
+    "circlesHorizontalPosition": {
+      "question": "Where should the circles be positioned horizontally?",
+      "answer": "All three circles share the same horizontal center, so `centerX` is `50` for each (the canvas is `100` wide)."
+    },
+    "howToStackCircles": {
+      "question": "How do I stack the three circles?",
+      "answer": "The base circle is the largest and sits near the bottom (high `centerY`). Each circle above has a smaller `centerY` and a smaller `radius`."
+    },
+    "whatNumbersForRadii": {
+      "question": "What numbers should I use for the radii?",
+      "answer": "All numbers in this exercise are divisible by `5`. Try a base radius around `20`, a body around `15`, and a head around `10`, adjusting until they line up with the target."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Draw a circle centered at (centerX, centerY) with the given radius",
+      "category": "Drawing Shapes"
+    }
+  }
+}

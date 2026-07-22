@@ -1,0 +1,30 @@
+{
+  "slug": "annalyns-infiltration",
+  "levelId": "complex-conditionals",
+  "hints": [
+    {
+      "question": "hints.checkCampState.question",
+      "answer": "hints.checkCampState.answer"
+    },
+    {
+      "question": "hints.performActions.question",
+      "answer": "hints.performActions.answer"
+    },
+    {
+      "question": "hints.knightAsleep.question",
+      "answer": "hints.knightAsleep.answer"
+    },
+    {
+      "question": "hints.spyAnyoneAwake.question",
+      "answer": "hints.spyAnyoneAwake.answer"
+    },
+    {
+      "question": "hints.signalBothConditions.question",
+      "answer": "hints.signalBothConditions.answer"
+    },
+    {
+      "question": "hints.twoWaysToSucceed.question",
+      "answer": "hints.twoWaysToSucceed.answer"
+    }
+  ]
+}

@@ -4,7 +4,7 @@
 
 .searchClearBtn {
     position: absolute;
-    right: 14px;
+    inset-inline-end: 14px;
     top: 50%;
     transform: translateY(-50%);
     width: 20px;
@@ -43,18 +43,17 @@
 }
 
 .searchBar.hasValue input {
-    padding-right: 44px;
+    padding-inline-end: 44px;
 }
 
 .noResults {
     grid-column: 1 / -1;
-    text-align: left;
+    text-align: start;
     padding: 0;
     margin-top: -10px;
 }
 
 .noResultsTitle {
-    font-family: "Poppins", sans-serif;
     font-size: 18px;
     font-weight: 600;
     color: var(--color-gray-700);
@@ -62,7 +61,6 @@
 }
 
 .noResultsMessage {
-    font-family: "Poppins", sans-serif;
     font-size: 15px;
     color: var(--color-gray-500);
 }

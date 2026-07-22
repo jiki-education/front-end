@@ -3,8 +3,12 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "How do I keep the circles inside the box?",
-      "answer": "The order is important. You need to decide on the radius of the circle, then make sure it's left and top positions never allow it to be pushed outside the box."
+      "question": "hints.keepCirclesInBox.question",
+      "answer": "hints.keepCirclesInBox.answer"
+    },
+    {
+      "question": "hints.circlesEscapingBox.question",
+      "answer": "hints.circlesEscapingBox.answer"
     }
   ]
 }

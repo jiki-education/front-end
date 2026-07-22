@@ -23,7 +23,8 @@ export function getBlogPostMetadata(slug: string, locale: string = "en"): Metada
     return {
       title: post.title,
       description: post.seo.description,
-      keywords: post.seo.keywords.join(", ")
+      keywords: post.seo.keywords.join(", "),
+      ...(post.coverImage ? { openGraph: { images: [{ url: post.coverImage }] } } : {})
     };
   } catch {
     return { title: "Post Not Found" };
@@ -38,9 +39,9 @@ export default async function BlogPostPage({ slug, authenticated, locale }: Blog
     notFound();
   }
 
-  // Get related blog posts based on tag overlap
+  // Get related blog posts (tag overlap first, topped up to a minimum of 5)
   const allPosts = getAllBlogPosts(locale);
-  const relatedPosts = getRelatedBlogPosts(slug, allPosts, 3);
+  const relatedPosts = getRelatedBlogPosts(slug, allPosts, 5);
 
   if (authenticated) {
     return <BlogPostContent post={post} variant="authenticated" relatedPosts={relatedPosts} locale={locale} />;
@@ -67,7 +68,7 @@ export default async function BlogPostPage({ slug, authenticated, locale }: Blog
         variant="gradient"
         title="Ready to Start Your Coding Journey?"
         subtitle="Join thousands of learners on Jiki. Practice coding exercises, get feedback from mentors, and level up your skills — it's free!"
-        buttonText="Sign Up to Jiki"
+        buttonText="Sign Up For Free"
         buttonHref="/signup"
       />
     </>

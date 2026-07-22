@@ -1,25 +1,63 @@
-import type { Task, VisualScenario } from "../types";
+import type { IsolatedCheck, Task, VisualScenario } from "../types";
 import type { RelationalSunExercise } from "./Exercise";
 
 export const tasks = [
   {
     id: "position-sun" as const,
-    name: "Position the sun",
-    description: "Derive sunX and sunY using arithmetic, then draw the sky and sun using the variables.",
-    hints: [
-      { question: "I can't work out the radius of the sun", answer: "It's 15." },
-      { question: "I can't work out the gap", answer: "It's 10." }
-    ],
+    name: "tasks.positionSun.name",
+    description: "tasks.positionSun.description",
+    hints: [],
     requiredScenarios: ["position-sun"],
     bonus: false
   }
 ] as const satisfies readonly Task[];
 
+function expectedAt(gap: number, radius: number, canvasSize = 100) {
+  return {
+    sun: [canvasSize - gap - radius, gap + radius, radius] as const
+  };
+}
+
+// Per-shape feedback at the stub's default gap/radius values.
+function detailedCheck(gap: number, radius: number): IsolatedCheck {
+  const e = expectedAt(gap, radius);
+  return {
+    secretConstants: { gap, radius },
+    expectations(exercise) {
+      const ex = exercise as RelationalSunExercise;
+      return [
+        {
+          pass: ex.hasCircleAt(...e.sun),
+          errorHtml: ex.t("checks.wrongPosition")
+        }
+      ];
+    }
+  };
+}
+
+// Responsiveness check (gap/radius != stub defaults).
+function responsivenessCheck(gap: number, radius: number): IsolatedCheck {
+  const e = expectedAt(gap, radius);
+  return {
+    secretConstants: { gap, radius },
+    expectations(exercise) {
+      const ex = exercise as RelationalSunExercise;
+      const pass = ex.hasCircleAt(...e.sun);
+      return [
+        {
+          pass,
+          errorHtml: pass ? undefined : ex.t("checks.notResponsive", { gap, radius })
+        }
+      ];
+    }
+  };
+}
+
 export const scenarios: VisualScenario[] = [
   {
     slug: "position-sun",
-    name: "Position the sun",
-    description: "Derive the sun position and draw the scene using variables.",
+    name: "scenarios.positionSun.name",
+    description: "scenarios.positionSun.description",
     taskId: "position-sun",
 
     setup(exercise) {
@@ -27,23 +65,12 @@ export const scenarios: VisualScenario[] = [
       ex.setupBackground("/static/images/exercise-assets/relational-sun/background.webp");
     },
 
-    expectations(exercise) {
-      const ex = exercise as RelationalSunExercise;
-
-      return [
-        {
-          pass: ex.hasCircleAt(75, 25, 15),
-          errorHtml:
-            "The sun is not positioned correctly. sunX should be canvasSize - gap - sunRadius, sunY should be gap + sunRadius."
-        }
-      ];
+    // No primary expectations — the canvas reflects the student's own gap/radius
+    // values. Correctness is owned by the isolated checks below.
+    expectations() {
+      return [];
     },
 
-    codeChecks: [
-      {
-        pass: (result) => result.assertors.assertNoLiteralNumbersInAssignments({ include: ["sun_x", "sun_y"] }),
-        errorHtml: "Variables like sunX and sunY should be calculated from other variables, not set to plain numbers."
-      }
-    ]
+    isolatedChecks: [detailedCheck(10, 15), responsivenessCheck(5, 10), responsivenessCheck(15, 20)]
   }
 ];

@@ -3,24 +3,24 @@
   "levelId": "everything",
   "hints": [
     {
-      "question": "Where do I even start?",
-      "answer": "Begin by always guessing the first word from `commonWords()`. Get the loop that adds a guess and checks the target working before worrying about being smart."
+      "question": "hints.whereToStart.question",
+      "answer": "hints.whereToStart.answer"
     },
     {
-      "question": "How do I generate the states for each guess?",
-      "answer": "Compare the guess letter-by-letter to `getTargetWord()`, exactly like in the previous Wordle exercises: `\"correct\"`, `\"present\"`, or `\"absent\"`."
+      "question": "hints.generateStates.question",
+      "answer": "hints.generateStates.answer"
     },
     {
-      "question": "How do I remember what I've learned across guesses?",
-      "answer": "Keep a knowledge structure outside the loop: a list of letters known to be absent, a list of `(letter, position)` pairs that were correct, and per-position lists of letters known NOT to be there."
+      "question": "hints.rememberLearned.question",
+      "answer": "hints.rememberLearned.answer"
     },
     {
-      "question": "How do I pick the next guess?",
-      "answer": "Filter `commonWords()`: keep only words that have all the correct letters in the right slots, contain every present letter (but not in positions you've ruled out), and contain none of the absent letters. Pick the first match."
+      "question": "hints.pickNextGuess.question",
+      "answer": "hints.pickNextGuess.answer"
     },
     {
-      "question": "When do I stop?",
-      "answer": "Stop as soon as the guess equals the target word, or after `6` guesses. Otherwise you'll keep guessing past the end of the board."
+      "question": "hints.whenToStop.question",
+      "answer": "hints.whenToStop.answer"
     }
   ]
 }

@@ -67,7 +67,7 @@ The orchestrator provides key navigation methods:
    - Range input for timeline scrubbing
    - Calls `orchestrator.setCurrentTestTime` on change
    - Calls `orchestrator.snapToNearestFrame` on mouse release
-   - Keyboard event handlers (space, arrows - TODO)
+   - Keyboard event handler routes arrows/space to the orchestrator navigation methods
 
 3. **FrameStepperButtons.tsx**
    - Previous/next frame navigation buttons
@@ -82,15 +82,27 @@ The orchestrator provides key navigation methods:
 
 ## Navigation Controls
 
-### Keyboard Shortcuts (TODO)
+### Keyboard Shortcuts
 
-Planned keyboard shortcuts in ScrubberInput:
+Handled in `ScrubberInput` (the focused slider), routed to orchestrator navigation methods:
 
-- **Arrow Left**: Previous frame
-- **Arrow Right**: Next frame
-- **Arrow Down**: First frame
-- **Arrow Up**: Last frame
-- **Spacebar**: Play/pause
+- **Arrow Left**: Previous frame (`goToPrevFrame`)
+- **Arrow Right**: Next frame (`goToNextFrame`)
+- **Shift + Arrow Left**: Previous breakpoint (`goToPrevBreakpoint`)
+- **Shift + Arrow Right**: Next breakpoint (`goToNextBreakpoint`)
+- **Arrow Down**: First frame (`goToFirstFrame`)
+- **Arrow Up**: Last frame (`goToLastFrame`)
+- **Spacebar**: Play/pause (`play`/`pause`)
+
+Each handler calls `event.preventDefault()` so the native range input doesn't also move.
+
+### Shared Frame Navigation
+
+Frame and breakpoint navigation live on the orchestrator (`goToPrevFrame`,
+`goToNextFrame`, `goToFirstFrame`, `goToLastFrame`, `goToPrevBreakpoint`,
+`goToNextBreakpoint`). Each routes through a single private `moveToFrame(frame)`
+that pauses playback, seeks to the frame, and shows the information widget, so the
+stepper buttons and keyboard shortcuts all behave identically.
 
 ### Mouse Interactions
 

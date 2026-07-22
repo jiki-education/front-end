@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "format-response" as const,
-    name: "Format the response",
-    description:
-      "Create a favoriteArtists function that takes a username, fetches their data from the Spotify API, and returns a formatted sentence listing their favorite artists.",
+    name: "tasks.formatResponse.name",
+    description: "tasks.formatResponse.description",
     hints: [],
     requiredScenarios: ["spotify-fred", "spotify-ihid", "spotify-griffin"],
     bonus: false
@@ -15,8 +14,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "spotify-fred",
-    name: "Fred's favourites",
-    description: "Retrieve and format Fred's favourite artists.",
+    name: "scenarios.spotifyFred.name",
+    description: "scenarios.spotifyFred.description",
     taskId: "format-response",
     functionName: "favorite_artists",
     args: ["fred"],
@@ -24,8 +23,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "spotify-ihid",
-    name: "iHiD's favourites",
-    description: "Retrieve and format iHiD's favourite artists.",
+    name: "scenarios.spotifyIhid.name",
+    description: "scenarios.spotifyIhid.description",
     taskId: "format-response",
     functionName: "favorite_artists",
     args: ["iHiD"],
@@ -34,8 +33,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "spotify-griffin",
-    name: "griffin is hiding",
-    description: "Handle an unknown user error gracefully.",
+    name: "scenarios.spotifyGriffin.name",
+    description: "scenarios.spotifyGriffin.description",
     taskId: "format-response",
     functionName: "favorite_artists",
     args: ["griffin"],

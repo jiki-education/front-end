@@ -9,32 +9,21 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches API data processing using dictionaries.
-    Students learn to chain multiple API calls, process nested data structures,
-    and format results into human-readable strings.
-    Key concepts: fetch function, dictionary access, nested data, error handling, string formatting.
+    This exercise lets a student practise chaining API calls, navigating nested
+    dictionaries, and formatting results into a human-readable sentence.
   `,
 
   tasks: {
     "format-response": {
       description: `
-        Students need to:
-        1. Build a URL by concatenating the base URL with the username
-        2. Call fetch(url, {}) to get user data
-        3. Check for errors using hasKey() on the response
-        4. Loop through items to extract artist API URLs from nested dictionaries
-        5. Fetch each artist URL to get the artist name
-        6. Format all names into a sentence with commas and ", and " before the last name
-
         Common mistakes:
-        - Forgetting to pass an empty dictionary {} as the second argument to fetch()
-        - Not checking for errors before processing items
-        - Accessing nested dictionary keys incorrectly (need item["urls"]["spotify_api"])
-        - Getting the sentence formatting wrong (commas vs "and")
-        - Forgetting the exclamation mark at the end
+        - Forgetting the empty dictionary {} as the second argument to fetch()
+        - Processing items before checking the response for an "error" key
+        - Mis-navigating the nesting: the artist URL is at item["urls"]["spotify_api"]
+        - Sentence formatting: commas between, ", and " before the last name, trailing "!"
 
-        The helper functions (length, toSentence, hasKey) can be defined by the student
-        or the stdlib hasKey can be used directly.
+        The helper functions (length, toSentence, hasKey) can be written by the student
+        or the stdlib hasKey used directly.
       `
     }
   }

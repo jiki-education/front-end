@@ -6,7 +6,7 @@ let hue = 99
 
 // These never need to change
 let saturation = 80
-let luminosity = 50
+let lightness = 50
 
 let xDirection = 2
 let yDirection = 1

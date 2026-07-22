@@ -1,4 +1,4 @@
-import { SyntaxError, LintError, type SyntaxErrorType, type LintErrorType } from "./error";
+import { SyntaxError, LintError, InterpreterInternalError, type SyntaxErrorType, type LintErrorType } from "./error";
 import type { Expression } from "./expression";
 import {
   LiteralExpression,
@@ -37,7 +37,8 @@ import {
   ContinueStatement,
 } from "./statement";
 import { type Token, type TokenType, KeywordTokens } from "./token";
-import { translate } from "./translator";
+import { buildTranslator } from "./translator";
+import type { Translator } from "../shared/i18n";
 import type { LanguageFeatures, NodeType } from "./interfaces";
 import type { EvaluationContext } from "./interpreter";
 
@@ -50,17 +51,19 @@ export class Parser {
   private current: number = 0;
   private tokens: Token[] = [];
   private readonly languageFeatures: LanguageFeatures;
+  private readonly translate: Translator;
   private blockDepth: number = 0;
   private baseIndentation: number | null = null;
   private baseIndentationTokens: Token[] = [];
   public lintErrors: LintError[] = [];
 
-  constructor(context: EvaluationContext = {}) {
+  constructor(context: EvaluationContext = {}, translate: Translator = buildTranslator(context.localeMessages)) {
     this.languageFeatures = context.languageFeatures || {};
     if (this.languageFeatures.enforceFormatting && !this.languageFeatures.oneStatementPerLine) {
       throw new Error("enforceFormatting requires oneStatementPerLine to be enabled");
     }
-    this.scanner = new Scanner(this.languageFeatures);
+    this.translate = translate;
+    this.scanner = new Scanner(this.languageFeatures, this.translate);
   }
 
   private isNodeAllowed(nodeType: NodeType): boolean {
@@ -74,47 +77,13 @@ export class Parser {
 
   private checkNodeAllowed(nodeType: NodeType, errorType: SyntaxErrorType, location: Location): void {
     if (!this.isNodeAllowed(nodeType)) {
-      const friendlyName = this.getNodeFriendlyName(nodeType);
-      this.error(errorType, location, { nodeType, friendlyName });
+      this.error(errorType, location, { nodeType });
     }
-  }
-
-  private getNodeFriendlyName(nodeType: NodeType): string {
-    const friendlyNames: Record<NodeType, string> = {
-      LiteralExpression: "Literals",
-      BinaryExpression: "Binary expressions",
-      UnaryExpression: "Unary expressions",
-      GroupingExpression: "Grouping expressions",
-      IdentifierExpression: "Identifiers",
-      AssignmentExpression: "Assignments",
-      UpdateExpression: "Update expressions",
-      TemplateLiteralExpression: "Template literals",
-      ArrayExpression: "Arrays",
-      IndexExpression: "Index access",
-      MemberExpression: "Member access (dot notation)",
-      DictionaryExpression: "Objects",
-      CallExpression: "Function calls",
-      NewExpression: "New expressions",
-      ExpressionStatement: "Expression statements",
-      VariableDeclaration: "Variable declarations",
-      BlockStatement: "Block statements",
-      IfStatement: "If statements",
-      ForStatement: "For loops",
-      ForOfStatement: "For...of loops",
-      ForInStatement: "For...in loops",
-      RepeatStatement: "Repeat loops",
-      WhileStatement: "While loops",
-      BreakStatement: "Break statements",
-      ContinueStatement: "Continue statements",
-      FunctionDeclaration: "Function declarations",
-      ReturnStatement: "Return statements",
-    };
-    return friendlyNames[nodeType] || nodeType;
   }
 
   public parse(sourceCode: string): Statement[] {
     this.tokens = this.scanner.scanTokens(sourceCode);
-    preParse(this.tokens);
+    preParse(this.tokens, this.translate);
     this.baseIndentation = null;
     this.baseIndentationTokens = [];
     this.blockDepth = 0;
@@ -138,13 +107,14 @@ export class Parser {
       if (statement) {
         statements.push(statement);
       } else if (this.current === startPosition && !this.isAtEnd()) {
-        // statement() returned null without advancing - unexpected token
-        // Use a specific error based on the token type
-        if (this.peek().type === "RIGHT_BRACE") {
-          this.error("UnexpectedRightBrace", this.peek().location);
-        } else {
-          this.error("GenericSyntaxError", this.peek().location, { token: this.peek().lexeme });
-        }
+        // statement() consumed no tokens and didn't throw. Every real
+        // unparseable token throws a specific error from inside statement()
+        // (usually MissingExpression), so reaching here means a statement()
+        // path returned null without advancing - an interpreter bug that would
+        // otherwise spin this loop forever. Explode instead of looping.
+        throw new InterpreterInternalError(
+          `Parser made no progress on token: ${this.peek().type} (${this.peek().lexeme})`
+        );
       }
     }
 
@@ -196,6 +166,14 @@ export class Parser {
         return this.ifStatement();
       }
 
+      // A dangling `else` (or `else if`) reaching the statement level means there
+      // is no `if` for it to attach to. This usually happens when there are too
+      // many (or too few) closing braces above, so the preceding `if` block was
+      // closed early.
+      if (this.check("ELSE")) {
+        this.error("UnexpectedElseWithoutMatchingIf", this.peek().location);
+      }
+
       // Handle for loops
       if (this.match("FOR")) {
         return this.forStatement();
@@ -226,7 +204,9 @@ export class Parser {
       // Check if ExpressionStatement is allowed
       this.checkNodeAllowed("ExpressionStatement", "ExpressionStatementNotAllowed", this.peek().location);
 
-      const expr = this.expression();
+      // Assignment is allowed here: a bare expression statement is the canonical
+      // place to assign to a variable (e.g. `x = 5;`).
+      const expr = this.expression(true);
       const semicolonToken = this.consumeSemicolon();
       // Create location that spans from expression start to semicolon end
       const statementLocation = new Location(
@@ -441,6 +421,20 @@ export class Parser {
       }
       // Not a for...of or for...in loop, reset and parse as regular for loop
       this.current = checkpoint;
+    } else if (this.check("IDENTIFIER")) {
+      // Guard: `for (letter of rack)` — the student forgot let/const.
+      const checkpoint = this.current;
+      const variable = this.advance();
+      if (this.check("OF")) {
+        this.checkNodeAllowed("ForOfStatement", "ForOfStatementNotAllowed", forToken.location);
+        throw this.error("MissingLetInForOf", variable.location, { name: variable.lexeme });
+      }
+      if (this.check("IN")) {
+        this.checkNodeAllowed("ForInStatement", "ForInStatementNotAllowed", forToken.location);
+        throw this.error("MissingLetInForIn", variable.location, { name: variable.lexeme });
+      }
+      // Not a for...of/in, e.g. `for (i = 0; ...)` — reset and parse as regular for loop
+      this.current = checkpoint;
     }
 
     // Parse as regular C-style for loop
@@ -463,8 +457,9 @@ export class Parser {
         // would try to modify a constant variable
         throw this.error("ConstInForLoopInit", this.previous().location);
       } else {
-        init = this.expression();
-        this.consume("SEMICOLON", "MissingSemicolon");
+        // The init must declare its loop variable with `let` (or be empty).
+        // Assigning to an outer variable (`for (i = 0; ...)`) is deliberately not supported.
+        throw this.error("MissingLetInForLoopInit", this.peek().location);
       }
 
       // Parse condition
@@ -472,12 +467,13 @@ export class Parser {
       if (!this.check("SEMICOLON")) {
         condition = this.expression();
       }
-      this.consume("SEMICOLON", "MissingSemicolon");
+      this.consumeForLoopSemicolon();
 
       // Parse update
       let update: Expression | null = null;
       if (!this.check("RIGHT_PAREN")) {
-        update = this.expression();
+        // For-loop update is a statement position, so assignment is allowed (e.g. `i = i + 1`).
+        update = this.expression(true);
       }
 
       this.consume("RIGHT_PAREN", "MissingRightParenthesisAfterExpression");
@@ -563,17 +559,31 @@ export class Parser {
     return new ContinueStatement(continueToken, Location.between(continueToken, semicolonToken));
   }
 
-  private expression(): Expression {
-    return this.assignment();
+  private expression(allowAssignment = false): Expression {
+    return this.assignment(allowAssignment);
   }
 
-  private assignment(): Expression {
+  private assignment(allowAssignment = false): Expression {
     const expr = this.logicalOr();
 
-    if (this.match("EQUAL")) {
+    if (this.check("EQUAL")) {
+      const equalToken = this.peek();
+
+      // Assignment is only permitted as a complete statement (or in a for-loop
+      // init/update). Anywhere else - if/while conditions, function arguments,
+      // initializers, nested expressions - it is almost always a mistake for
+      // `===`, so we block it.
+      if (!allowAssignment) {
+        throw this.error("AssignmentInExpression", equalToken.location);
+      }
+
+      this.advance(); // consume the EQUAL token
+
       // Check if AssignmentExpression is allowed
       this.checkNodeAllowed("AssignmentExpression", "AssignmentExpressionNotAllowed", expr.location);
 
+      // The right-hand side is a value expression, so chained assignment
+      // (e.g. `x = y = 5`) is also disallowed - assignment stays statement-only.
       const value = this.assignment();
 
       if (expr instanceof IdentifierExpression) {
@@ -628,6 +638,19 @@ export class Parser {
       this.checkNodeAllowed("BinaryExpression", "BinaryExpressionNotAllowed", this.previous().location);
 
       const operator = this.previous();
+
+      // Loose equality is disabled by default in Jiki. Reject `==`/`!=` at parse time
+      // (rather than at execution) so the offending operator is flagged regardless of
+      // whether the expression would actually run.
+      if (this.languageFeatures.enforceStrictEquality ?? true) {
+        if (operator.type === "EQUAL_EQUAL") {
+          this.error("StrictEqualityRequired", operator.location);
+        }
+        if (operator.type === "NOT_EQUAL") {
+          this.error("StrictInequalityRequired", operator.location);
+        }
+      }
+
       const right = this.comparison();
       expr = new BinaryExpression(expr, operator, right, Location.between(expr, right));
     }
@@ -702,7 +725,7 @@ export class Parser {
       this.checkNodeAllowed("NewExpression", "NewExpressionNotAllowed", this.previous().location);
 
       const newToken = this.previous();
-      const classNameToken = this.consume("IDENTIFIER", "MissingExpression");
+      const classNameToken = this.consume("IDENTIFIER", "MissingClassNameAfterNew");
       const className = new IdentifierExpression(classNameToken, classNameToken.location);
 
       this.consume("LEFT_PAREN", "MissingLeftParenthesisAfterFunctionName");
@@ -756,6 +779,12 @@ export class Parser {
       if (this.match("LEFT_PAREN")) {
         // Check if CallExpression is allowed
         this.checkNodeAllowed("CallExpression", "CallExpressionNotAllowed", this.previous().location);
+
+        // This member is being called, so it's a method call, not a bare
+        // method reference. Flag it so the executor allows the method here.
+        if (expr instanceof MemberExpression) {
+          expr.isCalled = true;
+        }
 
         // Function call: func(arg1, arg2)
         expr = this.finishCallExpression(expr);
@@ -914,7 +943,7 @@ export class Parser {
       return this.parseDictionary();
     }
 
-    this.error("MissingExpression", this.peek().location);
+    this.error("MissingExpression", this.peek().location, { token: this.peek().lexeme });
   }
 
   private match(...tokenTypes: TokenType[]): boolean;
@@ -1044,7 +1073,8 @@ export class Parser {
         new Span(1, column),
         new Span(token.location.absolute.begin - column + 1, token.location.absolute.begin)
       );
-      this.lintWarning("IncorrectIndentation", indentLocation, { expected, actual });
+      const type = actual === 0 ? "IncorrectIndentationAtTopLevel" : "IncorrectIndentation";
+      this.lintWarning(type, indentLocation, { expected, actual });
     }
   }
 
@@ -1088,7 +1118,10 @@ export class Parser {
     // If semicolons are required, throw error unless we're at end of file
     if (requireSemicolons) {
       if (!this.isAtEnd()) {
-        this.error("MissingSemicolon", this.peek().location);
+        this.error("MissingEndOfLine", this.peek().location, {
+          previous: this.previous().lexeme,
+          current: this.peek().lexeme,
+        });
       }
       // Return the current token as fallback (for end of file cases)
       return this.previous();
@@ -1111,7 +1144,21 @@ export class Parser {
     }
 
     // Not at a statement boundary, still require semicolon
-    this.error("MissingSemicolon", this.peek().location);
+    this.error("MissingEndOfLine", this.peek().location, {
+      previous: this.previous().lexeme,
+      current: this.peek().lexeme,
+    });
+  }
+
+  private consumeForLoopSemicolon(): void {
+    if (this.check("SEMICOLON")) {
+      this.advance();
+      return;
+    }
+    this.error("MissingEndOfLine", this.peek().location, {
+      previous: this.previous().lexeme,
+      current: this.peek().lexeme,
+    });
   }
 
   private synchronize(): void {
@@ -1150,7 +1197,7 @@ export class Parser {
         parts.push(expr);
       } else {
         // Unexpected token in template literal
-        this.error("UnexpectedTokenInTemplateLiteral", this.peek().location);
+        this.error("UnexpectedTokenInTemplateLiteral", this.peek().location, { token: this.peek().lexeme });
       }
     }
 
@@ -1259,11 +1306,17 @@ export class Parser {
   }
 
   private lintWarning(type: LintErrorType, location: Location, context?: any): void {
-    this.lintErrors.push(new LintError(translate(`error.lint.${type}`, context), location, type, context));
+    // Only surface the first lint error — students fix one thing at a time,
+    // and later warnings are often side-effects of the first (e.g. a
+    // same-line closing brace also failing the indentation check).
+    if (this.lintErrors.length > 0) {
+      return;
+    }
+    this.lintErrors.push(new LintError(this.translate(`error.lint.${type}`, context), location, type, context));
   }
 
   private error(type: SyntaxErrorType, location: Location, context?: any): never {
-    throw new SyntaxError(translate(`error.syntax.${type}`, context), location, type, context);
+    throw new SyntaxError(this.translate(`error.syntax.${type}`, context), location, type, context);
   }
 
   private isAtEnd(): boolean {

@@ -4,8 +4,8 @@ import type { RelationalSnowmanExercise } from "./Exercise";
 export const tasks = [
   {
     id: "build-relational-snowman" as const,
-    name: "Build the relational snowman",
-    description: "Derive all sizes and positions from `size` so the snowman scales correctly.",
+    name: "tasks.buildRelationalSnowman.name",
+    description: "tasks.buildRelationalSnowman.description",
     hints: [],
     requiredScenarios: ["build-relational-snowman"],
     bonus: false
@@ -37,18 +37,15 @@ function detailedCheck(size: number): IsolatedCheck {
       return [
         {
           pass: ex.hasCircleAt(...e.base),
-          errorHtml:
-            "The base (bottom) circle is either in the wrong place or the wrong size. Check `baseRadius` and `baseY`."
+          errorHtml: ex.t("checks.base")
         },
         {
           pass: ex.hasCircleAt(...e.body),
-          errorHtml:
-            "The body (middle) circle is either in the wrong place or the wrong size. Check `bodyRadius` and `bodyY`."
+          errorHtml: ex.t("checks.body")
         },
         {
           pass: ex.hasCircleAt(...e.head),
-          errorHtml:
-            "The head (top) circle is either in the wrong place or the wrong size. Check `headRadius` and `headY`."
+          errorHtml: ex.t("checks.head")
         }
       ];
     }
@@ -66,9 +63,7 @@ function responsivenessCheck(size: number): IsolatedCheck {
       return [
         {
           pass: allMatch,
-          errorHtml: allMatch
-            ? undefined
-            : `Your code doesn't scale correctly when \`size\` is ${size}. Every radius and y position should be derived from \`size\`.`
+          errorHtml: allMatch ? undefined : ex.t("checks.notResponsive", { size })
         }
       ];
     }
@@ -78,8 +73,8 @@ function responsivenessCheck(size: number): IsolatedCheck {
 export const scenarios: VisualScenario[] = [
   {
     slug: "build-relational-snowman",
-    name: "Build the relational snowman",
-    description: "Derive every radius and y position from `size`.",
+    name: "scenarios.buildRelationalSnowman.name",
+    description: "scenarios.buildRelationalSnowman.description",
     taskId: "build-relational-snowman",
 
     setup(exercise) {

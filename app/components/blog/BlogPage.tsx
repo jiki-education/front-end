@@ -1,4 +1,5 @@
 import { getBlogPosts } from "@/lib/content";
+import { localePath } from "@/lib/i18n/routes";
 import Pagination from "@/components/ui/Pagination";
 import BlogPostsGrid from "./BlogPostsGrid";
 import FeaturedLatestPost from "./FeaturedLatestPost";
@@ -26,12 +27,12 @@ export default function BlogPage({ authenticated: _, locale, page }: BlogPagePro
           subtitle="Deep dives into programming languages, coding challenges, and the art of learning to code."
         />
         <FeaturedLatestPost post={latestPost} locale={locale} />
-        {remainingPosts.length > 0 && <BlogPostsGrid posts={remainingPosts} locale={locale} />}
+        {remainingPosts.length > 0 && <BlogPostsGrid posts={remainingPosts} />}
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
-          hrefForPage={(p) => (p === 1 ? "/blog" : `/blog?page=${p}`)}
-          className="mt-12"
+          hrefForPage={(p) => (p === 1 ? localePath("/blog", locale) : localePath(`/blog?page=${p}`, locale))}
+          className={styles.pagination}
         />
       </div>
     </div>

@@ -4,6 +4,7 @@ import { CloseButton } from "@/components/ui-kit";
 import { assembleClassNames } from "@/lib/assemble-classnames";
 import { showConfirmation } from "@/lib/modal";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface LessonQuitButtonProps {
   onQuit?: () => void;
@@ -13,13 +14,14 @@ interface LessonQuitButtonProps {
 
 export function LessonQuitButton({ onQuit, className = "", variant = "light" }: LessonQuitButtonProps) {
   const router = useRouter();
+  const t = useTranslations("lesson.quitButton");
 
   const handleQuit = () => {
     showConfirmation({
-      title: "Quit Lesson",
-      message: "Are you sure you want to quit this lesson? Your progress won't be saved.",
-      confirmText: "Quit",
-      cancelText: "Continue Learning",
+      title: t("title"),
+      message: t("message"),
+      confirmText: t("confirm"),
+      cancelText: t("cancel"),
       variant: "danger",
       onConfirm: () => {
         if (onQuit) {
@@ -35,8 +37,8 @@ export function LessonQuitButton({ onQuit, className = "", variant = "light" }: 
     <CloseButton
       onClick={handleQuit}
       variant={variant}
-      className={assembleClassNames(className, "absolute top-[16px] right-[16px]")}
-      aria-label="Quit lesson"
+      className={assembleClassNames(className, "absolute top-[16px] end-[16px]")}
+      aria-label={t("ariaLabel")}
     />
   );
 }

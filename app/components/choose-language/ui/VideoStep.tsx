@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import type { Lesson, VideoSource } from "@/types/lesson";
 import type { ProgrammingLanguage } from "@/types/course";
 import MuxPlayer, { type MuxPlayerRefAttributes } from "@/components/ui/JikiMuxPlayer";
+import { useTranslations } from "next-intl";
 import styles from "../ChooseLanguage.module.css";
 
 type ChooseLanguageLesson = Lesson & {
@@ -22,6 +23,7 @@ interface VideoStepProps {
 }
 
 export function VideoStep({ lessonData, onReady, onProceedToSelector, hasVisitedSelector }: VideoStepProps) {
+  const t = useTranslations("misc.chooseLanguage");
   const videoSource = lessonData.data.sources[0] as VideoSource | undefined;
   const playbackId = videoSource?.id ?? "";
 
@@ -52,7 +54,11 @@ export function VideoStep({ lessonData, onReady, onProceedToSelector, hasVisited
   const autoplay = () => {
     if (!hasAutoPlayedRef.current && playerRef.current?.currentTime === 0) {
       hasAutoPlayedRef.current = true;
-      void playerRef.current.play();
+      // Autoplay denial (NotAllowedError) is expected when the browser blocks
+      // unmuted playback; don't let it surface as an unhandled rejection.
+      playerRef.current.play().catch(() => {
+        setIsVideoVisible(true);
+      });
     }
   };
 
@@ -83,7 +89,7 @@ export function VideoStep({ lessonData, onReady, onProceedToSelector, hasVisited
                   color: "white"
                 }}
               >
-                No video available
+                {t("noVideo")}
               </div>
             </div>
           )}
@@ -92,10 +98,13 @@ export function VideoStep({ lessonData, onReady, onProceedToSelector, hasVisited
 
       {!hasVisitedSelector && (
         <p className={styles.videoInstruction}>
-          Watch the video then choose your language. Already know?{" "}
-          <button className={styles.skipButton} onClick={handleSkip}>
-            Skip the video
-          </button>
+          {t.rich("videoInstruction", {
+            skip: (chunks) => (
+              <button className={styles.skipButton} onClick={handleSkip}>
+                {chunks}
+              </button>
+            )
+          })}
         </p>
       )}
     </>

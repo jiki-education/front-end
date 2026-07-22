@@ -9,34 +9,23 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise combines list iteration with drawing functions. Students receive
-    a list of weather elements and must draw the corresponding scene. It builds on
-    Part 1 (which mapped descriptions to lists) and the cloud-rain-sun exercise
-    (which taught the drawing primitives). Key concepts: iterating lists, conditional
-    logic based on list contents, defining and using helper functions.
+    This exercise allows a student to explore iterating a list of elements and
+    drawing each, organising the work into helper functions. It follows Part 1
+    (which produced these element lists) and reuses the drawing primitives from
+    the cloud-rain-sun exercise.
   `,
 
   tasks: {
     "draw-weather": {
       description: `
-        Students define a drawWeather(elements) function that takes a list like
-        ["sun", "cloud", "rain"] and draws the corresponding weather scene.
+        The genuinely tricky part is the sun: its size depends on whether a
+        cloud is ALSO present, so the student must know the cloud's presence
+        before/while drawing the sun (e.g. a pre-scan of the list, or checking
+        for "cloud" in the same pass). A single-pass loop that draws the sun
+        without that knowledge will always use the wrong size in mixed scenes.
 
-        Key teaching points:
-        1. Iterating through a list to process each element
-        2. Conditional logic: checking if "cloud" is in the list to determine sun size
-        3. Organizing code with helper functions (drawSky, drawSun, drawCloud, etc.)
-        4. Combining previously learned drawing skills with list processing
-
-        The sun size logic:
-        - Large sun: circle(50, 50, 25) when there's no cloud
-        - Small sun: circle(75, 30, 15) when there's also a cloud
-
-        Common mistakes:
-        - Forgetting to draw the sky background first
-        - Not checking for "cloud" before drawing the sun (always drawing same size)
-        - Drawing rain/snow when they're not in the elements list
-        - Getting the coordinates wrong for snow (circles, not ellipses)
+        Other watch-points: sky background must be drawn first, and rain uses
+        ellipses while snow uses circles (easy to confuse).
       `
     }
   }

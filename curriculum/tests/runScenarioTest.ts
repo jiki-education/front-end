@@ -156,7 +156,7 @@ export function runVisualScenarioTest(
 
         return {
           pass: checkPassed,
-          errorHtml: checkPassed ? undefined : check.errorHtml
+          errorHtml: checkPassed ? undefined : exercise.t(check.errorKey, check.errorParams)
         };
       } catch (error) {
         allCodeChecksPassed = false;
@@ -191,7 +191,7 @@ export function runVisualScenarioTest(
  * Calls the student's function with test arguments and compares the return value.
  */
 export function runIOScenarioTest(
-  ExerciseClass: typeof IOExercise,
+  ExerciseClass: new () => IOExercise,
   scenario: IOScenario,
   studentCode: string,
   levelId: string,
@@ -201,9 +201,10 @@ export function runIOScenarioTest(
   // Get language features for this level
   const languageFeatures = getLanguageFeatures(levelId, language);
 
-  // Get available helper functions from the exercise class
+  // Get available helper functions from the exercise instance
   // Note: stdlib functions are automatically added by the interpreter based on languageFeatures.allowedStdlibFunctions
-  const externalFunctions = ExerciseClass.getExternalFunctions(language);
+  const exercise = new ExerciseClass();
+  const externalFunctions = exercise.getExternalFunctions(language);
 
   // Call the student's function using evaluateFunction
   const interpreter = getInterpreter(language);
@@ -262,7 +263,7 @@ export function runIOScenarioTest(
 
         return {
           pass: checkPassed,
-          errorHtml: checkPassed ? undefined : check.errorHtml
+          errorHtml: checkPassed ? undefined : exercise.t(check.errorKey, check.errorParams)
         };
       } catch (error) {
         // If check throws error, treat as failure
@@ -320,7 +321,7 @@ export function runAllVisualScenarios(
  * Returns array of test results.
  */
 export function runAllIOScenarios(
-  ExerciseClass: typeof IOExercise,
+  ExerciseClass: new () => IOExercise,
   scenarios: IOScenario[],
   studentCode: string,
   levelId: string,

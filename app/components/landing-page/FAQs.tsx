@@ -1,94 +1,61 @@
+import { useTranslations } from "next-intl";
 import { MonthlyPrice } from "./MonthlyPrice";
 import styles from "./FAQs.module.css";
 
 export function FAQs() {
+  const t = useTranslations("landing.faqs");
+  const tCommon = useTranslations("common");
+  const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
   return (
     <section className={styles.faqs}>
       <div className={styles.background}></div>
       <div className={styles.container}>
-        <h2>Frequently Asked Questions</h2>
+        <h2>{t("heading")}</h2>
         <p className={styles.intro}>
-          These are the questions we get asked the most. Your question not answered here?{" "}
-          <a href="mailto:hello@jiki.io">Ping us an email!</a>
+          {t.rich("intro", { link: (chunks) => <a href="mailto:hello@jiki.io">{chunks}</a> })}
         </p>
         <div className={styles.faq}>
-          <h4>How much does it cost?</h4>
+          <h4>{t("q1")}</h4>
+          <p>{t.rich("q1a1", { strong })}</p>
           <p>
-            The <strong>Coding Fundamentals</strong> exercises &mdash; the core learn-to-code curriculum &mdash; are{" "}
-            <strong>completely free</strong>. No card, no trial, no catch.
-          </p>
-          <p>
-            <strong>Jiki Premium</strong> is{" "}
-            <strong>
-              <MonthlyPrice />
-              /month
-            </strong>{" "}
-            (priced by country) and unlocks:
+            {t.rich("q1a2", {
+              strong,
+              price: () => (
+                <strong>
+                  <MonthlyPrice />
+                  {tCommon("perMonth")}
+                </strong>
+              )
+            })}
           </p>
           <ul>
-            <li>
-              Full access to <strong>Build with Jeremy</strong>
-            </li>
-            <li>
-              Combine your skills in <strong>Jiki Projects</strong>
-            </li>
-            <li>
-              Unlimited <strong>Ask Jiki</strong> AI support
-            </li>
-            <li>
-              Regular <strong>Q&amp;A livestreams</strong> you can join
-            </li>
-            <li>
-              Earn <strong>certificates</strong> for courses
-            </li>
-            <li>
-              An <strong>ad-free</strong> learning experience
-            </li>
-            <li>
-              <strong>Early access</strong> to new features
-            </li>
+            <li>{t.rich("q1Item1", { strong })}</li>
+            <li>{t.rich("q1Item2", { strong })}</li>
+            <li>{t.rich("q1Item3", { strong })}</li>
+            <li>{t.rich("q1Item4", { strong })}</li>
+            <li>{t.rich("q1Item5", { strong })}</li>
+            <li>{t.rich("q1Item6", { strong })}</li>
+            <li>{t.rich("q1Item7", { strong })}</li>
           </ul>
         </div>
         <div className={styles.faq}>
-          <h4>How much time will I need to spend each week on the course?</h4>
-          <p>
-            You can spend as long or as little as you like. Most people get through the{" "}
-            <strong>Coding Fundamentals</strong> strand in 12&ndash;20 weeks at around 5&ndash;10 hours a week. The{" "}
-            <strong>Build with Jeremy</strong> strand is ongoing &mdash; you can dip in and out as new episodes go up,
-            and join livestreams when it suits you.
-          </p>
+          <h4>{t("q2")}</h4>
+          <p>{t.rich("q2a", { strong })}</p>
         </div>
         <div className={styles.faq}>
-          <h4>How hard is the course? How smart do I need to be?</h4>
-          <p>
-            The course is designed to be accessible to everyone, regardless of your background. We don&apos;t believe
-            you need to be &quot;smart&quot; to learn to code. But you do need to put in the effort and be willing to be
-            challenged.
-          </p>
-          <p>
-            But if you put in the effort, ask for help when you get stuck, and embrace the challenge, you&apos;ll be
-            amazed at how far you can go in a short time.
-          </p>
+          <h4>{t("q3")}</h4>
+          <p>{t("q3a1")}</p>
+          <p>{t("q3a2")}</p>
         </div>
         <div className={styles.faq}>
-          <h4>Is Jiki available now?</h4>
-          <p>Yes &mdash; you can sign up and start the free Coding Fundamentals curriculum today.</p>
-          <p>
-            The first <strong>Build with Jeremy</strong> session will be in <strong>mid-June</strong>. You can sign up
-            for a reminder once you&apos;re inside.
-          </p>
+          <h4>{t("q4")}</h4>
+          <p>{t("q4a1")}</p>
+          <p>{t.rich("q4a2", { strong })}</p>
         </div>
         <div className={styles.faq}>
-          <h4>I already signed up to the Bootcamp - is this different?</h4>
-          <p>
-            Thanks for being part of the Bootcamp! Jiki is the next stage in the evolution of our Bootcamp. Most of the
-            exercises you solved will appear in Jiki along with lots more. We&apos;ve also broken down the 3 hour videos
-            into smaller, 5-10 minute chunks to make watching easier!
-          </p>
-          <p>
-            As a member of the Bootcamp, you&apos;ll automatically get Jiki Premium for Life. This applies to both the
-            initial Coding Fundamentals course and future courses.
-          </p>
+          <h4>{t("q5")}</h4>
+          <p>{t("q5a1")}</p>
+          <p>{t("q5a2")}</p>
         </div>
       </div>
     </section>

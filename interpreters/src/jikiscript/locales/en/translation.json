@@ -3,7 +3,6 @@
     "syntax": {
       "DuplicateParameterNameInFunctionDeclaration": "Did you accidently use the name `{{parameter}}` twice in your function parameters.",
       "ExceededMaximumNumberOfParametersInFunction": "Sorry you can't have more than 255 parameters.",
-      "ForeachLoopTargetNotIterable": "Jiki couldn't work out how to iterate over `{{value}}`. He expected it to be a string or a list.",
       "InvalidAssignmentTargetExpression": "Jiki can't work out what you're trying to do here.\n\nDid you miss the `change` keyword?",
       "InvalidClassNameInInstantiationExpression": "Jiki couldn't work out which class you refering to here. Class names must start with a capital letter.",
       "InvalidFunctionNameExpression": "Jiki couldn't work out what function you wanted to use here.",
@@ -64,6 +63,7 @@
       "SyntaxErrorGeneric": "A syntax error occurred in your code.",
       "PotentialMissingParenthesesForFunctionCall": "Jiki didn't know what to do with this line of code. Did you mean to call a function and forget the parentheses? (`()`)",
       "UnexpectedChainedEqualityExpression": "You can't chain equality operators like this. Did you mean to use `and` or `or` instead?",
+      "UnexpectedClosingBracket": "Jiki found an unexpected closing `{{lexeme}}` here. Did you add an extra bracket, or forget to open a matching one earlier?",
       "UnexpectedElseWithoutMatchingIf": "We can't work out which if statement this `else` belongs to. Did you forget to add an `if` statement before this `else`?",
       "UnexpectedEqualsForAssignmentUseSetInstead": "We don't use the equals sign (`=`) to assign variables in JikiScript. Use the `to` keyword instead.",
       "UnexpectedEqualsForEqualityUseIsInstead": "To say \"equals\" in JikiScript, we use two equals signs (`==`). Did you forget one?",
@@ -87,6 +87,7 @@
       "CustomFunctionErrorInExecution": "An error occurred running your library function. Inside the function, we got the following error:\n\n{{message}}",
       "DuplicateFunctionDeclarationInScope": "There is already a function called `{{name}}`. Please choose a different name for this variable.",
       "ExpressionEvaluatedToNullValue": "This didn't return a value, which has left Jiki very confused. Check your functions carefully to see what they return. Remember to use the scrubber.",
+      "ForeachLoopTargetNotIterable": "Jiki couldn't work out how to iterate over `{{value}}`. He expected it to be a string or a list.",
       "FunctionCallTypeMismatchError": "Jiki expected input {{argIdx}} to be a {{expectedType}} but it was actually {{value}}.",
       "FunctionCannotBeNamespacedReference": "You cannot use the namespace operator (`#`) to define functions when you're not in the custom function editor",
       "FunctionNotFoundInScope": "Jiki couldn't find a function with the name `{{name}}`.",

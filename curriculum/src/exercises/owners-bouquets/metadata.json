@@ -3,12 +3,12 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "What's the formula I need to calculate where to play things",
-      "answer": "It's:\n\n```javascript\n100 / (numberOfFlowers + 1)\n```"
+      "question": "hints.chooseGap.question",
+      "answer": "hints.chooseGap.answer"
     },
     {
-      "question": "How do I see the different scenarios",
-      "answer": "Click on the circles on the left hand side in between your code and the results."
+      "question": "hints.seeScenarios.question",
+      "answer": "hints.seeScenarios.answer"
     }
   ]
 }

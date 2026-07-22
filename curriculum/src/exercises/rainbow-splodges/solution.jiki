@@ -1,10 +1,12 @@
 set x to 0
 set y to 0
+set radius to 0
 set hue to 0
 
 repeat 200 times do
-  change x to random_number(0, 100)
-  change y to random_number(0, 100)
+  change radius to random_number(2, 12)
+  change x to random_number(radius, 100 - radius)
+  change y to random_number(radius, 100 - radius)
   change hue to random_number(0, 360)
-  circle(x, y, 3, hsl(hue, 80, 50))
+  circle(x, y, radius, hsl(hue, 80, 50))
 end

@@ -3,16 +3,16 @@
   "levelId": "string-manipulation",
   "hints": [
     {
-      "question": "What changes based on the input?",
-      "answer": "Just one thing. The name in the middle of the sentence. If you were given a name, use it. If not, use the default `\"you\"`."
+      "question": "hints.whatChanges.question",
+      "answer": "hints.whatChanges.answer"
     },
     {
-      "question": "How do I check 'was I given a name'?",
-      "answer": "An if-statement comparing the input to the empty string `\"\"`. If it's empty, use `\"you\"`. Otherwise, use the input."
+      "question": "hints.checkGivenName.question",
+      "answer": "hints.checkGivenName.answer"
     },
     {
-      "question": "How do I build the final sentence?",
-      "answer": "Join the three pieces — `\"One for \"`, the chosen name, and `\", one for me.\"` — using concatenation (`+`) or a template string."
+      "question": "hints.buildSentence.question",
+      "answer": "hints.buildSentence.answer"
     }
   ]
 }

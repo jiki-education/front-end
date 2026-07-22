@@ -1,5 +1,14 @@
 import { api } from "./client";
 import { conceptIndexHashes } from "@/lib/generated/concept-hashes";
+import { assetsUrl } from "@/lib/assets";
+import { conceptIndexPath, conceptContentPath } from "@/lib/assets-paths";
+import {
+  selectTopLevelConcepts,
+  selectConcept,
+  selectChildren,
+  selectAncestors,
+  selectRelatedConcepts
+} from "@/lib/concepts/select";
 import type { ConceptMeta, ConceptAncestor, ExerciseInfo } from "@/types/concepts";
 import type { VideoSource } from "@/types/lesson";
 
@@ -12,11 +21,15 @@ async function fetchAllConcepts(locale: string = "en"): Promise<ConceptMeta[]> {
     return cachedPromise;
   }
 
-  const hash = conceptIndexHashes[locale] || conceptIndexHashes["en"];
-  const effectiveLocale = conceptIndexHashes[locale] ? locale : "en";
+  // No English fallback: a locale with no concept index resolves to an empty
+  // list rather than silently serving English concepts.
+  const hash = conceptIndexHashes[locale];
+  if (!hash) {
+    return [];
+  }
 
   cachedLocale = locale;
-  cachedPromise = fetch(`/static/concepts/${effectiveLocale}-${hash}.json`).then((res) => {
+  cachedPromise = fetch(assetsUrl(conceptIndexPath(locale, hash))).then((res) => {
     if (!res.ok) {
       throw new Error("Failed to fetch concepts");
     }
@@ -30,8 +43,7 @@ export async function getConcepts(locale: string = "en"): Promise<ConceptMeta[]>
 }
 
 export async function getConcept(slug: string, locale: string = "en"): Promise<ConceptMeta | null> {
-  const all = await fetchAllConcepts(locale);
-  return all.find((c) => c.slug === slug) ?? null;
+  return selectConcept(await fetchAllConcepts(locale), slug);
 }
 
 export async function searchConcepts(
@@ -57,71 +69,19 @@ export async function getConceptsBySlugs(slugs: string[], locale: string = "en")
 }
 
 export async function getTopLevelConcepts(locale: string = "en"): Promise<ConceptMeta[]> {
-  const all = await fetchAllConcepts(locale);
-  return all.filter((c) => c.parentSlug === null).sort((a, b) => a.order - b.order);
+  return selectTopLevelConcepts(await fetchAllConcepts(locale));
 }
 
 export async function getChildren(parentSlug: string, locale: string = "en"): Promise<ConceptMeta[]> {
-  const all = await fetchAllConcepts(locale);
-  return all.filter((c) => c.parentSlug === parentSlug).sort((a, b) => a.order - b.order);
+  return selectChildren(await fetchAllConcepts(locale), parentSlug);
 }
 
 export async function getAncestors(slug: string, locale: string = "en"): Promise<ConceptAncestor[]> {
-  const all = await fetchAllConcepts(locale);
-  const bySlug = new Map(all.map((c) => [c.slug, c]));
-  const ancestors: ConceptAncestor[] = [];
-  let current = bySlug.get(slug);
-  while (current?.parentSlug) {
-    const parent = bySlug.get(current.parentSlug);
-    if (!parent) {
-      break;
-    }
-    ancestors.unshift({ slug: parent.slug, title: parent.title });
-    current = parent;
-  }
-  return ancestors;
+  return selectAncestors(await fetchAllConcepts(locale), slug);
 }
 
 export async function getRelatedConcepts(slug: string, locale: string = "en"): Promise<ConceptMeta[]> {
-  const all = await fetchAllConcepts(locale);
-  const concept = all.find((c) => c.slug === slug);
-  if (!concept) {
-    return [];
-  }
-
-  const related: ConceptMeta[] = [];
-
-  // Parent
-  if (concept.parentSlug) {
-    const parent = all.find((c) => c.slug === concept.parentSlug);
-    if (parent) {
-      related.push(parent);
-    }
-  }
-
-  // Children
-  related.push(...all.filter((c) => c.parentSlug === slug).sort((a, b) => a.order - b.order));
-
-  // Siblings
-  if (concept.parentSlug) {
-    related.push(
-      ...all.filter((c) => c.parentSlug === concept.parentSlug && c.slug !== slug).sort((a, b) => a.order - b.order)
-    );
-  }
-
-  // Deduplicate and exclude self and categories
-
-  const seen = new Set<string>([slug]);
-  return related
-    .filter((c) => {
-      if (seen.has(c.slug)) {
-        return false;
-      }
-      seen.add(c.slug);
-      return true;
-    })
-    .filter((c) => !c.category)
-    .slice(0, 6);
+  return selectRelatedConcepts(await fetchAllConcepts(locale), slug);
 }
 
 export async function getExercisesForConcept(slug: string, locale: string = "en"): Promise<ExerciseInfo[]> {
@@ -139,7 +99,7 @@ export async function getConceptContent(slug: string, locale: string = "en"): Pr
   if (!concept?.contentHash) {
     return "";
   }
-  const res = await fetch(`/static/concepts/${slug}/${locale}-${concept.contentHash}.html`);
+  const res = await fetch(assetsUrl(conceptContentPath(slug, locale, concept.contentHash)));
   if (!res.ok) {
     throw new Error("Failed to fetch concept content");
   }

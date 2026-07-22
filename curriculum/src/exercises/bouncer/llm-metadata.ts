@@ -9,36 +9,16 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches basic if statements (conditionals). Students use askAge()
-    to retrieve a value, then use an if statement to conditionally call letIn().
-    The key concept is making a decision based on a condition (age > 20).
-
-    The exercise has four scenarios: clearly allowed (25), clearly not allowed (18),
-    and two boundary values (21 allowed, 20 not allowed).
+    This exercise allows a student to explore their first if statement: acting on a value only when a
+    condition holds. It is an early exercise, so keep guidance simple and encouraging.
   `,
 
   tasks: {
     "check-age": {
       description: `
-        Students need to:
-        1. Call askAge() and store the result in a variable
-        2. Use an if statement to check if age > 20
-        3. If yes, call letIn()
-
-        Key functions:
-        - askAge(): returns the person's age as a number
-        - letIn(): lets the person in (visual animation)
-
-        Common mistakes:
-        - Using >= 20 instead of > 20 (the age-20 scenario catches this)
-        - Forgetting to store the age in a variable first
-        - Calling letIn() outside the if block (always letting people in)
-        - Using the wrong comparison operator (< instead of >)
-
-        Teaching strategy:
-        - Focus on the if statement concept: checking a condition before acting
-        - Help students understand > vs >= with the boundary scenario
-        - This is their first if statement, so keep guidance simple and encouraging
+        The main trap is the boundary: the policy is "21 and older", so the condition must exclude exactly
+        20 (e.g. age > 20, or age >= 21). The hidden age-20 scenario specifically catches an off-by-one
+        like >= 20. Also watch for letIn() being called outside the if (letting everyone in).
       `
     }
   }

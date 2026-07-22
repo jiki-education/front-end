@@ -1,19 +1,28 @@
-import type { Task, IOScenario } from "../types";
+import type { Task, IOScenario, CodeCheck } from "../types";
+
+const sixLinesCheck: CodeCheck[] = [
+  {
+    pass: (result, language) => {
+      const limit = language === "python" ? 4 : 6;
+      return result.assertors.assertMaxLinesOfCode(limit);
+    },
+    errorKey: "checks.tooManyLines"
+  }
+];
 
 export const tasks = [
   {
     id: "identify-even-or-odd" as const,
-    name: "Identify even and odd numbers",
-    description:
-      'Write a function called even_or_odd that takes a number and returns "Even" if it\'s divisible by 2, or "Odd" otherwise. Zero is even.',
+    name: "tasks.identifyEvenOrOdd.name",
+    description: "tasks.identifyEvenOrOdd.description",
     hints: [],
     requiredScenarios: ["number-14", "number-28", "number--1", "number-17", "number-0"],
     bonus: false
   },
   {
     id: "solve-in-six-lines" as const,
-    name: "Solve in 6 lines of code",
-    description: "Can you solve this exercise with only 6 lines of code?",
+    name: "tasks.solveInSixLines.name",
+    description: "tasks.solveInSixLines.description",
     hints: [],
     requiredScenarios: ["bonus-1"],
     bonus: true
@@ -23,8 +32,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "number-14",
-    name: "Number 14",
-    description: "14 is an even number.",
+    name: "scenarios.number14.name",
+    description: "scenarios.number14.description",
     taskId: "identify-even-or-odd",
     functionName: "even_or_odd",
     args: [14],
@@ -32,8 +41,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "number-28",
-    name: "Number 28",
-    description: "28 is an even number.",
+    name: "scenarios.number28.name",
+    description: "scenarios.number28.description",
     taskId: "identify-even-or-odd",
     functionName: "even_or_odd",
     args: [28],
@@ -41,8 +50,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "number--1",
-    name: "Number -1",
-    description: "-1 is an odd number.",
+    name: "scenarios.numberMinus1.name",
+    description: "scenarios.numberMinus1.description",
     taskId: "identify-even-or-odd",
     functionName: "even_or_odd",
     args: [-1],
@@ -50,8 +59,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "number-17",
-    name: "Number 17",
-    description: "17 is an odd number.",
+    name: "scenarios.number17.name",
+    description: "scenarios.number17.description",
     taskId: "identify-even-or-odd",
     functionName: "even_or_odd",
     args: [17],
@@ -59,8 +68,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "number-0",
-    name: "Number 0",
-    description: "Zero counts as even.",
+    name: "scenarios.number0.name",
+    description: "scenarios.number0.description",
     taskId: "identify-even-or-odd",
     functionName: "even_or_odd",
     args: [0],
@@ -68,11 +77,12 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "bonus-1",
-    name: "6 lines of code",
-    description: "Solve the exercise with only 6 lines of code.",
+    name: "scenarios.bonus1.name",
+    description: "scenarios.bonus1.description",
     taskId: "solve-in-six-lines",
     functionName: "even_or_odd",
     args: [0],
-    expected: "Even"
+    expected: "Even",
+    codeChecks: sixLinesCheck
   }
 ];

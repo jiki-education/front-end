@@ -1,7 +1,7 @@
-let x = 29
+let x = 28
 let shotLength = getShotLength()
 
-repeat(shotLength + 1) {
+repeat(shotLength) {
   x = x + 1
-  rollTo(x)
+  moveTo(x)
 }

@@ -8,13 +8,15 @@ import { BasicPlanSection } from "./BasicPlanSection";
 import { PremiumPlanSection } from "./PremiumPlanSection";
 import { useUpgradeFlow } from "./useUpgradeFlow";
 import styles from "./PremiumUpgradeModal.module.css";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { staticAsset } from "@/lib/static-asset";
 
 interface PremiumUpgradeModalProps {
   trigger?: ModalTrigger;
   contextType?: string;
   // Backend stores three type-accurate fields and never both at once.
-  // Pass `contextSlug` for slug-keyed entities (lesson, project) and
+  // Pass `contextSlug` for slug-keyed entities (lesson, challenge) and
   // `contextUuid` for uuid-keyed ones (episode). `context_id` is the
   // backend's integer PK — materialised server-side, never sent here.
   contextSlug?: string;
@@ -31,6 +33,7 @@ export function PremiumUpgradeModal({
   onSuccess,
   onCancel
 }: PremiumUpgradeModalProps) {
+  const t = useTranslations("modals.premiumUpgrade");
   const [isLoading, setIsLoading] = useState(false);
   const user = useAuthStore((state: any) => state.user);
 
@@ -64,7 +67,7 @@ export function PremiumUpgradeModal({
     <div className={styles.modalContent}>
       <Image
         className={styles.arrowDecoration}
-        src="/static/images/misc/arrow.png"
+        src={staticAsset("images/misc/arrow.png")}
         alt=""
         width={150}
         height={150}
@@ -77,7 +80,7 @@ export function PremiumUpgradeModal({
       </div>
 
       <button className={styles.skipLink} onClick={handleClose}>
-        Not now, maybe later
+        {t("skipLink")}
       </button>
     </div>
   );

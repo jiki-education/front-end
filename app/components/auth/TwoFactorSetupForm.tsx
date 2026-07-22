@@ -5,6 +5,7 @@ import { QRCodeSVG } from "qrcode.react";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { ApiError } from "@/lib/api/client";
 import { OTPInput } from "@/components/ui/OTPInput";
+import { useTranslations } from "next-intl";
 import authStyles from "./AuthForm.module.css";
 import styles from "./TwoFactorSetupForm.module.css";
 
@@ -21,6 +22,9 @@ export function TwoFactorSetupForm({
   onCancel,
   onSessionExpired
 }: TwoFactorSetupFormProps) {
+  const t = useTranslations("auth.twoFactorSetup");
+  const tCommon = useTranslations("common");
+  const tShared = useTranslations("auth.twoFactor");
   const { setup2FA, isLoading } = useAuthStore();
   const [otpCode, setOtpCode] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -42,9 +46,9 @@ export function TwoFactorSetupForm({
           onSessionExpired();
           return;
         }
-        setError(errorData?.error?.message || "Invalid verification code");
+        setError(errorData?.error?.message || tShared("invalidCode"));
       } else {
-        setError("Verification failed. Please try again.");
+        setError(tShared("verificationFailed"));
       }
       setOtpCode("");
     }
@@ -63,26 +67,24 @@ export function TwoFactorSetupForm({
         <div className={styles.container}>
           <header className={styles.header}>
             {/* <h1>Set Up Two-Factor Authentication</h1> */}
-            <p className="font-semibold">Scan the QR code with your authenticator app to secure your account.</p>
+            <p className={styles.instructionsHeading}>{t("instructionsHeading")}</p>
           </header>
 
           <div className={styles.qrCodeWrapper}>
             <QRCodeSVG value={provisioningUri} size={200} level="M" />
           </div>
 
-          <p className={styles.instructions}>
-            Use Google Authenticator, 1Password, Authy, or a similar app to scan the code above.
-          </p>
+          <p className={styles.instructions}>{t("appsHint")}</p>
 
           <div>
             {error && <div className={styles.errorMessage}>{error}</div>}
 
             <div className={styles.otpSection}>
-              <label>Enter the 6-digit code from your app</label>
+              <label>{t("codeLabel")}</label>
               <OTPInput value={otpCode} onChange={handleOtpChange} disabled={isLoading} hasError={!!error} autoFocus />
             </div>
 
-            {isLoading && <p className={styles.verifyingText}>Verifying...</p>}
+            {isLoading && <p className={styles.verifyingText}>{tCommon("verifying")}</p>}
 
             <div className={styles.actions}>
               <button
@@ -92,7 +94,7 @@ export function TwoFactorSetupForm({
                 style={{ width: "100%" }}
                 disabled={isLoading}
               >
-                Cancel and sign in again
+                {tShared("cancel")}
               </button>
             </div>
           </div>

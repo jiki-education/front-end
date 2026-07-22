@@ -1,7 +1,7 @@
 import type { ExecutionContext, ExternalFunction } from "@jiki/interpreters";
 import { formatIdentifier } from "@jiki/interpreters/shared";
 import { Exercise } from "./Exercise";
-import type { Language } from "./types";
+import type { AvailableFunction, Language } from "./types";
 
 // Base exercise class for visual exercises with animations and state
 
@@ -11,12 +11,17 @@ export abstract class VisualExercise extends Exercise {
   public randomSeed?: number;
   protected abstract get slug(): string;
 
-  abstract availableFunctions: ExternalFunction[];
+  abstract availableFunctions: AvailableFunction[];
 
   getExternalFunctions(language: Language): ExternalFunction[] {
+    // Resolve each function's frame-log describer template. A keyed function
+    // resolves its `descriptionKey` against this exercise's injected message dict
+    // (i18next returns `${argN}`/`${return}` literally, so the interpreter still
+    // substitutes them). A not-yet-keyed function keeps its inline `description`.
     return this.availableFunctions.map((f) => ({
       ...f,
-      name: formatIdentifier(f.name, language)
+      name: formatIdentifier(f.name, language),
+      description: f.descriptionKey !== undefined ? this.t(f.descriptionKey) : (f.description ?? "")
     }));
   }
 
@@ -38,7 +43,10 @@ export abstract class VisualExercise extends Exercise {
     this.view.id = `${cssClass}-${Math.random().toString(36).substr(2, 9)}`;
     this.view.classList.add(cssClass);
     this.view.style.display = "none";
-    document.body.appendChild(this.view);
+    // The body is only a hidden holding spot until the canvas re-parents the
+    // view, and it can genuinely be null during page teardown (typed non-null
+    // but seen null in production - JIKI-FRONT-END-3K), so skip it safely.
+    (document.body as HTMLElement | null)?.appendChild(this.view);
   }
 
   protected populateView() {}
@@ -96,6 +104,7 @@ export interface Animation {
     gridColumn?: number;
     innerHTML?: number | string;
     backgroundColor?: string;
+    borderColor?: string;
     color?: string;
   };
 }

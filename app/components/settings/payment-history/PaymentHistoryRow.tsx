@@ -1,3 +1,4 @@
+import { useFormatter, useTranslations } from "next-intl";
 import { formatCurrency } from "@/lib/formatCurrency";
 import styles from "./PaymentHistory.module.css";
 import type { Payment } from "./types";
@@ -8,14 +9,14 @@ interface PaymentHistoryRowProps {
 }
 
 export default function PaymentHistoryRow({ payment, onDownloadReceipt }: PaymentHistoryRowProps) {
+  const t = useTranslations("settings.paymentHistory");
+  const format = useFormatter();
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const options: Intl.DateTimeFormatOptions = {
+    return format.dateTime(new Date(dateString), {
       month: "short",
       day: "numeric",
       year: "numeric"
-    };
-    return date.toLocaleDateString("en-US", options);
+    });
   };
 
   return (
@@ -26,7 +27,7 @@ export default function PaymentHistoryRow({ payment, onDownloadReceipt }: Paymen
       <td className={styles.paymentMethod}>{payment.method}</td>
       <td className={styles.paymentAction}>
         <button className="ui-btn ui-btn-small ui-btn-secondary ui-btn-gray" onClick={() => onDownloadReceipt(payment)}>
-          Download Receipt
+          {t("downloadReceipt")}
         </button>
       </td>
     </tr>

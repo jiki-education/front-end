@@ -1,0 +1,54 @@
+{
+  "tasks": {
+    "createAcronymFunction": {
+      "name": "Create acronym function",
+      "description": "Write a function that takes a phrase and returns an acronym. The acronym should be formed by taking the first letter of each word and converting it to uppercase."
+    }
+  },
+  "scenarios": {
+    "png": {
+      "name": "Basic acronym: PNG",
+      "description": "Convert 'Portable Network Graphics' to 'PNG'."
+    },
+    "ror": {
+      "name": "Lowercase words: ROR",
+      "description": "Convert 'Ruby on Rails' to 'ROR'."
+    },
+    "firstWordOnly": {
+      "name": "Single word: H",
+      "description": "Convert 'HyperText' to 'H'."
+    },
+    "hyphenated": {
+      "name": "Hyphenated phrase: CMOS",
+      "description": "Convert 'Complementary metal-oxide semiconductor' to 'CMOS'."
+    },
+    "punctuation": {
+      "name": "With punctuation: PHT",
+      "description": "Convert 'Portable, HyperText, Transmitter' to 'PHT'."
+    }
+  },
+  "hints": {
+    "pickLetters": {
+      "question": "How do I pick out which letters become the acronym?",
+      "answer": "The letters you want are the ones that start each word. That's usually the very first character of the phrase, plus any character that comes right after a space or hyphen."
+    },
+    "findWordStarts": {
+      "question": "How do I find the characters that come right after a space or hyphen?",
+      "answer": "Loop through the phrase one character at a time, keeping track of what the previous character was. If the previous character was a space or hyphen (or you're at the very start), the current character is the start of a word."
+    },
+    "buildResult": {
+      "question": "How do I build up the result as I go?",
+      "answer": "Start with an empty result string and append each chosen letter onto the end using concatenation with `+`."
+    },
+    "lowercaseResult": {
+      "question": "I've got the right letters but my answer's lowercase",
+      "answer": "Once you've built the full string, convert it to uppercase in one go using `toUpperCase()` before returning it."
+    }
+  },
+  "functions": {
+    "toUpperCase": {
+      "description": "Convert a string to uppercase (provided by level stdlib)",
+      "category": "String Operations"
+    }
+  }
+}

@@ -7,30 +7,30 @@ const functions: FunctionInfo[] = [
   {
     name: "circle",
     signature: "circle(centerX, centerY, radius, color)",
-    description: "Draw a circle with its center at (centerX, centerY), the given radius, and color",
-    examples: ['circle(50, 50, 10, "#ff0000")', "circle(50, sunCy, sunRadius, rgb(255, 237, 0))"],
-    category: "Drawing Shapes"
+    description: "functions.circle.description",
+    examples: ['circle(50, 50, 10, "#ff0000")', "circle(50, sunCenterY, sunRadius, rgb(255, 237, 0))"],
+    category: "functions.circle.category"
   },
   {
     name: "rectangle",
     signature: "rectangle(left, top, width, height, color)",
-    description: "Draw a rectangle at position (left, top) with the given width, height, and color",
+    description: "functions.rectangle.description",
     examples: ['rectangle(0, 0, 100, 100, "#0308ce")', "rectangle(0, 0, 100, 100, hsl(210, 70, 60))"],
-    category: "Drawing Shapes"
+    category: "functions.rectangle.category"
   },
   {
     name: "rgb",
     signature: "rgb(red, green, blue)",
-    description: "Convert RGB color values (each 0-255) to a hex color string",
+    description: "functions.rgb.description",
     examples: ["rgb(255, 0, 0)", "rgb(255, 237, 0)"],
-    category: "Colors"
+    category: "functions.rgb.category"
   },
   {
     name: "hsl",
-    signature: "hsl(hue, saturation, luminosity)",
-    description: "Convert HSL color values (hue 0-360, saturation 0-100, luminosity 0-100) to a hex color string",
+    signature: "hsl(hue, saturation, lightness)",
+    description: "functions.hsl.description",
     examples: ["hsl(210, 70, 60)", "hsl(0, 100, 50)"],
-    category: "Colors"
+    category: "functions.hsl.category"
   }
 ];
 

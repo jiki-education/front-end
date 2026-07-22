@@ -38,7 +38,7 @@
     color: rgba(255, 255, 255, 0.5);
     position: absolute;
     top: 15px;
-    right: 24px;
+    inset-inline-end: 24px;
     z-index: 10;
 }
 
@@ -193,12 +193,11 @@
     border: 2px solid white;
     border-radius: 10px;
     color: var(--color-gray-700);
-    font-family: "Poppins", sans-serif;
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
-    text-align: left;
+    text-align: start;
     display: flex;
     align-items: center;
     justify-content: space-between;

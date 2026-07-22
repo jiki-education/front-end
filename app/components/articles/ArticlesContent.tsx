@@ -75,7 +75,12 @@ export default function ArticlesContent({
         </div>
 
         {showPagination && (
-          <Pagination currentPage={currentPage} totalPages={totalPages} hrefForPage={hrefForPage} className="mt-12" />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            hrefForPage={hrefForPage}
+            className={styles.pagination}
+          />
         )}
       </div>
 

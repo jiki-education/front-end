@@ -1,0 +1,150 @@
+{
+  "errors": {
+    "widthMustBeNumber": "Width must be a number",
+    "colorMustBeString": "Color must be a string",
+    "textMustBeString": "Text must be a string"
+  },
+  "checks": {
+    "gameOutlineWrongOrMissing": "The game outline is wrong or missing.",
+    "gridLine535To9535WrongOrMissing": "The grid line from 5,35 to 95,35 is wrong or missing.",
+    "gridLine565To9565WrongOrMissing": "The grid line from 5,65 to 95,65 is wrong or missing.",
+    "gridLine355To3595WrongOrMissing": "The grid line from 35,5 to 35,95 is wrong or missing.",
+    "gridLine655To6595WrongOrMissing": "The grid line from 65,5 to 65,95 is wrong or missing.",
+    "wroteWhileGameInProgress": "You wrote to the screen when the game is still going.",
+    "crossLine7010To9030WrongOrMissing": "The cross line from 70,10 to 90,30 is wrong or missing.",
+    "crossLine7030To9010WrongOrMissing": "The cross line from 70,30 to 90,10 is wrong or missing.",
+    "crossLine4040To6060WrongOrMissing": "The cross line from 40,40 to 60,60 is wrong or missing.",
+    "crossLine4060To6040WrongOrMissing": "The cross line from 40,60 to 60,40 is wrong or missing.",
+    "nought8050MissingOrWrong": "The nought at 80,50 is missing or wrong.",
+    "nought2080MissingOrWrong": "The nought at 20,80 is missing or wrong.",
+    "drewResultsScreenGameNotEnded": "You drew a results screen but the game hasn't ended.",
+    "nought2020MissingOrWrong": "The nought at 20,20 is missing or wrong.",
+    "crossLine4040To6060MissingOrWrong": "The cross line from 40,40 to 60,60 is missing or wrong.",
+    "crossLine4060To6040MissingOrWrong": "The cross line from 40,60 to 60,40 is missing or wrong.",
+    "nought5020MissingOrWrong": "The nought at 50,20 is missing or wrong.",
+    "crossLine7010To9030MissingOrWrong": "The cross line from 70,10 to 90,30 is missing or wrong.",
+    "crossLine7030To9010MissingOrWrong": "The cross line from 70,30 to 90,10 is missing or wrong.",
+    "crossLine1040To3060MissingOrWrong": "The cross line from 10,40 to 30,60 is missing or wrong.",
+    "crossLine1060To3040MissingOrWrong": "The cross line from 10,60 to 30,40 is missing or wrong.",
+    "nought8080MissingOrWrong": "The nought at 80,80 is missing or wrong.",
+    "crossLine4070To6090MissingOrWrong": "The cross line from 40,70 to 60,90 is missing or wrong.",
+    "crossLine4090To6070MissingOrWrong": "The cross line from 40,90 to 60,70 is missing or wrong.",
+    "didntWriteResultCorrectly": "You didn't write the result on the screen correctly.",
+    "wroteToScreenMultipleTimes": "You wrote to the screen multiple times.",
+    "didntDrawOverlayCorrectly": "You didn't draw the overlay correctly.",
+    "expectedCrossesGreyedOut": "We expected the crosses to be greyed out.",
+    "expectedNoughtsGreyedOut": "We expected the noughts to be greyed out.",
+    "didntWriteInvalidMoveCorrectly": "You didn't write the invalid move on the screen correctly.",
+    "expectedCrossColorProgression": "We expected to see black crosses during the game, then once the game was won, light-grey crosses and purple winning crosses.",
+    "crossLine4010To6030MissingOrWrong": "The cross line from 40,10 to 60,30 is missing or wrong.",
+    "crossLine4030To6010MissingOrWrong": "The cross line from 40,30 to 60,10 is missing or wrong.",
+    "nought8020MissingOrWrong": "The nought at 80,20 is missing or wrong.",
+    "nought5050MissingOrWrong": "The nought at 50,50 is missing or wrong.",
+    "crossLine7040To9060MissingOrWrong": "The cross line from 70,40 to 90,60 is missing or wrong.",
+    "crossLine7060To9040MissingOrWrong": "The cross line from 70,60 to 90,40 is missing or wrong.",
+    "expectedNoughtColorProgression": "We expected to see normal noughts during the game, then light-grey noughts and purple winning noughts.",
+    "addedBlockingCross": "Did you add the blocking cross?",
+    "addedWinningCross": "Did you add the cross to the winning spot?",
+    "addedWinningNought": "Did you add the nought to the winning spot?"
+  },
+  "tasks": {
+    "playTicTacToe": {
+      "name": "Build the Tic Tac Toe game",
+      "description": "Create a runGame(moves) function that draws a board, places pieces, handles invalid moves, detects wins and draws, and implements basic AI for '?' moves."
+    }
+  },
+  "scenarios": {
+    "partialGame": {
+      "name": "The first few moves of a game",
+      "description": "Draw the grid and place the first few pieces correctly. The game is still in progress."
+    },
+    "draw": {
+      "name": "A drawn game",
+      "description": "Play a full game that ends in a draw. All pieces should be greyed out with a draw message."
+    },
+    "doublePlacementDuplicate": {
+      "name": "Placing an 'o' on an 'o'",
+      "description": "Placing a piece on an already occupied square should show an error."
+    },
+    "doublePlacementOnTop": {
+      "name": "Placing an 'x' on an 'o'",
+      "description": "Placing a piece on top of an opponent's piece should show an error."
+    },
+    "winX": {
+      "name": "The crosses win!",
+      "description": "Play a game where the crosses win. The winning line should be highlighted."
+    },
+    "winO": {
+      "name": "The noughts win!",
+      "description": "Play a game where the noughts win. The winning circles should be highlighted."
+    },
+    "aiOFinish": {
+      "name": "AI 'o' finish",
+      "description": "Can your AI finish the game successfully?"
+    },
+    "aiXWin": {
+      "name": "AI 'x' win",
+      "description": "Can your AI win a game for crosses?"
+    },
+    "aiOWin": {
+      "name": "AI 'o' win",
+      "description": "Can your AI win a game for noughts?"
+    },
+    "aiXBlock": {
+      "name": "AI 'x' block",
+      "description": "Can your AI block the opponent's win?"
+    },
+    "aiGame": {
+      "name": "AI game",
+      "description": "Can your AI play this game out to a draw?"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Where should I start with such a big exercise?",
+      "answer": "Break it up. First draw the empty grid (one rectangle plus four lines). Then write helper functions for drawing an `o` and an `x`. Build the game logic on top of those."
+    },
+    "trackSquares": {
+      "question": "How do I keep track of which squares are taken?",
+      "answer": "Use a 2D list (a list of three lists, each with three entries) where each cell holds `\"o\"`, `\"x\"`, or an empty marker. Update it every time a move is made."
+    },
+    "whoseTurn": {
+      "question": "How do I know whose turn it is?",
+      "answer": "The first move is always `\"o\"`, then it alternates. Track the move number, or flip a variable between `\"o\"` and `\"x\"` after each placement."
+    },
+    "detectWin": {
+      "question": "How do I detect a win?",
+      "answer": "After each move, check all 8 winning lines: 3 rows, 3 columns, and 2 diagonals. For each, check whether all three cells contain the same non-empty symbol."
+    },
+    "aiMove": {
+      "question": "How does the AI decide what to do for a `\"?\"` move?",
+      "answer": "Try the rules in order: first see if there's a move that wins immediately, then see if there's one that blocks the opponent's win, otherwise pick any empty square."
+    }
+  },
+  "describers": {
+    "changeStroke": "set the stroke width to ${arg1} and stroke color to ${arg2}",
+    "write": "wrote '${arg1}' to the screen"
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Draw a rectangle at position (left, top) with the given width, height, and color",
+      "category": "Drawing Shapes"
+    },
+    "circle": {
+      "description": "Draw a circle centered at (centerX, centerY) with the given radius and color",
+      "category": "Drawing Shapes"
+    },
+    "line": {
+      "description": "Draw a line from (x1, y1) to (x2, y2) with the given color",
+      "category": "Drawing Shapes"
+    },
+    "changeStroke": {
+      "description": "Set the stroke width and color for subsequent shapes. Lines are drawn using the stroke color.",
+      "category": "Stroke Settings"
+    },
+    "write": {
+      "description": "Write text to the center of the screen in white",
+      "category": "Text"
+    }
+  }
+}

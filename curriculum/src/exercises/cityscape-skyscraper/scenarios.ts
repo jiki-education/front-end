@@ -4,9 +4,8 @@ import type CityScapeSkyscraperExercise from "./Exercise";
 export const tasks = [
   {
     id: "build-skyscraper" as const,
-    name: "Build the skyscraper",
-    description:
-      "Build a skyscraper with the correct number of floors, including a ground floor with entrance, upper floors with glass, and a wall roof.",
+    name: "tasks.buildSkyscraper.name",
+    description: "tasks.buildSkyscraper.description",
     hints: [],
     requiredScenarios: ["floors-6", "floors-8", "floors-10", "floors-12", "floors-16"],
     bonus: false
@@ -22,33 +21,33 @@ function skyscraperExpectations(exercise: CityScapeSkyscraperExercise, numFloors
 
   expects.push({
     pass: exercise.totalCells() === totalCells,
-    errorHtml: `Expected ${totalCells} cells but found ${exercise.totalCells()}.`
+    errorHtml: exercise.t("checks.totalCells", { expected: totalCells, got: exercise.totalCells() })
   });
 
   // Ground floor (y=2): wall, glass, entrance, glass, wall
   expects.push({
     pass: exercise.hasCellAt(17, 2, "wall") && exercise.hasCellAt(21, 2, "wall"),
-    errorHtml: "The ground floor should have walls at positions (17, 2) and (21, 2)."
+    errorHtml: exercise.t("checks.groundWalls")
   });
   expects.push({
     pass: exercise.hasCellAt(18, 2, "glass") && exercise.hasCellAt(20, 2, "glass"),
-    errorHtml: "The ground floor should have glass at positions (18, 2) and (20, 2)."
+    errorHtml: exercise.t("checks.groundGlass")
   });
   expects.push({
     pass: exercise.hasCellAt(19, 2, "entrance"),
-    errorHtml: "The ground floor should have an entrance at position (19, 2)."
+    errorHtml: exercise.t("checks.groundEntrance")
   });
 
   // Upper floors (y=3 to y=numFloors+1): wall, glass, glass, glass, wall
   for (let y = 3; y <= numFloors + 1; y++) {
     expects.push({
       pass: exercise.hasCellAt(17, y, "wall") && exercise.hasCellAt(21, y, "wall"),
-      errorHtml: `Floor ${y} should have walls at positions (17, ${y}) and (21, ${y}).`
+      errorHtml: exercise.t("checks.floorWalls", { y })
     });
     expects.push({
       pass:
         exercise.hasCellAt(18, y, "glass") && exercise.hasCellAt(19, y, "glass") && exercise.hasCellAt(20, y, "glass"),
-      errorHtml: `Floor ${y} should have glass at positions (18, ${y}), (19, ${y}), and (20, ${y}).`
+      errorHtml: exercise.t("checks.floorGlass", { y })
     });
   }
 
@@ -61,7 +60,7 @@ function skyscraperExpectations(exercise: CityScapeSkyscraperExercise, numFloors
       exercise.hasCellAt(19, roofY, "wall") &&
       exercise.hasCellAt(20, roofY, "wall") &&
       exercise.hasCellAt(21, roofY, "wall"),
-    errorHtml: `The roof at y=${roofY} should be all walls.`
+    errorHtml: exercise.t("checks.roof", { roofY })
   });
 
   return expects;
@@ -70,16 +69,15 @@ function skyscraperExpectations(exercise: CityScapeSkyscraperExercise, numFloors
 const codeChecks: CodeCheck[] = [
   {
     pass: (result) => result.assertors.assertAllArgumentsAreVariables(),
-    errorHtml:
-      "You should use <strong>variables</strong> as arguments to functions, not literal values. Store values in variables first, then pass the variables."
+    errorKey: "checks.codeQuality.allArgumentsAreVariables"
   }
 ];
 
 export const scenarios: VisualScenario[] = [
   {
     slug: "floors-6",
-    name: "6-floor skyscraper",
-    description: "Build a skyscraper with 6 floors.",
+    name: "scenarios.floors6.name",
+    description: "scenarios.floors6.description",
     taskId: "build-skyscraper",
     codeChecks,
     setup(exercise) {
@@ -91,8 +89,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "floors-8",
-    name: "8-floor skyscraper",
-    description: "Build a skyscraper with 8 floors.",
+    name: "scenarios.floors8.name",
+    description: "scenarios.floors8.description",
     taskId: "build-skyscraper",
     codeChecks,
     setup(exercise) {
@@ -104,8 +102,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "floors-10",
-    name: "10-floor skyscraper",
-    description: "Build a skyscraper with 10 floors.",
+    name: "scenarios.floors10.name",
+    description: "scenarios.floors10.description",
     taskId: "build-skyscraper",
     codeChecks,
     setup(exercise) {
@@ -117,8 +115,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "floors-12",
-    name: "12-floor skyscraper",
-    description: "Build a skyscraper with 12 floors.",
+    name: "scenarios.floors12.name",
+    description: "scenarios.floors12.description",
     taskId: "build-skyscraper",
     codeChecks,
     setup(exercise) {
@@ -130,8 +128,8 @@ export const scenarios: VisualScenario[] = [
   },
   {
     slug: "floors-16",
-    name: "16-floor skyscraper",
-    description: "Build a skyscraper with 16 floors.",
+    name: "scenarios.floors16.name",
+    description: "scenarios.floors16.description",
     taskId: "build-skyscraper",
     codeChecks,
     setup(exercise) {

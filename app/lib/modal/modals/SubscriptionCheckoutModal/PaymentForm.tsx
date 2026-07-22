@@ -4,11 +4,16 @@ import { PremiumPrice } from "@/components/common/PremiumPrice";
 import ExclamationCircleIcon from "@/icons/exclamation-circle.svg";
 import ShieldIcon from "@/icons/shield.svg";
 import { PaymentElement, useCheckout } from "@stripe/react-stripe-js/checkout";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import styles from "../SubscriptionCheckoutModal.module.css";
 
-export function PaymentForm() {
-  const [message, setMessage] = useState<string | null>(null);
+export function PaymentForm({ priorError }: { priorError?: string | null }) {
+  const t = useTranslations("modals.subscriptionCheckout");
+  const tCommon = useTranslations("common");
+  // Seed the error banner with a previous attempt's failure (e.g. a declined retry);
+  // it clears on the next submit like any other payment error.
+  const [message, setMessage] = useState<string | null>(priorError ?? null);
   const [isLoading, setIsLoading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -27,7 +32,7 @@ export function PaymentForm() {
     return (
       <div className={styles.loadingWrapper}>
         <div className={styles.loadingSpinner}></div>
-        <div className={styles.loadingText}>Connecting to Stripe</div>
+        <div className={styles.loadingText}>{t("connectingToStripe")}</div>
       </div>
     );
   }
@@ -51,24 +56,30 @@ export function PaymentForm() {
       const confirmResult = await checkout.confirm();
 
       if (confirmResult.type === "error") {
-        setMessage(confirmResult.error.message || "Payment failed");
+        setMessage(confirmResult.error.message || t("paymentFailed"));
         setIsLoading(false);
       }
       // If successful, Stripe will redirect automatically
     } catch (error) {
       console.error("Payment error:", error);
-      setMessage("An unexpected error occurred. Please try again.");
+      setMessage(t("unexpectedError"));
       setIsLoading(false);
     }
   };
 
   return (
-    <form ref={formRef} tabIndex={-1} onSubmit={handleSubmit} className="space-y-6" aria-label="Payment information">
+    <form
+      ref={formRef}
+      tabIndex={-1}
+      onSubmit={handleSubmit}
+      className="space-y-6"
+      aria-label={t("paymentInfoAriaLabel")}
+    >
       {message && (
         <div className={styles.errorBanner}>
           <ExclamationCircleIcon />
           <div className={styles.errorBannerContent}>
-            <div className={styles.errorBannerTitle}>Payment failed</div>
+            <div className={styles.errorBannerTitle}>{t("paymentFailedTitle")}</div>
             <div className={styles.errorBannerMessage}>{message}</div>
           </div>
         </div>
@@ -84,17 +95,17 @@ export function PaymentForm() {
         id="submit-btn"
       >
         {isLoading ? (
-          "Processing..."
+          tCommon("processing")
         ) : (
           <>
-            Pay <PremiumPrice interval="monthly" />
+            {t("pay")} <PremiumPrice interval="monthly" />
           </>
         )}
       </button>
 
       <p className={styles.footerText}>
         <ShieldIcon />
-        Secured by <span className={styles.stripeBrand}>stripe</span>
+        {t.rich("securedBy", { stripe: (chunks) => <span className={styles.stripeBrand}>{chunks}</span> })}
       </p>
     </form>
   );

@@ -1,16 +1,19 @@
 import { useCallback, useRef } from "react";
-import toast from "react-hot-toast";
-import { showPremiumUpgradeModal } from "@/lib/modal";
+import { useTranslations } from "next-intl";
+import { toastError } from "@/lib/toast";
+import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { useTurnstile } from "@/lib/turnstile/useTurnstile";
 import { useChatState } from "./useChatState";
 import { useChatContext } from "./useChatContext";
-import { sendChatMessage, ChatTokenExpiredError } from "./chatApi";
+import { sendChatMessage, ChatTokenExpiredError, ChatUsageLimitError } from "./chatApi";
 import { ConversationSaveCaptchaError, saveConversation } from "./conversationApi";
 import { ChatTokenAccessDeniedError, ChatTokenInvalidCaptchaError, fetchChatToken } from "./chatTokenApi";
 import { formatChatError } from "./chatErrorHandler";
+import { extractUsage } from "./chatUsage";
 import type Orchestrator from "./Orchestrator";
 
 export function useChat(orchestrator: Orchestrator) {
+  const t = useTranslations("codingExercise");
   const chatState = useChatState();
   const context = useChatContext(orchestrator);
   const turnstile = useTurnstile();
@@ -63,6 +66,7 @@ export function useChat(orchestrator: Orchestrator) {
           language: context.language,
           history: chatState.messages,
           nextTaskId: context.currentTaskId || undefined,
+          locale: context.locale,
           contentHash: context.contentHash
         },
         {
@@ -71,6 +75,13 @@ export function useChat(orchestrator: Orchestrator) {
           },
           onSignature: (signature) => {
             chatState.setSignature(signature);
+            // The proxy reports the user's current usage on the signature event.
+            // Capturing it lets us drive the "getting close" warning and pre-empt
+            // the cap (disable the composer once the user is at their limit).
+            const usage = extractUsage(signature);
+            if (usage) {
+              chatState.setUsage(usage);
+            }
           },
           onError: (error) => {
             chatState.setError(error);
@@ -84,11 +95,13 @@ export function useChat(orchestrator: Orchestrator) {
                 chatState.setSignature(signature);
                 saveConversation(context.context, message, fullResponse, signature).catch((error: unknown) => {
                   console.error("Failed to save conversation:", error);
-                  const toastMessage =
+                  toastError(
                     error instanceof ConversationSaveCaptchaError
-                      ? "Verification failed while saving. This message won't be here when you come back."
-                      : "Couldn't save this message. It won't be here when you come back.";
-                  toast.error(toastMessage, { duration: 8000 });
+                      ? "exercise.chatSaveCaptchaFailed"
+                      : "exercise.chatSaveFailed",
+                    undefined,
+                    { duration: 8000 }
+                  );
                 });
               }
 
@@ -144,17 +157,28 @@ export function useChat(orchestrator: Orchestrator) {
         }
 
         if (error instanceof ChatTokenInvalidCaptchaError) {
-          chatState.setError("Verification failed, please try again.");
+          chatState.setError(t("chatError.verificationFailed"));
           chatState.setStatus("error");
           return;
         }
 
-        const errorMessage = formatChatError(error);
-        chatState.setError(errorMessage);
+        // Quota cap: record the usage so the composer disables and shows the cap
+        // notice. We deliberately don't set an error/retry here — the cap won't
+        // recover until reset, so a "Try Again" button would be misleading.
+        if (error instanceof ChatUsageLimitError) {
+          chatState.setUsage(error.usage);
+          chatState.setStatus("idle");
+          return;
+        }
+
+        // Translate keyed messages here (the hook has locale context); proxy/
+        // server-provided copy passes through verbatim.
+        const formatted = formatChatError(error);
+        chatState.setError(formatted.type === "key" ? t(formatted.key, formatted.params) : formatted.text);
         chatState.setStatus("error");
       }
     },
-    [chatState, ensureValidToken, performChatRequest, context.context.type, context.context.slug]
+    [chatState, ensureValidToken, performChatRequest, context.context.type, context.context.slug, t]
   );
 
   const clearConversation = useCallback(() => {

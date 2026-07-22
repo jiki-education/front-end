@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Image, { type StaticImageData } from "next/image";
 import quote from "../landing-page/assets/quote.webp";
 import abhinav from "../landing-page/assets/testimonials/abhinav.webp";
@@ -56,15 +57,14 @@ interface Testimonial {
 }
 
 export function TestimonialsPage() {
+  const t = useTranslations("misc.testimonialsPage");
   return (
     <HeaderLayout>
       <section className={styles.page}>
         <div className={shared["lg-container"]}>
           <header className={styles.header}>
-            <h1>Testimonials</h1>
-            <p className={styles.subtitle}>
-              We asked our students if they&apos;d enjoyed the course. Here&apos;s what they said...
-            </p>
+            <h1>{t("title")}</h1>
+            <p className={styles.subtitle}>{t("subtitle")}</p>
           </header>
           <div className={styles.quotes}>
             {(testimonials as Testimonial[]).map((t, i) => (
@@ -78,19 +78,20 @@ export function TestimonialsPage() {
 }
 
 function Quote({ testimonial }: { testimonial: Testimonial }) {
+  const t = useTranslations("misc.testimonialsPage");
   const avatar = avatars[testimonial.image];
   return (
     <div className={styles.quote}>
       <div className={styles.words}>
-        <Image className={`${styles.mark} ${styles["left-mark"]}`} src={quote} alt="“" />
+        <Image className={`${styles.mark} ${styles["left-mark"]}`} src={quote} alt={t("quoteOpenAlt")} />
         <span>
           {renderParagraphs(testimonial.text)}
-          <Image className={`${styles.mark} ${styles["right-mark"]}`} src={quote} alt="”" />
+          <Image className={`${styles.mark} ${styles["right-mark"]}`} src={quote} alt={t("quoteCloseAlt")} />
         </span>
       </div>
       <div className={styles.person}>
         <div className={styles.stars}></div>
-        <div className="flex flex-row items-center justify-end gap-8">
+        <div className={styles.personRow}>
           <div className={styles.text}>
             <div className={styles.name}>{testimonial.name}</div>
             <div className={styles.description}>{testimonial.role}</div>

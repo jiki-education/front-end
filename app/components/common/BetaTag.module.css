@@ -1,6 +1,6 @@
 .tag {
     top: 40px;
-    right: -50px;
+    inset-inline-end: -50px;
     position: fixed;
     z-index: var(--z-index-beta-tag);
     transform: rotate(45deg);

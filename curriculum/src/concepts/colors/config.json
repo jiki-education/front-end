@@ -1,4 +1,4 @@
 {
-  "order": 4,
-  "category": true
+  "order": 0,
+  "parent": "colors-group"
 }

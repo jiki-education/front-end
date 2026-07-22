@@ -1,5 +1,7 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { PremiumPrice, PremiumDailyPrice } from "@/components/common/PremiumPrice";
+import { staticAsset } from "@/lib/static-asset";
 import styles from "./PremiumUpgradeModal.module.css";
 
 interface PremiumPlanSectionProps {
@@ -8,42 +10,32 @@ interface PremiumPlanSectionProps {
   onUpgrade: () => void;
 }
 
-const premiumFeatures: React.ReactNode[] = [
-  <>
-    Full access to <strong>Learn to Build</strong>
-  </>,
-  <>
-    Combine your skills in <strong>Jiki Projects</strong>
-  </>,
-  <>
-    Unlimited <strong>AI support</strong> from Jiki
-  </>,
-  <>
-    Regular <strong>Q&A livestreams</strong> you can join
-  </>,
-  <>
-    Earn <strong>certificates</strong> for courses
-  </>,
-  <>
-    <strong>Ad-free</strong> learning experience
-  </>,
-  <>
-    <strong>Early access</strong> to new features
-  </>
-];
-
 export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSectionProps) {
+  const t = useTranslations("modals.premiumUpgrade");
+  const tCommon = useTranslations("common");
+
+  const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
+  const premiumFeatures: React.ReactNode[] = [
+    t.rich("featureLearnToBuild", { strong }),
+    t.rich("featureChallenges", { strong }),
+    t.rich("featureAi", { strong }),
+    t.rich("featureLivestreams", { strong }),
+    t.rich("featureCertificates", { strong }),
+    t.rich("featureAdFree", { strong }),
+    t.rich("featureEarlyAccess", { strong })
+  ];
+
   return (
     <div className={styles.rightSide}>
-      <h2 className={styles.premiumName}>Jiki Premium</h2>
+      <h2 className={styles.premiumName}>{t("planName")}</h2>
       <div className={styles.premiumPrice}>
         <span className={styles.amount}>
           <PremiumPrice interval="monthly" />
         </span>
-        <span className={styles.period}>/month</span>
+        <span className={styles.period}>{tCommon("perMonth")}</span>
       </div>
       <p className={styles.annualNote}>
-        (That&apos;s only <PremiumDailyPrice interval="monthly" /> a day)
+        {t.rich("dailyNote", { price: () => <PremiumDailyPrice interval="monthly" /> })}
       </p>
 
       <button
@@ -53,14 +45,14 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
       >
         {!isLoading && (
           <Image
-            src={user?.avatar || "/static/icons/user-fallback.svg"}
-            alt="User"
+            src={user?.avatar || staticAsset("icons/user-fallback.svg")}
+            alt={t("userAvatarAlt")}
             className={styles.buttonAvatar}
             width={24}
             height={24}
           />
         )}
-        {isLoading ? "Processing..." : "Upgrade to Premium"}
+        {isLoading ? tCommon("processing") : t("upgrade")}
       </button>
 
       <ul className={styles.premiumFeatures}>

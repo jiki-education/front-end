@@ -3,24 +3,24 @@
   "levelId": "variables",
   "hints": [
     {
-      "question": "Where should I start?",
-      "answer": "Start with the base, because it's the only circle anchored to anything fixed (the bottom of the canvas). Once you know `baseY`, you can stack the body on top of it, and then the head on top of the body."
+      "question": "hints.whereToStart.question",
+      "answer": "hints.whereToStart.answer"
     },
     {
-      "question": "How do I work out where the base sits?",
-      "answer": "The bottom edge of the base sits `size` above the ground (Y=100). The centre of the base is one base-radius further up from its bottom edge."
+      "question": "hints.baseSits.question",
+      "answer": "hints.baseSits.answer"
     },
     {
-      "question": "How do I stack the body on the base?",
-      "answer": "When two circles touch with one directly above the other, the distance between their centres equals the sum of their two radii."
+      "question": "hints.stackBody.question",
+      "answer": "hints.stackBody.answer"
     },
     {
-      "question": "What about the head?",
-      "answer": "The head sits on the body in exactly the same way as the body sits on the base."
+      "question": "hints.head.question",
+      "answer": "hints.head.answer"
     },
     {
-      "question": "Why must everything be derived from `size`?",
-      "answer": "If you hardcode a number, changing `size` will leave gaps or overlaps between the circles. Using formulas keeps everything in proportion."
+      "question": "hints.whyDeriveFromSize.question",
+      "answer": "hints.whyDeriveFromSize.answer"
     }
   ]
 }

@@ -8,47 +8,44 @@ const functions: FunctionInfo[] = [
   {
     name: "move",
     signature: "move()",
-    description:
-      "Moves the character **one step forward** in the current direction. The character will only move if the target position is not blocked by a wall.",
+    description: "functions.move.description",
     examples: ["move()"],
-    category: "Movement"
+    category: "functions.move.category"
   },
   {
     name: "turnLeft",
     signature: "turnLeft()",
-    description:
-      "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
+    description: "functions.turnLeft.description",
     examples: ["turnLeft()"],
-    category: "Movement"
+    category: "functions.turnLeft.category"
   },
   {
     name: "turnRight",
     signature: "turnRight()",
-    description:
-      "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
+    description: "functions.turnRight.description",
     examples: ["turnRight()"],
-    category: "Movement"
+    category: "functions.turnRight.category"
   },
   {
     name: "canMove",
     signature: "canMove()",
-    description: "Returns **true** if the space ahead of the character is not a wall, **false** otherwise.",
+    description: "functions.canMove.description",
     examples: ["canMove()"],
-    category: "Sensing"
+    category: "functions.canMove.category"
   },
   {
     name: "canTurnLeft",
     signature: "canTurnLeft()",
-    description: "Returns **true** if the space to the character's left is not a wall, **false** otherwise.",
+    description: "functions.canTurnLeft.description",
     examples: ["canTurnLeft()"],
-    category: "Sensing"
+    category: "functions.canTurnLeft.category"
   },
   {
     name: "canTurnRight",
     signature: "canTurnRight()",
-    description: "Returns **true** if the space to the character's right is not a wall, **false** otherwise.",
+    description: "functions.canTurnRight.description",
     examples: ["canTurnRight()"],
-    category: "Sensing"
+    category: "functions.canTurnRight.category"
   }
 ];
 
@@ -58,7 +55,9 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["if", "else-if", "else", "repeat"],
+  interpreterOptions: { maxTotalLoopIterations: 50 }
 };
 
 export default exerciseDefinition;

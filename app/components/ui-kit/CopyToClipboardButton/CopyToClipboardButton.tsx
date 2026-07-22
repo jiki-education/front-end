@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Icon } from "../Icon";
 import styles from "./CopyToClipboardButton.module.css";
 
@@ -11,6 +12,7 @@ interface CopyToClipboardButtonProps {
 
 export function CopyToClipboardButton({ textToCopy, className }: CopyToClipboardButtonProps) {
   const [justCopied, setJustCopied] = useState(false);
+  const t = useTranslations("common.copyButton");
 
   const handleClick = useCallback(() => {
     navigator.clipboard.writeText(textToCopy).catch((err: unknown) => {
@@ -45,13 +47,13 @@ export function CopyToClipboardButton({ textToCopy, className }: CopyToClipboard
       type="button"
       onClick={handleClick}
       className={className ? `${styles.button} ${className}` : styles.button}
-      aria-label="Copy to clipboard"
+      aria-label={t("label")}
     >
       <div className={styles.text}>{textToCopy}</div>
       <span className={styles.icon}>
-        <Icon name="clipboard" size={24} alt="Copy to clipboard" />
+        <Icon name="clipboard" size={24} alt={t("label")} />
       </span>
-      {justCopied ? <span className={styles.message}>Copied</span> : null}
+      {justCopied ? <span className={styles.message}>{t("copied")}</span> : null}
     </button>
   );
 }

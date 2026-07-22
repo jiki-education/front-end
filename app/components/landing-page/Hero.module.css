@@ -1,11 +1,20 @@
+.headlineHighlight {
+    display: inline;
+}
+
+.highlightWhite {
+    font-weight: 500;
+    color: #fff;
+}
+
 .hero {
     background-image:
-        url("/static/images/landing-page/hero-grid.svg"), linear-gradient(rgb(13, 18, 33), rgb(19, 47, 68));
+        url("/static/images/landing-page/hero-grid-d727b.svg"), linear-gradient(rgb(13, 18, 33), rgb(19, 47, 68));
     background-repeat: repeat, repeat-y;
     background-size: 20px, 100%;
     color: white;
     overflow: hidden;
-    min-height: calc(100vh - 70px);
+    min-height: calc(100vh - var(--header-height));
     display: flex;
     flex-direction: column;
 
@@ -14,7 +23,7 @@
         align-items: flex-start;
         flex: 1;
         padding-top: 24px;
-        padding-bottom: 80px;
+        padding-bottom: 40px;
         background-image: linear-gradient(
             to right,
             transparent 0%,
@@ -44,10 +53,10 @@
         width: 100%;
         max-width: 580px;
         flex-grow: 0;
-        margin-left: 54px;
+        margin-inline-start: 54px;
 
         @media (max-width: 1023px) {
-            margin-left: 0;
+            margin-inline-start: 0;
             margin-top: 40px;
         }
     }
@@ -131,7 +140,7 @@
         .video-play-circle {
             position: absolute;
             top: 50%;
-            left: 50%;
+            inset-inline-start: 50%;
             transform: translate(-50%, -50%);
             width: 96px;
             height: 96px;
@@ -159,7 +168,7 @@
         .video-play-circle svg {
             width: 40%;
             height: 40%;
-            margin-left: 5%;
+            margin-inline-start: 5%;
             color: #fff;
         }
 
@@ -213,8 +222,8 @@
         margin-bottom: 16px;
         font-weight: 300;
         color: var(--color-gray-200);
-        margin-left: auto;
-        margin-right: auto;
+        margin-inline-start: auto;
+        margin-inline-end: auto;
 
         @media (min-width: 768px) {
             font-size: 22px;
@@ -238,11 +247,10 @@
                 content: "";
                 position: absolute;
                 top: 0;
-                right: 0;
+                inset-inline-end: 0;
                 bottom: 3px;
-                left: 0;
-                border-bottom-width: 1px;
-                border-color: #ffffffaa;
+                inset-inline-start: 0;
+                border-bottom: 1px solid #ffffffaa;
             }
         }
     }
@@ -263,14 +271,13 @@
         .bubble {
             font-size: 15px;
             font-weight: 600;
-            border-width: 1px;
-            border-color: #fff;
+            border: 1px solid #fff;
             background-color: #fff;
             color: var(--color-gray-700);
             padding-top: 4px;
             padding-bottom: 4px;
-            padding-left: 12px;
-            padding-right: 12px;
+            padding-inline-start: 12px;
+            padding-inline-end: 12px;
             border-radius: 12px;
             display: flex;
             flex-direction: row;
@@ -309,8 +316,8 @@
             color: #fff;
             padding-top: 12px;
             padding-bottom: 12px;
-            padding-left: 24px;
-            padding-right: 24px;
+            padding-inline-start: 24px;
+            padding-inline-end: 24px;
             border-radius: 5px;
             font-weight: 600;
             margin-bottom: 8px;
@@ -325,7 +332,7 @@
 
     .line {
         height: 100px;
-        border-right: 3px dashed rgba(255, 255, 255, 0.05);
+        border-inline-end: 3px dashed rgba(255, 255, 255, 0.05);
         width: 1px;
         margin: 30px auto;
     }
@@ -406,7 +413,7 @@
 
     .hamster {
         position: absolute;
-        right: 30px;
+        inset-inline-end: 30px;
         top: -72px;
         width: 80px;
         height: 80px;
@@ -442,9 +449,9 @@
             will-change: transform;
 
             li {
-                background: url("/static/images/landing-page/stars.svg") right center / 4em auto no-repeat;
-                padding-right: 5em;
-                margin-right: 20px;
+                background: url("/static/images/landing-page/stars-0b091.svg") right center / 4em auto no-repeat;
+                padding-inline-end: 5em;
+                margin-inline-end: 20px;
             }
         }
     }

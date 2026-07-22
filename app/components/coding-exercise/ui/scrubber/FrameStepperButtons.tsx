@@ -1,7 +1,7 @@
 import React from "react";
+import { useTranslations } from "next-intl";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
-import type { Frame } from "@jiki/interpreters/shared";
 import styles from "../../CodingExercise.module.css";
 
 interface FrameStepperButtonsProps {
@@ -9,6 +9,7 @@ interface FrameStepperButtonsProps {
 }
 
 export default function FrameStepperButtons({ enabled }: FrameStepperButtonsProps) {
+  const t = useTranslations("codingExercise.scrubber");
   const orchestrator = useOrchestrator();
   const { prevFrame, nextFrame } = useOrchestratorStore(orchestrator);
 
@@ -16,40 +17,20 @@ export default function FrameStepperButtons({ enabled }: FrameStepperButtonsProp
     <>
       <button
         disabled={!enabled || !prevFrame}
-        onClick={() => handleGoToPreviousFrame(orchestrator, prevFrame)}
+        onClick={() => orchestrator.goToPrevFrame()}
         className={styles.navBtn}
-        aria-label="Previous frame"
+        aria-label={t("previousFrame")}
       >
         ‹
       </button>
       <button
         disabled={!enabled || !nextFrame}
-        onClick={() => handleGoToNextFrame(orchestrator, nextFrame)}
+        onClick={() => orchestrator.goToNextFrame()}
         className={styles.navBtn}
-        aria-label="Next frame"
+        aria-label={t("nextFrame")}
       >
         ›
       </button>
     </>
   );
-}
-
-/* **************** */
-/* EVENT HANDLERS */
-/* **************** */
-
-function handleGoToPreviousFrame(orchestrator: ReturnType<typeof useOrchestrator>, prevFrame: Frame | undefined) {
-  orchestrator.pause();
-  if (prevFrame) {
-    orchestrator.setCurrentTestTime(prevFrame.time);
-  }
-  orchestrator.showInformationWidget();
-}
-
-function handleGoToNextFrame(orchestrator: ReturnType<typeof useOrchestrator>, nextFrame: Frame | undefined) {
-  orchestrator.pause();
-  if (nextFrame) {
-    orchestrator.setCurrentTestTime(nextFrame.time);
-  }
-  orchestrator.showInformationWidget();
 }

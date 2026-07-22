@@ -1,0 +1,59 @@
+{
+  "checks": {
+    "tooManyLines": "Your solution has too many lines of code. Can you make it shorter?"
+  },
+  "tasks": {
+    "identifyEvenOrOdd": {
+      "name": "Identify even and odd numbers",
+      "description": "Write a function called evenOrOdd that takes a number and returns \"Even\" if it's divisible by 2, or \"Odd\" otherwise. Zero is even."
+    },
+    "solveInSixLines": {
+      "name": "Solve in 6 lines of code",
+      "description": "Can you solve this exercise with only 6 lines of code?"
+    }
+  },
+  "scenarios": {
+    "number14": {
+      "name": "Number 14",
+      "description": "14 is an even number."
+    },
+    "number28": {
+      "name": "Number 28",
+      "description": "28 is an even number."
+    },
+    "numberMinus1": {
+      "name": "Number -1",
+      "description": "-1 is an odd number."
+    },
+    "number17": {
+      "name": "Number 17",
+      "description": "17 is an odd number."
+    },
+    "number0": {
+      "name": "Number 0",
+      "description": "Zero counts as even."
+    },
+    "bonus1": {
+      "name": "6 lines of code",
+      "description": "Solve the exercise with only 6 lines of code."
+    }
+  },
+  "hints": {
+    "howToTell": {
+      "question": "How can I tell if a number is even or odd in code?",
+      "answer": "Mathematically, a number is even if it divides exactly by 2 with nothing left over, and odd if there's a remainder of 1. So you need a way to ask 'what's left over after dividing by 2?'."
+    },
+    "remainderOperator": {
+      "question": "Is there an operator that gives me the remainder of a division?",
+      "answer": "Yes. The remainder operator `%` (sometimes called modulo) does exactly this. For example, `14 % 2` gives `0`, and `17 % 2` gives `1`. It returns whatever is left after dividing the first number by the second."
+    },
+    "turnIntoEvenOdd": {
+      "question": "I've got the remainder. Now how do I turn that into \"Even\" or \"Odd\"?",
+      "answer": "Use an `if` statement to compare the remainder to `0`. If `number % 2` equals `0`, return `\"Even\"`. Otherwise, return `\"Odd\"`."
+    },
+    "zeroAndNegative": {
+      "question": "I can't work out how to handle 0 and negative numbers",
+      "answer": "You don't need any special case for them. `0 % 2` is `0`, so zero is treated as even automatically. And `-1 % 2` is non-zero, so `-1` is treated as odd, which is exactly what you want."
+    }
+  }
+}

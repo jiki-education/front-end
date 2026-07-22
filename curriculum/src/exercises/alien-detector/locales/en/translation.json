@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "notShotAlien": "You didn't shoot down the alien.",
+    "notShotAllAliens": "You didn't shoot down all the aliens."
+  },
+  "tasks": {
+    "shootTheAliens": {
+      "name": "Track and shoot down all the aliens",
+      "description": "Use getStartingAliensInRow() to get the alien positions, then move across the screen shooting them down. Track which aliens you've already shot by updating the arrays."
+    },
+    "fireTheFireworks": {
+      "name": "Fire the fireworks when all aliens are shot down",
+      "description": "After shooting all the aliens, call fireFireworks() to celebrate. This must happen in the same loop iteration as shooting the final alien."
+    },
+    "fireworksInsideLoop": {
+      "name": "Fire fireworks inside the loop",
+      "description": "Can you solve it by putting fireFireworks() within the repeat loop, rather than after it?"
+    }
+  },
+  "scenarios": {
+    "oneAlien": {
+      "name": "Shoot the alien",
+      "description": "A single alien in the bottom row"
+    },
+    "oneRow": {
+      "name": "One sparse row",
+      "description": "Sparse aliens in the bottom row"
+    },
+    "twoRows": {
+      "name": "Two busy rows",
+      "description": "Aliens across two rows"
+    },
+    "fullRows": {
+      "name": "Three packed rows",
+      "description": "Three full rows of aliens"
+    },
+    "threeRows": {
+      "name": "Three rows with fireworks",
+      "description": "Three rows of aliens — fire the fireworks when done!"
+    },
+    "fullRowsFireworks": {
+      "name": "Three packed rows with fireworks",
+      "description": "A full grid — fire the fireworks when done!"
+    },
+    "fireworksInsideLoop": {
+      "name": "Fireworks inside the loop",
+      "description": "Can you fire the fireworks from within the repeat loop?"
+    }
+  },
+  "hints": {
+    "knowWhereAliens": {
+      "question": "How do I know where the aliens are if `isAlienAbove()` is gone?",
+      "answer": "Call `getStartingAliensInRow(1)`, `getStartingAliensInRow(2)`, and `getStartingAliensInRow(3)` once at the start. Each returns a list of 11 booleans you can store in variables and read from later."
+    },
+    "whichAlienAbove": {
+      "question": "How do I work out which alien is above me right now?",
+      "answer": "Track your horizontal position in a variable, updating it each time you move. That position is the index into the row lists, so `row1[position]` tells you if there is an alien above you in row 1."
+    },
+    "stopDoubleShoot": {
+      "question": "How do I stop shooting the same alien twice?",
+      "answer": "After calling `shoot()`, set that index in the row to `false`. Next time round the loop the same position will report no alien there."
+    },
+    "whichRowToShoot": {
+      "question": "Which row should I shoot from when there are aliens stacked above me?",
+      "answer": "Check the rows from bottom to top. Shoot the lowest live alien in your column and stop checking further rows that iteration."
+    },
+    "whenToFireFireworks": {
+      "question": "How do I know when to call `fireFireworks()`?",
+      "answer": "After shooting, scan all three row lists. If every entry is `false`, you have just downed the last alien, so call `fireFireworks()` in the same loop iteration. A small helper like `allAliensDead()` keeps the loop tidy."
+    }
+  },
+  "functions": {
+    "moveLeft": {
+      "description": "Moves the laser cannon **one position to the left**. If you try to move off the left edge of the screen, you'll lose the game!",
+      "category": "Movement"
+    },
+    "moveRight": {
+      "description": "Moves the laser cannon **one position to the right**. If you try to move off the right edge of the screen, you'll lose the game!",
+      "category": "Movement"
+    },
+    "shoot": {
+      "description": "Shoots the laser upwards. **Only shoot when there's an alien above you**, or you'll lose the game! The laser cannon overheats easily, so you must move before shooting again.",
+      "category": "Action"
+    },
+    "getStartingAliensInRow": {
+      "description": "Returns a list of 11 booleans representing the alien positions in the given row at the **start** of the exercise. Row `1` is the bottom row, `2` is the middle, and `3` is the top.",
+      "category": "Detection"
+    },
+    "fireFireworks": {
+      "description": "Fires celebratory fireworks! **Only call this when all aliens have been shot down**, or you'll get an error.",
+      "category": "Action"
+    }
+  }
+}

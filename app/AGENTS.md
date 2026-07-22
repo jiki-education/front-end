@@ -57,10 +57,10 @@ When working on the coding exercise component, also read from `.context/coding-e
 ### Development
 
 ```bash
-./bin/dev-claude
+./bin/dev
 ```
 
-Starts the development server on http://localhost:3071
+Starts the development server on http://localhost:3061. Never start or stop the dev server yourself — ask the human to run it.
 
 ### Build, TypeScript & Lint
 
@@ -88,6 +88,10 @@ This is the frontend for Jiki, a learn-to-code platform.
 - **Package Manager**: pnpm
 
 **Note**: React Compiler is enabled, so manual memoization (`useMemo`, `useCallback`, `memo()`) is generally not needed.
+
+**Staging**: `staging.jiki.io` (`jiki-app-staging` Worker) must be deployed via the Deploy Staging GitHub Action **before** the Terraform custom-domain apply — the domain can't attach to a Worker service that doesn't exist yet.
+
+**Deploying a branch/PR to staging**: run the `Deploy Staging` workflow (`gh workflow run deploy-staging.yml --ref <branch>`) — the dispatched ref is what deploys to `staging.jiki.io` (there is no separate `ref` input). **Only ever do this if the user explicitly asks, and treat each run as needing its own fresh explicit request** — it publishes real, working code to a live environment against the production API.
 
 ### Organizational Patterns
 
@@ -159,8 +163,8 @@ If you need an arbitrary color, always confirm with the user first, explaining w
 Exercise content (title, description, instructions, stubs, solutions) is served as static JSON files, separate from the exercise modules in `@jiki/curriculum`.
 
 - **Build script**: `scripts/generate-exercise-cache.js` reads curriculum source files and produces:
-  - `public/static/exercises/{locale}-{hash}.json` — metadata index (all exercises, slug/title/description/contentHashes)
-  - `public/static/exercises/{slug}/{locale}-{language}-{hash}.json` — content files (instructions, stub, solution)
+  - `public/static/exercises/{locale}/index-{hash}.json` — metadata index (all exercises, slug/title/description/contentHashes)
+  - `public/static/exercises/{slug}/{locale}/{language}/content-{hash}.json` — content files (instructions, stub, solution)
   - `lib/generated/exercise-hashes.ts` — hash manifest for the app to construct index URLs
 - **Client API**: `lib/api/exercise-meta.ts` provides `getExerciseMeta()`, `getExerciseMetaBySlugs()`, and `fetchExerciseContent()` with module-level caching
 - **Exercise loading**: `useExerciseLoader` loads the exercise module (ExerciseCore) and static content in parallel, then assembles into `ExerciseDefinition`
@@ -197,6 +201,12 @@ import SettingsIcon from "@/icons/settings.svg";
 ```
 
 See `.context/images.md` for detailed icon usage guidelines.
+
+## Internationalization (i18n)
+
+See `.context/i18n.md` for the full model and the **Adding a New Locale** checklist.
+
+**RTL languages:** when adding a right-to-left locale (Arabic `ar`, Hebrew `he`, Persian `fa`, Urdu `ur`, etc.), you MUST also add its code to `RTL_LOCALES` in `lib/locales.ts`. That set drives `dir` on `<html>` via `getLocaleDirection()`, so omitting it leaves the whole UI stuck left-to-right for that locale. (LTR-only locales need no direction change - the default is `ltr`.)
 
 ## Testing Guidelines
 

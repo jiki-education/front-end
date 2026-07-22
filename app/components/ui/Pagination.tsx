@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import styles from "./Pagination.module.css";
 import { assembleClassNames } from "@/lib/assemble-classnames";
 
@@ -36,6 +37,8 @@ function getPageNumbers(currentPage: number, totalPages: number): (number | "...
 }
 
 export default function Pagination({ currentPage, totalPages, hrefForPage, className = "" }: PaginationProps) {
+  const t = useTranslations("common.pagination");
+
   if (totalPages <= 1) {
     return null;
   }
@@ -45,12 +48,12 @@ export default function Pagination({ currentPage, totalPages, hrefForPage, class
   const hasNext = currentPage < totalPages;
 
   return (
-    <nav className={assembleClassNames(styles.pagination, className)} aria-label="Pagination">
+    <nav className={assembleClassNames(styles.pagination, className)} aria-label={t("label")}>
       {hasPrev ? (
         <Link
           href={hrefForPage(currentPage - 1)}
           className={assembleClassNames(styles.btn, styles.prev)}
-          aria-label="Previous page"
+          aria-label={t("previousPage")}
         >
           ‹
         </Link>
@@ -80,7 +83,7 @@ export default function Pagination({ currentPage, totalPages, hrefForPage, class
         <Link
           href={hrefForPage(currentPage + 1)}
           className={assembleClassNames(styles.btn, styles.next)}
-          aria-label="Next page"
+          aria-label={t("nextPage")}
         >
           ›
         </Link>

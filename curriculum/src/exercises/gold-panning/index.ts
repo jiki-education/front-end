@@ -7,16 +7,16 @@ const functions: FunctionInfo[] = [
   {
     name: "pan",
     signature: "pan()",
-    description: "Dips your pan in the river and **gives back** the number of gold nuggets found.",
+    description: "functions.pan.description",
     examples: ["let found = pan()"],
-    category: "Mining"
+    category: "functions.pan.category"
   },
   {
     name: "sell",
-    signature: "sell(nuggets)",
-    description: "Sells your gold nuggets at the trading post.",
-    examples: ["sell(nuggets)"],
-    category: "Action"
+    signature: "sell(numberOfNuggets)",
+    description: "functions.sell.description",
+    examples: ["sell(numberOfNuggets)"],
+    category: "functions.sell.category"
   }
 ];
 

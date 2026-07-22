@@ -2,9 +2,11 @@
 
 import { ApiError, AuthenticationError } from "@/lib/api/client";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { useAuth } from "@/lib/auth/useAuth";
 import { buildUrlWithReturnTo } from "@/lib/auth/return-to";
+import { useAuth } from "@/lib/auth/useAuth";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useTurnstile } from "@/lib/turnstile/useTurnstile";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import type { FormEvent } from "react";
 import { useState } from "react";
@@ -15,6 +17,10 @@ import { ExercismAuthButton } from "./ExercismAuthButton";
 import { GoogleAuthButton } from "./GoogleAuthButton";
 
 export function LoginForm() {
+  const t = useTranslations("auth.login");
+  const tc = useTranslations("auth");
+  const tCommon = useTranslations("common");
+  const routes = useLocaleRoutes();
   const { login, isLoading } = useAuthStore();
   const { handleAuthResponse, handleGoogleSuccess, googleAuthError, returnTo, TwoFactorForm } = useAuth();
   const turnstile = useTurnstile();
@@ -31,15 +37,15 @@ export function LoginForm() {
     const errors: Record<string, string> = {};
 
     if (!email) {
-      errors.email = "Email is required";
+      errors.email = tc("fields.emailRequired");
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errors.email = "Please enter a valid email";
+      errors.email = tCommon("validation.emailInvalid");
     }
 
     if (!password) {
-      errors.password = "Password is required";
+      errors.password = tCommon("validation.passwordRequired");
     } else if (password.length < 6) {
-      errors.password = "Password must be at least 6 characters";
+      errors.password = tCommon("validation.passwordMinLength");
     }
 
     setValidationErrors(errors);
@@ -103,35 +109,38 @@ export function LoginForm() {
     <div className={styles.leftSide}>
       <div className={styles.formContainer}>
         <header>
-          <h1>Log In</h1>
+          <h1>{t("title")}</h1>
           <p>
-            Don&apos;t have an account?{" "}
-            <Link href={buildUrlWithReturnTo("/auth/signup", returnTo)} className="ui-link">
-              Sign up for free.
-            </Link>
+            {t.rich("noAccount", {
+              link: (chunks) => (
+                <Link href={buildUrlWithReturnTo(routes.authSignup(), returnTo)} className="ui-link">
+                  {chunks}
+                </Link>
+              )
+            })}
           </p>
         </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
           <div className={styles.oauthButtons}>
             <GoogleAuthButton onSuccess={handleGoogleSuccess} onError={() => console.error("ERROR WITH GOOGLE LOGIN")}>
-              Use Google
+              {tc("oauth.useGoogle")}
             </GoogleAuthButton>
             <ExercismAuthButton onError={() => console.error("ERROR WITH EXERCISM LOGIN")}>
-              Use Exercism
+              {tc("oauth.useExercism")}
             </ExercismAuthButton>
           </div>
 
-          <div className={styles.divider}>OR</div>
+          <div className={styles.divider}>{tc("oauth.divider")}</div>
 
           <div className={`ui-form-field-large ${hasAuthError || unconfirmedEmail ? "ui-form-field-error" : ""}`}>
-            <label htmlFor="login-email">Email</label>
+            <label htmlFor="login-email">{tc("fields.emailLabel")}</label>
             <div>
               <EmailIcon />
               <input
                 type="email"
                 id="login-email"
-                placeholder="Enter your email address"
+                placeholder={tc("fields.emailPlaceholder")}
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
@@ -160,13 +169,13 @@ export function LoginForm() {
               className={`ui-form-field-large ${hasAuthError || unconfirmedEmail ? "ui-form-field-error" : ""}`}
               id="password-field"
             >
-              <label htmlFor="login-password">Password</label>
+              <label htmlFor="login-password">{tc("fields.passwordLabel")}</label>
               <div>
                 <PasswordIcon />
                 <input
                   type="password"
                   id="login-password"
-                  placeholder="Enter your password"
+                  placeholder={tc("fields.passwordPlaceholder")}
                   value={password}
                   onChange={(e) => {
                     setPassword(e.target.value);
@@ -190,18 +199,21 @@ export function LoginForm() {
               )}
               {hasAuthError && !validationErrors.password && (
                 <div className="ui-form-field-error-message" style={{ display: "block" }}>
-                  Invalid email or password
+                  {t("invalidCredentials")}
                 </div>
               )}
               {unconfirmedEmail && (
                 <div className="ui-form-field-error-message" style={{ display: "block" }}>
-                  Please confirm your email before logging in.{" "}
-                  <Link
-                    href={`/auth/resend-confirmation?email=${encodeURIComponent(unconfirmedEmail)}`}
-                    className="ui-link"
-                  >
-                    Resend confirmation
-                  </Link>
+                  {t.rich("unconfirmed", {
+                    link: (chunks) => (
+                      <Link
+                        href={`${routes.authResendConfirmation()}?email=${encodeURIComponent(unconfirmedEmail)}`}
+                        className="ui-link"
+                      >
+                        {chunks}
+                      </Link>
+                    )
+                  })}
                 </div>
               )}
               {googleAuthError && (
@@ -212,18 +224,13 @@ export function LoginForm() {
             </div>
 
             <div className={styles.forgotPassword}>
-              <Link href="/auth/forgot-password" className="ui-link">
-                Forgot your password?
+              <Link href={routes.authForgotPassword()} className="ui-link">
+                {t("forgotPassword")}
               </Link>
             </div>
           </div>
 
-          {captchaError && (
-            <div className={styles.errorMessage}>
-              Our systems tried to determine whether you were a bot or a human, but couldn&apos;t. Please try logging in
-              again using the button below.
-            </div>
-          )}
+          {captchaError && <div className={styles.errorMessage}>{tc("captchaError.login")}</div>}
 
           <button
             type="submit"
@@ -232,15 +239,18 @@ export function LoginForm() {
             style={{ width: "100%" }}
             disabled={isLoading || verifying}
           >
-            {isLoading ? "Logging in..." : verifying ? "Verifying..." : "Log In"}
+            {isLoading ? t("submitting") : verifying ? tCommon("verifying") : t("submit")}
           </button>
 
           <div className={styles.footerLinks}>
             <p>
-              Didn&apos;t receive your confirmation email?{" "}
-              <Link href="/auth/resend-confirmation" className="ui-link">
-                Resend it.
-              </Link>
+              {t.rich("resend", {
+                link: (chunks) => (
+                  <Link href={routes.authResendConfirmation()} className="ui-link">
+                    {chunks}
+                  </Link>
+                )
+              })}
             </p>
           </div>
         </form>

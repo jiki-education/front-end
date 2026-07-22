@@ -3,16 +3,16 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "How would I do this in real life with a paper list?",
-      "answer": "You'd read down the list, one name at a time, comparing each to the name you're looking for. As soon as you found a match, you'd stop. If you reached the end without a match, the person isn't on the list. Your code does the same thing."
+      "question": "hints.realLifeList.question",
+      "answer": "hints.realLifeList.answer"
     },
     {
-      "question": "How do I loop through the list and compare each entry?",
-      "answer": "A for-each loop gives you each name in turn. Inside, use an if-statement to compare the current name to the target."
+      "question": "hints.loopAndCompare.question",
+      "answer": "hints.loopAndCompare.answer"
     },
     {
-      "question": "When should I return true vs false?",
-      "answer": "Return `true` as soon as you find a match. There's no reason to keep looking. Only return `false` after the loop has finished and you've checked every name without finding it. (A common mistake is returning `false` inside the loop, which gives up after just the first name.)"
+      "question": "hints.returnTrueVsFalse.question",
+      "answer": "hints.returnTrueVsFalse.answer"
     }
   ]
 }

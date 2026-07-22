@@ -3,13 +3,28 @@
  * Font families, sizes, and line heights
  */
 
-@theme inline {
-    /* Font family configuration */
+:root {
     --font-sans:
         var(--font-poppins), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
         "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
         "Noto Color Emoji";
-    --font-poppins: var(--font-poppins);
+    --font-mono:
+        var(--font-source-code-pro), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+        monospace;
+}
+
+body {
+    --font-sans:
+        var(--font-poppins), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+    --font-mono:
+        var(--font-source-code-pro), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+        monospace;
+}
+
+:root {
+    /* Font family configuration */
     --font-mono:
         var(--font-source-code-pro), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
         monospace;

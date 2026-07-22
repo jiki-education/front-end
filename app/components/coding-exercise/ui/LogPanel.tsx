@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useOrchestratorStore } from "../lib/Orchestrator";
 import { useOrchestrator } from "../lib/OrchestratorContext";
 import { PanelHeader } from "./PanelHeader";
@@ -15,22 +16,18 @@ interface LogLineProps {
 }
 
 export default function LogPanel() {
+  const t = useTranslations("codingExercise.logPanel");
   const orchestrator = useOrchestrator();
   const { currentTest, currentTestTime } = useOrchestratorStore(orchestrator);
 
   if (!currentTest || currentTest.logLines.length === 0) {
-    const description = (
-      <>
-        This is the output from your code execution. Here you can analyse the changes you&apos;ve made. Use{" "}
-        <code>console.log()</code> to log values.
-      </>
-    );
+    const description = t.rich("emptyDescription", { code: (chunks) => <code>{chunks}</code> });
     return (
       <div role="log">
-        <PanelHeader title="Scenario Log" description={description} />
+        <PanelHeader title={t("title")} description={description} />
         <div className={style.emptyState}>
           <EmptyClipboardIcon className={style.emptyStateIcon} />
-          <div className={style.emptyStateText}>You&apos;ve not logged anything out yet</div>
+          <div className={style.emptyStateText}>{t("emptyState")}</div>
         </div>
       </div>
     );
@@ -44,17 +41,15 @@ export default function LogPanel() {
   });
 
   const scenarioStatusClass = currentTest.status === "pass" ? style.scenarioPass : style.scenarioFail;
-  const description = (
-    <>
-      This is the output from your code execution for{" "}
-      <span className={`${style.scenarioName} ${scenarioStatusClass}`}>{currentTest.name}</span> scenario. Here you can
-      analyse the changes you&apos;ve made. Use <code>console.log()</code> to log values.
-    </>
-  );
+  const description = t.rich("description", {
+    name: currentTest.name,
+    scenario: (chunks) => <span className={`${style.scenarioName} ${scenarioStatusClass}`}>{chunks}</span>,
+    code: (chunks) => <code>{chunks}</code>
+  });
 
   return (
     <div role="log">
-      <PanelHeader title="Scenario Log" description={description} />
+      <PanelHeader title={t("title")} description={description} />
       <div className="py-24 px-32">
         <div className={style.consoleOutput}>
           {currentTest.logLines.map((log, index) => {

@@ -35,7 +35,7 @@ export interface ExecutionContext {
   getCurrentTimeInMs: () => number;
   random: () => number; // Returns a float in [0, 1). Seeded if randomSeed was provided.
   logicError: (message: string) => never; // For custom functions to throw educational errors
-  exerciseFinished: () => void; // Signal that the exercise is complete; no-arg repeat loops will break
+  exerciseFinished: () => void; // Signal that the exercise is complete. JavaScript: halts execution at the end of the current statement. Python/JikiScript: no-arg repeat loops break.
   languageFeatures?: JSLanguageFeatures | PythonLanguageFeatures | JikiScriptLanguageFeatures;
 }
 
@@ -88,5 +88,7 @@ export interface InterpretResult {
     countArrayLiterals: () => number;
     assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
     numFunctionCallsInCode: (funcName: string) => number;
+    assertOperatorUsed: (operator: string) => boolean;
+    assertStatement: (type: string, opts?: { args?: Array<unknown>; count?: number }) => boolean;
   };
 }

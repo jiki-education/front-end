@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { showWelcomeModal } from "@/lib/modal";
+import { showWelcomeModal } from "@/lib/modal/app";
 import { checkFlag, setFlag } from "@/lib/api/flags";
 
 const WELCOME_FLAG_KEY = "welcome_modal";

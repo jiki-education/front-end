@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import modalStyles from "@/app/styles/components/modals.module.css";
 import ratingStyles from "./DifficultyRatingStep.module.css";
@@ -11,11 +12,19 @@ interface DifficultyRatingStepProps {
 }
 
 export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: DifficultyRatingStepProps) {
+  const t = useTranslations("modals.exerciseCompletion.difficultyRating");
+  const tCommon = useTranslations("common");
   const [difficultyRating, setDifficultyRating] = useState<number | null>(null);
   const [funRating, setFunRating] = useState<number | null>(null);
-  const difficultyLabels = ["Too easy", "Easy", "Just right", "Hard", "Too hard"];
+  const difficultyLabels = [
+    t("difficultyTooEasy"),
+    t("difficultyEasy"),
+    t("difficultyJustRight"),
+    t("difficultyHard"),
+    t("difficultyTooHard")
+  ];
   const funEmojis = ["😫", "😐", "🙂", "😊", "😄"];
-  const funLabels = ["Frustrating", "", "Pretty good", "", "Amazing!"];
+  const funLabels = [t("funFrustrating"), "", t("funPrettyGood"), "", t("funAmazing")];
 
   const canSubmit = difficultyRating !== null && funRating !== null;
 
@@ -28,11 +37,11 @@ export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: Difficu
 
   return (
     <>
-      <h2 className={modalStyles.modalTitle}>Rate your experience</h2>
-      <p className={modalStyles.modalMessage}>Help us improve {exerciseTitle} by rating it.</p>
+      <h2 className={modalStyles.modalTitle}>{t("title")}</h2>
+      <p className={modalStyles.modalMessage}>{t("message", { title: exerciseTitle })}</p>
 
       <div className={ratingStyles.ratingSection}>
-        <div className={ratingStyles.ratingLabel}>Rate the difficulty</div>
+        <div className={ratingStyles.ratingLabel}>{t("rateDifficulty")}</div>
 
         <div className="relative">
           <div className="relative">
@@ -43,7 +52,7 @@ export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: Difficu
                   key={index}
                   className={`${ratingStyles.sliderOption} ${difficultyRating === index ? ratingStyles.selected : ""}`}
                   onClick={() => setDifficultyRating(index)}
-                  aria-label={`Rate difficulty as ${label}`}
+                  aria-label={t("rateDifficultyAriaLabel", { label })}
                 >
                   <div className={ratingStyles.sliderDot}></div>
                   <span className={ratingStyles.sliderLabel} data-text={label}>
@@ -57,7 +66,7 @@ export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: Difficu
       </div>
 
       <div className={assembleClassNames(ratingStyles.ratingSection, ratingStyles.highlighted)}>
-        <div className={ratingStyles.ratingLabel}>Rate the fun factor</div>
+        <div className={ratingStyles.ratingLabel}>{t("rateFun")}</div>
 
         <div className="relative">
           <div className={ratingStyles.emojiRatingLine}></div>
@@ -67,7 +76,9 @@ export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: Difficu
                 key={index}
                 className={`${ratingStyles.emojiOption} ${funRating === index ? ratingStyles.selected : ""}`}
                 onClick={() => setFunRating(index)}
-                aria-label={`Rate fun as ${funLabels[index] || `option ${index + 1}`}`}
+                aria-label={t("rateFunAriaLabel", {
+                  label: funLabels[index] || t("funOptionFallback", { number: index + 1 })
+                })}
               >
                 <div className={ratingStyles.emojiCircle}>{emoji}</div>
                 <span className={ratingStyles.emojiLabel} data-text={funLabels[index]}>
@@ -81,7 +92,7 @@ export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: Difficu
 
       <div className={modalStyles.modalButtons}>
         <button onClick={handleSubmit} disabled={!canSubmit} className="ui-btn ui-btn-primary ui-btn-large flex-1">
-          Continue
+          {tCommon("continue")}
         </button>
       </div>
     </>

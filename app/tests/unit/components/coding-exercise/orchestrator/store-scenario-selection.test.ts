@@ -1,7 +1,12 @@
-import { getTestToInspect } from "@/components/coding-exercise/lib/orchestrator/store";
-import Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
-import { createMockFrame, createMockTestResult, createMockTestSuiteResult } from "@/tests/mocks";
+import { getTestToInspect, shouldShowSpotlight } from "@/components/coding-exercise/lib/orchestrator/store";
+import {
+  createMockAnimationTimeline,
+  createMockFrame,
+  createMockTestResult,
+  createMockTestSuiteResult
+} from "@/tests/mocks";
 import { createMockExercise } from "@/tests/mocks/exercise";
+import { makeTestOrchestrator } from "@/tests/test-utils/makeTestOrchestrator";
 
 jest.mock("@/components/coding-exercise/lib/localStorage", () => ({
   loadCodeMirrorContent: jest.fn(() => ({ success: false })),
@@ -66,6 +71,51 @@ describe("getTestToInspect", () => {
     expect(result.slug).toBe("test-2");
   });
 
+  describe("with excluded (bonus) slugs", () => {
+    it("skips a failing excluded scenario and lands on the last non-excluded test", () => {
+      const tests = [
+        createMockTestResult({ slug: "required-1", status: "pass" }),
+        createMockTestResult({ slug: "required-2", status: "pass" }),
+        createMockTestResult({ slug: "bonus-1", status: "fail" })
+      ];
+
+      const result = getTestToInspect(tests, null, new Set(["bonus-1"]));
+      expect(result.slug).toBe("required-2");
+    });
+
+    it("does not stay on a failing excluded current test", () => {
+      const current = createMockTestResult({ slug: "bonus-1", status: "fail" });
+      const tests = [
+        createMockTestResult({ slug: "required-1", status: "pass" }),
+        createMockTestResult({ slug: "bonus-1", status: "fail" })
+      ];
+
+      const result = getTestToInspect(tests, current, new Set(["bonus-1"]));
+      expect(result.slug).toBe("required-1");
+    });
+
+    it("still selects a failing bonus when no exclusion is passed (post-completion)", () => {
+      const tests = [
+        createMockTestResult({ slug: "required-1", status: "pass" }),
+        createMockTestResult({ slug: "bonus-1", status: "fail" })
+      ];
+
+      const result = getTestToInspect(tests, null);
+      expect(result.slug).toBe("bonus-1");
+    });
+
+    it("falls back to the full suite when exclusion would empty the pool", () => {
+      const tests = [
+        createMockTestResult({ slug: "bonus-1", status: "fail" }),
+        createMockTestResult({ slug: "bonus-2", status: "pass" })
+      ];
+
+      // Pool empties, so it falls back to the full suite and picks first failing.
+      const result = getTestToInspect(tests, null, new Set(["bonus-1", "bonus-2"]));
+      expect(result.slug).toBe("bonus-1");
+    });
+  });
+
   it("returns the updated version of the current test from new results", () => {
     const current = createMockTestResult({ slug: "test-2", status: "fail" });
     const updatedTest2 = createMockTestResult({ slug: "test-2", status: "fail" });
@@ -92,13 +142,48 @@ describe("getTestToInspect", () => {
   });
 });
 
+describe("shouldShowSpotlight", () => {
+  const withAnimation = () =>
+    createMockTestResult({ status: "pass", animationTimeline: createMockAnimationTimeline({ duration: 1_000_000 }) });
+  // The "rejected" bouncer case: a passing visual scenario that produces no
+  // animations, so its timeline has zero duration.
+  const withoutAnimation = () =>
+    createMockTestResult({ status: "pass", animationTimeline: createMockAnimationTimeline({ duration: 0 }) });
+
+  it("shows the spotlight when the suite passes and the inspected test has an animation", () => {
+    const result = createMockTestSuiteResult([withAnimation()]);
+    expect(shouldShowSpotlight(result, result.tests[0], false)).toBe(true);
+  });
+
+  it("does NOT show the spotlight when the inspected passing test has no animation (regression: bouncer)", () => {
+    // Nothing would ever fire onComplete to clear it, so it must stay off.
+    const result = createMockTestSuiteResult([withoutAnimation()]);
+    expect(shouldShowSpotlight(result, result.tests[0], false)).toBe(false);
+  });
+
+  it("does NOT show the spotlight when the suite has not passed", () => {
+    const failing = createMockTestResult({ status: "fail", animationTimeline: createMockAnimationTimeline() });
+    const result = createMockTestSuiteResult([failing]);
+    expect(shouldShowSpotlight(result, result.tests[0], false)).toBe(false);
+  });
+
+  it("does NOT show the spotlight when the exercise is already completed", () => {
+    const result = createMockTestSuiteResult([withAnimation()]);
+    expect(shouldShowSpotlight(result, result.tests[0], true)).toBe(false);
+  });
+
+  it("returns a strict boolean (not undefined) when result is null", () => {
+    expect(shouldShowSpotlight(null, undefined, false)).toBe(false);
+  });
+});
+
 describe("setTestSuiteResult scenario selection", () => {
   function createOrchestrator() {
     const exercise = createMockExercise({
       slug: "test-exercise",
       stubs: { javascript: "", python: "", jikiscript: "" }
     });
-    return new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+    return makeTestOrchestrator(exercise);
   }
 
   it("selects the current test if it is still failing after re-run", () => {
@@ -167,7 +252,7 @@ describe("setCurrentTest isPlaying reset", () => {
       slug: "test-exercise",
       stubs: { javascript: "", python: "", jikiscript: "" }
     });
-    return new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+    return makeTestOrchestrator(exercise);
   }
 
   it("resets isPlaying to false when switching tests", () => {

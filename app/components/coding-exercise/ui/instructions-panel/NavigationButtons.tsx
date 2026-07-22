@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import InstructionsIcon from "@/icons/instructions.svg";
 import FolderIcon from "@/icons/folder.svg";
 import FunctionsIcon from "@/icons/functions.svg";
@@ -20,6 +21,7 @@ export default function NavigationButtons({
   onNavigateToConceptLibrary,
   className = ""
 }: NavigationButtonsProps) {
+  const t = useTranslations("codingExercise.instructionsPanel");
   return (
     <div className={`${styles.navigationButtons} ${className}`}>
       <button
@@ -27,7 +29,7 @@ export default function NavigationButtons({
         className={`${styles.navigationButton} ${
           activeSection === "instructions" ? styles.navigationButtonActive : styles.navigationButtonInactive
         }`}
-        title="Instructions"
+        title={t("instructionsTitle")}
       >
         <InstructionsIcon width={20} height={20} />
       </button>
@@ -37,7 +39,7 @@ export default function NavigationButtons({
           className={`${styles.navigationButton} ${
             activeSection === "functions" ? styles.navigationButtonActive : styles.navigationButtonInactive
           }`}
-          title="Functions"
+          title={t("functionsTitle")}
         >
           <FunctionsIcon width={20} height={20} />
         </button>
@@ -47,7 +49,7 @@ export default function NavigationButtons({
         className={`${styles.navigationButton} ${
           activeSection === "concept-library" ? styles.navigationButtonActive : styles.navigationButtonInactive
         }`}
-        title="Concept Library"
+        title={t("conceptLibraryTitle")}
       >
         <FolderIcon width={20} height={20} />
       </button>

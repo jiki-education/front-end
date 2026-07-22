@@ -1,5 +1,6 @@
-import { type ExecutionContext, type ExternalFunction } from "@jiki/interpreters";
+import { type ExecutionContext } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
+import type { AvailableFunction } from "../../types";
 import metadata from "./metadata.json";
 
 export default class BouncerExercise extends VisualExercise {
@@ -19,16 +20,16 @@ export default class BouncerExercise extends VisualExercise {
     this.populateView();
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "ask_age",
       func: this.askAge.bind(this),
-      description: "asked the person's age"
+      descriptionKey: "describers.askAge"
     },
     {
       name: "let_in",
       func: this.letIn.bind(this),
-      description: "let the person in"
+      descriptionKey: "describers.letIn"
     }
   ];
 

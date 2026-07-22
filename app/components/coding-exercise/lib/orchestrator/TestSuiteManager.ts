@@ -1,12 +1,12 @@
-import type { ExerciseDefinition } from "@jiki/curriculum";
-import type { SyntaxError } from "@jiki/interpreters";
-import toast from "react-hot-toast";
-import type { StoreApi } from "zustand/vanilla";
 import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
-import { processMessageContent } from "../../ui/messageUtils";
-import type { TestSuiteResult, TestExpect } from "../test-results-types";
-import type { ExerciseContext, OrchestratorStore } from "../types";
+import type { ExerciseDefinition, Messages as CurriculumMessages } from "@jiki/curriculum";
+import type { Messages as InterpreterMessages, SyntaxError } from "@jiki/interpreters";
+import { toastError } from "@/lib/toast";
+import type { StoreApi } from "zustand/vanilla";
 import { ERROR_HIGHLIGHT_COLOR } from "../../ui/codemirror/extensions/lineHighlighter";
+import { processMessageContent } from "../../ui/messageUtils";
+import type { TestExpect, TestSuiteResult } from "../test-results-types";
+import type { ExerciseContext, OrchestratorStore } from "../types";
 
 /**
  * Manages test suite execution, results, and processing
@@ -14,6 +14,14 @@ import { ERROR_HIGHLIGHT_COLOR } from "../../ui/codemirror/extensions/lineHighli
 export class TestSuiteManager {
   constructor(
     private readonly store: StoreApi<OrchestratorStore>,
+    // The active locale's interpreter catalog, injected into every interpreter run
+    // (fetched in the blocking exercise load). Tests supply an empty dict, which
+    // resolves to each interpreter's `system` default.
+    private readonly interpreterLocaleMessages: InterpreterMessages,
+    // The active locale's curriculum message dict, injected into each exercise
+    // instance before it runs (fetched in the blocking load). Tests supply an
+    // empty dict, which resolves keys as-is.
+    private readonly exerciseLocaleMessages: CurriculumMessages,
     private readonly taskManager?: {
       updateTaskProgress: (testResults: TestSuiteResult, exercise: ExerciseDefinition) => void;
     },
@@ -26,6 +34,8 @@ export class TestSuiteManager {
   private prepareStateForTestRun() {
     const state = this.store.getState();
     state.setHasSyntaxError(false);
+    state.setHasUnhandledError(false);
+    state.setUnhandledErrorBase64("");
     state.setStatus("running");
     state.setError(null);
     state.setUnderlineRange(undefined);
@@ -69,9 +79,9 @@ export class TestSuiteManager {
     const files = [{ filename: "solution.js", code }];
 
     const submission =
-      this.context.type === "project"
-        ? import("@/lib/api/projects").then(({ submitProjectExercise }) =>
-            submitProjectExercise(this.context!.slug, files)
+      this.context.type === "challenge"
+        ? import("@/lib/api/challenges").then(({ submitChallengeExercise }) =>
+            submitChallengeExercise(this.context!.slug, files)
           )
         : import("@/lib/api/lessons").then(({ submitLessonExercise }) =>
             submitLessonExercise(this.context!.slug, files)
@@ -84,7 +94,7 @@ export class TestSuiteManager {
       }
       if (error instanceof ApiError) {
         console.warn("Failed to submit exercise:", error);
-        toast.error("Couldn't save your submission. Please try again.", { id: "exercise-submission-error" });
+        toastError("exercise.submissionFailed", undefined, { id: "exercise-submission-error" });
         return;
       }
       console.warn("Failed to submit exercise:", error);
@@ -107,7 +117,13 @@ export class TestSuiteManager {
       // Get the current language from the store
       const language = this.store.getState().language;
 
-      const testResults = await runTests(code, exercise, language);
+      const testResults = await runTests(
+        code,
+        exercise,
+        language,
+        this.interpreterLocaleMessages,
+        this.exerciseLocaleMessages
+      );
 
       // Set the results in the store (will also set the first test as current)
       const state = this.store.getState();

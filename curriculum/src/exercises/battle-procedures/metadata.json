@@ -3,20 +3,20 @@
   "levelId": "make-your-own-functions",
   "hints": [
     {
-      "question": "Where should I put the `shootIfAlienAbove` function?",
-      "answer": "Define it at the top of your code, before the loop. Once it is defined you can call it from inside the loop as many times as you like."
+      "question": "hints.wherePutFunction.question",
+      "answer": "hints.wherePutFunction.answer"
     },
     {
-      "question": "What goes inside `shootIfAlienAbove`?",
-      "answer": "Use an `if` statement that checks `isAlienAbove()`. When that returns `true`, call `shoot()`. That is the whole body of the function."
+      "question": "hints.whatGoesInside.question",
+      "answer": "hints.whatGoesInside.answer"
     },
     {
-      "question": "What stays in the loop?",
-      "answer": "All the movement logic stays in the loop, the same as in the scroll-and-shoot exercise. Each iteration: call `shootIfAlienAbove()`, then move the cannon, then flip direction at the boundaries."
+      "question": "hints.whatStaysInLoop.question",
+      "answer": "hints.whatStaysInLoop.answer"
     },
     {
-      "question": "How do I keep track of where the cannon is and which way it is going?",
-      "answer": "Use two variables that you update each iteration. For example, a `position` variable that goes up or down, and a `direction` variable that is `1` or `-1` and flips when you hit an edge."
+      "question": "hints.trackCannon.question",
+      "answer": "hints.trackCannon.answer"
     }
   ]
 }

@@ -1,0 +1,81 @@
+{
+  "describers": {
+    "canMove": "Check if the character can move forward",
+    "canTurnLeft": "Check if there is a path to the character's left",
+    "canTurnRight": "Check if there is a path to the character's right"
+  },
+  "checks": {
+    "notReachedEnd": "You didn't reach the end of the maze.",
+    "turnAroundNotDefined": "You need to define a <code>turnAround</code> function at the top of your code.",
+    "turnAroundNotCalled": "You've defined <code>turnAround</code>, but you need to actually call it in your final <code>else</code> block.",
+    "maxLines": "Your program should be no more than 17 lines of code."
+  },
+  "tasks": {
+    "turnAround": {
+      "name": "Turn around at dead ends",
+      "description": "Define a turnAround() function at the top of your code that calls turnLeft() twice, then use it in the final else block. Your solver should escape the dead ends in all three mazes."
+    },
+    "bonusShortSolution": {
+      "name": "Bonus: keep it short",
+      "description": "Solve a maze with two dead ends, keeping your whole program to 17 lines of code or fewer."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "A single dead end",
+      "description": "A straight corridor with one dead-end spur that forces a turn-around"
+    },
+    "maze2": {
+      "name": "A dead end and a turn",
+      "description": "A winding path with a dead-end spur before turning to the exit"
+    },
+    "maze3": {
+      "name": "Keep it short",
+      "description": "Try and ensure your whole final program is 17 lines of code."
+    }
+  },
+  "hints": {
+    "defineFunction": {
+      "question": "How do I define a new function?",
+      "answer": "Use the `function` keyword followed by the name, parentheses for inputs, and a body in curly braces, e.g. `function turnAround() { ... }`."
+    },
+    "placement": {
+      "question": "Where should I put the function definition?",
+      "answer": "Put it at the top of your code, before the loop. Functions must be defined before they're called."
+    },
+    "turnAroundBody": {
+      "question": "What should go inside `turnAround()`?",
+      "answer": "Just two calls to `turnLeft()`. Two left turns add up to facing the opposite direction."
+    },
+    "useInSolver": {
+      "question": "How do I use my new function in the maze solver?",
+      "answer": "Find the `else` block in your previous solution where you called `turnLeft()` twice and replace those two calls with a single `turnAround()` call."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Moves the character **one step forward** in the current direction. Walking into a wall ends your program with an error, so check what's ahead before moving!",
+      "category": "Movement"
+    },
+    "turnLeft": {
+      "description": "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
+      "category": "Movement"
+    },
+    "turnRight": {
+      "description": "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
+      "category": "Movement"
+    },
+    "canMove": {
+      "description": "Returns **true** if the space ahead of the character is not a wall, **false** otherwise.",
+      "category": "Sensing"
+    },
+    "canTurnLeft": {
+      "description": "Returns **true** if the space to the character's left is not a wall, **false** otherwise.",
+      "category": "Sensing"
+    },
+    "canTurnRight": {
+      "description": "Returns **true** if the space to the character's right is not a wall, **false** otherwise.",
+      "category": "Sensing"
+    }
+  }
+}

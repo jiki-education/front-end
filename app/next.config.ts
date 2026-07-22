@@ -1,16 +1,29 @@
 import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
+import createNextIntlPlugin from "next-intl/plugin";
 import path from "path";
+
+const withNextIntl = createNextIntlPlugin("./lib/i18n/request.ts");
 
 const nextConfig: NextConfig = {
   productionBrowserSourceMaps: false,
+  // Serve _next/* assets from the persistent, CDN-fronted R2 bucket (assets.jiki.io)
+  // instead of Workers Assets, which delete-on-deploy. Uploads are additive and
+  // content-hashed, so chunks from older builds survive and pages loaded across a
+  // deploy keep working (fixes ChunkLoadError on lazy-loaded chunks). Prod-only:
+  // assetPrefix only rewrites _next/* URLs, not /public files.
+  assetPrefix: process.env.NODE_ENV === "production" ? "https://assets.jiki.io" : undefined,
+  // Chunks are now cross-origin; anonymous CORS mode lets Sentry capture real stack
+  // traces from chunk errors instead of an opaque "Script error.".
+  crossOrigin: "anonymous",
   // Disable metadata streaming for all user agents. Next 15.2+ defers metadata
   // to body for dynamic pages and only injects in <head> for known bot UAs —
   // but its default bot regex doesn't include plain "Googlebot", and Lighthouse
   // sends a real Chrome UA so neither would see metadata in <head> without this.
   htmlLimitedBots: /.*/,
   experimental: {
-    reactCompiler: true
+    reactCompiler: true,
+    cssChunking: "strict"
   },
   images: {
     unoptimized: true,
@@ -44,8 +57,42 @@ const nextConfig: NextConfig = {
         permanent: false
       },
       {
+        source: "/r/youtube",
+        destination: "https://youtube.com/@jiki-coding",
+        permanent: false
+      },
+      {
         source: "/r/forum",
         destination: "https://forum.jiki.io",
+        permanent: false
+      },
+      {
+        source: "/r/discord",
+        destination: "https://discord.gg/ph6erP7P7G",
+        permanent: false
+      },
+      {
+        // The Help Center used to live at /articles. Bare "/articles" needs its
+        // own exact rule: :path* does NOT match zero segments here, so without
+        // this the index would 308 to the literal "/help/:path*" and 404.
+        source: "/articles",
+        destination: "/help",
+        permanent: true
+      },
+      {
+        // Sub-paths of the old Help Center. Only naked paths need handling: no
+        // non-default locale was live before the move.
+        source: "/articles/:path*",
+        destination: "/help/:path*",
+        permanent: true
+      },
+      {
+        // The "how-projects-work" article was renamed to "how-challenges-work"
+        // when the Projects feature became Challenges. Temporary (307) rather
+        // than permanent, since a new article may claim the how-projects-work
+        // slug in the future.
+        source: "/help/how-projects-work",
+        destination: "/help/how-challenges-work",
         permanent: false
       }
     ]);
@@ -150,10 +197,10 @@ const nextConfig: NextConfig = {
 };
 
 // Only use Sentry build wrapper in production to avoid build overhead in dev/test
-let config: NextConfig = nextConfig;
+let config: NextConfig = withNextIntl(nextConfig);
 
 if (process.env.NODE_ENV === "production") {
-  config = withSentryConfig(nextConfig, {
+  config = withSentryConfig(config, {
     org: "thalamus-ai",
     project: "jiki-front-end",
     silent: !process.env.CI,
@@ -169,7 +216,12 @@ if (process.env.NODE_ENV === "production") {
     webpack: {
       automaticVercelMonitors: false,
       treeshake: {
-        removeDebugLogging: true
+        removeDebugLogging: true,
+        // Strip Sentry's tracing/performance SDK (BrowserTracing,
+        // startSpan, etc.). Big bundle win on every route (~30–40 KB
+        // off the shared Sentry chunk). We're not consuming Sentry
+        // tracing data — only error capture — so this is safe.
+        removeTracing: true
       }
     }
   });

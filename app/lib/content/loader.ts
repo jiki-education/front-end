@@ -18,7 +18,10 @@ const meta = contentMeta as ContentMetaServer;
  * Get all available locales for a content type
  * Optionally filtered by supported locales
  */
-export function getAvailableLocales(type: "blog" | "articles", supportedLocales?: readonly string[]): string[] {
+export function getAvailableLocales(
+  type: "blog" | "articles" | "guides",
+  supportedLocales?: readonly string[]
+): string[] {
   const locales = meta.locales[type] || [];
 
   if (supportedLocales) {

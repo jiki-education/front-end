@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { type ArticleTagSlug, getArticleTagLabel } from "@/lib/content/types";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./FilterSidebar.module.css";
 
 interface FilterSidebarProps {
@@ -13,6 +14,7 @@ interface FilterSidebarProps {
 
 export default function FilterSidebar({ tagSlugs, selectedTag, locale }: FilterSidebarProps) {
   const pathname = usePathname();
+  const routes = useLocaleRoutes();
 
   const buildTagUrl = (tag: ArticleTagSlug | null) => {
     if (tag === null) {
@@ -40,9 +42,12 @@ export default function FilterSidebar({ tagSlugs, selectedTag, locale }: FilterS
       </div>
       <div className={styles.filterHelp}>
         <p className={styles.filterHelpText}>
-          Can&apos;t find what you&apos;re looking for? Try our <Link href="/blog">Blogs</Link>,{" "}
-          <Link href="/articles/faqs">FAQs</Link>, <Link href="/articles/support">Contact support</Link>, or ask in our{" "}
-          <Link href="/r/forum">Community</Link>
+          Can&apos;t find what you&apos;re looking for? Try our <Link href={routes.blog()}>Blogs</Link>,{" "}
+          <Link href={routes.article("faqs")}>FAQs</Link>, <Link href={routes.article("support")}>Contact support</Link>
+          , or ask in our{" "}
+          <Link href="/r/forum" prefetch={false}>
+            Community
+          </Link>
         </p>
       </div>
     </div>

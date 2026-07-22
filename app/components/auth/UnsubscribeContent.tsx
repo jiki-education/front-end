@@ -1,23 +1,34 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import { api, ApiError } from "@/lib/api/client";
 import { AuthLayout } from "@/components/ui/AuthLayout";
 import styles from "./AuthForm.module.css";
 
 export function UnsubscribeContent() {
+  const t = useTranslations("auth.unsubscribe");
   const params = useParams();
   const token = params.token as string;
 
   const [status, setStatus] = useState<"processing" | "success" | "error">("processing");
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  // Store a message key (resolved via `t` at render) so the effect stays keyed on token only.
+  type ErrorKey =
+    | ""
+    | "noToken"
+    | "linkInvalid"
+    | "tooManyRequests"
+    | "serviceUnavailable"
+    | "unableToProcess"
+    | "networkError";
+  const [errorKey, setErrorKey] = useState<ErrorKey>("");
 
   // Runs unsubscribe API call on mount - async initialization pattern
   useEffect(() => {
     if (!token) {
       setStatus("error");
-      setErrorMessage("No unsubscribe token provided.");
+      setErrorKey("noToken");
       return;
     }
 
@@ -39,23 +50,23 @@ export function UnsubscribeContent() {
           switch (error.status) {
             case 404:
             case 422:
-              setErrorMessage("This unsubscribe link is invalid or has expired.");
+              setErrorKey("linkInvalid");
               break;
             case 429:
-              setErrorMessage("Too many requests. Please wait a moment and try again.");
+              setErrorKey("tooManyRequests");
               break;
             case 500:
             case 502:
             case 503:
             case 504:
-              setErrorMessage("Service temporarily unavailable. Please try again later.");
+              setErrorKey("serviceUnavailable");
               break;
             default:
-              setErrorMessage("Unable to process your request. Please contact support if this continues.");
+              setErrorKey("unableToProcess");
           }
         } else {
           // Handle network errors or other unexpected errors
-          setErrorMessage("Network error. Please check your connection and try again.");
+          setErrorKey("networkError");
         }
       }
     };
@@ -69,46 +80,38 @@ export function UnsubscribeContent() {
         <div className={styles.formContainer}>
           {status === "processing" && (
             <div style={{ textAlign: "center" }}>
-              <div
-                className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto mb-4"
-                style={{ borderColor: "var(--color-blue-600)" }}
-              ></div>
-              <h1 style={{ marginBottom: "16px" }}>Unsubscribing...</h1>
-              <p style={{ fontSize: "15px", color: "var(--color-text-secondary)" }}>
-                Please wait while we process your request.
-              </p>
+              <div className={styles.spinner} data-testid="loading-spinner"></div>
+              <h1 style={{ marginBottom: "16px" }}>{t("processingTitle")}</h1>
+              <p style={{ fontSize: "15px", color: "var(--color-text-secondary)" }}>{t("processingDescription")}</p>
             </div>
           )}
 
           {status === "success" && (
             <div style={{ textAlign: "center" }}>
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
-                style={{ background: "var(--color-success-bg)" }}
-              >
-                <svg className="w-6 h-6" fill="none" stroke="var(--color-success-text)" viewBox="0 0 24 24">
+              <div className={styles.statusIcon} style={{ background: "var(--color-success-bg)" }}>
+                <svg
+                  className={styles.statusIconSvg}
+                  fill="none"
+                  stroke="var(--color-success-text)"
+                  viewBox="0 0 24 24"
+                >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
               </div>
-              <h1 style={{ marginBottom: "16px" }}>Successfully Unsubscribed</h1>
-              <p style={{ fontSize: "15px", color: "var(--color-text-secondary)" }}>
-                You have been unsubscribed from our mailing list.
-              </p>
+              <h1 style={{ marginBottom: "16px" }}>{t("successTitle")}</h1>
+              <p style={{ fontSize: "15px", color: "var(--color-text-secondary)" }}>{t("successDescription")}</p>
             </div>
           )}
 
           {status === "error" && (
             <div style={{ textAlign: "center" }}>
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4"
-                style={{ background: "var(--color-error-bg)" }}
-              >
-                <svg className="w-6 h-6" fill="none" stroke="var(--color-error-text)" viewBox="0 0 24 24">
+              <div className={styles.statusIcon} style={{ background: "var(--color-error-bg)" }}>
+                <svg className={styles.statusIconSvg} fill="none" stroke="var(--color-error-text)" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </div>
-              <h1 style={{ marginBottom: "16px" }}>Unsubscribe Failed</h1>
-              <p style={{ fontSize: "15px", color: "var(--color-text-secondary)" }}>{errorMessage}</p>
+              <h1 style={{ marginBottom: "16px" }}>{t("errorTitle")}</h1>
+              <p style={{ fontSize: "15px", color: "var(--color-text-secondary)" }}>{errorKey && t(errorKey)}</p>
             </div>
           )}
         </div>

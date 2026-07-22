@@ -43,7 +43,7 @@ repeat 60 times do
   // Ground
   rectangle(0, ground_top, 100, 10, "green")
 
-  // Ground
+  // Stem
   rectangle(stem_left, stem_top, stem_width, stem_height, "green")
 
   // Flower head
@@ -52,7 +52,7 @@ repeat 60 times do
   // Pistil
   circle(flower_center_x, flower_center_y, pistil_radius, "yellow")
 
-  // Stem
+  // Leaves
   ellipse(left_leaf_left, leaf_top, leaf_x_radius, leaf_y_radius, "green")
   ellipse(right_leaf_left, leaf_top, leaf_x_radius, leaf_y_radius, "green")
 

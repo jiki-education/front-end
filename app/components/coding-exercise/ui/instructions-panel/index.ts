@@ -1,10 +1,10 @@
-export { default as InstructionsPanel } from "./InstructionsPanel";
 export { default as DynamicHeader } from "./DynamicHeader";
-export { default as NavigationButtons } from "./NavigationButtons";
-export { default as InstructionsContent } from "./InstructionsContent";
+export type { ExerciseData } from "./DynamicHeader";
 export { default as FunctionsGrid } from "./FunctionsGrid";
+export { default as InstructionsContent } from "./InstructionsContent";
+export { default as InstructionsPanel } from "./InstructionsPanel";
+export { default as LibraryChallengesState } from "./LibraryChallengesState";
+export { default as LibraryEmptyState } from "./LibraryEmptyState";
 export { default as LibrarySection } from "./LibrarySection";
 export { default as LibraryWithConcepts } from "./LibraryWithConcepts";
-export { default as LibraryEmptyState } from "./LibraryEmptyState";
-export { default as LibraryProjectsState } from "./LibraryProjectsState";
-export type { ExerciseData } from "./DynamicHeader";
+export { default as NavigationButtons } from "./NavigationButtons";

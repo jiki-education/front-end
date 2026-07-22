@@ -2,6 +2,10 @@ import { type ExecutionContext, type Shared, isNumber } from "@jiki/interpreters
 import { VisualExercise } from "../../VisualExercise";
 import metadata from "./metadata.json";
 
+// Logic-error messages are resolved against the message dict injected into this
+// exercise (via `setMessages`) and passed to `logicError` as finished,
+// pre-translated strings; the interpreter relays them verbatim.
+
 interface DieConfig {
   image: string;
   top: string;
@@ -71,7 +75,7 @@ export default class DndRollExercise extends VisualExercise {
     const sidesNum = isNumber(sides) ? sides.value : 20;
     const dieConfig = DICE[sidesNum] as DieConfig | undefined;
     if (dieConfig == null) {
-      executionCtx.logicError(`Sorry - Jiki doesn't have a ${sidesNum} sided dice handy!`);
+      executionCtx.logicError(this.t("errors.unknownDice", { sides: sidesNum }));
       return 0;
     }
 
@@ -151,7 +155,7 @@ export default class DndRollExercise extends VisualExercise {
 
   private announce(executionCtx: ExecutionContext, value: Shared.JikiObject) {
     if (!isNumber(value)) {
-      return executionCtx.logicError("You can only announce a number");
+      return executionCtx.logicError(this.t("errors.announceNumber"));
     }
     this.announcements.push(value.value);
 
@@ -166,10 +170,10 @@ export default class DndRollExercise extends VisualExercise {
 
   private strike(executionCtx: ExecutionContext, attack: Shared.JikiObject, damage: Shared.JikiObject) {
     if (!isNumber(attack)) {
-      return executionCtx.logicError("Attack must be a number");
+      return executionCtx.logicError(this.t("errors.attackNumber"));
     }
     if (!isNumber(damage)) {
-      return executionCtx.logicError("Damage must be a number");
+      return executionCtx.logicError(this.t("errors.damageNumber"));
     }
     this.strikeAttack = attack.value;
     this.strikeDamage = damage.value;
@@ -249,19 +253,19 @@ export default class DndRollExercise extends VisualExercise {
     {
       name: "roll",
       func: this.roll.bind(this),
-      description: "rolled a die and got ${return}",
+      descriptionKey: "describers.roll",
       arity: 1 as const
     },
     {
       name: "announce",
       func: this.announce.bind(this),
-      description: "announced ${arg1}",
+      descriptionKey: "describers.announce",
       arity: 1 as const
     },
     {
       name: "strike",
       func: this.strike.bind(this),
-      description: "struck the goblin with attack ${arg1} and damage ${arg2}",
+      descriptionKey: "describers.strike",
       arity: 2 as const
     }
   ];

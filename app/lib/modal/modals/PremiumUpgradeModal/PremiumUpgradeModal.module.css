@@ -43,7 +43,7 @@
     overflow: visible;
     position: relative;
     z-index: 1;
-    text-align: left;
+    text-align: start;
 }
 
 .mainHeading .highlight {
@@ -63,7 +63,7 @@
 .mainHeading .highlight img {
     position: absolute;
     top: 50%;
-    left: 50%;
+    inset-inline-start: 50%;
     transform: translate(-50%, -50%);
     width: 130%;
     height: auto;
@@ -77,7 +77,7 @@
     color: var(--color-gray-500);
     line-height: 1.5;
     margin-bottom: 16px;
-    text-align: left;
+    text-align: start;
 }
 
 .planSection {
@@ -85,7 +85,7 @@
     border-radius: 12px;
     padding: 20px 24px;
     border: 2px solid var(--color-gray-100);
-    text-align: left;
+    text-align: start;
     height: 100%;
 }
 
@@ -235,7 +235,7 @@
 
 .premiumFeatures {
     list-style: none;
-    text-align: left;
+    text-align: start;
 }
 
 .premiumFeatures li {
@@ -246,7 +246,7 @@
     font-weight: 400;
     color: var(--color-gray-700);
     margin-bottom: 8px;
-    text-align: left;
+    text-align: start;
 }
 
 .premiumFeatures li:last-child {
@@ -268,7 +268,7 @@
 .arrowDecoration {
     position: absolute;
     top: 140px;
-    left: calc(36% - 30px);
+    inset-inline-start: calc(36% - 30px);
     width: 150px;
     height: auto;
     z-index: 10;

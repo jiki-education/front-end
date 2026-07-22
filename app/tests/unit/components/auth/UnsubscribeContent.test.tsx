@@ -53,8 +53,7 @@ describe("UnsubscribeContent", () => {
       expect(screen.getByText("Please wait while we process your request.")).toBeInTheDocument();
 
       // Check for loading spinner
-      const spinner = document.querySelector(".animate-spin");
-      expect(spinner).toBeInTheDocument();
+      expect(screen.getByTestId("loading-spinner")).toBeInTheDocument();
     });
 
     it("should call API with correct token", () => {
@@ -128,7 +127,7 @@ describe("UnsubscribeContent", () => {
 
   describe("when token is missing", () => {
     beforeEach(() => {
-      mockedUseParams.mockReturnValue({ token: undefined });
+      mockedUseParams.mockReturnValue({});
     });
 
     it("should render error state immediately when token is missing", () => {

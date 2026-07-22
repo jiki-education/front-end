@@ -1,25 +1,26 @@
 import type { Task, VisualScenario } from "../types";
 import type BouncerWristbandsExercise from "./Exercise";
 
-const IMAGE_BASE = "https://assets.exercism.org/bootcamp/graphics/bouncer-wristbands";
+const IMAGE_BASE = "/static/images/exercise-assets/bouncer-wristbands";
 
-function setupScenario(exercise: BouncerWristbandsExercise, age: number) {
+type WristbandType = "child" | "teen" | "adult" | "senior";
+
+function setupScenario(exercise: BouncerWristbandsExercise, age: number, expected: WristbandType) {
   exercise.setupAge(age);
   exercise.setupImages(
-    `${IMAGE_BASE}-base.png`,
-    `${IMAGE_BASE}-child.png`,
-    `${IMAGE_BASE}-teen.png`,
-    `${IMAGE_BASE}-adult.png`,
-    `${IMAGE_BASE}-senior.png`
+    `${IMAGE_BASE}/child.webp`,
+    `${IMAGE_BASE}/teen.webp`,
+    `${IMAGE_BASE}/adult.webp`,
+    `${IMAGE_BASE}/senior.webp`
   );
+  exercise.setupExpectedWristband(expected);
 }
 
 export const tasks = [
   {
     id: "assign-wristband" as const,
-    name: "Assign the correct wristband",
-    description:
-      "Get the person's age and give them the correct wristband: child (under 13), teen (13-17), adult (18-64), or senior (65+).",
+    name: "tasks.assignWristband.name",
+    description: "tasks.assignWristband.description",
     hints: [],
     requiredScenarios: [
       "child-age-8",
@@ -37,12 +38,12 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "child-age-8",
-    name: "Age 8 (child)",
-    description: "An 8-year-old — they should get a child wristband.",
+    name: "scenarios.childAge8.name",
+    description: "scenarios.childAge8.description",
     taskId: "assign-wristband",
 
     setup(exercise) {
-      setupScenario(exercise as BouncerWristbandsExercise, 8);
+      setupScenario(exercise as BouncerWristbandsExercise, 8, "child");
     },
 
     expectations(exercise) {
@@ -50,19 +51,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wristband === "child",
-          errorHtml: `The person is 8 — they should get a child wristband, but got: ${ex.wristband ?? "none"}.`
+          errorHtml: ex.t("checks.childWristband", { got: ex.wristband ?? "none" })
         }
       ];
     }
   },
   {
     slug: "teen-age-15",
-    name: "Age 15 (teen)",
-    description: "A 15-year-old — they should get a teen wristband.",
+    name: "scenarios.teenAge15.name",
+    description: "scenarios.teenAge15.description",
     taskId: "assign-wristband",
 
     setup(exercise) {
-      setupScenario(exercise as BouncerWristbandsExercise, 15);
+      setupScenario(exercise as BouncerWristbandsExercise, 15, "teen");
     },
 
     expectations(exercise) {
@@ -70,19 +71,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wristband === "teen",
-          errorHtml: `The person is 15 — they should get a teen wristband, but got: ${ex.wristband ?? "none"}.`
+          errorHtml: ex.t("checks.teenWristband", { got: ex.wristband ?? "none" })
         }
       ];
     }
   },
   {
     slug: "adult-age-30",
-    name: "Age 30 (adult)",
-    description: "A 30-year-old — they should get an adult wristband.",
+    name: "scenarios.adultAge30.name",
+    description: "scenarios.adultAge30.description",
     taskId: "assign-wristband",
 
     setup(exercise) {
-      setupScenario(exercise as BouncerWristbandsExercise, 30);
+      setupScenario(exercise as BouncerWristbandsExercise, 30, "adult");
     },
 
     expectations(exercise) {
@@ -90,19 +91,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wristband === "adult",
-          errorHtml: `The person is 30 — they should get an adult wristband, but got: ${ex.wristband ?? "none"}.`
+          errorHtml: ex.t("checks.adultWristband", { got: ex.wristband ?? "none" })
         }
       ];
     }
   },
   {
     slug: "senior-age-70",
-    name: "Age 70 (senior)",
-    description: "A 70-year-old — they should get a senior wristband.",
+    name: "scenarios.seniorAge70.name",
+    description: "scenarios.seniorAge70.description",
     taskId: "assign-wristband",
 
     setup(exercise) {
-      setupScenario(exercise as BouncerWristbandsExercise, 70);
+      setupScenario(exercise as BouncerWristbandsExercise, 70, "senior");
     },
 
     expectations(exercise) {
@@ -110,19 +111,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wristband === "senior",
-          errorHtml: `The person is 70 — they should get a senior wristband, but got: ${ex.wristband ?? "none"}.`
+          errorHtml: ex.t("checks.seniorWristband", { got: ex.wristband ?? "none" })
         }
       ];
     }
   },
   {
     slug: "boundary-13",
-    name: "Age 13 (boundary — teen, not child)",
-    description: "Exactly 13 — they're a teen, not a child.",
+    name: "scenarios.boundary13.name",
+    description: "scenarios.boundary13.description",
     taskId: "assign-wristband",
 
     setup(exercise) {
-      setupScenario(exercise as BouncerWristbandsExercise, 13);
+      setupScenario(exercise as BouncerWristbandsExercise, 13, "teen");
     },
 
     expectations(exercise) {
@@ -130,19 +131,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wristband === "teen",
-          errorHtml: `The person is 13 — they should get a teen wristband (13 is not under 13), but got: ${ex.wristband ?? "none"}.`
+          errorHtml: ex.t("checks.boundary13", { got: ex.wristband ?? "none" })
         }
       ];
     }
   },
   {
     slug: "boundary-18",
-    name: "Age 18 (boundary — adult, not teen)",
-    description: "Exactly 18 — they're an adult, not a teen.",
+    name: "scenarios.boundary18.name",
+    description: "scenarios.boundary18.description",
     taskId: "assign-wristband",
 
     setup(exercise) {
-      setupScenario(exercise as BouncerWristbandsExercise, 18);
+      setupScenario(exercise as BouncerWristbandsExercise, 18, "adult");
     },
 
     expectations(exercise) {
@@ -150,19 +151,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wristband === "adult",
-          errorHtml: `The person is 18 — they should get an adult wristband (18 is not under 18), but got: ${ex.wristband ?? "none"}.`
+          errorHtml: ex.t("checks.boundary18", { got: ex.wristband ?? "none" })
         }
       ];
     }
   },
   {
     slug: "boundary-65",
-    name: "Age 65 (boundary — senior, not adult)",
-    description: "Exactly 65 — they're a senior, not an adult.",
+    name: "scenarios.boundary65.name",
+    description: "scenarios.boundary65.description",
     taskId: "assign-wristband",
 
     setup(exercise) {
-      setupScenario(exercise as BouncerWristbandsExercise, 65);
+      setupScenario(exercise as BouncerWristbandsExercise, 65, "senior");
     },
 
     expectations(exercise) {
@@ -170,7 +171,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.wristband === "senior",
-          errorHtml: `The person is 65 — they should get a senior wristband (65 is not under 65), but got: ${ex.wristband ?? "none"}.`
+          errorHtml: ex.t("checks.boundary65", { got: ex.wristband ?? "none" })
         }
       ];
     }

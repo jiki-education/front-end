@@ -3,24 +3,28 @@
   "levelId": "conditionals-and-state",
   "hints": [
     {
-      "question": "What state do I need to track?",
-      "answer": "The ball's position (`x`, `y`), its movement direction (`xDirection`, `yDirection`), and the current `hue` along with its `hueDirection`."
+      "question": "hints.stateToTrack.question",
+      "answer": "hints.stateToTrack.answer"
     },
     {
-      "question": "How do I make the ball move each frame?",
-      "answer": "At the start of each loop iteration, add `xDirection` to `x`, `yDirection` to `y`, and `hueDirection` to `hue`."
+      "question": "hints.moveAndShift.question",
+      "answer": "hints.moveAndShift.answer"
     },
     {
-      "question": "How do I make the ball bounce off the edges?",
-      "answer": "When `x` goes below `0` or above `100`, reverse `xDirection`. Do the same for `y` with `yDirection`."
+      "question": "hints.velocityTip.question",
+      "answer": "hints.velocityTip.answer"
     },
     {
-      "question": "How do I give the bounce a random new speed?",
-      "answer": "Use `randomNumber(1, 5)` for moving in the positive direction and `randomNumber(-5, -1)` for the negative direction, so each bounce gets a fresh speed."
+      "question": "hints.bounceOffEdges.question",
+      "answer": "hints.bounceOffEdges.answer"
     },
     {
-      "question": "How do I cycle the hue through the rainbow?",
-      "answer": "When `hue` drops below `0`, set `hueDirection` to `1`; when it goes above `360`, set it to `-1`. That way the color sweeps back and forth across the spectrum."
+      "question": "hints.randomBounceSpeed.question",
+      "answer": "hints.randomBounceSpeed.answer"
+    },
+    {
+      "question": "hints.cycleHue.question",
+      "answer": "hints.cycleHue.answer"
     }
   ]
 }

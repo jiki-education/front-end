@@ -1,6 +1,7 @@
 "use client";
 
-import { showConfirmation, showInfo, showModal, showSubscriptionModal, showSubscriptionSuccess } from "@/lib/modal";
+import { showConfirmation, showInfo, showModal } from "@/lib/modal";
+import { showSubscriptionModal, showSubscriptionSuccess } from "@/lib/modal/app";
 
 export default function TestGlobalModals() {
   return (
@@ -59,7 +60,7 @@ export default function TestGlobalModals() {
                 content: (
                   <div className="space-y-2">
                     <p>The global modal system provides:</p>
-                    <ul className="list-disc list-inside pl-4">
+                    <ul className="list-disc list-inside ps-4">
                       <li>Simple API - just import and use</li>
                       <li>No context providers needed at component level</li>
                       <li>Works from any page or component</li>
@@ -184,8 +185,8 @@ export default function TestGlobalModals() {
                 showModal("exercise-completion-modal", {
                   onGoToDashboard: () => console.debug("Go to dashboard clicked"),
                   exerciseTitle: "Test Exercise",
-                  initialStep: "project-unlocked",
-                  unlockedProject: {
+                  initialStep: "challenge-unlocked",
+                  unlockedChallenge: {
                     name: "Space Invaders",
                     description: "Build a classic arcade game with aliens, lasers, and defensive barriers.",
                     slug: "space-invaders"
@@ -194,7 +195,7 @@ export default function TestGlobalModals() {
               }
               className="px-4 py-2 bg-pink-600 text-white rounded hover:bg-pink-700 transition-colors"
             >
-              Project Unlocked Step
+              Challenge Unlocked Step
             </button>
           </div>
           <p className="text-sm text-gray-600 mt-2">
@@ -282,13 +283,8 @@ export default function TestGlobalModals() {
       <div className="mt-8 p-4 bg-gray-100 rounded-lg">
         <h3 className="font-semibold mb-2">Usage Example:</h3>
         <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto">
-          {`import { 
-  showModal, 
-  showConfirmation, 
-  showInfo,
-  showSubscriptionModal,
-  showSubscriptionSuccess 
-} from '@/lib/modal';
+          {`import { showModal, showConfirmation, showInfo } from '@/lib/modal';
+import { showSubscriptionModal, showSubscriptionSuccess } from '@/lib/modal/app';
 
 // Anywhere in your component:
 showModal('example-modal', { title: 'Hello!' });

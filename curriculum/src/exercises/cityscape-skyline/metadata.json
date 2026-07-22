@@ -3,8 +3,28 @@
   "levelId": "functions-that-return-things",
   "hints": [
     {
-      "question": "This is hard!",
-      "answer": "It is a challenge! Break it down. One step at a time. Get the first scenario passing, then the second, etc."
+      "question": "hints.whereToStart.question",
+      "answer": "hints.whereToStart.answer"
+    },
+    {
+      "question": "hints.buildingDimensions.question",
+      "answer": "hints.buildingDimensions.answer"
+    },
+    {
+      "question": "hints.trackPosition.question",
+      "answer": "hints.trackPosition.answer"
+    },
+    {
+      "question": "hints.groundFloorLayout.question",
+      "answer": "hints.groundFloorLayout.answer"
+    },
+    {
+      "question": "hints.upperFloorsAndRoof.question",
+      "answer": "hints.upperFloorsAndRoof.answer"
+    },
+    {
+      "question": "hints.stuckError.question",
+      "answer": "hints.stuckError.answer"
     }
   ]
 }

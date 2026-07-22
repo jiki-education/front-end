@@ -1,0 +1,72 @@
+{
+  "checks": {
+    "allCorrect": "We expected all the letters to be green",
+    "absent": "We expected the 'a' and 'u' to be absent",
+    "present": "We expected the 'l' and 'e' to be present.",
+    "complex": "We expected present, present, present, correct, absent",
+    "differentWord": "We expected correct, present, present, present, absent"
+  },
+  "tasks": {
+    "processGuess": {
+      "name": "Process a single guess",
+      "description": "Create a function called processGuess that takes a target word and a guess, works out the state of each letter (correct, present, or absent), then calls colorRow(1, states) with the results."
+    }
+  },
+  "scenarios": {
+    "allCorrect": {
+      "name": "All correct",
+      "description": "Deal with a fully correct guess"
+    },
+    "absent": {
+      "name": "Some absent",
+      "description": "Handle when some letters are wrong"
+    },
+    "present": {
+      "name": "Some present",
+      "description": "Deal with letters in the wrong place"
+    },
+    "complex": {
+      "name": "Complex",
+      "description": "Deal with a more complex scenario"
+    },
+    "differentWord": {
+      "name": "A different word",
+      "description": "And finally a different word!"
+    }
+  },
+  "hints": {
+    "compareLetters": {
+      "question": "How do I compare each letter of the guess to the target?",
+      "answer": "Loop through the positions `0` to `4`. For each position, compare `guess[i]` with `target[i]`."
+    },
+    "stateRules": {
+      "question": "When is a letter `\"correct\"` vs `\"present\"` vs `\"absent\"`?",
+      "answer": "If `guess[i]` equals `target[i]`, it's `\"correct\"`. Otherwise, if the letter exists somewhere in `target`, it's `\"present\"`. If not, it's `\"absent\"`."
+    },
+    "buildList": {
+      "question": "How do I build up the list of states?",
+      "answer": "Start with an empty list, then use `push(states, value)` inside the loop to append each state in order."
+    },
+    "checkPresence": {
+      "question": "How can I check if a letter appears anywhere in the target word?",
+      "answer": "Write a small helper that loops through the target's letters and returns `true` if it finds a match. It keeps your main code clean."
+    },
+    "finishedList": {
+      "question": "Where does the finished list go?",
+      "answer": "Pass it to `colorRow(1, states)` to colour the first row of the board with your computed states."
+    }
+  },
+  "functions": {
+    "colorRow": {
+      "description": "Colors a row on the Wordle board with the given states.",
+      "category": "Wordle"
+    },
+    "push": {
+      "description": "Adds an element to a list and returns the new list. Does not change the original list.",
+      "category": "Lists"
+    }
+  },
+  "describers": {
+    "colorRow": "colored a row on the wordle board"
+  }
+}

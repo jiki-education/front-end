@@ -1,0 +1,43 @@
+{
+  "errors": {
+    "walkExpectsNumber": "walk() expects a number of steps"
+  },
+  "describers": {
+    "walk": "Walk forward a given number of steps"
+  },
+  "checks": {
+    "notReachedEnd": "You didn't reach the end of the maze."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Guide person to the end of the maze",
+      "description": "Navigate through the maze using walk(), turnLeft(), and turnRight() to reach the green target cell."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Guide person to the end of the maze",
+      "description": "Your job is to reach the goal."
+    }
+  },
+  "hints": {
+    "moveNotWorking": {
+      "question": "Why doesn't `move()` work any more?",
+      "answer": "Each exercise in Jiki has different functions you can use. In this exercise, you have the `walk(...)` function. Replace the `n` with the number of steps you want to walk. So `walk(1)` does exactly the same as `move()` did last time."
+    }
+  },
+  "functions": {
+    "walk": {
+      "description": "Moves the character **forward by the given number of steps** in the current direction. Each step moves one cell. The character will stop and report an error if it hits a wall.",
+      "category": "Movement"
+    },
+    "turnLeft": {
+      "description": "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
+      "category": "Movement"
+    },
+    "turnRight": {
+      "description": "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
+      "category": "Movement"
+    }
+  }
+}

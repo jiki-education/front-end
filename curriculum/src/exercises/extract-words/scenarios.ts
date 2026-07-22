@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "extract-words" as const,
-    name: "Extract words",
-    description:
-      "Write an extract_words function that takes a sentence and returns a list of words. Words are separated by spaces, and periods should be ignored.",
+    name: "tasks.extractWords.name",
+    description: "tasks.extractWords.description",
     hints: [],
     requiredScenarios: [
       "simple-two-words",
@@ -21,8 +20,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "simple-two-words",
-    name: "Two words",
-    description: "Extract two simple words separated by a space.",
+    name: "scenarios.simpleTwoWords.name",
+    description: "scenarios.simpleTwoWords.description",
     taskId: "extract-words",
     functionName: "extract_words",
     args: ["hello world"],
@@ -30,8 +29,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "sentence-with-period",
-    name: "Sentence with period",
-    description: "Extract words from a sentence that ends with a period.",
+    name: "scenarios.sentenceWithPeriod.name",
+    description: "scenarios.sentenceWithPeriod.description",
     taskId: "extract-words",
     functionName: "extract_words",
     args: ["I love cake."],
@@ -39,8 +38,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "longer-sentence",
-    name: "Longer sentence",
-    description: "Extract words from a longer sentence with a period.",
+    name: "scenarios.longerSentence.name",
+    description: "scenarios.longerSentence.description",
     taskId: "extract-words",
     functionName: "extract_words",
     args: ["the quick brown fox."],
@@ -48,8 +47,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "single-word",
-    name: "Single word",
-    description: "Extract a single word with no spaces or periods.",
+    name: "scenarios.singleWord.name",
+    description: "scenarios.singleWord.description",
     taskId: "extract-words",
     functionName: "extract_words",
     args: ["hello"],
@@ -57,8 +56,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "single-word-with-period",
-    name: "Single word with period",
-    description: "Extract a single word from a string ending with a period.",
+    name: "scenarios.singleWordWithPeriod.name",
+    description: "scenarios.singleWordWithPeriod.description",
     taskId: "extract-words",
     functionName: "extract_words",
     args: ["hello."],

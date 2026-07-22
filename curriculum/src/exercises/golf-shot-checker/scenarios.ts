@@ -4,8 +4,8 @@ import type GolfShotCheckerExercise from "./Exercise";
 export const tasks = [
   {
     id: "check-shot" as const,
-    name: "Check if the shot lands in the hole",
-    description: "Roll the ball based on the shot length, and if it lands over the hole, sink it! Then fire fireworks.",
+    name: "tasks.checkShot.name",
+    description: "tasks.checkShot.description",
     hints: [],
     requiredScenarios: [
       "too-short",
@@ -22,8 +22,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "too-short",
-    name: "Shot too short",
-    description: "The golfer hits the ball 23 — it doesn't reach the hole.",
+    name: "scenarios.tooShort.name",
+    description: "scenarios.tooShort.description",
     taskId: "check-shot",
 
     setup(exercise) {
@@ -35,26 +35,32 @@ export const scenarios: VisualScenario[] = [
 
     expectations(exercise) {
       const ex = exercise as GolfShotCheckerExercise;
+      const requiredPositions = [29, 40, 51];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
           pass: ex.ballX === 51,
-          errorHtml: `The ball should be at x=51 (28 + 23), but it's at x=${ex.ballX}.`
+          errorHtml: ex.t("checks.wrongDistance")
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: ex.t("checks.missingPositions")
         },
         {
           pass: ex.ballY === 75,
-          errorHtml: `The ball should stay at y=75 (not over the hole), but it's at y=${ex.ballY}.`
+          errorHtml: ex.t("checks.stayOnGrassPlain")
         },
         {
           pass: ex.fireworksFired === false,
-          errorHtml: "You shouldn't have fired the fireworks."
+          errorHtml: ex.t("checks.noFireworksPeriod")
         }
       ];
     }
   },
   {
     slug: "just-too-short",
-    name: "Just too short",
-    description: "The golfer hits the ball 57 and it just doesn't quite roll in.",
+    name: "scenarios.justTooShort.name",
+    description: "scenarios.justTooShort.description",
     taskId: "check-shot",
 
     setup(exercise) {
@@ -66,26 +72,32 @@ export const scenarios: VisualScenario[] = [
 
     expectations(exercise) {
       const ex = exercise as GolfShotCheckerExercise;
+      const requiredPositions = [29, 57, 85];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
           pass: ex.ballX === 85,
-          errorHtml: `The ball should be at x=85 (28 + 57), but it's at x=${ex.ballX}.`
+          errorHtml: ex.t("checks.wrongDistance")
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: ex.t("checks.missingPositions")
         },
         {
           pass: ex.ballY === 75,
-          errorHtml: `The ball should stay at y=75 (not in the hole), but it's at y=${ex.ballY}.`
+          errorHtml: ex.t("checks.stayOnGrassPlain")
         },
         {
           pass: ex.fireworksFired === false,
-          errorHtml: "You shouldn't have fired the fireworks"
+          errorHtml: ex.t("checks.noFireworksNoPeriod")
         }
       ];
     }
   },
   {
     slug: "just-too-far",
-    name: "Just too far",
-    description: "The golfer hits the ball 63 and it just pops out the other side",
+    name: "scenarios.justTooFar.name",
+    description: "scenarios.justTooFar.description",
     taskId: "check-shot",
 
     setup(exercise) {
@@ -97,26 +109,32 @@ export const scenarios: VisualScenario[] = [
 
     expectations(exercise) {
       const ex = exercise as GolfShotCheckerExercise;
+      const requiredPositions = [29, 60, 91];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
           pass: ex.ballX === 91,
-          errorHtml: `The ball should be at x=91 (28 + 63), but it's at x=${ex.ballX}.`
+          errorHtml: ex.t("checks.wrongDistance")
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: ex.t("checks.missingPositions")
         },
         {
           pass: ex.ballY === 75,
-          errorHtml: `The ball should stay at y=75 (overshot the hole), but it's at y=${ex.ballY}.`
+          errorHtml: ex.t("checks.stayOnGrassOvershot")
         },
         {
           pass: ex.fireworksFired === false,
-          errorHtml: "You shouldn't have fired the fireworks"
+          errorHtml: ex.t("checks.noFireworksNoPeriod")
         }
       ];
     }
   },
   {
     slug: "too-long",
-    name: "Shot too long",
-    description: "The golfer hits the ball 68 — it goes past the hole.",
+    name: "scenarios.tooLong.name",
+    description: "scenarios.tooLong.description",
     taskId: "check-shot",
 
     setup(exercise) {
@@ -128,26 +146,32 @@ export const scenarios: VisualScenario[] = [
 
     expectations(exercise) {
       const ex = exercise as GolfShotCheckerExercise;
+      const requiredPositions = [29, 62, 96];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
           pass: ex.ballX === 96,
-          errorHtml: `The ball should be at x=96 (28 + 68), but it's at x=${ex.ballX}.`
+          errorHtml: ex.t("checks.wrongDistance")
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: ex.t("checks.missingPositions")
         },
         {
           pass: ex.ballY === 75,
-          errorHtml: `The ball should stay at y=75 (overshot the hole), but it's at y=${ex.ballY}.`
+          errorHtml: ex.t("checks.stayOnGrassOvershot")
         },
         {
           pass: ex.fireworksFired === false,
-          errorHtml: "You shouldn't have fired the fireworks at the end."
+          errorHtml: ex.t("checks.noFireworksAtEnd")
         }
       ];
     }
   },
   {
     slug: "just-inside-left",
-    name: "Just in the hole",
-    description: "The golfer hits the ball 58 — it just reaches the hole!",
+    name: "scenarios.justInsideLeft.name",
+    description: "scenarios.justInsideLeft.description",
     taskId: "check-shot",
 
     setup(exercise) {
@@ -159,26 +183,32 @@ export const scenarios: VisualScenario[] = [
 
     expectations(exercise) {
       const ex = exercise as GolfShotCheckerExercise;
+      const requiredPositions = [29, 57, 86];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
           pass: ex.ballX === 86,
-          errorHtml: `The ball should be at x=86 (28 + 58), but it's at x=${ex.ballX}.`
+          errorHtml: ex.t("checks.wrongDistance")
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: ex.t("checks.missingPositions")
         },
         {
           pass: ex.ballY === 84,
-          errorHtml: `The ball should have sunk to y=84 (75 + 9), but it's at y=${ex.ballY}.`
+          errorHtml: ex.t("checks.droppedIncorrectly")
         },
         {
           pass: ex.fireworksFired === true,
-          errorHtml: "You should fire the fireworks at the end."
+          errorHtml: ex.t("checks.shouldFireFireworks")
         }
       ];
     }
   },
   {
     slug: "just-inside-right",
-    name: "Nearly too far but ok!",
-    description: "The golfer hits the ball 62 — it just about stays in the hole!",
+    name: "scenarios.justInsideRight.name",
+    description: "scenarios.justInsideRight.description",
     taskId: "check-shot",
 
     setup(exercise) {
@@ -190,18 +220,24 @@ export const scenarios: VisualScenario[] = [
 
     expectations(exercise) {
       const ex = exercise as GolfShotCheckerExercise;
+      const requiredPositions = [29, 60, 90];
+      const missingPositions = requiredPositions.filter((p) => !ex.visitedPositions.includes(p));
       return [
         {
           pass: ex.ballX === 90,
-          errorHtml: `The ball should be at x=90 (28 + 62), but it's at x=${ex.ballX}.`
+          errorHtml: ex.t("checks.wrongDistance")
+        },
+        {
+          pass: missingPositions.length === 0,
+          errorHtml: ex.t("checks.missingPositions")
         },
         {
           pass: ex.ballY === 84,
-          errorHtml: `The ball should have sunk to y=84 (75 + 9), but it's at y=${ex.ballY}.`
+          errorHtml: ex.t("checks.droppedIncorrectly")
         },
         {
           pass: ex.fireworksFired === true,
-          errorHtml: "You should fire the fireworks at the end."
+          errorHtml: ex.t("checks.shouldFireFireworks")
         }
       ];
     }

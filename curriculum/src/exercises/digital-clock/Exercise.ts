@@ -1,5 +1,6 @@
-import { type ExecutionContext, type ExternalFunction, type Shared, isNumber, isString } from "@jiki/interpreters";
+import { type ExecutionContext, type Shared, isNumber, isString } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
+import type { AvailableFunction } from "../../types";
 import metadata from "./metadata.json";
 
 export default class DigitalClockExercise extends VisualExercise {
@@ -16,21 +17,21 @@ export default class DigitalClockExercise extends VisualExercise {
     this.populateView();
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "current_time_hour",
       func: this.currentTimeHour.bind(this),
-      description: "retrieved the current hour"
+      descriptionKey: "describers.currentTimeHour"
     },
     {
       name: "current_time_minute",
       func: this.currentTimeMinute.bind(this),
-      description: "retrieved the current minute"
+      descriptionKey: "describers.currentTimeMinute"
     },
     {
       name: "display_time",
       func: this.displayTime.bind(this),
-      description: "displayed the time on the clock"
+      descriptionKey: "describers.displayTime"
     }
   ];
 
@@ -49,18 +50,18 @@ export default class DigitalClockExercise extends VisualExercise {
     indicator: Shared.JikiObject
   ) {
     if (!isNumber(hour)) {
-      executionCtx.logicError("hour must be a number");
+      executionCtx.logicError(this.t("errors.hourNotNumber"));
       return;
     }
     if (!isNumber(minutes)) {
-      executionCtx.logicError("minutes must be a number");
+      executionCtx.logicError(this.t("errors.minutesNotNumber"));
       return;
     }
     if (!isString(indicator)) {
-      executionCtx.logicError("indicator must be a string");
+      executionCtx.logicError(this.t("errors.indicatorNotString"));
       return;
     }
-    this.displayedTime = `${hour.value}:${minutes.value}${indicator.value}`;
+    this.displayedTime = `${hour.value}:${String(minutes.value).padStart(2, "0")}${indicator.value}`;
 
     const [h1, h2] = String(hour.value).padStart(2, "0").split("");
     const [m1, m2] = String(minutes.value).padStart(2, "0").split("");

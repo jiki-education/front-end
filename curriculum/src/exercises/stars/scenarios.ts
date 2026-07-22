@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "create-stars-function" as const,
-    name: "Create stars function",
-    description:
-      'Write a stars function that takes a count and returns a list of strings, where each string has an increasing number of stars. For example, stars(3) returns ["*", "**", "***"].',
+    name: "tasks.createStarsFunction.name",
+    description: "tasks.createStarsFunction.description",
     hints: [],
     requiredScenarios: ["count-0", "count-1", "count-3", "count-5"],
     bonus: false
@@ -15,8 +14,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "count-0",
-    name: "Count is 0",
-    description: "Zero stars returns an empty list.",
+    name: "scenarios.count0.name",
+    description: "scenarios.count0.description",
     taskId: "create-stars-function",
     functionName: "stars",
     args: [0],
@@ -24,8 +23,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "count-1",
-    name: "Count is 1",
-    description: "One star returns a list with a single star string.",
+    name: "scenarios.count1.name",
+    description: "scenarios.count1.description",
     taskId: "create-stars-function",
     functionName: "stars",
     args: [1],
@@ -33,8 +32,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "count-3",
-    name: "Count is 3",
-    description: "Three stars returns three strings with increasing stars.",
+    name: "scenarios.count3.name",
+    description: "scenarios.count3.description",
     taskId: "create-stars-function",
     functionName: "stars",
     args: [3],
@@ -42,8 +41,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "count-5",
-    name: "Count is 5",
-    description: "Five stars returns five strings with increasing stars.",
+    name: "scenarios.count5.name",
+    description: "scenarios.count5.description",
     taskId: "create-stars-function",
     functionName: "stars",
     args: [5],

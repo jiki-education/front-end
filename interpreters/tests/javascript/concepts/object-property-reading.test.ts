@@ -216,7 +216,7 @@ describe("Object Property Reading", () => {
 
       const lastFrame = result.frames[1] as TestAugmentedFrame;
       expect(lastFrame.status).toBe("ERROR");
-      expect(lastFrame.error?.type).toBe("TypeError");
+      expect(lastFrame.error?.type).toBe("CannotReadPropertiesOfType");
     });
 
     it("should error when accessing property of null", () => {
@@ -231,7 +231,7 @@ describe("Object Property Reading", () => {
 
       const lastFrame = result.frames[1] as TestAugmentedFrame;
       expect(lastFrame.status).toBe("ERROR");
-      expect(lastFrame.error?.type).toBe("TypeError");
+      expect(lastFrame.error?.type).toBe("CannotReadPropertiesOfType");
     });
 
     it("should error when accessing property of undefined", () => {
@@ -246,7 +246,7 @@ describe("Object Property Reading", () => {
 
       const lastFrame = result.frames[1] as TestAugmentedFrame;
       expect(lastFrame.status).toBe("ERROR");
-      expect(lastFrame.error?.type).toBe("TypeError");
+      expect(lastFrame.error?.type).toBe("CannotReadPropertiesOfType");
     });
   });
 });

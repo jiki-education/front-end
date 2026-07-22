@@ -99,10 +99,10 @@ export default class RandomSaladExercise extends VisualExercise {
     croutons: Shared.JikiObject,
     olives: Shared.JikiObject
   ) {
-    if (!isNumber(leaves)) return executionCtx.logicError("Leaves must be a number");
-    if (!isNumber(tomatoes)) return executionCtx.logicError("Tomatoes must be a number");
-    if (!isNumber(croutons)) return executionCtx.logicError("Croutons must be a number");
-    if (!isNumber(olives)) return executionCtx.logicError("Olives must be a number");
+    if (!isNumber(leaves)) return executionCtx.logicError(this.t("errors.leavesNumber"));
+    if (!isNumber(tomatoes)) return executionCtx.logicError(this.t("errors.tomatoesNumber"));
+    if (!isNumber(croutons)) return executionCtx.logicError(this.t("errors.croutonsNumber"));
+    if (!isNumber(olives)) return executionCtx.logicError(this.t("errors.olivesNumber"));
 
     this.saladLeaves = leaves.value;
     this.saladTomatoes = tomatoes.value;
@@ -197,7 +197,7 @@ export default class RandomSaladExercise extends VisualExercise {
     {
       name: "make_salad",
       func: this.make_salad.bind(this),
-      description: "made a salad with ${arg1} leaves, ${arg2} tomatoes, ${arg3} croutons, and ${arg4} olives",
+      descriptionKey: "describers.makeSalad",
       arity: 4 as const
     }
   ];

@@ -7,23 +7,23 @@ const functions: FunctionInfo[] = [
   {
     name: "roll",
     signature: "roll(sides)",
-    description: "Rolls a die with the given number of sides and **returns** the result.",
+    description: "functions.roll.description",
     examples: ["let attack = roll(20)", "let damage = roll(12)"],
-    category: "Dice"
+    category: "functions.roll.category"
   },
   {
     name: "announce",
     signature: "announce(value)",
-    description: "Announces a dice roll value.",
+    description: "functions.announce.description",
     examples: ["announce(attack)", "announce(damage)"],
-    category: "Action"
+    category: "functions.announce.category"
   },
   {
     name: "strike",
     signature: "strike(attack, damage)",
-    description: "Strikes the goblin with the given attack roll and total damage.",
+    description: "functions.strike.description",
     examples: ["strike(attack, totalDamage)"],
-    category: "Action"
+    category: "functions.strike.category"
   }
 ];
 

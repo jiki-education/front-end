@@ -38,6 +38,19 @@ function writeStoredSizes(update: StoredPanelSizes) {
   }
 }
 
+// document.body is typed non-null, but React can run these handlers/cleanups
+// during page teardown (or after something has wiped the DOM), where it is
+// genuinely null - seen in production as JIKI-FRONT-END-3E. Degrade silently:
+// there is no body left to style.
+function setBodyDragStyles(cursor: string, userSelect: string) {
+  const body = document.body as HTMLElement | null;
+  if (!body) {
+    return;
+  }
+  body.style.cursor = cursor;
+  body.style.userSelect = userSelect;
+}
+
 function applyVertical(container: HTMLDivElement, divider: HTMLButtonElement | null, percentage: number) {
   const leftFr = percentage / 50;
   const rightFr = (100 - percentage) / 50;
@@ -80,9 +93,11 @@ export function useResizablePanels() {
       const maxHorizontalPixels = container.getBoundingClientRect().height - 200;
       if (maxHorizontalPixels >= 200) {
         const clamped = Math.min(Math.max(stored.horizontalPixels, 200), maxHorizontalPixels);
-        container.style.gridTemplateRows = `${clamped}px 1fr`;
+        // The 50vh cap keeps the editor row from forcing the grid taller than
+        // the viewport if the window shrinks after the size was stored.
+        container.style.gridTemplateRows = `min(${clamped}px, 50vh) 1fr`;
         if (horizontalDividerRef.current) {
-          horizontalDividerRef.current.style.top = `${clamped}px`;
+          horizontalDividerRef.current.style.top = `min(${clamped}px, 50vh)`;
         }
       }
     }
@@ -102,16 +117,14 @@ export function useResizablePanels() {
         document.removeEventListener("mouseup", listeners.horizontal.up);
       }
       // Reset cursor and user selection
-      document.body.style.cursor = "";
-      document.body.style.userSelect = "";
+      setBodyDragStyles("", "");
     };
   }, []);
 
   const handleVerticalMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
     isDraggingVertical.current = true;
-    document.body.style.cursor = "col-resize";
-    document.body.style.userSelect = "none";
+    setBodyDragStyles("col-resize", "none");
 
     const container = containerRef.current;
     const verticalDivider = verticalDividerRef.current;
@@ -135,8 +148,7 @@ export function useResizablePanels() {
     const handleMouseUp = () => {
       if (isDraggingVertical.current) {
         isDraggingVertical.current = false;
-        document.body.style.cursor = "";
-        document.body.style.userSelect = "";
+        setBodyDragStyles("", "");
         document.removeEventListener("mousemove", handleMouseMove);
         document.removeEventListener("mouseup", handleMouseUp);
         activeListenersRef.current.vertical = undefined;
@@ -156,8 +168,7 @@ export function useResizablePanels() {
   const handleHorizontalMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
     isDraggingHorizontal.current = true;
-    document.body.style.cursor = "row-resize";
-    document.body.style.userSelect = "none";
+    setBodyDragStyles("row-resize", "none");
 
     const container = containerRef.current;
     const horizontalDivider = horizontalDividerRef.current;
@@ -175,16 +186,15 @@ export function useResizablePanels() {
 
       if (pixelPosition >= 200 && pixelPosition <= containerRect.height - 200) {
         latestPixels = pixelPosition;
-        horizontalDivider.style.top = pixelPosition + "px";
-        container.style.gridTemplateRows = `${pixelPosition}px 1fr`;
+        horizontalDivider.style.top = `min(${pixelPosition}px, 50vh)`;
+        container.style.gridTemplateRows = `min(${pixelPosition}px, 50vh) 1fr`;
       }
     };
 
     const handleMouseUp = () => {
       if (isDraggingHorizontal.current) {
         isDraggingHorizontal.current = false;
-        document.body.style.cursor = "";
-        document.body.style.userSelect = "";
+        setBodyDragStyles("", "");
         document.removeEventListener("mousemove", handleMouseMove);
         document.removeEventListener("mouseup", handleMouseUp);
         activeListenersRef.current.horizontal = undefined;

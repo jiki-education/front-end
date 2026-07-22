@@ -2,30 +2,30 @@ import { interpret } from "@javascript/interpreter";
 
 describe("Footgun #5: Loose equality (== and !=)", () => {
   // In real JS: "" == 0 is true, null == undefined is true, "0" == false is true
-  // Jiki blocks == and != by default with StrictEqualityRequired
+  // Jiki blocks == (StrictEqualityRequired) and != (StrictInequalityRequired) at parse time
 
   test("== is blocked by default", () => {
-    const { frames } = interpret('5 == "5"');
-    expect(frames[0].status).toBe("ERROR");
-    expect(frames[0].error?.type).toBe("StrictEqualityRequired");
+    const { frames, error } = interpret('5 == "5"');
+    expect(frames).toHaveLength(0);
+    expect(error?.type).toBe("StrictEqualityRequired");
   });
 
   test("!= is blocked by default", () => {
-    const { frames } = interpret('5 != "5"');
-    expect(frames[0].status).toBe("ERROR");
-    expect(frames[0].error?.type).toBe("StrictEqualityRequired");
+    const { frames, error } = interpret('5 != "5"');
+    expect(frames).toHaveLength(0);
+    expect(error?.type).toBe("StrictInequalityRequired");
   });
 
   test('"" == 0 is blocked', () => {
-    const { frames } = interpret('"" == 0');
-    expect(frames[0].status).toBe("ERROR");
-    expect(frames[0].error?.type).toBe("StrictEqualityRequired");
+    const { frames, error } = interpret('"" == 0');
+    expect(frames).toHaveLength(0);
+    expect(error?.type).toBe("StrictEqualityRequired");
   });
 
   test("null == undefined is blocked", () => {
-    const { frames } = interpret("null == undefined");
-    expect(frames[0].status).toBe("ERROR");
-    expect(frames[0].error?.type).toBe("StrictEqualityRequired");
+    const { frames, error } = interpret("null == undefined");
+    expect(frames).toHaveLength(0);
+    expect(error?.type).toBe("StrictEqualityRequired");
   });
 
   test("=== works correctly for same types", () => {

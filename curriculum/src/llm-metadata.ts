@@ -12,6 +12,7 @@ import { llmMetadata as acronymLLM } from "./exercises/acronym/llm-metadata";
 import { llmMetadata as afterPartyLLM } from "./exercises/after-party/llm-metadata";
 import { llmMetadata as alphanumericLLM } from "./exercises/alphanumeric/llm-metadata";
 import { llmMetadata as anagramLLM } from "./exercises/anagram/llm-metadata";
+import { llmMetadata as annalynsInfiltrationLLM } from "./exercises/annalyns-infiltration/llm-metadata";
 import { llmMetadata as chopShopLLM } from "./exercises/chop-shop/llm-metadata";
 import { llmMetadata as collatzConjectureLLM } from "./exercises/collatz-conjecture/llm-metadata";
 import { llmMetadata as guestListLLM } from "./exercises/guest-list/llm-metadata";
@@ -36,6 +37,8 @@ import { llmMetadata as buildWallLLM } from "./exercises/build-wall/llm-metadata
 import { llmMetadata as finishWallLLM } from "./exercises/finish-wall/llm-metadata";
 import { llmMetadata as fixWallLLM } from "./exercises/fix-wall/llm-metadata";
 import { llmMetadata as structuredHouseLLM } from "./exercises/structured-house/llm-metadata";
+import { llmMetadata as stripeyFabricLLM } from "./exercises/stripey-fabric/llm-metadata";
+import { llmMetadata as checkerboardLLM } from "./exercises/checkerboard/llm-metadata";
 import { llmMetadata as nucleotideLLM } from "./exercises/nucleotide/llm-metadata";
 import { llmMetadata as nucleotideCountLLM } from "./exercises/nucleotide-count/llm-metadata";
 import { llmMetadata as mealPrepLLM } from "./exercises/meal-prep/llm-metadata";
@@ -70,7 +73,7 @@ import { llmMetadata as cityscapeSkyscraperLLM } from "./exercises/cityscape-sky
 import { llmMetadata as cityscapeSkylineLLM } from "./exercises/cityscape-skyline/llm-metadata";
 import { llmMetadata as rainbowSplodgesLLM } from "./exercises/rainbow-splodges/llm-metadata";
 import { llmMetadata as digitalClockLLM } from "./exercises/digital-clock/llm-metadata";
-import { llmMetadata as rockPaperScissorsDetermineWinnerLLM } from "./exercises/rock-paper-scissors-determine-winner/llm-metadata";
+import { llmMetadata as rockPaperScissorsLLM } from "./exercises/rock-paper-scissors/llm-metadata";
 import { llmMetadata as mazeAutomatedSolveLLM } from "./exercises/maze-automated-solve/llm-metadata";
 import { llmMetadata as mazeTurnAroundLLM } from "./exercises/maze-turn-around/llm-metadata";
 import { llmMetadata as rainbowBallLLM } from "./exercises/rainbow-ball/llm-metadata";
@@ -101,7 +104,6 @@ import { llmMetadata as spotifyLLM } from "./exercises/spotify/llm-metadata";
 import { llmMetadata as llmResponseLLM } from "./exercises/llm-response/llm-metadata";
 import { llmMetadata as leapLLM } from "./exercises/leap/llm-metadata";
 import { llmMetadata as lookAroundLLM } from "./exercises/look-around/llm-metadata";
-import { llmMetadata as emojiCollectorLLM } from "./exercises/emoji-collector/llm-metadata";
 import { llmMetadata as boundarieBallLLM } from "./exercises/boundaried-ball/llm-metadata";
 import { llmMetadata as smashingBlocksLLM } from "./exercises/smashing-blocks/llm-metadata";
 import { llmMetadata as mazeSolveWalkLLM } from "./exercises/maze-solve-walk/llm-metadata";
@@ -123,6 +125,7 @@ const llmMetadataRegistry = {
   "after-party": afterPartyLLM,
   alphanumeric: alphanumericLLM,
   anagram: anagramLLM,
+  "annalyns-infiltration": annalynsInfiltrationLLM,
   "chop-shop": chopShopLLM,
   "collatz-conjecture": collatzConjectureLLM,
   "guest-list": guestListLLM,
@@ -147,6 +150,8 @@ const llmMetadataRegistry = {
   "finish-wall": finishWallLLM,
   "fix-wall": fixWallLLM,
   "structured-house": structuredHouseLLM,
+  "stripey-fabric": stripeyFabricLLM,
+  checkerboard: checkerboardLLM,
   nucleotide: nucleotideLLM,
   "nucleotide-count": nucleotideCountLLM,
   "meal-prep": mealPrepLLM,
@@ -181,7 +186,7 @@ const llmMetadataRegistry = {
   "cityscape-skyline": cityscapeSkylineLLM,
   "rainbow-splodges": rainbowSplodgesLLM,
   "digital-clock": digitalClockLLM,
-  "rock-paper-scissors-determine-winner": rockPaperScissorsDetermineWinnerLLM,
+  "rock-paper-scissors": rockPaperScissorsLLM,
   "maze-automated-solve": mazeAutomatedSolveLLM,
   "maze-turn-around": mazeTurnAroundLLM,
   "rainbow-ball": rainbowBallLLM,
@@ -212,7 +217,6 @@ const llmMetadataRegistry = {
   "llm-response": llmResponseLLM,
   leap: leapLLM,
   "look-around": lookAroundLLM,
-  "emoji-collector": emojiCollectorLLM,
   "boundaried-ball": boundarieBallLLM,
   "smashing-blocks": smashingBlocksLLM,
   "maze-solve-walk": mazeSolveWalkLLM,

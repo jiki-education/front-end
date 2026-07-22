@@ -3,24 +3,24 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "How do I know where the aliens are if `isAlienAbove()` is gone?",
-      "answer": "Call `getStartingAliensInRow(1)`, `getStartingAliensInRow(2)`, and `getStartingAliensInRow(3)` once at the start. Each returns a list of 11 booleans you can store in variables and read from later."
+      "question": "hints.knowWhereAliens.question",
+      "answer": "hints.knowWhereAliens.answer"
     },
     {
-      "question": "How do I work out which alien is above me right now?",
-      "answer": "Track your horizontal position in a variable, updating it each time you move. That position is the index into the row lists, so `row1[position]` tells you if there is an alien above you in row 1."
+      "question": "hints.whichAlienAbove.question",
+      "answer": "hints.whichAlienAbove.answer"
     },
     {
-      "question": "How do I stop shooting the same alien twice?",
-      "answer": "After calling `shoot()`, set that index in the row to `false`. Next time round the loop the same position will report no alien there."
+      "question": "hints.stopDoubleShoot.question",
+      "answer": "hints.stopDoubleShoot.answer"
     },
     {
-      "question": "Which row should I shoot from when there are aliens stacked above me?",
-      "answer": "Check the rows from bottom to top. Shoot the lowest live alien in your column and stop checking further rows that iteration."
+      "question": "hints.whichRowToShoot.question",
+      "answer": "hints.whichRowToShoot.answer"
     },
     {
-      "question": "How do I know when to call `fireFireworks()`?",
-      "answer": "After shooting, scan all three row lists. If every entry is `false`, you have just downed the last alien, so call `fireFireworks()` in the same loop iteration. A small helper like `allAliensDead()` keeps the loop tidy."
+      "question": "hints.whenToFireFireworks.question",
+      "answer": "hints.whenToFireFireworks.answer"
     }
   ]
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { showWelcomeModal } from "@/lib/modal";
+import { showWelcomeModal } from "@/lib/modal/app";
 import { clearFlagLocal } from "@/lib/api/flags";
 
 const WELCOME_FLAG_KEY = "welcome_modal";

@@ -1,16 +1,17 @@
 "use client";
 
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { useSettingsStore } from "@/lib/settings/settingsStore";
-import type { NotificationSlug } from "@/lib/api/types/settings";
+import { NOTIFICATION_TYPES, notificationField, type NotificationSlug } from "@/lib/notifications/config";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import ActionField from "../ui/ActionField";
 import styles from "../Settings.module.css";
 
 interface NotificationSetting {
   id: string;
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
   apiSlug?: NotificationSlug;
   disabled?: boolean;
 }
@@ -18,34 +19,16 @@ interface NotificationSetting {
 const NOTIFICATION_CONFIGS: NotificationSetting[] = [
   {
     id: "essential",
-    title: "Essential Service/Account messages",
-    description: "Important updates about your account, security, and service changes.",
+    titleKey: "essentialTitle",
+    descriptionKey: "essentialDescription",
     disabled: true // Cannot be toggled off
   },
-  {
-    id: "features",
-    title: "Emails about new features or content",
-    description: "Stay updated with the latest features and content added to Jiki.",
-    apiSlug: "newsletters"
-  },
-  {
-    id: "livestreams",
-    title: "Emails about livestreams",
-    description: "Get notified about upcoming livestreams and events.",
-    apiSlug: "event_emails"
-  },
-  {
-    id: "milestones",
-    title: "Emails when you reach new milestones",
-    description: "Celebrate your achievements and progress on Jiki.",
-    apiSlug: "milestone_emails"
-  },
-  {
-    id: "activity",
-    title: "Other emails in response to things that you do on Jiki",
-    description: "Activity-based notifications like unlocking badges and completing challenges.",
-    apiSlug: "activity_emails"
-  }
+  ...NOTIFICATION_TYPES.map((type) => ({
+    id: type.settingsI18nId,
+    titleKey: `${type.settingsI18nId}Title`,
+    descriptionKey: `${type.settingsI18nId}Description`,
+    apiSlug: type.slug
+  }))
 ];
 
 export default function NotificationsTab() {
@@ -63,16 +46,7 @@ export default function NotificationsTab() {
       return;
     }
 
-    // Get current value from settings
-    const fieldMap: Record<NotificationSlug, keyof typeof settings> = {
-      newsletters: "receive_newsletters",
-      event_emails: "receive_event_emails",
-      milestone_emails: "receive_milestone_emails",
-      activity_emails: "receive_activity_emails"
-    };
-
-    const field = fieldMap[notification.apiSlug];
-    const currentValue = settings[field] as boolean;
+    const currentValue = settings[notificationField(notification.apiSlug)];
 
     // Toggle the value
     await updateNotification({
@@ -95,15 +69,7 @@ export default function NotificationsTab() {
       return false;
     }
 
-    const fieldMap: Record<NotificationSlug, keyof typeof settings> = {
-      newsletters: "receive_newsletters",
-      event_emails: "receive_event_emails",
-      milestone_emails: "receive_milestone_emails",
-      activity_emails: "receive_activity_emails"
-    };
-
-    const field = fieldMap[notification.apiSlug];
-    return settings[field] as boolean;
+    return settings[notificationField(notification.apiSlug)];
   };
 
   if (loading || !settings) {
@@ -135,16 +101,18 @@ interface NotificationItemProps {
 }
 
 function NotificationItem({ notification, enabled, onToggle }: NotificationItemProps) {
+  const t = useTranslations("settings.notifications");
+  const title = t(notification.titleKey as Parameters<typeof t>[0]);
   return (
     <div className={styles.settingsField}>
-      <ActionField label={notification.title} description={notification.description}>
+      <ActionField label={title} description={t(notification.descriptionKey as Parameters<typeof t>[0])}>
         <button
           className={`ui-toggle-switch ${enabled ? "active" : ""} ${
             notification.disabled ? "opacity-50 cursor-not-allowed" : ""
           }`}
           onClick={notification.disabled ? undefined : onToggle}
           disabled={notification.disabled}
-          aria-label={`Toggle ${notification.title}`}
+          aria-label={t("toggleAriaLabel", { title })}
           aria-checked={enabled}
           role="switch"
         />

@@ -1,5 +1,6 @@
-import type { ExternalFunction, ExecutionContext } from "@jiki/interpreters";
+import type { ExecutionContext } from "@jiki/interpreters";
 import { IOExercise } from "../../IOExercise";
+import type { AvailableFunction } from "../../types";
 import metadata from "./metadata.json";
 
 const userArtistIds: Record<string, string[]> = {
@@ -56,12 +57,14 @@ function mockFetch(_ctx: ExecutionContext, url: any, _params: any): Record<strin
 }
 
 export default class SpotifyExercise extends IOExercise {
-  static slug = metadata.slug;
-  static availableFunctions: ExternalFunction[] = [
+  protected get slug() {
+    return metadata.slug;
+  }
+  availableFunctions: AvailableFunction[] = [
     {
       name: "fetch",
       func: mockFetch,
-      description: "fetched data from the provided URL",
+      descriptionKey: "describers.fetch",
       arity: 2
     }
   ];

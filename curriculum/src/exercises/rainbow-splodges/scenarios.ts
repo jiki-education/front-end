@@ -4,8 +4,8 @@ import type { RainbowSplodgesExercise } from "./Exercise";
 export const tasks = [
   {
     id: "draw-splodges" as const,
-    name: "Draw rainbow splodges",
-    description: "Draw 200 circles at random positions with random colors.",
+    name: "tasks.drawSplodges.name",
+    description: "tasks.drawSplodges.description",
     hints: [],
     requiredScenarios: ["rainbow-splodges"],
     bonus: false
@@ -15,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "rainbow-splodges",
-    name: "Rainbow splodges",
-    description: "Draw 200 randomly colored circles at random positions.",
+    name: "scenarios.rainbowSplodges.name",
+    description: "scenarios.rainbowSplodges.description",
     taskId: "draw-splodges",
     randomSeed: true,
     expectations(exercise) {
@@ -25,23 +25,27 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.checkUniqueColoredCircles(50),
-          errorHtml: "Expected at least 50 uniquely colored circles. Make sure each circle has a random color."
+          errorHtml: ex.t("checks.uniqueColoredCircles")
         },
         {
           pass: ex.checkUniquePositionedCircles(30),
-          errorHtml: "Expected at least 30 different positions. Make sure each circle has a random position."
+          errorHtml: ex.t("checks.uniquePositionedCircles")
         },
         {
           pass: ex.checkAllRadiiInRange(1, 30),
-          errorHtml: "All circle radii must be at least 1 and less than 30."
+          errorHtml: ex.t("checks.radiiRange")
+        },
+        {
+          pass: ex.checkAllCirclesInsideBox(),
+          errorHtml: ex.t("checks.insideBox")
         },
         {
           pass: ex.checkCirclesTouchEdges(),
-          errorHtml: "Some circles should touch the edges of the canvas. Make sure your positions cover the full range."
+          errorHtml: ex.t("checks.touchEdges")
         },
         {
-          pass: ex.checkSaturationAndLuminosityInRange(20, 80),
-          errorHtml: "Saturation and luminosity must both be between 20 and 80."
+          pass: ex.checkSaturationAndLightnessInRange(20, 80),
+          errorHtml: ex.t("checks.saturationLightnessRange")
         }
       ];
     }

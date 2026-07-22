@@ -22,7 +22,7 @@ export default function BlogPostContent({ post, relatedPosts, locale = "en" }: B
         <div className={styles.contentWrapper}>
           <div className={`${shared["lg-container"]} ${styles.contentWrapperInner}`}>
             <article className={styles.articleContent}>
-              <MarkdownContent content={post.content} />
+              <MarkdownContent content={post.content} className="blog-post-content" />
             </article>
             <aside className={styles.rightPanel}>
               <RelatedPosts posts={relatedPosts} locale={locale} />
@@ -33,7 +33,7 @@ export default function BlogPostContent({ post, relatedPosts, locale = "en" }: B
         <div className={styles.contentWrapperFull}>
           <div className={`${shared["lg-container"]} ${styles.contentWrapperFullInner}`}>
             <article className={styles.articleContent}>
-              <MarkdownContent content={post.content} />
+              <MarkdownContent content={post.content} className="blog-post-content" />
             </article>
           </div>
         </div>

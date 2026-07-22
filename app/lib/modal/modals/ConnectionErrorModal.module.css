@@ -136,7 +136,7 @@
 .dots {
     display: inline-block;
     width: 20px;
-    text-align: left;
+    text-align: start;
 }
 
 .dots::after {

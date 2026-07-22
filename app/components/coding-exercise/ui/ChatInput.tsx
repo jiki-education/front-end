@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import SendArrow from "@/icons/send-arrow.svg";
 import { useChatInput } from "../hooks/useChatInput";
 import { UserAvatarImg } from "./ChatAvatars";
@@ -11,12 +12,17 @@ interface ChatInputProps {
   placeholder?: string;
 }
 
-export default function ChatInput({
-  onSendMessage,
-  disabled = false,
-  placeholder = "Type your question here..."
-}: ChatInputProps) {
-  const { message, setMessage, handleSend, handleKeyDown } = useChatInput({ onSendMessage, disabled });
+export default function ChatInput({ onSendMessage, disabled = false, placeholder }: ChatInputProps) {
+  const t = useTranslations("codingExercise.chatInput");
+  const resolvedPlaceholder = placeholder ?? t("placeholder");
+  const { message, setMessage, handleSend, handleKeyDown, maxLength, charCount } = useChatInput({
+    onSendMessage,
+    disabled
+  });
+
+  // Surface the counter only as the user nears the limit, so it doesn't clutter
+  // the common case of short questions.
+  const showCharCount = charCount >= maxLength * 0.8;
 
   return (
     <div className={styles.chatInputContainer}>
@@ -32,9 +38,15 @@ export default function ChatInput({
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder={placeholder}
+            placeholder={resolvedPlaceholder}
             disabled={disabled}
+            maxLength={maxLength}
           />
+          {showCharCount && (
+            <span className={styles.chatInputCharCount}>
+              {charCount}/{maxLength}
+            </span>
+          )}
           <button type="button" className={styles.chatInputHint} onClick={handleSend} disabled={disabled}>
             <SendArrow />
           </button>

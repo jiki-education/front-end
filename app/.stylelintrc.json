@@ -1,0 +1,42 @@
+{
+  "rules": {
+    "property-disallowed-list": [
+      [
+        "margin-left",
+        "margin-right",
+        "padding-left",
+        "padding-right",
+        "left",
+        "right",
+        "border-left",
+        "border-left-width",
+        "border-left-style",
+        "border-left-color",
+        "border-right",
+        "border-right-width",
+        "border-right-style",
+        "border-right-color"
+      ],
+      {
+        "message": "Use the logical equivalent (margin/padding-inline-start|end, inset-inline-start|end, border-inline-start|end*) so it mirrors under dir=rtl. margin/padding shorthands are fine — the build plugin makes them logical."
+      }
+    ],
+    "declaration-property-value-disallowed-list": [
+      {
+        "text-align": ["left", "right"]
+      },
+      {
+        "message": "Use text-align: start|end so it mirrors under dir=rtl."
+      }
+    ]
+  },
+  "ignoreFiles": [
+    "node_modules/**",
+    ".next/**",
+    ".open-next/**",
+    "public/**",
+    "dist/**",
+    "lib/generated/**",
+    "**/*.tsx"
+  ]
+}

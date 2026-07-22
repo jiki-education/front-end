@@ -1,6 +1,10 @@
 import { createMockExercise } from "@/tests/mocks/exercise";
 import { createOrchestratorStore } from "@/components/coding-exercise/lib/orchestrator/store";
 import { createMockFrame } from "@/tests/mocks";
+import {
+  ERROR_HIGHLIGHT_COLOR,
+  INFO_HIGHLIGHT_COLOR
+} from "@/components/coding-exercise/ui/codemirror/extensions/lineHighlighter";
 
 // Mock localStorage functions
 jest.mock("@/components/coding-exercise/lib/localStorage", () => ({
@@ -49,6 +53,9 @@ describe("Store Frame Changes", () => {
       const newState = store.getState();
       expect(newState.currentFrame).toBe(testFrame);
       expect(newState.highlightedLine).toBe(5);
+      // Success frames use the default info line color and no underline.
+      expect(newState.highlightedLineColor).toBe(INFO_HIGHLIGHT_COLOR);
+      expect(newState.underlineRange).toBeUndefined();
       expect(newState.informationWidgetData).toEqual({
         html: "Test frame description",
         line: 5,
@@ -93,6 +100,10 @@ describe("Store Frame Changes", () => {
       state.setCurrentFrame(testFrame);
 
       const newState = store.getState();
+      // Runtime error frames highlight the line in red, but never underline a range
+      // (only syntax errors underline a specific location).
+      expect(newState.highlightedLineColor).toBe(ERROR_HIGHLIGHT_COLOR);
+      expect(newState.underlineRange).toBeUndefined();
       expect(newState.informationWidgetData).toEqual({
         html: "",
         line: 10,

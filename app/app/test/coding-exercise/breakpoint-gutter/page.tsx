@@ -41,7 +41,7 @@ export default function BreakpointGutterTestPage() {
     stubs: { javascript: TEST_CODE, python: TEST_CODE, jikiscript: TEST_CODE }
   });
   const orchestratorRef = useRef<Orchestrator>(
-    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" })
+    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" }, {}, {}, "", () => {})
   );
   const orchestrator = orchestratorRef.current;
 
@@ -141,7 +141,7 @@ export default function BreakpointGutterTestPage() {
                   <div
                     key={line}
                     data-testid={`breakpoint-line-${line}`}
-                    className="inline-block px-2 py-1 mr-2 bg-red-500 text-white rounded"
+                    className="inline-block px-2 py-1 me-2 bg-red-500 text-white rounded"
                   >
                     Line {line}
                   </div>

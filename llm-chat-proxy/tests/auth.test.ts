@@ -3,15 +3,17 @@ import { verifyJWT } from "../src/auth";
 import { SignJWT } from "jose";
 
 vi.mock("../src/gemini", () => ({
-  streamGeminiResponse: vi.fn(async (_prompt: string, _apiKey: string, onChunk?: (chunk: string) => void) => {
-    onChunk?.("mocked response");
-    return new ReadableStream({
-      start(controller) {
-        controller.enqueue(new TextEncoder().encode("mocked response"));
-        controller.close();
-      }
-    });
-  })
+  streamGeminiResponse: vi.fn(
+    async (_prompt: string, _apiKey: string, _systemInstruction: string, onChunk?: (chunk: string) => void) => {
+      onChunk?.("mocked response");
+      return new ReadableStream({
+        start(controller) {
+          controller.enqueue(new TextEncoder().encode("mocked response"));
+          controller.close();
+        }
+      });
+    }
+  )
 }));
 
 import app from "../src/index";
@@ -167,10 +169,18 @@ describe("Chat Endpoint Authentication", () => {
       .sign(secret);
   }
 
+  const usageStore = new Map<string, string>();
   const mockEnv = {
     DEVISE_JWT_SECRET_KEY: testSecret,
     GOOGLE_GEMINI_API_KEY: "test-gemini-key",
-    LLM_SIGNATURE_SECRET: "test-signature-secret"
+    LLM_SIGNATURE_SECRET: "test-signature-secret",
+    RATE_LIMITER: { limit: async () => ({ success: true }) },
+    USAGE_KV: {
+      get: async (key: string) => usageStore.get(key) ?? null,
+      put: async (key: string, value: string) => {
+        usageStore.set(key, value);
+      }
+    }
   };
 
   it("should accept valid JWT from Authorization header", async () => {

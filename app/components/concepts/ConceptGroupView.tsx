@@ -12,24 +12,27 @@ import type { ConceptMeta, ConceptAncestor } from "@/types/concepts";
 interface ConceptGroupViewProps {
   concept: ConceptMeta;
   ancestors: ConceptAncestor[];
+  initialSubconcepts?: ConceptMeta[];
 }
 
-export function ConceptGroupView({ concept, ancestors }: ConceptGroupViewProps) {
+export function ConceptGroupView({ concept, ancestors, initialSubconcepts }: ConceptGroupViewProps) {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   return (
-    <ConceptsLayout>
-      <Breadcrumb conceptTitle={concept.title} ancestors={ancestors} />
+    <>
+      <ConceptsLayout>
+        <Breadcrumb conceptTitle={concept.title} ancestors={ancestors} />
 
-      <header>
-        <h1 className={styles.pageHeading}>
-          <FolderIcon className={`${styles.headingIcon} w-8 h-8`} />
-          {concept.title}
-        </h1>
-      </header>
+        <header>
+          <h1 className={styles.pageHeading}>
+            <FolderIcon className={styles.headingIcon} />
+            {concept.title}
+          </h1>
+        </header>
 
-      <SubconceptsGrid parentSlug={concept.slug} />
+        <SubconceptsGrid parentSlug={concept.slug} initialSubconcepts={initialSubconcepts} />
+      </ConceptsLayout>
       {!isAuthenticated && <SignupCta />}
-    </ConceptsLayout>
+    </>
   );
 }

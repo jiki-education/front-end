@@ -3,20 +3,16 @@
   "levelId": "variables",
   "hints": [
     {
-      "question": "How do I work out the sun's x position?",
-      "answer": "Start from the right edge of the canvas and step inward by the gap and the radius: `sunX = canvasSize - gap - radius`."
+      "question": "hints.sunXPosition.question",
+      "answer": "hints.sunXPosition.answer"
     },
     {
-      "question": "How do I work out the sun's y position?",
-      "answer": "Start from the top edge and step down by the gap and the radius: `sunY = gap + radius`."
+      "question": "hints.sunYPosition.question",
+      "answer": "hints.sunYPosition.answer"
     },
     {
-      "question": "How do I draw the sky?",
-      "answer": "Draw a rectangle that covers the whole canvas, e.g. `rectangle(0, 0, canvasSize, canvasSize, skyColor)`."
-    },
-    {
-      "question": "What order should I draw things in?",
-      "answer": "Draw the sky first, then the sun on top. Later drawings cover earlier ones, so the sun needs to come last."
+      "question": "hints.whyNotHardcode.question",
+      "answer": "hints.whyNotHardcode.answer"
     }
   ]
 }

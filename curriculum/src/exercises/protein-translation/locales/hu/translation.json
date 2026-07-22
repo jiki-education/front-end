@@ -1,0 +1,90 @@
+{
+  "tasks": {
+    "basicTranslations": {
+      "name": "Basic Translations",
+      "description": "Translate single codons to their corresponding amino acids."
+    },
+    "multipleCodons": {
+      "name": "Multiple Codons",
+      "description": "Translate RNA sequences containing multiple codons."
+    },
+    "stopCodonBehavior": {
+      "name": "Stop Codon Behavior",
+      "description": "Handle STOP codons correctly - translation should stop when a STOP codon is encountered."
+    }
+  },
+  "scenarios": {
+    "emptyRnaSequence": {
+      "name": "Empty RNA sequence",
+      "description": "An empty RNA sequence should result in an empty protein list."
+    },
+    "methionineSequence": {
+      "name": "Methionine RNA sequence",
+      "description": "The RNA sequence 'AUG' should translate to 'Methionine'."
+    },
+    "phenylalanineSequence1": {
+      "name": "Phenylalanine RNA sequence 1",
+      "description": "The RNA sequence 'UUU' should translate to 'Phenylalanine'."
+    },
+    "phenylalanineSequence2": {
+      "name": "Phenylalanine RNA sequence 2",
+      "description": "The RNA sequence 'UUC' should translate to 'Phenylalanine'."
+    },
+    "leucineSequence1": {
+      "name": "Leucine RNA sequence 1",
+      "description": "The RNA sequence 'UUA' should translate to 'Leucine'."
+    },
+    "leucineSequence2": {
+      "name": "Leucine RNA sequence 2",
+      "description": "The RNA sequence 'UUG' should translate to 'Leucine'."
+    },
+    "sequenceTwoProteins": {
+      "name": "Sequence of two protein codons",
+      "description": "The RNA sequence 'UUUUUU' should translate to ['Phenylalanine', 'Phenylalanine']."
+    },
+    "sequenceDifferentCodons": {
+      "name": "Sequence of two different protein codons",
+      "description": "The RNA sequence 'UUAUUG' should translate to ['Leucine', 'Leucine']."
+    },
+    "sequenceThreeProteins": {
+      "name": "Sequence of three proteins",
+      "description": "The RNA sequence 'AUGUUUUGG' should translate to ['Methionine', 'Phenylalanine', 'Tryptophan']."
+    },
+    "stopCodonAtStart": {
+      "name": "Stop codon at start",
+      "description": "Translation should stop if a stop codon is at the beginning of the sequence."
+    },
+    "stopCodonAtEnd": {
+      "name": "Stop codon at end",
+      "description": "Translation should stop if a stop codon is at the end of the sequence."
+    },
+    "stopCodonInMiddle": {
+      "name": "Stop codon in middle",
+      "description": "Translation should stop if a stop codon is in the middle of the sequence."
+    }
+  },
+  "hints": {
+    "breakDown": {
+      "question": "How do I break this down?",
+      "answer": "Two independent steps. First, split the RNA string into codons (groups of 3 characters). Second, translate each codon into the matching amino acid. Solving them separately is much easier than mixing them."
+    },
+    "lookup": {
+      "question": "How should I do the codon to amino acid lookup?",
+      "answer": "A dictionary mapping each codon (e.g. `\"AUG\"`) to its amino acid (e.g. `\"Methionine\"`) is the right shape for this. STOP codons map to `\"STOP\"`."
+    },
+    "splitChunks": {
+      "question": "How do I split the string into chunks of 3?",
+      "answer": "Walk through with a position counter that goes up by 3 each time. At each step, take the substring of length 3 starting at your position. That's the current codon."
+    },
+    "stopCodon": {
+      "question": "What do I do when I hit a STOP codon?",
+      "answer": "Stop translating completely. Use `break` to exit the loop. Don't add STOP to your protein list."
+    }
+  },
+  "functions": {
+    "push": {
+      "description": "Returns a new list with the element added to the end (provided by level stdlib)",
+      "category": "List Operations"
+    }
+  }
+}

@@ -4,42 +4,40 @@ import type LookAroundExercise from "./Exercise";
 export const tasks = [
   {
     id: "straight-path" as const,
-    name: "A straight path",
-    description: "Implement canMove() so the character can move forward to the end of the maze.",
+    name: "tasks.straightPath.name",
+    description: "tasks.straightPath.description",
     hints: [],
     requiredScenarios: ["maze-1"],
     bonus: false
   },
   {
     id: "turn-left" as const,
-    name: "Turn left if you can",
-    description: "Implement canTurnLeft() so the character turns left when there's a path.",
+    name: "tasks.turnLeft.name",
+    description: "tasks.turnLeft.description",
     hints: [],
     requiredScenarios: ["left-turn"],
     bonus: false
   },
   {
     id: "turn-right" as const,
-    name: "Turn right if you can't move straight or left",
-    description: "Implement canTurnRight() so the character turns right when it can't go left or straight.",
+    name: "tasks.turnRight.name",
+    description: "tasks.turnRight.description",
     hints: [],
     requiredScenarios: ["right-turn", "forks"],
     bonus: false
   },
   {
     id: "turn-around" as const,
-    name: "Turn around if needed",
-    description:
-      "Handle dead ends by turning around. All three sensing functions should now work together to solve any maze.",
+    name: "tasks.turnAround.name",
+    description: "tasks.turnAround.description",
     hints: [],
     requiredScenarios: ["turn-around", "forks-2", "cover-old-ground"],
     bonus: false
   },
   {
     id: "bonus-challenges" as const,
-    name: "Bonus challenges",
-    description:
-      "Can you only use the look() function once in the whole program? And can you solve it by only adding 13 lines of code?",
+    name: "tasks.bonusChallenges.name",
+    description: "tasks.bonusChallenges.description",
     hints: [],
     requiredScenarios: ["bonus-1", "bonus-2"],
     bonus: true
@@ -49,8 +47,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "maze-1",
-    name: "Guide person to the end of the maze",
-    description: "A straight path down",
+    name: "scenarios.maze1.name",
+    description: "scenarios.maze1.description",
     taskId: "straight-path",
 
     setup(exercise) {
@@ -76,15 +74,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 6 && ex.characterCol === 4,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         }
       ];
     }
   },
   {
     slug: "left-turn",
-    name: "A single left turn",
-    description: "Navigate a left turn",
+    name: "scenarios.leftTurn.name",
+    description: "scenarios.leftTurn.description",
     taskId: "turn-left",
 
     setup(exercise) {
@@ -112,19 +110,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 5 && ex.characterCol === 8,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         },
         {
           pass: ex.direction === "right",
-          errorHtml: "You seem to have done an extra unnecessary turn at the end."
+          errorHtml: ex.t("checks.extraTurn")
         }
       ];
     }
   },
   {
     slug: "right-turn",
-    name: "A single right turn",
-    description: "Navigate a right turn",
+    name: "scenarios.rightTurn.name",
+    description: "scenarios.rightTurn.description",
     taskId: "turn-right",
 
     setup(exercise) {
@@ -152,15 +150,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 5 && ex.characterCol === 0,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         }
       ];
     }
   },
   {
     slug: "forks",
-    name: "Choose left if you can, otherwise choose right",
-    description: "A maze with forks that tests left-priority",
+    name: "scenarios.forks.name",
+    description: "scenarios.forks.description",
     taskId: "turn-right",
 
     setup(exercise) {
@@ -188,15 +186,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 2 && ex.characterCol === 8,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         }
       ];
     }
   },
   {
     slug: "turn-around",
-    name: "Turn around at a dead end",
-    description: "A maze that requires turning around",
+    name: "scenarios.turnAround.name",
+    description: "scenarios.turnAround.description",
     taskId: "turn-around",
 
     setup(exercise) {
@@ -224,15 +222,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 7 && ex.characterCol === 0,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         }
       ];
     }
   },
   {
     slug: "forks-2",
-    name: "Complex maze with forks and dead ends",
-    description: "A complex maze testing the full algorithm",
+    name: "scenarios.forks2.name",
+    description: "scenarios.forks2.description",
     taskId: "turn-around",
 
     setup(exercise) {
@@ -260,34 +258,38 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 8 && ex.characterCol === 4,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         }
       ];
     },
 
+    // codeChecks[].pass runs against InterpretResult/Language only (see CodeCheck in
+    // ../types) — no exercise/translator instance is reachable from this scope, so these
+    // checks resolve their error message via errorKey against the exercise's catalog
+    // (locales/en/translation.json) later, rather than calling `t` directly.
     codeChecks: [
       {
         pass: (result) => result.assertors.assertFunctionDefined("can_turn_left"),
-        errorHtml: "You should define a <code>canTurnLeft</code> function."
+        errorKey: "checks.canTurnLeftMissing"
       },
       {
         pass: (result) => result.assertors.assertFunctionDefined("can_turn_right"),
-        errorHtml: "You should define a <code>canTurnRight</code> function."
+        errorKey: "checks.canTurnRightMissing"
       },
       {
         pass: (result) => result.assertors.assertFunctionDefined("can_move"),
-        errorHtml: "You should define a <code>canMove</code> function."
+        errorKey: "checks.canMoveMissing"
       },
       {
         pass: (result) => result.assertors.assertFunctionDefined("turn_around"),
-        errorHtml: "You should define a <code>turnAround</code> function."
+        errorKey: "checks.turnAroundMissing"
       }
     ]
   },
   {
     slug: "cover-old-ground",
-    name: "Cover old ground if you need to",
-    description: "A maze where you must backtrack to find the exit",
+    name: "scenarios.coverOldGround.name",
+    description: "scenarios.coverOldGround.description",
     taskId: "turn-around",
 
     setup(exercise) {
@@ -315,15 +317,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 0 && ex.characterCol === 0,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         }
       ];
     }
   },
   {
     slug: "bonus-1",
-    name: "Only write look() once",
-    description: "Solve the maze with look() appearing only once in your code",
+    name: "scenarios.bonus1.name",
+    description: "scenarios.bonus1.description",
     taskId: "bonus-challenges",
 
     setup(exercise) {
@@ -351,15 +353,24 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 4 && ex.characterCol === 5,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         }
       ];
-    }
+    },
+
+    // See the codeChecks note on the "forks-2" scenario above: no translator instance
+    // is reachable here, so this check resolves its message via errorKey.
+    codeChecks: [
+      {
+        pass: (result) => result.assertors.numFunctionCallsInCode("look") === 1,
+        errorKey: "checks.lookOnlyOnce"
+      }
+    ]
   },
   {
     slug: "bonus-2",
-    name: "Add only 13 lines",
-    description: "Solve the maze by adding only 13 lines of code",
+    name: "scenarios.bonus2.name",
+    description: "scenarios.bonus2.description",
     taskId: "bonus-challenges",
 
     setup(exercise) {
@@ -387,9 +398,20 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 0 && ex.characterCol === 0,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         }
       ];
-    }
+    },
+
+    // See the codeChecks note on the "forks-2" scenario above: no translator instance
+    // is reachable here, so this check resolves its message via errorKey.
+    codeChecks: [
+      {
+        // The carried-forward program from maze-turn-around is ~18 lines of code,
+        // so adding 13 gives a maximum of 31.
+        pass: (result) => result.assertors.assertMaxLinesOfCode(31),
+        errorKey: "checks.maxExtraLines"
+      }
+    ]
   }
 ];

@@ -1,10 +1,14 @@
 "use client";
 
 import { useAuthStore } from "@/lib/auth/authStore";
-import { showPremiumUpgradeModal } from "@/lib/modal";
+import { showPremiumUpgradeModal } from "@/lib/modal/app";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
+import { useTranslations } from "next-intl";
 import styles from "./PremiumPage.module.css";
 
 export default function CtaSection() {
+  const t = useTranslations("premium.cta");
+  const routes = useLocaleRoutes();
   const user = useAuthStore((state) => state.user);
   const isPremium = user?.membership_type === "premium";
 
@@ -12,8 +16,8 @@ export default function CtaSection() {
     return (
       <div className={styles["cta-wrapper"]}>
         <div className={styles["cta-banner"]}>
-          <h2 className={styles["cta-title"]}>You&apos;re already a Premium member</h2>
-          <p className={styles["cta-desc"]}>Thanks for supporting Jiki — enjoy full access to everything!</p>
+          <h2 className={styles["cta-title"]}>{t("alreadyPremiumTitle")}</h2>
+          <p className={styles["cta-desc"]}>{t("alreadyPremiumDesc")}</p>
         </div>
       </div>
     );
@@ -23,13 +27,13 @@ export default function CtaSection() {
     return (
       <div className={styles["cta-wrapper"]}>
         <div className={styles["cta-banner"]}>
-          <h2 className={styles["cta-title"]}>Ready to accelerate your learning?</h2>
-          <p className={styles["cta-desc"]}>Upgrade to Premium and unlock everything Jiki has to offer.</p>
+          <h2 className={styles["cta-title"]}>{t("upgradeTitle")}</h2>
+          <p className={styles["cta-desc"]}>{t("upgradeDesc")}</p>
           <button
-            className="ui-btn ui-btn-large ui-btn-white w-[260px] font-semibold"
+            className={`ui-btn ui-btn-large ui-btn-white ${styles.upgradeButton}`}
             onClick={() => showPremiumUpgradeModal("upgrade_cta_premium_page")}
           >
-            Upgrade to Premium
+            {t("upgradeButton")}
           </button>
         </div>
       </div>
@@ -39,16 +43,13 @@ export default function CtaSection() {
   return (
     <div className={styles["cta-wrapper"]}>
       <div className={styles["cta-banner"]}>
-        <h2 className={styles["cta-title"]}>Get started for free</h2>
-        <p className={styles["cta-desc"]}>
-          Get started today for free and access hundreds of hours of free content. Upgrade to Premium when you want to
-          go even deeper.
-        </p>
+        <h2 className={styles["cta-title"]}>{t("freeTitle")}</h2>
+        <p className={styles["cta-desc"]}>{t("freeDesc")}</p>
         <button
-          className="ui-btn ui-btn-large ui-btn-white w-[260px] font-semibold"
-          onClick={() => (window.location.href = "/auth/signup")}
+          className={`ui-btn ui-btn-large ui-btn-white ${styles.upgradeButton}`}
+          onClick={() => (window.location.href = routes.authSignup())}
         >
-          Sign up for free
+          {t("freeButton")}
         </button>
       </div>
     </div>

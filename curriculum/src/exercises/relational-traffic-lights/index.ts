@@ -7,16 +7,16 @@ const functions: FunctionInfo[] = [
   {
     name: "rectangle",
     signature: "rectangle(left, top, width, height, color)",
-    description: "Draw a rectangle at position (left, top) with the given width, height, and color",
+    description: "functions.rectangle.description",
     examples: ['rectangle(30, 10, 40, 80, "charcoal")'],
-    category: "Drawing Shapes"
+    category: "functions.rectangle.category"
   },
   {
     name: "circle",
-    signature: "circle(cx, cy, radius, color)",
-    description: "Draw a circle centered at (cx, cy) with the given radius and color",
+    signature: "circle(centerX, centerY, radius, color)",
+    description: "functions.circle.description",
     examples: ['circle(50, 30, 10, "red")'],
-    category: "Drawing Shapes"
+    category: "functions.circle.category"
   }
 ];
 
@@ -27,6 +27,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
+  conceptSlugs: ["variables", "arithmetic", "using-functions-with-inputs"],
   readonlyRanges: {
     javascript: [
       { fromLine: 1, toLine: 5 },

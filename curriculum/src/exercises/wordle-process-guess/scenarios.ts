@@ -4,9 +4,8 @@ import type ProcessGuessExercise from "./Exercise";
 export const tasks = [
   {
     id: "process-guess" as const,
-    name: "Process a single guess",
-    description:
-      "Create a function called processGuess that takes a target word and a guess, works out the state of each letter (correct, present, or absent), then calls colorRow(1, states) with the results.",
+    name: "tasks.processGuess.name",
+    description: "tasks.processGuess.description",
     hints: [],
     requiredScenarios: ["all-correct", "absent", "present", "complex", "different-word"],
     bonus: false
@@ -16,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "all-correct",
-    name: "All correct",
-    description: "Deal with a fully correct guess",
+    name: "scenarios.allCorrect.name",
+    description: "scenarios.allCorrect.description",
     taskId: "process-guess",
     functionCall: { name: "process_guess", args: ["hello", "hello"] },
     setup(exercise) {
@@ -30,15 +29,15 @@ export const scenarios: VisualScenario[] = [
           pass:
             JSON.stringify(ex.statesForRow(0)) ===
             JSON.stringify(["correct", "correct", "correct", "correct", "correct"]),
-          errorHtml: "We expected all the letters to be green"
+          errorHtml: exercise.t("checks.allCorrect")
         }
       ];
     }
   },
   {
     slug: "absent",
-    name: "Some absent",
-    description: "Handle when some letters are wrong",
+    name: "scenarios.absent.name",
+    description: "scenarios.absent.description",
     taskId: "process-guess",
     functionCall: { name: "process_guess", args: ["hello", "hallu"] },
     setup(exercise) {
@@ -51,15 +50,15 @@ export const scenarios: VisualScenario[] = [
           pass:
             JSON.stringify(ex.statesForRow(0)) ===
             JSON.stringify(["correct", "absent", "correct", "correct", "absent"]),
-          errorHtml: "We expected the 'a' and 'u' to be absent"
+          errorHtml: exercise.t("checks.absent")
         }
       ];
     }
   },
   {
     slug: "present",
-    name: "Some present",
-    description: "Deal with letters in the wrong place",
+    name: "scenarios.present.name",
+    description: "scenarios.present.description",
     taskId: "process-guess",
     functionCall: { name: "process_guess", args: ["hello", "hlelo"] },
     setup(exercise) {
@@ -72,15 +71,15 @@ export const scenarios: VisualScenario[] = [
           pass:
             JSON.stringify(ex.statesForRow(0)) ===
             JSON.stringify(["correct", "present", "present", "correct", "correct"]),
-          errorHtml: "We expected the 'l' and 'e' to be present."
+          errorHtml: exercise.t("checks.present")
         }
       ];
     }
   },
   {
     slug: "complex",
-    name: "Complex",
-    description: "Deal with a more complex scenario",
+    name: "scenarios.complex.name",
+    description: "scenarios.complex.description",
     taskId: "process-guess",
     functionCall: { name: "process_guess", args: ["hello", "ehola"] },
     setup(exercise) {
@@ -93,15 +92,15 @@ export const scenarios: VisualScenario[] = [
           pass:
             JSON.stringify(ex.statesForRow(0)) ===
             JSON.stringify(["present", "present", "present", "correct", "absent"]),
-          errorHtml: "We expected present, present, present, correct, absent"
+          errorHtml: exercise.t("checks.complex")
         }
       ];
     }
   },
   {
     slug: "different-word",
-    name: "A different word",
-    description: "And finally a different word!",
+    name: "scenarios.differentWord.name",
+    description: "scenarios.differentWord.description",
     taskId: "process-guess",
     functionCall: { name: "process_guess", args: ["break", "beaks"] },
     setup(exercise) {
@@ -114,7 +113,7 @@ export const scenarios: VisualScenario[] = [
           pass:
             JSON.stringify(ex.statesForRow(0)) ===
             JSON.stringify(["correct", "present", "present", "present", "absent"]),
-          errorHtml: "We expected correct, present, present, present, absent"
+          errorHtml: exercise.t("checks.differentWord")
         }
       ];
     }

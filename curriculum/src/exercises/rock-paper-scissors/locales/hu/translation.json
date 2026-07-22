@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "noResult": "You didn't announce a result!",
+    "paperVsPaperResult": "Paper vs Paper should be a tie but it was \"{{got}}\".",
+    "paperVsRockResult": "Paper vs Rock should be a win for Yuki but it was \"{{got}}\".",
+    "paperVsScissorsResult": "Paper vs Scissors should be a win for Ando but it was \"{{got}}\".",
+    "rockVsPaperResult": "Rock vs Paper should be a win for Ando but it was \"{{got}}\".",
+    "rockVsRockResult": "Rock vs Rock should be a tie but it was \"{{got}}\".",
+    "rockVsScissorsResult": "Rock vs Scissors should be a win for Yuki but it was \"{{got}}\".",
+    "scissorsVsPaperResult": "Scissors vs Paper should be a win for Yuki but it was \"{{got}}\".",
+    "scissorsVsRockResult": "Scissors vs Rock should be a win for Ando but it was \"{{got}}\".",
+    "scissorsVsScissorsResult": "Scissors vs Scissors should be a tie but it was \"{{got}}\"."
+  },
+  "tasks": {
+    "determineWinner": {
+      "name": "Determine the winner",
+      "description": "Get both players' choices and announce the correct result: \"Yuki\", \"Ando\", or \"tie\"."
+    }
+  },
+  "scenarios": {
+    "paperVsPaper": {
+      "name": "Paper vs Paper",
+      "description": "It's a draw. Announce it correctly!"
+    },
+    "paperVsRock": {
+      "name": "Paper vs Rock",
+      "description": "Yuki's paper beats Ando's rock. Announce Yuki as the winner!"
+    },
+    "paperVsScissors": {
+      "name": "Paper vs Scissors",
+      "description": "Ando's scissors beat Yuki's paper. Announce Ando as the winner."
+    },
+    "rockVsPaper": {
+      "name": "Rock vs Paper",
+      "description": "Ando's paper beats Yuki's rock. Announce Ando as the winner."
+    },
+    "rockVsRock": {
+      "name": "Rock vs Rock",
+      "description": "It's a draw. Announce it correctly!"
+    },
+    "rockVsScissors": {
+      "name": "Rock vs Scissors",
+      "description": "Yuki's rock beats Ando's scissors. Announce Yuki as the winner."
+    },
+    "scissorsVsPaper": {
+      "name": "Scissors vs Paper",
+      "description": "Yuki's scissors beat Ando's paper. Announce Yuki as the winner."
+    },
+    "scissorsVsRock": {
+      "name": "Scissors vs Rock",
+      "description": "Ando's rock beats Yuki's scissors. Announce Ando as the winner."
+    },
+    "scissorsVsScissors": {
+      "name": "Scissors vs Scissors",
+      "description": "It's a draw. Announce it correctly!"
+    }
+  },
+  "hints": {
+    "howToStart": {
+      "question": "How do I start?",
+      "answer": "Get Yuki's and Ando's choices using the provided functions and store them in variables so you can compare them."
+    },
+    "simplestCase": {
+      "question": "What's the simplest case to handle first?",
+      "answer": "A tie. If both choices are equal, you can announce a tie straight away and skip the rest."
+    },
+    "checkCombination": {
+      "question": "How do I check a specific winning combination?",
+      "answer": "Use `&&` (and) to combine two conditions that must both be true, e.g. \"Yuki chose rock AND Ando chose scissors\" means Yuki wins."
+    },
+    "shorterWay": {
+      "question": "I'm ending up with loads of `if` statements. Is there a shorter way?",
+      "answer": "Default the result to one player winning, then only check the three combinations where the other player wins. That cuts the cases roughly in half."
+    },
+    "invalidChoice": {
+      "question": "What if a player enters something other than rock, paper or scissors?",
+      "answer": "You don't need to worry about that here. The provided functions only ever return one of the three valid choices."
+    }
+  },
+  "functions": {
+    "getYukiChoice": {
+      "description": "Returns Yuki's choice — one of `\"rock\"`, `\"paper\"`, or `\"scissors\"`.",
+      "category": "Game"
+    },
+    "getAndoChoice": {
+      "description": "Returns Ando's choice — one of `\"rock\"`, `\"paper\"`, or `\"scissors\"`.",
+      "category": "Game"
+    },
+    "announceResult": {
+      "description": "Announces the result of the game. Pass `\"Yuki\"`, `\"Ando\"`, or `\"tie\"`.",
+      "category": "Game"
+    }
+  }
+}

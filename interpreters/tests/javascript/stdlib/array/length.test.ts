@@ -55,9 +55,7 @@ describe("Array length property", () => {
     expect(result.error).toBe(null);
     const errorFrame = result.frames.find(f => f.status === "ERROR");
     expect(errorFrame).toBeDefined();
-    expect(errorFrame?.error?.message).toBe(
-      "TypeError: message: Cannot use computed property access for stdlib members"
-    );
+    expect(errorFrame?.error?.message).toBe("ComputedAccessNotAllowedForStdlib");
   });
 
   test("gives runtime error for unknown property", () => {
@@ -72,7 +70,7 @@ describe("Array length property", () => {
     expect(lastFrame.error).toEqual(
       expect.objectContaining({
         type: "PropertyNotFound",
-        context: { property: "foo" },
+        context: { property: "foo", type: "arrays" },
       })
     );
   });

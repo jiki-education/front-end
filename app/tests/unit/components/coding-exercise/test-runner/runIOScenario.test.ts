@@ -1,5 +1,5 @@
 import { runIOScenario } from "@/components/coding-exercise/lib/test-runner/runIOScenario";
-import type { IOScenario, CodeCheck } from "@jiki/curriculum";
+import type { IOExercise, IOScenario, CodeCheck } from "@jiki/curriculum";
 import type { Interpreter } from "@/components/coding-exercise/lib/test-runner/getInterpreter";
 
 function createMockInterpreter(overrides?: Partial<Interpreter>): Interpreter {
@@ -12,8 +12,20 @@ function createMockInterpreter(overrides?: Partial<Interpreter>): Interpreter {
   };
 }
 
+// Minimal IO exercise double: runIOScenario instantiates it, calls setMessages,
+// then getExternalFunctions to obtain the external functions for the run.
+const mockAvailableFunctions: Array<{ name: string; func: any; description: string }> = [];
+
+class MockIOExercise {
+  availableFunctions = mockAvailableFunctions;
+  setMessages(): void {}
+  getExternalFunctions(): Array<{ name: string; func: any; description: string }> {
+    return mockAvailableFunctions;
+  }
+}
+const MockExerciseClass = MockIOExercise as unknown as new () => IOExercise;
+
 describe("runIOScenario", () => {
-  const mockAvailableFunctions: Array<{ name: string; func: any; description: string }> = [];
   let mockInterpreter: Interpreter;
 
   beforeEach(() => {
@@ -44,9 +56,12 @@ describe("runIOScenario", () => {
       const result = runIOScenario(
         scenario,
         "function acronym() { return 'HW'; }",
-        mockAvailableFunctions,
+        MockExerciseClass,
         "jikiscript",
-        mockInterpreter
+        mockInterpreter,
+        undefined,
+        {},
+        {}
       );
 
       expect(result.status).toBe("pass");
@@ -77,9 +92,12 @@ describe("runIOScenario", () => {
       const result = runIOScenario(
         scenario,
         "function acronym() { return 'WRONG'; }",
-        mockAvailableFunctions,
+        MockExerciseClass,
         "jikiscript",
-        mockInterpreter
+        mockInterpreter,
+        undefined,
+        {},
+        {}
       );
 
       expect(result.status).toBe("fail");
@@ -106,7 +124,7 @@ describe("runIOScenario", () => {
 
       const passingCodeCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(true),
-        errorHtml: "This should not appear"
+        errorKey: "This should not appear"
       };
 
       const scenario: IOScenario = {
@@ -123,9 +141,12 @@ describe("runIOScenario", () => {
       const result = runIOScenario(
         scenario,
         "function acronym() { return 'HW'; }",
-        mockAvailableFunctions,
+        MockExerciseClass,
         "jikiscript",
-        mockInterpreter
+        mockInterpreter,
+        undefined,
+        {},
+        {}
       );
 
       expect(result.status).toBe("pass");
@@ -151,7 +172,7 @@ describe("runIOScenario", () => {
 
       const failingCodeCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(false),
-        errorHtml: "Your solution has more than 22 lines of code."
+        errorKey: "Your solution has more than 22 lines of code."
       };
 
       const scenario: IOScenario = {
@@ -168,9 +189,12 @@ describe("runIOScenario", () => {
       const result = runIOScenario(
         scenario,
         "verbose code here",
-        mockAvailableFunctions,
+        MockExerciseClass,
         "jikiscript",
-        mockInterpreter
+        mockInterpreter,
+        undefined,
+        {},
+        {}
       );
 
       expect(result.status).toBe("fail");
@@ -191,7 +215,7 @@ describe("runIOScenario", () => {
 
       const failingCodeCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(false),
-        errorHtml: "Code check error - should not see this"
+        errorKey: "Code check error - should not see this"
       };
 
       const scenario: IOScenario = {
@@ -205,7 +229,16 @@ describe("runIOScenario", () => {
         codeChecks: [failingCodeCheck]
       };
 
-      const result = runIOScenario(scenario, "bad code", mockAvailableFunctions, "jikiscript", mockInterpreter);
+      const result = runIOScenario(
+        scenario,
+        "bad code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
       expect(result.expects[0].pass).toBe(false);
@@ -224,17 +257,17 @@ describe("runIOScenario", () => {
 
       const passingCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(true),
-        errorHtml: "Passing check error"
+        errorKey: "Passing check error"
       };
 
       const firstFailingCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(false),
-        errorHtml: "First failing check error"
+        errorKey: "First failing check error"
       };
 
       const secondFailingCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(false),
-        errorHtml: "Second failing check error"
+        errorKey: "Second failing check error"
       };
 
       const scenario: IOScenario = {
@@ -248,7 +281,16 @@ describe("runIOScenario", () => {
         codeChecks: [passingCheck, firstFailingCheck, secondFailingCheck]
       };
 
-      const result = runIOScenario(scenario, "code", mockAvailableFunctions, "jikiscript", mockInterpreter);
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
       expect(result.expects[0].errorHtml).toBe("First failing check error");
@@ -271,7 +313,7 @@ describe("runIOScenario", () => {
         pass: jest.fn().mockImplementation(() => {
           throw new Error("Check crashed!");
         }),
-        errorHtml: "Normal error message"
+        errorKey: "Normal error message"
       };
 
       const scenario: IOScenario = {
@@ -285,7 +327,16 @@ describe("runIOScenario", () => {
         codeChecks: [throwingCheck]
       };
 
-      const result = runIOScenario(scenario, "code", mockAvailableFunctions, "jikiscript", mockInterpreter);
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
       expect(result.expects[0].pass).toBe(false);
@@ -299,7 +350,7 @@ describe("runIOScenario", () => {
 
       const codeCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(true),
-        errorHtml: "Should not run"
+        errorKey: "Should not run"
       };
 
       const scenario: IOScenario = {
@@ -313,7 +364,16 @@ describe("runIOScenario", () => {
         codeChecks: [codeCheck]
       };
 
-      const result = runIOScenario(scenario, "bad syntax", mockAvailableFunctions, "jikiscript", mockInterpreter);
+      const result = runIOScenario(
+        scenario,
+        "bad syntax",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
       expect(result.expects[0].errorHtml).toContain("Interpreter crashed!");
@@ -345,7 +405,16 @@ describe("runIOScenario", () => {
         expected: "HW"
       };
 
-      const result = runIOScenario(scenario, "code", mockAvailableFunctions, "jikiscript", mockInterpreter);
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
       expect(result.expects[0].actual).toBe("HW"); // Functional result is correct
@@ -375,7 +444,16 @@ describe("runIOScenario", () => {
         expected: "HW"
       };
 
-      const result = runIOScenario(scenario, "code", mockAvailableFunctions, "jikiscript", mockInterpreter);
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("pass");
     });
@@ -391,7 +469,7 @@ describe("runIOScenario", () => {
 
       const passingCodeCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(true),
-        errorHtml: "Should not appear"
+        errorKey: "Should not appear"
       };
 
       const scenario: IOScenario = {
@@ -405,9 +483,80 @@ describe("runIOScenario", () => {
         codeChecks: [passingCodeCheck]
       };
 
-      const result = runIOScenario(scenario, "code", mockAvailableFunctions, "jikiscript", mockInterpreter);
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
+    });
+  });
+
+  describe("codeRun display formatting", () => {
+    const scenario: IOScenario = {
+      slug: "format-test",
+      name: "Format Test",
+      description: "Test codeRun formatting",
+      taskId: "task-1",
+      functionName: "is_leap_year",
+      args: [2015],
+      expected: false
+    };
+
+    it("should format the function name for display using the interpreter's identifier convention", () => {
+      // Mimic the JavaScript interpreter, which camelCases identifiers
+      const camelCasingInterpreter = createMockInterpreter({
+        formatIdentifier: (name: string) => name.replace(/_([a-z])/g, (_, c: string) => c.toUpperCase())
+      });
+      (camelCasingInterpreter.evaluateFunction as jest.Mock).mockReturnValue({
+        value: false,
+        error: null,
+        frames: [],
+        logLines: [],
+        meta: { sourceCode: "code" }
+      });
+
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "javascript",
+        camelCasingInterpreter,
+        undefined,
+        {},
+        {}
+      );
+
+      expect(result.expects[0].codeRun).toBe("isLeapYear(2015)");
+    });
+
+    it("should keep snake_case in codeRun when the interpreter does not convert identifiers", () => {
+      (mockInterpreter.evaluateFunction as jest.Mock).mockReturnValue({
+        value: false,
+        error: null,
+        frames: [],
+        logLines: [],
+        meta: { sourceCode: "code" }
+      });
+
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
+
+      expect(result.expects[0].codeRun).toBe("is_leap_year(2015)");
     });
   });
 
@@ -432,7 +581,16 @@ describe("runIOScenario", () => {
         // No codeChecks property
       };
 
-      const result = runIOScenario(scenario, "code", mockAvailableFunctions, "jikiscript", mockInterpreter);
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("pass");
       expect(result.expects[0].pass).toBe(true);
@@ -461,7 +619,16 @@ describe("runIOScenario", () => {
         codeChecks: []
       };
 
-      const result = runIOScenario(scenario, "code", mockAvailableFunctions, "jikiscript", mockInterpreter);
+      const result = runIOScenario(
+        scenario,
+        "code",
+        MockExerciseClass,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("pass");
       expect(result.expects[0].pass).toBe(true);

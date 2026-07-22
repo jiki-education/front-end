@@ -4,6 +4,8 @@ import { LessonQuitButton } from "@/components/lesson/LessonQuitButton";
 import type { Lesson, VideoSource } from "@/types/lesson";
 import MuxPlayer from "@/components/ui/JikiMuxPlayer";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
+import LockIcon from "@/icons/lock.svg";
 import { FloatingPill } from "./ui/FloatingPill";
 import { NoVideoPlaceholder } from "./ui/NoVideoPlaceholder";
 import { useVideoExercise } from "./lib/useVideoExercise";
@@ -12,6 +14,7 @@ import styles from "./VideoExercise.module.css";
 type VideoLesson = Lesson & { type: "video"; data: { sources: VideoSource[] } };
 
 export default function VideoExercise({ lessonData, onReady }: { lessonData: VideoLesson; onReady: () => void }) {
+  const t = useTranslations("videoExercise");
   const videoSource = lessonData.data.sources[0] as VideoSource | undefined;
   const playbackId = videoSource?.id ?? "";
 
@@ -24,9 +27,11 @@ export default function VideoExercise({ lessonData, onReady }: { lessonData: Vid
     isInitializing,
     showCheckmark,
     isAlreadyCompleted,
+    showSkipHint,
     handleVideoEnd,
     handleVideoPlay,
     handleTimeUpdate,
+    handleSeeking,
     autoplay,
     handleContinue
   } = useVideoExercise(lessonData.slug);
@@ -53,11 +58,21 @@ export default function VideoExercise({ lessonData, onReady }: { lessonData: Vid
               onPlay={handleVideoPlay}
               onEnded={handleVideoEnd}
               onTimeUpdate={handleTimeUpdate}
+              onSeeking={handleSeeking}
               onCanPlay={autoplay}
             />
           ) : (
             <NoVideoPlaceholder videoSource={videoSource} />
           )}
+
+          <div
+            className={`${styles.skipHint} ${showSkipHint ? styles.skipHintVisible : ""}`}
+            role="status"
+            aria-live="polite"
+          >
+            <LockIcon className={styles.skipHintIcon} aria-hidden="true" />
+            <span>{t("skipHint")}</span>
+          </div>
         </div>
       </div>
 

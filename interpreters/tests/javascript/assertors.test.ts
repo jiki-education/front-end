@@ -370,4 +370,113 @@ rectangle(30, 40);`;
       expect(result.assertors.numFunctionCallsInCode("rectangle")).toBe(0);
     });
   });
+
+  describe("assertOperatorUsed", () => {
+    test("returns true when && is used", () => {
+      const result = interpret("let x = true && false;");
+      expect(result.assertors.assertOperatorUsed("&&")).toBe(true);
+    });
+
+    test("returns false when && is not used", () => {
+      const result = interpret("let x = true || false;");
+      expect(result.assertors.assertOperatorUsed("&&")).toBe(false);
+    });
+
+    test("returns true when || is used", () => {
+      const result = interpret("let x = true || false;");
+      expect(result.assertors.assertOperatorUsed("||")).toBe(true);
+    });
+
+    test("returns false when || is not used", () => {
+      const result = interpret("let x = true && false;");
+      expect(result.assertors.assertOperatorUsed("||")).toBe(false);
+    });
+
+    test("detects operators nested inside if conditions", () => {
+      const code = `if (true && false) {
+  let x = 1;
+}`;
+      const result = interpret(code);
+      expect(result.assertors.assertOperatorUsed("&&")).toBe(true);
+    });
+
+    test("detects operators inside function bodies", () => {
+      const code = `function check(a, b) {
+  return a || b;
+}`;
+      const result = interpret(code);
+      expect(result.assertors.assertOperatorUsed("||")).toBe(true);
+    });
+
+    test("returns false when no operators are used", () => {
+      const result = interpret("let x = 5;");
+      expect(result.assertors.assertOperatorUsed("&&")).toBe(false);
+      expect(result.assertors.assertOperatorUsed("||")).toBe(false);
+    });
+
+    test("returns true on parse error (defensive)", () => {
+      const result = interpret("let let let");
+      expect(result.assertors.assertOperatorUsed("&&")).toBe(true);
+    });
+  });
+
+  describe("assertStatement", () => {
+    test("existence, args ignored", () => {
+      expect(interpret("repeat(3) {\n}").assertors.assertStatement("RepeatStatement")).toBe(true);
+      expect(interpret("repeat() {\n}").assertors.assertStatement("RepeatStatement")).toBe(true);
+      expect(interpret("let x = 5;").assertors.assertStatement("RepeatStatement")).toBe(false);
+    });
+
+    test("empty args pattern matches the no-argument form only", () => {
+      expect(interpret("repeat() {\n}").assertors.assertStatement("RepeatStatement", { args: [] })).toBe(true);
+      expect(interpret("repeat(3) {\n}").assertors.assertStatement("RepeatStatement", { args: [] })).toBe(false);
+    });
+
+    test("[undefined] matches a single argument of any value", () => {
+      expect(interpret("repeat(3) {\n}").assertors.assertStatement("RepeatStatement", { args: [undefined] })).toBe(
+        true
+      );
+      expect(
+        interpret("let n = 3;\nrepeat(n) {\n}").assertors.assertStatement("RepeatStatement", { args: [undefined] })
+      ).toBe(true);
+      expect(interpret("repeat() {\n}").assertors.assertStatement("RepeatStatement", { args: [undefined] })).toBe(
+        false
+      );
+    });
+
+    test("a concrete arg value matches only that literal", () => {
+      expect(interpret("repeat(10) {\n}").assertors.assertStatement("RepeatStatement", { args: [10] })).toBe(true);
+      expect(interpret("repeat(3) {\n}").assertors.assertStatement("RepeatStatement", { args: [10] })).toBe(false);
+      expect(
+        interpret("let n = 10;\nrepeat(n) {\n}").assertors.assertStatement("RepeatStatement", { args: [10] })
+      ).toBe(false);
+    });
+
+    test("count requires an exact number of matches", () => {
+      const two = "repeat() {\n}\nrepeat() {\n}";
+      expect(interpret(two).assertors.assertStatement("RepeatStatement", { count: 2 })).toBe(true);
+      expect(interpret(two).assertors.assertStatement("RepeatStatement", { count: 1 })).toBe(false);
+    });
+
+    test("count: 0 with an args pattern asserts none of that form exist", () => {
+      // The scroll-and-shoot final check: no counted repeat allowed.
+      expect(
+        interpret("repeat() {\n  moveRight();\n}").assertors.assertStatement("RepeatStatement", {
+          args: [undefined],
+          count: 0,
+        })
+      ).toBe(true);
+      expect(
+        interpret("repeat(11) {\n  moveRight();\n}").assertors.assertStatement("RepeatStatement", {
+          args: [undefined],
+          count: 0,
+        })
+      ).toBe(false);
+    });
+
+    test("finds statements nested inside other blocks", () => {
+      const code = "if (true) {\n  repeat(3) {\n  }\n}";
+      expect(interpret(code).assertors.assertStatement("RepeatStatement", { args: [undefined] })).toBe(true);
+    });
+  });
 });

@@ -8,21 +8,22 @@ import { getApiUrl } from "@/lib/api/config";
  * data permanently, so any new trigger must be added here first.
  */
 export type ModalTrigger =
-  | "locked_project"
+  | "locked_challenge"
+  | "locked_guide"
   | "locked_episode"
   | "locked_episode_video"
   | "assistant_send_message"
   | "assistant_tab_opened"
   | "assistant_limit_reached"
   | "upgrade_cta_nav"
-  | "upgrade_cta_projects_sidebar"
+  | "upgrade_cta_challenges_sidebar"
   | "upgrade_cta_premium_page";
 
 /**
  * Feature values for `premium_feature_blocked` — fired when a locked
  * surface renders (passive view, no click required).
  */
-export type BlockedFeature = "projects_page" | "assistant_tab" | "build_page_all_locked";
+export type BlockedFeature = "challenges_page" | "assistant_tab" | "project_page_all_locked";
 
 /**
  * Fire-and-forget event tracking. Analytics failures must never break

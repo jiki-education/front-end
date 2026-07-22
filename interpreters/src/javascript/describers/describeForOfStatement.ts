@@ -28,7 +28,7 @@ function describeFinalStep(result: EvaluationResultForOfStatement, statement: Fo
     }
 
     if (result.currentElement) {
-      const elementValue = result.currentElement.toString();
+      const elementValue = result.currentElement.toDisplayString();
       return `<li>Set <code>${variableName}</code> to <code>${elementValue}</code> (iteration ${result.iteration}).</li>`;
     }
   }
@@ -47,7 +47,7 @@ function describeResult(result: EvaluationResultForOfStatement, statement: ForOf
     }
 
     if (result.currentElement) {
-      const elementValue = result.currentElement.toString();
+      const elementValue = result.currentElement.toDisplayString();
       return `<p>Set <code>${variableName}</code> to <code>${elementValue}</code> for iteration ${result.iteration}.</p>`;
     }
   }

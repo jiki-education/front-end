@@ -1,5 +1,10 @@
 import { spawn } from "child_process";
 
+// Each cross-validation test spawns a fresh native subprocess; a cold start
+// under load (e.g. many running in parallel in the pre-commit hook) can exceed
+// 5s. Give the spawn a little more headroom before we kill it.
+const NATIVE_PROCESS_TIMEOUT_MS = 6000;
+
 /**
  * Execute native Python code and return the output
  */
@@ -35,7 +40,7 @@ export async function executeNativePython(code: string): Promise<string> {
     setTimeout(() => {
       process.kill();
       reject(new Error("Python process timed out"));
-    }, 5000);
+    }, NATIVE_PROCESS_TIMEOUT_MS);
   });
 }
 
@@ -73,6 +78,6 @@ export async function executeNativeJS(code: string): Promise<string> {
     setTimeout(() => {
       process.kill();
       reject(new Error("Node process timed out"));
-    }, 5000);
+    }, NATIVE_PROCESS_TIMEOUT_MS);
   });
 }

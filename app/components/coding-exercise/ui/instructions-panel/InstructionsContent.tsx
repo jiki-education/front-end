@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 import { marked } from "marked";
 import hljs from "highlight.js/lib/core";
 import setupJikiscript from "@exercism/highlightjs-jikiscript";
@@ -16,6 +17,7 @@ const InstructionsContent = forwardRef<HTMLDivElement, InstructionsContentProps>
   { instructions },
   ref
 ) {
+  const t = useTranslations("codingExercise.instructionsPanel");
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -28,7 +30,7 @@ const InstructionsContent = forwardRef<HTMLDivElement, InstructionsContentProps>
 
   return (
     <div ref={ref} className={styles.instructionsContainer}>
-      <h2>Instructions</h2>
+      <h2>{t("instructionsTitle")}</h2>
       <div
         ref={contentRef}
         className={styles.instructionsContent}

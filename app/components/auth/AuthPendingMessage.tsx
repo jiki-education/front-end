@@ -14,7 +14,7 @@ export function AuthPendingMessage({ title, description }: AuthPendingMessagePro
     <div className={styles.leftSide}>
       <div className={styles.formContainer}>
         <div className={styles.confirmationMessage}>
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-6"></div>
+          <div className={styles.spinner}></div>
           <h2>{title}</h2>
           <p className={styles.confirmationCardText} style={{ marginBottom: 0 }}>
             {description}

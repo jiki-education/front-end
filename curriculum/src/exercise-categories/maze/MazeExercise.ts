@@ -1,5 +1,11 @@
-import { type ExecutionContext, type ExternalFunction } from "@jiki/interpreters";
+import { type ExecutionContext } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
+import type { AvailableFunction } from "../../types";
+
+// Logic-error messages are resolved against the message dict injected into this
+// exercise (via `setMessages`) and passed to `logicError` as finished,
+// pre-translated strings; the interpreter relays them verbatim. Every subclass'
+// catalog must define the "errors.fellOffEdge" / "errors.hitWall" keys used here.
 
 type Direction = "up" | "right" | "down" | "left";
 
@@ -20,21 +26,21 @@ export default class MazeExercise extends VisualExercise {
     this.populateView();
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "move",
       func: this.move.bind(this),
-      description: "Move the character forward one cell"
+      descriptionKey: "describers.move"
     },
     {
       name: "turn_left",
       func: this.turnLeft.bind(this),
-      description: "Turn the character 90 degrees left"
+      descriptionKey: "describers.turnLeft"
     },
     {
       name: "turn_right",
       func: this.turnRight.bind(this),
-      description: "Turn the character 90 degrees right"
+      descriptionKey: "describers.turnRight"
     }
   ];
 
@@ -60,12 +66,12 @@ export default class MazeExercise extends VisualExercise {
 
     // Check if move is valid (within bounds and not blocked)
     if (newRow < 0 || newRow >= this.grid.length || newCol < 0 || newCol >= this.grid[0].length) {
-      executionCtx.logicError("Oh no - you tried to fall off the edge of the maze!");
+      executionCtx.logicError(this.t("errors.fellOffEdge"));
       return;
     }
 
     if (this.grid[newRow][newCol] === 1) {
-      executionCtx.logicError("Ouch - you walked into a wall!");
+      executionCtx.logicError(this.t("errors.hitWall"));
       return;
     }
 
@@ -193,6 +199,8 @@ export default class MazeExercise extends VisualExercise {
         if (cellValue === 1) cell.classList.add("blocked");
         if (cellValue === 2) cell.classList.add("begin");
         if (cellValue === 3) cell.classList.add("target");
+        if (cellValue === 4) cell.classList.add("fire");
+        if (cellValue === 5) cell.classList.add("poop");
 
         cellsContainer.appendChild(cell);
       }

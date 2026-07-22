@@ -4,7 +4,6 @@ import type { MemberExpression } from "../expression";
 import { type JikiObject, JSString, JSStdLibFunction } from "../jsObjects";
 import type { Property, Method } from "../stdlib";
 import { getStdlibType, stdlib, isStdlibMemberAllowed, StdlibError } from "../stdlib";
-import { translate } from "../translator";
 
 // Generic stdlib member resolution
 export function executeStdlibMemberExpression(
@@ -16,6 +15,7 @@ export function executeStdlibMemberExpression(
   // Check if this object type has stdlib members
   const stdlibType = getStdlibType(object) as string;
   guardObjectHasStdLibMethods(stdlibType);
+  const readableType = stdlibType === "array" ? "arrays" : "strings";
 
   // Check if this is computed access (bracket notation)
   // Stdlib members should only be accessed via dot notation
@@ -46,9 +46,7 @@ export function executeStdlibMemberExpression(
   }
 
   // Unknown property/method
-  throw new RuntimeError(`PropertyNotFound: property: ${propertyName}`, expression.location, "PropertyNotFound", {
-    property: propertyName,
-  });
+  executor.error("PropertyNotFound", expression.location, { property: propertyName, type: readableType });
 
   // Helper function to handle property access
   function handleProperty(stdlibProperty: Property): EvaluationResultMemberExpression {
@@ -71,8 +69,15 @@ export function executeStdlibMemberExpression(
 
   // Helper function to handle method access
   function handleMethod(stdlibMethod: Method): EvaluationResultMemberExpression {
-    // Note: For stub methods, we still return a function, but it will throw when called
-    // This maintains the correct semantics where arr.push returns a function
+    // A method must be called - `arr.push` on its own is a mistake for the
+    // brackets. If this member isn't the callee of a call, guide the student.
+    if (!expression.isCalled) {
+      executor.error("MethodUsedWithoutParentheses", expression.location, {
+        property: propertyName,
+        type: readableType,
+      });
+    }
+
     guardMethodIsAllowed(stdlibType, propertyName);
 
     // Return a JSStdLibFunction that can be called
@@ -105,12 +110,7 @@ export function executeStdlibMemberExpression(
       return;
     }
 
-    throw new RuntimeError(
-      `TypeError: message: Cannot read properties of ${object.type}`,
-      expression.location,
-      "TypeError",
-      { message: `Cannot read properties of ${object.type}` }
-    );
+    executor.error("CannotReadPropertiesOfType", expression.location, { type: object.type });
   }
 
   function guardNotComputedAccess() {
@@ -118,12 +118,7 @@ export function executeStdlibMemberExpression(
       return;
     }
 
-    throw new RuntimeError(
-      `TypeError: message: Cannot use computed property access for stdlib members`,
-      expression.location,
-      "TypeError",
-      { message: "Cannot use computed property access for stdlib members" }
-    );
+    executor.error("ComputedAccessNotAllowedForStdlib", expression.location);
   }
 
   function guardPropertyIsString(property: JikiObject) {
@@ -131,12 +126,7 @@ export function executeStdlibMemberExpression(
       return;
     }
 
-    throw new RuntimeError(
-      `TypeError: message: Cannot use computed property access for stdlib members`,
-      expression.location,
-      "TypeError",
-      { message: "Cannot use computed property access for stdlib members" }
-    );
+    executor.error("ComputedAccessNotAllowedForStdlib", expression.location);
   }
 
   function guardPropertyIsNotStub(property: Property, propertyName: string) {
@@ -144,12 +134,7 @@ export function executeStdlibMemberExpression(
       return;
     }
 
-    throw new RuntimeError(
-      `MethodNotYetImplemented: method: ${propertyName}`,
-      expression.location,
-      "MethodNotYetImplemented",
-      { method: propertyName }
-    );
+    executor.error("MethodNotYetImplemented", expression.location, { method: propertyName });
   }
 
   function guardPropertyIsAllowed(stdlibType: string, propertyName: string) {
@@ -157,12 +142,7 @@ export function executeStdlibMemberExpression(
       return;
     }
 
-    throw new RuntimeError(
-      `MethodNotYetAvailable: method: ${propertyName}`,
-      expression.location,
-      "MethodNotYetAvailable",
-      { method: propertyName }
-    );
+    executor.error("PropertyNotYetAvailable", expression.location, { property: propertyName });
   }
 
   function guardMethodIsAllowed(stdlibType: string, propertyName: string) {
@@ -170,18 +150,13 @@ export function executeStdlibMemberExpression(
       return;
     }
 
-    throw new RuntimeError(
-      `MethodNotYetAvailable: method: ${propertyName}`,
-      expression.location,
-      "MethodNotYetAvailable",
-      { method: propertyName }
-    );
+    executor.error("MethodNotYetAvailable", expression.location, { method: propertyName });
   }
 
   function handleStdlibError(error: unknown): never {
     if (error instanceof StdlibError) {
       // error.message is a translation key (e.g., "StdlibArgTypeMismatch")
-      const message = translate(`error.stdlib.${error.message}`, error.context);
+      const message = executor.translate(`error.stdlib.${error.message}`, error.context);
       throw new RuntimeError(message, expression.location, error.errorType as RuntimeErrorType, error.context);
     }
     throw error;

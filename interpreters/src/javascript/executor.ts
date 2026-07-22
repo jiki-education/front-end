@@ -1,7 +1,7 @@
 import { Environment } from "./environment";
 import type { Expression } from "./expression";
 import type { LanguageFeatures, NodeType } from "./interfaces";
-import { LogicError } from "./error";
+import { LogicError, InterpreterInternalError } from "./error";
 import {
   LiteralExpression,
   BinaryExpression,
@@ -38,7 +38,8 @@ import {
 import type { EvaluationResult, EvaluationResultExpression, EvaluationResultCallExpression } from "./evaluation-result";
 import type { JikiObject } from "./jikiObjects";
 import { JikiObject as JikiObjectBase } from "../shared/jikiObject";
-import { translate } from "./translator";
+import { buildTranslator } from "./translator";
+import type { Translator } from "../shared/i18n";
 import { timeToMs, type Frame, type FrameExecutionStatus } from "../shared/frames";
 import { type ExecutionContext as SharedExecutionContext } from "../shared/interfaces";
 import { createBaseExecutionContext } from "../shared/executionContext";
@@ -89,6 +90,8 @@ import {
   extractMethodCalls,
   countArrayExpressions,
   extractCallExpressionsExcludingFunctionBody,
+  extractOperators,
+  findMatchingStatements,
 } from "./assertion-helpers";
 import { createRandomFn } from "../shared/random";
 
@@ -99,20 +102,29 @@ export type ExecutionContext = SharedExecutionContext & {
 };
 
 export type RuntimeErrorType =
-  | "InvalidBinaryExpression"
-  | "InvalidUnaryExpression"
-  | "UnsupportedOperation"
+  | "UpdateOperatorRequiresNumber"
   | "VariableNotDeclared"
+  | "VariableAlreadyDeclared"
   | "ShadowingDisabled"
   | "AssignmentToConstant"
   | "ComparisonRequiresNumber"
   | "TruthinessDisabled"
   | "TypeCoercionNotAllowed"
-  | "StrictEqualityRequired"
+  | "UnaryTypeCoercionNotAllowed"
   | "IndexOutOfRange"
   | "TypeError"
+  | "ArrayIndexNotNumber"
+  | "ArrayIndexNotInteger"
+  | "StringIndexNotNumber"
+  | "StringIndexNotInteger"
+  | "ComputedAccessNotAllowedForStdlib"
+  | "ComputedAccessNotAllowedForBuiltin"
+  | "CannotReadPropertiesOfType"
+  | "CannotSetPropertyOfType"
+  | "BracketNotationNotAllowedOnInstance"
+  | "NotCallable"
   | "PropertyNotFound"
-  | "ArgumentError"
+  | "MethodUsedWithoutParentheses"
   | "NodeNotAllowed"
   | "FunctionNotFound"
   | "InvalidNumberOfArguments"
@@ -124,8 +136,8 @@ export type RuntimeErrorType =
   | "ForOfLoopTargetNotIterable"
   | "MethodNotYetImplemented"
   | "MethodNotYetAvailable"
+  | "PropertyNotYetAvailable"
   | "MaxIterationsReached"
-  | "NonJikiObjectDetectedInExecution"
   | "RepeatCountMustBeNumber"
   | "RepeatCountMustBeNonNegative"
   | "RepeatCountTooHigh"
@@ -172,6 +184,8 @@ export interface ExecutorResult {
     countArrayLiterals: () => number;
     assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
     numFunctionCallsInCode: (funcName: string) => number;
+    assertOperatorUsed: (operator: string) => boolean;
+    assertStatement: (type: string, opts?: { args?: Array<unknown>; count?: number }) => boolean;
   };
 }
 
@@ -188,23 +202,26 @@ export class Executor {
   public globalEnvironment!: Environment;
   public languageFeatures: LanguageFeatures;
   public randomFn: () => number;
+  public readonly translate: Translator;
   private readonly protectedNames: Set<string> = new Set();
   public readonly secretConstantNames: Set<string> = new Set();
 
   constructor(
     private readonly sourceCode: string,
-    context: EvaluationContext
+    context: EvaluationContext,
+    translate: Translator = buildTranslator(context.localeMessages)
   ) {
+    this.translate = translate;
     this.randomFn = createRandomFn(context.randomSeed);
     this.languageFeatures = {
       allowShadowing: false, // Default to false (shadowing disabled)
       allowTypeCoercion: false, // Default to false (type coercion disabled)
       enforceStrictEquality: true, // Default to true (strict equality required)
-      maxTotalLoopIterations: 10000, // Default limit to prevent infinite loops
+      maxTotalLoopIterations: 1000, // Default limit to prevent infinite loops
       ...context.languageFeatures,
     };
-    this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations ?? 10000;
-    this.environment = new Environment(this.languageFeatures);
+    this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations ?? 1000;
+    this.environment = new Environment(this.languageFeatures, null, this.translate);
     this.globalEnvironment = this.environment;
 
     // Console is always available (infrastructure/debugging tool, not a language feature)
@@ -325,9 +342,14 @@ export class Executor {
       ) {
         return;
       }
-      throw new RuntimeError(translate(`error.runtime.NodeNotAllowed`, { nodeType }), node.location, "NodeNotAllowed", {
-        nodeType,
-      });
+      throw new RuntimeError(
+        this.translate(`error.runtime.NodeNotAllowed`, { nodeType }),
+        node.location,
+        "NodeNotAllowed",
+        {
+          nodeType,
+        }
+      );
     }
   }
 
@@ -430,6 +452,11 @@ export class Executor {
             expr => expr.callee instanceof IdentifierExpression && expr.callee.name.lexeme === formatted
           ).length;
         },
+        assertOperatorUsed: (operator: string) => extractOperators(statements).includes(operator),
+        assertStatement: (type: string, opts?: { args?: Array<unknown>; count?: number }) => {
+          const matches = findMatchingStatements(statements, type, opts?.args);
+          return opts?.count !== undefined ? matches.length === opts.count : matches.length >= 1;
+        },
       },
     };
   }
@@ -444,7 +471,11 @@ export class Executor {
         this.frames.pop();
         this.addErrorFrame(
           error.location,
-          new RuntimeError(translate(`error.runtime.ReturnOutsideFunction`), error.location, "ReturnOutsideFunction")
+          new RuntimeError(
+            this.translate(`error.runtime.ReturnOutsideFunction`),
+            error.location,
+            "ReturnOutsideFunction"
+          )
         );
         return false;
       }
@@ -453,7 +484,7 @@ export class Executor {
         this.frames.pop();
         this.addErrorFrame(
           error.location,
-          new RuntimeError(translate(`error.runtime.BreakOutsideLoop`), error.location, "BreakOutsideLoop")
+          new RuntimeError(this.translate(`error.runtime.BreakOutsideLoop`), error.location, "BreakOutsideLoop")
         );
         return false;
       }
@@ -462,7 +493,7 @@ export class Executor {
         this.frames.pop();
         this.addErrorFrame(
           error.location,
-          new RuntimeError(translate(`error.runtime.ContinueOutsideLoop`), error.location, "ContinueOutsideLoop")
+          new RuntimeError(this.translate(`error.runtime.ContinueOutsideLoop`), error.location, "ContinueOutsideLoop")
         );
         return false;
       }
@@ -481,6 +512,13 @@ export class Executor {
   }
 
   public executeStatement(statement: Statement): void {
+    // Once the exercise has signalled completion (via executionCtx.exerciseFinished()),
+    // execution halts at the end of the current statement: every subsequent statement
+    // - in loop bodies, function bodies, or after loops - becomes a no-op.
+    if (this._exerciseFinished) {
+      return;
+    }
+
     // Safety check: ensure this node type is allowed
     this.assertNodeAllowed(statement);
 
@@ -587,11 +625,9 @@ export class Executor {
       return executeNewExpression(this, expression);
     }
 
-    throw new RuntimeError(
-      `Unsupported expression type: ${expression.type}`,
-      expression.location,
-      "UnsupportedOperation"
-    );
+    // Every expression type the parser produces is handled above, so an
+    // unknown type here is an interpreter bug, not a student error.
+    throw new InterpreterInternalError(`Unsupported expression type: ${expression.type}`);
   }
 
   public executeBlock(statements: Statement[], environment: Environment): void {
@@ -712,15 +748,17 @@ export class Executor {
     }
   }
 
-  public guardNonJikiObject(value: any, location: Location): void {
+  public guardNonJikiObject(value: any, _location: Location): void {
     // Import JikiObject from shared to check inheritance
     if (value instanceof JikiObjectBase) {
       return;
     }
-    this.error("NonJikiObjectDetectedInExecution", location, {
-      receivedType: typeof value,
-      receivedValue: value,
-    });
+    // A non-JikiObject reaching execution means the interpreter (or an external
+    // function) is broken - this is our bug, not the student's. Explode hard so
+    // it surfaces in dev/tests instead of being dressed up as a nice error frame.
+    throw new InterpreterInternalError(
+      `NonJikiObjectDetectedInExecution: Expected a JikiObject but received ${typeof value}: ${String(value)}`
+    );
   }
 
   public guardInfiniteLoop(location: Location): void {
@@ -738,7 +776,7 @@ export class Executor {
     if (type === "LogicErrorInExecution") {
       message = context.message;
     } else {
-      message = translate(`error.runtime.${type}`, context);
+      message = this.translate(`error.runtime.${type}`, context);
     }
     throw new RuntimeError(message, location, type, context);
   }

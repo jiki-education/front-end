@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import Modal from "react-modal";
 import MuxPlayer, { type MuxPlayerRefAttributes } from "@/components/ui/JikiMuxPlayer";
@@ -12,6 +13,8 @@ import styles from "./WelcomeModal.module.css";
 const WELCOME_VIDEO_PLAYBACK_ID = "rhfF43a6sjaqX7E5Cxcvt7efmwn00knZZ202CvgViQRDc";
 
 export function WelcomeModal() {
+  const t = useTranslations("modals.welcome");
+  const tCommon = useTranslations("common");
   const playerRef = useRef<MuxPlayerRefAttributes>(null);
   const [watched, setWatched] = useState(false);
   const [confirmSkip, setConfirmSkip] = useState(false);
@@ -35,8 +38,8 @@ export function WelcomeModal() {
   return (
     <div className={styles.content}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Welcome to Jiki!</h2>
-        <p className={styles.subtitle}>Watch this short video to get started.</p>
+        <h2 className={styles.title}>{t("title")}</h2>
+        <p className={styles.subtitle}>{t("subtitle")}</p>
       </div>
       <div className={styles.videoWrapper}>
         <MuxPlayer
@@ -48,7 +51,7 @@ export function WelcomeModal() {
         />
       </div>
       <button onClick={handleContinue} className={`ui-btn ui-btn-primary ui-btn-purple ui-btn-large ${styles.cta}`}>
-        Continue
+        {tCommon("continue")}
       </button>
       {/* Nested dialog: cancel must leave WelcomeModal open, so closeOnAction={false}. */}
       <Modal
@@ -59,10 +62,10 @@ export function WelcomeModal() {
         ariaHideApp={false}
       >
         <ConfirmationModal
-          title="Skip the welcome video?"
-          message="This video helps you get the most out of Jiki. Are you sure you want to skip it?"
-          confirmText="Skip video"
-          cancelText="Keep watching"
+          title={t("skipTitle")}
+          message={t("skipMessage")}
+          confirmText={t("skipConfirm")}
+          cancelText={t("skipCancel")}
           closeOnAction={false}
           onConfirm={hideModal}
           onCancel={resumeVideo}

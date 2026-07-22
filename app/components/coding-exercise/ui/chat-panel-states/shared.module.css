@@ -1,0 +1,75 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding: 40px;
+    background: var(--color-purple-50);
+    border-radius: 12px;
+    margin: 24px 32px 32px;
+}
+
+.content {
+    text-align: center;
+    max-width: 480px;
+    /* auto margins keep the content centered but still scrollable from the
+       top when it's taller than the container */
+    margin: auto;
+}
+
+.avatar {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, var(--color-purple-500) 0%, var(--color-purple-600) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 -8px 24px rgba(255, 255, 255, 0.4);
+    color: white;
+}
+
+.title {
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--color-gray-900);
+    margin: 0 0 8px 0;
+}
+
+.description {
+    font-size: 16px;
+    color: var(--color-gray-500);
+    line-height: 1.75;
+    margin: 0 auto 24px auto;
+    max-width: 460px;
+}
+
+.premiumText {
+    background: linear-gradient(135deg, var(--color-purple-600) 0%, var(--color-blue-500) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+}
+
+.buttonWrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.arrow {
+    width: 60px;
+    height: auto;
+    position: absolute;
+    top: -30px;
+    inset-inline-end: -60px;
+    transform: rotate(135deg);
+}
+
+.subtleText {
+    font-size: 15px;
+    color: var(--color-gray-500);
+    margin: 0;
+}

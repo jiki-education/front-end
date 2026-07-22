@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import styles from "./EditableField.module.css";
 
@@ -23,8 +24,10 @@ export default function EditableField({
   placeholder,
   disabled = false,
   validation,
-  updateButtonText = "Update"
+  updateButtonText
 }: EditableFieldProps) {
+  const t = useTranslations("settings.editableField");
+  const tCommon = useTranslations("common");
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(value);
   const [isSaving, setIsSaving] = useState(false);
@@ -58,7 +61,7 @@ export default function EditableField({
       await onSave(editValue);
       setIsEditing(false);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to save");
+      setError(err instanceof Error ? err.message : t("saveFailed"));
     } finally {
       setIsSaving(false);
     }
@@ -98,14 +101,14 @@ export default function EditableField({
           </div>
           <div className={styles.buttonRow}>
             <button onClick={handleCancel} disabled={isSaving} className="ui-btn ui-btn-secondary ui-btn-small">
-              Cancel
+              {tCommon("cancel")}
             </button>
             <button
               onClick={handleSave}
               disabled={isSaving || editValue === value}
               className="ui-btn ui-btn-primary ui-btn-small"
             >
-              {isSaving ? <LoadingSpinner size="sm" /> : updateButtonText}
+              {isSaving ? <LoadingSpinner size="sm" /> : (updateButtonText ?? t("update"))}
             </button>
           </div>
         </div>
@@ -121,7 +124,7 @@ export default function EditableField({
           <div className={styles.value}>{value || <span className="text-gray-400">{placeholder}</span>}</div>
         </div>
         <button onClick={() => setIsEditing(true)} disabled={disabled} className="ui-btn ui-btn-tertiary ui-btn-small">
-          Edit
+          {t("edit")}
         </button>
       </div>
     </div>

@@ -37,6 +37,8 @@
 }
 
 .rocketWrapper {
+    display: inline-block;
+    vertical-align: middle;
     position: relative;
     line-height: 0;
 }
@@ -45,7 +47,7 @@
     content: "";
     position: absolute;
     bottom: -2px;
-    left: calc(50% - 8px);
+    inset-inline-start: calc(50% - 8px);
     width: 7px;
     height: 7px;
     border-radius: 50%;
@@ -60,7 +62,7 @@
    left: calc() handles centering, so flame-x is 0 (no translateX shift). */
 .rocketWrapperLg::before {
     bottom: -1px;
-    left: calc(50% - 16px);
+    inset-inline-start: calc(50% - 16px);
     width: 15px;
     height: 15px;
 }

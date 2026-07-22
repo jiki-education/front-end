@@ -1,4 +1,5 @@
 import CityScapeExercise from "../../exercise-categories/cityscape/CityScapeExercise";
+import type { AvailableFunction } from "../../types";
 import metadata from "./metadata.json";
 
 export default class CityScapeSkyscraperExercise extends CityScapeExercise {
@@ -6,26 +7,26 @@ export default class CityScapeSkyscraperExercise extends CityScapeExercise {
     return metadata.slug;
   }
 
-  public availableFunctions = [
+  public availableFunctions: AvailableFunction[] = [
     {
       name: "build_wall",
       func: this.buildWall.bind(this),
-      description: "built a wall at position (${arg1}, ${arg2})"
+      descriptionKey: "describers.buildWall"
     },
     {
       name: "build_entrance",
       func: this.buildEntrance.bind(this),
-      description: "built an entrance at position (${arg1}, ${arg2})"
+      descriptionKey: "describers.buildEntrance"
     },
     {
       name: "build_glass",
       func: this.buildGlass.bind(this),
-      description: "built a glass panel at position (${arg1}, ${arg2})"
+      descriptionKey: "describers.buildGlass"
     },
     {
       name: "num_floors",
       func: this.getNumFloors.bind(this),
-      description: "retrieved the number of floors"
+      descriptionKey: "describers.numFloors"
     }
   ];
 }

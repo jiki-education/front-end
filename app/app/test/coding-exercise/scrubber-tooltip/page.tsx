@@ -28,7 +28,7 @@ export default function ScrubberTooltipTestPage() {
     }
   });
   const orchestratorRef = useRef<Orchestrator>(
-    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" })
+    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" }, {}, {}, "", () => {})
   );
   const orchestrator = orchestratorRef.current;
 
@@ -109,7 +109,7 @@ export default function ScrubberTooltipTestPage() {
               const store = orchestrator.getStore();
               store.getState().setHasCodeBeenEdited(!hasCodeBeenEdited);
             }}
-            className="px-3 py-1 border rounded bg-gray-200 mr-2"
+            className="px-3 py-1 border rounded bg-gray-200 me-2"
           >
             Toggle Code Edited
           </button>
@@ -118,7 +118,7 @@ export default function ScrubberTooltipTestPage() {
             onClick={async () => {
               await orchestrator.runCode();
             }}
-            className="px-3 py-1 border rounded bg-gray-200 mr-2"
+            className="px-3 py-1 border rounded bg-gray-200 me-2"
           >
             Run Code
           </button>

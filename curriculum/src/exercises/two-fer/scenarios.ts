@@ -3,20 +3,27 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "create-two-fer-function" as const,
-    name: "Create two-fer function",
-    description:
-      "Write a twoFer function that takes a name and returns 'One for [name], one for me.' If no name is given (empty string), use 'you' instead of the name.",
+    name: "tasks.createTwoFerFunction.name",
+    description: "tasks.createTwoFerFunction.description",
     hints: [],
     requiredScenarios: ["two-fer-default", "two-fer-alice", "two-fer-tom"],
     bonus: false
+  },
+  {
+    id: "solve-in-six-lines" as const,
+    name: "tasks.solveInSixLines.name",
+    description: "tasks.solveInSixLines.description",
+    hints: [],
+    requiredScenarios: ["bonus-1"],
+    bonus: true
   }
 ] as const satisfies readonly Task[];
 
 export const scenarios: IOScenario[] = [
   {
     slug: "two-fer-default",
-    name: "No name given",
-    description: "No name is given so return 'One for you, one for me.'",
+    name: "scenarios.twoFerDefault.name",
+    description: "scenarios.twoFerDefault.description",
     taskId: "create-two-fer-function",
     functionName: "two_fer",
     args: [""],
@@ -24,8 +31,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "two-fer-alice",
-    name: "Name given as Alice",
-    description: "Her name is 'Alice' so return 'One for Alice, one for me.'",
+    name: "scenarios.twoFerAlice.name",
+    description: "scenarios.twoFerAlice.description",
     taskId: "create-two-fer-function",
     functionName: "two_fer",
     args: ["Alice"],
@@ -33,11 +40,26 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "two-fer-tom",
-    name: "Name given as Tom",
-    description: "His name is 'Tom' so return 'One for Tom, one for me.'",
+    name: "scenarios.twoFerTom.name",
+    description: "scenarios.twoFerTom.description",
     taskId: "create-two-fer-function",
     functionName: "two_fer",
     args: ["Tom"],
     expected: "One for Tom, one for me."
+  },
+  {
+    slug: "bonus-1",
+    name: "scenarios.bonus1.name",
+    description: "scenarios.bonus1.description",
+    taskId: "solve-in-six-lines",
+    functionName: "two_fer",
+    args: ["Alice"],
+    expected: "One for Alice, one for me.",
+    codeChecks: [
+      {
+        pass: (result) => result.assertors.assertMaxLinesOfCode(6),
+        errorKey: "checks.moreThanSixLines"
+      }
+    ]
   }
 ];

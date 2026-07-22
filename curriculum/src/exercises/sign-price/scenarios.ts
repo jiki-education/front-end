@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "calculate-sign-price" as const,
-    name: "Calculate Sign Price",
-    description:
-      "Write a function that calculates the price of a sign. Each letter costs $12. Spaces are free and should not be counted. Return the result as a formatted string.",
+    name: "tasks.calculateSignPrice.name",
+    description: "tasks.calculateSignPrice.description",
     hints: [],
     requiredScenarios: ["simple-word", "single-letter", "two-words", "multiple-spaces", "long-text", "all-spaces"],
     bonus: false
@@ -15,8 +14,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "simple-word",
-    name: "Simple word",
-    description: "A single word with no spaces.",
+    name: "scenarios.simpleWord.name",
+    description: "scenarios.simpleWord.description",
     taskId: "calculate-sign-price",
     functionName: "sign_price",
     args: ["Hello"],
@@ -24,8 +23,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "single-letter",
-    name: "Single letter",
-    description: "A sign with just one letter.",
+    name: "scenarios.singleLetter.name",
+    description: "scenarios.singleLetter.description",
     taskId: "calculate-sign-price",
     functionName: "sign_price",
     args: ["A"],
@@ -33,8 +32,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "two-words",
-    name: "Two words",
-    description: "Two words with a space that should be skipped.",
+    name: "scenarios.twoWords.name",
+    description: "scenarios.twoWords.description",
     taskId: "calculate-sign-price",
     functionName: "sign_price",
     args: ["Hi There"],
@@ -42,8 +41,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "multiple-spaces",
-    name: "Multiple spaces",
-    description: "Multiple words with several spaces to skip.",
+    name: "scenarios.multipleSpaces.name",
+    description: "scenarios.multipleSpaces.description",
     taskId: "calculate-sign-price",
     functionName: "sign_price",
     args: ["Sale Now On"],
@@ -51,8 +50,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "long-text",
-    name: "Long text",
-    description: "A longer sign with more letters.",
+    name: "scenarios.longText.name",
+    description: "scenarios.longText.description",
     taskId: "calculate-sign-price",
     functionName: "sign_price",
     args: ["Open All Hours"],
@@ -60,8 +59,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "all-spaces",
-    name: "All spaces",
-    description: "A sign with only spaces has no letters to charge for.",
+    name: "scenarios.allSpaces.name",
+    description: "scenarios.allSpaces.description",
     taskId: "calculate-sign-price",
     functionName: "sign_price",
     args: ["   "],

@@ -5,8 +5,51 @@
  * Simple, type-safe API client for backend communication with session cookie support
  */
 
+import type { BillingInterval } from "@/lib/pricing";
+import { reportError } from "@/lib/reportError";
 import { getApiUrl } from "./config";
 import { clearCriticalError, setCriticalError, useErrorHandlerStore } from "./errorHandlerStore";
+
+// Statuses the app treats as expected, not bugs, so they must NOT be reported to
+// Sentry: 401 (session invalid, handled globally), 403 (permission/premium gate),
+// 404 (missing/user-scoped record, often used to detect "no row yet"), and 429
+// (rate limited, handled globally). Everything else that reaches the client's
+// error path (400, 409, 422, 5xx, ...) is an unexpected failure worth capturing.
+const UNREPORTED_API_STATUSES = new Set([401, 403, 404, 429]);
+
+// Only authenticated internal endpoints (/internal/*) are reported. Public/marketing
+// or third-party calls are out of scope: a failure there isn't a signed-in user
+// hitting a broken app action.
+function isAuthedEndpoint(pathname: string): boolean {
+  return pathname.startsWith("/internal/");
+}
+
+/**
+ * Central policy for whether an error that failed a request should be reported
+ * to Sentry. Reporting happens once, here in the client, so individual callers
+ * don't each have to remember to call reportError — they only own the UX (toasts,
+ * error states). Scoped to authenticated (/internal/*) endpoints. Expected
+ * outcomes (auth/permission/not-found/rate-limit, connectivity, navigation
+ * aborts, payment declines) are suppressed.
+ */
+function shouldReportRequestError(error: unknown, pathname: string): boolean {
+  if (!isAuthedEndpoint(pathname)) {
+    return false;
+  }
+  // Environmental, not bugs: lost connection or the user navigating away mid-fetch.
+  if (error instanceof NetworkError || error instanceof RequestAbortedError) {
+    return false;
+  }
+  // Expected payment decline — surfaced to the user (reopen checkout), not a bug.
+  if (error instanceof CheckoutIncompleteError) {
+    return false;
+  }
+  if (error instanceof ApiError) {
+    return !UNREPORTED_API_STATUSES.has(error.status);
+  }
+  // Unknown, non-API error reaching the request path — unexpected, so report it.
+  return true;
+}
 
 // Retry configuration
 const INITIAL_RETRY_DELAY_MS = 50;
@@ -48,6 +91,22 @@ export class NetworkError extends Error {
   }
 }
 
+// Thrown when the browser aborts an in-flight request — almost always because
+// the user navigated away while the fetch was still pending. This is expected,
+// not a bug, so callers should ignore it rather than logging/reporting it.
+export class RequestAbortedError extends Error {
+  constructor() {
+    super("Request aborted");
+    this.name = "RequestAbortedError";
+  }
+}
+
+// A fetch aborted on navigation rejects with a DOMException named "AbortError"
+// (or an AbortError-named error from an AbortController signal).
+function isAbortError(error: unknown): boolean {
+  return error instanceof Error && error.name === "AbortError";
+}
+
 export class RateLimitError extends ApiError {
   constructor(
     statusText: string,
@@ -59,8 +118,25 @@ export class RateLimitError extends ApiError {
   }
 }
 
+// Thrown by verifyCheckoutSession when the API reports `checkout_payment_incomplete`
+// — the Stripe checkout never completed (declined / abandoned / expired payment).
+// This is an expected outcome, not a bug, so callers surface it to the user (reopen
+// checkout) without reporting it to Sentry. `declineReason` is the customer-safe Stripe
+// reason when available, else null; `interval` is the plan they were buying.
+export class CheckoutIncompleteError extends ApiError {
+  constructor(
+    statusText: string,
+    data: unknown,
+    public declineReason: string | null,
+    public interval: BillingInterval
+  ) {
+    super(422, statusText, data);
+    this.name = "CheckoutIncompleteError";
+  }
+}
+
 /**
- * Extract the backend error `type` string (e.g. "project_locked",
+ * Extract the backend error `type` string (e.g. "challenge_locked",
  * "premium_required") from an ApiError's response body, which has the shape
  * `{ error: { type, message } }`. Returns undefined for non-ApiErrors or
  * bodies that don't match that shape.
@@ -300,7 +376,19 @@ async function executeRequest<T>(url: URL, requestOptions: RequestInit, useRetri
   } catch (error) {
     // Re-throw ApiError (including AuthenticationError) and NetworkError
     if (error instanceof ApiError || error instanceof NetworkError) {
+      // Every request error passes through here, so this is the single place to
+      // report unexpected API failures (422/409/5xx/...) on authenticated
+      // endpoints to Sentry. Callers keep ownership of the UX; they no longer
+      // need to reportError themselves.
+      if (shouldReportRequestError(error, url.pathname)) {
+        reportError(error);
+      }
       throw error;
+    }
+
+    // Request aborted (e.g. user navigated away mid-fetch) - expected, not a bug
+    if (isAbortError(error)) {
+      throw new RequestAbortedError();
     }
 
     // Convert network errors (TypeError from fetch) to NetworkError
@@ -309,7 +397,11 @@ async function executeRequest<T>(url: URL, requestOptions: RequestInit, useRetri
     }
 
     // Handle other errors (shouldn't happen, but keep as fallback)
-    throw new Error(`Request failed: ${error}`);
+    const unexpected = new Error(`Request failed: ${error}`);
+    if (isAuthedEndpoint(url.pathname)) {
+      reportError(unexpected);
+    }
+    throw unexpected;
   }
 }
 

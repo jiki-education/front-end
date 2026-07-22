@@ -60,7 +60,7 @@
 }
 
 .benefitsTitle {
-    text-align: left;
+    text-align: start;
     font-size: 16px;
     font-weight: 600;
     color: var(--color-purple-600);

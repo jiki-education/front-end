@@ -1,12 +1,14 @@
+import { useTranslations } from "next-intl";
+import { ChallengeIcon } from "@/components/icons/ChallengeIcon";
 import { LessonIcon } from "@/components/icons/LessonIcon";
 import NavigationButtons from "./NavigationButtons";
 import styles from "./instructions-panel.module.css";
 
 interface ExerciseData {
   title: string;
-  progress: string;
   level: string;
   exerciseSlug: string;
+  isChallenge: boolean;
 }
 
 interface DynamicHeaderProps {
@@ -30,18 +32,23 @@ export default function DynamicHeader({
   onNavigateToConceptLibrary,
   getSectionTitle
 }: DynamicHeaderProps) {
+  const t = useTranslations("codingExercise.instructionsPanel");
   return (
     <div className={`${styles.dynamicHeader} ${isExpanded ? styles.expandedHeader : styles.collapsedHeader}`}>
       {isExpanded ? (
         /* Expanded Header */
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-16">
-            <LessonIcon slug={exerciseData.exerciseSlug} width={54} height={54} />
+            {exerciseData.isChallenge ? (
+              <ChallengeIcon slug={exerciseData.exerciseSlug} width={54} height={54} />
+            ) : (
+              <LessonIcon slug={exerciseData.exerciseSlug} width={54} height={54} />
+            )}
 
             <div className="flex flex-col gap-4">
               <h1 className={styles.exerciseTitle}>{exerciseData.title}</h1>
               <p className={styles.exerciseInfoText}>
-                Exercise {exerciseData.progress} • {exerciseData.level}
+                {exerciseData.isChallenge ? t("premiumChallenge") : t("exerciseLevel", { level: exerciseData.level })}
               </p>
             </div>
           </div>

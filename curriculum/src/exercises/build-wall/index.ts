@@ -7,9 +7,9 @@ const functions: FunctionInfo[] = [
   {
     name: "rectangle",
     signature: "rectangle(left, top, width, height, color)",
-    description: "Draw a rectangle at position (left, top) with the given width, height, and color",
+    description: "functions.rectangle.description",
     examples: ['rectangle(0, 0, 20, 10, "brick")', 'rectangle(col * width, row * height, width, height, "brick")'],
-    category: "Drawing Shapes"
+    category: "functions.rectangle.category"
   }
 ];
 
@@ -19,7 +19,8 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["nested-loops", "modulo", "if", "else", "updating-variables"]
 };
 
 export default exerciseDefinition;

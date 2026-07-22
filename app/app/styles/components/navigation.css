@@ -8,43 +8,36 @@
     background: white;
     height: 100vh;
     position: sticky;
-    left: 0;
+    inset-inline-start: 0;
     top: 0;
     padding: 20px 20px 32px 20px;
-    border-right: 2px solid var(--color-gray-100);
+    border-inline-end: 2px solid var(--color-gray-100);
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
     z-index: var(--z-index-nav);
-
-    /* Logo */
-    .logo {
-        border-bottom: 1px solid #eee;
-        padding-bottom: 16px;
-        margin-bottom: 16px;
-        text-align: left;
-
-        img {
-            display: block;
-            height: 50px;
-            width: auto;
-            margin: 0 0 0 12px;
-        }
-    }
 
     /* Navigation sections */
     .nav-section {
-        margin-bottom: 4px;
+        margin-bottom: 20px;
     }
 
     .nav-label {
-        font-size: 12px;
-        font-weight: 600;
+        font-size: 11px;
+        font-weight: 700;
         color: var(--color-gray-400);
         text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: 12px;
-        padding-left: 12px;
+        letter-spacing: 0.4px;
+        margin-bottom: 4px;
+        padding-inline-start: 12px;
+    }
+
+    .nav-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
     }
 
     /* Navigation items */
@@ -53,14 +46,23 @@
         align-items: center;
         justify-content: flex-start;
         gap: 12px;
-        padding: 12px;
-        border-radius: 8px;
+        padding: 7px 12px;
+        border-radius: 12px;
         color: var(--color-gray-500);
         text-decoration: none;
-        font-size: 15px;
+        font-size: 14.5px;
         font-weight: 500;
         transition: all 0.2s ease;
-        margin-bottom: 4px;
+
+        /* Reset native button styles so <button> items match <a> items */
+        &:is(button) {
+            width: 100%;
+            background: none;
+            border: none;
+            font-family: inherit;
+            cursor: pointer;
+            text-align: start;
+        }
 
         &:hover {
             background: #f7fafc;
@@ -71,6 +73,15 @@
             background: linear-gradient(135deg, var(--color-blue-500-6) 0%, var(--color-blue-600-6) 100%);
             color: var(--color-blue-500);
             font-weight: 600;
+        }
+
+        &[data-nav-id="upgrade"] {
+            color: var(--color-purple-600);
+            font-weight: 600;
+        }
+
+        span {
+            white-space: nowrap;
         }
     }
 
@@ -96,6 +107,11 @@
         stroke-width: 3;
     }
 
+    .premium-pill-star {
+        width: 12px;
+        height: 12px;
+    }
+
     .nav-icon {
         width: 24px;
         height: 24px;
@@ -107,49 +123,6 @@
         svg {
             width: 22px;
             height: 22px;
-        }
-    }
-
-    /* Nav Upsell */
-    .nav-upsell {
-        margin-top: auto;
-        padding-top: 16px;
-        border-top: 1px solid var(--color-gray-200);
-        text-align: left;
-        background: none;
-        border-left: none;
-        border-right: none;
-        border-bottom: none;
-        width: 100%;
-        cursor: pointer;
-        border-radius: 8px;
-        transition: background 0.2s ease;
-
-        p {
-            font-size: 14px;
-            color: var(--color-gray-600);
-            line-height: 1.5;
-        }
-
-        .upgrade-text {
-            color: var(--color-purple-600);
-            font-weight: 600;
-        }
-
-        .arrow {
-            display: inline-block;
-            transition: transform 0.2s ease;
-        }
-
-        &:hover {
-            cursor: pointer;
-            .upgrade-text {
-                text-decoration: underline;
-            }
-
-            .arrow {
-                transform: translateX(4px);
-            }
         }
     }
 
@@ -172,15 +145,14 @@
         /* TODO: When we properly style this button, use colors from our palette instead of custom purple */
         box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
         text-decoration: none;
-        font-family: "Poppins", sans-serif;
         position: relative;
 
         &::before {
             content: "";
             position: absolute;
             top: -10px;
-            left: 0;
-            right: 0;
+            inset-inline-start: 0;
+            inset-inline-end: 0;
             height: 1px;
             background: var(--color-gray-100);
             display: none;
@@ -205,16 +177,8 @@
 
 @media (max-width: 1400px) {
     .ui-lhs-menu {
-        width: 220px;
+        width: 250px;
         padding: 16px 14px 24px 14px;
-
-        .logo {
-            margin-bottom: 24px;
-
-            svg {
-                height: 34px;
-            }
-        }
 
         .nav-item {
             font-size: 14px;
@@ -226,10 +190,6 @@
             width: 20px;
             height: 20px;
         }
-
-        .nav-upsell p {
-            font-size: 13px;
-        }
     }
 }
 
@@ -237,14 +197,6 @@
     .ui-lhs-menu {
         width: 220px;
         padding: 14px 10px 20px 10px;
-
-        .logo {
-            margin-bottom: 20px;
-
-            svg {
-                height: 30px;
-            }
-        }
 
         .nav-item {
             font-size: 13px;
@@ -260,10 +212,6 @@
                 width: 18px;
                 height: 18px;
             }
-        }
-
-        .nav-upsell p {
-            font-size: 12px;
         }
 
         .premium-pill {

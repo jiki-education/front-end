@@ -1,6 +1,9 @@
+"use client";
+
 import SearchIcon from "@/icons/search.svg";
 import CrossIcon from "@/icons/cross.svg";
 import { useRef } from "react";
+import { useTranslations } from "next-intl";
 import styles from "./ConceptsSearch.module.css";
 import { EmptyState } from "./ErrorStates";
 
@@ -18,6 +21,7 @@ export default function ConceptsSearch({
   totalCount
 }: ConceptsSearchProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const t = useTranslations("concepts.list");
 
   return (
     <div>
@@ -26,7 +30,7 @@ export default function ConceptsSearch({
         <input
           ref={inputRef}
           type="text"
-          placeholder="Search concepts..."
+          placeholder={t("searchPlaceholder")}
           value={searchQuery}
           onChange={onSearchChange}
         />

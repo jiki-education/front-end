@@ -14,6 +14,6 @@ describe("ConceptsHeader", () => {
 
   it("renders breadcrumb component", () => {
     render(<ConceptsHeader />);
-    expect(screen.getByText("All Concepts")).toBeInTheDocument();
+    expect(screen.getByText("Coding Concepts")).toBeInTheDocument();
   });
 });

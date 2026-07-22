@@ -1,19 +1,32 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { fetchChallenges, type ChallengeData, type ChallengeStatus } from "@/lib/api/challenges";
+import { expandUnlocked, fetchUnlockedConceptSlugs, isUnlocked } from "@/lib/api/concept-unlocks";
 import {
-  getConcept,
+  fetchConceptVideoData,
   getAncestors,
+  getConcept,
   getConceptContent,
-  getRelatedConcepts,
+  getConcepts,
   getExercisesForConcept,
-  fetchConceptVideoData
+  getRelatedConcepts
 } from "@/lib/api/concepts";
-import { fetchUnlockedConceptSlugs } from "@/lib/api/concept-unlocks";
 import { fetchLessonStatusesBySlugs, type LessonStatus } from "@/lib/api/lesson-progress";
-import { fetchProjects, type ProjectData, type ProjectStatus } from "@/lib/api/projects";
 import { useAuthStore } from "@/lib/auth/authStore";
-import type { ConceptMeta, ConceptAncestor, ExerciseInfo, ProjectInfo } from "@/types/concepts";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
+import type { ConceptAncestor, ConceptMeta, ExerciseInfo, ChallengeInfo } from "@/types/concepts";
 import type { VideoSource } from "@/types/lesson";
+import { useLocale } from "next-intl";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
+/** Server-fetched leaf data used to seed the hook for logged-out SSR. */
+export interface ConceptDetailSeed {
+  concept: ConceptMeta;
+  ancestors: ConceptAncestor[];
+  content: string | null;
+  relatedConcepts: ConceptMeta[];
+  relatedExercises: ExerciseInfo[];
+  videoData: VideoSource[] | null;
+}
 
 interface ConceptDetailData {
   concept: ConceptMeta | null;
@@ -22,36 +35,149 @@ interface ConceptDetailData {
   isContentLoading: boolean;
   relatedConcepts: ConceptMeta[];
   relatedExercises: ExerciseInfo[];
-  relatedProjects: ProjectInfo[];
+  relatedChallenges: ChallengeInfo[];
   videoData: VideoSource[] | null;
   isLoading: boolean;
   error: string | null;
   isAuthenticated: boolean;
   isConceptUnlocked: (slug: string) => boolean;
-  getExerciseStatus: (slug: string) => LessonStatus | "locked";
-  getProjectStatus: (slug: string) => ProjectStatus | "locked";
+  getExerciseStatus: (slug: string) => LessonStatus;
+  getChallengeStatus: (slug: string) => ChallengeStatus | "locked";
 }
 
-export function useConceptDetailData(slug: string): ConceptDetailData {
-  const router = useRouter();
-  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+interface ConceptSetupContext {
+  slug: string;
+  locale: string;
+  router: ReturnType<typeof useRouter>;
+  // Localized "/concepts" path (naked or /<locale>-prefixed) to redirect to when the
+  // requested concept is locked. Resolved in the hook where the ambient locale is
+  // readable; passed as a plain string so it stays stable in the effect deps.
+  conceptsPath: string;
+  isCancelled: () => boolean;
+  setRelatedExercises: (value: ExerciseInfo[]) => void;
+  setRelatedChallenges: (value: ChallengeInfo[]) => void;
+  setUnlockedConceptSlugs: (value: Set<string>) => void;
+  setExerciseStatuses: (value: Record<string, LessonStatus>) => void;
+  setChallengeStatuses: (value: Record<string, ChallengeStatus>) => void;
+  setVideoData: (value: VideoSource[] | null) => void;
+}
 
-  const [concept, setConcept] = useState<ConceptMeta | null>(null);
-  const [ancestors, setAncestors] = useState<ConceptAncestor[]>([]);
-  const [content, setContent] = useState<string | null>(null);
+async function setupForLoggedInUser(exercises: ExerciseInfo[], ctx: ConceptSetupContext) {
+  const [rawUnlockedSlugs, allConcepts, challengesResponse, video] = await Promise.all([
+    fetchUnlockedConceptSlugs(),
+    getConcepts(ctx.locale),
+    fetchChallenges({ per: 100 }).catch(() => ({ results: [] as ChallengeData[] })),
+    fetchConceptVideoData(ctx.slug)
+  ]);
+  if (ctx.isCancelled()) {
+    return;
+  }
+
+  // Expand with parent categories so visiting a category detail page (which is
+  // never returned by the unlock API) is not treated as locked / redirected away.
+  const unlockedSlugs = expandUnlocked(allConcepts, rawUnlockedSlugs);
+
+  // Split concept exercises into true exercises vs challenges (matched by exercise_slug or slug).
+  const challengeByExerciseSlug = new Map<string, ChallengeData>();
+  for (const challenge of challengesResponse.results) {
+    if (challenge.exercise_slug) {
+      challengeByExerciseSlug.set(challenge.exercise_slug, challenge);
+    }
+    challengeByExerciseSlug.set(challenge.slug, challenge);
+  }
+
+  const exerciseOnly: ExerciseInfo[] = [];
+  const challengesForConcept: ChallengeInfo[] = [];
+  for (const ex of exercises) {
+    const match = challengeByExerciseSlug.get(ex.slug);
+    if (match) {
+      challengesForConcept.push({ slug: match.slug, title: match.title });
+    } else {
+      exerciseOnly.push(ex);
+    }
+  }
+
+  const lessonStatuses =
+    exerciseOnly.length > 0
+      ? await fetchLessonStatusesBySlugs(exerciseOnly.map((e) => e.slug))
+      : ({} as Record<string, LessonStatus>);
+  if (ctx.isCancelled()) {
+    return;
+  }
+
+  const projStatuses: Record<string, ChallengeStatus> = {};
+  for (const challenge of challengesResponse.results) {
+    if (challenge.status) {
+      projStatuses[challenge.slug] = challenge.status;
+    }
+  }
+
+  ctx.setRelatedExercises(exerciseOnly);
+  ctx.setRelatedChallenges(challengesForConcept);
+  ctx.setUnlockedConceptSlugs(unlockedSlugs);
+  ctx.setExerciseStatuses(lessonStatuses);
+  ctx.setChallengeStatuses(projStatuses);
+  ctx.setVideoData(video);
+
+  if (!unlockedSlugs.has(ctx.slug)) {
+    ctx.router.push(ctx.conceptsPath);
+  }
+}
+
+async function setupForExternalUser(exercises: ExerciseInfo[], ctx: ConceptSetupContext) {
+  ctx.setRelatedExercises(exercises);
+
+  const video = await fetchConceptVideoData(ctx.slug);
+  if (ctx.isCancelled()) {
+    return;
+  }
+  ctx.setVideoData(video);
+}
+
+export function useConceptDetailData(slug: string, initialData: ConceptDetailSeed | null = null): ConceptDetailData {
+  const router = useRouter();
+  const locale = useLocale();
+  const conceptsPath = useLocaleRoutes().concepts();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  // Logged-out visitors are seeded with the server-rendered leaf (all unlocked).
+  // Authenticated users re-fetch to layer on unlock state, statuses, and challenges.
+  const seeded = initialData !== null && !isAuthenticated;
+
+  const [concept, setConcept] = useState<ConceptMeta | null>(seeded ? initialData.concept : null);
+  const [ancestors, setAncestors] = useState<ConceptAncestor[]>(seeded ? initialData.ancestors : []);
+  const [content, setContent] = useState<string | null>(seeded ? initialData.content : null);
   const [isContentLoading, setIsContentLoading] = useState(false);
-  const [relatedConcepts, setRelatedConcepts] = useState<ConceptMeta[]>([]);
-  const [relatedExercises, setRelatedExercises] = useState<ExerciseInfo[]>([]);
-  const [relatedProjects, setRelatedProjects] = useState<ProjectInfo[]>([]);
-  const [videoData, setVideoData] = useState<VideoSource[] | null>(null);
+  const [relatedConcepts, setRelatedConcepts] = useState<ConceptMeta[]>(seeded ? initialData.relatedConcepts : []);
+  const [relatedExercises, setRelatedExercises] = useState<ExerciseInfo[]>(seeded ? initialData.relatedExercises : []);
+  const [relatedChallenges, setRelatedChallenges] = useState<ChallengeInfo[]>([]);
+  const [videoData, setVideoData] = useState<VideoSource[] | null>(seeded ? initialData.videoData : null);
   const [unlockedConceptSlugs, setUnlockedConceptSlugs] = useState<Set<string>>(new Set());
   const [exerciseStatuses, setExerciseStatuses] = useState<Record<string, LessonStatus>>({});
-  const [projectStatuses, setProjectStatuses] = useState<Record<string, ProjectStatus>>({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [challengeStatuses, setChallengeStatuses] = useState<Record<string, ChallengeStatus>>({});
+  const [isLoading, setIsLoading] = useState(!seeded);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Logged-out visitors already have the full leaf from the server.
+    if (seeded) {
+      return;
+    }
+
     let cancelled = false;
+
+    const ctx: ConceptSetupContext = {
+      slug,
+      locale,
+      router,
+      conceptsPath,
+      isCancelled: () => cancelled,
+      setRelatedExercises,
+      setRelatedChallenges,
+      setUnlockedConceptSlugs,
+      setExerciseStatuses,
+      setChallengeStatuses,
+      setVideoData
+    };
 
     const load = async () => {
       try {
@@ -63,7 +189,7 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
         // Phase 1: resolve concept + ancestors (fast — served from in-memory cache).
         // This gives us the real title and breadcrumb immediately so the correct
         // skeleton renders without any intermediate wrong-layout flash.
-        const [conceptData, ancestorData] = await Promise.all([getConcept(slug), getAncestors(slug)]);
+        const [conceptData, ancestorData] = await Promise.all([getConcept(slug, locale), getAncestors(slug, locale)]);
         if (cancelled) {
           return;
         }
@@ -83,7 +209,7 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
         // depends on the slug + category flag from Phase 1, not on related/exercise data.
         if (!conceptData.category) {
           setIsContentLoading(true);
-          void getConceptContent(slug)
+          void getConceptContent(slug, locale)
             .then((contentHtml) => {
               if (!cancelled) {
                 setContent(contentHtml);
@@ -102,7 +228,10 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
         }
 
         // Phase 2: fetch the slower secondary data in the background.
-        const [related, exercises] = await Promise.all([getRelatedConcepts(slug), getExercisesForConcept(slug)]);
+        const [related, exercises] = await Promise.all([
+          getRelatedConcepts(slug, locale),
+          getExercisesForConcept(slug, locale)
+        ]);
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (cancelled) {
           return;
@@ -111,65 +240,9 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
         setRelatedConcepts(related);
 
         if (isAuthenticated) {
-          const [unlockedSlugs, projectsResponse, video] = await Promise.all([
-            fetchUnlockedConceptSlugs(),
-            fetchProjects({ per: 100 }).catch(() => ({ results: [] as ProjectData[] })),
-            fetchConceptVideoData(slug)
-          ]);
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          if (cancelled) {
-            return;
-          }
-
-          // Split concept exercises into true exercises vs projects (matched by exercise_slug or slug).
-          const projectByExerciseSlug = new Map<string, ProjectData>();
-          for (const project of projectsResponse.results) {
-            if (project.exercise_slug) {
-              projectByExerciseSlug.set(project.exercise_slug, project);
-            }
-            projectByExerciseSlug.set(project.slug, project);
-          }
-
-          const exerciseOnly: ExerciseInfo[] = [];
-          const projectsForConcept: ProjectInfo[] = [];
-          for (const ex of exercises) {
-            const match = projectByExerciseSlug.get(ex.slug);
-            if (match) {
-              projectsForConcept.push({ slug: match.slug, title: match.title });
-            } else {
-              exerciseOnly.push(ex);
-            }
-          }
-
-          const lessonStatuses =
-            exerciseOnly.length > 0
-              ? await fetchLessonStatusesBySlugs(exerciseOnly.map((e) => e.slug))
-              : ({} as Record<string, LessonStatus>);
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          if (cancelled) {
-            return;
-          }
-
-          const projStatuses: Record<string, ProjectStatus> = {};
-          for (const project of projectsResponse.results) {
-            if (project.status) {
-              projStatuses[project.slug] = project.status;
-            }
-          }
-
-          setRelatedExercises(exerciseOnly);
-          setRelatedProjects(projectsForConcept);
-          setUnlockedConceptSlugs(new Set(unlockedSlugs));
-          setExerciseStatuses(lessonStatuses);
-          setProjectStatuses(projStatuses);
-          setVideoData(video);
-
-          if (!unlockedSlugs.includes(slug)) {
-            router.push("/concepts");
-            return;
-          }
+          await setupForLoggedInUser(exercises, ctx);
         } else {
-          setRelatedExercises(exercises);
+          await setupForExternalUser(exercises, ctx);
         }
       } catch {
         if (cancelled) {
@@ -186,22 +259,22 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
     return () => {
       cancelled = true;
     };
-  }, [slug, isAuthenticated, router]);
+  }, [slug, isAuthenticated, router, seeded, conceptsPath, locale]);
 
-  const isConceptUnlocked = (conceptSlug: string) => !isAuthenticated || unlockedConceptSlugs.has(conceptSlug);
+  const isConceptUnlocked = (conceptSlug: string) => isUnlocked(unlockedConceptSlugs, conceptSlug, isAuthenticated);
 
-  const getExerciseStatus = (exerciseSlug: string): LessonStatus | "locked" => {
+  const getExerciseStatus = (exerciseSlug: string): LessonStatus => {
     if (!isAuthenticated) {
       return "locked";
     }
-    return exerciseStatuses[exerciseSlug] ?? "not_started";
+    return exerciseStatuses[exerciseSlug] ?? "locked";
   };
 
-  const getProjectStatus = (projectSlug: string): ProjectStatus | "locked" => {
+  const getChallengeStatus = (challengeSlug: string): ChallengeStatus | "locked" => {
     if (!isAuthenticated) {
       return "locked";
     }
-    return projectStatuses[projectSlug] ?? "locked";
+    return challengeStatuses[challengeSlug] ?? "locked";
   };
 
   return {
@@ -211,13 +284,13 @@ export function useConceptDetailData(slug: string): ConceptDetailData {
     isContentLoading,
     relatedConcepts,
     relatedExercises,
-    relatedProjects,
+    relatedChallenges,
     videoData,
     isLoading,
     error,
     isAuthenticated,
     isConceptUnlocked,
     getExerciseStatus,
-    getProjectStatus
+    getChallengeStatus
   };
 }

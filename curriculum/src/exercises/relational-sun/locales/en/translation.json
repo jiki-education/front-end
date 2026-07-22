@@ -1,0 +1,38 @@
+{
+  "checks": {
+    "wrongPosition": "The sun is either in the wrong place or the wrong size. Check your `sunX` and `sunY` calculations, and make sure you're passing `radius` to `circle`.",
+    "notResponsive": "Your code doesn't scale correctly when `gap` is {{gap}} and `radius` is {{radius}}. `sunX` and `sunY` should be derived from `gap` and `radius`, not hardcoded numbers."
+  },
+  "tasks": {
+    "positionSun": {
+      "name": "Position the sun",
+      "description": "Derive `sunX` and `sunY` from `canvasSize`, `gap`, and `radius` so the sun scales correctly."
+    }
+  },
+  "scenarios": {
+    "positionSun": {
+      "name": "Position the sun",
+      "description": "Derive the sun's position from `gap` and `radius` so it scales."
+    }
+  },
+  "hints": {
+    "sunXPosition": {
+      "question": "How should I think about the sun's x position?",
+      "answer": "Picture the right edge of the canvas. The edge of the sun sits `gap` to the left of that edge. The *centre* of the sun is one more radius further in than that."
+    },
+    "sunYPosition": {
+      "question": "How should I think about the sun's y position?",
+      "answer": "It's the same idea as the x position, but measured down from the top edge of the canvas instead of in from the right edge."
+    },
+    "whyNotHardcode": {
+      "question": "Why can't I just write the numbers directly?",
+      "answer": "If you hardcode `sunX` and `sunY`, the sun will stay in one place when `gap` or `radius` change. Building them from `gap` and `radius` keeps the sun in the corner no matter what values you choose."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Draw a circle centered at (centerX, centerY) with the given radius and color",
+      "category": "Drawing Shapes"
+    }
+  }
+}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { hideModal } from "@/lib/modal/store";
 import TickCircleIcon from "@/icons/tick-circle.svg";
 import styles from "./CancelSubscriptionModal.module.css";
@@ -9,6 +10,7 @@ interface CancelSubscriptionSuccessModalProps {
 }
 
 export function CancelSubscriptionSuccessModal({ premiumEndDate }: CancelSubscriptionSuccessModalProps) {
+  const t = useTranslations("settings.cancelSuccess");
   const handleClose = () => {
     hideModal();
   };
@@ -18,22 +20,19 @@ export function CancelSubscriptionSuccessModal({ premiumEndDate }: CancelSubscri
       <div className={`${styles.icon} ${styles.iconSuccess}`}>
         <TickCircleIcon />
       </div>
-      <h3 className={styles.title}>Subscription cancelled</h3>
-      <p className={styles.message}>
-        Your Premium subscription has been cancelled. You can continue enjoying all Premium features until your current
-        billing period ends.
-      </p>
+      <h3 className={styles.title}>{t("title")}</h3>
+      <p className={styles.message}>{t("message")}</p>
 
       <div className={styles.confirmationDate}>
-        <div className={styles.dateLabel}>Premium access until</div>
+        <div className={styles.dateLabel}>{t("accessUntil")}</div>
         <div className={styles.dateValue}>{premiumEndDate}</div>
       </div>
 
-      <p className={styles.resubscribeNote}>Changed your mind? You can resubscribe anytime.</p>
+      <p className={styles.resubscribeNote}>{t("resubscribeNote")}</p>
 
       <div className={styles.buttons}>
         <button className="ui-btn ui-btn-default ui-btn-primary" onClick={handleClose}>
-          Got it
+          {t("gotIt")}
         </button>
       </div>
     </div>

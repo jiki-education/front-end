@@ -11,12 +11,12 @@
 
     ol li {
         list-style: decimal;
-        margin-left: 18px;
+        margin-inline-start: 18px;
     }
 
     ul li {
         list-style: disc;
-        margin-left: 18px;
+        margin-inline-start: 18px;
     }
 
     strong {
@@ -60,8 +60,8 @@
     }
 
     hr {
-        border-bottom-width: 1px;
-        border-color: var(--color-gray-200);
+        border: none;
+        border-bottom: 1px solid var(--color-gray-200);
         margin-top: 20px;
         margin-bottom: 20px;
     }
@@ -88,7 +88,7 @@
         &:before {
             content: "";
             position: absolute;
-            left: -2px;
+            inset-inline-start: -2px;
             top: -2px;
             background: linear-gradient(
                 45deg,
@@ -114,6 +114,152 @@
         width: 80px;
         height: 168px;
     }
+
+    .introBlock {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+
+    .introInner {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .headingHighlight {
+        font-weight: 600;
+    }
+
+    .arrowWrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 8px;
+        margin-bottom: 12px;
+        margin-inline-end: 80px;
+        transform: scaleX(-1);
+    }
+
+    .inline {
+        display: inline;
+    }
+
+    .nowrap {
+        white-space: nowrap;
+    }
+
+    .rhodriCard {
+        margin-top: 20px;
+        margin-inline-end: 0;
+
+        @media (min-width: 640px) {
+            float: right;
+            margin-inline-start: 24px;
+            margin-bottom: 24px;
+        }
+
+        @media (min-width: 1280px) {
+            margin-inline-end: -100px;
+        }
+    }
+
+    .rhodriFrame {
+        border: 8px solid #fff;
+        border-radius: 5px;
+        width: 100%;
+
+        @media (min-width: 640px) {
+            width: 220px;
+        }
+
+        @media (min-width: 1024px) {
+            width: 300px;
+        }
+    }
+
+    .rhodriImg {
+        width: 100%;
+        border: 1px solid #aaa;
+        border-radius: 1px;
+    }
+
+    .rhodriCaption {
+        font-size: 14px;
+        text-align: center;
+        font-weight: 400;
+        padding-top: 8px;
+        padding-inline-start: 8px;
+        padding-inline-end: 8px;
+        line-height: 140%;
+    }
+
+    .captionShort {
+        display: inline;
+
+        @media (min-width: 1024px) {
+            display: none;
+        }
+    }
+
+    .captionLong {
+        display: none;
+
+        @media (min-width: 1024px) {
+            display: inline;
+        }
+    }
+
+    .paraSpaced {
+        margin-top: 16px;
+    }
+
+    .eventuallyShort {
+        display: inline;
+
+        @media (min-width: 640px) {
+            display: none;
+        }
+    }
+
+    .eventuallyLong {
+        display: none;
+        position: relative;
+
+        @media (min-width: 640px) {
+            display: inline;
+        }
+    }
+
+    .list {
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+
+    .videoGrid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+
+    .video {
+        width: 100%;
+        border: 2px solid var(--color-purple-600);
+        border-radius: 5px;
+    }
+
+    .sectionHeading {
+        margin-top: 32px;
+    }
+
+    .inlineLink {
+        text-decoration: underline;
+        font-weight: 600;
+        color: var(--color-blue-800);
+    }
 }
 
 .rhodri-arrow,
@@ -121,7 +267,7 @@
     position: absolute;
     height: 70px;
     width: 70px;
-    right: -60px;
+    inset-inline-end: -60px;
     top: -13px;
     transform: rotate(140deg);
 }

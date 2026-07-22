@@ -4,9 +4,8 @@ import type StockMarketExercise from "./Exercise";
 export const tasks = [
   {
     id: "grow-investment" as const,
-    name: "Grow your investment over 20 years",
-    description:
-      "Start with $10, simulate 20 years of stock market growth, report to the taxman each year, and announce the final balance to your family.",
+    name: "tasks.growInvestment.name",
+    description: "tasks.growInvestment.description",
     hints: [],
     requiredScenarios: ["twenty-years"],
     bonus: false
@@ -25,15 +24,17 @@ function generateGrowthRates(startYear: number): Record<number, number> {
   return rates;
 }
 
-// Match the interpreter's 5dp rounding on every arithmetic operation
-function round5(v: number): number {
-  return Math.round(v * 100000) / 100000;
-}
-
+// Plain float arithmetic in the same order as the reference solution
+// (money = money * (100 + rate) / 100). The interpreter no longer rounds
+// each operation to 5dp, so the model must not either: per-op rounding
+// error compounds over 20 years and can cross a cent boundary for some
+// rate sequences, falsely failing correct solutions. The toFixed(2)
+// comparison in the expectations provides the tolerance for students
+// whose operation order differs slightly.
 function getExpectedBalance(startYear: number, rates: Record<number, number>): number {
   let money = 10;
   for (let year = startYear; year < startYear + 20; year++) {
-    money = round5(round5(money * round5(100 + rates[year])) / 100);
+    money = (money * (100 + rates[year])) / 100;
   }
   return money;
 }
@@ -42,7 +43,7 @@ function getExpectedTaxReports(startYear: number, rates: Record<number, number>)
   const reports: { year: number; balance: number }[] = [];
   let money = 10;
   for (let year = startYear; year < startYear + 20; year++) {
-    money = round5(round5(money * round5(100 + rates[year])) / 100);
+    money = (money * (100 + rates[year])) / 100;
     reports.push({ year, balance: money });
   }
   return reports;
@@ -51,8 +52,8 @@ function getExpectedTaxReports(startYear: number, rates: Record<number, number>)
 export const scenarios: VisualScenario[] = [
   {
     slug: "twenty-years",
-    name: "20 years of growth",
-    description: "Invest $10 and track your balance over 20 years of market growth.",
+    name: "scenarios.twentyYears.name",
+    description: "scenarios.twentyYears.description",
     taskId: "grow-investment",
     setup(exercise) {
       const startYear = currentYear();
@@ -67,7 +68,7 @@ export const scenarios: VisualScenario[] = [
       const expectations = [
         {
           pass: ex.taxReports.length === 20,
-          errorHtml: `Expected 20 tax reports (one per year) but got ${ex.taxReports.length}. Make sure you call <code>reportTax()</code> inside the loop.`
+          errorHtml: exercise.t("checks.taxReportCount", { got: ex.taxReports.length })
         }
       ];
 
@@ -83,12 +84,20 @@ export const scenarios: VisualScenario[] = [
         if (!yearMatch) {
           expectations.push({
             pass: false,
-            errorHtml: `Tax report #${i + 1} was for year ${actual.year} but should have been for year ${expected.year}.`
+            errorHtml: exercise.t("checks.taxReportWrongYear", {
+              index: i + 1,
+              actualYear: actual.year,
+              expectedYear: expected.year
+            })
           });
         } else if (!balMatch) {
           expectations.push({
             pass: false,
-            errorHtml: `You reported the wrong tax for ${expected.year}. It should have been $${expected.balance.toFixed(2)} but was $${actual.balance.toFixed(2)}.`
+            errorHtml: exercise.t("checks.taxReportWrongBalance", {
+              year: expected.year,
+              expected: expected.balance.toFixed(2),
+              actual: actual.balance.toFixed(2)
+            })
           });
         } else {
           expectations.push({ pass: true, errorHtml: "" });
@@ -97,7 +106,18 @@ export const scenarios: VisualScenario[] = [
 
       expectations.push({
         pass: ex.announcedBalance !== undefined && ex.announcedBalance.toFixed(2) === expectedBalance.toFixed(2),
-        errorHtml: `Expected a final balance of approximately $${expectedBalance.toFixed(2)} but got $${ex.announcedBalance?.toFixed(2) ?? "nothing"}. Make sure you call <code>announceToFamily()</code> after the loop.`
+        errorHtml: exercise.t("checks.wrongFinalBalance", {
+          expected: expectedBalance.toFixed(2),
+          got: ex.announcedBalance?.toFixed(2) ?? "nothing"
+        })
+      });
+
+      expectations.push({
+        pass: ex.announceCount === 1,
+        errorHtml: exercise.t("checks.announcedMultipleTimes", {
+          count: ex.announceCount,
+          times: ex.announceCount === 1 ? "time" : "times"
+        })
       });
 
       return expectations;

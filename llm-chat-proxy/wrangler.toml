@@ -12,13 +12,29 @@ fallthrough = true
 pattern = "chat.jiki.io"
 custom_domain = true
 
-# Rate limiting: 100 requests per hour
-# TODO: Create rate limiter namespace in Cloudflare and uncomment
-# [[unsafe.bindings]]
-# name = "RATE_LIMITER"
-# type = "ratelimit"
-# namespace_id = "llm_chat_rate_limit"
-# simple = { limit = 100, period = 3600 }
+# Rate limiting: 10 requests per minute per authenticated user (keyed on the JWT `sub`).
+# This is a burst/abuse throttle, not a usage quota: the Workers rate-limit binding only
+# supports a `period` of 10 or 60 seconds (60 is the max), and limits are per-Cloudflare-colo
+# and eventually consistent. For hourly/daily per-user caps, use a Durable Object/KV counter
+# or enforce in Rails when minting the chat JWT.
+# `namespace_id` is an arbitrary integer (given as a string), unique within the account —
+# nothing needs to be created in the Cloudflare dashboard.
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+
+[ratelimits.simple]
+limit = 10
+period = 60
+
+# Per-user message quota counters: 100/day, 500/month (UTC), keyed on the JWT `sub`.
+# See src/usage.ts. The namespace is managed by Terraform
+# (terraform/cloudflare/kv.tf, title "llm-chat-proxy-usage"); the id below is its
+# output `llm_chat_usage_kv_namespace_id`. `wrangler dev` simulates KV locally, so
+# the id only needs to be real for deploys.
+[[kv_namespaces]]
+binding = "USAGE_KV"
+id = "fd98b3fa3c43457bad10e209b8e48cb5"
 
 # Environment variables are set via: wrangler secret put <NAME>
 # Required secrets:

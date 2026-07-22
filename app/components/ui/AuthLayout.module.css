@@ -1,3 +1,12 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 1024px) {
+        flex-direction: row;
+    }
+}
+
 /* Right side - Gradient background */
 .rightSide {
     flex: 1;
@@ -12,7 +21,7 @@
     height: 100vh;
     overflow: hidden;
     background-color: var(--color-blue-600);
-    background-image: url("/static/images/landing-page/hero-grid.svg");
+    background-image: url("/static/images/landing-page/hero-grid-d727b.svg");
     background-repeat: repeat;
     background-size: 20px;
 }

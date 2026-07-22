@@ -1,6 +1,8 @@
+import "../app.css";
 import { ClientAuthGuard } from "../../components/layout/auth/internal/ClientAuthGuard";
 import { CheckoutReturnHandler } from "@/components/checkout/CheckoutReturnHandler";
 import { WelcomeModalHandler } from "@/components/WelcomeModalHandler";
+import { AppModalRegistrar } from "@/lib/modal/AppModalRegistrar";
 
 /**
  * Internal App Layout with Client-Side Authentication
@@ -14,9 +16,8 @@ import { WelcomeModalHandler } from "@/components/WelcomeModalHandler";
  *    - Shows loading spinner while checking auth
  *    - Attempts token refresh if token is expired
  *    - On success → renders children
- *    - On failure → redirects based on route type:
- *      * External URL (e.g., /blog) → redirect to same URL (shows external version)
- *      * Internal URL (e.g., /dashboard) → redirect to /auth/login
+ *    - On failure → redirects to /auth/login (or, for /dashboard, to the landing
+ *      page, which is its public equivalent)
  *
  * BENEFITS:
  * =========
@@ -32,6 +33,7 @@ export default function AppLayout({
 }>) {
   return (
     <ClientAuthGuard>
+      <AppModalRegistrar />
       {children}
       <CheckoutReturnHandler />
       <WelcomeModalHandler />

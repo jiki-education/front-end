@@ -11,25 +11,25 @@ export interface UnlockedConcept {
   content_html: string;
 }
 
-export interface UnlockedProject {
+export interface UnlockedChallenge {
   slug: string;
   title: string;
   description: string;
 }
 
 export interface CompletionResponseData {
-  type: "concept_unlocked" | "project_unlocked";
+  type: "concept_unlocked" | "challenge_unlocked";
   data: {
     concept_slug?: string;
     concept?: UnlockedConcept;
-    project?: UnlockedProject;
+    challenge?: UnlockedChallenge;
   };
 }
 
 // Exercise context types
 export type ExerciseContext =
   | { type: "lesson"; slug: string; walkthroughVideoData?: VideoSource[] | null }
-  | { type: "project"; slug: string };
+  | { type: "challenge"; slug: string };
 
 // CodeMirror editor types
 export interface UnderlineRange {
@@ -56,7 +56,6 @@ export interface OrchestratorState {
   currentTestIdx: number; // Index of current test/scenario (synced with currentTest)
   hasCodeBeenEdited: boolean;
   isSpotlightActive: boolean;
-  wasSuccessModalShown: boolean;
   isExerciseCompleted: boolean;
   completionResponse: CompletionResponseData[];
   foldedLines: number[]; // Line numbers that are currently folded in the editor
@@ -124,7 +123,6 @@ export interface OrchestratorActions {
   setCurrentTestTime: (time: number, nearestOrExactFrame?: "nearest" | "exact", force?: boolean) => void;
   setHasCodeBeenEdited: (value: boolean) => void;
   setIsSpotlightActive: (value: boolean) => void;
-  setWasSuccessModalShown: (value: boolean) => void;
   setIsExerciseCompleted: (value: boolean) => void;
   setCompletionResponse: (response: CompletionResponseData[]) => void;
   setFoldedLines: (lines: number[]) => void;

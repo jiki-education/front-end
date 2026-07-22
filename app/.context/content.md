@@ -31,14 +31,53 @@ All content validation happens in the content package's test suite, ensuring dat
 
 ### Article Routes (English - Default)
 
-- **`/articles`** - English articles index page
-- **`/articles/[slug]`** - Individual English article
+Articles are served under `/help` (the Help Center). Legacy `/articles/*` URLs 308 to `/help/*`.
+
+- **`/help`** - English Help Center index page
+- **`/help/[slug]`** - Individual English article
 
 ### Article Routes (Localized)
 
-- **`/[locale]/articles`** - Localized articles index (e.g., `/hu/articles`)
-- **`/[locale]/articles/[slug]`** - Localized article (e.g., `/hu/articles/about-jiki`)
-- **`/en/articles/*`** - Redirects to naked `/articles/*` URLs
+- **`/[locale]/help`** - Localized Help Center index (e.g., `/hu/help`)
+- **`/[locale]/help/[slug]`** - Localized article (e.g., `/hu/help/about-jiki`)
+- **`/en/help/*`** - Redirects to naked `/help/*` URLs
+
+### Build / Project Routes
+
+The "Build with Jeremy" section. All routes are locale-routed like blog/help.
+
+- **`/build`** - Hub page: intro video, project portfolio, upcoming live streams sidebar
+- **`/projects/[slug]`** - Project page: summary, episode list, sidebar (project's streams + coming-soon projects). Projects with no episodes are "coming soon" and have no detail page.
+- **`/projects/[slug]/episodes/[episodeSlug]`** - Episode page: from→to summary box, video (Mux or YouTube), transcript, related-guides sidebar
+
+Content is authored in `content/src/posts/projects/` (see `content/AGENTS.md`). Loaders: `getAllProjects`, `getProject`, `getProjectEpisode` in `lib/content/`. Types: `ProjectMeta`, `EpisodeMeta`, `ProcessedEpisode`.
+
+## Landing-Page Testimonials
+
+The landing page's student testimonials and hero marquee blurbs are **editorial content**, not UI
+chrome, so they live in the content package rather than the i18n catalog. Unlike blog/article/guide
+bodies (markdown fetched from R2 at runtime), testimonials are small structured data authored as one
+JSON file per locale:
+
+```
+content/src/testimonials/en.json   # canonical English
+content/src/testimonials/hu.json   # per-locale variant (English verbatim until translated)
+```
+
+Each file has the `TestimonialsData` shape: `heading`, `subheading` (a single sentence carrying one
+`<link>…</link>` span linking to the full testimonials page), a `primary` featured quote, a `quotes`
+array (each `{ slug, name, role, image, html }`), and a `marquee` array of short blurbs. Quote `html`
+is trusted hand-authored markup (only `<strong>`) rendered via `dangerouslySetInnerHTML`. The `image`
+field is a **filename only** — the presentational avatar assets stay bundled with the landing-page
+component (`components/landing-page/assets/testimonials/`), which maps the filename to a
+`StaticImageData`. This keeps the optimized `next/image` output identical while the copy lives in
+content.
+
+`scripts/generate-content-cache.js` reads these files and bakes them into
+`lib/generated/content-meta-server.json` under `testimonials`. `getTestimonials(locale)` (from
+`@/lib/content`) reads them **synchronously** (no fetch), so the landing page renders server-side and
+stays cacheable. It falls back to English when a locale has no testimonials. Validation lives in
+`lib/content/validator.ts` (`validateTestimonials`) and runs in `tests/unit/content/`.
 
 ## Using Content Functions
 
@@ -173,7 +212,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 ## Images
 
-Images are symlinked from the content package source:
+Source images live in the content package and are symlinked into `public/`:
 
 ```bash
 public/static/images/blog -> ../../../../content/images/blog
@@ -183,8 +222,24 @@ public/static/images/avatars -> ../../../../content/images/avatars
 
 - Symlinks point to source images in `content/images/` (not `content/dist/images/`)
 - Source images are committed to git and always available
-- No build step required - images work in both development and deployment
 - Symlinks are tracked in git for consistent deployment
+
+### Content-hashed serving
+
+`generate-content-cache.js` does not serve images from those symlinks directly.
+For every `/images/...` reference (cover images, author avatars, and inline
+markdown images) it reads the source bytes, content-hashes them, and copies the
+file to a fingerprinted path under the immutable content cache:
+
+```
+/images/blog/foo.webp → /static/content/images/blog/foo.<hash>.webp
+```
+
+The hashed URL is baked into the generated metadata/HTML, so consumers just
+render `post.coverImage` / `author.avatar` unchanged. Because `/static/content/*`
+is served `immutable` (see `public/_headers`), changing an image produces a new
+URL and busts the cache automatically. The `/static/images/*` symlinks remain the
+build-time source only.
 
 ## Locale Handling
 
@@ -200,8 +255,8 @@ export const DEFAULT_LOCALE: Locale = "en";
 
 ### How It Works
 
-1. **Default locale (English)**: Served at naked URLs (`/blog`, `/articles`)
-2. **Non-default locales**: Served at locale-prefixed URLs (`/hu/blog`, `/hu/articles`)
+1. **Default locale (English)**: Served at naked URLs (`/blog`, `/help`)
+2. **Non-default locales**: Served at locale-prefixed URLs (`/hu/blog`, `/hu/help`)
 3. **English locale prefix**: Redirects to naked URLs (`/en/blog` → `/blog`)
 4. **Content filtering**: Only locales in BOTH content AND SUPPORTED_LOCALES are exposed
 

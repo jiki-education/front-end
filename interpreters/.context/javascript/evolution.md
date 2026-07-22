@@ -1,5 +1,153 @@
 # JavaScript Interpreter Evolution
 
+## 2026-07-17: i18n moves to the inject-the-dict model (no global translator)
+
+The JavaScript interpreter previously used a **module-global** i18next instance (`translator.ts`) that statically imported every locale pack (`en`+`hu`+`system`), with `fallbackLng: "en"` and a mutable `changeLanguage`. It now follows the monorepo's inject-the-dict model (mirroring `curriculum/src/i18n/translator.ts`; see `front-end/i18n_TODO.md`):
+
+- **`EvaluationContext.localeMessages`** carries the active locale's message dict, injected by the app per run. `interpret`/`compile`/`evaluateFunction` build **one** `translate` function via `buildTranslator(context.localeMessages)` and thread it into the `Parser` and `Executor`; it flows down to the `Scanner`, `Environment` (inherited along the scope chain), `preParse`, and stdlib error paths. Each object holds it as a plain `translate` field (`this.translate(key, ctx)`); there are no wrapper methods.
+- **Shared factory**: `src/shared/i18n.ts` exports `createTranslator(dict)` (fresh `createInstance`, `lng: "x"`, `fallbackLng: false`, `escapeValue: false`) — reusable by the other interpreters later.
+- **No runtime fallback** (`fallbackLng` removed): a missing key in an injected locale surfaces as the key, never silent English.
+- **Default = `system`, not `en`.** When nothing is injected, the translator resolves against the bundled `system` pseudo-locale — a loud canary for a forgotten injection rather than plausible silent English. Consequently `en` is no longer import-bundled at runtime; only `system` is. `Environment` throws `InterpreterInternalError` if constructed with neither a translate function nor an enclosing scope.
+- **Retired**: the global `changeLanguage`/`getLanguage` (JS only — Python/JikiScript still have them). `tests/setup.ts` no longer sets the JS language; JS tests default to `system` and inject `{ localeMessages: enMessages }` where they assert English. New guard: `tests/javascript/translations.test.ts`.
+
+⚠️ **Coupling**: this is not shippable to students until the app injects a locale (else the app renders `system` strings); it rides the cross-package merge gate in `i18n_TODO.md`. The error-catalog type-noun leak fixes and describer i18n are separate follow-up PRs stacked on this one.
+
+## 2026-07-15: `for` loops require `let` for their loop variable
+
+`for (letter of rack)` (no `let`) used to fall through to the C-style for-loop parse path, so on levels where only `ForOfStatement` was allowed the student got the misleading `ForStatementNotAllowed` ("no C-style for loops"). Now the parser detects `IDENTIFIER of`/`IDENTIFIER in` after `for (` and raises the new `MissingLetInForOf`/`MissingLetInForIn` syntax errors (system context: the variable name). The node-allowed check for `ForOfStatement`/`ForInStatement` runs first, so levels without those constructs still report `ForOfStatementNotAllowed`/`ForInStatementNotAllowed` rather than advice to add `let`.
+
+For consistency, C-style init assignment was tightened too: `for (i = 0; ...)` is now the `MissingLetInForLoopInit` syntax error even when `i` is already declared. This deliberately removed the previously supported "reuse an outer variable" init form (there was an explicit test for it); real JavaScript allows both no-`let` forms when the variable is declared, but they are unusual and are disabled in Jiki's JavaScript, and the error messages say so. Empty init (`for (; i < 3; i++)`) is still allowed, as is assignment in the update clause.
+
+## 2026-07-15: Template literals get the same scanner guards as strings
+
+`tokenizeTemplateLiteral` in `scanner.ts` previously scanned to EOF looking for the closing backtick, so an unterminated template literal silently swallowed the rest of the program and reported a bare `MissingBacktickToTerminateTemplateLiteral` with no context and a location pointing at the last scanned fragment. It now has the same guards as `tokenizeString`:
+
+- **Newlines terminate**: multi-line template literals are no longer supported (a deliberate educational divergence from real JavaScript — the curriculum never uses them). Hitting end-of-line raises `MissingBacktickToTerminateTemplateLiteral` with a `string` context so the message can suggest the fixed line, mirroring `MissingDoubleQuoteToTerminateString`.
+- **Quote-typo detection**: if the unterminated line ends with `"` or `'` (optionally followed by whitespace/semicolon), the new `QuoteUsedToTerminateTemplateLiteral` error fires instead, telling the student they probably typed a quote where the closing backtick should be, with the quote stripped from the suggestion.
+- **Error location** spans from the opening backtick (`this.start` is restored before erroring).
+- **Escape sequences** are now processed in template text via `processTemplateEscapeSequences` (single-pass): `\n`, `\t`, `\r`, `` \` ``, `\$` (prevents interpolation), and `\\`. Unknown escapes are left as-is. A trailing backslash can't swallow the terminating newline.
+- **Unterminated interpolation** (`` `Hi, ${name `` hitting a backtick or end-of-line with unbalanced braces) now raises `MissingRightBraceInTemplateLiteral` from the scanner instead of the misleading missing-backtick error. Side effect: nested template literals inside interpolations are rejected (also fine educationally).
+- **Brace-counting fix**: whitespace inside `${ ... }` adds no token, and the counter previously re-inspected the last-added token, double-counting the interpolation's own `LEFT_BRACE`. The loop now skips iterations where `scanToken()` added nothing.
+
+## 2026-07-14: Only the first lint error is reported per parse
+
+`lintWarning` in `parser.ts` now drops all lint warnings after the first one recorded. Previously a single badly formatted line could stack several messages in the editor tooltip — e.g. `if(name === "") { name = "you" }` produced `OpeningBraceContentNotOnOwnLine`, `ClosingBraceNotOnOwnLine`, **and** a nonsensical `IncorrectIndentation` ("expected 2 spaces… indented by 33 spaces", because the mid-line closing brace's column was measured as indentation). Students fix one thing at a time, and later warnings are usually side-effects of the first, so only the first is surfaced.
+
+The `IncorrectIndentation` copy in `en/translation.json` was also reworded from "you only indented by {{actual}} spaces" to "this line is indented by {{actual}} spaces", since "only" read backwards whenever the line was over-indented.
+
+## 2026-07-12: `exerciseFinished()` halts execution at the end of the current statement
+
+Previously `exerciseFinished()` (called by exercises when the goal is reached, e.g. the maze character landing on the target) only broke **no-argument** `repeat()` loops. Counted repeats, `while`, `for`, `for-of` and `for-in` ignored it, so a student who wrote `repeat(50)` instead of the bare `repeat()` watched their character reach the maze target and then keep executing the remaining iterations - wandering off the target square and failing the scenario's final-position check despite visibly finishing.
+
+Now the flag halts execution entirely, at the end of the statement that triggered it:
+
+- `executeStatement` early-returns when `_exerciseFinished` is set, so every subsequent statement (rest of the loop body, rest of a function body, statements after the loop, remaining top-level statements) becomes a no-op.
+- Every loop construct (`repeat` counted and uncounted, `while`, `for`, `for-of`, `for-in`) breaks after the iteration in which the flag was set, so loop machinery stops generating condition/iteration frames.
+
+**Semantic change:** the old behaviour was "finish the current _iteration_, then break the no-arg repeat" - remaining statements in the finishing iteration still ran. The new behaviour stops after the current _statement_: nothing in the program executes once the exercise has finished. The expression containing the triggering call still completes normally and generates its frame.
+
+Python and JikiScript retain the old semantics (only their no-arg repeat loops check the flag); aligning them is deliberately out of scope for now. The `ExecutionContext.exerciseFinished` doc comment in `shared/interfaces.ts` records the divergence.
+
+## 2026-07-10: Loose equality (`==`/`!=`) rejected at parse time, with distinct messages
+
+Rejecting `==`/`!=` when `enforceStrictEquality` is on (the default) moved from a **runtime** check in `executeBinaryExpression` to a **parse-time** check in `parser.ts` (`equality()`). Rationale:
+
+- The feature is "this syntax is disabled in Jiki", not a runtime condition. As a runtime error, `==` inside a branch that never executed produced no error at all. As a `SyntaxError` it is flagged regardless of whether the expression would run.
+- Syntax errors already flow through the app's `handleSyntaxError`, so the offending operator gets a red underline and the line gets `cm-highlightedLine--error` for free — runtime error frames never got that treatment.
+
+Two other changes went with it:
+
+- **`==` and `!=` now use distinct error keys** — `StrictEqualityRequired` (change `==` → `===`) and the new `StrictInequalityRequired` (change `!=` → `!==`), each with its own `en` + `system` copy. Previously both shared one message that always talked about `==`. The keys moved from `error.runtime.*` to `error.syntax.*`, and were removed from `RuntimeErrorType`. The error location is the operator token only, not the whole binary expression.
+- **App side (`store.ts` `setCurrentFrame`):** runtime **error frames** now set `highlightedLineColor = ERROR_HIGHLIGHT_COLOR` (so the line gets `cm-highlightedLine--error`) while success frames reset to `INFO_HIGHLIGHT_COLOR`. Runtime error frames deliberately do **not** set an `underlineRange` — only syntax errors underline a specific location.
+
+## 2026-07-07: Error-message i18n overhaul — all student-facing English moved to translation JSON
+
+A wide pass over the JS interpreter's runtime/parser errors to fix a structural problem: much of the English students saw was either built in code (pluralisation, articles, "no"/"an") or hardcoded as raw `system`-format strings passed straight through `executor.error(..., { message: "..." })`, bypassing i18n entirely. The end state: **every student-facing string is rendered from `en/translation.json`; code passes only structured context.**
+
+Key changes:
+
+- **`InvalidNumberOfArguments` rebuilt around i18next.** Code now passes a `context` discriminator (`exact`/`atLeast`/`range`) plus raw numbers instead of assembling words. Pluralisation lives in the locale via `context` + `count` + nested `$t()`, with reusable quantity fragments in a new top-level `phrases` namespace (`slotCount`/`inputCount`). A **Hungarian (`hu`) bundle** was added (with `fallbackLng: "en"`) as a proof the design survives languages where nouns stay singular after numerals and zero is a negated existential. `executeNewExpression` was aligned to pass `context` too (it previously rendered a raw key string).
+
+- **Overloaded/mislabelled errors split into properly-named keys:** `MissingClassNameAfterNew` (was borrowing `MissingExpression`), `UnterminatedBlockComment` (was a fake `UnknownCharacter`), `UpdateOperatorRequiresNumber` (was the misnamed `InvalidUnaryExpression`). `MissingExpression`/`UnknownCharacter`/`GenericSyntaxError` copy now uses the `{{token}}`/`{{character}}` context they already received.
+
+- **Raw `system`-format throws rerouted** through `executor.error(type, context)` so their `en` copy renders (the `In*` operators, `ComparisonRequiresNumber`, `MethodNotYet*`, `IndexOutOfRange`, `FunctionExecutionError`, `PropertyNotFound`, etc.). `PropertyNotFound` and `IndexOutOfRange` now thread a `type` so they name the real container (arrays/strings/`Math`) instead of hardcoding "arrays".
+
+- **The generic `TypeError` catch-all was promoted** into distinct keys (`ArrayIndexNotNumber`, `ArrayIndexNotInteger`, `StringIndexNotNumber`, `StringIndexNotInteger`, `ComputedAccessNotAllowedForStdlib`, `ComputedAccessNotAllowedForBuiltin`, `CannotReadPropertiesOfType`, `CannotSetPropertyOfType`, `BracketNotationNotAllowedOnInstance`, `NotCallable`), each with reworded educational copy and a system-message test. `TypeError` remains only as the stdlib-arg label (rendered via `error.stdlib.*`).
+
+- **`MethodUsedWithoutParentheses`** — bare method references (`arr.push` without `()`) are now an error, not a first-class function value. Implemented as a parser lookahead: a `MemberExpression` that is immediately the callee of a call is flagged `isCalled`; the executor errors on any method resolved from an unflagged member. **`PropertyNotYetAvailable`** was split out from `MethodNotYetAvailable` so level-gated property access (e.g. `arr.length`) reports "property" rather than "method".
+
+- **`InterpreterInternalError`** now backs all "this should never happen" cases (unreachable `default:`/dispatcher branches, the non-JikiObject guard). It is NOT a `RuntimeError`, is re-thrown out of `interpret()`, and is deliberately exempt from i18n (dev-facing crash, never shown to a student). `catch` blocks that wrap arbitrary errors re-throw it first. This convention is documented in `AGENTS.md`.
+
+- **Dead code/keys removed:** `ArgumentError` (never raised), the `ValueError`/`TypeError` runtime `"{{message}}"` echoes, `GenericSyntaxError` + `UnexpectedRightBrace` (unreachable — a stray token throws `MissingExpression` first, so the parser's no-progress branch became an `InterpreterInternalError` guard), and the `getNodeFriendlyName` English map in `parser.ts` (passed as `friendlyName` context but rendered by no template, and unused in `app`/`curriculum` source — only present in built bundles).
+
+Scope: JavaScript interpreter only. Python still carries the pre-overhaul patterns (raw-message TypeErrors, code-built pluralisation, `InvalidUnaryExpression`) and is the obvious follow-up.
+
+## 2026-07-05: Quote strings in descriptions via `toDisplayString()`
+
+A student reported that variable declaration descriptions showed string values unquoted, e.g. `let border_color = "black"` described as "set it to `black`" instead of "set it to `"black"`". The root cause was `JSString.toString()` returning the raw value, which describers inherited through `formatJSObject()`.
+
+JikiScript avoids this by baking `JSON.stringify` into its primitive `toString()`, but the JS interpreter cannot: unlike JikiScript, JS `toString()` is the value/coercion representation and is relied on by real program-behaviour paths that must stay unquoted (`console.log` output, `array.join`/`toString`/`sort`, object property keys). Conflating value and display into `toString()` would break those. The code already hinted at this by ad-hoc quoting `JSString` inside `JSArray.toString()`/`JSDictionary.toString()`.
+
+The fix introduces a dedicated display representation, `toDisplayString()`, as a concrete default on the shared `JikiObject` base (returns `this.toString()`), overridden only in `JSString` to return `JSON.stringify(this._value)`. The display bottlenecks `formatJSObject()` and `codeTag()` (both in `src/javascript/helpers.ts`) now call `toDisplayString()`, and the describers that bypassed those helpers by calling `.toString()` directly (return, array expression, member access, for-in key, for-of element) were switched to `.toDisplayString()`. Value paths were left untouched. Arrays/dicts inherit the default and keep their existing (already-quoting) `toString()` for display, so nested strings still render correctly. Python inherits the default no-op and is unaffected.
+
+## 2026-06-27: No-arg `repeat()` raises MaxIterationsReached at the cap
+
+A no-argument `repeat() { ... }` is meant to run until the exercise signals completion (`_exerciseFinished`), bounded only by the infinite-loop guard. Previously `executeRepeatStatement` passed `maxTotalLoopIterations` as the loop's literal `count`, so `while (iteration < count)` stopped the loop at exactly the cap, one iteration before `guardInfiniteLoop` (which throws only when `totalLoopIterations > max`) could fire. The result: a never-finishing loop like `repeat() { turnLeft() }` ran exactly `max` times and then exited cleanly with `status: SUCCESS` and no error frame, so the student got no feedback that they were stuck in an unproductive loop. (Before the per-exercise caps landed, the default cap of 10,000 meant this silently generated 10,000 frames and froze the browser.)
+
+The no-arg branch now passes `count: null` and the loop runs `while (count === null || iteration < count)`, relying on `guardInfiniteLoop` to stop it. Hitting `maxTotalLoopIterations` now raises a `MaxIterationsReached` error frame, matching JikiScript (which already used an explicit `iteration >= max` check). Bounded `repeat(n)` is unchanged. The Python interpreter had the identical off-by-one and was fixed the same way.
+
+The English `MaxIterationsReached` copy was reworded to "...The maximum number of times the loops are allowed to run in this exercise is {{max}}." in both JS and Python.
+
+## 2026-06-26: Helpful error for dangling `else` / `else if`
+
+A dangling `else` (or `else if`) that reached the statement level previously fell through to expression parsing and produced the unhelpful `MissingExpression` ("Missing expression in code."). This happens when an `if` block is closed early or already has an `else`, so a following `else if` has no `if` to attach to (commonly a brace-count mistake).
+
+The parser's `statement()` now detects a leading `ELSE` token and throws the new `UnexpectedElseWithoutMatchingIf` syntax error, mirroring JikiScript's existing handling. The English message points the student at the likely cause: "There is no `if` statement that this `else` is coming after. Check whether you have too many (or too few) closing braces above this line."
+
+Scope: JavaScript interpreter only (`parser.ts`, `error.ts`, both locale files). Python still has the same gap (a dangling `elif`/`else` is unhandled) and is a candidate follow-up.
+
+## 2026-06-24: Exact rational arithmetic (order-independent numbers)
+
+Numbers now carry an exact rational value (`Fraction`) internally, so mathematically equivalent expressions agree regardless of operation order. Previously every binary arithmetic result was rounded to 5 decimal places after _each_ operation, which made `1 / 7 * x` (rounds `1/7` first, then multiplies) diverge from `x / 7` (a single round). This surfaced in the Structured House drawing exercise, where `width / 7` passed the position check but `1/7 * width` did not.
+
+The exposed `.value` is unchanged: it is still rounded to 5 decimal places, so existing exercise checks, UI output, and the external-function contract all behave exactly as before. The fix is purely internal precision.
+
+### Mechanism
+
+- New shared `Fraction` class (`src/shared/fraction.ts`): BigInt numerator/denominator, always normalized, with exact `+ - * / % **`(integer exponent). Operations that cannot stay rational (division by zero, non-integer exponents) return `null` so the caller falls back to float arithmetic. Built in `shared/` so JikiScript and Python can adopt it later.
+- `JSNumber` gains an `exact: Fraction | null` field and a `JSNumber.fromFraction()` constructor. `.value` is rounded to display precision (5dp) via `roundToDisplayPrecision`; `.preciseValue` exposes the full-precision value for feeding the next operation.
+- Numeric literals (`executeLiteralExpression`) build their exact fraction from the literal (e.g. `0.1` -> `1/10`). Integers created anywhere via `createJSObject` also get an exact fraction (always representable). Non-integer floats from irrational operations (e.g. `Math.sqrt`) are left inexact (`exact: null`) so they are never treated as exact.
+- `executeBinaryExpression` routes number/number arithmetic through `numberArithmetic`: exact fraction arithmetic when both operands are exact and the op stays rational, otherwise rounded float arithmetic (preserving the old neat display for the inexact/post-irrational path). Type-coercion paths (string concat, `"5" - 2`) are unchanged.
+- Unary minus negates the exact fraction when present.
+
+### Scope
+
+JavaScript interpreter only. JikiScript and Python still round per-operation (`DP_MULTIPLE`); porting them to `Fraction` is a planned follow-up.
+
+## 2026-06-22: Assignment is statement-only (AssignmentInExpression)
+
+Assignment (`=`) is now only permitted as a complete expression statement (e.g. `x = 5;`) or in a for-loop's init/update clauses (e.g. `for (i = 0; i < 3; i = i + 1)`). Using assignment anywhere else - inside an `if`/`while` condition, a function argument, a variable initializer, an array/object literal, or nested in any other expression - raises a `AssignmentInExpression` syntax error.
+
+This blocks the classic beginner footgun `if (x = 5)` (which in real JS assigns and then tests truthiness, always entering the branch) by steering students toward `===`. Chained assignment (`x = y = 5`, `obj.a = obj.b = 42`) is also blocked, since the inner assignment is used as a value.
+
+### Mechanism
+
+Parser-level. `expression()`/`assignment()` take an `allowAssignment` flag (default `false`); only the three statement-position call sites (expression statement, for-init, for-update) pass `true`. When `assignment()` encounters `=` with the flag unset it throws `AssignmentInExpression` pointing at the `=` token. The RHS of a permitted assignment is parsed with the flag unset, which is what makes chained assignment an error. Because it is a parse error, it surfaces as `error` with empty `frames[]` per the shared error-handling pattern.
+
+## 2026-06-22: Same-scope redeclaration error (VariableAlreadyDeclared)
+
+Redeclaring a `let`/`const` binding in the same scope (e.g. `let x = 1; let x = 2;`) now raises a `VariableAlreadyDeclared` runtime error instead of silently overwriting. This matches real JavaScript, which raises a SyntaxError for that code. (Detected at execution rather than parse time, so it surfaces as a runtime error frame following the shared error-handling pattern.)
+
+### Mechanism
+
+- `Environment.define` takes a new `isDeclaration` parameter (default `false`); when a declaration targets a name that already exists in the current scope, it throws `VariableAlreadyDeclared`.
+- `executeVariableDeclaration` passes `isDeclaration: true`; built-in injections (console, Math, Object, Number, String, custom functions/classes, secret constants) keep the default `false`, so registering them never trips the check.
+- New `RuntimeErrorType` `VariableAlreadyDeclared` with translations in both `system` and `en` locale files.
+
+### Built-ins are protected too
+
+Unlike real JS, redeclaring an injected built-in (e.g. `let console = 1`, `let Math = 1`) also errors. In real JS those globals are not lexical bindings, so `let console = 1` is legal shadowing, but in this educational interpreter such a redeclaration is virtually always an unintentional student mistake, so erroring is more helpful than silently shadowing the built-in. Cross-scope cases (inner blocks) are unaffected and continue to flow through the existing `ShadowingDisabled` path. The secret-constant top-level path in `executeVariableDeclaration` still returns before `define`, so those remain silently ignored.
+
 ## 2026-05-12: Guard bare function references (UnexpectedUncalledFunction)
 
 A bare callable identifier used as a value (e.g. `circle;` as a statement, or `let g = circle;`) now raises `UnexpectedUncalledFunction` instead of silently stepping. Mirrors JikiScript's `UnexpectedUncalledFunctionInExpression` so semantics match across interpreters.

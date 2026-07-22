@@ -35,5 +35,13 @@
   },
   "dependencies": {
     "qrcode.react": "^4.2.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "@lezer/javascript": "npm:@jiki.io/lezer-javascript@^1.5.5"
+    },
+    "patchedDependencies": {
+      "react-modal@3.16.3": "patches/react-modal@3.16.3.patch"
+    }
   }
 }

@@ -1,0 +1,73 @@
+.lockedCta {
+    position: relative;
+    margin-top: 32px;
+    padding: 48px 32px;
+    border-radius: 16px;
+    border: 2px solid var(--color-purple-400);
+    background: var(--color-purple-30);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Fade the teaser into the CTA so it reads as "there is more below". */
+.lockedCta::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    top: -96px;
+    height: 96px;
+    background: linear-gradient(180deg, rgb(from white r g b / 0) 0%, white 100%);
+    pointer-events: none;
+}
+
+.lockedIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(168, 85, 247, 0.12);
+    color: var(--color-purple-600);
+}
+
+.lockedIcon svg {
+    width: 22px;
+    height: 22px;
+}
+
+.lockedTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-gray-900);
+    margin: 0;
+}
+
+.lockedSubtitle {
+    font-size: 16px;
+    color: var(--color-gray-600);
+    max-width: 520px;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.lockedButton {
+    margin-top: 8px;
+    padding: 12px 24px;
+    border: 0;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--color-purple-500) 0%, var(--color-purple-600) 100%);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.lockedButton:hover {
+    box-shadow: 0 4px 16px rgba(168, 85, 247, 0.3);
+}

@@ -1,7 +1,29 @@
+# Cloudflare Workers Static Assets COMBINES the headers of every matching rule
+# below (duplicate header values are comma-joined) — there is no "most specific
+# wins". Each content-hashed path here also matches the /static/* catch-all at the
+# bottom, so without intervention it would get
+#   Cache-Control: public, max-age=86400, public, max-age=31536000, immutable
+# and browsers honour the FIRST max-age (86400 → 1 day), defeating the immutable
+# intent. So each immutable rule first drops the inherited value with
+# `! Cache-Control`, then sets its own. (/_next/static/* needs no `!` — nothing
+# else matches it.)
+#
+# NOTE: the content-hashed cache trees (static/i18n, static/exercises,
+# static/concepts, static/content) are NOT listed here — they are excluded from
+# the worker bundle (.assetsignore) and served from R2 (assets.jiki.io), whose
+# Cache-Control comes from `static:upload`. Only assets still served BY the worker
+# need rules here.
+
 /_next/static/*
   Cache-Control: public, max-age=31536000, immutable
 
-/static/content/*
+# Landing-page media (videos + background svgs) carries a content hash in its
+# filename (e.g. golf-29474.mp4), so it's safe to cache immutably. These assets
+# can't go through the bundler (mp4 has no Turbopack loader; svgs in CSS url()
+# get captured by the SVGR rule), so the hash is applied by hand — bump the hash
+# in the filename to bust the cache when the file changes.
+/static/images/landing-page/*
+  ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
 
 /static/*

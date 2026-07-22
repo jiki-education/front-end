@@ -1,0 +1,22 @@
+{
+  "slug": "stripey-fabric",
+  "levelId": "complex-conditionals",
+  "hints": [
+    {
+      "question": "hints.howToDraw20Stripes.question",
+      "answer": "hints.howToDraw20Stripes.answer"
+    },
+    {
+      "question": "hints.endStripesPurple.question",
+      "answer": "hints.endStripesPurple.answer"
+    },
+    {
+      "question": "hints.multipleOf4VsEven.question",
+      "answer": "hints.multipleOf4VsEven.answer"
+    },
+    {
+      "question": "hints.stripe4Blue.question",
+      "answer": "hints.stripe4Blue.answer"
+    }
+  ]
+}

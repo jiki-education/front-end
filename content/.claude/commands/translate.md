@@ -18,7 +18,7 @@ Translate content using the translation subagent system.
 
 **You MUST use the Task tool to invoke the appropriate translation subagent(s).** The translate subagent will:
 
-1. Verify the English source exists at `src/posts/$1/$2/en.md`
+1. Verify the English source exists at `src/posts/$1/$2/source.md`
 2. Check which translations already exist
 3. Launch the appropriate language-specific subagents in parallel
 

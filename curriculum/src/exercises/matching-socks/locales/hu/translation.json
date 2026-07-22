@@ -1,0 +1,70 @@
+{
+  "tasks": {
+    "findMatchingSocks": {
+      "name": "Find Matching Socks",
+      "description": "Write a function that takes two baskets of clothes (as lists of strings) and returns a list of all the pairs of socks found across both baskets. Items that are socks end with ' sock' and always start with 'left ' or 'right '."
+    }
+  },
+  "scenarios": {
+    "emptyBaskets": {
+      "name": "Empty baskets",
+      "description": "Both baskets are empty."
+    },
+    "nothingClean": {
+      "name": "Nothing clean",
+      "description": "There's nothing clean."
+    },
+    "nothingDirty": {
+      "name": "Nothing dirty",
+      "description": "There's nothing dirty."
+    },
+    "noSocks": {
+      "name": "No socks",
+      "description": "There are no socks anywhere."
+    },
+    "oneInEach": {
+      "name": "One in each",
+      "description": "There's a matching sock in each basket."
+    },
+    "aBigMix": {
+      "name": "A big mix!",
+      "description": "A mix of clothes with multiple matching pairs."
+    },
+    "someAddedPain": {
+      "name": "Odds and ends",
+      "description": "A few oddities snuck in."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Where should I start when there are lots of moving parts?",
+      "answer": "Start by writing small helper functions, like `length()`, `startsWith()`, and `endsWith()`, that you'll need everywhere. Get those working first before touching the main logic."
+    },
+    "isItASock": {
+      "question": "How do I tell if something in the basket is actually a sock?",
+      "answer": "Socks have the form `\"left X\"` or `\"right X\"`. A small helper that returns true only when the item starts with one of those prefixes will save you from re-checking everywhere."
+    },
+    "compareSockPair": {
+      "question": "How do I compare a left sock to its right pair?",
+      "answer": "Two helpers make this easier. One to strip off the `\"left \"` or `\"right \"` prefix (so you can compare just the colour or pattern), and another to flip `\"left\"` and `\"right\"` so you can build the partner of any sock."
+    },
+    "avoidDuplicates": {
+      "question": "How do I avoid counting the same pair twice?",
+      "answer": "A helper that adds an item to a list only if it's not already there will keep duplicates out of your result."
+    },
+    "overallPlan": {
+      "question": "What's a good overall plan?",
+      "answer": "Extract all socks from both baskets into one combined list, then for each sock, build what its partner would look like and check whether that partner is also in the list."
+    }
+  },
+  "functions": {
+    "push": {
+      "description": "Returns a new list with the element added to the end (provided by level stdlib)",
+      "category": "List Operations"
+    },
+    "concat": {
+      "description": "Takes two lists, joins them together into one list, then returns the result (provided by level stdlib)",
+      "category": "List Operations"
+    }
+  }
+}

@@ -6,6 +6,4 @@ packages:
   - "llm-chat-proxy"
 
 onlyBuiltDependencies:
-  - "@codemirror/lang-javascript"
   - "@jiki/highlightjs-javascript"
-  - "@lezer/javascript"

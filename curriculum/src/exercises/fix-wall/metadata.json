@@ -3,13 +3,13 @@
   "levelId": "using-functions",
   "hints": [
     {
-      "question": "How do I draw bricks?",
-      "answer": "Draw a rectangle that covers each holes. Check the instructions for information on the different inputs that the `rectangle` function expects."
+      "question": "hints.howToDrawBricks.question",
+      "answer": "hints.howToDrawBricks.answer"
     },
     {
-      "question": "What sizes are the holes?",
-      "answer": "Hover over the canvas to measure each space. All numbers are divisible by 10."
+      "question": "hints.holeSizes.question",
+      "answer": "hints.holeSizes.answer"
     },
-    { "question": "No, really, what sizes are the holes?", "answer": "Each hole is 20 wide and 10 tall" }
+    { "question": "hints.holeSizesReally.question", "answer": "hints.holeSizesReally.answer" }
   ]
 }

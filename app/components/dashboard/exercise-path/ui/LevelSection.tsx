@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import type { LessonDisplayData, LevelSectionData } from "../types";
 import type { AnimationState } from "../hooks/useProgressAnimation";
 import { LessonNode } from "./LessonNode";
@@ -28,6 +29,7 @@ export function LevelSection({
   recentlyUnlockedLessons,
   activeLessonSlug
 }: LevelSectionProps) {
+  const t = useTranslations("dashboard.exercisePath.milestone");
   if (section.lessons.length === 0) {
     return null;
   }
@@ -95,19 +97,23 @@ export function LevelSection({
         <div>
           <MilestoneCard
             status="achieved"
-            label={`Milestone ${section.levelIndex}`}
+            label={t("label", { index: section.levelIndex })}
             nextLessonState={nextLessonState}
           />
         </div>
       ) : section.isLocked ? (
         <div>
-          <MilestoneCard status="locked" label={`Milestone ${section.levelIndex}`} nextLessonState={nextLessonState} />
+          <MilestoneCard
+            status="locked"
+            label={t("label", { index: section.levelIndex })}
+            nextLessonState={nextLessonState}
+          />
         </div>
       ) : (
         <div>
           <MilestoneCard
             status="unlocked"
-            label={`Milestone ${section.levelIndex}`}
+            label={t("label", { index: section.levelIndex })}
             nextLessonState={nextLessonState}
             lessonProgress={lessonProgress}
           />

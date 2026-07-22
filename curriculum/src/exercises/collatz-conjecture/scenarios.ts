@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "calculate-collatz-steps" as const,
-    name: "Calculate Collatz steps",
-    description:
-      "Write a function that takes a number and returns how many steps it takes to reach 1 following the Collatz Conjecture rules: if even, divide by 2; if odd, multiply by 3 and add 1.",
+    name: "tasks.calculateCollatzSteps.name",
+    description: "tasks.calculateCollatzSteps.description",
     hints: [],
     requiredScenarios: ["number-1", "number-16", "number-12", "number-1000000"],
     bonus: false
@@ -15,8 +14,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "number-1",
-    name: "Number 1",
-    description: "Zero steps for one.",
+    name: "scenarios.number1.name",
+    description: "scenarios.number1.description",
     taskId: "calculate-collatz-steps",
     functionName: "collatz_steps",
     args: [1],
@@ -24,8 +23,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "number-16",
-    name: "Number 16",
-    description: "Divide if even.",
+    name: "scenarios.number16.name",
+    description: "scenarios.number16.description",
     taskId: "calculate-collatz-steps",
     functionName: "collatz_steps",
     args: [16],
@@ -33,8 +32,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "number-12",
-    name: "Number 12",
-    description: "Even and odd steps.",
+    name: "scenarios.number12.name",
+    description: "scenarios.number12.description",
     taskId: "calculate-collatz-steps",
     functionName: "collatz_steps",
     args: [12],
@@ -42,8 +41,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "number-1000000",
-    name: "Number 1000000",
-    description: "Large number of even and odd steps.",
+    name: "scenarios.number1000000.name",
+    description: "scenarios.number1000000.description",
     taskId: "calculate-collatz-steps",
     functionName: "collatz_steps",
     args: [1000000],

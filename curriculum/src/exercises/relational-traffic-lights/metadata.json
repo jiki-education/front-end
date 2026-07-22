@@ -3,24 +3,24 @@
   "levelId": "variables",
   "hints": [
     {
-      "question": "How do I work out the yellow light's center?",
-      "answer": "You have a variable for `center` provided to you. You can set `yellowY` to equal it."
+      "question": "hints.howToWorkOutYellowCenter.question",
+      "answer": "hints.howToWorkOutYellowCenter.answer"
     },
     {
-      "question": "How do I work out the center of the red light?",
-      "answer": "If the two circles are touching, how far apart are their centers? You can subtract this from `center` to get the red light."
+      "question": "hints.howToWorkOutRedCenter.question",
+      "answer": "hints.howToWorkOutRedCenter.answer"
     },
     {
-      "question": "Where does the housing rectangle start?",
-      "answer": "If you know the center of the red circle, you can calculate the top of the red circle. The housing starts 1 radius above (before) the top of the red circle. Similarly you can calculate the left of a light and then go 1 radius further for the start."
+      "question": "hints.whereHousingStarts.question",
+      "answer": "hints.whereHousingStarts.answer"
     },
     {
-      "question": "How big should the housing be?",
-      "answer": "It's the width of a light, plus padding of 1 radius either side. Height is 2 radii per light plus a radius top and bottom for padding."
+      "question": "hints.howBigHousing.question",
+      "answer": "hints.howBigHousing.answer"
     },
     {
-      "question": "Why must everything be a multiple of something else?",
-      "answer": "If you hardcode a number, changing `radius` will leave the housing the wrong size for the lights. Using formulas involving `radius` and `center` keep the whole drawing in proportion."
+      "question": "hints.whyMultipleOfSomething.question",
+      "answer": "hints.whyMultipleOfSomething.answer"
     }
   ]
 }

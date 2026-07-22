@@ -4,8 +4,8 @@ import type { SnowmanExercise } from "./Exercise";
 export const tasks = [
   {
     id: "build-snowman" as const,
-    name: "Build the snowman",
-    description: "Set the variable values so the snowman matches the target image.",
+    name: "tasks.buildSnowman.name",
+    description: "tasks.buildSnowman.description",
     hints: [],
     requiredScenarios: ["build-snowman"],
     bonus: false
@@ -15,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "build-snowman",
-    name: "Build the snowman",
-    description: "Set the correct variable values to draw the snowman.",
+    name: "scenarios.buildSnowman.name",
+    description: "scenarios.buildSnowman.description",
     taskId: "build-snowman",
 
     setup(exercise) {
@@ -30,15 +30,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasCircleAt(50, 70, 20),
-          errorHtml: "The base (bottom) circle isn't right. Check snowmanCx, baseCy, and baseRadius."
+          errorHtml: ex.t("checks.baseCircle")
         },
         {
           pass: ex.hasCircleAt(50, 40, 15),
-          errorHtml: "The body (middle) circle isn't right. Check snowmanCx, bodyCy, and bodyRadius."
+          errorHtml: ex.t("checks.bodyCircle")
         },
         {
           pass: ex.hasCircleAt(50, 20, 10),
-          errorHtml: "The head (top) circle isn't right. Check snowmanCx, headCy, and headRadius."
+          errorHtml: ex.t("checks.headCircle")
         }
       ];
     }

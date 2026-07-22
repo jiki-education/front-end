@@ -9,42 +9,31 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches combining conditions with the 'or' operator and
-    executing multiple actions within a single branch. Students use getOutfit()
-    to retrieve a string, then use if/else if/else with 'or' to classify
-    the outfit and take the appropriate action(s).
-
-    The exercise has six scenarios: two per category (fancy, smart, casual).
+    A single-task exercise practising the combination of && and || in one condition, including the
+    parentheses needed for correct precedence. The canonical solution is a standalone champagne check
+    (adult && formal) followed by an entry-and-canapés if / else if / else chain. The whole program is
+    the single task rather than a progression of steps.
   `,
 
   tasks: {
     "check-dress-code": {
       description: `
-        Students need to:
-        1. Call getOutfit() and store the result in a variable
-        2. Use if/else if/else with 'or' to check outfit categories
-        3. Fancy ("ballgown" or "tuxedo"): call both offerChampagne() and letIn()
-        4. Smart ("suit" or "dress"): call letIn()
-        5. Anything else: call turnAway()
+        Common student mistakes to watch for:
+        - Writing outfit === "ballgown" || "tuxedo" instead of giving each side of the || its own full
+          comparison (outfit === "ballgown" || outfit === "tuxedo").
+        - Forgetting the parentheses in age >= 18 && (outfit === "ballgown" || outfit === "tuxedo").
+          Without them the precedence is wrong.
+        - Leaving an outfit out of the canapés / entry condition: canapés and entry go to ALL FOUR
+          formal and smart outfits.
+        - Treating champagne as something that gates entry. It is an independent check, so a formal
+          under-18 is still let in with canapés, just without champagne.
+        - Dropping either half of age < 18 && onGuestList(): an adult on the guest list is still turned
+          away, and an under-18 who is not on the list is too.
 
-        Key functions:
-        - getOutfit(): returns the outfit as a string
-        - offerChampagne(): offers champagne
-        - letIn(): lets the person in
-        - turnAway(): turns the person away
-
-        Common mistakes:
-        - Forgetting 'or' and writing separate if statements for each outfit
-        - Writing 'outfit == "ballgown" or "tuxedo"' instead of
-          'outfit == "ballgown" or outfit == "tuxedo"'
-        - Forgetting to call letIn() for fancy outfits (only calling offerChampagne)
-        - Using 'and' instead of 'or'
-
-        Teaching strategy:
-        - Build on the if/else if/else from bouncer-wristbands
-        - Focus on the 'or' operator: checking if outfit matches ANY of the values
-        - Emphasize that each condition needs the full comparison (outfit == "X")
-        - Show that multiple function calls can go inside one branch
+        Note: the canonical solution requires grouping an || inside an && with parentheses
+        (age >= 18 && (outfit === "ballgown" || outfit === "tuxedo")). This is part of what the exercise
+        teaches, so it is fair game — if a student is stuck combining && and || in one condition, explain
+        how parentheses group part of a condition so it is evaluated first.
       `
     }
   }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import { playSound } from "@/lib/sound";
 import { QuizContent } from "./QuizContent";
 import { QuizOption, type QuizOptionState } from "./QuizOption";
@@ -20,6 +21,7 @@ interface QuizCardProps {
 }
 
 export function QuizCard({ question, onNext }: QuizCardProps) {
+  const t = useTranslations("quizCard");
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const [feedbackType, setFeedbackType] = useState<"correct" | "incorrect" | null>(null);
@@ -82,7 +84,7 @@ export function QuizCard({ question, onNext }: QuizCardProps) {
         <QuizContent markdown={question.content} />
       </div>
 
-      <div className="space-y-3 mb-6">
+      <div className="space-y-12 mb-6">
         {question.options.map((option, index) => (
           <QuizOption
             key={index}
@@ -103,9 +105,9 @@ export function QuizCard({ question, onNext }: QuizCardProps) {
       <button
         onClick={submitted ? handleNext : handleSubmit}
         disabled={!submitted && selectedIndex === null}
-        className="w-full mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
+        className="w-full mt-6 px-6 py-12 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
       >
-        {submitted ? "Next Question" : "Submit"}
+        {submitted ? t("nextQuestion") : t("submit")}
       </button>
     </div>
   );

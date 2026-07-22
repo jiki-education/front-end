@@ -3,24 +3,24 @@
   "levelId": "variables",
   "hints": [
     {
-      "question": "How do I make the whole house move when I change one variable?",
-      "answer": "Pick `houseLeft` and `houseTop` as your anchor variables, then derive every other position from them using arithmetic."
+      "question": "hints.whereDoIStart.question",
+      "answer": "hints.whereDoIStart.answer"
     },
     {
-      "question": "How do I position the roof so it overhangs the frame?",
-      "answer": "The roof overhangs by `4` on each side, so `roofLeft = houseLeft - 4` and the roof width is `houseWidth + 8`."
+      "question": "hints.keepCentered.question",
+      "answer": "hints.keepCentered.answer"
     },
     {
-      "question": "How do I place the windows and door relative to the house?",
-      "answer": "Express each as an offset from `houseLeft` and `houseTop`. For the door to be centered, use `doorLeft = houseLeft + (houseWidth - doorWidth) / 2`."
+      "question": "hints.keepPlantedOnGrass.question",
+      "answer": "hints.keepPlantedOnGrass.answer"
     },
     {
-      "question": "How do I put the door knob in the right spot?",
-      "answer": "Inset it `1` from the right of the door and vertically center it. So `knobX = doorLeft + doorWidth - knobRadius - 1` and `knobY = doorTop + doorHeight / 2`."
+      "question": "hints.sizeRoofWindowsDoor.question",
+      "answer": "hints.sizeRoofWindowsDoor.answer"
     },
     {
-      "question": "My layout looks right but changing `houseLeft` breaks it. Why?",
-      "answer": "You've probably hardcoded a position somewhere instead of deriving it. Look through your code for any literal number that should really be `houseLeft + something`."
+      "question": "hints.breaksOnResize.question",
+      "answer": "hints.breaksOnResize.answer"
     }
   ]
 }

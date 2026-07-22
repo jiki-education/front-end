@@ -4,8 +4,8 @@ import type MazeSolveWalkExercise from "./Exercise";
 export const tasks = [
   {
     id: "solve-maze" as const,
-    name: "Guide person to the end of the maze",
-    description: "Navigate through the maze using walk(), turnLeft(), and turnRight() to reach the green target cell.",
+    name: "tasks.solveMaze.name",
+    description: "tasks.solveMaze.description",
     hints: [],
     requiredScenarios: ["maze-1"],
     bonus: false
@@ -15,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "maze-1",
-    name: "Guide person to the end of the maze",
-    description: "Your job is to reach the goal.",
+    name: "scenarios.maze1.name",
+    description: "scenarios.maze1.description",
     taskId: "solve-maze",
 
     setup(exercise) {
@@ -46,11 +46,11 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 5 && ex.characterCol === 6,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         },
         {
           pass: ex.getGameResult() === "win",
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.notReachedEnd")
         }
       ];
     }

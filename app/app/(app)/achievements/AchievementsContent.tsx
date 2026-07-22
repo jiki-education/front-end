@@ -3,23 +3,25 @@
 import { PageTabs } from "@/components/ui-kit/PageTabs";
 import type { TabItem } from "@/components/ui-kit/PageTabs";
 import { PageHeader } from "@/components/ui-kit/PageHeader";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import MedalIcon from "@/icons/medal.svg";
 import { CertificatesEmptyState } from "./CertificatesEmptyState";
 import { BadgeCard } from "./BadgeCard";
 import { fetchBadges, type BadgeData } from "@/lib/api/badges";
+import { RequestAbortedError } from "@/lib/api/client";
 import BadgesCssModule from "./BadgeCard.module.css";
 import { useBadgeActions } from "./lib/useBadgeActions";
 import { AchievementsLoadingState } from "./ui/AchievementsLoadingState";
 import { AchievementsErrorState } from "./ui/AchievementsErrorState";
 import { isRecentBadge, sortBadges } from "./lib/badgeUtils";
 
-const tabs: TabItem[] = [
-  { id: "badges", label: "Badges", color: "blue" },
-  { id: "certificates", label: "Certificates", color: "blue" }
-];
-
 export function AchievementsContent() {
+  const t = useTranslations("achievements");
+  const tabs: TabItem[] = [
+    { id: "badges", label: t("tabBadges"), color: "blue" },
+    { id: "certificates", label: t("tabCertificates"), color: "blue" }
+  ];
   const [activeTab, setActiveTab] = useState("badges");
   const [badges, setBadges] = useState<BadgeData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -38,6 +40,11 @@ export function AchievementsContent() {
         const sorted = sortBadges(response.badges);
         setSortedBadgeIds(sorted.map((b) => b.id));
       } catch (err) {
+        // Request aborted because the user navigated away mid-fetch - expected,
+        // not a real error. Leave the loading state as-is; the component is unmounting.
+        if (err instanceof RequestAbortedError) {
+          return;
+        }
         console.error("Failed to fetch badges:", err);
         setError(err instanceof Error ? err.message : "Failed to load badges");
       } finally {
@@ -64,11 +71,7 @@ export function AchievementsContent() {
   }
 
   return (
-    <PageHeader
-      icon={<MedalIcon />}
-      title="Achievements"
-      description="Every badge tells a story of your coding journey."
-    >
+    <PageHeader icon={<MedalIcon />} title={t("title")} description={t("description")}>
       <PageTabs className="mb-16" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
 
       {activeTab === "badges" && (

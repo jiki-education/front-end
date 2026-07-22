@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import styles from "@/app/styles/components/modals.module.css";
 import type { CompletionResponseData } from "@/components/coding-exercise/lib/types";
@@ -13,6 +14,8 @@ interface ConceptUnlockedStepProps {
 }
 
 export function ConceptUnlockedStep({ completionResponse, onContinue }: ConceptUnlockedStepProps) {
+  const t = useTranslations("modals.exerciseCompletion.conceptUnlocked");
+  const tCommon = useTranslations("common");
   const [concept, setConcept] = useState<ConceptMeta | null>(null);
 
   // Support both new format (concept_slug) and old format (concept object)
@@ -29,12 +32,12 @@ export function ConceptUnlockedStep({ completionResponse, onContinue }: ConceptU
   if (!concept) {
     return (
       <>
-        <h2 className={styles.modalTitle}>Concept unlocked!</h2>
-        <p className={styles.modalMessage}>You&apos;ve unlocked a new concept to explore.</p>
+        <h2 className={styles.modalTitle}>{t("title")}</h2>
+        <p className={styles.modalMessage}>{t("messageGeneric")}</p>
         <div className={styles.modalButtonsDivider}></div>
         <div className={styles.modalButtons}>
           <button onClick={onContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
-            Continue
+            {tCommon("continue")}
           </button>
         </div>
       </>
@@ -43,9 +46,9 @@ export function ConceptUnlockedStep({ completionResponse, onContinue }: ConceptU
 
   return (
     <>
-      <h2 className={styles.modalTitle}>Concept unlocked!</h2>
+      <h2 className={styles.modalTitle}>{t("title")}</h2>
       <p className={styles.modalMessage}>
-        You&apos;ve unlocked a new concept: <strong>{concept.title}</strong>
+        {t.rich("messageNamed", { title: concept.title, strong: (chunks) => <strong>{chunks}</strong> })}
       </p>
       <div className={styles.conceptUnlockedCard}>
         <h3 className={styles.conceptTitle}>{concept.title}</h3>
@@ -54,7 +57,7 @@ export function ConceptUnlockedStep({ completionResponse, onContinue }: ConceptU
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
         <button onClick={onContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
-          Continue
+          {tCommon("continue")}
         </button>
       </div>
     </>

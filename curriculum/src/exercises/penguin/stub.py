@@ -36,12 +36,12 @@ circle(43, 34, 1, "white")
 # TODO: Add the right eye
 #
 
-# Nose
-triangle(46, 38, 50, 38, 50, 47, "orange")  # TODO: Change the nose to be symmetrical.
-
 # Left Foot
 ellipse(40, 93, 7, 4, "orange")
 
 #
 # TODO: Add the right foot
 #
+
+# Nose
+triangle(46, 38, 50, 38, 50, 47, "orange")  # TODO: Change the nose to be symmetrical.

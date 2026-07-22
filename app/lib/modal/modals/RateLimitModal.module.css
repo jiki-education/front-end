@@ -102,7 +102,6 @@
 
 /* Z's floating animation */
 .zzz {
-    font-family: "Poppins", sans-serif;
     font-weight: 700;
     fill: var(--color-gray-400);
     opacity: 0;
@@ -192,7 +191,7 @@
     width: 48px;
     height: 48px;
     position: relative;
-    margin-left: -48px;
+    margin-inline-start: -48px;
 }
 
 .timerRing svg {
@@ -212,7 +211,7 @@
 .timerNumber {
     position: absolute;
     top: 50%;
-    left: 50%;
+    inset-inline-start: 50%;
     transform: translate(-50%, -50%);
     font-size: 16px;
     font-weight: 600;

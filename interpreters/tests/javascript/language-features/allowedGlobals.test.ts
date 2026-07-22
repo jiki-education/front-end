@@ -44,7 +44,7 @@ describe("allowedGlobals", () => {
     });
     expect(result.success).toBe(false);
     expect(result.frames[0].status).toBe("ERROR");
-    expect(result.frames[0].error?.type).toBe("VariableNotDeclared");
+    expect(result.frames[0].error?.type).toBe("FunctionNotFound");
   });
 
   it("blocks String when not in allowedGlobals", () => {
@@ -53,7 +53,7 @@ describe("allowedGlobals", () => {
     });
     expect(result.success).toBe(false);
     expect(result.frames[0].status).toBe("ERROR");
-    expect(result.frames[0].error?.type).toBe("VariableNotDeclared");
+    expect(result.frames[0].error?.type).toBe("FunctionNotFound");
   });
 
   it("console is available even with empty allowedGlobals list", () => {

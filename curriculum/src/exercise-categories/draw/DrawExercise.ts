@@ -10,7 +10,8 @@ import {
   checkUniqueColoredLines,
   checkUniqueColoredCircles,
   checkUniqueColoredRectangles,
-  checkUniquePositionedCircles
+  checkUniquePositionedCircles,
+  countCirclesWithFillColor
 } from "./checks";
 import type { Shape } from "./shapes";
 import { Circle, Line, Rectangle, Triangle, Ellipse } from "./shapes";
@@ -47,6 +48,11 @@ export abstract class DrawExercise extends VisualExercise {
   protected strokeColor: string = "#333333";
   protected strokeWidth = 0;
   protected fixedColor: string | null = null;
+  protected drawDelayMs = 0;
+
+  public setDrawDelayMs(ms: number) {
+    this.drawDelayMs = ms;
+  }
 
   constructor() {
     super();
@@ -142,14 +148,97 @@ export abstract class DrawExercise extends VisualExercise {
   public hasRectangleAt(x: number, y: number, width: number, height: number): boolean {
     return getRectangleAt(this.shapes, x, y, width, height) !== undefined;
   }
+  public hasRectangleAtWithColor(x: number, y: number, width: number, height: number, color: string): boolean {
+    const rect = getRectangleAt(this.shapes, x, y, width, height);
+    return rect !== undefined && rect.fillColor === resolveNamedColor(color);
+  }
+  // Match a point being covered by any rectangle of the given colour, regardless of that
+  // rectangle's exact bounds. Lets a filled area (e.g. a border) be drawn as one big
+  // rectangle or several smaller ones and still be recognised.
+  public hasRectangleCoveringPointWithColor(x: number, y: number, color: string): boolean {
+    const resolved = resolveNamedColor(color);
+    return this.shapes.some(
+      (shape) =>
+        shape instanceof Rectangle &&
+        shape.fillColor === resolved &&
+        shape.x <= x &&
+        x <= shape.x + shape.width &&
+        shape.y <= y &&
+        y <= shape.y + shape.height
+    );
+  }
   public hasCircleAt(cx: number, cy: number, radius: number): boolean {
     return getCircleAt(this.shapes, cx, cy, radius) !== undefined;
+  }
+  public hasCircleAtWithColor(cx: number, cy: number, radius: number, color: string): boolean {
+    const circle = getCircleAt(this.shapes, cx, cy, radius);
+    return circle !== undefined && circle.fillColor === resolveNamedColor(color);
+  }
+  // Match a circle by its centre only (any radius) - useful when the radius is derived
+  // from a scaling factor and so isn't a predictable whole number.
+  public hasCircleCenteredAt(cx: number, cy: number): boolean {
+    return this.shapes.some((shape) => shape instanceof Circle && shape.cx === cx && shape.cy === cy);
+  }
+  public hasCircleCenteredAtWithColor(cx: number, cy: number, color: string): boolean {
+    return this.shapes.some(
+      (shape) =>
+        shape instanceof Circle && shape.cx === cx && shape.cy === cy && shape.fillColor === resolveNamedColor(color)
+    );
   }
   public hasEllipseAt(x: number, y: number, rx: number, ry: number): boolean {
     return getEllipseAt(this.shapes, x, y, rx, ry) !== undefined;
   }
   public hasTriangleAt(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number): boolean {
     return getTriangleAt(this.shapes, x1, y1, x2, y2, x3, y3) !== undefined;
+  }
+  public hasTriangleAtWithColor(
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+    x3: number,
+    y3: number,
+    color: string
+  ): boolean {
+    const triangle = getTriangleAt(this.shapes, x1, y1, x2, y2, x3, y3);
+    return triangle !== undefined && triangle.fillColor === resolveNamedColor(color);
+  }
+  // True if the `lower` triangle is drawn before the `upper` triangle, so `upper` renders
+  // on top where they overlap. Both triangles must exist. Coordinates are order-agnostic
+  // (they delegate to getTriangleAt's vertex matching).
+  public triangleDrawnBefore(
+    lower: [number, number, number, number, number, number],
+    upper: [number, number, number, number, number, number]
+  ): boolean {
+    const lowerTriangle = getTriangleAt(this.shapes, ...lower);
+    const upperTriangle = getTriangleAt(this.shapes, ...upper);
+    if (lowerTriangle === undefined || upperTriangle === undefined) {
+      return false;
+    }
+    return this.shapes.indexOf(lowerTriangle) < this.shapes.indexOf(upperTriangle);
+  }
+  // True if every triangle filled with `topColor` is drawn after every triangle filled with
+  // `bottomColor`, so the top colour always renders above the bottom colour where they overlap.
+  public trianglesColorDrawnAbove(topColor: string, bottomColor: string): boolean {
+    const resolvedTop = resolveNamedColor(topColor);
+    const resolvedBottom = resolveNamedColor(bottomColor);
+    const topIndices: number[] = [];
+    const bottomIndices: number[] = [];
+    this.shapes.forEach((shape, index) => {
+      if (!(shape instanceof Triangle)) {
+        return;
+      }
+      if (shape.fillColor === resolvedTop) {
+        topIndices.push(index);
+      }
+      if (shape.fillColor === resolvedBottom) {
+        bottomIndices.push(index);
+      }
+    });
+    if (topIndices.length === 0 || bottomIndices.length === 0) {
+      return false;
+    }
+    return Math.min(...topIndices) > Math.max(...bottomIndices);
   }
 
   // These all delegate to checks.
@@ -173,6 +262,10 @@ export abstract class DrawExercise extends VisualExercise {
     return checkCanvasCoverage(this.shapes, requiredPercentage);
   }
 
+  public countCirclesWithFillColor(fillColor: string) {
+    return countCirclesWithFillColor(this.shapes, fillColor);
+  }
+
   public assertAllArgumentsAreVariables(interpreterResult: InterpretResult) {
     return interpreterResult.assertors.assertAllArgumentsAreVariables();
   }
@@ -185,32 +278,32 @@ export abstract class DrawExercise extends VisualExercise {
 
   public hsl(executionCtx: ExecutionContext, h: Shared.JikiObject, s: Shared.JikiObject, l: Shared.JikiObject) {
     if (!isNumber(h) || !isNumber(s) || !isNumber(l)) {
-      return executionCtx.logicError("All inputs must be numbers");
+      return executionCtx.logicError(this.t("errors.allInputsNumbers"));
     }
     if (h.value < 0 || h.value > 360) {
-      return executionCtx.logicError("Hue must be between 0 and 360");
+      return executionCtx.logicError(this.t("errors.hueRange"));
     }
     if (s.value < 0 || s.value > 100) {
-      return executionCtx.logicError("Saturation must be between 0 and 100");
+      return executionCtx.logicError(this.t("errors.saturationRange"));
     }
     if (l.value < 0 || l.value > 100) {
-      return executionCtx.logicError("Luminosity must be between 0 and 100");
+      return executionCtx.logicError(this.t("errors.lightnessRange"));
     }
     return hslToHexString(h.value, s.value, l.value);
   }
 
   public rgb(executionCtx: ExecutionContext, r: Shared.JikiObject, g: Shared.JikiObject, b: Shared.JikiObject) {
     if (!isNumber(r) || !isNumber(g) || !isNumber(b)) {
-      return executionCtx.logicError("All inputs must be numbers");
+      return executionCtx.logicError(this.t("errors.allInputsNumbers"));
     }
     if (r.value < 0 || r.value > 255) {
-      return executionCtx.logicError("Red must be between 0 and 255");
+      return executionCtx.logicError(this.t("errors.redRange"));
     }
     if (g.value < 0 || g.value > 255) {
-      return executionCtx.logicError("Green must be between 0 and 255");
+      return executionCtx.logicError(this.t("errors.greenRange"));
     }
     if (b.value < 0 || b.value > 255) {
-      return executionCtx.logicError("Blue must be between 0 and 255");
+      return executionCtx.logicError(this.t("errors.blueRange"));
     }
     return rgbToHexString(r.value, g.value, b.value);
   }
@@ -224,15 +317,15 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(width) || !isNumber(height)) {
-      return executionCtx.logicError("The x, y, width, and height inputs must be numbers");
+      return executionCtx.logicError(this.t("errors.rectInputsNumbers"));
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
     if (width.value <= 0) {
-      return executionCtx.logicError("Width must be greater than 0");
+      return executionCtx.logicError(this.t("errors.widthPositive"));
     }
     if (height.value <= 0) {
-      return executionCtx.logicError("Height must be greater than 0");
+      return executionCtx.logicError(this.t("errors.heightPositive"));
     }
     const [absX, absY, absWidth, absHeight] = [x.value, y.value, width.value, height.value].map((val) => rToA(val));
 
@@ -253,7 +346,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x1) || !isNumber(y1) || !isNumber(x2) || !isNumber(y2)) {
-      return executionCtx.logicError("The x1, y1, x2, and y2 inputs must be numbers");
+      return executionCtx.logicError(this.t("errors.lineInputsNumbers"));
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
@@ -276,7 +369,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(radius)) {
-      return executionCtx.logicError("The x, y, and radius inputs must be numbers");
+      return executionCtx.logicError(this.t("errors.circleInputsNumbers"));
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
@@ -300,7 +393,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x) || !isNumber(y) || !isNumber(rx) || !isNumber(ry)) {
-      return executionCtx.logicError("The x, y, rx, and ry inputs must be numbers");
+      return executionCtx.logicError(this.t("errors.ellipseInputsNumbers"));
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
@@ -326,7 +419,7 @@ export abstract class DrawExercise extends VisualExercise {
     color?: Shared.JikiObject
   ): void {
     if (!isNumber(x1) || !isNumber(y1) || !isNumber(x2) || !isNumber(y2) || !isNumber(x3) || !isNumber(y3)) {
-      return executionCtx.logicError("The x1, y1, x2, y2, x3, and y3 inputs must be numbers");
+      return executionCtx.logicError(this.t("errors.triangleInputsNumbers"));
     }
     const fillColor = this.resolveColor(executionCtx, color);
     if (fillColor === null) return;
@@ -366,20 +459,18 @@ export abstract class DrawExercise extends VisualExercise {
   private resolveColor(executionCtx: ExecutionContext, color?: Shared.JikiObject): string | null {
     if (this.fixedColor !== null) {
       if (color !== undefined) {
-        executionCtx.logicError("Color should not be specified for this exercise");
+        executionCtx.logicError(this.t("errors.colorNotAllowed"));
         return null;
       }
       return resolveNamedColor(this.fixedColor);
     }
     if (!color || !isString(color)) {
-      executionCtx.logicError("Color must be a string");
+      executionCtx.logicError(this.t("errors.colorNotString"));
       return null;
     }
     const resolved = resolveNamedColor(color.value);
     if (resolved === null) {
-      executionCtx.logicError(
-        'Color must be a named color ("orange", "blue", "white", etc) specified in the instructions, or a hex color starting with #'
-      );
+      executionCtx.logicError(this.t("errors.colorNamedOrHex"));
       return null;
     }
     return resolved;
@@ -387,6 +478,9 @@ export abstract class DrawExercise extends VisualExercise {
 
   protected animateShapeIntoView(executionCtx: ExecutionContext, elem: SVGElement) {
     this.animateIntoView(executionCtx, `#${this.view.id} #${elem.id}`);
+    if (this.drawDelayMs > 0) {
+      executionCtx.fastForward(this.drawDelayMs);
+    }
   }
   protected animateShapeOutOfView(executionCtx: ExecutionContext, elem: SVGElement) {
     this.animateOutOfView(executionCtx, `#${this.view.id} #${elem.id}`);
@@ -428,62 +522,52 @@ export abstract class DrawExercise extends VisualExercise {
         name: "rectangle",
         func: this.rectangle.bind(this),
         arity: fc ? 4 : 5,
-        description: fc
-          ? "drew a rectangle at coordinates (${arg1}, ${arg2}) with a width of ${arg3} and a height of ${arg4}"
-          : "drew a rectangle at coordinates (${arg1}, ${arg2}) with a width of ${arg3}, a height of ${arg4}, and a color of ${arg5}"
+        descriptionKey: fc ? "describers.rectangle.fixedColor" : "describers.rectangle.default"
       },
       triangle: {
         name: "triangle",
         func: this.triangle.bind(this),
         arity: fc ? 6 : 7,
-        description: fc
-          ? "drew a triangle with three points: (${arg1}, ${arg2}), (${arg3}, ${arg4}), and (${arg5}, ${arg6})"
-          : "drew a triangle with three points: (${arg1}, ${arg2}), (${arg3}, ${arg4}), and (${arg5}, ${arg6}) with a color of ${arg7}"
+        descriptionKey: fc ? "describers.triangle.fixedColor" : "describers.triangle.default"
       },
       circle: {
         name: "circle",
         func: this.circle.bind(this),
         arity: fc ? 3 : 4,
-        description: fc
-          ? "drew a circle with its center at (${arg1}, ${arg2}) and a radius of ${arg3}"
-          : "drew a circle with its center at (${arg1}, ${arg2}), a radius of ${arg3}, and a color of ${arg4}"
+        descriptionKey: fc ? "describers.circle.fixedColor" : "describers.circle.default"
       },
       ellipse: {
         name: "ellipse",
         func: this.ellipse.bind(this),
         arity: fc ? 4 : 5,
-        description: fc
-          ? "drew an ellipse with its center at (${arg1}, ${arg2}), a radial width of ${arg3}, and a radial height of ${arg4}"
-          : "drew an ellipse with its center at (${arg1}, ${arg2}), a radial width of ${arg3}, a radial height of ${arg4}, and a color of ${arg5}"
+        descriptionKey: fc ? "describers.ellipse.fixedColor" : "describers.ellipse.default"
       },
       line: {
         name: "line",
         func: this.line.bind(this),
         arity: fc ? 4 : 5,
-        description: fc
-          ? "drew a line from (${arg1}, ${arg2}) to (${arg3}, ${arg4})"
-          : "drew a line from (${arg1}, ${arg2}) to (${arg3}, ${arg4}) with a color of ${arg5}"
+        descriptionKey: fc ? "describers.line.fixedColor" : "describers.line.default"
       },
       clear: {
         name: "clear",
         func: this.clear.bind(this),
-        description: "cleared the canvas"
+        descriptionKey: "describers.clear"
       },
       hsl: {
         name: "hsl",
         func: this.hsl.bind(this),
-        description: "converted HSL color (hue: ${arg1}, saturation: ${arg2}, luminosity: ${arg3}) to a hex string"
+        descriptionKey: "describers.hsl"
       },
       rgb: {
         name: "rgb",
         func: this.rgb.bind(this),
-        description: "converted RGB color (red: ${arg1}, green: ${arg2}, blue: ${arg3}) to a hex string"
+        descriptionKey: "describers.rgb"
       }
     };
   }
 }
 
-function hslToHexString(h: number, s: number, l: number): string {
+export function hslToHexString(h: number, s: number, l: number): string {
   s /= 100;
   l /= 100;
 
@@ -549,6 +633,7 @@ const NAMED_COLORS: Record<string, string> = {
   charcoal: "#45413C",
   green: "#008000",
   pink: "#FFC0CB",
+  purple: "#A020F0",
   red: "#FF0000",
   amber: "#FFFF00"
 };

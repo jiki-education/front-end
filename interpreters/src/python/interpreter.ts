@@ -15,15 +15,21 @@ import {
   extractMethodCalls,
   countListExpressions,
   extractCallExpressionsDeepExcluding,
+  extractOperators,
 } from "./assertion-helpers";
 import type { CallExpression } from "./expression";
 import { LiteralExpression, IdentifierExpression, type Expression } from "./expression";
+import type { Messages } from "../shared/i18n";
 
 // Evaluation context that includes external functions
 export interface EvaluationContext {
   languageFeatures?: LanguageFeatures;
   externalFunctions?: ExternalFunction[];
   randomSeed?: number; // Seed for deterministic random number generation
+  // The active locale's message dict, injected by the app for a uniform call path
+  // across interpreters. Python does not yet localize its diagnostics, so this is
+  // accepted and ignored for now (see the JavaScript interpreter for the model).
+  localeMessages?: Messages;
 }
 
 // Result type for evaluateFunction - extends InterpretResult with return value
@@ -94,6 +100,8 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         countArrayLiterals: () => 0,
         assertFunctionCalledOutsideOwnDefinition: () => true,
         numFunctionCallsInCode: () => 0,
+        assertOperatorUsed: () => true,
+        assertStatement: () => true,
       },
     };
   }
@@ -241,6 +249,9 @@ export function evaluateFunction(
           expr => expr.callee instanceof IdentifierExpression && expr.callee.name.lexeme === formatted
         ).length;
       },
+      assertOperatorUsed: (operator: string) => extractOperators(statements).includes(operator),
+      // TODO: JS-only for now. Implement statement matching for Python when needed.
+      assertStatement: () => false,
     },
   };
 }

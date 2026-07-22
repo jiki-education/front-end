@@ -2,6 +2,10 @@
 
 This document tracks the historical development and changes specific to the Python interpreter.
 
+## 2026-06-27: No-arg `repeat` raises MaxIterationsReached at the cap
+
+`executeRepeatStatement` (the no-argument `repeat:` form) looped `while (iteration < count)` with `count = maxTotalLoopIterations`, so a never-finishing loop ran exactly `max` times and exited cleanly with no error frame, instead of triggering the infinite-loop guard. It now loops `while (true)` and relies on `guardInfiniteLoop` to stop it, so hitting `maxTotalLoopIterations` raises a `MaxIterationsReached` error frame. This mirrors the identical fix in the JavaScript interpreter; see `.context/javascript/evolution.md` (2026-06-27). The English `MaxIterationsReached` copy was reworded to "...The maximum number of times the loops are allowed to run in this exercise is {{max}}."
+
 ## 2025-10-07: While Loop Implementation
 
 ### Overview

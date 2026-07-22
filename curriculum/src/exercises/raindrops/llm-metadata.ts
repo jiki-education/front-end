@@ -9,44 +9,45 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches the classic FizzBuzz pattern using raindrop sounds.
-    Students learn to use the modulo operator for divisibility checks, accumulate
-    results using string concatenation, and convert numbers to strings.
-    Key concepts: modulo operator, if statements (not else-if), string accumulation,
-    and number-to-string conversion.
+    This exercise lets a student explore the FizzBuzz pattern (here: raindrop sounds)
+    using the modulo operator and accumulating a result string. The crucial idea is that
+    the divisibility checks are SEPARATE if statements (not else-if) so multiple sounds
+    can build up.
   `,
 
   tasks: {
     plings: {
       description: `
-        Students need to check if a number is divisible by 3 using modulo (number % 3 == 0).
-        If so, return "Pling".
-        Common mistakes: using else-if instead of separate if statements (which prevents accumulation).
-        Encourage starting with a result variable set to an empty string and building onto it.
+        First step: return "Pling" when divisible by 3, building onto an empty result
+        string. Watch for else-if here, which would block later accumulation.
       `
     },
     plangs: {
       description: `
-        Students add divisibility-by-5 check. The key insight is that these checks must be
-        separate if statements (not else-if) so multiple sounds can accumulate.
-        For number 15 (divisible by both 3 and 5), the result should be "PlingPlang".
-        Use concatenation to build the string: result + "Plang".
+        The student has divisibility-by-3 working and now adds the divisibility-by-5 case
+        as a separate if. 15 (both) must give "PlingPlang".
       `
     },
     plongs: {
       description: `
-        Students add divisibility-by-7 check. By now the pattern should be clear.
-        Number 105 is the key test - it's divisible by 3, 5, AND 7, giving "PlingPlangPlong".
-        If students are getting wrong combinations, check that they're using separate if statements
-        and accumulating in the right order (Pling before Plang before Plong).
+        The student has 3 and 5 working and now adds divisibility-by-7. 105 (3, 5, and 7)
+        must give "PlingPlangPlong"; wrong combinations usually mean else-if crept in or
+        the accumulation order is off.
       `
     },
     "no-sound": {
       description: `
-        Students handle the fallback case: if the number isn't divisible by 3, 5, or 7,
-        return the number as a string. Use numberToString() for the conversion.
-        Check if the result is still empty ("") after all three divisibility checks.
-        Common mistake: forgetting to use numberToString() and returning the number directly.
+        Final step: when no rule matched (result still ""), return the number itself as a
+        string. The non-obvious part is converting the number to a string (e.g. with a
+        template literal) rather than returning the number directly.
+      `
+    },
+    "solve-in-sixteen-lines": {
+      description: `
+        Bonus: the solution must be at most 16 non-blank, non-comment lines. The reference
+        solution (accumulator with four separate ifs) is exactly 16 lines; students over
+        the limit have usually written a branch-per-combination else-if chain with early
+        returns, so steer them back to accumulating into one result string.
       `
     }
   }

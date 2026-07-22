@@ -7,32 +7,36 @@ import { SuccessStep } from "./steps/SuccessStep";
 import { DifficultyRatingStep } from "./steps/DifficultyRatingStep";
 import { CompletedStep } from "./steps/CompletedStep";
 import { ConceptUnlockedStep } from "./steps/ConceptUnlockedStep";
-import { ProjectUnlockedStep } from "./steps/ProjectUnlockedStep";
+import { ChallengeUnlockedStep } from "./steps/ChallengeUnlockedStep";
 
 interface ExerciseCompletionModalProps {
   onTidyCode?: () => void;
+  onSolveBonuses?: () => void;
+  outstandingBonusCount?: number;
   onCompleteExercise?: () => Promise<CompletionResponseData[]>;
   onGoToDashboard?: () => void;
   exerciseTitle?: string;
   exerciseSlug?: string;
-  isProject?: boolean;
-  unlockedProject?: {
+  isChallenge?: boolean;
+  unlockedChallenge?: {
     name: string;
     description: string;
     slug: string;
   };
-  initialStep?: "success" | "difficulty-rating" | "completed" | "concept-unlocked" | "project-unlocked";
+  initialStep?: "success" | "difficulty-rating" | "completed" | "concept-unlocked" | "challenge-unlocked";
   completionResponse?: CompletionResponseData[];
 }
 
 export function ExerciseCompletionModal({
   onTidyCode,
+  onSolveBonuses,
+  outstandingBonusCount = 0,
   onCompleteExercise,
   onGoToDashboard,
   exerciseTitle = "Navigate the Maze",
   exerciseSlug = "maze-instructions",
-  isProject = false,
-  unlockedProject = {
+  isChallenge = false,
+  unlockedChallenge = {
     name: "Space Invaders",
     description: "Build a classic arcade game with aliens, lasers, and defensive barriers.",
     slug: "space-invaders"
@@ -46,12 +50,14 @@ export function ExerciseCompletionModal({
     handlers
   } = useExerciseCompletionModal({
     onTidyCode,
+    onSolveBonuses,
+    outstandingBonusCount,
     onCompleteExercise,
     onGoToDashboard,
     exerciseTitle,
     exerciseSlug,
-    isProject,
-    unlockedProject,
+    isChallenge,
+    unlockedChallenge,
     initialStep,
     completionResponse
   });
@@ -65,12 +71,12 @@ export function ExerciseCompletionModal({
         />
       );
 
-    case "project-unlocked":
+    case "challenge-unlocked":
       return (
-        <ProjectUnlockedStep
+        <ChallengeUnlockedStep
           completionResponse={liveCompletionResponse}
-          unlockedProject={unlockedProject}
-          onContinue={handlers.handleContinueFromProject}
+          unlockedChallenge={unlockedChallenge}
+          onContinue={handlers.handleContinueFromChallenge}
         />
       );
 
@@ -82,14 +88,22 @@ export function ExerciseCompletionModal({
         <CompletedStep
           exerciseTitle={exerciseTitle}
           exerciseSlug={exerciseSlug}
-          isProject={isProject}
+          isChallenge={isChallenge}
+          outstandingBonusCount={outstandingBonusCount}
           onContinue={handlers.handleContinue}
           onTidyCode={handlers.handleTidyCode}
+          onSolveBonuses={handlers.handleSolveBonuses}
         />
       );
 
     case "success":
     default:
-      return <SuccessStep onCompleteExercise={handlers.handleCompleteExercise} isProject={isProject} />;
+      return (
+        <SuccessStep
+          onCompleteExercise={handlers.handleCompleteExercise}
+          isChallenge={isChallenge}
+          outstandingBonusCount={outstandingBonusCount}
+        />
+      );
   }
 }

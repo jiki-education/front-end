@@ -1,4 +1,4 @@
 {
-  "order": 7,
-  "category": true
+  "order": 0,
+  "parent": "arrays-group"
 }

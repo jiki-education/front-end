@@ -1,9 +1,11 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import SubConceptIcon from "@/icons/subconcept.svg";
 import LockedIcon from "@/icons/locked.svg";
 import styles from "@/app/styles/modules/concepts.module.css";
 import { assembleClassNames } from "@/lib/assemble-classnames";
-// import { ConceptIcon } from "@/components/icons/ConceptIcon";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
+import { ConceptIcon } from "@/components/icons/ConceptIcon";
 
 interface ConceptCardData {
   slug: string;
@@ -19,26 +21,30 @@ interface ConceptCardProps {
 }
 
 export default function ConceptCard({ concept, smallVersion = false }: ConceptCardProps) {
+  const routes = useLocaleRoutes();
+  const t = useTranslations("concepts.card");
   const isLocked = concept.userMayAccess === false;
+  const hasSubConcepts = (concept.subConceptCount ?? 0) > 0;
+  const nodeClass = hasSubConcepts ? styles.parentNode : styles.leafNode;
 
   const cardContent = (
     <>
       {isLocked && (
         <div className={styles.lockBadge}>
           <LockedIcon />
-          Locked
+          {t("locked")}
         </div>
       )}
-      {/* <div className={styles.conceptIcon}>
+      <div className={styles.conceptIcon}>
         <ConceptIcon slug={concept.slug} width={100} height={100} />
-      </div> */}
+      </div>
       <div className={styles.conceptContent}>
-        <div className={styles.conceptTitle}>{concept.title}</div>
-        <div className={styles.conceptDescription}>{concept.description}</div>
-        {!isLocked && (concept.subConceptCount ?? 0) > 0 && (
+        <div className={styles.conceptTitle}>{renderInlineCode(concept.title)}</div>
+        <div className={styles.conceptDescription}>{renderInlineCode(concept.description)}</div>
+        {!isLocked && hasSubConcepts && (
           <div className={styles.subConceptCount}>
             <SubConceptIcon />
-            <span>{concept.subConceptCount} sub-concepts</span>
+            <span>{t("subConcepts", { count: concept.subConceptCount ?? 0 })}</span>
           </div>
         )}
       </div>
@@ -47,7 +53,7 @@ export default function ConceptCard({ concept, smallVersion = false }: ConceptCa
 
   if (isLocked) {
     return (
-      <div className={assembleClassNames(styles.conceptCard, styles.locked, smallVersion && styles.small)}>
+      <div className={assembleClassNames(styles.conceptCard, nodeClass, styles.locked, smallVersion && styles.small)}>
         {cardContent}
       </div>
     );
@@ -55,12 +61,26 @@ export default function ConceptCard({ concept, smallVersion = false }: ConceptCa
 
   return (
     <Link
-      className={assembleClassNames(styles.conceptCard, smallVersion && styles.small)}
-      href={`/concepts/${concept.slug || ""}`}
+      className={assembleClassNames(styles.conceptCard, nodeClass, smallVersion && styles.small)}
+      href={routes.concept(concept.slug || "")}
     >
       {cardContent}
     </Link>
   );
+}
+
+// Renders text with `backtick`-wrapped segments as inline monospace code.
+function renderInlineCode(text: string) {
+  return text.split(/(`[^`]+`)/g).map((segment, index) => {
+    if (segment.startsWith("`") && segment.endsWith("`") && segment.length > 1) {
+      return (
+        <code key={index} className={styles.inlineCode}>
+          {segment.slice(1, -1)}
+        </code>
+      );
+    }
+    return segment;
+  });
 }
 
 export type { ConceptCardData };

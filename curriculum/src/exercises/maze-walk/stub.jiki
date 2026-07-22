@@ -1,4 +1,6 @@
-function walk with steps do
+function walk with numSteps do
+  // TODO: Write your code here
+
 
 end
 

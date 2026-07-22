@@ -64,19 +64,19 @@ describe("chatTokenApi", () => {
       expect(requestBody).toEqual({ lesson_slug: "my-exercise-slug", cf_turnstile_response: "test-token" });
     });
 
-    it("should send project_slug for project context", async () => {
+    it("should send challenge_slug for challenge context", async () => {
       mockFetch.mockResolvedValueOnce({
         ok: true,
         json: () => Promise.resolve({ token: mockToken })
       });
 
       await fetchChatToken({
-        context: { type: "project", slug: "my-project-slug" },
+        context: { type: "challenge", slug: "my-challenge-slug" },
         cfTurnstileResponse: "test-token"
       });
 
       const requestBody = JSON.parse(mockFetch.mock.calls[0][1].body);
-      expect(requestBody).toEqual({ project_slug: "my-project-slug", cf_turnstile_response: "test-token" });
+      expect(requestBody).toEqual({ challenge_slug: "my-challenge-slug", cf_turnstile_response: "test-token" });
     });
 
     it("should throw ChatTokenError on 401 errors", async () => {

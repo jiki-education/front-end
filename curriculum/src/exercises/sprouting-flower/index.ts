@@ -6,25 +6,24 @@ import type { VisualExerciseCore, FunctionInfo } from "../types";
 const functions: FunctionInfo[] = [
   {
     name: "rectangle",
-    signature: "rectangle(x, y, width, height, color)",
-    description:
-      "Draws a **rectangle** at position (x, y) with the specified width, height, and color. The position represents the top-left corner of the rectangle.",
+    signature: "rectangle(left, top, width, height, color)",
+    description: "functions.rectangle.description",
     examples: ['rectangle(10, 20, 50, 30, "skyblue")', 'rectangle(0, 0, 100, 100, "green")'],
-    category: "Drawing Shapes"
+    category: "functions.rectangle.category"
   },
   {
     name: "circle",
-    signature: "circle(cx, cy, radius, color)",
-    description: "Draws a **circle** at center position (x, y) with the specified radius and color.",
+    signature: "circle(centerX, centerY, radius, color)",
+    description: "functions.circle.description",
     examples: ['circle(50, 50, 10, "pink")', 'circle(25, 75, 15, "yellow")'],
-    category: "Drawing Shapes"
+    category: "functions.circle.category"
   },
   {
     name: "ellipse",
-    signature: "ellipse(x, y, xRadius, yRadius, color)",
-    description: "Draws an **ellipse** at center position (x, y) with the specified xRadius, yRadius, and color.",
+    signature: "ellipse(centerX, centerY, radiusX, radiusY, color)",
+    description: "functions.ellipse.description",
     examples: ['ellipse(50, 50, 20, 10, "green")', 'ellipse(30, 60, 15, 5, "green")'],
-    category: "Drawing Shapes"
+    category: "functions.ellipse.category"
   }
 ];
 
@@ -35,7 +34,10 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["loops", "variables"]
+  conceptSlugs: ["repeat", "variables", "updating-variables", "arithmetic"],
+  interpreterOptions: {
+    repeatDelay: 50
+  }
 };
 
 export default exerciseDefinition;

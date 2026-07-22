@@ -1,8 +1,8 @@
-import Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
 import BreakpointStepperButtons from "@/components/coding-exercise/ui/scrubber/BreakpointStepperButtons";
 import { createMockFrame } from "@/tests/mocks";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import OrchestratorTestProvider from "@/tests/test-utils/OrchestratorTestProvider";
+import { makeTestOrchestrator } from "@/tests/test-utils/makeTestOrchestrator";
 import type { Frame } from "@jiki/interpreters";
 import "@testing-library/jest-dom";
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
@@ -13,7 +13,7 @@ function setupOrchestrator(frames: Frame[], breakpoints: number[] = [], foldedLi
     slug: "test-uuid",
     stubs: { javascript: "// test code", python: "// test code", jikiscript: "// test code" }
   });
-  const orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+  const orchestrator = makeTestOrchestrator(exercise);
 
   // Set up test state with proper animation timeline mock
   orchestrator.getStore().setState({
@@ -121,6 +121,25 @@ describe("Breakpoint Navigation Integration", () => {
       const state = orchestrator.getStore().getState();
       expect(state.currentTestTime).toBe(200); // Should stay at same position
       expect(state.currentFrame?.line).toBe(3);
+    });
+
+    it("pauses playback and shows the information widget, like the frame steppers", () => {
+      const frames = [
+        createMockFrame(0, { line: 1 }),
+        createMockFrame(100, { line: 2 }),
+        createMockFrame(200, { line: 3 })
+      ];
+      const breakpoints = [1, 3];
+      const orchestrator = setupOrchestrator(frames, breakpoints);
+      orchestrator.setCurrentTestTime(0);
+
+      const pauseSpy = jest.spyOn(orchestrator, "pause");
+      const showWidgetSpy = jest.spyOn(orchestrator, "showInformationWidget");
+
+      orchestrator.goToNextBreakpoint();
+
+      expect(pauseSpy).toHaveBeenCalledTimes(1);
+      expect(showWidgetSpy).toHaveBeenCalledTimes(1);
     });
 
     it("should skip folded lines when navigating", () => {

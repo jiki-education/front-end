@@ -1,0 +1,18 @@
+{
+  "slug": "setting-up-the-project",
+  "date": "2026-07-11",
+  "author": "ihid",
+  "videoProvider": "youtube",
+  "videoKey": "aEmZE-VnxsQ",
+  "durationSeconds": 5334,
+  "premium": false,
+  "image": "build-yourself-a-homepage.webp",
+  "guides": [
+    "what-is-agentic-coding",
+    "key-agentic-coding-concepts",
+    "installing-an-agentic-coding-platform",
+    "using-a-code-editor",
+    "installing-vscode",
+    "html-basics"
+  ]
+}

@@ -4,28 +4,92 @@ import type ScrollAndShootExercise from "./ScrollAndShootExercise";
 export const tasks = [
   {
     id: "scroll-and-shoot" as const,
-    name: "Move your laser from left to right and shoot the aliens",
-    description:
-      "Move the laser left and right across the screen, checking for aliens above you and shooting them down. Don't move off the edge or shoot when there's no alien, or you'll lose!",
+    name: "tasks.scrollAndShoot.name",
+    description: "tasks.scrollAndShoot.description",
     hints: [],
-    requiredScenarios: ["scroll-and-shoot"],
+    requiredScenarios: ["one-alien", "one-row", "two-rows", "three-rows", "full-rows"],
     bonus: false
-  },
-  {
-    id: "bonus-challenges" as const,
-    name: "Bonus challenges",
-    description: "Can you solve this without using repeat, and with only one shoot() call?",
-    hints: [],
-    requiredScenarios: ["no-repeat", "one-shoot"],
-    bonus: true
   }
 ] as const satisfies readonly Task[];
 
+function wonExpectation(exercise: ScrollAndShootExercise) {
+  return [
+    {
+      pass: exercise.getState().gameStatus === "won",
+      errorHtml: exercise.t("checks.notShotAllAliens")
+    }
+  ];
+}
+
 export const scenarios: VisualScenario[] = [
   {
-    slug: "scroll-and-shoot",
-    name: "Scroll and Shoot",
-    description: "Move your laser from left to right and shoot all the aliens",
+    slug: "one-alien",
+    name: "scenarios.oneAlien.name",
+    description: "scenarios.oneAlien.description",
+    taskId: "scroll-and-shoot",
+
+    setup(exercise) {
+      (exercise as ScrollAndShootExercise).setupAliens([
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      ]);
+    },
+
+    expectations: (exercise) => wonExpectation(exercise as ScrollAndShootExercise)
+  },
+  {
+    slug: "one-row",
+    name: "scenarios.oneRow.name",
+    description: "scenarios.oneRow.description",
+    taskId: "scroll-and-shoot",
+
+    setup(exercise) {
+      (exercise as ScrollAndShootExercise).setupAliens([
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [1, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0]
+      ]);
+    },
+
+    expectations: (exercise) => wonExpectation(exercise as ScrollAndShootExercise)
+  },
+  {
+    slug: "two-rows",
+    name: "scenarios.twoRows.name",
+    description: "scenarios.twoRows.description",
+    taskId: "scroll-and-shoot",
+
+    setup(exercise) {
+      (exercise as ScrollAndShootExercise).setupAliens([
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
+      ]);
+    },
+
+    expectations: (exercise) => wonExpectation(exercise as ScrollAndShootExercise)
+  },
+  {
+    slug: "three-rows",
+    name: "scenarios.threeRows.name",
+    description: "scenarios.threeRows.description",
+    taskId: "scroll-and-shoot",
+
+    setup(exercise) {
+      (exercise as ScrollAndShootExercise).setupAliens([
+        [0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0],
+        [1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
+      ]);
+    },
+
+    expectations: (exercise) => wonExpectation(exercise as ScrollAndShootExercise)
+  },
+  {
+    slug: "full-rows",
+    name: "scenarios.fullRows.name",
+    description: "scenarios.fullRows.description",
     taskId: "scroll-and-shoot",
 
     setup(exercise) {
@@ -38,75 +102,13 @@ export const scenarios: VisualScenario[] = [
       ex.enableAlienRespawning();
     },
 
-    expectations(exercise) {
-      const ex = exercise as ScrollAndShootExercise;
-      const state = ex.getState();
-      return [
-        {
-          pass: state.gameStatus === "won",
-          errorHtml: "You didn't shoot down all the aliens."
-        }
-      ];
-    }
-  },
+    expectations: (exercise) => wonExpectation(exercise as ScrollAndShootExercise),
 
-  {
-    slug: "no-repeat",
-    name: "No Repeat",
-    description: "Solve without using the repeat keyword (repeatUntilGameOver is allowed)",
-    taskId: "bonus-challenges",
-
-    setup(exercise) {
-      const ex = exercise as ScrollAndShootExercise;
-      ex.setupAliens([
-        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
-      ]);
-      ex.enableAlienRespawning();
-    },
-
-    expectations(exercise) {
-      const ex = exercise as ScrollAndShootExercise;
-      const state = ex.getState();
-      return [
-        {
-          pass: state.gameStatus === "won",
-          errorHtml: "You didn't shoot down all the aliens."
-        }
-        // Note: The "no repeat" check would need AST analysis which is handled
-        // by the test runner, not the scenario expectations
-      ];
-    }
-  },
-
-  {
-    slug: "one-shoot",
-    name: "One Shoot",
-    description: "Only have shoot() appear once in your code",
-    taskId: "bonus-challenges",
-
-    setup(exercise) {
-      const ex = exercise as ScrollAndShootExercise;
-      ex.setupAliens([
-        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
-        [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1]
-      ]);
-      ex.enableAlienRespawning();
-    },
-
-    expectations(exercise) {
-      const ex = exercise as ScrollAndShootExercise;
-      const state = ex.getState();
-      return [
-        {
-          pass: state.gameStatus === "won",
-          errorHtml: "You didn't shoot down all the aliens."
-        }
-        // Note: The "one shoot() call" check would need AST analysis which is
-        // handled by the test runner, not the scenario expectations
-      ];
-    }
+    codeChecks: [
+      {
+        pass: (result) => result.assertors.assertStatement("RepeatStatement", { args: [undefined], count: 0 }),
+        errorKey: "checks.noRepeatWithArg"
+      }
+    ]
   }
 ];

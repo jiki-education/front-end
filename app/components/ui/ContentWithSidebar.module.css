@@ -26,9 +26,12 @@
 }
 
 .rightPanel {
+    /* Sit at the bottom of the (taller) article column and stick to the bottom
+       of the viewport while scrolling, so any spare space is above the panel
+       rather than left as dead whitespace below it. */
+    align-self: end;
     position: sticky;
-    top: calc(var(--header-height) + var(--sticky-offset));
-    align-self: start;
+    bottom: 24px;
 }
 
 @media (max-width: 1024px) {
@@ -37,6 +40,7 @@
         grid-template-columns: 1fr;
     }
 
+    /* Stacked single-column layout: don't stick. */
     .rightPanel {
         position: static;
     }

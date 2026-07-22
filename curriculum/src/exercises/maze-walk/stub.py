@@ -1,5 +1,6 @@
-def walk(steps):
-    pass
+def walk(numSteps):
+    # TODO: Write your code here
+
 
 walk(3)
 turn_left()

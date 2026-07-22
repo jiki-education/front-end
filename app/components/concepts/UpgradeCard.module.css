@@ -6,7 +6,7 @@
     border-radius: 16px;
     padding: 20px;
     border: 3px solid var(--color-blue-500);
-    text-align: left;
+    text-align: start;
     margin-bottom: 20px;
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
 }

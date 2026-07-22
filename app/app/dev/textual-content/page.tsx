@@ -262,73 +262,73 @@ console.log(example);`}
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b">
-                  <th className="text-left py-8 pr-16">Class</th>
-                  <th className="text-left py-8">Description</th>
+                  <th className="text-start py-8 pe-16">Class</th>
+                  <th className="text-start py-8">Description</th>
                 </tr>
               </thead>
               <tbody>
                 <tr className="border-b">
-                  <td className="py-8 pr-16">
+                  <td className="py-8 pe-16">
                     <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.ui-textual-content</code>
                   </td>
                   <td>Base class with typography and layout styles</td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-8 pr-16">
+                  <td className="py-8 pe-16">
                     <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.ui-textual-content-large</code>
                   </td>
                   <td>Large variant (h2: 36px, h3: 28px, body: 19px)</td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-8 pr-16">
+                  <td className="py-8 pe-16">
                     <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.ui-textual-content-base</code>
                   </td>
                   <td>Base variant (h2: 32px, h3: 24px, body: 18px)</td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-8 pr-16">
+                  <td className="py-8 pe-16">
                     <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.admonition-info</code>
                   </td>
                   <td>Purple gradient info box</td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-8 pr-16">
+                  <td className="py-8 pe-16">
                     <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.admonition-key-point</code>
                   </td>
                   <td>Blue bordered key point box</td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-8 pr-16">
+                  <td className="py-8 pe-16">
                     <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.admonition-warning</code>
                   </td>
                   <td>Amber warning box with left border</td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-8 pr-16">
+                  <td className="py-8 pe-16">
                     <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.admonition-try-it</code>
                   </td>
                   <td>Dashed border try-it box</td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-8 pr-16">
+                  <td className="py-8 pe-16">
                     <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.article-table-section</code>
                   </td>
                   <td>Wrapper for table with margin spacing</td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-8 pr-16">
+                  <td className="py-8 pe-16">
                     <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.article-table</code>
                   </td>
                   <td>Styled table with rounded borders</td>
                 </tr>
                 <tr className="border-b">
-                  <td className="py-8 pr-16">
+                  <td className="py-8 pe-16">
                     <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.feature-cell</code>
                   </td>
                   <td>Fixed-width cell for feature names (220px)</td>
                 </tr>
                 <tr>
-                  <td className="py-8 pr-16">
+                  <td className="py-8 pe-16">
                     <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.code-tag</code>
                   </td>
                   <td>Purple gradient inline code tag for tables</td>

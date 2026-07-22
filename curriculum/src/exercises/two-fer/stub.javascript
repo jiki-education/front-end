@@ -1,3 +1,1 @@
-function twoFer(name) {
-
-}
+// Write the twoFer function

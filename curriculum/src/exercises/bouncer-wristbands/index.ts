@@ -7,37 +7,37 @@ const functions: FunctionInfo[] = [
   {
     name: "getAge",
     signature: "getAge()",
-    description: "Returns the **age** of the person waiting outside.",
+    description: "functions.getAge.description",
     examples: ["let age = getAge()"],
-    category: "Information"
+    category: "functions.getAge.category"
   },
   {
-    name: "childWristband",
-    signature: "childWristband()",
-    description: "Gives the person a **child** wristband (under 13).",
-    examples: ["childWristband()"],
-    category: "Wristbands"
+    name: "giveChildWristband",
+    signature: "giveChildWristband()",
+    description: "functions.giveChildWristband.description",
+    examples: ["giveChildWristband()"],
+    category: "functions.giveChildWristband.category"
   },
   {
-    name: "teenWristband",
-    signature: "teenWristband()",
-    description: "Gives the person a **teen** wristband (13-17).",
-    examples: ["teenWristband()"],
-    category: "Wristbands"
+    name: "giveTeenWristband",
+    signature: "giveTeenWristband()",
+    description: "functions.giveTeenWristband.description",
+    examples: ["giveTeenWristband()"],
+    category: "functions.giveTeenWristband.category"
   },
   {
-    name: "adultWristband",
-    signature: "adultWristband()",
-    description: "Gives the person an **adult** wristband (18-64).",
-    examples: ["adultWristband()"],
-    category: "Wristbands"
+    name: "giveAdultWristband",
+    signature: "giveAdultWristband()",
+    description: "functions.giveAdultWristband.description",
+    examples: ["giveAdultWristband()"],
+    category: "functions.giveAdultWristband.category"
   },
   {
-    name: "seniorWristband",
-    signature: "seniorWristband()",
-    description: "Gives the person a **senior** wristband (65+).",
-    examples: ["seniorWristband()"],
-    category: "Wristbands"
+    name: "giveSeniorWristband",
+    signature: "giveSeniorWristband()",
+    description: "functions.giveSeniorWristband.description",
+    examples: ["giveSeniorWristband()"],
+    category: "functions.giveSeniorWristband.category"
   }
 ];
 
@@ -45,6 +45,7 @@ const exerciseDefinition: VisualExerciseCore = {
   type: "visual",
   ...metadata,
   ExerciseClass,
+  conceptSlugs: ["if", "else-if"],
   tasks,
   scenarios,
   functions

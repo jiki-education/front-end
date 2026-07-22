@@ -1,0 +1,53 @@
+{
+  "checks": {
+    "sunWrongBeginning": "The sun seems wrong near the beginning.",
+    "sunWrongMiddle": "The sun seems wrong near the middle.",
+    "sunWrongEnd": "The sun seems wrong near the end.",
+    "skyNotChangingColor": "The sky doesn't seem to be changing color.",
+    "sunNotChangingColor": "The sun doesn't seem to be changing color."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "Animate the sunset",
+      "description": "Animate the sun and the sky to make it look like the sun is setting. The sun should grow larger and move down, while both the sun and sky change colors."
+    }
+  },
+  "scenarios": {
+    "drawScene": {
+      "name": "Make the sun set",
+      "description": "Animate the sun and the sky to make it look like the sun is setting."
+    }
+  },
+  "hints": {
+    "howToAnimate": {
+      "question": "How do I animate?",
+      "answer": "To animate, we're following the flipbook style - redraw the whole scene each time over the top of the previous versions."
+    },
+    "whereToStart": {
+      "question": "I don't know where to start.",
+      "answer": "You need to draw 100 times. So start by moving the existing drawing functions into a repeat loop that runs 100 times. Then you need to change the variables (radius, colors, etc), for each time the loop runs."
+    },
+    "whereToPutVariables": {
+      "question": "Where do I put my variables?",
+      "answer": "You need to set your variables BEFORE the loop, then update them INSIDE the loop, BEFORE drawing the shapes. Think through Jiki creating boxes and updating them each time."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Draw a circle with its center at (centerX, centerY), the given radius, and color",
+      "category": "Drawing Shapes"
+    },
+    "rectangle": {
+      "description": "Draw a rectangle at position (left, top) with the given width, height, and color",
+      "category": "Drawing Shapes"
+    },
+    "rgb": {
+      "description": "Convert RGB color values (each 0-255) to a hex color string",
+      "category": "Colors"
+    },
+    "hsl": {
+      "description": "Convert HSL color values (hue 0-360, saturation 0-100, lightness 0-100) to a hex color string",
+      "category": "Colors"
+    }
+  }
+}

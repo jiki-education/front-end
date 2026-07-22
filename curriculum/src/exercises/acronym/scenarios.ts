@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "create-acronym-function" as const,
-    name: "Create acronym function",
-    description:
-      "Write a function that takes a phrase and returns an acronym. The acronym should be formed by taking the first letter of each word and converting it to uppercase.",
+    name: "tasks.createAcronymFunction.name",
+    description: "tasks.createAcronymFunction.description",
     hints: [],
     requiredScenarios: ["png", "ror", "first-word-only", "hyphenated"],
     bonus: false
@@ -15,8 +14,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "png",
-    name: "Basic acronym: PNG",
-    description: "Convert 'Portable Network Graphics' to 'PNG'.",
+    name: "scenarios.png.name",
+    description: "scenarios.png.description",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["Portable Network Graphics"],
@@ -24,8 +23,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "ror",
-    name: "Lowercase words: ROR",
-    description: "Convert 'Ruby on Rails' to 'ROR'.",
+    name: "scenarios.ror.name",
+    description: "scenarios.ror.description",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["Ruby on Rails"],
@@ -33,8 +32,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "first-word-only",
-    name: "Single word: H",
-    description: "Convert 'HyperText' to 'H'.",
+    name: "scenarios.firstWordOnly.name",
+    description: "scenarios.firstWordOnly.description",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["HyperText"],
@@ -42,8 +41,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "hyphenated",
-    name: "Hyphenated phrase: CMOS",
-    description: "Convert 'Complementary metal-oxide semiconductor' to 'CMOS'.",
+    name: "scenarios.hyphenated.name",
+    description: "scenarios.hyphenated.description",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["Complementary metal-oxide semiconductor"],
@@ -51,8 +50,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "punctuation",
-    name: "With punctuation: PHT",
-    description: "Convert 'Portable, HyperText, Transmitter' to 'PHT'.",
+    name: "scenarios.punctuation.name",
+    description: "scenarios.punctuation.description",
     taskId: "create-acronym-function",
     functionName: "acronym",
     args: ["Portable, HyperText, Transmitter"],

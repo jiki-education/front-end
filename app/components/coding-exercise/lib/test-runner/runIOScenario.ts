@@ -1,4 +1,13 @@
-import type { IOScenario, Language, CodeCheckExpect } from "@jiki/curriculum";
+import type {
+  IOExercise,
+  IOScenario,
+  Language,
+  CodeCheckExpect,
+  Messages as CurriculumMessages
+} from "@jiki/curriculum";
+import { createTranslator } from "@jiki/curriculum";
+import type { Messages as InterpreterMessages } from "@jiki/interpreters";
+import { resolveCodeCheckError } from "./resolveCodeCheckError";
 import type { IOTestResult, IOTestExpect } from "../test-results-types";
 import isEqual from "lodash/isEqual";
 import { diffChars, diffWords, type Change } from "diff";
@@ -37,11 +46,19 @@ function generateDiff(expected: any, actual: any): Change[] {
 export function runIOScenario(
   scenario: IOScenario,
   studentCode: string,
-  availableFunctions: Array<{ name: string; func: any; description: string }>,
+  ExerciseClass: new () => IOExercise,
   language: Language,
   interpreter: Interpreter,
-  languageFeatures?: Record<string, any>
+  languageFeatures: Record<string, any> | undefined,
+  interpreterLocaleMessages: InterpreterMessages,
+  exerciseLocaleMessages: CurriculumMessages
 ): IOTestResult {
+  // Instantiate the exercise (uniform with visual exercises) and inject the
+  // active-locale message dict before running so logic-error strings resolve.
+  const exercise = new ExerciseClass();
+  exercise.setMessages(exerciseLocaleMessages);
+  const availableFunctions = exercise.getExternalFunctions(language);
+
   let actual: any;
   let errorHtml: string | undefined;
   let functionalPass = false;
@@ -55,7 +72,8 @@ export function runIOScenario(
       studentCode,
       {
         externalFunctions: availableFunctions,
-        languageFeatures: languageFeatures ?? { timePerFrame: 1 }
+        languageFeatures: languageFeatures ?? { timePerFrame: 1 },
+        localeMessages: interpreterLocaleMessages
       },
       interpreter.formatIdentifier(scenario.functionName),
       ...scenario.args
@@ -87,6 +105,7 @@ export function runIOScenario(
   let allCodeChecksPassed = true;
 
   if (scenario.codeChecks && scenario.codeChecks.length > 0 && interpretResult) {
+    const t = createTranslator(exerciseLocaleMessages);
     codeCheckResults = scenario.codeChecks.map((check) => {
       try {
         const checkPassed = check.pass(interpretResult, language);
@@ -95,7 +114,7 @@ export function runIOScenario(
         }
         return {
           pass: checkPassed,
-          errorHtml: checkPassed ? undefined : check.errorHtml
+          errorHtml: checkPassed ? undefined : resolveCodeCheckError(check, t)
         };
       } catch (error) {
         allCodeChecksPassed = false;
@@ -117,7 +136,7 @@ export function runIOScenario(
 
   // Format function call for display
   const argsStr = scenario.args.map((arg) => JSON.stringify(arg)).join(", ");
-  const codeRun = `${scenario.functionName}(${argsStr})`;
+  const codeRun = `${interpreter.formatIdentifier(scenario.functionName)}(${argsStr})`;
 
   // Determine which error to show:
   // - If functional test failed, show its error

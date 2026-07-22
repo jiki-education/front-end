@@ -1,30 +1,31 @@
-import { forwardRef } from "react";
 import type { ConceptCardData } from "@/components/concepts/ConceptCard";
-import LibraryWithConcepts from "./LibraryWithConcepts";
+import { forwardRef } from "react";
+import { useTranslations } from "next-intl";
+import LibraryChallengesState from "./LibraryChallengesState";
 import LibraryEmptyState from "./LibraryEmptyState";
-import LibraryProjectsState from "./LibraryProjectsState";
+import LibraryWithConcepts from "./LibraryWithConcepts";
 import styles from "./instructions-panel.module.css";
 
-type LibraryState = "loading" | "with-concepts" | "empty" | "projects";
+type LibraryState = "loading" | "with-concepts" | "empty" | "challenges";
 
 interface LibrarySectionProps {
   concepts: ConceptCardData[];
   isLoading: boolean;
-  isProject: boolean;
+  isChallenge: boolean;
 }
 
 const LibrarySection = forwardRef<HTMLDivElement, LibrarySectionProps>(function LibrarySection(
-  { concepts, isLoading, isProject },
+  { concepts, isLoading, isChallenge },
   ref
 ) {
-  const state = getLibraryState({ concepts, isLoading, isProject });
+  const state = getLibraryState({ concepts, isLoading, isChallenge });
 
   return (
     <div ref={ref}>
       {state === "loading" && <LibraryLoading />}
       {state === "with-concepts" && <LibraryWithConcepts concepts={concepts} />}
       {state === "empty" && <LibraryEmptyState />}
-      {state === "projects" && <LibraryProjectsState />}
+      {state === "challenges" && <LibraryChallengesState />}
     </div>
   );
 });
@@ -32,17 +33,19 @@ const LibrarySection = forwardRef<HTMLDivElement, LibrarySectionProps>(function 
 export default LibrarySection;
 
 function LibraryLoading() {
+  const t = useTranslations("codingExercise.instructionsPanel");
   return (
     <LibraryWrapper>
-      <p className={styles.libraryDescription}>Loading concepts...</p>
+      <p className={styles.libraryDescription}>{t("loadingConcepts")}</p>
     </LibraryWrapper>
   );
 }
 
 function LibraryWrapper({ children }: { children: React.ReactNode }) {
+  const t = useTranslations("codingExercise.instructionsPanel");
   return (
     <div className={styles.conceptsContainer}>
-      <h2 className={styles.conceptsTitle}>Concept Library</h2>
+      <h2 className={styles.conceptsTitle}>{t("conceptLibraryTitle")}</h2>
       {children}
     </div>
   );
@@ -51,11 +54,11 @@ function LibraryWrapper({ children }: { children: React.ReactNode }) {
 function getLibraryState({
   concepts,
   isLoading,
-  isProject
+  isChallenge
 }: {
   concepts: ConceptCardData[];
   isLoading: boolean;
-  isProject: boolean;
+  isChallenge: boolean;
 }): LibraryState {
   if (isLoading) {
     return "loading";
@@ -63,8 +66,8 @@ function getLibraryState({
   if (concepts.length > 0) {
     return "with-concepts";
   }
-  if (isProject) {
-    return "projects";
+  if (isChallenge) {
+    return "challenges";
   }
   return "empty";
 }

@@ -1,7 +1,8 @@
-import Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
+import type Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
 import OrchestratorContext from "@/components/coding-exercise/lib/OrchestratorContext";
 import InformationWidgetToggleButton from "@/components/coding-exercise/ui/scrubber/InformationWidgetToggleButton";
 import { createMockExercise } from "@/tests/mocks/exercise";
+import { makeTestOrchestrator } from "@/tests/test-utils/makeTestOrchestrator";
 import { fireEvent, render, screen } from "@testing-library/react";
 
 // Mock localStorage
@@ -18,7 +19,7 @@ describe("InformationWidgetToggleButton", () => {
       slug: "test-uuid",
       stubs: { javascript: "initial code", python: "initial code", jikiscript: "initial code" }
     });
-    orchestrator = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+    orchestrator = makeTestOrchestrator(exercise);
     // Mock the editorManager methods
     orchestrator.showInformationWidget = jest.fn();
     orchestrator.hideInformationWidget = jest.fn();

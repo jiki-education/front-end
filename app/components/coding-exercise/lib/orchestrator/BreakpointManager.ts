@@ -1,13 +1,10 @@
-import type { StoreApi } from "zustand/vanilla";
 import type { Frame } from "@jiki/interpreters/shared";
-import type { OrchestratorStore } from "../types";
 
 /**
- * Manages breakpoint-related navigation and state
+ * Static helpers for locating breakpoint frames. Navigation itself lives on the
+ * Orchestrator (see `goToPrevBreakpoint`/`goToNextBreakpoint`).
  */
 export class BreakpointManager {
-  constructor(private readonly store: StoreApi<OrchestratorStore>) {}
-
   /**
    * Static helper to find the previous frame that matches a breakpoint line
    * @param currentFrame - The current frame
@@ -77,25 +74,5 @@ export class BreakpointManager {
     }
 
     return undefined;
-  }
-
-  /**
-   * Navigate to the previous breakpoint
-   */
-  goToPrevBreakpoint(): void {
-    const state = this.store.getState();
-    if (state.prevBreakpointFrame) {
-      state.setCurrentTestTime(state.prevBreakpointFrame.time);
-    }
-  }
-
-  /**
-   * Navigate to the next breakpoint
-   */
-  goToNextBreakpoint(): void {
-    const state = this.store.getState();
-    if (state.nextBreakpointFrame) {
-      state.setCurrentTestTime(state.nextBreakpointFrame.time);
-    }
   }
 }

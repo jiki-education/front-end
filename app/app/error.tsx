@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { ErrorPage } from "../components/error-page/ErrorPage";
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+  const t = useTranslations("misc.errorPage");
   useEffect(() => {
     if (process.env.NODE_ENV === "production") {
       import("@sentry/nextjs")
@@ -19,9 +21,9 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
   return (
     <ErrorPage
       statusCode={500}
-      title="Something went wrong"
-      message="We encountered an unexpected error. Sorry about that!"
-      actionLabel="Try again"
+      title={t("serverErrorTitle")}
+      message={t("serverErrorMessage")}
+      actionLabel={t("serverErrorAction")}
       onAction={reset}
     />
   );

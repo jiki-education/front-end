@@ -1,6 +1,6 @@
 import { TestSuiteManager } from "@/components/coding-exercise/lib/orchestrator/TestSuiteManager";
-import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
 import type { ExerciseContext } from "@/components/coding-exercise/lib/types";
+import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
 import { createMockExercise, createMockOrchestratorStore } from "@/tests/mocks";
 
 jest.mock("@/components/coding-exercise/lib/test-runner/runTests", () => ({
@@ -11,13 +11,12 @@ jest.mock("@/lib/api/lessons", () => ({
   submitLessonExercise: jest.fn().mockResolvedValue(undefined)
 }));
 
-jest.mock("@/lib/api/projects", () => ({
-  submitProjectExercise: jest.fn().mockResolvedValue(undefined)
+jest.mock("@/lib/api/challenges", () => ({
+  submitChallengeExercise: jest.fn().mockResolvedValue(undefined)
 }));
 
-jest.mock("react-hot-toast", () => ({
-  __esModule: true,
-  default: { error: jest.fn() }
+jest.mock("@/lib/toast", () => ({
+  toastError: jest.fn()
 }));
 
 function flushMicrotasks() {
@@ -41,7 +40,7 @@ describe("TestSuiteManager", () => {
       currentTest: null,
       language: "javascript"
     });
-    return new TestSuiteManager(mockStore, undefined, context);
+    return new TestSuiteManager(mockStore, {}, {}, undefined, context);
   }
 
   beforeEach(() => {
@@ -66,10 +65,10 @@ describe("TestSuiteManager", () => {
       expect(submitLessonExercise).toHaveBeenCalledWith("solve-a-maze", [{ filename: "solution.js", code: mockCode }]);
     });
 
-    it("submits to the project endpoint when context is a project", async () => {
-      const manager = buildManager({ type: "project", slug: "build-a-blog" });
+    it("submits to the challenge endpoint when context is a challenge", async () => {
+      const manager = buildManager({ type: "challenge", slug: "build-a-blog" });
 
-      const { submitProjectExercise } = await import("@/lib/api/projects");
+      const { submitChallengeExercise } = await import("@/lib/api/challenges");
       const { submitLessonExercise } = await import("@/lib/api/lessons");
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
       (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
@@ -77,7 +76,9 @@ describe("TestSuiteManager", () => {
       await manager.runCode(mockCode, mockExercise);
       await flushMicrotasks();
 
-      expect(submitProjectExercise).toHaveBeenCalledWith("build-a-blog", [{ filename: "solution.js", code: mockCode }]);
+      expect(submitChallengeExercise).toHaveBeenCalledWith("build-a-blog", [
+        { filename: "solution.js", code: mockCode }
+      ]);
       expect(submitLessonExercise).not.toHaveBeenCalled();
     });
 
@@ -85,7 +86,7 @@ describe("TestSuiteManager", () => {
       const manager = buildManager();
 
       const { submitLessonExercise } = await import("@/lib/api/lessons");
-      const { submitProjectExercise } = await import("@/lib/api/projects");
+      const { submitChallengeExercise } = await import("@/lib/api/challenges");
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
       (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
 
@@ -93,7 +94,7 @@ describe("TestSuiteManager", () => {
       await flushMicrotasks();
 
       expect(submitLessonExercise).not.toHaveBeenCalled();
-      expect(submitProjectExercise).not.toHaveBeenCalled();
+      expect(submitChallengeExercise).not.toHaveBeenCalled();
     });
 
     it("runs tests with the language regardless of submission state", async () => {
@@ -104,7 +105,7 @@ describe("TestSuiteManager", () => {
 
       await manager.runCode(mockCode, mockExercise);
 
-      expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise, "javascript");
+      expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise, "javascript", {}, {});
     });
 
     it("does not block test execution when submission fails", async () => {
@@ -131,13 +132,15 @@ describe("TestSuiteManager", () => {
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
       (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
 
-      const toast = (await import("react-hot-toast")).default;
+      const { toastError } = await import("@/lib/toast");
 
       await manager.runCode(mockCode, mockExercise);
       await flushMicrotasks();
 
-      expect(toast.error).toHaveBeenCalledTimes(1);
-      expect((toast.error as jest.Mock).mock.calls[0][0]).toMatch(/submission|attempt/i);
+      expect(toastError).toHaveBeenCalledTimes(1);
+      expect(toastError).toHaveBeenCalledWith("exercise.submissionFailed", undefined, {
+        id: "exercise-submission-error"
+      });
     });
 
     it("does not toast on NetworkError (handled globally)", async () => {
@@ -149,18 +152,18 @@ describe("TestSuiteManager", () => {
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
       (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
 
-      const toast = (await import("react-hot-toast")).default;
+      const { toastError } = await import("@/lib/toast");
 
       await manager.runCode(mockCode, mockExercise);
       await flushMicrotasks();
 
-      expect(toast.error).not.toHaveBeenCalled();
+      expect(toastError).not.toHaveBeenCalled();
     });
 
     it("does not toast on AuthenticationError or RateLimitError (handled globally)", async () => {
       const { submitLessonExercise } = await import("@/lib/api/lessons");
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
-      const toast = (await import("react-hot-toast")).default;
+      const { toastError } = await import("@/lib/toast");
 
       for (const error of [new AuthenticationError("Unauthorized"), new RateLimitError("Too Many Requests", 1)]) {
         const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
@@ -171,7 +174,7 @@ describe("TestSuiteManager", () => {
         await flushMicrotasks();
       }
 
-      expect(toast.error).not.toHaveBeenCalled();
+      expect(toastError).not.toHaveBeenCalled();
     });
   });
 

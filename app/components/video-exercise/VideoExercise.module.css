@@ -78,9 +78,9 @@
 }
 
 .muxPlayer {
+    /* First watch: hide the skip-ahead buttons but keep the scrub bar visible so users can rewind within what they've already seen. */
     --seek-forward-button: none;
     --seek-backward-button: none;
-    --time-range: none;
 
     position: absolute;
     inset: 0;
@@ -95,6 +95,48 @@
     width: 100%;
     height: 100%;
     transition: opacity 500ms;
+}
+
+/* Transient hint shown just above the control bar when a first-time viewer tries to scrub past the point they've watched. */
+.skipHint {
+    position: absolute;
+    bottom: 72px;
+    inset-inline-start: 50%;
+    transform: translate(-50%, 8px);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: min(90%, 420px);
+    padding: 10px 16px;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--color-gray-900) 88%, transparent);
+    color: white;
+    font-size: 14px;
+    line-height: 1.35;
+    text-align: start;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 200ms ease,
+        transform 200ms ease,
+        visibility 200ms;
+}
+
+.skipHintVisible {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+.skipHintIcon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    color: var(--color-purple-400);
 }
 
 .muxPlayerHidden {
@@ -291,7 +333,7 @@
     color: var(--color-gray-400);
     position: absolute;
     top: 15px;
-    right: 24px;
+    inset-inline-end: 24px;
     z-index: 10;
 }
 

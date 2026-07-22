@@ -1,0 +1,40 @@
+{
+  "describers": {
+    "move": "moved the laser cannon to the right"
+  },
+  "checks": {
+    "notShotAllAliens": "You didn't shoot down all the aliens."
+  },
+  "tasks": {
+    "shootTheAliens": {
+      "name": "Shoot all the aliens",
+      "description": "Move your laser cannon to the right and shoot each alien as you pass underneath it. Don't miss or move off the edge!"
+    }
+  },
+  "scenarios": {
+    "shootTheAliens": {
+      "name": "Shoot the Aliens",
+      "description": "Move right and shoot all the aliens"
+    }
+  },
+  "hints": {
+    "whatDoINeedToDo": {
+      "question": "What do I need to do?",
+      "answer": "Like the maze, you need to move your character (this time a laser, not a person). But you also need to shoot from the laser! Move the laser underneath an alien then shoot. Then move again until you're under the next alien, and shoot again. Continue until you've shot down the last alien!"
+    },
+    "cantWasteAmmo": {
+      "question": "I get told I can't waste ammo.",
+      "answer": "You should only `shoot()` when you're directly below an alien. Try moving one step further (or maybe you've gone one too far?)"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Moves the laser cannon **one position to the right**. If you move off the right edge of the screen, you lose!",
+      "category": "Movement"
+    },
+    "shoot": {
+      "description": "Shoots the laser upwards. **Only shoot when there's an alien above you**, or you lose the game!",
+      "category": "Action"
+    }
+  }
+}

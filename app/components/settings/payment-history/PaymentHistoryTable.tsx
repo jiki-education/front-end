@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import PaymentHistoryRow from "./PaymentHistoryRow";
 import styles from "./PaymentHistory.module.css";
 import type { Payment } from "./types";
@@ -8,10 +9,11 @@ interface PaymentHistoryTableProps {
 }
 
 export default function PaymentHistoryTable({ payments, onDownloadReceipt }: PaymentHistoryTableProps) {
+  const t = useTranslations("settings.paymentHistory");
   if (payments.length === 0) {
     return (
       <div className={styles.emptyState}>
-        <p>No payment history available.</p>
+        <p>{t("empty")}</p>
       </div>
     );
   }
@@ -20,10 +22,10 @@ export default function PaymentHistoryTable({ payments, onDownloadReceipt }: Pay
     <table className={styles.paymentHistoryTable}>
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Amount</th>
-          <th>Type</th>
-          <th>Method</th>
+          <th>{t("columnDate")}</th>
+          <th>{t("columnAmount")}</th>
+          <th>{t("columnType")}</th>
+          <th>{t("columnMethod")}</th>
           <th></th>
         </tr>
       </thead>

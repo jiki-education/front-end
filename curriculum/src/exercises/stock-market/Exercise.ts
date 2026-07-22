@@ -17,6 +17,7 @@ export default class StockMarketExercise extends VisualExercise {
   private growthRates: Record<number, number> = {};
   taxReports: { year: number; balance: number }[] = [];
   announcedBalance: number | undefined;
+  announceCount = 0;
   private yearIndex = 0;
   private moneyValues: number[] = [];
 
@@ -133,16 +134,16 @@ export default class StockMarketExercise extends VisualExercise {
     graphArea.appendChild(valueEl);
   }
 
-  private market_growth(executionCtx: ExecutionContext, year: Shared.JikiObject): number {
+  private marketGrowth(executionCtx: ExecutionContext, year: Shared.JikiObject): number {
     if (!isNumber(year)) {
-      return executionCtx.logicError("Year must be a number");
+      return executionCtx.logicError(this.t("errors.yearNumber"));
     }
     const y = year.value;
     if (y < this.startYear) {
-      return executionCtx.logicError(`We can't check the stock market for old years! ${y} is in the past.`);
+      return executionCtx.logicError(this.t("errors.yearInPast", { year: y }));
     }
     if (y >= this.startYear + 20) {
-      return executionCtx.logicError(`We don't know about more than 20 years from now! ${y} is too far in the future.`);
+      return executionCtx.logicError(this.t("errors.yearTooFarFuture", { year: y }));
     }
     const rate = this.growthRates[y];
 
@@ -168,21 +169,22 @@ export default class StockMarketExercise extends VisualExercise {
     return rate;
   }
 
-  private report_tax(executionCtx: ExecutionContext, year: Shared.JikiObject, balance: Shared.JikiObject) {
+  private reportTax(executionCtx: ExecutionContext, year: Shared.JikiObject, balance: Shared.JikiObject) {
     if (!isNumber(year)) {
-      return executionCtx.logicError("Year must be a number");
+      return executionCtx.logicError(this.t("errors.yearNumber"));
     }
     if (!isNumber(balance)) {
-      return executionCtx.logicError("Balance must be a number");
+      return executionCtx.logicError(this.t("errors.balanceNumber"));
     }
     this.taxReports.push({ year: year.value, balance: balance.value });
   }
 
-  private announce_to_family(executionCtx: ExecutionContext, money: Shared.JikiObject) {
+  private announceToFamily(executionCtx: ExecutionContext, money: Shared.JikiObject) {
     if (!isNumber(money)) {
-      return executionCtx.logicError("Money must be a number");
+      return executionCtx.logicError(this.t("errors.moneyNumber"));
     }
     this.announcedBalance = money.value;
+    this.announceCount++;
   }
 
   protected populateView() {
@@ -194,20 +196,20 @@ export default class StockMarketExercise extends VisualExercise {
   availableFunctions = [
     {
       name: "market_growth",
-      func: this.market_growth.bind(this),
-      description: "got market growth of ${return}% for year ${arg1}",
+      func: this.marketGrowth.bind(this),
+      descriptionKey: "describers.marketGrowth",
       arity: 1 as const
     },
     {
       name: "report_tax",
-      func: this.report_tax.bind(this),
-      description: "reported tax for year ${arg1}: $${arg2}",
+      func: this.reportTax.bind(this),
+      descriptionKey: "describers.reportTax",
       arity: 2 as const
     },
     {
       name: "announce_to_family",
-      func: this.announce_to_family.bind(this),
-      description: "announced $${arg1} to the family",
+      func: this.announceToFamily.bind(this),
+      descriptionKey: "describers.announceToFamily",
       arity: 1 as const
     }
   ];

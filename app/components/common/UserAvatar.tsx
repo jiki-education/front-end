@@ -2,8 +2,9 @@
 
 import { useAuthStore } from "@/lib/auth/authStore";
 import { resolveApiAssetUrl } from "@/lib/api/config";
+import { staticAsset } from "@/lib/static-asset";
 
-const USER_FALLBACK = "/static/icons/user-fallback.svg";
+const USER_FALLBACK = staticAsset("icons/user-fallback.svg");
 
 interface UserAvatarProps {
   alt?: string;

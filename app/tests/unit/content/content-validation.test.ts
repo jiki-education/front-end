@@ -4,10 +4,15 @@ import matter from "gray-matter";
 import {
   validateBlogConfig,
   validateArticleConfig,
+  validateGuideConfig,
   validateFrontmatter,
   validateAuthors,
   validateNoDuplicateSlugs,
-  validateRequiredLocales
+  validateRequiredLocales,
+  validateProjectRequiredLocales,
+  validateEpisodeSummaryParity,
+  validateTestimonials,
+  REQUIRED_LOCALES
 } from "@/lib/content/validator";
 import authorsData from "../../../../content/src/authors.json";
 import type { AuthorRegistry } from "@/lib/content/types";
@@ -15,6 +20,13 @@ import type { AuthorRegistry } from "@/lib/content/types";
 const POSTS_DIR = path.join(__dirname, "..", "..", "..", "..", "content", "src", "posts");
 const IMAGES_DIR = path.join(__dirname, "..", "..", "..", "..", "content", "images");
 const authors = authorsData as AuthorRegistry;
+
+// English content is authored in source.md (the source of truth); map that
+// filename to the "en" locale. Every other file is named <locale>.md (e.g. hu.md).
+function localeFromMdFile(file: string): string {
+  const base = path.basename(file, ".md");
+  return base === "source" ? "en" : base;
+}
 
 describe("Content Validation", () => {
   describe("Authors", () => {
@@ -53,7 +65,7 @@ describe("Content Validation", () => {
           });
 
           const mdFiles = fs.readdirSync(postDir).filter((f) => f.endsWith(".md"));
-          const existingLocales = mdFiles.map((f) => path.basename(f, ".md"));
+          const existingLocales = mdFiles.map((f) => localeFromMdFile(f));
 
           it("should have all required locale files", () => {
             expect(() => {
@@ -62,7 +74,7 @@ describe("Content Validation", () => {
           });
 
           mdFiles.forEach((mdFile) => {
-            const locale = path.basename(mdFile, ".md");
+            const locale = localeFromMdFile(mdFile);
 
             it(`should have valid frontmatter (${locale})`, () => {
               const filePath = path.join(postDir, mdFile);
@@ -107,7 +119,7 @@ describe("Content Validation", () => {
           });
 
           const mdFiles = fs.readdirSync(postDir).filter((f) => f.endsWith(".md"));
-          const existingLocales = mdFiles.map((f) => path.basename(f, ".md"));
+          const existingLocales = mdFiles.map((f) => localeFromMdFile(f));
 
           it("should have all required locale files", () => {
             expect(() => {
@@ -116,7 +128,7 @@ describe("Content Validation", () => {
           });
 
           mdFiles.forEach((mdFile) => {
-            const locale = path.basename(mdFile, ".md");
+            const locale = localeFromMdFile(mdFile);
 
             it(`should have valid frontmatter (${locale})`, () => {
               const filePath = path.join(postDir, mdFile);
@@ -133,8 +145,125 @@ describe("Content Validation", () => {
     }
   });
 
+  describe("Guides", () => {
+    const guidesDir = path.join(POSTS_DIR, "guides");
+
+    if (fs.existsSync(guidesDir)) {
+      const slugDirs = fs.readdirSync(guidesDir).filter((item) => {
+        return fs.statSync(path.join(guidesDir, item)).isDirectory();
+      });
+
+      slugDirs.forEach((slug) => {
+        describe(`Guide: ${slug}`, () => {
+          const postDir = path.join(guidesDir, slug);
+
+          it("should have config.json file", () => {
+            const configFile = path.join(postDir, "config.json");
+            expect(fs.existsSync(configFile)).toBe(true);
+          });
+
+          it("should have valid config.json", () => {
+            const configFile = path.join(postDir, "config.json");
+            const configContent = fs.readFileSync(configFile, "utf-8");
+            const config = JSON.parse(configContent);
+
+            expect(() => {
+              validateGuideConfig(slug, config, IMAGES_DIR);
+            }).not.toThrow();
+          });
+
+          const mdFiles = fs.readdirSync(postDir).filter((f) => f.endsWith(".md"));
+          const existingLocales = mdFiles.map((f) => localeFromMdFile(f));
+
+          it("should have all required locale files", () => {
+            expect(() => {
+              validateRequiredLocales("guide", slug, postDir, existingLocales);
+            }).not.toThrow();
+          });
+
+          mdFiles.forEach((mdFile) => {
+            const locale = localeFromMdFile(mdFile);
+
+            it(`should have valid frontmatter (${locale})`, () => {
+              const filePath = path.join(postDir, mdFile);
+              const fileContent = fs.readFileSync(filePath, "utf-8");
+              const parsed = matter(fileContent);
+
+              expect(() => {
+                validateFrontmatter(slug, locale, parsed.data);
+              }).not.toThrow();
+            });
+          });
+        });
+      });
+    }
+  });
+
+  describe("Projects", () => {
+    const projectsDir = path.join(POSTS_DIR, "projects");
+
+    if (fs.existsSync(projectsDir)) {
+      const projectSlugs = fs.readdirSync(projectsDir).filter((item) => {
+        return fs.statSync(path.join(projectsDir, item)).isDirectory();
+      });
+
+      projectSlugs.forEach((slug) => {
+        describe(`Project: ${slug}`, () => {
+          const projectDir = path.join(projectsDir, slug);
+
+          it("should have config.json file", () => {
+            const configFile = path.join(projectDir, "config.json");
+            expect(fs.existsSync(configFile)).toBe(true);
+          });
+
+          it("should have all required locale keys in config.json", () => {
+            const configFile = path.join(projectDir, "config.json");
+            const config = JSON.parse(fs.readFileSync(configFile, "utf-8"));
+
+            expect(() => {
+              validateProjectRequiredLocales(slug, config);
+            }).not.toThrow();
+          });
+
+          // Episodes live in UUID-named subdirectories, each with a config.json.
+          const episodeDirs = fs.readdirSync(projectDir).filter((item) => {
+            const itemPath = path.join(projectDir, item);
+            return fs.statSync(itemPath).isDirectory() && fs.existsSync(path.join(itemPath, "config.json"));
+          });
+
+          episodeDirs.forEach((episodeId) => {
+            describe(`Episode: ${episodeId}`, () => {
+              const episodeDir = path.join(projectDir, episodeId);
+              const mdFiles = fs.readdirSync(episodeDir).filter((f) => f.endsWith(".md"));
+              const existingLocales = mdFiles.map((f) => localeFromMdFile(f));
+
+              it("should have all required locale files", () => {
+                expect(() => {
+                  validateRequiredLocales("episode", episodeId, episodeDir, existingLocales);
+                }).not.toThrow();
+              });
+
+              it("should have a summary block in every locale if source.md has one", () => {
+                const localeSummaries: Record<string, unknown> = {};
+                for (const mdFile of mdFiles) {
+                  const locale = localeFromMdFile(mdFile);
+                  const parsed = matter(fs.readFileSync(path.join(episodeDir, mdFile), "utf-8"));
+                  localeSummaries[locale] = (parsed.data as Record<string, unknown>).summary;
+                }
+
+                expect(() => {
+                  validateEpisodeSummaryParity(episodeId, localeSummaries);
+                }).not.toThrow();
+              });
+            });
+          });
+        });
+      });
+    }
+  });
+
   describe("Slug Uniqueness", () => {
-    it("should have no duplicate slugs across blog and articles", () => {
+    it("should have no duplicate slugs across blog, articles, and guides", () => {
       const allSlugs: string[] = [];
 
       // Collect blog slugs
@@ -155,9 +284,47 @@ describe("Content Validation", () => {
         allSlugs.push(...articleSlugs);
       }
 
+      // Collect guide slugs
+      const guidesDir = path.join(POSTS_DIR, "guides");
+      if (fs.existsSync(guidesDir)) {
+        const guideSlugs = fs.readdirSync(guidesDir).filter((item) => {
+          return fs.statSync(path.join(guidesDir, item)).isDirectory();
+        });
+        allSlugs.push(...guideSlugs);
+      }
+
       expect(() => {
         validateNoDuplicateSlugs(allSlugs);
       }).not.toThrow();
+    });
+  });
+
+  describe("Testimonials", () => {
+    const testimonialsDir = path.join(__dirname, "..", "..", "..", "..", "content", "src", "testimonials");
+
+    for (const locale of REQUIRED_LOCALES) {
+      describe(`${locale}.json`, () => {
+        const filePath = path.join(testimonialsDir, `${locale}.json`);
+
+        it("should exist", () => {
+          expect(fs.existsSync(filePath)).toBe(true);
+        });
+
+        it("should be valid", () => {
+          const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+          expect(() => validateTestimonials(locale, data)).not.toThrow();
+        });
+      });
+    }
+
+    it("should have identical quote slugs across all locales", () => {
+      const slugsByLocale = REQUIRED_LOCALES.map((locale) => {
+        const data = JSON.parse(fs.readFileSync(path.join(testimonialsDir, `${locale}.json`), "utf-8"));
+        return (data.quotes as Array<{ slug: string }>).map((q) => q.slug);
+      });
+      for (const slugs of slugsByLocale) {
+        expect(slugs).toEqual(slugsByLocale[0]);
+      }
     });
   });
 });

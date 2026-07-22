@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { localePath } from "@/lib/i18n/routes";
 import type { ArticleMeta } from "@/lib/content/types";
 import styles from "./ArticleCard.module.css";
 
@@ -9,7 +10,7 @@ interface ArticleCardProps {
 }
 
 export default function ArticleCard({ article, locale, compact = false }: ArticleCardProps) {
-  const articleUrl = locale === "en" ? `/articles/${article.slug}` : `/${locale}/articles/${article.slug}`;
+  const articleUrl = localePath(`/help/${article.slug}`, locale);
   const firstTag = article.tags[0];
 
   return (

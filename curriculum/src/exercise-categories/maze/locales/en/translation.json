@@ -1,0 +1,11 @@
+{
+  "errors": {
+    "fellOffEdge": "Oh no - you tried to fall off the edge of the maze!",
+    "hitWall": "Ouch - you walked into a wall!"
+  },
+  "describers": {
+    "move": "Move the character forward one cell",
+    "turnLeft": "Turn the character 90 degrees left",
+    "turnRight": "Turn the character 90 degrees right"
+  }
+}

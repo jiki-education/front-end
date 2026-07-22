@@ -12,7 +12,6 @@ export const llmMetadata: LLMMetadata = {
     This exercise builds a Wordle solver. Students must create a processGame function that
     automatically guesses words using knowledge accumulated from previous guesses. It combines
     string comparison, dictionary/knowledge tracking, and list filtering.
-    Key concepts: dictionaries, knowledge representation, filtering, iterative refinement.
   `,
 
   tasks: {

@@ -1,40 +1,45 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import type { BlogPostMeta } from "@/lib/content/types";
+import { formatBlogDate } from "@/lib/utils";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
+import AuthorAvatar from "@/components/ui/AuthorAvatar";
 
 interface BlogPostCardProps {
   post: BlogPostMeta;
-  locale: string;
+  /**
+   * Scoped CSS module from the consuming section, so each surface keeps its own
+   * look (e.g. blog page vs landing page) while sharing this markup. Must expose
+   * the `blogPostCard`/`postImage`/`postMeta`/`postDate`/`postBadge`/`postTitle`/
+   * `postExcerpt`/`postAuthor` classes.
+   */
+  styles: Record<string, string>;
+  /** Semantic heading level for the card title (context-dependent). */
+  headingLevel?: "h2" | "h3";
 }
 
-export default function BlogPostCard({ post, locale }: BlogPostCardProps) {
-  const postUrl = locale === "en" ? `/blog/${post.slug}` : `/${locale}/blog/${post.slug}`;
+export default function BlogPostCard({ post, styles, headingLevel = "h2" }: BlogPostCardProps) {
+  const t = useTranslations("landing.latestNews");
+  const routes = useLocaleRoutes();
+  const Heading = headingLevel;
+  const firstTag = post.tags[0];
 
   return (
-    <article className="border-b border-border-primary pb-12 last:border-0">
-      <Link href={postUrl} className="group">
-        <h2 className="mb-3 text-3xl font-bold text-text-primary transition-colors group-hover:text-link-primary">
-          {post.title}
-        </h2>
-      </Link>
-      <div className="mb-4 flex items-center gap-3 text-sm text-text-secondary">
-        <time dateTime={post.date}>
-          {new Date(post.date).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-          })}
-        </time>
-        <span>•</span>
-        <span>By {post.author.name}</span>
+    <Link href={routes.blogPost(post.slug)} className={styles.blogPostCard}>
+      <div
+        className={styles.postImage}
+        style={post.coverImage ? { backgroundImage: `url(${post.coverImage})` } : undefined}
+      />
+      <div className={styles.postMeta}>
+        <span className={styles.postDate}>{formatBlogDate(post.date)}</span>
+        {firstTag && <span className={styles.postBadge}>{firstTag}</span>}
       </div>
-      <p className="mb-4 text-lg leading-relaxed text-text-primary">{post.excerpt}</p>
-      <div className="flex flex-wrap gap-2">
-        {post.tags.map((tag) => (
-          <span key={tag} className="rounded-full bg-info-bg px-3 py-1 text-sm text-info-text">
-            {tag}
-          </span>
-        ))}
+      <Heading className={styles.postTitle}>{post.title}</Heading>
+      <p className={styles.postExcerpt}>{post.excerpt}</p>
+      <div className={styles.postAuthor}>
+        <AuthorAvatar author={post.author} />
+        <span>{t("byAuthor", { name: post.author.name })}</span>
       </div>
-    </article>
+    </Link>
   );
 }

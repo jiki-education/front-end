@@ -1,0 +1,61 @@
+import type { SignatureData, UsageMeta } from "./chat-types";
+
+export type UsageScope = "daily" | "monthly";
+
+// The fair-usage article slug, linked from anywhere we surface message limits.
+// Build the (locale-aware) URL at the call site via routes.article(slug).
+export const FAIR_USAGE_ARTICLE_SLUG = "fair-usage-jiki-ai-policy";
+
+export interface UsageStatus {
+  // The binding scope: whichever limit has the fewest messages remaining.
+  // Monthly wins ties, mirroring the proxy's own precedence.
+  scope: UsageScope;
+  used: number;
+  limit: number;
+  // At or over the binding limit — the composer should be blocked.
+  atCap: boolean;
+  // Within the warning band (>=90% of the binding limit) but not yet at the cap.
+  warning: boolean;
+}
+
+// Show the "getting close" warning once the binding limit is 90% consumed.
+const WARNING_THRESHOLD = 0.9;
+
+// Pull the four usage fields off a signature event, returning null unless all
+// are present (older proxy responses omit them entirely).
+export function extractUsage(signature: SignatureData | null): UsageMeta | null {
+  if (
+    !signature ||
+    signature.messagesToday == null ||
+    signature.messagesThisMonth == null ||
+    signature.dailyLimit == null ||
+    signature.monthlyLimit == null
+  ) {
+    return null;
+  }
+  return {
+    messagesToday: signature.messagesToday,
+    messagesThisMonth: signature.messagesThisMonth,
+    dailyLimit: signature.dailyLimit,
+    monthlyLimit: signature.monthlyLimit
+  };
+}
+
+export function deriveUsageStatus(usage: UsageMeta | null): UsageStatus | null {
+  if (!usage) {
+    return null;
+  }
+
+  const dailyRemaining = usage.dailyLimit - usage.messagesToday;
+  const monthlyRemaining = usage.monthlyLimit - usage.messagesThisMonth;
+
+  // Binding scope = fewest messages remaining; monthly wins ties.
+  const scope: UsageScope = monthlyRemaining <= dailyRemaining ? "monthly" : "daily";
+  const used = scope === "monthly" ? usage.messagesThisMonth : usage.messagesToday;
+  const limit = scope === "monthly" ? usage.monthlyLimit : usage.dailyLimit;
+
+  const atCap = used >= limit;
+  const warning = !atCap && used >= Math.ceil(limit * WARNING_THRESHOLD);
+
+  return { scope, used, limit, atCap, warning };
+}

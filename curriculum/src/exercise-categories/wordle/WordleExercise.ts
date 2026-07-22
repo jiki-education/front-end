@@ -1,12 +1,6 @@
-import {
-  type ExecutionContext,
-  type ExternalFunction,
-  type Shared,
-  isNumber,
-  isList,
-  isString
-} from "@jiki/interpreters";
+import { type ExecutionContext, type Shared, isNumber, isList, isString } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
+import type { AvailableFunction } from "../../types";
 
 type LetterState = "correct" | "present" | "absent";
 
@@ -223,7 +217,7 @@ export default class WordleExercise extends VisualExercise {
     this.populateView();
   }
 
-  availableFunctions: ExternalFunction[] = [];
+  availableFunctions: AvailableFunction[] = [];
 
   getState() {
     return {};

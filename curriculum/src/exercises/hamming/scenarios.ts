@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "calculate-hamming-distance" as const,
-    name: "Calculate the Hamming Distance",
-    description:
-      "Write a function that calculates the Hamming distance between two DNA strands of equal length. The Hamming distance is the number of positions where the corresponding characters differ.",
+    name: "tasks.calculateHammingDistance.name",
+    description: "tasks.calculateHammingDistance.description",
     hints: [],
     requiredScenarios: [
       "hamming-empty-strands",
@@ -21,8 +20,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "hamming-empty-strands",
-    name: "Empty strands",
-    description: "Empty strands have a Hamming distance of 0.",
+    name: "scenarios.hammingEmptyStrands.name",
+    description: "scenarios.hammingEmptyStrands.description",
     taskId: "calculate-hamming-distance",
     functionName: "hamming_distance",
     args: ["", ""],
@@ -30,8 +29,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "hamming-single-letter-identical",
-    name: "Single letter identical strands",
-    description: "Single-letter identical strands have a Hamming distance of 0.",
+    name: "scenarios.hammingSingleLetterIdentical.name",
+    description: "scenarios.hammingSingleLetterIdentical.description",
     taskId: "calculate-hamming-distance",
     functionName: "hamming_distance",
     args: ["A", "A"],
@@ -39,8 +38,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "hamming-long-identical-strands",
-    name: "Long identical strands",
-    description: "Long identical strands have a Hamming distance of 0.",
+    name: "scenarios.hammingLongIdenticalStrands.name",
+    description: "scenarios.hammingLongIdenticalStrands.description",
     taskId: "calculate-hamming-distance",
     functionName: "hamming_distance",
     args: ["GGACTGAAATCTG", "GGACTGAAATCTG"],
@@ -48,8 +47,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "hamming-single-letter-different",
-    name: "Single letter different strands",
-    description: "Single-letter different strands have a Hamming distance of 1.",
+    name: "scenarios.hammingSingleLetterDifferent.name",
+    description: "scenarios.hammingSingleLetterDifferent.description",
     taskId: "calculate-hamming-distance",
     functionName: "hamming_distance",
     args: ["G", "T"],
@@ -57,8 +56,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "hamming-long-different-strands",
-    name: "Long different strands",
-    description: "Long strands with differences have a calculated Hamming distance.",
+    name: "scenarios.hammingLongDifferentStrands.name",
+    description: "scenarios.hammingLongDifferentStrands.description",
     taskId: "calculate-hamming-distance",
     functionName: "hamming_distance",
     args: ["GGACGGATTCTG", "AGGACGGATTCT"],

@@ -1,5 +1,12 @@
 .chatPanel {
     background: white;
+    /* height:100% (a definite height, matching the instructions panel's .container)
+       so the in-progress conversation gets a bounded chain and its message list
+       scrolls internally. With min-height:100% a long conversation grows the panel
+       instead, the outer tab wrapper scrolls, and overscroll-behavior:none on the
+       message list blocks trackpad/keyboard scroll from chaining out to it. Tall
+       non-conversation states still scroll because their overflow spills into the
+       outer overflow:auto wrapper. */
     height: 100%;
     display: flex;
     flex-direction: column;

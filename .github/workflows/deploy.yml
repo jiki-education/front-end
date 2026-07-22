@@ -63,8 +63,20 @@ jobs:
             missing_vars+=("NEXT_PUBLIC_TURNSTILE_SITE_KEY")
           fi
 
+          if [ -z "${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}" ]; then
+            missing_vars+=("NEXT_PUBLIC_POSTHOG_KEY")
+          fi
+
           if [ -z "${{ secrets.SENTRY_AUTH_TOKEN }}" ]; then
             missing_vars+=("SENTRY_AUTH_TOKEN")
+          fi
+
+          if [ -z "${{ secrets.R2_ACCESS_KEY_ID }}" ]; then
+            missing_vars+=("R2_ACCESS_KEY_ID")
+          fi
+
+          if [ -z "${{ secrets.R2_SECRET_ACCESS_KEY }}" ]; then
+            missing_vars+=("R2_SECRET_ACCESS_KEY")
           fi
 
           if [ ${#missing_vars[@]} -ne 0 ]; then
@@ -85,7 +97,17 @@ jobs:
           NEXT_PUBLIC_EXERCISM_OAUTH_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_EXERCISM_OAUTH_CLIENT_ID }}
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
           NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.NEXT_PUBLIC_TURNSTILE_SITE_KEY }}
+          NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.NEXT_PUBLIC_POSTHOG_KEY }}
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          # R2 credentials for the `static:upload` step (aws s3 sync of _next/static
+          # to the assets bucket). Reuses the existing Rails R2 access-key pair.
+          # region=auto and when_required checksums match R2's S3 compatibility
+          # (R2 rejects the SDK's default multi-checksum).
+          AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          AWS_REGION: auto
+          AWS_REQUEST_CHECKSUM_CALCULATION: when_required
+          AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
 
   deploy-llm-chat-proxy:
     runs-on: ubuntu-latest

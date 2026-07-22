@@ -1,6 +1,6 @@
 import type { ProcessedArticle } from "@/lib/content/types";
 import { formatBlogDate } from "@/lib/utils";
-import AuthorIcon from "@/icons/author.svg";
+import AuthorAvatar from "@/components/ui/AuthorAvatar";
 import CalendarIcon from "@/icons/calendar.svg";
 import ClockIcon from "@/icons/clock.svg";
 import shared from "@/components/landing-page/shared.module.css";
@@ -25,7 +25,7 @@ export default function ArticleHeader({ article }: ArticleHeaderProps) {
           </div>
           <div className={styles.metaItem}>
             <span className={styles.metaIcon}>
-              <AuthorIcon />
+              <AuthorAvatar author={article.author} size={18} />
             </span>
             <span>Written by {article.author.name}</span>
           </div>

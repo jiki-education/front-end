@@ -13,32 +13,32 @@ export default class MazeTurnAroundExercise extends MazeExercise {
     {
       name: "move",
       func: this.moveAndCheck.bind(this),
-      description: "Move the character forward one cell"
+      descriptionKey: "describers.move"
     },
     {
       name: "turn_left",
       func: this.turnLeft.bind(this),
-      description: "Turn the character 90 degrees left"
+      descriptionKey: "describers.turnLeft"
     },
     {
       name: "turn_right",
       func: this.turnRight.bind(this),
-      description: "Turn the character 90 degrees right"
+      descriptionKey: "describers.turnRight"
     },
     {
       name: "can_move",
       func: this.canMove.bind(this),
-      description: "Check if the character can move forward"
+      descriptionKey: "describers.canMove"
     },
     {
       name: "can_turn_left",
       func: this.canTurnLeft.bind(this),
-      description: "Check if there is a path to the character's left"
+      descriptionKey: "describers.canTurnLeft"
     },
     {
       name: "can_turn_right",
       func: this.canTurnRight.bind(this),
-      description: "Check if there is a path to the character's right"
+      descriptionKey: "describers.canTurnRight"
     }
   ];
 

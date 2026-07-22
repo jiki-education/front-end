@@ -1,0 +1,26 @@
+{
+  "slug": "rock-paper-scissors",
+  "levelId": "complex-conditionals",
+  "hints": [
+    {
+      "question": "hints.howToStart.question",
+      "answer": "hints.howToStart.answer"
+    },
+    {
+      "question": "hints.simplestCase.question",
+      "answer": "hints.simplestCase.answer"
+    },
+    {
+      "question": "hints.checkCombination.question",
+      "answer": "hints.checkCombination.answer"
+    },
+    {
+      "question": "hints.shorterWay.question",
+      "answer": "hints.shorterWay.answer"
+    },
+    {
+      "question": "hints.invalidChoice.question",
+      "answer": "hints.invalidChoice.answer"
+    }
+  ]
+}

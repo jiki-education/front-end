@@ -41,11 +41,11 @@ export function KeyboardHelpModal({ shortcuts }: KeyboardHelpModalProps) {
           <h3 className="font-semibold text-sm uppercase tracking-wide text-gray-500 mb-2">
             {scope === "global" ? "Global" : scope}
           </h3>
-          <div className="space-y-1">
+          <div className="space-y-4">
             {items.map((item, index) => (
-              <div key={`${scope}-${index}`} className="flex justify-between items-center py-1">
+              <div key={`${scope}-${index}`} className="flex justify-between items-center py-4">
                 <span className="text-sm">{item.options.description}</span>
-                <kbd className="ml-4 px-2 py-1 text-xs font-semibold text-gray-800 bg-gray-100 rounded">
+                <kbd className="ms-4 px-2 py-4 text-xs font-semibold text-gray-800 bg-gray-100 rounded">
                   {formatShortcutForDisplay(item.keys)}
                 </kbd>
               </div>

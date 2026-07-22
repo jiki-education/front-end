@@ -20,18 +20,67 @@ Configuration:
 
 ## Usage
 
-### Basic Toast Types
+### Fire toasts by translation key (default)
+
+User-facing toasts are localized. Fire them with the keyed helpers in
+`lib/toast.tsx` instead of passing a hardcoded string to react-hot-toast:
+
+```typescript
+import { toastError, toastSuccess, toastMessage, toastLoading } from "@/lib/toast";
+
+toastSuccess("subscription.reactivated");
+toastError("settings.updateFailed");
+toastLoading("logout.loading");
+
+// ICU interpolation — pass values as the second argument:
+toastSuccess("subscription.canceled", { date: new Date().toLocaleDateString() });
+
+// react-hot-toast options (e.g. dedup id, duration) go in the third argument:
+toastError("exercise.submissionFailed", undefined, { id: "exercise-submission-error" });
+```
+
+Keys live under the `toasts` namespace in `messages/{locale}.json`, grouped by
+area (`subscription.*`, `settings.*`, `avatar.*`, `logout.*`, `auth.*`,
+`exercise.*`). The `ToastKey` type is derived from that namespace, so
+`pnpm typecheck` rejects an unknown key.
+
+**How it works:** each helper hands react-hot-toast a small `<ToastMessage>`
+element that runs `useTranslations("toasts")` and renders the resolved copy when
+the toast paints. Because `<Toaster>` is mounted inside the
+`NextIntlClientProvider` (via `ClientLocaleProvider`) in the root layout, this
+resolves against the active locale — so the helpers work from **anywhere**,
+including Zustand stores and plain classes with no hook or locale in scope
+(e.g. `settingsStore`, `TestSuiteManager`).
+
+For rich content (a link inside the message), render a small component that
+calls `t.rich(...)` and pass its element to `toast.error`; see
+`lib/toasts/lessonSaveError.tsx`.
+
+### Dynamic server messages
+
+API error toasts show the server-provided `error.message` when present (it is
+dynamic and not translatable client-side) and fall back to a translated key
+otherwise:
+
+```typescript
+if (error instanceof Error) {
+  toast.error(error.message);
+} else {
+  toastError("settings.updateFailed");
+}
+```
+
+### Raw react-hot-toast (dev-only / non-localized)
+
+Dev-only tooling (e.g. the Stripe-history handlers) and the `/dev` and `/test`
+routes may still call react-hot-toast directly with hardcoded strings, since
+they are never shown to students:
 
 ```typescript
 import toast from "react-hot-toast";
 
-// Standard notification
 toast("Message");
-
-// Success notification
 toast.success("Operation completed");
-
-// Error notification
 toast.error("Something went wrong");
 
 // Loading state

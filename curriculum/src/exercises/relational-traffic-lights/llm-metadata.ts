@@ -9,41 +9,24 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise revisits the traffic lights from earlier, now requiring all
-    positions and sizes to be derived from a single radius variable using multiplication.
-    Key concepts: scaling with multiplication, consistent spacing, relative positioning.
+    This exercise revisits the earlier traffic light, now requiring positions and sizes
+    to be derived relationally so the whole light rescales when \`radius\` changes.
   `,
 
   tasks: {
     "build-relational-traffic-lights": {
       description: `
-        Students derive all positions and sizes as multiples of radius.
+        The lights all share x = \`center\` (a fixed 50); the vertical layout is built
+        around \`center\` and \`radius\`: yellowY = center, redY = center - radius * 2,
+        greenY = center + radius * 2 (so lights are 2*radius apart). The housing is
+        derived too: housingX = center - radius * 2, housingY = center - radius * 4,
+        housingWidth = radius * 4, housingHeight = radius * 8.
 
-        Fixed variables:
-        - red = "red", yellow = "amber", green = "green"
-        - housingColor = "charcoal"
-        - radius = 10
-
-        Derived variables (all multiples of radius):
-        - centerX = radius * 5 = 50
-        - redY = radius * 3 = 30
-        - yellowY = radius * 5 = 50
-        - greenY = radius * 7 = 70
-        - housingX = radius * 3 = 30
-        - housingY = radius = 10
-        - housingWidth = radius * 4 = 40
-        - housingHeight = radius * 8 = 80
-
-        Key teaching points:
-        1. All dimensions scale proportionally from one variable
-        2. Multiplication for consistent spacing (lights are 2*radius apart)
-        3. The housing padding is derived from radius too
-        4. Changing radius rescales the entire traffic light
-
-        Common mistakes:
-        - Hardcoding values instead of using radius * n
-        - Getting the housing position wrong (it starts at radius*3, not centerX - radius*2)
-        - Incorrect spacing between lights
+        Common mistakes worth watching for:
+        - Hardcoding values instead of expressing them via center and radius, so changing
+          \`radius\` doesn't rescale.
+        - Spacing the lights by something other than 2*radius.
+        - Mis-sizing or mis-placing the housing relative to the lights.
       `
     }
   }

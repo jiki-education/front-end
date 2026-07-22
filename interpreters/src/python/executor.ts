@@ -82,6 +82,7 @@ import {
   extractMethodCalls,
   countListExpressions,
   extractCallExpressionsDeepExcluding,
+  extractOperators,
 } from "./assertion-helpers";
 
 // Execution context for Python stdlib (future use)
@@ -144,6 +145,8 @@ export interface ExecutorResult {
     countArrayLiterals: () => number;
     assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
     numFunctionCallsInCode: (funcName: string) => number;
+    assertOperatorUsed: (operator: string) => boolean;
+    assertStatement: (type: string, opts?: { args?: Array<unknown>; count?: number }) => boolean;
   };
 }
 
@@ -170,10 +173,10 @@ export class Executor {
     this.languageFeatures = {
       allowTruthiness: false, // Default to false for educational purposes
       allowTypeCoercion: false,
-      maxTotalLoopIterations: 10000, // Default limit to prevent infinite loops
+      maxTotalLoopIterations: 1000, // Default limit to prevent infinite loops
       ...context.languageFeatures,
     };
-    this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations ?? 10000;
+    this.maxTotalLoopIterations = this.languageFeatures.maxTotalLoopIterations ?? 1000;
 
     // Register builtin functions (like print) as PyStdLibFunction objects
     for (const [name, builtin] of Object.entries(builtinFunctions)) {
@@ -330,6 +333,9 @@ export class Executor {
             expr => expr.callee instanceof IdentifierExpression && expr.callee.name.lexeme === formatted
           ).length;
         },
+        assertOperatorUsed: (operator: string) => extractOperators(statements).includes(operator),
+        // TODO: JS-only for now. Implement statement matching for Python when needed.
+        assertStatement: () => false,
       },
     };
   }

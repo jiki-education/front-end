@@ -1,12 +1,19 @@
 "use client";
 
 import { useAuthStore } from "@/lib/auth/authStore";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { FormEvent } from "react";
 import { useState } from "react";
+import PasswordIcon from "../../icons/password.svg";
+import styles from "./AuthForm.module.css";
 
 export function ResetPasswordForm() {
+  const t = useTranslations("auth.resetPassword");
+  const tCommon = useTranslations("common");
+  const routes = useLocaleRoutes();
   const router = useRouter();
   const searchParams = useSearchParams();
   const { resetPassword, isLoading, error, clearError } = useAuthStore();
@@ -21,19 +28,19 @@ export function ResetPasswordForm() {
     const errors: Record<string, string> = {};
 
     if (!token) {
-      errors.token = "Reset token is missing or invalid";
+      errors.token = t("tokenMissing");
     }
 
     if (!password) {
-      errors.password = "Password is required";
+      errors.password = tCommon("validation.passwordRequired");
     } else if (password.length < 6) {
-      errors.password = "Password must be at least 6 characters";
+      errors.password = tCommon("validation.passwordMinLength");
     }
 
     if (!passwordConfirmation) {
-      errors.passwordConfirmation = "Password confirmation is required";
+      errors.passwordConfirmation = t("confirmationRequired");
     } else if (password !== passwordConfirmation) {
-      errors.passwordConfirmation = "Passwords don't match";
+      errors.passwordConfirmation = tCommon("validation.passwordsNoMatch");
     }
 
     setValidationErrors(errors);
@@ -55,11 +62,11 @@ export function ResetPasswordForm() {
         password,
         password_confirmation: passwordConfirmation
       });
-      setSuccessMessage("Password reset successfully! Redirecting to login...");
+      setSuccessMessage(t("successMessage"));
 
       // Redirect to login after 3 seconds
       setTimeout(() => {
-        router.push("/auth/login");
+        router.push(routes.authLogin());
       }, 3000);
     } catch (err) {
       console.error("Password reset failed:", err);
@@ -69,115 +76,119 @@ export function ResetPasswordForm() {
   // Show error if no token is provided
   if (!token) {
     return (
-      <div className="space-y-6">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Invalid Reset Link</h2>
-        </div>
-
-        <div className="rounded-md bg-red-50 p-4">
-          <p className="text-sm text-red-800">
-            This password reset link is invalid or has expired. Please request a new one.
-          </p>
-        </div>
-
-        <div className="text-center">
-          <Link href="/auth/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
-            Request a new password reset
-          </Link>
+      <div className={styles.leftSide}>
+        <div className={styles.formContainer}>
+          <header>
+            <h1>{t("invalidTitle")}</h1>
+          </header>
+          <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+            <div className={styles.errorMessage}>{t("invalidMessage")}</div>
+            <div className={styles.footerLinks}>
+              <p>
+                <Link href={routes.authForgotPassword()} className="ui-link">
+                  {t("requestNewLink")}
+                </Link>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Reset your password</h2>
-        <p className="mt-2 text-center text-sm text-gray-600">Enter your new password below.</p>
-      </div>
+    <div className={styles.leftSide}>
+      <div className={styles.formContainer}>
+        <header>
+          <h1>{t("title")}</h1>
+          <p>{t("subtitle")}</p>
+        </header>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {error && (
-          <div className="rounded-md bg-red-50 p-4">
-            <p className="text-sm text-red-800">{error}</p>
-          </div>
-        )}
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+          {error && <div className={styles.errorMessage}>{error}</div>}
 
-        {successMessage && (
-          <div className="rounded-md bg-green-50 p-4">
-            <p className="text-sm text-green-800">{successMessage}</p>
-          </div>
-        )}
+          {successMessage && (
+            <div className={styles.successMessage} style={{ display: "block" }}>
+              {successMessage}
+            </div>
+          )}
 
-        <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-            New Password
-          </label>
-          <div className="mt-1">
-            <input
-              id="password"
-              name="password"
-              type="password"
-              autoComplete="new-password"
-              required
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                if (validationErrors.password) {
-                  setValidationErrors({ ...validationErrors, password: "" });
-                }
-              }}
-              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              placeholder="Enter your new password"
-            />
-            {validationErrors.password && <p className="mt-2 text-sm text-red-600">{validationErrors.password}</p>}
-          </div>
-        </div>
-
-        <div>
-          <label htmlFor="passwordConfirmation" className="block text-sm font-medium text-gray-700">
-            Confirm New Password
-          </label>
-          <div className="mt-1">
-            <input
-              id="passwordConfirmation"
-              name="passwordConfirmation"
-              type="password"
-              autoComplete="new-password"
-              required
-              value={passwordConfirmation}
-              onChange={(e) => {
-                setPasswordConfirmation(e.target.value);
-                if (validationErrors.passwordConfirmation) {
-                  setValidationErrors({ ...validationErrors, passwordConfirmation: "" });
-                }
-              }}
-              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-              placeholder="Confirm your new password"
-            />
-            {validationErrors.passwordConfirmation && (
-              <p className="mt-2 text-sm text-red-600">{validationErrors.passwordConfirmation}</p>
+          <div className="ui-form-field-large" style={{ marginBottom: "8px" }}>
+            <label htmlFor="password">{t("newPasswordLabel")}</label>
+            <div>
+              <PasswordIcon />
+              <input
+                id="password"
+                name="password"
+                type="password"
+                autoComplete="new-password"
+                required
+                value={password}
+                placeholder={t("newPasswordPlaceholder")}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (validationErrors.password) {
+                    setValidationErrors({ ...validationErrors, password: "" });
+                  }
+                }}
+              />
+            </div>
+            {validationErrors.password && (
+              <div className="ui-form-field-error-message" style={{ display: "block" }}>
+                {validationErrors.password}
+              </div>
             )}
           </div>
-        </div>
 
-        <div>
+          <div className="ui-form-field-large" style={{ marginBottom: "8px" }}>
+            <label htmlFor="passwordConfirmation">{t("confirmPasswordLabel")}</label>
+            <div>
+              <PasswordIcon />
+              <input
+                id="passwordConfirmation"
+                name="passwordConfirmation"
+                type="password"
+                autoComplete="new-password"
+                required
+                value={passwordConfirmation}
+                placeholder={t("confirmPasswordPlaceholder")}
+                onChange={(e) => {
+                  setPasswordConfirmation(e.target.value);
+                  if (validationErrors.passwordConfirmation) {
+                    setValidationErrors({ ...validationErrors, passwordConfirmation: "" });
+                  }
+                }}
+              />
+            </div>
+            {validationErrors.passwordConfirmation && (
+              <div className="ui-form-field-error-message" style={{ display: "block" }}>
+                {validationErrors.passwordConfirmation}
+              </div>
+            )}
+          </div>
+
           <button
             type="submit"
+            className="ui-btn ui-btn-large ui-btn-primary"
+            style={{ width: "100%" }}
             disabled={isLoading}
-            className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? "Resetting..." : "Reset password"}
+            {isLoading ? t("submitting") : t("submit")}
           </button>
-        </div>
 
-        <div className="text-center text-sm">
-          <span className="text-gray-600">Remember your password? </span>
-          <Link href="/auth/login" className="font-medium text-indigo-600 hover:text-indigo-500">
-            Sign in
-          </Link>
-        </div>
-      </form>
+          <div className={styles.footerLinks}>
+            <p>
+              {t.rich("remembered", {
+                link: (chunks) => (
+                  <Link href={routes.authLogin()} className="ui-link">
+                    {chunks}
+                  </Link>
+                )
+              })}
+            </p>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

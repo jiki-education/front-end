@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import type { LessonType } from "@/types/lesson";
 
 interface LessonLoadingPageProps {
@@ -8,14 +9,16 @@ interface LessonLoadingPageProps {
 }
 
 export default function LessonLoadingPage({ title, type }: LessonLoadingPageProps) {
+  const t = useTranslations("lesson.loadingPage");
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex flex-col items-center justify-center">
       {/* Main loading container with subtle entrance animation */}
       <div className="relative opacity-0 animate-[fadeIn_300ms_ease-in-out_forwards]">
         {/* Background circles for depth - using transform for better performance */}
         <div className="absolute -inset-20 opacity-20">
-          <div className="absolute top-0 left-0 w-32 h-32 bg-blue-400 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-0 w-40 h-40 bg-purple-400 rounded-full blur-3xl" />
+          <div className="absolute top-0 start-0 w-32 h-32 bg-blue-400 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 end-0 w-40 h-40 bg-purple-400 rounded-full blur-3xl" />
         </div>
 
         {/* Main content */}
@@ -64,9 +67,10 @@ export default function LessonLoadingPage({ title, type }: LessonLoadingPageProp
           {/* Loading text with simplified animation */}
           <div className="text-center">
             <p className="text-lg text-gray-600 font-medium mb-2">
-              Loading<span className="animate-pulse">...</span>
+              {t("loading")}
+              <span className="animate-pulse">...</span>
             </p>
-            <p className="text-sm text-gray-500">{getLoadingMessage(type)}</p>
+            <p className="text-sm text-gray-500">{getLoadingMessage(t, type)}</p>
           </div>
 
           {/* Simplified progress bar */}
@@ -77,7 +81,7 @@ export default function LessonLoadingPage({ title, type }: LessonLoadingPageProp
           {/* Quick tips while loading */}
           <div className="mt-6 p-4 bg-gray-50 rounded-lg">
             <p className="text-xs text-gray-600 text-center opacity-0 animate-[fadeIn_1s_ease-in-out_500ms_forwards]">
-              {getTipMessage(type)}
+              {getTipMessage(t, type)}
             </p>
           </div>
         </div>
@@ -86,31 +90,30 @@ export default function LessonLoadingPage({ title, type }: LessonLoadingPageProp
   );
 }
 
-function getLoadingMessage(type?: LessonType): string {
+type LoadingPageTranslator = ReturnType<typeof useTranslations<"lesson.loadingPage">>;
+
+function getLoadingMessage(t: LoadingPageTranslator, type?: LessonType): string {
   switch (type) {
     case "video":
-      return "Preparing video lesson";
+      return t("message.video");
     case "choose_language":
-      return "Loading language options";
+      return t("message.chooseLanguage");
     case "exercise":
     case "quiz":
     case undefined:
-      return "Setting up code editor";
+      return t("message.exercise");
   }
 }
 
-function getTipMessage(type?: LessonType): string {
-  const tip = (() => {
-    switch (type) {
-      case "video":
-        return "You can adjust video playback speed using the controls";
-      case "choose_language":
-        return "Choose the language you want to learn with";
-      case "exercise":
-      case "quiz":
-      case undefined:
-        return "Use Cmd/Ctrl + Enter to quickly run your code";
-    }
-  })();
-  return `\u{1F4A1} Tip: ${tip}`;
+function getTipMessage(t: LoadingPageTranslator, type?: LessonType): string {
+  switch (type) {
+    case "video":
+      return t("tip.video");
+    case "choose_language":
+      return t("tip.chooseLanguage");
+    case "exercise":
+    case "quiz":
+    case undefined:
+      return t("tip.exercise");
+  }
 }

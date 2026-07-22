@@ -3,8 +3,24 @@
   "levelId": "complex-conditionals",
   "hints": [
     {
-      "question": "Do I have to solve each maze individually?",
-      "answer": "No, write out just the maze-solving algorithm in code."
+      "question": "hints.solveEachMaze.question",
+      "answer": "hints.solveEachMaze.answer"
+    },
+    {
+      "question": "hints.runEveryStep.question",
+      "answer": "hints.runEveryStep.answer"
+    },
+    {
+      "question": "hints.oneCheckPerStep.question",
+      "answer": "hints.oneCheckPerStep.answer"
+    },
+    {
+      "question": "hints.stuckAfterTurn.question",
+      "answer": "hints.stuckAfterTurn.answer"
+    },
+    {
+      "question": "hints.turnAroundDeadEnd.question",
+      "answer": "hints.turnAroundDeadEnd.answer"
     }
   ]
 }

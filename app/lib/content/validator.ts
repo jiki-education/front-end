@@ -22,6 +22,12 @@ export interface ArticleConfig {
   listed: boolean;
 }
 
+export interface GuideConfig {
+  date: string;
+  coverImage: string;
+  premium: boolean;
+}
+
 /**
  * Validate common config fields (date, author, featured)
  */
@@ -154,6 +160,63 @@ export function validateArticleConfig(
 }
 
 /**
+ * Validate guide config.json
+ *
+ * Guides have a coverImage (like blog posts) and a premium flag, but no author
+ * and no `listed`/`featured` fields.
+ */
+export function validateGuideConfig(slug: string, config: unknown, imagesDir: string): asserts config is GuideConfig {
+  if (config === null || typeof config !== "object") {
+    throw new ValidationError(`Guide '${slug}' has invalid config.json: not an object`);
+  }
+
+  const cfg = config as Record<string, unknown>;
+
+  // Validate required fields (no author, no listed/featured for guides)
+  const requiredFields = ["date", "coverImage", "premium"];
+  for (const field of requiredFields) {
+    if (!(field in cfg)) {
+      throw new ValidationError(`Guide '${slug}' config.json missing required field: ${field}`);
+    }
+  }
+
+  // Validate date format (YYYY-MM-DD)
+  if (typeof cfg.date !== "string") {
+    throw new ValidationError(`Guide '${slug}' config.json has invalid date: must be string`);
+  }
+
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  if (!dateRegex.test(cfg.date)) {
+    throw new ValidationError(
+      `Guide '${slug}' config.json has invalid date format: '${cfg.date}' (expected YYYY-MM-DD)`
+    );
+  }
+
+  const dateObj = new Date(cfg.date);
+  if (isNaN(dateObj.getTime())) {
+    throw new ValidationError(`Guide '${slug}' config.json has invalid date: '${cfg.date}' is not a valid date`);
+  }
+
+  // Validate premium
+  if (typeof cfg.premium !== "boolean") {
+    throw new ValidationError(`Guide '${slug}' config.json has invalid premium: must be boolean`);
+  }
+
+  // Validate coverImage
+  if (typeof cfg.coverImage !== "string" || cfg.coverImage.trim() === "") {
+    throw new ValidationError(`Guide '${slug}' config.json has invalid coverImage: must be non-empty string`);
+  }
+
+  // Validate cover image exists
+  const coverImagePath = cfg.coverImage.replace(/^\/images\//, "").replace(/^\/static\/images\//, "");
+  const coverImageFullPath = path.join(imagesDir, coverImagePath);
+
+  if (!fs.existsSync(coverImageFullPath)) {
+    throw new ValidationError(`Guide '${slug}' config.json references missing cover image: ${coverImagePath}`);
+  }
+}
+
+/**
  * Validate markdown frontmatter (translatable fields only)
  * Structural fields (date, author, featured, coverImage) are ignored if present
  */
@@ -265,17 +328,168 @@ export const REQUIRED_LOCALES = ["en", "hu"] as const;
  * Validate that all required locale files exist for a content item
  */
 export function validateRequiredLocales(
-  type: "blog" | "article",
+  type: "blog" | "article" | "guide" | "episode",
   slug: string,
   slugDir: string,
   existingLocales: string[]
 ): void {
+  const typeLabels: Record<typeof type, string> = {
+    blog: "Blog post",
+    article: "Article",
+    guide: "Guide",
+    episode: "Episode"
+  };
   for (const locale of REQUIRED_LOCALES) {
     if (!existingLocales.includes(locale)) {
       const expectedFile = path.join(slugDir, `${locale}.md`);
+      throw new ValidationError(`${typeLabels[type]} '${slug}' is missing required locale file: ${expectedFile}`);
+    }
+  }
+}
+
+// Project config.json fields that are localized maps (keyed by locale)
+export const LOCALIZED_PROJECT_FIELDS = ["title", "description", "tags"] as const;
+
+/**
+ * Validate that a project's localized config.json maps (title, description, tags)
+ * contain an entry for every required locale.
+ *
+ * Unlike blog/article/guide posts, a project's translatable copy lives in
+ * config.json as `{ en: ..., hu: ... }` maps rather than in per-language md
+ * files, so a missing translation cannot be caught by a missing-file check.
+ */
+export function validateProjectRequiredLocales(slug: string, config: unknown): void {
+  if (config === null || typeof config !== "object") {
+    throw new ValidationError(`Project '${slug}' has invalid config.json: not an object`);
+  }
+
+  const cfg = config as Record<string, unknown>;
+
+  for (const field of LOCALIZED_PROJECT_FIELDS) {
+    const map = cfg[field];
+    if (map === null || typeof map !== "object" || Array.isArray(map)) {
       throw new ValidationError(
-        `${type === "blog" ? "Blog post" : "Article"} '${slug}' is missing required locale file: ${expectedFile}`
+        `Project '${slug}' config.json field '${field}' must be a localized map (e.g. { "en": ..., "hu": ... })`
       );
+    }
+
+    for (const locale of REQUIRED_LOCALES) {
+      if (!(locale in (map as Record<string, unknown>))) {
+        throw new ValidationError(
+          `Project '${slug}' config.json field '${field}' is missing required locale: '${locale}'`
+        );
+      }
+    }
+  }
+}
+
+/**
+ * Validate episode summary-block parity across locales.
+ *
+ * The `summary` frontmatter block (from/to/keyConcepts) is optional, but if the
+ * English episode defines one, every required locale must define a well-formed one
+ * too, so a translation stub cannot silently drop it.
+ *
+ * `localeSummaries` maps each existing locale to its parsed frontmatter `summary`
+ * value (or undefined when absent).
+ */
+export function validateEpisodeSummaryParity(slug: string, localeSummaries: Record<string, unknown>): void {
+  // Nothing to enforce if the English episode has no summary block.
+  if (localeSummaries["en"] === undefined) {
+    return;
+  }
+
+  for (const locale of REQUIRED_LOCALES) {
+    const summary = localeSummaries[locale];
+    if (summary === null || summary === undefined || typeof summary !== "object") {
+      throw new ValidationError(
+        `Episode '${slug}' (${locale}) is missing required summary block (present in source.md)`
+      );
+    }
+
+    const s = summary as Record<string, unknown>;
+
+    if (typeof s.from !== "string" || s.from.trim() === "") {
+      throw new ValidationError(`Episode '${slug}' (${locale}) has invalid summary.from: must be non-empty string`);
+    }
+
+    if (typeof s.to !== "string" || s.to.trim() === "") {
+      throw new ValidationError(`Episode '${slug}' (${locale}) has invalid summary.to: must be non-empty string`);
+    }
+
+    if (!Array.isArray(s.keyConcepts) || s.keyConcepts.length === 0) {
+      throw new ValidationError(
+        `Episode '${slug}' (${locale}) has invalid summary.keyConcepts: must be non-empty array`
+      );
+    }
+  }
+}
+
+/**
+ * Validate a landing-page testimonials file (content/src/testimonials/{locale}.json).
+ *
+ * Testimonials are structured editorial data (not markdown), authored as one JSON
+ * file per locale. This enforces the shape the app and the generation script rely
+ * on: heading/subheading strings, a primary quote, a non-empty list of student
+ * quotes, and a non-empty marquee.
+ */
+export function validateTestimonials(locale: string, data: unknown): void {
+  if (data === null || typeof data !== "object" || Array.isArray(data)) {
+    throw new ValidationError(`Testimonials '${locale}.json' must be an object`);
+  }
+
+  const d = data as Record<string, unknown>;
+
+  for (const field of ["heading", "subheading"] as const) {
+    if (typeof d[field] !== "string" || d[field].trim() === "") {
+      throw new ValidationError(`Testimonials '${locale}.json' has invalid ${field}: must be a non-empty string`);
+    }
+  }
+
+  if (!(d.subheading as string).includes("<link>") || !(d.subheading as string).includes("</link>")) {
+    throw new ValidationError(`Testimonials '${locale}.json' subheading must contain a <link>…</link> span`);
+  }
+
+  const primary = d.primary;
+  if (primary === null || typeof primary !== "object" || Array.isArray(primary)) {
+    throw new ValidationError(`Testimonials '${locale}.json' primary must be an object`);
+  }
+  for (const field of ["quote", "name", "role", "image"] as const) {
+    if (typeof (primary as Record<string, unknown>)[field] !== "string") {
+      throw new ValidationError(`Testimonials '${locale}.json' primary.${field} must be a string`);
+    }
+  }
+
+  if (!Array.isArray(d.quotes) || d.quotes.length === 0) {
+    throw new ValidationError(`Testimonials '${locale}.json' quotes must be a non-empty array`);
+  }
+  const seenSlugs = new Set<string>();
+  for (const quote of d.quotes as unknown[]) {
+    if (quote === null || typeof quote !== "object" || Array.isArray(quote)) {
+      throw new ValidationError(`Testimonials '${locale}.json' has an invalid quote (not an object)`);
+    }
+    const q = quote as Record<string, unknown>;
+    for (const field of ["slug", "name", "image", "html"] as const) {
+      if (typeof q[field] !== "string" || q[field].trim() === "") {
+        throw new ValidationError(`Testimonials '${locale}.json' quote is missing a valid ${field}`);
+      }
+    }
+    // role may be an empty string (some quotes have no role), but must be present.
+    if (typeof q.role !== "string") {
+      throw new ValidationError(`Testimonials '${locale}.json' quote '${q.slug}' role must be a string`);
+    }
+    if (seenSlugs.has(q.slug as string)) {
+      throw new ValidationError(`Testimonials '${locale}.json' has a duplicate quote slug: '${q.slug as string}'`);
+    }
+    seenSlugs.add(q.slug as string);
+  }
+
+  if (!Array.isArray(d.marquee) || d.marquee.length === 0) {
+    throw new ValidationError(`Testimonials '${locale}.json' marquee must be a non-empty array`);
+  }
+  for (const blurb of d.marquee as unknown[]) {
+    if (typeof blurb !== "string" || blurb.trim() === "") {
+      throw new ValidationError(`Testimonials '${locale}.json' marquee entries must be non-empty strings`);
     }
   }
 }

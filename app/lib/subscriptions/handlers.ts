@@ -12,14 +12,17 @@ import {
 } from "@/lib/api/subscriptions";
 import { createCheckoutReturnUrl } from "@/lib/subscriptions/checkout";
 import { getApiUrl } from "@/lib/api/config";
-import { hideModal, showSubscriptionCheckout } from "@/lib/modal";
+import { hideModal } from "@/lib/modal";
+import { showSubscriptionCheckout } from "@/lib/modal/app";
 import toast from "react-hot-toast";
+import { toastError, toastSuccess } from "@/lib/toast";
 
 // Types for handler functions
 export interface SubscribeParams {
   interval: BillingInterval;
   userEmail?: string;
   returnPath?: string; // Optional return path, defaults to current location
+  priorError?: string | null; // A previous attempt's failure, shown in the checkout error banner
 }
 
 export interface CheckoutCancelParams {
@@ -38,7 +41,7 @@ export interface DeleteStripeHistoryParams {
 }
 
 // Core subscription handlers
-export async function handleSubscribe({ interval, userEmail, returnPath }: SubscribeParams) {
+export async function handleSubscribe({ interval, userEmail, returnPath, priorError }: SubscribeParams) {
   try {
     const returnUrl = createCheckoutReturnUrl(returnPath || window.location.pathname);
     const response = await createCheckoutSession(interval, returnUrl, userEmail);
@@ -50,12 +53,13 @@ export async function handleSubscribe({ interval, userEmail, returnPath }: Subsc
     showSubscriptionCheckout({
       clientSecret: response.client_secret,
       selectedTier: "premium",
+      priorError,
       onCancel: () => {
         // Modal cancelled - no need to do anything as modal state is managed internally
       }
     });
   } catch (error) {
-    toast.error("Failed to create checkout session");
+    toastError("subscription.checkoutSessionFailed");
     console.error(error);
     throw error; // Re-throw so caller can handle loading state
   }
@@ -66,7 +70,7 @@ export async function handleOpenPortal() {
     const response = await createPortalSession();
     window.location.href = response.url;
   } catch (error) {
-    toast.error("Failed to open customer portal");
+    toastError("subscription.portalFailed");
     console.error(error);
   }
 }
@@ -74,13 +78,15 @@ export async function handleOpenPortal() {
 export async function handleCancelSubscription(refreshUser: RefreshUserFn) {
   try {
     const response = await cancelSubscription();
-    toast.success(
-      `Subscription canceled. You'll keep access until ${new Date(response.cancels_at).toLocaleDateString()}`
-    );
+    toastSuccess("subscription.canceled", { date: new Date(response.cancels_at).toLocaleDateString() });
     await refreshUser();
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : "Failed to cancel subscription";
-    toast.error(errorMessage);
+    // Show the server message when present (dynamic); else a translated fallback.
+    if (error instanceof Error) {
+      toast.error(error.message);
+    } else {
+      toastError("subscription.cancelFailed");
+    }
     console.error(error);
   }
 }
@@ -88,11 +94,14 @@ export async function handleCancelSubscription(refreshUser: RefreshUserFn) {
 export async function handleReactivateSubscription(refreshUser: RefreshUserFn) {
   try {
     await reactivateSubscription();
-    toast.success("Subscription reactivated!");
+    toastSuccess("subscription.reactivated");
     await refreshUser();
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : "Failed to reactivate subscription";
-    toast.error(errorMessage);
+    if (error instanceof Error) {
+      toast.error(error.message);
+    } else {
+      toastError("subscription.reactivateFailed");
+    }
     console.error(error);
   }
 }
@@ -104,8 +113,11 @@ export async function handleRetryPayment(_refreshUser: RefreshUserFn) {
     // Note: We don't call refreshUser here since user will be redirected
     // The page will refresh when they return from the portal
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : "Failed to open payment portal";
-    toast.error(errorMessage);
+    if (error instanceof Error) {
+      toast.error(error.message);
+    } else {
+      toastError("subscription.paymentPortalFailed");
+    }
     console.error(error);
   }
 }

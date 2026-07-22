@@ -28,7 +28,7 @@ Before doing anything else, read these files to understand the writing style and
 2. **Example Article** (for tone and format reference):
 
    ```
-   Read: front-end/content/src/posts/articles/why-is-this-feature-not-implemented/en.md
+   Read: front-end/content/src/posts/articles/why-is-this-feature-not-implemented/source.md
    Read: front-end/content/src/posts/articles/why-is-this-feature-not-implemented/config.json
    ```
 
@@ -98,7 +98,7 @@ Create a new directory with a kebab-case slug based on the title:
 ```
 front-end/content/src/posts/articles/[slug]/
 ├── config.json
-└── en.md
+└── source.md
 ```
 
 ### config.json Format
@@ -117,7 +117,7 @@ front-end/content/src/posts/articles/[slug]/
 - Set `featured` based on importance (ask if unsure)
 - Note: The coverImage path is a placeholder - the user will need to add the actual image
 
-### en.md Format
+### source.md Format
 
 ```markdown
 ---

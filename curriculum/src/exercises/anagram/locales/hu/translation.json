@@ -1,0 +1,78 @@
+{
+  "tasks": {
+    "findAnagrams": {
+      "name": "Find Anagrams",
+      "description": "Write a function that finds all anagrams of a target word from a list of possibilities. An anagram uses the same letters rearranged. The function should be case-insensitive, exclude the target word itself, and return results sorted alphabetically."
+    },
+    "sortedResults": {
+      "name": "Alphabetical Sorting",
+      "description": "Ensure your results are returned in alphabetical order (bonus challenge)."
+    }
+  },
+  "scenarios": {
+    "noMatches": {
+      "name": "No matches",
+      "description": "If no anagrams exist in the candidates, return an empty list."
+    },
+    "twoAnagrams": {
+      "name": "Detects two anagrams",
+      "description": "Find two anagrams from a list of candidates."
+    },
+    "noSubsets": {
+      "name": "Does not detect anagram subsets",
+      "description": "An anagram must use all letters exactly once."
+    },
+    "singleMatch": {
+      "name": "Detects single anagram",
+      "description": "Find a single anagram from a list."
+    },
+    "differentCase": {
+      "name": "Detects multiple anagrams with different case",
+      "description": "Anagrams should be detected regardless of case."
+    },
+    "caseInsensitive": {
+      "name": "Detects anagrams case-insensitively",
+      "description": "Case should not affect anagram detection."
+    },
+    "notItself": {
+      "name": "Words are not anagrams of themselves (case-insensitive)",
+      "description": "A word should not be considered an anagram of itself."
+    },
+    "otherThanItself": {
+      "name": "Words other than themselves can be anagrams",
+      "description": "Detect valid anagrams excluding the target word itself."
+    },
+    "alphabeticalSorting": {
+      "name": "Results sorted alphabetically",
+      "description": "Verify anagrams are returned in alphabetical order."
+    }
+  },
+  "hints": {
+    "howToTellAnagrams": {
+      "question": "How do I tell if two words are anagrams?",
+      "answer": "Two words are anagrams if they contain the exact same letters in any order. The easiest way to check that in code is to sort the letters of both. If the sorted versions are equal, they're anagrams."
+    },
+    "caseTrippingUp": {
+      "question": "Why aren't my matches working even when the letters are right?",
+      "answer": "Case is probably tripping you up. 'Stone' and 'tones' should match, but they have different capitals. Convert everything to lowercase before comparing."
+    },
+    "targetCountsAsItself": {
+      "question": "Should the target word itself count as an anagram of itself?",
+      "answer": "No, a word isn't its own anagram. Filter the target out of your candidate list using a case-insensitive comparison, since it might appear in a different case."
+    },
+    "collectingMatches": {
+      "question": "How do I collect up the matches?",
+      "answer": "Start with an empty list and use `push()` to add each anagram you find. Don't forget that the results need to be sorted alphabetically before you return them."
+    }
+  },
+  "functions": {
+    "push": {
+      "description": "Returns a new list with the element added to the end (provided by level stdlib)",
+      "category": "List Operations"
+    },
+    "sortString": {
+      "description": "Takes a string and returns its characters sorted alphabetically (provided by level stdlib)",
+      "category": "String Operations"
+    }
+  }
+}

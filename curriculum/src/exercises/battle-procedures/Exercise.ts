@@ -5,22 +5,22 @@ export default class BattleProceduresExercise extends SpaceInvadersExercise {
     {
       name: "move_left",
       func: this.moveLeft.bind(this),
-      description: "moved the laser cannon to the left"
+      descriptionKey: "describers.moveLeft"
     },
     {
       name: "move_right",
       func: this.moveRight.bind(this),
-      description: "moved the laser cannon to the right"
+      descriptionKey: "describers.moveRight"
     },
     {
       name: "shoot",
       func: this.shoot.bind(this),
-      description: "shot the laser upwards"
+      descriptionKey: "describers.shoot"
     },
     {
       name: "is_alien_above",
       func: this.isAlienAbove.bind(this),
-      description: "determined if there was an alien above the laser cannon"
+      descriptionKey: "describers.isAlienAbove"
     }
   ];
 }

@@ -1,0 +1,68 @@
+{
+  "describers": {
+    "move": "moved the laser cannon to the right"
+  },
+  "checks": {
+    "notShotAllAliens": "You didn't shoot down all the aliens."
+  },
+  "tasks": {
+    "conditionalShoot": {
+      "name": "Use an if statement to shoot only when there's an alien above",
+      "description": "Move across the screen, checking each position. If there's an alien above you, shoot it. If not, just move on."
+    }
+  },
+  "scenarios": {
+    "conditional1": {
+      "name": "Scattered aliens",
+      "description": "Aliens scattered across two rows with gaps"
+    },
+    "conditional2": {
+      "name": "Sparse aliens",
+      "description": "Fewer aliens with wider gaps"
+    },
+    "conditional3": {
+      "name": "Alternating rows",
+      "description": "Aliens alternating between top and bottom rows"
+    },
+    "conditional4": {
+      "name": "Bottom-heavy",
+      "description": "Most aliens in the bottom row"
+    },
+    "conditional5": {
+      "name": "Dense formation",
+      "description": "Many aliens packed together across both rows"
+    }
+  },
+  "hints": {
+    "howToDecide": {
+      "question": "How do I decide whether to shoot or not?",
+      "answer": "Use an `if` statement that checks `isAlienAbove()`. Only call `shoot()` when it returns `true`."
+    },
+    "whatIsAlienAboveGives": {
+      "question": "What does `isAlienAbove()` give me back?",
+      "answer": "It returns `true` if there's an alien directly above your cannon, and `false` otherwise. You can put it straight into an `if` condition."
+    },
+    "checkEveryColumn": {
+      "question": "How do I check every column without writing the same code over and over?",
+      "answer": "Wrap your check-and-maybe-shoot logic in a `repeat` loop, calling `move()` at the end of each iteration to slide to the next column."
+    },
+    "keepShootingEmpty": {
+      "question": "I keep shooting empty columns and losing. What's wrong?",
+      "answer": "Make sure `shoot()` is inside the `if` block, not after it. The call should only happen when `isAlienAbove()` is `true`."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Moves the laser cannon **one position to the right**. If you move off the right edge of the screen, you lose!",
+      "category": "Movement"
+    },
+    "shoot": {
+      "description": "Shoots the laser upwards. **Only shoot when there's an alien above you**, or you lose the game!",
+      "category": "Action"
+    },
+    "isAlienAbove": {
+      "description": "Returns `true` if there's an alien directly above the laser cannon, or `false` if not. Use this to check before shooting!",
+      "category": "Detection"
+    }
+  }
+}

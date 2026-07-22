@@ -3,24 +3,24 @@
   "levelId": "dictionaries",
   "hints": [
     {
-      "question": "How do I see what is on the square I am standing on?",
-      "answer": "Use the new direction: `look(\"down\")`. It returns the emoji on your current square, which is the one you might want to pick up."
+      "question": "hints.seeCurrentSquare.question",
+      "answer": "hints.seeCurrentSquare.answer"
     },
     {
-      "question": "Which special emojis should I ignore?",
-      "answer": "Skip anything in the standard list: `\"star\"`, `\"flag\"`, `\"white square\"`, `\"fire\"`, `\"poop\"`, `\"brick\"`. Any other emoji is fair game to collect."
+      "question": "hints.specialEmojisToIgnore.question",
+      "answer": "hints.specialEmojisToIgnore.answer"
     },
     {
-      "question": "How do I count emojis using a dictionary?",
-      "answer": "Use `hasKey(dict, emoji)` to see if you have seen it before. If yes, add `1` to `dict[emoji]`. If no, set `dict[emoji] = 1` to start the count."
+      "question": "hints.countingWithDictionary.question",
+      "answer": "hints.countingWithDictionary.answer"
     },
     {
-      "question": "How do I stop picking up the same emoji every time I step on it?",
-      "answer": "Call `removeEmoji()` straight after counting it. The square becomes empty so it will not be counted again on a future pass."
+      "question": "hints.avoidRecounting.question",
+      "answer": "hints.avoidRecounting.answer"
     },
     {
-      "question": "What do I do once I reach the flag?",
-      "answer": "Call `announceEmojis(result)` with your dictionary as the argument. Do this once, after you have moved onto the finishing square."
+      "question": "hints.reachingFlag.question",
+      "answer": "hints.reachingFlag.answer"
     }
   ]
 }

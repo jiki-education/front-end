@@ -83,6 +83,19 @@ Handles video lesson playback:
   - Skip video with confirmation dialog
   - Automatic progress tracking on completion
   - Integration with lesson quit button
+  - First-watch seek cap: on a first watch the scrub bar is visible and users
+    may rewind freely, but cannot scrub past the furthest point they've reached.
+    The skip-forward/backward buttons are hidden, the watched ceiling is tracked
+    in `useVideoExercise` via `maxWatchedRef` (advanced only during natural
+    playback through `timeupdate`), and forward seeks past it are snapped back in
+    `handleSeeking`. There is no persistent lock overlay — the purple progress
+    bar already shows the watched boundary. When a forward seek is blocked,
+    `handleSeeking` flips `showSkipHint`, which renders a transient "you can't
+    skip ahead on your first watch" message anchored above the control bar; it
+    auto-dismisses after a short timeout so the snap-back is never unexplained.
+    The cap is session-only (not persisted) and is lifted once the video ends or
+    for a lesson whose status is already `completed`, which then gets a normal,
+    fully-scrubbable seek bar.
 
 ### CodingExercise Integration
 

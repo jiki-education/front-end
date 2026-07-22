@@ -18,11 +18,21 @@ export { getBlogPosts } from "./getBlogPosts";
 export { getRelatedBlogPosts } from "./getRelatedBlogPosts";
 export type { GetBlogPostsOptions, GetBlogPostsResult } from "./getBlogPosts";
 
-// Build series loaders
-export { getAllBuildSeries } from "./getAllBuildSeries";
-export { getBuildSeries } from "./getBuildSeries";
-export type { BuildSeriesWithEpisodes } from "./getBuildSeries";
-export { getBuildEpisode } from "./getBuildEpisode";
+// Guide loaders
+export { getGuide } from "./getGuide";
+export { getAllGuides } from "./getAllGuides";
+export { getGuides } from "./getGuides";
+export { getRelatedGuides } from "./getRelatedGuides";
+export type { GetGuidesOptions, GetGuidesResult } from "./getGuides";
+
+// Project loaders
+export { getAllProjects } from "./getAllProjects";
+export { getProject } from "./getProject";
+export type { ProjectWithEpisodes } from "./getProject";
+export { getProjectEpisode } from "./getProjectEpisode";
+
+// Testimonials (landing page)
+export { getTestimonials } from "./getTestimonials";
 
 // Utilities
 export { getAvailableLocales } from "./loader";
@@ -30,14 +40,22 @@ export { getAvailableLocales } from "./loader";
 // Types
 export type {
   ArticleTagSlug,
+  GuideTagSlug,
   BlogPostMeta,
   ArticleMeta,
+  GuideMeta,
   ProcessedBlogPost,
   ProcessedArticle,
+  ProcessedGuide,
   SearchIndexData,
-  BuildSeriesMeta,
-  BuildEpisodeMeta,
-  ProcessedBuildEpisode,
-  BuildVideoProvider
+  ProjectMeta,
+  EpisodeMeta,
+  EpisodeSummary,
+  ProcessedEpisode,
+  VideoProvider,
+  Testimonial,
+  PrimaryTestimonial,
+  TestimonialsData
 } from "./types";
 export { ARTICLE_TAG_SLUGS, ARTICLE_TAG_LABELS, getArticleTagLabel } from "./types";
+export { GUIDE_TAG_SLUGS, GUIDE_TAG_LABELS, getGuideTagLabel } from "./types";

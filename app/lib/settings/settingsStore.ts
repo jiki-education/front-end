@@ -7,13 +7,11 @@
 
 import { create } from "zustand";
 import { settingsApi } from "@/lib/api/settings";
-import type {
-  UserSettings,
-  UpdateSettingParams,
-  UpdateNotificationParams,
-  NotificationSlug
-} from "@/lib/api/types/settings";
+import { setLocaleCookie } from "@/lib/i18n/localeCookie";
+import type { UserSettings, UpdateSettingParams, UpdateNotificationParams } from "@/lib/api/types/settings";
+import { notificationField } from "@/lib/notifications/config";
 import toast from "react-hot-toast";
+import { toastError, toastSuccess } from "@/lib/toast";
 
 interface SettingsState {
   settings: UserSettings | null;
@@ -52,7 +50,13 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     } catch (error) {
       const errorObj = error instanceof Error ? error : new Error("Failed to fetch settings");
       set({ error: errorObj, loading: false });
-      toast.error(errorObj.message);
+      // Surface the server-provided message when we have one (it's dynamic and
+      // not translatable client-side); otherwise show a translated fallback.
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toastError("settings.fetchFailed");
+      }
     }
   },
 
@@ -92,24 +96,19 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
       const updatedSettings = await settingsApi.updateSetting(params);
       set({ settings: updatedSettings });
 
-      // Show success message
-      const fieldLabels: Record<string, string> = {
-        name: "Name",
-        email: "Email",
-        password: "Password",
-        locale: "Language preference",
-        handle: "Handle"
-      };
-
-      toast.success(`${fieldLabels[params.field] || params.field} updated successfully`);
+      // The field label is translated in the catalog via an ICU select.
+      toastSuccess("settings.settingUpdated", { field: params.field });
     } catch (error) {
       // Rollback optimistic update on error
       if (!requiresSudo) {
         set({ settings: currentSettings });
       }
 
-      const errorMessage = error instanceof Error ? error.message : "Update failed";
-      toast.error(errorMessage);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toastError("settings.updateFailed");
+      }
       throw error; // Re-throw for component-level handling
     }
   },
@@ -127,7 +126,8 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
   },
 
   updateLocale: async (locale: string) => {
-    return get().updateSetting({ field: "locale", value: locale });
+    await get().updateSetting({ field: "locale", value: locale });
+    setLocaleCookie(locale);
   },
 
   updateHandle: async (handle: string) => {
@@ -140,15 +140,7 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
       return;
     }
 
-    // Map slug to field name for optimistic update
-    const fieldMap: Record<NotificationSlug, keyof UserSettings> = {
-      newsletters: "receive_newsletters",
-      event_emails: "receive_event_emails",
-      milestone_emails: "receive_milestone_emails",
-      activity_emails: "receive_activity_emails"
-    };
-
-    const field = fieldMap[slug];
+    const field = notificationField(slug);
 
     // Optimistic update
     const optimisticSettings = {
@@ -166,8 +158,11 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
       // Rollback on error
       set({ settings: currentSettings });
 
-      const errorMessage = error instanceof Error ? error.message : "Failed to update notification preference";
-      toast.error(errorMessage);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toastError("settings.notificationUpdateFailed");
+      }
       throw error;
     }
   },
@@ -194,8 +189,11 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
       // Rollback on error
       set({ settings: currentSettings });
 
-      const errorMessage = error instanceof Error ? error.message : "Failed to update streaks setting";
-      toast.error(errorMessage);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toastError("settings.streaksUpdateFailed");
+      }
       throw error;
     }
   },

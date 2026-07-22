@@ -1,0 +1,28 @@
+/**
+ * Tailwind layer for the authenticated (app) route group.
+ *
+ * Imported only by app/(app)/layout.tsx, so external/hybrid pages never
+ * download the Tailwind utility bundle or preflight. The design tokens are
+ * defined as :root custom properties in globals.css (which loads on every
+ * route); the @theme imports here re-register them so Tailwind can generate
+ * utilities (bg-blue-600, p-8, text-14, ...) for the app pages.
+ */
+
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/**
+ * Safelist dynamic color classes for the Icon component (text-${color}).
+ */
+@source inline("text-{blue,purple,green,gray}-{50,100,200,300,400,500,600,700,800,900,950}");
+@source inline("text-error-500");
+
+/* Register the design tokens (defined as :root values in globals.css) with
+   Tailwind so utilities generate. Values are referenced at runtime, not
+   duplicated here. */
+@import "./styles/theme/_tailwind-tokens.css";
+
+/* App-only component CSS (only rendered on (app) routes). */
+@import "./styles/components/toggle-switch.css";
+@import "./styles/components/page-tabs.css";
+@import "./styles/components/codemirror.css";

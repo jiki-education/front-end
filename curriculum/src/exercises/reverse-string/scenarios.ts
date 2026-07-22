@@ -3,8 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "reverse-strings" as const,
-    name: "Reverse Strings",
-    description: "Reverse a string so that it reads from right to left instead of left to right.",
+    name: "tasks.reverseStrings.name",
+    description: "tasks.reverseStrings.description",
     hints: [],
     requiredScenarios: [
       "reverse-empty-string",
@@ -24,8 +24,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "reverse-empty-string",
-    name: "Empty string",
-    description: "An empty string should return an empty string when reversed.",
+    name: "scenarios.reverseEmptyString.name",
+    description: "scenarios.reverseEmptyString.description",
     taskId: "reverse-strings",
     functionName: "reverse",
     args: [""],
@@ -33,8 +33,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "reverse-word",
-    name: "A word",
-    description: "Reverse the word 'robot'.",
+    name: "scenarios.reverseWord.name",
+    description: "scenarios.reverseWord.description",
     taskId: "reverse-strings",
     functionName: "reverse",
     args: ["robot"],
@@ -42,8 +42,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "reverse-capitalized-word",
-    name: "A capitalized word",
-    description: "Reverse a capitalized word 'Ramen'.",
+    name: "scenarios.reverseCapitalizedWord.name",
+    description: "scenarios.reverseCapitalizedWord.description",
     taskId: "reverse-strings",
     functionName: "reverse",
     args: ["Ramen"],
@@ -51,8 +51,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "reverse-sentence-punctuation",
-    name: "Sentence with punctuation",
-    description: "Reverse a sentence with punctuation 'I'm hungry!'",
+    name: "scenarios.reverseSentencePunctuation.name",
+    description: "scenarios.reverseSentencePunctuation.description",
     taskId: "reverse-strings",
     functionName: "reverse",
     args: ["I'm hungry!"],
@@ -60,8 +60,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "reverse-palindrome",
-    name: "Palindrome",
-    description: "A palindrome remains the same when reversed.",
+    name: "scenarios.reversePalindrome.name",
+    description: "scenarios.reversePalindrome.description",
     taskId: "reverse-strings",
     functionName: "reverse",
     args: ["racecar"],
@@ -69,8 +69,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "reverse-even-sized-word",
-    name: "Even-sized word",
-    description: "Reverse an even-sized word 'drawer'.",
+    name: "scenarios.reverseEvenSizedWord.name",
+    description: "scenarios.reverseEvenSizedWord.description",
     taskId: "reverse-strings",
     functionName: "reverse",
     args: ["drawer"],
@@ -78,8 +78,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "reverse-wide-characters",
-    name: "Wide characters",
-    description: "Reverse wide Unicode characters '子猫'.",
+    name: "scenarios.reverseWideCharacters.name",
+    description: "scenarios.reverseWideCharacters.description",
     taskId: "reverse-strings",
     functionName: "reverse",
     args: ["子猫"],
@@ -87,8 +87,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "reverse-emoji-family",
-    name: "Emoji Family",
-    description: "Reverse an emoji family.",
+    name: "scenarios.reverseEmojiFamily.name",
+    description: "scenarios.reverseEmojiFamily.description",
     taskId: "reverse-strings",
     functionName: "reverse",
     args: ["👩‍👩‍👧‍👦"],
@@ -96,8 +96,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "reverse-emoji-rainbow-flag",
-    name: "Rainbow Flag",
-    description: "Make a rainbow flag by reversing.",
+    name: "scenarios.reverseEmojiRainbowFlag.name",
+    description: "scenarios.reverseEmojiRainbowFlag.description",
     taskId: "reverse-strings",
     functionName: "reverse",
     args: ["️🌈‍️🏳"],

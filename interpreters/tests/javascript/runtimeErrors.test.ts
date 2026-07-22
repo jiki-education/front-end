@@ -182,6 +182,48 @@ describe("Runtime Errors", () => {
     });
   });
 
+  describe("VariableAlreadyDeclared", () => {
+    test("redeclaring a let in the same scope errors", () => {
+      const code = "let x = 1;\nlet x = 2;";
+      const { frames, error } = interpret(code);
+      expect(error).toBeNull();
+      expect(frames).toBeArrayOfSize(2); // Execution stops after error
+      expect(frames[0].status).toBe("SUCCESS"); // let x = 1
+      expectFrameToBeError(frames[1], "x", "VariableAlreadyDeclared");
+      expect(frames[1].error!.message).toBe("VariableAlreadyDeclared: name: x");
+
+      // Original binding is unchanged
+      expect((frames[0] as TestAugmentedFrame).variables.x.value).toBe(1);
+    });
+
+    test("redeclaring with const errors", () => {
+      const code = "let x = 1;\nconst x = 2;";
+      const { frames } = interpret(code);
+      expect(frames).toBeArrayOfSize(2);
+      expect(frames[0].status).toBe("SUCCESS");
+      expectFrameToBeError(frames[1], "x", "VariableAlreadyDeclared");
+      expect(frames[1].error!.message).toBe("VariableAlreadyDeclared: name: x");
+    });
+
+    test("redeclaring in different scopes is allowed (shadowing on)", () => {
+      const code = "let x = 1; { let x = 2; }";
+      const { frames } = interpret(code, { languageFeatures: { allowShadowing: true } });
+      expect(frames).toBeArrayOfSize(2);
+      expect(frames[0].status).toBe("SUCCESS");
+      expect(frames[1].status).toBe("SUCCESS"); // inner scope, not a redeclaration
+    });
+
+    test("redeclaring an injected built-in errors", () => {
+      // `let console = 1` is legal in real JS (it shadows the global), but in this
+      // educational interpreter it is virtually always a mistake, so we error.
+      const code = "let Math = 1;";
+      const { frames } = interpret(code);
+      expect(frames).toBeArrayOfSize(1);
+      expectFrameToBeError(frames[0], "Math", "VariableAlreadyDeclared");
+      expect(frames[0].error!.message).toBe("VariableAlreadyDeclared: name: Math");
+    });
+  });
+
   describe("ShadowingDisabled", () => {
     describe("allowShadowing: false (default)", () => {
       test("simple variable shadowing in block", () => {

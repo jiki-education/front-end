@@ -3,20 +3,20 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "What's the basic shape of my answer?",
-      "answer": "A list. Start with an empty list and add the allowed items to it one at a time."
+      "question": "hints.basicShape.question",
+      "answer": "hints.basicShape.answer"
     },
     {
-      "question": "How do I add items to a list?",
-      "answer": "Use `push()`. It takes the list and the item, and gives back the new (longer) list."
+      "question": "hints.addItems.question",
+      "answer": "hints.addItems.answer"
     },
     {
-      "question": "How do I leave the milkshake out?",
-      "answer": "Use an if-statement. Only push the drink if it's not equal to `\"milkshake\"`."
+      "question": "hints.leaveMilkshakeOut.question",
+      "answer": "hints.leaveMilkshakeOut.answer"
     },
     {
-      "question": "Why isn't my list growing?",
-      "answer": "`push()` doesn't modify the list in place. It returns the new list. You need to reassign, for example `lunchbox = lunchbox.push(item)` (or the equivalent in your language)."
+      "question": "hints.listNotGrowing.question",
+      "answer": "hints.listNotGrowing.answer"
     }
   ]
 }

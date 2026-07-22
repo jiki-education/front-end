@@ -198,9 +198,129 @@ describe("Template Literals", () => {
     test("template literal with missing closing brace", () => {
       const result = interpret("`Hello, ${world`;");
       expect(result.error).not.toBeNull();
-      // Scanner currently reports missing backtick when interpolation is unterminated
+      expect(result.error?.message).toContain("MissingRightBraceInTemplateLiteral");
+      expect(result.frames).toHaveLength(0);
+    });
+
+    test("unterminated interpolation stops at end of line", () => {
+      const result = interpret("`Hello, ${world\nfoo();");
+      expect(result.error).not.toBeNull();
+      expect(result.error?.message).toContain("MissingRightBraceInTemplateLiteral");
+      expect(result.frames).toHaveLength(0);
+    });
+
+    test("unterminated template literal stops at end of line", () => {
+      const result = interpret("`Hello, World\nlet x = 1;");
+      expect(result.error).not.toBeNull();
+      expect(result.error?.message).toContain("MissingBacktickToTerminateTemplateLiteral");
+      expect(result.error?.message).toContain("string: Hello, World");
+      expect(result.error?.location.line).toBe(1);
+      expect(result.frames).toHaveLength(0);
+    });
+
+    test("unterminated template literal reports the collected text", () => {
+      const result = interpret("`Hello, ${name} and welcome");
+      expect(result.error).not.toBeNull();
+      expect(result.error?.message).toContain("MissingBacktickToTerminateTemplateLiteral");
+      expect(result.error?.message).toContain("string: Hello, ${name} and welcome");
+      expect(result.frames).toHaveLength(0);
+    });
+
+    test("multi-line template literals are not supported", () => {
+      const result = interpret("`line1\nline2`;");
+      expect(result.error).not.toBeNull();
+      expect(result.error?.message).toContain("MissingBacktickToTerminateTemplateLiteral");
+      expect(result.error?.message).toContain("string: line1");
+      expect(result.frames).toHaveLength(0);
+    });
+
+    test("error location spans from the opening backtick", () => {
+      const result = interpret("let x = `abc\nlet y = 1;");
+      expect(result.error).not.toBeNull();
+      expect(result.error?.location.line).toBe(1);
+      expect(result.error?.location.absolute.begin).toBe(9);
+      expect(result.error?.location.absolute.end).toBe(13);
+    });
+
+    test("double quote instead of closing backtick suggests the fix", () => {
+      const result = interpret('let position = 1;\nlet x = `Move to position ${position}";');
+      expect(result.error).not.toBeNull();
+      expect(result.error?.message).toContain("QuoteUsedToTerminateTemplateLiteral");
+      expect(result.error?.message).toContain('quote: "');
+      // The stray quote and the trailing semicolon are stripped from the suggestion
+      expect(result.error?.message).toMatch(/string: Move to position \$\{position\}$/);
+      expect(result.frames).toHaveLength(0);
+    });
+
+    test("double quote at end of line suggests the fix", () => {
+      const result = interpret('`Move to position ${position}"\nfoo();');
+      expect(result.error).not.toBeNull();
+      expect(result.error?.message).toContain("QuoteUsedToTerminateTemplateLiteral");
+      expect(result.error?.message).toContain('quote: "');
+      expect(result.error?.message).toContain("string: Move to position ${position}");
+      expect(result.frames).toHaveLength(0);
+    });
+
+    test("single quote instead of closing backtick suggests the fix", () => {
+      const result = interpret("`Hello, World'");
+      expect(result.error).not.toBeNull();
+      expect(result.error?.message).toContain("QuoteUsedToTerminateTemplateLiteral");
+      expect(result.error?.message).toContain("quote: '");
+      expect(result.error?.message).toContain("string: Hello, World");
+      expect(result.frames).toHaveLength(0);
+    });
+
+    test("trailing backslash cannot swallow the terminating newline", () => {
+      const result = interpret("`Hello\\\nlet x = 1;");
+      expect(result.error).not.toBeNull();
       expect(result.error?.message).toContain("MissingBacktickToTerminateTemplateLiteral");
       expect(result.frames).toHaveLength(0);
+    });
+  });
+
+  describe("escape sequences", () => {
+    test("escaped backtick", () => {
+      const result = interpret("let msg = `a \\` b`;");
+      expect(result.error).toBeNull();
+      expect(result.frames[0].status).toBe("SUCCESS");
+      expect((result.frames[0] as TestAugmentedFrame).variables.msg.value).toBe("a ` b");
+    });
+
+    test("escaped dollar prevents interpolation", () => {
+      const result = interpret("let msg = `Cost: \\${price}`;");
+      expect(result.error).toBeNull();
+      expect(result.frames[0].status).toBe("SUCCESS");
+      expect((result.frames[0] as TestAugmentedFrame).variables.msg.value).toBe("Cost: ${price}");
+    });
+
+    test("escaped newline becomes a real newline", () => {
+      const result = interpret("let msg = `a\\nb`;");
+      expect(result.error).toBeNull();
+      expect(result.frames[0].status).toBe("SUCCESS");
+      expect((result.frames[0] as TestAugmentedFrame).variables.msg.value).toBe("a\nb");
+    });
+
+    test("escaped backslash", () => {
+      const result = interpret("let msg = `a\\\\b`;");
+      expect(result.error).toBeNull();
+      expect(result.frames[0].status).toBe("SUCCESS");
+      expect((result.frames[0] as TestAugmentedFrame).variables.msg.value).toBe("a\\b");
+    });
+  });
+
+  describe("interpolation scanning", () => {
+    test("whitespace inside interpolation does not break brace counting", () => {
+      const result = interpret("let msg = `a ${ 1 } b`;");
+      expect(result.error).toBeNull();
+      expect(result.frames[0].status).toBe("SUCCESS");
+      expect((result.frames[0] as TestAugmentedFrame).variables.msg.value).toBe("a 1 b");
+    });
+
+    test("string containing a brace inside interpolation", () => {
+      const result = interpret('let msg = `a ${"}"} b`;');
+      expect(result.error).toBeNull();
+      expect(result.frames[0].status).toBe("SUCCESS");
+      expect((result.frames[0] as TestAugmentedFrame).variables.msg.value).toBe("a } b");
     });
   });
 

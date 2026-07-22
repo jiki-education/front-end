@@ -6,10 +6,10 @@ import type { VisualExerciseCore, FunctionInfo } from "../types";
 const functions: FunctionInfo[] = [
   {
     name: "circle",
-    signature: "circle(cx, cy, radius, color)",
-    description: "Draw a circle centered at (cx, cy) with the given radius and color",
+    signature: "circle(centerX, centerY, radius, color)",
+    description: "functions.circle.description",
     examples: ['circle(75, 25, 15, "yellow")'],
-    category: "Drawing Shapes"
+    category: "functions.circle.category"
   }
 ];
 
@@ -19,7 +19,31 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["variables", "arithmetic", "using-functions-with-inputs"],
+  readonlyRanges: {
+    javascript: [
+      { fromLine: 1, toLine: 6 },
+      { fromLine: 7, toLine: 7, toChar: 10 },
+      { fromLine: 8, toLine: 8, toChar: 13 },
+      { fromLine: 9, toLine: 10 },
+      { fromLine: 12, toLine: 12 }
+    ],
+    python: [
+      { fromLine: 1, toLine: 6 },
+      { fromLine: 7, toLine: 7, toChar: 6 },
+      { fromLine: 8, toLine: 8, toChar: 9 },
+      { fromLine: 9, toLine: 10 },
+      { fromLine: 12, toLine: 12 }
+    ],
+    jikiscript: [
+      { fromLine: 1, toLine: 6 },
+      { fromLine: 7, toLine: 7, toChar: 11 },
+      { fromLine: 8, toLine: 8, toChar: 14 },
+      { fromLine: 9, toLine: 10 },
+      { fromLine: 12, toLine: 12 }
+    ]
+  }
 };
 
 export default exerciseDefinition;

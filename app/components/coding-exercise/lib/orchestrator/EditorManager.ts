@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { foldEffect, unfoldEffect } from "@codemirror/language";
-import type { Extension, StateEffectType } from "@codemirror/state";
+import type { Extension, StateEffectType, TransactionSpec } from "@codemirror/state";
 import { EditorState } from "@codemirror/state";
 import type { ViewUpdate } from "@codemirror/view";
 import { EditorView } from "@codemirror/view";
@@ -24,6 +24,7 @@ import {
   readOnlyRangesStateField,
   updateReadOnlyRangesEffect
 } from "../../ui/codemirror/extensions/read-only-ranges/readOnlyRanges";
+import { clampRangesToDoc } from "../../ui/codemirror/extensions/read-only-ranges/resolveRange";
 import { addUnderlineEffect } from "../../ui/codemirror/extensions/underlineRange";
 import { setLintDecorationsEffect } from "../../ui/codemirror/extensions/lintDecorations";
 import { createEditorExtensions } from "../../ui/codemirror/setup/editorExtensions";
@@ -86,9 +87,14 @@ export class EditorManager {
       parent: element
     });
 
-    if (readonlyRanges.length > 0) {
+    // Clamp ranges to the actual document. Stored ranges (from localStorage or
+    // an exercise's defaults) can reference lines that no longer exist if the
+    // code has fewer lines than when they were saved, which would otherwise
+    // crash CodeMirror's doc.line() at mount with "Invalid line number".
+    const safeReadonlyRanges = clampRangesToDoc(readonlyRanges, this.editorView.state.doc);
+    if (safeReadonlyRanges.length > 0) {
       this.editorView.dispatch({
-        effects: updateReadOnlyRangesEffect.of(readonlyRanges)
+        effects: updateReadOnlyRangesEffect.of(safeReadonlyRanges)
       });
     }
 
@@ -381,15 +387,11 @@ export class EditorManager {
     });
   }
 
-  applyLintDecorations(
-    lintErrors: Array<{ message: string; location: { line: number; absolute: { begin: number; end: number } } }>
-  ) {
+  applyLintDecorations(lintErrors: Array<{ message: string; location: { line: number } }>) {
     this.editorView.dispatch({
       effects: setLintDecorationsEffect.of(
         lintErrors.map((err) => ({
           line: err.location.line,
-          from: err.location.absolute.begin,
-          to: err.location.absolute.end,
           message: err.message
         }))
       )
@@ -451,19 +453,30 @@ export class EditorManager {
   ) {
     updateUnfoldableFunctions(this.editorView, unfoldableFunctionNames);
 
+    // Apply the doc change and the readonly-ranges effect in a *single*
+    // transaction. Dispatching them separately fires the docChanged update
+    // listener (which autosaves code + the current ranges field) *before* the
+    // ranges effect lands, so the autosave captures a stale/empty ranges field
+    // and overwrites localStorage with mismatched data. Combining them means
+    // the listener sees the final ranges. See resetContent for the caller.
+    const spec: TransactionSpec = {};
     if (code) {
-      this.editorView.dispatch({
-        changes: {
-          from: 0,
-          to: this.editorView.state.doc.length,
-          insert: code
-        }
-      });
+      spec.changes = {
+        from: 0,
+        to: this.editorView.state.doc.length,
+        insert: code
+      };
     }
     if (readonlyRanges) {
-      this.editorView.dispatch({
-        effects: updateReadOnlyRangesEffect.of(readonlyRanges)
-      });
+      // Clamp against the document *after* the code change so ranges that
+      // reference lines beyond the new code don't crash decoration computation.
+      const nextDoc = spec.changes
+        ? this.editorView.state.update({ changes: spec.changes }).state.doc
+        : this.editorView.state.doc;
+      spec.effects = updateReadOnlyRangesEffect.of(clampRangesToDoc(readonlyRanges, nextDoc));
+    }
+    if (spec.changes || spec.effects) {
+      this.editorView.dispatch(spec);
     }
   }
 
@@ -564,3 +577,8 @@ export class EditorManager {
     return () => this.store.getState().setShouldShowInformationWidget(false);
   }
 }
+
+// Stored ranges (localStorage / exercise defaults) are clamped back into bounds
+// before reaching CodeMirror by the shared resolver. Re-exported here so callers
+// that already import from this module keep a stable entry point.
+export { clampRangesToDoc };

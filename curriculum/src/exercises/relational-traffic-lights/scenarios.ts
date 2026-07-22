@@ -4,8 +4,8 @@ import type { RelationalTrafficLightsExercise } from "./Exercise";
 export const tasks = [
   {
     id: "build-relational-traffic-lights" as const,
-    name: "Build the relational traffic lights",
-    description: "Derive every position and size from `center` and `radius` so the traffic light scales correctly.",
+    name: "tasks.buildRelationalTrafficLights.name",
+    description: "tasks.buildRelationalTrafficLights.description",
     hints: [],
     requiredScenarios: ["build-relational-traffic-lights"],
     bonus: false
@@ -32,20 +32,19 @@ function detailedCheck(radius: number): IsolatedCheck {
       return [
         {
           pass: ex.hasRectangleAt(...e.housing),
-          errorHtml:
-            "The housing rectangle is either in the wrong place or the wrong size. Check `housingX`, `housingY`, `housingWidth`, and `housingHeight`."
+          errorHtml: ex.t("checks.housingWrong")
         },
         {
           pass: ex.hasCircleAt(...e.red),
-          errorHtml: "The red light is either in the wrong place or the wrong size. Check `redY`."
+          errorHtml: ex.t("checks.redWrong")
         },
         {
           pass: ex.hasCircleAt(...e.yellow),
-          errorHtml: "The yellow light is either in the wrong place or the wrong size. Check `yellowY`."
+          errorHtml: ex.t("checks.yellowWrong")
         },
         {
           pass: ex.hasCircleAt(...e.green),
-          errorHtml: "The green light is either in the wrong place or the wrong size. Check `greenY`."
+          errorHtml: ex.t("checks.greenWrong")
         }
       ];
     }
@@ -68,9 +67,7 @@ function responsivenessCheck(radius: number): IsolatedCheck {
       return [
         {
           pass: allMatch,
-          errorHtml: allMatch
-            ? undefined
-            : `Your code doesn't scale correctly when \`radius\` is ${radius}. Every position and size should be derived from \`center\` and \`radius\`.`
+          errorHtml: allMatch ? undefined : ex.t("checks.doesntScale", { radius })
         }
       ];
     }
@@ -80,8 +77,8 @@ function responsivenessCheck(radius: number): IsolatedCheck {
 export const scenarios: VisualScenario[] = [
   {
     slug: "build-relational-traffic-lights",
-    name: "Build the relational traffic lights",
-    description: "Derive every position and size from `center` and `radius`.",
+    name: "scenarios.buildRelationalTrafficLights.name",
+    description: "scenarios.buildRelationalTrafficLights.description",
     taskId: "build-relational-traffic-lights",
 
     // No primary expectations — the canvas the student sees uses their own `radius`

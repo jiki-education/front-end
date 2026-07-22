@@ -1,16 +1,16 @@
-set snowman_cx to 50
-set head_cy to 20
+set snowman_center_x to 50
+set head_center_y to 20
 set head_radius to 10
-set body_cy to 40
+set body_center_y to 40
 set body_radius to 15
-set base_cy to 70
+set base_center_y to 70
 set base_radius to 20
 
 // Base (bottom, biggest)
-circle(snowman_cx, base_cy, base_radius, "white")
+circle(snowman_center_x, base_center_y, base_radius, "white")
 
 // Body (middle)
-circle(snowman_cx, body_cy, body_radius, "white")
+circle(snowman_center_x, body_center_y, body_radius, "white")
 
 // Head (top, smallest)
-circle(snowman_cx, head_cy, head_radius, "white")
+circle(snowman_center_x, head_center_y, head_radius, "white")

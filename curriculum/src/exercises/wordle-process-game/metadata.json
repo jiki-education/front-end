@@ -3,20 +3,20 @@
   "levelId": "everything",
   "hints": [
     {
-      "question": "How do I reuse my work from `processGuess`?",
-      "answer": "The logic that turns one guess into a list of states is the same. Pull it into a helper function (or copy it) and call it for each guess in the list."
+      "question": "hints.reuseWork.question",
+      "answer": "hints.reuseWork.answer"
     },
     {
-      "question": "How do I track which row each guess belongs to?",
-      "answer": "Loop through the guesses with an index. The row number is the index plus `1` (since `colorRow` expects rows numbered `1-6`)."
+      "question": "hints.trackRow.question",
+      "answer": "hints.trackRow.answer"
     },
     {
-      "question": "How do I actually colour each row?",
-      "answer": "Once you have the `states` list for a guess, call `colorRow(rowNumber, states)`."
+      "question": "hints.colourRow.question",
+      "answer": "hints.colourRow.answer"
     },
     {
-      "question": "What if the player has made fewer than 6 guesses?",
-      "answer": "Only colour rows for the guesses that exist. The list length tells you how many to process, so you naturally stop at the right point."
+      "question": "hints.fewerGuesses.question",
+      "answer": "hints.fewerGuesses.answer"
     }
   ]
 }

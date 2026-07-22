@@ -3,9 +3,8 @@ import type { Task, IOScenario } from "../types";
 export const tasks = [
   {
     id: "check-guest-list" as const,
-    name: "Check the Guest List",
-    description:
-      "Write a function that checks if a person's name is on the guest list. Return true if they are, false if they aren't.",
+    name: "tasks.checkGuestList.name",
+    description: "tasks.checkGuestList.description",
     hints: [],
     requiredScenarios: ["name-single-list-true", "name-single-list-false", "name-list-true", "name-list-false"],
     bonus: false
@@ -15,8 +14,8 @@ export const tasks = [
 export const scenarios: IOScenario[] = [
   {
     slug: "name-single-list-true",
-    name: "Person is on a single person list",
-    description: "Return true if a person is on the guest list.",
+    name: "scenarios.nameSingleListTrue.name",
+    description: "scenarios.nameSingleListTrue.description",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [["Jeremy"], "Jeremy"],
@@ -24,8 +23,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "name-single-list-false",
-    name: "Person is not on a single person list",
-    description: "Return false if a person is not on the guest list.",
+    name: "scenarios.nameSingleListFalse.name",
+    description: "scenarios.nameSingleListFalse.description",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [["Nicole"], "Jeremy"],
@@ -33,8 +32,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "name-list-true",
-    name: "Person is on a larger list",
-    description: "Return true if a person is on a larger guest list.",
+    name: "scenarios.nameListTrue.name",
+    description: "scenarios.nameListTrue.description",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [["Aron", "Jeremy", "Nicole"], "Jeremy"],
@@ -42,8 +41,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "name-list-false",
-    name: "Person is not on a larger list",
-    description: "Return false if a person is not on a larger guest list.",
+    name: "scenarios.nameListFalse.name",
+    description: "scenarios.nameListFalse.description",
     taskId: "check-guest-list",
     functionName: "on_guest_list",
     args: [["Aron", "Frank", "Nicole"], "Jeremy"],

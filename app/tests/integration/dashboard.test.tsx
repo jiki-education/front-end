@@ -1,7 +1,7 @@
 import Dashboard from "@/app/(app)/dashboard/page";
-import { fetchLevelsWithProgress } from "@/lib/api/levels";
-import { fetchProjects } from "@/lib/api/projects";
 import { fetchBadges } from "@/lib/api/badges";
+import { fetchChallenges } from "@/lib/api/challenges";
+import { fetchLevelsWithProgress } from "@/lib/api/levels";
 import { fetchProfile } from "@/lib/api/profile";
 import { ThemeProvider } from "@/lib/theme/ThemeProvider";
 import { render, waitFor } from "@testing-library/react";
@@ -28,9 +28,9 @@ jest.mock("@/icons/house.svg", () => ({
   default: () => <div data-testid="house-icon" aria-hidden="true" />
 }));
 
-jest.mock("@/icons/projects.svg", () => ({
+jest.mock("@/icons/challenges.svg", () => ({
   __esModule: true,
-  default: () => <div data-testid="projects-icon" aria-hidden="true" />
+  default: () => <div data-testid="challenges-icon" aria-hidden="true" />
 }));
 
 // Mock additional SVG icons that might be used
@@ -80,9 +80,9 @@ jest.mock("@/lib/api/levels", () => ({
   fetchLevelsWithProgress: jest.fn()
 }));
 
-// Mock the projects API
-jest.mock("@/lib/api/projects", () => ({
-  fetchProjects: jest.fn()
+// Mock the challenges API
+jest.mock("@/lib/api/challenges", () => ({
+  fetchChallenges: jest.fn()
 }));
 
 // Mock the badges API
@@ -184,7 +184,7 @@ describe("Dashboard Page", () => {
     mockPush.mockClear();
     mockLogout.mockClear();
     (fetchLevelsWithProgress as jest.Mock).mockResolvedValue(mockLevelsData);
-    (fetchProjects as jest.Mock).mockResolvedValue({ results: [] });
+    (fetchChallenges as jest.Mock).mockResolvedValue({ results: [] });
     (fetchBadges as jest.Mock).mockResolvedValue({ badges: [] });
     (fetchProfile as jest.Mock).mockResolvedValue({
       profile: {

@@ -48,7 +48,12 @@ function loadTurnstileScript(): Promise<void> {
     script.async = true;
     script.defer = true;
     script.onload = () => resolve();
-    script.onerror = () => reject(new Error("Failed to load Turnstile script"));
+    script.onerror = () => {
+      // Clear the cached promise so a future attempt (remount, retry) re-tries
+      // the network load instead of getting this rejection back forever.
+      window.__turnstileScriptPromise = undefined;
+      reject(new Error("Failed to load Turnstile script"));
+    };
     document.head.appendChild(script);
   });
   return window.__turnstileScriptPromise;
@@ -170,6 +175,10 @@ export function useTurnstile(): UseTurnstileResult {
       });
       widgetIdRef.current = localWidgetId;
     });
+    // Mark the ready promise as handled so a script-load failure (ad blockers,
+    // network blips) doesn't surface as an unhandled rejection. execute() still
+    // receives the rejection via its own await and shows the captcha error UI.
+    readyRef.current.catch(() => {});
 
     return () => {
       cancelled = true;

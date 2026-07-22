@@ -1,0 +1,54 @@
+{
+  "errors": {
+    "unknownDice": "Sajnálom, Jikinek nincs kéznél {{sides}} oldalú dobókockája!",
+    "announceNumber": "Csak számot jelenthetsz be",
+    "attackNumber": "A támadásnak számnak kell lennie",
+    "damageNumber": "A sebzésnek számnak kell lennie"
+  },
+  "describers": {
+    "roll": "rolled a die and got ${return}",
+    "announce": "announced ${arg1}",
+    "strike": "struck the goblin with attack ${arg1} and damage ${arg2}"
+  },
+  "checks": {
+    "announcementCount": "3 bejelentést vártunk, de {{got}} érkezett. Ügyelj arra, hogy minden dobást bejelents.",
+    "firstAnnouncement": "Az első bejelentés {{attack}} (a támadó dobás) kellett volna legyen, de {{got}} lett.",
+    "secondAnnouncement": "A második bejelentés {{damage}} (az alap sebzés dobás) kellett volna legyen, de {{got}} lett.",
+    "thirdAnnouncement": "A harmadik bejelentés {{bonus}} (a bónusz dobás) kellett volna legyen, de {{got}} lett.",
+    "notStruck": "Nem csaptál le a koboldra. Ügyelj arra, hogy meghívd a <code>strike()</code> függvényt.",
+    "wrongAttack": "A támadás {{attack}} kellett volna legyen, de {{got}} lett. Add át a támadó dobást a <code>strike()</code> függvénynek.",
+    "wrongDamage": "Az összes sebzés {{totalDamage}} ({{damage}} + {{bonus}}) kellett volna legyen, de {{got}} lett. Add össze az alap sebzést és a bónuszt."
+  },
+  "tasks": {
+    "rollAndStrike": {
+      "name": "Dobj a kockákkal és csapj le a koboldra",
+      "description": "Dobj három kockával (d20 a támadáshoz, d12 az alap sebzéshez, d10 a bónuszhoz), jelentsd be minden dobást, majd csapj le a koboldra a támadó dobásoddal és az összes sebzéssel (alap + bónusz)."
+    }
+  },
+  "scenarios": {
+    "randomRolls": {
+      "name": "Dobás és csapás",
+      "description": "Dobj d20-szal a támadáshoz, d12-vel az alap sebzéshez, d10-zel a bónuszhoz. Csapj le a koboldra a támadásoddal és az összes sebzéssel."
+    }
+  },
+  "hints": {
+    "chooseDie": {
+      "question": "Hogyan válasszam ki, milyen típusú kockát használjak?",
+      "answer": "Egy 20 oldalú kockához használd a 20-at a roll bemeneteként - pl. `roll(20)`. Egy 12 oldalú kockához hívd meg a `roll(12)`-t."
+    }
+  },
+  "functions": {
+    "roll": {
+      "description": "Feldob egy adott oldalszámú kockát, és **visszaadja** az eredményt.",
+      "category": "Kocka"
+    },
+    "announce": {
+      "description": "Bejelent egy kockadobás értéket.",
+      "category": "Művelet"
+    },
+    "strike": {
+      "description": "Lecsap a koboldra a megadott támadó dobással és összes sebzéssel.",
+      "category": "Művelet"
+    }
+  }
+}

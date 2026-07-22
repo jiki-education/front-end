@@ -20,6 +20,15 @@ export class RainbowSplodgesExercise extends DrawExercise {
     return this.circles.length > 0 && this.circles.every((c) => c.radius >= min && c.radius < max);
   }
 
+  public checkAllCirclesInsideBox(): boolean {
+    return (
+      this.circles.length > 0 &&
+      this.circles.every(
+        (c) => c.cx - c.radius >= 0 && c.cx + c.radius <= 100 && c.cy - c.radius >= 0 && c.cy + c.radius <= 100
+      )
+    );
+  }
+
   public checkCirclesTouchEdges(): boolean {
     return (
       this.circles.some((c) => c.cx - c.radius <= 0 || c.cx + c.radius >= 100) &&
@@ -27,7 +36,7 @@ export class RainbowSplodgesExercise extends DrawExercise {
     );
   }
 
-  public checkSaturationAndLuminosityInRange(min: number, max: number): boolean {
+  public checkSaturationAndLightnessInRange(min: number, max: number): boolean {
     if (this.circles.length === 0) return false;
     return this.circles.every((c) => {
       const { s, l } = hexToHsl(c.fillColor);

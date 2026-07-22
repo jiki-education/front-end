@@ -7,9 +7,9 @@ const functions: FunctionInfo[] = [
   {
     name: "numberToString",
     signature: "numberToString(number)",
-    description: "Convert a number to its string representation (provided by level stdlib)",
+    description: "functions.numberToString.description",
     examples: ['numberToString(42) returns "42"'],
-    category: "Type Conversion"
+    category: "functions.numberToString.category"
   }
 ];
 

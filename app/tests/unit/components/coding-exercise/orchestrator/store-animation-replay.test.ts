@@ -44,7 +44,8 @@ describe("Store Animation Replay Bug", () => {
       clearUpdateCallbacks: jest.fn(),
       clearCompleteCallbacks: jest.fn(),
       completed: false,
-      currentTime: 0
+      currentTime: 0,
+      duration: 100
     } as any
   });
 

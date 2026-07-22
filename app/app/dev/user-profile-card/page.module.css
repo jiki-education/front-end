@@ -133,7 +133,7 @@
 .starBadge {
     position: absolute;
     bottom: -2px;
-    right: -2px;
+    inset-inline-end: -2px;
     width: 24px;
     height: 24px;
     background: white;
@@ -160,7 +160,7 @@
 .starTooltip {
     position: absolute;
     bottom: calc(100% + 8px);
-    left: 50%;
+    inset-inline-start: 50%;
     transform: translateX(-50%);
     background: linear-gradient(135deg, var(--color-purple-500) 0%, var(--color-blue-500) 100%);
     color: white;
@@ -180,7 +180,7 @@
         content: "";
         position: absolute;
         top: 100%;
-        left: 50%;
+        inset-inline-start: 50%;
         transform: translateX(-50%);
         border: 6px solid transparent;
         border-top-color: var(--color-purple-500);
@@ -190,7 +190,7 @@
 /* ── User info ── */
 .info {
     flex: 1;
-    margin-left: 11px;
+    margin-inline-start: 11px;
 }
 
 .name {

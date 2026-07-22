@@ -1,6 +1,6 @@
 import { useAuthStore } from "@/lib/auth/authStore";
 import { handleSubscribe } from "@/lib/subscriptions/handlers";
-import toast from "react-hot-toast";
+import { toastError } from "@/lib/toast";
 
 interface UseUpgradeFlowProps {
   setIsLoading: (loading: boolean) => void;
@@ -13,7 +13,7 @@ export function useUpgradeFlow({ setIsLoading, onSuccess: _onSuccess, onCancel: 
 
   const handleUpgrade = async () => {
     if (!user) {
-      toast.error("Please log in to upgrade your account");
+      toastError("subscription.loginRequired");
       return;
     }
 
@@ -28,7 +28,7 @@ export function useUpgradeFlow({ setIsLoading, onSuccess: _onSuccess, onCancel: 
       });
     } catch (error) {
       console.error("Subscription error:", error);
-      toast.error("Failed to start checkout process. Please try again.");
+      toastError("subscription.checkoutFailed");
       setIsLoading(false);
     }
   };

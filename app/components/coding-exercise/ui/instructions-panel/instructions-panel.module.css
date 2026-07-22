@@ -11,6 +11,7 @@
     padding: 20px 32px;
     background-color: white;
     scroll-behavior: smooth;
+    position: relative; /* offsetParent for sections, so their offsetTop matches scrollTop */
 }
 
 /* DynamicHeader styles */
@@ -217,8 +218,15 @@
     ol {
         margin-top: 16px;
         margin-bottom: 16px;
-        padding-left: 24px;
+        padding-inline-start: 24px;
+    }
+
+    ul {
         list-style: disc;
+    }
+
+    ol {
+        list-style: decimal;
     }
 
     p + ul,
@@ -262,11 +270,29 @@
     }
 
     blockquote {
-        border-left: 4px solid var(--color-blue-500);
-        padding-left: 16px;
+        border-inline-start: 4px solid var(--color-blue-500);
+        padding-inline-start: 16px;
         margin: 16px 0;
         color: var(--color-gray-600);
         font-style: italic;
+    }
+
+    table {
+        border-collapse: collapse;
+        margin: 16px 0;
+    }
+
+    td,
+    th {
+        padding: 8px;
+        border: 1px solid var(--color-gray-200);
+        font-size: 16px;
+        line-height: 1.6;
+        text-align: start;
+    }
+
+    th {
+        background: var(--color-gray-100);
     }
 }
 
@@ -382,8 +408,8 @@
 }
 
 .conceptsList {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     gap: 16px;
     margin-bottom: 16px;
 }
@@ -396,7 +422,7 @@
     margin-bottom: 20px;
 }
 
-/* Library empty/projects state box */
+/* Library empty/challenges state box */
 .libraryPlaceholderBox {
     text-align: center;
     padding: 20px;

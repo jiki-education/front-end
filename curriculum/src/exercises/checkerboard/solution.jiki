@@ -1,0 +1,51 @@
+set board_size to get_board_size()
+set margin to 2
+set canvas_size to 100
+set square_size to (canvas_size - 2 * margin) / board_size
+
+set border_color to "black"
+set dark_square_color to "dark brown"
+set light_square_color to "white"
+
+set piece_radius to square_size * 0.4
+set piece_inner_radius to square_size * 0.3
+set top_piece_color to "charcoal"
+set top_piece_rim_color to "black"
+set bottom_piece_color to "white"
+set bottom_piece_rim_color to "grey"
+
+// Fill the whole canvas so the margin shows as a border around the board.
+rectangle(0, 0, canvas_size, canvas_size, border_color)
+
+set row to 0
+repeat board_size times do
+  set col to 0
+  repeat board_size times do
+    set is_dark to (row + col) % 2 == 1
+
+    set square_x to margin + col * square_size
+    set square_y to margin + row * square_size
+
+    set square_color to light_square_color
+    if is_dark do
+      change square_color to dark_square_color
+    end
+    rectangle(square_x, square_y, square_size, square_size, square_color)
+
+    if is_dark do
+      set center_x to square_x + square_size / 2
+      set center_y to square_y + square_size / 2
+
+      if row < board_size / 2 - 1 do
+        circle(center_x, center_y, piece_radius, top_piece_rim_color)
+        circle(center_x, center_y, piece_inner_radius, top_piece_color)
+      else if row >= board_size / 2 + 1 do
+        circle(center_x, center_y, piece_radius, bottom_piece_rim_color)
+        circle(center_x, center_y, piece_inner_radius, bottom_piece_color)
+      end
+    end
+
+    change col to col + 1
+  end
+  change row to row + 1
+end

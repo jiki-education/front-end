@@ -7,7 +7,6 @@ export interface SoundConfig {
 }
 
 export interface SoundManagerOptions {
-  basePath?: string;
   defaultVolume?: number;
   muted?: boolean;
 }

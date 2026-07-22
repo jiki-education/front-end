@@ -1,0 +1,66 @@
+{
+  "tasks": {
+    "findTilePosition": {
+      "name": "Find Tile Position",
+      "description": "Write a function that finds the position of a specific letter tile in the rack. Return \"Move to position X\" if found, or \"Error: Tile not on rack\" if not."
+    }
+  },
+  "scenarios": {
+    "tileAtStart": {
+      "name": "Tile at start",
+      "description": "The letter is the first tile in the rack."
+    },
+    "tileInMiddle": {
+      "name": "Tile in middle",
+      "description": "The letter is in the middle of the rack."
+    },
+    "tileAtEnd": {
+      "name": "Tile at end",
+      "description": "The letter is the last tile in the rack."
+    },
+    "tileNotFound": {
+      "name": "Tile not found",
+      "description": "The letter isn't in the rack."
+    },
+    "emptyRack": {
+      "name": "Empty rack",
+      "description": "An empty rack has no tiles to find."
+    },
+    "firstOfDuplicates": {
+      "name": "First of duplicates",
+      "description": "When the letter appears multiple times, return the first position."
+    },
+    "longerRack": {
+      "name": "Longer rack",
+      "description": "Finding a tile in a longer rack."
+    }
+  },
+  "hints": {
+    "trackPosition": {
+      "question": "How do I keep track of where I am in the rack?",
+      "answer": "Use a position variable starting at 1. Each time you look at a new tile, you'll increase it by 1."
+    },
+    "lookAtEachTile": {
+      "question": "How do I look at each tile?",
+      "answer": "A for-each loop gives you each character of the rack in turn."
+    },
+    "onFound": {
+      "question": "What do I do when I find the letter?",
+      "answer": "Build the success message. Convert the position number to a string, then combine it with the surrounding text the exercise asks for using concatenation (`+`) or a template string. Return immediately. There's no need to keep looking."
+    },
+    "positionAlwaysWrong": {
+      "question": "Why is my position always wrong?",
+      "answer": "Make sure you're increasing the position counter every iteration, not just sometimes. Otherwise every tile reports the same position."
+    },
+    "notInRack": {
+      "question": "What if the letter isn't in the rack?",
+      "answer": "Only after the loop has finished without finding the letter should you return the error message. Returning the error inside the loop would give up after the first non-matching tile."
+    }
+  },
+  "functions": {
+    "numberToString": {
+      "description": "Convert a number to its string representation (provided by level stdlib)",
+      "category": "Type Conversion"
+    }
+  }
+}

@@ -45,6 +45,8 @@ class MockExercise implements Partial<VisualExercise> {
   getState() {
     return this.state;
   }
+
+  setMessages() {}
 }
 
 describe("runVisualScenario", () => {
@@ -66,7 +68,16 @@ describe("runVisualScenario", () => {
         expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }])
       };
 
-      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
+      const result = runVisualScenario(
+        scenario,
+        "move()",
+        MockExercise as any,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("pass");
       expect(result.expects).toHaveLength(1);
@@ -85,7 +96,16 @@ describe("runVisualScenario", () => {
         ])
       };
 
-      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
+      const result = runVisualScenario(
+        scenario,
+        "move()",
+        MockExercise as any,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
       expect(result.expects).toHaveLength(2);
@@ -98,7 +118,7 @@ describe("runVisualScenario", () => {
     it("should pass when functional expectations pass and all code checks pass", () => {
       const passingCodeCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(true),
-        errorHtml: "This should not appear"
+        errorKey: "This should not appear"
       };
 
       const scenario: VisualScenario = {
@@ -110,7 +130,16 @@ describe("runVisualScenario", () => {
         codeChecks: [passingCodeCheck]
       };
 
-      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
+      const result = runVisualScenario(
+        scenario,
+        "move()",
+        MockExercise as any,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("pass");
       expect(result.expects).toHaveLength(2); // 1 functional + 1 code check
@@ -122,7 +151,7 @@ describe("runVisualScenario", () => {
     it("should fail when functional expectations pass but code check fails", () => {
       const failingCodeCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(false),
-        errorHtml: "Your solution has more than 10 lines of code."
+        errorKey: "Your solution has more than 10 lines of code."
       };
 
       const scenario: VisualScenario = {
@@ -139,7 +168,10 @@ describe("runVisualScenario", () => {
         "verbose code here",
         MockExercise as any,
         "jikiscript",
-        mockInterpreter
+        mockInterpreter,
+        undefined,
+        {},
+        {}
       );
 
       expect(result.status).toBe("fail");
@@ -152,7 +184,7 @@ describe("runVisualScenario", () => {
     it("should fail when functional expectation fails (code check result included)", () => {
       const passingCodeCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(true),
-        errorHtml: "Should not see this"
+        errorKey: "Should not see this"
       };
 
       const scenario: VisualScenario = {
@@ -164,7 +196,16 @@ describe("runVisualScenario", () => {
         codeChecks: [passingCodeCheck]
       };
 
-      const result = runVisualScenario(scenario, "bad code", MockExercise as any, "jikiscript", mockInterpreter);
+      const result = runVisualScenario(
+        scenario,
+        "bad code",
+        MockExercise as any,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
       expect(result.expects).toHaveLength(2);
@@ -175,12 +216,12 @@ describe("runVisualScenario", () => {
     it("should handle multiple code checks", () => {
       const passingCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(true),
-        errorHtml: "Passing check"
+        errorKey: "Passing check"
       };
 
       const failingCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(false),
-        errorHtml: "First failing check"
+        errorKey: "First failing check"
       };
 
       const scenario: VisualScenario = {
@@ -192,7 +233,16 @@ describe("runVisualScenario", () => {
         codeChecks: [passingCheck, failingCheck]
       };
 
-      const result = runVisualScenario(scenario, "code", MockExercise as any, "jikiscript", mockInterpreter);
+      const result = runVisualScenario(
+        scenario,
+        "code",
+        MockExercise as any,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
       expect(result.expects).toHaveLength(3); // 1 functional + 2 code checks
@@ -207,7 +257,7 @@ describe("runVisualScenario", () => {
         pass: jest.fn().mockImplementation(() => {
           throw new Error("Check crashed!");
         }),
-        errorHtml: "Normal error message"
+        errorKey: "Normal error message"
       };
 
       const scenario: VisualScenario = {
@@ -219,7 +269,16 @@ describe("runVisualScenario", () => {
         codeChecks: [throwingCheck]
       };
 
-      const result = runVisualScenario(scenario, "code", MockExercise as any, "jikiscript", mockInterpreter);
+      const result = runVisualScenario(
+        scenario,
+        "code",
+        MockExercise as any,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
       expect(result.expects).toHaveLength(2);
@@ -250,12 +309,70 @@ describe("runVisualScenario", () => {
         expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }])
       };
 
-      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
+      const result = runVisualScenario(
+        scenario,
+        "move()",
+        MockExercise as any,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
-      expect(result.expects[0].pass).toBe(true); // Expectations still pass
+      // On a frame error the scenario's expectations are suppressed (they would be
+      // meaningless / contradictory) and replaced with a single pointer message.
+      expect(result.expects).toHaveLength(1);
+      expect(result.expects[0].pass).toBe(false);
+      expect(result.expects[0].errorHtml).toBe(
+        "Your code hit an error while it was running. Fix the error message above to continue."
+      );
       expect(result.frames).toHaveLength(3);
       expect(result.frames[2].status).toBe("ERROR");
+    });
+
+    it("should not surface contradictory failing expectations when a frame errored", () => {
+      // Regression: finish-wall student calls rectangle() with too few args. The
+      // interpreter throws (frame ERROR) before anything is drawn, yet the scenario's
+      // per-shape expectations still failed with "The left brick isn't correct" etc.
+      // Those messages contradict the real error and must be suppressed.
+      mockInterpreter = createMockInterpreter({
+        interpret: jest.fn().mockReturnValue({
+          frames: [{ time: 100, line: 3, status: "ERROR", error: { message: "InvalidNumberOfArguments" } }],
+          logLines: [],
+          meta: { sourceCode: "rectangle(0, 0, 20, 10)" }
+        })
+      });
+
+      const scenario: VisualScenario = {
+        slug: "finish-wall",
+        name: "Finish off the wall",
+        description: "Add a top layer to the wall!",
+        taskId: "task-1",
+        expectations: jest.fn().mockReturnValue([
+          { pass: false, errorHtml: "The left brick isn't correct." },
+          { pass: false, errorHtml: "The second brick isn't correct." }
+        ])
+      };
+
+      const result = runVisualScenario(
+        scenario,
+        "rectangle(0, 0, 20, 10)",
+        MockExercise as any,
+        "javascript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
+
+      expect(result.status).toBe("fail");
+      expect(result.expects).toHaveLength(1);
+      expect(result.expects[0].errorHtml).not.toContain("brick");
+      expect(result.expects[0].errorHtml).toBe(
+        "Your code hit an error while it was running. Fix the error message above to continue."
+      );
     });
 
     it("should pass when all frames have SUCCESS status and expectations pass", () => {
@@ -278,7 +395,16 @@ describe("runVisualScenario", () => {
         expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }])
       };
 
-      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
+      const result = runVisualScenario(
+        scenario,
+        "move()",
+        MockExercise as any,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("pass");
     });
@@ -294,7 +420,7 @@ describe("runVisualScenario", () => {
 
       const passingCodeCheck: CodeCheck = {
         pass: jest.fn().mockReturnValue(true),
-        errorHtml: "Should not appear"
+        errorKey: "Should not appear"
       };
 
       const scenario: VisualScenario = {
@@ -306,7 +432,16 @@ describe("runVisualScenario", () => {
         codeChecks: [passingCodeCheck]
       };
 
-      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
+      const result = runVisualScenario(
+        scenario,
+        "move()",
+        MockExercise as any,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("fail");
     });
@@ -323,7 +458,7 @@ describe("runVisualScenario", () => {
         randomSeed: 42
       };
 
-      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
+      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter, undefined, {}, {});
 
       expect(mockInterpreter.interpret).toHaveBeenCalledWith(
         "move()",
@@ -343,7 +478,7 @@ describe("runVisualScenario", () => {
         randomSeed: true
       };
 
-      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
+      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter, undefined, {}, {});
 
       expect(mockInterpreter.interpret).toHaveBeenCalledWith(
         "move()",
@@ -362,7 +497,7 @@ describe("runVisualScenario", () => {
         expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }])
       };
 
-      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
+      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter, undefined, {}, {});
 
       expect(mockInterpreter.interpret).toHaveBeenCalledWith(
         "move()",
@@ -398,7 +533,10 @@ describe("runVisualScenario", () => {
         "function draw() {}",
         MockExercise as any,
         "jikiscript",
-        mockInterpreter
+        mockInterpreter,
+        undefined,
+        {},
+        {}
       );
 
       expect(mockInterpreter.evaluateFunction).toHaveBeenCalledWith(
@@ -424,7 +562,7 @@ describe("runVisualScenario", () => {
         expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }])
       };
 
-      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
+      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter, undefined, {}, {});
 
       expect(mockInterpreter.interpret).toHaveBeenCalled();
       expect(mockInterpreter.evaluateFunction).not.toHaveBeenCalled();
@@ -450,7 +588,16 @@ describe("runVisualScenario", () => {
         randomSeed: 99
       };
 
-      runVisualScenario(scenario, "function draw() {}", MockExercise as any, "jikiscript", mockInterpreter);
+      runVisualScenario(
+        scenario,
+        "function draw() {}",
+        MockExercise as any,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(mockInterpreter.evaluateFunction).toHaveBeenCalledWith(
         "function draw() {}",
@@ -481,7 +628,16 @@ describe("runVisualScenario", () => {
         }
       };
 
-      runVisualScenario(scenario, "function draw() {}", MockExercise as any, "jikiscript", mockInterpreter);
+      runVisualScenario(
+        scenario,
+        "function draw() {}",
+        MockExercise as any,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(mockInterpreter.evaluateFunction).toHaveBeenCalledWith(
         "function draw() {}",
@@ -504,7 +660,16 @@ describe("runVisualScenario", () => {
         // No codeChecks property
       };
 
-      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
+      const result = runVisualScenario(
+        scenario,
+        "move()",
+        MockExercise as any,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("pass");
       expect(result.expects).toHaveLength(1);
@@ -520,7 +685,16 @@ describe("runVisualScenario", () => {
         codeChecks: []
       };
 
-      const result = runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter);
+      const result = runVisualScenario(
+        scenario,
+        "move()",
+        MockExercise as any,
+        "jikiscript",
+        mockInterpreter,
+        undefined,
+        {},
+        {}
+      );
 
       expect(result.status).toBe("pass");
       expect(result.expects).toHaveLength(1);

@@ -6,18 +6,18 @@ import type { VisualExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
   {
-    name: "rollTo",
-    signature: "rollTo(x)",
-    description: "Rolls the ball to position **x**.",
-    examples: ["rollTo(30)", "rollTo(50)"],
-    category: "Movement"
+    name: "moveTo",
+    signature: "moveTo(x)",
+    description: "functions.moveTo.description",
+    examples: ["moveTo(30)", "moveTo(50)"],
+    category: "functions.moveTo.category"
   },
   {
     name: "getShotLength",
     signature: "getShotLength()",
-    description: "Returns the **length of the shot** — how many units the ball travels to the right.",
+    description: "functions.getShotLength.description",
     examples: ["let shotLength = getShotLength()"],
-    category: "Game"
+    category: "functions.getShotLength.category"
   }
 ];
 
@@ -28,7 +28,7 @@ const exerciseDefinition: VisualExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["scenarios", "using-functions-with-inputs"]
+  conceptSlugs: ["scenarios", "using-functions-with-inputs", "using-functions-with-return-values"]
 };
 
 export default exerciseDefinition;

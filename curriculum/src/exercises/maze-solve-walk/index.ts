@@ -8,26 +8,23 @@ const functions: FunctionInfo[] = [
   {
     name: "walk",
     signature: "walk(steps)",
-    description:
-      "Moves the character **forward by the given number of steps** in the current direction. Each step moves one cell. The character will stop and report an error if it hits a wall.",
+    description: "functions.walk.description",
     examples: ["walk(3)", "walk(1)"],
-    category: "Movement"
+    category: "functions.walk.category"
   },
   {
     name: "turnLeft",
     signature: "turnLeft()",
-    description:
-      "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
+    description: "functions.turnLeft.description",
     examples: ["turnLeft()"],
-    category: "Movement"
+    category: "functions.turnLeft.category"
   },
   {
     name: "turnRight",
     signature: "turnRight()",
-    description:
-      "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
+    description: "functions.turnRight.description",
     examples: ["turnRight()"],
-    category: "Movement"
+    category: "functions.turnRight.category"
   }
 ];
 

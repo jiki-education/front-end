@@ -9,41 +9,32 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches students to define their own functions by extracting repeated code.
-    Students take the working maze-solving algorithm from the previous exercise and create a
-    turnAround() function that encapsulates the "turn left twice" logic. Key concepts: function
-    definition, code organization, abstraction, and reusability.
+    This exercise has the student extract the "turn left twice" logic from the previous exercise's
+    maze solver into their own turnAround() function. The stub is the student's own solver carried
+    forward from maze-automated-solve (via a placeholder), so its exact shape varies per student.
+    Every maze (two in the main task, one in the bonus) contains dead ends that force the final
+    else branch to run.
   `,
 
   tasks: {
-    "straight-path": {
+    "turn-around": {
       description: `
-        Students just need to move forward repeatedly. This is the simplest case — no turning needed.
-        The repeat loop handles running the code until the maze is solved.
-        Common mistake: overcomplicating it — just move() is enough for this task.
+        Define turnAround() at the top of the code (no inputs, no return, just two turnLeft() calls),
+        then call it in the final else block. Diagnose in order: (1) is turnAround defined at all?
+        (2) does its body call turnLeft() twice? (3) is it actually CALLED in the else, rather than
+        two inline turnLeft() calls? Two code checks enforce this: turnAround must be DEFINED and must
+        be CALLED outside its own definition, so inlining turnLeft() twice fails even though it would
+        otherwise solve the maze. Common mistakes: leaving the body empty, adding parameters when none
+        are needed, or forgetting to replace the inline turns with the new call.
       `
     },
-    "turn-left": {
+    "bonus-short-solution": {
       description: `
-        Students add the first conditional: if canTurnLeft() is true, turn left then move.
-        This introduces the priority system — always check left first.
-        Common mistake: forgetting to move() after turning.
-      `
-    },
-    "turn-right": {
-      description: `
-        Students add else if branches for canMove() (go straight) and canTurnRight() (turn right).
-        The forks scenario tests that left is prioritized over right.
-        Common mistake: checking right before straight, or not using else if (checking all independently).
-      `
-    },
-    "turn-around-task": {
-      description: `
-        This is the key task for this exercise. Students must define a turnAround() function at the top
-        of their code that calls turnLeft() twice, then use it in the else block. The code check verifies
-        they actually defined the function rather than just using turnLeft() twice inline.
-        Common mistakes: forgetting to define the function before the loop, not calling the function
-        in the else block, or adding parameters when none are needed.
+        Same code as the main task, but a code check caps the program at 17 lines. The reference
+        solution is exactly 17: the 15-line solver, plus the 4-line turnAround() function, minus the
+        2 lines saved by replacing the 3-line inline else body (turnLeft/turnLeft/move) with a single
+        turnAround() call. If a student is over the limit, look for leftover inline turns alongside
+        the new function, or an unnecessary move() left in the else block.
       `
     }
   }

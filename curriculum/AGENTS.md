@@ -87,6 +87,8 @@ gh pr create --title "Add new exercise: [name]" --body "Description of the exerc
 
 Also, when creating branches do NOT use slashes in the branch names (e.g. use username-xxx not username/xxx).
 
+**Never use `git add -A` (or `git add .`) unless you are certain the only changes present are your own.** The monorepo often contains untracked generated artifacts (e.g. `app/public/static/hashed/`) that are unrelated to your task. Stage files explicitly by path, and check `git status` before committing.
+
 ## Project Structure
 
 ```
@@ -102,7 +104,7 @@ curriculum/
 │   ├── Exercise.ts           # Base Exercise class and Animation interface
 │   ├── index.ts              # Main package exports
 │   ├── concepts/             # Concept definitions
-│   │   └── [concept-name]/   # Concept folders with config.json and en.md
+│   │   └── [concept-name]/   # Concept folders with config.json and source.md
 │   ├── exercises/            # Individual exercise implementations
 │   │   ├── index.ts          # Exercise registry
 │   │   ├── types.ts          # Shared exercise types (ExerciseCore + ExerciseDefinition)
@@ -112,7 +114,7 @@ curriculum/
 │   │       ├── scenarios.ts  # Exercise scenarios/levels
 │   │       ├── metadata.json # Slug, levelId, hints
 │   │       ├── instructions/ # Locale-specific instruction files
-│   │       │   └── en.md     # English instructions (frontmatter: title, description)
+│   │       │   └── source.md # English instructions (frontmatter: title, description)
 │   │       ├── stub.*        # Starter code per language (.javascript, .py, .jiki)
 │   │       └── solution.*    # Solution code per language
 │   └── levels/               # Learning level definitions (language features)
@@ -327,7 +329,7 @@ Exercise background images and visual assets live in `images/exercise-assets/[ex
 2. In the exercise's `scenarios.ts`, call `setupBackground("/static/images/exercise-assets/[exercise-name]/image.png")`
 3. Do NOT use external URLs (e.g., `https://assets.exercism.org/bootcamp/...`) — all assets must be local
 
-**Images in instructions (`instructions/en.md`):**
+**Images in instructions (`instructions/source.md`):**
 
 Use an `<img>` tag with consistent styling — do NOT use markdown `![]()` syntax. Example:
 
@@ -388,6 +390,14 @@ A `VisualScenario` can declare `isolatedChecks: IsolatedCheck[]` — hidden re-r
 - `secretConstants` is honoured by the JavaScript interpreter; student `let`/`const`/reassignment of those names at the top level is silently ignored. Inner scopes can still shadow.
 - `IsolatedCheck.expectations` is spread into the scenario's overall expects, not collapsed — you control failure surface area by what you return.
 - Don't use isolated checks for exercises with randomness unless the RNG is seeded — silent re-runs assume deterministic programs.
+
+### Continuation Stubs (Carry Forward the Previous Exercise's Code)
+
+Some exercises are a direct continuation of an earlier one — the student's job is to _refactor_ or _extend_ code they already wrote, not start from a blank canvas. In these cases the stub should be the student's finished code from the previous exercise, so they open the editor already looking at their working solution and only have to make the new change.
+
+**Pattern:** copy the previous exercise's `solution.*` files verbatim into this exercise's `stub.*` files (all three languages). Keep them in sync if the previous exercise's solution changes.
+
+**Canonical example:** `src/exercises/maze-turn-around/stub.javascript` is the previous maze-solving exercise's solution; the student extracts a `turnAround()` function from it. `src/exercises/battle-procedures/stub.javascript` is the `scroll-and-shoot` solution; the student extracts a `shootIfAlienAbove()` function from it. Read `maze-turn-around/stub.javascript` before authoring a continuation stub.
 
 ## Integration with Frontend
 
@@ -453,9 +463,9 @@ Validates all TypeScript without emitting files.
 
 ## Repository Links
 
-- **Frontend**: https://github.com/exercism/jiki-fe
+- **Monorepo**: https://github.com/jiki-education/front-end (the frontend, content, curriculum, and interpreters all live here)
 - **Overview**: ../overview (Strategic documentation)
-- **This Repository**: https://github.com/exercism/jiki-curriculum (assumed)
+- **This package**: the `curriculum/` directory of the monorepo above
 
 ## Contact for Questions
 

@@ -7,30 +7,51 @@ const functions: FunctionInfo[] = [
   {
     name: "getOutfit",
     signature: "getOutfit()",
-    description: 'Returns the **outfit** the person is wearing (e.g. `"ballgown"`, `"suit"`, `"denim"`).',
+    description: "functions.getOutfit.description",
     examples: ["let outfit = getOutfit()"],
-    category: "Information"
+    category: "functions.getOutfit.category"
+  },
+  {
+    name: "getAge",
+    signature: "getAge()",
+    description: "functions.getAge.description",
+    examples: ["let age = getAge()"],
+    category: "functions.getAge.category"
+  },
+  {
+    name: "onGuestList",
+    signature: "onGuestList()",
+    description: "functions.onGuestList.description",
+    examples: ["let listed = onGuestList()"],
+    category: "functions.onGuestList.category"
   },
   {
     name: "offerChampagne",
     signature: "offerChampagne()",
-    description: "Offers the person a glass of champagne.",
+    description: "functions.offerChampagne.description",
     examples: ["offerChampagne()"],
-    category: "Action"
+    category: "functions.offerChampagne.category"
+  },
+  {
+    name: "offerCanapes",
+    signature: "offerCanapes()",
+    description: "functions.offerCanapes.description",
+    examples: ["offerCanapes()"],
+    category: "functions.offerCanapes.category"
   },
   {
     name: "letIn",
     signature: "letIn()",
-    description: "Lets the person into the venue.",
+    description: "functions.letIn.description",
     examples: ["letIn()"],
-    category: "Action"
+    category: "functions.letIn.category"
   },
   {
     name: "turnAway",
     signature: "turnAway()",
-    description: "Turns the person away from the venue.",
+    description: "functions.turnAway.description",
     examples: ["turnAway()"],
-    category: "Action"
+    category: "functions.turnAway.category"
   }
 ];
 
@@ -38,6 +59,7 @@ const exerciseDefinition: VisualExerciseCore = {
   type: "visual",
   ...metadata,
   ExerciseClass,
+  conceptSlugs: ["logical-and", "logical-or", "if", "else-if", "else"],
   tasks,
   scenarios,
   functions

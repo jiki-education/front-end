@@ -13,4 +13,12 @@ const markedFn = jest.fn((content) => {
 markedFn.parse = markedFn;
 markedFn.setOptions = jest.fn();
 
+// Inline-only variant: handles inline markdown but no block-level (lists, paragraphs).
+markedFn.parseInline = jest.fn((content) => {
+  return content
+    .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>") // **bold**
+    .replace(/`(.*?)`/g, "<code>$1</code>") // `code`
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>'); // [text](url)
+});
+
 module.exports = { marked: markedFn };

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import toast from "react-hot-toast";
+import { toastError } from "@/lib/toast";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { storeReturnTo, getPostAuthRedirect } from "@/lib/auth/return-to";
 import type { LoginResponse } from "@/types/auth";
@@ -80,7 +80,7 @@ export function useAuth(): UseAuthReturn {
 
   const handleSessionExpired = () => {
     setTwoFactorState({ type: "none" });
-    toast.error("Your session has expired. Please sign in again.");
+    toastError("auth.sessionExpired");
   };
 
   let TwoFactorForm: React.ReactNode | null = null;

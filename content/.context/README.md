@@ -17,7 +17,7 @@ The content package manages all blog posts and articles for the Jiki platform. C
 ### Adding New Content
 
 1. Create slug directory in `src/posts/blog/` or `src/posts/articles/`
-2. Add `en.md` file (required) with frontmatter and content
+2. Add `source.md` file (required, the authored English source) with frontmatter and content
 3. Optionally add translations (`hu.md`, etc.)
 4. Add cover image to `images/blog/` or `images/articles/`
 5. Run `pnpm test` to validate

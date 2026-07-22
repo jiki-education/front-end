@@ -3,11 +3,12 @@
 // passed around, controls the state, etc.
 
 import type { EditorView } from "@codemirror/view";
-import type { ExerciseDefinition, Language, ReadonlyRange } from "@jiki/curriculum";
+import type { Frame } from "@jiki/interpreters/shared";
+import type { Messages as InterpreterMessages } from "@jiki/interpreters";
+import type { ExerciseDefinition, Language, ReadonlyRange, Messages as CurriculumMessages } from "@jiki/curriculum";
 import { getLanguageFeatures } from "@jiki/curriculum";
 import { debounce } from "lodash";
 import type { StoreApi } from "zustand/vanilla";
-import { BreakpointManager } from "./orchestrator/BreakpointManager";
 import { EditorManager } from "./orchestrator/EditorManager";
 import { loadCodeMirrorContent } from "./localStorage";
 import { createOrchestratorStore } from "./orchestrator/store";
@@ -21,7 +22,6 @@ import type { ExerciseContext, InformationWidgetData, OrchestratorStore, Underli
 class Orchestrator {
   readonly store: StoreApi<OrchestratorStore>; // Made readonly instead of private for methods to access
   private readonly timelineManager: TimelineManager;
-  private readonly breakpointManager: BreakpointManager;
   private readonly testSuiteManager: TestSuiteManager;
   private readonly taskManager: TaskManager;
   private editorManager: EditorManager | null = null;
@@ -29,27 +29,46 @@ class Orchestrator {
   exercise: ExerciseDefinition;
   private readonly language: Language;
   readonly contentHash: string;
+  // The active locale's interpreter message catalog, injected into every interpreter
+  // run so diagnostics resolve in the student's locale. Supplied by useExerciseLoader
+  // for the real page (any language); tests pass an empty dict, which resolves to
+  // each interpreter's `system` default.
+  private readonly interpreterLocaleMessages: InterpreterMessages;
+  // The active locale's curriculum message dict (logicError/errorHtml/code-check
+  // strings), injected into each exercise instance before it runs. Supplied by
+  // useExerciseLoader (fetched in the blocking load); tests default to an empty
+  // dict, which resolves keys as-is.
+  private readonly exerciseLocaleMessages: CurriculumMessages;
 
   constructor(
     exercise: ExerciseDefinition,
     language: Language,
     context: ExerciseContext,
-    contentHash: string = "",
-    onGoToDashboard?: () => void,
+    interpreterLocaleMessages: InterpreterMessages,
+    exerciseLocaleMessages: CurriculumMessages,
+    contentHash: string,
+    onGoToDashboard: () => void,
     serverData?: { code: string; storedAt?: string }
   ) {
     this.exercise = exercise;
     this.language = language;
     this.contentHash = contentHash;
+    this.interpreterLocaleMessages = interpreterLocaleMessages;
+    this.exerciseLocaleMessages = exerciseLocaleMessages;
 
     // Create instance-specific store with exercise, language, and context
     this.store = createOrchestratorStore(exercise, language, context, onGoToDashboard);
 
     // Initialize managers
     this.timelineManager = new TimelineManager(this.store);
-    this.breakpointManager = new BreakpointManager(this.store);
     this.taskManager = new TaskManager(this.store);
-    this.testSuiteManager = new TestSuiteManager(this.store, this.taskManager, context);
+    this.testSuiteManager = new TestSuiteManager(
+      this.store,
+      this.interpreterLocaleMessages,
+      this.exerciseLocaleMessages,
+      this.taskManager,
+      context
+    );
     // EditorManager will be created lazily when setupEditor is called
 
     // Initialize exercise data — merges the server's last submission (if any)
@@ -242,13 +261,43 @@ class Orchestrator {
     return this.timelineManager.getNearestCurrentFrame();
   }
 
-  // Breakpoint navigation methods - delegate to BreakpointManager
+  // Frame navigation methods
+  goToPrevFrame() {
+    this.moveToFrame(this.store.getState().prevFrame);
+  }
+
+  goToNextFrame() {
+    this.moveToFrame(this.store.getState().nextFrame);
+  }
+
+  goToFirstFrame() {
+    const frames = this.store.getState().currentTest?.frames ?? [];
+    this.moveToFrame(frames[0]);
+  }
+
+  goToLastFrame() {
+    const frames = this.store.getState().currentTest?.frames ?? [];
+    this.moveToFrame(frames[frames.length - 1]);
+  }
+
+  // Breakpoint navigation methods
   goToPrevBreakpoint() {
-    this.breakpointManager.goToPrevBreakpoint();
+    this.moveToFrame(this.store.getState().prevBreakpointFrame);
   }
 
   goToNextBreakpoint() {
-    this.breakpointManager.goToNextBreakpoint();
+    this.moveToFrame(this.store.getState().nextBreakpointFrame);
+  }
+
+  // Shared navigation behaviour for every stepper (frame + breakpoint) and the
+  // scrubber keyboard shortcuts: pause playback, jump to the frame, and surface
+  // the information widget so they all behave identically.
+  private moveToFrame(frame: Frame | undefined) {
+    this.pause();
+    if (frame) {
+      this.setCurrentTestTime(frame.time);
+    }
+    this.showInformationWidget();
   }
 
   private readonly lintCodeDebounced = debounce((code: string) => {
@@ -265,17 +314,15 @@ class Orchestrator {
         ...this.exercise.interpreterOptions
       };
 
-      let availableFunctions: Array<{ name: string; func: any; description: string }>;
-      if (this.exercise.type === "visual") {
-        const tempExercise = new this.exercise.ExerciseClass();
-        availableFunctions = tempExercise.getExternalFunctions(this.language);
-      } else {
-        availableFunctions = this.exercise.ExerciseClass.getExternalFunctions(this.language);
-      }
+      // Instantiate the exercise (uniform for visual and IO) to get its functions.
+      const tempExercise = new this.exercise.ExerciseClass();
+      const availableFunctions: Array<{ name: string; func: any; description: string }> =
+        tempExercise.getExternalFunctions(this.language);
 
       const result = interpreter.compile(code, {
         externalFunctions: availableFunctions,
-        languageFeatures
+        languageFeatures,
+        localeMessages: this.interpreterLocaleMessages
       });
       this.store.getState().setLintErrors(result.lintErrors);
     } catch {
@@ -285,7 +332,7 @@ class Orchestrator {
 
   async runCode() {
     // Get the current code from the editor
-    const currentCode = this.getCurrentEditorValue() || this.store.getState().code;
+    const currentCode = this.getCurrentEditorValue() || this.store.getState().code || "";
 
     // Delegate to TestSuiteManager with exercise definition
     // This automatically plays the first scenario.
@@ -305,8 +352,8 @@ class Orchestrator {
     return this.exercise;
   }
 
-  isProject(): boolean {
-    return this.store.getState().context.type === "project";
+  isChallenge(): boolean {
+    return this.store.getState().context.type === "challenge";
   }
 
   // Test result processing methods - delegate to TestSuiteManager
@@ -337,18 +384,29 @@ class Orchestrator {
     return this.exercise.readonlyRanges?.[this.language] ?? [];
   }
 
-  // Returns the saved readonly ranges from localStorage if present (so the
-  // locked lines stay in sync with the saved code after refresh), otherwise
-  // falls back to the exercise's default ranges. Malformed entries (from a
-  // corrupted or older-version localStorage payload) are rejected so they
-  // can't crash CodeMirror's doc.line() at editor mount.
+  // Returns the readonly ranges to apply when the editor mounts.
+  //
+  // The exercise's default ranges are defined against the *stub's* line
+  // numbers, so they are only correct while the editor still holds the stub.
+  // Once a snapshot is saved to localStorage the code may be student-edited,
+  // and the stored ranges are the only ones that have been mapped through those
+  // edits. Applying stub-relative defaults on top of edited code would risk
+  // locking lines the student wrote, so:
+  //   - no saved snapshot  -> pristine stub, use the exercise defaults
+  //   - saved snapshot     -> use its ranges, or no locks if they are
+  //                           missing/malformed (never guess with defaults)
+  // Malformed entries (from a corrupted or older-version payload) are rejected
+  // so they can't crash CodeMirror's doc.line() at editor mount.
   getStoredOrDefaultReadonlyRanges(): ReadonlyRange[] {
     const stored = loadCodeMirrorContent(this.exercise.slug);
-    const raw = stored.success ? stored.data?.readonlyRanges : undefined;
+    if (!stored.success) {
+      return this.getDefaultReadonlyRanges();
+    }
+    const raw = stored.data?.readonlyRanges;
     if (Array.isArray(raw) && raw.every(isValidReadonlyRange)) {
       return raw;
     }
-    return this.getDefaultReadonlyRanges();
+    return [];
   }
 
   // Clean up method to destroy the orchestrator and its managers

@@ -1,0 +1,126 @@
+{
+  "checks": {
+    "fastAttack": {
+      "should": "Annalyn <strong>should</strong> make a fast attack here, but she didn't. The knight is asleep, so she can strike before he wakes.",
+      "shouldNot": "Annalyn <strong>should not</strong> make a fast attack here. The knight is awake, so attacking would get her caught.",
+      "tooMany": "Annalyn <strong>should</strong> only fast attack once here, but she did it {{count}} times."
+    },
+    "spy": {
+      "should": "Annalyn <strong>should</strong> spy here, but she didn't. At least one person in the camp is awake, so there's something to watch.",
+      "shouldNot": "Annalyn <strong>should not</strong> spy here. Everyone is asleep, so there's nothing to learn.",
+      "tooMany": "Annalyn <strong>should</strong> only spy once here, but she did it {{count}} times."
+    },
+    "signal": {
+      "should": "Annalyn <strong>should</strong> signal the prisoner here, but she didn't. The prisoner is awake and the archer is asleep, so the signal will get through.",
+      "shouldNot": "Annalyn <strong>should not</strong> signal the prisoner here. Either the prisoner is asleep or the archer is awake, so signalling would fail.",
+      "tooMany": "Annalyn <strong>should</strong> only signal the prisoner once here, but she did it {{count}} times."
+    },
+    "free": {
+      "should": "Annalyn <strong>should</strong> free the prisoner here, but she didn't. She can do it here without getting caught.",
+      "shouldNot": "Annalyn <strong>should not</strong> try to free the prisoner here. She'd get caught.",
+      "tooMany": "Annalyn <strong>should</strong> only free the prisoner once here, but she did it {{count}} times."
+    }
+  },
+  "tasks": {
+    "planTheRescue": {
+      "name": "Plan the rescue",
+      "description": "For each camp, perform every action Annalyn can safely take: fast attack if the knight is asleep, spy if at least one of them is awake, signal the prisoner if the prisoner is awake and the archer asleep, and free the prisoner via either the behaving-dog route or the sneaky route."
+    }
+  },
+  "scenarios": {
+    "allAsleepNaughtyDog": {
+      "name": "Everyone asleep, dog misbehaving",
+      "description": "The whole camp is asleep, but Annalyn's dog is misbehaving so it's no help."
+    },
+    "allAsleepBehavingDog": {
+      "name": "Everyone asleep, dog behaving",
+      "description": "The whole camp is asleep and Annalyn's dog is behaving itself."
+    },
+    "knightAwakeNaughtyDog": {
+      "name": "Only the knight is awake",
+      "description": "The knight is on watch while the archer and prisoner sleep. The dog is misbehaving."
+    },
+    "prisonerAwakeNaughtyDog": {
+      "name": "Only the prisoner is awake",
+      "description": "Both kidnappers sleep while the prisoner lies awake. The dog is misbehaving — the sneaky route is open."
+    },
+    "archerAndPrisonerAwakeBehavingDog": {
+      "name": "Archer and prisoner awake",
+      "description": "The archer is on watch and the prisoner is awake too. The dog is behaving."
+    },
+    "allAwakeBehavingDog": {
+      "name": "Everyone awake, dog behaving",
+      "description": "The whole camp is wide awake. Even with the dog behaving, freeing isn't safe."
+    }
+  },
+  "hints": {
+    "checkCampState": {
+      "question": "How do I check things about the camp?",
+      "answer": "You can check four things, each with a function that returns `true` or `false`:\n\n- Is the knight awake? `knightIsAwake()`\n- Is the archer awake? `archerIsAwake()`\n- Is the prisoner awake? `prisonerIsAwake()`\n- Is the dog behaving? `dogIsBehaving()`"
+    },
+    "performActions": {
+      "question": "How do I make Annalyn do each of the actions?",
+      "answer": "There are four actions, each its own function:\n\n- Make a fast attack: `fastAttack()`\n- Spy on the camp: `spy()`\n- Signal the prisoner: `signalPrisoner()`\n- Free the prisoner: `freePrisoner()`"
+    },
+    "knightAsleep": {
+      "question": "A fast attack needs the knight to be ASLEEP. How do I check that?",
+      "answer": "There's no `isAsleep()` function, but asleep is just the opposite of awake. Use `!` to flip a condition. Imagine we want to tell someone to stop eating when they're full, but we only have an `isHungry()` function. We can reverse it:\n\n```javascript\nif (!isHungry()) {\n  stopEating()\n}\n```\n\nApply the same idea to check the knight is asleep."
+    },
+    "spyAnyoneAwake": {
+      "question": "Spying works if AT LEAST ONE of them is awake. How do I write that?",
+      "answer": "Use `||` (or) between checks so the whole condition is `true` if any single one is `true`. For example, this runs when someone is hungry, thirsty, or both:\n\n```javascript\nif (isHungry() || isThirsty()) {\n  rest()\n}\n```"
+    },
+    "signalBothConditions": {
+      "question": "Signalling needs TWO things to be true at once. How do I combine them?",
+      "answer": "Use `&&` (and) so both sides must be `true`. For example, this only runs when someone is hungry AND thirsty:\n\n```javascript\nif (isHungry() && isThirsty()) {\n  drink()\n}\n```"
+    },
+    "twoWaysToSucceed": {
+      "question": "An action has two completely separate ways to succeed. How do I handle that?",
+      "answer": "Either way is enough on its own, so you have two options.\n\nThe first is to write a separate `if` for each way, both doing the same action:\n\n```javascript\nif (isHungry() && hasSnack()) {\n  eat()\n}\nif (isThirsty() && hasSnack()) {\n  eat()\n}\n```\n\nThe second is to combine both ways into a single `if` with `||`, wrapping each way's checks in brackets so the `&&` parts group together before the `||` splits them:\n\n```javascript\nif ((isHungry() && hasSnack()) || (isThirsty() && hasSnack())) {\n  eat()\n}\n```\n\nWork out each way's requirements on its own first, then use whichever style you find clearer."
+    }
+  },
+  "describers": {
+    "knightIsAwake": "checked whether the knight is awake",
+    "archerIsAwake": "checked whether the archer is awake",
+    "prisonerIsAwake": "checked whether the prisoner is awake",
+    "dogIsBehaving": "checked whether Annalyn's dog is behaving itself",
+    "fastAttack": "made a fast attack on the knight",
+    "spy": "spied on the group",
+    "signalPrisoner": "signalled the prisoner",
+    "freePrisoner": "freed the prisoner"
+  },
+  "functions": {
+    "knightIsAwake": {
+      "description": "Returns `true` if the knight is awake, `false` if he is asleep.",
+      "category": "Information"
+    },
+    "archerIsAwake": {
+      "description": "Returns `true` if the archer is awake, `false` if she is asleep.",
+      "category": "Information"
+    },
+    "prisonerIsAwake": {
+      "description": "Returns `true` if the prisoner is awake, `false` if they are asleep.",
+      "category": "Information"
+    },
+    "dogIsBehaving": {
+      "description": "Returns `true` if Annalyn's (somewhat naughty) dog is behaving itself.",
+      "category": "Information"
+    },
+    "fastAttack": {
+      "description": "Makes a fast attack on the knight.",
+      "category": "Action"
+    },
+    "spy": {
+      "description": "Spies on the group.",
+      "category": "Action"
+    },
+    "signalPrisoner": {
+      "description": "Signals the prisoner using bird sounds.",
+      "category": "Action"
+    },
+    "freePrisoner": {
+      "description": "Sneaks into the camp to free the prisoner.",
+      "category": "Action"
+    }
+  }
+}

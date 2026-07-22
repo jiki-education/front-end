@@ -27,7 +27,7 @@
 .chatInputAvatarLine {
     position: absolute;
     bottom: 36px;
-    left: 50%;
+    inset-inline-start: 50%;
     transform: translateX(-50%);
     width: 1px;
     height: 25px;
@@ -55,7 +55,6 @@
     border-radius: 8px;
     font-size: 15px;
     line-height: 1.5;
-    font-family: "Poppins", sans-serif;
     transition: border-color 0.2s;
     background: white;
     resize: none;
@@ -72,10 +71,19 @@
     color: var(--color-gray-400);
 }
 
+.chatInputCharCount {
+    position: absolute;
+    bottom: 12px;
+    inset-inline-start: 12px;
+    font-size: 12px;
+    color: var(--color-gray-400);
+    z-index: 10;
+}
+
 .chatInputHint {
     position: absolute;
     bottom: 8px;
-    right: 8px;
+    inset-inline-end: 8px;
     color: white;
     display: flex;
     align-items: center;

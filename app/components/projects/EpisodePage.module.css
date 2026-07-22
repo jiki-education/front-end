@@ -1,0 +1,41 @@
+.backLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--color-blue-600);
+    text-decoration: none;
+    margin-bottom: 16px;
+}
+
+.backLinkProject {
+    font-weight: 600;
+}
+
+.backLink:hover {
+    text-decoration: underline;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--color-gray-900);
+    margin-bottom: 8px;
+}
+
+.excerpt {
+    font-size: 18px;
+    color: var(--color-gray-600);
+    margin-bottom: 24px;
+}
+
+.transcript {
+    margin-top: 32px;
+}
+
+.transcript img {
+    border: 2px solid var(--color-blue-400);
+    padding: 3px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 5px var(--color-blue-300);
+}

@@ -9,38 +9,25 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches the repeat loop by having students refactor a working but
-    verbose maze solution. The stub contains 28 lines of sequential move(), turnLeft(),
-    and turnRight() calls. Students must replace consecutive move() groups with repeat
-    blocks to get the code under 22 lines.
+    This exercise allows a student to explore the repeat loop by refactoring a verbose, working
+    maze solution down to a line target (22 in JS) without changing behaviour.
 
-    The maze is a snake pattern with corridors of length 6, 2, 1, 1, 4, 3, and 5 moves.
-    Groups of 3 or more moves should be wrapped in repeat blocks. The group of 2 and
-    single moves should be left as individual calls since wrapping them would not save lines.
+    Non-obvious context the student can't see:
+    - The corridors (groups of consecutive move() calls) are of length 6, 2, 1, 1, 4, 3, 5.
+    - repeat(2) is NOT shorter than two move() calls, so the group of 2 and the single moves
+      should stay as individual calls. Only groups of 3+ benefit from a repeat.
+    - A code check bands the feedback: 2+ lines over usually means runs of move() still need
+      collapsing; exactly 1 over usually means a too-short repeat that costs more than it saves.
   `,
 
   tasks: {
     "solve-maze-with-repeat": {
       description: `
-        Students need to:
-        1. Identify groups of consecutive move() calls in the stub
-        2. Count how many moves are in each group (6, 2, 1, 1, 4, 3, 5)
-        3. Replace groups of 3+ with repeat(N) { move(); } blocks
-        4. Leave single move() calls and the group of 2 as-is
-        5. Keep the turn functions (turnRight, turnLeft) between the repeat blocks
-
         Common mistakes:
-        - Putting turn functions inside the repeat block
-        - Wrong count for the repeat (e.g., repeat(5) instead of repeat(6))
-        - Wrapping the group of 2 in a repeat, which actually adds a line in JavaScript
-        - Removing or reordering turn calls when refactoring
-
-        Teaching strategy:
-        - Point out the groups of consecutive move() calls
-        - Ask: "How many times does move() repeat before the next turn?"
-        - Show the repeat syntax: repeat(n) { ... }
-        - Emphasize that turns stay outside the loops
-        - Explain that repeat(2) is not shorter than two individual calls
+        - Putting turn functions inside the repeat block (turns must stay between loops)
+        - Off-by-one repeat counts (e.g. repeat(5) instead of repeat(6))
+        - Wrapping the group of 2 in a repeat, which actually adds a line
+        - Removing or reordering turn calls while refactoring
       `
     }
   }

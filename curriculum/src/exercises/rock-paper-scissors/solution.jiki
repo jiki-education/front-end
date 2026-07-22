@@ -1,0 +1,19 @@
+set yuki_choice to get_yuki_choice()
+set ando_choice to get_ando_choice()
+
+set result to "Ando"
+
+if yuki_choice == ando_choice do
+  change result to "tie"
+
+else if yuki_choice == "rock" and ando_choice == "scissors" do
+  change result to "Yuki"
+
+else if yuki_choice == "scissors" and ando_choice == "paper" do
+  change result to "Yuki"
+
+else if yuki_choice == "paper" and ando_choice == "rock" do
+  change result to "Yuki"
+end
+
+announce_result(result)

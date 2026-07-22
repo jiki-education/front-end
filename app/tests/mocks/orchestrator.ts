@@ -14,6 +14,12 @@ export function createMockOrchestrator(): Orchestrator {
     snapToNearestFrame: jest.fn(),
     runCode: jest.fn(),
     getStore: jest.fn(),
+    play: jest.fn(),
+    showInformationWidget: jest.fn(),
+    goToPrevFrame: jest.fn(),
+    goToNextFrame: jest.fn(),
+    goToFirstFrame: jest.fn(),
+    goToLastFrame: jest.fn(),
     goToPrevBreakpoint: jest.fn(),
     goToNextBreakpoint: jest.fn(),
     setCurrentTask: jest.fn()

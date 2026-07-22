@@ -1,10 +1,22 @@
 export const llmMetadata = {
-  description:
-    "The student must move a golf ball into a hole. The ball starts at position 28 and must reach position 88. The only function available is moveTo(position) which moves the ball to the given position. The student needs to use a variable to track the ball's position.",
+  description: `
+    This exercise lets a student combine a loop with a tracked state variable. Unlike
+    the earlier relative roll(), moveTo(position) is absolute, so a smooth animation
+    requires stepping a position variable up one at a time and moving to it each time.
+
+    Anchor steps:
+    1. Initialise a position variable to the start (28).
+    2. In a loop, increment the position by 1.
+    3. Call moveTo(position) each iteration so the ball animates to 88.
+  `,
   tasks: {
     "roll-ball": {
-      description:
-        "Move the ball from position 28 to position 88 using moveTo(position). The student should use a variable to track the ball's position."
+      description: `
+        Non-obvious traps to watch for:
+        - moveTo is absolute, so a single moveTo(88) teleports without animating; the
+          loop must step the variable so the ball appears to roll.
+        - The increment count and start value must line up so the final position lands on 88.
+      `
     }
   }
 };

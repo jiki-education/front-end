@@ -9,10 +9,16 @@ import { ModalBody } from "./SubscriptionCheckoutModal/ModalBody";
 interface SubscriptionCheckoutModalProps {
   clientSecret: string;
   selectedTier: MembershipTier;
+  priorError?: string | null;
   onCancel?: () => void;
 }
 
-export function SubscriptionCheckoutModal({ clientSecret, selectedTier, onCancel }: SubscriptionCheckoutModalProps) {
+export function SubscriptionCheckoutModal({
+  clientSecret,
+  selectedTier,
+  priorError,
+  onCancel
+}: SubscriptionCheckoutModalProps) {
   const handleCancel = () => {
     onCancel?.();
     hideModal();
@@ -60,7 +66,7 @@ export function SubscriptionCheckoutModal({ clientSecret, selectedTier, onCancel
 
   return (
     <CheckoutProvider stripe={stripePromise} options={options}>
-      <ModalBody selectedTier={selectedTier} onCancel={handleCancel} />
+      <ModalBody selectedTier={selectedTier} priorError={priorError} onCancel={handleCancel} />
     </CheckoutProvider>
   );
 }

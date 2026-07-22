@@ -4,6 +4,7 @@ import {
   validateFrontmatter,
   validateAuthors,
   validateNoDuplicateSlugs,
+  validateTestimonials,
   ValidationError
 } from "@/lib/content/validator";
 import type { AuthorRegistry } from "@/lib/content/types";
@@ -14,7 +15,7 @@ const IMAGES_DIR = path.join(__dirname, "..", "..", "..", "..", "content", "imag
 const validAuthors: AuthorRegistry = {
   ihid: {
     name: "Jeremy Walker",
-    avatar: "/images/avatars/ihid.jpg"
+    avatar: "/images/avatars/ihid.webp"
   }
 };
 
@@ -200,5 +201,62 @@ describe("validateNoDuplicateSlugs", () => {
     expect(() => {
       validateNoDuplicateSlugs(["post-1", "post-2", "post-1"]);
     }).toThrow(/duplicate slugs/i);
+  });
+});
+
+describe("validateTestimonials", () => {
+  const validTestimonials = {
+    heading: "What do our students think?",
+    subheading: "Some extracts. <link>Read the full versions here!</link>",
+    primary: { quote: "A great quote", name: "Oleksandra", role: "Coding Newbie", image: "oleksandra.webp" },
+    quotes: [
+      { slug: "fred", name: "Fred", role: "Total Beginner", image: "fred.webp", html: "Great <strong>course</strong>" },
+      { slug: "artigiani", name: "@m_artigiani", role: "", image: "m_artigiani.webp", html: "A game-changer" }
+    ],
+    marquee: ['"Amazing value"', '"Incredibly Fun!"']
+  };
+
+  it("should accept valid testimonials", () => {
+    expect(() => validateTestimonials("en", validTestimonials)).not.toThrow();
+  });
+
+  it("should accept a quote with an empty role", () => {
+    // artigiani intentionally has no role — an empty string must be allowed.
+    expect(() => validateTestimonials("en", validTestimonials)).not.toThrow();
+  });
+
+  it("should reject a non-object", () => {
+    expect(() => validateTestimonials("en", [])).toThrow(ValidationError);
+  });
+
+  it("should reject a missing heading", () => {
+    const { heading: _heading, ...invalid } = validTestimonials;
+    expect(() => validateTestimonials("en", invalid)).toThrow(/heading/);
+  });
+
+  it("should reject a subheading without a <link> span", () => {
+    const invalid = { ...validTestimonials, subheading: "No link here" };
+    expect(() => validateTestimonials("en", invalid)).toThrow(/<link>/);
+  });
+
+  it("should reject a quote missing html", () => {
+    const invalid = {
+      ...validTestimonials,
+      quotes: [{ slug: "fred", name: "Fred", role: "Beginner", image: "fred.webp" }]
+    };
+    expect(() => validateTestimonials("en", invalid)).toThrow(/html/);
+  });
+
+  it("should reject duplicate quote slugs", () => {
+    const invalid = {
+      ...validTestimonials,
+      quotes: [validTestimonials.quotes[0], { ...validTestimonials.quotes[0] }]
+    };
+    expect(() => validateTestimonials("en", invalid)).toThrow(/duplicate/);
+  });
+
+  it("should reject an empty marquee", () => {
+    const invalid = { ...validTestimonials, marquee: [] };
+    expect(() => validateTestimonials("en", invalid)).toThrow(/marquee/);
   });
 });

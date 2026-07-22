@@ -1,0 +1,52 @@
+{
+  "tasks": {
+    "calculateSignPrice": {
+      "name": "Calculate Sign Price",
+      "description": "Write a function that calculates the price of a sign. Each letter costs $12. Spaces are free and should not be counted. Return the result as a formatted string."
+    }
+  },
+  "scenarios": {
+    "simpleWord": {
+      "name": "Simple word",
+      "description": "A single word with no spaces."
+    },
+    "singleLetter": {
+      "name": "Single letter",
+      "description": "A sign with just one letter."
+    },
+    "twoWords": {
+      "name": "Two words",
+      "description": "Two words with a space that should be skipped."
+    },
+    "multipleSpaces": {
+      "name": "Multiple spaces",
+      "description": "Multiple words with several spaces to skip."
+    },
+    "longText": {
+      "name": "Long text",
+      "description": "A longer sign with more letters."
+    },
+    "allSpaces": {
+      "name": "All spaces",
+      "description": "A sign with only spaces has no letters to charge for."
+    }
+  },
+  "hints": {
+    "whatCounting": {
+      "question": "What am I actually counting?",
+      "answer": "Letters. Specifically, anything that isn't a space. So you want a counter that goes up by 1 for each non-space character in the sign text."
+    },
+    "loopCharacters": {
+      "question": "How do I loop through the characters?",
+      "answer": "A for-each loop gives you each character in turn. Inside, an if-statement checks whether it's a space. Only count it if it isn't."
+    },
+    "workOutPrice": {
+      "question": "How do I work out the price?",
+      "answer": "Once the loop ends, multiply your letter count by 12. That's the cost."
+    },
+    "buildResultString": {
+      "question": "How do I build the result string?",
+      "answer": "The price is a number, but the return value is a string. Use `numberToString()` to convert the price to a string, then use concatenation (`+`) or a template string to add any surrounding text the exercise asks for."
+    }
+  }
+}

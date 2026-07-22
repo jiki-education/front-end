@@ -1,5 +1,15 @@
-import type { IsolatedCheck, Language, VisualExercise, VisualScenario, VisualTestExpect } from "@jiki/curriculum";
+import type {
+  IsolatedCheck,
+  Language,
+  Messages as CurriculumMessages,
+  VisualExercise,
+  VisualScenario,
+  VisualTestExpect
+} from "@jiki/curriculum";
+import { createTranslator } from "@jiki/curriculum";
+import { resolveCodeCheckError } from "./resolveCodeCheckError";
 import type { InterpretResult } from "@jiki/interpreters/shared";
+import type { Messages as InterpreterMessages } from "@jiki/interpreters";
 import { AnimationTimeline as AnimationTimelineClass } from "../AnimationTimeline";
 import type { VisualTestResult } from "../test-results-types";
 import type { Interpreter } from "./getInterpreter";
@@ -10,7 +20,9 @@ export function runVisualScenario(
   ExerciseClass: new () => VisualExercise,
   language: Language,
   interpreter: Interpreter,
-  languageFeatures?: Record<string, any>
+  languageFeatures: Record<string, any> | undefined,
+  interpreterLocaleMessages: InterpreterMessages,
+  exerciseLocaleMessages: CurriculumMessages
 ): VisualTestResult {
   // Resolve seed once so the primary run and every isolated run share the same RNG stream.
   const resolvedSeed = scenario.randomSeed === true ? Math.floor(Math.random() * 2 ** 32) : scenario.randomSeed;
@@ -22,16 +34,44 @@ export function runVisualScenario(
     language,
     interpreter,
     languageFeatures,
-    resolvedSeed
+    resolvedSeed,
+    interpreterLocaleMessages,
+    exerciseLocaleMessages
   );
-
-  const isolatedExpects: VisualTestExpect[] = (scenario.isolatedChecks ?? []).flatMap((check) =>
-    runIsolatedCheck(check, scenario, studentCode, ExerciseClass, language, interpreter, languageFeatures, resolvedSeed)
-  );
-
-  const expects = [...primary.expects, ...isolatedExpects];
 
   const hasFrameError = primary.frames.some((f) => f.status === "ERROR");
+
+  // When the student's code throws at runtime, the scenario's expectations are
+  // meaningless (nothing was drawn), and surfacing them produces contradictory
+  // messages like "The left brick isn't correct" alongside the real runtime error.
+  // Suppress them and surface a single message pointing at the actual error on the
+  // timeline, mirroring how runIsolatedCheck already behaves on a frame error.
+  let expects: VisualTestExpect[];
+  if (hasFrameError) {
+    expects = [
+      {
+        pass: false,
+        errorHtml: "Your code hit an error while it was running. Fix the error message above to continue."
+      }
+    ];
+  } else {
+    const isolatedExpects: VisualTestExpect[] = (scenario.isolatedChecks ?? []).flatMap((check) =>
+      runIsolatedCheck(
+        check,
+        scenario,
+        studentCode,
+        ExerciseClass,
+        language,
+        interpreter,
+        languageFeatures,
+        resolvedSeed,
+        interpreterLocaleMessages,
+        exerciseLocaleMessages
+      )
+    );
+    expects = [...primary.expects, ...isolatedExpects];
+  }
+
   const allExpectsPass = expects.every((e) => e.pass) && !hasFrameError;
   const status = allExpectsPass ? (primary.lintErrors.length > 0 ? "lint_warning" : "pass") : "fail";
 
@@ -69,10 +109,16 @@ function executeStudentCode(
   interpreter: Interpreter,
   languageFeatures: Record<string, any> | undefined,
   randomSeed: number | undefined,
+  interpreterLocaleMessages: InterpreterMessages,
+  exerciseLocaleMessages: CurriculumMessages,
   overrides?: { secretConstants?: Record<string, number | string | boolean> }
 ): { exercise: VisualExercise; result: InterpretResult } {
   const exercise = new ExerciseClass();
   exercise.randomSeed = randomSeed;
+
+  // Inject the active-locale message dict before student code runs so the
+  // exercise's logic-error strings (`this.t(...)`) resolve for this locale.
+  exercise.setMessages(exerciseLocaleMessages);
 
   scenario.setup?.(exercise);
 
@@ -81,6 +127,7 @@ function executeStudentCode(
     classes: exercise.getExternalClasses(language),
     languageFeatures: languageFeatures ?? { timePerFrame: 1 },
     randomSeed,
+    localeMessages: interpreterLocaleMessages,
     ...overrides
   };
 
@@ -103,7 +150,9 @@ function runPrimaryCheck(
   language: Language,
   interpreter: Interpreter,
   languageFeatures: Record<string, any> | undefined,
-  randomSeed: number | undefined
+  randomSeed: number | undefined,
+  interpreterLocaleMessages: InterpreterMessages,
+  exerciseLocaleMessages: CurriculumMessages
 ): PrimaryCheckResult {
   const { exercise, result } = executeStudentCode(
     scenario,
@@ -112,18 +161,21 @@ function runPrimaryCheck(
     language,
     interpreter,
     languageFeatures,
-    randomSeed
+    randomSeed,
+    interpreterLocaleMessages,
+    exerciseLocaleMessages
   );
 
   const expects = scenario.expectations(exercise);
 
   if (scenario.codeChecks && scenario.codeChecks.length > 0) {
+    const t = createTranslator(exerciseLocaleMessages);
     for (const check of scenario.codeChecks) {
       try {
         const checkPassed = check.pass(result, language);
         expects.push({
           pass: checkPassed,
-          errorHtml: checkPassed ? undefined : check.errorHtml
+          errorHtml: checkPassed ? undefined : resolveCodeCheckError(check, t)
         });
       } catch (error) {
         expects.push({
@@ -157,7 +209,9 @@ function runIsolatedCheck(
   language: Language,
   interpreter: Interpreter,
   languageFeatures: Record<string, any> | undefined,
-  randomSeed: number | undefined
+  randomSeed: number | undefined,
+  interpreterLocaleMessages: InterpreterMessages,
+  exerciseLocaleMessages: CurriculumMessages
 ): VisualTestExpect[] {
   try {
     // `secretConstants` is the silent-constants hook: the interpreter seeds these in
@@ -171,6 +225,8 @@ function runIsolatedCheck(
       interpreter,
       languageFeatures,
       randomSeed,
+      interpreterLocaleMessages,
+      exerciseLocaleMessages,
       { secretConstants: check.secretConstants }
     );
 

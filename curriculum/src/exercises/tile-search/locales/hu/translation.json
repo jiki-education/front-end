@@ -1,0 +1,60 @@
+{
+  "tasks": {
+    "searchForTile": {
+      "name": "Search for a Tile",
+      "description": "Write a function that checks whether a specific letter tile is in the rack. Return true if found, false if not."
+    }
+  },
+  "scenarios": {
+    "letterFoundAtStart": {
+      "name": "Letter at the start",
+      "description": "The letter is the first tile in the rack."
+    },
+    "letterFoundInMiddle": {
+      "name": "Letter in the middle",
+      "description": "The letter is in the middle of the rack."
+    },
+    "letterFoundAtEnd": {
+      "name": "Letter at the end",
+      "description": "The letter is the last tile in the rack."
+    },
+    "letterNotFound": {
+      "name": "Letter not found",
+      "description": "The letter isn't in the rack."
+    },
+    "emptyRack": {
+      "name": "Empty rack",
+      "description": "An empty rack has no tiles to find."
+    },
+    "duplicateLetters": {
+      "name": "Rack with duplicates",
+      "description": "The letter appears among duplicate tiles."
+    },
+    "singleTileFound": {
+      "name": "Single tile found",
+      "description": "A rack with one tile that matches."
+    },
+    "singleTileNotFound": {
+      "name": "Single tile not found",
+      "description": "A rack with one tile that doesn't match."
+    }
+  },
+  "hints": {
+    "byHand": {
+      "question": "How would I do this by hand?",
+      "answer": "You'd go through the haystack one element at a time, comparing each to the needle. As soon as you found a match you'd stop. If you got to the end without a match, the needle isn't there."
+    },
+    "loopAndCompare": {
+      "question": "How do I loop and compare?",
+      "answer": "A for-each loop gives you each element in turn. Inside, an if-statement compares the current element to the needle."
+    },
+    "returnTrue": {
+      "question": "When should I return true?",
+      "answer": "As soon as you find a match. There's no point checking the remaining elements."
+    },
+    "returnFalse": {
+      "question": "When should I return false?",
+      "answer": "ONLY after the loop has finished without finding a match. A common mistake is putting `return false` inside the loop. That gives up after the very first non-matching element, before you've checked the rest."
+    }
+  }
+}

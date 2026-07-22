@@ -1,0 +1,40 @@
+{
+  "errors": {
+    "positionNotNumber": "position must be a number"
+  },
+  "checks": {
+    "ballNotAtEnd": "The ball didn't reach the hole. It's at position {{ballX}}, but needs to be at position 88.",
+    "missingPositions": "The ball must roll through each position individually, not jump directly to the end."
+  },
+  "tasks": {
+    "rollBall": {
+      "name": "Roll the ball into the hole",
+      "description": "Roll the ball into the hole."
+    }
+  },
+  "scenarios": {
+    "rollBall": {
+      "name": "Roll the ball into the hole",
+      "description": "Roll the ball into the hole."
+    }
+  },
+  "hints": {
+    "dontKnowWhereToStart": {
+      "question": "I don't know where to start",
+      "answer": "The key is to move the ball one step forward each time. You can use a variable to do this. Think about how that might work."
+    },
+    "stillCantFigureItOut": {
+      "question": "I still can't figure it out",
+      "answer": "You want to create a variable to track where the ball is. It should start where it is now, then many times increase by one. Every time it increases you should `moveTo(...)` using the variable as an input."
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "Moves the ball to **position**.",
+      "category": "Movement"
+    }
+  },
+  "describers": {
+    "moveTo": "moved the ball to position ${arg1}"
+  }
+}

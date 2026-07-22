@@ -1,6 +1,5 @@
-import { describe, it, expect, beforeAll, afterAll } from "vitest";
+import { describe, it, expect } from "vitest";
 import { interpret } from "@javascript/interpreter";
-import { changeLanguage } from "@javascript/translator";
 import type { ExternalFunction } from "@shared/interfaces";
 import type { ExecutionContext } from "@javascript/executor";
 import type { TestAugmentedFrame } from "@shared/frames";
@@ -62,14 +61,7 @@ h(f);`;
     expect(errorFrame.error?.context?.name).toBe("f");
   });
 
-  describe("system language", () => {
-    beforeAll(async () => {
-      await changeLanguage("system");
-    });
-    afterAll(async () => {
-      await changeLanguage("en");
-    });
-
+  describe("system language (the default when no locale is injected)", () => {
     it("produces the expected message", () => {
       const code = `function f() {}
 f;`;

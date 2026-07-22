@@ -34,6 +34,14 @@
     background: white;
 }
 
+.hintQuestion code {
+    background: var(--color-purple-100);
+    color: var(--color-purple-700);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 15px;
+}
+
 .hintRevealBtn {
     display: flex;
     align-items: center;
@@ -64,8 +72,8 @@
 .hintConfirmOverlay {
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
     bottom: 0;
     background: var(--color-gray-50);
     border-top: 1px solid var(--color-gray-200);
@@ -122,11 +130,34 @@
     filter: blur(4px);
 }
 
-.hintAnswerContent p {
-    color: #2d3748;
+.hintAnswerContent p,
+.hintAnswerContent li {
+    color: var(--color-gray-700);
     font-size: 15px;
     line-height: 1.6;
+}
+
+.hintAnswerContent p,
+.hintAnswerContent ul,
+.hintAnswerContent ol {
     margin-bottom: 10px;
+}
+
+.hintAnswerContent ul,
+.hintAnswerContent ol {
+    margin-inline-start: 16px;
+}
+
+.hintAnswerContent ul {
+    list-style: disc;
+}
+
+.hintAnswerContent ol {
+    list-style: decimal;
+}
+
+.hintAnswerContent li {
+    margin-bottom: 4px;
 }
 
 .hintAnswerContent > :last-child {
@@ -204,7 +235,7 @@
 .walkthroughPlayBtn {
     position: absolute;
     top: 50%;
-    left: 50%;
+    inset-inline-start: 50%;
     transform: translate(-50%, -50%);
     width: 56px;
     height: 56px;
@@ -220,7 +251,7 @@
         width: 22px;
         height: 22px;
         fill: var(--color-gray-800);
-        margin-left: 3px;
+        margin-inline-start: 3px;
     }
 }
 

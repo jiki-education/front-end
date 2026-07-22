@@ -383,4 +383,40 @@ rectangle(30, 40)`;
       expect(result.assertors.numFunctionCallsInCode("rectangle")).toBe(0);
     });
   });
+
+  describe("assertOperatorUsed", () => {
+    test("returns true when and is used", () => {
+      const result = interpret("set x to true and false");
+      expect(result.assertors.assertOperatorUsed("and")).toBe(true);
+    });
+
+    test("returns false when and is not used", () => {
+      const result = interpret("set x to true or false");
+      expect(result.assertors.assertOperatorUsed("and")).toBe(false);
+    });
+
+    test("returns true when or is used", () => {
+      const result = interpret("set x to true or false");
+      expect(result.assertors.assertOperatorUsed("or")).toBe(true);
+    });
+
+    test("detects operators nested inside if conditions", () => {
+      const code = `if true and false do
+  set x to 1
+end`;
+      const result = interpret(code);
+      expect(result.assertors.assertOperatorUsed("and")).toBe(true);
+    });
+
+    test("returns false when no operators are used", () => {
+      const result = interpret("set x to 5");
+      expect(result.assertors.assertOperatorUsed("and")).toBe(false);
+      expect(result.assertors.assertOperatorUsed("or")).toBe(false);
+    });
+
+    test("returns true on parse error (defensive)", () => {
+      const result = interpret("set set set");
+      expect(result.assertors.assertOperatorUsed("and")).toBe(true);
+    });
+  });
 });

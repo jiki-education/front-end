@@ -3,24 +3,24 @@
   "levelId": "conditionals-and-state",
   "hints": [
     {
-      "question": "Where do I start? This feels like a lot.",
-      "answer": "Break it down. Get the laser moving from side to side first, ignoring the shooting. Once movement works, add the shooting logic."
+      "question": "hints.whereDoIStart.question",
+      "answer": "hints.whereDoIStart.answer"
     },
     {
-      "question": "How do I track where the laser is?",
-      "answer": "Keep a variable for the laser's position. Update it each loop iteration as you call `moveLeft()` or `moveRight()`."
+      "question": "hints.trackLaserPosition.question",
+      "answer": "hints.trackLaserPosition.answer"
     },
     {
-      "question": "How do I know when to turn around?",
-      "answer": "Track a direction variable (e.g. `1` for right, `-1` for left). When the position hits the left or right boundary, flip the direction. This is the same bounce pattern from Rainbow Ball."
+      "question": "hints.whenToTurnAround.question",
+      "answer": "hints.whenToTurnAround.answer"
     },
     {
-      "question": "When should I call `shoot()`?",
-      "answer": "Before calling `shoot()`, check `isAlienAbove()`. Only shoot if it returns `true`, otherwise you'll waste ammo and lose."
+      "question": "hints.whenToShoot.question",
+      "answer": "hints.whenToShoot.answer"
     },
     {
-      "question": "The laser keeps overheating. What do I do?",
-      "answer": "Don't shoot every iteration. Move at least once between shots so the canon has time to cool down."
+      "question": "hints.laserOverheating.question",
+      "answer": "hints.laserOverheating.answer"
     }
   ]
 }

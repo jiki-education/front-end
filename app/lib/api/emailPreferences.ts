@@ -6,21 +6,17 @@
  */
 
 import { api } from "./client";
+import type { EmailPreferences } from "@/lib/notifications/config";
 
-export interface EmailPreferences {
-  newsletters: boolean;
-  event_emails: boolean;
-  milestone_emails: boolean;
-  activity_emails: boolean;
-}
+export type { EmailPreferences };
 
 interface EmailPreferencesResponse {
-  preferences: EmailPreferences;
+  email_preferences: EmailPreferences;
 }
 
 export async function getEmailPreferences(token: string): Promise<EmailPreferences> {
   const response = await api.get<EmailPreferencesResponse>(`/external/email_preferences/${token}`, undefined, false);
-  return response.data.preferences;
+  return response.data.email_preferences;
 }
 
 export async function updateEmailPreference(token: string, key: string, value: boolean): Promise<EmailPreferences> {
@@ -30,7 +26,7 @@ export async function updateEmailPreference(token: string, key: string, value: b
     undefined,
     false
   );
-  return response.data.preferences;
+  return response.data.email_preferences;
 }
 
 export async function updateEmailPreferences(
@@ -43,7 +39,7 @@ export async function updateEmailPreferences(
     undefined,
     false
   );
-  return response.data.preferences;
+  return response.data.email_preferences;
 }
 
 export async function unsubscribeAll(token: string): Promise<EmailPreferences> {
@@ -53,7 +49,7 @@ export async function unsubscribeAll(token: string): Promise<EmailPreferences> {
     undefined,
     false
   );
-  return response.data.preferences;
+  return response.data.email_preferences;
 }
 
 export async function subscribeAll(token: string): Promise<EmailPreferences> {
@@ -63,5 +59,5 @@ export async function subscribeAll(token: string): Promise<EmailPreferences> {
     undefined,
     false
   );
-  return response.data.preferences;
+  return response.data.email_preferences;
 }

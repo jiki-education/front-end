@@ -1,7 +1,8 @@
-import { type ExecutionContext, type ExternalFunction, type Shared, isNumber } from "@jiki/interpreters";
+import { type ExecutionContext, type Shared, isNumber } from "@jiki/interpreters";
 import { VisualExercise } from "../../VisualExercise";
 import { fireFireworks } from "../../effects/fireworks";
 import "../../effects/fireworks.css";
+import type { AvailableFunction } from "../../types";
 
 export default class GolfExercise extends VisualExercise {
   protected get slug() {
@@ -13,6 +14,7 @@ export default class GolfExercise extends VisualExercise {
   ballY: number = 75;
   fireworksFired: boolean = false;
   shotLength: number = 0;
+  visitedPositions: number[] = [];
   protected moveDuration = 15;
 
   constructor() {
@@ -21,31 +23,32 @@ export default class GolfExercise extends VisualExercise {
     this.populateView();
   }
 
-  availableFunctions: ExternalFunction[] = [
+  availableFunctions: AvailableFunction[] = [
     {
       name: "roll_right",
       func: this.rollRight.bind(this),
-      description: "rolled the ball one unit to the right"
+      descriptionKey: "describers.rollRight"
     },
     {
-      name: "roll_to",
-      func: this.rollTo.bind(this),
-      description: "rolled the ball to the given position"
+      name: "move_to",
+      func: this.moveTo.bind(this),
+      descriptionKey: "describers.moveTo"
     },
     {
       name: "get_shot_length",
       func: this.getShotLength.bind(this),
-      description: "retrieved the shot length"
+      descriptionKey: "describers.getShotLength"
     },
     {
       name: "fire_fireworks",
       func: this.fireFireworks.bind(this),
-      description: "fired off celebratory fireworks"
+      descriptionKey: "describers.fireFireworks"
     }
   ];
 
   rollRight(executionCtx: ExecutionContext) {
     this.ballX += 1;
+    this.visitedPositions.push(this.ballX);
     this.addAnimation({
       targets: `#${this.view.id} .ball`,
       offset: executionCtx.getCurrentTimeInMs(),
@@ -57,14 +60,15 @@ export default class GolfExercise extends VisualExercise {
     executionCtx.fastForward(this.moveDuration);
   }
 
-  rollTo(executionCtx: ExecutionContext, x: Shared.JikiObject, y?: Shared.JikiObject) {
+  moveTo(executionCtx: ExecutionContext, x: Shared.JikiObject, y?: Shared.JikiObject) {
     if (!isNumber(x)) {
-      return executionCtx.logicError("x must be a number");
+      return executionCtx.logicError(this.t("errors.xNotNumber"));
     }
     this.ballX = x.value;
+    this.visitedPositions.push(this.ballX);
     if (y !== undefined) {
       if (!isNumber(y)) {
-        return executionCtx.logicError("y must be a number");
+        return executionCtx.logicError(this.t("errors.yNotNumber"));
       }
       this.ballY = y.value;
     }

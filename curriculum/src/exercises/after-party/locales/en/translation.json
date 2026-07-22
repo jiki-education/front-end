@@ -1,0 +1,60 @@
+{
+  "tasks": {
+    "checkGuestList": {
+      "name": "Check the Guest List",
+      "description": "Write a function that checks if a person is on the guest list by their first name. A person is on the list if any name on the list starts with their first name (followed by a space or end of string)."
+    },
+    "bonusSingleNames": {
+      "name": "Single Name Celebrities",
+      "description": "Handle celebrities who only have one name, like Cher. Make sure not to accidentally match partial names."
+    }
+  },
+  "scenarios": {
+    "emptyList": {
+      "name": "Empty register",
+      "description": "No-one's allowed in when the list is empty."
+    },
+    "nameMissing": {
+      "name": "Brad's turned away",
+      "description": "The name's not on the list."
+    },
+    "namePresent": {
+      "name": "Brad's allowed in",
+      "description": "The name's on the list."
+    },
+    "similarName": {
+      "name": "Close, but nope",
+      "description": "The name isn't on the list - Bradley is not Brad."
+    },
+    "doubleBarrelled": {
+      "name": "A dutchman",
+      "description": "The name's on the list, but it's hyphenated."
+    },
+    "cher": {
+      "name": "Cher's in town",
+      "description": "Some people only have one name."
+    },
+    "cheryl": {
+      "name": "Getting tough now",
+      "description": "Are Cheryl Crow and Cher friends? Doesn't matter - Cheryl is not Cher."
+    }
+  },
+  "hints": {
+    "approachChecking": {
+      "question": "How do I approach checking whether a name is on a list?",
+      "answer": "Imagine doing it by hand. You'd read down the list, and for each entry decide whether it matches what you're looking for. Code works the same way. Loop through the names one at a time."
+    },
+    "helperFunctions": {
+      "question": "What helper functions might make this easier?",
+      "answer": "A `length()` function (to know how long a string is) and a `startsWith()` function (to check if a string begins with certain characters) would make the matching much simpler. Try writing those first."
+    },
+    "whatIsMatching": {
+      "question": "What does 'matching' actually mean here?",
+      "answer": "A name matches if it starts with the first name followed by a space (e.g. 'Andy Smith' for Andy), OR if it's exactly the first name on its own (for single-name celebrities like 'Cher'). Just checking 'starts with Andy' would wrongly match 'Andrew' too."
+    },
+    "returnTrueOrFalse": {
+      "question": "When should I return true vs false?",
+      "answer": "Return `true` as soon as you find a match. There's no need to keep looking. Only return `false` once you've checked every name and none matched."
+    }
+  }
+}

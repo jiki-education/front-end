@@ -10,7 +10,7 @@ export default class PlantTheFlowersExercise extends FlowerPlantingExercise {
     {
       name: "plant",
       func: this.plant.bind(this),
-      description: "planted a flower at position ${arg1}"
+      descriptionKey: "describers.plant"
     }
   ];
 }

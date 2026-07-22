@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import type { Task, TaskProgress } from "@jiki/curriculum";
 import type { Orchestrator } from "../lib/Orchestrator";
 import { useOrchestratorStore } from "../lib/orchestrator/store";
@@ -11,11 +12,12 @@ interface TasksViewProps {
 }
 
 export default function TasksView({ tasks, orchestrator, className = "" }: TasksViewProps) {
+  const t = useTranslations("codingExercise.tasksView");
   const { taskProgress, completedTasks, currentTaskId } = useOrchestratorStore(orchestrator);
   if (!tasks || tasks.length === 0) {
     return (
       <div className={`p-4 ${className}`}>
-        <p className="text-sm text-gray-500 italic">No tasks available for this exercise.</p>
+        <p className="text-sm text-gray-500 italic">{t("empty")}</p>
       </div>
     );
   }
@@ -26,7 +28,7 @@ export default function TasksView({ tasks, orchestrator, className = "" }: Tasks
 
   return (
     <div className={`p-4 ${className}`}>
-      <ul className="space-y-3">
+      <ul className="space-y-12">
         {tasks.map((task, index) => {
           const progress = taskProgress.get(task.id);
           const isCompleted = completedTasks.has(task.id);
@@ -34,7 +36,7 @@ export default function TasksView({ tasks, orchestrator, className = "" }: Tasks
           const status = progress?.status || "not-started";
 
           return (
-            <li key={task.id} className="flex items-start gap-3">
+            <li key={task.id} className="flex items-start gap-12">
               <TaskStatusIndicator
                 index={index}
                 status={status}
@@ -44,7 +46,7 @@ export default function TasksView({ tasks, orchestrator, className = "" }: Tasks
               />
               <div
                 className={`flex-1 cursor-pointer transition-all hover:opacity-80 ${
-                  isCurrent ? "bg-blue-50 border-l-4 border-blue-400 -mx-2 px-2 py-2 rounded-r shadow-sm" : ""
+                  isCurrent ? "bg-blue-50 border-s-4 border-blue-400 -mx-2 px-2 py-2 rounded-e shadow-sm" : ""
                 }`}
                 onClick={() => handleTaskClick(task.id)}
               >
@@ -60,7 +62,9 @@ export default function TasksView({ tasks, orchestrator, className = "" }: Tasks
                   >
                     {task.name}
                     {task.bonus && (
-                      <span className="ml-2 px-2 py-0.5 text-xs bg-yellow-100 text-yellow-700 rounded">Bonus</span>
+                      <span className="ms-2 px-2 py-0.5 text-xs bg-yellow-100 text-yellow-700 rounded">
+                        {t("bonus")}
+                      </span>
                     )}
                   </p>
                   {progress && progress.totalScenarios > 0 && (
@@ -69,12 +73,12 @@ export default function TasksView({ tasks, orchestrator, className = "" }: Tasks
                     </span>
                   )}
                 </div>
-                {task.description && <p className="text-xs text-gray-500 mt-1">{task.description}</p>}
+                {task.description && <p className="text-xs text-gray-500 mt-4">{task.description}</p>}
                 {progress && status === "in-progress" && (
                   <div className="mt-2">
-                    <div className="w-full bg-gray-200 rounded-full h-1">
+                    <div className="w-full bg-gray-200 rounded-full h-4">
                       <div
-                        className="bg-blue-500 h-1 rounded-full transition-all duration-300"
+                        className="bg-blue-500 h-4 rounded-full transition-all duration-300"
                         style={{
                           width: `${progress.totalScenarios > 0 ? (progress.passedScenarios.length / progress.totalScenarios) * 100 : 0}%`
                         }}

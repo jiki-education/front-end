@@ -8,26 +8,23 @@ const functions: FunctionInfo[] = [
   {
     name: "move",
     signature: "move()",
-    description:
-      "Moves the character **one step forward** in the current direction. The character will only move if the target position is not blocked by a wall.",
+    description: "functions.move.description",
     examples: ["move()"],
-    category: "Movement"
+    category: "functions.move.category"
   },
   {
     name: "turnLeft",
     signature: "turnLeft()",
-    description:
-      "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
+    description: "functions.turnLeft.description",
     examples: ["turnLeft()"],
-    category: "Movement"
+    category: "functions.turnLeft.category"
   },
   {
     name: "turnRight",
     signature: "turnRight()",
-    description:
-      "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
+    description: "functions.turnRight.description",
     examples: ["turnRight()"],
-    category: "Movement"
+    category: "functions.turnRight.category"
   }
 ];
 

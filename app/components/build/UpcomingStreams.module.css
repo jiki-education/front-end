@@ -1,0 +1,85 @@
+.box {
+  background: var(--color-blue-50);
+  padding: 16px 20px;
+  border-radius: 12px;
+}
+
+.heading {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-gray-700);
+  margin-bottom: 16px;
+}
+
+.streamsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.streamsItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.streamsItemBullet {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-red-500);
+  margin-top: 7px;
+}
+
+.streamsItemBody {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.streamsProjectTitle {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-gray-900);
+}
+
+.streamDate {
+  font-size: 14px;
+  color: var(--color-gray-500);
+}
+
+.streamsTba {
+  font-size: 14px;
+  color: var(--color-gray-400);
+  font-style: italic;
+}
+
+.subscribeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 16px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: var(--color-blue-600);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background: var(--color-blue-700);
+  }
+}
+
+.subscribeIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}

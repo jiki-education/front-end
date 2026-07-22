@@ -29,7 +29,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px 40px;
-    text-align: left;
+    text-align: start;
     max-width: 680px;
     margin: 0 auto 32px auto;
 }
@@ -85,8 +85,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding-left: 32px;
-    border-left: 1px solid var(--color-gray-200);
+    padding-inline-start: 32px;
+    border-inline-start: 1px solid var(--color-gray-200);
 }
 
 .premiumUpsellPrice {

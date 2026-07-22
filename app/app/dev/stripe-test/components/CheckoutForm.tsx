@@ -2,16 +2,16 @@
 
 import { useState } from "react";
 import { useCheckout, PaymentElement } from "@stripe/react-stripe-js/checkout";
-import { getPricingTier } from "@/lib/pricing";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 import type { MembershipTier } from "@/lib/pricing";
+import { DEV_TIER_DISPLAY } from "../tiers";
 
 export function CheckoutForm({ tier, onCancel }: { tier: MembershipTier; onCancel: () => void }) {
   const [message, setMessage] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const checkoutState = useCheckout();
-  const pricingTier = getPricingTier(tier);
+  const pricingTier = DEV_TIER_DISPLAY[tier];
 
   if (checkoutState.type === "error") {
     return (
@@ -59,7 +59,7 @@ export function CheckoutForm({ tier, onCancel }: { tier: MembershipTier; onCance
             <p className="font-medium">{pricingTier.name} Plan</p>
             <p className="text-sm text-gray-600">{pricingTier.description}</p>
           </div>
-          <div className="text-right">
+          <div className="text-end">
             <p className="text-2xl font-bold">
               <PremiumPrice interval="monthly" />
             </p>

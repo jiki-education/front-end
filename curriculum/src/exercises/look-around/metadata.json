@@ -3,20 +3,20 @@
   "levelId": "make-your-own-functions",
   "hints": [
     {
-      "question": "Where do I even start when the program won't run at all?",
-      "answer": "Define `canTurnLeft()`, `canTurnRight()`, and `canMove()` at the top of your code, each just returning `false` for now. The program will then run and you can replace the bodies one at a time."
+      "question": "hints.start.question",
+      "answer": "hints.start.answer"
     },
     {
-      "question": "How do I find out what is in a given direction?",
-      "answer": "Use the new `look(direction)` function. Pass `\"left\"`, `\"right\"`, or `\"ahead\"` and it returns a string like `\"empty\"`, `\"wall\"`, `\"fire\"`, or `\"poop\"`."
+      "question": "hints.findDirection.question",
+      "answer": "hints.findDirection.answer"
     },
     {
-      "question": "Which results mean it is safe to go that way?",
-      "answer": "Anything that is not `\"wall\"`, `\"fire\"`, or `\"poop\"` is fine. So `look(\"ahead\") !== \"wall\" && look(\"ahead\") !== \"fire\" && look(\"ahead\") !== \"poop\"` is what `canMove` should return."
+      "question": "hints.safeResults.question",
+      "answer": "hints.safeResults.answer"
     },
     {
-      "question": "I am repeating the same logic in three functions. How do I avoid that?",
-      "answer": "Write one helper, e.g. `isSafe(direction)`, that does the `look` and the comparisons. Then `canMove` returns `isSafe(\"ahead\")`, `canTurnLeft` returns `isSafe(\"left\")`, and `canTurnRight` returns `isSafe(\"right\")`."
+      "question": "hints.avoidRepetition.question",
+      "answer": "hints.avoidRepetition.answer"
     }
   ]
 }

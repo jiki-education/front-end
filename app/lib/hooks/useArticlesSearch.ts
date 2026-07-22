@@ -5,7 +5,7 @@ import { getSearchIndex } from "@/lib/api/content-search";
 
 interface SearchIndex {
   index: lunr.Index;
-  articles: Array<{ slug: string; title: string; excerpt: string }>;
+  items: Array<{ slug: string; title: string; excerpt: string }>;
 }
 
 interface UseArticlesSearchResult {
@@ -32,7 +32,7 @@ export function useArticlesSearch(locale: string): UseArticlesSearchResult {
     try {
       const data = await getSearchIndex(locale);
       const index = lunr.Index.load(data.index);
-      indexRef.current = { index, articles: data.articles };
+      indexRef.current = { index, items: data.items };
       return indexRef.current;
     } finally {
       setIsLoading(false);

@@ -4,9 +4,8 @@ import type { WeatherSymbolsPart2Exercise } from "./Exercise";
 export const tasks = [
   {
     id: "draw-weather" as const,
-    name: "Draw the weather scene",
-    description:
-      "Create a function called drawWeather that takes a list of weather elements and draws the correct scene.",
+    name: "tasks.drawWeather.name",
+    description: "tasks.drawWeather.description",
     hints: [],
     requiredScenarios: ["sunny", "dull", "hopeful", "miserable", "rainbow-territory", "exciting", "snowboarding-time"],
     bonus: false
@@ -16,8 +15,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "sunny",
-    name: "Sunny",
-    description: "Draw a sunny day with just the sun.",
+    name: "scenarios.sunny.name",
+    description: "scenarios.sunny.description",
     taskId: "draw-weather",
     functionCall: { name: "draw_weather", args: [["sun"]] },
     expectations(exercise) {
@@ -25,27 +24,27 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasCircleAt(50, 50, 25),
-          errorHtml: "The sun isn't correct."
+          errorHtml: ex.t("checks.theSunIsntCorrect")
         },
         {
           pass: !ex.hasCircleAt(75, 30, 15),
-          errorHtml: "You have two suns!"
+          errorHtml: ex.t("checks.youHaveTwoSuns")
         },
         {
           pass: !ex.hasEllipseAt(30, 70, 3, 5),
-          errorHtml: "There shouldn't be rain."
+          errorHtml: ex.t("checks.thereShouldntBeRain")
         },
         {
           pass: !ex.hasCircleAt(30, 70, 5),
-          errorHtml: "There shouldn't be snow."
+          errorHtml: ex.t("checks.thereShouldntBeSnow")
         }
       ];
     }
   },
   {
     slug: "dull",
-    name: "Dull",
-    description: "Draw a dull day with just clouds.",
+    name: "scenarios.dull.name",
+    description: "scenarios.dull.description",
     taskId: "draw-weather",
     functionCall: { name: "draw_weather", args: [["cloud"]] },
     expectations(exercise) {
@@ -53,43 +52,43 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasRectangleAt(25, 50, 50, 10),
-          errorHtml: "The base of the cloud isn't correct."
+          errorHtml: ex.t("checks.theBaseOfTheCloudIsnt")
         },
         {
           pass: ex.hasCircleAt(25, 50, 10),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(40, 40, 15),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(55, 40, 20),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(75, 50, 10),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: !ex.hasCircleAt(75, 30, 15),
-          errorHtml: "There shouldn't be a sun."
+          errorHtml: ex.t("checks.thereShouldntBeASun")
         },
         {
           pass: !ex.hasEllipseAt(30, 70, 3, 5),
-          errorHtml: "There shouldn't be rain."
+          errorHtml: ex.t("checks.thereShouldntBeRain")
         },
         {
           pass: !ex.hasCircleAt(30, 70, 5),
-          errorHtml: "There shouldn't be snow."
+          errorHtml: ex.t("checks.thereShouldntBeSnow")
         }
       ];
     }
   },
   {
     slug: "hopeful",
-    name: "Hopeful",
-    description: "Draw a hopeful day with sun and cloud.",
+    name: "scenarios.hopeful.name",
+    description: "scenarios.hopeful.description",
     taskId: "draw-weather",
     functionCall: { name: "draw_weather", args: [["sun", "cloud"]] },
     expectations(exercise) {
@@ -97,43 +96,43 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasCircleAt(75, 30, 15),
-          errorHtml: "The sun isn't correct."
+          errorHtml: ex.t("checks.theSunIsntCorrect")
         },
         {
           pass: ex.hasRectangleAt(25, 50, 50, 10),
-          errorHtml: "The base of the cloud isn't correct."
+          errorHtml: ex.t("checks.theBaseOfTheCloudIsnt")
         },
         {
           pass: ex.hasCircleAt(25, 50, 10),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(40, 40, 15),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(55, 40, 20),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(75, 50, 10),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: !ex.hasEllipseAt(30, 70, 3, 5),
-          errorHtml: "There shouldn't be rain."
+          errorHtml: ex.t("checks.thereShouldntBeRain")
         },
         {
           pass: !ex.hasCircleAt(30, 70, 5),
-          errorHtml: "There shouldn't be snow."
+          errorHtml: ex.t("checks.thereShouldntBeSnow")
         }
       ];
     }
   },
   {
     slug: "miserable",
-    name: "Miserable",
-    description: "Draw a miserable day with cloud and rain.",
+    name: "scenarios.miserable.name",
+    description: "scenarios.miserable.description",
     taskId: "draw-weather",
     functionCall: { name: "draw_weather", args: [["cloud", "rain"]] },
     expectations(exercise) {
@@ -141,59 +140,59 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasRectangleAt(25, 50, 50, 10),
-          errorHtml: "The base of the cloud isn't correct."
+          errorHtml: ex.t("checks.theBaseOfTheCloudIsnt")
         },
         {
           pass: ex.hasCircleAt(25, 50, 10),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(40, 40, 15),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(55, 40, 20),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(75, 50, 10),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasEllipseAt(30, 70, 3, 5),
-          errorHtml: "The first rain drop isn't correct."
+          errorHtml: ex.t("checks.theFirstRainDropIsntCorrect")
         },
         {
           pass: ex.hasEllipseAt(50, 70, 3, 5),
-          errorHtml: "The second rain drop isn't correct."
+          errorHtml: ex.t("checks.theSecondRainDropIsntCorrect")
         },
         {
           pass: ex.hasEllipseAt(70, 70, 3, 5),
-          errorHtml: "The third rain drop isn't correct."
+          errorHtml: ex.t("checks.theThirdRainDropIsntCorrect")
         },
         {
           pass: ex.hasEllipseAt(40, 80, 3, 5),
-          errorHtml: "The fourth rain drop isn't correct."
+          errorHtml: ex.t("checks.theFourthRainDropIsntCorrect")
         },
         {
           pass: ex.hasEllipseAt(60, 80, 3, 5),
-          errorHtml: "The fifth rain drop isn't correct."
+          errorHtml: ex.t("checks.theFifthRainDropIsntCorrect")
         },
         {
           pass: !ex.hasCircleAt(75, 30, 15),
-          errorHtml: "The sun shouldn't be peaking out."
+          errorHtml: ex.t("checks.theSunShouldntBePeakingOut")
         },
         {
           pass: !ex.hasCircleAt(30, 70, 5),
-          errorHtml: "There shouldn't be snow."
+          errorHtml: ex.t("checks.thereShouldntBeSnow")
         }
       ];
     }
   },
   {
     slug: "rainbow-territory",
-    name: "Rainbow Territory",
-    description: "Draw rainbow territory with sun, cloud, and rain.",
+    name: "scenarios.rainbowTerritory.name",
+    description: "scenarios.rainbowTerritory.description",
     taskId: "draw-weather",
     functionCall: { name: "draw_weather", args: [["sun", "cloud", "rain"]] },
     expectations(exercise) {
@@ -201,55 +200,55 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasCircleAt(75, 30, 15),
-          errorHtml: "The sun isn't correct."
+          errorHtml: ex.t("checks.theSunIsntCorrect")
         },
         {
           pass: ex.hasRectangleAt(25, 50, 50, 10),
-          errorHtml: "The base of the cloud isn't correct."
+          errorHtml: ex.t("checks.theBaseOfTheCloudIsnt")
         },
         {
           pass: ex.hasCircleAt(25, 50, 10),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(40, 40, 15),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(55, 40, 20),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(75, 50, 10),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasEllipseAt(30, 70, 3, 5),
-          errorHtml: "The first rain drop isn't correct."
+          errorHtml: ex.t("checks.theFirstRainDropIsntCorrect")
         },
         {
           pass: ex.hasEllipseAt(50, 70, 3, 5),
-          errorHtml: "The second rain drop isn't correct."
+          errorHtml: ex.t("checks.theSecondRainDropIsntCorrect")
         },
         {
           pass: ex.hasEllipseAt(70, 70, 3, 5),
-          errorHtml: "The third rain drop isn't correct."
+          errorHtml: ex.t("checks.theThirdRainDropIsntCorrect")
         },
         {
           pass: ex.hasEllipseAt(40, 80, 3, 5),
-          errorHtml: "The fourth rain drop isn't correct."
+          errorHtml: ex.t("checks.theFourthRainDropIsntCorrect")
         },
         {
           pass: ex.hasEllipseAt(60, 80, 3, 5),
-          errorHtml: "The fifth rain drop isn't correct."
+          errorHtml: ex.t("checks.theFifthRainDropIsntCorrect")
         }
       ];
     }
   },
   {
     slug: "exciting",
-    name: "Exciting",
-    description: "Draw an exciting day with cloud and snow.",
+    name: "scenarios.exciting.name",
+    description: "scenarios.exciting.description",
     taskId: "draw-weather",
     functionCall: { name: "draw_weather", args: [["cloud", "snow"]] },
     expectations(exercise) {
@@ -257,59 +256,59 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasRectangleAt(25, 50, 50, 10),
-          errorHtml: "The base of the cloud isn't correct."
+          errorHtml: ex.t("checks.theBaseOfTheCloudIsnt")
         },
         {
           pass: ex.hasCircleAt(25, 50, 10),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(40, 40, 15),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(55, 40, 20),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(75, 50, 10),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(30, 70, 5),
-          errorHtml: "The first snow flake isn't correct."
+          errorHtml: ex.t("checks.theFirstSnowFlakeIsntCorrect")
         },
         {
           pass: ex.hasCircleAt(50, 70, 5),
-          errorHtml: "The second snow flake isn't correct."
+          errorHtml: ex.t("checks.theSecondSnowFlakeIsntCorrect")
         },
         {
           pass: ex.hasCircleAt(70, 70, 5),
-          errorHtml: "The third snow flake isn't correct."
+          errorHtml: ex.t("checks.theThirdSnowFlakeIsntCorrect")
         },
         {
           pass: ex.hasCircleAt(40, 80, 5),
-          errorHtml: "The fourth snow flake isn't correct."
+          errorHtml: ex.t("checks.theFourthSnowFlakeIsntCorrect")
         },
         {
           pass: ex.hasCircleAt(60, 80, 5),
-          errorHtml: "The fifth snow flake isn't correct."
+          errorHtml: ex.t("checks.theFifthSnowFlakeIsntCorrect")
         },
         {
           pass: !ex.hasCircleAt(75, 30, 15),
-          errorHtml: "The sun shouldn't be peaking out."
+          errorHtml: ex.t("checks.theSunShouldntBePeakingOut")
         },
         {
           pass: !ex.hasEllipseAt(30, 70, 3, 5),
-          errorHtml: "There shouldn't be rain."
+          errorHtml: ex.t("checks.thereShouldntBeRain")
         }
       ];
     }
   },
   {
     slug: "snowboarding-time",
-    name: "Snowboarding Time",
-    description: "Draw a perfect day for snowboarding.",
+    name: "scenarios.snowboardingTime.name",
+    description: "scenarios.snowboardingTime.description",
     taskId: "draw-weather",
     functionCall: { name: "draw_weather", args: [["sun", "cloud", "snow"]] },
     expectations(exercise) {
@@ -317,55 +316,55 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.hasCircleAt(75, 30, 15),
-          errorHtml: "The sun isn't correct."
+          errorHtml: ex.t("checks.theSunIsntCorrect")
         },
         {
           pass: ex.hasRectangleAt(25, 50, 50, 10),
-          errorHtml: "The base of the cloud isn't correct."
+          errorHtml: ex.t("checks.theBaseOfTheCloudIsnt")
         },
         {
           pass: ex.hasCircleAt(25, 50, 10),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(40, 40, 15),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(55, 40, 20),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(75, 50, 10),
-          errorHtml: "The fluffy bits of the cloud aren't correct."
+          errorHtml: ex.t("checks.theFluffyBitsOfTheCloud")
         },
         {
           pass: ex.hasCircleAt(30, 70, 5),
-          errorHtml: "The first snow flake isn't correct."
+          errorHtml: ex.t("checks.theFirstSnowFlakeIsntCorrect")
         },
         {
           pass: ex.hasCircleAt(50, 70, 5),
-          errorHtml: "The second snow flake isn't correct."
+          errorHtml: ex.t("checks.theSecondSnowFlakeIsntCorrect")
         },
         {
           pass: ex.hasCircleAt(70, 70, 5),
-          errorHtml: "The third snow flake isn't correct."
+          errorHtml: ex.t("checks.theThirdSnowFlakeIsntCorrect")
         },
         {
           pass: ex.hasCircleAt(40, 80, 5),
-          errorHtml: "The fourth snow flake isn't correct."
+          errorHtml: ex.t("checks.theFourthSnowFlakeIsntCorrect")
         },
         {
           pass: ex.hasCircleAt(60, 80, 5),
-          errorHtml: "The fifth snow flake isn't correct."
+          errorHtml: ex.t("checks.theFifthSnowFlakeIsntCorrect")
         },
         {
           pass: !ex.hasEllipseAt(30, 70, 3, 5),
-          errorHtml: "There shouldn't be rain."
+          errorHtml: ex.t("checks.thereShouldntBeRain")
         },
         {
           pass: !ex.hasCircleAt(50, 50, 25),
-          errorHtml: "There are two suns."
+          errorHtml: ex.t("checks.thereAreTwoSuns")
         }
       ];
     }

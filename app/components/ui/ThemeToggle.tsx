@@ -1,11 +1,13 @@
 "use client";
 
 import { Sun, Moon, Monitor } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useTheme } from "@/lib/theme";
 import type { Theme } from "@/lib/theme";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const t = useTranslations("common.themeToggle");
 
   const handleToggle = () => {
     const themes: Theme[] = ["light", "dark", "system"];
@@ -17,26 +19,26 @@ export function ThemeToggle() {
   const getIcon = () => {
     switch (theme) {
       case "light":
-        return <Sun className="w-5 h-5" />;
+        return <Sun className="w-20 h-20" />;
       case "dark":
-        return <Moon className="w-5 h-5" />;
+        return <Moon className="w-20 h-20" />;
       case "system":
-        return <Monitor className="w-5 h-5" />;
+        return <Monitor className="w-20 h-20" />;
       default:
-        return <Sun className="w-5 h-5" />;
+        return <Sun className="w-20 h-20" />;
     }
   };
 
   const getLabel = () => {
     switch (theme) {
       case "light":
-        return "Switch to dark theme";
+        return t("switchToDark");
       case "dark":
-        return "Switch to system theme";
+        return t("switchToSystem");
       case "system":
-        return "Switch to light theme";
+        return t("switchToLight");
       default:
-        return "Toggle theme";
+        return t("toggle");
     }
   };
 
@@ -50,7 +52,7 @@ export function ThemeToggle() {
     >
       <span className="text-text-secondary hover:text-text-primary transition-colors">{getIcon()}</span>
       <span id="theme-toggle-description" className="sr-only">
-        Current theme: {theme}. Click to cycle between light, dark, and system themes.
+        {t("description", { theme })}
       </span>
     </button>
   );

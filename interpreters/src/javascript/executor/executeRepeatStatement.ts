@@ -6,9 +6,13 @@ import { JSNumber } from "../jikiObjects";
 import { TIME_SCALE_FACTOR } from "../../entry-shared";
 
 export function executeRepeatStatement(executor: Executor, statement: RepeatStatement): void {
-  // No-argument repeat: runs forever until exerciseFinished
+  // No-argument repeat: runs until the exercise signals completion (_exerciseFinished),
+  // bounded only by the infinite-loop guard. Passing a null count makes the loop rely on
+  // guardInfiniteLoop to stop it, so hitting maxTotalLoopIterations raises MaxIterationsReached
+  // rather than silently exiting one iteration before the guard would fire.
+  // (Counted repeats also stop early when the exercise signals completion - see executeLoop.)
   if (statement.count === null) {
-    executeLoop(executor, statement, executor.languageFeatures.maxTotalLoopIterations ?? 10000, null);
+    executeLoop(executor, statement, null, null);
     return;
   }
 
@@ -31,7 +35,7 @@ export function executeRepeatStatement(executor: Executor, statement: RepeatStat
   }
 
   // Validate: must not exceed max iterations
-  const max = executor.languageFeatures.maxTotalLoopIterations ?? 10000;
+  const max = executor.languageFeatures.maxTotalLoopIterations ?? 1000;
   if (count.value > max) {
     executor.error("RepeatCountTooHigh", statement.count.location, {
       value: count.value,
@@ -56,7 +60,7 @@ export function executeRepeatStatement(executor: Executor, statement: RepeatStat
 function executeLoop(
   executor: Executor,
   statement: RepeatStatement,
-  count: number,
+  count: number | null,
   countResult: EvaluationResultExpression | null
 ) {
   // Create a new environment for the repeat loop (same scoping as for loop)
@@ -68,7 +72,7 @@ function executeLoop(
 
     executor.executeLoop(() => {
       let iteration = 0;
-      while (iteration < count) {
+      while (count === null || iteration < count) {
         iteration++;
         executor.guardInfiniteLoop(statement.keyword.location);
 
@@ -84,7 +88,8 @@ function executeLoop(
           executor.executeStatement(statement.body);
         });
 
-        if (countResult == null && executor._exerciseFinished) {
+        // Stop looping once the exercise signals completion (counted or not).
+        if (executor._exerciseFinished) {
           break;
         }
 

@@ -128,7 +128,7 @@ describe("syntax errors", () => {
 
   describe("comment errors", () => {
     test("unterminated multi-line comment", () => {
-      expect(() => parse("/* hello world")).toThrow("Unknown character");
+      expect(() => parse("/* hello world")).toThrow("UnterminatedBlockComment");
     });
 
     test("nested multi-line comments", () => {
@@ -139,19 +139,61 @@ describe("syntax errors", () => {
 
   describe("semicolon errors", () => {
     test("missing semicolon after expression", () => {
-      expect(() => parse("1 + 2", { languageFeatures: { requireSemicolons: true } })).toThrow("MissingSemicolon");
+      expect(() => parse("1 + 2", { languageFeatures: { requireSemicolons: true } })).toThrow("MissingEndOfLine");
     });
 
     test("missing semicolon after string", () => {
-      expect(() => parse('"hello"', { languageFeatures: { requireSemicolons: true } })).toThrow("MissingSemicolon");
+      expect(() => parse('"hello"', { languageFeatures: { requireSemicolons: true } })).toThrow("MissingEndOfLine");
     });
 
     test("missing semicolon after boolean", () => {
-      expect(() => parse("true", { languageFeatures: { requireSemicolons: true } })).toThrow("MissingSemicolon");
+      expect(() => parse("true", { languageFeatures: { requireSemicolons: true } })).toThrow("MissingEndOfLine");
     });
 
     test("multiple statements missing semicolon", () => {
-      expect(() => parse("1; 2", { languageFeatures: { requireSemicolons: true } })).toThrow("MissingSemicolon");
+      expect(() => parse("1; 2", { languageFeatures: { requireSemicolons: true } })).toThrow("MissingEndOfLine");
+    });
+  });
+
+  describe("MissingEndOfLine", () => {
+    test("two expressions on one line", () => {
+      expect(() => parse("1 2")).toThrow("MissingEndOfLine: previous: 1");
+    });
+
+    test("two statements on one line", () => {
+      expect(() => parse("let x = 1 let y = 2")).toThrow("MissingEndOfLine: previous: 1");
+    });
+
+    test("expression followed by identifier", () => {
+      expect(() => parse('"hello" world')).toThrow('MissingEndOfLine: previous: "hello"');
+    });
+
+    test("boolean followed by number", () => {
+      expect(() => parse("true 42")).toThrow("MissingEndOfLine: previous: true");
+    });
+
+    test("call followed by call without semicolon", () => {
+      expect(() => parse("foo() bar()")).toThrow("MissingEndOfLine: previous: )");
+    });
+
+    test("requireSemicolons: bare expression", () => {
+      expect(() => parse("1 + 2", { languageFeatures: { requireSemicolons: true } })).toThrow(
+        "MissingEndOfLine: previous: 2"
+      );
+    });
+
+    test("requireSemicolons: between statements on different lines", () => {
+      expect(() => parse("let x = 1\nlet y = 2", { languageFeatures: { requireSemicolons: true } })).toThrow(
+        "MissingEndOfLine: previous: 1"
+      );
+    });
+
+    test("for-loop missing semicolon after init", () => {
+      expect(() => parse("for (let i = 0 i < 3; i = i + 1) {}")).toThrow("MissingEndOfLine: previous: 0");
+    });
+
+    test("for-loop missing semicolon after condition", () => {
+      expect(() => parse("for (let i = 0; i < 3 i = i + 1) {}")).toThrow("MissingEndOfLine: previous: 3");
     });
   });
 
@@ -191,7 +233,7 @@ describe("syntax errors", () => {
     });
 
     test("missing semicolon after variable declaration", () => {
-      expect(() => parse("let x = 42", { languageFeatures: { requireSemicolons: true } })).toThrow("MissingSemicolon");
+      expect(() => parse("let x = 42", { languageFeatures: { requireSemicolons: true } })).toThrow("MissingEndOfLine");
     });
 
     test("let keyword without declaration", () => {
@@ -303,6 +345,27 @@ describe("syntax errors", () => {
 
     test("boolean without semicolon followed by number", () => {
       expect(() => parse("true 42")).toThrow();
+    });
+  });
+
+  describe("dangling else", () => {
+    test("else if following an if that already has an else", () => {
+      // The first `if` already took the `else`, so this `else if` has no `if`
+      // left to attach to and reaches the statement level on its own.
+      const source = `if (i === 0) {
+  color = "red";
+}
+else {
+  color = "white";
+}
+else if (i === 1 || i === 20) {
+  color = "pink";
+}`;
+      expect(() => parse(source)).toThrow("UnexpectedElseWithoutMatchingIf");
+    });
+
+    test("bare else with no preceding if", () => {
+      expect(() => parse("else {\n  let x = 1;\n}")).toThrow("UnexpectedElseWithoutMatchingIf");
     });
   });
 });

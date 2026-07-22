@@ -7,6 +7,7 @@ export const exercises = {
   "after-party": () => import("./after-party"),
   alphanumeric: () => import("./alphanumeric"),
   anagram: () => import("./anagram"),
+  "annalyns-infiltration": () => import("./annalyns-infiltration"),
   "chop-shop": () => import("./chop-shop"),
   "collatz-conjecture": () => import("./collatz-conjecture"),
   "guest-list": () => import("./guest-list"),
@@ -30,6 +31,8 @@ export const exercises = {
   "finish-wall": () => import("./finish-wall"),
   "fix-wall": () => import("./fix-wall"),
   "structured-house": () => import("./structured-house"),
+  "stripey-fabric": () => import("./stripey-fabric"),
+  checkerboard: () => import("./checkerboard"),
   nucleotide: () => import("./nucleotide"),
   "nucleotide-count": () => import("./nucleotide-count"),
   "meal-prep": () => import("./meal-prep"),
@@ -64,7 +67,7 @@ export const exercises = {
   "cityscape-skyline": () => import("./cityscape-skyline"),
   "rainbow-splodges": () => import("./rainbow-splodges"),
   "digital-clock": () => import("./digital-clock"),
-  "rock-paper-scissors-determine-winner": () => import("./rock-paper-scissors-determine-winner"),
+  "rock-paper-scissors": () => import("./rock-paper-scissors"),
   "maze-automated-solve": () => import("./maze-automated-solve"),
   "maze-turn-around": () => import("./maze-turn-around"),
   "rainbow-ball": () => import("./rainbow-ball"),
@@ -95,7 +98,12 @@ export const exercises = {
   "tic-tac-toe": () => import("./tic-tac-toe"),
   leap: () => import("./leap"),
   "look-around": () => import("./look-around"),
-  "emoji-collector": () => import("./emoji-collector"),
+  // emoji-collector is unregistered for now: its design relies on student code
+  // running after exerciseFinished() (announceEmojis after the maze walk), which
+  // conflicts with exerciseFinished halting execution. It is unpublished (a
+  // challenge unlocked from the Dictionaries level, past the publish cutoff)
+  // and needs a redesign before it can be re-enabled.
+  // "emoji-collector": () => import("./emoji-collector"),
   "boundaried-ball": () => import("./boundaried-ball"),
   "smashing-blocks": () => import("./smashing-blocks"),
   "maze-solve-walk": () => import("./maze-solve-walk"),

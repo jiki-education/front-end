@@ -6,17 +6,17 @@ import type { VisualExerciseCore, FunctionInfo } from "../types";
 const functions: FunctionInfo[] = [
   {
     name: "circle",
-    signature: "circle(cx, cy, radius, color)",
-    description: "Draw a circle with its center at (x, y) with the given radius and color",
+    signature: "circle(centerX, centerY, radius, color)",
+    description: "functions.circle.description",
     examples: ['circle(50, 50, 10, "#ff0000")', "circle(25, 75, 3, hsl(180, 80, 50))"],
-    category: "Drawing Shapes"
+    category: "functions.circle.category"
   },
   {
     name: "hsl",
-    signature: "hsl(hue, saturation, luminosity)",
-    description: "Convert HSL color values (hue 0-360, saturation 0-100, luminosity 0-100) to a hex color string",
+    signature: "hsl(hue, saturation, lightness)",
+    description: "functions.hsl.description",
     examples: ["hsl(0, 80, 50)", "hsl(120, 80, 50)"],
-    category: "Colors"
+    category: "functions.hsl.category"
   }
 ];
 
@@ -26,7 +26,9 @@ const exerciseDefinition: VisualExerciseCore = {
   ExerciseClass,
   tasks,
   scenarios,
-  functions
+  functions,
+  conceptSlugs: ["variables", "updating-variables", "if", "state", "repeat", "random", "hsl"],
+  interpreterOptions: { maxTotalLoopIterations: 1000, repeatDelay: 10 }
 };
 
 export default exerciseDefinition;

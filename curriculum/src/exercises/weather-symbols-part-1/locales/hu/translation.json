@@ -1,0 +1,52 @@
+{
+  "tasks": {
+    "mapDescriptions": {
+      "name": "Map descriptions to components",
+      "description": "Write a function that takes a weather description string and returns the list of drawing components for that weather type."
+    }
+  },
+  "scenarios": {
+    "sunny": {
+      "name": "Sunny",
+      "description": "Sunny days only need a sun."
+    },
+    "dull": {
+      "name": "Dull",
+      "description": "Dull days need clouds."
+    },
+    "miserable": {
+      "name": "Miserable",
+      "description": "Miserable days need clouds and rain."
+    },
+    "hopeful": {
+      "name": "Hopeful",
+      "description": "Hopeful days need sun and cloud."
+    },
+    "rainbowTerritory": {
+      "name": "Rainbow Territory",
+      "description": "Rainbow territory needs sun, cloud, and rain."
+    },
+    "exciting": {
+      "name": "Exciting",
+      "description": "Exciting days need cloud and snow."
+    },
+    "snowboardingTime": {
+      "name": "Snowboarding Time",
+      "description": "Snowboarding time needs sun, cloud, and snow."
+    }
+  },
+  "hints": {
+    "chooseList": {
+      "question": "How do I decide which list to return?",
+      "answer": "Use `if` and `else if` to match the description against each possible weather word. Each branch returns a different list."
+    },
+    "branchReturns": {
+      "question": "What does each branch return?",
+      "answer": "A list of the component strings that make up that weather. For example, sunny might be `[\"sun\"]` while rainy might be `[\"cloud\", \"rain\"]`."
+    },
+    "createList": {
+      "question": "How do I create a list?",
+      "answer": "Square brackets with comma-separated items, like `[\"cloud\", \"rain\"]`. Each item needs quotation marks since they're strings."
+    }
+  }
+}

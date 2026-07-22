@@ -1,0 +1,30 @@
+{
+  "slug": "checkerboard",
+  "levelId": "conditionals-and-state",
+  "hints": [
+    {
+      "question": "hints.wholeGrid.question",
+      "answer": "hints.wholeGrid.answer"
+    },
+    {
+      "question": "hints.anyBoardSize.question",
+      "answer": "hints.anyBoardSize.answer"
+    },
+    {
+      "question": "hints.alternateColours.question",
+      "answer": "hints.alternateColours.answer"
+    },
+    {
+      "question": "hints.whichSquaresGetPieces.question",
+      "answer": "hints.whichSquaresGetPieces.answer"
+    },
+    {
+      "question": "hints.ridgedPiece.question",
+      "answer": "hints.ridgedPiece.answer"
+    },
+    {
+      "question": "hints.rimSize.question",
+      "answer": "hints.rimSize.answer"
+    }
+  ]
+}

@@ -9,31 +9,23 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise teaches using a function return value inside a loop with an accumulator.
-    Students call pan() five times in a repeat loop, adding each result to a running total,
-    then sell the total. This combines return values with the loop + variable updating
-    pattern from previous levels.
+    This exercise lets a student combine a function's return value with the loop +
+    accumulator pattern: a running total starts at 0 and grows by pan()'s return
+    value each iteration, then sell() is called once with the total.
+
+    Anchor steps:
+    1. Initialise a total variable to 0.
+    2. In repeat(5), add pan()'s return value to the total.
+    3. After the loop, call sell() with the total.
   `,
 
   tasks: {
     "pan-and-sell": {
       description: `
-        Students need to:
-        1. Create a variable initialized to 0 to track total nuggets
-        2. Use a repeat(5) loop
-        3. Inside the loop, add the return value of pan() to the total
-        4. After the loop, call sell() with the total
-
-        Common mistakes:
-        - Forgetting to initialize the nuggets variable to 0
-        - Calling pan() without adding the result to the total
-        - Calling sell() inside the loop instead of after it
-        - Not using a loop (calling pan() 5 separate times works but misses the lesson)
-
-        Teaching strategy:
-        - Show the accumulator pattern: variable starts at 0, grows each iteration
-        - Emphasize that pan() gives back a value that must be captured
-        - The loop ties together return values with state updating from previous levels
+        Non-obvious traps to watch for:
+        - pan() returns a value that must be captured into the total; calling it for its
+          side effect alone loses the nuggets.
+        - sell() belongs after the loop, not inside it (otherwise it sells each iteration).
       `
     }
   }

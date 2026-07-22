@@ -2,7 +2,8 @@ import type { JikiObject } from "./jikiObjects";
 import type { LanguageFeatures } from "./interfaces";
 import type { Location } from "../shared/location";
 import { RuntimeError } from "./executor";
-import { translate } from "./translator";
+import { InterpreterInternalError } from "./error";
+import type { Translator } from "../shared/i18n";
 
 interface VariableMetadata {
   value: JikiObject;
@@ -13,20 +14,45 @@ export class Environment {
   private readonly variables: Map<string, VariableMetadata> = new Map();
   public readonly id: string;
   private readonly languageFeatures: LanguageFeatures;
+  // The per-run translate function, shared down the scope chain: a child scope
+  // inherits its enclosing scope's, and the root receives it from the executor.
+  public readonly translate: Translator;
 
   constructor(
     languageFeatures: LanguageFeatures,
-    private readonly enclosing: Environment | null = null
+    private readonly enclosing: Environment | null = null,
+    translate?: Translator
   ) {
     this.id = Math.random().toString(36).substring(7);
     this.languageFeatures = languageFeatures;
+    const resolved = translate ?? enclosing?.translate;
+    if (resolved === undefined) {
+      throw new InterpreterInternalError("Environment created without a translate function or an enclosing scope");
+    }
+    this.translate = resolved;
   }
 
-  public define(name: string, value: JikiObject, location: Location, isConst: boolean = false): void {
+  public define(
+    name: string,
+    value: JikiObject,
+    location: Location,
+    isConst: boolean = false,
+    isDeclaration: boolean = false
+  ): void {
+    // A `let`/`const` declaration cannot reuse a name that already exists in the
+    // same scope. This matches real JavaScript, which raises a SyntaxError for
+    // `let x = 1; let x = 2;`. We also forbid redeclaring an injected built-in
+    // (e.g. `let console = 1`): that is virtually always a student mistake rather
+    // than an intentional shadow, so erroring is more helpful than allowing it.
+    if (isDeclaration && this.variables.has(name)) {
+      const message = this.translate(`error.runtime.VariableAlreadyDeclared`, { name });
+      throw new RuntimeError(message, location, "VariableAlreadyDeclared", { name });
+    }
+
     // Check for shadowing if disabled
     if (!this.languageFeatures.allowShadowing) {
       if (this.isDefinedInEnclosingScope(name)) {
-        const message = translate(`error.runtime.ShadowingDisabled`, { name });
+        const message = this.translate(`error.runtime.ShadowingDisabled`, { name });
         throw new RuntimeError(message, location, "ShadowingDisabled", { name });
       }
     }
@@ -64,7 +90,7 @@ export class Environment {
     if (metadata) {
       // Check if variable is const
       if (metadata.isConst) {
-        const message = translate(`error.runtime.AssignmentToConstant`, { name });
+        const message = this.translate(`error.runtime.AssignmentToConstant`, { name });
         throw new RuntimeError(message, location, "AssignmentToConstant", { name });
       }
       this.variables.set(name, { ...metadata, value });

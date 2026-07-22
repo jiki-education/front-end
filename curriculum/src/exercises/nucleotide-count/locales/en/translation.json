@@ -1,0 +1,54 @@
+{
+  "tasks": {
+    "countNucleotides": {
+      "name": "Count Nucleotides",
+      "description": "Write a function that counts the occurrences of each nucleotide (A, C, G, T) in a DNA strand and returns a dictionary with the counts. Return false if the strand contains invalid characters."
+    }
+  },
+  "scenarios": {
+    "nucleotideCountEmptyStrand": {
+      "name": "Empty strand",
+      "description": "An empty strand should result in all counts being zero."
+    },
+    "nucleotideCountSingleNucleotide": {
+      "name": "Single nucleotide",
+      "description": "A single-character strand should correctly count the nucleotide."
+    },
+    "nucleotideCountRepeatedNucleotide": {
+      "name": "Repeated nucleotide",
+      "description": "A strand with repeated nucleotides should correctly count occurrences."
+    },
+    "nucleotideCountMixedStrand": {
+      "name": "Mixed nucleotide strand",
+      "description": "A strand with multiple nucleotides should correctly count each nucleotide."
+    },
+    "nucleotideCountInvalidNucleotide": {
+      "name": "Invalid nucleotide",
+      "description": "A strand with invalid nucleotides should return false."
+    }
+  },
+  "hints": {
+    "setupCounts": {
+      "question": "How do I set up the counts?",
+      "answer": "Start with a dictionary with all four nucleotides (`A`, `C`, `G`, `T`) set to 0. As you go through the strand, you'll add 1 to whichever count matches."
+    },
+    "validChars": {
+      "question": "How do I know which characters count as valid?",
+      "answer": "The valid characters are exactly the keys of your dictionary. Using `keys()` to get them means you don't have to write the alphabet of nucleotides out twice."
+    },
+    "checkEach": {
+      "question": "How do I check each character?",
+      "answer": "Loop through the strand one character at a time. For each, check whether it's a valid nucleotide before counting it."
+    },
+    "invalidChars": {
+      "question": "What should I do for invalid characters?",
+      "answer": "The spec asks you to return `false` straight away. There's no recovering once you see an invalid character. Just stop and return false."
+    }
+  },
+  "functions": {
+    "keys": {
+      "description": "Returns a list of all keys in the dictionary (provided by level stdlib)",
+      "category": "Dictionary Operations"
+    }
+  }
+}

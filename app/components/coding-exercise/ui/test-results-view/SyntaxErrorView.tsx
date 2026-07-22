@@ -1,7 +1,9 @@
+import { useTranslations } from "next-intl";
 import RunButton from "../RunButton";
 import styles from "./SyntaxErrorView.module.css";
 
 export function SyntaxErrorView() {
+  const t = useTranslations("codingExercise.syntaxError");
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -14,10 +16,8 @@ export function SyntaxErrorView() {
             />
           </svg>
         </div>
-        <h3 className={styles.heading}>Jiki couldn&apos;t understand your code.</h3>
-        <p className={styles.message}>
-          No need to panic. Read and fix the error in the message above, and then run the code again.
-        </p>
+        <h3 className={styles.heading}>{t("heading")}</h3>
+        <p className={styles.message}>{t("message")}</p>
         <div className="flex justify-center mt-16">
           <RunButton />
         </div>

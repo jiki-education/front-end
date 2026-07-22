@@ -8,15 +8,14 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 40px;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     gap: 80px;
     margin-bottom: 40px;
 
     @media (max-width: 900px) {
-        flex-wrap: wrap;
+        grid-template-columns: repeat(2, 1fr);
         gap: 40px;
-        justify-content: flex-start;
     }
 
     @media (max-width: 600px) {
@@ -40,7 +39,7 @@
 .links {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
 
 .link {

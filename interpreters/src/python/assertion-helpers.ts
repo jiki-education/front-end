@@ -1,5 +1,12 @@
 import type { Expression } from "./expression";
-import { CallExpression, SubscriptExpression, AttributeExpression, ListExpression } from "./expression";
+import {
+  CallExpression,
+  SubscriptExpression,
+  AttributeExpression,
+  ListExpression,
+  BinaryExpression,
+  UnaryExpression,
+} from "./expression";
 import {
   type Statement,
   AssignmentStatement,
@@ -139,6 +146,16 @@ export function extractMethodCalls(statements: Statement[]): { methodName: strin
 
 export function countListExpressions(statements: Statement[]): number {
   return extractExpressionsDeep(statements, ListExpression).length;
+}
+
+/**
+ * Extract the lexemes of all operators used in the AST tree.
+ * Covers binary/logical operators (e.g. "and", "+", "==") and unary operators (e.g. "not", "-").
+ */
+export function extractOperators(statements: Statement[]): string[] {
+  const binary = extractExpressionsDeep(statements, BinaryExpression).map(expr => expr.operator.lexeme);
+  const unary = extractExpressionsDeep(statements, UnaryExpression).map(expr => expr.operator.lexeme);
+  return [...binary, ...unary];
 }
 
 export function extractCallExpressionsDeepExcluding(

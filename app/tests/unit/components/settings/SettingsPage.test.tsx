@@ -66,7 +66,7 @@ describe("SettingsPage", () => {
       logout: jest.fn(),
       register: jest.fn(),
       checkAuth: jest.fn()
-    } as any);
+    });
   });
 
   it("renders settings page with account tab by default", () => {

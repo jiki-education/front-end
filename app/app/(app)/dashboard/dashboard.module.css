@@ -2,6 +2,8 @@
     display: flex;
     width: 100%;
     height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
     background-image: url("/static/icons/grid.svg");
     background-repeat: repeat;
     background-size: 20px;
@@ -15,9 +17,13 @@
     overflow-y: auto;
     overflow-x: hidden;
     position: relative;
-    min-height: 100vh;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox, Chrome/Edge 121+ */
+    -ms-overflow-style: none; /* IE and Edge Legacy */
+}
+
+/* Safari and older Chromium */
+.mainContent::-webkit-scrollbar {
+    display: none;
 }
 
 @media (max-width: 1400px) {

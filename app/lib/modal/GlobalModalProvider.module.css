@@ -1,8 +1,8 @@
 .overlay {
     position: fixed;
     top: 0;
-    left: 0;
-    right: 0;
+    inset-inline-start: 0;
+    inset-inline-end: 0;
     bottom: 0;
     background: rgba(15, 23, 42, 0.6);
     display: flex;
@@ -26,7 +26,7 @@
 .videoWalkthroughClose {
     position: absolute;
     top: 14px;
-    right: 24px;
+    inset-inline-end: 24px;
     height: 40px;
     padding: 0 16px 0 12px;
     background: rgba(255, 255, 255, 0.9);
@@ -39,7 +39,6 @@
     gap: 8px;
     transition: all 0.2s ease;
     z-index: 10;
-    font-family: "Poppins", sans-serif;
     font-size: 14px;
     font-weight: 500;
     color: var(--color-gray-600);

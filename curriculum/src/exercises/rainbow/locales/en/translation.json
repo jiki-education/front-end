@@ -1,0 +1,46 @@
+{
+  "checks": {
+    "firstRectangle": "The first rectangle is missing.",
+    "lastRectangle": "The last rectangle is missing.",
+    "minSaturationLightness": "All rectangles should have saturation and lightness of at least 20.",
+    "uniqueColors": "There are not 100 different colored rectangles.",
+    "hueRed": "There should be a rectangle with a hue close to 0 (red).",
+    "huePurple": "There should be a rectangle with a hue close to 300 (purple)."
+  },
+  "tasks": {
+    "drawRainbow": {
+      "name": "Draw the rainbow",
+      "description": "Draw 100 vertical bars across the canvas, each with a different hue to create a rainbow effect."
+    }
+  },
+  "scenarios": {
+    "drawRainbow": {
+      "name": "Draw the rainbow",
+      "description": "Paint 100 beautiful rectangles to create a rainbow."
+    }
+  },
+  "hints": {
+    "hundredRectangles": {
+      "question": "Do I have to draw 100 different rectangles?",
+      "answer": "Yes, but not by writing `rectangle(...)` 100 times! Think about what we do when we have repetitive code."
+    },
+    "colorIntoRectangle": {
+      "question": "How do I put the color into the rectangle",
+      "answer": "The `hsl(...)` returns a color string. You can then pass that color string into the `rectangle(...)` function as you've done previously."
+    },
+    "hueRange": {
+      "question": "How do I get the hue to go from 0 to 300?",
+      "answer": "There are 100 lines, the first should have a hue of 0. Then for each we need line, we need to increase that a little - so the second line might have a hue of 3, then third might have a hue of 6 etc. Eventually we'll get to 300."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Draw a rectangle at position (left, top) with the given width, height, and color",
+      "category": "Drawing Shapes"
+    },
+    "hsl": {
+      "description": "Convert HSL color values (hue 0-360, saturation 0-100, lightness 0-100) to a color string",
+      "category": "Colors"
+    }
+  }
+}

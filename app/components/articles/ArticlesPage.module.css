@@ -13,8 +13,8 @@
 .pageContent {
     width: 100%;
     max-width: 1300px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-inline-start: auto;
+    margin-inline-end: auto;
     padding: 40px 5%;
 }
 

@@ -3,20 +3,20 @@
   "levelId": "using-functions",
   "hints": [
     {
-      "question": "How do I draw a circle on the canvas?",
-      "answer": "Call `circle(cx, cy, radius)` where `cx` and `cy` are the center coordinates, and `radius` is how big it is."
+      "question": "hints.howToDrawCircle.question",
+      "answer": "hints.howToDrawCircle.answer"
     },
     {
-      "question": "Where should the circles be positioned horizontally?",
-      "answer": "All three circles share the same horizontal center, so `cx` is `50` for each (the canvas is `100` wide)."
+      "question": "hints.circlesHorizontalPosition.question",
+      "answer": "hints.circlesHorizontalPosition.answer"
     },
     {
-      "question": "How do I stack the three circles?",
-      "answer": "The base circle is the largest and sits near the bottom (high `cy`). Each circle above has a smaller `cy` and a smaller `radius`."
+      "question": "hints.howToStackCircles.question",
+      "answer": "hints.howToStackCircles.answer"
     },
     {
-      "question": "What numbers should I use for the radii?",
-      "answer": "All numbers in this exercise are divisible by `5`. Try a base radius around `20`, a body around `15`, and a head around `10`, adjusting until they line up with the target."
+      "question": "hints.whatNumbersForRadii.question",
+      "answer": "hints.whatNumbersForRadii.answer"
     }
   ]
 }

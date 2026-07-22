@@ -47,8 +47,11 @@ const scenarios: IOScenario[] = [
 
 // Create a test exercise class
 class TestIOExercise extends IOExercise {
-  static slug = "io-test-runner-e2e";
-  static availableFunctions = [];
+  protected get slug() {
+    return "io-test-runner-e2e";
+  }
+
+  availableFunctions = [];
 }
 
 export default function IOTestRunnerPage() {
@@ -69,7 +72,15 @@ export default function IOTestRunnerPage() {
       tasks,
       scenarios
     };
-    const orch = new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+    const orch = new Orchestrator(
+      exercise,
+      "jikiscript",
+      { type: "lesson", slug: "test-lesson" },
+      {},
+      {},
+      "",
+      () => {}
+    );
     setOrchestrator(orch);
 
     // Expose orchestrator to window for E2E testing
@@ -102,7 +113,7 @@ function IOTestRunnerContent() {
       {/* Main content area */}
       <div className="flex flex-1 overflow-hidden">
         {/* Left panel - Code Editor */}
-        <div className="w-1/2 border-r border-gray-200 flex flex-col bg-white">
+        <div className="w-1/2 border-e border-gray-200 flex flex-col bg-white">
           <div className="border-b border-gray-200 px-4 py-2 flex items-center justify-between">
             <h2 className="text-lg font-semibold text-gray-700">Code Editor</h2>
           </div>

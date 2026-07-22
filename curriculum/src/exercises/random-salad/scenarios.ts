@@ -5,8 +5,8 @@ import type RandomSaladExercise from "./Exercise";
 export const tasks = [
   {
     id: "make-random-salad" as const,
-    name: "Make a random salad",
-    description: "Generate a random amount of each ingredient using Math.randomInt() and make the salad.",
+    name: "tasks.makeRandomSalad.name",
+    description: "tasks.makeRandomSalad.description",
     hints: [],
     requiredScenarios: ["random-salad"],
     bonus: false
@@ -25,8 +25,8 @@ function findRandomIntCall(result: InterpretResult, expectedMin: number, expecte
 export const scenarios: VisualScenario[] = [
   {
     slug: "random-salad",
-    name: "Random salad",
-    description: "Make a salad with random amounts of each ingredient.",
+    name: "scenarios.randomSalad.name",
+    description: "scenarios.randomSalad.description",
     taskId: "make-random-salad",
     randomSeed: true,
     setup(exercise) {
@@ -36,7 +36,7 @@ export const scenarios: VisualScenario[] = [
     codeChecks: [
       {
         pass: (result) => findRandomIntCall(result, 40, 100) !== undefined,
-        errorHtml: "You need to call <code>Math.randomInt(40, 100)</code> to generate the number of leaves."
+        errorKey: "checks.needLeavesRandomInt"
       },
       {
         pass: (result) => {
@@ -44,7 +44,7 @@ export const scenarios: VisualScenario[] = [
           if (!leavesCall) return false;
           return findRandomIntCall(result, 5, Math.floor(leavesCall.return / 5)) !== undefined;
         },
-        errorHtml: "You need to call <code>Math.randomInt(5, leaves / 5)</code> to generate the number of tomatoes."
+        errorKey: "checks.needTomatoesRandomInt"
       },
       {
         pass: (result) => {
@@ -55,8 +55,7 @@ export const scenarios: VisualScenario[] = [
           const tomatoes = tomatoesCall.return;
           return findRandomIntCall(result, tomatoes, tomatoes * 2) !== undefined;
         },
-        errorHtml:
-          "You need to call <code>Math.randomInt(tomatoes, tomatoes * 2)</code> to generate the number of croutons."
+        errorKey: "checks.needCroutonsRandomInt"
       },
       {
         pass: (result) => {
@@ -66,7 +65,7 @@ export const scenarios: VisualScenario[] = [
           if (!tomatoesCall) return false;
           return findRandomIntCall(result, 1, Math.floor(tomatoesCall.return / 2)) !== undefined;
         },
-        errorHtml: "You need to call <code>Math.randomInt(1, tomatoes / 2)</code> to generate the number of olives."
+        errorKey: "checks.needOlivesRandomInt"
       }
     ],
     expectations(exercise) {
@@ -74,7 +73,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.saladMade === true,
-          errorHtml: "You didn't make the salad. Make sure you call <code>makeSalad()</code> with all four ingredients."
+          errorHtml: exercise.t("checks.saladNotMade")
         }
       ];
     }

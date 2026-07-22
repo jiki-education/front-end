@@ -26,7 +26,7 @@ describe("SubscriptionStatus", () => {
       render(<SubscriptionStatus tier="standard" status="never_subscribed" nextBillingDate={null} />);
 
       expect(screen.getByText(/Free/)).toBeInTheDocument();
-      expect(screen.getByText(/This gives you all the content plus Jiki AI/)).toBeInTheDocument();
+      expect(screen.getByText(/This gives you all the content plus Ask Jiki/)).toBeInTheDocument();
     });
 
     it("displays Premium Plan correctly", () => {
@@ -83,7 +83,7 @@ describe("SubscriptionStatus", () => {
 
       // For premium tier with never_subscribed, it shows the Free plan message
       expect(screen.getByText(/Free/)).toBeInTheDocument();
-      expect(screen.getByText(/This gives you all the content plus Jiki AI/)).toBeInTheDocument();
+      expect(screen.getByText(/This gives you all the content plus Ask Jiki/)).toBeInTheDocument();
     });
   });
 

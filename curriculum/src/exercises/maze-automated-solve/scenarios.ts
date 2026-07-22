@@ -4,33 +4,32 @@ import type MazeAutomatedSolveExercise from "./Exercise";
 export const tasks = [
   {
     id: "straight-path" as const,
-    name: "A straight path",
-    description: "Move forward to the end of the maze.",
+    name: "tasks.straightPath.name",
+    description: "tasks.straightPath.description",
     hints: [],
     requiredScenarios: ["maze-1"],
     bonus: false
   },
   {
     id: "turn-left" as const,
-    name: "Turn left if you can",
-    description: "If there's a path to the left, take it!",
+    name: "tasks.turnLeft.name",
+    description: "tasks.turnLeft.description",
     hints: [],
     requiredScenarios: ["left-turn"],
     bonus: false
   },
   {
     id: "turn-right" as const,
-    name: "Turn right if you can't move straight or left",
-    description: "If there's not a path to the left or straight ahead, take the path to the right.",
+    name: "tasks.turnRight.name",
+    description: "tasks.turnRight.description",
     hints: [],
     requiredScenarios: ["right-turn", "forks"],
     bonus: false
   },
   {
     id: "turn-around" as const,
-    name: "Turn around if needed",
-    description:
-      "Handle dead ends by turning around. If you can't go left, straight, or right, turn around and move forward.",
+    name: "tasks.turnAround.name",
+    description: "tasks.turnAround.description",
     hints: [],
     requiredScenarios: ["turn-around", "forks-2"],
     bonus: false
@@ -40,8 +39,8 @@ export const tasks = [
 export const scenarios: VisualScenario[] = [
   {
     slug: "maze-1",
-    name: "Guide person to the end of the maze",
-    description: "A straight path down",
+    name: "scenarios.maze1.name",
+    description: "scenarios.maze1.description",
     taskId: "straight-path",
 
     setup(exercise) {
@@ -67,15 +66,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 6 && ex.characterCol === 4,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.reachedEnd")
         }
       ];
     }
   },
   {
     slug: "left-turn",
-    name: "A single left turn",
-    description: "Navigate a left turn",
+    name: "scenarios.leftTurn.name",
+    description: "scenarios.leftTurn.description",
     taskId: "turn-left",
 
     setup(exercise) {
@@ -103,19 +102,19 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 5 && ex.characterCol === 8,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.reachedEnd")
         },
         {
           pass: ex.direction === "right",
-          errorHtml: "You seem to have done an extra unnecessary turn at the end."
+          errorHtml: ex.t("checks.extraTurn")
         }
       ];
     }
   },
   {
     slug: "right-turn",
-    name: "A single right turn",
-    description: "Navigate a right turn",
+    name: "scenarios.rightTurn.name",
+    description: "scenarios.rightTurn.description",
     taskId: "turn-right",
 
     setup(exercise) {
@@ -143,15 +142,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 5 && ex.characterCol === 0,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.reachedEnd")
         }
       ];
     }
   },
   {
     slug: "forks",
-    name: "Choose left if you can, otherwise choose right",
-    description: "A maze with forks that tests left-priority",
+    name: "scenarios.forks.name",
+    description: "scenarios.forks.description",
     taskId: "turn-right",
 
     setup(exercise) {
@@ -179,15 +178,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 2 && ex.characterCol === 8,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.reachedEnd")
         }
       ];
     }
   },
   {
     slug: "turn-around",
-    name: "Turn around at a dead end",
-    description: "A maze that requires turning around",
+    name: "scenarios.turnAround.name",
+    description: "scenarios.turnAround.description",
     taskId: "turn-around",
 
     setup(exercise) {
@@ -215,15 +214,15 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 7 && ex.characterCol === 0,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.reachedEnd")
         }
       ];
     }
   },
   {
     slug: "forks-2",
-    name: "Complex maze with forks and dead ends",
-    description: "A complex maze testing the full algorithm",
+    name: "scenarios.forks2.name",
+    description: "scenarios.forks2.description",
     taskId: "turn-around",
 
     setup(exercise) {
@@ -251,7 +250,7 @@ export const scenarios: VisualScenario[] = [
       return [
         {
           pass: ex.characterRow === 8 && ex.characterCol === 4,
-          errorHtml: "You didn't reach the end of the maze."
+          errorHtml: ex.t("checks.reachedEnd")
         }
       ];
     }

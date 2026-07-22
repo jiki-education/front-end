@@ -1,33 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import type { EmailPreferences } from "@/lib/api/emailPreferences";
+import { NOTIFICATION_TYPES } from "@/lib/notifications/config";
 import NotificationItem, { type NotificationConfig } from "./NotificationItem";
 import CheckCircleIcon from "@/icons/check-circle.svg";
 import styles from "./UnsubscribePage.module.css";
 
-const NOTIFICATION_CONFIGS: NotificationConfig[] = [
-  {
-    id: "newsletters",
-    title: "Product Updates",
-    description: "Stay informed about new features and improvements."
-  },
-  {
-    id: "event_emails",
-    title: "Event Notifications",
-    description: "Get notified about upcoming livestreams and events."
-  },
-  {
-    id: "milestone_emails",
-    title: "Achievement Notifications",
-    description: "Receive notifications when you unlock new skills or achievements."
-  },
-  {
-    id: "activity_emails",
-    title: "Activity Emails",
-    description: "Activity-based notifications like unlocking badges and completing challenges."
-  }
-];
+const NOTIFICATION_CONFIGS: NotificationConfig[] = NOTIFICATION_TYPES.map((type) => ({
+  id: type.slug
+}));
 
 interface ManageNotificationsSectionProps {
   preferences: EmailPreferences;
@@ -36,6 +19,8 @@ interface ManageNotificationsSectionProps {
 }
 
 export default function ManageNotificationsSection({ preferences, loading, onSave }: ManageNotificationsSectionProps) {
+  const t = useTranslations("unsubscribe.manage");
+  const tCommon = useTranslations("common");
   const [localPreferences, setLocalPreferences] = useState<EmailPreferences>(preferences);
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -57,8 +42,8 @@ export default function ManageNotificationsSection({ preferences, loading, onSav
 
   return (
     <section className={styles.sectionCard}>
-      <h2>Manage Your Notifications</h2>
-      <p>Fine-tune which emails you receive by toggling individual notification types on or off.</p>
+      <h2>{t("title")}</h2>
+      <p>{t("description")}</p>
 
       <div className={styles.notificationList}>
         {NOTIFICATION_CONFIGS.map((config) => (
@@ -76,7 +61,7 @@ export default function ManageNotificationsSection({ preferences, loading, onSav
         {showSuccess && !hasChanges && !loading ? (
           <div className={styles.inlineSuccessMessage}>
             <CheckCircleIcon />
-            <span>Your email preferences have been updated.</span>
+            <span>{t("updated")}</span>
           </div>
         ) : (
           <button
@@ -84,7 +69,7 @@ export default function ManageNotificationsSection({ preferences, loading, onSav
             onClick={handleSave}
             disabled={loading || !hasChanges}
           >
-            {loading ? "Saving..." : "Change Preferences"}
+            {loading ? tCommon("saving") : t("save")}
           </button>
         )}
       </div>

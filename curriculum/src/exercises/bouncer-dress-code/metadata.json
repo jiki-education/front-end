@@ -3,24 +3,28 @@
   "levelId": "complex-conditionals",
   "hints": [
     {
-      "question": "How do I find out what the person is wearing?",
-      "answer": "Call `getOutfit()` and store the result in a variable, e.g. `let outfit = getOutfit()`. That way you can check it as many times as you need without calling the function again."
+      "question": "hints.whereToStart.question",
+      "answer": "hints.whereToStart.answer"
     },
     {
-      "question": "How do I check for more than one outfit in a single condition?",
-      "answer": "Use `||` (or) inside an `if`. For the fancy group: `if (outfit === \"ballgown\" || outfit === \"tuxedo\")`."
+      "question": "hints.groupingOutfits.question",
+      "answer": "hints.groupingOutfits.answer"
     },
     {
-      "question": "Fancy outfits need two things to happen. How do I do both?",
-      "answer": "Just call both functions inside the same `if` block: first `offerChampagne()`, then `letIn()`."
+      "question": "hints.champagneRule.question",
+      "answer": "hints.champagneRule.answer"
     },
     {
-      "question": "How do I handle the smart outfits without re-checking the fancy ones?",
-      "answer": "Use `else if` for the smart group (`\"suit\"` or `\"dress\"`). That branch only runs when the fancy condition was false."
+      "question": "hints.canapesRule.question",
+      "answer": "hints.canapesRule.answer"
     },
     {
-      "question": "What about outfits that match nothing in the dress code?",
-      "answer": "Finish with a plain `else` that calls `turnAway()`. Anyone who did not match an earlier branch gets turned away automatically."
+      "question": "hints.everyoneElse.question",
+      "answer": "hints.everyoneElse.answer"
+    },
+    {
+      "question": "hints.previousLessonOperator.question",
+      "answer": "hints.previousLessonOperator.answer"
     }
   ]
 }

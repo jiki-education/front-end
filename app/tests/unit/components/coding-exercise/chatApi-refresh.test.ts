@@ -2,7 +2,13 @@
  * Integration tests for chat API JWT authentication
  */
 
-import { sendChatMessage, ChatApiError, ChatTokenExpiredError } from "@/components/coding-exercise/lib/chatApi";
+import {
+  sendChatMessage,
+  ChatApiError,
+  ChatTokenExpiredError,
+  ChatUsageLimitError,
+  ChatRateLimitedError
+} from "@/components/coding-exercise/lib/chatApi";
 import { getChatApiUrl } from "@/lib/api/config";
 
 // Mock dependencies
@@ -48,6 +54,7 @@ describe("Chat API JWT Authentication", () => {
     question: "How does this work?",
     language: "javascript",
     history: [],
+    locale: "en",
     contentHash: "test-hash"
   };
 
@@ -159,6 +166,76 @@ describe("Chat API JWT Authentication", () => {
 
     await expect(sendChatMessage(mockPayload, mockCallbacks, mockChatToken)).rejects.toThrow(ChatApiError);
     expect(mockFetch).toHaveBeenCalledTimes(1);
+  });
+
+  it("should throw ChatUsageLimitError on 429 usage_limit_reached", async () => {
+    mockFetch.mockResolvedValueOnce({
+      ok: false,
+      status: 429,
+      statusText: "Too Many Requests",
+      headers: {
+        get: () => "application/json"
+      },
+      json: () => ({
+        error: "usage_limit_reached",
+        scope: "daily",
+        messagesToday: 100,
+        messagesThisMonth: 480,
+        dailyLimit: 100,
+        monthlyLimit: 500
+      })
+    });
+
+    const error = await sendChatMessage(mockPayload, mockCallbacks, mockChatToken).catch((e: unknown) => e);
+    expect(error).toBeInstanceOf(ChatUsageLimitError);
+    expect(error).toMatchObject({
+      scope: "daily",
+      usage: { messagesToday: 100, dailyLimit: 100, monthlyLimit: 500 }
+    });
+  });
+
+  it("should throw ChatRateLimitedError on 429 rate_limited", async () => {
+    mockFetch.mockResolvedValueOnce({
+      ok: false,
+      status: 429,
+      statusText: "Too Many Requests",
+      headers: {
+        get: () => "application/json"
+      },
+      json: () => ({ error: "rate_limited", message: "Too many requests. Please wait a moment and try again." })
+    });
+
+    await expect(sendChatMessage(mockPayload, mockCallbacks, mockChatToken)).rejects.toThrow(ChatRateLimitedError);
+  });
+
+  it("should expose usage meta from the signature event", async () => {
+    const signatureEvent = JSON.stringify({
+      type: "signature",
+      signature: "sig",
+      timestamp: "2026-06-19T12:00:00.000Z",
+      exerciseSlug: "test-exercise",
+      userMessage: "How does this work?",
+      messagesToday: 7,
+      messagesThisMonth: 152,
+      dailyLimit: 100,
+      monthlyLimit: 500
+    });
+    const mockBody = {
+      getReader: () => ({
+        read: jest
+          .fn()
+          .mockResolvedValueOnce({ done: false, value: new TextEncoder().encode(`data: ${signatureEvent}\n`) })
+          .mockResolvedValueOnce({ done: true })
+      })
+    };
+
+    mockFetch.mockResolvedValueOnce({ ok: true, body: mockBody });
+
+    await sendChatMessage(mockPayload, mockCallbacks, mockChatToken);
+
+    expect(mockCallbacks.onSignature).toHaveBeenCalledWith(
+      expect.objectContaining({ messagesToday: 7, dailyLimit: 100, monthlyLimit: 500 })
+    );
   });
 
   it("should call onComplete with response text on success", async () => {

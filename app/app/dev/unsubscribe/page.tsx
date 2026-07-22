@@ -5,16 +5,15 @@ import UnsubscribeFromEmailSection from "@/components/unsubscribe/UnsubscribeFro
 import UnsubscribeFromAllSection from "@/components/unsubscribe/UnsubscribeFromAllSection";
 import ManageNotificationsSection from "@/components/unsubscribe/ManageNotificationsSection";
 import type { EmailPreferences } from "@/lib/api/emailPreferences";
+import { buildEmailPreferences } from "@/lib/notifications/config";
 import styles from "@/components/unsubscribe/UnsubscribePage.module.css";
 
 type ActionState = "idle" | "loading" | "success" | "error";
 
 export default function UnsubscribeDevPage() {
   const [preferences, setPreferences] = useState<EmailPreferences>({
-    newsletters: true,
-    event_emails: true,
-    milestone_emails: false,
-    activity_emails: true
+    ...buildEmailPreferences(true),
+    milestone_emails: false
   });
   const [emailKeyState, setEmailKeyState] = useState<ActionState>("idle");
   const [allState, setAllState] = useState<ActionState>("idle");
@@ -54,27 +53,13 @@ export default function UnsubscribeDevPage() {
             </button>
             <button
               className="ui-btn ui-btn-small ui-btn-secondary"
-              onClick={() =>
-                setPreferences({
-                  newsletters: true,
-                  event_emails: true,
-                  milestone_emails: true,
-                  activity_emails: true
-                })
-              }
+              onClick={() => setPreferences(buildEmailPreferences(true))}
             >
               Subscribe All
             </button>
             <button
               className="ui-btn ui-btn-small ui-btn-secondary"
-              onClick={() =>
-                setPreferences({
-                  newsletters: false,
-                  event_emails: false,
-                  milestone_emails: false,
-                  activity_emails: false
-                })
-              }
+              onClick={() => setPreferences(buildEmailPreferences(false))}
             >
               Unsubscribe All
             </button>
@@ -119,12 +104,7 @@ export default function UnsubscribeDevPage() {
                   error={allState === "error"}
                   onUnsubscribe={() => {
                     simulateAction(setAllState, () => {
-                      setPreferences({
-                        newsletters: false,
-                        event_emails: false,
-                        milestone_emails: false,
-                        activity_emails: false
-                      });
+                      setPreferences(buildEmailPreferences(false));
                     });
                   }}
                 />
