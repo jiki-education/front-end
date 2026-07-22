@@ -1,20 +1,21 @@
 ---
-title: "Solve the Maze"
-description: "Guide Jiki through a maze using simple instructions."
+title: "Oldd meg a labirintust!"
+description: "Vezesd végig Jikit a labirintuson egyszerű utasításokkal."
+en_md5: 4322b635396aac63128074a1c041d458
 ---
 
-Welcome to your first exercise!
+Üdvözlünk az első feladatodban!
 
-The aim of this exercise is to get you familiar with how the learning environment works. Your task is to solve the maze you can see to the left by giving the little person instructions. You write out all the instructions that the person needs to follow, then click **Run Code** to get it to follow them.
+Ez a feladat azt a célt szolgálja, hogy megismerkedj a tanulási környezet működésével. Az a dolgod, hogy megoldd a bal oldalon látható labirintust úgy, hogy utasításokat adsz a kis figurának. Leírod az összes utasítást, amit a figurának követnie kell, majd a **Run Code** gombra kattintasz, hogy végre is hajtsa őket.
 
-The three instructions you can use are:
+Ezt a három utasítást használhatod:
 
-- `move()` which moves the character one step forward
-- `turnLeft()` turns the character left (relative to the direction they're currently facing)
-- `turnRight()` turns the character right (relative to the direction they're currently facing)
+- `move()` egy lépéssel előre viszi a figurát
+- `turnLeft()` balra fordítja a figurát (ahhoz képest, amerre éppen néz)
+- `turnRight()` jobbra fordítja a figurát (ahhoz képest, amerre éppen néz)
 
-You can see that we've already written the first three instructions on the left hand side. Start by clicking the **"Run Code"** button to see what they do. Then **add more instructions** to move your character to the end of the maze. Put one instruction on each line then hit **Run Code** to run them all.
+A bal oldalon láthatod, hogy az első három utasítást már leírtuk helyetted. Először kattints a **„Run Code”** gombra, és nézd meg, mit csinálnak. Ezután **adj hozzá további utasításokat**, hogy a figurád eljusson a labirintus végéig. Minden utasítást külön sorba írj, majd nyomd meg a **Run Code** gombot, hogy mind lefusson.
 
-It's good practice to get into the habit of running your code regularly!
+Érdemes rászoknod arra, hogy a kódodat rendszeresen lefuttasd!
 
-Once you solve the maze you can head back to the Dashboard and start the next lesson.
+Ha megoldottad a labirintust, visszatérhetsz az irányítópultra, és elkezdheted a következő leckét.

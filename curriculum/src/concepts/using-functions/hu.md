@@ -1,47 +1,48 @@
 ---
-title: "Using Functions"
-description: "Telling Jiki to run one of his little machines by writing its name followed by two brackets."
+title: "Függvények használata"
+description: "Szólj Jikinek, hogy indítsa el az egyik kis gépét: írd le a nevét, utána a két zárójelet."
+en_md5: fc671310093a081113a8f301b6ff53fe
 ---
 
-HUNGARIAN When you write code, what you're really doing is communicating what you want to happen in a language that a computer understands. Now, there are lots of different programming languages, and there are lots of different interpreters that take what you write and turn it into the ones and zeros that a computer can understand. In this course, your interpreter is Jiki. The whole course is named after Jiki. This is Jiki. Jiki is gonna be your friend on this coding journey. It's his job to interpret the code that you write and turn it into the ones and zeros that the computer can actually act on.
+Amikor kódot írsz, valójában azt mondod el egy olyan nyelven, amit a számítógép is megért, hogy mit szeretnél, hogy megtörténjen. Rengeteg különböző programozási nyelv létezik, és rengeteg különböző értelmező is, amely a leírt kódot olyan egyesekké és nullákká alakítja, amelyeket a számítógép megért. Ebben a kurzusban a te értelmeződ Jiki. Az egész kurzus róla kapta a nevét. Ő itt Jiki. Jiki lesz a barátod ezen a programozási utazáson. Az ő dolga, hogy értelmezze a kódot, amit írsz, és olyan egyesekké és nullákká alakítsa, amelyekkel a számítógép ténylegesen dolgozni tud.
 
 <img
   class="concept-image"
   src="/static/images/concept-assets/using-functions/jiki-introduction.webp"
-  alt="Jiki, the friendly interpreter who will guide you through this course"
+  alt="Jiki, a barátságos értelmező, aki végigkísér ezen a kurzuson"
   width="421"
   height="400"
 />
 
-The whole point of coding is giving the interpreter, Jiki in this case, the right instructions, and there are lots of different instructions that you can give Jiki, lots that he understands. He can stick things together, he can do something lots of times, he can say, "If this happens, then I need to do this." He can remember things and then use them again later. He can give you an error if something isn't right. We're gonna cover all of these different things in this course. But the key thing to understand is that everything you're going to be doing is putting instructions on a board for Jiki to come along and follow.
+A programozás lényege, hogy a megfelelő utasításokat adjuk az értelmezőnek, jelen esetben Jikinek. Rengeteg különböző utasítást adhatsz Jikinek, nagyon sok mindent megért. Össze tud ragasztani dolgokat, meg tud csinálni valamit sokszor egymás után, és azt is tudja mondani: „Ha ez történik, akkor ezt kell tennem." Meg tud jegyezni dolgokat, és később újra fel tudja használni őket. Ha valami nem stimmel, hibát is tud jelezni. A kurzus során ezekkel mind foglalkozunk majd. A legfontosabb viszont az, hogy bármit is csinálsz majd, lényegében utasításokat írsz fel egy táblára, Jiki pedig jön, és követi őket.
 
-When I learnt to code 34 years ago, this was the mental model that I built, and it's the one I still have today. I understand how computers work all the way down to the ones and the zeros, but I honestly never think of that. In my head, there's a little man living in the computer, and I tell him what to do. So go along with me on this. It's a powerful mental model that you can build, and if you start to think of things in this very visual way about what the person in the computer is doing, it's gonna hold you in very good stead as you learn to code.
+Amikor 34 évvel ezelőtt megtanultam programozni, ezt a gondolati modellt építettem fel magamban, és a mai napig ez van a fejemben. Pontosan értem, hogyan működik a számítógép, egészen az egyesekig és nullákig, de őszintén szólva sosem gondolok erre. A fejemben egy kis ember lakik a számítógépben, és én megmondom neki, mit csináljon. Tarts hát velem ebben. Ez egy erős gondolati modell, amit te is felépíthetsz, és ha elkezdesz ilyen vizuálisan gondolkodni arról, hogy mit csinál a számítógépben lakó emberke, az nagyon jól fog jönni, miközben programozni tanulsz.
 
-So let's start off by looking at one of the fundamental concepts in programming called functions. Functions are like little machines that you can tell Jiki to use, and if we look inside Jiki's warehouse, that's where he hangs out, you're gonna see he has a shelf with three different machines on, move, turn left, and turn right.
+Kezdjük is az egyik alapvető programozási fogalommal, a függvényekkel (_functions_ angolul). A függvények olyanok, mint kis gépek, amelyeket Jiki a te utasításodra használ. Ha benézünk Jiki raktárába, ő ott szokott tanyázni, látni fogod, hogy van egy polca három különböző géppel: `move` (mozgás), `turnLeft` (fordulj balra) és `turnRight` (fordulj jobbra).
 
 <img
   class="concept-image"
   src="/static/images/concept-assets/using-functions/warehouse-three-machines.webp"
-  alt="A shelf in Jiki's warehouse holding three machines labelled move, turnLeft, and turnRight"
+  alt="Egy polc Jiki raktárában, rajta három gép: move, turnLeft és turnRight"
   width="500"
   height="371"
 />
 
-When you wrote move and then those two brackets, what you were doing was telling Jiki to go and get the move machine off the shelf, to crank the handle, power it up, and to use it.
+Amikor leírtad, hogy `move`, majd utána a két zárójelet, azzal azt mondtad Jikinek, hogy vegye le a `move` gépet a polcról, tekerje meg a karját, indítsa be, és használja.
 
 <img
   class="concept-image"
   src="/static/images/concept-assets/using-functions/jiki-using-move-1.webp"
-  alt="Jiki wheeling the move machine off the shelf to use it"
+  alt="Jiki legurítja a move gépet a polcról, hogy használja"
   width="439"
   height="400"
 />
 
-When you wrote turn left and then the brackets, you were telling Jiki to get the turn left machine off the shelf and use it. And this is the pattern that you're gonna be using over and over again. Whenever you want to use a machine, you'll write its name and then those brackets, and that tells Jiki to go and get the machine and to use it:
+Amikor leírtad, hogy `turnLeft`, majd a zárójeleket, azzal arra utasítottad Jikit, hogy vegye le a `turnLeft` gépet a polcról, és használja azt. Ezt a mintát fogod újra és újra használni. Amikor egy gépet szeretnél használni, leírod a nevét, utána a zárójeleket, és ezzel mondod meg Jikinek, hogy hozza el a gépet, és használja:
 
 ```javascript
 move()
 turnLeft()
 ```
 
-Now, how that machine actually works, what's happening inside the machine, we don't need to worry about that for now. We'll look at that in a lot more detail later. In fact, it won't be long before you're able to make your own machines as well. But for now, don't worry about that. For every exercise, you'll be told which machines are on Jiki's shelf. There'll be different ones for each exercise, and you'll be able to use those machines to solve the exercises.
+Hogy egy gép valójában hogyan működik, mi történik a belsejében, azzal most még nem kell foglalkoznunk. Később sokkal részletesebben megnézzük. Sőt, nem kell sokat várnod, és már saját gépeket is építhetsz majd. Egyelőre viszont ne aggódj emiatt. Minden feladatnál megtudod, milyen gépek vannak Jiki polcán. Feladatonként más és más gépek lesznek, és ezekkel tudod majd megoldani a feladatokat.

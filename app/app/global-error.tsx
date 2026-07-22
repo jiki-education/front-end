@@ -28,11 +28,10 @@ const COPY: Record<Locale, GlobalErrorCopy> = {
     message: "We encountered an unexpected error. Sorry about that!",
     actionLabel: "Try again"
   },
-  // hu intentionally mirrors the English copy verbatim; translated by hand later.
   hu: {
-    title: "Something went wrong",
-    message: "We encountered an unexpected error. Sorry about that!",
-    actionLabel: "Try again"
+    title: "Valami hiba történt",
+    message: "Váratlan hiba lépett fel. Elnézést kérünk emiatt!",
+    actionLabel: "Próbáld újra"
   }
 };
 

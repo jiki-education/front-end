@@ -17,7 +17,7 @@ The whole point of coding is giving the interpreter, Jiki in this case, the righ
 
 When I learnt to code 34 years ago, this was the mental model that I built, and it's the one I still have today. I understand how computers work all the way down to the ones and the zeros, but I honestly never think of that. In my head, there's a little man living in the computer, and I tell him what to do. So go along with me on this. It's a powerful mental model that you can build, and if you start to think of things in this very visual way about what the person in the computer is doing, it's gonna hold you in very good stead as you learn to code.
 
-So let's start off by looking at one of the fundamental concepts in programming called functions. Functions are like little machines that you can tell Jiki to use, and if we look inside Jiki's warehouse, that's where he hangs out, you're gonna see he has a shelf with three different machines on, move, turn left, and turn right.
+So let's start off by looking at one of the fundamental concepts in programming called <define>functions</define>. Functions are like little machines that you can tell Jiki to use, and if we look inside Jiki's warehouse, that's where he hangs out, you're gonna see he has a shelf with three different machines on, <define>`move`</define>, <define>`turnLeft`</define>, and <define>`turnRight`</define>.
 
 <img
   class="concept-image"
@@ -27,7 +27,7 @@ So let's start off by looking at one of the fundamental concepts in programming 
   height="371"
 />
 
-When you wrote move and then those two brackets, what you were doing was telling Jiki to go and get the move machine off the shelf, to crank the handle, power it up, and to use it.
+When you wrote `move` and then those two brackets, what you were doing was telling Jiki to go and get the `move` machine off the shelf, to crank the handle, power it up, and to use it.
 
 <img
   class="concept-image"
@@ -37,7 +37,7 @@ When you wrote move and then those two brackets, what you were doing was telling
   height="400"
 />
 
-When you wrote turn left and then the brackets, you were telling Jiki to get the turn left machine off the shelf and use it. And this is the pattern that you're gonna be using over and over again. Whenever you want to use a machine, you'll write its name and then those brackets, and that tells Jiki to go and get the machine and to use it:
+When you wrote `turnLeft` and then the brackets, you were telling Jiki to get the `turnLeft` machine off the shelf and use it. And this is the pattern that you're gonna be using over and over again. Whenever you want to use a machine, you'll write its name and then those brackets, and that tells Jiki to go and get the machine and to use it:
 
 ```javascript
 move()
