@@ -51,7 +51,7 @@ let height = canvasSize - top * 2
 rectangle(left, top, width, height, "blue")
 ```
 
-Let's think about what Jiki is doing when we write let `height` equals canvas minus `top` times two. Well, he starts by getting the `top` box off the shelf, and he finds 20 in it, and he gets out his pocket calculator and does 20 times two, and he makes a mental note of 40.
+Let's think about what Jiki is doing when we write let `height` equals `canvasSize` minus `top` times two. Well, he starts by getting the `top` box off the shelf, and he finds 20 in it, and he gets out his pocket calculator and does 20 times two, and he makes a mental note of 40.
 
 <img
   class="concept-image"
@@ -61,7 +61,7 @@ Let's think about what Jiki is doing when we write let `height` equals canvas mi
   height="400"
 />
 
-And then he gets the canvas box off the shelf, finds 100 in it, and he works out that 100 minus 40 is 60. And now he knows really what we're saying is let `height` equal 60. So he obeys the let, getting a new box and writing `height` on it, and then he puts 60 inside it. And then when he uses `height` later, he just gets the 60 back out again.
+And then he gets the `canvasSize` box off the shelf, finds 100 in it, and he works out that 100 minus 40 is 60. And now he knows really what we're saying is let `height` equal 60. So he obeys the let, getting a new box and writing `height` on it, and then he puts 60 inside it. And then when he uses `height` later, he just gets the 60 back out again.
 
 <img
   class="concept-image"

@@ -32,7 +32,7 @@ repeat(8) {
 
 What do you think will happen?
 
-Well, it's gonna plant eight flowers, but it's gonna plant them in the same spot each time, which isn't really what we want. So let's just take a moment to think about what Jiki is doing here. He's making a box with the position label. He's putting 10 in it. Then he's running the `plant` machine 10 times. Each time, he's getting out the value from the position box. It's always 10, and he's putting that same 10 in each time.
+Well, it's gonna plant eight flowers, but it's gonna plant them in the same spot each time, which isn't really what we want. So let's just take a moment to think about what Jiki is doing here. He's making a box with the position label. He's putting 10 in it. Then he's running the `plant` machine eight times. Each time, he's getting out the value from the position box. It's always 10, and he's putting that same 10 in each time.
 
 <img
   class="concept-image"
