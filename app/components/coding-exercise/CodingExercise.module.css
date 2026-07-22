@@ -24,6 +24,21 @@
     transition: background 0.2s;
 }
 
+/* RTL overrides key off the [dir] attribute — the same signal the resize JS reads
+   (getComputedStyle().direction) and the app sets on <html>. We can't rely on
+   logical props / :dir() here: our PostCSS rewrites both to a :lang() list, which
+   tracks `lang`, so they'd silently no-op whenever dir is set without a matching
+   RTL lang. Physical props are required to override the (also :lang()-gated) base
+   inset, hence the scoped disable. */
+/* stylelint-disable property-disallowed-list */
+:global([dir="rtl"]) .verticalDivider {
+    inset-inline-start: auto;
+    right: 50%;
+    left: auto;
+    transform: translateX(50%);
+}
+/* stylelint-enable property-disallowed-list */
+
 .verticalDivider:hover {
     background: var(--color-gray-200);
 }
@@ -39,6 +54,15 @@
     background: var(--color-gray-300);
     border-radius: 1px;
 }
+
+/* stylelint-disable property-disallowed-list */
+:global([dir="rtl"]) .verticalDivider::after {
+    inset-inline-start: auto;
+    right: 50%;
+    left: auto;
+    transform: translate(50%, -50%);
+}
+/* stylelint-enable property-disallowed-list */
 
 /* .verticalDivider::before {
     content: "";
@@ -77,6 +101,14 @@
     transition: background 0.2s;
 }
 
+/* stylelint-disable property-disallowed-list */
+:global([dir="rtl"]) .horizontalDivider {
+    inset-inline-start: auto;
+    right: 0;
+    left: auto;
+}
+/* stylelint-enable property-disallowed-list */
+
 .horizontalDivider:hover {
     background: var(--color-gray-200);
 }
@@ -92,6 +124,15 @@
     background: var(--color-gray-300);
     border-radius: 1px;
 }
+
+/* stylelint-disable property-disallowed-list */
+:global([dir="rtl"]) .horizontalDivider::after {
+    inset-inline-start: auto;
+    right: 50%;
+    left: auto;
+    transform: translate(50%, -50%);
+}
+/* stylelint-enable property-disallowed-list */
 
 .runButtonBlock {
     display: flex;
@@ -830,9 +871,14 @@
 .scrubberProgress::after {
     content: "";
     position: absolute;
-    inset-inline-end: -10px;
+    /* Ride the fill's leading (growing) edge, centered on it. The fill grows from
+       the inline start, so its tip is the physical right edge under LTR and the
+       physical left edge under RTL. RTL is handled by the [dir="rtl"] overrides
+       below rather than logical props / :dir(), which our PostCSS rewrites to a
+       :lang() list (tracking `lang`, not the `dir` the scrubber JS reads). */
+    right: 0; /* stylelint-disable-line property-disallowed-list */
     top: 50%;
-    transform: translateY(-50%);
+    transform: translate(50%, -50%);
     width: 20px;
     height: 20px;
     background: var(--color-blue-500);
@@ -845,9 +891,21 @@
         box-shadow 0.15s ease;
 }
 
+/* stylelint-disable property-disallowed-list */
+:global([dir="rtl"]) .scrubberProgress::after {
+    right: auto;
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+/* stylelint-enable property-disallowed-list */
+
 .scrubber:hover .scrubberProgress::after {
-    transform: translateY(-50%) scale(1.15);
+    transform: translate(50%, -50%) scale(1.15);
     box-shadow: 0 3px 10px var(--color-blue-500-40);
+}
+
+:global([dir="rtl"]) .scrubber:hover .scrubberProgress::after {
+    transform: translate(-50%, -50%) scale(1.15);
 }
 
 .scrubber.disabled {

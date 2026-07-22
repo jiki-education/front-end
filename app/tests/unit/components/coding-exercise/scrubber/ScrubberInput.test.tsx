@@ -332,6 +332,91 @@ describe("ScrubberInput Component", () => {
     });
   });
 
+  describe("RTL direction (mirrored timeline)", () => {
+    // The scrubber mirrors under dir="rtl": time runs right→left, so pointer
+    // mapping measures from the right edge and arrow keys swap prev/next.
+    let realGetComputedStyle: typeof window.getComputedStyle;
+
+    beforeEach(() => {
+      // jsdom does not derive the `direction` computed value from the `dir`
+      // attribute, so stub getComputedStyle to report RTL (real browsers do this
+      // via CSS inheritance). Component reads `getComputedStyle(el).direction`.
+      realGetComputedStyle = window.getComputedStyle;
+      jest
+        .spyOn(window, "getComputedStyle")
+        .mockImplementation((el: Element) => ({ ...realGetComputedStyle(el), direction: "rtl" }));
+    });
+
+    afterEach(() => {
+      (window.getComputedStyle as jest.Mock).mockRestore();
+    });
+
+    function renderRTLSlider(mockOrchestrator: Orchestrator) {
+      const mockTimeline = createMockAnimationTimeline({ duration: 500000 });
+      const TestWrapper = () => {
+        const ref = React.useRef<HTMLDivElement>(null);
+        return (
+          <OrchestratorTestProvider orchestrator={mockOrchestrator}>
+            <ScrubberInput
+              ref={ref}
+              frames={createMockFrames(5)}
+              animationTimeline={mockTimeline}
+              time={0}
+              enabled={true}
+            />
+          </OrchestratorTestProvider>
+        );
+      };
+      render(<TestWrapper />);
+      const slider = screen.getByRole("slider");
+      slider.getBoundingClientRect = jest.fn(() => ({
+        left: 0,
+        width: 100,
+        top: 0,
+        height: 20,
+        right: 100,
+        bottom: 20,
+        x: 0,
+        y: 0,
+        toJSON: () => {}
+      }));
+      return slider;
+    }
+
+    it("maps pointer position from the right edge", () => {
+      const mockOrchestrator = createMockOrchestrator();
+      const slider = renderRTLSlider(mockOrchestrator);
+
+      // clientX=60 sits 40% from the right edge, so on a 500000us timeline → 200000
+      // (the LTR case at the same clientX yields 300000).
+      fireEvent.mouseDown(slider, { clientX: 60 });
+
+      expect(mockOrchestrator.setCurrentTestTime).toHaveBeenCalledWith(200000, "nearest");
+    });
+
+    it("ArrowLeft advances and ArrowRight rewinds", () => {
+      const mockOrchestrator = createMockOrchestrator();
+      const slider = renderRTLSlider(mockOrchestrator);
+
+      fireEvent.keyDown(slider, { key: "ArrowLeft" });
+      expect(mockOrchestrator.goToNextFrame).toHaveBeenCalledTimes(1);
+      expect(mockOrchestrator.goToPrevFrame).not.toHaveBeenCalled();
+
+      fireEvent.keyDown(slider, { key: "ArrowRight" });
+      expect(mockOrchestrator.goToPrevFrame).toHaveBeenCalledTimes(1);
+    });
+
+    it("Shift+ArrowLeft steps to the next breakpoint", () => {
+      const mockOrchestrator = createMockOrchestrator();
+      const slider = renderRTLSlider(mockOrchestrator);
+
+      fireEvent.keyDown(slider, { key: "ArrowLeft", shiftKey: true });
+
+      expect(mockOrchestrator.goToNextBreakpoint).toHaveBeenCalledTimes(1);
+      expect(mockOrchestrator.goToPrevBreakpoint).not.toHaveBeenCalled();
+    });
+  });
+
   describe("onMouseUp handler (frame snapping)", () => {
     it("should snap to nearest frame on mouse up", () => {
       const mockOrchestrator = createMockOrchestrator();
