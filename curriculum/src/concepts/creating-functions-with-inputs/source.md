@@ -30,7 +30,7 @@ shootMany(5)
 shootMany(2)
 ```
 
-Now, this is the key bit. When the code runs, whatever you put into that input, 5 or 2, mini-Jiki, with the hat inside the function, takes that input and puts it into a box called <define>numShots</define>, and then puts that box on the shelves inside the function for you to use in the function's code.
+Now, this is the key bit. When the code runs, whatever you put into that input, 5 or 2, mini-Jiki, with the hat inside the function, takes that input and puts it into a box called <define>`numShots`</define>, and then puts that box on the shelves inside the function for you to use in the function's code.
 
 <img
   class="concept-image"
@@ -42,7 +42,7 @@ Now, this is the key bit. When the code runs, whatever you put into that input, 
 
 I'll say that again.
 
-When we write `shootMany(5)` to use the function, Jiki on the outside goes and gets a 5 and puts it into the input slot of shootMany. Inside the machine, mini-Jiki takes that 5 out and puts it in a box called numShots, because that's the name that you gave to that input slot, and then he puts that box on the shelves inside the function inside the machine.
+When we write `shootMany(5)` to use the function, Jiki on the outside goes and gets a 5 and puts it into the input slot of shootMany. Inside the machine, mini-Jiki takes that 5 out and puts it in a box called `numShots`, because that's the name that you gave to that input slot, and then he puts that box on the shelves inside the function inside the machine.
 
 <img
   class="concept-image"
@@ -52,9 +52,9 @@ When we write `shootMany(5)` to use the function, Jiki on the outside goes and g
   height="302"
 />
 
-And then within the function, you can just use the numShots box just like you'd use any other box. There's nothing magical about the name numShots. We could have called it anything we wanted. All it is is an instruction for mini-Jiki to always create a box with that label on inside the function and put whatever's passed into that slot into that box.
+And then within the function, you can just use the `numShots` box just like you'd use any other box. There's nothing magical about the name `numShots`. We could have called it anything we wanted. All it is is an instruction for mini-Jiki to always create a box with that label on inside the function and put whatever's passed into that slot into that box.
 
-And once you've got a value in that box, you can do anything you'd normally do with boxes. You could use the numShots box as part of a repeat loop to shoot the correct amount of times. And you can have more than one input too. Just separate them with commas. So if we have a function called <define>`drawStar`</define> that draws a star based on its top-left position, you'd write `function drawStar(left, top) {` curly braces, and then your code.
+And once you've got a value in that box, you can do anything you'd normally do with boxes. You could use the `numShots` box as part of a repeat loop to shoot the correct amount of times. And you can have more than one input too. Just separate them with commas. So if we have a function called <define>`drawStar`</define> that draws a star based on its top-left position, you'd write `function drawStar(left, top) {` curly braces, and then your code.
 
 ```javascript
 function drawStar(left, top) {
@@ -70,7 +70,7 @@ function drawStar(left, top) {
   height="400"
 />
 
-And then when the function is called, mini-Jiki is just gonna store the values that are passed into the inputs in boxes named left and top, and then store those on the shelves inside the functions.
+And then when the function is called, mini-Jiki is just gonna store the values that are passed into the inputs in boxes named <define>`left`</define> and <define>`top`</define>, and then store those on the shelves inside the functions.
 
 <img
   class="concept-image"

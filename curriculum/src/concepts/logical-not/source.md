@@ -23,7 +23,7 @@ if (outfit !== "disco") {
 
 It's just that the condition returns true if the things are different, and it returns false if they're the same. So we could write the same thing out by saying, "If the outfit is disco, do nothing. Else, open the door." But generally, it's easier and cleaner to use the `not` <define>operator</define> to really know and say what you mean.
 
-One more thing related to this. Sometimes you're gonna have a variable that's true, and you want to flip it to false, or you're gonna have something that's false, and you want to flip it to be true, and we can use this to keep track of something. So imagine we have something bouncing from left to right, and we have a variable called movingRight, which is true when you're supposed to move right. But when you want to <define>toggle</define> it to be false, when you hit the right edge.
+One more thing related to this. Sometimes you're gonna have a variable that's true, and you want to flip it to false, or you're gonna have something that's false, and you want to flip it to be true, and we can use this to keep track of something. So imagine we have something bouncing from left to right, and we have a variable called <define>`movingRight`</define>, which is true when you're supposed to move right. But when you want to <define>toggle</define> it to be false, when you hit the right edge.
 
 <img
   class="concept-image"
@@ -33,7 +33,7 @@ One more thing related to this. Sometimes you're gonna have a variable that's tr
   height="352"
 />
 
-So we could do this by saying, "If movingRight equals true, movingRight equals false. Else, movingRight equals true." That's a way of toggling the variable. So Jiki will look at movingRight to see whether it's true or false, and then will work out the opposite and put that value back in the box.
+So we could do this by saying, "If `movingRight` equals true, `movingRight` equals false. Else, `movingRight` equals true." That's a way of toggling the variable. So Jiki will look at `movingRight` to see whether it's true or false, and then will work out the opposite and put that value back in the box.
 
 But there's a neater way to do this, and that's to use the same exclamation mark or bang. We can say `movingRight = !movingRight`, and that flips it. `!movingRight` means the opposite of whatever it is.
 
@@ -41,6 +41,6 @@ But there's a neater way to do this, and that's to use the same exclamation mark
 movingRight = !movingRight
 ```
 
-So if movingRight was true, now it's false. If it was false, now it's true. Jiki gets what's in the box currently,
+So if `movingRight` was true, now it's false. If it was false, now it's true. Jiki gets what's in the box currently,
 
 and that bang tells him to find the opposite. So the opposite of true is false. The opposite of false is true, and then he puts it back in the box. This is exactly the same as that longer if/else statement, but it's just much neater and more succinct to write.

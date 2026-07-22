@@ -5,7 +5,7 @@ description: ""
 
 In the previous exercise, you got the ball bouncing around the game area. Now it's time to add some blocks!
 
-You have a new <define>`Block`</define> class. When you create an instance using `new Block(left, top)`, you specify its left and top position. All blocks are `16` wide.
+You have a new <define>`Block`</define> class. When you create an instance using `new Block(left, top)`, you specify its `left` and `top` position. All blocks are `16` wide.
 
 The block has <define>`top`</define>, <define>`left`</define>, <define>`width`</define> and <define>`height`</define> properties which you can read. It also has a <define>`smashed`</define> property you can read and write.
 

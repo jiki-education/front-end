@@ -37,9 +37,9 @@ One option could just be to copy and paste that loop four times and change the t
 
 So here we can use one loop inside another loop. One loop for the rows and one for the flowers on that row. So let's start by adding a repeat loop around our existing code so you can get a feel for this. And we're just gonna repeat once. So we're telling Jiki to do everything inside these outer curly brackets once. So this has exactly the same effect as not having this outer loop at all. We're telling Jiki to repeat something once, which is just the same as telling Jiki to do it without the repeat. But this is how this code works. It's legitimate, valid code. We've got one loop inside another loop.
 
-So now what happens if we change that outer loop to repeat twice? So now Jiki will run the whole plant five times thing twice. He'll plant 10 flowers. But all of those flowers will be on the same row.
+So now what happens if we change that outer loop to repeat twice? So now Jiki will run the whole <define>`plant`</define> five times thing twice. He'll plant 10 flowers. But all of those flowers will be on the same row.
 
-So in the same way we need to move the position from left to right a bit each time, after we've drawn each full row, we also need to move the vertical position as well. So how do we do that? Well, we can add an outer variable for the top position, use that in our plant function, and then increase it by 10 after every row.
+So in the same way we need to move the position from left to right a bit each time, after we've drawn each full row, we also need to move the vertical position as well. So how do we do that? Well, we can add an outer variable for the top position, use that in our `plant` function, and then increase it by 10 after every row.
 
 So think through what the value is at each time. Top position starts at 10. For the first five times we plant, it stays like that. The left position increases. And then we add another 10 to it, to that top position, and we plant five more flowers a little bit lower. We're resetting that left position back to 10 again, and then we're increasing it again each time.
 

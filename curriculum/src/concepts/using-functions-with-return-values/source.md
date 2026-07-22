@@ -39,7 +39,7 @@ let time = getCurrentTime()
 
 Now, it's important to understand that the piece of paper that Jiki puts in the box is fixed at that moment. Even if the actual time changes while your program is running, the box still has that piece of paper with 14:35 written on it. Once something is in the box, it's a fixed thing in there. It doesn't magically change. If we want to put the current time in the box again in future, we need to use our get current time function again to get it.
 
-Most functions that return things also have inputs. For example, we might have a join function that takes two strings as its inputs and returns them joined together with a space. So if we use a join machine with hello and world as our inputs, out the chute will come a single string with hello world written on it.
+Most functions that return things also have inputs. For example, we might have a <define>`join`</define> function that takes two strings as its inputs and returns them joined together with a space. So if we use a `join` machine with hello and world as our inputs, out the chute will come a single string with hello world written on it.
 
 ```javascript
 join("Hello", "World"); // "Hello World"

@@ -14,4 +14,4 @@ An anagram is a rearrangement of letters to form a new word. For example, 'owns'
 - Return anagrams with their original casing from the possibilities list
 - Results should be sorted alphabetically
 
-Example: findAnagrams('stone', ['stone', 'Seton', 'banana', 'tons', 'notes', 'tones']) returns ['Seton', 'notes', 'tones']
+Example: `findAnagrams('stone', ['stone', 'Seton', 'banana', 'tons', 'notes', 'tones'])` returns ['Seton', 'notes', 'tones']

@@ -3,7 +3,7 @@ title: "Foxy Face"
 description: "Build a geometric fox face from colourful triangles."
 ---
 
-This exercise introduces you to the <define>`triangle`</define> function. You use it with 7 inputs. The first 6 inputs are pairs of coordinates for the three corners. The final input is the color:
+This exercise introduces you to the <define>`triangle`</define> function. You use it with 7 inputs. The first 6 inputs are pairs of coordinates for the three corners. The final input is the `color`:
 
 - <define>`x1`</define>, <define>`y1`</define>: The first corner point
 - <define>`x2`</define>, <define>`y2`</define>: The second corner point

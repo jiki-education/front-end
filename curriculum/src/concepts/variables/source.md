@@ -41,9 +41,9 @@ Also, every variable name must be unique. You can't have two boxes with the same
   height="400"
 />
 
-So let's look at where we might want to use a variable. Let's say we're drawing a sun in the sky. We know we can use the circle function and give it four inputs. Its left, top, radius, and color. But as we draw lots of things and have all of these numbers scattered throughout our code, it can be really hard to keep track of and read. So instead, we can create variables for each of the left, top, radius, and color, and then refer to those variables later. So our end goal here is to be able to use the circle function and specify nice, readable names of boxes, and when Jiki sees those names, he'll know to get the boxes from the shelves and use whatever is in them.
+So let's look at where we might want to use a variable. Let's say we're drawing a sun in the sky. We know we can use the <define>`circle`</define> function and give it four inputs. Its left, top, <define>`radius`</define>, and <define>`color`</define>. But as we draw lots of things and have all of these numbers scattered throughout our code, it can be really hard to keep track of and read. So instead, we can create variables for each of the left, top, `radius`, and `color`, and then refer to those variables later. So our end goal here is to be able to use the `circle` function and specify nice, readable names of boxes, and when Jiki sees those names, he'll know to get the boxes from the shelves and use whatever is in them.
 
-So let's create some variables for these. We start with the left position of the sun. We use the let keyword to tell Jiki to create a new box called left position. Notice the camel case there with the capital P. And we tell Jiki what number goes in the box. He puts that on the shelves, then moves on to do the same for top position, radius, and color.
+So let's create some variables for these. We start with the left position of the sun. We use the let keyword to tell Jiki to create a new box called left position. Notice the camel case there with the capital P. And we tell Jiki what number goes in the box. He puts that on the shelves, then moves on to do the same for top position, `radius`, and `color`.
 
 ```javascript
 let leftPosition = 10

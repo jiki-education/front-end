@@ -5,7 +5,7 @@ description: "Putting values into a function's input slots to change what it doe
 
 One of the more powerful things about machines, about functions, is that many of them let you put some information into them, which, when you run them, changes what they do.
 
-So far, we've seen machines that look a little bit like boxes, like the move one.
+So far, we've seen machines that look a little bit like boxes, like the <define>`move`</define> one.
 
 <img
   class="concept-image"
@@ -15,7 +15,7 @@ So far, we've seen machines that look a little bit like boxes, like the move one
   height="400"
 />
 
-But some machines, they have slots, like this walk machine. The walk machine is just like the move machine. It moves the <define>character</define> forward, except Jiki can use the slot to specify how many steps your character should walk forward. So rather than having to use the move function three times in a row, move, move, move, instead, you can now just use the walk function and tell Jiki to put the number three into the machine.
+But some machines, they have slots, like this <define>`walk`</define> machine. The `walk` machine is just like the `move` machine. It moves the <define>character</define> forward, except Jiki can use the slot to specify how many steps your character should walk forward. So rather than having to use the `move` function three times in a row, `move`, `move`, `move`, instead, you can now just use the `walk` function and tell Jiki to put the number three into the machine.
 
 <img
   class="concept-image"
@@ -25,7 +25,7 @@ But some machines, they have slots, like this walk machine. The walk machine is 
   height="400"
 />
 
-To do this in code, we still write the name of the function, in this case walk, and we still put our opening bracket. But then before our closing bracket, we say what we want the <define>input</define> to be. So in this case, we want the input to be three, to say walk three steps forward:
+To do this in code, we still write the name of the function, in this case `walk`, and we still put our opening bracket. But then before our closing bracket, we say what we want the <define>input</define> to be. So in this case, we want the input to be three, to say `walk` three steps forward:
 
 ```javascript
 walk(3)

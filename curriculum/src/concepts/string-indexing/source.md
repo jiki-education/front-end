@@ -32,7 +32,7 @@ If we say `"Jeremy"[1]`, we're saying give me the second letter.
 "Jeremy"[1]
 ```
 
-And we can do this with variables too. So if we make a variable called name and set its value to the string Jeremy, then we can do `name[0]`, and we'll get J again.
+And we can do this with variables too. So if we make a variable called <define>`name`</define> and set its value to the string Jeremy, then we can do `name[0]`, and we'll get J again.
 
 ```javascript
 let name = "Jeremy"

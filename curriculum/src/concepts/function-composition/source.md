@@ -54,7 +54,7 @@ As your functions get more complex and you have more of them, this technique is 
 
 There's one thing worth mentioning again here, and that's that anything you create inside a function can't be accessed by other functions unless you deliberately return it.
 
-So if you try and reference the count variable from inside <define>`describeName`</define>, you can't do it, as it belongs to the other function.
+So if you try and reference the <define>`count`</define> variable from inside <define>`describeName`</define>, you can't do it, as it belongs to the other function.
 
 <img
   class="concept-image"

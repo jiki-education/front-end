@@ -3,7 +3,7 @@ title: "Strings"
 description: "Pieces of text wrapped in quotes (a letter, a word, a sentence, or a whole paragraph) that Jiki writes on paper."
 ---
 
-When you want to use a number, you can literally just write that number down, and Jiki knows what you mean. But what about if you want to use a <define>letter</define> or a word or a sentence? For example, with the rectangle function or the circle function, what if you had an extra input where you specified the color? How would we write the color to put it into the machine? If we just write the word green or blue, Jiki will think we're referring to a machine on the shelves, and he'll say, "There is no machine called green. I don't know what to do."
+When you want to use a number, you can literally just write that number down, and Jiki knows what you mean. But what about if you want to use a <define>letter</define> or a word or a sentence? For example, with the <define>`rectangle`</define> function or the circle function, what if you had an extra input where you specified the color? How would we write the color to put it into the machine? If we just write the word green or blue, Jiki will think we're referring to a machine on the shelves, and he'll say, "There is no machine called green. I don't know what to do."
 
 <img
   class="concept-image"

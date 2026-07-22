@@ -19,7 +19,7 @@ You could just write out hello world as one string, but you could also write `"h
 
 Now, obviously, that's not all that useful in this scenario. But what if we had a variable with someone's name in and we wanted to say hello to them?
 
-So imagine we have a variable called name, and it contains Jeremy sometimes and Jiki other times. We want to say hello Jeremy or hello Jiki using that variable.
+So imagine we have a variable called <define>`name`</define>, and it contains Jeremy sometimes and Jiki other times. We want to say hello Jeremy or hello Jiki using that variable.
 
 <img
   class="concept-image"
@@ -29,7 +29,7 @@ So imagine we have a variable called name, and it contains Jeremy sometimes and 
   height="400"
 />
 
-Well, we can achieve this using this concatenation concept by writing `"hello " + name`, and that will give us either "hello Jeremy" or "hello Jiki" or hello anyone else, depending on what's inside the name box.
+Well, we can achieve this using this concatenation concept by writing `"hello " + name`, and that will give us either "hello Jeremy" or "hello Jiki" or hello anyone else, depending on what's inside the `name` box.
 
 ```javascript
 "hello " + name
