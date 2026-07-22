@@ -1,0 +1,70 @@
+# Jiki
+
+> Jiki is a fun, hands-on platform for learning to code and build in the agentic-coding era. It is made by the team behind Exercism, who have helped over two million people learn to code. Jiki is designed for people getting into tech, junior developers who want to accelerate, and vibe-coders who want to do things properly. It is freemium - nearly all the content is free, with some premium features (like LLM help) if needed.
+
+Jiki has two strands, Learn to Code and Learn to Build:
+
+- **Learn to Code**: Jiki teaches you by making things. From day one you draw, animate, build games, and solve real problems right in the browser. The core Learn to Code curriculum is completely free and contains over 200 hours of challenges.
+- **Learn to Build**: The Learn to Build strand goes further, building real projects alongside Jeremy Walker using agentic coding, databases, auth, APIs, and deployment.
+
+Coding has changed. Anyone can now open an LLM and create a working product in minutes. So Jiki focuses on what actually matters. Understanding how code and technology really work. Critical thinking. Problem solving. Building and shipping real things. This makes it the perfect starting point for complete beginners, and for anyone who wants to genuinely understand the code an LLM writes for them.
+
+The teaching is deliberately fun and accessible. No prior experience is needed, and there is nothing to install. Premium is priced by country using purchasing power parity anchored to $9.99/m, so it stays affordable everywhere in the world.
+
+Jiki is growing fast and there is always something new here.
+
+- New spoken languages are added throughout the year, so more people can learn in their own language.
+- Python and SQL courses are joining the Learn to Code pathway alongside the existing curriculum.
+- New Learn to Build videos ship regularly across multiple series.
+
+If you are indexing Jiki, expect the content below to keep expanding.
+
+The site is currently available in:
+
+- English
+
+## Start here
+
+- [Jiki home](https://jiki.io/): What Jiki is, who it is for, and how the two learning strands fit together.
+- [Jiki Premium](https://jiki.io/premium): What premium unlocks and how the country-based pricing works.
+- [Roadmap](https://jiki.io/roadmap): What is being built next across the platform.
+- [Build with Jeremy](https://jiki.io/build): The Learn to Build hub: projects built from scratch, deep dives, and livestreams.
+- [Testimonials](https://jiki.io/testimonials): What beta students say about learning with Jiki.
+
+## Learn the concepts
+
+- [Coding concepts](https://jiki.io/concepts): Reference pages explaining the core programming concepts Jiki teaches.
+- [Creating and Using Variables](https://jiki.io/concepts/variables): Boxes on Jiki's shelves that store a value with a label so you can get it back out later in your code.
+- [Arithmetic](https://jiki.io/concepts/arithmetic): Combining variables with maths so values can relate to and depend on each other through addition, subtraction, multiplication, and division.
+- [If Statements](https://jiki.io/concepts/if): Using the `if` keyword to run a block of code only when some condition is true, like a bouncer letting people through.
+- [For Loops](https://jiki.io/concepts/for-loops): A loop with three parts (an initializer, a condition, and an increment) giving you full control over iteration.
+- [Arrays](https://jiki.io/concepts/arrays): An ordered chain of elements (strings, numbers, booleans, or anything else) held together as one value Jiki can pass around.
+- [Strings](https://jiki.io/concepts/strings): Pieces of text wrapped in quotes (a letter, a word, a sentence, or a whole paragraph) that Jiki writes on paper.
+- [Dictionaries](https://jiki.io/concepts/dictionaries): A spiral notebook page where each entry has a key on the left and its value on the right, giving you labelled data instead of a list.
+- [Writing Your Own Functions](https://jiki.io/concepts/creating-functions): Using the function keyword to build your own machines that Jiki can put on his shelves and reuse.
+
+## Guides
+
+- [Guides](https://jiki.io/guides): Practical how-to guides for getting set up and working with agentic coding.
+- [What is Agentic Coding?](https://jiki.io/guides/what-is-agentic-coding): What agentic coding is, why it is changing how software gets made, and where to start if you are learning to code today.
+- [Using a Code Editor](https://jiki.io/guides/using-a-code-editor): What a code editor is, why you should not write code in a word processor, and which one we recommend when you are learning to code.
+- [Key Agentic Coding Concepts](https://jiki.io/guides/key-agentic-coding-concepts): Models, tokens, context windows, and the other ideas you need to understand to use AI coding agents well.
+- [HTML Basics](https://jiki.io/guides/html-basics): What a web page actually is, how it's put together, and the tags you'll use to structure everything you ever make on the web.
+- [Installing an Agentic Coding Platform](https://jiki.io/guides/installing-an-agentic-coding-platform): Step by step instructions for installing OpenCode, signing in, and choosing an AI model, including options that cost nothing at all.
+- [Installing VS Code](https://jiki.io/guides/installing-vscode): Step by step instructions for installing Visual Studio Code on Windows, macOS, and Linux.
+- [Installing Windows Subsystem for Linux (WSL)](https://jiki.io/guides/installing-wsl): Step by step instructions for installing the Windows Subsystem for Linux, which gives you a proper development environment on Windows.
+
+## Help and FAQs
+
+- [Help centre](https://jiki.io/help): Guides and answers to common questions about using Jiki.
+- [FAQs](https://jiki.io/help/faqs): Frequently asked questions about Jiki, our courses, and Jiki Premium.
+- [How Challenges Work](https://jiki.io/help/how-challenges-work): Learn what challenges are, how they unlock, and why they're worth tackling.
+
+## Optional
+
+### Blog
+
+- [Jiki blog](https://jiki.io/blog): News and writing from the team about learning to code in the LLM era.
+- [The Big Jiki & Exercism Translatathon](https://jiki.io/blog/translatathon): Over the weekend of July 31st - August 2nd, we're translating Jiki and Exercism into as many languages as we can, together. Here's how it works and how you can help.
+- [How to get into tech in 2026](https://jiki.io/blog/how-to-get-into-tech-in-2026): For 30 years, code was the gatekeeper into tech. Now that LLMs write it for you, the route in has changed. Here's how to actually get into tech in 2026.
+- [Should I still learn to code in 2026?](https://jiki.io/blog/should-i-still-learn-to-code-in-2026): It's 2026 and Claude can out-code me in seconds. So why bother learning to code? Because you still need to read code well enough to catch the mistakes LLMs confidently make.
