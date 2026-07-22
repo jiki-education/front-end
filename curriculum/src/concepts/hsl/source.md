@@ -3,7 +3,7 @@ title: "HSL Colors"
 description: "Building colors from hue (the shade, 0–360), saturation (how vivid, 0–100), and lightness (how bright, 0–100)."
 ---
 
-HSL gives us a completely different way to think about colors than RGB. HSL stands for hue, saturation, and lightness. You have a function called `hsl` that takes three numbers, one for hue, one for saturation, and one for lightness, and it will return out a color. So let's break down what those three words mean.
+<literal>HSL</literal> gives us a completely different way to think about colors than <literal>RGB</literal>. HSL stands for <define info="Hue (H) in English">hue</define>, <define info="Saturation (S) in English">saturation</define>, and <define info="Lightness (L) in English">lightness</define>. You have a function called `hsl` that takes three numbers, one for hue, one for saturation, and one for lightness, and it will return out a color. So let's break down what those three words mean.
 
 ```javascript
 hsl(hue, saturation, lightness)
