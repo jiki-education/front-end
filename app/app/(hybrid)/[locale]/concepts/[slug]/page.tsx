@@ -1,7 +1,9 @@
 import ConceptsBetaTag from "@/components/concepts/ConceptsBetaTag";
 import ConceptDetailPage from "@/components/concepts/ConceptDetailPage";
 import SidebarLayout from "@/components/layout/SidebarLayout";
+import JsonLd from "@/components/seo/JsonLd";
 import { getConceptMetadata } from "@/lib/concepts/metadata";
+import { breadcrumbSchema, conceptLearningResourceSchema } from "@/lib/seo/schemas";
 import {
   getConceptServer,
   getAncestorsServer,
@@ -46,8 +48,25 @@ export default async function AppConceptPage({ params }: Props) {
     initialLeafData = { concept, ancestors, content, relatedConcepts, relatedExercises, videoData };
   }
 
+  // Structured data: describe the concept as a LearningResource and place it in
+  // the concept hierarchy with a breadcrumb trail (Concepts > ...ancestors > this).
+  const jsonLd = concept
+    ? [
+        conceptLearningResourceSchema(concept, locale),
+        breadcrumbSchema(
+          [
+            { name: "Concepts", path: "/concepts" },
+            ...ancestors.map((a) => ({ name: a.title, path: `/concepts/${a.slug}` })),
+            { name: concept.title, path: `/concepts/${concept.slug}` }
+          ],
+          locale
+        )
+      ]
+    : null;
+
   return (
     <SidebarLayout activeItem="concepts">
+      {jsonLd && <JsonLd data={jsonLd} />}
       <ConceptsBetaTag />
       {/* key={slug} remounts the detail view on client-side navigation between
           concepts, so the server-seeded hook state (concept, body, subconcepts)
