@@ -1,0 +1,122 @@
+# Jiki
+
+> Jiki is a fun, hands-on platform for learning to code and build in the LLM era. It is made by the team behind Exercism, who have helped over two million people learn to code. Jiki is designed for people getting into tech, junior developers who want to accelerate, and vibe-coders who want to do things properly.
+
+Jiki teaches you by making things. From day one you draw, animate, build games, and solve real problems right in the browser. The core Learn to Code curriculum is completely free and contains over 200 hours of challenges. A premium Learn to Build strand goes further, building real projects alongside Jeremy Walker using agentic coding, databases, auth, APIs, and deployment.
+
+Coding has changed. Anyone can now open an LLM and create a working product in minutes. So Jiki focuses on what actually matters. Understanding how code and technology really work. Critical thinking. Problem solving. Building and shipping real things. This makes it the perfect starting point for complete beginners, and for anyone who wants to genuinely understand the code an LLM writes for them.
+
+The teaching is deliberately fun and accessible. No prior experience is needed, and there is nothing to install. Premium is priced by country using purchasing power parity, so it stays affordable everywhere in the world.
+
+Jiki is growing fast and there is always something new here.
+
+- New spoken languages are added throughout the year, so more people can learn in their own language.
+- Python and SQL courses are joining the Learn to Code pathway alongside the existing curriculum.
+- New Learn to Build videos ship regularly across multiple series.
+
+If you are indexing Jiki, expect the content below to keep expanding.
+
+The site is currently available in:
+
+- English
+
+## Key pages
+
+- [Jiki home](https://jiki.io/): What Jiki is, who it is for, and how the two learning strands fit together.
+- [Jiki Premium](https://jiki.io/premium): What premium unlocks and how the country-based pricing works.
+- [Roadmap](https://jiki.io/roadmap): What is being built next across the platform.
+- [Build with Jeremy](https://jiki.io/build): The Learn to Build hub: projects built from scratch, deep dives, and livestreams.
+- [Testimonials](https://jiki.io/testimonials): What beta students say about learning with Jiki.
+
+## Coding concepts
+
+- [Arrays](https://jiki.io/concepts/arrays): An ordered chain of elements (strings, numbers, booleans, or anything else) held together as one value Jiki can pass around.
+- [Colors](https://jiki.io/concepts/colors): Two ways to specify any color you want. RGB mixes red, green, and blue light. HSL uses hue, saturation, and lightness.
+- [Dictionaries](https://jiki.io/concepts/dictionaries): A spiral notebook page where each entry has a key on the left and its value on the right, giving you labelled data instead of a list.
+- [Strings](https://jiki.io/concepts/strings): Pieces of text wrapped in quotes (a letter, a word, a sentence, or a whole paragraph) that Jiki writes on paper.
+- [Creating and Using Variables](https://jiki.io/concepts/variables): Boxes on Jiki's shelves that store a value with a label so you can get it back out later in your code.
+- [Arithmetic](https://jiki.io/concepts/arithmetic): Combining variables with maths so values can relate to and depend on each other through addition, subtraction, multiplication, and division.
+- [Building Arrays](https://jiki.io/concepts/building-arrays): Starting with an empty array and using `push` to add items one at a time as you loop through data.
+- [Functions](https://jiki.io/concepts/functions-group): Reusable little machines you can run by name, the core building block for organising code and avoiding repetition.
+- [HSL Colors](https://jiki.io/concepts/hsl): Building colors from hue (the shade, 0–360), saturation (how vivid, 0–100), and lightness (how bright, 0–100).
+- [If Statements](https://jiki.io/concepts/if): Using the `if` keyword to run a block of code only when some condition is true, like a bouncer letting people through.
+- [Repeat Loop](https://jiki.io/concepts/repeat): Using the `repeat` keyword to tell Jiki to run the code inside the curly brackets a specific number of times.
+- [String Concatenation](https://jiki.io/concepts/string-concatenation): Adding strings together with `+` to glue fixed text and variables into one longer string.
+- [Changing Dictionaries](https://jiki.io/concepts/updating-dictionaries): Using `dict[key] = value` to update existing entries or add new ones, plus the `has` method for checking keys.
+- [Using Functions](https://jiki.io/concepts/using-functions): Telling Jiki to run one of his little machines by writing its name followed by two brackets.
+- [Else](https://jiki.io/concepts/else): Adding an `else` clause after an `if` so a different block of code runs when the condition turns out to be false.
+- [Loops in Loops](https://jiki.io/concepts/nested-loops): Putting one loop inside another so the inner loop runs completely for each step of the outer loop, which is perfect for grids.
+- [RGB Colors](https://jiki.io/concepts/rgb): Mixing red, green, and blue light from 0 to 255 to make any color you want on the screen.
+- [String Templates](https://jiki.io/concepts/string-templates): Using backticks and `${...}` placeholders to slot values straight into a string instead of joining pieces with `+`.
+- [Updating Variables](https://jiki.io/concepts/updating-variables): Changing what's inside a variable as your program runs so you can track positions, counts, scores, and other shifting values.
+- [Function Inputs](https://jiki.io/concepts/using-functions-with-inputs): Putting values into a function's input slots to change what it does each time it runs.
+- [Variables](https://jiki.io/concepts/variables-group): Boxes on Jiki's shelves that store a value with a label so you can get it back out later in your code.
+- [Else If](https://jiki.io/concepts/else-if): Chaining `else if` clauses to check several conditions in order, running only the first block whose condition is true.
+- [Repeat Without Count](https://jiki.io/concepts/repeat-while): Leaving the brackets of a repeat loop empty so Jiki keeps going until something else tells him to stop.
+- [String Indexing](https://jiki.io/concepts/string-indexing): Using square brackets and a position number to pull out a single letter from a string. Remember that positions start at zero.
+- [Strings](https://jiki.io/concepts/strings-group): Pieces of text wrapped in quotes (a letter, a word, a sentence, or a whole paragraph) that Jiki writes on paper.
+- [Functions That Return Things](https://jiki.io/concepts/using-functions-with-return-values): Catching a value that pops out of a function's output chute and using it in your code.
+- [Colors](https://jiki.io/concepts/colors-group): Two ways to specify any color you want. RGB mixes red, green, and blue light. HSL uses hue, saturation, and lightness.
+- [Writing Your Own Functions](https://jiki.io/concepts/creating-functions): Using the function keyword to build your own machines that Jiki can put on his shelves and reuse.
+- [For Loops](https://jiki.io/concepts/for-loops): A loop with three parts (an initializer, a condition, and an increment) giving you full control over iteration.
+- [The `and` keyword](https://jiki.io/concepts/logical-and): Combining two conditions with `&&` so the whole condition is only true when both parts are true.
+- [Iterating Through Strings](https://jiki.io/concepts/string-iteration): Using a `for-of` loop to step through every letter in a string, doing something with each one in turn.
+- [Break](https://jiki.io/concepts/break): Using the `break` keyword inside a loop body to exit the loop immediately and move on to code that comes after it.
+- [Adding Inputs to Functions](https://jiki.io/concepts/creating-functions-with-inputs): Adding input slots to your own functions so they can do different things based on the values passed in.
+- [The `or` keyword](https://jiki.io/concepts/logical-or): Combining two conditions with `||` so the whole condition is true when at least one of the parts is true.
+- [Loops](https://jiki.io/concepts/loops-group): Breaking out of strict top-to-bottom code flow by telling Jiki to run the same block of code over and over.
+- [Conditionals](https://jiki.io/concepts/conditionals-group): Comparing values with operators like `<`, `>`, and `===` to produce booleans that decide whether a block of code runs.
+- [Continue](https://jiki.io/concepts/continue): Using the `continue` keyword inside a loop to skip the rest of this iteration and jump straight to the next one.
+- [Adding Returns to Functions](https://jiki.io/concepts/creating-functions-with-return-values): Using the return keyword to give your own functions an output chute that hands a value back to the caller.
+- [Remainder](https://jiki.io/concepts/modulo): Using the `%` operator to get what's left over after division, often used to check if a number is even or odd.
+- [Arrays](https://jiki.io/concepts/arrays-group): An ordered chain of elements (strings, numbers, booleans, or anything else) held together as one value Jiki can pass around.
+- [Using Multiple Functions Together](https://jiki.io/concepts/function-composition): Splitting a problem into small single-responsibility functions that call each other, so each piece stays simple and reusable.
+- [The `not` operator](https://jiki.io/concepts/logical-not): Using `!` to flip a boolean: true becomes false and false becomes true, useful for toggling or inverting checks.
+- [Dictionaries](https://jiki.io/concepts/dictionaries-group): A spiral notebook page where each entry has a key on the left and its value on the right, giving you labelled data instead of a list.
+- [Using State](https://jiki.io/concepts/state): Combining if statements with variables that change over time so your program reacts and behaves differently as it runs.
+- [Animation](https://jiki.io/concepts/animation): Tricking the eye into seeing movement by repainting the background and redrawing each frame in a slightly new position.
+- [Random Numbers](https://jiki.io/concepts/random): Using `Math.randomInt` with a minimum and maximum to get a different number each time the function runs.
+- [Scope](https://jiki.io/concepts/scope): Understanding how curly brackets create their own set of shelves, so variables only live as long as their block does.
+- [Scenarios](https://jiki.io/concepts/scenarios): Different starting conditions an exercise runs your single piece of code against, so you have to make it work for all of them.
+- [Methods](https://jiki.io/concepts/methods): Functions that belong to a value and are called with dot notation, like `"Jeremy".includes("e")` or `"Jeremy".toUpperCase()`.
+- [Properties](https://jiki.io/concepts/properties): Static facts about a value, accessed with dot notation and no brackets, like `.length` to find how many letters a string has.
+
+## Guides
+
+- [Guides](https://jiki.io/guides): Practical how-to guides for getting set up and working with agentic coding.
+- [What is Agentic Coding?](https://jiki.io/guides/what-is-agentic-coding): What agentic coding is, why it is changing how software gets made, and where to start if you are learning to code today.
+- [Using a Code Editor](https://jiki.io/guides/using-a-code-editor): What a code editor is, why you should not write code in a word processor, and which one we recommend when you are learning to code.
+- [Key Agentic Coding Concepts](https://jiki.io/guides/key-agentic-coding-concepts): Models, tokens, context windows, and the other ideas you need to understand to use AI coding agents well.
+- [HTML Basics](https://jiki.io/guides/html-basics): What a web page actually is, how it's put together, and the tags you'll use to structure everything you ever make on the web.
+- [Installing an Agentic Coding Platform](https://jiki.io/guides/installing-an-agentic-coding-platform): Step by step instructions for installing OpenCode, signing in, and choosing an AI model, including options that cost nothing at all.
+- [Installing VS Code](https://jiki.io/guides/installing-vscode): Step by step instructions for installing Visual Studio Code on Windows, macOS, and Linux.
+- [Installing Windows Subsystem for Linux (WSL)](https://jiki.io/guides/installing-wsl): Step by step instructions for installing the Windows Subsystem for Linux, which gives you a proper development environment on Windows.
+
+## Help articles
+
+- [Beta Phase](https://jiki.io/help/beta-phase): Jiki is in beta for June 2026. Here's what that means for you.
+- [Fair Usage Policy for Ask Jiki AI](https://jiki.io/help/fair-usage-jiki-ai-policy): How message limits work when you chat with Jiki, why they exist, and when they reset.
+- [FAQs](https://jiki.io/help/faqs): Frequently asked questions about Jiki, our courses, and Jiki Premium.
+- [How Challenges Work](https://jiki.io/help/how-challenges-work): Learn what challenges are, how they unlock, and why they're worth tackling.
+- [How to clear your cookies](https://jiki.io/help/how-to-clear-your-cookies): Step-by-step instructions for clearing cookies in your browser to resolve sign-in issues on Jiki.
+- [Streaks](https://jiki.io/help/streaks): Learn about how streaks work on Jiki.
+- [Support](https://jiki.io/help/support): Get help and support for using Jiki.
+- [What is the Scrubber?](https://jiki.io/help/what-is-the-scrubber): Learn about the scrubber and how to use it.
+- [When Will This Feature Unlock?](https://jiki.io/help/when-will-this-feature-unlock): Learn how features unlock as you progress through Jiki.
+- [Who makes/runs Jiki?](https://jiki.io/help/who-makes-runs-jiki): Learn about the team behind Jiki.
+- [Why Is This Feature Not Implemented?](https://jiki.io/help/why-is-this-feature-not-implemented): Learn why certain language features are excluded from Jiki and how this helps you learn more effectively.
+
+## Projects
+
+- [Build with Jeremy](https://jiki.io/build): The hub for every Learn to Build project and series.
+- [Build your Personal Homepage](https://jiki.io/projects/build-your-personal-homepage): Join Jeremy as he builds his own homepage from scratch. Learn about how to use Agentic Coding, how the Web Works, and deploy your first website.
+
+## Blog
+
+- [The Big Jiki & Exercism Translatathon](https://jiki.io/blog/translatathon): Over the weekend of July 31st - August 2nd, we're translating Jiki and Exercism into as many languages as we can, together. Here's how it works and how you can help.
+- [How to get into tech in 2026](https://jiki.io/blog/how-to-get-into-tech-in-2026): For 30 years, code was the gatekeeper into tech. Now that LLMs write it for you, the route in has changed. Here's how to actually get into tech in 2026.
+- [Should I still learn to code in 2026?](https://jiki.io/blog/should-i-still-learn-to-code-in-2026): It's 2026 and Claude can out-code me in seconds. So why bother learning to code? Because you still need to read code well enough to catch the mistakes LLMs confidently make.
+- [Jiki is 10 (days) old today!](https://jiki.io/blog/jiki-is-10-days-old): Jiki turns 10 days old today. A look back at our first ten days of open beta - the signups, the lessons completed, the bugs we've squashed, and what's coming next.
+- [Stop worrying about which language to learn. Just learn to code!](https://jiki.io/blog/just-learn-to-code): Beginners are told that learning to code means learning a language. It doesn't. Here's why you should focus on fundamentals first, and pick a language later.
+- [Hello, World! 👋](https://jiki.io/blog/hello-world): Welcome to Jiki! Learn what Jiki is, who it's for, and how it can help you learn to code.
+- [The Backstory of Jiki](https://jiki.io/blog/the-backstory-of-jiki): Why we built Jiki. This is the backstory that led us from Exercism to creating something totally new for beginners, and where we hope the journey will lead!
