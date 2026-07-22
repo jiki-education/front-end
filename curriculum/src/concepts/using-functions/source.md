@@ -17,7 +17,7 @@ The whole point of coding is giving the interpreter, Jiki in this case, the righ
 
 When I learnt to code 34 years ago, this was the mental model that I built, and it's the one I still have today. I understand how computers work all the way down to the ones and the zeros, but I honestly never think of that. In my head, there's a little man living in the computer, and I tell him what to do. So go along with me on this. It's a powerful mental model that you can build, and if you start to think of things in this very visual way about what the person in the computer is doing, it's gonna hold you in very good stead as you learn to code.
 
-So let's start off by looking at one of the fundamental concepts in programming called functions. Functions are like little machines that you can tell Jiki to use, and if we look inside Jiki's warehouse, that's where he hangs out, you're gonna see he has a shelf with three different machines on, <define>`move`</define>, <define>`turnLeft`</define>, and <define>`turnRight`</define>.
+So let's start off by looking at one of the fundamental concepts in programming called <define>functions</define>. Functions are like little machines that you can tell Jiki to use, and if we look inside Jiki's warehouse, that's where he hangs out, you're gonna see he has a shelf with three different machines on, <define>`move`</define>, <define>`turnLeft`</define>, and <define>`turnRight`</define>.
 
 <img
   class="concept-image"
