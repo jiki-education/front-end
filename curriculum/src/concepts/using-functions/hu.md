@@ -1,7 +1,7 @@
 ---
 title: "Függvények használata"
 description: "Szólj Jikinek, hogy indítsa el az egyik kis gépét: írd le a nevét, utána a két zárójelet."
-en_md5: ec004465cfbba62acf0cc6f973e27e97
+en_md5: e65ae880088b69869860df7b2eede12d
 ---
 
 Amikor kódot írsz, valójában azt mondod el egy olyan nyelven, amit a számítógép is megért, hogy mit szeretnél, hogy megtörténjen. Rengeteg különböző programozási nyelv létezik, és rengeteg különböző értelmező (interpreter) is, amely a leírt kódot olyan egyesekké és nullákká alakítja, amelyeket a számítógép megért. Ebben a kurzusban a te értelmeződ Jiki. Az egész kurzus róla kapta a nevét. Ő itt Jiki. Jiki lesz a barátod ezen a programozási utazáson. Az ő dolga, hogy értelmezze a kódot, amit írsz, és olyan egyesekké és nullákká alakítsa, amelyekkel a számítógép ténylegesen dolgozni tud.
@@ -18,7 +18,7 @@ A programozás lényege, hogy a megfelelő utasításokat adjuk az értelmezőne
 
 Amikor 34 évvel ezelőtt megtanultam programozni, ezt a gondolati modellt építettem fel magamban, és a mai napig ez van a fejemben. Pontosan értem, hogyan működik a számítógép, egészen az egyesekig és nullákig, de őszintén szólva sosem gondolok erre. A fejemben egy kis ember lakik a számítógépben, és én megmondom neki, mit csináljon. Tarts hát velem ebben. Ez egy erős gondolati modell, amit te is felépíthetsz, és ha elkezdesz ilyen vizuálisan gondolkodni arról, hogy mit csinál a számítógépben lakó emberke, az nagyon jól fog jönni, miközben programozni tanulsz.
 
-Kezdjük is az egyik alapvető programozási fogalommal, a függvényekkel (function). A függvények olyanok, mint kis gépek, amelyeket Jiki a te utasításodra használ. Ha benézünk Jiki raktárába, ő ott szokott tanyázni, látni fogod, hogy van egy polca három különböző géppel: move, turn left és turn right.
+Kezdjük is az egyik alapvető programozási fogalommal, a függvényekkel (function). A függvények olyanok, mint kis gépek, amelyeket Jiki a te utasításodra használ. Ha benézünk Jiki raktárába, ő ott szokott tanyázni, látni fogod, hogy van egy polca három különböző géppel: `move` (mozgás), `turnLeft` (fordulj balra) és `turnRight` (fordulj jobbra).
 
 <img
   class="concept-image"
@@ -28,7 +28,7 @@ Kezdjük is az egyik alapvető programozási fogalommal, a függvényekkel (func
   height="371"
 />
 
-Amikor leírtad, hogy move, majd utána a két zárójelet, azzal azt mondtad Jikinek, hogy vegye le a move gépet a polcról, tekerje meg a karját, indítsa be, és használja.
+Amikor leírtad, hogy `move`, majd utána a két zárójelet, azzal azt mondtad Jikinek, hogy vegye le a `move` gépet a polcról, tekerje meg a karját, indítsa be, és használja.
 
 <img
   class="concept-image"
@@ -38,7 +38,7 @@ Amikor leírtad, hogy move, majd utána a két zárójelet, azzal azt mondtad Ji
   height="400"
 />
 
-Amikor leírtad, hogy turn left, majd a zárójeleket, azzal arra utasítottad Jikit, hogy vegye le a turn left gépet a polcról, és használja azt. Ezt a mintát fogod újra és újra használni. Amikor egy gépet szeretnél használni, leírod a nevét, utána a zárójeleket, és ezzel mondod meg Jikinek, hogy hozza el a gépet, és használja:
+Amikor leírtad, hogy `turnLeft`, majd a zárójeleket, azzal arra utasítottad Jikit, hogy vegye le a `turnLeft` gépet a polcról, és használja azt. Ezt a mintát fogod újra és újra használni. Amikor egy gépet szeretnél használni, leírod a nevét, utána a zárójeleket, és ezzel mondod meg Jikinek, hogy hozza el a gépet, és használja:
 
 ```javascript
 move()
