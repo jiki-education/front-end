@@ -1,10 +1,14 @@
 import type { ExerciseSlug } from "@jiki/curriculum";
 import type { ProgrammingLanguage } from "./course";
 
-// Video source type (used across lessons, walkthroughs, concepts)
+// Video source type (used across lessons, walkthroughs, concepts). Every source
+// carries duration + upload date (a documented API contract on the Rails
+// HasVideoData concern) so the front-end can emit schema.org VideoObject JSON-LD.
 export interface VideoSource {
-  provider: string;
+  provider: "youtube" | "mux";
   id: string;
+  durationSeconds: number;
+  uploadDate: string;
   language?: ProgrammingLanguage;
 }
 

@@ -48,7 +48,9 @@ export default function UnlockAnimationTest() {
       type: "video" as const,
       title: "Introduction to Variables",
       description: "Learn about variables and data types",
-      walkthrough_video_data: [{ provider: "mux", id: "mock-video-id-1" }]
+      walkthrough_video_data: [
+        { provider: "mux" as const, id: "mock-video-id-1", durationSeconds: 120, uploadDate: "2026-01-01" }
+      ]
     },
     completed: lessonCompleted,
     locked: false,
@@ -62,7 +64,9 @@ export default function UnlockAnimationTest() {
       type: "quiz" as const,
       title: "Variables Quiz",
       description: "Test your knowledge of variables",
-      walkthrough_video_data: [{ provider: "mux", id: "mock-video-id-2" }]
+      walkthrough_video_data: [
+        { provider: "mux" as const, id: "mock-video-id-2", durationSeconds: 120, uploadDate: "2026-01-01" }
+      ]
     },
     completed: false,
     locked: animationState === "completing" || (!recentlyUnlocked && animationState === "idle"),

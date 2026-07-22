@@ -2,6 +2,7 @@
 
 import HintsPanel from "@/components/coding-exercise/ui/HintsPanel";
 import { GlobalModalProvider } from "@/lib/modal/GlobalModalProvider";
+import type { VideoSource } from "@/types/lesson";
 
 const sampleHints = [
   { question: "Hint", answer: "Try using a <code>for</code> loop to iterate through the array." },
@@ -9,7 +10,9 @@ const sampleHints = [
   { question: "Hint", answer: "Consider using the <code>modulo</code> operator to check for even/odd numbers." }
 ];
 
-const walkthroughVideoData = [{ provider: "mux", id: "PNbgUkVhy38y7OELdYseo1GAD01XG8FGLJ1nj9BvuKCU" }];
+const walkthroughVideoData: VideoSource[] = [
+  { provider: "mux", id: "PNbgUkVhy38y7OELdYseo1GAD01XG8FGLJ1nj9BvuKCU", durationSeconds: 120, uploadDate: "2026-01-01" }
+];
 
 export default function HintsWalkthroughPage() {
   return (
