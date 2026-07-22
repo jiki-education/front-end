@@ -128,7 +128,8 @@ interface VideoInput {
   durationSeconds?: number;
   provider: "youtube" | "mux";
   videoKey: string;
-  thumbnailUrl: string;
+  // A page-specific poster; falls back to the provider's own thumbnail.
+  thumbnailUrl?: string;
   isAccessibleForFree?: boolean;
 }
 
@@ -137,12 +138,17 @@ export function videoObjectSchema(video: VideoInput) {
     video.provider === "youtube"
       ? `https://www.youtube.com/embed/${video.videoKey}`
       : `https://player.mux.com/${video.videoKey}`;
+  const thumbnailUrl =
+    video.thumbnailUrl ??
+    (video.provider === "youtube"
+      ? `https://img.youtube.com/vi/${video.videoKey}/maxresdefault.jpg`
+      : `https://image.mux.com/${video.videoKey}/thumbnail.jpg?width=1280&height=720`);
   return {
     "@context": "https://schema.org",
     "@type": "VideoObject",
     name: video.name,
     description: video.description,
-    thumbnailUrl: video.thumbnailUrl,
+    thumbnailUrl,
     uploadDate: video.uploadDate,
     ...(video.durationSeconds ? { duration: isoDuration(video.durationSeconds) } : {}),
     embedUrl,
