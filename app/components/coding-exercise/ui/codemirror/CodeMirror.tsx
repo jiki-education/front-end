@@ -13,7 +13,7 @@ export function CodeMirror() {
   const editorRef = useMemo(() => orchestrator.setupEditor(), [orchestrator]);
 
   return (
-    <div className={styles.editorWrapper}>
+    <div className={styles.editorWrapper} dir="ltr">
       <div id="bootcamp-cm-editor" data-testid="codemirror-editor" className={styles.editor} ref={editorRef} />
     </div>
   );

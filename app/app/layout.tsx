@@ -5,6 +5,7 @@ import { ToasterProvider } from "@/components/toaster-config";
 import { GlobalModalProvider } from "@/lib/modal";
 import { SITE_URL } from "@/lib/site";
 import { staticAsset } from "@/lib/static-asset";
+import { getLocaleDirection } from "@/lib/locales";
 import { ThemeProvider } from "@/lib/theme";
 import "@/lib/whyDidYouRender";
 import type { Metadata } from "next";
@@ -65,7 +66,7 @@ export default async function RootLayout({
   const { seo: _seo, ...messages } = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} dir={getLocaleDirection(locale)}>
       <body className={`${poppins.variable} ${sourceCodePro.variable} ${baloo2.variable} ui-body`}>
         <ClientLocaleProvider initialLocale={locale} initialMessages={messages}>
           <GlobalErrorHandler />

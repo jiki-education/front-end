@@ -49,6 +49,7 @@ export function VisualTestCanvas({ view, isSpotlightActive = false }: VisualTest
             "w-full h-full aspect-square [container-type:inline-size] relative",
             isSpotlightActive && "spotlight"
           )}
+          dir="ltr"
           ref={viewContainerRef}
         />
       </div>

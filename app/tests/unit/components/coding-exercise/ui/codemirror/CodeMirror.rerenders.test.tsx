@@ -103,4 +103,17 @@ describe("CodeMirror Re-render Tests", () => {
     expect(editorDiv).toBeInTheDocument();
     expect(editorDiv).toHaveAttribute("data-testid", "codemirror-editor");
   });
+
+  it("pins the editor wrapper to dir=ltr so code never mirrors under an RTL page", () => {
+    const { container } = renderWithCounter(
+      <OrchestratorTestProvider orchestrator={mockOrchestrator}>
+        <CodeMirror />
+      </OrchestratorTestProvider>
+    );
+
+    // The editor island must be dir="ltr" regardless of the surrounding page direction.
+    const wrapper = container.querySelector('[dir="ltr"]');
+    expect(wrapper).toBeInTheDocument();
+    expect(wrapper?.querySelector("#bootcamp-cm-editor")).toBeInTheDocument();
+  });
 });
