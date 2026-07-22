@@ -23,4 +23,8 @@ if (age > 20 || outfit === "disco") {
 
 There's one thing that trips people up with both and and or, and that's that each side of the and/or needs to be a complete comparison. So even if you're comparing the same variable on both sides, you have to repeat it. You can't write `if age is less than 13 or greater than 20`. You have to write `if age is less than 13 or age is greater than 20`. You need both sides to be complete comparisons.
 
+```javascript
+if (age < 13 || age > 20)
+```
+
 You need to think about when both conditions matter and when only one of them needs to be true.

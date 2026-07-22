@@ -35,6 +35,14 @@ One more thing related to this. Sometimes you're gonna have a variable that's tr
 
 So we could do this by saying, "If `movingRight` equals true, `movingRight` equals false. Else, `movingRight` equals true." That's a way of toggling the variable. So Jiki will look at `movingRight` to see whether it's true or false, and then will work out the opposite and put that value back in the box.
 
+```javascript
+if (movingRight === true) {
+  movingRight = false
+} else {
+  movingRight = true
+}
+```
+
 But there's a neater way to do this, and that's to use the same exclamation mark or bang. We can say `movingRight = !movingRight`, and that flips it. `!movingRight` means the opposite of whatever it is.
 
 ```javascript

@@ -30,7 +30,7 @@ shootMany(5)
 shootMany(2)
 ```
 
-Now, this is the key bit. When the code runs, whatever you put into that input, 5 or 2, mini-Jiki, with the hat inside the function, takes that input and puts it into a box called <define>`numShots`</define>, and then puts that box on the shelves inside the function for you to use in the function's code.
+Now, this is the key bit. When the code runs, whatever you put into that input, `5` or `2`, mini-Jiki, with the hat inside the function, takes that input and puts it into a box called <define>`numShots`</define>, and then puts that box on the shelves inside the function for you to use in the function's code.
 
 <img
   class="concept-image"
@@ -42,7 +42,7 @@ Now, this is the key bit. When the code runs, whatever you put into that input, 
 
 I'll say that again.
 
-When we write `shootMany(5)` to use the function, Jiki on the outside goes and gets a 5 and puts it into the input slot of shootMany. Inside the machine, mini-Jiki takes that 5 out and puts it in a box called `numShots`, because that's the name that you gave to that input slot, and then he puts that box on the shelves inside the function inside the machine.
+When we write `shootMany(5)` to use the function, Jiki on the outside goes and gets a `5` and puts it into the input slot of `shootMany`. Inside the machine, mini-Jiki takes that `5` out and puts it in a box called `numShots`, because that's the name that you gave to that input slot, and then he puts that box on the shelves inside the function inside the machine.
 
 <img
   class="concept-image"

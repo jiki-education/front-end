@@ -21,7 +21,7 @@ There's a keyword that helps us tell Jiki to only do things in certain situation
   height="400"
 />
 
-We use the if keyword in a very similar manner to the repeat one. We put some information in normal brackets. In this case, that information is the <define>condition</define> that we're checking. And then we put a block of code in the curly braces that we run only if that condition is true.
+We use the `if` keyword in a very similar manner to the `repeat` one. We put some information in normal brackets. In this case, that information is the <define>condition</define> that we're checking. And then we put a block of code in the curly braces that we run only if that condition is true.
 
 ```javascript
 if (condition) {
@@ -44,9 +44,9 @@ We use symbols to write these comparisons. You'll already likely be familiar wit
 
 And this helps us not get confused with when we're setting or updating variables, and we use an equal sign to mean put this in the box. Just remember three equal signs for comparing.
 
-You can compare strings too. So hello equals hello. That's true. The two strings are the same. But be careful here, because Jiki compares every single <define>character</define> in both strings on both pieces of paper. So hello with a capital H is not equal to hello with a small H. They're different strings. So comparing those would be false, because the capital H and the lowercase H are different characters.
+You can compare strings too. So `"hello"` equals `"hello"`. That's true. The two strings are the same. But be careful here, because Jiki compares every single <define>character</define> in both strings on both pieces of paper. So `"Hello"` with a capital H is not equal to `"hello"` with a small H. They're different strings. So comparing those would be false, because the capital H and the lowercase H are different characters.
 
-Also, by the way, true and false, they're called <define>Booleans</define>, and that's another technical-sounding word. But it's really simple. It's just a formal way of saying that something is either true or false. So if you hear me say Booleans or someone else say Booleans, it just means true or false. Let's see this in action. Imagine we're building that robot bouncer for a club, and we're gonna say the bouncer should only open the door if the person is 21 or older. So we have an <define>`askAge`</define> function, which we can use to get someone's age, and we're gonna save the result of that in a variable called <define>`age`</define>. And then we can say, if that `age` is greater than 20, we'll open the door. So if `askAge` returns 30, we open it, and if it returns 12, we don't.
+Also, by the way, true and false, they're called <define>Booleans</define>, and that's another technical-sounding word. But it's really simple. It's just a formal way of saying that something is either true or false. So if you hear me say Booleans or someone else say Booleans, it just means true or false. Let's see this in action. Imagine we're building that robot bouncer for a club, and we're gonna say the bouncer should only open the door if the person is 21 or older. So we have an <define>`askAge`</define> function, which we can use to get someone's age, and we're gonna save the result of that in a variable called <define>`age`</define>. And then we can say, if that `age` is greater than 20, we'll open the door. So if `askAge` returns `30`, we open it, and if it returns `12`, we don't.
 
 ```javascript
 let age = askAge()

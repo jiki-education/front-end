@@ -11,7 +11,7 @@ But we don't want to fully exit from the loop. We just want to skip this single 
 
 And for this, we have another keyword called `continue`.
 
-When Jiki sees continue, he just jumps back to the top of the loop for the next iteration. So in a for-of loop, if he sees continue, he moves on to the next item in the list.
+When Jiki sees `continue`, he just jumps back to the top of the loop for the next iteration. So in a for-of loop, if he sees `continue`, he moves on to the next item in the list.
 
 ```javascript
 for (let item of list) {

@@ -21,9 +21,9 @@ He can put it into an input slot of a machine. He can pull it out of a return ch
 
 Now, in code, an array looks a little bit like a chain, too. It has a square bracket on each end and then lots of items that are chained together, separated by commas.
 
-So for example, if we wanted to create an array with the names of some of our bootcamp members, we could put together a box called mentors and put that chain inside of it.
+So for example, if we wanted to create an array with the names of some of our bootcamp members, we could put together a box called <define>`mentors`</define> and put that chain inside of it.
 
-We would write `let mentors =`, exactly the same as we do with any other box, and then we'd have an opening square bracket, lots of elements, their names separated by commas, and then a closing square bracket. When Jiki sees this, he goes and gets four pieces of paper, one for each name, then gets a new chain and chains them all together, and then he puts that chain in the mentors box.
+We would write `let mentors =`, exactly the same as we do with any other box, and then we'd have an opening square bracket, lots of elements, their names separated by commas, and then a closing square bracket. When Jiki sees this, he goes and gets four pieces of paper, one for each name, then gets a new chain and chains them all together, and then he puts that chain in the `mentors` box.
 
 You can put anything in an array, strings, numbers, Booleans, even a mix of things.
 
@@ -39,10 +39,10 @@ And we can also iterate through an array in exactly the same way we iterated thr
 
 Arrays work in exactly the same way. The only difference is this time, rather than getting a letter out, we're getting whatever the item in the array was. In this example, the name of the mentor.
 
-So the first time we thank someone, we thank DJ. The second time, we thank Becky, etc.
+So the first time we thank someone, we thank `"DJ"`. The second time, we thank `"Becky"`, etc.
 
-We can also use the length property on arrays, just like we learned about on strings. If we have an array with four strings in the mentors box and write `mentors.length`, it'll return four.
+We can also use the `length` property on arrays, just like we learned about on strings. If we have an array with four strings in the `mentors` box and write `mentors.length`, it'll return four.
 
-And we can use includes exactly the same on arrays, too. We can say `mentors.includes("DJ")`, and it'll return true. But if we say `mentors.includes("Frank")`, it'll return false.
+And we can use `includes` exactly the same on arrays, too. We can say `mentors.includes("DJ")`, and it'll return `true`. But if we say `mentors.includes("Frank")`, it'll return `false`.
 
 Everything works exactly the same as strings. It's just that we're working with the elements of an array, not the letters of a string.

@@ -25,6 +25,16 @@ if (age >= 21) {
 
 But what if you've got more than two possibilities? Imagine our bouncer is selling tickets. Under thirteen, you get a child's ticket. Between thirteen and twenty, you get a teen ticket. Twenty or over, it's an adult ticket. So you've got three different outcomes now. For this, we can add another if statement after the else. So we can say, "If this, then do this. Else if this, do that. Else, do this other thing." So in this example, Jiki will see the if and check the first condition. Is sixteen less than thirteen? No. So he moves on to the else if. Is sixteen less than twenty? Yes, that's true. So he runs that block and gives out a teen ticket. But then he's done. He doesn't check anything else. He doesn't look at that final else at all. Once Jiki finds a condition that's true, he runs that block, and he skips everything else below it.
 
+```javascript
+if (age < 13) {
+  childTicket()
+} else if (age < 20) {
+  teenTicket()
+} else {
+  adultTicket()
+}
+```
+
 This is the key thing to understand. Only one block ever runs. Jiki works down this chain, finds the first true condition, runs that block, and moves on.
 
 Now, there's one thing to really understand because this trips people up. There's a subtle but very important difference between writing two separate if statements and using else if. So imagine we're creating a program that gives either a basic prize or a bonus prize depending on someone's score. Look at these two possibilities. One uses else if and the other uses two elses. What will happen differently?

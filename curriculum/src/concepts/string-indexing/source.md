@@ -13,9 +13,9 @@ Imagine you have my name, Jeremy, and you want to get my initial J out of that. 
   height="353"
 />
 
-Well, you can think of a string as being a series of letters. So Jeremy has six letters, J-E-R-E-M-Y, and each one has a <define>position</define>. J is in the first position, Y is in the last position.
+Well, you can think of a string as being a series of letters. So `"Jeremy"` has six letters, J-E-R-E-M-Y, and each one has a <define>position</define>. `"J"` is in the first position, `"y"` is in the last position.
 
-Now, in JavaScript and most programming languages, these positions start at zero. So the first letter J is at position zero, and then next we have E, which is at position one, R at two, E at three, M at four, and Y at five.
+Now, in JavaScript and most programming languages, these positions start at zero. So the first letter `"J"` is at position zero, and then next we have `"e"`, which is at position one, `"r"` at two, `"e"` at three, `"m"` at four, and `"y"` at five.
 
 Now, this starting with zero thing is pretty weird, and honestly, life would be easier if we just started counting from one, like in the normal world.
 
@@ -23,7 +23,7 @@ But we don't. In most programming languages, we start counting from zero instead
 
 So if we want to get a letter at a specific position, we can use square brackets with the number inside.
 
-So if we say `"Jeremy"[0]`, we're saying give me the first letter of the word Jeremy.
+So if we say `"Jeremy"[0]`, we're saying give me the first letter of the word `"Jeremy"`.
 
 If we say `"Jeremy"[1]`, we're saying give me the second letter.
 
@@ -32,14 +32,14 @@ If we say `"Jeremy"[1]`, we're saying give me the second letter.
 "Jeremy"[1]
 ```
 
-And we can do this with variables too. So if we make a variable called <define>`name`</define> and set its value to the string Jeremy, then we can do `name[0]`, and we'll get J again.
+And we can do this with variables too. So if we make a variable called <define>`name`</define> and set its value to the string `"Jeremy"`, then we can do `name[0]`, and we'll get `"J"` again.
 
 ```javascript
 let name = "Jeremy"
 name[0]
 ```
 
-One thing to be clear on, what you get back from `name[0]` is just another string. It's another piece of paper with J on it. There's nothing special about it. It's a string just like Jeremy is a string.
+One thing to be clear on, what you get back from `name[0]` is just another string. It's another piece of paper with J on it. There's nothing special about it. It's a string just like `"Jeremy"` is a string.
 
 <img
   class="concept-image"

@@ -3,7 +3,7 @@ title: "Arithmetic"
 description: "Combining variables with maths so values can relate to and depend on each other through addition, subtraction, multiplication, and division."
 ---
 
-So far when we've created variables, we've just used simple values; a number like 50 or a string like yellow. Where variables become much more powerful is when we can use them in combination with each other. So where we can say the left edge of the rectangle should be a certain distance from the edge of the canvas.
+So far when we've created variables, we've just used simple values; a number like `50` or a string like `"yellow"`. Where variables become much more powerful is when we can use them in combination with each other. So where we can say the left edge of the rectangle should be a certain distance from the edge of the canvas.
 
 In programming, we can use normal, basic maths, things like adding, subtracting, multiplying, and dividing, and we can use the variables that we've already set as part of that.
 
@@ -39,7 +39,7 @@ let width = 100 - left * 2
 let height = 100 - top * 2
 ```
 
-And now if we change the `left` or the `top`, the `width` and the `height` will also change. So things are starting to relate to each other. And what about the canvas? That's 100 now. But what if our canvas changes to be 200 wide and high instead? Well, we should probably set a variable called <define>canvasSize</define> and set that to be 100. And now our `width` is canvasSize minus `left` times two, and our `height` is canvasSize minus `top` times two.
+And now if we change the `left` or the `top`, the `width` and the `height` will also change. So things are starting to relate to each other. And what about the canvas? That's 100 now. But what if our canvas changes to be 200 wide and high instead? Well, we should probably set a variable called <define>`canvasSize`</define> and set that to be 100. And now our `width` is `canvasSize` minus `left` times two, and our `height` is `canvasSize` minus `top` times two.
 
 ```javascript
 let canvasSize = 100

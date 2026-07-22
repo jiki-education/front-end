@@ -13,7 +13,7 @@ So far we've looked at functions that do something in the world. So the circle f
   height="317"
 />
 
-Most functions, probably 95% of them, return something. They might do some maths for you and return the value, or they might glue some strings together and then give you the resulting string. Or maybe they give you back the current time every time you run that machine. Let's look at this last one. Let's say that we have a function called get current time. Every time Jiki runs the machine, a piece of paper slides out the output chute with the time written on it, maybe 14:35.
+Most functions, probably 95% of them, return something. They might do some maths for you and return the value, or they might glue some strings together and then give you the resulting string. Or maybe they give you back the current time every time you run that machine. Let's look at this last one. Let's say that we have a function called <define>`getCurrentTime`</define>. Every time Jiki runs the machine, a piece of paper slides out the output chute with the time written on it, maybe 14:35.
 
 <img
   class="concept-image"
@@ -23,7 +23,7 @@ Most functions, probably 95% of them, return something. They might do some maths
   height="312"
 />
 
-And then we can put that returned value into a box using let. If we say let time equals get current time, Jiki will run the machine, get the current time from the chute, and store it in a box called time.
+And then we can put that returned value into a box using `let`. If we say `let time = getCurrentTime()`, Jiki will run the machine, get the current time from the chute, and store it in a box called `time`.
 
 ```javascript
 let time = getCurrentTime()
@@ -37,7 +37,7 @@ let time = getCurrentTime()
   height="400"
 />
 
-Now, it's important to understand that the piece of paper that Jiki puts in the box is fixed at that moment. Even if the actual time changes while your program is running, the box still has that piece of paper with 14:35 written on it. Once something is in the box, it's a fixed thing in there. It doesn't magically change. If we want to put the current time in the box again in future, we need to use our get current time function again to get it.
+Now, it's important to understand that the piece of paper that Jiki puts in the box is fixed at that moment. Even if the actual time changes while your program is running, the box still has that piece of paper with 14:35 written on it. Once something is in the box, it's a fixed thing in there. It doesn't magically change. If we want to put the current time in the box again in future, we need to use our `getCurrentTime` function again to get it.
 
 Most functions that return things also have inputs. For example, we might have a <define>`join`</define> function that takes two strings as its inputs and returns them joined together with a space. So if we use a `join` machine with hello and world as our inputs, out the chute will come a single string with hello world written on it.
 

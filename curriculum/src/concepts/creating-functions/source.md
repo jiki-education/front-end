@@ -3,7 +3,7 @@ title: "Writing Your Own Functions"
 description: "Using the function keyword to build your own machines that Jiki can put on his shelves and reuse."
 ---
 
-So far, you've been using functions that have been built for you, functions like circle, rectangle, move right, shoot. All of those are functions that were made and put on Jiki's shelves.
+So far, you've been using functions that have been built for you, functions like `circle`, `rectangle`, `moveRight`, `shoot`. All of those are functions that were made and put on Jiki's shelves.
 
 But now it's time for you to start making your own functions.
 
@@ -37,7 +37,7 @@ And then our job is going to be to wrap all of these first five lines into a fun
 
 To turn these five lines into a function, these five moves into a function, we need to use a new keyword, which is the `function` keyword.
 
-When we use the function keyword, we have to do two things. One, specify the name of the function. In this case, it's `walk5`. And two, use curly brackets to wrap some code that says, "This is what you should do inside the function." So we can add that to our code, and we're now telling Jiki to create a function called `walk5`, and then when `walk5` is used, he should run these five lines of code.
+When we use the `function` keyword, we have to do two things. One, specify the name of the function. In this case, it's `walk5`. And two, use curly brackets to wrap some code that says, "This is what you should do inside the function." So we can add that to our code, and we're now telling Jiki to create a function called `walk5`, and then when `walk5` is used, he should run these five lines of code.
 
 ```javascript
 function walk5() {
@@ -49,7 +49,7 @@ function walk5() {
 }
 ```
 
-When Jiki sees that function keyword, he's gonna go and build a new function, put those instructions on a whiteboard inside of it, and then put a label on the machine for `walk5`. And he'll then put that function on the shelves alongside all the rest of the ones that are there.
+When Jiki sees that `function` keyword, he's gonna go and build a new function, put those instructions on a whiteboard inside of it, and then put a label on the machine for `walk5`. And he'll then put that function on the shelves alongside all the rest of the ones that are there.
 
 <img
   class="concept-image"
@@ -65,6 +65,6 @@ And when you use the function, when you write `walk5()`, Jiki will just go and g
 
 One key thing to understand here is that when Jiki creates the function, he doesn't actually run the code. He's just writing down that code to use later.
 
-The character in the maze doesn't move at this point when you write the function keyword.
+The character in the maze doesn't move at this point when you write the `function` keyword.
 
 Jiki has built the machine and put it on the shelves. It's not until you tell him to use the machine by writing `walk5()` that that actually happens.

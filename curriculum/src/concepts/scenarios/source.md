@@ -25,7 +25,7 @@ Take a golf game example. You might need to vary how far a ball rolls based on t
   height="400"
 />
 
-The result that gets back to you is through this function. So in one scenario, you can use the `getShotLength` function, and it will return 23, a small swipe. In another, it returns 70, a long swipe. In another, it returns 45. Your code needs to roll the ball the right distance for each scenario with just one program, one set of code. You'll need to use the `getShotLength` function to see how far the shot went and then roll to that spot.
+The result that gets back to you is through this function. So in one scenario, you can use the `getShotLength` function, and it will return `23`, a small swipe. In another, it returns `70`, a long swipe. In another, it returns `45`. Your code needs to roll the ball the right distance for each scenario with just one program, one set of code. You'll need to use the `getShotLength` function to see how far the shot went and then roll to that spot.
 
 ```javascript
 let distance = getShotLength()
