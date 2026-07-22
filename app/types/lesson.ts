@@ -6,6 +6,10 @@ export interface VideoSource {
   provider: string;
   id: string;
   language?: ProgrammingLanguage;
+  // Optional metadata authored on the source (Rails passes it through from the
+  // curriculum). Present for concept walkthroughs; used to emit VideoObject JSON-LD.
+  durationSeconds?: number;
+  uploadDate?: string;
 }
 
 // Lesson type alias

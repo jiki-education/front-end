@@ -86,8 +86,12 @@ export async function getExercisesForConceptServer(slug: string, locale: string 
   return metas.map((m) => ({ slug: m.slug, title: m.title }));
 }
 
-/** Video data for a concept from the Rails external API. Null when unavailable. */
-export async function getConceptVideoDataServer(slug: string): Promise<VideoSource[] | null> {
+/**
+ * Video data for a concept from the Rails external API. Null when unavailable.
+ * Wrapped in React's cache() so a single render (page body + JSON-LD) shares one
+ * request, and fails open to null rather than breaking the SSR'd concept page.
+ */
+export const getConceptVideoDataServer = cache(async (slug: string): Promise<VideoSource[] | null> => {
   try {
     const res = await fetch(getApiUrl(`/external/concepts/${slug}`));
     if (!res.ok) {
@@ -98,4 +102,4 @@ export async function getConceptVideoDataServer(slug: string): Promise<VideoSour
   } catch {
     return null;
   }
-}
+});

@@ -3,7 +3,8 @@ import ConceptDetailPage from "@/components/concepts/ConceptDetailPage";
 import SidebarLayout from "@/components/layout/SidebarLayout";
 import JsonLd from "@/components/seo/JsonLd";
 import { getConceptMetadata } from "@/lib/concepts/metadata";
-import { breadcrumbSchema, conceptLearningResourceSchema } from "@/lib/seo/schemas";
+import { breadcrumbSchema, conceptLearningResourceSchema, videoObjectSchema } from "@/lib/seo/schemas";
+import type { VideoSource } from "@/types/lesson";
 import {
   getConceptServer,
   getAncestorsServer,
@@ -48,11 +49,34 @@ export default async function AppConceptPage({ params }: Props) {
     initialLeafData = { concept, ancestors, content, relatedConcepts, relatedExercises, videoData };
   }
 
-  // Structured data: describe the concept as a LearningResource and place it in
-  // the concept hierarchy with a breadcrumb trail (Concepts > ...ancestors > this).
+  // Structured data: describe the concept as a LearningResource, emit a VideoObject
+  // for each walkthrough video that carries duration + uploadDate (so Google can
+  // index the concept video), and place the concept in a breadcrumb trail.
+  const videoSchemas = concept
+    ? (initialLeafData?.videoData ?? [])
+        .filter(
+          (v): v is VideoSource & { provider: "youtube" | "mux"; durationSeconds: number; uploadDate: string } =>
+            (v.provider === "mux" || v.provider === "youtube") && v.durationSeconds != null && v.uploadDate != null
+        )
+        .map((v) =>
+          videoObjectSchema({
+            path: `/concepts/${concept.slug}`,
+            locale,
+            name: concept.title,
+            description: concept.description,
+            uploadDate: v.uploadDate,
+            durationSeconds: v.durationSeconds,
+            provider: v.provider,
+            videoKey: v.id,
+            isAccessibleForFree: true
+          })
+        )
+    : [];
+
   const jsonLd = concept
     ? [
         conceptLearningResourceSchema(concept, locale),
+        ...videoSchemas,
         breadcrumbSchema(
           [
             { name: "Concepts", path: "/concepts" },
