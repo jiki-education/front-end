@@ -1,12 +1,15 @@
 # Jiki
 
-> Jiki is a fun, hands-on platform for learning to code and build in the LLM era. It is made by the team behind Exercism, who have helped over two million people learn to code. Jiki is designed for people getting into tech, junior developers who want to accelerate, and vibe-coders who want to do things properly.
+> Jiki is a fun, hands-on platform for learning to code and build in the agentic-coding era. It is made by the team behind Exercism, who have helped over two million people learn to code. Jiki is designed for people getting into tech, junior developers who want to accelerate, and vibe-coders who want to do things properly. It is freemium - nearly all the content is free, with some premium features (like LLM help) if needed.
 
-Jiki teaches you by making things. From day one you draw, animate, build games, and solve real problems right in the browser. The core Learn to Code curriculum is completely free and contains over 200 hours of challenges. A premium Learn to Build strand goes further, building real projects alongside Jeremy Walker using agentic coding, databases, auth, APIs, and deployment.
+Jiki has two strands, Learn to Code and Learn to Build:
+
+- **Learn to Code**: Jiki teaches you by making things. From day one you draw, animate, build games, and solve real problems right in the browser. The core Learn to Code curriculum is completely free and contains over 200 hours of challenges.
+- **Learn to Build**: The Learn to Build strand goes further, building real projects alongside Jeremy Walker using agentic coding, databases, auth, APIs, and deployment.
 
 Coding has changed. Anyone can now open an LLM and create a working product in minutes. So Jiki focuses on what actually matters. Understanding how code and technology really work. Critical thinking. Problem solving. Building and shipping real things. This makes it the perfect starting point for complete beginners, and for anyone who wants to genuinely understand the code an LLM writes for them.
 
-The teaching is deliberately fun and accessible. No prior experience is needed, and there is nothing to install. Premium is priced by country using purchasing power parity, so it stays affordable everywhere in the world.
+The teaching is deliberately fun and accessible. No prior experience is needed, and there is nothing to install. Premium is priced by country using purchasing power parity anchored to $9.99/m, so it stays affordable everywhere in the world.
 
 Jiki is growing fast and there is always something new here.
 
