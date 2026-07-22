@@ -8,13 +8,13 @@ All content validation happens at build time in the content package. The app pac
 
 ### 1. English Required
 
-Every post must have an `en.md` file. This serves as:
+Every post must have a `source.md` file (the authored English source). This serves as:
 
 - The fallback locale
 - The canonical source for slugs
 - The reference for translators
 
-**Error**: Build fails if no `en.md` exists for a post.
+**Error**: Build fails if no `source.md` exists for a post.
 
 ### 2. Frontmatter Schema
 
@@ -151,7 +151,7 @@ Validates all actual content files in the repository:
 describe("Content Validation", () => {
   describe("Blog Posts", () => {
     slugDirs.forEach((slug) => {
-      it("should have en.md file", () => {
+      it("should have source.md file", () => {
         expect(fs.existsSync(enFile)).toBe(true);
       });
 

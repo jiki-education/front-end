@@ -35,7 +35,7 @@ const slugDirs = fs
 
 ## 2. Reference removed from the "Using a Code Editor" guide
 
-`content/src/posts/guides/using-a-code-editor/en.md` had a "P.S." pointer to
+`content/src/posts/guides/using-a-code-editor/source.md` had a "P.S." pointer to
 the post, removed from directly under the introduction paragraph:
 
 ```md
@@ -50,5 +50,5 @@ If you want the longer story of how these tools came to be, we wrote about [the 
 ```
 
 **To re-enable:** re-add the relevant line back into each file in roughly
-the same spot (after the intro paragraph in `en.md`, before "The one we
+the same spot (after the intro paragraph in `source.md`, before "The one we
 recommend" in `hu.md`).

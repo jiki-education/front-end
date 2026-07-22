@@ -26,7 +26,7 @@ Before doing anything else, read these files to understand the writing style and
 2. **Example Blog Post**:
 
    ```
-   Read: front-end/content/src/posts/blog/the-backstory-of-jiki/en.md
+   Read: front-end/content/src/posts/blog/the-backstory-of-jiki/source.md
    Read: front-end/content/src/posts/blog/the-backstory-of-jiki/config.json
    ```
 
@@ -108,7 +108,7 @@ Create a new directory with a kebab-case slug based on the title:
 ```
 front-end/content/src/posts/blog/[slug]/
 ├── config.json
-└── en.md
+└── source.md
 ```
 
 ### config.json Format
@@ -127,7 +127,7 @@ front-end/content/src/posts/blog/[slug]/
 - Set `featured` based on importance (ask if unsure)
 - Note: The coverImage path is a placeholder - the user will need to add the actual image
 
-### en.md Format
+### source.md Format
 
 ```markdown
 ---

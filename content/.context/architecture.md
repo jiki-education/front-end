@@ -24,11 +24,11 @@ content/
 │   └── posts/
 │       ├── blog/             # Blog posts (time-based)
 │       │   └── [slug]/
-│       │       ├── en.md     # English version (required)
+│       │       ├── source.md # English version (required)
 │       │       └── xx.md     # Translation (optional, where xx is locale code)
 │       └── articles/         # Articles (evergreen)
 │           └── [slug]/
-│               ├── en.md
+│               ├── source.md
 │               └── xx.md     # Translation (optional)
 ├── images/
 │   ├── blog/                 # Blog post images
@@ -52,8 +52,8 @@ Content is organized by slug (post identifier), not by language. Each post lives
 
 ```
 posts/blog/jiki-is-born/
-├── en.md    # Required
-└── xx.md    # Optional (where xx is locale code like hu, de, ja, etc.)
+├── source.md # Required (authored English source)
+└── xx.md     # Optional (where xx is locale code like hu, de, ja, etc.)
 ```
 
 This makes it easy to:
@@ -64,7 +64,7 @@ This makes it easy to:
 
 ### English Required
 
-Every post must have an `en.md` file. This serves as:
+Every post must have a `source.md` file (the authored English source). This serves as:
 
 - The fallback when translations are missing
 - The canonical source for validation
