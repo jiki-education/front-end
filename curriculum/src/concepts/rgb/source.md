@@ -3,7 +3,7 @@ title: "RGB Colors"
 description: "Mixing red, green, and blue light from 0 to 255 to make any color you want on the screen."
 ---
 
-<literal>RGB</literal> lets us think of colors as a mixture of red, green, and blue. That's what <literal>RGB</literal> stands for: <define info="Red (R) in English">red</define>, <define info="Green (G) in English">green</define>, <define info="Blue (B) in English">blue</define>. If you remember mixing paints at school, it's a similar idea, except rather than paint, we're mixing light.
+<literal>RGB</literal> lets us think of colors as a mixture of red, green, and blue. That's what <literal>RGB</literal> stands for: <define en="red (R)">red</define>, <define en="green (G)">green</define>, <define en="blue (B)">blue</define>. If you remember mixing paints at school, it's a similar idea, except rather than paint, we're mixing light.
 
 <img
   class="concept-image"
