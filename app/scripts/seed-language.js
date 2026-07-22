@@ -5,7 +5,7 @@
  * Seed Language Stubs
  *
  * Creates a `{locale}.md` placeholder for every concept, blog post, and article
- * that has an English (`en.md`) source but is missing the given locale. This
+ * that has an English (`source.md`) source but is missing the given locale. This
  * gives a new language a *complete* content tree immediately, so the concept /
  * content caches generate a full per-locale index instead of a partial one.
  * Real translations replace the stubs later.
@@ -76,8 +76,9 @@ function seedSet({ name, dir, descriptionKey }, locale) {
   for (const slugDir of slugDirs) {
     const slugPath = path.join(dir, slugDir.name);
 
-    // Only seed real content dirs — those with an English source to mirror.
-    if (!fs.existsSync(path.join(slugPath, `${BASE_LOCALE}.md`))) {
+    // Only seed real content dirs — those with an English source to mirror. The
+    // English source of truth is authored in source.md (not en.md).
+    if (!fs.existsSync(path.join(slugPath, "source.md"))) {
       continue;
     }
 

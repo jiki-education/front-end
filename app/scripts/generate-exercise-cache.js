@@ -190,7 +190,10 @@ function processExercises() {
         .filter((f) => f.isFile() && f.name.endsWith(".md"));
 
       for (const file of mdFiles) {
-        const locale = path.basename(file.name, ".md");
+        // English is authored in source.md (the source of truth); map that file to
+        // the "en" locale. Every other file is named <locale>.md (e.g. hu.md).
+        const baseName = path.basename(file.name, ".md");
+        const locale = baseName === "source" ? "en" : baseName;
         const filePath = path.join(instructionsDir, file.name);
         const fileContent = fs.readFileSync(filePath, "utf-8");
         const parsed = matter(fileContent);
@@ -199,10 +202,17 @@ function processExercises() {
           throw new Error(`Missing title in frontmatter of ${filePath}`);
         }
 
+        // Exercise instructions are stored as raw markdown and rendered by marked
+        // at runtime (InstructionsContent.tsx), so there is no build-time marked
+        // hook to strip the custom <define>/<literal> tags the English source.md
+        // may carry. Strip them here (keeping inner text) before caching; a no-op
+        // for the already tag-free translated files.
+        const instructions = parsed.content.trim().replace(/<\/?(?:define|literal)(?:\s[^>]*)?>/gi, "");
+
         locales[locale] = {
           title: parsed.data.title,
           description: parsed.data.description || "",
-          instructions: parsed.content.trim()
+          instructions
         };
       }
     }

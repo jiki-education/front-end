@@ -402,7 +402,9 @@ export function validateEpisodeSummaryParity(slug: string, localeSummaries: Reco
   for (const locale of REQUIRED_LOCALES) {
     const summary = localeSummaries[locale];
     if (summary === null || summary === undefined || typeof summary !== "object") {
-      throw new ValidationError(`Episode '${slug}' (${locale}) is missing required summary block (present in en.md)`);
+      throw new ValidationError(
+        `Episode '${slug}' (${locale}) is missing required summary block (present in source.md)`
+      );
     }
 
     const s = summary as Record<string, unknown>;

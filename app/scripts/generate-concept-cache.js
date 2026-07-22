@@ -49,6 +49,16 @@ marked.use({
       const className = language ? ` class="hljs language-${language}"` : "";
       return `<pre><code${className}>${highlighted}</code></pre>\n`;
     }
+  },
+  hooks: {
+    // The authored English source (source.md) may contain custom inline tags
+    // <define>...</define> and <literal>...</literal>. The built English HTML is
+    // produced by stripping those tags while keeping their inner text. Translated
+    // files are already tag-free, so this is a no-op for them. Runs before the
+    // content hash is computed (the hash is over this postprocessed HTML).
+    postprocess(html) {
+      return html.replace(/<\/?(?:define|literal)(?:\s[^>]*)?>/gi, "");
+    }
   }
 });
 
@@ -171,7 +181,10 @@ function processConcepts() {
     const locales = {};
 
     for (const file of mdFiles) {
-      const locale = path.basename(file.name, ".md");
+      // English is authored in source.md (the source of truth); map that file to
+      // the "en" locale. Every other file is named <locale>.md (e.g. hu.md).
+      const baseName = path.basename(file.name, ".md");
+      const locale = baseName === "source" ? "en" : baseName;
       const filePath = path.join(slugPath, file.name);
 
       try {
