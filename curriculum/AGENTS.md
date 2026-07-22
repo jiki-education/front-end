@@ -104,7 +104,7 @@ curriculum/
 │   ├── Exercise.ts           # Base Exercise class and Animation interface
 │   ├── index.ts              # Main package exports
 │   ├── concepts/             # Concept definitions
-│   │   └── [concept-name]/   # Concept folders with config.json and en.md
+│   │   └── [concept-name]/   # Concept folders with config.json and source.md
 │   ├── exercises/            # Individual exercise implementations
 │   │   ├── index.ts          # Exercise registry
 │   │   ├── types.ts          # Shared exercise types (ExerciseCore + ExerciseDefinition)
@@ -114,7 +114,7 @@ curriculum/
 │   │       ├── scenarios.ts  # Exercise scenarios/levels
 │   │       ├── metadata.json # Slug, levelId, hints
 │   │       ├── instructions/ # Locale-specific instruction files
-│   │       │   └── en.md     # English instructions (frontmatter: title, description)
+│   │       │   └── source.md # English instructions (frontmatter: title, description)
 │   │       ├── stub.*        # Starter code per language (.javascript, .py, .jiki)
 │   │       └── solution.*    # Solution code per language
 │   └── levels/               # Learning level definitions (language features)
@@ -329,7 +329,7 @@ Exercise background images and visual assets live in `images/exercise-assets/[ex
 2. In the exercise's `scenarios.ts`, call `setupBackground("/static/images/exercise-assets/[exercise-name]/image.png")`
 3. Do NOT use external URLs (e.g., `https://assets.exercism.org/bootcamp/...`) — all assets must be local
 
-**Images in instructions (`instructions/en.md`):**
+**Images in instructions (`instructions/source.md`):**
 
 Use an `<img>` tag with consistent styling — do NOT use markdown `![]()` syntax. Example:
 

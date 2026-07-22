@@ -21,6 +21,13 @@ const POSTS_DIR = path.join(__dirname, "..", "..", "..", "..", "content", "src",
 const IMAGES_DIR = path.join(__dirname, "..", "..", "..", "..", "content", "images");
 const authors = authorsData as AuthorRegistry;
 
+// English content is authored in source.md (the source of truth); map that
+// filename to the "en" locale. Every other file is named <locale>.md (e.g. hu.md).
+function localeFromMdFile(file: string): string {
+  const base = path.basename(file, ".md");
+  return base === "source" ? "en" : base;
+}
+
 describe("Content Validation", () => {
   describe("Authors", () => {
     it("should have valid authors.json", () => {
@@ -58,7 +65,7 @@ describe("Content Validation", () => {
           });
 
           const mdFiles = fs.readdirSync(postDir).filter((f) => f.endsWith(".md"));
-          const existingLocales = mdFiles.map((f) => path.basename(f, ".md"));
+          const existingLocales = mdFiles.map((f) => localeFromMdFile(f));
 
           it("should have all required locale files", () => {
             expect(() => {
@@ -67,7 +74,7 @@ describe("Content Validation", () => {
           });
 
           mdFiles.forEach((mdFile) => {
-            const locale = path.basename(mdFile, ".md");
+            const locale = localeFromMdFile(mdFile);
 
             it(`should have valid frontmatter (${locale})`, () => {
               const filePath = path.join(postDir, mdFile);
@@ -112,7 +119,7 @@ describe("Content Validation", () => {
           });
 
           const mdFiles = fs.readdirSync(postDir).filter((f) => f.endsWith(".md"));
-          const existingLocales = mdFiles.map((f) => path.basename(f, ".md"));
+          const existingLocales = mdFiles.map((f) => localeFromMdFile(f));
 
           it("should have all required locale files", () => {
             expect(() => {
@@ -121,7 +128,7 @@ describe("Content Validation", () => {
           });
 
           mdFiles.forEach((mdFile) => {
-            const locale = path.basename(mdFile, ".md");
+            const locale = localeFromMdFile(mdFile);
 
             it(`should have valid frontmatter (${locale})`, () => {
               const filePath = path.join(postDir, mdFile);
@@ -166,7 +173,7 @@ describe("Content Validation", () => {
           });
 
           const mdFiles = fs.readdirSync(postDir).filter((f) => f.endsWith(".md"));
-          const existingLocales = mdFiles.map((f) => path.basename(f, ".md"));
+          const existingLocales = mdFiles.map((f) => localeFromMdFile(f));
 
           it("should have all required locale files", () => {
             expect(() => {
@@ -175,7 +182,7 @@ describe("Content Validation", () => {
           });
 
           mdFiles.forEach((mdFile) => {
-            const locale = path.basename(mdFile, ".md");
+            const locale = localeFromMdFile(mdFile);
 
             it(`should have valid frontmatter (${locale})`, () => {
               const filePath = path.join(postDir, mdFile);
@@ -228,7 +235,7 @@ describe("Content Validation", () => {
             describe(`Episode: ${episodeId}`, () => {
               const episodeDir = path.join(projectDir, episodeId);
               const mdFiles = fs.readdirSync(episodeDir).filter((f) => f.endsWith(".md"));
-              const existingLocales = mdFiles.map((f) => path.basename(f, ".md"));
+              const existingLocales = mdFiles.map((f) => localeFromMdFile(f));
 
               it("should have all required locale files", () => {
                 expect(() => {
@@ -236,10 +243,10 @@ describe("Content Validation", () => {
                 }).not.toThrow();
               });
 
-              it("should have a summary block in every locale if en.md has one", () => {
+              it("should have a summary block in every locale if source.md has one", () => {
                 const localeSummaries: Record<string, unknown> = {};
                 for (const mdFile of mdFiles) {
-                  const locale = path.basename(mdFile, ".md");
+                  const locale = localeFromMdFile(mdFile);
                   const parsed = matter(fs.readFileSync(path.join(episodeDir, mdFile), "utf-8"));
                   localeSummaries[locale] = (parsed.data as Record<string, unknown>).summary;
                 }

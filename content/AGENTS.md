@@ -86,17 +86,17 @@ content/
 │       ├── blog/             # Blog posts
 │       │   └── [slug]/
 │       │       ├── config.json  # Structural metadata (required)
-│       │       ├── en.md        # English (required)
+│       │       ├── source.md     # English source (required)
 │       │       └── hu.md        # Hungarian (optional)
 │       ├── articles/         # Evergreen articles
 │       │   └── [slug]/
 │       │       ├── config.json  # Structural metadata (required)
-│       │       ├── en.md
+│       │       ├── source.md
 │       │       └── hu.md
 │       ├── guides/           # Guides (see Guides section)
 │       │   └── [slug]/
 │       │       ├── config.json
-│       │       ├── en.md
+│       │       ├── source.md
 │       │       └── hu.md
 │       └── projects/         # Build with Jeremy projects + episodes
 │           ├── config.json   # { "projects": [ordered slugs] }
@@ -104,7 +104,7 @@ content/
 │               ├── config.json  # Project details + episodes: [uuid, ...] (ordered)
 │               └── [episode-uuid]/
 │                   ├── config.json  # Episode metadata (video, premium, guides)
-│                   └── en.md        # Frontmatter + transcript body
+│                   └── source.md    # Frontmatter + transcript body (English source)
 ├── images/
 │   ├── blog/                 # Blog post images
 │   ├── articles/             # Article images
@@ -127,7 +127,7 @@ Content is organized **slug-first**, not language-first:
 ```
 posts/blog/jiki-is-born/
 ├── config.json  # Structural metadata
-├── en.md        # English content (required)
+├── source.md    # English content (required, the authored source)
 └── hu.md        # Hungarian content (optional)
 ```
 
@@ -233,7 +233,7 @@ for SSR. Validation (shape, required fields, `<link>` span, unique quote slugs) 
 
 All validation happens in the **app package** during build:
 
-- ✅ Every post has `en.md`
+- ✅ Every post has `source.md`
 - ✅ All frontmatter fields present and correctly typed
 - ✅ Author keys exist in `authors.json`
 - ✅ Date format valid (`YYYY-MM-DD`)
@@ -276,7 +276,7 @@ pnpm run format:check      # Check formatting
 
 1. **Create post directory**: `src/posts/blog/[slug]/`
 2. **Create config.json**: Add structural metadata (date, author, featured, coverImage)
-3. **Add English version**: `en.md` with translatable frontmatter (title, excerpt, tags, seo)
+3. **Add English version**: `source.md` with translatable frontmatter (title, excerpt, tags, seo)
 4. **Optionally add translations**: `hu.md`, `ja.md`, etc. with translated content
 5. **Add cover image**: Place in `images/blog/`
 6. **Generate content**: `cd ../app && pnpm run generate:content`
@@ -288,7 +288,7 @@ Same process as blog post, but in `src/posts/articles/[slug]/`
 
 **Note**: Articles are **auto-discovered** from the directory structure. No manual registration in a config file is needed - the app's `generate:content` script automatically finds all article directories.
 
-**Required locales**: Both `en.md` and `hu.md` are required for all articles and blog posts.
+**Required locales**: Both `source.md` (English) and `hu.md` are required for all articles and blog posts.
 
 ### Adding a New Author
 
@@ -362,7 +362,7 @@ export interface ProcessedPost {
 
 - **Consistent slugs** - Same slug across all locales
 - **Author registry** - All authors in `authors.json`
-- **English required** - Every post must have `en.md`
+- **English required** - Every post must have `source.md`
 - **Image paths** - Match frontmatter `coverImage` values
 
 ## Integration with Frontend
@@ -390,7 +390,7 @@ export async function generateStaticParams() {
 
 ## Important Rules
 
-1. **English required** - Every post must have `en.md`
+1. **English required** - Every post must have `source.md`
 2. **Config required** - Every post must have `config.json` with structural metadata
 3. **Data only** - This package contains no TypeScript code
 4. **App validates** - All validation happens in app package
