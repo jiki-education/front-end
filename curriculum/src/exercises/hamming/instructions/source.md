@@ -19,6 +19,6 @@ Your task is to calculate the Hamming distance between two DNA strands. DNA uses
 
 They have 7 differences, and therefore the Hamming distance is 7.
 
-Create a function called `hammingDistance` that has two inputs: the two DNA strands as strings. It should return a number as the distance.
+Create a function called <define>`hammingDistance`</define> that has two inputs: the two DNA strands as strings. It should return a number as the distance.
 
 Both DNA strands will always be the same length.

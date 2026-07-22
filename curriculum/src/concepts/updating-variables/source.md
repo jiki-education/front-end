@@ -48,7 +48,7 @@ So forgetting code for a second, what does it look like logically to do that? If
 
 What your brain is doing is keeping track of the current number and adding 10 to it, and then updating that number in your brain.
 
-And we can do exactly the same thing in code. To do this, we say, "Update the position box to have the current position value plus 10."
+And we can do exactly the same thing in code. To do this, we say, "<define>Update</define> the position box to have the current position value plus 10."
 
 When Jiki sees this, he'll get the current number out of the position box, add 10 to it, do that maths, adding them together, and then put the result back in the box for next time.
 

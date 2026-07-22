@@ -16,6 +16,6 @@ Some examples:
 - 1900 was not a leap year as it's not divisible by 400.
 - 2000 was a leap year!
 
-Your job is to write a function called `isLeapYear` that takes a year as its input and returns `true` if it is a leap year, or `false` if it is not.
+Your job is to write a function called <define>`isLeapYear`</define> that takes a year as its input and returns `true` if it is a leap year, or `false` if it is not.
 
 Take your time on this one. Think it through before starting!

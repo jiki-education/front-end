@@ -3,9 +3,9 @@ title: "Arrays"
 description: "An ordered chain of elements (strings, numbers, booleans, or anything else) held together as one value Jiki can pass around."
 ---
 
-You've been using numbers and strings and Booleans, the posh word for true and false, and we call these different data types. Now we're adding our first compound data type.
+You've been using numbers and strings and Booleans, the posh word for true and false, and we call these different <define>data types</define>. Now we're adding our first <define>compound data type</define>.
 
-That's a data type that can contain multiple things, not just one thing, and this data type is called an array.
+That's a data type that can contain multiple things, not just one thing, and this data type is called an <define>array</define>.
 
 When you hear the word array, I want you to think of a physical chain holding lots of things together.
 
@@ -13,7 +13,7 @@ Those things that it's holding can be anything, strings, numbers, Booleans, even
 
 Everything in this chain is in order, the order in which they're chained together.
 
-So an array contains lots of things, but it's one solid element, one solid thing, one array with lots of elements inside of it.
+So an array contains lots of things, but it's one solid <define>element</define>, one solid thing, one array with lots of elements inside of it.
 
 Jiki can take that array, that chain, and put it in a box, just like he can put a string in a box or a number in a box.
 

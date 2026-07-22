@@ -39,7 +39,7 @@ let width = 100 - left * 2
 let height = 100 - top * 2
 ```
 
-And now if we change the left or the top, the width and the height will also change. So things are starting to relate to each other. And what about the canvas? That's 100 now. But what if our canvas changes to be 200 wide and high instead? Well, we should probably set a variable called canvasSize and set that to be 100. And now our width is canvasSize minus left times two, and our height is canvasSize minus top times two.
+And now if we change the left or the top, the width and the height will also change. So things are starting to relate to each other. And what about the canvas? That's 100 now. But what if our canvas changes to be 200 wide and high instead? Well, we should probably set a variable called <define>canvasSize</define> and set that to be 100. And now our width is canvasSize minus left times two, and our height is canvasSize minus top times two.
 
 ```javascript
 let canvasSize = 100

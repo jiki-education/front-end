@@ -3,7 +3,7 @@ title: "Building Arrays"
 description: "Starting with an empty array and using `push` to add items one at a time as you loop through data."
 ---
 
-So far you've been working with arrays where their value is just set at the start and fixed. But what about if you want to add things to an array over time? Well, for this, arrays have a method called `push`.
+So far you've been working with arrays where their value is just set at the start and fixed. But what about if you want to add things to an array over time? Well, for this, arrays have a method called <define>`push`</define>.
 
 Push has one input, the thing that you want to attach to the end of the array. So in this case, we're wanting to push the word Isaac onto the end of an array that already contains DJ and Bethany.
 

@@ -65,6 +65,6 @@ repeat(4) {
   height="400"
 />
 
-The key thing to understand is that Jiki finishes all the work in the inner loop before coming back to the outer loop. He's not bouncing backwards and forth. He completes the inner loop, and then he moves on to the next step of the outer loop.
+The key thing to understand is that Jiki finishes all the work in the <define>inner loop</define> before coming back to the <define>outer loop</define>. He's not bouncing backwards and forth. He completes the inner loop, and then he moves on to the next step of the outer loop.
 
 In this situation, you can think of the outer loop as controlling the groups or the row, and the inner loop as controlling each item in that group or each item in that row. So in our example, the outer loop makes four rows, and the inner loop puts five plants, five items in each group.

@@ -3,9 +3,9 @@ title: "LLM Response"
 description: "Parse and format the response from an AI chatbot."
 ---
 
-Create a function called askLlm that takes one input - the question to ask.
+Create a function called <define>askLlm</define> that takes one input - the question to ask.
 
-Use the fetch(url, parameters) function to hit the API at "https://myllm.com/api/v2/qanda". The parameters should be a dictionary with one key/value pair for "question".
+Use the <define>fetch</define>(url, parameters) function to hit the API at "https://myllm.com/api/v2/qanda". The parameters should be a dictionary with one key/value pair for "question".
 
 Explore the data you get back then transform it into the following format:
 

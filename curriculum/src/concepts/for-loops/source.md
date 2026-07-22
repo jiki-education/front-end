@@ -17,9 +17,9 @@ You can see why that might have been a bit intimidating on day one for you.
 
 But now you have all of the knowledge you need to get comfortable with this. So let's break it down.
 
-A for loop has three components, an initializer, a condition, and an increment.
+A for loop has three components, an <define>initializer</define>, a condition, and an <define>increment</define>.
 
-The initializer, this `let i = 0` bit, that runs at the start of the whole loop. It just runs once, and here it creates a box called `i` set to zero.
+The initializer, this `let i = 0` bit, that runs at the start of the whole loop. It just runs once, and here it creates a box called <define>`i`</define> set to zero.
 
 The next bit before the condition runs each time before each loop iteration.
 

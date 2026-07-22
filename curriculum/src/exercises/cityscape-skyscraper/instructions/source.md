@@ -7,7 +7,7 @@ This is the first of two exercises where you're going to be building skyscrapers
 
 In this exercise, your job is to build a single skyscraper in the middle of the scene. In each scenario the height of the skyscraper varies.
 
-To determine how many floors to build, you have a `numFloors()` function that returns the total height of the building.
+To determine how many floors to build, you have a <define>`numFloors()`</define> function that returns the total height of the building.
 
 There are three different components you can use: wall (`W`), glass (`G`) and entrance (`E`). Check the functions below to see the functions to make these.
 

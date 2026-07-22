@@ -7,11 +7,11 @@ In the first maze exercise you manually moved your character around the maze. No
 
 To make that possible, you have three new functions:
 
-- `canTurnLeft()`: returns `true` if the space to the character's left is not a wall.
-- `canTurnRight()`: returns `true` if the space to the character's right is not a wall.
-- `canMove()`: returns `true` if the space ahead of the character is not a wall.
+- <define>`canTurnLeft()`</define>: returns `true` if the space to the character's left is not a wall.
+- <define>`canTurnRight()`</define>: returns `true` if the space to the character's right is not a wall.
+- <define>`canMove()`</define>: returns `true` if the space ahead of the character is not a wall.
 
-When we match those up with the `move()`, `turnLeft()` and `turnRight()` you had before, it's possible to write an algorithm to solve **any** maze. "Algorithm" is a posh word that just means "a way of doing something". It's like a formula or a recipe.
+When we match those up with the <define>`move()`</define>, <define>`turnLeft()`</define> and <define>`turnRight()`</define> you had before, it's possible to write an algorithm to solve **any** maze. "Algorithm" is a posh word that just means "a way of doing something". It's like a formula or a recipe.
 
 Further down in the instructions, I'll tell you the algorithm ready for you to solve. But I want you to try and work it out yourself first as a little logic puzzle. If you know whether you can turn left right or move ahead, how can you solve any maze I give you?
 

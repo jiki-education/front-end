@@ -18,4 +18,4 @@ For a triangle to be valid:
 
 ### The function
 
-The function must be called `determineTriangleType`. It must take three inputs, which will be numbers for the three sides of the triangle. It must return one of `"invalid"`, `"equilateral"`, `"isosceles"` or `"scalene"`.
+The function must be called <define>`determineTriangleType`</define>. It must take three inputs, which will be numbers for the three sides of the triangle. It must return one of `"invalid"`, `"equilateral"`, `"isosceles"` or `"scalene"`.

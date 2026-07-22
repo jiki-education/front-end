@@ -9,4 +9,4 @@ When these people show up to your party, they expect you to know them just by th
 
 Now, you're not really into all the celebrity nonsense, so despite Brad's expectations, you have no idea who he is. But you've been told not to make a fuss, so you just check the list to see if there's **any** Brads on there, and if there are, you let him in.
 
-Write a function called `onGuestList`. The function has two inputs. The first will contain the guestList as a list of strings. The second is the **first name** of the person you need to check. You should return if the person is on the guest list.
+Write a function called <define>`onGuestList`</define>. The function has two inputs. The first will contain the guestList as a list of strings. The second is the **first name** of the person you need to check. You should return if the person is on the guest list.

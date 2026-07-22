@@ -29,7 +29,7 @@ And just like you can start with an empty array and push things in, you can star
 
 One common use of dictionaries is to keep counts of things. You can specify the keys as the things we want to keep count of and the values as their counts. So imagine you're bird watching and you wanna keep track of how many of each bird you've seen. Every time you see a bird, you set its count to one, and then every other time you see it, you get its current value and increase it by one. For this pattern to work, we need a way of checking whether the dictionary already has that key, in which case we'll add one to it, or if it doesn't have that key, we need to start it off at one.
 
-And to do that, we have a method on dictionaries, the `has` method.
+And to do that, we have a method on dictionaries, the <define>`has`</define> method.
 
 You specify a key you're interested in, and Jiki will check whether the dictionary has that key or not, and then return true or false accordingly.
 

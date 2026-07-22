@@ -29,7 +29,7 @@ So is the code wrong, or is something else weird happening here?
   height="400"
 />
 
-Well, it turns out the code is fine. This is perfectly valid JavaScript, and it works because of a concept called scope or scoping.
+Well, it turns out the code is fine. This is perfectly valid JavaScript, and it works because of a concept called <define>scope</define> or scoping.
 
 Scope is something that at first probably will feel quite straightforward, but I can guarantee it will cause you pain for the rest of your career. Even the most senior developers run into issues with scope, and JavaScript is one of the most complicated languages for it. I'm telling you this so that when you run into issues with scope, you're not gonna feel bad about yourself. But also, really listen to this bit because it's important.
 
@@ -63,4 +63,4 @@ So every time we have a loop like this, we can create boxes that only last as lo
   height="187"
 />
 
-So when you're creating a variable, you have to decide how long you want it to stay around for. If you want it to live for a long time, it needs to go outside of any curly brackets. If you want it to last for just one iteration, one duration of the loop, then you can put it inside the curly brackets. Do you see how this can all get a bit confusing? So one nice rule to keep this simple when you're starting out is to keep all of your variables near the top of your code outside of the curly brackets, and then only update them inside the brackets. For example, we could write the code above with just one left and top box set to zero at the start and then updated each time within the loop. That's perfectly valid too. Neither is right or wrong. There are best practices, but we'll learn about those later. For now, experiment, have fun, see what feels most comfortable for you, and try not to worry too much about this.
+So when you're creating a variable, you have to decide how long you want it to stay around for. If you want it to live for a long time, it needs to go outside of any curly brackets. If you want it to last for just one <define>iteration</define>, one duration of the loop, then you can put it inside the curly brackets. Do you see how this can all get a bit confusing? So one nice rule to keep this simple when you're starting out is to keep all of your variables near the top of your code outside of the curly brackets, and then only update them inside the brackets. For example, we could write the code above with just one left and top box set to zero at the start and then updated each time within the loop. That's perfectly valid too. Neither is right or wrong. There are best practices, but we'll learn about those later. For now, experiment, have fun, see what feels most comfortable for you, and try not to worry too much about this.

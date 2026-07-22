@@ -7,7 +7,7 @@ In this exercise we draw ellipses for the first time, and also think a bit more 
 
 This exercise uses ellipses. Ellipses are like stretched out circles. We still specify the center point, but rather than just one radius we use two - the horizontal radius and the vertical radius. If the vertical radius is larger than the horizontal one, the ellipse will look tall. And if the horizontal radius is larger than the vertical one, the ellipse will look squat. If you set both the radii to be the same, you have a circle again!
 
-The `ellipse` function takes 5 inputs: the center position (`centerX`, `centerY`), the horizontal radius (`radiusX`), the vertical radius (`radiusY`), and the color:
+The <define>`ellipse`</define> function takes 5 inputs: the center position (<define>`centerX`</define>, <define>`centerY`</define>), the horizontal radius (<define>`radiusX`</define>), the vertical radius (<define>`radiusY`</define>), and the color:
 
 <img src="/static/images/exercise-assets/penguin/intro-ellipse.webp" alt="Ellipse function diagram" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 

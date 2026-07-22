@@ -13,7 +13,7 @@ Imagine you have my name, Jeremy, and you want to get my initial J out of that. 
   height="353"
 />
 
-Well, you can think of a string as being a series of letters. So Jeremy has six letters, J-E-R-E-M-Y, and each one has a position. J is in the first position, Y is in the last position.
+Well, you can think of a string as being a series of letters. So Jeremy has six letters, J-E-R-E-M-Y, and each one has a <define>position</define>. J is in the first position, Y is in the last position.
 
 Now, in JavaScript and most programming languages, these positions start at zero. So the first letter J is at position zero, and then next we have E, which is at position one, R at two, E at three, M at four, and Y at five.
 

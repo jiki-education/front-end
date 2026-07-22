@@ -5,17 +5,17 @@ description: "A spiral notebook page where each entry has a key on the left and 
 
 Arrays are our go-to choice when we have a list of anything, a list of mentors, list of scores, list of ingredients, any list, you want to use an array.
 
-But there's another data structure that's also really common for when you want something a bit more complex than a list.
+But there's another <define>data structure</define> that's also really common for when you want something a bit more complex than a list.
 
 Imagine we want to store some information about me, my name, my age, where I was born. You could use an array for it, but it's not really clear what's going on when you do.
 
 Is England where I was born or where I live? Is 42 my age or something else?
 
-And if I want to use this, I have to remember that the first position is for name, the second is for age, the third is for birthplace. It's all a bit messy, and it's messy because this isn't really a list of things. It's more complex than that. And that's where dictionaries come in. A dictionary is a new type of data structure. It's your fifth one. You've got strings, numbers, Booleans, arrays, and now dictionaries.
+And if I want to use this, I have to remember that the first position is for name, the second is for age, the third is for birthplace. It's all a bit messy, and it's messy because this isn't really a list of things. It's more complex than that. And that's where <define>dictionaries</define> come in. A dictionary is a new type of data structure. It's your fifth one. You've got strings, numbers, Booleans, arrays, and now dictionaries.
 
 And I want you to think of a dictionary as a sheet of a spiral notepad.
 
-On the left-hand side, you've got the headings, the words name, age, birthplace, and we call those keys.
+On the left-hand side, you've got the headings, the words name, age, birthplace, and we call those <define>keys</define>.
 
 And on the right-hand side, next to each heading, you've got the actual data, Jeremy, 42, England, and we call these values.
 

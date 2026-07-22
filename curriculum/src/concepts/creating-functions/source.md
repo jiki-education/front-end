@@ -7,7 +7,7 @@ So far, you've been using functions that have been built for you, functions like
 
 But now it's time for you to start making your own functions.
 
-To show you how to do this, we're going to look at building a new function for the maze called `walk5`.
+To show you how to do this, we're going to look at building a new function for the maze called <define>`walk5`</define>.
 
 This function is always going to move the character five steps forward. That's admittedly not the most useful function in the world, but it's a nice easy one for us to get started with.
 
@@ -59,7 +59,7 @@ When Jiki sees that function keyword, he's gonna go and build a new function, pu
   height="396"
 />
 
-Now, there's nothing special about this function you've made compared to the built-in ones. They all just sit next to each other on his shelves.
+Now, there's nothing special about this function you've made compared to the <define>built-in</define> ones. They all just sit next to each other on his shelves.
 
 And when you use the function, when you write `walk5()`, Jiki will just go and get the machine off the shelves and use it exactly the same as he's been doing with any other function. You can imagine that each machine has a mini Jiki living inside it. Mini Jiki always has this cool hat on. And that mini Jiki works in exactly the same way as normal Jiki outside, following instructions in the same way.
 

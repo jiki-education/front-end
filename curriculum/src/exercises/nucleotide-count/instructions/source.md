@@ -7,7 +7,7 @@ DNA is a long chain of other chemicals and the most important are the four nucle
 
 We represent a DNA sequence as an ordered collection of these four nucleotides and a common way to do that is with a string of characters such as "ATTACG" for a DNA sequence of 6 nucleotides. 'A' for adenine, 'C' for cytosine, 'G' for guanine, and 'T' for thymine.
 
-Create a function called `countNucleotides` that takes a DNA strand, and outputs a dictionary whose keys are the DNA letters, and the values are the amount of times those appear.
+Create a function called <define>`countNucleotides`</define> that takes a DNA strand, and outputs a dictionary whose keys are the DNA letters, and the values are the amount of times those appear.
 
 If the strand contains any invalid characters, return `false`.
 

@@ -3,17 +3,17 @@ title: "Look Around"
 description: "Build the functions that check what's around you in the maze."
 ---
 
-Last time you added a new function to help navigate the maze: `turnAround()`. We've got your code on the left for you to continue working on.
+Last time you added a new function to help navigate the maze: <define>`turnAround()`</define>. We've got your code on the left for you to continue working on.
 
 This time we've removed three of the functions you were previously relying on. Your job in this exercise is to implement them yourself!
 
 ### The functions you need to write
 
-The three functions you need to create are `canTurnLeft()`, `canTurnRight()` and `canMove()`.
+The three functions you need to create are <define>`canTurnLeft()`</define>, <define>`canTurnRight()`</define> and <define>`canMove()`</define>.
 
 None of the functions have any inputs. All should return a boolean specifying whether it's possible to move in that direction.
 
-To help you, we've added a new `look(direction)` function. This function takes one input - a direction that can be `"left"`, `"right"`, or `"ahead"`. It returns one of:
+To help you, we've added a new <define>`look(direction)`</define> function. This function takes one input - a direction that can be `"left"`, `"right"`, or `"ahead"`. It returns one of:
 
 - `"start"` (Where you start)
 - `"target"` (Where you're trying to get to)

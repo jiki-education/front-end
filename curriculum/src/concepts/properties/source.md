@@ -9,7 +9,7 @@ And while they are, they also have lots of functionality built into them that Ji
 
 There are two types of abilities we're gonna look at, properties and methods.
 
-Properties are facts that we can ask Jiki to tell us about things. So for example, strings have a property called `length`, which Jiki can use to tell us how long a string is.
+Properties are facts that we can ask Jiki to tell us about things. So for example, strings have a property called <define>`length`</define>, which Jiki can use to tell us how long a string is.
 
 So rather than having to loop over all the letters to work out how big a string is, we can just ask Jiki to tell us.
 

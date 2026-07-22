@@ -17,7 +17,7 @@ If you place three of your symbols in a row (horizontally, vertically, or diagon
 
 ## Instructions
 
-Create a `runGame(moves)` function.
+Create a <define>`runGame(moves)`</define> function.
 
 It takes one argument `moves`, which is a list of coordinate pairs (e.g. `[[1,2], [3,2]]` means the first player places a piece in column 2 of row 1, then the next player places in column 2 of row 3).
 
@@ -33,10 +33,10 @@ Sometimes a move might be a `"?"` instead of a coordinate pair. In these situati
 
 Draw a board made up of:
 
-1. A rectangle from (5,5) with width 90 and height 90: `rectangle(5, 5, 90, 90, "#ffffff")`
+1. A rectangle from (5,5) with width 90 and height 90: <define>`rectangle(5, 5, 90, 90, "#ffffff")`</define>
 2. Grid lines dividing the board equally into 9 squares.
 
-Use `changeStroke(1, "#333333")` to set a stroke width of 1 and a color of your choice.
+Use <define>`changeStroke(1, "#333333")`</define> to set a stroke width of 1 and a color of your choice.
 
 ### Pieces
 

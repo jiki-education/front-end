@@ -34,8 +34,8 @@ The canvas you're designing on is `100` wide and `100` tall. You need to draw `2
 
 ### Exercise Rules
 
-You cannot solve this exercise by just writing 20 rectangle statements. Your code should scale to any size of fabric. In fact, you can only use the `rectangle(...)` function once in your code!
+You cannot solve this exercise by just writing 20 rectangle statements. Your code should scale to any size of fabric. In fact, you can only use the <define>`rectangle(...)`</define> function once in your code!
 
-Instead, you need to loop and use the remainder operator we saw in the last video lesson. Think carefully about the order of the statements - that's the key to succeeding on this exercise.
+Instead, you need to loop and use the <define>remainder</define> <define>operator</define> we saw in the last video lesson. Think carefully about the order of the statements - that's the key to succeeding on this exercise.
 
 Take your time and have fun!

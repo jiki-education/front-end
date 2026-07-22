@@ -15,7 +15,7 @@ You'll see these as little buttons just above the output of each exercise. Each 
   height="318"
 />
 
-Take a golf game example. You might need to vary how far a ball rolls based on the return value of a function called `getShotLength`, which tells you how far the golfer has hit the ball. Imagine the player has had to swipe on their phone to say how far they've hit it.
+Take a golf game example. You might need to vary how far a ball rolls based on the <define>return value</define> of a function called <define>`getShotLength`</define>, which tells you how far the golfer has hit the ball. Imagine the player has had to swipe on their phone to say how far they've hit it.
 
 <img
   class="concept-image"

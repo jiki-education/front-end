@@ -11,7 +11,7 @@ What happens if you want to build a string based on variables or conditions? How
 
 There are two ways.
 
-The first is called string concatenation, which is a posh and slightly confusing way of saying adding two strings together.
+The first is called <define>string concatenation</define>, which is a posh and slightly confusing way of saying adding two strings together.
 
 Imagine you have two words, hello and world, and you want to create a string containing hello world.
 

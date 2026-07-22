@@ -5,7 +5,7 @@ description: "Using the `continue` keyword inside a loop to skip the rest of thi
 
 There are some times we might want to skip a specific iteration of a loop instead of breaking out of it. Imagine we only want to do things for odd numbers.
 
-We want to be able to say if `i` is odd, don't run the loop this time.
+We want to be able to say if <define>`i`</define> is odd, don't run the loop this time.
 
 But we don't want to fully exit from the loop. We just want to skip this single iteration and then look at the next one.
 
