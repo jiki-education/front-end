@@ -9,22 +9,32 @@ import styles from "./ProjectCard.module.css";
 interface ProjectCardProps {
   project: ProjectMeta;
   locale: string;
+  // Cover image blurred behind the localized banner for coming-soon cards.
+  comingSoonCover?: string;
 }
 
-export default function ProjectCard({ project, locale }: ProjectCardProps) {
+export default function ProjectCard({ project, locale, comingSoonCover }: ProjectCardProps) {
   const t = useTranslations("projects.projectCard");
   const comingSoon = project.episodeCount === 0;
   const cardClassName = `${styles.card} ${comingSoon ? styles.cardComingSoon : ""}`;
+  const coverImage = comingSoon ? (comingSoonCover ?? project.image) : project.image;
 
   const content = (
     <>
-      <Image
-        src={staticAsset(`images/projects/covers/${project.image}`)}
-        alt=""
-        width={240}
-        height={135}
-        className={styles.cardImage}
-      />
+      <div className={styles.cardThumbnail}>
+        <Image
+          src={staticAsset(`images/projects/covers/${coverImage}`)}
+          alt=""
+          width={240}
+          height={135}
+          className={`${styles.cardImage} ${comingSoon ? styles.cardImageComingSoon : ""}`}
+        />
+        {comingSoon && (
+          <div className={styles.comingSoonBanner}>
+            <span>{t("comingSoon")}</span>
+          </div>
+        )}
+      </div>
       <div className={styles.cardBody}>
         <h2 className={styles.cardTitle}>{project.title}</h2>
         <p className={styles.cardDescription}>{project.description}</p>
