@@ -5,7 +5,7 @@ description: "Calculate the cost of painting a sign, letter by letter."
 
 You run a sign-making shop. You charge $12 per letter for every sign you make. Spaces are free -- they don't cost anything.
 
-Write a function called `signPrice` that takes the text for a sign and returns a formatted message with the total price.
+Write a function called <define>`signPrice`</define> that takes the text for a sign and returns a formatted message with the total price.
 
 To count the letters, loop through each character and skip any spaces. Multiply the count by 12 to get the price. Then return a string in the format `"That will cost $X"` where X is the price.
 

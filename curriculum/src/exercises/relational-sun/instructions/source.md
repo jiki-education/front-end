@@ -5,12 +5,12 @@ description: "Position a sun where everything's calculated from variables."
 
 In this exercise, your task is to position a sun in the top-right corner of the sky using arithmetic and variables. The key constraint is that the edge of the sun should always be a fixed **gap** away from the edge of the canvas, no matter what size the sun is.
 
-We've preset four variables for you at the top of the file:
+We've preset four <define>variables</define> for you at the top of the file:
 
-- `canvasSize`: the size of the canvas, which is `100`.
-- `color`: set to `"yellow"`.
-- `gap`: how far the sun's edge sits from the top and right edges of the canvas.
-- `radius`: the sun's radius.
+- <define>`canvasSize`</define>: the size of the canvas, which is `100`.
+- <define>`color`</define>: set to `"yellow"`.
+- <define>`gap`</define>: how far the sun's edge sits from the top and right edges of the canvas.
+- <define>`radius`</define>: the sun's radius.
 
 ### A two-step Process
 
@@ -18,7 +18,7 @@ To solve this exercise, do two things
 
 #### 1. Define derived variables
 
-Define `sunX` and `sunY` variables that use `gap`, `radius`, and `canvasSize` to set the centre of the sun in the top-right corner.
+Define <define>`sunX`</define> and <define>`sunY`</define> variables that use `gap`, `radius`, and `canvasSize` to set the centre of the sun in the top-right corner.
 
 #### 2. Draw the circle
 

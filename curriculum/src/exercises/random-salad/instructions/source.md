@@ -13,6 +13,6 @@ You are creating a salad with leaves, tomatoes, olives and croutons. You've agre
 - Olives have a strong flavour — use them sparingly or they'll overpower everything else. You want at least one olive, but no more than half the number of tomatoes.
 - And the crucial rule: All the ingredients counts must be generated using randomness!
 
-Start off by **clicking Run Code** a few times to get see how the salad works. Once you've got a flavour for the exercise (pun intended), use `Math.randomInt` and follow the rules above to select the right selection of ingredients:
+Start off by **clicking Run Code** a few times to get see how the salad works. Once you've got a flavour for the exercise (pun intended), use <define>`Math.randomInt`</define> and follow the rules above to select the right selection of ingredients:
 
 Have fun trying out some different combos!

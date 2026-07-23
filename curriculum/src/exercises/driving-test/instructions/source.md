@@ -13,4 +13,4 @@ In your spare time, you administer these Driving Tests. As the student drives, y
 - If they make a major mistake, you add a 💥
 - If they pass that area without issue, you put down a ✅
 
-Write a function called `didTheyPass` that expects a string containing the pass (✅), minor (❌) and major (💥) symbols as input. It should determine if they pass or not, returning `true` if they do, and `false` if they don't.
+Write a function called <define>`didTheyPass`</define> that expects a string containing the pass (✅), minor (❌) and major (💥) symbols as input. It should determine if they pass or not, returning `true` if they do, and `false` if they don't.

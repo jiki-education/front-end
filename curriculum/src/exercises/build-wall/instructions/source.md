@@ -13,7 +13,7 @@ Things you need to know:
 
 - **Every** brick is 10 high and 20 wide.
 - The rows alternate between starting at the left edge (5 bricks), and starting off-screen to the left (6 bricks). (Bottom row is 5, top row is 6)
-- The `rectangle` function can only appear once in your code!
+- The <define>`rectangle`</define> function can only appear once in your code!
 
 The aim of this exercise is for you to experiment with using `repeat` blocks and conditionals together. There are many different ways to solve this exercise. Your challenge is to solve it in a way that results in clean, satisfying code.
 

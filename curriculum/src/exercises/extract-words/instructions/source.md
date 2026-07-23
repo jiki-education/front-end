@@ -13,4 +13,4 @@ For example, given the sentence `"I love cake."`, you should return:
 ["I", "love", "cake"]
 ```
 
-Create a function called `extractWords` that takes a sentence as its input and returns a list of the words in the sentence.
+Create a function called <define>`extractWords`</define> that takes a sentence as its input and returns a list of the words in the sentence.

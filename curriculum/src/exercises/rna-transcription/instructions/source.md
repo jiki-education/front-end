@@ -18,4 +18,4 @@ Given a DNA strand, its transcribed RNA strand is formed by replacing each nucle
 - T -> A
 - A -> U
 
-Create a function called `dnaToRna(dna)` that takes a DNA string as input and returns a string representing the RNA equivalent.
+Create a function called <define>`dnaToRna(dna)`</define> that takes a DNA string as input and returns a string representing the RNA equivalent.

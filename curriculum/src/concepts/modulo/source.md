@@ -3,7 +3,7 @@ title: "Remainder"
 description: "Using the `%` operator to get what's left over after division, often used to check if a number is even or odd."
 ---
 
-So far, we've used addition, subtraction, multiplication, and division for when we're doing arithmetic. Now we're gonna introduce one more, the remainder operator.
+So far, we've used addition, subtraction, multiplication, and division for when we're doing arithmetic. Now we're gonna introduce one more, the <define>remainder</define> operator.
 
 The remainder operator is responsible for giving you the remainder, logically, when you divide two numbers, and we write it using a percentage sign. So if we write `10 % 4`, we're saying or we're asking, "What's left over when we divide 10 by 4?" And the answer is two. Imagine you've got 10 sweets or nuts, and you want to share them equally between four people. Each person gets two, and then there's two left over at the end. And that left over bit, that's the remainder. That's what this percentage sign gives you.
 

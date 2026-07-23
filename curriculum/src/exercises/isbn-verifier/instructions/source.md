@@ -31,4 +31,4 @@ A couple more important notes:
 - ISBNs may be written with or without hyphens.
 - Any other characters make the ISBN invalid.
 
-Create a function called `isValidIsbn` that takes an ISBN string and returns `true` if it is valid and `false` if it is not.
+Create a function called <define>`isValidIsbn`</define> that takes an ISBN string and returns `true` if it is valid and `false` if it is not.

@@ -9,4 +9,4 @@ Each day you choose a recipe, then check what's in the fridge, and note down wha
 
 Now you've decided to make your life a little easier, by writing a program to do the hard work for you!
 
-Write a function called `shoppingList`. It takes two inputs: the contents of your fridge as a list of strings, and the items in the recipe as a list of strings. It should return the things you need to buy, as a list of strings.
+Write a function called <define>`shoppingList`</define>. It takes two inputs: the contents of your fridge as a list of strings, and the items in the recipe as a list of strings. It should return the things you need to buy, as a list of strings.

@@ -17,8 +17,8 @@ After each time you roll a die, you need to announce the number that you rolled 
 
 You have three functions you can use:
 
-- `roll(sides)` rolls a die with the given number of sides. This function returns the result.
-- `announce(value)` announces a dice roll.
-- `strike(attack, damage)` strikes the goblin with your attack roll and total damage.
+- <define>`roll(sides)`</define> rolls a die with the given number of sides. This function <define>returns</define> the result.
+- <define>`announce(value)`</define> announces a dice roll.
+- <define>`strike(attack, damage)`</define> strikes the goblin with your attack roll and total damage.
 
 **Important:** Each time you call `roll()`, Jiki rolls a die and gets a different number. Don't expect that rolling the same die twice will give the same number each time.

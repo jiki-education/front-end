@@ -7,7 +7,7 @@ So far, when you've written functions, each one has pretty much stood on its own
 
 Now we're going to look at breaking functions up so that we have smaller functions that work together rather than big functions that have lots going on.
 
-As a general rule in programming, you want each function to do the minimum it can. We call this a function having a single responsibility. Each function should just do one thing and use other functions for the different sub-parts of that.
+As a general rule in programming, you want each function to do the minimum it can. We call this a function having a <define>single responsibility</define>. Each function should just do one thing and use other functions for the different sub-parts of that.
 
 So let's look at an example.
 
@@ -54,7 +54,7 @@ As your functions get more complex and you have more of them, this technique is 
 
 There's one thing worth mentioning again here, and that's that anything you create inside a function can't be accessed by other functions unless you deliberately return it.
 
-So if you try and reference the count variable from inside `describeName`, you can't do it, as it belongs to the other function.
+So if you try and reference the <define>`count`</define> variable from inside <define>`describeName`</define>, you can't do it, as it belongs to the other function.
 
 <img
   class="concept-image"
@@ -66,4 +66,4 @@ So if you try and reference the count variable from inside `describeName`, you c
 
 In JavaScript, we can create variables at the top above everything that are shared between functions, but I really recommend you don't do that unless there's a really good reason.
 
-The more you keep each function independent, and the technical word for that is pure, pure functions, the cleaner your code will be and the less bugs that you're gonna create and have.
+The more you keep each function independent, and the technical word for that is <define>pure</define>, pure functions, the cleaner your code will be and the less bugs that you're gonna create and have.

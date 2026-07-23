@@ -41,7 +41,7 @@ So you need a way of just telling Jiki to just keep going. Keep checking which w
   height="400"
 />
 
-And the way to do that is really simple. Just don't give the repeat keyword a number. Just leave those brackets empty. If you do this, Jiki will just keep on going until something else tells him to stop. Later on, we'll look at what those something elses are. But for now, he'll just keep going until the exercise is finished, or until he decides he's been going for absolutely ages, wants a break, and decides he's had enough.
+And the way to do that is really simple. Just don't give the `repeat` keyword a number. Just leave those brackets empty. If you do this, Jiki will just keep on going until something else tells him to stop. Later on, we'll look at what those something elses are. But for now, he'll just keep going until the exercise is finished, or until he decides he's been going for absolutely ages, wants a break, and decides he's had enough.
 
 <img
   class="concept-image"

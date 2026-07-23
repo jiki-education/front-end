@@ -3,7 +3,7 @@ title: "Structured House"
 description: "Drive a whole house drawing from two size anchors."
 ---
 
-Your task is to draw a house, building the whole thing from just two anchor variables: `houseWidth` and `houseHeight`.
+Your task is to draw a house, building the whole thing from just two anchor variables: <define>`houseWidth`</define> and <define>`houseHeight`</define>.
 
 We've set up the colors, the canvas width, and the two anchor variables for you. Everything else (where the house sits, the roof, the windows, the door, and the knob) should be derived from the two anchors and the fixed facts below.
 

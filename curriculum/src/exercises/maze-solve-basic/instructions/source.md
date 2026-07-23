@@ -9,9 +9,9 @@ The aim of this exercise is to get you familiar with how the learning environmen
 
 The three instructions you can use are:
 
-- `move()` which moves the character one step forward
-- `turnLeft()` turns the character left (relative to the direction they're currently facing)
-- `turnRight()` turns the character right (relative to the direction they're currently facing)
+- <define>`move()`</define> which moves the character one step forward
+- <define>`turnLeft()`</define> turns the character left (relative to the direction they're currently facing)
+- <define>`turnRight()`</define> turns the character right (relative to the direction they're currently facing)
 
 You can see that we've already written the first three instructions on the left hand side. Start by clicking the **"Run Code"** button to see what they do. Then **add more instructions** to move your character to the end of the maze. Put one instruction on each line then hit **Run Code** to run them all.
 

@@ -9,7 +9,7 @@ You get all of the clean clothes from your drawers and put them into one basket.
 
 You now have two baskets and want to go through, finding whether each sock has a pair or not.
 
-Write a function called `matchingSocks`. It takes two inputs, the clean basket and the dirty basket - both as lists of strings. Return a list of all the pairs of socks.
+Write a function called <define>`matchingSocks`</define>. It takes two inputs, the clean basket and the dirty basket - both as lists of strings. Return a list of all the pairs of socks.
 
 For example:
 

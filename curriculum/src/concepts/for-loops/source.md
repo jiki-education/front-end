@@ -17,9 +17,9 @@ You can see why that might have been a bit intimidating on day one for you.
 
 But now you have all of the knowledge you need to get comfortable with this. So let's break it down.
 
-A for loop has three components, an initializer, a condition, and an increment.
+A for loop has three components, an <define>initializer</define>, a condition, and an <define>increment</define>.
 
-The initializer, this `let i = 0` bit, that runs at the start of the whole loop. It just runs once, and here it creates a box called `i` set to zero.
+The initializer, this `let i = 0` bit, that runs at the start of the whole loop. It just runs once, and here it creates a box called <define>`i`</define> set to zero. `i` is just a letter used to track a value as we loop, and traditionally `i` or `x` are used for this.
 
 The next bit before the condition runs each time before each loop iteration.
 
@@ -29,15 +29,15 @@ If it's not, we don't.
 
 And then finally is the increment, the `i++`.
 
-`i++` just means the same as `i = i + 1`. It's just a shorthand, a way of increasing i by one each time.
+`i++` just means the same as `i = i + 1`. It's just a shorthand, a way of increasing `i` by one each time.
 
-So in this example, we'll set i to zero. We check whether i is less than two, which it is, and so we run the loop.
+So in this example, we'll set `i` to zero. We check whether `i` is less than two, which it is, and so we run the loop.
 
-And then at the end, we increase i by one, so i becomes one. Zero plus one is one.
+And then at the end, we increase `i` by one, so `i` becomes one. Zero plus one is one.
 
 And then we go again. We check whether one is less than two.
 
-It is, so we run the loop. And then at the end, we increase i again. So now it's two, one plus one equals two.
+It is, so we run the loop. And then at the end, we increase `i` again. So now it's two, one plus one equals two.
 
 ```javascript
 i = 0
@@ -52,7 +52,7 @@ i = i + 1 // 2
 i < 2 // false - exit the loop
 ```
 
-And then we go a third time. This time we check whether two is less than two, and it's not, so we don't run the loop, and we're finished with the loop, in fact. We just move on to any code below. So we ran the loop twice, and that's a useful thing to know. As long as we start at zero and have a condition `i < n`, the number n is the amount of times the loop will run.
+And then we go a third time. This time we check whether two is less than two, and it's not, so we don't run the loop, and we're finished with the loop, in fact. We just move on to any code below. So we ran the loop twice, and that's a useful thing to know. As long as we start at zero and have a condition `i < n`, the number `n` is the amount of times the loop will run.
 
 So this is the same as saying repeat two.
 

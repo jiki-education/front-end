@@ -7,8 +7,8 @@ Even more aliens have appeared, and now they're **four rows deep**!
 
 You have the same two functions as before:
 
-- `move()` moves your laser cannon one position to the right
-- `shoot()` fires the laser upwards
+- <define>`move()`</define> moves your laser cannon one position to the right
+- <define>`shoot()`</define> fires the laser upwards
 
 The difference is you need to shoot multiple aliens per row.
 

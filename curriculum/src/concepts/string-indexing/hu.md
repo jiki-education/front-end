@@ -1,7 +1,7 @@
 ---
 title: "A string indexelése"
 description: "Szögletes zárójellel és egy pozíciószámmal egyetlen betűt veszünk ki egy stringből. Ne feledd, a pozíciók nullától indulnak."
-en_md5: dc6b55a9d0582321bfe69409e64858d6
+en_md5: 8b7a8d7c6330e35759579314a484fcbf
 ---
 
 Képzeld el, hogy itt van a nevem, Jeremy, és ki szeretnéd venni belőle a monogramomat, a J betűt. Hogyan fogjunk hozzá?
@@ -14,9 +14,9 @@ Képzeld el, hogy itt van a nevem, Jeremy, és ki szeretnéd venni belőle a mon
   height="353"
 />
 
-Gondolj úgy a stringre (karakterláncra), mint betűk sorozatára. A Jeremy név hat betűből áll, J-E-R-E-M-Y, és mindegyik betűnek megvan a maga pozíciója. A J az első helyen áll, az Y az utolsón.
+Gondolj úgy a stringre, mint betűk sorozatára. A `"Jeremy"` hat betűből áll, J-E-R-E-M-Y, és mindegyik betűnek megvan a maga pozíciója (_position_ angolul). A `"J"` az első helyen áll, az `"y"` az utolsón.
 
-A JavaScriptben és a legtöbb programozási nyelvben ezek a pozíciók nullától indulnak. Vagyis az első betű, a J, a nulladik pozíción van, utána jön az E az egyes pozíción, az R a kettesen, az E a hármason, az M a négyesen, az Y pedig az ötösön.
+A JavaScriptben és a legtöbb programozási nyelvben ezek a pozíciók nullától indulnak. Vagyis az első betű, a `"J"`, a nulladik pozíción van, utána jön az `"e"` az egyes pozíción, az `"r"` a kettesen, az `"e"` a hármason, az `"m"` a négyesen, az `"y"` pedig az ötösön.
 
 Ez a nullától számolás elsőre elég furcsa, és őszintén szólva egyszerűbb lenne az élet, ha simán egytől számolnánk, ahogy a hétköznapokban szoktunk.
 
@@ -24,7 +24,7 @@ De nem így teszünk. A legtöbb programozási nyelvben nullától kezdünk szá
 
 Ha tehát egy adott pozíción lévő betűt szeretnénk kivenni, használjunk szögletes zárójelet (`[]`), benne a pozíció számával.
 
-Ha azt írjuk, hogy `"Jeremy"[0]`, azzal azt mondjuk: add ide a Jeremy szó első betűjét.
+Ha azt írjuk, hogy `"Jeremy"[0]`, azzal azt mondjuk: add ide a `"Jeremy"` szó első betűjét.
 
 Ha azt írjuk, hogy `"Jeremy"[1]`, akkor a második betűt kérjük.
 
@@ -33,14 +33,14 @@ Ha azt írjuk, hogy `"Jeremy"[1]`, akkor a második betűt kérjük.
 "Jeremy"[1]
 ```
 
-Ugyanez változókkal (variable) is működik. Ha létrehozunk egy name nevű változót, és értékül a Jeremy stringet adjuk neki, akkor a `name[0]` szintén a J betűt adja vissza.
+Ugyanez változókkal is működik. Ha létrehozunk egy `name` (név) nevű változót, és értékül a `"Jeremy"` stringet adjuk neki, akkor a `name[0]` szintén a `"J"` betűt adja vissza.
 
 ```javascript
 let name = "Jeremy"
 name[0]
 ```
 
-Egy dolgot azért tisztázzunk: amit a `name[0]` visszaad, az is csak egy string. Egy újabb papírlap, rajta egy J betűvel. Semmi különleges nincs benne. Ugyanolyan string, mint amilyen a Jeremy is.
+Egy dolgot azért tisztázzunk: amit a `name[0]` visszaad, az is csak egy string. Egy újabb papírlap, rajta egy J betűvel. Semmi különleges nincs benne. Ugyanolyan string, mint amilyen a `"Jeremy"` is.
 
 <img
   class="concept-image"

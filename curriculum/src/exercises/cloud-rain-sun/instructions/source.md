@@ -9,7 +9,7 @@ In this exercise your task is to draw a weather icon for a rainy day with the su
 
 We've drawn a template for you. Your shapes should sit just inside the lines. We've also added the base of the cloud into the code to make things a little easier for you. **You can't change this line** (you'll see that it's greyed out and there's a locked symbol by it).
 
-You'll need the `circle` and `ellipse` functions. You should only use ellipses for the raindrops. If you use them for the sun or clouds, things won't work.
+You'll need the <define>`circle`</define> and <define>`ellipse`</define> functions. You should only use ellipses for the raindrops. If you use them for the sun or clouds, things won't work.
 
 Nearly all the numbers you need are divisible by 5 (e.g. 5, 10, 15, etc). The only exception is the horizontal radius of the raindrops, which is `3`.
 
