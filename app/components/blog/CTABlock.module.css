@@ -81,8 +81,14 @@
 .arrow {
     transition: transform 0.3s ease;
 
+    /* The arrow points along the reading direction, so its hover nudge follows
+       it: forward (right) under LTR, forward (left) under RTL. */
     .button:hover & {
         transform: translateX(4px);
+    }
+
+    :global([dir="rtl"]) .button:hover & {
+        transform: translateX(-4px);
     }
 }
 
