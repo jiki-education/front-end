@@ -186,26 +186,33 @@ export class InformationWidget extends WidgetType {
 
     this.cleanupDuplicateTooltips();
 
+    // The tooltip is appended to <body>, so it follows the document direction (the
+    // editor itself is a forced dir="ltr" island). Under RTL the whole layout is
+    // mirrored, so the tooltip must sit on the opposite side of its anchor or it
+    // lands off-screen past the right edge.
+    const isRTL = getComputedStyle(document.documentElement).direction === "rtl";
+
     void computePosition(this.referenceElement, this.tooltip, {
-      placement: "right",
+      placement: isRTL ? "left" : "right",
       middleware: [
         offset(0),
         shift({ padding: 0, boundary: (editor as Boundary) ?? undefined }),
         arrow({ element: this.arrowElement })
       ]
     }).then(({ y, middlewareData }) => {
-      // Find the vertical divider to align with its position
+      // Align the tooltip with the vertical divider: just past its inner edge (the
+      // edge facing the reading flow) — right of it under LTR, left of it under RTL.
       const verticalDivider = document.querySelector(".verticalDivider") as HTMLElement;
+      const tooltipWidth = this.tooltip?.offsetWidth ?? 0;
       let x: number;
 
       if (verticalDivider) {
-        // Get the vertical divider's position and align the tooltip with it
         const dividerRect = verticalDivider.getBoundingClientRect();
-        x = dividerRect.right + 10;
+        x = isRTL ? dividerRect.left - tooltipWidth - 10 : dividerRect.right + 10;
       } else {
-        // Fallback to editor's right edge if divider not found
+        // Fallback to the editor's inner edge if the divider isn't found
         const editorRect = editor.getBoundingClientRect();
-        x = editorRect.right + 10;
+        x = isRTL ? editorRect.left - tooltipWidth - 10 : editorRect.right + 10;
       }
 
       const { arrow } = middlewareData;

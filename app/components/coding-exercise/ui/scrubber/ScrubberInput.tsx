@@ -44,7 +44,11 @@ const ScrubberInput = forwardRef<HTMLDivElement, ScrubberInputProps>(
         }
 
         const rect = ref.current.getBoundingClientRect();
-        const percentage = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+        // Under RTL the timeline runs right→left, so time 0 is the right edge.
+        // Measuring from the inline-start edge keeps 0%→100% mapped to earliest→latest.
+        const offsetFromStart =
+          getComputedStyle(ref.current).direction === "rtl" ? rect.right - clientX : clientX - rect.left;
+        const percentage = Math.max(0, Math.min(1, offsetFromStart / rect.width));
         return Math.round(min + (max - min) * percentage);
       },
       [min, max, currentValue, ref]
@@ -109,7 +113,8 @@ const ScrubberInput = forwardRef<HTMLDivElement, ScrubberInputProps>(
         if (!enabled) {
           return;
         }
-        handleOnKeyDown(event, orchestrator, isPlaying);
+        const isRTL = getComputedStyle(event.currentTarget).direction === "rtl";
+        handleOnKeyDown(event, orchestrator, isPlaying, isRTL);
       },
       [enabled, orchestrator, isPlaying]
     );
@@ -150,26 +155,32 @@ export default ScrubberInput;
 /* EVENT HANDLERS */
 /* **************** */
 
-function handleOnKeyDown(event: React.KeyboardEvent, orchestrator: Orchestrator, isPlaying: boolean) {
+function handleOnKeyDown(event: React.KeyboardEvent, orchestrator: Orchestrator, isPlaying: boolean, isRTL = false) {
+  // Arrow keys follow the visual timeline direction: under RTL time runs
+  // right→left, so the key that points "back along the timeline" (ArrowRight)
+  // steps to the previous frame and ArrowLeft steps to the next.
+  const goBack = () => (event.shiftKey ? orchestrator.goToPrevBreakpoint() : orchestrator.goToPrevFrame());
+  const goForward = () => (event.shiftKey ? orchestrator.goToNextBreakpoint() : orchestrator.goToNextFrame());
+
   switch (event.key) {
     case "ArrowLeft":
       // Preventing default stops the range input from also nudging itself,
       // which would fight the frame we're snapping to.
       event.preventDefault();
       // Holding Shift steps between breakpoints instead of individual frames.
-      if (event.shiftKey) {
-        orchestrator.goToPrevBreakpoint();
+      if (isRTL) {
+        goForward();
       } else {
-        orchestrator.goToPrevFrame();
+        goBack();
       }
       break;
 
     case "ArrowRight":
       event.preventDefault();
-      if (event.shiftKey) {
-        orchestrator.goToNextBreakpoint();
+      if (isRTL) {
+        goBack();
       } else {
-        orchestrator.goToNextFrame();
+        goForward();
       }
       break;
 

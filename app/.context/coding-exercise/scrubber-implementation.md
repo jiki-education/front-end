@@ -96,6 +96,12 @@ Handled in `ScrubberInput` (the focused slider), routed to orchestrator navigati
 
 Each handler calls `event.preventDefault()` so the native range input doesn't also move.
 
+**RTL:** the scrubber mirrors under `dir="rtl"` — the timeline runs right→left. Pointer
+position is measured from the inline-start (right) edge, and the horizontal arrow keys
+swap: ArrowLeft advances and ArrowRight rewinds. Direction is read from
+`getComputedStyle(el).direction`; the fill and thumb flip automatically via the logical
+CSS (`width`, `inset-inline-end`). Vertical arrows and spacebar are unaffected.
+
 ### Shared Frame Navigation
 
 Frame and breakpoint navigation live on the orchestrator (`goToPrevFrame`,

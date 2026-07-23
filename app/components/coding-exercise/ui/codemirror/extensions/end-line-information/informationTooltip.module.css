@@ -33,6 +33,16 @@
     z-index: 10;
 }
 
+/* inset-inline-end is :lang()-gated by our PostCSS, so it stays on the right under a
+   dir-only RTL. Pin it to the physical left via [dir] to match the rest of the widget. */
+/* stylelint-disable property-disallowed-list */
+:global([dir="rtl"]) .closeButton {
+    inset-inline-end: auto;
+    right: auto;
+    left: 10px;
+}
+/* stylelint-enable property-disallowed-list */
+
 .content {
     padding: 20px;
     overflow: auto;
@@ -98,6 +108,25 @@
     z-index: 1; /* sit on top of the tooltip border/background */
     /* top is set dynamically via JS */
 }
+
+/* Under RTL the widget is placed to the LEFT of its anchor (see information-widget.ts),
+   so the arrow moves to the tooltip's right edge and points right. The base arrow is a
+   square showing its left+bottom borders, rotated 45° to point left; the mirror is the
+   right+top borders, so we clear the base borders and set the opposite pair. Keyed on
+   [dir] to match the JS placement (which reads `dir`; logical props / :lang() would miss
+   a dir-only RTL). stylelint-disable: physical props are required to override the base. */
+/* stylelint-disable property-disallowed-list */
+:global([dir="rtl"]) .tooltipArrow {
+    inset-inline-start: auto;
+    left: auto;
+    right: -8px;
+    border-inline-start: 0;
+    border-bottom: 0;
+    border-right: 2px solid;
+    border-top: 2px solid;
+    transform: rotate(45deg);
+}
+/* stylelint-enable property-disallowed-list */
 
 .description .tooltipInner {
     border: 2px solid var(--color-info-border);
