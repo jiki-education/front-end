@@ -15,6 +15,9 @@ interface BuildHubPageProps {
 
 export default function BuildHubPage({ projects, locale }: BuildHubPageProps) {
   const t = useTranslations("build.hub");
+  // Coming-soon cards blur the first available (non-coming-soon) project cover
+  // and overlay a localized banner, instead of a pre-baked "coming soon" image.
+  const comingSoonCover = projects.find((p) => p.episodeCount > 0)?.image ?? projects[0]?.image;
   return (
     <ConceptsLayout>
       <header className={styles.header}>
@@ -28,7 +31,12 @@ export default function BuildHubPage({ projects, locale }: BuildHubPageProps) {
         <div className={styles.main}>
           <div className={styles.projectsList}>
             {projects.map((project) => (
-              <ProjectCard key={project.slug} project={project} locale={locale} />
+              <ProjectCard
+                key={project.slug}
+                project={project}
+                locale={locale}
+                comingSoonCover={comingSoonCover}
+              />
             ))}
           </div>
         </div>
