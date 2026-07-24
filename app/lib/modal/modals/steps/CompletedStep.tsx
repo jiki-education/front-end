@@ -30,8 +30,11 @@ export function CompletedStep({
     <>
       <CompletionTimeline exerciseSlug={exerciseSlug} />
       <h2 className={styles.modalTitle}>{isChallenge ? t("titleChallenge") : t("titleExercise")}</h2>
-      <p className={styles.modalMessage}>{t("greatWork", { title: exerciseTitle })}</p>
-      <CompletionMessage isChallenge={isChallenge} outstandingBonusCount={outstandingBonusCount} />
+      <CompletionMessage
+        isChallenge={isChallenge}
+        outstandingBonusCount={outstandingBonusCount}
+        exerciseTitle={exerciseTitle}
+      />
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
         {hasOutstandingBonuses ? (
@@ -69,29 +72,43 @@ function CompletionTimeline({ exerciseSlug }: { exerciseSlug: string }) {
 
 function CompletionMessage({
   isChallenge,
-  outstandingBonusCount
+  outstandingBonusCount,
+  exerciseTitle
 }: {
   isChallenge: boolean;
   outstandingBonusCount: number;
+  exerciseTitle: string;
 }) {
   const t = useTranslations("modals.exerciseCompletion.completed");
+  const greatWork = t("greatWork", { title: exerciseTitle });
 
   if (isChallenge) {
-    return <p className={styles.modalMessage}>{t("readyChallenge")}</p>;
-  }
-
-  if (outstandingBonusCount > 0) {
     return (
       <p className={styles.modalMessage}>
-        {t.rich("bonusPrompt", {
-          count: outstandingBonusCount,
-          strong: (chunks) => <strong style={{ fontWeight: 600 }}>{chunks}</strong>
-        })}
+        {greatWork} {t("readyChallenge")}
       </p>
     );
   }
 
-  return <p className={styles.modalMessage}>{t("readyExercise")}</p>;
+  if (outstandingBonusCount > 0) {
+    return (
+      <>
+        <p className={styles.modalMessage}>{greatWork}</p>
+        <p className={styles.modalMessage}>
+          {t.rich("bonusPrompt", {
+            count: outstandingBonusCount,
+            strong: (chunks) => <strong style={{ fontWeight: 600 }}>{chunks}</strong>
+          })}
+        </p>
+      </>
+    );
+  }
+
+  return (
+    <p className={styles.modalMessage}>
+      {greatWork} {t("readyExercise")}
+    </p>
+  );
 }
 
 function BonusActions({
