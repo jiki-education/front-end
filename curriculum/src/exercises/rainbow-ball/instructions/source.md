@@ -9,7 +9,7 @@ It should look something like this:
 
 <img src="/static/images/exercise-assets/rainbow-ball/example.gif" alt="Animated rainbow ball bouncing around the canvas leaving a coloured trail" style="width: 100%; max-width: 200px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-As part of this exercise, you have the `Math.randomInt(min, max)` function which returns a random integer between the `min` and `max` you give it.
+As part of this exercise, you have the <define>`Math.randomInt(min, max)`</define> function which returns a random integer between the `min` and `max` you give it.
 
 Take a few minutes to think through how you could solve this. This is the most valuable part of the exercise, so take your time and **write down your ideas before you read the formula below.**
 
@@ -33,7 +33,7 @@ This project is all about having some variables that are responsible for the pos
 ### Bouncing
 
 - Once the ball reaches the edge of the canvas it should change direction. (Check the hints if you can't work out how to do this.)
-- To make things more fun you should change direction using the `Math.randomInt(min, max)` function. Choose `min` and `max` that give the style of animation you want.
+- To make things more fun you should change direction using the `Math.randomInt(min, max)` function. Choose <define>`min`</define> and <define>`max`</define> that give the style of animation you want.
 
 ## To pass the checks
 

@@ -20,4 +20,4 @@ For example, starting with 12:
 
 Counting from the second number (6), it took 9 steps to reach 1.
 
-Create a function called `collatzSteps` that takes one input, a number. Return **how many steps** it takes to get from any given number to 1, following the rules of the Collatz Conjecture.
+Create a function called <define>`collatzSteps`</define> that takes one input, a number. Return **how many steps** it takes to get from any given number to 1, following the rules of the Collatz Conjecture.

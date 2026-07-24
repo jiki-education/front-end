@@ -7,7 +7,7 @@ Reversing strings (reading them from right to left, rather than from left to rig
 
 For example, in bioinformatics, reversing the sequence of DNA or RNA strings is often important for various analyses, such as finding complementary strands or identifying palindromic sequences.
 
-Your task is to create a function called `reverse`, which takes a string as its input, and returns the reversed version.
+Your task is to create a function called <define>`reverse`</define>, which takes a string as its input, and returns the reversed version.
 
 Examples:
 

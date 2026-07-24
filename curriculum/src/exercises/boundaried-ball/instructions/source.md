@@ -5,15 +5,15 @@ description: ""
 
 In this exercise, you'll create a ball and make it bounce off the walls of a game area.
 
-You have a `Ball` class that you can create an instance of using `new Ball()`. The ball has these properties:
+You have a <define>`Ball`</define> class that you can create an instance of using `new Ball()`. The ball has these properties:
 
-- `cx` and `cy`: the center coordinates of the ball (read-only)
-- `radius`: the size of the ball (read-only)
-- `xVelocity` and `yVelocity`: how the ball moves each step (you can change these)
+- <define>`cx`</define> and <define>`cy`</define>: the center coordinates of the ball (read-only)
+- <define>`radius`</define>: the size of the ball (read-only)
+- <define>`xVelocity`</define> and <define>`yVelocity`</define>: how the ball moves each step (you can change these)
 
 You also have a function:
 
-- `moveBall(ball)`: moves the ball according to its velocity
+- <define>`moveBall(ball)`</define>: moves the ball according to its velocity
 
 The game area ranges from 0 to 100 in both directions.
 

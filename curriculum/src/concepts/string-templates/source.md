@@ -3,15 +3,15 @@ title: "String Templates"
 description: "Using backticks and `${...}` placeholders to slot values straight into a string instead of joining pieces with `+`."
 ---
 
-We can use something called template literals to insert strings into other strings.
+We can use something called <define>template literals</define> to insert strings into other strings.
 
 So rather than adding strings together, we can have a string or template that has spaces for other strings inside of it.
 
-To do this, we use backticks instead of quotes.
+To do this, we use <define>backticks</define> instead of quotes.
 
 Backticks are backward ticks, as the name suggests, but you might well have never used them before, so you need to find the right key on your keyboard.
 
-We use them to create a template that can contain other strings. And then to insert a string into the template, we use another weird syntax of dollars and braces. So for example, to achieve the same `"hello " + name` thing we just saw with concatenation, we could write `` `hello ${name}` ``.
+We use them to create a template that can contain other strings. And then to insert a string into the template, we use another weird <define>syntax</define> of dollars and braces. So for example, to achieve the same `"hello " + name` thing we just saw with concatenation, we could write `` `hello ${name}` ``.
 
 ```javascript
 `hello ${name}`

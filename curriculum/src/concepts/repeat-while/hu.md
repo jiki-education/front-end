@@ -1,10 +1,10 @@
 ---
 title: "Repeat szám nélkül"
 description: "A repeat ciklus zárójelét üresen hagyjuk, így Jiki addig megy tovább, amíg valami más meg nem állítja."
-en_md5: cb1ecfefe2f9bb053d86e25ffd41a327
+en_md5: 5902e86c82b7bfe9ca519f9bdf8650ad
 ---
 
-Eddig, amikor a repeat ciklust (loop) használtad, mindig megadtál egy számot, ami megmondta, hányszor ismételjen. Ismételj ötször, 10-szer, 40-szer. Néha erre változót (variable) is használtál. De mindig pontosan megmondtad Jikinek, hányszor fusson le a ciklus. Csakhogy néha előre nem tudjuk, hányszor kell ismételni. Gondolj a labirintusra. Még a kurzus legelején úgy oldottad meg a labirintust, hogy egyesével leírtad a lépéseket. Láttad a labirintust, megszámoltad a lépéseket, és pontosan a megfelelő számú mozdulatot írtad le.
+Eddig, amikor a repeat ciklust használtad, mindig megadtál egy számot, ami megmondta, hányszor ismételjen. Ismételj ötször, 10-szer, 40-szer. Néha erre változót is használtál. De mindig pontosan megmondtad Jikinek, hányszor fusson le a ciklus. Csakhogy néha előre nem tudjuk, hányszor kell ismételni. Gondolj a labirintusra. Még a kurzus legelején úgy oldottad meg a labirintust, hogy egyesével leírtad a lépéseket. Láttad a labirintust, megszámoltad a lépéseket, és pontosan a megfelelő számú mozdulatot írtad le.
 
 <img
   class="concept-image"
@@ -42,7 +42,7 @@ Szóval kell egy mód arra, hogy Jikinek egyszerűen azt mondd: menjen tovább. 
   height="400"
 />
 
-És ezt megoldani igazán egyszerű. Egyszerűen ne adj számot a repeat kulcsszónak (keyword). Hagyd üresen azt a zárójelet. Ha így teszel, Jiki addig megy tovább, amíg valami más meg nem állítja. Hogy mik ezek a „valami mások", azt később nézzük meg. Egyelőre annyi a lényeg, hogy Jiki addig megy, amíg a feladat véget nem ér, vagy amíg úgy nem érzi, hogy már rettentő régóta megy, ráférne egy kis pihenés, és mára elege van.
+És ezt megoldani igazán egyszerű. Egyszerűen ne adj számot a `repeat` kulcsszónak. Hagyd üresen azt a zárójelet. Ha így teszel, Jiki addig megy tovább, amíg valami más meg nem állítja. Hogy mik ezek a „valami mások", azt később nézzük meg. Egyelőre annyi a lényeg, hogy Jiki addig megy, amíg a feladat véget nem ér, vagy amíg úgy nem érzi, hogy már rettentő régóta megy, ráférne egy kis pihenés, és mára elege van.
 
 <img
   class="concept-image"

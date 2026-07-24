@@ -1,10 +1,10 @@
 ---
 title: "Maradék"
 description: "A `%` operátor használata az osztás után megmaradó rész kiszámítására, leggyakrabban annak eldöntésére, hogy egy szám páros vagy páratlan."
-en_md5: 1475a3302b40866ecfc83c9bc4127a45
+en_md5: 7ea5d8c4a146f133fa767002f6e53d01
 ---
 
-Eddig összeadást, kivonást, szorzást és osztást használtunk, amikor számoltunk. Most bevezetünk még egyet: a maradék operátort (remainder operator).
+Eddig összeadást, kivonást, szorzást és osztást használtunk, amikor számoltunk. Most bevezetünk még egyet: a maradék (_remainder_ angolul) operátort.
 
 A maradék operátor, ahogy a neve is mutatja, azt adja meg, mennyi a maradék, amikor két számot elosztunk egymással. Egy százalékjellel írjuk le. Ha tehát azt írjuk, hogy `10 % 4`, azt kérdezzük: „Mennyi marad, ha a 10-et elosztjuk 4-gyel?" A válasz: kettő. Képzeld el, hogy van 10 cukorkád vagy mogyoród, és négy ember között szeretnéd egyenlően elosztani. Mindenki kap kettőt, és a végén kettő megmarad. Ez a megmaradt rész a maradék. Ezt adja meg a százalékjel.
 

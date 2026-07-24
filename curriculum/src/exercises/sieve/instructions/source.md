@@ -18,4 +18,4 @@ Repeat the steps until you've gone through every number. At the end, all the unm
 
 Note: The Sieve of Eratosthenes marks off multiples of each prime using addition (repeatedly adding the prime) or multiplication (directly computing its multiples), rather than checking each number for divisibility.
 
-Create a function called `sieve` that takes a number as its input, and returns a list of all the prime numbers less than or equal to that number.
+Create a function called <define>`sieve`</define> that takes a number as its input, and returns a list of all the prime numbers less than or equal to that number.

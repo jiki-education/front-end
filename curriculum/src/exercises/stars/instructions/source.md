@@ -15,4 +15,4 @@ The first element has 1 star, the second has 2 stars, and so on up to the given 
 
 If the count is 0, return an empty list.
 
-Create a function called `stars` that takes one input, a count, and returns the list of star strings.
+Create a function called <define>`stars`</define> that takes one input, a count, and returns the list of star strings.

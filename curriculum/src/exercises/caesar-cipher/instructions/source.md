@@ -11,7 +11,7 @@ The cipher works by shifting each letter in the message by a fixed number of pos
 
 Spaces should be kept as spaces (not shifted).
 
-Create a function called `encode(message, shift)` that takes a lowercase message and a shift amount, and returns the encoded message.
+Create a function called <define>`encode(message, shift)`</define> that takes a lowercase message and a shift amount, and returns the encoded message.
 
 For example:
 

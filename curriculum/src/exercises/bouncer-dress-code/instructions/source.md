@@ -23,18 +23,18 @@ The dress code categories:
 
 You have three functions to get data:
 
-- `getOutfit()` returns the name of the outfit the person is wearing (e.g. `"ballgown"`, `"suit"`, `"denim"`)
-- `getAge()` returns their age.
-- `onGuestList()` returns whether they're on the guest list.
+- <define>`getOutfit()`</define> returns the name of the outfit the person is wearing (e.g. `"ballgown"`, `"suit"`, `"denim"`)
+- <define>`getAge()`</define> returns their age.
+- <define>`onGuestList()`</define> returns whether they're on the guest list.
 
 You are only allowed to use each of the "getting data" functions once in the solution (otherwise people are going to get annoying if you keep asking their name, etc!)
 
 You then have some actions you can do:
 
-- `offerChampagne()` offers the person a glass of champagne
-- `offerCanapes()` offers the person some canapés (salmon tartare)
-- `letIn()` lets the person into the venue
-- `turnAway()` turns the person away
+- <define>`offerChampagne()`</define> offers the person a glass of champagne
+- <define>`offerCanapes()`</define> offers the person some canapés (salmon tartare)
+- <define>`letIn()`</define> lets the person into the venue
+- <define>`turnAway()`</define> turns the person away
 
 ### Coding efficiently
 

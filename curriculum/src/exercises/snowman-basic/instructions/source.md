@@ -3,11 +3,11 @@ title: "Snowman"
 description: "Build a snowman from three circles."
 ---
 
-This exercise introduces you to the `circle` function, which we use with 3 inputs:
+This exercise introduces you to the `circle` function, which we use with 3 <define>inputs</define>:
 
-- `centerX`: The central horizontal (x) position of the center of the circle
-- `centerY`: The central vertical (y) position of the center of the circle
-- `radius`: How big the circle is
+- <define>`centerX`</define>: The central horizontal (x) position of the center of the circle
+- <define>`centerY`</define>: The central vertical (y) position of the center of the circle
+- <define>`radius`</define>: How big the circle is
 
 This image should make things clearer:
 

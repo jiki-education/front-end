@@ -5,7 +5,7 @@ description: "Refactor a maze solution to use loops instead of repeated code."
 
 You've been given a working solution to a maze, but it's very long and repetitive. Your job is to change the code to be **as few lines as possible**.
 
-The secret to this is to use `repeat` loops to make the code shorter. For example. Remember a repeat loop has this syntax:
+The secret to this is to use `repeat` <define>loops</define> to make the code shorter. For example. Remember a repeat loop has this syntax:
 
 ```javascript
 repeat(3) {

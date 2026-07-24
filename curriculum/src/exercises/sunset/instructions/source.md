@@ -11,8 +11,8 @@ We've drawn the initial scene for you. You need to animate a few things, using t
 
 - **The size of the sun**: It should start with a radius of 5 and grow by 0.2 each iteration.
 - **The position of the sun**: It has an initial center of (50, 10), and should lower in the sky by 1 each iteration.
-- **The color of the sun**: Animate from yellow to orange using RGB. You can choose whatever values you like, but we recommending start with `255, 237, 0` and reducing the green for a nice effect.
-- **The color of the sky**: Use HSL to animate the sky color. You'll want to increase the hue throughout the animation. Choose values that you think look nice. We've gone for a pink sunset in the animation above, but you can choose all sorts of different vibes!
+- **The color of the sun**: Animate from yellow to orange using <literal>RGB</literal>. You can choose whatever values you like, but we recommending start with `255, 237, 0` and reducing the green for a nice effect.
+- **The color of the sky**: Use <literal>HSL</literal> to animate the sky color. You'll want to increase the <define en="hue (H)">hue</define> throughout the animation. Choose values that you think look nice. We've gone for a pink sunset in the animation above, but you can choose all sorts of different vibes!
 
 Remember: to animate in flip-book style, we are simply drawing the whole scene again over the top of the previous version.
 

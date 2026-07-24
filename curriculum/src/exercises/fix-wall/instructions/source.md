@@ -3,14 +3,14 @@ title: "Fix the Wall"
 description: "Patch up the gaps in a broken wall with rectangles."
 ---
 
-Welcome to your first drawing exercise. In this exercise you'll be drawing rectangles using the `rectangle` function.
+Welcome to your first drawing exercise. In this exercise you'll be drawing rectangles using the <define>`rectangle`</define> <define>function</define>.
 
-To draw rectangles we need to know the top and left positions, and the width and height of the rectangle. When we use the `rectangle` function, we can specify these as inputs:
+To draw rectangles we need to know the top and left positions, and the width and height of the rectangle. When we use the `rectangle` function, we can specify these as <define>inputs</define>:
 
-- `left`: The left side of the rectangle
-- `top`: The top of the rectangle
-- `width`: How wide the rectangle is
-- `height`: How high the rectangle is
+- <define>`left`</define>: The left side of the rectangle
+- <define>`top`</define>: The top of the rectangle
+- <define>`width`</define>: How wide the rectangle is
+- <define>`height`</define>: How high the rectangle is
 
 <img src="/static/images/exercise-assets/fix-wall/intro-rectangle.webp" alt="Fix Wall" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 

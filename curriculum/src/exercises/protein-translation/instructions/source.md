@@ -11,7 +11,7 @@ RNA can be broken into three-nucleotide sequences called codons, and then transl
 
 There are also three terminating codons (STOP codons: UAA, UAG, UGA). If you encounter any of these, all translation ends and the protein is terminated.
 
-Your task is to write a function `translateRna` that takes an RNA sequence and returns the list of amino acids.
+Your task is to write a function <define>`translateRna`</define> that takes an RNA sequence and returns the list of amino acids.
 
 Codon mappings:
 

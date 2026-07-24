@@ -16,9 +16,9 @@ If a given number:
 - is divisible by 7, add "Plong" to the result.
 - is not divisible by 3, 5, or 7, the result should be the number as a string.
 
-You need to create a function called `raindrops(num)` that takes the number as an input and returns its Raindrops sounds.
+You need to create a function called <define>`raindrops(num)`</define> that takes the number as an input and returns its Raindrops sounds.
 
-Build the result string using concatenation (`+`) or a template string.
+Build the result string using <define>concatenation</define> (`+`) or a <define>template string</define>.
 
 ### Examples
 

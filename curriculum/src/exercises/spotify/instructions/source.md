@@ -11,7 +11,7 @@ The API requires two types of requests:
 
 2. **Artist request**: Fetch artist details from the URL in the previous response. This returns a dictionary with a `name` key.
 
-Create a function called `favoriteArtists` that takes a username and returns a sentence like:
+Create a function called <define>`favoriteArtists`</define> that takes a username and returns a sentence like:
 
 ```
 "fred's most listened to artists are: Glee, NSYNC, Beethoven, and Limp Bizkit!"
@@ -19,4 +19,4 @@ Create a function called `favoriteArtists` that takes a username and returns a s
 
 If there is an error from the API, return the error prefixed with `"Error: "`.
 
-The `fetch(url, params)` function is provided. For this exercise, params should always be an empty dictionary `{}`.
+The <define>`fetch(url, params)`</define> function is provided. For this exercise, params should always be an empty dictionary `{}`.

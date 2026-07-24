@@ -5,9 +5,9 @@ description: "Scroll through Space Invaders and take out the aliens."
 
 We're back with Space Invaders. Last time you only needed to move from left to right to shoot all the aliens down. But this time you need to also bounce the laser from left to right taking multiple passes to shoot the aliens down.
 
-You can move the laser left and right using the `moveLeft()` and `moveRight()` functions. You can experiment to see how far left and right you can move. If you go off the edge of the screen, you lose.
+You can move the laser left and right using the <define>`moveLeft()`</define> and <define>`moveRight()`</define> functions. You can experiment to see how far left and right you can move. If you go off the edge of the screen, you lose.
 
-As before, when you move, you need to check whether there's an alien above you using the `isAlienAbove()` function and then `shoot()` it if so. If you shoot when there's not an alien, you'll lose the game - wasting ammo is not allowed!
+As before, when you move, you need to check whether there's an alien above you using the <define>`isAlienAbove()`</define> function and then <define>`shoot()`</define> it if so. If you shoot when there's not an alien, you'll lose the game - wasting ammo is not allowed!
 
 The laser cannon easily overheats. You need to move between shots to keep it cool.
 

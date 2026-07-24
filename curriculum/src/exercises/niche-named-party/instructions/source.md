@@ -7,10 +7,10 @@ Tonight's party is very exclusive - only people whose names start with a specifi
 
 You have these functions:
 
-- `askName()` returns the name of the person at the door
-- `getAllowedStart()` returns the required starting letters for tonight's party
-- `letIn()` lets the person into the party
-- `turnAway()` turns the person away
+- <define>`askName()`</define> returns the name of the person at the door
+- <define>`getAllowedStart()`</define> returns the required starting letters for tonight's party
+- <define>`letIn()`</define> lets the person into the party
+- <define>`turnAway()`</define> turns the person away
 
 For example, if tonight's allowed start is `"S"`, then `"Sarah"` gets in but `"Brad"` doesn't. If the allowed start is `"Brad"`, then `"Bradley"` gets in but `"Brian"` doesn't.
 

@@ -9,7 +9,7 @@ You offer a few different services from styling to full haircuts, which take dif
 
 As it gets towards the end of the day, you need a way of knowing if you have time for any new people that come into the shop.
 
-Write a function called `canFitIn` which takes three inputs:
+Write a function called <define>`canFitIn`</define> which takes three inputs:
 
 - The first is the haircuts that you have in the queue already (list of strings)
 - The second is the haircut that the new person wants (string)

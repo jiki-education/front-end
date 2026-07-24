@@ -27,12 +27,12 @@ Here are some other things you need to know:
 - The radius of the flower starts at `0`. It should increase by `0.4` on each iteration (before drawing).
 - The radius of the pistil (the middle yellow bit of the flower) starts at `0`. It should increase by `0.1` on each iteration (before drawing).
 - The stem should start at the center of the flower and reach the ground.
-- The stem's width is 10% of the stem's height (so `stemHeight / 10`).
+- The stem's width is 10% of the stem's height (so <define>`stemHeight / 10`</define>).
 - Everything is centered on the horizontal axis.
 - The leaves sit flush against the stalk on each side.
 - The leaves sit halfway down the stem.
-- The `radiusX` of the leaves is 50% of the radius of the flower.
-- The `radiusY` of the leaves is 20% of the radius of the flower.
+- The <define>`radiusX`</define> of the leaves is 50% of the radius of the flower.
+- The <define>`radiusY`</define> of the leaves is 20% of the radius of the flower.
 - The flower head can be `"red"` or `"pink"` depending on your taste. The pistil (the flower center) should be `"yellow"`. The grass should be `"green"`. The background should be `"skyblue"`.
 
 It is **essential** to work on one thing at a time:

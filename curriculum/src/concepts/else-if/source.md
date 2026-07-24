@@ -27,9 +27,26 @@ if (age < 13) {
 
 This is the key thing to understand. Only one block ever runs. Jiki works down this chain, finds the first true condition, runs that block, and moves on.
 
-Now, there's one thing to really understand because this trips people up. There's a subtle but very important difference between writing two separate if statements and using else if. So imagine we're creating a program that gives either a basic prize or a bonus prize depending on someone's score. Look at these two possibilities. One uses else if and the other uses two ifs. What will happen differently?
+Now, there's one thing to really understand because this trips people up. There's a subtle but very important difference between writing two separate if statements and using else if. So imagine we're creating a program that gives either a basic prize or a bonus prize depending on someone's score. Look at these two possibilities. One uses else if and the other uses two separate `if` statements. What will happen differently?
 
-So in the first case, with the else if, we check for high score and give the bonus prize, and then we don't run the else. So the person, if they've got a score over a hundred, just gets the bonus prize.
+```javascript
+if (score > 100) {
+  bonusPrize()
+} else if (score > 50) {
+  basicPrize()
+}
+```
+
+```javascript
+if (score > 100) {
+  bonusPrize()
+}
+if (score > 50) {
+  basicPrize()
+}
+```
+
+So in the first case, with the else if, we check for high score and give the bonus prize, and then we don't run the else if. So the person, if they've got a score over a hundred, just gets the bonus prize.
 
 But in the second example, the two ifs are totally independent. Both will run and both will be true. So the person here gets two prizes. In the first one, one prize. In the second one, two prizes. Take a moment just to make sure you really understand that.
 

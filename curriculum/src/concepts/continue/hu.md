@@ -1,18 +1,18 @@
 ---
 title: "Continue"
 description: "A `continue` kulcsszó használata ciklusban: kihagyjuk az iteráció hátralévő részét, és rögtön a következő iterációra ugrunk."
-en_md5: 2094b895bb5aaf94f92e21b20d7599f0
+en_md5: 6c3f7483826e27d44d6c404cc9f621dd
 ---
 
-Néha előfordul, hogy egy ciklusnak (loop) csak egy adott iterációját szeretnénk kihagyni, nem pedig teljesen kilépni belőle. Képzeld el, hogy csak a páratlan számokkal akarunk csinálni valamit.
+Néha előfordul, hogy egy ciklusnak csak egy adott iterációját szeretnénk kihagyni, nem pedig teljesen kilépni belőle. Képzeld el, hogy csak a páratlan számokkal akarunk csinálni valamit.
 
-Azt szeretnénk tudni mondani, hogy ha az `i` páratlan, akkor ezúttal ne fusson le a ciklus.
+Azt szeretnénk tudni mondani, hogy ha az `i` (a ciklusváltozó) páratlan, akkor ezúttal ne fusson le a ciklus.
 
 De nem akarunk teljesen kilépni a ciklusból. Csak ezt az egyetlen iterációt szeretnénk kihagyni, és utána máris a következőt nézni.
 
-Erre való egy újabb kulcsszó (keyword): a `continue`.
+Erre való egy újabb kulcsszó: a `continue`.
 
-Amikor Jiki meglátja a `continue`-t, egyszerűen visszaugrik a ciklus elejére, a következő iterációhoz. Egy `for-of` ciklusban tehát, ha `continue`-t lát, a lista következő elemére (element) lép.
+Amikor Jiki meglátja a `continue`-t, egyszerűen visszaugrik a ciklus elejére, a következő iterációhoz. Egy `for-of` ciklusban tehát, ha `continue`-t lát, a lista következő elemére lép.
 
 ```javascript
 for (let item of list) {

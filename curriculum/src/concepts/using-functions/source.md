@@ -3,7 +3,7 @@ title: "Using Functions"
 description: "Telling Jiki to run one of his little machines by writing its name followed by two brackets."
 ---
 
-When you write code, what you're really doing is communicating what you want to happen in a language that a computer understands. Now, there are lots of different programming languages, and there are lots of different interpreters that take what you write and turn it into the ones and zeros that a computer can understand. In this course, your interpreter is Jiki. The whole course is named after Jiki. This is Jiki. Jiki is gonna be your friend on this coding journey. It's his job to interpret the code that you write and turn it into the ones and zeros that the computer can actually act on.
+When you write code, what you're really doing is communicating what you want to happen in a language that a computer understands. Now, there are lots of different programming languages, and there are lots of different <define>interpreters</define> that take what you write and turn it into the ones and zeros that a computer can understand. In this course, your interpreter is Jiki. The whole course is named after Jiki. This is Jiki. Jiki is gonna be your friend on this coding journey. It's his job to interpret the code that you write and turn it into the ones and zeros that the computer can actually act on.
 
 <img
   class="concept-image"
@@ -13,7 +13,7 @@ When you write code, what you're really doing is communicating what you want to 
   height="400"
 />
 
-The whole point of coding is giving the interpreter, Jiki in this case, the right instructions, and there are lots of different instructions that you can give Jiki, lots that he understands. He can stick things together, he can do something lots of times, he can say, "If this happens, then I need to do this." He can remember things and then use them again later. He can give you an error if something isn't right. We're gonna cover all of these different things in this course. But the key thing to understand is that everything you're going to be doing is putting instructions on a board for Jiki to come along and follow.
+The whole point of coding is giving the interpreter, Jiki in this case, the right instructions, and there are lots of different instructions that you can give Jiki, lots that he understands. He can stick things together, he can do something lots of times, he can say, "If this happens, then I need to do this." He can remember things and then use them again later. He can give you an <define>error</define> if something isn't right. We're gonna cover all of these different things in this course. But the key thing to understand is that everything you're going to be doing is putting instructions on a board for Jiki to come along and follow.
 
 When I learnt to code 34 years ago, this was the mental model that I built, and it's the one I still have today. I understand how computers work all the way down to the ones and the zeros, but I honestly never think of that. In my head, there's a little man living in the computer, and I tell him what to do. So go along with me on this. It's a powerful mental model that you can build, and if you start to think of things in this very visual way about what the person in the computer is doing, it's gonna hold you in very good stead as you learn to code.
 

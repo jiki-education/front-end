@@ -15,4 +15,4 @@ Numbers are considered words. If the subtitles say "It costs 100 dollars" then "
 
 Words are case insensitive. For example, the word "you" occurs three times in: "You come back, you hear me? DO YOU HEAR ME?"
 
-Create a function called `countWords` that takes a sentence as its input, and returns a dictionary with words as keys and their frequencies as values.
+Create a function called <define>`countWords`</define> that takes a sentence as its input, and returns a dictionary with words as keys and their frequencies as values.

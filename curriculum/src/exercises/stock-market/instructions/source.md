@@ -13,8 +13,8 @@ There are three things to understand about stock markets:
 
 ### Exercise Flow
 
-You have a function called `marketGrowth(year)` which returns a number of how much the stock market has grown by this year (e.g. `5` meaning it grew by `5%`). So if you invest $10 and it grows by 5%, you now have $10.50.
+You have a function called <define>`marketGrowth(year)`</define> which returns a number of how much the stock market has grown by this year (e.g. `5` meaning it grew by `5%`). So if you invest $10 and it grows by 5%, you now have $10.50.
 
-Your job is to track how much money you have each year and report it to the taxman using `reportTax(year, balance)`. Then after 20 years, announce to your family the final amount using `announceToFamily(value)`. The first `marketGrowth(...)` year should be this current year.
+Your job is to track how much money you have each year and report it to the taxman using <define>`reportTax(year, balance)`</define>. Then after 20 years, announce to your family the final amount using <define>`announceToFamily(value)`</define>. The first `marketGrowth(...)` year should be this current year.
 
 Check the functions below for more details, and if you get stuck, you can always check the hints!

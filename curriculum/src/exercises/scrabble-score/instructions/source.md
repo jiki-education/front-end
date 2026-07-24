@@ -21,6 +21,6 @@ For example, the word "cabbage" is worth 14 points: 3 + 1 + 3 + 3 + 1 + 2 + 1.
 
 You need to create two functions:
 
-1. `letterValues()` - Returns a dictionary where each key is an uppercase letter and each value is its point value. We've given you a list of letter groups and their values as a starting point — convert this into a dictionary rather than typing it out manually.
+1. <define>`letterValues()`</define> - Returns a <define>dictionary</define> where each <define>key</define> is an uppercase letter and each value is its point value. We've given you a list of letter groups and their values as a starting point — convert this into a dictionary rather than typing it out manually.
 
-2. `scrabbleScore(word)` - Takes a word and returns its total Scrabble score using the letter values dictionary.
+2. <define>`scrabbleScore(word)`</define> - Takes a word and returns its total Scrabble score using the letter values dictionary.

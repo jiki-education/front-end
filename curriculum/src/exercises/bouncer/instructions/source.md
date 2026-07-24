@@ -7,8 +7,8 @@ You're coding up a robotic bouncer for The Neon Gates bar. The robot's job is to
 
 You have two functions:
 
-- `askAge()` returns the age of the person waiting outside
-- `letIn()` lets the person in
+- <define>`askAge()`</define> returns the age of the person waiting outside
+- <define>`letIn()`</define> lets the person in
 
 The venue's policy is that only people **21 and older** are allowed in.
 

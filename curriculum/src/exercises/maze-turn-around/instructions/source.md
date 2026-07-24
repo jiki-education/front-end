@@ -7,7 +7,7 @@ In the last exercise you worked out how to solve the maze automatically. Great w
 
 One of the nice things about the solution is that the code reads very naturally. It's very aligned to the algorithm. Except for one bit...
 
-Did you find it a bit unsatisfying that you had to use `turnLeft()` twice to turn around, rather than having a `turnAround()` function?
+Did you find it a bit unsatisfying that you had to use <define>`turnLeft()`</define> twice to turn around, rather than having a <define>`turnAround()`</define> function?
 
 Well, this is your opportunity to fix that!
 

@@ -17,8 +17,8 @@ We've also scattered some extra emojis around the mazes for you to pick up. Each
 To help we've added:
 
 - A new direction you can look (`"down"`!). This tells you what's in the current square.
-- A new function `removeEmoji()` that removes whatever emoji is on the current square from the board. Don't try and pick up a special emoji from above!
+- A new function <define>`removeEmoji()`</define> that removes whatever emoji is on the current square from the board. Don't try and pick up a special emoji from above!
 
-Once you move into the finishing square, you should use the `announceEmojis(result)` function, passing a dictionary representing the amount of emojis you've collected.
+Once you move into the finishing square, you should use the <define>`announceEmojis(result)`</define> function, passing a dictionary representing the amount of emojis you've collected.
 
-This would be a good time to use the `hasKey()` function!
+This would be a good time to use the <define>`hasKey()`</define> function!

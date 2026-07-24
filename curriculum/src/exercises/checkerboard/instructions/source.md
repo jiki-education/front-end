@@ -5,7 +5,7 @@ description: "Draw a checkerboard of any size and set it up for a game, deriving
 
 In this project you'll draw a checkerboard and set up the pieces on it, ready for a game of draughts (also known as checkers).
 
-Your code needs to work for **any board size**. We've given you three sample boards to try. One puzzle uses the classic 8x8 board, another a smaller 6x6, another a larger 10x10. You can use `getBoardSize()` to find out how many squares wide and tall the board is this time (the boards are always square).
+Your code needs to work for **any board size**. We've given you three sample boards to try. One puzzle uses the classic 8x8 board, another a smaller 6x6, another a larger 10x10. You can use <define>`getBoardSize()`</define> to find out how many squares wide and tall the board is this time (the boards are always square).
 
 <div style="display: flex; gap: 8px; margin: 12px 0;">
   <img src="/static/images/exercise-assets/checkerboard/board-6.svg" alt="6x6 checkerboard" style="width: 33.333%; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);" />

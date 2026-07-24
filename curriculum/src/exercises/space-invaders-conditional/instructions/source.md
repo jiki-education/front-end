@@ -7,9 +7,9 @@ The aliens have changed their formation! They're now arranged in two rows, but n
 
 You have three functions:
 
-- `move()` moves your laser cannon one position to the right
-- `shoot()` fires the laser upwards
-- `isAlienAbove()` returns `true` if there's an alien above you, or `false` if not
+- <define>`move()`</define> moves your laser cannon one position to the right
+- <define>`shoot()`</define> fires the laser upwards
+- <define>`isAlienAbove()`</define> returns `true` if there's an alien above you, or `false` if not
 
 You need to move across the screen, checking each position. If there's an alien above you, shoot it! If not, just move on.
 

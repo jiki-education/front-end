@@ -9,8 +9,8 @@ In this exercise, you only need to handle lowercase letters. The input will only
 
 Your task is to write two functions:
 
-1. `includes(str, target)` — takes a string and a single character, and returns `true` if the character appears in the string, or `false` if it doesn't.
+1. <define>`includes(str, target)`</define> — takes a string and a single character, and returns `true` if the character appears in the string, or `false` if it doesn't.
 
-2. `isPangram(sentence)` — takes a sentence and returns `true` if it contains every letter from a to z at least once, or `false` otherwise. This function should use your `includes` function.
+2. <define>`isPangram(sentence)`</define> — takes a sentence and returns `true` if it contains every letter from a to z at least once, or `false` otherwise. This function should use your `includes` function.
 
 The best known English pangram is: "the quick brown fox jumps over the lazy dog"
