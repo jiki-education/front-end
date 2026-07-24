@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { CopyToClipboardButton } from "@/components/ui-kit/CopyToClipboardButton";
+import { FORUM_URL } from "@/lib/constants/social";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import RunButton from "../RunButton";
@@ -32,7 +33,7 @@ export function UnhandledErrorView() {
           {t.rich("message", {
             strong: (chunks) => <strong className={unhandledStyles.bodyStrong}>{chunks}</strong>,
             link: (chunks) => (
-              <a href="https://forum.jiki.io" target="_blank" rel="noreferrer">
+              <a href={FORUM_URL} target="_blank" rel="noopener noreferrer">
                 {chunks}
               </a>
             )

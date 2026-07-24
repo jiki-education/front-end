@@ -72,6 +72,6 @@ From now on, any terminal you open inside VS Code (Terminal menu, then New Termi
 
 ## If something goes wrong
 
-The most common problem is an error mentioning **virtualisation** (or "VT-x", "AMD-V", or "virtual machine platform"). WSL relies on a hardware feature that is switched off on some computers. Turning it on means changing a setting in your computer's BIOS, which varies by manufacturer. Search for your laptop's model name plus "enable virtualisation" for instructions, or ask in <a href="https://jiki.io/r/forum" target="_blank" rel="noopener noreferrer">our forum</a> and we will help you out.
+The most common problem is an error mentioning **virtualisation** (or "VT-x", "AMD-V", or "virtual machine platform"). WSL relies on a hardware feature that is switched off on some computers. Turning it on means changing a setting in your computer's BIOS, which varies by manufacturer. Search for your laptop's model name plus "enable virtualisation" for instructions, or ask in <a href="https://forum.jiki.io" target="_blank" rel="noopener noreferrer">our forum</a> and we will help you out.
 
 For anything else, Microsoft's <a href="https://learn.microsoft.com/en-us/windows/wsl/install" target="_blank" rel="noopener noreferrer">official WSL installation guide</a> has a troubleshooting section, and again, the forum is always there.

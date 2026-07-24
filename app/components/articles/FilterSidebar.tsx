@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { type ArticleTagSlug, getArticleTagLabel } from "@/lib/content/types";
+import { FORUM_URL } from "@/lib/constants/social";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./FilterSidebar.module.css";
 
@@ -45,9 +46,9 @@ export default function FilterSidebar({ tagSlugs, selectedTag, locale }: FilterS
           Can&apos;t find what you&apos;re looking for? Try our <Link href={routes.blog()}>Blogs</Link>,{" "}
           <Link href={routes.article("faqs")}>FAQs</Link>, <Link href={routes.article("support")}>Contact support</Link>
           , or ask in our{" "}
-          <Link href="/r/forum" prefetch={false}>
+          <a href={FORUM_URL} target="_blank" rel="noopener noreferrer">
             Community
-          </Link>
+          </a>
         </p>
       </div>
     </div>
