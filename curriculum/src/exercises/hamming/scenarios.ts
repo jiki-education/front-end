@@ -14,6 +14,14 @@ export const tasks = [
       "hamming-long-different-strands"
     ],
     bonus: false
+  },
+  {
+    id: "solve-in-eleven-lines" as const,
+    name: "tasks.solveInElevenLines.name",
+    description: "tasks.solveInElevenLines.description",
+    hints: [],
+    requiredScenarios: ["hamming-bonus-eleven-lines"],
+    bonus: true
   }
 ] as const satisfies readonly Task[];
 
@@ -62,5 +70,23 @@ export const scenarios: IOScenario[] = [
     functionName: "hamming_distance",
     args: ["GGACGGATTCTG", "AGGACGGATTCT"],
     expected: 9
+  },
+  {
+    slug: "hamming-bonus-eleven-lines",
+    name: "scenarios.hammingBonusElevenLines.name",
+    description: "scenarios.hammingBonusElevenLines.description",
+    taskId: "solve-in-eleven-lines",
+    functionName: "hamming_distance",
+    args: ["GGACGGATTCTG", "AGGACGGATTCT"],
+    expected: 9,
+    codeChecks: [
+      {
+        pass: (result, language) => {
+          const limit = language === "python" ? 8 : 11;
+          return result.assertors.assertMaxLinesOfCode(limit);
+        },
+        errorKey: "checks.tooManyLines"
+      }
+    ]
   }
 ];

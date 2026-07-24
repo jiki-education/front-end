@@ -14,3 +14,15 @@ Examples:
 - Turn "stressed" into "desserts"
 - Turn "strops" into "sports"
 - Turn "racecar" into "racecar" (a palindrome)
+
+### Those last two scenarios...
+
+The final two scenarios look strange, don't they? What's going on?
+
+It turns out that lots of emojis are actually made up of other emojis joined together with hidden (zero width) spaces.
+
+The family emoji (👩‍👩‍👧‍👦) is made up of two women and two children. When it's reversed, you can see the individual characters (👦‍👧‍👩‍👩).
+
+The other one is a rainbow and a flag (🌈‍️🏳). When you reverse the order to get the flag then the rainbow, it becomes a rainbow flag (🏳️‍🌈️)!
+
+If you build your result one character at a time, these should just work. If you reach for a cleverer trick instead, you might find the emojis break apart.

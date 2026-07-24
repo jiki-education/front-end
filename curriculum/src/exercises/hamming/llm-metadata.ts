@@ -9,20 +9,24 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise allows a student to explore parallel iteration over two strings: tracking a
-    shared index, comparing the character at the same position in each string, and accumulating
-    a count of differences. The two strands are guaranteed equal length.
+    Student writes a function comparing two equal-length strings position by position and counting
+    differences, then (bonus) shrinks it to fit a line-count limit.
   `,
 
   tasks: {
     "calculate-hamming-distance": {
       description: `
-        The student loops one string by index and compares each character against the same index
-        in the other string, counting mismatches to return.
-
-        The non-obvious point worth surfacing: the loop iterates one string but the index is also
-        used to reach into the second string. Off-by-one indexing and incrementing the index in the
-        wrong place are the usual stumbles. Working through a short pair of strands by hand helps.
+        The non-obvious trap: the loop iterates one string, but the index used to reach into the
+        second string must stay in sync. Off-by-one errors (incrementing the index before vs. after
+        the comparison) are the usual stumble — walking through a short pair of strands by hand helps
+        spot this.
+      `
+    },
+    "solve-in-eleven-lines": {
+      description: `
+        Bonus: fit the solution within 11 lines (8 for Python). The reference solution already hits
+        this exactly, so the student mainly needs to drop unnecessary intermediate variables/lines
+        rather than restructure the approach.
       `
     }
   }

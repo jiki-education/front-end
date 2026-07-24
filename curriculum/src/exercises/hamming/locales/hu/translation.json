@@ -1,8 +1,15 @@
 {
+  "checks": {
+    "tooManyLines": "You used more lines than needed — see if you can trim it down."
+  },
   "tasks": {
     "calculateHammingDistance": {
       "name": "Calculate the Hamming Distance",
       "description": "Write a function that calculates the Hamming distance between two DNA strands of equal length. The Hamming distance is the number of positions where the corresponding characters differ."
+    },
+    "solveInElevenLines": {
+      "name": "Solve in eleven lines of code",
+      "description": "Can you solve this using no more than eleven lines of code?"
     }
   },
   "scenarios": {
@@ -25,6 +32,10 @@
     "hammingLongDifferentStrands": {
       "name": "Long different strands",
       "description": "Long strands with differences have a calculated Hamming distance."
+    },
+    "hammingBonusElevenLines": {
+      "name": "Eleven lines of code",
+      "description": "Solve the exercise using no more than eleven lines of code."
     }
   },
   "hints": {
@@ -34,11 +45,11 @@
     },
     "compareCharactersAtPosition": {
       "question": "How do I compare characters at the same position in both strings?",
-      "answer": "Loop through one string with a position counter. At each step, look at the character at that position in the first string and the character at the same position in the second."
+      "answer": "You'll need to move through both strings in sync, so you can pull out the character at the same spot from each one as you go."
     },
     "trackDifferenceCount": {
-      "question": "How do I track 'how many differences'?",
-      "answer": "Keep a counter starting at 0. Each time you find a position where the characters don't match, add 1. Return the counter at the end."
+      "question": "How do I track 'how many differences' there are?",
+      "answer": "You'll need something that keeps a running total, adjusted whenever you spot a mismatch, so it's ready to hand back once you've checked every position."
     }
   }
 }
