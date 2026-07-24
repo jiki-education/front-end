@@ -1,5 +1,6 @@
 import { getArticle, getAllArticles, getRelatedArticles } from "@/lib/content";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import CTABlock from "../blog/CTABlock";
 import ArticleDetailContent from "./ArticleDetailContent";
@@ -11,12 +12,13 @@ interface ArticleDetailPageProps {
 }
 
 // Helper for generateMetadata
-export function getArticleMetadata(slug: string, locale: string = "en"): Metadata {
+export async function getArticleMetadata(slug: string, locale: string = "en"): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: "seo.help" });
   try {
     const allArticles = getAllArticles(locale);
     const article = allArticles.find((a) => a.slug === slug);
     if (!article) {
-      return { title: "Article Not Found" };
+      return { title: t("notFound") };
     }
 
     return {
@@ -25,7 +27,7 @@ export function getArticleMetadata(slug: string, locale: string = "en"): Metadat
       keywords: article.seo.keywords.join(", ")
     };
   } catch {
-    return { title: "Article Not Found" };
+    return { title: t("notFound") };
   }
 }
 

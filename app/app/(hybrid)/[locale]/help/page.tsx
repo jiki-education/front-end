@@ -4,6 +4,7 @@ import { SUPPORTED_LOCALES } from "@/lib/locales";
 import { getAvailableLocales } from "@/lib/content";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -12,20 +13,11 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-
-  const titles: Record<string, string> = {
-    en: "Help Center - Jiki",
-    es: "Centro de ayuda - Jiki"
-  };
-
-  const descriptions: Record<string, string> = {
-    en: "Answers, how-tos, and policies to help you get the most out of Jiki.",
-    es: "Respuestas, tutoriales y políticas para ayudarte a sacar el máximo partido a Jiki."
-  };
+  const t = await getTranslations({ locale, namespace: "seo.help" });
 
   return {
-    title: titles[locale] || titles.en,
-    description: descriptions[locale] || descriptions.en
+    title: t("title"),
+    description: t("description")
   };
 }
 

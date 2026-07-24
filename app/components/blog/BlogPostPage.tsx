@@ -1,5 +1,6 @@
 import { getAllBlogPosts, getBlogPost, getRelatedBlogPosts } from "@/lib/content";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import BlogPostContent from "./BlogPostContent";
 import CTABlock from "./CTABlock";
@@ -12,12 +13,13 @@ interface BlogPostPageProps {
 }
 
 // Helper for generateMetadata
-export function getBlogPostMetadata(slug: string, locale: string = "en"): Metadata {
+export async function getBlogPostMetadata(slug: string, locale: string = "en"): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: "seo.blog" });
   try {
     const allPosts = getAllBlogPosts(locale);
     const post = allPosts.find((p) => p.slug === slug);
     if (!post) {
-      return { title: "Post Not Found" };
+      return { title: t("notFound") };
     }
 
     return {
@@ -27,7 +29,7 @@ export function getBlogPostMetadata(slug: string, locale: string = "en"): Metada
       ...(post.coverImage ? { openGraph: { images: [{ url: post.coverImage }] } } : {})
     };
   } catch {
-    return { title: "Post Not Found" };
+    return { title: t("notFound") };
   }
 }
 

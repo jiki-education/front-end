@@ -1029,6 +1029,20 @@
     "unsubscribe": {
       "title": "Leiratkozás - Jiki",
       "description": "Leiratkozás a Jiki e-mailjeiről"
+    },
+    "blog": {
+      "title": "Blog - Jiki",
+      "description": "Read the latest articles about programming, coding challenges, and learning tips from the Jiki community.",
+      "notFound": "Post Not Found"
+    },
+    "help": {
+      "title": "Help Center - Jiki",
+      "description": "Answers, how-tos, and policies to help you get the most out of Jiki.",
+      "notFound": "Article Not Found"
+    },
+    "guides": {
+      "title": "Guides - Jiki",
+      "description": "Step by step guides to help you set up your tools and get the most out of Jiki."
     }
   },
   "toasts": {
