@@ -1,6 +1,6 @@
 {
   "slug": "rainbow",
-  "levelId": "basic-state",
+  "levelId": "functions-that-return-things",
   "hints": [
     {
       "question": "hints.hundredRectangles.question",

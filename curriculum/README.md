@@ -81,8 +81,6 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "exercise", "slug": "golf-rolling-ball-state" },
       { "type": "exercise", "slug": "finish-wall" },
       { "type": "video", "slug": "colors-hsl-rgb" },
-      { "type": "exercise", "slug": "rainbow" },
-      { "type": "exercise", "slug": "sunset" },
       { "type": "project", "slug": "sprouting-flower" }
     ]
   },
@@ -92,6 +90,8 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "video", "slug": "functions-that-return-things" },
       { "type": "exercise", "slug": "dnd-roll" },
       { "type": "exercise", "slug": "gold-panning" },
+      { "type": "exercise", "slug": "rainbow" },
+      { "type": "exercise", "slug": "sunset" },
       { "type": "video", "slug": "random-numbers" },
       { "type": "exercise", "slug": "random-salad" },
       { "type": "exercise", "slug": "stock-market" },

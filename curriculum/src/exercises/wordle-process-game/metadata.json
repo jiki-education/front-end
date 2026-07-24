@@ -1,6 +1,6 @@
 {
   "slug": "wordle-process-game",
-  "levelId": "everything",
+  "levelId": "lists",
   "hints": [
     {
       "question": "hints.reuseWork.question",
