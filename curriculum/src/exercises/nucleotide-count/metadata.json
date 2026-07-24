@@ -1,6 +1,6 @@
 {
   "slug": "nucleotide-count",
-  "levelId": "everything",
+  "levelId": "dictionaries",
   "hints": [
     {
       "question": "hints.setupCounts.question",

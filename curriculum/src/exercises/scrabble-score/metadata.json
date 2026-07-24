@@ -1,6 +1,6 @@
 {
   "slug": "scrabble-score",
-  "levelId": "everything",
+  "levelId": "dictionaries",
   "hints": [
     {
       "question": "hints.startingPoint.question",
