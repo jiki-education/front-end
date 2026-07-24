@@ -1,7 +1,6 @@
 import { useTranslations } from "next-intl";
 import toast from "react-hot-toast";
-
-const FORUM_URL = "https://forum.jiki.io";
+import { FORUM_URL } from "@/lib/constants/social";
 
 /**
  * Show an error toast when a lesson's progress could not be saved to the API
