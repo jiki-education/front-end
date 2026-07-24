@@ -30,8 +30,8 @@ export const tasks = [
   },
   {
     id: "solve-in-eight-lines" as const,
-    name: "Solve in 8 lines of code",
-    description: "Can you solve this exercise with only 8 lines of code?",
+    name: "tasks.solveInEightLines.name",
+    description: "tasks.solveInEightLines.description",
     hints: [],
     requiredScenarios: ["bonus-1"],
     bonus: true
@@ -113,8 +113,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "bonus-1",
-    name: "8 lines of code",
-    description: "Solve the exercise with only 8 lines of code.",
+    name: "scenarios.bonus1.name",
+    description: "scenarios.bonus1.description",
     taskId: "solve-in-eight-lines",
     functionName: "contains",
     args: [["S", "C", "R", "A", "B"], "A"],

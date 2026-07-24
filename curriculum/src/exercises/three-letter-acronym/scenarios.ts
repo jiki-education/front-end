@@ -21,8 +21,8 @@ export const tasks = [
   },
   {
     id: "solve-in-three-lines" as const,
-    name: "Solve in 3 lines of code",
-    description: "Can you solve this exercise with only 3 lines of code?",
+    name: "tasks.solveInThreeLines.name",
+    description: "tasks.solveInThreeLines.description",
     hints: [],
     requiredScenarios: ["bonus-1"],
     bonus: true
@@ -68,8 +68,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "bonus-1",
-    name: "3 lines of code",
-    description: "Solve the exercise with only 3 lines of code.",
+    name: "scenarios.bonus1.name",
+    description: "scenarios.bonus1.description",
     taskId: "solve-in-three-lines",
     functionName: "acronym",
     args: ["Portable", "Network", "Graphics"],

@@ -6,6 +6,10 @@
     "calculateSignPrice": {
       "name": "Calculate Sign Price",
       "description": "Write a function that calculates the price of a sign. Each letter costs $12. Spaces are free and should not be counted. Return the result as a formatted string."
+    },
+    "solveInNineLines": {
+      "name": "Solve in 9 lines of code",
+      "description": "Can you solve this exercise with only 9 lines of code?"
     }
   },
   "scenarios": {
@@ -32,6 +36,10 @@
     "allSpaces": {
       "name": "All spaces",
       "description": "A sign with only spaces has no letters to charge for."
+    },
+    "bonus1": {
+      "name": "9 lines of code",
+      "description": "Solve the exercise with only 9 lines of code."
     }
   },
   "hints": {

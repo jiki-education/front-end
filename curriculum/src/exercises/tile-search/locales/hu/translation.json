@@ -6,6 +6,10 @@
     "searchForTile": {
       "name": "Search for a Tile",
       "description": "Write a function that checks whether a specific letter tile is in the rack. Return true if found, false if not."
+    },
+    "solveInEightLines": {
+      "name": "Solve in 8 lines of code",
+      "description": "Can you solve this exercise with only 8 lines of code?"
     }
   },
   "scenarios": {
@@ -40,6 +44,10 @@
     "singleTileNotFound": {
       "name": "Single tile not found",
       "description": "A rack with one tile that doesn't match."
+    },
+    "bonus1": {
+      "name": "8 lines of code",
+      "description": "Solve the exercise with only 8 lines of code."
     }
   },
   "hints": {

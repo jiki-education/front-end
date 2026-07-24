@@ -21,8 +21,8 @@ export const tasks = [
   },
   {
     id: "solve-in-nine-lines" as const,
-    name: "Solve in 9 lines of code",
-    description: "Can you solve this exercise with only 9 lines of code?",
+    name: "tasks.solveInNineLines.name",
+    description: "tasks.solveInNineLines.description",
     hints: [],
     requiredScenarios: ["bonus-1"],
     bonus: true
@@ -86,8 +86,8 @@ export const scenarios: IOScenario[] = [
   },
   {
     slug: "bonus-1",
-    name: "9 lines of code",
-    description: "Solve the exercise with only 9 lines of code.",
+    name: "scenarios.bonus1.name",
+    description: "scenarios.bonus1.description",
     taskId: "solve-in-nine-lines",
     functionName: "sign_price",
     args: ["Hi There"],
