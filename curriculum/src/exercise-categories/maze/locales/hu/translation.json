@@ -1,7 +1,9 @@
 {
   "errors": {
     "fellOffEdge": "Oh no - you tried to fall off the edge of the maze!",
-    "hitWall": "Ouch - you walked into a wall!"
+    "hitWall": "Ouch - you walked into a wall!",
+    "walkedIntoFire": "Ouch! You walked into the fire!",
+    "walkedIntoPoop": "Ewww! You walked into the poop! 💩💩💩"
   },
   "describers": {
     "move": "Move the character forward one cell",
