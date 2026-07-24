@@ -17,7 +17,7 @@
     "content:generate": "node scripts/generate-content-cache.js",
     "content:watch": "onchange '../content/src/**' -- node scripts/generate-content-cache.js",
     "exercise-cache:generate": "node scripts/generate-exercise-cache.js",
-    "exercise-cache:watch": "onchange '../curriculum/src/exercises/**/instructions/**' '../curriculum/src/exercises/**/stub.*' '../curriculum/src/exercises/**/solution.*' '../curriculum/src/exercises/**/metadata.json' '../curriculum/src/exercises/**/locales/**/translation.json' -- node scripts/generate-exercise-cache.js",
+    "exercise-cache:watch": "onchange '../curriculum/src/exercises/**/instructions/**' '../curriculum/src/exercises/**/stub.*' '../curriculum/src/exercises/**/solution.*' '../curriculum/src/exercises/**/metadata.json' '../curriculum/src/exercises/**/*.ts' '../curriculum/src/exercises/**/locales/**/translation.json' '../curriculum/src/exercise-categories/**/locales/**/translation.json' -- node scripts/generate-exercise-cache.js",
     "interpreter-i18n:generate": "node scripts/generate-interpreter-i18n-cache.js",
     "interpreter-i18n:watch": "onchange '../interpreters/src/*/locales/**/translation.json' -- node scripts/generate-interpreter-i18n-cache.js",
     "messages-cache:generate": "node scripts/generate-messages-cache.js",

@@ -1,4 +1,14 @@
-import type { Task, IOScenario } from "../types";
+import type { Task, IOScenario, CodeCheck } from "../types";
+
+const threeLinesCheck: CodeCheck[] = [
+  {
+    pass: (result, language) => {
+      const limit = language === "python" ? 2 : 3;
+      return result.assertors.assertMaxLinesOfCode(limit);
+    },
+    errorKey: "checks.tooManyLines"
+  }
+];
 
 export const tasks = [
   {
@@ -8,6 +18,14 @@ export const tasks = [
     hints: [],
     requiredScenarios: ["png", "css", "www", "lol"],
     bonus: false
+  },
+  {
+    id: "solve-in-three-lines" as const,
+    name: "tasks.solveInThreeLines.name",
+    description: "tasks.solveInThreeLines.description",
+    hints: [],
+    requiredScenarios: ["bonus-1"],
+    bonus: true
   }
 ] as const satisfies readonly Task[];
 
@@ -47,5 +65,15 @@ export const scenarios: IOScenario[] = [
     functionName: "acronym",
     args: ["laugh", "out", "loud"],
     expected: "lol"
+  },
+  {
+    slug: "bonus-1",
+    name: "scenarios.bonus1.name",
+    description: "scenarios.bonus1.description",
+    taskId: "solve-in-three-lines",
+    functionName: "acronym",
+    args: ["Portable", "Network", "Graphics"],
+    expected: "PNG",
+    codeChecks: threeLinesCheck
   }
 ];

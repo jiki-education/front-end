@@ -26,6 +26,13 @@ export const llmMetadata: LLMMetadata = {
         - Boundary: 5 or more minors fail, so the final check is minors < 5. The
           "scraped-through" (4 minors) vs "one-mistake-too-many" (5 minors) scenarios test this.
       `
+    },
+    "solve-in-eleven-lines": {
+      description: `
+        Bonus: fit the solution within 11 lines. The canonical solution (loop, early-return
+        on major, counter for minors, final comparison) is already exactly 11 lines, so a
+        student who wrote the straightforward version should pass without changes.
+      `
     }
   }
 };

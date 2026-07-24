@@ -11,8 +11,8 @@
       "answer": "hints.loopCharacters.answer"
     },
     {
-      "question": "hints.workOutPrice.question",
-      "answer": "hints.workOutPrice.answer"
+      "question": "hints.checkSpace.question",
+      "answer": "hints.checkSpace.answer"
     },
     {
       "question": "hints.buildResultString.question",

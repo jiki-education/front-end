@@ -1,5 +1,7 @@
 node_modules/
 dist/
+dist-tmp/
+dist-old/
 *.log
 .env
 .env.local

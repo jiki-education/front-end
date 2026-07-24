@@ -1,4 +1,14 @@
-import type { Task, IOScenario } from "../types";
+import type { Task, IOScenario, CodeCheck } from "../types";
+
+const nineLinesCheck: CodeCheck[] = [
+  {
+    pass: (result, language) => {
+      const limit = language === "python" ? 6 : 9;
+      return result.assertors.assertMaxLinesOfCode(limit);
+    },
+    errorKey: "checks.tooManyLines"
+  }
+];
 
 export const tasks = [
   {
@@ -8,6 +18,14 @@ export const tasks = [
     hints: [],
     requiredScenarios: ["simple-word", "single-letter", "two-words", "multiple-spaces", "long-text", "all-spaces"],
     bonus: false
+  },
+  {
+    id: "solve-in-nine-lines" as const,
+    name: "tasks.solveInNineLines.name",
+    description: "tasks.solveInNineLines.description",
+    hints: [],
+    requiredScenarios: ["bonus-1"],
+    bonus: true
   }
 ] as const satisfies readonly Task[];
 
@@ -65,5 +83,15 @@ export const scenarios: IOScenario[] = [
     functionName: "sign_price",
     args: ["   "],
     expected: "That will cost $0"
+  },
+  {
+    slug: "bonus-1",
+    name: "scenarios.bonus1.name",
+    description: "scenarios.bonus1.description",
+    taskId: "solve-in-nine-lines",
+    functionName: "sign_price",
+    args: ["Hi There"],
+    expected: "That will cost $84",
+    codeChecks: nineLinesCheck
   }
 ];

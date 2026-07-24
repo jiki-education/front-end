@@ -1,8 +1,15 @@
 {
+  "checks": {
+    "tooManyLines": "Your solution has too many lines of code. Can you make it shorter?"
+  },
   "tasks": {
     "createAcronymFunction": {
       "name": "Create acronym function",
       "description": "Write an acronym function that takes three words and returns a three-letter acronym formed by taking the first letter of each word."
+    },
+    "solveInThreeLines": {
+      "name": "Solve in 3 lines of code",
+      "description": "Can you solve this exercise with only 3 lines of code?"
     }
   },
   "scenarios": {
@@ -21,6 +28,10 @@
     "lol": {
       "name": "Lowercase words",
       "description": "Create the acronym 'lol' from 'laugh', 'out', 'loud'."
+    },
+    "bonus1": {
+      "name": "3 lines of code",
+      "description": "Solve the exercise with only 3 lines of code."
     }
   },
   "hints": {

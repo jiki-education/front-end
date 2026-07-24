@@ -1,4 +1,14 @@
-import type { Task, IOScenario } from "../types";
+import type { Task, IOScenario, CodeCheck } from "../types";
+
+const elevenLinesCheck: CodeCheck[] = [
+  {
+    pass: (result, language) => {
+      const limit = language === "python" ? 8 : 11;
+      return result.assertors.assertMaxLinesOfCode(limit);
+    },
+    errorKey: "checks.tooManyLines"
+  }
+];
 
 export const tasks = [
   {
@@ -8,6 +18,14 @@ export const tasks = [
     hints: [],
     requiredScenarios: ["perfect-marks", "dangerous", "one-big-mistake", "scraped-through", "one-mistake-too-many"],
     bonus: false
+  },
+  {
+    id: "solve-in-eleven-lines" as const,
+    name: "tasks.solveInElevenLines.name",
+    description: "tasks.solveInElevenLines.description",
+    hints: [],
+    requiredScenarios: ["bonus-1"],
+    bonus: true
   }
 ] as const satisfies readonly Task[];
 
@@ -45,7 +63,7 @@ export const scenarios: IOScenario[] = [
     description: "scenarios.scrapedThrough.description",
     taskId: "did-they-pass",
     functionName: "did_they_pass",
-    args: ["✅✅✅❌✅✅✅❌✅✅✅❌️✅✅✅✅✅❌️✅✅"],
+    args: ["✅✅✅❌✅✅✅❌✅✅✅❌✅✅✅✅✅❌✅✅"],
     expected: true
   },
   {
@@ -54,7 +72,17 @@ export const scenarios: IOScenario[] = [
     description: "scenarios.oneMistakeTooMany.description",
     taskId: "did-they-pass",
     functionName: "did_they_pass",
-    args: ["✅✅✅❌✅✅✅❌✅✅✅❌️✅✅✅✅✅❌️❌️✅"],
+    args: ["✅✅✅❌✅✅✅❌✅✅✅❌✅✅✅✅✅❌❌✅"],
     expected: false
+  },
+  {
+    slug: "bonus-1",
+    name: "scenarios.bonus1.name",
+    description: "scenarios.bonus1.description",
+    taskId: "solve-in-eleven-lines",
+    functionName: "did_they_pass",
+    args: ["✅✅✅❌✅✅✅❌✅✅✅❌✅✅✅✅✅❌✅✅"],
+    expected: true,
+    codeChecks: elevenLinesCheck
   }
 ];

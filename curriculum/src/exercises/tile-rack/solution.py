@@ -1,5 +1,5 @@
 def find_tile(rack, letter):
-    position = 0
+    position = 1
     for tile in rack:
         if tile == letter:
             return "Move to position " + str(position)
