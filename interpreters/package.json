@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist && tsc -p tsconfig.build.json && node build.mjs",
+    "build": "rm -rf dist-tmp && tsc -p tsconfig.build.json --outDir dist-tmp && node build.mjs --outdir dist-tmp --swap",
+    "build:clean": "rm -rf dist && pnpm run build",
     "dev": "pnpm run --parallel \"/^dev:(tsc|bundle)$/\"",
     "dev:tsc": "tsc --watch",
     "dev:bundle": "node build.mjs --watch",
@@ -15,7 +16,7 @@
     "test:javascript": "vitest --exclude '**/benchmark*.test.ts' tests/javascript tests/cross-validation/javascript",
     "test:python": "vitest --exclude '**/benchmark*.test.ts' tests/python tests/cross-validation/python",
     "test:jikiscript": "vitest --exclude '**/benchmark*.test.ts' tests/jikiscript",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf dist dist-tmp dist-old",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
