@@ -52,6 +52,7 @@ When working on the coding exercise component, also read from `.context/coding-e
 | `scrubber-implementation.md` | Scrubber UI                                                         |
 | `test-runner.md`             | Test execution system                                               |
 | `progression.md`             | Hidden progression scoring (metrics, stdlib, submission decoration) |
+| `stuckometer.md`             | The full stuckometer picture: evidence, decisions, roadmap          |
 
 ## Quick Start
 
