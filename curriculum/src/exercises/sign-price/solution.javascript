@@ -1,10 +1,9 @@
 function signPrice(signText) {
-  let numLetters = 0
+  let price = 0
   for (const letter of signText) {
     if (letter !== " ") {
-      numLetters = numLetters + 1
+      price = price + 12
     }
   }
-  let price = numLetters * 12
   return `That will cost $${price}`
 }
