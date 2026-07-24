@@ -1,6 +1,6 @@
 function contains with haystack, needle do
-  for each element in haystack do
-    if element == needle do
+  for each letter in haystack do
+    if letter == needle do
       return true
     end
   end
