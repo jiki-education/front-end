@@ -35,11 +35,14 @@ if [ -n "$STAGED_TS_FILES_RELATIVE" ]; then
     echo "Linting: $STAGED_TS_FILES_RELATIVE"
     # Convert relative paths to absolute paths for eslint
     STAGED_TS_FILES_ABSOLUTE=$(echo "$STAGED_TS_FILES_RELATIVE" | sed "s|^|$APP_DIR/|")
-    pnpm exec eslint --fix $STAGED_TS_FILES_ABSOLUTE
+    # --no-warn-ignored: staged files that eslint.config.mjs ignores (e.g.
+    # vendored files under public/static/vendor) would otherwise emit a
+    # "file ignored" warning and fail --max-warnings=0
+    pnpm exec eslint --fix --no-warn-ignored $STAGED_TS_FILES_ABSOLUTE
     # Re-add any files that eslint auto-fixed
     git add $STAGED_TS_FILES_RELATIVE
     # Now check for remaining errors/warnings
-    pnpm exec eslint $STAGED_TS_FILES_ABSOLUTE --max-warnings=0
+    pnpm exec eslint $STAGED_TS_FILES_ABSOLUTE --max-warnings=0 --no-warn-ignored
     if [ $? -ne 0 ]; then
         echo "❌ Lint check failed (errors or warnings found). Commit aborted."
         exit 1

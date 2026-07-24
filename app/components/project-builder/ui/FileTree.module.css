@@ -1,0 +1,198 @@
+.tree {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-width: 0;
+}
+
+.headerTitle {
+    display: inline;
+}
+
+.iconButton {
+    width: 26px;
+    height: 26px;
+    display: grid;
+    place-items: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 6px;
+    color: var(--color-text-tertiary);
+}
+
+.iconButton:hover {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+}
+
+.iconButton svg {
+    width: 15px;
+    height: 15px;
+}
+
+/* Chevron points left to collapse; flip it to point right (= expand) when the
+   rail is already collapsed. */
+.collapseButton svg {
+    transform: scaleX(-1);
+}
+
+.list {
+    flex: 1;
+    overflow: auto;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    border-radius: 7px;
+    color: var(--color-text-secondary);
+}
+
+.row:hover {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+}
+
+.rowActive,
+.rowActive:hover {
+    background: var(--color-button-primary-bg);
+    color: var(--color-button-primary-text);
+}
+
+.rowFlash {
+    animation: flash 1s ease-in-out;
+}
+
+@keyframes flash {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.rowSelect {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 9px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: inherit;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    text-align: start;
+}
+
+.dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex: 0 0 auto;
+}
+
+.dotHtml {
+    background: var(--color-amber-500);
+}
+.dotCss {
+    background: var(--color-blue-400);
+}
+.dotJs {
+    background: var(--color-yellow-400);
+}
+.dotOther {
+    background: var(--color-gray-400);
+}
+
+.rowActive .dot {
+    background: var(--color-button-primary-text);
+}
+
+.name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.delete {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: inherit;
+    opacity: 0;
+}
+
+.delete svg {
+    width: 9px;
+    height: 9px;
+}
+
+.row:hover .delete {
+    opacity: 0.5;
+}
+
+.delete:hover {
+    opacity: 1;
+}
+
+.newFileInput {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px 9px;
+    border: 1px solid var(--color-border-secondary);
+    border-radius: 7px;
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    outline: none;
+}
+
+.newFileInput:focus {
+    border-color: var(--color-button-primary-bg);
+}
+
+/* ---- Collapsed rail: a thin strip of file-type dots only ---- */
+.collapsed .headerTitle,
+.collapsed .name {
+    display: none;
+}
+
+.collapsed .list {
+    padding: 8px 0;
+    align-items: center;
+}
+
+.collapsed .row {
+    width: 100%;
+}
+
+.collapsed .rowSelect {
+    justify-content: center;
+    padding: 9px 0;
+    gap: 0;
+}
+
+.collapsed .dot {
+    width: 9px;
+    height: 9px;
+}
+
+.collapsed .collapseButton svg {
+    transform: none;
+}

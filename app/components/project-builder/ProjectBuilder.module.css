@@ -1,0 +1,104 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+}
+
+/* Fixed to the viewport width and clips overflow, so a divider only rebalances
+   its two neighbours - no pane can ever leave the screen. */
+.workspace {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+
+.files {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+    background: var(--color-bg-secondary);
+}
+
+/* Middle group takes the space left over by the two rails; editor + preview
+   split it by percentage so they always sum to 100%. */
+.middle {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+}
+
+.editor {
+    flex: 0 0 50%;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+}
+
+.preview {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+}
+
+.chat {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100%;
+    background: var(--color-bg-primary);
+}
+
+/* Resizer: a hairline with a centred grab handle, matching the coding-exercise
+   vertical divider. */
+.divider {
+    flex: 0 0 7px;
+    align-self: stretch;
+    position: relative;
+    cursor: col-resize;
+    background: var(--color-bg-primary);
+}
+
+.divider::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    inset-inline-start: 50%;
+    width: 1px;
+    transform: translateX(-50%);
+    background: var(--color-border-primary);
+}
+
+.divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    inset-inline-start: 50%;
+    transform: translate(-50%, -50%);
+    width: 3px;
+    height: 34px;
+    border-radius: 2px;
+    background: var(--color-border-secondary);
+    transition: background 0.15s;
+}
+
+.divider:hover::after {
+    background: var(--color-button-primary-bg);
+}
+
+.dividerDisabled {
+    cursor: default;
+}
+
+.dividerDisabled::after {
+    display: none;
+}
