@@ -1,7 +1,9 @@
 import ConceptsBetaTag from "@/components/concepts/ConceptsBetaTag";
 import ConceptDetailPage from "@/components/concepts/ConceptDetailPage";
 import SidebarLayout from "@/components/layout/SidebarLayout";
+import JsonLd from "@/components/seo/JsonLd";
 import { getConceptMetadata } from "@/lib/concepts/metadata";
+import { breadcrumbSchema, conceptLearningResourceSchema, videoObjectSchema } from "@/lib/seo/schemas";
 import {
   getConceptServer,
   getAncestorsServer,
@@ -12,6 +14,7 @@ import {
   getConceptVideoDataServer
 } from "@/lib/concepts/server-concepts";
 import type { ConceptDetailSeed } from "@/components/concepts/lib/useConceptDetailData";
+import type { VideoSource } from "@/types/lesson";
 
 interface Props {
   params: Promise<{ slug: string; locale: string }>;
@@ -36,6 +39,7 @@ export default async function AppConceptPage({ params }: Props) {
   // Leaf pages seed the full detail view (body, sidebar, video) so logged-out
   // visitors render entirely on the server.
   let initialLeafData: ConceptDetailSeed | undefined;
+  let conceptVideos: VideoSource[] = [];
   if (concept && !isCategory) {
     const [content, relatedConcepts, relatedExercises, videoData] = await Promise.all([
       getConceptContentServer(slug, locale),
@@ -44,10 +48,42 @@ export default async function AppConceptPage({ params }: Props) {
       getConceptVideoDataServer(slug)
     ]);
     initialLeafData = { concept, ancestors, content, relatedConcepts, relatedExercises, videoData };
+    conceptVideos = videoData ?? [];
   }
+
+  // Structured data: describe the concept as a LearningResource, emit a VideoObject
+  // per walkthrough video (so Google can index the concept video), and place the
+  // concept in a breadcrumb trail.
+  const jsonLd = concept
+    ? [
+        conceptLearningResourceSchema(concept, locale),
+        ...conceptVideos.map((v) =>
+          videoObjectSchema({
+            path: `/concepts/${concept.slug}`,
+            locale,
+            name: concept.title,
+            description: concept.description,
+            uploadDate: v.uploadDate,
+            durationSeconds: v.durationSeconds,
+            provider: v.provider,
+            videoKey: v.id,
+            isAccessibleForFree: true
+          })
+        ),
+        breadcrumbSchema(
+          [
+            { name: "Concepts", path: "/concepts" },
+            ...ancestors.map((a) => ({ name: a.title, path: `/concepts/${a.slug}` })),
+            { name: concept.title, path: `/concepts/${concept.slug}` }
+          ],
+          locale
+        )
+      ]
+    : null;
 
   return (
     <SidebarLayout activeItem="concepts">
+      {jsonLd && <JsonLd data={jsonLd} />}
       <ConceptsBetaTag />
       {/* key={slug} remounts the detail view on client-side navigation between
           concepts, so the server-seeded hook state (concept, body, subconcepts)

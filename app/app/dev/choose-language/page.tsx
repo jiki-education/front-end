@@ -23,7 +23,9 @@ const mockLessonData: ChooseLanguageLesson = {
     sources: [
       {
         provider: "mux",
-        id: "PNbgUkVhy38y7OELdYseo1GAD01XG8FGLJ1nj9BvuKCU"
+        id: "PNbgUkVhy38y7OELdYseo1GAD01XG8FGLJ1nj9BvuKCU",
+        durationSeconds: 120,
+        uploadDate: "2026-01-01"
       }
     ],
     language_options: ["javascript", "python"]
