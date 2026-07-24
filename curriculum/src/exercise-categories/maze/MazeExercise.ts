@@ -75,6 +75,11 @@ export default class MazeExercise extends VisualExercise {
       return;
     }
 
+    if (this.grid[newRow][newCol] === 4) {
+      executionCtx.logicError(this.t("errors.walkedIntoFire"));
+      return;
+    }
+
     // Update position
     this.characterRow = newRow;
     this.characterCol = newCol;

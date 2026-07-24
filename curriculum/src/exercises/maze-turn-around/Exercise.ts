@@ -73,7 +73,11 @@ export default class MazeTurnAroundExercise extends MazeExercise {
       return false;
     }
 
-    return this.grid[newRow][newCol] !== 1;
+    // Walls (1) and fire (4) are both impassable — the sensor must agree with
+    // `move`, which raises a logic error on either, so the wall-follower routes
+    // around fire instead of walking into it.
+    const cell = this.grid[newRow][newCol];
+    return cell !== 1 && cell !== 4;
   }
 
   private getLeftDirection(): Direction {
