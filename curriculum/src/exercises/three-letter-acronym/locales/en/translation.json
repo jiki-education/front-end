@@ -1,4 +1,7 @@
 {
+  "checks": {
+    "tooManyLines": "Your solution has too many lines of code. Can you make it shorter?"
+  },
   "tasks": {
     "createAcronymFunction": {
       "name": "Create acronym function",

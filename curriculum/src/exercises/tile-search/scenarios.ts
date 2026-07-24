@@ -6,7 +6,7 @@ const eightLinesCheck: CodeCheck[] = [
       const limit = language === "python" ? 5 : 8;
       return result.assertors.assertMaxLinesOfCode(limit);
     },
-    errorHtml: "Your solution has too many lines of code. Can you make it shorter?"
+    errorKey: "checks.tooManyLines"
   }
 ];
 
