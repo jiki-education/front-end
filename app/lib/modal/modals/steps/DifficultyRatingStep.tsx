@@ -2,9 +2,11 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import Image from "next/image";
 import modalStyles from "@/app/styles/components/modals.module.css";
 import ratingStyles from "./DifficultyRatingStep.module.css";
 import { assembleClassNames } from "@/lib/assemble-classnames";
+import { staticAsset } from "@/lib/static-asset";
 
 interface DifficultyRatingStepProps {
   exerciseTitle: string;
@@ -23,7 +25,7 @@ export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: Difficu
     t("difficultyHard"),
     t("difficultyTooHard")
   ];
-  const funEmojis = ["😫", "😐", "🙂", "😊", "😄"];
+  const funEmojis = ["frustrated", "neutral", "slightly-smiling", "smiling", "grinning"];
   const funLabels = [t("funFrustrating"), "", t("funPrettyGood"), "", t("funAmazing")];
 
   const canSubmit = difficultyRating !== null && funRating !== null;
@@ -80,7 +82,15 @@ export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: Difficu
                   label: funLabels[index] || t("funOptionFallback", { number: index + 1 })
                 })}
               >
-                <div className={ratingStyles.emojiCircle}>{emoji}</div>
+                <div className={ratingStyles.emojiCircle}>
+                  <Image
+                    src={staticAsset(`images/emoji/fun-rating/${emoji}.png`)}
+                    alt=""
+                    width={30}
+                    height={30}
+                    className={ratingStyles.emojiImage}
+                  />
+                </div>
                 <span className={ratingStyles.emojiLabel} data-text={funLabels[index]}>
                   {funLabels[index]}
                 </span>
