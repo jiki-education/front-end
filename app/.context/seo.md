@@ -18,15 +18,15 @@ Two layers of SEO signal are emitted from the public `(hybrid)/[locale]` tree:
 
 ### What each page emits
 
-| Page | Nodes |
-| --- | --- |
-| `(hybrid)/[locale]/layout.tsx` (all public pages) | `Organization` + `WebSite`, linked by `@id` |
-| `concepts/[slug]` | `LearningResource` + `BreadcrumbList` |
-| `projects/[slug]` | `Course` (free online `CourseInstance`, episodes as `hasPart`) + `BreadcrumbList` |
-| `projects/[slug]/episodes/[episodeSlug]` | `VideoObject` + `BreadcrumbList` |
-| `blog/[slug]` | `BlogPosting` + `BreadcrumbList` |
-| `guides/[slug]` | `TechArticle` + `BreadcrumbList` |
-| `help/[slug]` | `Article` + `BreadcrumbList` |
+| Page                                              | Nodes                                                                             |
+| ------------------------------------------------- | --------------------------------------------------------------------------------- |
+| `(hybrid)/[locale]/layout.tsx` (all public pages) | `Organization` + `WebSite`, linked by `@id`                                       |
+| `concepts/[slug]`                                 | `LearningResource` + `BreadcrumbList`                                             |
+| `projects/[slug]`                                 | `Course` (free online `CourseInstance`, episodes as `hasPart`) + `BreadcrumbList` |
+| `projects/[slug]/episodes/[episodeSlug]`          | `VideoObject` + `BreadcrumbList`                                                  |
+| `blog/[slug]`                                     | `BlogPosting` + `BreadcrumbList`                                                  |
+| `guides/[slug]`                                   | `TechArticle` + `BreadcrumbList`                                                  |
+| `help/[slug]`                                     | `Article` + `BreadcrumbList`                                                      |
 
 `VideoObject` on episodes is what populates Google Search Console's **Video indexing**
 report. `embedUrl`/`contentUrl` and the thumbnail are derived from
