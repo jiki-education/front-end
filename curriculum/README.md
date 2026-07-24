@@ -167,6 +167,7 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     "lessons": [
       { "type": "exercise", "slug": "reverse-string" },
       { "type": "exercise", "slug": "tile-rack" },
+      { "type": "exercise", "slug": "tile-search" },
       { "type": "exercise", "slug": "sign-price" },
       { "type": "exercise", "slug": "driving-test" }
     ]
@@ -184,7 +185,6 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     "level": "lists",
     "lessons": [
       { "type": "exercise", "slug": "guest-list" },
-      { "type": "exercise", "slug": "tile-search" },
       { "type": "exercise", "slug": "lunchbox" },
       { "type": "exercise", "slug": "meal-prep" },
       { "type": "exercise", "slug": "process-guess" },

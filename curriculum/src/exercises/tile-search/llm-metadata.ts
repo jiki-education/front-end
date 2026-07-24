@@ -19,9 +19,9 @@ export const llmMetadata: LLMMetadata = {
     "search-for-tile": {
       description: `
         Anchor steps:
-        1. Loop through each tile in the haystack.
-        2. Return true immediately when a tile matches the needle.
-        3. Return false only AFTER the loop, once all tiles have been checked.
+        1. Loop through each letter of the haystack string (a for-of loop).
+        2. Return true immediately when a letter matches the needle.
+        3. Return false only AFTER the loop, once all letters have been checked.
 
         The most common trap is returning false inside the loop (which bails
         after the first non-match instead of checking the rest). Use that

@@ -45,7 +45,7 @@ export const scenarios: IOScenario[] = [
     description: "scenarios.letterFoundAtStart.description",
     taskId: "search-for-tile",
     functionName: "contains",
-    args: [["S", "C", "R"], "S"],
+    args: ["SCR", "S"],
     expected: true
   },
   {
@@ -54,7 +54,7 @@ export const scenarios: IOScenario[] = [
     description: "scenarios.letterFoundInMiddle.description",
     taskId: "search-for-tile",
     functionName: "contains",
-    args: [["S", "C", "R", "A", "B"], "R"],
+    args: ["SCRAB", "R"],
     expected: true
   },
   {
@@ -63,7 +63,7 @@ export const scenarios: IOScenario[] = [
     description: "scenarios.letterFoundAtEnd.description",
     taskId: "search-for-tile",
     functionName: "contains",
-    args: [["S", "C", "R"], "R"],
+    args: ["SCR", "R"],
     expected: true
   },
   {
@@ -72,7 +72,7 @@ export const scenarios: IOScenario[] = [
     description: "scenarios.letterNotFound.description",
     taskId: "search-for-tile",
     functionName: "contains",
-    args: [["S", "C", "R", "A", "B"], "Z"],
+    args: ["SCRAB", "Z"],
     expected: false
   },
   {
@@ -81,7 +81,7 @@ export const scenarios: IOScenario[] = [
     description: "scenarios.emptyRack.description",
     taskId: "search-for-tile",
     functionName: "contains",
-    args: [[], "A"],
+    args: ["", "A"],
     expected: false
   },
   {
@@ -90,7 +90,7 @@ export const scenarios: IOScenario[] = [
     description: "scenarios.duplicateLetters.description",
     taskId: "search-for-tile",
     functionName: "contains",
-    args: [["A", "B", "A", "N", "A"], "N"],
+    args: ["ABANA", "N"],
     expected: true
   },
   {
@@ -99,7 +99,7 @@ export const scenarios: IOScenario[] = [
     description: "scenarios.singleTileFound.description",
     taskId: "search-for-tile",
     functionName: "contains",
-    args: [["Q"], "Q"],
+    args: ["Q", "Q"],
     expected: true
   },
   {
@@ -108,7 +108,7 @@ export const scenarios: IOScenario[] = [
     description: "scenarios.singleTileNotFound.description",
     taskId: "search-for-tile",
     functionName: "contains",
-    args: [["Q"], "X"],
+    args: ["Q", "X"],
     expected: false
   },
   {
@@ -117,7 +117,7 @@ export const scenarios: IOScenario[] = [
     description: "scenarios.bonus1.description",
     taskId: "solve-in-eight-lines",
     functionName: "contains",
-    args: [["S", "C", "R", "A", "B"], "A"],
+    args: ["SCRAB", "A"],
     expected: true,
     codeChecks: eightLinesCheck
   }

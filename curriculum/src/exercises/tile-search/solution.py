@@ -1,5 +1,5 @@
 def contains(haystack, needle):
-    for element in haystack:
-        if element == needle:
+    for letter in haystack:
+        if letter == needle:
             return True
     return False

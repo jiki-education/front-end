@@ -1,6 +1,6 @@
 {
   "slug": "tile-search",
-  "levelId": "lists",
+  "levelId": "string-iteration",
   "hints": [
     {
       "question": "hints.byHand.question",
