@@ -37,19 +37,19 @@
   "hints": {
     "whatCounting": {
       "question": "What am I actually counting?",
-      "answer": "Letters. Specifically, anything that isn't a space. So you want a counter that goes up by 1 for each non-space character in the sign text."
+      "answer": "Letters. Specifically, anything that isn't a space. So you want a counter that goes up for each non-space character in the sign text."
     },
     "loopCharacters": {
       "question": "How do I loop through the characters?",
-      "answer": "A for-each loop gives you each character in turn. Inside, an if-statement checks whether it's a space. Only count it if it isn't."
+      "answer": "A `for...of` loop gives you each character in turn, so you can look at them one at a time."
     },
-    "workOutPrice": {
-      "question": "How do I work out the price?",
-      "answer": "Once the loop ends, multiply your letter count by 12. That's the cost."
+    "checkSpace": {
+      "question": "How do I check whether a character is a space?",
+      "answer": "Inside the loop, use an if-statement to compare the character against `\" \"`. Only count the character when it isn't a space."
     },
     "buildResultString": {
       "question": "How do I build the result string?",
-      "answer": "The price is a number, but the return value is a string. Use `numberToString()` to convert the price to a string, then use concatenation (`+`) or a template string to add any surrounding text the exercise asks for."
+      "answer": "Use string concatenation or template strings. Check the concepts if you need a reminder on these."
     }
   }
 }
