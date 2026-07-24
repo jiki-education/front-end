@@ -136,8 +136,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
     transition: all 0.2s ease;
+}
+
+.emojiImage {
+    width: 30px;
+    height: 30px;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
 }
 
 .emojiOption:hover .emojiCircle {

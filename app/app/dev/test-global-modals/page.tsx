@@ -2,10 +2,13 @@
 
 import { showConfirmation, showInfo, showModal } from "@/lib/modal";
 import { showSubscriptionModal, showSubscriptionSuccess } from "@/lib/modal/app";
+import { AppModalRegistrar } from "@/lib/modal/AppModalRegistrar";
 
 export default function TestGlobalModals() {
   return (
     <div className="p-8 max-w-4xl mx-auto">
+      {/* (app)-only modals aren't registered in the /dev layout; register them here so they're testable */}
+      <AppModalRegistrar />
       <h1 className="text-3xl font-bold mb-6">Global Modal System Test</h1>
 
       <div className="mb-8">
