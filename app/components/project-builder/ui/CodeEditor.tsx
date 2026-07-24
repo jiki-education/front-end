@@ -13,6 +13,8 @@ import { EditorView, keymap, lineNumbers } from "@codemirror/view";
 import { useEffect, useRef } from "react";
 import type { Orchestrator } from "../lib/Orchestrator";
 import { useProjectBuilderStore } from "../lib/store";
+import styles from "./CodeEditor.module.css";
+import { PaneHeader } from "./PaneHeader";
 
 export function CodeEditor({ orchestrator }: { orchestrator: Orchestrator }) {
   const { activeFile, files } = useProjectBuilderStore(orchestrator.getStore(), (state) => ({
@@ -81,7 +83,16 @@ export function CodeEditor({ orchestrator }: { orchestrator: Orchestrator }) {
       history(),
       keymap.of([...defaultKeymap, ...historyKeymap, indentWithTab]),
       languageFor(filename),
-      EditorView.theme({ "&": { height: "100%", fontSize: "14px" } }),
+      EditorView.theme({
+        "&": { height: "100%", fontSize: "13.5px" },
+        ".cm-content": { padding: "10px 0", lineHeight: "1.6" },
+        ".cm-gutters": {
+          background: "var(--color-bg-secondary)",
+          border: "none",
+          color: "var(--color-text-tertiary)",
+          paddingInlineEnd: "6px"
+        }
+      }),
       EditorView.updateListener.of((update) => {
         if (update.docChanged && !applyingExternalRef.current) {
           orch.updateFileFromEditor(filename, update.state.doc.toString());
@@ -91,7 +102,10 @@ export function CodeEditor({ orchestrator }: { orchestrator: Orchestrator }) {
   }
 
   return (
-    <div ref={containerRef} className="h-full overflow-hidden [&_.cm-editor]:h-full [&_.cm-scroller]:overflow-auto" />
+    <div className={styles.editor}>
+      <PaneHeader title={activeFile} mono />
+      <div ref={containerRef} className={styles.surface} />
+    </div>
   );
 }
 

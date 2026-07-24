@@ -11,6 +11,13 @@ import { clearDebugEvents, debugBusStore, type DebugEvent } from "../lib/debug/d
 import { devSettingsStore, PROVIDERS, updateDevSettings, type LlmEndpoint } from "../lib/debug/devSettingsStore";
 import type { Orchestrator } from "../lib/Orchestrator";
 import { useProjectBuilderStore } from "../lib/store";
+import controls from "./DebugControls.module.css";
+
+// Where to grab a free key for each provider, shown as a hint under the field.
+const KEY_SIGNUP_URL: Record<LlmEndpoint, string> = {
+  "opencode-zen": "https://opencode.ai/zen",
+  openrouter: "https://openrouter.ai/keys"
+};
 
 type Tab = "controls" | "agent" | "console" | "state";
 
@@ -26,7 +33,7 @@ export function DebugDrawer({ orchestrator }: { orchestrator: Orchestrator }) {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-0 left-1/2 z-50 -translate-x-1/2 rounded-t-md border border-b-0 border-border-primary bg-bg-secondary px-4 py-0.5 font-mono text-xs text-gray-500"
+        className="fixed bottom-0 left-1/2 z-50 -translate-x-1/2 rounded-t-md border border-b-0 border-border-primary bg-bg-secondary px-4 py-1 font-mono text-sm text-gray-500 shadow-md hover:text-gray-700"
       >
         debug
       </button>
@@ -34,26 +41,32 @@ export function DebugDrawer({ orchestrator }: { orchestrator: Orchestrator }) {
   }
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 h-72 border-t border-border-primary bg-bg-primary font-mono text-xs shadow-lg">
-      <div className="flex items-center gap-1 border-b border-border-primary px-2 py-1">
+    <div className="fixed inset-x-0 bottom-0 z-50 flex h-[60vh] max-h-[600px] min-h-[320px] flex-col border-t border-border-primary bg-bg-primary font-mono text-sm shadow-2xl">
+      <div className="flex flex-shrink-0 items-center gap-1.5 border-b border-border-primary px-3 py-2">
         {(["controls", "agent", "console", "state"] as Tab[]).map((name) => (
           <button
             key={name}
             onClick={() => setTab(name)}
-            className={`rounded px-2 py-0.5 ${tab === name ? "bg-blue-100 text-blue-900" : "text-gray-500"}`}
+            className={`rounded px-3 py-1 ${tab === name ? "bg-blue-100 text-blue-900" : "text-gray-500 hover:bg-bg-secondary"}`}
           >
             {name}
           </button>
         ))}
         <div className="flex-1" />
-        <button onClick={clearDebugEvents} className="px-2 text-gray-400">
+        <button
+          onClick={clearDebugEvents}
+          className="rounded px-3 py-1 text-gray-400 hover:bg-bg-secondary hover:text-gray-600"
+        >
           clear
         </button>
-        <button onClick={() => setIsOpen(false)} className="px-2 text-gray-400">
+        <button
+          onClick={() => setIsOpen(false)}
+          className="rounded px-3 py-1 text-gray-400 hover:bg-bg-secondary hover:text-gray-600"
+        >
           close
         </button>
       </div>
-      <div className="h-[calc(100%-29px)] overflow-y-auto p-2">
+      <div className="min-h-0 flex-1 overflow-y-auto p-3">
         {tab === "controls" && <ControlsTab />}
         {tab === "agent" && <EventList channels={["agent"]} />}
         {tab === "console" && <EventList channels={["console", "preview"]} />}
@@ -66,57 +79,79 @@ export function DebugDrawer({ orchestrator }: { orchestrator: Orchestrator }) {
 function ControlsTab() {
   const settings = useStore(devSettingsStore);
   const actions = useStore(debugBusStore, (state) => state.actions);
+  const isReady = settings.llmKey.trim().length > 0;
 
   return (
-    <div className="flex max-w-xl flex-col gap-2">
-      <label className="flex items-center gap-2">
-        <span className="w-28 text-gray-500">Provider</span>
-        <select
-          value={settings.endpoint}
-          onChange={(e) => updateDevSettings({ endpoint: e.target.value as LlmEndpoint })}
-          className="flex-1 rounded border border-border-primary px-2 py-1"
-        >
-          {Object.entries(PROVIDERS).map(([id, provider]) => (
-            <option key={id} value={id}>
-              {provider.label}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label className="flex items-center gap-2">
-        <span className="w-28 text-gray-500">API key</span>
-        <input
-          type="password"
-          value={settings.llmKey}
-          onChange={(e) => updateDevSettings({ llmKey: e.target.value })}
-          className="flex-1 rounded border border-border-primary px-2 py-1"
-        />
-      </label>
-      <label className="flex items-center gap-2">
-        <span className="w-28 text-gray-500">Model</span>
-        <input
-          list="project-builder-models"
-          value={settings.model}
-          onChange={(e) => updateDevSettings({ model: e.target.value })}
-          className="flex-1 rounded border border-border-primary px-2 py-1"
-        />
-        <datalist id="project-builder-models">
-          {PROVIDERS[settings.endpoint].suggestedModels.map((model) => (
-            <option key={model} value={model} />
-          ))}
-        </datalist>
-      </label>
-      <div className="flex gap-2">
-        {actions.map((action) => (
-          <button
-            key={action.name}
-            onClick={action.run}
-            className="rounded border border-border-primary px-2 py-1 hover:bg-bg-secondary"
-          >
-            {action.name}
-          </button>
-        ))}
+    <div className={controls.panel}>
+      <p className={controls.intro}>
+        Connect a model to chat with Jiki. Your key is stored locally and sent straight from the browser.
+      </p>
+
+      <div className={`${controls.status} ${isReady ? controls.statusReady : controls.statusIdle}`}>
+        <span className={controls.statusDot} aria-hidden />
+        {isReady ? `Ready — chatting with ${settings.model}` : "No key yet — add one below to start"}
       </div>
+
+      <div className={controls.fields}>
+        <label className={controls.field}>
+          <span className={controls.label}>Provider</span>
+          <select
+            className={controls.select}
+            value={settings.endpoint}
+            onChange={(e) => updateDevSettings({ endpoint: e.target.value as LlmEndpoint })}
+          >
+            {Object.entries(PROVIDERS).map(([id, provider]) => (
+              <option key={id} value={id}>
+                {provider.label}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className={controls.field}>
+          <span className={controls.label}>API key</span>
+          <input
+            className={controls.input}
+            type="password"
+            value={settings.llmKey}
+            onChange={(e) => updateDevSettings({ llmKey: e.target.value })}
+            placeholder="Paste your API key"
+          />
+          <p className={controls.hint}>
+            Get a free key at{" "}
+            <a className={controls.link} href={KEY_SIGNUP_URL[settings.endpoint]} target="_blank" rel="noreferrer">
+              {KEY_SIGNUP_URL[settings.endpoint].replace(/^https:\/\//, "")}
+            </a>{" "}
+            — no card needed.
+          </p>
+        </label>
+
+        <label className={controls.field}>
+          <span className={controls.label}>Model</span>
+          <input
+            className={controls.input}
+            list="project-builder-models"
+            value={settings.model}
+            onChange={(e) => updateDevSettings({ model: e.target.value })}
+          />
+          <datalist id="project-builder-models">
+            {PROVIDERS[settings.endpoint].suggestedModels.map((model) => (
+              <option key={model} value={model} />
+            ))}
+          </datalist>
+          <p className={controls.hint}>Free models end in “-free”. The default works out of the box.</p>
+        </label>
+      </div>
+
+      {actions.length > 0 && (
+        <div className={controls.actions}>
+          {actions.map((action) => (
+            <button key={action.name} className={controls.actionButton} onClick={action.run}>
+              {action.name}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -1,0 +1,67 @@
+.preview {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.runButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 13px;
+    border: none;
+    border-radius: 7px;
+    background: var(--color-button-primary-bg);
+    color: var(--color-button-primary-text);
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: filter 0.15s;
+}
+
+.runButton:hover {
+    filter: brightness(1.05);
+}
+
+.canvas {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    background: #fff;
+}
+
+.frame {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.error {
+    position: absolute;
+    inset-inline: 12px;
+    bottom: 12px;
+    padding: 12px;
+    border: 1px solid var(--color-error-border);
+    border-radius: 8px;
+    background: var(--color-error-bg);
+    color: var(--color-error-text);
+    font-size: 13px;
+    box-shadow: 0 8px 24px var(--color-gray-900-30);
+}
+
+.errorTitle {
+    font-weight: 600;
+}
+
+.errorMessage {
+    margin-top: 4px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+}
+
+.errorHint {
+    margin-top: 6px;
+    font-size: 12px;
+    opacity: 0.8;
+}
