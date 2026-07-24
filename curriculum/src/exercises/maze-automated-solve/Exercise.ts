@@ -73,11 +73,11 @@ export default class MazeAutomatedSolveExercise extends MazeExercise {
       return false;
     }
 
-    // Walls (1) and fire (4) are both impassable — the sensor must agree with
-    // `move`, which raises a logic error on either, so the wall-follower routes
-    // around fire instead of walking into it.
+    // Walls (1), fire (4) and poop (5) are all impassable — the sensor must
+    // agree with `move`, which raises a logic error on each, so the wall-follower
+    // routes around hazards instead of walking into them.
     const cell = this.grid[newRow][newCol];
-    return cell !== 1 && cell !== 4;
+    return cell !== 1 && cell !== 4 && cell !== 5;
   }
 
   private getLeftDirection(): Direction {

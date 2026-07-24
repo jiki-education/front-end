@@ -4,9 +4,9 @@ import MazeSolveBasicExercise from "../../src/exercises/maze-solve-basic/Exercis
 import enDict from "../../src/exercise-categories/maze/locales/en/translation.json";
 
 /**
- * Fire cells (grid value 4) are hazards, not walkable path. Moving into one must
- * raise the pre-translated `errors.walkedIntoFire` logic error and leave the
- * character where it stood, exactly as walls (value 1) do.
+ * Fire cells (grid value 4) and poop cells (grid value 5) are hazards, not
+ * walkable path. Moving into either must raise the matching pre-translated logic
+ * error and leave the character where it stood, exactly as walls (value 1) do.
  */
 
 function createMockExecutionContext(): ExecutionContext {
@@ -17,7 +17,7 @@ function createMockExecutionContext(): ExecutionContext {
   } as unknown as ExecutionContext;
 }
 
-describe("maze move into fire", () => {
+describe("maze move into hazards", () => {
   let exercise: MazeSolveBasicExercise;
   let ctx: ExecutionContext;
 
@@ -41,7 +41,26 @@ describe("maze move into fire", () => {
 
     exercise.move(ctx);
 
-    expect(ctx.logicError).toHaveBeenCalledWith("Yikes - you walked straight into the fire!");
+    expect(ctx.logicError).toHaveBeenCalledWith("Ouch! You walked into the fire!");
+    expect(exercise.characterRow).toBe(0);
+    expect(exercise.characterCol).toBe(0);
+  });
+
+  it("blocks movement into a poop cell and raises the localized logic error", () => {
+    exercise.setupMaze(
+      [
+        [2, 5, 3],
+        [1, 1, 1],
+        [1, 1, 1]
+      ],
+      0,
+      0,
+      "right"
+    );
+
+    exercise.move(ctx);
+
+    expect(ctx.logicError).toHaveBeenCalledWith("Ewww! You walked into the poop! 💩💩💩");
     expect(exercise.characterRow).toBe(0);
     expect(exercise.characterCol).toBe(0);
   });
