@@ -3,6 +3,10 @@
     "checkTheName": {
       "name": "Check the name",
       "description": "Write a `handleGuest` function that checks whether the person's name starts with the allowed letters for tonight's party. Return `true` if it does, or `false` if it doesn't."
+    },
+    "solveTightly": {
+      "name": "Solve it in 20 lines",
+      "description": "Bonus: with the length-counting pulled out into a helper function that `handleGuest` reuses, the whole solution fits in 20 lines. Can you match it?"
     }
   },
   "scenarios": {
@@ -29,7 +33,14 @@
     "cherCherParty": {
       "name": "Cher Party: Cher arrives",
       "description": "Tonight only names starting with \"Cher\" are allowed. Cher's name is exactly \"Cher\" — let her in!"
+    },
+    "nicheNamedPartyBonusLineCount": {
+      "name": "Neat and tidy",
+      "description": "The shortest solution fits in 20 lines. Can you find it?"
     }
+  },
+  "checks": {
+    "tooManyLines": "Keep going! See if you can solve it in fewer lines."
   },
   "hints": {
     "checkStartsWith": {
