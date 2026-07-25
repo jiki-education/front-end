@@ -15,6 +15,10 @@
       "answer": "hints.onFound.answer"
     },
     {
+      "question": "hints.addNumberToString.question",
+      "answer": "hints.addNumberToString.answer"
+    },
+    {
       "question": "hints.positionAlwaysWrong.question",
       "answer": "hints.positionAlwaysWrong.answer"
     },
