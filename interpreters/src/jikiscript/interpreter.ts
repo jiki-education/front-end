@@ -120,6 +120,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         assertMethodCalled: () => true,
         countArrayLiterals: () => 0,
         assertFunctionCalledOutsideOwnDefinition: () => true,
+        assertFunctionCallsAnotherFunction: () => true,
         numFunctionCallsInCode: () => 0,
         assertOperatorUsed: () => true,
         assertStatement: () => true,

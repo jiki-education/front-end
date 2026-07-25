@@ -257,3 +257,15 @@ export function extractCallExpressionsExcludingFunctionBody(
   }
   return results;
 }
+
+/**
+ * Extract all CallExpression nodes that appear inside the body of the function
+ * named `funcName`. Returns [] if no function with that name is declared.
+ */
+export function extractCallExpressionsWithinFunctionBody(statements: Statement[], funcName: string): CallExpression[] {
+  const fn = extractFunctionDeclarations(statements).find(fd => fd.name.lexeme === funcName);
+  if (!fn) {
+    return [];
+  }
+  return extractCallExpressions(fn.body);
+}

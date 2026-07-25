@@ -17,6 +17,7 @@ import {
   extractMethodCalls,
   countArrayExpressions,
   extractCallExpressionsExcludingFunctionBody,
+  extractCallExpressionsWithinFunctionBody,
   extractOperators,
   findMatchingStatements,
 } from "./assertion-helpers";
@@ -117,6 +118,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         assertMethodCalled: () => true,
         countArrayLiterals: () => 0,
         assertFunctionCalledOutsideOwnDefinition: () => true,
+        assertFunctionCallsAnotherFunction: () => true,
         numFunctionCallsInCode: () => 0,
         assertOperatorUsed: () => true,
         assertStatement: () => true,
@@ -254,6 +256,17 @@ export function evaluateFunction(
         const callsOutside = extractCallExpressionsExcludingFunctionBody(statements, formatted);
         return callsOutside.some(
           call => call.callee instanceof IdentifierExpression && call.callee.name.lexeme === formatted
+        );
+      },
+      assertFunctionCallsAnotherFunction: (funcName: string) => {
+        const formatted = formatIdentifier(funcName);
+        const definedNames = new Set(extractFunctionDeclarations(statements).map(fd => fd.name.lexeme));
+        const calls = extractCallExpressionsWithinFunctionBody(statements, formatted);
+        return calls.some(
+          call =>
+            call.callee instanceof IdentifierExpression &&
+            call.callee.name.lexeme !== formatted &&
+            definedNames.has(call.callee.name.lexeme)
         );
       },
       numFunctionCallsInCode: (funcName: string) => {
