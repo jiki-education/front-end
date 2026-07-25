@@ -272,6 +272,8 @@ describe("JavaScript Arrays", () => {
   });
 
   describe("Array index access errors", () => {
+    // Unlike real JS, reading past the end of an array is an error in Jiki,
+    // matching Python (IndexError) and JikiScript (IndexOutOfBounds).
     test("index out of bounds - too high", async () => {
       const code = `
         let arr = [10, 20, 30];
@@ -279,12 +281,12 @@ describe("JavaScript Arrays", () => {
       `;
       const result = interpret(code);
 
-      expect(result.success).toBe(true); // No error, returns undefined
+      expect(result.success).toBe(false);
       expect(result.frames.length).toBe(2);
 
       const frame = result.frames[1] as TestFrame;
-      expect(frame.status).toBe("SUCCESS");
-      expect(frame.variables?.["value"].toString()).toBe("undefined");
+      expect(frame.status).toBe("ERROR");
+      expect(frame.error?.type).toBe("IndexOutOfRange");
     });
 
     test("index out of bounds - negative", async () => {
@@ -434,12 +436,12 @@ describe("JavaScript Arrays", () => {
       `;
       const result = interpret(code);
 
-      expect(result.success).toBe(true); // No error, returns undefined
+      expect(result.success).toBe(false);
       expect(result.frames.length).toBe(2);
 
       const frame = result.frames[1] as TestFrame;
-      expect(frame.status).toBe("SUCCESS");
-      expect(frame.variables?.["value"].toString()).toBe("undefined");
+      expect(frame.status).toBe("ERROR");
+      expect(frame.error?.type).toBe("IndexOutOfRange");
     });
 
     test("error in chained access - non-array in chain", async () => {

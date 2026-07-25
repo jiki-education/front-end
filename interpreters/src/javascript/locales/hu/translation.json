@@ -88,6 +88,8 @@
     "runtime": {
       "FunctionExecutionError": "Hiba történt a(z) `{{function}}` függvény futtatása közben: {{message}}",
       "IndexOutOfRange": "Ennek a tömbnek csak {{length}} eleme van, de te a(z) {{index}} indexet próbáltad elérni. Ne feledd: JavaScriptben az első elem indexe 0.",
+      "StringIndexOutOfRange": "This string only has {{length}} characters, but you tried to access index {{index}}. Remember the first character is index 0 in JavaScript.",
+      "ComparisonWithUndefined": "You tried to compare with `undefined`. This usually means a value is missing - for example reading past the end of a string or array, or a function that didn't return anything. Check the value exists before comparing it.",
       "UpdateOperatorRequiresNumber": "Jiki a(z) {{operator}} operátort csak számokon tudja használni, {{type}} típuson nem.",
       "PropertyNotFound": "A(z) {{type}} típusnak nincs `{{property}}` tulajdonsága.",
       "MethodUsedWithoutParentheses": "A(z) {{type}} típusnak nincs `{{property}}` tulajdonsága. Lehet, hogy a `{{property}}` metódust szeretted volna használni? Ha igen, ne feledd, hogy zárójelet is kell tenned utána, ahogy egy normál függvénynél is.",

@@ -235,9 +235,11 @@ describe("JavaScript - Array Element Assignment", () => {
       expect(result.error).toBeNull();
       expect(result.frames.length).toBe(2);
 
+      // The out-of-bounds read `arr[1]` now errors directly, rather than
+      // returning undefined and failing later on the property set.
       const assignmentFrame = result.frames[1] as TestFrame;
       expect(assignmentFrame.status).toBe("ERROR");
-      expect(assignmentFrame.error?.message).toContain("CannotSetPropertyOfType");
+      expect(assignmentFrame.error?.message).toContain("IndexOutOfRange");
     });
   });
 

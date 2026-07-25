@@ -83,19 +83,23 @@ function handleBinaryOperation(
     case "EQUAL_EQUAL":
       // `==` is rejected at parse time when enforceStrictEquality is on (the default),
       // so reaching here means loose equality is explicitly permitted.
+      verifyNotUndefinedForComparison(executor, expression, leftResult, rightResult);
       // eslint-disable-next-line eqeqeq
       return createJSObject(left == right);
 
     case "NOT_EQUAL":
       // `!=` is rejected at parse time when enforceStrictEquality is on (the default),
       // so reaching here means loose inequality is explicitly permitted.
+      verifyNotUndefinedForComparison(executor, expression, leftResult, rightResult);
       // eslint-disable-next-line eqeqeq
       return createJSObject(left != right);
 
     case "STRICT_EQUAL":
+      verifyNotUndefinedForComparison(executor, expression, leftResult, rightResult);
       return createJSObject(left === right);
 
     case "NOT_STRICT_EQUAL":
+      verifyNotUndefinedForComparison(executor, expression, leftResult, rightResult);
       return createJSObject(left !== right);
 
     case "GREATER":
@@ -145,6 +149,31 @@ function handleBinaryOperation(
       // The parser only emits binary operators the cases above handle, so
       // reaching here is an interpreter bug, not a student error.
       throw new InterpreterInternalError(`Unsupported binary operator: ${expression.operator.type}`);
+  }
+}
+
+// Comparing against `undefined` is almost always a symptom of a real mistake
+// (a value that ran off the end of a string/array, a forgotten return, a missing
+// value) rather than something a student did on purpose. Every other operator
+// already rejects undefined; equality was the last gap that let it through
+// silently. Rejecting it here keeps JS in line with Python and JikiScript.
+function verifyNotUndefinedForComparison(
+  executor: Executor,
+  expression: BinaryExpression,
+  leftResult: EvaluationResultExpression,
+  rightResult: EvaluationResultExpression
+): void {
+  if (leftResult.jikiObject.type === "undefined") {
+    executor.error("ComparisonWithUndefined", expression.location, {
+      operator: expression.operator.lexeme,
+      side: "left",
+    });
+  }
+  if (rightResult.jikiObject.type === "undefined") {
+    executor.error("ComparisonWithUndefined", expression.location, {
+      operator: expression.operator.lexeme,
+      side: "right",
+    });
   }
 }
 

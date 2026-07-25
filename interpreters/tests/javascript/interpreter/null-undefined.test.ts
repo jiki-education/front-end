@@ -37,7 +37,9 @@ describe("JavaScript Interpreter: null and undefined", () => {
       expect((result.frames[result.frames.length - 1] as any).variables.same.value).toBe(true);
     });
 
-    test("null vs undefined", () => {
+    // Comparing against undefined is an error in Jiki (see the "undefined literal"
+    // block below), so `null === undefined` errors on the undefined operand.
+    test("null vs undefined errors", () => {
       const code = `
         let a = null;
         let b = undefined;
@@ -45,12 +47,13 @@ describe("JavaScript Interpreter: null and undefined", () => {
       `;
       const result = interpret(code);
       expect(result.error).toBe(null);
-      expect(result.success).toBe(true);
+      expect(result.success).toBe(false);
       const lastFrame = result.frames[result.frames.length - 1];
-      expect((lastFrame as any).variables.strictEqual.value).toBe(false);
+      expect(lastFrame.status).toBe("ERROR");
+      expect(lastFrame.error?.type).toBe("ComparisonWithUndefined");
     });
 
-    test("null == undefined with strict equality enforcement disabled", () => {
+    test("null == undefined with strict equality enforcement disabled errors", () => {
       const code = `
         let a = null;
         let b = undefined;
@@ -58,9 +61,10 @@ describe("JavaScript Interpreter: null and undefined", () => {
       `;
       const result = interpret(code, { languageFeatures: { enforceStrictEquality: false } });
       expect(result.error).toBe(null);
-      expect(result.success).toBe(true);
+      expect(result.success).toBe(false);
       const lastFrame = result.frames[result.frames.length - 1];
-      expect((lastFrame as any).variables.looseEqual.value).toBe(true);
+      expect(lastFrame.status).toBe("ERROR");
+      expect(lastFrame.error?.type).toBe("ComparisonWithUndefined");
     });
   });
 
@@ -75,7 +79,10 @@ describe("JavaScript Interpreter: null and undefined", () => {
       expect((result.frames[0] as any).variables.x.value).toBe(undefined);
     });
 
-    test("undefined in expressions", () => {
+    // Reading past the end of a string/array, a forgotten return, a missing value:
+    // undefined is almost always a symptom of a mistake, so comparing with it is an
+    // error rather than a silent boolean. This matches Python and JikiScript.
+    test("comparing a value with undefined errors", () => {
       const code = `
         let a = undefined;
         let b = 5;
@@ -83,11 +90,13 @@ describe("JavaScript Interpreter: null and undefined", () => {
       `;
       const result = interpret(code);
       expect(result.error).toBe(null);
-      expect(result.success).toBe(true);
-      expect((result.frames[result.frames.length - 1] as any).variables.result.value).toBe(true);
+      expect(result.success).toBe(false);
+      const lastFrame = result.frames[result.frames.length - 1];
+      expect(lastFrame.status).toBe("ERROR");
+      expect(lastFrame.error?.type).toBe("ComparisonWithUndefined");
     });
 
-    test("undefined comparison", () => {
+    test("comparing two undefined values errors", () => {
       const code = `
         let x = undefined;
         let y = undefined;
@@ -95,8 +104,10 @@ describe("JavaScript Interpreter: null and undefined", () => {
       `;
       const result = interpret(code);
       expect(result.error).toBe(null);
-      expect(result.success).toBe(true);
-      expect((result.frames[result.frames.length - 1] as any).variables.same.value).toBe(true);
+      expect(result.success).toBe(false);
+      const lastFrame = result.frames[result.frames.length - 1];
+      expect(lastFrame.status).toBe("ERROR");
+      expect(lastFrame.error?.type).toBe("ComparisonWithUndefined");
     });
 
     test("uninitialized variable with requireVariableInstantiation disabled", () => {

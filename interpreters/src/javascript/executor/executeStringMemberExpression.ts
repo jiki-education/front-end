@@ -1,7 +1,7 @@
 import type { EvaluationResultExpression, EvaluationResultMemberExpression } from "../evaluation-result";
 import { type Executor } from "../executor";
 import type { MemberExpression } from "../expression";
-import { type JSString, JSNumber, JSString as JSStringClass, JSUndefined } from "../jsObjects";
+import { type JSString, JSNumber, JSString as JSStringClass } from "../jsObjects";
 import { executeStdlibMemberExpression } from "./executeStdlibMemberExpression";
 import { stdlib } from "../stdlib";
 
@@ -41,20 +41,12 @@ export function executeStringMemberExpression(
 
   const index = property.value;
 
-  // Check for negative indices
-  if (index < 0) {
-    executor.error("IndexOutOfRange", expression.location, { index: index, length: str.value.length });
-  }
-
-  // Check bounds - in JavaScript, reading out of bounds returns undefined
-  if (index >= str.value.length) {
-    return {
-      type: "MemberExpression",
-      object: objectResult,
-      property: propertyResult,
-      jikiObject: new JSUndefined(),
-      immutableJikiObject: new JSUndefined(),
-    };
+  // Check bounds. Unlike real JS (which returns undefined for out-of-range reads),
+  // Jiki treats reading past either end of a string as an error, matching Python
+  // (IndexError) and JikiScript (IndexOutOfBounds). undefined almost never appears
+  // intentionally in student code, so we surface the mistake where it happens.
+  if (index < 0 || index >= str.value.length) {
+    executor.error("StringIndexOutOfRange", expression.location, { index: index, length: str.value.length });
   }
 
   // Check for non-integer indices

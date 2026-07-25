@@ -43,20 +43,12 @@ export function executeArrayMemberExpression(
 
   const index = property.value;
 
-  // Check for negative indices (JavaScript doesn't support them natively)
-  if (index < 0) {
+  // Check bounds. Unlike real JS (which returns undefined for out-of-range reads),
+  // Jiki treats reading past either end of an array as an error, matching Python
+  // (IndexError) and JikiScript (IndexOutOfBounds). undefined almost never appears
+  // intentionally in student code, so we surface the mistake where it happens.
+  if (index < 0 || index >= array.length) {
     executor.error("IndexOutOfRange", expression.location, { index: index, length: array.length });
-  }
-
-  // Check bounds - in JavaScript, reading out of bounds returns undefined
-  if (index >= array.length) {
-    return {
-      type: "MemberExpression",
-      object: objectResult,
-      property: propertyResult,
-      jikiObject: new JSUndefined(),
-      immutableJikiObject: new JSUndefined(),
-    };
   }
 
   // Check for non-integer indices

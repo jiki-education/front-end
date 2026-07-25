@@ -1,5 +1,17 @@
 # JavaScript Interpreter Evolution
 
+## 2026-07-25: Reject `undefined` from out-of-bounds reads and comparisons
+
+The JavaScript interpreter mirrored real JS in two places where Python and JikiScript are stricter, letting `undefined` slip through silently. Both are now errors, restoring cross-language parity (the same solution behaves the same across JS, Python, and JikiScript) and surfacing student mistakes where they happen instead of letting `undefined` propagate into a silently-wrong result.
+
+- **Out-of-bounds index reads now error** for both strings and arrays. Reading past either end (or a negative index) used to return `undefined`; it now raises a runtime error, matching Python's `IndexError` and JikiScript's `IndexOutOfBounds`.
+  - Arrays reuse the existing `IndexOutOfRange` error (its message was already array-worded) for both the too-high and negative cases (`executeArrayMemberExpression.ts`).
+  - Strings get a new string-worded `StringIndexOutOfRange` error, used for both too-high and negative cases (`executeStringMemberExpression.ts`). Previously the negative case borrowed the array-worded `IndexOutOfRange`.
+- **Comparing with `undefined` now errors.** `===`, `!==`, `==`, and `!=` raise the new `ComparisonWithUndefined` error when either operand is `undefined` (`executeBinaryExpression.ts`, `verifyNotUndefinedForComparison`). This closes the last gap — arithmetic, logical, and relational operators already rejected `undefined`; equality was the only one that let it through. `null` is unaffected: `null === null`, `null === <value>`, etc. still evaluate normally.
+- **New error keys** `StringIndexOutOfRange` and `ComparisonWithUndefined` added to `en`, `system`, and (English-stubbed, pending translation) `hu` translation files.
+
+Interpreter-side tests that asserted the old lenient behavior were updated to expect the new errors: `string-indexing.test.ts` (out-of-bounds + negative), `arrays.test.ts` (too-high + chained), `array-assignment.test.ts` (nested OOB read now errors before the property set), `interpreter/null-undefined.test.ts` (four undefined-comparison tests), and `language-features/strictEquality.test.ts` (split the null/undefined test; dropped `null == undefined` from the loose-coercion example). Curriculum solutions relying on the old behavior (e.g. word-count peeking one char past the end and checking `=== undefined`) are updated separately on the curriculum side.
+
 ## 2026-07-17: i18n moves to the inject-the-dict model (no global translator)
 
 The JavaScript interpreter previously used a **module-global** i18next instance (`translator.ts`) that statically imported every locale pack (`en`+`hu`+`system`), with `fallbackLng: "en"` and a mutable `changeLanguage`. It now follows the monorepo's inject-the-dict model (mirroring `curriculum/src/i18n/translator.ts`; see `front-end/i18n_TODO.md`):

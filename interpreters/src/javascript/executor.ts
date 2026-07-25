@@ -112,6 +112,8 @@ export type RuntimeErrorType =
   | "TypeCoercionNotAllowed"
   | "UnaryTypeCoercionNotAllowed"
   | "IndexOutOfRange"
+  | "StringIndexOutOfRange"
+  | "ComparisonWithUndefined"
   | "TypeError"
   | "ArrayIndexNotNumber"
   | "ArrayIndexNotInteger"
