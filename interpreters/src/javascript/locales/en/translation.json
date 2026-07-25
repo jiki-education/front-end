@@ -89,7 +89,7 @@
       "FunctionExecutionError": "Error executing function `{{function}}`: {{message}}",
       "IndexOutOfRange": "This array only has {{length}} elements, but you tried to access index {{index}}. Remember the first element is index 0 in JavaScript.",
       "StringIndexOutOfRange": "This string only has {{length}} characters, but you tried to access index {{index}}. Remember the first character is index 0 in JavaScript.",
-      "ComparisonWithUndefined": "You tried to compare with `undefined`. This usually means a value is missing - for example reading past the end of a string or array, or a function that didn't return anything. Check the value exists before comparing it.",
+      "ComparisonWithUndefined": "You tried to compare two values but one of which was not set to anything. You shouldn't be able to do this in Jiki, so please open an issue on the forum with your code so we can investigate.",
       "UpdateOperatorRequiresNumber": "Jiki can't use {{operator}} on a {{type}} - only on numbers.",
       "PropertyNotFound": "The `{{property}}` property does not exist on {{type}}.",
       "MethodUsedWithoutParentheses": "The `{{property}}` property does not exist on {{type}}. Did you mean to use the `{{property}}` method? If so, remember you need to add brackets like you would with a normal function.",
