@@ -91,20 +91,23 @@ describe("JavaScript strict equality feature", () => {
       expect((lastFrame as TestAugmentedFrame).variables.c.value).toBe(false);
     });
 
-    test("strict equality with null and undefined", () => {
-      const code = `
-        let a = null === null;
-        let b = undefined === undefined;
-        let c = null === undefined;
-        let d = null !== undefined;
-      `;
+    test("strict equality with null works", () => {
+      const code = `let a = null === null;`;
       const { frames, error } = interpret(code, { languageFeatures: features });
       expect(error).toBeNull();
       const lastFrame = frames[frames.length - 1];
       expect((lastFrame as TestAugmentedFrame).variables.a.value).toBe(true);
-      expect((lastFrame as TestAugmentedFrame).variables.b.value).toBe(true);
-      expect((lastFrame as TestAugmentedFrame).variables.c.value).toBe(false);
-      expect((lastFrame as TestAugmentedFrame).variables.d.value).toBe(true);
+    });
+
+    // Comparing with undefined is an error regardless of the equality operator,
+    // so `undefined === undefined`, `null === undefined`, etc. all error.
+    test("strict equality with undefined errors", () => {
+      const code = `let b = undefined === undefined;`;
+      const { frames, error } = interpret(code, { languageFeatures: features });
+      expect(error).toBeNull();
+      const lastFrame = frames[frames.length - 1];
+      expect(lastFrame.status).toBe("ERROR");
+      expect(lastFrame.error?.type).toBe("ComparisonWithUndefined");
     });
   });
 
@@ -143,11 +146,12 @@ describe("JavaScript strict equality feature", () => {
       expect((frames[0] as TestAugmentedFrame).variables.result.value).toBe(true);
     });
 
+    // `null == undefined` is omitted here: comparing with undefined errors even
+    // when loose equality is enabled (see the undefined tests above).
     test("loose equality with type coercion examples", () => {
       const code = `
         let a = 0 == false;
         let b = "" == false;
-        let c = null == undefined;
         let d = "5" == 5;
         let e = true == 1;
       `;
@@ -156,7 +160,6 @@ describe("JavaScript strict equality feature", () => {
       const lastFrame = frames[frames.length - 1];
       expect((lastFrame as TestAugmentedFrame).variables.a.value).toBe(true);
       expect((lastFrame as TestAugmentedFrame).variables.b.value).toBe(true);
-      expect((lastFrame as TestAugmentedFrame).variables.c.value).toBe(true);
       expect((lastFrame as TestAugmentedFrame).variables.d.value).toBe(true);
       expect((lastFrame as TestAugmentedFrame).variables.e.value).toBe(true);
     });

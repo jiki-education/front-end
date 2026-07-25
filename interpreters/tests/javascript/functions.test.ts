@@ -51,32 +51,47 @@ describe("User-defined functions", () => {
       expect((frames[1] as TestAugmentedFrame).variables?.result?.value).toBe(8);
     });
 
-    test("Function with void return", () => {
-      const code = `
+    test("Function with void return can be called, but its result cannot be stored", () => {
+      // Calling the function is fine and its return value is undefined...
+      const callCode = `
+        function doSomething() {
+          return;
+        }
+        doSomething();
+      `;
+      const call = interpret(callCode);
+      expect(call.error).toBeNull();
+      expect(call.success).toBe(true);
+      expect(call.frames[call.frames.length - 1].result?.jikiObject.value).toBeUndefined();
+
+      // ...but storing that undefined result is an error (matching JikiScript).
+      const storeCode = `
         function doSomething() {
           return;
         }
         let result = doSomething();
       `;
-      const { frames, error, success } = interpret(code);
-      expect(error).toBeNull();
-      expect(success).toBe(true);
-      expect(frames).toBeArrayOfSize(2);
-      expect(frames[0].result?.jikiObject.value).toBeUndefined();
-      expect((frames[1] as TestAugmentedFrame).variables?.result?.value).toBeUndefined();
+      const store = interpret(storeCode);
+      expect(store.error).toBeNull();
+      expect(store.success).toBe(false);
+      const last = store.frames[store.frames.length - 1];
+      expect(last.status).toBe("ERROR");
+      expect(last.error?.type).toBe("AssignmentToUndefinedFromFunction");
     });
 
-    test("Function with no return statement", () => {
+    test("Function with no return statement cannot have its result stored", () => {
       const code = `
         function doNothing() {
           let x = 5;
         }
         let result = doNothing();
       `;
-      const { frames, error, success } = interpret(code);
+      const { error, success, frames } = interpret(code);
       expect(error).toBeNull();
-      expect(success).toBe(true);
-      expect((frames[frames.length - 1] as TestAugmentedFrame).variables?.result?.value).toBeUndefined();
+      expect(success).toBe(false);
+      const last = frames[frames.length - 1];
+      expect(last.status).toBe("ERROR");
+      expect(last.error?.type).toBe("AssignmentToUndefinedFromFunction");
     });
 
     test("Function with multiple statements", () => {

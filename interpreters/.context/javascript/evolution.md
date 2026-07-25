@@ -1,5 +1,30 @@
 # JavaScript Interpreter Evolution
 
+## 2026-07-25: Reject storing `undefined` in a variable/element/property
+
+Follow-up to the out-of-bounds/comparison change below. JikiScript has no `undefined` at all — it guards every expression in `evaluate()` (`guardNull` → `ExpressionEvaluatedToNullValue`) and re-raises a friendlier error when a set-variable statement tries to store a none-value. JS can't guard inside `evaluate()` (a bare `f();` calling a void function is a legitimate `ExpressionStatement` that must be allowed to discard its result), so JS guards at the **storage points** instead:
+
+- **`executeVariableDeclaration.ts`** — after evaluating an initializer, `jikiObject instanceof JSUndefined` → new `AssignmentToUndefined` error. The no-initializer branch is left alone (only reachable when `requireVariableInstantiation` is disabled, the feature that exists to allow uninitialised variables).
+- **`executeAssignmentExpression.ts`** — one guard on `valueResult` at the top covers plain, array-element, dictionary-property, and instance-property assignment.
+
+This bans **all** stored `undefined`: a forgotten/void `return`, the explicit `undefined` literal, `x && undefined`, and any stdlib result that is `undefined` (`arr.pop()`/`arr.shift()` on empty, `arr.at(i)` out of range, `arr.find(...)` no match, `obj[missingKey]`). Calling those as statements (not storing) still works. `undefined` remains reachable transiently inline — a void call inside a condition, a template literal, or a comparison — where the truthiness/`ComparisonWithUndefined` guards handle it.
+
+Calling a function/method that doesn't return a value is by far the most common cause, so it gets its own message: when the assigned/declared expression is a `CallExpression` (a user function, external function, or stdlib method like `arr.pop()`), the error is **`AssignmentToUndefinedFromFunction`** ("...store the result of a function that doesn't return anything..."). Everything else that stores `undefined` — the explicit literal, `x && undefined`, `obj[missingKey]` — keeps the generic `AssignmentToUndefined`. The check is a plain `instanceof CallExpression` on the RHS node (no grouping/short-circuit unwrapping): a call wrapped in parens or a logical operator falls to the generic message, which is acceptable since the undefined is still caught.
+
+New `AssignmentToUndefined` and `AssignmentToUndefinedFromFunction` keys added to `en`/`system`/`hu`. Tests updated: `functions.test.ts`, `external-functions.test.ts`, `interpreter/null-undefined.test.ts` (comparisons rewritten to inline literals so the comparison, not the store, fires; truthiness/template/logical/for-of undefined now sourced from an inline void call), `concepts/object-property-writing.test.ts`, `concepts/for-of-loops.test.ts`, `stdlib/array/pop.test.ts`, `stdlib/array/shift.test.ts`. Five `at()`/`pop()`/`shift()` empty/out-of-range cases were removed from `cross-validation/javascript/stdlib/array-methods.test.ts` (they now intentionally diverge from native JS) and the divergence is documented in `cross-validation/LIMITATIONS.md`.
+
+## 2026-07-25: Reject `undefined` from out-of-bounds reads and comparisons
+
+The JavaScript interpreter mirrored real JS in two places where Python and JikiScript are stricter, letting `undefined` slip through silently. Both are now errors, restoring cross-language parity (the same solution behaves the same across JS, Python, and JikiScript) and surfacing student mistakes where they happen instead of letting `undefined` propagate into a silently-wrong result.
+
+- **Out-of-bounds index reads now error** for both strings and arrays. Reading past either end (or a negative index) used to return `undefined`; it now raises a runtime error, matching Python's `IndexError` and JikiScript's `IndexOutOfBounds`.
+  - Arrays reuse the existing `IndexOutOfRange` error (its message was already array-worded) for both the too-high and negative cases (`executeArrayMemberExpression.ts`).
+  - Strings get a new string-worded `StringIndexOutOfRange` error, used for both too-high and negative cases (`executeStringMemberExpression.ts`). Previously the negative case borrowed the array-worded `IndexOutOfRange`.
+- **Comparing with `undefined` now errors.** `===`, `!==`, `==`, and `!=` raise the new `ComparisonWithUndefined` error when either operand is `undefined` (`executeBinaryExpression.ts`, `verifyNotUndefinedForComparison`). This closes the last gap — arithmetic, logical, and relational operators already rejected `undefined`; equality was the only one that let it through. `null` is unaffected: `null === null`, `null === <value>`, etc. still evaluate normally.
+- **New error keys** `StringIndexOutOfRange` and `ComparisonWithUndefined` added to `en`, `system`, and (English-stubbed, pending translation) `hu` translation files.
+
+Interpreter-side tests that asserted the old lenient behavior were updated to expect the new errors: `string-indexing.test.ts` (out-of-bounds + negative), `arrays.test.ts` (too-high + chained), `array-assignment.test.ts` (nested OOB read now errors before the property set), `interpreter/null-undefined.test.ts` (four undefined-comparison tests), and `language-features/strictEquality.test.ts` (split the null/undefined test; dropped `null == undefined` from the loose-coercion example). Curriculum solutions relying on the old behavior (e.g. word-count peeking one char past the end and checking `=== undefined`) are updated separately on the curriculum side.
+
 ## 2026-07-17: i18n moves to the inject-the-dict model (no global translator)
 
 The JavaScript interpreter previously used a **module-global** i18next instance (`translator.ts`) that statically imported every locale pack (`en`+`hu`+`system`), with `fallbackLng: "en"` and a mutable `changeLanguage`. It now follows the monorepo's inject-the-dict model (mirroring `curriculum/src/i18n/translator.ts`; see `front-end/i18n_TODO.md`):

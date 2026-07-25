@@ -3,10 +3,6 @@
   "levelId": "multiple-functions",
   "hints": [
     {
-      "question": "hints.getNameAndStart.question",
-      "answer": "hints.getNameAndStart.answer"
-    },
-    {
       "question": "hints.checkStartsWith.question",
       "answer": "hints.checkStartsWith.answer"
     },
@@ -15,12 +11,12 @@
       "answer": "hints.loopCharacters.answer"
     },
     {
-      "question": "hints.stopComparing.question",
-      "answer": "hints.stopComparing.answer"
+      "question": "hints.findEquivalentLetter.question",
+      "answer": "hints.findEquivalentLetter.answer"
     },
     {
-      "question": "hints.longerAllowedStart.question",
-      "answer": "hints.longerAllowedStart.answer"
+      "question": "hints.longerAllowedPrefix.question",
+      "answer": "hints.longerAllowedPrefix.answer"
     }
   ]
 }

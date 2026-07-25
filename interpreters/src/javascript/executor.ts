@@ -90,8 +90,10 @@ import {
   extractMethodCalls,
   countArrayExpressions,
   extractCallExpressionsExcludingFunctionBody,
+  extractCallExpressionsWithinFunctionBody,
   extractOperators,
   findMatchingStatements,
+  maxLoopNestingDepth,
 } from "./assertion-helpers";
 import { createRandomFn } from "../shared/random";
 
@@ -112,6 +114,10 @@ export type RuntimeErrorType =
   | "TypeCoercionNotAllowed"
   | "UnaryTypeCoercionNotAllowed"
   | "IndexOutOfRange"
+  | "StringIndexOutOfRange"
+  | "ComparisonWithUndefined"
+  | "AssignmentToUndefined"
+  | "AssignmentToUndefinedFromFunction"
   | "TypeError"
   | "ArrayIndexNotNumber"
   | "ArrayIndexNotInteger"
@@ -183,9 +189,11 @@ export interface ExecutorResult {
     assertMethodCalled: (methodName: string) => boolean;
     countArrayLiterals: () => number;
     assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
+    assertFunctionCallsAnotherFunction: (funcName: string) => boolean;
     numFunctionCallsInCode: (funcName: string) => number;
     assertOperatorUsed: (operator: string) => boolean;
     assertStatement: (type: string, opts?: { args?: Array<unknown>; count?: number }) => boolean;
+    assertMaxLoopNestingDepth: (depth: 1 | 2) => boolean;
   };
 }
 
@@ -446,6 +454,17 @@ export class Executor {
             call => call.callee instanceof IdentifierExpression && call.callee.name.lexeme === formatted
           );
         },
+        assertFunctionCallsAnotherFunction: (funcName: string) => {
+          const formatted = formatIdentifier(funcName);
+          const definedNames = new Set(extractFunctionDeclarations(statements).map(fd => fd.name.lexeme));
+          const calls = extractCallExpressionsWithinFunctionBody(statements, formatted);
+          return calls.some(
+            call =>
+              call.callee instanceof IdentifierExpression &&
+              call.callee.name.lexeme !== formatted &&
+              definedNames.has(call.callee.name.lexeme)
+          );
+        },
         numFunctionCallsInCode: (funcName: string) => {
           const formatted = formatIdentifier(funcName);
           return extractCallExpressions(statements).filter(
@@ -457,6 +476,7 @@ export class Executor {
           const matches = findMatchingStatements(statements, type, opts?.args);
           return opts?.count !== undefined ? matches.length === opts.count : matches.length >= 1;
         },
+        assertMaxLoopNestingDepth: (depth: 1 | 2) => maxLoopNestingDepth(statements) <= depth,
       },
     };
   }

@@ -17,8 +17,10 @@ import {
   extractMethodCalls,
   countArrayExpressions,
   extractCallExpressionsExcludingFunctionBody,
+  extractCallExpressionsWithinFunctionBody,
   extractOperators,
   findMatchingStatements,
+  maxLoopNestingDepth,
 } from "./assertion-helpers";
 import type { CallExpression } from "./expression";
 import { LiteralExpression, IdentifierExpression, type Expression } from "./expression";
@@ -117,9 +119,11 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         assertMethodCalled: () => true,
         countArrayLiterals: () => 0,
         assertFunctionCalledOutsideOwnDefinition: () => true,
+        assertFunctionCallsAnotherFunction: () => true,
         numFunctionCallsInCode: () => 0,
         assertOperatorUsed: () => true,
         assertStatement: () => true,
+        assertMaxLoopNestingDepth: () => true,
       },
     };
   }
@@ -256,6 +260,17 @@ export function evaluateFunction(
           call => call.callee instanceof IdentifierExpression && call.callee.name.lexeme === formatted
         );
       },
+      assertFunctionCallsAnotherFunction: (funcName: string) => {
+        const formatted = formatIdentifier(funcName);
+        const definedNames = new Set(extractFunctionDeclarations(statements).map(fd => fd.name.lexeme));
+        const calls = extractCallExpressionsWithinFunctionBody(statements, formatted);
+        return calls.some(
+          call =>
+            call.callee instanceof IdentifierExpression &&
+            call.callee.name.lexeme !== formatted &&
+            definedNames.has(call.callee.name.lexeme)
+        );
+      },
       numFunctionCallsInCode: (funcName: string) => {
         const formatted = formatIdentifier(funcName);
         return extractCallExpressions(statements).filter(
@@ -267,6 +282,7 @@ export function evaluateFunction(
         const matches = findMatchingStatements(statements, type, opts?.args);
         return opts?.count !== undefined ? matches.length === opts.count : matches.length >= 1;
       },
+      assertMaxLoopNestingDepth: (depth: 1 | 2) => maxLoopNestingDepth(statements) <= depth,
     },
   };
 }

@@ -250,9 +250,12 @@ describe("JavaScript for...of loops", () => {
     });
 
     test("error on non-iterable: undefined", () => {
+      // undefined can't be stored, so it's produced inline by a void function.
       const code = `
-        let x = undefined;
-        for (let item of x) {
+        function nothing() {
+          let z = 1;
+        }
+        for (let item of nothing()) {
           let y = item;
         }
       `;

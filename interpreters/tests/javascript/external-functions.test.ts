@@ -430,7 +430,8 @@ describe("JavaScript External Functions", () => {
         arity: 0,
       };
 
-      const result = interpret("let x = returnNothing();", {
+      // Called as a statement (not stored) - storing undefined is a separate error.
+      const result = interpret("returnNothing();", {
         externalFunctions: [externalFunction],
       });
 

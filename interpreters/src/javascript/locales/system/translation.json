@@ -88,6 +88,10 @@
     "runtime": {
       "FunctionExecutionError": "FunctionExecutionError: function: {{function}}: message: {{message}}",
       "IndexOutOfRange": "IndexOutOfRange: index: {{index}}: length: {{length}}",
+      "StringIndexOutOfRange": "StringIndexOutOfRange: index: {{index}}: length: {{length}}",
+      "ComparisonWithUndefined": "ComparisonWithUndefined: operator: {{operator}}: side: {{side}}",
+      "AssignmentToUndefined": "AssignmentToUndefined",
+      "AssignmentToUndefinedFromFunction": "AssignmentToUndefinedFromFunction",
       "UpdateOperatorRequiresNumber": "UpdateOperatorRequiresNumber: operator: {{operator}}: type: {{type}}",
       "PropertyNotFound": "PropertyNotFound: property: {{property}}: type: {{type}}",
       "MethodUsedWithoutParentheses": "MethodUsedWithoutParentheses: property: {{property}}: type: {{type}}",

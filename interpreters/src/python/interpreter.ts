@@ -99,9 +99,11 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         assertMethodCalled: () => true,
         countArrayLiterals: () => 0,
         assertFunctionCalledOutsideOwnDefinition: () => true,
+        assertFunctionCallsAnotherFunction: () => true,
         numFunctionCallsInCode: () => 0,
         assertOperatorUsed: () => true,
         assertStatement: () => true,
+        assertMaxLoopNestingDepth: () => true,
       },
     };
   }
@@ -249,9 +251,12 @@ export function evaluateFunction(
           expr => expr.callee instanceof IdentifierExpression && expr.callee.name.lexeme === formatted
         ).length;
       },
+      // TODO: JS-only for now. Implement for Python when needed.
+      assertFunctionCallsAnotherFunction: () => false,
       assertOperatorUsed: (operator: string) => extractOperators(statements).includes(operator),
       // TODO: JS-only for now. Implement statement matching for Python when needed.
       assertStatement: () => false,
+      assertMaxLoopNestingDepth: () => true,
     },
   };
 }

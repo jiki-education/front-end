@@ -1,22 +1,8 @@
 {
-  "checks": {
-    "sarahLetIn": "Sarah's name starts with \"S\" — she should be let in, but she wasn't.",
-    "sarahNotTurnedAway": "Sarah's name starts with \"S\" — she should NOT be turned away.",
-    "bradNotLetIn": "Brad's name doesn't start with \"S\" — he should NOT be let in.",
-    "bradTurnedAway": "Brad's name doesn't start with \"S\" — he should be turned away, but he wasn't.",
-    "bradleyLetIn": "Bradley's name starts with \"Brad\" — he should be let in, but he wasn't.",
-    "bradleyNotTurnedAway": "Bradley's name starts with \"Brad\" — he should NOT be turned away.",
-    "brianNotLetIn": "Brian's name doesn't start with \"Brad\" — he should NOT be let in.",
-    "brianTurnedAway": "Brian's name doesn't start with \"Brad\" — he should be turned away, but he wasn't.",
-    "silenceNotLetIn": "The person didn't say their name — they should NOT be let in.",
-    "silenceTurnedAway": "The person didn't say their name — they should be turned away, but they weren't.",
-    "cherLetIn": "Cher's name is exactly \"Cher\" — she should be let in, but she wasn't.",
-    "cherNotTurnedAway": "Cher's name is exactly \"Cher\" — she should NOT be turned away."
-  },
   "tasks": {
     "checkTheName": {
       "name": "Check the name",
-      "description": "Ask the person their name and check if it starts with the allowed letters for tonight's party. If it does, let them in. Otherwise, turn them away."
+      "description": "Write a `handleGuest` function that checks whether the person's name starts with the allowed letters for tonight's party. Return `true` if it does, or `false` if it doesn't."
     }
   },
   "scenarios": {
@@ -38,7 +24,7 @@
     },
     "silence": {
       "name": "S Party: Silence...",
-      "description": "The person doesn't say their name. An empty name can't start with anything — turn them away!"
+      "description": "The person doesn't say their name. An empty name can't start with anything. Turn them away!"
     },
     "cherCherParty": {
       "name": "Cher Party: Cher arrives",
@@ -46,49 +32,21 @@
     }
   },
   "hints": {
-    "getNameAndStart": {
-      "question": "How do I get the name and the allowed start?",
-      "answer": "Call `askName()` and `getAllowedStart()` and store the results in variables so you can use them in your comparison."
-    },
     "checkStartsWith": {
       "question": "How do I check that a name starts with certain letters?",
-      "answer": "Compare each character of the allowed start with the character at the same position in the name. If any character differs, the name doesn't match."
+      "answer": "Compare each character of the allowed prefix with the character at the same position in the name. If any character differs, the name doesn't match."
     },
     "loopCharacters": {
       "question": "How do I look at one character at a time?",
-      "answer": "Use a counter variable starting at `1` and step through each position with a loop, comparing `name` and `allowedStart` at that position."
+      "answer": "Use string iteration to step through a string."
     },
-    "stopComparing": {
-      "question": "How do I know when to stop comparing?",
-      "answer": "Stop when you've checked every character of the allowed start. You'll need its length for that, similar to what you did in Sign Painter Price."
+    "findEquivalentLetter": {
+      "question": "How do I find the equivalent letter in the other word?",
+      "answer": "Use string indexing to find a specific letter."
     },
-    "longerAllowedStart": {
-      "question": "What if the allowed start is longer than the name?",
-      "answer": "That person can't match, so they should be turned away. Check the lengths before you start comparing and handle that case."
-    }
-  },
-  "describers": {
-    "askName": "asked the person their name",
-    "getAllowedStart": "checked tonight's allowed starting letters",
-    "letIn": "let the person in",
-    "turnAway": "turned the person away"
-  },
-  "functions": {
-    "askName": {
-      "description": "Returns the **name** of the person at the door.",
-      "category": "Information"
-    },
-    "getAllowedStart": {
-      "description": "Returns the required **starting letters** for tonight's party.",
-      "category": "Information"
-    },
-    "letIn": {
-      "description": "Lets the person into the party.",
-      "category": "Action"
-    },
-    "turnAway": {
-      "description": "Turns the person away from the party.",
-      "category": "Action"
+    "longerAllowedPrefix": {
+      "question": "What if the allowed prefix is longer than the name?",
+      "answer": "That person can't match, so you should return `false`."
     }
   }
 }

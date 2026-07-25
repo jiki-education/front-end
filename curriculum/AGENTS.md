@@ -341,6 +341,15 @@ Use an `<img>` tag with consistent styling — do NOT use markdown `![]()` synta
 />
 ```
 
+### Translation markup tags (`<define>` / `<literal>`)
+
+English `source.md` (and concept `source.md`, hints, etc.) may carry two custom inline tags that are **instructions to the translation pipeline**, not rendered markup. They are stripped (inner text kept) at build time by `app/scripts/generate-exercise-cache.js`, and the translator (Claude, in the separate `translator` repo) expands them per language:
+
+- `<define>term</define>` — marks the **one** spot where `term` is introduced. The translator emits a one-time gloss showing the target-language word with the English in brackets (e.g. `pangram (_pangram_ angolul)`), then strips the tag. Use it once, on first/introductory use. Optional attributes: `info="plain-English meaning hint"` (advisory, for opaque code identifiers) and `en="exact English bracket text"` (prescriptive, only when the bracket must show more than the bare term, e.g. `<define en="red (R)">red</define>`).
+- `<literal>term</literal>` — keep `term` verbatim, no gloss.
+
+Do NOT hand-write bracketed English glosses in the source; only `<define>` triggers them. Full spec (marker word, direction, per-language rules): [`../../translator/global/voice.md`](../../translator/global/voice.md) (and `../../translator/global/rules.md`, `../../translator/global/workflow.md`).
+
 ## Best Practices
 
 ### Exercise Design

@@ -87,8 +87,10 @@ export interface InterpretResult {
     assertMethodCalled: (methodName: string) => boolean;
     countArrayLiterals: () => number;
     assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
+    assertFunctionCallsAnotherFunction: (funcName: string) => boolean;
     numFunctionCallsInCode: (funcName: string) => number;
     assertOperatorUsed: (operator: string) => boolean;
     assertStatement: (type: string, opts?: { args?: Array<unknown>; count?: number }) => boolean;
+    assertMaxLoopNestingDepth: (depth: 1 | 2) => boolean;
   };
 }

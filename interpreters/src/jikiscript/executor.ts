@@ -374,9 +374,12 @@ export class Executor {
           return extractFunctionCallExpressions(statements).filter(expr => expr.callee.name.lexeme === formatted)
             .length;
         },
+        // TODO: JS-only for now. Implement for Jikiscript when needed.
+        assertFunctionCallsAnotherFunction: () => false,
         assertOperatorUsed: (operator: string) => extractOperators(statements).includes(operator),
         // TODO: JS-only for now. Implement statement matching for Jikiscript when needed.
         assertStatement: () => false,
+        assertMaxLoopNestingDepth: () => true,
       },
     };
   }

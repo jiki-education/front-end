@@ -108,39 +108,41 @@ describe("JavaScript String Indexing", () => {
   });
 
   describe("Out of bounds", () => {
-    test("index beyond string length returns undefined", () => {
+    // Unlike real JS, reading past the end of a string is an error in Jiki,
+    // matching Python (IndexError) and JikiScript (IndexOutOfBounds).
+    test("index beyond string length throws StringIndexOutOfRange", () => {
       const code = `
         let s = "hi";
         let c = s[5];
       `;
       const result = interpret(code);
 
-      expect(result.success).toBe(true);
+      expect(result.success).toBe(false);
       expect(result.frames.length).toBe(2);
 
       const frame = result.frames[1] as TestFrame;
-      expect(frame.status).toBe("SUCCESS");
-      expect(frame.variables?.["c"].toString()).toBe("undefined");
+      expect(frame.status).toBe("ERROR");
+      expect(frame.error?.type).toBe("StringIndexOutOfRange");
     });
 
-    test("empty string index 0 returns undefined", () => {
+    test("empty string index 0 throws StringIndexOutOfRange", () => {
       const code = `
         let s = "";
         let c = s[0];
       `;
       const result = interpret(code);
 
-      expect(result.success).toBe(true);
+      expect(result.success).toBe(false);
       expect(result.frames.length).toBe(2);
 
       const frame = result.frames[1] as TestFrame;
-      expect(frame.status).toBe("SUCCESS");
-      expect(frame.variables?.["c"].toString()).toBe("undefined");
+      expect(frame.status).toBe("ERROR");
+      expect(frame.error?.type).toBe("StringIndexOutOfRange");
     });
   });
 
   describe("Error cases", () => {
-    test("negative index throws IndexOutOfRange", () => {
+    test("negative index throws StringIndexOutOfRange", () => {
       const code = `
         let s = "hello";
         let c = s[-1];
@@ -152,7 +154,7 @@ describe("JavaScript String Indexing", () => {
 
       const frame = result.frames[1] as TestFrame;
       expect(frame.status).toBe("ERROR");
-      expect(frame.error?.type).toBe("IndexOutOfRange");
+      expect(frame.error?.type).toBe("StringIndexOutOfRange");
     });
 
     test("non-integer index throws TypeError", () => {

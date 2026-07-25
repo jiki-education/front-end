@@ -57,32 +57,10 @@ let result = arr.at(-3);
       { expectedValue: 10 }
     );
 
-    testJavaScript(
-      "out of bounds positive",
-      `
-let arr = [10, 20, 30];
-let result = arr.at(5);
-    `,
-      { expectedValue: undefined }
-    );
-
-    testJavaScript(
-      "out of bounds negative",
-      `
-let arr = [10, 20, 30];
-let result = arr.at(-5);
-    `,
-      { expectedValue: undefined }
-    );
-
-    testJavaScript(
-      "on empty array",
-      `
-let arr = [];
-let result = arr.at(0);
-    `,
-      { expectedValue: undefined }
-    );
+    // Note: at() returning undefined (out-of-bounds / empty array) is intentionally
+    // NOT cross-validated here - storing that undefined is an error in Jiki, so it
+    // diverges from native JS. See LIMITATIONS.md and the at()/pop()/shift() unit
+    // tests for the divergent behavior.
 
     testJavaScript(
       "with string elements",
@@ -152,14 +130,8 @@ let result = arr.pop();
       { expectedValue: 3 }
     );
 
-    testJavaScript(
-      "pop from empty array",
-      `
-let arr = [];
-let result = arr.pop();
-    `,
-      { expectedValue: undefined }
-    );
+    // pop() on an empty array returns undefined, which can't be stored in Jiki -
+    // an intentional divergence from native JS. See LIMITATIONS.md and pop.test.ts.
 
     testJavaScript(
       "pop modifies original array",
@@ -191,14 +163,8 @@ let result = arr.shift();
       { expectedValue: 1 }
     );
 
-    testJavaScript(
-      "shift from empty array",
-      `
-let arr = [];
-let result = arr.shift();
-    `,
-      { expectedValue: undefined }
-    );
+    // shift() on an empty array returns undefined, which can't be stored in Jiki -
+    // an intentional divergence from native JS. See LIMITATIONS.md and shift.test.ts.
 
     testJavaScript(
       "shift modifies original array",

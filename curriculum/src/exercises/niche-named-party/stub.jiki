@@ -1,1 +1,3 @@
-// Check the guest
+function handle_guest with name, allowed_prefix do
+
+end

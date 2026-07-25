@@ -7,16 +7,12 @@
       "answer": "hints.whereToStart.answer"
     },
     {
-      "question": "hints.writeIncludesHelper.question",
-      "answer": "hints.writeIncludesHelper.answer"
-    },
-    {
       "question": "hints.checkEveryLetter.question",
       "answer": "hints.checkEveryLetter.answer"
     },
     {
-      "question": "hints.giveUpEarly.question",
-      "answer": "hints.giveUpEarly.answer"
+      "question": "hints.avoidNestedLoops.question",
+      "answer": "hints.avoidNestedLoops.answer"
     }
   ]
 }

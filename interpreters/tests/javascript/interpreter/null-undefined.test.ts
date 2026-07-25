@@ -37,66 +37,65 @@ describe("JavaScript Interpreter: null and undefined", () => {
       expect((result.frames[result.frames.length - 1] as any).variables.same.value).toBe(true);
     });
 
-    test("null vs undefined", () => {
-      const code = `
-        let a = null;
-        let b = undefined;
-        let strictEqual = a === b;
-      `;
+    // Comparing against undefined is an error in Jiki (see the "undefined literal"
+    // block below). The undefined literal is used inline so the comparison - not
+    // the assignment guard - is what fires.
+    test("null compared with undefined errors", () => {
+      const code = `let strictEqual = null === undefined;`;
       const result = interpret(code);
       expect(result.error).toBe(null);
-      expect(result.success).toBe(true);
+      expect(result.success).toBe(false);
       const lastFrame = result.frames[result.frames.length - 1];
-      expect((lastFrame as any).variables.strictEqual.value).toBe(false);
+      expect(lastFrame.status).toBe("ERROR");
+      expect(lastFrame.error?.type).toBe("ComparisonWithUndefined");
     });
 
-    test("null == undefined with strict equality enforcement disabled", () => {
-      const code = `
-        let a = null;
-        let b = undefined;
-        let looseEqual = a == b;
-      `;
+    test("null == undefined with strict equality enforcement disabled errors", () => {
+      const code = `let looseEqual = null == undefined;`;
       const result = interpret(code, { languageFeatures: { enforceStrictEquality: false } });
       expect(result.error).toBe(null);
-      expect(result.success).toBe(true);
+      expect(result.success).toBe(false);
       const lastFrame = result.frames[result.frames.length - 1];
-      expect((lastFrame as any).variables.looseEqual.value).toBe(true);
+      expect(lastFrame.status).toBe("ERROR");
+      expect(lastFrame.error?.type).toBe("ComparisonWithUndefined");
     });
   });
 
   describe("undefined literal", () => {
-    test("undefined assignment", () => {
+    // Storing undefined in a variable is an error - a variable should always hold
+    // an actual value. This matches JikiScript, which has no undefined at all.
+    test("assigning undefined errors", () => {
       const code = "let x = undefined;";
       const result = interpret(code);
       expect(result.error).toBe(null);
-      expect(result.success).toBe(true);
-      expect(result.frames).toHaveLength(1);
-      expect((result.frames[0] as any).variables.x.toString()).toBe("undefined");
-      expect((result.frames[0] as any).variables.x.value).toBe(undefined);
+      expect(result.success).toBe(false);
+      const lastFrame = result.frames[result.frames.length - 1];
+      expect(lastFrame.status).toBe("ERROR");
+      expect(lastFrame.error?.type).toBe("AssignmentToUndefined");
     });
 
-    test("undefined in expressions", () => {
-      const code = `
-        let a = undefined;
-        let b = 5;
-        let result = (a === undefined);
-      `;
+    // Reading past the end of a string/array, a forgotten return, a missing value:
+    // undefined is almost always a symptom of a mistake, so comparing with it is an
+    // error rather than a silent boolean. This matches Python and JikiScript. The
+    // undefined literal is used inline so the comparison fires before any storage.
+    test("comparing a value with undefined errors", () => {
+      const code = `let result = (5 === undefined);`;
       const result = interpret(code);
       expect(result.error).toBe(null);
-      expect(result.success).toBe(true);
-      expect((result.frames[result.frames.length - 1] as any).variables.result.value).toBe(true);
+      expect(result.success).toBe(false);
+      const lastFrame = result.frames[result.frames.length - 1];
+      expect(lastFrame.status).toBe("ERROR");
+      expect(lastFrame.error?.type).toBe("ComparisonWithUndefined");
     });
 
-    test("undefined comparison", () => {
-      const code = `
-        let x = undefined;
-        let y = undefined;
-        let same = x === y;
-      `;
+    test("comparing two undefined values errors", () => {
+      const code = `let same = undefined === undefined;`;
       const result = interpret(code);
       expect(result.error).toBe(null);
-      expect(result.success).toBe(true);
-      expect((result.frames[result.frames.length - 1] as any).variables.same.value).toBe(true);
+      expect(result.success).toBe(false);
+      const lastFrame = result.frames[result.frames.length - 1];
+      expect(lastFrame.status).toBe("ERROR");
+      expect(lastFrame.error?.type).toBe("ComparisonWithUndefined");
     });
 
     test("uninitialized variable with requireVariableInstantiation disabled", () => {
@@ -124,11 +123,14 @@ describe("JavaScript Interpreter: null and undefined", () => {
       expect((result.frames[result.frames.length - 1] as any).variables.result.value).toBe(true);
     });
 
+    // undefined can't be stored, so it's exercised inline via a void function call.
     test("undefined is falsy with truthiness enabled", () => {
       const code = `
-        let x = undefined;
+        function nothing() {
+          let z = 1;
+        }
         let result = false;
-        if (!x) {
+        if (!nothing()) {
           result = true;
         }
       `;
@@ -154,8 +156,10 @@ describe("JavaScript Interpreter: null and undefined", () => {
 
     test("undefined in if statement with truthiness disabled should error", () => {
       const code = `
-        let x = undefined;
-        if (x) {
+        function nothing() {
+          let z = 1;
+        }
+        if (nothing()) {
           let y = 1;
         }
       `;
@@ -185,21 +189,30 @@ describe("JavaScript Interpreter: null and undefined", () => {
       expect((lastFrame as any).variables.d.value).toBe(null);
     });
 
-    test("undefined with logical operators", () => {
+    // Logical operators whose result is an actual value can be stored...
+    test("logical operators producing a value can be stored", () => {
       const code = `
         let a = undefined || 10;
-        let b = undefined && 10;
         let c = 10 || undefined;
-        let d = 10 && undefined;
       `;
       const result = interpret(code, { languageFeatures: { allowTruthiness: true } });
       expect(result.error).toBe(null);
       expect(result.success).toBe(true);
       const lastFrame = result.frames[result.frames.length - 1];
       expect((lastFrame as any).variables.a.value).toBe(10);
-      expect((lastFrame as any).variables.b.value).toBe(undefined);
       expect((lastFrame as any).variables.c.value).toBe(10);
-      expect((lastFrame as any).variables.d.value).toBe(undefined);
+    });
+
+    // ...but ones that short-circuit to undefined cannot.
+    test("logical operators producing undefined cannot be stored", () => {
+      for (const code of [`let b = undefined && 10;`, `let d = 10 && undefined;`]) {
+        const result = interpret(code, { languageFeatures: { allowTruthiness: true } });
+        expect(result.error).toBe(null);
+        expect(result.success).toBe(false);
+        const lastFrame = result.frames[result.frames.length - 1];
+        expect(lastFrame.status).toBe("ERROR");
+        expect(lastFrame.error?.type).toBe("AssignmentToUndefined");
+      }
     });
   });
 
@@ -264,8 +277,10 @@ describe("JavaScript Interpreter: null and undefined", () => {
       expect((result.frames[result.frames.length - 1] as any).variables.result.value).toBe("value: null");
     });
 
+    // undefined can't be stored, so it reaches the template inline via a void call.
+    // The interpolated result is a string, so storing that is fine.
     test("undefined in template literal", () => {
-      const code = "let x = undefined; let result = `value: ${x}`;";
+      const code = "function nothing() { let z = 1; } let result = `value: ${nothing()}`;";
       const result = interpret(code);
       expect(result.error).toBe(null);
       expect(result.success).toBe(true);

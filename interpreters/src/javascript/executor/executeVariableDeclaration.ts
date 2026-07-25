@@ -1,6 +1,7 @@
 import type { Executor } from "../executor";
 import type { VariableDeclaration } from "../statement";
 import type { EvaluationResult } from "../evaluation-result";
+import { CallExpression } from "../expression";
 import { JSUndefined } from "../jikiObjects";
 
 export function executeVariableDeclaration(executor: Executor, statement: VariableDeclaration): EvaluationResult {
@@ -10,6 +11,20 @@ export function executeVariableDeclaration(executor: Executor, statement: Variab
   if (statement.initializer) {
     value = executor.evaluate(statement.initializer);
     jikiObject = value.jikiObject;
+    // A variable should always hold an actual value. Storing `undefined` (a
+    // forgotten return, an explicit `undefined`, `x && undefined`, ...) is
+    // almost always a mistake, so we reject it here - matching JikiScript, which
+    // has no undefined at all. The no-initializer branch below is left alone: it
+    // is only reachable when requireVariableInstantiation is disabled, a feature
+    // that exists precisely to allow uninitialised variables.
+    //
+    // The overwhelmingly common cause is calling a function (or method) that
+    // doesn't return a value, so that case gets its own, more helpful message.
+    if (jikiObject instanceof JSUndefined) {
+      const errorType =
+        statement.initializer instanceof CallExpression ? "AssignmentToUndefinedFromFunction" : "AssignmentToUndefined";
+      executor.error(errorType, statement.initializer.location);
+    }
   } else {
     // No initializer - variable is undefined
     jikiObject = new JSUndefined();

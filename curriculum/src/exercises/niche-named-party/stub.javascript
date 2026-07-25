@@ -1,1 +1,3 @@
-// Check the guest
+function handleGuest(name, allowedPrefix) {
+
+}

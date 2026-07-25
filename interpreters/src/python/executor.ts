@@ -144,9 +144,11 @@ export interface ExecutorResult {
     assertMethodCalled: (methodName: string) => boolean;
     countArrayLiterals: () => number;
     assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
+    assertFunctionCallsAnotherFunction: (funcName: string) => boolean;
     numFunctionCallsInCode: (funcName: string) => number;
     assertOperatorUsed: (operator: string) => boolean;
     assertStatement: (type: string, opts?: { args?: Array<unknown>; count?: number }) => boolean;
+    assertMaxLoopNestingDepth: (depth: 1 | 2) => boolean;
   };
 }
 
@@ -333,9 +335,12 @@ export class Executor {
             expr => expr.callee instanceof IdentifierExpression && expr.callee.name.lexeme === formatted
           ).length;
         },
+        // TODO: JS-only for now. Implement for Python when needed.
+        assertFunctionCallsAnotherFunction: () => false,
         assertOperatorUsed: (operator: string) => extractOperators(statements).includes(operator),
         // TODO: JS-only for now. Implement statement matching for Python when needed.
         assertStatement: () => false,
+        assertMaxLoopNestingDepth: () => true,
       },
     };
   }

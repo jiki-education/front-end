@@ -9,24 +9,26 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise allows a student to explore building a startsWith check from
-    scratch by comparing two strings character by character.
+    Learning objective: decompose a startsWith check into a reusable helper plus a main
+    \`handleGuest\` function (this is a "multiple functions" level exercise).
   `,
 
   tasks: {
     "check-the-name": {
       description: `
         Anchor steps:
-        1. Get the name and the allowed start, then write a startsWith check.
-        2. Guard: if the prefix is longer than the name, it can't match.
-        3. Compare each prefix character against the same position in the name,
+        1. Define \`handleGuest(name, allowedPrefix)\` using the two inputs directly (no ask/get functions).
+        2. Guard: if the allowed prefix is longer than the name, it can't match, so return false.
+        3. Loop over the allowed prefix, comparing each character against the same position in the name,
            returning false on the first mismatch.
-        4. Let the person in or turn them away based on the result.
+        4. Return true if every character matched.
 
-        Length must be computed by iterating (no .length helper is provided), so
-        students reuse the pattern from Sign Painter Price. The two traps worth
-        watching: missing the prefix-longer-than-name guard (the empty-name
-        scenario exposes this), and inverting the comparison logic.
+        Length must be computed by iterating (no .length helper is provided), so students reuse the
+        pattern from Sign Painter Price. They need it twice here, for both the prefix and the name, to
+        write the guard. Reading past the end of a string is a runtime error, so the guard is required:
+        without it, a name shorter than the prefix (which the empty-name scenario triggers) crashes
+        instead of returning false. The two traps worth watching are missing that guard and inverting
+        the comparison logic.
       `
     }
   }

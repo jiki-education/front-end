@@ -1,7 +1,3 @@
-function includes with str, target do
-
-end
-
 function is_pangram with sentence do
 
 end

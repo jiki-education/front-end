@@ -44,6 +44,27 @@ The JavaScript interpreter currently lacks `console.log()`, which means:
 - ⚠️ Stdlib method tests (work with expression statements)
 - ✅ Internal value validation (working)
 
+### Intentional divergences from native JavaScript
+
+Jiki's JavaScript is deliberately stricter than real JS in a few places, for
+educational reasons. These cases **cannot** be cross-validated against native
+Node.js (native succeeds, Jiki errors on purpose) and are therefore covered by
+unit tests in `tests/javascript/` instead of here:
+
+- **Out-of-bounds index reads error.** `str[i]` / `arr[i]` past either end (or a
+  negative index) raise `StringIndexOutOfRange` / `IndexOutOfRange` rather than
+  returning `undefined` (native returns `undefined`). Matches Python `IndexError`
+  and JikiScript `IndexOutOfBounds`.
+- **Comparing with `undefined` errors.** `===`/`!==`/`==`/`!=` with an `undefined`
+  operand raise `ComparisonWithUndefined`.
+- **Storing `undefined` errors.** Assigning `undefined` to a variable, element, or
+  property raises `AssignmentToUndefined`. This covers a forgotten/void `return`,
+  the explicit `undefined` literal, `x && undefined`, and any stdlib call that
+  returns `undefined` when its result is stored — e.g. `let x = arr.pop()` /
+  `arr.shift()` on an empty array, `arr.at(i)` out of range, `arr.find(...)` with
+  no match, and `obj[missingKey]`. Calling these as statements (not storing the
+  result) still works and matches native JS.
+
 ## Temporary Workarounds
 
 Until print/console.log are implemented:

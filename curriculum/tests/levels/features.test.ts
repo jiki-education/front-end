@@ -145,7 +145,10 @@ describe("Language Features", () => {
       const methodsProps = getLanguageFeatures("methods-and-properties", "javascript");
       expect(methodsProps.allowedStdlib?.string?.properties).toContain("length");
       expect(methodsProps.allowedStdlib?.string?.methods).toContain("toUpperCase");
-      expect(methodsProps.allowedStdlib?.array).toBeUndefined();
+      // array member access is denied by default from functions-that-return-things (empty whitelist)
+      // until lists grants specific members, so the entry exists but grants nothing here.
+      expect(methodsProps.allowedStdlib?.array?.properties).toEqual([]);
+      expect(methodsProps.allowedStdlib?.array?.methods).toEqual([]);
 
       // lists adds array stdlib, keeps string stdlib
       const listsLevel = getLanguageFeatures("lists", "javascript");
