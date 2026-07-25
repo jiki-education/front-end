@@ -56,11 +56,5 @@
       "question": "What if the letter isn't in the rack?",
       "answer": "Only after the loop has finished without finding the letter should you return the error message. Returning the error inside the loop would give up after the first non-matching tile."
     }
-  },
-  "functions": {
-    "numberToString": {
-      "description": "Convert a number to its string representation (provided by level stdlib)",
-      "category": "Type Conversion"
-    }
   }
 }
