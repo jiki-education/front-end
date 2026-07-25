@@ -10,6 +10,15 @@ export function executeVariableDeclaration(executor: Executor, statement: Variab
   if (statement.initializer) {
     value = executor.evaluate(statement.initializer);
     jikiObject = value.jikiObject;
+    // A variable should always hold an actual value. Storing `undefined` (a
+    // forgotten return, an explicit `undefined`, `x && undefined`, ...) is
+    // almost always a mistake, so we reject it here - matching JikiScript, which
+    // has no undefined at all. The no-initializer branch below is left alone: it
+    // is only reachable when requireVariableInstantiation is disabled, a feature
+    // that exists precisely to allow uninitialised variables.
+    if (jikiObject instanceof JSUndefined) {
+      executor.error("AssignmentToUndefined", statement.initializer.location);
+    }
   } else {
     // No initializer - variable is undefined
     jikiObject = new JSUndefined();

@@ -1,5 +1,16 @@
 # JavaScript Interpreter Evolution
 
+## 2026-07-25: Reject storing `undefined` in a variable/element/property
+
+Follow-up to the out-of-bounds/comparison change below. JikiScript has no `undefined` at all — it guards every expression in `evaluate()` (`guardNull` → `ExpressionEvaluatedToNullValue`) and re-raises a friendlier error when a set-variable statement tries to store a none-value. JS can't guard inside `evaluate()` (a bare `f();` calling a void function is a legitimate `ExpressionStatement` that must be allowed to discard its result), so JS guards at the **storage points** instead:
+
+- **`executeVariableDeclaration.ts`** — after evaluating an initializer, `jikiObject instanceof JSUndefined` → new `AssignmentToUndefined` error. The no-initializer branch is left alone (only reachable when `requireVariableInstantiation` is disabled, the feature that exists to allow uninitialised variables).
+- **`executeAssignmentExpression.ts`** — one guard on `valueResult` at the top covers plain, array-element, dictionary-property, and instance-property assignment.
+
+This bans **all** stored `undefined`: a forgotten/void `return`, the explicit `undefined` literal, `x && undefined`, and any stdlib result that is `undefined` (`arr.pop()`/`arr.shift()` on empty, `arr.at(i)` out of range, `arr.find(...)` no match, `obj[missingKey]`). Calling those as statements (not storing) still works. `undefined` remains reachable transiently inline — a void call inside a condition, a template literal, or a comparison — where the truthiness/`ComparisonWithUndefined` guards handle it.
+
+New `AssignmentToUndefined` key added to `en`/`system`/`hu`. Tests updated: `functions.test.ts`, `external-functions.test.ts`, `interpreter/null-undefined.test.ts` (comparisons rewritten to inline literals so the comparison, not the store, fires; truthiness/template/logical/for-of undefined now sourced from an inline void call), `concepts/object-property-writing.test.ts`, `concepts/for-of-loops.test.ts`, `stdlib/array/pop.test.ts`, `stdlib/array/shift.test.ts`. Five `at()`/`pop()`/`shift()` empty/out-of-range cases were removed from `cross-validation/javascript/stdlib/array-methods.test.ts` (they now intentionally diverge from native JS) and the divergence is documented in `cross-validation/LIMITATIONS.md`.
+
 ## 2026-07-25: Reject `undefined` from out-of-bounds reads and comparisons
 
 The JavaScript interpreter mirrored real JS in two places where Python and JikiScript are stricter, letting `undefined` slip through silently. Both are now errors, restoring cross-language parity (the same solution behaves the same across JS, Python, and JikiScript) and surfacing student mistakes where they happen instead of letting `undefined` propagate into a silently-wrong result.

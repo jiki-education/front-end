@@ -114,6 +114,7 @@ export type RuntimeErrorType =
   | "IndexOutOfRange"
   | "StringIndexOutOfRange"
   | "ComparisonWithUndefined"
+  | "AssignmentToUndefined"
   | "TypeError"
   | "ArrayIndexNotNumber"
   | "ArrayIndexNotInteger"

@@ -210,7 +210,6 @@ describe("Object Property Writing", () => {
         obj.num = 42;
         obj.bool = true;
         obj.nil = null;
-        obj.undef = undefined;
         obj.obj = { nested: "value" };
         obj.arr = [1, 2, 3];
         obj.obj;

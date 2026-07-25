@@ -2,7 +2,7 @@ import type { Executor } from "../executor";
 import { MemberExpression } from "../expression";
 import type { AssignmentExpression, LiteralExpression } from "../expression";
 import type { EvaluationResultAssignmentExpression } from "../evaluation-result";
-import { JSArray, JSDictionary, JSString, JSNumber } from "../jikiObjects";
+import { JSArray, JSDictionary, JSString, JSNumber, JSUndefined } from "../jikiObjects";
 import { JSInstance } from "../jsObjects/JSInstance";
 import { LogicError } from "../error";
 
@@ -11,6 +11,15 @@ export function executeAssignmentExpression(
   expression: AssignmentExpression
 ): EvaluationResultAssignmentExpression {
   const valueResult = executor.evaluate(expression.value);
+
+  // A variable (or element/property) should always hold an actual value. Storing
+  // `undefined` is almost always a mistake (a forgotten return, an explicit
+  // `undefined`, `x && undefined`, ...), so we reject it here - matching
+  // JikiScript, which has no undefined at all. This single check covers plain,
+  // array, dictionary, and instance-member assignment, which all reuse valueResult.
+  if (valueResult.jikiObject instanceof JSUndefined) {
+    executor.error("AssignmentToUndefined", expression.value.location);
+  }
 
   // Handle member expression assignment (e.g., arr[0] = value or obj.prop = value)
   if (expression.target instanceof MemberExpression) {
