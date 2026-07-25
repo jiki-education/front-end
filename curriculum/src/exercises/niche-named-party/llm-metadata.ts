@@ -30,6 +30,18 @@ export const llmMetadata: LLMMetadata = {
         instead of returning false. The two traps worth watching are missing that guard and inverting
         the comparison logic.
       `
+    },
+    "solve-tightly": {
+      description: `
+        Bonus (optional): solve the whole exercise in 20 lines or fewer (14 in Python). This only
+        rewards the tidy decomposition, it does not change the required logic.
+
+        The tight version pulls the length-counting loop into a single \`getLength(word)\` helper that
+        \`handleGuest\` calls for both the prefix and the name. Students who overshoot the line limit have
+        almost always inlined that counting loop twice instead of reusing one helper; point them at
+        extracting the duplicated loop, not at rewriting their logic. Don't sacrifice the required length
+        guard to save a line.
+      `
     }
   }
 };

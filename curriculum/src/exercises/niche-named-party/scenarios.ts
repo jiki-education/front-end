@@ -1,4 +1,18 @@
-import type { Task, IOScenario } from "../types";
+import type { Task, IOScenario, CodeCheck } from "../types";
+
+// Bonus: reward leaning on the helper function to keep the solution tight.
+// The reference decomposition (getLength + handleGuest) lands on exactly these
+// counts, so a student who duplicates the length-counting loop instead of
+// reusing the helper will overshoot.
+const lineCountCheck: CodeCheck[] = [
+  {
+    pass: (result, language) => {
+      const limit = language === "python" ? 14 : 20;
+      return result.assertors.assertMaxLinesOfCode(limit);
+    },
+    errorKey: "checks.tooManyLines"
+  }
+];
 
 export const tasks = [
   {
@@ -15,6 +29,14 @@ export const tasks = [
       "cher-cher-party"
     ],
     bonus: false
+  },
+  {
+    id: "solve-tightly" as const,
+    name: "tasks.solveTightly.name",
+    description: "tasks.solveTightly.description",
+    hints: [],
+    requiredScenarios: ["niche-named-party-bonus-line-count"],
+    bonus: true
   }
 ] as const satisfies readonly Task[];
 
@@ -72,5 +94,15 @@ export const scenarios: IOScenario[] = [
     functionName: "handle_guest",
     args: ["Cher", "Cher"],
     expected: true
+  },
+  {
+    slug: "niche-named-party-bonus-line-count",
+    name: "scenarios.nicheNamedPartyBonusLineCount.name",
+    description: "scenarios.nicheNamedPartyBonusLineCount.description",
+    taskId: "solve-tightly",
+    functionName: "handle_guest",
+    args: ["Bradley", "Brad"],
+    expected: true,
+    codeChecks: lineCountCheck
   }
 ];
