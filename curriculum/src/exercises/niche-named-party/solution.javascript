@@ -6,26 +6,17 @@ function getLength(word) {
   return counter
 }
 
-function startsWith(phase, prefix) {
-  if (getLength(prefix) > getLength(phase)) {
+function handleGuest(name, allowedPrefix) {
+  if (getLength(allowedPrefix) > getLength(name)) {
     return false
   }
 
   let i = 0
-  repeat(getLength(prefix)) {
-    if (prefix[i] !== phase[i]) {
+  repeat(getLength(allowedPrefix)) {
+    if (allowedPrefix[i] !== name[i]) {
       return false
     }
     i = i + 1
   }
   return true
-}
-
-let name = askName()
-let allowedStart = getAllowedStart()
-
-if (startsWith(name, allowedStart)) {
-  letIn()
-} else {
-  turnAway()
 }

@@ -5,13 +5,14 @@ description: "Work out who's allowed into a very exclusive party."
 
 Tonight's party is very exclusive - only people whose names start with a specific set of letters are allowed in!
 
-You have these functions:
+Your job is to write a function called <define>`handleGuest`</define> that takes two inputs:
 
-- <define>`askName()`</define> returns the name of the person at the door
-- <define>`getAllowedStart()`</define> returns the required starting letters for tonight's party
-- <define>`letIn()`</define> lets the person into the party
-- <define>`turnAway()`</define> turns the person away
+- `name` - the name of the person at the door
+- `allowedPrefix` - the required starting letters for tonight's party
 
-For example, if tonight's allowed start is `"S"`, then `"Sarah"` gets in but `"Brad"` doesn't. If the allowed start is `"Brad"`, then `"Bradley"` gets in but `"Brian"` doesn't.
+It should return `true` if the person is allowed in, and `false` if they should be turned away.
 
-Write code that checks if the person's name starts with the allowed letters, and either lets them in or turns them away.
+For example:
+
+- If tonight's allowed prefix is `"S"`, then <literal>Sarah</literal> gets in (returns `true`) but <literal>Brad</literal> doesn't (returns `false`).
+- If the allowed prefix is `"Brad"`, then <literal>Brad</literal> and <literal>Bradley</literal> get in but <literal>Brian</literal> doesn't.

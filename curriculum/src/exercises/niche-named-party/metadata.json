@@ -3,8 +3,8 @@
   "levelId": "multiple-functions",
   "hints": [
     {
-      "question": "hints.getNameAndStart.question",
-      "answer": "hints.getNameAndStart.answer"
+      "question": "hints.useTheInputs.question",
+      "answer": "hints.useTheInputs.answer"
     },
     {
       "question": "hints.checkStartsWith.question",
@@ -19,8 +19,8 @@
       "answer": "hints.stopComparing.answer"
     },
     {
-      "question": "hints.longerAllowedStart.question",
-      "answer": "hints.longerAllowedStart.answer"
+      "question": "hints.longerAllowedPrefix.question",
+      "answer": "hints.longerAllowedPrefix.answer"
     }
   ]
 }
