@@ -14,7 +14,14 @@ const functionsThatReturnThings: Level = {
     javascript: {
       allowedNodes: ["MemberExpression"],
       languageFeatures: {
-        allowedGlobals: ["Math"]
+        allowedGlobals: ["Math"],
+        // MemberExpression is unlocked here so Math.floor()/Math.random() work, but that also
+        // opens member access on strings/arrays. Deny all string/array members by default until
+        // methods-and-properties explicitly grants them (allowedStdlib accumulates additively).
+        allowedStdlib: {
+          string: { properties: [], methods: [] },
+          array: { properties: [], methods: [] }
+        }
       }
     }
   }
