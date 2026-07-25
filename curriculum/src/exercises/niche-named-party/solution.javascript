@@ -7,10 +7,6 @@ function getLength(word) {
 }
 
 function handleGuest(name, allowedPrefix) {
-  if (getLength(allowedPrefix) > getLength(name)) {
-    return false
-  }
-
   let i = 0
   repeat(getLength(allowedPrefix)) {
     if (allowedPrefix[i] !== name[i]) {
