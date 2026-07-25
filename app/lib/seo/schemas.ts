@@ -25,6 +25,17 @@ export function canonicalUrl(localelessPath: string, locale: string): string {
   return `${SITE_URL}${localePath(localelessPath, locale)}`;
 }
 
+/**
+ * Normalise a date to an ISO 8601 datetime with a timezone, as Google's
+ * structured-data validators require (a bare `YYYY-MM-DD` is flagged as an
+ * invalid datetime "missing a time zone"). Our content dates are day-granular,
+ * so a bare date becomes midnight UTC; anything already carrying a time is left
+ * untouched.
+ */
+function isoDateTime(date: string): string {
+  return /^\d{4}-\d{2}-\d{2}$/.test(date) ? `${date}T00:00:00+00:00` : date;
+}
+
 /** Seconds -> ISO 8601 duration (e.g. 605 -> "PT10M5S"), as VideoObject expects. */
 function isoDuration(totalSeconds: number): string {
   const hours = Math.floor(totalSeconds / 3600);
@@ -107,8 +118,8 @@ export function articleSchema(article: ArticleInput) {
     url,
     mainEntityOfPage: url,
     inLanguage: article.locale,
-    ...(article.datePublished ? { datePublished: article.datePublished } : {}),
-    ...(article.dateModified ? { dateModified: article.dateModified } : {}),
+    ...(article.datePublished ? { datePublished: isoDateTime(article.datePublished) } : {}),
+    ...(article.dateModified ? { dateModified: isoDateTime(article.dateModified) } : {}),
     ...(article.image ? { image: absolute(article.image) } : {}),
     ...(article.keywords && article.keywords.length > 0 ? { keywords: article.keywords.join(", ") } : {}),
     // Person author when we have one, otherwise attribute to the Organization.
@@ -149,7 +160,7 @@ export function videoObjectSchema(video: VideoInput) {
     name: video.name,
     description: video.description,
     thumbnailUrl,
-    uploadDate: video.uploadDate,
+    uploadDate: isoDateTime(video.uploadDate),
     ...(video.durationSeconds ? { duration: isoDuration(video.durationSeconds) } : {}),
     embedUrl,
     ...(video.provider === "mux" ? { contentUrl: `https://stream.mux.com/${video.videoKey}.m3u8` } : {}),
