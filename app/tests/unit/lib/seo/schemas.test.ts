@@ -68,6 +68,7 @@ describe("articleSchema", () => {
     expect(schema.publisher).toEqual({ "@id": ORG_ID });
     expect(schema.keywords).toBe("a, b");
     expect(schema.image).toBe(`${SITE}/static/images/cover.png`);
+    expect(schema.datePublished).toBe("2026-01-02T00:00:00+00:00");
   });
 
   it("falls back to the Organization author when no person is given", () => {
@@ -112,6 +113,7 @@ describe("videoObjectSchema", () => {
     expect(schema.embedUrl).toBe("https://www.youtube.com/embed/abc123");
     expect(schema.thumbnailUrl).toBe("https://img.youtube.com/vi/abc123/maxresdefault.jpg");
     expect(schema.duration).toBe("PT10M5S");
+    expect(schema.uploadDate).toBe("2026-03-04T00:00:00+00:00");
     expect(schema.url).toBe(`${SITE}/projects/maze/episodes/intro`);
     expect(schema.isAccessibleForFree).toBe(true);
     expect(schema).not.toHaveProperty("contentUrl");
