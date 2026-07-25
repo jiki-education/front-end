@@ -32,10 +32,6 @@
     }
   },
   "hints": {
-    "useTheInputs": {
-      "question": "How do I use the name and the allowed prefix?",
-      "answer": "They're passed into your `handleGuest` function as inputs, so you can use `name` and `allowedPrefix` directly in your comparison."
-    },
     "checkStartsWith": {
       "question": "How do I check that a name starts with certain letters?",
       "answer": "Compare each character of the allowed prefix with the character at the same position in the name. If any character differs, the name doesn't match."
@@ -47,10 +43,6 @@
     "stopComparing": {
       "question": "How do I know when to stop comparing?",
       "answer": "Stop when you've checked every character of the allowed prefix. You'll need its length for that, similar to what you did in Sign Painter Price."
-    },
-    "longerAllowedPrefix": {
-      "question": "What if the allowed prefix is longer than the name?",
-      "answer": "That person can't match, so you should return `false`. Check the lengths before you start comparing and handle that case."
     }
   }
 }
