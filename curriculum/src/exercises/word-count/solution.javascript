@@ -1,7 +1,4 @@
 function isLetter(character) {
-  if (character === undefined) {
-    return false
-  }
   return "abcdefghijklmnopqrstuvwxyz1234567890".includes(character)
 }
 
@@ -17,11 +14,15 @@ function extractWords(sentence) {
   let current = ""
   for (let i = 0; i < sentence.length; i = i + 1) {
     const ch = sentence[i]
-    const nextCh = sentence[i + 1]
+
+    let nextIsLetter = false
+    if (i + 1 < sentence.length) {
+      nextIsLetter = isLetter(sentence[i + 1])
+    }
 
     if (isLetter(ch)) {
       current = current + ch
-    } else if (ch === "'" && current !== "" && isLetter(nextCh)) {
+    } else if (ch === "'" && current !== "" && nextIsLetter) {
       current = current + ch
     } else {
       result = addWord(result, current)
