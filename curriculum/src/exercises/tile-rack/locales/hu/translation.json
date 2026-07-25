@@ -48,6 +48,10 @@
       "question": "What do I do when I find the letter?",
       "answer": "Build the success message. Convert the position number to a string, then combine it with the surrounding text the exercise asks for using concatenation (`+`) or a template string. Return immediately. There's no need to keep looking."
     },
+    "addNumberToString": {
+      "question": "I cannot add a number to a string",
+      "answer": "You've learned two ways to join strings together. Rather than concatenating strings, try the other method you've learned."
+    },
     "positionAlwaysWrong": {
       "question": "Why is my position always wrong?",
       "answer": "Make sure you're increasing the position counter every iteration, not just sometimes. Otherwise every tile reports the same position."
