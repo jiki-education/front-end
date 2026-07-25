@@ -38,7 +38,11 @@
     },
     "loopCharacters": {
       "question": "How do I look at one character at a time?",
-      "answer": "Use a counter variable and step through each position with a loop, comparing `name` and `allowedPrefix` at that position."
+      "answer": "Use string iteration to step through a string."
+    },
+    "findEquivalentLetter": {
+      "question": "How do I find the equivalent letter in the other word?",
+      "answer": "Use string indexing to find a specific letter."
     },
     "stopComparing": {
       "question": "How do I know when to stop comparing?",

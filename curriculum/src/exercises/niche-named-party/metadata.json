@@ -11,6 +11,10 @@
       "answer": "hints.loopCharacters.answer"
     },
     {
+      "question": "hints.findEquivalentLetter.question",
+      "answer": "hints.findEquivalentLetter.answer"
+    },
+    {
       "question": "hints.stopComparing.question",
       "answer": "hints.stopComparing.answer"
     }
