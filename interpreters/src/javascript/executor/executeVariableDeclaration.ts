@@ -1,6 +1,7 @@
 import type { Executor } from "../executor";
 import type { VariableDeclaration } from "../statement";
 import type { EvaluationResult } from "../evaluation-result";
+import { CallExpression } from "../expression";
 import { JSUndefined } from "../jikiObjects";
 
 export function executeVariableDeclaration(executor: Executor, statement: VariableDeclaration): EvaluationResult {
@@ -16,8 +17,13 @@ export function executeVariableDeclaration(executor: Executor, statement: Variab
     // has no undefined at all. The no-initializer branch below is left alone: it
     // is only reachable when requireVariableInstantiation is disabled, a feature
     // that exists precisely to allow uninitialised variables.
+    //
+    // The overwhelmingly common cause is calling a function (or method) that
+    // doesn't return a value, so that case gets its own, more helpful message.
     if (jikiObject instanceof JSUndefined) {
-      executor.error("AssignmentToUndefined", statement.initializer.location);
+      const errorType =
+        statement.initializer instanceof CallExpression ? "AssignmentToUndefinedFromFunction" : "AssignmentToUndefined";
+      executor.error(errorType, statement.initializer.location);
     }
   } else {
     // No initializer - variable is undefined

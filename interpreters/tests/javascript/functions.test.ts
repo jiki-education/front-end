@@ -76,7 +76,7 @@ describe("User-defined functions", () => {
       expect(store.success).toBe(false);
       const last = store.frames[store.frames.length - 1];
       expect(last.status).toBe("ERROR");
-      expect(last.error?.type).toBe("AssignmentToUndefined");
+      expect(last.error?.type).toBe("AssignmentToUndefinedFromFunction");
     });
 
     test("Function with no return statement cannot have its result stored", () => {
@@ -91,7 +91,7 @@ describe("User-defined functions", () => {
       expect(success).toBe(false);
       const last = frames[frames.length - 1];
       expect(last.status).toBe("ERROR");
-      expect(last.error?.type).toBe("AssignmentToUndefined");
+      expect(last.error?.type).toBe("AssignmentToUndefinedFromFunction");
     });
 
     test("Function with multiple statements", () => {

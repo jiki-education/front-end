@@ -37,7 +37,7 @@ describe("shift() method", () => {
     expect(store.success).toBe(false);
     const storeFrame = store.frames[store.frames.length - 1] as TestAugmentedFrame;
     expect(storeFrame.status).toBe("ERROR");
-    expect(storeFrame.error?.type).toBe("AssignmentToUndefined");
+    expect(storeFrame.error?.type).toBe("AssignmentToUndefinedFromFunction");
   });
 
   test("requires no arguments", () => {

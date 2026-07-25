@@ -91,5 +91,6 @@ export interface InterpretResult {
     numFunctionCallsInCode: (funcName: string) => number;
     assertOperatorUsed: (operator: string) => boolean;
     assertStatement: (type: string, opts?: { args?: Array<unknown>; count?: number }) => boolean;
+    assertMaxLoopNestingDepth: (depth: 1 | 2) => boolean;
   };
 }

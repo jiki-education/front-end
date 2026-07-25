@@ -17,6 +17,7 @@ import {
   WhileStatement,
   RepeatStatement,
   ForOfStatement,
+  ForInStatement,
   FunctionDeclaration,
 } from "./statement";
 
@@ -109,10 +110,40 @@ function getSubStatements(stmt: Statement): Statement[] {
   if (stmt instanceof ForOfStatement) {
     return [stmt.body];
   }
+  if (stmt instanceof ForInStatement) {
+    return [stmt.body];
+  }
   if (stmt instanceof FunctionDeclaration) {
     return stmt.body;
   }
   return [];
+}
+
+/**
+ * AST node types that introduce a loop. Used to measure loop nesting depth.
+ */
+const LOOP_STATEMENT_TYPES = new Set([
+  "ForStatement",
+  "WhileStatement",
+  "RepeatStatement",
+  "ForOfStatement",
+  "ForInStatement",
+]);
+
+/**
+ * The deepest chain of nested loops in the tree. A single loop is depth 1;
+ * a loop directly inside another loop is depth 2; code with no loops is 0.
+ * Non-loop statements (if/blocks/function bodies) are transparent - a loop
+ * nested inside an `if` inside a loop still counts as depth 2.
+ */
+export function maxLoopNestingDepth(statements: Statement[]): number {
+  let max = 0;
+  for (const stmt of statements) {
+    const inner = maxLoopNestingDepth(getSubStatements(stmt));
+    const here = LOOP_STATEMENT_TYPES.has(stmt.type) ? 1 + inner : inner;
+    max = Math.max(max, here);
+  }
+  return max;
 }
 
 /**

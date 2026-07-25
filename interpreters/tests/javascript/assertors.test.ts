@@ -564,4 +564,51 @@ rectangle(30, 40);`;
       expect(interpret(code).assertors.assertStatement("RepeatStatement", { args: [undefined] })).toBe(true);
     });
   });
+
+  describe("assertMaxLoopNestingDepth", () => {
+    test("passes when there are no loops", () => {
+      const result = interpret("let x = 5;");
+      expect(result.assertors.assertMaxLoopNestingDepth(1)).toBe(true);
+    });
+
+    test("passes for a single loop at depth 1", () => {
+      const result = interpret("repeat(3) {\n}");
+      expect(result.assertors.assertMaxLoopNestingDepth(1)).toBe(true);
+    });
+
+    test("fails for nested loops when limit is 1", () => {
+      const result = interpret("repeat(3) {\n  repeat(3) {\n  }\n}");
+      expect(result.assertors.assertMaxLoopNestingDepth(1)).toBe(false);
+    });
+
+    test("passes for nested loops when limit is 2", () => {
+      const result = interpret("repeat(3) {\n  repeat(3) {\n  }\n}");
+      expect(result.assertors.assertMaxLoopNestingDepth(2)).toBe(true);
+    });
+
+    test("counts loops nested through an if as still nested", () => {
+      const code = "repeat(3) {\n  if (true) {\n    repeat(3) {\n    }\n  }\n}";
+      expect(interpret(code).assertors.assertMaxLoopNestingDepth(1)).toBe(false);
+    });
+
+    test("treats sibling loops as depth 1, not additive", () => {
+      const code = "repeat(3) {\n}\nrepeat(3) {\n}";
+      expect(interpret(code).assertors.assertMaxLoopNestingDepth(1)).toBe(true);
+    });
+
+    test("detects nesting across different loop kinds", () => {
+      const code = "for (const x of [1, 2]) {\n  while (false) {\n  }\n}";
+      expect(interpret(code).assertors.assertMaxLoopNestingDepth(1)).toBe(false);
+    });
+
+    test("counts loops nested inside a function body", () => {
+      const code = "function go() {\n  repeat(3) {\n    repeat(3) {\n    }\n  }\n}";
+      expect(interpret(code).assertors.assertMaxLoopNestingDepth(1)).toBe(false);
+    });
+
+    test("returns true on parse error", () => {
+      const result = interpret("let let let");
+      expect(result.assertors.assertMaxLoopNestingDepth(1)).toBe(true);
+    });
+  });
 });

@@ -124,6 +124,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         numFunctionCallsInCode: () => 0,
         assertOperatorUsed: () => true,
         assertStatement: () => true,
+        assertMaxLoopNestingDepth: () => true,
       },
     };
   }

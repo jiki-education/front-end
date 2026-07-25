@@ -103,6 +103,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         numFunctionCallsInCode: () => 0,
         assertOperatorUsed: () => true,
         assertStatement: () => true,
+        assertMaxLoopNestingDepth: () => true,
       },
     };
   }
@@ -255,6 +256,7 @@ export function evaluateFunction(
       assertOperatorUsed: (operator: string) => extractOperators(statements).includes(operator),
       // TODO: JS-only for now. Implement statement matching for Python when needed.
       assertStatement: () => false,
+      assertMaxLoopNestingDepth: () => true,
     },
   };
 }

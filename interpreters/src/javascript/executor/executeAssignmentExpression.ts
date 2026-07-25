@@ -1,5 +1,5 @@
 import type { Executor } from "../executor";
-import { MemberExpression } from "../expression";
+import { MemberExpression, CallExpression } from "../expression";
 import type { AssignmentExpression, LiteralExpression } from "../expression";
 import type { EvaluationResultAssignmentExpression } from "../evaluation-result";
 import { JSArray, JSDictionary, JSString, JSNumber, JSUndefined } from "../jikiObjects";
@@ -17,8 +17,12 @@ export function executeAssignmentExpression(
   // `undefined`, `x && undefined`, ...), so we reject it here - matching
   // JikiScript, which has no undefined at all. This single check covers plain,
   // array, dictionary, and instance-member assignment, which all reuse valueResult.
+  // Calling a function/method that doesn't return a value is by far the most
+  // common cause, so that case gets its own, more helpful message.
   if (valueResult.jikiObject instanceof JSUndefined) {
-    executor.error("AssignmentToUndefined", expression.value.location);
+    const errorType =
+      expression.value instanceof CallExpression ? "AssignmentToUndefinedFromFunction" : "AssignmentToUndefined";
+    executor.error(errorType, expression.value.location);
   }
 
   // Handle member expression assignment (e.g., arr[0] = value or obj.prop = value)

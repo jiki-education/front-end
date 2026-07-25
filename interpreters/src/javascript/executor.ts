@@ -93,6 +93,7 @@ import {
   extractCallExpressionsWithinFunctionBody,
   extractOperators,
   findMatchingStatements,
+  maxLoopNestingDepth,
 } from "./assertion-helpers";
 import { createRandomFn } from "../shared/random";
 
@@ -116,6 +117,7 @@ export type RuntimeErrorType =
   | "StringIndexOutOfRange"
   | "ComparisonWithUndefined"
   | "AssignmentToUndefined"
+  | "AssignmentToUndefinedFromFunction"
   | "TypeError"
   | "ArrayIndexNotNumber"
   | "ArrayIndexNotInteger"
@@ -191,6 +193,7 @@ export interface ExecutorResult {
     numFunctionCallsInCode: (funcName: string) => number;
     assertOperatorUsed: (operator: string) => boolean;
     assertStatement: (type: string, opts?: { args?: Array<unknown>; count?: number }) => boolean;
+    assertMaxLoopNestingDepth: (depth: 1 | 2) => boolean;
   };
 }
 
@@ -473,6 +476,7 @@ export class Executor {
           const matches = findMatchingStatements(statements, type, opts?.args);
           return opts?.count !== undefined ? matches.length === opts.count : matches.length >= 1;
         },
+        assertMaxLoopNestingDepth: (depth: 1 | 2) => maxLoopNestingDepth(statements) <= depth,
       },
     };
   }

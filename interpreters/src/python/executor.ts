@@ -148,6 +148,7 @@ export interface ExecutorResult {
     numFunctionCallsInCode: (funcName: string) => number;
     assertOperatorUsed: (operator: string) => boolean;
     assertStatement: (type: string, opts?: { args?: Array<unknown>; count?: number }) => boolean;
+    assertMaxLoopNestingDepth: (depth: 1 | 2) => boolean;
   };
 }
 
@@ -339,6 +340,7 @@ export class Executor {
         assertOperatorUsed: (operator: string) => extractOperators(statements).includes(operator),
         // TODO: JS-only for now. Implement statement matching for Python when needed.
         assertStatement: () => false,
+        assertMaxLoopNestingDepth: () => true,
       },
     };
   }
