@@ -19,14 +19,17 @@ export const llmMetadata: LLMMetadata = {
       description: `
         Anchor steps:
         1. Define \`handleGuest(name, allowedPrefix)\` using the two inputs directly (no ask/get functions).
-        2. Loop over the allowed prefix, comparing each character against the same position in the name,
+        2. Guard: if the allowed prefix is longer than the name, it can't match, so return false.
+        3. Loop over the allowed prefix, comparing each character against the same position in the name,
            returning false on the first mismatch.
-        3. Return true if every character matched.
+        4. Return true if every character matched.
 
-        Length must be computed by iterating (no .length helper is provided), so students reuse
-        the pattern from Sign Painter Price. Because the loop runs for the prefix's length, a name
-        shorter than the prefix mismatches naturally (name[i] is undefined past the end), so no
-        explicit length guard is needed. The trap worth watching is inverting the comparison logic.
+        Length must be computed by iterating (no .length helper is provided), so students reuse the
+        pattern from Sign Painter Price. They need it twice here, for both the prefix and the name, to
+        write the guard. Reading past the end of a string is a runtime error, so the guard is required:
+        without it, a name shorter than the prefix (which the empty-name scenario triggers) crashes
+        instead of returning false. The two traps worth watching are missing that guard and inverting
+        the comparison logic.
       `
     }
   }

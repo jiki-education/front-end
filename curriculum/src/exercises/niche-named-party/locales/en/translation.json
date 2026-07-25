@@ -47,6 +47,10 @@
     "stopComparing": {
       "question": "How do I know when to stop comparing?",
       "answer": "Stop when you've checked every character of the allowed prefix. You'll need its length for that, similar to what you did in Sign Painter Price."
+    },
+    "longerAllowedPrefix": {
+      "question": "What if the allowed prefix is longer than the name?",
+      "answer": "That person can't match, so you should return `false`. Check the lengths before you start comparing and handle that case."
     }
   }
 }
