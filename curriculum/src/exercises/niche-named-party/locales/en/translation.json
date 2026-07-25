@@ -35,12 +35,12 @@
       "description": "Tonight only names starting with \"Cher\" are allowed. Cher's name is exactly \"Cher\" — let her in!"
     },
     "nicheNamedPartyBonusLineCount": {
-      "name": "Tight and tidy",
-      "description": "The complete solution fits in 20 lines when the length-counting lives in its own helper function."
+      "name": "Neat and tidy",
+      "description": "The shortest solution fits in 20 lines. Can you find it?"
     }
   },
   "checks": {
-    "tooManyLines": "Almost! See if you can solve it in fewer lines by leaning on a helper function instead of repeating the length-counting loop."
+    "tooManyLines": "Keep going! See if you can solve it in fewer lines."
   },
   "hints": {
     "checkStartsWith": {
