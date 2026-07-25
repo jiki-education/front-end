@@ -9,9 +9,8 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise allows a student to explore building a startsWith check from scratch by
-    comparing two strings character by character, packaged as a single \`handleGuest(name, allowedPrefix)\`
-    function that returns a boolean.
+    Learning objective: decompose a startsWith check into a reusable helper plus a main
+    \`handleGuest\` function (this is a "multiple functions" level exercise).
   `,
 
   tasks: {

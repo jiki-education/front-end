@@ -15,10 +15,6 @@
       "answer": "hints.findEquivalentLetter.answer"
     },
     {
-      "question": "hints.stopComparing.question",
-      "answer": "hints.stopComparing.answer"
-    },
-    {
       "question": "hints.longerAllowedPrefix.question",
       "answer": "hints.longerAllowedPrefix.answer"
     }
