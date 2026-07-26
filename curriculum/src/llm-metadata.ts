@@ -46,6 +46,7 @@ import { llmMetadata as matchingSocksLLM } from "./exercises/matching-socks/llm-
 import { llmMetadata as reverseStringLLM } from "./exercises/reverse-string/llm-metadata";
 import { llmMetadata as proteinTranslationLLM } from "./exercises/protein-translation/llm-metadata";
 import { llmMetadata as pangramLLM } from "./exercises/pangram/llm-metadata";
+import { llmMetadata as methodicPangramLLM } from "./exercises/methodic-pangram/llm-metadata";
 import { llmMetadata as sunsetLLM } from "./exercises/sunset/llm-metadata";
 import { llmMetadata as rainbowLLM } from "./exercises/rainbow/llm-metadata";
 import { llmMetadata as rnaTranscriptionLLM } from "./exercises/rna-transcription/llm-metadata";
@@ -159,6 +160,7 @@ const llmMetadataRegistry = {
   "reverse-string": reverseStringLLM,
   "protein-translation": proteinTranslationLLM,
   pangram: pangramLLM,
+  "methodic-pangram": methodicPangramLLM,
   sunset: sunsetLLM,
   rainbow: rainbowLLM,
   "rna-transcription": rnaTranscriptionLLM,

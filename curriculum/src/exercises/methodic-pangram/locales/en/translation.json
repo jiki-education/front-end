@@ -52,21 +52,31 @@
     }
   },
   "hints": {
-    "helpers": {
-      "question": "What helpers will save me trouble here?",
-      "answer": "A `includes()` helper (which asks 'does this character appear in this string?') and a `toLowerCase()` helper (so case differences don't trip you up) make the main logic short and clear."
+    "recall": {
+      "question": "I already solved this by hand. What actually changes?",
+      "answer": "The logic is identical: lowercase the sentence, then check every letter from a to z is present. The only thing that changes is *how* you do those two steps — you can now use built-in string methods instead of your own helper functions."
     },
-    "whyLowercase": {
-      "question": "Why should I lowercase the sentence?",
-      "answer": "'The quick brown fox...' contains both 'T' and 't'. If you only check against lowercase letters, the capitals won't match. Convert the sentence to lowercase once at the start so every comparison is consistent."
+    "lowercaseMethod": {
+      "question": "Is there a built-in way to lowercase a string?",
+      "answer": "Yes. Strings have a `toLowerCase()` method that returns a lowercase copy. Call it on the sentence once at the start, instead of looping over the characters yourself. Remember it returns a *new* string — you need to store the result."
     },
-    "checkEveryLetter": {
-      "question": "How do I check every letter is there?",
-      "answer": "Loop through each letter of the alphabet `\"abcdefghijklmnopqrstuvwxyz\"`. For each, use `includes()` to check if it appears in the lowercased sentence."
+    "includesMethod": {
+      "question": "Do I still need my own helper to check a letter is present?",
+      "answer": "No. Strings have an `includes()` method that tells you whether one string appears inside another. Use `sentence.includes(letter)` in place of the helper you wrote last time."
     },
     "stopEarly": {
       "question": "When can I stop early?",
-      "answer": "As soon as you find a letter that's missing, return `false`. There's no point checking the rest. Only return `true` after the entire alphabet has been confirmed."
+      "answer": "As soon as one letter is missing, return `false` — there's no point checking the rest. Only return `true` once the whole alphabet has been confirmed."
+    }
+  },
+  "functions": {
+    "toLowerCase": {
+      "description": "Return a lowercase copy of a string (provided by level stdlib)",
+      "category": "String Operations"
+    },
+    "includes": {
+      "description": "Check whether a string contains a smaller string (provided by level stdlib)",
+      "category": "String Operations"
     }
   }
 }

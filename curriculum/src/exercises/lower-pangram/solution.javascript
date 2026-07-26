@@ -1,6 +1,6 @@
-function includes(str, target) {
-  for (const character of str) {
-    if (target === character) {
+function includes(haystack, needle) {
+  for (const character of haystack) {
+    if (needle === character) {
       return true
     }
   }

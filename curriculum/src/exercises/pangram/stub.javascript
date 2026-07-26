@@ -1,3 +1,1 @@
-function isPangram(sentence) {
-
-}
+{{LESSON:lower-pangram}}

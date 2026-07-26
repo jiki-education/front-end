@@ -40,6 +40,7 @@ export const exercises = {
   "reverse-string": () => import("./reverse-string"),
   "protein-translation": () => import("./protein-translation"),
   pangram: () => import("./pangram"),
+  "methodic-pangram": () => import("./methodic-pangram"),
   sunset: () => import("./sunset"),
   rainbow: () => import("./rainbow"),
   "rna-transcription": () => import("./rna-transcription"),

@@ -82,6 +82,11 @@ export type ExerciseDefinition = VisualExerciseDefinition | IOExerciseDefinition
 export interface FunctionInfo {
   name: string;
   description: string;
+  // Display form of the call. A regular function uses `funcName(args)`
+  // (e.g. `getLength(someString)`). A method or property on a value uses the
+  // method-call form `"...".method(args)` (e.g. `"...".includes(substring)`,
+  // `"...".toLowerCase()`) — and its `examples` follow the same form
+  // (e.g. `"hello".includes("ell") → true`).
   signature: string;
   examples?: string[];
   category: string;

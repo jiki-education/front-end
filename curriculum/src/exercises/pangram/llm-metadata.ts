@@ -9,18 +9,25 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise allows a student to explore decomposing a problem into helper
-    functions, including manual case conversion when no built-in toLowerCase is
-    available.
+    A continuation of lower-pangram: the student's own lower-pangram code (an
+    includes helper + isPangram) is carried into the editor, and they extend it
+    to be case-insensitive. String methods are NOT available at this level, so
+    the case conversion must be hand-written. The three helpers the instructions
+    steer toward are includes(haystack, needle), indexOf(haystack, needle), and
+    toLowerCase(someString) — deliberately named after the JS built-ins the next
+    exercise (methodic-pangram) replaces them with.
   `,
 
   tasks: {
     "check-pangram": {
       description: `
-        Anchor steps:
-        1. Normalise the sentence to lowercase (the non-obvious part: with no
-           built-in, map via parallel "abc..."/"ABC..." alphabet strings).
-        2. For each letter a-z, check it appears; return false on the first miss.
+        Anchor steps (building on the carried-in includes + isPangram):
+        1. Write toLowerCase(someString): keep chars already in "abc..."; for the
+           rest, find the char's position in "ABC..." with indexOf and map to the
+           same position in "abc...". (This is the non-obvious part — there is no
+           built-in toLowerCase at this level.)
+        2. In isPangram, lowercase the sentence first, then loop a-z and use
+           includes; return false on the first miss.
         3. Return true only if all 26 are present.
 
         Non-letter characters (digits, punctuation, underscores) must be ignored,

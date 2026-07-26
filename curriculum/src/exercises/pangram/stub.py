@@ -1,2 +1,1 @@
-def is_pangram(sentence):
-    pass
+{{LESSON:lower-pangram}}

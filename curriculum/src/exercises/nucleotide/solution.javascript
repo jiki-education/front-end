@@ -1,21 +1,12 @@
-function contains(haystack, needle) {
-  for (const item of haystack) {
-    if (item === needle) {
-      return true
-    }
-  }
-  return false
-}
-
 function countNucleotide(strand, nucleotide) {
   let valid = "ACGT"
-  if (!contains(valid, nucleotide)) {
+  if (!valid.includes(nucleotide)) {
     return -1
   }
 
   let count = 0
   for (const letter of strand) {
-    if (!contains(valid, letter)) {
+    if (!valid.includes(letter)) {
       return -1
     }
     if (letter === nucleotide) {

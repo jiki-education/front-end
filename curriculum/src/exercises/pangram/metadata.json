@@ -1,6 +1,6 @@
 {
   "slug": "pangram",
-  "levelId": "methods-and-properties",
+  "levelId": "multiple-functions",
   "hints": [
     {
       "question": "hints.helpers.question",

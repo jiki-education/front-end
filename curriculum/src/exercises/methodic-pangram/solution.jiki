@@ -1,0 +1,18 @@
+function includes with str, target do
+  for each character in str do
+    if character == target do
+      return true
+    end
+  end
+  return false
+end
+
+function is_pangram with sentence do
+  change sentence to to_upper_case(sentence)
+  for each letter in to_upper_case("abcdefghijklmnopqrstuvwxyz") do
+    if not includes(sentence, letter) do
+      return false
+    end
+  end
+  return true
+end

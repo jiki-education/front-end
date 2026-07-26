@@ -38,7 +38,7 @@
   "hints": {
     "checkValid": {
       "question": "How do I check that the character I'm asked about is valid?",
-      "answer": "Write a small helper that asks 'is this character one of A, C, G, T?'. Use it to validate the nucleotide before doing anything else."
+      "answer": "Strings have an `includes()` method that tells you whether one string appears inside another. That's a handy way to ask whether a character is one of the valid nucleotides. Validate before you start counting."
     },
     "invalidNucleotide": {
       "question": "What do I do if the nucleotide is invalid?",
@@ -51,6 +51,12 @@
     "validateStrand": {
       "question": "Should I validate the strand too?",
       "answer": "Yes. If any character in the strand isn't a valid nucleotide, return `-1`. Check each character before counting."
+    }
+  },
+  "functions": {
+    "includes": {
+      "description": "Check whether a string contains a smaller string (provided by level stdlib)",
+      "category": "String Operations"
     }
   }
 }
