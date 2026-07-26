@@ -26,6 +26,7 @@
       "MissingAttributeName": "MissingAttributeName",
       "LiteralExpressionNotAllowed": "LiteralExpressionNotAllowed",
       "BinaryExpressionNotAllowed": "BinaryExpressionNotAllowed",
+      "LogicalExpressionNotAllowed": "LogicalExpressionNotAllowed",
       "UnaryExpressionNotAllowed": "UnaryExpressionNotAllowed",
       "GroupingExpressionNotAllowed": "GroupingExpressionNotAllowed",
       "IdentifierExpressionNotAllowed": "IdentifierExpressionNotAllowed",

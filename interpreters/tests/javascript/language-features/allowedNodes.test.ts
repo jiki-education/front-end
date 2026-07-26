@@ -246,8 +246,6 @@ describe("JavaScript allowedNodes feature", () => {
           { code: `1 >= 2;`, op: "greater than or equal" },
           { code: `1 == 2;`, op: "equality" },
           { code: `1 != 2;`, op: "inequality" },
-          { code: `true && false;`, op: "logical AND" },
-          { code: `true || false;`, op: "logical OR" },
         ];
 
         const allowedNodes: NodeType[] = ["ExpressionStatement", "LiteralExpression"];
@@ -257,6 +255,33 @@ describe("JavaScript allowedNodes feature", () => {
           expect(error).toBeInstanceOf(SyntaxError);
           expect(error?.type).toBe("BinaryExpressionNotAllowed");
         }
+      });
+    });
+
+    describe("LogicalExpression", () => {
+      test("allows logical expressions when included", () => {
+        const code = `true && false;`;
+        const allowedNodes: NodeType[] = ["ExpressionStatement", "LogicalExpression", "LiteralExpression"];
+        const { error, frames } = interpret(code, { languageFeatures: { allowedNodes } });
+        expect(error).toBeNull();
+        expect(frames.length).toBeGreaterThan(0);
+      });
+
+      test("prevents logical expressions when not included", () => {
+        for (const code of [`true && false;`, `true || false;`]) {
+          const allowedNodes: NodeType[] = ["ExpressionStatement", "LiteralExpression"];
+          const { error, frames } = interpret(code, { languageFeatures: { allowedNodes } });
+          expect(error).toBeInstanceOf(SyntaxError);
+          expect(error?.type).toBe("LogicalExpressionNotAllowed");
+          expect(frames).toHaveLength(0);
+        }
+      });
+
+      test("allowing BinaryExpression does not allow logical operators", () => {
+        const allowedNodes: NodeType[] = ["ExpressionStatement", "BinaryExpression", "LiteralExpression"];
+        const { error } = interpret(`true && false;`, { languageFeatures: { allowedNodes } });
+        expect(error).toBeInstanceOf(SyntaxError);
+        expect(error?.type).toBe("LogicalExpressionNotAllowed");
       });
     });
 

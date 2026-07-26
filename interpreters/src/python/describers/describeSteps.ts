@@ -2,6 +2,7 @@ import type { Expression } from "../expression";
 import type { EvaluationResultExpression } from "../evaluation-result";
 import type { DescriptionContext } from "../../shared/frames";
 import { describeBinaryExpression } from "./describeBinaryExpression";
+import { describeLogicalExpression } from "./describeLogicalExpression";
 import { describeUnaryExpression } from "./describeUnaryExpression";
 import { describeSubscriptExpression } from "./describeSubscriptExpression";
 import { describeCallExpression } from "./describeCallExpression";
@@ -15,6 +16,9 @@ export function describeExpression(
   switch (result.type) {
     case "BinaryExpression":
       return describeBinaryExpression(expression, result, context);
+
+    case "LogicalExpression":
+      return describeLogicalExpression(expression, result, context);
 
     case "UnaryExpression":
       return describeUnaryExpression(expression, result, context);

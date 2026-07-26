@@ -8,13 +8,6 @@ export function executeBinaryExpression(
   expression: BinaryExpression
 ): EvaluationResultBinaryExpression {
   const leftResult = executor.evaluate(expression.left);
-
-  // For logical operators, we need to check truthiness before evaluating the right side
-  // This also implements short-circuit evaluation
-  if (expression.operator.type === "AND" || expression.operator.type === "OR") {
-    return handleLogicalOperation(executor, expression, leftResult);
-  }
-
   const rightResult = executor.evaluate(expression.right);
 
   const result = handleBinaryOperation(executor, expression, leftResult, rightResult);
@@ -70,113 +63,6 @@ function handleBinaryOperation(
         operator: expression.operator.type,
       });
   }
-}
-
-// Python truthiness rules (same as in executeUnaryExpression)
-function isTruthy(obj: JikiObject): boolean {
-  const value = obj.value;
-  const type = obj.type;
-
-  // Python falsy values: False, None, 0, 0.0, "", [], {}, set()
-  if (type === "boolean") {
-    return value as boolean;
-  }
-  if (type === "none") {
-    return false;
-  }
-  if (type === "number") {
-    return value !== 0;
-  }
-  if (type === "string") {
-    return (value as string).length > 0;
-  }
-
-  // For now, we'll treat any other type as truthy
-  // This will be expanded when we add lists, dicts, etc.
-  return true;
-}
-
-function handleLogicalOperation(
-  executor: Executor,
-  expression: BinaryExpression,
-  leftResult: EvaluationResultExpression
-): EvaluationResultBinaryExpression {
-  const leftObject = leftResult.jikiObject;
-
-  // Check if truthiness is disabled for non-boolean values
-  if (!executor.languageFeatures.allowTruthiness && leftObject.type !== "boolean") {
-    executor.error("TruthinessDisabled", expression.left.location, {
-      value: leftObject.type,
-    });
-  }
-
-  const leftTruthy = isTruthy(leftObject);
-
-  if (expression.operator.type === "AND") {
-    // Python's 'and' operator returns the first falsy value or the last value
-    if (!leftTruthy) {
-      // Short-circuit: return left value if it's falsy
-      return {
-        type: "BinaryExpression",
-        left: leftResult,
-        right: null,
-        jikiObject: leftObject,
-        immutableJikiObject: leftObject.clone(),
-      } as any;
-    }
-
-    // Evaluate the right side
-    const rightResult = executor.evaluate(expression.right);
-    const rightObject = rightResult.jikiObject;
-
-    // Check truthiness for the right operand
-    if (!executor.languageFeatures.allowTruthiness && rightObject.type !== "boolean") {
-      executor.error("TruthinessDisabled", expression.right.location, {
-        value: rightObject.type,
-      });
-    }
-
-    // Return the right value (Python semantics)
-    return {
-      type: "BinaryExpression",
-      left: leftResult,
-      right: rightResult,
-      jikiObject: rightObject,
-      immutableJikiObject: rightObject.clone(),
-    } as any;
-  }
-  // OR
-  // Python's 'or' operator returns the first truthy value or the last value
-  if (leftTruthy) {
-    // Short-circuit: return left value if it's truthy
-    return {
-      type: "BinaryExpression",
-      left: leftResult,
-      right: null,
-      jikiObject: leftObject,
-      immutableJikiObject: leftObject.clone(),
-    } as any;
-  }
-
-  // Evaluate the right side
-  const rightResult = executor.evaluate(expression.right);
-  const rightObject = rightResult.jikiObject;
-
-  // Check truthiness for the right operand
-  if (!executor.languageFeatures.allowTruthiness && rightObject.type !== "boolean") {
-    executor.error("TruthinessDisabled", expression.right.location, {
-      value: rightObject.type,
-    });
-  }
-
-  // Return the right value (Python semantics)
-  return {
-    type: "BinaryExpression",
-    left: leftResult,
-    right: rightResult,
-    jikiObject: rightObject,
-    immutableJikiObject: rightObject.clone(),
-  } as any;
 }
 
 // Arithmetic operation handlers

@@ -3,6 +3,7 @@ import type { Expression } from "./expression";
 import {
   LiteralExpression,
   BinaryExpression,
+  LogicalExpression,
   UnaryExpression,
   GroupingExpression,
   IdentifierExpression,
@@ -604,12 +605,12 @@ export class Parser {
     let expr = this.logicalAnd();
 
     while (this.match("LOGICAL_OR")) {
-      // Check if BinaryExpression is allowed (logical operators use BinaryExpression)
-      this.checkNodeAllowed("BinaryExpression", "BinaryExpressionNotAllowed", this.previous().location);
+      // Logical operators are gated separately from arithmetic BinaryExpressions.
+      this.checkNodeAllowed("LogicalExpression", "LogicalExpressionNotAllowed", this.previous().location);
 
       const operator = this.previous();
       const right = this.logicalAnd();
-      expr = new BinaryExpression(expr, operator, right, Location.between(expr, right));
+      expr = new LogicalExpression(expr, operator, right, Location.between(expr, right));
     }
 
     return expr;
@@ -619,12 +620,12 @@ export class Parser {
     let expr = this.equality();
 
     while (this.match("LOGICAL_AND")) {
-      // Check if BinaryExpression is allowed
-      this.checkNodeAllowed("BinaryExpression", "BinaryExpressionNotAllowed", this.previous().location);
+      // Logical operators are gated separately from arithmetic BinaryExpressions.
+      this.checkNodeAllowed("LogicalExpression", "LogicalExpressionNotAllowed", this.previous().location);
 
       const operator = this.previous();
       const right = this.equality();
-      expr = new BinaryExpression(expr, operator, right, Location.between(expr, right));
+      expr = new LogicalExpression(expr, operator, right, Location.between(expr, right));
     }
 
     return expr;

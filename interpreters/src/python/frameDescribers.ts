@@ -105,6 +105,7 @@ function generateDescription(frame: FrameWithResult, context: DescriptionContext
     case "FunctionDeclaration":
     case "LiteralExpression":
     case "BinaryExpression":
+    case "LogicalExpression":
     case "UnaryExpression":
     case "GroupingExpression":
     case "IdentifierExpression":

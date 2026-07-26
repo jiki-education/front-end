@@ -1,6 +1,12 @@
 import { parse } from "@javascript/parser";
 import { ExpressionStatement } from "@javascript/statement";
-import { LiteralExpression, BinaryExpression, UnaryExpression, GroupingExpression } from "@javascript/expression";
+import {
+  LiteralExpression,
+  BinaryExpression,
+  LogicalExpression,
+  UnaryExpression,
+  GroupingExpression,
+} from "@javascript/expression";
 
 describe("comprehensive", () => {
   describe("parse", () => {
@@ -10,8 +16,8 @@ describe("comprehensive", () => {
         expect(stmts).toBeArrayOfSize(1);
         expect(stmts[0]).toBeInstanceOf(ExpressionStatement);
         const exprStmt = stmts[0] as ExpressionStatement;
-        expect(exprStmt.expression).toBeInstanceOf(BinaryExpression);
-        const binaryExpr = exprStmt.expression as BinaryExpression;
+        expect(exprStmt.expression).toBeInstanceOf(LogicalExpression);
+        const binaryExpr = exprStmt.expression as LogicalExpression;
         expect(binaryExpr.operator.type).toBe("LOGICAL_AND");
         expect(binaryExpr.left).toBeInstanceOf(GroupingExpression);
         expect(binaryExpr.right).toBeInstanceOf(GroupingExpression);
@@ -22,12 +28,12 @@ describe("comprehensive", () => {
         expect(stmts).toBeArrayOfSize(1);
         expect(stmts[0]).toBeInstanceOf(ExpressionStatement);
         const exprStmt = stmts[0] as ExpressionStatement;
-        expect(exprStmt.expression).toBeInstanceOf(BinaryExpression);
+        expect(exprStmt.expression).toBeInstanceOf(LogicalExpression);
         // Should be ((1 + (2 * 3)) && true) || false
-        const topExpr = exprStmt.expression as BinaryExpression;
+        const topExpr = exprStmt.expression as LogicalExpression;
         expect(topExpr.operator.type).toBe("LOGICAL_OR");
         expect((topExpr.right as LiteralExpression).value).toBe(false);
-        expect(topExpr.left).toBeInstanceOf(BinaryExpression);
+        expect(topExpr.left).toBeInstanceOf(LogicalExpression);
       });
 
       test("string concatenation with grouping", () => {
@@ -47,16 +53,16 @@ describe("comprehensive", () => {
         expect(stmts).toBeArrayOfSize(1);
         expect(stmts[0]).toBeInstanceOf(ExpressionStatement);
         const exprStmt = stmts[0] as ExpressionStatement;
-        expect(exprStmt.expression).toBeInstanceOf(BinaryExpression);
-        const topExpr = exprStmt.expression as BinaryExpression;
+        expect(exprStmt.expression).toBeInstanceOf(LogicalExpression);
+        const topExpr = exprStmt.expression as LogicalExpression;
         expect(topExpr.operator.type).toBe("LOGICAL_AND");
         expect(topExpr.left).toBeInstanceOf(GroupingExpression);
         expect(topExpr.right).toBeInstanceOf(GroupingExpression);
 
         // Check the right side has nested grouping
         const rightGroup = topExpr.right as GroupingExpression;
-        expect(rightGroup.inner).toBeInstanceOf(BinaryExpression);
-        const rightInner = rightGroup.inner as BinaryExpression;
+        expect(rightGroup.inner).toBeInstanceOf(LogicalExpression);
+        const rightInner = rightGroup.inner as LogicalExpression;
         expect(rightInner.operator.type).toBe("LOGICAL_OR");
         expect(rightInner.right).toBeInstanceOf(GroupingExpression);
       });

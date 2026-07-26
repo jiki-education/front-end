@@ -5,6 +5,7 @@ import {
   AttributeExpression,
   ListExpression,
   BinaryExpression,
+  LogicalExpression,
   UnaryExpression,
 } from "./expression";
 import {
@@ -154,8 +155,9 @@ export function countListExpressions(statements: Statement[]): number {
  */
 export function extractOperators(statements: Statement[]): string[] {
   const binary = extractExpressionsDeep(statements, BinaryExpression).map(expr => expr.operator.lexeme);
+  const logical = extractExpressionsDeep(statements, LogicalExpression).map(expr => expr.operator.lexeme);
   const unary = extractExpressionsDeep(statements, UnaryExpression).map(expr => expr.operator.lexeme);
-  return [...binary, ...unary];
+  return [...binary, ...logical, ...unary];
 }
 
 export function extractCallExpressionsDeepExcluding(

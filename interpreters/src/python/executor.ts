@@ -6,6 +6,7 @@ import type { Expression } from "./expression";
 import {
   LiteralExpression,
   BinaryExpression,
+  LogicalExpression,
   UnaryExpression,
   GroupingExpression,
   IdentifierExpression,
@@ -50,6 +51,7 @@ import { createRandomFn } from "../shared/random";
 import { executeLiteralExpression } from "./executor/executeLiteralExpression";
 import { executeExpressionStatement } from "./executor/executeExpressionStatement";
 import { executeBinaryExpression } from "./executor/executeBinaryExpression";
+import { executeLogicalExpression } from "./executor/executeLogicalExpression";
 import { executeUnaryExpression } from "./executor/executeUnaryExpression";
 import { executeGroupingExpression } from "./executor/executeGroupingExpression";
 import { executeIdentifierExpression } from "./executor/executeIdentifierExpression";
@@ -431,6 +433,10 @@ export class Executor {
 
     if (expression instanceof BinaryExpression) {
       return executeBinaryExpression(this, expression);
+    }
+
+    if (expression instanceof LogicalExpression) {
+      return executeLogicalExpression(this, expression);
     }
 
     if (expression instanceof UnaryExpression) {

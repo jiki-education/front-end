@@ -70,16 +70,6 @@ function handleBinaryOperation(
     case "PERCENT":
       return arithmeticWithCoercion(executor, expression, leftResult, rightResult, "%");
 
-    case "LOGICAL_AND":
-      executor.verifyBoolean(leftResult.jikiObject, expression.left.location);
-      executor.verifyBoolean(rightResult.jikiObject, expression.right.location);
-      return createJSObject(left && right);
-
-    case "LOGICAL_OR":
-      executor.verifyBoolean(leftResult.jikiObject, expression.left.location);
-      executor.verifyBoolean(rightResult.jikiObject, expression.right.location);
-      return createJSObject(left || right);
-
     case "EQUAL_EQUAL":
       // `==` is rejected at parse time when enforceStrictEquality is on (the default),
       // so reaching here means loose equality is explicitly permitted.

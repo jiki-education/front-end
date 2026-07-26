@@ -3,6 +3,7 @@ import type { Expression } from "./expression";
 import {
   LiteralExpression,
   BinaryExpression,
+  LogicalExpression,
   UnaryExpression,
   GroupingExpression,
   IdentifierExpression,
@@ -67,6 +68,7 @@ export class Parser {
     const friendlyNames: Record<NodeType, string> = {
       LiteralExpression: "Literals",
       BinaryExpression: "Binary expressions",
+      LogicalExpression: "Logical expressions",
       UnaryExpression: "Unary expressions",
       GroupingExpression: "Grouping expressions",
       IdentifierExpression: "Identifiers",
@@ -270,12 +272,12 @@ export class Parser {
     let expr = this.and();
 
     while (this.match("OR")) {
-      // Check if BinaryExpression is allowed
-      this.checkNodeAllowed("BinaryExpression", "BinaryExpressionNotAllowed", this.previous().location);
+      // Logical operators are gated separately from arithmetic BinaryExpressions.
+      this.checkNodeAllowed("LogicalExpression", "LogicalExpressionNotAllowed", this.previous().location);
 
       const operator = this.previous();
       const right = this.and();
-      expr = new BinaryExpression(expr, operator, right, Location.between(expr, right));
+      expr = new LogicalExpression(expr, operator, right, Location.between(expr, right));
     }
 
     return expr;
@@ -285,12 +287,12 @@ export class Parser {
     let expr = this.equality();
 
     while (this.match("AND")) {
-      // Check if BinaryExpression is allowed
-      this.checkNodeAllowed("BinaryExpression", "BinaryExpressionNotAllowed", this.previous().location);
+      // Logical operators are gated separately from arithmetic BinaryExpressions.
+      this.checkNodeAllowed("LogicalExpression", "LogicalExpressionNotAllowed", this.previous().location);
 
       const operator = this.previous();
       const right = this.equality();
-      expr = new BinaryExpression(expr, operator, right, Location.between(expr, right));
+      expr = new LogicalExpression(expr, operator, right, Location.between(expr, right));
     }
 
     return expr;

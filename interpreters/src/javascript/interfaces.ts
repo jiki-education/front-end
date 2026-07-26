@@ -3,6 +3,7 @@ export type NodeType =
   // Expressions
   | "LiteralExpression"
   | "BinaryExpression"
+  | "LogicalExpression"
   | "UnaryExpression"
   | "GroupingExpression"
   | "IdentifierExpression"
