@@ -20,10 +20,13 @@ const exerciseDefinition: IOExerciseCore = {
     "string-indexing",
     "if"
   ],
-  // The hand-written toLower helper scans the alphabet per character, so the
-  // longest scenarios run ~2000 loop iterations — above the global default of
-  // 1000. Raise the cap so valid (if inefficient) manual solutions pass.
-  interpreterOptions: { maxTotalLoopIterations: 10000 }
+  // Loop-heavy exercise: hand-written toLowerCase/indexOf/includes helpers scan
+  // the alphabet per character. The reference solution peaks at ~1600 iterations
+  // on the longest scenario, but valid-if-inefficient approaches run much higher:
+  // a no-helper "scan the sentence once per letter" solution hits ~16k, and
+  // re-lowercasing inside the 26-letter loop hits ~31k. Cap at 32k so all correct
+  // manual solutions pass regardless of structure.
+  interpreterOptions: { maxTotalLoopIterations: 32000 }
 };
 
 export default exerciseDefinition;
