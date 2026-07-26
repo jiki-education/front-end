@@ -9,7 +9,7 @@ The next three exercises are all going to be about determining if sentences are 
 
 In this first exercise, you only need to handle lowercase letters. The input will only contain lowercase letters and other characters like spaces, numbers, or punctuation, but no uppercase letters.
 
-Your task is to write <define>`isPangram(sentence)`</define>, which takes a sentence as an input and returns `true` if it contains every letter from a to z at least once, or `false` if it doesn't.
+Your task is to write <define>`isPangram(sentence)`</define>, which takes a sentence as an input and returns `true` if it contains every letter from "a" to "z" at least once, or `false` if it doesn't.
 
 ### Helper functions
 

@@ -3,7 +3,7 @@ title: "Niche Named Party"
 description: "Work out who's allowed into a very exclusive party."
 ---
 
-Tonight's party is very exclusive - only people whose names start with a specific set of letters are allowed in!
+Tonight's party is very exclusive - only people whose names start with a specific sequence of letters are allowed in!
 
 Your job is to write a function called <define>`handleGuest`</define> that takes two inputs:
 
