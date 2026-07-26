@@ -1,0 +1,22 @@
+{
+  "slug": "methodic-pangram",
+  "levelId": "methods-and-properties",
+  "hints": [
+    {
+      "question": "hints.recall.question",
+      "answer": "hints.recall.answer"
+    },
+    {
+      "question": "hints.lowercaseMethod.question",
+      "answer": "hints.lowercaseMethod.answer"
+    },
+    {
+      "question": "hints.includesMethod.question",
+      "answer": "hints.includesMethod.answer"
+    },
+    {
+      "question": "hints.stopEarly.question",
+      "answer": "hints.stopEarly.answer"
+    }
+  ]
+}

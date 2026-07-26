@@ -1,4 +1,4 @@
-def contains(string, target):
+def includes(string, target):
     for character in string:
         if target == character:
             return True
@@ -20,7 +20,7 @@ def to_lower(sentence):
     upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     upper_idx = 0
     for char in sentence:
-        if contains(lower, char):
+        if includes(lower, char):
             output = output + char
         else:
             upper_idx = index_of(upper, char)
@@ -32,6 +32,6 @@ def to_lower(sentence):
 def is_pangram(sentence):
     sentence = to_lower(sentence)
     for letter in "abcdefghijklmnopqrstuvwxyz":
-        if not contains(sentence, letter):
+        if not includes(sentence, letter):
             return False
     return True

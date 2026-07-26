@@ -19,7 +19,7 @@ For example:
 
 ### Helper functions
 
-The key to this exercise is to avoid repetition. Create one or more **helper functions** (a function designed to make your main function simpler), which `handleGuest(...)` uses.
+As you work through this exercise, you will find it neccesary to work out the length of the guest's name, and also the length of the allowed prefix. This is the perfect opportunity to create a helper function called `getLength(someString)`, which counts how many letters are in the string. You can then use this function in different places inside `handleGuest(...)`
 
 The bonus scenario challenges you to solve this in the minimum number of lines possible. You might also come up with other solutions that you prefer, which use more lines. That's totally fine (and you're encouraged to explore different approaches), but try and find the shortest version too.
 

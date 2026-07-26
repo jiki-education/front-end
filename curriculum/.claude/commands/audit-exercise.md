@@ -85,7 +85,7 @@ If this check fails, skip the remaining audit checks and move directly to the **
 
 3. **Name accuracy**: The `name` field in FunctionInfo should match the snake_case function name in `availableFunctions`. For Jikiscript display, the `signature` field should show the correct parameter names and count.
 
-4. **Signature accuracy**: The `signature` field should show the correct number of parameters. Cross-reference with the actual function implementation to verify parameter count and names.
+4. **Signature accuracy**: The `signature` field should show the correct number of parameters. Cross-reference with the actual function implementation to verify parameter count and names. **Methods and properties on a value** (e.g. string methods) use the method-call form `"...".method(args)` — e.g. `"...".includes(substring)`, `"...".toLowerCase()` — **not** the plain `funcName(args)` form. Regular standalone functions keep the `funcName(args)` form.
 
 5. **Description accuracy**: The `description` should accurately describe what the function does. It should not be misleading.
 
@@ -151,7 +151,7 @@ If this check fails, skip the remaining audit checks and move directly to the **
 
 4. **No Python syntax**: No `def`, `elif`, `True`/`False` as Python booleans, `self.`, `import`, `__init__`.
 
-5. **FunctionInfo fields**: `name` must be camelCase, `signature` must use camelCase, `examples` must use JavaScript syntax (e.g., `let age = getAge()` not `set age to get_age()`).
+5. **FunctionInfo fields**: `name` must be camelCase, `signature` must use camelCase, `examples` must use JavaScript syntax (e.g., `let age = getAge()` not `set age to get_age()`). Method/property functions use the method-call form for both `signature` and `examples` — `"...".includes(substring)` with examples like `"hello".includes("ell") → true` — rather than the plain `funcName(args)` form.
 
 6. **LLM metadata**: No references to "Jiki"/"Jikiscript", function names in camelCase, code examples in JS syntax, generic language descriptions.
 

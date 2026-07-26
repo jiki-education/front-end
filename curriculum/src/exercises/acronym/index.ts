@@ -6,9 +6,9 @@ import type { IOExerciseCore, FunctionInfo } from "../types";
 const functions: FunctionInfo[] = [
   {
     name: "toUpperCase",
-    signature: "toUpperCase(text)",
+    signature: '"...".toUpperCase()',
     description: "functions.toUpperCase.description",
-    examples: ['toUpperCase("hello") → "HELLO"', 'toUpperCase("png") → "PNG"'],
+    examples: ['"hello".toUpperCase() → "HELLO"', '"png".toUpperCase() → "PNG"'],
     category: "functions.toUpperCase.category"
   }
 ];

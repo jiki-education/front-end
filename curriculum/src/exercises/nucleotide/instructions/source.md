@@ -16,4 +16,4 @@ For example:
 - `countNucleotide("GATTACA", "T")` returns `2`
 - `countNucleotide("GATTACA", "X")` returns `-1`
 
-You'll need to write a helper function to check if a character is contained within a string.
+You can use `"...".includes(someString)` if you need it.

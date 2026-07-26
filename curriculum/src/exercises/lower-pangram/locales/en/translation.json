@@ -61,8 +61,8 @@
       "answer": "Loop through `\"abcdefghijklmnopqrstuvwxyz\"`, one letter at a time. For each letter, check whether the sentence contains it."
     },
     "avoidNestedLoops": {
-      "question": "How do I do this without nesting loops?",
-      "answer": "Extract the inner loop into a helper function, and then use that from in the outer loop. A helper function is just a normal function defined in the normal way."
+      "question": "I've solved the exercise but I don't know how to use the helper function.",
+      "answer": "If you've solved this, it's likely you have one outer loop and then an inner loop. That inner loop is checking if something includes something else. Extracting the inner loop into a helper function called `includes(...)`, and then use that from in the outer loop, is probably a good approach. A helper function is just a normal function defined in the normal way."
     }
   }
 }

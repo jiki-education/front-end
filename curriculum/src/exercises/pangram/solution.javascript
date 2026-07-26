@@ -1,16 +1,16 @@
-function contains(str, target) {
-  for (const character of str) {
-    if (target === character) {
+function includes(haystack, needle) {
+  for (const character of haystack) {
+    if (needle === character) {
       return true
     }
   }
   return false
 }
 
-function indexOf(sentence, target) {
+function indexOf(haystack, needle) {
   let idx = 0
-  for (const letter of sentence) {
-    if (target === letter) {
+  for (const letter of haystack) {
+    if (needle === letter) {
       return idx
     }
     idx = idx + 1
@@ -18,13 +18,13 @@ function indexOf(sentence, target) {
   return -1
 }
 
-function toLower(sentence) {
+function toLowerCase(someString) {
   let output = ""
   let lower = "abcdefghijklmnopqrstuvwxyz"
   let upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   let upperIdx = 0
-  for (const char of sentence) {
-    if (contains(lower, char)) {
+  for (const char of someString) {
+    if (includes(lower, char)) {
       output = output + char
     } else {
       upperIdx = indexOf(upper, char)
@@ -37,9 +37,9 @@ function toLower(sentence) {
 }
 
 function isPangram(sentence) {
-  sentence = toLower(sentence)
+  sentence = toLowerCase(sentence)
   for (const letter of "abcdefghijklmnopqrstuvwxyz") {
-    if (!contains(sentence, letter)) {
+    if (!includes(sentence, letter)) {
       return false
     }
   }

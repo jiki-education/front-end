@@ -9,16 +9,18 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise allows a student to explore string iteration combined with
-    input validation via early returns.
+    This exercise practises the string .includes() method for membership checks,
+    combined with string iteration and input validation via early returns.
   `,
 
   tasks: {
     "count-nucleotide": {
       description: `
         Anchor steps:
-        1. Validate the nucleotide argument; return -1 if it isn't A/C/G/T.
-        2. Iterate the strand, returning -1 on the first invalid character.
+        1. Validate the nucleotide argument with "ACGT".includes(nucleotide);
+           return -1 if it isn't A/C/G/T.
+        2. Iterate the strand, returning -1 on the first character that fails the
+           same "ACGT".includes(...) check.
         3. Count characters matching the target and return the count.
 
         The two validation gates (the nucleotide argument AND every strand

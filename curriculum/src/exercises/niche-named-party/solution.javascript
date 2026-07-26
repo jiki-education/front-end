@@ -1,6 +1,6 @@
-function getLength(word) {
+function getLength(someString) {
   let counter = 0
-  for (const letter of word) {
+  for (const letter of someString) {
     counter = counter + 1
   }
   return counter

@@ -5,10 +5,17 @@ import type { IOExerciseCore, FunctionInfo } from "../types";
 
 const functions: FunctionInfo[] = [
   {
+    name: "toLowerCase",
+    signature: '"...".toLowerCase()',
+    description: "functions.toLowerCase.description",
+    examples: ['"Hello".toLowerCase() → "hello"', '"PNG".toLowerCase() → "png"'],
+    category: "functions.toLowerCase.category"
+  },
+  {
     name: "includes",
     signature: '"...".includes(substring)',
     description: "functions.includes.description",
-    examples: ['"ACGT".includes("A") → true', '"ACGT".includes("X") → false'],
+    examples: ['"hello".includes("ell") → true', '"hello".includes("z") → false'],
     category: "functions.includes.category"
   }
 ];
