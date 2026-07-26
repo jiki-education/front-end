@@ -27,6 +27,7 @@ jest.mock("@/components/common/LessonLoadingModal/LessonLoadingModal", () => ({
 
 import { fetchLesson, startLesson } from "@/lib/api/lessons";
 import { fetchUserCourse } from "@/lib/api/courses";
+import { ApiError } from "@/lib/api/client";
 
 const mockedFetchLesson = fetchLesson as jest.MockedFunction<typeof fetchLesson>;
 const mockedStartLesson = startLesson as jest.MockedFunction<typeof startLesson>;
@@ -75,11 +76,27 @@ describe("Lesson starts the lesson on mount", () => {
     await waitFor(() => expect(screen.getByTestId("lesson-content")).toHaveAttribute("data-completed", "false"));
   });
 
-  it("shows an error when start fails", async () => {
-    mockedStartLesson.mockRejectedValue(new Error("API Error: 422"));
+  it("shows the error screen for a non-422 failure", async () => {
+    mockedStartLesson.mockRejectedValue(new ApiError(500, "Internal Server Error"));
 
     render(<Lesson slug={SLUG} />);
 
-    await waitFor(() => expect(screen.queryByTestId("lesson-content")).not.toBeInTheDocument());
+    // The LessonError screen (with its "Back to Dashboard" button) renders in place.
+    await waitFor(() => expect(screen.getByText("Back to Dashboard")).toBeInTheDocument());
+    expect(screen.queryByTestId("lesson-content")).not.toBeInTheDocument();
+  });
+
+  it("redirects to the dashboard instead of showing the error screen on a 422", async () => {
+    // jsdom can't intercept the `window.location.href` hard navigation (it logs
+    // "Not implemented: navigation" and no-ops), so assert the observable outcome:
+    // the LessonError screen is NOT rendered because the catch block redirects and
+    // returns before setError runs.
+    mockedStartLesson.mockRejectedValue(new ApiError(422, "Unprocessable Entity"));
+
+    render(<Lesson slug={SLUG} />);
+
+    await waitFor(() => expect(screen.getByTestId("lesson-loading")).toBeInTheDocument());
+    expect(screen.queryByText("Back to Dashboard")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("lesson-content")).not.toBeInTheDocument();
   });
 });

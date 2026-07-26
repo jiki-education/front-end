@@ -1,5 +1,6 @@
 import ExercisePath from "@/components/dashboard/exercise-path/ExercisePath";
 import { fetchLevelsWithProgress } from "@/lib/api/levels";
+import { toastError } from "@/lib/toast";
 import type { LessonWithProgress, LevelWithProgress } from "@/types/levels";
 import { render, screen, waitFor } from "@testing-library/react";
 
@@ -16,7 +17,12 @@ jest.mock("@/lib/constants/course", () => ({
   LAST_PUBLISHED_LEVEL_SLUG: "level-cutoff"
 }));
 
+jest.mock("@/lib/toast", () => ({
+  toastError: jest.fn()
+}));
+
 const mockFetchLevels = fetchLevelsWithProgress as jest.MockedFunction<typeof fetchLevelsWithProgress>;
+const mockToastError = toastError as jest.MockedFunction<typeof toastError>;
 
 function createLesson(overrides: Partial<LessonWithProgress> = {}): LessonWithProgress {
   return {
@@ -47,6 +53,27 @@ describe("ExercisePath", () => {
 
   afterEach(() => {
     jest.clearAllMocks();
+    window.history.replaceState({}, "", "/dashboard");
+  });
+
+  it("shows an error toast and strips the param when arriving with ?lessonError", async () => {
+    mockFetchLevels.mockResolvedValue([createLevel("level-cutoff", [createLesson({ slug: "l1" })])]);
+    window.history.replaceState({}, "", "/dashboard?lessonError=methods-and-strings");
+
+    render(<ExercisePath />);
+
+    await waitFor(() => expect(mockToastError).toHaveBeenCalledWith("lesson.loadFailed"));
+    expect(new URLSearchParams(window.location.search).has("lessonError")).toBe(false);
+  });
+
+  it("does not show an error toast on a normal dashboard visit", async () => {
+    mockFetchLevels.mockResolvedValue([createLevel("level-cutoff", [createLesson({ slug: "l1" })])]);
+    window.history.replaceState({}, "", "/dashboard");
+
+    render(<ExercisePath />);
+
+    await waitFor(() => expect(mockFetchLevels).toHaveBeenCalled());
+    expect(mockToastError).not.toHaveBeenCalled();
   });
 
   it("renders the ComingSoonCard when all lessons in the cutoff level are completed", async () => {

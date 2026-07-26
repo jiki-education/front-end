@@ -2,6 +2,7 @@
 
 import LessonLoadingModal from "@/components/common/LessonLoadingModal/LessonLoadingModal";
 import { fetchUserCourse } from "@/lib/api/courses";
+import { ApiError } from "@/lib/api/client";
 import { fetchLesson, startLesson } from "@/lib/api/lessons";
 import type { UserCourse } from "@/types/course";
 import type { LessonWithData } from "@/types/lesson";
@@ -62,7 +63,16 @@ export default function Lesson({ slug }: LessonProps) {
         if (!cancelled) {
           console.error("Failed to fetch lesson:", err);
           // Auth/network/rate-limit errors never reach here (handled globally)
-          // Only application errors (404, 500, validation) reach this catch block
+          // Only application errors (404, 500, validation) reach this catch block.
+          //
+          // A 422 means this lesson can't be opened for this user (invalid/
+          // unavailable state). Rather than stranding them on a dead error screen,
+          // bounce back to the dashboard with a hard navigation so everything
+          // reloads cleanly, and surface a toast there (see ExercisePath).
+          if (err instanceof ApiError && err.status === 422) {
+            window.location.href = `/dashboard?lessonError=${encodeURIComponent(slug)}`;
+            return;
+          }
           setError(err instanceof Error ? err.message : t("loadError"));
         }
       } finally {
