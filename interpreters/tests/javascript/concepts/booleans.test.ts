@@ -1,6 +1,6 @@
 import { parse } from "@javascript/parser";
 import { ExpressionStatement } from "@javascript/statement";
-import { LiteralExpression, BinaryExpression } from "@javascript/expression";
+import { LiteralExpression, BinaryExpression, LogicalExpression } from "@javascript/expression";
 
 describe("booleans", () => {
   describe("parse", () => {
@@ -30,8 +30,8 @@ describe("booleans", () => {
         expect(stmts).toBeArrayOfSize(1);
         expect(stmts[0]).toBeInstanceOf(ExpressionStatement);
         const exprStmt = stmts[0] as ExpressionStatement;
-        expect(exprStmt.expression).toBeInstanceOf(BinaryExpression);
-        const binaryExpr = exprStmt.expression as BinaryExpression;
+        expect(exprStmt.expression).toBeInstanceOf(LogicalExpression);
+        const binaryExpr = exprStmt.expression as LogicalExpression;
         expect(binaryExpr.operator.type).toBe("LOGICAL_AND");
         expect((binaryExpr.left as LiteralExpression).value).toBe(true);
         expect((binaryExpr.right as LiteralExpression).value).toBe(false);
@@ -42,8 +42,8 @@ describe("booleans", () => {
         expect(stmts).toBeArrayOfSize(1);
         expect(stmts[0]).toBeInstanceOf(ExpressionStatement);
         const exprStmt = stmts[0] as ExpressionStatement;
-        expect(exprStmt.expression).toBeInstanceOf(BinaryExpression);
-        const binaryExpr = exprStmt.expression as BinaryExpression;
+        expect(exprStmt.expression).toBeInstanceOf(LogicalExpression);
+        const binaryExpr = exprStmt.expression as LogicalExpression;
         expect(binaryExpr.operator.type).toBe("LOGICAL_OR");
         expect((binaryExpr.left as LiteralExpression).value).toBe(true);
         expect((binaryExpr.right as LiteralExpression).value).toBe(false);
@@ -54,11 +54,11 @@ describe("booleans", () => {
         expect(stmts).toBeArrayOfSize(1);
         expect(stmts[0]).toBeInstanceOf(ExpressionStatement);
         const exprStmt = stmts[0] as ExpressionStatement;
-        expect(exprStmt.expression).toBeInstanceOf(BinaryExpression);
+        expect(exprStmt.expression).toBeInstanceOf(LogicalExpression);
         // Should be (true && false) || true due to precedence
-        const topExpr = exprStmt.expression as BinaryExpression;
+        const topExpr = exprStmt.expression as LogicalExpression;
         expect(topExpr.operator.type).toBe("LOGICAL_OR");
-        expect(topExpr.left).toBeInstanceOf(BinaryExpression);
+        expect(topExpr.left).toBeInstanceOf(LogicalExpression);
         expect((topExpr.right as LiteralExpression).value).toBe(true);
       });
     });

@@ -26,6 +26,7 @@
       "MissingAttributeName": "Missing attribute name after `.`.",
       "LiteralExpressionNotAllowed": "Literals are not allowed at your current learning level.",
       "BinaryExpressionNotAllowed": "Binary expressions are not allowed at your current learning level.",
+      "LogicalExpressionNotAllowed": "Logical operators (`and`, `or`) are not allowed at your current learning level.",
       "UnaryExpressionNotAllowed": "Unary expressions are not allowed at your current learning level.",
       "GroupingExpressionNotAllowed": "Grouping expressions are not allowed at your current learning level.",
       "IdentifierExpressionNotAllowed": "Identifiers are not allowed at your current learning level.",

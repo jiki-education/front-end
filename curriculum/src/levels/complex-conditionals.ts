@@ -11,6 +11,7 @@ const complexConditionals: Level = {
   ],
   languageFeatures: {
     javascript: {
+      allowedNodes: ["LogicalExpression"],
       languageFeatures: {}
     }
   }

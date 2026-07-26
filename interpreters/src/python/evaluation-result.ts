@@ -90,6 +90,15 @@ export interface EvaluationResultBinaryExpression {
   immutableJikiObject: JikiObject;
 }
 
+export interface EvaluationResultLogicalExpression {
+  type: "LogicalExpression";
+  left: EvaluationResultExpression;
+  // right is null when the operator short-circuits (Python `and`/`or`).
+  right: EvaluationResultExpression | null;
+  jikiObject: JikiObject;
+  immutableJikiObject: JikiObject;
+}
+
 export interface EvaluationResultUnaryExpression {
   type: "UnaryExpression";
   operand: EvaluationResultExpression;
@@ -171,6 +180,7 @@ export type EvaluationResultStatement =
 
 export type EvaluationResultExpression =
   | EvaluationResultBinaryExpression
+  | EvaluationResultLogicalExpression
   | EvaluationResultUnaryExpression
   | EvaluationResultLiteralExpression
   | EvaluationResultGroupingExpression

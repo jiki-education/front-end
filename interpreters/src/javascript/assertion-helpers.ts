@@ -6,6 +6,7 @@ import {
   ArrayExpression,
   LiteralExpression,
   BinaryExpression,
+  LogicalExpression,
   UnaryExpression,
 } from "./expression";
 import {
@@ -271,8 +272,9 @@ export function countArrayExpressions(statements: Statement[]): number {
  */
 export function extractOperators(tree: Statement[] | Expression[]): string[] {
   const binary = extractExpressions(tree, BinaryExpression).map(expr => expr.operator.lexeme);
+  const logical = extractExpressions(tree, LogicalExpression).map(expr => expr.operator.lexeme);
   const unary = extractExpressions(tree, UnaryExpression).map(expr => expr.operator.lexeme);
-  return [...binary, ...unary];
+  return [...binary, ...logical, ...unary];
 }
 
 export function extractCallExpressionsExcludingFunctionBody(

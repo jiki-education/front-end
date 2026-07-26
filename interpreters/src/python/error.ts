@@ -27,6 +27,7 @@ export type SyntaxErrorType =
   // Node restriction errors
   | "LiteralExpressionNotAllowed"
   | "BinaryExpressionNotAllowed"
+  | "LogicalExpressionNotAllowed"
   | "UnaryExpressionNotAllowed"
   | "GroupingExpressionNotAllowed"
   | "IdentifierExpressionNotAllowed"

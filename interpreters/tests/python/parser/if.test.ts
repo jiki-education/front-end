@@ -1,6 +1,6 @@
 import { Parser } from "@python/parser";
 import { IfStatement, BlockStatement } from "@python/statement";
-import { BinaryExpression, LiteralExpression } from "@python/expression";
+import { BinaryExpression, LogicalExpression, LiteralExpression } from "@python/expression";
 
 describe("Python Parser - If Statements", () => {
   let parser: Parser;
@@ -118,9 +118,9 @@ x = 1`;
 
     expect(statements).toHaveLength(1);
     const ifStmt = statements[0] as IfStatement;
-    expect(ifStmt.condition).toBeInstanceOf(BinaryExpression);
+    expect(ifStmt.condition).toBeInstanceOf(LogicalExpression);
 
-    const condition = ifStmt.condition as BinaryExpression;
+    const condition = ifStmt.condition as LogicalExpression;
     expect(condition.operator.type).toBe("AND");
   });
 

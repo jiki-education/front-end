@@ -1,6 +1,7 @@
 import type {
   EvaluationResult,
   EvaluationResultBinaryExpression,
+  EvaluationResultLogicalExpression,
   EvaluationResultGroupingExpression,
   EvaluationResultUnaryExpression,
   EvaluationResultArrayExpression,
@@ -14,6 +15,7 @@ import type { Expression } from "../expression";
 import {
   GroupingExpression,
   BinaryExpression,
+  LogicalExpression,
   UnaryExpression,
   TemplateLiteralExpression,
   ArrayExpression,
@@ -24,6 +26,7 @@ import {
 } from "../expression";
 import type { DescriptionContext } from "../../shared/frames";
 import { describeBinaryExpression } from "./describeBinaryExpression";
+import { describeLogicalExpression } from "./describeLogicalExpression";
 import { describeGroupingExpression } from "./describeGroupingExpression";
 import { describeUnaryExpression } from "./describeUnaryExpression";
 import { describeTemplateLiteralExpression } from "./describeTemplateLiteralExpression";
@@ -40,6 +43,9 @@ export function describeExpression(
 ): string[] {
   if (expression instanceof BinaryExpression) {
     return describeBinaryExpression(expression, result as EvaluationResultBinaryExpression, context);
+  }
+  if (expression instanceof LogicalExpression) {
+    return describeLogicalExpression(expression, result as EvaluationResultLogicalExpression, context);
   }
   if (expression instanceof GroupingExpression) {
     return describeGroupingExpression(expression, result as EvaluationResultGroupingExpression, context);

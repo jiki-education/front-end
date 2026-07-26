@@ -5,6 +5,7 @@ import { LogicError, InterpreterInternalError } from "./error";
 import {
   LiteralExpression,
   BinaryExpression,
+  LogicalExpression,
   UnaryExpression,
   GroupingExpression,
   IdentifierExpression,
@@ -52,6 +53,7 @@ import { JSCallable, ReturnValue } from "./functions";
 import { executeAssignmentExpression } from "./executor/executeAssignmentExpression";
 import { executeLiteralExpression } from "./executor/executeLiteralExpression";
 import { executeBinaryExpression } from "./executor/executeBinaryExpression";
+import { executeLogicalExpression } from "./executor/executeLogicalExpression";
 import { executeUnaryExpression } from "./executor/executeUnaryExpression";
 import { executeGroupingExpression } from "./executor/executeGroupingExpression";
 import { executeIdentifierExpression } from "./executor/executeIdentifierExpression";
@@ -595,6 +597,10 @@ export class Executor {
 
     if (expression instanceof BinaryExpression) {
       return executeBinaryExpression(this, expression);
+    }
+
+    if (expression instanceof LogicalExpression) {
+      return executeLogicalExpression(this, expression);
     }
 
     if (expression instanceof UnaryExpression) {

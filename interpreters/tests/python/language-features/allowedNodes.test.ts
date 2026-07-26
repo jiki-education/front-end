@@ -309,8 +309,6 @@ if True:
           { code: `1 >= 2`, op: "greater than or equal" },
           { code: `1 == 2`, op: "equality" },
           { code: `1 != 2`, op: "inequality" },
-          { code: `True and False`, op: "logical AND" },
-          { code: `True or False`, op: "logical OR" },
         ];
 
         const allowedNodes: NodeType[] = ["ExpressionStatement", "LiteralExpression"];
@@ -320,6 +318,33 @@ if True:
           expect(error).toBeInstanceOf(SyntaxError);
           expect(error?.type).toBe("BinaryExpressionNotAllowed");
         }
+      });
+    });
+
+    describe("LogicalExpression", () => {
+      test("allows logical expressions when included", () => {
+        const code = `True and False`;
+        const allowedNodes: NodeType[] = ["ExpressionStatement", "LogicalExpression", "LiteralExpression"];
+        const { error, frames } = interpret(code, { languageFeatures: { allowedNodes } });
+        expect(error).toBeNull();
+        expect(frames.length).toBeGreaterThan(0);
+      });
+
+      test("prevents logical expressions when not included", () => {
+        for (const code of [`True and False`, `True or False`]) {
+          const allowedNodes: NodeType[] = ["ExpressionStatement", "LiteralExpression"];
+          const { error, frames } = interpret(code, { languageFeatures: { allowedNodes } });
+          expect(error).toBeInstanceOf(SyntaxError);
+          expect(error?.type).toBe("LogicalExpressionNotAllowed");
+          expect(frames).toHaveLength(0);
+        }
+      });
+
+      test("allowing BinaryExpression does not allow logical operators", () => {
+        const allowedNodes: NodeType[] = ["ExpressionStatement", "BinaryExpression", "LiteralExpression"];
+        const { error } = interpret(`True and False`, { languageFeatures: { allowedNodes } });
+        expect(error).toBeInstanceOf(SyntaxError);
+        expect(error?.type).toBe("LogicalExpressionNotAllowed");
       });
     });
 

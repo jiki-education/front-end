@@ -33,6 +33,23 @@ export class BinaryExpression extends Expression {
   }
 }
 
+// Logical operators (&&, ||) get their own node so they can be gated
+// independently of arithmetic/comparison BinaryExpressions via allowedNodes.
+// Shape is identical to BinaryExpression.
+export class LogicalExpression extends Expression {
+  constructor(
+    public left: Expression,
+    public operator: Token,
+    public right: Expression,
+    public location: Location
+  ) {
+    super("LogicalExpression");
+  }
+  public children() {
+    return [this.left, this.right];
+  }
+}
+
 export class UnaryExpression extends Expression {
   constructor(
     public operator: Token,
