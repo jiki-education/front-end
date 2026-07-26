@@ -178,6 +178,9 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "exercise", "slug": "pangram" },
       { "type": "exercise", "slug": "nucleotide" },
       { "type": "exercise", "slug": "isbn-verifier" },
+      { "type": "exercise", "slug": "luhn" },
+      { "type": "exercise", "slug": "run-length-encoding" },
+      { "type": "exercise", "slug": "digital-root" },
       { "type": "project", "slug": "acronym" }
     ]
   },

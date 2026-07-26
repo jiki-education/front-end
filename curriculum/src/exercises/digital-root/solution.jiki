@@ -1,0 +1,18 @@
+function digital_root with number do
+  repeat_forever do
+    if number < 10 do
+      return number
+    end
+
+    set total to 0
+    repeat_forever do
+      if number == 0 do
+        break
+      end
+      change total to total + (number % 10)
+      change number to floor(number / 10)
+    end
+
+    change number to total
+  end
+end

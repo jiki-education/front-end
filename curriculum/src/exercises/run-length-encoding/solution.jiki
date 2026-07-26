@@ -1,0 +1,55 @@
+function contains with haystack, needle do
+  for each hay in haystack do
+    if hay == needle do
+      return true
+    end
+  end
+  return false
+end
+
+function encode with input do
+  set result to ""
+  set previous to ""
+  set count to 0
+
+  for each char in input do
+    if char == previous do
+      change count to count + 1
+    else do
+      if count > 1 do
+        change result to result + count
+      end
+      change result to result + previous
+      change previous to char
+      change count to 1
+    end
+  end
+
+  if count > 1 do
+    change result to result + count
+  end
+  change result to result + previous
+
+  return result
+end
+
+function decode with input do
+  set result to ""
+  set count to 0
+
+  for each char in input do
+    if contains("0123456789", char) do
+      change count to (count * 10) + string_to_number(char)
+    else do
+      if count == 0 do
+        change count to 1
+      end
+      repeat count times do
+        change result to result + char
+      end
+      change count to 0
+    end
+  end
+
+  return result
+end

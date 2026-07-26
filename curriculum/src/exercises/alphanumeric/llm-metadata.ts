@@ -21,6 +21,13 @@ export const llmMetadata: LLMMetadata = {
         "Alpha"/"Numeric" must be checked before "Alphanumeric", otherwise everything collapses to
         "Alphanumeric". Anything with symbols, spaces, or non-ASCII is "Unknown".
       `
+    },
+    "use-continue": {
+      description: `
+        Optional bonus. The student's solution must contain a continue statement (ContinueStatement),
+        rewarding the use of continue to move past an already-classified character rather than nesting
+        further conditions. It does not change the required behaviour.
+      `
     }
   }
 };

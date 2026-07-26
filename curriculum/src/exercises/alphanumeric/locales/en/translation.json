@@ -3,6 +3,10 @@
     "classifyString": {
       "name": "Classify a string",
       "description": "Write helper functions to check if a string is alpha, numeric, or alphanumeric, then use them to classify the input string."
+    },
+    "useContinue": {
+      "name": "Bonus: use continue",
+      "description": "In your isAlphanumeric check, once a character is a letter or a digit you're happy with it. Use continue to move straight on to the next character instead of nesting more conditions."
     }
   },
   "scenarios": {
@@ -25,6 +29,10 @@
     "notAlphanumeric2": {
       "name": "42 Rubber Duck!",
       "description": "A string with spaces and special characters should be classified as \"Unknown\"."
+    },
+    "alphanumericBonusUseContinue": {
+      "name": "Used continue",
+      "description": "Your solution works and uses continue to move past characters that are already accounted for."
     }
   },
   "hints": {
@@ -48,5 +56,8 @@
       "question": "How do I pick between the four labels in whatAmI()?",
       "answer": "Call all three helpers and use if/else. The order matters. Check the stricter cases ('alpha only' and 'numeric only') before 'alphanumeric', which is the looser case."
     }
+  },
+  "checks": {
+    "mustUseContinue": "So close! For this bonus, use `continue` to skip on to the next character."
   }
 }

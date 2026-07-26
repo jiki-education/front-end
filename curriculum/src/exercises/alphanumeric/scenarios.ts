@@ -1,4 +1,13 @@
-import type { Task, IOScenario } from "../types";
+import type { Task, IOScenario, CodeCheck } from "../types";
+
+// Bonus: reward using continue to move past a character that has already been
+// classified, rather than nesting further conditions.
+const continueCheck: CodeCheck[] = [
+  {
+    pass: (result) => result.assertors.assertStatement("ContinueStatement"),
+    errorKey: "checks.mustUseContinue"
+  }
+];
 
 export const tasks = [
   {
@@ -8,6 +17,14 @@ export const tasks = [
     hints: [],
     requiredScenarios: ["duck", "number", "alphanumeric", "not-alphanumeric-1", "not-alphanumeric-2"],
     bonus: false
+  },
+  {
+    id: "use-continue" as const,
+    name: "tasks.useContinue.name",
+    description: "tasks.useContinue.description",
+    hints: [],
+    requiredScenarios: ["alphanumeric-bonus-use-continue"],
+    bonus: true
   }
 ] as const satisfies readonly Task[];
 
@@ -56,5 +73,15 @@ export const scenarios: IOScenario[] = [
     functionName: "what_am_i",
     args: ["42 Rubber Duck!"],
     expected: "Unknown"
+  },
+  {
+    slug: "alphanumeric-bonus-use-continue",
+    name: "scenarios.alphanumericBonusUseContinue.name",
+    description: "scenarios.alphanumericBonusUseContinue.description",
+    taskId: "use-continue",
+    functionName: "what_am_i",
+    args: ["Duck42"],
+    expected: "Alphanumeric",
+    codeChecks: continueCheck
   }
 ];

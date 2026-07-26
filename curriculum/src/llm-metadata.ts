@@ -81,6 +81,9 @@ import { llmMetadata as rainbowBallLLM } from "./exercises/rainbow-ball/llm-meta
 import { llmMetadata as triangleLLM } from "./exercises/triangle/llm-metadata";
 import { llmMetadata as raindropsLLM } from "./exercises/raindrops/llm-metadata";
 import { llmMetadata as isbnVerifierLLM } from "./exercises/isbn-verifier/llm-metadata";
+import { llmMetadata as luhnLLM } from "./exercises/luhn/llm-metadata";
+import { llmMetadata as runLengthEncodingLLM } from "./exercises/run-length-encoding/llm-metadata";
+import { llmMetadata as digitalRootLLM } from "./exercises/digital-root/llm-metadata";
 import { llmMetadata as lunchboxLLM } from "./exercises/lunchbox/llm-metadata";
 import { llmMetadata as starsLLM } from "./exercises/stars/llm-metadata";
 import { llmMetadata as wordCountLLM } from "./exercises/word-count/llm-metadata";
@@ -195,6 +198,9 @@ const llmMetadataRegistry = {
   triangle: triangleLLM,
   raindrops: raindropsLLM,
   "isbn-verifier": isbnVerifierLLM,
+  luhn: luhnLLM,
+  "run-length-encoding": runLengthEncodingLLM,
+  "digital-root": digitalRootLLM,
   lunchbox: lunchboxLLM,
   stars: starsLLM,
   "word-count": wordCountLLM,

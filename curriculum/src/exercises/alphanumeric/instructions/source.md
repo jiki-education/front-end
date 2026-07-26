@@ -19,3 +19,5 @@ Then, write a <define>`whatAmI(string)`</define> function that uses these helper
 - Strings with only numbers should return "Numeric"
 - Strings with both letters and numbers should return "Alphanumeric"
 - Everything else should return "Unknown"
+
+Although there are many ways to solve this exercise, the solution we want you to come up with uses a `continue` statement.

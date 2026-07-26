@@ -1,0 +1,26 @@
+{
+  "slug": "digital-root",
+  "levelId": "advanced-loops",
+  "hints": [
+    {
+      "question": "hints.whatIsIt.question",
+      "answer": "hints.whatIsIt.answer"
+    },
+    {
+      "question": "hints.sumDigits.question",
+      "answer": "hints.sumDigits.answer"
+    },
+    {
+      "question": "hints.digitsToNumbers.question",
+      "answer": "hints.digitsToNumbers.answer"
+    },
+    {
+      "question": "hints.whichLoop.question",
+      "answer": "hints.whichLoop.answer"
+    },
+    {
+      "question": "hints.keepGoing.question",
+      "answer": "hints.keepGoing.answer"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "slug": "run-length-encoding",
+  "levelId": "advanced-loops",
+  "hints": [
+    {
+      "question": "hints.whatIsRle.question",
+      "answer": "hints.whatIsRle.answer"
+    },
+    {
+      "question": "hints.countRuns.question",
+      "answer": "hints.countRuns.answer"
+    },
+    {
+      "question": "hints.singleChars.question",
+      "answer": "hints.singleChars.answer"
+    },
+    {
+      "question": "hints.decodeDigits.question",
+      "answer": "hints.decodeDigits.answer"
+    },
+    {
+      "question": "hints.decodeMultiDigit.question",
+      "answer": "hints.decodeMultiDigit.answer"
+    },
+    {
+      "question": "hints.decodeRepeat.question",
+      "answer": "hints.decodeRepeat.answer"
+    }
+  ]
+}

@@ -26,7 +26,6 @@ const methodsAndProperties: Level = {
               "startsWith",
               "endsWith",
               "concat",
-              "repeat",
               "replace",
               "replaceAll",
               "split",

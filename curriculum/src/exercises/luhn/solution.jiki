@@ -1,0 +1,50 @@
+function contains with haystack, needle do
+  for each hay in haystack do
+    if hay == needle do
+      return true
+    end
+  end
+  return false
+end
+
+function length with str do
+  set c to 0
+  for each x in str do
+    change c to c + 1
+  end
+  return c
+end
+
+function valid with value do
+  set digits to ""
+  for each char in value do
+    if char == " " do
+      next
+    end
+    if not contains("0123456789", char) do
+      return false
+    end
+    change digits to digits + char
+  end
+
+  set len to length(digits)
+  if len <= 1 do
+    return false
+  end
+
+  set total to 0
+  for each char in digits indexed by i do
+    set digit to string_to_number(char)
+
+    if (len - i) % 2 == 1 do
+      change digit to digit * 2
+      if digit > 9 do
+        change digit to digit - 9
+      end
+    end
+
+    change total to total + digit
+  end
+
+  return total % 10 == 0
+end
