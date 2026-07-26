@@ -408,6 +408,8 @@ Some exercises are a direct continuation of an earlier one — the student's job
 
 **Canonical example:** `src/exercises/maze-turn-around/stub.javascript` is the previous maze-solving exercise's solution; the student extracts a `turnAround()` function from it. `src/exercises/battle-procedures/stub.javascript` is the `scroll-and-shoot` solution; the student extracts a `shootIfAlienAbove()` function from it. Read `maze-turn-around/stub.javascript` before authoring a continuation stub.
 
+**⚠️ Carry the `interpreterOptions` cap forward too.** A continuation stub also carries the previous exercise's _runtime cost_. If the source exercise raised `interpreterOptions.maxTotalLoopIterations` (because its solutions are loop-heavy), the continuation exercise must set an **equal-or-higher** cap — otherwise the student opens the editor on carried-forward code that instantly trips the lower cap with a scary "your code loops too many times / infinite loop" error, before they've made any change. This applies even when the continuation's _intended_ solution is cheap (e.g. `methodic-pangram` teaches built-in `.toLowerCase()`/`.includes()` at ~26 iterations, but its `{{LESSON:pangram}}` starting code runs ~2200). The whole pangram series (`lower-pangram`, `pangram`, `methodic-pangram`) shares one cap for this reason. When you raise a cap on any exercise, check every exercise whose stub is `{{LESSON:<that-slug>}}` and match it.
+
 ## Integration with Frontend
 
 ### How Frontend Uses Curriculum
