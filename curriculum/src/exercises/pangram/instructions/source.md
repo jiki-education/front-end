@@ -13,9 +13,9 @@ We've given you your previous code as a starting point.
 
 ### Helper Functions
 
-In addition to your existing helper function (which we suggested you called `includes`), we recommend you create two new helper functions to help you solve this. The functions names are standard names, which we recommend sticking too:
+In addition to your existing helper function (which we suggested you called `includes`), we recommend you create two new helper functions to help you solve this. The functions names are standard names, which we recommend sticking to:
 
-1. `indexOf(haystack, needle)`:A function that calculates **where** the needle is in the haystack. So rather than returning `true`/`false` like `includes`, it returns the **index** of the needle. For example, `indexOf("Jeremy", "r")` would return `2` (remember we count from 0).
+1. `indexOf(haystack, needle)`: A function that calculates **where** the needle is in the haystack. So rather than returning `true`/`false` like `includes`, it returns the **index** of the needle. For example, `indexOf("Jeremy", "r")` would return `2` (remember we count from 0).
 2. `toLowerCase(someString)`: A function that takes a string and returns it converted to lowercase. For example, `toLowerCase("JeReMy")` would return `"jeremy"`.
 
 Have fun!

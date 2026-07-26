@@ -27,7 +27,14 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["methods", "string-iteration", "if"]
+  conceptSlugs: ["methods", "string-iteration", "if"],
+  // The stub carries the student's hand-written pangram code forward
+  // ({{LESSON:pangram}}), which scans the alphabet per character and runs ~2200
+  // loop iterations on the longest scenario — above the global default of 1000.
+  // The intended built-in `.toLowerCase()`/`.includes()` solution is ~26
+  // iterations, but a student running or mid-converting the carried code would
+  // otherwise hit the cap. Match pangram's cap so the starting code executes.
+  interpreterOptions: { maxTotalLoopIterations: 32000 }
 };
 
 export default exerciseDefinition;
