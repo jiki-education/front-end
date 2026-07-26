@@ -11,7 +11,7 @@ You'll need to write three helper functions:
 - <define>`isNumeric(string)`</define> — determines whether a string only consists of numeric characters (e.g. "0", "1", "456")
 - <define>`isAlphanumeric(string)`</define> — determines whether a string only consists of ASCII letters or numbers (e.g. "Hello", "42", "Hello42")
 
-For any other symbols (e.g. "! ?") or non-ASCII characters, all three functions should return false.
+For any other symbols (e.g. "! ?") or non-ASCII characters (e.g. "じき", "正直"), all three functions should return false.
 
 Then, write a <define>`whatAmI(string)`</define> function that uses these helpers to classify a string:
 

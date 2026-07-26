@@ -9,8 +9,7 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise allows a student to explore decomposing a classification problem into small,
-    reusable helper functions that build on each other.
+    Single task: build small helper functions that compose into a classifier.
   `,
 
   tasks: {

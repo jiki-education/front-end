@@ -34,7 +34,7 @@
     },
     "checkAllLetters": {
       "question": "How do I check if every character in the input is a letter?",
-      "answer": "Use `contains()` against the alphabet `\"abcdefghijklmnopqrstuvwxyz\"`. Loop through each character of the input and ask 'is this one in the alphabet?'. If any aren't, it isn't all alpha."
+      "answer": "Use `contains()` against the alphabet. Remember to include both lowercase and uppercase letters, otherwise a capital like the \"D\" in \"Duck\" won't count. Loop through each character of the input and ask 'is this one in the alphabet?'. If any aren't, it isn't all alpha."
     },
     "checkAllDigits": {
       "question": "How do I do the same check for digits?",
