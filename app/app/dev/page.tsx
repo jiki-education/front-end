@@ -26,6 +26,14 @@ export default function DevPage() {
           <h2 className="text-xl font-semibold mb-3">Dev Pages</h2>
           <ul className="space-y-2">
             <li>
+              <Link href="/dev/youtube-player" className="text-blue-600 hover:underline">
+                YouTube Player
+              </Link>
+              <span className="text-gray-600 text-sm ms-2">
+                - Clean, chrome-free YouTube embed with custom controls and progress callbacks
+              </span>
+            </li>
+            <li>
               <Link href="/dev/llm-chat" className="text-blue-600 hover:underline">
                 LLM Chat Proxy Test
               </Link>
