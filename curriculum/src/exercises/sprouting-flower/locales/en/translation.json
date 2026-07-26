@@ -1,15 +1,15 @@
 {
   "checks": {
-    "firstFlowerHeadWrong": "The first Flower Head isn't correct.",
-    "finalFlowerHeadWrong": "The final Flower Head isn't correct.",
-    "firstPistilWrong": "The first Pistil isn't correct.",
-    "finalPistilWrong": "The final Pistil isn't correct.",
-    "firstStemWrong": "The first Stem isn't correct.",
-    "finalStemWrong": "The final Stem isn't correct.",
-    "firstLeftLeafWrong": "The first Left Leaf isn't correct.",
-    "finalLeftLeafWrong": "The final Left Leaf isn't correct.",
-    "firstRightLeafWrong": "The first Right Leaf isn't correct.",
-    "finalRightLeafWrong": "The final Right Leaf isn't correct."
+    "firstFlowerHeadWrong": "The flower head on the first frame isn't correct.",
+    "finalFlowerHeadWrong": "The flower head on the last frame isn't correct.",
+    "firstPistilWrong": "The pistil on the first frame isn't correct.",
+    "finalPistilWrong": "The pistil on the last frame isn't correct.",
+    "firstStemWrong": "The stem on the first frame isn't correct.",
+    "finalStemWrong": "The stem on the last frame isn't correct.",
+    "firstLeftLeafWrong": "The left leaf on the first frame isn't correct.",
+    "finalLeftLeafWrong": "The left leaf on the last frame isn't correct.",
+    "firstRightLeafWrong": "The right leaf on the first frame isn't correct.",
+    "finalRightLeafWrong": "The right leaf on the last frame isn't correct."
   },
   "tasks": {
     "drawScene": {
