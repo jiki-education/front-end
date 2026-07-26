@@ -17,7 +17,12 @@ const exerciseDefinition: IOExerciseCore = {
     "creating-functions",
     "string-iteration",
     "creating-functions-with-return-values"
-  ]
+  ],
+  // The intended lowercase-only solution peaks at ~600 iterations, but a student
+  // may over-engineer this first exercise with the full case-handling approach
+  // used later in the series (~2200+ iterations). Match the rest of the pangram
+  // series' cap so any correct manual solution passes.
+  interpreterOptions: { maxTotalLoopIterations: 32000 }
 };
 
 export default exerciseDefinition;
