@@ -2,7 +2,11 @@
   "tasks": {
     "createAcronymFunction": {
       "name": "Create acronym function",
-      "description": "Write a function that takes a phrase and returns an acronym. The acronym should be formed by taking the first letter of each word and converting it to uppercase."
+      "description": "Write a function that takes a phrase and returns its acronym: the first letter of each word, in uppercase. Words are separated by spaces and hyphens, and any other punctuation is ignored."
+    },
+    "solveTightly": {
+      "name": "Solve it in 46 lines",
+      "description": "Bonus: with the letter-testing and case-swapping pulled into helper functions that `acronym` reuses, the whole solution fits in 46 lines. Can you match it?"
     }
   },
   "scenarios": {
@@ -14,6 +18,10 @@
       "name": "Lowercase words: ROR",
       "description": "Convert 'Ruby on Rails' to 'ROR'."
     },
+    "gimp": {
+      "name": "All caps word: GIMP",
+      "description": "Convert 'GNU Image Manipulation Program' to 'GIMP'."
+    },
     "firstWordOnly": {
       "name": "Single word: H",
       "description": "Convert 'HyperText' to 'H'."
@@ -22,33 +30,58 @@
       "name": "Hyphenated phrase: CMOS",
       "description": "Convert 'Complementary metal-oxide semiconductor' to 'CMOS'."
     },
+    "fifo": {
+      "name": "Comma-separated: FIFO",
+      "description": "Convert 'First In, First Out' to 'FIFO'."
+    },
     "punctuation": {
       "name": "With punctuation: PHT",
       "description": "Convert 'Portable, HyperText, Transmitter' to 'PHT'."
+    },
+    "hc": {
+      "name": "With an apostrophe: HC",
+      "description": "Convert 'Halley's Comet' to 'HC'."
+    },
+    "simufta": {
+      "name": "Consecutive delimiters: SIMUFTA",
+      "description": "Convert 'Something - I made up from thin air' to 'SIMUFTA'."
+    },
+    "trnt": {
+      "name": "Underscore emphasis: TRNT",
+      "description": "Convert 'The Road _Not_ Taken' to 'TRNT'."
+    },
+    "long": {
+      "name": "A very long one: ROTFLSHTMDCOALM",
+      "description": "Convert 'Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me' to 'ROTFLSHTMDCOALM'."
+    },
+    "emoji": {
+      "name": "With an emoji: HW",
+      "description": "Convert 'Hello 👋 World' to 'HW'."
+    },
+    "acronymBonusLineCount": {
+      "name": "Neat and tidy",
+      "description": "The tidiest solution reuses its helpers and fits in 46 lines. Can you find it?"
     }
+  },
+  "checks": {
+    "tooManyLines": "Keep going! See if you can solve it in fewer lines."
   },
   "hints": {
     "pickLetters": {
       "question": "How do I pick out which letters become the acronym?",
-      "answer": "The letters you want are the ones that start each word. That's usually the very first character of the phrase, plus any character that comes right after a space or hyphen."
+      "answer": "The acronym is built from the letter that starts each word: the very first letter of the phrase, plus the first letter after every space or hyphen."
     },
     "findWordStarts": {
-      "question": "How do I find the characters that come right after a space or hyphen?",
-      "answer": "Loop through the phrase one character at a time, keeping track of what the previous character was. If the previous character was a space or hyphen (or you're at the very start), the current character is the start of a word."
+      "question": "How do I know when a new word starts?",
+      "answer": "Walk the phrase one character at a time and keep track of whether you're at the start of a new word. You are at the very beginning, and again straight after any space or hyphen. Anything that isn't a letter (punctuation, underscores, apostrophes) should be skipped rather than counted as the start of a word."
     },
     "buildResult": {
       "question": "How do I build up the result as I go?",
-      "answer": "Start with an empty result string and append each chosen letter onto the end using concatenation with `+`."
+      "answer": "Start with an empty string and add each chosen letter onto the end using `+`."
     },
-    "lowercaseResult": {
-      "question": "I've got the right letters but my answer's lowercase",
-      "answer": "Once you've built the full string, convert it to uppercase in one go using `toUpperCase()` before returning it."
-    }
-  },
-  "functions": {
-    "toUpperCase": {
-      "description": "Convert a string to uppercase (provided by level stdlib)",
-      "category": "String Operations"
+    "uppercaseLetters": {
+      "question": "How do I make a letter uppercase when there's no built-in for it?",
+      "answer": "There's no ready-made uppercaser here. Just like in Pangram, you can line up a lowercase alphabet against an uppercase one and swap a letter for the one at the same position. Letters that are already uppercase can stay as they are."
     }
   }
 }

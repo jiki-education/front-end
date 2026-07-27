@@ -1,12 +1,39 @@
+def includes(text, target):
+    for character in text:
+        if target == character:
+            return True
+    return False
+
+
+def index_of(text, target):
+    idx = 0
+    for character in text:
+        if target == character:
+            return idx
+        idx = idx + 1
+    return -1
+
+
+def to_acronym_letter(char):
+    lower = "abcdefghijklmnopqrstuvwxyz"
+    upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    if includes(upper, char):
+        return char
+    idx = index_of(lower, char)
+    if idx == -1:
+        return ""
+    return upper[idx]
+
+
 def acronym(phrase):
-    output = ""
-    was_space = True
-
-    for letter in phrase:
-        if letter == " " or letter == "-":
-            was_space = True
-        elif was_space and letter.isalpha():
-            output = output + letter
-            was_space = False
-
-    return output.upper()
+    result = ""
+    is_new_word = True
+    for char in phrase:
+        if char == " " or char == "-":
+            is_new_word = True
+        elif is_new_word:
+            letter = to_acronym_letter(char)
+            if letter != "":
+                result = result + letter
+                is_new_word = False
+    return result
