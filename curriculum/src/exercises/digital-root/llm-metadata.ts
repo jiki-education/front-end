@@ -42,6 +42,16 @@ export const llmMetadata: LLMMetadata = {
         while loop (a for-with-break or recursion will fail the check even if the output is correct).
         Note: the student does not see these steps broken down.
       `
+    },
+    "keep-it-tight": {
+      description: `
+        Optional bonus. The working solution from the previous task is already tight; this task just
+        rewards keeping it that way. The bonus scenario adds a max-lines-of-code check (JavaScript 10)
+        on top of the while-loop check. If the student overshoots, look for padding to trim: an unneeded
+        temporary variable, or extracting digits with a manual modulo loop where a for...of over the
+        String() of the number is shorter. Do not push them toward the closed-form (n - 1) % 9 + 1
+        trick — that would drop the while loop and fail the required check.
+      `
     }
   }
 };

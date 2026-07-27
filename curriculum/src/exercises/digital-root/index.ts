@@ -10,6 +10,13 @@ const functions: FunctionInfo[] = [
     description: "functions.number.description",
     examples: ['Number("4") → 4', 'Number("9") → 9'],
     category: "functions.number.category"
+  },
+  {
+    name: "String",
+    signature: "String(number)",
+    description: "functions.string.description",
+    examples: ['String(42) → "42"', 'String(7) → "7"'],
+    category: "functions.string.category"
   }
 ];
 

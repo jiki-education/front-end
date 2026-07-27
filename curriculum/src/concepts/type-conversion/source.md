@@ -1,6 +1,6 @@
 ---
 title: "Type Conversion"
-description: "Turning a value of one type into another, like converting a string of digits into a number with `Number()`, or a number into a string with `toString()`."
+description: "Turning a value of one type into another, like converting a string of digits into a number with `Number()`, or a number into a string with `String()`."
 ---
 
 Every value in our programs has a type. `"7"` is a string and `7` is a number. They might look almost identical, but Jiki treats them very differently. You can't add the string `"7"` to the number `3` and expect to get `10`, because one of them is a piece of text and the other is a quantity.
@@ -31,12 +31,15 @@ If you hand `Number()` something that isn't a valid number, like `Number("cat")`
 
 ### Turning a number into a string
 
-The opposite direction is just as handy. Sometimes you have a number and you want to treat it as text, maybe to join it onto another string or to look at its individual digits. Every number has a `toString()` method that hands you back a string version of itself.
+The opposite direction is just as handy. Sometimes you have a number and you want to treat it as text, maybe to join it onto another string or to look at its individual digits. We do that with `String()`, the mirror image of `Number()`.
 
 ```javascript
-let count = 42
-count.toString()
+String(42)
 // "42"
+
+let count = 7
+String(count)
+// "7"
 ```
 
 Now that it's a string, you can use all the usual string tools on it, like reading it character by character or checking its length.

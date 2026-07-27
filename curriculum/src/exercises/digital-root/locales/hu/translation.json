@@ -7,6 +7,10 @@
     "collapseToSingleDigit": {
       "name": "Keep collapsing until one digit is left",
       "description": "Sometimes summing the digits once still leaves more than one digit (for example 942 sums to 15). Keep summing the digits of the result until a single digit remains."
+    },
+    "keepItTight": {
+      "name": "Bonus: keep it short",
+      "description": "Your solution already works. For this bonus, tidy it up so the whole function fits in a small number of lines, without any extra clutter."
     }
   },
   "scenarios": {
@@ -41,6 +45,10 @@
     "drNines": {
       "name": "All nines",
       "description": "99999 sums to 45, which then sums to 9."
+    },
+    "drBonusTight": {
+      "name": "A tidy, short solution",
+      "description": "12345 collapses down to 6 (1 + 2 + 3 + 4 + 5 = 15, then 1 + 5 = 6)."
     }
   },
   "hints": {
@@ -66,11 +74,16 @@
     }
   },
   "checks": {
-    "mustUseWhile": "Almost! For this exercise we want you to use a `while` loop to keep collapsing until a single digit remains."
+    "mustUseWhile": "Almost! For this exercise we want you to use a `while` loop to keep collapsing until a single digit remains.",
+    "tooManyLines": "So close! Your solution works, but it's a little long. See if you can tighten it up."
   },
   "functions": {
     "number": {
       "description": "Convert a string containing digits to a number",
+      "category": "Type Conversion"
+    },
+    "string": {
+      "description": "Convert a number into a string",
       "category": "Type Conversion"
     }
   }

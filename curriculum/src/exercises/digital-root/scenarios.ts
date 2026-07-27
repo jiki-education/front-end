@@ -10,6 +10,19 @@ const whileCheck: CodeCheck[] = [
   }
 ];
 
+// Bonus: reward a tight solution. Each language's limit matches its canonical
+// solution (JavaScript 10, Python 7, Jikiscript 16) with a little headroom for
+// Jikiscript's more verbose digit-extraction style.
+const locCheck: CodeCheck[] = [
+  {
+    pass: (result, language) => {
+      const limit = language === "python" ? 10 : language === "jikiscript" ? 24 : 10;
+      return result.assertors.assertMaxLinesOfCode(limit);
+    },
+    errorKey: "checks.tooManyLines"
+  }
+];
+
 export const tasks = [
   {
     id: "sum-the-digits" as const,
@@ -26,6 +39,14 @@ export const tasks = [
     hints: [],
     requiredScenarios: ["dr-thirty-nine", "dr-two-passes", "dr-large", "dr-nines"],
     bonus: false
+  },
+  {
+    id: "keep-it-tight" as const,
+    name: "tasks.keepItTight.name",
+    description: "tasks.keepItTight.description",
+    hints: [],
+    requiredScenarios: ["dr-bonus-tight"],
+    bonus: true
   }
 ] as const satisfies readonly Task[];
 
@@ -105,5 +126,15 @@ export const scenarios: IOScenario[] = [
     args: [99999],
     expected: 9,
     codeChecks: whileCheck
+  },
+  {
+    slug: "dr-bonus-tight",
+    name: "scenarios.drBonusTight.name",
+    description: "scenarios.drBonusTight.description",
+    taskId: "keep-it-tight",
+    functionName: "digital_root",
+    args: [12345],
+    expected: 6,
+    codeChecks: [...whileCheck, ...locCheck]
   }
 ];
