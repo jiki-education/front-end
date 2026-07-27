@@ -1272,9 +1272,9 @@
       },
       "challengeUnlocked": {
         "title": "Challenge unlocked!",
-        "message": "All that practice means you're ready to take on a tougher challenge.",
+        "message": "Congratulations! All that practice means you're ready to take on a tougher challenge.",
         "newLabel": "New",
-        "premiumInfo": "<strong>Exclusively for Premium members.</strong> <link>Upgrade your account</link> to access all the Challenges as you unlock them."
+        "premiumInfo": "<strong>Exclusively for Premium members.</strong> <link>Upgrade your account</link> to access Challenges as you unlock them."
       }
     },
     "premiumUpgrade": {
