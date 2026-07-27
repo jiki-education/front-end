@@ -172,6 +172,12 @@
         font-weight: 600;
     }
 
+    a {
+        font-weight: 500;
+        color: var(--color-blue-600);
+        text-decoration: underline;
+    }
+
     h1 {
         color: #0f172a;
         font-size: 30px;

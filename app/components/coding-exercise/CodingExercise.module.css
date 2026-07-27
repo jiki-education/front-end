@@ -152,12 +152,17 @@
     display: flex;
     align-items: center;
     gap: 6px;
+    white-space: nowrap;
     transition: all 0.15s ease;
 }
 
 .pillBtnRun {
     background: linear-gradient(180deg, var(--color-blue-500) 0%, var(--color-blue-600) 100%);
     color: white;
+
+    & svg {
+        flex-shrink: 0;
+    }
 
     &:hover:not(:disabled) {
         background: linear-gradient(180deg, var(--color-blue-400) 0%, var(--color-blue-500) 100%);
@@ -175,6 +180,8 @@
     box-shadow: 0 0 2px 2px var(--color-gray-50);
     color: var(--color-gray-500);
     padding: 9px;
+    flex-shrink: 0;
+    margin-inline-start: 10px;
 
     &:hover {
         background: var(--color-gray-100);
