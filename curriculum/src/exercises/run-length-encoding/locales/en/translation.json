@@ -78,7 +78,7 @@
     },
     "decodeMultiDigit": {
       "question": "How do I read a count with more than one digit, like 12?",
-      "answer": "Build the number up digit by digit. Start the count at 0, and for each digit do `count = count * 10 + Number(digit)`. So reading `1` then `2` gives `0*10+1 = 1`, then `1*10+2 = 12`."
+      "answer": "A count like `12` arrives one digit at a time, so build it up as you go rather than treating each digit separately. Each time another digit turns up, the number you have so far needs to grow by a factor of ten to make room for it before you add the new digit on. `Number()` turns a digit character into a number you can do maths with."
     },
     "decodeRepeat": {
       "question": "How do I repeat the character the right number of times?",
@@ -94,5 +94,8 @@
       "description": "Check whether a string contains a smaller string",
       "category": "String Operations"
     }
+  },
+  "checks": {
+    "mustUseFor": "Almost! For this one we want you to use a `for` loop to repeat each character the right number of times."
   }
 }

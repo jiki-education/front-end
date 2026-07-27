@@ -1,4 +1,14 @@
-import type { Task, IOScenario } from "../types";
+import type { Task, IOScenario, CodeCheck } from "../types";
+
+// Expanding a run means repeating a character a counted number of times, which is
+// the counted `for` loop this level introduces. Enforce it on the final decode
+// scenario so a student can't sidestep the construct with, say, a while loop.
+const forLoopCheck: CodeCheck[] = [
+  {
+    pass: (result) => result.assertors.assertStatement("ForStatement"),
+    errorKey: "checks.mustUseFor"
+  }
+];
 
 export const tasks = [
   {
@@ -140,6 +150,7 @@ export const scenarios: IOScenario[] = [
     taskId: "decode",
     functionName: "decode",
     args: ["2a3b4c"],
-    expected: "aabbbcccc"
+    expected: "aabbbcccc",
+    codeChecks: forLoopCheck
   }
 ];

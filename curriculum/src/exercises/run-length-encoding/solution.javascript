@@ -1,3 +1,10 @@
+function appendRun(result, count, previous) {
+  if (count > 1) {
+    result = `${result}${count}`
+  }
+  return `${result}${previous}`
+}
+
 function encode(input) {
   let result = ""
   let previous = ""
@@ -7,19 +14,13 @@ function encode(input) {
     if (char === previous) {
       count = count + 1
     } else {
-      if (count > 1) {
-        result = `${result}${count}`
-      }
-      result = `${result}${previous}`
+      result = appendRun(result, count, previous)
       previous = char
       count = 1
     }
   }
 
-  if (count > 1) {
-    result = `${result}${count}`
-  }
-  result = `${result}${previous}`
+  result = appendRun(result, count, previous)
 
   return result
 }

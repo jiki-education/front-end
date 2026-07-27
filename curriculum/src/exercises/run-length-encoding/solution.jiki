@@ -7,6 +7,13 @@ function contains with haystack, needle do
   return false
 end
 
+function append_run with result, count, previous do
+  if count > 1 do
+    change result to result + count
+  end
+  return result + previous
+end
+
 function encode with input do
   set result to ""
   set previous to ""
@@ -16,19 +23,13 @@ function encode with input do
     if char == previous do
       change count to count + 1
     else do
-      if count > 1 do
-        change result to result + count
-      end
-      change result to result + previous
+      change result to append_run(result, count, previous)
       change previous to char
       change count to 1
     end
   end
 
-  if count > 1 do
-    change result to result + count
-  end
-  change result to result + previous
+  change result to append_run(result, count, previous)
 
   return result
 end

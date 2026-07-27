@@ -1,3 +1,9 @@
+def append_run(result, count, previous):
+    if count > 1:
+        result = f"{result}{count}"
+    return f"{result}{previous}"
+
+
 def encode(input):
     result = ""
     previous = ""
@@ -7,15 +13,11 @@ def encode(input):
         if char == previous:
             count = count + 1
         else:
-            if count > 1:
-                result = f"{result}{count}"
-            result = f"{result}{previous}"
+            result = append_run(result, count, previous)
             previous = char
             count = 1
 
-    if count > 1:
-        result = f"{result}{count}"
-    result = f"{result}{previous}"
+    result = append_run(result, count, previous)
 
     return result
 
