@@ -1,11 +1,40 @@
 import type { Task, IOScenario, CodeCheck } from "../types";
 
-// Bonus: reward using continue to move past a character that has already been
+// Require using continue to move past a character that has already been
 // classified, rather than nesting further conditions.
 const continueCheck: CodeCheck[] = [
   {
     pass: (result) => result.assertors.assertStatement("ContinueStatement"),
     errorKey: "checks.mustUseContinue"
+  }
+];
+
+// Require the three helper functions from the instructions to each be defined
+// and actually used (called somewhere other than their own body), rather than
+// collapsing everything into a single inline pass.
+const helpersCheck: CodeCheck[] = [
+  {
+    pass: (result) => result.assertors.assertFunctionCalledOutsideOwnDefinition("is_alpha"),
+    errorKey: "checks.useIsAlpha"
+  },
+  {
+    pass: (result) => result.assertors.assertFunctionCalledOutsideOwnDefinition("is_numeric"),
+    errorKey: "checks.useIsNumeric"
+  },
+  {
+    pass: (result) => result.assertors.assertFunctionCalledOutsideOwnDefinition("is_alphanumeric"),
+    errorKey: "checks.useIsAlphanumeric"
+  }
+];
+
+// Require a tight solution. Each language's limit matches its canonical solution.
+const locCheck: CodeCheck[] = [
+  {
+    pass: (result, language) => {
+      const limit = language === "python" ? 35 : language === "jikiscript" ? 50 : 42;
+      return result.assertors.assertMaxLinesOfCode(limit);
+    },
+    errorKey: "checks.tooManyLines"
   }
 ];
 
@@ -23,8 +52,8 @@ export const tasks = [
     name: "tasks.useContinue.name",
     description: "tasks.useContinue.description",
     hints: [],
-    requiredScenarios: ["alphanumeric-bonus-use-continue"],
-    bonus: true
+    requiredScenarios: ["alphanumeric-uses-continue"],
+    bonus: false
   }
 ] as const satisfies readonly Task[];
 
@@ -72,12 +101,13 @@ export const scenarios: IOScenario[] = [
     taskId: "classify-string",
     functionName: "what_am_i",
     args: ["42 Rubber Duck!"],
-    expected: "Unknown"
+    expected: "Unknown",
+    codeChecks: [...helpersCheck, ...locCheck]
   },
   {
-    slug: "alphanumeric-bonus-use-continue",
-    name: "scenarios.alphanumericBonusUseContinue.name",
-    description: "scenarios.alphanumericBonusUseContinue.description",
+    slug: "alphanumeric-uses-continue",
+    name: "scenarios.alphanumericUsesContinue.name",
+    description: "scenarios.alphanumericUsesContinue.description",
     taskId: "use-continue",
     functionName: "what_am_i",
     args: ["Duck42"],

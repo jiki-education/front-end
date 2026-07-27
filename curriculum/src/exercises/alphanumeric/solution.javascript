@@ -1,15 +1,6 @@
-function contains(haystack, needle) {
-  for (const element of haystack) {
-    if (element === needle) {
-      return true
-    }
-  }
-  return false
-}
-
 function isAlpha(string) {
   for (const char of string) {
-    if (!contains("QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm", char)) {
+    if (!"QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm".includes(char)) {
       return false
     }
   }
@@ -18,7 +9,7 @@ function isAlpha(string) {
 
 function isNumeric(string) {
   for (const char of string) {
-    if (!contains("0123456789", char)) {
+    if (!"0123456789".includes(char)) {
       return false
     }
   }

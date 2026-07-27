@@ -5,7 +5,7 @@
       "description": "Write helper functions to check if a string is alpha, numeric, or alphanumeric, then use them to classify the input string."
     },
     "useContinue": {
-      "name": "Bonus: use continue",
+      "name": "Use continue",
       "description": "In your isAlphanumeric check, once a character is a letter or a digit you're happy with it. Use continue to move straight on to the next character instead of nesting more conditions."
     }
   },
@@ -30,7 +30,7 @@
       "name": "42 Rubber Duck!",
       "description": "A string with spaces and special characters should be classified as \"Unknown\"."
     },
-    "alphanumericBonusUseContinue": {
+    "alphanumericUsesContinue": {
       "name": "Used continue",
       "description": "Your solution works and uses continue to move past characters that are already accounted for."
     }
@@ -58,6 +58,10 @@
     }
   },
   "checks": {
-    "mustUseContinue": "So close! For this bonus, use `continue` to skip on to the next character."
+    "mustUseContinue": "So close! Use `continue` to skip on to the next character.",
+    "tooManyLines": "So close! Your solution works, but it's a little long.",
+    "useIsAlpha": "This exercise wants you to write an `isAlpha()` helper and use it to classify the string.",
+    "useIsNumeric": "This exercise wants you to write an `isNumeric()` helper and use it to classify the string.",
+    "useIsAlphanumeric": "This exercise wants you to write an `isAlphanumeric()` helper and use it to classify the string."
   }
 }
