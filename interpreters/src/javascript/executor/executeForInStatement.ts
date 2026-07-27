@@ -4,10 +4,12 @@ import { Environment } from "../environment";
 import { JSDictionary, JSString } from "../jikiObjects";
 
 export function executeForInStatement(executor: Executor, statement: ForInStatement): void {
-  // Evaluate the object expression
-  const objectResult = executor.executeFrame(statement.object, () => {
-    return executor.evaluate(statement.object);
-  });
+  // Evaluate the object expression. This does NOT generate its own frame:
+  // the object value is surfaced as part of each ForInStatement iteration frame
+  // (and the empty-object frame). Generating a separate frame here produced an
+  // extra, describer-less frame on the `for` line ("There is no information
+  // available for this line").
+  const objectResult = executor.evaluate(statement.object);
 
   const obj = objectResult.jikiObject;
 
