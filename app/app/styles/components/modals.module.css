@@ -92,7 +92,6 @@
     font-size: 24px;
     font-weight: 700;
     color: #1a202c;
-    margin-top: 5px;
     margin-bottom: 8px;
     white-space: nowrap;
 }
@@ -135,6 +134,10 @@
 }
 
 /* Challenge modal special styling */
+.challengeModalOverlay {
+    padding-top: 36px;
+}
+
 .challengeModalOverlay .modal {
     background: white;
 }
