@@ -9,7 +9,8 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    Single task: build small helper functions that compose into a classifier.
+    Compose three helper functions into a whatAmI classifier. Two tasks: classify-string
+    (the classifier working end to end) and use-continue (adds the continue requirement).
   `,
 
   tasks: {
