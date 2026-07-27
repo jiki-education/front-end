@@ -24,6 +24,7 @@ export const tasks = [
       "sarah-s-party",
       "brad-s-party",
       "bradley-brad-party",
+      "brad-bradley-party",
       "brian-brad-party",
       "silence",
       "cher-cher-party"
@@ -67,6 +68,15 @@ export const scenarios: IOScenario[] = [
     functionName: "handle_guest",
     args: ["Bradley", "Brad"],
     expected: true
+  },
+  {
+    slug: "brad-bradley-party",
+    name: "scenarios.bradBradleyParty.name",
+    description: "scenarios.bradBradleyParty.description",
+    taskId: "check-the-name",
+    functionName: "handle_guest",
+    args: ["Brad", "Bradley"],
+    expected: false
   },
   {
     slug: "brian-brad-party",

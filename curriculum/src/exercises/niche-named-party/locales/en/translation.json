@@ -22,6 +22,10 @@
       "name": "Brad Party: Bradley arrives",
       "description": "Tonight only names starting with \"Brad\" are allowed. Bradley should get in!"
     },
+    "bradBradleyParty": {
+      "name": "Bradley Party: Brad arrives",
+      "description": "Tonight only names starting with \"Bradley\" are allowed. Brad is too short, so he's not allowed."
+    },
     "brianBradParty": {
       "name": "Brad Party: Brian arrives",
       "description": "Tonight only names starting with \"Brad\" are allowed. Brian should be turned away."
