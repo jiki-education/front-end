@@ -4,10 +4,12 @@ import { Environment } from "../environment";
 import { JSArray, JSString } from "../jikiObjects";
 
 export function executeForOfStatement(executor: Executor, statement: ForOfStatement): void {
-  // Evaluate the iterable expression
-  const iterableResult = executor.executeFrame(statement.iterable, () => {
-    return executor.evaluate(statement.iterable);
-  });
+  // Evaluate the iterable expression. This does NOT generate its own frame:
+  // the iterable value is surfaced as part of each ForOfStatement iteration frame
+  // (and the empty-iterable frame). Generating a separate frame here produced an
+  // extra, describer-less frame on the `for` line ("There is no information
+  // available for this line").
+  const iterableResult = executor.evaluate(statement.iterable);
 
   const iterable = iterableResult.jikiObject;
 
