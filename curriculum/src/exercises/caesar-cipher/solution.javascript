@@ -1,17 +1,6 @@
-function indexOf(text, target) {
-  let idx = 0
-  for (const char of text) {
-    if (char === target) {
-      return idx
-    }
-    idx = idx + 1
-  }
-  return -1
-}
-
 function shiftLetter(letter, amount) {
   let alphabet = "abcdefghijklmnopqrstuvwxyz"
-  let pos = indexOf(alphabet, letter)
+  let pos = alphabet.indexOf(letter)
   if (pos === -1) {
     return letter
   }

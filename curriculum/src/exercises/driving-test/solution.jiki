@@ -3,7 +3,8 @@ function did_they_pass with marks do
   for each mark in marks do
     if mark == "💥" do
       return false
-    else if mark == "❌" do
+    end
+    if mark == "❌" do
       change minors to minors + 1
     end
   end

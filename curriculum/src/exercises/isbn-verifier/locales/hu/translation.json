@@ -11,6 +11,10 @@
     "handleEdgeCases": {
       "name": "Handle edge cases",
       "description": "Make your function robust: handle ISBNs without dashes, reject invalid characters, reject X in non-last positions, and ensure exactly 10 digits are processed."
+    },
+    "useContinue": {
+      "name": "Bonus: skip dashes with continue",
+      "description": "Rather than only doing work when a character is a digit, use continue to skip straight past the dashes and move on to the next character."
     }
   },
   "scenarios": {
@@ -77,6 +81,10 @@
     "isbnInvalidExtraLength": {
       "name": "Input too long but contains a valid ISBN",
       "description": "An input longer than 10 characters should return false."
+    },
+    "isbnBonusUseContinue": {
+      "name": "Skipped dashes with continue",
+      "description": "Your solution works and uses continue to skip over the dashes."
     }
   },
   "hints": {
@@ -94,11 +102,11 @@
     },
     "stringToNumber": {
       "question": "How do I turn the string into a number?",
-      "answer": "You have two options. Firstly, the intended way in this exercise is to find a way using the `indexOf` method. Have a think about that. If you can't figure that out, check the next hint for an answer, and the Deep Dive video for the full indexOf solution."
+      "answer": "You have two options. Firstly, the intended way in this exercise is to find a way using the `indexOf` method. Have a think about that. If you can't figure that out, check the next hint for an answer."
     },
     "stringToNumberAgain": {
       "question": "No seriously, how do I turn the string into a number?",
-      "answer": "Two options. Firstly you can use the `Number()` function (with a capital \"N\"), so `Number(\"5\")` gives `5`. There's also a nice indexOf solution you can see in the Deep Dive video afterwards."
+      "answer": "Two options. Firstly you can use the `Number()` function (with a capital \"N\"), so `Number(\"5\")` gives `5`. Read the <a href=\"/concepts/type-conversion\" target=\"_blank\" rel=\"noopener noreferrer\">Type Conversion</a> concept page if you'd like a refresher. There's also a neat `indexOf` trick worth exploring afterwards."
     },
     "handleX": {
       "question": "How do I handle 'X'. That's not a digit, is it?",
@@ -113,10 +121,22 @@
       "answer": "After processing everything, the ISBN is valid if the total sum is divisible by 11 (i.e. `sum % 11 == 0`)."
     }
   },
+  "checks": {
+    "mustUseContinue": "So close! For this bonus, use `continue` to skip the dashes.",
+    "tooManyLines": "So close! Your solution works, but it's a little long."
+  },
   "functions": {
-    "stringToNumber": {
-      "description": "Convert a string containing digits to a number (provided by level stdlib)",
+    "number": {
+      "description": "Convert a string containing digits to a number",
       "category": "Type Conversion"
+    },
+    "includes": {
+      "description": "Check whether a string contains a smaller string (provided by level stdlib)",
+      "category": "String Operations"
+    },
+    "indexOf": {
+      "description": "Find the position of a smaller string within a string, or -1 if it isn't found (provided by level stdlib)",
+      "category": "String Operations"
     }
   }
 }

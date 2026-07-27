@@ -1,6 +1,6 @@
 {
   "slug": "caesar-cipher",
-  "levelId": "multiple-functions",
+  "levelId": "advanced-loops",
   "hints": [
     {
       "question": "hints.shiftingLetterByN.question",

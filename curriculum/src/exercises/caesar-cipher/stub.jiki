@@ -1,11 +1,3 @@
-function index_of with text, target do
-
-end
-
-function shift_letter with letter, amount do
-
-end
-
 function encode with message, shift do
 
 end

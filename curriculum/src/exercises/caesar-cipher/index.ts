@@ -3,7 +3,15 @@ import { tasks, scenarios } from "./scenarios";
 import metadata from "./metadata.json";
 import type { IOExerciseCore, FunctionInfo } from "../types";
 
-const functions: FunctionInfo[] = [];
+const functions: FunctionInfo[] = [
+  {
+    name: "indexOf",
+    signature: '"...".indexOf(substring)',
+    description: "functions.indexOf.description",
+    examples: ['"abcdefghijklmnopqrstuvwxyz".indexOf("c") → 2', '"abcdefghijklmnopqrstuvwxyz".indexOf(" ") → -1'],
+    category: "functions.indexOf.category"
+  }
+];
 
 const exerciseDefinition: IOExerciseCore = {
   type: "io",

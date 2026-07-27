@@ -3,6 +3,6 @@ def did_they_pass(marks):
     for mark in marks:
         if mark == "💥":
             return False
-        elif mark == "❌":
+        if mark == "❌":
             minors = minors + 1
     return minors < 5

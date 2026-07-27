@@ -1,4 +1,24 @@
-import type { Task, IOScenario } from "../types";
+import type { Task, IOScenario, CodeCheck } from "../types";
+
+// Bonus: reward using continue to skip the dashes, rather than an if that only
+// accumulates when the character is a digit.
+const continueCheck: CodeCheck[] = [
+  {
+    pass: (result) => result.assertors.assertStatement("ContinueStatement"),
+    errorKey: "checks.mustUseContinue"
+  }
+];
+
+// Require a tight solution. Each language's limit matches its canonical solution.
+const locCheck: CodeCheck[] = [
+  {
+    pass: (result, language) => {
+      const limit = language === "python" ? 18 : language === "jikiscript" ? 46 : 22;
+      return result.assertors.assertMaxLinesOfCode(limit);
+    },
+    errorKey: "checks.tooManyLines"
+  }
+];
 
 export const tasks = [
   {
@@ -39,6 +59,14 @@ export const tasks = [
       "isbn-invalid-extra-length"
     ],
     bonus: false
+  },
+  {
+    id: "use-continue" as const,
+    name: "tasks.useContinue.name",
+    description: "tasks.useContinue.description",
+    hints: [],
+    requiredScenarios: ["isbn-bonus-use-continue"],
+    bonus: true
   }
 ] as const satisfies readonly Task[];
 
@@ -186,5 +214,15 @@ export const scenarios: IOScenario[] = [
     functionName: "is_valid_isbn",
     args: ["98245726788"],
     expected: false
+  },
+  {
+    slug: "isbn-bonus-use-continue",
+    name: "scenarios.isbnBonusUseContinue.name",
+    description: "scenarios.isbnBonusUseContinue.description",
+    taskId: "use-continue",
+    functionName: "is_valid_isbn",
+    args: ["3-598-21508-8"],
+    expected: true,
+    codeChecks: [...continueCheck, ...locCheck]
   }
 ];

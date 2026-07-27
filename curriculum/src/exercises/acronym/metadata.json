@@ -1,6 +1,6 @@
 {
   "slug": "acronym",
-  "levelId": "methods-and-properties",
+  "levelId": "multiple-functions",
   "hints": [
     {
       "question": "hints.pickLetters.question",
@@ -15,8 +15,8 @@
       "answer": "hints.buildResult.answer"
     },
     {
-      "question": "hints.lowercaseResult.question",
-      "answer": "hints.lowercaseResult.answer"
+      "question": "hints.uppercaseLetters.question",
+      "answer": "hints.uppercaseLetters.answer"
     }
   ]
 }

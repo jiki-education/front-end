@@ -1,0 +1,101 @@
+{
+  "tasks": {
+    "encode": {
+      "name": "Encode a string",
+      "description": "Write a function called encode that walks through the string, counting how many times each character repeats in a row. Replace each run of two or more with the count followed by the character, and leave single characters as they are."
+    },
+    "decode": {
+      "name": "Decode a string",
+      "description": "Write a function called decode that reverses the process. Read the number in front of a character and repeat that character that many times. Counts can have more than one digit."
+    }
+  },
+  "scenarios": {
+    "rleEncodeEmpty": {
+      "name": "Encode an empty string",
+      "description": "Encoding an empty string gives back an empty string."
+    },
+    "rleEncodeSingles": {
+      "name": "Single characters are not counted",
+      "description": "Characters that appear only once are encoded without a count."
+    },
+    "rleEncodeNoSingles": {
+      "name": "A string with no single characters",
+      "description": "Runs of repeated characters are replaced by a count and the character."
+    },
+    "rleEncodeMixed": {
+      "name": "Single characters mixed with runs",
+      "description": "Runs and single characters can be mixed in the same string."
+    },
+    "rleEncodeWhitespace": {
+      "name": "Whitespace in the string",
+      "description": "Spaces are treated like any other character, including in runs."
+    },
+    "rleEncodeLowercase": {
+      "name": "Lowercase characters",
+      "description": "Encoding works the same for lowercase letters."
+    },
+    "rleDecodeEmpty": {
+      "name": "Decode an empty string",
+      "description": "Decoding an empty string gives back an empty string."
+    },
+    "rleDecodeSingles": {
+      "name": "Decode single characters",
+      "description": "Characters with no count in front of them appear once."
+    },
+    "rleDecodeNoSingles": {
+      "name": "Decode a string of runs",
+      "description": "A count followed by a character expands to that many copies of the character."
+    },
+    "rleDecodeMixed": {
+      "name": "Decode single characters mixed with runs",
+      "description": "Counts with more than one digit must be read fully before expanding."
+    },
+    "rleDecodeWhitespace": {
+      "name": "Decode whitespace",
+      "description": "Spaces are expanded just like any other character."
+    },
+    "rleDecodeLowercase": {
+      "name": "Decode lowercase characters",
+      "description": "Decoding works the same for lowercase letters."
+    }
+  },
+  "hints": {
+    "whatIsRle": {
+      "question": "What does run-length encoding actually do?",
+      "answer": "It squashes runs of the same character into a count plus the character. `\"AAAA\"` becomes `\"4A\"`. A character on its own is left alone with no number in front of it, so `\"B\"` stays `\"B\"`."
+    },
+    "countRuns": {
+      "question": "How do I count a run of repeated characters?",
+      "answer": "Walk through the string keeping track of the previous character and how many times it has repeated. Each time the character changes, write out the finished run and start counting the new character."
+    },
+    "singleChars": {
+      "question": "How do I avoid writing a count for single characters?",
+      "answer": "Only put the number in front when the count is greater than 1. If a character appeared just once, write only the character."
+    },
+    "decodeDigits": {
+      "question": "How do I know if a character is a digit while decoding?",
+      "answer": "Check whether the character is one of `0123456789`, for example with `\"0123456789\".includes(char)`. If it is, it's part of a count. If it isn't, it's the character to repeat."
+    },
+    "decodeMultiDigit": {
+      "question": "How do I read a count with more than one digit, like 12?",
+      "answer": "A count like `12` arrives one digit at a time, so build it up as you go rather than treating each digit separately. Each time another digit turns up, the number you have so far needs to grow by a factor of ten to make room for it before you add the new digit on. `Number()` turns a digit character into a number you can do maths with."
+    },
+    "decodeRepeat": {
+      "question": "How do I repeat the character the right number of times?",
+      "answer": "Once you hit a non-digit character, use a loop that runs `count` times, adding the character to your result each time. Then reset the count back to 0 ready for the next run. If there was no count, treat it as 1."
+    }
+  },
+  "functions": {
+    "number": {
+      "description": "Convert a string containing a digit to a number",
+      "category": "Type Conversion"
+    },
+    "includes": {
+      "description": "Check whether a string contains a smaller string",
+      "category": "String Operations"
+    }
+  },
+  "checks": {
+    "mustUseFor": "Almost! For this one we want you to use a `for` loop to repeat each character the right number of times."
+  }
+}

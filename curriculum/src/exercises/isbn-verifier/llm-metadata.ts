@@ -38,6 +38,13 @@ export const llmMetadata: LLMMetadata = {
       description: `
         The student has got steps 1-6 working. They now need to complete steps 7-8. Note: the student does not see these steps broken down.
       `
+    },
+    "use-continue": {
+      description: `
+        Optional bonus. The student's solution must contain a continue statement (ContinueStatement),
+        rewarding skipping dashes with continue rather than an if that only accumulates on digits. It
+        does not change the required behaviour.
+      `
     }
   }
 };

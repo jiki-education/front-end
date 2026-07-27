@@ -1,24 +1,47 @@
-function is_letter with letter do
-  for each alpha_letter in to_upper_case("abcdefghijklmnopqrstuvwxyz") do
-    if to_upper_case(letter) == to_upper_case(alpha_letter) do
+function includes with text, target do
+  for each character in text do
+    if target == character do
       return true
     end
   end
   return false
 end
 
+function index_of with text, target do
+  for each character in text indexed by idx do
+    if target == character do
+      return idx
+    end
+  end
+  return -1
+end
+
+function to_acronym_letter with char do
+  set lower to "abcdefghijklmnopqrstuvwxyz"
+  set upper to "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  if includes(upper, char) do
+    return char
+  end
+  set idx to index_of(lower, char)
+  if idx == -1 do
+    return ""
+  end
+  return upper[idx]
+end
+
 function acronym with sentence do
   set output to ""
   set was_space to true
-
   for each letter in sentence do
     if letter == " " or letter == "-" do
       change was_space to true
-    else if was_space and is_letter(letter) do
-      change output to concatenate(output, letter)
-      change was_space to false
+    else if was_space do
+      set upper_letter to to_acronym_letter(letter)
+      if upper_letter != "" do
+        change output to concatenate(output, upper_letter)
+        change was_space to false
+      end
     end
   end
-
-  return to_upper_case(output)
+  return output
 end

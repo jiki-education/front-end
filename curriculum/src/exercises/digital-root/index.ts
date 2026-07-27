@@ -1,0 +1,33 @@
+import ExerciseClass from "./Exercise";
+import { tasks, scenarios } from "./scenarios";
+import metadata from "./metadata.json";
+import type { IOExerciseCore, FunctionInfo } from "../types";
+
+const functions: FunctionInfo[] = [
+  {
+    name: "Number",
+    signature: "Number(string)",
+    description: "functions.number.description",
+    examples: ['Number("4") → 4', 'Number("9") → 9'],
+    category: "functions.number.category"
+  },
+  {
+    name: "String",
+    signature: "String(number)",
+    description: "functions.string.description",
+    examples: ['String(42) → "42"', 'String(7) → "7"'],
+    category: "functions.string.category"
+  }
+];
+
+const exerciseDefinition: IOExerciseCore = {
+  type: "io",
+  ...metadata,
+  ExerciseClass,
+  tasks,
+  scenarios,
+  functions,
+  conceptSlugs: ["repeat-while", "string-iteration", "type-conversion"]
+};
+
+export default exerciseDefinition;

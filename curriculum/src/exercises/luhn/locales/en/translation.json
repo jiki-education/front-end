@@ -1,0 +1,117 @@
+{
+  "tasks": {
+    "doubleAndSum": {
+      "name": "Double every second digit and sum",
+      "description": "Write a function called valid that ignores spaces, then doubles every second digit counting from the right (subtracting 9 from any result over 9), sums all the digits, and returns true when the total is divisible by 10."
+    },
+    "spotInvalidNumbers": {
+      "name": "Spot invalid numbers",
+      "description": "Numbers whose digits are all valid but whose checksum doesn't come out divisible by 10 should return false."
+    },
+    "rejectBadInput": {
+      "name": "Reject bad input",
+      "description": "Reject strings that are a single character or shorter, and reject any string containing a character that isn't a digit or a space."
+    }
+  },
+  "scenarios": {
+    "luhnSimpleValid": {
+      "name": "A simple valid number",
+      "description": "A valid number should return true."
+    },
+    "luhnValidTwoDigit": {
+      "name": "Valid two-digit number",
+      "description": "A valid two-digit number should return true."
+    },
+    "luhnValidCanadianSin": {
+      "name": "Valid Canadian SIN",
+      "description": "A valid number with spaces should return true."
+    },
+    "luhnValidEvenDigits": {
+      "name": "Valid number with an even number of digits",
+      "description": "A valid number with an even number of digits should return true."
+    },
+    "luhnValidVeryLong": {
+      "name": "Very long number",
+      "description": "A very long valid number should still return true."
+    },
+    "luhnInvalidCanadianSin": {
+      "name": "Invalid Canadian SIN",
+      "description": "A number whose checksum fails should return false."
+    },
+    "luhnInvalidCreditCard": {
+      "name": "Invalid credit card",
+      "description": "An invalid credit card number should return false."
+    },
+    "luhnInvalidLongRemainderDiv5": {
+      "name": "Invalid long number with a remainder divisible by 5",
+      "description": "A long number whose total is divisible by 5 but not 10 should return false."
+    },
+    "luhnSingleDigit": {
+      "name": "Single digit is invalid",
+      "description": "A single-digit string can never be valid."
+    },
+    "luhnZeroWithSpace": {
+      "name": "Single zero with a space",
+      "description": "A single zero with a space is invalid, because only one digit remains once spaces are ignored."
+    },
+    "luhnTrailingLetter": {
+      "name": "Trailing letter",
+      "description": "A valid number with a non-digit added at the end becomes invalid."
+    },
+    "luhnColon": {
+      "name": "Colon character",
+      "description": "A colon is one less than the character '0', and must not be treated as a digit."
+    },
+    "luhnPercent": {
+      "name": "Percent character in the middle",
+      "description": "A non-digit, non-space character in the middle makes the number invalid, even when the digits alone would sum to a multiple of 10."
+    }
+  },
+  "hints": {
+    "whatIsLuhn": {
+      "question": "How does the Luhn check actually work?",
+      "answer": "Ignore any spaces first. Then, starting from the rightmost digit and moving left, double every second digit. If a doubled value goes above 9, subtract 9. Add all the resulting digits together. If that total divides evenly by 10, the number is valid."
+    },
+    "stripSpaces": {
+      "question": "What do I do with the spaces?",
+      "answer": "Spaces are only there for readability. Skip over them with `continue` so they don't count as digits and don't affect the positions of the real digits."
+    },
+    "rejectNonDigits": {
+      "question": "How do I reject invalid characters?",
+      "answer": "As you look at each character, if it isn't a space and isn't one of `0123456789`, you can immediately return `false`. A handy check is `\"0123456789\".includes(char)`."
+    },
+    "everySecondDigit": {
+      "question": "Which digits do I double?",
+      "answer": "Every second one. It helps to build up a clean string of just the digits first, then loop over it with an index so you can tell each digit's position."
+    },
+    "fromTheRight": {
+      "question": "But I need to count from the right, not the left.",
+      "answer": "If your clean digit string has length `len` and you're at index `i` (counting from 0 on the left), then its distance from the right is `len - 1 - i`. Double the digit whenever that distance is odd."
+    },
+    "doublingOverNine": {
+      "question": "What happens when doubling gives me a two-digit number?",
+      "answer": "If doubling makes the digit greater than 9, subtract 9 from it. For example 6 doubles to 12, and 12 - 9 = 3. (This gives the same answer as adding the two digits together.)"
+    },
+    "finalCheck": {
+      "question": "What's the final validity check?",
+      "answer": "Add up every digit (doubled or not) and check whether the total is divisible by 10, i.e. `total % 10 === 0`. Remember to also reject strings that have one digit or fewer."
+    }
+  },
+  "checks": {
+    "mustUseFor": "So close! This exercise wants you to solve it using a `for` loop."
+  },
+  "functions": {
+    "number": {
+      "description": "Convert a string containing a digit to a number",
+      "category": "Type Conversion"
+    },
+    "includes": {
+      "description": "Check whether a string contains a smaller string",
+      "category": "String Operations"
+    },
+    "length": {
+      "description": "The number of characters in a string",
+      "category": "String Operations"
+    }
+  }
+}

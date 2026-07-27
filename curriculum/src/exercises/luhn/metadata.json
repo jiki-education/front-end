@@ -1,0 +1,34 @@
+{
+  "slug": "luhn",
+  "levelId": "advanced-loops",
+  "hints": [
+    {
+      "question": "hints.whatIsLuhn.question",
+      "answer": "hints.whatIsLuhn.answer"
+    },
+    {
+      "question": "hints.stripSpaces.question",
+      "answer": "hints.stripSpaces.answer"
+    },
+    {
+      "question": "hints.rejectNonDigits.question",
+      "answer": "hints.rejectNonDigits.answer"
+    },
+    {
+      "question": "hints.everySecondDigit.question",
+      "answer": "hints.everySecondDigit.answer"
+    },
+    {
+      "question": "hints.fromTheRight.question",
+      "answer": "hints.fromTheRight.answer"
+    },
+    {
+      "question": "hints.doublingOverNine.question",
+      "answer": "hints.doublingOverNine.answer"
+    },
+    {
+      "question": "hints.finalCheck.question",
+      "answer": "hints.finalCheck.answer"
+    }
+  ]
+}

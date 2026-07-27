@@ -20,7 +20,7 @@ To verify an ISBN, we:
 For example, for the ISBN `3-598-21508-8`, we would check whether:
 
 ```
-(3*10 + 5*9 + 9*8 + 8*7 + 2*6 + 1*5 + 5*4 + 0*3 + 8*2 + 8*1) % 11 == 0
+(3*10 + 5*9 + 9*8 + 8*7 + 2*6 + 1*5 + 5*4 + 0*3 + 8*2 + 8*1) % 11 === 0
 ```
 
 Since the result is 0, this proves that our ISBN is valid.
@@ -32,3 +32,5 @@ A couple more important notes:
 - Any other characters make the ISBN invalid.
 
 Create a function called `isValidIsbn` that takes an ISBN string and returns `true` if it is valid and `false` if it is not.
+
+Although there are many ways to solve this exercise, the solution we want you to come up with uses a `continue` statement to skip the dashes.

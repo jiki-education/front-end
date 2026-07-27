@@ -3,7 +3,8 @@ function didTheyPass(marks) {
   for (const mark of marks) {
     if (mark === "💥") {
       return false
-    } else if (mark === "❌") {
+    }
+    if (mark === "❌") {
       minors = minors + 1
     }
   }
