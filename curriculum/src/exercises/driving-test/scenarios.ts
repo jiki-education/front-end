@@ -3,7 +3,7 @@ import type { Task, IOScenario, CodeCheck } from "../types";
 const elevenLinesCheck: CodeCheck[] = [
   {
     pass: (result, language) => {
-      const limit = language === "python" ? 8 : 11;
+      const limit = language === "python" ? 8 : 12;
       return result.assertors.assertMaxLinesOfCode(limit);
     },
     errorKey: "checks.tooManyLines"

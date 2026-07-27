@@ -8,8 +8,8 @@
       "description": "Write a function that analyzes driving test marks and determines if the student passed. A student fails if they have any major faults (💥) or 5 or more minor faults (❌)."
     },
     "solveInElevenLines": {
-      "name": "Solve in 11 lines of code",
-      "description": "Can you solve this exercise with only 11 lines of code?"
+      "name": "Solve in 12 lines of code",
+      "description": "Can you solve this exercise with only 12 lines of code?"
     }
   },
   "scenarios": {
@@ -34,8 +34,8 @@
       "description": "All those little errors added up."
     },
     "bonus1": {
-      "name": "11 lines of code",
-      "description": "Solve the exercise with only 11 lines of code."
+      "name": "12 lines of code",
+      "description": "Solve the exercise with only 12 lines of code."
     }
   },
   "hints": {

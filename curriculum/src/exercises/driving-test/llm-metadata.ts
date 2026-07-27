@@ -29,8 +29,8 @@ export const llmMetadata: LLMMetadata = {
     },
     "solve-in-eleven-lines": {
       description: `
-        Bonus: fit the solution within 11 lines. The canonical solution (loop, early-return
-        on major, counter for minors, final comparison) is already exactly 11 lines, so a
+        Bonus: fit the solution within 12 lines. The canonical solution (loop, early-return
+        on major, counter for minors, final comparison) is already exactly 12 lines, so a
         student who wrote the straightforward version should pass without changes.
       `
     }
