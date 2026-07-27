@@ -20,10 +20,18 @@ describe("Number()", () => {
     expect((result.frames[0] as any).variables.x.value).toBe(0);
   });
 
-  it("converts a non-numeric string to NaN", () => {
+  it("raises an error when the value can't be converted to a number", () => {
     const result = interpret(`let x = Number("abc");`);
-    expect(result.success).toBe(true);
-    expect((result.frames[0] as any).variables.x.value).toBeNaN();
+    expect(result.success).toBe(false);
+    expect(result.frames[0].status).toBe("ERROR");
+    expect(result.frames[0].error?.type).toBe("NumberConversionFailed");
+  });
+
+  it("reports the offending value in the error message", () => {
+    // Tests run in the "system" language (see tests/setup.ts).
+    const result = interpret(`Number("abc");`);
+    expect(result.frames[0].status).toBe("ERROR");
+    expect(result.frames[0].error?.message).toBe(`NumberConversionFailed: value: "abc"`);
   });
 
   it("passes through a number unchanged", () => {

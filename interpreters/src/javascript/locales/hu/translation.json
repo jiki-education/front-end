@@ -152,7 +152,8 @@
       "StdlibArgTypeMismatch": "A(z) {{functionName}}() függvény azt várta, hogy a(z) {{argName}} típusa {{expected}} legyen, de {{received}} típusú értéket adtál meg.",
       "StdlibArgMustBeInteger": "A(z) {{functionName}}() függvény azt várta, hogy a(z) {{argName}} egész szám legyen, de ezt adtad meg: {{value}}.",
       "MethodNotYetImplemented": "A(z) `{{method}}` egy létező metódus, de számodra még nem érhető el.",
-      "StdlibRandomIntMinGreaterThanMax": "A randomInt() azt várta, hogy az első szám ({{min}}) kisebb vagy egyenlő legyen, mint a második szám ({{max}})."
+      "StdlibRandomIntMinGreaterThanMax": "A randomInt() azt várta, hogy az első szám ({{min}}) kisebb vagy egyenlő legyen, mint a második szám ({{max}}).",
+      "NumberConversionFailed": "Jiki tried to convert `{{value}}` to a number, but it isn't a valid number. Add some checks before using `Number(str)`."
     }
   },
   "phrases": {

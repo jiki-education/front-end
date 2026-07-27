@@ -152,7 +152,8 @@
       "StdlibArgTypeMismatch": "{{functionName}}() expected {{argName}} to be a {{expected}}, but you gave it a {{received}}.",
       "StdlibArgMustBeInteger": "{{functionName}}() expected {{argName}} to be a whole number, but you gave it {{value}}.",
       "MethodNotYetImplemented": "The `{{method}}` method is a valid method but it's not yet available to you.",
-      "StdlibRandomIntMinGreaterThanMax": "randomInt() expected the first number ({{min}}) to be smaller than or equal to the second number ({{max}})."
+      "StdlibRandomIntMinGreaterThanMax": "randomInt() expected the first number ({{min}}) to be smaller than or equal to the second number ({{max}}).",
+      "NumberConversionFailed": "Jiki tried to convert `{{value}}` to a number, but it isn't a valid number. Add some checks before using `Number(str)`."
     }
   },
   "phrases": {

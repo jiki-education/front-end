@@ -150,7 +150,8 @@
       "StdlibArgTypeMismatch": "TypeError: functionName: {{functionName}}: argName: {{argName}}: expected: {{expected}}: received: {{received}}",
       "StdlibArgMustBeInteger": "TypeError: functionName: {{functionName}}: argName: {{argName}}: value: {{value}}",
       "MethodNotYetImplemented": "MethodNotYetImplemented: method: {{method}}",
-      "StdlibRandomIntMinGreaterThanMax": "ValueError: min: {{min}}: max: {{max}}"
+      "StdlibRandomIntMinGreaterThanMax": "ValueError: min: {{min}}: max: {{max}}",
+      "NumberConversionFailed": "NumberConversionFailed: value: {{value}}"
     }
   }
 }

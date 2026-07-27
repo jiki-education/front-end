@@ -79,6 +79,7 @@ import { executeReturnStatement } from "./executor/executeReturnStatement";
 import { executeBreakStatement, BreakFlowControlError } from "./executor/executeBreakStatement";
 import { executeContinueStatement, ContinueFlowControlError } from "./executor/executeContinueStatement";
 import { JSBuiltinObject, JSNumber, JSString, JSStdLibFunction, createJSObject, unwrapJSObject } from "./jikiObjects";
+import { StdlibError } from "./stdlib";
 import { consoleMethods } from "./stdlib/console";
 import { mathMethods } from "./stdlib/math";
 import { objectMethods } from "./stdlib/object";
@@ -158,6 +159,7 @@ export type RuntimeErrorType =
   | "InWithArrayNotAllowed"
   | "ClassNotFound"
   | "PropertyNotFoundOnInstance"
+  | "NumberConversionFailed"
   | "UnexpectedUncalledFunction";
 
 export class RuntimeError extends Error {
@@ -854,7 +856,15 @@ export class Executor {
         null,
         "Number",
         1,
-        (_ctx, _thisObj, args) => new JSNumber(Number(args[0].value)),
+        (_ctx, _thisObj, args) => {
+          const result = Number(args[0].value);
+          if (Number.isNaN(result)) {
+            throw new StdlibError("NumberConversionFailed", "NumberConversionFailed", {
+              value: args[0].toDisplayString(),
+            });
+          }
+          return new JSNumber(result);
+        },
         "converts a value to a number"
       );
       this.environment.define("Number", numberFn, Location.unknown);
