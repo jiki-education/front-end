@@ -27,7 +27,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["string-iteration", "for-loops", "nested-loops", "string-templates"]
+  conceptSlugs: ["string-iteration", "for-loops", "nested-loops", "string-templates", "type-conversion"]
 };
 
 export default exerciseDefinition;

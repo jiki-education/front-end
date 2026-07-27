@@ -34,7 +34,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["string-iteration", "if", "modulo", "for-loops"]
+  conceptSlugs: ["string-iteration", "if", "modulo", "for-loops", "continue", "type-conversion"]
 };
 
 export default exerciseDefinition;

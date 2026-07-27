@@ -9,6 +9,17 @@ const continueCheck: CodeCheck[] = [
   }
 ];
 
+// Require a tight solution. Each language's limit matches its canonical solution.
+const locCheck: CodeCheck[] = [
+  {
+    pass: (result, language) => {
+      const limit = language === "python" ? 18 : language === "jikiscript" ? 46 : 22;
+      return result.assertors.assertMaxLinesOfCode(limit);
+    },
+    errorKey: "checks.tooManyLines"
+  }
+];
+
 export const tasks = [
   {
     id: "validate-basic-isbn" as const,
@@ -212,6 +223,6 @@ export const scenarios: IOScenario[] = [
     functionName: "is_valid_isbn",
     args: ["3-598-21508-8"],
     expected: true,
-    codeChecks: continueCheck
+    codeChecks: [...continueCheck, ...locCheck]
   }
 ];

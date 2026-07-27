@@ -20,7 +20,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["repeat-while", "string-iteration", "string-templates"]
+  conceptSlugs: ["repeat-while", "string-iteration", "string-templates", "type-conversion"]
 };
 
 export default exerciseDefinition;
