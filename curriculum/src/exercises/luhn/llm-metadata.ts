@@ -44,14 +44,9 @@ export const llmMetadata: LLMMetadata = {
         The student now needs the guard clauses (steps 2-3): reject any non-digit, non-space
         character, and reject inputs left with a single digit or fewer. A common miss is the " 0"
         case, which must be false because only one digit remains after spaces are ignored.
+        The final scenario also enforces a counted for loop (ForStatement) in the source: a
+        for...of loop with a manually maintained counter will not satisfy it.
         Note: the student does not see these steps broken down.
-      `
-    },
-    "use-a-for-loop": {
-      description: `
-        Optional bonus. The student's solution must contain a counted for loop (ForStatement). This
-        rewards using an index to track each digit's position rather than a for...of loop with a
-        manually maintained counter. It does not change the required behaviour.
       `
     }
   }
