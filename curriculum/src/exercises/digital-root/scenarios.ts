@@ -11,7 +11,7 @@ const whileCheck: CodeCheck[] = [
 ];
 
 // Bonus: reward a tight solution. Each language's limit matches its canonical
-// solution (JavaScript 10, Python 7, Jikiscript 16) with a little headroom for
+// solution (JavaScript 10, Python 10, Jikiscript 24) with a little headroom for
 // Jikiscript's more verbose digit-extraction style.
 const locCheck: CodeCheck[] = [
   {

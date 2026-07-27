@@ -176,12 +176,18 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     "level": "methods-and-properties",
     "lessons": [
       { "type": "exercise", "slug": "pangram" },
-      { "type": "exercise", "slug": "nucleotide" },
+      { "type": "exercise", "slug": "nucleotide" }
+    ]
+  },
+  {
+    "level": "advanced-loops",
+    "lessons": [
+      { "type": "exercise", "slug": "alphanumeric" },
       { "type": "exercise", "slug": "isbn-verifier" },
       { "type": "exercise", "slug": "luhn" },
       { "type": "exercise", "slug": "run-length-encoding" },
       { "type": "exercise", "slug": "digital-root" },
-      { "type": "project", "slug": "acronym" }
+      { "type": "project", "slug": "caesar-cipher" }
     ]
   },
   {
@@ -213,8 +219,7 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
     "level": "multiple-functions",
     "lessons": [
       { "type": "exercise", "slug": "lower-pangram" },
-      { "type": "exercise", "slug": "alphanumeric" },
-      { "type": "project", "slug": "caesar-cipher" }
+      { "type": "project", "slug": "acronym" }
     ]
   },
   {
