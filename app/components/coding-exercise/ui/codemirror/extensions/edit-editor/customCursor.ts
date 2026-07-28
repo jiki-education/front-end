@@ -50,7 +50,7 @@ function getCursorTooltips(state: EditorState): readonly Tooltip[] {
         create: () => {
           const dom = document.createElement("div");
           dom.innerHTML = `
-          <img src="${staticAsset("robot.png")}" width='50' height='50' class='rounded-8'>
+          <img src="${staticAsset("robot.png")}" width='50' height='50'>
           `;
           dom.className = "cm-tooltip-cursor";
           return { dom };
@@ -64,6 +64,9 @@ const cursorTooltipBaseTheme = EditorView.baseTheme({
     background: "#4B8C9C",
     padding: "2px",
     borderRadius: "8px",
+    "& img": {
+      borderRadius: "8px"
+    },
     "& .cm-tooltip-arrow:before": {
       borderTopColor: "#4B8C9C"
     },

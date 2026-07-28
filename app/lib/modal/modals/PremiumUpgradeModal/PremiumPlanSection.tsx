@@ -39,7 +39,7 @@ export function PremiumPlanSection({ user, isLoading, onUpgrade }: PremiumPlanSe
       </p>
 
       <button
-        className={`ui-btn ui-btn-default ui-btn-primary ui-btn-purple mb-24 w-full ${isLoading ? "ui-btn-loading" : ""}`}
+        className={`ui-btn ui-btn-default ui-btn-primary ui-btn-purple ${styles.upgradeButtonLayout} ${isLoading ? "ui-btn-loading" : ""}`}
         onClick={onUpgrade}
         disabled={isLoading}
       >

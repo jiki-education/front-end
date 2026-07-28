@@ -4,21 +4,17 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import PersonIcon from "@/icons/person.svg";
 import { resolveApiAssetUrl } from "@/lib/api/config";
+import { assembleClassNames } from "@/lib/assemble-classnames";
+import styles from "./AvatarPreview.module.css";
 
 interface AvatarPreviewProps {
   url: string | null;
   size: "sm" | "lg";
 }
 
-const sizeClasses = {
-  sm: { container: "w-80 h-80", icon: "w-32 h-32" },
-  lg: { container: "w-140 h-140", icon: "w-48 h-48" }
-};
-
 export default function AvatarPreview({ url, size }: AvatarPreviewProps) {
   const t = useTranslations("settings.avatarPreview");
   const [imgError, setImgError] = useState(false);
-  const classes = sizeClasses[size];
 
   if (url && !imgError) {
     return (
@@ -27,17 +23,15 @@ export default function AvatarPreview({ url, size }: AvatarPreviewProps) {
       <img
         src={resolveApiAssetUrl(url)}
         alt={t("alt")}
-        className={`${classes.container} rounded-full object-cover flex-shrink-0`}
+        className={assembleClassNames(styles.avatar, styles[size])}
         onError={() => setImgError(true)}
       />
     );
   }
 
   return (
-    <div
-      className={`${classes.container} rounded-full border-2 border-dashed border-gray-200 flex items-center justify-center flex-shrink-0`}
-    >
-      <PersonIcon className={`${classes.icon} text-gray-300`} />
+    <div className={assembleClassNames(styles.placeholder, styles[size])}>
+      <PersonIcon className={assembleClassNames(styles.icon, styles[size])} />
     </div>
   );
 }

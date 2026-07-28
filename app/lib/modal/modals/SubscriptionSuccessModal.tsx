@@ -5,6 +5,7 @@ import { useState } from "react";
 import { hideModal } from "../store";
 import type { MembershipTier } from "@/lib/pricing";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
+import styles from "./SubscriptionSuccessModal.module.css";
 
 interface SubscriptionSuccessModalProps {
   tier: MembershipTier;
@@ -89,11 +90,11 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
   };
 
   return (
-    <div className="text-center space-y-6 max-w-md">
+    <div className={styles.root}>
       {/* Success Icon */}
-      <div className="mx-auto">
-        <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className={styles.iconWrapper}>
+        <div className={styles.iconCircle}>
+          <svg className={styles.icon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
@@ -101,27 +102,27 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
 
       {/* Header */}
       <div>
-        <h2 className="text-2xl font-bold text-text-primary mb-2">{content.title}</h2>
-        <p className="text-text-secondary">{content.description}</p>
+        <h2 className={styles.title}>{content.title}</h2>
+        <p className={styles.description}>{content.description}</p>
       </div>
 
       {/* Subscription Details */}
-      <div className="bg-bg-secondary p-4 rounded-lg border border-border-secondary">
-        <div className="flex items-center justify-between mb-12">
-          <span className="font-medium text-text-primary">{t("planLabel", { tier: tierName })}</span>
-          <span className="text-2xl font-bold text-text-primary">
+      <div className={styles.detailsCard}>
+        <div className={styles.detailsHeader}>
+          <span className={styles.planLabel}>{t("planLabel", { tier: tierName })}</span>
+          <span className={styles.planPrice}>
             <PremiumPrice interval="monthly" />
-            <span className="text-sm font-normal text-text-secondary">{tCommon("perMonth")}</span>
+            <span className={styles.planPricePeriod}>{tCommon("perMonth")}</span>
           </span>
         </div>
 
         {content.features.length > 0 && (
           <div>
-            <h4 className="font-medium text-text-primary mb-2 text-sm">{t("whatYouCanDo")}</h4>
-            <ul className="space-y-4 text-start">
+            <h4 className={styles.featuresTitle}>{t("whatYouCanDo")}</h4>
+            <ul className={styles.featureList}>
               {content.features.map((feature, index) => (
-                <li key={index} className="flex items-start text-sm text-text-secondary">
-                  <span className="text-green-500 me-2 mt-0.5 flex-shrink-0" aria-hidden="true">
+                <li key={index} className={styles.featureItem}>
+                  <span className={styles.check} aria-hidden="true">
                     ✓
                   </span>
                   {feature}
@@ -134,37 +135,31 @@ export function SubscriptionSuccessModal({ tier, triggerContext, nextSteps, onCl
 
       {/* Next Steps */}
       {nextSteps && (
-        <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-          <h3 className="font-medium text-blue-900 mb-2">{nextSteps.title}</h3>
-          <p className="text-blue-800 text-sm mb-12">{nextSteps.description}</p>
-          <button
-            onClick={handleNextSteps}
-            className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-          >
+        <div className={styles.nextSteps}>
+          <h3 className={styles.nextStepsTitle}>{nextSteps.title}</h3>
+          <p className={styles.nextStepsDescription}>{nextSteps.description}</p>
+          <button onClick={handleNextSteps} className={styles.nextStepsButton}>
             {nextSteps.buttonText || t("getStarted")}
           </button>
         </div>
       )}
 
       {/* Action Buttons */}
-      <div className="space-y-12">
+      <div className={styles.actions}>
         {!nextSteps && (
-          <button
-            onClick={handleClose}
-            className="w-full px-6 py-12 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-          >
+          <button onClick={handleClose} className={styles.continueButton}>
             {t("continueLearning")}
           </button>
         )}
 
-        <button onClick={handleClose} className="text-text-secondary hover:text-text-primary text-sm underline">
+        <button onClick={handleClose} className={styles.secondaryButton}>
           {nextSteps ? t("skipForNow") : tCommon("close")}
         </button>
       </div>
 
       {/* Footer Info */}
-      <div className="pt-4 border-t border-border-secondary">
-        <p className="text-xs text-text-tertiary">{t("renewalNotice", { date: renewalDate })}</p>
+      <div className={styles.footer}>
+        <p className={styles.footerText}>{t("renewalNotice", { date: renewalDate })}</p>
       </div>
     </div>
   );

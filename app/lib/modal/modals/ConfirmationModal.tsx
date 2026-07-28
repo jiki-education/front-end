@@ -45,10 +45,10 @@ export function ConfirmationModal({
       <h2 className={styles.modalTitle}>{title ?? t("defaultTitle")}</h2>
       <p className={styles.modalMessage}>{message ?? t("defaultMessage")}</p>
       <div className={styles.modalButtons}>
-        <button onClick={handleCancel} className="ui-btn ui-btn-tertiary ui-btn-default whitespace-nowrap">
+        <button onClick={handleCancel} className={`ui-btn ui-btn-tertiary ui-btn-default ${styles.buttonNowrap}`}>
           {cancelText ?? tCommon("cancel")}
         </button>
-        <button onClick={handleConfirm} className="ui-btn ui-btn-primary ui-btn-default whitespace-nowrap">
+        <button onClick={handleConfirm} className={`ui-btn ui-btn-primary ui-btn-default ${styles.buttonNowrap}`}>
           {confirmText ?? tCommon("confirm")}
         </button>
       </div>

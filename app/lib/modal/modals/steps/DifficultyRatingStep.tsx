@@ -45,24 +45,22 @@ export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: Difficu
       <div className={ratingStyles.ratingSection}>
         <div className={ratingStyles.ratingLabel}>{t("rateDifficulty")}</div>
 
-        <div className="relative">
-          <div className="relative">
-            <div className={ratingStyles.sliderTrack}></div>
-            <div className={ratingStyles.sliderOptions}>
-              {difficultyLabels.map((label, index) => (
-                <button
-                  key={index}
-                  className={`${ratingStyles.sliderOption} ${difficultyRating === index ? ratingStyles.selected : ""}`}
-                  onClick={() => setDifficultyRating(index)}
-                  aria-label={t("rateDifficultyAriaLabel", { label })}
-                >
-                  <div className={ratingStyles.sliderDot}></div>
-                  <span className={ratingStyles.sliderLabel} data-text={label}>
-                    {label}
-                  </span>
-                </button>
-              ))}
-            </div>
+        <div className={ratingStyles.sliderWrapper}>
+          <div className={ratingStyles.sliderTrack}></div>
+          <div className={ratingStyles.sliderOptions}>
+            {difficultyLabels.map((label, index) => (
+              <button
+                key={index}
+                className={`${ratingStyles.sliderOption} ${difficultyRating === index ? ratingStyles.selected : ""}`}
+                onClick={() => setDifficultyRating(index)}
+                aria-label={t("rateDifficultyAriaLabel", { label })}
+              >
+                <div className={ratingStyles.sliderDot}></div>
+                <span className={ratingStyles.sliderLabel} data-text={label}>
+                  {label}
+                </span>
+              </button>
+            ))}
           </div>
         </div>
       </div>
@@ -70,7 +68,7 @@ export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: Difficu
       <div className={assembleClassNames(ratingStyles.ratingSection, ratingStyles.highlighted)}>
         <div className={ratingStyles.ratingLabel}>{t("rateFun")}</div>
 
-        <div className="relative">
+        <div className={ratingStyles.funWrapper}>
           <div className={ratingStyles.emojiRatingLine}></div>
           <div className={ratingStyles.emojiRating}>
             {funEmojis.map((emoji, index) => (
@@ -101,7 +99,11 @@ export function DifficultyRatingStep({ exerciseTitle, onRatingsSubmit }: Difficu
       </div>
 
       <div className={modalStyles.modalButtons}>
-        <button onClick={handleSubmit} disabled={!canSubmit} className="ui-btn ui-btn-primary ui-btn-large flex-1">
+        <button
+          onClick={handleSubmit}
+          disabled={!canSubmit}
+          className={`ui-btn ui-btn-primary ui-btn-large ${modalStyles.buttonFill}`}
+        >
           {tCommon("continue")}
         </button>
       </div>

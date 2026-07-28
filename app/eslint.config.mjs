@@ -197,7 +197,7 @@ const eslintConfig = [
   // that trips it, prefer a CSS Module; only add an eslint-disable with a note
   // if truly unavoidable.
   {
-    files: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
+    files: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}", "lib/**/*.{ts,tsx}"],
     ignores: ["**/tests/**"],
     rules: {
       "no-restricted-syntax": [

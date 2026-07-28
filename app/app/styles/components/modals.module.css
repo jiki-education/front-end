@@ -124,6 +124,20 @@
     gap: 12px;
 }
 
+/* Equal-width button in a modal button row (was Tailwind flex-1). */
+.buttonFill {
+    flex: 1;
+}
+
+/* Keep a modal button label on one line (was Tailwind whitespace-nowrap). */
+.buttonNowrap {
+    white-space: nowrap;
+}
+
+.textSemibold {
+    font-weight: 600;
+}
+
 .modal .modalButtonsDivider {
     width: calc(100% + 64px);
     height: 1px;

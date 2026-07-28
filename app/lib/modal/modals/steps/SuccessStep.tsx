@@ -23,7 +23,7 @@ export function SuccessStep({ onCompleteExercise, isChallenge = false, outstandi
       <p className={styles.modalMessage}>{isChallenge ? t("messageChallenge") : t("messageExercise")}</p>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
-        <button onClick={onCompleteExercise} className="ui-btn ui-btn-primary ui-btn-large flex-1">
+        <button onClick={onCompleteExercise} className={`ui-btn ui-btn-primary ui-btn-large ${styles.buttonFill}`}>
           {isChallenge ? t("completeChallenge") : t("completeExercise")}
         </button>
       </div>

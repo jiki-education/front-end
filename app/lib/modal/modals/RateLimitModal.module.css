@@ -184,14 +184,14 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .timerRing {
     width: 48px;
     height: 48px;
     position: relative;
-    margin-inline-start: -48px;
+    flex-shrink: 0;
 }
 
 .timerRing svg {
@@ -222,7 +222,7 @@
     font-size: 18px;
     font-weight: 600;
     color: var(--color-gray-800);
-    text-align: center;
+    text-align: start;
 }
 
 .statusSubtext {

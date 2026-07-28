@@ -1,0 +1,170 @@
+.root {
+    max-width: 896px;
+}
+
+.root > * + * {
+    margin-top: 6px;
+}
+
+.header {
+    text-align: center;
+}
+
+.headline {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 2px;
+}
+
+.description {
+    color: var(--color-text-secondary);
+    font-size: 18px;
+}
+
+.featureContext {
+    background: var(--color-bg-secondary);
+    padding: 4px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border-secondary);
+}
+
+.featureContextTitle {
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 12px;
+}
+
+.featureList > * + * {
+    margin-top: 2px;
+}
+
+.featureItem {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+.check {
+    color: var(--color-green-500);
+    margin-inline-end: 12px;
+    flex-shrink: 0;
+}
+
+.tierGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+}
+
+.tierCard {
+    border: 1px solid var(--color-border-secondary);
+    background: var(--color-bg-primary);
+    border-radius: 8px;
+    padding: 6px;
+    position: relative;
+    transition: all 0.15s ease;
+}
+
+.tierCard:hover {
+    border-color: var(--color-border-primary);
+}
+
+.tierCard[data-suggested="true"] {
+    border-color: var(--color-blue-500);
+    background: var(--color-blue-50);
+    box-shadow: 0 0 0 2px var(--color-blue-200);
+}
+
+.recommendedBadge {
+    position: absolute;
+    top: -12px;
+    inset-inline-start: 4px;
+}
+
+.recommendedBadgeLabel {
+    background: var(--color-blue-600);
+    color: white;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 9999px;
+}
+
+.tierHeader {
+    margin-bottom: 4px;
+}
+
+.tierName {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.tierPrice {
+    margin-top: 2px;
+}
+
+.tierPriceAmount {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.tierPricePeriod {
+    color: var(--color-text-secondary);
+}
+
+.tierDescription {
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    margin-top: 2px;
+}
+
+.tierFeatureList {
+    margin-bottom: 6px;
+}
+
+.tierFeatureList > * + * {
+    margin-top: 2px;
+}
+
+.tierFeatureItem {
+    display: flex;
+    align-items: flex-start;
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+.checkStart {
+    color: var(--color-green-500);
+    margin-inline-end: 12px;
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+}
+
+.footer {
+    text-align: center;
+    padding-top: 4px;
+    border-top: 1px solid var(--color-border-secondary);
+}
+
+.renewNotice {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    margin-bottom: 12px;
+}
+
+.notNow {
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+.notNow:hover {
+    color: var(--color-text-primary);
+}
+
+.fullWidth {
+    width: 100%;
+}

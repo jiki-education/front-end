@@ -18,6 +18,10 @@
 }
 
 /* Difficulty Slider */
+.sliderWrapper {
+    position: relative;
+}
+
 .sliderTrack {
     position: absolute;
     top: 12px;
@@ -98,6 +102,10 @@
 }
 
 /* Fun Factor Rating */
+.funWrapper {
+    position: relative;
+}
+
 .emojiRating {
     display: flex;
     justify-content: space-between;

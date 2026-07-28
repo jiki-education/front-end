@@ -8,6 +8,7 @@ import { PremiumPrice } from "@/components/common/PremiumPrice";
 import SubscriptionButton from "@/components/settings/ui/SubscriptionButton";
 import { useTranslations } from "next-intl";
 import { toastError } from "@/lib/toast";
+import styles from "./SubscriptionModal.module.css";
 
 interface SubscriptionModalProps {
   // Entry context for analytics and flow optimization
@@ -120,23 +121,21 @@ export function SubscriptionModal({
   // Note: Checkout modal is now triggered directly by handleSubscribe
 
   return (
-    <div className="space-y-6 max-w-4xl">
+    <div className={styles.root}>
       {/* Header */}
-      <div className="text-center">
-        <h2 className="text-2xl font-bold text-text-primary mb-2">{finalHeadline}</h2>
-        <p className="text-text-secondary text-lg">{finalDescription}</p>
+      <div className={styles.header}>
+        <h2 className={styles.headline}>{finalHeadline}</h2>
+        <p className={styles.description}>{finalDescription}</p>
       </div>
 
       {/* Feature Context Benefits */}
       {featuresContext && (
-        <div className="bg-bg-secondary p-4 rounded-lg border border-border-secondary">
-          <h3 className="font-medium text-text-primary mb-12">
-            {t("unlockWith", { feature: featuresContext.feature })}
-          </h3>
-          <ul className="space-y-2">
+        <div className={styles.featureContext}>
+          <h3 className={styles.featureContextTitle}>{t("unlockWith", { feature: featuresContext.feature })}</h3>
+          <ul className={styles.featureList}>
             {featuresContext.benefits.map((benefit, index) => (
-              <li key={index} className="flex items-center text-sm text-text-secondary">
-                <span className="text-green-500 me-12 flex-shrink-0" aria-hidden="true">
+              <li key={index} className={styles.featureItem}>
+                <span className={styles.check} aria-hidden="true">
                   ✓
                 </span>
                 {benefit}
@@ -147,36 +146,30 @@ export function SubscriptionModal({
       )}
 
       {/* Tier Selection */}
-      <div className="grid grid-cols-1 gap-6">
+      <div className={styles.tierGrid}>
         {/* Premium Tier */}
-        <div
-          className={`border rounded-lg p-6 relative transition-all ${
-            suggestedTier === "premium"
-              ? "border-blue-500 bg-blue-50 ring-2 ring-blue-200"
-              : "border-border-secondary bg-bg-primary hover:border-border-primary"
-          }`}
-        >
+        <div className={styles.tierCard} data-suggested={suggestedTier === "premium"}>
           {suggestedTier === "premium" && (
-            <div className="absolute -top-12 start-4">
-              <span className="bg-blue-600 text-white text-xs px-12 py-4 rounded-full">{t("recommended")}</span>
+            <div className={styles.recommendedBadge}>
+              <span className={styles.recommendedBadgeLabel}>{t("recommended")}</span>
             </div>
           )}
 
-          <div className="mb-4">
-            <h3 className="text-xl font-bold text-text-primary">{premiumName}</h3>
-            <div className="mt-2">
-              <span className="text-3xl font-bold text-text-primary">
+          <div className={styles.tierHeader}>
+            <h3 className={styles.tierName}>{premiumName}</h3>
+            <div className={styles.tierPrice}>
+              <span className={styles.tierPriceAmount}>
                 <PremiumPrice interval="monthly" />
               </span>
-              <span className="text-text-secondary">{tCommon("perMonth")}</span>
+              <span className={styles.tierPricePeriod}>{tCommon("perMonth")}</span>
             </div>
-            <p className="text-text-secondary text-sm mt-2">{premiumDescription}</p>
+            <p className={styles.tierDescription}>{premiumDescription}</p>
           </div>
 
-          <ul className="space-y-2 mb-6">
+          <ul className={styles.tierFeatureList}>
             {premiumFeatures.map((feature, index) => (
-              <li key={index} className="flex items-start text-sm text-text-secondary">
-                <span className="text-green-500 me-12 mt-0.5 flex-shrink-0" aria-hidden="true">
+              <li key={index} className={styles.tierFeatureItem}>
+                <span className={styles.checkStart} aria-hidden="true">
                   ✓
                 </span>
                 {feature}
@@ -188,7 +181,7 @@ export function SubscriptionModal({
             variant="secondary"
             onClick={() => handleTierSelection()}
             loading={isLoading}
-            className="w-full"
+            className={styles.fullWidth}
             ariaLabel={t("subscribeAriaLabel", { plan: premiumName })}
           >
             {t("choosePremium")}
@@ -197,10 +190,10 @@ export function SubscriptionModal({
       </div>
 
       {/* Footer */}
-      <div className="text-center pt-4 border-t border-border-secondary">
-        <p className="text-xs text-text-tertiary mb-12">{t("renewNotice")}</p>
+      <div className={styles.footer}>
+        <p className={styles.renewNotice}>{t("renewNotice")}</p>
 
-        <button onClick={handleClose} className="text-text-secondary hover:text-text-primary text-sm underline">
+        <button onClick={handleClose} className={styles.notNow}>
           {t("notNow")}
         </button>
       </div>

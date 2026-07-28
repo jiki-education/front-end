@@ -166,3 +166,53 @@
     font-weight: 500;
     color: var(--color-gray-400);
 }
+
+/* ModalBody error state + wrapper */
+.errorState {
+    background: var(--color-bg-primary);
+    padding: 4px;
+}
+
+.errorBox {
+    background: var(--color-red-50);
+    border: 1px solid var(--color-red-200);
+    border-radius: 8px;
+    padding: 4px;
+    margin-bottom: 4px;
+}
+
+.errorText {
+    font-size: 14px;
+    color: var(--color-red-800);
+}
+
+.errorCloseButton {
+    width: 100%;
+    padding-inline: 4px;
+    padding-block: 2px;
+    background: var(--color-gray-300);
+    color: var(--color-gray-700);
+    border-radius: 8px;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+        background: var(--color-gray-400);
+    }
+}
+
+.bodyWrapper {
+    max-width: 448px;
+    margin-inline: auto;
+}
+
+/* PaymentForm */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.submitButton {
+    margin-block-start: 10px;
+    width: 100%;
+}

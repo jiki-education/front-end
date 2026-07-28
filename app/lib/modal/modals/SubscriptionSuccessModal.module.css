@@ -1,0 +1,172 @@
+.root {
+    text-align: center;
+    max-width: 448px;
+}
+
+.root > * + * {
+    margin-top: 6px;
+}
+
+.iconWrapper {
+    margin-inline: auto;
+}
+
+.iconCircle {
+    width: 20px;
+    height: 20px;
+    background: var(--color-green-100);
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-inline: auto;
+    margin-bottom: 4px;
+}
+
+.icon {
+    width: 10px;
+    height: 10px;
+    color: var(--color-green-600);
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 2px;
+}
+
+.description {
+    color: var(--color-text-secondary);
+}
+
+.detailsCard {
+    background: var(--color-bg-secondary);
+    padding: 4px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border-secondary);
+}
+
+.detailsHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.planLabel {
+    font-weight: 500;
+    color: var(--color-text-primary);
+}
+
+.planPrice {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.planPricePeriod {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+}
+
+.featuresTitle {
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: 2px;
+    font-size: 14px;
+}
+
+.featureList {
+    text-align: start;
+}
+
+.featureList > * + * {
+    margin-top: 4px;
+}
+
+.featureItem {
+    display: flex;
+    align-items: flex-start;
+    font-size: 14px;
+    color: var(--color-text-secondary);
+}
+
+.check {
+    color: var(--color-green-500);
+    margin-inline-end: 2px;
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+}
+
+.nextSteps {
+    background: var(--color-blue-50);
+    padding: 4px;
+    border-radius: 8px;
+    border: 1px solid var(--color-blue-200);
+}
+
+.nextStepsTitle {
+    font-weight: 500;
+    color: var(--color-blue-900);
+    margin-bottom: 2px;
+}
+
+.nextStepsDescription {
+    color: var(--color-blue-800);
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.nextStepsButton {
+    width: 100%;
+    padding: 2px 4px;
+    background: var(--color-blue-600);
+    color: white;
+    border-radius: 8px;
+    transition: background-color 0.15s ease;
+    font-weight: 500;
+}
+
+.nextStepsButton:hover {
+    background: var(--color-blue-700);
+}
+
+.actions > * + * {
+    margin-top: 12px;
+}
+
+.continueButton {
+    width: 100%;
+    padding: 12px 6px;
+    background: var(--color-blue-600);
+    color: white;
+    border-radius: 8px;
+    transition: background-color 0.15s ease;
+    font-weight: 500;
+}
+
+.continueButton:hover {
+    background: var(--color-blue-700);
+}
+
+.secondaryButton {
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+.secondaryButton:hover {
+    color: var(--color-text-primary);
+}
+
+.footer {
+    padding-top: 4px;
+    border-top: 1px solid var(--color-border-secondary);
+}
+
+.footerText {
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+}

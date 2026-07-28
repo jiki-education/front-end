@@ -1,6 +1,7 @@
 import React from "react";
 import { formatShortcutForDisplay } from "./utils";
 import type { RegisteredShortcut } from "./types";
+import styles from "./KeyboardHelpModal.module.css";
 
 interface KeyboardHelpModalProps {
   shortcuts: RegisteredShortcut[];
@@ -35,19 +36,15 @@ export function KeyboardHelpModal({ shortcuts }: KeyboardHelpModalProps) {
   );
 
   return (
-    <div className="space-y-4">
+    <div className={styles.groups}>
       {Object.entries(grouped).map(([scope, items]) => (
-        <div key={scope} className="mb-4">
-          <h3 className="font-semibold text-sm uppercase tracking-wide text-gray-500 mb-2">
-            {scope === "global" ? "Global" : scope}
-          </h3>
-          <div className="space-y-4">
+        <div key={scope} className={styles.group}>
+          <h3 className={styles.groupTitle}>{scope === "global" ? "Global" : scope}</h3>
+          <div className={styles.shortcuts}>
             {items.map((item, index) => (
-              <div key={`${scope}-${index}`} className="flex justify-between items-center py-4">
-                <span className="text-sm">{item.options.description}</span>
-                <kbd className="ms-4 px-2 py-4 text-xs font-semibold text-gray-800 bg-gray-100 rounded">
-                  {formatShortcutForDisplay(item.keys)}
-                </kbd>
+              <div key={`${scope}-${index}`} className={styles.shortcut}>
+                <span className={styles.description}>{item.options.description}</span>
+                <kbd className={styles.keys}>{formatShortcutForDisplay(item.keys)}</kbd>
               </div>
             ))}
           </div>

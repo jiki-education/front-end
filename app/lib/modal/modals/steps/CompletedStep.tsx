@@ -123,10 +123,10 @@ function BonusActions({
   const t = useTranslations("modals.exerciseCompletion.completed");
   return (
     <>
-      <button onClick={onSolveBonuses} className="ui-btn ui-btn-primary ui-btn-large flex-1">
+      <button onClick={onSolveBonuses} className={`ui-btn ui-btn-primary ui-btn-large ${styles.buttonFill}`}>
         {t("solveBonuses", { count: outstandingBonusCount })}
       </button>
-      <button onClick={onMoveOn} className="ui-btn ui-btn-secondary ui-btn-large flex-1">
+      <button onClick={onMoveOn} className={`ui-btn ui-btn-secondary ui-btn-large ${styles.buttonFill}`}>
         {t("moveOn")}
       </button>
     </>
@@ -138,10 +138,10 @@ function DefaultActions({ onTidyCode, onContinue }: { onTidyCode: () => void; on
   const tCommon = useTranslations("common");
   return (
     <>
-      <button onClick={onTidyCode} className="ui-btn ui-btn-tertiary ui-btn-large flex-1">
+      <button onClick={onTidyCode} className={`ui-btn ui-btn-tertiary ui-btn-large ${styles.buttonFill}`}>
         {t("tidyCode")}
       </button>
-      <button onClick={onContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
+      <button onClick={onContinue} className={`ui-btn ui-btn-primary ui-btn-large ${styles.buttonFill}`}>
         {tCommon("continue")}
       </button>
     </>
