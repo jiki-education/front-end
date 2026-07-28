@@ -7,12 +7,12 @@ Welcome back to the golf course. So far you've only been rolling the ball horizo
 
 The first change is that the <define>`moveTo`</define> function now has inputs for <define>`x`</define> and <define>`y`</define>. Just like before you need to roll it one step at a time, not just jump it to the end. But this time, if the golfer gets the ball in the hole, you need to animate that final part too, moving the ball down into the hole after it's reached the right spot.
 
-Then finally, **if the ball landed in the hole**, once it's rolled to the bottom, it's time to celebrate, so shoot of some fireworks using the <define>`fireFireworks()`</define> function.
+Then finally, **if the ball landed in the hole**, once it's rolled to the bottom, it's time to celebrate, so shoot off some fireworks using the <define>`fireFireworks()`</define> function.
 
 A few things to know:
 
 1. The ball starts on the tee at `x = 28`, `y = 75`, and rolls one step at a time.
 2. A successful shot means the shot's length is `58`, `59`, `60`, `61`, or `62`.
-3. You need to roll the ball down 9 units.
+3. You need to roll the ball down `9` units.
 
 On this exercise, try and think through each step carefully and take things one step at a time. Good luck!
