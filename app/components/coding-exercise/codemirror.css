@@ -156,7 +156,12 @@
     outline: 1.5px solid var(--highlighted-line-border-color);
     border-radius: 2px;
     margin-inline: 2px;
-    padding-inline-start: 2px !important;
+}
+
+/* Selector matches the specificity of the base .cm-line padding so the -2px cancels the
+   +2px margin without !important (which Turbopack strips when lowering the logical prop). */
+.cm-editor .cm-line.cm-highlightedLine {
+    padding-inline-start: 2px;
 }
 
 /* Light theme highlighted line colors */
