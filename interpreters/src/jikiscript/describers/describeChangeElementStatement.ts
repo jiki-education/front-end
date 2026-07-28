@@ -117,7 +117,7 @@ function describeChangeElementStatementDictionaryAddKey(
     ...steps,
     ...([boxStep].filter(Boolean) as string[]),
     `<li>Jiki checked for the ${keyCodeTag} key in the dictionary and saw it was missing.</li>`,
-    `<li>Jiki add a new key value pair with the key of ${keyCodeTag} and the value of ${valueCodeTag}.</li>`,
+    `<li>Jiki added a new key value pair with the key of ${keyCodeTag} and the value of ${valueCodeTag}.</li>`,
   ];
 
   return {
@@ -140,7 +140,7 @@ function describeChangeElementStatementDictionaryUpdateKey(
   steps = [
     ...steps,
     ...([boxStep].filter(Boolean) as string[]),
-    `<li>Jiki found the ${keyCodeTag} key in the dictionary.</i>`,
+    `<li>Jiki found the ${keyCodeTag} key in the dictionary.</li>`,
     `<li>Jiki updated the corresponding value to be ${valueCodeTag}.</li>`,
   ];
 

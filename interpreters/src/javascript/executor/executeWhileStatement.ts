@@ -18,14 +18,21 @@ export function executeWhileStatement(executor: Executor, statement: WhileStatem
         // Guard against infinite loops
         executor.guardInfiniteLoop(statement.location);
 
-        // Check condition - this should generate a frame
-        const conditionResult = executor.executeFrame(statement.condition, () => {
-          const result = executor.evaluate(statement.condition);
-          return result;
+        // Check the condition and emit a WhileStatement frame on the loop line
+        // (mirrors for-of: the frame carries the condition result so the describer
+        // can show the condition's sub-steps and the true/false outcome).
+        const frameResult = executor.executeFrame(statement, () => {
+          const condition = executor.evaluate(statement.condition);
+          return {
+            type: "WhileStatement" as const,
+            condition,
+            jikiObject: condition.jikiObject,
+            immutableJikiObject: condition.jikiObject.clone(),
+          };
         });
 
         // Check the condition value using truthiness rules (includes language feature guard)
-        const conditionValue = isTruthy(executor, conditionResult.jikiObject, statement.condition.location);
+        const conditionValue = isTruthy(executor, frameResult.condition.jikiObject, statement.condition.location);
 
         // If condition is false, break the loop
         if (!conditionValue) {

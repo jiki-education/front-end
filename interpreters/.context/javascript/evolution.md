@@ -1,5 +1,19 @@
 # JavaScript Interpreter Evolution
 
+## 2026-07-29: Describers aligned to JikiScript's "Jiki" voice
+
+The JS describers had drifted into their own terser wording. They now speak JikiScript's canonical voice — the "box on the shelf" teaching metaphor — using JS-native nouns ("array"/"item" rather than JikiScript's "list"), so a student sees consistent explanations across languages. All wording lives in the `description.*` catalog.
+
+- **Box/shelf/chute metaphor.** Declaring a variable → "Jiki created a new box called `x`." / "Jiki put `5` in the box." Reassigning → "Jiki found the `x` box." / "Jiki put `9` in the box." (no "removed the old contents" step — JS results don't carry the old value). Loop iteration → "Jiki created a new box called `n`." / "Jiki put `3` in the box, and put it on the shelf, ready to use in the code block." Return → "Jiki put `5` in the return chute." / "Jiki cleared up and left the function."
+- **Every variable read is narrated** (new `describeIdentifierExpression`, routed in `describeSteps`): "Jiki got the box called `n` off the shelves and took `3` out of it." Function-reference identifiers produce no step.
+- **Array/index, JS-termed.** Index read → "Jiki got the item at index `2` in the array and determined it was `X`." (string → "the character at index `N` in the string"). Element write → "Jiki put `9` in the slot at index `0` of the array."
+- **Literals no longer narrated.** Array/dictionary/template-literal construction produces no step (Jiki never narrates literal building); the value simply appears when it's put in the box. Those describers return `[]`.
+- **console.log speaks Jiki's log voice:** "This logged `6`." / "Jiki wrote `6` here for you!" (both when called as a statement and directly).
+- **Ordinals** for iterations ("started the 3rd iteration…"), and Jiki is referred to as **"his"** (matching JikiScript), including the repeat counter step.
+- Also fixed two long-standing typos in the JikiScript canon that would otherwise be copied: a malformed `</i>` tag and "Jiki add a new key value pair" → "added" in `describeChangeElementStatement`.
+
+Verified with a before/after render harness across every describer; the JS output now matches JikiScript's phrasing construct-for-construct.
+
 ## 2026-07-28: Describers resolved through i18n (`description.*` catalog)
 
 The frame describers (`src/javascript/describers/*.ts`) hardcoded their student-facing English HTML prose (`<li>Jiki evaluated <code>…</code>…</li>`). All of it now lives in the i18n catalog under a new top-level `description.*` namespace and is resolved through a per-run translator, the same inject-the-dict model the error messages already use.

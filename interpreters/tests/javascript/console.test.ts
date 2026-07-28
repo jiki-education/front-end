@@ -96,7 +96,8 @@ describe("console.log()", () => {
     expect(result.frames).toHaveLength(1);
     expect(result.frames[0].status).toBe("SUCCESS");
     const description = result.frames[0].generateDescription();
-    expect(description).toContain("console.log");
+    expect(description).toContain("This logged");
+    expect(description).toContain("Jiki wrote");
     expect(description).toContain("test");
   });
 });

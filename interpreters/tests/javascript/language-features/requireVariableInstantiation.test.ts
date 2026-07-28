@@ -191,9 +191,9 @@ describe("requireVariableInstantiation language feature", () => {
       expect(frame).toBeDefined();
       expect((frame as TestAugmentedFrame).description).toBeDefined();
       expect(typeof (frame as TestAugmentedFrame).description).toBe("string");
-      expect((frame as TestAugmentedFrame).description).toContain("Declared variable");
-      expect((frame as TestAugmentedFrame).description).toContain("<code>x</code>");
-      expect((frame as TestAugmentedFrame).description).toContain("undefined");
+      expect((frame as TestAugmentedFrame).description).toContain("This created a new variable called");
+      expect((frame as TestAugmentedFrame).description).toContain(">x</code>");
+      expect((frame as TestAugmentedFrame).description).toContain("Jiki created a new empty box called");
     });
 
     test("should have correct description for initialized variable", () => {
@@ -203,8 +203,8 @@ describe("requireVariableInstantiation language feature", () => {
       const result = interpret(code, { languageFeatures });
       const frame = result.frames[0];
 
-      expect((frame as TestAugmentedFrame).description).toContain("Declared variable");
-      expect((frame as TestAugmentedFrame).description).toContain("<code>x</code>");
+      expect((frame as TestAugmentedFrame).description).toContain("This created a new variable called");
+      expect((frame as TestAugmentedFrame).description).toContain(">x</code>");
       expect((frame as TestAugmentedFrame).description).toContain("42");
     });
   });

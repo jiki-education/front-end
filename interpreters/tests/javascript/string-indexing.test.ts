@@ -209,8 +209,8 @@ describe("JavaScript String Indexing", () => {
       const result = interpret(code);
 
       const frame = result.frames[1] as TestFrame;
-      expect(frame.description).toContain("Accessed character at index 0");
-      expect(frame.description).toContain('got "h"');
+      expect(frame.description).toContain("Jiki got the character at index 0 in the string and determined it was");
+      expect(frame.description).toContain('"h"');
     });
 
     test("description does not say list", () => {

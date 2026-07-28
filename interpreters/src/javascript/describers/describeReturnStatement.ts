@@ -3,25 +3,30 @@ import type { EvaluationResultReturnStatement } from "../evaluation-result";
 import type { ReturnStatement } from "../statement";
 import type { FrameWithResult } from "../frameDescribers";
 import type { DescriptionContext } from "./types";
+import { describeExpression } from "./describeSteps";
+import { codeTag } from "../helpers";
 
 export function describeReturnStatement(frame: FrameWithResult, context: DescriptionContext): Description {
   const result = frame.result as EvaluationResultReturnStatement;
   const statement = frame.context as ReturnStatement;
 
   if (statement.expression === null) {
-    // void return
+    // Naked return - no value
     return {
-      result: context.t("description.returnStatement.void.result"),
-      steps: [context.t("description.returnStatement.void.step1"), context.t("description.returnStatement.void.step2")],
+      result: context.t("description.returnStatement.naked_result"),
+      steps: [context.t("description.returnStatement.final")],
     };
   }
 
-  const value = result.jikiObject.toDisplayString();
+  const value = codeTag(result.jikiObject, statement.expression.location);
+  const expressionSteps = describeExpression(statement.expression, result.expression!, context);
+
   return {
-    result: context.t("description.returnStatement.value.result", { value }),
+    result: context.t("description.returnStatement.value_result", { value }),
     steps: [
-      context.t("description.returnStatement.value.step1", { value }),
-      context.t("description.returnStatement.value.step2", { value }),
+      ...expressionSteps,
+      context.t("description.returnStatement.value_chute", { value }),
+      context.t("description.returnStatement.final"),
     ],
   };
 }

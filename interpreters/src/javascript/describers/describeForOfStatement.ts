@@ -2,72 +2,34 @@ import type { EvaluationResultForOfStatement } from "../evaluation-result";
 import type { Description, FrameWithResult } from "../../shared/frames";
 import type { DescriptionContext } from "./types";
 import type { ForOfStatement } from "../statement";
-import { describeExpression } from "./describeSteps";
 import { JSArray, JSString } from "../jikiObjects";
+import { codeTag, formatJSObject } from "../helpers";
+import { addOrdinalSuffix } from "./helpers";
 
 export function describeForOfStatement(frame: FrameWithResult, context: DescriptionContext): Description {
-  const forOfStatement = frame.context as ForOfStatement;
+  const statement = frame.context as ForOfStatement;
   const result = frame.result as EvaluationResultForOfStatement;
 
-  const steps = describeExpression(forOfStatement.iterable, result.iterable, context);
-  steps.push(describeFinalStep(result, forOfStatement, context));
+  const iterable = result.iterable.immutableJikiObject;
+  const typeName = iterable instanceof JSString ? "string" : "array";
+  const isEmpty = (iterable instanceof JSArray || iterable instanceof JSString) && iterable.value.length === 0;
+
+  if (isEmpty) {
+    return {
+      result: context.t("description.forOfStatement.result_empty", { type: typeName }),
+      steps: [context.t("description.forOfStatement.step_empty", { type: typeName })],
+    };
+  }
+
+  const name = codeTag(statement.variable.lexeme, statement.variable.location);
+  const value = codeTag(formatJSObject(result.currentElement), statement.iterable.location);
+  const ordinal = addOrdinalSuffix(result.iteration);
 
   return {
-    result: describeResult(result, forOfStatement, context),
-    steps,
+    result: context.t("description.forOfStatement.result_iteration", { ordinal, name, value }),
+    steps: [
+      context.t("description.forOfStatement.step_create", { name }),
+      context.t("description.forOfStatement.step_put", { value }),
+    ],
   };
-}
-
-function describeFinalStep(
-  result: EvaluationResultForOfStatement,
-  statement: ForOfStatement,
-  context: DescriptionContext
-): string {
-  const iterable = result.iterable.immutableJikiObject;
-  const variableName = statement.variable.lexeme;
-
-  if (iterable instanceof JSArray || iterable instanceof JSString) {
-    if (iterable.value.length === 0) {
-      const typeName = iterable instanceof JSArray ? "list" : "string";
-      return context.t("description.forOfStatement.stepEmpty", { typeName });
-    }
-
-    if (result.currentElement) {
-      const elementValue = result.currentElement.toDisplayString();
-      return context.t("description.forOfStatement.stepSetElement", {
-        variableName,
-        elementValue,
-        iteration: result.iteration,
-      });
-    }
-  }
-
-  return context.t("description.forOfStatement.stepDefault");
-}
-
-function describeResult(
-  result: EvaluationResultForOfStatement,
-  statement: ForOfStatement,
-  context: DescriptionContext
-): string {
-  const iterable = result.iterable.immutableJikiObject;
-  const variableName = statement.variable.lexeme;
-
-  if (iterable instanceof JSArray || iterable instanceof JSString) {
-    if (iterable.value.length === 0) {
-      const typeName = iterable instanceof JSArray ? "list" : "string";
-      return context.t("description.forOfStatement.resultEmpty", { typeName });
-    }
-
-    if (result.currentElement) {
-      const elementValue = result.currentElement.toDisplayString();
-      return context.t("description.forOfStatement.resultSetElement", {
-        variableName,
-        elementValue,
-        iteration: result.iteration,
-      });
-    }
-  }
-
-  return context.t("description.forOfStatement.resultDefault");
 }

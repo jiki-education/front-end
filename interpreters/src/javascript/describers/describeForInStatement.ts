@@ -2,70 +2,33 @@ import type { EvaluationResultForInStatement } from "../evaluation-result";
 import type { Description, FrameWithResult } from "../../shared/frames";
 import type { DescriptionContext } from "./types";
 import type { ForInStatement } from "../statement";
-import { describeExpression } from "./describeSteps";
 import { JSDictionary } from "../jikiObjects";
+import { codeTag, formatJSObject } from "../helpers";
+import { addOrdinalSuffix } from "./helpers";
 
 export function describeForInStatement(frame: FrameWithResult, context: DescriptionContext): Description {
-  const forInStatement = frame.context as ForInStatement;
+  const statement = frame.context as ForInStatement;
   const result = frame.result as EvaluationResultForInStatement;
 
-  const steps = describeExpression(forInStatement.object, result.object, context);
-  steps.push(describeFinalStep(result, forInStatement, context));
+  const obj = result.object.immutableJikiObject;
+  const isEmpty = obj instanceof JSDictionary && obj.value.size === 0;
+
+  if (isEmpty) {
+    return {
+      result: context.t("description.forInStatement.result_empty"),
+      steps: [context.t("description.forInStatement.step_empty")],
+    };
+  }
+
+  const name = codeTag(statement.variable.lexeme, statement.variable.location);
+  const value = codeTag(formatJSObject(result.currentKey), statement.object.location);
+  const ordinal = addOrdinalSuffix(result.iteration);
 
   return {
-    result: describeResult(result, forInStatement, context),
-    steps,
+    result: context.t("description.forInStatement.result_iteration", { ordinal, name, value }),
+    steps: [
+      context.t("description.forInStatement.step_create", { name }),
+      context.t("description.forInStatement.step_put", { value }),
+    ],
   };
-}
-
-function describeFinalStep(
-  result: EvaluationResultForInStatement,
-  statement: ForInStatement,
-  context: DescriptionContext
-): string {
-  const obj = result.object.immutableJikiObject;
-  const variableName = statement.variable.lexeme;
-
-  if (obj instanceof JSDictionary) {
-    if (obj.value.size === 0) {
-      return context.t("description.forInStatement.stepEmpty");
-    }
-
-    if (result.currentKey) {
-      const keyValue = result.currentKey.toDisplayString();
-      return context.t("description.forInStatement.stepSetKey", {
-        variableName,
-        keyValue,
-        iteration: result.iteration,
-      });
-    }
-  }
-
-  return context.t("description.forInStatement.stepDefault");
-}
-
-function describeResult(
-  result: EvaluationResultForInStatement,
-  statement: ForInStatement,
-  context: DescriptionContext
-): string {
-  const obj = result.object.immutableJikiObject;
-  const variableName = statement.variable.lexeme;
-
-  if (obj instanceof JSDictionary) {
-    if (obj.value.size === 0) {
-      return context.t("description.forInStatement.resultEmpty");
-    }
-
-    if (result.currentKey) {
-      const keyValue = result.currentKey.toDisplayString();
-      return context.t("description.forInStatement.resultSetKey", {
-        variableName,
-        keyValue,
-        iteration: result.iteration,
-      });
-    }
-  }
-
-  return context.t("description.forInStatement.resultDefault");
 }

@@ -14,6 +14,7 @@ import { describeContinueStatement } from "./describers/describeContinueStatemen
 import { describeForOfStatement } from "./describers/describeForOfStatement";
 import { describeForInStatement } from "./describers/describeForInStatement";
 import { describeRepeatStatement } from "./describers/describeRepeatStatement";
+import { describeWhileStatement } from "./describers/describeWhileStatement";
 
 // JavaScript-specific frame extending the shared base
 export interface JavaScriptFrame extends Frame {
@@ -87,6 +88,8 @@ function generateDescription(frame: FrameWithResult, context: DescriptionContext
       return describeBreakStatement(frame, context);
     case "ContinueStatement":
       return describeContinueStatement(frame, context);
+    case "WhileStatement":
+      return describeWhileStatement(frame, context);
     case "FunctionDeclaration":
     case "LiteralExpression":
     case "BinaryExpression":
