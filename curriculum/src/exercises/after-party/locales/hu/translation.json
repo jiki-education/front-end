@@ -64,5 +64,15 @@
       "question": "What do I do when they're not on the list?",
       "answer": "Then they get the string `Not on the list!`, exactly as written. Two things are worth thinking about here. First, at what point can you be *certain* that someone isn't on the list? Second, notice that this is a genuinely different answer from a guest who's invited but allowed 0 extra guests, so make sure your function never confuses the two."
     }
+  },
+  "functions": {
+    "length": {
+      "description": "The number of items in a list - the same length property you've used on strings (provided by level stdlib)",
+      "category": "List Operations"
+    },
+    "startsWith": {
+      "description": "Check whether a string begins with a smaller string (provided by level stdlib)",
+      "category": "String Operations"
+    }
   }
 }

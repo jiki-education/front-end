@@ -71,5 +71,27 @@
   },
   "checks": {
     "tooManyLines": "Keep going! See if you can solve it in fewer lines."
+  },
+  "functions": {
+    "length": {
+      "description": "The number of items in a list - the same length property you've used on strings (provided by level stdlib)",
+      "category": "List Operations"
+    },
+    "split": {
+      "description": "Split a string into a list of pieces, breaking at each separator (provided by level stdlib)",
+      "category": "String Operations"
+    },
+    "slice": {
+      "description": "Make a new list from part of a list, starting at a position (provided by level stdlib)",
+      "category": "List Operations"
+    },
+    "join": {
+      "description": "Join the items of a list into one string, with a separator between them (provided by level stdlib)",
+      "category": "List Operations"
+    },
+    "endsWith": {
+      "description": "Check whether a string ends with a smaller string (provided by level stdlib)",
+      "category": "String Operations"
+    }
   }
 }

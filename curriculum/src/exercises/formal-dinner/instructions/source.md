@@ -23,9 +23,9 @@ The honorific is always exactly one word, and everything after it is the guest's
 
 Be careful, though. Plenty of surnames look a lot like other surnames.
 
-### String Methods
+### String/Array Methods & Properties
 
-There are lots of ways to solve this exercise, but there are three string methods that you can use to get the shortest possible solution.
+There are lots of ways to solve this exercise, but there are four methods and one property that you can use to get the shortest possible solution.
 
 `"...".split(substring)` splits a string using another string. For example:
 
@@ -46,4 +46,21 @@ There are lots of ways to solve this exercise, but there are three string method
 ```js
 ["Jeremy", "Erik", "Aron", "DJ", "Glenn", "Isaac", "Bethany"].join(" likes ")
 // Jeremy likes Erik likes Aron likes DJ likes Glenn likes Isaac likes Bethany
+```
+
+`"...".endsWith(string)` tells you whether a string finishes with another string. For example:
+
+```js
+"Jeremy".endsWith("emy")
+// true
+
+"Jeremy".endsWith("Jer")
+// false
+```
+
+`[...].length` tells you how many elements an array has. It's the same `length` property you've already used on strings, just counting elements instead of letters. For example:
+
+```js
+["Jeremy", "Erik", "Aron"].length
+// 3
 ```

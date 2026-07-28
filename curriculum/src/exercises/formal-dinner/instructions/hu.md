@@ -7,7 +7,7 @@ You're back in your side hustle as a bouncer. It's the evening after the After P
 
 This definitely isn't the place to use **just** your first name. In fact it isn't the place to use your first name at all. Here, everyone goes by an <define>honorific</define> (Miss, Mr, Dr, etc) and their surname.
 
-The organisers have handed you the seating plan as two separate lists. One holds the guests' full names. The other holds the name of the table each guest is sitting at (they're named after trees and flowers, because of course they are). The two lists line up: the guest at position 3 in the first list sits at the table at position 3 in the second list.
+The organisers have handed you the seating plan as two separate lists. One holds the guests' full names. The other holds the name of the table each guest is sitting at (named after trees and flowers). As with "After Party", the two lists line up: the guest at position 3 in the first list sits at the table at position 3 in the second list.
 
 So when Mr Pitt sweeps in, you need to work out that this is the "Brad Pitt" on your list, and then tell him which table he's on.
 
@@ -15,10 +15,52 @@ Write a function called <define info="looks up the table a guest is seated at">`
 
 - The first is the list of guests' full names, as strings
 - The second is the list of table names, in the same order as the guests
-- The third is the arriving guest, formatted as an honorific followed by their surname
+- The third is the arriving guest, formatted as an honorific followed by their surname (e.g. "Mr Pitt")
 
-Return the name of the table the guest is sitting at. If they're not on the seating plan at all, return the string <literal>`No table found`</literal> instead, and they can go home hungry.
+Return the name of the table the guest is sitting at. If they're not on the seating plan at all, return the string <literal>`No table found`</literal> instead (no chancers here!).
 
 The honorific is always exactly one word, and everything after it is the guest's surname. Most surnames are one word, but a few grand ones run to two.
 
-Be careful, though. Plenty of surnames look a lot like other surnames, and seating a stranger next to the host is not the sort of mistake you get to make twice.
+Be careful, though. Plenty of surnames look a lot like other surnames.
+
+### String/Array Methods & Properties
+
+There are lots of ways to solve this exercise, but there are four methods and one property that you can use to get the shortest possible solution.
+
+`"...".split(substring)` splits a string using another string. For example:
+
+```js
+`"Jeremy".split("e")`
+// ["J", "r", "my"]
+```
+
+`[...].slice(start)` slices off part of the `start` part of an array, and returns a NEW array with those items. For example:
+
+```js
+["Jeremy", "Erik", "Aron", "DJ", "Glenn", "Isaac", "Bethany"].slice(2)
+// ["Aron", "DJ", "Glenn", "Isaac", "Bethany"]
+```
+
+`[...].join(string)` joins together the elements of an array with the provided string. For example:
+
+```js
+["Jeremy", "Erik", "Aron", "DJ", "Glenn", "Isaac", "Bethany"].join(" likes ")
+// Jeremy likes Erik likes Aron likes DJ likes Glenn likes Isaac likes Bethany
+```
+
+`"...".endsWith(string)` tells you whether a string finishes with another string. For example:
+
+```js
+"Jeremy".endsWith("emy")
+// true
+
+"Jeremy".endsWith("Jer")
+// false
+```
+
+`[...].length` tells you how many elements an array has. It's the same `length` property you've already used on strings, just counting elements instead of letters. For example:
+
+```js
+["Jeremy", "Erik", "Aron"].length
+// 3
+```

@@ -431,6 +431,32 @@ const exerciseDefinition: IOExerciseDefinition = {
 export default exerciseDefinition;
 ```
 
+#### Rule: `FunctionInfo` examples must not resemble the exercise
+
+The `examples` on a `FunctionInfo` document **what the method does**, never **how this exercise uses it**. Always use inputs that have nothing to do with the exercise's own data or domain — the team names (`Jeremy`, `Erik`, `Aron`, `DJ`, ...) or throwaway strings like `"a-b-c"` work well.
+
+Examples drawn from the exercise's own data give the answer away, and the failure is easy to miss because each entry looks harmless on its own. It's the panel read as a whole that leaks:
+
+❌ **BAD** — three entries that thread one guest through the whole solution, plus an example that resolves the exercise's central trap:
+
+```typescript
+examples: ['"Andrew Lloyd Webber".split(" ") → ["Andrew", "Lloyd", "Webber"]'];
+examples: ['["Andrew", "Lloyd", "Webber"].slice(1) → ["Lloyd", "Webber"]'];
+examples: ['["Lloyd", "Webber"].join(" ") → "Lloyd Webber"'];
+examples: ['"Hugo Ross-Pitt".endsWith(" Pitt") → false'];
+```
+
+✅ **GOOD** — same four methods, nothing about the exercise:
+
+```typescript
+examples: ['"Jeremy".split("e") → ["J", "r", "my"]', '"a-b-c".split("-") → ["a", "b", "c"]'];
+examples: ['["Jeremy", "Erik", "Aron", "DJ"].slice(2) → ["Aron", "DJ"]'];
+examples: ['["Jeremy", "Erik"].join(" likes ") → "Jeremy likes Erik"'];
+examples: ['"Jeremy".endsWith("emy") → true', '"Jeremy".endsWith("Erik") → false'];
+```
+
+This applies to any worked example of a function or method, wherever it appears — `FunctionInfo` `examples`, hints, and the method write-ups in `instructions/source.md`.
+
 ### Step 9: Register the Exercise
 
 Add to `src/exercises/index.ts`:

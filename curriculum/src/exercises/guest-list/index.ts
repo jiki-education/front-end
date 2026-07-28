@@ -8,7 +8,10 @@ const functions: FunctionInfo[] = [
     name: "includes",
     signature: "[...].includes(item)",
     description: "functions.includes.description",
-    examples: ['["Aron", "Nicole"].includes("Nicole") → true', '["Aron", "Nicole"].includes("Frank") → false'],
+    examples: [
+      '["Jeremy", "Erik", "Aron"].includes("Erik") → true',
+      '["Jeremy", "Erik", "Aron"].includes("Glenn") → false'
+    ],
     category: "functions.includes.category"
   }
 ];
