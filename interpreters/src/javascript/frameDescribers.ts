@@ -1,4 +1,6 @@
-import type { Frame, DescriptionContext, Description } from "../shared/frames";
+import type { Frame, Description } from "../shared/frames";
+import type { DescriptionContext } from "./describers/types";
+import { buildTranslator } from "./translator";
 import type { EvaluationResult } from "./evaluation-result";
 import type { Statement } from "./statement";
 import type { Expression } from "./expression";
@@ -32,7 +34,7 @@ export function describeFrame(frame: JavaScriptFrame, context?: DescriptionConte
     return defaultMessage;
   }
 
-  const actualContext: DescriptionContext = context ?? { functionDescriptions: {} };
+  const actualContext: DescriptionContext = context ?? { functionDescriptions: {}, t: buildTranslator() };
 
   let description: Description | null = null;
   try {
@@ -54,11 +56,11 @@ export function describeFrame(frame: JavaScriptFrame, context?: DescriptionConte
     </svg>
     What happened
   </div>
-  ${description.result}
+  <p>${description.result}</p>
   <hr/>
   <h3>Steps Jiki Took</h3>
   <ul>
-    ${description.steps.join("\n")}
+    ${description.steps.map(step => `<li>${step}</li>`).join("\n")}
   </ul>
   `.trim();
 }

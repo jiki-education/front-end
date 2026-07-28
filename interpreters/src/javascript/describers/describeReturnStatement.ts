@@ -2,26 +2,26 @@ import type { Description } from "../../shared/frames";
 import type { EvaluationResultReturnStatement } from "../evaluation-result";
 import type { ReturnStatement } from "../statement";
 import type { FrameWithResult } from "../frameDescribers";
-import type { DescriptionContext } from "../../shared/frames";
+import type { DescriptionContext } from "./types";
 
-export function describeReturnStatement(frame: FrameWithResult, _context: DescriptionContext): Description {
+export function describeReturnStatement(frame: FrameWithResult, context: DescriptionContext): Description {
   const result = frame.result as EvaluationResultReturnStatement;
   const statement = frame.context as ReturnStatement;
 
   if (statement.expression === null) {
     // void return
     return {
-      result: `<p>Jiki returned from the function with no value.</p>`,
-      steps: [`<li>Jiki exited the current function.</li>`, `<li>No value was returned.</li>`],
+      result: context.t("description.returnStatement.void.result"),
+      steps: [context.t("description.returnStatement.void.step1"), context.t("description.returnStatement.void.step2")],
     };
   }
 
   const value = result.jikiObject.toDisplayString();
   return {
-    result: `<p>Jiki returned the value <code>${value}</code> from the function.</p>`,
+    result: context.t("description.returnStatement.value.result", { value }),
     steps: [
-      `<li>Jiki evaluated the return expression to <code>${value}</code>.</li>`,
-      `<li>Jiki exited the current function, returning <code>${value}</code>.</li>`,
+      context.t("description.returnStatement.value.step1", { value }),
+      context.t("description.returnStatement.value.step2", { value }),
     ],
   };
 }

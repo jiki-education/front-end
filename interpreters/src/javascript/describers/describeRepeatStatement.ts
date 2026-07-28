@@ -1,5 +1,6 @@
 import type { EvaluationResultRepeatStatement } from "../evaluation-result";
-import type { Description, DescriptionContext, FrameWithResult } from "../../shared/frames";
+import type { Description, FrameWithResult } from "../../shared/frames";
+import type { DescriptionContext } from "./types";
 import type { RepeatStatement } from "../statement";
 import { describeExpression } from "./describeSteps";
 import { addOrdinalSuffix } from "./helpers";
@@ -11,17 +12,17 @@ export function describeRepeatStatement(frame: FrameWithResult, context: Descrip
 
   // No-argument repeat (forever loop) - no count to describe
   if (frameResult.count === null) {
-    const ordinaledIteration = addOrdinalSuffix(frameResult.iteration);
-    const result = `<p>This line started the ${ordinaledIteration} iteration of this repeat block.</p>`;
-    const steps = [`<li>Jiki started the ${ordinaledIteration} iteration of the repeat loop.</li>`];
+    const ordinal = addOrdinalSuffix(frameResult.iteration);
+    const result = context.t("description.repeatStatement.foreverResult", { ordinal });
+    const steps = [context.t("description.repeatStatement.foreverStep", { ordinal })];
     return { result, steps };
   }
 
   let res;
   if (unwrapJSObject(frameResult.count.jikiObject) === 0) {
-    res = describeNoRepeats(frameResult);
+    res = describeNoRepeats(frameResult, context);
   } else {
-    res = describeRepeat(frameResult);
+    res = describeRepeat(frameResult, context);
   }
   return {
     result: res.result,
@@ -29,20 +30,21 @@ export function describeRepeatStatement(frame: FrameWithResult, context: Descrip
   };
 }
 
-function describeNoRepeats(_frameResult: EvaluationResultRepeatStatement): Description {
-  const result = `<p>The repeat block was asked to run <code>0</code> times so this line did nothing.</p>`;
-  const steps = [
-    `<li>Jiki saw that the loop should be run <code>0</code> times and so decided not to do anything further on this line.</li>`,
-  ];
+function describeNoRepeats(_frameResult: EvaluationResultRepeatStatement, context: DescriptionContext): Description {
+  const result = context.t("description.repeatStatement.zeroResult");
+  const steps = [context.t("description.repeatStatement.zeroStep")];
   return { result, steps };
 }
 
-function describeRepeat(frameResult: EvaluationResultRepeatStatement): Description {
-  const ordinaledIteration = addOrdinalSuffix(frameResult.iteration);
+function describeRepeat(frameResult: EvaluationResultRepeatStatement, context: DescriptionContext): Description {
+  const ordinal = addOrdinalSuffix(frameResult.iteration);
   const countValue = unwrapJSObject(frameResult.count!.jikiObject);
-  const result = `<p>This line started the ${ordinaledIteration} iteration of this repeat block.</p>`;
+  const result = context.t("description.repeatStatement.repeatResult", { ordinal });
   const steps = [
-    `<li>Jiki increased its internal counter for this loop to <code>${frameResult.iteration}</code>, checked <code>${frameResult.iteration} &le; ${countValue}</code>, and decided to run the code block.</li>`,
+    context.t("description.repeatStatement.repeatStep", {
+      iteration: frameResult.iteration,
+      countValue,
+    }),
   ];
   return { result, steps };
 }

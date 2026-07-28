@@ -1,4 +1,5 @@
-import type { Description, DescriptionContext, FrameWithResult } from "../../shared/frames";
+import type { Description, FrameWithResult } from "../../shared/frames";
+import type { DescriptionContext } from "./types";
 import type { EvaluationResultCallExpression } from "../evaluation-result";
 import type { CallExpression } from "../expression";
 import { formatJSObject } from "../helpers";
@@ -10,8 +11,8 @@ export function describeCallExpression(frame: FrameWithResult, context: Descript
   const result = frame.result as EvaluationResultCallExpression;
 
   const steps = describeCallExpressionSteps(expression, result, context);
-  const functionName = result.functionName || "a function";
-  const summary = `<p>Jiki used <code>${functionName}</code>.</p>`;
+  const functionName = result.functionName || context.t("description.common.defaultFunctionName");
+  const summary = context.t("description.callExpression.summary", { functionName });
   return { result: summary, steps };
 }
 
@@ -20,7 +21,7 @@ export function describeCallExpressionSteps(
   result: EvaluationResultCallExpression,
   context: DescriptionContext
 ): string[] {
-  const functionName = result.functionName || "a function";
+  const functionName = result.functionName || context.t("description.common.defaultFunctionName");
 
   const steps: string[] = [];
 
@@ -54,42 +55,53 @@ export function describeCallExpressionSteps(
         : [];
 
     if (argValues.length === 0) {
-      steps.push(`<li>Jiki used <code>console.log</code>, which printed a blank line</li>`);
+      steps.push(context.t("description.callExpression.logBlank"));
     } else if (argValues.length === 1) {
-      steps.push(
-        `<li>Jiki used <code>console.log</code> with ${argValues[0]}, which printed <code>${output}</code></li>`
-      );
+      steps.push(context.t("description.callExpression.logOne", { arg0: argValues[0], output }));
     } else if (argValues.length === 2) {
       steps.push(
-        `<li>Jiki used <code>console.log</code> with ${argValues[0]} and ${argValues[1]}, which printed <code>${output}</code></li>`
+        context.t("description.callExpression.logTwo", {
+          arg0: argValues[0],
+          arg1: argValues[1],
+          output,
+        })
       );
     } else {
       const lastArg = argValues[argValues.length - 1];
       const otherArgs = argValues.slice(0, -1);
       steps.push(
-        `<li>Jiki used <code>console.log</code> with ${otherArgs.join(", ")} and ${lastArg}, which printed <code>${output}</code></li>`
+        context.t("description.callExpression.logMany", {
+          otherArgs: otherArgs.join(", "),
+          lastArg,
+          output,
+        })
       );
     }
     return steps;
   }
 
   // Omit "and got undefined" for void functions
-  let retText = "";
-  if (!(result.jikiObject instanceof JSUndefined)) {
-    const resultValue = formatJSObject(result.jikiObject);
-    retText = ` and got <code>${resultValue}</code>`;
-  }
+  const hasReturn = !(result.jikiObject instanceof JSUndefined);
+  const ret = hasReturn ? formatJSObject(result.jikiObject) : "";
 
-  // Build args text, appending return value if present
-  let argsText = "";
-  if (result.args && result.args.length > 0) {
-    const argValues = result.args.map(arg => `<code>${formatJSObject(arg.jikiObject)}</code>`).join(", ");
-    argsText = ` with ${argValues}`;
-  }
+  // Build args text
+  const hasArgs = !!(result.args && result.args.length > 0);
+  const args = hasArgs ? result.args!.map(arg => `<code>${formatJSObject(arg.jikiObject)}</code>`).join(", ") : "";
+
   // Single, student-friendly step consistent with JikiScript/Python ("used the X
   // function") and the statement summary — rather than the old low-level
   // "Looked up the function X" + "Called X" pair.
-  steps.push(`<li>Jiki used the <code>${functionName}</code> function${argsText}${retText}</li>`);
+  let usedKey: string;
+  if (hasArgs && hasReturn) {
+    usedKey = "description.callExpression.usedFunctionWithArgsAndReturn";
+  } else if (hasArgs) {
+    usedKey = "description.callExpression.usedFunctionWithArgs";
+  } else if (hasReturn) {
+    usedKey = "description.callExpression.usedFunctionWithReturn";
+  } else {
+    usedKey = "description.callExpression.usedFunction";
+  }
+  steps.push(context.t(usedKey, { functionName, args, ret }));
 
   return steps;
 }

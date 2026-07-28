@@ -1,7 +1,7 @@
 import type { AssignmentExpression } from "../expression";
 import { MemberExpression } from "../expression";
 import type { EvaluationResultAssignmentExpression } from "../evaluation-result";
-import type { DescriptionContext } from "../../shared/frames";
+import type { DescriptionContext } from "./types";
 import { formatJSObject } from "../helpers";
 import { describeExpression } from "./describeSteps";
 
@@ -19,11 +19,20 @@ export function describeAssignmentExpression(
   if (expression.target instanceof MemberExpression) {
     return [
       ...valueSteps,
-      `<li>Jiki set the array element at index ${result.name.slice(1, -1)} to <code>${value}</code>.</li>`,
+      context.t("description.assignmentExpression.arrayElement", {
+        index: result.name.slice(1, -1),
+        value,
+      }),
     ];
   }
 
   // Handle regular identifier assignment
   const target = expression.target;
-  return [...valueSteps, `<li>Jiki updated the variable <code>${target.lexeme}</code> to <code>${value}</code>.</li>`];
+  return [
+    ...valueSteps,
+    context.t("description.assignmentExpression.variable", {
+      name: target.lexeme,
+      value,
+    }),
+  ];
 }

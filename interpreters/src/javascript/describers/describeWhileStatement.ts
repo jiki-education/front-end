@@ -1,5 +1,6 @@
 import type { WhileStatement } from "../statement";
-import type { Description, DescriptionContext, FrameWithResult } from "../../shared/frames";
+import type { Description, FrameWithResult } from "../../shared/frames";
+import type { DescriptionContext } from "./types";
 import { describeExpression } from "./describeSteps";
 import { unwrapJSObject } from "../jikiObjects";
 
@@ -13,11 +14,11 @@ export function describeWhileStatement(frame: FrameWithResult, context: Descript
   let steps: string[] = [];
 
   if (conditionValue) {
-    result = `<p>The while loop condition evaluated to <code>true</code> so the loop will continue.</p>`;
-    steps.push(`<li>Jiki evaluated the condition to <code>true</code> and decided to execute the loop body.</li>`);
+    result = context.t("description.whileStatement.result_true");
+    steps.push(context.t("description.whileStatement.step_true"));
   } else {
-    result = `<p>The while loop condition evaluated to <code>false</code> so the loop will exit.</p>`;
-    steps.push(`<li>Jiki evaluated the condition to <code>false</code> and decided to exit the loop.</li>`);
+    result = context.t("description.whileStatement.result_false");
+    steps.push(context.t("description.whileStatement.step_false"));
   }
 
   const conditionDescription = describeExpression(statement.condition, conditionResult, context);

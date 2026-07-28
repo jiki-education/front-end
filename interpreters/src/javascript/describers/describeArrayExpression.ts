@@ -1,14 +1,20 @@
 import type { ArrayExpression } from "../expression";
 import type { EvaluationResultArrayExpression } from "../evaluation-result";
+import type { DescriptionContext } from "./types";
 
-export function describeArrayExpression(expression: ArrayExpression, result: EvaluationResultArrayExpression): string {
+export function describeArrayExpression(
+  expression: ArrayExpression,
+  result: EvaluationResultArrayExpression,
+  context: DescriptionContext
+): string {
   const jikiObject = result.immutableJikiObject;
   const count = expression.elements.length;
 
   if (count === 0) {
-    return "Created an empty list";
-  } else if (count === 1) {
-    return `Created a list with 1 element: ${jikiObject.toDisplayString()}`;
+    return context.t("description.arrayExpression.empty");
   }
-  return `Created a list with ${count} elements: ${jikiObject.toDisplayString()}`;
+  return context.t("description.arrayExpression.created", {
+    count,
+    value: jikiObject.toDisplayString(),
+  });
 }

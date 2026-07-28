@@ -1,5 +1,6 @@
 import type { EvaluationResultExpressionStatement, EvaluationResultCallExpression } from "../evaluation-result";
-import type { Description, DescriptionContext, FrameWithResult } from "../../shared/frames";
+import type { Description, FrameWithResult } from "../../shared/frames";
+import type { DescriptionContext } from "./types";
 import { formatJSObject } from "../helpers";
 import { JSUndefined } from "../jsObjects/JSUndefined";
 import type { ExpressionStatement } from "../statement";
@@ -14,13 +15,22 @@ export function describeExpressionStatement(frame: FrameWithResult, context: Des
   // Special case for function calls - more educational description
   if (expressionStatement.expression instanceof CallExpression) {
     const callResult = frameResult.expression as EvaluationResultCallExpression;
-    const functionName = callResult.functionName || "a function";
+    const functionName = callResult.functionName || context.t("description.common.defaultFunctionName");
     const argCount = expressionStatement.expression.args.length;
-    const argsDesc = argCount > 0 ? ` with ${argCount} argument${argCount !== 1 ? "s" : ""}` : "";
+    // The leading space is glue, kept in TS so the catalog values carry no
+    // leading/trailing whitespace (enforced by the translations guard).
+    const argsDesc = argCount > 0 ? " " + context.t("description.expressionStatement.args", { count: argCount }) : "";
 
     // Omit "and got undefined" for void functions
-    const retDesc = callResult.jikiObject instanceof JSUndefined ? "" : ` and got <code>${value}</code>`;
-    const result = `<p>Jiki used the <code>${functionName}</code> function${argsDesc}${retDesc}.</p>`;
+    const retDesc =
+      callResult.jikiObject instanceof JSUndefined
+        ? ""
+        : " " + context.t("description.expressionStatement.ret", { value });
+    const result = context.t("description.expressionStatement.result_call", {
+      functionName,
+      args: argsDesc,
+      ret: retDesc,
+    });
     const steps = describeExpression(expressionStatement.expression, frameResult.expression, context);
 
     return {
@@ -31,7 +41,7 @@ export function describeExpressionStatement(frame: FrameWithResult, context: Des
 
   // Special case for assignment expressions - show what variable changed
   if (expressionStatement.expression instanceof AssignmentExpression) {
-    const result = `<p>This expression evaluated to <code>${value}</code>.</p>`;
+    const result = context.t("description.expressionStatement.result_default", { value });
     const steps = describeExpression(expressionStatement.expression, frameResult.expression, context);
 
     return {
@@ -41,9 +51,9 @@ export function describeExpressionStatement(frame: FrameWithResult, context: Des
   }
 
   // Default behavior for other expressions
-  const result = `<p>This expression evaluated to <code>${value}</code>.</p>`;
+  const result = context.t("description.expressionStatement.result_default", { value });
   let steps = describeExpression(expressionStatement.expression, frameResult.expression, context);
-  steps = [...steps, `<li>Jiki evaluated this expression and got <code>${value}</code>.</li>`];
+  steps = [...steps, context.t("description.expressionStatement.step_default", { value })];
 
   return {
     result,
