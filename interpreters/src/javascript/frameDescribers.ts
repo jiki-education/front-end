@@ -56,11 +56,11 @@ export function describeFrame(frame: JavaScriptFrame, context?: DescriptionConte
     </svg>
     What happened
   </div>
-  ${description.result}
+  <p>${description.result}</p>
   <hr/>
   <h3>Steps Jiki Took</h3>
   <ul>
-    ${description.steps.join("\n")}
+    ${description.steps.map(step => `<li>${step}</li>`).join("\n")}
   </ul>
   `.trim();
 }

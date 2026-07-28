@@ -15,7 +15,7 @@ export function describeExpressionStatement(frame: FrameWithResult, context: Des
   // Special case for function calls - more educational description
   if (expressionStatement.expression instanceof CallExpression) {
     const callResult = frameResult.expression as EvaluationResultCallExpression;
-    const functionName = callResult.functionName || context.t("description.expressionStatement.defaultFunctionName");
+    const functionName = callResult.functionName || context.t("description.common.defaultFunctionName");
     const argCount = expressionStatement.expression.args.length;
     // The leading space is glue, kept in TS so the catalog values carry no
     // leading/trailing whitespace (enforced by the translations guard).

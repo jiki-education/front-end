@@ -11,7 +11,7 @@ export function describeCallExpression(frame: FrameWithResult, context: Descript
   const result = frame.result as EvaluationResultCallExpression;
 
   const steps = describeCallExpressionSteps(expression, result, context);
-  const functionName = result.functionName || "a function";
+  const functionName = result.functionName || context.t("description.common.defaultFunctionName");
   const summary = context.t("description.callExpression.summary", { functionName });
   return { result: summary, steps };
 }
@@ -21,7 +21,7 @@ export function describeCallExpressionSteps(
   result: EvaluationResultCallExpression,
   context: DescriptionContext
 ): string[] {
-  const functionName = result.functionName || "a function";
+  const functionName = result.functionName || context.t("description.common.defaultFunctionName");
 
   const steps: string[] = [];
 
