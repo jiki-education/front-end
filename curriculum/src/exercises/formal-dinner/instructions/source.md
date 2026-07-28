@@ -17,7 +17,7 @@ Write a function called <define info="looks up the table a guest is seated at">`
 - The second is the list of table names, in the same order as the guests
 - The third is the arriving guest, formatted as an honorific followed by their surname (e.g. "Mr Pitt")
 
-Return the name of the table the guest is sitting at. If they're not on the seating plan at all, return the string <literal>`No table found`</literal> instead (no chancers here!).
+Return the name of the table the guest is sitting at. If they're not on the seating plan at all, return the string <literal>`"No table found"`</literal> instead (no chancers here!).
 
 The honorific is always exactly one word, and everything after it is the guest's surname. Most surnames are one word, but a few grand ones run to two.
 

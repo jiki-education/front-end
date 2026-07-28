@@ -2,7 +2,7 @@
   "tasks": {
     "findGuestTable": {
       "name": "Find the Guest's Table",
-      "description": "Write a function that takes the list of guests' full names, the matching list of table names, and an arriving guest announced as an honorific and a surname. Return the name of the table that guest is sitting at, or `No table found` if they aren't on the seating plan."
+      "description": "Write a function that takes the list of guests' full names, the matching list of table names, and an arriving guest announced as an honorific and a surname. Return the name of the table that guest is sitting at, or `\"No table found\"` if they aren't on the seating plan."
     },
     "solveTightly": {
       "name": "Solve it tightly",
@@ -66,7 +66,7 @@
     },
     "noMatch": {
       "question": "What should I return when nobody matches?",
-      "answer": "The string `No table found`, exactly as written. The trickier bit is knowing when you're allowed to say it. If you've checked the very first guest on the plan and they're not your man, do you actually know yet that he isn't seated somewhere?"
+      "answer": "The string `\"No table found\"`, exactly as written. The trickier bit is knowing when you're allowed to say it. If you've checked the very first guest on the plan and they're not your man, do you actually know yet that he isn't seated somewhere?"
     }
   },
   "checks": {
