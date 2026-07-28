@@ -198,8 +198,7 @@ This is the canonical curriculum structure. Each level contains a sequence of vi
       { "type": "exercise", "slug": "meal-prep" },
       { "type": "exercise", "slug": "process-guess" },
       { "type": "exercise", "slug": "stars" },
-      { "type": "exercise", "slug": "weather-symbols-part-1" },
-      { "type": "exercise", "slug": "weather-symbols-part-2" },
+      { "type": "exercise", "slug": "weather-symbols" },
       { "type": "exercise", "slug": "alien-detector" },
       { "type": "project", "slug": "extract-words" },
       { "type": "project", "slug": "tic-tac-toe" }

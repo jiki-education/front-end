@@ -1,3 +1,3 @@
-function onGuestList(names, person) {
+function tableFor(names, tables, guest) {
 
 }

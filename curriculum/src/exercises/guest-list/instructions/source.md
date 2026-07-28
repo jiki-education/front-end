@@ -1,13 +1,17 @@
 ---
 title: "Guest List"
-description: "Check if someone's name is on the guest list."
+description: "Count how many people in the queue aren't on the guest list."
 ---
 
-You're a bouncer at the Oscars, and need a function to check if someone is on the Guest List.
+You're a bouncer at an exclusive club. You have a <define>guest list</define>, but you reckon that a lot of the people in the <define>queue</define> aren't actually on it, and are just trying to chance their way in.
 
-Write a function called <define>`onGuestList`</define>. The function has two inputs:
+Before you open the doors, the organisers want to know how bad it is. Of the people currently queueing, how many aren't invited at all?
 
-- The first expects the <define>guestList</define> to be passed as a <define>list</define> of strings
-- The second is the name of the person you need to check as a string
+Write a function called <define>`numChancersInQueue`</define>. The function has two inputs:
 
-You should return whether the person is on the guest list.
+- The first is the queue, passed as an array of names
+- The second is the guest list, also an array of names
+
+You should return how many of the people in the queue are **not** on the guest list.
+
+Have fun!

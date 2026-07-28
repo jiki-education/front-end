@@ -17,10 +17,6 @@
     {
       "question": "hints.whichRowToShoot.question",
       "answer": "hints.whichRowToShoot.answer"
-    },
-    {
-      "question": "hints.whenToFireFireworks.question",
-      "answer": "hints.whenToFireFireworks.answer"
     }
   ]
 }

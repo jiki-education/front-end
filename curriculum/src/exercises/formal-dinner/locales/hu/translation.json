@@ -1,38 +1,42 @@
 {
   "tasks": {
-    "checkFormalGuestList": {
-      "name": "Check the Formal Guest List",
-      "description": "Write a function that checks if a person is on the guest list by their surname. Given an honorific and surname (e.g., 'Mr Pitt'), check if any name on the list ends with that surname."
+    "findGuestTable": {
+      "name": "Find the Guest's Table",
+      "description": "Write a function that takes the list of guests' full names, the matching list of table names, and an arriving guest announced as an honorific and a surname. Return the name of the table that guest is sitting at, or `No table found` if they aren't on the seating plan."
     },
-    "bonusMultiWordSurname": {
-      "name": "Multi-word Surnames",
-      "description": "Handle surnames that have multiple words, like 'Lloyd Webber'."
+    "solveTightly": {
+      "name": "Solve it tightly",
+      "description": "Bonus: this can be written far more compactly than you might expect. Can you get the whole solution down to just a handful of lines?"
     }
   },
   "scenarios": {
     "emptyList": {
-      "name": "Empty register",
-      "description": "No-one's allowed in when the list is empty."
+      "name": "Empty seating plan",
+      "description": "Nobody's sitting anywhere when the plan is empty."
     },
     "nameMissing": {
       "name": "Brad's turned away",
-      "description": "The name's not on the list."
+      "description": "The name's not on the seating plan."
     },
     "namePresent": {
-      "name": "Brad's allowed in",
-      "description": "The name's on the list (Brad Pitt matches Mr Pitt)."
+      "name": "Brad's shown to his seat",
+      "description": "Brad Pitt is on the plan, so Mr Pitt gets his table."
     },
     "differentHonorific": {
       "name": "Knight of the realm",
-      "description": "Handle a different honorific (Lord Doyle matches Arthur Conan Doyle)."
+      "description": "A different honorific, and a guest who isn't first on the plan."
     },
-    "bondAllowed": {
+    "bondSeated": {
       "name": "Mr Bond, I presume",
-      "description": "James Bond is on the list."
+      "description": "James Bond is on the plan."
     },
-    "bondNotAllowed": {
-      "name": "Hmmm.. Mr Bond, I presume",
-      "description": "Only Jason Bourne on the list, not James Bond."
+    "bondNotSeated": {
+      "name": "Hmmm... Mr Bond, I presume",
+      "description": "Only Jason Bourne is on the plan, not James Bond."
+    },
+    "partialSurname": {
+      "name": "Not quite Mr Pitt",
+      "description": "Neither Ada Spitt nor Hugo Ross-Pitt is Mr Pitt, so he has no seat here."
     },
     "lloydWebber": {
       "name": "How about a Baron?",
@@ -40,25 +44,54 @@
     },
     "markWebber": {
       "name": "Is Mark the Baron?",
-      "description": "A different Webber doesn't count - surname must match fully."
+      "description": "A different Webber doesn't count - the surname has to match in full."
+    },
+    "formalDinnerBonusLineCount": {
+      "name": "Neat and tidy: Lord Doyle",
+      "description": "The same seating plan as before, but this time your solution has to fit into a much smaller number of lines."
     }
   },
   "hints": {
-    "extractSurname": {
-      "question": "How do I get just the surname from a full name?",
-      "answer": "The honorific (Mr, Mrs, Dr, etc.) comes at the start, followed by a space, then the surname. If you can drop the part up to (and including) the first space, what's left is the surname."
+    "twoLists": {
+      "question": "How do the two lists relate to each other?",
+      "answer": "They're a pair. The first guest sits at the first table, the second guest at the second table, and so on. So it's not enough to know *that* a guest is on the plan - you need to know *where* on the plan they are."
     },
-    "matchGuest": {
-      "question": "How do I check if a guest matches that surname?",
-      "answer": "Loop through the guest list. For each guest, check whether their full name ends with the surname you extracted. A helper like `endsWith()` makes this clean."
+    "comparingNames": {
+      "question": "The guest says 'Mr Pitt' but the plan says 'Brad Pitt'. How do I compare those?",
+      "answer": "Those two strings will never be equal, so a straight comparison won't get you anywhere. Have a think about which part of what the guest announced actually appears on the plan, and whereabouts in the plan's entry you'd expect to find it."
     },
-    "endsWithPitfall": {
-      "question": "Why might endsWith() give the wrong answer?",
-      "answer": "'Smithson' ends with 'son', and 'Worthington' ends with 'ton'. You probably want to check that the guest ends with a space followed by the surname (e.g. ' Smith'), so partial matches don't trip you up."
+    "lookalikeSurnames": {
+      "question": "Could a surname match the wrong guest?",
+      "answer": "It absolutely could. Read 'Ada Spitt' and 'Hugo Ross-Pitt' out loud, and then think about Mr Pitt. Ask yourself what makes a surname a real surname on that line, rather than just some letters that happen to sit at the end of it."
     },
-    "helpersNeeded": {
-      "question": "What helpers will I need?",
-      "answer": "Likely `length()` (to know how long things are) and `endsWith()` (for matching the surname). Build the space-prefixed comparison string using concatenation (`+`) or a template string."
+    "noMatch": {
+      "question": "What should I return when nobody matches?",
+      "answer": "The string `No table found`, exactly as written. The trickier bit is knowing when you're allowed to say it. If you've checked the very first guest on the plan and they're not your man, do you actually know yet that he isn't seated somewhere?"
+    }
+  },
+  "checks": {
+    "tooManyLines": "Keep going! See if you can solve it in fewer lines."
+  },
+  "functions": {
+    "length": {
+      "description": "The number of items in a list - the same length property you've used on strings (provided by level stdlib)",
+      "category": "List Operations"
+    },
+    "split": {
+      "description": "Split a string into a list of pieces, breaking at each separator (provided by level stdlib)",
+      "category": "String Operations"
+    },
+    "slice": {
+      "description": "Make a new list from part of a list, starting at a position (provided by level stdlib)",
+      "category": "List Operations"
+    },
+    "join": {
+      "description": "Join the items of a list into one string, with a separator between them (provided by level stdlib)",
+      "category": "List Operations"
+    },
+    "endsWith": {
+      "description": "Check whether a string ends with a smaller string (provided by level stdlib)",
+      "category": "String Operations"
     }
   }
 }

@@ -1333,7 +1333,7 @@
       "message": "Hiba: {error}"
     },
     "loadError": "A kihívás betöltése nem sikerült",
-    "documentTitle": "{title} - Jiki",
+    "documentTitle": "{title} - Challenge - Jiki",
     "locked": {
       "title": "Zárolt kihívás",
       "description": "Ez a kihívás jelenleg zárolva van. Az előző leckék teljesítésével oldhatod fel."
@@ -1603,7 +1603,7 @@
     }
   },
   "lesson": {
-    "documentTitle": "{title} - Jiki",
+    "documentTitle": "{title} - Exercise - Jiki",
     "loadError": "A lecke betöltése nem sikerült",
     "backToDashboard": "Vissza az irányítópultra",
     "error": {

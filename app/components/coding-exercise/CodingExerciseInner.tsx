@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { useOrchestratorContext } from "./lib/OrchestratorProvider";
 import { useResizablePanels, Resizer } from "./useResize";
 import { useOrchestratorStore } from "./lib/orchestrator/store";
@@ -15,14 +16,21 @@ export default function CodingExerciseInner() {
     useResizablePanels();
 
   const orchestrator = useOrchestratorContext();
-  const { exerciseTitle, isSpotlightActive } = useOrchestratorStore(orchestrator);
+  const { exerciseTitle, context, isSpotlightActive } = useOrchestratorStore(orchestrator);
+  const tLesson = useTranslations("lesson");
+  const tChallenge = useTranslations("challenge");
 
-  // Update document title when exerciseTitle loads
+  // Update document title when exerciseTitle loads. This runs after the exercise
+  // loads and so wins over the title set by the Lesson/Challenge page wrappers;
+  // branch on the context type to keep the "Exercise" vs "Challenge" wording.
   useEffect(() => {
     if (exerciseTitle) {
-      document.title = `${exerciseTitle} - Jiki`;
+      document.title =
+        context.type === "challenge"
+          ? tChallenge("documentTitle", { title: exerciseTitle })
+          : tLesson("documentTitle", { title: exerciseTitle });
     }
-  }, [exerciseTitle]);
+  }, [exerciseTitle, context.type, tLesson, tChallenge]);
 
   return (
     <div className="c-coding-exercise flex flex-col h-screen bg-gray-50">

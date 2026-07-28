@@ -21,20 +21,10 @@ function move with pos, dir do
   return pos
 end
 
-function all_aliens_dead with aliens do
-  for each alien in aliens do
-    if alien do
-      return false
-    end
-  end
-
-  return true
-end
-
-// Get the first row of aliens (the bottom one)
-set bottom_row to get_starting_aliens_in_row(1)
-set middle_row to get_starting_aliens_in_row(2)
-set top_row to get_starting_aliens_in_row(3)
+// Get the rows of aliens (0 is the bottom one)
+set bottom_row to get_starting_aliens_in_row(0)
+set middle_row to get_starting_aliens_in_row(1)
+set top_row to get_starting_aliens_in_row(2)
 
 // Set variables to track things
 set direction to "right"
@@ -52,10 +42,6 @@ repeat do
     end
   end
 
-  if all_aliens_dead(bottom_row) and all_aliens_dead(middle_row) and all_aliens_dead(top_row) do
-    fire_fireworks()
-  else do
-    change direction to determine_direction(position, direction)
-    change position to move(position, direction)
-  end
+  change direction to determine_direction(position, direction)
+  change position to move(position, direction)
 end

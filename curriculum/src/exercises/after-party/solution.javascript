@@ -1,25 +1,12 @@
-function startsWith(word, substr) {
-  if (substr.length > word.length) {
-    return false
-  }
-
-  for (let i = 0; i < substr.length; i++) {
-    if (substr[i] !== word[i]) {
-      return false
-    }
-  }
-
-  if (substr.length === word.length || word[substr.length] === " ") {
-    return true
-  }
-  return false
+function isPerson(person, name) {
+  return name === person || name.startsWith(person + " ")
 }
 
-function onGuestList(names, person) {
-  for (const name of names) {
-    if (startsWith(name, person)) {
-      return true
+function plusOnesFor(names, plusOnes, person) {
+  for (let i = 0; i < names.length; i++) {
+    if (isPerson(person, names[i])) {
+      return plusOnes[i]
     }
   }
-  return false
+  return "Not on the list!"
 }

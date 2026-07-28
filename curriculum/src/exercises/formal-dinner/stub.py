@@ -1,2 +1,2 @@
-def on_guest_list(names, person):
+def table_for(names, tables, guest):
     pass

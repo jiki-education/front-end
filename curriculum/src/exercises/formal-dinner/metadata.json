@@ -3,20 +3,20 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "hints.extractSurname.question",
-      "answer": "hints.extractSurname.answer"
+      "question": "hints.twoLists.question",
+      "answer": "hints.twoLists.answer"
     },
     {
-      "question": "hints.matchGuest.question",
-      "answer": "hints.matchGuest.answer"
+      "question": "hints.comparingNames.question",
+      "answer": "hints.comparingNames.answer"
     },
     {
-      "question": "hints.endsWithPitfall.question",
-      "answer": "hints.endsWithPitfall.answer"
+      "question": "hints.lookalikeSurnames.question",
+      "answer": "hints.lookalikeSurnames.answer"
     },
     {
-      "question": "hints.helpersNeeded.question",
-      "answer": "hints.helpersNeeded.answer"
+      "question": "hints.noMatch.question",
+      "answer": "hints.noMatch.answer"
     }
   ]
 }

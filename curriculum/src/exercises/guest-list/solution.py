@@ -1,6 +1,8 @@
-def on_guest_list(list, person):
-    for name in list:
-        if name == person:
-            return True
+def num_chancers_in_queue(queue, guest_list):
+    count = 0
 
-    return False
+    for person in queue:
+        if person not in guest_list:
+            count = count + 1
+
+    return count

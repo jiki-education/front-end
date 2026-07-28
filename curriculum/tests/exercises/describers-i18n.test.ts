@@ -87,8 +87,7 @@ const ALIEN_DETECTOR_DESCRIBERS: Record<string, string> = {
   moveLeft: "moved the laser cannon to the left",
   moveRight: "moved the laser cannon to the right",
   shoot: "shot the laser upwards",
-  getStartingAliensInRow: "retrieved the starting positions of row ${arg1} of aliens",
-  fireFireworks: "fired off celebratory fireworks"
+  getStartingAliensInRow: "retrieved the starting positions of row ${arg1} of aliens"
 };
 
 const BATTLE_PROCEDURES_DESCRIBERS: Record<string, string> = {

@@ -21,11 +21,6 @@ export default class AlienDetectorExercise extends SpaceInvadersExercise {
       name: "get_starting_aliens_in_row",
       func: this.getStartingAliensInRow.bind(this),
       descriptionKey: "describers.getStartingAliensInRow"
-    },
-    {
-      name: "fire_fireworks",
-      func: this.fireFireworks.bind(this),
-      descriptionKey: "describers.fireFireworks"
     }
   ];
 }

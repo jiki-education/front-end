@@ -252,6 +252,10 @@
         font-family: "Source Code Pro", monospace;
         font-size: 16px;
         font-weight: 500;
+        /* Preserve significant whitespace inside inline code (e.g. run-length-encoding
+           examples where multiple spaces are meaningful). Inline <code> collapses
+           whitespace by default; pre-wrap keeps it while still allowing wrapping. */
+        white-space: pre-wrap;
     }
 
     pre {

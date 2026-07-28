@@ -1,3 +1,3 @@
-function onGuestList(names, person) {
+function plusOnesFor(names, plusOnes, person) {
 
 }

@@ -1,3 +1,0 @@
-function descriptionToElements(description) {
-
-}

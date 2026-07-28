@@ -1333,7 +1333,7 @@
       "message": "Error: {error}"
     },
     "loadError": "Failed to load challenge",
-    "documentTitle": "{title} - Jiki",
+    "documentTitle": "{title} - Challenge - Jiki",
     "locked": {
       "title": "Challenge Locked",
       "description": "This challenge is currently locked. Complete previous lessons to unlock it."
@@ -1603,7 +1603,7 @@
     }
   },
   "lesson": {
-    "documentTitle": "{title} - Jiki",
+    "documentTitle": "{title} - Exercise - Jiki",
     "loadError": "Failed to load lesson",
     "backToDashboard": "Back to Dashboard",
     "error": {
