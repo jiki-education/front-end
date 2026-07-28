@@ -64,7 +64,8 @@
     }
   },
   "checks": {
-    "tooManyLines": "Keep going! See if you can solve it in fewer lines."
+    "tooManyLines": "Keep going! See if you can solve it in fewer lines.",
+    "noMethods": "This exercise is about building the tools yourself. Solve it without using any built-in methods."
   },
   "hints": {
     "pickLetters": {
