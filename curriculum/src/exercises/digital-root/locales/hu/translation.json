@@ -66,11 +66,11 @@
     },
     "whichLoop": {
       "question": "How do I keep going without knowing how many passes I need?",
-      "answer": "You don't know in advance how many times you'll need to sum the digits, so a `while` loop is a great fit. Keep looping while the number is still 10 or more (i.e. has more than one digit)."
+      "answer": "You don't know in advance how many times you'll need to sum the digits, so a `while` loop is a great fit. Keep looping while the number has more than one digit."
     },
     "keepGoing": {
       "question": "When do I stop?",
-      "answer": "Stop as soon as the number is a single digit, which means it's less than 10. At that point, return it."
+      "answer": "Stop as soon as the number is a single digit. At that point, return it."
     }
   },
   "checks": {
