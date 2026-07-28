@@ -3,6 +3,7 @@
 import { useState } from "react";
 import TypeItAssistantMessage from "@/components/coding-exercise/ui/TypeItAssistantMessage";
 import type { StreamStatus } from "@/components/coding-exercise/lib/chat-types";
+import styles from "./page.module.css";
 
 const TEST_MESSAGES = {
   simple: "Hello! This is **bold** and *italic* and `code`.",
@@ -39,21 +40,21 @@ export default function ChatMarkdownTest() {
   };
 
   return (
-    <div className="p-8 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Chat Markdown Test</h1>
+    <div className={styles.page}>
+      <h1 className={styles.title}>Chat Markdown Test</h1>
 
-      <div className="space-y-4 mb-6">
+      <div className={styles.controls}>
         <select
           value={selected}
           onChange={(e) => setSelected(e.target.value as keyof typeof TEST_MESSAGES)}
-          className="border p-2 rounded"
+          className={styles.select}
         >
           <option value="simple">Simple markdown</option>
           <option value="codeBlock">Code block</option>
           <option value="mixed">Mixed content</option>
         </select>
 
-        <button onClick={startTyping} className="bg-blue-500 text-white px-4 py-2 rounded">
+        <button onClick={startTyping} className={styles.startButton}>
           Start Typing
         </button>
 
@@ -62,13 +63,13 @@ export default function ChatMarkdownTest() {
             setContent("");
             setStatus("idle");
           }}
-          className="bg-gray-500 text-white px-4 py-2 rounded ms-2"
+          className={styles.resetButton}
         >
           Reset
         </button>
       </div>
 
-      <div className="border rounded p-4 min-h-[200px]">
+      <div className={styles.preview}>
         {content ? (
           <TypeItAssistantMessage
             content={content}
@@ -77,11 +78,11 @@ export default function ChatMarkdownTest() {
             onTypingComplete={() => setStatus("idle")}
           />
         ) : (
-          <p className="text-gray-400">Select a message and click Start Typing</p>
+          <p className={styles.placeholder}>Select a message and click Start Typing</p>
         )}
       </div>
 
-      <div className="mt-4 text-xs text-gray-500">
+      <div className={styles.status}>
         Status: {status} | Content length: {content.length}
       </div>
     </div>

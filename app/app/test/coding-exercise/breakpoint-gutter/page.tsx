@@ -7,6 +7,7 @@ import { createMockFrame } from "@/tests/mocks";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters/shared";
 import { useEffect, useRef } from "react";
+import styles from "../harness.module.css";
 
 function mockFrames(): Frame[] {
   return [
@@ -116,75 +117,65 @@ export default function BreakpointGutterTestPage() {
   };
 
   return (
-    <div className="p-8" data-testid="breakpoint-gutter-container">
-      <h1 className="text-2xl mb-4">Breakpoint Gutter E2E Test</h1>
+    <div className={styles.page} data-testid="breakpoint-gutter-container">
+      <h1 className={styles.pageTitle}>Breakpoint Gutter E2E Test</h1>
 
-      <div className="mb-4 grid grid-cols-2 gap-4">
-        <div className="border rounded p-4">
-          <h2 className="font-bold mb-2">CodeMirror Editor</h2>
-          <div data-testid="editor-container" className="border rounded" style={{ height: "400px" }}>
+      <div className={styles.grid2}>
+        <div className={styles.panel}>
+          <h2 className={styles.panelTitle}>CodeMirror Editor</h2>
+          <div data-testid="editor-container" className={styles.editorBox} style={{ height: "400px" }}>
             <OrchestratorProvider orchestrator={orchestrator}>
               <CodeMirror />
             </OrchestratorProvider>
           </div>
-          <div className="mt-2 text-sm text-gray-600">
-            Click on line numbers in the gutter to add/remove breakpoints
-          </div>
+          <div className={styles.hint}>Click on line numbers in the gutter to add/remove breakpoints</div>
         </div>
 
-        <div className="border rounded p-4">
-          <h2 className="font-bold mb-2">Current Breakpoints</h2>
-          <div data-testid="breakpoints-display" className="mb-4">
+        <div className={styles.panel}>
+          <h2 className={styles.panelTitle}>Current Breakpoints</h2>
+          <div data-testid="breakpoints-display" className={styles.mt}>
             {breakpoints.length > 0 ? (
-              <div className="space-y-1">
+              <div className={styles.stack}>
                 {breakpoints.map((line: number) => (
-                  <div
-                    key={line}
-                    data-testid={`breakpoint-line-${line}`}
-                    className="inline-block px-2 py-1 me-2 bg-red-500 text-white rounded"
-                  >
+                  <div key={line} data-testid={`breakpoint-line-${line}`} className={styles.chip} data-variant="red">
                     Line {line}
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="text-gray-500">No breakpoints set</div>
+              <div className={styles.muted}>No breakpoints set</div>
             )}
           </div>
 
-          <div data-testid="breakpoints-list" className="text-sm">
+          <div data-testid="breakpoints-list" className={styles.smallText}>
             Breakpoints: {breakpoints.length > 0 ? breakpoints.join(", ") : "None"}
           </div>
         </div>
       </div>
 
-      <div className="mb-4 p-4 border rounded">
-        <h2 className="font-bold mb-2">Manual Controls</h2>
-        <div className="space-x-2">
-          <button
-            data-testid="clear-all-breakpoints"
-            onClick={handleClearBreakpoints}
-            className="px-3 py-1 border rounded bg-gray-200 hover:bg-gray-300"
-          >
+      <div className={styles.panel}>
+        <h2 className={styles.panelTitle}>Manual Controls</h2>
+        <div className={styles.controlRow}>
+          <button data-testid="clear-all-breakpoints" onClick={handleClearBreakpoints} className={styles.button}>
             Clear All Breakpoints
           </button>
           <button
             data-testid="set-multiple-breakpoints"
             onClick={handleSetMultipleBreakpoints}
-            className="px-3 py-1 border rounded bg-gray-200 hover:bg-gray-300"
+            className={styles.button}
           >
             Set Lines 2, 4, 6
           </button>
         </div>
-        <div className="mt-2 space-x-2">
+        <div className={`${styles.controlRow} ${styles.mt}`}>
           {[1, 2, 3, 4, 5, 6, 7, 8].map((line) => (
             <button
               key={line}
               data-testid={`toggle-line-${line}`}
               onClick={() => handleToggleBreakpoint(line)}
-              className={`px-2 py-1 border rounded ${
-                breakpoints.includes(line) ? "bg-red-500 text-white" : "bg-gray-200"
-              }`}
+              className={styles.button}
+              data-active={breakpoints.includes(line)}
+              data-variant="red"
             >
               L{line}
             </button>
@@ -192,9 +183,9 @@ export default function BreakpointGutterTestPage() {
         </div>
       </div>
 
-      <div className="mb-4 p-4 border rounded">
-        <h2 className="font-bold mb-2">Debug Info</h2>
-        <div className="text-sm space-y-1">
+      <div className={styles.panel}>
+        <h2 className={styles.panelTitle}>Debug Info</h2>
+        <div className={`${styles.smallText} ${styles.stack}`}>
           <div>
             Total Breakpoints: <span data-testid="breakpoint-count">{breakpoints.length}</span>
           </div>

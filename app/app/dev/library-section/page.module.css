@@ -1,0 +1,128 @@
+.page {
+    min-height: 100vh;
+    background: var(--color-gray-100);
+    padding: 8px;
+}
+
+.container {
+    max-width: 672px;
+    margin-inline: auto;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.controlsCard {
+    background: white;
+    border-radius: 8px;
+    padding: 6px;
+    margin-bottom: 6px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.controlsTitle {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.control {
+    margin-bottom: 4px;
+}
+
+.label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.stateButtons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+
+.stateButton {
+    padding-block: 2px;
+    padding-inline: 4px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.15s ease;
+    background: var(--color-gray-100);
+    color: var(--color-gray-700);
+
+    &:hover {
+        background: var(--color-gray-200);
+    }
+
+    &[data-active="true"] {
+        background: var(--color-blue-500);
+        color: white;
+
+        &:hover {
+            background: var(--color-blue-500);
+        }
+    }
+}
+
+.range {
+    width: 100%;
+}
+
+.previewCard {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    margin-bottom: 6px;
+}
+
+.previewHeader {
+    border-bottom: 1px solid var(--color-gray-200);
+    padding-block: 12px;
+    padding-inline: 6px;
+}
+
+.previewTitle {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.previewSubtitle {
+    font-size: 14px;
+    color: var(--color-gray-500);
+}
+
+.previewBody {
+    padding: 6px;
+}
+
+.componentsCard {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.componentsBody {
+    padding: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.componentLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-gray-500);
+    margin-bottom: 2px;
+}
+
+.componentBox {
+    border: 1px solid var(--color-gray-200);
+    border-radius: 8px;
+    padding: 4px;
+}

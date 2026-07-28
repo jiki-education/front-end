@@ -183,33 +183,22 @@ const eslintConfig = [
     }
   },
 
-  // No Tailwind in product code.
+  // No Tailwind, anywhere.
   //
-  // Tailwind is deliberately scoped to app/dev and app/test only (both 404 in
-  // production; see middleware.ts). Product code — app/(app) and the components
-  // it uses — must style via CSS Modules + the hand-written ui-kit, so Tailwind
-  // never ships to a page a real user can reach. This block is LAST so it wins
-  // over the general TS block for product-code files (flat config replaces, not
-  // merges, no-restricted-syntax) — hence the arrow-function rule is repeated
-  // here. It does NOT flag ui-kit globals (ui-*, c-*), custom z-index
-  // (z-modal), or a11y helpers (focus-ring, sr-only). For a genuine
-  // non-Tailwind class that trips it, prefer a CSS Module; only add an
-  // eslint-disable with a note if truly unavoidable.
+  // Tailwind has been fully removed from the codebase — the whole app (product
+  // pages, dev tooling, test pages) styles via CSS Modules + the hand-written
+  // ui-kit. This block forbids Tailwind utility classes from reappearing in any
+  // className. It is LAST so it wins over the general TS block for matched files
+  // (flat config replaces, not merges, no-restricted-syntax) — hence the
+  // arrow-function rule is repeated here. It does NOT flag ui-kit globals
+  // (ui-*, c-*), custom z-index (z-modal), or a11y helpers (focus-ring,
+  // sr-only). Tests are excluded so class-name string literals in assertions
+  // (e.g. toHaveClass("...")) don't trip it. For a genuine non-Tailwind class
+  // that trips it, prefer a CSS Module; only add an eslint-disable with a note
+  // if truly unavoidable.
   {
-    files: ["app/(app)/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
-    // Excluded: components used ONLY by app/dev + app/test pages (both 404 in
-    // production and keep Tailwind). These physically live under components/ but
-    // never render on a user-reachable page, so they are out of the migration's
-    // scope and stay on Tailwind. If any of these later becomes reachable from
-    // app/(app), migrate it to CSS Modules and drop it from this list.
-    ignores: [
-      "**/tests/**",
-      "components/**/dev/**",
-      "components/quiz-card/**", // only app/test/quiz
-      "components/lesson/LessonLoadingPage.tsx", // unreferenced
-      "components/settings/subscription/states/NeverSubscribedState.tsx", // unreferenced
-      "components/ui/SoundToggle.tsx" // only app/test/quiz
-    ],
+    files: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
+    ignores: ["**/tests/**"],
     rules: {
       "no-restricted-syntax": [
         "error",

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import styles from "./test-shell.module.css";
 
 export const metadata: Metadata = {
   title: "Test Pages - Jiki",
@@ -56,32 +57,28 @@ export default function TestIndexPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-2">Test Pages</h1>
-        <p className="text-gray-600 mb-8">Component test pages for development and E2E testing</p>
+    <div className={styles.page}>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Test Pages</h1>
+        <p className={styles.subtitle}>Component test pages for development and E2E testing</p>
 
         {testPages.map((category) => (
-          <div key={category.category} className="mb-8">
-            <h2 className="text-xl font-semibold mb-4 text-gray-800">{category.category}</h2>
-            <div className="grid gap-4">
+          <div key={category.category} className={styles.section}>
+            <h2 className={styles.sectionTitle}>{category.category}</h2>
+            <div className={styles.grid}>
               {category.pages.map((page) => (
-                <Link
-                  key={page.path}
-                  href={page.path}
-                  className="block bg-white rounded-lg shadow hover:shadow-md transition-shadow p-4 border border-gray-200 hover:border-blue-300"
-                >
-                  <h3 className="font-medium text-blue-600 hover:text-blue-800 mb-1">{page.name}</h3>
-                  <p className="text-sm text-gray-600">{page.description}</p>
-                  <p className="text-xs text-gray-400 mt-2 font-mono">{page.path}</p>
+                <Link key={page.path} href={page.path} className={styles.card}>
+                  <h3 className={styles.cardTitle}>{page.name}</h3>
+                  <p className={styles.cardDescription}>{page.description}</p>
+                  <p className={styles.cardPath}>{page.path}</p>
                 </Link>
               ))}
             </div>
           </div>
         ))}
 
-        <div className="mt-12 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-          <p className="text-sm text-yellow-800">
+        <div className={styles.note}>
+          <p className={styles.noteText}>
             <strong>Note:</strong> These pages are for testing purposes only and are not available in production.
           </p>
         </div>

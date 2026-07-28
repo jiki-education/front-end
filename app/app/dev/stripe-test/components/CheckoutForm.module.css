@@ -1,0 +1,127 @@
+.errorBox {
+    background: var(--color-red-50);
+    border: 1px solid var(--color-red-200);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.errorText {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--color-red-800);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.orderSummary {
+    background: var(--color-gray-50);
+    border: 1px solid var(--color-border-primary);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.orderTitle {
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.orderRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.planName {
+    font-weight: 500;
+}
+
+.planDescription {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--color-gray-600);
+}
+
+.priceColumn {
+    text-align: end;
+}
+
+.price {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+}
+
+.perMonth {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--color-gray-600);
+}
+
+.paymentLabel {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.buttonRow {
+    display: flex;
+    gap: 12px;
+}
+
+.submitButton {
+    flex: 1 1 0%;
+    padding: 12px 4px;
+    background: var(--color-blue-600);
+    color: white;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.submitButton:hover {
+    background: var(--color-blue-700);
+}
+
+.submitButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.cancelButton {
+    padding: 12px 4px;
+    background: var(--color-gray-300);
+    color: var(--color-gray-700);
+    font-weight: 600;
+    border-radius: 6px;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.cancelButton:hover {
+    background: var(--color-gray-400);
+}
+
+.cancelButton:disabled {
+    opacity: 0.5;
+}
+
+.spinner {
+    display: inline-block;
+    height: 4px;
+    width: 4px;
+    border: 2px solid currentColor;
+    border-inline-end-color: transparent;
+    border-radius: 9999px;
+    animation: ui-spin 1s linear infinite;
+}
+
+.disclaimer {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: var(--color-gray-500);
+    text-align: center;
+}

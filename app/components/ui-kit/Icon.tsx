@@ -4,13 +4,15 @@
  * SVGR-based Icon System
  *
  * Icons are imported as React components and rendered directly.
- * SVGs use currentColor. In product code, set the color from the parent via a
- * CSS Module class (`.icon { color: var(--color-blue-500); }`). The `color`
- * prop maps to a Tailwind `text-*` class and is only used on dev/demo pages.
+ * SVGs use currentColor. The optional `color` prop is a palette token name
+ * (e.g. "blue-500", "error-500") mapped to `color: var(--color-<name>)` inline;
+ * or set the color from the parent via a CSS Module class
+ * (`.icon { color: var(--color-blue-500); }`).
  * Each icon is lazy-loaded for optimal code-splitting.
  * To add a new icon: just drop an SVG file into /icons/
  *
  * Usage:
+ *   <Icon name="email" size={24} color="blue-500" />
  *   <span className={styles.icon}><Icon name="lock" size={24} /></span>
  */
 
@@ -29,15 +31,15 @@ export function Icon({ name, size, className = "", alt, color }: IconProps) {
   // Lazy load the icon component for code-splitting (memoized by name)
   const IconComponent = useMemo(() => lazy(() => import(`@/icons/${name}.svg`)), [name]);
 
-  // Build className with optional color
-  const combinedClassName = color ? `text-${color} ${className}` : className;
+  // Color is a palette token name (e.g. "blue-500") applied via currentColor.
   const ariaLabel = alt || `${name} icon`;
 
   // Props for the icon component
   const iconProps = {
     width: size,
     height: size,
-    className: combinedClassName,
+    className,
+    style: color ? { color: `var(--color-${color})` } : undefined,
     "aria-label": ariaLabel,
     role: "img" as const
   };

@@ -102,8 +102,6 @@
     "@eslint/eslintrc": "^3.3.3",
     "@playwright/test": "^1.57.0",
     "@svgr/webpack": "^8.1.0",
-    "@tailwindcss/postcss": "^4.1.18",
-    "@tailwindcss/typography": "^0.5.19",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.1",
     "@testing-library/user-event": "^14.6.1",
@@ -132,7 +130,6 @@
     "prettier": "^3.8.0",
     "raw-loader": "^4.0.2",
     "stylelint": "^17.14.1",
-    "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
     "wrangler": "^4.59.2"
   }

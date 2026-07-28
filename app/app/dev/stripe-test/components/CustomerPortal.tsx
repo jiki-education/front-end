@@ -1,13 +1,14 @@
 import { handleOpenPortal } from "../handlers";
+import styles from "./CustomerPortal.module.css";
 
 export function CustomerPortal() {
   return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-xl font-semibold mb-4">Update Payment Details</h2>
-      <p className="text-sm text-gray-600 mb-4">
+    <div className={styles.card}>
+      <h2 className={styles.title}>Update Payment Details</h2>
+      <p className={styles.description}>
         Open the Stripe Customer Portal to update payment methods, view invoices subscriptions.
       </p>
-      <button onClick={handleOpenPortal} className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700">
+      <button onClick={handleOpenPortal} className={styles.button}>
         Open Customer Portal
       </button>
     </div>

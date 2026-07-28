@@ -8,6 +8,7 @@ import {
   LibraryChallengesState
 } from "@/components/coding-exercise/ui/instructions-panel";
 import type { ConceptCardData } from "@/components/concepts/ConceptCard";
+import styles from "./page.module.css";
 
 const mockConcepts: ConceptCardData[] = [
   {
@@ -46,26 +47,23 @@ export default function LibrarySectionDevPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-2xl font-bold mb-6">Library Section States</h1>
+    <div className={styles.page}>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Library Section States</h1>
 
         {/* Controls */}
-        <div className="bg-white rounded-lg p-6 mb-6 shadow-sm">
-          <h2 className="text-lg font-semibold mb-4">Controls</h2>
+        <div className={styles.controlsCard}>
+          <h2 className={styles.controlsTitle}>Controls</h2>
 
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">State</label>
-            <div className="flex flex-wrap gap-2">
+          <div className={styles.control}>
+            <label className={styles.label}>State</label>
+            <div className={styles.stateButtons}>
               {states.map((state) => (
                 <button
                   key={state.value}
                   onClick={() => setSelectedState(state.value)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    selectedState === state.value
-                      ? "bg-blue-500 text-white"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  }`}
+                  className={styles.stateButton}
+                  data-active={selectedState === state.value}
                 >
                   {state.label}
                 </button>
@@ -75,26 +73,26 @@ export default function LibrarySectionDevPage() {
 
           {selectedState === "with-concepts" && (
             <div>
-              <label className="block text-sm font-medium mb-2">Number of Concepts: {conceptCount}</label>
+              <label className={styles.label}>Number of Concepts: {conceptCount}</label>
               <input
                 type="range"
                 min="1"
                 max="4"
                 value={conceptCount}
                 onChange={(e) => setConceptCount(Number(e.target.value))}
-                className="w-full"
+                className={styles.range}
               />
             </div>
           )}
         </div>
 
         {/* Preview with LibrarySection component */}
-        <div className="bg-white rounded-lg shadow-sm mb-6">
-          <div className="border-b border-gray-200 px-6 py-3">
-            <h2 className="text-lg font-semibold">LibrarySection Component</h2>
-            <p className="text-sm text-gray-500">Uses the main component with state logic</p>
+        <div className={styles.previewCard}>
+          <div className={styles.previewHeader}>
+            <h2 className={styles.previewTitle}>LibrarySection Component</h2>
+            <p className={styles.previewSubtitle}>Uses the main component with state logic</p>
           </div>
-          <div className="p-6">
+          <div className={styles.previewBody}>
             <LibrarySection
               concepts={selectedState === "with-concepts" ? mockConcepts.slice(0, conceptCount) : []}
               isLoading={selectedState === "loading"}
@@ -104,29 +102,29 @@ export default function LibrarySectionDevPage() {
         </div>
 
         {/* Individual Components Preview */}
-        <div className="bg-white rounded-lg shadow-sm">
-          <div className="border-b border-gray-200 px-6 py-3">
-            <h2 className="text-lg font-semibold">Individual Components</h2>
-            <p className="text-sm text-gray-500">Direct component rendering</p>
+        <div className={styles.componentsCard}>
+          <div className={styles.previewHeader}>
+            <h2 className={styles.previewTitle}>Individual Components</h2>
+            <p className={styles.previewSubtitle}>Direct component rendering</p>
           </div>
-          <div className="p-6 space-y-8">
+          <div className={styles.componentsBody}>
             <div>
-              <h3 className="text-sm font-medium text-gray-500 mb-2">LibraryWithConcepts</h3>
-              <div className="border border-gray-200 rounded-lg p-4">
+              <h3 className={styles.componentLabel}>LibraryWithConcepts</h3>
+              <div className={styles.componentBox}>
                 <LibraryWithConcepts concepts={mockConcepts.slice(0, conceptCount)} />
               </div>
             </div>
 
             <div>
-              <h3 className="text-sm font-medium text-gray-500 mb-2">LibraryEmptyState</h3>
-              <div className="border border-gray-200 rounded-lg p-4">
+              <h3 className={styles.componentLabel}>LibraryEmptyState</h3>
+              <div className={styles.componentBox}>
                 <LibraryEmptyState />
               </div>
             </div>
 
             <div>
-              <h3 className="text-sm font-medium text-gray-500 mb-2">LibraryChallengesState</h3>
-              <div className="border border-gray-200 rounded-lg p-4">
+              <h3 className={styles.componentLabel}>LibraryChallengesState</h3>
+              <div className={styles.componentBox}>
                 <LibraryChallengesState />
               </div>
             </div>

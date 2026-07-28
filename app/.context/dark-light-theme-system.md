@@ -63,16 +63,7 @@ The semantic tokens are plain `:root` custom properties (defined per-theme in `c
 
 Available semantic tokens: `--color-bg-{primary,secondary,tertiary}`, `--color-text-{primary,secondary,tertiary}`, `--color-border-{primary,secondary}`, `--color-button-{primary,secondary}-{bg,text}`, and status colors `--color-{success,error,warning,info}-bg`.
 
-**Tailwind mapping (dev/test only):** the same tokens are re-registered in the `@theme inline` block of `app/styles/theme/_tailwind-tokens.css`, which lets the Tailwind semantic utilities (`bg-bg-primary`, `text-text-primary`, …) generate for the `/dev` and `/test` pages. Product code does not use those utilities — use the `var(--color-*)` form above.
-
-```css
-@theme inline {
-  /* Re-registers the :root tokens so Tailwind utilities generate (dev/test). */
-  --color-bg-primary: var(--color-background-primary);
-  --color-text-primary: var(--color-text-primary);
-  /* ... more mappings */
-}
-```
+These are plain `:root`/`[data-theme="dark"]` custom properties in `colors.css` — reference them directly (`var(--color-*)`); they resolve to the active theme automatically. (There is no Tailwind utility layer; Tailwind was removed.)
 
 ### 4. CodeMirror Theme Integration
 
@@ -333,11 +324,10 @@ Editor themes automatically switch with the global theme through the orchestrato
 ### Adding New Semantic Tokens
 
 1. Define in both light and dark themes in `colors.css` (as `:root` custom properties)
-2. Reference it in product code as `var(--color-…)` (CSS Modules)
-3. Optionally re-register it in the `@theme inline` block of `_tailwind-tokens.css` if a matching Tailwind utility is needed on the dev/test pages
-4. Update TypeScript interfaces if needed
-5. Test across all usage scenarios
-6. Update documentation
+2. Reference it as `var(--color-…)` in a CSS Module
+3. Update TypeScript interfaces if needed
+4. Test across all usage scenarios
+5. Update documentation
 
 ### Performance Considerations
 
@@ -515,7 +505,7 @@ When reviewing theme-related changes:
    }
    ```
 
-2. **Use it in product code** via `var(--color-my-new-token)` in a CSS Module. (Only add a `@theme inline` mapping in `_tailwind-tokens.css` if you also need a Tailwind utility for it on the dev/test pages.)
+2. **Use it** via `var(--color-my-new-token)` in a CSS Module.
 
 3. **Update TypeScript interfaces** if needed in `lib/theme/types.ts`
 

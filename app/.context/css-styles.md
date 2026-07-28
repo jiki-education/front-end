@@ -4,9 +4,9 @@
 
 **IMPORTANT**: Always use colors from `app/styles/theme/colors.css`. Never use arbitrary hex colors from design mockups - always map them to existing color variables. If a design uses `#e2e8f0`, use `var(--color-gray-200)` instead. If a close match doesn't exist, ask before adding new colors.
 
-## Two Styling Approaches (product code)
+## Two Styling Approaches
 
-Product code — the authenticated `app/(app)` routes and the `components/` they use — styles with **CSS Modules** and the **UI Kit**. It does **not** use Tailwind (see "Tailwind is dev/test-only" below).
+The app styles with **CSS Modules** and the **UI Kit**. There is no Tailwind (see "Tailwind has been removed" below).
 
 ### 1. CSS Modules (default)
 
@@ -29,13 +29,13 @@ These are globally available styles (loaded via `globals.css`, so they work on e
 
 **When to use which:** component-specific layout/appearance → CSS Module. A shared primitive that already exists in the ui-kit (`ui-btn-*`, `ui-form-field-*`, `ui-page-tabs`, `ui-textual-content`) → use it. Mixing is fine: a `ui-btn` with an extra `${styles.someModifier}` for one-off spacing.
 
-## Tailwind is dev/test-only
+## Tailwind has been removed
 
-Tailwind (`@import "tailwindcss"`) lives in `app/app.css`, which is imported by `app/(app)/layout.tsx` and `app/dev/layout.tsx`. Product code within `(app)` no longer authors Tailwind classes; the remaining Tailwind consumers are the `/dev` tooling pages and the `/test` pages. Both `/dev` and `/test` are 404'd in production by `middleware.ts`, so any Tailwind utilities there never ship to a user-reachable page. External/hybrid public routes never load `app.css` at all.
+The codebase no longer uses Tailwind CSS — the whole app (product pages, `/dev` tooling, `/test` pages) styles with CSS Modules + the ui-kit. There is no `tailwindcss` dependency, no `@import "tailwindcss"`, no `@theme`/`@apply`/`@source`, and no Tailwind PostCSS plugin. The base reset that once came from Tailwind's preflight is hand-written in `app/styles/base.css` (loaded via `globals.css` on every route).
 
-**Do not add Tailwind utility classes (`flex`, `gap-4`, `bg-blue-600`, `text-14`, `md:`, `hover:`, …) to product code** (`app/(app)/**`, `components/**` reachable from it). An ESLint rule (`no-restricted-syntax` in `eslint.config.mjs`) enforces this and will error on Tailwind classes in `className`. The rule excludes `app/dev`, `app/test`, and the handful of components used only by those pages (`components/quiz-card/**`, `components/ui/SoundToggle.tsx`, etc.).
+**Do not add Tailwind utility classes (`flex`, `gap-4`, `bg-blue-600`, `text-14`, `md:`, `hover:`, …) in `className`.** An ESLint rule (`no-restricted-syntax` in `eslint.config.mjs`, scoped to `app/**` + `components/**`, excluding tests) errors on them. Style with a CSS Module or an existing ui-kit class instead.
 
-**Value scale caveat:** the project remaps Tailwind's spacing/sizing scale to `1 = 1px` (`--spacing-16: 16px`, not the default 4rem-based scale). When translating any remaining Tailwind class to CSS, resolve the value against `app/styles/theme/spacing.css` / `_tailwind-tokens.css` — do not assume default rem values. `gap-28` = 28px, `h-12` = 12px, `mb-16` = 16px. Font-size names that the project defines numerically (`text-14`) are px; default Tailwind names (`text-sm`/`text-lg`/`text-2xl`) keep their rem defaults.
+**Layout & spacing** use plain CSS values (px). Use the design tokens for colors, spacing, radius, and typography (`var(--color-*)`, `var(--spacing-*)` / literal px, `var(--radius-*)`, `var(--text-*)`). Responsive design uses CSS Module media queries (`@media (min-width: 640px)` etc.).
 
 ## CSS Module Naming Convention
 
@@ -243,7 +243,7 @@ Jiki uses a centralized z-index system to prevent z-index conflicts and ensure p
 }
 ```
 
-**Utility classes:** custom `z-*` utility classes are also provided in `app/styles/utilities/z-index.css` (`.z-modal`, `.z-dropdown`, …) for use on the dev/test Tailwind pages. These are custom classes, not Tailwind utilities, but only fire where the utilities layer is loaded (`app.css`).
+**Utility classes:** custom `z-*` utility classes are also provided in `app/styles/utilities/z-index.css` (`.z-modal`, `.z-dropdown`, …) — hand-written classes that set `z-index: var(--z-index-*)`. Prefer referencing the variable directly in a CSS Module.
 
 ### Usage
 
@@ -269,10 +269,9 @@ In product-code CSS Modules, use `z-index: var(--z-index-<name>)`. The available
 ### Why This Approach?
 
 1. **Centralized Management:** All z-index values are defined in one place
-2. **Semantic Names:** Classes have meaningful names that indicate their purpose
-3. **Tailwind Integration:** Works seamlessly with other Tailwind utilities
-4. **No Conflicts:** Predefined hierarchy prevents z-index wars
-5. **Easy Maintenance:** Update values in one place to affect entire system
+2. **Semantic Names:** Variables/classes have meaningful names that indicate their purpose
+3. **No Conflicts:** Predefined hierarchy prevents z-index wars
+4. **Easy Maintenance:** Update values in one place to affect entire system
 
 ### Rules
 

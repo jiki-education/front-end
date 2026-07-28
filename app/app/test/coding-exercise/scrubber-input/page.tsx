@@ -7,6 +7,7 @@ import { createMockFrame } from "@/tests/mocks";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters/shared";
 import { useEffect, useRef } from "react";
+import styles from "../harness.module.css";
 
 // Create frames for testing with specific timeline positions
 function mockFrames(): Frame[] {
@@ -109,11 +110,11 @@ export default function ScrubberInputTestPage() {
 
   return (
     <OrchestratorProvider orchestrator={orchestrator}>
-      <div className="p-8" data-testid="scrubber-input-container">
-        <h1 className="text-2xl mb-4">Scrubber Input E2E Test</h1>
+      <div className={styles.page} data-testid="scrubber-input-container">
+        <h1 className={styles.pageTitle}>Scrubber Input E2E Test</h1>
 
-        <div className="mb-8 p-4 border rounded">
-          <h2 className="font-bold mb-2">Scrubber Input</h2>
+        <div className={styles.panel}>
+          <h2 className={styles.panelTitle}>Scrubber Input</h2>
           <ScrubberInput
             ref={scrubberRef}
             frames={frames}
@@ -121,13 +122,11 @@ export default function ScrubberInputTestPage() {
             time={time}
             enabled={true}
           />
-          <div className="mt-2 text-sm text-gray-600">
-            Range: 0 - {animationTimeline ? Math.round(animationTimeline.duration) : 0}
-          </div>
+          <div className={styles.hint}>Range: 0 - {animationTimeline ? Math.round(animationTimeline.duration) : 0}</div>
         </div>
 
-        <div className="mb-4 p-4 border rounded">
-          <h2 className="font-bold mb-2">Current State</h2>
+        <div className={styles.panel}>
+          <h2 className={styles.panelTitle}>Current State</h2>
           <div data-testid="timeline-time">Timeline Time: {time}</div>
           <div data-testid="current-frame">
             Current Frame: {currentFrame.generateDescription()} (Line {currentFrame.line})
@@ -139,78 +138,74 @@ export default function ScrubberInputTestPage() {
           </div>
         </div>
 
-        <div className="mb-4 p-4 border rounded">
-          <h2 className="font-bold mb-2">Frame Positions</h2>
-          <div className="space-y-1">
+        <div className={styles.panel}>
+          <h2 className={styles.panelTitle}>Frame Positions</h2>
+          <div className={styles.stack}>
             {frames.map((frame, idx) => (
-              <div key={idx} className="flex items-center space-x-2">
-                <span
-                  className={`px-2 py-1 rounded text-sm ${
-                    currentFrame.line === frame.line ? "bg-green-500 text-white" : "bg-gray-200"
-                  }`}
-                >
+              <div key={idx} className={styles.frameRow}>
+                <span className={styles.frameLabel} data-active={currentFrame.line === frame.line}>
                   Frame {idx + 1}
                 </span>
-                <span className="text-sm">Time: {frame.time}</span>
-                <span className="text-sm text-gray-500">Line: {frame.line}</span>
+                <span className={styles.smallText}>Time: {frame.time}</span>
+                <span className={`${styles.smallText} ${styles.muted}`}>Line: {frame.line}</span>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="mb-4 p-4 border rounded">
-          <h2 className="font-bold mb-2">Manual Controls</h2>
-          <div className="space-x-2">
+        <div className={styles.panel}>
+          <h2 className={styles.panelTitle}>Manual Controls</h2>
+          <div className={styles.controlRow}>
             <button
               data-testid="set-time-50"
               onClick={() => orchestrator.setCurrentTestTime(50000)}
-              className="px-3 py-1 border rounded bg-gray-200"
+              className={styles.button}
             >
               Set to 50ms
             </button>
             <button
               data-testid="set-time-175"
               onClick={() => orchestrator.setCurrentTestTime(175000)}
-              className="px-3 py-1 border rounded bg-gray-200"
+              className={styles.button}
             >
               Set to 175ms (between frames)
             </button>
             <button
               data-testid="set-time-325"
               onClick={() => orchestrator.setCurrentTestTime(325000)}
-              className="px-3 py-1 border rounded bg-gray-200"
+              className={styles.button}
             >
               Set to 325ms (between frames)
             </button>
             <button
               data-testid="set-time-500"
               onClick={() => orchestrator.setCurrentTestTime(500000)}
-              className="px-3 py-1 border rounded bg-gray-200"
+              className={styles.button}
             >
               Set to 500ms (between frames)
             </button>
             <button
               data-testid="set-time-675"
               onClick={() => orchestrator.setCurrentTestTime(675000)}
-              className="px-3 py-1 border rounded bg-gray-200"
+              className={styles.button}
             >
               Set to 675ms (between frames)
             </button>
             <button
               data-testid="set-time-825"
               onClick={() => orchestrator.setCurrentTestTime(825000)}
-              className="px-3 py-1 border rounded bg-gray-200"
+              className={styles.button}
             >
               Set to 825ms (between frames)
             </button>
           </div>
-          <div className="mt-2 space-x-2">
+          <div className={`${styles.controlRow} ${styles.mt}`}>
             {frames.map((frame, idx) => (
               <button
                 key={idx}
                 data-testid={`goto-frame-${idx + 1}`}
                 onClick={() => orchestrator.setCurrentTestTime(frame.time)}
-                className="px-2 py-1 border rounded bg-gray-200"
+                className={styles.button}
               >
                 F{idx + 1}
               </button>
@@ -218,9 +213,9 @@ export default function ScrubberInputTestPage() {
           </div>
         </div>
 
-        <div className="mb-4 p-4 border rounded">
-          <h2 className="font-bold mb-2">Debug Info</h2>
-          <div className="text-sm space-y-1">
+        <div className={styles.panel}>
+          <h2 className={styles.panelTitle}>Debug Info</h2>
+          <div className={`${styles.smallText} ${styles.stack}`}>
             <div>Previous Frame: {prevFrame?.generateDescription() ?? "None"}</div>
             <div>Next Frame: {nextFrame?.generateDescription() ?? "None"}</div>
             <div>Total Frames: {frames.length}</div>

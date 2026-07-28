@@ -7,6 +7,7 @@ import { createMockFrame } from "@/tests/mocks";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters/shared";
 import { useEffect, useRef } from "react";
+import styles from "../harness.module.css";
 
 // Create frames for testing
 function mockFrames(): Frame[] {
@@ -85,86 +86,88 @@ export default function ScrubberTooltipTestPage() {
 
   return (
     <OrchestratorProvider orchestrator={orchestrator}>
-      <div className="p-8">
-        <h1 className="text-2xl mb-4">Scrubber Tooltip E2E Test</h1>
+      <div className={styles.page}>
+        <h1 className={styles.pageTitle}>Scrubber Tooltip E2E Test</h1>
 
-        <div className="mb-8 p-4 border rounded">
-          <h2 className="font-bold mb-2">Scrubber Component</h2>
-          <div className="flex items-center">
+        <div className={styles.panel}>
+          <h2 className={styles.panelTitle}>Scrubber Component</h2>
+          <div className={styles.flexCenter}>
             <Scrubber />
           </div>
         </div>
 
-        <div className="mb-4 p-4 border rounded">
-          <h2 className="font-bold mb-2">State Info</h2>
+        <div className={styles.panel}>
+          <h2 className={styles.panelTitle}>State Info</h2>
           <div data-testid="code-edited-status">Code Edited: {hasCodeBeenEdited ? "Yes" : "No"}</div>
           <div data-testid="frames-count">Frames: {currentTest?.frames.length || 0}</div>
         </div>
 
-        <div className="mb-4 p-4 border rounded">
-          <h2 className="font-bold mb-2">Test Controls</h2>
-          <button
-            data-testid="toggle-code-edited"
-            onClick={() => {
-              const store = orchestrator.getStore();
-              store.getState().setHasCodeBeenEdited(!hasCodeBeenEdited);
-            }}
-            className="px-3 py-1 border rounded bg-gray-200 me-2"
-          >
-            Toggle Code Edited
-          </button>
-          <button
-            data-testid="run-code"
-            onClick={async () => {
-              await orchestrator.runCode();
-            }}
-            className="px-3 py-1 border rounded bg-gray-200 me-2"
-          >
-            Run Code
-          </button>
-          <button
-            data-testid="set-single-frame"
-            onClick={() => {
-              const singleFrame = createMockFrame(0, { line: 1, generateDescription: () => "Frame 1" });
-              const singleFrameTest = {
-                type: "visual" as const,
-                slug: "test-1",
-                name: "Test 1",
-                status: "pass" as const,
-                expects: [],
-                view: document.createElement("div"),
-                frames: [singleFrame],
-                logLines: [],
-                lintErrors: [],
-                animationTimeline: {
-                  duration: 100000,
-                  paused: true,
-                  seek: (_time: number) => {},
-                  play: () => {},
-                  pause: () => {},
-                  progress: 0,
-                  currentTime: 0,
-                  completed: false,
-                  hasPlayedOrScrubbed: false,
-                  seekEndOfTimeline: () => {},
-                  onUpdate: (_callback: any) => {},
-                  onComplete: (_callback: any) => {},
-                  clearUpdateCallbacks: () => {},
-                  clearCompleteCallbacks: () => {},
-                  timeline: {
-                    duration: 100,
-                    currentTime: 0
-                  }
-                } as any,
-                time: 0,
-                currentFrame: singleFrame
-              };
-              orchestrator.setCurrentTest(singleFrameTest);
-            }}
-            className="px-3 py-1 border rounded bg-gray-200"
-          >
-            Set Single Frame
-          </button>
+        <div className={styles.panel}>
+          <h2 className={styles.panelTitle}>Test Controls</h2>
+          <div className={styles.controlRow}>
+            <button
+              data-testid="toggle-code-edited"
+              onClick={() => {
+                const store = orchestrator.getStore();
+                store.getState().setHasCodeBeenEdited(!hasCodeBeenEdited);
+              }}
+              className={styles.button}
+            >
+              Toggle Code Edited
+            </button>
+            <button
+              data-testid="run-code"
+              onClick={async () => {
+                await orchestrator.runCode();
+              }}
+              className={styles.button}
+            >
+              Run Code
+            </button>
+            <button
+              data-testid="set-single-frame"
+              onClick={() => {
+                const singleFrame = createMockFrame(0, { line: 1, generateDescription: () => "Frame 1" });
+                const singleFrameTest = {
+                  type: "visual" as const,
+                  slug: "test-1",
+                  name: "Test 1",
+                  status: "pass" as const,
+                  expects: [],
+                  view: document.createElement("div"),
+                  frames: [singleFrame],
+                  logLines: [],
+                  lintErrors: [],
+                  animationTimeline: {
+                    duration: 100000,
+                    paused: true,
+                    seek: (_time: number) => {},
+                    play: () => {},
+                    pause: () => {},
+                    progress: 0,
+                    currentTime: 0,
+                    completed: false,
+                    hasPlayedOrScrubbed: false,
+                    seekEndOfTimeline: () => {},
+                    onUpdate: (_callback: any) => {},
+                    onComplete: (_callback: any) => {},
+                    clearUpdateCallbacks: () => {},
+                    clearCompleteCallbacks: () => {},
+                    timeline: {
+                      duration: 100,
+                      currentTime: 0
+                    }
+                  } as any,
+                  time: 0,
+                  currentFrame: singleFrame
+                };
+                orchestrator.setCurrentTest(singleFrameTest);
+              }}
+              className={styles.button}
+            >
+              Set Single Frame
+            </button>
+          </div>
         </div>
       </div>
     </OrchestratorProvider>

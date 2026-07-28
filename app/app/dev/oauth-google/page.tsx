@@ -8,6 +8,7 @@
 import { GoogleAuthButton } from "@/components/auth/GoogleAuthButton";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { useState } from "react";
+import styles from "./page.module.css";
 
 export default function GoogleOAuthTestPage() {
   const {
@@ -66,18 +67,18 @@ export default function GoogleOAuthTestPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-4xl mx-auto space-y-6">
+    <div className={styles.page}>
+      <div className={styles.container}>
         {/* Header */}
         <div>
-          <h1 className="text-3xl font-bold">Google OAuth Test</h1>
-          <p className="text-gray-600 mt-2">Test Google Sign-In integration with Jiki backend</p>
+          <h1 className={styles.title}>Google OAuth Test</h1>
+          <p className={styles.subtitle}>Test Google Sign-In integration with Jiki backend</p>
         </div>
 
         {/* Environment Info */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h2 className="font-semibold text-blue-900 mb-2">Environment</h2>
-          <div className="text-sm text-blue-800 space-y-1">
+        <div className={styles.envCard}>
+          <h2 className={styles.envTitle}>Environment</h2>
+          <div className={styles.envBody}>
             <p>
               <strong>Google Client ID:</strong>{" "}
               {process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID
@@ -101,28 +102,28 @@ export default function GoogleOAuthTestPage() {
         />
 
         {/* Google OAuth Section */}
-        <div className="bg-white border border-gray-200 rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4">Google OAuth Sign-In</h2>
+        <div className={styles.sectionCard}>
+          <h2 className={styles.sectionTitle}>Google OAuth Sign-In</h2>
 
           {oauthError && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-              <p className="text-sm text-red-800">
+            <div className={styles.oauthErrorBox}>
+              <p className={styles.oauthErrorText}>
                 <strong>OAuth Error:</strong> {oauthError}
               </p>
             </div>
           )}
 
-          <div className="space-y-4">
-            <p className="text-gray-600">Click the button below to test Google Sign-In:</p>
+          <div className={styles.sectionBody}>
+            <p className={styles.mutedText}>Click the button below to test Google Sign-In:</p>
 
-            <div className="max-w-md">
+            <div className={styles.buttonWrap}>
               <GoogleAuthButton onSuccess={handleGoogleLoginSuccess} onError={handleGoogleLoginError}>
                 Sign in with Google
               </GoogleAuthButton>
             </div>
 
             {isAuthenticated && (
-              <p className="text-sm text-green-600">
+              <p className={styles.linkedNote}>
                 ✓ You are already authenticated. Click above to test account linking or logout first to test new account
                 creation.
               </p>
@@ -134,9 +135,9 @@ export default function GoogleOAuthTestPage() {
         {isAuthenticated && user && <UserDetailsSection user={user} />}
 
         {/* Test Instructions */}
-        <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4">Test Scenarios</h2>
-          <div className="space-y-3 text-sm">
+        <div className={styles.scenariosCard}>
+          <h2 className={styles.sectionTitle}>Test Scenarios</h2>
+          <div className={styles.scenariosBody}>
             <TestScenario
               title="1. New User Sign-Up"
               description="Click 'Sign in with Google' with a Google account that hasn't been used on Jiki before. Should create a new account."
@@ -178,26 +179,23 @@ function AuthStatusSection({
 }) {
   if (isAuthLoading) {
     return (
-      <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-        <p className="text-gray-600">Checking authentication...</p>
+      <div className={styles.loadingCard}>
+        <p className={styles.mutedText}>Checking authentication...</p>
       </div>
     );
   }
 
   if (isAuthenticated && user) {
     return (
-      <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-        <div className="flex items-start justify-between">
+      <div className={styles.authCard}>
+        <div className={styles.authRow}>
           <div>
-            <p className="text-green-800">
+            <p className={styles.authName}>
               <strong>✓ Authenticated as:</strong> {user.name || user.email}
             </p>
-            <p className="text-sm text-green-700 mt-1">Email: {user.email}</p>
+            <p className={styles.authEmail}>Email: {user.email}</p>
           </div>
-          <button
-            onClick={onLogout}
-            className="px-3 py-1 text-sm bg-green-700 text-white rounded hover:bg-green-800 transition-colors"
-          >
+          <button onClick={onLogout} className={styles.logoutButton}>
             Logout
           </button>
         </div>
@@ -206,20 +204,17 @@ function AuthStatusSection({
   }
 
   return (
-    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-      <h2 className="text-xl font-semibold mb-3 text-yellow-900">Not Authenticated</h2>
-      <p className="text-yellow-800 mb-4">
+    <div className={styles.unauthCard}>
+      <h2 className={styles.unauthTitle}>Not Authenticated</h2>
+      <p className={styles.unauthText}>
         You can test Google OAuth while logged out (new account) or logged in (account linking).
       </p>
       {authError && (
-        <p className="text-red-600 mb-4">
+        <p className={styles.authErrorText}>
           <strong>Auth Error:</strong> {authError}
         </p>
       )}
-      <button
-        onClick={onTraditionalLogin}
-        className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-      >
+      <button onClick={onTraditionalLogin} className={styles.loginButton}>
         Login as ihid@jiki.io (for testing)
       </button>
     </div>
@@ -228,9 +223,9 @@ function AuthStatusSection({
 
 function UserDetailsSection({ user }: { user: unknown }) {
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-6">
-      <h2 className="text-xl font-semibold mb-4">User Details</h2>
-      <pre className="bg-gray-50 p-4 rounded-lg overflow-x-auto text-sm">
+    <div className={styles.sectionCard}>
+      <h2 className={styles.sectionTitle}>User Details</h2>
+      <pre className={styles.detailsPre}>
         <code>{JSON.stringify(user, null, 2)}</code>
       </pre>
     </div>
@@ -240,8 +235,8 @@ function UserDetailsSection({ user }: { user: unknown }) {
 function TestScenario({ title, description }: { title: string; description: string }) {
   return (
     <div>
-      <h3 className="font-semibold text-gray-900">{title}</h3>
-      <p className="text-gray-600 ms-4">{description}</p>
+      <h3 className={styles.scenarioTitle}>{title}</h3>
+      <p className={styles.scenarioDescription}>{description}</p>
     </div>
   );
 }

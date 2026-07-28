@@ -1,0 +1,25 @@
+.page {
+    min-height: 100vh;
+    background: var(--color-gray-100);
+}
+
+.container {
+    max-width: 672px;
+    margin-inline: auto;
+    padding: 32px;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.description {
+    color: var(--color-gray-600);
+    margin-bottom: 24px;
+}
+
+.inlineCode {
+    margin-inline: 4px;
+}

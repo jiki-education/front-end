@@ -7,6 +7,7 @@ import { createMockFrame } from "@/tests/mocks";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters/shared";
 import { useEffect, useRef } from "react";
+import styles from "../harness.module.css";
 
 // Create frames for testing
 function mockFrames(): Frame[] {
@@ -113,80 +114,65 @@ export default function CodeFoldingTestPage() {
 
   return (
     <OrchestratorProvider orchestrator={orchestrator}>
-      <div className="p-8" data-testid="code-folding-container">
-        <h1 className="text-2xl mb-4">Code Folding E2E Test</h1>
+      <div className={styles.page} data-testid="code-folding-container">
+        <h1 className={styles.pageTitle}>Code Folding E2E Test</h1>
 
-        <div className="mb-4 grid grid-cols-2 gap-4">
-          <div className="border rounded p-4">
-            <h2 className="font-bold mb-2">CodeMirror Editor</h2>
+        <div className={styles.grid2}>
+          <div className={styles.panel}>
+            <h2 className={styles.panelTitle}>CodeMirror Editor</h2>
             <div
               data-testid="editor-container"
-              className="border rounded"
+              className={styles.editorBox}
               style={{ height: "500px", overflow: "auto" }}
             >
               <CodeMirror />
             </div>
-            <div className="mt-2 text-sm text-gray-600">
+            <div className={styles.hint}>
               Click on fold indicators (arrows) in the gutter to collapse/expand code blocks
             </div>
           </div>
 
-          <div className="border rounded p-4">
-            <h2 className="font-bold mb-2">Current Folded Lines</h2>
-            <div data-testid="folded-lines-display" className="mb-4">
+          <div className={styles.panel}>
+            <h2 className={styles.panelTitle}>Current Folded Lines</h2>
+            <div data-testid="folded-lines-display" className={styles.mt}>
               {foldedLines.length > 0 ? (
-                <div className="space-y-1">
+                <div className={styles.chipList}>
                   {foldedLines.map((line) => (
-                    <div
-                      key={line}
-                      data-testid={`folded-line-${line}`}
-                      className="inline-block px-2 py-1 me-2 bg-blue-500 text-white rounded"
-                    >
+                    <div key={line} data-testid={`folded-line-${line}`} className={styles.chip}>
                       Line {line}
                     </div>
                   ))}
                 </div>
               ) : (
-                <div className="text-gray-500">No lines folded</div>
+                <div className={styles.muted}>No lines folded</div>
               )}
             </div>
 
-            <div data-testid="folded-lines-list" className="text-sm">
+            <div data-testid="folded-lines-list" className={styles.smallText}>
               Folded Lines: {foldedLines.length > 0 ? foldedLines.join(", ") : "None"}
             </div>
           </div>
         </div>
 
-        <div className="mb-4 p-4 border rounded">
-          <h2 className="font-bold mb-2">Manual Controls</h2>
-          <div className="space-x-2">
-            <button
-              data-testid="clear-all-folds"
-              onClick={handleClearFolds}
-              className="px-3 py-1 border rounded bg-gray-200 hover:bg-gray-300"
-            >
+        <div className={styles.panel}>
+          <h2 className={styles.panelTitle}>Manual Controls</h2>
+          <div className={styles.buttonRow}>
+            <button data-testid="clear-all-folds" onClick={handleClearFolds} className={styles.button}>
               Expand All
             </button>
-            <button
-              data-testid="fold-multiple"
-              onClick={handleFoldMultiple}
-              className="px-3 py-1 border rounded bg-gray-200 hover:bg-gray-300"
-            >
+            <button data-testid="fold-multiple" onClick={handleFoldMultiple} className={styles.button}>
               Fold Both Functions
             </button>
           </div>
-          <div className="mt-2 text-sm text-gray-600">
-            Foldable blocks: add function (line 1), multiply function (line 5)
-          </div>
-          <div className="mt-2 space-x-2">
+          <div className={styles.hint}>Foldable blocks: add function (line 1), multiply function (line 5)</div>
+          <div className={`${styles.buttonRow} ${styles.mt}`}>
             {[1, 5, 9].map((line) => (
               <button
                 key={line}
                 data-testid={`toggle-fold-${line}`}
                 onClick={() => handleToggleFold(line)}
-                className={`px-2 py-1 border rounded ${
-                  foldedLines.includes(line) ? "bg-blue-500 text-white" : "bg-gray-200"
-                }`}
+                className={styles.button}
+                data-active={foldedLines.includes(line)}
               >
                 L{line}
               </button>
@@ -194,18 +180,18 @@ export default function CodeFoldingTestPage() {
           </div>
         </div>
 
-        <div className="mb-4 p-4 border rounded">
-          <h2 className="font-bold mb-2">Debug Info</h2>
-          <div className="text-sm space-y-1">
+        <div className={styles.panel}>
+          <h2 className={styles.panelTitle}>Debug Info</h2>
+          <div className={styles.debugText}>
             <div>
               Total Folded Lines: <span data-testid="fold-count">{foldedLines.length}</span>
             </div>
             <div>
               Editor Loaded: <span data-testid="editor-loaded">{orchestrator.getEditorView() ? "Yes" : "No"}</span>
             </div>
-            <div className="mt-2">
-              <div className="font-semibold">Code Structure:</div>
-              <ul className="ms-4 text-xs">
+            <div className={styles.mt}>
+              <div className={styles.semibold}>Code Structure:</div>
+              <ul className={styles.debugList}>
                 <li>• add function: Lines 1-3</li>
                 <li>• multiply function: Lines 5-7</li>
                 <li>• result assignment: Line 9</li>

@@ -1,0 +1,49 @@
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow:
+        0 1px 3px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    padding: 6px;
+}
+
+.title {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.term {
+    display: inline;
+    font-weight: 500;
+}
+
+.value {
+    display: inline;
+    margin-inline-start: 2px;
+}
+
+.badge {
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+}
+
+.badge[data-tier="premium"] {
+    background: var(--color-blue-100);
+    color: var(--color-blue-800);
+}
+
+.badge[data-tier="standard"] {
+    background: var(--color-gray-100);
+    color: var(--color-gray-800);
+}

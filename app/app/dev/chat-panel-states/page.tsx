@@ -7,6 +7,7 @@ import { Conversation } from "@/components/coding-exercise/ui/Conversation";
 import { ChatInputArea } from "@/components/coding-exercise/ui/ChatInputArea";
 import type { ChatMessage } from "@/components/coding-exercise/lib/chat-types";
 import type { useChat } from "@/components/coding-exercise/lib/useChat";
+import styles from "./page.module.css";
 
 type StateId = ChatPanelState | "loading";
 
@@ -78,17 +79,16 @@ export default function ChatPanelStatesDevPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="p-4 bg-white border-b border-gray-200">
-        <h1 className="text-xl font-bold mb-4">Chat Panel States</h1>
-        <div className="flex flex-wrap gap-2">
+    <div className={styles.page}>
+      <div className={styles.toolbar}>
+        <h1 className={styles.title}>Chat Panel States</h1>
+        <div className={styles.stateButtons}>
           {states.map((state) => (
             <button
               key={state.id}
               onClick={() => setSelectedState(state.id)}
-              className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
-                selectedState === state.id ? "bg-purple-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
+              className={styles.stateButton}
+              data-active={selectedState === state.id}
             >
               {state.label}
             </button>
@@ -96,8 +96,8 @@ export default function ChatPanelStatesDevPage() {
         </div>
       </div>
 
-      <div className="p-4">
-        <div className="bg-white rounded-lg shadow-sm flex flex-col" style={{ height: "600px" }}>
+      <div className={styles.preview}>
+        <div className={styles.previewInner} style={{ height: "600px" }}>
           {renderComponent()}
         </div>
       </div>

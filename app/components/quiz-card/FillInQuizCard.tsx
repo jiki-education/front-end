@@ -7,6 +7,7 @@ import { CodeWithBlanks, type CodeBlank } from "./CodeWithBlanks";
 import { InfoBox } from "./InfoBox";
 import { QuizContent } from "./QuizContent";
 import { SubmitButton } from "./SubmitButton";
+import styles from "./quiz-card.module.css";
 
 export interface FillInQuizQuestion {
   id: string;
@@ -92,8 +93,8 @@ export function FillInQuizCard({ question, onNext }: FillInQuizCardProps) {
   const infoBoxProps = getInfoBoxProps();
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-lg">
-      <div className="mb-6">
+    <div className={styles.card} data-testid="quiz-card">
+      <div className={styles.content}>
         <QuizContent markdown={question.content} />
       </div>
 

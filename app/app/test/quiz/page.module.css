@@ -1,0 +1,72 @@
+.page {
+    min-height: 100vh;
+    background: var(--color-gray-50);
+    padding-block: 12px;
+    padding-inline: 4px;
+    position: relative;
+}
+
+.container {
+    max-width: 896px;
+    margin-inline: auto;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--color-gray-900);
+    margin-bottom: 4px;
+}
+
+.typeRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 4px;
+}
+
+.typeButtons {
+    display: flex;
+    gap: 4px;
+}
+
+.typeButton {
+    padding-inline: 6px;
+    padding-block: 2px;
+    border-radius: 8px;
+    font-weight: 500;
+    background: white;
+    color: var(--color-gray-700);
+    border: 1px solid var(--color-gray-300);
+    transition: background-color 0.15s ease;
+
+    &:hover {
+        background: var(--color-gray-50);
+    }
+}
+
+.typeButton[data-active="true"] {
+    background: var(--color-blue-600);
+    color: white;
+    border-color: var(--color-blue-600);
+}
+
+.counter {
+    color: var(--color-gray-600);
+}
+
+.cardRow {
+    display: flex;
+    justify-content: center;
+}
+
+.cardWrap {
+    width: 100%;
+    max-width: 672px;
+}

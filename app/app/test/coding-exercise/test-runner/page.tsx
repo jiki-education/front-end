@@ -9,6 +9,7 @@ import ScenariosPanel from "@/components/coding-exercise/ui/test-results-view/Sc
 import { assembleClassNames } from "@/lib/assemble-classnames";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import { useEffect, useRef, useState } from "react";
+import styles from "../harness.module.css";
 
 const initialCode = `move()
 move()
@@ -72,45 +73,44 @@ function TestRunnerContent() {
   const viewContainerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <div className={styles.screen}>
       {/* Header */}
-      <div className="border-b border-gray-200 bg-white px-6 py-4">
-        <h1 className="text-2xl font-bold text-gray-900">Test Runner E2E Test Page</h1>
+      <div className={styles.screenHeader}>
+        <h1 className={styles.screenTitle}>Test Runner E2E Test Page</h1>
       </div>
 
       {/* Main content area */}
-      <div className="flex flex-1 overflow-hidden">
+      <div className={styles.screenBody}>
         {/* Left panel - Code Editor */}
-        <div className="w-1/2 border-e border-gray-200 flex flex-col bg-white">
-          <div className="border-b border-gray-200 px-4 py-2 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-700">Code Editor</h2>
+        <div className={`${styles.screenPanel} ${styles.screenPanelLeft}`}>
+          <div className={styles.screenPanelHeader}>
+            <h2 className={styles.screenPanelTitle}>Code Editor</h2>
           </div>
-          <div className="flex-1 overflow-hidden">
+          <div className={styles.screenFill}>
             <CodeEditor />
           </div>
         </div>
 
         {/* Right panel - Test Results and Visualization */}
-        <div className="w-1/2 flex flex-col bg-gray-50">
+        <div className={`${styles.screenPanel} ${styles.screenPanelRight}`}>
           {/* Exercise visualization */}
-          <div className="flex-1 border-b border-gray-200 bg-white p-6">
+          <div className={styles.screenViz}>
             <div
-              className={assembleClassNames(
-                "h-full flex items-center justify-center",
-                isSpotlightActive && "spotlight"
-              )}
+              className={assembleClassNames(styles.screenVizInner, isSpotlightActive && "spotlight")}
               ref={viewContainerRef}
               id="view-container"
             >
               <div className="exercise-container">
                 {/* This will be populated by the exercise view */}
-                <div className="text-gray-500">Exercise visualization will appear here when tests run</div>
+                <div className={styles.screenVizPlaceholder}>
+                  Exercise visualization will appear here when tests run
+                </div>
               </div>
             </div>
           </div>
 
           {/* Test results and scrubber */}
-          <div className="flex-shrink-0">
+          <div className={styles.screenResults}>
             <ScenariosPanel />
           </div>
         </div>

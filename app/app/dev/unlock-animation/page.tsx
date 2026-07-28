@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import styles from "@/components/dashboard/exercise-path/ExercisePath.module.css";
+import pageStyles from "./page.module.css";
 import { WalkthroughCard } from "@/components/dashboard/exercise-path/ui/WalkthroughCard";
 import VideoLibIcon from "@/icons/video-lib.svg";
 import QuizCardIcon from "@/icons/quiz-card.svg";
@@ -112,23 +113,19 @@ export default function UnlockAnimationTest() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-2xl font-bold mb-8">Unlock Animation Test</h1>
+    <div className={pageStyles.page}>
+      <div className={pageStyles.container}>
+        <h1 className={pageStyles.title}>Unlock Animation Test</h1>
 
         {/* Control buttons */}
-        <div className="mb-8 space-x-4">
-          <button
-            onClick={startAnimation}
-            className="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600"
-            disabled={animationState !== "idle"}
-          >
+        <div className={pageStyles.controls}>
+          <button onClick={startAnimation} className={pageStyles.startButton} disabled={animationState !== "idle"}>
             Start Animation
           </button>
-          <button onClick={resetAll} className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+          <button onClick={resetAll} className={pageStyles.resetButton}>
             Reset
           </button>
-          <span className="ms-4 text-sm text-gray-600">
+          <span className={pageStyles.stateLabel}>
             State: {animationState} | Completed: {lessonCompleted ? "Yes" : "No"} | Unlocked:{" "}
             {recentlyUnlocked ? "Yes" : "No"}
           </span>
@@ -136,7 +133,7 @@ export default function UnlockAnimationTest() {
 
         {/* Lesson nodes with proper spacing */}
         <div className={styles.learningPath}>
-          <div className="relative">
+          <div className={pageStyles.pathWrapper}>
             {/* Completing lesson */}
             <div className={getCompletingClassName()}>
               <div className={styles.statusBadge}>{lessonCompleted ? "Complete" : "In Progress"}</div>
@@ -168,9 +165,9 @@ export default function UnlockAnimationTest() {
         </div>
 
         {/* Animation timeline */}
-        <div className="mt-8 p-4 bg-white rounded border">
-          <h2 className="font-semibold mb-2">Animation Timeline:</h2>
-          <ul className="text-sm space-y-1 text-gray-600">
+        <div className={pageStyles.timeline}>
+          <h2 className={pageStyles.timelineTitle}>Animation Timeline:</h2>
+          <ul className={pageStyles.timelineList}>
             <li>0ms: Start</li>
             <li>100ms: Completion animation begins (lesson 1 turns green)</li>
             <li>900ms: Unlock animation begins (lesson 2 lock icon changes)</li>

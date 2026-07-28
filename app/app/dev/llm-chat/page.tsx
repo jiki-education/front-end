@@ -11,6 +11,7 @@ import { useAuthStore } from "@/lib/auth/authStore";
 import { exercises } from "@jiki/curriculum";
 import { fetchExerciseContent } from "@/lib/api/exercise-meta";
 import { useCallback, useEffect, useRef, useState } from "react";
+import styles from "./page.module.css";
 
 // Types
 interface ChatMessage {
@@ -247,13 +248,13 @@ export default function LLMChatTestPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6">LLM Chat Proxy Test</h1>
+    <div className={styles.page}>
+      <div className={styles.container}>
+        <h1 className={styles.title}>LLM Chat Proxy Test</h1>
 
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-          <h2 className="text-lg font-semibold mb-2 text-blue-900">🔄 Refresh Token Testing</h2>
-          <p className="text-blue-800 text-sm">
+        <div className={styles.infoBanner}>
+          <h2 className={styles.infoBannerTitle}>🔄 Refresh Token Testing</h2>
+          <p className={styles.infoBannerText}>
             This test page now uses the new chat API with automatic refresh token support. To test refresh
             functionality, you can manually expire your token in browser dev tools or wait for natural token expiration.
             The system will automatically refresh and retry failed requests seamlessly.
@@ -269,8 +270,8 @@ export default function LLMChatTestPage() {
         />
 
         {isAuthenticated && (
-          <div className="grid grid-cols-5 gap-6 mt-6">
-            <div className="col-span-2 space-y-4">
+          <div className={styles.layout}>
+            <div className={styles.colLeft}>
               <ExerciseSelector
                 exerciseSlugs={exerciseSlugs}
                 selectedExercise={selectedExercise}
@@ -304,7 +305,7 @@ export default function LLMChatTestPage() {
               />
             </div>
 
-            <div className="col-span-3 space-y-4">
+            <div className={styles.colRight}>
               <StatusIndicator status={status} />
 
               <ResponseDisplay currentResponse={currentResponse} responseRef={responseRef} />
@@ -435,8 +436,8 @@ function AuthSection({
 }) {
   if (isAuthenticated && user) {
     return (
-      <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-        <p className="text-green-800">
+      <div className={styles.authSuccess}>
+        <p className={styles.authSuccessText}>
           <strong>✅ Logged in as:</strong> {user.email}
         </p>
       </div>
@@ -444,19 +445,15 @@ function AuthSection({
   }
 
   return (
-    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-      <h2 className="text-xl font-semibold mb-3 text-yellow-900">Authentication Required</h2>
-      <p className="text-yellow-800 mb-4">You need to be logged in to test the LLM Chat Proxy.</p>
+    <div className={styles.authPrompt}>
+      <h2 className={styles.authPromptTitle}>Authentication Required</h2>
+      <p className={styles.authPromptText}>You need to be logged in to test the LLM Chat Proxy.</p>
       {authError && (
-        <p className="text-red-600 mb-4">
+        <p className={styles.authError}>
           <strong>Error:</strong> {authError}
         </p>
       )}
-      <button
-        onClick={onLogin}
-        disabled={isAuthLoading}
-        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-      >
+      <button onClick={onLogin} disabled={isAuthLoading} className={styles.buttonLogin}>
         {isAuthLoading ? "Logging in..." : "Login as ihid@jiki.io"}
       </button>
     </div>
@@ -471,12 +468,12 @@ function LanguageSelector({
   onSelectLanguage: (language: "javascript" | "python" | "jikiscript") => void;
 }) {
   return (
-    <div className="bg-white rounded-lg shadow p-4">
-      <label className="block text-sm font-semibold mb-2">Language</label>
+    <div className={styles.panel}>
+      <label className={styles.fieldLabel}>Language</label>
       <select
         value={selectedLanguage}
         onChange={(e) => onSelectLanguage(e.target.value as "javascript" | "python" | "jikiscript")}
-        className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className={styles.select}
       >
         <option value="jikiscript">JikiScript</option>
         <option value="javascript">JavaScript</option>
@@ -496,13 +493,9 @@ function TaskSelector({
   onSelectTask: (taskId: string) => void;
 }) {
   return (
-    <div className="bg-white rounded-lg shadow p-4">
-      <label className="block text-sm font-semibold mb-2">Current Task (for LLM context)</label>
-      <select
-        value={selectedTaskId}
-        onChange={(e) => onSelectTask(e.target.value)}
-        className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
+    <div className={styles.panel}>
+      <label className={styles.fieldLabel}>Current Task (for LLM context)</label>
+      <select value={selectedTaskId} onChange={(e) => onSelectTask(e.target.value)} className={styles.select}>
         <option value="">No specific task (exercise-level guidance only)</option>
         {availableTasks.map((task) => (
           <option key={task.id} value={task.id}>
@@ -526,13 +519,13 @@ function ExerciseSelector({
   isLoading: boolean;
 }) {
   return (
-    <div className="bg-white rounded-lg shadow p-4">
-      <label className="block text-sm font-semibold mb-2">Exercise</label>
+    <div className={styles.panel}>
+      <label className={styles.fieldLabel}>Exercise</label>
       <select
         value={selectedExercise}
         onChange={(e) => onSelectExercise(e.target.value)}
         disabled={isLoading}
-        className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+        className={styles.select}
       >
         {exerciseSlugs.map((slug) => (
           <option key={slug} value={slug}>
@@ -546,12 +539,12 @@ function ExerciseSelector({
 
 function CodeEditor({ code, onChange }: { code: string; onChange: (code: string) => void }) {
   return (
-    <div className="bg-white rounded-lg shadow p-4">
-      <label className="block text-sm font-semibold mb-2">Code</label>
+    <div className={styles.panel}>
+      <label className={styles.fieldLabel}>Code</label>
       <textarea
         value={code}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full h-64 px-3 py-2 font-mono text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className={styles.textarea}
         placeholder="Write your code here..."
       />
     </div>
@@ -570,8 +563,8 @@ function QuestionInput({
   disabled: boolean;
 }) {
   return (
-    <div className="bg-white rounded-lg shadow p-4">
-      <label className="block text-sm font-semibold mb-2">Question</label>
+    <div className={styles.panel}>
+      <label className={styles.fieldLabel}>Question</label>
       <input
         type="text"
         value={question}
@@ -582,7 +575,7 @@ function QuestionInput({
           }
         }}
         placeholder="Ask a question about your code..."
-        className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className={styles.input}
       />
     </div>
   );
@@ -594,13 +587,13 @@ function ConversationHistory({ history }: { history: ChatMessage[] }) {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow p-4">
-      <h3 className="text-sm font-semibold mb-2">Conversation History</h3>
-      <div className="space-y-3 max-h-96 overflow-y-auto">
+    <div className={styles.panel}>
+      <h3 className={styles.historyTitle}>Conversation History</h3>
+      <div className={styles.historyList}>
         {history.slice(-5).map((msg, idx) => (
-          <div key={idx} className="text-sm">
-            <div className="font-semibold mb-1">{msg.role === "user" ? "You:" : "Assistant:"}</div>
-            <div className="text-gray-700 whitespace-pre-wrap">{msg.content}</div>
+          <div key={idx} className={styles.historyItem}>
+            <div className={styles.historyRole}>{msg.role === "user" ? "You:" : "Assistant:"}</div>
+            <div className={styles.historyContent}>{msg.content}</div>
           </div>
         ))}
       </div>
@@ -610,18 +603,11 @@ function ConversationHistory({ history }: { history: ChatMessage[] }) {
 
 function ActionButtons({ onSend, onClear, disabled }: { onSend: () => void; onClear: () => void; disabled: boolean }) {
   return (
-    <div className="flex space-x-4">
-      <button
-        onClick={onSend}
-        disabled={disabled}
-        className="flex-1 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-      >
+    <div className={styles.actionRow}>
+      <button onClick={onSend} disabled={disabled} className={styles.buttonSend}>
         Send Question
       </button>
-      <button
-        onClick={onClear}
-        className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition-colors"
-      >
+      <button onClick={onClear} className={styles.buttonClear}>
         Clear History
       </button>
     </div>
@@ -629,12 +615,6 @@ function ActionButtons({ onSend, onClear, disabled }: { onSend: () => void; onCl
 }
 
 function StatusIndicator({ status }: { status: StreamStatus }) {
-  const colors = {
-    idle: "bg-gray-100 text-gray-800 border-gray-300",
-    streaming: "bg-blue-100 text-blue-800 border-blue-300",
-    error: "bg-red-100 text-red-800 border-red-300"
-  };
-
   const labels = {
     idle: "Idle",
     streaming: "Streaming...",
@@ -642,8 +622,8 @@ function StatusIndicator({ status }: { status: StreamStatus }) {
   };
 
   return (
-    <div className={`inline-flex items-center px-3 py-1 rounded-full border ${colors[status]}`}>
-      <span className="text-sm font-semibold">{labels[status]}</span>
+    <div className={styles.statusIndicator} data-status={status}>
+      <span className={styles.statusLabel}>{labels[status]}</span>
     </div>
   );
 }
@@ -656,13 +636,10 @@ function ResponseDisplay({
   responseRef: React.RefObject<HTMLDivElement | null>;
 }) {
   return (
-    <div className="bg-white rounded-lg shadow p-4">
-      <h3 className="text-sm font-semibold mb-2">Current Response</h3>
-      <div
-        ref={responseRef}
-        className="h-96 overflow-y-auto p-3 bg-gray-50 rounded border border-gray-200 font-mono text-sm whitespace-pre-wrap"
-      >
-        {currentResponse || <span className="text-gray-400">Response will appear here...</span>}
+    <div className={styles.panel}>
+      <h3 className={styles.responseTitle}>Current Response</h3>
+      <div ref={responseRef} className={styles.responseBox}>
+        {currentResponse || <span className={styles.responsePlaceholder}>Response will appear here...</span>}
       </div>
     </div>
   );
@@ -670,20 +647,20 @@ function ResponseDisplay({
 
 function SignatureDisplay({ signature }: { signature: SignatureData }) {
   return (
-    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-      <h3 className="text-sm font-semibold mb-2 text-green-900">✅ Signature Received</h3>
-      <div className="space-y-1 text-sm font-mono">
+    <div className={styles.signatureBox}>
+      <h3 className={styles.signatureTitle}>✅ Signature Received</h3>
+      <div className={styles.signatureList}>
         <div>
-          <span className="font-semibold">Signature:</span> {signature.signature.substring(0, 40)}...
+          <span className={styles.signatureKey}>Signature:</span> {signature.signature.substring(0, 40)}...
         </div>
         <div>
-          <span className="font-semibold">Timestamp:</span> {signature.timestamp}
+          <span className={styles.signatureKey}>Timestamp:</span> {signature.timestamp}
         </div>
         <div>
-          <span className="font-semibold">Exercise:</span> {signature.exerciseSlug}
+          <span className={styles.signatureKey}>Exercise:</span> {signature.exerciseSlug}
         </div>
         <div>
-          <span className="font-semibold">Question:</span> {signature.userMessage.substring(0, 50)}
+          <span className={styles.signatureKey}>Question:</span> {signature.userMessage.substring(0, 50)}
           {signature.userMessage.length > 50 ? "..." : ""}
         </div>
       </div>
@@ -693,9 +670,9 @@ function SignatureDisplay({ signature }: { signature: SignatureData }) {
 
 function ErrorDisplay({ error }: { error: string }) {
   return (
-    <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-      <h3 className="text-sm font-semibold mb-2 text-red-900">❌ Error</h3>
-      <p className="text-sm text-red-800">{error}</p>
+    <div className={styles.errorBox}>
+      <h3 className={styles.errorTitle}>❌ Error</h3>
+      <p className={styles.errorText}>{error}</p>
     </div>
   );
 }
@@ -710,20 +687,20 @@ function DebugPanel({
   onToggle: () => void;
 }) {
   return (
-    <div className="bg-white rounded-lg shadow p-4">
-      <button onClick={onToggle} className="text-sm font-semibold text-blue-600 hover:text-blue-700">
+    <div className={styles.panel}>
+      <button onClick={onToggle} className={styles.debugToggle}>
         {showDebug ? "▼ Hide" : "▶ Show"} Debug Info ({debugInfo.length} events)
       </button>
 
       {showDebug && (
-        <div className="mt-3 max-h-96 overflow-y-auto">
-          <div className="space-y-2">
+        <div className={styles.debugList}>
+          <div className={styles.debugEvents}>
             {debugInfo.map((event, idx) => (
-              <div key={idx} className="bg-gray-50 rounded p-3 text-xs font-mono">
-                <div className="font-semibold mb-1">
+              <div key={idx} className={styles.debugEvent}>
+                <div className={styles.debugEventHeader}>
                   [{event.timestamp}] {event.type.toUpperCase()}
                 </div>
-                <pre className="whitespace-pre-wrap overflow-x-auto">{JSON.stringify(event.data, null, 2)}</pre>
+                <pre className={styles.debugEventData}>{JSON.stringify(event.data, null, 2)}</pre>
               </div>
             ))}
           </div>

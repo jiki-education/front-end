@@ -6,32 +6,30 @@ import {
   showPaymentVerificationFailed,
   showWelcomeToPremium
 } from "@/lib/modal/app";
+import styles from "./page.module.css";
 
 export default function SubscriptionModalTest() {
   return (
-    <div className="p-8 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-2">Payment Flow Modals</h1>
-      <p className="text-text-secondary mb-8">Test the payment processing and welcome to premium modals for styling.</p>
+    <div className={styles.page}>
+      <h1 className={styles.title}>Payment Flow Modals</h1>
+      <p className={styles.intro}>Test the payment processing and welcome to premium modals for styling.</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className={styles.grid}>
         {/* Payment Confirming Modal */}
-        <div className="border border-border-secondary rounded-lg p-6 bg-bg-secondary">
-          <h2 className="text-xl font-semibold mb-3 text-text-primary">Payment Confirming</h2>
-          <p className="text-text-secondary text-sm mb-4">
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Payment Confirming</h2>
+          <p className={styles.cardDescription}>
             Shown immediately on return from Stripe, while we verify the session. Non-dismissible.
           </p>
-          <button
-            onClick={() => showPaymentConfirming()}
-            className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
-          >
+          <button onClick={() => showPaymentConfirming()} className={styles.showButton} data-color="blue">
             Show Payment Confirming
           </button>
         </div>
 
         {/* Payment Verification Failed Modal */}
-        <div className="border border-border-secondary rounded-lg p-6 bg-bg-secondary">
-          <h2 className="text-xl font-semibold mb-3 text-text-primary">Verification Failed</h2>
-          <p className="text-text-secondary text-sm mb-4">
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Verification Failed</h2>
+          <p className={styles.cardDescription}>
             Shown when verifyCheckoutSession itself errors (network/server failure), distinct from a successful
             &quot;unpaid&quot; response.
           </p>
@@ -41,16 +39,17 @@ export default function SubscriptionModalTest() {
                 onClose: () => console.debug("Verification failed modal closed")
               })
             }
-            className="w-full px-4 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors font-medium"
+            className={styles.showButton}
+            data-color="red"
           >
             Show Verification Failed
           </button>
         </div>
 
         {/* Payment Processing Modal */}
-        <div className="border border-border-secondary rounded-lg p-6 bg-bg-secondary">
-          <h2 className="text-xl font-semibold mb-3 text-text-primary">Payment Processing</h2>
-          <p className="text-text-secondary text-sm mb-4">
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Payment Processing</h2>
+          <p className={styles.cardDescription}>
             Shown when payment is pending confirmation from the provider (e.g., PayPal, BACS).
           </p>
           <button
@@ -59,42 +58,42 @@ export default function SubscriptionModalTest() {
                 onClose: () => console.debug("Payment processing modal closed")
               })
             }
-            className="w-full px-4 py-3 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors font-medium"
+            className={styles.showButton}
+            data-color="amber"
           >
             Show Payment Processing
           </button>
         </div>
 
         {/* Welcome to Premium Modal */}
-        <div className="border border-border-secondary rounded-lg p-6 bg-bg-secondary">
-          <h2 className="text-xl font-semibold mb-3 text-text-primary">Welcome to Premium</h2>
-          <p className="text-text-secondary text-sm mb-4">
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Welcome to Premium</h2>
+          <p className={styles.cardDescription}>
             Shown after successful payment confirmation. The &quot;Welcome to Premium&quot; success state.
           </p>
-          <button
-            onClick={() => showWelcomeToPremium()}
-            className="w-full px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium"
-          >
+          <button onClick={() => showWelcomeToPremium()} className={styles.showButton} data-color="green">
             Show Welcome Modal
           </button>
         </div>
       </div>
 
       {/* Flow Diagram */}
-      <div className="mt-8 bg-bg-secondary p-6 rounded-lg border border-border-secondary">
-        <h3 className="text-lg font-semibold mb-4 text-text-primary">Payment Flow</h3>
-        <div className="flex items-center justify-center gap-3 text-sm flex-wrap">
-          <div className="px-4 py-2 bg-blue-100 text-blue-800 rounded-lg border border-blue-200">Checkout Form</div>
-          <span className="text-text-tertiary">→</span>
-          <div className="px-4 py-2 bg-blue-100 text-blue-800 rounded-lg border border-blue-200">
+      <div className={styles.flowCard}>
+        <h3 className={styles.flowTitle}>Payment Flow</h3>
+        <div className={styles.flowRow}>
+          <div className={styles.flowChip} data-color="blue">
+            Checkout Form
+          </div>
+          <span className={styles.flowArrow}>→</span>
+          <div className={styles.flowChip} data-color="blue">
             Payment Confirming
           </div>
-          <span className="text-text-tertiary">→</span>
-          <div className="px-4 py-2 bg-green-100 text-green-800 rounded-lg border border-green-200">
+          <span className={styles.flowArrow}>→</span>
+          <div className={styles.flowChip} data-color="green">
             Welcome to Premium
           </div>
         </div>
-        <p className="text-text-tertiary text-xs text-center mt-4">
+        <p className={styles.flowNote}>
           Confirming opens immediately on return from Stripe. Then transitions to Welcome (paid), Payment Processing
           (unpaid/pending), or Verification Failed (verify call errored).
         </p>

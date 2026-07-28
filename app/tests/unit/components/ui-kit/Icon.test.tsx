@@ -13,12 +13,12 @@ describe("Icon", () => {
     });
   });
 
-  it("applies color className correctly", async () => {
+  it("applies color via currentColor style", async () => {
     render(<Icon name="email" size={16} color="blue-500" />);
 
     await waitFor(() => {
       const svg = screen.getByRole("img");
-      expect(svg).toHaveClass("text-blue-500");
+      expect(svg).toHaveStyle({ color: "var(--color-blue-500)" });
     });
   });
 

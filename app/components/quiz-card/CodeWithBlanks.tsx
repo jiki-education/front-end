@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import styles from "./CodeWithBlanks.module.css";
 
 export interface CodeBlank {
   id: string;
@@ -51,11 +52,7 @@ export function CodeWithBlanks({
         parts.push(<span key={`text-${lineIndex}-${lastIndex}`}>{line.substring(lastIndex, match.index)}</span>);
       }
 
-      const inputStyle = results
-        ? results[blankId]
-          ? "border-green-500 bg-green-50"
-          : "border-red-500 bg-red-50"
-        : "border-gray-300 focus:border-blue-500";
+      const result = results ? (results[blankId] ? "correct" : "incorrect") : undefined;
 
       parts.push(
         <input
@@ -68,10 +65,8 @@ export function CodeWithBlanks({
           onChange={(e) => onChange(blankId, e.target.value)}
           placeholder={blank.placeholder || "..."}
           disabled={disabled}
-          className={`inline-block px-2 py-0.5 mx-1 font-mono text-sm border-b-2
-                     ${inputStyle} bg-transparent focus:outline-none
-                     disabled:opacity-50 disabled:cursor-not-allowed
-                     transition-all duration-200`}
+          className={styles.blank}
+          data-result={result}
           style={{
             width: `${Math.max((values[blankId]?.length || blank.placeholder?.length || 3) + 2, 8)}ch`
           }}
@@ -100,13 +95,11 @@ export function CodeWithBlanks({
   };
 
   return (
-    <div className="bg-gray-50 rounded-lg p-4 font-mono text-sm overflow-x-auto">
+    <div className={styles.container}>
       {codeLines.map((line, index) => (
-        <div key={index} className="flex hover:bg-gray-100">
-          {showLineNumbers && (
-            <span className="select-none text-gray-400 me-4 min-w-[2rem] text-end">{index + 1}.</span>
-          )}
-          <div className="flex-1 whitespace-pre">{renderCodeLine(line, index)}</div>
+        <div key={index} className={styles.line}>
+          {showLineNumbers && <span className={styles.lineNumber}>{index + 1}.</span>}
+          <div className={styles.code}>{renderCodeLine(line, index)}</div>
         </div>
       ))}
     </div>

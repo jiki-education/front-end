@@ -9,6 +9,7 @@ import ScenariosPanel from "@/components/coding-exercise/ui/test-results-view/Sc
 import { IOExercise } from "@jiki/curriculum";
 import type { IOExerciseDefinition, IOScenario, Task } from "@jiki/curriculum";
 import { useEffect, useState } from "react";
+import styles from "../harness.module.css";
 
 const initialCode = `function acronym with phrase do
   return "CAT"
@@ -104,27 +105,27 @@ export default function IOTestRunnerPage() {
 
 function IOTestRunnerContent() {
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <div className={styles.screen}>
       {/* Header */}
-      <div className="border-b border-gray-200 bg-white px-6 py-4">
-        <h1 className="text-2xl font-bold text-gray-900">IO Test Runner E2E Test Page</h1>
+      <div className={styles.screenHeader}>
+        <h1 className={styles.screenTitle}>IO Test Runner E2E Test Page</h1>
       </div>
 
       {/* Main content area */}
-      <div className="flex flex-1 overflow-hidden">
+      <div className={styles.screenBody}>
         {/* Left panel - Code Editor */}
-        <div className="w-1/2 border-e border-gray-200 flex flex-col bg-white">
-          <div className="border-b border-gray-200 px-4 py-2 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-700">Code Editor</h2>
+        <div className={`${styles.screenPanel} ${styles.screenPanelLeft}`}>
+          <div className={styles.screenPanelHeader}>
+            <h2 className={styles.screenPanelTitle}>Code Editor</h2>
           </div>
-          <div className="flex-1 overflow-hidden">
+          <div className={styles.screenFill}>
             <CodeEditor />
           </div>
         </div>
 
         {/* Right panel - Test Results */}
-        <div className="w-1/2 flex flex-col bg-gray-50">
-          <div className="flex-1">
+        <div className={`${styles.screenPanel} ${styles.screenPanelRight}`}>
+          <div className={styles.screenFlex}>
             <ScenariosPanel />
           </div>
         </div>

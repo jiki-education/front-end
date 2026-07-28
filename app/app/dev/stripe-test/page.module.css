@@ -1,0 +1,72 @@
+.page {
+    min-height: 100vh;
+    background: var(--color-gray-100);
+    padding: 8px;
+}
+
+.container {
+    max-width: 1152px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.title {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 700;
+}
+
+.authBoxSuccess {
+    background: var(--color-green-50);
+    border: 1px solid var(--color-green-200);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.authSuccessText {
+    color: var(--color-green-800);
+}
+
+.authBoxPrompt {
+    background: var(--color-yellow-50);
+    border: 1px solid var(--color-yellow-200);
+    border-radius: 8px;
+    padding: 6px;
+}
+
+.authTitle {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--color-yellow-900);
+}
+
+.authText {
+    color: var(--color-yellow-800);
+    margin-bottom: 4px;
+}
+
+.authError {
+    color: var(--color-red-600);
+    margin-bottom: 4px;
+}
+
+.loginButton {
+    padding: 2px 4px;
+    background: var(--color-blue-600);
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.loginButton:hover {
+    background: var(--color-blue-700);
+}
+
+.loginButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

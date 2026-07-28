@@ -2,19 +2,20 @@
 
 import { useTheme } from "@/lib/theme";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import styles from "./page.module.css";
 
 export default function AccessibilityTestPage() {
   const { theme, resolvedTheme } = useTheme();
 
   return (
-    <div className="min-h-screen bg-bg-primary p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <div className={styles.page}>
+      <div className={styles.container}>
         {/* Header */}
-        <div className="bg-bg-secondary border border-border-primary rounded-lg p-6">
-          <h1 className="text-3xl font-bold text-text-primary mb-4">Accessibility Test Suite</h1>
-          <div className="flex items-center gap-4">
-            <span className="text-text-secondary">
-              Current theme: <strong className="text-text-primary">{theme}</strong>
+        <div className={styles.card}>
+          <h1 className={styles.title}>Accessibility Test Suite</h1>
+          <div className={styles.headerRow}>
+            <span className={styles.themeLabel}>
+              Current theme: <strong>{theme}</strong>
               {theme === "system" && ` (resolved: ${resolvedTheme})`}
             </span>
             <ThemeToggle />
@@ -22,44 +23,44 @@ export default function AccessibilityTestPage() {
         </div>
 
         {/* Contrast Ratio Testing */}
-        <div className="bg-bg-secondary border border-border-primary rounded-lg p-6">
-          <h2 className="text-2xl font-semibold text-text-primary mb-6">Contrast Ratio Testing</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className={styles.card}>
+          <h2 className={styles.sectionTitle}>Contrast Ratio Testing</h2>
+          <div className={styles.grid2}>
             {/* Text Contrast */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium text-text-primary">Text Contrast</h3>
-              <div className="space-y-2">
-                <div className="bg-bg-primary p-3 rounded border">
-                  <p className="text-text-primary">Primary text (AAA)</p>
+            <div className={styles.column}>
+              <h3 className={styles.subheading}>Text Contrast</h3>
+              <div className={styles.stack2}>
+                <div className={styles.swatch}>
+                  <p className={styles.textPrimary}>Primary text (AAA)</p>
                 </div>
-                <div className="bg-bg-primary p-3 rounded border">
-                  <p className="text-text-secondary">Secondary text (AA)</p>
+                <div className={styles.swatch}>
+                  <p className={styles.textSecondary}>Secondary text (AA)</p>
                 </div>
-                <div className="bg-bg-primary p-3 rounded border">
-                  <p className="text-text-tertiary">Tertiary text (AA)</p>
+                <div className={styles.swatch}>
+                  <p className={styles.textTertiary}>Tertiary text (AA)</p>
                 </div>
-                <div className="bg-bg-primary p-3 rounded border">
-                  <p className="text-text-muted">Muted text (AA Large)</p>
+                <div className={styles.swatch}>
+                  <p className={styles.textMuted}>Muted text (AA Large)</p>
                 </div>
               </div>
             </div>
 
             {/* Link Contrast */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium text-text-primary">Link Contrast</h3>
-              <div className="space-y-2">
-                <div className="bg-bg-primary p-3 rounded border">
-                  <a href="#" className="text-link-primary hover:text-link-hover focus-ring">
+            <div className={styles.column}>
+              <h3 className={styles.subheading}>Link Contrast</h3>
+              <div className={styles.stack2}>
+                <div className={styles.swatch}>
+                  <a href="#" className={`${styles.link} focus-ring`}>
                     Primary link
                   </a>
                 </div>
-                <div className="bg-bg-primary p-3 rounded border">
-                  <a href="#" className="text-link-primary hover:text-link-hover focus-ring underline">
+                <div className={styles.swatch}>
+                  <a href="#" className={`${styles.link} ${styles.linkUnderline} focus-ring`}>
                     Underlined link
                   </a>
                 </div>
-                <div className="bg-bg-secondary p-3 rounded border">
-                  <a href="#" className="text-link-primary hover:text-link-hover focus-ring">
+                <div className={styles.swatchSecondary}>
+                  <a href="#" className={`${styles.link} focus-ring`}>
                     Link on secondary background
                   </a>
                 </div>
@@ -69,155 +70,130 @@ export default function AccessibilityTestPage() {
         </div>
 
         {/* Focus States Testing */}
-        <div className="bg-bg-secondary border border-border-primary rounded-lg p-6">
-          <h2 className="text-2xl font-semibold text-text-primary mb-6">Focus States</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className={styles.card}>
+          <h2 className={styles.sectionTitle}>Focus States</h2>
+          <div className={styles.grid2}>
             {/* Buttons */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium text-text-primary">Interactive Elements</h3>
-              <div className="space-y-3">
-                <button className="w-full bg-button-primary-bg text-button-primary-text px-4 py-2 rounded-md focus-ring">
-                  Primary Button
-                </button>
-                <button className="w-full bg-button-secondary-bg text-button-secondary-text px-4 py-2 rounded-md border border-border-secondary focus-ring">
-                  Secondary Button
-                </button>
-                <button className="w-full bg-bg-primary text-text-primary px-4 py-2 rounded-md border border-border-primary hover:bg-bg-secondary focus-ring">
-                  Outline Button
-                </button>
+            <div className={styles.column}>
+              <h3 className={styles.subheading}>Interactive Elements</h3>
+              <div className={styles.stack3}>
+                <button className={`${styles.buttonPrimary} focus-ring`}>Primary Button</button>
+                <button className={`${styles.buttonSecondary} focus-ring`}>Secondary Button</button>
+                <button className={`${styles.buttonOutline} focus-ring`}>Outline Button</button>
               </div>
             </div>
 
             {/* Form Elements */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium text-text-primary">Form Elements</h3>
-              <div className="space-y-3">
-                <input
-                  type="text"
-                  placeholder="Text input"
-                  className="w-full px-3 py-2 bg-bg-primary border border-border-primary rounded-md text-text-primary placeholder-text-tertiary focus-ring"
-                />
-                <select className="w-full px-3 py-2 bg-bg-primary border border-border-primary rounded-md text-text-primary focus-ring">
+            <div className={styles.column}>
+              <h3 className={styles.subheading}>Form Elements</h3>
+              <div className={styles.stack3}>
+                <input type="text" placeholder="Text input" className={`${styles.input} focus-ring`} />
+                <select className={`${styles.input} focus-ring`}>
                   <option>Option 1</option>
                   <option>Option 2</option>
                 </select>
-                <textarea
-                  placeholder="Textarea"
-                  rows={3}
-                  className="w-full px-3 py-2 bg-bg-primary border border-border-primary rounded-md text-text-primary placeholder-text-tertiary focus-ring resize-none"
-                />
+                <textarea placeholder="Textarea" rows={3} className={`${styles.textarea} focus-ring`} />
               </div>
             </div>
           </div>
         </div>
 
         {/* Status Colors Testing */}
-        <div className="bg-bg-secondary border border-border-primary rounded-lg p-6">
-          <h2 className="text-2xl font-semibold text-text-primary mb-6">Status Colors Accessibility</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-success-bg border border-success-border p-4 rounded">
-              <h4 className="font-medium text-success-text mb-2">Success</h4>
-              <p className="text-sm text-success-text">Action completed successfully</p>
+        <div className={styles.card}>
+          <h2 className={styles.sectionTitle}>Status Colors Accessibility</h2>
+          <div className={styles.grid4}>
+            <div className={`${styles.statusCard} ${styles.statusSuccess}`}>
+              <h4 className={styles.statusHeadingSuccess}>Success</h4>
+              <p className={styles.statusTextSuccess}>Action completed successfully</p>
             </div>
 
-            <div className="bg-error-bg border border-error-border p-4 rounded">
-              <h4 className="font-medium text-error-text mb-2">Error</h4>
-              <p className="text-sm text-error-text">Something went wrong</p>
+            <div className={`${styles.statusCard} ${styles.statusError}`}>
+              <h4 className={styles.statusHeadingError}>Error</h4>
+              <p className={styles.statusTextError}>Something went wrong</p>
             </div>
 
-            <div className="bg-warning-bg border border-warning-border p-4 rounded">
-              <h4 className="font-medium text-warning-text mb-2">Warning</h4>
-              <p className="text-sm text-warning-text">Please review this item</p>
+            <div className={`${styles.statusCard} ${styles.statusWarning}`}>
+              <h4 className={styles.statusHeadingWarning}>Warning</h4>
+              <p className={styles.statusTextWarning}>Please review this item</p>
             </div>
 
-            <div className="bg-info-bg border border-info-border p-4 rounded">
-              <h4 className="font-medium text-info-text mb-2">Information</h4>
-              <p className="text-sm text-info-text">Additional details available</p>
+            <div className={`${styles.statusCard} ${styles.statusInfo}`}>
+              <h4 className={styles.statusHeadingInfo}>Information</h4>
+              <p className={styles.statusTextInfo}>Additional details available</p>
             </div>
           </div>
         </div>
 
         {/* Keyboard Navigation Test */}
-        <div className="bg-bg-secondary border border-border-primary rounded-lg p-6">
-          <h2 className="text-2xl font-semibold text-text-primary mb-6">Keyboard Navigation</h2>
-          <p className="text-text-secondary mb-4">
+        <div className={styles.card}>
+          <h2 className={styles.sectionTitle}>Keyboard Navigation</h2>
+          <p className={styles.description}>
             Use Tab to navigate through these elements. Focus rings should be clearly visible.
           </p>
-          <div className="flex flex-wrap gap-3">
-            <button className="px-4 py-2 bg-button-primary-bg text-button-primary-text rounded focus-ring">
-              Button 1
-            </button>
-            <button className="px-4 py-2 bg-button-secondary-bg text-button-secondary-text rounded focus-ring">
-              Button 2
-            </button>
-            <a href="#" className="px-4 py-2 text-link-primary border border-border-primary rounded focus-ring">
+          <div className={styles.keyboardRow}>
+            <button className={`${styles.keyboardButtonPrimary} focus-ring`}>Button 1</button>
+            <button className={`${styles.keyboardButtonSecondary} focus-ring`}>Button 2</button>
+            <a href="#" className={`${styles.keyboardLink} focus-ring`}>
               Link 1
             </a>
-            <a href="#" className="px-4 py-2 text-link-primary border border-border-primary rounded focus-ring">
+            <a href="#" className={`${styles.keyboardLink} focus-ring`}>
               Link 2
             </a>
-            <input
-              type="text"
-              placeholder="Input field"
-              className="px-3 py-2 border border-border-primary rounded focus-ring"
-            />
+            <input type="text" placeholder="Input field" className={`${styles.keyboardInput} focus-ring`} />
           </div>
         </div>
 
         {/* ARIA and Screen Reader Testing */}
-        <div className="bg-bg-secondary border border-border-primary rounded-lg p-6">
-          <h2 className="text-2xl font-semibold text-text-primary mb-6">ARIA and Screen Reader Support</h2>
-          <div className="space-y-4">
-            <div role="alert" aria-live="polite" className="bg-error-bg border border-error-border p-4 rounded">
-              <h3 className="font-medium text-error-text">Error Alert</h3>
-              <p className="text-error-text">This is an important error message for screen readers.</p>
+        <div className={styles.card}>
+          <h2 className={styles.sectionTitle}>ARIA and Screen Reader Support</h2>
+          <div className={styles.column}>
+            <div role="alert" aria-live="polite" className={styles.alert}>
+              <h3 className={styles.alertHeading}>Error Alert</h3>
+              <p className={styles.alertText}>This is an important error message for screen readers.</p>
             </div>
 
-            <div className="bg-bg-primary border border-border-primary p-4 rounded">
-              <h3 className="text-text-primary mb-3">Progress Indicator</h3>
+            <div className={styles.infoBox}>
+              <h3 className={styles.infoBoxHeading}>Progress Indicator</h3>
               <div
                 role="progressbar"
                 aria-valuenow={75}
                 aria-valuemin={0}
                 aria-valuemax={100}
                 aria-label="Theme setup progress"
-                className="w-full bg-bg-secondary rounded-full h-2"
+                className={styles.progressTrack}
               >
-                <div
-                  className="bg-link-primary h-2 rounded-full transition-all duration-300"
-                  style={{ width: "75%" }}
-                ></div>
+                <div className={styles.progressBar} style={{ width: "75%" }}></div>
               </div>
-              <p className="text-sm text-text-secondary mt-2">75% complete</p>
+              <p className={styles.progressLabel}>75% complete</p>
             </div>
 
-            <div className="bg-bg-primary border border-border-primary p-4 rounded">
-              <h3 className="text-text-primary mb-3">Toggle Switch</h3>
-              <label className="flex items-center cursor-pointer">
+            <div className={styles.infoBox}>
+              <h3 className={styles.infoBoxHeading}>Toggle Switch</h3>
+              <label className={styles.toggleLabel}>
                 <input type="checkbox" className="sr-only" />
-                <div className="relative">
-                  <div className="block bg-bg-secondary w-14 h-8 rounded-full border border-border-primary"></div>
-                  <div className="absolute start-1 top-1 bg-button-primary-bg w-6 h-6 rounded-full transition focus-ring"></div>
+                <div className={styles.toggleWrapper}>
+                  <div className={styles.toggleTrack}></div>
+                  <div className={`${styles.toggleKnob} focus-ring`}></div>
                 </div>
-                <span className="ms-3 text-text-primary">Enable dark mode</span>
+                <span className={styles.toggleText}>Enable dark mode</span>
               </label>
             </div>
           </div>
         </div>
 
         {/* High Contrast Mode Notice */}
-        <div className="bg-warning-bg border border-warning-border rounded-lg p-6">
-          <h2 className="text-xl font-semibold text-warning-text mb-4">High Contrast Mode Support</h2>
-          <p className="text-warning-text">
+        <div className={styles.noticeWarning}>
+          <h2 className={styles.noticeTitleWarning}>High Contrast Mode Support</h2>
+          <p className={styles.noticeTextWarning}>
             This theme system automatically adapts to high contrast mode preferences. Test by enabling high contrast
             mode in your operating system settings.
           </p>
         </div>
 
         {/* Reduced Motion Notice */}
-        <div className="bg-info-bg border border-info-border rounded-lg p-6">
-          <h2 className="text-xl font-semibold text-info-text mb-4">Reduced Motion Support</h2>
-          <p className="text-info-text">
+        <div className={styles.noticeInfo}>
+          <h2 className={styles.noticeTitleInfo}>Reduced Motion Support</h2>
+          <p className={styles.noticeTextInfo}>
             All theme transitions respect the &ldquo;prefers-reduced-motion&rdquo; setting. Animations will be disabled
             for users who prefer reduced motion.
           </p>

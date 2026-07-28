@@ -3,6 +3,7 @@
 import HintsPanel from "@/components/coding-exercise/ui/HintsPanel";
 import { GlobalModalProvider } from "@/lib/modal/GlobalModalProvider";
 import type { VideoSource } from "@/types/lesson";
+import styles from "./page.module.css";
 
 const sampleHints = [
   { question: "Hint", answer: "Try using a <code>for</code> loop to iterate through the array." },
@@ -21,12 +22,12 @@ const walkthroughVideoData: VideoSource[] = [
 
 export default function HintsWalkthroughPage() {
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className={styles.page}>
       <GlobalModalProvider />
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">HintsPanel — Walkthrough Video Section</h1>
+      <div className={styles.container}>
+        <h1 className={styles.title}>HintsPanel — Walkthrough Video Section</h1>
 
-        <div className="space-y-10">
+        <div className={styles.sections}>
           <Section label="Hints + Walkthrough Video">
             <HintsPanel hints={sampleHints} walkthroughVideoData={walkthroughVideoData} lessonSlug="test-lesson" />
           </Section>
@@ -51,8 +52,8 @@ export default function HintsWalkthroughPage() {
 function Section({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <h2 className="text-lg font-semibold mb-3">{label}</h2>
-      <div className="bg-white rounded-lg border border-gray-200 overflow-hidden" style={{ maxWidth: 480 }}>
+      <h2 className={styles.sectionTitle}>{label}</h2>
+      <div className={styles.sectionBody} style={{ maxWidth: 480 }}>
         {children}
       </div>
     </div>

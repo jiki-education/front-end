@@ -1,0 +1,55 @@
+.page {
+    padding: 8px;
+    max-width: 672px;
+    margin-inline: auto;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.subtitle {
+    color: var(--color-gray-500);
+    margin-bottom: 8px;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.row {
+    border: 1px solid var(--color-border-primary);
+    border-radius: 8px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 4px;
+}
+
+.name {
+    font-weight: 600;
+}
+
+.description {
+    font-size: 14px;
+    color: var(--color-gray-500);
+}
+
+.triggerButton {
+    padding-inline: 4px;
+    padding-block: 2px;
+    background: var(--color-pink-600);
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.15s ease;
+    white-space: nowrap;
+
+    &:hover {
+        background: color-mix(in srgb, var(--color-pink-600) 88%, black);
+    }
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
+import styles from "./page.module.css";
 
 export default function PremiumUpgradeModalTest() {
   const handleShowModal = () => {
@@ -15,16 +16,13 @@ export default function PremiumUpgradeModalTest() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold mb-8">Premium Upgrade Modal Test</h1>
-        <button
-          onClick={handleShowModal}
-          className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg font-semibold hover:from-purple-600 hover:to-pink-600 transition-colors"
-        >
+    <div className={styles.page}>
+      <div className={styles.content}>
+        <h1 className={styles.title}>Premium Upgrade Modal Test</h1>
+        <button onClick={handleShowModal} className={styles.button}>
           Show Premium Upgrade Modal
         </button>
-        <p className="mt-4 text-gray-600">Click the button to test the new premium upgrade modal</p>
+        <p className={styles.note}>Click the button to test the new premium upgrade modal</p>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import JikiMuxPlayer from "@/components/ui/JikiMuxPlayer";
+import styles from "./page.module.css";
 
 interface VideoSource {
   provider: string;
@@ -75,41 +76,37 @@ export default function CurriculumVideosClient({ levels }: { levels: CurriculumL
   }, {});
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold mb-2">Curriculum Videos</h1>
-        <p className="text-gray-600 mb-6">
+    <div className={styles.page}>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Curriculum Videos</h1>
+        <p className={styles.intro}>
           {videos.length} videos across {Object.keys(grouped).length} levels, sourced from{" "}
-          <code className="bg-gray-200 px-1 rounded">api/db/seeds/curriculum.json</code>.
+          <code className={styles.inlineCode}>api/db/seeds/curriculum.json</code>.
         </p>
 
         {Object.entries(grouped).map(([key, entries]) => {
           const [, levelTitle] = key.split("::");
           return (
-            <section key={key} className="mb-10">
-              <h2 className="text-2xl font-semibold mb-4 border-b pb-2">{levelTitle}</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <section key={key} className={styles.level}>
+              <h2 className={styles.levelTitle}>{levelTitle}</h2>
+              <div className={styles.grid}>
                 {entries.map((entry, idx) => (
-                  <div key={`${entry.lessonSlug}-${entry.source.id}-${idx}`} className="bg-white rounded-lg shadow p-4">
-                    <div className="flex items-start justify-between mb-2">
+                  <div key={`${entry.lessonSlug}-${entry.source.id}-${idx}`} className={styles.card}>
+                    <div className={styles.cardHeader}>
                       <div>
-                        <h3 className="font-semibold">{entry.lessonTitle}</h3>
-                        <p className="text-xs text-gray-500 font-mono">{entry.lessonSlug}</p>
+                        <h3 className={styles.lessonTitle}>{entry.lessonTitle}</h3>
+                        <p className={styles.lessonSlug}>{entry.lessonSlug}</p>
                       </div>
-                      {entry.kind === "walkthrough" && (
-                        <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">walkthrough</span>
-                      )}
+                      {entry.kind === "walkthrough" && <span className={styles.walkthroughTag}>walkthrough</span>}
                     </div>
-                    <div className="aspect-video bg-black rounded overflow-hidden">
+                    <div className={styles.videoWrapper}>
                       {entry.source.provider === "mux" ? (
                         <JikiMuxPlayer playbackId={entry.source.id} autoPlay={false} />
                       ) : (
-                        <div className="flex items-center justify-center h-full text-white text-sm">
-                          Unsupported provider: {entry.source.provider}
-                        </div>
+                        <div className={styles.unsupported}>Unsupported provider: {entry.source.provider}</div>
                       )}
                     </div>
-                    <p className="mt-2 text-xs text-gray-500 font-mono break-all">
+                    <p className={styles.sourceMeta}>
                       {entry.source.provider}:{entry.source.id}
                     </p>
                   </div>

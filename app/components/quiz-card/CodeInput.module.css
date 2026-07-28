@@ -1,0 +1,40 @@
+.wrapper {
+    width: 100%;
+}
+
+.textarea {
+    width: 100%;
+    /* h-32: authored against Tailwind defaults (8rem); these test pages never
+       rendered under the project's px scale, so use the intended 128px. */
+    height: 128px;
+    padding-inline: 4px;
+    padding-block: 12px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    border-radius: 8px;
+    border: 2px solid var(--color-gray-300);
+    background: var(--color-gray-50);
+    resize: none;
+    transition: all 0.2s ease;
+
+    &:focus {
+        outline: none;
+        border-color: var(--color-blue-500);
+        box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-blue-500) 20%, transparent);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.textarea[data-state="correct"] {
+    border-color: var(--color-green-500);
+    background: var(--color-green-50);
+}
+
+.textarea[data-state="incorrect"] {
+    border-color: var(--color-red-500);
+    background: var(--color-red-50);
+}

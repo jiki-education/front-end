@@ -3,19 +3,20 @@
 import { useTheme } from "@/lib/theme";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import Link from "next/link";
+import styles from "./page.module.css";
 
 export default function ThemeTestPage() {
   const { theme, resolvedTheme } = useTheme();
 
   return (
-    <div className="min-h-screen bg-bg-primary p-8">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <div className={styles.page}>
+      <div className={styles.container}>
         {/* Header */}
-        <div className="bg-bg-secondary border border-border-primary rounded-lg p-6">
-          <h1 className="text-3xl font-bold text-text-primary mb-4">Dark/Light Theme Test Page</h1>
-          <div className="flex items-center gap-4">
-            <span className="text-text-secondary">
-              Current theme: <strong className="text-text-primary">{theme}</strong>
+        <div className={styles.card}>
+          <h1 className={styles.title}>Dark/Light Theme Test Page</h1>
+          <div className={styles.headerRow}>
+            <span className={styles.themeLabel}>
+              Current theme: <strong>{theme}</strong>
               {theme === "system" && ` (resolved: ${resolvedTheme})`}
             </span>
             <ThemeToggle />
@@ -23,49 +24,45 @@ export default function ThemeTestPage() {
         </div>
 
         {/* Color Palette Demo */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className={styles.paletteGrid}>
           {/* Background Colors */}
-          <div className="bg-bg-secondary border border-border-primary rounded-lg p-4">
-            <h2 className="text-xl font-semibold text-text-primary mb-4">Backgrounds</h2>
-            <div className="space-y-2">
-              <div className="bg-bg-primary border border-border-secondary rounded p-3">
-                <span className="text-text-secondary text-sm">bg-primary</span>
+          <div className={styles.cardCompact}>
+            <h2 className={styles.cardTitle}>Backgrounds</h2>
+            <div className={styles.stack2}>
+              <div className={styles.swatchPrimary}>
+                <span className={styles.swatchLabel}>bg-primary</span>
               </div>
-              <div className="bg-bg-secondary border border-border-secondary rounded p-3">
-                <span className="text-text-secondary text-sm">bg-secondary</span>
+              <div className={styles.swatchSecondary}>
+                <span className={styles.swatchLabel}>bg-secondary</span>
               </div>
-              <div className="bg-bg-tertiary border border-border-secondary rounded p-3">
-                <span className="text-text-secondary text-sm">bg-tertiary</span>
+              <div className={styles.swatchTertiary}>
+                <span className={styles.swatchLabel}>bg-tertiary</span>
               </div>
-              <div className="bg-surface-elevated border border-border-secondary rounded p-3">
-                <span className="text-text-secondary text-sm">surface-elevated</span>
+              <div className={styles.swatchElevated}>
+                <span className={styles.swatchLabel}>surface-elevated</span>
               </div>
             </div>
           </div>
 
           {/* Text Colors */}
-          <div className="bg-bg-secondary border border-border-primary rounded-lg p-4">
-            <h2 className="text-xl font-semibold text-text-primary mb-4">Text</h2>
-            <div className="space-y-2">
-              <p className="text-text-primary">Primary text color</p>
-              <p className="text-text-secondary">Secondary text color</p>
-              <p className="text-text-tertiary">Tertiary text color</p>
-              <p className="text-text-muted">Muted text color</p>
+          <div className={styles.cardCompact}>
+            <h2 className={styles.cardTitle}>Text</h2>
+            <div className={styles.stack2}>
+              <p className={styles.textPrimary}>Primary text color</p>
+              <p className={styles.textSecondary}>Secondary text color</p>
+              <p className={styles.textTertiary}>Tertiary text color</p>
+              <p className={styles.textMuted}>Muted text color</p>
             </div>
           </div>
 
           {/* Interactive Elements */}
-          <div className="bg-bg-secondary border border-border-primary rounded-lg p-4">
-            <h2 className="text-xl font-semibold text-text-primary mb-4">Interactive</h2>
-            <div className="space-y-3">
-              <button className="w-full bg-button-primary-bg text-button-primary-text px-4 py-2 rounded-md hover:opacity-90 transition-opacity">
-                Primary Button
-              </button>
-              <button className="w-full bg-button-secondary-bg text-button-secondary-text px-4 py-2 rounded-md border border-border-secondary hover:bg-bg-tertiary transition-colors">
-                Secondary Button
-              </button>
-              <div className="space-y-1">
-                <a href="#" className="text-link-primary hover:text-link-hover transition-colors">
+          <div className={styles.cardCompact}>
+            <h2 className={styles.cardTitle}>Interactive</h2>
+            <div className={styles.stack3}>
+              <button className={styles.buttonPrimary}>Primary Button</button>
+              <button className={styles.buttonSecondary}>Secondary Button</button>
+              <div className={styles.stack1}>
+                <a href="#" className={styles.link}>
                   Primary Link
                 </a>
               </div>
@@ -73,48 +70,44 @@ export default function ThemeTestPage() {
           </div>
 
           {/* Status Colors */}
-          <div className="bg-bg-secondary border border-border-primary rounded-lg p-4">
-            <h2 className="text-xl font-semibold text-text-primary mb-4">Status</h2>
-            <div className="space-y-3">
-              <div className="bg-success-bg text-success-text p-3 rounded border border-success-border">
-                Success message
-              </div>
-              <div className="bg-error-bg text-error-text p-3 rounded border border-error-border">Error message</div>
-              <div className="bg-warning-bg text-warning-text p-3 rounded border border-warning-border">
-                Warning message
-              </div>
-              <div className="bg-info-bg text-info-text p-3 rounded border border-info-border">Info message</div>
+          <div className={styles.cardCompact}>
+            <h2 className={styles.cardTitle}>Status</h2>
+            <div className={styles.stack3}>
+              <div className={`${styles.statusBox} ${styles.statusSuccess}`}>Success message</div>
+              <div className={`${styles.statusBox} ${styles.statusError}`}>Error message</div>
+              <div className={`${styles.statusBox} ${styles.statusWarning}`}>Warning message</div>
+              <div className={`${styles.statusBox} ${styles.statusInfo}`}>Info message</div>
             </div>
           </div>
 
           {/* Borders */}
-          <div className="bg-bg-secondary border border-border-primary rounded-lg p-4">
-            <h2 className="text-xl font-semibold text-text-primary mb-4">Borders</h2>
-            <div className="space-y-3">
-              <div className="border border-border-primary rounded p-3">
-                <span className="text-text-secondary text-sm">border-primary</span>
+          <div className={styles.cardCompact}>
+            <h2 className={styles.cardTitle}>Borders</h2>
+            <div className={styles.stack3}>
+              <div className={styles.borderSwatchPrimary}>
+                <span className={styles.swatchLabel}>border-primary</span>
               </div>
-              <div className="border border-border-secondary rounded p-3">
-                <span className="text-text-secondary text-sm">border-secondary</span>
+              <div className={styles.borderSwatchSecondary}>
+                <span className={styles.swatchLabel}>border-secondary</span>
               </div>
             </div>
           </div>
 
           {/* Status Variants */}
-          <div className="bg-bg-secondary border border-border-primary rounded-lg p-4">
-            <h2 className="text-xl font-semibold text-text-primary mb-4">Status Variants</h2>
-            <div className="space-y-2">
-              <div className="bg-green-50 text-green-900 p-2 rounded border border-green-500">Success variant</div>
-              <div className="bg-red-50 text-red-400 p-2 rounded border border-red-400">Fail variant</div>
-              <div className="bg-purple-50 text-text-primary p-2 rounded">Light Purple variant</div>
+          <div className={styles.cardCompact}>
+            <h2 className={styles.cardTitle}>Status Variants</h2>
+            <div className={styles.stack2}>
+              <div className={`${styles.variantBox} ${styles.variantSuccess}`}>Success variant</div>
+              <div className={`${styles.variantBox} ${styles.variantFail}`}>Fail variant</div>
+              <div className={`${styles.variantBox} ${styles.variantPurple}`}>Light Purple variant</div>
             </div>
           </div>
         </div>
 
         {/* CSS Custom Properties Info */}
-        <div className="bg-bg-secondary border border-border-primary rounded-lg p-6">
-          <h2 className="text-xl font-semibold text-text-primary mb-4">Theme System Implementation</h2>
-          <div className="text-text-secondary space-y-2">
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Theme System Implementation</h2>
+          <div className={styles.infoList}>
             <p>✅ CSS Custom Properties with semantic tokens</p>
             <p>✅ React Context + localStorage for persistence</p>
             <p>✅ System theme detection and auto-switching</p>
@@ -128,9 +121,9 @@ export default function ThemeTestPage() {
         </div>
 
         {/* Phase 3 Completion Status */}
-        <div className="bg-success-bg border border-success-border rounded-lg p-6 theme-transition">
-          <h2 className="text-xl font-semibold text-success-text mb-4">🎉 Phase 3 Complete!</h2>
-          <div className="text-success-text space-y-2">
+        <div className={`${styles.cardSuccess} theme-transition`}>
+          <h2 className={styles.cardTitleSuccess}>🎉 Phase 3 Complete!</h2>
+          <div className={styles.successList}>
             <p>
               <strong>Component Migration:</strong> PassMessage, TestResultsView, InstructionsPanel migrated
             </p>
@@ -150,30 +143,29 @@ export default function ThemeTestPage() {
         </div>
 
         {/* Animation Demo */}
-        <div className="bg-bg-secondary border border-border-primary rounded-lg p-6 theme-transition-slow">
-          <h2 className="text-xl font-semibold text-text-primary mb-4">Theme Transition Demo</h2>
-          <p className="text-text-secondary mb-4">
-            This card uses{" "}
-            <code className="bg-bg-tertiary px-2 py-1 rounded text-text-primary">theme-transition-slow</code> class for
-            slower transitions. Toggle the theme to see the smooth animation!
+        <div className={`${styles.card} theme-transition-slow`}>
+          <h2 className={styles.cardTitle}>Theme Transition Demo</h2>
+          <p className={styles.description}>
+            This card uses <code className={styles.inlineCode}>theme-transition-slow</code> class for slower
+            transitions. Toggle the theme to see the smooth animation!
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-bg-primary border border-border-primary p-4 rounded theme-transition-fast">
-              <span className="text-text-secondary">Fast transition</span>
+          <div className={styles.transitionGrid}>
+            <div className={`${styles.transitionCardPrimary} theme-transition-fast`}>
+              <span className={styles.textSecondary}>Fast transition</span>
             </div>
-            <div className="bg-bg-tertiary border border-border-secondary p-4 rounded theme-transition">
-              <span className="text-text-primary">Normal transition</span>
+            <div className={`${styles.transitionCardTertiary} theme-transition`}>
+              <span className={styles.textPrimary}>Normal transition</span>
             </div>
-            <div className="bg-surface-elevated border border-border-primary p-4 rounded theme-transition-slow">
-              <span className="text-text-secondary">Slow transition</span>
+            <div className={`${styles.transitionCardElevated} theme-transition-slow`}>
+              <span className={styles.textSecondary}>Slow transition</span>
             </div>
           </div>
         </div>
 
         {/* Phase 4 Completion Status */}
-        <div className="bg-success-bg border border-success-border rounded-lg p-6 theme-transition">
-          <h2 className="text-xl font-semibold text-success-text mb-4">🎉 Phase 4 Complete - Production Ready!</h2>
-          <div className="text-success-text space-y-2">
+        <div className={`${styles.cardSuccess} theme-transition`}>
+          <h2 className={styles.cardTitleSuccess}>🎉 Phase 4 Complete - Production Ready!</h2>
+          <div className={styles.successList}>
             <p>
               <strong>Accessibility:</strong> WCAG compliant focus states, high contrast support, reduced motion
             </p>
@@ -193,40 +185,40 @@ export default function ThemeTestPage() {
         </div>
 
         {/* Test Suite Links */}
-        <div className="bg-info-bg border border-info-border rounded-lg p-6">
-          <h2 className="text-xl font-semibold text-info-text mb-4">Test Suites & Documentation</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-surface-elevated border border-border-primary p-4 rounded">
-              <h3 className="font-medium text-text-primary mb-2">Test Pages</h3>
-              <ul className="space-y-1 text-sm">
+        <div className={styles.cardInfo}>
+          <h2 className={styles.cardTitleInfo}>Test Suites & Documentation</h2>
+          <div className={styles.linkGrid}>
+            <div className={styles.elevatedPanel}>
+              <h3 className={styles.panelHeading}>Test Pages</h3>
+              <ul className={styles.linkList}>
                 <li>
-                  <Link href="/dev/theme-test" className="text-link-primary hover:text-link-hover focus-ring">
+                  <Link href="/dev/theme-test" className={`${styles.link} focus-ring`}>
                     Theme Test Suite
                   </Link>
                 </li>
                 <li>
-                  <Link href="/dev/accessibility-test" className="text-link-primary hover:text-link-hover focus-ring">
+                  <Link href="/dev/accessibility-test" className={`${styles.link} focus-ring`}>
                     Accessibility Audit
                   </Link>
                 </li>
                 <li>
-                  <Link href="/dev/performance-test" className="text-link-primary hover:text-link-hover focus-ring">
+                  <Link href="/dev/performance-test" className={`${styles.link} focus-ring`}>
                     Performance Monitor
                   </Link>
                 </li>
               </ul>
             </div>
-            <div className="bg-surface-elevated border border-border-primary p-4 rounded">
-              <h3 className="font-medium text-text-primary mb-2">Documentation</h3>
-              <ul className="space-y-1 text-sm">
+            <div className={styles.elevatedPanel}>
+              <h3 className={styles.panelHeading}>Documentation</h3>
+              <ul className={styles.linkList}>
                 <li>
-                  <span className="text-text-secondary">📖 THEME_SYSTEM_GUIDE.md</span>
+                  <span className={styles.textSecondary}>📖 THEME_SYSTEM_GUIDE.md</span>
                 </li>
                 <li>
-                  <span className="text-text-secondary">📋 DARK_THEME_IMPLEMENTATION_PLAN.md</span>
+                  <span className={styles.textSecondary}>📋 DARK_THEME_IMPLEMENTATION_PLAN.md</span>
                 </li>
                 <li>
-                  <span className="text-text-secondary">⚙️ Complete API Reference</span>
+                  <span className={styles.textSecondary}>⚙️ Complete API Reference</span>
                 </li>
               </ul>
             </div>

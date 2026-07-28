@@ -5,6 +5,7 @@
 import { keyboard, useKeyboard } from "@/lib/keyboard";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import styles from "./page.module.css";
 
 export default function KeyboardNavigationTestPage() {
   const [log, setLog] = useState<string[]>([]);
@@ -60,12 +61,12 @@ export default function KeyboardNavigationTestPage() {
   }, []);
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Keyboard Navigation Test</h1>
+    <div className={styles.page}>
+      <h1 className={styles.title}>Keyboard Navigation Test</h1>
 
-      <div className="mb-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-        <h2 className="text-lg font-semibold mb-2">Test Instructions</h2>
-        <ol className="text-sm space-y-2">
+      <div className={styles.instructions}>
+        <h2 className={styles.sectionTitle}>Test Instructions</h2>
+        <ol className={styles.instructionList}>
           <li>
             1. Press <kbd>Ctrl+T</kbd> and <kbd>Ctrl+H</kbd> to test shortcuts work
           </li>
@@ -76,31 +77,31 @@ export default function KeyboardNavigationTestPage() {
         </ol>
       </div>
 
-      <div className="mb-8 space-x-4">
-        <Link href="/dev" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+      <div className={styles.links}>
+        <Link href="/dev" className={styles.link}>
           Go to Dev Index
         </Link>
-        <Link href="/dev/test-keyboard" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+        <Link href="/dev/test-keyboard" className={styles.link}>
           Go to Keyboard Test
         </Link>
-        <Link href="/" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+        <Link href="/" className={styles.link}>
           Go to Home
         </Link>
       </div>
 
-      <div className="mb-4 p-4 bg-gray-100 rounded">
+      <div className={styles.counter}>
         <p>Shortcuts registered: {registeredCount} times</p>
-        <p className="text-sm text-gray-600 mt-2">If this number increases after navigation, we have a memory leak</p>
+        <p className={styles.counterNote}>If this number increases after navigation, we have a memory leak</p>
       </div>
 
-      <div className="bg-gray-900 rounded-lg p-4">
-        <h2 className="text-lg font-semibold text-white mb-3">Event Log</h2>
+      <div className={styles.logPanel}>
+        <h2 className={styles.logTitle}>Event Log</h2>
         {log.length === 0 ? (
-          <p className="text-gray-400 text-sm">No events yet</p>
+          <p className={styles.logEmpty}>No events yet</p>
         ) : (
-          <div className="space-y-1 max-h-96 overflow-y-auto">
+          <div className={styles.logEntries}>
             {log.map((entry, i) => (
-              <div key={i} className="text-green-400 text-sm font-mono">
+              <div key={i} className={styles.logEntry}>
                 {entry}
               </div>
             ))}

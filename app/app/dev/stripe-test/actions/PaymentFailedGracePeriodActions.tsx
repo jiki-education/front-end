@@ -1,29 +1,26 @@
 import { handleCancelSubscription, handleOpenPortal } from "../handlers";
+import styles from "./actions.module.css";
 
 export function PaymentFailedGracePeriodActions({ refreshUser }: { refreshUser: () => Promise<void> }) {
   return (
-    <div className="space-y-3">
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold text-red-700">Payment Failed - Grace Period</h3>
-        <p className="text-sm text-gray-600">Update your payment method within 7 days to maintain access</p>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h3 className={styles.heading} data-tone="red">
+          Payment Failed - Grace Period
+        </h3>
+        <p className={styles.description}>Update your payment method within 7 days to maintain access</p>
       </div>
 
-      <button
-        onClick={handleOpenPortal}
-        className="w-full px-4 py-3 bg-red-600 text-white font-semibold rounded hover:bg-red-700 transition-colors"
-      >
+      <button onClick={handleOpenPortal} className={styles.button} data-variant="red">
         Update Payment Method
       </button>
 
-      <button
-        onClick={() => handleCancelSubscription(refreshUser)}
-        className="w-full px-4 py-3 bg-gray-600 text-white font-semibold rounded hover:bg-gray-700 transition-colors"
-      >
+      <button onClick={() => handleCancelSubscription(refreshUser)} className={styles.button} data-variant="gray">
         Cancel Subscription
       </button>
 
-      <div className="mt-4 pt-4 border-t border-gray-200">
-        <p className="text-xs text-gray-500">You still have access during the grace period</p>
+      <div className={styles.footer}>
+        <p className={styles.footnote}>You still have access during the grace period</p>
       </div>
     </div>
   );

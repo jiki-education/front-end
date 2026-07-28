@@ -1,0 +1,40 @@
+.page {
+    min-height: 100vh;
+    background: var(--color-gray-100);
+    padding: 8px;
+}
+
+.container {
+    max-width: 672px;
+    margin-inline: auto;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.states {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.stateTitle {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.cardShell {
+    background: white;
+    border-radius: 8px;
+    border: 2px solid var(--color-gray-200);
+    padding: 6px;
+    position: relative;
+}
+
+.cardLabel {
+    color: var(--color-gray-500);
+}

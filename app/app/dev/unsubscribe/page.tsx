@@ -7,6 +7,7 @@ import ManageNotificationsSection from "@/components/unsubscribe/ManageNotificat
 import type { EmailPreferences } from "@/lib/api/emailPreferences";
 import { buildEmailPreferences } from "@/lib/notifications/config";
 import styles from "@/components/unsubscribe/UnsubscribePage.module.css";
+import dev from "./page.module.css";
 
 type ActionState = "idle" | "loading" | "success" | "error";
 
@@ -32,15 +33,13 @@ export default function UnsubscribeDevPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8">
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="mb-8 p-6 bg-white rounded-lg shadow-sm">
-          <h1 className="text-2xl font-bold mb-4">Unsubscribe Page - Dev Testing</h1>
-          <p className="text-gray-600 mb-4">
-            This page allows you to test the unsubscribe UI components in various states.
-          </p>
+    <div className={dev.page}>
+      <div className={dev.container}>
+        <div className={dev.panel}>
+          <h1 className={dev.panelTitle}>Unsubscribe Page - Dev Testing</h1>
+          <p className={dev.panelText}>This page allows you to test the unsubscribe UI components in various states.</p>
 
-          <div className="flex flex-wrap gap-3 mb-4">
+          <div className={dev.buttonRow}>
             <button
               className="ui-btn ui-btn-small ui-btn-secondary"
               onClick={() => {
@@ -65,7 +64,7 @@ export default function UnsubscribeDevPage() {
             </button>
           </div>
 
-          <div className="flex flex-wrap gap-3">
+          <div className={dev.buttonRowLast}>
             <button className="ui-btn ui-btn-small ui-btn-danger" onClick={() => setEmailKeyState("error")}>
               Simulate Email Key Error
             </button>
@@ -76,7 +75,7 @@ export default function UnsubscribeDevPage() {
         </div>
 
         {/* Actual Unsubscribe Page UI */}
-        <div className={`${styles.pageBackground} rounded-lg shadow-sm p-6`}>
+        <div className={`${styles.pageBackground} ${dev.previewShell}`}>
           <div className={styles.pageWrapper}>
             <div className={styles.innerContent}>
               <header className={styles.pageHeader}>
@@ -124,9 +123,9 @@ export default function UnsubscribeDevPage() {
         </div>
 
         {/* State Display */}
-        <div className="mt-8 p-6 bg-white rounded-lg shadow-sm">
-          <h2 className="text-lg font-semibold mb-3">Current State</h2>
-          <pre className="bg-gray-100 p-4 rounded text-sm overflow-auto">
+        <div className={dev.statePanel}>
+          <h2 className={dev.stateTitle}>Current State</h2>
+          <pre className={dev.statePre}>
             {JSON.stringify({ preferences, emailKeyState, allState, preferencesState }, null, 2)}
           </pre>
         </div>

@@ -1,0 +1,84 @@
+.option {
+    width: 100%;
+    padding-inline: 4px;
+    padding-block: 12px;
+    text-align: start;
+    border-radius: 8px;
+    border: 2px solid var(--color-gray-200);
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.2s ease;
+
+    &:hover {
+        border-color: var(--color-blue-300);
+        background: var(--color-blue-50);
+    }
+}
+
+.option[data-state="hovered"] {
+    background: var(--color-blue-50);
+    border-color: var(--color-blue-300);
+}
+
+.option[data-state="clicked"] {
+    background: var(--color-blue-100);
+    border-color: var(--color-blue-400);
+    transform: scale(0.98);
+}
+
+.option[data-state="selected"] {
+    background: var(--color-blue-100);
+    border-color: var(--color-blue-500);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.option[data-state="correct"] {
+    background: var(--color-green-100);
+    border-color: var(--color-green-500);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.option[data-state="incorrect"] {
+    background: var(--color-red-100);
+    border-color: var(--color-red-500);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.option[data-state="correct-reveal"] {
+    background: var(--color-green-50);
+    border-color: var(--color-green-400);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.optionLabel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.letter {
+    font-weight: 600;
+    color: var(--color-gray-600);
+}
+
+.text {
+    color: var(--color-gray-800);
+}
+
+.icon {
+    margin-inline-start: 2px;
+}
+
+.iconCorrect {
+    width: 20px;
+    height: 20px;
+    color: var(--color-green-600);
+}
+
+.iconIncorrect {
+    width: 20px;
+    height: 20px;
+    color: var(--color-red-600);
+}

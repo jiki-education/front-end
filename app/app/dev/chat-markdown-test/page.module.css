@@ -1,0 +1,59 @@
+.page {
+    padding: 8px;
+    max-width: 672px;
+    margin-inline: auto;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.controls {
+    margin-bottom: 6px;
+
+    > * + * {
+        margin-top: 4px;
+    }
+}
+
+.select {
+    border: 1px solid var(--color-border-primary);
+    padding: 2px;
+    border-radius: 4px;
+}
+
+.startButton {
+    background: var(--color-blue-500);
+    color: white;
+    padding-inline: 4px;
+    padding-block: 2px;
+    border-radius: 4px;
+}
+
+.resetButton {
+    background: var(--color-gray-500);
+    color: white;
+    padding-inline: 4px;
+    padding-block: 2px;
+    border-radius: 4px;
+    margin-inline-start: 2px;
+}
+
+.preview {
+    border: 1px solid var(--color-border-primary);
+    border-radius: 4px;
+    padding: 4px;
+    min-height: 200px;
+}
+
+.placeholder {
+    color: var(--color-gray-400);
+}
+
+.status {
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--color-gray-500);
+}

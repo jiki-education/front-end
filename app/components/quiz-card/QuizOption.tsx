@@ -1,6 +1,7 @@
 "use client";
 
 import { Check, X } from "lucide-react";
+import styles from "./QuizOption.module.css";
 
 export type QuizOptionState =
   | "default"
@@ -22,50 +23,19 @@ interface QuizOptionProps {
 
 export function QuizOption({ text, index, state, onSelect, disabled }: QuizOptionProps) {
   const letter = String.fromCharCode(65 + index);
-
-  const getButtonStyles = () => {
-    const base =
-      "w-full px-4 py-12 text-start rounded-lg transition-all duration-200 flex items-center justify-between group";
-
-    switch (state) {
-      case "default":
-        return `${base} bg-white border-2 border-gray-200 hover:border-blue-300 hover:bg-blue-50`;
-      case "hovered":
-        return `${base} bg-blue-50 border-2 border-blue-300`;
-      case "clicked":
-        return `${base} bg-blue-100 border-2 border-blue-400 scale-[0.98]`;
-      case "selected":
-        return `${base} bg-blue-100 border-2 border-blue-500 shadow-md`;
-      case "correct":
-        return `${base} bg-green-100 border-2 border-green-500 shadow-md`;
-      case "incorrect":
-        return `${base} bg-red-100 border-2 border-red-500 shadow-md`;
-      case "correct-reveal":
-        return `${base} bg-green-50 border-2 border-green-400 shadow-sm`;
-      default:
-        return base;
-    }
-  };
-
   const showIcon = state === "correct" || state === "incorrect" || state === "correct-reveal";
 
   return (
-    <button
-      onClick={onSelect}
-      disabled={disabled}
-      className={getButtonStyles()}
-      onMouseDown={() => !disabled && state === "default"}
-      onMouseUp={() => !disabled && state === "default"}
-    >
-      <div className="flex items-center gap-12">
-        <span className="font-semibold text-gray-600">{letter}.</span>
-        <span className="text-gray-800">{text}</span>
+    <button onClick={onSelect} disabled={disabled} className={styles.option} data-state={state}>
+      <div className={styles.optionLabel}>
+        <span className={styles.letter}>{letter}.</span>
+        <span className={styles.text}>{text}</span>
       </div>
       {showIcon && (
-        <div className="ms-2">
-          {state === "correct" && <Check className="w-20 h-20 text-green-600" />}
-          {state === "incorrect" && <X className="w-20 h-20 text-red-600" />}
-          {state === "correct-reveal" && <Check className="w-20 h-20 text-green-600" />}
+        <div className={styles.icon}>
+          {state === "correct" && <Check className={styles.iconCorrect} />}
+          {state === "incorrect" && <X className={styles.iconIncorrect} />}
+          {state === "correct-reveal" && <Check className={styles.iconCorrect} />}
         </div>
       )}
     </button>

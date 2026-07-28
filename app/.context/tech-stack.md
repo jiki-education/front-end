@@ -5,7 +5,7 @@
 - **Framework**: Next.js 15.5.2 with App Router
 - **Language**: TypeScript 5
 - **UI Library**: React 19.1.0 with React Compiler
-- **Styling**: CSS Modules + a hand-written UI Kit for product code. Tailwind CSS v4 is still installed but scoped to the `/dev` and `/test` pages only (both 404 in production); product code does not use it. See `css-styles.md`.
+- **Styling**: CSS Modules + a hand-written UI Kit. Tailwind is not used (fully removed); an ESLint rule blocks Tailwind classes. See `css-styles.md`.
 - **Package Manager**: pnpm
 - **Deployment Target**: Cloudflare Workers
 

@@ -1,0 +1,265 @@
+/* Shared scaffolding for /test/coding-exercise harness pages (dev/e2e only). */
+.page {
+    padding: 8px;
+}
+
+.pageTitle {
+    font-size: 24px;
+    margin-bottom: 4px;
+}
+
+.grid2 {
+    margin-bottom: 4px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+}
+
+.panel {
+    margin-bottom: 4px;
+    padding: 4px;
+    border: 1px solid var(--color-gray-300);
+    border-radius: 4px;
+}
+
+.panelTitle {
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.editorBox {
+    border: 1px solid var(--color-gray-300);
+    border-radius: 4px;
+}
+
+.hint {
+    margin-block-start: 2px;
+    font-size: 14px;
+    color: var(--color-gray-600);
+}
+
+.buttonRow {
+    display: flex;
+    gap: 2px;
+    flex-wrap: wrap;
+}
+
+.button {
+    padding-inline: 6px;
+    padding-block: 2px;
+    border: 1px solid var(--color-gray-300);
+    border-radius: 4px;
+    background: var(--color-gray-200);
+
+    &:hover {
+        background: var(--color-gray-300);
+    }
+}
+
+.button[data-active="true"] {
+    background: var(--color-blue-500);
+    color: white;
+}
+
+.button[data-active="true"][data-variant="red"] {
+    background: var(--color-red-500);
+    color: white;
+}
+
+.button[data-active="true"][data-variant="green"] {
+    background: var(--color-green-500);
+    color: white;
+}
+
+/* Transparent button with hover fill (no default background). */
+.buttonGhost {
+    padding-inline: 6px;
+    padding-block: 2px;
+    border: 1px solid var(--color-gray-300);
+    border-radius: 4px;
+    background: transparent;
+
+    &:hover {
+        background: var(--color-gray-100);
+    }
+}
+
+.chipList {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+/* Horizontal button/control row with gap (replaces space-x-2). */
+.controlRow {
+    display: flex;
+    gap: 2px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.chip[data-variant="red"] {
+    background: var(--color-red-500);
+}
+
+.chip[data-variant="green"] {
+    background: var(--color-green-500);
+}
+
+/* Vertically stacked list of rows (replaces space-y-1). */
+.stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.flexCenter {
+    display: flex;
+    align-items: center;
+}
+
+/* A single frame row: label + times. */
+.frameRow {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+.frameLabel {
+    padding-inline: 2px;
+    padding-block: 1px;
+    border-radius: 4px;
+    font-size: 14px;
+    background: var(--color-gray-200);
+}
+
+.frameLabel[data-active="true"] {
+    background: var(--color-green-500);
+    color: white;
+}
+
+.chip {
+    display: inline-block;
+    padding-inline: 2px;
+    padding-block: 1px;
+    margin-inline-end: 2px;
+    background: var(--color-blue-500);
+    color: white;
+    border-radius: 4px;
+}
+
+.muted {
+    color: var(--color-gray-500);
+}
+
+.debugText {
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.smallText {
+    font-size: 14px;
+}
+
+.mt {
+    margin-block-start: 2px;
+}
+
+.semibold {
+    font-weight: 600;
+}
+
+.debugList {
+    margin-inline-start: 4px;
+    font-size: 12px;
+}
+
+/* Full-screen split layout for the (io-)test-runner harness pages. */
+.screen {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: var(--color-gray-50);
+}
+
+.screenHeader {
+    border-bottom: 1px solid var(--color-gray-200);
+    background: white;
+    padding-inline: 6px;
+    padding-block: 4px;
+}
+
+.screenTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-gray-900);
+}
+
+.screenBody {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.screenPanel {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
+
+.screenPanelLeft {
+    border-inline-end: 1px solid var(--color-gray-200);
+}
+
+.screenPanelRight {
+    background: var(--color-gray-50);
+}
+
+.screenPanelHeader {
+    border-bottom: 1px solid var(--color-gray-200);
+    padding-inline: 4px;
+    padding-block: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.screenPanelTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-gray-700);
+}
+
+.screenFill {
+    flex: 1;
+    overflow: hidden;
+}
+
+.screenFlex {
+    flex: 1;
+}
+
+.screenViz {
+    flex: 1;
+    border-bottom: 1px solid var(--color-gray-200);
+    background: white;
+    padding: 6px;
+}
+
+.screenVizInner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.screenVizPlaceholder {
+    color: var(--color-gray-500);
+}
+
+.screenResults {
+    flex-shrink: 0;
+}

@@ -1,0 +1,81 @@
+.page {
+    min-height: 100vh;
+    background: var(--color-gray-100);
+}
+
+.container {
+    max-width: 1152px;
+    margin-inline: auto;
+    padding: 32px;
+}
+
+.header {
+    margin-bottom: 12px;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.intro {
+    color: var(--color-gray-600);
+}
+
+.section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    margin-bottom: 32px;
+    padding: 32px;
+}
+
+.sectionTitle {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: var(--color-gray-900);
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+}
+
+.rowEnd {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-end;
+}
+
+.stateGroups {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.stateLabel {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: var(--color-gray-700);
+}
+
+.colorfulSection {
+    background: linear-gradient(to right, var(--color-purple-600), var(--color-blue-600));
+    border-radius: 8px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    margin-bottom: 32px;
+    padding: 32px;
+}
+
+.colorfulSectionTitle {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: white;
+}

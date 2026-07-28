@@ -6,6 +6,7 @@ import { playSound } from "@/lib/sound";
 import { QuizContent } from "./QuizContent";
 import { QuizOption, type QuizOptionState } from "./QuizOption";
 import { QuizFeedback } from "./QuizFeedback";
+import styles from "./quiz-card.module.css";
 
 export interface QuizQuestion {
   id: string;
@@ -79,12 +80,12 @@ export function QuizCard({ question, onNext }: QuizCardProps) {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-lg">
-      <div className="mb-6">
+    <div className={styles.card} data-testid="quiz-card">
+      <div className={styles.content}>
         <QuizContent markdown={question.content} />
       </div>
 
-      <div className="space-y-12 mb-6">
+      <div className={styles.options}>
         {question.options.map((option, index) => (
           <QuizOption
             key={index}
@@ -105,7 +106,8 @@ export function QuizCard({ question, onNext }: QuizCardProps) {
       <button
         onClick={submitted ? handleNext : handleSubmit}
         disabled={!submitted && selectedIndex === null}
-        className="w-full mt-6 px-6 py-12 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors duration-200"
+        className={styles.submitButton}
+        data-variant={submitted ? "next" : "submit"}
       >
         {submitted ? t("nextQuestion") : t("submit")}
       </button>

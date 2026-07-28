@@ -11,7 +11,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // Covers app and curriculum CSS (both flow through this pipeline).
 const config = {
   plugins: [
-    "@tailwindcss/postcss",
     path.join(__dirname, "postcss-plugins/rewrite-static-css-urls.cjs"),
     path.join(__dirname, "postcss-plugins/shorthand-physical-to-logical.cjs")
   ]
