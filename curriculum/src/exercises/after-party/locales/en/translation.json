@@ -2,7 +2,7 @@
   "tasks": {
     "lookUpPlusOnes": {
       "name": "Check the Plus-Ones",
-      "description": "Someone gives you their first name. Return the number of extra guests they're allowed to bring in, or `Not on the list!` if they're not invited."
+      "description": "Someone gives you their first name. Return the number of extra guests they're allowed to bring in, or `\"Not on the list!\"` if they're not invited."
     }
   },
   "scenarios": {
@@ -62,7 +62,7 @@
     },
     "notOnTheList": {
       "question": "What do I do when they're not on the list?",
-      "answer": "Then they get the string `Not on the list!`, exactly as written. Two things are worth thinking about here. First, at what point can you be *certain* that someone isn't on the list? Second, notice that this is a genuinely different answer from a guest who's invited but allowed 0 extra guests, so make sure your function never confuses the two."
+      "answer": "Then they get the string `\"Not on the list!\"`, exactly as written. Two things are worth thinking about here. First, at what point can you be *certain* that someone isn't on the list? Second, notice that this is a genuinely different answer from a guest who's invited but allowed 0 extra guests, so make sure your function never confuses the two."
     }
   },
   "functions": {
