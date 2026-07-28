@@ -1,7 +1,6 @@
 import type { Executor } from "../executor";
 import type { LogicalExpression } from "../expression";
 import type { EvaluationResultLogicalExpression, EvaluationResultExpression } from "../evaluation-result";
-import type { JikiObject } from "../jikiObjects";
 import { isTruthy } from "../helpers";
 import { InterpreterInternalError } from "../error";
 
@@ -23,12 +22,12 @@ export function executeLogicalExpression(
   switch (expression.operator.type) {
     case "LOGICAL_AND":
       if (!leftTruthy) {
-        return buildResult(leftResult, null, leftResult.jikiObject);
+        return shortCircuitResult(leftResult);
       }
       break;
     case "LOGICAL_OR":
       if (leftTruthy) {
-        return buildResult(leftResult, null, leftResult.jikiObject);
+        return shortCircuitResult(leftResult);
       }
       break;
     default:
@@ -39,20 +38,23 @@ export function executeLogicalExpression(
 
   const rightResult = executor.evaluate(expression.right);
   executor.verifyBoolean(rightResult.jikiObject, expression.right.location);
-  return buildResult(leftResult, rightResult, rightResult.jikiObject);
-}
-
-function buildResult(
-  leftResult: EvaluationResultExpression,
-  rightResult: EvaluationResultExpression | null,
-  jikiObject: JikiObject
-): EvaluationResultLogicalExpression {
   return {
     type: "LogicalExpression",
+    shortCircuited: false,
     left: leftResult,
     right: rightResult,
-    jikiObject,
-    immutableJikiObject: jikiObject.clone(),
-    shortCircuited: rightResult === null,
+    jikiObject: rightResult.jikiObject,
+    immutableJikiObject: rightResult.jikiObject.clone(),
+  };
+}
+
+function shortCircuitResult(leftResult: EvaluationResultExpression): EvaluationResultLogicalExpression {
+  return {
+    type: "LogicalExpression",
+    shortCircuited: true,
+    left: leftResult,
+    right: null,
+    jikiObject: leftResult.jikiObject,
+    immutableJikiObject: leftResult.jikiObject.clone(),
   };
 }

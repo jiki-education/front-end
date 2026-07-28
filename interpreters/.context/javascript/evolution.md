@@ -9,7 +9,7 @@ The executor now evaluates the left operand, computes its truthiness via the sha
 Consequences:
 
 - The right operand is no longer verified when short-circuited. In strict mode (`allowTruthiness: false`), `false && 5` used to error on the non-boolean `5`; it now returns `false` without inspecting the right side. This matches JikiScript/Python (they only verify the side they evaluate) and is the intended behavior.
-- `EvaluationResultLogicalExpression.right` is now `EvaluationResultExpression | null` and a `shortCircuited: boolean` flag was added. `describeLogicalExpression` renders a "did not need to look at the right side" step when short-circuited (mirroring JikiScript's describer).
+- `EvaluationResultLogicalExpression` is now a discriminated union on a new `shortCircuited` flag: `shortCircuited: true` carries `right: null`, `shortCircuited: false` carries a real `right`. This lets `describeLogicalExpression` narrow `right` from `if (result.shortCircuited)` alone, with no cast. When short-circuited it renders a "Jiki saw `&&` was `false` and so continued" step instead of describing the unevaluated right side.
 - New regression tests in `tests/javascript/regression/logical-short-circuit.test.ts`.
 
 ## 2026-07-25: Reject storing `undefined` in a variable/element/property

@@ -9,7 +9,7 @@ export function describeLogicalExpression(
   result: EvaluationResultLogicalExpression,
   context: DescriptionContext
 ) {
-  if (result.shortCircuited || result.right === null) {
+  if (result.shortCircuited) {
     return describeShortCircuitedExpression(expression, result, context);
   }
 
@@ -37,9 +37,9 @@ function describeShortCircuitedExpression(
 
   return [
     ...leftSteps,
-    `<li>Jiki saw the left side of the ${codeTag(
+    `<li>Jiki saw ${codeTag(
       expression.operator.lexeme,
       expression.operator.location
-    )} was ${codeTag(leftRes, expression.left.location)} and so did not need to look at the right side.</li>`,
+    )} was ${codeTag(leftRes, expression.left.location)} and so continued.</li>`,
   ];
 }
