@@ -2,7 +2,6 @@ import type { EvaluationResultTemplateLiteralExpression } from "../evaluation-re
 import type { TemplateLiteralExpression } from "../expression";
 import type { DescriptionContext } from "./types";
 import { describeExpression } from "./describeSteps";
-import { unwrapJSObject } from "../jikiObjects";
 
 export function describeTemplateLiteralExpression(
   expression: TemplateLiteralExpression,
@@ -22,11 +21,6 @@ export function describeTemplateLiteralExpression(
       steps.push(...partSteps);
     }
   }
-
-  // Describe combining the parts into the final string
-  const finalValue = unwrapJSObject(result.immutableJikiObject);
-  const valueStr = typeof finalValue === "string" ? `"${finalValue}"` : String(finalValue);
-  steps.push(context.t("description.templateLiteralExpression.combined", { value: valueStr }));
 
   return steps;
 }

@@ -33,7 +33,7 @@ describe("Jiki Call Descriptions", () => {
       expect(description).toContain("Jiki used the");
       expect(description).toContain("testFunc");
       expect(description).toContain("function");
-      expect(description).toContain("got");
+      expect(description).toContain("which returned");
       expect(description).toContain("42");
     }
   });
@@ -62,7 +62,7 @@ describe("Jiki Call Descriptions", () => {
     if (frame.generateDescription) {
       const description = frame.generateDescription();
       expect(description).toContain("add");
-      expect(description).toContain("2 argument");
+      expect(description).toContain("add(2, 3)");
     }
   });
 
@@ -206,7 +206,7 @@ describe("Jiki Call Descriptions", () => {
       const description = frame.generateDescription();
       expect(description).toContain("used the");
       expect(description).toContain("getAge");
-      expect(description).toContain("got");
+      expect(description).toContain("which returned");
       expect(description).toContain("25");
     }
   });
@@ -241,10 +241,9 @@ describe("Jiki Call Descriptions", () => {
 
       // Then calling foobar with the result
       expect(description).toContain("used the");
-      expect(description).toContain("foobar");
-      expect(description).toContain("with");
+      expect(description).toContain("foobar(3)");
       expect(description).toContain("3");
-      expect(description).toContain("got");
+      expect(description).toContain("which returned");
       expect(description).toContain("30");
     }
   });

@@ -23,8 +23,11 @@ import {
   AssignmentExpression,
   DictionaryExpression,
   CallExpression,
+  IdentifierExpression,
 } from "../expression";
+import type { EvaluationResultIdentifierExpression } from "../evaluation-result";
 import type { DescriptionContext } from "./types";
+import { describeIdentifierExpression } from "./describeIdentifierExpression";
 import { describeBinaryExpression } from "./describeBinaryExpression";
 import { describeLogicalExpression } from "./describeLogicalExpression";
 import { describeGroupingExpression } from "./describeGroupingExpression";
@@ -56,8 +59,11 @@ export function describeExpression(
   if (expression instanceof TemplateLiteralExpression) {
     return describeTemplateLiteralExpression(expression, result as EvaluationResultTemplateLiteralExpression, context);
   }
+  if (expression instanceof IdentifierExpression) {
+    return describeIdentifierExpression(expression, result as EvaluationResultIdentifierExpression, context);
+  }
   if (expression instanceof ArrayExpression) {
-    return [describeArrayExpression(expression, result as EvaluationResultArrayExpression, context)];
+    return describeArrayExpression(expression, result as EvaluationResultArrayExpression, context);
   }
   if (expression instanceof MemberExpression) {
     return [describeMemberExpression(expression, result as EvaluationResultMemberExpression, context)];

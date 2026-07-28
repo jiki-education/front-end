@@ -14,7 +14,7 @@ describe("change existing", () => {
       `<p>This changed the value of the key <code>"a"</code> in the <code>my_dict</code> dictionary to <code>"Jeremy"</code>.</p>`,
       [
         `<li>Jiki found the<code>my_dict</code>box.</li>`,
-        `<li>Jiki found the<code>"a"</code>key in the dictionary.</i>`,
+        `<li>Jiki found the<code>"a"</code>key in the dictionary.</li>`,
         `<li>Jiki updated the corresponding value to be <code>"Jeremy"</code>.</li>`,
       ]
     );
@@ -36,7 +36,7 @@ describe("change existing", () => {
       [
         `<li>Jiki used the<code>get_name()</code>function, which returned<code>\"Jeremy\"</code>.</li>`,
         `<li>Jiki found the<code>my_dict</code>box.</li>`,
-        `<li>Jiki found the<code>"a"</code>key in the dictionary.</i>`,
+        `<li>Jiki found the<code>"a"</code>key in the dictionary.</li>`,
         `<li>Jiki updated the corresponding value to be <code>"Jeremy"</code>.</li>`,
       ]
     );
@@ -56,7 +56,7 @@ describe("set new key", () => {
       [
         `<li>Jiki found the<code>my_dict</code>box.</li>`,
         `<li>Jiki checked for the <code>"b"</code>key in the dictionary and saw it was missing.</li>`,
-        `<li>Jiki add a new key value pair with the key of<code>"b"</code>and the value of<code>"Jeremy"</code>.</li>`,
+        `<li>Jiki added a new key value pair with the key of<code>"b"</code>and the value of<code>"Jeremy"</code>.</li>`,
       ]
     );
   });
@@ -78,7 +78,7 @@ describe("set new key", () => {
         `<li>Jiki used the<code>get_name()</code>function, which returned<code>\"Jeremy\"</code>.</li>`,
         `<li>Jiki found the<code>my_dict</code>box.</li>`,
         `<li>Jiki checked for the <code>"b"</code>key in the dictionary and saw it was missing.</li>`,
-        `<li>Jiki add a new key value pair with the key of<code>"b"</code>and the value of<code>"Jeremy"</code>.</li>`,
+        `<li>Jiki added a new key value pair with the key of<code>"b"</code>and the value of<code>"Jeremy"</code>.</li>`,
       ]
     );
   });

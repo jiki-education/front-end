@@ -121,7 +121,7 @@ describe("JavaScript Arrays", () => {
       const result = interpret(code);
 
       const frame = result.frames[0] as TestFrame;
-      expect(frame.description).toContain("Created an empty list");
+      expect(frame.description).toContain('set its value to <code data-hl-from="1" data-hl-to="14">[]</code>');
     });
 
     test("single element array description", () => {
@@ -129,7 +129,7 @@ describe("JavaScript Arrays", () => {
       const result = interpret(code);
 
       const frame = result.frames[0] as TestFrame;
-      expect(frame.description).toContain("Created a list with 1 element: [ 42 ]");
+      expect(frame.description).toContain('set its value to <code data-hl-from="1" data-hl-to="16">[ 42 ]</code>');
     });
 
     test("multiple elements array description", () => {
@@ -137,7 +137,7 @@ describe("JavaScript Arrays", () => {
       const result = interpret(code);
 
       const frame = result.frames[0] as TestFrame;
-      expect(frame.description).toContain("Created a list with 3 elements: [ 1, 2, 3 ]");
+      expect(frame.description).toContain('set its value to <code data-hl-from="1" data-hl-to="21">[ 1, 2, 3 ]</code>');
     });
   });
 
@@ -356,8 +356,8 @@ describe("JavaScript Arrays", () => {
       const result = interpret(code);
 
       const frame = result.frames[1] as TestFrame;
-      expect(frame.description).toContain("Accessed element at index 1");
-      expect(frame.description).toContain("got 20");
+      expect(frame.description).toContain("Jiki got the item at index 1 in the array and determined it was");
+      expect(frame.description).toContain("20");
     });
   });
 

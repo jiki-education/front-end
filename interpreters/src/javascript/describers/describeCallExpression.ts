@@ -2,7 +2,7 @@ import type { Description, FrameWithResult } from "../../shared/frames";
 import type { DescriptionContext } from "./types";
 import type { EvaluationResultCallExpression } from "../evaluation-result";
 import type { CallExpression } from "../expression";
-import { formatJSObject } from "../helpers";
+import { codeTag, formatJSObject } from "../helpers";
 import { JSUndefined } from "../jsObjects/JSUndefined";
 import { describeExpression } from "./describeSteps";
 
@@ -12,7 +12,19 @@ export function describeCallExpression(frame: FrameWithResult, context: Descript
 
   const steps = describeCallExpressionSteps(expression, result, context);
   const functionName = result.functionName || context.t("description.common.defaultFunctionName");
-  const summary = context.t("description.callExpression.summary", { functionName });
+
+  // console.log gets a "this logged X" summary, matching its LOG-style step.
+  if (functionName === "log") {
+    const { output, isBlank } = computeLogOutput(result);
+    const summary = isBlank
+      ? context.t("description.callExpression.logResultBlank")
+      : context.t("description.callExpression.logResult", { output });
+    return { result: summary, steps };
+  }
+
+  const summary = context.t("description.callExpression.summary", {
+    fn: codeTag(functionName, expression.callee.location),
+  });
   return { result: summary, steps };
 }
 
@@ -41,67 +53,43 @@ export function describeCallExpressionSteps(
 
   // Special handling for console.log() - show what it outputs
   if (functionName === "log") {
-    // Get the actual output by converting JikiObjects to strings (without quotes for strings)
-    const output =
-      result.args && result.args.length > 0
-        ? result.args.map(arg => arg.immutableJikiObject?.toString() ?? "").join(" ")
-        : "";
-
-    const argValues =
-      result.args && result.args.length > 0
-        ? result.args
-            .filter(arg => arg.immutableJikiObject !== undefined)
-            .map(arg => `<code>${formatJSObject(arg.immutableJikiObject)}</code>`)
-        : [];
-
-    if (argValues.length === 0) {
-      steps.push(context.t("description.callExpression.logBlank"));
-    } else if (argValues.length === 1) {
-      steps.push(context.t("description.callExpression.logOne", { arg0: argValues[0], output }));
-    } else if (argValues.length === 2) {
-      steps.push(
-        context.t("description.callExpression.logTwo", {
-          arg0: argValues[0],
-          arg1: argValues[1],
-          output,
-        })
-      );
+    const { output, isBlank } = computeLogOutput(result);
+    if (isBlank) {
+      steps.push(context.t("description.callExpression.logStepBlank"));
     } else {
-      const lastArg = argValues[argValues.length - 1];
-      const otherArgs = argValues.slice(0, -1);
-      steps.push(
-        context.t("description.callExpression.logMany", {
-          otherArgs: otherArgs.join(", "),
-          lastArg,
-          output,
-        })
-      );
+      steps.push(context.t("description.callExpression.logStep", { output }));
     }
     return steps;
   }
 
-  // Omit "and got undefined" for void functions
+  // Generic function call - "Jiki used the fn(args) function[, which returned X]."
   const hasReturn = !(result.jikiObject instanceof JSUndefined);
-  const ret = hasReturn ? formatJSObject(result.jikiObject) : "";
+  const argsJoined =
+    result.args && result.args.length > 0 ? result.args.map(arg => formatJSObject(arg.jikiObject)).join(", ") : "";
+  const call = codeTag(`${functionName}(${argsJoined})`, expression.location);
 
-  // Build args text
-  const hasArgs = !!(result.args && result.args.length > 0);
-  const args = hasArgs ? result.args!.map(arg => `<code>${formatJSObject(arg.jikiObject)}</code>`).join(", ") : "";
-
-  // Single, student-friendly step consistent with JikiScript/Python ("used the X
-  // function") and the statement summary — rather than the old low-level
-  // "Looked up the function X" + "Called X" pair.
-  let usedKey: string;
-  if (hasArgs && hasReturn) {
-    usedKey = "description.callExpression.usedFunctionWithArgsAndReturn";
-  } else if (hasArgs) {
-    usedKey = "description.callExpression.usedFunctionWithArgs";
-  } else if (hasReturn) {
-    usedKey = "description.callExpression.usedFunctionWithReturn";
+  if (hasReturn) {
+    steps.push(
+      context.t("description.callExpression.usedReturned", {
+        call,
+        value: codeTag(formatJSObject(result.jikiObject), expression.location),
+      })
+    );
   } else {
-    usedKey = "description.callExpression.usedFunction";
+    steps.push(context.t("description.callExpression.used", { call }));
   }
-  steps.push(context.t(usedKey, { functionName, args, ret }));
 
   return steps;
+}
+
+export function computeLogOutput(result: EvaluationResultCallExpression): { output: string; isBlank: boolean } {
+  // Actual printed text: convert JikiObjects to their string form (no quotes for strings).
+  const output =
+    result.args && result.args.length > 0
+      ? result.args.map(arg => arg.immutableJikiObject?.toString() ?? "").join(" ")
+      : "";
+
+  const printableCount = result.args?.filter(arg => arg.immutableJikiObject !== undefined).length ?? 0;
+
+  return { output, isBlank: printableCount === 0 };
 }
