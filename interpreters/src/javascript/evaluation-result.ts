@@ -80,6 +80,13 @@ export interface EvaluationResultForInStatement {
   immutableJikiObject: JikiObject;
 }
 
+export interface EvaluationResultWhileStatement {
+  type: "WhileStatement";
+  condition: EvaluationResultExpression;
+  jikiObject?: JikiObject;
+  immutableJikiObject: JikiObject;
+}
+
 // Expression result types
 export interface EvaluationResultBinaryExpression {
   type: "BinaryExpression";
@@ -205,7 +212,8 @@ export type EvaluationResultStatement =
   | EvaluationResultContinueStatement
   | EvaluationResultForOfStatement
   | EvaluationResultForInStatement
-  | EvaluationResultRepeatStatement;
+  | EvaluationResultRepeatStatement
+  | EvaluationResultWhileStatement;
 
 export type EvaluationResultExpression =
   | EvaluationResultBinaryExpression

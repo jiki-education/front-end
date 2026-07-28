@@ -208,16 +208,6 @@
       "step_false_else": "The condition evaluated to <code>false</code>, so Jiki executed the else block.",
       "step_false": "The condition evaluated to <code>false</code>, so Jiki skipped the if block."
     },
-    "blockStatement": {
-      "result_zero": "This empty block has no effect.",
-      "result_one": "This block executed one statement in its own scope.",
-      "result_other": "This block executed {{count}} statements in their own scope.",
-      "step_zero": "Jiki executed an empty block with no statements.",
-      "step_enter": "Jiki entered a new block scope.",
-      "step_one_executed": "The statement inside the block was executed.",
-      "step_other_executed": "All {{count}} statements inside the block were executed in order.",
-      "step_exit": "Jiki exited the block scope, removing any variables declared within it."
-    },
     "whileStatement": {
       "result_true": "The while loop condition evaluated to <code>true</code> so the loop will continue.",
       "result_false": "The while loop condition evaluated to <code>false</code> so the loop will exit.",
