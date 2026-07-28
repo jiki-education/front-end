@@ -1,4 +1,5 @@
 import { parse } from "@javascript/parser";
+import { interpret } from "@javascript/interpreter";
 
 describe("syntax errors", () => {
   describe("string errors", () => {
@@ -53,6 +54,41 @@ describe("syntax errors", () => {
         expect(err.message).toContain("Did you forget to add end quote?");
         expect(err.location.line).toBe(2);
       }
+    });
+
+    // When the closing quote is forgotten, the scanner greedily captures to
+    // end-of-line. The suggested correction must not pull trailing syntax (a
+    // closing paren, a semicolon, …) inside the string.
+    describe("suggested string trims trailing syntax characters", () => {
+      test.each([
+        ['ellipse(40, 93, 7, 4, "orange)', "orange"],
+        ['ellipse(40, 93, 7, 4, "orange);', "orange"],
+        ["ellipse(40, 93, 7, 4, 'orange)", "orange"],
+        ["ellipse(40, 93, 7, 4, 'orange);", "orange"],
+        ['let x = "orange]', "orange"],
+      ])("%s → context.string %s", (code: string, expected: string) => {
+        const { error } = interpret(code);
+        expect(error?.type).toBe("MissingDoubleQuoteToTerminateString");
+        expect(error?.context?.string).toBe(expected);
+      });
+
+      test("internal punctuation is preserved, only the trailing run is trimmed", () => {
+        const { error } = interpret('let x = "a, b);');
+        expect(error?.type).toBe("MissingDoubleQuoteToTerminateString");
+        expect(error?.context?.string).toBe("a, b");
+      });
+
+      test("single-quoted string preserves internal punctuation", () => {
+        const { error } = interpret("let x = 'a, b);");
+        expect(error?.type).toBe("MissingDoubleQuoteToTerminateString");
+        expect(error?.context?.string).toBe("a, b");
+      });
+
+      test("string that is entirely trailing syntax trims to empty", () => {
+        const { error } = interpret('foo(");');
+        expect(error?.type).toBe("MissingDoubleQuoteToTerminateString");
+        expect(error?.context?.string).toBe("");
+      });
     });
   });
 

@@ -427,7 +427,7 @@ export class Scanner {
 
     if (this.isAtEndOfLine()) {
       this.error("MissingDoubleQuoteToTerminateString", {
-        string: this.sourceCode.substring(this.start + 1, this.current),
+        string: trimTrailingSyntaxChars(this.sourceCode.substring(this.start + 1, this.current)),
       });
     }
 
@@ -457,7 +457,7 @@ export class Scanner {
 
     if (this.isAtEndOfLine()) {
       this.error("MissingDoubleQuoteToTerminateString", {
-        string: this.sourceCode.substring(this.start + 1, this.current),
+        string: trimTrailingSyntaxChars(this.sourceCode.substring(this.start + 1, this.current)),
       });
     }
 
@@ -834,4 +834,15 @@ export class Scanner {
 
 export function scan(sourceCode: string, ...args: [LanguageFeatures?]): Token[] {
   return new Scanner(...args).scanTokens(sourceCode);
+}
+
+// When a string is missing its closing quote, the scanner greedily captures
+// everything to end-of-line. That pulls trailing syntax the student clearly
+// meant to sit OUTSIDE the string (a closing paren, a semicolon, etc.) into the
+// suggested correction. Trim that trailing run of likely-syntax characters and
+// whitespace so `"orange)` suggests `"orange"` rather than `"orange)"`.
+// Internal punctuation (e.g. `"a, b);`) is preserved — only the trailing run is
+// removed.
+function trimTrailingSyntaxChars(captured: string): string {
+  return captured.replace(/[)\]},;\s]+$/, "");
 }
