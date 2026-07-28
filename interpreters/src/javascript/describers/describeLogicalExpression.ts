@@ -37,9 +37,9 @@ function describeShortCircuitedExpression(
 
   return [
     ...leftSteps,
-    `<li>Jiki saw ${codeTag(
+    `<li>Jiki saw the left side of the ${codeTag(
       expression.operator.lexeme,
       expression.operator.location
-    )} was ${codeTag(leftRes, expression.left.location)} and so continued.</li>`,
+    )} was ${codeTag(leftRes, expression.left.location)} and so did not bother looking at the right side.</li>`,
   ];
 }
