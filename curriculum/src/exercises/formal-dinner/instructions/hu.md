@@ -25,7 +25,7 @@ Be careful, though. Plenty of surnames look a lot like other surnames.
 
 ### String/Array Methods & Properties
 
-There are lots of ways to solve this exercise, but there are four methods and one property that you can use to get the shortest possible solution.
+In addition to the `.length` property you learned about in the last exercise, there are four methods that you might find useful. There are lots of ways to solve this exercise, but these will get you to the shortest possible solution.
 
 `"...".split(substring)` splits a string using another string. For example:
 
@@ -56,11 +56,4 @@ There are lots of ways to solve this exercise, but there are four methods and on
 
 "Jeremy".endsWith("Jer")
 // false
-```
-
-`[...].length` tells you how many elements an array has. It's the same `length` property you've already used on strings, just counting elements instead of letters. For example:
-
-```js
-["Jeremy", "Erik", "Aron"].length
-// 3
 ```

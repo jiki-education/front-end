@@ -15,4 +15,13 @@ Be careful, though. There's a queue forming, and these people do not queue quiet
 
 Some guests are invited but aren't allowed to bring anyone with them, so `0` is a perfectly good answer for a name that's on the list. Someone who isn't on the list at all is a different matter entirely, and for them you should return the string <literal>`Not on the list!`</literal>, exactly as written.
 
+### Array Methods & Properties
+
+Just like strings, arrays also have methods and properties. In this exercise you might like to use the `.length` property. It works exactly the same as the string version, except now it tells you how many elements are in the array, rather than how many letters are in the string. For example:
+
+```js
+["Jeremy", "Erik", "Aron"].length
+// 3
+```
+
 Have fun!
