@@ -68,9 +68,10 @@ export default function Lesson({ slug }: LessonProps) {
           // A 422 means this lesson can't be opened for this user (invalid/
           // unavailable state). Rather than stranding them on a dead error screen,
           // bounce back to the dashboard with a hard navigation so everything
-          // reloads cleanly, and surface a toast there (see ExercisePath).
+          // reloads cleanly. `lessonError` is a presence-only flag that tells the
+          // dashboard to surface a toast (see ExercisePath).
           if (err instanceof ApiError && err.status === 422) {
-            window.location.href = `/dashboard?lessonError=${encodeURIComponent(slug)}`;
+            window.location.href = "/dashboard?lessonError=1";
             return;
           }
           setError(err instanceof Error ? err.message : t("loadError"));

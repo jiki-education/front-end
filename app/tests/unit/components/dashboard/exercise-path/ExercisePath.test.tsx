@@ -58,7 +58,7 @@ describe("ExercisePath", () => {
 
   it("shows an error toast and strips the param when arriving with ?lessonError", async () => {
     mockFetchLevels.mockResolvedValue([createLevel("level-cutoff", [createLesson({ slug: "l1" })])]);
-    window.history.replaceState({}, "", "/dashboard?lessonError=methods-and-strings");
+    window.history.replaceState({}, "", "/dashboard?lessonError=1");
 
     render(<ExercisePath />);
 

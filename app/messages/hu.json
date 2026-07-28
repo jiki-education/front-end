@@ -1087,7 +1087,7 @@
       "lessonSaveError": "Sajnáljuk, a leckét nem sikerült befejezni. Próbáld újra. Ha a hiba továbbra is fennáll, jelezd itt: <link>https://forum.jiki.io</link>"
     },
     "lesson": {
-      "loadFailed": "Sorry, we couldn't open that lesson. Please try again."
+      "loadFailed": "Sajnáljuk, nem sikerült megnyitni a leckét. Próbáld újra."
     }
   },
   "modals": {

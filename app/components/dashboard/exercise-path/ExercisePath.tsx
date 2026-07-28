@@ -64,7 +64,7 @@ export default function ExercisePath() {
   }, [triggerCompletionAnimation]);
 
   // A lesson that failed to open (e.g. a 422 on start) hard-redirects here with a
-  // `?lessonError=<slug>` param. Surface a toast on arrival, then strip the param so
+  // `?lessonError=1` flag. Surface a toast on arrival, then strip the param so
   // a refresh doesn't re-fire it.
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
