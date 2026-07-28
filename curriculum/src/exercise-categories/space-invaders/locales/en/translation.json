@@ -12,7 +12,7 @@
     "missedShot": "Oh no, you missed. Wasting ammo is not allowed!",
     "moveOffEdge": "Oh no, you tried to move off the edge!",
     "rowNotNumber": "Oh no, the row input you provided is not a number.",
-    "rowOutOfRange": "Oh no, you tried to access a row of aliens that doesn't exist. You asked for row {{row}}, but there are only {{total}} rows of aliens.",
+    "rowOutOfRange": "Oh no, you tried to access a row of aliens that doesn't exist. You asked for row {{row}}, but the rows are numbered 0 to {{max}}.",
     "notAllAliensDead": "You need to defeat all the aliens before you can celebrate!"
   }
 }

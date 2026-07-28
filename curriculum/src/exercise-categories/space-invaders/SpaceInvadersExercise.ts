@@ -303,12 +303,12 @@ export default class SpaceInvadersExercise extends VisualExercise {
       executionCtx.logicError(this.t("errors.rowNotNumber"));
     }
 
-    if (rowNum < 1 || rowNum > this.startingAliens.length) {
-      executionCtx.logicError(this.t("errors.rowOutOfRange", { row: rowNum, total: this.startingAliens.length }));
+    if (rowNum < 0 || rowNum >= this.startingAliens.length) {
+      executionCtx.logicError(this.t("errors.rowOutOfRange", { row: rowNum, max: this.startingAliens.length - 1 }));
     }
 
     const reversedAliens = this.startingAliens.slice().reverse();
-    return reversedAliens[rowNum - 1].map((alien) => alien !== null);
+    return reversedAliens[rowNum].map((alien) => alien !== null);
   }
 
   public getStartingAliens(_: ExecutionContext): boolean[][] {

@@ -17,16 +17,10 @@ def move(pos, dir):
         pos = pos - 1
     return pos
 
-def all_aliens_dead(aliens):
-    for alien in aliens:
-        if alien:
-            return False
-    return True
-
 # Get the rows of aliens
-bottom_row = get_starting_aliens_in_row(1)
-middle_row = get_starting_aliens_in_row(2)
-top_row = get_starting_aliens_in_row(3)
+bottom_row = get_starting_aliens_in_row(0)
+middle_row = get_starting_aliens_in_row(1)
+top_row = get_starting_aliens_in_row(2)
 
 # Set variables to track things
 direction = "right"
@@ -42,8 +36,5 @@ repeat():
             row[position] = False
             shot = True
 
-    if all_aliens_dead(bottom_row) and all_aliens_dead(middle_row) and all_aliens_dead(top_row):
-        fire_fireworks()
-    else:
-        direction = determine_direction(position, direction)
-        position = move(position, direction)
+    direction = determine_direction(position, direction)
+    position = move(position, direction)

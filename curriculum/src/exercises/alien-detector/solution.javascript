@@ -21,19 +21,10 @@ function move(pos, dir) {
   return pos
 }
 
-function allAliensDead(aliens) {
-  for (const alien of aliens) {
-    if (alien) {
-      return false
-    }
-  }
-  return true
-}
-
 // Get the rows of aliens
-let bottomRow = getStartingAliensInRow(1)
-let middleRow = getStartingAliensInRow(2)
-let topRow = getStartingAliensInRow(3)
+let bottomRow = getStartingAliensInRow(0)
+let middleRow = getStartingAliensInRow(1)
+let topRow = getStartingAliensInRow(2)
 
 // Set variables to track things
 let direction = "right"
@@ -51,10 +42,6 @@ repeat() {
     }
   }
 
-  if (allAliensDead(bottomRow) && allAliensDead(middleRow) && allAliensDead(topRow)) {
-    fireFireworks()
-  } else {
-    direction = determineDirection(position, direction)
-    position = move(position, direction)
-  }
+  direction = determineDirection(position, direction)
+  position = move(position, direction)
 }

@@ -30,18 +30,11 @@ const functions: FunctionInfo[] = [
     signature: "getStartingAliensInRow(idx)",
     description: "functions.getStartingAliensInRow.description",
     examples: [
-      "let bottomRow = getStartingAliensInRow(1);",
-      "let middleRow = getStartingAliensInRow(2);",
-      "let topRow = getStartingAliensInRow(3);"
+      "let bottomRow = getStartingAliensInRow(0);",
+      "let middleRow = getStartingAliensInRow(1);",
+      "let topRow = getStartingAliensInRow(2);"
     ],
     category: "functions.getStartingAliensInRow.category"
-  },
-  {
-    name: "fireFireworks",
-    signature: "fireFireworks()",
-    description: "functions.fireFireworks.description",
-    examples: ["fireFireworks()"],
-    category: "functions.fireFireworks.category"
   }
 ];
 
