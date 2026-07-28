@@ -13,7 +13,7 @@ Write a function called <define>`plusOnesFor`</define>. The function has three i
 
 Be careful, though. There's a queue forming, and these people do not queue quietly. "Brad" means Brad Pitt, not Bradley Cooper. And one or two of them are famous enough to have dropped their surname altogether.
 
-Some guests are invited but aren't allowed to bring anyone with them, so `0` is a perfectly good answer for a name that's on the list. Someone who isn't on the list at all is a different matter entirely, and for them you should return the string <literal>`Not on the list!`</literal>, exactly as written.
+Some guests are invited but aren't allowed to bring anyone with them, so `0` is a perfectly good answer for a name that's on the list. Someone who isn't on the list at all is a different matter entirely, and for them you should return the string <literal>`"Not on the list!"`</literal>, exactly as written.
 
 ### Array Methods & Properties
 
