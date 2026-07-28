@@ -92,9 +92,10 @@ export interface EvaluationResultBinaryExpression {
 export interface EvaluationResultLogicalExpression {
   type: "LogicalExpression";
   left: EvaluationResultExpression;
-  right: EvaluationResultExpression;
+  right: EvaluationResultExpression | null;
   jikiObject: JikiObject;
   immutableJikiObject: JikiObject;
+  shortCircuited: boolean;
 }
 
 export interface EvaluationResultUnaryExpression {
