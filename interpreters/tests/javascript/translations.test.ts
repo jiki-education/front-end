@@ -67,15 +67,20 @@ describe("javascript translation catalogs", () => {
     }
   );
 
-  // `hu` is intentionally a partial proof-of-concept; full en/hu parity is stubbed
-  // in a later seed pass (see i18n_TODO.md). Until then we only guard against
-  // drift: every human-locale key must exist in the canonical `en` tree.
+  // Active human locales must be at EXACT key parity with the canonical `en`
+  // tree — every en key present (no gaps) and no extra keys (no orphans). Values
+  // may still be English stubs until a locale is translated, but the key set must
+  // match so a newly-added `en` key can't silently ship missing from a live
+  // locale. (`system` is exempt: it is the errors-only canary base, not a human
+  // locale, and deliberately carries no `description.*` keys.)
   it.each(Object.keys(HUMAN_CATALOGS) as (keyof typeof HUMAN_CATALOGS)[])(
-    "every %s key exists in the canonical en tree",
+    "%s is at exact key parity with the canonical en tree",
     locale => {
       const enKeys = baseKeys(en);
-      const orphans = [...baseKeys(HUMAN_CATALOGS[locale])].filter(k => !enKeys.has(k));
-      expect(orphans).toEqual([]);
+      const localeKeys = baseKeys(HUMAN_CATALOGS[locale]);
+      const missing = [...enKeys].filter(k => !localeKeys.has(k)); // in en, absent from locale
+      const orphans = [...localeKeys].filter(k => !enKeys.has(k)); // in locale, absent from en
+      expect({ missing, orphans }).toEqual({ missing: [], orphans: [] });
     }
   );
 });

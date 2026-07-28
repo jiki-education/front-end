@@ -1,7 +1,8 @@
-import type { Description, DescriptionContext, FrameWithResult } from "../../shared/frames";
+import type { Description, FrameWithResult } from "../../shared/frames";
+import type { DescriptionContext } from "./types";
 
-export function describeBreakStatement(_fr: FrameWithResult, _dc: DescriptionContext): Description {
-  const result = `<p>This line immediately exited the loop.</p>`;
-  const steps = [`<li>Jiki saw this and decided to move on to after this loop.</li>`];
+export function describeBreakStatement(_frame: FrameWithResult, context: DescriptionContext): Description {
+  const result = context.t("description.breakStatement.result");
+  const steps = [context.t("description.breakStatement.step")];
   return { result, steps };
 }

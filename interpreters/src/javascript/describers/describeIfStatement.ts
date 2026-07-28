@@ -1,5 +1,6 @@
 import type { EvaluationResultIfStatement } from "../evaluation-result";
-import type { Description, DescriptionContext, FrameWithResult } from "../../shared/frames";
+import type { Description, FrameWithResult } from "../../shared/frames";
+import type { DescriptionContext } from "./types";
 import type { IfStatement } from "../statement";
 import { describeExpression } from "./describeSteps";
 
@@ -8,34 +9,42 @@ export function describeIfStatement(frame: FrameWithResult, context: Description
   const result = frame.result as EvaluationResultIfStatement;
 
   let steps = describeExpression(ifStatement.condition, result.condition, context);
-  steps = [...steps, describeFinalStep(result, ifStatement)];
+  steps = [...steps, describeFinalStep(result, ifStatement, context)];
 
   return {
-    result: describeResult(result, ifStatement),
+    result: describeResult(result, ifStatement, context),
     steps,
   };
 }
 
-function describeFinalStep(result: EvaluationResultIfStatement, statement: IfStatement): string {
+function describeFinalStep(
+  result: EvaluationResultIfStatement,
+  statement: IfStatement,
+  context: DescriptionContext
+): string {
   const conditionValue = Boolean(result.immutableJikiObject.value);
 
   if (conditionValue) {
-    return `<li>The condition evaluated to <code>true</code>, so Jiki executed the if block.</li>`;
+    return context.t("description.ifStatement.step_true");
   }
   if (statement.elseBranch) {
-    return `<li>The condition evaluated to <code>false</code>, so Jiki executed the else block.</li>`;
+    return context.t("description.ifStatement.step_false_else");
   }
-  return `<li>The condition evaluated to <code>false</code>, so Jiki skipped the if block.</li>`;
+  return context.t("description.ifStatement.step_false");
 }
 
-function describeResult(result: EvaluationResultIfStatement, statement: IfStatement): string {
+function describeResult(
+  result: EvaluationResultIfStatement,
+  statement: IfStatement,
+  context: DescriptionContext
+): string {
   const conditionValue = Boolean(result.immutableJikiObject.value);
 
   if (conditionValue) {
-    return `<p>The condition evaluated to <code>true</code>, so the if block was executed.</p>`;
+    return context.t("description.ifStatement.result_true");
   }
   if (statement.elseBranch) {
-    return `<p>The condition evaluated to <code>false</code>, so the else block was executed.</p>`;
+    return context.t("description.ifStatement.result_false_else");
   }
-  return `<p>The condition evaluated to <code>false</code>, so the if block was skipped.</p>`;
+  return context.t("description.ifStatement.result_false");
 }

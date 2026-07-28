@@ -1,5 +1,6 @@
 import type { EvaluationResultForInStatement } from "../evaluation-result";
-import type { Description, DescriptionContext, FrameWithResult } from "../../shared/frames";
+import type { Description, FrameWithResult } from "../../shared/frames";
+import type { DescriptionContext } from "./types";
 import type { ForInStatement } from "../statement";
 import { describeExpression } from "./describeSteps";
 import { JSDictionary } from "../jikiObjects";
@@ -9,46 +10,62 @@ export function describeForInStatement(frame: FrameWithResult, context: Descript
   const result = frame.result as EvaluationResultForInStatement;
 
   const steps = describeExpression(forInStatement.object, result.object, context);
-  steps.push(describeFinalStep(result, forInStatement));
+  steps.push(describeFinalStep(result, forInStatement, context));
 
   return {
-    result: describeResult(result, forInStatement),
+    result: describeResult(result, forInStatement, context),
     steps,
   };
 }
 
-function describeFinalStep(result: EvaluationResultForInStatement, statement: ForInStatement): string {
+function describeFinalStep(
+  result: EvaluationResultForInStatement,
+  statement: ForInStatement,
+  context: DescriptionContext
+): string {
   const obj = result.object.immutableJikiObject;
   const variableName = statement.variable.lexeme;
 
   if (obj instanceof JSDictionary) {
     if (obj.value.size === 0) {
-      return `<li>The object is empty, so the loop body will not execute.</li>`;
+      return context.t("description.forInStatement.stepEmpty");
     }
 
     if (result.currentKey) {
       const keyValue = result.currentKey.toDisplayString();
-      return `<li>Set <code>${variableName}</code> to <code>${keyValue}</code> (iteration ${result.iteration}).</li>`;
+      return context.t("description.forInStatement.stepSetKey", {
+        variableName,
+        keyValue,
+        iteration: result.iteration,
+      });
     }
   }
 
-  return `<li>Begin looping through the keys.</li>`;
+  return context.t("description.forInStatement.stepDefault");
 }
 
-function describeResult(result: EvaluationResultForInStatement, statement: ForInStatement): string {
+function describeResult(
+  result: EvaluationResultForInStatement,
+  statement: ForInStatement,
+  context: DescriptionContext
+): string {
   const obj = result.object.immutableJikiObject;
   const variableName = statement.variable.lexeme;
 
   if (obj instanceof JSDictionary) {
     if (obj.value.size === 0) {
-      return `<p>The object is empty, so the loop body did not execute.</p>`;
+      return context.t("description.forInStatement.resultEmpty");
     }
 
     if (result.currentKey) {
       const keyValue = result.currentKey.toDisplayString();
-      return `<p>Set <code>${variableName}</code> to <code>${keyValue}</code> for iteration ${result.iteration}.</p>`;
+      return context.t("description.forInStatement.resultSetKey", {
+        variableName,
+        keyValue,
+        iteration: result.iteration,
+      });
     }
   }
 
-  return `<p>Looping through each key.</p>`;
+  return context.t("description.forInStatement.resultDefault");
 }

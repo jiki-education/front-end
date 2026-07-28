@@ -743,6 +743,7 @@ export class Executor {
       generateDescription: () =>
         describeFrame(frame, {
           functionDescriptions: {}, // JavaScript doesn't have external functions yet
+          t: this.translate,
         }),
       context: context,
     };
@@ -753,6 +754,7 @@ export class Executor {
       // Generate description immediately for testing
       (frame as any).description = describeFrame(frame, {
         functionDescriptions: {}, // JavaScript doesn't have external functions yet
+        t: this.translate,
       });
     }
 

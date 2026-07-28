@@ -1,25 +1,26 @@
 import type { EvaluationResultDictionaryExpression } from "../evaluation-result";
 import type { DictionaryExpression } from "../expression";
+import type { DescriptionContext } from "./types";
 import { JSDictionary } from "../jikiObjects";
 import { formatJSObject } from "../helpers";
 
 export function describeDictionaryExpression(
   result: EvaluationResultDictionaryExpression,
   _expression: DictionaryExpression,
-  _executor: any
+  context: DescriptionContext
 ): string[] {
   const dictionary = result.immutableJikiObject;
 
   if (!(dictionary instanceof JSDictionary)) {
-    return ["<li>Created an object.</li>"];
+    return [context.t("description.dictionaryExpression.notObject")];
   }
 
   const size = dictionary.value.size;
 
   if (size === 0) {
-    return ["<li>Created an empty object <code>{}</code>.</li>"];
+    return [context.t("description.dictionaryExpression.empty")];
   }
 
   const formatted = formatJSObject(dictionary);
-  return [`<li>Created an object <code>${formatted}</code>.</li>`];
+  return [context.t("description.dictionaryExpression.created", { formatted })];
 }

@@ -1,6 +1,6 @@
 import type { EvaluationResultLogicalExpression } from "../evaluation-result";
 import type { LogicalExpression } from "../expression";
-import type { DescriptionContext } from "../../shared/frames";
+import type { DescriptionContext } from "./types";
 import { codeTag, formatJSObject } from "../helpers";
 import { describeExpression } from "./describeSteps";
 
@@ -20,10 +20,10 @@ export function describeLogicalExpression(
   const op = expression.operator.lexeme;
   const rightRes = formatJSObject(result.right.immutableJikiObject);
 
-  const finalStep = `<li>Jiki evaluated ${codeTag(
-    `${leftRes} ${op} ${rightRes}`,
-    expression.location
-  )} and determined it was ${codeTag(result.immutableJikiObject, expression.location)}.</li>`;
+  const finalStep = context.t("description.logicalExpression.evaluated", {
+    expr: codeTag(`${leftRes} ${op} ${rightRes}`, expression.location),
+    value: codeTag(result.immutableJikiObject, expression.location),
+  });
   return [...leftSteps, ...rightSteps, finalStep];
 }
 
@@ -37,9 +37,9 @@ function describeShortCircuitedExpression(
 
   return [
     ...leftSteps,
-    `<li>Jiki saw the left side of the ${codeTag(
-      expression.operator.lexeme,
-      expression.operator.location
-    )} was ${codeTag(leftRes, expression.left.location)} and so did not bother looking at the right side.</li>`,
+    context.t("description.logicalExpression.shortCircuited", {
+      operator: codeTag(expression.operator.lexeme, expression.operator.location),
+      value: codeTag(leftRes, expression.left.location),
+    }),
   ];
 }
