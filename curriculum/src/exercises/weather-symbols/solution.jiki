@@ -1,0 +1,27 @@
+function draw_forecast with days do
+  set weekdays to ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  set i to 1
+  for each day in days do
+    set elements to description_to_elements(day)
+    draw(i - 1, weekdays[i], elements)
+    change i to i + 1
+  end
+end
+
+function description_to_elements with description do
+  if description == "Sunny ☀️" do
+    return ["sun"]
+  else if description == "Dull 😴" do
+    return ["cloud"]
+  else if description == "Miserable 😩" do
+    return ["cloud", "rain"]
+  else if description == "Hopeful 🤞" do
+    return ["sun", "cloud"]
+  else if description == "Rainbow territory! 🌈" do
+    return ["sun", "cloud", "rain"]
+  else if description == "Exciting 🤩" do
+    return ["cloud", "snow"]
+  else if description == "Snowboarding time! 🏂" do
+    return ["sun", "cloud", "snow"]
+  end
+end

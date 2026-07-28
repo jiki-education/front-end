@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "dayIsntCorrect": "Day {{day}}'s weather isn't right."
+  },
+  "tasks": {
+    "drawForecast": {
+      "name": "Draw the forecast",
+      "description": "Draw each day's weather into its own box, using the day's position in the list as the box number."
+    }
+  },
+  "scenarios": {
+    "mixedWeek": {
+      "name": "A Mixed Week",
+      "description": "A bit of everything across the six days."
+    },
+    "sunnyWeek": {
+      "name": "A Sunny Week",
+      "description": "Lots of sunshine, with a couple of cloudier days."
+    },
+    "rainyWeek": {
+      "name": "A Rainy Week",
+      "description": "A soggy week of clouds and rain."
+    },
+    "snowyWeek": {
+      "name": "A Snowy Week",
+      "description": "A cold week full of snow."
+    }
+  },
+  "hints": {
+    "loopWithIndex": {
+      "question": "How do I go through the days and know which box each one goes in?",
+      "answer": "Loop over `days` with a counter that goes from `0` up to `days.length - 1`. That counter is the box number for each day."
+    },
+    "descriptionToSymbols": {
+      "question": "How do I turn a description like `\"Miserable 😩\"` into symbols?",
+      "answer": "Match the description against each possible one and pick the matching list of symbols, for example `[\"cloud\", \"rain\"]`. The instructions list every description and its symbols."
+    },
+    "weekdaysList": {
+      "question": "How do I get the weekday name for each box?",
+      "answer": "Make a list of the six weekday names in order, `\"Monday\"` through `\"Saturday\"`, and read the one at your current position using the same counter as the box number."
+    },
+    "passArgs": {
+      "question": "What do I pass to `draw`?",
+      "answer": "Three things: the box number (your counter), the weekday name for that box, and the list of symbols for that day."
+    },
+    "tidyWithHelper": {
+      "question": "My loop is getting long. How can I tidy it?",
+      "answer": "You can move the description-to-symbols matching into its own function and call it from the loop. This is optional, but it keeps the loop short and easy to read."
+    }
+  },
+  "functions": {
+    "draw": {
+      "description": "Draw the given weather symbols into a forecast box. Takes the box number (0 to 5), the weekday name to label it with, and the list of symbols.",
+      "category": "Drawing"
+    }
+  },
+  "describers": {
+    "draw": "drew ${arg3} into ${arg2}'s box"
+  },
+  "errors": {
+    "elementsMustBeList": "The weather symbols (the third input to draw) must be a list, like [\"sun\", \"cloud\"].",
+    "elementsMustBeStrings": "The weather symbols in the list must all be strings, like \"sun\" or \"rain\".",
+    "unknownElement": "\"{{element}}\" isn't a weather symbol. Use \"sun\", \"cloud\", \"rain\", or \"snow\".",
+    "indexMustBeNumber": "The box number (the first input to draw) must be a number.",
+    "indexOutOfRange": "The box number must be a whole number between 0 and {{max}}.",
+    "dayMustBeString": "The weekday (the second input to draw) must be text, like \"Monday\"."
+  }
+}

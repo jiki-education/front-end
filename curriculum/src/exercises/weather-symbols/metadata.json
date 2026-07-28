@@ -1,0 +1,26 @@
+{
+  "slug": "weather-symbols",
+  "levelId": "lists",
+  "hints": [
+    {
+      "question": "hints.loopWithIndex.question",
+      "answer": "hints.loopWithIndex.answer"
+    },
+    {
+      "question": "hints.descriptionToSymbols.question",
+      "answer": "hints.descriptionToSymbols.answer"
+    },
+    {
+      "question": "hints.weekdaysList.question",
+      "answer": "hints.weekdaysList.answer"
+    },
+    {
+      "question": "hints.passArgs.question",
+      "answer": "hints.passArgs.answer"
+    },
+    {
+      "question": "hints.tidyWithHelper.question",
+      "answer": "hints.tidyWithHelper.answer"
+    }
+  ]
+}
