@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import styles from "./SettingsCard.module.css";
 
 interface SettingsCardProps {
   children: ReactNode;
@@ -9,15 +10,15 @@ interface SettingsCardProps {
 
 export default function SettingsCard({ children, title, description, className = "" }: SettingsCardProps) {
   return (
-    <section className={`bg-bg-secondary rounded-lg p-6 border border-border-primary ${className}`}>
+    <section className={`${styles.card} ${className}`}>
       {title && (
-        <header className="mb-4">
-          <h2 className="text-xl font-semibold text-text-primary mb-2">{title}</h2>
-          {description && <p className="text-text-secondary">{description}</p>}
+        <header className={styles.header}>
+          <h2 className={styles.title}>{title}</h2>
+          {description && <p className={styles.description}>{description}</p>}
         </header>
       )}
 
-      <div className="space-y-4">{children}</div>
+      <div className={styles.body}>{children}</div>
     </section>
   );
 }

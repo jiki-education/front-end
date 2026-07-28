@@ -440,3 +440,25 @@
     border: 2px dashed var(--color-gray-200);
     margin-bottom: 20px;
 }
+
+.expandedHeaderRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.headerTitleGroup {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.headerTitleText {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.fullWidthButton {
+    width: 100%;
+}

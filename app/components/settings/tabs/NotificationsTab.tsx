@@ -74,7 +74,7 @@ export default function NotificationsTab() {
 
   if (loading || !settings) {
     return (
-      <div className="flex items-center justify-center py-12">
+      <div className={styles.loadingWrapper}>
         <LoadingSpinner size="lg" />
       </div>
     );
@@ -108,7 +108,7 @@ function NotificationItem({ notification, enabled, onToggle }: NotificationItemP
       <ActionField label={title} description={t(notification.descriptionKey as Parameters<typeof t>[0])}>
         <button
           className={`ui-toggle-switch ${enabled ? "active" : ""} ${
-            notification.disabled ? "opacity-50 cursor-not-allowed" : ""
+            notification.disabled ? styles.toggleDisabled : ""
           }`}
           onClick={notification.disabled ? undefined : onToggle}
           disabled={notification.disabled}

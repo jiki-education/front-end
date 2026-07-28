@@ -4,6 +4,7 @@ import NotStartedIcon from "@/icons/not-started.svg";
 import type { ChallengeData } from "@/lib/api/challenges";
 import { useTranslations } from "next-intl";
 import { ChallengesEmptyState } from "./ChallengesEmptyState";
+import styles from "./NoChallengesFound.module.css";
 
 interface NoChallengesFoundProps {
   challenges: ChallengeData[];
@@ -15,8 +16,8 @@ export function NoChallengesFound({ challenges, activeTabId }: NoChallengesFound
 
   if (challenges.length === 0) {
     return (
-      <div className="text-center py-12">
-        <p className="text-gray-500 text-lg">{t("noneAvailable")}</p>
+      <div className={styles.empty}>
+        <p className={styles.message}>{t("noneAvailable")}</p>
       </div>
     );
   }
@@ -65,8 +66,8 @@ export function NoChallengesFound({ challenges, activeTabId }: NoChallengesFound
       );
     default:
       return (
-        <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">{t("noneFound")}</p>
+        <div className={styles.empty}>
+          <p className={styles.message}>{t("noneFound")}</p>
         </div>
       );
   }

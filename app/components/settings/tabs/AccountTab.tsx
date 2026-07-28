@@ -23,7 +23,7 @@ export default function AccountTab() {
 
   if (loading || !settings) {
     return (
-      <div className="flex items-center justify-center py-12">
+      <div className={styles.loadingWrapper}>
         <LoadingSpinner size="lg" />
       </div>
     );

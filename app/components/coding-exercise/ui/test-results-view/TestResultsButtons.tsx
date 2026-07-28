@@ -45,7 +45,7 @@ export function TestResultsButtons() {
 
   return (
     <div className={styles.DotsSection}>
-      <div className="flex items-center justify-between w-[100%]">
+      <div className={styles.dotsRow}>
         <div className={styles.Dots} data-testid="test-selector-buttons">
           {scenarios.map((scenario, idx) => {
             const test = testSuiteResult?.tests[idx];

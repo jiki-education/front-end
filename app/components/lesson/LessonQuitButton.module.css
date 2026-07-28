@@ -1,0 +1,5 @@
+.quitButton {
+    position: absolute;
+    inset-block-start: 16px;
+    inset-inline-end: 16px;
+}

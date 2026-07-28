@@ -138,16 +138,11 @@ export function AvatarEditModal() {
             type="button"
             onClick={handleBack}
             disabled={isSaving}
-            className="ui-btn ui-btn-tertiary ui-btn-small flex-1"
+            className="ui-btn ui-btn-tertiary ui-btn-small"
           >
             {ts("back")}
           </button>
-          <button
-            type="button"
-            onClick={handleSave}
-            disabled={isSaving}
-            className="ui-btn ui-btn-primary ui-btn-small flex-1"
-          >
+          <button type="button" onClick={handleSave} disabled={isSaving} className="ui-btn ui-btn-primary ui-btn-small">
             {isSaving ? <LoadingSpinner size="sm" /> : ts("save")}
           </button>
         </div>
@@ -181,7 +176,7 @@ export function AvatarEditModal() {
         type="file"
         accept="image/jpeg,image/png,image/gif,image/webp"
         onChange={handleFileSelect}
-        className="hidden"
+        className={styles.hiddenInput}
       />
     </div>
   );

@@ -3,6 +3,14 @@
 import { useState, useCallback } from "react";
 import TypeItAssistantMessage from "./TypeItAssistantMessage";
 import type { StreamStatus } from "../lib/chat-types";
+import styles from "./TypingTestPanel.module.css";
+
+const STATUS_BADGE_CLASS: Record<StreamStatus, string> = {
+  idle: styles.statusBadgeIdle,
+  thinking: styles.statusBadgeThinking,
+  typing: styles.statusBadgeTyping,
+  error: styles.statusBadgeError
+};
 
 /**
  * Test panel for debugging the typing mechanism without API calls.
@@ -43,20 +51,20 @@ export default function TypingTestPanel() {
   }, []);
 
   return (
-    <div className="max-w-2xl mx-auto p-8 space-y-6">
-      <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-        <div className="border-b border-gray-200 px-4 py-12">
-          <h2 className="text-lg font-semibold text-gray-900">Typing Effect Test Panel</h2>
-          <p className="text-sm text-gray-600 mt-4">Test the typing mechanism without expensive API calls</p>
+    <div className={styles.container}>
+      <div className={styles.card}>
+        <div className={styles.cardHeader}>
+          <h2 className={styles.cardTitle}>Typing Effect Test Panel</h2>
+          <p className={styles.cardSubtitle}>Test the typing mechanism without expensive API calls</p>
         </div>
 
         {/* Controls */}
-        <div className="p-4 space-y-4">
-          <div className="flex flex-wrap gap-2">
+        <div className={styles.controls}>
+          <div className={styles.buttonRow}>
             <button
               onClick={simulateThinking}
               disabled={status !== "idle"}
-              className="px-12 py-2 bg-blue-600 text-white text-sm rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className={`${styles.actionButton} ${styles.actionButtonBlue}`}
             >
               1. Start Thinking
             </button>
@@ -64,7 +72,7 @@ export default function TypingTestPanel() {
             <button
               onClick={simulateTyping}
               disabled={status !== "thinking"}
-              className="px-12 py-2 bg-green-600 text-white text-sm rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className={`${styles.actionButton} ${styles.actionButtonGreen}`}
             >
               2. Start Typing
             </button>
@@ -72,18 +80,18 @@ export default function TypingTestPanel() {
             <button
               onClick={simulateInstantText}
               disabled={status !== "idle"}
-              className="px-12 py-2 bg-purple-600 text-white text-sm rounded-md hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className={`${styles.actionButton} ${styles.actionButtonPurple}`}
             >
               Test Instant
             </button>
 
-            <button onClick={reset} className="px-12 py-2 bg-gray-600 text-white text-sm rounded-md hover:bg-gray-700">
+            <button onClick={reset} className={`${styles.actionButton} ${styles.actionButtonGray}`}>
               Reset
             </button>
           </div>
 
-          <div className="flex items-center gap-4">
-            <label className="text-sm font-medium text-gray-700">Typing Speed:</label>
+          <div className={styles.speedRow}>
+            <label className={styles.speedLabel}>Typing Speed:</label>
             <input
               type="range"
               min="10"
@@ -91,37 +99,25 @@ export default function TypingTestPanel() {
               step="10"
               value={typingSpeed}
               onChange={(e) => setTypingSpeed(Number(e.target.value))}
-              className="w-32"
+              className={styles.speedInput}
             />
-            <span className="text-sm text-gray-600">{typingSpeed}ms per character</span>
+            <span className={styles.speedValue}>{typingSpeed}ms per character</span>
           </div>
         </div>
 
         {/* Status Display */}
-        <div className="px-4 py-2 bg-gray-50 border-t border-gray-200">
-          <div className="flex items-center gap-4 text-sm">
-            <span className="font-medium">Status:</span>
-            <span
-              className={`px-2 py-4 rounded text-xs font-medium ${
-                status === "idle"
-                  ? "bg-gray-100 text-gray-800"
-                  : status === "thinking"
-                    ? "bg-yellow-100 text-yellow-800"
-                    : status === "typing"
-                      ? "bg-blue-100 text-blue-800"
-                      : "bg-red-100 text-red-800"
-              }`}
-            >
-              {status.toUpperCase()}
-            </span>
-            <span className="text-gray-600">Content Length: {currentResponse.length}</span>
+        <div className={styles.statusBar}>
+          <div className={styles.statusRow}>
+            <span className={styles.statusLabel}>Status:</span>
+            <span className={`${styles.statusBadge} ${STATUS_BADGE_CLASS[status]}`}>{status.toUpperCase()}</span>
+            <span className={styles.statusMeta}>Content Length: {currentResponse.length}</span>
           </div>
         </div>
       </div>
 
       {/* Message Display Area */}
-      <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-4 min-h-[200px]">
-        <h3 className="text-md font-medium text-gray-900 mb-4">Message Display:</h3>
+      <div className={styles.displayCard}>
+        <h3 className={styles.displayTitle}>Message Display:</h3>
 
         {(currentResponse || status === "thinking") && (
           <TypeItAssistantMessage
@@ -133,16 +129,16 @@ export default function TypingTestPanel() {
         )}
 
         {!currentResponse && status === "idle" && (
-          <div className="text-center text-gray-500 text-sm py-8">
+          <div className={styles.emptyDisplay}>
             No message to display. Click &quot;Start Thinking&ldquo; to begin test.
           </div>
         )}
       </div>
 
       {/* Debug Info */}
-      <div className="bg-gray-50 rounded-lg border border-gray-200 p-4">
-        <h3 className="text-md font-medium text-gray-900 mb-2">Debug Info:</h3>
-        <div className="text-xs font-mono text-gray-600 space-y-4">
+      <div className={styles.debugCard}>
+        <h3 className={styles.debugTitle}>Debug Info:</h3>
+        <div className={styles.debugList}>
           <div>Status: {status}</div>
           <div>Content: &quot;{currentResponse}&quot;</div>
           <div>Content Length: {currentResponse.length} chars</div>

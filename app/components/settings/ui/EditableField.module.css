@@ -44,3 +44,7 @@
     color: var(--color-red-500);
     margin-top: 4px;
 }
+
+.placeholder {
+    color: var(--color-gray-400);
+}

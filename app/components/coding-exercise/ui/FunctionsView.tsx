@@ -3,6 +3,7 @@
 import { marked } from "marked";
 import { useTranslations } from "next-intl";
 import type { FunctionInfo } from "@jiki/curriculum";
+import styles from "./FunctionsView.module.css";
 
 interface FunctionsViewProps {
   functions?: FunctionInfo[];
@@ -11,33 +12,33 @@ interface FunctionsViewProps {
 export default function FunctionsView({ functions }: FunctionsViewProps) {
   const t = useTranslations("codingExercise.functionsView");
   if (!functions || functions.length === 0) {
-    return <div className="p-4 text-gray-500 text-sm">{t("empty")}</div>;
+    return <div className={styles.empty}>{t("empty")}</div>;
   }
 
   return (
-    <div className="p-4 space-y-6 overflow-y-auto">
+    <div className={styles.container}>
       {functions.map((func, index) => (
-        <div key={index} className="border-b border-gray-200 last:border-0 pb-4 last:pb-0">
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="font-mono font-semibold text-gray-900">{func.signature}</h3>
-            <span className="text-xs text-gray-500 px-2 py-4 bg-gray-100 rounded">{func.category}</span>
+        <div key={index} className={styles.functionItem}>
+          <div className={styles.functionHeader}>
+            <h3 className={styles.signature}>{func.signature}</h3>
+            <span className={styles.category}>{func.category}</span>
           </div>
 
-          <div className="prose prose-sm max-w-none">
+          <div className="ui-textual-content ui-textual-content-compact">
             <div
-              className="text-gray-700 mb-12"
+              className={styles.description}
               dangerouslySetInnerHTML={{ __html: marked.parse(func.description, { async: false }) }}
             />
           </div>
 
           {func.examples && func.examples.length > 0 && (
-            <div className="mt-12">
-              <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">{t("examples")}</p>
-              <div className="space-y-2">
+            <div className={styles.examples}>
+              <p className={styles.examplesLabel}>{t("examples")}</p>
+              <div className={styles.examplesList}>
                 {func.examples.map((example, idx) => (
                   <div
                     key={idx}
-                    className="prose prose-sm max-w-none"
+                    className="ui-textual-content ui-textual-content-compact"
                     dangerouslySetInnerHTML={{
                       __html: marked.parse(`\`\`\`javascript\n${example}\n\`\`\``, { async: false })
                     }}

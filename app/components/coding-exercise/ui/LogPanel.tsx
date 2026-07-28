@@ -50,7 +50,7 @@ export default function LogPanel() {
   return (
     <div role="log">
       <PanelHeader title={t("title")} description={description} />
-      <div className="py-24 px-32">
+      <div className={style.body}>
         <div className={style.consoleOutput}>
           {currentTest.logLines.map((log, index) => {
             const info = logFrameInfo[index];

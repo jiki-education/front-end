@@ -5,6 +5,7 @@ import { assembleClassNames } from "@/lib/assemble-classnames";
 import { showConfirmation } from "@/lib/modal";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import styles from "./LessonQuitButton.module.css";
 
 interface LessonQuitButtonProps {
   onQuit?: () => void;
@@ -37,7 +38,7 @@ export function LessonQuitButton({ onQuit, className = "", variant = "light" }: 
     <CloseButton
       onClick={handleQuit}
       variant={variant}
-      className={assembleClassNames(className, "absolute top-[16px] end-[16px]")}
+      className={assembleClassNames(className, styles.quitButton)}
       aria-label={t("ariaLabel")}
     />
   );

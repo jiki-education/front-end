@@ -1,0 +1,26 @@
+.container {
+    max-width: 774px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.loadingWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 8px;
+}
+
+.spinner {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    border-block-end: 2px solid var(--color-link-primary);
+    animation: ui-spin 1s linear infinite;
+}
+
+.loadingText {
+    margin-inline-start: 12px;
+    color: var(--color-text-secondary);
+}

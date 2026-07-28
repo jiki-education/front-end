@@ -1,0 +1,63 @@
+.container {
+    padding: 24px;
+    max-width: 448px;
+    margin-inline: auto;
+    text-align: start;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.notice {
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 16px;
+    background: var(--color-blue-50);
+    color: var(--color-blue-700);
+}
+
+.noticeLabel {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.fieldLabel {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.passwordHint {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin-block-start: 4px;
+}
+
+.error {
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    background: var(--color-red-50);
+    color: var(--color-red-600);
+}
+
+.buttons {
+    display: flex;
+    gap: 12px;
+    padding-block-start: 4px;
+
+    button {
+        flex: 1;
+    }
+}

@@ -96,7 +96,7 @@ export default function ProfileSection({ settings, updateName, updateHandle, upd
                 strong: (chunks) => <strong>{chunks}</strong>
               })}
             </p>
-            <p className="text-xs mt-4">{t("confirmationPendingHint")}</p>
+            <p className={styles.notificationHint}>{t("confirmationPendingHint")}</p>
           </StatusNotification>
         )}
         {!settings.email_confirmed && !settings.unconfirmed_email && (

@@ -283,7 +283,7 @@ Markdown content is rendered as HTML and needs styling:
 
 Recommendations:
 
-- Use Tailwind's `prose` classes for typography
+- Use the `ui-textual-content` UI-kit class for prose typography (blog/article routes are Tailwind-free)
 - Create a `<MarkdownContent>` component for consistent styling
 - Handle code blocks, headings, lists, blockquotes
 - Ensure mobile-responsive layout

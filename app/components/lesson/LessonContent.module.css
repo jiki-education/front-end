@@ -1,0 +1,28 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-gray-50);
+}
+
+.content {
+    text-align: center;
+}
+
+.message {
+    color: var(--color-gray-600);
+    margin-bottom: 4px;
+}
+
+.button {
+    padding: 2px 4px;
+    background: var(--color-blue-600);
+    color: white;
+    border-radius: 4px;
+    transition: background 0.15s ease;
+
+    &:hover {
+        background: var(--color-blue-700);
+    }
+}

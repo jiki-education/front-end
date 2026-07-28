@@ -1,3 +1,24 @@
+.container {
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-block: 16px;
+    padding-inline: 8px;
+}
+
+@media (min-width: 640px) {
+    .container {
+        padding-block: 20px;
+        padding-inline: 12px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        padding-block: 32px;
+        padding-inline: 48px;
+    }
+}
+
 .header {
     margin-bottom: 24px;
 }

@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
+import styles from "./PassMessage.module.css";
 
 interface PassMessageProps {
   testIdx: number;
@@ -21,7 +22,7 @@ export function PassMessage({ testIdx }: PassMessageProps) {
   const orchestrator = useOrchestrator();
   const { exerciseTitle } = useOrchestratorStore(orchestrator);
 
-  return <p className="font-semibold">{t(CONGRATS_KEYS[stringToHash(exerciseTitle, testIdx)])}</p>;
+  return <p className={styles.message}>{t(CONGRATS_KEYS[stringToHash(exerciseTitle, testIdx)])}</p>;
 }
 
 function stringToHash(input: string, testIdx: number): number {

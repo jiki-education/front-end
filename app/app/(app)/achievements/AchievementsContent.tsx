@@ -15,6 +15,7 @@ import { useBadgeActions } from "./lib/useBadgeActions";
 import { AchievementsLoadingState } from "./ui/AchievementsLoadingState";
 import { AchievementsErrorState } from "./ui/AchievementsErrorState";
 import { isRecentBadge, sortBadges } from "./lib/badgeUtils";
+import styles from "./AchievementsContent.module.css";
 
 export function AchievementsContent() {
   const t = useTranslations("achievements");
@@ -72,7 +73,7 @@ export function AchievementsContent() {
 
   return (
     <PageHeader icon={<MedalIcon />} title={t("title")} description={t("description")}>
-      <PageTabs className="mb-16" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
+      <PageTabs className={styles.tabs} tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
 
       {activeTab === "badges" && (
         <div className={BadgesCssModule.gallery}>

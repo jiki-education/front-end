@@ -38,12 +38,12 @@ export function RHS({ orchestrator }: RHSProps) {
     {
       id: "instructions",
       label: t("tabInstructions"),
-      icon: <HamburgerIcon width={18} height={18} className="me-2" />
+      icon: <HamburgerIcon width={18} height={18} className={styles.tabIcon} />
     },
     {
       id: "chat",
       label: t("tabAskJiki"),
-      icon: <ChatIcon width={18} height={18} className="me-2" />
+      icon: <ChatIcon width={18} height={18} className={styles.tabIcon} />
     },
     ...(logTabDisabled
       ? []
@@ -51,13 +51,13 @@ export function RHS({ orchestrator }: RHSProps) {
           {
             id: "log",
             label: t("tabLog"),
-            icon: <LogIcon width={18} height={18} className="me-2" />
+            icon: <LogIcon width={18} height={18} className={styles.tabIcon} />
           }
         ]),
     {
       id: "hints",
       label: t("tabHints"),
-      icon: <HintIcon width={18} height={18} className="me-2" />
+      icon: <HintIcon width={18} height={18} className={styles.tabIcon} />
     }
   ];
 
@@ -114,17 +114,17 @@ export function RHS({ orchestrator }: RHSProps) {
 
   return (
     <div className={styles.rightColumn}>
-      <div className="flex items-center gap-[24px] px-[32px] py-[8px] bg-white flex-shrink-0">
+      <div className={styles.rhsToolbar}>
         <ScrollableTabs tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />
         <button
           onClick={() => router.push(navTarget)}
-          className={`ui-btn ui-btn-xs ui-btn-flat flex-row-reverse shrink-0${isExerciseCompleted ? " !text-[var(--color-green-600)] font-semibold !bg-[var(--color-green-50)] !border-[var(--color-green-600)] gap-[4px]" : ""}`}
+          className={`ui-btn ui-btn-xs ui-btn-flat ${styles.navButton}${isExerciseCompleted ? ` ${styles.navButtonCompleted}` : ""}`}
         >
           <ArrowRightIcon width={16} height={16} />
           {navLabel}
         </button>
       </div>
-      <div className="flex-1 overflow-auto bg-white">{renderTabContent()}</div>
+      <div className={styles.rhsContent}>{renderTabContent()}</div>
     </div>
   );
 }
@@ -164,7 +164,7 @@ function ScrollableTabs(props: PageTabsProps) {
   return (
     <div className={outerClasses}>
       <div ref={scrollRef} className={styles.tabsScroll}>
-        <PageTabs {...props} className="shrink-0 whitespace-nowrap" />
+        <PageTabs {...props} className={styles.tabsPageTabs} />
       </div>
       <div className={`${styles.tabsFade} ${styles.tabsFadeStart}`} aria-hidden="true">
         <ChevronRightIcon style={{ transform: "rotate(180deg)" }} />

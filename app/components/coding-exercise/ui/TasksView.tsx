@@ -2,8 +2,10 @@
 
 import { useTranslations } from "next-intl";
 import type { Task, TaskProgress } from "@jiki/curriculum";
+import { assembleClassNames } from "@/lib/assemble-classnames";
 import type { Orchestrator } from "../lib/Orchestrator";
 import { useOrchestratorStore } from "../lib/orchestrator/store";
+import styles from "./TasksView.module.css";
 
 interface TasksViewProps {
   tasks: readonly Task[] | undefined;
@@ -16,8 +18,8 @@ export default function TasksView({ tasks, orchestrator, className = "" }: Tasks
   const { taskProgress, completedTasks, currentTaskId } = useOrchestratorStore(orchestrator);
   if (!tasks || tasks.length === 0) {
     return (
-      <div className={`p-4 ${className}`}>
-        <p className="text-sm text-gray-500 italic">{t("empty")}</p>
+      <div className={`${styles.container} ${className}`}>
+        <p className={styles.emptyText}>{t("empty")}</p>
       </div>
     );
   }
@@ -27,8 +29,8 @@ export default function TasksView({ tasks, orchestrator, className = "" }: Tasks
   };
 
   return (
-    <div className={`p-4 ${className}`}>
-      <ul className="space-y-12">
+    <div className={`${styles.container} ${className}`}>
+      <ul className={styles.taskList}>
         {tasks.map((task, index) => {
           const progress = taskProgress.get(task.id);
           const isCompleted = completedTasks.has(task.id);
@@ -36,7 +38,7 @@ export default function TasksView({ tasks, orchestrator, className = "" }: Tasks
           const status = progress?.status || "not-started";
 
           return (
-            <li key={task.id} className="flex items-start gap-12">
+            <li key={task.id} className={styles.taskItem}>
               <TaskStatusIndicator
                 index={index}
                 status={status}
@@ -45,40 +47,31 @@ export default function TasksView({ tasks, orchestrator, className = "" }: Tasks
                 progress={progress}
               />
               <div
-                className={`flex-1 cursor-pointer transition-all hover:opacity-80 ${
-                  isCurrent ? "bg-blue-50 border-s-4 border-blue-400 -mx-2 px-2 py-2 rounded-e shadow-sm" : ""
-                }`}
+                className={assembleClassNames(styles.taskBody, isCurrent ? styles.taskBodyCurrent : "")}
                 onClick={() => handleTaskClick(task.id)}
               >
-                <div className="flex items-center justify-between">
+                <div className={styles.taskHeader}>
                   <p
-                    className={`text-sm ${
-                      isCompleted
-                        ? "text-green-700 font-medium"
-                        : status === "in-progress"
-                          ? "text-blue-700"
-                          : "text-gray-700"
-                    }`}
+                    className={assembleClassNames(
+                      styles.taskName,
+                      isCompleted ? styles.taskNameCompleted : status === "in-progress" ? styles.taskNameInProgress : ""
+                    )}
                   >
                     {task.name}
-                    {task.bonus && (
-                      <span className="ms-2 px-2 py-0.5 text-xs bg-yellow-100 text-yellow-700 rounded">
-                        {t("bonus")}
-                      </span>
-                    )}
+                    {task.bonus && <span className={styles.bonusTag}>{t("bonus")}</span>}
                   </p>
                   {progress && progress.totalScenarios > 0 && (
-                    <span className="text-xs text-gray-500">
+                    <span className={styles.scenarioCount}>
                       {progress.passedScenarios.length}/{progress.totalScenarios}
                     </span>
                   )}
                 </div>
-                {task.description && <p className="text-xs text-gray-500 mt-4">{task.description}</p>}
+                {task.description && <p className={styles.taskDescription}>{task.description}</p>}
                 {progress && status === "in-progress" && (
-                  <div className="mt-2">
-                    <div className="w-full bg-gray-200 rounded-full h-4">
+                  <div className={styles.progressWrapper}>
+                    <div className={styles.progressTrack}>
                       <div
-                        className="bg-blue-500 h-4 rounded-full transition-all duration-300"
+                        className={styles.progressBar}
                         style={{
                           width: `${progress.totalScenarios > 0 ? (progress.passedScenarios.length / progress.totalScenarios) * 100 : 0}%`
                         }}
@@ -105,19 +98,17 @@ interface TaskStatusIndicatorProps {
 
 function TaskStatusIndicator({ index, status, isCompleted, isCurrent }: TaskStatusIndicatorProps) {
   if (isCompleted) {
-    return (
-      <span className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500 text-white text-xs flex items-center justify-center font-medium">
-        ✓
-      </span>
-    );
+    return <span className={assembleClassNames(styles.statusIndicator, styles.statusCompleted)}>✓</span>;
   }
 
   if (status === "in-progress") {
     return (
       <span
-        className={`flex-shrink-0 w-6 h-6 rounded-full border-2 border-blue-500 bg-blue-50 text-blue-700 text-xs flex items-center justify-center font-medium ${
-          isCurrent ? "ring-2 ring-blue-300" : ""
-        }`}
+        className={assembleClassNames(
+          styles.statusIndicator,
+          styles.statusInProgress,
+          isCurrent ? styles.ringCurrentBlue : ""
+        )}
       >
         {index + 1}
       </span>
@@ -127,9 +118,11 @@ function TaskStatusIndicator({ index, status, isCompleted, isCurrent }: TaskStat
   // not-started
   return (
     <span
-      className={`flex-shrink-0 w-6 h-6 rounded-full bg-gray-200 text-gray-700 text-xs flex items-center justify-center font-medium ${
-        isCurrent ? "ring-2 ring-gray-300" : ""
-      }`}
+      className={assembleClassNames(
+        styles.statusIndicator,
+        styles.statusNotStarted,
+        isCurrent ? styles.ringCurrentGray : ""
+      )}
     >
       {index + 1}
     </span>

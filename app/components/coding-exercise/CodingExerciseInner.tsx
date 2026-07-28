@@ -25,7 +25,7 @@ export default function CodingExerciseInner() {
   }, [exerciseTitle]);
 
   return (
-    <div className="c-coding-exercise flex flex-col h-screen bg-gray-50">
+    <div className={`c-coding-exercise ${styles.rootWrapper}`}>
       <div ref={containerRef} className={`${styles.exerciseContainer}`} inert={isSpotlightActive}>
         {/* LHS */}
         <div className={styles.codeEditor}>

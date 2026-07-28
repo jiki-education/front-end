@@ -1,5 +1,3 @@
-@reference "../../app/app.css";
-
 .exerciseContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1261,10 +1259,11 @@
 }
 
 .testSelectorButtons {
-    @apply flex gap-x-4;
+    display: flex;
+    column-gap: 4px;
 
     .testButton {
-        @apply flex-shrink-0;
+        flex-shrink: 0;
     }
 
     &.bonus {
@@ -1275,7 +1274,7 @@
             font-size: 30px;
             color: rgba(112, 41, 245, 0.3);
             line-height: 40px;
-            @apply mr-2;
+            margin-inline-end: 2px;
         }
 
         .testButton {
@@ -1285,62 +1284,72 @@
 }
 
 .testButton {
-    @apply relative p-4 w-[40px] h-[40px] grid place-content-center;
+    position: relative;
+    padding: 4px;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-content: center;
     transition: background-color 0.3s ease-out;
-    @apply font-medium;
-
-    @apply border-2 rounded-3;
-    @apply bg-no-repeat;
+    font-weight: 500;
+    border-width: 2px;
+    border-radius: 3px;
+    background-repeat: no-repeat;
 
     &.idle {
-        @apply border-border-primary;
+        border-color: var(--color-border-primary);
         background-color: var(--color-background-primary);
         &.selected {
-            @apply border-purple-600;
+            border-color: var(--color-purple-600);
         }
         &:after {
-            @apply border-t-6 border-purple-600;
+            border-top-width: 6px;
+            border-top-color: var(--color-purple-600);
         }
     }
 
     &.pass {
         border-color: var(--color-green-200);
-        @apply bg-green-50;
-        @apply text-green-500;
+        background-color: var(--color-green-50);
+        color: var(--color-green-500);
         background-image: url("/static/icons/bootcamp-tick-green.svg");
         background-size: 12px;
         background-position: 24px 0px;
         &.selected {
-            @apply border-green-500;
+            border-color: var(--color-green-500);
         }
         &:after {
-            @apply border-t-6 border-green-500;
+            border-top-width: 6px;
+            border-top-color: var(--color-green-500);
         }
     }
 
     &.fail {
         border-color: var(--color-error-border);
         background-color: var(--color-error-bg);
-        @apply text-red-400;
+        color: var(--color-red-400);
         background-image: url("/static/icons/bootcamp-cross-red.svg");
         background-size: 9px;
         background-position: 25px 2px;
         &.selected {
-            @apply border-red-400;
+            border-color: var(--color-red-400);
         }
         &:after {
-            @apply border-t-6 border-red-400;
+            border-top-width: 6px;
+            border-top-color: var(--color-red-400);
         }
     }
 
     &.selected {
-        @apply relative;
-        @apply font-semibold;
+        position: relative;
+        font-weight: 600;
 
         &:after {
             content: "";
 
-            @apply absolute bottom-[-10px] left-[50%];
+            position: absolute;
+            bottom: -10px;
+            inset-inline-start: 50%;
             transform: translateX(-50%);
             z-index: var(--z-index-fixed);
 
@@ -1355,8 +1364,9 @@
 .editorWrapper {
     width: 100%;
     overflow: hidden;
-    @apply h-full flex-grow-0;
-    @apply rounded-5;
+    height: 100%;
+    flex-grow: 0;
+    border-radius: 5px;
 }
 
 .editor {
@@ -1364,7 +1374,8 @@
     height: 100%;
     background: var(--color-background-primary);
     overflow-y: auto;
-    @apply flex flex-grow;
+    display: flex;
+    flex-grow: 1;
     transition: background-color 0.3s ease;
 }
 
@@ -1379,4 +1390,122 @@
     line-height: 160%;
     background: var(--color-warning-bg);
     border-radius: 8px;
+}
+
+/* TestResultsButtons dots row */
+.dotsRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* VisualTestCanvas layout */
+.canvasFrame {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    max-height: 100cqi;
+}
+
+.canvasInner {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    container-type: inline-size;
+    position: relative;
+}
+
+/* Applied imperatively to the runtime view element (view.classList.add). */
+.canvasView {
+    aspect-ratio: 1 / 1;
+    max-width: 100cqi;
+    background: white;
+    position: relative;
+}
+
+/* ScenarioHeader description spacing */
+.scenarioDescription {
+    margin-block: 8px;
+}
+
+/* RHS root wrapper */
+.rhsRoot {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: var(--color-gray-50);
+}
+
+/* RHS toolbar row */
+.rhsToolbar {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-inline: 32px;
+    padding-block: 8px;
+    background: white;
+    flex-shrink: 0;
+}
+
+/* RHS tab content area */
+.rhsContent {
+    flex: 1;
+    overflow: auto;
+    background: white;
+}
+
+/* Tab icon spacing */
+.tabIcon {
+    margin-inline-end: 2px;
+}
+
+/* Nav (back to dashboard/challenges) button */
+.navButton {
+    flex-direction: row-reverse;
+    flex-shrink: 0;
+}
+
+.navButtonCompleted {
+    color: var(--color-green-600) !important;
+    font-weight: 600;
+    background: var(--color-green-50) !important;
+    border-color: var(--color-green-600) !important;
+    gap: 4px;
+}
+
+/* Scrollable tabs inner PageTabs */
+.tabsPageTabs {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+/* Error / loading full-screen states */
+.stateScreen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: var(--color-gray-50);
+}
+
+.errorText {
+    font-size: 18px;
+    color: var(--color-red-600);
+}
+
+/* Root exercise wrapper (was: flex flex-col h-screen bg-gray-50) */
+.rootWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background: var(--color-gray-50);
+}
+
+/* Resizer cursors */
+.cursorColResize {
+    cursor: col-resize;
+}
+
+.cursorRowResize {
+    cursor: row-resize;
 }

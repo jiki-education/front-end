@@ -4,14 +4,14 @@
  * SVGR-based Icon System
  *
  * Icons are imported as React components and rendered directly.
- * SVGs use currentColor, which is set via the text-* Tailwind classes.
+ * SVGs use currentColor. In product code, set the color from the parent via a
+ * CSS Module class (`.icon { color: var(--color-blue-500); }`). The `color`
+ * prop maps to a Tailwind `text-*` class and is only used on dev/demo pages.
  * Each icon is lazy-loaded for optimal code-splitting.
  * To add a new icon: just drop an SVG file into /icons/
  *
  * Usage:
- *   <Icon name="email" size={24} color="blue-500" />
- *   <Icon name="user" className="hover:text-red-500" />
- *   <div className="text-gray-600"><Icon name="lock" /></div>
+ *   <span className={styles.icon}><Icon name="lock" size={24} /></span>
  */
 
 import { lazy, Suspense, useMemo } from "react";

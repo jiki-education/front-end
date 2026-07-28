@@ -1,5 +1,6 @@
 import { assembleClassNames } from "@/lib/assemble-classnames";
 import React, { useEffect, useRef } from "react";
+import styles from "./CodingExercise.module.css";
 
 type Direction = "horizontal" | "vertical";
 
@@ -247,7 +248,10 @@ export const Resizer = React.forwardRef<
     <button
       ref={ref}
       onMouseDown={handleMouseDown}
-      className={assembleClassNames(className, direction === "vertical" ? "cursor-col-resize" : "cursor-row-resize")}
+      className={assembleClassNames(
+        className,
+        direction === "vertical" ? styles.cursorColResize : styles.cursorRowResize
+      )}
       style={style}
     />
   );

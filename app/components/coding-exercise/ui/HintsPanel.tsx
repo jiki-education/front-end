@@ -39,8 +39,8 @@ export default function HintsPanel({ hints, walkthroughVideoData, lessonSlug, cl
 
   if (!hasHints && !hasWalkthrough) {
     return (
-      <div className={`p-4 ${className}`}>
-        <p className="text-sm text-gray-500 italic">{t("empty")}</p>
+      <div className={`${style.emptyWrapper} ${className}`}>
+        <p className={style.emptyText}>{t("empty")}</p>
       </div>
     );
   }
@@ -65,9 +65,9 @@ export default function HintsPanel({ hints, walkthroughVideoData, lessonSlug, cl
     <div className={`${className}`}>
       <PanelHeader title={t("title")} description={t("description")} />
 
-      <div className="py-24 px-32">
+      <div className={style.body}>
         {hasHints && (
-          <ul className="space-y-12">
+          <ul className={style.hintsList}>
             {hints.map((hint, index) => {
               const isRevealed = revealedHints.has(index);
 

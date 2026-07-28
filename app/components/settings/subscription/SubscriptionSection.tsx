@@ -8,6 +8,7 @@ import { useSubscription } from "./useSubscription";
 import type { User } from "./types";
 import { assembleClassNames } from "@/lib/assemble-classnames";
 import { useTranslations } from "next-intl";
+import styles from "./SubscriptionSection.module.css";
 
 interface SubscriptionSectionProps {
   user: User | null;
@@ -34,16 +35,16 @@ export default function SubscriptionSection({ user, refreshUser, className = "" 
   if (!user) {
     return (
       <SettingsCard title={t("loadingCardTitle")} description={t("loadingCardDescription")} className={className}>
-        <div className="flex items-center justify-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-link-primary"></div>
-          <span className="ms-12 text-text-secondary">{t("loadingData")}</span>
+        <div className={styles.loadingWrapper}>
+          <div className={styles.spinner}></div>
+          <span className={styles.loadingText}>{t("loadingData")}</span>
         </div>
       </SettingsCard>
     );
   }
 
   return (
-    <div style={{ maxWidth: "774px" }} className={assembleClassNames(className, "space-y-[16px]")}>
+    <div className={assembleClassNames(styles.container, className)}>
       {/* Current Plan - rendered outside of SettingsCard */}
       <SubscriptionStatus tier={currentTier} status={subscriptionStatus} nextBillingDate={nextBillingDate} />
 

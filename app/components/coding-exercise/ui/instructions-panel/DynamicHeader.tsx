@@ -37,15 +37,15 @@ export default function DynamicHeader({
     <div className={`${styles.dynamicHeader} ${isExpanded ? styles.expandedHeader : styles.collapsedHeader}`}>
       {isExpanded ? (
         /* Expanded Header */
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-16">
+        <div className={styles.expandedHeaderRow}>
+          <div className={styles.headerTitleGroup}>
             {exerciseData.isChallenge ? (
               <ChallengeIcon slug={exerciseData.exerciseSlug} width={54} height={54} />
             ) : (
               <LessonIcon slug={exerciseData.exerciseSlug} width={54} height={54} />
             )}
 
-            <div className="flex flex-col gap-4">
+            <div className={styles.headerTitleText}>
               <h1 className={styles.exerciseTitle}>{exerciseData.title}</h1>
               <p className={styles.exerciseInfoText}>
                 {exerciseData.isChallenge ? t("premiumChallenge") : t("exerciseLevel", { level: exerciseData.level })}

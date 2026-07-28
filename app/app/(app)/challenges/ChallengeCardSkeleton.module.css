@@ -1,3 +1,9 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+    gap: 28px;
+}
+
 .skeletonCard {
     background: white;
     border: 3px solid var(--color-gray-200);

@@ -15,10 +15,7 @@ export function IOTestResultView({ expect, language }: IOTestResultViewProps) {
   if (expect.errorHtml) {
     return (
       <div className={tableStyles.wrapper}>
-        <div
-          className="py-12 px-16 text-15 leading-150 text-red-700"
-          dangerouslySetInnerHTML={{ __html: expect.errorHtml }}
-        />
+        <div className={tableStyles.errorCell} dangerouslySetInnerHTML={{ __html: expect.errorHtml }} />
       </div>
     );
   }
@@ -38,13 +35,15 @@ export function IOTestResultView({ expect, language }: IOTestResultViewProps) {
           <tr>
             <th>{t("expected")}</th>
             <td>
-              <div className={`${tableStyles.cellScroll} whitespace-pre-wrap`}>{renderExpected(expect.diff)}</div>
+              <div className={`${tableStyles.cellScroll} ${tableStyles.cellScrollWrap}`}>
+                {renderExpected(expect.diff)}
+              </div>
             </td>
           </tr>
           <tr>
             <th>{t("actual")}</th>
             <td>
-              <div className={`${tableStyles.cellScroll} whitespace-pre-wrap`}>
+              <div className={`${tableStyles.cellScroll} ${tableStyles.cellScrollWrap}`}>
                 {expect.actual === undefined || expect.actual === null ? (
                   <span className={tableStyles.removedPart}>{t("noReturn")}</span>
                 ) : (

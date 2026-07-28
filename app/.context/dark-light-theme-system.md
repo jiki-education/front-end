@@ -49,21 +49,25 @@ The Jiki frontend implements a comprehensive, production-ready dark/light theme 
 - Hydration-safe implementation with blocking script to prevent theme flash
 - Document attribute management (`data-theme="dark"`)
 
-### 3. Tailwind CSS Integration
+### 3. Using themed colors
 
-**Semantic Utility Classes:**
+The semantic tokens are plain `:root` custom properties (defined per-theme in `colors.css`), so **product code references them directly in CSS Modules** — they resolve to the right value for the active theme automatically:
 
-- `bg-bg-primary`, `bg-bg-secondary`, `bg-bg-tertiary` - Backgrounds
-- `text-text-primary`, `text-text-secondary`, `text-text-tertiary` - Text colors
-- `border-border-primary`, `border-border-secondary` - Borders
-- `bg-button-primary-bg`, `text-button-primary-text` - Interactive elements
-- Status colors: `bg-success-bg`, `bg-error-bg`, `bg-warning-bg`, `bg-info-bg`
+```css
+.card {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-primary);
+}
+```
 
-**Configuration in `@theme` block:**
+Available semantic tokens: `--color-bg-{primary,secondary,tertiary}`, `--color-text-{primary,secondary,tertiary}`, `--color-border-{primary,secondary}`, `--color-button-{primary,secondary}-{bg,text}`, and status colors `--color-{success,error,warning,info}-bg`.
+
+**Tailwind mapping (dev/test only):** the same tokens are re-registered in the `@theme inline` block of `app/styles/theme/_tailwind-tokens.css`, which lets the Tailwind semantic utilities (`bg-bg-primary`, `text-text-primary`, …) generate for the `/dev` and `/test` pages. Product code does not use those utilities — use the `var(--color-*)` form above.
 
 ```css
 @theme inline {
-  /* Map semantic tokens to Tailwind */
+  /* Re-registers the :root tokens so Tailwind utilities generate (dev/test). */
   --color-bg-primary: var(--color-background-primary);
   --color-text-primary: var(--color-text-primary);
   /* ... more mappings */
@@ -328,11 +332,12 @@ Editor themes automatically switch with the global theme through the orchestrato
 
 ### Adding New Semantic Tokens
 
-1. Define in both light and dark themes in `globals.css`
-2. Add to Tailwind `@theme` configuration
-3. Update TypeScript interfaces if needed
-4. Test across all usage scenarios
-5. Update documentation
+1. Define in both light and dark themes in `colors.css` (as `:root` custom properties)
+2. Reference it in product code as `var(--color-…)` (CSS Modules)
+3. Optionally re-register it in the `@theme inline` block of `_tailwind-tokens.css` if a matching Tailwind utility is needed on the dev/test pages
+4. Update TypeScript interfaces if needed
+5. Test across all usage scenarios
+6. Update documentation
 
 ### Performance Considerations
 
@@ -510,13 +515,7 @@ When reviewing theme-related changes:
    }
    ```
 
-2. **Add to Tailwind configuration** in `@theme` block:
-
-   ```css
-   @theme inline {
-     --color-my-new: var(--color-my-new-token);
-   }
-   ```
+2. **Use it in product code** via `var(--color-my-new-token)` in a CSS Module. (Only add a `@theme inline` mapping in `_tailwind-tokens.css` if you also need a Tailwind utility for it on the dev/test pages.)
 
 3. **Update TypeScript interfaces** if needed in `lib/theme/types.ts`
 

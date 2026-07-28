@@ -1,0 +1,71 @@
+.button {
+    font-weight: 500;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+/* Variants */
+.primary {
+    background: var(--color-button-primary-bg);
+    color: var(--color-button-primary-text);
+
+    &:hover {
+        opacity: 0.9;
+    }
+}
+
+.secondary {
+    background: var(--color-button-secondary-bg);
+    color: var(--color-button-secondary-text);
+    border: 1px solid var(--color-button-secondary-border);
+
+    &:hover {
+        background: var(--color-button-secondary-bg-hover);
+    }
+}
+
+.danger {
+    background: var(--color-red-600);
+    color: white;
+    border: 1px solid var(--color-red-600);
+
+    &:hover {
+        background: var(--color-red-700);
+    }
+}
+
+/* Sizes */
+.small {
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+.medium {
+    padding: 2px 4px;
+    font-size: 16px;
+}
+
+.large {
+    padding: 12px 6px;
+    font-size: 18px;
+}
+
+/* Loading spinner */
+.loadingContent {
+    display: inline-flex;
+    align-items: center;
+}
+
+.spinner {
+    width: 4px;
+    height: 4px;
+    margin-inline-end: 2px;
+    border-radius: 9999px;
+    border-block-end: 2px solid currentColor;
+    animation: ui-spin 1s linear infinite;
+}
