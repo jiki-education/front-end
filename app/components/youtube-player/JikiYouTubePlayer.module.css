@@ -1,0 +1,103 @@
+.player {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 12px;
+    background: var(--color-black, #000);
+    isolation: isolate;
+}
+
+/* YouTube iframe fills the frame; positioned siblings after it paint on top. */
+.iframeWrapper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* ---- Start facade ---- */
+
+.facade {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: var(--color-black, #000);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+}
+
+.poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.facadeScrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.45) 100%);
+}
+
+.facadeTitle {
+    position: absolute;
+    top: 20px;
+    inset-inline-start: 24px;
+    inset-inline-end: 24px;
+    color: var(--color-white, #fff);
+    font-size: 20px;
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* ---- End overlay ---- */
+
+/* Blocks pointer events so YouTube's end-screen suggestions underneath are
+   neither visible nor clickable; only our replay button is interactive. */
+.stateOverlay {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    background: color-mix(in srgb, var(--color-purple-950) 55%, transparent);
+}
+
+/* ---- Big centred play / replay button ---- */
+
+.bigPlayButton {
+    display: grid;
+    place-items: center;
+    width: 88px;
+    height: 88px;
+    border: 0;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--color-purple-950) 80%, transparent);
+    color: var(--color-white, #fff);
+    cursor: pointer;
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease;
+}
+
+.bigPlayButton:hover {
+    background: var(--color-purple-800);
+    transform: scale(1.06);
+}
+
+.bigPlayIcon {
+    width: 32px;
+    height: 32px;
+    margin-inline-start: 4px;
+}
