@@ -85,6 +85,7 @@ export interface InterpretResult {
     assertMaxLinesOfCode: (limit: number) => boolean;
     assertFunctionDefined: (name: string) => boolean;
     assertMethodCalled: (methodName: string) => boolean;
+    countMethodCalls: () => number;
     countArrayLiterals: () => number;
     assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
     assertFunctionCallsAnotherFunction: (funcName: string) => boolean;

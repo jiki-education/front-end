@@ -13,6 +13,19 @@ const lineCountCheck: CodeCheck[] = [
   }
 ];
 
+// The whole point of this exercise is to build the letter-testing and
+// case-swapping tools by hand. String methods aren't taught until a later
+// level. As a challenge, though, the exercise inherits the student's current
+// level's features, which may already unlock `.toUpperCase()`/`.includes()`.
+// This check enforces the exercise's intent regardless of level: no method
+// calls at all. It's applied to every scenario below.
+const noMethodsCheck: CodeCheck[] = [
+  {
+    pass: (result) => result.assertors.countMethodCalls() === 0,
+    errorKey: "checks.noMethods"
+  }
+];
+
 export const tasks = [
   {
     id: "create-acronym-function" as const,
@@ -45,7 +58,7 @@ export const tasks = [
   }
 ] as const satisfies readonly Task[];
 
-export const scenarios: IOScenario[] = [
+const baseScenarios: IOScenario[] = [
   {
     slug: "png",
     name: "scenarios.png.name",
@@ -165,3 +178,10 @@ export const scenarios: IOScenario[] = [
     codeChecks: lineCountCheck
   }
 ];
+
+// No method calls are allowed anywhere: append the no-methods check to every
+// scenario (preserving any scenario-specific checks like the bonus line count).
+export const scenarios: IOScenario[] = baseScenarios.map((scenario) => ({
+  ...scenario,
+  codeChecks: [...noMethodsCheck, ...(scenario.codeChecks ?? [])]
+}));

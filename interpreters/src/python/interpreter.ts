@@ -97,6 +97,7 @@ export function interpret(sourceCode: string, context: EvaluationContext = {}): 
         assertMaxLinesOfCode: () => true,
         assertFunctionDefined: () => true,
         assertMethodCalled: () => true,
+        countMethodCalls: () => 0,
         countArrayLiterals: () => 0,
         assertFunctionCalledOutsideOwnDefinition: () => true,
         assertFunctionCallsAnotherFunction: () => true,
@@ -237,6 +238,7 @@ export function evaluateFunction(
         const formatted = formatIdentifier(methodName);
         return extractMethodCalls(statements).some(mc => mc.methodName === formatted);
       },
+      countMethodCalls: () => extractMethodCalls(statements).length,
       countArrayLiterals: () => countListExpressions(statements),
       assertFunctionCalledOutsideOwnDefinition: (funcName: string) => {
         const formatted = formatIdentifier(funcName);

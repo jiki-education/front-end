@@ -144,6 +144,7 @@ export interface ExecutorResult {
     assertMaxLinesOfCode: (limit: number) => boolean;
     assertFunctionDefined: (name: string) => boolean;
     assertMethodCalled: (methodName: string) => boolean;
+    countMethodCalls: () => number;
     countArrayLiterals: () => number;
     assertFunctionCalledOutsideOwnDefinition: (funcName: string) => boolean;
     assertFunctionCallsAnotherFunction: (funcName: string) => boolean;
@@ -323,6 +324,7 @@ export class Executor {
           const formatted = formatIdentifier(methodName);
           return extractMethodCalls(statements).some(mc => mc.methodName === formatted);
         },
+        countMethodCalls: () => extractMethodCalls(statements).length,
         countArrayLiterals: () => countListExpressions(statements),
         assertFunctionCalledOutsideOwnDefinition: (funcName: string) => {
           const formatted = formatIdentifier(funcName);
