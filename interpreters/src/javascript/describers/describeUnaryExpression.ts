@@ -1,6 +1,6 @@
 import type { EvaluationResultUnaryExpression } from "../evaluation-result";
 import type { UnaryExpression } from "../expression";
-import type { DescriptionContext } from "../../shared/frames";
+import type { DescriptionContext } from "./types";
 import { codeTag } from "../helpers";
 import { describeExpression } from "./describeSteps";
 import type * as JS from "../jikiObjects";
@@ -28,10 +28,10 @@ function describeNotExpression(
   let steps = describeExpression(expression.operand, result.operand, context);
   steps = [
     ...steps,
-    `<li>Jiki evaluated that ${codeTag(
-      `!${resBool}`,
-      expression.operand.location
-    )} is ${codeTag(result.immutableJikiObject, expression.location)}.</li>`,
+    context.t("description.unaryExpression.not", {
+      expr: codeTag(`!${resBool}`, expression.operand.location),
+      value: codeTag(result.immutableJikiObject, expression.location),
+    }),
   ];
   return steps;
 }
@@ -49,10 +49,10 @@ function describeMinusExpression(
   let steps = describeExpression(expression.operand, result.operand, context);
   steps = [
     ...steps,
-    `<li>Jiki evaluated that ${codeTag(
-      `-${resNum}`,
-      expression.operand.location
-    )} is ${codeTag(result.immutableJikiObject, expression.location)}.</li>`,
+    context.t("description.unaryExpression.minus", {
+      expr: codeTag(`-${resNum}`, expression.operand.location),
+      value: codeTag(result.immutableJikiObject, expression.location),
+    }),
   ];
   return steps;
 }

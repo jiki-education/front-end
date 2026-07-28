@@ -163,5 +163,135 @@
     "inputCount_zero": "nincs bemenet",
     "inputCount_one": "egy bemenet",
     "inputCount_other": "{{count}} bemenet"
+  },
+  "description": {
+    "binaryExpression": {
+      "evaluated": "<li>Jiki evaluated {{expr}} and determined it was {{value}}.</li>"
+    },
+    "logicalExpression": {
+      "evaluated": "<li>Jiki evaluated {{expr}} and determined it was {{value}}.</li>",
+      "shortCircuited": "<li>Jiki saw the left side of the {{operator}} was {{value}} and so did not bother looking at the right side.</li>"
+    },
+    "unaryExpression": {
+      "not": "<li>Jiki evaluated that {{expr}} is {{value}}.</li>",
+      "minus": "<li>Jiki evaluated that {{expr}} is {{value}}.</li>"
+    },
+    "templateLiteralExpression": {
+      "combined": "Combined the template parts into {{value}}."
+    },
+    "assignmentExpression": {
+      "arrayElement": "<li>Jiki set the array element at index {{index}} to <code>{{value}}</code>.</li>",
+      "variable": "<li>Jiki updated the variable <code>{{name}}</code> to <code>{{value}}</code>.</li>"
+    },
+    "arrayExpression": {
+      "empty": "Created an empty list",
+      "created_one": "Created a list with 1 element: {{value}}",
+      "created_other": "Created a list with {{count}} elements: {{value}}"
+    },
+    "memberExpression": {
+      "string": "Accessed character at index {{index}} of the string, got {{value}}",
+      "list": "Accessed element at index {{index}} of the list, got {{value}}"
+    },
+    "dictionaryExpression": {
+      "notObject": "<li>Created an object.</li>",
+      "empty": "<li>Created an empty object <code>{}</code>.</li>",
+      "created": "<li>Created an object <code>{{formatted}}</code>.</li>"
+    },
+    "ifStatement": {
+      "result_true": "<p>The condition evaluated to <code>true</code>, so the if block was executed.</p>",
+      "result_false_else": "<p>The condition evaluated to <code>false</code>, so the else block was executed.</p>",
+      "result_false": "<p>The condition evaluated to <code>false</code>, so the if block was skipped.</p>",
+      "step_true": "<li>The condition evaluated to <code>true</code>, so Jiki executed the if block.</li>",
+      "step_false_else": "<li>The condition evaluated to <code>false</code>, so Jiki executed the else block.</li>",
+      "step_false": "<li>The condition evaluated to <code>false</code>, so Jiki skipped the if block.</li>"
+    },
+    "blockStatement": {
+      "result_zero": "<p>This empty block has no effect.</p>",
+      "result_one": "<p>This block executed one statement in its own scope.</p>",
+      "result_other": "<p>This block executed {{count}} statements in their own scope.</p>",
+      "step_zero": "<li>Jiki executed an empty block with no statements.</li>",
+      "step_enter": "<li>Jiki entered a new block scope.</li>",
+      "step_one_executed": "<li>The statement inside the block was executed.</li>",
+      "step_other_executed": "<li>All {{count}} statements inside the block were executed in order.</li>",
+      "step_exit": "<li>Jiki exited the block scope, removing any variables declared within it.</li>"
+    },
+    "whileStatement": {
+      "result_true": "<p>The while loop condition evaluated to <code>true</code> so the loop will continue.</p>",
+      "result_false": "<p>The while loop condition evaluated to <code>false</code> so the loop will exit.</p>",
+      "step_true": "<li>Jiki evaluated the condition to <code>true</code> and decided to execute the loop body.</li>",
+      "step_false": "<li>Jiki evaluated the condition to <code>false</code> and decided to exit the loop.</li>"
+    },
+    "variableDeclaration": {
+      "result_const": "<p>Declared constant <code>{{name}}</code> and set it to <code>{{value}}</code>.</p>",
+      "result_let": "<p>Declared variable <code>{{name}}</code> and set it to <code>{{value}}</code>.</p>",
+      "result_uninit": "<p>Declared variable <code>{{name}}</code>.</p>",
+      "step_const": "<li>Jiki created constant <code>{{name}}</code> and assigned it the value <code>{{value}}</code>.</li>",
+      "step_let": "<li>Jiki created variable <code>{{name}}</code> and assigned it the value <code>{{value}}</code>.</li>",
+      "step_uninit": "<li>Jiki created variable <code>{{name}}</code> with value <code>undefined</code>.</li>"
+    },
+    "expressionStatement": {
+      "defaultFunctionName": "a function",
+      "args_one": "with {{count}} argument",
+      "args_other": "with {{count}} arguments",
+      "ret": "and got <code>{{value}}</code>",
+      "result_call": "<p>Jiki used the <code>{{functionName}}</code> function{{args}}{{ret}}.</p>",
+      "result_default": "<p>This expression evaluated to <code>{{value}}</code>.</p>",
+      "step_default": "<li>Jiki evaluated this expression and got <code>{{value}}</code>.</li>"
+    },
+    "forInStatement": {
+      "stepEmpty": "<li>The object is empty, so the loop body will not execute.</li>",
+      "stepSetKey": "<li>Set <code>{{variableName}}</code> to <code>{{keyValue}}</code> (iteration {{iteration}}).</li>",
+      "stepDefault": "<li>Begin looping through the keys.</li>",
+      "resultEmpty": "<p>The object is empty, so the loop body did not execute.</p>",
+      "resultSetKey": "<p>Set <code>{{variableName}}</code> to <code>{{keyValue}}</code> for iteration {{iteration}}.</p>",
+      "resultDefault": "<p>Looping through each key.</p>"
+    },
+    "forOfStatement": {
+      "stepEmpty": "<li>The {{typeName}} is empty, so the loop body will not execute.</li>",
+      "stepSetElement": "<li>Set <code>{{variableName}}</code> to <code>{{elementValue}}</code> (iteration {{iteration}}).</li>",
+      "stepDefault": "<li>Begin looping through the elements.</li>",
+      "resultEmpty": "<p>The {{typeName}} is empty, so the loop body did not execute.</p>",
+      "resultSetElement": "<p>Set <code>{{variableName}}</code> to <code>{{elementValue}}</code> for iteration {{iteration}}.</p>",
+      "resultDefault": "<p>Looping through each element.</p>"
+    },
+    "repeatStatement": {
+      "foreverResult": "<p>This line started the {{ordinal}} iteration of this repeat block.</p>",
+      "foreverStep": "<li>Jiki started the {{ordinal}} iteration of the repeat loop.</li>",
+      "zeroResult": "<p>The repeat block was asked to run <code>0</code> times so this line did nothing.</p>",
+      "zeroStep": "<li>Jiki saw that the loop should be run <code>0</code> times and so decided not to do anything further on this line.</li>",
+      "repeatResult": "<p>This line started the {{ordinal}} iteration of this repeat block.</p>",
+      "repeatStep": "<li>Jiki increased its internal counter for this loop to <code>{{iteration}}</code>, checked <code>{{iteration}} &le; {{countValue}}</code>, and decided to run the code block.</li>"
+    },
+    "callExpression": {
+      "summary": "<p>Jiki used <code>{{functionName}}</code>.</p>",
+      "logBlank": "<li>Jiki used <code>console.log</code>, which printed a blank line</li>",
+      "logOne": "<li>Jiki used <code>console.log</code> with {{arg0}}, which printed <code>{{output}}</code></li>",
+      "logTwo": "<li>Jiki used <code>console.log</code> with {{arg0}} and {{arg1}}, which printed <code>{{output}}</code></li>",
+      "logMany": "<li>Jiki used <code>console.log</code> with {{otherArgs}} and {{lastArg}}, which printed <code>{{output}}</code></li>",
+      "usedFunction": "<li>Jiki used the <code>{{functionName}}</code> function</li>",
+      "usedFunctionWithArgs": "<li>Jiki used the <code>{{functionName}}</code> function with {{args}}</li>",
+      "usedFunctionWithReturn": "<li>Jiki used the <code>{{functionName}}</code> function and got <code>{{ret}}</code></li>",
+      "usedFunctionWithArgsAndReturn": "<li>Jiki used the <code>{{functionName}}</code> function with {{args}} and got <code>{{ret}}</code></li>"
+    },
+    "breakStatement": {
+      "result": "<p>This line immediately exited the loop.</p>",
+      "step": "<li>Jiki saw this and decided to move on to after this loop.</li>"
+    },
+    "continueStatement": {
+      "result": "<p>This line stopped running any more code in this iteration.</p>",
+      "step": "<li>Jiki saw this and decided to move on to the next iteration.</li>"
+    },
+    "returnStatement": {
+      "void": {
+        "result": "<p>Jiki returned from the function with no value.</p>",
+        "step1": "<li>Jiki exited the current function.</li>",
+        "step2": "<li>No value was returned.</li>"
+      },
+      "value": {
+        "result": "<p>Jiki returned the value <code>{{value}}</code> from the function.</p>",
+        "step1": "<li>Jiki evaluated the return expression to <code>{{value}}</code>.</li>",
+        "step2": "<li>Jiki exited the current function, returning <code>{{value}}</code>.</li>"
+      }
+    }
   }
 }

@@ -24,7 +24,7 @@ import {
   DictionaryExpression,
   CallExpression,
 } from "../expression";
-import type { DescriptionContext } from "../../shared/frames";
+import type { DescriptionContext } from "./types";
 import { describeBinaryExpression } from "./describeBinaryExpression";
 import { describeLogicalExpression } from "./describeLogicalExpression";
 import { describeGroupingExpression } from "./describeGroupingExpression";
@@ -57,16 +57,16 @@ export function describeExpression(
     return describeTemplateLiteralExpression(expression, result as EvaluationResultTemplateLiteralExpression, context);
   }
   if (expression instanceof ArrayExpression) {
-    return [describeArrayExpression(expression, result as EvaluationResultArrayExpression)];
+    return [describeArrayExpression(expression, result as EvaluationResultArrayExpression, context)];
   }
   if (expression instanceof MemberExpression) {
-    return [describeMemberExpression(expression, result as EvaluationResultMemberExpression)];
+    return [describeMemberExpression(expression, result as EvaluationResultMemberExpression, context)];
   }
   if (expression instanceof AssignmentExpression) {
     return describeAssignmentExpression(expression, result as EvaluationResultAssignmentExpression, context);
   }
   if (expression instanceof DictionaryExpression) {
-    return describeDictionaryExpression(result as EvaluationResultDictionaryExpression, expression, null as any);
+    return describeDictionaryExpression(result as EvaluationResultDictionaryExpression, expression, context);
   }
   if (expression instanceof CallExpression) {
     return describeCallExpressionSteps(expression, result as EvaluationResultCallExpression, context);

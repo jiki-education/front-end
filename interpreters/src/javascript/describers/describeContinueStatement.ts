@@ -1,7 +1,8 @@
-import type { Description, DescriptionContext, FrameWithResult } from "../../shared/frames";
+import type { Description, FrameWithResult } from "../../shared/frames";
+import type { DescriptionContext } from "./types";
 
-export function describeContinueStatement(_fr: FrameWithResult, _dc: DescriptionContext): Description {
-  const result = `<p>This line stopped running any more code in this iteration.</p>`;
-  const steps = [`<li>Jiki saw this and decided to move on to the next iteration.</li>`];
+export function describeContinueStatement(_frame: FrameWithResult, context: DescriptionContext): Description {
+  const result = context.t("description.continueStatement.result");
+  const steps = [context.t("description.continueStatement.step")];
   return { result, steps };
 }
