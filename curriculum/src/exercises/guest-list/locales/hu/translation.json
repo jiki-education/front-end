@@ -1,40 +1,65 @@
 {
   "tasks": {
-    "checkGuestList": {
-      "name": "Check the Guest List",
-      "description": "Write a function that checks if a person's name is on the guest list. Return true if they are, false if they aren't."
+    "countChancersInQueue": {
+      "name": "Count the chancers",
+      "description": "Write a function that takes the queue and the guest list, and returns how many of the people queueing are not on the guest list."
+    },
+    "solveTightly": {
+      "name": "Solve it tightly",
+      "description": "Bonus: this can be written far more compactly than you might expect. Can you get the whole solution down to just a handful of lines?"
     }
   },
   "scenarios": {
-    "nameSingleListTrue": {
-      "name": "Person is on a single person list",
-      "description": "Return true if a person is on the guest list."
+    "emptyQueue": {
+      "name": "Nobody has turned up yet",
+      "description": "An empty queue, so nobody is waiting to get in."
     },
-    "nameSingleListFalse": {
-      "name": "Person is not on a single person list",
-      "description": "Return false if a person is not on the guest list."
+    "everyoneChancingIt": {
+      "name": "The whole queue is chancing it",
+      "description": "A queue where none of the people waiting are on the guest list."
     },
-    "nameListTrue": {
-      "name": "Person is on a larger list",
-      "description": "Return true if a person is on a larger guest list."
+    "everyoneInvited": {
+      "name": "Everyone is invited",
+      "description": "A queue where every person waiting is on the guest list."
     },
-    "nameListFalse": {
-      "name": "Person is not on a larger list",
-      "description": "Return false if a person is not on a larger guest list."
+    "mixedQueue": {
+      "name": "A mixed queue",
+      "description": "A queue where some of the people waiting are invited and some aren't. One of the chancers has a name that looks a lot like a name on the list."
+    },
+    "guestsWhoHaventArrived": {
+      "name": "Guests still stuck in traffic",
+      "description": "A guest list with lots of names on it, but most of those people haven't reached the queue yet."
+    },
+    "longQueueShortList": {
+      "name": "A long queue and a short list",
+      "description": "A big queue outside, but only a couple of names on the guest list."
+    },
+    "guestListBonusLineCount": {
+      "name": "Neat and tidy: a mixed queue",
+      "description": "The same mixed queue as before, but this time your solution has to fit into a much smaller number of lines."
     }
   },
+  "checks": {
+    "tooManyLines": "Keep going! See if you can solve it in fewer lines."
+  },
   "hints": {
-    "realLifeList": {
-      "question": "How would I do this in real life with a paper list?",
-      "answer": "You'd read down the list, one name at a time, comparing each to the name you're looking for. As soon as you found a match, you'd stop. If you reached the end without a match, the person isn't on the list. Your code does the same thing."
+    "keepingTrack": {
+      "question": "What do I need to keep track of as I go?",
+      "answer": "The answer is a single number, and you don't know it until you've seen everyone. So ask yourself two things: what should that number be before you've looked at anybody at all, and what needs to happen to it when someone turns out **not** to be invited?"
     },
-    "loopAndCompare": {
-      "question": "How do I loop through the list and compare each entry?",
-      "answer": "A for-each loop gives you each name in turn. Inside, use an if-statement to compare the current name to the target."
+    "whichList": {
+      "question": "There are two lists here. Which one am I working through?",
+      "answer": "Think about what the answer is counting. It's a number of people **in the queue**, so it's the queue you need to visit one person at a time. The guest list isn't something you walk through, it's the thing you check each person against."
     },
-    "returnTrueVsFalse": {
-      "question": "When should I return true vs false?",
-      "answer": "Return `true` as soon as you find a match. There's no reason to keep looking. Only return `false` after the loop has finished and you've checked every name without finding it. (A common mistake is returning `false` inside the loop, which gives up after just the first name.)"
+    "realLifeBouncer": {
+      "question": "How would a real bouncer do this with a clipboard?",
+      "answer": "Picture them stood at the front of the queue with the clipboard in one hand, working their way towards the back. They only shout out the final number once they've reached the last person. What are they doing to each person on the way, and what are they doing about the ones whose names they can't find?"
+    }
+  },
+  "functions": {
+    "includes": {
+      "description": "Check whether a list contains a specific item (provided by level stdlib)",
+      "category": "List Operations"
     }
   }
 }

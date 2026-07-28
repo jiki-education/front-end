@@ -9,20 +9,29 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise allows a student to explore the search-a-collection pattern: loop, return
-    early on a match, return a default at the end. It is often a student's first time combining
-    a loop with conditional logic, so the early-return idea is the main thing to land.
+    Don't hand over a finished function - find the first broken or missing sub-step and coach only that one.
+    Array methods (including includes) are first unlocked by this level, so reaching for one is right. If they
+    hand-roll a nested search through the guest list instead, that is a correct answer to the required
+    task - affirm it rather than "correcting" it. The bonus is where the shorter route earns its keep.
   `,
 
   tasks: {
-    "check-guest-list": {
+    "count-chancers-in-queue": {
       description: `
-        The student loops the guest list and returns true on a match, false after the loop.
+        Returning from inside the loop is the classic slip, carried over from earlier "is X on the list?"
+        exercises where returning early was correct. The framing that helps: a bouncer working down the queue
+        with a clipboard can't shout the headcount until they've reached the very back.
 
-        The defining mistake is returning false inside the loop (on the first non-match) instead
-        of after it, which reports everyone after the first name as absent. The framing that helps:
-        you can only say "not on the list" once you've checked everyone, but "on the list" the
-        moment you find them.
+        The question is asymmetric, so walking the guest list rather than the queue now gives wrong answers.
+        Ask what their number is counting.
+      `
+    },
+    "solve-tightly": {
+      description: `
+        The line budget rules out a hand-rolled membership search. Their working code isn't wrong, it's
+        just longer than the budget, so frame it as "there's a shorter route", not "that's broken". Point
+        at the membership check as the part that can collapse to one expression, and let them find which
+        method does it.
       `
     }
   }

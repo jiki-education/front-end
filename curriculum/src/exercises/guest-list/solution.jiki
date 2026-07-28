@@ -1,9 +1,21 @@
-function on_guest_list with list, person do
-  for each name in list do
+function on_guest_list with guest_list, person do
+  for each name in guest_list do
     if name == person do
       return true
     end
   end
 
   return false
+end
+
+function num_chancers_in_queue with queue, guest_list do
+  set count to 0
+
+  for each person in queue do
+    if not on_guest_list(guest_list, person) do
+      change count to count + 1
+    end
+  end
+
+  return count
 end

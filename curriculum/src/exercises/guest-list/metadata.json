@@ -3,16 +3,16 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "hints.realLifeList.question",
-      "answer": "hints.realLifeList.answer"
+      "question": "hints.keepingTrack.question",
+      "answer": "hints.keepingTrack.answer"
     },
     {
-      "question": "hints.loopAndCompare.question",
-      "answer": "hints.loopAndCompare.answer"
+      "question": "hints.whichList.question",
+      "answer": "hints.whichList.answer"
     },
     {
-      "question": "hints.returnTrueVsFalse.question",
-      "answer": "hints.returnTrueVsFalse.answer"
+      "question": "hints.realLifeBouncer.question",
+      "answer": "hints.realLifeBouncer.answer"
     }
   ]
 }

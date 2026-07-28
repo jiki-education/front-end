@@ -1,3 +1,3 @@
-function onGuestList(list, person) {
+function numChancersInQueue(queue, guestList) {
 
 }

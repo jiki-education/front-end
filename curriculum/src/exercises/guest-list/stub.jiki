@@ -1,3 +1,3 @@
-function on_guest_list with list, person do
+function num_chancers_in_queue with queue, guest_list do
 
 end

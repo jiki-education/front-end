@@ -12,7 +12,7 @@ const exerciseDefinition: IOExerciseCore = {
   tasks,
   scenarios,
   functions,
-  conceptSlugs: ["arrays", "string-iteration", "if", "methods"]
+  conceptSlugs: ["arrays", "for-loops", "if", "methods"]
 };
 
 export default exerciseDefinition;

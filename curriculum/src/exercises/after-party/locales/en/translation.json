@@ -1,38 +1,42 @@
 {
   "tasks": {
-    "checkGuestList": {
-      "name": "Check the Guest List",
-      "description": "Write a function that checks if a person is on the guest list by their first name. A person is on the list if any name on the list starts with their first name (followed by a space or end of string)."
-    },
-    "bonusSingleNames": {
-      "name": "Single Name Celebrities",
-      "description": "Handle celebrities who only have one name, like Cher. Make sure not to accidentally match partial names."
+    "lookUpPlusOnes": {
+      "name": "Check the Plus-Ones",
+      "description": "Someone gives you their first name. Return the number of extra guests they're allowed to bring in, or `Not on the list!` if they're not invited."
     }
   },
   "scenarios": {
     "emptyList": {
       "name": "Empty register",
-      "description": "No-one's allowed in when the list is empty."
+      "description": "Nobody's bringing anyone in when the list is empty."
     },
     "nameMissing": {
       "name": "Brad's turned away",
-      "description": "The name's not on the list."
+      "description": "The name's not on the list at all."
     },
     "namePresent": {
       "name": "Brad's allowed in",
-      "description": "The name's on the list."
+      "description": "Brad's invited, and he's not travelling alone."
     },
     "similarName": {
       "name": "Close, but nope",
-      "description": "The name isn't on the list - Bradley is not Brad."
+      "description": "Bradley is not Brad, so Brad's still on the wrong side of the rope."
     },
     "doubleBarrelled": {
       "name": "A dutchman",
       "description": "The name's on the list, but it's hyphenated."
     },
+    "allowedNobody": {
+      "name": "Brad's flying solo",
+      "description": "Brad is definitely invited. He's just not bringing anybody with him."
+    },
+    "twoBrads": {
+      "name": "Two Brads",
+      "description": "There's more than one Brad on the list tonight, and the first one down is the one at the door."
+    },
     "cher": {
       "name": "Cher's in town",
-      "description": "Some people only have one name."
+      "description": "Some people only have one name, and she's brought an entourage."
     },
     "cheryl": {
       "name": "Getting tough now",
@@ -40,21 +44,25 @@
     }
   },
   "hints": {
-    "approachChecking": {
-      "question": "How do I approach checking whether a name is on a list?",
-      "answer": "Imagine doing it by hand. You'd read down the list, and for each entry decide whether it matches what you're looking for. Code works the same way. Loop through the names one at a time."
+    "whereToStart": {
+      "question": "Where do I even start with this?",
+      "answer": "Picture yourself actually doing it on the door. Someone says a name, and you read down the clipboard until you spot them. It's worth noticing that the answer you have to give them isn't written next to their name on the list you're reading."
     },
-    "helperFunctions": {
-      "question": "What helper functions might make this easier?",
-      "answer": "A `length()` function (to know how long a string is) and a `startsWith()` function (to check if a string begins with certain characters) would make the matching much simpler. Try writing those first."
+    "twoLists": {
+      "question": "There are two lists. How do they relate to each other?",
+      "answer": "Whatever you learn about *where* someone is in one list is just as true in the other. A position is a more useful thing to hold onto than a name."
     },
-    "whatIsMatching": {
-      "question": "What does 'matching' actually mean here?",
-      "answer": "A name matches if it starts with the first name followed by a space (e.g. 'Andy Smith' for Andy), OR if it's exactly the first name on its own (for single-name celebrities like 'Cher'). Just checking 'starts with Andy' would wrongly match 'Andrew' too."
+    "whatCountsAsAMatch": {
+      "question": "When does a first name actually count as a match?",
+      "answer": "\"Brad\" should get Brad Pitt in, but not Bradley Cooper. Think about what's different about those two entries at the point where the letters you were given run out. There's more than one reasonable way to make that comparison, so pick whichever one you can explain to yourself."
     },
-    "returnTrueOrFalse": {
-      "question": "When should I return true vs false?",
-      "answer": "Return `true` as soon as you find a match. There's no need to keep looking. Only return `false` once you've checked every name and none matched."
+    "noSurname": {
+      "question": "Cher hasn't got a surname. Does that break anything?",
+      "answer": "Have another look at what your match test assumes about a list entry. If it assumes there's always something after the first name, an entry that's *only* a first name won't get past it. And going the other way, a longer name shouldn't be able to claim a shorter entry."
+    },
+    "notOnTheList": {
+      "question": "What do I do when they're not on the list?",
+      "answer": "Then they get the string `Not on the list!`, exactly as written. Two things are worth thinking about here. First, at what point can you be *certain* that someone isn't on the list? Second, notice that this is a genuinely different answer from a guest who's invited but allowed 0 extra guests, so make sure your function never confuses the two."
     }
   }
 }

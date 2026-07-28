@@ -1,2 +1,2 @@
-def on_guest_list(names, person):
+def plus_ones_for(names, plus_ones, person):
     pass

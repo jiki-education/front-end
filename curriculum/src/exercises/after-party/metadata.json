@@ -3,20 +3,24 @@
   "levelId": "lists",
   "hints": [
     {
-      "question": "hints.approachChecking.question",
-      "answer": "hints.approachChecking.answer"
+      "question": "hints.whereToStart.question",
+      "answer": "hints.whereToStart.answer"
     },
     {
-      "question": "hints.helperFunctions.question",
-      "answer": "hints.helperFunctions.answer"
+      "question": "hints.twoLists.question",
+      "answer": "hints.twoLists.answer"
     },
     {
-      "question": "hints.whatIsMatching.question",
-      "answer": "hints.whatIsMatching.answer"
+      "question": "hints.whatCountsAsAMatch.question",
+      "answer": "hints.whatCountsAsAMatch.answer"
     },
     {
-      "question": "hints.returnTrueOrFalse.question",
-      "answer": "hints.returnTrueOrFalse.answer"
+      "question": "hints.noSurname.question",
+      "answer": "hints.noSurname.answer"
+    },
+    {
+      "question": "hints.notOnTheList.question",
+      "answer": "hints.notOnTheList.answer"
     }
   ]
 }
