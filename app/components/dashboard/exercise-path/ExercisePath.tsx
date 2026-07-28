@@ -13,6 +13,7 @@ import { CompletionCert } from "./ui/CompletionCert";
 import { ComingSoonCard } from "./ui/ComingSoonCard";
 import { ScrollToActiveLessonButton } from "./ui/ScrollToActiveLessonButton";
 import { useEffect, useMemo, useRef } from "react";
+import { toastError } from "@/lib/toast";
 
 export default function ExercisePath() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -61,6 +62,19 @@ export default function ExercisePath() {
       });
     }
   }, [triggerCompletionAnimation]);
+
+  // A lesson that failed to open (e.g. a 422 on start) hard-redirects here with a
+  // `?lessonError=1` flag. Surface a toast on arrival, then strip the param so
+  // a refresh doesn't re-fire it.
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("lessonError")) {
+      toastError("lesson.loadFailed");
+      const newUrl = new URL(window.location.href);
+      newUrl.searchParams.delete("lessonError");
+      window.history.replaceState({}, "", newUrl);
+    }
+  }, []);
 
   const handleLessonClick = (lessonSlug: string, route: string) => {
     setClickedLessonSlug(lessonSlug);

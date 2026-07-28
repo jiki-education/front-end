@@ -1085,6 +1085,9 @@
       "chatSaveFailed": "Nem sikerült menteni ezt az üzenetet. Amikor visszatérsz, már nem lesz itt.",
       "chatSaveCaptchaFailed": "Mentés közben nem sikerült az ellenőrzés. Ez az üzenet nem lesz itt, amikor visszatérsz.",
       "lessonSaveError": "Sajnáljuk, a leckét nem sikerült befejezni. Próbáld újra. Ha a hiba továbbra is fennáll, jelezd itt: <link>https://forum.jiki.io</link>"
+    },
+    "lesson": {
+      "loadFailed": "Sajnáljuk, nem sikerült megnyitni a leckét. Próbáld újra."
     }
   },
   "modals": {

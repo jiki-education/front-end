@@ -1085,6 +1085,9 @@
       "chatSaveFailed": "Couldn't save this message. It won't be here when you come back.",
       "chatSaveCaptchaFailed": "Verification failed while saving. This message won't be here when you come back.",
       "lessonSaveError": "Sorry, the lesson could not be completed. Please try again. If this continues, please report on <link>https://forum.jiki.io</link>"
+    },
+    "lesson": {
+      "loadFailed": "Sorry, we couldn't open that lesson. Please try again."
     }
   },
   "modals": {
