@@ -1,5 +1,17 @@
 # JavaScript Interpreter Evolution
 
+## 2026-07-28: Short-circuit `&&` / `||` evaluation
+
+`executeLogicalExpression` evaluated **both** operands up front before applying the operator, so the right side always ran even when the left side already decided the result. A forum-reported bug surfaced this: an `&&`/`||` chain ending in `name[person.length] === " "` threw `StringIndexOutOfRange` on the out-of-bounds index access even though the earlier operand short-circuited the expression, matching neither real JavaScript nor JikiScript/Python (both of which already short-circuit).
+
+The executor now evaluates the left operand, computes its truthiness via the shared `isTruthy` helper (same helper `if`/`while` use — it enforces `TruthinessDisabled` in strict mode and applies real JS ToBoolean rules when `allowTruthiness` is on), and only evaluates the right operand when the operator requires it (`&&` with a truthy left, `||` with a falsy left). The result is the **deciding operand's** `jikiObject` verbatim, preserving JS value-returning semantics (`0 && x` → `0`, `"first" || y` → `"first"`) rather than a coerced boolean.
+
+Consequences:
+
+- The right operand is no longer verified when short-circuited. In strict mode (`allowTruthiness: false`), `false && 5` used to error on the non-boolean `5`; it now returns `false` without inspecting the right side. This matches JikiScript/Python (they only verify the side they evaluate) and is the intended behavior.
+- `EvaluationResultLogicalExpression` is now a discriminated union on a new `shortCircuited` flag: `shortCircuited: true` carries `right: null`, `shortCircuited: false` carries a real `right`. This lets `describeLogicalExpression` narrow `right` from `if (result.shortCircuited)` alone, with no cast. When short-circuited it renders a "Jiki saw the left side of the `&&` was `false` and so did not bother looking at the right side" step (matching JikiScript's phrasing) instead of describing the unevaluated right side.
+- New regression tests in `tests/javascript/regression/logical-short-circuit.test.ts`.
+
 ## 2026-07-25: Reject storing `undefined` in a variable/element/property
 
 Follow-up to the out-of-bounds/comparison change below. JikiScript has no `undefined` at all — it guards every expression in `evaluate()` (`guardNull` → `ExpressionEvaluatedToNullValue`) and re-raises a friendlier error when a set-variable statement tries to store a none-value. JS can't guard inside `evaluate()` (a bare `f();` calling a void function is a legitimate `ExpressionStatement` that must be allowed to discard its result), so JS guards at the **storage points** instead:

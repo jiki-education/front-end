@@ -89,13 +89,25 @@ export interface EvaluationResultBinaryExpression {
   immutableJikiObject: JikiObject;
 }
 
-export interface EvaluationResultLogicalExpression {
-  type: "LogicalExpression";
-  left: EvaluationResultExpression;
-  right: EvaluationResultExpression;
-  jikiObject: JikiObject;
-  immutableJikiObject: JikiObject;
-}
+// Discriminated union on `shortCircuited` so TypeScript narrows `right` on its
+// own: when we short-circuit there is no right side, otherwise there always is.
+export type EvaluationResultLogicalExpression =
+  | {
+      type: "LogicalExpression";
+      shortCircuited: true;
+      left: EvaluationResultExpression;
+      right: null;
+      jikiObject: JikiObject;
+      immutableJikiObject: JikiObject;
+    }
+  | {
+      type: "LogicalExpression";
+      shortCircuited: false;
+      left: EvaluationResultExpression;
+      right: EvaluationResultExpression;
+      jikiObject: JikiObject;
+      immutableJikiObject: JikiObject;
+    };
 
 export interface EvaluationResultUnaryExpression {
   type: "UnaryExpression";

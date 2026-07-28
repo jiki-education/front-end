@@ -1,7 +1,7 @@
 import type { Executor } from "../executor";
 import type { LogicalExpression } from "../expression";
-import type { EvaluationResultLogicalExpression } from "../evaluation-result";
-import { createJSObject } from "../jikiObjects";
+import type { EvaluationResultLogicalExpression, EvaluationResultExpression } from "../evaluation-result";
+import { isTruthy } from "../helpers";
 import { InterpreterInternalError } from "../error";
 
 export function executeLogicalExpression(
@@ -9,21 +9,26 @@ export function executeLogicalExpression(
   expression: LogicalExpression
 ): EvaluationResultLogicalExpression {
   const leftResult = executor.evaluate(expression.left);
-  const rightResult = executor.evaluate(expression.right);
+  // isTruthy enforces the TruthinessDisabled check (when truthiness is off, a
+  // non-boolean operand errors here) and otherwise computes JS truthiness the
+  // same way if/while conditions do - keeping all three consistent.
+  const leftTruthy = isTruthy(executor, leftResult.jikiObject, expression.left.location);
 
-  executor.verifyBoolean(leftResult.jikiObject, expression.left.location);
-  executor.verifyBoolean(rightResult.jikiObject, expression.right.location);
-
-  const left = leftResult.jikiObject.value;
-  const right = rightResult.jikiObject.value;
-
-  let value: boolean;
+  // Short-circuit: only evaluate the right side when the operator requires it.
+  // This matches JavaScript semantics - `false && x` and `true || x` must never
+  // evaluate `x` (which may itself throw, e.g. an out-of-bounds index access).
+  // Logical operators return the operand that decided the result, not a coerced
+  // boolean, so we hand back the relevant side's jikiObject verbatim.
   switch (expression.operator.type) {
     case "LOGICAL_AND":
-      value = left && right;
+      if (!leftTruthy) {
+        return shortCircuitResult(leftResult);
+      }
       break;
     case "LOGICAL_OR":
-      value = left || right;
+      if (leftTruthy) {
+        return shortCircuitResult(leftResult);
+      }
       break;
     default:
       // The parser only emits LogicalExpression for && and ||, so reaching
@@ -31,13 +36,25 @@ export function executeLogicalExpression(
       throw new InterpreterInternalError(`Unsupported logical operator: ${expression.operator.type}`);
   }
 
-  const result = createJSObject(value);
-
+  const rightResult = executor.evaluate(expression.right);
+  executor.verifyBoolean(rightResult.jikiObject, expression.right.location);
   return {
     type: "LogicalExpression",
+    shortCircuited: false,
     left: leftResult,
     right: rightResult,
-    jikiObject: result,
-    immutableJikiObject: result.clone(),
-  } as any;
+    jikiObject: rightResult.jikiObject,
+    immutableJikiObject: rightResult.jikiObject.clone(),
+  };
+}
+
+function shortCircuitResult(leftResult: EvaluationResultExpression): EvaluationResultLogicalExpression {
+  return {
+    type: "LogicalExpression",
+    shortCircuited: true,
+    left: leftResult,
+    right: null,
+    jikiObject: leftResult.jikiObject,
+    immutableJikiObject: leftResult.jikiObject.clone(),
+  };
 }
