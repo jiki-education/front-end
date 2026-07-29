@@ -38,8 +38,12 @@
     }
   },
   "functions": {
+    "includes": {
+      "description": "Check whether an array contains a specific item (provided by level stdlib)",
+      "category": "List Operations"
+    },
     "push": {
-      "description": "Returns a new list with the element added to the end (provided by level stdlib)",
+      "description": "Returns a new array with the element added to the end (provided by level stdlib)",
       "category": "List Operations"
     }
   }
