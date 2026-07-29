@@ -18,7 +18,7 @@ And to do this, we use a new form of syntax, a dot.
 For example, if we have the string `"Jeremy"` and we want to get its length, we can write:
 
 ```javascript
-"Jeremy".length
+"Jeremy".length // 6
 ```
 
 When Jiki creates a string, he counts the letters and just sort of writes a number in the corner with how many there are.

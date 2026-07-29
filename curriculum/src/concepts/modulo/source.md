@@ -8,7 +8,7 @@ So far, we've used addition, subtraction, multiplication, and division for when 
 The remainder operator is responsible for giving you the remainder, logically, when you divide two numbers, and we write it using a percentage sign. So if we write:
 
 ```javascript
-10 % 4
+10 % 4 // 2
 ```
 
 we're saying or we're asking, "What's left over when we divide 10 by 4?" And the answer is two. Imagine you've got 10 sweets or nuts, and you want to share them equally between four people. Each person gets two, and then there's two left over at the end. And that left over bit, that's the remainder. That's what this percentage sign gives you.

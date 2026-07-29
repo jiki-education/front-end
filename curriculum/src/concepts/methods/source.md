@@ -22,7 +22,7 @@ The difference from properties is that when we write these, we write them like f
 So we can write:
 
 ```javascript
-"Jeremy".includes("e")
+"Jeremy".includes("e") // true
 ```
 
 And we'll get back `true`, as `"Jeremy"` has an `"e"` in it.
@@ -45,6 +45,6 @@ One thing to know with strings is that the methods don't change anything inside 
 const name = "Jeremy"
 const bigName = name.toUpperCase()
 
-log(bigName)
-log(name)
+log(bigName) // "JEREMY"
+log(name) // "Jeremy"
 ```

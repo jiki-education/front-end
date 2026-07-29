@@ -11,7 +11,7 @@ The `for` keyword is one that we'll see in quite a few places as we move forward
 
 So let's take a look at some code.
 
-We'll start off by creating a variable called <define>`name`</define> containing the string <define>`"Jeremy"`</define>. Nothing new here.
+We'll start off by creating a variable called <define>`name`</define> containing the string <define info="say 'the name Jeremy', or use name signifiers such as -san if appropriate in the language">`"Jeremy"`</define>. Nothing new here.
 
 Then we have the loop line, and there's a lot going on there, so let's talk through it slowly.
 
