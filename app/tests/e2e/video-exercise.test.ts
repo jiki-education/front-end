@@ -70,10 +70,26 @@ test.describe("VideoExercise autoplay", () => {
     await mockLessonStatus(page);
 
     // Stub play() to resolve immediately and report a successful playback start.
+    // Video.js v10's store derives `paused` by reading `media.paused` on the DOM
+    // `play` event (it doesn't trust the event alone), so the stub must actually
+    // flip the element's `paused` getter to false before dispatching — otherwise
+    // the store stays paused, onPlay never fires, and the player is never revealed.
     await page.addInitScript(() => {
+      const pausedState = new WeakMap<HTMLMediaElement, boolean>();
+      Object.defineProperty(HTMLMediaElement.prototype, "paused", {
+        configurable: true,
+        get(this: HTMLMediaElement) {
+          return pausedState.get(this) ?? true;
+        }
+      });
       HTMLMediaElement.prototype.play = function () {
+        pausedState.set(this, false);
         this.dispatchEvent(new Event("play"));
         return Promise.resolve();
+      };
+      HTMLMediaElement.prototype.pause = function () {
+        pausedState.set(this, true);
+        this.dispatchEvent(new Event("pause"));
       };
     });
 
