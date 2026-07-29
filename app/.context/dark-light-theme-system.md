@@ -235,12 +235,6 @@ function MyComponent() {
 
 ## Testing Infrastructure
 
-### Test Pages (Development Only)
-
-- `/dev/theme-test` - Visual testing of all semantic tokens
-- `/dev/accessibility-test` - WCAG compliance verification
-- `/dev/performance-test` - Performance monitoring and stress testing
-
 ### Quality Assurance
 
 - **Performance**: <16ms theme switches (60fps target)
@@ -255,7 +249,6 @@ function MyComponent() {
 - `.context/dark-light-theme-system.md` - This comprehensive context file (complete guide)
 - Complete TypeScript interfaces in `lib/theme/types.ts`
 - Inline code documentation throughout components
-- Usage examples in development test pages (`/dev/theme-test`, `/dev/accessibility-test`, `/dev/performance-test`)
 
 ## Integration Points
 

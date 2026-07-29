@@ -56,7 +56,6 @@
 
     .cm-gutters {
         background: var(--color-background-primary);
-        border-inline-end-width: 0;
         transition: background-color 0.3s ease;
     }
     .cm-lineNumbers .cm-gutterElement,
@@ -92,8 +91,8 @@
         span {
             display: block;
             font-size: 20px;
-            line-height: 1;
-            margin-block-end: 4px;
+            line-height: 100%;
+            margin-bottom: 4px;
             color: rgba(0, 128, 255, 0.7);
             &:hover {
                 color: rgba(0, 128, 255, 1);
@@ -131,10 +130,6 @@
 }
 
 .cm-lineNumbers {
-    .cm-gutterElement {
-        padding-inline-end: 8px;
-        padding-inline-start: 12px;
-    }
     text-align: end;
 }
 

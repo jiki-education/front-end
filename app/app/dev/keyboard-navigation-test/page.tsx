@@ -81,9 +81,6 @@ export default function KeyboardNavigationTestPage() {
         <Link href="/dev" className={styles.link}>
           Go to Dev Index
         </Link>
-        <Link href="/dev/test-keyboard" className={styles.link}>
-          Go to Keyboard Test
-        </Link>
         <Link href="/" className={styles.link}>
           Go to Home
         </Link>
