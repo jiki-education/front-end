@@ -1,7 +1,7 @@
 import { markLessonComplete, fetchUserLesson } from "@/lib/api/lessons";
 import { reportError } from "@/lib/reportError";
 import { showLessonSaveErrorToast } from "@/lib/toasts/lessonSaveError";
-import type { MuxPlayerRefAttributes } from "@mux/mux-player-react";
+import type { JikiVideoPlayerHandle } from "@/components/ui/JikiVideoPlayer";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -24,7 +24,7 @@ export function useVideoExercise(lessonSlug: string) {
   const [showSkipHint, setShowSkipHint] = useState(false);
   const maxWatchedRef = useRef(0);
   const skipHintTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const playerRef = useRef<MuxPlayerRefAttributes>(null);
+  const playerRef = useRef<JikiVideoPlayerHandle>(null);
   const hasAutoPlayedRef = useRef(false);
 
   useEffect(() => {

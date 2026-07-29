@@ -9,7 +9,7 @@ jest.mock("animejs", () => ({ animate: () => ({ pause: jest.fn() }) }));
 jest.mock("@/components/landing-page/hooks/useHamster", () => ({
   useHamster: () => ({ hamsterRef: { current: null }, smokeRef: { current: null }, containerRef: { current: null } })
 }));
-jest.mock("@/components/ui/JikiMuxPlayer", () => ({ __esModule: true, default: () => null }));
+jest.mock("@/components/ui/JikiVideoPlayer", () => ({ __esModule: true, default: () => null }));
 // The marquee hook clones the list items at runtime to create a seamless scroll;
 // stub it so the test asserts the source markup rather than the duplicated DOM.
 jest.mock("@/components/landing-page/hooks/useScrollingTestimonials", () => ({

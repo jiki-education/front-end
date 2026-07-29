@@ -1,6 +1,6 @@
 "use client";
 
-import JikiMuxPlayer from "@/components/ui/JikiMuxPlayer";
+import JikiVideoPlayer from "@/components/ui/JikiVideoPlayer";
 import styles from "./page.module.css";
 
 interface VideoSource {
@@ -101,7 +101,7 @@ export default function CurriculumVideosClient({ levels }: { levels: CurriculumL
                     </div>
                     <div className={styles.videoWrapper}>
                       {entry.source.provider === "mux" ? (
-                        <JikiMuxPlayer playbackId={entry.source.id} autoPlay={false} />
+                        <JikiVideoPlayer playbackId={entry.source.id} autoPlay={false} />
                       ) : (
                         <div className={styles.unsupported}>Unsupported provider: {entry.source.provider}</div>
                       )}
