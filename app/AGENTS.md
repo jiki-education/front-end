@@ -197,7 +197,7 @@ SVG icons are stored in `app/icons/` and imported as React components via SVGR. 
 ```typescript
 import SettingsIcon from "@/icons/settings.svg";
 
-<SettingsIcon className="w-6 h-6" />
+<SettingsIcon className={styles.icon} />
 ```
 
 See `.context/images.md` for detailed icon usage guidelines.

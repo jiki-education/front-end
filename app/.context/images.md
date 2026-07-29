@@ -60,7 +60,7 @@ import IconName from "@/icons/icon-name.svg";
 // import IconName from "@static/icons/icon-name.svg";
 
 // Use as component
-<IconName className="w-6 h-6" />;
+<IconName className="icon-class" />;
 ```
 
 ### Important Guidelines
