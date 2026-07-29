@@ -29,7 +29,7 @@ test.describe("VideoExercise autoplay", () => {
     const page = await browser.newPage();
     await mockLessonStatus(page);
     await page.goto("/dev/video-exercise", { timeout: 30000 });
-    await page.locator("mux-player").waitFor({ state: "attached" });
+    await page.locator("video").waitFor({ state: "attached" });
     await page.close();
   });
 
@@ -58,11 +58,11 @@ test.describe("VideoExercise autoplay", () => {
 
     await page.goto("/dev/video-exercise");
 
-    const muxPlayer = page.locator("mux-player");
-    await muxPlayer.waitFor({ state: "attached" });
+    const videoPlayer = page.locator("video");
+    await videoPlayer.waitFor({ state: "attached" });
 
     // The hook should catch the rejection and reveal the player UI.
-    await expect(muxPlayer).toBeVisible();
+    await expect(videoPlayer).toBeVisible();
     await expect.poll(() => consoleWarnings.some((w) => w.includes("Autoplay was prevented"))).toBe(true);
   });
 
@@ -84,9 +84,9 @@ test.describe("VideoExercise autoplay", () => {
 
     await page.goto("/dev/video-exercise");
 
-    const muxPlayer = page.locator("mux-player");
-    await muxPlayer.waitFor({ state: "attached" });
-    await expect(muxPlayer).toBeVisible();
+    const videoPlayer = page.locator("video");
+    await videoPlayer.waitFor({ state: "attached" });
+    await expect(videoPlayer).toBeVisible();
 
     // No autoplay-prevented warning should have fired.
     expect(consoleWarnings.some((w) => w.includes("Autoplay was prevented"))).toBe(false);

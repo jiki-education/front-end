@@ -5,7 +5,7 @@ import type { ComponentProps } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import type JikiMuxPlayer from "@/components/ui/JikiMuxPlayer";
+import type JikiVideoPlayer from "@/components/ui/JikiVideoPlayer";
 import spiralArrow from "../assets/arrow-spiral-purple.png";
 import styles from "./HeroVideo.module.css";
 
@@ -16,8 +16,8 @@ const PLAYBACK_ID = "zYEf6JjYXCZYUnqXllzzMaUO02aMaaMbX02m6erDKEg7A";
 // user clicks play). Declaring dynamic() at module scope creates a Suspense
 // boundary in the parent server tree, which forces Next to stream metadata
 // instead of shipping it in <head>.
-function MuxPlayerLazy(props: ComponentProps<typeof JikiMuxPlayer>) {
-  const Component = useMemo(() => dynamic(() => import("@/components/ui/JikiMuxPlayer"), { ssr: false }), []);
+function VideoPlayerLazy(props: ComponentProps<typeof JikiVideoPlayer>) {
+  const Component = useMemo(() => dynamic(() => import("@/components/ui/JikiVideoPlayer"), { ssr: false }), []);
   return <Component {...props} />;
 }
 
@@ -30,22 +30,21 @@ export function HeroVideo() {
     <div className={styles.container}>
       {playing && (
         <div className={`${styles.muxOverlay} ${ready ? styles.ready : ""}`}>
-          <MuxPlayerLazy
+          <VideoPlayerLazy
             playbackId={PLAYBACK_ID}
             poster={VIDEO_POSTER_URL}
             autoPlay
-            // Reveal mux's UI on any of: canplay (iOS Safari may block autoplay so `playing` never fires),
-            // playing (normal happy path), error (so mux's own error UI replaces our spinner).
+            // Reveal the player UI on any of: canplay (iOS Safari may block autoplay so `playing` never fires),
+            // playing (normal happy path), error (so the player's own error UI replaces our spinner).
             onCanPlay={() => setReady(true)}
             onPlaying={() => setReady(true)}
             onError={() => setReady(true)}
             metadata={{ video_title: "Waiting Page 1" }}
+            hideSeekButtons
             style={{
               display: "block",
               width: "100%",
-              height: "100%",
-              ["--seek-backward-button" as string]: "none",
-              ["--seek-forward-button" as string]: "none"
+              height: "100%"
             }}
           />
         </div>

@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useWalkthroughProgress } from "./useWalkthroughProgress";
 import styles from "./VideoWalkthroughModal.module.css";
 
-const MuxPlayer = dynamic(() => import("@/components/ui/JikiMuxPlayer"), { ssr: false });
+const VideoPlayer = dynamic(() => import("@/components/ui/JikiVideoPlayer"), { ssr: false });
 
 interface VideoWalkthroughModalProps {
   playbackId: string;
@@ -16,7 +16,7 @@ export function VideoWalkthroughModal({ playbackId, lessonSlug }: VideoWalkthrou
 
   return (
     <div className={styles.videoWrapper}>
-      <MuxPlayer
+      <VideoPlayer
         ref={playerRef}
         playbackId={playbackId}
         autoPlay={true}

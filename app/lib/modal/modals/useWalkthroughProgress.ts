@@ -1,4 +1,4 @@
-import type { MuxPlayerRefAttributes } from "@mux/mux-player-react";
+import type { JikiVideoPlayerHandle } from "@/components/ui/JikiVideoPlayer";
 import { useEffect, useRef } from "react";
 import { updateWalkthroughVideoPercentage } from "@/lib/api/lessons";
 
@@ -9,7 +9,7 @@ function getStorageKey(lessonSlug: string): string {
 }
 
 export function useWalkthroughProgress(lessonSlug: string) {
-  const playerRef = useRef<MuxPlayerRefAttributes>(null);
+  const playerRef = useRef<JikiVideoPlayerHandle>(null);
   const lastReportedPercentRef = useRef(-1);
   const hasRestoredPositionRef = useRef(false);
 

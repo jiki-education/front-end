@@ -16,7 +16,7 @@ const pauseMock = jest.fn();
 const playMock = jest.fn().mockResolvedValue(undefined);
 let lastOnEnded: (() => void) | undefined;
 
-jest.mock("@/components/ui/JikiMuxPlayer", () => ({
+jest.mock("@/components/ui/JikiVideoPlayer", () => ({
   __esModule: true,
   default: React.forwardRef<unknown, { onEnded?: () => void; playbackId: string }>(function MockMuxPlayer(props, ref) {
     lastOnEnded = props.onEnded;

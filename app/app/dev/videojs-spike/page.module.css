@@ -1,0 +1,98 @@
+.page {
+    max-width: 900px;
+    margin-inline: auto;
+    padding: 24px;
+    font-family: system-ui, sans-serif;
+}
+
+.heading {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.subheading {
+    color: #555;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.playerFrame {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    background: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    padding: 12px 14px;
+    background: #fafafa;
+}
+
+.statLabel {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #888;
+    margin-bottom: 4px;
+}
+
+.statValue {
+    font-size: 18px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.clampFlash {
+    color: #b91c1c;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.btn {
+    border: 1px solid #7c3aed;
+    color: #7c3aed;
+    background: #fff;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: #f5f0ff;
+}
+
+.log {
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    background: #0f0f14;
+    color: #d4d4d8;
+    font-family: ui-monospace, monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 12px 14px;
+    height: 220px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+}
+
+.logClamp {
+    color: #f87171;
+}

@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { useRef, useState } from "react";
 import Modal from "react-modal";
-import MuxPlayer, { type MuxPlayerRefAttributes } from "@/components/ui/JikiMuxPlayer";
+import VideoPlayer, { type JikiVideoPlayerHandle } from "@/components/ui/JikiVideoPlayer";
 import { hideModal } from "../store";
 import { ConfirmationModal } from "./ConfirmationModal";
 import baseStyles from "@/app/styles/components/modals.module.css";
@@ -15,7 +15,7 @@ const WELCOME_VIDEO_PLAYBACK_ID = "rhfF43a6sjaqX7E5Cxcvt7efmwn00knZZ202CvgViQRDc
 export function WelcomeModal() {
   const t = useTranslations("modals.welcome");
   const tCommon = useTranslations("common");
-  const playerRef = useRef<MuxPlayerRefAttributes>(null);
+  const playerRef = useRef<JikiVideoPlayerHandle>(null);
   const [watched, setWatched] = useState(false);
   const [confirmSkip, setConfirmSkip] = useState(false);
 
@@ -42,7 +42,7 @@ export function WelcomeModal() {
         <p className={styles.subtitle}>{t("subtitle")}</p>
       </div>
       <div className={styles.videoWrapper}>
-        <MuxPlayer
+        <VideoPlayer
           ref={playerRef}
           playbackId={WELCOME_VIDEO_PLAYBACK_ID}
           autoPlay={true}
