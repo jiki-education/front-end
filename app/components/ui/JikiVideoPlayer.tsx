@@ -155,7 +155,16 @@ const PlayerBridge = forwardRef<JikiVideoPlayerHandle, PlayerBridgeProps>(functi
       if (s.canPlay && !prev.canPlay) cb.onCanPlay?.();
       // duration going from 0/NaN to a real value ≈ loadedmetadata.
       if (!prev.duration && s.duration) cb.onLoadedMetadata?.();
-      if (s.error && s.error !== prev.error) handleVideoPlayerError(s.error, cb.onError);
+      // Guard the error path: this runs synchronously inside the store's commit,
+      // so a throw here (handler or consumer onError) would propagate into the
+      // player internals and tear it down. Report-and-continue instead.
+      if (s.error && s.error !== prev.error) {
+        try {
+          handleVideoPlayerError(s.error, cb.onError);
+        } catch (err) {
+          console.error(err);
+        }
+      }
 
       prev.currentTime = s.currentTime;
       prev.seeking = s.seeking;
