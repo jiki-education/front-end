@@ -6,7 +6,7 @@
 
 ## Two Styling Approaches
 
-The app styles with **CSS Modules** and the **UI Kit**. There is no Tailwind (see "Tailwind has been removed" below).
+The app styles with **CSS Modules** and the **UI Kit**.
 
 ### 1. CSS Modules (default)
 
@@ -29,11 +29,11 @@ These are globally available styles (loaded via `globals.css`, so they work on e
 
 **When to use which:** component-specific layout/appearance → CSS Module. A shared primitive that already exists in the ui-kit (`ui-btn-*`, `ui-form-field-*`, `ui-page-tabs`, `ui-textual-content`) → use it. Mixing is fine: a `ui-btn` with an extra `${styles.someModifier}` for one-off spacing.
 
-## Tailwind has been removed
+## No ad-hoc utility classes
 
-The codebase no longer uses Tailwind CSS — the whole app (product pages, `/dev` tooling, `/test` pages) styles with CSS Modules + the ui-kit. There is no `tailwindcss` dependency, no `@import "tailwindcss"`, no `@theme`/`@apply`/`@source`, and no Tailwind PostCSS plugin. The base reset that once came from Tailwind's preflight is hand-written in `app/styles/base.css` (loaded via `globals.css` on every route).
+The whole app (product pages, `/dev` tooling, `/test` pages) styles with CSS Modules + the ui-kit. The base reset is hand-written in `app/styles/base.css` (loaded via `globals.css` on every route).
 
-**Do not add Tailwind utility classes (`flex`, `gap-4`, `bg-blue-600`, `text-14`, `md:`, `hover:`, …) in `className`.** An ESLint rule (`no-restricted-syntax` in `eslint.config.mjs`, scoped to `app/**` + `components/**`, excluding tests) errors on them. Style with a CSS Module or an existing ui-kit class instead.
+**Do not add ad-hoc utility-style classes (`flex`, `gap-4`, `bg-blue-600`, `text-14`, `md:`, `hover:`, …) in `className`.** An ESLint rule (`no-restricted-syntax` in `eslint.config.mjs`, scoped to `app/**` + `components/**`, excluding tests) errors on them. Style with a CSS Module or an existing ui-kit class instead.
 
 **Layout & spacing** use plain CSS values (px). Use the design tokens for colors, spacing, radius, and typography (`var(--color-*)`, `var(--spacing-*)` / literal px, `var(--radius-*)`, `var(--text-*)`). Responsive design uses CSS Module media queries (`@media (min-width: 640px)` etc.).
 

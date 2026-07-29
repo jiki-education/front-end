@@ -1,6 +1,6 @@
 /**
  * Color Tokens
- * Tailwind theme colors and semantic color tokens
+ * Theme colors and semantic color tokens
  */
 
 :root {
@@ -32,10 +32,10 @@
     --color-purple-900: #531c87;
     --color-purple-950: #370764;
 
-    /* Pink Scale (Tailwind pink) */
+    /* Pink Scale */
     --color-pink-600: #e30076;
 
-    /* Green Scale (using Tailwind emerald palette) */
+    /* Green Scale (emerald) */
     --color-green-30: #f5fefa;
     --color-green-50: #ecfdf5;
     --color-green-100: #d1fae5;
@@ -49,7 +49,7 @@
     --color-green-900: #064e3b;
     --color-green-950: #022c22;
 
-    /* Gray Scale (using Tailwind slate palette) */
+    /* Gray Scale (slate) */
     --color-gray-50: #f8fafc;
     --color-gray-100: #f1f5f9;
     --color-gray-200: #e2e8f0;
@@ -92,7 +92,7 @@
     --color-amber-900: #78350f;
     --color-amber-950: #451a03;
 
-    /* Yellow Scale (Tailwind yellow palette) */
+    /* Yellow Scale */
     --color-yellow-30: #fffef5;
     --color-yellow-50: #fefce8;
     --color-yellow-100: #fef9c3;

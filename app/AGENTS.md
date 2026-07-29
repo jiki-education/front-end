@@ -28,7 +28,7 @@ You can read these files at **any point during your work** - even in the middle 
 | `commands.md`     | **Always read** - running dev server, tests, builds, linting |
 | `testing.md`      | Writing or editing tests                                     |
 | `eslint.md`       | Fixing lint errors, adding lint exceptions                   |
-| `css-styles.md`   | CSS styling (CSS Modules + UI Kit; no Tailwind)              |
+| `css-styles.md`   | CSS styling (CSS Modules + UI Kit)                           |
 | `images.md`       | Working with icons, SVGs, or images                          |
 | `architecture.md` | Understanding project structure                              |
 | `tech-stack.md`   | Technologies, frameworks, dependencies                       |
@@ -83,7 +83,7 @@ This is the frontend for Jiki, a learn-to-code platform.
 
 - **Framework**: Next.js 15 with App Router, TypeScript
 - **UI Library**: React 19 with React Compiler (automatic optimization)
-- **Styling**: CSS Modules + hand-written UI Kit. Tailwind is not used (fully removed) — an ESLint rule blocks Tailwind classes in `className`. See `.context/css-styles.md`.
+- **Styling**: CSS Modules + a hand-written UI Kit. An ESLint rule blocks ad-hoc utility-style classes in `className`. See `.context/css-styles.md`.
 - **Deployment**: Cloudflare Workers (Edge Runtime)
 - **Package Manager**: pnpm
 

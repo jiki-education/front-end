@@ -1,19 +1,17 @@
 /**
  * Base reset
  *
- * Hand-written reset that replaces Tailwind's preflight for the global
- * (ui-kit) stylesheet, so external pages need no Tailwind. Mirrors the
- * reset used by the sibling giki app. Body/font styles live in body.css.
+ * Hand-written reset for the global (ui-kit) stylesheet. Mirrors the reset
+ * used by the sibling giki app. Body/font styles live in body.css.
  *
- * Lives in @layer base (like Tailwind's own preflight) so that on (app)
- * pages Tailwind utilities (@layer utilities) override it, and CSS-module
- * styles (unlayered) override it everywhere. globals.css declares the layer
+ * Lives in @layer base so that page-level utilities (@layer utilities) and
+ * CSS-module styles (unlayered) override it. globals.css declares the layer
  * order so `base` sits below `utilities` regardless of load order.
  */
 
 @layer base {
-    /* Like Tailwind's preflight: zero-width solid borders everywhere, so a
-       rule can set just border-width/border-color and get a visible border. */
+    /* Zero-width solid borders everywhere, so a rule can set just
+       border-width/border-color and get a visible border. */
     *,
     *::before,
     *::after {
@@ -48,9 +46,8 @@
         font-weight: inherit;
     }
 
-    /* Emphasis renders semibold (not the browser-default bold) everywhere,
-       including hybrid/external routes where Tailwind utilities aren't loaded.
-       In @layer base, so Tailwind utilities and CSS modules still override it. */
+    /* Emphasis renders semibold (not the browser-default bold) everywhere.
+       In @layer base, so page-level utilities and CSS modules still override it. */
     strong,
     b {
         font-weight: 600;
@@ -126,8 +123,8 @@
 
     /* Preserve intrinsic aspect ratio when width is overridden (e.g. a CSS
        module sets width but the element still carries width/height attrs, as
-       Next.js <Image> does). Scoped to img/video like Tailwind's preflight,
-       so SVG/canvas that rely on attribute height are unaffected. */
+       Next.js <Image> does). Scoped to img/video so SVG/canvas that rely on
+       attribute height are unaffected. */
     img,
     video {
         height: auto;

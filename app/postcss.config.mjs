@@ -5,8 +5,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // postcss-import runs FIRST so `@import "./x.module.css"` barrel files are
 // inlined before Next's CSS-Modules loader scopes them — otherwise the imported
-// classes land in the wrong scope and resolve to undefined. This inlining used to
-// come from @tailwindcss/postcss, which was removed with Tailwind.
+// classes land in the wrong scope and resolve to undefined.
 //
 // The rewrite plugin fingerprints CSS `url("/static/...")` refs via the manifest
 // from scripts/generate-css-asset-hashes.js so the synced /static tree can be

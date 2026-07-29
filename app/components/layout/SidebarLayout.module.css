@@ -1,7 +1,6 @@
 /*
- * SidebarLayout is rendered on (hybrid) routes (e.g. /concepts) where the
- * Tailwind utility bundle is not loaded, so its layout must be expressed as a
- * CSS module rather than Tailwind classes.
+ * SidebarLayout is rendered on (hybrid) routes (e.g. /concepts), so its
+ * layout is expressed as a CSS module.
  */
 
 .appShell {
