@@ -1,10 +1,11 @@
 ---
 title: "Stringek"
 description: "Idézőjelek közé tett szövegdarabok (egy betű, egy szó, egy mondat vagy akár egy egész bekezdés), amelyeket Jiki papírra ír."
-en_md5: 67ef6f957b96ab2a320c0ef3b0334ae1
+en_md5: 89b04f3849f9388a46734924f35c913c
+tidied_md5: 89b04f3849f9388a46734924f35c913c
 ---
 
-Amikor egy számot szeretnél használni, egyszerűen csak leírod, és Jiki tudja, mire gondolsz. De mi a helyzet akkor, ha egy betűt (_letter_ angolul), egy szót vagy egy mondatot szeretnél használni? Például mi lenne, ha a `rectangle` (téglalap) vagy a `circle` függvénynek lenne egy plusz bemenete, amelyben a színt adod meg? Hogyan írnánk le a színt, hogy a gépbe tehessük? Ha egyszerűen csak leírjuk, hogy `green` vagy `blue`, Jiki azt hiszi, hogy egy polcon lévő gépre gondolunk, és azt mondja: „Nincs green nevű gép. Nem tudom, mit csináljak."
+Amikor egy számot szeretnél használni, egyszerűen csak leírod, és Jiki tudja, mire gondolsz. De mi a helyzet akkor, ha egy betűt, egy szót vagy egy mondatot szeretnél használni? Például mi lenne, ha a `rectangle` (téglalap) vagy a `circle` (kör) függvénynek lenne egy plusz bemenete, amelyben a színt adod meg? Hogyan írnánk le a színt, hogy a gépbe tehessük? Ha egyszerűen csak leírjuk, hogy `green` (zöld) vagy `blue` (kék), Jiki azt hiszi, hogy egy polcon lévő gépre gondolunk, és azt mondja: „Nincs green nevű gép. Nem tudom, mit csináljak."
 
 <img
   class="concept-image"

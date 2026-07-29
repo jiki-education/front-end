@@ -29,8 +29,10 @@ So imagine we have a variable called <define>`name`</define>, and it contains `"
   height="400"
 />
 
-Well, we can achieve this using this concatenation concept by writing `"hello " + name`, and that will give us either `"hello Jeremy"` or `"hello Jiki"` or hello anyone else, depending on what's inside the `name` box.
+Well, we can achieve this using this concatenation concept:
 
 ```javascript
 "hello " + name
 ```
+
+That will give us either `"hello Jeremy"` or `"hello Jiki"` or hello anyone else, depending on what's inside the `name` box.
