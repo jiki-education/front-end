@@ -91,6 +91,7 @@
       "IndexOutOfRange": "This array only has {{length}} elements, but you tried to access index {{index}}. Remember the first element is index 0 in JavaScript.",
       "StringIndexOutOfRange": "This string only has {{length}} characters, but you tried to access index {{index}}. Remember the first character is index 0 in JavaScript.",
       "ComparisonWithUndefined": "You tried to compare two values but one of which was not set to anything. You shouldn't be able to do this in Jiki, so please open an issue on the forum with your code so we can investigate.",
+      "ComparisonWithUndefinedFromFunction": "You tried to compare the result of a function that didn't return anything. Make sure the `{{name}}` function returns a value in all situations before you compare its result.",
       "AssignmentToUndefined": "You tried to store a value that isn't set to anything. A variable should always hold an actual value.",
       "AssignmentToUndefinedFromFunction": "You tried to store the result of a function that doesn't return anything. Make sure the function returns a value before you store its result.",
       "UpdateOperatorRequiresNumber": "Jiki can't use {{operator}} on a {{type}} - only on numbers.",

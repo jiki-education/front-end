@@ -122,10 +122,11 @@
         opacity: 0.6;
         filter: grayscale(0.6);
     }
-    .ͼ1 .cm-underline {
-        background: var(--color-red-200);
-        border-bottom: 2px solid var(--color-red-500);
-        text-decoration: none;
+    .cm-underline {
+        background: var(--color-red-100);
+        text-decoration: underline 2px red;
+        text-decoration-skip-ink: none;
+        text-underline-offset: 3px;
     }
 }
 
@@ -148,7 +149,8 @@
 
 .cm-highlightedLine {
     position: relative;
-    outline: 1.5px solid var(--highlighted-line-border-color);
+    outline: 1.5px solid var(--color-blue-300);
+    background: var(--color-blue-50);
     border-radius: 2px;
     margin-inline: 2px;
 }
@@ -165,12 +167,6 @@
     &.cm-activeLine {
         background-color: #d6ecfa80;
     }
-    &.cm-highlightedLine--error {
-        background-color: #ff000011;
-        &.cm-activeLine {
-            background-color: #ff000011;
-        }
-    }
 }
 
 /* Dark theme highlighted line colors */
@@ -179,10 +175,15 @@
     &.cm-activeLine {
         background-color: #374151;
     }
-    &.cm-highlightedLine--error {
-        background-color: rgba(239, 68, 68, 0.08);
-        &.cm-activeLine {
-            background-color: rgba(239, 68, 68, 0.08);
-        }
+}
+
+/* Error-highlighted line. Kept top-level rather than nested under .cm-theme-*,
+   which is never applied to the editor DOM, so these styles actually match. The
+   two-class selector outranks the base .cm-highlightedLine outline above. */
+.cm-highlightedLine.cm-highlightedLine--error {
+    outline: 1.5px solid var(--color-red-300);
+    background: var(--color-red-50);
+    &.cm-activeLine {
+        background: var(--color-red-50);
     }
 }

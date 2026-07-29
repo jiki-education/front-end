@@ -396,15 +396,24 @@ export function createOrchestratorStore(
           const infoWidgetHtml = processMessageContent(rawContent);
 
           // Runtime error frames highlight the line in red (cm-highlightedLine--error);
-          // success frames use the default info styling. Unlike syntax errors, runtime
-          // error frames do NOT underline a specific location.
+          // success frames use the default info styling. Error frames also underline the
+          // exact span the error points at (e.g. the offending function call in a
+          // comparison), matching how syntax errors are surfaced. Absolute offsets are
+          // 1-based in the interpreter, so we shift to CodeMirror's 0-based positions.
           const isError = frame.status === "ERROR";
+          const errorLocation = isError ? frame.error?.location : undefined;
+          const underlineRange = errorLocation
+            ? {
+                from: Math.max(0, errorLocation.absolute.begin - 1),
+                to: Math.max(0, errorLocation.absolute.end - 1)
+              }
+            : undefined;
 
           set({
             currentFrame: frame,
             highlightedLine: frame.line,
             highlightedLineColor: isError ? ERROR_HIGHLIGHT_COLOR : INFO_HIGHLIGHT_COLOR,
-            underlineRange: undefined,
+            underlineRange,
             // Update information widget data whenever frame changes
             informationWidgetData: {
               html: infoWidgetHtml,

@@ -1,5 +1,5 @@
 import type { Executor } from "../executor";
-import type { BinaryExpression } from "../expression";
+import { CallExpression, IdentifierExpression, MemberExpression, type BinaryExpression } from "../expression";
 import type { EvaluationResultBinaryExpression, EvaluationResultExpression } from "../evaluation-result";
 import { createJSObject, type JikiObject, JSDictionary, JSArray, type JSNumber } from "../jikiObjects";
 import { numberArithmetic, arithmeticWithCoercion } from "./arithmetic";
@@ -147,6 +147,14 @@ function handleBinaryOperation(
 // value) rather than something a student did on purpose. Every other operator
 // already rejects undefined; equality was the last gap that let it through
 // silently. Rejecting it here keeps JS in line with Python and JikiScript.
+//
+// The overwhelmingly common cause is comparing the result of a function (or
+// method) that doesn't return a value - a completely normal thing to try - so
+// that case gets its own, clearer message (mirroring the assignment guard). The
+// generic `ComparisonWithUndefined` is left as the last-resort catch for the
+// genuinely odd ways a student might conjure an undefined operand. The error is
+// anchored on the offending operand, not the whole comparison, so the highlight
+// lands on the value that wasn't set.
 function verifyNotUndefinedForComparison(
   executor: Executor,
   expression: BinaryExpression,
@@ -154,17 +162,46 @@ function verifyNotUndefinedForComparison(
   rightResult: EvaluationResultExpression
 ): void {
   if (leftResult.jikiObject.type === "undefined") {
-    executor.error("ComparisonWithUndefined", expression.location, {
-      operator: expression.operator.lexeme,
-      side: "left",
-    });
+    errorForUndefinedOperand(executor, expression, expression.left, "left");
   }
   if (rightResult.jikiObject.type === "undefined") {
-    executor.error("ComparisonWithUndefined", expression.location, {
-      operator: expression.operator.lexeme,
-      side: "right",
-    });
+    errorForUndefinedOperand(executor, expression, expression.right, "right");
   }
+}
+
+function errorForUndefinedOperand(
+  executor: Executor,
+  expression: BinaryExpression,
+  operand: BinaryExpression["left"],
+  side: "left" | "right"
+): never {
+  const context = { operator: expression.operator.lexeme, side };
+
+  // A call whose function name we can name gets the specific, helpful message.
+  // Anything else (an exotic callee, a bare undefined literal, ...) falls back to
+  // the generic catch-all.
+  if (operand instanceof CallExpression) {
+    const name = functionNameOf(operand);
+    if (name !== null) {
+      executor.error("ComparisonWithUndefinedFromFunction", operand.location, { ...context, name });
+    }
+  }
+
+  executor.error("ComparisonWithUndefined", operand.location, context);
+}
+
+// Best-effort name of the function being called, for the error message: plain
+// calls (`includes(...)`) and method calls (`text.includes(...)`). Returns null
+// for anything more exotic so the caller can fall back to the generic message.
+function functionNameOf(call: CallExpression): string | null {
+  const callee = call.callee;
+  if (callee instanceof IdentifierExpression) {
+    return callee.name.lexeme;
+  }
+  if (callee instanceof MemberExpression && callee.property instanceof IdentifierExpression) {
+    return callee.property.name.lexeme;
+  }
+  return null;
 }
 
 function verifyNumbersForComparison(

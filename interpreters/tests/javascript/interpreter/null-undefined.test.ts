@@ -98,6 +98,42 @@ describe("JavaScript Interpreter: null and undefined", () => {
       expect(lastFrame.error?.type).toBe("ComparisonWithUndefined");
     });
 
+    // Comparing the result of a function that returns nothing is a completely
+    // normal mistake (unlike conjuring an `undefined` literal), so it gets its own
+    // clearer message rather than the generic "open an issue" catch-all.
+    test("comparing the result of a non-returning function errors with a specific message", () => {
+      const code = `function nothing() {}\nlet r = nothing() === 5;`;
+      const result = interpret(code);
+      expect(result.error).toBe(null);
+      expect(result.success).toBe(false);
+      const lastFrame = result.frames[result.frames.length - 1];
+      expect(lastFrame.status).toBe("ERROR");
+      expect(lastFrame.error?.type).toBe("ComparisonWithUndefinedFromFunction");
+    });
+
+    // The error carries the offending function's name so the message can point the
+    // student at the specific function to fix. Assert on the structured context
+    // (tests run in the "system" language, not English).
+    test("the specific error carries the function name as context", () => {
+      const code = `function nothing() {}\nlet r = nothing() === 5;`;
+      const result = interpret(code);
+      const lastFrame = result.frames[result.frames.length - 1];
+      expect(lastFrame.error?.type).toBe("ComparisonWithUndefinedFromFunction");
+      expect(lastFrame.error?.context?.name).toBe("nothing");
+    });
+
+    // The error must highlight the offending operand (the call), not the whole line.
+    test("the error is anchored on the undefined operand, not the full comparison", () => {
+      const code = `function nothing() {}\nlet r = nothing() === 5;`;
+      const result = interpret(code);
+      const lastFrame = result.frames[result.frames.length - 1];
+      const line2 = code.split("\n")[1];
+      const begin = line2.indexOf("nothing()") + 1;
+      expect(lastFrame.error?.location.line).toBe(2);
+      expect(lastFrame.error?.location.relative.begin).toBe(begin);
+      expect(lastFrame.error?.location.relative.end).toBe(begin + "nothing()".length);
+    });
+
     test("uninitialized variable with requireVariableInstantiation disabled", () => {
       const code = "let x;";
       const result = interpret(code, { languageFeatures: { requireVariableInstantiation: false } });

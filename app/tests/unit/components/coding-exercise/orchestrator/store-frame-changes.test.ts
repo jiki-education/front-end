@@ -100,8 +100,8 @@ describe("Store Frame Changes", () => {
       state.setCurrentFrame(testFrame);
 
       const newState = store.getState();
-      // Runtime error frames highlight the line in red, but never underline a range
-      // (only syntax errors underline a specific location).
+      // Runtime error frames highlight the line in red. When the error carries no
+      // location (as with this bare mock frame) there is nothing to underline.
       expect(newState.highlightedLineColor).toBe(ERROR_HIGHLIGHT_COLOR);
       expect(newState.underlineRange).toBeUndefined();
       expect(newState.informationWidgetData).toEqual({
@@ -109,6 +109,55 @@ describe("Store Frame Changes", () => {
         line: 10,
         status: "ERROR"
       });
+    });
+
+    it("should underline the exact span an error frame points at", () => {
+      const exercise = createMockExercise({
+        slug: "test-uuid",
+        stubs: { javascript: "test code", python: "test code", jikiscript: "test code" }
+      });
+      const store = createOrchestratorStore(exercise, "javascript", { type: "lesson", slug: "test-lesson" });
+      const state = store.getState();
+
+      // Absolute offsets are 1-based in the interpreter; the underline is shifted to
+      // CodeMirror's 0-based positions (begin - 1, end - 1).
+      const errorFrame = createMockFrame(100000, {
+        line: 8,
+        status: "ERROR",
+        error: {
+          type: "ComparisonWithUndefinedFromFunction",
+          message: "You tried to compare the result of a function that didn't return anything.",
+          location: {
+            line: 8,
+            relative: { begin: 9, end: 33 },
+            absolute: { begin: 100, end: 124 }
+          }
+        }
+      } as any);
+
+      state.setShouldPlayOnTestChange(false);
+      state.setCurrentTest({
+        frames: [errorFrame],
+        slug: "test-1",
+        name: "Test 1",
+        status: "fail",
+        expects: [],
+        view: document.createElement("div"),
+        animationTimeline: {
+          play: jest.fn(),
+          onUpdate: jest.fn(),
+          onComplete: jest.fn(),
+          clearUpdateCallbacks: jest.fn(),
+          clearCompleteCallbacks: jest.fn(),
+          duration: 100000
+        }
+      } as any);
+
+      state.setCurrentFrame(errorFrame);
+
+      const newState = store.getState();
+      expect(newState.highlightedLineColor).toBe(ERROR_HIGHLIGHT_COLOR);
+      expect(newState.underlineRange).toEqual({ from: 99, to: 123 });
     });
 
     it("should update navigation frames after setting current frame", () => {

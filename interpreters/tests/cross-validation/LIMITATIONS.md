@@ -56,7 +56,9 @@ unit tests in `tests/javascript/` instead of here:
   returning `undefined` (native returns `undefined`). Matches Python `IndexError`
   and JikiScript `IndexOutOfBounds`.
 - **Comparing with `undefined` errors.** `===`/`!==`/`==`/`!=` with an `undefined`
-  operand raise `ComparisonWithUndefined`.
+  operand raise `ComparisonWithUndefined`, or `ComparisonWithUndefinedFromFunction`
+  when that operand is a function/method call that returned nothing. The error is
+  anchored on the offending operand, not the whole comparison.
 - **Storing `undefined` errors.** Assigning `undefined` to a variable, element, or
   property raises `AssignmentToUndefined`. This covers a forgotten/void `return`,
   the explicit `undefined` literal, `x && undefined`, and any stdlib call that
