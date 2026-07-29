@@ -64,7 +64,7 @@ const JikiVideoPlayer = forwardRef<JikiVideoPlayerHandle, JikiVideoPlayerProps>(
   { playbackId, className, style, autoPlay, poster, metadata, hideSeekButtons, ...callbacks },
   ref
 ) {
-  const containerClassName = [className, hideSeekButtons ? styles.hideSeekButtons : undefined]
+  const containerClassName = [styles.videoPlayer, className, hideSeekButtons ? styles.hideSeekButtons : undefined]
     .filter(Boolean)
     .join(" ");
   return (
@@ -126,6 +126,7 @@ const PlayerBridge = forwardRef<JikiVideoPlayerHandle, PlayerBridgeProps>(functi
       currentTime: store.state.currentTime,
       seeking: store.state.seeking,
       paused: store.state.paused,
+      waiting: store.state.waiting,
       ended: store.state.ended,
       canPlay: store.state.canPlay,
       duration: store.state.duration,
@@ -144,7 +145,12 @@ const PlayerBridge = forwardRef<JikiVideoPlayerHandle, PlayerBridgeProps>(functi
       // position must not count as natural playback. Native timeupdate likewise
       // doesn't advance mid-seek.
       if (s.currentTime !== prev.currentTime && !s.seeking) cb.onTimeUpdate?.();
+      // onPlay = playback requested (paused → not paused), matching the DOM `play` event.
       if (!s.paused && prev.paused) cb.onPlay?.();
+      // onPlaying = frames actually flowing, matching the DOM `playing` event. v10's store
+      // has no `playing` field; the equivalent is entering !paused && !waiting (playback
+      // resumed after a start/stall), which is what Hero waits on to reveal the player.
+      if (!s.paused && !s.waiting && (prev.paused || prev.waiting)) cb.onPlaying?.();
       if (s.ended && !prev.ended) cb.onEnded?.();
       if (s.canPlay && !prev.canPlay) cb.onCanPlay?.();
       // duration going from 0/NaN to a real value ≈ loadedmetadata.
@@ -154,6 +160,7 @@ const PlayerBridge = forwardRef<JikiVideoPlayerHandle, PlayerBridgeProps>(functi
       prev.currentTime = s.currentTime;
       prev.seeking = s.seeking;
       prev.paused = s.paused;
+      prev.waiting = s.waiting;
       prev.ended = s.ended;
       prev.canPlay = s.canPlay;
       prev.duration = s.duration;
