@@ -1,3 +1,3 @@
-function stars(count) {
+function layoutStars(numRows) {
 
 }

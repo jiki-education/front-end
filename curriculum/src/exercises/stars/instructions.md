@@ -1,18 +1,32 @@
 ---
 title: "Stars"
-description: "Build a growing pattern of stars."
+description: "Build and draw a pyramid of stars."
 ---
 
-You're building a simple text-based pattern generator. Given a number, create a list of strings where each string contains an increasing number of stars.
-
-For example, given the number 3, you should return:
+You're building a visual pattern generator to make rows of stars in a pyramid. For example, three rows would look like this:
 
 ```
-["*", "**", "***"]
+   *
+  * *
+ * * *
 ```
 
-The first element has 1 star, the second has 2 stars, and so on up to the given count.
+Your job is to create a function called <define>`layoutStars`</define> that takes one input, `numRows`, and calculates, then draws, the various rows of stars.
 
-If the count is 0, return an empty list.
+The function should:
 
-Create a function called <define>`stars`</define> that takes one input, a count, and returns the list of star strings.
+1. Build an array of strings where each string is a row of stars, one shorter than the row before it. For the pyramid above where `numRows` is `3`, that array would be `["***", "**", "*"]`.
+2. Pass that array to <literal>drawStars</literal> to draw it. For example:
+
+```javascript
+let rows = ... // ["***", "**", "*"]
+drawStars(rows)
+```
+
+If `numRows` is 0, the array is empty (`[]`) and nothing is drawn.
+
+### The push method
+
+As in the last exercise, you'll need to build your array up using the `.push(element)` method. In this exercise, you can only create one new array (`let something = []`) in your code.
+
+Have fun!

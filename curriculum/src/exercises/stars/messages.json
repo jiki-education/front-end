@@ -1,46 +1,79 @@
 {
   "tasks": {
-    "createStarsFunction": {
-      "name": "Create stars function",
-      "description": "Write a stars function that takes a count and returns a list of strings, where each string has an increasing number of stars. For example, stars(3) returns [\"*\", \"**\", \"***\"]."
+    "drawStars": {
+      "name": "Draw a pyramid of stars",
+      "description": "Write a layoutStars function that takes a number of rows and builds an array of strings where each string has one fewer star than the last, then draws it with drawStars. For example, layoutStars(3) draws the pyramid for [\"***\", \"**\", \"*\"]."
     }
   },
   "scenarios": {
     "count0": {
       "name": "Count is 0",
-      "description": "Zero stars returns an empty list."
+      "description": "Zero stars draws nothing."
     },
     "count1": {
       "name": "Count is 1",
-      "description": "One star returns a list with a single star string."
+      "description": "A count of one draws a single star."
     },
     "count3": {
       "name": "Count is 3",
-      "description": "Three stars returns three strings with increasing stars."
+      "description": "A count of three draws a three-row pyramid."
     },
     "count5": {
       "name": "Count is 5",
-      "description": "Five stars returns five strings with increasing stars."
+      "description": "A count of five draws a five-row pyramid."
+    },
+    "count10": {
+      "name": "Count is 10",
+      "description": "A count of ten draws a ten-row pyramid."
     }
   },
   "hints": {
     "shapeOfAnswer": {
-      "question": "What's the shape of my answer?",
-      "answer": "A list of strings, each one a bit longer than the last. Start with an empty list and an empty string. Each iteration, the string grows by one star, and the new string goes into the list."
+      "question": "What am I building?",
+      "answer": "An array of strings, longest first, each one a star shorter than the one before, down to a single star. When it's drawn, the longest row sits at the bottom of the pyramid. Build the whole array first, then draw it with `drawStars`."
     },
-    "loopCount": {
-      "question": "How do I run the loop the right number of times?",
-      "answer": "A `repeat(n)` loop matches the input directly. If `n` is 3, you go around 3 times."
+    "countingDown": {
+      "question": "How do I make each row shorter than the last?",
+      "answer": "The lengths need to go down: the first string is the longest and the last is a single star. A loop that counts down from the total to 1 hands you each length in turn."
     },
-    "insideLoop": {
-      "question": "What happens inside the loop?",
-      "answer": "Two steps. First, append a star onto your growing string using concatenation with `+`. Second, `push()` the growing string onto your list. Order matters here. Do the concatenation first, so the first thing pushed is `\"*\"`, not the empty string."
+    "buildingEachRow": {
+      "question": "How do I build a string with a certain number of stars?",
+      "answer": "Start with an empty string and add one `*` at a time until it's the right length. Then `push` that string onto your array before moving to the next row."
     }
+  },
+  "checks": {
+    "row1": "The bottom row of stars isn't right. Check it against the faint outline.",
+    "row2": "The second row from the bottom isn't right. Check it against the faint outline.",
+    "row3": "The third row from the bottom isn't right. Check it against the faint outline.",
+    "row4": "The fourth row from the bottom isn't right. Check it against the faint outline.",
+    "row5": "The fifth row from the bottom isn't right. Check it against the faint outline.",
+    "row6": "The sixth row from the bottom isn't right. Check it against the faint outline.",
+    "row7": "The seventh row from the bottom isn't right. Check it against the faint outline.",
+    "row8": "The eighth row from the bottom isn't right. Check it against the faint outline.",
+    "row9": "The ninth row from the bottom isn't right. Check it against the faint outline.",
+    "row10": "The tenth row from the bottom isn't right. Check it against the faint outline.",
+    "total": "You've drawn the wrong number of stars in total.",
+    "shouldBeEmpty": "When the count is 0 you shouldn't draw any stars.",
+    "codeQuality": {
+      "mustUsePush": "Build your array up using the push method, adding one row at a time.",
+      "noHardcodedArray": "You can't write the finished array out directly. Build it up one row at a time with push."
+    }
+  },
+  "errors": {
+    "notAnArray": "drawStars needs an array of strings.",
+    "notStrings": "Every item in the array passed to drawStars must be a string."
+  },
+  "describers": {
+    "drawStars": "drew the pyramid of stars onto the canvas"
   },
   "functions": {
     "push": {
-      "description": "Add an item to the end of a list (provided by level stdlib)",
-      "category": "List Operations"
+      "description": "Add an element to the end of an array",
+      "category": "Arrays"
+    },
+    "drawStars": {
+      "description": "Draw a row of stars for each string in the array, using the length of each string as that row's star count",
+      "category": "Drawing"
     }
   }
 }
