@@ -1,19 +1,19 @@
 ---
 title: "Iterating Through Strings"
-description: "Using a `for-of` loop to step through every letter in a string, doing something with each one in turn."
+description: "Using a `for of` loop to step through every letter in a string, doing something with each one in turn."
 ---
 
 You can access a single letter of a string using square brackets. Now we're going to look at how to loop through a string, getting out each letter one at a time.
 
-And to do that, we need a new type of loop. So far, we've used the repeat loop, and now we're going to use something called a `for-of` loop. That's two new keywords, `for` and `of`.
+And to do that, we need a new type of loop. So far, we've used the repeat loop, and now we're going to use something called a <define info="loops over each element of a collection in turn; keep the English keywords for/of, gloss the meaning">`for of`</define> loop. That's two new keywords, `for` and `of`.
 
 The `for` keyword is one that we'll see in quite a few places as we move forward. It can be by itself, or it can be paired with `in` or `of`. For now, we're going to focus on that last one, `of`.
 
 So let's take a look at some code.
 
-We'll start off by creating a variable called <define>`name`</define> containing the string `"Jeremy"`. Nothing new here.
+We'll start off by creating a variable called <define>`name`</define> containing the string <define info="say 'the name Jeremy', or use name signifiers such as -san if appropriate in the language">`"Jeremy"`</define>. Nothing new here.
 
-Then we have this line, `for (let letter of name) {`, and there's a lot going on there, so let's talk through it slowly.
+Then we have the loop line, and there's a lot going on there, so let's talk through it slowly.
 
 ```javascript
 let name = "Jeremy"
@@ -22,11 +22,11 @@ for (let letter of name) {
 }
 ```
 
-Firstly, we have the `for` keyword. That tells Jiki that we want to do some looping. So he looks ahead and sees `of` and knows that we want to do some for-of looping.
+Firstly, we have the `for` keyword. That tells Jiki that we want to do some looping. So he looks ahead and sees `of` and knows that we want to do some "for of" looping.
 
-And that means that rather than using a repeat loop where we say, "Let's loop through 10 times," we're saying, "Let's loop through all of the letters in the string." That's what for-of means.
+And that means that rather than using a repeat loop where we say, "Let's loop through 10 times," we're saying, "Let's loop through all of the letters in the string." That's what "for of" means.
 
-Then we have this `let letter` bit. This is exactly the same as what we have above it with `let name`. We're just creating a variable called <define>`letter`</define>.
+Then we have this <define>`let letter`</define> bit. This is exactly the same as what we have above it with `let name`. We're just creating a variable called `letter`.
 
 The difference is that rather than being explicit about what goes in it, we're telling Jiki to put each letter in the string into it one at a time.
 

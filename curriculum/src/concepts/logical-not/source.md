@@ -43,11 +43,13 @@ if (movingRight === true) {
 }
 ```
 
-But there's a neater way to do this, and that's to use the same exclamation mark or bang. We can say `movingRight = !movingRight`, and that flips it. `!movingRight` means the opposite of whatever it is.
+But there's a neater way to do this, and that's to use the same exclamation mark or bang:
 
 ```javascript
 movingRight = !movingRight
 ```
+
+And that flips it. `!movingRight` means the opposite of whatever it was previously.
 
 So if `movingRight` was true, now it's false. If it was false, now it's true. Jiki gets what's in the box currently,
 

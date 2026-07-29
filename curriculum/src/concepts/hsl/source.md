@@ -38,9 +38,9 @@ Hue is the shade of color that you want, and it goes from zero up to 360. Maybe 
 So if we want a normal red circle, which we'd have written as 255, zero, zero with RGB, all of the red, no green, no blue, here we would use zero, 100, 50. Zero for the red hue, 100 for saturation, full color, and 50 for brightness, which is a normal level of brightness. If we wanna make that a green circle, we can just change that hue to be `120`. If we want to make it a darker green, we can reduce the lightness down to `25`.
 
 ```javascript
-hsl(0, 100, 50)
-hsl(120, 100, 50)
-hsl(120, 100, 25)
+hsl(0, 100, 50) // red
+hsl(120, 100, 50) // green
+hsl(120, 100, 25) // dark green
 ```
 
 If we want to make it a duller green, we can take some of the color, some of the saturation out, say take that down to `30`.

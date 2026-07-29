@@ -31,7 +31,7 @@ So is the code wrong, or is something else weird happening here?
 
 Well, it turns out the code is fine. This is perfectly valid JavaScript, and it works because of a concept called <define>scope</define> or scoping.
 
-Scope is something that at first probably will feel quite straightforward, but I can guarantee it will cause you pain for the rest of your career. Even the most senior developers run into issues with scope, and JavaScript is one of the most complicated languages for it. I'm telling you this so that when you run into issues with scope, you're not gonna feel bad about yourself. But also, really listen to this bit because it's important.
+Scope is something that at first probably will feel quite straightforward, but I can guarantee it will cause you pain for the rest of your career. Even the most senior developers run into issues with scope, and JavaScript is one of the most complicated languages for it. I'm telling you this so that when you run into issues with scope, you're not gonna feel bad about yourself. But also, really pay attention to this bit because it's important.
 
 When you see a curly bracket in code, it creates what's called a new scope. What does that mean? Well, you can think of Jiki creating a new small set of shelves in his workshop whenever he sees a curly bracket. And any boxes that he creates while he's working, running code inside those curly brackets, those boxes, those new boxes go on the small new set of shelves, not on the main ones.
 

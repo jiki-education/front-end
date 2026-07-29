@@ -45,28 +45,28 @@ And now if we change the `left` or the `top`, the `width` and the `height` will 
 let canvasSize = 100
 let left = 20
 let top = 30
-let width = canvasSize - left * 2
-let height = canvasSize - top * 2
+let width = canvasSize - left * 2 // 60
+let height = canvasSize - top * 2 // 40
 
 rectangle(left, top, width, height, "blue")
 ```
 
-Let's think about what Jiki is doing when we write let `height` equals `canvasSize` minus `top` times two. Well, he starts by getting the `top` box off the shelf, and he finds 20 in it, and he gets out his pocket calculator and does 20 times two, and he makes a mental note of 40.
+Let's think about what Jiki is doing when we write let `height` equals `canvasSize` minus `top` times two. Well, he starts by getting the `top` box off the shelf, and he finds 30 in it, and he gets out his pocket calculator and does 30 times two, and he makes a mental note of 60.
 
 <img
   class="concept-image"
   src="/static/images/concept-assets/arithmetic/flow-of-images-1.webp"
-  alt="Jiki taking the top box off the shelf and working out 20 times two is 40"
+  alt="Jiki taking the top box off the shelf and working out 30 times two is 60"
   width="377"
   height="400"
 />
 
-And then he gets the `canvasSize` box off the shelf, finds 100 in it, and he works out that 100 minus 40 is 60. And now he knows really what we're saying is let `height` equal 60. So he obeys the let, getting a new box and writing `height` on it, and then he puts 60 inside it. And then when he uses `height` later, he just gets the 60 back out again.
+And then he gets the `canvasSize` box off the shelf, finds 100 in it, and he works out that 100 minus 60 is 40. And now he knows really what we're saying is let `height` equal 40. So he obeys the let, getting a new box and writing `height` on it, and then he puts 40 inside it. And then when he uses `height` later, he just gets the 40 back out again.
 
 <img
   class="concept-image"
   src="/static/images/concept-assets/arithmetic/flow-of-images-3.webp"
-  alt="Jiki getting a new box, writing height on it, and putting 60 inside"
+  alt="Jiki getting a new box, writing height on it, and putting 40 inside"
   width="462"
   height="400"
 />

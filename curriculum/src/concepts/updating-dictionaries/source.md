@@ -34,7 +34,7 @@ And to do that, we have a method on dictionaries, the <define>`has`</define> met
 You specify a key you're interested in, and Jiki will check whether the dictionary has that key or not, and then return true or false accordingly.
 
 ```javascript
-person.has("age")
+person.has("age") // true
 ```
 
 Putting that together, the counting pattern looks like this:

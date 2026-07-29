@@ -11,10 +11,10 @@ To do this, we use <define>backticks</define> instead of quotes.
 
 Backticks are backward ticks, as the name suggests, but you might well have never used them before, so you need to find the right key on your keyboard.
 
-We use them to create a template that can contain other strings. And then to insert a string into the template, we use another weird <define>syntax</define> of dollars and braces. So for example, to achieve the same `"hello " + name` thing we just saw with concatenation, we could write `` `hello ${name}` ``.
+We use them to create a template that can contain other strings. And then to insert a string into the template, we use another weird syntax of dollars and braces. So for example, to achieve the same `"hello " + name` thing we just saw with concatenation, we could write:
 
 ```javascript
-`hello ${name}`
+`hello ${name}` // "hello Jeremy" or "hello Jiki"
 ```
 
 <img
@@ -24,8 +24,6 @@ We use them to create a template that can contain other strings. And then to ins
   width="207"
   height="400"
 />
-
-That looks a lot better than it sounds when I say it.
 
 And that's doing exactly the same thing as adding the strings together.
 

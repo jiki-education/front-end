@@ -19,7 +19,13 @@ For example, remember a function where you check whether a string has a particul
 
 The difference from properties is that when we write these, we write them like functions with brackets and inputs.
 
-So we can write `"Jeremy".includes("e")` and we'll get back `true`, as `"Jeremy"` has an `"e"` in it.
+So we can write:
+
+```javascript
+"Jeremy".includes("e") // true
+```
+
+And we'll get back `true`, as `"Jeremy"` has an `"e"` in it.
 
 <img
   class="concept-image"
@@ -28,10 +34,6 @@ So we can write `"Jeremy".includes("e")` and we'll get back `true`, as `"Jeremy"
   width="359"
   height="400"
 />
-
-```javascript
-"Jeremy".includes("e")
-```
 
 Methods are different to properties because they're not static facts. They're actually functions. You can think of them as like functions that have a built-in box with the string inside of it.
 
@@ -43,6 +45,6 @@ One thing to know with strings is that the methods don't change anything inside 
 const name = "Jeremy"
 const bigName = name.toUpperCase()
 
-log(bigName)
-log(name)
+log(bigName) // "JEREMY"
+log(name) // "Jeremy"
 ```
