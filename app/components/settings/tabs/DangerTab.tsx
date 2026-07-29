@@ -20,7 +20,7 @@ export default function DangerTab() {
       <div className={styles.settingsField}>
         <ActionField label={t("sessionLabel")} description={t("sessionDescription")}>
           <button
-            className="ui-btn ui-btn-small ui-btn-danger w-[160px]"
+            className={`ui-btn ui-btn-small ui-btn-danger ${styles.dangerButton}`}
             onClick={handleLogoutFromThisDevice}
             disabled={isLoggingOut}
           >
@@ -31,7 +31,7 @@ export default function DangerTab() {
       <div className={styles.settingsField}>
         <ActionField label={t("deleteLabel")} description={t("deleteDescription")}>
           <button
-            className="ui-btn ui-btn-small ui-btn-danger min-w-[160px] whitespace-nowrap"
+            className={`ui-btn ui-btn-small ui-btn-danger ${styles.dangerButtonWide}`}
             onClick={handleDeleteAccount}
           >
             {t("deleteButton")}

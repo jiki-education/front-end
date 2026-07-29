@@ -70,14 +70,14 @@ export function ChallengeUnlockedStep({
       <div className={styles.premiumInfoBox}>
         <p>
           {t.rich("premiumInfo", {
-            strong: (chunks) => <span className="font-semibold">{chunks}</span>,
+            strong: (chunks) => <span className={styles.textSemibold}>{chunks}</span>,
             link: (chunks) => <Link href={routes.premium()}>{chunks}</Link>
           })}
         </p>
       </div>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
-        <button onClick={onContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
+        <button onClick={onContinue} className={`ui-btn ui-btn-primary ui-btn-large ${styles.buttonFill}`}>
           {tCommon("continue")}
         </button>
       </div>

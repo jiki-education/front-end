@@ -4,38 +4,38 @@
 
 **IMPORTANT**: Always use colors from `app/styles/theme/colors.css`. Never use arbitrary hex colors from design mockups - always map them to existing color variables. If a design uses `#e2e8f0`, use `var(--color-gray-200)` instead. If a close match doesn't exist, ask before adding new colors.
 
-## Three Styling Approaches
+## Two Styling Approaches
 
-Jiki uses three different styling approaches depending on the use case:
+The app styles with **CSS Modules** and the **UI Kit**. There is no Tailwind (see "Tailwind has been removed" below).
 
-### 1. Inline Tailwind
+### 1. CSS Modules (default)
 
-Using Tailwind utility classes directly in JSX for quick, one-off styling.
-
-```tsx
-<div className="flex items-center gap-4 p-6">
-```
-
-### 2. UI Kit (Global Styles)
-
-Reusable component styles defined in `app/styles/` for common UI elements like buttons, forms, links, and navigation.
-
-```tsx
-<button className="ui-btn-large ui-btn-primary">
-```
-
-These are globally available styles that maintain consistency across the application.
-
-### 3. CSS Modules
-
-Component-specific styles in `.module.css` files placed alongside their components.
+Component-specific styles in `.module.css` files placed alongside their components. This is the default for any component-specific styling.
 
 ```tsx
 import styles from "./MyComponent.module.css";
 <div className={styles.container}>
 ```
 
-**When to use which approach:** Ask the human when deciding which styling approach to use for a specific component or feature.
+### 2. UI Kit (Global Styles)
+
+Reusable component styles defined in `app/styles/` for common UI elements like buttons, forms, links, and navigation. Use these for shared primitives (buttons, form fields, tabs) rather than re-authoring them per component.
+
+```tsx
+<button className="ui-btn-large ui-btn-primary">
+```
+
+These are globally available styles (loaded via `globals.css`, so they work on every route) that maintain consistency across the application. Prose/markdown content uses `ui-textual-content` (optionally `ui-textual-content-compact`).
+
+**When to use which:** component-specific layout/appearance → CSS Module. A shared primitive that already exists in the ui-kit (`ui-btn-*`, `ui-form-field-*`, `ui-page-tabs`, `ui-textual-content`) → use it. Mixing is fine: a `ui-btn` with an extra `${styles.someModifier}` for one-off spacing.
+
+## Tailwind has been removed
+
+The codebase no longer uses Tailwind CSS — the whole app (product pages, `/dev` tooling, `/test` pages) styles with CSS Modules + the ui-kit. There is no `tailwindcss` dependency, no `@import "tailwindcss"`, no `@theme`/`@apply`/`@source`, and no Tailwind PostCSS plugin. The base reset that once came from Tailwind's preflight is hand-written in `app/styles/base.css` (loaded via `globals.css` on every route).
+
+**Do not add Tailwind utility classes (`flex`, `gap-4`, `bg-blue-600`, `text-14`, `md:`, `hover:`, …) in `className`.** An ESLint rule (`no-restricted-syntax` in `eslint.config.mjs`, scoped to `app/**` + `components/**`, excluding tests) errors on them. Style with a CSS Module or an existing ui-kit class instead.
+
+**Layout & spacing** use plain CSS values (px). Use the design tokens for colors, spacing, radius, and typography (`var(--color-*)`, `var(--spacing-*)` / literal px, `var(--radius-*)`, `var(--text-*)`). Responsive design uses CSS Module media queries (`@media (min-width: 640px)` etc.).
 
 ## CSS Module Naming Convention
 
@@ -227,37 +227,27 @@ Jiki uses a centralized z-index system to prevent z-index conflicts and ensure p
 --z-index-notification: 1300;
 ```
 
-**Utility Classes:** Custom utility classes are provided in `app/styles/utilities/z-index.css` using `@layer utilities` to integrate with Tailwind:
+**In CSS Modules (product code):** reference the `--z-index-*` variables directly:
 
 ```css
-@layer utilities {
-  .z-base {
-    z-index: var(--z-index-base);
-  }
-  .z-dropdown {
-    z-index: var(--z-index-dropdown);
-  }
-  /* ... etc */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: var(--z-index-modal-backdrop);
+}
+
+.modal {
+  position: relative;
+  z-index: var(--z-index-modal);
 }
 ```
 
+**Utility classes:** custom `z-*` utility classes are also provided in `app/styles/utilities/z-index.css` (`.z-modal`, `.z-dropdown`, …) — hand-written classes that set `z-index: var(--z-index-*)`. Prefer referencing the variable directly in a CSS Module.
+
 ### Usage
 
-Use these z-index classes like any other Tailwind utility:
-
-```tsx
-// Modal backdrop
-<div className="fixed inset-0 bg-black bg-opacity-50 z-modal-backdrop">
-
-// Modal content
-<div className="relative bg-white rounded-lg shadow-xl z-modal">
-
-// Dropdown
-<div className="absolute bg-white border rounded-lg z-dropdown">
-
-// Tooltip
-<div className="absolute bg-gray-900 text-white rounded z-tooltip">
-```
+In product-code CSS Modules, use `z-index: var(--z-index-<name>)`. The available names:
 
 ### Available Classes
 
@@ -279,10 +269,9 @@ Use these z-index classes like any other Tailwind utility:
 ### Why This Approach?
 
 1. **Centralized Management:** All z-index values are defined in one place
-2. **Semantic Names:** Classes have meaningful names that indicate their purpose
-3. **Tailwind Integration:** Works seamlessly with other Tailwind utilities
-4. **No Conflicts:** Predefined hierarchy prevents z-index wars
-5. **Easy Maintenance:** Update values in one place to affect entire system
+2. **Semantic Names:** Variables/classes have meaningful names that indicate their purpose
+3. **No Conflicts:** Predefined hierarchy prevents z-index wars
+4. **Easy Maintenance:** Update values in one place to affect entire system
 
 ### Rules
 

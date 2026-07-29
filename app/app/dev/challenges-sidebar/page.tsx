@@ -8,6 +8,7 @@ import type { UserProfileData } from "@/components/dashboard/challenges-sidebar/
 import { UserProfile } from "@/components/dashboard/challenges-sidebar/ui/UserProfile";
 import { UserProfileSkeleton } from "@/components/dashboard/challenges-sidebar/ui/UserProfileSkeleton";
 import styles from "@/components/dashboard/challenges-sidebar/ChallengesSidebar.module.css";
+import pageStyles from "./page.module.css";
 import type { BadgeData } from "@/lib/api/badges";
 import type { ChallengeData } from "@/lib/api/challenges";
 import { useState } from "react";
@@ -160,17 +161,16 @@ export default function ChallengesSidebarDevPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="p-4 bg-white border-b border-gray-200">
-        <h1 className="text-xl font-bold mb-4">Challenges Sidebar States</h1>
-        <div className="flex flex-wrap gap-2">
+    <div className={pageStyles.page}>
+      <div className={pageStyles.toolbar}>
+        <h1 className={pageStyles.title}>Challenges Sidebar States</h1>
+        <div className={pageStyles.stateButtons}>
           {states.map((state) => (
             <button
               key={state.id}
               onClick={() => setSelectedState(state.id)}
-              className={`px-3 py-1.5 rounded text-sm font-medium transition-colors ${
-                selectedState === state.id ? "bg-purple-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-              }`}
+              className={pageStyles.stateButton}
+              data-active={selectedState === state.id}
             >
               {state.label}
             </button>
@@ -178,8 +178,8 @@ export default function ChallengesSidebarDevPage() {
         </div>
       </div>
 
-      <div className="p-8 flex justify-center">
-        <div className="bg-gray-50" style={{ width: 480 }}>
+      <div className={pageStyles.preview}>
+        <div className={pageStyles.previewInner} style={{ width: 480 }}>
           <aside className={styles.challengesSidebar} style={{ width: "100%", height: "auto", position: "static" }}>
             <div>{renderSidebarContent()}</div>
           </aside>

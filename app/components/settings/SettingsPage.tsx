@@ -28,7 +28,7 @@ export default function SettingsPage() {
   return (
     <div className={styles.mainContent}>
       <PageHeader icon={<SettingsIcon />} title={t("title")} description={t("description")}>
-        <div className="ui-page-tabs mb-[26px]">
+        <div className={`ui-page-tabs ${styles.pageTabs}`}>
           <button className={activeTab === "account" ? "active" : ""} onClick={() => setActiveTab("account")}>
             <AccountSettingsIcon />
             {t("tabAccount")}

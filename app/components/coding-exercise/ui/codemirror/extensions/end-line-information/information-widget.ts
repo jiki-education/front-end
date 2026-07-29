@@ -47,9 +47,7 @@ export class InformationWidget extends WidgetType {
 
   private createRefElement() {
     const refElement = document.createElement("span");
-    refElement.classList.add("font-bold", "text-black");
-    refElement.style.position = "absolute";
-    refElement.style.right = "0";
+    refElement.className = tooltipStyles.refElement;
     refElement.innerText = " ";
 
     return refElement;

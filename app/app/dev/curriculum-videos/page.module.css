@@ -1,0 +1,110 @@
+.page {
+    min-height: 100vh;
+    background: var(--color-gray-100);
+    padding: 8px;
+}
+
+.container {
+    max-width: 1152px;
+    margin-inline: auto;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.intro {
+    color: var(--color-gray-600);
+    margin-bottom: 6px;
+}
+
+.inlineCode {
+    background: var(--color-gray-200);
+    padding-inline: 1px;
+    border-radius: 4px;
+}
+
+.level {
+    margin-bottom: 10px;
+}
+
+.levelTitle {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    border-bottom: 1px solid var(--color-border-primary);
+    padding-bottom: 2px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+}
+
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow:
+        0 1px 3px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    padding: 4px;
+}
+
+.cardHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 2px;
+}
+
+.lessonTitle {
+    font-weight: 600;
+}
+
+.lessonSlug {
+    font-size: 12px;
+    color: var(--color-gray-500);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.walkthroughTag {
+    font-size: 12px;
+    background: var(--color-purple-100);
+    color: var(--color-purple-800);
+    padding-inline: 2px;
+    padding-block: 1px;
+    border-radius: 4px;
+}
+
+.videoWrapper {
+    aspect-ratio: 16 / 9;
+    background: black;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.unsupported {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: white;
+    font-size: 14px;
+}
+
+.sourceMeta {
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--color-gray-500);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    word-break: break-all;
+}

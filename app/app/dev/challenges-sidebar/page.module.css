@@ -1,0 +1,56 @@
+.page {
+    min-height: 100vh;
+    background: var(--color-gray-100);
+}
+
+.toolbar {
+    padding: 4px;
+    background: white;
+    border-bottom: 1px solid var(--color-gray-200);
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.stateButtons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+
+.stateButton {
+    padding-inline: 12px;
+    padding-block: 6px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.15s ease;
+    background: var(--color-gray-100);
+    color: var(--color-gray-700);
+
+    &:hover {
+        background: var(--color-gray-200);
+    }
+}
+
+.stateButton[data-active="true"] {
+    background: var(--color-purple-600);
+    color: white;
+
+    &:hover {
+        background: var(--color-purple-600);
+    }
+}
+
+.preview {
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+}
+
+.previewInner {
+    background: var(--color-gray-50);
+}

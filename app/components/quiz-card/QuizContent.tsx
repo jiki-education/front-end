@@ -20,7 +20,7 @@ export function QuizContent({ markdown }: QuizContentProps) {
 
   return (
     <div className="quiz-content">
-      <div className="prose prose-sm max-w-none text-gray-800" dangerouslySetInnerHTML={{ __html: html }} />
+      <div className="ui-textual-content ui-textual-content-compact" dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   );
 }

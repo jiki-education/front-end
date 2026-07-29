@@ -3,24 +3,25 @@
 import { showConfirmation, showInfo, showModal } from "@/lib/modal";
 import { showSubscriptionModal, showSubscriptionSuccess } from "@/lib/modal/app";
 import { AppModalRegistrar } from "@/lib/modal/AppModalRegistrar";
+import styles from "./page.module.css";
 
 export default function TestGlobalModals() {
   return (
-    <div className="p-8 max-w-4xl mx-auto">
+    <div className={styles.page}>
       {/* (app)-only modals aren't registered in the /dev layout; register them here so they're testable */}
       <AppModalRegistrar />
-      <h1 className="text-3xl font-bold mb-6">Global Modal System Test</h1>
+      <h1 className={styles.title}>Global Modal System Test</h1>
 
-      <div className="mb-8">
-        <p className="text-gray-600 mb-4">
+      <div className={styles.intro}>
+        <p className={styles.introText}>
           These modals can be called from anywhere in the app without any setup or context providers. Just import and
           call the functions!
         </p>
       </div>
 
-      <div className="space-y-4">
-        <div className="border rounded-lg p-4">
-          <h2 className="text-xl font-semibold mb-2">Example Modal</h2>
+      <div className={styles.sections}>
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Example Modal</h2>
           <button
             onClick={() =>
               showModal("example-modal", {
@@ -28,14 +29,15 @@ export default function TestGlobalModals() {
                 message: "This modal is called globally without any orchestrator!"
               })
             }
-            className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors"
+            className={styles.modalButton}
+            data-color="purple"
           >
             Show Example Modal
           </button>
         </div>
 
-        <div className="border rounded-lg p-4">
-          <h2 className="text-xl font-semibold mb-2">Confirmation Modal</h2>
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Confirmation Modal</h2>
           <button
             onClick={() =>
               showConfirmation({
@@ -48,22 +50,23 @@ export default function TestGlobalModals() {
                 onCancel: () => alert("Cancelled")
               })
             }
-            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+            className={styles.modalButton}
+            data-color="red"
           >
             Show Confirmation Modal
           </button>
         </div>
 
-        <div className="border rounded-lg p-4">
-          <h2 className="text-xl font-semibold mb-2">Info Modal</h2>
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Info Modal</h2>
           <button
             onClick={() =>
               showInfo({
                 title: "System Information",
                 content: (
-                  <div className="space-y-2">
+                  <div className={styles.infoContent}>
                     <p>The global modal system provides:</p>
-                    <ul className="list-disc list-inside ps-4">
+                    <ul className={styles.infoList}>
                       <li>Simple API - just import and use</li>
                       <li>No context providers needed at component level</li>
                       <li>Works from any page or component</li>
@@ -75,14 +78,15 @@ export default function TestGlobalModals() {
                 buttonText: "Awesome!"
               })
             }
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+            className={styles.modalButton}
+            data-color="blue"
           >
             Show Info Modal
           </button>
         </div>
 
-        <div className="border rounded-lg p-4">
-          <h2 className="text-xl font-semibold mb-2">Custom Props</h2>
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Custom Props</h2>
           <button
             onClick={() =>
               showModal("example-modal", {
@@ -90,45 +94,41 @@ export default function TestGlobalModals() {
                 message: "You can pass any props to your modals!"
               })
             }
-            className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+            className={styles.modalButton}
+            data-color="green"
           >
             Show Modal with Custom Props
           </button>
         </div>
 
-        <div className="border rounded-lg p-4">
-          <h2 className="text-xl font-semibold mb-2">Connection Error Modal</h2>
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Connection Error Modal</h2>
           <button
             onClick={() => showModal("connection-error-modal")}
-            className="px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 transition-colors"
+            className={styles.modalButton}
+            data-color="orange"
           >
             Show Connection Error Modal
           </button>
         </div>
 
-        <div className="border rounded-lg p-4">
-          <h2 className="text-xl font-semibold mb-2">Rate Limit Modal</h2>
-          <button
-            onClick={() => showModal("rate-limit-modal")}
-            className="px-4 py-2 bg-amber-600 text-white rounded hover:bg-amber-700 transition-colors"
-          >
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Rate Limit Modal</h2>
+          <button onClick={() => showModal("rate-limit-modal")} className={styles.modalButton} data-color="amber">
             Show Rate Limit Modal
           </button>
         </div>
 
-        <div className="border rounded-lg p-4">
-          <h2 className="text-xl font-semibold mb-2">Auth Error Modal</h2>
-          <button
-            onClick={() => showModal("auth-error-modal")}
-            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
-          >
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Auth Error Modal</h2>
+          <button onClick={() => showModal("auth-error-modal")} className={styles.modalButton} data-color="red">
             Show Auth Error Modal
           </button>
         </div>
 
-        <div className="border rounded-lg p-4">
-          <h2 className="text-xl font-semibold mb-2">Exercise Completion Modal</h2>
-          <div className="space-x-2 space-y-2">
+        <div className={styles.card}>
+          <h2 className={styles.cardTitle}>Exercise Completion Modal</h2>
+          <div className={styles.buttonGroup}>
             <button
               onClick={() =>
                 showModal("exercise-completion-modal", {
@@ -142,7 +142,8 @@ export default function TestGlobalModals() {
                   initialStep: "success"
                 })
               }
-              className="px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition-colors"
+              className={styles.modalButton}
+              data-color="emerald"
             >
               Success Step
             </button>
@@ -160,7 +161,8 @@ export default function TestGlobalModals() {
                   initialStep: "difficulty-rating"
                 })
               }
-              className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors"
+              className={styles.modalButton}
+              data-color="purple"
             >
               🆕 Rating Step (Difficulty + Fun)
             </button>
@@ -178,7 +180,8 @@ export default function TestGlobalModals() {
                   initialStep: "completed"
                 })
               }
-              className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+              className={styles.modalButton}
+              data-color="green"
             >
               Completed Step
             </button>
@@ -196,17 +199,18 @@ export default function TestGlobalModals() {
                   }
                 })
               }
-              className="px-4 py-2 bg-pink-600 text-white rounded hover:bg-pink-700 transition-colors"
+              className={styles.modalButton}
+              data-color="pink"
             >
               Challenge Unlocked Step
             </button>
           </div>
-          <p className="text-sm text-gray-600 mt-2">
+          <p className={styles.groupNote}>
             🆕 Test the new combined rating step! Click through the full flow: Success → Confirmation → Rate Experience
             (Difficulty + Fun) → Completed
           </p>
-          <h2 className="text-xl font-semibold mb-2">Subscription Modals</h2>
-          <div className="space-x-2 space-y-2">
+          <h2 className={styles.cardTitle}>Subscription Modals</h2>
+          <div className={styles.buttonGroup}>
             <button
               onClick={() =>
                 showSubscriptionModal({
@@ -234,7 +238,8 @@ export default function TestGlobalModals() {
                   onCancel: () => console.debug("Subscription cancelled")
                 })
               }
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+              className={styles.modalButton}
+              data-color="blue"
             >
               Chat Gate Modal
             </button>
@@ -250,7 +255,8 @@ export default function TestGlobalModals() {
                   }
                 })
               }
-              className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors"
+              className={styles.modalButton}
+              data-color="purple"
             >
               Feature Gate Modal
             </button>
@@ -263,7 +269,8 @@ export default function TestGlobalModals() {
                   description: "Custom description for general upgrade."
                 })
               }
-              className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors"
+              className={styles.modalButton}
+              data-color="indigo"
             >
               General Modal
             </button>
@@ -275,7 +282,8 @@ export default function TestGlobalModals() {
                   triggerContext: "general"
                 })
               }
-              className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+              className={styles.modalButton}
+              data-color="green"
             >
               Success Modal
             </button>
@@ -283,9 +291,9 @@ export default function TestGlobalModals() {
         </div>
       </div>
 
-      <div className="mt-8 p-4 bg-gray-100 rounded-lg">
-        <h3 className="font-semibold mb-2">Usage Example:</h3>
-        <pre className="bg-gray-800 text-white p-4 rounded overflow-x-auto">
+      <div className={styles.usageCard}>
+        <h3 className={styles.usageTitle}>Usage Example:</h3>
+        <pre className={styles.usagePre}>
           {`import { showModal, showConfirmation, showInfo } from '@/lib/modal';
 import { showSubscriptionModal, showSubscriptionSuccess } from '@/lib/modal/app';
 

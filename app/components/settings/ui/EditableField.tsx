@@ -121,7 +121,7 @@ export default function EditableField({
       <div className={styles.header}>
         <div className={styles.labelGroup}>
           <span className={styles.label}>{label}</span>
-          <div className={styles.value}>{value || <span className="text-gray-400">{placeholder}</span>}</div>
+          <div className={styles.value}>{value || <span className={styles.placeholder}>{placeholder}</span>}</div>
         </div>
         <button onClick={() => setIsEditing(true)} disabled={disabled} className="ui-btn ui-btn-tertiary ui-btn-small">
           {t("edit")}

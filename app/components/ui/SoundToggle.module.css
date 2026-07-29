@@ -1,0 +1,15 @@
+.button {
+    padding: 2px;
+    border-radius: 8px;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+        background-color: var(--color-bg-secondary);
+    }
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    color: var(--color-text-secondary);
+}

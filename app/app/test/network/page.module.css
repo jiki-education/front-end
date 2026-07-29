@@ -1,0 +1,75 @@
+.page {
+    min-height: 100vh;
+    background: var(--color-bg-primary);
+    padding: 8px;
+}
+
+.container {
+    max-width: 672px;
+    margin-inline: auto;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--color-text-primary);
+}
+
+.stack {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.primaryButton {
+    padding-inline: 6px;
+    padding-block: 3px;
+    background: var(--color-button-primary-bg);
+    color: var(--color-button-primary-text);
+    border-radius: 4px;
+    transition: opacity 0.15s ease;
+
+    &:hover {
+        opacity: 0.9;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+    }
+}
+
+.errorMessage {
+    padding: 4px;
+    background: var(--color-red-100);
+    color: var(--color-red-800);
+    border-radius: 4px;
+}
+
+.successMessage {
+    padding: 4px;
+    background: var(--color-green-100);
+    color: var(--color-green-800);
+    border-radius: 4px;
+}
+
+.instructions {
+    margin-block-start: 8px;
+    padding: 4px;
+    background: var(--color-bg-secondary);
+    border-radius: 4px;
+}
+
+.instructionsTitle {
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.instructionsList {
+    list-style: decimal;
+    list-style-position: inside;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    font-size: 14px;
+}

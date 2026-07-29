@@ -181,6 +181,40 @@ const eslintConfig = [
       "react-hooks/set-state-in-effect": "off",
       "react-hooks/refs": "off"
     }
+  },
+
+  // No Tailwind, anywhere.
+  //
+  // Tailwind has been fully removed from the codebase — the whole app (product
+  // pages, dev tooling, test pages) styles via CSS Modules + the hand-written
+  // ui-kit. This block forbids Tailwind utility classes from reappearing in any
+  // className. It is LAST so it wins over the general TS block for matched files
+  // (flat config replaces, not merges, no-restricted-syntax) — hence the
+  // arrow-function rule is repeated here. It does NOT flag ui-kit globals
+  // (ui-*, c-*), custom z-index (z-modal), or a11y helpers (focus-ring,
+  // sr-only). Tests are excluded so class-name string literals in assertions
+  // (e.g. toHaveClass("...")) don't trip it. For a genuine non-Tailwind class
+  // that trips it, prefer a CSS Module; only add an eslint-disable with a note
+  // if truly unavoidable.
+  {
+    files: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}", "lib/**/*.{ts,tsx}"],
+    ignores: ["**/tests/**"],
+    rules: {
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: "Program > VariableDeclaration > VariableDeclarator[init.type='ArrowFunctionExpression']",
+          message: "Use a function declaration for top-level APIs (e.g., `function name(){}`)"
+        },
+        {
+          // className="…" string literals containing a Tailwind utility token.
+          selector:
+            "JSXAttribute[name.name='className'] > Literal[value=/(^|\\s)-?(flex|inline-flex|grid|inline-grid|block|inline-block|hidden|isolate|items-(center|start|end|stretch|baseline)|justify-(center|between|around|start|end|evenly)|self-(start|center|end|stretch)|place-(items|content)-|content-(center|between|around)|(flex|grid)-(row|col|wrap|nowrap|grow|shrink|1|auto|none|cols|rows)|(gap|space)-[xy]?-?[0-9[]|[pm][xytblrse]?-(0|0\\.5|[1-9][0-9]*|\\[)|-m[xytblrse]?-|(w|h|min-w|min-h|max-w|max-h)-(0|[1-9]|full|screen|auto|fit|min|max|\\[|xs|sm|md|lg|xl|2xl|screen-)|size-[0-9[]|text-(left|center|right|start|end|justify|xs|sm|base|lg|xl|[0-9]xl|[0-9]{2,3}|white|black|transparent|current|(red|blue|green|gray|grey|slate|zinc|neutral|stone|amber|yellow|lime|emerald|teal|cyan|sky|indigo|violet|purple|fuchsia|pink|rose|orange)-[0-9])|font-(thin|extralight|light|normal|medium|semibold|bold|extrabold|black|mono|sans|serif)|(bg|border|ring|divide|outline|from|via|to|fill|stroke|caret|accent|decoration|placeholder)-(white|black|transparent|current|inherit|none|(red|blue|green|gray|grey|slate|zinc|neutral|stone|amber|yellow|lime|emerald|teal|cyan|sky|indigo|violet|purple|fuchsia|pink|rose|orange)-[0-9]|\\[)|rounded(-|$)|border(-[0-9tblrse]|$)|(top|bottom|left|right|inset|start|end)-(0|[1-9]|auto|full|\\[)|z-(0|[1-9]0*|\\[)|overflow-(auto|hidden|visible|scroll|clip|[xy]-)|opacity-[0-9[]|cursor-|pointer-events-|select-|(w|h)-\\[|shadow(-|$)|leading-|tracking-|(uppercase|lowercase|capitalize|normal-case)|truncate|(whitespace|break|text-ellipsis|text-clip)-|aspect-|object-(cover|contain|fill|none|scale)|(transition|duration|delay|ease|animate)-|(scale|rotate|translate|skew|origin)-|prose|(hover|focus|active|disabled|group-hover|focus-within|focus-visible|peer|first|last|odd|even|sm|md|lg|xl|2xl|dark|rtl|ltr):)(\\s|$)/]",
+          message:
+            "Tailwind utility class in product code. Tailwind is scoped to app/dev + app/test only — style product code with a CSS Module or the ui-kit (ui-*/c-*). See app/.context/css-styles.md."
+        }
+      ]
+    }
   }
 ];
 

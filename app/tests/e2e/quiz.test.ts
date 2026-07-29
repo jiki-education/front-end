@@ -33,7 +33,7 @@ test.describe("Quiz Page E2E", () => {
     });
 
     test("should display the current question counter", async ({ page }) => {
-      const counter = await page.locator("p.text-gray-600").first().textContent();
+      const counter = await page.getByTestId("quiz-counter").first().textContent();
       expect(counter).toContain("Question 1 of");
     });
   });
@@ -41,40 +41,40 @@ test.describe("Quiz Page E2E", () => {
   test.describe("Quiz Type Switching", () => {
     test("should switch between quiz types", async ({ page }) => {
       // Start with multiple choice
-      const counter = await page.locator("p.text-gray-600").first().textContent();
+      const counter = await page.getByTestId("quiz-counter").first().textContent();
       expect(counter).toContain("Multiple Choice");
 
       // Switch to coding quiz
       await page.getByRole("button", { name: "Coding Quiz" }).click();
-      await expect(page.locator("p.text-gray-600").first()).toContainText("Coding:");
+      await expect(page.getByTestId("quiz-counter").first()).toContainText("Coding:");
 
       // Switch to fill-in quiz
       await page.getByRole("button", { name: "Fill in the Blanks" }).click();
-      await expect(page.locator("p.text-gray-600").first()).toContainText("Fill in the Blanks:");
+      await expect(page.getByTestId("quiz-counter").first()).toContainText("Fill in the Blanks:");
     });
 
     test("should highlight the active quiz type button", async ({ page }) => {
-      // Check initial state - Multiple Choice should be active (blue)
+      // Check initial state - Multiple Choice should be active
       let button = page.getByRole("button", { name: "Multiple Choice" });
-      await expect(button).toHaveClass(/bg-blue-600/);
+      await expect(button).toHaveAttribute("data-active", "true");
 
       // Click Coding Quiz
       await page.getByRole("button", { name: "Coding Quiz" }).click();
 
       // Check Coding Quiz is now active
       button = page.getByRole("button", { name: "Coding Quiz" });
-      await expect(button).toHaveClass(/bg-blue-600/);
+      await expect(button).toHaveAttribute("data-active", "true");
 
       // Multiple Choice should no longer be active
       button = page.getByRole("button", { name: "Multiple Choice" });
-      await expect(button).toHaveClass(/bg-white/);
+      await expect(button).toHaveAttribute("data-active", "false");
     });
   });
 
   test.describe("Multiple Choice Quiz", () => {
     test("should display quiz question and options", async ({ page }) => {
       // Quiz card should be visible
-      const quizCard = page.locator(".bg-white.rounded-xl");
+      const quizCard = page.getByTestId("quiz-card");
       await expect(quizCard.first()).toBeVisible();
 
       // Look for quiz option buttons (they have letter prefixes like A., B., etc.)
@@ -129,7 +129,7 @@ test.describe("Quiz Page E2E", () => {
       await expect(page.getByRole("button", { name: "Next Question" })).toBeVisible();
 
       // Feedback should be visible (look for info box)
-      const feedback = page.locator("div.rounded-lg.p-4");
+      const feedback = page.getByTestId("quiz-feedback");
       await expect(feedback.first()).toBeVisible();
     });
 
@@ -150,7 +150,7 @@ test.describe("Quiz Page E2E", () => {
       await page.getByRole("button", { name: "Next Question" }).click();
 
       // Check question counter updated
-      await expect(page.locator("p.text-gray-600").first()).toContainText("Question 2");
+      await expect(page.getByTestId("quiz-counter").first()).toContainText("Question 2");
 
       // Submit button should be back
       await expect(page.getByRole("button", { name: "Submit" })).toBeVisible();
@@ -188,7 +188,7 @@ test.describe("Quiz Page E2E", () => {
       await page.getByRole("button", { name: "Submit" }).click();
 
       // Should show feedback
-      const feedback = page.locator("div.rounded-lg.p-4");
+      const feedback = page.getByTestId("quiz-feedback");
       await expect(feedback.first()).toBeVisible();
 
       // Button should change to "Next Question"
@@ -235,7 +235,7 @@ test.describe("Quiz Page E2E", () => {
       await page.getByRole("button", { name: "Submit" }).click();
 
       // Should show feedback
-      const feedback = page.locator("div.rounded-lg.p-4");
+      const feedback = page.getByTestId("quiz-feedback");
       await expect(feedback.first()).toBeVisible();
 
       // Button should change to "Next Question"

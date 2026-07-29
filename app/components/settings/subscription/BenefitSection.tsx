@@ -96,7 +96,7 @@ function CancellingBenefitSection({
           </p>
         </div>
         <button
-          className="ui-btn ui-btn-default ui-btn-primary ui-btn-purple whitespace-nowrap"
+          className={`ui-btn ui-btn-default ui-btn-primary ui-btn-purple ${styles.resubscribeButton}`}
           onClick={onResubscribe}
         >
           {t("resubscribeButton")}

@@ -18,7 +18,7 @@ export function ScenarioHeader({
         {statusIcon}
       </span>
       {description && (
-        <div className="my-8">
+        <div className={styles.scenarioDescription}>
           <div
             className="ui-textual-content ui-textual-content-compact"
             dangerouslySetInnerHTML={{ __html: marked.parse(description, { async: false }) }}

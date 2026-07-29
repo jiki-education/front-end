@@ -269,10 +269,9 @@ test.describe("Breakpoint Gutter E2E", () => {
       // Should have removed line 3
       expect(breakpointsList).not.toContain("3");
 
-      // Verify manual button is also updated
-      const buttonClass = await page.locator('[data-testid="toggle-line-3"]').getAttribute("class");
-      expect(buttonClass).toContain("bg-gray-200");
-      expect(buttonClass).not.toContain("bg-red-500");
+      // Verify manual button is also updated (inactive state)
+      const buttonActive = await page.locator('[data-testid="toggle-line-3"]').getAttribute("data-active");
+      expect(buttonActive).toBe("false");
     });
   });
 

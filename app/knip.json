@@ -4,7 +4,6 @@
   "ignoreDependencies": [
     "@types/node",
     "eslint-config-next",
-    "tailwindcss",
     "@types/animejs",
     "@typescript-eslint/eslint-plugin",
     "@welldone-software/why-did-you-render",

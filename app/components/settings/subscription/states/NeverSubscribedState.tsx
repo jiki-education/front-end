@@ -1,6 +1,7 @@
 import SubscriptionButton from "../../ui/SubscriptionButton";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 import { useTranslations } from "next-intl";
+import styles from "./NeverSubscribedState.module.css";
 
 interface NeverSubscribedStateProps {
   onUpgradeToPremium: () => void;
@@ -21,25 +22,22 @@ export default function NeverSubscribedState({ onUpgradeToPremium, isLoading = f
   ];
 
   return (
-    <section
-      className="bg-bg-primary p-4 rounded border border-border-secondary"
-      aria-labelledby="upgrade-plans-heading"
-    >
-      <h3 id="upgrade-plans-heading" className="font-medium text-text-primary mb-12">
+    <section className={styles.section} aria-labelledby="upgrade-plans-heading">
+      <h3 id="upgrade-plans-heading" className={styles.heading}>
         {t("heading")}
       </h3>
-      <p className="text-text-secondary text-sm mb-4">{t("subtitle")}</p>
+      <p className={styles.subtitle}>{t("subtitle")}</p>
 
-      <div className="grid grid-cols-1 gap-4" role="group" aria-labelledby="upgrade-plans-heading">
-        <div className="border border-border-secondary rounded p-4" role="article" aria-labelledby="premium-plan-title">
-          <h4 id="premium-plan-title" className="font-medium text-text-primary mb-2">
+      <div className={styles.plans} role="group" aria-labelledby="upgrade-plans-heading">
+        <div className={styles.planCard} role="article" aria-labelledby="premium-plan-title">
+          <h4 id="premium-plan-title" className={styles.planName}>
             {premiumName}
           </h4>
-          <p className="text-2xl font-bold text-text-primary mb-4">
+          <p className={styles.price}>
             <PremiumPrice interval="monthly" />
-            <span className="text-sm font-normal">{tCommon("perMonth")}</span>
+            <span className={styles.priceUnit}>{tCommon("perMonth")}</span>
           </p>
-          <ul className="text-sm text-text-secondary space-y-4 mb-4" aria-label={t("featuresLabel")}>
+          <ul className={styles.features} aria-label={t("featuresLabel")}>
             {premiumFeatures.map((feature, index) => (
               <li key={index}>• {feature}</li>
             ))}
@@ -48,7 +46,7 @@ export default function NeverSubscribedState({ onUpgradeToPremium, isLoading = f
             variant="secondary"
             onClick={onUpgradeToPremium}
             loading={isLoading}
-            className="w-full"
+            className={styles.upgradeButton}
             ariaLabel={t("upgradeAriaLabel", { plan: premiumName })}
           >
             {t("upgrade")}

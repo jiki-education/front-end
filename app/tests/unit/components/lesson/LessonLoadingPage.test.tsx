@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import LessonLoadingPage from "@/components/lesson/LessonLoadingPage";
+import styles from "@/components/lesson/LessonLoadingPage.module.css";
 
 describe("LessonLoadingPage", () => {
   it("renders without crashing", () => {
@@ -50,7 +51,7 @@ describe("LessonLoadingPage", () => {
     expect(loadingText).toBeInTheDocument();
 
     // Check for animated ellipsis - simplified to single span now
-    const animatedSpan = loadingText?.querySelector("span.animate-pulse");
+    const animatedSpan = loadingText?.querySelector(`span[class*="${styles.dots}"]`);
     expect(animatedSpan).toBeInTheDocument();
     expect(animatedSpan?.textContent).toBe("...");
   });
@@ -58,39 +59,36 @@ describe("LessonLoadingPage", () => {
   it("renders progress bar with pulse animation", () => {
     render(<LessonLoadingPage />);
 
-    const progressBar = document.querySelector(".animate-pulse.bg-gradient-to-r");
+    const progressBar = document.querySelector(`[class*="${styles.progressBar}"]`);
     expect(progressBar).toBeInTheDocument();
-    expect(progressBar).toHaveClass("bg-gradient-to-r", "from-blue-500", "to-purple-500");
   });
 
   it("renders spinning ring around icon", () => {
     render(<LessonLoadingPage />);
 
-    const spinningRing = document.querySelector(".animate-spin");
+    const spinningRing = document.querySelector(`[class*="${styles.spinnerRing}"]`);
     expect(spinningRing).toBeInTheDocument();
-    expect(spinningRing).toHaveClass("border-t-blue-500", "border-blue-200");
   });
 
   it("renders background circles for depth", () => {
     render(<LessonLoadingPage />);
 
     // Background circles no longer have float animation, just blur effect
-    const backgroundCircles = document.querySelectorAll(".blur-3xl");
-    expect(backgroundCircles.length).toBeGreaterThanOrEqual(2);
+    const circles = document.querySelectorAll(`[class*="${styles.circleBlue}"], [class*="${styles.circlePurple}"]`);
+    expect(circles.length).toBeGreaterThanOrEqual(2);
   });
 
   it("applies fadeIn animation to main container", () => {
     render(<LessonLoadingPage />);
 
-    const mainContainer = document.querySelector("[class*='animate-'][class*='fadeIn']");
+    const mainContainer = document.querySelector(`[class*="${styles.container}"]`);
     expect(mainContainer).toBeInTheDocument();
   });
 
   it("applies pulse animation to icon container", () => {
     render(<LessonLoadingPage />);
 
-    // Icon container now uses animate-pulse instead of iconPulse
-    const iconContainer = document.querySelector(".relative.animate-pulse");
+    const iconContainer = document.querySelector(`[class*="${styles.iconWrap}"]`);
     expect(iconContainer).toBeInTheDocument();
   });
 
@@ -98,26 +96,15 @@ describe("LessonLoadingPage", () => {
     const { container } = render(<LessonLoadingPage />);
 
     const rootDiv = container.firstChild as HTMLElement;
-    expect(rootDiv).toHaveClass(
-      "min-h-screen",
-      "bg-gradient-to-br",
-      "from-blue-50",
-      "via-white",
-      "to-purple-50",
-      "flex",
-      "flex-col",
-      "items-center",
-      "justify-center"
-    );
+    expect(rootDiv).toHaveClass(styles.page);
   });
 
   it("renders tip section with proper styling", () => {
     render(<LessonLoadingPage type="exercise" />);
 
     const tipContainer = screen.getByText(/💡 Tip:/).parentElement;
-    expect(tipContainer).toHaveClass("bg-gray-50", "rounded-lg");
-    // Check for animation class with a more flexible selector
+    expect(tipContainer).toHaveClass(styles.tipBox);
     const tipText = screen.getByText(/💡 Tip:/);
-    expect(tipText.className).toContain("animate-");
+    expect(tipText).toHaveClass(styles.tipText);
   });
 });

@@ -227,10 +227,9 @@ test.describe("Code Folding E2E", () => {
       foldedLinesList = await page.locator('[data-testid="folded-lines-list"]').textContent();
       expect(foldedLinesList).toContain("None");
 
-      // Check button visual state
-      const buttonClass = await page.locator('[data-testid="toggle-fold-1"]').getAttribute("class");
-      expect(buttonClass).toContain("bg-gray-200");
-      expect(buttonClass).not.toContain("bg-blue-500");
+      // Check button visual state (inactive state)
+      const buttonActive = await page.locator('[data-testid="toggle-fold-1"]').getAttribute("data-active");
+      expect(buttonActive).toBe("false");
     });
   });
 

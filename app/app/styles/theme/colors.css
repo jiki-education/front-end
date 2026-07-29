@@ -159,7 +159,7 @@
     --color-background-primary: white;
     --color-background-secondary: var(--color-gray-50);
     --color-background-tertiary: var(--color-gray-200);
-    /* bg-* aliases (also registered with Tailwind in app.css) */
+    /* bg-* semantic aliases */
     --color-bg-primary: var(--color-background-primary);
     --color-bg-secondary: var(--color-background-secondary);
     --color-bg-tertiary: var(--color-background-tertiary);
@@ -195,8 +195,8 @@
     --color-info-border: var(--color-blue-500);
 }
 
-/* Semantic-token Tailwind registration (bg-*, text-*, ...) lives in app.css.
-   The underlying values are the plain :root custom properties above. */
+/* Semantic tokens (bg-*, text-*, ...) are the plain :root custom properties
+   above; reference them directly as var(--color-*) in CSS Modules. */
 
 [data-theme="dark"] {
     --background: #0a0a0a;

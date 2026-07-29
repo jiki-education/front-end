@@ -1,6 +1,7 @@
 "use client";
 
 import { Component, type ErrorInfo, type ReactNode } from "react";
+import styles from "./SubscriptionErrorBoundary.module.css";
 
 export interface SubscriptionErrorBoundaryMessages {
   title: string;
@@ -48,36 +49,33 @@ export default class SubscriptionErrorBoundary extends Component<
       const { messages } = this.props;
 
       return (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-          <div className="flex items-center mb-4">
-            <div className="w-12 h-12 bg-red-500 rounded-full me-12"></div>
-            <h3 className="font-medium text-red-900">{messages.title}</h3>
+        <div className={styles.errorCard}>
+          <div className={styles.header}>
+            <div className={styles.iconDot}></div>
+            <h3 className={styles.title}>{messages.title}</h3>
           </div>
 
-          <div className="text-red-800 text-sm mb-4">
-            <p className="mb-2">{messages.messagePart1}</p>
+          <div className={styles.message}>
+            <p>{messages.messagePart1}</p>
             <p>{messages.messagePart2}</p>
           </div>
 
-          <div className="flex gap-12">
-            <button
-              onClick={() => window.location.reload()}
-              className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition-colors focus-ring"
-            >
+          <div className={styles.buttons}>
+            <button onClick={() => window.location.reload()} className={`${styles.refreshButton} focus-ring`}>
               {messages.refresh}
             </button>
             <button
               onClick={() => this.setState({ hasError: false })}
-              className="px-4 py-2 bg-red-100 text-red-700 border border-red-300 rounded hover:bg-red-200 transition-colors focus-ring"
+              className={`${styles.tryAgainButton} focus-ring`}
             >
               {messages.tryAgain}
             </button>
           </div>
 
           {process.env.NODE_ENV === "development" && this.state.error && (
-            <details className="mt-4 p-12 bg-red-100 border border-red-300 rounded text-xs">
-              <summary className="cursor-pointer font-medium text-red-900 mb-2">{messages.detailsSummary}</summary>
-              <pre className="text-red-800 whitespace-pre-wrap break-words">
+            <details className={styles.details}>
+              <summary className={styles.detailsSummary}>{messages.detailsSummary}</summary>
+              <pre className={styles.detailsPre}>
                 {this.state.error.message}
                 {"\n"}
                 {this.state.error.stack}

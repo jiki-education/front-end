@@ -8,6 +8,7 @@ import CodingExerciseContent from "./CodingExerciseContent";
 import { useExerciseLoader } from "./hooks/useExerciseLoader";
 import type { ExerciseContext } from "./lib/types";
 import type { LastSubmissionData } from "@/lib/api/types/conversation";
+import styles from "./CodingExercise.module.css";
 import "./codemirror.css";
 
 interface CodingExerciseProps {
@@ -53,8 +54,8 @@ export default function CodingExercise({
   // Error state
   if (loadError) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-50">
-        <div className="text-lg text-red-600">{t("loadError", { error: loadError })}</div>
+      <div className={styles.stateScreen}>
+        <div className={styles.errorText}>{t("loadError", { error: loadError })}</div>
       </div>
     );
   }

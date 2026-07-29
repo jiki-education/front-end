@@ -1,18 +1,20 @@
 "use client";
 
+import styles from "./page.module.css";
+
 export default function ButtonShowcasePage() {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="max-w-6xl mx-auto p-32">
-        <div className="mb-12">
-          <h1 className="text-3xl font-bold mb-8">ui-btn Showcase</h1>
-          <p className="text-gray-600">All button variants using the ui-btn class system.</p>
+    <div className={styles.page}>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>ui-btn Showcase</h1>
+          <p className={styles.intro}>All button variants using the ui-btn class system.</p>
         </div>
 
         {/* Primary Buttons */}
-        <section className="bg-white rounded-lg shadow-sm mb-32 p-32">
-          <h2 className="text-2xl font-semibold mb-24 text-gray-900">Primary Buttons</h2>
-          <div className="flex flex-wrap gap-16 items-center">
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Primary Buttons</h2>
+          <div className={styles.row}>
             <button className="ui-btn ui-btn-default ui-btn-primary">Blue (Default)</button>
             <button className="ui-btn ui-btn-default ui-btn-primary ui-btn-purple">Purple</button>
             <button className="ui-btn ui-btn-default ui-btn-primary ui-btn-green">Green</button>
@@ -23,9 +25,9 @@ export default function ButtonShowcasePage() {
         </section>
 
         {/* Secondary Buttons */}
-        <section className="bg-white rounded-lg shadow-sm mb-32 p-32">
-          <h2 className="text-2xl font-semibold mb-24 text-gray-900">Secondary Buttons</h2>
-          <div className="flex flex-wrap gap-16 items-center">
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Secondary Buttons</h2>
+          <div className={styles.row}>
             <button className="ui-btn ui-btn-default ui-btn-secondary">Blue (Default)</button>
             <button className="ui-btn ui-btn-default ui-btn-secondary ui-btn-purple">Purple</button>
             <button className="ui-btn ui-btn-default ui-btn-secondary ui-btn-green">Green</button>
@@ -36,26 +38,26 @@ export default function ButtonShowcasePage() {
         </section>
 
         {/* Tertiary & Subtle */}
-        <section className="bg-white rounded-lg shadow-sm mb-32 p-32">
-          <h2 className="text-2xl font-semibold mb-24 text-gray-900">Tertiary & Subtle</h2>
-          <div className="flex flex-wrap gap-16 items-center">
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Tertiary & Subtle</h2>
+          <div className={styles.row}>
             <button className="ui-btn ui-btn-default ui-btn-tertiary">Tertiary</button>
             <button className="ui-btn ui-btn-default ui-btn-subtle">Subtle</button>
           </div>
         </section>
 
         {/* Danger Button */}
-        <section className="bg-white rounded-lg shadow-sm mb-32 p-32">
-          <h2 className="text-2xl font-semibold mb-24 text-gray-900">Danger Button</h2>
-          <div className="flex flex-wrap gap-16 items-center">
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Danger Button</h2>
+          <div className={styles.row}>
             <button className="ui-btn ui-btn-default ui-btn-danger">Danger Action</button>
           </div>
         </section>
 
         {/* Sizes */}
-        <section className="bg-white rounded-lg shadow-sm mb-32 p-32">
-          <h2 className="text-2xl font-semibold mb-24 text-gray-900">Sizes</h2>
-          <div className="flex flex-wrap gap-16 items-end">
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Sizes</h2>
+          <div className={styles.rowEnd}>
             <button className="ui-btn ui-btn-small ui-btn-primary">Small</button>
             <button className="ui-btn ui-btn-default ui-btn-primary">Default</button>
             <button className="ui-btn ui-btn-large ui-btn-primary">Large</button>
@@ -64,20 +66,20 @@ export default function ButtonShowcasePage() {
         </section>
 
         {/* States */}
-        <section className="bg-white rounded-lg shadow-sm mb-32 p-32">
-          <h2 className="text-2xl font-semibold mb-24 text-gray-900">States</h2>
-          <div className="space-y-24">
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>States</h2>
+          <div className={styles.stateGroups}>
             <div>
-              <h3 className="text-lg font-medium mb-16 text-gray-700">Loading</h3>
-              <div className="flex flex-wrap gap-16 items-center">
+              <h3 className={styles.stateLabel}>Loading</h3>
+              <div className={styles.row}>
                 <button className="ui-btn ui-btn-default ui-btn-primary ui-btn-loading">Loading</button>
                 <button className="ui-btn ui-btn-default ui-btn-secondary ui-btn-loading">Loading</button>
                 <button className="ui-btn ui-btn-default ui-btn-tertiary ui-btn-loading">Loading</button>
               </div>
             </div>
             <div>
-              <h3 className="text-lg font-medium mb-16 text-gray-700">Disabled</h3>
-              <div className="flex flex-wrap gap-16 items-center">
+              <h3 className={styles.stateLabel}>Disabled</h3>
+              <div className={styles.row}>
                 <button className="ui-btn ui-btn-default ui-btn-primary" disabled>
                   Disabled
                 </button>
@@ -93,9 +95,9 @@ export default function ButtonShowcasePage() {
         </section>
 
         {/* As Links */}
-        <section className="bg-white rounded-lg shadow-sm mb-32 p-32">
-          <h2 className="text-2xl font-semibold mb-24 text-gray-900">As Links (anchor tags)</h2>
-          <div className="flex flex-wrap gap-16 items-center">
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>As Links (anchor tags)</h2>
+          <div className={styles.row}>
             <a href="#" className="ui-btn ui-btn-default ui-btn-primary">
               Primary Link
             </a>
@@ -109,9 +111,9 @@ export default function ButtonShowcasePage() {
         </section>
 
         {/* On Dark Background */}
-        <section className="bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg shadow-sm mb-32 p-32">
-          <h2 className="text-2xl font-semibold mb-24 text-white">On Colorful Background</h2>
-          <div className="flex flex-wrap gap-16 items-center">
+        <section className={styles.colorfulSection}>
+          <h2 className={styles.colorfulSectionTitle}>On Colorful Background</h2>
+          <div className={styles.row}>
             <button className="ui-btn ui-btn-default ui-btn-for-colorful-background">For Colorful BG</button>
           </div>
         </section>

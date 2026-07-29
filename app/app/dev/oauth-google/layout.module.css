@@ -1,0 +1,39 @@
+.page {
+    min-height: 100vh;
+    background: var(--color-gray-100);
+    padding: 8px;
+}
+
+.container {
+    max-width: 1152px;
+    margin-inline: auto;
+}
+
+.errorCard {
+    background: var(--color-red-50);
+    border: 1px solid var(--color-red-200);
+    border-radius: 8px;
+    padding: 6px;
+}
+
+.errorTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-red-900);
+    margin-bottom: 2px;
+}
+
+.errorText {
+    color: var(--color-red-800);
+}
+
+.errorTextSpaced {
+    color: var(--color-red-800);
+    margin-top: 2px;
+}
+
+.code {
+    background: var(--color-red-100);
+    padding-inline: 4px;
+    border-radius: 4px;
+}

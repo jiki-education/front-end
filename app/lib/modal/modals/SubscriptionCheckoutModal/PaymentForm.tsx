@@ -72,7 +72,7 @@ export function PaymentForm({ priorError }: { priorError?: string | null }) {
       ref={formRef}
       tabIndex={-1}
       onSubmit={handleSubmit}
-      className="space-y-6"
+      className={styles.form}
       aria-label={t("paymentInfoAriaLabel")}
     >
       {message && (
@@ -91,7 +91,7 @@ export function PaymentForm({ priorError }: { priorError?: string | null }) {
       <button
         type="submit"
         disabled={isLoading || !checkout.canConfirm}
-        className="mt-10 ui-btn ui-btn-large ui-btn-primary ui-btn-purple w-full"
+        className={`ui-btn ui-btn-large ui-btn-primary ui-btn-purple ${styles.submitButton}`}
         id="submit-btn"
       >
         {isLoading ? (

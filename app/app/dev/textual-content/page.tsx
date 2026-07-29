@@ -1,20 +1,22 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
 "use client";
 
+import styles from "./page.module.css";
+
 export default function TextualContentDevPage() {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="max-w-6xl mx-auto p-32">
-        <div className="mb-12">
-          <h1 className="text-3xl font-bold mb-8">Textual Content Styling</h1>
-          <p className="text-gray-600">
+    <div className={styles.page}>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h1 className={styles.title}>Textual Content Styling</h1>
+          <p className={styles.intro}>
             This page displays all the typography and admonition styles for markdown-rendered content.
           </p>
         </div>
 
         {/* Large Variant */}
-        <section className="mb-48">
-          <h2 className="text-2xl font-semibold mb-16 text-gray-900">Large Variant (default)</h2>
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Large Variant (default)</h2>
           <div className="ui-textual-content ui-textual-content-large">
             <h2>Heading 2 - Large Variant</h2>
             <p>
@@ -107,8 +109,8 @@ export default function TextualContentDevPage() {
         </section>
 
         {/* Base Variant */}
-        <section className="mb-48">
-          <h2 className="text-2xl font-semibold mb-16 text-gray-900">Base Variant</h2>
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Base Variant</h2>
           <div className="ui-textual-content ui-textual-content-base">
             <h2>Heading 2 - Base Variant</h2>
             <p>
@@ -144,8 +146,8 @@ console.log(example);`}
         </section>
 
         {/* Tables */}
-        <section className="mb-48">
-          <h2 className="text-2xl font-semibold mb-16 text-gray-900">Tables</h2>
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Tables</h2>
           <div className="ui-textual-content ui-textual-content-large">
             <div className="article-table-section">
               <h3>Features of JavaScript</h3>
@@ -222,8 +224,8 @@ console.log(example);`}
         </section>
 
         {/* Syntax Highlighting Classes */}
-        <section className="mb-48">
-          <h2 className="text-2xl font-semibold mb-16 text-gray-900">Syntax Highlighting Classes</h2>
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Syntax Highlighting Classes</h2>
           <div className="ui-textual-content ui-textual-content-large">
             <p>The following syntax highlighting classes are available for code blocks:</p>
             <pre>
@@ -256,80 +258,80 @@ console.log(example);`}
         </section>
 
         {/* CSS Class Reference */}
-        <section className="mb-32">
-          <h2 className="text-2xl font-semibold mb-16 text-gray-900">CSS Class Reference</h2>
-          <div className="bg-white rounded-lg shadow-sm p-24">
-            <table className="w-full text-sm">
+        <section className={styles.sectionLast}>
+          <h2 className={styles.sectionTitle}>CSS Class Reference</h2>
+          <div className={styles.referenceCard}>
+            <table className={styles.referenceTable}>
               <thead>
-                <tr className="border-b">
-                  <th className="text-start py-8 pe-16">Class</th>
-                  <th className="text-start py-8">Description</th>
+                <tr className={styles.referenceHeaderRow}>
+                  <th className={styles.referenceHeadCell}>Class</th>
+                  <th className={styles.referenceHeadCellDesc}>Description</th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b">
-                  <td className="py-8 pe-16">
-                    <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.ui-textual-content</code>
+                <tr className={styles.referenceRow}>
+                  <td className={styles.referenceCell}>
+                    <code className={styles.classNameCode}>.ui-textual-content</code>
                   </td>
                   <td>Base class with typography and layout styles</td>
                 </tr>
-                <tr className="border-b">
-                  <td className="py-8 pe-16">
-                    <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.ui-textual-content-large</code>
+                <tr className={styles.referenceRow}>
+                  <td className={styles.referenceCell}>
+                    <code className={styles.classNameCode}>.ui-textual-content-large</code>
                   </td>
                   <td>Large variant (h2: 36px, h3: 28px, body: 19px)</td>
                 </tr>
-                <tr className="border-b">
-                  <td className="py-8 pe-16">
-                    <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.ui-textual-content-base</code>
+                <tr className={styles.referenceRow}>
+                  <td className={styles.referenceCell}>
+                    <code className={styles.classNameCode}>.ui-textual-content-base</code>
                   </td>
                   <td>Base variant (h2: 32px, h3: 24px, body: 18px)</td>
                 </tr>
-                <tr className="border-b">
-                  <td className="py-8 pe-16">
-                    <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.admonition-info</code>
+                <tr className={styles.referenceRow}>
+                  <td className={styles.referenceCell}>
+                    <code className={styles.classNameCode}>.admonition-info</code>
                   </td>
                   <td>Purple gradient info box</td>
                 </tr>
-                <tr className="border-b">
-                  <td className="py-8 pe-16">
-                    <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.admonition-key-point</code>
+                <tr className={styles.referenceRow}>
+                  <td className={styles.referenceCell}>
+                    <code className={styles.classNameCode}>.admonition-key-point</code>
                   </td>
                   <td>Blue bordered key point box</td>
                 </tr>
-                <tr className="border-b">
-                  <td className="py-8 pe-16">
-                    <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.admonition-warning</code>
+                <tr className={styles.referenceRow}>
+                  <td className={styles.referenceCell}>
+                    <code className={styles.classNameCode}>.admonition-warning</code>
                   </td>
                   <td>Amber warning box with left border</td>
                 </tr>
-                <tr className="border-b">
-                  <td className="py-8 pe-16">
-                    <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.admonition-try-it</code>
+                <tr className={styles.referenceRow}>
+                  <td className={styles.referenceCell}>
+                    <code className={styles.classNameCode}>.admonition-try-it</code>
                   </td>
                   <td>Dashed border try-it box</td>
                 </tr>
-                <tr className="border-b">
-                  <td className="py-8 pe-16">
-                    <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.article-table-section</code>
+                <tr className={styles.referenceRow}>
+                  <td className={styles.referenceCell}>
+                    <code className={styles.classNameCode}>.article-table-section</code>
                   </td>
                   <td>Wrapper for table with margin spacing</td>
                 </tr>
-                <tr className="border-b">
-                  <td className="py-8 pe-16">
-                    <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.article-table</code>
+                <tr className={styles.referenceRow}>
+                  <td className={styles.referenceCell}>
+                    <code className={styles.classNameCode}>.article-table</code>
                   </td>
                   <td>Styled table with rounded borders</td>
                 </tr>
-                <tr className="border-b">
-                  <td className="py-8 pe-16">
-                    <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.feature-cell</code>
+                <tr className={styles.referenceRow}>
+                  <td className={styles.referenceCell}>
+                    <code className={styles.classNameCode}>.feature-cell</code>
                   </td>
                   <td>Fixed-width cell for feature names (220px)</td>
                 </tr>
                 <tr>
-                  <td className="py-8 pe-16">
-                    <code className="text-magenta-600 bg-gray-100 px-6 py-2 rounded">.code-tag</code>
+                  <td className={styles.referenceCell}>
+                    <code className={styles.classNameCode}>.code-tag</code>
                   </td>
                   <td>Purple gradient inline code tag for tables</td>
                 </tr>

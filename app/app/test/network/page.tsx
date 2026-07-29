@@ -5,6 +5,7 @@ import { getConcepts } from "@/lib/api/concepts";
 import { useState } from "react";
 import type { Level } from "@/types/levels";
 import type { ConceptMeta } from "@/types/concepts";
+import styles from "./page.module.css";
 
 export default function NetworkTestPage() {
   const [levels, setLevels] = useState<Level[]>([]);
@@ -43,15 +44,15 @@ export default function NetworkTestPage() {
   };
 
   return (
-    <div className="min-h-screen bg-bg-primary p-8">
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-6 text-text-primary">Network Error Test Page</h1>
+    <div className={styles.page}>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Network Error Test Page</h1>
 
-        <div className="space-y-4">
+        <div className={styles.stack}>
           <button
             onClick={handleLoadLevels}
             disabled={loading}
-            className="px-6 py-3 bg-button-primary-bg text-button-primary-text rounded hover:opacity-90 transition-opacity focus-ring disabled:opacity-50"
+            className={`${styles.primaryButton} focus-ring`}
             data-testid="load-levels-button"
           >
             {loading ? "Loading..." : "Load Levels (Single API Call)"}
@@ -60,28 +61,28 @@ export default function NetworkTestPage() {
           <button
             onClick={handleLoadMultiple}
             disabled={loadingMultiple}
-            className="px-6 py-3 bg-button-primary-bg text-button-primary-text rounded hover:opacity-90 transition-opacity focus-ring disabled:opacity-50"
+            className={`${styles.primaryButton} focus-ring`}
             data-testid="load-multiple-button"
           >
             {loadingMultiple ? "Loading..." : "Load Multiple (2 API Calls)"}
           </button>
 
           {error && (
-            <div className="p-4 bg-red-100 text-red-800 rounded" data-testid="error-message">
+            <div className={styles.errorMessage} data-testid="error-message">
               Error: {error}
             </div>
           )}
 
           {levels.length > 0 && (
-            <div className="p-4 bg-green-100 text-green-800 rounded" data-testid="success-message">
+            <div className={styles.successMessage} data-testid="success-message">
               Successfully loaded {levels.length} levels
               {concepts.length > 0 && ` and ${concepts.length} concepts`}
             </div>
           )}
 
-          <div className="mt-8 p-4 bg-bg-secondary rounded">
-            <h2 className="font-bold mb-2">Test Instructions:</h2>
-            <ol className="list-decimal list-inside space-y-1 text-sm">
+          <div className={styles.instructions}>
+            <h2 className={styles.instructionsTitle}>Test Instructions:</h2>
+            <ol className={styles.instructionsList}>
               <li>Click &quot;Load Levels&quot; button to trigger API call</li>
               <li>Network errors will show modal via GlobalErrorHandler</li>
               <li>Modal should appear after ~1s of failed retries</li>

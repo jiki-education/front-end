@@ -8,6 +8,54 @@
     max-width: 660px;
 }
 
+/* Shared loading wrapper for tab content */
+.loadingWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-block: 12px;
+}
+
+/* Disabled toggle state (essential notification) */
+.toggleDisabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Page tabs spacing */
+.pageTabs {
+    margin-block-end: 26px;
+}
+
+/* Danger-zone action buttons */
+.dangerButton {
+    width: 160px;
+}
+
+.dangerButtonWide {
+    min-width: 160px;
+    white-space: nowrap;
+}
+
+/* Hint text under a status notification */
+.notificationHint {
+    font-size: 12px;
+    margin-block-start: 4px;
+}
+
+/* "Learn more" link under a setting */
+.learnMoreLink {
+    display: inline-block;
+    margin-block-start: 4px;
+    font-size: 14px;
+    color: var(--color-gray-500);
+    text-decoration: underline;
+
+    &:hover {
+        color: var(--color-gray-700);
+    }
+}
+
 /* Setting item cards */
 .settingItem {
     padding: 20px;

@@ -1,0 +1,27 @@
+.card {
+    background: var(--color-bg-secondary);
+    border-radius: 8px;
+    padding: 6px;
+    border: 1px solid var(--color-border-primary);
+}
+
+.header {
+    margin-bottom: 4px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 2px;
+}
+
+.description {
+    color: var(--color-text-secondary);
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}

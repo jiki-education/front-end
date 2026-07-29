@@ -29,7 +29,7 @@ function OpenConceptLibraryButton() {
   const t = useTranslations("codingExercise.instructionsPanel");
   const routes = useLocaleRoutes();
   return (
-    <Link href={routes.concepts()} className="ui-btn ui-btn-small ui-btn-tertiary w-full">
+    <Link href={routes.concepts()} className={`ui-btn ui-btn-small ui-btn-tertiary ${styles.fullWidthButton}`}>
       {t("openConceptLibrary")}
     </Link>
   );

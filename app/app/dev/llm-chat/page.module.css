@@ -1,0 +1,369 @@
+.page {
+    min-height: 100vh;
+    background: var(--color-gray-100);
+    padding: 8px;
+}
+
+.container {
+    max-width: 1280px;
+    margin-inline: auto;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.infoBanner {
+    background: var(--color-blue-50);
+    border: 1px solid var(--color-blue-200);
+    border-radius: 8px;
+    padding: 4px;
+    margin-bottom: 6px;
+}
+
+.infoBannerTitle {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: var(--color-blue-900);
+}
+
+.infoBannerText {
+    color: var(--color-blue-800);
+    font-size: 14px;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.colLeft {
+    grid-column: span 2 / span 2;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.colRight {
+    grid-column: span 3 / span 3;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.panel {
+    background: white;
+    border-radius: 8px;
+    box-shadow:
+        0 1px 3px 0 rgb(0 0 0 / 0.1),
+        0 1px 2px -1px rgb(0 0 0 / 0.1);
+    padding: 4px;
+}
+
+.fieldLabel {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.select {
+    width: 100%;
+    padding: 2px 12px;
+    border: 1px solid var(--color-gray-300);
+    border-radius: 4px;
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--color-blue-500);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+    }
+}
+
+.textarea {
+    width: 100%;
+    height: 64px;
+    padding: 2px 12px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    border: 1px solid var(--color-gray-300);
+    border-radius: 4px;
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--color-blue-500);
+    }
+}
+
+.input {
+    width: 100%;
+    padding: 2px 12px;
+    border: 1px solid var(--color-gray-300);
+    border-radius: 4px;
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--color-blue-500);
+    }
+}
+
+.historyTitle {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.historyList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 96px;
+    overflow-y: auto;
+}
+
+.historyItem {
+    font-size: 14px;
+}
+
+.historyRole {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.historyContent {
+    color: var(--color-gray-700);
+    white-space: pre-wrap;
+}
+
+.actionRow {
+    display: flex;
+    gap: 4px;
+}
+
+.buttonSend {
+    flex: 1;
+    padding: 2px 4px;
+    background: var(--color-blue-600);
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.15s;
+
+    &:hover {
+        background: var(--color-blue-700);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.buttonClear {
+    padding: 2px 4px;
+    background: var(--color-gray-600);
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.15s;
+
+    &:hover {
+        background: var(--color-gray-700);
+    }
+}
+
+.authSuccess {
+    background: var(--color-green-50);
+    border: 1px solid var(--color-green-200);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.authSuccessText {
+    color: var(--color-green-800);
+}
+
+.authPrompt {
+    background: var(--color-yellow-50);
+    border: 1px solid var(--color-yellow-200);
+    border-radius: 8px;
+    padding: 6px;
+}
+
+.authPromptTitle {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--color-yellow-900);
+}
+
+.authPromptText {
+    color: var(--color-yellow-800);
+    margin-bottom: 4px;
+}
+
+.authError {
+    color: var(--color-red-600);
+    margin-bottom: 4px;
+}
+
+.buttonLogin {
+    padding: 2px 4px;
+    background: var(--color-blue-600);
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.15s;
+
+    &:hover {
+        background: var(--color-blue-700);
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.statusIndicator {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 9999px;
+    border: 1px solid;
+
+    &[data-status="idle"] {
+        background: var(--color-gray-100);
+        color: var(--color-gray-800);
+        border-color: var(--color-gray-300);
+    }
+
+    &[data-status="streaming"] {
+        background: var(--color-blue-100);
+        color: var(--color-blue-800);
+        border-color: var(--color-blue-300);
+    }
+
+    &[data-status="error"] {
+        background: var(--color-red-100);
+        color: var(--color-red-800);
+        border-color: var(--color-red-300);
+    }
+}
+
+.statusLabel {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.responseTitle {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.responseBox {
+    height: 96px;
+    overflow-y: auto;
+    padding: 12px;
+    background: var(--color-gray-50);
+    border-radius: 4px;
+    border: 1px solid var(--color-gray-200);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    white-space: pre-wrap;
+}
+
+.responsePlaceholder {
+    color: var(--color-gray-400);
+}
+
+.signatureBox {
+    background: var(--color-green-50);
+    border: 1px solid var(--color-green-200);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.signatureTitle {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: var(--color-green-900);
+}
+
+.signatureList {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 14px;
+    font-family: var(--font-mono);
+}
+
+.signatureKey {
+    font-weight: 600;
+}
+
+.errorBox {
+    background: var(--color-red-50);
+    border: 1px solid var(--color-red-200);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.errorTitle {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: var(--color-red-900);
+}
+
+.errorText {
+    font-size: 14px;
+    color: var(--color-red-800);
+}
+
+.debugToggle {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-blue-600);
+
+    &:hover {
+        color: var(--color-blue-700);
+    }
+}
+
+.debugList {
+    margin-top: 12px;
+    max-height: 96px;
+    overflow-y: auto;
+}
+
+.debugEvents {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.debugEvent {
+    background: var(--color-gray-50);
+    border-radius: 4px;
+    padding: 12px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+}
+
+.debugEventHeader {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.debugEventData {
+    white-space: pre-wrap;
+    overflow-x: auto;
+}

@@ -1,0 +1,250 @@
+.page {
+    min-height: 100vh;
+    background: var(--color-gray-50);
+    padding-block: 12px;
+    padding-inline: 4px;
+}
+
+@media (min-width: 640px) {
+    .page {
+        padding-inline: 6px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .page {
+        padding-inline: 8px;
+    }
+}
+
+.container {
+    max-width: 768px;
+    margin-inline: auto;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--color-gray-900);
+    margin-bottom: 8px;
+}
+
+.card {
+    background: white;
+    box-shadow:
+        0 1px 3px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 6px;
+}
+
+.cardTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-gray-800);
+    margin-bottom: 4px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+}
+
+@media (min-width: 640px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.button {
+    padding-inline: 4px;
+    padding-block: 2px;
+    color: white;
+    border-radius: 4px;
+    transition: background 0.15s ease;
+    background: var(--color-gray-600);
+
+    &:hover {
+        background: var(--color-gray-700);
+    }
+}
+
+.button[data-variant="green"] {
+    background: var(--color-green-600);
+
+    &:hover {
+        background: var(--color-green-700);
+    }
+}
+
+.button[data-variant="red"] {
+    background: var(--color-red-600);
+
+    &:hover {
+        background: var(--color-red-700);
+    }
+}
+
+.button[data-variant="blue"] {
+    background: var(--color-blue-600);
+
+    &:hover {
+        background: var(--color-blue-700);
+    }
+}
+
+.button[data-variant="purple"] {
+    background: var(--color-purple-600);
+
+    &:hover {
+        background: var(--color-purple-700);
+    }
+}
+
+.button[data-variant="indigo"] {
+    background: var(--color-purple-600);
+
+    &:hover {
+        background: var(--color-purple-700);
+    }
+}
+
+.button[data-variant="yellow"] {
+    background: var(--color-yellow-600);
+
+    &:hover {
+        background: var(--color-yellow-700);
+    }
+}
+
+.button[data-variant="gray-muted"] {
+    background: var(--color-gray-400);
+
+    &:hover {
+        background: var(--color-gray-500);
+    }
+}
+
+.infoBox {
+    margin-block-start: 8px;
+    background: var(--color-blue-50);
+    border: 1px solid var(--color-blue-200);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.infoTitle {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--color-blue-900);
+    margin-bottom: 2px;
+}
+
+.codeBlock {
+    background: var(--color-blue-100);
+    border-radius: 4px;
+    padding: 3px;
+    font-size: 14px;
+    overflow-x: auto;
+}
+
+/* Custom react-hot-toast card. */
+.customToast {
+    max-width: 448px;
+    width: 100%;
+    background: white;
+    box-shadow:
+        0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -4px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    pointer-events: auto;
+    display: flex;
+}
+
+.customToast[data-visible="true"] {
+    animation: toastEnter 0.2s ease-out;
+}
+
+.customToast[data-visible="false"] {
+    animation: toastLeave 0.15s ease-in forwards;
+}
+
+@keyframes toastEnter {
+    0% {
+        transform: translateY(-8px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes toastLeave {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.customToastBody {
+    flex: 1;
+    width: 0;
+    padding: 4px;
+}
+
+.customToastRow {
+    display: flex;
+    align-items: flex-start;
+}
+
+.customToastText {
+    margin-inline-start: 3px;
+    flex: 1;
+}
+
+.customToastHeading {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-gray-900);
+}
+
+.customToastSubtext {
+    margin-block-start: 1px;
+    font-size: 14px;
+    color: var(--color-gray-500);
+}
+
+.customToastDivider {
+    display: flex;
+    border-inline-start: 1px solid var(--color-gray-200);
+}
+
+.customToastClose {
+    width: 100%;
+    border: 1px solid transparent;
+    border-start-end-radius: 8px;
+    border-end-end-radius: 8px;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-purple-600);
+
+    &:hover {
+        color: var(--color-purple-500);
+    }
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px var(--color-purple-500);
+    }
+}

@@ -1,0 +1,37 @@
+.tabs {
+    margin-block-end: 16px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+    gap: 28px;
+}
+
+.errorState {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.errorContent {
+    text-align: center;
+}
+
+.errorMessage {
+    color: var(--color-red-600);
+    margin-bottom: 4px;
+}
+
+.retryButton {
+    padding: 2px 4px;
+    background: var(--color-blue-600);
+    color: white;
+    border-radius: 4px;
+    transition: background 0.15s ease;
+
+    &:hover {
+        background: var(--color-blue-700);
+    }
+}

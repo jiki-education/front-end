@@ -1,5 +1,6 @@
 import TypingTestPanel from "@/components/coding-exercise/ui/TypingTestPanel";
 import type { Metadata } from "next";
+import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "Dev: Typing Test - Jiki",
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function TypingTestPage() {
   return (
-    <div className="min-h-screen bg-gray-100 py-8">
+    <div className={styles.page}>
       <TypingTestPanel />
     </div>
   );

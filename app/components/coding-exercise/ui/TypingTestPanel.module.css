@@ -1,0 +1,209 @@
+.container {
+    max-width: 672px;
+    margin-inline: auto;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid var(--color-gray-200);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.cardHeader {
+    border-block-end: 1px solid var(--color-gray-200);
+    padding-inline: 4px;
+    padding-block: 12px;
+}
+
+.cardTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-gray-900);
+}
+
+.cardSubtitle {
+    font-size: 14px;
+    color: var(--color-gray-600);
+    margin-block-start: 4px;
+}
+
+.controls {
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.buttonRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+
+.actionButton {
+    padding-inline: 12px;
+    padding-block: 2px;
+    color: white;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: background-color 0.15s ease;
+
+    &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+}
+
+.actionButtonBlue {
+    background: var(--color-blue-600);
+
+    &:hover {
+        background: var(--color-blue-700);
+    }
+}
+
+.actionButtonGreen {
+    background: var(--color-green-600);
+
+    &:hover {
+        background: var(--color-green-700);
+    }
+}
+
+.actionButtonPurple {
+    background: var(--color-purple-600);
+
+    &:hover {
+        background: var(--color-purple-700);
+    }
+}
+
+.actionButtonGray {
+    background: var(--color-gray-600);
+
+    &:hover {
+        background: var(--color-gray-700);
+    }
+}
+
+.speedRow {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.speedLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-gray-700);
+}
+
+.speedInput {
+    width: 32px;
+}
+
+.speedValue {
+    font-size: 14px;
+    color: var(--color-gray-600);
+}
+
+.statusBar {
+    padding-inline: 4px;
+    padding-block: 2px;
+    background: var(--color-gray-50);
+    border-block-start: 1px solid var(--color-gray-200);
+}
+
+.statusRow {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+}
+
+.statusLabel {
+    font-weight: 500;
+}
+
+.statusBadge {
+    padding-inline: 2px;
+    padding-block: 4px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.statusBadgeIdle {
+    background: var(--color-gray-100);
+    color: var(--color-gray-800);
+}
+
+.statusBadgeThinking {
+    background: var(--color-yellow-100);
+    color: var(--color-yellow-800);
+}
+
+.statusBadgeTyping {
+    background: var(--color-blue-100);
+    color: var(--color-blue-800);
+}
+
+.statusBadgeError {
+    background: var(--color-red-100);
+    color: var(--color-red-800);
+}
+
+.statusMeta {
+    color: var(--color-gray-600);
+}
+
+.displayCard {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid var(--color-gray-200);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    padding: 4px;
+    min-height: 200px;
+}
+
+.displayTitle {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-gray-900);
+    margin-bottom: 4px;
+}
+
+.emptyDisplay {
+    text-align: center;
+    color: var(--color-gray-500);
+    font-size: 14px;
+    padding-block: 8px;
+}
+
+.debugCard {
+    background: var(--color-gray-50);
+    border-radius: 8px;
+    border: 1px solid var(--color-gray-200);
+    padding: 4px;
+}
+
+.debugTitle {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-gray-900);
+    margin-bottom: 2px;
+}
+
+.debugList {
+    font-size: 12px;
+    font-family: var(--font-mono);
+    color: var(--color-gray-600);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}

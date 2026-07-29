@@ -40,7 +40,7 @@ export function UnhandledErrorView() {
           })}
         </p>
         <CopyToClipboardButton textToCopy={unhandledErrorBase64} className={unhandledStyles.copyButton} />
-        <div className="flex justify-center mt-16">
+        <div className={styles.runButtonRow}>
           <RunButton />
         </div>
       </div>

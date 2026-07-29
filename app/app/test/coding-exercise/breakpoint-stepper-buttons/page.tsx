@@ -7,6 +7,7 @@ import BreakpointStepperButtons from "@/components/coding-exercise/ui/scrubber/B
 import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters/shared";
 import { useEffect, useRef } from "react";
+import styles from "../harness.module.css";
 
 // Create frames for testing
 function mockFrames(): Frame[] {
@@ -127,94 +128,81 @@ export default function BreakpointStepperButtonsTestPage() {
 
   return (
     <OrchestratorProvider orchestrator={orchestrator}>
-      <div className="p-8" data-testid="breakpoint-stepper-container">
-        <h1 className="text-2xl mb-4">Breakpoint Stepper Buttons E2E Test</h1>
+      <div className={styles.page} data-testid="breakpoint-stepper-container">
+        <h1 className={styles.pageTitle}>Breakpoint Stepper Buttons E2E Test</h1>
 
-        <div className="mb-4">
+        <div className={styles.mt}>
           <BreakpointStepperButtons enabled={true} />
         </div>
 
-        <div className="mb-4 p-4 border rounded">
-          <h2 className="font-bold mb-2">Current State</h2>
+        <div className={styles.panel}>
+          <h2 className={styles.panelTitle}>Current State</h2>
           <div data-testid="current-frame">Frame: {currentFrame.generateDescription()}</div>
           <div data-testid="frame-line">Line: {currentFrame.line}</div>
           <div data-testid="frame-time">Timeline Time: {time}</div>
         </div>
 
-        <div className="mb-4 p-4 border rounded">
-          <h2 className="font-bold mb-2">Breakpoints</h2>
+        <div className={styles.panel}>
+          <h2 className={styles.panelTitle}>Breakpoints</h2>
           <div data-testid="breakpoints">{breakpoints.length > 0 ? breakpoints.join(", ") : "None"}</div>
-          <div className="mt-2 space-x-2">
+          <div className={`${styles.controlRow} ${styles.mt}`}>
             {[1, 2, 3, 4, 5, 6, 7, 8].map((line) => (
               <button
                 key={line}
                 data-testid={`toggle-breakpoint-${line}`}
                 onClick={() => handleToggleBreakpoint(line)}
-                className={`px-2 py-1 border rounded ${
-                  breakpoints.includes(line) ? "bg-red-500 text-white" : "bg-gray-200"
-                }`}
+                className={styles.button}
+                data-active={breakpoints.includes(line)}
+                data-variant="red"
               >
                 {line}
               </button>
             ))}
           </div>
-          <div className="mt-2 space-x-2">
-            <button
-              data-testid="clear-breakpoints"
-              onClick={handleClearBreakpoints}
-              className="px-3 py-1 border rounded bg-gray-200"
-            >
+          <div className={`${styles.controlRow} ${styles.mt}`}>
+            <button data-testid="clear-breakpoints" onClick={handleClearBreakpoints} className={styles.button}>
               Clear All
             </button>
-            <button
-              data-testid="set-all-breakpoints"
-              onClick={handleSetAllBreakpoints}
-              className="px-3 py-1 border rounded bg-gray-200"
-            >
+            <button data-testid="set-all-breakpoints" onClick={handleSetAllBreakpoints} className={styles.button}>
               Set All
             </button>
           </div>
         </div>
 
-        <div className="mb-4 p-4 border rounded">
-          <h2 className="font-bold mb-2">Folded Lines</h2>
+        <div className={styles.panel}>
+          <h2 className={styles.panelTitle}>Folded Lines</h2>
           <div data-testid="folded-lines">{foldedLines.length > 0 ? foldedLines.join(", ") : "None"}</div>
-          <div className="mt-2 space-x-2">
+          <div className={`${styles.controlRow} ${styles.mt}`}>
             {[1, 2, 3, 4, 5, 6, 7, 8].map((line) => (
               <button
                 key={line}
                 data-testid={`toggle-fold-${line}`}
                 onClick={() => handleToggleFold(line)}
-                className={`px-2 py-1 border rounded ${
-                  foldedLines.includes(line) ? "bg-blue-500 text-white" : "bg-gray-200"
-                }`}
+                className={styles.button}
+                data-active={foldedLines.includes(line)}
               >
                 {line}
               </button>
             ))}
           </div>
-          <div className="mt-2">
-            <button
-              data-testid="clear-folds"
-              onClick={handleClearFolds}
-              className="px-3 py-1 border rounded bg-gray-200"
-            >
+          <div className={styles.mt}>
+            <button data-testid="clear-folds" onClick={handleClearFolds} className={styles.button}>
               Clear All Folds
             </button>
           </div>
         </div>
 
-        <div className="mb-4 p-4 border rounded">
-          <h2 className="font-bold mb-2">Manual Navigation</h2>
-          <div className="space-x-2">
+        <div className={styles.panel}>
+          <h2 className={styles.panelTitle}>Manual Navigation</h2>
+          <div className={styles.controlRow}>
             {mockFrames().map((frame, idx) => (
               <button
                 key={idx}
                 data-testid={`goto-frame-${idx + 1}`}
                 onClick={() => orchestrator.setCurrentTestTime(frame.time)}
-                className={`px-2 py-1 border rounded ${
-                  currentFrame.line === frame.line ? "bg-green-500 text-white" : "bg-gray-200"
-                }`}
+                className={styles.button}
+                data-active={currentFrame.line === frame.line}
+                data-variant="green"
               >
                 F{idx + 1}
               </button>
@@ -222,8 +210,8 @@ export default function BreakpointStepperButtonsTestPage() {
           </div>
         </div>
 
-        <div className="mb-4 p-4 border rounded">
-          <h2 className="font-bold mb-2">Debug Info</h2>
+        <div className={styles.panel}>
+          <h2 className={styles.panelTitle}>Debug Info</h2>
           <div data-testid="prev-breakpoint">
             Prev Breakpoint: {orchestrator.getStore().getState().prevBreakpointFrame?.line ?? "None"}
           </div>

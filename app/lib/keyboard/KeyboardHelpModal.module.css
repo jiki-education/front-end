@@ -1,0 +1,46 @@
+.groups {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.group {
+    margin-bottom: 4px;
+}
+
+.groupTitle {
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    color: var(--color-gray-500);
+    margin-bottom: 2px;
+}
+
+.shortcuts {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.shortcut {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-block: 4px;
+}
+
+.description {
+    font-size: 14px;
+}
+
+.keys {
+    margin-inline-start: 4px;
+    padding-inline: 2px;
+    padding-block: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-gray-800);
+    background: var(--color-gray-100);
+    border-radius: 4px;
+}

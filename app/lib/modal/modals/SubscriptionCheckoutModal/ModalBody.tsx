@@ -25,14 +25,11 @@ export function ModalBody({
   // Show error state
   if (checkoutState.type === "error") {
     return (
-      <div className="bg-bg-primary p-4">
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-          <p className="text-sm text-red-800">{t("error", { message: checkoutState.error.message })}</p>
+      <div className={styles.errorState}>
+        <div className={styles.errorBox}>
+          <p className={styles.errorText}>{t("error", { message: checkoutState.error.message })}</p>
         </div>
-        <button
-          onClick={onCancel}
-          className="w-full px-4 py-2 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 transition-colors"
-        >
+        <button onClick={onCancel} className={styles.errorCloseButton}>
           {tCommon("close")}
         </button>
       </div>
@@ -40,7 +37,7 @@ export function ModalBody({
   }
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className={styles.bodyWrapper}>
       {/* Order Header */}
       <div className={styles.orderHeader}>
         <div>

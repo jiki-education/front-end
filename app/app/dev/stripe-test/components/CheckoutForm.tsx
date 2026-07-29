@@ -5,6 +5,7 @@ import { useCheckout, PaymentElement } from "@stripe/react-stripe-js/checkout";
 import { PremiumPrice } from "@/components/common/PremiumPrice";
 import type { MembershipTier } from "@/lib/pricing";
 import { DEV_TIER_DISPLAY } from "../tiers";
+import styles from "./CheckoutForm.module.css";
 
 export function CheckoutForm({ tier, onCancel }: { tier: MembershipTier; onCancel: () => void }) {
   const [message, setMessage] = useState<string | null>(null);
@@ -15,8 +16,8 @@ export function CheckoutForm({ tier, onCancel }: { tier: MembershipTier; onCance
 
   if (checkoutState.type === "error") {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-        <p className="text-sm text-red-800">Error: {checkoutState.error.message}</p>
+      <div className={styles.errorBox}>
+        <p className={styles.errorText}>Error: {checkoutState.error.message}</p>
       </div>
     );
   }
@@ -50,65 +51,60 @@ export function CheckoutForm({ tier, onCancel }: { tier: MembershipTier; onCance
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className={styles.form}>
       {/* Order Summary */}
-      <div className="bg-gray-50 border rounded-lg p-4">
-        <h3 className="font-semibold mb-2">Order Summary</h3>
-        <div className="flex justify-between items-center">
+      <div className={styles.orderSummary}>
+        <h3 className={styles.orderTitle}>Order Summary</h3>
+        <div className={styles.orderRow}>
           <div>
-            <p className="font-medium">{pricingTier.name} Plan</p>
-            <p className="text-sm text-gray-600">{pricingTier.description}</p>
+            <p className={styles.planName}>{pricingTier.name} Plan</p>
+            <p className={styles.planDescription}>{pricingTier.description}</p>
           </div>
-          <div className="text-end">
-            <p className="text-2xl font-bold">
+          <div className={styles.priceColumn}>
+            <p className={styles.price}>
               <PremiumPrice interval="monthly" />
             </p>
-            <p className="text-sm text-gray-600">per month</p>
+            <p className={styles.perMonth}>per month</p>
           </div>
         </div>
       </div>
 
       {/* Payment Element */}
       <div>
-        <h4 className="text-sm font-medium mb-2">Payment</h4>
+        <h4 className={styles.paymentLabel}>Payment</h4>
         <PaymentElement id="payment-element" />
       </div>
 
       {/* Error/Success Messages */}
       {message && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <p id="payment-message" className="text-sm text-red-800">
+        <div className={styles.errorBox}>
+          <p id="payment-message" className={styles.errorText}>
             {message}
           </p>
         </div>
       )}
 
       {/* Buttons */}
-      <div className="flex gap-3">
+      <div className={styles.buttonRow}>
         <button
           type="submit"
           id="submit"
           disabled={isLoading || checkoutState.type === "loading"}
-          className="flex-1 px-4 py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className={styles.submitButton}
         >
           {isLoading || checkoutState.type === "loading" ? (
-            <div className="spinner inline-block h-4 w-4 animate-spin rounded-full border-2 border-solid border-current border-r-transparent"></div>
+            <div className={`spinner ${styles.spinner}`}></div>
           ) : (
             "Pay now"
           )}
         </button>
-        <button
-          type="button"
-          onClick={onCancel}
-          disabled={isLoading}
-          className="px-4 py-3 bg-gray-300 text-gray-700 font-semibold rounded-md hover:bg-gray-400 disabled:opacity-50 transition-colors"
-        >
+        <button type="button" onClick={onCancel} disabled={isLoading} className={styles.cancelButton}>
           Cancel
         </button>
       </div>
 
       {/* Additional Info */}
-      <p className="text-xs text-gray-500 text-center">
+      <p className={styles.disclaimer}>
         By subscribing, you agree to our terms and authorize recurring monthly charges.
       </p>
     </form>

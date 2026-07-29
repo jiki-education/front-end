@@ -1,0 +1,57 @@
+/* Shared card wrapper for QuizCard / CodingQuizCard / FillInQuizCard */
+.card {
+    width: 100%;
+    max-width: 672px;
+    margin-inline: auto;
+    padding: 6px;
+    background: white;
+    border-radius: 12px;
+    box-shadow:
+        0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+.content {
+    margin-bottom: 6px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 6px;
+}
+
+/* Primary submit / next button */
+.submitButton {
+    width: 100%;
+    margin-block-start: 6px;
+    padding-inline: 6px;
+    padding-block: 12px;
+    font-weight: 600;
+    color: white;
+    border-radius: 8px;
+    background: var(--color-blue-600);
+    transition: background-color 0.2s ease;
+
+    &:hover {
+        background: var(--color-blue-700);
+    }
+
+    &:disabled {
+        background: var(--color-gray-300);
+        cursor: not-allowed;
+    }
+}
+
+.submitButton[data-variant="next"] {
+    background: var(--color-green-600);
+
+    &:hover {
+        background: var(--color-green-700);
+    }
+
+    &:disabled {
+        background: var(--color-gray-300);
+    }
+}

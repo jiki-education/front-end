@@ -8,6 +8,7 @@ import { UserInfo } from "./UserInfo";
 import { DeleteStripeHistory } from "./DeleteStripeHistory";
 import { SubscriptionStatus } from "./SubscriptionStatus";
 import { CustomerPortal } from "./CustomerPortal";
+import styles from "./AuthenticatedSection.module.css";
 
 interface AuthenticatedSectionProps {
   user: User;
@@ -33,8 +34,8 @@ export function AuthenticatedSection({ user, refreshUser }: AuthenticatedSection
       <SubscriptionStatus user={user} />
 
       {/* Subscription Actions */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold mb-4">Current Tier: {DEV_TIER_DISPLAY[currentTier].name}</h2>
+      <div className={styles.card}>
+        <h2 className={styles.title}>Current Tier: {DEV_TIER_DISPLAY[currentTier].name}</h2>
         <SubscriptionActionsSwitch user={user} refreshUser={refreshUser} />
       </div>
 

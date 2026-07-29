@@ -1,6 +1,7 @@
 "use client";
 
 import { showModal } from "@/lib/modal";
+import styles from "./page.module.css";
 
 const SAMPLE_CHALLENGES = [
   {
@@ -31,21 +32,18 @@ export default function ChallengeUnlockedModalDevPage() {
   };
 
   return (
-    <div className="p-8 max-w-2xl mx-auto">
-      <h1 className="text-3xl font-bold mb-2">Challenge Unlocked Modal</h1>
-      <p className="text-gray-500 mb-8">Isolated dev page for testing the challenge-unlocked step.</p>
+    <div className={styles.page}>
+      <h1 className={styles.title}>Challenge Unlocked Modal</h1>
+      <p className={styles.subtitle}>Isolated dev page for testing the challenge-unlocked step.</p>
 
-      <div className="space-y-3">
+      <div className={styles.list}>
         {SAMPLE_CHALLENGES.map((challenge) => (
-          <div key={challenge.slug} className="border rounded-lg p-4 flex items-center justify-between gap-4">
+          <div key={challenge.slug} className={styles.row}>
             <div>
-              <div className="font-semibold">{challenge.name}</div>
-              <div className="text-sm text-gray-500">{challenge.description}</div>
+              <div className={styles.name}>{challenge.name}</div>
+              <div className={styles.description}>{challenge.description}</div>
             </div>
-            <button
-              onClick={() => trigger(challenge)}
-              className="px-4 py-2 bg-pink-600 text-white rounded hover:bg-pink-700 transition-colors whitespace-nowrap"
-            >
+            <button onClick={() => trigger(challenge)} className={styles.triggerButton}>
               Trigger modal
             </button>
           </div>

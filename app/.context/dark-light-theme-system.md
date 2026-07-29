@@ -49,26 +49,21 @@ The Jiki frontend implements a comprehensive, production-ready dark/light theme 
 - Hydration-safe implementation with blocking script to prevent theme flash
 - Document attribute management (`data-theme="dark"`)
 
-### 3. Tailwind CSS Integration
+### 3. Using themed colors
 
-**Semantic Utility Classes:**
-
-- `bg-bg-primary`, `bg-bg-secondary`, `bg-bg-tertiary` - Backgrounds
-- `text-text-primary`, `text-text-secondary`, `text-text-tertiary` - Text colors
-- `border-border-primary`, `border-border-secondary` - Borders
-- `bg-button-primary-bg`, `text-button-primary-text` - Interactive elements
-- Status colors: `bg-success-bg`, `bg-error-bg`, `bg-warning-bg`, `bg-info-bg`
-
-**Configuration in `@theme` block:**
+The semantic tokens are plain `:root` custom properties (defined per-theme in `colors.css`), so **product code references them directly in CSS Modules** — they resolve to the right value for the active theme automatically:
 
 ```css
-@theme inline {
-  /* Map semantic tokens to Tailwind */
-  --color-bg-primary: var(--color-background-primary);
-  --color-text-primary: var(--color-text-primary);
-  /* ... more mappings */
+.card {
+  background: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-primary);
 }
 ```
+
+Available semantic tokens: `--color-bg-{primary,secondary,tertiary}`, `--color-text-{primary,secondary,tertiary}`, `--color-border-{primary,secondary}`, `--color-button-{primary,secondary}-{bg,text}`, and status colors `--color-{success,error,warning,info}-bg`.
+
+These are plain `:root`/`[data-theme="dark"]` custom properties in `colors.css` — reference them directly (`var(--color-*)`); they resolve to the active theme automatically. (There is no Tailwind utility layer; Tailwind was removed.)
 
 ### 4. CodeMirror Theme Integration
 
@@ -240,12 +235,6 @@ function MyComponent() {
 
 ## Testing Infrastructure
 
-### Test Pages (Development Only)
-
-- `/dev/theme-test` - Visual testing of all semantic tokens
-- `/dev/accessibility-test` - WCAG compliance verification
-- `/dev/performance-test` - Performance monitoring and stress testing
-
 ### Quality Assurance
 
 - **Performance**: <16ms theme switches (60fps target)
@@ -260,7 +249,6 @@ function MyComponent() {
 - `.context/dark-light-theme-system.md` - This comprehensive context file (complete guide)
 - Complete TypeScript interfaces in `lib/theme/types.ts`
 - Inline code documentation throughout components
-- Usage examples in development test pages (`/dev/theme-test`, `/dev/accessibility-test`, `/dev/performance-test`)
 
 ## Integration Points
 
@@ -328,8 +316,8 @@ Editor themes automatically switch with the global theme through the orchestrato
 
 ### Adding New Semantic Tokens
 
-1. Define in both light and dark themes in `globals.css`
-2. Add to Tailwind `@theme` configuration
+1. Define in both light and dark themes in `colors.css` (as `:root` custom properties)
+2. Reference it as `var(--color-…)` in a CSS Module
 3. Update TypeScript interfaces if needed
 4. Test across all usage scenarios
 5. Update documentation
@@ -510,13 +498,7 @@ When reviewing theme-related changes:
    }
    ```
 
-2. **Add to Tailwind configuration** in `@theme` block:
-
-   ```css
-   @theme inline {
-     --color-my-new: var(--color-my-new-token);
-   }
-   ```
+2. **Use it** via `var(--color-my-new-token)` in a CSS Module.
 
 3. **Update TypeScript interfaces** if needed in `lib/theme/types.ts`
 

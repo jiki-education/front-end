@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import hljs from "highlight.js/lib/core";
 import setupJikiscript from "@exercism/highlightjs-jikiscript";
 import setupJavascript from "@jiki/highlightjs-javascript";
+import styles from "./HighlightedCode.module.css";
 
 hljs.registerLanguage("jikiscript", setupJikiscript);
 hljs.registerLanguage("javascript", setupJavascript);
@@ -23,8 +24,8 @@ export function HighlightedCode({ code, language }: HighlightedCodeProps) {
   }, [code, language]);
 
   return (
-    <pre className="!p-0 !m-0 !bg-transparent inline">
-      <code ref={ref} className={`language-${language} !p-0 !bg-transparent`}>
+    <pre className={styles.pre}>
+      <code ref={ref} className={`language-${language} ${styles.code}`}>
         {code}
       </code>
     </pre>

@@ -13,7 +13,7 @@ export function ChallengeCardSkeleton() {
 
 export function ChallengeCardsLoadingSkeleton() {
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(265px,1fr))] gap-28">
+    <div className={styles.grid}>
       {Array.from({ length: 6 }).map((_, i) => (
         <ChallengeCardSkeleton key={i} />
       ))}

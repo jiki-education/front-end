@@ -7,6 +7,7 @@ import { QuizContent } from "./QuizContent";
 import { CodeInput } from "./CodeInput";
 import { InfoBox } from "./InfoBox";
 import { SubmitButton } from "./SubmitButton";
+import styles from "./quiz-card.module.css";
 
 export interface CodingQuizQuestion {
   id: string;
@@ -71,8 +72,8 @@ export function CodingQuizCard({ question, onNext }: CodingQuizCardProps) {
   const infoBoxProps = getInfoBoxProps();
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-6 bg-white rounded-xl shadow-lg">
-      <div className="mb-6">
+    <div className={styles.card} data-testid="quiz-card">
+      <div className={styles.content}>
         <QuizContent markdown={question.content} />
       </div>
 

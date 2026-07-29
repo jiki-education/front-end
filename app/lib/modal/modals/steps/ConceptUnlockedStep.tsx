@@ -36,7 +36,7 @@ export function ConceptUnlockedStep({ completionResponse, onContinue }: ConceptU
         <p className={styles.modalMessage}>{t("messageGeneric")}</p>
         <div className={styles.modalButtonsDivider}></div>
         <div className={styles.modalButtons}>
-          <button onClick={onContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
+          <button onClick={onContinue} className={`ui-btn ui-btn-primary ui-btn-large ${styles.buttonFill}`}>
             {tCommon("continue")}
           </button>
         </div>
@@ -56,7 +56,7 @@ export function ConceptUnlockedStep({ completionResponse, onContinue }: ConceptU
       </div>
       <div className={styles.modalButtonsDivider}></div>
       <div className={styles.modalButtons}>
-        <button onClick={onContinue} className="ui-btn ui-btn-primary ui-btn-large flex-1">
+        <button onClick={onContinue} className={`ui-btn ui-btn-primary ui-btn-large ${styles.buttonFill}`}>
           {tCommon("continue")}
         </button>
       </div>

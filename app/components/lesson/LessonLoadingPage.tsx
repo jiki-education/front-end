@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import type { LessonType } from "@/types/lesson";
+import styles from "./LessonLoadingPage.module.css";
 
 interface LessonLoadingPageProps {
   title?: string;
@@ -12,22 +13,22 @@ export default function LessonLoadingPage({ title, type }: LessonLoadingPageProp
   const t = useTranslations("lesson.loadingPage");
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex flex-col items-center justify-center">
+    <div className={styles.page}>
       {/* Main loading container with subtle entrance animation */}
-      <div className="relative opacity-0 animate-[fadeIn_300ms_ease-in-out_forwards]">
+      <div className={styles.container}>
         {/* Background circles for depth - using transform for better performance */}
-        <div className="absolute -inset-20 opacity-20">
-          <div className="absolute top-0 start-0 w-32 h-32 bg-blue-400 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 end-0 w-40 h-40 bg-purple-400 rounded-full blur-3xl" />
+        <div className={styles.backgroundCircles}>
+          <div className={styles.circleBlue} />
+          <div className={styles.circlePurple} />
         </div>
 
         {/* Main content */}
-        <div className="relative bg-white rounded-2xl shadow-xl p-12 max-w-md w-full">
+        <div className={styles.card}>
           {/* Icon based on exercise type */}
-          <div className="flex justify-center mb-8">
-            <div className="relative animate-pulse">
+          <div className={styles.iconRow}>
+            <div className={styles.iconWrap}>
               {type === "video" ? (
-                <svg className="w-24 h-24 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={styles.icon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -42,11 +43,11 @@ export default function LessonLoadingPage({ title, type }: LessonLoadingPageProp
                   />
                 </svg>
               ) : type === "choose_language" ? (
-                <svg className="w-24 h-24 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={styles.icon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
                 </svg>
               ) : (
-                <svg className="w-24 h-24 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={styles.icon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -57,32 +58,30 @@ export default function LessonLoadingPage({ title, type }: LessonLoadingPageProp
               )}
 
               {/* Simplified spinning ring */}
-              <div className="absolute -inset-2 border-4 border-blue-200 border-t-blue-500 rounded-full animate-spin" />
+              <div className={styles.spinnerRing} />
             </div>
           </div>
 
           {/* Exercise title if provided */}
-          {title && <h2 className="text-xl font-semibold text-gray-800 text-center mb-4">{title}</h2>}
+          {title && <h2 className={styles.title}>{title}</h2>}
 
           {/* Loading text with simplified animation */}
-          <div className="text-center">
-            <p className="text-lg text-gray-600 font-medium mb-2">
+          <div className={styles.textCenter}>
+            <p className={styles.loadingText}>
               {t("loading")}
-              <span className="animate-pulse">...</span>
+              <span className={styles.dots}>...</span>
             </p>
-            <p className="text-sm text-gray-500">{getLoadingMessage(t, type)}</p>
+            <p className={styles.subtext}>{getLoadingMessage(t, type)}</p>
           </div>
 
           {/* Simplified progress bar */}
-          <div className="mt-6 bg-gray-200 rounded-full h-2 overflow-hidden">
-            <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-full w-1/2 rounded-full animate-pulse" />
+          <div className={styles.progressTrack}>
+            <div className={styles.progressBar} />
           </div>
 
           {/* Quick tips while loading */}
-          <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-            <p className="text-xs text-gray-600 text-center opacity-0 animate-[fadeIn_1s_ease-in-out_500ms_forwards]">
-              {getTipMessage(t, type)}
-            </p>
+          <div className={styles.tipBox}>
+            <p className={styles.tipText}>{getTipMessage(t, type)}</p>
           </div>
         </div>
       </div>

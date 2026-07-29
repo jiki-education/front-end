@@ -1,11 +1,12 @@
-@reference "../../../../../app/app.css";
-
 .wrapper {
-    @apply rounded-lg border bg-white border-gray-200;
+    border-radius: 8px;
+    border: 1px solid var(--color-gray-200);
+    background: white;
 }
 
 .table {
-    @apply w-full text-sm;
+    width: 100%;
+    font-size: 14px;
     table-layout: fixed;
 }
 
@@ -19,11 +20,24 @@
     color: var(--color-gray-800);
     border-inline-end: 1px solid var(--color-gray-200);
     width: 100px;
-    @apply text-left font-medium;
+    text-align: start;
+    font-weight: 500;
 }
 
 .table td {
-    @apply font-mono text-sm;
+    font-family: var(--font-mono);
+    font-size: 14px;
+}
+
+.errorCell {
+    padding: 12px 16px;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--color-red-700);
+}
+
+.cellScrollWrap {
+    white-space: pre-wrap;
 }
 
 .cellScroll {

@@ -28,7 +28,7 @@ You can read these files at **any point during your work** - even in the middle 
 | `commands.md`     | **Always read** - running dev server, tests, builds, linting |
 | `testing.md`      | Writing or editing tests                                     |
 | `eslint.md`       | Fixing lint errors, adding lint exceptions                   |
-| `css-styles.md`   | CSS styling (Tailwind, UI Kit, CSS Modules)                  |
+| `css-styles.md`   | CSS styling (CSS Modules + UI Kit; no Tailwind)              |
 | `images.md`       | Working with icons, SVGs, or images                          |
 | `architecture.md` | Understanding project structure                              |
 | `tech-stack.md`   | Technologies, frameworks, dependencies                       |
@@ -83,7 +83,7 @@ This is the frontend for Jiki, a learn-to-code platform.
 
 - **Framework**: Next.js 15 with App Router, TypeScript
 - **UI Library**: React 19 with React Compiler (automatic optimization)
-- **Styling**: Tailwind CSS v4
+- **Styling**: CSS Modules + hand-written UI Kit. Tailwind is not used (fully removed) — an ESLint rule blocks Tailwind classes in `className`. See `.context/css-styles.md`.
 - **Deployment**: Cloudflare Workers (Edge Runtime)
 - **Package Manager**: pnpm
 
@@ -137,7 +137,7 @@ This pattern makes components readable from high-level to low-level details.
 
 ## Colors
 
-Always use colors from the standard palettes defined in `app/styles/theme/colors.css`. Use variable names or tailwind classes, not arbitrary colors. Note that the color palettes in this (blue, green, etc) may not be 1-1 with "normal" palettes such as tailwind. Consider the colors in this file to be canonical.
+Always use colors from the standard palettes defined in `app/styles/theme/colors.css`, via `var(--color-*)`. Do not use arbitrary colors. Note that these palettes (blue, green, etc) may not be 1-1 with "normal" palettes — consider the colors in this file canonical.
 
 If you need an arbitrary color, always confirm with the user first, explaining why it's required. If the color is close to a color in our palettes, suggest that to the user as an alternative.
 
@@ -153,7 +153,7 @@ If you need an arbitrary color, always confirm with the user first, explaining w
 
 - **Match existing patterns** - Look at similar features before implementing new ones
 - **Use semantic HTML** and accessibility attributes
-- **Mobile-first responsive design** with Tailwind
+- **Mobile-first responsive design** via CSS Module media queries (`@media (min-width: …)`)
 - **Path alias** `@/*` maps to project root for clean imports
 - **Commit regularly** to save progress (but never on main branch)
 - **Never add metadata to `/dev` routes** - Development pages under `/dev/` use `"use client"` for interactive testing and cannot export metadata. Next.js does not allow metadata exports from client components.

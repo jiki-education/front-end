@@ -1,0 +1,42 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-gray-50);
+}
+
+.content {
+    text-align: center;
+}
+
+.icon {
+    width: 12px;
+    height: 12px;
+    margin: 0 auto 4px;
+    color: var(--color-gray-400);
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-gray-900);
+    margin-bottom: 2px;
+}
+
+.description {
+    color: var(--color-gray-600);
+    margin-bottom: 6px;
+}
+
+.button {
+    padding: 2px 4px;
+    background: var(--color-blue-600);
+    color: white;
+    border-radius: 4px;
+    transition: background 0.15s ease;
+
+    &:hover {
+        background: var(--color-blue-700);
+    }
+}

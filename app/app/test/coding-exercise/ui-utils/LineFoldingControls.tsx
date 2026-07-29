@@ -1,5 +1,6 @@
 import React from "react";
 import type Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
+import styles from "../harness.module.css";
 
 interface LineFoldingControlsProps {
   orchestrator: Orchestrator;
@@ -30,49 +31,25 @@ export function LineFoldingControls({ orchestrator }: LineFoldingControlsProps) 
   };
 
   return (
-    <div className="mt-4 p-4 border rounded">
-      <h2 className="font-bold mb-2">Line Folding Controls:</h2>
-      <div className="flex gap-2 flex-wrap">
-        <button
-          data-testid="fold-line-2"
-          onClick={() => handleFoldLines([2])}
-          className="px-3 py-1 border rounded hover:bg-gray-100"
-        >
+    <div className={`${styles.panel} ${styles.mt}`}>
+      <h2 className={styles.panelTitle}>Line Folding Controls:</h2>
+      <div className={styles.buttonRow}>
+        <button data-testid="fold-line-2" onClick={() => handleFoldLines([2])} className={styles.buttonGhost}>
           Fold Line 2
         </button>
-        <button
-          data-testid="fold-line-3"
-          onClick={() => handleFoldLines([3])}
-          className="px-3 py-1 border rounded hover:bg-gray-100"
-        >
+        <button data-testid="fold-line-3" onClick={() => handleFoldLines([3])} className={styles.buttonGhost}>
           Fold Line 3
         </button>
-        <button
-          data-testid="fold-lines-2-3"
-          onClick={() => handleFoldLines([2, 3])}
-          className="px-3 py-1 border rounded hover:bg-gray-100"
-        >
+        <button data-testid="fold-lines-2-3" onClick={() => handleFoldLines([2, 3])} className={styles.buttonGhost}>
           Fold Lines 2 & 3
         </button>
-        <button
-          data-testid="unfold-line-2"
-          onClick={() => handleUnfoldLines([2])}
-          className="px-3 py-1 border rounded hover:bg-gray-100"
-        >
+        <button data-testid="unfold-line-2" onClick={() => handleUnfoldLines([2])} className={styles.buttonGhost}>
           Unfold Line 2
         </button>
-        <button
-          data-testid="unfold-line-3"
-          onClick={() => handleUnfoldLines([3])}
-          className="px-3 py-1 border rounded hover:bg-gray-100"
-        >
+        <button data-testid="unfold-line-3" onClick={() => handleUnfoldLines([3])} className={styles.buttonGhost}>
           Unfold Line 3
         </button>
-        <button
-          data-testid="clear-folded-lines"
-          onClick={handleClearFoldedLines}
-          className="px-3 py-1 border rounded hover:bg-gray-100"
-        >
+        <button data-testid="clear-folded-lines" onClick={handleClearFoldedLines} className={styles.buttonGhost}>
           Clear All Folds
         </button>
       </div>

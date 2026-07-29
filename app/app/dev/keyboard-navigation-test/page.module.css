@@ -1,0 +1,97 @@
+.page {
+    padding: 8px;
+    max-width: 896px;
+    margin-inline: auto;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.instructions {
+    margin-bottom: 8px;
+    padding: 4px;
+    background: var(--color-yellow-50);
+    border: 1px solid var(--color-yellow-200);
+    border-radius: 8px;
+}
+
+.sectionTitle {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.instructionList {
+    font-size: 14px;
+
+    li + li {
+        margin-top: 8px;
+    }
+}
+
+.links {
+    margin-bottom: 8px;
+    display: flex;
+    gap: 16px;
+}
+
+.link {
+    padding-inline: 4px;
+    padding-block: 2px;
+    background: var(--color-blue-500);
+    color: white;
+    border-radius: 4px;
+
+    &:hover {
+        background: var(--color-blue-600);
+    }
+}
+
+.counter {
+    margin-bottom: 4px;
+    padding: 4px;
+    background: var(--color-gray-100);
+    border-radius: 4px;
+}
+
+.counterNote {
+    font-size: 14px;
+    color: var(--color-gray-600);
+    margin-top: 2px;
+}
+
+.logPanel {
+    background: var(--color-gray-900);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.logTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 12px;
+}
+
+.logEmpty {
+    color: var(--color-gray-400);
+    font-size: 14px;
+}
+
+.logEntries {
+    max-height: 96px;
+    overflow-y: auto;
+
+    div + div {
+        margin-top: 1px;
+    }
+}
+
+.logEntry {
+    color: var(--color-green-400);
+    font-size: 14px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}

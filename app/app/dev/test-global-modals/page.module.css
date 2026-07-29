@@ -1,0 +1,165 @@
+.page {
+    padding: 8px;
+    max-width: 672px;
+    margin-inline: auto;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.intro {
+    margin-bottom: 8px;
+}
+
+.introText {
+    color: var(--color-gray-600);
+    margin-bottom: 4px;
+}
+
+.sections {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.card {
+    border: 1px solid var(--color-gray-200);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.cardTitle {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.modalButton {
+    padding-block: 2px;
+    padding-inline: 4px;
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.15s ease;
+
+    &[data-color="purple"] {
+        background: var(--color-purple-600);
+
+        &:hover {
+            background: var(--color-purple-700);
+        }
+    }
+
+    &[data-color="red"] {
+        background: var(--color-red-600);
+
+        &:hover {
+            background: var(--color-red-700);
+        }
+    }
+
+    &[data-color="blue"] {
+        background: var(--color-blue-600);
+
+        &:hover {
+            background: var(--color-blue-700);
+        }
+    }
+
+    &[data-color="green"] {
+        background: var(--color-green-600);
+
+        &:hover {
+            background: var(--color-green-700);
+        }
+    }
+
+    &[data-color="orange"] {
+        background: var(--color-amber-600);
+
+        &:hover {
+            background: var(--color-amber-700);
+        }
+    }
+
+    &[data-color="amber"] {
+        background: var(--color-amber-600);
+
+        &:hover {
+            background: var(--color-amber-700);
+        }
+    }
+
+    &[data-color="emerald"] {
+        background: var(--color-green-600);
+
+        &:hover {
+            background: var(--color-green-700);
+        }
+    }
+
+    &[data-color="indigo"] {
+        background: var(--color-blue-600);
+
+        &:hover {
+            background: var(--color-blue-700);
+        }
+    }
+
+    &[data-color="pink"] {
+        background: var(--color-pink-600);
+
+        &:hover {
+            background: var(--color-pink-600);
+        }
+    }
+}
+
+/* Grouped button rows (space-x-2 space-y-2) */
+.buttonGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+
+.groupNote {
+    font-size: 14px;
+    color: var(--color-gray-600);
+    margin-top: 2px;
+}
+
+/* Info modal content */
+.infoContent {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.infoList {
+    list-style: disc;
+    list-style-position: inside;
+    padding-inline-start: 4px;
+}
+
+/* Usage example */
+.usageCard {
+    margin-top: 8px;
+    padding: 4px;
+    background: var(--color-gray-100);
+    border-radius: 8px;
+}
+
+.usageTitle {
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.usagePre {
+    background: var(--color-gray-800);
+    color: white;
+    padding: 4px;
+    border-radius: 4px;
+    overflow-x: auto;
+}

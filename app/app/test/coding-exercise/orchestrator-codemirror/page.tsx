@@ -7,6 +7,7 @@ import OrchestratorProvider from "@/components/coding-exercise/lib/OrchestratorP
 import { CodeMirror } from "@/components/coding-exercise/ui/codemirror/CodeMirror";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import { useEffect, useState } from "react";
+import styles from "../harness.module.css";
 
 export default function OrchestratorCodeMirrorTestPage() {
   const [orchestrator, setOrchestrator] = useState<Orchestrator | null>(null);
@@ -45,9 +46,9 @@ export default function OrchestratorCodeMirrorTestPage() {
 
   return (
     <OrchestratorProvider orchestrator={orchestrator}>
-      <div className="p-8">
-        <h1 className="text-2xl mb-4">CodeMirror E2E Test Page</h1>
-        <div id="editor-container" className="border border-gray-300 rounded" data-testid="editor-container">
+      <div className={styles.page}>
+        <h1 className={styles.pageTitle}>CodeMirror E2E Test Page</h1>
+        <div id="editor-container" className={styles.editorBox} data-testid="editor-container">
           <CodeMirror />
         </div>
       </div>

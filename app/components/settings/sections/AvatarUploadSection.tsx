@@ -7,6 +7,7 @@ import AvatarPreview from "../ui/AvatarPreview";
 import PencilIcon from "@/icons/pencil.svg";
 import fieldStyles from "../ui/EditableField.module.css";
 import styles from "../Settings.module.css";
+import sectionStyles from "./AvatarUploadSection.module.css";
 
 export default function AvatarUploadSection() {
   const t = useTranslations("settings.avatarUpload");
@@ -20,10 +21,10 @@ export default function AvatarUploadSection() {
     <div className={styles.settingsField}>
       <div className={fieldStyles.labelGroup}>
         <span className={fieldStyles.label}>{t("label")}</span>
-        <button type="button" onClick={handleClick} className="cursor-pointer self-start group relative">
+        <button type="button" onClick={handleClick} className={sectionStyles.avatarButton}>
           <AvatarPreview url={avatarUrl} size="sm" />
-          <div className="absolute inset-0 rounded-full bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
-            <PencilIcon className="w-24 h-24 text-white opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div className={sectionStyles.overlay}>
+            <PencilIcon className={sectionStyles.pencilIcon} />
           </div>
         </button>
       </div>

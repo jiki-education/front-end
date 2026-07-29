@@ -1,10 +1,14 @@
-// Tailwind lives in app.css, which is otherwise only loaded by the (app)
-// layout (external/hybrid public pages are deliberately Tailwind-free - see
-// PR #783). The /dev tooling pages sit outside (app) but are built with
-// Tailwind, so pull app.css in here to give every dev page the full utility
-// layer without re-enabling it for the public pages.
-import "../app.css";
+import { AppModalRegistrar } from "@/lib/modal/AppModalRegistrar";
 
+// Register the (app)-only modals for every /dev page so modal test pages
+// (challenge-unlocked, keyboard, etc.) can trigger them without each page
+// mounting the registrar itself. The GlobalModalProvider lives in the root
+// layout; it can only render a modal that has been registered.
 export default function DevLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return children;
+  return (
+    <>
+      <AppModalRegistrar />
+      {children}
+    </>
+  );
 }

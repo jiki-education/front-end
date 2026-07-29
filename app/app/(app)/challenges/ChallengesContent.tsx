@@ -21,6 +21,7 @@ import { ChallengeCard } from "./ChallengeCard";
 import { ChallengeCardsLoadingSkeleton } from "./ChallengeCardSkeleton";
 import { NoChallengesFound } from "./NoChallengesFound";
 import { PremiumChallengeCard } from "./PremiumChallengeCard";
+import styles from "./ChallengesContent.module.css";
 
 export function ChallengesContent() {
   const t = useTranslations("challenges");
@@ -100,13 +101,10 @@ export function ChallengesContent() {
 
     if (challengesError) {
       return (
-        <div className="flex items-center justify-center min-h-[400px]">
-          <div className="text-center">
-            <p className="text-red-600 mb-4">{t("error", { error: challengesError })}</p>
-            <button
-              onClick={() => window.location.reload()}
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-            >
+        <div className={styles.errorState}>
+          <div className={styles.errorContent}>
+            <p className={styles.errorMessage}>{t("error", { error: challengesError })}</p>
+            <button onClick={() => window.location.reload()} className={styles.retryButton}>
               {tCommon("retry")}
             </button>
           </div>
@@ -116,7 +114,7 @@ export function ChallengesContent() {
 
     if (!isPremium) {
       return (
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(265px,1fr))] gap-28">
+        <div className={styles.grid}>
           {challenges.map((challenge) => (
             <PremiumChallengeCard key={challenge.slug} challenge={challenge} />
           ))}
@@ -129,7 +127,7 @@ export function ChallengesContent() {
     }
 
     return (
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(265px,1fr))] gap-28">
+      <div className={styles.grid}>
         {filteredChallenges.map((challenge) => (
           <ChallengeCard key={challenge.slug} challenge={challenge} />
         ))}
@@ -139,7 +137,7 @@ export function ChallengesContent() {
 
   return (
     <PageHeader icon={<ChallengesIcon />} title={t("title")} description={t("description")}>
-      {isPremium && <PageTabs className="mb-16" tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />}
+      {isPremium && <PageTabs className={styles.tabs} tabs={tabs} activeTabId={activeTab} onTabChange={setActiveTab} />}
       {renderContent()}
     </PageHeader>
   );

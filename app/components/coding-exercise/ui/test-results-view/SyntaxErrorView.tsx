@@ -18,7 +18,7 @@ export function SyntaxErrorView() {
         </div>
         <h3 className={styles.heading}>{t("heading")}</h3>
         <p className={styles.message}>{t("message")}</p>
-        <div className="flex justify-center mt-16">
+        <div className={styles.runButtonRow}>
           <RunButton />
         </div>
       </div>

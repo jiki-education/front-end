@@ -4,6 +4,7 @@ import { Sun, Moon, Monitor } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useTheme } from "@/lib/theme";
 import type { Theme } from "@/lib/theme";
+import styles from "./ThemeToggle.module.css";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -19,13 +20,13 @@ export function ThemeToggle() {
   const getIcon = () => {
     switch (theme) {
       case "light":
-        return <Sun className="w-20 h-20" />;
+        return <Sun />;
       case "dark":
-        return <Moon className="w-20 h-20" />;
+        return <Moon />;
       case "system":
-        return <Monitor className="w-20 h-20" />;
+        return <Monitor />;
       default:
-        return <Sun className="w-20 h-20" />;
+        return <Sun />;
     }
   };
 
@@ -45,12 +46,12 @@ export function ThemeToggle() {
   return (
     <button
       onClick={handleToggle}
-      className="p-2 rounded-lg hover:bg-bg-secondary transition-colors focus-ring"
+      className={`${styles.button} focus-ring`}
       aria-label={getLabel()}
       title={getLabel()}
       aria-describedby="theme-toggle-description"
     >
-      <span className="text-text-secondary hover:text-text-primary transition-colors">{getIcon()}</span>
+      <span className={styles.icon}>{getIcon()}</span>
       <span id="theme-toggle-description" className="sr-only">
         {t("description", { theme })}
       </span>

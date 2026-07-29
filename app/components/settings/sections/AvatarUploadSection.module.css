@@ -1,0 +1,32 @@
+.avatarButton {
+    position: relative;
+    align-self: flex-start;
+    cursor: pointer;
+}
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0);
+    transition: background-color 0.15s ease;
+}
+
+.avatarButton:hover .overlay {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.pencilIcon {
+    width: 24px;
+    height: 24px;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.avatarButton:hover .pencilIcon {
+    opacity: 1;
+}

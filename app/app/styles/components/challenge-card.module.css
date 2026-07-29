@@ -7,6 +7,8 @@
 .challengeCardSimple {
     perspective: 1000px;
     margin: 0 auto 34px;
+    position: relative;
+    width: 320px;
 }
 
 .challengeCardSimpleFront {
@@ -86,6 +88,7 @@
 .challengeCardSimpleBack {
     position: absolute;
     top: 0;
+    bottom: 0;
     inset-inline-start: 0;
     inset-inline-end: 0;
     margin: 0 auto;
@@ -111,6 +114,7 @@
     border-radius: 16px;
     position: absolute;
     top: 0;
+    bottom: 0;
     inset-inline-start: 0;
     inset-inline-end: 0;
     margin: 0 auto;

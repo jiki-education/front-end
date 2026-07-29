@@ -1,0 +1,143 @@
+.page {
+    padding: 8px;
+    max-width: 672px;
+    margin-inline: auto;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.intro {
+    color: var(--color-text-secondary);
+    margin-bottom: 8px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+}
+
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.card {
+    border: 1px solid var(--color-border-secondary);
+    border-radius: 8px;
+    padding: 6px;
+    background: var(--color-bg-secondary);
+}
+
+.cardTitle {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--color-text-primary);
+}
+
+.cardDescription {
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.showButton {
+    width: 100%;
+    padding-block: 12px;
+    padding-inline: 4px;
+    color: white;
+    border-radius: 8px;
+    transition: background-color 0.15s ease;
+    font-weight: 500;
+
+    &[data-color="blue"] {
+        background: var(--color-blue-600);
+
+        &:hover {
+            background: var(--color-blue-700);
+        }
+    }
+
+    &[data-color="red"] {
+        background: var(--color-red-600);
+
+        &:hover {
+            background: var(--color-red-700);
+        }
+    }
+
+    &[data-color="amber"] {
+        background: var(--color-amber-600);
+
+        &:hover {
+            background: var(--color-amber-700);
+        }
+    }
+
+    &[data-color="green"] {
+        background: var(--color-green-600);
+
+        &:hover {
+            background: var(--color-green-700);
+        }
+    }
+}
+
+.flowCard {
+    margin-top: 8px;
+    background: var(--color-bg-secondary);
+    padding: 6px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border-secondary);
+}
+
+.flowTitle {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: var(--color-text-primary);
+}
+
+.flowRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-size: 14px;
+    flex-wrap: wrap;
+}
+
+.flowChip {
+    padding-block: 2px;
+    padding-inline: 4px;
+    border-radius: 8px;
+
+    &[data-color="blue"] {
+        background: var(--color-blue-100);
+        color: var(--color-blue-800);
+        border: 1px solid var(--color-blue-200);
+    }
+
+    &[data-color="green"] {
+        background: var(--color-green-100);
+        color: var(--color-green-800);
+        border: 1px solid var(--color-green-200);
+    }
+}
+
+.flowArrow {
+    color: var(--color-text-tertiary);
+}
+
+.flowNote {
+    color: var(--color-text-tertiary);
+    font-size: 12px;
+    text-align: center;
+    margin-top: 4px;
+}

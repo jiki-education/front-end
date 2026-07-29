@@ -23,7 +23,7 @@ describe("HintsView", () => {
     it("should apply custom className", () => {
       const { container } = render(<HintsView hints={[]} className="custom-class" />);
 
-      expect(container.firstChild).toHaveClass("p-4", "custom-class");
+      expect(container.firstChild).toHaveClass("emptyWrapper", "custom-class");
     });
   });
 

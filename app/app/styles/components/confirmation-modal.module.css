@@ -34,3 +34,7 @@
     display: flex;
     gap: 12px;
 }
+
+.buttonNowrap {
+    white-space: nowrap;
+}

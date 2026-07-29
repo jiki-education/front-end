@@ -31,7 +31,7 @@ export default function LearningTab() {
 
   if (loading || !settings) {
     return (
-      <div className="flex items-center justify-center py-12">
+      <div className={styles.loadingWrapper}>
         <LoadingSpinner size="lg" />
       </div>
     );
@@ -51,10 +51,7 @@ export default function LearningTab() {
             role="switch"
           />
         </ActionField>
-        <Link
-          href={routes.article("streaks")}
-          className="text-sm text-gray-500 underline hover:text-gray-700 mt-4 inline-block"
-        >
+        <Link href={routes.article("streaks")} className={styles.learnMoreLink}>
           {t("learnMore")}
         </Link>
       </div>

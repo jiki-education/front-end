@@ -1,0 +1,38 @@
+.correct {
+    margin-block-start: 4px;
+    color: var(--color-green-600);
+    font-weight: 600;
+    text-align: center;
+}
+
+.incorrectBox {
+    margin-block-start: 4px;
+    padding: 4px;
+    border-radius: 8px;
+    background: var(--color-amber-50);
+    border: 1px solid var(--color-amber-200);
+}
+
+.row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    color: var(--color-amber-600);
+    margin-block-start: 2px;
+    flex-shrink: 0;
+}
+
+.body {
+    font-size: 14px;
+    color: var(--color-amber-900);
+}
+
+.title {
+    font-weight: 600;
+    margin-bottom: 4px;
+}

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { hideModal } from "@/lib/modal/store";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import styles from "./ChangeEmailModal.module.css";
 
 interface ChangeEmailModalProps {
   currentEmail: string;
@@ -61,22 +62,22 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
   };
 
   return (
-    <div className="p-24 max-w-md mx-auto text-start">
-      <h2 className="text-2xl font-bold mb-16">{t("title")}</h2>
+    <div className={styles.container}>
+      <h2 className={styles.title}>{t("title")}</h2>
 
-      <div className="bg-blue-50 text-blue-700 p-12 rounded-md text-sm mb-16">
-        <p className="font-semibold mb-4">{t("importantLabel")}</p>
+      <div className={styles.notice}>
+        <p className={styles.noticeLabel}>{t("importantLabel")}</p>
         <p>{t("importantText")}</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-16 ">
+      <form onSubmit={handleSubmit} className={styles.form}>
         <div className="ui-form-field-large">
-          <label className="block text-sm font-semibold mb-4">{t("currentEmailLabel")}</label>
+          <label className={styles.fieldLabel}>{t("currentEmailLabel")}</label>
           <input type="email" value={currentEmail} disabled />
         </div>
 
         <div className="ui-form-field-large">
-          <label htmlFor="new-email" className="block text-sm font-semibold mb-4">
+          <label htmlFor="new-email" className={styles.fieldLabel}>
             {t("newEmailLabel")}
           </label>
           <input
@@ -91,7 +92,7 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
         </div>
 
         <div className="ui-form-field-large">
-          <label htmlFor="current-password" className="block text-sm font-semibold mb-4">
+          <label htmlFor="current-password" className={styles.fieldLabel}>
             {t("passwordLabel")}
           </label>
           <input
@@ -102,20 +103,20 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
             placeholder={t("passwordPlaceholder")}
             disabled={isSaving}
           />
-          <p className="text-xs text-text-secondary mt-4">{t("passwordHint")}</p>
+          <p className={styles.passwordHint}>{t("passwordHint")}</p>
         </div>
 
-        {error && <div className="bg-red-50 text-red-600 p-12 rounded-md text-sm">{error}</div>}
+        {error && <div className={styles.error}>{error}</div>}
 
-        <div className="flex gap-12 pt-4">
-          <button type="submit" disabled={isSaving} className="ui-btn ui-btn-small ui-btn-primary flex-1">
+        <div className={styles.buttons}>
+          <button type="submit" disabled={isSaving} className="ui-btn ui-btn-small ui-btn-primary">
             {isSaving ? <LoadingSpinner size="sm" /> : t("submit")}
           </button>
           <button
             type="button"
             onClick={hideModal}
             disabled={isSaving}
-            className="ui-btn ui-btn-small ui-btn-secondary flex-1"
+            className="ui-btn ui-btn-small ui-btn-secondary"
           >
             {tCommon("cancel")}
           </button>

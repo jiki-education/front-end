@@ -26,7 +26,7 @@ export function VisualTestCanvas({ view, isSpotlightActive = false }: VisualTest
     }
 
     viewContainerRef.current.innerHTML = "";
-    view.classList.add("container-size", "aspect-square", "max-w-[100cqi]", "bg-white", "relative");
+    view.classList.add("container-size", styles.canvasView);
     viewContainerRef.current.appendChild(view);
     // Intentional DOM manipulation to show the view element
     // Next16: eslint-disable-next-line react-hooks/immutability
@@ -43,12 +43,9 @@ export function VisualTestCanvas({ view, isSpotlightActive = false }: VisualTest
 
   return (
     <div className={styles.rightVideoContainer}>
-      <div className="h-full aspect-square max-h-[100cqi]">
+      <div className={styles.canvasFrame}>
         <div
-          className={assembleClassNames(
-            "w-full h-full aspect-square [container-type:inline-size] relative",
-            isSpotlightActive && "spotlight"
-          )}
+          className={assembleClassNames(styles.canvasInner, isSpotlightActive && "spotlight")}
           dir="ltr"
           ref={viewContainerRef}
         />

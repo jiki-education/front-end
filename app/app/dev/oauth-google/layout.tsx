@@ -4,19 +4,20 @@
  */
 
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import styles from "./layout.module.css";
 
 export default function OAuthTestLayout({ children }: { children: React.ReactNode }) {
   const clientId = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID;
 
   if (!clientId) {
     return (
-      <div className="min-h-screen bg-gray-100 p-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-            <h2 className="text-xl font-semibold text-red-900 mb-2">Configuration Error</h2>
-            <p className="text-red-800">NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID is not set in environment variables.</p>
-            <p className="text-red-800 mt-2">
-              Add it to <code className="bg-red-100 px-1 rounded">.env.local</code> to use Google OAuth.
+      <div className={styles.page}>
+        <div className={styles.container}>
+          <div className={styles.errorCard}>
+            <h2 className={styles.errorTitle}>Configuration Error</h2>
+            <p className={styles.errorText}>NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID is not set in environment variables.</p>
+            <p className={styles.errorTextSpaced}>
+              Add it to <code className={styles.code}>.env.local</code> to use Google OAuth.
             </p>
           </div>
         </div>

@@ -1,0 +1,81 @@
+.page {
+    padding: 8px;
+    max-width: 672px;
+    margin-inline: auto;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.subtitle {
+    color: var(--color-text-secondary);
+    margin-bottom: 8px;
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.card {
+    border: 1px solid var(--color-border-secondary);
+    border-radius: 8px;
+    padding: 6px;
+    background: var(--color-bg-secondary);
+}
+
+.cardTitle {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: var(--color-text-primary);
+}
+
+.cardDescription {
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.inlineCode {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 12px;
+    background: var(--color-bg-tertiary);
+    padding-inline: 1px;
+    padding-block: 2px;
+    border-radius: 4px;
+}
+
+.buttonPrimary {
+    width: 100%;
+    padding-inline: 4px;
+    padding-block: 12px;
+    background: var(--color-purple-600);
+    color: white;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+        background: var(--color-purple-700);
+    }
+}
+
+.buttonSecondary {
+    width: 100%;
+    padding-inline: 4px;
+    padding-block: 12px;
+    background: var(--color-gray-600);
+    color: white;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background-color 0.15s ease;
+
+    &:hover {
+        background: var(--color-gray-700);
+    }
+}

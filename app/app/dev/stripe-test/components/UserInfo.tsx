@@ -1,5 +1,6 @@
 import type { MembershipTier } from "@/lib/pricing";
 import { DEV_TIER_DISPLAY } from "../tiers";
+import styles from "./UserInfo.module.css";
 
 interface UserInfoProps {
   handle: string;
@@ -9,21 +10,21 @@ interface UserInfoProps {
 
 export function UserInfo({ handle, email, membershipTier }: UserInfoProps) {
   return (
-    <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-xl font-semibold mb-4">Current User</h2>
-      <dl className="space-y-2">
+    <div className={styles.card}>
+      <h2 className={styles.title}>Current User</h2>
+      <dl className={styles.list}>
         <div>
-          <dt className="inline font-medium">Handle:</dt>
-          <dd className="inline ms-2">{handle}</dd>
+          <dt className={styles.term}>Handle:</dt>
+          <dd className={styles.value}>{handle}</dd>
         </div>
         <div>
-          <dt className="inline font-medium">Email:</dt>
-          <dd className="inline ms-2">{email}</dd>
+          <dt className={styles.term}>Email:</dt>
+          <dd className={styles.value}>{email}</dd>
         </div>
         <div>
-          <dt className="inline font-medium">Membership Tier:</dt>
-          <dd className="inline ms-2">
-            <span className={`px-3 py-1 rounded-full text-sm font-semibold ${getTierBadgeColor(membershipTier)}`}>
+          <dt className={styles.term}>Membership Tier:</dt>
+          <dd className={styles.value}>
+            <span className={styles.badge} data-tier={getTierVariant(membershipTier)}>
               {DEV_TIER_DISPLAY[membershipTier].name}
             </span>
           </dd>
@@ -33,13 +34,12 @@ export function UserInfo({ handle, email, membershipTier }: UserInfoProps) {
   );
 }
 
-function getTierBadgeColor(tier: MembershipTier): string {
+function getTierVariant(tier: MembershipTier): string {
   switch (tier) {
-    case "standard":
-      return "bg-gray-100 text-gray-800";
     case "premium":
-      return "bg-blue-100 text-blue-800";
+      return "premium";
+    case "standard":
     default:
-      return "bg-gray-100 text-gray-800";
+      return "standard";
   }
 }

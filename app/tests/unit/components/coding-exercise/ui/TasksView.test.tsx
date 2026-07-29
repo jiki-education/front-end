@@ -1,5 +1,6 @@
 // @ts-nocheck - Test file with extensive mocking
 import TasksView from "@/components/coding-exercise/ui/TasksView";
+import styles from "@/components/coding-exercise/ui/TasksView.module.css";
 import type { Orchestrator } from "@/components/coding-exercise/lib/Orchestrator";
 import { useOrchestratorStore } from "@/components/coding-exercise/lib/orchestrator/store";
 import type { TaskProgress } from "@jiki/curriculum";
@@ -67,7 +68,7 @@ describe("TasksView", () => {
     it("should apply custom className to container", () => {
       const { container } = render(<TasksView tasks={[]} orchestrator={mockOrchestrator} className="custom-class" />);
 
-      expect(container.firstChild).toHaveClass("p-4", "custom-class");
+      expect(container.firstChild).toHaveClass(styles.container, "custom-class");
     });
   });
 
@@ -93,7 +94,7 @@ describe("TasksView", () => {
       render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
       expect(screen.getByText("Bonus")).toBeInTheDocument();
-      expect(screen.getByText("Bonus")).toHaveClass("bg-yellow-100", "text-yellow-700");
+      expect(screen.getByText("Bonus")).toHaveClass(styles.bonusTag);
     });
 
     it("should display task description when provided", () => {
@@ -182,7 +183,7 @@ describe("TasksView", () => {
       const tasks = [createMockTask({ id: "task-1" })];
       const { container } = render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
-      const progressBar = container.querySelector(".bg-blue-500");
+      const progressBar = container.querySelector(`[class*="${styles.progressBar}"]`);
       expect(progressBar).toBeInTheDocument();
       expect(progressBar).toHaveStyle("width: 25%"); // 1/4 = 25%
     });
@@ -206,7 +207,7 @@ describe("TasksView", () => {
       const tasks = [createMockTask({ id: "task-1" })];
       const { container } = render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
-      expect(container.querySelector(".bg-blue-500")).not.toBeInTheDocument();
+      expect(container.querySelector(`[class*="${styles.progressBar}"]`)).not.toBeInTheDocument();
     });
 
     it("should not display progress bar for completed tasks", () => {
@@ -228,7 +229,7 @@ describe("TasksView", () => {
       const tasks = [createMockTask({ id: "task-1" })];
       const { container } = render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
-      expect(container.querySelector(".bg-blue-500")).not.toBeInTheDocument();
+      expect(container.querySelector(`[class*="${styles.progressBar}"]`)).not.toBeInTheDocument();
     });
   });
 
@@ -244,7 +245,7 @@ describe("TasksView", () => {
       render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
       const taskName = screen.getByText("Completed Task");
-      expect(taskName).toHaveClass("text-green-700", "font-medium");
+      expect(taskName).toHaveClass(styles.taskNameCompleted);
     });
 
     it("should apply in-progress styling for in-progress tasks", () => {
@@ -266,7 +267,7 @@ describe("TasksView", () => {
       render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
       const taskName = screen.getByText("In Progress Task");
-      expect(taskName).toHaveClass("text-blue-700");
+      expect(taskName).toHaveClass(styles.taskNameInProgress);
     });
 
     it("should apply default styling for not-started tasks", () => {
@@ -274,7 +275,7 @@ describe("TasksView", () => {
       render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
       const taskName = screen.getByText("Not Started Task");
-      expect(taskName).toHaveClass("text-gray-700");
+      expect(taskName).toHaveClass(styles.taskName);
     });
   });
 
@@ -289,18 +290,9 @@ describe("TasksView", () => {
       const tasks = [createMockTask({ id: "task-1" })];
       const { container } = render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
-      const taskContainer = container.querySelector(".bg-blue-50");
+      const taskContainer = container.querySelector(`[class*="${styles.taskBodyCurrent}"]`);
       expect(taskContainer).toBeInTheDocument();
-      expect(taskContainer).toHaveClass(
-        "bg-blue-50",
-        "border-s-4",
-        "border-blue-400",
-        "-mx-2",
-        "px-2",
-        "py-2",
-        "rounded-e",
-        "shadow-sm"
-      );
+      expect(taskContainer).toHaveClass(styles.taskBodyCurrent);
     });
 
     it("should not highlight non-current tasks", () => {
@@ -313,7 +305,7 @@ describe("TasksView", () => {
       const tasks = [createMockTask({ id: "task-1" })];
       const { container } = render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
-      expect(container.querySelector(".bg-blue-50")).not.toBeInTheDocument();
+      expect(container.querySelector(`[class*="${styles.taskBodyCurrent}"]`)).not.toBeInTheDocument();
     });
   });
 
@@ -332,8 +324,8 @@ describe("TasksView", () => {
       const tasks = [createMockTask({ id: "task-1", name: "Hoverable Task" })];
       const { container } = render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
-      const taskContainer = container.querySelector(".cursor-pointer");
-      expect(taskContainer).toHaveClass("cursor-pointer", "transition-all", "hover:opacity-80");
+      const taskContainer = container.querySelector(`[class*="${styles.taskBody}"]`);
+      expect(taskContainer).toHaveClass(styles.taskBody);
     });
   });
 
@@ -349,7 +341,7 @@ describe("TasksView", () => {
       render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
       expect(screen.getByText("✓")).toBeInTheDocument();
-      expect(screen.getByText("✓").closest("span")).toHaveClass("bg-green-500", "text-white");
+      expect(screen.getByText("✓").closest("span")).toHaveClass(styles.statusCompleted);
     });
 
     it("should show numbered indicator for in-progress tasks", () => {
@@ -371,12 +363,7 @@ describe("TasksView", () => {
       render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
       expect(screen.getByText("1")).toBeInTheDocument();
-      expect(screen.getByText("1").closest("span")).toHaveClass(
-        "border-2",
-        "border-blue-500",
-        "bg-blue-50",
-        "text-blue-700"
-      );
+      expect(screen.getByText("1").closest("span")).toHaveClass(styles.statusInProgress);
     });
 
     it("should show numbered indicator for not-started tasks", () => {
@@ -384,7 +371,7 @@ describe("TasksView", () => {
       render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
       expect(screen.getByText("1")).toBeInTheDocument();
-      expect(screen.getByText("1").closest("span")).toHaveClass("bg-gray-200", "text-gray-700");
+      expect(screen.getByText("1").closest("span")).toHaveClass(styles.statusNotStarted);
     });
 
     it("should show ring around current task indicator", () => {
@@ -405,7 +392,7 @@ describe("TasksView", () => {
       const tasks = [createMockTask({ id: "task-1" })];
       render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
-      expect(screen.getByText("1").closest("span")).toHaveClass("ring-2", "ring-blue-300");
+      expect(screen.getByText("1").closest("span")).toHaveClass(styles.ringCurrentBlue);
     });
 
     it("should show ring around current not-started task indicator", () => {
@@ -418,7 +405,7 @@ describe("TasksView", () => {
       const tasks = [createMockTask({ id: "task-1" })];
       render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
-      expect(screen.getByText("1").closest("span")).toHaveClass("ring-2", "ring-gray-300");
+      expect(screen.getByText("1").closest("span")).toHaveClass(styles.ringCurrentGray);
     });
 
     it("should display correct task numbers", () => {
@@ -464,16 +451,16 @@ describe("TasksView", () => {
       render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
       // Check task 1 (current, not-started)
-      const currentTaskContainer = screen.getByText("Current Not Started").closest(".flex-1");
-      expect(currentTaskContainer).toHaveClass("bg-blue-50");
-      expect(screen.getByText("Current Not Started")).toHaveClass("text-gray-700");
+      const currentTaskContainer = screen.getByText("Current Not Started").closest(`[class*="${styles.taskBody}"]`);
+      expect(currentTaskContainer).toHaveClass(styles.taskBodyCurrent);
+      expect(screen.getByText("Current Not Started")).toHaveClass(styles.taskName);
 
       // Check task 2 (in-progress)
-      expect(screen.getByText("In Progress Task")).toHaveClass("text-blue-700");
+      expect(screen.getByText("In Progress Task")).toHaveClass(styles.taskNameInProgress);
       expect(screen.getByText("1/2")).toBeInTheDocument();
 
       // Check task 3 (completed, bonus)
-      expect(screen.getByText("Completed Task")).toHaveClass("text-green-700", "font-medium");
+      expect(screen.getByText("Completed Task")).toHaveClass(styles.taskNameCompleted);
       expect(screen.getByText("Bonus")).toBeInTheDocument();
       expect(screen.getByText("✓")).toBeInTheDocument();
     });
@@ -490,7 +477,7 @@ describe("TasksView", () => {
       render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
       expect(screen.getByText("Unknown Task")).toBeInTheDocument();
-      expect(screen.getByText("Unknown Task")).toHaveClass("text-gray-700");
+      expect(screen.getByText("Unknown Task")).toHaveClass(styles.taskName);
       expect(screen.getByText("1")).toBeInTheDocument(); // Shows task number
     });
 
@@ -514,7 +501,7 @@ describe("TasksView", () => {
       const tasks = [createMockTask({ id: "task-1" })];
       const { container } = render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
-      const progressBar = container.querySelector(".bg-blue-500");
+      const progressBar = container.querySelector(`[class*="${styles.progressBar}"]`);
       expect(progressBar).toHaveStyle("width: 100%");
     });
 
@@ -538,7 +525,7 @@ describe("TasksView", () => {
       const tasks = [createMockTask({ id: "task-1" })];
       const { container } = render(<TasksView tasks={tasks} orchestrator={mockOrchestrator} />);
 
-      const progressBar = container.querySelector(".bg-blue-500");
+      const progressBar = container.querySelector(`[class*="${styles.progressBar}"]`);
       expect(progressBar).toHaveStyle("width: 0%");
     });
   });
