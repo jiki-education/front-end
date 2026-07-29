@@ -119,6 +119,7 @@ export type RuntimeErrorType =
   | "IndexOutOfRange"
   | "StringIndexOutOfRange"
   | "ComparisonWithUndefined"
+  | "ComparisonWithUndefinedFromFunction"
   | "AssignmentToUndefined"
   | "AssignmentToUndefinedFromFunction"
   | "TypeError"
