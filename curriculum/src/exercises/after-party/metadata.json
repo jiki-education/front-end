@@ -1,6 +1,6 @@
 {
   "slug": "after-party",
-  "levelId": "lists",
+  "levelId": "arrays",
   "hints": [
     {
       "question": "hints.whereToStart.question",

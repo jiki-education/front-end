@@ -146,16 +146,23 @@ describe("Language Features", () => {
       expect(methodsProps.allowedStdlib?.string?.properties).toContain("length");
       expect(methodsProps.allowedStdlib?.string?.methods).toContain("toUpperCase");
       // array member access is denied by default from functions-that-return-things (empty whitelist)
-      // until lists grants specific members, so the entry exists but grants nothing here.
+      // until arrays grants specific members, so the entry exists but grants nothing here.
       expect(methodsProps.allowedStdlib?.array?.properties).toEqual([]);
       expect(methodsProps.allowedStdlib?.array?.methods).toEqual([]);
 
-      // lists adds array stdlib, keeps string stdlib
-      const listsLevel = getLanguageFeatures("lists", "javascript");
-      expect(listsLevel.allowedStdlib?.string?.properties).toContain("length");
-      expect(listsLevel.allowedStdlib?.string?.methods).toContain("toUpperCase");
-      expect(listsLevel.allowedStdlib?.array?.properties).toContain("length");
-      expect(listsLevel.allowedStdlib?.array?.methods).toContain("push");
+      // arrays adds read-only array stdlib (length + query methods), keeps string stdlib,
+      // but does not yet grant the mutating methods (those come in building-arrays).
+      const arraysLevel = getLanguageFeatures("arrays", "javascript");
+      expect(arraysLevel.allowedStdlib?.string?.properties).toContain("length");
+      expect(arraysLevel.allowedStdlib?.string?.methods).toContain("toUpperCase");
+      expect(arraysLevel.allowedStdlib?.array?.properties).toContain("length");
+      expect(arraysLevel.allowedStdlib?.array?.methods).toContain("at");
+      expect(arraysLevel.allowedStdlib?.array?.methods).not.toContain("push");
+
+      // building-arrays adds the mutating methods on top
+      const buildingArraysLevel = getLanguageFeatures("building-arrays", "javascript");
+      expect(buildingArraysLevel.allowedStdlib?.array?.methods).toContain("at");
+      expect(buildingArraysLevel.allowedStdlib?.array?.methods).toContain("push");
     });
 
     it("should accumulate jikiscript allowedStdlibFunctions across levels", () => {
