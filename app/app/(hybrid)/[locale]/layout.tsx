@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { isSupportedLocale } from "@/lib/i18n/config";
 import { alternatesFromRequest } from "@/lib/seo/alternates";
 import JsonLd from "@/components/seo/JsonLd";
+import { TranslatathonBanner } from "@/components/i18n/TranslatathonBanner";
 import { organizationSchema, websiteSchema } from "@/lib/seo/schemas";
 
 // Emit hreflang alternates + a self-referential canonical for every public page
@@ -34,6 +35,7 @@ export default async function LocaleLayout({
   return (
     <>
       <JsonLd data={[organizationSchema(), websiteSchema(locale)]} />
+      <TranslatathonBanner />
       {children}
     </>
   );
