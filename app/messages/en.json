@@ -1484,9 +1484,9 @@
     },
     "instructionsPanel": {
       "instructionsTitle": "Instructions",
-      "functionsTitle": "Functions",
+      "functionsTitle": "Functions & Methods",
       "conceptLibraryTitle": "Concept Library",
-      "functionsIntro": "These are the functions you can use in this exercise",
+      "functionsIntro": "These are the functions and methods you can use in this exercise.",
       "functionsExamplesLabel": "Examples:",
       "loadingConcepts": "Loading concepts...",
       "premiumChallenge": "Premium Challenge",
