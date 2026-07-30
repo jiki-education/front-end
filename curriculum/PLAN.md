@@ -127,7 +127,6 @@ None.
 - `stars` - Stars: build a list of star strings with increasing length using repeat, concatenate, and push (Lists level)
 - `meal-prep` - Meal Prep: compare fridge contents to recipe ingredients (Lists level)
 - `wordle-process-guess` - Wordle Process Guess: process a Wordle guess and color the row (Lists level)
-- `extract-words` - Extract Words: extract words from a sentence into a list, splitting on spaces and skipping periods (Lists level)
 - `chop-shop` - Chop Shop: work out if the barber has time for one more customer (Lists level)
 - `wordle-process-game` - Wordle Process Game: process a whole Wordle game, colouring each guess row by row (Lists level)
 - `lookup-time` - Lookup Time: look up the current time for a city (Dictionaries level)

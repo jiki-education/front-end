@@ -81,7 +81,6 @@ export const exercises = {
   lunchbox: () => import("./lunchbox"),
   stars: () => import("./stars"),
   "word-count": () => import("./word-count"),
-  "extract-words": () => import("./extract-words"),
   hello: () => import("./hello"),
   "three-letter-acronym": () => import("./three-letter-acronym"),
   "tile-rack": () => import("./tile-rack"),
