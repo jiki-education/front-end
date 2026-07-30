@@ -1,13 +1,13 @@
 {
   "errors": {
-    "fellOffEdge": "Oh no - you tried to fall off the edge of the maze!",
-    "hitWall": "Ouch - you walked into a wall!",
-    "walkedIntoFire": "Ouch! You walked into the fire!",
-    "walkedIntoPoop": "Ewww! You walked into the poop! 💩💩💩"
+    "fellOffEdge": "Jaj ne, majdnem leléptél a labirintus széléről!",
+    "hitWall": "Aú, nekimentél a falnak!",
+    "walkedIntoFire": "Aú! Belesétáltál a tűzbe!",
+    "walkedIntoPoop": "Fúj! Belesétáltál a kakiba! 💩💩💩"
   },
   "describers": {
-    "move": "Move the character forward one cell",
-    "turnLeft": "Turn the character 90 degrees left",
-    "turnRight": "Turn the character 90 degrees right"
+    "move": "Egy mezővel előre viszi a figurát",
+    "turnLeft": "90 fokkal balra fordítja a figurát",
+    "turnRight": "90 fokkal jobbra fordítja a figurát"
   }
 }
