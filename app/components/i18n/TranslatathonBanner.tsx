@@ -3,6 +3,7 @@
 import { useAuthStore } from "@/lib/auth/authStore";
 import { ALL_LOCALES } from "@/lib/locales";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useLayoutEffect, useState } from "react";
 import styles from "./TranslatathonBanner.module.css";
 
@@ -246,6 +247,10 @@ export function TranslatathonBanner() {
   // nothing (and re-render once the store flips). This lets the same component
   // sit in the public/hybrid layout without ever showing to logged-out visitors.
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  // The full-screen coding-exercise views (lesson/challenge) are hard-sized to
+  // 100vh, so an in-flow banner above them scrolls the whole page. Suppress the
+  // banner there; it still shows on every other app page (dashboard, lists, …).
+  const pathname = usePathname();
   // Both the server render and the first client render produce null (target === null),
   // so there is no hydration mismatch; the effect then reveals the banner if it applies.
   const [target, setTarget] = useState<Target | null>(null);
@@ -261,7 +266,7 @@ export function TranslatathonBanner() {
     }
   }, []);
 
-  if (!isAuthenticated || !target) {
+  if (!isAuthenticated || !target || isFullScreenExercisePath(pathname)) {
     return null;
   }
 
@@ -287,6 +292,16 @@ export function TranslatathonBanner() {
       </button>
     </div>
   );
+}
+
+// The full-screen exercise routes: /lesson/<slug> and /challenges/<slug> (an
+// optional leading locale segment is tolerated). The bare /challenges list is
+// NOT matched — it needs a slug — so the banner still shows there.
+function isFullScreenExercisePath(pathname: string | null): boolean {
+  if (!pathname) {
+    return false;
+  }
+  return /^(?:\/[a-z]{2}(?:-[a-z]+)?)?\/(?:lesson|challenges)\/[^/]+/i.test(pathname);
 }
 
 // Base languages we already ship in the catalog (e.g. "en", "hu"): their speakers
