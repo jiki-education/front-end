@@ -356,7 +356,7 @@ function englishCopy(lang: string): TranslatathonCopy | null {
   }
   return {
     pre: `Want to help us translate Jiki to ${name}? `,
-    link: "Join the translation session",
+    link: "Join the Translatathon",
     post: "",
     close: "Close this notice"
   };
