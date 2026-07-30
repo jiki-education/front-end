@@ -36,9 +36,15 @@ return [
 
 ### Methods to help
 
-In this exercise, you have a new method called `[...].toReversed()`, which creates a copy of an array with all the items reversed. For example:
+As with all the exercises in this section, you'll want to use the `.push(element)` method to build your arrays.
+
+You also have a new method called `[...].toReversed()`, which creates a copy of an array with all the items reversed. For example:
 
 ```
 ["A", 1, true].toReversed()
 // [true, 1, "A"]
 ```
+
+You don't have to use it, but it might be useful.
+
+Have fun!

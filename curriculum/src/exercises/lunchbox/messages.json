@@ -55,5 +55,15 @@
       "question": "How do I decide where each item goes?",
       "answer": "Keep a running total of the sizes you've added. Before adding an item, check whether the total plus its size would still fit within the capacity. If it does, it goes in the lunchbox, otherwise it goes in the rucksack."
     }
+  },
+  "functions": {
+    "toReversed": {
+      "description": "Returns a copy of the array with the elements in reverse order, without changing the original (provided by level stdlib)",
+      "category": "Array Operations"
+    },
+    "push": {
+      "description": "Returns a new array with the element added to the end (provided by level stdlib)",
+      "category": "Array Operations"
+    }
   }
 }
