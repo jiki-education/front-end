@@ -6,6 +6,6 @@ export default class LunchboxExercise extends IOExercise {
     return metadata.slug;
   }
 
-  // Functions are provided by the level's stdlib (push)
+  // Functions are provided by the level's stdlib (array methods: push, toReversed)
   availableFunctions = [];
 }

@@ -9,22 +9,42 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This exercise allows a student to explore building a list incrementally with push() while
-    conditionally skipping an item (the drink, when it equals "milkshake") based on a comparison.
+    Greedy "fit as many as possible under a size budget" over an array of [name, size] pairs,
+    partitioning every item into either the lunchbox or the rucksack.
 
-    Non-obvious context: code checks enforce that exactly one list literal ([]) is created and
-    that push() is actually used, so building the result any other way will fail.
+    Non-obvious context: the input arrives largest-first, and the expected outputs are the
+    MAX-COUNT packing with BOTH result arrays ordered smallest-to-largest. So a student who
+    walks the array as given (largest-first) fails "pack-the-most" — they grab a big item early
+    and fit fewer. The intended insight is to go smallest-first (reverse the array), which both
+    maximises the count AND produces the required smallest-to-largest ordering for free in both
+    arrays. Because iteration is smallest-first, once an item is rejected every later item is
+    bigger and also rejected, so the rucksack naturally comes out sorted too.
   `,
 
   tasks: {
-    "pack-a-lunch": {
+    "pack-lunchbox": {
       description: `
-        Teaching strategy: get the regular (non-milkshake) case working first, then add the
-        conditional around only the drink push.
+        Anchor steps:
+        1. Read each pair: item[0] is the name, item[1] is the size.
+        2. Turn the largest-first array into smallest-first (toReversed(), or otherwise).
+        3. Loop smallest-first with a running total; if total + size stays within capacity, push
+           the name onto the lunchbox and add the size, else push the name onto the rucksack.
+        4. Return [lunchbox, rucksack] — an array of the two arrays, names only (not the pairs).
 
-        Common mistakes:
-        - Putting the if check around the wrong items (it should only affect the drink)
-        - Checking for equality with "milkshake" instead of inequality
+        Traps worth watching:
+        - Forgetting to reverse: passes edge cases but fails "pack-the-most", and yields the
+          wrong (largest-first) ordering in both arrays.
+        - Using > / < instead of <= on the boundary (an item whose size exactly hits the
+          remaining room must still fit).
+        - Returning just the lunchbox, or returning the [name, size] pairs instead of the names.
+      `
+    },
+    "solve-in-sixteen-lines": {
+      description: `
+        Bonus (conciseness): same logic, but within 16 lines of code (JS). The line to save is
+        the intermediate reversed-array variable — inline items.toReversed() directly into the
+        for-loop header instead of storing it first. Don't push toward cramped one-liners; the
+        intended tightening is just dropping that one variable.
       `
     }
   }

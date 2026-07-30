@@ -3,20 +3,20 @@
   "levelId": "building-arrays",
   "hints": [
     {
-      "question": "hints.basicShape.question",
-      "answer": "hints.basicShape.answer"
+      "question": "hints.readEachItem.question",
+      "answer": "hints.readEachItem.answer"
     },
     {
-      "question": "hints.addItems.question",
-      "answer": "hints.addItems.answer"
+      "question": "hints.fitTheMost.question",
+      "answer": "hints.fitTheMost.answer"
     },
     {
-      "question": "hints.leaveMilkshakeOut.question",
-      "answer": "hints.leaveMilkshakeOut.answer"
+      "question": "hints.goSmallestFirst.question",
+      "answer": "hints.goSmallestFirst.answer"
     },
     {
-      "question": "hints.listNotGrowing.question",
-      "answer": "hints.listNotGrowing.answer"
+      "question": "hints.knowWhenFull.question",
+      "answer": "hints.knowWhenFull.answer"
     }
   ]
 }

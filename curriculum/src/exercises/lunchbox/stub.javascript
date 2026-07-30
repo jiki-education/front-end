@@ -1,3 +1,3 @@
-function packALunch(sandwich, drink, snack) {
+function packLunch(items, capacity) {
   // Your code here
 }

@@ -1,3 +1,3 @@
-function pack_a_lunch with sandwich, drink, snack do
+function pack_lunch with items, capacity do
   // Your code here
 end

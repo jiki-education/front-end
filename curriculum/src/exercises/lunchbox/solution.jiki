@@ -1,9 +1,19 @@
-function pack_a_lunch with sandwich, drink, snack do
-  set lunchbox to []
-  change lunchbox to push(lunchbox, sandwich)
-  if drink != "milkshake" do
-    change lunchbox to push(lunchbox, drink)
+function pack_lunch with items, capacity do
+  set smallest_first to []
+  for each item in items do
+    change smallest_first to concat([item], smallest_first)
   end
-  change lunchbox to push(lunchbox, snack)
-  return lunchbox
+
+  set lunchbox to []
+  set rucksack to []
+  set total to 0
+  for each item in smallest_first do
+    if total + item[2] <= capacity do
+      change lunchbox to push(lunchbox, item[1])
+      change total to total + item[2]
+    else do
+      change rucksack to push(rucksack, item[1])
+    end
+  end
+  return [lunchbox, rucksack]
 end
