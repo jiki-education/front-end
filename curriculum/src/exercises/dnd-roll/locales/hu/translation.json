@@ -6,9 +6,9 @@
     "damageNumber": "A sebzésnek számnak kell lennie"
   },
   "describers": {
-    "roll": "rolled a die and got ${return}",
-    "announce": "announced ${arg1}",
-    "strike": "struck the goblin with attack ${arg1} and damage ${arg2}"
+    "roll": "feldobott egy kockát, és ${return} lett az eredmény",
+    "announce": "bejelentette ezt az értéket: ${arg1}",
+    "strike": "lecsapott a koboldra ${arg1} támadással és ${arg2} sebzéssel"
   },
   "checks": {
     "announcementCount": "3 bejelentést vártunk, de {{got}} érkezett. Ügyelj arra, hogy minden dobást bejelents.",
