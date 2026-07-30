@@ -1,7 +1,6 @@
 "use client";
 
 import { useAuthStore } from "@/lib/auth/authStore";
-import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { ALL_LOCALES } from "@/lib/locales";
 import Link from "next/link";
 import { useEffect, useLayoutEffect, useState } from "react";
@@ -34,7 +33,7 @@ import styles from "./TranslatathonBanner.module.css";
 interface TranslatathonCopy {
   /** Sentence text before the linked call-to-action (may be empty). */
   pre: string;
-  /** The linked call-to-action text (the "Join the Translatathon" part). */
+  /** The linked call-to-action text (the "Join the translation session" part). */
   link: string;
   /** Sentence text after the linked call-to-action (may be empty). */
   post: string;
@@ -42,174 +41,179 @@ interface TranslatathonCopy {
   close: string;
 }
 
+// Where the call-to-action goes (opens in a new tab).
+const TRANSLATATHON_URL = "https://i18n.jiki.io";
+
 /**
  * Fully-translated copy for each language in the Translatathon program, keyed by
  * the program's own locale ids (matching ../../translator/languages/names.json,
  * minus `hu` which we already ship). Multi-variant languages have one entry per
  * variant (es-419/es-ES, pt-BR/pt-pt, zh-CN/zh-TW); resolveTarget maps a browser
  * tag to the right one. Each string is written in that language, with the
- * language's own name for itself; "Jiki" and "Translatathon" stay as proper nouns.
+ * language's own name for itself and a translated phrase for the translation
+ * session (we don't leave "Translatathon" untranslated); only "Jiki" stays as a
+ * proper noun.
  */
 const COPY: Record<string, TranslatathonCopy> = {
   ar: {
     pre: "هل تريد مساعدتنا في ترجمة Jiki إلى العربية؟ ",
-    link: "انضمّ إلى Translatathon",
+    link: "انضمّ إلى جلسة الترجمة",
     post: "",
     close: "إغلاق"
   },
   bn: {
     pre: "Jiki-কে বাংলায় অনুবাদ করতে আমাদের সাহায্য করতে চান? ",
-    link: "Translatathon-এ যোগ দিন",
+    link: "অনুবাদ সেশনে যোগ দিন",
     post: "",
     close: "বন্ধ করুন"
   },
   ca: {
     pre: "Vols ajudar-nos a traduir Jiki al català? ",
-    link: "Uneix-te al Translatathon",
+    link: "Uneix-te a la sessió de traducció",
     post: "",
     close: "Tanca"
   },
   de: {
     pre: "Möchtest du uns helfen, Jiki ins Deutsche zu übersetzen? ",
-    link: "Mach beim Translatathon mit",
+    link: "Mach bei der Übersetzungssession mit",
     post: "",
     close: "Schließen"
   },
   el: {
     pre: "Θέλεις να μας βοηθήσεις να μεταφράσουμε το Jiki στα Ελληνικά; ",
-    link: "Λάβε μέρος στο Translatathon",
+    link: "Λάβε μέρος στη μεταφραστική συνεδρία",
     post: "",
     close: "Κλείσιμο"
   },
   "es-419": {
     pre: "¿Quieres ayudarnos a traducir Jiki al español? ",
-    link: "Únete al Translatathon",
+    link: "Únete a la sesión de traducción",
     post: "",
     close: "Cerrar"
   },
   "es-ES": {
     pre: "¿Quieres ayudarnos a traducir Jiki al español? ",
-    link: "Únete al Translatathon",
+    link: "Únete a la sesión de traducción",
     post: "",
     close: "Cerrar"
   },
   fa: {
     pre: "می‌خواهید در ترجمهٔ Jiki به فارسی به ما کمک کنید؟ ",
-    link: "به Translatathon بپیوندید",
+    link: "به نشست ترجمه بپیوندید",
     post: "",
     close: "بستن"
   },
   fr: {
     pre: "Vous voulez nous aider à traduire Jiki en français ? ",
-    link: "Rejoignez le Translatathon",
+    link: "Rejoignez la session de traduction",
     post: "",
     close: "Fermer"
   },
   hi: {
     pre: "क्या आप Jiki का हिन्दी में अनुवाद करने में हमारी मदद करना चाहते हैं? ",
-    link: "Translatathon में शामिल हों",
+    link: "अनुवाद सत्र में शामिल हों",
     post: "",
     close: "बंद करें"
   },
   id: {
     pre: "Ingin membantu kami menerjemahkan Jiki ke Bahasa Indonesia? ",
-    link: "Ikuti Translatathon",
+    link: "Ikuti sesi terjemahan",
     post: "",
     close: "Tutup"
   },
   it: {
     pre: "Vuoi aiutarci a tradurre Jiki in italiano? ",
-    link: "Partecipa al Translatathon",
+    link: "Partecipa alla sessione di traduzione",
     post: "",
     close: "Chiudi"
   },
   ja: {
     pre: "Jiki を日本語に翻訳するのを手伝いませんか？",
-    link: "Translatathon に参加する",
+    link: "翻訳セッションに参加する",
     post: "",
     close: "閉じる"
   },
   ko: {
     pre: "Jiki를 한국어로 번역하는 데 도움을 주시겠어요? ",
-    link: "Translatathon에 참여하세요",
+    link: "번역 세션에 참여하세요",
     post: "",
     close: "닫기"
   },
   nl: {
     pre: "Wil je ons helpen Jiki naar het Nederlands te vertalen? ",
-    link: "Doe mee aan de Translatathon",
+    link: "Doe mee aan de vertaalsessie",
     post: "",
     close: "Sluiten"
   },
   pl: {
     pre: "Chcesz pomóc nam przetłumaczyć Jiki na polski? ",
-    link: "Dołącz do Translatathonu",
+    link: "Dołącz do sesji tłumaczeniowej",
     post: "",
     close: "Zamknij"
   },
   "pt-BR": {
     pre: "Quer nos ajudar a traduzir o Jiki para o português? ",
-    link: "Participe do Translatathon",
+    link: "Participe da sessão de tradução",
     post: "",
     close: "Fechar"
   },
   "pt-pt": {
     pre: "Quer ajudar-nos a traduzir o Jiki para português? ",
-    link: "Junte-se ao Translatathon",
+    link: "Junte-se à sessão de tradução",
     post: "",
     close: "Fechar"
   },
   ru: {
     pre: "Хотите помочь нам перевести Jiki на русский? ",
-    link: "Присоединяйтесь к Translatathon",
+    link: "Присоединяйтесь к сессии перевода",
     post: "",
     close: "Закрыть"
   },
   sr: {
     pre: "Желите да нам помогнете да преведемо Jiki на српски? ",
-    link: "Придружите се Translatathon-у",
+    link: "Придружите се преводилачкој сесији",
     post: "",
     close: "Затвори"
   },
   sw: {
     pre: "Ungependa kutusaidia kutafsiri Jiki kwa Kiswahili? ",
-    link: "Jiunge na Translatathon",
+    link: "Jiunge na kikao cha tafsiri",
     post: "",
     close: "Funga"
   },
   tr: {
     pre: "Jiki'yi Türkçeye çevirmemize yardım etmek ister misin? ",
-    link: "Translatathon'a katıl",
+    link: "Çeviri oturumuna katıl",
     post: "",
     close: "Kapat"
   },
   uk: {
     pre: "Хочете допомогти нам перекласти Jiki українською? ",
-    link: "Долучайтеся до Translatathon",
+    link: "Долучайтеся до сесії перекладу",
     post: "",
     close: "Закрити"
   },
   ur: {
     pre: "کیا آپ Jiki کا اردو میں ترجمہ کرنے میں ہماری مدد کرنا چاہتے ہیں؟ ",
-    link: "Translatathon میں شامل ہوں",
+    link: "ترجمے کے سیشن میں شامل ہوں",
     post: "",
     close: "بند کریں"
   },
   vi: {
     pre: "Bạn muốn giúp chúng tôi dịch Jiki sang Tiếng Việt? ",
-    link: "Tham gia Translatathon",
+    link: "Tham gia buổi dịch thuật",
     post: "",
     close: "Đóng"
   },
   "zh-CN": {
     pre: "想帮我们把 Jiki 翻译成中文吗？",
-    link: "加入 Translatathon",
+    link: "加入翻译活动",
     post: "",
     close: "关闭"
   },
   "zh-TW": {
     pre: "想幫我們把 Jiki 翻譯成中文嗎？",
-    link: "加入 Translatathon",
+    link: "加入翻譯活動",
     post: "",
     close: "關閉"
   }
@@ -237,7 +241,6 @@ interface Target {
 const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 export function TranslatathonBanner() {
-  const routes = useLocaleRoutes();
   // Signed-in users only. We read the current auth state and don't wait for the
   // auth check to settle: if we don't yet know they're authed, we simply show
   // nothing (and re-render once the store flips). This lets the same component
@@ -267,7 +270,7 @@ export function TranslatathonBanner() {
   return (
     <div className={styles.banner} dir={dir}>
       <span>{copy.pre}</span>
-      <Link href={routes.blogPost("translatathon")} target="_blank" rel="noopener noreferrer">
+      <Link href={TRANSLATATHON_URL} target="_blank" rel="noopener noreferrer">
         {copy.link}
       </Link>
       <span>{copy.post}</span>
@@ -353,7 +356,7 @@ function englishCopy(lang: string): TranslatathonCopy | null {
   }
   return {
     pre: `Want to help us translate Jiki to ${name}? `,
-    link: "Join the Translatathon",
+    link: "Join the translation session",
     post: "",
     close: "Close this notice"
   };
