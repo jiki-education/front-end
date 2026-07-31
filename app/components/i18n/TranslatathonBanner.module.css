@@ -1,0 +1,31 @@
+.banner {
+    position: relative;
+    color: var(--color-gray-700);
+    border-bottom: 1px solid var(--color-amber-300);
+    background: var(--color-amber-200);
+    font-size: 15px;
+    font-weight: 500;
+    padding: 8px 40px;
+    text-align: center;
+
+    a {
+        color: var(--color-blue-600);
+        font-weight: 600;
+        text-decoration: underline;
+        display: inline;
+    }
+}
+
+.close {
+    position: absolute;
+    top: 50%;
+    inset-inline-end: 12px;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: var(--color-gray-700);
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px;
+}
