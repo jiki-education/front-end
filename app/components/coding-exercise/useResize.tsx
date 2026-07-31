@@ -6,6 +6,10 @@ type Direction = "horizontal" | "vertical";
 
 const STORAGE_KEY = "coding-exercise-panel-sizes";
 const LHS_MIN_PIXELS = 400;
+// Minimum height of the bottom (test results) panel in the LHS top/bottom split.
+// The top editor row is allowed to grow up to `containerHeight - BOTTOM_MIN_PIXELS`,
+// which makes this the smallest the bottom panel can actually be dragged to.
+const BOTTOM_MIN_PIXELS = 300;
 
 function clampVerticalPercentage(percentage: number, containerWidth: number) {
   const minPercentage = Math.min(70, Math.max(30, (LHS_MIN_PIXELS / containerWidth) * 100));
@@ -101,14 +105,15 @@ export function useResizablePanels() {
     applyVertical(container, verticalDividerRef.current, verticalPercentage);
 
     if (typeof stored.horizontalPixels === "number") {
-      const maxHorizontalPixels = container.getBoundingClientRect().height - 200;
-      if (maxHorizontalPixels >= 200) {
-        const clamped = Math.min(Math.max(stored.horizontalPixels, 200), maxHorizontalPixels);
-        // The 50vh cap keeps the editor row from forcing the grid taller than
-        // the viewport if the window shrinks after the size was stored.
-        container.style.gridTemplateRows = `min(${clamped}px, 50vh) 1fr`;
+      // Clamp to the live container so the editor row can never force the grid
+      // taller than the viewport, and the bottom panel keeps its 300px minimum
+      // even if the window shrank after the size was stored.
+      const maxHorizontalPixels = container.getBoundingClientRect().height - BOTTOM_MIN_PIXELS;
+      if (maxHorizontalPixels >= BOTTOM_MIN_PIXELS) {
+        const clamped = Math.min(Math.max(stored.horizontalPixels, BOTTOM_MIN_PIXELS), maxHorizontalPixels);
+        container.style.gridTemplateRows = `${clamped}px 1fr`;
         if (horizontalDividerRef.current) {
-          horizontalDividerRef.current.style.top = `min(${clamped}px, 50vh)`;
+          horizontalDividerRef.current.style.top = `${clamped}px`;
         }
       }
     }
@@ -199,10 +204,10 @@ export function useResizablePanels() {
       const offsetY = moveEvent.clientY - containerRect.top;
       const pixelPosition = offsetY;
 
-      if (pixelPosition >= 200 && pixelPosition <= containerRect.height - 200) {
+      if (pixelPosition >= BOTTOM_MIN_PIXELS && pixelPosition <= containerRect.height - BOTTOM_MIN_PIXELS) {
         latestPixels = pixelPosition;
-        horizontalDivider.style.top = `min(${pixelPosition}px, 50vh)`;
-        container.style.gridTemplateRows = `min(${pixelPosition}px, 50vh) 1fr`;
+        horizontalDivider.style.top = `${pixelPosition}px`;
+        container.style.gridTemplateRows = `${pixelPosition}px 1fr`;
       }
     };
 
