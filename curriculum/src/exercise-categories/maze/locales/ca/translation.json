@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "Oh, no! Has intentat caure per la vora del laberint!",
+    "hitWall": "Ai! Has topat amb una paret!",
+    "walkedIntoFire": "Ai! T'has ficat al foc!",
+    "walkedIntoPoop": "Ecs! Has trepitjat la caca! 💩💩💩"
+  },
+  "describers": {
+    "move": "Mou el personatge una casella endavant",
+    "turnLeft": "Gira el personatge 90 graus a l'esquerra",
+    "turnRight": "Gira el personatge 90 graus a la dreta"
+  }
+}

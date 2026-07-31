@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "¡Oh, no! ¡Has intentado caerte por el borde del laberinto!",
+    "hitWall": "¡Ay! ¡Te has chocado contra una pared!",
+    "walkedIntoFire": "¡Ay! ¡Te has metido en el fuego!",
+    "walkedIntoPoop": "¡Puaj! ¡Has pisado la caca! 💩💩💩"
+  },
+  "describers": {
+    "move": "Mueve al personaje una casilla hacia delante",
+    "turnLeft": "Gira al personaje 90 grados a la izquierda",
+    "turnRight": "Gira al personaje 90 grados a la derecha"
+  }
+}

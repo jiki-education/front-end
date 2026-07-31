@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "O nie, postać zaraz spadnie z krawędzi labiryntu!",
+    "hitWall": "Auć, postać wchodzi prosto w ścianę!",
+    "walkedIntoFire": "Auć! Postać wchodzi prosto w ogień!",
+    "walkedIntoPoop": "Fuj! Postać wchodzi prosto w kupę! 💩💩💩"
+  },
+  "describers": {
+    "move": "Przesuwa postać o jedno pole do przodu",
+    "turnLeft": "Obraca postać o 90 stopni w lewo",
+    "turnRight": "Obraca postać o 90 stopni w prawo"
+  }
+}

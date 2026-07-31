@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "Waduh, kamu mencoba jatuh dari tepi labirin!",
+    "hitWall": "Aduh, kamu menabrak dinding!",
+    "walkedIntoFire": "Aduh! Kamu berjalan masuk ke api!",
+    "walkedIntoPoop": "Iiih! Kamu menginjak kotoran! 💩💩💩"
+  },
+  "describers": {
+    "move": "Pindahkan karakter maju satu petak",
+    "turnLeft": "Putar karakter 90 derajat ke kiri",
+    "turnRight": "Putar karakter 90 derajat ke kanan"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "Oh não! Tentaste cair pela borda do labirinto!",
+    "hitWall": "Ai! Foste contra uma parede!",
+    "walkedIntoFire": "Ai! Entraste no fogo!",
+    "walkedIntoPoop": "Que nojo! Pisaste o cocó! 💩💩💩"
+  },
+  "describers": {
+    "move": "Move a personagem uma célula para a frente",
+    "turnLeft": "Vira a personagem 90 graus para a esquerda",
+    "turnRight": "Vira a personagem 90 graus para a direita"
+  }
+}

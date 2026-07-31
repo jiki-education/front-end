@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "이런, 미로 밖으로 떨어질 뻔했어요!",
+    "hitWall": "아야! 벽에 부딪혔어요!",
+    "walkedIntoFire": "아야! 불 속으로 걸어 들어갔어요!",
+    "walkedIntoPoop": "으악! 똥을 밟았어요! 💩💩💩"
+  },
+  "describers": {
+    "move": "캐릭터를 한 칸 앞으로 움직여요",
+    "turnLeft": "캐릭터를 왼쪽으로 90도 돌려요",
+    "turnRight": "캐릭터를 오른쪽으로 90도 돌려요"
+  }
+}

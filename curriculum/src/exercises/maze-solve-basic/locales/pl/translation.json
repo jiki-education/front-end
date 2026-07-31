@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "Twoja postać nie dotarła do końca labiryntu."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Poprowadź postać do końca labiryntu",
+      "description": "Przejdź przez labirynt, aby dotrzeć do zielonego celu"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Poprowadź postać do końca labiryntu",
+      "description": "Twoim zadaniem jest przeprowadzenie postaci przez labirynt do zielonego pola mety."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "Co i gdzie mam przesuwać?",
+      "answer": "Przesuwasz małą postać, która zaczyna w lewym górnym rogu, do zielonego kółka w prawym dolnym rogu, omijając pola w czerwone paski."
+    },
+    "turnLeftTurnsRight": {
+      "question": "Obracam w lewo, a postać obraca się w prawo!",
+      "answer": "Postać obraca się względem kierunku, w którym patrzy. Jeśli więc patrzy w prawo, a Ty obrócisz w lewo, postać zacznie patrzeć w górę."
+    }
+  }
+}

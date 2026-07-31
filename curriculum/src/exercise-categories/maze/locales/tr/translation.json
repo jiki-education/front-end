@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "Eyvah, labirentin kenarından aşağı düşecektiniz!",
+    "hitWall": "Ah, duvara çarptınız!",
+    "walkedIntoFire": "Ah! Ateşin içine girdiniz!",
+    "walkedIntoPoop": "İyyy! Kakaya bastınız! 💩💩💩"
+  },
+  "describers": {
+    "move": "Karakteri bir hücre ileri taşır",
+    "turnLeft": "Karakteri 90 derece sola döndürür",
+    "turnRight": "Karakteri 90 derece sağa döndürür"
+  }
+}

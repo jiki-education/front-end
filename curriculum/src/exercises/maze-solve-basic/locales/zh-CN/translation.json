@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "你没有走到迷宫的终点。"
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "把角色带到迷宫的终点",
+      "description": "穿过迷宫，走到绿色的目标格"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "把角色带到迷宫的终点",
+      "description": "你的任务是让角色穿过迷宫，走到绿色的终点格。"
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "我要把什么移动到哪里？",
+      "answer": "你要把角色从左上角移动到右下角的绿色圆圈，同时避开所有红色条纹的格子。"
+    },
+    "turnLeftTurnsRight": {
+      "question": "我让它左转，角色却向右转了！",
+      "answer": "角色是相对于它当前面朝的方向转向的。所以如果它正面朝右，这时左转，它就会变成面朝上。"
+    }
+  }
+}

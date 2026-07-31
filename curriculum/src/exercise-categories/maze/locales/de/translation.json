@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "Oh nein - du wolltest über den Rand des Labyrinths hinauslaufen!",
+    "hitWall": "Autsch - du bist gegen eine Wand gelaufen!",
+    "walkedIntoFire": "Autsch! Du bist ins Feuer gelaufen!",
+    "walkedIntoPoop": "Igitt! Du bist in den Haufen getreten! 💩💩💩"
+  },
+  "describers": {
+    "move": "Bewegt die Figur ein Feld nach vorne",
+    "turnLeft": "Dreht die Figur um 90 Grad nach links",
+    "turnRight": "Dreht die Figur um 90 Grad nach rechts"
+  }
+}

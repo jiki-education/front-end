@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "Lik nije stigao do kraja labirinta."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Provedi lika do kraja labirinta",
+      "description": "Prođi kroz labirint i stigni do zelenog cilja"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Provedi lika do kraja labirinta",
+      "description": "Tvoj zadatak je da provedeš svog lika kroz labirint do zelenog polja koje je cilj."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "Šta pomeram i kuda?",
+      "answer": "Pomeraš malog lika, koji kreće iz gornjeg levog ugla, do zelenog kruga u donjem desnom uglu, zaobilazeći sva crveno prugasta polja."
+    },
+    "turnLeftTurnsRight": {
+      "question": "Kada skrenem levo, lik skreće desno!",
+      "answer": "Lik se okreće u odnosu na smer u kom trenutno gleda. Ako gleda udesno, a ti skreneš levo, lik će se okrenuti nagore."
+    }
+  }
+}

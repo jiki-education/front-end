@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "Oh no, hai provato a cadere oltre il bordo del labirinto!",
+    "hitWall": "Ahi, hai sbattuto contro un muro!",
+    "walkedIntoFire": "Ahi! Hai camminato dritto nel fuoco!",
+    "walkedIntoPoop": "Bleah! Hai camminato dritto nella cacca! 💩💩💩"
+  },
+  "describers": {
+    "move": "Sposta il personaggio in avanti di una casella",
+    "turnLeft": "Gira il personaggio di 90 gradi a sinistra",
+    "turnRight": "Gira il personaggio di 90 gradi a destra"
+  }
+}
