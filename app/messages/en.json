@@ -376,7 +376,8 @@
       "columnType": "Type",
       "columnMethod": "Method",
       "downloadReceipt": "Download Receipt",
-      "typeRecurring": "Recurring"
+      "typeRecurring": "Recurring",
+      "dateUnavailable": "Date unavailable"
     },
     "profile": {
       "nameLabel": "Name",
@@ -1577,7 +1578,11 @@
       "serverError": "Server error. Please try again in a few moments.",
       "networkError": "Network error. Please check your connection and try again.",
       "timeout": "Request timed out. Please try again.",
-      "unexpected": "An unexpected error occurred. Please try again."
+      "unexpected": "An unexpected error occurred. Please try again.",
+      "noResponseBody": "Something went wrong receiving the response. Please try again.",
+      "streamProcessing": "Something went wrong reading the response. Please try again.",
+      "unknown": "An unexpected error occurred. Please try again.",
+      "requestFailed": "The request failed. Please try again."
     },
     "stuckHeader": {
       "title": "Feeling Stuck? Ask Jiki!"

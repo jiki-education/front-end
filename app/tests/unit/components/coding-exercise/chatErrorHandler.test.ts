@@ -76,6 +76,26 @@ describe("chatErrorHandler", () => {
       expect(formatChatError(error)).toEqual({ type: "text", text: "Something odd happened" });
     });
 
+    it("keys client-originated no-response-body errors instead of relaying English", () => {
+      const error = new ChatApiError("No response body received", undefined, undefined, "no_response_body");
+      expect(formatChatError(error)).toEqual({ type: "key", key: "chatError.noResponseBody", params: undefined });
+    });
+
+    it("keys stream-processing errors instead of relaying English", () => {
+      const error = new ChatApiError("boom", undefined, undefined, "stream_processing");
+      expect(formatChatError(error)).toEqual({ type: "key", key: "chatError.streamProcessing", params: undefined });
+    });
+
+    it("keys unknown client errors instead of relaying English", () => {
+      const error = new ChatApiError("Unknown error", undefined, undefined, "unknown");
+      expect(formatChatError(error)).toEqual({ type: "key", key: "chatError.unknown", params: undefined });
+    });
+
+    it("keys our own composed HTTP-status message instead of relaying English", () => {
+      const error = new ChatApiError("HTTP 422: Unprocessable Entity", 422, undefined, "request_failed");
+      expect(formatChatError(error)).toEqual({ type: "key", key: "chatError.requestFailed", params: undefined });
+    });
+
     it("keys completely unknown errors to the generic fallback", () => {
       expect(formatChatError("nope")).toEqual({ type: "key", key: "chatError.unexpected", params: undefined });
     });

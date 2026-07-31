@@ -62,6 +62,17 @@ export function formatChatError(error: unknown): ChatErrorMessage {
   }
 
   if (error instanceof ChatApiError) {
+    // Client-originated failures carry a stable `code` (no server copy to relay),
+    // so classify on it first and resolve to a localized key.
+    if (error.code === "no_response_body") {
+      return key("chatError.noResponseBody");
+    }
+    if (error.code === "stream_processing") {
+      return key("chatError.streamProcessing");
+    }
+    if (error.code === "unknown") {
+      return key("chatError.unknown");
+    }
     if (error.status === 403) {
       // Exercise mismatch - token was for a different exercise
       return key("chatError.exerciseMismatch");
@@ -88,6 +99,11 @@ export function formatChatError(error: unknown): ChatErrorMessage {
     }
     if (error.status && error.status >= 500) {
       return key("chatError.serverError");
+    }
+    // Our own composed "HTTP <status>" message (client-side) — localize it rather
+    // than relay the English.
+    if (error.code === "request_failed") {
+      return key("chatError.requestFailed");
     }
     // Server-provided message for statuses we don't classify — passes through.
     return { type: "text", text: error.message };

@@ -12,7 +12,11 @@ export default function PaymentHistoryRow({ payment, onDownloadReceipt }: Paymen
   const t = useTranslations("settings.paymentHistory");
   const format = useFormatter();
   const formatDate = (dateString: string) => {
-    return format.dateTime(new Date(dateString), {
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      return t("dateUnavailable");
+    }
+    return format.dateTime(date, {
       month: "short",
       day: "numeric",
       year: "numeric"

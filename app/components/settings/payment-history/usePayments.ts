@@ -2,24 +2,6 @@ import { useEffect, useState } from "react";
 import { fetchPayments, type ApiPayment } from "@/lib/api/payments";
 import type { Payment } from "./types";
 
-function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-
-  // Validate the date
-  if (isNaN(date.getTime())) {
-    console.error(`Invalid date string: ${dateString}`);
-    return "Date unavailable";
-  }
-
-  return date
-    .toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit"
-    })
-    .replace(/\//g, "-");
-}
-
 function sanitizeAmount(amountInCents: number): number {
   if (!Number.isFinite(amountInCents)) {
     console.error(`Invalid amount: ${amountInCents}`);
@@ -37,7 +19,9 @@ function sanitizeAmount(amountInCents: number): number {
 function mapApiPaymentToPayment(apiPayment: ApiPayment): Payment {
   return {
     id: apiPayment.id,
-    date: formatDate(apiPayment.paid_at),
+    // Raw ISO timestamp; PaymentHistoryRow formats it in the active locale (and
+    // falls back to a localized label if it can't be parsed).
+    date: apiPayment.paid_at,
     amountInCents: sanitizeAmount(apiPayment.amount_in_cents),
     currency: apiPayment.currency,
     type: "Recurring",

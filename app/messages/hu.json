@@ -376,7 +376,8 @@
       "columnType": "Típus",
       "columnMethod": "Mód",
       "downloadReceipt": "Nyugta letöltése",
-      "typeRecurring": "Recurring"
+      "typeRecurring": "Recurring",
+      "dateUnavailable": "Date unavailable"
     },
     "profile": {
       "nameLabel": "Név",
@@ -1577,7 +1578,11 @@
       "serverError": "Szerverhiba. Próbáld újra pár pillanat múlva.",
       "networkError": "Hálózati hiba. Ellenőrizd a kapcsolatodat, és próbáld újra.",
       "timeout": "A kérés túllépte az időkorlátot. Próbáld újra.",
-      "unexpected": "Váratlan hiba történt. Próbáld újra."
+      "unexpected": "Váratlan hiba történt. Próbáld újra.",
+      "noResponseBody": "Something went wrong receiving the response. Please try again.",
+      "streamProcessing": "Something went wrong reading the response. Please try again.",
+      "unknown": "An unexpected error occurred. Please try again.",
+      "requestFailed": "The request failed. Please try again."
     },
     "stuckHeader": {
       "title": "Elakadtál? Kérdezd Jikit!"
