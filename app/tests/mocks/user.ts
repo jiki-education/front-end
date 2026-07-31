@@ -18,6 +18,7 @@ export function createMockUser(overrides?: Partial<User>): User {
     provider: "email",
     email_confirmed: true,
     locale: "en",
+    locales: ["en"],
     ...overrides
   };
 }

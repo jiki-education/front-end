@@ -18,6 +18,11 @@ export interface User {
   provider: string;
   email_confirmed: boolean;
   locale: string;
+  // Every locale parsed out of the user's browser Accept-Language string that the
+  // API recognised as valid, in the browser's own preference order. Sits alongside
+  // `locale` (the persisted account preference) on /internal/me; the first entry is
+  // preferred over `locale` when picking the UI locale. See lib/i18n/userLocale.ts.
+  locales: string[];
 }
 
 export interface LoginCredentials {
