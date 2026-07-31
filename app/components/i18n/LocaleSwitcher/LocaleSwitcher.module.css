@@ -2,7 +2,10 @@
     position: fixed;
     bottom: 16px;
     inset-inline-start: 16px;
-    z-index: var(--z-index-fixed);
+    /* Deliberately not a --z-index-* token: this staging-only widget has to sit
+       above everything, including the nav and any modal, and shouldn't have a
+       token minted for it in the shared scale. */
+    z-index: 9999999;
 
     display: flex;
     flex-direction: column;
