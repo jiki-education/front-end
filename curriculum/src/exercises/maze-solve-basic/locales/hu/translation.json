@@ -21,7 +21,7 @@
     },
     "turnLeftTurnsRight": {
       "question": "Balra fordítom, mégis jobbra fordul a figura!",
-      "answer": "A figura mindig ahhoz képest fordul, amerre éppen néz. Ha tehát jobbra néz, és balra fordítod, akkor utána felfelé fog nézni."
+      "answer": "A figura mindig ahhoz képest fordul, amerre éppen néz. Ha tehát jobbra néz, és balra fordul, akkor utána felfelé fog nézni."
     }
   }
 }

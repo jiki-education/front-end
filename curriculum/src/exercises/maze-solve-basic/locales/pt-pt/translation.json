@@ -21,7 +21,7 @@
     },
     "turnLeftTurnsRight": {
       "question": "Quando viro à esquerda, a personagem vira à direita!",
-      "answer": "A personagem vira em relação à direção para onde está virada. Por isso, se estiver virada para a direita e virares à esquerda, a personagem passa a estar virada para cima."
+      "answer": "A personagem vira em relação à direção para onde está virada. Por isso, se estiver virada para a direita e virar à esquerda, a personagem passa a estar virada para cima."
     }
   }
 }

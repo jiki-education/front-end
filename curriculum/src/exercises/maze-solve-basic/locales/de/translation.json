@@ -21,7 +21,7 @@
     },
     "turnLeftTurnsRight": {
       "question": "Wenn ich nach links drehe, dreht sich die Figur nach rechts!",
-      "answer": "Die Figur dreht sich relativ zu der Richtung, in die sie gerade schaut. Wenn sie also nach rechts schaut und du nach links drehst, schaut sie danach nach oben."
+      "answer": "Die Figur dreht sich relativ zu der Richtung, in die sie gerade schaut. Wenn sie also nach rechts schaut und sich nach links dreht, schaut sie danach nach oben."
     }
   }
 }

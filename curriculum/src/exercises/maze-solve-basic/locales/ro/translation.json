@@ -21,7 +21,7 @@
     },
     "turnLeftTurnsRight": {
       "question": "Când întorc la stânga, personajul se întoarce la dreapta!",
-      "answer": "Personajul se întoarce față de direcția în care este orientat. Deci dacă este orientat spre dreapta și îl întorci la stânga, va ajunge să fie orientat în sus."
+      "answer": "Personajul se întoarce față de direcția în care este orientat. Deci dacă este orientat spre dreapta și se întoarce la stânga, va ajunge să fie orientat în sus."
     }
   }
 }

@@ -21,7 +21,7 @@
     },
     "turnLeftTurnsRight": {
       "question": "Quan giro a l'esquerra, el personatge gira a la dreta!",
-      "answer": "El personatge gira respecte a la direcció cap a on mira. Així, si mira cap a la dreta i gires a l'esquerra, passarà a mirar cap amunt."
+      "answer": "El personatge gira respecte a la direcció cap a on mira. Així, si mira cap a la dreta i gira a l'esquerra, passarà a mirar cap amunt."
     }
   }
 }

@@ -21,7 +21,7 @@
     },
     "turnLeftTurnsRight": {
       "question": "Als ik naar links draai, draait het poppetje naar rechts!",
-      "answer": "Het poppetje draait ten opzichte van de richting waarin het kijkt. Kijkt het naar rechts en draai je naar links, dan kijkt het poppetje daarna omhoog."
+      "answer": "Het poppetje draait ten opzichte van de richting waarin het kijkt. Kijkt het naar rechts en draait het naar links, dan kijkt het poppetje daarna omhoog."
     }
   }
 }

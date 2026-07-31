@@ -21,7 +21,7 @@
     },
     "turnLeftTurnsRight": {
       "question": "Waktu aku belok kiri, tokohnya malah belok kanan!",
-      "answer": "Tokohnya berbelok relatif terhadap arah yang sedang dia hadapi. Jadi kalau dia sedang menghadap ke kanan lalu kamu belok kiri, dia akan berbalik menghadap ke atas."
+      "answer": "Tokohnya berbelok relatif terhadap arah yang sedang dia hadapi. Jadi kalau dia sedang menghadap ke kanan lalu belok kiri, dia akan berbalik menghadap ke atas."
     }
   }
 }

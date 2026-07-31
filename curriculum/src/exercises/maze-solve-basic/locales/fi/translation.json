@@ -21,7 +21,7 @@
     },
     "turnLeftTurnsRight": {
       "question": "Käännyn vasemmalle, mutta hahmo kääntyykin oikealle!",
-      "answer": "Hahmo kääntyy aina suhteessa siihen suuntaan, johon se katsoo. Jos se siis katsoo oikealle ja käännät sitä vasemmalle, se katsoo sen jälkeen ylöspäin."
+      "answer": "Hahmo kääntyy aina suhteessa siihen suuntaan, johon se katsoo. Jos se siis katsoo oikealle ja kääntyy vasemmalle, se katsoo sen jälkeen ylöspäin."
     }
   }
 }

@@ -21,7 +21,7 @@
     },
     "turnLeftTurnsRight": {
       "question": "Mình cho quay sang trái mà nhân vật lại quay sang phải!",
-      "answer": "Nhân vật quay so với hướng đang nhìn. Vì vậy nếu nhân vật đang nhìn sang phải mà bạn cho quay sang trái thì nhân vật sẽ chuyển sang nhìn lên trên."
+      "answer": "Nhân vật quay so với hướng đang nhìn. Vì vậy nếu nhân vật đang nhìn sang phải mà quay sang trái thì nhân vật sẽ chuyển sang nhìn lên trên."
     }
   }
 }

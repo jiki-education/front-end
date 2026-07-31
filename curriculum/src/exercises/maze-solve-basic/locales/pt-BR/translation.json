@@ -21,7 +21,7 @@
     },
     "turnLeftTurnsRight": {
       "question": "Quando eu viro à esquerda, o bonequinho vira à direita!",
-      "answer": "O bonequinho vira em relação à direção para onde ele está olhando. Então, se ele estiver olhando para a direita e você virar à esquerda, ele passa a olhar para cima."
+      "answer": "O bonequinho vira em relação à direção para onde ele está olhando. Então, se ele estiver olhando para a direita e virar à esquerda, ele passa a olhar para cima."
     }
   }
 }

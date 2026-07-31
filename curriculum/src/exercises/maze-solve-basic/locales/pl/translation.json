@@ -21,7 +21,7 @@
     },
     "turnLeftTurnsRight": {
       "question": "Obracam w lewo, a postać obraca się w prawo!",
-      "answer": "Postać obraca się względem kierunku, w którym patrzy. Jeśli więc patrzy w prawo, a Ty obrócisz w lewo, postać zacznie patrzeć w górę."
+      "answer": "Postać obraca się względem kierunku, w którym patrzy. Jeśli więc patrzy w prawo, a obróci się w lewo, postać zacznie patrzeć w górę."
     }
   }
 }

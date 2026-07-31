@@ -21,7 +21,7 @@
     },
     "turnLeftTurnsRight": {
       "question": "Kada skrenem levo, lik skreće desno!",
-      "answer": "Lik se okreće u odnosu na smer u kom trenutno gleda. Ako gleda udesno, a ti skreneš levo, lik će se okrenuti nagore."
+      "answer": "Lik se okreće u odnosu na smer u kom trenutno gleda. Ako gleda udesno, a skrene levo, lik će se okrenuti nagore."
     }
   }
 }

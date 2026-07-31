@@ -21,7 +21,7 @@
     },
     "turnLeftTurnsRight": {
       "question": "Quando giro a sinistra, il personaggio gira a destra!",
-      "answer": "Il personaggio gira rispetto alla direzione in cui è rivolto. Quindi, se è rivolto verso destra e giri a sinistra, il personaggio si ritroverà rivolto verso l'alto."
+      "answer": "Il personaggio gira rispetto alla direzione in cui è rivolto. Quindi, se è rivolto verso destra e gira a sinistra, il personaggio si ritroverà rivolto verso l'alto."
     }
   }
 }

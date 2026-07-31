@@ -21,7 +21,7 @@
     },
     "turnLeftTurnsRight": {
       "question": "När jag svänger vänster svänger figuren höger!",
-      "answer": "Figuren svänger i förhållande till det håll den är vänd åt. Om den är vänd åt höger och du svänger vänster, blir figuren vänd uppåt."
+      "answer": "Figuren svänger i förhållande till det håll den är vänd åt. Om den är vänd åt höger och svänger vänster, blir figuren vänd uppåt."
     }
   }
 }
