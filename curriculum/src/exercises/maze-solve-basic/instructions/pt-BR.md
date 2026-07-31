@@ -4,7 +4,7 @@ description: "Guie o Jiki por um labirinto usando instruções simples."
 en_md5: bbd838559fba4dcf527a55ba135703cd
 ---
 
-Boas-vindas ao seu primeiro exercício!
+Vamos ao seu primeiro exercício!
 
 O objetivo deste exercício é te familiarizar com o funcionamento do ambiente de aprendizado. Sua tarefa é resolver o labirinto que aparece à esquerda dando instruções ao bonequinho. Você escreve todas as instruções que ele precisa seguir e depois clica em **Executar código** para ele segui-las.
 

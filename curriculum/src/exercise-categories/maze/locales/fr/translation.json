@@ -1,9 +1,9 @@
 {
   "errors": {
-    "fellOffEdge": "Oh non, tu as failli tomber du bord du labyrinthe!",
-    "hitWall": "Aïe, tu as foncé dans un mur!",
-    "walkedIntoFire": "Aïe! Tu as marché droit dans le feu!",
-    "walkedIntoPoop": "Beurk! Tu as marché dans le caca! 💩💩💩"
+    "fellOffEdge": "Oh non, tu as failli tomber du bord du labyrinthe !",
+    "hitWall": "Aïe, tu as foncé dans un mur !",
+    "walkedIntoFire": "Aïe ! Tu as marché droit dans le feu !",
+    "walkedIntoPoop": "Beurk ! Tu as marché dans le caca ! 💩💩💩"
   },
   "describers": {
     "move": "Déplace le personnage d'une case vers l'avant",

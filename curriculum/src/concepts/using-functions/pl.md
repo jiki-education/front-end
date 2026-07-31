@@ -1,7 +1,7 @@
 ---
 title: "Używanie funkcji"
 description: "Powiedz Jikiemu, żeby uruchomił jedną ze swoich małych maszyn: wpisz jej nazwę, a po niej dwa nawiasy."
-en_md5: 007a425ced42fd3550bfdf9fe6f7b391
+en_md5: fc671310093a081113a8f301b6ff53fe
 ---
 
 Kiedy piszesz kod, w rzeczywistości mówisz w języku zrozumiałym dla komputera, co ma się stać. Istnieje wiele różnych języków programowania i wiele różnych interpreterów, które biorą to, co piszesz, i zamieniają na zera i jedynki zrozumiałe dla komputera. W tym kursie Twoim interpreterem jest Jiki. Cały kurs wziął nazwę od Jikiego. Oto Jiki. Jiki będzie Twoim przyjacielem w tej programistycznej podróży. Jego zadaniem jest interpretowanie kodu, który piszesz, i zamiana go na zera i jedynki, na które komputer potrafi już zareagować.
@@ -14,7 +14,7 @@ Kiedy piszesz kod, w rzeczywistości mówisz w języku zrozumiałym dla komputer
   height="400"
 />
 
-Cały sens programowania polega na tym, żeby dawać interpreterowi, w tym przypadku Jikiemu, właściwe instrukcje. A instrukcji, które możesz dać Jikiemu, jest naprawdę wiele, bo rozumie on bardzo dużo. Potrafi skleić różne rzeczy ze sobą, potrafi zrobić coś wiele razy, potrafi powiedzieć: „Jeśli stanie się to, muszę zrobić tamto". Potrafi zapamiętać różne rzeczy i użyć ich później. Jeśli coś jest nie tak, potrafi zgłosić błąd (ang. _error_). Wszystkim tym zajmiemy się w trakcie kursu. Najważniejsze jednak, żeby zrozumieć jedno: wszystko, co będziesz robić, polega na tym, że wypisujesz instrukcje w notatniku, a Jiki przychodzi i je wykonuje.
+Cały sens programowania polega na tym, żeby dawać interpreterowi, w tym przypadku Jikiemu, właściwe instrukcje. A instrukcji, które możesz dać Jikiemu, jest naprawdę wiele, bo rozumie on bardzo dużo. Potrafi skleić różne rzeczy ze sobą, potrafi zrobić coś wiele razy, potrafi powiedzieć: „Jeśli stanie się to, muszę zrobić tamto". Potrafi zapamiętać różne rzeczy i użyć ich później. Jeśli coś jest nie tak, potrafi zgłosić błąd. Wszystkim tym zajmiemy się w trakcie kursu. Najważniejsze jednak, żeby zrozumieć jedno: wszystko, co będziesz robić, polega na tym, że wypisujesz instrukcje w notatniku, a Jiki przychodzi i je wykonuje.
 
 Kiedy 34 lata temu uczyłem się programować, zbudowałem sobie właśnie taki model mentalny i mam go w głowie do dziś. Rozumiem, jak działają komputery, aż do poziomu zer i jedynek, ale szczerze mówiąc, nigdy o tym nie myślę. W mojej głowie w komputerze mieszka mały człowieczek, któremu mówię, co ma robić. Więc spróbuj popatrzeć na to tak samo. To potężny model mentalny, który możesz sobie zbudować, a jeśli zaczniesz myśleć w ten bardzo obrazowy sposób o tym, co robi ten człowieczek w komputerze, bardzo Ci to pomoże w nauce programowania.
 
@@ -45,4 +45,4 @@ move()
 turnLeft()
 ```
 
-A jak ta maszyna właściwie działa i co dzieje się w jej środku, tym na razie nie musimy się przejmować. Przyjrzymy się temu dużo dokładniej później. Co więcej, już niedługo będziesz potrafić budować własne maszyny. Na razie jednak się tym nie przejmuj. W każdym ćwiczeniu dowiesz się, jakie maszyny stoją na półce Jikiego. W każdym będą inne, a użyjesz ich do rozwiązania zadania.
+A jak ta maszyna właściwie działa i co dzieje się w jej środku, tym na razie nie musimy się przejmować. Przyjrzymy się temu dużo dokładniej później. Co więcej, już niedługo nauczysz się budować własne maszyny. Na razie jednak się tym nie przejmuj. W każdym ćwiczeniu dowiesz się, jakie maszyny stoją na półce Jikiego. W każdym będą inne, a użyjesz ich do rozwiązania zadania.

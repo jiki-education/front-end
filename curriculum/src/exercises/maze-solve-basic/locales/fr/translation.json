@@ -16,12 +16,12 @@
   },
   "hints": {
     "whatAmIMoving": {
-      "question": "Qu'est-ce que je déplace, et vers où?",
-      "answer": "Tu déplaces le petit personnage, qui part en haut à gauche, jusqu'au cercle vert en bas à droite, en évitant les cases rayées de rouge."
+      "question": "Qu'est-ce que je déplace, et vers où ?",
+      "answer": "Tu déplaces le petit personnage, qui part d'en haut à gauche, jusqu'au cercle vert en bas à droite. Évite les cases rayées de rouge."
     },
     "turnLeftTurnsRight": {
-      "question": "Quand je tourne à gauche, le personnage tourne à droite!",
-      "answer": "Le personnage tourne par rapport à la direction dans laquelle il regarde. Donc si tu regardes vers la droite et que tu tournes à gauche, le personnage se retrouvera tourné vers le haut."
+      "question": "Quand je tourne à gauche, le personnage tourne à droite !",
+      "answer": "Le personnage tourne par rapport à la direction dans laquelle il regarde. Donc si le personnage regarde vers la droite et qu'il tourne à gauche, il se retrouvera tourné vers le haut."
     }
   }
 }

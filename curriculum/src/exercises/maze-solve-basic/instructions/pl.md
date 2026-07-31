@@ -4,9 +4,9 @@ description: "Poprowadź Jikiego przez labirynt za pomocą prostych instrukcji."
 en_md5: bbd838559fba4dcf527a55ba135703cd
 ---
 
-Witaj w Twoim pierwszym ćwiczeniu!
+Witaj w swoim pierwszym ćwiczeniu!
 
-Celem tego ćwiczenia jest zapoznanie się z tym, jak działa środowisko nauki. Twoim zadaniem jest rozwiązanie labiryntu widocznego po lewej stronie, przez podawanie instrukcji małej postaci. Zapisujesz wszystkie instrukcje, które postać ma wykonać, a potem klikasz **Uruchom kod**, żeby je wykonała.
+Celem tego ćwiczenia jest zapoznanie się z tym, jak działa środowisko nauki. Twoim zadaniem jest rozwiązanie labiryntu widocznego po lewej stronie przez podawanie instrukcji małej postaci. Zapisujesz wszystkie instrukcje, które postać ma wykonać, a potem klikasz **Uruchom kod**, żeby je wykonała.
 
 Trzy instrukcje, których możesz użyć, to:
 

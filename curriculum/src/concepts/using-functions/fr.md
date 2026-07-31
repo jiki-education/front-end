@@ -1,10 +1,10 @@
 ---
 title: "Utiliser les fonctions"
 description: "Dis à Jiki d'utiliser l'une de ses petites machines en écrivant son nom suivi de deux parenthèses."
-en_md5: 007a425ced42fd3550bfdf9fe6f7b391
+en_md5: fc671310093a081113a8f301b6ff53fe
 ---
 
-Quand tu écris du code, ce que tu fais en réalité, c'est expliquer ce que tu veux voir se produire, dans une langue que l'ordinateur comprend. Il existe énormément de langages de programmation différents, et tout autant d'interprètes (_interpreters_ en anglais), ceux qui prennent ce que tu écris et le transforment en uns et zéros que l'ordinateur peut comprendre. Dans ce cours, ton interprète s'appelle Jiki. Le cours entier porte son nom. Le voici : c'est Jiki. Jiki sera ton ami tout au long de ce voyage dans le code. Son travail consiste à interpréter le code que tu écris et à le transformer en uns et zéros sur lesquels l'ordinateur peut vraiment agir.
+Quand tu écris du code, ce que tu fais en réalité, c'est expliquer ce que tu veux voir se produire, dans une langue que l'ordinateur comprend. Il existe énormément de langages de programmation différents, et tout autant d'interprètes qui prennent ce que tu écris et le transforment en uns et zéros que l'ordinateur peut comprendre. Dans ce cours, ton interprète s'appelle Jiki. Le cours entier porte son nom. Le voici : c'est Jiki. Jiki sera ton ami tout au long de ce voyage dans le code. Son travail consiste à interpréter le code que tu écris et à le transformer en uns et zéros sur lesquels l'ordinateur peut vraiment agir.
 
 <img
   class="concept-image"
@@ -14,7 +14,7 @@ Quand tu écris du code, ce que tu fais en réalité, c'est expliquer ce que tu 
   height="400"
 />
 
-Tout l'intérêt du code, c'est de donner à l'interprète, Jiki en l'occurrence, les bonnes instructions. Et les instructions que tu peux donner à Jiki sont très nombreuses, car il comprend énormément de choses. Il peut coller des éléments les uns aux autres, il peut faire quelque chose un grand nombre de fois, et il peut se dire : « Si ceci arrive, alors je dois faire cela. » Il peut retenir des choses, puis les réutiliser plus tard. Et si quelque chose ne va pas, il peut te signaler une erreur (_error_ en anglais). On va voir tout cela au fil du cours. Mais l'essentiel à comprendre, c'est que tout ce que tu vas faire consiste à écrire des instructions sur un tableau blanc, que Jiki viendra ensuite lire et suivre.
+Tout l'intérêt du code, c'est de donner à l'interprète, Jiki en l'occurrence, les bonnes instructions. Et les instructions que tu peux donner à Jiki sont très nombreuses, car il comprend énormément de choses. Il peut coller des éléments les uns aux autres, il peut faire quelque chose un grand nombre de fois, et il peut se dire : « Si ceci arrive, alors je dois faire cela. » Il peut retenir des choses, puis les réutiliser plus tard. Et si quelque chose ne va pas, il peut te signaler une erreur. On va voir tout cela au fil du cours. Mais l'essentiel à comprendre, c'est que tout ce que tu vas faire consiste à écrire des instructions sur un tableau blanc, que Jiki viendra ensuite lire et suivre.
 
 Quand j'ai appris à coder il y a 34 ans, c'est ce modèle mental que je me suis construit, et c'est encore celui que j'ai aujourd'hui. Je comprends le fonctionnement d'un ordinateur jusqu'aux uns et aux zéros, mais très honnêtement, je n'y pense jamais. Dans ma tête, il y a un petit bonhomme qui vit à l'intérieur de l'ordinateur, et je lui dis quoi faire. Alors suis-moi sur ce terrain, parce que ce modèle mental est puissant et que tu peux le construire toi aussi. Si tu commences à te représenter de façon très visuelle ce que fait ce petit bonhomme dans l'ordinateur, cela te rendra un immense service pendant que tu apprends à coder.
 
