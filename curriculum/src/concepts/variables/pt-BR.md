@@ -1,7 +1,7 @@
 ---
 title: "Criando e usando variáveis"
 description: "Caixas nas prateleiras do Jiki que guardam um valor com uma etiqueta, para você pegar de volta depois no seu código."
-en_md5: cc99d0320435124c96d2fed07dc28074
+en_md5: 6fca9aed7a4f51de337288e739f8b44a
 ---
 
 As variáveis (_variables_ em inglês) são o que nos permite guardar informações. Quando estamos programando, muitas vezes precisamos guardar algum número ou alguma string para usar depois, e as variáveis são como fazemos isso. Então vamos nos afastar um pouco no galpão do Jiki, e você vai ver que ele tem outro conjunto de prateleiras. Já conhecemos as primeiras prateleiras, que guardam as funções, aquelas maquininhas como `move` e `rectangle`. Mas nessas segundas prateleiras, em vez de máquinas, você pode ver um monte de caixas, e essas caixas são o que chamamos de variáveis. Você pode pedir ao Jiki para guardar qualquer coisa nessas caixas e, mais tarde, pedir para ele tirar de lá de novo. Cada caixa tem um nome, exatamente como as funções têm um nome, e cada caixa contém só uma coisa. Por enquanto, um número ou uma string. Mas vamos ver como guardar coisas mais complexas nelas mais adiante no curso.
@@ -14,7 +14,7 @@ As variáveis (_variables_ em inglês) são o que nos permite guardar informaç�
   height="173"
 />
 
-Então, como dizemos ao Jiki para fazer uma caixa e colocar algo dentro dela? Usamos a palavra-chave `let`. A palavra-chave `let` diz ao Jiki que ele precisa fazer uma caixa nova. Você pode imaginar ele desembalando uma caixa de papelão, montando tudo e, então, olhando o que vem depois da palavra `let`: essa é a etiqueta que ele cola na caixa, neste caso, `name` (nome). Então ele pega a caneta e escreve `name` na etiqueta. Depois, ele olha o que vem depois do sinal de igual (_equal sign_ em inglês). Neste caso, é o meu nome, `"Jeremy"`, e como `"Jeremy"` é uma string, ele pega um pedaço de papel e escreve `"Jeremy"` nele. É só uma string, exatamente igual às cores com que você vem trabalhando, e então ele coloca esse pedaço de papel dentro da caixa.
+Então, como dizemos ao Jiki para fazer uma caixa e colocar algo dentro dela? Usamos a palavra-chave `let` (deixe). A palavra-chave `let` diz ao Jiki que ele precisa fazer uma caixa nova. Você pode imaginar ele desembalando uma caixa de papelão, montando tudo e, então, olhando o que vem depois da palavra `let`: essa é a etiqueta que ele cola na caixa, neste caso, `name` (nome). Então ele pega a caneta e escreve `name` na etiqueta. Depois, ele olha o que vem depois do sinal de igual (_equal sign_ em inglês). Neste caso, é o meu nome, `"Jeremy"`, e como `"Jeremy"` é uma string, ele pega um pedaço de papel e escreve `"Jeremy"` nele. É só uma string, exatamente igual às cores com que você vem trabalhando, e então ele coloca esse pedaço de papel dentro da caixa.
 
 ```javascript
 let name = "Jeremy"
@@ -42,9 +42,9 @@ Além disso, cada nome de variável precisa ser único. Você não pode ter duas
   height="400"
 />
 
-Então vamos ver onde podemos querer usar uma variável. Digamos que estamos desenhando um sol no céu. Sabemos que podemos usar a função `circle` (círculo) e dar quatro entradas a ela: a posição da esquerda, a do topo, o `radius` (raio) e a `color` (cor). Mas, à medida que desenhamos várias coisas e ficamos com todos esses números espalhados pelo código, pode ficar bem difícil de acompanhar e de ler. Então, em vez disso, podemos criar variáveis para cada um deles: a esquerda, o topo, o `radius` e a `color`, e depois nos referir a essas variáveis. Nosso objetivo final aqui é conseguir usar a função `circle` passando nomes de caixas claros e legíveis, e, quando o Jiki vir esses nomes, ele vai saber que precisa pegar as caixas nas prateleiras e usar o que estiver dentro delas.
+Então vamos ver onde podemos querer usar uma variável. Digamos que estamos desenhando um sol no céu. Sabemos que podemos usar a função `circle` (círculo) e dar quatro entradas a ela: `left` (esquerda), `top` (topo), `radius` (raio) e `color` (cor). Mas, à medida que desenhamos várias coisas e ficamos com todos esses números espalhados pelo código, pode ficar bem difícil de acompanhar e de ler. Então, em vez disso, podemos criar variáveis para cada um deles: `left`, `top`, `radius` e `color`, e depois nos referir a essas variáveis. Nosso objetivo final aqui é conseguir usar a função `circle` passando nomes de caixas claros e legíveis, e, quando o Jiki vir esses nomes, ele vai saber que precisa pegar as caixas nas prateleiras e usar o que estiver dentro delas.
 
-Então vamos criar algumas variáveis para isso. Começamos com a posição esquerda do sol. Usamos a palavra-chave `let` para dizer ao Jiki para criar uma caixa nova chamada `leftPosition`. Repare no camel case, com o P maiúsculo. E dizemos ao Jiki que número vai dentro da caixa. Ele coloca a caixa nas prateleiras e depois faz o mesmo para `topPosition`, `radius` e `color`.
+Então vamos criar algumas variáveis para isso. Começamos com a posição da esquerda do sol. Usamos a palavra-chave `let` para dizer ao Jiki para criar uma caixa nova chamada `leftPosition` (posição da esquerda). Repare no camel case, com o P maiúsculo. E dizemos ao Jiki que número vai dentro da caixa. Ele coloca a caixa nas prateleiras e depois faz o mesmo para `topPosition` (posição do topo), `radius` e `color`.
 
 ```javascript
 let leftPosition = 10

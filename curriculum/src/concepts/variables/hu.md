@@ -1,7 +1,7 @@
 ---
 title: "Változók létrehozása és használata"
 description: "Dobozok Jiki polcain: egy-egy értéket őriznek felcímkézve, hogy később bármikor elővehesd őket a kódodban."
-en_md5: cc99d0320435124c96d2fed07dc28074
+en_md5: 6fca9aed7a4f51de337288e739f8b44a
 ---
 
 Az információ tárolására a változók (_variables_ angolul) szolgálnak. Programozás közben gyakran el kell tennünk egy számot vagy egy stringet későbbre, és pontosan erre valók a változók. Nézzük hát egy kicsit távolabbról Jiki raktárát! Látni fogod, hogy van benne egy másik polcsor is. Az elsőt már ismerjük: azon sorakoznak a függvények, ezek a kis gépek, mint a `move` vagy a `rectangle`. Ezen a második polcsoron viszont gépek helyett rengeteg dobozt látsz, és ezeket a dobozokat hívjuk változóknak. Jikinek bármit odaadhatsz, hogy tegye el egy ilyen dobozba, később pedig megkérheted, hogy vegye elő újra. Minden doboznak van neve, pontosan úgy, ahogy a függvényeknek is, és minden dobozban pontosan egy dolog van. Egyelőre egy szám vagy egy string, de a kurzus későbbi részében azt is megnézzük, hogyan tárolhatunk bennük összetettebb dolgokat.
@@ -14,7 +14,7 @@ Az információ tárolására a változók (_variables_ angolul) szolgálnak. Pr
   height="173"
 />
 
-Na de hogyan mondjuk meg Jikinek, hogy készítsen egy dobozt, és tegyen bele valamit? A `let` kulcsszóval. A `let` kulcsszó azt jelzi Jikinek, hogy új dobozt kell készítenie. Képzeld el, ahogy kibontja a kartondobozt a csomagolásából, összeállítja, majd megnézi, mi áll a `let` szó után: ez lesz a címke, amit a dobozra tesz, jelen esetben a `name` (név). Fogja hát a tollát, és ráírja a címkére, hogy `name`. Ezután megnézi, mi áll az egyenlőségjel (_equal sign_ angolul) után. Ez most az én nevem, a `"Jeremy"`, és mivel a `"Jeremy"` egy string, Jiki fog egy papírlapot, és ráírja, hogy `"Jeremy"`. Ez ugyanolyan string, mint a színek, amikkel eddig dolgoztál. A papírlapot pedig beleteszi a dobozba.
+Na de hogyan mondjuk meg Jikinek, hogy készítsen egy dobozt, és tegyen bele valamit? A `let` (legyen) kulcsszóval. A `let` kulcsszó azt jelzi Jikinek, hogy új dobozt kell készítenie. Képzeld el, ahogy kibontja a kartondobozt a csomagolásából, összeállítja, majd megnézi, mi áll a `let` szó után: ez lesz a címke, amit a dobozra tesz, jelen esetben a `name` (név). Fogja hát a tollát, és ráírja a címkére, hogy `name`. Ezután megnézi, mi áll az egyenlőségjel (_equal sign_ angolul) után. Ez most az én nevem, a `"Jeremy"`, és mivel a `"Jeremy"` egy string, Jiki fog egy papírlapot, és ráírja, hogy `"Jeremy"`. Ez ugyanolyan string, mint a színek, amikkel eddig dolgoztál. A papírlapot pedig beleteszi a dobozba.
 
 ```javascript
 let name = "Jeremy"
@@ -42,9 +42,9 @@ Emellett minden változónévnek egyedinek kell lennie. Nem lehet két dobozod u
   height="400"
 />
 
-Nézzük meg, hol jöhet jól egy változó. Tegyük fel, hogy egy napot rajzolunk az égre. Tudjuk, hogy használhatjuk a `circle` (kör) függvényt, és négy bemenetet adhatunk neki: left, top, `radius` (sugár) és `color` (szín). Ahogy azonban egyre több mindent rajzolunk, és ezek a számok szétszórva hevernek a kódban, egyre nehezebb átlátni és követni őket. Ehelyett létrehozhatunk egy-egy változót a left, a top, a `radius` és a `color` értékének, és később ezekre a változókra hivatkozunk. A végcélunk az, hogy a `circle` függvénynek szép, olvasható dobozneveket adhassunk meg, és amikor Jiki meglátja ezeket a neveket, tudja, hogy le kell vennie a dobozokat a polcról, és azt kell használnia, ami bennük van.
+Nézzük meg, hol jöhet jól egy változó. Tegyük fel, hogy egy napot rajzolunk az égre. Tudjuk, hogy használhatjuk a `circle` (kör) függvényt, és négy bemenetet adhatunk neki: `left` (bal), `top` (felső), `radius` (sugár) és `color` (szín). Ahogy azonban egyre több mindent rajzolunk, és ezek a számok szétszórva hevernek a kódban, egyre nehezebb átlátni és követni őket. Ehelyett létrehozhatunk egy-egy változót a `left`, a `top`, a `radius` és a `color` értékének, és később ezekre a változókra hivatkozunk. A végcélunk az, hogy a `circle` függvénynek szép, olvasható dobozneveket adhassunk meg, és amikor Jiki meglátja ezeket a neveket, tudja, hogy le kell vennie a dobozokat a polcról, és azt kell használnia, ami bennük van.
 
-Hozzunk hát létre néhány változót. Kezdjük a nap bal oldali pozíciójával. A `let` kulcsszóval szólunk Jikinek, hogy készítsen egy új, `leftPosition` nevű dobozt. Figyeld meg itt is a camel case-t a nagy P-vel. Azt is megmondjuk Jikinek, milyen szám kerüljön a dobozba. Ő felteszi a polcra, majd ugyanígy elkészíti a `topPosition`, a `radius` és a `color` dobozát is.
+Hozzunk hát létre néhány változót. Kezdjük a nap bal oldali pozíciójával. A `let` kulcsszóval szólunk Jikinek, hogy készítsen egy új, `leftPosition` (bal oldali pozíció) nevű dobozt. Figyeld meg itt is a camel case-t a nagy P-vel. Azt is megmondjuk Jikinek, milyen szám kerüljön a dobozba. Ő felteszi a polcra, majd ugyanígy elkészíti a `topPosition` (felső pozíció), a `radius` és a `color` dobozát is.
 
 ```javascript
 let leftPosition = 10
