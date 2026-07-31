@@ -1,6 +1,7 @@
 import { RangeSet, StateEffect, StateField } from "@codemirror/state";
 import type { Range } from "@codemirror/state";
 import { EditorView, gutter, GutterMarker, lineNumbers } from "@codemirror/view";
+import { editorMessage } from "../../../lib/i18n/editorMessages";
 
 export const breakpointEffect = StateEffect.define<{
   pos: number;
@@ -47,7 +48,9 @@ const breakpointMarker = new (class extends GutterMarker {
   toDOM() {
     const dot = document.createElement("div");
     dot.classList.add("cm-breakpoint-marker");
-    dot.title = "Remove breakpoint";
+    // Resolved in toDOM (per-render) rather than at module load so it reflects
+    // the seeded locale — this marker is a module-level singleton.
+    dot.title = editorMessage("breakpoint.removeBreakpoint");
     return dot;
   }
 })();
@@ -56,7 +59,7 @@ class IdleMarker extends GutterMarker {
   toDOM() {
     const dot = document.createElement("div");
     dot.classList.add("cm-idle-marker");
-    dot.title = "Add breakpoint";
+    dot.title = editorMessage("breakpoint.addBreakpoint");
     return dot;
   }
 }

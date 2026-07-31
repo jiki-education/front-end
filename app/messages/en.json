@@ -331,7 +331,8 @@
       "benefit3": "Completion certificates",
       "benefit4": "Ad-free experience",
       "keep": "Keep my subscription",
-      "cancel": "Cancel subscription"
+      "cancel": "Cancel subscription",
+      "defaultBillingPeriodEnd": "your billing period end"
     },
     "cancelSuccess": {
       "title": "Subscription cancelled",
@@ -1430,6 +1431,7 @@
   "codingExercise": {
     "loadError": "Error loading exercise: {error}",
     "unknownError": "Unknown error",
+    "exerciseNotFound": "Exercise \"{slug}\" not found in curriculum. Available exercises: {available}",
     "runButton": {
       "run": "Run Code",
       "running": "Running...",
@@ -1608,6 +1610,21 @@
     "unhandledError": {
       "heading": "Oops! Something went <strong>very</strong> wrong.",
       "message": "<strong>This is our error, not yours!</strong> Please tell us about this error so we can fix it. Copy the mysterious text below and share it with us on <link>the forum</link>. Thank you! 💙"
+    },
+    "informationWidget": {
+      "errorHeading": "Oops, something went wrong!",
+      "closeAriaLabel": "Close tooltip"
+    },
+    "breakpoint": {
+      "addBreakpoint": "Add breakpoint",
+      "removeBreakpoint": "Remove breakpoint"
+    },
+    "testRunner": {
+      "runtimeErrorAbove": "Your code hit an error while it was running. Fix the error message above to continue.",
+      "codeThrewError": "Your code threw an error while running.",
+      "codeThrewErrorWithDetail": "Your code threw an error while running. ({detail})",
+      "codeCheckError": "Code check error: {detail}",
+      "ioError": "<p>Error: {detail}</p>"
     }
   },
   "lesson": {

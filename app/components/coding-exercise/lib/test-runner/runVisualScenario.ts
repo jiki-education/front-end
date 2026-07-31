@@ -8,6 +8,7 @@ import type {
 } from "@jiki/curriculum";
 import { createTranslator } from "@jiki/curriculum";
 import { resolveCodeCheckError } from "./resolveCodeCheckError";
+import { editorMessage } from "../i18n/editorMessages";
 import type { InterpretResult } from "@jiki/interpreters/shared";
 import type { Messages as InterpreterMessages } from "@jiki/interpreters";
 import { AnimationTimeline as AnimationTimelineClass } from "../AnimationTimeline";
@@ -51,7 +52,7 @@ export function runVisualScenario(
     expects = [
       {
         pass: false,
-        errorHtml: "Your code hit an error while it was running. Fix the error message above to continue."
+        errorHtml: editorMessage("testRunner.runtimeErrorAbove")
       }
     ];
   } else {
@@ -180,7 +181,9 @@ function runPrimaryCheck(
       } catch (error) {
         expects.push({
           pass: false,
-          errorHtml: `Code check error: ${error instanceof Error ? error.message : String(error)}`
+          errorHtml: editorMessage("testRunner.codeCheckError", {
+            detail: error instanceof Error ? error.message : String(error)
+          })
         });
       }
     }
@@ -234,14 +237,16 @@ function runIsolatedCheck(
     const hasFrameError = result.frames.some((f) => f.status === "ERROR");
 
     if (hasFrameError) {
-      return [{ pass: false, errorHtml: "Your code threw an error while running." }];
+      return [{ pass: false, errorHtml: editorMessage("testRunner.codeThrewError") }];
     }
     return checkExpects;
   } catch (error) {
     return [
       {
         pass: false,
-        errorHtml: `Your code threw an error while running. (${error instanceof Error ? error.message : String(error)})`
+        errorHtml: editorMessage("testRunner.codeThrewErrorWithDetail", {
+          detail: error instanceof Error ? error.message : String(error)
+        })
       }
     ];
   }

@@ -4,6 +4,7 @@ import { exercises, type ExerciseSlug, type ExerciseDefinition, type Language } 
 import Orchestrator from "../lib/Orchestrator";
 import type { ExerciseContext } from "../lib/types";
 import { findFileForLanguage, hasPlaceholders, interpolateStub } from "../lib/stubInterpolation";
+import { setEditorMessages } from "../lib/i18n/editorMessages";
 import { getInterpreter } from "../lib/test-runner/getInterpreter";
 import { fetchExerciseContent, fetchExerciseMessages, fetchInterpreterMessages } from "@/lib/api/exercise-meta";
 import { localizeExerciseDefinition } from "@/lib/i18n/localizeExercise";
@@ -38,6 +39,11 @@ export function useExerciseLoader({
   const uiLocale = useLocale();
   const t = useTranslations("codingExercise");
 
+  // Seed the plain-.ts editor/test-runner message registry with the active-locale
+  // translator so CodeMirror extensions and scenario runners resolve their strings
+  // in-locale (they run outside any React/async context). See lib/i18n/editorMessages.ts.
+  setEditorMessages((key, values) => t(key, values));
+
   useEffect(() => {
     const loadExercise = async () => {
       try {
@@ -45,9 +51,7 @@ export function useExerciseLoader({
         const loader = exercises[exerciseSlug];
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!loader) {
-          throw new Error(
-            `Exercise "${exerciseSlug}" not found in curriculum. Available exercises: ${Object.keys(exercises).join(", ")}`
-          );
+          throw new Error(t("exerciseNotFound", { slug: exerciseSlug, available: Object.keys(exercises).join(", ") }));
         }
 
         // Warm the interpreter chunk in the background. getInterpreter() uses a

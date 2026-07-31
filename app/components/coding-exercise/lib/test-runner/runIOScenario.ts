@@ -8,6 +8,7 @@ import type {
 import { createTranslator } from "@jiki/curriculum";
 import type { Messages as InterpreterMessages } from "@jiki/interpreters";
 import { resolveCodeCheckError } from "./resolveCodeCheckError";
+import { editorMessage } from "../i18n/editorMessages";
 import type { IOTestResult, IOTestExpect } from "../test-results-types";
 import isEqual from "lodash/isEqual";
 import { diffChars, diffWords, type Change } from "diff";
@@ -80,7 +81,7 @@ export function runIOScenario(
     );
 
     if (interpretResult.error) {
-      errorHtml = `<p>Error: ${interpretResult.error.message}</p>`;
+      errorHtml = editorMessage("testRunner.ioError", { detail: interpretResult.error.message });
       actual = undefined;
     } else {
       actual = interpretResult.value;
@@ -90,7 +91,9 @@ export function runIOScenario(
     frames = interpretResult.frames;
     logLines = interpretResult.logLines;
   } catch (error) {
-    errorHtml = `<p>Error: ${error instanceof Error ? error.message : String(error)}</p>`;
+    errorHtml = editorMessage("testRunner.ioError", {
+      detail: error instanceof Error ? error.message : String(error)
+    });
     actual = undefined;
   }
 
@@ -120,7 +123,9 @@ export function runIOScenario(
         allCodeChecksPassed = false;
         return {
           pass: false,
-          errorHtml: `Code check error: ${error instanceof Error ? error.message : String(error)}`
+          errorHtml: editorMessage("testRunner.codeCheckError", {
+            detail: error instanceof Error ? error.message : String(error)
+          })
         };
       }
     });
