@@ -1,20 +1,21 @@
 ---
 title: "Space Invaders"
-description: "Shoot down some aliens in your first taste of Space Invaders."
+description: "Lődd le az űrlényeket, és kóstolj bele a Space Invadersbe."
+en_md5: 56b9b22488ae091b5f06cb5afc5bb441
 ---
 
-Welcome to your second exercise - Space Invaders! This is a classic 1970s arcade game, and one of the first I ever played. Over the coming weeks you're going to build a fully automated laser to shoot down the aliens. But for now, your job is just to shoot down all the aliens manually!
+Üdvözlünk a második feladatodban: itt a Space Invaders! Ez egy klasszikus, 1970-es évekbeli arcade-játék, és az egyik legelső, amivel valaha játszottam. A következő hetekben egy teljesen automatizált lézert fogsz építeni, ami leszedi az űrlényeket. Egyelőre viszont csak annyi a dolgod, hogy kézzel lődd le mindet!
 
-You have two functions:
+Két függvényed van (_functions_ angolul):
 
-- `move()` moves your laser cannon one position to the right
-- `shoot()` fires the laser upwards
+- a `move()` (mozogj) egy pozícióval jobbra mozgatja a lézerágyúdat
+- a `shoot()` (lőj) felfelé lő a lézerrel
 
-We've put the first `move()` in place for you. **Look at where the aliens are**, then write a sequence of `move()` and `shoot()` calls to destroy them all.
+Az első `move()`-ot már leírtuk helyetted. **Nézd meg, hol vannak az űrlények**, aztán írj egy olyan `move()` és `shoot()` hívássorozatot, amivel mindet elpusztítod.
 
-Be careful:
+Vigyázz:
 
-- If you shoot when there's no alien above you, you'll get an error (after all, wasting ammo is not allowed!)
-- If you move off the right edge of the screen, you'll get an error.
+- Ha úgy lősz, hogy nincs feletted űrlény, hibát (_error_ angolul) kapsz. Lőszert pazarolni ugyanis tilos!
+- Ha lelépsz a képernyő jobb széléről, szintén hibát kapsz.
 
-Have fun!
+Jó szórakozást!
