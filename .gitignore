@@ -45,3 +45,6 @@ app/public/static/content/
 app/public/static/exercises/
 app/public/static/interpreter-catalogs/
 app/public/static/search/
+
+# graphify knowledge-graph output (local only)
+graphify-out/
