@@ -41,7 +41,8 @@ describe("authStore.checkAuth", () => {
     provider: "email",
     email_confirmed: true,
     locale: "en",
-    locales: ["en"]
+    locales: ["en"],
+    explicit_locale: null
   };
 
   beforeEach(() => {

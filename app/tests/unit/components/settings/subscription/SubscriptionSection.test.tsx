@@ -35,6 +35,7 @@ function createMockUser(overrides?: Partial<User>): User {
     email_confirmed: true,
     locale: "en",
     locales: ["en"],
+    explicit_locale: null,
     ...overrides
   };
 }

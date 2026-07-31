@@ -32,7 +32,8 @@ describe("AuthStore - Exercism Authentication", () => {
     provider: "exercism",
     email_confirmed: true,
     locale: "en",
-    locales: ["en"]
+    locales: ["en"],
+    explicit_locale: null
   };
 
   beforeEach(() => {

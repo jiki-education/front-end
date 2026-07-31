@@ -18,6 +18,10 @@ export interface User {
   provider: string;
   email_confirmed: boolean;
   locale: string;
+  // The locale the user picked deliberately, or null if they never have. Beats
+  // both `locales` and `locale` when choosing the UI locale: an explicit choice
+  // must not be overridden by what the browser happens to be asking for.
+  explicit_locale: string | null;
   // Every locale parsed out of the user's browser Accept-Language string that the
   // API recognised as valid, in the browser's own preference order. Sits alongside
   // `locale` (the persisted account preference) on /internal/me; the first entry is
