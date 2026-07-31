@@ -1,8 +1,9 @@
+import { useTranslations } from "next-intl";
 import { BadgeIcon } from "@/components/icons/BadgeIcon";
 import { BadgeNewLabel } from "@/components/ui/BadgeNewLabel";
 import type { BadgeData } from "@/lib/api/badges";
 import styles from "./BadgeCard.module.css";
-import { getBadgeColor, getBadgeDate, isEarnedBadge, isNewBadge } from "./lib/badgeUtils";
+import { getBadgeColor, getBadgeDateInfo, isEarnedBadge, isNewBadge } from "./lib/badgeUtils";
 
 interface BadgeCardProps {
   badge: BadgeData;
@@ -12,9 +13,12 @@ interface BadgeCardProps {
 }
 
 export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = false }: BadgeCardProps) {
+  const t = useTranslations("achievements.badge");
   const isNew = isNewBadge(badge);
   const isEarned = isEarnedBadge(badge);
-  const badgeDate = getBadgeDate(badge);
+  const dateInfo = getBadgeDateInfo(badge);
+  const badgeDate =
+    dateInfo.status === "earnedRelative" ? t("earnedRelative", { distance: dateInfo.distance }) : t(dateInfo.status);
   const badgeColor = getBadgeColor(badge);
 
   const handleClick = () => {

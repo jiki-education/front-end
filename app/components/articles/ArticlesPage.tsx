@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { getArticles, ARTICLE_TAG_SLUGS, type ArticleTagSlug } from "@/lib/content";
 import PageHeader from "@/components/blog/PageHeader";
 import ArticlesContent from "./ArticlesContent";
@@ -11,6 +12,7 @@ interface ArticlesPageProps {
 }
 
 export default function ArticlesPage({ authenticated: _, locale, tag, page }: ArticlesPageProps) {
+  const t = useTranslations("articles.header");
   // Validate tag param
   const validTag = tag && ARTICLE_TAG_SLUGS.includes(tag as ArticleTagSlug) ? (tag as ArticleTagSlug) : null;
 
@@ -26,11 +28,7 @@ export default function ArticlesPage({ authenticated: _, locale, tag, page }: Ar
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.pageContent}>
-        <PageHeader
-          label="Articles"
-          title="Help and resources"
-          subtitle="Guides, tutorials, and answers to help you get the most out of Jiki."
-        />
+        <PageHeader label={t("label")} title={t("title")} subtitle={t("subtitle")} />
         <ArticlesContent
           articles={articles}
           locale={locale}

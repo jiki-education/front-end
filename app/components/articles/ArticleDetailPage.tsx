@@ -32,6 +32,7 @@ export async function getArticleMetadata(slug: string, locale: string = "en"): P
 }
 
 export default async function ArticleDetailPage({ slug, authenticated, locale }: ArticleDetailPageProps) {
+  const t = await getTranslations({ locale, namespace: "articles.cta" });
   let article;
   try {
     article = await getArticle(slug, locale);
@@ -54,18 +55,18 @@ export default async function ArticleDetailPage({ slug, authenticated, locale }:
       {/* Minimal CTA */}
       <CTABlock
         variant="minimal"
-        title="Try Jiki for free"
-        subtitle="10,000+ learners use Jiki to master programming through hands-on practice and expert mentorship every month."
-        buttonText="Get started now"
+        title={t("minimalTitle")}
+        subtitle={t("minimalSubtitle")}
+        buttonText={t("minimalButton")}
         buttonHref="/signup"
       />
 
       {/* Gradient CTA */}
       <CTABlock
         variant="gradient"
-        title="Ready to Start Your Coding Journey?"
-        subtitle="Join thousands of learners on Jiki. Practice coding exercises, get feedback from mentors, and level up your skills — it's free!"
-        buttonText="Sign Up For Free"
+        title={t("gradientTitle")}
+        subtitle={t("gradientSubtitle")}
+        buttonText={t("gradientButton")}
         buttonHref="/signup"
       />
     </>

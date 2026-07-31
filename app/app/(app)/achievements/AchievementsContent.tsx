@@ -47,13 +47,16 @@ export function AchievementsContent() {
           return;
         }
         console.error("Failed to fetch badges:", err);
-        setError(err instanceof Error ? err.message : "Failed to load badges");
+        setError(err instanceof Error ? err.message : t("loadError"));
       } finally {
         setLoading(false);
       }
     }
 
     void loadBadges();
+    // Mount-once load; `t` is only read for a fallback error message and is
+    // locale-stable, so it isn't a dependency.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { handleBadgeClick, cleanup } = useBadgeActions(badges, setBadges, setSpinningBadgeId, setRecentlyRevealedIds);

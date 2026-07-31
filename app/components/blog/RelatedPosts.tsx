@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { localePath } from "@/lib/i18n/routes";
 import type { BlogPostMeta } from "@/lib/content/types";
@@ -10,13 +11,14 @@ interface RelatedPostsProps {
 }
 
 export default function RelatedPosts({ posts, locale }: RelatedPostsProps) {
+  const t = useTranslations("blog.relatedPosts");
   if (posts.length === 0) {
     return null;
   }
 
   return (
     <div className={styles.relatedPostsContainer}>
-      <h3 className={styles.relatedPostsTitle}>Related Posts</h3>
+      <h3 className={styles.relatedPostsTitle}>{t("heading")}</h3>
       <div className={styles.relatedPostsSection}>
         {posts.map((post) => (
           <RelatedPostCard key={post.slug} post={post} locale={locale} />

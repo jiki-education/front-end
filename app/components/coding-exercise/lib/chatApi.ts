@@ -52,9 +52,11 @@ export class ChatUsageLimitError extends Error {
 }
 
 // 429 rate_limited: short burst throttle. Transient — the user can try again
-// shortly, but we don't auto-retry (that would just hammer the throttle).
+// shortly, but we don't auto-retry (that would just hammer the throttle). When
+// the proxy supplies user-facing copy it passes through as `message`; otherwise
+// the handler falls back to the localized `chatError.tooManyRequests` key.
 export class ChatRateLimitedError extends Error {
-  constructor(message: string = "Too many requests. Please wait a moment and try again.") {
+  constructor(message: string = "") {
     super(message);
     this.name = "ChatRateLimitedError";
   }

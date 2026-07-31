@@ -77,13 +77,16 @@ export function ChallengesContent() {
           return;
         }
         console.error("Failed to fetch challenges:", error);
-        setChallengesError(error instanceof Error ? error.message : "Failed to load challenges");
+        setChallengesError(error instanceof Error ? error.message : t("loadError"));
       } finally {
         setChallengesLoading(false);
       }
     }
 
     void loadChallenges();
+    // Mount-once load; `t` is only read for a fallback error message and is
+    // locale-stable, so it isn't a dependency.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Free users see the challenges page as a wall of locked premium cards.

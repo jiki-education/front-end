@@ -61,6 +61,11 @@ describe("chatErrorHandler", () => {
       });
     });
 
+    it("falls back to the localized key when the proxy gives no rate-limit copy", () => {
+      const error = new ChatRateLimitedError();
+      expect(formatChatError(error)).toEqual({ type: "key", key: "chatError.tooManyRequests", params: undefined });
+    });
+
     it("passes unclassified ChatApiError statuses through with the server message", () => {
       const error = new ChatApiError("I'm a teapot", 418);
       expect(formatChatError(error)).toEqual({ type: "text", text: "I'm a teapot" });

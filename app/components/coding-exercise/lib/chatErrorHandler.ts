@@ -38,9 +38,10 @@ export function formatChatError(error: unknown): ChatErrorMessage {
   }
 
   // Burst throttle — transient. The proxy provides the user-facing copy, so it
-  // passes through untranslated.
+  // passes through untranslated; when it supplies none we fall back to the
+  // localized catalog message.
   if (error instanceof ChatRateLimitedError) {
-    return { type: "text", text: error.message };
+    return error.message ? { type: "text", text: error.message } : key("chatError.tooManyRequests");
   }
 
   // Captcha failure — distinct from access-denied so the user is told to

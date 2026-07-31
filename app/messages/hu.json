@@ -147,7 +147,13 @@
     },
     "saving": "Mentés...",
     "retry": "Újra",
-    "tryAgain": "Próbáld újra"
+    "tryAgain": "Próbáld újra",
+    "betaTag": {
+      "label": "Beta Version"
+    },
+    "userAvatar": {
+      "alt": "User avatar"
+    }
   },
   "build": {
     "upcomingStreams": {
@@ -368,7 +374,8 @@
       "columnAmount": "Összeg",
       "columnType": "Típus",
       "columnMethod": "Mód",
-      "downloadReceipt": "Nyugta letöltése"
+      "downloadReceipt": "Nyugta letöltése",
+      "typeRecurring": "Recurring"
     },
     "profile": {
       "nameLabel": "Név",
@@ -906,7 +913,8 @@
     },
     "error": {
       "notFound": "A fogalom nem található.",
-      "back": "Vissza a fogalmakhoz"
+      "back": "Vissza a fogalmakhoz",
+      "loadFailed": "Failed to load concept. Please try again later."
     },
     "relatedConcepts": {
       "heading": "Kapcsolódó fogalmak",
@@ -1784,7 +1792,13 @@
     "loading": "Eredmények betöltése...",
     "error": "Hiba: {error}",
     "certificatesEmptyTitle": "Még nincs tanúsítványod",
-    "certificatesEmptyBody": "Végezz el kurzusokat, és szerezz tanúsítványokat, amelyek megmutatják a tudásod. A tanúsítványaid itt jelennek meg, amint befejeztél egy kurzust."
+    "certificatesEmptyBody": "Végezz el kurzusokat, és szerezz tanúsítványokat, amelyek megmutatják a tudásod. A tanúsítványaid itt jelennek meg, amint befejeztél egy kurzust.",
+    "badge": {
+      "locked": "Locked",
+      "earnedToday": "Earned today",
+      "earnedRelative": "Earned {distance}"
+    },
+    "loadError": "Failed to load badges"
   },
   "challenges": {
     "title": "Kihívások",
@@ -1814,7 +1828,8 @@
       "noneToStartDescription": "A kihívások itt jelennek meg, ahogy feloldod őket.",
       "completedTitle": "Még nincs befejezett kihívás",
       "completedDescription": "Fejezd be az első kihívásodat, hogy itt lásd. Dolgozz tovább a folyamatban lévő kihívásaidon, hogy elérd ezt a mérföldkövet."
-    }
+    },
+    "loadError": "Failed to load challenges"
   },
   "subscription": {
     "tiers": {
@@ -1840,5 +1855,68 @@
         }
       }
     }
+  },
+  "blog": {
+    "header": {
+      "label": "Blog",
+      "title": "News, insights and witterings",
+      "subtitle": "Deep dives into programming languages, coding challenges, and the art of learning to code."
+    },
+    "postHeader": {
+      "writtenBy": "Written by {name}",
+      "readingTime": "{count, plural, one {# minute read} other {# minute read}}"
+    },
+    "featuredLatest": {
+      "label": "Latest Post",
+      "byAuthor": "by {name}",
+      "readFullArticle": "Read full article →"
+    },
+    "recentPosts": {
+      "heading": "Recent Posts"
+    },
+    "relatedPosts": {
+      "heading": "Related Posts"
+    },
+    "cta": {
+      "minimalTitle": "Try Jiki for free",
+      "minimalSubtitle": "10,000+ learners use Jiki to master programming through hands-on practice and expert mentorship every month.",
+      "minimalButton": "Get started now",
+      "gradientTitle": "Ready to Start Your Coding Journey?",
+      "gradientSubtitle": "Join thousands of learners on Jiki. Practice coding exercises, get feedback from mentors, and level up your skills — it's free!",
+      "gradientButton": "Sign Up For Free"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "Articles",
+      "title": "Help and resources",
+      "subtitle": "Guides, tutorials, and answers to help you get the most out of Jiki.",
+      "writtenBy": "Written by {name}",
+      "readingTime": "{count, plural, one {# minute read} other {# minute read}}"
+    },
+    "relatedArticles": {
+      "heading": "Related Articles"
+    },
+    "search": {
+      "placeholder": "Search articles...",
+      "noResultsTitle": "0 results for “{query}”",
+      "noResultsMessage": "Try a different search term or browse the articles."
+    },
+    "filterSidebar": {
+      "filterBy": "Filter by",
+      "all": "All",
+      "help": "Can't find what you're looking for? Try our <blogs>Blogs</blogs>, <faqs>FAQs</faqs>, <support>Contact support</support>, or ask in our <community>Community</community>"
+    },
+    "cta": {
+      "minimalTitle": "Try Jiki for free",
+      "minimalSubtitle": "10,000+ learners use Jiki to master programming through hands-on practice and expert mentorship every month.",
+      "minimalButton": "Get started now",
+      "gradientTitle": "Ready to Start Your Coding Journey?",
+      "gradientSubtitle": "Join thousands of learners on Jiki. Practice coding exercises, get feedback from mentors, and level up your skills — it's free!",
+      "gradientButton": "Sign Up For Free"
+    }
+  },
+  "checkout": {
+    "declineDefault": "Your last payment didn't go through. Please try again with a different card."
   }
 }

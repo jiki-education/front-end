@@ -14,7 +14,7 @@ import { useAuthStore } from "@/lib/auth/authStore";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import type { ConceptAncestor, ConceptMeta, ExerciseInfo, ChallengeInfo } from "@/types/concepts";
 import type { VideoSource } from "@/types/lesson";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -137,6 +137,7 @@ async function setupForExternalUser(exercises: ExerciseInfo[], ctx: ConceptSetup
 export function useConceptDetailData(slug: string, initialData: ConceptDetailSeed | null = null): ConceptDetailData {
   const router = useRouter();
   const locale = useLocale();
+  const t = useTranslations("concepts.error");
   const conceptsPath = useLocaleRoutes().concepts();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   // Logged-out visitors are seeded with the server-rendered leaf (all unlocked).
@@ -195,7 +196,7 @@ export function useConceptDetailData(slug: string, initialData: ConceptDetailSee
         }
 
         if (!conceptData) {
-          setError("Concept not found.");
+          setError(t("notFound"));
           setIsLoading(false);
           return;
         }
@@ -217,7 +218,7 @@ export function useConceptDetailData(slug: string, initialData: ConceptDetailSee
             })
             .catch(() => {
               if (!cancelled) {
-                setError("Failed to load concept. Please try again later.");
+                setError(t("loadFailed"));
               }
             })
             .finally(() => {
@@ -248,7 +249,7 @@ export function useConceptDetailData(slug: string, initialData: ConceptDetailSee
         if (cancelled) {
           return;
         }
-        setError("Failed to load concept. Please try again later.");
+        setError(t("loadFailed"));
         setIsLoading(false);
         setIsContentLoading(false);
       }
@@ -259,7 +260,7 @@ export function useConceptDetailData(slug: string, initialData: ConceptDetailSee
     return () => {
       cancelled = true;
     };
-  }, [slug, isAuthenticated, router, seeded, conceptsPath, locale]);
+  }, [slug, isAuthenticated, router, seeded, conceptsPath, locale, t]);
 
   const isConceptUnlocked = (conceptSlug: string) => isUnlocked(unlockedConceptSlugs, conceptSlug, isAuthenticated);
 

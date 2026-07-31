@@ -1,6 +1,5 @@
 export interface BadgeModalData {
   title: string;
-  date: string;
   description: string;
   funFact: string;
   color: "pink" | "gold" | "blue" | "green" | "purple" | "teal";

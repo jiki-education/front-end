@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { getBlogPosts } from "@/lib/content";
 import { localePath } from "@/lib/i18n/routes";
 import Pagination from "@/components/ui/Pagination";
@@ -13,6 +14,7 @@ interface BlogPageProps {
 }
 
 export default function BlogPage({ authenticated: _, locale, page }: BlogPageProps) {
+  const t = useTranslations("blog.header");
   const pageNum = page ? Math.max(1, parseInt(page, 10) || 1) : 1;
   const { posts, totalPages, currentPage } = getBlogPosts({ locale, page: pageNum });
 
@@ -21,11 +23,7 @@ export default function BlogPage({ authenticated: _, locale, page }: BlogPagePro
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.pageContent}>
-        <PageHeader
-          label="Blog"
-          title="News, insights and witterings"
-          subtitle="Deep dives into programming languages, coding challenges, and the art of learning to code."
-        />
+        <PageHeader label={t("label")} title={t("title")} subtitle={t("subtitle")} />
         <FeaturedLatestPost post={latestPost} locale={locale} />
         {remainingPosts.length > 0 && <BlogPostsGrid posts={remainingPosts} />}
         <Pagination
