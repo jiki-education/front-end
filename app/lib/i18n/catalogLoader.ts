@@ -10,6 +10,11 @@ import { messageHashes } from "@/lib/generated/messages-hashes";
 /** Resolves a cache-tree path to a fetchable URL (sync on the client, async on the server). */
 type ResolveUrl = (path: string) => string | Promise<string>;
 
+// Catalog served for any locale that has no authored catalog of its own. Kept as a
+// literal rather than imported from lib/locales to avoid a cycle, and because this
+// is about which catalog FILE exists, not which locale is served.
+const FALLBACK_CATALOG_LOCALE = "en";
+
 /**
  * Build a catalog loader with its own promise cache keyed `${locale}:${hash}`.
  * The hash is immutable per build, so a resolved entry is always valid and is
@@ -23,7 +28,21 @@ type ResolveUrl = (path: string) => string | Promise<string>;
 export function createCatalogLoader(resolveUrl: ResolveUrl): (locale: string) => Promise<Record<string, unknown>> {
   const cache = new Map<string, Promise<Record<string, unknown>>>();
 
-  return function loadCatalog(locale: string): Promise<Record<string, unknown>> {
+  return function loadCatalog(requested: string): Promise<Record<string, unknown>> {
+    // STAGING-ONLY BRANCH — DO NOT MERGE TO MAIN.
+    //
+    // SUPPORTED_LOCALES now serves every locale the curriculum translates, but the
+    // app only authors UI catalogs for a couple of them (messages/*.json). Without
+    // this fallback a locale with no catalog of its own rejects, and since there is
+    // no bundled fallback that fails the whole request — /fr/blog would 500 rather
+    // than render. Falling back to English lets the locale routing, hreflang and
+    // /internal/me `locales` wiring be tested ahead of the catalogs existing.
+    //
+    // The consequence is that an untranslated locale renders English UI strings
+    // under its own locale route, which is exactly why this must not reach
+    // production: there it would silently serve English instead of failing loudly.
+    const locale = messageHashes[requested] ? requested : FALLBACK_CATALOG_LOCALE;
+
     const hash = messageHashes[locale];
     if (!hash) {
       return Promise.reject(new Error(`No UI message catalog hash for locale "${locale}"`));

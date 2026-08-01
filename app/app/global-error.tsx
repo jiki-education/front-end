@@ -22,7 +22,12 @@ interface GlobalErrorCopy {
   actionLabel: string;
 }
 
-const COPY: Record<Locale, GlobalErrorCopy> = {
+// English is required (it is the fallback for every locale without an entry);
+// every other locale is optional, so adding a locale doesn't break the build —
+// it just falls back to English until its copy is hand-written here.
+type GlobalErrorCopyMap = Partial<Record<Locale, GlobalErrorCopy>> & { en: GlobalErrorCopy };
+
+const COPY: GlobalErrorCopyMap = {
   en: {
     title: "Something went wrong",
     message: "We encountered an unexpected error. Sorry about that!",
@@ -153,7 +158,7 @@ export function resolveGlobalErrorLocale(): Locale {
 // not present in the dictionary.
 export function getGlobalErrorCopy(locale: string): GlobalErrorCopy {
   const dictionary: Record<string, GlobalErrorCopy | undefined> = COPY;
-  return dictionary[locale] ?? COPY[DEFAULT_LOCALE];
+  return dictionary[locale] ?? COPY.en;
 }
 
 function readCookie(name: string): string | undefined {

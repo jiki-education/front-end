@@ -40,13 +40,13 @@ describe("resolveGlobalErrorLocale", () => {
   });
 
   it("ignores an unsupported URL locale segment and falls through to the default", () => {
-    setPathname("/de/blog");
+    setPathname("/xx/blog");
     expect(resolveGlobalErrorLocale()).toBe("en");
   });
 
   it("ignores an unsupported NEXT_LOCALE cookie value", () => {
     setPathname("/dashboard");
-    document.cookie = `${LOCALE_COOKIE_NAME}=de`;
+    document.cookie = `${LOCALE_COOKIE_NAME}=xx`;
     expect(resolveGlobalErrorLocale()).toBe("en");
   });
 });
@@ -68,6 +68,6 @@ describe("getGlobalErrorCopy", () => {
   });
 
   it("falls back to the English copy for an unknown locale", () => {
-    expect(getGlobalErrorCopy("de")).toEqual(getGlobalErrorCopy("en"));
+    expect(getGlobalErrorCopy("xx")).toEqual(getGlobalErrorCopy("en"));
   });
 });

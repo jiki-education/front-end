@@ -3,6 +3,10 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: min(342px, 50vh) 1fr;
     flex: 1;
+    /* Constrain to the flex allocation (100vh) so a large editor row + the
+       bottom panel's 300px min-height can't grow this past the viewport and
+       scroll the page. Pairs with overflow: hidden to clip the grid. */
+    min-height: 0;
     background: var(--color-gray-50);
     overflow: hidden;
     position: relative;
@@ -203,7 +207,7 @@
     flex-direction: column;
     border-radius: 8px 8px 0 8px;
     border: 1px solid var(--color-gray-200);
-    min-height: 200px;
+    min-height: 300px;
     margin: 4px 4px 8px 8px;
 }
 

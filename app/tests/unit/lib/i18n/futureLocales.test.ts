@@ -1,9 +1,9 @@
 /**
- * The locale machinery (routing, hreflang, Accept-Language negotiation) must be
- * correct for the es/pt content variants (es-ES, es-419, pt-PT, pt-BR) whether or
- * not they are currently served, so going live is just adding the locale + its
- * catalog. These tests mock the locale config to run that machinery against the
- * full variant set, independently of what lib/locales.ts ships today.
+ * The es/pt content locales (es-ES, es-419, pt-PT, pt-BR) aren't served yet —
+ * lib/locales.ts still ships en/hu — but the locale machinery (routing, hreflang,
+ * Accept-Language negotiation) must already be correct for them so going live is
+ * just adding the locale + its catalog. These tests run that machinery against
+ * the future set by mocking the locale config.
  *
  * The negotiation cases mirror the API's User::DetermineLocale acceptance oracle
  * (jiki-education/api test/commands/user/determine_locale_test.rb) — keep them in
@@ -43,11 +43,11 @@ describe("routing for region-suffixed locales", () => {
 
 describe("hreflang emission", () => {
   it("collapses es-419 to generic es (Google rejects UN M.49 region codes)", () => {
-    expect(hreflangLocale("es-419" as never)).toBe("es");
+    expect(hreflangLocale("es-419")).toBe("es");
   });
 
   it("passes ISO-valid ids through untouched", () => {
-    expect(hreflangLocale("es-ES" as never)).toBe("es-ES");
+    expect(hreflangLocale("es-ES")).toBe("es-ES");
     expect(hreflangLocale("pt-PT")).toBe("pt-PT");
     expect(hreflangLocale("pt-BR")).toBe("pt-BR");
     expect(hreflangLocale("en")).toBe("en");

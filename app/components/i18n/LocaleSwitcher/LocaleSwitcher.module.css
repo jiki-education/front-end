@@ -1,0 +1,63 @@
+.switcher {
+    position: fixed;
+    bottom: 16px;
+    inset-inline-start: 16px;
+    /* Deliberately not a --z-index-* token: this staging-only widget has to sit
+       above everything, including the nav and any modal, and shouldn't have a
+       token minted for it in the shared scale. */
+    z-index: 9999999;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-width: 220px;
+    padding: 10px 12px;
+
+    background: var(--color-background-primary);
+    border: 1px solid var(--color-border-primary);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    color: var(--color-text-secondary);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge {
+    padding: 1px 5px;
+
+    background: var(--color-amber-100);
+    color: var(--color-amber-700);
+    border-radius: 4px;
+    font-size: 10px;
+    letter-spacing: 0;
+}
+
+.select {
+    padding: 5px 6px;
+
+    background: var(--color-background-primary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-primary);
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.select:disabled {
+    opacity: 0.6;
+    cursor: progress;
+}
+
+.error {
+    margin: 0;
+    color: var(--color-red-600);
+    font-size: 11px;
+}

@@ -6,6 +6,7 @@
  */
 
 import { createCatalogLoader } from "@/lib/i18n/catalogLoader";
+import { messageHashes } from "@/lib/generated/messages-hashes";
 
 jest.mock("@/lib/generated/messages-hashes", () => ({
   messageHashes: { en: "aaaaaaaaaaaa", hu: "bbbbbbbbbbbb" }
@@ -110,10 +111,25 @@ describe("createCatalogLoader", () => {
     expect(mockFetch).toHaveBeenCalledTimes(3);
   });
 
-  it("rejects without fetching for a locale with no manifest hash", async () => {
+  it("falls back to the en catalog for a locale with no manifest hash", async () => {
     const load = createCatalogLoader((path) => path);
+    mockFetch.mockResolvedValueOnce(okResponse());
 
-    await expect(load("xx")).rejects.toThrow('No UI message catalog hash for locale "xx"');
-    expect(mockFetch).not.toHaveBeenCalled();
+    await expect(load("xx")).resolves.toEqual(CATALOG);
+    expect(mockFetch).toHaveBeenCalledWith("/static/i18n/app/en/messages-aaaaaaaaaaaa.json");
+  });
+
+  it("rejects without fetching when en itself has no manifest hash", async () => {
+    const hashes = messageHashes as Record<string, string | undefined>;
+    const enHash = hashes.en;
+    delete hashes.en;
+
+    try {
+      const load = createCatalogLoader((path) => path);
+      await expect(load("xx")).rejects.toThrow('No UI message catalog hash for locale "en"');
+      expect(mockFetch).not.toHaveBeenCalled();
+    } finally {
+      hashes.en = enHash;
+    }
   });
 });
