@@ -72,24 +72,24 @@ const COPY: Record<Locale, GlobalErrorCopy> = {
   // these languages. The crash page must render usable text, so it never carries
   // the catalog's `�` untranslated sentinel.
   fr: {
-    title: "Something went wrong",
-    message: "We encountered an unexpected error. Sorry about that!",
-    actionLabel: "Try again"
+    title: "Quelque chose s'est mal passé",
+    message: "Une erreur inattendue s'est produite. Désolé !",
+    actionLabel: "Réessayer"
   },
   it: {
-    title: "Something went wrong",
-    message: "We encountered an unexpected error. Sorry about that!",
-    actionLabel: "Try again"
+    title: "Qualcosa è andato storto",
+    message: "Si è verificato un errore imprevisto. Ci dispiace!",
+    actionLabel: "Riprova"
   },
   nl: {
-    title: "Something went wrong",
-    message: "We encountered an unexpected error. Sorry about that!",
-    actionLabel: "Try again"
+    title: "Er is iets misgegaan",
+    message: "Er is een onverwachte fout opgetreden. Sorry daarvoor!",
+    actionLabel: "Probeer opnieuw"
   },
   "zh-TW": {
-    title: "Something went wrong",
-    message: "We encountered an unexpected error. Sorry about that!",
-    actionLabel: "Try again"
+    title: "出了點問題",
+    message: "我們遇到了非預期的錯誤，真的很抱歉！",
+    actionLabel: "再試一次"
   }
 };
 

@@ -2,91 +2,91 @@
   "layout": {
     "footer": {
       "about": {
-        "heading": "�",
-        "aboutJiki": "�",
-        "testimonials": "�",
-        "ourTeam": "�",
-        "premium": "�",
-        "roadmap": "�"
+        "heading": "Over ons",
+        "aboutJiki": "Over Jiki",
+        "testimonials": "Ervaringen",
+        "ourTeam": "Ons team",
+        "premium": "Jiki Premium",
+        "roadmap": "Roadmap"
       },
       "legal": {
-        "heading": "�",
-        "termsOfUsage": "�",
-        "privacyPolicy": "�",
-        "cookiePolicy": "�",
-        "codeOfConduct": "�",
-        "accessibility": "�"
+        "heading": "Juridisch",
+        "termsOfUsage": "Gebruiksvoorwaarden",
+        "privacyPolicy": "Privacybeleid",
+        "cookiePolicy": "Cookiebeleid",
+        "codeOfConduct": "Gedragscode",
+        "accessibility": "Toegankelijkheid"
       },
       "keepInTouch": {
-        "heading": "�",
-        "blog": "�",
-        "youtube": "�",
-        "reportAbuse": "�",
-        "sitemap": "�"
+        "heading": "Blijf op de hoogte",
+        "blog": "Jiki's blog",
+        "youtube": "Jiki's YouTube-kanaal",
+        "reportAbuse": "Misbruik melden",
+        "sitemap": "Sitemap"
       },
       "freeContent": {
-        "heading": "�",
-        "codingConcepts": "�",
-        "agenticGuides": "�"
+        "heading": "Gratis content",
+        "codingConcepts": "Programmeerconcepten",
+        "agenticGuides": "Programmeergidsen in het tijdperk van agentic coding"
       },
       "getHelp": {
-        "heading": "�",
-        "helpCenter": "�",
-        "faqs": "�",
-        "contactUs": "�",
-        "siteStatus": "�"
+        "heading": "Hulp nodig?",
+        "helpCenter": "Helpcentrum",
+        "faqs": "Veelgestelde vragen",
+        "contactUs": "Neem contact op",
+        "siteStatus": "Sitestatus"
       },
-      "copyright": "�"
+      "copyright": "© {year} Jiki Ltd"
     },
     "externalHeader": {
-      "homeAriaLabel": "�",
-      "logoAlt": "�",
-      "aboutJiki": "�",
-      "premium": "�",
-      "testimonials": "�",
-      "login": "�",
-      "signUp": "�",
-      "menuAriaLabel": "�",
-      "closeMenuAriaLabel": "�"
+      "homeAriaLabel": "Startpagina van Jiki",
+      "logoAlt": "Jiki",
+      "aboutJiki": "Over Jiki",
+      "premium": "Premium",
+      "testimonials": "Ervaringen",
+      "login": "Inloggen",
+      "signUp": "Meld je gratis aan",
+      "menuAriaLabel": "Menu openen",
+      "closeMenuAriaLabel": "Menu sluiten"
     },
     "internalHeader": {
-      "homeAriaLabel": "�",
-      "logoAlt": "�",
-      "backToJiki": "�"
+      "homeAriaLabel": "Startpagina van Jiki",
+      "logoAlt": "Jiki",
+      "backToJiki": "Terug naar Jiki →"
     },
     "sidebar": {
       "groups": {
-        "learnToCode": "�",
-        "learnToBuild": "�",
-        "community": "�",
-        "more": "�"
+        "learnToCode": "Leer programmeren",
+        "learnToBuild": "Leer bouwen",
+        "community": "Community",
+        "more": "Meer"
       },
       "nav": {
-        "learn": "�",
-        "build": "�",
-        "challenges": "�",
-        "concepts": "�",
-        "achievements": "�",
-        "guides": "�",
-        "videos": "�",
-        "blog": "�",
-        "forum": "�",
-        "settings": "�",
-        "help": "�",
-        "upgrade": "�",
-        "logOut": "�"
+        "learn": "Programmeerbasis",
+        "build": "Projecten",
+        "challenges": "Uitdagingen",
+        "concepts": "Programmeerconcepten",
+        "achievements": "Prestaties",
+        "guides": "Gidsen",
+        "videos": "Video's",
+        "blog": "Blog",
+        "forum": "Forum",
+        "settings": "Instellingen",
+        "help": "Hulp",
+        "upgrade": "Upgrade naar Premium",
+        "logOut": "Uitloggen"
       },
-      "premiumPill": "�"
+      "premiumPill": "Premium"
     },
     "loading": {
-      "title": "�",
-      "subtitle": "�"
+      "title": "Jiki wordt wakker",
+      "subtitle": "Je leeromgeving wordt klaargezet"
     },
     "localeBanner": {
-      "prefix": "�",
-      "cta": "�",
-      "or": "�",
-      "close": "�"
+      "prefix": "Je bekijkt de {language} versie van deze pagina.",
+      "cta": "Wissel naar {language}",
+      "or": "of",
+      "close": "sluit deze melding"
     }
   },
   "common": {
@@ -900,59 +900,59 @@
   },
   "concepts": {
     "breadcrumb": {
-      "root": "�"
+      "root": "Programmeerconcepten"
     },
     "list": {
-      "heading": "�",
-      "intro": "�",
-      "searchPlaceholder": "�",
-      "emptyTitle": "�",
-      "emptyBody": "�",
-      "noResultsTitle": "�",
-      "noResultsMessage": "�"
+      "heading": "Conceptenbibliotheek",
+      "intro": "Hier kun je de concepten die je hebt geleerd teruglezen en herhalen.",
+      "searchPlaceholder": "Zoek concepten...",
+      "emptyTitle": "Nog geen concepten",
+      "emptyBody": "Rond lessen af om nieuwe concepten te ontgrendelen. Elk concept dat je in je lessen onder de knie krijgt, kun je hier daarna teruglezen.",
+      "noResultsTitle": "0 resultaten voor “<query></query>”",
+      "noResultsMessage": "Probeer een andere zoekterm of blader door de bibliotheek."
     },
     "card": {
-      "locked": "�",
-      "subConcepts": "�"
+      "locked": "Vergrendeld",
+      "subConcepts": "{count, plural, one {# subconcept} other {# subconcepten}}"
     },
     "error": {
-      "notFound": "�",
-      "back": "�"
+      "notFound": "Concept niet gevonden.",
+      "back": "Terug naar concepten"
     },
     "relatedConcepts": {
-      "heading": "�",
-      "description": "�",
-      "locked": "�"
+      "heading": "Gerelateerde concepten",
+      "description": "Bekijk ook deze gerelateerde concepten:",
+      "locked": "Dit concept is vergrendeld"
     },
     "relatedExercises": {
-      "heading": "�",
-      "description": "�",
-      "signupPrompt": "�",
-      "locked": "�"
+      "heading": "Gerelateerde opdrachten",
+      "description": "Met deze opdrachten kun je goed met dit concept oefenen!",
+      "signupPrompt": "<link>Meld je aan</link> om ze op te lossen!",
+      "locked": "Deze opdracht is vergrendeld"
     },
     "relatedChallenges": {
-      "heading": "�",
-      "description": "�",
-      "locked": "�"
+      "heading": "Gerelateerde uitdagingen",
+      "description": "Met deze uitdagingen breng je dit concept in de praktijk.",
+      "locked": "Deze uitdaging is vergrendeld"
     },
     "videoRecap": {
-      "loggedInHeader": "�",
-      "loggedInDescription": "�",
-      "loggedOutHeader": "�",
-      "loggedOutDescription": "�",
-      "playAriaLabel": "�",
-      "thumbnailAlt": "�"
+      "loggedInHeader": "Bekijk de les opnieuw",
+      "loggedInDescription": "Fris je geheugen op door de les terug te kijken waarin je dit concept leerde",
+      "loggedOutHeader": "Bekijk de les",
+      "loggedOutDescription": "Leer dit concept met Jeremy en Jiki!",
+      "playAriaLabel": "Speel de lessamenvatting af",
+      "thumbnailAlt": "Miniatuur van de lessamenvatting"
     },
     "signupCta": {
-      "title": "�",
-      "subtitle": "�",
-      "button": "�"
+      "title": "Klaar om te beginnen met programmeren?",
+      "subtitle": "Sluit je aan bij duizenden anderen die leren op Jiki. Oefen met programmeeropdrachten, krijg feedback van mentoren en breng je vaardigheden naar een hoger niveau. En het is gratis!",
+      "button": "Meld je gratis aan"
     },
     "upgradeCard": {
-      "logoAlt": "�",
-      "heading": "�",
-      "text": "�",
-      "button": "�"
+      "logoAlt": "Jiki",
+      "heading": "Begin vandaag nog met <highlight>leren programmeren</highlight>!",
+      "text": "Meld je aan bij Jiki en leer programmeren met interactieve opdrachten, echte projecten en persoonlijke begeleiding. En het mooiste: <free>het is gratis!</free>",
+      "button": "Meld je gratis aan"
     }
   },
   "seo": {
@@ -1103,239 +1103,239 @@
   },
   "modals": {
     "welcomeToPremium": {
-      "badge": "�",
-      "description": "�",
-      "title": "�"
+      "badge": "Premium-lid",
+      "description": "Bedankt voor je upgrade! Je hebt nu toegang tot alle Premium-voordelen, waaronder onbeperkt chatten met Jiki, Projecten en Learn to Build!",
+      "title": "Welkom bij <highlight>Premium!</highlight>"
     },
     "subscriptionSuccess": {
       "chatGate": {
-        "title": "�",
-        "description": "�",
-        "feature1": "�",
-        "feature2": "�",
-        "feature3": "�"
+        "title": "Welkom bij AI-chat!",
+        "description": "Je AI-assistent is nu ontgrendeld en klaar om je te helpen met je programmeeropdrachten.",
+        "feature1": "Stel vragen over je code",
+        "feature2": "Krijg uitleg bij lastige concepten",
+        "feature3": "Ontvang persoonlijke hints en begeleiding"
       },
       "featureGate": {
-        "title": "�",
-        "description": "�"
+        "title": "Functie ontgrendeld!",
+        "description": "Je hebt nu toegang tot premiumfuncties die je leerervaring verrijken."
       },
       "settings": {
-        "title": "�",
-        "description": "�"
+        "title": "Welkom bij {tier}!",
+        "description": "Je abonnement is geactiveerd. Ontdek je nieuwe functies in de instellingen."
       },
       "general": {
-        "title": "�",
-        "description": "�"
+        "title": "Welkom bij {tier}!",
+        "description": "Bedankt voor het upgraden van je abonnement. Je hebt nu toegang tot alle premiumfuncties."
       },
-      "planLabel": "�",
-      "whatYouCanDo": "�",
-      "getStarted": "�",
-      "continueLearning": "�",
-      "skipForNow": "�",
-      "renewalNotice": "�"
+      "planLabel": "{tier}-abonnement",
+      "whatYouCanDo": "Wat je nu kunt doen:",
+      "getStarted": "Aan de slag",
+      "continueLearning": "Verder leren",
+      "skipForNow": "Nu overslaan",
+      "renewalNotice": "Je abonnement wordt automatisch verlengd op {date}. Beheer je abonnement in de instellingen."
     },
     "confirmation": {
-      "defaultTitle": "�",
-      "defaultMessage": "�"
+      "defaultTitle": "Actie bevestigen",
+      "defaultMessage": "Weet je zeker dat je wilt doorgaan?"
     },
     "info": {
-      "defaultTitle": "�",
-      "defaultButton": "�"
+      "defaultTitle": "Informatie",
+      "defaultButton": "Begrepen!"
     },
     "connectionError": {
-      "title": "�",
-      "subtitle": "�",
-      "reconnecting": "�",
-      "helpText": "�"
+      "title": "Oeps! Verbinding verbroken",
+      "subtitle": "Jiki raakte even in de knoop en verloor de verbinding. Geen zorgen, we zijn bezig alles weer aan te sluiten!",
+      "reconnecting": "Opnieuw verbinden",
+      "helpText": "Even geduld, dit lost zichzelf meestal binnen een paar tellen op.<br></br>Blijft het probleem bestaan, <link>bekijk dan onze statuspagina</link>."
     },
     "sessionExpired": {
-      "title": "�",
-      "description": "�"
+      "title": "Sessie verlopen",
+      "description": "Je sessie is verlopen. Log opnieuw in."
     },
     "paymentVerificationFailed": {
-      "title": "�",
-      "description": "�"
+      "title": "We konden je betaling niet bevestigen",
+      "description": "Er ging iets mis bij het controleren met Stripe. Vernieuw de pagina zo meteen. Is Premium daarna nog steeds niet actief, neem dan contact op met support."
     },
     "levelMilestone": {
-      "title": "�",
-      "message": "�",
-      "lessonsCompleted": "�",
-      "xpEarned": "�",
-      "readyNext": "�",
-      "goToDashboard": "�",
-      "continueNextLevel": "�"
+      "title": "🎉 Level voltooid!",
+      "message": "Gefeliciteerd! Je hebt <strong>{levelTitle}</strong> voltooid en alle concepten ervan onder de knie.",
+      "lessonsCompleted": "Lessen voltooid",
+      "xpEarned": "XP verdiend",
+      "readyNext": "Je kunt nu het volgende level ontgrendelen en verdergaan met leren!",
+      "goToDashboard": "Naar het dashboard",
+      "continueNextLevel": "Door naar het volgende level"
     },
     "badge": {
-      "funFact": "�",
-      "keepGoing": "�"
+      "funFact": "Leuk weetje",
+      "keepGoing": "Ga zo door!"
     },
     "authError": {
-      "title": "�",
-      "subtitle": "�",
-      "helpText": "�"
+      "title": "Je bent uitgelogd.",
+      "subtitle": "Om de een of andere reden ben je uitgelogd (misschien een veiligheidscontrole, of misschien logde je uit op een ander apparaat?). Laad de pagina opnieuw om verder te gaan.",
+      "helpText": "Blijft dit gebeuren, probeer dan <cookiesLink>je cookies te wissen</cookiesLink> of <supportLink>neem contact op met support</supportLink>."
     },
     "rateLimit": {
-      "title": "�",
-      "subtitle": "�",
-      "autoRefresh": "�",
-      "noteLabel": "�",
-      "noteText": "�",
-      "reconnecting": "�"
+      "title": "Je ging iets te snel.",
+      "subtitle": "Je hebt te veel verzoeken naar onze servers gestuurd, dus zetten we je een paar seconden op pauze. Even wachten, daarna word je automatisch opnieuw verbonden.",
+      "autoRefresh": "Deze pagina wordt automatisch vernieuwd",
+      "noteLabel": "Let op:",
+      "noteText": "Nieuwe tabbladen openen of extra verzoeken sturen verlengt je wachttijd.",
+      "reconnecting": "Opnieuw verbinden over <timer>{count}</timer> {count, plural, one {seconde} other {seconden}}"
     },
     "exerciseSuccess": {
-      "defaultTitle": "�",
-      "defaultMessage": "�"
+      "defaultTitle": "Gefeliciteerd!",
+      "defaultMessage": "Alle tests geslaagd! Je hebt deze opdracht voltooid."
     },
     "welcome": {
-      "title": "�",
-      "subtitle": "�",
-      "skipTitle": "�",
-      "skipMessage": "�",
-      "skipConfirm": "�",
-      "skipCancel": "�"
+      "title": "Welkom bij Jiki!",
+      "subtitle": "Bekijk deze korte video om te beginnen.",
+      "skipTitle": "De welkomstvideo overslaan?",
+      "skipMessage": "Deze video helpt je om het meeste uit Jiki te halen. Weet je zeker dat je hem wilt overslaan?",
+      "skipConfirm": "Video overslaan",
+      "skipCancel": "Verder kijken"
     },
     "subscription": {
       "chatGate": {
-        "headline": "�",
-        "description": "�"
+        "headline": "Ontgrendel de AI-chatassistent",
+        "description": "Krijg direct hulp bij je programmeeropdrachten van onze AI-assistent."
       },
       "featureGate": {
-        "headlineFallback": "�",
-        "headline": "�",
-        "description": "�"
+        "headlineFallback": "Premiumfuncties",
+        "headline": "Ontgrendel {feature}",
+        "description": "Upgrade je abonnement voor geavanceerde functies en een rijkere leerervaring."
       },
       "settings": {
-        "headline": "�",
-        "description": "�"
+        "headline": "Kies je abonnement",
+        "description": "Kies het abonnement dat het beste past bij hoe jij wilt leren."
       },
       "general": {
-        "headline": "�",
-        "description": "�"
+        "headline": "Upgrade je abonnement",
+        "description": "Kies het abonnement dat past bij je leerdoelen en ontgrendel geavanceerde functies."
       },
-      "unlockWith": "�",
-      "recommended": "�",
-      "choosePremium": "�",
-      "subscribeAriaLabel": "�",
-      "renewNotice": "�",
-      "notNow": "�"
+      "unlockWith": "Wat je ontgrendelt met {feature}:",
+      "recommended": "Aanbevolen",
+      "choosePremium": "Kies Premium",
+      "subscribeAriaLabel": "Abonneer je op het {plan}-abonnement",
+      "renewNotice": "Je abonnement wordt elke maand automatisch verlengd. Je kunt op elk moment opzeggen via je instellingen.",
+      "notNow": "Nu niet, misschien later"
     },
     "walkthroughConfirm": {
-      "title": "�",
-      "intro": "�",
-      "tryFirst": "�",
-      "watchDeepDive": "�",
-      "conceptPages": "�",
-      "askJiki": "�",
-      "whatHappened": "�",
-      "revealHints": "�"
+      "title": "Eerst zelf proberen?",
+      "intro": "Voordat je de Deep Dive bekijkt, kun je met deze hulpmiddelen proberen de tests zelf te halen:",
+      "tryFirst": "Ik probeer het eerst zelf",
+      "watchDeepDive": "Bekijk de Deep Dive",
+      "conceptPages": "<strong>Conceptpagina's</strong>: bekijk de concepten die in deze opdracht voorkomen",
+      "askJiki": "<strong>Vraag het Jiki</strong>: krijg persoonlijke hulp van Jiki zonder spoilers",
+      "whatHappened": "<strong>“Wat gebeurde er?”-tips</strong>: loop regel voor regel door je code om te zien wat er misging",
+      "revealHints": "<strong>Toon alle hints</strong>: lees alle hints hierboven voor extra houvast"
     },
     "paymentConfirming": {
-      "title": "�",
-      "description": "�"
+      "title": "Je betaling wordt bevestigd…",
+      "description": "Even geduld terwijl we je betaling bevestigen bij Stripe. Dit duurt meestal maar even."
     },
     "example": {
-      "defaultTitle": "�",
-      "defaultMessage": "�"
+      "defaultTitle": "Voorbeeldmodal",
+      "defaultMessage": "Dit is een voorbeeldmodal!"
     },
     "paymentProcessing": {
-      "title": "�",
-      "description": "�",
-      "continue": "�"
+      "title": "Betaling in verwerking",
+      "description": "Bedankt. We wachten tot je betaalprovider ons het geld stuurt. Zodra dat gebeurd is, upgraden we je abonnement naar Premium en sturen we je een e-mail.",
+      "continue": "Ga verder met Jiki"
     },
     "exerciseCompletion": {
       "success": {
-        "title": "�",
-        "titleBonus": "�",
-        "messageExercise": "�",
-        "messageChallenge": "�",
-        "completeExercise": "�",
-        "completeChallenge": "�"
+        "title": "Alle scenario's geslaagd",
+        "titleBonus": "Alle kernscenario's geslaagd",
+        "messageExercise": "Goed gedaan! Je kunt deze opdracht afronden en door naar de volgende uitdaging.",
+        "messageChallenge": "Goed gedaan! Je kunt deze uitdaging afronden en verdergaan.",
+        "completeExercise": "Opdracht afronden",
+        "completeChallenge": "Uitdaging afronden"
       },
       "conceptUnlocked": {
-        "title": "�",
-        "messageGeneric": "�",
-        "messageNamed": "�"
+        "title": "Concept ontgrendeld!",
+        "messageGeneric": "Je hebt een nieuw concept ontgrendeld om te verkennen.",
+        "messageNamed": "Je hebt een nieuw concept ontgrendeld: <strong>{title}</strong>"
       },
       "completed": {
-        "titleExercise": "�",
-        "titleChallenge": "�",
-        "greatWork": "�",
-        "readyExercise": "�",
-        "readyChallenge": "�",
-        "bonusPrompt": "�",
-        "tidyCode": "�",
-        "solveBonuses": "�",
-        "moveOn": "�"
+        "titleExercise": "Opdracht voltooid!",
+        "titleChallenge": "Uitdaging voltooid!",
+        "greatWork": "Knap werk, je hebt {title} voltooid!",
+        "readyExercise": "Klaar voor de volgende opdracht?",
+        "readyChallenge": "Klaar voor de volgende uitdaging?",
+        "bonusPrompt": "{count, plural, one {Deze opdracht heeft <strong>een bonusscenario</strong>. Wil je dat oplossen voordat je verdergaat?} other {Deze opdracht heeft <strong>bonusscenario's</strong>. Wil je die oplossen voordat je verdergaat?}}",
+        "tidyCode": "Code opruimen",
+        "solveBonuses": "{count, plural, one {Bonus oplossen} other {Bonussen oplossen}}",
+        "moveOn": "Verdergaan"
       },
       "difficultyRating": {
-        "title": "�",
-        "message": "�",
-        "rateDifficulty": "�",
-        "rateFun": "�",
-        "difficultyTooEasy": "�",
-        "difficultyEasy": "�",
-        "difficultyJustRight": "�",
-        "difficultyHard": "�",
-        "difficultyTooHard": "�",
-        "funFrustrating": "�",
-        "funPrettyGood": "�",
-        "funAmazing": "�",
-        "rateDifficultyAriaLabel": "�",
-        "rateFunAriaLabel": "�",
-        "funOptionFallback": "�"
+        "title": "Beoordeel je ervaring",
+        "message": "Help ons {title} te verbeteren met jouw beoordeling.",
+        "rateDifficulty": "Beoordeel de moeilijkheid",
+        "rateFun": "Beoordeel de funfactor",
+        "difficultyTooEasy": "Te makkelijk",
+        "difficultyEasy": "Makkelijk",
+        "difficultyJustRight": "Precies goed",
+        "difficultyHard": "Moeilijk",
+        "difficultyTooHard": "Te moeilijk",
+        "funFrustrating": "Frustrerend",
+        "funPrettyGood": "Best leuk",
+        "funAmazing": "Geweldig!",
+        "rateDifficultyAriaLabel": "Beoordeel de moeilijkheid als {label}",
+        "rateFunAriaLabel": "Beoordeel de funfactor als {label}",
+        "funOptionFallback": "optie {number}"
       },
       "challengeUnlocked": {
-        "title": "�",
-        "message": "�",
-        "newLabel": "�",
-        "premiumInfo": "�"
+        "title": "Uitdaging ontgrendeld!",
+        "message": "Gefeliciteerd! Door al dat oefenen ben je klaar voor een pittigere uitdaging.",
+        "newLabel": "Nieuw",
+        "premiumInfo": "<strong>Exclusief voor Premium-leden.</strong> <link>Upgrade je account</link> voor toegang tot uitdagingen zodra je ze ontgrendelt."
       }
     },
     "premiumUpgrade": {
-      "skipLink": "�",
-      "userAvatarAlt": "�",
-      "upgrade": "�",
-      "planName": "�",
-      "featureLearnToBuild": "�",
-      "featureChallenges": "�",
-      "featureAi": "�",
-      "featureLivestreams": "�",
-      "featureCertificates": "�",
-      "featureAdFree": "�",
-      "featureEarlyAccess": "�",
+      "skipLink": "Nu niet, misschien later",
+      "userAvatarAlt": "Gebruiker",
+      "upgrade": "Upgrade naar Premium",
+      "planName": "Jiki Premium",
+      "featureLearnToBuild": "Volledige toegang tot <strong>Learn to Build</strong>",
+      "featureChallenges": "Ga pittigere <strong>uitdagingen</strong> aan",
+      "featureAi": "Onbeperkte <strong>AI-hulp</strong> van Jiki",
+      "featureLivestreams": "Regelmatige <strong>livestreams met vragen en antwoorden</strong> om aan mee te doen",
+      "featureCertificates": "Verdien <strong>certificaten</strong> voor cursussen",
+      "featureAdFree": "Leren <strong>zonder advertenties</strong>",
+      "featureEarlyAccess": "<strong>Vroege toegang</strong> tot nieuwe functies",
       "basic": {
-        "subheading": "�",
-        "planName": "�",
-        "planPrice": "�",
-        "feature1": "�",
-        "feature2": "�",
-        "feature3": "�",
-        "note": "�",
-        "headline": "�"
+        "subheading": "Upgrade naar Premium en wees sneller klaar voor een baan als programmeur.",
+        "planName": "Basisabonnement",
+        "planPrice": "Voor altijd gratis",
+        "feature1": "Meer dan 80 programmeeropdrachten",
+        "feature2": "Volledige conceptbibliotheek",
+        "feature3": "Vraag het Jiki bij één opdracht",
+        "note": "+ Toegang tot openbare YouTube-video's en communityforums voor extra leermateriaal.",
+        "headline": "<highlight>Versnel</highlight> je leerproces!"
       },
-      "dailyNote": "�"
+      "dailyNote": "(Dat is maar <price></price> per dag)"
     },
     "subscriptionCheckout": {
-      "connectingToStripe": "�",
-      "paymentFailed": "�",
-      "unexpectedError": "�",
-      "paymentFailedTitle": "�",
-      "paymentInfoAriaLabel": "�",
-      "pay": "�",
-      "orderTitle": "�",
-      "orderBilling": "�",
-      "perMonthShort": "�",
-      "securedBy": "�",
-      "error": "�"
+      "connectingToStripe": "Verbinden met Stripe",
+      "paymentFailed": "Betaling mislukt",
+      "unexpectedError": "Er is een onverwachte fout opgetreden. Probeer het opnieuw.",
+      "paymentFailedTitle": "Betaling mislukt",
+      "paymentInfoAriaLabel": "Betaalgegevens",
+      "pay": "Betalen",
+      "orderTitle": "Jiki {tier}",
+      "orderBilling": "Maandelijks gefactureerd. Op elk moment opzegbaar.",
+      "perMonthShort": "/mnd",
+      "securedBy": "Beveiligd door <stripe>stripe</stripe>",
+      "error": "Fout: {message}"
     },
     "calendarSubscribe": {
-      "title": "�",
-      "description": "�",
-      "apple": "�",
-      "google": "�",
-      "otherLabel": "�",
-      "otherHelp": "�",
-      "copied": "�"
+      "title": "Abonneer je op de agenda",
+      "description": "Voeg Jiki's livesessies toe aan je agenda. Nieuwe sessies verschijnen automatisch zodra ze zijn ingepland.",
+      "apple": "Abonneren via Apple",
+      "google": "Abonneren via Google",
+      "otherLabel": "Outlook en andere agenda's",
+      "otherHelp": "Kopieer deze link en voeg hem toe als geabonneerde agenda.",
+      "copied": "Gekopieerd"
     }
   },
   "challenge": {
@@ -1357,326 +1357,326 @@
   "dashboard": {
     "exercisePath": {
       "comingSoon": {
-        "title": "�",
-        "description": "�"
+        "title": "Binnenkort meer lessen",
+        "description": "We leggen de laatste hand aan de volgende lessen. Kom snel terug om je reis te vervolgen!"
       },
       "walkthrough": {
-        "label": "�",
-        "watch": "�"
+        "label": "Verdieping",
+        "watch": "Bekijken"
       },
       "start": {
-        "title": "�"
+        "title": "Het begin van je reis"
       },
       "completionCert": {
-        "title": "�",
-        "description": "�",
-        "progress": "�"
+        "title": "Certificaat van voltooiing",
+        "description": "Rond alle opdrachten af om je certificaat te verdienen en je nieuwe vaardigheden te laten zien!",
+        "progress": "{percentage}% voltooid"
       },
       "lessonNode": {
         "status": {
-          "complete": "�",
-          "locked": "�",
-          "inProgress": "�"
+          "complete": "Voltooid",
+          "locked": "Vergrendeld",
+          "inProgress": "Bezig"
         },
         "type": {
-          "video": "�",
-          "quiz": "�",
-          "choice": "�",
-          "exercise": "�"
+          "video": "Video",
+          "quiz": "Quiz",
+          "choice": "Keuze",
+          "exercise": "Opdracht"
         }
       },
       "scrollToActive": {
-        "up": "�",
-        "down": "�"
+        "up": "Scroll omhoog naar de actieve les",
+        "down": "Scroll omlaag naar de actieve les"
       },
       "milestone": {
-        "label": "�"
+        "label": "Mijlpaal {index}"
       }
     },
     "challengesSidebar": {
       "empty": {
-        "title": "�",
-        "description": "�"
+        "title": "Uitdagingen wachten op je!",
+        "description": "Rond opdrachten af om echte programmeeruitdagingen te ontgrendelen. Bouw games, apps en tools die je vaardigheden tot leven brengen."
       },
       "upsell": {
-        "title": "�",
-        "description": "�"
+        "title": "Nieuwe uitdagingen wachten op je!",
+        "description": "Combineer je vaardigheden en daag jezelf uit met Premium-uitdagingen."
       },
       "userProfile": {
-        "premiumMember": "�"
+        "premiumMember": "Premium-lid"
       },
       "challengeCard": {
         "status": {
-          "locked": "�",
-          "notStarted": "�",
-          "inProgress": "�",
-          "completed": "�",
-          "available": "�"
+          "locked": "Vergrendeld",
+          "notStarted": "Nog niet begonnen",
+          "inProgress": "Bezig",
+          "completed": "Voltooid",
+          "available": "Beschikbaar"
         }
       },
       "streak": {
-        "activeDays": "�",
-        "noStreak": "�",
-        "oneDayStreak": "�",
-        "multiDayStreak": "�"
+        "activeDays": "{count, plural, one {Je hebt in totaal # dag geoefend.} other {Je hebt in totaal # dagen geoefend.}}",
+        "noStreak": "Oefen vandaag om je streak te starten!",
+        "oneDayStreak": "Oefen elke dag om een streak op te bouwen!",
+        "multiDayStreak": "{count, plural, one {Je hebt een streak van # dag!} other {Je hebt een streak van # dagen!}}"
       },
       "badges": {
-        "title": "�"
+        "title": "Badges"
       },
       "recent": {
-        "title": "�",
-        "unlockedCount": "�",
-        "viewAll": "�"
+        "title": "Recente uitdagingen",
+        "unlockedCount": "{count} ontgrendeld",
+        "viewAll": "Bekijk alle uitdagingen"
       }
     }
   },
   "codingExercise": {
-    "loadError": "�",
-    "unknownError": "�",
+    "loadError": "Fout bij het laden van de opdracht: {error}",
+    "unknownError": "Onbekende fout",
     "runButton": {
-      "run": "�",
-      "running": "�",
-      "resetAriaLabel": "�",
-      "resetTooltip": "�",
-      "resetConfirmTitle": "�",
-      "resetConfirmMessage": "�",
-      "resetConfirmButton": "�"
+      "run": "Code uitvoeren",
+      "running": "Bezig met uitvoeren...",
+      "resetAriaLabel": "Opdracht resetten",
+      "resetTooltip": "Klik om de opdracht te resetten",
+      "resetConfirmTitle": "Je code resetten?",
+      "resetConfirmMessage": "Dit zet je code terug naar het begin. Geen zorgen, je gesprekken met Jiki blijven bewaard.",
+      "resetConfirmButton": "Ja, resetten"
     },
     "hintsPanel": {
-      "title": "�",
-      "description": "�",
-      "empty": "�",
-      "reveal": "�",
-      "hide": "�",
-      "confirmReveal": "�",
-      "confirmNo": "�",
-      "confirmYes": "�",
-      "deepDiveHeading": "�",
-      "deepDiveDescription": "�",
-      "walkthroughThumbnailAlt": "�"
+      "title": "Hints",
+      "description": "Zit je vast bij deze opdracht? Deze hints kunnen je in de juiste richting helpen. Klik op een hint om handige tips te zien.",
+      "empty": "Geen hints beschikbaar voor deze opdracht.",
+      "reveal": "Toon",
+      "hide": "Verberg",
+      "confirmReveal": "Weet je zeker dat je deze hint wilt zien?",
+      "confirmNo": "Nu even niet",
+      "confirmYes": "Ja",
+      "deepDiveHeading": "Deep Dive",
+      "deepDiveDescription": "Zit je nog steeds vast? Bekijk een Deep Dive waarin Jeremy deze opdracht oplost.",
+      "walkthroughThumbnailAlt": "Miniatuur van de Deep Dive-video"
     },
     "chatHeader": {
-      "title": "�",
-      "description": "�"
+      "title": "Vraag het Jiki",
+      "description": "Stel vragen en krijg hulp van je AI-programmeerassistent"
     },
     "chatStatus": {
-      "errorLabel": "�"
+      "errorLabel": "Fout:"
     },
     "chatPanel": {
-      "unavailable": "�"
+      "unavailable": "Chat niet beschikbaar"
     },
     "chatMessages": {
-      "greeting": "�"
+      "greeting": "Hoi! Waarmee kan ik je helpen bij deze opdracht?"
     },
     "chatInput": {
-      "placeholder": "�",
-      "limitReachedPlaceholder": "�",
-      "respondPlaceholder": "�"
+      "placeholder": "Typ hier je vraag...",
+      "limitReachedPlaceholder": "Je hebt je berichtenlimiet bereikt",
+      "respondPlaceholder": "Reageer op Jiki..."
     },
     "conversation": {
-      "loadError": "�"
+      "loadError": "Gespreksgeschiedenis laden mislukt: {error}"
     },
     "typeItAssistant": {
-      "thinking": "�"
+      "thinking": "Jiki denkt na"
     },
     "functionsView": {
-      "empty": "�",
-      "examples": "�"
+      "empty": "Geen functies beschikbaar voor deze opdracht.",
+      "examples": "Voorbeelden"
     },
     "tasksView": {
-      "empty": "�",
-      "bonus": "�"
+      "empty": "Geen taken beschikbaar voor deze opdracht.",
+      "bonus": "Bonus"
     },
     "logPanel": {
-      "title": "�",
-      "emptyDescription": "�",
-      "description": "�",
-      "emptyState": "�"
+      "title": "Scenariolog",
+      "emptyDescription": "Dit is de uitvoer van je code. Hier kun je analyseren wat je wijzigingen doen. Gebruik <code>console.log()</code> om waarden te loggen.",
+      "description": "Dit is de uitvoer van je code voor het scenario <scenario>{name}</scenario>. Hier kun je analyseren wat je wijzigingen doen. Gebruik <code>console.log()</code> om waarden te loggen.",
+      "emptyState": "Je hebt nog niets gelogd"
     },
     "instructionsPanel": {
-      "instructionsTitle": "�",
-      "functionsTitle": "�",
-      "conceptLibraryTitle": "�",
-      "functionsIntro": "�",
-      "functionsExamplesLabel": "�",
-      "loadingConcepts": "�",
-      "premiumChallenge": "�",
-      "exerciseLevel": "�",
-      "libraryEmpty": "�",
-      "libraryChallenges": "�",
-      "libraryWithConcepts": "�",
-      "openConceptLibrary": "�"
+      "instructionsTitle": "Instructies",
+      "functionsTitle": "Functies & methodes",
+      "conceptLibraryTitle": "Conceptenbibliotheek",
+      "functionsIntro": "Dit zijn de functies en methodes die je in deze opdracht kunt gebruiken.",
+      "functionsExamplesLabel": "Voorbeelden:",
+      "loadingConcepts": "Concepten laden...",
+      "premiumChallenge": "Premium-uitdaging",
+      "exerciseLevel": "Opdracht • {level}",
+      "libraryEmpty": "Hier zie je concepten verschijnen terwijl je de opdrachten doorloopt. Je kunt ze als naslag gebruiken om je geheugen op te frissen over wat je hebt geleerd.",
+      "libraryChallenges": "Je kunt in deze opdracht alle concepten gebruiken die je tot nu toe hebt geleerd. Kijk in je conceptenbibliotheek als je je geheugen wilt opfrissen.",
+      "libraryWithConcepts": "Dit zijn de belangrijkste concepten in deze opdracht. Gebruik ze om op te frissen wat je tot nu toe hebt geleerd.",
+      "openConceptLibrary": "Conceptenbibliotheek openen"
     },
     "scrubber": {
-      "previousFrame": "�",
-      "nextFrame": "�",
-      "previousBreakpoint": "�",
-      "nextBreakpoint": "�",
-      "toggleInfoOn": "�",
-      "toggleInfoOff": "�",
-      "showInfoWidget": "�",
-      "hideInfoWidget": "�",
-      "disabledCodeEdited": "�",
-      "disabledSpotlight": "�",
-      "disabledNotEnoughFrames": "�"
+      "previousFrame": "Vorig frame",
+      "nextFrame": "Volgend frame",
+      "previousBreakpoint": "Vorig breakpoint",
+      "nextBreakpoint": "Volgend breakpoint",
+      "toggleInfoOn": "Informatiepaneel aanzetten",
+      "toggleInfoOff": "Informatiepaneel uitzetten",
+      "showInfoWidget": "Informatiewidget tonen",
+      "hideInfoWidget": "Informatiewidget verbergen",
+      "disabledCodeEdited": "De code is aangepast, dus de scrubber is uitgeschakeld. Klik op “Code uitvoeren” om hem weer aan te zetten.",
+      "disabledSpotlight": "Scrubber uitgeschakeld: spotlightmodus is actief.",
+      "disabledNotEnoughFrames": "Scrubber uitgeschakeld: niet genoeg frames om doorheen te scrubben."
     },
     "avatars": {
-      "jikiAlt": "�",
-      "userAlt": "�"
+      "jikiAlt": "Jiki",
+      "userAlt": "Jij"
     },
     "rhs": {
-      "tabInstructions": "�",
-      "tabAskJiki": "�",
-      "tabLog": "�",
-      "tabHints": "�",
-      "navChallenges": "�",
-      "navDashboard": "�"
+      "tabInstructions": "Instructies",
+      "tabAskJiki": "Vraag het Jiki",
+      "tabLog": "Log",
+      "tabHints": "Hints",
+      "navChallenges": "Uitdagingen",
+      "navDashboard": "Dashboard"
     },
     "canStart": {
-      "placeholder": "�",
-      "askAbout": "�",
-      "askJiki": "�",
-      "freeIncluded": "�",
-      "premiumIncluded": "�",
-      "phraseWhyNotWorking": "�",
-      "phraseHowToFixBug": "�",
-      "phraseWhatErrorMeans": "�",
-      "phraseHowToApproach": "�",
-      "phraseHowToGetUnstuck": "�"
+      "placeholder": "Typ hier je vraag...",
+      "askAbout": "Vraag bijvoorbeeld...",
+      "askJiki": "Vraag het Jiki",
+      "freeIncluded": "Eerste gesprek inbegrepen in je Free-abonnement",
+      "premiumIncluded": "Inbegrepen in je <premium>Premium</premium>-abonnement",
+      "phraseWhyNotWorking": "waarom je code niet werkt",
+      "phraseHowToFixBug": "hoe je een bug oplost",
+      "phraseWhatErrorMeans": "wat deze fout betekent",
+      "phraseHowToApproach": "hoe je deze opdracht aanpakt",
+      "phraseHowToGetUnstuck": "hoe je weer verder komt"
     },
     "freeUserLimitReached": {
-      "description": "�",
-      "upgradeButton": "�",
-      "price": "�"
+      "description": "Je hebt je gratis gesprek gebruikt. Blijf leren met Jiki's hulp bij concepten, debuggen en het verder komen met opdrachten.",
+      "upgradeButton": "Upgrade naar Jiki Premium",
+      "price": "Voor maar <price></price>!"
     },
     "lockedFooter": {
-      "freeLimitText": "�",
-      "premiumBlockedText": "�",
-      "learnMoreFairUse": "�"
+      "freeLimitText": "Je hebt geen Premium-abonnement meer. <upgrade>Upgrade</upgrade> om het gesprek voort te zetten.",
+      "premiumBlockedText": "Je hebt onze fair-uselimiet bereikt. Probeer het morgen opnieuw.",
+      "learnMoreFairUse": "Lees meer over fair-uselimieten"
     },
     "chatUsageNotice": {
       "warning": {
-        "daily": "�",
-        "monthly": "�"
+        "daily": "Je zit bijna aan je daglimiet ({used}/{limit} berichten vandaag).",
+        "monthly": "Je zit bijna aan je maandlimiet ({used}/{limit} berichten deze maand)."
       },
       "limitReached": {
-        "daily": "�",
-        "monthly": "�"
+        "daily": "Je hebt alle {limit} berichten van vandaag gebruikt. Ze worden om middernacht (UTC) gereset.",
+        "monthly": "Je hebt alle {limit} berichten van deze maand gebruikt. Ze worden op de 1e gereset."
       },
-      "learnMore": "�"
+      "learnMore": "Lees meer"
     },
     "chatError": {
-      "sessionExpired": "�",
-      "verificationFailed": "�",
-      "authFailed": "�",
-      "tokenServerError": "�",
-      "tokenInitFailed": "�",
-      "exerciseMismatch": "�",
-      "authExpired": "�",
-      "tooManyRequests": "�",
-      "serviceUnavailable": "�",
-      "serverError": "�",
-      "networkError": "�",
-      "timeout": "�",
-      "unexpected": "�"
+      "sessionExpired": "Sessie verlopen. Probeer het opnieuw.",
+      "verificationFailed": "Verificatie mislukt. Probeer het opnieuw.",
+      "authFailed": "Inloggen mislukt. Log opnieuw in.",
+      "tokenServerError": "Serverfout bij het starten van de chat. Probeer het opnieuw.",
+      "tokenInitFailed": "Chat starten mislukt. Probeer het opnieuw.",
+      "exerciseMismatch": "Opdracht komt niet overeen. Vernieuw de pagina en probeer het opnieuw.",
+      "authExpired": "Je sessie is verlopen. Vernieuw de pagina.",
+      "tooManyRequests": "Te veel verzoeken. Wacht even en probeer het opnieuw.",
+      "serviceUnavailable": "De chatservice is tijdelijk niet beschikbaar. Probeer het later opnieuw.",
+      "serverError": "Serverfout. Probeer het zo weer opnieuw.",
+      "networkError": "Netwerkfout. Controleer je verbinding en probeer het opnieuw.",
+      "timeout": "Het verzoek duurde te lang. Probeer het opnieuw.",
+      "unexpected": "Er is een onverwachte fout opgetreden. Probeer het opnieuw."
     },
     "stuckHeader": {
-      "title": "�"
+      "title": "Zit je vast? Vraag het Jiki!"
     },
     "testResults": {
-      "passBadge": "�",
-      "failBadge": "�",
-      "pendingBadge": "�",
-      "pendingMessage": "�",
-      "codeRun": "�",
-      "expected": "�",
-      "actual": "�",
-      "noReturn": "�",
-      "clickRunCode": "�",
-      "lintWarning": "�",
-      "lintWarningPlain": "�",
-      "genericError": "�",
-      "congratsWellDone": "�",
-      "congratsNiceWork": "�",
-      "congratsFantasticJob": "�",
-      "congratsAmazingEffort": "�",
-      "congratsGreatAchievement": "�",
-      "congratsCongratulations": "�",
-      "congratsCongrats": "�"
+      "passBadge": "Geslaagd",
+      "failBadge": "Mislukt",
+      "pendingBadge": "In afwachting",
+      "pendingMessage": "Voer je code uit om te zien of dit scenario slaagt of mislukt.",
+      "codeRun": "Uitgevoerde code",
+      "expected": "Verwacht",
+      "actual": "Werkelijk",
+      "noReturn": "[Je functie heeft niets teruggegeven]",
+      "clickRunCode": "Klik op “Code uitvoeren” om te zien wat je code doet.",
+      "lintWarning": "<strong>Bijna goed...</strong> Je code werkte correct, maar je moet je opmaak nog verbeteren. Kijk naar de oranje onderstrepingen in je code.",
+      "lintWarningPlain": "Je code werkte correct, maar je moet je opmaak nog verbeteren. Kijk naar de oranje onderstrepingen in je code.",
+      "genericError": "Oeps. Er zit een fout in je code.",
+      "congratsWellDone": "Goed gedaan!",
+      "congratsNiceWork": "Mooi werk!",
+      "congratsFantasticJob": "Fantastisch gedaan!",
+      "congratsAmazingEffort": "Geweldige inzet!",
+      "congratsGreatAchievement": "Knappe prestatie!",
+      "congratsCongratulations": "Gefeliciteerd!",
+      "congratsCongrats": "Van harte!"
     },
     "syntaxError": {
-      "heading": "�",
-      "message": "�"
+      "heading": "Jiki begreep je code niet.",
+      "message": "Geen paniek. Lees de foutmelding hierboven, los de fout op en voer de code opnieuw uit."
     },
     "unhandledError": {
-      "heading": "�",
-      "message": "�"
+      "heading": "Oeps! Er ging iets <strong>flink</strong> mis.",
+      "message": "<strong>Dit is onze fout, niet die van jou!</strong> Laat het ons weten, dan kunnen we hem oplossen. Kopieer de mysterieuze tekst hieronder en deel hem met ons op <link>het forum</link>. Bedankt! 💙"
     }
   },
   "lesson": {
-    "documentTitle": "�",
-    "loadError": "�",
-    "backToDashboard": "�",
+    "documentTitle": "{title} - Opdracht - Jiki",
+    "loadError": "Les laden mislukt",
+    "backToDashboard": "Terug naar het dashboard",
     "error": {
-      "message": "�"
+      "message": "Fout: {error}"
     },
-    "quizNotImplemented": "�",
+    "quizNotImplemented": "Quizlessen zijn nog niet beschikbaar",
     "quitButton": {
-      "title": "�",
-      "message": "�",
-      "confirm": "�",
-      "cancel": "�",
-      "ariaLabel": "�"
+      "title": "Les afsluiten",
+      "message": "Weet je zeker dat je deze les wilt afsluiten? Je voortgang wordt niet opgeslagen.",
+      "confirm": "Afsluiten",
+      "cancel": "Verder leren",
+      "ariaLabel": "Les afsluiten"
     },
     "loadingPage": {
-      "loading": "�",
+      "loading": "Laden",
       "message": {
-        "video": "�",
-        "chooseLanguage": "�",
-        "exercise": "�"
+        "video": "Videoles voorbereiden",
+        "chooseLanguage": "Taalopties laden",
+        "exercise": "Code-editor klaarzetten"
       },
       "tip": {
-        "video": "�",
-        "chooseLanguage": "�",
-        "exercise": "�"
+        "video": "💡 Tip: je kunt de afspeelsnelheid van de video aanpassen met de bediening",
+        "chooseLanguage": "💡 Tip: kies de taal waarmee je wilt leren",
+        "exercise": "💡 Tip: gebruik Cmd/Ctrl + Enter om je code snel uit te voeren"
       }
     },
     "loadingModal": {
-      "title": "�",
-      "subtitle": "�"
+      "title": "Je les wordt gepersonaliseerd",
+      "subtitle": "We maken iets op basis van je voorkeuren en voortgang"
     }
   },
   "quizCard": {
-    "submit": "�",
-    "nextQuestion": "�",
-    "codeInputPlaceholder": "�",
+    "submit": "Controleren",
+    "nextQuestion": "Volgende vraag",
+    "codeInputPlaceholder": "// Typ hier je code...",
     "feedback": {
-      "correct": "�",
-      "incorrect": "�"
+      "correct": "Goed!",
+      "incorrect": "Niet helemaal goed!"
     },
     "fillIn": {
-      "successTitle": "�",
-      "successMessage": "�",
-      "incorrectTitle": "�",
-      "errorMessage": "�"
+      "successTitle": "Perfect!",
+      "successMessage": "Alles goed ingevuld!",
+      "incorrectTitle": "{count, plural, one {# invulveld fout} other {# invulvelden fout}}",
+      "errorMessage": "Bekijk je antwoorden en probeer het opnieuw."
     },
     "coding": {
-      "successTitle": "�",
-      "successMessage": "�",
-      "errorTitle": "�",
-      "errorMessage": "�"
+      "successTitle": "Uitstekend!",
+      "successMessage": "Je code is correct!",
+      "errorTitle": "Niet helemaal goed",
+      "errorMessage": "Controleer je syntax en probeer het opnieuw."
     }
   },
   "videoExercise": {
-    "noVideoSource": "�",
-    "provider": "�",
-    "skipHint": "�",
+    "noVideoSource": "Geen videobron beschikbaar",
+    "provider": "Provider: {provider}",
+    "skipHint": "Bij je eerste keer kijken kun je niet vooruitspoelen, maar terugspoelen kan altijd.",
     "pill": {
-      "complete": "�",
-      "progress": "�",
-      "watching": "�",
-      "finished": "�",
-      "finishTooltip": "�"
+      "complete": "Les voltooid",
+      "progress": "Lesvoortgang",
+      "watching": "Je kijkt naar <title>{name}</title>",
+      "finished": "Klaar met <title>{name}</title>",
+      "finishTooltip": "Kijk de video af om verder te gaan"
     }
   },
   "projects": {
@@ -1798,33 +1798,33 @@
     "certificatesEmptyBody": "�"
   },
   "challenges": {
-    "title": "�",
-    "description": "�",
-    "tabAll": "�",
-    "tabInProgress": "�",
-    "tabNotStarted": "�",
-    "tabComplete": "�",
-    "tabLocked": "�",
-    "error": "�",
-    "codingChallenge": "�",
-    "premiumOnly": "�",
+    "title": "Uitdagingen",
+    "description": "Bouw echte applicaties en games om je programmeervaardigheden te oefenen.",
+    "tabAll": "Alle",
+    "tabInProgress": "Bezig",
+    "tabNotStarted": "Nog niet begonnen",
+    "tabComplete": "Voltooid",
+    "tabLocked": "Vergrendeld",
+    "error": "Fout: {error}",
+    "codingChallenge": "Programmeeruitdaging",
+    "premiumOnly": "Alleen Premium",
     "status": {
-      "locked": "�",
-      "unlocked": "�",
-      "started": "�",
-      "completed": "�"
+      "locked": "Vergrendeld",
+      "unlocked": "Nog niet begonnen",
+      "started": "Bezig",
+      "completed": "Voltooid"
     },
     "empty": {
-      "noneAvailable": "�",
-      "noneFound": "�",
-      "inProgressTitle": "�",
-      "inProgressDescription": "�",
-      "allStartedTitle": "�",
-      "allStartedDescription": "�",
-      "noneToStartTitle": "�",
-      "noneToStartDescription": "�",
-      "completedTitle": "�",
-      "completedDescription": "�"
+      "noneAvailable": "Nog geen uitdagingen beschikbaar.",
+      "noneFound": "Geen uitdagingen gevonden.",
+      "inProgressTitle": "Geen lopende uitdagingen",
+      "inProgressDescription": "Je bent nog niet aan een uitdaging begonnen. Blader door de beschikbare uitdagingen en klik op “Aan de slag” om je eerste uitdaging te starten.",
+      "allStartedTitle": "Alle uitdagingen zijn gestart",
+      "allStartedDescription": "Goed bezig! Je bent aan alle beschikbare uitdagingen begonnen. Ga zo door en rond ze af.",
+      "noneToStartTitle": "Nog geen uitdagingen om te starten",
+      "noneToStartDescription": "Uitdagingen verschijnen hier zodra je ze ontgrendelt.",
+      "completedTitle": "Nog geen voltooide uitdagingen",
+      "completedDescription": "Rond je eerste uitdaging af om die hier te zien. Werk verder aan je lopende uitdagingen om deze mijlpaal te bereiken."
     }
   },
   "subscription": {
