@@ -1,0 +1,46 @@
+{
+  "errors": {
+    "allInputsNumbers": "Wszystkie dane wejściowe muszą być liczbami",
+    "blueRange": "Niebieski musi mieścić się w przedziale od 0 do 255",
+    "circleInputsNumbers": "Dane wejściowe x, y i promień muszą być liczbami",
+    "colorNamedOrHex": "Kolor musi być jednym z nazwanych kolorów podanych w instrukcjach (\"orange\", \"blue\", \"white\" itd.) albo kolorem szesnastkowym zaczynającym się od #",
+    "colorNotAllowed": "W tym ćwiczeniu nie podaje się koloru",
+    "colorNotString": "Kolor musi być stringiem",
+    "ellipseInputsNumbers": "Dane wejściowe x, y, rx i ry muszą być liczbami",
+    "greenRange": "Zielony musi mieścić się w przedziale od 0 do 255",
+    "heightPositive": "Wysokość musi być większa od 0",
+    "hueRange": "Odcień musi mieścić się w przedziale od 0 do 360",
+    "lightnessRange": "Jasność musi mieścić się w przedziale od 0 do 100",
+    "lineInputsNumbers": "Dane wejściowe x1, y1, x2 i y2 muszą być liczbami",
+    "rectInputsNumbers": "Dane wejściowe x, y, szerokość i wysokość muszą być liczbami",
+    "redRange": "Czerwony musi mieścić się w przedziale od 0 do 255",
+    "saturationRange": "Nasycenie musi mieścić się w przedziale od 0 do 100",
+    "triangleInputsNumbers": "Dane wejściowe x1, y1, x2, y2, x3 i y3 muszą być liczbami",
+    "widthPositive": "Szerokość musi być większa od 0"
+  },
+  "describers": {
+    "rectangle": {
+      "default": "narysował prostokąt w punkcie (${arg1}, ${arg2}) o szerokości ${arg3}, wysokości ${arg4} i kolorze ${arg5}",
+      "fixedColor": "narysował prostokąt w punkcie (${arg1}, ${arg2}) o szerokości ${arg3} i wysokości ${arg4}"
+    },
+    "triangle": {
+      "default": "narysował trójkąt o trzech wierzchołkach: (${arg1}, ${arg2}), (${arg3}, ${arg4}) i (${arg5}, ${arg6}), w kolorze ${arg7}",
+      "fixedColor": "narysował trójkąt o trzech wierzchołkach: (${arg1}, ${arg2}), (${arg3}, ${arg4}) i (${arg5}, ${arg6})"
+    },
+    "circle": {
+      "default": "narysował koło o środku w punkcie (${arg1}, ${arg2}), promieniu ${arg3} i kolorze ${arg4}",
+      "fixedColor": "narysował koło o środku w punkcie (${arg1}, ${arg2}) i promieniu ${arg3}"
+    },
+    "ellipse": {
+      "default": "narysował elipsę o środku w punkcie (${arg1}, ${arg2}), promieniu poziomym ${arg3}, promieniu pionowym ${arg4} i kolorze ${arg5}",
+      "fixedColor": "narysował elipsę o środku w punkcie (${arg1}, ${arg2}), promieniu poziomym ${arg3} i promieniu pionowym ${arg4}"
+    },
+    "line": {
+      "default": "narysował linię od (${arg1}, ${arg2}) do (${arg3}, ${arg4}) w kolorze ${arg5}",
+      "fixedColor": "narysował linię od (${arg1}, ${arg2}) do (${arg3}, ${arg4})"
+    },
+    "clear": "wyczyścił płótno",
+    "hsl": "przekonwertował kolor HSL (odcień: ${arg1}, nasycenie: ${arg2}, jasność: ${arg3}) na zapis szesnastkowy",
+    "rgb": "przekonwertował kolor RGB (czerwony: ${arg1}, zielony: ${arg2}, niebieski: ${arg3}) na zapis szesnastkowy"
+  }
+}
