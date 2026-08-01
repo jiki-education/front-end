@@ -14,7 +14,7 @@ export const ALL_LOCALES = [
   "it",
   "nl",
   "pt-BR",
-  "pt-pt",
+  "pt-PT",
   "ru",
   "sr",
   "uk",

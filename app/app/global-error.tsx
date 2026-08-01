@@ -48,7 +48,7 @@ const COPY: Record<Locale, GlobalErrorCopy> = {
     message: "Došlo je do neočekivane greške. Izvini zbog toga!",
     actionLabel: "Probaj ponovo"
   },
-  "pt-pt": {
+  "pt-PT": {
     title: "Algo correu mal",
     message: "Ocorreu um erro inesperado. Pedimos desculpa!",
     actionLabel: "Tenta novamente"
