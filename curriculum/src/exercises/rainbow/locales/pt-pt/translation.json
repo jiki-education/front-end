@@ -1,0 +1,46 @@
+{
+  "checks": {
+    "firstRectangle": "Falta o primeiro retângulo.",
+    "lastRectangle": "Falta o último retângulo.",
+    "minSaturationLightness": "Todos os retângulos devem ter uma saturação e uma luminosidade de pelo menos 20.",
+    "uniqueColors": "Não há 100 retângulos com cores diferentes.",
+    "hueRed": "Deve haver um retângulo com um matiz próximo de 0 (vermelho).",
+    "huePurple": "Deve haver um retângulo com um matiz próximo de 300 (roxo)."
+  },
+  "tasks": {
+    "drawRainbow": {
+      "name": "Desenha o arco-íris",
+      "description": "Desenha 100 barras verticais ao longo da tela, cada uma com um matiz diferente, para criar um efeito de arco-íris."
+    }
+  },
+  "scenarios": {
+    "drawRainbow": {
+      "name": "Desenha o arco-íris",
+      "description": "Pinta 100 belos retângulos para criar um arco-íris."
+    }
+  },
+  "hints": {
+    "hundredRectangles": {
+      "question": "Tenho de desenhar 100 retângulos diferentes?",
+      "answer": "Sim, mas não é a escrever `rectangle(...)` 100 vezes! Pensa no que fazemos quando temos código repetitivo."
+    },
+    "colorIntoRectangle": {
+      "question": "Como é que coloco a cor no retângulo",
+      "answer": "A função `hsl(...)` devolve uma string de cor. Depois podes passar essa string de cor à função `rectangle(...)`, como fizeste anteriormente."
+    },
+    "hueRange": {
+      "question": "Como é que faço o matiz ir de 0 a 300?",
+      "answer": "São 100 linhas, e a primeira deve ter um matiz de 0. Depois, para cada linha, precisamos de aumentar esse valor um pouco: a segunda linha pode ter um matiz de 3, a terceira um matiz de 6, e assim por diante. No final, chegamos a 300."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Desenha um retângulo na posição (esquerda, topo) com a largura, a altura e a cor indicadas",
+      "category": "Desenhar formas"
+    },
+    "hsl": {
+      "description": "Converte valores de cor HSL (matiz 0-360, saturação 0-100, luminosidade 0-100) numa string de cor",
+      "category": "Cores"
+    }
+  }
+}
