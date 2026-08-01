@@ -1,0 +1,90 @@
+{
+  "tasks": {
+    "sumTheDigits": {
+      "name": "Somma le cifre",
+      "description": "Scrivi una funzione chiamata digitalRoot che prende un numero e somma le sue cifre. Per i numeri già composti da una sola cifra, e per quelli le cui cifre sommate danno una sola cifra, questo primo passaggio basta."
+    },
+    "collapseToSingleDigit": {
+      "name": "Continua a ridurre finché resta una sola cifra",
+      "description": "A volte sommare le cifre una volta lascia ancora più di una cifra (per esempio 942 sommato dà 15). Continua a sommare le cifre del risultato finché non resta una sola cifra."
+    },
+    "keepItTight": {
+      "name": "Bonus: mantienila corta",
+      "description": "La tua soluzione funziona già. Per questo bonus, sistemala in modo che tutta la funzione stia in poche righe, senza niente di superfluo."
+    }
+  },
+  "scenarios": {
+    "drZero": {
+      "name": "Zero",
+      "description": "La radice numerica di 0 è 0."
+    },
+    "drSingleDigit": {
+      "name": "Già una sola cifra",
+      "description": "Un numero che è già composto da una sola cifra è la propria radice numerica."
+    },
+    "drTwoDigits": {
+      "name": "Due cifre",
+      "description": "16 si riduce a 7 in un solo passaggio (1 + 6)."
+    },
+    "drThreeDigits": {
+      "name": "Tre cifre, un passaggio",
+      "description": "132 si riduce a 6 in un solo passaggio (1 + 3 + 2)."
+    },
+    "drThirtyNine": {
+      "name": "Servono due passaggi",
+      "description": "39 sommato dà 12, che a sua volta dà 3."
+    },
+    "drTwoPasses": {
+      "name": "Un numero che richiede un secondo passaggio",
+      "description": "942 sommato dà 15, che a sua volta dà 6."
+    },
+    "drLarge": {
+      "name": "Un numero più grande",
+      "description": "493193 si riduce fino a 2."
+    },
+    "drNines": {
+      "name": "Tutti nove",
+      "description": "99999 sommato dà 45, che a sua volta dà 9."
+    },
+    "drBonusTight": {
+      "name": "Una soluzione corta e ordinata",
+      "description": "12345 si riduce a 6 (1 + 2 + 3 + 4 + 5 = 15, poi 1 + 5 = 6)."
+    }
+  },
+  "hints": {
+    "whatIsIt": {
+      "question": "Che cos'è esattamente una radice numerica?",
+      "answer": "Somma tutte le cifre del numero. Se ottieni una sola cifra, quella è la risposta. Se ottieni più di una cifra, somma anche le cifre di quel risultato, e vai avanti finché non resta una sola cifra."
+    },
+    "sumDigits": {
+      "question": "Come sommo le cifre di un numero?",
+      "answer": "Trasforma il numero in una stringa, così puoi scorrerla carattere per carattere con un ciclo `for...of`. Tieni un totale parziale e aggiungi ogni cifra man mano."
+    },
+    "digitsToNumbers": {
+      "question": "Però ogni cifra è un carattere, non un numero.",
+      "answer": "Quando scorri la stringa, ogni carattere (come `\"4\"`) è testo. Usa `Number(char)` per trasformarlo nel numero `4` prima di aggiungerlo al totale."
+    },
+    "whichLoop": {
+      "question": "Come faccio a continuare senza sapere quanti passaggi mi servono?",
+      "answer": "Non sai in anticipo quante volte dovrai sommare le cifre, quindi un ciclo `while` è perfetto. Continua il ciclo finché il numero ha più di una cifra."
+    },
+    "keepGoing": {
+      "question": "Quando mi fermo?",
+      "answer": "Fermati appena il numero è una sola cifra. A quel punto, restituiscilo."
+    }
+  },
+  "checks": {
+    "mustUseWhile": "Ci sei quasi! In questo esercizio vogliamo che tu usi un ciclo `while` per continuare a ridurre finché non resta una sola cifra.",
+    "tooManyLines": "Manca pochissimo! La tua soluzione funziona, ma è un po' lunga. Prova ad accorciarla."
+  },
+  "functions": {
+    "number": {
+      "description": "Converte una stringa che contiene cifre in un numero",
+      "category": "Conversione di tipo"
+    },
+    "string": {
+      "description": "Converte un numero in una stringa",
+      "category": "Conversione di tipo"
+    }
+  }
+}
