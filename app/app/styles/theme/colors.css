@@ -76,8 +76,19 @@
     --color-red-900: #7f1d1d;
     --color-red-950: #450a0a;
 
-    /* Orange Scale extension */
+    /* Orange Scale */
     --color-orange-30: #fffaf3;
+    --color-orange-50: #fff7ed;
+    --color-orange-100: #ffedd5;
+    --color-orange-200: #fed7aa;
+    --color-orange-300: #fdba74;
+    --color-orange-400: #fb923c;
+    --color-orange-500: #f97316;
+    --color-orange-600: #ea580c;
+    --color-orange-700: #c2410c;
+    --color-orange-800: #9a3412;
+    --color-orange-900: #7c2d12;
+    --color-orange-950: #431407;
 
     /* Amber/Yellow Scale */
     --color-amber-50: #fffbeb;
@@ -176,7 +187,9 @@
     --color-button-primary-bg: #8b5cf6;
     --color-button-primary-text: white;
     --color-button-secondary-bg: var(--color-gray-100);
+    --color-button-secondary-bg-hover: var(--color-gray-200);
     --color-button-secondary-text: var(--color-gray-700);
+    --color-button-secondary-border: var(--color-gray-300);
     --color-link-primary: var(--color-blue-600);
     --color-link-hover: var(--color-blue-700);
 
@@ -219,7 +232,9 @@
     --color-button-primary-bg: #8b5cf6;
     --color-button-primary-text: white;
     --color-button-secondary-bg: #374151;
+    --color-button-secondary-bg-hover: #4b5563;
     --color-button-secondary-text: var(--color-gray-300);
+    --color-button-secondary-border: var(--color-gray-600);
     --color-link-primary: var(--color-blue-400);
     --color-link-hover: var(--color-blue-300);
 
