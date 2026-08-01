@@ -134,8 +134,8 @@ describe("cache-key-generator", () => {
     });
 
     it("buckets unsupported languages into the default locale", () => {
-      const fr = new Request("https://jiki.io/blog", { headers: { "accept-language": "fr-FR,fr;q=0.9" } });
-      expect(generateCacheKey(fr, deployId)).toBe("/blog#abc1234@en");
+      const de = new Request("https://jiki.io/blog", { headers: { "accept-language": "de-DE,de;q=0.9" } });
+      expect(generateCacheKey(de, deployId)).toBe("/blog#abc1234@en");
     });
 
     it("generates same key regardless of disallowed param order", () => {

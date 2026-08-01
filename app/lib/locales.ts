@@ -5,7 +5,21 @@
 //
 // Every locale here has a real catalog at messages/<locale>.json. `en` first
 // (it is the source and the default), the rest alphabetical.
-export const ALL_LOCALES = ["en", "el", "fa", "hu", "pt-BR", "pt-pt", "ru", "sr", "uk"] as const;
+export const ALL_LOCALES = [
+  "en",
+  "el",
+  "fa",
+  "fr",
+  "hu",
+  "it",
+  "nl",
+  "pt-BR",
+  "pt-pt",
+  "ru",
+  "sr",
+  "uk",
+  "zh-TW"
+] as const;
 export type Locale = (typeof ALL_LOCALES)[number];
 
 export const DEFAULT_LOCALE: Locale = "en";

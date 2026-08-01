@@ -26,7 +26,7 @@ describe("resolveBannerOffer", () => {
     });
 
     it("falls back to English on a non-English page when none of their languages are supported", () => {
-      expect(resolveBannerOffer({ ...anon, pathname: "/hu/blog/x", acceptLanguage: "de,fr;q=0.9" })).toEqual({
+      expect(resolveBannerOffer({ ...anon, pathname: "/hu/blog/x", acceptLanguage: "de,ja;q=0.9" })).toEqual({
         offered: "en",
         current: "hu",
         href: "/blog/x"
@@ -74,7 +74,7 @@ describe("firstSupportedLanguage", () => {
   });
 
   it("returns undefined when nothing is supported", () => {
-    expect(firstSupportedLanguage("de,fr,ja")).toBeUndefined();
+    expect(firstSupportedLanguage("de,ja,ko")).toBeUndefined();
   });
 });
 
@@ -89,7 +89,7 @@ describe("localeCacheBucket", () => {
   });
 
   it("falls back to the default locale when nothing is supported", () => {
-    expect(localeCacheBucket("fr-FR,fr;q=0.9")).toBe("en");
+    expect(localeCacheBucket("de-DE,de;q=0.9")).toBe("en");
   });
 });
 

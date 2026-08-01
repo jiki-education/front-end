@@ -67,6 +67,29 @@ const COPY: Record<Locale, GlobalErrorCopy> = {
     title: "مشکلی پیش آمد",
     message: "یک خطای غیرمنتظره رخ داد. متأسفیم!",
     actionLabel: "دوباره تلاش کنید"
+  },
+  // Not yet translated: English copy verbatim until a website-copy pass covers
+  // these languages. The crash page must render usable text, so it never carries
+  // the catalog's `�` untranslated sentinel.
+  fr: {
+    title: "Something went wrong",
+    message: "We encountered an unexpected error. Sorry about that!",
+    actionLabel: "Try again"
+  },
+  it: {
+    title: "Something went wrong",
+    message: "We encountered an unexpected error. Sorry about that!",
+    actionLabel: "Try again"
+  },
+  nl: {
+    title: "Something went wrong",
+    message: "We encountered an unexpected error. Sorry about that!",
+    actionLabel: "Try again"
+  },
+  "zh-TW": {
+    title: "Something went wrong",
+    message: "We encountered an unexpected error. Sorry about that!",
+    actionLabel: "Try again"
   }
 };
 
