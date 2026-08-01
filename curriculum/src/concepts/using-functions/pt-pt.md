@@ -1,7 +1,7 @@
 ---
 title: "Usar funções"
 description: "Dizer ao Jiki para correr uma das suas pequenas máquinas: escreves o nome dela seguido de dois parênteses."
-en_md5: 007a425ced42fd3550bfdf9fe6f7b391
+en_md5: fc671310093a081113a8f301b6ff53fe
 ---
 
 Quando escreves código, aquilo que estás realmente a fazer é comunicar o que queres que aconteça, numa linguagem que o computador entende. Existem muitas linguagens de programação diferentes e existem muitos intérpretes (_interpreters_ em inglês) diferentes, que pegam naquilo que escreves e o transformam nos uns e zeros que um computador consegue entender. Neste curso, o teu intérprete é o Jiki. O curso todo tem o nome dele. Este é o Jiki. O Jiki vai ser o teu amigo nesta viagem pela programação. O trabalho dele é interpretar o código que escreves e transformá-lo nos uns e zeros sobre os quais o computador consegue realmente agir.
@@ -45,4 +45,4 @@ move()
 turnLeft()
 ```
 
-Agora, como é que a máquina funciona por dentro, o que acontece lá dentro dela, não precisamos de nos preocupar com isso por agora. Vamos ver isso com muito mais detalhe mais tarde. Na verdade, não vai demorar muito até conseguires construir as tuas próprias máquinas. Mas, por agora, não te preocupes com isso. Em cada exercício, vais saber quais são as máquinas que estão na prateleira do Jiki. Serão diferentes em cada exercício, e vais poder usá-las para resolver os exercícios.
+Agora, como a máquina funciona por dentro, o que acontece lá dentro, não precisamos de nos preocupar com isso por agora. Vamos ver isso com muito mais detalhe mais tarde. Na verdade, não vai demorar muito até conseguires construir as tuas próprias máquinas. Mas, por agora, não te preocupes com isso. Em cada exercício, vais saber quais são as máquinas que estão na prateleira do Jiki. Serão diferentes em cada exercício, e vais poder usá-las para resolver os exercícios.

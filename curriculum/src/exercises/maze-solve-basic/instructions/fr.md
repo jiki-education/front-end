@@ -14,7 +14,7 @@ Voici les trois instructions que tu peux utiliser :
 - `turnLeft()` (tourner à gauche) fait tourner le personnage vers la gauche (par rapport à la direction dans laquelle il regarde à ce moment-là)
 - `turnRight()` (tourner à droite) fait tourner le personnage vers la droite (par rapport à la direction dans laquelle il regarde à ce moment-là)
 
-Tu peux voir qu'on a déjà écrit les trois premières instructions à gauche. Commence par cliquer sur le bouton **« Exécuter le code »** pour voir ce qu'elles font. Ensuite, **ajoute d'autres instructions** pour amener ton personnage jusqu'à la sortie du labyrinthe. Écris une instruction par ligne, puis appuie sur **Exécuter le code** pour toutes les lancer.
+Tu peux voir, sur la partie gauche, qu'on a déjà écrit les trois premières instructions. Commence par cliquer sur le bouton **« Exécuter le code »** pour voir ce qu'elles font. Ensuite, **ajoute d'autres instructions** pour amener ton personnage jusqu'à la sortie du labyrinthe. Écris une instruction par ligne, puis appuie sur **Exécuter le code** pour toutes les lancer.
 
 Prends l'habitude d'exécuter ton code régulièrement : c'est une bonne pratique !
 

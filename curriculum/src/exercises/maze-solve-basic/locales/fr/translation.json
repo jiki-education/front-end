@@ -5,7 +5,7 @@
   "tasks": {
     "solveMaze": {
       "name": "Guide le personnage jusqu'à la sortie du labyrinthe",
-      "description": "Traverse le labyrinthe pour atteindre la cible verte"
+      "description": "Explore le labyrinthe jusqu'à la cible verte"
     }
   },
   "scenarios": {

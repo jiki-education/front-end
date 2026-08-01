@@ -18,4 +18,4 @@ Links zie je dat we de eerste drie instructies al voor je hebben geschreven. Kli
 
 Het is een goede gewoonte om je code regelmatig uit te voeren!
 
-Zodra je het doolhof hebt opgelost, kun je terug naar het Dashboard om met de volgende les te beginnen.
+Zodra je het doolhof hebt opgelost, kun je terug gaan naar het Dashboard om met de volgende les te beginnen.
