@@ -22,10 +22,10 @@
   "hints": {
     "hundredRectangles": {
       "question": "Est-ce que je dois dessiner 100 rectangles différents ?",
-      "answer": "Oui, mais pas en écrivant `rectangle(...)` 100 fois ! Pense à ce qu'on fait quand on a du code répétitif."
+      "answer": "Oui, mais pas en écrivant `rectangle(...)` 100 fois ! Pense à ce qu'on fait quand on a du code qui se répète."
     },
     "colorIntoRectangle": {
-      "question": "Comment mettre la couleur dans le rectangle ?",
+      "question": "Comment mettre de la couleur dans le rectangle ?",
       "answer": "La fonction `hsl(...)` renvoie une string de couleur. Tu peux ensuite passer cette string de couleur à la fonction `rectangle(...)`, comme tu l'as déjà fait."
     },
     "hueRange": {
