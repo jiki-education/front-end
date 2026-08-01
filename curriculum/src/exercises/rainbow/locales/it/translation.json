@@ -10,7 +10,7 @@
   "tasks": {
     "drawRainbow": {
       "name": "Disegna l'arcobaleno",
-      "description": "Disegna 100 barre verticali sul canvas, ognuna con una tonalità diversa, per creare un effetto arcobaleno."
+      "description": "Disegna 100 barre verticali sull'area di disegno, ognuna con una tonalità diversa, per creare un effetto arcobaleno."
     }
   },
   "scenarios": {
@@ -26,7 +26,7 @@
     },
     "colorIntoRectangle": {
       "question": "Come faccio a mettere il colore nel rettangolo?",
-      "answer": "La funzione `hsl(...)` restituisce una stringa di colore. Puoi poi passare quella stringa di colore alla funzione `rectangle(...)`, come hai già fatto in precedenza."
+      "answer": "La funzione `hsl(...)` restituisce una stringa di colore. Dopo puoi passare quella stringa di colore alla funzione `rectangle(...)`, come hai già fatto in precedenza."
     },
     "hueRange": {
       "question": "Come faccio a far andare la tonalità da 0 a 300?",
@@ -36,7 +36,7 @@
   "functions": {
     "rectangle": {
       "description": "Disegna un rettangolo alla posizione (left, top) con la larghezza, l'altezza e il colore indicati",
-      "category": "Disegno di forme"
+      "category": "Disegno di forme geometriche"
     },
     "hsl": {
       "description": "Converte i valori di un colore HSL (tonalità 0-360, saturazione 0-100, luminosità 0-100) in una stringa di colore",

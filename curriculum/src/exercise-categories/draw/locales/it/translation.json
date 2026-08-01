@@ -3,7 +3,7 @@
     "allInputsNumbers": "Tutti gli input devono essere numeri",
     "blueRange": "Il blu deve essere compreso tra 0 e 255",
     "circleInputsNumbers": "Gli input x, y e radius devono essere numeri",
-    "colorNamedOrHex": "Il colore deve essere un colore con nome (\"orange\", \"blue\", \"white\", ecc.) tra quelli indicati nelle istruzioni, oppure un colore esadecimale che inizia con #",
+    "colorNamedOrHex": "Il colore deve avere un nome (\"orange\", \"blue\", \"white\", ecc.) tra quelli indicati nelle istruzioni, oppure essere un colore esadecimale che inizia con #",
     "colorNotAllowed": "In questo esercizio il colore non va specificato",
     "colorNotString": "Il colore deve essere una stringa",
     "ellipseInputsNumbers": "Gli input x, y, rx e ry devono essere numeri",
@@ -39,7 +39,7 @@
       "default": "ha disegnato una linea da (${arg1}, ${arg2}) a (${arg3}, ${arg4}) con il colore ${arg5}",
       "fixedColor": "ha disegnato una linea da (${arg1}, ${arg2}) a (${arg3}, ${arg4})"
     },
-    "clear": "ha pulito il canvas",
+    "clear": "ha pulito l'area di disegno",
     "hsl": "ha convertito il colore HSL (tonalità: ${arg1}, saturazione: ${arg2}, luminosità: ${arg3}) in una stringa esadecimale",
     "rgb": "ha convertito il colore RGB (rosso: ${arg1}, verde: ${arg2}, blu: ${arg3}) in una stringa esadecimale"
   }
