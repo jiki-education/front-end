@@ -4,7 +4,7 @@ description: "Naslikaj dugu od 100 raznobojnih uspravnih traka."
 en_md5: 18cf1d57b1f3683a4484b507528f9acb
 ---
 
-Tvoj zadatak je da napraviš prelepu šaru u obliku duge, sastavljenu od 100 uspravnih traka. Trebalo bi da izgleda ovako:
+Tvoj zadatak je da napraviš prelepu šaru u bojama duge, sastavljenu od 100 uspravnih traka. Trebalo bi da izgleda ovako:
 
 <img src="/static/images/exercise-assets/rainbow/example.webp" alt="Duga" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
