@@ -1,0 +1,1851 @@
+{
+  "layout": {
+    "footer": {
+      "about": {
+        "heading": "�",
+        "aboutJiki": "�",
+        "testimonials": "�",
+        "ourTeam": "�",
+        "premium": "�",
+        "roadmap": "�"
+      },
+      "legal": {
+        "heading": "�",
+        "termsOfUsage": "�",
+        "privacyPolicy": "�",
+        "cookiePolicy": "�",
+        "codeOfConduct": "�",
+        "accessibility": "�"
+      },
+      "keepInTouch": {
+        "heading": "�",
+        "blog": "�",
+        "youtube": "�",
+        "reportAbuse": "�",
+        "sitemap": "�"
+      },
+      "freeContent": {
+        "heading": "�",
+        "codingConcepts": "�",
+        "agenticGuides": "�"
+      },
+      "getHelp": {
+        "heading": "�",
+        "helpCenter": "�",
+        "faqs": "�",
+        "contactUs": "�",
+        "siteStatus": "�"
+      },
+      "copyright": "�"
+    },
+    "externalHeader": {
+      "homeAriaLabel": "�",
+      "logoAlt": "�",
+      "aboutJiki": "�",
+      "premium": "�",
+      "testimonials": "�",
+      "login": "�",
+      "signUp": "�",
+      "menuAriaLabel": "�",
+      "closeMenuAriaLabel": "�"
+    },
+    "internalHeader": {
+      "homeAriaLabel": "�",
+      "logoAlt": "�",
+      "backToJiki": "�"
+    },
+    "sidebar": {
+      "groups": {
+        "learnToCode": "�",
+        "learnToBuild": "�",
+        "community": "�",
+        "more": "�"
+      },
+      "nav": {
+        "learn": "�",
+        "build": "�",
+        "challenges": "�",
+        "concepts": "�",
+        "achievements": "�",
+        "guides": "�",
+        "videos": "�",
+        "blog": "�",
+        "forum": "�",
+        "settings": "�",
+        "help": "�",
+        "upgrade": "�",
+        "logOut": "�"
+      },
+      "premiumPill": "�"
+    },
+    "loading": {
+      "title": "�",
+      "subtitle": "�"
+    },
+    "localeBanner": {
+      "prefix": "�",
+      "cta": "�",
+      "or": "�",
+      "close": "�"
+    }
+  },
+  "common": {
+    "continue": "�",
+    "close": "�",
+    "cancel": "�",
+    "confirm": "�",
+    "processing": "�",
+    "reloadPage": "�",
+    "loading": "�",
+    "languageNames": {
+      "en": "�",
+      "el": "�",
+      "fa": "�",
+      "hu": "�",
+      "pt-BR": "�",
+      "pt-pt": "�",
+      "ru": "�",
+      "sr": "�",
+      "uk": "�"
+    },
+    "verifying": "�",
+    "sending": "�",
+    "perMonth": "�",
+    "validation": {
+      "emailInvalid": "�",
+      "passwordRequired": "�",
+      "passwordMinLength": "�",
+      "currentPasswordRequired": "�",
+      "newPasswordRequired": "�",
+      "passwordsNoMatch": "�"
+    },
+    "pagination": {
+      "label": "�",
+      "previousPage": "�",
+      "nextPage": "�"
+    },
+    "loadingJiki": {
+      "alt": "�"
+    },
+    "otpInput": {
+      "label": "�",
+      "digitLabel": "�"
+    },
+    "closeButton": {
+      "label": "�"
+    },
+    "copyButton": {
+      "label": "�",
+      "copied": "�"
+    },
+    "soundToggle": {
+      "mute": "�",
+      "unmute": "�"
+    },
+    "themeToggle": {
+      "switchToDark": "�",
+      "switchToSystem": "�",
+      "switchToLight": "�",
+      "toggle": "�",
+      "description": "�"
+    },
+    "badgeNewLabel": {
+      "label": "�"
+    },
+    "saving": "�",
+    "retry": "�",
+    "tryAgain": "�"
+  },
+  "build": {
+    "upcomingStreams": {
+      "heading": "�",
+      "toBeAnnounced": "�",
+      "subscribeButton": "�"
+    },
+    "hub": {
+      "title": "�",
+      "description": "�"
+    }
+  },
+  "auth": {
+    "oauth": {
+      "useGoogle": "�",
+      "useExercism": "�",
+      "divider": "�"
+    },
+    "fields": {
+      "emailLabel": "�",
+      "emailPlaceholder": "�",
+      "passwordLabel": "�",
+      "passwordPlaceholder": "�",
+      "emailRequired": "�"
+    },
+    "captchaError": {
+      "signup": "�",
+      "login": "�",
+      "generic": "�"
+    },
+    "login": {
+      "title": "�",
+      "invalidCredentials": "�",
+      "forgotPassword": "�",
+      "submit": "�",
+      "submitting": "�",
+      "unconfirmed": "�",
+      "resend": "�",
+      "noAccount": "�"
+    },
+    "signup": {
+      "title": "�",
+      "emailAlreadyRegistered": "�",
+      "submit": "�",
+      "submitting": "�",
+      "haveAccount": "�",
+      "resend": "�"
+    },
+    "forgotPassword": {
+      "title": "�",
+      "subtitle": "�",
+      "successMessage": "�",
+      "submit": "�",
+      "remembered": "�"
+    },
+    "resetPassword": {
+      "invalidTitle": "�",
+      "invalidMessage": "�",
+      "requestNewLink": "�",
+      "title": "�",
+      "subtitle": "�",
+      "tokenMissing": "�",
+      "confirmationRequired": "�",
+      "successMessage": "�",
+      "newPasswordLabel": "�",
+      "newPasswordPlaceholder": "�",
+      "confirmPasswordLabel": "�",
+      "confirmPasswordPlaceholder": "�",
+      "submit": "�",
+      "submitting": "�",
+      "remembered": "�"
+    },
+    "resendConfirmation": {
+      "title": "�",
+      "subtitle": "�",
+      "successMessage": "�",
+      "submit": "�",
+      "confirmed": "�"
+    },
+    "checkInbox": {
+      "heading": "�",
+      "sentTo": "�",
+      "hint": "�"
+    },
+    "emailConfirmed": {
+      "heading": "�",
+      "message": "�"
+    },
+    "confirmEmail": {
+      "pendingTitle": "�",
+      "pendingDescription": "�",
+      "errorTitle": "�",
+      "errorMessage": "�",
+      "errorCta": "�"
+    },
+    "exercismCallback": {
+      "errorTitle": "�",
+      "errorCta": "�",
+      "pendingTitle": "�",
+      "pendingDescription": "�",
+      "authFailed": "�"
+    },
+    "errorCard": {
+      "needHelp": "�"
+    },
+    "twoFactorVerify": {
+      "title": "�",
+      "subtitle": "�",
+      "codeLabel": "�"
+    },
+    "twoFactorSetup": {
+      "instructionsHeading": "�",
+      "appsHint": "�",
+      "codeLabel": "�"
+    },
+    "unsubscribe": {
+      "noToken": "�",
+      "linkInvalid": "�",
+      "tooManyRequests": "�",
+      "serviceUnavailable": "�",
+      "unableToProcess": "�",
+      "networkError": "�",
+      "processingTitle": "�",
+      "processingDescription": "�",
+      "successTitle": "�",
+      "successDescription": "�",
+      "errorTitle": "�"
+    },
+    "twoFactor": {
+      "cancel": "�",
+      "invalidCode": "�",
+      "verificationFailed": "�"
+    },
+    "layout": {
+      "logoAlt": "�",
+      "tagline": "�",
+      "description": "�",
+      "createdBy": "�",
+      "brand": "�"
+    }
+  },
+  "settings": {
+    "page": {
+      "title": "�",
+      "description": "�",
+      "tabAccount": "�",
+      "tabSubscription": "�",
+      "tabNotifications": "�",
+      "tabLearning": "�",
+      "tabDanger": "�"
+    },
+    "avatarEdit": {
+      "adjustTitle": "�",
+      "adjustSubtitle": "�",
+      "back": "�",
+      "save": "�",
+      "changeTitle": "�",
+      "changeSubtitlePart1": "�",
+      "changeSubtitlePart2": "�",
+      "uploadText": "�",
+      "uploadHint": "�"
+    },
+    "avatarUpload": {
+      "label": "�"
+    },
+    "avatarPreview": {
+      "alt": "�"
+    },
+    "cancelConfirm": {
+      "title": "�",
+      "message": "�",
+      "benefitsTitle": "�",
+      "benefit1": "�",
+      "benefit2": "�",
+      "benefit3": "�",
+      "benefit4": "�",
+      "keep": "�",
+      "cancel": "�"
+    },
+    "cancelSuccess": {
+      "title": "�",
+      "message": "�",
+      "accessUntil": "�",
+      "resubscribeNote": "�",
+      "gotIt": "�"
+    },
+    "changeEmail": {
+      "title": "�",
+      "importantLabel": "�",
+      "importantText": "�",
+      "currentEmailLabel": "�",
+      "newEmailLabel": "�",
+      "newEmailPlaceholder": "�",
+      "passwordLabel": "�",
+      "passwordPlaceholder": "�",
+      "passwordHint": "�",
+      "newEmailRequired": "�",
+      "emailSame": "�",
+      "updateFailed": "�",
+      "submit": "�"
+    },
+    "deleteAccount": {
+      "sendFailed": "�",
+      "confirmTitle": "�",
+      "confirmMessage": "�",
+      "submit": "�",
+      "securityTitle": "�",
+      "securityMessage": "�",
+      "understand": "�"
+    },
+    "paymentHistory": {
+      "title": "�",
+      "subtitle": "�",
+      "loading": "�",
+      "error": "�",
+      "empty": "�",
+      "columnDate": "�",
+      "columnAmount": "�",
+      "columnType": "�",
+      "columnMethod": "�",
+      "downloadReceipt": "�"
+    },
+    "profile": {
+      "nameLabel": "�",
+      "namePlaceholder": "�",
+      "updateName": "�",
+      "nameEmpty": "�",
+      "nameTooLong": "�",
+      "handleLabel": "�",
+      "handlePlaceholder": "�",
+      "updateHandle": "�",
+      "handleEmpty": "�",
+      "handleInvalid": "�",
+      "handleTooShort": "�",
+      "handleTooLong": "�",
+      "emailLabel": "�",
+      "emailPlaceholder": "�",
+      "updateEmail": "�",
+      "emailEmpty": "�",
+      "confirmationPendingHint": "�",
+      "emailNotConfirmed": "�",
+      "confirmationPending": "�"
+    },
+    "subscriptionSection": {
+      "loadingCardTitle": "�",
+      "loadingCardDescription": "�",
+      "loadingData": "�"
+    },
+    "benefits": {
+      "activeSubtitle": "�",
+      "cancellingSubtitle": "�",
+      "resubscribeTitle": "�",
+      "resubscribeButton": "�",
+      "activeHeading": "�",
+      "cancellingHeading": "�",
+      "footer": "�",
+      "resubscribe": "�"
+    },
+    "cancelSectionPanel": {
+      "title": "�",
+      "description": "�",
+      "cancel": "�"
+    },
+    "premiumUpsell": {
+      "subtitle": "�",
+      "planName": "�",
+      "upgrade": "�",
+      "headline": "�",
+      "dailyNote": "�"
+    },
+    "neverSubscribed": {
+      "heading": "�",
+      "subtitle": "�",
+      "featuresLabel": "�",
+      "upgradeAriaLabel": "�",
+      "upgrade": "�"
+    },
+    "errorBoundary": {
+      "title": "�",
+      "messagePart1": "�",
+      "messagePart2": "�",
+      "refresh": "�",
+      "detailsSummary": "�"
+    },
+    "danger": {
+      "sessionLabel": "�",
+      "sessionDescription": "�",
+      "logout": "�",
+      "deleteLabel": "�",
+      "deleteDescription": "�",
+      "deleteButton": "�"
+    },
+    "learning": {
+      "streaksLabel": "�",
+      "streaksDescription": "�",
+      "toggleAriaLabel": "�",
+      "learnMore": "�"
+    },
+    "notifications": {
+      "toggleAriaLabel": "�",
+      "essentialTitle": "�",
+      "essentialDescription": "�",
+      "featuresTitle": "�",
+      "featuresDescription": "�",
+      "livestreamsTitle": "�",
+      "livestreamsDescription": "�",
+      "milestonesTitle": "�",
+      "milestonesDescription": "�",
+      "activityTitle": "�",
+      "activityDescription": "�",
+      "onboardingTitle": "�",
+      "onboardingDescription": "�"
+    },
+    "editableField": {
+      "update": "�",
+      "edit": "�",
+      "saveFailed": "�"
+    },
+    "passwordField": {
+      "updateFailed": "�",
+      "currentLabel": "�",
+      "currentPlaceholder": "�",
+      "newLabel": "�",
+      "newPlaceholder": "�",
+      "confirmLabel": "�",
+      "confirmPlaceholder": "�",
+      "submit": "�",
+      "label": "�",
+      "change": "�"
+    },
+    "subscriptionStatus": {
+      "statusActive": "�",
+      "statusCanceled": "�",
+      "statusPaymentFailed": "�",
+      "statusCancelling": "�",
+      "statusIncomplete": "�",
+      "statusSessionExpired": "�",
+      "statusNotSubscribed": "�",
+      "currentPlan": "�",
+      "cancellingMessage": "�",
+      "currentPlanAriaLabel": "�",
+      "statusAriaLabel": "�",
+      "messageCanceled": "�",
+      "messagePaymentFailed": "�",
+      "messageCancelling": "�",
+      "messageIncomplete": "�",
+      "messageIncompleteExpired": "�",
+      "active": "�",
+      "activeWithBilling": "�",
+      "cancellingRemaining": "�",
+      "cancellingEnds": "�",
+      "free": "�",
+      "planLabel": "�"
+    }
+  },
+  "landing": {
+    "hero": {
+      "tagline": "�",
+      "ctaSubtext": "�",
+      "loadingVideo": "�",
+      "playVideo": "�",
+      "watchPrompt": "�",
+      "headline": "�",
+      "audience": "�"
+    },
+    "exercism": {
+      "heading": "�",
+      "intro": "�",
+      "studentsCount": "�",
+      "studentsTitle": "�",
+      "studentsDesc": "�",
+      "testimonialsCount": "�",
+      "testimonialsTitle": "�",
+      "testimonialsDesc": "�",
+      "exercisesCount": "�",
+      "exercisesTitle": "�",
+      "exercisesDesc": "�",
+      "mentoringCount": "�",
+      "mentoringTitle": "�",
+      "mentoringDesc": "�"
+    },
+    "signupSection": {
+      "intro": "�",
+      "button": "�",
+      "heading": "�"
+    },
+    "signupButton": {
+      "label": "�"
+    },
+    "faqs": {
+      "heading": "�",
+      "q1": "�",
+      "q1a1": "�",
+      "q1Item1": "�",
+      "q1Item2": "�",
+      "q1Item3": "�",
+      "q1Item4": "�",
+      "q1Item5": "�",
+      "q1Item6": "�",
+      "q1Item7": "�",
+      "q2": "�",
+      "q2a": "�",
+      "q3": "�",
+      "q3a1": "�",
+      "q3a2": "�",
+      "q4": "�",
+      "q4a1": "�",
+      "q4a2": "�",
+      "q5": "�",
+      "q5a1": "�",
+      "q5a2": "�",
+      "intro": "�",
+      "q1a2": "�"
+    },
+    "latestNews": {
+      "heading": "�",
+      "byAuthor": "�",
+      "subheading": "�"
+    },
+    "welcome": {
+      "para1": "�",
+      "para2": "�",
+      "para3": "�",
+      "hiThere": "�",
+      "para4": "�",
+      "para5": "�",
+      "heading2": "�",
+      "para6": "�",
+      "para7": "�",
+      "para8": "�",
+      "heading3": "�",
+      "para9": "�",
+      "rhodriAlt": "�",
+      "captionShort": "�",
+      "captionLong": "�",
+      "para11": "�",
+      "para12": "�",
+      "heading4": "�",
+      "para13": "�",
+      "listItem1": "�",
+      "listItem2": "�",
+      "para14": "�",
+      "spaceInvadersLabel": "�",
+      "ticTacToeLabel": "�",
+      "breakoutLabel": "�",
+      "mazeLabel": "�",
+      "heading5": "�",
+      "para15": "�",
+      "ctaButton": "�",
+      "heading": "�",
+      "para10": "�",
+      "para17": "�",
+      "para16": "�"
+    },
+    "bootcamp": {
+      "tagWhatWeCover": "�",
+      "menuHeading": "�",
+      "menuIntro": "�",
+      "part1Heading": "�",
+      "part1Bubble": "�",
+      "part1Intro": "�",
+      "part1Item2": "�",
+      "part1Item3": "�",
+      "part1Item4": "�",
+      "part1Duration": "�",
+      "part1Alt": "�",
+      "levelsHeading": "�",
+      "levelsSideheading": "�",
+      "levelsIntro": "�",
+      "levelsSubIntro": "�",
+      "penguinAlt": "�",
+      "level2": "�",
+      "golfLabel": "�",
+      "level3": "�",
+      "flowerLabel": "�",
+      "flowerLevel": "�",
+      "spaceInvadersLabel": "�",
+      "level7": "�",
+      "wallLabel": "�",
+      "level10": "�",
+      "wordleAlt": "�",
+      "level12": "�",
+      "ticTacToeLabel": "�",
+      "level14": "�",
+      "mazeLabel": "�",
+      "level16": "�",
+      "dreamingHouseLabel": "�",
+      "level20": "�",
+      "breakoutLabel": "�",
+      "levelEnd": "�",
+      "buildingHeading": "�",
+      "buildingIntro": "�",
+      "part2Heading": "�",
+      "part2Bubble": "�",
+      "part2Intro": "�",
+      "part2Item1": "�",
+      "part2Item2": "�",
+      "part2Item3": "�",
+      "part2Duration": "�",
+      "jeremyLivestreamAlt": "�",
+      "certificateBubble": "�",
+      "certificateHeading": "�",
+      "certificatePara1": "�",
+      "certificatePara2": "�",
+      "certificateAlt": "�",
+      "linkedinAlt": "�",
+      "linkedinShare": "�",
+      "part1Item1": "�"
+    }
+  },
+  "premium": {
+    "page": {
+      "heading": "�",
+      "subheading": "�"
+    },
+    "planPrice": {
+      "basic": "�",
+      "premium": "�",
+      "free": "�",
+      "perMonth": "�"
+    },
+    "planBadge": {
+      "free": "�",
+      "premium": "�"
+    },
+    "table": {
+      "comparePlans": "�",
+      "comparePlansDesc": "�",
+      "checkNo": "�"
+    },
+    "values": {
+      "oneConversation": "�",
+      "unlimited": "�",
+      "firstEpisodes": "�",
+      "fullAccess": "�",
+      "sampleEpisode": "�"
+    },
+    "categories": {
+      "codingFundamentals": "�",
+      "buildWithJeremy": "�",
+      "support": "�",
+      "certificates": "�",
+      "experience": "�"
+    },
+    "features": {
+      "codingExercisesTitle": "�",
+      "codingExercisesDesc": "�",
+      "conceptLibraryTitle": "�",
+      "conceptLibraryDesc": "�",
+      "jikiChallengesTitle": "�",
+      "jikiChallengesDesc": "�",
+      "askJikiTitle": "�",
+      "askJikiDesc": "�",
+      "buildingFundamentalsTitle": "�",
+      "buildingFundamentalsDesc": "�",
+      "howThingsWorkTitle": "�",
+      "howThingsWorkDesc": "�",
+      "earlyAccessTitle": "�",
+      "earlyAccessDesc": "�",
+      "communityForumsTitle": "�",
+      "communityForumsDesc": "�",
+      "livestreamsTitle": "�",
+      "livestreamsDesc": "�",
+      "certificatesTitle": "�",
+      "certificatesDesc": "�",
+      "adFreeTitle": "�",
+      "adFreeDesc": "�"
+    },
+    "faq": {
+      "title": "�",
+      "q1": "�",
+      "a1": "�",
+      "q2": "�",
+      "a2": "�",
+      "q3": "�",
+      "a3": "�",
+      "q4": "�",
+      "q5": "�",
+      "a5": "�",
+      "a4": "�"
+    },
+    "cta": {
+      "alreadyPremiumTitle": "�",
+      "alreadyPremiumDesc": "�",
+      "upgradeTitle": "�",
+      "upgradeDesc": "�",
+      "upgradeButton": "�",
+      "freeTitle": "�",
+      "freeDesc": "�",
+      "freeButton": "�"
+    },
+    "publicPrice": {
+      "unavailable": "�"
+    },
+    "benefits": {
+      "unlimitedAiTitle": "�",
+      "unlimitedAiDescription": "�",
+      "unlimitedContentTitle": "�",
+      "unlimitedContentDescription": "�",
+      "certificatesTitle": "�",
+      "certificatesDescription": "�",
+      "adFreeTitle": "�",
+      "adFreeDescription": "�",
+      "prioritySupportTitle": "�",
+      "prioritySupportDescription": "�",
+      "earlyAccessTitle": "�",
+      "earlyAccessDescription": "�"
+    }
+  },
+  "roadmap": {
+    "page": {
+      "heading": "�",
+      "subheading": "�",
+      "disclaimer": "�"
+    },
+    "status": {
+      "shipped": "�",
+      "inProgress": "�",
+      "planned": "�"
+    },
+    "changelog": {
+      "title": "�",
+      "subtitle": "�",
+      "learnToBuildLaunch": {
+        "date": "�",
+        "title": "�",
+        "description": "�"
+      },
+      "milestones6To10": {
+        "date": "�",
+        "title": "�",
+        "description": "�"
+      },
+      "jikiLaunch": {
+        "date": "�",
+        "title": "�",
+        "description": "�"
+      }
+    },
+    "phases": {
+      "now": {
+        "label": "�",
+        "timeframe": "�",
+        "summary": "�",
+        "learnToBuild": {
+          "title": "�",
+          "description": "�"
+        },
+        "launchBugs": {
+          "title": "�",
+          "description": "�"
+        },
+        "earlyFeedback": {
+          "title": "�",
+          "description": "�"
+        },
+        "foundations": {
+          "title": "�",
+          "description": "�"
+        }
+      },
+      "next": {
+        "label": "�",
+        "timeframe": "�",
+        "summary": "�",
+        "betaToLive": {
+          "title": "�",
+          "description": "�"
+        },
+        "deepDiveVideos": {
+          "title": "�",
+          "description": "�"
+        },
+        "newLanguages": {
+          "title": "�",
+          "description": "�"
+        },
+        "pythonVersion": {
+          "title": "�",
+          "description": "�"
+        }
+      },
+      "future": {
+        "label": "�",
+        "timeframe": "�",
+        "summary": "�",
+        "moreLanguages": {
+          "title": "�",
+          "description": "�"
+        },
+        "sql": {
+          "title": "�",
+          "description": "�"
+        }
+      }
+    }
+  },
+  "misc": {
+    "chooseLanguage": {
+      "selectLanguage": "�",
+      "backToVideo": "�",
+      "tooltip": "�",
+      "saving": "�",
+      "confirmChoice": "�",
+      "questionTitle": "�",
+      "javascript": "�",
+      "python": "�",
+      "chooseForMe": "�",
+      "cantChange": "�",
+      "noVideo": "�",
+      "videoInstruction": "�"
+    },
+    "deleteAccount": {
+      "deletedTitle": "�",
+      "deletedSubtitle": "�",
+      "deletingTitle": "�",
+      "deletingSubtitle": "�",
+      "errorTitle": "�",
+      "errorSubtitle": "�",
+      "expiredTitle": "�",
+      "expiredSubtitle": "�",
+      "expiredSecondary": "�",
+      "goHome": "�"
+    },
+    "errorPage": {
+      "serverErrorTitle": "�",
+      "serverErrorMessage": "�",
+      "serverErrorAction": "�",
+      "notFoundTitle": "�",
+      "notFoundMessage": "�",
+      "notFoundAction": "�"
+    },
+    "testimonialsPage": {
+      "title": "�",
+      "subtitle": "�",
+      "quoteOpenAlt": "�",
+      "quoteCloseAlt": "�"
+    }
+  },
+  "concepts": {
+    "breadcrumb": {
+      "root": "�"
+    },
+    "list": {
+      "heading": "�",
+      "intro": "�",
+      "searchPlaceholder": "�",
+      "emptyTitle": "�",
+      "emptyBody": "�",
+      "noResultsTitle": "�",
+      "noResultsMessage": "�"
+    },
+    "card": {
+      "locked": "�",
+      "subConcepts": "�"
+    },
+    "error": {
+      "notFound": "�",
+      "back": "�"
+    },
+    "relatedConcepts": {
+      "heading": "�",
+      "description": "�",
+      "locked": "�"
+    },
+    "relatedExercises": {
+      "heading": "�",
+      "description": "�",
+      "signupPrompt": "�",
+      "locked": "�"
+    },
+    "relatedChallenges": {
+      "heading": "�",
+      "description": "�",
+      "locked": "�"
+    },
+    "videoRecap": {
+      "loggedInHeader": "�",
+      "loggedInDescription": "�",
+      "loggedOutHeader": "�",
+      "loggedOutDescription": "�",
+      "playAriaLabel": "�",
+      "thumbnailAlt": "�"
+    },
+    "signupCta": {
+      "title": "�",
+      "subtitle": "�",
+      "button": "�"
+    },
+    "upgradeCard": {
+      "logoAlt": "�",
+      "heading": "�",
+      "text": "�",
+      "button": "�"
+    }
+  },
+  "seo": {
+    "concepts": {
+      "title": "�",
+      "description": "�",
+      "notFound": "�"
+    },
+    "achievements": {
+      "title": "�",
+      "description": "�"
+    },
+    "build": {
+      "title": "�",
+      "description": "�"
+    },
+    "dashboard": {
+      "title": "�",
+      "description": "�"
+    },
+    "challenges": {
+      "title": "�",
+      "description": "�"
+    },
+    "settings": {
+      "title": "�",
+      "description": "�"
+    },
+    "checkEmail": {
+      "title": "�",
+      "description": "�"
+    },
+    "confirmEmail": {
+      "title": "�",
+      "description": "�"
+    },
+    "exercismCallback": {
+      "title": "�",
+      "description": "�"
+    },
+    "forgotPassword": {
+      "title": "�",
+      "description": "�"
+    },
+    "login": {
+      "title": "�",
+      "description": "�"
+    },
+    "resendConfirmation": {
+      "title": "�",
+      "description": "�"
+    },
+    "resetPassword": {
+      "title": "�",
+      "description": "�"
+    },
+    "signup": {
+      "title": "�",
+      "description": "�"
+    },
+    "home": {
+      "title": "�",
+      "description": "�"
+    },
+    "premium": {
+      "title": "�",
+      "description": "�"
+    },
+    "roadmap": {
+      "title": "�",
+      "description": "�"
+    },
+    "testimonials": {
+      "title": "�",
+      "description": "�"
+    },
+    "deleteAccount": {
+      "title": "�",
+      "description": "�"
+    },
+    "unsubscribePreferences": {
+      "title": "�",
+      "description": "�"
+    },
+    "unsubscribe": {
+      "title": "�",
+      "description": "�"
+    },
+    "blog": {
+      "title": "�",
+      "description": "�",
+      "notFound": "�"
+    },
+    "help": {
+      "title": "�",
+      "description": "�",
+      "notFound": "�"
+    },
+    "guides": {
+      "title": "�",
+      "description": "�"
+    }
+  },
+  "toasts": {
+    "subscription": {
+      "loginRequired": "�",
+      "checkoutFailed": "�",
+      "alreadyPremium": "�",
+      "checkoutSessionFailed": "�",
+      "portalFailed": "�",
+      "canceled": "�",
+      "cancelFailed": "�",
+      "reactivated": "�",
+      "reactivateFailed": "�",
+      "paymentPortalFailed": "�"
+    },
+    "auth": {
+      "sessionExpired": "�"
+    },
+    "logout": {
+      "loading": "�",
+      "success": "�",
+      "failed": "�"
+    },
+    "avatar": {
+      "updated": "�",
+      "uploadFailed": "�",
+      "networkError": "�",
+      "invalidImageType": "�",
+      "imageTooLarge": "�"
+    },
+    "settings": {
+      "fetchFailed": "�",
+      "settingUpdated": "�",
+      "updateFailed": "�",
+      "notificationUpdateFailed": "�",
+      "streaksUpdateFailed": "�"
+    },
+    "exercise": {
+      "submissionFailed": "�",
+      "chatSaveFailed": "�",
+      "chatSaveCaptchaFailed": "�",
+      "lessonSaveError": "�"
+    },
+    "lesson": {
+      "loadFailed": "�"
+    }
+  },
+  "modals": {
+    "welcomeToPremium": {
+      "badge": "�",
+      "description": "�",
+      "title": "�"
+    },
+    "subscriptionSuccess": {
+      "chatGate": {
+        "title": "�",
+        "description": "�",
+        "feature1": "�",
+        "feature2": "�",
+        "feature3": "�"
+      },
+      "featureGate": {
+        "title": "�",
+        "description": "�"
+      },
+      "settings": {
+        "title": "�",
+        "description": "�"
+      },
+      "general": {
+        "title": "�",
+        "description": "�"
+      },
+      "planLabel": "�",
+      "whatYouCanDo": "�",
+      "getStarted": "�",
+      "continueLearning": "�",
+      "skipForNow": "�",
+      "renewalNotice": "�"
+    },
+    "confirmation": {
+      "defaultTitle": "�",
+      "defaultMessage": "�"
+    },
+    "info": {
+      "defaultTitle": "�",
+      "defaultButton": "�"
+    },
+    "connectionError": {
+      "title": "�",
+      "subtitle": "�",
+      "reconnecting": "�",
+      "helpText": "�"
+    },
+    "sessionExpired": {
+      "title": "�",
+      "description": "�"
+    },
+    "paymentVerificationFailed": {
+      "title": "�",
+      "description": "�"
+    },
+    "levelMilestone": {
+      "title": "�",
+      "message": "�",
+      "lessonsCompleted": "�",
+      "xpEarned": "�",
+      "readyNext": "�",
+      "goToDashboard": "�",
+      "continueNextLevel": "�"
+    },
+    "badge": {
+      "funFact": "�",
+      "keepGoing": "�"
+    },
+    "authError": {
+      "title": "�",
+      "subtitle": "�",
+      "helpText": "�"
+    },
+    "rateLimit": {
+      "title": "�",
+      "subtitle": "�",
+      "autoRefresh": "�",
+      "noteLabel": "�",
+      "noteText": "�",
+      "reconnecting": "�"
+    },
+    "exerciseSuccess": {
+      "defaultTitle": "�",
+      "defaultMessage": "�"
+    },
+    "welcome": {
+      "title": "�",
+      "subtitle": "�",
+      "skipTitle": "�",
+      "skipMessage": "�",
+      "skipConfirm": "�",
+      "skipCancel": "�"
+    },
+    "subscription": {
+      "chatGate": {
+        "headline": "�",
+        "description": "�"
+      },
+      "featureGate": {
+        "headlineFallback": "�",
+        "headline": "�",
+        "description": "�"
+      },
+      "settings": {
+        "headline": "�",
+        "description": "�"
+      },
+      "general": {
+        "headline": "�",
+        "description": "�"
+      },
+      "unlockWith": "�",
+      "recommended": "�",
+      "choosePremium": "�",
+      "subscribeAriaLabel": "�",
+      "renewNotice": "�",
+      "notNow": "�"
+    },
+    "walkthroughConfirm": {
+      "title": "�",
+      "intro": "�",
+      "tryFirst": "�",
+      "watchDeepDive": "�",
+      "conceptPages": "�",
+      "askJiki": "�",
+      "whatHappened": "�",
+      "revealHints": "�"
+    },
+    "paymentConfirming": {
+      "title": "�",
+      "description": "�"
+    },
+    "example": {
+      "defaultTitle": "�",
+      "defaultMessage": "�"
+    },
+    "paymentProcessing": {
+      "title": "�",
+      "description": "�",
+      "continue": "�"
+    },
+    "exerciseCompletion": {
+      "success": {
+        "title": "�",
+        "titleBonus": "�",
+        "messageExercise": "�",
+        "messageChallenge": "�",
+        "completeExercise": "�",
+        "completeChallenge": "�"
+      },
+      "conceptUnlocked": {
+        "title": "�",
+        "messageGeneric": "�",
+        "messageNamed": "�"
+      },
+      "completed": {
+        "titleExercise": "�",
+        "titleChallenge": "�",
+        "greatWork": "�",
+        "readyExercise": "�",
+        "readyChallenge": "�",
+        "bonusPrompt": "�",
+        "tidyCode": "�",
+        "solveBonuses": "�",
+        "moveOn": "�"
+      },
+      "difficultyRating": {
+        "title": "�",
+        "message": "�",
+        "rateDifficulty": "�",
+        "rateFun": "�",
+        "difficultyTooEasy": "�",
+        "difficultyEasy": "�",
+        "difficultyJustRight": "�",
+        "difficultyHard": "�",
+        "difficultyTooHard": "�",
+        "funFrustrating": "�",
+        "funPrettyGood": "�",
+        "funAmazing": "�",
+        "rateDifficultyAriaLabel": "�",
+        "rateFunAriaLabel": "�",
+        "funOptionFallback": "�"
+      },
+      "challengeUnlocked": {
+        "title": "�",
+        "message": "�",
+        "newLabel": "�",
+        "premiumInfo": "�"
+      }
+    },
+    "premiumUpgrade": {
+      "skipLink": "�",
+      "userAvatarAlt": "�",
+      "upgrade": "�",
+      "planName": "�",
+      "featureLearnToBuild": "�",
+      "featureChallenges": "�",
+      "featureAi": "�",
+      "featureLivestreams": "�",
+      "featureCertificates": "�",
+      "featureAdFree": "�",
+      "featureEarlyAccess": "�",
+      "basic": {
+        "subheading": "�",
+        "planName": "�",
+        "planPrice": "�",
+        "feature1": "�",
+        "feature2": "�",
+        "feature3": "�",
+        "note": "�",
+        "headline": "�"
+      },
+      "dailyNote": "�"
+    },
+    "subscriptionCheckout": {
+      "connectingToStripe": "�",
+      "paymentFailed": "�",
+      "unexpectedError": "�",
+      "paymentFailedTitle": "�",
+      "paymentInfoAriaLabel": "�",
+      "pay": "�",
+      "orderTitle": "�",
+      "orderBilling": "�",
+      "perMonthShort": "�",
+      "securedBy": "�",
+      "error": "�"
+    },
+    "calendarSubscribe": {
+      "title": "�",
+      "description": "�",
+      "apple": "�",
+      "google": "�",
+      "otherLabel": "�",
+      "otherHelp": "�",
+      "copied": "�"
+    }
+  },
+  "challenge": {
+    "backToChallenges": "�",
+    "error": {
+      "message": "�"
+    },
+    "loadError": "�",
+    "documentTitle": "�",
+    "locked": {
+      "title": "�",
+      "description": "�"
+    },
+    "premiumRequired": {
+      "title": "�",
+      "description": "�"
+    }
+  },
+  "dashboard": {
+    "exercisePath": {
+      "comingSoon": {
+        "title": "�",
+        "description": "�"
+      },
+      "walkthrough": {
+        "label": "�",
+        "watch": "�"
+      },
+      "start": {
+        "title": "�"
+      },
+      "completionCert": {
+        "title": "�",
+        "description": "�",
+        "progress": "�"
+      },
+      "lessonNode": {
+        "status": {
+          "complete": "�",
+          "locked": "�",
+          "inProgress": "�"
+        },
+        "type": {
+          "video": "�",
+          "quiz": "�",
+          "choice": "�",
+          "exercise": "�"
+        }
+      },
+      "scrollToActive": {
+        "up": "�",
+        "down": "�"
+      },
+      "milestone": {
+        "label": "�"
+      }
+    },
+    "challengesSidebar": {
+      "empty": {
+        "title": "�",
+        "description": "�"
+      },
+      "upsell": {
+        "title": "�",
+        "description": "�"
+      },
+      "userProfile": {
+        "premiumMember": "�"
+      },
+      "challengeCard": {
+        "status": {
+          "locked": "�",
+          "notStarted": "�",
+          "inProgress": "�",
+          "completed": "�",
+          "available": "�"
+        }
+      },
+      "streak": {
+        "activeDays": "�",
+        "noStreak": "�",
+        "oneDayStreak": "�",
+        "multiDayStreak": "�"
+      },
+      "badges": {
+        "title": "�"
+      },
+      "recent": {
+        "title": "�",
+        "unlockedCount": "�",
+        "viewAll": "�"
+      }
+    }
+  },
+  "codingExercise": {
+    "loadError": "�",
+    "unknownError": "�",
+    "runButton": {
+      "run": "�",
+      "running": "�",
+      "resetAriaLabel": "�",
+      "resetTooltip": "�",
+      "resetConfirmTitle": "�",
+      "resetConfirmMessage": "�",
+      "resetConfirmButton": "�"
+    },
+    "hintsPanel": {
+      "title": "�",
+      "description": "�",
+      "empty": "�",
+      "reveal": "�",
+      "hide": "�",
+      "confirmReveal": "�",
+      "confirmNo": "�",
+      "confirmYes": "�",
+      "deepDiveHeading": "�",
+      "deepDiveDescription": "�",
+      "walkthroughThumbnailAlt": "�"
+    },
+    "chatHeader": {
+      "title": "�",
+      "description": "�"
+    },
+    "chatStatus": {
+      "errorLabel": "�"
+    },
+    "chatPanel": {
+      "unavailable": "�"
+    },
+    "chatMessages": {
+      "greeting": "�"
+    },
+    "chatInput": {
+      "placeholder": "�",
+      "limitReachedPlaceholder": "�",
+      "respondPlaceholder": "�"
+    },
+    "conversation": {
+      "loadError": "�"
+    },
+    "typeItAssistant": {
+      "thinking": "�"
+    },
+    "functionsView": {
+      "empty": "�",
+      "examples": "�"
+    },
+    "tasksView": {
+      "empty": "�",
+      "bonus": "�"
+    },
+    "logPanel": {
+      "title": "�",
+      "emptyDescription": "�",
+      "description": "�",
+      "emptyState": "�"
+    },
+    "instructionsPanel": {
+      "instructionsTitle": "�",
+      "functionsTitle": "�",
+      "conceptLibraryTitle": "�",
+      "functionsIntro": "�",
+      "functionsExamplesLabel": "�",
+      "loadingConcepts": "�",
+      "premiumChallenge": "�",
+      "exerciseLevel": "�",
+      "libraryEmpty": "�",
+      "libraryChallenges": "�",
+      "libraryWithConcepts": "�",
+      "openConceptLibrary": "�"
+    },
+    "scrubber": {
+      "previousFrame": "�",
+      "nextFrame": "�",
+      "previousBreakpoint": "�",
+      "nextBreakpoint": "�",
+      "toggleInfoOn": "�",
+      "toggleInfoOff": "�",
+      "showInfoWidget": "�",
+      "hideInfoWidget": "�",
+      "disabledCodeEdited": "�",
+      "disabledSpotlight": "�",
+      "disabledNotEnoughFrames": "�"
+    },
+    "avatars": {
+      "jikiAlt": "�",
+      "userAlt": "�"
+    },
+    "rhs": {
+      "tabInstructions": "�",
+      "tabAskJiki": "�",
+      "tabLog": "�",
+      "tabHints": "�",
+      "navChallenges": "�",
+      "navDashboard": "�"
+    },
+    "canStart": {
+      "placeholder": "�",
+      "askAbout": "�",
+      "askJiki": "�",
+      "freeIncluded": "�",
+      "premiumIncluded": "�",
+      "phraseWhyNotWorking": "�",
+      "phraseHowToFixBug": "�",
+      "phraseWhatErrorMeans": "�",
+      "phraseHowToApproach": "�",
+      "phraseHowToGetUnstuck": "�"
+    },
+    "freeUserLimitReached": {
+      "description": "�",
+      "upgradeButton": "�",
+      "price": "�"
+    },
+    "lockedFooter": {
+      "freeLimitText": "�",
+      "premiumBlockedText": "�",
+      "learnMoreFairUse": "�"
+    },
+    "chatUsageNotice": {
+      "warning": {
+        "daily": "�",
+        "monthly": "�"
+      },
+      "limitReached": {
+        "daily": "�",
+        "monthly": "�"
+      },
+      "learnMore": "�"
+    },
+    "chatError": {
+      "sessionExpired": "�",
+      "verificationFailed": "�",
+      "authFailed": "�",
+      "tokenServerError": "�",
+      "tokenInitFailed": "�",
+      "exerciseMismatch": "�",
+      "authExpired": "�",
+      "tooManyRequests": "�",
+      "serviceUnavailable": "�",
+      "serverError": "�",
+      "networkError": "�",
+      "timeout": "�",
+      "unexpected": "�"
+    },
+    "stuckHeader": {
+      "title": "�"
+    },
+    "testResults": {
+      "passBadge": "�",
+      "failBadge": "�",
+      "pendingBadge": "�",
+      "pendingMessage": "�",
+      "codeRun": "�",
+      "expected": "�",
+      "actual": "�",
+      "noReturn": "�",
+      "clickRunCode": "�",
+      "lintWarning": "�",
+      "lintWarningPlain": "�",
+      "genericError": "�",
+      "congratsWellDone": "�",
+      "congratsNiceWork": "�",
+      "congratsFantasticJob": "�",
+      "congratsAmazingEffort": "�",
+      "congratsGreatAchievement": "�",
+      "congratsCongratulations": "�",
+      "congratsCongrats": "�"
+    },
+    "syntaxError": {
+      "heading": "�",
+      "message": "�"
+    },
+    "unhandledError": {
+      "heading": "�",
+      "message": "�"
+    }
+  },
+  "lesson": {
+    "documentTitle": "�",
+    "loadError": "�",
+    "backToDashboard": "�",
+    "error": {
+      "message": "�"
+    },
+    "quizNotImplemented": "�",
+    "quitButton": {
+      "title": "�",
+      "message": "�",
+      "confirm": "�",
+      "cancel": "�",
+      "ariaLabel": "�"
+    },
+    "loadingPage": {
+      "loading": "�",
+      "message": {
+        "video": "�",
+        "chooseLanguage": "�",
+        "exercise": "�"
+      },
+      "tip": {
+        "video": "�",
+        "chooseLanguage": "�",
+        "exercise": "�"
+      }
+    },
+    "loadingModal": {
+      "title": "�",
+      "subtitle": "�"
+    }
+  },
+  "quizCard": {
+    "submit": "�",
+    "nextQuestion": "�",
+    "codeInputPlaceholder": "�",
+    "feedback": {
+      "correct": "�",
+      "incorrect": "�"
+    },
+    "fillIn": {
+      "successTitle": "�",
+      "successMessage": "�",
+      "incorrectTitle": "�",
+      "errorMessage": "�"
+    },
+    "coding": {
+      "successTitle": "�",
+      "successMessage": "�",
+      "errorTitle": "�",
+      "errorMessage": "�"
+    }
+  },
+  "videoExercise": {
+    "noVideoSource": "�",
+    "provider": "�",
+    "skipHint": "�",
+    "pill": {
+      "complete": "�",
+      "progress": "�",
+      "watching": "�",
+      "finished": "�",
+      "finishTooltip": "�"
+    }
+  },
+  "projects": {
+    "projectCard": {
+      "comingSoon": "�",
+      "comingSoonLabel": "�"
+    },
+    "episodeCard": {
+      "premium": "�"
+    },
+    "episodeSummary": {
+      "heading": "�",
+      "whereWeStart": "�",
+      "whereWeEnd": "�",
+      "whatWeCover": "�"
+    },
+    "projectPage": {
+      "backToAllProjects": "�"
+    },
+    "episodePage": {
+      "backToProject": "�",
+      "relevantGuidesDescription": "�"
+    },
+    "relevantGuides": {
+      "heading": "�"
+    }
+  },
+  "guides": {
+    "guidesContent": {
+      "pageHeading": "�",
+      "searchPlaceholder": "�",
+      "filterAll": "�",
+      "noResultsTitle": "�",
+      "noResultsMessage": "�"
+    },
+    "guideCard": {
+      "premium": "�"
+    },
+    "guideBreadcrumb": {
+      "guides": "�"
+    },
+    "premiumGate": {
+      "lockedTitle": "�",
+      "lockedSubtitle": "�",
+      "unlockButton": "�"
+    },
+    "relatedGuides": {
+      "heading": "�"
+    },
+    "featuredInProjects": {
+      "heading": "�"
+    },
+    "metadata": {
+      "notFoundTitle": "�"
+    }
+  },
+  "unsubscribe": {
+    "title": "�",
+    "subtitle": "�",
+    "updateError": "�",
+    "toggleAria": "�",
+    "manage": {
+      "title": "�",
+      "description": "�",
+      "updated": "�",
+      "save": "�"
+    },
+    "all": {
+      "title": "�",
+      "description": "�",
+      "success": "�",
+      "button": "�"
+    },
+    "email": {
+      "alreadyTitle": "�",
+      "alreadyDescription": "�",
+      "title": "�",
+      "description": "�",
+      "success": "�",
+      "button": "�",
+      "fallbackType": "�"
+    },
+    "types": {
+      "newsletters": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "event_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "milestone_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "activity_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "onboarding_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      }
+    }
+  },
+  "achievements": {
+    "title": "�",
+    "description": "�",
+    "tabBadges": "�",
+    "tabCertificates": "�",
+    "loading": "�",
+    "error": "�",
+    "certificatesEmptyTitle": "�",
+    "certificatesEmptyBody": "�"
+  },
+  "challenges": {
+    "title": "�",
+    "description": "�",
+    "tabAll": "�",
+    "tabInProgress": "�",
+    "tabNotStarted": "�",
+    "tabComplete": "�",
+    "tabLocked": "�",
+    "error": "�",
+    "codingChallenge": "�",
+    "premiumOnly": "�",
+    "status": {
+      "locked": "�",
+      "unlocked": "�",
+      "started": "�",
+      "completed": "�"
+    },
+    "empty": {
+      "noneAvailable": "�",
+      "noneFound": "�",
+      "inProgressTitle": "�",
+      "inProgressDescription": "�",
+      "allStartedTitle": "�",
+      "allStartedDescription": "�",
+      "noneToStartTitle": "�",
+      "noneToStartDescription": "�",
+      "completedTitle": "�",
+      "completedDescription": "�"
+    }
+  },
+  "subscription": {
+    "tiers": {
+      "standard": {
+        "name": "�",
+        "description": "�",
+        "features": {
+          "freeCourses": "�",
+          "basicExercises": "�",
+          "communitySupport": "�",
+          "aiHelpPerMonth": "�"
+        }
+      },
+      "premium": {
+        "name": "�",
+        "description": "�",
+        "features": {
+          "allFreeFeatures": "�",
+          "unlimitedAi": "�",
+          "allExercises": "�",
+          "certificates": "�",
+          "adFree": "�"
+        }
+      }
+    }
+  }
+}

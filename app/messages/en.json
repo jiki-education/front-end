@@ -99,7 +99,14 @@
     "loading": "Loading...",
     "languageNames": {
       "en": "English",
-      "hu": "Hungarian"
+      "el": "Greek",
+      "fa": "Persian",
+      "hu": "Hungarian",
+      "pt-BR": "Portuguese (Brazil)",
+      "pt-pt": "Portuguese (Portugal)",
+      "ru": "Russian",
+      "sr": "Serbian",
+      "uk": "Ukrainian"
     },
     "verifying": "Verifying...",
     "sending": "Sending...",

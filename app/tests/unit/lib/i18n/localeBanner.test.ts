@@ -64,7 +64,7 @@ describe("firstSupportedLanguage", () => {
     expect(firstSupportedLanguage("de;q=0.9,hu;q=0.8")).toBe("hu");
   });
 
-  it("matches a base language (pt-BR -> unsupported, hu-HU -> hu)", () => {
+  it("matches a base language (hu-HU -> hu)", () => {
     expect(firstSupportedLanguage("hu-HU,en;q=0.9")).toBe("hu");
   });
 
@@ -74,7 +74,7 @@ describe("firstSupportedLanguage", () => {
   });
 
   it("returns undefined when nothing is supported", () => {
-    expect(firstSupportedLanguage("de,fr,pt-BR")).toBeUndefined();
+    expect(firstSupportedLanguage("de,fr,ja")).toBeUndefined();
   });
 });
 

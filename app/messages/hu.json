@@ -99,7 +99,14 @@
     "loading": "Betöltés...",
     "languageNames": {
       "en": "Angol",
-      "hu": "Magyar"
+      "el": "Görög",
+      "fa": "Perzsa",
+      "hu": "Magyar",
+      "pt-BR": "Portugál (brazíliai)",
+      "pt-pt": "Portugál (európai)",
+      "ru": "Orosz",
+      "sr": "Szerb",
+      "uk": "Ukrán"
     },
     "verifying": "Ellenőrzés...",
     "sending": "Küldés...",

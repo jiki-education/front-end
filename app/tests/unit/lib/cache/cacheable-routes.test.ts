@@ -53,11 +53,11 @@ describe("cacheable-routes", () => {
         expect(isCacheableRoute("/de")).toBe(false);
       });
 
-      it("would cache region-subtag locales once they are supported", () => {
-        // Guards the pt-BR case: caching keys off SUPPORTED_LOCALES, so adding a
-        // hyphenated locale there makes /pt-BR/blog cacheable with no regex change.
-        // (pt-BR isn't supported yet, so it's uncacheable today.)
-        expect(isCacheableRoute("/pt-BR/blog")).toBe(false);
+      it("caches region-subtag locales that are supported", () => {
+        // Caching keys off SUPPORTED_LOCALES, so a hyphenated locale is cacheable
+        // with no regex change, while an unsupported one still isn't.
+        expect(isCacheableRoute("/pt-BR/blog")).toBe(true);
+        expect(isCacheableRoute("/es-MX/blog")).toBe(false);
       });
     });
 

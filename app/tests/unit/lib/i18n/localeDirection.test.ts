@@ -7,6 +7,9 @@
 import { ALL_LOCALES, getLocaleDirection, RTL_LOCALES } from "@/lib/locales";
 
 describe("getLocaleDirection", () => {
+  // RTL_LOCALES is deliberately empty while fa has no routed content, so every
+  // known locale still resolves to ltr. This asserts that state, not that every
+  // locale in ALL_LOCALES is an LTR language.
   it("returns ltr for every currently-known locale", () => {
     for (const locale of ALL_LOCALES) {
       expect(getLocaleDirection(locale)).toBe("ltr");
@@ -21,7 +24,7 @@ describe("getLocaleDirection", () => {
     expect(getLocaleDirection("xx-YY")).toBe("ltr");
   });
 
-  it("has no RTL locales today (en and hu are both LTR)", () => {
+  it("has no RTL locales today (fa's entry is deferred until it has routed content)", () => {
     expect(RTL_LOCALES.size).toBe(0);
   });
 

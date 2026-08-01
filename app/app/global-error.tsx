@@ -32,6 +32,41 @@ const COPY: Record<Locale, GlobalErrorCopy> = {
     title: "Valami hiba történt",
     message: "Váratlan hiba lépett fel. Elnézést kérünk emiatt!",
     actionLabel: "Próbáld újra"
+  },
+  el: {
+    title: "Κάτι πήγε στραβά",
+    message: "Παρουσιάστηκε ένα απρόσμενο σφάλμα. Συγγνώμη γι' αυτό!",
+    actionLabel: "Δοκίμασε ξανά"
+  },
+  ru: {
+    title: "Что-то пошло не так",
+    message: "Произошла непредвиденная ошибка. Приносим извинения!",
+    actionLabel: "Попробовать снова"
+  },
+  sr: {
+    title: "Nešto je pošlo po zlu",
+    message: "Došlo je do neočekivane greške. Izvini zbog toga!",
+    actionLabel: "Probaj ponovo"
+  },
+  "pt-pt": {
+    title: "Algo correu mal",
+    message: "Ocorreu um erro inesperado. Pedimos desculpa!",
+    actionLabel: "Tenta novamente"
+  },
+  uk: {
+    title: "Щось пішло не так",
+    message: "Сталася неочікувана помилка. Перепрошуємо!",
+    actionLabel: "Спробувати ще раз"
+  },
+  "pt-BR": {
+    title: "Algo deu errado",
+    message: "Ocorreu um erro inesperado. Sentimos muito!",
+    actionLabel: "Tente novamente"
+  },
+  fa: {
+    title: "مشکلی پیش آمد",
+    message: "یک خطای غیرمنتظره رخ داد. متأسفیم!",
+    actionLabel: "دوباره تلاش کنید"
   }
 };
 
