@@ -28,7 +28,7 @@ let name = "Jeremy"
   height="400"
 />
 
-Megkértük tehát, hogy készítsen egy dobozt, címkézze fel, és tegyen bele valamit, ő pedig felteszi a dobozt a polcra. A programod bármelyik későbbi pontján Jiki le tudja venni a dobozt a polcról, és megnézi, mi van benne. Kezdd el felépíteni magadban ezt a képet! Én ősidők óta programozok, és kódírás közben még ma is azt képzelem el, hogy beleteszek valamit egy dobozba, amit később majd kiveszek. Amikor meglátod a `let` kulcsszót, tényleg gondolj arra: „Rendben, ez azt jelenti, hogy új dobozt készítek."
+Megkértük tehát, hogy készítsen egy dobozt, címkézze fel, és tegyen bele valamit, ő pedig felteszi a dobozt a polcra. A programod bármelyik későbbi pontján Jiki le tudja venni a dobozt a polcról, és megnézi, mi van benne. Kezdd el felépíteni magadban ezt a képet! Én ősidők óta programozok, és kódírás közben még ma is azt képzelem el, hogy beleteszek valamit egy dobozba, amit később majd kiveszek. Amikor meglátod a `let` kulcsszót, tényleg gondolj arra: „Rendben, ez azt jelenti, hogy új dobozt készítek.”
 
 Néhány szó a változók nevéről, vagyis a dobozok címkéiről. Ezekre van pár szabályunk. Először is, a változónevekben nem lehet szóköz. Ha egy doboz címkéjéhez több szót szeretnél használni, a szavakat egyszerűen egymáshoz fűzzük, és minden szó első betűjét nagybetűre cseréljük. Ezt hívjuk camel case-nek. Képzeld el, ahogy a teve púpjai minden új szó első betűjét nagybetűvé tolják fel. Ha tehát a my name címkét szeretnéd, két külön szó helyett egyetlen szót írunk, nagy N-nel: `myName`.
 

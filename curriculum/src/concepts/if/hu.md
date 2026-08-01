@@ -43,7 +43,7 @@ Ezeket az összehasonlításokat jelekkel írjuk le. Valószínűleg ismered má
   height="400"
 />
 
-Így nem keverjük össze azzal, amikor változót hozunk létre vagy frissítünk, ilyenkor ugyanis egyetlen egyenlőségjel jelenti azt, hogy „ezt tedd a dobozba". Csak azt jegyezd meg, hogy összehasonlításhoz három egyenlőségjel kell.
+Így nem keverjük össze azzal, amikor változót hozunk létre vagy frissítünk, ilyenkor ugyanis egyetlen egyenlőségjel jelenti azt, hogy „ezt tedd a dobozba”. Csak azt jegyezd meg, hogy összehasonlításhoz három egyenlőségjel kell.
 
 Stringeket is összehasonlíthatsz. A `"hello"` egyenlő a `"hello"`-val: ez igaz, a két string ugyanaz. De itt légy óvatos, mert Jiki a két papírlapon lévő stringek minden egyes karakterét (_character_ angolul) összehasonlítja. A nagy H-s `"Hello"` nem ugyanaz, mint a kis h-s `"hello"`: két különböző string. Az összehasonlításuk ezért hamis lenne, mert a nagy H és a kis h különböző karakterek.
 

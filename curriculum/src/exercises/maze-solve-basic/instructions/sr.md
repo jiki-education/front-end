@@ -14,7 +14,7 @@ Tri instrukcije koje možeš da koristiš su:
 - `turnLeft()` (skreni levo) okreće lika ulevo (u odnosu na smer u kom trenutno gleda)
 - `turnRight()` (skreni desno) okreće lika udesno (u odnosu na smer u kom trenutno gleda)
 
-Sa leve strane možeš da vidiš da smo prve tri instrukcije već napisali umesto tebe. Za početak klikni na dugme **„Pokreni kod"** da vidiš šta one rade. Zatim **dodaj još instrukcija** da bi tvoj lik stigao do kraja lavirinta. Svaku instrukciju piši u zasebnom redu, pa pritisni **Pokreni kod** da se sve izvrše.
+Sa leve strane možeš da vidiš da smo prve tri instrukcije već napisali umesto tebe. Za početak klikni na dugme **„Pokreni kod“** da vidiš šta one rade. Zatim **dodaj još instrukcija** da bi tvoj lik stigao do kraja lavirinta. Svaku instrukciju piši u zasebnom redu, pa pritisni **Pokreni kod** da se sve izvrše.
 
 Dobra je navika da svoj kod pokrećeš često!
 

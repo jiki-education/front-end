@@ -25,7 +25,7 @@ for (let letter of name) {
 
 Először is ott a `for` kulcsszó. Ebből tudja Jiki, hogy ciklust szeretnénk. Előrenéz, meglátja az `of`-ot, és már tudja is, hogy for-of ciklusról van szó.
 
-Ez pedig azt jelenti, hogy nem egy repeat ciklust használunk, ahol azt mondjuk: „menjünk körbe tízszer", hanem azt mondjuk: „menjünk végig a string összes betűjén". Ezt jelenti a for-of.
+Ez pedig azt jelenti, hogy nem egy repeat ciklust használunk, ahol azt mondjuk: „menjünk körbe tízszer”, hanem azt mondjuk: „menjünk végig a string összes betűjén”. Ezt jelenti a for-of.
 
 Aztán ott ez a `let letter` rész. Ez pontosan ugyanaz, mint fentebb a `let name`: egyszerűen létrehozunk egy `letter` (betű) nevű változót.
 

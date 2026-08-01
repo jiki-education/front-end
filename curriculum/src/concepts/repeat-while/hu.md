@@ -22,7 +22,7 @@ move()
 move()
 ```
 
-De mi lenne, ha azt mondanám: „Írj nekem olyan kódot, ami bármelyik labirintust megoldja!"? Ahhoz a labirintushoz lehet, hogy 10 lépés kell, lehet, hogy 50 vagy 200. Előre fogalmad sincs.
+De mi lenne, ha azt mondanám: „Írj nekem olyan kódot, ami bármelyik labirintust megoldja!”? Ahhoz a labirintushoz lehet, hogy 10 lépés kell, lehet, hogy 50 vagy 200. Előre fogalmad sincs.
 
 <img
   class="concept-image"
@@ -42,7 +42,7 @@ Szóval kell egy mód arra, hogy Jikinek egyszerűen azt mondd: menjen tovább. 
   height="400"
 />
 
-És ezt megoldani igazán egyszerű. Egyszerűen ne adj számot a `repeat` kulcsszónak. Hagyd üresen azt a zárójelet. Ha így teszel, Jiki addig megy tovább, amíg valami más meg nem állítja. Hogy mik ezek a „valami mások", azt később nézzük meg. Egyelőre annyi a lényeg, hogy Jiki addig megy, amíg a feladat véget nem ér, vagy amíg úgy nem érzi, hogy már rettentő régóta megy, ráférne egy kis pihenés, és mára elege van.
+És ezt megoldani igazán egyszerű. Egyszerűen ne adj számot a `repeat` kulcsszónak. Hagyd üresen azt a zárójelet. Ha így teszel, Jiki addig megy tovább, amíg valami más meg nem állítja. Hogy mik ezek a „valami mások”, azt később nézzük meg. Egyelőre annyi a lényeg, hogy Jiki addig megy, amíg a feladat véget nem ér, vagy amíg úgy nem érzi, hogy már rettentő régóta megy, ráférne egy kis pihenés, és mára elege van.
 
 <img
   class="concept-image"

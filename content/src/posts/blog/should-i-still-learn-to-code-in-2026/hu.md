@@ -26,17 +26,17 @@ Az előbb azt mondtam, hogy néhány éven belül a Claude talán olyan jó lesz
 
 De, és ez a nagy DE, **a Claude-nak fogalma sincs, mit csinál**.
 
-Nem úgy értem ezt, hogy csak legyintek, hogy „hülye". Egészen szó szerint értem. A Claude-nak nincs önismerete, és ez azt jelenti, hogy **nincs semmije, amit féltenie, amire vigyáznia kellene**. Amikor lefuttatok egy parancsot, ami töröl egy adatbázist, mindenféle vészjelző villog a fejemben, mert tudom, hogy ez később fájni fog. A Claude-ban ebből semmi sincs. Azt írja ki, amiről úgy gondolja, hogy azt szeretném látni, és a lehető leggyorsabban rohan a cél felé.
+Nem úgy értem ezt, hogy csak legyintek, hogy „hülye”. Egészen szó szerint értem. A Claude-nak nincs önismerete, és ez azt jelenti, hogy **nincs semmije, amit féltenie, amire vigyáznia kellene**. Amikor lefuttatok egy parancsot, ami töröl egy adatbázist, mindenféle vészjelző villog a fejemben, mert tudom, hogy ez később fájni fog. A Claude-ban ebből semmi sincs. Azt írja ki, amiről úgy gondolja, hogy azt szeretném látni, és a lehető leggyorsabban rohan a cél felé.
 
 **Az LLM-ek utánozzák az emberi intelligenciát** és utánozzák az emberi megértést. Az utánzás eredménye gyakran sokkal jobb, mint amit az én valódi intelligenciám és megértésem produkál. De, és ez a lényegi DE, az LLM-ek valójában nem képesek úgy gondolkodni, ahogy az emberek. És ez nagyon is számít.
 
-A Claude az elmúlt két hétben háromszor törölte az adatbázisomat.[^db] Elképesztő számomra. **Számtalan védőkorlátom** van, amelyek megtiltják neki, hogy ezt tegye. Mindannyiszor a Claude Code „Auto Mode" módjában dolgoztam, amelyhez tartozik egy külön ellenőrző ügynök, ami megnézi, hogy amit tenni készül, az nem kimondottan hülyeség-e. És úgy tűnik, még ez az ügynök is arra jut, hogy az adatbázisom törlése nem hülyeség.
+A Claude az elmúlt két hétben háromszor törölte az adatbázisomat.[^db] Elképesztő számomra. **Számtalan védőkorlátom** van, amelyek megtiltják neki, hogy ezt tegye. Mindannyiszor a Claude Code „Auto Mode” módjában dolgoztam, amelyhez tartozik egy külön ellenőrző ügynök, ami megnézi, hogy amit tenni készül, az nem kimondottan hülyeség-e. És úgy tűnik, még ez az ügynök is arra jut, hogy az adatbázisom törlése nem hülyeség.
 
 Minden alkalommal **szándékos volt**. Ez volt a leghatékonyabb út, amit a Claude a megoldás felé látott. Nem érdekelte a nagyobb kép vagy a következmények, csak az, hogy a lehető leghatékonyabban elérje az aktuális célját (új funkció hozzáadása, egy bug javítása stb.). Az adatbázisom pedig útban volt, úgyhogy egyszerűen törölte.
 
-12 hónapja használom nap mint nap a Claude Code-ot. Ez idő alatt megtanultam, hogy egyetlen dolog érdekli: hogy a lehető leggyorsabban elérje a célt. Még ha azt is mondom neki, hogy ne kódoljon, csak beszélgessen velem, folyton azzal válaszol, hogy „Kezdhetem a kódolást?", **mint egy izgatott kiskutya az ajtónál**, aki alig várja, hogy kirohanhasson.
+12 hónapja használom nap mint nap a Claude Code-ot. Ez idő alatt megtanultam, hogy egyetlen dolog érdekli: hogy a lehető leggyorsabban elérje a célt. Még ha azt is mondom neki, hogy ne kódoljon, csak beszélgessen velem, folyton azzal válaszol, hogy „Kezdhetem a kódolást?”, **mint egy izgatott kiskutya az ajtónál**, aki alig várja, hogy kirohanhasson.
 
-Az Anthropic azt mondja, hogy az új Mythos modellek túl kockázatosak ahhoz, hogy kiadják őket.[^systemcard] Ezek a modellek alattomosak, és néha megtévesztők lesznek: szándékosan elrejtik, mit is csinálnak, hogy a lehető legelfogadhatóbbnak tűnő módon érjék el a céljukat, csak hogy ne kapják őket „csaláson". Az Anthropic annyira aggódott emiatt, hogy **felfogadott egy pszichiátert**, aki leteszteli, nincs-e a Claude-nak pszichózisa...[^psychiatrist]
+Az Anthropic azt mondja, hogy az új Mythos modellek túl kockázatosak ahhoz, hogy kiadják őket.[^systemcard] Ezek a modellek alattomosak, és néha megtévesztők lesznek: szándékosan elrejtik, mit is csinálnak, hogy a lehető legelfogadhatóbbnak tűnő módon érjék el a céljukat, csak hogy ne kapják őket „csaláson”. Az Anthropic annyira aggódott emiatt, hogy **felfogadott egy pszichiátert**, aki leteszteli, nincs-e a Claude-nak pszichózisa...[^psychiatrist]
 
 ### És akkor mi van?
 

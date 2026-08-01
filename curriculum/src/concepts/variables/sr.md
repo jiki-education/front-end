@@ -28,9 +28,9 @@ let name = "Jeremy"
   height="400"
 />
 
-Dakle, rekli smo mu da napravi kutiju, zalepi etiketu na nju i stavi nešto unutra, i on sada nosi kutiju i ostavlja je na policu. A onda, u bilo kom drugom trenutku u tvom programu, Jiki može da ode po tu kutiju, skine je sa police i pogleda šta je u njoj. Počni da gradiš ovaj mentalni model. Programiram već čitavu večnost, i još uvek, dok pišem kod, zamišljam da nešto stavljam u kutiju iz koje ću ga kasnije izvaditi. Kada vidiš ključnu reč `let`, stvarno pomisli: „U redu, to znači da pravim novu kutiju."
+Dakle, rekli smo mu da napravi kutiju, zalepi etiketu na nju i stavi nešto unutra, i on sada nosi kutiju i ostavlja je na policu. A onda, u bilo kom drugom trenutku u tvom programu, Jiki može da ode po tu kutiju, skine je sa police i pogleda šta je u njoj. Počni da gradiš ovaj mentalni model. Programiram već čitavu večnost, i još uvek, dok pišem kod, zamišljam da nešto stavljam u kutiju iz koje ću ga kasnije izvaditi. Kada vidiš ključnu reč `let`, stvarno pomisli: „U redu, to znači da pravim novu kutiju.“
 
-Još nekoliko reči o imenima promenljivih, etiketama na ovim kutijama. Za njih imamo par pravila. Prvo, imena promenljivih ne smeju da sadrže razmake. Ako za etiketu kutije želiš da upotrebiš više reči, spajamo reči jednu uz drugu, a prvo slovo svake sledeće reči pišemo velikim slovom. Ovo zovemo camel case. Zamisli kamilje grbe kako izdižu prvo slovo svake nove reči u veliko slovo. Dakle, ako želiš etiketu koja znači „moje ime", na engleskom „my name", umesto dve reči razdvojene razmakom pišemo jednu reč sa velikim N: `myName`.
+Još nekoliko reči o imenima promenljivih, etiketama na ovim kutijama. Za njih imamo par pravila. Prvo, imena promenljivih ne smeju da sadrže razmake. Ako za etiketu kutije želiš da upotrebiš više reči, spajamo reči jednu uz drugu, a prvo slovo svake sledeće reči pišemo velikim slovom. Ovo zovemo camel case. Zamisli kamilje grbe kako izdižu prvo slovo svake nove reči u veliko slovo. Dakle, ako želiš etiketu koja znači „moje ime“, na engleskom „my name“, umesto dve reči razdvojene razmakom pišemo jednu reč sa velikim N: `myName`.
 
 Takođe, ime svake promenljive mora da bude jedinstveno. Ne možeš da imaš dve kutije sa istom etiketom, a promenljive ne mogu ni da imaju isto ime kao funkcije. Ako to zaboraviš, Jiki će se zbuniti i prijaviće ti grešku.
 

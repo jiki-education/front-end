@@ -12,7 +12,7 @@ Na primer, zamisli da si u lavirintu i želiš da se pomeriš 10 koraka napred. 
 
 Umesto da napišemo `move` 10 puta zaredom, što brzo postane veoma zamorno, treba nam način da kažemo: „Hej, Jiki, uradi sledeće što kažem 10 puta.
 
-`Move`."
+`Move`.“
 
 Da bismo ovo uradili u kodu, potrebna nam je naša prva ključna reč (engl. _keyword_). Ključne reči su instrukcije koje Jiki razume. Malo liče na mašine, ali to nisu. Kada Jiki vidi ključnu reč, ne traži mašinu na polici, već jednostavno zna šta treba da uradi. To mu je ugrađeno u mozak. Tokom kursa naučićemo dvadesetak različitih ključnih reči, a prva od njih je ključna reč `repeat`.
 
@@ -24,7 +24,7 @@ Da bismo ovo uradili u kodu, potrebna nam je naša prva ključna reč (engl. _ke
   height="400"
 />
 
-Ključna reč `repeat` radi tačno ono što sam gore rekao. Ona govori Jikiju: „Ponovi ovoliko puta ono što sledeće kažem." Pogledaj ovaj kod. Prvo koristimo ključnu reč `repeat` da kažemo Jikiju da će nešto raditi više puta. Zatim u obične zagrade upišemo koliko puta želimo da Jiki to ponovi, a onda dolaze one vitičaste zagrade, i unutar njih se nalazi ono što želimo da Jiki ponavlja. Ovaj šablon je neverovatno čest u programiranju: navedemo ključnu reč, obično uz neku informaciju (u ovom slučaju koliko puta nešto treba uraditi), a zatim blok koda (engl. _code block_) u vitičastim zagradama. Vratimo se u svet lavirinta: umesto da pišemo `move`, `move`, `move`, `move`, možemo da napišemo „ponovi četiri puta `move`".
+Ključna reč `repeat` radi tačno ono što sam gore rekao. Ona govori Jikiju: „Ponovi ovoliko puta ono što sledeće kažem.“ Pogledaj ovaj kod. Prvo koristimo ključnu reč `repeat` da kažemo Jikiju da će nešto raditi više puta. Zatim u obične zagrade upišemo koliko puta želimo da Jiki to ponovi, a onda dolaze one vitičaste zagrade, i unutar njih se nalazi ono što želimo da Jiki ponavlja. Ovaj šablon je neverovatno čest u programiranju: navedemo ključnu reč, obično uz neku informaciju (u ovom slučaju koliko puta nešto treba uraditi), a zatim blok koda (engl. _code block_) u vitičastim zagradama. Vratimo se u svet lavirinta: umesto da pišemo `move`, `move`, `move`, `move`, možemo da napišemo „ponovi četiri puta `move`“.
 
 ```javascript
 repeat(4) {
