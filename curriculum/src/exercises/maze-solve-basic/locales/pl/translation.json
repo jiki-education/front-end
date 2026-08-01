@@ -1,27 +1,27 @@
 {
   "checks": {
-    "didNotReachEnd": "Twoja postać nie dotarła do końca labiryntu."
+    "didNotReachEnd": "Postać nie dotarła do końca labiryntu."
   },
   "tasks": {
     "solveMaze": {
       "name": "Poprowadź postać do końca labiryntu",
-      "description": "Przejdź przez labirynt, aby dotrzeć do zielonego celu"
+      "description": "Przeprowadź postać przez labirynt do zielonego celu"
     }
   },
   "scenarios": {
     "maze1": {
       "name": "Poprowadź postać do końca labiryntu",
-      "description": "Twoim zadaniem jest przeprowadzenie postaci przez labirynt do zielonego pola mety."
+      "description": "Twoim zadaniem jest przeprowadzenie postaci przez labirynt na zielone pole mety."
     }
   },
   "hints": {
     "whatAmIMoving": {
-      "question": "Co i gdzie mam przesuwać?",
-      "answer": "Przesuwasz małą postać, która zaczyna w lewym górnym rogu, do zielonego kółka w prawym dolnym rogu, omijając pola w czerwone paski."
+      "question": "Co i gdzie mam przesunąć?",
+      "answer": "Musisz przeprowadzić małą postać z lewego górnego rogu do zielonego kółka w prawym dolnym rogu, omijając pola oznaczone czerwonymi paskami."
     },
     "turnLeftTurnsRight": {
-      "question": "Obracam w lewo, a postać obraca się w prawo!",
-      "answer": "Postać obraca się względem kierunku, w którym patrzy. Jeśli więc patrzy w prawo, a obróci się w lewo, postać zacznie patrzeć w górę."
+      "question": "Każę postaci skręcić w lewo, a ona skręca w prawo!",
+      "answer": "Postać zawsze skręca względem kierunku, w którym jest zwrócona. Jeśli więc patrzy w prawą stronę i dostanie polecenie skręcenia w lewo, zwróci się ku górze."
     }
   }
 }
