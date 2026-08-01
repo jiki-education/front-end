@@ -25,8 +25,7 @@ export const ALL_LOCALES = [
   "nl",
   "pl",
   "pt-BR",
-  // Lowercase to match the authored catalog (messages/pt-pt.json) and content dirs.
-  "pt-pt",
+  "pt-PT",
   "ro",
   "ru",
   "sr",
