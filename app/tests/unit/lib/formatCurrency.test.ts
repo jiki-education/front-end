@@ -71,9 +71,8 @@ describe("currencyFractionDigits", () => {
     expect(currencyFractionDigits("HUF")).toBe(0);
   });
 
-  // RSD is billed in 1/100ths but displayed whole, so display digits and the
-  // minor-unit exponent deliberately diverge.
-  it("reports zero display digits for RSD", () => {
-    expect(currencyFractionDigits("RSD")).toBe(0);
-  });
+  // Not asserted here: currencies like RSD, whose Intl answer depends on the
+  // engine's CLDR version (recent ICU says 0, older ICU says 2). That variance
+  // is exactly why minorUnitExponent must not be derived from Intl - see the
+  // formatCurrency cases above, which stay correct on either.
 });
