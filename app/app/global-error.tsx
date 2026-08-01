@@ -73,6 +73,11 @@ const COPY: GlobalErrorCopyMap = {
     message: "یک خطای غیرمنتظره رخ داد. متأسفیم!",
     actionLabel: "دوباره تلاش کنید"
   },
+  pl: {
+    title: "Coś poszło nie tak",
+    message: "Wystąpił nieoczekiwany błąd. Przepraszamy!",
+    actionLabel: "Spróbuj ponownie"
+  },
   // Not yet translated: English copy verbatim until a website-copy pass covers
   // these languages. The crash page must render usable text, so it never carries
   // the catalog's `�` untranslated sentinel.
