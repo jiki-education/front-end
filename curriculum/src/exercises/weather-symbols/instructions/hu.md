@@ -1,37 +1,38 @@
 ---
-title: "Weather Symbols"
-description: "Draw a six-day weather forecast from a list of descriptions."
+title: "Időjárás-szimbólumok"
+description: "Rajzolj hatnapos időjárás-előrejelzést leírások listájából."
+en_md5: 18bc1bf16ffc94d81bfa81a93faa9a7f
 ---
 
-You've been asked to build a six-day weather forecast. However, rather than receiving traditional weather data, your boss is giving you descriptions of the weather based on how he feels about them (e.g. "Snowboarding time! 🏂" or "Miserable 😩").
+Azt a feladatot kaptad, hogy készíts egy hatnapos időjárás-előrejelzést. A főnököd viszont nem hagyományos időjárási adatokat ad, hanem olyan leírásokat, amelyek azt tükrözik, ő hogyan éli meg az adott időjárást (például "Snowboarding time! 🏂" vagy "Miserable 😩").
 
-You're given an Array of six weather descriptions, one per day, and your job is to draw each day's weather into its own box.
+Kapsz egy _Array_-t (tömb), benne hat időjárás-leírással, naponta eggyel. A feladatod, hogy mindegyik nap időjárását berajzold a saját dobozába.
 
-The forecast is shown as a grid of six boxes, one for each weekday from Monday to Saturday. The descriptions line up in order: the first (box `0`) is Monday's weather, the second (box `1`) is Tuesday's, and so on through to Saturday (box `5`). (Your boss doesn't leave the house on Sundays so he doesn't bother about the weather, and so we can never report it...)
+Az előrejelzés hat dobozból álló rácsként jelenik meg, hétfőtől szombatig minden napra egy-egy dobozzal. A leírások sorban követik egymást: az első (a `0`-s doboz) a hétfői időjárás, a második (az `1`-es doboz) a keddi, és így tovább egészen szombatig (az `5`-ös doboz). (A főnököd vasárnap ki sem mozdul otthonról, ezért aznap az időjárás nem is érdekli, így azt sosem jelezzük előre...)
 
-## Drawing a day
+## Egy nap megrajzolása
 
-We've given you a `draw` function that does all the artwork for you. Your job is to work out the right elements to put inside.
+Adtunk neked egy `draw` (rajzol) függvényt, amely az összes rajzolást elvégzi helyetted. A te dolgod csak annyi, hogy kitaláld, milyen elemek kerüljenek bele.
 
 ```js
 draw(box, day, elements)
 ```
 
-- `box` is the box to draw into (`0` to `5`).
-- `day` is the weekday to label the box with, for example `"Monday"`.
-- `elements` is an Array of weather symbols to show (see below for details).
+- a `box` a doboz, amelybe rajzolsz (`0`-tól `5`-ig).
+- a `day` a nap neve, amellyel a doboz feliratozva lesz, például `"Monday"`.
+- az `elements` egy Array a megjelenítendő időjárás-szimbólumokkal (részletek lentebb).
 
-The weekdays, in order, are `"Monday"`, `"Tuesday"`, `"Wednesday"`, `"Thursday"`, `"Friday"`, and `"Saturday"`.
+A napok sorrendben: `"Monday"`, `"Tuesday"`, `"Wednesday"`, `"Thursday"`, `"Friday"` és `"Saturday"`.
 
-So if the first day is `"Exciting 🤩"`, you'd write:
+Ha tehát az első nap `"Exciting 🤩"`, ezt írod:
 
 ```js
 draw(0, "Monday", ["cloud", "snow"])
 ```
 
-## What each description means
+## Mit jelentenek a leírások
 
-Every description maps to a specific Array of symbols:
+Minden leíráshoz egy meghatározott, szimbólumokból álló Array tartozik:
 
 - `"Sunny ☀️"`: `["sun"]`
 - `"Dull 😴"`: `["cloud"]`
@@ -41,6 +42,6 @@ Every description maps to a specific Array of symbols:
 - `"Exciting 🤩"`: `["cloud", "snow"]`
 - `"Snowboarding time! 🏂"`: `["sun", "cloud", "snow"]`
 
-## Your task
+## A te feladatod
 
-Work through the `days` list one day at a time. For each description, turn it into the right list of symbols and `draw` it into that day's box, labelled with the matching weekday.
+Menj végig a `days` listán napról napra. Minden leírást alakíts át a megfelelő szimbólumlistává, és a `draw` segítségével rajzold be az adott nap dobozába, a hozzá tartozó nap nevével feliratozva.
