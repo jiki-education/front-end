@@ -93,6 +93,11 @@ const COPY: GlobalErrorCopyMap = {
     message: "Tapahtui odottamaton virhe. Pahoittelemme!",
     actionLabel: "Yritä uudelleen"
   },
+  he: {
+    title: "משהו השתבש",
+    message: "נתקלנו בשגיאה לא צפויה. מצטערים!",
+    actionLabel: "ניסיון חוזר"
+  },
   bn: {
     title: "কিছু একটা ভুল হয়েছে",
     message: "একটি অপ্রত্যাশিত এরর হয়েছে। এর জন্য আমরা দুঃখিত!",
@@ -112,6 +117,26 @@ const COPY: GlobalErrorCopyMap = {
     title: "حدث خطأ ما",
     message: "واجهنا خطأً غير متوقع. نعتذر عن ذلك!",
     actionLabel: "حاول مرة أخرى"
+  },
+  sv: {
+    title: "Något gick fel",
+    message: "Ett oväntat fel inträffade. Vi ber om ursäkt!",
+    actionLabel: "Försök igen"
+  },
+  ur: {
+    title: "کچھ غلط ہو گیا",
+    message: "ایک غیر متوقع غلطی پیش آ گئی۔ اس کے لیے معذرت!",
+    actionLabel: "دوبارہ کوشش کریں"
+  },
+  tr: {
+    title: "Bir şeyler ters gitti",
+    message: "Beklenmedik bir hata oluştu. Bunun için özür dileriz!",
+    actionLabel: "Tekrar dene"
+  },
+  sw: {
+    title: "Kuna kitu kimeenda vibaya",
+    message: "Tumekumbana na hitilafu isiyotarajiwa. Tunaomba radhi!",
+    actionLabel: "Jaribu tena"
   },
   // Not yet translated: English copy verbatim until a website-copy pass covers
   // these languages. The crash page must render usable text, so it never carries
@@ -136,6 +161,11 @@ const COPY: GlobalErrorCopyMap = {
     message: "我們遇到了非預期的錯誤，真的很抱歉！",
     actionLabel: "再試一次"
   },
+  "zh-CN": {
+    title: "出了点问题",
+    message: "我们遇到了意外的错误，非常抱歉！",
+    actionLabel: "再试一次"
+  },
   ca: {
     title: "Alguna cosa ha anat malament",
     message: "Hi ha hagut un error inesperat. Ho sentim!",
@@ -145,6 +175,21 @@ const COPY: GlobalErrorCopyMap = {
     title: "Algo ha salido mal",
     message: "Ha ocurrido un error inesperado. ¡Lo sentimos!",
     actionLabel: "Inténtalo de nuevo"
+  },
+  ja: {
+    title: "問題が発生しました",
+    message: "予期しないエラーが発生しました。申し訳ありません！",
+    actionLabel: "もう一度試す"
+  },
+  ro: {
+    title: "Ceva nu a mers bine",
+    message: "A apărut o eroare neașteptată. Ne pare rău!",
+    actionLabel: "Încearcă din nou"
+  },
+  vi: {
+    title: "Đã có lỗi xảy ra",
+    message: "Đã xảy ra một lỗi không mong muốn. Chúng tôi xin lỗi vì điều này!",
+    actionLabel: "Thử lại"
   }
 };
 
