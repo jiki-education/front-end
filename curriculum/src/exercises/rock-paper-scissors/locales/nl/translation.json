@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "noResult": "Je hebt geen resultaat omgeroepen!",
+    "paperVsPaperResult": "Papier tegen papier zou gelijkspel moeten zijn, maar het was \"{{got}}\".",
+    "paperVsRockResult": "Papier tegen steen zou een overwinning voor Yuki moeten zijn, maar het was \"{{got}}\".",
+    "paperVsScissorsResult": "Papier tegen schaar zou een overwinning voor Ando moeten zijn, maar het was \"{{got}}\".",
+    "rockVsPaperResult": "Steen tegen papier zou een overwinning voor Ando moeten zijn, maar het was \"{{got}}\".",
+    "rockVsRockResult": "Steen tegen steen zou gelijkspel moeten zijn, maar het was \"{{got}}\".",
+    "rockVsScissorsResult": "Steen tegen schaar zou een overwinning voor Yuki moeten zijn, maar het was \"{{got}}\".",
+    "scissorsVsPaperResult": "Schaar tegen papier zou een overwinning voor Yuki moeten zijn, maar het was \"{{got}}\".",
+    "scissorsVsRockResult": "Schaar tegen steen zou een overwinning voor Ando moeten zijn, maar het was \"{{got}}\".",
+    "scissorsVsScissorsResult": "Schaar tegen schaar zou gelijkspel moeten zijn, maar het was \"{{got}}\"."
+  },
+  "tasks": {
+    "determineWinner": {
+      "name": "Bepaal de winnaar",
+      "description": "Haal de keuzes van beide spelers op en roep het juiste resultaat om: \"Yuki\", \"Ando\" of \"tie\"."
+    }
+  },
+  "scenarios": {
+    "paperVsPaper": {
+      "name": "Papier tegen papier",
+      "description": "Het is gelijkspel. Roep het correct om!"
+    },
+    "paperVsRock": {
+      "name": "Papier tegen steen",
+      "description": "Yuki's papier verslaat Ando's steen. Roep Yuki om als de winnaar!"
+    },
+    "paperVsScissors": {
+      "name": "Papier tegen schaar",
+      "description": "Ando's schaar verslaat Yuki's papier. Roep Ando om als de winnaar."
+    },
+    "rockVsPaper": {
+      "name": "Steen tegen papier",
+      "description": "Ando's papier verslaat Yuki's steen. Roep Ando om als de winnaar."
+    },
+    "rockVsRock": {
+      "name": "Steen tegen steen",
+      "description": "Het is gelijkspel. Roep het correct om!"
+    },
+    "rockVsScissors": {
+      "name": "Steen tegen schaar",
+      "description": "Yuki's steen verslaat Ando's schaar. Roep Yuki om als de winnaar."
+    },
+    "scissorsVsPaper": {
+      "name": "Schaar tegen papier",
+      "description": "Yuki's schaar verslaat Ando's papier. Roep Yuki om als de winnaar."
+    },
+    "scissorsVsRock": {
+      "name": "Schaar tegen steen",
+      "description": "Ando's steen verslaat Yuki's schaar. Roep Ando om als de winnaar."
+    },
+    "scissorsVsScissors": {
+      "name": "Schaar tegen schaar",
+      "description": "Het is gelijkspel. Roep het correct om!"
+    }
+  },
+  "hints": {
+    "howToStart": {
+      "question": "Hoe begin ik?",
+      "answer": "Haal de keuzes van Yuki en Ando op met de beschikbare functies en sla ze op in variabelen, zodat je ze kunt vergelijken."
+    },
+    "simplestCase": {
+      "question": "Wat is het eenvoudigste geval om als eerste af te handelen?",
+      "answer": "Gelijkspel. Als beide keuzes gelijk zijn, kun je meteen gelijkspel omroepen en de rest overslaan."
+    },
+    "checkCombination": {
+      "question": "Hoe controleer ik een specifieke winnende combinatie?",
+      "answer": "Gebruik `&&` (en) om twee voorwaarden te combineren die allebei waar moeten zijn, bijvoorbeeld \"Yuki koos steen EN Ando koos schaar\" betekent dat Yuki wint."
+    },
+    "shorterWay": {
+      "question": "Ik eindig met een heleboel `if`-statements. Kan het korter?",
+      "answer": "Zet het resultaat standaard op winst voor de ene speler en controleer daarna alleen de drie combinaties waarin de andere speler wint. Dat halveert het aantal gevallen ongeveer."
+    },
+    "invalidChoice": {
+      "question": "Wat als een speler iets anders invoert dan steen, papier of schaar?",
+      "answer": "Daar hoef je je hier geen zorgen over te maken. De beschikbare functies geven altijd een van de drie geldige keuzes terug."
+    }
+  },
+  "functions": {
+    "getYukiChoice": {
+      "description": "Geeft Yuki's keuze terug: `\"rock\"`, `\"paper\"` of `\"scissors\"`.",
+      "category": "Spel"
+    },
+    "getAndoChoice": {
+      "description": "Geeft Ando's keuze terug: `\"rock\"`, `\"paper\"` of `\"scissors\"`.",
+      "category": "Spel"
+    },
+    "announceResult": {
+      "description": "Roept het resultaat van het spel om. Geef `\"Yuki\"`, `\"Ando\"` of `\"tie\"` door.",
+      "category": "Spel"
+    }
+  }
+}

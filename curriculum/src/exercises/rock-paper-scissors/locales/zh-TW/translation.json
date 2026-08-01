@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "noResult": "你沒有宣布結果喔！",
+    "paperVsPaperResult": "「布 vs 布」應該是平手，但結果是 \"{{got}}\"。",
+    "paperVsRockResult": "「布 vs 石頭」應該是 Yuki 贏，但結果是 \"{{got}}\"。",
+    "paperVsScissorsResult": "「布 vs 剪刀」應該是 Ando 贏，但結果是 \"{{got}}\"。",
+    "rockVsPaperResult": "「石頭 vs 布」應該是 Ando 贏，但結果是 \"{{got}}\"。",
+    "rockVsRockResult": "「石頭 vs 石頭」應該是平手，但結果是 \"{{got}}\"。",
+    "rockVsScissorsResult": "「石頭 vs 剪刀」應該是 Yuki 贏，但結果是 \"{{got}}\"。",
+    "scissorsVsPaperResult": "「剪刀 vs 布」應該是 Yuki 贏，但結果是 \"{{got}}\"。",
+    "scissorsVsRockResult": "「剪刀 vs 石頭」應該是 Ando 贏，但結果是 \"{{got}}\"。",
+    "scissorsVsScissorsResult": "「剪刀 vs 剪刀」應該是平手，但結果是 \"{{got}}\"。"
+  },
+  "tasks": {
+    "determineWinner": {
+      "name": "決定贏家",
+      "description": "取得兩位玩家的選擇，並宣布正確的結果：\"Yuki\"、\"Ando\" 或 \"tie\"。"
+    }
+  },
+  "scenarios": {
+    "paperVsPaper": {
+      "name": "布 vs 布",
+      "description": "這局是平手。正確地宣布出來吧！"
+    },
+    "paperVsRock": {
+      "name": "布 vs 石頭",
+      "description": "Yuki 的布打敗了 Ando 的石頭。宣布 Yuki 是贏家吧！"
+    },
+    "paperVsScissors": {
+      "name": "布 vs 剪刀",
+      "description": "Ando 的剪刀打敗了 Yuki 的布。請宣布 Ando 是贏家。"
+    },
+    "rockVsPaper": {
+      "name": "石頭 vs 布",
+      "description": "Ando 的布打敗了 Yuki 的石頭。請宣布 Ando 是贏家。"
+    },
+    "rockVsRock": {
+      "name": "石頭 vs 石頭",
+      "description": "這局是平手。正確地宣布出來吧！"
+    },
+    "rockVsScissors": {
+      "name": "石頭 vs 剪刀",
+      "description": "Yuki 的石頭打敗了 Ando 的剪刀。請宣布 Yuki 是贏家。"
+    },
+    "scissorsVsPaper": {
+      "name": "剪刀 vs 布",
+      "description": "Yuki 的剪刀打敗了 Ando 的布。請宣布 Yuki 是贏家。"
+    },
+    "scissorsVsRock": {
+      "name": "剪刀 vs 石頭",
+      "description": "Ando 的石頭打敗了 Yuki 的剪刀。請宣布 Ando 是贏家。"
+    },
+    "scissorsVsScissors": {
+      "name": "剪刀 vs 剪刀",
+      "description": "這局是平手。正確地宣布出來吧！"
+    }
+  },
+  "hints": {
+    "howToStart": {
+      "question": "我該怎麼開始？",
+      "answer": "使用提供的函式取得 Yuki 和 Ando 的選擇，並把它們存進變數裡，這樣你就能比較它們。"
+    },
+    "simplestCase": {
+      "question": "我應該先處理哪一種最簡單的情況？",
+      "answer": "平手。如果兩個選擇相同，你可以直接宣布平手，跳過其餘的判斷。"
+    },
+    "checkCombination": {
+      "question": "我該怎麼檢查某一種獲勝組合？",
+      "answer": "用`&&`（且）把兩個必須同時成立的條件組合起來，例如「Yuki 出石頭，而且 Ando 出剪刀」就代表 Yuki 贏。"
+    },
+    "shorterWay": {
+      "question": "我寫出了一大堆`if`敘述，有沒有更簡短的寫法？",
+      "answer": "先把結果預設為其中一位玩家獲勝，然後只檢查另一位玩家獲勝的三種組合。這樣大約能把情況減少一半。"
+    },
+    "invalidChoice": {
+      "question": "如果玩家輸入的不是石頭、剪刀或布，該怎麼辦？",
+      "answer": "在這裡你不用擔心這一點。提供的函式只會回傳三種有效選擇的其中之一。"
+    }
+  },
+  "functions": {
+    "getYukiChoice": {
+      "description": "回傳 Yuki 的選擇，值是`\"rock\"`、`\"paper\"`或`\"scissors\"`其中之一。",
+      "category": "遊戲"
+    },
+    "getAndoChoice": {
+      "description": "回傳 Ando 的選擇，值是`\"rock\"`、`\"paper\"`或`\"scissors\"`其中之一。",
+      "category": "遊戲"
+    },
+    "announceResult": {
+      "description": "宣布遊戲的結果。請傳入`\"Yuki\"`、`\"Ando\"`或`\"tie\"`。",
+      "category": "遊戲"
+    }
+  }
+}

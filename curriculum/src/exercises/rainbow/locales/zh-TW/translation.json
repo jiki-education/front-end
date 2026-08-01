@@ -1,0 +1,46 @@
+{
+  "checks": {
+    "firstRectangle": "缺少第一個矩形。",
+    "lastRectangle": "缺少最後一個矩形。",
+    "minSaturationLightness": "所有矩形的飽和度和亮度都應該至少為 20。",
+    "uniqueColors": "目前還沒有 100 個顏色各不相同的矩形。",
+    "hueRed": "應該要有一個色相接近 0（紅色）的矩形。",
+    "huePurple": "應該要有一個色相接近 300（紫色）的矩形。"
+  },
+  "tasks": {
+    "drawRainbow": {
+      "name": "畫出彩虹",
+      "description": "在畫布上畫出 100 條垂直長條，每一條的色相都不同，形成彩虹效果。"
+    }
+  },
+  "scenarios": {
+    "drawRainbow": {
+      "name": "畫出彩虹",
+      "description": "畫出 100 個美麗的矩形，組成一道彩虹。"
+    }
+  },
+  "hints": {
+    "hundredRectangles": {
+      "question": "我一定要畫 100 個不同的矩形嗎？",
+      "answer": "是的，但不是把`rectangle(...)`寫 100 次喔！想想看，遇到重複的程式碼時我們會怎麼做。"
+    },
+    "colorIntoRectangle": {
+      "question": "我要怎麼把顏色放進矩形裡？",
+      "answer": "`hsl(...)`會回傳一個顏色字串。接著你可以像之前一樣，把這個顏色字串傳入`rectangle(...)`函式。"
+    },
+    "hueRange": {
+      "question": "我要怎麼讓色相從 0 一路變化到 300？",
+      "answer": "總共有 100 條長條，第一條的色相應該是 0。接下來每一條都要稍微增加一點：第二條的色相可能是 3，第三條可能是 6，以此類推。最後就會到達 300。"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "在 (left, top) 的位置畫一個矩形，並使用指定的寬度、高度和顏色",
+      "category": "繪製圖形"
+    },
+    "hsl": {
+      "description": "把 HSL 顏色值（色相 0 到 360、飽和度 0 到 100、亮度 0 到 100）轉換成顏色字串",
+      "category": "顏色"
+    }
+  }
+}
