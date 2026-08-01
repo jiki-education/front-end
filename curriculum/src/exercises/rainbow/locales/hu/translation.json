@@ -1,46 +1,46 @@
 {
   "checks": {
-    "firstRectangle": "The first rectangle is missing.",
-    "lastRectangle": "The last rectangle is missing.",
-    "minSaturationLightness": "All rectangles should have saturation and lightness of at least 20.",
-    "uniqueColors": "There are not 100 different colored rectangles.",
-    "hueRed": "There should be a rectangle with a hue close to 0 (red).",
-    "huePurple": "There should be a rectangle with a hue close to 300 (purple)."
+    "firstRectangle": "Hiányzik az első téglalap.",
+    "lastRectangle": "Hiányzik az utolsó téglalap.",
+    "minSaturationLightness": "Minden téglalap telítettsége és világossága legalább 20 legyen.",
+    "uniqueColors": "Nincs 100 különböző színű téglalap.",
+    "hueRed": "Kell lennie egy téglalapnak, amelynek a színárnyalata 0-hoz közeli (piros).",
+    "huePurple": "Kell lennie egy téglalapnak, amelynek a színárnyalata 300-hoz közeli (lila)."
   },
   "tasks": {
     "drawRainbow": {
-      "name": "Draw the rainbow",
-      "description": "Draw 100 vertical bars across the canvas, each with a different hue to create a rainbow effect."
+      "name": "Rajzold meg a szivárványt",
+      "description": "Rajzolj 100 függőleges sávot a vászonra, mindegyiket más színárnyalattal, hogy szivárványhatást kapj."
     }
   },
   "scenarios": {
     "drawRainbow": {
-      "name": "Draw the rainbow",
-      "description": "Paint 100 beautiful rectangles to create a rainbow."
+      "name": "Rajzold meg a szivárványt",
+      "description": "Fess 100 gyönyörű téglalapot, és alkoss belőlük szivárványt."
     }
   },
   "hints": {
     "hundredRectangles": {
-      "question": "Do I have to draw 100 different rectangles?",
-      "answer": "Yes, but not by writing `rectangle(...)` 100 times! Think about what we do when we have repetitive code."
+      "question": "Tényleg 100 különböző téglalapot kell rajzolnom?",
+      "answer": "Igen, de nem úgy, hogy 100-szor leírod a `rectangle(...)` hívást! Gondolj arra, mit szoktunk tenni, ha ismétlődik a kód."
     },
     "colorIntoRectangle": {
-      "question": "How do I put the color into the rectangle",
-      "answer": "The `hsl(...)` returns a color string. You can then pass that color string into the `rectangle(...)` function as you've done previously."
+      "question": "Hogyan kerül a szín a téglalapba?",
+      "answer": "A `hsl(...)` egy színt leíró stringet ad vissza. Ezt a stringet aztán átadhatod a `rectangle(...)` függvénynek, ahogy korábban is tetted."
     },
     "hueRange": {
-      "question": "How do I get the hue to go from 0 to 300?",
-      "answer": "There are 100 lines, the first should have a hue of 0. Then for each we need line, we need to increase that a little - so the second line might have a hue of 3, then third might have a hue of 6 etc. Eventually we'll get to 300."
+      "question": "Hogyan érjem el, hogy a színárnyalat 0-tól 300-ig menjen?",
+      "answer": "100 sáv van, az elsőnek 0 legyen a színárnyalata. Aztán minden sávnál egy kicsit növelni kell: a második sáv színárnyalata lehet 3, a harmadiké 6, és így tovább. Végül eljutunk 300-ig."
     }
   },
   "functions": {
     "rectangle": {
-      "description": "Draw a rectangle at position (left, top) with the given width, height, and color",
-      "category": "Drawing Shapes"
+      "description": "A (left, top) pozícióba rajzol egy téglalapot a megadott szélességgel, magassággal és színnel",
+      "category": "Alakzatok rajzolása"
     },
     "hsl": {
-      "description": "Convert HSL color values (hue 0-360, saturation 0-100, lightness 0-100) to a color string",
-      "category": "Colors"
+      "description": "HSL-színértékeket (színárnyalat 0-360, telítettség 0-100, világosság 0-100) alakít színt leíró stringgé",
+      "category": "Színek"
     }
   }
 }
