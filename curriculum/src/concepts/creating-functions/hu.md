@@ -38,7 +38,7 @@ Ezután az lesz a feladatunk, hogy ezt az első öt sort becsomagoljuk egy függ
 
 Ahhoz, hogy ebből az öt sorból, ebből az öt `move`-ból függvény legyen, egy új kulcsszóra lesz szükségünk: ez a `function` kulcsszó.
 
-Amikor a `function` kulcsszót használjuk, két dolgot kell tennünk. Egy: megadjuk a függvény nevét, ebben az esetben ez a `walk5`. Kettő: kapcsos zárójelek (`{}`) közé zárjuk azt a kódot, amelyik azt mondja: „ezt kell csinálni a függvényen belül". Ha ezt hozzáadjuk a kódunkhoz, akkor most már azt mondjuk Jikinek, hogy hozzon létre egy `walk5` nevű függvényt, és amikor valaki a `walk5`-öt használja, ezt az öt sort futtassa le.
+Amikor a `function` kulcsszót használjuk, két dolgot kell tennünk. Egy: megadjuk a függvény nevét, ebben az esetben ez a `walk5`. Kettő: kapcsos zárójelek (`{}`) közé zárjuk azt a kódot, amelyik azt mondja: „ezt kell csinálni a függvényen belül”. Ha ezt hozzáadjuk a kódunkhoz, akkor most már azt mondjuk Jikinek, hogy hozzon létre egy `walk5` nevű függvényt, és amikor valaki a `walk5`-öt használja, ezt az öt sort futtassa le.
 
 ```javascript
 function walk5() {

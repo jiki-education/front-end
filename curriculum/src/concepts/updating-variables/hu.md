@@ -45,11 +45,11 @@ Nos, nyolc virágot fog ültetni, csakhogy mindet ugyanarra a helyre, ami nem ig
 
 Arra van tehát szükségünk, hogy minden alkalommal egy kicsit odébb lépjünk. Miután elültettünk egy virágot, azt szeretnénk mondani Jikinek, hogy vigye odébb a pozíciót 10-zel, hogy készen álljon a következő virág ültetésére.
 
-Felejtsük el egy pillanatra a kódot: logikailag hogyan néz ki mindez? Ha azt mondom neked: „Ültesd az első virágot 10-hez, a következőt 20-hoz, az utána következőt 30-hoz", honnan tudja az agyad, hogy a következőt 40-hez kell ültetni, az azt követőt pedig 50-hez?
+Felejtsük el egy pillanatra a kódot: logikailag hogyan néz ki mindez? Ha azt mondom neked: „Ültesd az első virágot 10-hez, a következőt 20-hoz, az utána következőt 30-hoz”, honnan tudja az agyad, hogy a következőt 40-hez kell ültetni, az azt követőt pedig 50-hez?
 
 Az agyad azt csinálja, hogy észben tartja az aktuális számot, hozzáad 10-et, majd frissíti ezt a számot a fejedben.
 
-És pontosan ugyanezt megtehetjük kódban is. Ehhez azt mondjuk: „Frissítsd (_update_ angolul) a position dobozt úgy, hogy az aktuális pozícióérték plusz 10 legyen benne."
+És pontosan ugyanezt megtehetjük kódban is. Ehhez azt mondjuk: „Frissítsd (_update_ angolul) a position dobozt úgy, hogy az aktuális pozícióérték plusz 10 legyen benne.”
 
 Amikor Jiki ezt meglátja, kiveszi az aktuális számot a position dobozból, hozzáad 10-et, elvégzi a matekot, összeadja a kettőt, majd az eredményt visszateszi a dobozba a következő alkalomra.
 
@@ -65,7 +65,7 @@ position = position + 10
   height="400"
 />
 
-Ha ezt beépítjük a programunkba, vagyis azt mondjuk: „A pozíció kezdőértéke legyen 10", aztán nyolcszor ültetünk egy virágot a pozíciónál, majd a pozíciót 10-zel nagyobbra állítjuk, mint előtte volt, a kódunk működik, és nyolc, szépen elosztott virágot kapunk.
+Ha ezt beépítjük a programunkba, vagyis azt mondjuk: „A pozíció kezdőértéke legyen 10”, aztán nyolcszor ültetünk egy virágot a pozíciónál, majd a pozíciót 10-zel nagyobbra állítjuk, mint előtte volt, a kódunk működik, és nyolc, szépen elosztott virágot kapunk.
 
 Figyeld meg, hogy nincs `let` (legyen), amikor a változót frissítjük. Ez nagyon fontos. Amikor Jiki egy `let`-et lát, új dobozt készít. Itt viszont nem új dobozt akarunk készíteni, hanem azt akarjuk megváltoztatni, ami a már meglévő dobozunkban van.
 

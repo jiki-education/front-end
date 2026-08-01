@@ -14,7 +14,7 @@ Eddig, amikor azt vizsgáltuk, hogy két dolog egyenlő-e, három egyenlőségje
   height="400"
 />
 
-Mondhatjuk azt: „Ha a szerelés nem diszkós, nyisd ki az ajtót." Az elágazás pontosan ugyanúgy működik.
+Mondhatjuk azt: „Ha a szerelés nem diszkós, nyisd ki az ajtót.” Az elágazás pontosan ugyanúgy működik.
 
 ```javascript
 if (outfit !== "disco") {
@@ -22,7 +22,7 @@ if (outfit !== "disco") {
 }
 ```
 
-Csak annyi a különbség, hogy a feltétel akkor ad vissza igazat, ha a két dolog különbözik, és akkor hamisat, ha megegyeznek. Ugyanezt úgy is leírhatnánk, hogy „Ha a szerelés diszkós, ne csinálj semmit. Különben nyisd ki az ajtót." Általában viszont egyszerűbb és tisztább a `not` operátort (_operator_ angolul) használni, mert így pontosan azt mondod ki, amire gondolsz.
+Csak annyi a különbség, hogy a feltétel akkor ad vissza igazat, ha a két dolog különbözik, és akkor hamisat, ha megegyeznek. Ugyanezt úgy is leírhatnánk, hogy „Ha a szerelés diszkós, ne csinálj semmit. Különben nyisd ki az ajtót.” Általában viszont egyszerűbb és tisztább a `not` operátort (_operator_ angolul) használni, mert így pontosan azt mondod ki, amire gondolsz.
 
 Még egy dolog kapcsolódik ide. Néha lesz egy változód, ami igaz, és át akarod fordítani hamisra, vagy valamid, ami hamis, és igazra akarod fordítani. Ezzel nyomon tudunk követni dolgokat. Képzeld el, hogy valami balról jobbra pattog, és van egy `movingRight` (jobbra mozog) nevű változónk, ami akkor igaz, amikor jobbra kell mozogni. Amikor viszont eléred a jobb szélt, át akarod kapcsolni (_toggle_ angolul) hamisra.
 
@@ -34,7 +34,7 @@ Még egy dolog kapcsolódik ide. Néha lesz egy változód, ami igaz, és át ak
   height="352"
 />
 
-Megtehetnénk ezt úgy, hogy azt mondjuk: „Ha a `movingRight` igaz, legyen a `movingRight` hamis. Különben legyen igaz." Ez az egyik módja a változó átkapcsolásának. Jiki tehát megnézi a `movingRight` értékét, hogy igaz-e vagy hamis, kitalálja az ellenkezőjét, és azt teszi vissza a dobozba.
+Megtehetnénk ezt úgy, hogy azt mondjuk: „Ha a `movingRight` igaz, legyen a `movingRight` hamis. Különben legyen igaz.” Ez az egyik módja a változó átkapcsolásának. Jiki tehát megnézi a `movingRight` értékét, hogy igaz-e vagy hamis, kitalálja az ellenkezőjét, és azt teszi vissza a dobozba.
 
 ```javascript
 if (movingRight === true) {
