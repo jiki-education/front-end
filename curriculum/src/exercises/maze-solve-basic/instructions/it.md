@@ -4,9 +4,9 @@ description: "Guida Jiki attraverso un labirinto con istruzioni semplici."
 en_md5: bbd838559fba4dcf527a55ba135703cd
 ---
 
-Ti diamo il benvenuto nel tuo primo esercizio!
+Ti diamo il benvenuto al tuo primo esercizio!
 
-Lo scopo di questo esercizio è farti prendere confidenza con l'ambiente di apprendimento. Il tuo compito è risolvere il labirinto che vedi a sinistra, dando istruzioni all'omino. Scrivi tutte le istruzioni che l'omino deve seguire, poi clicca su **Esegui il codice** e lui le eseguirà.
+Lo scopo di questo esercizio è farti prendere confidenza con l'ambiente di apprendimento. Il tuo compito è risolvere il labirinto che vedi a sinistra, dando istruzioni all'omino. Scrivi tutte le istruzioni che deve seguire, poi clicca su **Esegui il codice** e lui le eseguirà.
 
 Le tre istruzioni che puoi usare sono:
 
