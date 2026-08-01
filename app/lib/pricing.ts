@@ -8,7 +8,7 @@
  * `useExternalPremiumPrices` / `PremiumPrice`), not from any hardcoded literal.
  */
 
-import { currencyNumberFormat } from "./formatCurrency";
+import { formatCurrency } from "./formatCurrency";
 
 export type MembershipTier = "standard" | "premium";
 
@@ -21,25 +21,18 @@ export interface PremiumPrices {
   country_code: string | null;
 }
 
-// Prices arrive as minor units (e.g. cents/pence), so scale by the currency's
-// fraction digits before formatting.
-function currencyFractionDigits(currency: string): number {
-  return new Intl.NumberFormat(undefined, { style: "currency", currency }).resolvedOptions().minimumFractionDigits ?? 2;
-}
-
 /**
  * Formats the monthly Premium price in the visitor's locale, e.g. "£6" or
  * "$9.99", using the currency's narrow symbol and no trailing zeroes.
+ *
+ * Prices arrive as Stripe minor units (e.g. cents/pence); formatCurrency owns
+ * the conversion to display units.
  */
 export function formatMonthlyPrice(prices: PremiumPrices): string {
-  const currency = prices.currency.toUpperCase();
-  const amount = prices.monthly / Math.pow(10, currencyFractionDigits(currency));
-
-  return currencyNumberFormat({
-    currency,
+  return formatCurrency(prices.monthly, prices.currency, {
     minimumFractionDigits: 0,
     maximumFractionDigits: 2
-  }).format(amount);
+  });
 }
 
 // Helper to check if a tier includes another tier's features
