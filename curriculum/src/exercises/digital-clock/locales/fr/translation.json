@@ -1,0 +1,80 @@
+{
+  "errors": {
+    "hourNotNumber": "hour doit être un nombre",
+    "minutesNotNumber": "minutes doit être un nombre",
+    "indicatorNotString": "indicator doit être une string"
+  },
+  "checks": {
+    "notUpdated": "L'horloge n'a pas été mise à jour. Vérifie que tu utilises bien la fonction <code>displayTime</code>.",
+    "wrongTime": "On attendait « {{expected}} » mais on a obtenu « {{got}} »"
+  },
+  "tasks": {
+    "displayTime": {
+      "name": "Afficher l'heure sur l'horloge",
+      "description": "Récupère l'heure et la minute actuelles, convertis-les au format 12 heures avec am/pm, puis affiche le résultat avec displayTime()."
+    }
+  },
+  "scenarios": {
+    "morning1": {
+      "name": "Tôt le matin",
+      "description": "Afficher 6:35 sous la forme « 6:35am »"
+    },
+    "morning2": {
+      "name": "Fin de matinée",
+      "description": "Afficher 11:04 sous la forme « 11:04am »"
+    },
+    "afternoon1": {
+      "name": "Début d'après-midi",
+      "description": "Afficher 12:19 sous la forme « 12:19pm »"
+    },
+    "afternoon2": {
+      "name": "Fin de soirée",
+      "description": "Afficher 23:32 sous la forme « 11:32pm »"
+    },
+    "midnight": {
+      "name": "Minuit",
+      "description": "Afficher minuit sous la forme « 12:00am »"
+    },
+    "noon": {
+      "name": "Midi",
+      "description": "Afficher midi sous la forme « 12:00pm »"
+    },
+    "now": {
+      "name": "Afficher l'heure actuelle",
+      "description": "Afficher l'heure actuelle"
+    }
+  },
+  "hints": {
+    "gettingStarted": {
+      "question": "Je ne sais pas par où commencer",
+      "answer": "Utilise `currentTimeHour()` et `currentTimeMinute()` pour obtenir l'heure actuelle, puis appelle `displayTime(hour, minutes, \"am\")` avec leurs valeurs pour voir ce qui se passe. Ensuite, cherche comment définir le bon meridiem et le bon affichage de l'heure."
+    },
+    "meridiem": {
+      "question": "Comment fonctionne le meridiem ?",
+      "answer": "Les heures de 0 à 11 sont en 'am', celles de 12 à 23 en 'pm'. Minuit (heure 0) doit s'afficher comme 12am, et midi (heure 12) comme 12pm."
+    },
+    "hourChange": {
+      "question": "Quand et pourquoi faut-il changer l'heure ?",
+      "answer": "Sur une horloge au format 12 heures, 13:00 s'affiche comme 1:00pm et 14:00 comme 2:00pm. À toi de trouver la relation entre 13->1, 14->2, etc., puis d'ajuster l'horloge en conséquence !"
+    }
+  },
+  "describers": {
+    "currentTimeHour": "a récupéré l'heure actuelle",
+    "currentTimeMinute": "a récupéré la minute actuelle",
+    "displayTime": "a affiché l'heure sur l'horloge"
+  },
+  "functions": {
+    "currentTimeHour": {
+      "description": "Renvoie l'heure actuelle au format 24 heures (par exemple 23 pour 11pm), sous forme de nombre.",
+      "category": "Heure"
+    },
+    "currentTimeMinute": {
+      "description": "Renvoie la minute actuelle sous forme de nombre.",
+      "category": "Heure"
+    },
+    "displayTime": {
+      "description": "Affiche l'heure sur l'horloge numérique. L'indicateur doit être \"am\" ou \"pm\".",
+      "category": "Action"
+    }
+  }
+}
