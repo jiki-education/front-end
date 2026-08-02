@@ -201,14 +201,14 @@
     },
     "forInStatement": {
       "result_empty": "這個物件是空的，所以這行程式碼什麼都沒做。",
-      "result_iteration": "這行程式碼開始了第 {{ordinal}} 次疊代，並把 {{name}} 變數設定為 {{value}}。",
+      "result_iteration_ordinal_other": "這行程式碼開始了第 {{count}} 次疊代，並把 {{name}} 變數設定為 {{value}}。",
       "step_create": "Jiki 建立了一個叫做 {{name}} 的新盒子。",
       "step_empty": "Jiki 檢查了這個物件，發現它是空的，所以決定在這行不再做任何事。",
       "step_put": "Jiki 把 {{value}} 放進盒子裡，然後把它放在架子上，準備在程式區塊裡使用。"
     },
     "forOfStatement": {
       "result_empty": "這個 {{type}} 是空的，所以這行程式碼什麼都沒做。",
-      "result_iteration": "這行程式碼開始了第 {{ordinal}} 次疊代，並把 {{name}} 變數設定為 {{value}}。",
+      "result_iteration_ordinal_other": "這行程式碼開始了第 {{count}} 次疊代，並把 {{name}} 變數設定為 {{value}}。",
       "step_create": "Jiki 建立了一個叫做 {{name}} 的新盒子。",
       "step_empty": "Jiki 檢查了這個 {{type}}，發現它是空的，所以決定在這行不再做任何事。",
       "step_put": "Jiki 把 {{value}} 放進盒子裡，然後把它放在架子上，準備在程式區塊裡使用。"
@@ -233,9 +233,9 @@
       "string": "Jiki 取得了字串中索引為 {{index}} 的字元，並判斷它是 {{value}}。"
     },
     "repeatStatement": {
-      "foreverResult": "這行程式碼開始了這個 `repeat` 區塊的第 {{ordinal}} 次疊代。",
-      "foreverStep": "Jiki 開始了 `repeat` 迴圈的第 {{ordinal}} 次疊代。",
-      "repeatResult": "這行程式碼開始了這個 `repeat` 區塊的第 {{ordinal}} 次疊代。",
+      "foreverResult_ordinal_other": "這行程式碼開始了這個 `repeat` 區塊的第 {{count}} 次疊代。",
+      "foreverStep_ordinal_other": "Jiki 開始了 `repeat` 迴圈的第 {{count}} 次疊代。",
+      "repeatResult_ordinal_other": "這行程式碼開始了這個 `repeat` 區塊的第 {{count}} 次疊代。",
       "repeatStep": "Jiki 把他這個迴圈的內部計數器增加到 <code>{{iteration}}</code>，檢查了 <code>{{iteration}} &le; {{countValue}}</code>，然後決定執行程式區塊。",
       "zeroResult": "這個 `repeat` 區塊被要求執行 <code>0</code> 次，所以這行程式碼什麼都沒做。",
       "zeroStep": "Jiki 看到這個迴圈應該執行 <code>0</code> 次，所以決定在這行不再做任何事。"

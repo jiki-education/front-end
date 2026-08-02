@@ -201,14 +201,14 @@
     },
     "forInStatement": {
       "result_empty": "شیء خالی بود، بنابراین این خط کاری انجام نداد.",
-      "result_iteration": "این خط تکرار {{ordinal}} را با متغیر {{name}} که {{value}} بود شروع کرد.",
+      "result_iteration_ordinal_other": "این خط تکرار {{count}}ام را با متغیر {{name}} که {{value}} بود شروع کرد.",
       "step_create": "جیکی یک جعبه‌ی جدید به نام {{name}} درست کرد.",
       "step_empty": "جیکی شیء را بررسی کرد، دید که خالی است و تصمیم گرفت در این خط کار دیگری انجام ندهد.",
       "step_put": "جیکی {{value}} را در جعبه قرار داد و آن را روی قفسه گذاشت، آماده برای استفاده در بلوک کد."
     },
     "forOfStatement": {
       "result_empty": "{{type}} خالی بود، بنابراین این خط کاری انجام نداد.",
-      "result_iteration": "این خط تکرار {{ordinal}} را با متغیر {{name}} که {{value}} بود شروع کرد.",
+      "result_iteration_ordinal_other": "این خط تکرار {{count}}ام را با متغیر {{name}} که {{value}} بود شروع کرد.",
       "step_create": "جیکی یک جعبه‌ی جدید به نام {{name}} درست کرد.",
       "step_empty": "جیکی {{type}} را بررسی کرد، دید که خالی است و تصمیم گرفت در این خط کار دیگری انجام ندهد.",
       "step_put": "جیکی {{value}} را در جعبه قرار داد و آن را روی قفسه گذاشت، آماده برای استفاده در بلوک کد."
@@ -233,9 +233,9 @@
       "string": "جیکی کاراکتر اندیس {{index}} از رشته را گرفت و فهمید که {{value}} است."
     },
     "repeatStatement": {
-      "foreverResult": "این خط تکرار {{ordinal}} از این بلوک repeat را شروع کرد.",
-      "foreverStep": "جیکی تکرار {{ordinal}} از حلقه‌ی repeat را شروع کرد.",
-      "repeatResult": "این خط تکرار {{ordinal}} از این بلوک repeat را شروع کرد.",
+      "foreverResult_ordinal_other": "این خط تکرار {{count}}ام از این بلوک repeat را شروع کرد.",
+      "foreverStep_ordinal_other": "جیکی تکرار {{count}}ام از حلقه‌ی repeat را شروع کرد.",
+      "repeatResult_ordinal_other": "این خط تکرار {{count}}ام از این بلوک repeat را شروع کرد.",
       "repeatStep": "جیکی شمارنده‌ی داخلی خود را برای این حلقه به <code>{{iteration}}</code> افزایش داد، <code>{{iteration}} &le; {{countValue}}</code> را بررسی کرد و تصمیم گرفت بلوک کد را اجرا کند.",
       "zeroResult": "بلوک repeat خواسته شد که <code>۰</code> بار اجرا شود، بنابراین این خط کاری انجام نداد.",
       "zeroStep": "جیکی دید که حلقه باید <code>۰</code> بار اجرا شود، بنابراین تصمیم گرفت در این خط کار دیگری انجام ندهد."

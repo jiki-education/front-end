@@ -201,14 +201,16 @@
     },
     "forInStatement": {
       "result_empty": "L'objet était vide, donc cette ligne n'a rien fait.",
-      "result_iteration": "Cette ligne a démarré la {{ordinal}} itération avec la variable {{name}} définie à {{value}}.",
+      "result_iteration_ordinal_one": "Cette ligne a démarré la {{count}}re itération avec la variable {{name}} définie à {{value}}.",
+      "result_iteration_ordinal_other": "Cette ligne a démarré la {{count}}e itération avec la variable {{name}} définie à {{value}}.",
       "step_create": "Jiki a créé une nouvelle boîte appelée {{name}}.",
       "step_empty": "Jiki a regardé l'objet, a vu qu'il était vide et a décidé de ne rien faire de plus sur cette ligne.",
       "step_put": "Jiki a mis {{value}} dans la boîte, puis a posé celle-ci sur l'étagère, prête à être utilisée dans le bloc d'instructions."
     },
     "forOfStatement": {
       "result_empty": "La valeur ({{type}}) était vide, donc cette ligne n'a rien fait.",
-      "result_iteration": "Cette ligne a démarré la {{ordinal}} itération avec la variable {{name}} définie à {{value}}.",
+      "result_iteration_ordinal_one": "Cette ligne a démarré la {{count}}re itération avec la variable {{name}} définie à {{value}}.",
+      "result_iteration_ordinal_other": "Cette ligne a démarré la {{count}}e itération avec la variable {{name}} définie à {{value}}.",
       "step_create": "Jiki a créé une nouvelle boîte appelée {{name}}.",
       "step_empty": "Jiki a regardé la valeur ({{type}}), a vu qu'elle était vide et a décidé de ne rien faire de plus sur cette ligne.",
       "step_put": "Jiki a mis {{value}} dans la boîte, puis a posé celle-ci sur l'étagère, prête à être utilisée dans le bloc d'instructions."
@@ -233,9 +235,12 @@
       "string": "Jiki a pris le caractère à l'indice {{index}} de la string et a déterminé que c'était {{value}}."
     },
     "repeatStatement": {
-      "foreverResult": "Cette ligne a démarré la {{ordinal}} itération de ce bloc repeat.",
-      "foreverStep": "Jiki a démarré la {{ordinal}} itération de la boucle repeat.",
-      "repeatResult": "Cette ligne a démarré la {{ordinal}} itération de ce bloc repeat.",
+      "foreverResult_ordinal_one": "Cette ligne a démarré la {{count}}re itération de ce bloc repeat.",
+      "foreverResult_ordinal_other": "Cette ligne a démarré la {{count}}e itération de ce bloc repeat.",
+      "foreverStep_ordinal_one": "Jiki a démarré la {{count}}re itération de la boucle repeat.",
+      "foreverStep_ordinal_other": "Jiki a démarré la {{count}}e itération de la boucle repeat.",
+      "repeatResult_ordinal_one": "Cette ligne a démarré la {{count}}re itération de ce bloc repeat.",
+      "repeatResult_ordinal_other": "Cette ligne a démarré la {{count}}e itération de ce bloc repeat.",
       "repeatStep": "Jiki a augmenté son compteur interne pour cette boucle à <code>{{iteration}}</code>, a vérifié que <code>{{iteration}} &le; {{countValue}}</code> et a décidé d'exécuter le bloc d'instructions.",
       "zeroResult": "Le bloc repeat devait s'exécuter <code>0</code> fois, donc cette ligne n'a rien fait.",
       "zeroStep": "Jiki a vu que la boucle devait s'exécuter <code>0</code> fois et a donc décidé de ne rien faire de plus sur cette ligne."

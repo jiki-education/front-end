@@ -201,14 +201,14 @@
     },
     "forInStatement": {
       "result_empty": "Objekat je bio prazan, pa ova linija nije uradila ništa.",
-      "result_iteration": "Ova linija je započela {{ordinal}} iteraciju, sa promenljivom {{name}} postavljenom na {{value}}.",
+      "result_iteration_ordinal_other": "Ova linija je započela {{count}}. iteraciju, sa promenljivom {{name}} postavljenom na {{value}}.",
       "step_create": "Jiki je napravio novu kutiju sa imenom {{name}}.",
       "step_empty": "Jiki je proverio objekat, video da je prazan i odlučio da na ovoj liniji ne radi ništa dalje.",
       "step_put": "Jiki je stavio {{value}} u kutiju, a kutiju na policu, spremnu za korišćenje u bloku koda."
     },
     "forOfStatement": {
       "result_empty": "{{type}} je bio prazan, pa ova linija nije uradila ništa.",
-      "result_iteration": "Ova linija je započela {{ordinal}} iteraciju, sa promenljivom {{name}} postavljenom na {{value}}.",
+      "result_iteration_ordinal_other": "Ova linija je započela {{count}}. iteraciju, sa promenljivom {{name}} postavljenom na {{value}}.",
       "step_create": "Jiki je napravio novu kutiju sa imenom {{name}}.",
       "step_empty": "Jiki je proverio {{type}}, video da je prazan i odlučio da na ovoj liniji ne radi ništa dalje.",
       "step_put": "Jiki je stavio {{value}} u kutiju, a kutiju na policu, spremnu za korišćenje u bloku koda."
@@ -233,9 +233,9 @@
       "string": "Jiki je uzeo karakter sa indeksom {{index}} iz stringa i utvrdio da je to {{value}}."
     },
     "repeatStatement": {
-      "foreverResult": "Ova linija je započela {{ordinal}} iteraciju ovog repeat bloka.",
-      "foreverStep": "Jiki je započeo {{ordinal}} iteraciju repeat petlje.",
-      "repeatResult": "Ova linija je započela {{ordinal}} iteraciju ovog repeat bloka.",
+      "foreverResult_ordinal_other": "Ova linija je započela {{count}}. iteraciju ovog repeat bloka.",
+      "foreverStep_ordinal_other": "Jiki je započeo {{count}}. iteraciju repeat petlje.",
+      "repeatResult_ordinal_other": "Ova linija je započela {{count}}. iteraciju ovog repeat bloka.",
       "repeatStep": "Jiki je povećao svoj interni brojač za ovu petlju na <code>{{iteration}}</code>, proverio <code>{{iteration}} &le; {{countValue}}</code> i odlučio da izvrši blok koda.",
       "zeroResult": "Od repeat bloka je traženo da se izvrši <code>0</code> puta, pa ova linija nije uradila ništa.",
       "zeroStep": "Jiki je video da petlju treba izvršiti <code>0</code> puta, pa je odlučio da na ovoj liniji ne radi ništa dalje."
