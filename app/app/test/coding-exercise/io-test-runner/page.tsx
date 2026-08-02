@@ -10,6 +10,7 @@ import { IOExercise } from "@jiki/curriculum";
 import type { IOExerciseDefinition, IOScenario, Task } from "@jiki/curriculum";
 import { useEffect, useState } from "react";
 import styles from "../harness.module.css";
+import { useTranslations } from "next-intl";
 
 const initialCode = `function acronym with phrase do
   return "CAT"
@@ -56,6 +57,7 @@ class TestIOExercise extends IOExercise {
 }
 
 export default function IOTestRunnerPage() {
+  const t = useTranslations("codingExercise");
   const [orchestrator, setOrchestrator] = useState<Orchestrator | null>(null);
 
   useEffect(() => {
@@ -79,6 +81,7 @@ export default function IOTestRunnerPage() {
       { type: "lesson", slug: "test-lesson" },
       {},
       {},
+      t,
       "",
       () => {}
     );
@@ -90,7 +93,7 @@ export default function IOTestRunnerPage() {
     return () => {
       delete (window as any).testOrchestrator;
     };
-  }, []);
+  }, [t]);
 
   if (!orchestrator) {
     return <div>Loading...</div>;

@@ -1,9 +1,16 @@
+import type { useTranslations } from "next-intl";
 import type { Frame, LintError } from "@jiki/interpreters/shared";
 import type { AnimationTimeline } from "./AnimationTimeline";
 
 // Import expect types from curriculum (single source of truth)
 import type { IOTestExpect, VisualTestExpect } from "@jiki/curriculum";
 export type { CodeCheckExpect, IOTestExpect, TestExpect, VisualTestExpect } from "@jiki/curriculum";
+
+// Translator for the `codingExercise` namespace of the app catalog, threaded down the
+// same rail as the curriculum/interpreter dicts so the runner (a plain module with no
+// hook context) can resolve its own runner-owned copy. Sourced from next-intl's typing,
+// so `pnpm typecheck` rejects unknown keys.
+export type CodingExerciseTranslator = ReturnType<typeof useTranslations<"codingExercise">>;
 
 // Base interface for common test properties
 interface BaseTestResult {

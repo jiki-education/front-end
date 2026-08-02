@@ -11,7 +11,7 @@ import { resolveCodeCheckError } from "./resolveCodeCheckError";
 import type { InterpretResult } from "@jiki/interpreters/shared";
 import type { Messages as InterpreterMessages } from "@jiki/interpreters";
 import { AnimationTimeline as AnimationTimelineClass } from "../AnimationTimeline";
-import type { VisualTestResult } from "../test-results-types";
+import type { CodingExerciseTranslator, VisualTestResult } from "../test-results-types";
 import type { Interpreter } from "./getInterpreter";
 
 export function runVisualScenario(
@@ -22,7 +22,8 @@ export function runVisualScenario(
   interpreter: Interpreter,
   languageFeatures: Record<string, any> | undefined,
   interpreterLocaleMessages: InterpreterMessages,
-  exerciseLocaleMessages: CurriculumMessages
+  exerciseLocaleMessages: CurriculumMessages,
+  t: CodingExerciseTranslator
 ): VisualTestResult {
   // Resolve seed once so the primary run and every isolated run share the same RNG stream.
   const resolvedSeed = scenario.randomSeed === true ? Math.floor(Math.random() * 2 ** 32) : scenario.randomSeed;
@@ -48,12 +49,7 @@ export function runVisualScenario(
   // timeline, mirroring how runIsolatedCheck already behaves on a frame error.
   let expects: VisualTestExpect[];
   if (hasFrameError) {
-    expects = [
-      {
-        pass: false,
-        errorHtml: "Your code hit an error while it was running. Fix the error message above to continue."
-      }
-    ];
+    expects = [{ pass: false, errorHtml: t("testResults.runtimeError") }];
   } else {
     const isolatedExpects: VisualTestExpect[] = (scenario.isolatedChecks ?? []).flatMap((check) =>
       runIsolatedCheck(
@@ -66,7 +62,8 @@ export function runVisualScenario(
         languageFeatures,
         resolvedSeed,
         interpreterLocaleMessages,
-        exerciseLocaleMessages
+        exerciseLocaleMessages,
+        t
       )
     );
     expects = [...primary.expects, ...isolatedExpects];
@@ -211,7 +208,8 @@ function runIsolatedCheck(
   languageFeatures: Record<string, any> | undefined,
   randomSeed: number | undefined,
   interpreterLocaleMessages: InterpreterMessages,
-  exerciseLocaleMessages: CurriculumMessages
+  exerciseLocaleMessages: CurriculumMessages,
+  t: CodingExerciseTranslator
 ): VisualTestExpect[] {
   try {
     // `secretConstants` is the silent-constants hook: the interpreter seeds these in
@@ -234,14 +232,16 @@ function runIsolatedCheck(
     const hasFrameError = result.frames.some((f) => f.status === "ERROR");
 
     if (hasFrameError) {
-      return [{ pass: false, errorHtml: "Your code threw an error while running." }];
+      return [{ pass: false, errorHtml: t("testResults.isolatedCheckError") }];
     }
     return checkExpects;
   } catch (error) {
     return [
       {
         pass: false,
-        errorHtml: `Your code threw an error while running. (${error instanceof Error ? error.message : String(error)})`
+        errorHtml: t("testResults.isolatedCheckErrorDetail", {
+          message: error instanceof Error ? error.message : String(error)
+        })
       }
     ];
   }

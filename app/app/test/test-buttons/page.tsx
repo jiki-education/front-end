@@ -9,6 +9,7 @@ import { InspectedTestResultView } from "@/components/coding-exercise/ui/test-re
 import { assembleClassNames } from "@/lib/assemble-classnames";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import { useEffect, useRef } from "react";
+import { useTranslations } from "next-intl";
 
 const initialCode = `move()
 move()
@@ -17,6 +18,7 @@ move()
 move()`;
 
 export default function TestButtonsTestPage() {
+  const t = useTranslations("codingExercise");
   // Create orchestrator once using useRef (prevents re-creation on re-renders)
   const exercise = createMockExercise({
     slug: "test-buttons-e2e-id",
@@ -24,7 +26,7 @@ export default function TestButtonsTestPage() {
     title: "Test Buttons E2E Test"
   });
   const orchestratorRef = useRef<Orchestrator>(
-    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" }, {}, {}, "", () => {})
+    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" }, {}, {}, t, "", () => {})
   );
   const orchestrator = orchestratorRef.current;
 

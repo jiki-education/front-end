@@ -5,7 +5,7 @@ import { toastError } from "@/lib/toast";
 import type { StoreApi } from "zustand/vanilla";
 import { ERROR_HIGHLIGHT_COLOR } from "../../ui/codemirror/extensions/lineHighlighter";
 import { processMessageContent } from "../../ui/messageUtils";
-import type { TestExpect, TestSuiteResult } from "../test-results-types";
+import type { CodingExerciseTranslator, TestExpect, TestSuiteResult } from "../test-results-types";
 import type { ExerciseContext, OrchestratorStore } from "../types";
 
 /**
@@ -22,6 +22,9 @@ export class TestSuiteManager {
     // instance before it runs (fetched in the blocking load). Tests supply an
     // empty dict, which resolves keys as-is.
     private readonly exerciseLocaleMessages: CurriculumMessages,
+    // Translator for the app's `codingExercise` catalog namespace, so the test runner
+    // can resolve its own runner-owned copy without hook context.
+    private readonly t: CodingExerciseTranslator,
     private readonly taskManager?: {
       updateTaskProgress: (testResults: TestSuiteResult, exercise: ExerciseDefinition) => void;
     },
@@ -122,7 +125,8 @@ export class TestSuiteManager {
         exercise,
         language,
         this.interpreterLocaleMessages,
-        this.exerciseLocaleMessages
+        this.exerciseLocaleMessages,
+        this.t
       );
 
       // Set the results in the store (will also set the first test as current)
