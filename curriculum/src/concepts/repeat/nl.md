@@ -61,7 +61,7 @@ repeat(4) {
 
 Zulke herhaalinstructies noemen we lussen (_loops_ in het Engels), en er zijn veel verschillende lussen die we kunnen gebruiken en die allemaal net iets anders werken.
 
-Er is nog één ding om te weten: je code netjes en overzichtelijk houden wordt essentieel zodra je met lussen werkt. Met een goede visuele structuur in je code zie je heel makkelijk wat er gebeurt. Maar als je dat niet doet, als je vergeet netjes in te springen of je inspringing door elkaar haalt, wordt het razendsnel verwarrend. Daarom hanteren we in deze cursus altijd een regel. Je zet de openingsaccolade altijd op dezelfde regel als het `repeat`-_statement_ (een uitvoerbare instructie). Je zet de sluitaccolade altijd op een eigen regel na het statement, en je springt de code ertussen altijd twee spaties in. Zo blijft alles keurig netjes, en als je het vergeet of een ander patroon probeert te volgen, krijg je een foutmelding.
+Er is nog één ding om te weten: je code netjes en overzichtelijk houden wordt essentieel zodra je met lussen werkt. Met een goede visuele structuur in je code zie je heel makkelijk wat er gebeurt. Maar als je dat niet doet, als je vergeet netjes in te springen of je inspringing door elkaar haalt, wordt het razendsnel verwarrend. Daarom hanteren we in deze cursus altijd een regel. Je zet de openingsaccolade altijd op dezelfde regel als het `repeat`-_statement_ (een uitvoerbare instructie). Je zet de sluitaccolade altijd op een eigen regel na het statement, en laat de code ertussen altijd twee spaties inspringen. Zo blijft alles keurig netjes, en als je het vergeet of een ander patroon probeert te volgen, krijg je een foutmelding.
 
 <img
   class="concept-image"
