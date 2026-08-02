@@ -13,9 +13,36 @@
     gap: 8px;
 }
 
+/* The exercise's LHS/RHS split does NOT mirror with text direction: RTL reviewers
+   asked for the editor to stay physically left and the RHS (instructions, chat,
+   ...) physically right, matching LTR. Pinning `direction: ltr` on the grid
+   container keeps the columns, the absolutely positioned dividers and the resize
+   JS (which reads getComputedStyle().direction) all on physical left/right, while
+   each pane re-asserts the reader's direction below so its prose still reads RTL. */
+:global([dir="rtl"]) .exerciseContainer {
+    direction: ltr;
+}
+
+:global([dir="rtl"]) .exerciseContainer > * {
+    direction: rtl;
+}
+
+/* The dividers have no content and are positioned with physical insets, so they
+   stay LTR along with the container. */
+:global([dir="rtl"]) .exerciseContainer > .verticalDivider,
+:global([dir="rtl"]) .exerciseContainer > .horizontalDivider {
+    direction: ltr;
+}
+
+/* The dividers are positioned with PHYSICAL insets (matched by the resize JS,
+   which writes `style.left`). Logical insets would resolve against whatever
+   direction ends up on the element, and our PostCSS lowers them to a :lang()
+   list that tracks `lang` rather than the pinned `direction` — neither is what
+   this always-physical split wants. Hence the scoped disable. */
+/* stylelint-disable property-disallowed-list */
 .verticalDivider {
     position: absolute;
-    inset-inline-start: 50%;
+    left: 50%;
     top: 0;
     bottom: 0;
     width: 8px;
@@ -25,44 +52,23 @@
     transform: translateX(-50%);
     transition: background 0.2s;
 }
-
-/* RTL overrides key off the [dir] attribute — the same signal the resize JS reads
-   (getComputedStyle().direction) and the app sets on <html>. We can't rely on
-   logical props / :dir() here: our PostCSS rewrites both to a :lang() list, which
-   tracks `lang`, so they'd silently no-op whenever dir is set without a matching
-   RTL lang. Physical props are required to override the (also :lang()-gated) base
-   inset, hence the scoped disable. */
-/* stylelint-disable property-disallowed-list */
-:global([dir="rtl"]) .verticalDivider {
-    inset-inline-start: auto;
-    right: 50%;
-    left: auto;
-    transform: translateX(50%);
-}
 /* stylelint-enable property-disallowed-list */
 
 .verticalDivider:hover {
     background: var(--color-gray-200);
 }
 
+/* stylelint-disable property-disallowed-list */
 .verticalDivider::after {
     content: "";
     position: absolute;
     top: 50%;
-    inset-inline-start: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     width: 2px;
     height: 40px;
     background: var(--color-gray-300);
     border-radius: 1px;
-}
-
-/* stylelint-disable property-disallowed-list */
-:global([dir="rtl"]) .verticalDivider::after {
-    inset-inline-start: auto;
-    right: 50%;
-    left: auto;
-    transform: translate(50%, -50%);
 }
 /* stylelint-enable property-disallowed-list */
 
@@ -91,9 +97,10 @@
     margin: 8px 4px 4px 8px;
 }
 
+/* stylelint-disable property-disallowed-list */
 .horizontalDivider {
     position: absolute;
-    inset-inline-start: 0;
+    left: 0;
     width: var(--lhs-width, 50%);
     top: min(342px, 50vh);
     height: 8px;
@@ -102,37 +109,23 @@
     z-index: var(--z-index-resizer);
     transition: background 0.2s;
 }
-
-/* stylelint-disable property-disallowed-list */
-:global([dir="rtl"]) .horizontalDivider {
-    inset-inline-start: auto;
-    right: 0;
-    left: auto;
-}
 /* stylelint-enable property-disallowed-list */
 
 .horizontalDivider:hover {
     background: var(--color-gray-200);
 }
 
+/* stylelint-disable property-disallowed-list */
 .horizontalDivider::after {
     content: "";
     position: absolute;
     top: 50%;
-    inset-inline-start: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     width: 40px;
     height: 2px;
     background: var(--color-gray-300);
     border-radius: 1px;
-}
-
-/* stylelint-disable property-disallowed-list */
-:global([dir="rtl"]) .horizontalDivider::after {
-    inset-inline-start: auto;
-    right: 50%;
-    left: auto;
-    transform: translate(50%, -50%);
 }
 /* stylelint-enable property-disallowed-list */
 
@@ -1060,6 +1053,30 @@
     border-inline-start: 1px solid var(--color-gray-200);
     margin-inline-start: 4px;
 }
+
+/* The panes keep the reader's direction (so their prose reads RTL), but they sit
+   in a container pinned to LTR, so their own outer edges must be pinned too: the
+   RHS divider border and the panel gutters belong to the physical side facing the
+   split, not the inline-start side. Physical props by necessity — see the divider
+   note above. */
+/* stylelint-disable property-disallowed-list */
+:global([dir="rtl"]) .rightColumn {
+    border-right: none;
+    border-left: 1px solid var(--color-gray-200);
+    margin-right: 0;
+    margin-left: 4px;
+}
+
+:global([dir="rtl"]) .codeEditor {
+    margin-left: 8px;
+    margin-right: 4px;
+}
+
+:global([dir="rtl"]) .testResultsArea {
+    margin-left: 8px;
+    margin-right: 4px;
+}
+/* stylelint-enable property-disallowed-list */
 
 .tabsOuter {
     position: relative;

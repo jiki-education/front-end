@@ -2,10 +2,12 @@ import { useResizablePanels } from "@/components/coding-exercise/useResize";
 import "@testing-library/jest-dom";
 import { act, renderHook } from "@testing-library/react";
 
-// The vertical divider maps a horizontal drag to the LHS panel's share. Under
-// LTR that share is measured from the left edge; under RTL, from the right edge
-// (time/space runs right→left). These tests wire real DOM nodes to the hook's
-// refs and drive document-level mouse events to assert the mirrored math.
+// The vertical divider maps a horizontal drag to the LHS (editor) panel's share.
+// That share is always measured from the PHYSICAL left edge: the exercise split
+// deliberately does not mirror under RTL (the container is pinned to
+// `direction: ltr`), so the editor stays left and the RHS stays right in every
+// locale. These tests wire real DOM nodes to the hook's refs and drive
+// document-level mouse events to assert the math and the physical positioning.
 
 // Width 2000 so the LHS_MIN_PIXELS (400) clamp resolves to the 30% floor
 // rather than pinning every drag to a single value.
@@ -62,35 +64,50 @@ describe("useResizablePanels vertical divider", () => {
     // clientX=1000 is 1000px from the left (0) → 50% of 2000.
     drag(result, 1000);
 
-    expect(divider.style.insetInlineStart).toBe("50%");
-    // Physical `left` must not be set — it would win over the logical property
-    // and break RTL positioning.
-    expect(divider.style.left).toBe("");
+    expect(divider.style.left).toBe("50%");
+    // The logical property must not be set — under RTL it would resolve to the
+    // right edge and un-pin the split.
+    expect(divider.style.insetInlineStart).toBe("");
   });
 
-  it("RTL: measures the LHS share from the right edge", () => {
+  it("RTL: still measures the LHS share from the physical left edge", () => {
     const { result, divider } = setup("rtl");
 
-    // clientX=1000 is 1000px from the right (2000) → 50%.
+    // clientX=1000 is 1000px from the left (0) → 50%, exactly as in LTR.
     drag(result, 1000);
-    expect(divider.style.insetInlineStart).toBe("50%");
+    expect(divider.style.left).toBe("50%");
 
-    // clientX=1600 is 400px from the right → 20%, clamped up to the 30% minimum.
-    drag(result, 1600);
-    expect(divider.style.insetInlineStart).toBe("30%");
+    // clientX=400 is 400px from the left → 20%, clamped up to the 30% minimum.
+    drag(result, 400);
+    expect(divider.style.left).toBe("30%");
+    expect(divider.style.insetInlineStart).toBe("");
   });
 
-  it("RTL and LTR mirror each other for the same pointer position", () => {
-    // clientX=500: LTR → 500px from left = 25% (clamped to 30% min);
-    //              RTL → 1500px from right = 75% (clamped to 70% max).
+  it("RTL and LTR resolve identically for the same pointer position", () => {
+    // clientX=1600 → 80% from the left, clamped to the 70% max, in both
+    // directions: the split does not mirror.
     const ltr = setup("ltr");
-    drag(ltr.result, 500);
-    expect(ltr.divider.style.insetInlineStart).toBe("30%");
+    drag(ltr.result, 1600);
+    expect(ltr.divider.style.left).toBe("70%");
 
     jest.restoreAllMocks();
 
     const rtl = setup("rtl");
-    drag(rtl.result, 500);
-    expect(rtl.divider.style.insetInlineStart).toBe("70%");
+    drag(rtl.result, 1600);
+    expect(rtl.divider.style.left).toBe("70%");
+  });
+
+  it("applies the LHS share to the grid tracks in both directions", () => {
+    const ltr = setup("ltr");
+    drag(ltr.result, 1000);
+    expect(ltr.container.style.gridTemplateColumns).toBe("1fr 1fr");
+    expect(ltr.container.style.getPropertyValue("--lhs-width")).toBe("50%");
+
+    jest.restoreAllMocks();
+
+    const rtl = setup("rtl");
+    drag(rtl.result, 1000);
+    expect(rtl.container.style.gridTemplateColumns).toBe("1fr 1fr");
+    expect(rtl.container.style.getPropertyValue("--lhs-width")).toBe("50%");
   });
 });
