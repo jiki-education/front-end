@@ -9,10 +9,10 @@ interface BlogPostContentProps {
   post: ProcessedBlogPost;
   variant?: "authenticated" | "unauthenticated";
   relatedPosts?: BlogPostMeta[];
-  locale?: string;
+  locale: string;
 }
 
-export default function BlogPostContent({ post, relatedPosts, locale = "en" }: BlogPostContentProps) {
+export default function BlogPostContent({ post, relatedPosts, locale }: BlogPostContentProps) {
   const hasRelatedPosts = relatedPosts && relatedPosts.length > 0;
 
   return (

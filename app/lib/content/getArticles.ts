@@ -5,7 +5,7 @@ import { type ArticleTagSlug } from "./types";
 const ARTICLES_PAGE_SIZE = 10;
 
 export interface GetArticlesOptions {
-  locale?: string;
+  locale: string;
   tag?: ArticleTagSlug | null;
   page?: number;
   listedOnly?: boolean;
@@ -22,8 +22,8 @@ export interface GetArticlesResult {
  * Get articles with optional tag filtering and pagination
  * By default returns only listed articles, sorted alphabetically by title
  */
-export function getArticles(options: GetArticlesOptions = {}): GetArticlesResult {
-  const { locale = "en", tag = null, page = 1, listedOnly = true } = options;
+export function getArticles(options: GetArticlesOptions): GetArticlesResult {
+  const { locale, tag = null, page = 1, listedOnly = true } = options;
 
   const allArticles = getAllArticles(locale);
   let filteredArticles = listedOnly ? allArticles.filter((article) => article.listed) : allArticles;
