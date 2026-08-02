@@ -6,7 +6,7 @@ en_md5: bbd838559fba4dcf527a55ba135703cd
 
 İlk alıştırmanıza hoş geldiniz!
 
-Bu alıştırmanın amacı, öğrenme ortamının nasıl çalıştığını size tanıtmaktır. Göreviniz, solda gördüğünüz labirenti küçük karaktere talimatlar vererek çözmektir. Karakterin izlemesi gereken bütün talimatları yazarsınız, sonra bunları uygulaması için **Kodu çalıştır** düğmesine tıklarsınız.
+Bu alıştırmanın amacı, öğrenme ortamının nasıl çalıştığını size tanıtmaktır. Göreviniz, solda gördüğünüz labirenti küçük karaktere talimatlar vererek çözmektir. Karakterin izlemesi gereken bütün talimatları yazın. Sonra bunları uygulaması için **Kodu çalıştır** düğmesine tıklayın.
 
 Kullanabileceğiniz üç talimat şunlardır:
 

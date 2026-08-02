@@ -16,8 +16,8 @@
   },
   "hints": {
     "whatAmIMoving": {
-      "question": "Neyi nereye taşıyorum?",
-      "answer": "Sol üstte başlayan küçük karakteri, kırmızı çizgili hücrelerden kaçınarak sağ alttaki yeşil daireye taşıyorsunuz."
+      "question": "Neyi, nereye götürüyorum?",
+      "answer": "Sol üstte başlayan küçük karakteri, kırmızı çizgili hücrelerden kaçınarak sağ alttaki yeşil daireye götürüyorsunuz."
     },
     "turnLeftTurnsRight": {
       "question": "Sola döndüğümde karakter sağa dönüyor!",

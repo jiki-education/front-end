@@ -1,9 +1,9 @@
 {
   "errors": {
-    "fellOffEdge": "Eyvah, labirentin kenarından aşağı düşecektiniz!",
+    "fellOffEdge": "Eyvah, labirentin kenarından aşağı düşmeyi denediniz!",
     "hitWall": "Ah, duvara çarptınız!",
     "walkedIntoFire": "Ah! Ateşin içine girdiniz!",
-    "walkedIntoPoop": "İyyy! Kakaya bastınız! 💩💩💩"
+    "walkedIntoPoop": "Iyyy! Kakaya bastınız! 💩💩💩"
   },
   "describers": {
     "move": "Karakteri bir hücre ileri taşır",
