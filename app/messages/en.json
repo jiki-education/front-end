@@ -147,7 +147,8 @@
     },
     "saving": "Saving...",
     "retry": "Retry",
-    "tryAgain": "Try Again"
+    "tryAgain": "Try Again",
+    "betaTag": "Beta Version"
   },
   "build": {
     "upcomingStreams": {
