@@ -8,7 +8,7 @@ On va maintenant partir de ce simple exercice « Hello » et ajouter quelques 
 
 Dans certains accents anglais, quand on prononce « two for » rapidement, ça sonne comme « two fer ». « Two-for-one », c'est une façon de dire que si tu en achètes un, tu en reçois un autre gratuitement.
 
-Imagine une boulangerie qui propose une offre spéciale pour les fêtes : deux cookies pour le prix d'un. Tu profites de l'offre et tu décides de donner le cookie en trop à quelqu'un d'autre.
+Imagine une boulangerie qui propose une offre spéciale pour les fêtes : deux cookies pour le prix d'un. Tu profites de l'offre et tu décides de donner le cookie offert à quelqu'un d'autre.
 
 Ta mission est de déterminer ce que tu vas dire en offrant ce cookie supplémentaire.
 
@@ -25,6 +25,6 @@ Voici quelques exemples :
 | `twoFer("Jeremy")` | `"One for Jeremy, one for me."` |
 | `twoFer("")`       | `"One for you, one for me."`    |
 
-Pour le bonus, est-ce que tu peux écrire tout ça en **seulement 6 lignes de code** ?
+Bonus : est-ce que tu peux écrire tout ça en **seulement 6 lignes de code** ?
 
 Bonne chance !

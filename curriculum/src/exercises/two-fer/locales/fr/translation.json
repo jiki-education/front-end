@@ -4,12 +4,12 @@
   },
   "tasks": {
     "createTwoFerFunction": {
-      "name": "Créer la fonction two-fer",
+      "name": "Crée la fonction two-fer",
       "description": "Écris une fonction twoFer qui prend un nom et renvoie 'One for [name], one for me.' Si aucun nom n'est donné (string vide), utilise 'you' à la place du nom."
     },
     "solveInSixLines": {
-      "name": "Résoudre en six lignes de code",
-      "description": "Est-ce que tu peux résoudre ça en seulement six lignes de code ?"
+      "name": "Résous en six lignes de code",
+      "description": "Peux-tu résoudre ceci en n'utilisant que six lignes de code ?"
     }
   },
   "scenarios": {
