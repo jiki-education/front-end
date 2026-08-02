@@ -1,27 +1,27 @@
 {
   "checks": {
-    "didNotReachEnd": "Postać nie dotarła do końca labiryntu."
+    "didNotReachEnd": "Ludzik nie dotarł do końca labiryntu."
   },
   "tasks": {
     "solveMaze": {
-      "name": "Poprowadź postać do końca labiryntu",
-      "description": "Przeprowadź postać przez labirynt do zielonego celu"
+      "name": "Poprowadź ludzika do końca labiryntu",
+      "description": "Przeprowadź ludzika przez labirynt do zielonego celu"
     }
   },
   "scenarios": {
     "maze1": {
-      "name": "Poprowadź postać do końca labiryntu",
-      "description": "Twoim zadaniem jest przeprowadzenie postaci przez labirynt na zielone pole mety."
+      "name": "Poprowadź ludzika do końca labiryntu",
+      "description": "Twoim zadaniem jest przeprowadzenie ludzika przez labirynt na zielone pole mety."
     }
   },
   "hints": {
     "whatAmIMoving": {
       "question": "Co i gdzie mam przesunąć?",
-      "answer": "Musisz przeprowadzić małą postać z lewego górnego rogu do zielonego kółka w prawym dolnym rogu, omijając pola oznaczone czerwonymi paskami."
+      "answer": "Musisz przeprowadzić małego ludzika z lewego górnego rogu do zielonego kółka w prawym dolnym rogu, omijając pola oznaczone czerwonymi paskami."
     },
     "turnLeftTurnsRight": {
-      "question": "Każę postaci skręcić w lewo, a ona skręca w prawo!",
-      "answer": "Postać zawsze skręca względem kierunku, w którym jest zwrócona. Jeśli więc patrzy w prawą stronę i dostanie polecenie skręcenia w lewo, zacznie patrzeć do góry."
+      "question": "Każę ludzikowi skręcić w lewo, a on skręca w prawo!",
+      "answer": "Ludzik zawsze skręca względem kierunku, w którym jest zwrócony. Jeśli więc patrzy w prawą stronę i dostanie polecenie skręcenia w lewo, zacznie patrzeć do góry."
     }
   }
 }

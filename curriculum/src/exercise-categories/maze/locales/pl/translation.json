@@ -1,13 +1,13 @@
 {
   "errors": {
-    "fellOffEdge": "O nie! Postać o mało nie spadła z krawędzi labiryntu!",
-    "hitWall": "Auć! Postać weszła w ścianę!",
-    "walkedIntoFire": "Auć! Postać weszła w ogień!",
-    "walkedIntoPoop": "Fuj! Postać weszła w kupę! 💩💩💩"
+    "fellOffEdge": "O nie! Ludzik o mało nie spadł z krawędzi labiryntu!",
+    "hitWall": "Auć! Ludzik wszedł w ścianę!",
+    "walkedIntoFire": "Auć! Ludzik wszedł w ogień!",
+    "walkedIntoPoop": "O fuj! Ludzik wszedł w kupę! 💩💩💩"
   },
   "describers": {
-    "move": "Przesuwa postać o jedno pole do przodu",
-    "turnLeft": "Obraca postać o 90 stopni w lewo",
-    "turnRight": "Obraca postać o 90 stopni w prawo"
+    "move": "Przesuwa ludzika o jedno pole do przodu",
+    "turnLeft": "Obraca ludzika o 90 stopni w lewo",
+    "turnRight": "Obraca ludzika o 90 stopni w prawo"
   }
 }

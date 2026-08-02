@@ -6,15 +6,15 @@ en_md5: bbd838559fba4dcf527a55ba135703cd
 
 Pora na Twoje pierwsze ćwiczenie!
 
-Jego celem jest zapoznanie Cię z działaniem platformy. Twoim zadaniem jest rozwiązanie labiryntu, który widzisz po lewej stronie, poprzez wydawanie poleceń małej postaci. Aby to zrobić, zapisz wszystkie polecenia, którymi postać ma się kierować, a następnie kliknij **Uruchom kod**, aby je wykonała.
+Jego celem jest zapoznanie Cię z działaniem platformy. Twoim zadaniem jest rozwiązanie labiryntu, który widzisz po lewej stronie, poprzez wydawanie poleceń małemu ludzikowi. Aby to zrobić, zapisz wszystkie polecenia, którymi ludzik ma się kierować, a następnie kliknij **Uruchom kod**, aby je wykonała.
 
 Masz do dyspozycji trzy polecenia:
 
-- `move()` (ruch) przesuwa postać o jeden krok do przodu
-- `turnLeft()` (skręt w lewo) sprawia, że postać skręca w lewo (względem kierunku, w którym jest aktualnie zwrócona)
-- `turnRight()` (skręt w prawo) sprawia, że postać skręca w prawo (względem kierunku, w którym jest aktualnie zwrócona)
+- `move()` (ruch) przesuwa ludzika o jeden krok do przodu
+- `turnLeft()` (skręt w lewo) sprawia, że ludzik skręca w lewo (względem kierunku, w którym jest aktualnie zwrócony)
+- `turnRight()` (skręt w prawo) sprawia, że ludzik skręca w prawo (względem kierunku, w którym jest aktualnie zwrócony)
 
-Po lewej stronie napisaliśmy już dla Ciebie trzy pierwsze polecenia. Najpierw kliknij przycisk **„Uruchom kod”**, aby zobaczyć, jak działają. Następnie **dodaj kolejne polecenia**, aby doprowadzić postać do końca labiryntu. Każde z nich zapisz w osobnej linii, a na końcu naciśnij **Uruchom kod**, aby wykonać je wszystkie.
+Po lewej stronie napisaliśmy już dla Ciebie trzy pierwsze polecenia. Najpierw kliknij przycisk **„Uruchom kod”**, aby zobaczyć, jak działają. Następnie **dodaj kolejne polecenia**, aby doprowadzić ludzika do końca labiryntu. Każde z nich zapisz w osobnej linii, a na końcu naciśnij **Uruchom kod**, aby wykonać je wszystkie.
 
 Warto wyrobić sobie nawyk regularnego uruchamiania kodu!
 
