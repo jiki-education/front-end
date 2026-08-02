@@ -13,7 +13,7 @@ To make that possible, you have three new functions:
 
 When we match those up with the `move()`, `turnLeft()` and `turnRight()` you had before, it's possible to write an algorithm to solve **any** maze. "Algorithm" is a posh word that just means "a way of doing something". It's like a formula or a recipe.
 
-Further down in the instructions, I'll tell you the algorithm ready for you to solve. But I want you to try and work it out yourself first as a little logic puzzle. If you know whether you can turn left right or move ahead, how can you solve any maze I give you?
+Further down in the instructions, I'll tell you the algorithm ready for you to solve. But I want you to try and work it out yourself first as a little logic puzzle. If you know whether you can turn left, right or move ahead, how can you solve any maze I give you?
 
 Once you've got it, or given up, scroll down to see the answer and what you need to write in code.
 
