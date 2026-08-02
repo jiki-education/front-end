@@ -19,7 +19,7 @@
     },
     "rainyWeek": {
       "name": "Kišovita sedmica",
-      "description": "Raskvašena sedmica puna oblaka i kiše."
+      "description": "Kišna sedmica puna oblaka i padavina."
     },
     "snowyWeek": {
       "name": "Snežna sedmica",
@@ -44,8 +44,8 @@
       "answer": "Tri stvari: broj polja (tvoj brojač), ime dana za to polje i niz simbola za taj dan."
     },
     "tidyWithHelper": {
-      "question": "Petlja mi postaje dugačka. Kako da je sredim?",
-      "answer": "Pretvaranje opisa u simbole možeš izdvojiti u posebnu funkciju i pozivati je iz petlje. Ovo nije obavezno, ali petlju drži kratkom i lakom za čitanje."
+      "question": "Petlja mi postaje predugačka. Kako da je sredim?",
+      "answer": "Pretvaranje opisa u simbole možeš izdvojiti u posebnu funkciju i pozivati je iz petlje. Ovo nije obavezno, ali bilo bi dobro da petlja ostane kratka i pregledna."
     }
   },
   "functions": {

@@ -6,13 +6,13 @@ en_md5: 18bc1bf16ffc94d81bfa81a93faa9a7f
 
 Tvoj zadatak je da napraviš šestodnevnu vremensku prognozu. Međutim, umesto uobičajenih meteoroloških podataka, šef ti daje opise vremena zasnovane na tome kako se on zbog njega oseća (npr. "Snowboarding time! 🏂" ili "Miserable 😩").
 
-Dobijaš niz (engl. _Array_) od šest opisa vremena, po jedan za svaki dan, a tvoj posao je da vreme svakog dana nacrtaš u njegovo polje.
+Dobijaš niz (engl. _Array_) od šest opisa vremena, po jedan za svaki dan, a tvoj posao je da vreme svakog dana nacrtaš u odgovarajuće polje.
 
 Prognoza se prikazuje kao mreža od šest polja, po jedno za svaki dan od ponedeljka do subote. Opisi idu istim redom: prvi (polje `0`) je vreme za ponedeljak, drugi (polje `1`) za utorak, i tako redom sve do subote (polje `5`). (Nedeljom šef ne izlazi iz kuće, pa ga vreme ne zanima, tako da ga nikada i ne prikazujemo...)
 
 ## Crtanje jednog dana
 
-Na raspolaganju ti je funkcija `draw` (nacrtaj), koja sav umetnički posao obavlja umesto tebe. Tvoj posao je da odrediš prave elemente koje treba staviti unutra.
+Na raspolaganju ti je funkcija `draw` (nacrtaj), koja sav umetnički posao obavlja umesto tebe. Tvoj posao je da odrediš odgovarajuće elemente koje treba prikazati u polju.
 
 ```js
 draw(box, day, elements)
