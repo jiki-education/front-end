@@ -1,11 +1,11 @@
 {
   "checks": {
-    "dayIsntCorrect": "Il tempo del giorno {{day}} non è corretto."
+    "dayIsntCorrect": "Il meteo del giorno {{day}} non è corretto."
   },
   "tasks": {
     "drawForecast": {
       "name": "Disegna le previsioni",
-      "description": "Disegna il tempo di ogni giorno nel suo riquadro, usando la posizione del giorno nell'array come numero del riquadro."
+      "description": "Disegna il meteo di ogni giorno nel suo riquadro, usando la posizione del giorno nell'array come numero del riquadro."
     }
   },
   "scenarios": {

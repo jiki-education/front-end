@@ -4,11 +4,11 @@ description: "Disegna le previsioni meteo di sei giorni a partire da un array di
 en_md5: 18bc1bf16ffc94d81bfa81a93faa9a7f
 ---
 
-Ti è stato chiesto di preparare le previsioni meteo per sei giorni. Però, invece di ricevere i classici dati meteorologici, il tuo capo ti dà delle descrizioni del tempo basate su come il tempo lo fa sentire (ad esempio "Snowboarding time! 🏂" oppure "Miserable 😩").
+Ti è stato chiesto di preparare le previsioni meteo per sei giorni. Però, invece di ricevere i classici dati meteorologici, il tuo capo ti dà delle descrizioni del meteo basate su come il meteo lo fa sentire (ad esempio "Snowboarding time! 🏂" oppure "Miserable 😩").
 
-Ti viene dato un array (una sequenza ordinata di valori) con sei descrizioni del tempo, una per giorno. Il tuo compito è disegnare il tempo di ogni giorno nel suo riquadro.
+Ti viene dato un array (una sequenza ordinata di valori) con sei descrizioni del meteo, una per giorno. Il tuo compito è disegnare il meteo di ogni giorno nel suo riquadro.
 
-Le previsioni sono mostrate come una griglia di sei riquadri, uno per ogni giorno della settimana dal lunedì al sabato. Le descrizioni seguono lo stesso ordine: la prima (riquadro `0`) è il tempo di lunedì, la seconda (riquadro `1`) quello di martedì, e così via fino a sabato (riquadro `5`). (La domenica il tuo capo non esce di casa, quindi del tempo non si preoccupa, e noi non possiamo mai riportarlo...)
+Le previsioni sono mostrate come una griglia di sei riquadri, uno per ogni giorno della settimana dal lunedì al sabato. Le descrizioni seguono lo stesso ordine: la prima (riquadro `0`) è il meteo di lunedì, la seconda (riquadro `1`) quello di martedì, e così via fino a sabato (riquadro `5`). (La domenica il tuo capo non esce di casa, quindi del meteo non si preoccupa, e noi non possiamo mai riportarlo...)
 
 ## Disegnare un giorno
 
