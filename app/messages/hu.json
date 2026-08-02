@@ -1608,6 +1608,14 @@
       "congratsCongratulations": "Gratulálunk!",
       "congratsCongrats": "Gratula!"
     },
+    "informationTooltip": {
+      "errorHeading": "�",
+      "closeAriaLabel": "�"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "�",
+      "removeBreakpoint": "�"
+    },
     "syntaxError": {
       "heading": "Jiki nem értette a kódodat.",
       "message": "Semmi pánik! Olvasd el és javítsd ki a fenti üzenetben jelzett hibát, majd futtasd újra a kódot."
