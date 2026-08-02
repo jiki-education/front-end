@@ -1600,6 +1600,9 @@
       "lintWarning": "<strong>Majdnem kész...</strong> A kódod jól működik, de a formázást még javítanod kell. Keresd a narancssárga aláhúzásokat a kódodban.",
       "lintWarningPlain": "A kódod jól működik, de a formázást még javítanod kell. Keresd a narancssárga aláhúzásokat a kódodban.",
       "genericError": "Ajjaj! Hiba van a kódodban.",
+      "runtimeError": "�",
+      "isolatedCheckError": "�",
+      "isolatedCheckErrorDetail": "�",
       "congratsWellDone": "Szép munka!",
       "congratsNiceWork": "Ügyes vagy!",
       "congratsFantasticJob": "Fantasztikus munka!",
@@ -1607,6 +1610,14 @@
       "congratsGreatAchievement": "Nagyszerű eredmény!",
       "congratsCongratulations": "Gratulálunk!",
       "congratsCongrats": "Gratula!"
+    },
+    "informationTooltip": {
+      "errorHeading": "�",
+      "closeAriaLabel": "�"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "�",
+      "removeBreakpoint": "�"
     },
     "syntaxError": {
       "heading": "Jiki nem értette a kódodat.",

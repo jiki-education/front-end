@@ -5,6 +5,11 @@
     font-family: var(--font-mono);
     font-size: 14px;
     overflow-x: auto;
+
+    /* A multi-line source-code widget with a line-number gutter: a complete
+       LTR island, regardless of the surrounding prose direction. */
+    direction: ltr;
+    unicode-bidi: isolate;
 }
 
 .line {

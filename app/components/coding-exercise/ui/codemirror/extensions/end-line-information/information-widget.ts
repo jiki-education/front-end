@@ -9,20 +9,9 @@ import hljs from "highlight.js/lib/core";
 import "highlight.js/styles/default.min.css";
 import { addHighlight, removeAllHighlightEffect } from "../edit-editor/highlightRange";
 import { cleanupAllInformationTooltips } from "./cleanup";
-import { editorMessage } from "../../../../lib/i18n/editorMessages";
 import closeButtonStyles from "@/components/ui-kit/CloseButton/CloseButton.module.css";
 import tooltipStyles from "./informationTooltip.module.css";
-
-// The error heading is interpolated into an innerHTML template, so escape it in
-// case a translation carries HTML-significant characters.
-function escapeHtml(text: string): string {
-  return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
+import type { CodingExerciseTranslator } from "../../../../lib/test-results-types";
 
 export class InformationWidget extends WidgetType {
   private tooltip: HTMLElement | null = null;
@@ -36,7 +25,11 @@ export class InformationWidget extends WidgetType {
     private readonly tooltipHtml: string,
     private readonly status: "ERROR" | "SUCCESS",
     private readonly view: EditorView,
-    private readonly onClose: (view: EditorView) => void
+    private readonly onClose: (view: EditorView) => void,
+    // CodeMirror widgets are built outside the React tree, so `useTranslations()`
+    // is unreachable here. The translator is threaded down from the component that
+    // creates the orchestrator, the same rail the test runner already uses.
+    private readonly t: CodingExerciseTranslator
   ) {
     super();
   }
@@ -90,7 +83,7 @@ export class InformationWidget extends WidgetType {
             <path d="M12 7V13" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
             <circle cx="12" cy="16.5" r="1" fill="currentColor" />
           </svg>
-          ${escapeHtml(editorMessage("informationWidget.errorHeading"))}
+          ${this.t("informationTooltip.errorHeading")}
         </div>
         ${this.tooltipHtml}
       `.trim();
@@ -109,7 +102,7 @@ export class InformationWidget extends WidgetType {
     closeButton.classList.add(closeButtonStyles.small);
     // Add light variant for all tooltips (both have white/light backgrounds)
     closeButton.classList.add(closeButtonStyles.light);
-    closeButton.setAttribute("aria-label", editorMessage("informationWidget.closeAriaLabel"));
+    closeButton.setAttribute("aria-label", this.t("informationTooltip.closeAriaLabel"));
     closeButton.onclick = () => {
       this.onClose(this.view);
     };

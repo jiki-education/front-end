@@ -8,7 +8,7 @@
 }
 
 .card.earned.gold:not(.new) {
-    border-color: var(--color-gold-700);
+    border-color: var(--color-amber-700);
 }
 
 /* Amber theme for recently revealed badges */

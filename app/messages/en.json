@@ -1600,6 +1600,9 @@
       "lintWarning": "<strong>Nearly there...</strong> Your code worked correctly, but you need to fix your formatting. Look for orange underlines in your code.",
       "lintWarningPlain": "Your code worked correctly, but you need to fix your formatting. Look for orange underlines in your code.",
       "genericError": "Uh Oh. Your code has an error in it.",
+      "runtimeError": "Your code hit an error while it was running. Fix the error message above to continue.",
+      "isolatedCheckError": "Your code threw an error while running.",
+      "isolatedCheckErrorDetail": "Your code threw an error while running. ({message})",
       "congratsWellDone": "Well done!",
       "congratsNiceWork": "Nice work!",
       "congratsFantasticJob": "Fantastic job!",
@@ -1607,6 +1610,14 @@
       "congratsGreatAchievement": "Great achievement!",
       "congratsCongratulations": "Congratulations!",
       "congratsCongrats": "Congrats!"
+    },
+    "informationTooltip": {
+      "errorHeading": "Oops, something went wrong!",
+      "closeAriaLabel": "Close tooltip"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "Add breakpoint",
+      "removeBreakpoint": "Remove breakpoint"
     },
     "syntaxError": {
       "heading": "Jiki couldn't understand your code.",

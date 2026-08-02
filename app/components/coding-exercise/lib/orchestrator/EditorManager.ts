@@ -36,6 +36,7 @@ import { updateUnfoldableFunctions } from "../../ui/codemirror/utils/unfoldableF
 import type { ReadonlyRange } from "@jiki/curriculum";
 import { saveCodeMirrorContent } from "../localStorage";
 import type { InformationWidgetData, OrchestratorStore, UnderlineRange } from "../types";
+import type { CodingExerciseTranslator } from "../test-results-types";
 
 export class EditorManager {
   readonly editorView: EditorView;
@@ -48,6 +49,10 @@ export class EditorManager {
     private readonly exerciseSlug: string,
     code: string,
     readonlyRanges: ReadonlyRange[],
+    // Translator for the `codingExercise` namespace, threaded down from the
+    // Orchestrator so the CodeMirror extensions (built outside React) can resolve
+    // their own copy.
+    private readonly t: CodingExerciseTranslator,
     private readonly runCode: (code: string) => void,
     private readonly lintCode?: (code: string) => void
   ) {
@@ -75,7 +80,8 @@ export class EditorManager {
       onBreakpointChange,
       onFoldChange,
       onEditorChange,
-      onCloseInfoWidget
+      onCloseInfoWidget,
+      t: this.t
     });
 
     // Create editor view directly with the element

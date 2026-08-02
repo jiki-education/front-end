@@ -8,8 +8,10 @@ import { CodeMirror } from "@/components/coding-exercise/ui/codemirror/CodeMirro
 import { createMockExercise } from "@/tests/mocks/exercise";
 import { useEffect, useState } from "react";
 import styles from "../harness.module.css";
+import { useTranslations } from "next-intl";
 
 export default function OrchestratorCodeMirrorTestPage() {
+  const t = useTranslations("codingExercise");
   const [orchestrator, setOrchestrator] = useState<Orchestrator | null>(null);
 
   useEffect(() => {
@@ -27,6 +29,7 @@ export default function OrchestratorCodeMirrorTestPage() {
       { type: "lesson", slug: "test-lesson" },
       {},
       {},
+      t,
       "",
       () => {}
     );
@@ -38,7 +41,7 @@ export default function OrchestratorCodeMirrorTestPage() {
     return () => {
       delete (window as any).testOrchestrator;
     };
-  }, []);
+  }, [t]);
 
   if (!orchestrator) {
     return <div>Loading...</div>;

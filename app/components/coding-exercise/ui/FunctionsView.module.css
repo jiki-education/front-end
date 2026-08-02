@@ -33,6 +33,10 @@
     font-family: var(--font-mono);
     font-weight: 600;
     color: var(--color-gray-900);
+
+    /* Not a <code> element, so it misses the global bidi isolation in
+       app/styles/base.css. Without this, `move()` renders as `()move` in RTL. */
+    unicode-bidi: plaintext;
 }
 
 .category {
