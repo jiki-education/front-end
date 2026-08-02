@@ -16,6 +16,6 @@ Diese drei Befehle kannst du benutzen:
 
 Links siehst du, dass wir die ersten drei Befehle schon für dich geschrieben haben. Klick zuerst auf den Button **„Code ausführen“**, um zu sehen, was sie bewirken. **Füge dann weitere Befehle hinzu**, damit deine Figur ans Ende des Labyrinths kommt. Schreib jeden Befehl in eine eigene Zeile und klick dann auf **Code ausführen**, um alle auszuführen.
 
-Gewöhn dich am besten daran, deinen Code regelmäßig auszuführen!
+Mach es dir zur Gewohnheit, deinen Code regelmäßig auszuführen!
 
 Sobald du das Labyrinth gelöst hast, kannst du zurück zum Dashboard gehen und die nächste Lektion starten.
