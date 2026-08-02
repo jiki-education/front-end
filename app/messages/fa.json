@@ -1469,7 +1469,7 @@
       "greeting": "سلام! در این تمرین چه کمکی از من ساخته است؟"
     },
     "chatInput": {
-      "placeholder": "سوال خود را اینجا تایپ کنید...",
+      "placeholder": "سوال خود را اینجا بنویسید...",
       "limitReachedPlaceholder": "شما به سقف پیام‌های خود رسیده‌اید",
       "respondPlaceholder": "پاسخ به جیکی..."
     },
@@ -1494,7 +1494,7 @@
       "emptyState": "شما هنوز چیزی را ثبت نکرده‌اید"
     },
     "instructionsPanel": {
-      "instructionsTitle": "دستورها",
+      "instructionsTitle": "دستورالعمل",
       "functionsTitle": "توابع و متدها",
       "conceptLibraryTitle": "کتابخانه مفاهیم",
       "functionsIntro": "این‌ها توابع و متدهایی هستند که می‌توانید در این تمرین استفاده کنید.",
@@ -1525,7 +1525,7 @@
       "userAlt": "شما"
     },
     "rhs": {
-      "tabInstructions": "دستورها",
+      "tabInstructions": "دستورالعمل",
       "tabAskJiki": "از جیکی بپرسید",
       "tabLog": "گزارش",
       "tabHints": "راهنمایی‌ها",
@@ -1533,7 +1533,7 @@
       "navDashboard": "داشبورد"
     },
     "canStart": {
-      "placeholder": "سوال خود را اینجا تایپ کنید...",
+      "placeholder": "سوال خود را اینجا بنویسید...",
       "askAbout": "بپرسید درباره...",
       "askJiki": "از جیکی بپرسید",
       "freeIncluded": "اولین مکالمه در طرح رایگان شما گنجانده شده است",
@@ -1652,7 +1652,7 @@
   "quizCard": {
     "submit": "ارسال",
     "nextQuestion": "سوال بعدی",
-    "codeInputPlaceholder": "// کد خود را اینجا تایپ کنید...",
+    "codeInputPlaceholder": "// کد خود را اینجا بنویسید...",
     "feedback": {
       "correct": "درست است!",
       "incorrect": "کاملاً درست نیست!"

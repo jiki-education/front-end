@@ -8,11 +8,11 @@ Dans l'exercice précédent, tu as trouvé comment faire sortir le personnage du
 
 L'un des points agréables de cette solution, c'est que le code se lit très naturellement, dans la mesure où il suit de près l'algorithme. À un détail près...
 
-Tu n'as pas trouvé un peu frustrant de devoir utiliser `turnLeft()` (tourner à gauche) deux fois pour faire demi-tour, plutôt que d'avoir une fonction `turnAround()` (faire demi-tour) ?
+N'as-tu pas trouvé quelque peu frustrant de devoir utiliser `turnLeft()` (tourner à gauche) deux fois pour faire demi-tour, plutôt que d'avoir une fonction `turnAround()` (faire demi-tour) ?
 
 Eh bien, voici l'occasion d'arranger ça !
 
-Crée une nouvelle fonction appelée `turnAround` en haut de ton code. Elle ne prend aucune entrée et ne renvoie rien : elle doit simplement appeler `turnLeft()` deux fois.
+Crée donc une nouvelle fonction appelée `turnAround` en haut de ton code. Elle ne prend aucune entrée et ne renvoie rien : elle doit simplement appeler `turnLeft()` deux fois.
 
 Utilise ensuite cette fonction dans la solution, dans l'instruction `else` finale.
 

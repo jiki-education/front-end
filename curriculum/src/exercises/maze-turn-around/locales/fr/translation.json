@@ -12,12 +12,12 @@
   },
   "tasks": {
     "turnAround": {
-      "name": "Faire demi-tour dans les impasses",
+      "name": "Fais demi-tour dans les impasses",
       "description": "Définis en haut de ton code une fonction turnAround() qui appelle turnLeft() deux fois, puis utilise-la dans le bloc else final. Ton programme doit faire sortir le personnage des impasses des trois labyrinthes."
     },
     "bonusShortSolution": {
       "name": "Bonus : fais court",
-      "description": "Fais sortir le personnage d'un labyrinthe à deux impasses, en gardant l'ensemble de ton programme à 17 lignes de code ou moins."
+      "description": "Fais sortir le personnage d'un labyrinthe à deux impasses, tout en gardant, pour l'ensemble de ton programme, 17 lignes de code ou moins."
     }
   },
   "scenarios": {
