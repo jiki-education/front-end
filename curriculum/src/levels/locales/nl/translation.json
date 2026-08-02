@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "Functies gebruiken"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "Strings en kleuren"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "Repeat-lus"
   },
   "variables": {
-    "title": "�"
+    "title": "Variabelen"
   },
   "basic-state": {
-    "title": "�"
+    "title": "Basistoestand"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "Functies die iets teruggeven"
   },
   "conditionals": {
-    "title": "�"
+    "title": "Voorwaarden"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "Complexe voorwaarden"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "Voorwaarden en toestand"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "Eigen functies maken"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "Strings bewerken"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "Strings doorlopen"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "Meerdere functies combineren"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "Methodes en eigenschappen"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "Gevorderde lussen"
   },
   "lists": {
-    "title": "�"
+    "title": "Lijsten"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "Dictionaries"
   },
   "everything": {
-    "title": "�"
+    "title": "Alles"
   }
 }

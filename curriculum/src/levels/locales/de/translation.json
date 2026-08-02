@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "Funktionen verwenden"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "Strings und Farben"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "Repeat-Schleife"
   },
   "variables": {
-    "title": "�"
+    "title": "Variablen"
   },
   "basic-state": {
-    "title": "�"
+    "title": "Einfacher Zustand"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "Funktionen mit Rückgabe"
   },
   "conditionals": {
-    "title": "�"
+    "title": "Bedingungen"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "Komplexe Bedingungen"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "Bedingungen und Zustand"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "Eigene Funktionen schreiben"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "Strings bearbeiten"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "Strings durchlaufen"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "Funktionen kombinieren"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "Methoden und Eigenschaften"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "Fortgeschrittene Schleifen"
   },
   "lists": {
-    "title": "�"
+    "title": "Listen"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "Dictionaries"
   },
   "everything": {
-    "title": "�"
+    "title": "Alles"
   }
 }

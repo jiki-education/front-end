@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "Використання функцій"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "Рядки та кольори"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "Цикл repeat"
   },
   "variables": {
-    "title": "�"
+    "title": "Змінні"
   },
   "basic-state": {
-    "title": "�"
+    "title": "Базовий стан"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "Функції, що повертають значення"
   },
   "conditionals": {
-    "title": "�"
+    "title": "Умови"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "Складні умови"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "Умови та стан"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "Власні функції"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "Робота з рядками"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "Перебір рядків"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "Кілька функцій разом"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "Методи та властивості"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "Просунуті цикли"
   },
   "lists": {
-    "title": "�"
+    "title": "Списки"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "Словники"
   },
   "everything": {
-    "title": "�"
+    "title": "Усе разом"
   }
 }

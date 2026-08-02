@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "Sử dụng hàm"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "Chuỗi và màu sắc"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "Vòng lặp repeat"
   },
   "variables": {
-    "title": "�"
+    "title": "Biến"
   },
   "basic-state": {
-    "title": "�"
+    "title": "Trạng thái cơ bản"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "Hàm trả về giá trị"
   },
   "conditionals": {
-    "title": "�"
+    "title": "Câu lệnh điều kiện"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "Điều kiện phức tạp"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "Điều kiện và trạng thái"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "Tự viết hàm"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "Xử lý chuỗi"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "Duyệt chuỗi"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "Kết hợp nhiều hàm"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "Phương thức và thuộc tính"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "Vòng lặp nâng cao"
   },
   "lists": {
-    "title": "�"
+    "title": "Danh sách"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "Từ điển"
   },
   "everything": {
-    "title": "�"
+    "title": "Tất cả"
   }
 }

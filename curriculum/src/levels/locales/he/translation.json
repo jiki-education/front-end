@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "שימוש בפונקציות"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "מחרוזות וצבעים"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "לולאת חזרה"
   },
   "variables": {
-    "title": "�"
+    "title": "משתנים"
   },
   "basic-state": {
-    "title": "�"
+    "title": "מצב בסיסי"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "פונקציות שמחזירות ערכים"
   },
   "conditionals": {
-    "title": "�"
+    "title": "תנאים"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "תנאים מורכבים"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "תנאים ומצב"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "כתיבת פונקציות משלכם"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "עיבוד מחרוזות"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "מעבר על מחרוזות"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "שילוב כמה פונקציות"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "מתודות ותכונות"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "לולאות מתקדמות"
   },
   "lists": {
-    "title": "�"
+    "title": "רשימות"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "מילונים"
   },
   "everything": {
-    "title": "�"
+    "title": "הכול"
   }
 }

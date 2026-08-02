@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "Använda funktioner"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "Strängar och färger"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "Repeat-loopen"
   },
   "variables": {
-    "title": "�"
+    "title": "Variabler"
   },
   "basic-state": {
-    "title": "�"
+    "title": "Grundläggande tillstånd"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "Funktioner som returnerar saker"
   },
   "conditionals": {
-    "title": "�"
+    "title": "Villkor"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "Komplexa villkor"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "Villkor och tillstånd"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "Skapa egna funktioner"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "Stränghantering"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "Strängiteration"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "Kombinera flera funktioner"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "Metoder och egenskaper"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "Avancerade loopar"
   },
   "lists": {
-    "title": "�"
+    "title": "Listor"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "Ordböcker"
   },
   "everything": {
-    "title": "�"
+    "title": "Allt"
   }
 }

@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "Függvények használata"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "Szövegek és színek"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "Ismétlő ciklus"
   },
   "variables": {
-    "title": "�"
+    "title": "Változók"
   },
   "basic-state": {
-    "title": "�"
+    "title": "Egyszerű állapot"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "Értéket visszaadó függvények"
   },
   "conditionals": {
-    "title": "�"
+    "title": "Elágazások"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "Összetett elágazások"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "Elágazások és állapot"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "Saját függvények"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "Szövegkezelés"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "Szövegek bejárása"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "Több függvény együtt"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "Metódusok és tulajdonságok"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "Haladó ciklusok"
   },
   "lists": {
-    "title": "�"
+    "title": "Listák"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "Szótárak"
   },
   "everything": {
-    "title": "�"
+    "title": "Minden"
   }
 }

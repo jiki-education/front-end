@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "使用函式"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "字串與顏色"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "重複迴圈"
   },
   "variables": {
-    "title": "�"
+    "title": "變數"
   },
   "basic-state": {
-    "title": "�"
+    "title": "基本狀態"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "會回傳值的函式"
   },
   "conditionals": {
-    "title": "�"
+    "title": "條件判斷"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "複雜的條件判斷"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "條件判斷與狀態"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "自己寫函式"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "字串操作"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "走訪字串"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "一起使用多個函式"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "方法與屬性"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "進階迴圈"
   },
   "lists": {
-    "title": "�"
+    "title": "串列"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "字典"
   },
   "everything": {
-    "title": "�"
+    "title": "全部"
   }
 }

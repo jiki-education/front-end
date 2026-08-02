@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "ফাংশন ব্যবহার"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "স্ট্রিং ও রঙ"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "রিপিট লুপ"
   },
   "variables": {
-    "title": "�"
+    "title": "ভেরিয়েবল"
   },
   "basic-state": {
-    "title": "�"
+    "title": "বেসিক স্টেট"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "রিটার্ন করা ফাংশন"
   },
   "conditionals": {
-    "title": "�"
+    "title": "কন্ডিশনাল"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "জটিল কন্ডিশনাল"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "কন্ডিশনাল ও স্টেট"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "নিজের ফাংশন বানানো"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "স্ট্রিং ম্যানিপুলেশন"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "স্ট্রিং ইটারেশন"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "একাধিক ফাংশন একসাথে"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "মেথড ও প্রপার্টি"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "অ্যাডভান্সড লুপ"
   },
   "lists": {
-    "title": "�"
+    "title": "লিস্ট"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "ডিকশনারি"
   },
   "everything": {
-    "title": "�"
+    "title": "সবকিছু"
   }
 }

@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "Używanie funkcji"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "Napisy i kolory"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "Pętla repeat"
   },
   "variables": {
-    "title": "�"
+    "title": "Zmienne"
   },
   "basic-state": {
-    "title": "�"
+    "title": "Podstawy stanu"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "Funkcje zwracające wartości"
   },
   "conditionals": {
-    "title": "�"
+    "title": "Instrukcje warunkowe"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "Złożone warunki"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "Warunki i stan"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "Twórz własne funkcje"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "Operacje na napisach"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "Iterowanie po napisach"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "Łączenie wielu funkcji"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "Metody i właściwości"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "Zaawansowane pętle"
   },
   "lists": {
-    "title": "�"
+    "title": "Listy"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "Słowniki"
   },
   "everything": {
-    "title": "�"
+    "title": "Wszystko razem"
   }
 }

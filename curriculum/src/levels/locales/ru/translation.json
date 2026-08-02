@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "Использование функций"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "Строки и цвета"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "Цикл повторения"
   },
   "variables": {
-    "title": "�"
+    "title": "Переменные"
   },
   "basic-state": {
-    "title": "�"
+    "title": "Основы состояния"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "Функции, возвращающие значения"
   },
   "conditionals": {
-    "title": "�"
+    "title": "Условия"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "Сложные условия"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "Условия и состояние"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "Свои функции"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "Работа со строками"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "Перебор строк"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "Несколько функций вместе"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "Методы и свойства"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "Продвинутые циклы"
   },
   "lists": {
-    "title": "�"
+    "title": "Списки"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "Словари"
   },
   "everything": {
-    "title": "�"
+    "title": "Всё вместе"
   }
 }
