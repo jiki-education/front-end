@@ -45,7 +45,7 @@
     },
     "tidyWithHelper": {
       "question": "Mijn lus wordt lang. Hoe kan ik hem opruimen?",
-      "answer": "Je kunt het omzetten van beschrijving naar symbolen naar een eigen functie verplaatsen en die vanuit de lus aanroepen. Dit is optioneel, maar zo blijft de lus kort en makkelijk te lezen."
+      "answer": "Je kunt het omzetten van beschrijvingen-naar-symbolen in een aparte functie zetten en die vanuit de lus aanroepen. Dit is optioneel, maar zo blijft de lus kort en overzichtelijk."
     }
   },
   "functions": {

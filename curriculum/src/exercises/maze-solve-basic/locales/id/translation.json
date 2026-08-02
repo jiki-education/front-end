@@ -5,7 +5,7 @@
   "tasks": {
     "solveMaze": {
       "name": "Pandu tokohnya sampai ke ujung labirin",
-      "description": "Susuri labirinnya untuk mencapai target hijau"
+      "description": "Telusuri labirinnya untuk mencapai target hijau"
     }
   },
   "scenarios": {

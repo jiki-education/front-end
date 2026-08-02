@@ -25,6 +25,6 @@ Hier zijn een paar voorbeelden:
 | `twoFer("Jeremy")` | `"One for Jeremy, one for me."` |
 | `twoFer("")`       | `"One for you, one for me."`    |
 
-Voor de bonus: kun je dit schrijven in **maar 6 regels code**?
+Voor de bonus: kun je dit in **maar 6 regels code** schrijven?
 
 Veel succes!
