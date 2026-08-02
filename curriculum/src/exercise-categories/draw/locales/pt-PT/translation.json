@@ -3,7 +3,7 @@
     "allInputsNumbers": "Todos os valores de entrada têm de ser números",
     "blueRange": "O valor do azul tem de estar entre 0 e 255",
     "circleInputsNumbers": "Os valores de x, y e raio têm de ser números",
-    "colorNamedOrHex": "A cor tem de ser uma cor com nome (\"orange\", \"blue\", \"white\", etc.) indicada nas instruções, ou uma cor hexadecimal que comece por #",
+    "colorNamedOrHex": "A cor deve ser definida pelo seu nome (\"orange\", \"blue\", \"white\", etc.), conforme indicado nas instruções, ou por uma cor hexadecimal que comece por #",
     "colorNotAllowed": "A cor não deve ser indicada neste exercício",
     "colorNotString": "A cor tem de ser uma string",
     "ellipseInputsNumbers": "Os valores de x, y, rx e ry têm de ser números",
