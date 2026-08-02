@@ -1,6 +1,6 @@
 ---
-title: "Dietrofront"
-description: "Crea una funzione di dietrofront per il labirinto."
+title: "Girati"
+description: "Crea una funzione per girarsi nel labirinto."
 en_md5: bbb03498f3b5ec9956af463e85fde414
 ---
 
@@ -8,7 +8,7 @@ Nell'esercizio precedente hai scoperto come risolvere il labirinto in automatico
 
 Una delle cose belle di quella soluzione è che il codice si legge in modo molto naturale: segue da vicino l'algoritmo. Tranne che per un punto...
 
-Non ti è sembrato un po' insoddisfacente dover usare `turnLeft()` (gira a sinistra) due volte per fare dietrofront, invece di avere una funzione `turnAround()` (fai dietrofront)?
+Non ti è sembrato un po' insoddisfacente dover usare `turnLeft()` (gira a sinistra) due volte per girarti, invece di avere una funzione `turnAround()` (girati)?
 
 Bene, questa è la tua occasione per rimediare!
 

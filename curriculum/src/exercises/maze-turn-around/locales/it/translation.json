@@ -12,7 +12,7 @@
   },
   "tasks": {
     "turnAround": {
-      "name": "Fai dietrofront nei vicoli ciechi",
+      "name": "Girati nei vicoli ciechi",
       "description": "Definisci all'inizio del tuo codice una funzione turnAround() che chiama turnLeft() due volte, poi usala nel blocco else finale. Il tuo risolutore deve uscire dai vicoli ciechi in tutti e tre i labirinti."
     },
     "bonusShortSolution": {
@@ -23,7 +23,7 @@
   "scenarios": {
     "maze1": {
       "name": "Un solo vicolo cieco",
-      "description": "Un corridoio dritto con una diramazione a vicolo cieco che obbliga a fare dietrofront"
+      "description": "Un corridoio dritto con una diramazione a vicolo cieco che obbliga a girarsi"
     },
     "maze2": {
       "name": "Un vicolo cieco e una svolta",
