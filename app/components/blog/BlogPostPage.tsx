@@ -34,6 +34,7 @@ export async function getBlogPostMetadata(slug: string, locale: string): Promise
 }
 
 export default async function BlogPostPage({ slug, authenticated, locale }: BlogPostPageProps) {
+  const t = await getTranslations({ locale, namespace: "blog.cta" });
   let post;
   try {
     post = await getBlogPost(slug, locale);
@@ -56,9 +57,9 @@ export default async function BlogPostPage({ slug, authenticated, locale }: Blog
       {/* Minimal CTA */}
       <CTABlock
         variant="minimal"
-        title="Try Jiki for free"
-        subtitle="10,000+ learners use Jiki to master programming through hands-on practice and expert mentorship every month."
-        buttonText="Get started now"
+        title={t("minimalTitle")}
+        subtitle={t("minimalSubtitle")}
+        buttonText={t("minimalButton")}
         buttonHref="/signup"
       />
 
@@ -68,9 +69,9 @@ export default async function BlogPostPage({ slug, authenticated, locale }: Blog
       {/* Gradient CTA */}
       <CTABlock
         variant="gradient"
-        title="Ready to Start Your Coding Journey?"
-        subtitle="Join thousands of learners on Jiki. Practice coding exercises, get feedback from mentors, and level up your skills — it's free!"
-        buttonText="Sign Up For Free"
+        title={t("gradientTitle")}
+        subtitle={t("gradientSubtitle")}
+        buttonText={t("gradientButton")}
         buttonHref="/signup"
       />
     </>

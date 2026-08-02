@@ -3,7 +3,6 @@
 import type { BadgeModalData } from "@/app/(app)/achievements/badgeData";
 import {
   getBadgeColor,
-  getBadgeDate,
   isEarnedBadge,
   isNewBadge,
   isRecentBadge,
@@ -70,7 +69,6 @@ export function Badges({ badges, onBadgeRevealed }: BadgesProps) {
 
     const modalData: BadgeModalData = {
       title: badge.name,
-      date: getBadgeDate(badge),
       description: badge.description,
       funFact: badge.fun_fact,
       color: getBadgeColor(badge),

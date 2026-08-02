@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { resolveApiAssetUrl } from "@/lib/api/config";
 import { staticAsset } from "@/lib/static-asset";
@@ -13,7 +14,8 @@ interface UserAvatarProps {
 
 // Renders the authenticated user's avatar (from the auth store), falling back to
 // a placeholder when there's no avatar or the image fails to load.
-export default function UserAvatar({ alt = "User Avatar", className }: UserAvatarProps) {
+export default function UserAvatar({ alt, className }: UserAvatarProps) {
+  const t = useTranslations("common.userAvatar");
   const avatarUrl = useAuthStore((state) => state.user?.avatar_url ?? null);
 
   return (
@@ -21,7 +23,7 @@ export default function UserAvatar({ alt = "User Avatar", className }: UserAvata
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={avatarUrl ? resolveApiAssetUrl(avatarUrl) : USER_FALLBACK}
-      alt={alt}
+      alt={alt ?? t("alt")}
       className={className}
       onError={(e) => {
         e.currentTarget.src = USER_FALLBACK;

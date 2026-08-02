@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { CheckoutIncompleteError } from "@/lib/api/client";
 import { useAuthStore } from "@/lib/auth/authStore";
@@ -14,8 +15,6 @@ import {
   showWelcomeToPremium
 } from "@/lib/modal/app";
 
-const DEFAULT_DECLINE_MESSAGE = "Your last payment didn't go through. Please try again with a different card.";
-
 /**
  * Global handler for Stripe checkout returns
  *
@@ -26,6 +25,7 @@ const DEFAULT_DECLINE_MESSAGE = "Your last payment didn't go through. Please try
  */
 export function CheckoutReturnHandler() {
   const { user, refreshUser, hasCheckedAuth, isAuthenticated } = useAuthStore();
+  const t = useTranslations("checkout");
 
   useEffect(() => {
     if (!hasCheckedAuth || !isAuthenticated) {
@@ -48,7 +48,7 @@ export function CheckoutReturnHandler() {
         await handleSubscribe({
           interval,
           userEmail: user?.email,
-          priorError: declineReason ?? DEFAULT_DECLINE_MESSAGE
+          priorError: declineReason ?? t("declineDefault")
         });
       } catch {
         // handleSubscribe already toasted + logged; fall back to the failure modal so
@@ -83,7 +83,7 @@ export function CheckoutReturnHandler() {
         // here we only fall back to the failure modal so the spinner doesn't hang.
         showPaymentVerificationFailed();
       });
-  }, [hasCheckedAuth, isAuthenticated, refreshUser, user]);
+  }, [hasCheckedAuth, isAuthenticated, refreshUser, user, t]);
 
   return null;
 }

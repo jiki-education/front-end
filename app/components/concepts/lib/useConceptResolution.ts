@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { getConcept, getAncestors, getConcepts } from "@/lib/api/concepts";
 import { fetchUnlockedConceptSlugs, expandUnlocked } from "@/lib/api/concept-unlocks";
 import { useAuthStore } from "@/lib/auth/authStore";
@@ -35,6 +35,7 @@ export function useConceptResolution(
 ): ConceptResolution {
   const router = useRouter();
   const locale = useLocale();
+  const t = useTranslations("concepts.error");
   const conceptsPath = useLocaleRoutes().concepts();
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const seeded = initialConcept !== null && !isAuthenticated;
@@ -61,7 +62,7 @@ export function useConceptResolution(
         }
 
         if (!conceptData) {
-          setError("Concept not found.");
+          setError(t("notFound"));
           setIsLoading(false);
           return;
         }
@@ -85,7 +86,7 @@ export function useConceptResolution(
         setIsLoading(false);
       } catch {
         if (!cancelled) {
-          setError("Failed to load concept. Please try again later.");
+          setError(t("loadFailed"));
           setIsLoading(false);
         }
       }
@@ -96,7 +97,7 @@ export function useConceptResolution(
     return () => {
       cancelled = true;
     };
-  }, [slug, isAuthenticated, initialConcept, router, conceptsPath, locale]);
+  }, [slug, isAuthenticated, initialConcept, router, conceptsPath, locale, t]);
 
   return { concept, ancestors, isLoading, error };
 }
