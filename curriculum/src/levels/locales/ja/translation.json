@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "関数を使う"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "文字列と色"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "繰り返しループ"
   },
   "variables": {
-    "title": "�"
+    "title": "変数"
   },
   "basic-state": {
-    "title": "�"
+    "title": "状態の基本"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "値を返す関数"
   },
   "conditionals": {
-    "title": "�"
+    "title": "条件分岐"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "複雑な条件分岐"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "条件分岐と状態"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "自分で関数を作る"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "文字列の操作"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "文字列の反復処理"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "複数の関数を組み合わせる"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "メソッドとプロパティ"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "発展的なループ"
   },
   "lists": {
-    "title": "�"
+    "title": "リスト"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "辞書"
   },
   "everything": {
-    "title": "�"
+    "title": "総まとめ"
   }
 }

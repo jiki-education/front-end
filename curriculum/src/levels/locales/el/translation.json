@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "Χρήση Συναρτήσεων"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "Συμβολοσειρές και Χρώματα"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "Βρόχος Επανάληψης"
   },
   "variables": {
-    "title": "�"
+    "title": "Μεταβλητές"
   },
   "basic-state": {
-    "title": "�"
+    "title": "Βασική Κατάσταση"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "Συναρτήσεις που Επιστρέφουν Τιμές"
   },
   "conditionals": {
-    "title": "�"
+    "title": "Συνθήκες"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "Σύνθετες Συνθήκες"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "Συνθήκες και Κατάσταση"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "Φτιάξε τις Δικές σου Συναρτήσεις"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "Επεξεργασία Συμβολοσειρών"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "Διάσχιση Συμβολοσειρών"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "Συνδυασμός Συναρτήσεων"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "Μέθοδοι και Ιδιότητες"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "Προχωρημένοι Βρόχοι"
   },
   "lists": {
-    "title": "�"
+    "title": "Λίστες"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "Λεξικά"
   },
   "everything": {
-    "title": "�"
+    "title": "Τα Πάντα"
   }
 }

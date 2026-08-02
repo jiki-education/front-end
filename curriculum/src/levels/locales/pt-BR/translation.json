@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "Usando Funções"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "Strings e Cores"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "Laço Repeat"
   },
   "variables": {
-    "title": "�"
+    "title": "Variáveis"
   },
   "basic-state": {
-    "title": "�"
+    "title": "Estado Básico"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "Funções Que Retornam Coisas"
   },
   "conditionals": {
-    "title": "�"
+    "title": "Condicionais"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "Condicionais Complexas"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "Condicionais e Estado"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "Crie Suas Próprias Funções"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "Manipulação de Strings"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "Iteração de Strings"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "Usando Várias Funções Juntas"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "Métodos e Propriedades"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "Laços Avançados"
   },
   "lists": {
-    "title": "�"
+    "title": "Listas"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "Dicionários"
   },
   "everything": {
-    "title": "�"
+    "title": "Tudo"
   }
 }
