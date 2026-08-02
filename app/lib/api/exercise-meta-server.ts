@@ -22,10 +22,7 @@ const fetchExerciseIndex = cache(async (locale: string): Promise<ExerciseMetaEnt
   return res.json() as Promise<ExerciseMetaEntry[]>;
 });
 
-export async function getExerciseMetaBySlugsServer(
-  slugs: string[],
-  locale: string = "en"
-): Promise<ExerciseMetaEntry[]> {
+export async function getExerciseMetaBySlugsServer(slugs: string[], locale: string): Promise<ExerciseMetaEntry[]> {
   const index = await fetchExerciseIndex(locale);
   const slugSet = new Set(slugs);
   return index.filter((e) => slugSet.has(e.slug));
