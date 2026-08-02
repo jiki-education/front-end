@@ -4,15 +4,15 @@ description: "Valide des numéros d'identification, comme les numéros de carte 
 en_md5: 07b0aea3adc2353e50a26e5cbe5cd162
 ---
 
-On vient de voir comment valider les numéros ISBN des livres. Il existe une autre formule courante qui sert à vérifier des numéros dans de nombreux contextes : la formule de Luhn. Elle est surtout connue pour détecter les fautes de frappe dans les numéros de carte bancaire.
+On vient de voir comment valider les numéros ISBN des livres. Il existe une autre formule, fréquemment utilisée, qui sert à vérifier des numéros dans de nombreux contextes : la formule de Luhn. Elle est surtout connue pour détecter les fautes de frappe dans les numéros de carte bancaire.
 
 ### La vérification de Luhn
 
 La vérification de Luhn se fait en plusieurs étapes :
 
-- En partant du chiffre **le plus à droite** et en allant vers la gauche, **double la valeur d'un chiffre sur deux**.
-- Si le doublement d'un chiffre donne un nombre supérieur à 9, soustrais-lui 9.
-- Additionne ensuite tous les chiffres.
+- En partant du chiffre **le plus à droite** et en allant vers la gauche, **on double la valeur d'un chiffre sur deux**.
+- Si le doublement d'un chiffre donne un nombre supérieur à 9, on lui soustrait 9.
+- On additionne ensuite tous les chiffres.
 - Si le total est divisible par 10, le numéro est valide.
 
 Par exemple, avec `"067"`, on suit les étapes :
@@ -39,8 +39,8 @@ Quelques remarques importantes :
 
 ### Mets en pratique ce que tu as appris
 
-Il existe de nombreuses façons de résoudre cet exercice, mais la solution qu'on attend de toi utilise une boucle `for`.
+Il existe de nombreuses façons de résoudre cet exercice, mais la solution attendue ici passe par l'utilisation d'une boucle `for`.
 
-Tu auras aussi besoin de la fonction <a href="/concepts/type-conversion" target="_blank" rel="noopener noreferrer">`Number(str)`</a> qu'on a présentée dans l'exercice précédent.
+Tu auras aussi besoin de la fonction <a href="/concepts/type-conversion" target="_blank" rel="noopener noreferrer">`Number(str)`</a> déjà vue dans l'exercice précédent.
 
 Amuse-toi bien !

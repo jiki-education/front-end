@@ -1,8 +1,8 @@
 {
   "tasks": {
     "doubleAndSum": {
-      "name": "Doubler un chiffre sur deux et additionner",
-      "description": "Écris une fonction appelée valid qui ignore les espaces, puis double un chiffre sur deux en comptant depuis la droite (en soustrayant 9 de tout résultat supérieur à 9), additionne tous les chiffres et renvoie true quand le total est divisible par 10."
+      "name": "Double un chiffre sur deux puis additionne-les",
+      "description": "Écris une fonction appelée valid qui ignore les espaces, puis, en partant de la droite, double un chiffre sur deux (y soustraire 9 si le résultat est supérieur à 9), additionne ensuite tous les chiffres et renvoie true lorsque le total est divisible par 10."
     },
     "spotInvalidNumbers": {
       "name": "Repérer les numéros invalides",
@@ -10,7 +10,7 @@
     },
     "rejectBadInput": {
       "name": "Rejeter les entrées incorrectes",
-      "description": "Rejette les strings d'un seul caractère ou moins, ainsi que toute string contenant un caractère qui n'est ni un chiffre ni un espace."
+      "description": "Rejette les strings d'un seul caractère ou moins, ainsi que toutes les strings contenant un caractère qui n'est ni un chiffre ni un espace."
     }
   },
   "scenarios": {
@@ -47,15 +47,15 @@
       "description": "Un long numéro dont le total est divisible par 5 mais pas par 10 doit renvoyer false."
     },
     "luhnSingleDigit": {
-      "name": "Un seul chiffre est invalide",
+      "name": "Un chiffre unique est invalide",
       "description": "Une string d'un seul chiffre ne peut jamais être valide."
     },
     "luhnZeroWithSpace": {
-      "name": "Un seul zéro avec un espace",
-      "description": "Un seul zéro accompagné d'un espace est invalide, car il ne reste qu'un chiffre une fois les espaces ignorés."
+      "name": "Un unique zéro avec un espace",
+      "description": "Un unique zéro accompagné d'un espace est invalide, car il ne reste plus qu'un seul chiffre une fois les espaces ignorés."
     },
     "luhnTrailingLetter": {
-      "name": "Lettre à la fin",
+      "name": "Une lettre à la fin",
       "description": "Un numéro valide auquel on ajoute un caractère non numérique à la fin devient invalide."
     },
     "luhnColon": {
@@ -64,7 +64,7 @@
     },
     "luhnPercent": {
       "name": "Caractère pourcentage au milieu",
-      "description": "Un caractère qui n'est ni un chiffre ni un espace au milieu rend le numéro invalide, même quand les chiffres seuls donnent une somme multiple de 10."
+      "description": "Un caractère qui n'est ni un chiffre ni un espace au milieu rend le numéro invalide, même quand la somme de ces chiffres est un multiple de 10."
     }
   },
   "hints": {
@@ -74,11 +74,11 @@
     },
     "stripSpaces": {
       "question": "Que faire des espaces ?",
-      "answer": "Les espaces ne sont là que pour faciliter la lecture. Saute-les avec `continue` pour qu'ils ne comptent pas comme des chiffres et ne décalent pas les positions des vrais chiffres."
+      "answer": "Les espaces ne sont là que pour faciliter la lecture. Ignore-les avec `continue` pour qu'ils ne comptent pas comme des chiffres et ne décalent pas les positions des vrais chiffres."
     },
     "rejectNonDigits": {
       "question": "Comment rejeter les caractères invalides ?",
-      "answer": "En examinant chaque caractère, s'il n'est ni un espace ni l'un des caractères de `0123456789`, tu peux immédiatement renvoyer `false`. Une vérification pratique est `\"0123456789\".includes(char)`."
+      "answer": "En examinant chaque caractère, s'il n'est ni un espace ni l'un des caractères `0123456789`, tu peux immédiatement renvoyer `false`. Une vérification pratique est `\"0123456789\".includes(char)`."
     },
     "everySecondDigit": {
       "question": "Quels chiffres dois-je doubler ?",
@@ -93,12 +93,12 @@
       "answer": "Si le doublement rend le chiffre supérieur à 9, soustrais-lui 9. Par exemple, 6 doublé donne 12, et 12 - 9 = 3. (Cela donne le même résultat que d'additionner les deux chiffres.)"
     },
     "finalCheck": {
-      "question": "Quelle est la vérification finale de validité ?",
+      "question": "Quel est le dernier contrôle de validité ?",
       "answer": "Additionne chaque chiffre (doublé ou non) et vérifie si le total est divisible par 10, c'est-à-dire `total % 10 === 0`. N'oublie pas de rejeter aussi les strings qui ont un chiffre ou moins."
     }
   },
   "checks": {
-    "mustUseFor": "Tu y es presque ! Cet exercice te demande de le résoudre avec une boucle `for`."
+    "mustUseFor": "Tu y es presque ! Cet exercice est à résoudre avec une boucle `for`."
   },
   "functions": {
     "number": {
