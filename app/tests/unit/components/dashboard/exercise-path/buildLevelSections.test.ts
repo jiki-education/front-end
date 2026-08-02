@@ -83,10 +83,16 @@ describe("buildLevelSections", () => {
   });
 
   describe("level section properties", () => {
-    it("maps level slug to title with capitalized words", () => {
+    it("resolves the level title through the supplied resolver", () => {
+      const levels = [createLevel({ slug: "intro-to-coding" })];
+      const result = buildLevelSections(levels, (slug) => `Title for ${slug}`);
+      expect(result[0].levelTitle).toBe("Title for intro-to-coding");
+    });
+
+    it("falls back to the slug when no resolver is supplied", () => {
       const levels = [createLevel({ slug: "intro-to-coding" })];
       const result = buildLevelSections(levels);
-      expect(result[0].levelTitle).toBe("Intro To Coding");
+      expect(result[0].levelTitle).toBe("intro-to-coding");
     });
 
     it("uses 1-based levelIndex", () => {

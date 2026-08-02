@@ -7,6 +7,7 @@ import InstructionsContent from "./InstructionsContent";
 import FunctionsGrid from "./FunctionsGrid";
 import LibrarySection from "./LibrarySection";
 import { getConceptsBySlugs } from "@/lib/api/concepts";
+import { useLevelTitles } from "@/lib/i18n/useLevelTitles";
 import type { ConceptCardData } from "@/components/concepts/ConceptCard";
 import type { FunctionInfo } from "@jiki/curriculum";
 import styles from "./instructions-panel.module.css";
@@ -34,6 +35,7 @@ export default function InstructionsPanel({
 }: InstructionsPanelProps) {
   const t = useTranslations("codingExercise.instructionsPanel");
   const locale = useLocale();
+  const { levelTitle, loaded: levelTitleLoaded } = useLevelTitles();
   const [activeSection, setActiveSection] = useState("instructions");
   const [isExpanded, setIsExpanded] = useState(true);
   const [concepts, setConcepts] = useState<ConceptCardData[]>([]);
@@ -49,7 +51,8 @@ export default function InstructionsPanel({
   // Build exercise data from props
   const exerciseData: ExerciseData = {
     title: exerciseTitle,
-    level: levelId.charAt(0).toUpperCase() + levelId.slice(1).replace(/-/g, " "),
+    // Blank until the per-locale catalog resolves, so the badge never flashes a raw slug.
+    level: levelTitleLoaded ? levelTitle(levelId) : "",
     exerciseSlug,
     isChallenge
   };
