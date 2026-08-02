@@ -35,6 +35,7 @@ jest.mock("@/lib/api/client", () => ({
 }));
 
 import { runTests } from "@/components/coding-exercise/lib/test-runner/runTests";
+import { makeTestTranslator } from "@/tests/test-utils/makeTestTranslator";
 
 const mockRunTests = runTests as jest.MockedFunction<typeof runTests>;
 
@@ -80,7 +81,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
     })) as any;
 
     taskManager = new TaskManager(mockStore);
-    testSuiteManager = new TestSuiteManager(mockStore, {}, {}, taskManager);
+    testSuiteManager = new TestSuiteManager(mockStore, {}, {}, makeTestTranslator(), taskManager);
   });
 
   describe("Integration flow", () => {
@@ -195,7 +196,7 @@ describe("TaskManager and TestSuiteManager Integration", () => {
 
     it("should work without TaskManager (backward compatibility)", async () => {
       // Create TestSuiteManager without TaskManager
-      const testSuiteManagerWithoutTaskManager = new TestSuiteManager(mockStore, {}, {});
+      const testSuiteManagerWithoutTaskManager = new TestSuiteManager(mockStore, {}, {}, makeTestTranslator());
 
       const exercise = createMockExercise();
       const testResults = createMockTestSuiteResult([]);
