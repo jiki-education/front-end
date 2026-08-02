@@ -41,7 +41,7 @@
     },
     "buildSentence": {
       "question": "Come faccio a costruire la frase finale?",
-      "answer": "Unisci i tre pezzi (`\"One for \"`, il nome scelto e `\", one for me.\"`) usando la concatenazione (`+`) o una template string."
+      "answer": "Unisci i tre pezzi (`\"One for \"`, il nome scelto e `\", one for me.\"`) usando la concatenazione (`+`) o una stringa speciale."
     }
   }
 }
