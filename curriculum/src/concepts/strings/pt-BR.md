@@ -14,7 +14,7 @@ Quando você quer usar um número, basta literalmente escrever esse número, e o
   height="400"
 />
 
-Então temos uma regra: sempre que precisamos usar texto, precisamos colocá-lo entre aspas, aspas duplas. E quando você coloca algo entre aspas assim, o Jiki pega um pedaço de papel e escreve nele o que estiver entre as aspas. Esses pedaços de papel são o que chamamos de _strings_ (cadeias de caracteres).
+Então temos uma regra: sempre que precisamos usar texto, precisamos colocá-lo entre aspas, aspas duplas. E quando você faz a citação de algo desse jeito, o Jiki pega um pedaço de papel e escreve nele o que estiver entre as aspas. Esses pedaços de papel são o que chamamos de _strings_ (cadeias de caracteres).
 
 <img
   class="concept-image"
@@ -24,7 +24,7 @@ Então temos uma regra: sempre que precisamos usar texto, precisamos colocá-lo 
   height="400"
 />
 
-Strings podem ser letras isoladas, palavras, frases, parágrafos, até livros inteiros. A regra é: se é texto, colocamos entre aspas, e vira uma string.
+Strings podem ser desde letras isoladas, palavras, frases, parágrafos, até livros inteiros. A regra é: se é texto, colocamos entre aspas, e vira uma string.
 
 <img
   class="concept-image"
@@ -40,7 +40,7 @@ Então, se quisermos um retângulo azul, escrevemos o número da posição esque
 rectangle(10, 20, 30, 40, "blue")
 ```
 
-O Jiki vai pegar a máquina na prateleira e colocar algumas moedas nas quatro primeiras fendas. Depois, vai escrever blue em um pedaço de papel, colocar esse papel na quinta fenda e rodar a máquina.
+O Jiki vai pegar a máquina na prateleira e colocar algumas moedas nas quatro primeiras fendas. Depois, vai escrever blue em um pedaço de papel, colocar esse papel na quinta fenda e girar a manivela.
 
 <img
   class="concept-image"
