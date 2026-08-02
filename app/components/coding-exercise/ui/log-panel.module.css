@@ -88,6 +88,10 @@
     line-height: 1.6;
     flex: 1;
     word-break: break-word;
+
+    /* Not a <code> element, so it misses the global bidi isolation in
+       app/styles/base.css. Without this, `move()` renders as `()move` in RTL. */
+    unicode-bidi: plaintext;
 }
 
 .consoleLogString {

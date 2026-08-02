@@ -490,6 +490,10 @@
     padding: 5px;
     border-radius: 8px;
     font-size: 12px;
+
+    /* Not a <kbd> element, so it misses the global bidi isolation in
+       app/styles/base.css; keep LTR shortcut tokens intact in RTL prose. */
+    unicode-bidi: plaintext;
 }
 
 /* Visual Player */

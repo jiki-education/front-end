@@ -373,6 +373,10 @@
     padding: 4px 8px;
     border-radius: 4px;
     display: inline-block;
+
+    /* Not a <code> element, so it misses the global bidi isolation in
+       app/styles/base.css. Without this, `move()` renders as `()move` in RTL. */
+    unicode-bidi: plaintext;
 }
 
 .functionDescription {
@@ -407,6 +411,10 @@
     background-color: var(--color-gray-100);
     padding: 8px;
     border-radius: 4px;
+
+    /* Not a <code> element, so it misses the global bidi isolation in
+       app/styles/base.css. Without this, `move()` renders as `()move` in RTL. */
+    unicode-bidi: plaintext;
 }
 
 /* ConceptLibrary styles */
