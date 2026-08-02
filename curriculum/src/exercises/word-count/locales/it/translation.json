@@ -1,7 +1,7 @@
 {
   "tasks": {
     "basicWordCounting": {
-      "name": "Casi di base",
+      "name": "Casi base",
       "description": "Scrivi una funzione countWords che riceve una frase e restituisce un dizionario con ogni parola come chiave e la sua frequenza come valore. Gestisci spazi, virgole, punteggiatura e numeri."
     },
     "caseNormalization": {
@@ -19,7 +19,7 @@
       "description": "Conta una singola parola."
     },
     "wordCountMultipleUniqueWords": {
-      "name": "Un'occorrenza per parola",
+      "name": "Conta un'occorrenza per parola",
       "description": "Conta un'occorrenza di ogni parola in una frase."
     },
     "wordCountMultipleOccurrences": {

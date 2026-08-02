@@ -4,7 +4,7 @@ description: "Combina l'abbigliamento, l'età e la presenza sulla lista degli in
 en_md5: 3e9f98d0b80d6bf0865cd0439005807b
 ---
 
-Sei di nuovo al tuo secondo lavoro da buttafuori, e stasera lavori in un locale con un dress code rigoroso.
+Sei tornato al tuo lavoro occasionale come buttafuori, e stasera lavori in un locale con un dress code rigoroso.
 
 Il tuo compito è controllare che cosa indossa la persona, insieme alla sua età, e decidere che cosa fare. Questa volta le regole da seguire sono un po' più "interessanti".
 
