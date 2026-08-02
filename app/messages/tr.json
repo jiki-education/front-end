@@ -42,7 +42,7 @@
       "homeAriaLabel": "Jiki ana sayfa",
       "logoAlt": "Jiki",
       "aboutJiki": "Jiki hakkında",
-      "premium": "�",
+      "premium": "Premium",
       "testimonials": "Kullanıcı yorumları",
       "login": "Giriş yap",
       "signUp": "Ücretsiz kaydol",
@@ -76,7 +76,7 @@
         "upgrade": "Premium'a yükselt",
         "logOut": "Çıkış yap"
       },
-      "premiumPill": "�"
+      "premiumPill": "Premium"
     },
     "loading": {
       "title": "Jiki uyanıyor",
@@ -158,7 +158,13 @@
     },
     "saving": "�",
     "retry": "�",
-    "tryAgain": "�"
+    "tryAgain": "�",
+    "betaTag": {
+      "label": "�"
+    },
+    "userAvatar": {
+      "alt": "�"
+    }
   },
   "build": {
     "upcomingStreams": {
@@ -336,7 +342,8 @@
       "benefit3": "�",
       "benefit4": "�",
       "keep": "�",
-      "cancel": "�"
+      "cancel": "�",
+      "defaultBillingPeriodEnd": "�"
     },
     "cancelSuccess": {
       "title": "�",
@@ -379,7 +386,9 @@
       "columnAmount": "�",
       "columnType": "�",
       "columnMethod": "�",
-      "downloadReceipt": "�"
+      "downloadReceipt": "�",
+      "typeRecurring": "�",
+      "dateUnavailable": "�"
     },
     "profile": {
       "nameLabel": "�",
@@ -917,7 +926,8 @@
     },
     "error": {
       "notFound": "Kavram bulunamadı.",
-      "back": "Kavramlara dön"
+      "back": "Kavramlara dön",
+      "loadFailed": "Kavram yüklenemedi. Lütfen daha sonra tekrar deneyin."
     },
     "relatedConcepts": {
       "heading": "İlgili kavramlar",
@@ -1433,6 +1443,7 @@
   "codingExercise": {
     "loadError": "Alıştırma yüklenirken hata oluştu: {error}",
     "unknownError": "Bilinmeyen hata",
+    "exerciseNotFound": "“{slug}” alıştırması müfredatta bulunamadı. Mevcut alıştırmalar: {available}",
     "runButton": {
       "run": "Kodu çalıştır",
       "running": "Çalışıyor...",
@@ -1578,7 +1589,11 @@
       "serverError": "Sunucu hatası. Lütfen birazdan tekrar deneyin.",
       "networkError": "Ağ hatası. Lütfen bağlantınızı kontrol edip tekrar deneyin.",
       "timeout": "İstek zaman aşımına uğradı. Lütfen tekrar deneyin.",
-      "unexpected": "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin."
+      "unexpected": "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.",
+      "noResponseBody": "Yanıt alınırken bir sorun oluştu. Lütfen tekrar deneyin.",
+      "streamProcessing": "Yanıt okunurken bir sorun oluştu. Lütfen tekrar deneyin.",
+      "unknown": "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.",
+      "requestFailed": "İstek başarısız oldu. Lütfen tekrar deneyin."
     },
     "stuckHeader": {
       "title": "Takıldınız mı? Jiki'ye sorun!"
@@ -1596,16 +1611,26 @@
       "lintWarning": "<strong>Az kaldı...</strong> Kodunuz doğru çalıştı ama biçimlendirmeyi düzeltmeniz gerekiyor. Kodunuzdaki turuncu alt çizgilere bakın.",
       "lintWarningPlain": "Kodunuz doğru çalıştı ama biçimlendirmeyi düzeltmeniz gerekiyor. Kodunuzdaki turuncu alt çizgilere bakın.",
       "genericError": "Eyvah! Kodunuzda bir hata var.",
-      "runtimeError": "�",
-      "isolatedCheckError": "�",
-      "isolatedCheckErrorDetail": "�",
+      "runtimeError": "Kodunuz çalışırken bir hatayla karşılaştı. Devam etmek için yukarıdaki hata mesajında belirtilen sorunu düzeltin.",
+      "isolatedCheckError": "Kodunuz çalışırken bir hata verdi.",
+      "isolatedCheckErrorDetail": "Kodunuz çalışırken bir hata verdi. ({message})",
       "congratsWellDone": "Çok iyi!",
       "congratsNiceWork": "Güzel iş!",
       "congratsFantasticJob": "Harika iş!",
       "congratsAmazingEffort": "Muhteşem bir çaba!",
       "congratsGreatAchievement": "Büyük başarı!",
       "congratsCongratulations": "Tebrikler!",
-      "congratsCongrats": "Bravo!"
+      "congratsCongrats": "Bravo!",
+      "ioError": "<p>Hata: {message}</p>",
+      "codeCheckError": "Kod denetimi hatası: {message}"
+    },
+    "informationTooltip": {
+      "errorHeading": "Eyvah, bir şeyler ters gitti!",
+      "closeAriaLabel": "Bilgi balonunu kapat"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "Kesme noktası ekle",
+      "removeBreakpoint": "Kesme noktasını kaldır"
     },
     "syntaxError": {
       "heading": "Jiki kodunuzu anlayamadı.",
@@ -1798,7 +1823,13 @@
     "loading": "�",
     "error": "�",
     "certificatesEmptyTitle": "�",
-    "certificatesEmptyBody": "�"
+    "certificatesEmptyBody": "�",
+    "badge": {
+      "locked": "�",
+      "earnedToday": "�",
+      "earnedRelative": "�"
+    },
+    "loadError": "�"
   },
   "challenges": {
     "title": "Meydan Okumalar",
@@ -1828,7 +1859,8 @@
       "noneToStartDescription": "Kilitlerini açtıkça meydan okumalar burada görünecek.",
       "completedTitle": "Henüz tamamlanmış meydan okuma yok",
       "completedDescription": "İlkini burada görmek için bir meydan okumayı tamamlayın. Bu hedefe ulaşmak için devam eden meydan okumalarınız üzerinde çalışmayı sürdürün."
-    }
+    },
+    "loadError": "Meydan okumalar yüklenemedi"
   },
   "subscription": {
     "tiers": {
@@ -1854,5 +1886,68 @@
         }
       }
     }
+  },
+  "blog": {
+    "header": {
+      "label": "�",
+      "title": "�",
+      "subtitle": "�"
+    },
+    "postHeader": {
+      "writtenBy": "�",
+      "readingTime": "�"
+    },
+    "featuredLatest": {
+      "label": "�",
+      "byAuthor": "�",
+      "readFullArticle": "�"
+    },
+    "recentPosts": {
+      "heading": "�"
+    },
+    "relatedPosts": {
+      "heading": "�"
+    },
+    "cta": {
+      "minimalTitle": "�",
+      "minimalSubtitle": "�",
+      "minimalButton": "�",
+      "gradientTitle": "�",
+      "gradientSubtitle": "�",
+      "gradientButton": "�"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "�",
+      "title": "�",
+      "subtitle": "�",
+      "writtenBy": "�",
+      "readingTime": "�"
+    },
+    "relatedArticles": {
+      "heading": "�"
+    },
+    "search": {
+      "placeholder": "�",
+      "noResultsTitle": "�",
+      "noResultsMessage": "�"
+    },
+    "filterSidebar": {
+      "filterBy": "�",
+      "all": "�",
+      "help": "�"
+    },
+    "cta": {
+      "minimalTitle": "�",
+      "minimalSubtitle": "�",
+      "minimalButton": "�",
+      "gradientTitle": "�",
+      "gradientSubtitle": "�",
+      "gradientButton": "�"
+    }
+  },
+  "checkout": {
+    "declineDefault": "�"
   }
 }
