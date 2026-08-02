@@ -158,7 +158,8 @@
     },
     "saving": "Mentés...",
     "retry": "Újra",
-    "tryAgain": "Próbáld újra"
+    "tryAgain": "Próbáld újra",
+    "betaTag": "Beta Version"
   },
   "build": {
     "upcomingStreams": {
@@ -1606,6 +1607,14 @@
       "congratsGreatAchievement": "Nagyszerű eredmény!",
       "congratsCongratulations": "Gratulálunk!",
       "congratsCongrats": "Gratula!"
+    },
+    "informationTooltip": {
+      "errorHeading": "�",
+      "closeAriaLabel": "�"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "�",
+      "removeBreakpoint": "�"
     },
     "syntaxError": {
       "heading": "Jiki nem értette a kódodat.",

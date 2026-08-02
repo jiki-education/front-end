@@ -158,7 +158,8 @@
     },
     "saving": "Saving...",
     "retry": "Retry",
-    "tryAgain": "Try Again"
+    "tryAgain": "Try Again",
+    "betaTag": "Beta Version"
   },
   "build": {
     "upcomingStreams": {
@@ -1606,6 +1607,14 @@
       "congratsGreatAchievement": "Great achievement!",
       "congratsCongratulations": "Congratulations!",
       "congratsCongrats": "Congrats!"
+    },
+    "informationTooltip": {
+      "errorHeading": "Oops, something went wrong!",
+      "closeAriaLabel": "Close tooltip"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "Add breakpoint",
+      "removeBreakpoint": "Remove breakpoint"
     },
     "syntaxError": {
       "heading": "Jiki couldn't understand your code.",

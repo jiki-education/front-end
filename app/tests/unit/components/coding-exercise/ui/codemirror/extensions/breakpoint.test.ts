@@ -4,6 +4,11 @@ import {
   breakpointState,
   breakpointGutter
 } from "@/components/coding-exercise/ui/codemirror/extensions/breakpoint";
+import { makeTestTranslator } from "@/tests/test-utils/makeTestTranslator";
+
+// `breakpointGutter` is now a factory that takes the injected translator (the gutter
+// markers' hover titles are user-facing copy), so build it once for these tests.
+const breakpointGutterExtension = breakpointGutter(makeTestTranslator());
 
 // Mock DOM methods
 const mockCreateElement = jest.fn(() => ({
@@ -225,18 +230,18 @@ describe("breakpoint extension", () => {
 
   describe("breakpointGutter", () => {
     it("should be an array of extensions", () => {
-      expect(Array.isArray(breakpointGutter)).toBe(true);
-      expect(breakpointGutter.length).toBeGreaterThan(0);
+      expect(Array.isArray(breakpointGutterExtension)).toBe(true);
+      expect(breakpointGutterExtension.length).toBeGreaterThan(0);
     });
 
     it("should include breakpointState", () => {
-      expect(breakpointGutter).toContain(breakpointState);
+      expect(breakpointGutterExtension).toContain(breakpointState);
     });
 
     it("should work with CodeMirror state", () => {
       const state = EditorState.create({
         doc: "line1\nline2\nline3",
-        extensions: breakpointGutter
+        extensions: breakpointGutterExtension
       });
 
       expect(state).toBeDefined();
@@ -250,7 +255,7 @@ describe("breakpoint extension", () => {
     it("should handle breakpoint operations when used as full extension", () => {
       const state = EditorState.create({
         doc: "line1\nline2\nline3\nline4",
-        extensions: breakpointGutter
+        extensions: breakpointGutterExtension
       });
 
       // Add multiple breakpoints
@@ -276,7 +281,7 @@ describe("breakpoint extension", () => {
     it("should toggle breakpoints correctly", () => {
       const state = EditorState.create({
         doc: "line1\nline2\nline3",
-        extensions: breakpointGutter
+        extensions: breakpointGutterExtension
       });
 
       const pos = 0;
@@ -316,7 +321,7 @@ describe("breakpoint extension", () => {
     it("should handle edge cases", () => {
       const state = EditorState.create({
         doc: "short",
-        extensions: breakpointGutter
+        extensions: breakpointGutterExtension
       });
 
       // Try to add breakpoint beyond document length
@@ -413,7 +418,7 @@ describe("breakpoint extension", () => {
         createBreakpointEditor: (content: string) => {
           return EditorState.create({
             doc: content,
-            extensions: breakpointGutter
+            extensions: breakpointGutterExtension
           });
         },
 
@@ -499,7 +504,7 @@ describe("breakpoint extension", () => {
             const content = Array.from({ length: 100 }, (_, i) => `line ${i + 1}`).join("\n");
             let state = EditorState.create({
               doc: content,
-              extensions: breakpointGutter
+              extensions: breakpointGutterExtension
             });
 
             // Add breakpoints on every 5th line
