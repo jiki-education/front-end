@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "noResult": "Hiçbir sonuç duyurmadınız!",
+    "paperVsPaperResult": "Kağıt kağıda karşı berabere bitmeliydi ama sonuç \"{{got}}\" oldu.",
+    "paperVsRockResult": "Kağıt taşa karşı Yuki kazanmalıydı ama sonuç \"{{got}}\" oldu.",
+    "paperVsScissorsResult": "Kağıt makasa karşı Ando kazanmalıydı ama sonuç \"{{got}}\" oldu.",
+    "rockVsPaperResult": "Taş kağıda karşı Ando kazanmalıydı ama sonuç \"{{got}}\" oldu.",
+    "rockVsRockResult": "Taş taşa karşı berabere bitmeliydi ama sonuç \"{{got}}\" oldu.",
+    "rockVsScissorsResult": "Taş makasa karşı Yuki kazanmalıydı ama sonuç \"{{got}}\" oldu.",
+    "scissorsVsPaperResult": "Makas kağıda karşı Yuki kazanmalıydı ama sonuç \"{{got}}\" oldu.",
+    "scissorsVsRockResult": "Makas taşa karşı Ando kazanmalıydı ama sonuç \"{{got}}\" oldu.",
+    "scissorsVsScissorsResult": "Makas makasa karşı berabere bitmeliydi ama sonuç \"{{got}}\" oldu."
+  },
+  "tasks": {
+    "determineWinner": {
+      "name": "Kazananı belirleyin",
+      "description": "İki oyuncunun da seçimini alıp doğru sonucu duyurun: \"Yuki\", \"Ando\" veya \"tie\"."
+    }
+  },
+  "scenarios": {
+    "paperVsPaper": {
+      "name": "Kağıt kağıda karşı",
+      "description": "Oyun berabere bitti. Bunu doğru şekilde duyurun!"
+    },
+    "paperVsRock": {
+      "name": "Kağıt taşa karşı",
+      "description": "Yuki'nin kağıdı Ando'nun taşını yener. Kazanan olarak Yuki'yi duyurun!"
+    },
+    "paperVsScissors": {
+      "name": "Kağıt makasa karşı",
+      "description": "Ando'nun makası Yuki'nin kağıdını yener. Kazanan olarak Ando'yu duyurun."
+    },
+    "rockVsPaper": {
+      "name": "Taş kağıda karşı",
+      "description": "Ando'nun kağıdı Yuki'nin taşını yener. Kazanan olarak Ando'yu duyurun."
+    },
+    "rockVsRock": {
+      "name": "Taş taşa karşı",
+      "description": "Oyun berabere bitti. Bunu doğru şekilde duyurun!"
+    },
+    "rockVsScissors": {
+      "name": "Taş makasa karşı",
+      "description": "Yuki'nin taşı Ando'nun makasını yener. Kazanan olarak Yuki'yi duyurun."
+    },
+    "scissorsVsPaper": {
+      "name": "Makas kağıda karşı",
+      "description": "Yuki'nin makası Ando'nun kağıdını yener. Kazanan olarak Yuki'yi duyurun."
+    },
+    "scissorsVsRock": {
+      "name": "Makas taşa karşı",
+      "description": "Ando'nun taşı Yuki'nin makasını yener. Kazanan olarak Ando'yu duyurun."
+    },
+    "scissorsVsScissors": {
+      "name": "Makas makasa karşı",
+      "description": "Oyun berabere bitti. Bunu doğru şekilde duyurun!"
+    }
+  },
+  "hints": {
+    "howToStart": {
+      "question": "Nasıl başlamalıyım?",
+      "answer": "Sağlanan fonksiyonları kullanarak Yuki'nin ve Ando'nun seçimlerini alın ve karşılaştırabilmek için değişkenlerde saklayın."
+    },
+    "simplestCase": {
+      "question": "Önce ele alınacak en basit durum hangisi?",
+      "answer": "Beraberlik. İki seçim eşitse beraberliği hemen duyurup gerisini atlayabilirsiniz."
+    },
+    "checkCombination": {
+      "question": "Belirli bir kazanma kombinasyonunu nasıl kontrol ederim?",
+      "answer": "İkisinin de doğru olması gereken iki koşulu birleştirmek için `&&` (ve) kullanın; örneğin \"Yuki taş seçti VE Ando makas seçti\" Yuki'nin kazandığı anlamına gelir."
+    },
+    "shorterWay": {
+      "question": "Elimde bir sürü `if` deyimi birikti. Daha kısa bir yol var mı?",
+      "answer": "Sonucu varsayılan olarak bir oyuncunun kazandığı şekilde ayarlayın, sonra yalnızca diğer oyuncunun kazandığı üç kombinasyonu kontrol edin. Bu, durumları kabaca yarıya indirir."
+    },
+    "invalidChoice": {
+      "question": "Bir oyuncu taş, kağıt veya makas dışında bir şey girerse ne olur?",
+      "answer": "Burada bunu dert etmenize gerek yok. Sağlanan fonksiyonlar her zaman üç geçerli seçimden birini döndürür."
+    }
+  },
+  "functions": {
+    "getYukiChoice": {
+      "description": "Yuki'nin seçimini döndürür: `\"rock\"`, `\"paper\"` veya `\"scissors\"` değerlerinden biri.",
+      "category": "Oyun"
+    },
+    "getAndoChoice": {
+      "description": "Ando'nun seçimini döndürür: `\"rock\"`, `\"paper\"` veya `\"scissors\"` değerlerinden biri.",
+      "category": "Oyun"
+    },
+    "announceResult": {
+      "description": "Oyunun sonucunu duyurur. `\"Yuki\"`, `\"Ando\"` veya `\"tie\"` değerini verin.",
+      "category": "Oyun"
+    }
+  }
+}
