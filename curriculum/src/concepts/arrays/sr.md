@@ -1,7 +1,7 @@
 ---
 title: "Nizovi"
 description: "Uređeni lanac elemenata (stringova, brojeva, Boolean vrednosti ili bilo čega drugog) koji se drži na okupu kao jedna vrednost koju Jiki može da prosleđuje."
-en_md5: 012da550948ba2ebcfaf953cd0906f3f
+en_md5: d26ccb9e04fbc77129f3199d63a95017
 ---
 
 Već neko vreme koristiš brojeve, stringove i Boolean vrednosti, a Boolean je otmena reč za tačno i netačno. Sve njih zovemo različitim tipovima podataka (engl. _data types_). Sada dodajemo naš prvi složeni tip podataka (engl. _compound data type_).
@@ -22,7 +22,7 @@ Može da ga ubaci u ulazni otvor mašine. Može da ga izvuče iz izlaznog otvora
 
 E sada, u kodu niz i izgleda pomalo kao lanac. Ima uglastu zagradu na svakom kraju, a između njih mnogo stavki povezanih u lanac, razdvojenih zapetama.
 
-Na primer, ako želimo da napravimo niz sa imenima nekih članova našeg bootkampa, možemo da napravimo kutiju po imenu `mentors` (mentori) i da stavimo taj lanac u nju.
+Na primer, ako želimo da napravimo niz sa imenima nekih naših mentora, možemo da napravimo kutiju po imenu `mentors` (mentori) i da stavimo taj lanac u nju.
 
 Napišemo `let mentors =`, potpuno isto kao i za bilo koju drugu kutiju, a zatim otvorenu uglastu zagradu, mnogo elemenata, njihova imena razdvojena zapetama, i na kraju zatvorenu uglastu zagradu. Kada Jiki ovo vidi, ode po četiri papirića, po jedan za svako ime, zatim uzme nov lanac i sve ih poveže u njega, pa taj lanac stavi u kutiju `mentors`.
 
