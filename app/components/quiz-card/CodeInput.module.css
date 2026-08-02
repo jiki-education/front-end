@@ -11,6 +11,9 @@
     padding-block: 12px;
     font-family: var(--font-mono);
     font-size: 14px;
+    /* Code entry field: derive each line's direction from its own content so
+       typed LTR code isn't reordered under an RTL locale. */
+    unicode-bidi: plaintext;
     border-radius: 8px;
     border: 2px solid var(--color-gray-300);
     background: var(--color-gray-50);
