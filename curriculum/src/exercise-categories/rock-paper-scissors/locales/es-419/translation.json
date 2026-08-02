@@ -1,0 +1,11 @@
+{
+  "errors": {
+    "invalidResult": "¡Ay, no! Anunciaste un resultado inválido. ¡Se armó un caos en la sala de juegos! Anuncia \"Yuki\", \"Ando\" o \"tie\".",
+    "wrongResult": "¡Ay, no! Anunciaste el resultado equivocado. ¡Se armó un caos en la sala de juegos!\n\nDebiste anunciar `\"{{expected}}\"`, pero anunciaste `\"{{got}}\"`."
+  },
+  "describers": {
+    "announceResult": "anunció el resultado del juego como ${arg1}",
+    "getYukiChoice": "devolvió la elección de Yuki",
+    "getAndoChoice": "devolvió la elección de Ando"
+  }
+}

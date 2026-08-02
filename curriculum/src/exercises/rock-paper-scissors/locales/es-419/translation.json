@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "noResult": "¡No anunciaste ningún resultado!",
+    "paperVsPaperResult": "Papel contra papel debería ser un empate, pero fue \"{{got}}\".",
+    "paperVsRockResult": "Papel contra piedra debería ser una victoria de Yuki, pero fue \"{{got}}\".",
+    "paperVsScissorsResult": "Papel contra tijera debería ser una victoria de Ando, pero fue \"{{got}}\".",
+    "rockVsPaperResult": "Piedra contra papel debería ser una victoria de Ando, pero fue \"{{got}}\".",
+    "rockVsRockResult": "Piedra contra piedra debería ser un empate, pero fue \"{{got}}\".",
+    "rockVsScissorsResult": "Piedra contra tijera debería ser una victoria de Yuki, pero fue \"{{got}}\".",
+    "scissorsVsPaperResult": "Tijera contra papel debería ser una victoria de Yuki, pero fue \"{{got}}\".",
+    "scissorsVsRockResult": "Tijera contra piedra debería ser una victoria de Ando, pero fue \"{{got}}\".",
+    "scissorsVsScissorsResult": "Tijera contra tijera debería ser un empate, pero fue \"{{got}}\"."
+  },
+  "tasks": {
+    "determineWinner": {
+      "name": "Determina al ganador",
+      "description": "Obtén las elecciones de ambos jugadores y anuncia el resultado correcto: \"Yuki\", \"Ando\" o \"tie\"."
+    }
+  },
+  "scenarios": {
+    "paperVsPaper": {
+      "name": "Papel contra papel",
+      "description": "Es un empate. ¡Anúncialo correctamente!"
+    },
+    "paperVsRock": {
+      "name": "Papel contra piedra",
+      "description": "El papel de Yuki le gana a la piedra de Ando. ¡Anuncia a Yuki como ganador!"
+    },
+    "paperVsScissors": {
+      "name": "Papel contra tijera",
+      "description": "La tijera de Ando le gana al papel de Yuki. Anuncia a Ando como ganador."
+    },
+    "rockVsPaper": {
+      "name": "Piedra contra papel",
+      "description": "El papel de Ando le gana a la piedra de Yuki. Anuncia a Ando como ganador."
+    },
+    "rockVsRock": {
+      "name": "Piedra contra piedra",
+      "description": "Es un empate. ¡Anúncialo correctamente!"
+    },
+    "rockVsScissors": {
+      "name": "Piedra contra tijera",
+      "description": "La piedra de Yuki le gana a la tijera de Ando. Anuncia a Yuki como ganador."
+    },
+    "scissorsVsPaper": {
+      "name": "Tijera contra papel",
+      "description": "La tijera de Yuki le gana al papel de Ando. Anuncia a Yuki como ganador."
+    },
+    "scissorsVsRock": {
+      "name": "Tijera contra piedra",
+      "description": "La piedra de Ando le gana a la tijera de Yuki. Anuncia a Ando como ganador."
+    },
+    "scissorsVsScissors": {
+      "name": "Tijera contra tijera",
+      "description": "Es un empate. ¡Anúncialo correctamente!"
+    }
+  },
+  "hints": {
+    "howToStart": {
+      "question": "¿Por dónde empiezo?",
+      "answer": "Obtén las elecciones de Yuki y de Ando con las funciones que te damos y guárdalas en variables para poder compararlas."
+    },
+    "simplestCase": {
+      "question": "¿Cuál es el caso más simple para resolver primero?",
+      "answer": "El empate. Si las dos elecciones son iguales, puedes anunciar el empate de una vez y saltarte el resto."
+    },
+    "checkCombination": {
+      "question": "¿Cómo verifico una combinación ganadora en particular?",
+      "answer": "Usa `&&` (y) para combinar dos condiciones que deben cumplirse las dos, por ejemplo «Yuki eligió piedra Y Ando eligió tijera» significa que gana Yuki."
+    },
+    "shorterWay": {
+      "question": "Me están quedando montones de sentencias `if`. ¿Hay una forma más corta?",
+      "answer": "Deja como resultado por defecto que gane uno de los jugadores y verifica solo las tres combinaciones en las que gana el otro. Eso reduce los casos casi a la mitad."
+    },
+    "invalidChoice": {
+      "question": "¿Y si un jugador elige algo que no sea piedra, papel o tijera?",
+      "answer": "Aquí no tienes que preocuparte por eso. Las funciones que te damos siempre devuelven una de las tres elecciones válidas."
+    }
+  },
+  "functions": {
+    "getYukiChoice": {
+      "description": "Devuelve la elección de Yuki: `\"rock\"`, `\"paper\"` o `\"scissors\"`.",
+      "category": "Juego"
+    },
+    "getAndoChoice": {
+      "description": "Devuelve la elección de Ando: `\"rock\"`, `\"paper\"` o `\"scissors\"`.",
+      "category": "Juego"
+    },
+    "announceResult": {
+      "description": "Anuncia el resultado del juego. Pásale `\"Yuki\"`, `\"Ando\"` o `\"tie\"`.",
+      "category": "Juego"
+    }
+  }
+}
