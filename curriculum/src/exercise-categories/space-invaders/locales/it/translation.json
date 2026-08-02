@@ -1,0 +1,18 @@
+{
+  "describers": {
+    "moveLeft": "ha spostato il cannone laser a sinistra",
+    "moveRight": "ha spostato il cannone laser a destra",
+    "shoot": "ha sparato il laser verso l'alto",
+    "isAlienAbove": "ha determinato se c'era un alieno sopra il cannone laser",
+    "getStartingAliensInRow": "ha recuperato le posizioni iniziali della riga ${arg1} di alieni",
+    "fireFireworks": "ha lanciato fuochi d'artificio per festeggiare"
+  },
+  "errors": {
+    "laserOverheated": "Oh no! Il tuo cannone laser si è surriscaldato perché ha sparato troppo in fretta! Devi muoverti prima di poter sparare una seconda volta.",
+    "missedShot": "Oh no, hai mancato il bersaglio. Sprecare munizioni non è permesso!",
+    "moveOffEdge": "Oh no, hai provato a muoverti oltre il bordo!",
+    "rowNotNumber": "Oh no, l'input che hai fornito per la riga non è un numero.",
+    "rowOutOfRange": "Oh no, hai provato ad accedere a una riga di alieni che non esiste. Hai chiesto la riga {{row}}, ma le righe sono numerate da 0 a {{max}}.",
+    "notAllAliensDead": "Devi sconfiggere tutti gli alieni prima di poter festeggiare!"
+  }
+}

@@ -3,54 +3,54 @@
     "ballgown": {
       "champagne": "C'est une adulte en tenue de soirée, elle aurait donc dû se voir offrir du champagne, mais ça n'a pas été le cas.",
       "canapes": "Les invités en tenue de soirée se voient aussi offrir des canapés, mais elle n'en a pas eu.",
-      "letIn": "Toute personne en tenue de soirée doit pouvoir entrer, mais elle n'a pas été laissée entrer.",
+      "letIn": "Toute personne en tenue de soirée doit pouvoir entrer, mais elle n'a pas été autorisée à entrer.",
       "notTurnedAway": "Un invité en tenue de soirée ne doit PAS être refoulé."
     },
     "tuxedo": {
       "champagne": "Il a 18 ans, ce qui compte comme adulte, il aurait donc dû se voir offrir du champagne, mais ça n'a pas été le cas.",
       "canapes": "Les invités en tenue de soirée se voient aussi offrir des canapés, mais il n'en a pas eu.",
-      "letIn": "Toute personne en tenue de soirée doit pouvoir entrer, mais il n'a pas été laissé entrer.",
+      "letIn": "Toute personne en tenue de soirée doit pouvoir entrer, mais il n'a pas été autorisé à entrer.",
       "notTurnedAway": "Un invité en tenue de soirée ne doit PAS être refoulé."
     },
     "dress": {
       "canapes": "Elle est en tenue chic, elle aurait donc dû se voir offrir des canapés, mais ça n'a pas été le cas.",
-      "noChampagne": "Le champagne est réservé à la tenue de soirée, un invité en tenue chic ne doit donc pas s'en voir offrir.",
-      "letIn": "Une invitée en tenue chic doit pouvoir entrer, mais elle n'a pas été laissée entrer.",
+      "noChampagne": "Le champagne est réservé aux personnes en tenue de soirée, un invité en tenue chic ne doit donc pas s'en voir offrir.",
+      "letIn": "Une invitée en tenue chic doit pouvoir entrer, mais elle n'a pas été autorisée à entrer.",
       "notTurnedAway": "Un invité en tenue chic ne doit PAS être refoulé."
     },
     "suit": {
       "canapes": "Il est en tenue chic, il aurait donc dû se voir offrir des canapés, mais ça n'a pas été le cas.",
-      "noChampagne": "Le champagne est réservé à la tenue de soirée, un invité en tenue chic ne doit donc pas s'en voir offrir.",
-      "letIn": "Un invité en tenue chic doit pouvoir entrer, mais il n'a pas été laissé entrer.",
+      "noChampagne": "Le champagne est réservé aux personnes en tenue de soirée, un invité en tenue chic ne doit donc pas s'en voir offrir.",
+      "letIn": "Un invité en tenue chic doit pouvoir entrer, mais il n'a pas été autorisé à entrer.",
       "notTurnedAway": "Un invité en tenue chic ne doit PAS être refoulé."
     },
     "formalTeen": {
-      "letIn": "Toute personne en tenue de soirée peut entrer, quel que soit son âge, mais elle n'a pas été laissée entrer.",
+      "letIn": "Toute personne en tenue de soirée peut entrer, quel que soit son âge, mais elle n'a pas été autorisée à entrer.",
       "canapes": "Les invités en tenue de soirée se voient offrir des canapés quel que soit leur âge, mais elle n'en a pas eu.",
       "noChampagne": "Elle a moins de 18 ans, elle ne doit donc pas se voir offrir de champagne. Le champagne est réservé aux adultes.",
       "notTurnedAway": "Un invité en tenue de soirée ne doit PAS être refoulé."
     },
     "smartTeen": {
       "canapes": "La tenue chic donne droit à des canapés quel que soit l'âge, mais on ne lui en a pas offert.",
-      "noChampagne": "Le champagne est réservé à la tenue de soirée, un invité en tenue chic ne doit donc pas s'en voir offrir.",
-      "letIn": "Un invité en tenue chic doit pouvoir entrer, mais il n'a pas été laissé entrer.",
+      "noChampagne": "Le champagne est réservé aux personnes en tenue de soirée, un invité en tenue chic ne doit donc pas s'en voir offrir.",
+      "letIn": "Un invité en tenue chic doit pouvoir entrer, mais il n'a pas été autorisé à entrer.",
       "notTurnedAway": "Un invité en tenue chic ne doit PAS être refoulé."
     },
     "casualChildListed": {
-      "letIn": "Une personne de moins de 18 ans qui figure sur la liste des invités est admise, même en tenue décontractée, mais elle n'a pas été laissée entrer.",
+      "letIn": "Une personne de moins de 18 ans qui figure sur la liste des invités est admise, même en tenue décontractée, mais elle n'a pas été autorisée à entrer.",
       "notTurnedAway": "Une personne de moins de 18 ans qui figure sur la liste des invités ne doit PAS être refoulée.",
       "noChampagne": "Elle n'est pas en tenue de soirée, donc pas de champagne.",
       "noCanapes": "Elle n'est ni en tenue de soirée ni en tenue chic, donc pas de canapés."
     },
     "casualChildUnlisted": {
       "turnedAway": "Une personne de moins de 18 ans en tenue décontractée qui ne figure pas sur la liste des invités doit être refoulée.",
-      "notLetIn": "Une personne de moins de 18 ans en tenue décontractée qui ne figure pas sur la liste des invités ne doit PAS être laissée entrer.",
+      "notLetIn": "Une personne de moins de 18 ans en tenue décontractée qui ne figure pas sur la liste des invités ne doit PAS pouvoir entrer.",
       "noChampagne": "Elle n'est pas en tenue de soirée, donc pas de champagne.",
       "noCanapes": "Elle n'est ni en tenue de soirée ni en tenue chic, donc pas de canapés."
     },
     "casualAdultListed": {
       "turnedAway": "L'exception de la liste des invités ne vaut que pour les moins de 18 ans, donc un adulte en tenue décontractée est refoulé, même s'il figure sur la liste.",
-      "notLetIn": "Un adulte en tenue décontractée ne doit PAS être laissé entrer, même s'il figure sur la liste des invités.",
+      "notLetIn": "Un adulte en tenue décontractée ne doit PAS pouvoir entrer, même s'il figure sur la liste des invités.",
       "noChampagne": "Il n'est pas en tenue de soirée, donc pas de champagne.",
       "noCanapes": "Il n'est ni en tenue de soirée ni en tenue chic, donc pas de canapés."
     },
@@ -63,8 +63,8 @@
   },
   "tasks": {
     "checkDressCode": {
-      "name": "Faire respecter les règles d'entrée",
-      "description": "Vérifie la tenue, l'âge et la présence sur la liste des invités de chaque personne, puis applique les règles. Une tenue de soirée ou une tenue chic permet d'entrer avec des canapés. Les adultes en tenue de soirée reçoivent aussi du champagne. Les moins de 18 ans dans une autre tenue n'entrent que s'ils figurent sur la liste des invités. Toutes les autres personnes sont refoulées."
+      "name": "Fais respecter les règles d'entrée",
+      "description": "Vérifie la tenue, l'âge et la présence sur la liste des invités de chaque personne, puis applique les règles. Une tenue de soirée ou une tenue chic permet d'entrer et de se voir offrir des canapés. Les adultes en tenue de soirée reçoivent aussi du champagne. Les moins de 18 ans dans une autre tenue n'entrent que s'ils figurent sur la liste des invités. Toutes les autres personnes sont refoulées."
     }
   },
   "scenarios": {
@@ -78,19 +78,19 @@
     },
     "dress": {
       "name": "Robe",
-      "description": "Une femme en robe. Elle entre avec des canapés."
+      "description": "Une femme en robe. Elle entre et se voit offrir des canapés."
     },
     "suit": {
       "name": "Costume",
-      "description": "Un homme en costume. Il entre avec des canapés."
+      "description": "Un homme en costume. Il entre et se voit offrir des canapés."
     },
     "formalTeen": {
       "name": "Enfant en robe de bal",
-      "description": "Une fille de 13 ans en robe de bal. Elle entre avec des canapés, mais elle est trop jeune pour le champagne."
+      "description": "Une fille de 13 ans en robe de bal. Elle entre et se voit offrir des canapés, mais elle est trop jeune pour le champagne."
     },
     "smartTeen": {
       "name": "Adolescent en costume",
-      "description": "Un garçon de 15 ans en costume. Il entre avec des canapés, quel que soit son âge."
+      "description": "Un garçon de 15 ans en costume. Il entre et se voit offrir des canapés, quel que soit son âge."
     },
     "casualChildListed": {
       "name": "Enfant en jean, sur la liste",
@@ -108,7 +108,7 @@
   "hints": {
     "whereToStart": {
       "question": "Par où commencer ?",
-      "answer": "Récupère la tenue et l'âge une seule fois chacun et range-les dans des variables, par exemple `let outfit = getOutfit()`. Tu peux ensuite construire toutes tes conditions à partir de ces variables."
+      "answer": "Récupère la tenue et l'âge une seule fois pour chaque personne et range-les dans des variables, par exemple `let outfit = getOutfit()`. Tu peux ensuite construire toutes tes conditions à partir de ces variables."
     },
     "groupingOutfits": {
       "question": "Plusieurs tenues mènent au même résultat. Faut-il une branche pour chacune ?",

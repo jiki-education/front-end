@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "topHole": "Il buco superiore non è riempito correttamente.",
+    "middleHole": "Il buco centrale non è riempito correttamente.",
+    "bottomHole": "Il buco inferiore non è riempito correttamente."
+  },
+  "tasks": {
+    "fillHoles": {
+      "name": "Riempi i buchi nel muro",
+      "description": "Copri ogni buco con un rettangolo usando la funzione rectangle."
+    }
+  },
+  "scenarios": {
+    "fillHoles": {
+      "name": "Riempi i buchi",
+      "description": "Copri ogni buco con un rettangolo."
+    }
+  },
+  "hints": {
+    "howToDrawBricks": {
+      "question": "Come disegno i mattoni?",
+      "answer": "Disegna un rettangolo che copra ogni buco. Consulta le istruzioni per informazioni sui diversi input richiesti dalla funzione `rectangle`."
+    },
+    "holeSizes": {
+      "question": "Che dimensioni hanno i buchi?",
+      "answer": "Passa il mouse sull'area di disegno per misurare ogni spazio. Tutti i numeri sono divisibili per 10."
+    },
+    "holeSizesReally": {
+      "question": "No, seriamente, che dimensioni hanno i buchi?",
+      "answer": "Ogni buco è largo 20 e alto 10"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Disegna un rettangolo nella posizione (left, top) con la larghezza e l'altezza indicate",
+      "category": "Disegno di forme geometriche"
+    }
+  }
+}

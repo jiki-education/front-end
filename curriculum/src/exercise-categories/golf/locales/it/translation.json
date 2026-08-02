@@ -1,0 +1,12 @@
+{
+  "errors": {
+    "xNotNumber": "x deve essere un numero",
+    "yNotNumber": "y deve essere un numero"
+  },
+  "describers": {
+    "rollRight": "ha fatto rotolare la pallina di un'unità verso destra",
+    "moveTo": "ha spostato la pallina nella posizione indicata",
+    "getShotLength": "ha recuperato la lunghezza del colpo",
+    "fireFireworks": "ha sparato i fuochi d'artificio per festeggiare"
+  }
+}

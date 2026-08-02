@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "sun": "Il sole non è corretto.",
+    "cloudBody": "Il corpo della nuvola non è corretto.",
+    "leftPuff": "Il ciuffo sinistro della nuvola non è corretto.",
+    "leftCenterPuff": "Il ciuffo centro-sinistro della nuvola non è corretto.",
+    "rightCenterPuff": "Il ciuffo centro-destro della nuvola non è corretto.",
+    "rightPuff": "Il ciuffo destro della nuvola non è corretto.",
+    "rainDrop": "Una delle gocce di pioggia non è corretta."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "Disegna la scena meteo",
+      "description": "Crea una scena meteo con un sole giallo, una nuvola bianca e gocce di pioggia blu."
+    }
+  },
+  "scenarios": {
+    "drawScene": {
+      "name": "Disegna la scena meteo",
+      "description": "Crea la scena meteo completa con sole, nuvola e pioggia."
+    }
+  },
+  "hints": {
+    "cloudShape": {
+      "question": "Come costruisco la forma soffice della nuvola con forme semplici?",
+      "answer": "La nuvola è un rettangolo (già disegnato per te come base) con dei `circle` posizionati lungo il bordo superiore per dare il contorno bitorzoluto."
+    },
+    "raindropShape": {
+      "question": "Come faccio una goccia di pioggia con `ellipse`?",
+      "answer": "Le gocce di pioggia sono alte e sottili, quindi il raggio verticale è più grande di quello orizzontale. Il raggio orizzontale è `3` (l'unico numero non divisibile per 5)."
+    },
+    "sunOnTop": {
+      "question": "Perché il mio sole appare sopra la nuvola?",
+      "answer": "Le forme disegnate dopo si trovano davanti a quelle disegnate prima. Disegna prima il sole, poi la nuvola sopra, così la nuvola apparirà davanti al sole."
+    },
+    "notMatchingTemplate": {
+      "question": "Perché il mio disegno non corrisponde alle linee del modello?",
+      "answer": "Le tue forme dovrebbero stare appena dentro le linee guida, non sopra di esse. Quasi tutti i numeri di cui hai bisogno sono divisibili per 5, quindi prova il multiplo di 5 più vicino se una forma sembra leggermente storta."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Disegna un rettangolo nella posizione (left, top) con la larghezza, l'altezza e il colore indicati",
+      "category": "Disegno di forme geometriche"
+    },
+    "circle": {
+      "description": "Disegna un cerchio centrato in (centerX, centerY) con il raggio e il colore indicati",
+      "category": "Disegno di forme geometriche"
+    },
+    "ellipse": {
+      "description": "Disegna un'ellisse centrata in (centerX, centerY) con raggio orizzontale radiusX, raggio verticale radiusY e colore",
+      "category": "Disegno di forme geometriche"
+    }
+  }
+}
