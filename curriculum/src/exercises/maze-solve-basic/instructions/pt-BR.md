@@ -10,11 +10,11 @@ O objetivo deste exercício é te familiarizar com o funcionamento do ambiente d
 
 As três instruções que você pode usar são:
 
-- `move()` (mover) move o bonequinho um passo para a frente
-- `turnLeft()` (virar à esquerda) vira o bonequinho para a esquerda (em relação à direção para onde ele está olhando)
-- `turnRight()` (virar à direita) vira o bonequinho para a direita (em relação à direção para onde ele está olhando)
+- `move()` move o bonequinho um passo para a frente
+- `turnLeft()` vira o bonequinho para a esquerda (em relação à direção para onde ele está olhando)
+- `turnRight()` vira o bonequinho para a direita (em relação à direção para onde ele está olhando)
 
-Repare que já escrevemos as três primeiras instruções do lado esquerdo. Comece clicando no botão **“Executar código”** para ver o que elas fazem. Depois, **acrescente mais instruções** para levar o bonequinho até o fim do labirinto. Coloque uma instrução por linha e clique em **Executar código** para rodar todas.
+Repare que já escrevemos as três primeiras instruções ao lado esquerdo. Comece clicando no botão **“Executar código”** para ver o que elas fazem. Depois, **acrescente mais instruções** para guiar o bonequinho até o fim do labirinto. Coloque uma instrução por linha e clique em **Executar código** para rodar todas.
 
 Pegar o hábito de rodar o código com frequência é uma ótima prática!
 
