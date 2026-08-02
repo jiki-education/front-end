@@ -12,10 +12,10 @@ Zamisli pekaru koja ima prazničnu ponudu: možeš da kupiš dva kolačića po c
 
 Tvoj zadatak je da odrediš šta ćeš reći dok poklanjaš taj dodatni kolačić.
 
-- Ako znaš ime te osobe (npr. Alice), reći ćeš: „One for Alice, one for me.“
-- Ako ne znaš ime osobe, reći ćeš: „One for you, one for me.“
+- Ako znaš ime te osobe (npr. Alice), reći ćeš: `"One for Alice, one for me."` („Jedan za Alice, jedan za mene.“)
+- Ako ne znaš ime osobe, reći ćeš: `"One for you, one for me."` („Jedan za tebe, jedan za mene.“)
 
-Napiši funkciju pod nazivom `twoFer(name)` (twoFer znači „dva za“, a name je ime) koja vraća odgovarajuću rečenicu.
+Napiši funkciju pod nazivom `twoFer(name)` (`twoFer` znači „dva za“, a `name` znači „ime“) koja vraća odgovarajuću rečenicu.
 
 Evo nekoliko primera:
 
