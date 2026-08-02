@@ -1,0 +1,80 @@
+{
+  "errors": {
+    "hourNotNumber": "godzina musi być liczbą",
+    "minutesNotNumber": "minuty muszą być liczbą",
+    "indicatorNotString": "oznaczenie musi być stringiem"
+  },
+  "checks": {
+    "notUpdated": "Zegar nie został zaktualizowany. Upewnij się, że używasz funkcji <code>displayTime</code>.",
+    "wrongTime": "Oczekiwano „{{expected}}”, ale otrzymano „{{got}}”"
+  },
+  "tasks": {
+    "displayTime": {
+      "name": "Wyświetl czas na zegarze",
+      "description": "Pobierz aktualną godzinę i minutę, przelicz je na format 12-godzinny z am/pm i wyświetl za pomocą displayTime()."
+    }
+  },
+  "scenarios": {
+    "morning1": {
+      "name": "Wczesny poranek",
+      "description": "Wyświetl 6:35 jako „6:35am”"
+    },
+    "morning2": {
+      "name": "Późne przedpołudnie",
+      "description": "Wyświetl 11:04 jako „11:04am”"
+    },
+    "afternoon1": {
+      "name": "Wczesne popołudnie",
+      "description": "Wyświetl 12:19 jako „12:19pm”"
+    },
+    "afternoon2": {
+      "name": "Późny wieczór",
+      "description": "Wyświetl 23:32 jako „11:32pm”"
+    },
+    "midnight": {
+      "name": "Północ",
+      "description": "Wyświetl północ jako „12:00am”"
+    },
+    "noon": {
+      "name": "Południe",
+      "description": "Wyświetl południe jako „12:00pm”"
+    },
+    "now": {
+      "name": "Wyświetl aktualny czas",
+      "description": "Wyświetl aktualny czas"
+    }
+  },
+  "hints": {
+    "gettingStarted": {
+      "question": "Nie wiem, jak zacząć",
+      "answer": "Użyj `currentTimeHour()` i `currentTimeMinute()`, aby pobrać aktualny czas, a następnie przekaż ich wartości do `displayTime(hour, minutes, \"am\")` i zobacz, co się stanie. Potem zastanów się, jak ustawić prawidłowe meridiem i prawidłową godzinę na wyświetlaczu."
+    },
+    "meridiem": {
+      "question": "Jak działa meridiem?",
+      "answer": "Godziny 0-11 mają oznaczenie 'am', a godziny 12-23 mają 'pm'. Północ (godzina 0) powinna być wyświetlana jako 12am. Południe (godzina 12) powinno być wyświetlane jako 12pm."
+    },
+    "hourChange": {
+      "question": "Kiedy i dlaczego trzeba zmienić godzinę?",
+      "answer": "Na 12-godzinnym zegarze 13:00 jest przedstawiane jako 1:00pm, a 14:00 jako 2:00pm. Zastanów się, jaka zależność łączy 13->1 i 14->2 itd., i odpowiednio dostosuj zegar!"
+    }
+  },
+  "describers": {
+    "currentTimeHour": "pobrano aktualną godzinę",
+    "currentTimeMinute": "pobrano aktualną minutę",
+    "displayTime": "wyświetlono czas na zegarze"
+  },
+  "functions": {
+    "currentTimeHour": {
+      "description": "Zwraca aktualną godzinę w formacie 24-godzinnym (np. 23 dla 11pm) jako liczbę.",
+      "category": "Czas"
+    },
+    "currentTimeMinute": {
+      "description": "Zwraca aktualną minutę jako liczbę.",
+      "category": "Czas"
+    },
+    "displayTime": {
+      "description": "Wyświetla czas na zegarze cyfrowym. Oznaczenie powinno mieć wartość \"am\" lub \"pm\".",
+      "category": "Akcja"
+    }
+  }
+}

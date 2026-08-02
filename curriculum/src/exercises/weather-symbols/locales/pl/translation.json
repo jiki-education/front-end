@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "dayIsntCorrect": "Pogoda dla dnia {{day}} jeszcze się nie zgadza."
+  },
+  "tasks": {
+    "drawForecast": {
+      "name": "Narysuj prognozę",
+      "description": "Narysuj pogodę każdego dnia w osobnym polu, używając pozycji dnia w tablicy jako numeru pola."
+    }
+  },
+  "scenarios": {
+    "mixedWeek": {
+      "name": "Mieszany tydzień",
+      "description": "Po trochu wszystkiego przez sześć dni."
+    },
+    "sunnyWeek": {
+      "name": "Słoneczny tydzień",
+      "description": "Dużo słońca i kilka bardziej pochmurnych dni."
+    },
+    "rainyWeek": {
+      "name": "Deszczowy tydzień",
+      "description": "Przemoknięty tydzień pełen chmur i deszczu."
+    },
+    "snowyWeek": {
+      "name": "Śnieżny tydzień",
+      "description": "Mroźny tydzień pełen śniegu."
+    }
+  },
+  "hints": {
+    "loopWithIndex": {
+      "question": "Jak przejść przez kolejne dni i wiedzieć, do którego pola trafia każdy z nich?",
+      "answer": "Przejdź pętlą po `days` z licznikiem od `0` do `days.length - 1`. Ten licznik to numer pola dla każdego dnia."
+    },
+    "descriptionToSymbols": {
+      "question": "Jak zamienić opis taki jak `\"Miserable 😩\"` na symbole?",
+      "answer": "Porównaj opis z każdym możliwym i wybierz pasującą tablicę symboli, na przykład `[\"cloud\", \"rain\"]`. W instrukcjach znajdziesz każdy opis i jego symbole."
+    },
+    "weekdaysList": {
+      "question": "Skąd wziąć nazwę dnia tygodnia dla każdego pola?",
+      "answer": "Utwórz tablicę sześciu nazw dni tygodnia w kolejności, od `\"Monday\"` do `\"Saturday\"`, i odczytuj tę na bieżącej pozycji, używając tego samego licznika co numer pola."
+    },
+    "passArgs": {
+      "question": "Co przekazać do `draw`?",
+      "answer": "Trzy rzeczy: numer pola (Twój licznik), nazwę dnia tygodnia dla tego pola i tablicę symboli na ten dzień."
+    },
+    "tidyWithHelper": {
+      "question": "Moja pętla robi się długa. Jak ją uporządkować?",
+      "answer": "Możesz przenieść zamianę opisu na symbole do osobnej funkcji i wywoływać ją z pętli. To opcjonalne, ale dzięki temu pętla pozostaje krótka i czytelna."
+    }
+  },
+  "functions": {
+    "draw": {
+      "description": "Rysuje podane symbole pogodowe w polu prognozy. Przyjmuje numer pola (od 0 do 5), nazwę dnia tygodnia, którą pole ma być podpisane, oraz tablicę symboli.",
+      "category": "Rysowanie"
+    }
+  },
+  "describers": {
+    "draw": "narysowano ${arg3} w polu dnia ${arg2}"
+  },
+  "errors": {
+    "elementsMustBeList": "Symbole pogodowe (trzecie dane wejściowe funkcji draw) muszą być tablicą, np. [\"sun\", \"cloud\"].",
+    "elementsMustBeStrings": "Wszystkie symbole pogodowe w tablicy muszą być stringami, np. \"sun\" albo \"rain\".",
+    "unknownElement": "\"{{element}}\" nie jest symbolem pogodowym. Użyj \"sun\", \"cloud\", \"rain\" albo \"snow\".",
+    "indexMustBeNumber": "Numer pola (pierwsze dane wejściowe funkcji draw) musi być liczbą.",
+    "indexOutOfRange": "Numer pola musi być liczbą całkowitą od 0 do {{max}}.",
+    "dayMustBeString": "Dzień tygodnia (drugie dane wejściowe funkcji draw) musi być tekstem, np. \"Monday\"."
+  }
+}
