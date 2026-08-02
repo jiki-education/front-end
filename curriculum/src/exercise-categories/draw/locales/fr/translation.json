@@ -1,21 +1,21 @@
 {
   "errors": {
-    "allInputsNumbers": "Toutes les entrées doivent être des nombres",
+    "allInputsNumbers": "Tous les arguments doivent être des nombres",
     "blueRange": "Le bleu doit être compris entre 0 et 255",
-    "circleInputsNumbers": "Les entrées x, y et radius doivent être des nombres",
+    "circleInputsNumbers": "Les arguments x, y et radius doivent être des nombres",
     "colorNamedOrHex": "La couleur doit être une couleur nommée (\"orange\", \"blue\", \"white\", etc.) indiquée dans les instructions, ou une couleur hexadécimale qui commence par #",
     "colorNotAllowed": "La couleur ne doit pas être précisée pour cet exercice",
     "colorNotString": "La couleur doit être une string",
-    "ellipseInputsNumbers": "Les entrées x, y, rx et ry doivent être des nombres",
+    "ellipseInputsNumbers": "Les arguments x, y, rx et ry doivent être des nombres",
     "greenRange": "Le vert doit être compris entre 0 et 255",
     "heightPositive": "La hauteur doit être supérieure à 0",
     "hueRange": "La teinte doit être comprise entre 0 et 360",
     "lightnessRange": "La luminosité doit être comprise entre 0 et 100",
-    "lineInputsNumbers": "Les entrées x1, y1, x2 et y2 doivent être des nombres",
-    "rectInputsNumbers": "Les entrées x, y, width et height doivent être des nombres",
+    "lineInputsNumbers": "Les arguments x1, y1, x2 et y2 doivent être des nombres",
+    "rectInputsNumbers": "Les arguments x, y, width et height doivent être des nombres",
     "redRange": "Le rouge doit être compris entre 0 et 255",
     "saturationRange": "La saturation doit être comprise entre 0 et 100",
-    "triangleInputsNumbers": "Les entrées x1, y1, x2, y2, x3 et y3 doivent être des nombres",
+    "triangleInputsNumbers": "Les arguments x1, y1, x2, y2, x3 et y3 doivent être des nombres",
     "widthPositive": "La largeur doit être supérieure à 0"
   },
   "describers": {
