@@ -84,7 +84,7 @@ export function buildLevelSections(
 }
 
 export function useLevels() {
-  const { levelTitle } = useLevelTitles();
+  const { levelTitle, loaded: levelTitlesLoaded } = useLevelTitles();
   const [levels, setLevels] = useState<LevelWithProgress[]>([]);
   const [levelsLoading, setLevelsLoading] = useState(true);
 
@@ -115,7 +115,9 @@ export function useLevels() {
     levels,
     setLevels,
     levelSections,
-    levelsLoading,
+    // Gate on the level title catalog too, so the dashboard never flashes
+    // raw level slugs before their localized titles resolve.
+    levelsLoading: levelsLoading || !levelTitlesLoaded,
     reachedEndOfPublishedLevels
   };
 }
