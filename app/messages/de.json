@@ -1678,7 +1678,7 @@
       "complete": "Lektion abgeschlossen",
       "progress": "Lektionsfortschritt",
       "watching": "Du schaust <title>{name}</title>",
-      "finished": "Du hast <title>{name}</title> fertig geschaut",
+      "finished": "Du hast <title>{name}</title> angesehen",
       "finishTooltip": "Schau das Video zu Ende, um weiterzumachen"
     }
   },
