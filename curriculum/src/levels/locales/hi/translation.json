@@ -1,6 +1,6 @@
 {
   "using-functions": {
-    "title": "फ़ंक्शन का उपयोग"
+    "title": "फंक्शन का उपयोग"
   },
   "strings-and-colors": {
     "title": "स्ट्रिंग और रंग"
@@ -15,7 +15,7 @@
     "title": "बेसिक स्टेट"
   },
   "functions-that-return-things": {
-    "title": "रिटर्न करने वाले फ़ंक्शन"
+    "title": "चीज़ें लौटाने वाले फंक्शन"
   },
   "conditionals": {
     "title": "कंडिशनल"
@@ -27,7 +27,7 @@
     "title": "कंडिशनल और स्टेट"
   },
   "make-your-own-functions": {
-    "title": "अपने फ़ंक्शन बनाएँ"
+    "title": "अपने फंक्शन बनाएं"
   },
   "string-manipulation": {
     "title": "स्ट्रिंग मैनिपुलेशन"
@@ -36,7 +36,7 @@
     "title": "स्ट्रिंग इटरेशन"
   },
   "multiple-functions": {
-    "title": "कई फ़ंक्शन एक साथ"
+    "title": "कई फंक्शन एक साथ"
   },
   "methods-and-properties": {
     "title": "मेथड और प्रॉपर्टी"
