@@ -1534,7 +1534,7 @@
     },
     "canStart": {
       "placeholder": "Wpisz tutaj swoje pytanie...",
-      "askAbout": "Zapytaj o...",
+      "askAbout": "Zapytaj...",
       "askJiki": "Zapytaj Jikiego",
       "freeIncluded": "Pierwsza rozmowa wliczona w Twój plan Free",
       "premiumIncluded": "W ramach Twojego planu <premium>Premium</premium>",
