@@ -12,12 +12,12 @@ export interface ConceptMetaEntry {
 const conceptsByLocale = conceptMetaServer as Record<string, ConceptMetaEntry[] | undefined>;
 
 /** The concept metadata entry for a slug in the given locale (falls back to en). */
-export function getConceptEntry(slug: string, locale: string = "en"): ConceptMetaEntry | undefined {
+export function getConceptEntry(slug: string, locale: string): ConceptMetaEntry | undefined {
   const concepts = conceptsByLocale[locale] ?? conceptsByLocale["en"] ?? [];
   return concepts.find((c) => c.slug === slug);
 }
 
-export async function getConceptMetadata(slug: string, locale: string = "en"): Promise<Metadata> {
+export async function getConceptMetadata(slug: string, locale: string): Promise<Metadata> {
   const concept = getConceptEntry(slug, locale);
   if (!concept) {
     const t = await getTranslations("seo.concepts");

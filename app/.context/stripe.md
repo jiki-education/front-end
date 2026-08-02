@@ -251,3 +251,14 @@ await refreshUser(); // Refreshes user object from /internal/me endpoint
 ```
 
 The user's `membership_type` reflects their current tier, while `subscription_status` indicates the state of their Stripe subscription.
+
+## Formatting Prices
+
+All amounts from the API (`premium_prices`, payment history) are Stripe minor units. `lib/formatCurrency.ts` owns the conversion to display units, and everything that renders a price goes through it (`formatCurrency`, or `formatMonthlyPrice` in `lib/pricing.ts` which wraps it).
+
+Two separate questions, two separate functions, and they deliberately disagree for some currencies:
+
+- **How many minor units per major unit** (the divisor) comes from Stripe's own tables, never from `Intl`. Intl/CLDR calls RSD, ISK, ALL, LBP and ~10 others zero-decimal because their sub-units are obsolete, but Stripe still bills them in 1/100ths. Trusting Intl here rendered Serbian prices 100x too high.
+- **How many decimal places to show** (`currencyFractionDigits`) is Intl-driven, with HUF/TWD/UGX forced to 0.
+
+Never derive a divisor from `Intl.NumberFormat(...).resolvedOptions().minimumFractionDigits`.

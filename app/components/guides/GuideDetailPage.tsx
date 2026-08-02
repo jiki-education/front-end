@@ -11,7 +11,7 @@ interface GuideDetailPageProps {
 }
 
 // Helper for generateMetadata
-export async function getGuideMetadata(slug: string, locale: string = "en"): Promise<Metadata> {
+export async function getGuideMetadata(slug: string, locale: string): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "guides.metadata" });
   try {
     const allGuides = getAllGuides(locale);

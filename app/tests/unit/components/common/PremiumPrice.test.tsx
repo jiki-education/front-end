@@ -47,6 +47,13 @@ describe("PremiumPrice", () => {
     expect(container.textContent).not.toMatch(/149,900/);
   });
 
+  it("divides by 100 for a currency Intl reports as zero-decimal (RSD)", () => {
+    mockUser = { premium_prices: { currency: "rsd", monthly: 39900, annual: 399000, country_code: "RS" } };
+    const { container } = render(<PremiumPrice interval="monthly" />);
+    expect(container.textContent).toMatch(/399/);
+    expect(container.textContent).not.toMatch(/39,900/);
+  });
+
   it("handles uppercase currency from API", () => {
     mockUser = { premium_prices: { currency: "gbp", monthly: 799, annual: 7900, country_code: null } };
     const { container } = render(<PremiumPrice interval="monthly" />);
