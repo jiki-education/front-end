@@ -1,10 +1,10 @@
 ---
-title: "Kamen, papir, makaze"
-description: "Odredi pobednika igre kamen, papir, makaze."
+title: "Papir, kamen, makaze"
+description: "Odredi pobednika igre papir, kamen, makaze."
 en_md5: de8c1277063dfab2294bf0ff053616ee
 ---
 
-**Yuki** i **Ando** igraju igru kamen, papir, makaze. Treba da napišemo kod koji može da odredi i objavi pobednika.
+**Yuki** i **Ando** igraju igru papir, kamen, makaze. Treba da napišemo kod koji može da odredi i objavi pobednika.
 
 Oba igrača biraju makaze, papir ili kamen. Zatim uporedi šta su izabrali:
 

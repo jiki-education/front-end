@@ -73,7 +73,7 @@
       "answer": "Podrazumevano postavi rezultat na pobedu jednog igrača, pa proveri samo tri kombinacije u kojima pobeđuje drugi igrač. Time otprilike prepoloviš broj slučajeva."
     },
     "invalidChoice": {
-      "question": "Šta ako igrač unese nešto što nije kamen, papir ili makaze?",
+      "question": "Šta ako igrač unese nešto što nije papir, kamen ili makaze?",
       "answer": "O tome ovde ne moraš da brineš. Dostupne funkcije uvek vraćaju samo jedan od tri važeća izbora."
     }
   },
