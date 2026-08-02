@@ -5,7 +5,7 @@
   "tasks": {
     "createTwoFerFunction": {
       "name": "Створіть функцію two-fer",
-      "description": "Напишіть функцію twoFer, яка приймає імʼя й повертає 'One for [name], one for me.' Якщо імені не задано (порожній рядок тексту), використайте 'you' замість імені."
+      "description": "Напишіть функцію twoFer, яка приймає імʼя та повертає 'One for [name], one for me.' Якщо імені не задано (порожній рядок тексту), використайте 'you' замість імені."
     },
     "solveInSixLines": {
       "name": "Розвʼяжіть за шість рядків коду",
@@ -15,7 +15,7 @@
   "scenarios": {
     "twoFerDefault": {
       "name": "Імʼя не задано",
-      "description": "Імені не задано, тож повертаємо 'One for you, one for me.'"
+      "description": "Імʼя не задано, тож повертаємо 'One for you, one for me.'"
     },
     "twoFerAlice": {
       "name": "Задано імʼя Alice",
