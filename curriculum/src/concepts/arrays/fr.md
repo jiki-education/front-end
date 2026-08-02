@@ -30,11 +30,11 @@ Tu peux mettre ce que tu veux dans un tableau : des strings, des nombres, des b
 
 Voici différents exemples de tableaux parfaitement valides.
 
-Tu peux aussi créer un tableau vide. C'est juste une chaîne sans élément. Ça reste quand même une chaîne à part entière, toujours avec ses extrémités des deux côtés : simplement, elle ne contient aucun élément. Et tu peux quand même mettre ce tableau vide à l'intérieur d'une boîte, le ressortir et l'utiliser plus tard.
+Tu peux aussi créer un tableau vide. C'est juste une chaîne sans élément. Ça reste quand même une chaîne à part entière, toujours avec ses extrémités des deux côtés : simplement, elle ne contient aucun élément. Et tu peux quand même mettre ce tableau vide à l'intérieur d'une boîte, le récupérer et l'utiliser plus tard.
 
-Tu sais donc créer un tableau avec la syntaxe des crochets, mais comment est-ce qu'on les utilise concrètement ? Comment vérifier ce qu'ils contiennent et en sortir des choses ? Eh bien, exactement de la même façon que quand on voulait sortir des lettres d'une string. On peut utiliser la syntaxe des crochets avec des nombres à l'intérieur.
+Tu sais donc créer un tableau avec la syntaxe des crochets, mais comment est-ce qu'on les utilise concrètement ? Comment vérifier ce qu'ils contiennent et en récupérer des choses ? Eh bien, exactement de la même façon que quand on voulait récupérer des lettres d'une string. On peut utiliser la syntaxe des crochets avec des nombres à l'intérieur.
 
-Alors revenons à notre tableau de mentors. Si on veut sortir le premier mentor, on écrit `mentors[0]`. Souviens-toi qu'en JavaScript, on compte à partir de zéro.
+Alors revenons à notre tableau de mentors. Si on veut récupérer le premier mentor, on écrit `mentors[0]`. Souviens-toi qu'en JavaScript, on compte à partir de zéro.
 
 Et on peut aussi parcourir un tableau exactement comme on a parcouru des strings avant, avec `for-of`.
 
