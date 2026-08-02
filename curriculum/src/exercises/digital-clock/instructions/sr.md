@@ -20,4 +20,4 @@ Na primer:
 
 Da prikažeš vreme na satu, koristiš funkciju `displayTime(hour, minutes, meridiem)` (prikaži vreme).
 
-U svakom scenariju trenutno vreme se menja. Tvoj zadatak je da napišeš kod uz koji svi scenariji rade. U poslednjem scenariju koristimo stvarno, pravo vreme, pa će se scenario menjati svaki put kada pravo vreme odmakne za minut!
+U svakom scenariju funkcije vraćaju drugo vreme. Tvoj zadatak je da napišeš kod koji radi u svim scenarijima. U poslednjem scenariju koristimo stvarno trenutno vreme, pa će se scenario menjati svaki put kada se stvarno vreme promeni za jedan minut!

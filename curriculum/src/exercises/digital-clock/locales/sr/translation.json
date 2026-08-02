@@ -1,12 +1,12 @@
 {
   "errors": {
-    "hourNotNumber": "hour mora biti broj",
-    "minutesNotNumber": "minutes mora biti broj",
-    "indicatorNotString": "indicator mora biti string"
+    "hourNotNumber": "<code>hour</code> mora biti broj",
+    "minutesNotNumber": "<code>minutes</code> mora biti broj",
+    "indicatorNotString": "<code>indicator</code> mora biti string"
   },
   "checks": {
     "notUpdated": "Sat nije ažuriran. Proveri da li koristiš funkciju <code>displayTime</code>.",
-    "wrongTime": "Očekivano je \"{{expected}}\", ali je dobijeno \"{{got}}\""
+    "wrongTime": "Očekivano je \"{{expected}}\", a dobijeno \"{{got}}\""
   },
   "tasks": {
     "displayTime": {
