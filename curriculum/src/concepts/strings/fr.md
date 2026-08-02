@@ -14,12 +14,12 @@ Quand tu veux utiliser un nombre, tu peux littéralement l'écrire tel quel, et 
   height="400"
 />
 
-On a donc une règle : chaque fois qu'on a besoin d'utiliser du texte, il faut le mettre entre guillemets, des guillemets doubles. Et quand tu mets quelque chose entre guillemets comme ça, Jiki sort un morceau de papier et y écrit ce que tu as placé entre ces guillemets, et ces morceaux de papier, on les appelle des _strings_ (chaînes de caractères).
+On a donc une règle : chaque fois qu'on a besoin d'utiliser du texte, il faut le mettre entre guillemets, des guillemets doubles. Et quand tu mets quelque chose entre guillemets comme ça, Jiki sort un bout de papier et y écrit ce que tu as placé entre ces guillemets, et ces bouts de papier, on les appelle des _strings_ (chaînes de caractères).
 
 <img
   class="concept-image"
   src="/static/images/concept-assets/strings/jiki-writing-green.webp"
-  alt="Jiki écrivant le mot green sur un morceau de papier, qui devient une string"
+  alt="Jiki écrivant le mot green sur un bout de papier, qui devient une string"
   width="398"
   height="400"
 />
@@ -40,7 +40,7 @@ Donc si on veut un rectangle bleu, on écrit le nombre pour sa position à gauch
 rectangle(10, 20, 30, 40, "blue")
 ```
 
-Jiki va descendre la machine de l'étagère et mettre des pièces dans les quatre premiers entonnoirs. Ensuite, il écrira blue sur un morceau de papier, il placera ce papier dans le cinquième entonnoir, puis il fera tourner la machine.
+Jiki va descendre la machine de l'étagère et mettre des pièces dans les quatre premiers entonnoirs. Ensuite, il écrira blue sur un bout de papier, il placera ce papier dans le cinquième entonnoir, puis il fera tourner la machine.
 
 <img
   class="concept-image"

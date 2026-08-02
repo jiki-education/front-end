@@ -14,7 +14,7 @@ Les variables sont ce qui nous permet de stocker des informations. Quand on code
   height="173"
 />
 
-Alors, comment dire à Jiki de fabriquer une boîte et d'y mettre quelque chose ? On utilise le mot-clé `let` (laisser). Le mot-clé `let` indique à Jiki qu'il doit fabriquer une nouvelle boîte. Tu peux l'imaginer en train de sortir un carton de son emballage et de le monter ; ensuite, il regarde ce qui vient après le mot `let` : c'est l'étiquette qu'il va coller sur cette boîte, ici `name` (nom). Il sort donc son stylo et écrit `name` sur l'étiquette. Puis il regarde ce qui vient après le signe égal. Ici, c'est mon prénom, `"Jeremy"`, et comme `"Jeremy"` est une string, il prend un morceau de papier et y écrit `"Jeremy"`. C'est juste une string, exactement comme les couleurs avec lesquelles tu as travaillé jusqu'ici, et il met ce morceau de papier dans la boîte.
+Alors, comment dire à Jiki de fabriquer une boîte et d'y mettre quelque chose ? On utilise le mot-clé `let` (laisser). Le mot-clé `let` indique à Jiki qu'il doit fabriquer une nouvelle boîte. Tu peux l'imaginer en train de sortir un carton de son emballage et de le monter ; ensuite, il regarde ce qui vient après le mot `let` : c'est l'étiquette qu'il va coller sur cette boîte, ici `name` (nom). Il sort donc son stylo et écrit `name` sur l'étiquette. Puis il regarde ce qui vient après le signe égal. Ici, c'est mon prénom, `"Jeremy"`, et comme `"Jeremy"` est une string, il prend un bout de papier et y écrit `"Jeremy"`. C'est juste une string, exactement comme les couleurs avec lesquelles tu as travaillé jusqu'ici, et il met ce bout de papier dans la boîte.
 
 ```javascript
 let name = "Jeremy"
@@ -23,7 +23,7 @@ let name = "Jeremy"
 <img
   class="concept-image"
   src="/static/images/concept-assets/variables/jeremy-paper.webp"
-  alt="Jiki tenant un morceau de papier où est écrite la string Jeremy, prêt à le mettre dans la boîte"
+  alt="Jiki tenant un bout de papier où est écrite la string Jeremy, prêt à le mettre dans la boîte"
   width="373"
   height="400"
 />
