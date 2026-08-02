@@ -1,14 +1,14 @@
 ---
 title: "Tablice"
 description: "Uporządkowany łańcuch elementów (stringów, liczb, wartości logicznych lub czegokolwiek innego), połączonych w jedną wartość, którą Jiki może się posługiwać."
-en_md5: 012da550948ba2ebcfaf953cd0906f3f
+en_md5: d26ccb9e04fbc77129f3199d63a95017
 ---
 
-Używasz już liczb, stringów i wartości logicznych, czyli tego eleganckiego określenia na prawdę i fałsz. Wszystko to są różne typy danych (ang. _data types_). Teraz poznasz pierwszy złożony typ danych (ang. _compound data type_).
+Używasz już liczb, stringów i wartości logicznych, czyli tego eleganckiego określenia na prawdę i fałsz. Wszystko to nazywamy typami danych (ang. _data types_). Teraz poznasz pierwszy złożony typ danych (ang. _compound data type_).
 
 To typ danych, który może zawierać wiele rzeczy naraz, nie tylko jedną. Nazywa się tablicą (ang. _array_).
 
-Gdy słyszysz słowo „tablica”, wyobraź sobie fizyczny łańcuch, który trzyma razem wiele rzeczy.
+Gdy słyszysz słowo „tablica”, wyobraź sobie fizyczny łańcuch, który łączy wiele rzeczy.
 
 Te rzeczy mogą być czymkolwiek: stringami, liczbami, wartościami logicznymi, nawet innymi tablicami, a nawet rzeczami, których jeszcze nie znasz. Ale na razie nie musisz się tym przejmować.
 
@@ -22,7 +22,7 @@ Może ją włożyć do otworu wejściowego maszyny. Może ją wyciągnąć z kan
 
 W kodzie tablica też trochę przypomina łańcuch. Ma nawias kwadratowy na każdym końcu, a pomiędzy nimi wiele elementów połączonych ze sobą, oddzielonych przecinkami.
 
-Na przykład: gdybyśmy chcieli stworzyć tablicę z imionami kilku mentorów naszego bootcampu, moglibyśmy przygotować pudełko o nazwie `mentors` (mentorzy) i włożyć do niego ten łańcuch.
+Na przykład: gdybyśmy chcieli stworzyć tablicę z imionami kilku naszych mentorów, moglibyśmy przygotować pudełko o nazwie `mentors` (mentorzy) i włożyć do niego ten łańcuch.
 
 Napisalibyśmy `let mentors =`, dokładnie tak samo jak przy każdym innym pudełku, potem otwierający nawias kwadratowy, wiele elementów, czyli imiona oddzielone przecinkami, i na końcu zamykający nawias kwadratowy. Gdy Jiki to widzi, bierze cztery kartki papieru, po jednej na każde imię, potem bierze nowy łańcuch i łączy je wszystkie razem, a na końcu wkłada ten łańcuch do pudełka `mentors`.
 

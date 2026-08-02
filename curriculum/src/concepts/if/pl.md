@@ -1,15 +1,15 @@
 ---
 title: "Instrukcje warunkowe"
-description: "Jak za pomocą słowa kluczowego `if` uruchomić blok kodu tylko wtedy, gdy warunek jest prawdziwy, zupełnie jak bramkarz wpuszczający gości do środka."
+description: "Jak za pomocą słowa kluczowego `if` uruchomić blok kodu tylko wtedy, gdy warunek jest prawdziwy, zupełnie jak ochroniarz wpuszczający gości do środka."
 en_md5: 8797e078e1ad90b7652373baf6f96f28
 ---
 
-Istnieje słowo kluczowe, dzięki któremu możemy powiedzieć Jikiemu, żeby robił coś tylko w określonych sytuacjach. Wyobraź sobie, że piszesz kod pilnujący wejścia do baru: jesteś bramkarzem, a Jiki ma otwierać drzwi tylko wtedy, gdy ktoś jest odpowiednio ubrany. Albo że na mecie wyścigu odpowiadasz za machnięcie flagą w szachownicę, ale Jiki musi wiedzieć, że robi się to dopiero na ostatnim okrążeniu. Właśnie w takich sytuacjach przyda się słowo kluczowe `if`.
+Istnieje słowo kluczowe, dzięki któremu możemy powiedzieć Jikiemu, żeby robił coś tylko w określonych sytuacjach. Wyobraź sobie, że piszesz kod pilnujący wejścia do baru: jesteś ochroniarzem, a Jiki ma otwierać drzwi tylko wtedy, gdy ktoś jest odpowiednio ubrany. Albo że na mecie wyścigu odpowiadasz za machnięcie flagą w szachownicę, ale Jiki musi wiedzieć, że robi się to dopiero na ostatnim okrążeniu. Właśnie w takich sytuacjach przyda się słowo kluczowe `if`.
 
 <img
   class="concept-image"
   src="/static/images/concept-assets/if/bar-door-scenario.webp"
-  alt="Jiki jako bramkarz decydujący, kogo wpuścić do klubu nocnego"
+  alt="Jiki jako ochroniarz decydujący, kogo wpuścić do klubu nocnego"
   width="292"
   height="400"
 />
@@ -47,7 +47,7 @@ Dzięki temu nic nam się nie pomyli, kiedy ustawiamy lub zmieniamy wartość zm
 
 Porównywać można też stringi. `"hello"` równa się `"hello"`: to prawda, oba stringi są takie same. Ale tu uwaga, bo Jiki porównuje każdy pojedynczy znak (ang. _character_) w obu stringach, na obu kartkach papieru. Dlatego `"Hello"` przez wielkie H nie jest równe `"hello"` przez małe h: to różne stringi. Takie porównanie dałoby fałsz, bo wielkie H i małe h to różne znaki.
 
-A tak przy okazji: prawda i fałsz noszą wspólną nazwę wartości logicznych (ang. _Boolean_). To kolejne słowo, które brzmi technicznie, ale sprawa jest naprawdę prosta: to po prostu formalny sposób powiedzenia, że coś jest albo prawdą, albo fałszem. Jeśli więc gdzieś natkniesz się na słowo „Boolean”, oznacza ono właśnie prawdę lub fałsz. Zobaczmy to w akcji. Wyobraźmy sobie, że budujemy takiego robota-bramkarza dla klubu i ustalamy, że ma otwierać drzwi tylko osobom, które mają co najmniej 21 lat. Mamy więc funkcję `askAge` (zapytaj o wiek), dzięki której możemy poznać czyjś wiek, a jej wynik zapisujemy w zmiennej o nazwie `age` (wiek). Potem możemy powiedzieć: jeśli `age` jest większe niż 20, otwieramy drzwi. Jeśli więc `askAge` zwróci `30`, drzwi się otworzą, a jeśli zwróci `12`, pozostaną zamknięte.
+A tak przy okazji: prawda i fałsz noszą wspólną nazwę wartości logicznych (ang. _Boolean_). To kolejne słowo, które brzmi technicznie, ale sprawa jest naprawdę prosta: to po prostu formalny sposób powiedzenia, że coś jest albo prawdą, albo fałszem. Jeśli więc gdzieś natkniesz się na słowo „Boolean”, oznacza ono właśnie prawdę lub fałsz. Zobaczmy to w akcji. Wyobraźmy sobie, że budujemy takiego robota-ochroniarza dla klubu i ustalamy, że ma otwierać drzwi tylko osobom, które mają co najmniej 21 lat. Mamy więc funkcję `askAge` (zapytaj o wiek), dzięki której możemy poznać czyjś wiek, a jej wynik zapisujemy w zmiennej o nazwie `age` (wiek). Potem możemy powiedzieć: jeśli `age` jest większe niż 20, otwieramy drzwi. Jeśli więc `askAge` zwróci `30`, drzwi się otworzą, a jeśli zwróci `12`, pozostaną zamknięte.
 
 ```javascript
 let age = askAge()
