@@ -57,7 +57,7 @@
     "sidebar": {
       "groups": {
         "learnToCode": "برنامه‌نویسی را یاد بگیرید",
-        "learnToBuild": "ساختن یاد بگیرید",
+        "learnToBuild": "ساختن را یاد بگیرید",
         "community": "جامعه",
         "more": "بیشتر"
       },
@@ -1104,7 +1104,7 @@
   "modals": {
     "welcomeToPremium": {
       "badge": "عضو Premium",
-      "description": "از ارتقای شما متشکریم! حالا به تمام مزایای Premium، از جمله چت نامحدود با جیکی، پروژه‌ها و «ساختن یاد بگیرید» دسترسی دارید!",
+      "description": "از ارتقای شما متشکریم! حالا به تمام مزایای Premium، از جمله چت نامحدود با جیکی، پروژه‌ها و «ساختن را یاد بگیرید» دسترسی دارید!",
       "title": "به <highlight>Premium</highlight> خوش آمدید!"
     },
     "subscriptionSuccess": {
@@ -1296,7 +1296,7 @@
       "userAvatarAlt": "کاربر",
       "upgrade": "ارتقا به Premium",
       "planName": "Jiki Premium",
-      "featureLearnToBuild": "دسترسی کامل به <strong>ساختن یاد بگیرید</strong>",
+      "featureLearnToBuild": "دسترسی کامل به <strong>ساختن را یاد بگیرید</strong>",
       "featureChallenges": "شرکت در <strong>چالش‌های</strong> سخت‌تر",
       "featureAi": "<strong>پشتیبانی هوش مصنوعی</strong> نامحدود از جیکی",
       "featureLivestreams": "<strong>پخش‌های زنده پرسش و پاسخ</strong> منظم که می‌توانید در آن‌ها شرکت کنید",
