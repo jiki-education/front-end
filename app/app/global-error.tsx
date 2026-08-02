@@ -190,6 +190,11 @@ const COPY: GlobalErrorCopyMap = {
     title: "Đã có lỗi xảy ra",
     message: "Đã xảy ra một lỗi không mong muốn. Chúng tôi xin lỗi vì điều này!",
     actionLabel: "Thử lại"
+  },
+  ko: {
+    title: "문제가 발생했어요",
+    message: "예기치 않은 오류가 발생했어요. 불편을 드려 죄송해요!",
+    actionLabel: "다시 시도하기"
   }
 };
 

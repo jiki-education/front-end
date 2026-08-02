@@ -10,7 +10,7 @@ Sada ćemo pogledati kako Jiki može da izađe iz tog strogog toka od vrha ka dn
 
 Na primer, zamisli da si u lavirintu i želiš da se pomeriš 10 koraka napred. Za to postoji funkcija `walk`, ali šta ako ona ne postoji? Šta ako ti je na raspolaganju samo funkcija `move` (pomeri se)?
 
-Umesto da napišemo `move` 10 puta zaredom, što brzo postane veoma zamorno, treba nam način da kažemo: „Hej, Jiki, uradi sledeće što kažem 10 puta.
+Umesto da pišemo `move` 10 puta zaredom, što brzo postaje veoma zamorno, treba nam način da kažemo: „Hej, Jiki, uradi sledeće što kažem 10 puta.
 
 `Move`.“
 
@@ -24,7 +24,7 @@ Da bismo ovo uradili u kodu, potrebna nam je naša prva ključna reč (engl. _ke
   height="400"
 />
 
-Ključna reč `repeat` radi tačno ono što sam gore rekao. Ona govori Jikiju: „Ponovi ovoliko puta ono što sledeće kažem.“ Pogledaj ovaj kod. Prvo koristimo ključnu reč `repeat` da kažemo Jikiju da će nešto raditi više puta. Zatim u obične zagrade upišemo koliko puta želimo da Jiki to ponovi, a onda dolaze one vitičaste zagrade, i unutar njih se nalazi ono što želimo da Jiki ponavlja. Ovaj šablon je neverovatno čest u programiranju: navedemo ključnu reč, obično uz neku informaciju (u ovom slučaju koliko puta nešto treba uraditi), a zatim blok koda (engl. _code block_) u vitičastim zagradama. Vratimo se u svet lavirinta: umesto da pišemo `move`, `move`, `move`, `move`, možemo da napišemo „ponovi četiri puta `move`“.
+Ključna reč `repeat` radi tačno ono što sam gore rekao. Ona govori Jikiju: „Ponovi ovoliko puta ono što sledeće kažem.“ Pogledaj ovaj kod. Prvo koristimo ključnu reč `repeat` da kažemo Jikiju da će nešto raditi više puta. Zatim u obične zagrade upišemo koliko puta želimo da Jiki to ponovi, a onda otvaramo vitičaste zagrade i unutar njih pišemo ono što želimo da Jiki ponavlja. Ovaj šablon je neverovatno čest u programiranju: navedemo ključnu reč, obično uz neku informaciju (u ovom slučaju koliko puta nešto treba uraditi), a zatim blok koda (engl. _code block_) u vitičastim zagradama. Vratimo se u svet lavirinta: umesto da pišemo `move`, `move`, `move`, `move`, možemo da napišemo „ponovi četiri puta `move`“.
 
 ```javascript
 repeat(4) {
@@ -61,7 +61,7 @@ repeat(4) {
 
 Ove instrukcije za ponavljanje zovemo petlje (engl. _loops_), i postoji mnogo različitih petlji koje možemo da koristimo, a svaka radi malo drugačije.
 
-Ostalo je još nešto važno: kada radiš sa petljama, postaje neophodno da ti kod bude uredan. Kada tvoj kod ima dobru vizuelnu strukturu, lako je videti šta se dešava. Ali ako nema, ako zaboraviš da lepo uvučeš redove ili pomešaš uvlačenje, stvari vrlo brzo postanu zbunjujuće. Zato na ovom kursu uvek važi pravilo. Početnu vitičastu zagradu uvek stavljaš u isti red sa `repeat` naredbom (engl. _statement_). Završnu vitičastu zagradu uvek stavljaš u zaseban red posle naredbe, a kod između njih uvek uvlačiš za dva razmaka. Tako će sve ostati zaista uredno, a ako zaboraviš ili pokušaš da pratiš drugačiji šablon, dobićeš grešku.
+Još jedna važna stvar: kada radiš sa petljama, bitno je da ti kod bude uredan. Kada tvoj kod ima dobru vizuelnu strukturu, lako je videti šta se dešava. Ali ako nema, ako zaboraviš da lepo uvučeš redove ili pomešaš uvlačenje, stvari vrlo brzo postanu zbunjujuće. Zato na ovom kursu imamo pravilo. Početnu vitičastu zagradu uvek stavljaš u isti red sa `repeat` naredbom (engl. _statement_). Završnu vitičastu zagradu uvek stavljaš u zaseban red posle naredbe, a kod između njih uvek uvlačiš za dva razmaka. Tako će sve ostati zaista uredno, a ako zaboraviš ili pokušaš da pratiš drugačiji šablon, dobićeš grešku.
 
 <img
   class="concept-image"

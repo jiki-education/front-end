@@ -134,10 +134,10 @@
       "FunctionNotFound": "Jiki nije mogao da nađe funkciju sa imenom `{{name}}`.",
       "LogicErrorInExecution": "{{message}}",
       "ForInLoopTargetNotObject": "for...in petlja zahteva objekat kroz koji će prolaziti, a ti joj daješ {{type}} sa vrednošću {{value}}.",
-      "InOperatorRequiresObject": "Operator `in` sa desne strane zahteva objekat ili mapu, a ti mu daješ {{type}}.",
+      "InOperatorRequiresObject": "Operator `in` sa desne strane zahteva objekat ili rečnik, a ti mu daješ {{type}}.",
       "InOperatorRequiresStringKey": "Operator `in` sa leve strane zahteva string ključ, a ti mu daješ {{type}}.",
       "InOperatorRequiresIntegerIndex": "Kada se koristi sa nizovima, operator `in` zahteva celobrojni indeks, a ti mu daješ {{type}}.",
-      "InWithArrayNotAllowed": "Iako ključna reč `in` može da se koristi sa nizovima, to je naprednija funkcionalnost. Za sada je koristi samo sa mapama.",
+      "InWithArrayNotAllowed": "Iako ključna reč `in` može da se koristi sa nizovima, to je naprednija funkcionalnost. Za sada je koristi samo sa rečnicima.",
       "ClassNotFound": "Klasa `{{name}}` nije definisana.",
       "PropertyNotFoundOnInstance": "Svojstvo `{{property}}` ne postoji na instancama klase `{{className}}`.",
       "UnexpectedUncalledFunction": "Pominješ funkciju `{{name}}`, ali je zapravo ne koristiš. Da li na kraju nedostaju `()`?"

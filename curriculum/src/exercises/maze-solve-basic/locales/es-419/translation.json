@@ -17,7 +17,7 @@
   "hints": {
     "whatAmIMoving": {
       "question": "¿Qué muevo y hacia dónde?",
-      "answer": "Estás moviendo al personajito, que empieza arriba a la izquierda, hasta el círculo verde de abajo a la derecha, esquivando las casillas con rayas rojas."
+      "answer": "Estás moviendo al personaje chiquito, que empieza arriba a la izquierda, hasta el círculo verde de abajo a la derecha, esquivando las casillas con rayas rojas."
     },
     "turnLeftTurnsRight": {
       "question": "¡Cuando giro a la izquierda, el personaje gira a la derecha!",
