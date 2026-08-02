@@ -1246,8 +1246,8 @@
       "success": {
         "title": "Wszystkie scenariusze zaliczone",
         "titleBonus": "Wszystkie główne scenariusze zaliczone",
-        "messageExercise": "Świetna robota! Możesz teraz ukończyć to ćwiczenie i przejść do kolejnego wyzwania.",
-        "messageChallenge": "Świetna robota! Możesz teraz ukończyć to wyzwanie i przejść dalej.",
+        "messageExercise": "Dobra robota! Możesz teraz ukończyć to ćwiczenie i przejść do kolejnego wyzwania.",
+        "messageChallenge": "Dobra robota! Możesz teraz ukończyć to wyzwanie i przejść dalej.",
         "completeExercise": "Ukończ ćwiczenie",
         "completeChallenge": "Ukończ wyzwanie"
       },
