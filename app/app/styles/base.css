@@ -145,6 +145,16 @@
     pre {
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         font-size: 1em;
+
+        /* Code is a directional island. Inside RTL prose (fa, ar, he, ur) the
+           Unicode Bidi Algorithm would otherwise resolve the trailing neutral
+           characters of a token like `move()` against the RTL paragraph
+           direction and render it as `()move`. `plaintext` derives each line's
+           base direction from its own first strong character, so LTR code reads
+           correctly in RTL prose without hard-coding `direction: ltr` (which
+           would break genuinely RTL content). Direction-agnostic, so it needs
+           no [dir="rtl"] conditional. */
+        unicode-bidi: plaintext;
     }
 
     small {

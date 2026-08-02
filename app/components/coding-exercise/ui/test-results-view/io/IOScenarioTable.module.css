@@ -44,6 +44,11 @@
     overflow-x: auto;
     max-width: 100%;
     padding: 8px;
+
+    /* Stringified code values, not <code> elements, so they miss the global
+       bidi isolation in app/styles/base.css. Without this, `move()` renders as
+       `()move` in RTL. */
+    unicode-bidi: plaintext;
 }
 
 .addedPart,
