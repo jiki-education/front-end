@@ -203,14 +203,16 @@
     },
     "forInStatement": {
       "result_empty": "Обʼєкт був порожній, тож цей рядок нічого не зробив.",
-      "result_iteration": "Цей рядок розпочав {{ordinal}} ітерацію, встановивши змінну {{name}} у значення {{value}}.",
+      "result_iteration_ordinal_few": "Цей рядок розпочав ітерацію {{count}}, встановивши змінну {{name}} у значення {{value}}.",
+      "result_iteration_ordinal_other": "Цей рядок розпочав ітерацію {{count}}, встановивши змінну {{name}} у значення {{value}}.",
       "step_create": "Jiki створив нову коробку з назвою {{name}}.",
       "step_empty": "Jiki зазирнув в обʼєкт, побачив, що той порожній, і вирішив більше нічого не робити на цьому рядку.",
       "step_put": "Jiki поклав {{value}} у коробку й поставив її на полицю, готову до використання в блоці коду."
     },
     "forOfStatement": {
       "result_empty": "{{type}} був порожній, тож цей рядок нічого не зробив.",
-      "result_iteration": "Цей рядок розпочав {{ordinal}} ітерацію, встановивши змінну {{name}} у значення {{value}}.",
+      "result_iteration_ordinal_few": "Цей рядок розпочав ітерацію {{count}}, встановивши змінну {{name}} у значення {{value}}.",
+      "result_iteration_ordinal_other": "Цей рядок розпочав ітерацію {{count}}, встановивши змінну {{name}} у значення {{value}}.",
       "step_create": "Jiki створив нову коробку з назвою {{name}}.",
       "step_empty": "Jiki перевірив {{type}}, побачив, що той порожній, і вирішив більше нічого не робити на цьому рядку.",
       "step_put": "Jiki поклав {{value}} у коробку й поставив її на полицю, готову до використання в блоці коду."
@@ -235,9 +237,12 @@
       "string": "Jiki взяв символ з індексом {{index}} у рядку тексту та визначив, що це {{value}}."
     },
     "repeatStatement": {
-      "foreverResult": "Цей рядок розпочав {{ordinal}} ітерацію цього блоку repeat.",
-      "foreverStep": "Jiki розпочав {{ordinal}} ітерацію циклу repeat.",
-      "repeatResult": "Цей рядок розпочав {{ordinal}} ітерацію цього блоку repeat.",
+      "foreverResult_ordinal_few": "Цей рядок розпочав ітерацію {{count}} цього блоку repeat.",
+      "foreverResult_ordinal_other": "Цей рядок розпочав ітерацію {{count}} цього блоку repeat.",
+      "foreverStep_ordinal_few": "Jiki розпочав ітерацію {{count}} циклу repeat.",
+      "foreverStep_ordinal_other": "Jiki розпочав ітерацію {{count}} циклу repeat.",
+      "repeatResult_ordinal_few": "Цей рядок розпочав ітерацію {{count}} цього блоку repeat.",
+      "repeatResult_ordinal_other": "Цей рядок розпочав ітерацію {{count}} цього блоку repeat.",
       "repeatStep": "Jiki збільшив свій внутрішній лічильник цього циклу до <code>{{iteration}}</code>, перевірив <code>{{iteration}} &le; {{countValue}}</code> і вирішив виконати блок коду.",
       "zeroResult": "Блок repeat попросили виконатися <code>0</code> разів, тож цей рядок нічого не зробив.",
       "zeroStep": "Jiki побачив, що цикл має виконатися <code>0</code> разів, і вирішив більше нічого не робити на цьому рядку."

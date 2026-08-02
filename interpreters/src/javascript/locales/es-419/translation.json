@@ -199,14 +199,14 @@
     },
     "forInStatement": {
       "result_empty": "El objeto estaba vacío, así que esta línea no hizo nada.",
-      "result_iteration": "Esta línea inició la {{ordinal}} iteración con la variable {{name}} establecida en {{value}}.",
+      "result_iteration_ordinal_other": "Esta línea inició la {{count}}.ª iteración con la variable {{name}} establecida en {{value}}.",
       "step_create": "Jiki creó una nueva caja llamada {{name}}.",
       "step_empty": "Jiki revisó el objeto, vio que estaba vacío y decidió no hacer nada más en esta línea.",
       "step_put": "Jiki puso {{value}} en la caja y la colocó en el estante, lista para usar en el bloque de código."
     },
     "forOfStatement": {
       "result_empty": "El {{type}} estaba vacío, así que esta línea no hizo nada.",
-      "result_iteration": "Esta línea inició la {{ordinal}} iteración con la variable {{name}} establecida en {{value}}.",
+      "result_iteration_ordinal_other": "Esta línea inició la {{count}}.ª iteración con la variable {{name}} establecida en {{value}}.",
       "step_create": "Jiki creó una nueva caja llamada {{name}}.",
       "step_empty": "Jiki revisó el {{type}}, vio que estaba vacío y decidió no hacer nada más en esta línea.",
       "step_put": "Jiki puso {{value}} en la caja y la colocó en el estante, lista para usar en el bloque de código."
@@ -231,9 +231,9 @@
       "string": "Jiki obtuvo el carácter en el índice {{index}} del string y determinó que era {{value}}."
     },
     "repeatStatement": {
-      "foreverResult": "Esta línea inició la {{ordinal}} iteración de este bloque repeat.",
-      "foreverStep": "Jiki inició la {{ordinal}} iteración del bucle repeat.",
-      "repeatResult": "Esta línea inició la {{ordinal}} iteración de este bloque repeat.",
+      "foreverResult_ordinal_other": "Esta línea inició la {{count}}.ª iteración de este bloque repeat.",
+      "foreverStep_ordinal_other": "Jiki inició la {{count}}.ª iteración del bucle repeat.",
+      "repeatResult_ordinal_other": "Esta línea inició la {{count}}.ª iteración de este bloque repeat.",
       "repeatStep": "Jiki aumentó su contador interno para este bucle a <code>{{iteration}}</code>, verificó <code>{{iteration}} &le; {{countValue}}</code> y decidió ejecutar el bloque de código.",
       "zeroResult": "Se le pidió al bloque repeat que se ejecutara <code>0</code> veces, así que esta línea no hizo nada.",
       "zeroStep": "Jiki vio que el bucle debía ejecutarse <code>0</code> veces, así que decidió no hacer nada más en esta línea."

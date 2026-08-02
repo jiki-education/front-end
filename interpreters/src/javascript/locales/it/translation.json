@@ -201,14 +201,16 @@
     },
     "forInStatement": {
       "result_empty": "L'oggetto era vuoto, quindi questa riga non ha fatto nulla.",
-      "result_iteration": "Questa riga ha iniziato la {{ordinal}} iterazione con la variabile {{name}} impostata a {{value}}.",
+      "result_iteration_ordinal_other": "Questa riga ha iniziato la {{count}}ª iterazione con la variabile {{name}} impostata a {{value}}.",
+      "result_iteration_ordinal_many": "Questa riga ha iniziato la {{count}}ª iterazione con la variabile {{name}} impostata a {{value}}.",
       "step_create": "Jiki ha creato una nuova scatola chiamata {{name}}.",
       "step_empty": "Jiki ha controllato l'oggetto, l'ha visto vuoto e ha deciso di non fare altro su questa riga.",
       "step_put": "Jiki ha messo {{value}} nella scatola, e l'ha messa sullo scaffale, pronta per essere usata nel blocco di codice."
     },
     "forOfStatement": {
       "result_empty": "Il {{type}} era vuoto, quindi questa riga non ha fatto nulla.",
-      "result_iteration": "Questa riga ha iniziato la {{ordinal}} iterazione con la variabile {{name}} impostata a {{value}}.",
+      "result_iteration_ordinal_other": "Questa riga ha iniziato la {{count}}ª iterazione con la variabile {{name}} impostata a {{value}}.",
+      "result_iteration_ordinal_many": "Questa riga ha iniziato la {{count}}ª iterazione con la variabile {{name}} impostata a {{value}}.",
       "step_create": "Jiki ha creato una nuova scatola chiamata {{name}}.",
       "step_empty": "Jiki ha controllato il {{type}}, l'ha visto vuoto e ha deciso di non fare altro su questa riga.",
       "step_put": "Jiki ha messo {{value}} nella scatola, e l'ha messa sullo scaffale, pronta per essere usata nel blocco di codice."
@@ -233,9 +235,12 @@
       "string": "Jiki ha preso il carattere all'indice {{index}} nella stringa e ha determinato che era {{value}}."
     },
     "repeatStatement": {
-      "foreverResult": "Questa riga ha iniziato la {{ordinal}} iterazione di questo blocco repeat.",
-      "foreverStep": "Jiki ha iniziato la {{ordinal}} iterazione del ciclo repeat.",
-      "repeatResult": "Questa riga ha iniziato la {{ordinal}} iterazione di questo blocco repeat.",
+      "foreverResult_ordinal_other": "Questa riga ha iniziato la {{count}}ª iterazione di questo blocco repeat.",
+      "foreverResult_ordinal_many": "Questa riga ha iniziato la {{count}}ª iterazione di questo blocco repeat.",
+      "foreverStep_ordinal_other": "Jiki ha iniziato la {{count}}ª iterazione del ciclo repeat.",
+      "foreverStep_ordinal_many": "Jiki ha iniziato la {{count}}ª iterazione del ciclo repeat.",
+      "repeatResult_ordinal_other": "Questa riga ha iniziato la {{count}}ª iterazione di questo blocco repeat.",
+      "repeatResult_ordinal_many": "Questa riga ha iniziato la {{count}}ª iterazione di questo blocco repeat.",
       "repeatStep": "Jiki ha aumentato il suo contatore interno per questo ciclo a <code>{{iteration}}</code>, ha controllato <code>{{iteration}} &le; {{countValue}}</code> e ha deciso di eseguire il blocco di codice.",
       "zeroResult": "Al blocco repeat è stato chiesto di essere eseguito <code>0</code> volte, quindi questa riga non ha fatto nulla.",
       "zeroStep": "Jiki ha visto che il ciclo doveva essere eseguito <code>0</code> volte e quindi ha deciso di non fare altro su questa riga."

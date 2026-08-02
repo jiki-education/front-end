@@ -205,14 +205,14 @@
     },
     "forInStatement": {
       "result_empty": "Obiekt był pusty, więc ta linia nic nie zrobiła.",
-      "result_iteration": "Ta linia rozpoczęła {{ordinal}} iterację ze zmienną {{name}} ustawioną na {{value}}.",
+      "result_iteration_ordinal_other": "Ta linia rozpoczęła {{count}}. iterację ze zmienną {{name}} ustawioną na {{value}}.",
       "step_create": "Jiki utworzył nowe pudełko o nazwie {{name}}.",
       "step_empty": "Jiki sprawdził obiekt, zobaczył, że jest pusty, i postanowił nie robić nic więcej w tej linii.",
       "step_put": "Jiki włożył {{value}} do pudełka i odstawił je na półkę, gotowe do użycia w bloku kodu."
     },
     "forOfStatement": {
       "result_empty": "Ta wartość ({{type}}) była pusta, więc ta linia nic nie zrobiła.",
-      "result_iteration": "Ta linia rozpoczęła {{ordinal}} iterację ze zmienną {{name}} ustawioną na {{value}}.",
+      "result_iteration_ordinal_other": "Ta linia rozpoczęła {{count}}. iterację ze zmienną {{name}} ustawioną na {{value}}.",
       "step_create": "Jiki utworzył nowe pudełko o nazwie {{name}}.",
       "step_empty": "Jiki sprawdził tę wartość ({{type}}), zobaczył, że jest pusta, i postanowił nie robić nic więcej w tej linii.",
       "step_put": "Jiki włożył {{value}} do pudełka i odstawił je na półkę, gotowe do użycia w bloku kodu."
@@ -237,9 +237,9 @@
       "string": "Jiki pobrał znak o indeksie {{index}} ze stringa i ustalił, że to {{value}}."
     },
     "repeatStatement": {
-      "foreverResult": "Ta linia rozpoczęła {{ordinal}} iterację tego bloku repeat.",
-      "foreverStep": "Jiki rozpoczął {{ordinal}} iterację pętli repeat.",
-      "repeatResult": "Ta linia rozpoczęła {{ordinal}} iterację tego bloku repeat.",
+      "foreverResult_ordinal_other": "Ta linia rozpoczęła {{count}}. iterację tego bloku repeat.",
+      "foreverStep_ordinal_other": "Jiki rozpoczął {{count}}. iterację pętli repeat.",
+      "repeatResult_ordinal_other": "Ta linia rozpoczęła {{count}}. iterację tego bloku repeat.",
       "repeatStep": "Jiki zwiększył swój wewnętrzny licznik tej pętli do <code>{{iteration}}</code>, sprawdził <code>{{iteration}} &le; {{countValue}}</code> i postanowił wykonać blok kodu.",
       "zeroResult": "Blok repeat miał się wykonać <code>0</code> razy, więc ta linia nic nie zrobiła.",
       "zeroStep": "Jiki zobaczył, że pętla ma się wykonać <code>0</code> razy, więc postanowił nie robić nic więcej w tej linii."

@@ -201,14 +201,14 @@
     },
     "forInStatement": {
       "result_empty": "Het object was leeg, dus deze regel deed niets.",
-      "result_iteration": "Deze regel startte de {{ordinal}} iteratie, met de variabele {{name}} ingesteld op {{value}}.",
+      "result_iteration_ordinal_other": "Deze regel startte de {{count}}e iteratie, met de variabele {{name}} ingesteld op {{value}}.",
       "step_create": "Jiki heeft een nieuwe doos gemaakt met de naam {{name}}.",
       "step_empty": "Jiki heeft het object gecontroleerd, zag dat het leeg was en besloot verder niets te doen op deze regel.",
       "step_put": "Jiki heeft {{value}} in de doos gedaan en de doos op de plank gezet, klaar om te gebruiken in het codeblok."
     },
     "forOfStatement": {
       "result_empty": "De {{type}} was leeg, dus deze regel deed niets.",
-      "result_iteration": "Deze regel startte de {{ordinal}} iteratie, met de variabele {{name}} ingesteld op {{value}}.",
+      "result_iteration_ordinal_other": "Deze regel startte de {{count}}e iteratie, met de variabele {{name}} ingesteld op {{value}}.",
       "step_create": "Jiki heeft een nieuwe doos gemaakt met de naam {{name}}.",
       "step_empty": "Jiki heeft de {{type}} gecontroleerd, zag dat die leeg was en besloot verder niets te doen op deze regel.",
       "step_put": "Jiki heeft {{value}} in de doos gedaan en de doos op de plank gezet, klaar om te gebruiken in het codeblok."
@@ -233,9 +233,9 @@
       "string": "Jiki heeft het teken op index {{index}} in de string gepakt en vastgesteld dat het {{value}} was."
     },
     "repeatStatement": {
-      "foreverResult": "Deze regel startte de {{ordinal}} iteratie van dit repeat-blok.",
-      "foreverStep": "Jiki startte de {{ordinal}} iteratie van de repeat-loop.",
-      "repeatResult": "Deze regel startte de {{ordinal}} iteratie van dit repeat-blok.",
+      "foreverResult_ordinal_other": "Deze regel startte de {{count}}e iteratie van dit repeat-blok.",
+      "foreverStep_ordinal_other": "Jiki startte de {{count}}e iteratie van de repeat-loop.",
+      "repeatResult_ordinal_other": "Deze regel startte de {{count}}e iteratie van dit repeat-blok.",
       "repeatStep": "Jiki verhoogde zijn interne teller voor deze lus naar <code>{{iteration}}</code>, controleerde <code>{{iteration}} &le; {{countValue}}</code> en besloot het codeblok uit te voeren.",
       "zeroResult": "Het repeat-blok moest <code>0</code> keer draaien, dus deze regel deed niets.",
       "zeroStep": "Jiki zag dat de lus <code>0</code> keer uitgevoerd moest worden en besloot daarom verder niets te doen op deze regel."

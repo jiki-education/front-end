@@ -201,14 +201,16 @@
     },
     "forInStatement": {
       "result_empty": "Az objektum üres volt, így ez a sor nem csinált semmit.",
-      "result_iteration": "Ez a sor elindította a(z) {{ordinal}} iterációt, a(z) {{name}} változó értéke ekkor {{value}} lett.",
+      "result_iteration_ordinal_one": "Ez a sor elindította a(z) {{count}}. iterációt, a(z) {{name}} változó értéke ekkor {{value}} lett.",
+      "result_iteration_ordinal_other": "Ez a sor elindította a(z) {{count}}. iterációt, a(z) {{name}} változó értéke ekkor {{value}} lett.",
       "step_create": "Jiki létrehozott egy új dobozt {{name}} néven.",
       "step_empty": "Jiki megnézte az objektumot, látta, hogy üres, és úgy döntött, hogy ezen a soron nem csinál semmi többet.",
       "step_put": "Jiki betette a(z) {{value}} értéket a dobozba, majd a dobozt feltette a polcra, hogy a kódblokkban használni lehessen."
     },
     "forOfStatement": {
       "result_empty": "A(z) {{type}} üres volt, így ez a sor nem csinált semmit.",
-      "result_iteration": "Ez a sor elindította a(z) {{ordinal}} iterációt, a(z) {{name}} változó értéke ekkor {{value}} lett.",
+      "result_iteration_ordinal_one": "Ez a sor elindította a(z) {{count}}. iterációt, a(z) {{name}} változó értéke ekkor {{value}} lett.",
+      "result_iteration_ordinal_other": "Ez a sor elindította a(z) {{count}}. iterációt, a(z) {{name}} változó értéke ekkor {{value}} lett.",
       "step_create": "Jiki létrehozott egy új dobozt {{name}} néven.",
       "step_empty": "Jiki megnézte a(z) {{type}} értéket, látta, hogy üres, és úgy döntött, hogy ezen a soron nem csinál semmi többet.",
       "step_put": "Jiki betette a(z) {{value}} értéket a dobozba, majd a dobozt feltette a polcra, hogy a kódblokkban használni lehessen."
@@ -233,9 +235,12 @@
       "string": "Jiki kikereste a string {{index}} indexén lévő karaktert, és megállapította, hogy az {{value}}."
     },
     "repeatStatement": {
-      "foreverResult": "Ez a sor elindította ennek a repeat blokknak a(z) {{ordinal}} iterációját.",
-      "foreverStep": "Jiki elindította a repeat ciklus {{ordinal}} iterációját.",
-      "repeatResult": "Ez a sor elindította ennek a repeat blokknak a(z) {{ordinal}} iterációját.",
+      "foreverResult_ordinal_one": "Ez a sor elindította ennek a repeat blokknak a(z) {{count}}. iterációját.",
+      "foreverResult_ordinal_other": "Ez a sor elindította ennek a repeat blokknak a(z) {{count}}. iterációját.",
+      "foreverStep_ordinal_one": "Jiki elindította a repeat ciklus {{count}}. iterációját.",
+      "foreverStep_ordinal_other": "Jiki elindította a repeat ciklus {{count}}. iterációját.",
+      "repeatResult_ordinal_one": "Ez a sor elindította ennek a repeat blokknak a(z) {{count}}. iterációját.",
+      "repeatResult_ordinal_other": "Ez a sor elindította ennek a repeat blokknak a(z) {{count}}. iterációját.",
       "repeatStep": "Jiki a ciklushoz tartozó belső számlálóját <code>{{iteration}}</code> értékre növelte, ellenőrizte, hogy <code>{{iteration}} &le; {{countValue}}</code>, és úgy döntött, hogy lefuttatja a kódblokkot.",
       "zeroResult": "A repeat blokknak <code>0</code> alkalommal kellett lefutnia, így ez a sor nem csinált semmit.",
       "zeroStep": "Jiki látta, hogy a ciklusnak <code>0</code> alkalommal kell lefutnia, ezért úgy döntött, hogy ezen a soron nem csinál semmi többet."

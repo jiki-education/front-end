@@ -8,7 +8,7 @@ import {
   exerciseMessagesPath,
   interpreterMessagesPath
 } from "@/lib/assets-paths";
-import type { Messages } from "@jiki/interpreters";
+import { tagLocale, type Messages } from "@jiki/interpreters";
 
 export interface ExerciseMetaEntry {
   slug: string;
@@ -69,6 +69,13 @@ const interpreterMessagesCache = new Map<string, Promise<Messages>>();
  * that don't yet localize (Python/JikiScript) ignore the dict entirely; a localized
  * interpreter (JavaScript) given an unsupported locale then surfaces the raw keys —
  * the intended loud canary, never a silent English fallback.
+ *
+ * The dict is stamped with the locale it belongs to (`tagLocale`) before it is
+ * handed on. i18next resolves plural and ordinal variants through
+ * `Intl.PluralRules`, which needs the real locale, so a dict that does not name
+ * its language cannot render "1st/2nd/3rd" (or its equivalent) correctly. This is
+ * the boundary where the locale is still known, so it is where it gets attached;
+ * see `interpreters/src/shared/i18n.ts`. The on-disk catalogs never carry it.
  */
 export async function fetchInterpreterMessages(language: string, locale: string): Promise<Messages> {
   const key = `${language}:${locale}`;
@@ -91,7 +98,7 @@ export async function fetchInterpreterMessages(language: string, locale: string)
     if (!res.ok) {
       throw new Error(`Failed to fetch interpreter messages for "${language}" locale "${locale}"`);
     }
-    return res.json() as Promise<Messages>;
+    return res.json().then((messages: Messages) => tagLocale(locale, messages));
   });
   interpreterMessagesCache.set(key, promise);
   return promise;

@@ -201,14 +201,14 @@
     },
     "forInStatement": {
       "result_empty": "O objeto estava vazio, então esta linha não fez nada.",
-      "result_iteration": "Esta linha iniciou a {{ordinal}} iteração com a variável {{name}} definida como {{value}}.",
+      "result_iteration_ordinal_other": "Esta linha iniciou a {{count}}ª iteração com a variável {{name}} definida como {{value}}.",
       "step_create": "O Jiki criou uma nova caixa chamada {{name}}.",
       "step_empty": "O Jiki verificou o objeto, viu que estava vazio e decidiu não fazer mais nada nesta linha.",
       "step_put": "O Jiki colocou {{value}} na caixa e a deixou na prateleira, pronta para ser usada no bloco de código."
     },
     "forOfStatement": {
       "result_empty": "O valor do tipo {{type}} estava vazio, então esta linha não fez nada.",
-      "result_iteration": "Esta linha iniciou a {{ordinal}} iteração com a variável {{name}} definida como {{value}}.",
+      "result_iteration_ordinal_other": "Esta linha iniciou a {{count}}ª iteração com a variável {{name}} definida como {{value}}.",
       "step_create": "O Jiki criou uma nova caixa chamada {{name}}.",
       "step_empty": "O Jiki verificou o valor do tipo {{type}}, viu que estava vazio e decidiu não fazer mais nada nesta linha.",
       "step_put": "O Jiki colocou {{value}} na caixa e a deixou na prateleira, pronta para ser usada no bloco de código."
@@ -233,9 +233,9 @@
       "string": "O Jiki pegou o caractere no índice {{index}} da string e concluiu que era {{value}}."
     },
     "repeatStatement": {
-      "foreverResult": "Esta linha iniciou a {{ordinal}} iteração deste bloco repeat.",
-      "foreverStep": "O Jiki iniciou a {{ordinal}} iteração do laço repeat.",
-      "repeatResult": "Esta linha iniciou a {{ordinal}} iteração deste bloco repeat.",
+      "foreverResult_ordinal_other": "Esta linha iniciou a {{count}}ª iteração deste bloco repeat.",
+      "foreverStep_ordinal_other": "O Jiki iniciou a {{count}}ª iteração do laço repeat.",
+      "repeatResult_ordinal_other": "Esta linha iniciou a {{count}}ª iteração deste bloco repeat.",
       "repeatStep": "O Jiki aumentou seu contador interno deste laço para <code>{{iteration}}</code>, verificou <code>{{iteration}} &le; {{countValue}}</code> e decidiu rodar o bloco de código.",
       "zeroResult": "O bloco repeat recebeu o pedido de rodar <code>0</code> vezes, então esta linha não fez nada.",
       "zeroStep": "O Jiki viu que o laço deveria rodar <code>0</code> vezes e decidiu não fazer mais nada nesta linha."
