@@ -7,7 +7,7 @@ en_md5: e3decc089d371b7113f2657f7571c001
 In deze opdracht gebruik je twee nieuwe functies om de tijd op te halen:
 
 - `currentTimeHour()` (het huidige uur): geeft het huidige uur terug in 24-uurstijd (15 minuten voor middernacht geeft bijvoorbeeld `23` terug), als een getal.
-- `currentTimeMinute()` (de huidige minuut): geeft de huidige minuut terug als een getal.
+- `currentTimeMinute()` (het huidige aantal minuten): geeft het huidige aantal minuten terug als een getal.
 
 Je taak is om een digitale klok bij te werken op basis van de getallen die deze functies teruggeven.
 

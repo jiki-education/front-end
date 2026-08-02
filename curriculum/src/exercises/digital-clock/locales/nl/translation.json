@@ -11,7 +11,7 @@
   "tasks": {
     "displayTime": {
       "name": "Toon de tijd op de klok",
-      "description": "Haal het huidige uur en de huidige minuut op, zet ze om naar 12-uursnotatie met am/pm en toon ze met displayTime()."
+      "description": "Haal het huidige uur en het huidige aantal minuten op, zet ze om naar 12-uursnotatie met am/pm en toon ze met displayTime()."
     }
   },
   "scenarios": {
@@ -60,7 +60,7 @@
   },
   "describers": {
     "currentTimeHour": "haalde het huidige uur op",
-    "currentTimeMinute": "haalde de huidige minuut op",
+    "currentTimeMinute": "haalde het huidige aantal minuten op",
     "displayTime": "toonde de tijd op de klok"
   },
   "functions": {
@@ -69,7 +69,7 @@
       "category": "Tijd"
     },
     "currentTimeMinute": {
-      "description": "Geeft de huidige minuut terug als een getal.",
+      "description": "Geeft het huidige aantal minuten terug als een getal.",
       "category": "Tijd"
     },
     "displayTime": {
