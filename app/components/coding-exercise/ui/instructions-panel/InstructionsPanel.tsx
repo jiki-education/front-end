@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import DynamicHeader, { type ExerciseData } from "./DynamicHeader";
 import InstructionsContent from "./InstructionsContent";
 import FunctionsGrid from "./FunctionsGrid";
@@ -33,6 +33,7 @@ export default function InstructionsPanel({
   className = ""
 }: InstructionsPanelProps) {
   const t = useTranslations("codingExercise.instructionsPanel");
+  const locale = useLocale();
   const [activeSection, setActiveSection] = useState("instructions");
   const [isExpanded, setIsExpanded] = useState(true);
   const [concepts, setConcepts] = useState<ConceptCardData[]>([]);
@@ -63,7 +64,7 @@ export default function InstructionsPanel({
 
       setIsLoadingConcepts(true);
       try {
-        const conceptData = await getConceptsBySlugs(conceptSlugs);
+        const conceptData = await getConceptsBySlugs(conceptSlugs, locale);
 
         const transformedConcepts: ConceptCardData[] = conceptData.map((concept) => ({
           slug: concept.slug,
@@ -82,7 +83,7 @@ export default function InstructionsPanel({
 
     void loadConcepts();
     // eslint-disable-next-line react-hooks/exhaustive-deps -- conceptSlugs are static for the lifetime of the exercise
-  }, []);
+  }, [locale]);
 
   // Handle scroll to update active section
   useEffect(() => {

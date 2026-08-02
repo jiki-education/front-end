@@ -43,32 +43,32 @@ const fetchConceptIndex = cache(async (locale: string): Promise<ConceptMeta[]> =
 });
 
 /** Top-level concepts for server-rendering the concepts list (logged-out SSR). */
-export async function getTopLevelConceptsServer(locale: string = "en"): Promise<ConceptMeta[]> {
+export async function getTopLevelConceptsServer(locale: string): Promise<ConceptMeta[]> {
   return selectTopLevelConcepts(await fetchConceptIndex(locale));
 }
 
 /** Single concept by slug. */
-export async function getConceptServer(slug: string, locale: string = "en"): Promise<ConceptMeta | null> {
+export async function getConceptServer(slug: string, locale: string): Promise<ConceptMeta | null> {
   return selectConcept(await fetchConceptIndex(locale), slug);
 }
 
 /** Ancestor breadcrumb chain for a concept. */
-export async function getAncestorsServer(slug: string, locale: string = "en"): Promise<ConceptAncestor[]> {
+export async function getAncestorsServer(slug: string, locale: string): Promise<ConceptAncestor[]> {
   return selectAncestors(await fetchConceptIndex(locale), slug);
 }
 
 /** Direct children of a category concept. */
-export async function getChildrenServer(parentSlug: string, locale: string = "en"): Promise<ConceptMeta[]> {
+export async function getChildrenServer(parentSlug: string, locale: string): Promise<ConceptMeta[]> {
   return selectChildren(await fetchConceptIndex(locale), parentSlug);
 }
 
 /** Related concepts (parent, children, siblings) for a leaf's sidebar. */
-export async function getRelatedConceptsServer(slug: string, locale: string = "en"): Promise<ConceptMeta[]> {
+export async function getRelatedConceptsServer(slug: string, locale: string): Promise<ConceptMeta[]> {
   return selectRelatedConcepts(await fetchConceptIndex(locale), slug);
 }
 
 /** Rendered body HTML for a leaf concept. Empty string when there is no content. */
-export async function getConceptContentServer(slug: string, locale: string = "en"): Promise<string> {
+export async function getConceptContentServer(slug: string, locale: string): Promise<string> {
   const concept = await getConceptServer(slug, locale);
   if (!concept?.contentHash) {
     return "";
@@ -77,7 +77,7 @@ export async function getConceptContentServer(slug: string, locale: string = "en
 }
 
 /** Exercises linked to a concept (slug + title) for the sidebar. */
-export async function getExercisesForConceptServer(slug: string, locale: string = "en"): Promise<ExerciseInfo[]> {
+export async function getExercisesForConceptServer(slug: string, locale: string): Promise<ExerciseInfo[]> {
   const concept = await getConceptServer(slug, locale);
   if (!concept || concept.exerciseSlugs.length === 0) {
     return [];

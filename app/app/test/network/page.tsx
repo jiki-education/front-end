@@ -33,7 +33,9 @@ export default function NetworkTestPage() {
     setLevels([]);
     setConcepts([]);
     try {
-      const [levelsData, conceptsData] = await Promise.all([fetchLevels(), getConcepts()]);
+      // Dev harness: this page lives outside the [locale] segment, so there is no
+      // active locale to read. English is the deliberate choice here, not a default.
+      const [levelsData, conceptsData] = await Promise.all([fetchLevels(), getConcepts("en")]);
       setLevels(levelsData);
       setConcepts(conceptsData);
     } catch (err) {

@@ -13,7 +13,7 @@ interface BlogPostPageProps {
 }
 
 // Helper for generateMetadata
-export async function getBlogPostMetadata(slug: string, locale: string = "en"): Promise<Metadata> {
+export async function getBlogPostMetadata(slug: string, locale: string): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "seo.blog" });
   try {
     const allPosts = getAllBlogPosts(locale);
@@ -51,7 +51,7 @@ export default async function BlogPostPage({ slug, authenticated, locale }: Blog
 
   return (
     <>
-      <BlogPostContent post={post} variant="unauthenticated" />
+      <BlogPostContent post={post} variant="unauthenticated" locale={locale} />
 
       {/* Minimal CTA */}
       <CTABlock

@@ -30,7 +30,7 @@ export interface ExerciseContent {
 let cachedPromise: Promise<ExerciseMetaEntry[]> | null = null;
 let cachedLocale: string | null = null;
 
-async function fetchExerciseIndex(locale: string = "en"): Promise<ExerciseMetaEntry[]> {
+async function fetchExerciseIndex(locale: string): Promise<ExerciseMetaEntry[]> {
   if (cachedPromise && cachedLocale === locale) {
     return cachedPromise;
   }
@@ -51,7 +51,7 @@ async function fetchExerciseIndex(locale: string = "en"): Promise<ExerciseMetaEn
   return cachedPromise;
 }
 
-export async function getExerciseMetaBySlugs(slugs: string[], locale: string = "en"): Promise<ExerciseMetaEntry[]> {
+export async function getExerciseMetaBySlugs(slugs: string[], locale: string): Promise<ExerciseMetaEntry[]> {
   const index = await fetchExerciseIndex(locale);
   const slugSet = new Set(slugs);
   return index.filter((e) => slugSet.has(e.slug));
