@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useFormatter } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import type { BlogPostMeta } from "@/lib/content/types";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./RecentBlogPosts.module.css";
@@ -12,13 +12,14 @@ interface RecentBlogPostsProps {
 export default function RecentBlogPosts({ posts }: RecentBlogPostsProps) {
   const routes = useLocaleRoutes();
   const format = useFormatter();
+  const t = useTranslations("blog.recentPosts");
   if (posts.length === 0) {
     return null;
   }
 
   return (
     <section className={styles.section}>
-      <h2 className={styles.heading}>Recent Posts</h2>
+      <h2 className={styles.heading}>{t("heading")}</h2>
       <div className={styles.grid}>
         {posts.map((post) => (
           <Link key={post.slug} href={routes.blogPost(post.slug)} className={styles.card}>

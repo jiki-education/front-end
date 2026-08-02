@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import SearchIcon from "@/icons/search.svg";
 import CrossIcon from "@/icons/cross.svg";
 import styles from "./ArticlesSearch.module.css";
@@ -17,6 +18,7 @@ export default function ArticlesSearch({
   onClearSearch,
   searchResults
 }: ArticlesSearchProps) {
+  const t = useTranslations("articles.search");
   const showNoResults = searchQuery && searchResults !== null && searchResults.length === 0;
 
   return (
@@ -25,7 +27,7 @@ export default function ArticlesSearch({
         <SearchIcon />
         <input
           type="text"
-          placeholder="Search articles..."
+          placeholder={t("placeholder")}
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
         />
@@ -36,8 +38,8 @@ export default function ArticlesSearch({
 
       {showNoResults && (
         <div className={styles.noResults}>
-          <p className={styles.noResultsTitle}>0 results for &ldquo;{searchQuery}&rdquo;</p>
-          <p className={styles.noResultsMessage}>Try a different search term or browse the articles.</p>
+          <p className={styles.noResultsTitle}>{t("noResultsTitle", { query: searchQuery })}</p>
+          <p className={styles.noResultsMessage}>{t("noResultsMessage")}</p>
         </div>
       )}
     </div>

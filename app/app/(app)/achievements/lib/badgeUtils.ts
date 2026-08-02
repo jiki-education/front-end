@@ -21,16 +21,26 @@ export function isRecentBadge(badge: BadgeData): boolean {
   return daysSinceUnlock <= 7;
 }
 
-export function getBadgeDate(badge: BadgeData): string {
+export type BadgeDateInfo =
+  | { status: "locked" }
+  | { status: "earnedToday" }
+  | { status: "earnedRelative"; distance: string };
+
+// Returns the badge's earned-state so the consumer can translate the label.
+// The `distance` is still date-fns' English relative time (e.g. "3 days ago");
+// localizing that requires passing a date-fns locale and is tracked separately.
+export function getBadgeDateInfo(badge: BadgeData): BadgeDateInfo {
   if (!badge.unlocked_at) {
-    return "Locked";
+    return { status: "locked" };
   }
 
   const unlocked = new Date(badge.unlocked_at);
   const distance = formatDistanceToNow(unlocked, { addSuffix: true });
 
-  // Convert "X ago" to "Earned X ago" for better UX
-  return distance.replace("ago", "").trim() === "today" ? "Earned today" : `Earned ${distance}`;
+  if (distance.replace("ago", "").trim() === "today") {
+    return { status: "earnedToday" };
+  }
+  return { status: "earnedRelative", distance };
 }
 
 export function getBadgeColor(badge: BadgeData): "blue" | "gold" {

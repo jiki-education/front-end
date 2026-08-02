@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { showModal } from "@/lib/modal";
 import { revealBadge, type BadgeData } from "@/lib/api/badges";
-import { isNewBadge, getBadgeDate, getBadgeColor } from "./badgeUtils";
+import { isNewBadge, getBadgeColor } from "./badgeUtils";
 
 export function useBadgeActions(
   badges: BadgeData[],
@@ -38,7 +38,6 @@ export function useBadgeActions(
     // Create modal data from badge info
     const modalData = {
       title: badge.name,
-      date: getBadgeDate(badge),
       description: badge.description,
       funFact: badge.fun_fact,
       color: getBadgeColor(badge),
