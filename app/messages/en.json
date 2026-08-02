@@ -1620,7 +1620,9 @@
       "congratsAmazingEffort": "Amazing effort!",
       "congratsGreatAchievement": "Great achievement!",
       "congratsCongratulations": "Congratulations!",
-      "congratsCongrats": "Congrats!"
+      "congratsCongrats": "Congrats!",
+      "ioError": "<p>Error: {message}</p>",
+      "codeCheckError": "Code check error: {message}"
     },
     "informationTooltip": {
       "errorHeading": "Oops, something went wrong!",
@@ -1637,21 +1639,6 @@
     "unhandledError": {
       "heading": "Oops! Something went <strong>very</strong> wrong.",
       "message": "<strong>This is our error, not yours!</strong> Please tell us about this error so we can fix it. Copy the mysterious text below and share it with us on <link>the forum</link>. Thank you! 💙"
-    },
-    "informationWidget": {
-      "errorHeading": "Oops, something went wrong!",
-      "closeAriaLabel": "Close tooltip"
-    },
-    "breakpoint": {
-      "addBreakpoint": "Add breakpoint",
-      "removeBreakpoint": "Remove breakpoint"
-    },
-    "testRunner": {
-      "runtimeErrorAbove": "Your code hit an error while it was running. Fix the error message above to continue.",
-      "codeThrewError": "Your code threw an error while running.",
-      "codeThrewErrorWithDetail": "Your code threw an error while running. ({detail})",
-      "codeCheckError": "Code check error: {detail}",
-      "ioError": "<p>Error: {detail}</p>"
     }
   },
   "lesson": {

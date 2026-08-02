@@ -1620,7 +1620,9 @@
       "congratsAmazingEffort": "Lenyűgöző teljesítmény!",
       "congratsGreatAchievement": "Nagyszerű eredmény!",
       "congratsCongratulations": "Gratulálunk!",
-      "congratsCongrats": "Gratula!"
+      "congratsCongrats": "Gratula!",
+      "ioError": "<p>Error: {message}</p>",
+      "codeCheckError": "Code check error: {message}"
     },
     "informationTooltip": {
       "errorHeading": "�",
@@ -1637,21 +1639,6 @@
     "unhandledError": {
       "heading": "Hoppá! Valami <strong>nagyon</strong> félrement.",
       "message": "<strong>Ez a mi hibánk, nem a tiéd!</strong> Kérünk, jelezd nekünk ezt a hibát, hogy kijavíthassuk. Másold ki a lenti rejtélyes szöveget, és oszd meg velünk <link>a fórumon</link>. Köszönjük! 💙"
-    },
-    "informationWidget": {
-      "errorHeading": "Oops, something went wrong!",
-      "closeAriaLabel": "Close tooltip"
-    },
-    "breakpoint": {
-      "addBreakpoint": "Add breakpoint",
-      "removeBreakpoint": "Remove breakpoint"
-    },
-    "testRunner": {
-      "runtimeErrorAbove": "Your code hit an error while it was running. Fix the error message above to continue.",
-      "codeThrewError": "Your code threw an error while running.",
-      "codeThrewErrorWithDetail": "Your code threw an error while running. ({detail})",
-      "codeCheckError": "Code check error: {detail}",
-      "ioError": "<p>Error: {detail}</p>"
     }
   },
   "lesson": {

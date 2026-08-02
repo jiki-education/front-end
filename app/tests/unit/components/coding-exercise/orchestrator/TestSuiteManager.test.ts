@@ -2,7 +2,6 @@ import { TestSuiteManager } from "@/components/coding-exercise/lib/orchestrator/
 import type { ExerciseContext } from "@/components/coding-exercise/lib/types";
 import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
 import { createMockExercise, createMockOrchestratorStore } from "@/tests/mocks";
-import { makeTestTranslator } from "@/tests/test-utils/makeTestTranslator";
 
 jest.mock("@/components/coding-exercise/lib/test-runner/runTests", () => ({
   runTests: jest.fn()
@@ -41,7 +40,7 @@ describe("TestSuiteManager", () => {
       currentTest: null,
       language: "javascript"
     });
-    return new TestSuiteManager(mockStore, {}, {}, makeTestTranslator(), undefined, context);
+    return new TestSuiteManager(mockStore, {}, {}, undefined, context);
   }
 
   beforeEach(() => {
@@ -106,7 +105,7 @@ describe("TestSuiteManager", () => {
 
       await manager.runCode(mockCode, mockExercise);
 
-      expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise, "javascript", {}, {}, expect.any(Function));
+      expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise, "javascript", {}, {});
     });
 
     it("does not block test execution when submission fails", async () => {
