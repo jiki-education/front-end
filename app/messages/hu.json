@@ -158,7 +158,8 @@
     },
     "saving": "Mentés...",
     "retry": "Újra",
-    "tryAgain": "Próbáld újra"
+    "tryAgain": "Próbáld újra",
+    "betaTag": "Beta Version"
   },
   "build": {
     "upcomingStreams": {
