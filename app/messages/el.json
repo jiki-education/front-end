@@ -90,428 +90,428 @@
     }
   },
   "common": {
-    "continue": "�",
-    "close": "�",
-    "cancel": "�",
-    "confirm": "�",
-    "processing": "�",
-    "reloadPage": "�",
-    "loading": "�",
+    "continue": "Συνέχεια",
+    "close": "Κλείσιμο",
+    "cancel": "Ακύρωση",
+    "confirm": "Επιβεβαίωση",
+    "processing": "Επεξεργασία...",
+    "reloadPage": "Επαναφόρτωση Σελίδας",
+    "loading": "Φόρτωση...",
     "languageNames": {
-      "en": "�",
-      "el": "�",
-      "fa": "�",
-      "fr": "�",
-      "hu": "�",
-      "it": "�",
-      "nl": "�",
-      "pt-BR": "�",
-      "pt-PT": "�",
-      "ru": "�",
-      "sr": "�",
-      "uk": "�",
-      "zh-TW": "�"
+      "en": "Αγγλικά",
+      "el": "Ελληνικά",
+      "fa": "Περσικά",
+      "fr": "Γαλλικά",
+      "hu": "Ουγγρικά",
+      "it": "Ιταλικά",
+      "nl": "Ολλανδικά",
+      "pt-BR": "Πορτογαλικά (Βραζιλία)",
+      "pt-PT": "Πορτογαλικά (Πορτογαλία)",
+      "ru": "Ρωσικά",
+      "sr": "Σερβικά",
+      "uk": "Ουκρανικά",
+      "zh-TW": "Κινεζικά (Παραδοσιακά)"
     },
-    "verifying": "�",
-    "sending": "�",
-    "perMonth": "�",
+    "verifying": "Επαλήθευση...",
+    "sending": "Αποστολή...",
+    "perMonth": "/μήνα",
     "validation": {
-      "emailInvalid": "�",
-      "passwordRequired": "�",
-      "passwordMinLength": "�",
-      "currentPasswordRequired": "�",
-      "newPasswordRequired": "�",
-      "passwordsNoMatch": "�"
+      "emailInvalid": "Γράψε μια έγκυρη διεύθυνση email",
+      "passwordRequired": "Ο κωδικός πρόσβασης είναι υποχρεωτικός",
+      "passwordMinLength": "Ο κωδικός πρόσβασης πρέπει να έχει τουλάχιστον 6 χαρακτήρες",
+      "currentPasswordRequired": "Ο τρέχων κωδικός πρόσβασης είναι υποχρεωτικός",
+      "newPasswordRequired": "Ο νέος κωδικός πρόσβασης είναι υποχρεωτικός",
+      "passwordsNoMatch": "Οι κωδικοί πρόσβασης δεν ταιριάζουν"
     },
     "pagination": {
-      "label": "�",
-      "previousPage": "�",
-      "nextPage": "�"
+      "label": "Σελιδοποίηση",
+      "previousPage": "Προηγούμενη σελίδα",
+      "nextPage": "Επόμενη σελίδα"
     },
     "loadingJiki": {
-      "alt": "�"
+      "alt": "Ο χαρακτήρας Jiki ξυπνάει"
     },
     "otpInput": {
-      "label": "�",
-      "digitLabel": "�"
+      "label": "Κωδικός μίας χρήσης",
+      "digitLabel": "Ψηφίο {number} από 6"
     },
     "closeButton": {
-      "label": "�"
+      "label": "Κλείσιμο παραθύρου"
     },
     "copyButton": {
-      "label": "�",
-      "copied": "�"
+      "label": "Αντιγραφή στο πρόχειρο",
+      "copied": "Αντιγράφηκε"
     },
     "soundToggle": {
-      "mute": "�",
-      "unmute": "�"
+      "mute": "Σίγαση ήχων",
+      "unmute": "Κατάργηση σίγασης"
     },
     "themeToggle": {
-      "switchToDark": "�",
-      "switchToSystem": "�",
-      "switchToLight": "�",
-      "toggle": "�",
-      "description": "�"
+      "switchToDark": "Αλλαγή σε σκούρο θέμα",
+      "switchToSystem": "Αλλαγή σε θέμα συστήματος",
+      "switchToLight": "Αλλαγή σε φωτεινό θέμα",
+      "toggle": "Εναλλαγή θέματος",
+      "description": "Τρέχον θέμα: {theme}. Κάνε κλικ για εναλλαγή ανάμεσα σε φωτεινό, σκούρο και θέμα συστήματος."
     },
     "badgeNewLabel": {
-      "label": "�"
+      "label": "ΝΕΟ"
     },
-    "saving": "�",
-    "retry": "�",
-    "tryAgain": "�"
+    "saving": "Αποθήκευση...",
+    "retry": "Επανάληψη",
+    "tryAgain": "Δοκίμασε Ξανά"
   },
   "build": {
     "upcomingStreams": {
-      "heading": "�",
-      "toBeAnnounced": "�",
-      "subscribeButton": "�"
+      "heading": "Επερχόμενες Ζωντανές Μεταδόσεις",
+      "toBeAnnounced": "Θα ανακοινωθούν",
+      "subscribeButton": "Εγγραφή στο Ημερολόγιο"
     },
     "hub": {
-      "title": "�",
-      "description": "�"
+      "title": "Μάθε να Δημιουργείς - Πρότζεκτ",
+      "description": "Φτιάξε πραγματικά πρότζεκτ από το μηδέν με τον Jeremy. Μάθε όλα όσα ξέρει!"
     }
   },
   "auth": {
     "oauth": {
-      "useGoogle": "�",
-      "useExercism": "�",
-      "divider": "�"
+      "useGoogle": "Συνέχεια με Google",
+      "useExercism": "Συνέχεια με Exercism",
+      "divider": "Ή"
     },
     "fields": {
-      "emailLabel": "�",
-      "emailPlaceholder": "�",
-      "passwordLabel": "�",
-      "passwordPlaceholder": "�",
-      "emailRequired": "�"
+      "emailLabel": "Email",
+      "emailPlaceholder": "Γράψε τη διεύθυνση email σου",
+      "passwordLabel": "Κωδικός πρόσβασης",
+      "passwordPlaceholder": "Γράψε τον κωδικό σου",
+      "emailRequired": "Το email είναι υποχρεωτικό"
     },
     "captchaError": {
-      "signup": "�",
-      "login": "�",
-      "generic": "�"
+      "signup": "Τα συστήματά μας προσπάθησαν να διαπιστώσουν αν είσαι bot ή άνθρωπος, αλλά δεν τα κατάφεραν. Δοκίμασε να γραφτείς ξανά με το παρακάτω κουμπί.",
+      "login": "Τα συστήματά μας προσπάθησαν να διαπιστώσουν αν είσαι bot ή άνθρωπος, αλλά δεν τα κατάφεραν. Δοκίμασε να συνδεθείς ξανά με το παρακάτω κουμπί.",
+      "generic": "Τα συστήματά μας προσπάθησαν να διαπιστώσουν αν είσαι bot ή άνθρωπος, αλλά δεν τα κατάφεραν. Δοκίμασε ξανά με το παρακάτω κουμπί."
     },
     "login": {
-      "title": "�",
-      "invalidCredentials": "�",
-      "forgotPassword": "�",
-      "submit": "�",
-      "submitting": "�",
-      "unconfirmed": "�",
-      "resend": "�",
-      "noAccount": "�"
+      "title": "Σύνδεση",
+      "invalidCredentials": "Λάθος email ή κωδικός πρόσβασης",
+      "forgotPassword": "Ξέχασες τον κωδικό σου;",
+      "submit": "Σύνδεση",
+      "submitting": "Σύνδεση...",
+      "unconfirmed": "Επιβεβαίωσε το email σου πριν συνδεθείς. <link>Επαναποστολή επιβεβαίωσης</link>",
+      "resend": "Δεν έλαβες το email επιβεβαίωσης; <link>Στείλε το ξανά.</link>",
+      "noAccount": "Δεν έχεις λογαριασμό; <link>Γράψου δωρεάν.</link>"
     },
     "signup": {
-      "title": "�",
-      "emailAlreadyRegistered": "�",
-      "submit": "�",
-      "submitting": "�",
-      "haveAccount": "�",
-      "resend": "�"
+      "title": "Εγγραφή",
+      "emailAlreadyRegistered": "Αυτό το email είναι ήδη καταχωρισμένο",
+      "submit": "Εγγραφή",
+      "submitting": "Εγγραφή...",
+      "haveAccount": "Έχεις ήδη λογαριασμό; <link>Συνδέσου</link>.",
+      "resend": "Δεν έλαβες το email επιβεβαίωσης; <link>Στείλε το ξανά.</link>"
     },
     "forgotPassword": {
-      "title": "�",
-      "subtitle": "�",
-      "successMessage": "�",
-      "submit": "�",
-      "remembered": "�"
+      "title": "Ξέχασες τον κωδικό σου;",
+      "subtitle": "Αν ξέχασες τον κωδικό σου, χρησιμοποίησε την παρακάτω φόρμα για να ζητήσεις έναν σύνδεσμο αλλαγής.",
+      "successMessage": "Αν υπάρχει λογαριασμός με αυτό το email, θα λάβεις σύντομα οδηγίες επαναφοράς.",
+      "submit": "Αποστολή Συνδέσμου Επαναφοράς",
+      "remembered": "Θυμήθηκες τον κωδικό σου; <link>Συνδέσου</link>"
     },
     "resetPassword": {
-      "invalidTitle": "�",
-      "invalidMessage": "�",
-      "requestNewLink": "�",
-      "title": "�",
-      "subtitle": "�",
-      "tokenMissing": "�",
-      "confirmationRequired": "�",
-      "successMessage": "�",
-      "newPasswordLabel": "�",
-      "newPasswordPlaceholder": "�",
-      "confirmPasswordLabel": "�",
-      "confirmPasswordPlaceholder": "�",
-      "submit": "�",
-      "submitting": "�",
-      "remembered": "�"
+      "invalidTitle": "Μη Έγκυρος Σύνδεσμος Επαναφοράς",
+      "invalidMessage": "Αυτός ο σύνδεσμος επαναφοράς κωδικού δεν είναι έγκυρος ή έχει λήξει. Ζήτησε έναν νέο.",
+      "requestNewLink": "Ζήτησε νέα επαναφορά κωδικού",
+      "title": "Επαναφορά κωδικού πρόσβασης",
+      "subtitle": "Γράψε παρακάτω τον νέο σου κωδικό.",
+      "tokenMissing": "Το token επαναφοράς λείπει ή δεν είναι έγκυρο",
+      "confirmationRequired": "Η επιβεβαίωση του κωδικού πρόσβασης είναι υποχρεωτική",
+      "successMessage": "Ο κωδικός πρόσβασης άλλαξε με επιτυχία! Μεταφορά στη σύνδεση...",
+      "newPasswordLabel": "Νέος Κωδικός Πρόσβασης",
+      "newPasswordPlaceholder": "Γράψε τον νέο σου κωδικό",
+      "confirmPasswordLabel": "Επιβεβαίωση Νέου Κωδικού",
+      "confirmPasswordPlaceholder": "Επιβεβαίωσε τον νέο σου κωδικό",
+      "submit": "Επαναφορά κωδικού",
+      "submitting": "Επαναφορά...",
+      "remembered": "Θυμήθηκες τον κωδικό σου; <link>Συνδέσου</link>"
     },
     "resendConfirmation": {
-      "title": "�",
-      "subtitle": "�",
-      "successMessage": "�",
-      "submit": "�",
-      "confirmed": "�"
+      "title": "Επαναποστολή οδηγιών επιβεβαίωσης",
+      "subtitle": "Δεν έλαβες email επιβεβαίωσης; Χρησιμοποίησε την παρακάτω φόρμα και θα σου στείλουμε άλλο ένα.",
+      "successMessage": "Αν υπάρχει λογαριασμός με αυτό το email, θα λάβεις σύντομα οδηγίες επιβεβαίωσης.",
+      "submit": "Επαναποστολή οδηγιών επιβεβαίωσης",
+      "confirmed": "Έχεις ήδη επιβεβαιώσει; <link>Συνδέσου</link>"
     },
     "checkInbox": {
-      "heading": "�",
-      "sentTo": "�",
-      "hint": "�"
+      "heading": "Έλεγξε τα εισερχόμενά σου",
+      "sentTo": "Στείλαμε ένα email επιβεβαίωσης στο",
+      "hint": "Κάνε κλικ στον σύνδεσμο μέσα στο email για να ενεργοποιήσεις τον λογαριασμό σου. Δεν το έλαβες; <link>Επαναποστολή email</link>"
     },
     "emailConfirmed": {
-      "heading": "�",
-      "message": "�"
+      "heading": "Το Email Επιβεβαιώθηκε!",
+      "message": "Το email σου επιβεβαιώθηκε με επιτυχία. Μεταφορά στον πίνακα ελέγχου..."
     },
     "confirmEmail": {
-      "pendingTitle": "�",
-      "pendingDescription": "�",
-      "errorTitle": "�",
-      "errorMessage": "�",
-      "errorCta": "�"
+      "pendingTitle": "Επιβεβαίωση του email σου...",
+      "pendingDescription": "Περίμενε λίγο όσο επιβεβαιώνουμε τη διεύθυνση email σου.",
+      "errorTitle": "Ο σύνδεσμος έληξε",
+      "errorMessage": "Αυτός ο σύνδεσμος επιβεβαίωσης δεν ισχύει πια. Ζήτησε έναν νέο για να συνεχίσεις.",
+      "errorCta": "Επαναποστολή email επιβεβαίωσης"
     },
     "exercismCallback": {
-      "errorTitle": "�",
-      "errorCta": "�",
-      "pendingTitle": "�",
-      "pendingDescription": "�",
-      "authFailed": "�"
+      "errorTitle": "Η σύνδεση απέτυχε",
+      "errorCta": "Πίσω στη σύνδεση",
+      "pendingTitle": "Γίνεται σύνδεση...",
+      "pendingDescription": "Περίμενε λίγο όσο σε συνδέουμε μέσω Exercism.",
+      "authFailed": "Ο έλεγχος ταυτότητας μέσω Exercism απέτυχε"
     },
     "errorCard": {
-      "needHelp": "�"
+      "needHelp": "Χρειάζεσαι βοήθεια; <link>Επικοινώνησε με την υποστήριξη</link>"
     },
     "twoFactorVerify": {
-      "title": "�",
-      "subtitle": "�",
-      "codeLabel": "�"
+      "title": "Έλεγχος Ταυτότητας Δύο Παραγόντων",
+      "subtitle": "Γράψε τον 6ψήφιο κωδικό από την εφαρμογή ελέγχου ταυτότητας.",
+      "codeLabel": "Κωδικός επαλήθευσης"
     },
     "twoFactorSetup": {
-      "instructionsHeading": "�",
-      "appsHint": "�",
-      "codeLabel": "�"
+      "instructionsHeading": "Σάρωσε τον κωδικό QR με την εφαρμογή ελέγχου ταυτότητας για να ασφαλίσεις τον λογαριασμό σου.",
+      "appsHint": "Χρησιμοποίησε το Google Authenticator, το 1Password, το Authy ή μια παρόμοια εφαρμογή για να σαρώσεις τον παραπάνω κωδικό.",
+      "codeLabel": "Γράψε τον 6ψήφιο κωδικό από την εφαρμογή σου"
     },
     "unsubscribe": {
-      "noToken": "�",
-      "linkInvalid": "�",
-      "tooManyRequests": "�",
-      "serviceUnavailable": "�",
-      "unableToProcess": "�",
-      "networkError": "�",
-      "processingTitle": "�",
-      "processingDescription": "�",
-      "successTitle": "�",
-      "successDescription": "�",
-      "errorTitle": "�"
+      "noToken": "Δεν δόθηκε token απεγγραφής.",
+      "linkInvalid": "Αυτός ο σύνδεσμος απεγγραφής δεν είναι έγκυρος ή έχει λήξει.",
+      "tooManyRequests": "Πάρα πολλά αιτήματα. Περίμενε λίγο και δοκίμασε ξανά.",
+      "serviceUnavailable": "Η υπηρεσία είναι προσωρινά μη διαθέσιμη. Δοκίμασε ξανά αργότερα.",
+      "unableToProcess": "Δεν μπορέσαμε να επεξεργαστούμε το αίτημά σου. Αν συνεχιστεί, επικοινώνησε με την υποστήριξη.",
+      "networkError": "Σφάλμα δικτύου. Έλεγξε τη σύνδεσή σου και δοκίμασε ξανά.",
+      "processingTitle": "Γίνεται απεγγραφή...",
+      "processingDescription": "Περίμενε λίγο όσο επεξεργαζόμαστε το αίτημά σου.",
+      "successTitle": "Η Απεγγραφή Ολοκληρώθηκε",
+      "successDescription": "Απεγγράφηκες από τη λίστα αλληλογραφίας μας.",
+      "errorTitle": "Η Απεγγραφή Απέτυχε"
     },
     "twoFactor": {
-      "cancel": "�",
-      "invalidCode": "�",
-      "verificationFailed": "�"
+      "cancel": "Ακύρωση και σύνδεση ξανά",
+      "invalidCode": "Μη έγκυρος κωδικός επαλήθευσης",
+      "verificationFailed": "Η επαλήθευση απέτυχε. Δοκίμασε ξανά."
     },
     "layout": {
-      "logoAlt": "�",
-      "tagline": "�",
-      "description": "�",
-      "createdBy": "�",
-      "brand": "�"
+      "logoAlt": "Jiki",
+      "tagline": "Το ταξίδι σου στον προγραμματισμό ξεκινά εδώ",
+      "description": "Μπες στην παρέα εκατομμυρίων μαθητών που αλλάζουν την καριέρα τους με πρακτική εξάσκηση στον προγραμματισμό.",
+      "createdBy": "Δημιουργήθηκε από",
+      "brand": "Την ομάδα πίσω από το Exercism"
     }
   },
   "settings": {
     "page": {
-      "title": "�",
-      "description": "�",
-      "tabAccount": "�",
-      "tabSubscription": "�",
-      "tabNotifications": "�",
-      "tabLearning": "�",
-      "tabDanger": "�"
+      "title": "Ρυθμίσεις",
+      "description": "Διαχειρίσου τον λογαριασμό και τις προτιμήσεις σου.",
+      "tabAccount": "Λογαριασμός",
+      "tabSubscription": "Συνδρομή",
+      "tabNotifications": "Ειδοποιήσεις",
+      "tabLearning": "Μάθηση",
+      "tabDanger": "Ζώνη Κινδύνου"
     },
     "avatarEdit": {
-      "adjustTitle": "�",
-      "adjustSubtitle": "�",
-      "back": "�",
-      "save": "�",
-      "changeTitle": "�",
-      "changeSubtitlePart1": "�",
-      "changeSubtitlePart2": "�",
-      "uploadText": "�",
-      "uploadHint": "�"
+      "adjustTitle": "Προσαρμογή Φωτογραφίας",
+      "adjustSubtitle": "Κάνε ζουμ και τοποθέτησε τη φωτογραφία σου.",
+      "back": "Πίσω",
+      "save": "Αποθήκευση",
+      "changeTitle": "Αλλαγή Φωτογραφίας Προφίλ",
+      "changeSubtitlePart1": "Ανέβασε μια νέα εικόνα προφίλ.",
+      "changeSubtitlePart2": "Θα είναι ορατή μόνο σε εσένα.",
+      "uploadText": "Κάνε κλικ για να ανεβάσεις νέα φωτογραφία",
+      "uploadHint": "JPG, PNG ή GIF. Έως 5MB."
     },
     "avatarUpload": {
-      "label": "�"
+      "label": "Φωτογραφία Προφίλ"
     },
     "avatarPreview": {
-      "alt": "�"
+      "alt": "Το avatar σου"
     },
     "cancelConfirm": {
-      "title": "�",
-      "message": "�",
-      "benefitsTitle": "�",
-      "benefit1": "�",
-      "benefit2": "�",
-      "benefit3": "�",
-      "benefit4": "�",
-      "keep": "�",
-      "cancel": "�"
+      "title": "Θέλεις να ακυρώσεις τη συνδρομή σου;",
+      "message": "Θα στενοχωρηθούμε αν φύγεις! Αν ακυρώσεις, θα χάσεις την πρόσβαση στο Premium στο τέλος της τρέχουσας περιόδου χρέωσης.",
+      "benefitsTitle": "Αυτή τη στιγμή απολαμβάνεις:",
+      "benefit1": "Απεριόριστη βοήθεια AI από τον Jiki",
+      "benefit2": "Όλα τα πρότζεκτ και τις μαθησιακές διαδρομές",
+      "benefit3": "Πιστοποιητικά ολοκλήρωσης",
+      "benefit4": "Εμπειρία χωρίς διαφημίσεις",
+      "keep": "Κράτα τη συνδρομή μου",
+      "cancel": "Ακύρωση συνδρομής"
     },
     "cancelSuccess": {
-      "title": "�",
-      "message": "�",
-      "accessUntil": "�",
-      "resubscribeNote": "�",
-      "gotIt": "�"
+      "title": "Η συνδρομή ακυρώθηκε",
+      "message": "Η συνδρομή σου Premium ακυρώθηκε. Μπορείς να συνεχίσεις να απολαμβάνεις όλες τις λειτουργίες Premium μέχρι το τέλος της τρέχουσας περιόδου χρέωσης.",
+      "accessUntil": "Πρόσβαση Premium μέχρι",
+      "resubscribeNote": "Άλλαξες γνώμη; Μπορείς να κάνεις ξανά συνδρομή όποτε θέλεις.",
+      "gotIt": "Εντάξει"
     },
     "changeEmail": {
-      "title": "�",
-      "importantLabel": "�",
-      "importantText": "�",
-      "currentEmailLabel": "�",
-      "newEmailLabel": "�",
-      "newEmailPlaceholder": "�",
-      "passwordLabel": "�",
-      "passwordPlaceholder": "�",
-      "passwordHint": "�",
-      "newEmailRequired": "�",
-      "emailSame": "�",
-      "updateFailed": "�",
-      "submit": "�"
+      "title": "Αλλαγή Διεύθυνσης Email",
+      "importantLabel": "Σημαντικό:",
+      "importantText": "Θα σταλεί email επιβεβαίωσης στη νέα διεύθυνσή σου. Θα χρειαστεί να το επιβεβαιώσεις για να ισχύσει η αλλαγή.",
+      "currentEmailLabel": "Τρέχον Email",
+      "newEmailLabel": "Νέα Διεύθυνση Email",
+      "newEmailPlaceholder": "Γράψε τη νέα διεύθυνση email σου",
+      "passwordLabel": "Επιβεβαίωση με τον Τρέχοντα Κωδικό",
+      "passwordPlaceholder": "Γράψε τον τρέχοντα κωδικό σου",
+      "passwordHint": "Απαιτείται για επαλήθευση ασφαλείας",
+      "newEmailRequired": "Το νέο email είναι υποχρεωτικό",
+      "emailSame": "Το νέο email πρέπει να διαφέρει από το τρέχον",
+      "updateFailed": "Η ενημέρωση του email απέτυχε",
+      "submit": "Ενημέρωση Email"
     },
     "deleteAccount": {
-      "sendFailed": "�",
-      "confirmTitle": "�",
-      "confirmMessage": "�",
-      "submit": "�",
-      "securityTitle": "�",
-      "securityMessage": "�",
-      "understand": "�"
+      "sendFailed": "Η αποστολή του email επιβεβαίωσης απέτυχε. Δοκίμασε ξανά.",
+      "confirmTitle": "Σίγουρα θέλεις να συνεχίσεις;",
+      "confirmMessage": "Θέλεις πραγματικά να διαγράψεις τον λογαριασμό σου; Θα χάσεις όλη τη δουλειά σου. Αυτό είναι μη αναστρέψιμο.",
+      "submit": "Διαγραφή Λογαριασμού",
+      "securityTitle": "Έλεγχος Ασφαλείας",
+      "securityMessage": "Σου στείλαμε ένα email για να επιβεβαιώσουμε ότι είσαι πραγματικά εσύ. Κάνε κλικ στο κουμπί μέσα στο email για να διαγράψεις τον λογαριασμό σου.",
+      "understand": "Κατάλαβα"
     },
     "paymentHistory": {
-      "title": "�",
-      "subtitle": "�",
-      "loading": "�",
-      "error": "�",
-      "empty": "�",
-      "columnDate": "�",
-      "columnAmount": "�",
-      "columnType": "�",
-      "columnMethod": "�",
-      "downloadReceipt": "�"
+      "title": "Ιστορικό Πληρωμών",
+      "subtitle": "Δες και κατέβασε αποδείξεις για τις προηγούμενες πληρωμές σου.",
+      "loading": "Φόρτωση ιστορικού πληρωμών...",
+      "error": "Δεν ήταν δυνατή η φόρτωση του ιστορικού πληρωμών. Δοκίμασε ξανά αργότερα.",
+      "empty": "Δεν υπάρχει διαθέσιμο ιστορικό πληρωμών.",
+      "columnDate": "Ημερομηνία",
+      "columnAmount": "Ποσό",
+      "columnType": "Τύπος",
+      "columnMethod": "Μέθοδος",
+      "downloadReceipt": "Λήψη Απόδειξης"
     },
     "profile": {
-      "nameLabel": "�",
-      "namePlaceholder": "�",
-      "updateName": "�",
-      "nameEmpty": "�",
-      "nameTooLong": "�",
-      "handleLabel": "�",
-      "handlePlaceholder": "�",
-      "updateHandle": "�",
-      "handleEmpty": "�",
-      "handleInvalid": "�",
-      "handleTooShort": "�",
-      "handleTooLong": "�",
-      "emailLabel": "�",
-      "emailPlaceholder": "�",
-      "updateEmail": "�",
-      "emailEmpty": "�",
-      "confirmationPendingHint": "�",
-      "emailNotConfirmed": "�",
-      "confirmationPending": "�"
+      "nameLabel": "Όνομα",
+      "namePlaceholder": "Γράψε το όνομά σου",
+      "updateName": "Ενημέρωση Ονόματος",
+      "nameEmpty": "Το όνομα δεν μπορεί να είναι κενό",
+      "nameTooLong": "Το όνομα πρέπει να έχει λιγότερους από 100 χαρακτήρες",
+      "handleLabel": "Όνομα χρήστη",
+      "handlePlaceholder": "Γράψε το όνομα χρήστη σου",
+      "updateHandle": "Ενημέρωση Ονόματος Χρήστη",
+      "handleEmpty": "Το όνομα χρήστη δεν μπορεί να είναι κενό",
+      "handleInvalid": "Το όνομα χρήστη μπορεί να περιέχει μόνο γράμματα, αριθμούς, κάτω παύλες και παύλες",
+      "handleTooShort": "Το όνομα χρήστη πρέπει να έχει τουλάχιστον 3 χαρακτήρες",
+      "handleTooLong": "Το όνομα χρήστη πρέπει να έχει λιγότερους από 30 χαρακτήρες",
+      "emailLabel": "Email",
+      "emailPlaceholder": "Γράψε το email σου",
+      "updateEmail": "Ενημέρωση Email",
+      "emailEmpty": "Το email δεν μπορεί να είναι κενό",
+      "confirmationPendingHint": "Έλεγξε το email σου για να επιβεβαιώσεις την αλλαγή.",
+      "emailNotConfirmed": "Η διεύθυνση email σου δεν έχει επιβεβαιωθεί.",
+      "confirmationPending": "Εκκρεμεί επιβεβαίωση για: <strong>{email}</strong>"
     },
     "subscriptionSection": {
-      "loadingCardTitle": "�",
-      "loadingCardDescription": "�",
-      "loadingData": "�"
+      "loadingCardTitle": "Συνδρομή",
+      "loadingCardDescription": "Διαχειρίσου το πλάνο συνδρομής και τα στοιχεία χρέωσής σου",
+      "loadingData": "Φόρτωση δεδομένων συνδρομής..."
     },
     "benefits": {
-      "activeSubtitle": "�",
-      "cancellingSubtitle": "�",
-      "resubscribeTitle": "�",
-      "resubscribeButton": "�",
-      "activeHeading": "�",
-      "cancellingHeading": "�",
-      "footer": "�",
-      "resubscribe": "�"
+      "activeSubtitle": "Να τι ξεκλειδώνεις κάθε μέρα",
+      "cancellingSubtitle": "Να τι θα χάσεις όταν λήξει η πρόσβασή σου",
+      "resubscribeTitle": "Συνέχισε να μαθαίνεις χωρίς όρια",
+      "resubscribeButton": "Κάνε ξανά συνδρομή στο Premium",
+      "activeHeading": "Απολαμβάνεις τα προνόμια <highlight>Premium</highlight>",
+      "cancellingHeading": "Μη χάσεις τα προνόμιά σου <highlight>Premium</highlight>",
+      "footer": "Έχεις κάποια ερώτηση; Μάθε περισσότερα για το <includedLink>τι περιλαμβάνεται</includedLink> ή <supportLink>επικοινώνησε με την υποστήριξη</supportLink>.",
+      "resubscribe": "Κάνε ξανά συνδρομή τώρα με μόνο <price></price> και συνέχισε το ταξίδι σου στον προγραμματισμό με την υποστήριξη του Jiki."
     },
     "cancelSectionPanel": {
-      "title": "�",
-      "description": "�",
-      "cancel": "�"
+      "title": "Ακύρωση Συνδρομής",
+      "description": "Αν ακυρώσεις, θα χάσεις την πρόσβαση στις λειτουργίες Premium στο τέλος της περιόδου χρέωσής σου. Μπορείς πάντα να κάνεις ξανά συνδρομή αργότερα.",
+      "cancel": "Ακύρωση"
     },
     "premiumUpsell": {
-      "subtitle": "�",
-      "planName": "�",
-      "upgrade": "�",
-      "headline": "�",
-      "dailyNote": "�"
+      "subtitle": "Αυτή τη στιγμή είσαι στο Δωρεάν πλάνο. Αναβάθμισε σε Premium για να ξεκλειδώσεις:",
+      "planName": "Jiki Premium",
+      "upgrade": "Αναβάθμιση σε Premium",
+      "headline": "Ξεκλείδωσε έναν <highlight>καλύτερο</highlight> τρόπο να μαθαίνεις",
+      "dailyNote": "Μόνο <price></price> την ημέρα"
     },
     "neverSubscribed": {
-      "heading": "�",
-      "subtitle": "�",
-      "featuresLabel": "�",
-      "upgradeAriaLabel": "�",
-      "upgrade": "�"
+      "heading": "Αναβάθμισε το Πλάνο σου",
+      "subtitle": "Ξεκλείδωσε προηγμένες λειτουργίες και ακόμα καλύτερες μαθησιακές εμπειρίες με τα πλάνα premium.",
+      "featuresLabel": "Λειτουργίες πλάνου Premium",
+      "upgradeAriaLabel": "Αναβάθμιση στο πλάνο {plan}",
+      "upgrade": "Αναβάθμιση σε Premium"
     },
     "errorBoundary": {
-      "title": "�",
-      "messagePart1": "�",
-      "messagePart2": "�",
-      "refresh": "�",
-      "detailsSummary": "�"
+      "title": "Σφάλμα Συστήματος Συνδρομών",
+      "messagePart1": "Αντιμετωπίζουμε πρόβλημα με τη φόρτωση των πληροφοριών της συνδρομής σου. Μπορεί να είναι ένα προσωρινό πρόβλημα με το σύστημα πληρωμών μας.",
+      "messagePart2": "Δοκίμασε να ανανεώσεις τη σελίδα ή επικοινώνησε με την υποστήριξη αν το πρόβλημα επιμένει.",
+      "refresh": "Ανανέωση Σελίδας",
+      "detailsSummary": "Λεπτομέρειες Σφάλματος (Development)"
     },
     "danger": {
-      "sessionLabel": "�",
-      "sessionDescription": "�",
-      "logout": "�",
-      "deleteLabel": "�",
-      "deleteDescription": "�",
-      "deleteButton": "�"
+      "sessionLabel": "Διαχείριση Συνεδριών",
+      "sessionDescription": "Διαχειρίσου τις ενεργές συνεδρίες σου σε όλες τις συσκευές.",
+      "logout": "Αποσύνδεση",
+      "deleteLabel": "Διαγραφή Λογαριασμού",
+      "deleteDescription": "Διάγραψε οριστικά τον λογαριασμό σου και όλα τα σχετικά δεδομένα. Αυτή η ενέργεια δεν μπορεί να αναιρεθεί.",
+      "deleteButton": "Διαγραφή Λογαριασμού"
     },
     "learning": {
-      "streaksLabel": "�",
-      "streaksDescription": "�",
-      "toggleAriaLabel": "�",
-      "learnMore": "�"
+      "streaksLabel": "Σερί Μελέτης",
+      "streaksDescription": "Ενεργοποίηση των σερί στον λογαριασμό μου.",
+      "toggleAriaLabel": "Εναλλαγή σερί μελέτης",
+      "learnMore": "Μάθε περισσότερα"
     },
     "notifications": {
-      "toggleAriaLabel": "�",
-      "essentialTitle": "�",
-      "essentialDescription": "�",
-      "featuresTitle": "�",
-      "featuresDescription": "�",
-      "livestreamsTitle": "�",
-      "livestreamsDescription": "�",
-      "milestonesTitle": "�",
-      "milestonesDescription": "�",
-      "activityTitle": "�",
-      "activityDescription": "�",
-      "onboardingTitle": "�",
-      "onboardingDescription": "�"
+      "toggleAriaLabel": "Εναλλαγή {title}",
+      "essentialTitle": "Απαραίτητα μηνύματα υπηρεσίας/λογαριασμού",
+      "essentialDescription": "Σημαντικές ενημερώσεις για τον λογαριασμό σου, την ασφάλεια και αλλαγές στην υπηρεσία.",
+      "featuresTitle": "Emails για νέες λειτουργίες ή περιεχόμενο",
+      "featuresDescription": "Μάθαινε για τις νεότερες λειτουργίες και το περιεχόμενο που προστίθενται στο Jiki.",
+      "livestreamsTitle": "Emails για ζωντανές μεταδόσεις",
+      "livestreamsDescription": "Λάμβανε ειδοποιήσεις για επερχόμενες ζωντανές μεταδόσεις και εκδηλώσεις.",
+      "milestonesTitle": "Emails όταν φτάνεις σε νέα ορόσημα",
+      "milestonesDescription": "Γιόρτασε τα επιτεύγματα και την πρόοδό σου στο Jiki.",
+      "activityTitle": "Άλλα emails ως απάντηση σε όσα κάνεις στο Jiki",
+      "activityDescription": "Ειδοποιήσεις βάσει δραστηριότητας, όπως το ξεκλείδωμα εμβλημάτων και η ολοκλήρωση προκλήσεων.",
+      "onboardingTitle": "Emails που σε βοηθούν να αξιοποιήσεις στο έπακρο το Jiki",
+      "onboardingDescription": "Συμβουλές και καθοδήγηση για να αξιοποιήσεις στο έπακρο το Jiki."
     },
     "editableField": {
-      "update": "�",
-      "edit": "�",
-      "saveFailed": "�"
+      "update": "Ενημέρωση",
+      "edit": "Επεξεργασία",
+      "saveFailed": "Η αποθήκευση απέτυχε"
     },
     "passwordField": {
-      "updateFailed": "�",
-      "currentLabel": "�",
-      "currentPlaceholder": "�",
-      "newLabel": "�",
-      "newPlaceholder": "�",
-      "confirmLabel": "�",
-      "confirmPlaceholder": "�",
-      "submit": "�",
-      "label": "�",
-      "change": "�"
+      "updateFailed": "Η ενημέρωση του κωδικού πρόσβασης απέτυχε",
+      "currentLabel": "Τρέχων κωδικός πρόσβασης",
+      "currentPlaceholder": "Γράψε τον τρέχοντα κωδικό",
+      "newLabel": "Νέος κωδικός πρόσβασης",
+      "newPlaceholder": "Γράψε τον νέο κωδικό",
+      "confirmLabel": "Επιβεβαίωση νέου κωδικού",
+      "confirmPlaceholder": "Επιβεβαίωσε τον νέο κωδικό",
+      "submit": "Ενημέρωση Κωδικού",
+      "label": "Κωδικός πρόσβασης",
+      "change": "Αλλαγή"
     },
     "subscriptionStatus": {
-      "statusActive": "�",
-      "statusCanceled": "�",
-      "statusPaymentFailed": "�",
-      "statusCancelling": "�",
-      "statusIncomplete": "�",
-      "statusSessionExpired": "�",
-      "statusNotSubscribed": "�",
-      "currentPlan": "�",
-      "cancellingMessage": "�",
-      "currentPlanAriaLabel": "�",
-      "statusAriaLabel": "�",
-      "messageCanceled": "�",
-      "messagePaymentFailed": "�",
-      "messageCancelling": "�",
-      "messageIncomplete": "�",
-      "messageIncompleteExpired": "�",
-      "active": "�",
-      "activeWithBilling": "�",
-      "cancellingRemaining": "�",
-      "cancellingEnds": "�",
-      "free": "�",
-      "planLabel": "�"
+      "statusActive": "Ενεργή",
+      "statusCanceled": "Ακυρωμένη",
+      "statusPaymentFailed": "Η Πληρωμή Απέτυχε",
+      "statusCancelling": "Σε Ακύρωση",
+      "statusIncomplete": "Ημιτελής",
+      "statusSessionExpired": "Η Συνεδρία Έληξε",
+      "statusNotSubscribed": "Χωρίς Συνδρομή",
+      "currentPlan": "Τρέχον Πλάνο",
+      "cancellingMessage": "Η συνδρομή σου στο Jiki Premium ακυρώθηκε.",
+      "currentPlanAriaLabel": "Τρέχον πλάνο: Πλάνο {plan}",
+      "statusAriaLabel": "Κατάσταση συνδρομής: {status}",
+      "messageCanceled": "Η υπηρεσία συνεχίζεται μέχρι το τέλος της περιόδου",
+      "messagePaymentFailed": "Η πληρωμή απέτυχε. Ενημέρωσε τη μέθοδο πληρωμής σου",
+      "messageCancelling": "Η ακύρωση έχει προγραμματιστεί. Πρόσβαση μέχρι το τέλος της περιόδου",
+      "messageIncomplete": "Η ρύθμιση της πληρωμής δεν ολοκληρώθηκε. Ολοκλήρωσέ τη για να συνεχίσεις",
+      "messageIncompleteExpired": "Η προηγούμενη συνεδρία πληρωμής έληξε. Ξεκίνα μια νέα συνδρομή",
+      "active": "Είσαι στο πλάνο <plan>Jiki {tier}</plan> με <strong><price></price>/μήνα</strong>.",
+      "activeWithBilling": "Είσαι στο πλάνο <plan>Jiki {tier}</plan> με <strong><price></price>/μήνα</strong>. Η επόμενη χρέωσή σου είναι στις <strong>{date}</strong>.",
+      "cancellingRemaining": "Σου απομένουν <strong>{count, plural, one {# ημέρα} other {# ημέρες}}</strong> για να απολαύσεις όλες τις λειτουργίες Premium.",
+      "cancellingEnds": "Το πλάνο Premium σου θα λήξει στις <strong>{date}</strong>.",
+      "free": "Είσαι στο <strong>Δωρεάν</strong> πλάνο. Σου δίνει όλο το περιεχόμενο, μαζί με το Ρώτα τον Jiki για βοήθεια σε μία άσκηση.",
+      "planLabel": "Πλάνο {tier}"
     }
   },
   "landing": {
@@ -671,101 +671,101 @@
   },
   "premium": {
     "page": {
-      "heading": "�",
-      "subheading": "�"
+      "heading": "Jiki Premium",
+      "subheading": "Επιτάχυνε τον δρόμο σου προς την αγορά εργασίας. Ξεκλείδωσε κάθε μάθημα, κάθε πρότζεκτ, απεριόριστη υποστήριξη AI και όλα όσα έχει να προσφέρει το Jiki."
     },
     "planPrice": {
-      "basic": "�",
-      "premium": "�",
-      "free": "�",
-      "perMonth": "�"
+      "basic": "Βασικό",
+      "premium": "Premium",
+      "free": "Δωρεάν",
+      "perMonth": "τον μήνα"
     },
     "planBadge": {
-      "free": "�",
-      "premium": "�"
+      "free": "Δωρεάν",
+      "premium": "Premium"
     },
     "table": {
-      "comparePlans": "�",
-      "comparePlansDesc": "�",
-      "checkNo": "�"
+      "comparePlans": "Σύγκρινε τα πλάνα",
+      "comparePlansDesc": "Να τι περιλαμβάνει κάθε πλάνο, για να επιλέξεις με σιγουριά.",
+      "checkNo": "✕"
     },
     "values": {
-      "oneConversation": "�",
-      "unlimited": "�",
-      "firstEpisodes": "�",
-      "fullAccess": "�",
-      "sampleEpisode": "�"
+      "oneConversation": "1 συνομιλία",
+      "unlimited": "Απεριόριστα",
+      "firstEpisodes": "Τα πρώτα επεισόδια",
+      "fullAccess": "Πλήρης πρόσβαση",
+      "sampleEpisode": "Δείγμα επεισοδίου"
     },
     "categories": {
-      "codingFundamentals": "�",
-      "buildWithJeremy": "�",
-      "support": "�",
-      "certificates": "�",
-      "experience": "�"
+      "codingFundamentals": "Μάθε να Προγραμματίζεις",
+      "buildWithJeremy": "Μάθε να Δημιουργείς",
+      "support": "Υποστήριξη",
+      "certificates": "Πιστοποιητικά",
+      "experience": "Εμπειρία"
     },
     "features": {
-      "codingExercisesTitle": "�",
-      "codingExercisesDesc": "�",
-      "conceptLibraryTitle": "�",
-      "conceptLibraryDesc": "�",
-      "jikiChallengesTitle": "�",
-      "jikiChallengesDesc": "�",
-      "askJikiTitle": "�",
-      "askJikiDesc": "�",
-      "buildingFundamentalsTitle": "�",
-      "buildingFundamentalsDesc": "�",
-      "howThingsWorkTitle": "�",
-      "howThingsWorkDesc": "�",
-      "earlyAccessTitle": "�",
-      "earlyAccessDesc": "�",
-      "communityForumsTitle": "�",
-      "communityForumsDesc": "�",
-      "livestreamsTitle": "�",
-      "livestreamsDesc": "�",
-      "certificatesTitle": "�",
-      "certificatesDesc": "�",
-      "adFreeTitle": "�",
-      "adFreeDesc": "�"
+      "codingExercisesTitle": "Ασκήσεις Προγραμματισμού",
+      "codingExercisesDesc": "Μάθε στην πράξη με τη διαρκώς αυξανόμενη βιβλιοθήκη διαδραστικών ασκήσεων.",
+      "conceptLibraryTitle": "Πλήρης Βιβλιοθήκη Εννοιών",
+      "conceptLibraryDesc": "Σύντομες ενότητες που καλύπτουν κάθε έννοια προγραμματισμού που χρειάζεται να ξέρεις.",
+      "jikiChallengesTitle": "Προκλήσεις",
+      "jikiChallengesDesc": "Ανάλαβε πιο δύσκολες προκλήσεις που πάνε τις δεξιότητές σου ένα βήμα παραπέρα.",
+      "askJikiTitle": "Ρώτα τον Jiki",
+      "askJikiDesc": "Ξεκόλλα με υποδείξεις και εξηγήσεις από τον Jiki, με τη δύναμη του AI.",
+      "buildingFundamentalsTitle": "Η σειρά Βασικές Αρχές Δημιουργίας",
+      "buildingFundamentalsDesc": "Δες τον Jeremy να φτιάχνει μια διαδικτυακή πλατφόρμα από το μηδέν: διακομιστές, βάσεις δεδομένων, σύστημα σύνδεσης και άλλα.",
+      "howThingsWorkTitle": "Η σειρά Πώς Λειτουργούν τα Πράγματα",
+      "howThingsWorkDesc": "Βαθιές βουτιές στα πιο δύσκολα σημεία του Exercism και του Jiki, και γιατί είναι φτιαγμένα έτσι.",
+      "earlyAccessTitle": "Πρόωρη πρόσβαση σε νέες λειτουργίες",
+      "earlyAccessDesc": "Δοκίμασε τις νέες λειτουργίες πριν από όλους.",
+      "communityForumsTitle": "Φόρουμ κοινότητας",
+      "communityForumsDesc": "Κάνε ερωτήσεις και μάθαινε μαζί με τους άλλους μαθητές του Jiki.",
+      "livestreamsTitle": "Ζωντανές μεταδόσεις ερωτήσεων και απαντήσεων με τον Jeremy",
+      "livestreamsDesc": "Πάρε μέρος σε ζωντανές συνεδρίες ερωτήσεων και απαντήσεων όπου ο Jeremy απαντά στις ερωτήσεις σου για τον προγραμματισμό και τη δημιουργία.",
+      "certificatesTitle": "Κέρδισε πιστοποιητικά για τα μαθήματα",
+      "certificatesDesc": "Ανάδειξε όσα έμαθες με πιστοποιητικά που μπορείς να μοιραστείς.",
+      "adFreeTitle": "Μάθηση χωρίς διαφημίσεις",
+      "adFreeDesc": "Συγκεντρώσου στη μάθηση χωρίς περισπασμούς."
     },
     "faq": {
-      "title": "�",
-      "q1": "�",
-      "a1": "�",
-      "q2": "�",
-      "a2": "�",
-      "q3": "�",
-      "a3": "�",
-      "q4": "�",
-      "q5": "�",
-      "a5": "�",
-      "a4": "�"
+      "title": "Συχνές ερωτήσεις",
+      "q1": "Μπορώ να δοκιμάσω το Jiki δωρεάν;",
+      "a1": "Ναι! Μπορείς να γραφτείς δωρεάν και να χρησιμοποιείς το Βασικό πλάνο για όσο θέλεις. Αναβάθμισε σε Premium όποτε χρειαστείς πλήρη πρόσβαση, χωρίς καμία δέσμευση.",
+      "q2": "Υπάρχει ελάχιστη διάρκεια συμβολαίου;",
+      "a2": "Καμία ελάχιστη δέσμευση. Το Premium χρεώνεται μηνιαία και μπορείς να ακυρώσεις όποτε θέλεις από τις ρυθμίσεις του λογαριασμού σου.",
+      "q3": "Τι γίνεται αν ακυρώσω τη συνδρομή μου Premium;",
+      "a3": "Θα κρατήσεις την πρόσβαση στο Premium μέχρι το τέλος της τρέχουσας περιόδου χρέωσης και μετά ο λογαριασμός σου θα επιστρέψει στο Βασικό πλάνο. Δεν χάνεις καθόλου την πρόοδό σου, χάνεις μόνο την πρόσβαση στις λειτουργίες που είναι αποκλειστικά για Premium.",
+      "q4": "Προσφέρετε εκπτώσεις για φοιτητές ή για όσους δεν έχουν την οικονομική δυνατότητα για το Premium;",
+      "q5": "Μπορώ να αναβαθμίσω ή να υποβαθμίσω το πλάνο μου αργότερα;",
+      "a5": "Φυσικά. Μπορείς να αναβαθμίσεις σε Premium όποτε θέλεις από τον λογαριασμό σου, και να ακυρώσεις εξίσου εύκολα όποτε το θελήσεις.",
+      "a4": "Θέλουμε το Jiki να είναι προσιτό σε όλους. Αν το κόστος είναι εμπόδιο, <link>επικοινώνησε μαζί μας</link> και θα κάνουμε ό,τι μπορούμε για να βοηθήσουμε."
     },
     "cta": {
-      "alreadyPremiumTitle": "�",
-      "alreadyPremiumDesc": "�",
-      "upgradeTitle": "�",
-      "upgradeDesc": "�",
-      "upgradeButton": "�",
-      "freeTitle": "�",
-      "freeDesc": "�",
-      "freeButton": "�"
+      "alreadyPremiumTitle": "Είσαι ήδη μέλος Premium",
+      "alreadyPremiumDesc": "Ευχαριστούμε που στηρίζεις το Jiki. Απόλαυσε πλήρη πρόσβαση σε όλα!",
+      "upgradeTitle": "Θες να επιταχύνεις τη μάθησή σου;",
+      "upgradeDesc": "Αναβάθμισε σε Premium και ξεκλείδωσε όλα όσα έχει να προσφέρει το Jiki.",
+      "upgradeButton": "Αναβάθμιση σε Premium",
+      "freeTitle": "Ξεκίνα δωρεάν",
+      "freeDesc": "Ξεκίνα σήμερα δωρεάν και απόκτησε πρόσβαση σε εκατοντάδες ώρες δωρεάν περιεχομένου. Αναβάθμισε σε Premium όταν θελήσεις να πας ακόμα πιο βαθιά.",
+      "freeButton": "Γράψου δωρεάν"
     },
     "publicPrice": {
-      "unavailable": "�"
+      "unavailable": "—"
     },
     "benefits": {
-      "unlimitedAiTitle": "�",
-      "unlimitedAiDescription": "�",
-      "unlimitedContentTitle": "�",
-      "unlimitedContentDescription": "�",
-      "certificatesTitle": "�",
-      "certificatesDescription": "�",
-      "adFreeTitle": "�",
-      "adFreeDescription": "�",
-      "prioritySupportTitle": "�",
-      "prioritySupportDescription": "�",
-      "earlyAccessTitle": "�",
-      "earlyAccessDescription": "�"
+      "unlimitedAiTitle": "Απεριόριστη βοήθεια AI",
+      "unlimitedAiDescription": "Πάρε εξατομικευμένη καθοδήγηση από τον Jiki όποτε κολλάς",
+      "unlimitedContentTitle": "Απεριόριστο περιεχόμενο",
+      "unlimitedContentDescription": "Πρόσβαση σε όλες τις ασκήσεις, τα πρότζεκτ και τις μαθησιακές διαδρομές",
+      "certificatesTitle": "Πιστοποιητικά",
+      "certificatesDescription": "Κέρδισε πιστοποιητικά που μπορείς να μοιραστείς όταν ολοκληρώνεις μαθήματα",
+      "adFreeTitle": "Χωρίς διαφημίσεις",
+      "adFreeDescription": "Απόλαυσε μια μαθησιακή εμπειρία χωρίς περισπασμούς",
+      "prioritySupportTitle": "Υποστήριξη κατά προτεραιότητα",
+      "prioritySupportDescription": "Πάρε πιο γρήγορες απαντήσεις όταν χρειάζεσαι βοήθεια",
+      "earlyAccessTitle": "Πρόωρη πρόσβαση",
+      "earlyAccessDescription": "Δοκίμασε πριν από όλους τις νέες λειτουργίες και το νέο περιεχόμενο"
     }
   },
   "roadmap": {
@@ -858,44 +858,44 @@
   },
   "misc": {
     "chooseLanguage": {
-      "selectLanguage": "�",
-      "backToVideo": "�",
-      "tooltip": "�",
-      "saving": "�",
-      "confirmChoice": "�",
-      "questionTitle": "�",
-      "javascript": "�",
-      "python": "�",
-      "chooseForMe": "�",
-      "cantChange": "�",
-      "noVideo": "�",
-      "videoInstruction": "�"
+      "selectLanguage": "Επιλογή Γλώσσας",
+      "backToVideo": "Πίσω στο βίντεο",
+      "tooltip": "Επίλεξε μία από τις επιλογές για να συνεχίσεις.",
+      "saving": "Αποθήκευση...",
+      "confirmChoice": "Επιβεβαίωση Επιλογής",
+      "questionTitle": "Ποια γλώσσα θέλεις να μάθεις;",
+      "javascript": "JavaScript",
+      "python": "Python",
+      "chooseForMe": "Επίλεξε για μένα",
+      "cantChange": "Δεν μπορείς να αλλάξεις μετά την επιλογή.",
+      "noVideo": "Δεν υπάρχει διαθέσιμο βίντεο",
+      "videoInstruction": "Δες το βίντεο και μετά διάλεξε τη γλώσσα σου. Ξέρεις ήδη; <skip>Παράλειψη βίντεο</skip>"
     },
     "deleteAccount": {
-      "deletedTitle": "�",
-      "deletedSubtitle": "�",
-      "deletingTitle": "�",
-      "deletingSubtitle": "�",
-      "errorTitle": "�",
-      "errorSubtitle": "�",
-      "expiredTitle": "�",
-      "expiredSubtitle": "�",
-      "expiredSecondary": "�",
-      "goHome": "�"
+      "deletedTitle": "Ο λογαριασμός σου διαγράφηκε",
+      "deletedSubtitle": "Λυπούμαστε που φεύγεις. Ελπίζουμε να απόλαυσες το Jiki. Καλή τύχη στο ταξίδι σου στον προγραμματισμό!",
+      "deletingTitle": "Διαγραφή του λογαριασμού σου",
+      "deletingSubtitle": "Περίμενε λίγο",
+      "errorTitle": "Προέκυψε ένα σφάλμα",
+      "errorSubtitle": "Προέκυψε σφάλμα κατά τη διαγραφή του λογαριασμού σου. Έχουμε ειδοποιηθεί και θα τον διαγράψουμε χειροκίνητα για εσένα.",
+      "expiredTitle": "Ο σύνδεσμος έληξε ή δεν είναι έγκυρος",
+      "expiredSubtitle": "Αυτός ο σύνδεσμος διαγραφής δεν ισχύει πια. Μπορεί να έχει ήδη χρησιμοποιηθεί ή να έχει λήξει.",
+      "expiredSecondary": "Αν εξακολουθείς να θέλεις να διαγράψεις τον λογαριασμό σου, συνδέσου και ζήτησε νέο σύνδεσμο διαγραφής από τις ρυθμίσεις σου.",
+      "goHome": "Μετάβαση στην αρχική σελίδα"
     },
     "errorPage": {
-      "serverErrorTitle": "�",
-      "serverErrorMessage": "�",
-      "serverErrorAction": "�",
-      "notFoundTitle": "�",
-      "notFoundMessage": "�",
-      "notFoundAction": "�"
+      "serverErrorTitle": "Κάτι πήγε στραβά",
+      "serverErrorMessage": "Αντιμετωπίσαμε ένα απρόσμενο σφάλμα. Ζητάμε συγγνώμη!",
+      "serverErrorAction": "Δοκίμασε ξανά",
+      "notFoundTitle": "Η σελίδα δεν βρέθηκε",
+      "notFoundMessage": "Δεν μπορούμε να βρούμε αυτή τη σελίδα. Συγγνώμη!",
+      "notFoundAction": "Πήγαινέ με στην αρχική"
     },
     "testimonialsPage": {
-      "title": "�",
-      "subtitle": "�",
-      "quoteOpenAlt": "�",
-      "quoteCloseAlt": "�"
+      "title": "Μαρτυρίες",
+      "subtitle": "Ρωτήσαμε τους μαθητές μας αν τους άρεσε το μάθημα. Να τι μας είπαν...",
+      "quoteOpenAlt": "“",
+      "quoteCloseAlt": "”"
     }
   },
   "concepts": {
@@ -1058,47 +1058,47 @@
   },
   "toasts": {
     "subscription": {
-      "loginRequired": "�",
-      "checkoutFailed": "�",
-      "alreadyPremium": "�",
-      "checkoutSessionFailed": "�",
-      "portalFailed": "�",
-      "canceled": "�",
-      "cancelFailed": "�",
-      "reactivated": "�",
-      "reactivateFailed": "�",
-      "paymentPortalFailed": "�"
+      "loginRequired": "Συνδέσου για να αναβαθμίσεις τον λογαριασμό σου",
+      "checkoutFailed": "Η έναρξη της διαδικασίας πληρωμής απέτυχε. Δοκίμασε ξανά.",
+      "alreadyPremium": "Είσαι ήδη στο πλάνο Premium",
+      "checkoutSessionFailed": "Η δημιουργία συνεδρίας πληρωμής απέτυχε",
+      "portalFailed": "Το άνοιγμα της πύλης πελατών απέτυχε",
+      "canceled": "Η συνδρομή ακυρώθηκε. Θα κρατήσεις την πρόσβαση μέχρι τις {date}",
+      "cancelFailed": "Η ακύρωση της συνδρομής απέτυχε",
+      "reactivated": "Η συνδρομή επανενεργοποιήθηκε!",
+      "reactivateFailed": "Η επανενεργοποίηση της συνδρομής απέτυχε",
+      "paymentPortalFailed": "Το άνοιγμα της πύλης πληρωμών απέτυχε"
     },
     "auth": {
-      "sessionExpired": "�"
+      "sessionExpired": "Η συνεδρία σου έληξε. Συνδέσου ξανά."
     },
     "logout": {
-      "loading": "�",
-      "success": "�",
-      "failed": "�"
+      "loading": "Αποσύνδεση...",
+      "success": "Αποσυνδέθηκες με επιτυχία",
+      "failed": "Η αποσύνδεση απέτυχε. Δεν ήταν δυνατή η επικοινωνία με τον διακομιστή"
     },
     "avatar": {
-      "updated": "�",
-      "uploadFailed": "�",
-      "networkError": "�",
-      "invalidImageType": "�",
-      "imageTooLarge": "�"
+      "updated": "Το avatar ενημερώθηκε",
+      "uploadFailed": "Το ανέβασμα του avatar απέτυχε",
+      "networkError": "Σφάλμα δικτύου. Δοκίμασε ξανά.",
+      "invalidImageType": "Επίλεξε εικόνα JPEG, PNG, GIF ή WebP",
+      "imageTooLarge": "Η εικόνα πρέπει να είναι μικρότερη από 5MB"
     },
     "settings": {
-      "fetchFailed": "�",
-      "settingUpdated": "�",
-      "updateFailed": "�",
-      "notificationUpdateFailed": "�",
-      "streaksUpdateFailed": "�"
+      "fetchFailed": "Η φόρτωση των ρυθμίσεων απέτυχε",
+      "settingUpdated": "{field, select, name {Το όνομα} email {Το email} password {Ο κωδικός πρόσβασης} locale {Η προτίμηση γλώσσας} handle {Το όνομα χρήστη} other {{field}}} ενημερώθηκε με επιτυχία",
+      "updateFailed": "Η ενημέρωση απέτυχε",
+      "notificationUpdateFailed": "Η ενημέρωση της προτίμησης ειδοποιήσεων απέτυχε",
+      "streaksUpdateFailed": "Η ενημέρωση της ρύθμισης των σερί απέτυχε"
     },
     "exercise": {
-      "submissionFailed": "�",
-      "chatSaveFailed": "�",
-      "chatSaveCaptchaFailed": "�",
-      "lessonSaveError": "�"
+      "submissionFailed": "Δεν ήταν δυνατή η αποθήκευση της υποβολής σου. Δοκίμασε ξανά.",
+      "chatSaveFailed": "Δεν ήταν δυνατή η αποθήκευση αυτού του μηνύματος. Δεν θα είναι εδώ όταν επιστρέψεις.",
+      "chatSaveCaptchaFailed": "Η επαλήθευση απέτυχε κατά την αποθήκευση. Αυτό το μήνυμα δεν θα είναι εδώ όταν επιστρέψεις.",
+      "lessonSaveError": "Λυπούμαστε, η ενότητα δεν μπόρεσε να ολοκληρωθεί. Δοκίμασε ξανά. Αν συνεχιστεί, ανάφερέ το στο <link>https://forum.jiki.io</link>"
     },
     "lesson": {
-      "loadFailed": "�"
+      "loadFailed": "Λυπούμαστε, δεν μπορέσαμε να ανοίξουμε αυτή την ενότητα. Δοκίμασε ξανά."
     }
   },
   "modals": {
@@ -1339,19 +1339,19 @@
     }
   },
   "challenge": {
-    "backToChallenges": "�",
+    "backToChallenges": "Πίσω στις Προκλήσεις",
     "error": {
-      "message": "�"
+      "message": "Σφάλμα: {error}"
     },
-    "loadError": "�",
-    "documentTitle": "�",
+    "loadError": "Η φόρτωση της πρόκλησης απέτυχε",
+    "documentTitle": "{title} - Πρόκληση - Jiki",
     "locked": {
-      "title": "�",
-      "description": "�"
+      "title": "Κλειδωμένη Πρόκληση",
+      "description": "Αυτή η πρόκληση είναι προς το παρόν κλειδωμένη. Ολοκλήρωσε τις προηγούμενες ενότητες για να την ξεκλειδώσεις."
     },
     "premiumRequired": {
-      "title": "�",
-      "description": "�"
+      "title": "Απαιτείται Premium",
+      "description": "Οι Προκλήσεις είναι λειτουργία Premium. Αναβάθμισε το πλάνο σου για να ξεκινήσεις να δημιουργείς."
     }
   },
   "dashboard": {
@@ -1681,121 +1681,121 @@
   },
   "projects": {
     "projectCard": {
-      "comingSoon": "�",
-      "comingSoonLabel": "�"
+      "comingSoon": "Έρχεται Σύντομα",
+      "comingSoonLabel": "Έρχεται σύντομα"
     },
     "episodeCard": {
-      "premium": "�"
+      "premium": "Premium"
     },
     "episodeSummary": {
-      "heading": "�",
-      "whereWeStart": "�",
-      "whereWeEnd": "�",
-      "whatWeCover": "�"
+      "heading": "Το Επεισόδιο με μια Ματιά",
+      "whereWeStart": "Από πού ξεκινάμε",
+      "whereWeEnd": "Πού καταλήγουμε",
+      "whatWeCover": "Τι καλύπτουμε"
     },
     "projectPage": {
-      "backToAllProjects": "�"
+      "backToAllProjects": "← Πίσω σε <strong>Όλα τα Πρότζεκτ</strong>"
     },
     "episodePage": {
-      "backToProject": "�",
-      "relevantGuidesDescription": "�"
+      "backToProject": "← Πίσω στο <strong>{title}</strong>",
+      "relevantGuidesDescription": "Οδηγοί που μπορεί να σου φανούν χρήσιμοι σε αυτό το βήμα της διαδικασίας."
     },
     "relevantGuides": {
-      "heading": "�"
+      "heading": "Σχετικοί Οδηγοί"
     }
   },
   "guides": {
     "guidesContent": {
-      "pageHeading": "�",
-      "searchPlaceholder": "�",
-      "filterAll": "�",
-      "noResultsTitle": "�",
-      "noResultsMessage": "�"
+      "pageHeading": "Οδηγοί και πρακτικές οδηγίες",
+      "searchPlaceholder": "Αναζήτηση οδηγών...",
+      "filterAll": "Όλοι",
+      "noResultsTitle": "0 αποτελέσματα για \"{query}\"",
+      "noResultsMessage": "Δοκίμασε διαφορετικό όρο αναζήτησης ή περιηγήσου στους οδηγούς."
     },
     "guideCard": {
-      "premium": "�"
+      "premium": "Premium"
     },
     "guideBreadcrumb": {
-      "guides": "�"
+      "guides": "Οδηγοί"
     },
     "premiumGate": {
-      "lockedTitle": "�",
-      "lockedSubtitle": "�",
-      "unlockButton": "�"
+      "lockedTitle": "Αυτός ο οδηγός είναι για μέλη Premium",
+      "lockedSubtitle": "Ξεκλείδωσε αυτόν τον οδηγό, και όλα όσα προσφέρει το Jiki Premium, για να συνεχίσεις το διάβασμα.",
+      "unlockButton": "Ξεκλείδωμα με Premium"
     },
     "relatedGuides": {
-      "heading": "�"
+      "heading": "Σχετικοί Οδηγοί"
     },
     "featuredInProjects": {
-      "heading": "�"
+      "heading": "Εμφανίζεται σε Πρότζεκτ"
     },
     "metadata": {
-      "notFoundTitle": "�"
+      "notFoundTitle": "Ο Οδηγός Δεν Βρέθηκε"
     }
   },
   "unsubscribe": {
-    "title": "�",
-    "subtitle": "�",
-    "updateError": "�",
-    "toggleAria": "�",
+    "title": "Προτιμήσεις Email",
+    "subtitle": "Διαχειρίσου πώς και πότε επικοινωνούμε μαζί σου.",
+    "updateError": "Η ενημέρωση των προτιμήσεών σου απέτυχε. Δοκίμασε ξανά.",
+    "toggleAria": "Εναλλαγή {name}",
     "manage": {
-      "title": "�",
-      "description": "�",
-      "updated": "�",
-      "save": "�"
+      "title": "Διαχειρίσου τις Ειδοποιήσεις σου",
+      "description": "Ρύθμισε ποια emails λαμβάνεις, ενεργοποιώντας ή απενεργοποιώντας κάθε τύπο ειδοποίησης ξεχωριστά.",
+      "updated": "Οι προτιμήσεις email σου ενημερώθηκαν.",
+      "save": "Αλλαγή Προτιμήσεων"
     },
     "all": {
-      "title": "�",
-      "description": "�",
-      "success": "�",
-      "button": "�"
+      "title": "Απεγγραφή από Όλα τα Emails",
+      "description": "Θες να σταματήσεις κάθε επικοινωνία μέσω email από το Jiki; Έτσι θα απεγγραφείς από όλα τα emails μάρκετινγκ, ειδοποιήσεων και υπενθυμίσεων.",
+      "success": "Απεγγράφηκες από όλα τα emails του Jiki.",
+      "button": "Απεγγραφή από Όλα τα Emails"
     },
     "email": {
-      "alreadyTitle": "�",
-      "alreadyDescription": "�",
-      "title": "�",
-      "description": "�",
-      "success": "�",
-      "button": "�",
-      "fallbackType": "�"
+      "alreadyTitle": "Έχεις Ήδη Απεγγραφεί",
+      "alreadyDescription": "Αυτή τη στιγμή δεν λαμβάνεις <highlight>{emailType}</highlight>.",
+      "title": "Απεγγραφή από Αυτό το Email",
+      "description": "Δεν θέλεις πια να λαμβάνεις αυτόν τον τύπο email; Κάνε κλικ παρακάτω για να μην λαμβάνεις πια <highlight>{emailType}</highlight>.",
+      "success": "Δεν θα λαμβάνεις πια {emailType}.",
+      "button": "Απεγγραφή από {emailType}",
+      "fallbackType": "αυτά τα emails"
     },
     "types": {
       "newsletters": {
-        "title": "�",
-        "description": "�",
-        "shortLabel": "�"
+        "title": "Ενημερώσεις Προϊόντος",
+        "description": "Μάθαινε για νέες λειτουργίες και βελτιώσεις.",
+        "shortLabel": "ενημερώσεις προϊόντος"
       },
       "event_emails": {
-        "title": "�",
-        "description": "�",
-        "shortLabel": "�"
+        "title": "Ειδοποιήσεις Εκδηλώσεων",
+        "description": "Λάμβανε ειδοποιήσεις για επερχόμενες ζωντανές μεταδόσεις και εκδηλώσεις.",
+        "shortLabel": "ειδοποιήσεις εκδηλώσεων"
       },
       "milestone_emails": {
-        "title": "�",
-        "description": "�",
-        "shortLabel": "�"
+        "title": "Ειδοποιήσεις Επιτευγμάτων",
+        "description": "Λάμβανε ειδοποιήσεις όταν ξεκλειδώνεις νέες δεξιότητες ή επιτεύγματα.",
+        "shortLabel": "ειδοποιήσεις επιτευγμάτων"
       },
       "activity_emails": {
-        "title": "�",
-        "description": "�",
-        "shortLabel": "�"
+        "title": "Emails Δραστηριότητας",
+        "description": "Ειδοποιήσεις βάσει δραστηριότητας, όπως το ξεκλείδωμα εμβλημάτων και η ολοκλήρωση προκλήσεων.",
+        "shortLabel": "emails δραστηριότητας"
       },
       "onboarding_emails": {
-        "title": "�",
-        "description": "�",
-        "shortLabel": "�"
+        "title": "Emails Πρώτων Βημάτων",
+        "description": "Συμβουλές και καθοδήγηση για να αξιοποιήσεις στο έπακρο το Jiki.",
+        "shortLabel": "emails πρώτων βημάτων"
       }
     }
   },
   "achievements": {
-    "title": "�",
-    "description": "�",
-    "tabBadges": "�",
-    "tabCertificates": "�",
-    "loading": "�",
-    "error": "�",
-    "certificatesEmptyTitle": "�",
-    "certificatesEmptyBody": "�"
+    "title": "Επιτεύγματα",
+    "description": "Κάθε έμβλημα λέει μια ιστορία από το ταξίδι σου στον προγραμματισμό.",
+    "tabBadges": "Εμβλήματα",
+    "tabCertificates": "Πιστοποιητικά",
+    "loading": "Φόρτωση επιτευγμάτων...",
+    "error": "Σφάλμα: {error}",
+    "certificatesEmptyTitle": "Κανένα πιστοποιητικό ακόμα",
+    "certificatesEmptyBody": "Ολοκλήρωσε μαθήματα για να κερδίσεις πιστοποιητικά που αναδεικνύουν τις δεξιότητές σου. Τα πιστοποιητικά σου θα εμφανίζονται εδώ μόλις ολοκληρώσεις ένα μάθημα."
   },
   "challenges": {
     "title": "Προκλήσεις",
@@ -1830,24 +1830,24 @@
   "subscription": {
     "tiers": {
       "standard": {
-        "name": "�",
-        "description": "�",
+        "name": "Δωρεάν",
+        "description": "Ιδανικό για να ξεκινήσεις",
         "features": {
-          "freeCourses": "�",
-          "basicExercises": "�",
-          "communitySupport": "�",
-          "aiHelpPerMonth": "�"
+          "freeCourses": "Πρόσβαση στα δωρεάν μαθήματα",
+          "basicExercises": "Βασικές ασκήσεις προγραμματισμού",
+          "communitySupport": "Υποστήριξη από την κοινότητα",
+          "aiHelpPerMonth": "1 βοήθεια AI τον μήνα"
         }
       },
       "premium": {
-        "name": "�",
-        "description": "�",
+        "name": "Premium",
+        "description": "Ξεκλείδωσε προηγμένες λειτουργίες",
         "features": {
-          "allFreeFeatures": "�",
-          "unlimitedAi": "�",
-          "allExercises": "�",
-          "certificates": "�",
-          "adFree": "�"
+          "allFreeFeatures": "Όλες οι λειτουργίες του Δωρεάν πλάνου",
+          "unlimitedAi": "Απεριόριστη βοήθεια AI",
+          "allExercises": "Πρόσβαση σε όλες τις ασκήσεις",
+          "certificates": "Πιστοποιητικά",
+          "adFree": "Εμπειρία χωρίς διαφημίσεις"
         }
       }
     }

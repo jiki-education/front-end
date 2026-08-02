@@ -15,7 +15,9 @@ export const ALL_LOCALES = [
   "es-419",
   "es-ES",
   "fa",
+  "fi",
   "fr",
+  "he",
   "hi",
   "hu",
   "id",
@@ -62,7 +64,7 @@ export const SUPPORTED_LOCALES: readonly Locale[] = ALL_LOCALES;
 // Locales that read right-to-left, driving `dir="rtl"` on `<html>` via
 // getLocaleDirection() (server-rendered in app/layout.tsx, synced client-side on
 // locale swap in ClientLocaleProvider).
-export const RTL_LOCALES: ReadonlySet<Locale> = new Set(["ar", "fa", "ur"]);
+export const RTL_LOCALES: ReadonlySet<Locale> = new Set(["ar", "fa", "he", "ur"]);
 
 // Text direction for a locale: "rtl" for locales in RTL_LOCALES, "ltr" otherwise
 // (including any unknown/unsupported string). Drives `dir` on `<html>` (server via

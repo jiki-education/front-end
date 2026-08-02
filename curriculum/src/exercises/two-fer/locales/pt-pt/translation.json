@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "moreThanSixLines": "Usaste mais de seis linhas de código."
+  },
+  "tasks": {
+    "createTwoFerFunction": {
+      "name": "Cria a função two-fer",
+      "description": "Escreve uma função twoFer que recebe um nome e devolve 'One for [name], one for me.' Se não for indicado nenhum nome (uma string vazia), usa 'you' em vez do nome."
+    },
+    "solveInSixLines": {
+      "name": "Resolve em seis linhas de código",
+      "description": "Consegues resolver isto com apenas seis linhas de código?"
+    }
+  },
+  "scenarios": {
+    "twoFerDefault": {
+      "name": "Sem nome indicado",
+      "description": "Não é indicado nenhum nome, por isso devolve 'One for you, one for me.'"
+    },
+    "twoFerAlice": {
+      "name": "Nome dado: Alice",
+      "description": "O nome dela é 'Alice', por isso devolve 'One for Alice, one for me.'"
+    },
+    "twoFerTom": {
+      "name": "Nome dado: Tom",
+      "description": "O nome dele é 'Tom', por isso devolve 'One for Tom, one for me.'"
+    },
+    "bonus1": {
+      "name": "Seis linhas de código",
+      "description": "Resolve o exercício com apenas seis linhas de código."
+    }
+  },
+  "hints": {
+    "whatChanges": {
+      "question": "O que muda consoante o valor recebido?",
+      "answer": "Só uma coisa: o nome no meio da frase. Se recebeste um nome, usa-o. Se não, usa o valor por omissão `\"you\"`."
+    },
+    "checkGivenName": {
+      "question": "Como verifico se recebi um nome?",
+      "answer": "Com uma condicional que compara o valor recebido com a string vazia `\"\"`. Se estiver vazia, usa `\"you\"`. Caso contrário, usa o valor recebido."
+    },
+    "buildSentence": {
+      "question": "Como construo a frase final?",
+      "answer": "Junta as três partes (`\"One for \"`, o nome escolhido e `\", one for me.\"`) usando concatenação (`+`) ou uma template string."
+    }
+  }
+}

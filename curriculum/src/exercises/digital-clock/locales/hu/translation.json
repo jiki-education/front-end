@@ -1,80 +1,80 @@
 {
   "errors": {
-    "hourNotNumber": "hour must be a number",
-    "minutesNotNumber": "minutes must be a number",
-    "indicatorNotString": "indicator must be a string"
+    "hourNotNumber": "az órának számnak kell lennie",
+    "minutesNotNumber": "a percnek számnak kell lennie",
+    "indicatorNotString": "a jelölésnek stringnek kell lennie"
   },
   "checks": {
-    "notUpdated": "The clock didn't get updated. Make sure you use the <code>displayTime</code> function.",
-    "wrongTime": "Expected \"{{expected}}\" but got \"{{got}}\""
+    "notUpdated": "Az óra nem frissült. Ügyelj rá, hogy a <code>displayTime</code> függvényt használd.",
+    "wrongTime": "A várt érték „{{expected}}” volt, de „{{got}}” érkezett"
   },
   "tasks": {
     "displayTime": {
-      "name": "Display the time on the clock",
-      "description": "Get the current hour and minute, convert to 12-hour format with am/pm, and display it using displayTime()."
+      "name": "Jelenítsd meg az időt az órán",
+      "description": "Kérd le az aktuális órát és percet, alakítsd át 12 órás formátumra am/pm jelöléssel, majd jelenítsd meg a displayTime() függvénnyel."
     }
   },
   "scenarios": {
     "morning1": {
-      "name": "Early morning",
-      "description": "Display 6:35 as \"6:35am\""
+      "name": "Kora reggel",
+      "description": "Jelenítsd meg a 6:35-öt „6:35am” formában"
     },
     "morning2": {
-      "name": "Late morning",
-      "description": "Display 11:04 as \"11:04am\""
+      "name": "Késő délelőtt",
+      "description": "Jelenítsd meg a 11:04-et „11:04am” formában"
     },
     "afternoon1": {
-      "name": "Early afternoon",
-      "description": "Display 12:19 as \"12:19pm\""
+      "name": "Kora délután",
+      "description": "Jelenítsd meg a 12:19-et „12:19pm” formában"
     },
     "afternoon2": {
-      "name": "Late evening",
-      "description": "Display 23:32 as \"11:32pm\""
+      "name": "Késő este",
+      "description": "Jelenítsd meg a 23:32-t „11:32pm” formában"
     },
     "midnight": {
-      "name": "Midnight",
-      "description": "Display midnight as \"12:00am\""
+      "name": "Éjfél",
+      "description": "Jelenítsd meg az éjfélt „12:00am” formában"
     },
     "noon": {
-      "name": "Noon",
-      "description": "Display noon as \"12:00pm\""
+      "name": "Dél",
+      "description": "Jelenítsd meg a delet „12:00pm” formában"
     },
     "now": {
-      "name": "Display the current time",
-      "description": "Display the current time"
+      "name": "Jelenítsd meg az aktuális időt",
+      "description": "Jelenítsd meg az aktuális időt"
     }
   },
   "hints": {
     "gettingStarted": {
-      "question": "I don't know how to get started",
-      "answer": "Use `currentTimeHour()` and `currentTimeMinute()` to get the current time, then use `displayTime(hour, minutes, \"am\")` with their values to see what happens. Then work out how to set the correct meridiem and the correct hour display."
+      "question": "Nem tudom, hogyan kezdjek hozzá",
+      "answer": "Használd a `currentTimeHour()` és a `currentTimeMinute()` függvényt az aktuális idő lekérdezéséhez, majd add át az értékeiket a `displayTime(hour, minutes, \"am\")` függvénynek, és nézd meg, mi történik. Utána találd ki, hogyan állítsd be a helyes meridiemet és a helyes óraértéket."
     },
     "meridiem": {
-      "question": "How does the meridiem work?",
-      "answer": "Hours 0-11 are 'am', hours 12-23 are 'pm'. Midnight (hour 0) should display as 12am. Noon (hour 12) should display as 12pm."
+      "question": "Hogyan működik a meridiem?",
+      "answer": "A 0-11 közötti órák jelölése 'am', a 12-23 közötti óráké 'pm'. Az éjfélnek (0. óra) 12am-ként kell megjelennie. A délnek (12. óra) 12pm-ként kell megjelennie."
     },
     "hourChange": {
-      "question": "When and why does the hour need to change?",
-      "answer": "On a 12 hour clock, 13:00 is represented as 1:00pm, 14:00 is represented as 2:00pm, so you need to work out the relationship between 13->1 and 14->2 etc, and amend the clock accordingly!"
+      "question": "Mikor és miért kell megváltoztatni az órát?",
+      "answer": "Egy 12 órás órán a 13:00 úgy jelenik meg, hogy 1:00pm, a 14:00 pedig úgy, hogy 2:00pm. Találd ki, mi az összefüggés a 13->1 és a 14->2 között, és állítsd be az órát ennek megfelelően!"
     }
   },
   "describers": {
-    "currentTimeHour": "retrieved the current hour",
-    "currentTimeMinute": "retrieved the current minute",
-    "displayTime": "displayed the time on the clock"
+    "currentTimeHour": "lekérdezte az aktuális órát",
+    "currentTimeMinute": "lekérdezte az aktuális percet",
+    "displayTime": "megjelenítette az időt az órán"
   },
   "functions": {
     "currentTimeHour": {
-      "description": "Returns the current hour using 24-hour time (e.g. 23 for 11pm) as a number.",
-      "category": "Time"
+      "description": "Az aktuális órát adja vissza számként, 24 órás formátumban (pl. 11pm esetén 23).",
+      "category": "Idő"
     },
     "currentTimeMinute": {
-      "description": "Returns the current minute as a number.",
-      "category": "Time"
+      "description": "Az aktuális percet adja vissza számként.",
+      "category": "Idő"
     },
     "displayTime": {
-      "description": "Displays the time on the digital clock. The indicator should be \"am\" or \"pm\".",
-      "category": "Action"
+      "description": "Megjeleníti az időt a digitális órán. A jelölés \"am\" vagy \"pm\" legyen.",
+      "category": "Akció"
     }
   }
 }

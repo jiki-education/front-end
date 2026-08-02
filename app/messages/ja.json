@@ -1,0 +1,1855 @@
+{
+  "layout": {
+    "footer": {
+      "about": {
+        "heading": "Jiki について",
+        "aboutJiki": "Jiki とは",
+        "testimonials": "利用者の声",
+        "ourTeam": "チーム紹介",
+        "premium": "Jiki プレミアム",
+        "roadmap": "ロードマップ"
+      },
+      "legal": {
+        "heading": "規約とポリシー",
+        "termsOfUsage": "利用規約",
+        "privacyPolicy": "プライバシーポリシー",
+        "cookiePolicy": "Cookie ポリシー",
+        "codeOfConduct": "行動規範",
+        "accessibility": "アクセシビリティ"
+      },
+      "keepInTouch": {
+        "heading": "つながる",
+        "blog": "Jiki のブログ",
+        "youtube": "Jiki の YouTube チャンネル",
+        "reportAbuse": "不正行為を報告",
+        "sitemap": "サイトマップ"
+      },
+      "freeContent": {
+        "heading": "無料コンテンツ",
+        "codingConcepts": "プログラミングの概念",
+        "agenticGuides": "AI エージェント時代のプログラミングガイド"
+      },
+      "getHelp": {
+        "heading": "サポート",
+        "helpCenter": "ヘルプセンター",
+        "faqs": "よくある質問",
+        "contactUs": "お問い合わせ",
+        "siteStatus": "サイトの稼働状況"
+      },
+      "copyright": "© {year} Jiki Ltd"
+    },
+    "externalHeader": {
+      "homeAriaLabel": "Jiki のホーム",
+      "logoAlt": "Jiki",
+      "aboutJiki": "Jiki とは",
+      "premium": "プレミアム",
+      "testimonials": "利用者の声",
+      "login": "ログイン",
+      "signUp": "無料で登録",
+      "menuAriaLabel": "メニューを開く",
+      "closeMenuAriaLabel": "メニューを閉じる"
+    },
+    "internalHeader": {
+      "homeAriaLabel": "Jiki のホーム",
+      "logoAlt": "Jiki",
+      "backToJiki": "Jiki に戻る →"
+    },
+    "sidebar": {
+      "groups": {
+        "learnToCode": "コードを学ぶ",
+        "learnToBuild": "開発を学ぶ",
+        "community": "コミュニティ",
+        "more": "その他"
+      },
+      "nav": {
+        "learn": "プログラミングの基礎",
+        "build": "プロジェクト",
+        "challenges": "チャレンジ",
+        "concepts": "プログラミングの概念",
+        "achievements": "実績",
+        "guides": "ガイド",
+        "videos": "動画",
+        "blog": "ブログ",
+        "forum": "フォーラム",
+        "settings": "設定",
+        "help": "ヘルプ",
+        "upgrade": "プレミアムにアップグレード",
+        "logOut": "ログアウト"
+      },
+      "premiumPill": "プレミアム"
+    },
+    "loading": {
+      "title": "Jiki を起こしています",
+      "subtitle": "学習の準備をしています"
+    },
+    "localeBanner": {
+      "prefix": "このページの {language} 版を表示しています。",
+      "cta": "{language} に切り替える",
+      "or": "または",
+      "close": "このお知らせを閉じる"
+    }
+  },
+  "common": {
+    "continue": "�",
+    "close": "�",
+    "cancel": "�",
+    "confirm": "�",
+    "processing": "�",
+    "reloadPage": "�",
+    "loading": "�",
+    "languageNames": {
+      "en": "�",
+      "el": "�",
+      "fa": "�",
+      "fr": "�",
+      "hu": "�",
+      "it": "�",
+      "nl": "�",
+      "pt-BR": "�",
+      "pt-PT": "�",
+      "ru": "�",
+      "sr": "�",
+      "uk": "�",
+      "zh-TW": "�"
+    },
+    "verifying": "�",
+    "sending": "�",
+    "perMonth": "�",
+    "validation": {
+      "emailInvalid": "�",
+      "passwordRequired": "�",
+      "passwordMinLength": "�",
+      "currentPasswordRequired": "�",
+      "newPasswordRequired": "�",
+      "passwordsNoMatch": "�"
+    },
+    "pagination": {
+      "label": "�",
+      "previousPage": "�",
+      "nextPage": "�"
+    },
+    "loadingJiki": {
+      "alt": "�"
+    },
+    "otpInput": {
+      "label": "�",
+      "digitLabel": "�"
+    },
+    "closeButton": {
+      "label": "�"
+    },
+    "copyButton": {
+      "label": "�",
+      "copied": "�"
+    },
+    "soundToggle": {
+      "mute": "�",
+      "unmute": "�"
+    },
+    "themeToggle": {
+      "switchToDark": "�",
+      "switchToSystem": "�",
+      "switchToLight": "�",
+      "toggle": "�",
+      "description": "�"
+    },
+    "badgeNewLabel": {
+      "label": "�"
+    },
+    "saving": "�",
+    "retry": "�",
+    "tryAgain": "�"
+  },
+  "build": {
+    "upcomingStreams": {
+      "heading": "�",
+      "toBeAnnounced": "�",
+      "subscribeButton": "�"
+    },
+    "hub": {
+      "title": "�",
+      "description": "�"
+    }
+  },
+  "auth": {
+    "oauth": {
+      "useGoogle": "�",
+      "useExercism": "�",
+      "divider": "�"
+    },
+    "fields": {
+      "emailLabel": "�",
+      "emailPlaceholder": "�",
+      "passwordLabel": "�",
+      "passwordPlaceholder": "�",
+      "emailRequired": "�"
+    },
+    "captchaError": {
+      "signup": "�",
+      "login": "�",
+      "generic": "�"
+    },
+    "login": {
+      "title": "�",
+      "invalidCredentials": "�",
+      "forgotPassword": "�",
+      "submit": "�",
+      "submitting": "�",
+      "unconfirmed": "�",
+      "resend": "�",
+      "noAccount": "�"
+    },
+    "signup": {
+      "title": "�",
+      "emailAlreadyRegistered": "�",
+      "submit": "�",
+      "submitting": "�",
+      "haveAccount": "�",
+      "resend": "�"
+    },
+    "forgotPassword": {
+      "title": "�",
+      "subtitle": "�",
+      "successMessage": "�",
+      "submit": "�",
+      "remembered": "�"
+    },
+    "resetPassword": {
+      "invalidTitle": "�",
+      "invalidMessage": "�",
+      "requestNewLink": "�",
+      "title": "�",
+      "subtitle": "�",
+      "tokenMissing": "�",
+      "confirmationRequired": "�",
+      "successMessage": "�",
+      "newPasswordLabel": "�",
+      "newPasswordPlaceholder": "�",
+      "confirmPasswordLabel": "�",
+      "confirmPasswordPlaceholder": "�",
+      "submit": "�",
+      "submitting": "�",
+      "remembered": "�"
+    },
+    "resendConfirmation": {
+      "title": "�",
+      "subtitle": "�",
+      "successMessage": "�",
+      "submit": "�",
+      "confirmed": "�"
+    },
+    "checkInbox": {
+      "heading": "�",
+      "sentTo": "�",
+      "hint": "�"
+    },
+    "emailConfirmed": {
+      "heading": "�",
+      "message": "�"
+    },
+    "confirmEmail": {
+      "pendingTitle": "�",
+      "pendingDescription": "�",
+      "errorTitle": "�",
+      "errorMessage": "�",
+      "errorCta": "�"
+    },
+    "exercismCallback": {
+      "errorTitle": "�",
+      "errorCta": "�",
+      "pendingTitle": "�",
+      "pendingDescription": "�",
+      "authFailed": "�"
+    },
+    "errorCard": {
+      "needHelp": "�"
+    },
+    "twoFactorVerify": {
+      "title": "�",
+      "subtitle": "�",
+      "codeLabel": "�"
+    },
+    "twoFactorSetup": {
+      "instructionsHeading": "�",
+      "appsHint": "�",
+      "codeLabel": "�"
+    },
+    "unsubscribe": {
+      "noToken": "�",
+      "linkInvalid": "�",
+      "tooManyRequests": "�",
+      "serviceUnavailable": "�",
+      "unableToProcess": "�",
+      "networkError": "�",
+      "processingTitle": "�",
+      "processingDescription": "�",
+      "successTitle": "�",
+      "successDescription": "�",
+      "errorTitle": "�"
+    },
+    "twoFactor": {
+      "cancel": "�",
+      "invalidCode": "�",
+      "verificationFailed": "�"
+    },
+    "layout": {
+      "logoAlt": "�",
+      "tagline": "�",
+      "description": "�",
+      "createdBy": "�",
+      "brand": "�"
+    }
+  },
+  "settings": {
+    "page": {
+      "title": "�",
+      "description": "�",
+      "tabAccount": "�",
+      "tabSubscription": "�",
+      "tabNotifications": "�",
+      "tabLearning": "�",
+      "tabDanger": "�"
+    },
+    "avatarEdit": {
+      "adjustTitle": "�",
+      "adjustSubtitle": "�",
+      "back": "�",
+      "save": "�",
+      "changeTitle": "�",
+      "changeSubtitlePart1": "�",
+      "changeSubtitlePart2": "�",
+      "uploadText": "�",
+      "uploadHint": "�"
+    },
+    "avatarUpload": {
+      "label": "�"
+    },
+    "avatarPreview": {
+      "alt": "�"
+    },
+    "cancelConfirm": {
+      "title": "�",
+      "message": "�",
+      "benefitsTitle": "�",
+      "benefit1": "�",
+      "benefit2": "�",
+      "benefit3": "�",
+      "benefit4": "�",
+      "keep": "�",
+      "cancel": "�"
+    },
+    "cancelSuccess": {
+      "title": "�",
+      "message": "�",
+      "accessUntil": "�",
+      "resubscribeNote": "�",
+      "gotIt": "�"
+    },
+    "changeEmail": {
+      "title": "�",
+      "importantLabel": "�",
+      "importantText": "�",
+      "currentEmailLabel": "�",
+      "newEmailLabel": "�",
+      "newEmailPlaceholder": "�",
+      "passwordLabel": "�",
+      "passwordPlaceholder": "�",
+      "passwordHint": "�",
+      "newEmailRequired": "�",
+      "emailSame": "�",
+      "updateFailed": "�",
+      "submit": "�"
+    },
+    "deleteAccount": {
+      "sendFailed": "�",
+      "confirmTitle": "�",
+      "confirmMessage": "�",
+      "submit": "�",
+      "securityTitle": "�",
+      "securityMessage": "�",
+      "understand": "�"
+    },
+    "paymentHistory": {
+      "title": "�",
+      "subtitle": "�",
+      "loading": "�",
+      "error": "�",
+      "empty": "�",
+      "columnDate": "�",
+      "columnAmount": "�",
+      "columnType": "�",
+      "columnMethod": "�",
+      "downloadReceipt": "�"
+    },
+    "profile": {
+      "nameLabel": "�",
+      "namePlaceholder": "�",
+      "updateName": "�",
+      "nameEmpty": "�",
+      "nameTooLong": "�",
+      "handleLabel": "�",
+      "handlePlaceholder": "�",
+      "updateHandle": "�",
+      "handleEmpty": "�",
+      "handleInvalid": "�",
+      "handleTooShort": "�",
+      "handleTooLong": "�",
+      "emailLabel": "�",
+      "emailPlaceholder": "�",
+      "updateEmail": "�",
+      "emailEmpty": "�",
+      "confirmationPendingHint": "�",
+      "emailNotConfirmed": "�",
+      "confirmationPending": "�"
+    },
+    "subscriptionSection": {
+      "loadingCardTitle": "�",
+      "loadingCardDescription": "�",
+      "loadingData": "�"
+    },
+    "benefits": {
+      "activeSubtitle": "�",
+      "cancellingSubtitle": "�",
+      "resubscribeTitle": "�",
+      "resubscribeButton": "�",
+      "activeHeading": "�",
+      "cancellingHeading": "�",
+      "footer": "�",
+      "resubscribe": "�"
+    },
+    "cancelSectionPanel": {
+      "title": "�",
+      "description": "�",
+      "cancel": "�"
+    },
+    "premiumUpsell": {
+      "subtitle": "�",
+      "planName": "�",
+      "upgrade": "�",
+      "headline": "�",
+      "dailyNote": "�"
+    },
+    "neverSubscribed": {
+      "heading": "�",
+      "subtitle": "�",
+      "featuresLabel": "�",
+      "upgradeAriaLabel": "�",
+      "upgrade": "�"
+    },
+    "errorBoundary": {
+      "title": "�",
+      "messagePart1": "�",
+      "messagePart2": "�",
+      "refresh": "�",
+      "detailsSummary": "�"
+    },
+    "danger": {
+      "sessionLabel": "�",
+      "sessionDescription": "�",
+      "logout": "�",
+      "deleteLabel": "�",
+      "deleteDescription": "�",
+      "deleteButton": "�"
+    },
+    "learning": {
+      "streaksLabel": "�",
+      "streaksDescription": "�",
+      "toggleAriaLabel": "�",
+      "learnMore": "�"
+    },
+    "notifications": {
+      "toggleAriaLabel": "�",
+      "essentialTitle": "�",
+      "essentialDescription": "�",
+      "featuresTitle": "�",
+      "featuresDescription": "�",
+      "livestreamsTitle": "�",
+      "livestreamsDescription": "�",
+      "milestonesTitle": "�",
+      "milestonesDescription": "�",
+      "activityTitle": "�",
+      "activityDescription": "�",
+      "onboardingTitle": "�",
+      "onboardingDescription": "�"
+    },
+    "editableField": {
+      "update": "�",
+      "edit": "�",
+      "saveFailed": "�"
+    },
+    "passwordField": {
+      "updateFailed": "�",
+      "currentLabel": "�",
+      "currentPlaceholder": "�",
+      "newLabel": "�",
+      "newPlaceholder": "�",
+      "confirmLabel": "�",
+      "confirmPlaceholder": "�",
+      "submit": "�",
+      "label": "�",
+      "change": "�"
+    },
+    "subscriptionStatus": {
+      "statusActive": "�",
+      "statusCanceled": "�",
+      "statusPaymentFailed": "�",
+      "statusCancelling": "�",
+      "statusIncomplete": "�",
+      "statusSessionExpired": "�",
+      "statusNotSubscribed": "�",
+      "currentPlan": "�",
+      "cancellingMessage": "�",
+      "currentPlanAriaLabel": "�",
+      "statusAriaLabel": "�",
+      "messageCanceled": "�",
+      "messagePaymentFailed": "�",
+      "messageCancelling": "�",
+      "messageIncomplete": "�",
+      "messageIncompleteExpired": "�",
+      "active": "�",
+      "activeWithBilling": "�",
+      "cancellingRemaining": "�",
+      "cancellingEnds": "�",
+      "free": "�",
+      "planLabel": "�"
+    }
+  },
+  "landing": {
+    "hero": {
+      "tagline": "�",
+      "ctaSubtext": "�",
+      "loadingVideo": "�",
+      "playVideo": "�",
+      "watchPrompt": "�",
+      "headline": "�",
+      "audience": "�"
+    },
+    "exercism": {
+      "heading": "�",
+      "intro": "�",
+      "studentsCount": "�",
+      "studentsTitle": "�",
+      "studentsDesc": "�",
+      "testimonialsCount": "�",
+      "testimonialsTitle": "�",
+      "testimonialsDesc": "�",
+      "exercisesCount": "�",
+      "exercisesTitle": "�",
+      "exercisesDesc": "�",
+      "mentoringCount": "�",
+      "mentoringTitle": "�",
+      "mentoringDesc": "�"
+    },
+    "signupSection": {
+      "intro": "�",
+      "button": "�",
+      "heading": "�"
+    },
+    "signupButton": {
+      "label": "�"
+    },
+    "faqs": {
+      "heading": "�",
+      "q1": "�",
+      "q1a1": "�",
+      "q1Item1": "�",
+      "q1Item2": "�",
+      "q1Item3": "�",
+      "q1Item4": "�",
+      "q1Item5": "�",
+      "q1Item6": "�",
+      "q1Item7": "�",
+      "q2": "�",
+      "q2a": "�",
+      "q3": "�",
+      "q3a1": "�",
+      "q3a2": "�",
+      "q4": "�",
+      "q4a1": "�",
+      "q4a2": "�",
+      "q5": "�",
+      "q5a1": "�",
+      "q5a2": "�",
+      "intro": "�",
+      "q1a2": "�"
+    },
+    "latestNews": {
+      "heading": "�",
+      "byAuthor": "�",
+      "subheading": "�"
+    },
+    "welcome": {
+      "para1": "�",
+      "para2": "�",
+      "para3": "�",
+      "hiThere": "�",
+      "para4": "�",
+      "para5": "�",
+      "heading2": "�",
+      "para6": "�",
+      "para7": "�",
+      "para8": "�",
+      "heading3": "�",
+      "para9": "�",
+      "rhodriAlt": "�",
+      "captionShort": "�",
+      "captionLong": "�",
+      "para11": "�",
+      "para12": "�",
+      "heading4": "�",
+      "para13": "�",
+      "listItem1": "�",
+      "listItem2": "�",
+      "para14": "�",
+      "spaceInvadersLabel": "�",
+      "ticTacToeLabel": "�",
+      "breakoutLabel": "�",
+      "mazeLabel": "�",
+      "heading5": "�",
+      "para15": "�",
+      "ctaButton": "�",
+      "heading": "�",
+      "para10": "�",
+      "para17": "�",
+      "para16": "�"
+    },
+    "bootcamp": {
+      "tagWhatWeCover": "�",
+      "menuHeading": "�",
+      "menuIntro": "�",
+      "part1Heading": "�",
+      "part1Bubble": "�",
+      "part1Intro": "�",
+      "part1Item2": "�",
+      "part1Item3": "�",
+      "part1Item4": "�",
+      "part1Duration": "�",
+      "part1Alt": "�",
+      "levelsHeading": "�",
+      "levelsSideheading": "�",
+      "levelsIntro": "�",
+      "levelsSubIntro": "�",
+      "penguinAlt": "�",
+      "level2": "�",
+      "golfLabel": "�",
+      "level3": "�",
+      "flowerLabel": "�",
+      "flowerLevel": "�",
+      "spaceInvadersLabel": "�",
+      "level7": "�",
+      "wallLabel": "�",
+      "level10": "�",
+      "wordleAlt": "�",
+      "level12": "�",
+      "ticTacToeLabel": "�",
+      "level14": "�",
+      "mazeLabel": "�",
+      "level16": "�",
+      "dreamingHouseLabel": "�",
+      "level20": "�",
+      "breakoutLabel": "�",
+      "levelEnd": "�",
+      "buildingHeading": "�",
+      "buildingIntro": "�",
+      "part2Heading": "�",
+      "part2Bubble": "�",
+      "part2Intro": "�",
+      "part2Item1": "�",
+      "part2Item2": "�",
+      "part2Item3": "�",
+      "part2Duration": "�",
+      "jeremyLivestreamAlt": "�",
+      "certificateBubble": "�",
+      "certificateHeading": "�",
+      "certificatePara1": "�",
+      "certificatePara2": "�",
+      "certificateAlt": "�",
+      "linkedinAlt": "�",
+      "linkedinShare": "�",
+      "part1Item1": "�"
+    }
+  },
+  "premium": {
+    "page": {
+      "heading": "�",
+      "subheading": "�"
+    },
+    "planPrice": {
+      "basic": "�",
+      "premium": "�",
+      "free": "�",
+      "perMonth": "�"
+    },
+    "planBadge": {
+      "free": "�",
+      "premium": "�"
+    },
+    "table": {
+      "comparePlans": "�",
+      "comparePlansDesc": "�",
+      "checkNo": "�"
+    },
+    "values": {
+      "oneConversation": "�",
+      "unlimited": "�",
+      "firstEpisodes": "�",
+      "fullAccess": "�",
+      "sampleEpisode": "�"
+    },
+    "categories": {
+      "codingFundamentals": "�",
+      "buildWithJeremy": "�",
+      "support": "�",
+      "certificates": "�",
+      "experience": "�"
+    },
+    "features": {
+      "codingExercisesTitle": "�",
+      "codingExercisesDesc": "�",
+      "conceptLibraryTitle": "�",
+      "conceptLibraryDesc": "�",
+      "jikiChallengesTitle": "�",
+      "jikiChallengesDesc": "�",
+      "askJikiTitle": "�",
+      "askJikiDesc": "�",
+      "buildingFundamentalsTitle": "�",
+      "buildingFundamentalsDesc": "�",
+      "howThingsWorkTitle": "�",
+      "howThingsWorkDesc": "�",
+      "earlyAccessTitle": "�",
+      "earlyAccessDesc": "�",
+      "communityForumsTitle": "�",
+      "communityForumsDesc": "�",
+      "livestreamsTitle": "�",
+      "livestreamsDesc": "�",
+      "certificatesTitle": "�",
+      "certificatesDesc": "�",
+      "adFreeTitle": "�",
+      "adFreeDesc": "�"
+    },
+    "faq": {
+      "title": "�",
+      "q1": "�",
+      "a1": "�",
+      "q2": "�",
+      "a2": "�",
+      "q3": "�",
+      "a3": "�",
+      "q4": "�",
+      "q5": "�",
+      "a5": "�",
+      "a4": "�"
+    },
+    "cta": {
+      "alreadyPremiumTitle": "�",
+      "alreadyPremiumDesc": "�",
+      "upgradeTitle": "�",
+      "upgradeDesc": "�",
+      "upgradeButton": "�",
+      "freeTitle": "�",
+      "freeDesc": "�",
+      "freeButton": "�"
+    },
+    "publicPrice": {
+      "unavailable": "�"
+    },
+    "benefits": {
+      "unlimitedAiTitle": "�",
+      "unlimitedAiDescription": "�",
+      "unlimitedContentTitle": "�",
+      "unlimitedContentDescription": "�",
+      "certificatesTitle": "�",
+      "certificatesDescription": "�",
+      "adFreeTitle": "�",
+      "adFreeDescription": "�",
+      "prioritySupportTitle": "�",
+      "prioritySupportDescription": "�",
+      "earlyAccessTitle": "�",
+      "earlyAccessDescription": "�"
+    }
+  },
+  "roadmap": {
+    "page": {
+      "heading": "�",
+      "subheading": "�",
+      "disclaimer": "�"
+    },
+    "status": {
+      "shipped": "�",
+      "inProgress": "�",
+      "planned": "�"
+    },
+    "changelog": {
+      "title": "�",
+      "subtitle": "�",
+      "learnToBuildLaunch": {
+        "date": "�",
+        "title": "�",
+        "description": "�"
+      },
+      "milestones6To10": {
+        "date": "�",
+        "title": "�",
+        "description": "�"
+      },
+      "jikiLaunch": {
+        "date": "�",
+        "title": "�",
+        "description": "�"
+      }
+    },
+    "phases": {
+      "now": {
+        "label": "�",
+        "timeframe": "�",
+        "summary": "�",
+        "learnToBuild": {
+          "title": "�",
+          "description": "�"
+        },
+        "launchBugs": {
+          "title": "�",
+          "description": "�"
+        },
+        "earlyFeedback": {
+          "title": "�",
+          "description": "�"
+        },
+        "foundations": {
+          "title": "�",
+          "description": "�"
+        }
+      },
+      "next": {
+        "label": "�",
+        "timeframe": "�",
+        "summary": "�",
+        "betaToLive": {
+          "title": "�",
+          "description": "�"
+        },
+        "deepDiveVideos": {
+          "title": "�",
+          "description": "�"
+        },
+        "newLanguages": {
+          "title": "�",
+          "description": "�"
+        },
+        "pythonVersion": {
+          "title": "�",
+          "description": "�"
+        }
+      },
+      "future": {
+        "label": "�",
+        "timeframe": "�",
+        "summary": "�",
+        "moreLanguages": {
+          "title": "�",
+          "description": "�"
+        },
+        "sql": {
+          "title": "�",
+          "description": "�"
+        }
+      }
+    }
+  },
+  "misc": {
+    "chooseLanguage": {
+      "selectLanguage": "�",
+      "backToVideo": "�",
+      "tooltip": "�",
+      "saving": "�",
+      "confirmChoice": "�",
+      "questionTitle": "�",
+      "javascript": "�",
+      "python": "�",
+      "chooseForMe": "�",
+      "cantChange": "�",
+      "noVideo": "�",
+      "videoInstruction": "�"
+    },
+    "deleteAccount": {
+      "deletedTitle": "�",
+      "deletedSubtitle": "�",
+      "deletingTitle": "�",
+      "deletingSubtitle": "�",
+      "errorTitle": "�",
+      "errorSubtitle": "�",
+      "expiredTitle": "�",
+      "expiredSubtitle": "�",
+      "expiredSecondary": "�",
+      "goHome": "�"
+    },
+    "errorPage": {
+      "serverErrorTitle": "�",
+      "serverErrorMessage": "�",
+      "serverErrorAction": "�",
+      "notFoundTitle": "�",
+      "notFoundMessage": "�",
+      "notFoundAction": "�"
+    },
+    "testimonialsPage": {
+      "title": "�",
+      "subtitle": "�",
+      "quoteOpenAlt": "�",
+      "quoteCloseAlt": "�"
+    }
+  },
+  "concepts": {
+    "breadcrumb": {
+      "root": "プログラミングの概念"
+    },
+    "list": {
+      "heading": "概念ライブラリ",
+      "intro": "これまでに学んだ概念を、ここで振り返ることができます。",
+      "searchPlaceholder": "概念を検索...",
+      "emptyTitle": "まだ概念がありません",
+      "emptyBody": "レッスンを完了すると、新しい概念がアンロックされます。レッスンで習得した概念は、ここでいつでも振り返ることができます。",
+      "noResultsTitle": "「<query></query>」の検索結果は 0 件です",
+      "noResultsMessage": "別のキーワードで検索するか、ライブラリを見てみましょう。"
+    },
+    "card": {
+      "locked": "ロック中",
+      "subConcepts": "{count, plural, one {サブ概念 # 件} other {サブ概念 # 件}}"
+    },
+    "error": {
+      "notFound": "概念が見つかりませんでした。",
+      "back": "概念一覧に戻る"
+    },
+    "relatedConcepts": {
+      "heading": "関連する概念",
+      "description": "こちらの関連する概念もチェックしてみましょう。",
+      "locked": "この概念はロックされています"
+    },
+    "relatedExercises": {
+      "heading": "関連する演習",
+      "description": "この概念を練習するのにぴったりの演習です！",
+      "signupPrompt": "<link>登録</link>して挑戦してみましょう！",
+      "locked": "この演習はロックされています"
+    },
+    "relatedChallenges": {
+      "heading": "関連するチャレンジ",
+      "description": "この概念を実践できるチャレンジです。",
+      "locked": "このチャレンジはロックされています"
+    },
+    "videoRecap": {
+      "loggedInHeader": "レッスンをもう一度見る",
+      "loggedInDescription": "授業の動画を見返して、この概念を学んだときのことを思い出しましょう",
+      "loggedOutHeader": "レッスンを見る",
+      "loggedOutDescription": "Jeremy と Jiki と一緒にこの概念を学びましょう！",
+      "playAriaLabel": "レッスンの復習動画を再生",
+      "thumbnailAlt": "レッスン復習動画のサムネイル"
+    },
+    "signupCta": {
+      "title": "プログラミングの旅を始めてみませんか？",
+      "subtitle": "Jiki で学ぶたくさんの仲間に加わりましょう。演習に取り組み、メンターからフィードバックをもらって、スキルアップ。しかも無料です！",
+      "button": "無料で登録"
+    },
+    "upgradeCard": {
+      "logoAlt": "Jiki",
+      "heading": "今日から<highlight>プログラミングの旅</highlight>を始めましょう！",
+      "text": "Jiki に登録して、インタラクティブな演習、実践的なプロジェクト、一人ひとりに合わせたサポートでプログラミングを学びましょう。<free>しかも無料です！</free>",
+      "button": "無料で登録"
+    }
+  },
+  "seo": {
+    "concepts": {
+      "title": "�",
+      "description": "�",
+      "notFound": "�"
+    },
+    "achievements": {
+      "title": "�",
+      "description": "�"
+    },
+    "build": {
+      "title": "�",
+      "description": "�"
+    },
+    "dashboard": {
+      "title": "�",
+      "description": "�"
+    },
+    "challenges": {
+      "title": "�",
+      "description": "�"
+    },
+    "settings": {
+      "title": "�",
+      "description": "�"
+    },
+    "checkEmail": {
+      "title": "�",
+      "description": "�"
+    },
+    "confirmEmail": {
+      "title": "�",
+      "description": "�"
+    },
+    "exercismCallback": {
+      "title": "�",
+      "description": "�"
+    },
+    "forgotPassword": {
+      "title": "�",
+      "description": "�"
+    },
+    "login": {
+      "title": "�",
+      "description": "�"
+    },
+    "resendConfirmation": {
+      "title": "�",
+      "description": "�"
+    },
+    "resetPassword": {
+      "title": "�",
+      "description": "�"
+    },
+    "signup": {
+      "title": "�",
+      "description": "�"
+    },
+    "home": {
+      "title": "�",
+      "description": "�"
+    },
+    "premium": {
+      "title": "�",
+      "description": "�"
+    },
+    "roadmap": {
+      "title": "�",
+      "description": "�"
+    },
+    "testimonials": {
+      "title": "�",
+      "description": "�"
+    },
+    "deleteAccount": {
+      "title": "�",
+      "description": "�"
+    },
+    "unsubscribePreferences": {
+      "title": "�",
+      "description": "�"
+    },
+    "unsubscribe": {
+      "title": "�",
+      "description": "�"
+    },
+    "blog": {
+      "title": "�",
+      "description": "�",
+      "notFound": "�"
+    },
+    "help": {
+      "title": "�",
+      "description": "�",
+      "notFound": "�"
+    },
+    "guides": {
+      "title": "�",
+      "description": "�"
+    }
+  },
+  "toasts": {
+    "subscription": {
+      "loginRequired": "�",
+      "checkoutFailed": "�",
+      "alreadyPremium": "�",
+      "checkoutSessionFailed": "�",
+      "portalFailed": "�",
+      "canceled": "�",
+      "cancelFailed": "�",
+      "reactivated": "�",
+      "reactivateFailed": "�",
+      "paymentPortalFailed": "�"
+    },
+    "auth": {
+      "sessionExpired": "�"
+    },
+    "logout": {
+      "loading": "�",
+      "success": "�",
+      "failed": "�"
+    },
+    "avatar": {
+      "updated": "�",
+      "uploadFailed": "�",
+      "networkError": "�",
+      "invalidImageType": "�",
+      "imageTooLarge": "�"
+    },
+    "settings": {
+      "fetchFailed": "�",
+      "settingUpdated": "�",
+      "updateFailed": "�",
+      "notificationUpdateFailed": "�",
+      "streaksUpdateFailed": "�"
+    },
+    "exercise": {
+      "submissionFailed": "�",
+      "chatSaveFailed": "�",
+      "chatSaveCaptchaFailed": "�",
+      "lessonSaveError": "�"
+    },
+    "lesson": {
+      "loadFailed": "�"
+    }
+  },
+  "modals": {
+    "welcomeToPremium": {
+      "badge": "プレミアム会員",
+      "description": "アップグレードありがとうございます！Jiki とのチャット無制限、プロジェクト、「開発を学ぶ」など、プレミアムのすべての特典が利用できるようになりました！",
+      "title": "<highlight>プレミアム</highlight>へようこそ！"
+    },
+    "subscriptionSuccess": {
+      "chatGate": {
+        "title": "AI チャットへようこそ！",
+        "description": "AI アシスタントがアンロックされ、演習のサポートを受けられるようになりました。",
+        "feature1": "コードについて質問する",
+        "feature2": "難しい概念の解説を聞く",
+        "feature3": "一人ひとりに合わせたヒントとアドバイスをもらう"
+      },
+      "featureGate": {
+        "title": "機能がアンロックされました！",
+        "description": "学習体験を高めるプレミアム機能が利用できるようになりました。"
+      },
+      "settings": {
+        "title": "{tier} へようこそ！",
+        "description": "サブスクリプションが有効になりました。設定画面から新しい機能を確認してみましょう。"
+      },
+      "general": {
+        "title": "{tier} へようこそ！",
+        "description": "プランのアップグレードありがとうございます。すべてのプレミアム機能が利用できるようになりました。"
+      },
+      "planLabel": "{tier} プラン",
+      "whatYouCanDo": "できるようになったこと：",
+      "getStarted": "始める",
+      "continueLearning": "学習を続ける",
+      "skipForNow": "今はスキップ",
+      "renewalNotice": "サブスクリプションは {date} に自動更新されます。設定画面からいつでも管理できます。"
+    },
+    "confirmation": {
+      "defaultTitle": "操作の確認",
+      "defaultMessage": "実行してもよろしいですか？"
+    },
+    "info": {
+      "defaultTitle": "お知らせ",
+      "defaultButton": "わかりました！"
+    },
+    "connectionError": {
+      "title": "おっと！接続が切れました",
+      "subtitle": "Jiki が少しからまって、接続が切れてしまいました。でも大丈夫、いま復旧に取り組んでいます！",
+      "reconnecting": "再接続中",
+      "helpText": "そのまま少しお待ちください。たいていは数十秒で直ります。<br></br>問題が続く場合は、<link>ステータスページを確認してください</link>。"
+    },
+    "sessionExpired": {
+      "title": "セッションの有効期限切れ",
+      "description": "セッションの有効期限が切れました。もう一度ログインしてください。"
+    },
+    "paymentVerificationFailed": {
+      "title": "お支払いを確認できませんでした",
+      "description": "Stripe への確認中に問題が発生しました。少し待ってからページを再読み込みしてみてください。それでもプレミアムが有効にならない場合は、サポートまでお問い合わせください。"
+    },
+    "levelMilestone": {
+      "title": "🎉 レベルクリア！",
+      "message": "おめでとうございます！<strong>{levelTitle}</strong> を完了し、このレベルのすべての概念を習得しました。",
+      "lessonsCompleted": "完了したレッスン",
+      "xpEarned": "獲得 XP",
+      "readyNext": "次のレベルをアンロックして、学習の旅を続けましょう！",
+      "goToDashboard": "ダッシュボードへ",
+      "continueNextLevel": "次のレベルへ進む"
+    },
+    "badge": {
+      "funFact": "豆知識",
+      "keepGoing": "この調子で！"
+    },
+    "authError": {
+      "title": "ログアウトされました。",
+      "subtitle": "何らかの理由でログアウトされました（セキュリティチェック、または別の端末でのログアウトかもしれません）。続けるには、ページを再読み込みしてください。",
+      "helpText": "この問題が繰り返し起きる場合は、<cookiesLink>Cookie の削除</cookiesLink>を試すか、<supportLink>サポートにお問い合わせください</supportLink>。"
+    },
+    "rateLimit": {
+      "title": "操作が速すぎるようです。",
+      "subtitle": "サーバーへのリクエストが多すぎたため、数秒間だけ一時停止しています。そのままお待ちください。自動的に再接続されます。",
+      "autoRefresh": "このページは自動的に再読み込みされます",
+      "noteLabel": "注:",
+      "noteText": "新しいタブを開いたり追加のリクエストを送ったりすると、待ち時間が延びます。",
+      "reconnecting": "あと <timer>{count}</timer> {count, plural, one {秒} other {秒}}で再接続します"
+    },
+    "exerciseSuccess": {
+      "defaultTitle": "おめでとうございます！",
+      "defaultMessage": "すべてのテストに合格しました！この演習は完了です。"
+    },
+    "welcome": {
+      "title": "Jiki へようこそ！",
+      "subtitle": "まずは、こちらの短い動画を見てみましょう。",
+      "skipTitle": "ウェルカム動画をスキップしますか？",
+      "skipMessage": "この動画では、Jiki を最大限に活用するコツを紹介しています。本当にスキップしますか？",
+      "skipConfirm": "動画をスキップ",
+      "skipCancel": "続きを見る"
+    },
+    "subscription": {
+      "chatGate": {
+        "headline": "AI チャットアシスタントをアンロック",
+        "description": "AI アシスタントから、演習のサポートをすぐに受けられます。"
+      },
+      "featureGate": {
+        "headlineFallback": "プレミアム機能",
+        "headline": "{feature} をアンロック",
+        "description": "プランをアップグレードして、高度な機能とより充実した学習体験を手に入れましょう。"
+      },
+      "settings": {
+        "headline": "プランを選択",
+        "description": "学習ニーズに合ったサブスクリプションプランを選びましょう。"
+      },
+      "general": {
+        "headline": "プランをアップグレード",
+        "description": "学習の目標に合ったプランを選んで、高度な機能をアンロックしましょう。"
+      },
+      "unlockWith": "{feature} でできるようになること：",
+      "recommended": "おすすめ",
+      "choosePremium": "プレミアムを選ぶ",
+      "subscribeAriaLabel": "{plan} プランに登録",
+      "renewNotice": "サブスクリプションは毎月自動更新されます。設定からいつでもキャンセルできます。",
+      "notNow": "今はやめておく"
+    },
+    "walkthroughConfirm": {
+      "title": "まずは自分で解いてみませんか？",
+      "intro": "ディープダイブを見る前に、こちらのリソースを使って自力でテストに合格できるか試してみるのもおすすめです：",
+      "tryFirst": "まず自分でやってみる",
+      "watchDeepDive": "ディープダイブを見る",
+      "conceptPages": "<strong>概念ページ</strong>：この演習で使う概念を復習できます",
+      "askJiki": "<strong>Jiki に質問</strong>：ネタバレなしで、Jiki から一人ひとりに合わせたサポートを受けられます",
+      "whatHappened": "<strong>「何が起きた？」のヒント</strong>：コードを 1 行ずつたどって、どこで問題が起きたかを確認できます",
+      "revealHints": "<strong>すべてのヒントを表示</strong>：上のヒントを読んで手がかりを得られます"
+    },
+    "paymentConfirming": {
+      "title": "お支払いを確認しています…",
+      "description": "Stripe とお支払いの確認を行っています。通常はすぐに終わります。そのままお待ちください。"
+    },
+    "example": {
+      "defaultTitle": "モーダルの例",
+      "defaultMessage": "これはモーダルの例です！"
+    },
+    "paymentProcessing": {
+      "title": "お支払いを処理中",
+      "description": "ありがとうございます。決済事業者からの入金を待っています。確認でき次第、プランをプレミアムにアップグレードして、メールでお知らせします。",
+      "continue": "Jiki を使い続ける"
+    },
+    "exerciseCompletion": {
+      "success": {
+        "title": "すべてのシナリオに合格",
+        "titleBonus": "すべてのコアシナリオに合格",
+        "messageExercise": "よくできました！この演習を完了して、次に進みましょう。",
+        "messageChallenge": "よくできました！このチャレンジを完了して、次に進みましょう。",
+        "completeExercise": "演習を完了",
+        "completeChallenge": "チャレンジを完了"
+      },
+      "conceptUnlocked": {
+        "title": "概念をアンロック！",
+        "messageGeneric": "新しい概念がアンロックされました。",
+        "messageNamed": "新しい概念がアンロックされました：<strong>{title}</strong>"
+      },
+      "completed": {
+        "titleExercise": "演習完了！",
+        "titleChallenge": "チャレンジ完了！",
+        "greatWork": "{title} の完了、おめでとうございます！",
+        "readyExercise": "次の演習に進みますか？",
+        "readyChallenge": "次のチャレンジに進みますか？",
+        "bonusPrompt": "{count, plural, one {この演習には<strong>ボーナスシナリオ</strong>があります。先に進む前に解いてみますか？} other {この演習には<strong>ボーナスシナリオ</strong>があります。先に進む前に解いてみますか？}}",
+        "tidyCode": "コードを整える",
+        "solveBonuses": "{count, plural, one {ボーナスに挑戦} other {ボーナスに挑戦}}",
+        "moveOn": "先に進む"
+      },
+      "difficultyRating": {
+        "title": "感想を教えてください",
+        "message": "{title} の改善のため、評価をお願いします！",
+        "rateDifficulty": "難易度を評価",
+        "rateFun": "楽しさを評価",
+        "difficultyTooEasy": "簡単すぎた",
+        "difficultyEasy": "簡単",
+        "difficultyJustRight": "ちょうどいい",
+        "difficultyHard": "難しい",
+        "difficultyTooHard": "難しすぎた",
+        "funFrustrating": "イライラした",
+        "funPrettyGood": "なかなか良かった",
+        "funAmazing": "最高！",
+        "rateDifficultyAriaLabel": "難易度を「{label}」と評価",
+        "rateFunAriaLabel": "楽しさを「{label}」と評価",
+        "funOptionFallback": "選択肢 {number}"
+      },
+      "challengeUnlocked": {
+        "title": "チャレンジをアンロック！",
+        "message": "おめでとうございます！練習の成果が実って、より難しいチャレンジに挑戦できるようになりました。",
+        "newLabel": "新着",
+        "premiumInfo": "<strong>プレミアム会員限定です。</strong><link>アカウントをアップグレード</link>すると、アンロックしたチャレンジに挑戦できます。"
+      }
+    },
+    "premiumUpgrade": {
+      "skipLink": "今はやめておく",
+      "userAvatarAlt": "ユーザー",
+      "upgrade": "プレミアムにアップグレード",
+      "planName": "Jiki プレミアム",
+      "featureLearnToBuild": "<strong>開発を学ぶ</strong>コンテンツへのフルアクセス",
+      "featureChallenges": "より難しい<strong>チャレンジ</strong>に挑戦できる",
+      "featureAi": "Jiki からの<strong>AI サポート</strong>が無制限",
+      "featureLivestreams": "定期開催の<strong>質疑応答ライブ配信</strong>に参加できる",
+      "featureCertificates": "コースの<strong>修了証明書</strong>を取得できる",
+      "featureAdFree": "<strong>広告なし</strong>の学習体験",
+      "featureEarlyAccess": "新機能への<strong>先行アクセス</strong>",
+      "basic": {
+        "subheading": "プレミアムにアップグレードして、仕事で通用するレベルへの道のりを加速させましょう。",
+        "planName": "ベーシックプラン",
+        "planPrice": "ずっと無料",
+        "feature1": "80 以上のプログラミング演習",
+        "feature2": "概念ライブラリをすべて利用可能",
+        "feature3": "1 つの演習で Jiki に質問できる",
+        "note": "+ 公開 YouTube 動画やコミュニティフォーラムも学習に活用できます。",
+        "headline": "学習を<highlight>加速</highlight>させましょう！"
+      },
+      "dailyNote": "（1 日あたりわずか <price></price>）"
+    },
+    "subscriptionCheckout": {
+      "connectingToStripe": "Stripe に接続中",
+      "paymentFailed": "お支払いに失敗しました",
+      "unexpectedError": "予期しないエラーが発生しました。もう一度お試しください。",
+      "paymentFailedTitle": "お支払いに失敗しました",
+      "paymentInfoAriaLabel": "お支払い情報",
+      "pay": "支払う",
+      "orderTitle": "Jiki {tier}",
+      "orderBilling": "毎月のお支払いです。いつでもキャンセルできます。",
+      "perMonthShort": "/月",
+      "securedBy": "<stripe>stripe</stripe> による安全な決済",
+      "error": "エラー: {message}"
+    },
+    "calendarSubscribe": {
+      "title": "カレンダーに登録",
+      "description": "Jiki のライブセッションをカレンダーに追加しましょう。新しいセッションは、予定が決まると自動的に表示されます。",
+      "apple": "Apple で登録",
+      "google": "Google で登録",
+      "otherLabel": "Outlook などその他のカレンダー",
+      "otherHelp": "このリンクをコピーして、カレンダーの購読に追加してください。",
+      "copied": "コピーしました"
+    }
+  },
+  "challenge": {
+    "backToChallenges": "�",
+    "error": {
+      "message": "�"
+    },
+    "loadError": "�",
+    "documentTitle": "�",
+    "locked": {
+      "title": "�",
+      "description": "�"
+    },
+    "premiumRequired": {
+      "title": "�",
+      "description": "�"
+    }
+  },
+  "dashboard": {
+    "exercisePath": {
+      "comingSoon": {
+        "title": "新しいレッスンを準備中",
+        "description": "次のレッスンを鋭意制作中です。また近いうちにのぞいてみてくださいね！"
+      },
+      "walkthrough": {
+        "label": "ディープダイブ",
+        "watch": "見る"
+      },
+      "start": {
+        "title": "旅の始まり"
+      },
+      "completionCert": {
+        "title": "修了証明書",
+        "description": "すべての演習を完了して修了証明書を手に入れ、身につけたスキルをアピールしましょう！",
+        "progress": "{percentage}% 完了"
+      },
+      "lessonNode": {
+        "status": {
+          "complete": "完了",
+          "locked": "ロック中",
+          "inProgress": "進行中"
+        },
+        "type": {
+          "video": "動画",
+          "quiz": "クイズ",
+          "choice": "選択",
+          "exercise": "演習"
+        }
+      },
+      "scrollToActive": {
+        "up": "受講中のレッスンまで上にスクロール",
+        "down": "受講中のレッスンまで下にスクロール"
+      },
+      "milestone": {
+        "label": "マイルストーン {index}"
+      }
+    },
+    "challengesSidebar": {
+      "empty": {
+        "title": "チャレンジが待っています！",
+        "description": "演習を完了すると、本格的なプログラミングチャレンジがアンロックされます。ゲームやアプリ、ツールを作って、スキルを形にしましょう。"
+      },
+      "upsell": {
+        "title": "新しいチャレンジが待っています！",
+        "description": "プレミアムのチャレンジで、身につけたスキルを組み合わせて腕試ししましょう。"
+      },
+      "userProfile": {
+        "premiumMember": "プレミアム会員"
+      },
+      "challengeCard": {
+        "status": {
+          "locked": "ロック中",
+          "notStarted": "未開始",
+          "inProgress": "進行中",
+          "completed": "完了",
+          "available": "挑戦可能"
+        }
+      },
+      "streak": {
+        "activeDays": "{count, plural, one {これまでに合計 # 日学習しました。} other {これまでに合計 # 日学習しました。}}",
+        "noStreak": "今日学習して、連続学習をスタートさせましょう！",
+        "oneDayStreak": "毎日学習して、連続学習日数を伸ばしましょう！",
+        "multiDayStreak": "{count, plural, one {# 日連続で学習しています！} other {# 日連続で学習しています！}}"
+      },
+      "badges": {
+        "title": "バッジ"
+      },
+      "recent": {
+        "title": "最近のチャレンジ",
+        "unlockedCount": "{count} 件アンロック済み",
+        "viewAll": "すべてのチャレンジを見る"
+      }
+    }
+  },
+  "codingExercise": {
+    "loadError": "演習の読み込みエラー: {error}",
+    "unknownError": "不明なエラー",
+    "runButton": {
+      "run": "コードを実行",
+      "running": "実行中...",
+      "resetAriaLabel": "演習をリセット",
+      "resetTooltip": "クリックすると演習をリセットします",
+      "resetConfirmTitle": "コードをリセットしますか？",
+      "resetConfirmMessage": "コードが最初の状態に戻ります。Jiki との会話はそのまま残るので、安心してくださいね。",
+      "resetConfirmButton": "はい、リセットします"
+    },
+    "hintsPanel": {
+      "title": "ヒント",
+      "description": "この演習で行き詰まったら、ヒントが解決の手がかりになります。ヒントをクリックすると内容が表示されます。",
+      "empty": "この演習にはヒントがありません。",
+      "reveal": "表示",
+      "hide": "隠す",
+      "confirmReveal": "このヒントを表示しますか？",
+      "confirmNo": "今はやめておく",
+      "confirmYes": "はい",
+      "deepDiveHeading": "ディープダイブ",
+      "deepDiveDescription": "まだ行き詰まっていますか？Jeremy がこの演習を解くディープダイブを見てみましょう。",
+      "walkthroughThumbnailAlt": "ディープダイブ動画のサムネイル"
+    },
+    "chatHeader": {
+      "title": "Jiki に質問",
+      "description": "AI プログラミングアシスタントに質問して、サポートを受けましょう"
+    },
+    "chatStatus": {
+      "errorLabel": "エラー:"
+    },
+    "chatPanel": {
+      "unavailable": "チャットを利用できません"
+    },
+    "chatMessages": {
+      "greeting": "こんにちは！この演習について、何かお手伝いできることはありますか？"
+    },
+    "chatInput": {
+      "placeholder": "質問を入力してください...",
+      "limitReachedPlaceholder": "メッセージの上限に達しました",
+      "respondPlaceholder": "Jiki に返信..."
+    },
+    "conversation": {
+      "loadError": "会話履歴の読み込みに失敗しました: {error}"
+    },
+    "typeItAssistant": {
+      "thinking": "Jiki が考えています"
+    },
+    "functionsView": {
+      "empty": "この演習で使える関数はありません。",
+      "examples": "例"
+    },
+    "tasksView": {
+      "empty": "この演習にはタスクがありません。",
+      "bonus": "ボーナス"
+    },
+    "logPanel": {
+      "title": "シナリオログ",
+      "emptyDescription": "ここには、コードを実行したときの出力が表示されます。変更した内容の確認に使いましょう。値を出力するには <code>console.log()</code> を使います。",
+      "description": "ここには、<scenario>{name}</scenario> シナリオでコードを実行したときの出力が表示されます。変更した内容の確認に使いましょう。値を出力するには <code>console.log()</code> を使います。",
+      "emptyState": "まだ何も出力されていません"
+    },
+    "instructionsPanel": {
+      "instructionsTitle": "説明",
+      "functionsTitle": "関数とメソッド",
+      "conceptLibraryTitle": "概念ライブラリ",
+      "functionsIntro": "この演習で使える関数とメソッドです。",
+      "functionsExamplesLabel": "例:",
+      "loadingConcepts": "概念を読み込んでいます...",
+      "premiumChallenge": "プレミアムチャレンジ",
+      "exerciseLevel": "演習 • {level}",
+      "libraryEmpty": "演習を進めると、ここに概念が表示されていきます。学んだ内容を思い出したいときの参照として使えます。",
+      "libraryChallenges": "この演習では、これまでに学んだどの概念でも使えます。学んだ内容を思い出したいときは、概念ライブラリを見返してみましょう。",
+      "libraryWithConcepts": "この演習で使う主な概念です。これまでに学んだ内容の振り返りに使いましょう。",
+      "openConceptLibrary": "概念ライブラリを開く"
+    },
+    "scrubber": {
+      "previousFrame": "前のフレーム",
+      "nextFrame": "次のフレーム",
+      "previousBreakpoint": "前のブレークポイント",
+      "nextBreakpoint": "次のブレークポイント",
+      "toggleInfoOn": "情報パネルを表示",
+      "toggleInfoOff": "情報パネルを非表示",
+      "showInfoWidget": "情報ウィジェットを表示",
+      "hideInfoWidget": "情報ウィジェットを非表示",
+      "disabledCodeEdited": "コードが編集されたため、スクラバーを無効にしました。「コードを実行」を押すと再び有効になります。",
+      "disabledSpotlight": "スクラバー無効: スポットライトモードが有効です。",
+      "disabledNotEnoughFrames": "スクラバー無効: たどれるフレームが足りません。"
+    },
+    "avatars": {
+      "jikiAlt": "Jiki",
+      "userAlt": "自分"
+    },
+    "rhs": {
+      "tabInstructions": "説明",
+      "tabAskJiki": "Jiki に質問",
+      "tabLog": "ログ",
+      "tabHints": "ヒント",
+      "navChallenges": "チャレンジ",
+      "navDashboard": "ダッシュボード"
+    },
+    "canStart": {
+      "placeholder": "質問を入力してください...",
+      "askAbout": "こんな質問ができます...",
+      "askJiki": "Jiki に質問",
+      "freeIncluded": "最初の会話は無料プランに含まれています",
+      "premiumIncluded": "<premium>プレミアム</premium>プランに含まれています",
+      "phraseWhyNotWorking": "コードが動かない理由",
+      "phraseHowToFixBug": "バグの直し方",
+      "phraseWhatErrorMeans": "このエラーの意味",
+      "phraseHowToApproach": "この演習の進め方",
+      "phraseHowToGetUnstuck": "行き詰まりから抜け出す方法"
+    },
+    "freeUserLimitReached": {
+      "description": "無料の会話を使い切りました。Jiki のサポートで、概念の理解、デバッグ、演習の攻略をさらに進めましょう。",
+      "upgradeButton": "Jiki プレミアムにアップグレード",
+      "price": "わずか <price></price>！"
+    },
+    "lockedFooter": {
+      "freeLimitText": "現在プレミアムプランではありません。<upgrade>アップグレード</upgrade>すると会話を続けられます。",
+      "premiumBlockedText": "フェアユースの上限に達しました。明日もう一度お試しください。",
+      "learnMoreFairUse": "フェアユースの上限について詳しく見る"
+    },
+    "chatUsageNotice": {
+      "warning": {
+        "daily": "1 日の上限が近づいています（今日 {used}/{limit} 件）。",
+        "monthly": "1 か月の上限が近づいています（今月 {used}/{limit} 件）。"
+      },
+      "limitReached": {
+        "daily": "今日の {limit} 件のメッセージをすべて使い切りました。UTC の午前 0 時にリセットされます。",
+        "monthly": "今月の {limit} 件のメッセージをすべて使い切りました。毎月 1 日にリセットされます。"
+      },
+      "learnMore": "詳しく見る"
+    },
+    "chatError": {
+      "sessionExpired": "セッションの有効期限が切れました。もう一度お試しください。",
+      "verificationFailed": "検証に失敗しました。もう一度お試しください。",
+      "authFailed": "認証に失敗しました。もう一度ログインしてください。",
+      "tokenServerError": "チャットの初期化中にサーバーエラーが発生しました。もう一度お試しください。",
+      "tokenInitFailed": "チャットを初期化できませんでした。もう一度お試しください。",
+      "exerciseMismatch": "演習が一致しません。ページを再読み込みして、もう一度お試しください。",
+      "authExpired": "認証の有効期限が切れました。ページを再読み込みしてください。",
+      "tooManyRequests": "リクエストが多すぎます。少し待ってからもう一度お試しください。",
+      "serviceUnavailable": "チャットサービスは一時的に利用できません。しばらくしてからもう一度お試しください。",
+      "serverError": "サーバーエラーです。少し待ってからもう一度お試しください。",
+      "networkError": "ネットワークエラーです。接続を確認して、もう一度お試しください。",
+      "timeout": "リクエストがタイムアウトしました。もう一度お試しください。",
+      "unexpected": "予期しないエラーが発生しました。もう一度お試しください。"
+    },
+    "stuckHeader": {
+      "title": "行き詰まったら、Jiki に聞いてみましょう！"
+    },
+    "testResults": {
+      "passBadge": "合格",
+      "failBadge": "不合格",
+      "pendingBadge": "未実行",
+      "pendingMessage": "コードを実行して、このシナリオが合格するか確かめましょう。",
+      "codeRun": "実行したコード",
+      "expected": "期待値",
+      "actual": "実際の値",
+      "noReturn": "[関数が何も返しませんでした]",
+      "clickRunCode": "「コードを実行」をクリックして、コードの動きを確かめましょう。",
+      "lintWarning": "<strong>あと少し...</strong> コードは正しく動きましたが、フォーマットの修正が必要です。コード内のオレンジ色の下線を確認しましょう。",
+      "lintWarningPlain": "コードは正しく動きましたが、フォーマットの修正が必要です。コード内のオレンジ色の下線を確認しましょう。",
+      "genericError": "おっと。コードにエラーがあります。",
+      "congratsWellDone": "よくできました！",
+      "congratsNiceWork": "いいですね！",
+      "congratsFantasticJob": "素晴らしい出来です！",
+      "congratsAmazingEffort": "見事な頑張りです！",
+      "congratsGreatAchievement": "大きな一歩です！",
+      "congratsCongratulations": "おめでとうございます！",
+      "congratsCongrats": "おめでとう！"
+    },
+    "syntaxError": {
+      "heading": "Jiki はこのコードを理解できませんでした。",
+      "message": "あわてなくて大丈夫です。上のメッセージのエラーを読んで修正し、もう一度コードを実行してみましょう。"
+    },
+    "unhandledError": {
+      "heading": "おっと！<strong>大変</strong>なことが起きてしまいました。",
+      "message": "<strong>これは Jiki 側のエラーです。コードのせいではありません！</strong>修正できるように、このエラーについてぜひ教えてください。下の謎めいたテキストをコピーして、<link>フォーラム</link>で共有してもらえるとうれしいです。ありがとうございます！💙"
+    }
+  },
+  "lesson": {
+    "documentTitle": "{title} - 演習 - Jiki",
+    "loadError": "レッスンを読み込めませんでした",
+    "backToDashboard": "ダッシュボードに戻る",
+    "error": {
+      "message": "エラー: {error}"
+    },
+    "quizNotImplemented": "クイズのレッスンはまだ実装されていません",
+    "quitButton": {
+      "title": "レッスンを中断",
+      "message": "このレッスンを中断しますか？進捗は保存されません。",
+      "confirm": "中断する",
+      "cancel": "学習を続ける",
+      "ariaLabel": "レッスンを中断"
+    },
+    "loadingPage": {
+      "loading": "読み込み中",
+      "message": {
+        "video": "動画レッスンを準備しています",
+        "chooseLanguage": "言語の選択肢を読み込んでいます",
+        "exercise": "コードエディターを準備しています"
+      },
+      "tip": {
+        "video": "💡 ヒント: 動画の再生速度はコントロールで調整できます",
+        "chooseLanguage": "💡 ヒント: 学びたい言語を選びましょう",
+        "exercise": "💡 ヒント: Cmd/Ctrl + Enter でコードをすばやく実行できます"
+      }
+    },
+    "loadingModal": {
+      "title": "レッスンをパーソナライズしています",
+      "subtitle": "学習の好みと進捗に合わせて準備しています"
+    }
+  },
+  "quizCard": {
+    "submit": "回答する",
+    "nextQuestion": "次の問題",
+    "codeInputPlaceholder": "// ここにコードを入力...",
+    "feedback": {
+      "correct": "正解！",
+      "incorrect": "おしい！"
+    },
+    "fillIn": {
+      "successTitle": "完璧！",
+      "successMessage": "すべての空欄が正解です！",
+      "incorrectTitle": "{count, plural, one {空欄 # か所が不正解} other {空欄 # か所が不正解}}",
+      "errorMessage": "回答を見直して、もう一度試してみましょう。"
+    },
+    "coding": {
+      "successTitle": "素晴らしい！",
+      "successMessage": "コードは正解です！",
+      "errorTitle": "おしい",
+      "errorMessage": "構文を確認して、もう一度試してみましょう。"
+    }
+  },
+  "videoExercise": {
+    "noVideoSource": "利用できる動画ソースがありません",
+    "provider": "プロバイダー: {provider}",
+    "skipHint": "初回の視聴ではスキップできませんが、巻き戻しはいつでもできます。",
+    "pill": {
+      "complete": "レッスン完了",
+      "progress": "レッスンの進捗",
+      "watching": "<title>{name}</title> を視聴中",
+      "finished": "<title>{name}</title> を視聴済み",
+      "finishTooltip": "最後まで見ると次に進めます"
+    }
+  },
+  "projects": {
+    "projectCard": {
+      "comingSoon": "�",
+      "comingSoonLabel": "�"
+    },
+    "episodeCard": {
+      "premium": "�"
+    },
+    "episodeSummary": {
+      "heading": "�",
+      "whereWeStart": "�",
+      "whereWeEnd": "�",
+      "whatWeCover": "�"
+    },
+    "projectPage": {
+      "backToAllProjects": "�"
+    },
+    "episodePage": {
+      "backToProject": "�",
+      "relevantGuidesDescription": "�"
+    },
+    "relevantGuides": {
+      "heading": "�"
+    }
+  },
+  "guides": {
+    "guidesContent": {
+      "pageHeading": "�",
+      "searchPlaceholder": "�",
+      "filterAll": "�",
+      "noResultsTitle": "�",
+      "noResultsMessage": "�"
+    },
+    "guideCard": {
+      "premium": "�"
+    },
+    "guideBreadcrumb": {
+      "guides": "�"
+    },
+    "premiumGate": {
+      "lockedTitle": "�",
+      "lockedSubtitle": "�",
+      "unlockButton": "�"
+    },
+    "relatedGuides": {
+      "heading": "�"
+    },
+    "featuredInProjects": {
+      "heading": "�"
+    },
+    "metadata": {
+      "notFoundTitle": "�"
+    }
+  },
+  "unsubscribe": {
+    "title": "�",
+    "subtitle": "�",
+    "updateError": "�",
+    "toggleAria": "�",
+    "manage": {
+      "title": "�",
+      "description": "�",
+      "updated": "�",
+      "save": "�"
+    },
+    "all": {
+      "title": "�",
+      "description": "�",
+      "success": "�",
+      "button": "�"
+    },
+    "email": {
+      "alreadyTitle": "�",
+      "alreadyDescription": "�",
+      "title": "�",
+      "description": "�",
+      "success": "�",
+      "button": "�",
+      "fallbackType": "�"
+    },
+    "types": {
+      "newsletters": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "event_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "milestone_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "activity_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "onboarding_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      }
+    }
+  },
+  "achievements": {
+    "title": "�",
+    "description": "�",
+    "tabBadges": "�",
+    "tabCertificates": "�",
+    "loading": "�",
+    "error": "�",
+    "certificatesEmptyTitle": "�",
+    "certificatesEmptyBody": "�"
+  },
+  "challenges": {
+    "title": "チャレンジ",
+    "description": "実際に動くアプリやゲームを作って、プログラミングスキルを磨きましょう。",
+    "tabAll": "すべて",
+    "tabInProgress": "進行中",
+    "tabNotStarted": "未開始",
+    "tabComplete": "完了",
+    "tabLocked": "ロック中",
+    "error": "エラー: {error}",
+    "codingChallenge": "プログラミングチャレンジ",
+    "premiumOnly": "プレミアム限定",
+    "status": {
+      "locked": "ロック中",
+      "unlocked": "未開始",
+      "started": "進行中",
+      "completed": "完了"
+    },
+    "empty": {
+      "noneAvailable": "挑戦できるチャレンジはまだありません。",
+      "noneFound": "チャレンジが見つかりませんでした。",
+      "inProgressTitle": "進行中のチャレンジはありません",
+      "inProgressDescription": "まだチャレンジを始めていません。チャレンジの一覧から「開始する」をクリックして、最初のチャレンジを始めましょう。",
+      "allStartedTitle": "すべてのチャレンジを開始済みです",
+      "allStartedDescription": "順調ですね！挑戦できるすべてのチャレンジに着手しています。この調子で完了を目指しましょう。",
+      "noneToStartTitle": "開始できるチャレンジはまだありません",
+      "noneToStartDescription": "アンロックしたチャレンジがここに表示されます。",
+      "completedTitle": "完了したチャレンジはまだありません",
+      "completedDescription": "最初のチャレンジを完了すると、ここに表示されます。進行中のチャレンジを進めて、このマイルストーンに到達しましょう。"
+    }
+  },
+  "subscription": {
+    "tiers": {
+      "standard": {
+        "name": "�",
+        "description": "�",
+        "features": {
+          "freeCourses": "�",
+          "basicExercises": "�",
+          "communitySupport": "�",
+          "aiHelpPerMonth": "�"
+        }
+      },
+      "premium": {
+        "name": "�",
+        "description": "�",
+        "features": {
+          "allFreeFeatures": "�",
+          "unlimitedAi": "�",
+          "allExercises": "�",
+          "certificates": "�",
+          "adFree": "�"
+        }
+      }
+    }
+  }
+}

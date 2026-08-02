@@ -1,29 +1,30 @@
 ---
 title: "Two-Fer"
-description: 'Share some cake: "One for you, one for me."'
+description: 'Oszd meg a sütit: „One for you, one for me.”'
+en_md5: 7f50f5fd7f96abe5acfd1776f66b68ad
 ---
 
-Now we're going to build on that simple "Hello" exercise and add some extra rules.
+Most az egyszerű „Hello” feladatra építünk, és néhány extra szabályt adunk hozzá.
 
-In some English accents, when you say 'two for' quickly, it sounds like 'two fer'. Two-for-one is a way of saying that if you buy one, you also get one for free.
+Néhány angol akcentusban a gyorsan kimondott „two for” úgy hangzik, mint a „two fer”. A „two-for-one” kifejezés azt jelenti, hogy ha megveszel egyet, kapsz mellé még egyet ingyen.
 
-Imagine a bakery that has a holiday offer where you can buy two cookies for the price of one. You take the offer and decide to give the extra cookie to someone else.
+Képzelj el egy pékséget, ahol ünnepi akció keretében két sütit vehetsz egy áráért. Élsz az ajánlattal, és úgy döntesz, hogy a plusz sütit odaadod valakinek.
 
-Your task is to determine what you will say as you give away the extra cookie.
+A feladatod eldönteni, hogy mit mondasz, amikor odaadod a plusz sütit.
 
-- If you know the person's name (e.g. Alice), then you will say: "One for Alice, one for me."
-- If you don't know the person's name, you will say: "One for you, one for me."
+- Ha ismered az illető nevét (pl. Alice), akkor ezt mondod: „One for Alice, one for me.”
+- Ha nem ismered a nevét, ezt mondod: „One for you, one for me.”
 
-Write a function called `twoFer(name)` that returns the appropriate dialogue.
+Írj egy `twoFer(name)` (kettőt egyért; a `name` a név) nevű függvényt, amely a megfelelő mondatot adja vissza.
 
-Here are some examples:
+Íme néhány példa:
 
-| Function call      | Returns                         |
+| Függvényhívás      | Visszatérési érték              |
 | :----------------- | :------------------------------ |
 | `twoFer("Alice")`  | `"One for Alice, one for me."`  |
 | `twoFer("Jeremy")` | `"One for Jeremy, one for me."` |
 | `twoFer("")`       | `"One for you, one for me."`    |
 
-For the bonus, can you write this using **just 6 lines of code**?
+Bónuszként: meg tudod ezt írni **mindössze 6 sor kódból**?
 
-Good luck!
+Sok szerencsét!

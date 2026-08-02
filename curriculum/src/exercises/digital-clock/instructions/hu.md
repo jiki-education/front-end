@@ -1,22 +1,23 @@
 ---
-title: "Digital Clock"
-description: "Display the correct time on a 12-hour digital clock."
+title: "Digitális óra"
+description: "Jelenítsd meg a pontos időt egy 12 órás digitális órán."
+en_md5: e3decc089d371b7113f2657f7571c001
 ---
 
-In this exercise you're going to use two new functions to get the time:
+Ebben a feladatban két új függvényt fogsz használni az idő lekérdezéséhez:
 
-- `currentTimeHour()`: Returns the current hour using 24-hour time (e.g. 15 minutes to midnight would return `23`) as a number.
-- `currentTimeMinute()`: Returns the current minute as a number.
+- `currentTimeHour()` (aktuális óra): az aktuális órát adja vissza számként, 24 órás formátumban (pl. 15 perccel éjfél előtt `23`-at ad vissza).
+- `currentTimeMinute()` (aktuális perc): az aktuális percet adja vissza számként.
 
-Your job is to update a digital clock based on whatever numbers those functions return.
+A te dolgod, hogy a digitális órát azoknak a számoknak az alapján frissítsd, amiket ez a két függvény visszaad.
 
-The digital clock expects the numbers to be in a 12-hour format with an `am` or `pm` (what's called the "meridiem").
+A digitális óra a számokat 12 órás formátumban várja, `am` vagy `pm` jelöléssel (ezt hívják „meridiemnek”).
 
-So for example:
+Például:
 
 - `7:45` -> `7:45am`
 - `19:45` -> `7:45pm`
 
-To display the time on the clock you use the `displayTime(hour, minutes, meridiem)` function.
+Az idő megjelenítéséhez a `displayTime(hour, minutes, meridiem)` (idő megjelenítése) függvényt használod.
 
-In each scenario, the current time changes. Your job is to write code that makes all the scenarios work. In the final scenario, we use the actual real time, so the scenario will change every time the the real time moves on by a minute!
+Az aktuális idő minden forgatókönyvben más. Neked olyan kódot kell írnod, amitől az összes forgatókönyv működik. Az utolsó forgatókönyvben a valódi időt használjuk, így az a forgatókönyv minden percben változik, ahogy a valódi idő halad előre!

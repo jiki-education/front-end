@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "dayIsntCorrect": "O tempo do dia {{day}} não está certo."
+  },
+  "tasks": {
+    "drawForecast": {
+      "name": "Desenhe a previsão",
+      "description": "Desenhe o tempo de cada dia na sua própria caixa, usando a posição do dia na lista como o número da caixa."
+    }
+  },
+  "scenarios": {
+    "mixedWeek": {
+      "name": "Uma semana variada",
+      "description": "Um pouco de tudo ao longo dos seis dias."
+    },
+    "sunnyWeek": {
+      "name": "Uma semana ensolarada",
+      "description": "Muito sol, com um ou outro dia mais nublado."
+    },
+    "rainyWeek": {
+      "name": "Uma semana chuvosa",
+      "description": "Uma semana encharcada, de nuvens e chuva."
+    },
+    "snowyWeek": {
+      "name": "Uma semana de neve",
+      "description": "Uma semana fria e cheia de neve."
+    }
+  },
+  "hints": {
+    "loopWithIndex": {
+      "question": "Como eu percorro os dias e sei em qual caixa cada um vai?",
+      "answer": "Percorra `days` com um laço usando um contador que vai de `0` até `days.length - 1`. Esse contador é o número da caixa de cada dia."
+    },
+    "descriptionToSymbols": {
+      "question": "Como eu transformo uma descrição como `\"Miserable 😩\"` em símbolos?",
+      "answer": "Compare a descrição com cada uma das descrições possíveis e escolha a lista de símbolos correspondente, por exemplo `[\"cloud\", \"rain\"]`. As instruções listam todas as descrições e seus símbolos."
+    },
+    "weekdaysList": {
+      "question": "Como eu descubro o nome do dia da semana de cada caixa?",
+      "answer": "Monte uma lista com os seis nomes dos dias da semana em ordem, de `\"Monday\"` a `\"Saturday\"`, e leia o que está na sua posição atual usando o mesmo contador do número da caixa."
+    },
+    "passArgs": {
+      "question": "O que eu passo para `draw`?",
+      "answer": "Três coisas: o número da caixa (o seu contador), o nome do dia da semana daquela caixa e a lista de símbolos daquele dia."
+    },
+    "tidyWithHelper": {
+      "question": "Meu laço está ficando longo. Como posso deixá-lo mais organizado?",
+      "answer": "Você pode mover a parte que converte a descrição em símbolos para uma função própria e chamá-la dentro do laço. Isso é opcional, mas deixa o laço curto e fácil de ler."
+    }
+  },
+  "functions": {
+    "draw": {
+      "description": "Desenha os símbolos do tempo indicados em uma caixa da previsão. Recebe o número da caixa (0 a 5), o nome do dia da semana que identifica a caixa e a lista de símbolos.",
+      "category": "Desenho"
+    }
+  },
+  "describers": {
+    "draw": "desenhou ${arg3} na caixa de ${arg2}"
+  },
+  "errors": {
+    "elementsMustBeList": "Os símbolos do tempo (a terceira entrada de draw) precisam ser uma lista, como [\"sun\", \"cloud\"].",
+    "elementsMustBeStrings": "Todos os símbolos do tempo na lista precisam ser strings, como \"sun\" ou \"rain\".",
+    "unknownElement": "\"{{element}}\" não é um símbolo do tempo. Use \"sun\", \"cloud\", \"rain\" ou \"snow\".",
+    "indexMustBeNumber": "O número da caixa (a primeira entrada de draw) precisa ser um número.",
+    "indexOutOfRange": "O número da caixa precisa ser um número inteiro entre 0 e {{max}}.",
+    "dayMustBeString": "O dia da semana (a segunda entrada de draw) precisa ser texto, como \"Monday\"."
+  }
+}
