@@ -15,11 +15,11 @@
   },
   "scenarios": {
     "wordCountSingleWord": {
-      "name": "Compter un seul mot",
+      "name": "Compte un mot",
       "description": "Compte un seul mot."
     },
     "wordCountMultipleUniqueWords": {
-      "name": "Une occurrence de chaque mot",
+      "name": "Compte une occurrence de chaque mot",
       "description": "Compte une occurrence de chaque mot dans une phrase."
     },
     "wordCountMultipleOccurrences": {
@@ -31,15 +31,15 @@
       "description": "Gère les listes au format compact."
     },
     "wordCountIgnorePunctuation": {
-      "name": "Ignorer la ponctuation",
+      "name": "Ignore la ponctuation",
       "description": "Ignore la ponctuation en comptant les mots."
     },
     "wordCountIncludeNumbers": {
-      "name": "Inclure les nombres",
+      "name": "Inclus les nombres",
       "description": "Compte les mots en incluant les nombres."
     },
     "wordCountNormalizeCase": {
-      "name": "Normaliser la casse",
+      "name": "Normalise la casse",
       "description": "Compte les mots sans tenir compte de la casse."
     },
     "wordCountWithApostrophes": {
