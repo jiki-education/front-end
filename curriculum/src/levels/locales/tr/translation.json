@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "Fonksiyonları Kullanmak"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "Metinler ve Renkler"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "Tekrar Döngüsü"
   },
   "variables": {
-    "title": "�"
+    "title": "Değişkenler"
   },
   "basic-state": {
-    "title": "�"
+    "title": "Temel Durum"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "Değer Döndüren Fonksiyonlar"
   },
   "conditionals": {
-    "title": "�"
+    "title": "Koşullar"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "Karmaşık Koşullar"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "Koşullar ve Durum"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "Kendi Fonksiyonlarını Yaz"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "Metin İşleme"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "Metinde Gezinme"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "Fonksiyonları Birlikte Kullanmak"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "Metotlar ve Özellikler"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "İleri Döngüler"
   },
   "lists": {
-    "title": "�"
+    "title": "Listeler"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "Sözlükler"
   },
   "everything": {
-    "title": "�"
+    "title": "Her Şey"
   }
 }

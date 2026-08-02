@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "فنکشنز کا استعمال"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "سٹرنگز اور رنگ"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "ریپیٹ لوپ"
   },
   "variables": {
-    "title": "�"
+    "title": "ویری ایبلز"
   },
   "basic-state": {
-    "title": "�"
+    "title": "بنیادی سٹیٹ"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "قدر واپس کرنے والے فنکشنز"
   },
   "conditionals": {
-    "title": "�"
+    "title": "کنڈیشنلز"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "پیچیدہ کنڈیشنلز"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "کنڈیشنلز اور سٹیٹ"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "اپنے فنکشنز بنائیں"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "سٹرنگ میں ردوبدل"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "سٹرنگ اِٹریشن"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "کئی فنکشنز ایک ساتھ"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "میتھڈز اور پراپرٹیز"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "ایڈوانسڈ لوپس"
   },
   "lists": {
-    "title": "�"
+    "title": "لسٹس"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "ڈکشنریز"
   },
   "everything": {
-    "title": "�"
+    "title": "سب کچھ"
   }
 }

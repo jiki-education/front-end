@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "استخدام الدوال"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "النصوص والألوان"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "حلقة التكرار"
   },
   "variables": {
-    "title": "�"
+    "title": "المتغيّرات"
   },
   "basic-state": {
-    "title": "�"
+    "title": "الحالة الأساسية"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "دوال تُرجع قيمًا"
   },
   "conditionals": {
-    "title": "�"
+    "title": "الشروط"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "الشروط المركّبة"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "الشروط والحالة"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "اصنع دوالك الخاصة"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "معالجة النصوص"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "المرور على النصوص"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "استخدام عدة دوال معًا"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "الأساليب والخصائص"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "حلقات متقدّمة"
   },
   "lists": {
-    "title": "�"
+    "title": "القوائم"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "القواميس"
   },
   "everything": {
-    "title": "�"
+    "title": "كل شيء"
   }
 }

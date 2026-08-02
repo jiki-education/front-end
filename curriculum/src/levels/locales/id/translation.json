@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "Menggunakan Fungsi"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "String dan Warna"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "Perulangan Repeat"
   },
   "variables": {
-    "title": "�"
+    "title": "Variabel"
   },
   "basic-state": {
-    "title": "�"
+    "title": "State Dasar"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "Fungsi yang Mengembalikan Nilai"
   },
   "conditionals": {
-    "title": "�"
+    "title": "Kondisional"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "Kondisional Kompleks"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "Kondisional dan State"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "Membuat Fungsi Sendiri"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "Manipulasi String"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "Iterasi String"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "Menggabungkan Beberapa Fungsi"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "Metode dan Properti"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "Perulangan Lanjutan"
   },
   "lists": {
-    "title": "�"
+    "title": "List"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "Dictionary"
   },
   "everything": {
-    "title": "�"
+    "title": "Semuanya"
   }
 }

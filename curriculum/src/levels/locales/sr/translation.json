@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "Коришћење функција"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "Стрингови и боје"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "Петља понављања"
   },
   "variables": {
-    "title": "�"
+    "title": "Променљиве"
   },
   "basic-state": {
-    "title": "�"
+    "title": "Основно стање"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "Функције које враћају вредности"
   },
   "conditionals": {
-    "title": "�"
+    "title": "Услови"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "Сложени услови"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "Услови и стање"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "Направи своје функције"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "Рад са стринговима"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "Пролазак кроз стрингове"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "Више функција заједно"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "Методе и својства"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "Напредне петље"
   },
   "lists": {
-    "title": "�"
+    "title": "Листе"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "Речници"
   },
   "everything": {
-    "title": "�"
+    "title": "Све"
   }
 }

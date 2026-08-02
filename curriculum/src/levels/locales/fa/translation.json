@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "استفاده از توابع"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "رشته‌ها و رنگ‌ها"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "حلقه تکرار"
   },
   "variables": {
-    "title": "�"
+    "title": "متغیرها"
   },
   "basic-state": {
-    "title": "�"
+    "title": "وضعیت ساده"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "توابعی که چیزی برمی‌گردانند"
   },
   "conditionals": {
-    "title": "�"
+    "title": "شرط‌ها"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "شرط‌های پیچیده"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "شرط‌ها و وضعیت"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "ساختن تابع خودتان"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "کار با رشته‌ها"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "پیمایش رشته‌ها"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "استفاده از چند تابع با هم"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "متدها و ویژگی‌ها"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "حلقه‌های پیشرفته"
   },
   "lists": {
-    "title": "�"
+    "title": "فهرست‌ها"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "دیکشنری‌ها"
   },
   "everything": {
-    "title": "�"
+    "title": "همه‌چیز"
   }
 }

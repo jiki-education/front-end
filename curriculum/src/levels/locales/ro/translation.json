@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "Folosirea funcțiilor"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "Șiruri și culori"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "Bucla repeat"
   },
   "variables": {
-    "title": "�"
+    "title": "Variabile"
   },
   "basic-state": {
-    "title": "�"
+    "title": "Stare de bază"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "Funcții care returnează valori"
   },
   "conditionals": {
-    "title": "�"
+    "title": "Condiționale"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "Condiționale complexe"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "Condiționale și stare"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "Creează-ți propriile funcții"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "Manipularea șirurilor"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "Iterarea șirurilor"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "Mai multe funcții împreună"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "Metode și proprietăți"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "Bucle avansate"
   },
   "lists": {
-    "title": "�"
+    "title": "Liste"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "Dicționare"
   },
   "everything": {
-    "title": "�"
+    "title": "Totul"
   }
 }

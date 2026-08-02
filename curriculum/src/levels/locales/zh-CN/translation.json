@@ -1,56 +1,56 @@
 {
   "using-functions": {
-    "title": "�"
+    "title": "使用函数"
   },
   "strings-and-colors": {
-    "title": "�"
+    "title": "字符串与颜色"
   },
   "repeat-loop": {
-    "title": "�"
+    "title": "重复循环"
   },
   "variables": {
-    "title": "�"
+    "title": "变量"
   },
   "basic-state": {
-    "title": "�"
+    "title": "基础状态"
   },
   "functions-that-return-things": {
-    "title": "�"
+    "title": "有返回值的函数"
   },
   "conditionals": {
-    "title": "�"
+    "title": "条件判断"
   },
   "complex-conditionals": {
-    "title": "�"
+    "title": "复杂条件判断"
   },
   "conditionals-and-state": {
-    "title": "�"
+    "title": "条件判断与状态"
   },
   "make-your-own-functions": {
-    "title": "�"
+    "title": "自己写函数"
   },
   "string-manipulation": {
-    "title": "�"
+    "title": "字符串处理"
   },
   "string-iteration": {
-    "title": "�"
+    "title": "字符串遍历"
   },
   "multiple-functions": {
-    "title": "�"
+    "title": "组合使用多个函数"
   },
   "methods-and-properties": {
-    "title": "�"
+    "title": "方法与属性"
   },
   "advanced-loops": {
-    "title": "�"
+    "title": "进阶循环"
   },
   "lists": {
-    "title": "�"
+    "title": "列表"
   },
   "dictionaries": {
-    "title": "�"
+    "title": "字典"
   },
   "everything": {
-    "title": "�"
+    "title": "综合运用"
   }
 }
