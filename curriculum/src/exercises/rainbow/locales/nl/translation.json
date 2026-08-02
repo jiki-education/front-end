@@ -2,7 +2,7 @@
   "checks": {
     "firstRectangle": "De eerste rechthoek ontbreekt.",
     "lastRectangle": "De laatste rechthoek ontbreekt.",
-    "minSaturationLightness": "Alle rechthoeken moeten een verzadiging en lichtheid van minstens 20 hebben.",
+    "minSaturationLightness": "Alle rechthoeken moeten een verzadiging en helderheid van minstens 20 hebben.",
     "uniqueColors": "Er zijn geen 100 rechthoeken met verschillende kleuren.",
     "hueRed": "Er moet een rechthoek zijn met een kleurtoon dicht bij 0 (rood).",
     "huePurple": "Er moet een rechthoek zijn met een kleurtoon dicht bij 300 (paars)."
@@ -39,7 +39,7 @@
       "category": "Vormen tekenen"
     },
     "hsl": {
-      "description": "Zet HSL-kleurwaarden (kleurtoon 0-360, verzadiging 0-100, lichtheid 0-100) om naar een kleurstring",
+      "description": "Zet HSL-kleurwaarden (kleurtoon 0-360, verzadiging 0-100, helderheid 0-100) om naar een kleurstring",
       "category": "Kleuren"
     }
   }
