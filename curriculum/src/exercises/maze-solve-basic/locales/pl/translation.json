@@ -21,7 +21,7 @@
     },
     "turnLeftTurnsRight": {
       "question": "Każę postaci skręcić w lewo, a ona skręca w prawo!",
-      "answer": "Postać zawsze skręca względem kierunku, w którym jest zwrócona. Jeśli więc patrzy w prawą stronę i dostanie polecenie skręcenia w lewo, zwróci się ku górze."
+      "answer": "Postać zawsze skręca względem kierunku, w którym jest zwrócona. Jeśli więc patrzy w prawą stronę i dostanie polecenie skręcenia w lewo, zacznie patrzeć do góry."
     }
   }
 }
