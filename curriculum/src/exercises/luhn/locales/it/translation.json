@@ -60,7 +60,7 @@
     },
     "luhnColon": {
       "name": "Carattere due punti",
-      "description": "Il carattere due punti vale uno in meno del carattere '0' e non deve essere trattato come una cifra."
+      "description": "I due punti hanno un valore inferiore di uno rispetto al carattere '0' e non devono essere trattati come una cifra."
     },
     "luhnPercent": {
       "name": "Carattere percentuale nel mezzo",
