@@ -42,7 +42,7 @@
       "homeAriaLabel": "דף הבית של Jiki",
       "logoAlt": "Jiki",
       "aboutJiki": "על Jiki",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "המלצות",
       "login": "התחברות",
       "signUp": "הרשמה בחינם",
@@ -76,7 +76,7 @@
         "upgrade": "שדרוג ל־Premium",
         "logOut": "התנתקות"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "מעירים את Jiki",
@@ -1361,7 +1361,7 @@
         "description": "אנחנו שוקדים על השיעורים הבאים. חזרו בקרוב כדי להמשיך במסע!"
       },
       "walkthrough": {
-        "label": "Deep Dive",
+        "label": "�",
         "watch": "צפייה"
       },
       "start": {
@@ -1451,7 +1451,7 @@
       "confirmReveal": "בטוחים שאתם רוצים לחשוף את הרמז הזה?",
       "confirmNo": "לא כרגע",
       "confirmYes": "כן",
-      "deepDiveHeading": "Deep Dive",
+      "deepDiveHeading": "�",
       "deepDiveDescription": "עדיין תקועים? צפו ב־Deep Dive שבו Jeremy פותר את התרגיל.",
       "walkthroughThumbnailAlt": "תמונה ממוזערת של סרטון Deep Dive"
     },

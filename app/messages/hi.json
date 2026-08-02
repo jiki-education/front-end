@@ -42,7 +42,7 @@
       "homeAriaLabel": "Jiki होम",
       "logoAlt": "Jiki",
       "aboutJiki": "Jiki के बारे में",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "लोगों की राय",
       "login": "लॉग इन",
       "signUp": "मुफ्त में साइन अप कीजिए",
@@ -76,7 +76,7 @@
         "upgrade": "Premium में अपग्रेड कीजिए",
         "logOut": "लॉग आउट"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Jiki को जगा रहे हैं",

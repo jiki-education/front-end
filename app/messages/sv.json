@@ -42,7 +42,7 @@
       "homeAriaLabel": "Jikis startsida",
       "logoAlt": "Jiki",
       "aboutJiki": "Om Jiki",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Omdömen",
       "login": "Logga in",
       "signUp": "Skapa gratis konto",
@@ -76,7 +76,7 @@
         "upgrade": "Uppgradera till Premium",
         "logOut": "Logga ut"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Väcker Jiki",
@@ -1361,7 +1361,7 @@
         "description": "Vi jobbar för fullt med nästa lektioner. Titta in snart igen för att fortsätta din resa!"
       },
       "walkthrough": {
-        "label": "Deep Dive",
+        "label": "�",
         "watch": "Titta"
       },
       "start": {
@@ -1451,7 +1451,7 @@
       "confirmReveal": "Är du säker på att du vill visa den här ledtråden?",
       "confirmNo": "Inte just nu",
       "confirmYes": "Ja",
-      "deepDiveHeading": "Deep Dive",
+      "deepDiveHeading": "�",
       "deepDiveDescription": "Kör du fortfarande fast? Titta på en Deep Dive där Jeremy löser övningen.",
       "walkthroughThumbnailAlt": "Miniatyrbild för Deep Dive-videon"
     },

@@ -42,7 +42,7 @@
       "homeAriaLabel": "Jiki kezdőlap",
       "logoAlt": "Jiki",
       "aboutJiki": "A Jikiről",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Vélemények",
       "login": "Bejelentkezés",
       "signUp": "Regisztrálj ingyen",
@@ -76,7 +76,7 @@
         "upgrade": "Válts Premiumra",
         "logOut": "Kijelentkezés"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Jiki éppen ébredezik",
@@ -676,13 +676,13 @@
     },
     "planPrice": {
       "basic": "Basic",
-      "premium": "Premium",
+      "premium": "�",
       "free": "Ingyenes",
       "perMonth": "havonta"
     },
     "planBadge": {
       "free": "Ingyenes",
-      "premium": "Premium"
+      "premium": "�"
     },
     "table": {
       "comparePlans": "Hasonlítsd össze a csomagokat",
@@ -1688,7 +1688,7 @@
       "comingSoonLabel": "Hamarosan"
     },
     "episodeCard": {
-      "premium": "Premium"
+      "premium": "�"
     },
     "episodeSummary": {
       "heading": "Az epizód röviden",
@@ -1716,7 +1716,7 @@
       "noResultsMessage": "Próbálj más keresőszót, vagy böngéssz az útmutatók között."
     },
     "guideCard": {
-      "premium": "Premium"
+      "premium": "�"
     },
     "guideBreadcrumb": {
       "guides": "Útmutatók"
@@ -1843,7 +1843,7 @@
         }
       },
       "premium": {
-        "name": "Premium",
+        "name": "�",
         "description": "Oldj fel haladó funkciókat",
         "features": {
           "allFreeFeatures": "Minden Ingyenes funkció",

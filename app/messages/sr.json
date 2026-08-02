@@ -42,7 +42,7 @@
       "homeAriaLabel": "Jiki početna",
       "logoAlt": "Jiki",
       "aboutJiki": "O Jikiju",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Utisci",
       "login": "Prijava",
       "signUp": "Registruj se besplatno",
@@ -76,7 +76,7 @@
         "upgrade": "Pređi na Premium",
         "logOut": "Odjavi se"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Jiki se budi",

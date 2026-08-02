@@ -42,7 +42,7 @@
       "homeAriaLabel": "Αρχική σελίδα Jiki",
       "logoAlt": "Jiki",
       "aboutJiki": "Σχετικά με το Jiki",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Μαρτυρίες",
       "login": "Σύνδεση",
       "signUp": "Γράψου Δωρεάν",
@@ -76,7 +76,7 @@
         "upgrade": "Αναβάθμιση σε Premium",
         "logOut": "Αποσύνδεση"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Ο Jiki ξυπνάει",
@@ -676,13 +676,13 @@
     },
     "planPrice": {
       "basic": "Βασικό",
-      "premium": "Premium",
+      "premium": "�",
       "free": "Δωρεάν",
       "perMonth": "τον μήνα"
     },
     "planBadge": {
       "free": "Δωρεάν",
-      "premium": "Premium"
+      "premium": "�"
     },
     "table": {
       "comparePlans": "Σύγκρινε τα πλάνα",
@@ -1688,7 +1688,7 @@
       "comingSoonLabel": "Έρχεται σύντομα"
     },
     "episodeCard": {
-      "premium": "Premium"
+      "premium": "�"
     },
     "episodeSummary": {
       "heading": "Το Επεισόδιο με μια Ματιά",
@@ -1716,7 +1716,7 @@
       "noResultsMessage": "Δοκίμασε διαφορετικό όρο αναζήτησης ή περιηγήσου στους οδηγούς."
     },
     "guideCard": {
-      "premium": "Premium"
+      "premium": "�"
     },
     "guideBreadcrumb": {
       "guides": "Οδηγοί"
@@ -1843,7 +1843,7 @@
         }
       },
       "premium": {
-        "name": "Premium",
+        "name": "�",
         "description": "Ξεκλείδωσε προηγμένες λειτουργίες",
         "features": {
           "allFreeFeatures": "Όλες οι λειτουργίες του Δωρεάν πλάνου",

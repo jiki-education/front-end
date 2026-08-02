@@ -42,7 +42,7 @@
       "homeAriaLabel": "Jiki 首页",
       "logoAlt": "Jiki",
       "aboutJiki": "关于 Jiki",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "用户评价",
       "login": "登录",
       "signUp": "免费注册",
@@ -76,7 +76,7 @@
         "upgrade": "升级到 Premium",
         "logOut": "退出登录"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "正在唤醒 Jiki",

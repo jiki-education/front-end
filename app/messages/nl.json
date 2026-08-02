@@ -42,7 +42,7 @@
       "homeAriaLabel": "Startpagina van Jiki",
       "logoAlt": "Jiki",
       "aboutJiki": "Over Jiki",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Ervaringen",
       "login": "Inloggen",
       "signUp": "Meld je gratis aan",
@@ -76,7 +76,7 @@
         "upgrade": "Upgrade naar Premium",
         "logOut": "Uitloggen"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Jiki wordt wakker",
@@ -1451,7 +1451,7 @@
       "confirmReveal": "Weet je zeker dat je deze hint wilt zien?",
       "confirmNo": "Nu even niet",
       "confirmYes": "Ja",
-      "deepDiveHeading": "Deep Dive",
+      "deepDiveHeading": "�",
       "deepDiveDescription": "Zit je nog steeds vast? Bekijk een Deep Dive waarin Jeremy deze opdracht oplost.",
       "walkthroughThumbnailAlt": "Miniatuur van de Deep Dive-video"
     },

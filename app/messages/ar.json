@@ -42,7 +42,7 @@
       "homeAriaLabel": "صفحة Jiki الرئيسية",
       "logoAlt": "Jiki",
       "aboutJiki": "عن Jiki",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "آراء المتعلمين",
       "login": "تسجيل الدخول",
       "signUp": "سجّل مجانًا",
@@ -76,7 +76,7 @@
         "upgrade": "الترقية إلى Premium",
         "logOut": "تسجيل الخروج"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "جارٍ إيقاظ Jiki",

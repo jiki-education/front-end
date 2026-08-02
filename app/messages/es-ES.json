@@ -42,7 +42,7 @@
       "homeAriaLabel": "Inicio de Jiki",
       "logoAlt": "Jiki",
       "aboutJiki": "Sobre Jiki",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Testimonios",
       "login": "Iniciar sesión",
       "signUp": "Regístrate gratis",
@@ -76,7 +76,7 @@
         "upgrade": "Pásate a Premium",
         "logOut": "Cerrar sesión"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Despertando a Jiki",

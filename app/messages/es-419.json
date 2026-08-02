@@ -42,7 +42,7 @@
       "homeAriaLabel": "Inicio de Jiki",
       "logoAlt": "Jiki",
       "aboutJiki": "Acerca de Jiki",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Testimonios",
       "login": "Iniciar sesión",
       "signUp": "Regístrate gratis",
@@ -57,13 +57,13 @@
     "sidebar": {
       "groups": {
         "learnToCode": "Aprende a programar",
-        "learnToBuild": "Learn to Build",
+        "learnToBuild": "�",
         "community": "Comunidad",
         "more": "Más"
       },
       "nav": {
         "learn": "Fundamentos de programación",
-        "build": "Projects",
+        "build": "�",
         "challenges": "Desafíos",
         "concepts": "Conceptos de programación",
         "achievements": "Logros",
@@ -76,7 +76,7 @@
         "upgrade": "Actualizar a Premium",
         "logOut": "Cerrar sesión"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Despertando a Jiki",
@@ -1361,7 +1361,7 @@
         "description": "Estamos ocupados finalizando las próximas lecciones. ¡Vuelve pronto para continuar tu viaje!"
       },
       "walkthrough": {
-        "label": "Deep Dive",
+        "label": "�",
         "watch": "Ver"
       },
       "start": {
@@ -1451,7 +1451,7 @@
       "confirmReveal": "¿Estás seguro de que quieres mostrar esta pista?",
       "confirmNo": "Por ahora no",
       "confirmYes": "Sí",
-      "deepDiveHeading": "Deep Dive",
+      "deepDiveHeading": "�",
       "deepDiveDescription": "¿Sigues atascado? Mira un Deep Dive de Jeremy resolviendo este ejercicio.",
       "walkthroughThumbnailAlt": "Miniatura del video de Deep Dive"
     },

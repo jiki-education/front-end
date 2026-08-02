@@ -42,7 +42,7 @@
       "homeAriaLabel": "Página inicial do Jiki",
       "logoAlt": "Jiki",
       "aboutJiki": "Sobre o Jiki",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Depoimentos",
       "login": "Entrar",
       "signUp": "Cadastre-se grátis",
@@ -76,7 +76,7 @@
         "upgrade": "Assine o Premium",
         "logOut": "Sair"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Acordando o Jiki",

@@ -42,7 +42,7 @@
       "homeAriaLabel": "Jiki ana sayfa",
       "logoAlt": "Jiki",
       "aboutJiki": "Jiki hakkında",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Kullanıcı yorumları",
       "login": "Giriş yap",
       "signUp": "Ücretsiz kaydol",
@@ -76,7 +76,7 @@
         "upgrade": "Premium'a yükselt",
         "logOut": "Çıkış yap"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Jiki uyanıyor",

@@ -42,7 +42,7 @@
       "homeAriaLabel": "Strona główna Jiki",
       "logoAlt": "Jiki",
       "aboutJiki": "O Jikim",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Opinie",
       "login": "Zaloguj się",
       "signUp": "Zarejestruj się za darmo",
@@ -76,7 +76,7 @@
         "upgrade": "Przejdź na Premium",
         "logOut": "Wyloguj się"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Budzimy Jikiego",

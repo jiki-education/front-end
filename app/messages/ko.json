@@ -42,7 +42,7 @@
       "homeAriaLabel": "Jiki 홈",
       "logoAlt": "Jiki",
       "aboutJiki": "Jiki 소개",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "수강생 후기",
       "login": "로그인",
       "signUp": "무료로 가입하기",
@@ -76,7 +76,7 @@
         "upgrade": "Premium으로 업그레이드",
         "logOut": "로그아웃"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Jiki 깨우는 중",
@@ -1361,7 +1361,7 @@
         "description": "다음 레슨을 마무리하고 있어요. 여정을 계속하려면 곧 다시 확인해 주세요!"
       },
       "walkthrough": {
-        "label": "Deep Dive",
+        "label": "�",
         "watch": "시청하기"
       },
       "start": {
@@ -1451,7 +1451,7 @@
       "confirmReveal": "이 힌트를 정말 공개할까요?",
       "confirmNo": "지금은 아니에요",
       "confirmYes": "네",
-      "deepDiveHeading": "Deep Dive",
+      "deepDiveHeading": "�",
       "deepDiveDescription": "아직 막혔나요? Jeremy가 이 연습 문제를 해결하는 Deep Dive를 시청하세요.",
       "walkthroughThumbnailAlt": "Deep Dive 비디오 썸네일"
     },

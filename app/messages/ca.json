@@ -42,7 +42,7 @@
       "homeAriaLabel": "Pàgina d'inici de Jiki",
       "logoAlt": "Jiki",
       "aboutJiki": "Sobre Jiki",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Testimonis",
       "login": "Inicia la sessió",
       "signUp": "Registra't gratis",
@@ -76,7 +76,7 @@
         "upgrade": "Passa a Premium",
         "logOut": "Tanca la sessió"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Despertem el Jiki",

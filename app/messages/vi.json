@@ -42,7 +42,7 @@
       "homeAriaLabel": "Trang chủ Jiki",
       "logoAlt": "Jiki",
       "aboutJiki": "Về Jiki",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Cảm nhận học viên",
       "login": "Đăng nhập",
       "signUp": "Đăng ký miễn phí",
@@ -76,7 +76,7 @@
         "upgrade": "Nâng cấp lên Premium",
         "logOut": "Đăng xuất"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Đang đánh thức Jiki",

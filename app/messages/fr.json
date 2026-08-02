@@ -42,7 +42,7 @@
       "homeAriaLabel": "Accueil Jiki",
       "logoAlt": "Jiki",
       "aboutJiki": "À propos de Jiki",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Témoignages",
       "login": "Connexion",
       "signUp": "Inscris-toi gratuitement",
@@ -76,7 +76,7 @@
         "upgrade": "Passer à Premium",
         "logOut": "Déconnexion"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "On réveille Jiki",

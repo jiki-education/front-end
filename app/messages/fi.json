@@ -42,7 +42,7 @@
       "homeAriaLabel": "Jikin etusivu",
       "logoAlt": "Jiki",
       "aboutJiki": "Tietoa Jikistä",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Kokemuksia",
       "login": "Kirjaudu sisään",
       "signUp": "Luo tunnus ilmaiseksi",
@@ -76,7 +76,7 @@
         "upgrade": "Päivitä Premiumiin",
         "logOut": "Kirjaudu ulos"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Herätellään Jikiä",
@@ -1361,7 +1361,7 @@
         "description": "Viimeistelemme parhaillaan seuraavia oppitunteja. Palaa pian jatkamaan matkaasi!"
       },
       "walkthrough": {
-        "label": "Deep Dive",
+        "label": "�",
         "watch": "Katso"
       },
       "start": {
@@ -1451,7 +1451,7 @@
       "confirmReveal": "Haluatko varmasti nähdä tämän vihjeen?",
       "confirmNo": "Ei vielä",
       "confirmYes": "Kyllä",
-      "deepDiveHeading": "Deep Dive",
+      "deepDiveHeading": "�",
       "deepDiveDescription": "Oletko yhä jumissa? Katso Deep Dive -video, jossa Jeremy ratkaisee tämän harjoituksen.",
       "walkthroughThumbnailAlt": "Deep Dive -videon esikatselukuva"
     },

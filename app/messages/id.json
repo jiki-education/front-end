@@ -42,7 +42,7 @@
       "homeAriaLabel": "Beranda Jiki",
       "logoAlt": "Jiki",
       "aboutJiki": "Tentang Jiki",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Testimoni",
       "login": "Masuk",
       "signUp": "Daftar Gratis",
@@ -76,7 +76,7 @@
         "upgrade": "Upgrade ke Premium",
         "logOut": "Keluar"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Membangunkan Jiki",
@@ -1451,7 +1451,7 @@
       "confirmReveal": "Yakin ingin menampilkan petunjuk ini?",
       "confirmNo": "Nanti saja",
       "confirmYes": "Ya",
-      "deepDiveHeading": "Deep Dive",
+      "deepDiveHeading": "�",
       "deepDiveDescription": "Masih buntu? Tonton video Deep Dive saat Jeremy menyelesaikan latihan ini.",
       "walkthroughThumbnailAlt": "Thumbnail video Deep Dive"
     },

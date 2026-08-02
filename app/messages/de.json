@@ -42,7 +42,7 @@
       "homeAriaLabel": "Jiki-Startseite",
       "logoAlt": "Jiki",
       "aboutJiki": "Über Jiki",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Erfahrungsberichte",
       "login": "Anmelden",
       "signUp": "Kostenlos registrieren",
@@ -57,7 +57,7 @@
     "sidebar": {
       "groups": {
         "learnToCode": "Learn to Code",
-        "learnToBuild": "Learn to Build",
+        "learnToBuild": "�",
         "community": "Community",
         "more": "Mehr"
       },
@@ -76,7 +76,7 @@
         "upgrade": "Auf Premium upgraden",
         "logOut": "Abmelden"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Wir wecken Jiki",
@@ -1361,7 +1361,7 @@
         "description": "Wir arbeiten gerade an den nächsten Lektionen. Schau bald wieder vorbei und setze deine Reise fort!"
       },
       "walkthrough": {
-        "label": "Deep Dive",
+        "label": "�",
         "watch": "Ansehen"
       },
       "start": {
@@ -1451,7 +1451,7 @@
       "confirmReveal": "Willst du diesen Hinweis wirklich aufdecken?",
       "confirmNo": "Jetzt nicht",
       "confirmYes": "Ja",
-      "deepDiveHeading": "Deep Dive",
+      "deepDiveHeading": "�",
       "deepDiveDescription": "Kommst du immer noch nicht weiter? Schau dir im Deep Dive an, wie Jeremy diese Übung löst.",
       "walkthroughThumbnailAlt": "Vorschaubild des Deep-Dive-Videos"
     },

@@ -42,7 +42,7 @@
       "homeAriaLabel": "خانه جیکی",
       "logoAlt": "جیکی",
       "aboutJiki": "درباره جیکی",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "نظرات کاربران",
       "login": "ورود",
       "signUp": "رایگان ثبت‌نام کنید",
@@ -76,7 +76,7 @@
         "upgrade": "ارتقا به Premium",
         "logOut": "خروج"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "بیدار کردن جیکی",
@@ -1361,7 +1361,7 @@
         "description": "ما در حال نهایی کردن درس‌های بعدی هستیم. به‌زودی سر بزنید تا سفر خود را ادامه دهید!"
       },
       "walkthrough": {
-        "label": "Deep Dive",
+        "label": "�",
         "watch": "تماشا"
       },
       "start": {
@@ -1451,7 +1451,7 @@
       "confirmReveal": "آیا مطمئن هستید که می‌خواهید این راهنمایی را ببینید؟",
       "confirmNo": "فعلاً نه",
       "confirmYes": "بله",
-      "deepDiveHeading": "Deep Dive",
+      "deepDiveHeading": "�",
       "deepDiveDescription": "هنوز گیر کرده‌اید؟ ویدیوی Deep Dive جرمی را در حال حل این تمرین تماشا کنید.",
       "walkthroughThumbnailAlt": "تصویر بندانگشتی ویدیوی Deep Dive"
     },

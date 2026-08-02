@@ -42,7 +42,7 @@
       "homeAriaLabel": "Ukurasa wa mwanzo wa Jiki",
       "logoAlt": "Jiki",
       "aboutJiki": "Kuhusu Jiki",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Shuhuda",
       "login": "Ingia",
       "signUp": "Jisajili Bila Malipo",
@@ -76,7 +76,7 @@
         "upgrade": "Boresha hadi Premium",
         "logOut": "Toka"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Tunamwamsha Jiki",

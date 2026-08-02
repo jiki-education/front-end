@@ -42,7 +42,7 @@
       "homeAriaLabel": "Pagina principală Jiki",
       "logoAlt": "Jiki",
       "aboutJiki": "Despre Jiki",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Testimoniale",
       "login": "Conectare",
       "signUp": "Înscrie-te gratuit",
@@ -76,7 +76,7 @@
         "upgrade": "Treci la Premium",
         "logOut": "Deconectare"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Îl trezim pe Jiki",
@@ -1361,7 +1361,7 @@
         "description": "Lucrăm de zor la următoarele lecții. Revino în curând ca să îți continui călătoria!"
       },
       "walkthrough": {
-        "label": "Deep Dive",
+        "label": "�",
         "watch": "Urmărește"
       },
       "start": {
@@ -1451,7 +1451,7 @@
       "confirmReveal": "Sigur vrei să dezvălui acest indiciu?",
       "confirmNo": "Nu deocamdată",
       "confirmYes": "Da",
-      "deepDiveHeading": "Deep Dive",
+      "deepDiveHeading": "�",
       "deepDiveDescription": "Tot blocat? Urmărește un Deep Dive în care Jeremy rezolvă acest exercițiu.",
       "walkthroughThumbnailAlt": "Miniatura videoclipului Deep Dive"
     },

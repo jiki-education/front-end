@@ -42,7 +42,7 @@
       "homeAriaLabel": "Головна Jiki",
       "logoAlt": "Jiki",
       "aboutJiki": "Про Jiki",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Відгуки",
       "login": "Увійти",
       "signUp": "Зареєструватися безкоштовно",
@@ -76,7 +76,7 @@
         "upgrade": "Перейти на Premium",
         "logOut": "Вийти"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Будимо Jiki",
