@@ -1456,7 +1456,7 @@
       "walkthroughThumbnailAlt": "Miniatura videoclipului Deep Dive"
     },
     "chatHeader": {
-      "title": "Ask Jiki",
+      "title": "Întreabă-l pe Jiki",
       "description": "Pune întrebări și primește ajutor de la asistentul tău AI de programare"
     },
     "chatStatus": {
@@ -1526,7 +1526,7 @@
     },
     "rhs": {
       "tabInstructions": "Instrucțiuni",
-      "tabAskJiki": "Ask Jiki",
+      "tabAskJiki": "Întreabă-l pe Jiki",
       "tabLog": "Jurnal",
       "tabHints": "Indicii",
       "navChallenges": "Provocări",
@@ -1535,7 +1535,7 @@
     "canStart": {
       "placeholder": "Scrie întrebarea ta aici...",
       "askAbout": "Întreabă despre...",
-      "askJiki": "Ask Jiki",
+      "askJiki": "Întreabă-l pe Jiki",
       "freeIncluded": "Prima conversație este inclusă în abonamentul tău gratuit",
       "premiumIncluded": "Inclus în abonamentul tău <premium>Premium</premium>",
       "phraseWhyNotWorking": "de ce nu funcționează codul tău",

@@ -1,6 +1,6 @@
 {
   "errors": {
-    "fellOffEdge": "Åh nej, du försökte gå ut över kanten på labyrinten!",
+    "fellOffEdge": "Åh nej, du ramlade av kanten på labyrinten!",
     "hitWall": "Aj, du gick rakt in i en vägg!",
     "walkedIntoFire": "Aj! Du gick rakt in i elden!",
     "walkedIntoPoop": "Usch! Du klev rakt i bajset! 💩💩💩"

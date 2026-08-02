@@ -1456,7 +1456,7 @@
       "walkthroughThumbnailAlt": "Deep Dive -videon esikatselukuva"
     },
     "chatHeader": {
-      "title": "Ask Jiki",
+      "title": "Kysy Jikiltä",
       "description": "Kysy kysymyksiä ja saat apua tekoälyavustajaltasi"
     },
     "chatStatus": {
@@ -1526,7 +1526,7 @@
     },
     "rhs": {
       "tabInstructions": "Ohjeet",
-      "tabAskJiki": "Ask Jiki",
+      "tabAskJiki": "Kysy Jikiltä",
       "tabLog": "Loki",
       "tabHints": "Vihjeet",
       "navChallenges": "Haasteet",
@@ -1535,7 +1535,7 @@
     "canStart": {
       "placeholder": "Kirjoita kysymyksesi tähän...",
       "askAbout": "Kysy esimerkiksi...",
-      "askJiki": "Ask Jiki",
+      "askJiki": "Kysy Jikiltä",
       "freeIncluded": "Ensimmäinen keskustelu sisältyy Free-pakettiisi",
       "premiumIncluded": "Sisältyy <premium>Premium</premium>-pakettiisi",
       "phraseWhyNotWorking": "miksi koodisi ei toimi",

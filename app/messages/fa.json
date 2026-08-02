@@ -1456,7 +1456,7 @@
       "walkthroughThumbnailAlt": "تصویر بندانگشتی ویدیوی Deep Dive"
     },
     "chatHeader": {
-      "title": "Ask Jiki",
+      "title": "از جیکی بپرسید",
       "description": "سوال بپرسید و از دستیار برنامه‌نویسی هوش مصنوعی خود کمک بگیرید"
     },
     "chatStatus": {
@@ -1526,7 +1526,7 @@
     },
     "rhs": {
       "tabInstructions": "دستورها",
-      "tabAskJiki": "Ask Jiki",
+      "tabAskJiki": "از جیکی بپرسید",
       "tabLog": "گزارش",
       "tabHints": "راهنمایی‌ها",
       "navChallenges": "چالش‌ها",
@@ -1535,7 +1535,7 @@
     "canStart": {
       "placeholder": "سوال خود را اینجا تایپ کنید...",
       "askAbout": "بپرسید درباره...",
-      "askJiki": "Ask Jiki",
+      "askJiki": "از جیکی بپرسید",
       "freeIncluded": "اولین مکالمه در طرح رایگان شما گنجانده شده است",
       "premiumIncluded": "گنجانده‌شده در طرح <premium>Premium</premium> شما",
       "phraseWhyNotWorking": "چرا کد شما کار نمی‌کند",

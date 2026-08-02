@@ -1456,7 +1456,7 @@
       "walkthroughThumbnailAlt": "תמונה ממוזערת של סרטון Deep Dive"
     },
     "chatHeader": {
-      "title": "Ask Jiki",
+      "title": "שאלו את Jiki",
       "description": "שאלו שאלות וקבלו עזרה מעוזר ה־AI שלכם לתכנות"
     },
     "chatStatus": {
@@ -1526,7 +1526,7 @@
     },
     "rhs": {
       "tabInstructions": "הנחיות",
-      "tabAskJiki": "Ask Jiki",
+      "tabAskJiki": "שאלו את Jiki",
       "tabLog": "יומן",
       "tabHints": "רמזים",
       "navChallenges": "אתגרים",
@@ -1535,7 +1535,7 @@
     "canStart": {
       "placeholder": "כתבו כאן את השאלה שלכם...",
       "askAbout": "שאלו על...",
-      "askJiki": "Ask Jiki",
+      "askJiki": "שאלו את Jiki",
       "freeIncluded": "השיחה הראשונה כלולה במסלול המנוי החינמי שלכם",
       "premiumIncluded": "כלול במסלול המנוי <premium>Premium</premium> שלכם",
       "phraseWhyNotWorking": "למה הקוד לא עובד",

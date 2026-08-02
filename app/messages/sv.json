@@ -1456,7 +1456,7 @@
       "walkthroughThumbnailAlt": "Miniatyrbild för Deep Dive-videon"
     },
     "chatHeader": {
-      "title": "Ask Jiki",
+      "title": "Fråga Jiki",
       "description": "Ställ frågor och få hjälp av din AI-assistent för programmering"
     },
     "chatStatus": {
@@ -1526,7 +1526,7 @@
     },
     "rhs": {
       "tabInstructions": "Instruktioner",
-      "tabAskJiki": "Ask Jiki",
+      "tabAskJiki": "Fråga Jiki",
       "tabLog": "Logg",
       "tabHints": "Ledtrådar",
       "navChallenges": "Utmaningar",
@@ -1535,7 +1535,7 @@
     "canStart": {
       "placeholder": "Skriv din fråga här ...",
       "askAbout": "Fråga om ...",
-      "askJiki": "Ask Jiki",
+      "askJiki": "Fråga Jiki",
       "freeIncluded": "Första konversationen ingår i din gratisplan",
       "premiumIncluded": "Ingår i din <premium>Premium</premium>-plan",
       "phraseWhyNotWorking": "varför din kod inte fungerar",
