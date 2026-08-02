@@ -47,9 +47,13 @@ export default function DynamicHeader({
 
             <div className={styles.headerTitleText}>
               <h1 className={styles.exerciseTitle}>{exerciseData.title}</h1>
-              <p className={styles.exerciseInfoText}>
-                {exerciseData.isChallenge ? t("premiumChallenge") : t("exerciseLevel", { level: exerciseData.level })}
-              </p>
+              {/* The level title is fetched per locale, so render nothing until it resolves
+                  rather than flashing a placeholder. */}
+              {(exerciseData.isChallenge || exerciseData.level !== "") && (
+                <p className={styles.exerciseInfoText}>
+                  {exerciseData.isChallenge ? t("premiumChallenge") : t("exerciseLevel", { level: exerciseData.level })}
+                </p>
+              )}
             </div>
           </div>
 
