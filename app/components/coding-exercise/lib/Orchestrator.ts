@@ -16,7 +16,7 @@ import { TaskManager } from "./orchestrator/TaskManager";
 import { TestSuiteManager } from "./orchestrator/TestSuiteManager";
 import { TimelineManager } from "./orchestrator/TimelineManager";
 import { getInterpreter } from "./test-runner/getInterpreter";
-import type { TestExpect, TestResult } from "./test-results-types";
+import type { CodingExerciseTranslator, TestExpect, TestResult } from "./test-results-types";
 import type { ExerciseContext, InformationWidgetData, OrchestratorStore, UnderlineRange } from "./types";
 
 class Orchestrator {
@@ -46,6 +46,7 @@ class Orchestrator {
     context: ExerciseContext,
     interpreterLocaleMessages: InterpreterMessages,
     exerciseLocaleMessages: CurriculumMessages,
+    t: CodingExerciseTranslator,
     contentHash: string,
     onGoToDashboard: () => void,
     serverData?: { code: string; storedAt?: string }
@@ -66,6 +67,7 @@ class Orchestrator {
       this.store,
       this.interpreterLocaleMessages,
       this.exerciseLocaleMessages,
+      t,
       this.taskManager,
       context
     );

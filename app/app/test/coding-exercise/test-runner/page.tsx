@@ -10,6 +10,7 @@ import { assembleClassNames } from "@/lib/assemble-classnames";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import { useEffect, useRef, useState } from "react";
 import styles from "../harness.module.css";
+import { useTranslations } from "next-intl";
 
 const initialCode = `move()
 move()
@@ -18,6 +19,7 @@ move()
 move()`;
 
 export default function TestRunnerTestPage() {
+  const t = useTranslations("codingExercise");
   const [orchestrator, setOrchestrator] = useState<Orchestrator | null>(null);
 
   useEffect(() => {
@@ -43,6 +45,7 @@ export default function TestRunnerTestPage() {
       { type: "lesson", slug: "test-lesson" },
       {},
       {},
+      t,
       "",
       () => {}
     );
@@ -54,7 +57,7 @@ export default function TestRunnerTestPage() {
     return () => {
       delete (window as any).testOrchestrator;
     };
-  }, []);
+  }, [t]);
 
   if (!orchestrator) {
     return <div>Loading...</div>;

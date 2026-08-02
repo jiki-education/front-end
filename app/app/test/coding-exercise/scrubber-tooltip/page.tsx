@@ -8,6 +8,7 @@ import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters/shared";
 import { useEffect, useRef } from "react";
 import styles from "../harness.module.css";
+import { useTranslations } from "next-intl";
 
 // Create frames for testing
 function mockFrames(): Frame[] {
@@ -20,6 +21,7 @@ function mockFrames(): Frame[] {
 }
 
 export default function ScrubberTooltipTestPage() {
+  const t = useTranslations("codingExercise");
   const exercise = createMockExercise({
     slug: "test-scrubber-tooltip",
     stubs: {
@@ -29,7 +31,7 @@ export default function ScrubberTooltipTestPage() {
     }
   });
   const orchestratorRef = useRef<Orchestrator>(
-    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" }, {}, {}, "", () => {})
+    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" }, {}, {}, t, "", () => {})
   );
   const orchestrator = orchestratorRef.current;
 
