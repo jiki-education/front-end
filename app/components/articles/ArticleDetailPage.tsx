@@ -12,7 +12,7 @@ interface ArticleDetailPageProps {
 }
 
 // Helper for generateMetadata
-export async function getArticleMetadata(slug: string, locale: string = "en"): Promise<Metadata> {
+export async function getArticleMetadata(slug: string, locale: string): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "seo.help" });
   try {
     const allArticles = getAllArticles(locale);

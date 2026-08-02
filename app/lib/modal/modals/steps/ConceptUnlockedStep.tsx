@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import styles from "@/app/styles/components/modals.module.css";
 import type { CompletionResponseData } from "@/components/coding-exercise/lib/types";
@@ -16,6 +16,7 @@ interface ConceptUnlockedStepProps {
 export function ConceptUnlockedStep({ completionResponse, onContinue }: ConceptUnlockedStepProps) {
   const t = useTranslations("modals.exerciseCompletion.conceptUnlocked");
   const tCommon = useTranslations("common");
+  const locale = useLocale();
   const [concept, setConcept] = useState<ConceptMeta | null>(null);
 
   // Support both new format (concept_slug) and old format (concept object)
@@ -26,8 +27,8 @@ export function ConceptUnlockedStep({ completionResponse, onContinue }: ConceptU
     if (!conceptSlug) {
       return;
     }
-    getConcept(conceptSlug).then(setConcept).catch(reportError);
-  }, [conceptSlug]);
+    getConcept(conceptSlug, locale).then(setConcept).catch(reportError);
+  }, [conceptSlug, locale]);
 
   if (!concept) {
     return (

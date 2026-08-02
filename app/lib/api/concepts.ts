@@ -16,7 +16,7 @@ import type { VideoSource } from "@/types/lesson";
 let cachedPromise: Promise<ConceptMeta[]> | null = null;
 let cachedLocale: string | null = null;
 
-async function fetchAllConcepts(locale: string = "en"): Promise<ConceptMeta[]> {
+async function fetchAllConcepts(locale: string): Promise<ConceptMeta[]> {
   if (cachedPromise && cachedLocale === locale) {
     return cachedPromise;
   }
@@ -38,18 +38,18 @@ async function fetchAllConcepts(locale: string = "en"): Promise<ConceptMeta[]> {
   return cachedPromise;
 }
 
-export async function getConcepts(locale: string = "en"): Promise<ConceptMeta[]> {
+export async function getConcepts(locale: string): Promise<ConceptMeta[]> {
   return fetchAllConcepts(locale);
 }
 
-export async function getConcept(slug: string, locale: string = "en"): Promise<ConceptMeta | null> {
+export async function getConcept(slug: string, locale: string): Promise<ConceptMeta | null> {
   return selectConcept(await fetchAllConcepts(locale), slug);
 }
 
 export async function searchConcepts(
   query: string,
-  parentSlug?: string | null,
-  locale: string = "en"
+  parentSlug: string | null | undefined,
+  locale: string
 ): Promise<ConceptMeta[]> {
   let pool = await fetchAllConcepts(locale);
   if (parentSlug !== undefined) {
@@ -62,29 +62,29 @@ export async function searchConcepts(
   return pool.filter((c) => c.title.toLowerCase().includes(q) || c.description.toLowerCase().includes(q));
 }
 
-export async function getConceptsBySlugs(slugs: string[], locale: string = "en"): Promise<ConceptMeta[]> {
+export async function getConceptsBySlugs(slugs: string[], locale: string): Promise<ConceptMeta[]> {
   const all = await fetchAllConcepts(locale);
   const slugSet = new Set(slugs);
   return all.filter((c) => slugSet.has(c.slug));
 }
 
-export async function getTopLevelConcepts(locale: string = "en"): Promise<ConceptMeta[]> {
+export async function getTopLevelConcepts(locale: string): Promise<ConceptMeta[]> {
   return selectTopLevelConcepts(await fetchAllConcepts(locale));
 }
 
-export async function getChildren(parentSlug: string, locale: string = "en"): Promise<ConceptMeta[]> {
+export async function getChildren(parentSlug: string, locale: string): Promise<ConceptMeta[]> {
   return selectChildren(await fetchAllConcepts(locale), parentSlug);
 }
 
-export async function getAncestors(slug: string, locale: string = "en"): Promise<ConceptAncestor[]> {
+export async function getAncestors(slug: string, locale: string): Promise<ConceptAncestor[]> {
   return selectAncestors(await fetchAllConcepts(locale), slug);
 }
 
-export async function getRelatedConcepts(slug: string, locale: string = "en"): Promise<ConceptMeta[]> {
+export async function getRelatedConcepts(slug: string, locale: string): Promise<ConceptMeta[]> {
   return selectRelatedConcepts(await fetchAllConcepts(locale), slug);
 }
 
-export async function getExercisesForConcept(slug: string, locale: string = "en"): Promise<ExerciseInfo[]> {
+export async function getExercisesForConcept(slug: string, locale: string): Promise<ExerciseInfo[]> {
   const concept = await getConcept(slug, locale);
   if (!concept || concept.exerciseSlugs.length === 0) {
     return [];
@@ -94,7 +94,7 @@ export async function getExercisesForConcept(slug: string, locale: string = "en"
   return metas.map((m) => ({ slug: m.slug, title: m.title }));
 }
 
-export async function getConceptContent(slug: string, locale: string = "en"): Promise<string> {
+export async function getConceptContent(slug: string, locale: string): Promise<string> {
   const concept = await getConcept(slug, locale);
   if (!concept?.contentHash) {
     return "";

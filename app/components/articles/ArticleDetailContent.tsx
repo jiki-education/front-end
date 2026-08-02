@@ -8,15 +8,11 @@ import styles from "@/components/ui/ContentWithSidebar.module.css";
 interface ArticleDetailContentProps {
   article: ProcessedArticle;
   relatedArticles?: ArticleMeta[];
-  locale?: string;
+  locale: string;
   variant?: "authenticated" | "unauthenticated";
 }
 
-export default function ArticleDetailContent({
-  article,
-  relatedArticles = [],
-  locale = "en"
-}: ArticleDetailContentProps) {
+export default function ArticleDetailContent({ article, relatedArticles = [], locale }: ArticleDetailContentProps) {
   const hasRelatedArticles = relatedArticles.length > 0;
 
   return (
