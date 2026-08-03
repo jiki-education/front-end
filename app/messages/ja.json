@@ -87,428 +87,437 @@
     }
   },
   "common": {
-    "continue": "�",
-    "close": "�",
-    "cancel": "�",
-    "confirm": "�",
-    "processing": "�",
-    "reloadPage": "�",
-    "loading": "�",
+    "continue": "続ける",
+    "close": "閉じる",
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "processing": "処理中...",
+    "reloadPage": "ページを再読み込み",
+    "loading": "読み込み中...",
     "languageNames": {
-      "en": "�",
-      "el": "�",
-      "fa": "�",
-      "fr": "�",
-      "hu": "�",
-      "it": "�",
-      "nl": "�",
-      "pt-BR": "�",
-      "pt-PT": "�",
-      "ru": "�",
-      "sr": "�",
-      "uk": "�",
-      "zh-TW": "�"
+      "en": "英語",
+      "el": "ギリシャ語",
+      "fa": "ペルシア語",
+      "fr": "フランス語",
+      "hu": "ハンガリー語",
+      "it": "イタリア語",
+      "nl": "オランダ語",
+      "pt-BR": "ポルトガル語 (ブラジル)",
+      "pt-PT": "ポルトガル語 (ポルトガル)",
+      "ru": "ロシア語",
+      "sr": "セルビア語",
+      "uk": "ウクライナ語",
+      "zh-TW": "中国語 (繁体字)"
     },
-    "verifying": "�",
-    "sending": "�",
-    "perMonth": "�",
+    "verifying": "確認中...",
+    "sending": "送信中...",
+    "perMonth": "/月",
     "validation": {
-      "emailInvalid": "�",
-      "passwordRequired": "�",
-      "passwordMinLength": "�",
-      "currentPasswordRequired": "�",
-      "newPasswordRequired": "�",
-      "passwordsNoMatch": "�"
+      "emailInvalid": "有効なメールアドレスを入力してください",
+      "passwordRequired": "パスワードは必須です",
+      "passwordMinLength": "パスワードは6文字以上必要です",
+      "currentPasswordRequired": "現在のパスワードは必須です",
+      "newPasswordRequired": "新しいパスワードは必須です",
+      "passwordsNoMatch": "パスワードが一致しません"
     },
     "pagination": {
-      "label": "�",
-      "previousPage": "�",
-      "nextPage": "�"
+      "label": "ページネーション",
+      "previousPage": "前のページ",
+      "nextPage": "次のページ"
     },
     "loadingJiki": {
-      "alt": "�"
+      "alt": "起きているジキのキャラクター"
     },
     "otpInput": {
-      "label": "�",
-      "digitLabel": "�"
+      "label": "ワンタイムパスワード",
+      "digitLabel": "6桁の{number}番目"
     },
     "closeButton": {
-      "label": "�"
+      "label": "モーダルを閉じる"
     },
     "copyButton": {
-      "label": "�",
-      "copied": "�"
+      "label": "クリップボードにコピー",
+      "copied": "コピーしました"
     },
     "soundToggle": {
-      "mute": "�",
-      "unmute": "�"
+      "mute": "音を消す",
+      "unmute": "音を出す"
     },
     "themeToggle": {
-      "switchToDark": "�",
-      "switchToSystem": "�",
-      "switchToLight": "�",
-      "toggle": "�",
-      "description": "�"
+      "switchToDark": "ダークテーマに切り替える",
+      "switchToSystem": "システムテーマに切り替える",
+      "switchToLight": "ライトテーマに切り替える",
+      "toggle": "テーマを切り替える",
+      "description": "現在のテーマ: {theme}。クリックでライト、ダーク、システムテーマを切り替えます。"
     },
     "badgeNewLabel": {
-      "label": "�"
+      "label": "新着"
     },
-    "saving": "�",
-    "retry": "�",
-    "tryAgain": "�"
+    "saving": "保存中...",
+    "retry": "再試行",
+    "tryAgain": "もう一度試す",
+    "betaTag": {
+      "label": "ベータ版"
+    },
+    "userAvatar": {
+      "alt": "ユーザーのアバター"
+    }
   },
   "build": {
     "upcomingStreams": {
-      "heading": "�",
-      "toBeAnnounced": "�",
-      "subscribeButton": "�"
+      "heading": "近日開催のライブセッション",
+      "toBeAnnounced": "後日発表",
+      "subscribeButton": "カレンダーに登録"
     },
     "hub": {
-      "title": "�",
-      "description": "�"
+      "title": "作りながら学ぶ - プロジェクト",
+      "description": "Jeremyと一緒に実際のプロジェクトをゼロから作り、彼の知識をすべて学びましょう！"
     }
   },
   "auth": {
     "oauth": {
-      "useGoogle": "�",
-      "useExercism": "�",
-      "divider": "�"
+      "useGoogle": "Googleでログイン",
+      "useExercism": "Exercismでログイン",
+      "divider": "または"
     },
     "fields": {
-      "emailLabel": "�",
-      "emailPlaceholder": "�",
-      "passwordLabel": "�",
-      "passwordPlaceholder": "�",
-      "emailRequired": "�"
+      "emailLabel": "メールアドレス",
+      "emailPlaceholder": "メールアドレスを入力してください",
+      "passwordLabel": "パスワード",
+      "passwordPlaceholder": "パスワードを入力してください",
+      "emailRequired": "メールアドレスは必須です"
     },
     "captchaError": {
-      "signup": "�",
-      "login": "�",
-      "generic": "�"
+      "signup": "ボットか人間かを判別できませんでした。以下のボタンでもう一度サインアップしてみてください。",
+      "login": "ボットか人間かを判別できませんでした。以下のボタンでもう一度ログインしてみてください。",
+      "generic": "ボットか人間かを判別できませんでした。以下のボタンでもう一度お試しください。"
     },
     "login": {
-      "title": "�",
-      "invalidCredentials": "�",
-      "forgotPassword": "�",
-      "submit": "�",
-      "submitting": "�",
-      "unconfirmed": "�",
-      "resend": "�",
-      "noAccount": "�"
+      "title": "ログイン",
+      "invalidCredentials": "メールアドレスまたはパスワードが無効です",
+      "forgotPassword": "パスワードをお忘れですか？",
+      "submit": "ログイン",
+      "submitting": "ログイン中...",
+      "unconfirmed": "ログインする前にメールアドレスを確認してください。<link>確認メールを再送信</link>",
+      "resend": "確認メールが届きませんか？<link>再送信する</link>",
+      "noAccount": "アカウントをお持ちでないですか？<link>無料でサインアップ</link>"
     },
     "signup": {
-      "title": "�",
-      "emailAlreadyRegistered": "�",
-      "submit": "�",
-      "submitting": "�",
-      "haveAccount": "�",
-      "resend": "�"
+      "title": "サインアップ",
+      "emailAlreadyRegistered": "このメールアドレスは既に登録されています",
+      "submit": "サインアップ",
+      "submitting": "サインアップ中...",
+      "haveAccount": "既にアカウントをお持ちですか？<link>ログイン</link>",
+      "resend": "確認メールが届きませんか？<link>再送信する</link>"
     },
     "forgotPassword": {
-      "title": "�",
-      "subtitle": "�",
-      "successMessage": "�",
-      "submit": "�",
-      "remembered": "�"
+      "title": "パスワードをお忘れですか？",
+      "subtitle": "パスワードをお忘れの場合は、以下のフォームから変更用リンクをリクエストしてください。",
+      "successMessage": "そのメールアドレスが登録されていれば、リセット手順が間もなく届きます。",
+      "submit": "リセットリンクを送信",
+      "remembered": "パスワードを思い出しましたか？<link>ログイン</link>"
     },
     "resetPassword": {
-      "invalidTitle": "�",
-      "invalidMessage": "�",
-      "requestNewLink": "�",
-      "title": "�",
-      "subtitle": "�",
-      "tokenMissing": "�",
-      "confirmationRequired": "�",
-      "successMessage": "�",
-      "newPasswordLabel": "�",
-      "newPasswordPlaceholder": "�",
-      "confirmPasswordLabel": "�",
-      "confirmPasswordPlaceholder": "�",
-      "submit": "�",
-      "submitting": "�",
-      "remembered": "�"
+      "invalidTitle": "無効なリセットリンク",
+      "invalidMessage": "このパスワードリセットリンクは無効か期限切れです。新しいものをリクエストしてください。",
+      "requestNewLink": "新しいパスワードリセットをリクエスト",
+      "title": "パスワードをリセット",
+      "subtitle": "以下に新しいパスワードを入力してください。",
+      "tokenMissing": "リセットトークンが見つからないか無効です",
+      "confirmationRequired": "パスワードの確認が必要です",
+      "successMessage": "パスワードがリセットされました！ログイン画面にリダイレクトします...",
+      "newPasswordLabel": "新しいパスワード",
+      "newPasswordPlaceholder": "新しいパスワードを入力してください",
+      "confirmPasswordLabel": "新しいパスワードの確認",
+      "confirmPasswordPlaceholder": "新しいパスワードを確認してください",
+      "submit": "パスワードをリセット",
+      "submitting": "リセット中...",
+      "remembered": "パスワードを覚えていますか？<link>ログイン</link>"
     },
     "resendConfirmation": {
-      "title": "�",
-      "subtitle": "�",
-      "successMessage": "�",
-      "submit": "�",
-      "confirmed": "�"
+      "title": "確認メールを再送信",
+      "subtitle": "確認メールが届きませんか？以下のフォームから再送信してください。",
+      "successMessage": "そのメールアドレスが登録されていれば、確認手順が間もなく届きます。",
+      "submit": "確認メールを再送信",
+      "confirmed": "確認済みですか？<link>ログイン</link>"
     },
     "checkInbox": {
-      "heading": "�",
-      "sentTo": "�",
-      "hint": "�"
+      "heading": "受信トレイを確認してください",
+      "sentTo": "確認メールを送信しました：",
+      "hint": "メール内のリンクをクリックしてアカウントを有効化してください。届かない場合？<link>メールを再送信</link>"
     },
     "emailConfirmed": {
-      "heading": "�",
-      "message": "�"
+      "heading": "メール確認完了！",
+      "message": "メールアドレスが確認されました。ダッシュボードにリダイレクトします..."
     },
     "confirmEmail": {
-      "pendingTitle": "�",
-      "pendingDescription": "�",
-      "errorTitle": "�",
-      "errorMessage": "�",
-      "errorCta": "�"
+      "pendingTitle": "メールアドレスを確認中...",
+      "pendingDescription": "メールアドレスを確認しています。お待ちください。",
+      "errorTitle": "リンクの有効期限切れ",
+      "errorMessage": "この確認リンクは無効です。新しいものをリクエストして続行してください。",
+      "errorCta": "確認メールを再送信"
     },
     "exercismCallback": {
-      "errorTitle": "�",
-      "errorCta": "�",
-      "pendingTitle": "�",
-      "pendingDescription": "�",
-      "authFailed": "�"
+      "errorTitle": "ログインに失敗しました",
+      "errorCta": "ログイン画面に戻る",
+      "pendingTitle": "ログイン中...",
+      "pendingDescription": "Exercismでログインしています。お待ちください。",
+      "authFailed": "Exercism認証に失敗しました"
     },
     "errorCard": {
-      "needHelp": "�"
+      "needHelp": "お困りですか？<link>サポートに連絡</link>"
     },
     "twoFactorVerify": {
-      "title": "�",
-      "subtitle": "�",
-      "codeLabel": "�"
+      "title": "二要素認証",
+      "subtitle": "認証アプリの6桁のコードを入力してください。",
+      "codeLabel": "確認コード"
     },
     "twoFactorSetup": {
-      "instructionsHeading": "�",
-      "appsHint": "�",
-      "codeLabel": "�"
+      "instructionsHeading": "認証アプリでQRコードをスキャンしてアカウントを保護してください。",
+      "appsHint": "Google Authenticator、1Password、Authyなどのアプリで上のコードをスキャンしてください。",
+      "codeLabel": "アプリの6桁のコードを入力してください"
     },
     "unsubscribe": {
-      "noToken": "�",
-      "linkInvalid": "�",
-      "tooManyRequests": "�",
-      "serviceUnavailable": "�",
-      "unableToProcess": "�",
-      "networkError": "�",
-      "processingTitle": "�",
-      "processingDescription": "�",
-      "successTitle": "�",
-      "successDescription": "�",
-      "errorTitle": "�"
+      "noToken": "登録解除トークンが提供されていません。",
+      "linkInvalid": "この登録解除リンクは無効か期限切れです。",
+      "tooManyRequests": "リクエストが多すぎます。しばらく待ってから再試行してください。",
+      "serviceUnavailable": "サービスが一時的に利用できません。後でもう一度お試しください。",
+      "unableToProcess": "リクエストを処理できませんでした。続く場合はサポートにお問い合わせください。",
+      "networkError": "ネットワークエラー。接続を確認して再試行してください。",
+      "processingTitle": "登録解除中...",
+      "processingDescription": "リクエストを処理しています。お待ちください。",
+      "successTitle": "登録解除が完了しました",
+      "successDescription": "メーリングリストから登録解除されました。",
+      "errorTitle": "登録解除に失敗しました"
     },
     "twoFactor": {
-      "cancel": "�",
-      "invalidCode": "�",
-      "verificationFailed": "�"
+      "cancel": "キャンセルして再度ログイン",
+      "invalidCode": "確認コードが無効です",
+      "verificationFailed": "確認に失敗しました。再試行してください。"
     },
     "layout": {
-      "logoAlt": "�",
-      "tagline": "�",
-      "description": "�",
-      "createdBy": "�",
-      "brand": "�"
+      "logoAlt": "Jiki",
+      "tagline": "プログラミングの旅をここから始めましょう",
+      "description": "実践的なコーディング練習を通じてキャリアを変える何百万人もの学習者に参加しましょう。",
+      "createdBy": "制作：",
+      "brand": "Exercismチーム"
     }
   },
   "settings": {
     "page": {
-      "title": "�",
-      "description": "�",
-      "tabAccount": "�",
-      "tabSubscription": "�",
-      "tabNotifications": "�",
-      "tabLearning": "�",
-      "tabDanger": "�"
+      "title": "設定",
+      "description": "アカウントと設定を管理します。",
+      "tabAccount": "アカウント",
+      "tabSubscription": "サブスクリプション",
+      "tabNotifications": "通知",
+      "tabLearning": "学習",
+      "tabDanger": "注意エリア"
     },
     "avatarEdit": {
-      "adjustTitle": "�",
-      "adjustSubtitle": "�",
-      "back": "�",
-      "save": "�",
-      "changeTitle": "�",
-      "changeSubtitlePart1": "�",
-      "changeSubtitlePart2": "�",
-      "uploadText": "�",
-      "uploadHint": "�"
+      "adjustTitle": "写真を調整",
+      "adjustSubtitle": "写真のズームと位置を調整してください。",
+      "back": "戻る",
+      "save": "保存",
+      "changeTitle": "プロフィール写真を変更",
+      "changeSubtitlePart1": "新しいプロフィール画像をアップロードしてください。",
+      "changeSubtitlePart2": "これはあなたにのみ表示されます。",
+      "uploadText": "クリックして新しい写真をアップロード",
+      "uploadHint": "JPG、PNG、GIF。最大5MB。"
     },
     "avatarUpload": {
-      "label": "�"
+      "label": "プロフィール写真"
     },
     "avatarPreview": {
-      "alt": "�"
+      "alt": "あなたのアバター"
     },
     "cancelConfirm": {
-      "title": "�",
-      "message": "�",
-      "benefitsTitle": "�",
-      "benefit1": "�",
-      "benefit2": "�",
-      "benefit3": "�",
-      "benefit4": "�",
-      "keep": "�",
-      "cancel": "�"
+      "title": "サブスクリプションをキャンセルしますか？",
+      "message": "キャンセルされると残念です！現在の請求期間が終了すると、プレミアムの利用ができなくなります。",
+      "benefitsTitle": "現在お楽しみいただいている特典：",
+      "benefit1": "Jikiによる無制限のAIサポート",
+      "benefit2": "すべてのプロジェクトと学習パス",
+      "benefit3": "修了証明書",
+      "benefit4": "広告非表示",
+      "keep": "定期購読を継続",
+      "cancel": "サブスクリプションをキャンセル",
+      "defaultBillingPeriodEnd": "請求期間終了時"
     },
     "cancelSuccess": {
-      "title": "�",
-      "message": "�",
-      "accessUntil": "�",
-      "resubscribeNote": "�",
-      "gotIt": "�"
+      "title": "サブスクリプションがキャンセルされました",
+      "message": "プレミアムの定期購読がキャンセルされました。現在の請求期間が終了するまでは、すべてのプレミアム機能をご利用いただけます。",
+      "accessUntil": "プレミアム利用可能期間：",
+      "resubscribeNote": "気が変わったら、いつでも再登録できます。",
+      "gotIt": "了解"
     },
     "changeEmail": {
-      "title": "�",
-      "importantLabel": "�",
-      "importantText": "�",
-      "currentEmailLabel": "�",
-      "newEmailLabel": "�",
-      "newEmailPlaceholder": "�",
-      "passwordLabel": "�",
-      "passwordPlaceholder": "�",
-      "passwordHint": "�",
-      "newEmailRequired": "�",
-      "emailSame": "�",
-      "updateFailed": "�",
-      "submit": "�"
+      "title": "メールアドレスの変更",
+      "importantLabel": "重要：",
+      "importantText": "新しいメールアドレスに確認メールが送信されます。変更を反映するには確認が必要です。",
+      "currentEmailLabel": "現在のメールアドレス",
+      "newEmailLabel": "新しいメールアドレス",
+      "newEmailPlaceholder": "新しいメールアドレスを入力してください",
+      "passwordLabel": "現在のパスワードで確認",
+      "passwordPlaceholder": "現在のパスワードを入力してください",
+      "passwordHint": "セキュリティ確認のため必要です",
+      "newEmailRequired": "新しいメールアドレスは必須です",
+      "emailSame": "新しいメールアドレスが現在と同じです",
+      "updateFailed": "メールアドレスの更新に失敗しました",
+      "submit": "メールアドレスを更新"
     },
     "deleteAccount": {
-      "sendFailed": "�",
-      "confirmTitle": "�",
-      "confirmMessage": "�",
-      "submit": "�",
-      "securityTitle": "�",
-      "securityMessage": "�",
-      "understand": "�"
+      "sendFailed": "確認メールの送信に失敗しました。再試行してください。",
+      "confirmTitle": "本当によろしいですか？",
+      "confirmMessage": "本当にアカウントを削除しますか？すべての作業が失われ、元に戻せません。",
+      "submit": "アカウントを削除",
+      "securityTitle": "セキュリティ確認",
+      "securityMessage": "本人確認のためメールを送信しました。メール内のボタンをクリックしてアカウントを削除してください。",
+      "understand": "理解しました"
     },
     "paymentHistory": {
-      "title": "�",
-      "subtitle": "�",
-      "loading": "�",
-      "error": "�",
-      "empty": "�",
-      "columnDate": "�",
-      "columnAmount": "�",
-      "columnType": "�",
-      "columnMethod": "�",
-      "downloadReceipt": "�"
+      "title": "支払い履歴",
+      "subtitle": "過去の支払いの領収書を表示・ダウンロードできます。",
+      "loading": "支払い履歴を読み込み中...",
+      "error": "支払い履歴を読み込めませんでした。後ほど再試行してください。",
+      "empty": "支払い履歴がありません。",
+      "columnDate": "日付",
+      "columnAmount": "金額",
+      "columnType": "種類",
+      "columnMethod": "方法",
+      "downloadReceipt": "領収書をダウンロード",
+      "typeRecurring": "定期",
+      "dateUnavailable": "日付不明"
     },
     "profile": {
-      "nameLabel": "�",
-      "namePlaceholder": "�",
-      "updateName": "�",
-      "nameEmpty": "�",
-      "nameTooLong": "�",
-      "handleLabel": "�",
-      "handlePlaceholder": "�",
-      "updateHandle": "�",
-      "handleEmpty": "�",
-      "handleInvalid": "�",
-      "handleTooShort": "�",
-      "handleTooLong": "�",
-      "emailLabel": "�",
-      "emailPlaceholder": "�",
-      "updateEmail": "�",
-      "emailEmpty": "�",
-      "confirmationPendingHint": "�",
-      "emailNotConfirmed": "�",
-      "confirmationPending": "�"
+      "nameLabel": "名前",
+      "namePlaceholder": "名前を入力してください",
+      "updateName": "名前を更新",
+      "nameEmpty": "名前は空にできません",
+      "nameTooLong": "名前は100文字未満にする必要があります",
+      "handleLabel": "ハンドル",
+      "handlePlaceholder": "ハンドルを入力してください",
+      "updateHandle": "ハンドルを更新",
+      "handleEmpty": "ハンドルは空にできません",
+      "handleInvalid": "ハンドルは英字、数字、アンダースコア、ハイフンのみ使用できます",
+      "handleTooShort": "ハンドルは3文字以上必要です",
+      "handleTooLong": "ハンドルは30文字未満にする必要があります",
+      "emailLabel": "メールアドレス",
+      "emailPlaceholder": "メールアドレスを入力してください",
+      "updateEmail": "メールアドレスを更新",
+      "emailEmpty": "メールアドレスは空にできません",
+      "confirmationPendingHint": "変更を確認するため、メールをチェックしてください。",
+      "emailNotConfirmed": "メールアドレスが確認されていません。",
+      "confirmationPending": "確認待ち： <strong>{email}</strong>"
     },
     "subscriptionSection": {
-      "loadingCardTitle": "�",
-      "loadingCardDescription": "�",
-      "loadingData": "�"
+      "loadingCardTitle": "サブスクリプション",
+      "loadingCardDescription": "ご利用のプランと請求情報を管理します",
+      "loadingData": "サブスクリプション情報を読み込み中..."
     },
     "benefits": {
-      "activeSubtitle": "�",
-      "cancellingSubtitle": "�",
-      "resubscribeTitle": "�",
-      "resubscribeButton": "�",
-      "activeHeading": "�",
-      "cancellingHeading": "�",
-      "footer": "�",
-      "resubscribe": "�"
+      "activeSubtitle": "毎日アンロックしている特典",
+      "cancellingSubtitle": "アクセス終了後に利用できなくなる特典",
+      "resubscribeTitle": "制限なく学習を続ける",
+      "resubscribeButton": "プレミアムに再登録",
+      "activeHeading": "<highlight>プレミアム</highlight>の特典をお楽しみいただいています",
+      "cancellingHeading": "<highlight>プレミアム</highlight>の特典を失わないでください",
+      "footer": "ご質問がありますか？<includedLink>特典の詳細</includedLink>または<supportLink>サポートに連絡</supportLink>。",
+      "resubscribe": "今すぐ<price></price>で再登録して、Jikiのサポートでプログラミングの旅を続けましょう。"
     },
     "cancelSectionPanel": {
-      "title": "�",
-      "description": "�",
-      "cancel": "�"
+      "title": "サブスクリプションのキャンセル",
+      "description": "キャンセルすると、請求期間終了時にプレミアム機能にアクセスできなくなります。後でいつでも再登録できます。",
+      "cancel": "キャンセル"
     },
     "premiumUpsell": {
-      "subtitle": "�",
-      "planName": "�",
-      "upgrade": "�",
-      "headline": "�",
-      "dailyNote": "�"
+      "subtitle": "現在、無料プランをご利用中です。プレミアムにアップグレードして以下をアンロック：",
+      "planName": "Jikiプレミアム",
+      "upgrade": "プレミアムにアップグレード",
+      "headline": "より<highlight>良い</highlight>学習方法をアンロック",
+      "dailyNote": "1日あたりわずか<price></price>"
     },
     "neverSubscribed": {
-      "heading": "�",
-      "subtitle": "�",
-      "featuresLabel": "�",
-      "upgradeAriaLabel": "�",
-      "upgrade": "�"
+      "heading": "プランをアップグレード",
+      "subtitle": "プレミアムプランで高度な機能と充実した学習体験をアンロックしましょう。",
+      "featuresLabel": "プレミアムプランの特長",
+      "upgradeAriaLabel": "{plan}プランにアップグレード",
+      "upgrade": "プレミアムにアップグレード"
     },
     "errorBoundary": {
-      "title": "�",
-      "messagePart1": "�",
-      "messagePart2": "�",
-      "refresh": "�",
-      "detailsSummary": "�"
+      "title": "サブスクリプションシステムエラー",
+      "messagePart1": "サブスクリプション情報の読み込みに問題が発生しています。支払いシステムの一時的な問題の可能性があります。",
+      "messagePart2": "ページを更新するか、問題が続く場合はサポートにお問い合わせください。",
+      "refresh": "ページを更新",
+      "detailsSummary": "エラー詳細 (開発用)"
     },
     "danger": {
-      "sessionLabel": "�",
-      "sessionDescription": "�",
-      "logout": "�",
-      "deleteLabel": "�",
-      "deleteDescription": "�",
-      "deleteButton": "�"
+      "sessionLabel": "セッション管理",
+      "sessionDescription": "すべてのデバイスでのアクティブなセッションを管理します。",
+      "logout": "ログアウト",
+      "deleteLabel": "アカウント削除",
+      "deleteDescription": "アカウントと関連データを完全に削除します。この操作は取り消せません。",
+      "deleteButton": "アカウントを削除"
     },
     "learning": {
-      "streaksLabel": "�",
-      "streaksDescription": "�",
-      "toggleAriaLabel": "�",
-      "learnMore": "�"
+      "streaksLabel": "連続学習日数",
+      "streaksDescription": "アカウントで連続学習日数を有効にする。",
+      "toggleAriaLabel": "連続学習日数の切り替え",
+      "learnMore": "詳しく見る"
     },
     "notifications": {
-      "toggleAriaLabel": "�",
-      "essentialTitle": "�",
-      "essentialDescription": "�",
-      "featuresTitle": "�",
-      "featuresDescription": "�",
-      "livestreamsTitle": "�",
-      "livestreamsDescription": "�",
-      "milestonesTitle": "�",
-      "milestonesDescription": "�",
-      "activityTitle": "�",
-      "activityDescription": "�",
-      "onboardingTitle": "�",
-      "onboardingDescription": "�"
+      "toggleAriaLabel": "{title}を切り替える",
+      "essentialTitle": "重要なサービス/アカウントのお知らせ",
+      "essentialDescription": "アカウント、セキュリティ、サービスの重要な更新情報。",
+      "featuresTitle": "新機能やコンテンツに関するお知らせ",
+      "featuresDescription": "Jikiに追加される最新の機能やコンテンツをお知らせします。",
+      "livestreamsTitle": "ライブ配信に関するお知らせ",
+      "livestreamsDescription": "近日開催のライブ配信やイベントをお知らせします。",
+      "milestonesTitle": "新しいマイルストーン達成時のお知らせ",
+      "milestonesDescription": "Jikiでの成果や進行状況を祝います。",
+      "activityTitle": "Jikiでのアクティビティに関するお知らせ",
+      "activityDescription": "バッジの獲得やチャレンジの完了など、アクティビティに基づいた通知。",
+      "onboardingTitle": "Jikiを最大限に活用するためのお知らせ",
+      "onboardingDescription": "Jikiを最大限に活用するためのヒントやガイダンス。"
     },
     "editableField": {
-      "update": "�",
-      "edit": "�",
-      "saveFailed": "�"
+      "update": "更新",
+      "edit": "編集",
+      "saveFailed": "保存に失敗しました"
     },
     "passwordField": {
-      "updateFailed": "�",
-      "currentLabel": "�",
-      "currentPlaceholder": "�",
-      "newLabel": "�",
-      "newPlaceholder": "�",
-      "confirmLabel": "�",
-      "confirmPlaceholder": "�",
-      "submit": "�",
-      "label": "�",
-      "change": "�"
+      "updateFailed": "パスワードの更新に失敗しました",
+      "currentLabel": "現在のパスワード",
+      "currentPlaceholder": "現在のパスワードを入力",
+      "newLabel": "新しいパスワード",
+      "newPlaceholder": "新しいパスワードを入力",
+      "confirmLabel": "新しいパスワードの確認",
+      "confirmPlaceholder": "新しいパスワードを確認",
+      "submit": "パスワードを更新",
+      "label": "パスワード",
+      "change": "変更"
     },
     "subscriptionStatus": {
-      "statusActive": "�",
-      "statusCanceled": "�",
-      "statusPaymentFailed": "�",
-      "statusCancelling": "�",
-      "statusIncomplete": "�",
-      "statusSessionExpired": "�",
-      "statusNotSubscribed": "�",
-      "currentPlan": "�",
-      "cancellingMessage": "�",
-      "currentPlanAriaLabel": "�",
-      "statusAriaLabel": "�",
-      "messageCanceled": "�",
-      "messagePaymentFailed": "�",
-      "messageCancelling": "�",
-      "messageIncomplete": "�",
-      "messageIncompleteExpired": "�",
-      "active": "�",
-      "activeWithBilling": "�",
-      "cancellingRemaining": "�",
-      "cancellingEnds": "�",
-      "free": "�",
-      "planLabel": "�"
+      "statusActive": "有効",
+      "statusCanceled": "キャンセル済み",
+      "statusPaymentFailed": "支払い失敗",
+      "statusCancelling": "キャンセル処理中",
+      "statusIncomplete": "未完了",
+      "statusSessionExpired": "セッション切れ",
+      "statusNotSubscribed": "未登録",
+      "currentPlan": "現在のプラン",
+      "cancellingMessage": "Jikiプレミアムのご利用がキャンセルされました。",
+      "currentPlanAriaLabel": "現在のプラン: {plan}プラン",
+      "statusAriaLabel": "サブスクリプションステータス: {status}",
+      "messageCanceled": "期間終了までサービスは継続されます",
+      "messagePaymentFailed": "支払い失敗 - お支払い方法を更新してください",
+      "messageCancelling": "キャンセル予定 - 期間終了までアクセス可能",
+      "messageIncomplete": "支払い設定が未完了です - 設定を完了してください",
+      "messageIncompleteExpired": "前回のチェックアウトセッションが期限切れです - 新しいサブスクリプションを開始してください",
+      "active": "現在、<plan>Jiki {tier}</plan>プランを<strong><price></price>/月</strong>でご利用中です。",
+      "activeWithBilling": "現在、<plan>Jiki {tier}</plan>プランを<strong><price></price>/月</strong>でご利用中です。次回請求日は<strong>{date}</strong>です。",
+      "cancellingRemaining": "プレミアム機能を引き続きご利用いただける期間はあと<strong>{count}日</strong>です。",
+      "cancellingEnds": "プレミアムプランは<strong>{date}</strong>に終了します。",
+      "free": "現在<strong>無料</strong>プランをご利用中です。すべてのコンテンツに加え、一つの演習でAsk Jikiを利用できます。",
+      "planLabel": "{tier}プラン"
     }
   },
   "landing": {
@@ -668,101 +677,101 @@
   },
   "premium": {
     "page": {
-      "heading": "�",
-      "subheading": "�"
+      "heading": "Jikiプレミアム",
+      "subheading": "就職準備を加速させましょう。すべてのコース、プロジェクト、無制限のAIサポートなど、Jikiのすべてをアンロックします。"
     },
     "planPrice": {
-      "basic": "�",
-      "premium": "�",
-      "free": "�",
-      "perMonth": "�"
+      "basic": "ベーシック",
+      "premium": "プレミアム",
+      "free": "無料",
+      "perMonth": "/月"
     },
     "planBadge": {
-      "free": "�",
-      "premium": "�"
+      "free": "無料",
+      "premium": "プレミアム"
     },
     "table": {
-      "comparePlans": "�",
-      "comparePlansDesc": "�",
-      "checkNo": "�"
+      "comparePlans": "プランを比較",
+      "comparePlansDesc": "各プランの内容を確認し、安心してお選びください。",
+      "checkNo": "✕"
     },
     "values": {
-      "oneConversation": "�",
-      "unlimited": "�",
-      "firstEpisodes": "�",
-      "fullAccess": "�",
-      "sampleEpisode": "�"
+      "oneConversation": "1回の会話",
+      "unlimited": "無制限",
+      "firstEpisodes": "最初のエピソード",
+      "fullAccess": "フルアクセス",
+      "sampleEpisode": "サンプルエピソード"
     },
     "categories": {
-      "codingFundamentals": "�",
-      "buildWithJeremy": "�",
-      "support": "�",
-      "certificates": "�",
-      "experience": "�"
+      "codingFundamentals": "プログラミングを学ぶ",
+      "buildWithJeremy": "作り方を学ぶ",
+      "support": "サポート",
+      "certificates": "証明書",
+      "experience": "体験"
     },
     "features": {
-      "codingExercisesTitle": "�",
-      "codingExercisesDesc": "�",
-      "conceptLibraryTitle": "�",
-      "conceptLibraryDesc": "�",
-      "jikiChallengesTitle": "�",
-      "jikiChallengesDesc": "�",
-      "askJikiTitle": "�",
-      "askJikiDesc": "�",
-      "buildingFundamentalsTitle": "�",
-      "buildingFundamentalsDesc": "�",
-      "howThingsWorkTitle": "�",
-      "howThingsWorkDesc": "�",
-      "earlyAccessTitle": "�",
-      "earlyAccessDesc": "�",
-      "communityForumsTitle": "�",
-      "communityForumsDesc": "�",
-      "livestreamsTitle": "�",
-      "livestreamsDesc": "�",
-      "certificatesTitle": "�",
-      "certificatesDesc": "�",
-      "adFreeTitle": "�",
-      "adFreeDesc": "�"
+      "codingExercisesTitle": "コーディング演習",
+      "codingExercisesDesc": "拡大するインタラクティブな演習ライブラリで実践的に学べます。",
+      "conceptLibraryTitle": "完全なコンセプトライブラリ",
+      "conceptLibraryDesc": "必要なコーディングの概念をすべて網羅した、小さなレッスン。",
+      "jikiChallengesTitle": "チャレンジ",
+      "jikiChallengesDesc": "スキルをさらに伸ばす、より難しいチャレンジに挑戦。",
+      "askJikiTitle": "Ask Jiki",
+      "askJikiDesc": "JikiからのAIによるヒントと説明で行き詰まりを解消。",
+      "buildingFundamentalsTitle": "ビルディング・ファンダメンタルズシリーズ",
+      "buildingFundamentalsDesc": "Jeremyがウェブプラットフォームをゼロから構築する様子をご覧いただけます — サーバー、データベース、認証など。",
+      "howThingsWorkTitle": "How Things Workシリーズ",
+      "howThingsWorkDesc": "ExercismやJikiの難しい部分と、その構築理由を深く掘り下げます。",
+      "earlyAccessTitle": "新機能への早期アクセス",
+      "earlyAccessDesc": "他の人より先に新機能を試せます。",
+      "communityForumsTitle": "コミュニティフォーラム",
+      "communityForumsDesc": "他のJiki学習者と一緒に質問し、学び合えます。",
+      "livestreamsTitle": "JeremyとのQ&Aライブ配信",
+      "livestreamsDesc": "Jeremyがコーディングやビルディングの質問に答えるQ&Aライブセッションに参加できます。",
+      "certificatesTitle": "コース修了証明書の取得",
+      "certificatesDesc": "共有可能な証明書で学んだ成果をアピールできます。",
+      "adFreeTitle": "広告なしの学習",
+      "adFreeDesc": "集中して学習できます。"
     },
     "faq": {
-      "title": "�",
-      "q1": "�",
-      "a1": "�",
-      "q2": "�",
-      "a2": "�",
-      "q3": "�",
-      "a3": "�",
-      "q4": "�",
-      "q5": "�",
-      "a5": "�",
-      "a4": "�"
+      "title": "よくある質問",
+      "q1": "Jikiを無料で試せますか？",
+      "a1": "はい！無料でサインアップして、ベーシックプランを好きなだけご利用いただけます。フルアクセスが必要になったらいつでもプレミアムにアップグレードできます — 義務はありません。",
+      "q2": "最低契約期間はありますか？",
+      "a2": "最低契約期間はありません — プレミアムは月額課金で、アカウント設定からいつでもキャンセルできます。",
+      "q3": "プレミアムサブスクリプションをキャンセルするとどうなりますか？",
+      "a3": "現在の請求期間が終了するまではプレミアムアクセスが維持され、その後アカウントはベーシックプランに戻ります。進行状況は失われません — プレミアム専用機能へのアクセスのみが失われます。",
+      "q4": "学生やプレミアムを購入できない方への割引はありますか？",
+      "q5": "後でアップグレードまたはダウングレードできますか？",
+      "a5": "もちろんです。アカウントからいつでもプレミアムにアップグレードでき、同じくらい簡単にいつでもキャンセルできます。",
+      "a4": "Jikiを誰でも利用できるようにしたいと考えています。費用が障壁となっている場合は、<link>ご連絡</link>いただければできる限りサポートします。"
     },
     "cta": {
-      "alreadyPremiumTitle": "�",
-      "alreadyPremiumDesc": "�",
-      "upgradeTitle": "�",
-      "upgradeDesc": "�",
-      "upgradeButton": "�",
-      "freeTitle": "�",
-      "freeDesc": "�",
-      "freeButton": "�"
+      "alreadyPremiumTitle": "すでにプレミアムメンバーです",
+      "alreadyPremiumDesc": "Jikiのサポートに感謝します — すべてにフルアクセスをお楽しみください！",
+      "upgradeTitle": "学習を加速する準備はできましたか？",
+      "upgradeDesc": "プレミアムにアップグレードして、Jikiのすべてをアンロックしましょう。",
+      "upgradeButton": "プレミアムにアップグレード",
+      "freeTitle": "無料で始める",
+      "freeDesc": "今日無料で始めて、数百時間の無料コンテンツにアクセス。さらに深く学びたくなったらプレミアムにアップグレード。",
+      "freeButton": "無料でサインアップ"
     },
     "publicPrice": {
-      "unavailable": "�"
+      "unavailable": "—"
     },
     "benefits": {
-      "unlimitedAiTitle": "�",
-      "unlimitedAiDescription": "�",
-      "unlimitedContentTitle": "�",
-      "unlimitedContentDescription": "�",
-      "certificatesTitle": "�",
-      "certificatesDescription": "�",
-      "adFreeTitle": "�",
-      "adFreeDescription": "�",
-      "prioritySupportTitle": "�",
-      "prioritySupportDescription": "�",
-      "earlyAccessTitle": "�",
-      "earlyAccessDescription": "�"
+      "unlimitedAiTitle": "無制限のAIヘルプ",
+      "unlimitedAiDescription": "行き詰まったときに、Jikiからパーソナライズされたガイダンスを受けられます",
+      "unlimitedContentTitle": "無制限のコンテンツ",
+      "unlimitedContentDescription": "すべての演習、プロジェクト、学習パスにアクセス",
+      "certificatesTitle": "証明書",
+      "certificatesDescription": "コースを修了すると共有可能な証明書を取得",
+      "adFreeTitle": "広告なし",
+      "adFreeDescription": "集中できる学習環境を提供",
+      "prioritySupportTitle": "優先サポート",
+      "prioritySupportDescription": "サポートが必要なときに迅速な対応を受けられます",
+      "earlyAccessTitle": "早期アクセス",
+      "earlyAccessDescription": "新機能やコンテンツをいち早く試せます"
     }
   },
   "roadmap": {
@@ -855,44 +864,44 @@
   },
   "misc": {
     "chooseLanguage": {
-      "selectLanguage": "�",
-      "backToVideo": "�",
-      "tooltip": "�",
-      "saving": "�",
-      "confirmChoice": "�",
-      "questionTitle": "�",
-      "javascript": "�",
-      "python": "�",
-      "chooseForMe": "�",
-      "cantChange": "�",
-      "noVideo": "�",
-      "videoInstruction": "�"
+      "selectLanguage": "言語を選択",
+      "backToVideo": "動画に戻る",
+      "tooltip": "選択して続行してください。",
+      "saving": "保存中...",
+      "confirmChoice": "選択を確認",
+      "questionTitle": "学びたい言語を選んでください",
+      "javascript": "JavaScript",
+      "python": "Python",
+      "chooseForMe": "おまかせ",
+      "cantChange": "選択後は変更できません。",
+      "noVideo": "動画はありません",
+      "videoInstruction": "動画を見てから言語を選んでください。もうご存知ですか？<skip>動画をスキップ</skip>"
     },
     "deleteAccount": {
-      "deletedTitle": "�",
-      "deletedSubtitle": "�",
-      "deletingTitle": "�",
-      "deletingSubtitle": "�",
-      "errorTitle": "�",
-      "errorSubtitle": "�",
-      "expiredTitle": "�",
-      "expiredSubtitle": "�",
-      "expiredSecondary": "�",
-      "goHome": "�"
+      "deletedTitle": "アカウントが削除されました",
+      "deletedSubtitle": "ご利用ありがとうございました。Jikiをお楽しみいただけたでしょうか。プログラミングの旅の幸運を祈ります！",
+      "deletingTitle": "アカウントを削除しています",
+      "deletingSubtitle": "お待ちください",
+      "errorTitle": "エラーが発生しました",
+      "errorSubtitle": "アカウントの削除中にエラーが発生しました。通知済みですので、手動で削除いたします。",
+      "expiredTitle": "リンクの有効期限切れまたは無効",
+      "expiredSubtitle": "この削除リンクは無効です。すでに使用されたか、期限切れの可能性があります。",
+      "expiredSecondary": "それでもアカウントを削除する場合は、ログインして設定から新しい削除リンクをリクエストしてください。",
+      "goHome": "ホームページに戻る"
     },
     "errorPage": {
-      "serverErrorTitle": "�",
-      "serverErrorMessage": "�",
-      "serverErrorAction": "�",
-      "notFoundTitle": "�",
-      "notFoundMessage": "�",
-      "notFoundAction": "�"
+      "serverErrorTitle": "問題が発生しました",
+      "serverErrorMessage": "予期しないエラーが発生しました。申し訳ありません！",
+      "serverErrorAction": "再試行",
+      "notFoundTitle": "ページが見つかりません",
+      "notFoundMessage": "ページが見つからないようです。申し訳ありません！",
+      "notFoundAction": "ホームに戻る"
     },
     "testimonialsPage": {
-      "title": "�",
-      "subtitle": "�",
-      "quoteOpenAlt": "�",
-      "quoteCloseAlt": "�"
+      "title": "お客様の声",
+      "subtitle": "コースを楽しめたか学生に尋ねました。その声を紹介します...",
+      "quoteOpenAlt": "“",
+      "quoteCloseAlt": "”"
     }
   },
   "concepts": {
@@ -914,7 +923,8 @@
     },
     "error": {
       "notFound": "概念が見つかりませんでした。",
-      "back": "概念一覧に戻る"
+      "back": "概念一覧に戻る",
+      "loadFailed": "コンセプトの読み込みに失敗しました。後で再試行してください。"
     },
     "relatedConcepts": {
       "heading": "関連する概念",
@@ -1055,47 +1065,47 @@
   },
   "toasts": {
     "subscription": {
-      "loginRequired": "�",
-      "checkoutFailed": "�",
-      "alreadyPremium": "�",
-      "checkoutSessionFailed": "�",
-      "portalFailed": "�",
-      "canceled": "�",
-      "cancelFailed": "�",
-      "reactivated": "�",
-      "reactivateFailed": "�",
-      "paymentPortalFailed": "�"
+      "loginRequired": "アップグレードにはログインが必要です",
+      "checkoutFailed": "チェックアウトの開始に失敗しました。再試行してください。",
+      "alreadyPremium": "既にプレミアムプランです",
+      "checkoutSessionFailed": "チェックアウトセッションの作成に失敗しました",
+      "portalFailed": "カスタマーポータルを開けませんでした",
+      "canceled": "サブスクリプションがキャンセルされました。{date}までアクセスが維持されます。",
+      "cancelFailed": "サブスクリプションのキャンセルに失敗しました",
+      "reactivated": "サブスクリプションが再開されました！",
+      "reactivateFailed": "サブスクリプションの再開に失敗しました",
+      "paymentPortalFailed": "支払いポータルを開けませんでした"
     },
     "auth": {
-      "sessionExpired": "�"
+      "sessionExpired": "セッションの期限が切れました。再度ログインしてください。"
     },
     "logout": {
-      "loading": "�",
-      "success": "�",
-      "failed": "�"
+      "loading": "ログアウト中...",
+      "success": "ログアウトしました",
+      "failed": "ログアウトに失敗しました - サーバーに接続できません"
     },
     "avatar": {
-      "updated": "�",
-      "uploadFailed": "�",
-      "networkError": "�",
-      "invalidImageType": "�",
-      "imageTooLarge": "�"
+      "updated": "アバターを更新しました",
+      "uploadFailed": "アバターのアップロードに失敗しました",
+      "networkError": "ネットワークエラー。再試行してください。",
+      "invalidImageType": "JPEG、PNG、GIF、WebP画像を選択してください",
+      "imageTooLarge": "画像は5MB未満にしてください"
     },
     "settings": {
-      "fetchFailed": "�",
-      "settingUpdated": "�",
-      "updateFailed": "�",
-      "notificationUpdateFailed": "�",
-      "streaksUpdateFailed": "�"
+      "fetchFailed": "設定の取得に失敗しました",
+      "settingUpdated": "{field, select, name {名前} email {メールアドレス} password {パスワード} locale {言語設定} handle {ハンドル} other {{field}}}を更新しました",
+      "updateFailed": "更新に失敗しました",
+      "notificationUpdateFailed": "通知設定の更新に失敗しました",
+      "streaksUpdateFailed": "連続学習日数設定の更新に失敗しました"
     },
     "exercise": {
-      "submissionFailed": "�",
-      "chatSaveFailed": "�",
-      "chatSaveCaptchaFailed": "�",
-      "lessonSaveError": "�"
+      "submissionFailed": "提出内容を保存できませんでした。再試行してください。",
+      "chatSaveFailed": "メッセージを保存できませんでした。再度アクセスしても表示されません。",
+      "chatSaveCaptchaFailed": "保存中の確認に失敗しました。このメッセージは再度アクセスしても表示されません。",
+      "lessonSaveError": "演習を完了できませんでした。再試行してください。続く場合は<link>https://forum.jiki.io</link>で報告してください。"
     },
     "lesson": {
-      "loadFailed": "�"
+      "loadFailed": "演習を開けませんでした。再試行してください。"
     }
   },
   "modals": {
@@ -1336,19 +1346,19 @@
     }
   },
   "challenge": {
-    "backToChallenges": "�",
+    "backToChallenges": "チャレンジ一覧に戻る",
     "error": {
-      "message": "�"
+      "message": "エラー: {error}"
     },
-    "loadError": "�",
-    "documentTitle": "�",
+    "loadError": "チャレンジの読み込みに失敗しました",
+    "documentTitle": "{title} - チャレンジ - Jiki",
     "locked": {
-      "title": "�",
-      "description": "�"
+      "title": "チャレンジはロックされています",
+      "description": "このチャレンジは現在ロックされています。前のレッスンを完了してアンロックしてください。"
     },
     "premiumRequired": {
-      "title": "�",
-      "description": "�"
+      "title": "プレミアムが必要です",
+      "description": "チャレンジはプレミアム機能です。プランをアップグレードして開始してください。"
     }
   },
   "dashboard": {
@@ -1430,6 +1440,7 @@
   "codingExercise": {
     "loadError": "演習の読み込みエラー: {error}",
     "unknownError": "不明なエラー",
+    "exerciseNotFound": "演習 \"{slug}\" がカリキュラムに見つかりません。利用可能な演習: {available}",
     "runButton": {
       "run": "コードを実行",
       "running": "実行中...",
@@ -1575,7 +1586,11 @@
       "serverError": "サーバーエラーです。少し待ってからもう一度お試しください。",
       "networkError": "ネットワークエラーです。接続を確認して、もう一度お試しください。",
       "timeout": "リクエストがタイムアウトしました。もう一度お試しください。",
-      "unexpected": "予期しないエラーが発生しました。もう一度お試しください。"
+      "unexpected": "予期しないエラーが発生しました。もう一度お試しください。",
+      "noResponseBody": "応答の受信中に問題が発生しました。再試行してください。",
+      "streamProcessing": "応答の読み取り中に問題が発生しました。再試行してください。",
+      "unknown": "予期しないエラーが発生しました。再試行してください。",
+      "requestFailed": "リクエストに失敗しました。再試行してください。"
     },
     "stuckHeader": {
       "title": "行き詰まったら、Jiki に聞いてみましょう！"
@@ -1593,16 +1608,26 @@
       "lintWarning": "<strong>あと少し...</strong> コードは正しく動きましたが、フォーマットの修正が必要です。コード内のオレンジ色の下線を確認しましょう。",
       "lintWarningPlain": "コードは正しく動きましたが、フォーマットの修正が必要です。コード内のオレンジ色の下線を確認しましょう。",
       "genericError": "おっと。コードにエラーがあります。",
-      "runtimeError": "�",
-      "isolatedCheckError": "�",
-      "isolatedCheckErrorDetail": "�",
+      "runtimeError": "コードの実行中にエラーが発生しました。上のエラーメッセージを修正して続行してください。",
+      "isolatedCheckError": "コードの実行中にエラーが発生しました。",
+      "isolatedCheckErrorDetail": "コードの実行中にエラーが発生しました。({message})",
       "congratsWellDone": "よくできました！",
       "congratsNiceWork": "いいですね！",
       "congratsFantasticJob": "素晴らしい出来です！",
       "congratsAmazingEffort": "見事な頑張りです！",
       "congratsGreatAchievement": "大きな一歩です！",
       "congratsCongratulations": "おめでとうございます！",
-      "congratsCongrats": "おめでとう！"
+      "congratsCongrats": "おめでとう！",
+      "ioError": "<p>エラー: {message}</p>",
+      "codeCheckError": "コードチェックエラー: {message}"
+    },
+    "informationTooltip": {
+      "errorHeading": "おっと、問題が発生しました！",
+      "closeAriaLabel": "ツールチップを閉じる"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "ブレークポイントを追加",
+      "removeBreakpoint": "ブレークポイントを削除"
     },
     "syntaxError": {
       "heading": "Jiki はこのコードを理解できませんでした。",
@@ -1681,121 +1706,127 @@
   },
   "projects": {
     "projectCard": {
-      "comingSoon": "�",
-      "comingSoonLabel": "�"
+      "comingSoon": "近日公開",
+      "comingSoonLabel": "近日公開"
     },
     "episodeCard": {
-      "premium": "�"
+      "premium": "プレミアム"
     },
     "episodeSummary": {
-      "heading": "�",
-      "whereWeStart": "�",
-      "whereWeEnd": "�",
-      "whatWeCover": "�"
+      "heading": "エピソードの概要",
+      "whereWeStart": "スタート地点",
+      "whereWeEnd": "ゴール地点",
+      "whatWeCover": "取り上げる内容"
     },
     "projectPage": {
-      "backToAllProjects": "�"
+      "backToAllProjects": "← <strong>すべてのプロジェクト</strong>に戻る"
     },
     "episodePage": {
-      "backToProject": "�",
-      "relevantGuidesDescription": "�"
+      "backToProject": "← <strong>{title}</strong>に戻る",
+      "relevantGuidesDescription": "この手順を進める際に役立つガイドです。"
     },
     "relevantGuides": {
-      "heading": "�"
+      "heading": "関連ガイド"
     }
   },
   "guides": {
     "guidesContent": {
-      "pageHeading": "�",
-      "searchPlaceholder": "�",
-      "filterAll": "�",
-      "noResultsTitle": "�",
-      "noResultsMessage": "�"
+      "pageHeading": "ガイドとハウツー",
+      "searchPlaceholder": "ガイドを検索...",
+      "filterAll": "すべて",
+      "noResultsTitle": "“{query}” の検索結果: 0件",
+      "noResultsMessage": "別のキーワードを試すか、ガイドをブラウズしてください。"
     },
     "guideCard": {
-      "premium": "�"
+      "premium": "プレミアム"
     },
     "guideBreadcrumb": {
-      "guides": "�"
+      "guides": "ガイド"
     },
     "premiumGate": {
-      "lockedTitle": "�",
-      "lockedSubtitle": "�",
-      "unlockButton": "�"
+      "lockedTitle": "このガイドはプレミアム会員向けです",
+      "lockedSubtitle": "このガイドと、Jikiプレミアムのすべての特典をアンロックして読み進めましょう。",
+      "unlockButton": "プレミアムでアンロック"
     },
     "relatedGuides": {
-      "heading": "�"
+      "heading": "関連ガイド"
     },
     "featuredInProjects": {
-      "heading": "�"
+      "heading": "プロジェクトで紹介"
     },
     "metadata": {
-      "notFoundTitle": "�"
+      "notFoundTitle": "ガイドが見つかりません"
     }
   },
   "unsubscribe": {
-    "title": "�",
-    "subtitle": "�",
-    "updateError": "�",
-    "toggleAria": "�",
+    "title": "メール設定",
+    "subtitle": "連絡の方法とタイミングを管理します。",
+    "updateError": "設定の更新に失敗しました。再試行してください。",
+    "toggleAria": "{name}を切り替える",
     "manage": {
-      "title": "�",
-      "description": "�",
-      "updated": "�",
-      "save": "�"
+      "title": "通知の管理",
+      "description": "各通知タイプをオン/オフして、受信するメールを調整します。",
+      "updated": "メール設定が更新されました。",
+      "save": "設定を変更"
     },
     "all": {
-      "title": "�",
-      "description": "�",
-      "success": "�",
-      "button": "�"
+      "title": "すべてのメールから登録解除",
+      "description": "Jikiからのすべてのメールを停止しますか？これにより、マーケティング、通知、リマインダーのメールから登録解除されます。",
+      "success": "Jikiからのすべてのメール配信が停止されました。",
+      "button": "すべてのメールから登録解除"
     },
     "email": {
-      "alreadyTitle": "�",
-      "alreadyDescription": "�",
-      "title": "�",
-      "description": "�",
-      "success": "�",
-      "button": "�",
-      "fallbackType": "�"
+      "alreadyTitle": "登録解除済み",
+      "alreadyDescription": "現在、<highlight>{emailType}</highlight>のメールは購読していません。",
+      "title": "このメールから登録解除",
+      "description": "この種類のメールの受信を停止しますか？下のボタンをクリックして<highlight>{emailType}</highlight>のメールから登録解除してください。",
+      "success": "{emailType}の購読が解除されました。",
+      "button": "{emailType}から登録解除",
+      "fallbackType": "これらの"
     },
     "types": {
       "newsletters": {
-        "title": "�",
-        "description": "�",
-        "shortLabel": "�"
+        "title": "製品アップデート",
+        "description": "新機能や改善点をお知らせします。",
+        "shortLabel": "製品アップデート"
       },
       "event_emails": {
-        "title": "�",
-        "description": "�",
-        "shortLabel": "�"
+        "title": "イベント通知",
+        "description": "近日開催のライブ配信やイベントをお知らせします。",
+        "shortLabel": "イベント通知"
       },
       "milestone_emails": {
-        "title": "�",
-        "description": "�",
-        "shortLabel": "�"
+        "title": "達成通知",
+        "description": "新しいスキルや実績をアンロックしたときに通知を受け取ります。",
+        "shortLabel": "達成通知"
       },
       "activity_emails": {
-        "title": "�",
-        "description": "�",
-        "shortLabel": "�"
+        "title": "アクティビティメール",
+        "description": "バッジの獲得やチャレンジの完了など、アクティビティに基づいた通知。",
+        "shortLabel": "アクティビティメール"
       },
       "onboarding_emails": {
-        "title": "�",
-        "description": "�",
-        "shortLabel": "�"
+        "title": "はじめ方メール",
+        "description": "Jikiを最大限に活用するためのヒントやガイダンス。",
+        "shortLabel": "はじめ方メール"
       }
     }
   },
   "achievements": {
-    "title": "�",
-    "description": "�",
-    "tabBadges": "�",
-    "tabCertificates": "�",
-    "loading": "�",
-    "error": "�",
-    "certificatesEmptyTitle": "�",
-    "certificatesEmptyBody": "�"
+    "title": "実績",
+    "description": "バッジ一つひとつが、プログラミングの旅の物語です。",
+    "tabBadges": "バッジ",
+    "tabCertificates": "証明書",
+    "loading": "実績を読み込み中...",
+    "error": "エラー: {error}",
+    "certificatesEmptyTitle": "まだ証明書はありません",
+    "certificatesEmptyBody": "コースを修了してスキルを示す証明書を取得しましょう。コースを修了すると、ここに証明書が表示されます。",
+    "badge": {
+      "locked": "ロック中",
+      "earnedToday": "本日獲得",
+      "earnedRelative": "{distance}前に獲得"
+    },
+    "loadError": "バッジの読み込みに失敗しました"
   },
   "challenges": {
     "title": "チャレンジ",
@@ -1825,31 +1856,95 @@
       "noneToStartDescription": "アンロックしたチャレンジがここに表示されます。",
       "completedTitle": "完了したチャレンジはまだありません",
       "completedDescription": "最初のチャレンジを完了すると、ここに表示されます。進行中のチャレンジを進めて、このマイルストーンに到達しましょう。"
-    }
+    },
+    "loadError": "チャレンジの読み込みに失敗しました"
   },
   "subscription": {
     "tiers": {
       "standard": {
-        "name": "�",
-        "description": "�",
+        "name": "無料",
+        "description": "始めるのに最適",
         "features": {
-          "freeCourses": "�",
-          "basicExercises": "�",
-          "communitySupport": "�",
-          "aiHelpPerMonth": "�"
+          "freeCourses": "無料コースへのアクセス",
+          "basicExercises": "基本コーディング演習",
+          "communitySupport": "コミュニティサポート",
+          "aiHelpPerMonth": "月1回のAIヘルプ"
         }
       },
       "premium": {
-        "name": "�",
-        "description": "�",
+        "name": "プレミアム",
+        "description": "高度な機能をアンロック",
         "features": {
-          "allFreeFeatures": "�",
-          "unlimitedAi": "�",
-          "allExercises": "�",
-          "certificates": "�",
-          "adFree": "�"
+          "allFreeFeatures": "すべての無料機能",
+          "unlimitedAi": "無制限のAIヘルプ",
+          "allExercises": "すべての演習にアクセス",
+          "certificates": "証明書",
+          "adFree": "広告なしの体験"
         }
       }
     }
+  },
+  "blog": {
+    "header": {
+      "label": "ブログ",
+      "title": "ニュース、洞察、雑記",
+      "subtitle": "プログラミング言語、コーディングチャレンジ、プログラミング学習の探求。"
+    },
+    "postHeader": {
+      "writtenBy": "著者: {name}",
+      "readingTime": "読了時間: {count}分"
+    },
+    "featuredLatest": {
+      "label": "最新記事",
+      "byAuthor": "by {name}",
+      "readFullArticle": "記事全文を読む →"
+    },
+    "recentPosts": {
+      "heading": "最近の投稿"
+    },
+    "relatedPosts": {
+      "heading": "関連記事"
+    },
+    "cta": {
+      "minimalTitle": "Jikiを無料で試す",
+      "minimalSubtitle": "毎月1万人以上の学習者が実践練習と専門家の指導でプログラミングをマスターしています。",
+      "minimalButton": "今すぐ始める",
+      "gradientTitle": "プログラミングの旅を始める準備はできましたか？",
+      "gradientSubtitle": "Jikiで何千人もの学習者に参加しましょう。コーディング演習を行い、メンターからフィードバックを受け、スキルを向上させましょう — 無料です！",
+      "gradientButton": "無料で登録"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "記事",
+      "title": "ヘルプとリソース",
+      "subtitle": "Jikiを最大限に活用するためのガイド、チュートリアル、回答。",
+      "writtenBy": "著者: {name}",
+      "readingTime": "読了時間: {count}分"
+    },
+    "relatedArticles": {
+      "heading": "関連記事"
+    },
+    "search": {
+      "placeholder": "記事を検索...",
+      "noResultsTitle": "“{query}” の検索結果: 0件",
+      "noResultsMessage": "別のキーワードを試すか、記事をブラウズしてください。"
+    },
+    "filterSidebar": {
+      "filterBy": "フィルター",
+      "all": "すべて",
+      "help": "お探しのものが見つかりませんか？ <blogs>ブログ</blogs>、<faqs>FAQ</faqs>、<support>サポートに連絡</support>、または<community>コミュニティ</community>で質問してください。"
+    },
+    "cta": {
+      "minimalTitle": "Jikiを無料で試す",
+      "minimalSubtitle": "毎月1万人以上の学習者が実践練習と専門家の指導でプログラミングをマスターしています。",
+      "minimalButton": "今すぐ始める",
+      "gradientTitle": "プログラミングの旅を始める準備はできましたか？",
+      "gradientSubtitle": "Jikiで何千人もの学習者に参加しましょう。コーディング演習を行い、メンターからフィードバックを受け、スキルを向上させましょう — 無料です！",
+      "gradientButton": "無料で登録"
+    }
+  },
+  "checkout": {
+    "declineDefault": "前回の支払いが完了しませんでした。別のカードで再試行してください。"
   }
 }

@@ -1,0 +1,46 @@
+{
+  "errors": {
+    "allInputsNumbers": "すべての入力は数値でなければなりません",
+    "blueRange": "青の値は0から255の間でなければなりません",
+    "circleInputsNumbers": "x、y、半径の入力は数値でなければなりません",
+    "colorNamedOrHex": "色は、指示で指定された名前付きの色（\"orange\"、\"blue\"、\"white\"など）か、#で始まる16進数の色でなければなりません",
+    "colorNotAllowed": "この演習では色を指定してはいけません",
+    "colorNotString": "色は文字列でなければなりません",
+    "ellipseInputsNumbers": "x、y、rx、ryの入力は数値でなければなりません",
+    "greenRange": "緑の値は0から255の間でなければなりません",
+    "heightPositive": "高さは0より大きくなければなりません",
+    "hueRange": "色相は0から360の間でなければなりません",
+    "lightnessRange": "明度は0から100の間でなければなりません",
+    "lineInputsNumbers": "x1、y1、x2、y2の入力は数値でなければなりません",
+    "rectInputsNumbers": "x、y、幅、高さの入力は数値でなければなりません",
+    "redRange": "赤の値は0から255の間でなければなりません",
+    "saturationRange": "彩度は0から100の間でなければなりません",
+    "triangleInputsNumbers": "x1、y1、x2、y2、x3、y3の入力は数値でなければなりません",
+    "widthPositive": "幅は0より大きくなければなりません"
+  },
+  "describers": {
+    "rectangle": {
+      "default": "幅${arg3}、高さ${arg4}、色${arg5}の長方形を座標(${arg1}, ${arg2})に描きました",
+      "fixedColor": "幅${arg3}、高さ${arg4}の長方形を座標(${arg1}, ${arg2})に描きました"
+    },
+    "triangle": {
+      "default": "3点(${arg1}, ${arg2})、(${arg3}, ${arg4})、(${arg5}, ${arg6})を頂点とする色${arg7}の三角形を描きました",
+      "fixedColor": "3点(${arg1}, ${arg2})、(${arg3}, ${arg4})、(${arg5}, ${arg6})を頂点とする三角形を描きました"
+    },
+    "circle": {
+      "default": "中心(${arg1}, ${arg2})、半径${arg3}、色${arg4}の円を描きました",
+      "fixedColor": "中心(${arg1}, ${arg2})、半径${arg3}の円を描きました"
+    },
+    "ellipse": {
+      "default": "中心(${arg1}, ${arg2})、水平半径${arg3}、垂直半径${arg4}、色${arg5}の楕円を描きました",
+      "fixedColor": "中心(${arg1}, ${arg2})、水平半径${arg3}、垂直半径${arg4}の楕円を描きました"
+    },
+    "line": {
+      "default": "(${arg1}, ${arg2})から(${arg3}, ${arg4})への色${arg5}の線を描きました",
+      "fixedColor": "(${arg1}, ${arg2})から(${arg3}, ${arg4})への線を描きました"
+    },
+    "clear": "キャンバスをクリアしました",
+    "hsl": "HSL色（色相: ${arg1}、彩度: ${arg2}、明度: ${arg3}）を16進数の文字列に変換しました",
+    "rgb": "RGB色（赤: ${arg1}、緑: ${arg2}、青: ${arg3}）を16進数の文字列に変換しました"
+  }
+}
