@@ -1,6 +1,6 @@
 {
   "errors": {
-    "walkExpectsNumber": "walk() очікує число кроків"
+    "walkExpectsNumber": "walk() приймає число кроків"
   },
   "describers": {
     "walk": "Рухає чоловічка на задану кількість кроків уперед"
@@ -11,7 +11,7 @@
   "tasks": {
     "solveMaze": {
       "name": "Проведіть чоловічка до кінця лабіринту",
-      "description": "Пройдіть лабіринт за допомогою walk(), turnLeft() і turnRight(), щоб дістатися зеленої цільової клітинки."
+      "description": "Пройдіть лабіринт за допомогою walk(), turnLeft() і turnRight(), щоб дістатися зеленої клітинки."
     }
   },
   "scenarios": {
