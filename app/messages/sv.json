@@ -42,7 +42,7 @@
       "homeAriaLabel": "Jikis startsida",
       "logoAlt": "Jiki",
       "aboutJiki": "Om Jiki",
-      "premium": "�",
+      "premium": "Premium",
       "testimonials": "Omdömen",
       "login": "Logga in",
       "signUp": "Skapa gratis konto",
@@ -76,7 +76,7 @@
         "upgrade": "Uppgradera till Premium",
         "logOut": "Logga ut"
       },
-      "premiumPill": "�"
+      "premiumPill": "Premium"
     },
     "loading": {
       "title": "Väcker Jiki",
@@ -87,428 +87,428 @@
     }
   },
   "common": {
-    "continue": "�",
-    "close": "�",
-    "cancel": "�",
-    "confirm": "�",
-    "processing": "�",
-    "reloadPage": "�",
-    "loading": "�",
+    "continue": "Fortsätt",
+    "close": "Stäng",
+    "cancel": "Avbryt",
+    "confirm": "Bekräfta",
+    "processing": "Bearbetar ...",
+    "reloadPage": "Ladda om sidan",
+    "loading": "Läser in ...",
     "languageNames": {
-      "en": "�",
-      "el": "�",
-      "fa": "�",
-      "fr": "�",
-      "hu": "�",
-      "it": "�",
-      "nl": "�",
-      "pt-BR": "�",
-      "pt-PT": "�",
-      "ru": "�",
-      "sr": "�",
-      "uk": "�",
-      "zh-TW": "�"
+      "en": "engelska",
+      "el": "grekiska",
+      "fa": "persiska",
+      "fr": "franska",
+      "hu": "ungerska",
+      "it": "italienska",
+      "nl": "nederländska",
+      "pt-BR": "portugisiska (Brasilien)",
+      "pt-PT": "portugisiska (Portugal)",
+      "ru": "ryska",
+      "sr": "serbiska",
+      "uk": "ukrainska",
+      "zh-TW": "kinesiska (traditionell)"
     },
-    "verifying": "�",
-    "sending": "�",
-    "perMonth": "�",
+    "verifying": "Verifierar ...",
+    "sending": "Skickar ...",
+    "perMonth": "/månad",
     "validation": {
-      "emailInvalid": "�",
-      "passwordRequired": "�",
-      "passwordMinLength": "�",
-      "currentPasswordRequired": "�",
-      "newPasswordRequired": "�",
-      "passwordsNoMatch": "�"
+      "emailInvalid": "Ange en giltig e-postadress",
+      "passwordRequired": "Lösenord krävs",
+      "passwordMinLength": "Lösenordet måste vara minst 6 tecken",
+      "currentPasswordRequired": "Nuvarande lösenord krävs",
+      "newPasswordRequired": "Nytt lösenord krävs",
+      "passwordsNoMatch": "Lösenorden stämmer inte överens"
     },
     "pagination": {
-      "label": "�",
-      "previousPage": "�",
-      "nextPage": "�"
+      "label": "Sidnumrering",
+      "previousPage": "Föregående sida",
+      "nextPage": "Nästa sida"
     },
     "loadingJiki": {
-      "alt": "�"
+      "alt": "Jiki-figuren vaknar"
     },
     "otpInput": {
-      "label": "�",
-      "digitLabel": "�"
+      "label": "Engångskod",
+      "digitLabel": "Siffra {number} av 6"
     },
     "closeButton": {
-      "label": "�"
+      "label": "Stäng dialogrutan"
     },
     "copyButton": {
-      "label": "�",
-      "copied": "�"
+      "label": "Kopiera till urklipp",
+      "copied": "Kopierat"
     },
     "soundToggle": {
-      "mute": "�",
-      "unmute": "�"
+      "mute": "Stäng av ljud",
+      "unmute": "Sätt på ljud"
     },
     "themeToggle": {
-      "switchToDark": "�",
-      "switchToSystem": "�",
-      "switchToLight": "�",
-      "toggle": "�",
-      "description": "�"
+      "switchToDark": "Byt till mörkt tema",
+      "switchToSystem": "Byt till systemtema",
+      "switchToLight": "Byt till ljust tema",
+      "toggle": "Byt tema",
+      "description": "Nuvarande tema: {theme}. Klicka för att växla mellan ljust, mörkt och systemtema."
     },
     "badgeNewLabel": {
-      "label": "�"
+      "label": "Nytt"
     },
-    "saving": "�",
-    "retry": "�",
-    "tryAgain": "�"
+    "saving": "Sparar ...",
+    "retry": "Försök igen",
+    "tryAgain": "Försök igen"
   },
   "build": {
     "upcomingStreams": {
-      "heading": "�",
-      "toBeAnnounced": "�",
-      "subscribeButton": "�"
+      "heading": "Kommande livesändningar",
+      "toBeAnnounced": "Meddelas senare",
+      "subscribeButton": "Prenumerera på kalendern"
     },
     "hub": {
-      "title": "�",
-      "description": "�"
+      "title": "Lär dig bygga - projekt",
+      "description": "Bygg riktiga projekt från grunden med Jeremy. Lär dig allt han kan!"
     }
   },
   "auth": {
     "oauth": {
-      "useGoogle": "�",
-      "useExercism": "�",
-      "divider": "�"
+      "useGoogle": "Använd Google",
+      "useExercism": "Använd Exercism",
+      "divider": "eller"
     },
     "fields": {
-      "emailLabel": "�",
-      "emailPlaceholder": "�",
-      "passwordLabel": "�",
-      "passwordPlaceholder": "�",
-      "emailRequired": "�"
+      "emailLabel": "E-post",
+      "emailPlaceholder": "Ange din e-postadress",
+      "passwordLabel": "Lösenord",
+      "passwordPlaceholder": "Ange ditt lösenord",
+      "emailRequired": "E-post krävs"
     },
     "captchaError": {
-      "signup": "�",
-      "login": "�",
-      "generic": "�"
+      "signup": "Våra system försökte avgöra om du är en människa eller en bot, men lyckades inte. Testa att skapa kontot igen med knappen nedan.",
+      "login": "Våra system försökte avgöra om du är en människa eller en bot, men lyckades inte. Testa att logga in igen med knappen nedan.",
+      "generic": "Våra system försökte avgöra om du är en människa eller en bot, men lyckades inte. Försök igen med knappen nedan."
     },
     "login": {
-      "title": "�",
-      "invalidCredentials": "�",
-      "forgotPassword": "�",
-      "submit": "�",
-      "submitting": "�",
-      "unconfirmed": "�",
-      "resend": "�",
-      "noAccount": "�"
+      "title": "Logga in",
+      "invalidCredentials": "Fel e-postadress eller lösenord",
+      "forgotPassword": "Har du glömt ditt lösenord?",
+      "submit": "Logga in",
+      "submitting": "Loggar in ...",
+      "unconfirmed": "Bekräfta din e-postadress innan du loggar in. <link>Skicka bekräftelsen igen</link>",
+      "resend": "Fick du inget bekräftelsemejl? <link>Skicka det igen.</link>",
+      "noAccount": "Har du inget konto? <link>Skapa ett gratis.</link>"
     },
     "signup": {
-      "title": "�",
-      "emailAlreadyRegistered": "�",
-      "submit": "�",
-      "submitting": "�",
-      "haveAccount": "�",
-      "resend": "�"
+      "title": "Skapa konto",
+      "emailAlreadyRegistered": "Den här e-postadressen är redan registrerad",
+      "submit": "Skapa konto",
+      "submitting": "Skapar konto ...",
+      "haveAccount": "Har du redan ett konto? <link>Logga in</link>.",
+      "resend": "Fick du inget bekräftelsemejl? <link>Skicka det igen.</link>"
     },
     "forgotPassword": {
-      "title": "�",
-      "subtitle": "�",
-      "successMessage": "�",
-      "submit": "�",
-      "remembered": "�"
+      "title": "Har du glömt ditt lösenord?",
+      "subtitle": "Om du har glömt ditt lösenord kan du använda formuläret nedan för att få en länk för att byta det.",
+      "successMessage": "Om det finns ett konto med den e-postadressen får du snart instruktioner för att återställa lösenordet.",
+      "submit": "Skicka återställningslänk",
+      "remembered": "Kom du på ditt lösenord? <link>Logga in</link>"
     },
     "resetPassword": {
-      "invalidTitle": "�",
-      "invalidMessage": "�",
-      "requestNewLink": "�",
-      "title": "�",
-      "subtitle": "�",
-      "tokenMissing": "�",
-      "confirmationRequired": "�",
-      "successMessage": "�",
-      "newPasswordLabel": "�",
-      "newPasswordPlaceholder": "�",
-      "confirmPasswordLabel": "�",
-      "confirmPasswordPlaceholder": "�",
-      "submit": "�",
-      "submitting": "�",
-      "remembered": "�"
+      "invalidTitle": "Ogiltig återställningslänk",
+      "invalidMessage": "Den här länken för att återställa lösenordet är ogiltig eller har gått ut. Begär en ny.",
+      "requestNewLink": "Begär en ny lösenordsåterställning",
+      "title": "Återställ ditt lösenord",
+      "subtitle": "Ange ditt nya lösenord nedan.",
+      "tokenMissing": "Återställningskoden saknas eller är ogiltig",
+      "confirmationRequired": "Du måste bekräfta lösenordet",
+      "successMessage": "Lösenordet har återställts! Skickar dig till inloggningen ...",
+      "newPasswordLabel": "Nytt lösenord",
+      "newPasswordPlaceholder": "Ange ditt nya lösenord",
+      "confirmPasswordLabel": "Bekräfta nytt lösenord",
+      "confirmPasswordPlaceholder": "Bekräfta ditt nya lösenord",
+      "submit": "Återställ lösenord",
+      "submitting": "Återställer ...",
+      "remembered": "Kom du på ditt lösenord? <link>Logga in</link>"
     },
     "resendConfirmation": {
-      "title": "�",
-      "subtitle": "�",
-      "successMessage": "�",
-      "submit": "�",
-      "confirmed": "�"
+      "title": "Skicka bekräftelseinstruktionerna igen",
+      "subtitle": "Fick du inget bekräftelsemejl? Använd formuläret nedan så skickar vi ett nytt.",
+      "successMessage": "Om det finns ett konto med den e-postadressen får du snart nya bekräftelseinstruktioner.",
+      "submit": "Skicka instruktionerna igen",
+      "confirmed": "Redan bekräftad? <link>Logga in</link>"
     },
     "checkInbox": {
-      "heading": "�",
-      "sentTo": "�",
-      "hint": "�"
+      "heading": "Kolla din inkorg",
+      "sentTo": "Vi har skickat ett bekräftelsemejl till",
+      "hint": "Klicka på länken i mejlet för att aktivera ditt konto. Fick du inget? <link>Skicka mejlet igen</link>"
     },
     "emailConfirmed": {
-      "heading": "�",
-      "message": "�"
+      "heading": "E-postadressen är bekräftad!",
+      "message": "Din e-postadress har bekräftats. Skickar dig till översikten ..."
     },
     "confirmEmail": {
-      "pendingTitle": "�",
-      "pendingDescription": "�",
-      "errorTitle": "�",
-      "errorMessage": "�",
-      "errorCta": "�"
+      "pendingTitle": "Bekräftar din e-postadress ...",
+      "pendingDescription": "Vänta medan vi bekräftar din e-postadress.",
+      "errorTitle": "Länken har gått ut",
+      "errorMessage": "Den här bekräftelselänken är inte längre giltig. Begär en ny för att fortsätta.",
+      "errorCta": "Skicka ett nytt bekräftelsemejl"
     },
     "exercismCallback": {
-      "errorTitle": "�",
-      "errorCta": "�",
-      "pendingTitle": "�",
-      "pendingDescription": "�",
-      "authFailed": "�"
+      "errorTitle": "Inloggningen misslyckades",
+      "errorCta": "Tillbaka till inloggningen",
+      "pendingTitle": "Loggar in dig ...",
+      "pendingDescription": "Vänta medan vi loggar in dig med Exercism.",
+      "authFailed": "Autentiseringen med Exercism misslyckades"
     },
     "errorCard": {
-      "needHelp": "�"
+      "needHelp": "Behöver du hjälp? <link>Kontakta supporten</link>"
     },
     "twoFactorVerify": {
-      "title": "�",
-      "subtitle": "�",
-      "codeLabel": "�"
+      "title": "Tvåfaktorsautentisering",
+      "subtitle": "Ange den 6-siffriga koden från din autentiseringsapp.",
+      "codeLabel": "Verifieringskod"
     },
     "twoFactorSetup": {
-      "instructionsHeading": "�",
-      "appsHint": "�",
-      "codeLabel": "�"
+      "instructionsHeading": "Skanna QR-koden med din autentiseringsapp för att skydda ditt konto.",
+      "appsHint": "Använd Google Authenticator, 1Password, Authy eller en liknande app för att skanna koden ovan.",
+      "codeLabel": "Ange den 6-siffriga koden från din app"
     },
     "unsubscribe": {
-      "noToken": "�",
-      "linkInvalid": "�",
-      "tooManyRequests": "�",
-      "serviceUnavailable": "�",
-      "unableToProcess": "�",
-      "networkError": "�",
-      "processingTitle": "�",
-      "processingDescription": "�",
-      "successTitle": "�",
-      "successDescription": "�",
-      "errorTitle": "�"
+      "noToken": "Ingen avregistreringskod angavs.",
+      "linkInvalid": "Den här avregistreringslänken är ogiltig eller har gått ut.",
+      "tooManyRequests": "För många förfrågningar. Vänta en stund och försök igen.",
+      "serviceUnavailable": "Tjänsten är tillfälligt otillgänglig. Försök igen senare.",
+      "unableToProcess": "Vi kunde inte behandla din begäran. Kontakta supporten om det här fortsätter.",
+      "networkError": "Nätverksfel. Kontrollera din anslutning och försök igen.",
+      "processingTitle": "Avregistrerar ...",
+      "processingDescription": "Vänta medan vi behandlar din begäran.",
+      "successTitle": "Du är avregistrerad",
+      "successDescription": "Du har avregistrerats från vår mejllista.",
+      "errorTitle": "Avregistreringen misslyckades"
     },
     "twoFactor": {
-      "cancel": "�",
-      "invalidCode": "�",
-      "verificationFailed": "�"
+      "cancel": "Avbryt och logga in igen",
+      "invalidCode": "Ogiltig verifieringskod",
+      "verificationFailed": "Verifieringen misslyckades. Försök igen."
     },
     "layout": {
-      "logoAlt": "�",
-      "tagline": "�",
-      "description": "�",
-      "createdBy": "�",
-      "brand": "�"
+      "logoAlt": "Jiki",
+      "tagline": "Din programmeringsresa börjar här",
+      "description": "Bli en av miljontals som förändrar sina karriärer genom praktisk programmering.",
+      "createdBy": "Skapad av",
+      "brand": "Teamet bakom Exercism"
     }
   },
   "settings": {
     "page": {
-      "title": "�",
-      "description": "�",
-      "tabAccount": "�",
-      "tabSubscription": "�",
-      "tabNotifications": "�",
-      "tabLearning": "�",
-      "tabDanger": "�"
+      "title": "Inställningar",
+      "description": "Hantera ditt konto och dina inställningar.",
+      "tabAccount": "Konto",
+      "tabSubscription": "Prenumeration",
+      "tabNotifications": "Aviseringar",
+      "tabLearning": "Lärande",
+      "tabDanger": "Farozon"
     },
     "avatarEdit": {
-      "adjustTitle": "�",
-      "adjustSubtitle": "�",
-      "back": "�",
-      "save": "�",
-      "changeTitle": "�",
-      "changeSubtitlePart1": "�",
-      "changeSubtitlePart2": "�",
-      "uploadText": "�",
-      "uploadHint": "�"
+      "adjustTitle": "Justera fotot",
+      "adjustSubtitle": "Zooma och placera ditt foto.",
+      "back": "Tillbaka",
+      "save": "Spara",
+      "changeTitle": "Byt profilbild",
+      "changeSubtitlePart1": "Ladda upp en ny profilbild.",
+      "changeSubtitlePart2": "Den syns bara för dig.",
+      "uploadText": "Klicka för att ladda upp ett nytt foto",
+      "uploadHint": "JPG, PNG eller GIF. Max 5 MB."
     },
     "avatarUpload": {
-      "label": "�"
+      "label": "Profilbild"
     },
     "avatarPreview": {
-      "alt": "�"
+      "alt": "Din profilbild"
     },
     "cancelConfirm": {
-      "title": "�",
-      "message": "�",
-      "benefitsTitle": "�",
-      "benefit1": "�",
-      "benefit2": "�",
-      "benefit3": "�",
-      "benefit4": "�",
-      "keep": "�",
-      "cancel": "�"
+      "title": "Vill du säga upp din prenumeration?",
+      "message": "Vi skulle bli ledsna om du lämnade oss! Om du säger upp förlorar du tillgången till Premium i slutet av din nuvarande betalningsperiod.",
+      "benefitsTitle": "Det här har du just nu:",
+      "benefit1": "Obegränsad AI-hjälp från Jiki",
+      "benefit2": "Alla projekt och lärvägar",
+      "benefit3": "Certifikat när du slutför kurser",
+      "benefit4": "Reklamfri upplevelse",
+      "keep": "Behåll min prenumeration",
+      "cancel": "Säg upp prenumerationen"
     },
     "cancelSuccess": {
-      "title": "�",
-      "message": "�",
-      "accessUntil": "�",
-      "resubscribeNote": "�",
-      "gotIt": "�"
+      "title": "Prenumerationen är uppsagd",
+      "message": "Din Premiumprenumeration har sagts upp. Du kan fortsätta använda alla Premiumfunktioner tills din nuvarande betalningsperiod tar slut.",
+      "accessUntil": "Premium gäller till",
+      "resubscribeNote": "Har du ångrat dig? Du kan starta prenumerationen igen när som helst.",
+      "gotIt": "Okej"
     },
     "changeEmail": {
-      "title": "�",
-      "importantLabel": "�",
-      "importantText": "�",
-      "currentEmailLabel": "�",
-      "newEmailLabel": "�",
-      "newEmailPlaceholder": "�",
-      "passwordLabel": "�",
-      "passwordPlaceholder": "�",
-      "passwordHint": "�",
-      "newEmailRequired": "�",
-      "emailSame": "�",
-      "updateFailed": "�",
-      "submit": "�"
+      "title": "Byt e-postadress",
+      "importantLabel": "Viktigt:",
+      "importantText": "Ett bekräftelsemejl skickas till din nya e-postadress. Du behöver bekräfta den innan ändringen börjar gälla.",
+      "currentEmailLabel": "Nuvarande e-postadress",
+      "newEmailLabel": "Ny e-postadress",
+      "newEmailPlaceholder": "Ange din nya e-postadress",
+      "passwordLabel": "Bekräfta med nuvarande lösenord",
+      "passwordPlaceholder": "Ange ditt nuvarande lösenord",
+      "passwordHint": "Krävs av säkerhetsskäl",
+      "newEmailRequired": "Ny e-postadress krävs",
+      "emailSame": "Den nya e-postadressen måste skilja sig från den nuvarande",
+      "updateFailed": "Det gick inte att uppdatera e-postadressen",
+      "submit": "Uppdatera e-postadress"
     },
     "deleteAccount": {
-      "sendFailed": "�",
-      "confirmTitle": "�",
-      "confirmMessage": "�",
-      "submit": "�",
-      "securityTitle": "�",
-      "securityMessage": "�",
-      "understand": "�"
+      "sendFailed": "Det gick inte att skicka bekräftelsemejlet. Försök igen.",
+      "confirmTitle": "Är du säker?",
+      "confirmMessage": "Vill du verkligen radera ditt konto? Du förlorar allt ditt arbete. Det här går inte att ångra.",
+      "submit": "Radera konto",
+      "securityTitle": "Säkerhetskontroll",
+      "securityMessage": "Vi har skickat ett mejl för att bekräfta att det verkligen är du. Klicka på knappen i mejlet för att radera ditt konto.",
+      "understand": "Jag förstår"
     },
     "paymentHistory": {
-      "title": "�",
-      "subtitle": "�",
-      "loading": "�",
-      "error": "�",
-      "empty": "�",
-      "columnDate": "�",
-      "columnAmount": "�",
-      "columnType": "�",
-      "columnMethod": "�",
-      "downloadReceipt": "�"
+      "title": "Betalningshistorik",
+      "subtitle": "Se och ladda ner kvitton för dina tidigare betalningar.",
+      "loading": "Läser in betalningshistorik ...",
+      "error": "Det gick inte att läsa in betalningshistoriken. Försök igen senare.",
+      "empty": "Ingen betalningshistorik ännu.",
+      "columnDate": "Datum",
+      "columnAmount": "Belopp",
+      "columnType": "Typ",
+      "columnMethod": "Metod",
+      "downloadReceipt": "Ladda ner kvitto"
     },
     "profile": {
-      "nameLabel": "�",
-      "namePlaceholder": "�",
-      "updateName": "�",
-      "nameEmpty": "�",
-      "nameTooLong": "�",
-      "handleLabel": "�",
-      "handlePlaceholder": "�",
-      "updateHandle": "�",
-      "handleEmpty": "�",
-      "handleInvalid": "�",
-      "handleTooShort": "�",
-      "handleTooLong": "�",
-      "emailLabel": "�",
-      "emailPlaceholder": "�",
-      "updateEmail": "�",
-      "emailEmpty": "�",
-      "confirmationPendingHint": "�",
-      "emailNotConfirmed": "�",
-      "confirmationPending": "�"
+      "nameLabel": "Namn",
+      "namePlaceholder": "Ange ditt namn",
+      "updateName": "Uppdatera namn",
+      "nameEmpty": "Namnet får inte vara tomt",
+      "nameTooLong": "Namnet får vara högst 100 tecken långt",
+      "handleLabel": "Användarnamn",
+      "handlePlaceholder": "Ange ditt användarnamn",
+      "updateHandle": "Uppdatera användarnamn",
+      "handleEmpty": "Användarnamnet får inte vara tomt",
+      "handleInvalid": "Användarnamnet får bara innehålla bokstäver, siffror, understreck och bindestreck",
+      "handleTooShort": "Användarnamnet måste vara minst 3 tecken",
+      "handleTooLong": "Användarnamnet får vara högst 30 tecken",
+      "emailLabel": "E-post",
+      "emailPlaceholder": "Ange din e-postadress",
+      "updateEmail": "Uppdatera e-post",
+      "emailEmpty": "E-postadressen får inte vara tom",
+      "confirmationPendingHint": "Kolla din mejl för att bekräfta ändringen.",
+      "emailNotConfirmed": "Din e-postadress är inte bekräftad.",
+      "confirmationPending": "Väntar på bekräftelse för: <strong>{email}</strong>"
     },
     "subscriptionSection": {
-      "loadingCardTitle": "�",
-      "loadingCardDescription": "�",
-      "loadingData": "�"
+      "loadingCardTitle": "Prenumeration",
+      "loadingCardDescription": "Hantera din prenumerationsplan och dina betalningsuppgifter",
+      "loadingData": "Läser in prenumerationsdata ..."
     },
     "benefits": {
-      "activeSubtitle": "�",
-      "cancellingSubtitle": "�",
-      "resubscribeTitle": "�",
-      "resubscribeButton": "�",
-      "activeHeading": "�",
-      "cancellingHeading": "�",
-      "footer": "�",
-      "resubscribe": "�"
+      "activeSubtitle": "Det här låser du upp varje dag",
+      "cancellingSubtitle": "Det här missar du när din tillgång tar slut",
+      "resubscribeTitle": "Fortsätt lära dig utan gränser",
+      "resubscribeButton": "Starta Premium igen",
+      "activeHeading": "Du har alla <highlight>Premium</highlight>-förmåner",
+      "cancellingHeading": "Förlora inte dina <highlight>Premium</highlight>-förmåner",
+      "footer": "Har du en fråga? Läs mer om <includedLink>vad som ingår</includedLink> eller <supportLink>kontakta supporten</supportLink>.",
+      "resubscribe": "Starta igen för bara <price></price> och fortsätt din programmeringsresa med Jikis stöd."
     },
     "cancelSectionPanel": {
-      "title": "�",
-      "description": "�",
-      "cancel": "�"
+      "title": "Säg upp prenumerationen",
+      "description": "Om du säger upp förlorar du tillgången till Premiumfunktionerna i slutet av din betalningsperiod. Du kan alltid starta igen senare.",
+      "cancel": "Säg upp"
     },
     "premiumUpsell": {
-      "subtitle": "�",
-      "planName": "�",
-      "upgrade": "�",
-      "headline": "�",
-      "dailyNote": "�"
+      "subtitle": "Du har just nu Gratisplanen. Uppgradera till Premium för att låsa upp:",
+      "planName": "Jiki Premium",
+      "upgrade": "Uppgradera till Premium",
+      "headline": "Lås upp ett <highlight>bättre</highlight> sätt att lära dig",
+      "dailyNote": "Det är bara <price></price> om dagen"
     },
     "neverSubscribed": {
-      "heading": "�",
-      "subtitle": "�",
-      "featuresLabel": "�",
-      "upgradeAriaLabel": "�",
-      "upgrade": "�"
+      "heading": "Uppgradera din plan",
+      "subtitle": "Lås upp avancerade funktioner och ett rikare lärande med våra premiumplaner.",
+      "featuresLabel": "Premiumplanens funktioner",
+      "upgradeAriaLabel": "Uppgradera till {plan}-planen",
+      "upgrade": "Uppgradera till Premium"
     },
     "errorBoundary": {
-      "title": "�",
-      "messagePart1": "�",
-      "messagePart2": "�",
-      "refresh": "�",
-      "detailsSummary": "�"
+      "title": "Fel i prenumerationssystemet",
+      "messagePart1": "Vi har problem med att läsa in din prenumerationsinformation. Det kan vara ett tillfälligt fel i vårt betalningssystem.",
+      "messagePart2": "Testa att ladda om sidan, eller kontakta supporten om problemet kvarstår.",
+      "refresh": "Ladda om sidan",
+      "detailsSummary": "Felinformation (utveckling)"
     },
     "danger": {
-      "sessionLabel": "�",
-      "sessionDescription": "�",
-      "logout": "�",
-      "deleteLabel": "�",
-      "deleteDescription": "�",
-      "deleteButton": "�"
+      "sessionLabel": "Sessionshantering",
+      "sessionDescription": "Hantera dina aktiva sessioner på alla enheter.",
+      "logout": "Logga ut",
+      "deleteLabel": "Radera konto",
+      "deleteDescription": "Radera ditt konto och all tillhörande data permanent. Det här går inte att ångra.",
+      "deleteButton": "Radera konto"
     },
     "learning": {
-      "streaksLabel": "�",
-      "streaksDescription": "�",
-      "toggleAriaLabel": "�",
-      "learnMore": "�"
+      "streaksLabel": "Studiestreak",
+      "streaksDescription": "Aktivera streaks på mitt konto.",
+      "toggleAriaLabel": "Slå på eller av studiestreak",
+      "learnMore": "Läs mer"
     },
     "notifications": {
-      "toggleAriaLabel": "�",
-      "essentialTitle": "�",
-      "essentialDescription": "�",
-      "featuresTitle": "�",
-      "featuresDescription": "�",
-      "livestreamsTitle": "�",
-      "livestreamsDescription": "�",
-      "milestonesTitle": "�",
-      "milestonesDescription": "�",
-      "activityTitle": "�",
-      "activityDescription": "�",
-      "onboardingTitle": "�",
-      "onboardingDescription": "�"
+      "toggleAriaLabel": "Slå på eller av {title}",
+      "essentialTitle": "Viktiga meddelanden om tjänsten och ditt konto",
+      "essentialDescription": "Viktiga uppdateringar om ditt konto, säkerhet och ändringar i tjänsten.",
+      "featuresTitle": "Mejl om nya funktioner och nytt innehåll",
+      "featuresDescription": "Håll dig uppdaterad om de senaste funktionerna och det senaste innehållet på Jiki.",
+      "livestreamsTitle": "Mejl om livesändningar",
+      "livestreamsDescription": "Få aviseringar om kommande livesändningar och evenemang.",
+      "milestonesTitle": "Mejl när du når nya milstolpar",
+      "milestonesDescription": "Fira dina prestationer och framsteg på Jiki.",
+      "activityTitle": "Andra mejl som svar på saker du gör på Jiki",
+      "activityDescription": "Aviseringar utifrån din aktivitet, som att du låser upp märken eller slutför utmaningar.",
+      "onboardingTitle": "Mejl som hjälper dig få ut det mesta av Jiki",
+      "onboardingDescription": "Tips och vägledning om hur du får ut det mesta av Jiki."
     },
     "editableField": {
-      "update": "�",
-      "edit": "�",
-      "saveFailed": "�"
+      "update": "Uppdatera",
+      "edit": "Redigera",
+      "saveFailed": "Det gick inte att spara"
     },
     "passwordField": {
-      "updateFailed": "�",
-      "currentLabel": "�",
-      "currentPlaceholder": "�",
-      "newLabel": "�",
-      "newPlaceholder": "�",
-      "confirmLabel": "�",
-      "confirmPlaceholder": "�",
-      "submit": "�",
-      "label": "�",
-      "change": "�"
+      "updateFailed": "Det gick inte att uppdatera lösenordet",
+      "currentLabel": "Nuvarande lösenord",
+      "currentPlaceholder": "Ange nuvarande lösenord",
+      "newLabel": "Nytt lösenord",
+      "newPlaceholder": "Ange nytt lösenord",
+      "confirmLabel": "Bekräfta nytt lösenord",
+      "confirmPlaceholder": "Bekräfta nytt lösenord",
+      "submit": "Uppdatera lösenord",
+      "label": "Lösenord",
+      "change": "Byt"
     },
     "subscriptionStatus": {
-      "statusActive": "�",
-      "statusCanceled": "�",
-      "statusPaymentFailed": "�",
-      "statusCancelling": "�",
-      "statusIncomplete": "�",
-      "statusSessionExpired": "�",
-      "statusNotSubscribed": "�",
-      "currentPlan": "�",
-      "cancellingMessage": "�",
-      "currentPlanAriaLabel": "�",
-      "statusAriaLabel": "�",
-      "messageCanceled": "�",
-      "messagePaymentFailed": "�",
-      "messageCancelling": "�",
-      "messageIncomplete": "�",
-      "messageIncompleteExpired": "�",
-      "active": "�",
-      "activeWithBilling": "�",
-      "cancellingRemaining": "�",
-      "cancellingEnds": "�",
-      "free": "�",
-      "planLabel": "�"
+      "statusActive": "Aktiv",
+      "statusCanceled": "Uppsagd",
+      "statusPaymentFailed": "Betalningen misslyckades",
+      "statusCancelling": "Under uppsägning",
+      "statusIncomplete": "Ej slutförd",
+      "statusSessionExpired": "Sessionen har gått ut",
+      "statusNotSubscribed": "Ingen prenumeration",
+      "currentPlan": "Nuvarande plan",
+      "cancellingMessage": "Din Jiki Premium-prenumeration har sagts upp.",
+      "currentPlanAriaLabel": "Nuvarande plan: {plan}",
+      "statusAriaLabel": "Prenumerationsstatus: {status}",
+      "messageCanceled": "Tjänsten fortsätter till periodens slut",
+      "messagePaymentFailed": "Betalningen misslyckades, uppdatera din betalningsmetod",
+      "messageCancelling": "Uppsägning planerad, du har tillgång till periodens slut",
+      "messageIncomplete": "Betalningen är inte slutförd, slutför den för att fortsätta",
+      "messageIncompleteExpired": "Din förra betalningssession gick ut, starta en ny prenumeration",
+      "active": "Du har planen <plan>Jiki {tier}</plan> för <strong><price></price>/månad</strong>.",
+      "activeWithBilling": "Du har planen <plan>Jiki {tier}</plan> för <strong><price></price>/månad</strong>. Nästa betalningsdatum är <strong>{date}</strong>.",
+      "cancellingRemaining": "Du har <strong>{count, plural, one {# dag} other {# dagar}}</strong> kvar att njuta av alla Premiumfunktioner.",
+      "cancellingEnds": "Din Premiumplan avslutas den <strong>{date}</strong>.",
+      "free": "Du har planen <strong>Gratis</strong>. Den ger dig allt innehåll plus Fråga Jiki som hjälp på en övning.",
+      "planLabel": "{tier}-planen"
     }
   },
   "landing": {
@@ -668,101 +668,101 @@
   },
   "premium": {
     "page": {
-      "heading": "�",
-      "subheading": "�"
+      "heading": "Jiki Premium",
+      "subheading": "Snabba på vägen mot ditt första jobb. Lås upp alla kurser, alla projekt, obegränsad AI-hjälp och allt annat Jiki har att erbjuda."
     },
     "planPrice": {
-      "basic": "�",
-      "premium": "�",
-      "free": "�",
-      "perMonth": "�"
+      "basic": "Bas",
+      "premium": "Premium",
+      "free": "Gratis",
+      "perMonth": "per månad"
     },
     "planBadge": {
-      "free": "�",
-      "premium": "�"
+      "free": "Gratis",
+      "premium": "Premium"
     },
     "table": {
-      "comparePlans": "�",
-      "comparePlansDesc": "�",
-      "checkNo": "�"
+      "comparePlans": "Jämför planerna",
+      "comparePlansDesc": "Här ser du vad som ingår i varje plan, så att du tryggt kan välja.",
+      "checkNo": "✕"
     },
     "values": {
-      "oneConversation": "�",
-      "unlimited": "�",
-      "firstEpisodes": "�",
-      "fullAccess": "�",
-      "sampleEpisode": "�"
+      "oneConversation": "1 konversation",
+      "unlimited": "Obegränsat",
+      "firstEpisodes": "Första avsnitten",
+      "fullAccess": "Full tillgång",
+      "sampleEpisode": "Provavsnitt"
     },
     "categories": {
-      "codingFundamentals": "�",
-      "buildWithJeremy": "�",
-      "support": "�",
-      "certificates": "�",
-      "experience": "�"
+      "codingFundamentals": "Lär dig koda",
+      "buildWithJeremy": "Lär dig bygga",
+      "support": "Support",
+      "certificates": "Certifikat",
+      "experience": "Upplevelse"
     },
     "features": {
-      "codingExercisesTitle": "�",
-      "codingExercisesDesc": "�",
-      "conceptLibraryTitle": "�",
-      "conceptLibraryDesc": "�",
-      "jikiChallengesTitle": "�",
-      "jikiChallengesDesc": "�",
-      "askJikiTitle": "�",
-      "askJikiDesc": "�",
-      "buildingFundamentalsTitle": "�",
-      "buildingFundamentalsDesc": "�",
-      "howThingsWorkTitle": "�",
-      "howThingsWorkDesc": "�",
-      "earlyAccessTitle": "�",
-      "earlyAccessDesc": "�",
-      "communityForumsTitle": "�",
-      "communityForumsDesc": "�",
-      "livestreamsTitle": "�",
-      "livestreamsDesc": "�",
-      "certificatesTitle": "�",
-      "certificatesDesc": "�",
-      "adFreeTitle": "�",
-      "adFreeDesc": "�"
+      "codingExercisesTitle": "Programmeringsövningar",
+      "codingExercisesDesc": "Lär dig genom att göra, med vårt växande bibliotek av interaktiva övningar.",
+      "conceptLibraryTitle": "Hela Begreppsbiblioteket",
+      "conceptLibraryDesc": "Korta lektioner som täcker alla programmeringsbegrepp du behöver kunna.",
+      "jikiChallengesTitle": "Utmaningar",
+      "jikiChallengesDesc": "Anta svårare utmaningar som tar dina färdigheter ännu längre.",
+      "askJikiTitle": "Fråga Jiki",
+      "askJikiDesc": "Kom vidare när du kört fast, med AI-drivna ledtrådar och förklaringar från Jiki.",
+      "buildingFundamentalsTitle": "Serien Grunderna i att bygga",
+      "buildingFundamentalsDesc": "Se Jeremy bygga en webbplattform från grunden: servrar, databaser, autentisering och mycket mer.",
+      "howThingsWorkTitle": "Serien Hur saker fungerar",
+      "howThingsWorkDesc": "Djupdykningar i de klurigare delarna av Exercism och Jiki, och varför de är byggda som de är.",
+      "earlyAccessTitle": "Tidig tillgång till nya funktioner",
+      "earlyAccessDesc": "Testa nya funktioner före alla andra.",
+      "communityForumsTitle": "Communityforum",
+      "communityForumsDesc": "Ställ frågor och lär dig tillsammans med andra Jiki-studenter.",
+      "livestreamsTitle": "Frågestunder live med Jeremy",
+      "livestreamsDesc": "Var med på livesändningar där Jeremy svarar på dina frågor om att programmera och bygga.",
+      "certificatesTitle": "Få certifikat för kurser",
+      "certificatesDesc": "Visa vad du har lärt dig med certifikat som går att dela.",
+      "adFreeTitle": "Reklamfritt lärande",
+      "adFreeDesc": "Fokusera på lärandet utan distraktioner."
     },
     "faq": {
-      "title": "�",
-      "q1": "�",
-      "a1": "�",
-      "q2": "�",
-      "a2": "�",
-      "q3": "�",
-      "a3": "�",
-      "q4": "�",
-      "q5": "�",
-      "a5": "�",
-      "a4": "�"
+      "title": "Vanliga frågor",
+      "q1": "Kan jag testa Jiki gratis?",
+      "a1": "Ja! Du kan skapa ett konto gratis och använda Basplanen så länge du vill. Uppgradera till Premium när du behöver full tillgång, helt utan förpliktelser.",
+      "q2": "Finns det någon bindningstid?",
+      "a2": "Ingen bindningstid alls. Premium betalas månadsvis och du kan säga upp när som helst från dina kontoinställningar.",
+      "q3": "Vad händer om jag säger upp min Premiumprenumeration?",
+      "a3": "Du behåller tillgången till Premium fram till slutet av din nuvarande betalningsperiod, och sedan flyttas ditt konto tillbaka till Basplanen. Du förlorar inga framsteg, bara tillgången till funktionerna som kräver Premium.",
+      "q4": "Har ni rabatter för studenter eller för den som inte har råd med Premium?",
+      "q5": "Kan jag uppgradera eller nedgradera senare?",
+      "a5": "Absolut. Du kan uppgradera till Premium när som helst från ditt konto, och det är lika lätt att säga upp när du vill.",
+      "a4": "Vi vill att Jiki ska vara tillgängligt för alla. Om priset är ett hinder, <link>hör av dig</link> så gör vi vad vi kan för att hjälpa till."
     },
     "cta": {
-      "alreadyPremiumTitle": "�",
-      "alreadyPremiumDesc": "�",
-      "upgradeTitle": "�",
-      "upgradeDesc": "�",
-      "upgradeButton": "�",
-      "freeTitle": "�",
-      "freeDesc": "�",
-      "freeButton": "�"
+      "alreadyPremiumTitle": "Du är redan Premiummedlem",
+      "alreadyPremiumDesc": "Tack för att du stöttar Jiki. Njut av full tillgång till allt!",
+      "upgradeTitle": "Redo att snabba på ditt lärande?",
+      "upgradeDesc": "Uppgradera till Premium och lås upp allt Jiki har att erbjuda.",
+      "upgradeButton": "Uppgradera till Premium",
+      "freeTitle": "Kom igång gratis",
+      "freeDesc": "Kom igång gratis i dag och få tillgång till hundratals timmar av gratis innehåll. Uppgradera till Premium när du vill gå ännu djupare.",
+      "freeButton": "Skapa ett gratis konto"
     },
     "publicPrice": {
-      "unavailable": "�"
+      "unavailable": "—"
     },
     "benefits": {
-      "unlimitedAiTitle": "�",
-      "unlimitedAiDescription": "�",
-      "unlimitedContentTitle": "�",
-      "unlimitedContentDescription": "�",
-      "certificatesTitle": "�",
-      "certificatesDescription": "�",
-      "adFreeTitle": "�",
-      "adFreeDescription": "�",
-      "prioritySupportTitle": "�",
-      "prioritySupportDescription": "�",
-      "earlyAccessTitle": "�",
-      "earlyAccessDescription": "�"
+      "unlimitedAiTitle": "Obegränsad AI-hjälp",
+      "unlimitedAiDescription": "Få personlig vägledning från Jiki när du kör fast",
+      "unlimitedContentTitle": "Obegränsat innehåll",
+      "unlimitedContentDescription": "Tillgång till alla övningar, projekt och lärvägar",
+      "certificatesTitle": "Certifikat",
+      "certificatesDescription": "Få certifikat som går att dela när du slutför kurser",
+      "adFreeTitle": "Reklamfritt",
+      "adFreeDescription": "Njut av att lära dig helt utan distraktioner",
+      "prioritySupportTitle": "Prioriterad support",
+      "prioritySupportDescription": "Få snabbare svar när du behöver hjälp",
+      "earlyAccessTitle": "Tidig tillgång",
+      "earlyAccessDescription": "Bli först med att testa nya funktioner och nytt innehåll"
     }
   },
   "roadmap": {
@@ -855,44 +855,44 @@
   },
   "misc": {
     "chooseLanguage": {
-      "selectLanguage": "�",
-      "backToVideo": "�",
-      "tooltip": "�",
-      "saving": "�",
-      "confirmChoice": "�",
-      "questionTitle": "�",
-      "javascript": "�",
-      "python": "�",
-      "chooseForMe": "�",
-      "cantChange": "�",
-      "noVideo": "�",
-      "videoInstruction": "�"
+      "selectLanguage": "Välj språk",
+      "backToVideo": "Tillbaka till videon",
+      "tooltip": "Välj ett av alternativen för att fortsätta.",
+      "saving": "Sparar ...",
+      "confirmChoice": "Bekräfta valet",
+      "questionTitle": "Vilket språk vill du lära dig?",
+      "javascript": "JavaScript",
+      "python": "Python",
+      "chooseForMe": "Välj åt mig",
+      "cantChange": "Du kan inte ändra ditt val i efterhand.",
+      "noVideo": "Ingen video tillgänglig",
+      "videoInstruction": "Titta på videon och välj sedan språk. Vet du redan? <skip>Hoppa över videon</skip>"
     },
     "deleteAccount": {
-      "deletedTitle": "�",
-      "deletedSubtitle": "�",
-      "deletingTitle": "�",
-      "deletingSubtitle": "�",
-      "errorTitle": "�",
-      "errorSubtitle": "�",
-      "expiredTitle": "�",
-      "expiredSubtitle": "�",
-      "expiredSecondary": "�",
-      "goHome": "�"
+      "deletedTitle": "Ditt konto har raderats",
+      "deletedSubtitle": "Vi är ledsna att se dig gå. Vi hoppas att du har gillat Jiki. Lycka till med din programmeringsresa!",
+      "deletingTitle": "Raderar ditt konto",
+      "deletingSubtitle": "Vänta lite",
+      "errorTitle": "Ett fel har inträffat",
+      "errorSubtitle": "Ett fel inträffade när ditt konto skulle raderas. Vi har fått en notis om det och raderar kontot manuellt åt dig.",
+      "expiredTitle": "Länken har gått ut eller är ogiltig",
+      "expiredSubtitle": "Den här raderingslänken är inte längre giltig. Den kan redan ha använts eller ha gått ut.",
+      "expiredSecondary": "Om du fortfarande vill radera ditt konto loggar du in och begär en ny raderingslänk från dina inställningar.",
+      "goHome": "Till startsidan"
     },
     "errorPage": {
-      "serverErrorTitle": "�",
-      "serverErrorMessage": "�",
-      "serverErrorAction": "�",
-      "notFoundTitle": "�",
-      "notFoundMessage": "�",
-      "notFoundAction": "�"
+      "serverErrorTitle": "Något gick fel",
+      "serverErrorMessage": "Vi stötte på ett oväntat fel. Ursäkta!",
+      "serverErrorAction": "Försök igen",
+      "notFoundTitle": "Sidan hittades inte",
+      "notFoundMessage": "Vi kan tyvärr inte hitta den sidan. Ursäkta!",
+      "notFoundAction": "Ta mig hem"
     },
     "testimonialsPage": {
-      "title": "�",
-      "subtitle": "�",
-      "quoteOpenAlt": "�",
-      "quoteCloseAlt": "�"
+      "title": "Omdömen",
+      "subtitle": "Vi frågade våra studenter om de gillade kursen. Så här svarade de ...",
+      "quoteOpenAlt": "”",
+      "quoteCloseAlt": "”"
     }
   },
   "concepts": {
@@ -1055,47 +1055,47 @@
   },
   "toasts": {
     "subscription": {
-      "loginRequired": "�",
-      "checkoutFailed": "�",
-      "alreadyPremium": "�",
-      "checkoutSessionFailed": "�",
-      "portalFailed": "�",
-      "canceled": "�",
-      "cancelFailed": "�",
-      "reactivated": "�",
-      "reactivateFailed": "�",
-      "paymentPortalFailed": "�"
+      "loginRequired": "Logga in för att uppgradera ditt konto",
+      "checkoutFailed": "Det gick inte att starta betalningen. Försök igen.",
+      "alreadyPremium": "Du har redan Premium",
+      "checkoutSessionFailed": "Det gick inte att skapa en betalningssession",
+      "portalFailed": "Det gick inte att öppna kundportalen",
+      "canceled": "Prenumerationen är uppsagd. Du har tillgång till {date}",
+      "cancelFailed": "Det gick inte att säga upp prenumerationen",
+      "reactivated": "Prenumerationen är återaktiverad!",
+      "reactivateFailed": "Det gick inte att återaktivera prenumerationen",
+      "paymentPortalFailed": "Det gick inte att öppna betalningsportalen"
     },
     "auth": {
-      "sessionExpired": "�"
+      "sessionExpired": "Din session har gått ut. Logga in igen."
     },
     "logout": {
-      "loading": "�",
-      "success": "�",
-      "failed": "�"
+      "loading": "Loggar ut ...",
+      "success": "Du är utloggad",
+      "failed": "Utloggningen misslyckades, servern kunde inte nås"
     },
     "avatar": {
-      "updated": "�",
-      "uploadFailed": "�",
-      "networkError": "�",
-      "invalidImageType": "�",
-      "imageTooLarge": "�"
+      "updated": "Profilbilden är uppdaterad",
+      "uploadFailed": "Det gick inte att ladda upp profilbilden",
+      "networkError": "Nätverksfel. Försök igen.",
+      "invalidImageType": "Välj en bild i JPEG-, PNG-, GIF- eller WebP-format",
+      "imageTooLarge": "Bilden får vara högst 5 MB"
     },
     "settings": {
-      "fetchFailed": "�",
-      "settingUpdated": "�",
-      "updateFailed": "�",
-      "notificationUpdateFailed": "�",
-      "streaksUpdateFailed": "�"
+      "fetchFailed": "Det gick inte att hämta inställningarna",
+      "settingUpdated": "{field, select, name {Namnet} email {E-postadressen} password {Lösenordet} locale {Språkinställningen} handle {Användarnamnet} other {{field}}} har uppdaterats",
+      "updateFailed": "Uppdateringen misslyckades",
+      "notificationUpdateFailed": "Det gick inte att uppdatera aviseringsinställningen",
+      "streaksUpdateFailed": "Det gick inte att uppdatera streak-inställningen"
     },
     "exercise": {
-      "submissionFailed": "�",
-      "chatSaveFailed": "�",
-      "chatSaveCaptchaFailed": "�",
-      "lessonSaveError": "�"
+      "submissionFailed": "Det gick inte att spara din lösning. Försök igen.",
+      "chatSaveFailed": "Det gick inte att spara det här meddelandet. Det kommer inte att finnas kvar när du kommer tillbaka.",
+      "chatSaveCaptchaFailed": "Verifieringen misslyckades när meddelandet skulle sparas. Det kommer inte att finnas kvar när du kommer tillbaka.",
+      "lessonSaveError": "Tyvärr kunde lektionen inte slutföras. Försök igen. Om det fortsätter, rapportera det gärna på <link>https://forum.jiki.io</link>"
     },
     "lesson": {
-      "loadFailed": "�"
+      "loadFailed": "Tyvärr kunde vi inte öppna lektionen. Försök igen."
     }
   },
   "modals": {
@@ -1336,19 +1336,19 @@
     }
   },
   "challenge": {
-    "backToChallenges": "�",
+    "backToChallenges": "Tillbaka till utmaningarna",
     "error": {
-      "message": "�"
+      "message": "Fel: {error}"
     },
-    "loadError": "�",
-    "documentTitle": "�",
+    "loadError": "Det gick inte att läsa in utmaningen",
+    "documentTitle": "{title} - Utmaning - Jiki",
     "locked": {
-      "title": "�",
-      "description": "�"
+      "title": "Utmaningen är låst",
+      "description": "Den här utmaningen är låst just nu. Slutför tidigare lektioner för att låsa upp den."
     },
     "premiumRequired": {
-      "title": "�",
-      "description": "�"
+      "title": "Kräver Premium",
+      "description": "Utmaningar är en Premiumfunktion. Uppgradera din plan för att börja bygga."
     }
   },
   "dashboard": {
@@ -1358,7 +1358,7 @@
         "description": "Vi jobbar för fullt med nästa lektioner. Titta in snart igen för att fortsätta din resa!"
       },
       "walkthrough": {
-        "label": "�",
+        "label": "Djupdykning",
         "watch": "Titta"
       },
       "start": {
@@ -1448,7 +1448,7 @@
       "confirmReveal": "Är du säker på att du vill visa den här ledtråden?",
       "confirmNo": "Inte just nu",
       "confirmYes": "Ja",
-      "deepDiveHeading": "�",
+      "deepDiveHeading": "Djupdykning",
       "deepDiveDescription": "Kör du fortfarande fast? Titta på en Deep Dive där Jeremy löser övningen.",
       "walkthroughThumbnailAlt": "Miniatyrbild för Deep Dive-videon"
     },
@@ -1593,9 +1593,9 @@
       "lintWarning": "<strong>Nästan där ...</strong> Din kod fungerade som den skulle, men du behöver fixa formateringen. Leta efter orange understrykningar i koden.",
       "lintWarningPlain": "Din kod fungerade som den skulle, men du behöver fixa formateringen. Leta efter orange understrykningar i koden.",
       "genericError": "Hoppsan! Din kod innehåller ett fel.",
-      "runtimeError": "�",
-      "isolatedCheckError": "�",
-      "isolatedCheckErrorDetail": "�",
+      "runtimeError": "Din kod stötte på ett fel medan den kördes. Rätta felet som beskrivs ovan för att fortsätta.",
+      "isolatedCheckError": "Din kod orsakade ett fel när den kördes.",
+      "isolatedCheckErrorDetail": "Din kod orsakade ett fel när den kördes. ({message})",
       "congratsWellDone": "Snyggt jobbat!",
       "congratsNiceWork": "Bra jobbat!",
       "congratsFantasticJob": "Fantastiskt jobbat!",
@@ -1681,121 +1681,121 @@
   },
   "projects": {
     "projectCard": {
-      "comingSoon": "�",
-      "comingSoonLabel": "�"
+      "comingSoon": "Kommer snart",
+      "comingSoonLabel": "Kommer snart"
     },
     "episodeCard": {
-      "premium": "�"
+      "premium": "Premium"
     },
     "episodeSummary": {
-      "heading": "�",
-      "whereWeStart": "�",
-      "whereWeEnd": "�",
-      "whatWeCover": "�"
+      "heading": "Avsnittet i korthet",
+      "whereWeStart": "Var vi börjar",
+      "whereWeEnd": "Var vi hamnar",
+      "whatWeCover": "Vad vi går igenom"
     },
     "projectPage": {
-      "backToAllProjects": "�"
+      "backToAllProjects": "← Tillbaka till <strong>Alla projekt</strong>"
     },
     "episodePage": {
-      "backToProject": "�",
-      "relevantGuidesDescription": "�"
+      "backToProject": "← Tillbaka till <strong>{title}</strong>",
+      "relevantGuidesDescription": "Guider som kan vara till hjälp när du löser det här steget i processen."
     },
     "relevantGuides": {
-      "heading": "�"
+      "heading": "Relevanta guider"
     }
   },
   "guides": {
     "guidesContent": {
-      "pageHeading": "�",
-      "searchPlaceholder": "�",
-      "filterAll": "�",
-      "noResultsTitle": "�",
-      "noResultsMessage": "�"
+      "pageHeading": "Guider och instruktioner",
+      "searchPlaceholder": "Sök bland guiderna ...",
+      "filterAll": "Alla",
+      "noResultsTitle": "0 resultat för ”{query}”",
+      "noResultsMessage": "Testa ett annat sökord eller bläddra bland guiderna."
     },
     "guideCard": {
-      "premium": "�"
+      "premium": "Premium"
     },
     "guideBreadcrumb": {
-      "guides": "�"
+      "guides": "Guider"
     },
     "premiumGate": {
-      "lockedTitle": "�",
-      "lockedSubtitle": "�",
-      "unlockButton": "�"
+      "lockedTitle": "Den här guiden är för Premiummedlemmar",
+      "lockedSubtitle": "Lås upp den här guiden, och allt annat som ingår i Jiki Premium, för att fortsätta läsa.",
+      "unlockButton": "Lås upp med Premium"
     },
     "relatedGuides": {
-      "heading": "�"
+      "heading": "Relaterade guider"
     },
     "featuredInProjects": {
-      "heading": "�"
+      "heading": "Används i projekten"
     },
     "metadata": {
-      "notFoundTitle": "�"
+      "notFoundTitle": "Guiden hittades inte"
     }
   },
   "unsubscribe": {
-    "title": "�",
-    "subtitle": "�",
-    "updateError": "�",
-    "toggleAria": "�",
+    "title": "E-postinställningar",
+    "subtitle": "Bestäm hur och när vi hör av oss till dig.",
+    "updateError": "Det gick inte att uppdatera dina inställningar. Försök igen.",
+    "toggleAria": "Slå på eller av {name}",
     "manage": {
-      "title": "�",
-      "description": "�",
-      "updated": "�",
-      "save": "�"
+      "title": "Hantera dina aviseringar",
+      "description": "Finjustera vilka mejl du får genom att slå på eller av varje typ av avisering.",
+      "updated": "Dina e-postinställningar har uppdaterats.",
+      "save": "Ändra inställningar"
     },
     "all": {
-      "title": "�",
-      "description": "�",
-      "success": "�",
-      "button": "�"
+      "title": "Avregistrera dig från alla mejl",
+      "description": "Vill du inte få några mejl alls från Jiki? Då avregistreras du från alla mejl med marknadsföring, aviseringar och påminnelser.",
+      "success": "Du har avregistrerats från alla mejl från Jiki.",
+      "button": "Avregistrera från alla mejl"
     },
     "email": {
-      "alreadyTitle": "�",
-      "alreadyDescription": "�",
-      "title": "�",
-      "description": "�",
-      "success": "�",
-      "button": "�",
-      "fallbackType": "�"
+      "alreadyTitle": "Redan avregistrerad",
+      "alreadyDescription": "Du får just nu inte <highlight>{emailType}</highlight>.",
+      "title": "Avregistrera dig från den här typen av mejl",
+      "description": "Vill du inte längre få den här typen av mejl? Klicka nedan för att avregistrera dig från <highlight>{emailType}</highlight>.",
+      "success": "Du har avregistrerats från {emailType}.",
+      "button": "Avregistrera från {emailType}",
+      "fallbackType": "de här mejlen"
     },
     "types": {
       "newsletters": {
-        "title": "�",
-        "description": "�",
-        "shortLabel": "�"
+        "title": "Produktuppdateringar",
+        "description": "Håll dig informerad om nya funktioner och förbättringar.",
+        "shortLabel": "produktuppdateringar"
       },
       "event_emails": {
-        "title": "�",
-        "description": "�",
-        "shortLabel": "�"
+        "title": "Evenemangsaviseringar",
+        "description": "Få aviseringar om kommande livesändningar och evenemang.",
+        "shortLabel": "evenemangsaviseringar"
       },
       "milestone_emails": {
-        "title": "�",
-        "description": "�",
-        "shortLabel": "�"
+        "title": "Prestationsaviseringar",
+        "description": "Få aviseringar när du låser upp nya färdigheter eller prestationer.",
+        "shortLabel": "prestationsaviseringar"
       },
       "activity_emails": {
-        "title": "�",
-        "description": "�",
-        "shortLabel": "�"
+        "title": "Aktivitetsmejl",
+        "description": "Aviseringar utifrån din aktivitet, som att du låser upp märken eller slutför utmaningar.",
+        "shortLabel": "aktivitetsmejl"
       },
       "onboarding_emails": {
-        "title": "�",
-        "description": "�",
-        "shortLabel": "�"
+        "title": "Kom igång-mejl",
+        "description": "Tips och vägledning om hur du får ut det mesta av Jiki.",
+        "shortLabel": "kom igång-mejl"
       }
     }
   },
   "achievements": {
-    "title": "�",
-    "description": "�",
-    "tabBadges": "�",
-    "tabCertificates": "�",
-    "loading": "�",
-    "error": "�",
-    "certificatesEmptyTitle": "�",
-    "certificatesEmptyBody": "�"
+    "title": "Prestationer",
+    "description": "Varje märke berättar en del av din programmeringsresa.",
+    "tabBadges": "Märken",
+    "tabCertificates": "Certifikat",
+    "loading": "Läser in prestationer ...",
+    "error": "Fel: {error}",
+    "certificatesEmptyTitle": "Inga certifikat ännu",
+    "certificatesEmptyBody": "Slutför kurser för att få certifikat som visar dina färdigheter. Dina certifikat visas här när du har avslutat en kurs."
   },
   "challenges": {
     "title": "Utmaningar",
@@ -1830,24 +1830,24 @@
   "subscription": {
     "tiers": {
       "standard": {
-        "name": "�",
-        "description": "�",
+        "name": "Gratis",
+        "description": "Perfekt för att komma igång",
         "features": {
-          "freeCourses": "�",
-          "basicExercises": "�",
-          "communitySupport": "�",
-          "aiHelpPerMonth": "�"
+          "freeCourses": "Tillgång till gratiskurser",
+          "basicExercises": "Grundläggande programmeringsövningar",
+          "communitySupport": "Support från communityn",
+          "aiHelpPerMonth": "AI-hjälp 1 gång per månad"
         }
       },
       "premium": {
-        "name": "�",
-        "description": "�",
+        "name": "Premium",
+        "description": "Lås upp avancerade funktioner",
         "features": {
-          "allFreeFeatures": "�",
-          "unlimitedAi": "�",
-          "allExercises": "�",
-          "certificates": "�",
-          "adFree": "�"
+          "allFreeFeatures": "Allt i Gratis",
+          "unlimitedAi": "Obegränsad AI-hjälp",
+          "allExercises": "Tillgång till alla övningar",
+          "certificates": "Certifikat",
+          "adFree": "Reklamfri upplevelse"
         }
       }
     }

@@ -1,0 +1,46 @@
+{
+  "checks": {
+    "firstRectangle": "Den första rektangeln saknas.",
+    "lastRectangle": "Den sista rektangeln saknas.",
+    "minSaturationLightness": "Alla rektanglar ska ha en mättnad och ljushet på minst 20.",
+    "uniqueColors": "Det finns inte 100 rektanglar i olika färger.",
+    "hueRed": "Det ska finnas en rektangel med en färgton nära 0 (red).",
+    "huePurple": "Det ska finnas en rektangel med en färgton nära 300 (purple)."
+  },
+  "tasks": {
+    "drawRainbow": {
+      "name": "Rita regnbågen",
+      "description": "Rita 100 vertikala staplar över canvasen, var och en med en egen färgton, så att de bildar en regnbåge."
+    }
+  },
+  "scenarios": {
+    "drawRainbow": {
+      "name": "Rita regnbågen",
+      "description": "Måla 100 vackra rektanglar som tillsammans bildar en regnbåge."
+    }
+  },
+  "hints": {
+    "hundredRectangles": {
+      "question": "Måste jag rita 100 olika rektanglar?",
+      "answer": "Ja, men inte genom att skriva `rectangle(...)` 100 gånger! Fundera på vad vi gör när vi har kod som upprepar sig."
+    },
+    "colorIntoRectangle": {
+      "question": "Hur får jag in färgen i rektangeln",
+      "answer": "`hsl(...)` returnerar en färgsträng. Den färgsträngen kan du sedan skicka in i funktionen `rectangle(...)`, precis som du har gjort tidigare."
+    },
+    "hueRange": {
+      "question": "Hur får jag färgtonen att gå från 0 till 300?",
+      "answer": "Det finns 100 staplar, och den första ska ha en färgton på 0. Sedan behöver vi öka den lite för varje stapel: den andra kanske har en färgton på 3, den tredje 6 och så vidare. Till slut kommer vi fram till 300."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Rita en rektangel på positionen (left, top) med angiven bredd, höjd och färg",
+      "category": "Rita former"
+    },
+    "hsl": {
+      "description": "Omvandla HSL-färgvärden (färgton 0-360, mättnad 0-100, ljushet 0-100) till en färgsträng",
+      "category": "Färger"
+    }
+  }
+}

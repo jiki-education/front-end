@@ -1,0 +1,46 @@
+{
+  "errors": {
+    "allInputsNumbers": "Alla indata måste vara tal",
+    "blueRange": "Blått måste vara mellan 0 och 255",
+    "circleInputsNumbers": "Indata x, y och radius måste vara tal",
+    "colorNamedOrHex": "Färgen måste vara en namngiven färg (\"orange\", \"blue\", \"white\" osv.) som anges i instruktionerna, eller en hexfärg som börjar med #",
+    "colorNotAllowed": "I den här övningen ska du inte ange någon färg",
+    "colorNotString": "Färgen måste vara en sträng",
+    "ellipseInputsNumbers": "Indata x, y, rx och ry måste vara tal",
+    "greenRange": "Grönt måste vara mellan 0 och 255",
+    "heightPositive": "Höjden måste vara större än 0",
+    "hueRange": "Färgtonen måste vara mellan 0 och 360",
+    "lightnessRange": "Ljusheten måste vara mellan 0 och 100",
+    "lineInputsNumbers": "Indata x1, y1, x2 och y2 måste vara tal",
+    "rectInputsNumbers": "Indata x, y, width och height måste vara tal",
+    "redRange": "Rött måste vara mellan 0 och 255",
+    "saturationRange": "Mättnaden måste vara mellan 0 och 100",
+    "triangleInputsNumbers": "Indata x1, y1, x2, y2, x3 och y3 måste vara tal",
+    "widthPositive": "Bredden måste vara större än 0"
+  },
+  "describers": {
+    "rectangle": {
+      "default": "ritade en rektangel vid koordinaterna (${arg1}, ${arg2}) med bredden ${arg3}, höjden ${arg4} och färgen ${arg5}",
+      "fixedColor": "ritade en rektangel vid koordinaterna (${arg1}, ${arg2}) med bredden ${arg3} och höjden ${arg4}"
+    },
+    "triangle": {
+      "default": "ritade en triangel med de tre punkterna (${arg1}, ${arg2}), (${arg3}, ${arg4}) och (${arg5}, ${arg6}) med färgen ${arg7}",
+      "fixedColor": "ritade en triangel med de tre punkterna (${arg1}, ${arg2}), (${arg3}, ${arg4}) och (${arg5}, ${arg6})"
+    },
+    "circle": {
+      "default": "ritade en cirkel med mittpunkten i (${arg1}, ${arg2}), radien ${arg3} och färgen ${arg4}",
+      "fixedColor": "ritade en cirkel med mittpunkten i (${arg1}, ${arg2}) och radien ${arg3}"
+    },
+    "ellipse": {
+      "default": "ritade en ellips med mittpunkten i (${arg1}, ${arg2}), den horisontella radien ${arg3}, den vertikala radien ${arg4} och färgen ${arg5}",
+      "fixedColor": "ritade en ellips med mittpunkten i (${arg1}, ${arg2}), den horisontella radien ${arg3} och den vertikala radien ${arg4}"
+    },
+    "line": {
+      "default": "ritade en linje från (${arg1}, ${arg2}) till (${arg3}, ${arg4}) med färgen ${arg5}",
+      "fixedColor": "ritade en linje från (${arg1}, ${arg2}) till (${arg3}, ${arg4})"
+    },
+    "clear": "rensade canvasen",
+    "hsl": "omvandlade HSL-färgen (färgton: ${arg1}, mättnad: ${arg2}, ljushet: ${arg3}) till en hexsträng",
+    "rgb": "omvandlade RGB-färgen (rött: ${arg1}, grönt: ${arg2}, blått: ${arg3}) till en hexsträng"
+  }
+}

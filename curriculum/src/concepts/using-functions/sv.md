@@ -1,5 +1,5 @@
 ---
-title: "Använda funktioner"
+title: "Att använda funktioner"
 description: "Du säger åt Jiki att köra en av sina små maskiner genom att skriva maskinens namn och två parenteser efter."
 en_md5: fc671310093a081113a8f301b6ff53fe
 ---
