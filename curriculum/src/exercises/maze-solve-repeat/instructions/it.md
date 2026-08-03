@@ -6,7 +6,7 @@ en_md5: 6ee8a02aea4617a21e320428e66eab5e
 
 Ti è stata data una soluzione funzionante per un labirinto, ma è molto lunga e ripetitiva. Il tuo compito è modificare il codice in modo che abbia **il minor numero di righe possibile**.
 
-Il segreto è usare `repeat` cicli (_loops_ in inglese) per accorciare il codice. Per esempio, ricorda che un ciclo `repeat` ha questa sintassi:
+Il segreto è usare i cicli `repeat` (_loops_ in inglese) per accorciare il codice. Per esempio, ricorda che un ciclo `repeat` ha questa sintassi:
 
 ```javascript
 repeat(3) {
