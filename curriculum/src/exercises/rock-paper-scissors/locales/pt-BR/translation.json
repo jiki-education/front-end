@@ -58,7 +58,7 @@
   "hints": {
     "howToStart": {
       "question": "Como eu começo?",
-      "answer": "Obtenha as escolhas de Yuki e de Ando usando as funções disponíveis e guarde cada uma em uma variável para poder compará-las."
+      "answer": "Obtenha as escolhas de Yuki e de Ando usando as funções fornecidas e guarde cada uma em uma variável para poder compará-las."
     },
     "simplestCase": {
       "question": "Qual é o caso mais simples para começar?",
@@ -74,7 +74,7 @@
     },
     "invalidChoice": {
       "question": "E se um jogador escolher algo que não seja pedra, papel ou tesoura?",
-      "answer": "Você não precisa se preocupar com isso aqui. As funções disponíveis sempre retornam uma das três escolhas válidas."
+      "answer": "Você não precisa se preocupar com isso aqui. As funções fornecidas sempre retornam uma das três escolhas válidas."
     }
   },
   "functions": {
