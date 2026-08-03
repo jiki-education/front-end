@@ -6,13 +6,13 @@
   },
   "tasks": {
     "solveMazeWithRepeat": {
-      "name": "Rifattorizza la soluzione del labirinto usando cicli repeat",
+      "name": "Riorganizza la soluzione del labirinto usando cicli repeat",
       "description": "Sostituisci le chiamate consecutive a `move()` con cicli repeat per accorciare il codice."
     }
   },
   "scenarios": {
     "mazeRepeat1": {
-      "name": "Rifattorizza la soluzione del labirinto usando cicli repeat",
+      "name": "Riorganizza la soluzione del labirinto usando cicli repeat",
       "description": "Usa cicli repeat per evitare chiamate consecutive a `move()`."
     }
   },

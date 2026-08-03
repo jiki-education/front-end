@@ -1,6 +1,6 @@
 ---
 title: "Labirinto a cicli"
-description: "Riscrivi la soluzione di un labirinto usando i cicli invece di codice ripetuto."
+description: "Riorganizza la soluzione di un labirinto usando i cicli invece di codice ripetuto."
 en_md5: 6ee8a02aea4617a21e320428e66eab5e
 ---
 

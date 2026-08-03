@@ -10,7 +10,7 @@ In questo esercizio il tuo compito è disegnare un'icona meteo per una giornata 
 
 Abbiamo disegnato un modello per te. Le tue forme devono stare appena dentro le linee. Abbiamo anche aggiunto la base della nuvola nel codice per semplificarti un po' le cose. **Non puoi modificare questa riga** (vedrai che è in grigio e ha un'icona di lucchetto accanto).
 
-Avrai bisogno delle funzioni `circle` (cerchio) e `ellipse`. Dovresti usare le ellissi solo per le gocce di pioggia. Se le usi per il sole o per le nuvole, le cose non funzioneranno.
+Avrai bisogno delle funzioni `circle` e `ellipse`. Dovresti usare le ellissi solo per le gocce di pioggia. Se le usi per il sole o per le nuvole, le cose non funzioneranno.
 
 Quasi tutti i numeri di cui hai bisogno sono divisibili per 5 (ad esempio 5, 10, 15, ecc.). L'unica eccezione è il raggio orizzontale delle gocce di pioggia, che è `3`.
 
