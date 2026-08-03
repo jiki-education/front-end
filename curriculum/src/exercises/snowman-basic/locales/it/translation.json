@@ -1,6 +1,6 @@
 {
   "checks": {
-    "baseCircle": "Il cerchio di base (in basso) non è corretto.",
+    "baseCircle": "Il cerchio della base (in basso) non è corretto.",
     "bodyCircle": "Il cerchio del corpo (al centro) non è corretto.",
     "headCircle": "Il cerchio della testa (in alto) non è corretto."
   },

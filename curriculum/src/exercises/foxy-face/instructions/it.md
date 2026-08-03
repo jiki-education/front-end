@@ -19,11 +19,11 @@ Il tuo compito è usare triangoli per costruire una faccia di volpe geometrica:
 
 <img src="/static/images/exercise-assets/foxy-face/example.svg" alt="Volpe geometrica" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-La faccia è simmetrica orizzontalmente (il lato sinistro è identico al lato destro). Ha 8 triangoli in totale:
+La faccia è simmetrica (il lato sinistro è identico al lato destro). Ha 8 triangoli in totale:
 
 - Due guance `"white"`
 - Due orecchie `"brown"`
-- Due metà della faccia `"orange"`
+- Due metà del viso `"orange"`
 - Un naso `"charcoal"` (due triangoli)
 
 (Assicurati di usare quei colori quando disegni i triangoli, e ricordati di scriverli come stringhe!)

@@ -4,7 +4,7 @@ description: "Distruggi alcuni alieni nel tuo primo assaggio di Space Invaders."
 en_md5: 56b9b22488ae091b5f06cb5afc5bb441
 ---
 
-Benvenuto al tuo secondo esercizio – Space Invaders! Questo è un classico gioco arcade degli anni Settanta, ed è uno dei primi a cui ho giocato. Nelle prossime settimane costruirai un laser completamente automatico per abbattere gli alieni. Ma per ora, il tuo compito è semplicemente abbattere tutti gli alieni manualmente!
+Benvenuto al tuo secondo esercizio: Space Invaders! Questo è un classico gioco arcade degli anni '70, ed è uno dei primi a cui ho giocato. Nelle prossime settimane costruirai un laser completamente automatico per abbattere gli alieni. Ma per ora, il tuo compito è semplicemente abbattere tutti gli alieni manualmente!
 
 Hai due funzioni:
 

@@ -14,7 +14,7 @@
   "tasks": {
     "drawFox": {
       "name": "Disegna la faccia della volpe",
-      "description": "Usa triangoli per costruire una faccia di volpe geometrica sullo sfondo grigio."
+      "description": "Usa triangoli per costruire la faccia geometrica della volpe sullo sfondo grigio."
     }
   },
   "scenarios": {

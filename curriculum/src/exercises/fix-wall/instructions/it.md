@@ -6,7 +6,7 @@ en_md5: ba2f5a5d726cef8cb80841c6e16132c6
 
 Benvenuto al tuo primo esercizio di disegno. In questo esercizio disegnerai rettangoli usando la funzione `rectangle` (rettangolo).
 
-Per disegnare rettangoli abbiamo bisogno di conoscere le posizioni superiore e sinistra, e la larghezza e l'altezza del rettangolo. Quando usiamo la funzione `rectangle`, possiamo specificare questi come _input_ (i valori da passare alla funzione):
+Per disegnare rettangoli abbiamo bisogno di conoscere le distanze dall'alto e da sinistra, la larghezza e l'altezza della figura. Quando usiamo la funzione `rectangle`, possiamo specificare questi come _input_ (i valori da passare alla funzione):
 
 - `left` (sinistra): il lato sinistro del rettangolo
 - `top` (parte superiore): la parte superiore del rettangolo
@@ -21,4 +21,4 @@ Stai sempre disegnando su un'area di disegno di larghezza 100 e altezza 100. Qui
 
 Il tuo compito è usare tre rettangoli per riempire i buchi nel muro.
 
-Per semplificarti la vita, i valori di top, left, altezza e larghezza sono tutti divisibili per 10.
+Per semplificarti la vita, i valori di top, left, height e width sono tutti divisibili per 10.
