@@ -14,13 +14,13 @@ Essas coisas que ela segura podem ser qualquer coisa: strings, números, Boolean
 
 Tudo nessa corrente está em ordem: a ordem em que as coisas foram presas umas às outras.
 
-Então um array contém várias coisas, mas é um único elemento sólido, uma única coisa sólida: um array com vários elementos dentro dele.
+Então um array contém várias coisas, mas é uma coisa só, uma unidade: um array com vários elementos dentro dele.
 
 O Jiki pode pegar esse array, essa corrente, e colocar em uma caixa, do mesmo jeito que ele coloca uma string em uma caixa ou um número em uma caixa.
 
 Ele pode colocá-lo na fenda de uma máquina. Pode puxá-lo da boca da máquina. O array é uma coisa só, e o Jiki trabalha com ele exatamente do mesmo jeito que trabalha com strings, números e tudo o mais que você viu até agora.
 
-Agora, no código, um array também se parece um pouco com uma corrente. Ele tem um colchete em cada ponta e, entre eles, vários itens em sequência, separados por vírgulas.
+Agora, no código, um array também se parece um pouco com uma corrente. Ele tem um colchete em cada ponta e, entre eles, vários itens encadeados uns aos outros, separados por vírgulas.
 
 Então, por exemplo, se quiséssemos criar um array com os nomes de alguns dos nossos mentores, poderíamos montar uma caixa chamada `mentors` (mentores) e colocar essa corrente dentro dela.
 
@@ -36,7 +36,7 @@ Então você pode criar um array usando a sintaxe de colchetes, mas como a gente
 
 Então vamos voltar à nossa lista de mentores. Se quisermos pegar o primeiro, escrevemos `mentors[0]`. Lembre-se de que em JavaScript contamos a partir do zero.
 
-E também podemos iterar por um array exatamente do mesmo jeito que iteramos por strings antes, usando `for-of`.
+E também podemos iterar sobre um array exatamente do mesmo jeito que iteramos sobre strings antes, usando `for-of`.
 
 Os arrays funcionam exatamente da mesma forma. A única diferença é que desta vez, em vez de pegar uma letra, pegamos o item que estiver no array. Neste exemplo, o nome do mentor.
 
