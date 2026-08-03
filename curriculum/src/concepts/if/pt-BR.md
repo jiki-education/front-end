@@ -43,7 +43,7 @@ Usamos símbolos para escrever essas comparações. Você provavelmente já conh
   height="400"
 />
 
-Isso nos ajuda a não confundir com o momento em que estamos definindo ou atualizando variáveis, quando usamos um sinal de igual para dizer coloque isto na caixa. É só lembrar: três sinais de igual para comparar.
+Isso ajuda a gente a não se confundir na hora de definir ou atualizar variáveis, quando usamos um sinal de igual para dizer “coloque isto na caixa”. É só lembrar: três sinais de igual para comparar.
 
 Você também pode comparar strings. Então `"hello"` é igual a `"hello"`. Isso é verdadeiro. As duas strings são iguais. Mas tome cuidado aqui, porque o Jiki compara cada caractere (_character_ em inglês) das duas strings, nos dois pedaços de papel. Então `"Hello"` com H maiúsculo não é igual a `"hello"` com h minúsculo. São strings diferentes. Comparar as duas daria falso, porque o H maiúsculo e o h minúsculo são caracteres diferentes.
 
