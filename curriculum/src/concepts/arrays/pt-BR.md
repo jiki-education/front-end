@@ -1,7 +1,7 @@
 ---
 title: "Arrays"
 description: "Uma corrente ordenada de elementos (strings, números, Booleans ou qualquer outra coisa) mantidos juntos como um único valor que o Jiki pode passar de um lado para outro."
-en_md5: 012da550948ba2ebcfaf953cd0906f3f
+en_md5: d26ccb9e04fbc77129f3199d63a95017
 ---
 
 Você já vem usando números, strings e Booleans, a palavra chique para verdadeiro e falso, e chamamos isso de diferentes tipos de dados (_data types_ em inglês). Agora vamos adicionar o nosso primeiro tipo de dado composto (_compound data type_ em inglês).
@@ -18,11 +18,11 @@ Então um array contém várias coisas, mas é um único elemento sólido, uma �
 
 O Jiki pode pegar esse array, essa corrente, e colocar em uma caixa, do mesmo jeito que ele coloca uma string em uma caixa ou um número em uma caixa.
 
-Ele pode colocá-lo na fenda de uma máquina. Pode puxá-lo da calha de saída. O array é uma coisa só, e o Jiki trabalha com ele exatamente do mesmo jeito que trabalha com strings, números e tudo o mais que você viu até agora.
+Ele pode colocá-lo na fenda de uma máquina. Pode puxá-lo da boca da máquina. O array é uma coisa só, e o Jiki trabalha com ele exatamente do mesmo jeito que trabalha com strings, números e tudo o mais que você viu até agora.
 
 Agora, no código, um array também se parece um pouco com uma corrente. Ele tem um colchete em cada ponta e, entre eles, vários itens em sequência, separados por vírgulas.
 
-Então, por exemplo, se quiséssemos criar um array com os nomes de alguns membros do nosso bootcamp, poderíamos montar uma caixa chamada `mentors` (mentores) e colocar essa corrente dentro dela.
+Então, por exemplo, se quiséssemos criar um array com os nomes de alguns dos nossos mentores, poderíamos montar uma caixa chamada `mentors` (mentores) e colocar essa corrente dentro dela.
 
 Escreveríamos `let mentors =`, exatamente como fazemos com qualquer outra caixa, e depois viria um colchete de abertura, vários elementos, os nomes separados por vírgulas, e por fim um colchete de fechamento. Quando o Jiki vê isso, ele vai buscar quatro pedaços de papel, um para cada nome, depois pega uma corrente nova e prende todos eles juntos, e então coloca essa corrente na caixa `mentors`.
 

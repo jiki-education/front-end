@@ -243,7 +243,7 @@
     "returnStatement": {
       "final": "O Jiki arrumou tudo e saiu da função.",
       "naked_result": "Isto encerrou a função. Nenhum outro código da função foi executado.",
-      "value_chute": "O Jiki colocou {{value}} na calha de saída.",
+      "value_chute": "O Jiki colocou {{value}} na boca da máquina.",
       "value_result": "Isto retornou {{value}} e encerrou a função. Nenhum outro código da função foi executado."
     },
     "unaryExpression": {
