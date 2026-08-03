@@ -6,7 +6,7 @@
     "walkedIntoPoop": "Iyyy! Kakaya bastınız! 💩💩💩"
   },
   "describers": {
-    "move": "Karakteri bir hücre ileri taşır",
+    "move": "Karakteri bir hücre ileri götürür",
     "turnLeft": "Karakteri 90 derece sola döndürür",
     "turnRight": "Karakteri 90 derece sağa döndürür"
   }

@@ -10,7 +10,7 @@ Bu alıştırmanın amacı, öğrenme ortamının nasıl çalıştığını size
 
 Kullanabileceğiniz üç talimat şunlardır:
 
-- `move()` (hareket et), karakteri bir adım ileri taşır
+- `move()` (hareket et), karakteri bir adım ileri götürür
 - `turnLeft()` (sola dön), karakteri sola döndürür (o anda baktığı yöne göre)
 - `turnRight()` (sağa dön), karakteri sağa döndürür (o anda baktığı yöne göre)
 
