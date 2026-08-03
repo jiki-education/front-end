@@ -44,4 +44,4 @@ Chaque description correspond à un tableau précis de symboles :
 
 ## À toi de jouer
 
-Parcours le tableau `days` un jour à la fois. Transforme chaque description en tableau de symboles correspondant, puis utilise `draw` pour dessiner celui-ci dans la boîte de ce jour, en l'étiquetant avec le jour de la semaine correspondant.
+Parcours les jours du tableau `days` un par un. Transforme chaque description obtenue en un tableau contenant la bonne suite de symboles, puis utilise `draw` pour les dessiner dans une boîte étiquetée avec le jour de la semaine correspondant.

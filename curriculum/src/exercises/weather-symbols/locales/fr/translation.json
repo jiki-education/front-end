@@ -50,7 +50,7 @@
   },
   "functions": {
     "draw": {
-      "description": "Dessine les symboles météo donnés dans une boîte des prévisions. Elle prend le numéro de boîte (de 0 à 5), le nom du jour de la semaine à inscrire dessus, et le tableau de symboles.",
+      "description": "Dessine les symboles météo donnés dans une boîte de prévisions. Elle prend le numéro de boîte (de 0 à 5), le nom du jour de la semaine à inscrire dessus, et le tableau de symboles.",
       "category": "Dessin"
     }
   },
