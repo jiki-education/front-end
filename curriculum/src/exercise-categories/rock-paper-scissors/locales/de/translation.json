@@ -1,0 +1,11 @@
+{
+  "errors": {
+    "invalidResult": "Oh nein! Du hast ein ungültiges Ergebnis verkündet. Es herrscht Chaos in der Spielhalle! Bitte verkünde entweder „Yuki“, „Ando“ oder „tie“.",
+    "wrongResult": "Oh nein! Du hast das falsche Ergebnis verkündet. Es herrscht Chaos in der Spielhalle!\n\nDu hättest `\"{{expected}}\"` verkünden sollen, aber du hast `\"{{got}}\"` verkündet."
+  },
+  "describers": {
+    "announceResult": "hat das Ergebnis des Spiels als ${arg1} verkündet",
+    "getYukiChoice": "hat Yukis Wahl zurückgegeben",
+    "getAndoChoice": "hat Andos Wahl zurückgegeben"
+  }
+}

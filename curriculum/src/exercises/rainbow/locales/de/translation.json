@@ -1,0 +1,46 @@
+{
+  "checks": {
+    "firstRectangle": "Das erste Rechteck fehlt.",
+    "lastRectangle": "Das letzte Rechteck fehlt.",
+    "minSaturationLightness": "Alle Rechtecke sollten eine Sättigung und Helligkeit von mindestens 20 haben.",
+    "uniqueColors": "Es gibt keine 100 verschiedenfarbigen Rechtecke.",
+    "hueRed": "Es sollte ein Rechteck mit einem Farbton nahe 0 (Rot) geben.",
+    "huePurple": "Es sollte ein Rechteck mit einem Farbton nahe 300 (Violett) geben."
+  },
+  "tasks": {
+    "drawRainbow": {
+      "name": "Zeichne den Regenbogen",
+      "description": "Zeichne 100 senkrechte Balken über die Zeichenfläche, jeden mit einem anderen Farbton, um einen Regenbogeneffekt zu erzeugen."
+    }
+  },
+  "scenarios": {
+    "drawRainbow": {
+      "name": "Zeichne den Regenbogen",
+      "description": "Male 100 wunderschöne Rechtecke, um einen Regenbogen zu erzeugen."
+    }
+  },
+  "hints": {
+    "hundredRectangles": {
+      "question": "Muss ich 100 verschiedene Rechtecke zeichnen?",
+      "answer": "Ja, aber nicht, indem du 100-mal `rectangle(...)` schreibst! Überleg, was wir machen, wenn sich Code wiederholt."
+    },
+    "colorIntoRectangle": {
+      "question": "Wie bekomme ich die Farbe in das Rechteck?",
+      "answer": "Die Funktion `hsl(...)` gibt einen Farb-String zurück. Diesen Farb-String kannst du dann an die Funktion `rectangle(...)` übergeben, so wie du es vorher schon gemacht hast."
+    },
+    "hueRange": {
+      "question": "Wie bekomme ich den Farbton von 0 bis 300?",
+      "answer": "Es gibt 100 Linien, und die erste sollte einen Farbton von 0 haben. Für jede weitere Linie erhöhen wir den Wert ein wenig: Die zweite Linie könnte also einen Farbton von 3 haben, die dritte einen von 6 und so weiter. Am Ende kommen wir so bei 300 an."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Zeichnet ein Rechteck an der Position (left, top) mit der angegebenen Breite, Höhe und Farbe",
+      "category": "Formen zeichnen"
+    },
+    "hsl": {
+      "description": "Wandelt HSL-Farbwerte (Farbton 0-360, Sättigung 0-100, Helligkeit 0-100) in einen Farb-String um",
+      "category": "Farben"
+    }
+  }
+}
