@@ -83,10 +83,7 @@
       "subtitle": "Tunaandaa mazingira yako ya kujifunza"
     },
     "localeBanner": {
-      "prefix": "Unaangalia toleo la {language} la ukurasa huu.",
-      "cta": "Badilisha kwenda {language}",
-      "or": "au",
-      "close": "funga ilani hii"
+      "message": "Unaangalia toleo la {current} la ukurasa huu. <link>Badilisha kwenda {offered}</link> au <dismiss>funga ilani hii</dismiss>."
     }
   },
   "common": {
@@ -1260,8 +1257,8 @@
         "titleExercise": "Zoezi limekamilika!",
         "titleChallenge": "Changamoto imekamilika!",
         "greatWork": "Hongera kwa kukamilisha {title}!",
-        "readyExercise": "Uko tayari kuendelea na zoezi linalofuata?",
-        "readyChallenge": "Uko tayari kuendelea na changamoto inayofuata?",
+        "messageExercise": "Hongera kwa kukamilisha {title}! Uko tayari kuendelea na zoezi linalofuata?",
+        "messageChallenge": "Hongera kwa kukamilisha {title}! Uko tayari kuendelea na changamoto inayofuata?",
         "bonusPrompt": "{count, plural, one {Zoezi hili lina <strong>senario ya bonasi</strong>. Ungependa kuitatua kabla ya kuendelea?} other {Zoezi hili lina <strong>senario za bonasi</strong>. Ungependa kuzitatua kabla ya kuendelea?}}",
         "tidyCode": "Safisha msimbo",
         "solveBonuses": "{count, plural, one {Tatua Bonasi} other {Tatua Bonasi}}",

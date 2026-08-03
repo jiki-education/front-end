@@ -83,10 +83,7 @@
       "subtitle": "Öğrenme deneyiminiz hazırlanıyor"
     },
     "localeBanner": {
-      "prefix": "Bu sayfanın {language} sürümünü görüntülüyorsunuz.",
-      "cta": "{language} diline geç",
-      "or": "veya",
-      "close": "bu bildirimi kapat"
+      "message": "Bu sayfanın {current} sürümünü görüntülüyorsunuz. <link>{offered} diline geç</link> veya <dismiss>bu bildirimi kapat</dismiss>."
     }
   },
   "common": {
@@ -1270,8 +1267,8 @@
         "titleExercise": "Alıştırma tamamlandı!",
         "titleChallenge": "Meydan okuma tamamlandı!",
         "greatWork": "Harika iş, {title} tamamlandı!",
-        "readyExercise": "Sonraki alıştırmaya geçmeye hazır mısınız?",
-        "readyChallenge": "Sonraki meydan okumaya geçmeye hazır mısınız?",
+        "messageExercise": "Harika iş, {title} tamamlandı! Sonraki alıştırmaya geçmeye hazır mısınız?",
+        "messageChallenge": "Harika iş, {title} tamamlandı! Sonraki meydan okumaya geçmeye hazır mısınız?",
         "bonusPrompt": "{count, plural, one {Bu alıştırmada <strong>bir bonus senaryo</strong> var. Devam etmeden önce çözmek ister misiniz?} other {Bu alıştırmada <strong>bonus senaryolar</strong> var. Devam etmeden önce çözmek ister misiniz?}}",
         "tidyCode": "Kodu toparla",
         "solveBonuses": "{count, plural, one {Bonusu çöz} other {Bonusları çöz}}",

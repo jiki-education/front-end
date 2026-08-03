@@ -83,10 +83,7 @@
       "subtitle": "学習の準備をしています"
     },
     "localeBanner": {
-      "prefix": "このページの {language} 版を表示しています。",
-      "cta": "{language} に切り替える",
-      "or": "または",
-      "close": "このお知らせを閉じる"
+      "message": "このページの{current}版を表示しています。<link>{offered}に切り替える</link>、または<dismiss>このお知らせを閉じる</dismiss>。"
     }
   },
   "common": {
@@ -1158,7 +1155,7 @@
     },
     "levelMilestone": {
       "title": "🎉 レベルクリア！",
-      "message": "おめでとうございます！<strong>{levelTitle}</strong> を完了し、このレベルのすべての概念を習得しました。",
+      "message": "おめでとうございます！<strong>{levelTitle}</strong>を完了し、このレベルのすべての概念を習得しました。",
       "lessonsCompleted": "完了したレッスン",
       "xpEarned": "獲得 XP",
       "readyNext": "次のレベルをアンロックして、学習の旅を続けましょう！",
@@ -1259,9 +1256,9 @@
       "completed": {
         "titleExercise": "演習完了！",
         "titleChallenge": "チャレンジ完了！",
-        "greatWork": "{title} の完了、おめでとうございます！",
-        "readyExercise": "次の演習に進みますか？",
-        "readyChallenge": "次のチャレンジに進みますか？",
+        "greatWork": "「{title}」の完了、おめでとうございます！",
+        "messageExercise": "「{title}」の完了、おめでとうございます！次の演習に進みますか？",
+        "messageChallenge": "「{title}」の完了、おめでとうございます！次のチャレンジに進みますか？",
         "bonusPrompt": "{count, plural, one {この演習には<strong>ボーナスシナリオ</strong>があります。先に進む前に解いてみますか？} other {この演習には<strong>ボーナスシナリオ</strong>があります。先に進む前に解いてみますか？}}",
         "tidyCode": "コードを整える",
         "solveBonuses": "{count, plural, one {ボーナスに挑戦} other {ボーナスに挑戦}}",
@@ -1269,7 +1266,7 @@
       },
       "difficultyRating": {
         "title": "感想を教えてください",
-        "message": "{title} の改善のため、評価をお願いします！",
+        "message": "「{title}」の改善のため、評価をお願いします！",
         "rateDifficulty": "難易度を評価",
         "rateFun": "楽しさを評価",
         "difficultyTooEasy": "簡単すぎた",
@@ -1490,7 +1487,7 @@
     "logPanel": {
       "title": "シナリオログ",
       "emptyDescription": "ここには、コードを実行したときの出力が表示されます。変更した内容の確認に使いましょう。値を出力するには <code>console.log()</code> を使います。",
-      "description": "ここには、<scenario>{name}</scenario> シナリオでコードを実行したときの出力が表示されます。変更した内容の確認に使いましょう。値を出力するには <code>console.log()</code> を使います。",
+      "description": "ここには、<scenario>{name}</scenario>シナリオでコードを実行したときの出力が表示されます。変更した内容の確認に使いましょう。値を出力するには <code>console.log()</code> を使います。",
       "emptyState": "まだ何も出力されていません"
     },
     "instructionsPanel": {
@@ -1677,8 +1674,8 @@
     "pill": {
       "complete": "レッスン完了",
       "progress": "レッスンの進捗",
-      "watching": "<title>{name}</title> を視聴中",
-      "finished": "<title>{name}</title> を視聴済み",
+      "watching": "<title>{name}</title>を視聴中",
+      "finished": "<title>{name}</title>を視聴済み",
       "finishTooltip": "最後まで見ると次に進めます"
     }
   },

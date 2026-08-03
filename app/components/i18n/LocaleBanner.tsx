@@ -1,4 +1,5 @@
-import { LocaleBannerBar } from "@/components/i18n/LocaleBannerBar";
+import { LocaleBannerBar, LocaleBannerDismiss } from "@/components/i18n/LocaleBannerBar";
+import Link from "next/link";
 import { AUTHENTICATION_COOKIE_NAME } from "@/lib/auth/cookie-config";
 import { LOCALE_COOKIE_NAME, PATHNAME_HEADER } from "@/lib/i18n/config";
 import { languageName } from "@/lib/i18n/languageNames";
@@ -36,13 +37,13 @@ export async function LocaleBanner() {
   const t = await getTranslations({ locale: offer.offered, namespace: "layout.localeBanner" });
 
   return (
-    <LocaleBannerBar
-      href={offer.href}
-      offered={offer.offered}
-      prefix={t("prefix", { language: languageName(offer.current, offer.offered) })}
-      cta={t("cta", { language: languageName(offer.offered, offer.offered) })}
-      or={t("or")}
-      close={t("close")}
-    />
+    <LocaleBannerBar offered={offer.offered}>
+      {t.rich("message", {
+        current: languageName(offer.current, offer.offered),
+        offered: languageName(offer.offered, offer.offered),
+        link: (chunks) => <Link href={offer.href}>{chunks}</Link>,
+        dismiss: (chunks) => <LocaleBannerDismiss>{chunks}</LocaleBannerDismiss>
+      })}
+    </LocaleBannerBar>
   );
 }

@@ -83,10 +83,7 @@
       "subtitle": "Przygotowujemy wszystko do nauki"
     },
     "localeBanner": {
-      "prefix": "Przeglądasz tę stronę w języku: {language}.",
-      "cta": "Przełącz na: {language}",
-      "or": "lub",
-      "close": "zamknij tę informację"
+      "message": "Przeglądasz tę stronę w języku: {current}. <link>Przełącz na: {offered}</link> lub <dismiss>zamknij tę informację</dismiss>."
     }
   },
   "common": {
@@ -1260,8 +1257,8 @@
         "titleExercise": "Ćwiczenie ukończone!",
         "titleChallenge": "Wyzwanie ukończone!",
         "greatWork": "Brawo za ukończenie {title}!",
-        "readyExercise": "Chcesz przejść do kolejnego ćwiczenia?",
-        "readyChallenge": "Chcesz przejść do kolejnego wyzwania?",
+        "messageExercise": "Brawo za ukończenie {title}! Chcesz przejść do kolejnego ćwiczenia?",
+        "messageChallenge": "Brawo za ukończenie {title}! Chcesz przejść do kolejnego wyzwania?",
         "bonusPrompt": "{count, plural, one {To ćwiczenie ma <strong>scenariusz bonusowy</strong>. Chcesz go rozwiązać, zanim przejdziesz dalej?} other {To ćwiczenie ma <strong>scenariusze bonusowe</strong>. Chcesz je rozwiązać, zanim przejdziesz dalej?}}",
         "tidyCode": "Uporządkuj kod",
         "solveBonuses": "{count, plural, one {Rozwiąż bonus} other {Rozwiąż bonusy}}",

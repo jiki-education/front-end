@@ -83,10 +83,7 @@
       "subtitle": "Îți pregătim experiența de învățare"
     },
     "localeBanner": {
-      "prefix": "Vezi versiunea {language} a acestei pagini.",
-      "cta": "Treci la {language}",
-      "or": "sau",
-      "close": "închide această notificare"
+      "message": "Vezi versiunea {current} a acestei pagini. <link>Treci la {offered}</link> sau <dismiss>închide această notificare</dismiss>."
     }
   },
   "common": {
@@ -1260,8 +1257,8 @@
         "titleExercise": "Exercițiu finalizat!",
         "titleChallenge": "Provocare finalizată!",
         "greatWork": "Bravo, ai finalizat {title}!",
-        "readyExercise": "Ești gata să continui cu exercițiul următor?",
-        "readyChallenge": "Ești gata să continui cu provocarea următoare?",
+        "messageExercise": "Bravo, ai finalizat {title}! Ești gata să continui cu exercițiul următor?",
+        "messageChallenge": "Bravo, ai finalizat {title}! Ești gata să continui cu provocarea următoare?",
         "bonusPrompt": "{count, plural, one {Acest exercițiu are <strong>un scenariu bonus</strong>. Vrei să îl rezolvi înainte de a merge mai departe?} other {Acest exercițiu are <strong>scenarii bonus</strong>. Vrei să le rezolvi înainte de a merge mai departe?}}",
         "tidyCode": "Curăță codul",
         "solveBonuses": "{count, plural, one {Rezolvă bonusul} other {Rezolvă bonusurile}}",

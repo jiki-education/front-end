@@ -83,10 +83,7 @@
       "subtitle": "Preparing your learning experience"
     },
     "localeBanner": {
-      "prefix": "You are viewing the {language} version of this page.",
-      "cta": "Change to {language}",
-      "or": "or",
-      "close": "close this notice"
+      "message": "You are viewing the {current} version of this page. <link>Change to {offered}</link> or <dismiss>close this notice</dismiss>."
     }
   },
   "common": {
@@ -1270,8 +1267,8 @@
         "titleExercise": "Exercise completed!",
         "titleChallenge": "Challenge completed!",
         "greatWork": "Great work completing {title}!",
-        "readyExercise": "Ready to continue to the next exercise?",
-        "readyChallenge": "Ready to continue to the next challenge?",
+        "messageExercise": "Great work completing {title}! Ready to continue to the next exercise?",
+        "messageChallenge": "Great work completing {title}! Ready to continue to the next challenge?",
         "bonusPrompt": "{count, plural, one {This exercise has <strong>a bonus scenario</strong>. Would you like to solve it before moving on?} other {This exercise has <strong>bonus scenarios</strong>. Would you like to solve them before moving on?}}",
         "tidyCode": "Tidy code",
         "solveBonuses": "{count, plural, one {Solve Bonus} other {Solve Bonuses}}",

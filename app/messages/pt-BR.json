@@ -83,10 +83,7 @@
       "subtitle": "Preparando sua experiência de aprendizado"
     },
     "localeBanner": {
-      "prefix": "Você está vendo a versão em {language} desta página.",
-      "cta": "Mudar para {language}",
-      "or": "ou",
-      "close": "fechar este aviso"
+      "message": "Você está vendo a versão em {current} desta página. <link>Mudar para {offered}</link> ou <dismiss>fechar este aviso</dismiss>."
     }
   },
   "common": {
@@ -1260,8 +1257,8 @@
         "titleExercise": "Exercício concluído!",
         "titleChallenge": "Desafio concluído!",
         "greatWork": "Muito bem, você concluiu {title}!",
-        "readyExercise": "Vamos para o próximo exercício?",
-        "readyChallenge": "Vamos para o próximo desafio?",
+        "messageExercise": "Muito bem, você concluiu {title}! Vamos para o próximo exercício?",
+        "messageChallenge": "Muito bem, você concluiu {title}! Vamos para o próximo desafio?",
         "bonusPrompt": "{count, plural, one {Este exercício tem <strong>um cenário bônus</strong>. Quer resolvê-lo antes de seguir em frente?} other {Este exercício tem <strong>cenários bônus</strong>. Quer resolvê-los antes de seguir em frente?}}",
         "tidyCode": "Organizar código",
         "solveBonuses": "{count, plural, one {Resolver bônus} other {Resolver os bônus}}",

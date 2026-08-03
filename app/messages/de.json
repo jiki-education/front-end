@@ -83,10 +83,7 @@
       "subtitle": "Dein Lernerlebnis wird vorbereitet"
     },
     "localeBanner": {
-      "prefix": "Du siehst diese Seite gerade auf {language}.",
-      "cta": "Zu {language} wechseln",
-      "or": "oder",
-      "close": "diesen Hinweis schließen"
+      "message": "Du siehst diese Seite gerade auf {current}. <link>Zu {offered} wechseln</link> oder <dismiss>diesen Hinweis schließen</dismiss>."
     }
   },
   "common": {
@@ -1260,8 +1257,8 @@
         "titleExercise": "Übung abgeschlossen!",
         "titleChallenge": "Challenge abgeschlossen!",
         "greatWork": "Super gemacht, {title} ist geschafft!",
-        "readyExercise": "Bereit für die nächste Übung?",
-        "readyChallenge": "Bereit für die nächste Challenge?",
+        "messageExercise": "Super gemacht, {title} ist geschafft! Bereit für die nächste Übung?",
+        "messageChallenge": "Super gemacht, {title} ist geschafft! Bereit für die nächste Challenge?",
         "bonusPrompt": "{count, plural, one {Diese Übung hat <strong>ein Bonus-Szenario</strong>. Möchtest du es lösen, bevor du weitermachst?} other {Diese Übung hat <strong>Bonus-Szenarien</strong>. Möchtest du sie lösen, bevor du weitermachst?}}",
         "tidyCode": "Code aufräumen",
         "solveBonuses": "{count, plural, one {Bonus lösen} other {Boni lösen}}",

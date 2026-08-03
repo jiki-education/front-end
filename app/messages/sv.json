@@ -83,10 +83,7 @@
       "subtitle": "Förbereder din lärupplevelse"
     },
     "localeBanner": {
-      "prefix": "Du ser {language}-versionen av den här sidan.",
-      "cta": "Byt till {language}",
-      "or": "eller",
-      "close": "stäng meddelandet"
+      "message": "Du ser {current}-versionen av den här sidan. <link>Byt till {offered}</link> eller <dismiss>stäng meddelandet</dismiss>."
     }
   },
   "common": {
@@ -1260,8 +1257,8 @@
         "titleExercise": "Övningen är klar!",
         "titleChallenge": "Utmaningen är klar!",
         "greatWork": "Snyggt jobbat med {title}!",
-        "readyExercise": "Redo att fortsätta till nästa övning?",
-        "readyChallenge": "Redo att fortsätta till nästa utmaning?",
+        "messageExercise": "Snyggt jobbat med {title}! Redo att fortsätta till nästa övning?",
+        "messageChallenge": "Snyggt jobbat med {title}! Redo att fortsätta till nästa utmaning?",
         "bonusPrompt": "{count, plural, one {Den här övningen har <strong>ett bonusscenario</strong>. Vill du lösa det innan du går vidare?} other {Den här övningen har <strong>bonusscenarier</strong>. Vill du lösa dem innan du går vidare?}}",
         "tidyCode": "Städa koden",
         "solveBonuses": "{count, plural, one {Lös bonusen} other {Lös bonusarna}}",

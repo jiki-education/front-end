@@ -83,10 +83,7 @@
       "subtitle": "正在準備你的學習體驗"
     },
     "localeBanner": {
-      "prefix": "你正在瀏覽此頁面的 {language} 版本。",
-      "cta": "切換至 {language}",
-      "or": "或",
-      "close": "關閉此通知"
+      "message": "你正在瀏覽此頁面的{current}版本。<link>切換至{offered}</link>或<dismiss>關閉此通知</dismiss>。"
     }
   },
   "common": {
@@ -1158,7 +1155,7 @@
     },
     "levelMilestone": {
       "title": "🎉 關卡完成！",
-      "message": "恭喜！你已成功完成 <strong>{levelTitle}</strong> 並掌握了所有相關概念。",
+      "message": "恭喜！你已成功完成<strong>{levelTitle}</strong>並掌握了所有相關概念。",
       "lessonsCompleted": "已完成單元",
       "xpEarned": "獲得經驗值",
       "readyNext": "你現在已經準備好解鎖下一個關卡，繼續你的學習之旅了！",
@@ -1259,9 +1256,9 @@
       "completed": {
         "titleExercise": "練習已完成！",
         "titleChallenge": "挑戰已完成！",
-        "greatWork": "做得好，你完成了 {title}！",
-        "readyExercise": "準備好繼續下一個練習了嗎？",
-        "readyChallenge": "準備好繼續下一個挑戰了嗎？",
+        "greatWork": "做得好，你完成了{title}！",
+        "messageExercise": "做得好，你完成了{title}！準備好繼續下一個練習了嗎？",
+        "messageChallenge": "做得好，你完成了{title}！準備好繼續下一個挑戰了嗎？",
         "bonusPrompt": "{count, plural, one {這個練習有<strong>一個加分情境</strong>。你想在繼續之前先解開它嗎？} other {這個練習有<strong>多個加分情境</strong>。你想在繼續之前先解開它們嗎？}}",
         "tidyCode": "整理程式碼",
         "solveBonuses": "{count, plural, one {解開加分題} other {解開加分題}}",
@@ -1269,7 +1266,7 @@
       },
       "difficultyRating": {
         "title": "為你的體驗評分",
-        "message": "為 {title} 評分，幫助我們持續改進。",
+        "message": "為{title}評分，幫助我們持續改進。",
         "rateDifficulty": "評估難度",
         "rateFun": "評估有趣程度",
         "difficultyTooEasy": "太簡單",
@@ -1280,8 +1277,8 @@
         "funFrustrating": "令人挫折",
         "funPrettyGood": "還不錯",
         "funAmazing": "超棒！",
-        "rateDifficultyAriaLabel": "將難度評為 {label}",
-        "rateFunAriaLabel": "將有趣程度評為 {label}",
+        "rateDifficultyAriaLabel": "將難度評為「{label}」",
+        "rateFunAriaLabel": "將有趣程度評為「{label}」",
         "funOptionFallback": "選項 {number}"
       },
       "challengeUnlocked": {
@@ -1490,7 +1487,7 @@
     "logPanel": {
       "title": "情境日誌",
       "emptyDescription": "這是你執行程式碼的輸出結果。你可以在這裡分析你所做的變更。使用 <code>console.log()</code> 來記錄值。",
-      "description": "這是 <scenario>{name}</scenario> 情境執行程式碼的輸出結果。你可以在這裡分析你所做的變更。使用 <code>console.log()</code> 來記錄值。",
+      "description": "這是<scenario>{name}</scenario>情境執行程式碼的輸出結果。你可以在這裡分析你所做的變更。使用 <code>console.log()</code> 來記錄值。",
       "emptyState": "你還沒有記錄任何內容"
     },
     "instructionsPanel": {
@@ -1677,8 +1674,8 @@
     "pill": {
       "complete": "單元已完成",
       "progress": "單元進度",
-      "watching": "正在觀看 <title>{name}</title>",
-      "finished": "已完成 <title>{name}</title>",
+      "watching": "正在觀看<title>{name}</title>",
+      "finished": "已完成<title>{name}</title>",
       "finishTooltip": "看完影片以繼續"
     }
   },

@@ -83,10 +83,7 @@
       "subtitle": "Đang chuẩn bị trải nghiệm học tập của bạn"
     },
     "localeBanner": {
-      "prefix": "Bạn đang xem phiên bản {language} của trang này.",
-      "cta": "Chuyển sang {language}",
-      "or": "hoặc",
-      "close": "đóng thông báo này"
+      "message": "Bạn đang xem phiên bản {current} của trang này. <link>Chuyển sang {offered}</link> hoặc <dismiss>đóng thông báo này</dismiss>."
     }
   },
   "common": {
@@ -1260,8 +1257,8 @@
         "titleExercise": "Đã hoàn thành bài tập!",
         "titleChallenge": "Đã hoàn thành thử thách!",
         "greatWork": "Chúc mừng bạn đã hoàn thành {title}!",
-        "readyExercise": "Sẵn sàng sang bài tập tiếp theo chưa?",
-        "readyChallenge": "Sẵn sàng sang thử thách tiếp theo chưa?",
+        "messageExercise": "Chúc mừng bạn đã hoàn thành {title}! Sẵn sàng sang bài tập tiếp theo chưa?",
+        "messageChallenge": "Chúc mừng bạn đã hoàn thành {title}! Sẵn sàng sang thử thách tiếp theo chưa?",
         "bonusPrompt": "{count, plural, one {Bài tập này có <strong>một kịch bản thưởng</strong>. Bạn có muốn giải nó trước khi đi tiếp không?} other {Bài tập này có <strong>các kịch bản thưởng</strong>. Bạn có muốn giải chúng trước khi đi tiếp không?}}",
         "tidyCode": "Dọn gọn code",
         "solveBonuses": "{count, plural, one {Giải kịch bản thưởng} other {Giải các kịch bản thưởng}}",

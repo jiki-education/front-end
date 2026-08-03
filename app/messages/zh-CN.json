@@ -83,10 +83,7 @@
       "subtitle": "正在准备你的学习体验"
     },
     "localeBanner": {
-      "prefix": "你正在查看本页面的 {language} 版本。",
-      "cta": "切换到 {language}",
-      "or": "或",
-      "close": "关闭此提示"
+      "message": "你正在查看本页面的{current}版本。<link>切换到{offered}</link>或<dismiss>关闭此提示</dismiss>。"
     }
   },
   "common": {
@@ -1259,9 +1256,9 @@
       "completed": {
         "titleExercise": "练习完成！",
         "titleChallenge": "挑战完成！",
-        "greatWork": "完成了 {title}，干得漂亮！",
-        "readyExercise": "准备好进入下一道练习了吗？",
-        "readyChallenge": "准备好迎接下一个挑战了吗？",
+        "greatWork": "完成了{title}，干得漂亮！",
+        "messageExercise": "完成了{title}，干得漂亮！准备好进入下一道练习了吗？",
+        "messageChallenge": "完成了{title}，干得漂亮！准备好迎接下一个挑战了吗？",
         "bonusPrompt": "{count, plural, one {这道练习还有<strong>一个附加场景</strong>。要不要在继续之前把它解决掉？} other {这道练习还有<strong>几个附加场景</strong>。要不要在继续之前把它们解决掉？}}",
         "tidyCode": "整理代码",
         "solveBonuses": "{count, plural, one {解决附加场景} other {解决附加场景}}",
@@ -1269,7 +1266,7 @@
       },
       "difficultyRating": {
         "title": "评价你的体验",
-        "message": "给 {title} 打个分，帮我们把它做得更好。",
+        "message": "给{title}打个分，帮我们把它做得更好。",
         "rateDifficulty": "难度评分",
         "rateFun": "趣味性评分",
         "difficultyTooEasy": "太简单",

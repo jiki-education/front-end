@@ -83,10 +83,7 @@
       "subtitle": "학습 환경을 준비하는 중이에요"
     },
     "localeBanner": {
-      "prefix": "현재 {language} 버전을 보고 있어요",
-      "cta": "{language} 버전으로 보기",
-      "or": "또는",
-      "close": "이 알림 닫기"
+      "message": "현재 {current} 버전을 보고 있어요 <link>{offered} 버전으로 보기</link> 또는 <dismiss>이 알림 닫기</dismiss>."
     }
   },
   "common": {
@@ -1270,8 +1267,8 @@
         "titleExercise": "연습 문제 완료!",
         "titleChallenge": "챌린지 완료!",
         "greatWork": "{title} 완료, 정말 잘했어요!",
-        "readyExercise": "다음 연습 문제로 계속할 준비가 되셨나요?",
-        "readyChallenge": "다음 챌린지로 계속할 준비가 되셨나요?",
+        "messageExercise": "{title} 완료, 정말 잘했어요! 다음 연습 문제로 계속할 준비가 되셨나요?",
+        "messageChallenge": "{title} 완료, 정말 잘했어요! 다음 챌린지로 계속할 준비가 되셨나요?",
         "bonusPrompt": "{count, plural, one {이 연습 문제에는 <strong>보너스 시나리오가 하나</strong> 있어요. 넘어가기 전에 풀어보시겠어요?} other {이 연습 문제에는 <strong>보너스 시나리오가 #개</strong> 있어요. 넘어가기 전에 풀어보시겠어요?}}",
         "tidyCode": "코드 정리",
         "solveBonuses": "{count, plural, one {보너스 풀기} other {보너스 풀기}}",

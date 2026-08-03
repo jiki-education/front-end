@@ -83,10 +83,7 @@
       "subtitle": "Spremamo sve za tvoje učenje"
     },
     "localeBanner": {
-      "prefix": "Gledaš verziju ove stranice na jeziku {language}.",
-      "cta": "Pređi na {language}",
-      "or": "ili",
-      "close": "zatvori ovo obaveštenje"
+      "message": "Gledaš verziju ove stranice na jeziku {current}. <link>Pređi na {offered}</link> ili <dismiss>zatvori ovo obaveštenje</dismiss>."
     }
   },
   "common": {
@@ -1260,8 +1257,8 @@
         "titleExercise": "Vežba završena!",
         "titleChallenge": "Izazov završen!",
         "greatWork": "Svaka čast! {title} je iza tebe!",
-        "readyExercise": "Idemo na sledeću vežbu?",
-        "readyChallenge": "Idemo na sledeći izazov?",
+        "messageExercise": "Svaka čast! {title} je iza tebe! Idemo na sledeću vežbu?",
+        "messageChallenge": "Svaka čast! {title} je iza tebe! Idemo na sledeći izazov?",
         "bonusPrompt": "{count, plural, one {Ova vežba ima <strong>bonus scenario</strong>. Želiš li da ga rešiš pre nego što nastaviš?} other {Ova vežba ima <strong>bonus scenarije</strong>. Želiš li da ih rešiš pre nego što nastaviš?}}",
         "tidyCode": "Sredi kod",
         "solveBonuses": "{count, plural, one {Reši bonus} other {Reši bonuse}}",

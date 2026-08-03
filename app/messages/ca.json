@@ -83,10 +83,7 @@
       "subtitle": "Preparem la teva experiència d'aprenentatge"
     },
     "localeBanner": {
-      "prefix": "Estàs veient la versió en {language} d'aquesta pàgina.",
-      "cta": "Canvia a {language}",
-      "or": "o",
-      "close": "tanca aquest avís"
+      "message": "Estàs veient la versió en {current} d'aquesta pàgina. <link>Canvia a {offered}</link> o <dismiss>tanca aquest avís</dismiss>."
     }
   },
   "common": {
@@ -1260,8 +1257,8 @@
         "titleExercise": "Exercici completat!",
         "titleChallenge": "Repte completat!",
         "greatWork": "Molt bona feina completant {title}!",
-        "readyExercise": "A punt per continuar amb l'exercici següent?",
-        "readyChallenge": "A punt per continuar amb el repte següent?",
+        "messageExercise": "Molt bona feina completant {title}! A punt per continuar amb l'exercici següent?",
+        "messageChallenge": "Molt bona feina completant {title}! A punt per continuar amb el repte següent?",
         "bonusPrompt": "{count, plural, one {Aquest exercici té <strong>un escenari extra</strong>. Vols resoldre'l abans de continuar?} other {Aquest exercici té <strong>escenaris extra</strong>. Vols resoldre'ls abans de continuar?}}",
         "tidyCode": "Endreça el codi",
         "solveBonuses": "{count, plural, one {Resol l'extra} other {Resol els extres}}",

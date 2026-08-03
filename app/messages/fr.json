@@ -83,10 +83,7 @@
       "subtitle": "Préparation de ton espace d'apprentissage"
     },
     "localeBanner": {
-      "prefix": "Tu consultes la version {language} de cette page.",
-      "cta": "Passer en {language}",
-      "or": "ou",
-      "close": "fermer ce message"
+      "message": "Tu consultes la version {current} de cette page. <link>Passer en {offered}</link> ou <dismiss>fermer ce message</dismiss>."
     }
   },
   "common": {
@@ -1260,8 +1257,8 @@
         "titleExercise": "Exercice terminé !",
         "titleChallenge": "Défi terminé !",
         "greatWork": "Bravo, tu as terminé {title} !",
-        "readyExercise": "On passe à l'exercice suivant ?",
-        "readyChallenge": "On passe au défi suivant ?",
+        "messageExercise": "Bravo, tu as terminé {title} ! On passe à l'exercice suivant ?",
+        "messageChallenge": "Bravo, tu as terminé {title} ! On passe au défi suivant ?",
         "bonusPrompt": "{count, plural, one {Cet exercice a <strong>un scénario bonus</strong>. Veux-tu le résoudre avant de continuer ?} other {Cet exercice a <strong>des scénarios bonus</strong>. Veux-tu les résoudre avant de continuer ?}}",
         "tidyCode": "Nettoyer le code",
         "solveBonuses": "{count, plural, one {Résoudre le bonus} other {Résoudre les bonus}}",
