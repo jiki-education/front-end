@@ -4,7 +4,7 @@ description: "Crea una scena meteorologica completa con nuvole, pioggia e sole."
 en_md5: a06cdbeb8b648c6ced759401f0133e81
 ---
 
-In questo esercizio il tuo compito è disegnare un'icona meteo per una giornata piovosa con il sole che spunta dietro le nuvole. Una volta terminato, dovrebbe apparire così:
+In questo esercizio il tuo compito è disegnare un'icona meteo per una giornata di pioggia con il sole che spunta dietro le nuvole. Una volta terminato, dovrebbe apparire così:
 
 <img src="/static/images/exercise-assets/cloud-rain-sun/finished.webp" alt="Scena completa di nuvola, pioggia e sole" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.3); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
