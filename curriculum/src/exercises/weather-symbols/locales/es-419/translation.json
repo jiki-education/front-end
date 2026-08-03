@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "dayIsntCorrect": "El clima del día {{day}} no es correcto."
+  },
+  "tasks": {
+    "drawForecast": {
+      "name": "Dibuja el pronóstico",
+      "description": "Dibuja el clima de cada día en su propia caja, usando la posición del día en el array como número de caja."
+    }
+  },
+  "scenarios": {
+    "mixedWeek": {
+      "name": "Una semana variada",
+      "description": "Un poco de todo a lo largo de los seis días."
+    },
+    "sunnyWeek": {
+      "name": "Una semana soleada",
+      "description": "Mucho sol, con un par de días más nublados."
+    },
+    "rainyWeek": {
+      "name": "Una semana lluviosa",
+      "description": "Una semana empapada de nubes y lluvia."
+    },
+    "snowyWeek": {
+      "name": "Una semana nevada",
+      "description": "Una semana fría llena de nieve."
+    }
+  },
+  "hints": {
+    "loopWithIndex": {
+      "question": "¿Cómo recorro los días y sé a qué caja corresponde cada uno?",
+      "answer": "Recorre `days` con un contador que vaya de `0` a `days.length - 1`. Ese contador es el número de caja de cada día."
+    },
+    "descriptionToSymbols": {
+      "question": "¿Cómo convierto una descripción como `\"Miserable 😩\"` en símbolos?",
+      "answer": "Compara la descripción con cada una de las posibles y elige el array de símbolos correspondiente, por ejemplo `[\"cloud\", \"rain\"]`. Las instrucciones enumeran cada descripción y sus símbolos."
+    },
+    "weekdaysList": {
+      "question": "¿Cómo obtengo el nombre del día de la semana para cada caja?",
+      "answer": "Crea un array con los seis nombres de los días de la semana en orden, de `\"Monday\"` a `\"Saturday\"`, y lee el que esté en tu posición actual usando el mismo contador que el número de caja."
+    },
+    "passArgs": {
+      "question": "¿Qué le paso a `draw`?",
+      "answer": "Tres cosas: el número de caja (tu contador), el nombre del día de la semana para esa caja y el array de símbolos para ese día."
+    },
+    "tidyWithHelper": {
+      "question": "Mi bucle se está volviendo largo. ¿Cómo puedo ordenarlo?",
+      "answer": "Puedes mover la conversión de descripción a símbolos a su propia función y llamarla desde el bucle. Es opcional, pero mantiene el bucle corto y fácil de leer."
+    }
+  },
+  "functions": {
+    "draw": {
+      "description": "Dibuja los símbolos meteorológicos dados en una caja del pronóstico. Recibe el número de caja (0 a 5), el nombre del día de la semana para etiquetarla y el array de símbolos.",
+      "category": "Dibujo"
+    }
+  },
+  "describers": {
+    "draw": "dibujó ${arg3} en la caja de ${arg2}"
+  },
+  "errors": {
+    "elementsMustBeList": "Los símbolos meteorológicos (el tercer argumento de draw) deben ser un array, como [\"sun\", \"cloud\"].",
+    "elementsMustBeStrings": "Los símbolos meteorológicos en el array deben ser todos strings, como \"sun\" o \"rain\".",
+    "unknownElement": "\"{{element}}\" no es un símbolo meteorológico. Usa \"sun\", \"cloud\", \"rain\" o \"snow\".",
+    "indexMustBeNumber": "El número de caja (el primer argumento de draw) debe ser un número.",
+    "indexOutOfRange": "El número de caja debe ser un número entero entre 0 y {{max}}.",
+    "dayMustBeString": "El día de la semana (el segundo argumento de draw) debe ser texto, como \"Monday\"."
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "errors": {
+    "hourNotNumber": "<code>hour</code> debe ser un número",
+    "minutesNotNumber": "<code>minutes</code> debe ser un número",
+    "indicatorNotString": "<code>indicator</code> debe ser un string"
+  },
+  "checks": {
+    "notUpdated": "El reloj no se actualizó. Asegúrate de usar la función <code>displayTime</code>.",
+    "wrongTime": "Se esperaba \"{{expected}}\" pero se obtuvo \"{{got}}\""
+  },
+  "tasks": {
+    "displayTime": {
+      "name": "Mostrar la hora en el reloj",
+      "description": "Obtén la hora y el minuto actuales, conviértelos a formato de 12 horas con am/pm y muéstralos usando displayTime()."
+    }
+  },
+  "scenarios": {
+    "morning1": {
+      "name": "Mañana temprano",
+      "description": "Mostrar 6:35 como \"6:35am\""
+    },
+    "morning2": {
+      "name": "Mañana tarde",
+      "description": "Mostrar 11:04 como \"11:04am\""
+    },
+    "afternoon1": {
+      "name": "Tarde temprana",
+      "description": "Mostrar 12:19 como \"12:19pm\""
+    },
+    "afternoon2": {
+      "name": "Noche",
+      "description": "Mostrar 23:32 como \"11:32pm\""
+    },
+    "midnight": {
+      "name": "Medianoche",
+      "description": "Mostrar la medianoche como \"12:00am\""
+    },
+    "noon": {
+      "name": "Mediodía",
+      "description": "Mostrar el mediodía como \"12:00pm\""
+    },
+    "now": {
+      "name": "Mostrar la hora actual",
+      "description": "Mostrar la hora actual"
+    }
+  },
+  "hints": {
+    "gettingStarted": {
+      "question": "No sé cómo empezar",
+      "answer": "Usa `currentTimeHour()` y `currentTimeMinute()` para obtener la hora actual, luego usa `displayTime(hour, minutes, \"am\")` con sus valores para ver qué sucede. Después averigua cómo establecer el meridiem correcto y la hora correcta en pantalla."
+    },
+    "meridiem": {
+      "question": "¿Cómo funciona el meridiem?",
+      "answer": "Las horas 0-11 son 'am', las horas 12-23 son 'pm'. La medianoche (hora 0) debe mostrarse como 12am. El mediodía (hora 12) debe mostrarse como 12pm."
+    },
+    "hourChange": {
+      "question": "¿Cuándo y por qué necesita cambiar la hora?",
+      "answer": "En un reloj de 12 horas, las 13:00 se representan como 1:00pm, las 14:00 como 2:00pm, ¡así que tienes que averiguar la relación entre 13->1 y 14->2, etc., y ajustar el reloj en consecuencia!"
+    }
+  },
+  "describers": {
+    "currentTimeHour": "obtuvo la hora actual",
+    "currentTimeMinute": "obtuvo el minuto actual",
+    "displayTime": "mostró la hora en el reloj"
+  },
+  "functions": {
+    "currentTimeHour": {
+      "description": "Devuelve la hora actual en formato de 24 horas (ej. 23 para las 11pm) como número.",
+      "category": "Tiempo"
+    },
+    "currentTimeMinute": {
+      "description": "Devuelve el minuto actual como número.",
+      "category": "Tiempo"
+    },
+    "displayTime": {
+      "description": "Muestra la hora en el reloj digital. El indicador debe ser \"am\" o \"pm\".",
+      "category": "Acción"
+    }
+  }
+}
