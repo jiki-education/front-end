@@ -1408,7 +1408,7 @@
       "challengeCard": {
         "status": {
           "locked": "Verrouillé",
-          "notStarted": "Pas commencé",
+          "notStarted": "Non commencé",
           "inProgress": "En cours",
           "completed": "Terminé",
           "available": "Disponible"
@@ -1805,7 +1805,7 @@
     "description": "Crée de vraies applications et de vrais jeux pour t'entraîner à coder.",
     "tabAll": "Tous",
     "tabInProgress": "En cours",
-    "tabNotStarted": "Pas commencés",
+    "tabNotStarted": "Non commencés",
     "tabComplete": "Terminés",
     "tabLocked": "Verrouillés",
     "error": "Erreur : {error}",
@@ -1813,7 +1813,7 @@
     "premiumOnly": "Premium uniquement",
     "status": {
       "locked": "Verrouillé",
-      "unlocked": "Pas commencé",
+      "unlocked": "Non commencé",
       "started": "En cours",
       "completed": "Terminé"
     },
