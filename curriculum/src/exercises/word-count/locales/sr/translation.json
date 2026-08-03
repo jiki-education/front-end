@@ -1,0 +1,94 @@
+{
+  "tasks": {
+    "basicWordCounting": {
+      "name": "Osnovni slučajevi",
+      "description": "Napiši funkciju countWords koja prima rečenicu i vraća rečnik u kome je svaka reč ključ, a njena učestalost vrednost. Obradi razmake, zareze, interpunkciju i brojeve."
+    },
+    "caseNormalization": {
+      "name": "Ujednačavanje velikih i malih slova",
+      "description": "Postaraj se da tvoja funkcija ispravno obrađuje reči sa mešanim velikim i malim slovima, tretira apostrofe kao deo reči i obrađuje višestruke razmake."
+    },
+    "bonusApostrophes": {
+      "name": "Bonus: apostrofi i navodnici",
+      "description": "Obradi granične slučajeve u kojima se apostrofi koriste kao navodnici oko reči, a ne kao deo skraćenih oblika. Treba zadržati samo apostrofe u sredini reči."
+    }
+  },
+  "scenarios": {
+    "wordCountSingleWord": {
+      "name": "Prebroj jednu reč",
+      "description": "Prebroj samo jednu reč."
+    },
+    "wordCountMultipleUniqueWords": {
+      "name": "Po jedna od svake reči",
+      "description": "Prebroj reči u rečenici u kojoj se svaka javlja po jednom."
+    },
+    "wordCountMultipleOccurrences": {
+      "name": "Višestruka pojavljivanja",
+      "description": "Prebroj višestruka pojavljivanja jedne reči."
+    },
+    "wordCountCrampedList": {
+      "name": "Zbijen spisak",
+      "description": "Obradi spiskove sa zbijenim formatiranjem."
+    },
+    "wordCountIgnorePunctuation": {
+      "name": "Zanemari interpunkciju",
+      "description": "Zanemari interpunkciju dok brojiš reči."
+    },
+    "wordCountIncludeNumbers": {
+      "name": "Uključi brojeve",
+      "description": "Prebroj reči uključujući i brojeve."
+    },
+    "wordCountNormalizeCase": {
+      "name": "Ujednači velika i mala slova",
+      "description": "Prebroj reči bez obzira na velika i mala slova."
+    },
+    "wordCountWithApostrophes": {
+      "name": "Reči sa apostrofima",
+      "description": "Ispravno obradi reči sa apostrofima."
+    },
+    "wordCountMultipleSpaces": {
+      "name": "Višestruki razmaci",
+      "description": "Ispravno obradi višestruke razmake."
+    },
+    "wordCountWithApostrophesAndQuotations": {
+      "name": "Reči sa apostrofima i navodnicima",
+      "description": "Obradi reči sa apostrofima i navodnicima."
+    },
+    "wordCountApostropheWordVariation": {
+      "name": "Varijacije reči sa apostrofima",
+      "description": "Ispravno prebroj varijacije reči sa apostrofima."
+    }
+  },
+  "hints": {
+    "caseInsensitive": {
+      "question": "Kako da brojanje ne razlikuje velika i mala slova?",
+      "answer": "Na početku jednom pretvori celu rečenicu u mala slova. Tada i 'The' i 'the' postaju 'the', pa će ih tvoj rečnik brojati zajedno."
+    },
+    "splitWords": {
+      "question": "Kako da podelim rečenicu na reči?",
+      "answer": "Prođi kroz svaki karakter. Ako je slovo, cifra ili apostrof, deo je trenutne reči, pa ga dodaj na nju. U suprotnom (razmak, interpunkcija), reč je završena, pa je dodaj u svoj niz reči i počni novu."
+    },
+    "countEachWord": {
+      "question": "Kako da prebrojim svaku reč?",
+      "answer": "Koristi rečnik u kome su reči ključevi. Za svaku reč proveri da li već postoji kao ključ. Ako postoji, dodaj 1 na njen broj. Ako ne postoji, postavi ga na 1."
+    },
+    "checkKeyExists": {
+      "question": "Kako da proverim da li ključ već postoji?",
+      "answer": "Koristi `hasKey(dict, word)`. Vraća true ako se ta reč već nalazi u rečniku."
+    }
+  },
+  "functions": {
+    "toLowerCase": {
+      "description": "Pretvara string u mala slova (iz standardne biblioteke nivoa)",
+      "category": "Operacije sa stringovima"
+    },
+    "push": {
+      "description": "Dodaje element u niz i vraća novi niz (iz standardne biblioteke nivoa)",
+      "category": "Operacije sa nizovima"
+    },
+    "hasKey": {
+      "description": "Proverava da li ključ postoji u rečniku, vraća true ili false (iz standardne biblioteke nivoa)",
+      "category": "Operacije sa rečnicima"
+    }
+  }
+}

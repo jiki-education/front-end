@@ -1,0 +1,173 @@
+{
+  "checks": {
+    "ballgown": {
+      "champagne": "Ona je odrasla osoba u svečanoj odeći, pa bi trebalo da joj se ponudi šampanjac, ali nije joj ponuđen.",
+      "canapes": "Svečano obučenim gostima se nude i kanapei, ali njoj nisu ponuđeni.",
+      "letIn": "Svako u svečanoj odeći treba da bude pušten unutra, ali ona nije.",
+      "notTurnedAway": "Gost u svečanoj odeći NE treba da bude odbijen."
+    },
+    "tuxedo": {
+      "champagne": "On ima 18 godina, što se računa kao odrasla osoba, pa bi trebalo da mu se ponudi šampanjac, ali nije mu ponuđen.",
+      "canapes": "Svečano obučenim gostima se nude i kanapei, ali njemu nisu ponuđeni.",
+      "letIn": "Svako u svečanoj odeći treba da bude pušten unutra, ali on nije.",
+      "notTurnedAway": "Gost u svečanoj odeći NE treba da bude odbijen."
+    },
+    "dress": {
+      "canapes": "Ona je u elegantnoj odeći, pa bi trebalo da joj se ponude kanapei, ali nisu joj ponuđeni.",
+      "noChampagne": "Šampanjac je za svečanu odeću, pa elegantno obučenom gostu ne treba da se ponudi.",
+      "letIn": "Gost u elegantnoj odeći treba da bude pušten unutra, ali ona nije.",
+      "notTurnedAway": "Gost u elegantnoj odeći NE treba da bude odbijen."
+    },
+    "suit": {
+      "canapes": "On je u elegantnoj odeći, pa bi trebalo da mu se ponude kanapei, ali nisu mu ponuđeni.",
+      "noChampagne": "Šampanjac je za svečanu odeću, pa elegantno obučenom gostu ne treba da se ponudi.",
+      "letIn": "Gost u elegantnoj odeći treba da bude pušten unutra, ali on nije.",
+      "notTurnedAway": "Gost u elegantnoj odeći NE treba da bude odbijen."
+    },
+    "formalTeen": {
+      "letIn": "Svako u svečanoj odeći se pušta unutra, bez obzira na godine, ali ona nije puštena.",
+      "canapes": "Svečano obučenim gostima se nude kanapei bez obzira na godine, ali njoj nisu ponuđeni.",
+      "noChampagne": "Ona ima manje od 18 godina, pa ne treba da joj se ponudi šampanjac. Šampanjac je samo za odrasle.",
+      "notTurnedAway": "Gost u svečanoj odeći NE treba da bude odbijen."
+    },
+    "smartTeen": {
+      "canapes": "Uz elegantnu odeću idu kanapei bez obzira na godine, ali njemu nisu ponuđeni.",
+      "noChampagne": "Šampanjac je za svečanu odeću, pa elegantno obučenom gostu ne treba da se ponudi.",
+      "letIn": "Gost u elegantnoj odeći treba da bude pušten unutra, ali on nije.",
+      "notTurnedAway": "Gost u elegantnoj odeći NE treba da bude odbijen."
+    },
+    "casualChildListed": {
+      "letIn": "Osoba mlađa od 18 godina koja je na spisku gostiju sme da uđe, čak i u ležernoj odeći, ali nije puštena.",
+      "notTurnedAway": "Osoba mlađa od 18 godina koja je na spisku gostiju NE treba da bude odbijena.",
+      "noChampagne": "Nije u svečanoj odeći, pa nema šampanjca.",
+      "noCanapes": "Nije ni u svečanoj ni u elegantnoj odeći, pa nema kanapea."
+    },
+    "casualChildUnlisted": {
+      "turnedAway": "Osoba mlađa od 18 godina u ležernoj odeći koja nije na spisku gostiju treba da bude odbijena.",
+      "notLetIn": "Osoba mlađa od 18 godina u ležernoj odeći koja nije na spisku gostiju NE treba da bude puštena unutra.",
+      "noChampagne": "Nije u svečanoj odeći, pa nema šampanjca.",
+      "noCanapes": "Nije ni u svečanoj ni u elegantnoj odeći, pa nema kanapea."
+    },
+    "casualAdultListed": {
+      "turnedAway": "Izuzetak sa spiskom gostiju važi samo za mlađe od 18 godina, pa se odrasla osoba u ležernoj odeći odbija čak i ako je na spisku.",
+      "notLetIn": "Odrasla osoba u ležernoj odeći NE treba da bude puštena unutra, čak ni ako je na spisku gostiju.",
+      "noChampagne": "Nije u svečanoj odeći, pa nema šampanjca.",
+      "noCanapes": "Nije ni u svečanoj ni u elegantnoj odeći, pa nema kanapea."
+    },
+    "codeQuality": {
+      "getOutfitCalledOnce": "Funkciju <code>getOutfit()</code> treba da upotrebiš samo jednom.",
+      "getAgeCalledOnce": "Funkciju <code>getAge()</code> treba da upotrebiš samo jednom.",
+      "onGuestListCalledOnce": "Funkciju <code>onGuestList()</code> treba da upotrebiš samo jednom.",
+      "combinesConditions": "Poenta ovog izazova je kombinovanje uslova. Probaj da primeniš ono iz prethodne lekcije."
+    }
+  },
+  "tasks": {
+    "checkDressCode": {
+      "name": "Sprovedi pravila na vratima",
+      "description": "Proveri odeću svake osobe, njene godine i da li je na spisku gostiju, pa primeni pravila. Svečana ili elegantna odeća ulazi uz kanapee. Odrasli u svečanoj odeći dobijaju i šampanjac. Mlađi od 18 godina u drugoj odeći ulaze samo ako su na spisku gostiju. Svi ostali se odbijaju."
+    }
+  },
+  "scenarios": {
+    "ballgown": {
+      "name": "Balska haljina",
+      "description": "Žena u šezdesetim godinama u balskoj haljini. Dobija šampanjac i kanapee, i puštena je unutra."
+    },
+    "tuxedo": {
+      "name": "Smoking",
+      "description": "Muškarac u smokingu koji je upravo napunio 18 godina. Dobija šampanjac i kanapee, i pušten je unutra."
+    },
+    "dress": {
+      "name": "Haljina",
+      "description": "Žena u haljini. Puštena je unutra uz kanapee."
+    },
+    "suit": {
+      "name": "Odelo",
+      "description": "Muškarac u odelu. Pušten je unutra uz kanapee."
+    },
+    "formalTeen": {
+      "name": "Dete u balskoj haljini",
+      "description": "Trinaestogodišnjakinja u balskoj haljini. Puštena je unutra uz kanapee, ali je premlada za šampanjac."
+    },
+    "smartTeen": {
+      "name": "Tinejdžer u odelu",
+      "description": "Petnaestogodišnjak u odelu. Pušten je unutra uz kanapee, bez obzira na godine."
+    },
+    "casualChildListed": {
+      "name": "Dete u teksasu, na spisku",
+      "description": "Osoba od 15 godina u teksasu koja je na spisku gostiju. Puštena je unutra."
+    },
+    "casualChildUnlisted": {
+      "name": "Dete u trenerci, nije na spisku",
+      "description": "Osoba od 15 godina u trenerci koja nije na spisku gostiju. Odbijena je."
+    },
+    "casualAdultListed": {
+      "name": "Odrasla osoba u teksasu, na spisku",
+      "description": "Osoba od 30 godina u teksasu koja je na spisku gostiju. Ipak je odbijena."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Odakle da počnem?",
+      "answer": "Uzmi odeću i godine, svaku po jednom, i sačuvaj ih u promenljive, npr. `let outfit = getOutfit()`. Onda sve uslove možeš da sastaviš od tih promenljivih."
+    },
+    "groupingOutfits": {
+      "question": "Nekoliko odevnih kombinacija vodi do istog ishoda. Da li mi treba posebna grana za svaku?",
+      "answer": "Ne. U jednom uslovu možeš da proveriš više vrednosti pomoću `||` (ili), pa grupa odevnih kombinacija može da deli jednu granu."
+    },
+    "champagneRule": {
+      "question": "Kako da odlučim ko dobija šampanjac?",
+      "answer": "Šampanjac je zasebna odluka: ponudi ga kada je osoba odrasla I nosi nešto svečano. Tu se kombinuje `&&` (i) sa `||` (ili), pa deo sa „ili“ stavi u zagrade da bi bio ispravno grupisan."
+    },
+    "canapesRule": {
+      "question": "Ko dobija kanapee i biva pušten unutra?",
+      "answer": "Svi koji su doterani, a to je bilo koja od četiri svečane ili elegantne odevne kombinacije. Sve ih možeš nabrojati u jednom uslovu pomoću `||`."
+    },
+    "everyoneElse": {
+      "question": "Šta sa svima ostalima?",
+      "answer": "Jedini drugi ljudi koji smeju da uđu su mlađi od 18 godina koji su na spisku gostiju, a za to dve stvari moraju obe da budu tačne (`&&`). Završi običnim `else`-om koji sve ostale odbija."
+    },
+    "previousLessonOperator": {
+      "question": "Ne znam šta znači „ono iz prethodne lekcije“.",
+      "answer": "Za kombinovanje uslova treba da upotrebiš operator „i“ koji je Jeremy pokazao u prethodnom videu. Ponovo pročitaj <a href=\"/concepts/logical-and\" target=\"_blank\" rel=\"noopener noreferrer\">stranicu koncepta</a> ako ti nije jasno kako se koristi."
+    }
+  },
+  "describers": {
+    "getOutfit": "preuzeta je odeća osobe",
+    "getAge": "preuzete su godine osobe",
+    "onGuestList": "proveren je spisak gostiju",
+    "offerChampagne": "ponuđen je šampanjac",
+    "offerCanapes": "ponuđeni su kanapei",
+    "letIn": "osoba je puštena unutra",
+    "turnAway": "osoba je odbijena"
+  },
+  "functions": {
+    "getOutfit": {
+      "description": "Vraća **odeću** koju osoba nosi (npr. `\"ballgown\"`, `\"suit\"`, `\"denim\"`).",
+      "category": "Informacije"
+    },
+    "getAge": {
+      "description": "Vraća **godine** osobe koja čeka na vratima.",
+      "category": "Informacije"
+    },
+    "onGuestList": {
+      "description": "Vraća `true` ako je osoba na večerašnjem spisku gostiju, u suprotnom `false`.",
+      "category": "Informacije"
+    },
+    "offerChampagne": {
+      "description": "Nudi osobi čašu šampanjca.",
+      "category": "Akcija"
+    },
+    "offerCanapes": {
+      "description": "Nudi osobi kanapee (tartar od lososa).",
+      "category": "Akcija"
+    },
+    "letIn": {
+      "description": "Pušta osobu u klub.",
+      "category": "Akcija"
+    },
+    "turnAway": {
+      "description": "Odbija osobu sa vrata kluba.",
+      "category": "Akcija"
+    }
+  }
+}
