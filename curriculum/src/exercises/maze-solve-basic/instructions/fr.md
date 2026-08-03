@@ -1,5 +1,5 @@
 ---
-title: "Fais sortir le personnage du labyrinthe"
+title: "Évade-toi du labyrinthe"
 description: "Guide Jiki dans un labyrinthe à l'aide d'instructions simples."
 en_md5: bbd838559fba4dcf527a55ba135703cd
 ---
