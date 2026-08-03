@@ -3,7 +3,7 @@
     "fellOffEdge": "¡Ay, no! ¡Intentaste salirte por el borde del laberinto!",
     "hitWall": "¡Ay! ¡Te chocaste con una pared!",
     "walkedIntoFire": "¡Ay! ¡Caminaste directo al fuego!",
-    "walkedIntoPoop": "¡Puaj! ¡Pisaste la caca! 💩💩💩"
+    "walkedIntoPoop": "¡Guácala! ¡Pisaste la caca! 💩💩💩"
   },
   "describers": {
     "move": "Mueve al personaje una casilla hacia adelante",
