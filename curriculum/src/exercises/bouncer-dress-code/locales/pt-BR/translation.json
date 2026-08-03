@@ -1,0 +1,173 @@
+{
+  "checks": {
+    "ballgown": {
+      "champagne": "Ela é adulta e está com roupa formal, então deveria receber champanhe, mas não recebeu.",
+      "canapes": "Quem está com roupa formal também recebe canapés, mas ela não recebeu.",
+      "letIn": "Qualquer pessoa com roupa formal deve entrar, mas ela não entrou.",
+      "notTurnedAway": "Uma pessoa com roupa formal NÃO deve ser barrada."
+    },
+    "tuxedo": {
+      "champagne": "Ele tem 18 anos, o que já conta como adulto, então deveria receber champanhe, mas não recebeu.",
+      "canapes": "Quem está com roupa formal também recebe canapés, mas ele não recebeu.",
+      "letIn": "Qualquer pessoa com roupa formal deve entrar, mas ele não entrou.",
+      "notTurnedAway": "Uma pessoa com roupa formal NÃO deve ser barrada."
+    },
+    "dress": {
+      "canapes": "Ela está com roupa elegante, então deveria receber canapés, mas não recebeu.",
+      "noChampagne": "Champanhe é só para roupa formal, então uma pessoa com roupa elegante não deve recebê-lo.",
+      "letIn": "Uma pessoa com roupa elegante deve entrar, mas ela não entrou.",
+      "notTurnedAway": "Uma pessoa com roupa elegante NÃO deve ser barrada."
+    },
+    "suit": {
+      "canapes": "Ele está com roupa elegante, então deveria receber canapés, mas não recebeu.",
+      "noChampagne": "Champanhe é só para roupa formal, então uma pessoa com roupa elegante não deve recebê-lo.",
+      "letIn": "Uma pessoa com roupa elegante deve entrar, mas ele não entrou.",
+      "notTurnedAway": "Uma pessoa com roupa elegante NÃO deve ser barrada."
+    },
+    "formalTeen": {
+      "letIn": "Qualquer pessoa com roupa formal entra, não importa a idade, mas ela não entrou.",
+      "canapes": "Quem está com roupa formal recebe canapés, não importa a idade, mas ela não recebeu.",
+      "noChampagne": "Ela tem menos de 18 anos, então não deve receber champanhe. Champanhe é só para adultos.",
+      "notTurnedAway": "Uma pessoa com roupa formal NÃO deve ser barrada."
+    },
+    "smartTeen": {
+      "canapes": "Quem está com roupa elegante recebe canapés, não importa a idade, mas ele não recebeu nenhum.",
+      "noChampagne": "Champanhe é só para roupa formal, então uma pessoa com roupa elegante não deve recebê-lo.",
+      "letIn": "Uma pessoa com roupa elegante deve entrar, mas ele não entrou.",
+      "notTurnedAway": "Uma pessoa com roupa elegante NÃO deve ser barrada."
+    },
+    "casualChildListed": {
+      "letIn": "Um menor de 18 que está na lista de convidados pode entrar, mesmo com roupa casual, mas não entrou.",
+      "notTurnedAway": "Um menor de 18 que está na lista de convidados NÃO deve ser barrado.",
+      "noChampagne": "A pessoa não está com roupa formal, então nada de champanhe.",
+      "noCanapes": "A pessoa não está com roupa formal nem elegante, então nada de canapés."
+    },
+    "casualChildUnlisted": {
+      "turnedAway": "Um menor de 18 com roupa casual que não está na lista de convidados deve ser barrado.",
+      "notLetIn": "Um menor de 18 com roupa casual que não está na lista de convidados NÃO deve entrar.",
+      "noChampagne": "A pessoa não está com roupa formal, então nada de champanhe.",
+      "noCanapes": "A pessoa não está com roupa formal nem elegante, então nada de canapés."
+    },
+    "casualAdultListed": {
+      "turnedAway": "A exceção da lista de convidados vale só para menores de 18, então um adulto com roupa casual é barrado mesmo estando na lista.",
+      "notLetIn": "Um adulto com roupa casual NÃO deve entrar, mesmo que esteja na lista de convidados.",
+      "noChampagne": "A pessoa não está com roupa formal, então nada de champanhe.",
+      "noCanapes": "A pessoa não está com roupa formal nem elegante, então nada de canapés."
+    },
+    "codeQuality": {
+      "getOutfitCalledOnce": "Você só deve usar <code>getOutfit()</code> uma vez.",
+      "getAgeCalledOnce": "Você só deve usar <code>getAge()</code> uma vez.",
+      "onGuestListCalledOnce": "Você só deve usar <code>onGuestList()</code> uma vez.",
+      "combinesConditions": "Este desafio é sobre combinar condições. Experimente usar o que você aprendeu na lição anterior."
+    }
+  },
+  "tasks": {
+    "checkDressCode": {
+      "name": "Aplique a política de entrada",
+      "description": "Verifique a roupa, a idade e a presença na lista de convidados de cada pessoa e aplique as regras. Roupa formal ou elegante entra e recebe canapés. Adultos com roupa formal também recebem champanhe. Menores de 18 com outras roupas só entram se estiverem na lista de convidados. Todas as outras pessoas são barradas."
+    }
+  },
+  "scenarios": {
+    "ballgown": {
+      "name": "Vestido de gala",
+      "description": "Uma mulher na casa dos 60 anos usando um vestido de gala. Ela recebe champanhe e canapés, e entra."
+    },
+    "tuxedo": {
+      "name": "Smoking",
+      "description": "Um homem de smoking que acabou de fazer 18 anos. Ele recebe champanhe e canapés, e entra."
+    },
+    "dress": {
+      "name": "Vestido",
+      "description": "Uma mulher de vestido. Ela entra e recebe canapés."
+    },
+    "suit": {
+      "name": "Terno",
+      "description": "Um homem de terno. Ele entra e recebe canapés."
+    },
+    "formalTeen": {
+      "name": "Criança de vestido de gala",
+      "description": "Uma menina de 13 anos com um vestido de gala. Ela entra e recebe canapés, mas é jovem demais para champanhe."
+    },
+    "smartTeen": {
+      "name": "Adolescente de terno",
+      "description": "Um garoto de 15 anos de terno. Ele entra e recebe canapés, independentemente da idade."
+    },
+    "casualChildListed": {
+      "name": "Jovem de jeans, na lista",
+      "description": "Uma pessoa de 15 anos de jeans que está na lista de convidados. Ela entra."
+    },
+    "casualChildUnlisted": {
+      "name": "Jovem de agasalho, fora da lista",
+      "description": "Uma pessoa de 15 anos de agasalho que não está na lista de convidados. Ela é barrada."
+    },
+    "casualAdultListed": {
+      "name": "Adulto de jeans, na lista",
+      "description": "Uma pessoa de 30 anos de jeans que está na lista de convidados. Mesmo assim, ela é barrada."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Por onde eu começo?",
+      "answer": "Busque a roupa e a idade uma vez cada e guarde em variáveis, ex.: `let outfit = getOutfit()`. Depois você pode montar todas as suas condições a partir dessas variáveis."
+    },
+    "groupingOutfits": {
+      "question": "Várias roupas levam ao mesmo resultado. Preciso de um bloco para cada uma?",
+      "answer": "Não. Você pode verificar mais de um valor em uma única condição usando `||` (ou), então um grupo de roupas pode compartilhar o mesmo bloco."
+    },
+    "champagneRule": {
+      "question": "Como eu decido quem recebe champanhe?",
+      "answer": "O champanhe é uma decisão à parte: ofereça quando a pessoa for adulta E estiver com algo formal. Isso combina `&&` (e) com `||` (ou), então coloque parênteses em volta da parte do 'ou' para agrupá-la corretamente."
+    },
+    "canapesRule": {
+      "question": "Quem recebe canapés e entra?",
+      "answer": "Todo mundo que está bem-vestido, ou seja, qualquer uma das quatro roupas formais ou elegantes. Você pode listar todas em uma única condição com `||`."
+    },
+    "everyoneElse": {
+      "question": "E as outras pessoas?",
+      "answer": "As únicas outras pessoas que podem entrar são menores de 18 que estão na lista de convidados, o que exige que duas coisas sejam verdadeiras ao mesmo tempo (`&&`). Termine com um `else` simples que barra todo o resto."
+    },
+    "previousLessonOperator": {
+      "question": "Não sei o que significa \"o que você aprendeu na lição anterior\".",
+      "answer": "Você precisa usar o operador \"e\" que o Jeremy ensinou no vídeo anterior para combinar condicionais. Releia a <a href=\"/concepts/logical-and\" target=\"_blank\" rel=\"noopener noreferrer\">página de conceito</a> se não tiver certeza de como usá-lo."
+    }
+  },
+  "describers": {
+    "getOutfit": "verificou a roupa da pessoa",
+    "getAge": "verificou a idade da pessoa",
+    "onGuestList": "consultou a lista de convidados",
+    "offerChampagne": "ofereceu champanhe",
+    "offerCanapes": "ofereceu canapés",
+    "letIn": "deixou a pessoa entrar",
+    "turnAway": "barrou a pessoa"
+  },
+  "functions": {
+    "getOutfit": {
+      "description": "Retorna a **roupa** que a pessoa está vestindo (ex.: `\"ballgown\"`, `\"suit\"`, `\"denim\"`).",
+      "category": "Informação"
+    },
+    "getAge": {
+      "description": "Retorna a **idade** da pessoa que está esperando na porta.",
+      "category": "Informação"
+    },
+    "onGuestList": {
+      "description": "Retorna `true` se a pessoa está na lista de convidados desta noite; caso contrário, `false`.",
+      "category": "Informação"
+    },
+    "offerChampagne": {
+      "description": "Oferece uma taça de champanhe à pessoa.",
+      "category": "Ação"
+    },
+    "offerCanapes": {
+      "description": "Oferece canapés à pessoa (tartar de salmão).",
+      "category": "Ação"
+    },
+    "letIn": {
+      "description": "Deixa a pessoa entrar no local.",
+      "category": "Ação"
+    },
+    "turnAway": {
+      "description": "Barra a entrada da pessoa no local.",
+      "category": "Ação"
+    }
+  }
+}

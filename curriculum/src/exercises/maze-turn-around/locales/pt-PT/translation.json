@@ -1,0 +1,81 @@
+{
+  "describers": {
+    "canMove": "Verifica se a personagem pode avançar",
+    "canTurnLeft": "Verifica se há caminho à esquerda da personagem",
+    "canTurnRight": "Verifica se há caminho à direita da personagem"
+  },
+  "checks": {
+    "notReachedEnd": "Não chegaste ao fim do labirinto.",
+    "turnAroundNotDefined": "Tens de definir uma função <code>turnAround</code> no topo do teu código.",
+    "turnAroundNotCalled": "Definiste a função <code>turnAround</code>, mas tens de a chamar no teu bloco <code>else</code> final.",
+    "maxLines": "O teu programa não deve ter mais de 17 linhas de código."
+  },
+  "tasks": {
+    "turnAround": {
+      "name": "Dá meia-volta nos becos sem saída",
+      "description": "Define uma função turnAround() no topo do teu código que chame turnLeft() duas vezes e depois usa-a no bloco else final. A tua solução deve conseguir sair dos becos sem saída nos três labirintos."
+    },
+    "bonusShortSolution": {
+      "name": "Bónus: mantém o programa curto",
+      "description": "Resolve um labirinto com dois becos sem saída, mantendo o teu programa inteiro em 17 linhas de código ou menos."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Um único beco sem saída",
+      "description": "Um corredor reto com um desvio sem saída que obriga a dar meia-volta"
+    },
+    "maze2": {
+      "name": "Um beco sem saída e uma curva",
+      "description": "Um caminho sinuoso com um desvio sem saída antes de virar para a saída"
+    },
+    "maze3": {
+      "name": "Mantém o programa curto",
+      "description": "Tenta garantir que o teu programa final tem, no total, 17 linhas de código."
+    }
+  },
+  "hints": {
+    "defineFunction": {
+      "question": "Como defino uma nova função?",
+      "answer": "Usa a palavra-chave `function`, seguida do nome, de parênteses para os parâmetros de entrada e de um corpo entre chavetas, por exemplo `function turnAround() { ... }`."
+    },
+    "placement": {
+      "question": "Onde devo pôr a definição da função?",
+      "answer": "Põe-na no topo do teu código, antes do ciclo. As funções têm de ser definidas antes de serem chamadas."
+    },
+    "turnAroundBody": {
+      "question": "O que deve ir dentro de `turnAround()`?",
+      "answer": "Apenas duas chamadas a `turnLeft()`. Duas viragens à esquerda equivalem a ficar virado para a direção oposta."
+    },
+    "useInSolver": {
+      "question": "Como uso a minha nova função na solução do labirinto?",
+      "answer": "Encontra o bloco `else` da tua solução anterior onde chamaste `turnLeft()` duas vezes e substitui essas duas chamadas por uma única chamada a `turnAround()`."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Move a personagem **um passo em frente** na direção atual. Ir contra uma parede termina o teu programa com um erro, por isso verifica o que está à frente antes de a moveres!",
+      "category": "Movimento"
+    },
+    "turnLeft": {
+      "description": "Vira a personagem **90 graus para a esquerda** (no sentido contrário ao dos ponteiros do relógio). Isto muda a direção para onde a personagem está virada.",
+      "category": "Movimento"
+    },
+    "turnRight": {
+      "description": "Vira a personagem **90 graus para a direita** (no sentido dos ponteiros do relógio). Isto muda a direção para onde a personagem está virada.",
+      "category": "Movimento"
+    },
+    "canMove": {
+      "description": "Devolve **true** se o espaço à frente da personagem não for uma parede e **false** caso contrário.",
+      "category": "Deteção"
+    },
+    "canTurnLeft": {
+      "description": "Devolve **true** se o espaço à esquerda da personagem não for uma parede e **false** caso contrário.",
+      "category": "Deteção"
+    },
+    "canTurnRight": {
+      "description": "Devolve **true** se o espaço à direita da personagem não for uma parede e **false** caso contrário.",
+      "category": "Deteção"
+    }
+  }
+}
