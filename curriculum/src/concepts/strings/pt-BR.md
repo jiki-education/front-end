@@ -4,7 +4,7 @@ description: "Pedaços de texto entre aspas (uma letra, uma palavra, uma frase o
 en_md5: 89b04f3849f9388a46734924f35c913c
 ---
 
-Quando você quer usar um número, basta literalmente escrever esse número, e o Jiki entende o que você quer dizer. Mas e se você quiser usar uma letra, uma palavra ou uma frase? Por exemplo, com a função `rectangle` (retângulo) ou a função `circle` (círculo), e se existisse uma fenda extra onde você especificasse a cor? Como escreveríamos a cor para colocá-la na máquina? Se escrevermos só a palavra `green` (verde) ou `blue` (azul), o Jiki vai achar que estamos falando de uma máquina nas prateleiras, e vai dizer: "Não existe nenhuma máquina chamada green. Não sei o que fazer."
+Quando você quer usar um número, basta literalmente escrever esse número, e o Jiki entende o que você quer dizer. Mas e se você quiser usar uma letra, uma palavra ou uma frase? Por exemplo, com a função `rectangle` (retângulo) ou a função `circle` (círculo), e se existisse uma entrada extra onde você especificasse a cor? Como escreveríamos a cor para colocá-la na máquina? Se escrevermos só a palavra `green` (verde) ou `blue` (azul), o Jiki vai achar que estamos falando de uma máquina nas prateleiras, e vai dizer: "Não existe nenhuma máquina chamada green. Não sei o que fazer."
 
 <img
   class="concept-image"
@@ -34,7 +34,7 @@ Strings podem ser desde letras isoladas, palavras, frases, parágrafos, até liv
   height="398"
 />
 
-Então, se quisermos um retângulo azul, escrevemos o número da posição esquerda, da posição do topo, da largura e da altura. Mas na quinta fenda vamos escrever `"blue"` entre aspas.
+Então, se quisermos um retângulo azul, escrevemos o número da posição esquerda, da posição do topo, da largura e da altura. Mas no quinto valor de entrada vamos escrever `"blue"` entre aspas.
 
 ```javascript
 rectangle(10, 20, 30, 40, "blue")
