@@ -4,12 +4,12 @@
     "rightCheek": "La guancia destra dovrebbe essere un triangolo bianco nel posto giusto.",
     "leftEar": "L'orecchio sinistro dovrebbe essere un triangolo marrone nel posto giusto.",
     "rightEar": "L'orecchio destro dovrebbe essere un triangolo marrone nel posto giusto.",
-    "leftFace": "Il lato sinistro del viso dovrebbe essere un triangolo arancione nel posto giusto.",
-    "rightFace": "Il lato destro del viso dovrebbe essere un triangolo arancione nel posto giusto.",
+    "leftFace": "Il lato sinistro della faccia dovrebbe essere un triangolo arancione nel posto giusto.",
+    "rightFace": "Il lato destro della faccia dovrebbe essere un triangolo arancione nel posto giusto.",
     "nose": "Il naso ha bisogno di due triangoli color antracite. Puoi dividerlo in alto/basso o sinistra/destra.",
-    "leftFaceAboveEar": "Il lato sinistro del viso dovrebbe essere disegnato **sopra** l'orecchio sinistro.",
-    "rightFaceAboveEar": "Il lato destro del viso dovrebbe essere disegnato **sopra** l'orecchio destro.",
-    "noseAboveFace": "Il naso dovrebbe trovarsi **sopra** il viso."
+    "leftFaceAboveEar": "Il lato sinistro della faccia dovrebbe essere disegnato **sopra** l'orecchio sinistro.",
+    "rightFaceAboveEar": "Il lato destro della faccia dovrebbe essere disegnato **sopra** l'orecchio destro.",
+    "noseAboveFace": "Il naso dovrebbe trovarsi **sopra** la faccia."
   },
   "tasks": {
     "drawFox": {
@@ -30,11 +30,11 @@
     },
     "drawOrder": {
       "question": "In che ordine devo disegnare le parti perché si sovrappongano correttamente?",
-      "answer": "Le forme disegnate dopo si trovano sopra quelle disegnate prima. Disegna prima le guance bianche, così le metà arancioni del viso ne coprono la maggior parte, lasciando visibili solo le punte delle guance."
+      "answer": "Le forme disegnate dopo si trovano sopra quelle disegnate prima. Disegna prima le guance bianche, così le metà arancioni della faccia ne coprono la maggior parte, lasciando visibili solo le punte delle guance."
     },
     "colors": {
       "question": "Quali colori vanno dove?",
-      "answer": "Le orecchie sono `\"brown\"`, le metà del viso sono `\"orange\"`, le guance sono `\"white\"` e il naso è `\"charcoal\"`. Ricorda che i colori sono stringhe, quindi hanno bisogno delle virgolette."
+      "answer": "Le orecchie sono `\"brown\"`, le metà della faccia sono `\"orange\"`, le guance sono `\"white\"` e il naso è `\"charcoal\"`. Ricorda che i colori sono stringhe, quindi hanno bisogno delle virgolette."
     },
     "symmetry": {
       "question": "Come calcolo le coordinate del lato destro senza passare il mouse?",

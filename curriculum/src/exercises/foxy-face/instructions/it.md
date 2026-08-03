@@ -23,7 +23,7 @@ La faccia è simmetrica (il lato sinistro è identico al lato destro). Ha 8 tria
 
 - Due guance `"white"`
 - Due orecchie `"brown"`
-- Due metà del viso `"orange"`
+- Due metà della faccia `"orange"`
 - Un naso `"charcoal"` (due triangoli)
 
 (Assicurati di usare quei colori quando disegni i triangoli, e ricordati di scriverli come stringhe!)
