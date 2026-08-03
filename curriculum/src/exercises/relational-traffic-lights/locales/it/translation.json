@@ -1,0 +1,53 @@
+{
+  "checks": {
+    "housingWrong": "Il rettangolo dell'involucro è nella posizione sbagliata o ha le dimensioni sbagliate. Controlla `housingX`, `housingY`, `housingWidth` e `housingHeight`.",
+    "redWrong": "La luce rossa è nella posizione sbagliata o ha le dimensioni sbagliate. Controlla `redY`.",
+    "yellowWrong": "La luce gialla è nella posizione sbagliata o ha le dimensioni sbagliate. Controlla `yellowY`.",
+    "greenWrong": "La luce verde è nella posizione sbagliata o ha le dimensioni sbagliate. Controlla `greenY`.",
+    "doesntScale": "Il tuo codice non si ridimensiona correttamente quando `radius` è {{radius}}. Ogni posizione e dimensione dovrebbe essere derivata da `center` e `radius`."
+  },
+  "tasks": {
+    "buildRelationalTrafficLights": {
+      "name": "Costruisci i semafori relazionali",
+      "description": "Deriva ogni posizione e dimensione da `center` e `radius` in modo che il semaforo si ridimensioni correttamente."
+    }
+  },
+  "scenarios": {
+    "buildRelationalTrafficLights": {
+      "name": "Costruisci i semafori relazionali",
+      "description": "Deriva ogni posizione e dimensione da `center` e `radius`."
+    }
+  },
+  "hints": {
+    "howToWorkOutYellowCenter": {
+      "question": "Come faccio a calcolare il centro della luce gialla?",
+      "answer": "Hai a disposizione una variabile `center`. Puoi impostare `yellowY` in modo che sia uguale ad essa."
+    },
+    "howToWorkOutRedCenter": {
+      "question": "Come calcolo il centro della luce rossa?",
+      "answer": "Se i due cerchi si toccano, quanto sono distanti i loro centri? Puoi sottrarre questa distanza da `center` per ottenere la luce rossa."
+    },
+    "whereHousingStarts": {
+      "question": "Dove inizia il rettangolo dell'involucro?",
+      "answer": "Se conosci il centro del cerchio rosso, puoi calcolare la parte superiore del cerchio rosso. L'involucro inizia un raggio sopra la parte superiore del cerchio rosso. Allo stesso modo, puoi calcolare il lato sinistro di una luce e poi spostarti di un raggio più a sinistra per l'inizio."
+    },
+    "howBigHousing": {
+      "question": "Quanto deve essere grande l'involucro?",
+      "answer": "La larghezza è quella di una luce, più una spaziatura di 1 raggio su ciascun lato. L'altezza è 2 raggi per ogni luce più un raggio in alto e in basso per la spaziatura."
+    },
+    "whyMultipleOfSomething": {
+      "question": "Perché ogni cosa deve essere un multiplo di qualcos'altro?",
+      "answer": "Se scrivi un numero fisso, cambiare `radius` farà sì che l'involucro abbia dimensioni sbagliate rispetto alle luci. Usare formule che coinvolgono `radius` e `center` mantiene l'intero disegno in proporzione."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Disegna un rettangolo nella posizione (`left`, `top`) con la larghezza, l'altezza e il colore dati.",
+      "category": "Disegno di forme geometriche"
+    },
+    "circle": {
+      "description": "Disegna un cerchio centrato in (`centerX`, `centerY`) con il raggio e il colore dati.",
+      "category": "Disegno di forme geometriche"
+    }
+  }
+}

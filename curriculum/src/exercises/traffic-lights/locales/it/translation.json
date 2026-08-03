@@ -1,0 +1,40 @@
+{
+  "checks": {
+    "redLight": "La luce rossa (superiore) non è corretta.",
+    "amberLight": "La luce ambra (centrale) non è corretta.",
+    "greenLight": "La luce verde (inferiore) non è corretta.",
+    "useVariables": "Dovresti usare le variabili invece di usare i numeri direttamente come input delle funzioni."
+  },
+  "tasks": {
+    "drawLights": {
+      "name": "Disegna il semaforo",
+      "description": "Usa le variabili fornite per disegnare le tre luci colorate sul semaforo."
+    }
+  },
+  "scenarios": {
+    "drawLights": {
+      "name": "Disegna il semaforo",
+      "description": "Disegna i tre cerchi colorati usando le variabili fornite."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Non so da dove iniziare",
+      "answer": "Disegnerai tre cerchi, esattamente come hai fatto in precedenza. L'unica differenza è che userai le variabili e non i numeri direttamente. Riguarda il video sulle variabili se non capisci come funziona."
+    },
+    "useVariablesError": {
+      "question": "Ottengo \"Dovresti usare le variabili invece di usare i numeri direttamente come input delle funzioni\"",
+      "answer": "Questo esercizio ti chiede di usare le variabili che abbiamo definito per te. Invece di inserire numeri come 50 o 16 direttamente nelle funzioni, di' a Jiki di usare le scatole che abbiamo già creato."
+    },
+    "circlesWrong": {
+      "question": "Ho disegnato i cerchi correttamente, ma mi dice che sono sbagliati.",
+      "answer": "Assicurati di avere il cerchio rosso in alto, l'ambra al centro e il verde in basso."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Disegna un cerchio centrato in (centerX, centerY) con il raggio e il colore dati.",
+      "category": "Disegno di forme geometriche"
+    }
+  }
+}

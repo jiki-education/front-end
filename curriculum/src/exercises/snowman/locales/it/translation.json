@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "baseCircle": "Il cerchio della base (quello in basso) non è corretto. Controlla snowmanCenterX, baseCenterY e baseRadius.",
+    "bodyCircle": "Il cerchio del corpo (quello centrale) non è corretto. Controlla snowmanCenterX, bodyCenterY e bodyRadius.",
+    "headCircle": "Il cerchio della testa (quello in alto) non è corretto. Controlla snowmanCenterX, headCenterY e headRadius."
+  },
+  "tasks": {
+    "buildSnowman": {
+      "name": "Costruisci il pupazzo di neve",
+      "description": "Imposta i valori delle variabili in modo che il pupazzo di neve corrisponda all'immagine di destinazione."
+    }
+  },
+  "scenarios": {
+    "buildSnowman": {
+      "name": "Costruisci il pupazzo di neve",
+      "description": "Imposta i valori corretti delle variabili per disegnare il pupazzo di neve."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Non so da dove iniziare",
+      "answer": "Il codice originale disegna un cerchio bianco sul lato sinistro. Devi modificare i valori di snowmanCenterX, baseCenterY e baseRadius in modo che siano corretti per posizionarlo sopra l'anello inferiore nel modello. Poi dovresti aggiungere le variabili per gli altri cerchi."
+    },
+    "variableNotFoundError": {
+      "question": "Ricevo un errore del tipo: «Jiki non riesce a trovare una variabile chiamata 'XXX'»",
+      "answer": "Questo significa che non hai creato la variabile (la scatola sugli scaffali di Jiki) usando la parola chiave `let`. Quando Jiki legge il codice che disegna i cerchi, si aspetta di trovare le scatole a cui si fa riferimento, ma non ci sono. Quindi devi aggiungerle."
+    },
+    "stillNotDeclaredError": {
+      "question": "Ho aggiunto le variabili ma ricevo ancora un errore «not declared»",
+      "answer": "Controlla l'ortografia: è probabile che ci sia un errore di battitura. Ricorda che le maiuscole e le minuscole sono importanti: `bodycentery` non è uguale a `bodyCenterY`."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Disegna un cerchio centrato in (centerX, centerY) con il raggio e il colore specificati.",
+      "category": "Disegno di forme geometriche"
+    }
+  }
+}

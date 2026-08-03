@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "leftBrick": "Il mattone sinistro non è corretto.",
+    "secondBrick": "Il secondo mattone non è corretto.",
+    "middleBrick": "Il mattone centrale non è corretto.",
+    "fourthBrick": "Il quarto mattone non è corretto.",
+    "rightBrick": "Il mattone destro non è corretto.",
+    "codeQuality": {
+      "rectangleCalledOnce": "Stai usando la funzione <code>rectangle</code> in più punti del tuo codice. Dovrebbe apparire solo una volta!"
+    }
+  },
+  "tasks": {
+    "finishWall": {
+      "name": "Completa il muro",
+      "description": "Aggiungi uno strato superiore al muro!"
+    }
+  },
+  "scenarios": {
+    "finishWall": {
+      "name": "Completa il muro",
+      "description": "Aggiungi uno strato superiore al muro!"
+    }
+  },
+  "hints": {
+    "positionSecondBrick": {
+      "question": "Non riesco a capire come posizionare il secondo mattone più avanti rispetto al primo",
+      "answer": "Se ogni mattone è largo 20, allora devi posizionare il primo a 0, il secondo a 20, il terzo a 40, ecc. Puoi usare la moltiplicazione per farlo. Quale variabile potresti tenere traccia per ottenere il modello 0, 20, 40, ecc.?"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Disegna un rettangolo nella posizione (left, top) con la larghezza, l'altezza e il colore dati",
+      "category": "Disegno di forme geometriche"
+    }
+  }
+}
