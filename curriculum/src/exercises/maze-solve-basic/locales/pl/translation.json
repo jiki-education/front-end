@@ -20,8 +20,8 @@
       "answer": "Musisz przeprowadzić małego ludzika z lewego górnego rogu do zielonego kółka w prawym dolnym rogu, omijając pola oznaczone czerwonymi paskami."
     },
     "turnLeftTurnsRight": {
-      "question": "Każę ludzikowi skręcić w lewo, a on skręca w prawo!",
-      "answer": "Ludzik zawsze skręca względem kierunku, w którym jest zwrócony. Jeśli więc patrzy w prawą stronę i dostanie polecenie skręcenia w lewo, zacznie patrzeć do góry."
+      "question": "Każę ludzikowi obrócić się w lewo, a on obraca się w prawo!",
+      "answer": "Ludzik zawsze obraca się względem kierunku, w którym jest zwrócony. Jeśli więc patrzy w prawą stronę i dostanie polecenie obrotu w lewo, zacznie patrzeć do góry."
     }
   }
 }

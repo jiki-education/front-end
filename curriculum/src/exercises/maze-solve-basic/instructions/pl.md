@@ -11,8 +11,8 @@ Jego celem jest zapoznanie Cię z działaniem platformy. Twoim zadaniem jest roz
 Masz do dyspozycji trzy polecenia:
 
 - `move()` (ruch) przesuwa ludzika o jeden krok do przodu
-- `turnLeft()` (skręt w lewo) sprawia, że ludzik skręca w lewo (względem kierunku, w którym jest aktualnie zwrócony)
-- `turnRight()` (skręt w prawo) sprawia, że ludzik skręca w prawo (względem kierunku, w którym jest aktualnie zwrócony)
+- `turnLeft()` (obrót w lewo) sprawia, że ludzik obraca się w lewo (względem kierunku, w którym jest aktualnie zwrócony)
+- `turnRight()` (obrót w prawo) sprawia, że ludzik obraca się w prawo (względem kierunku, w którym jest aktualnie zwrócony)
 
 Po lewej stronie napisaliśmy już dla Ciebie trzy pierwsze polecenia. Najpierw kliknij przycisk **„Uruchom kod”**, aby zobaczyć, jak działają. Następnie **dodaj kolejne polecenia**, aby doprowadzić ludzika do końca labiryntu. Każde z nich zapisz w osobnej linii, a na końcu naciśnij **Uruchom kod**, aby wykonać je wszystkie.
 
