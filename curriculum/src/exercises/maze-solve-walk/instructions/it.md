@@ -4,7 +4,7 @@ description: "Esplora il labirinto usando una funzione che compie più passi all
 en_md5: 91ee3e60f948f052d7551029f5d6fdf7
 ---
 
-Siamo di nuovo nel labirinto! L'ultima volta che ci sei stato, hai usato la funzione `move()` (muoversi) per muoverti di una casella alla volta. Funziona, ma scrivere `move()` molte volte di fila diventa piuttosto noioso!
+Siamo di nuovo nel labirinto! L'ultima volta che ci sei stato, hai usato la funzione `move()` (muovi) per muoverti di una casella alla volta. Funziona, ma scrivere `move()` molte volte di fila diventa piuttosto noioso!
 
 In questo esercizio abbiamo sostituito `move()` con una nuova funzione chiamata `walk()` (camminare). Questa funzione riceve un numero come input e avanza di quel numero di passi. Per esempio, `walk(3)` fa avanzare di 3 passi e `walk(1)` fa avanzare di 1 passo soltanto.
 
