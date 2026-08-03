@@ -1,6 +1,6 @@
 {
   "checks": {
-    "ballNotAtEnd": "La pallina è rotolata fino a {{ballX}}, che non è 60 rispetto al punto di partenza.",
+    "ballNotAtEnd": "La pallina si trova a {{ballX}}, che non è 60 rispetto al punto di partenza.",
     "missingPositions": "La pallina deve rotolare attraverso ogni posizione un passo alla volta, partendo da 29.",
     "codeQuality": {
       "tooManyLines": "La tua soluzione ha troppe righe di codice. Prova a usare un ciclo per accorciarla."
