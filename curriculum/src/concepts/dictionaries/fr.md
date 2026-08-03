@@ -1,7 +1,7 @@
 ---
 title: "Les dictionnaires"
 description: "Une page de carnet à spirale où chaque entrée a une clé à gauche et sa valeur à droite, ce qui te donne des données étiquetées plutôt qu'une simple liste."
-en_md5: 3b1b01f6a914ffe1ce4a54e023e46bdd
+en_md5: b8a26ad63301df1d00ce08e1e429cf05
 ---
 
 Les tableaux sont notre premier choix dès qu'on a une liste de quelque chose : une liste de mentors, une liste de scores, une liste d'ingrédients. Pour n'importe quelle liste, c'est un tableau qu'il te faut.
@@ -16,23 +16,23 @@ Et si je veux utiliser tout ça, il faut que je me souvienne que la première po
 
 Et je veux que tu imagines un dictionnaire comme une feuille d'un carnet à spirale.
 
-Sur la partie gauche, tu as les intitulés, les mots `"name"`, `"age"`, `"birthplace"`, et on les appelle des clés (_keys_ en anglais).
+Sur la partie gauche, tu as les intitulés, les mots `"name"`, `"age"`, `"birthplace"`, et on les appelle des « clés » (_keys_ en anglais).
 
-Et sur la partie droite, à côté de chaque intitulé, tu as les données elles-mêmes, `"Jeremy"`, `42`, `"England"`, et on les appelle des valeurs (_values_ en anglais).
+Et sur la partie droite, à côté de chaque intitulé, tu as les données elles-mêmes, `"Jeremy"`, `42`, `"England"`, et on les appelle des « valeurs » (_values_ en anglais).
 
-Tout comme un tableau, un dictionnaire est une seule chose. C'est une page d'un carnet. Et tout comme un tableau, Jiki peut le mettre dans une variable, dans une boîte, ou en entrée d'une fonction, ou encore récupérer un dictionnaire sur le tapis roulant. Voici donc à quoi ressemble un dictionnaire en code. On utilise des accolades pour marquer le début et la fin, et à l'intérieur tu as des paires : une clé à gauche, un deux-points, puis la valeur à droite. Et on met une virgule entre chaque paire. Alors Jiki voit ça et sort son carnet à spirale. Il écrit `name`, `"Jeremy"`, `age`, `42`, et ainsi de suite pour chaque paire.
+Tout comme un tableau, un dictionnaire est une seule entité. C'est la page d'un carnet. Et tout comme un tableau, Jiki peut le mettre dans une variable, dans une boîte, ou en entrée d'une fonction, ou encore récupérer un dictionnaire sur le tapis roulant. Voici donc à quoi ressemble un dictionnaire en code : on utilise des accolades pour marquer le début et la fin, et à l'intérieur tu as des paires : une clé à gauche, un deux-points, puis la valeur à droite. Et on met une virgule entre chaque paire. Alors Jiki voit ça et sort son carnet à spirale. Il écrit `name`, `"Jeremy"`, `age`, `42`, et ainsi de suite pour chaque paire.
 
-Et quand il a terminé, il détache la feuille et la range dans une boîte étiquetée person.
+Et quand il a terminé, il détache la feuille et la range dans une boîte étiquetée `person`.
 
 Il y a quelques règles à connaître. Les clés sont toujours des strings. Elles doivent être entourées de guillemets, et chaque clé doit être unique. Tu ne peux pas avoir deux clés appelées `name` dans le même dictionnaire.
 
-Les valeurs peuvent être identiques si tu veux, mais les clés doivent être différentes.
+Si tu veux, tes valeurs peuvent être identiques, mais les clés, elles, doivent être différentes.
 
 Et les valeurs peuvent être n'importe quoi : des strings, des nombres, des booléens, des tableaux, ou même d'autres dictionnaires.
 
-Tu peux aussi avoir un dictionnaire vide, tout comme on avait un tableau vide, et on peut partir de là pour le compléter plus tard.
+Tu peux aussi avoir un dictionnaire vide, tout comme on avait un tableau vide, qu'on pourra compléter plus tard.
 
-Bon, tu as un dictionnaire, mais comment récupérer quelque chose dedans ?
+Bien, maintenant que tu as un dictionnaire, comment y récupérer quelque chose ?
 
 On utilise la même syntaxe à crochets qu'avec les tableaux et les strings, mais au lieu d'un numéro de position, on met une clé. Donc si on veut récupérer le nom de quelqu'un dans un dictionnaire, on écrit :
 
@@ -40,7 +40,7 @@ On utilise la même syntaxe à crochets qu'avec les tableaux et les strings, mai
 person["name"] // "Jeremy"
 ```
 
-Et ça dit à Jiki de regarder dans le dictionnaire `person`, de trouver la clé `"name"`, et d'en sortir la valeur. Jiki va à la boîte person, sort la page du carnet, parcourt toutes les clés jusqu'à trouver `"name"`, puis lit la valeur, `"Jeremy"`, et la met dans une nouvelle boîte appelée name.
+Et ça dit à Jiki de regarder dans le dictionnaire `person`, de trouver la clé `"name"`, et d'en récupérer sa valeur. Jiki va à la boîte `person`, sort la page du carnet, parcourt toutes les clés jusqu'à trouver `"name"`, puis lit la valeur, `"Jeremy"`, et la met dans une nouvelle boîte appelée `name`.
 
 Les crochets veulent toujours dire la même chose : tu plonges la main dans quelque chose pour en sortir autre chose. Avec les tableaux et les strings, tu utilises un nombre pour dire à quelle position tu veux prendre quelque chose. Avec les dictionnaires, tu utilises une string pour la clé.
 
