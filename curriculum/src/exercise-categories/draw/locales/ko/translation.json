@@ -1,0 +1,46 @@
+{
+  "errors": {
+    "allInputsNumbers": "모든 입력값은 숫자여야 해요",
+    "blueRange": "파랑은 0에서 255 사이여야 해요",
+    "circleInputsNumbers": "x, y, 반지름 입력값은 숫자여야 해요",
+    "colorNamedOrHex": "색상은 지시 사항에 명시된 이름이 있는 색상(\"orange\", \"blue\", \"white\" 등)이거나 #으로 시작하는 16진수 색상이어야 해요",
+    "colorNotAllowed": "이 연습 문제에서는 색상을 지정하지 않아야 해요",
+    "colorNotString": "색상은 문자열이어야 해요",
+    "ellipseInputsNumbers": "x, y, rx, ry 입력값은 숫자여야 해요",
+    "greenRange": "초록은 0에서 255 사이여야 해요",
+    "heightPositive": "높이는 0보다 커야 해요",
+    "hueRange": "색상은 0에서 360 사이여야 해요",
+    "lightnessRange": "명도는 0에서 100 사이여야 해요",
+    "lineInputsNumbers": "x1, y1, x2, y2 입력값은 숫자여야 해요",
+    "rectInputsNumbers": "x, y, 너비, 높이 입력값은 숫자여야 해요",
+    "redRange": "빨강은 0에서 255 사이여야 해요",
+    "saturationRange": "채도는 0에서 100 사이여야 해요",
+    "triangleInputsNumbers": "x1, y1, x2, y2, x3, y3 입력값은 숫자여야 해요",
+    "widthPositive": "너비는 0보다 커야 해요"
+  },
+  "describers": {
+    "rectangle": {
+      "default": "좌표 (${arg1}, ${arg2})에 너비 ${arg3}, 높이 ${arg4}, 색상 ${arg5}인 직사각형을 그렸어요",
+      "fixedColor": "좌표 (${arg1}, ${arg2})에 너비 ${arg3}, 높이 ${arg4}인 직사각형을 그렸어요"
+    },
+    "triangle": {
+      "default": "세 점 (${arg1}, ${arg2}), (${arg3}, ${arg4}), (${arg5}, ${arg6})과 색상 ${arg7}으로 삼각형을 그렸어요",
+      "fixedColor": "세 점 (${arg1}, ${arg2}), (${arg3}, ${arg4}), (${arg5}, ${arg6})으로 삼각형을 그렸어요"
+    },
+    "circle": {
+      "default": "중심 좌표 (${arg1}, ${arg2})에 반지름 ${arg3}, 색상 ${arg4}인 원을 그렸어요",
+      "fixedColor": "중심 좌표 (${arg1}, ${arg2})에 반지름 ${arg3}인 원을 그렸어요"
+    },
+    "ellipse": {
+      "default": "중심 좌표 (${arg1}, ${arg2})에 가로 반지름 ${arg3}, 세로 반지름 ${arg4}, 색상 ${arg5}인 타원을 그렸어요",
+      "fixedColor": "중심 좌표 (${arg1}, ${arg2})에 가로 반지름 ${arg3}, 세로 반지름 ${arg4}인 타원을 그렸어요"
+    },
+    "line": {
+      "default": "(${arg1}, ${arg2})에서 (${arg3}, ${arg4})까지 색상 ${arg5}인 선을 그렸어요",
+      "fixedColor": "(${arg1}, ${arg2})에서 (${arg3}, ${arg4})까지 선을 그렸어요"
+    },
+    "clear": "캔버스를 지웠어요",
+    "hsl": "HSL 색상 (색상: ${arg1}, 채도: ${arg2}, 명도: ${arg3})을 16진수 문자열로 변환했어요",
+    "rgb": "RGB 색상 (빨강: ${arg1}, 초록: ${arg2}, 파랑: ${arg3})을 16진수 문자열로 변환했어요"
+  }
+}

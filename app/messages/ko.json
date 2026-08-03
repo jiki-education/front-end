@@ -42,7 +42,7 @@
       "homeAriaLabel": "Jiki 홈",
       "logoAlt": "Jiki",
       "aboutJiki": "Jiki 소개",
-      "premium": "�",
+      "premium": "프리미엄",
       "testimonials": "수강생 후기",
       "login": "로그인",
       "signUp": "무료로 가입하기",
@@ -76,7 +76,7 @@
         "upgrade": "Premium으로 업그레이드",
         "logOut": "로그아웃"
       },
-      "premiumPill": "�"
+      "premiumPill": "프리미엄"
     },
     "loading": {
       "title": "Jiki 깨우는 중",
@@ -158,7 +158,13 @@
     },
     "saving": "�",
     "retry": "�",
-    "tryAgain": "�"
+    "tryAgain": "�",
+    "betaTag": {
+      "label": "�"
+    },
+    "userAvatar": {
+      "alt": "�"
+    }
   },
   "build": {
     "upcomingStreams": {
@@ -336,7 +342,8 @@
       "benefit3": "�",
       "benefit4": "�",
       "keep": "�",
-      "cancel": "�"
+      "cancel": "�",
+      "defaultBillingPeriodEnd": "�"
     },
     "cancelSuccess": {
       "title": "�",
@@ -379,7 +386,9 @@
       "columnAmount": "�",
       "columnType": "�",
       "columnMethod": "�",
-      "downloadReceipt": "�"
+      "downloadReceipt": "�",
+      "typeRecurring": "�",
+      "dateUnavailable": "�"
     },
     "profile": {
       "nameLabel": "�",
@@ -917,7 +926,8 @@
     },
     "error": {
       "notFound": "개념을 찾을 수 없어요.",
-      "back": "개념으로 돌아가기"
+      "back": "개념으로 돌아가기",
+      "loadFailed": "개념을 불러오는 데 실패했어요. 나중에 다시 시도해 주세요."
     },
     "relatedConcepts": {
       "heading": "관련 개념",
@@ -1361,7 +1371,7 @@
         "description": "다음 레슨을 마무리하고 있어요. 여정을 계속하려면 곧 다시 확인해 주세요!"
       },
       "walkthrough": {
-        "label": "�",
+        "label": "심층 탐구",
         "watch": "시청하기"
       },
       "start": {
@@ -1433,6 +1443,7 @@
   "codingExercise": {
     "loadError": "연습 문제 로드 오류: {error}",
     "unknownError": "알 수 없는 오류",
+    "exerciseNotFound": "연습 문제 \"{slug}\"을(를) 커리큘럼에서 찾을 수 없어요. 사용 가능한 연습 문제: {available}",
     "runButton": {
       "run": "코드 실행",
       "running": "실행 중...",
@@ -1451,7 +1462,7 @@
       "confirmReveal": "이 힌트를 정말 공개할까요?",
       "confirmNo": "지금은 아니에요",
       "confirmYes": "네",
-      "deepDiveHeading": "�",
+      "deepDiveHeading": "심층 탐구",
       "deepDiveDescription": "아직 막혔나요? Jeremy가 이 연습 문제를 해결하는 Deep Dive를 시청하세요.",
       "walkthroughThumbnailAlt": "Deep Dive 비디오 썸네일"
     },
@@ -1578,7 +1589,11 @@
       "serverError": "서버 오류가 발생했어요. 잠시 후 다시 시도해 주세요.",
       "networkError": "네트워크 오류가 발생했어요. 연결 상태를 확인하고 다시 시도해 주세요.",
       "timeout": "요청 시간이 초과되었어요. 다시 시도해 주세요.",
-      "unexpected": "예기치 못한 오류가 발생했어요. 다시 시도해 주세요."
+      "unexpected": "예기치 못한 오류가 발생했어요. 다시 시도해 주세요.",
+      "noResponseBody": "응답을 받는 중에 문제가 발생했어요. 다시 시도해 주세요.",
+      "streamProcessing": "응답을 읽는 중에 문제가 발생했어요. 다시 시도해 주세요.",
+      "unknown": "예상치 못한 오류가 발생했어요. 다시 시도해 주세요.",
+      "requestFailed": "요청이 실패했어요. 다시 시도해 주세요."
     },
     "stuckHeader": {
       "title": "막혔나요? Jiki에게 물어보세요!"
@@ -1605,7 +1620,17 @@
       "congratsAmazingEffort": "대단한 노력이에요!",
       "congratsGreatAchievement": "훌륭한 성과예요!",
       "congratsCongratulations": "축하합니다!",
-      "congratsCongrats": "축하해요!"
+      "congratsCongrats": "축하해요!",
+      "ioError": "<p>오류: {message}</p>",
+      "codeCheckError": "코드 검사 오류: {message}"
+    },
+    "informationTooltip": {
+      "errorHeading": "이런, 문제가 발생했어요!",
+      "closeAriaLabel": "툴팁 닫기"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "중단점 추가",
+      "removeBreakpoint": "중단점 제거"
     },
     "syntaxError": {
       "heading": "Jiki가 코드를 이해할 수 없었어요.",
@@ -1798,7 +1823,13 @@
     "loading": "�",
     "error": "�",
     "certificatesEmptyTitle": "�",
-    "certificatesEmptyBody": "�"
+    "certificatesEmptyBody": "�",
+    "badge": {
+      "locked": "�",
+      "earnedToday": "�",
+      "earnedRelative": "�"
+    },
+    "loadError": "�"
   },
   "challenges": {
     "title": "챌린지",
@@ -1828,7 +1859,8 @@
       "noneToStartDescription": "잠금 해제하면 여기에 챌린지가 표시됩니다.",
       "completedTitle": "완료한 챌린지가 아직 없어요",
       "completedDescription": "첫 챌린지를 완료하면 여기에 표시됩니다. 진행 중인 챌린지를 계속하여 이 마일스톤에 도달하세요."
-    }
+    },
+    "loadError": "챌린지를 불러오는 데 실패했어요."
   },
   "subscription": {
     "tiers": {
@@ -1854,5 +1886,68 @@
         }
       }
     }
+  },
+  "blog": {
+    "header": {
+      "label": "�",
+      "title": "�",
+      "subtitle": "�"
+    },
+    "postHeader": {
+      "writtenBy": "�",
+      "readingTime": "�"
+    },
+    "featuredLatest": {
+      "label": "�",
+      "byAuthor": "�",
+      "readFullArticle": "�"
+    },
+    "recentPosts": {
+      "heading": "�"
+    },
+    "relatedPosts": {
+      "heading": "�"
+    },
+    "cta": {
+      "minimalTitle": "�",
+      "minimalSubtitle": "�",
+      "minimalButton": "�",
+      "gradientTitle": "�",
+      "gradientSubtitle": "�",
+      "gradientButton": "�"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "�",
+      "title": "�",
+      "subtitle": "�",
+      "writtenBy": "�",
+      "readingTime": "�"
+    },
+    "relatedArticles": {
+      "heading": "�"
+    },
+    "search": {
+      "placeholder": "�",
+      "noResultsTitle": "�",
+      "noResultsMessage": "�"
+    },
+    "filterSidebar": {
+      "filterBy": "�",
+      "all": "�",
+      "help": "�"
+    },
+    "cta": {
+      "minimalTitle": "�",
+      "minimalSubtitle": "�",
+      "minimalButton": "�",
+      "gradientTitle": "�",
+      "gradientSubtitle": "�",
+      "gradientButton": "�"
+    }
+  },
+  "checkout": {
+    "declineDefault": "�"
   }
 }

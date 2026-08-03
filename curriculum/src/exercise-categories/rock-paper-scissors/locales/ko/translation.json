@@ -1,0 +1,11 @@
+{
+  "errors": {
+    "invalidResult": "이런! 잘못된 결과를 발표했어요. 경기장 안이 혼란스러워요! \"Yuki\", \"Ando\" 또는 \"tie\" 중 하나를 발표해 주세요.",
+    "wrongResult": "이런! 틀린 결과를 발표했어요. 경기장 안이 혼란스러워요!\n\n`\"{{expected}}\"`라고 발표했어야 하는데 `\"{{got}}\"`라고 발표했어요."
+  },
+  "describers": {
+    "announceResult": "게임 결과를 ${arg1}라고 발표했어요",
+    "getYukiChoice": "Yuki의 선택을 반환했어요",
+    "getAndoChoice": "Ando의 선택을 반환했어요"
+  }
+}

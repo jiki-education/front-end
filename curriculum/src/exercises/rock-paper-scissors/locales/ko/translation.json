@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "noResult": "결과를 알리지 않았어요!",
+    "paperVsPaperResult": "보 vs 보는 비겨야 하는데 \"{{got}}\"이 나왔어요.",
+    "paperVsRockResult": "보 vs 바위는 Yuki가 이겨야 하는데 \"{{got}}\"이 나왔어요.",
+    "paperVsScissorsResult": "보 vs 가위는 Ando가 이겨야 하는데 \"{{got}}\"이 나왔어요.",
+    "rockVsPaperResult": "바위 vs 보는 Ando가 이겨야 하는데 \"{{got}}\"이 나왔어요.",
+    "rockVsRockResult": "바위 vs 바위는 비겨야 하는데 \"{{got}}\"이 나왔어요.",
+    "rockVsScissorsResult": "바위 vs 가위는 Yuki가 이겨야 하는데 \"{{got}}\"이 나왔어요.",
+    "scissorsVsPaperResult": "가위 vs 보는 Yuki가 이겨야 하는데 \"{{got}}\"이 나왔어요.",
+    "scissorsVsRockResult": "가위 vs 바위는 Ando가 이겨야 하는데 \"{{got}}\"이 나왔어요.",
+    "scissorsVsScissorsResult": "가위 vs 가위는 비겨야 하는데 \"{{got}}\"이 나왔어요."
+  },
+  "tasks": {
+    "determineWinner": {
+      "name": "승자 가려내기",
+      "description": "두 선수의 선택을 가져와서 올바른 결과를 알리세요: \"Yuki\", \"Ando\", 또는 \"tie\"."
+    }
+  },
+  "scenarios": {
+    "paperVsPaper": {
+      "name": "보 vs 보",
+      "description": "비겼어요. 결과를 올바르게 알리세요!"
+    },
+    "paperVsRock": {
+      "name": "보 vs 바위",
+      "description": "Yuki의 보가 Ando의 바위를 이겼어요. Yuki를 승자로 알리세요!"
+    },
+    "paperVsScissors": {
+      "name": "보 vs 가위",
+      "description": "Ando의 가위가 Yuki의 보를 이겼어요. Ando를 승자로 알리세요."
+    },
+    "rockVsPaper": {
+      "name": "바위 vs 보",
+      "description": "Ando의 보가 Yuki의 바위를 이겼어요. Ando를 승자로 알리세요."
+    },
+    "rockVsRock": {
+      "name": "바위 vs 바위",
+      "description": "비겼어요. 결과를 올바르게 알리세요!"
+    },
+    "rockVsScissors": {
+      "name": "바위 vs 가위",
+      "description": "Yuki의 바위가 Ando의 가위를 이겼어요. Yuki를 승자로 알리세요."
+    },
+    "scissorsVsPaper": {
+      "name": "가위 vs 보",
+      "description": "Yuki의 가위가 Ando의 보를 이겼어요. Yuki를 승자로 알리세요."
+    },
+    "scissorsVsRock": {
+      "name": "가위 vs 바위",
+      "description": "Ando의 바위가 Yuki의 가위를 이겼어요. Ando를 승자로 알리세요."
+    },
+    "scissorsVsScissors": {
+      "name": "가위 vs 가위",
+      "description": "비겼어요. 결과를 올바르게 알리세요!"
+    }
+  },
+  "hints": {
+    "howToStart": {
+      "question": "어떻게 시작하나요?",
+      "answer": "제공된 함수로 Yuki와 Ando의 선택을 가져와서 변수에 저장하고 비교해 보세요."
+    },
+    "simplestCase": {
+      "question": "가장 간단한 경우부터 처리하려면 어떻게 하나요?",
+      "answer": "비기는 경우예요. 두 선택이 같으면 바로 비겼다고 알리고 나머지는 건너뛰어도 돼요."
+    },
+    "checkCombination": {
+      "question": "특정 이기는 조합을 어떻게 확인하나요?",
+      "answer": "`&&` (그리고)를 사용해서 두 조건이 모두 참인지 확인하세요. 예를 들어 \"Yuki는 바위, Ando는 가위를 골랐을 때\"라면 Yuki가 이기는 거예요."
+    },
+    "shorterWay": {
+      "question": "`if`문이 너무 많아져요. 더 짧은 방법이 있을까요?",
+      "answer": "기본적으로 한 선수가 이기는 것으로 설정하고, 상대 선수가 이기는 세 가지 조합만 확인하세요. 그러면 경우의 수가 거의 반으로 줄어요."
+    },
+    "invalidChoice": {
+      "question": "선수가 바위, 보, 가위가 아닌 다른 것을 내면 어떻게 되나요?",
+      "answer": "여기서는 그걸 걱정할 필요 없어요. 제공된 함수는 항상 세 가지 유효한 선택 중 하나만 반환해요."
+    }
+  },
+  "functions": {
+    "getYukiChoice": {
+      "description": "Yuki의 선택을 반환해요. `\"rock\"`, `\"paper\"`, `\"scissors\"` 중 하나예요.",
+      "category": "게임"
+    },
+    "getAndoChoice": {
+      "description": "Ando의 선택을 반환해요. `\"rock\"`, `\"paper\"`, `\"scissors\"` 중 하나예요.",
+      "category": "게임"
+    },
+    "announceResult": {
+      "description": "게임 결과를 알려요. `\"Yuki\"`, `\"Ando\"`, `\"tie\"` 중 하나를 전달하세요.",
+      "category": "게임"
+    }
+  }
+}
