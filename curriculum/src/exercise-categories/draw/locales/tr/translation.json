@@ -40,7 +40,7 @@
       "fixedColor": "(${arg1}, ${arg2}) noktasından (${arg3}, ${arg4}) noktasına bir çizgi çizdi"
     },
     "clear": "tuvali temizledi",
-    "hsl": "HSL rengini (ton: ${arg1}, doygunluk: ${arg2}, açıklık: ${arg3}) bir hex karakter dizisine dönüştürdü",
+    "hsl": "HSL rengini (renk tonu: ${arg1}, doygunluk: ${arg2}, açıklık: ${arg3}) bir hex karakter dizisine dönüştürdü",
     "rgb": "RGB rengini (kırmızı: ${arg1}, yeşil: ${arg2}, mavi: ${arg3}) bir hex karakter dizisine dönüştürdü"
   }
 }
