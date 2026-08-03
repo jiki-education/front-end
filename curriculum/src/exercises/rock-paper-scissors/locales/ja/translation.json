@@ -79,11 +79,11 @@
   },
   "functions": {
     "getYukiChoice": {
-      "description": "ゆきの手を返します — `\\\"rock\\\"`、`\\\"paper\\\"`、`\\\"scissors\\\"` のいずれかです。",
+      "description": "ゆきの手を返します。`\\\"rock\\\"`、`\\\"paper\\\"`、`\\\"scissors\\\"` のいずれかです。",
       "category": "ゲーム"
     },
     "getAndoChoice": {
-      "description": "安藤の手を返します — `\\\"rock\\\"`、`\\\"paper\\\"`、`\\\"scissors\\\"` のいずれかです。",
+      "description": "安藤の手を返します。`\\\"rock\\\"`、`\\\"paper\\\"`、`\\\"scissors\\\"` のいずれかです。",
       "category": "ゲーム"
     },
     "announceResult": {
