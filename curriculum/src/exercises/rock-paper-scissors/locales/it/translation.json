@@ -1,6 +1,6 @@
 {
   "checks": {
-    "noResult": "Non hai annunciato nessun risultato!",
+    "noResult": "Non hai comunicato nessun risultato!",
     "paperVsPaperResult": "Carta vs Carta dovrebbe essere un pareggio, ma il risultato è stato \"{{got}}\".",
     "paperVsRockResult": "Carta vs Sasso dovrebbe essere una vittoria per Yuki, ma il risultato è stato \"{{got}}\".",
     "paperVsScissorsResult": "Carta vs Forbici dovrebbe essere una vittoria per Ando, ma il risultato è stato \"{{got}}\".",
@@ -14,45 +14,45 @@
   "tasks": {
     "determineWinner": {
       "name": "Determina il vincitore",
-      "description": "Ottieni le scelte di entrambi i giocatori e annuncia il risultato corretto: \"Yuki\", \"Ando\" o \"tie\"."
+      "description": "Ottieni le scelte di entrambi i giocatori e comunica il risultato corretto: \"Yuki\", \"Ando\" o \"tie\"."
     }
   },
   "scenarios": {
     "paperVsPaper": {
       "name": "Carta vs Carta",
-      "description": "È un pareggio. Annuncialo correttamente!"
+      "description": "È un pareggio. Comunicalo correttamente!"
     },
     "paperVsRock": {
       "name": "Carta vs Sasso",
-      "description": "La carta di Yuki batte il sasso di Ando. Annuncia Yuki come vincitore!"
+      "description": "La carta di Yuki batte il sasso di Ando. Comunica Yuki come vincitore!"
     },
     "paperVsScissors": {
       "name": "Carta vs Forbici",
-      "description": "Le forbici di Ando battono la carta di Yuki. Annuncia Ando come vincitore."
+      "description": "Le forbici di Ando battono la carta di Yuki. Comunica Ando come vincitore."
     },
     "rockVsPaper": {
       "name": "Sasso vs Carta",
-      "description": "La carta di Ando batte il sasso di Yuki. Annuncia Ando come vincitore."
+      "description": "La carta di Ando batte il sasso di Yuki. Comunica Ando come vincitore."
     },
     "rockVsRock": {
       "name": "Sasso vs Sasso",
-      "description": "È un pareggio. Annuncialo correttamente!"
+      "description": "È un pareggio. Comunicalo correttamente!"
     },
     "rockVsScissors": {
       "name": "Sasso vs Forbici",
-      "description": "Il sasso di Yuki batte le forbici di Ando. Annuncia Yuki come vincitore."
+      "description": "Il sasso di Yuki batte le forbici di Ando. Comunica Yuki come vincitore."
     },
     "scissorsVsPaper": {
       "name": "Forbici vs Carta",
-      "description": "Le forbici di Yuki battono la carta di Ando. Annuncia Yuki come vincitore."
+      "description": "Le forbici di Yuki battono la carta di Ando. Comunica Yuki come vincitore."
     },
     "scissorsVsRock": {
       "name": "Forbici vs Sasso",
-      "description": "Il sasso di Ando batte le forbici di Yuki. Annuncia Ando come vincitore."
+      "description": "Il sasso di Ando batte le forbici di Yuki. Comunica Ando come vincitore."
     },
     "scissorsVsScissors": {
       "name": "Forbici vs Forbici",
-      "description": "È un pareggio. Annuncialo correttamente!"
+      "description": "È un pareggio. Comunicalo correttamente!"
     }
   },
   "hints": {
@@ -62,7 +62,7 @@
     },
     "simplestCase": {
       "question": "Qual è il caso più semplice da gestire per primo?",
-      "answer": "Il pareggio. Se le due scelte sono uguali, puoi annunciare subito un pareggio e saltare il resto."
+      "answer": "Il pareggio. Se le due scelte sono uguali, puoi comunicare subito un pareggio e saltare il resto."
     },
     "checkCombination": {
       "question": "Come controllo una specifica combinazione vincente?",
@@ -87,7 +87,7 @@
       "category": "Gioco"
     },
     "announceResult": {
-      "description": "Annuncia il risultato della partita. Passa `\"Yuki\"`, `\"Ando\"` oppure `\"tie\"`.",
+      "description": "Comunica il risultato della partita. Passa `\"Yuki\"`, `\"Ando\"` oppure `\"tie\"`.",
       "category": "Gioco"
     }
   }
