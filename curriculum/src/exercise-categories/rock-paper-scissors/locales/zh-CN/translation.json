@@ -1,0 +1,11 @@
+{
+  "errors": {
+    "invalidResult": "哦不！你宣布了一个无效结果。游戏大厅里一片混乱！请宣布 \"Yuki\"、\"Ando\" 或 \"tie\"。",
+    "wrongResult": "哦不！你宣布了错误的结果。游戏大厅里一片混乱！\n\n你应该宣布 `\"{{expected}}\"` 但你宣布了 `\"{{got}}\"`。"
+  },
+  "describers": {
+    "announceResult": "宣布游戏结果为 ${arg1}",
+    "getYukiChoice": "返回了 Yuki 的选择",
+    "getAndoChoice": "返回了 Ando 的选择"
+  }
+}
