@@ -1,0 +1,46 @@
+{
+  "errors": {
+    "allInputsNumbers": "Semua input harus berupa angka",
+    "blueRange": "Nilai blue harus antara 0 dan 255",
+    "circleInputsNumbers": "Input x, y, dan radius harus berupa angka",
+    "colorNamedOrHex": "Warna harus berupa nama warna (\"orange\", \"blue\", \"white\", dsb.) yang disebutkan dalam instruksi, atau warna hex yang diawali dengan #",
+    "colorNotAllowed": "Warna tidak boleh ditentukan untuk latihan ini",
+    "colorNotString": "Warna harus berupa string",
+    "ellipseInputsNumbers": "Input x, y, rx, dan ry harus berupa angka",
+    "greenRange": "Nilai green harus antara 0 dan 255",
+    "heightPositive": "Tinggi harus lebih besar dari 0",
+    "hueRange": "Nilai hue harus antara 0 dan 360",
+    "lightnessRange": "Nilai lightness harus antara 0 dan 100",
+    "lineInputsNumbers": "Input x1, y1, x2, dan y2 harus berupa angka",
+    "rectInputsNumbers": "Input x, y, width, dan height harus berupa angka",
+    "redRange": "Nilai red harus antara 0 dan 255",
+    "saturationRange": "Nilai saturation harus antara 0 dan 100",
+    "triangleInputsNumbers": "Input x1, y1, x2, y2, x3, dan y3 harus berupa angka",
+    "widthPositive": "Lebar harus lebih besar dari 0"
+  },
+  "describers": {
+    "rectangle": {
+      "default": "menggambar persegi panjang pada koordinat (${arg1}, ${arg2}) dengan lebar ${arg3}, tinggi ${arg4}, dan warna ${arg5}",
+      "fixedColor": "menggambar persegi panjang pada koordinat (${arg1}, ${arg2}) dengan lebar ${arg3} dan tinggi ${arg4}"
+    },
+    "triangle": {
+      "default": "menggambar segitiga dengan tiga titik: (${arg1}, ${arg2}), (${arg3}, ${arg4}), dan (${arg5}, ${arg6}) dengan warna ${arg7}",
+      "fixedColor": "menggambar segitiga dengan tiga titik: (${arg1}, ${arg2}), (${arg3}, ${arg4}), dan (${arg5}, ${arg6})"
+    },
+    "circle": {
+      "default": "menggambar lingkaran dengan titik pusat di (${arg1}, ${arg2}), jari-jari ${arg3}, dan warna ${arg4}",
+      "fixedColor": "menggambar lingkaran dengan titik pusat di (${arg1}, ${arg2}) dan jari-jari ${arg3}"
+    },
+    "ellipse": {
+      "default": "menggambar elips dengan titik pusat di (${arg1}, ${arg2}), jari-jari horizontal ${arg3}, jari-jari vertikal ${arg4}, dan warna ${arg5}",
+      "fixedColor": "menggambar elips dengan titik pusat di (${arg1}, ${arg2}), jari-jari horizontal ${arg3}, dan jari-jari vertikal ${arg4}"
+    },
+    "line": {
+      "default": "menggambar garis dari (${arg1}, ${arg2}) ke (${arg3}, ${arg4}) dengan warna ${arg5}",
+      "fixedColor": "menggambar garis dari (${arg1}, ${arg2}) ke (${arg3}, ${arg4})"
+    },
+    "clear": "membersihkan kanvas",
+    "hsl": "mengonversi warna HSL (hue: ${arg1}, saturation: ${arg2}, lightness: ${arg3}) menjadi string hex",
+    "rgb": "mengonversi warna RGB (red: ${arg1}, green: ${arg2}, blue: ${arg3}) menjadi string hex"
+  }
+}
