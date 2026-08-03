@@ -83,10 +83,7 @@
       "subtitle": "מכינים לכם את חוויית הלמידה"
     },
     "localeBanner": {
-      "prefix": "אתם צופים בגרסה של העמוד הזה בשפה {language}.",
-      "cta": "מעבר אל {language}",
-      "or": "או",
-      "close": "סגירת ההודעה"
+      "message": "אתם צופים בגרסה של העמוד הזה בשפה {current}. <link>מעבר אל {offered}</link> או <dismiss>סגירת ההודעה</dismiss>."
     }
   },
   "common": {
@@ -1260,8 +1257,8 @@
         "titleExercise": "התרגיל הושלם!",
         "titleChallenge": "האתגר הושלם!",
         "greatWork": "כל הכבוד על השלמת {title}!",
-        "readyExercise": "מוכנים להמשיך לתרגיל הבא?",
-        "readyChallenge": "מוכנים להמשיך לאתגר הבא?",
+        "messageExercise": "כל הכבוד על השלמת {title}! מוכנים להמשיך לתרגיל הבא?",
+        "messageChallenge": "כל הכבוד על השלמת {title}! מוכנים להמשיך לאתגר הבא?",
         "bonusPrompt": "{count, plural, one {בתרגיל הזה יש <strong>תרחיש בונוס</strong>. רוצים לפתור אותו לפני שממשיכים?} other {בתרגיל הזה יש <strong>תרחישי בונוס</strong>. רוצים לפתור אותם לפני שממשיכים?}}",
         "tidyCode": "סידור הקוד",
         "solveBonuses": "{count, plural, one {פתרון הבונוס} other {פתרון הבונוסים}}",

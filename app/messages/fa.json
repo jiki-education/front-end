@@ -83,10 +83,7 @@
       "subtitle": "آماده‌سازی تجربه یادگیری شما"
     },
     "localeBanner": {
-      "prefix": "شما در حال مشاهده نسخه {language} این صفحه هستید.",
-      "cta": "تغییر به {language}",
-      "or": "یا",
-      "close": "بستن این پیام"
+      "message": "شما در حال مشاهده نسخه {current} این صفحه هستید. <link>تغییر به {offered}</link> یا <dismiss>بستن این پیام</dismiss>."
     }
   },
   "common": {
@@ -1260,8 +1257,8 @@
         "titleExercise": "تمرین کامل شد!",
         "titleChallenge": "چالش کامل شد!",
         "greatWork": "کامل کردن {title} عالی بود!",
-        "readyExercise": "آماده‌اید به تمرین بعدی بروید؟",
-        "readyChallenge": "آماده‌اید به چالش بعدی بروید؟",
+        "messageExercise": "کامل کردن {title} عالی بود! آماده‌اید به تمرین بعدی بروید؟",
+        "messageChallenge": "کامل کردن {title} عالی بود! آماده‌اید به چالش بعدی بروید؟",
         "bonusPrompt": "{count, plural, one {این تمرین <strong>یک سناریوی امتیازی</strong> دارد. آیا می‌خواهید قبل از ادامه دادن، آن را حل کنید؟} other {این تمرین <strong>سناریوهای امتیازی</strong> دارد. آیا می‌خواهید قبل از ادامه دادن، آن‌ها را حل کنید؟}}",
         "tidyCode": "مرتب کردن کد",
         "solveBonuses": "{count, plural, one {حل سناریوی امتیازی} other {حل سناریوهای امتیازی}}",

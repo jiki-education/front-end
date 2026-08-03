@@ -83,10 +83,7 @@
       "subtitle": "آپ کے سیکھنے کا تجربہ تیار کیا جا رہا ہے"
     },
     "localeBanner": {
-      "prefix": "آپ اس صفحے کا {language} ورژن دیکھ رہے ہیں۔",
-      "cta": "{language} میں دیکھیں",
-      "or": "یا",
-      "close": "یہ اطلاع بند کریں"
+      "message": "آپ اس صفحے کا {current} ورژن دیکھ رہے ہیں۔ <link>{offered} میں دیکھیں</link> یا <dismiss>یہ اطلاع بند کریں</dismiss>."
     }
   },
   "common": {
@@ -1260,8 +1257,8 @@
         "titleExercise": "مشق مکمل!",
         "titleChallenge": "چیلنج مکمل!",
         "greatWork": "{title} مکمل کرنے پر شاباش!",
-        "readyExercise": "اگلی مشق پر جانے کے لیے تیار ہیں؟",
-        "readyChallenge": "اگلے چیلنج پر جانے کے لیے تیار ہیں؟",
+        "messageExercise": "{title} مکمل کرنے پر شاباش! اگلی مشق پر جانے کے لیے تیار ہیں؟",
+        "messageChallenge": "{title} مکمل کرنے پر شاباش! اگلے چیلنج پر جانے کے لیے تیار ہیں؟",
         "bonusPrompt": "{count, plural, one {اس مشق میں <strong>ایک بونس منظرنامہ</strong> ہے۔ کیا آپ آگے بڑھنے سے پہلے اسے حل کرنا چاہیں گے؟} other {اس مشق میں <strong>بونس منظرنامے</strong> ہیں۔ کیا آپ آگے بڑھنے سے پہلے انہیں حل کرنا چاہیں گے؟}}",
         "tidyCode": "کوڈ سنواریں",
         "solveBonuses": "{count, plural, one {بونس حل کریں} other {سب بونس حل کریں}}",

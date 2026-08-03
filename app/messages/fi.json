@@ -83,10 +83,7 @@
       "subtitle": "Valmistellaan oppimisympäristöäsi"
     },
     "localeBanner": {
-      "prefix": "Katselet tätä sivua kielellä {language}.",
-      "cta": "Vaihda kieleen {language}",
-      "or": "tai",
-      "close": "sulje tämä ilmoitus"
+      "message": "Katselet tätä sivua kielellä {current}. <link>Vaihda kieleen {offered}</link> tai <dismiss>sulje tämä ilmoitus</dismiss>."
     }
   },
   "common": {
@@ -1260,8 +1257,8 @@
         "titleExercise": "Harjoitus suoritettu!",
         "titleChallenge": "Haaste suoritettu!",
         "greatWork": "Hienoa työtä, {title} on nyt suoritettu!",
-        "readyExercise": "Oletko valmis jatkamaan seuraavaan harjoitukseen?",
-        "readyChallenge": "Oletko valmis jatkamaan seuraavaan haasteeseen?",
+        "messageExercise": "Hienoa työtä, {title} on nyt suoritettu! Oletko valmis jatkamaan seuraavaan harjoitukseen?",
+        "messageChallenge": "Hienoa työtä, {title} on nyt suoritettu! Oletko valmis jatkamaan seuraavaan haasteeseen?",
         "bonusPrompt": "{count, plural, one {Tässä harjoituksessa on <strong>bonusskenaario</strong>. Haluatko ratkaista sen ennen kuin jatkat?} other {Tässä harjoituksessa on <strong>bonusskenaarioita</strong>. Haluatko ratkaista ne ennen kuin jatkat?}}",
         "tidyCode": "Siisti koodisi",
         "solveBonuses": "{count, plural, one {Ratkaise bonus} other {Ratkaise bonukset}}",

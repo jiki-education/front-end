@@ -83,10 +83,7 @@
       "subtitle": "Je leeromgeving wordt klaargezet"
     },
     "localeBanner": {
-      "prefix": "Je bekijkt de {language} versie van deze pagina.",
-      "cta": "Wissel naar {language}",
-      "or": "of",
-      "close": "sluit deze melding"
+      "message": "Je bekijkt de {current} versie van deze pagina. <link>Wissel naar {offered}</link> of <dismiss>sluit deze melding</dismiss>."
     }
   },
   "common": {
@@ -1260,8 +1257,8 @@
         "titleExercise": "Opdracht voltooid!",
         "titleChallenge": "Uitdaging voltooid!",
         "greatWork": "Knap werk, je hebt {title} voltooid!",
-        "readyExercise": "Klaar voor de volgende opdracht?",
-        "readyChallenge": "Klaar voor de volgende uitdaging?",
+        "messageExercise": "Knap werk, je hebt {title} voltooid! Klaar voor de volgende opdracht?",
+        "messageChallenge": "Knap werk, je hebt {title} voltooid! Klaar voor de volgende uitdaging?",
         "bonusPrompt": "{count, plural, one {Deze opdracht heeft <strong>een bonusscenario</strong>. Wil je dat oplossen voordat je verdergaat?} other {Deze opdracht heeft <strong>bonusscenario's</strong>. Wil je die oplossen voordat je verdergaat?}}",
         "tidyCode": "Code opruimen",
         "solveBonuses": "{count, plural, one {Bonus oplossen} other {Bonussen oplossen}}",

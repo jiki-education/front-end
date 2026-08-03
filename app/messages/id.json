@@ -83,10 +83,7 @@
       "subtitle": "Menyiapkan pengalaman belajarmu"
     },
     "localeBanner": {
-      "prefix": "Kamu sedang melihat halaman ini dalam versi {language}.",
-      "cta": "Ganti ke {language}",
-      "or": "atau",
-      "close": "tutup pemberitahuan ini"
+      "message": "Kamu sedang melihat halaman ini dalam versi {current}. <link>Ganti ke {offered}</link> atau <dismiss>tutup pemberitahuan ini</dismiss>."
     }
   },
   "common": {
@@ -1260,8 +1257,8 @@
         "titleExercise": "Latihan selesai!",
         "titleChallenge": "Tantangan selesai!",
         "greatWork": "Kerja bagus menyelesaikan {title}!",
-        "readyExercise": "Siap lanjut ke latihan berikutnya?",
-        "readyChallenge": "Siap lanjut ke tantangan berikutnya?",
+        "messageExercise": "Kerja bagus menyelesaikan {title}! Siap lanjut ke latihan berikutnya?",
+        "messageChallenge": "Kerja bagus menyelesaikan {title}! Siap lanjut ke tantangan berikutnya?",
         "bonusPrompt": "{count, plural, one {Latihan ini punya <strong>satu skenario bonus</strong>. Mau menyelesaikannya sebelum lanjut?} other {Latihan ini punya <strong>beberapa skenario bonus</strong>. Mau menyelesaikannya sebelum lanjut?}}",
         "tidyCode": "Rapikan kode",
         "solveBonuses": "{count, plural, one {Selesaikan Bonus} other {Selesaikan Bonus}}",

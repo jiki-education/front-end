@@ -83,10 +83,7 @@
       "subtitle": "Prepariamo la tua esperienza di apprendimento"
     },
     "localeBanner": {
-      "prefix": "Stai visualizzando la versione in {language} di questa pagina.",
-      "cta": "Passa a {language}",
-      "or": "oppure",
-      "close": "chiudi questo avviso"
+      "message": "Stai visualizzando la versione in {current} di questa pagina. <link>Passa a {offered}</link> oppure <dismiss>chiudi questo avviso</dismiss>."
     }
   },
   "common": {
@@ -1260,8 +1257,8 @@
         "titleExercise": "Esercizio completato!",
         "titleChallenge": "Sfida completata!",
         "greatWork": "Ottimo lavoro, hai completato {title}!",
-        "readyExercise": "Vuoi continuare con il prossimo esercizio?",
-        "readyChallenge": "Vuoi continuare con la prossima sfida?",
+        "messageExercise": "Ottimo lavoro, hai completato {title}! Vuoi continuare con il prossimo esercizio?",
+        "messageChallenge": "Ottimo lavoro, hai completato {title}! Vuoi continuare con la prossima sfida?",
         "bonusPrompt": "{count, plural, one {Questo esercizio ha <strong>uno scenario bonus</strong>. Vuoi risolverlo prima di andare avanti?} other {Questo esercizio ha <strong>alcuni scenari bonus</strong>. Vuoi risolverli prima di andare avanti?}}",
         "tidyCode": "Riordina il codice",
         "solveBonuses": "{count, plural, one {Risolvi il bonus} other {Risolvi i bonus}}",

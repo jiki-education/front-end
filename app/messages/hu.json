@@ -83,10 +83,7 @@
       "subtitle": "Előkészítjük a tanulási élményed"
     },
     "localeBanner": {
-      "prefix": "Az oldal {language} nyelvű verzióját látod.",
-      "cta": "Váltás erre: {language}",
-      "or": "vagy",
-      "close": "értesítés bezárása"
+      "message": "Az oldal {current} nyelvű verzióját látod. <link>Váltás erre: {offered}</link> vagy <dismiss>értesítés bezárása</dismiss>."
     }
   },
   "common": {
@@ -1270,8 +1267,8 @@
         "titleExercise": "Feladat teljesítve!",
         "titleChallenge": "Kihívás teljesítve!",
         "greatWork": "Szép munka, teljesítetted: {title}!",
-        "readyExercise": "Mehetünk tovább a következő feladatra?",
-        "readyChallenge": "Mehetünk tovább a következő kihívásra?",
+        "messageExercise": "Szép munka, teljesítetted: {title}! Mehetünk tovább a következő feladatra?",
+        "messageChallenge": "Szép munka, teljesítetted: {title}! Mehetünk tovább a következő kihívásra?",
         "bonusPrompt": "{count, plural, one {Ehhez a feladathoz tartozik <strong>egy bónuszforgatókönyv</strong> is. Megoldod, mielőtt továbblépsz?} other {Ehhez a feladathoz <strong>bónuszforgatókönyvek</strong> is tartoznak. Megoldod őket, mielőtt továbblépsz?}}",
         "tidyCode": "Kód rendezése",
         "solveBonuses": "{count, plural, one {Bónusz megoldása} other {Bónuszok megoldása}}",
