@@ -35,7 +35,7 @@
   },
   "functions": {
     "rectangle": {
-      "description": "Dibuja un rectángulo en la posición (izquierda, arriba) con el ancho, el alto y el color indicados",
+      "description": "Dibuja un rectángulo en la posición (izquierda, arriba) con el ancho, la altura y el color indicados",
       "category": "Dibujar figuras"
     },
     "hsl": {

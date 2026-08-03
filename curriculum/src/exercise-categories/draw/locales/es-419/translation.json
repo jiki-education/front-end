@@ -8,7 +8,7 @@
     "colorNotString": "El color debe ser un string",
     "ellipseInputsNumbers": "Los argumentos x, y, rx y ry deben ser números",
     "greenRange": "El verde debe estar entre 0 y 255",
-    "heightPositive": "El alto debe ser mayor que 0",
+    "heightPositive": "La altura debe ser mayor que 0",
     "hueRange": "El tono debe estar entre 0 y 360",
     "lightnessRange": "La luminosidad debe estar entre 0 y 100",
     "lineInputsNumbers": "Los argumentos x1, y1, x2 y y2 deben ser números",
@@ -20,8 +20,8 @@
   },
   "describers": {
     "rectangle": {
-      "default": "dibujó un rectángulo en las coordenadas (${arg1}, ${arg2}) con un ancho de ${arg3}, un alto de ${arg4} y un color de ${arg5}",
-      "fixedColor": "dibujó un rectángulo en las coordenadas (${arg1}, ${arg2}) con un ancho de ${arg3} y un alto de ${arg4}"
+      "default": "dibujó un rectángulo en las coordenadas (${arg1}, ${arg2}) con un ancho de ${arg3}, una altura de ${arg4} y un color de ${arg5}",
+      "fixedColor": "dibujó un rectángulo en las coordenadas (${arg1}, ${arg2}) con un ancho de ${arg3} y una altura de ${arg4}"
     },
     "triangle": {
       "default": "dibujó un triángulo con tres puntos: (${arg1}, ${arg2}), (${arg3}, ${arg4}) y (${arg5}, ${arg6}) con un color de ${arg7}",
