@@ -1,0 +1,53 @@
+{
+  "checks": {
+    "sunWrongBeginning": "Il sole non sembra giusto all'inizio.",
+    "sunWrongMiddle": "Il sole non sembra giusto verso la metà.",
+    "sunWrongEnd": "Il sole non sembra giusto verso la fine.",
+    "skyNotChangingColor": "Il cielo non sembra cambiare colore.",
+    "sunNotChangingColor": "Il sole non sembra cambiare colore."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "Anima il tramonto",
+      "description": "Anima il sole e il cielo per far sembrare che il sole stia tramontando. Il sole dovrebbe ingrandirsi e scendere, mentre sia il sole che il cielo cambiano colore."
+    }
+  },
+  "scenarios": {
+    "drawScene": {
+      "name": "Fai tramontare il sole",
+      "description": "Anima il sole e il cielo per far sembrare che il sole stia tramontando."
+    }
+  },
+  "hints": {
+    "howToAnimate": {
+      "question": "Come faccio ad animare?",
+      "answer": "Per animare, seguiamo lo stile flip-book: ridisegniamo l'intera scena ogni volta sopra la versione precedente."
+    },
+    "whereToStart": {
+      "question": "Non so da dove cominciare.",
+      "answer": "Devi disegnare 100 volte. Quindi, inizia spostando le funzioni di disegno esistenti in un ciclo repeat che viene eseguito 100 volte. Poi devi modificare le variabili (raggio, colori, ecc.) a ogni esecuzione del ciclo."
+    },
+    "whereToPutVariables": {
+      "question": "Dove metto le variabili?",
+      "answer": "Devi impostare le variabili PRIMA del ciclo, poi aggiornarle DENTRO il ciclo, PRIMA di disegnare le forme. Pensa a Jiki che crea delle scatole e le aggiorna ogni volta."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Disegna un cerchio con centro in (centerX, centerY), radius e color dati.",
+      "category": "Disegno di forme geometriche"
+    },
+    "rectangle": {
+      "description": "Disegna un rettangolo nella posizione (left, top) con width, height e color dati.",
+      "category": "Disegno di forme geometriche"
+    },
+    "rgb": {
+      "description": "Converti i valori di colore RGB (ciascuno tra 0 e 255) in una stringa di colore esadecimale.",
+      "category": "Colori"
+    },
+    "hsl": {
+      "description": "Converti i valori di colore HSL (tonalità 0-360, saturazione 0-100, luminosità 0-100) in una stringa di colore esadecimale.",
+      "category": "Colori"
+    }
+  }
+}
