@@ -20,7 +20,7 @@
       "UnexpectedDoubleIdentifier": "Jiki n'a pas compris ce que tu voulais qu'il fasse ici.",
       "MissingDeclarationKeywordWithSuggestion": "Voulais-tu écrire `{{suggestion}}` au lieu de `{{name}}` ? Une déclaration de variable doit commencer par `let` ou `const`.",
       "MissingLeftParenthesisAfterIf": "Il manque la parenthèse ouvrante `(` après le mot-clé `if`.",
-      "MissingRightBraceAfterBlock": "Il manque l'accolade fermante `}` après le bloc d'instructions.",
+      "MissingRightBraceAfterBlock": "Il manque l'accolade fermante `}` après le bloc de code.",
       "MissingRightBraceInTemplateLiteral": "Jiki n'a pas trouvé d'accolade fermante (`}`) dans ce template literal. Vérifie si tu ne l'as pas oubliée ou fait une faute de frappe. La forme correcte est ``` `...${...}...` ```.",
       "MissingRightBracketInArray": "Il manque le crochet fermant `]` pour fermer le tableau.",
       "MissingRightBracketInMemberAccess": "Il manque le crochet fermant `]` après l'indice du tableau.",
@@ -205,7 +205,7 @@
       "result_iteration_ordinal_other": "Cette ligne a démarré la {{count}}e itération avec la variable {{name}} définie à {{value}}.",
       "step_create": "Jiki a créé une nouvelle boîte appelée {{name}}.",
       "step_empty": "Jiki a regardé l'objet, a vu qu'il était vide et a décidé de ne rien faire de plus sur cette ligne.",
-      "step_put": "Jiki a mis {{value}} dans la boîte, puis a posé celle-ci sur l'étagère, prête à être utilisée dans le bloc d'instructions."
+      "step_put": "Jiki a mis {{value}} dans la boîte, puis a posé celle-ci sur l'étagère, prête à être utilisée dans le bloc de code."
     },
     "forOfStatement": {
       "result_empty": "La valeur ({{type}}) était vide, donc cette ligne n'a rien fait.",
@@ -213,15 +213,15 @@
       "result_iteration_ordinal_other": "Cette ligne a démarré la {{count}}e itération avec la variable {{name}} définie à {{value}}.",
       "step_create": "Jiki a créé une nouvelle boîte appelée {{name}}.",
       "step_empty": "Jiki a regardé la valeur ({{type}}), a vu qu'elle était vide et a décidé de ne rien faire de plus sur cette ligne.",
-      "step_put": "Jiki a mis {{value}} dans la boîte, puis a posé celle-ci sur l'étagère, prête à être utilisée dans le bloc d'instructions."
+      "step_put": "Jiki a mis {{value}} dans la boîte, puis a posé celle-ci sur l'étagère, prête à être utilisée dans le bloc de code."
     },
     "identifierExpression": {
       "lookup": "Jiki a pris la boîte appelée {{name}} sur les étagères et en a sorti {{value}}."
     },
     "ifStatement": {
-      "result_false": "La condition a été évaluée à <code>false</code>, donc le bloc d'instructions n'a pas été exécuté.",
+      "result_false": "La condition a été évaluée à <code>false</code>, donc le bloc de code n'a pas été exécuté.",
       "result_false_else": "La condition a été évaluée à <code>false</code>, donc le bloc else a été exécuté.",
-      "result_true": "La condition a été évaluée à <code>true</code>, donc le bloc d'instructions a été exécuté.",
+      "result_true": "La condition a été évaluée à <code>true</code>, donc le bloc de code a été exécuté.",
       "step_false": "Le résultat était <code>false</code>, donc Jiki a décidé de sauter le bloc if.",
       "step_false_else": "Le résultat était <code>false</code>, donc Jiki a décidé d'exécuter le bloc else.",
       "step_true": "Le résultat était <code>true</code>, donc Jiki a décidé d'exécuter le bloc if."
@@ -241,7 +241,7 @@
       "foreverStep_ordinal_other": "Jiki a démarré la {{count}}e itération de la boucle repeat.",
       "repeatResult_ordinal_one": "Cette ligne a démarré la {{count}}re itération de ce bloc repeat.",
       "repeatResult_ordinal_other": "Cette ligne a démarré la {{count}}e itération de ce bloc repeat.",
-      "repeatStep": "Jiki a augmenté son compteur interne pour cette boucle à <code>{{iteration}}</code>, a vérifié que <code>{{iteration}} &le; {{countValue}}</code> et a décidé d'exécuter le bloc d'instructions.",
+      "repeatStep": "Jiki a augmenté son compteur interne pour cette boucle à <code>{{iteration}}</code>, a vérifié que <code>{{iteration}} &le; {{countValue}}</code> et a décidé d'exécuter le bloc de code.",
       "zeroResult": "Le bloc repeat devait s'exécuter <code>0</code> fois, donc cette ligne n'a rien fait.",
       "zeroStep": "Jiki a vu que la boucle devait s'exécuter <code>0</code> fois et a donc décidé de ne rien faire de plus sur cette ligne."
     },

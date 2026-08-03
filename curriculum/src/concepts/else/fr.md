@@ -1,12 +1,12 @@
 ---
 title: "Else"
-description: "Ajouter une clause `else` après un `if` pour qu'un autre bloc d'instructions s'exécute quand la condition se révèle fausse."
+description: "Ajouter une clause `else` après un `if` pour qu'un autre bloc de code s'exécute quand la condition se révèle fausse."
 en_md5: 4dd08e94d86dd11cd54793cf64008e3d
 ---
 
 Les instructions `if` te permettent de vérifier des conditions et de n'exécuter du code que quand quelque chose est vrai. Voyons maintenant le complice de `if` : `else`.
 
-Avec une instruction `if` (_if statement_ en anglais), Jiki exécute le bloc d'instructions quand la condition est vraie, et il saute ce bloc quand elle est fausse. Mais si tu veux que Jiki fasse une chose quand la condition est vraie et une autre quand elle est fausse ? C'est justement à ça que sert else. On peut placer une clause else après l'accolade fermante du if, et Jiki l'exécutera si la condition du if est fausse. Si on reprend l'exemple du videur de la boîte de nuit, on a maintenant le choix entre ouvrir la porte et renvoyer la personne, ce qui vaut sans doute mieux que de l'ignorer complètement comme on le faisait jusqu'ici. Imagine une bifurcation sur la route : Jiki arrive à cette bifurcation, il vérifie la condition, puis il part d'un côté si elle est vraie, ou de l'autre si elle est fausse. Mais il ne prend jamais les deux chemins à la fois.
+Avec une instruction `if` (_if statement_ en anglais), Jiki exécute le bloc de code quand la condition est vraie, et il saute ce bloc quand elle est fausse. Mais si tu veux que Jiki fasse une chose quand la condition est vraie et une autre quand elle est fausse ? C'est justement à ça que sert else. On peut placer une clause else après l'accolade fermante du if, et Jiki l'exécutera si la condition du if est fausse. Si on reprend l'exemple du videur de la boîte de nuit, on a maintenant le choix entre ouvrir la porte et renvoyer la personne, ce qui vaut sans doute mieux que de l'ignorer complètement comme on le faisait jusqu'ici. Imagine une bifurcation sur la route : Jiki arrive à cette bifurcation, il vérifie la condition, puis il part d'un côté si elle est vraie, ou de l'autre si elle est fausse. Mais il ne prend jamais les deux chemins à la fois.
 
 ```javascript
 if (age >= 21) {

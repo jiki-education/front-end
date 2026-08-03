@@ -24,7 +24,7 @@ Pour faire ça en code, on va utiliser notre premier mot-clé (_keyword_ en angl
   height="400"
 />
 
-Le mot-clé `repeat` fait exactement ce que je viens de décrire. Il dit à Jiki : « Répète ce que je vais te dire ensuite, autant de fois que je te l'indique. » Regarde ce code. D'abord, on utilise le mot-clé `repeat` pour dire à Jiki qu'il va faire quelque chose plusieurs fois. Ensuite, on met entre parenthèses le nombre de fois que Jiki doit répéter la chose, puis viennent ces accolades (`{}`), à l'intérieur desquelles se trouvent les choses qu'on veut que Jiki répète. Ce schéma est incroyablement courant en programmation : on écrit un mot-clé, généralement accompagné d'une information (ici, le nombre de fois qu'il faut faire quelque chose), puis un bloc d'instructions (_code block_ en anglais) entre accolades. Donc, pour revenir au monde du labyrinthe, plutôt que d'écrire `move`, `move`, `move`, `move`, on peut écrire : répète quatre fois `move`.
+Le mot-clé `repeat` fait exactement ce que je viens de décrire. Il dit à Jiki : « Répète ce que je vais te dire ensuite, autant de fois que je te l'indique. » Regarde ce code. D'abord, on utilise le mot-clé `repeat` pour dire à Jiki qu'il va faire quelque chose plusieurs fois. Ensuite, on met entre parenthèses le nombre de fois que Jiki doit répéter la chose, puis viennent ces accolades (`{}`), à l'intérieur desquelles se trouvent les choses qu'on veut que Jiki répète. Ce schéma est incroyablement courant en programmation : on écrit un mot-clé, généralement accompagné d'une information (ici, le nombre de fois qu'il faut faire quelque chose), puis un bloc de code (_code block_ en anglais) entre accolades. Donc, pour revenir au monde du labyrinthe, plutôt que d'écrire `move`, `move`, `move`, `move`, on peut écrire : répète quatre fois `move`.
 
 ```javascript
 repeat(4) {
@@ -66,7 +66,7 @@ Il reste une dernière chose à savoir : garder un code propre et bien rangé d
 <img
   class="concept-image"
   src="/static/images/concept-assets/repeat/multiple-things-in-loop.webp"
-  alt="Jiki qui montre l'indentation et le retour à la ligne qui gardent le bloc d'instructions d'une boucle bien net"
+  alt="Jiki qui montre l'indentation et le retour à la ligne qui gardent le bloc de code d'une boucle bien net"
   width="500"
   height="398"
 />
