@@ -4,7 +4,7 @@ description: "Anima una scena di un bellissimo tramonto."
 en_md5: 7c3be1e23fc2e78ff399e91c6aef0477
 ---
 
-Il tuo compito è animare una scena di tramonto che duri 100 iterazioni. Dovrebbe apparire così (il tremolio è esattamente quello che vedi anche con i flipbook!):
+Il tuo compito è animare una scena del tramonto che duri 100 iterazioni. Dovrebbe apparire così (il tremolio è esattamente quello che vedi anche con i flipbook!):
 
 <img src="/static/images/exercise-assets/sunset/example.webp" alt="Tramonto" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 16px;" />
 
