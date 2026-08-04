@@ -1,7 +1,7 @@
 ---
 title: "Tramonto"
 description: "Anima una scena di un bellissimo tramonto."
-en_md5: b904e81f239e19005080f2a7cc484c7f
+en_md5: 7c3be1e23fc2e78ff399e91c6aef0477
 ---
 
 Il tuo compito è animare una scena di tramonto che duri 100 iterazioni. Dovrebbe apparire così (il tremolio è esattamente quello che vedi anche con i flipbook!):
@@ -13,7 +13,7 @@ Abbiamo disegnato la scena iniziale per te. Devi animare alcune cose, usando lo 
 - **La dimensione del sole**: Deve iniziare con un raggio di 5 e crescere di 0,2 a ogni iterazione.
 - **La posizione del sole**: Ha un centro iniziale di (50, 10) e deve scendere nel cielo di 1 a ogni iterazione.
 - **Il colore del sole**: Anima il passaggio dal giallo all'arancione usando RGB. Puoi scegliere i valori che preferisci, ma noi ti consigliamo di partire da `255, 237, 0` e ridurre il verde per un bell'effetto.
-- **Il colore del cielo**: Usa HSL per animare il colore del cielo. Dovrai aumentare la tonalità (_hue (H)_ in inglese) durante l'animazione. Scegli i valori che ti sembrano belli. Noi abbiamo scelto un tramonto rosa nell'animazione qui sopra, ma puoi scegliere tantissime atmosfere diverse!
+- **Il colore del cielo**: Usa HSL per animare il colore del cielo. Dovrai aumentare la tonalità (_hue_ in inglese) durante l'animazione. Scegli i valori che ti sembrano belli. Noi abbiamo scelto un tramonto rosa nell'animazione qui sopra, ma puoi scegliere tantissime atmosfere diverse!
 
 Ricorda: per animare in stile flip-book, disegniamo semplicemente l'intera scena di nuovo sopra la versione precedente.
 

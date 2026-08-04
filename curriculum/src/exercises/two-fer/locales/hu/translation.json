@@ -8,8 +8,8 @@
       "description": "Írj egy twoFer függvényt, amely kap egy nevet, és a 'One for [name], one for me.' mondatot adja vissza. Ha nincs megadva név (üres string), a név helyett a 'you' szót használd."
     },
     "solveInSixLines": {
-      "name": "Oldd meg hat sor kódból",
-      "description": "Meg tudod ezt oldani mindössze hat sor kódból?"
+      "name": "Oldd meg hat sor kóddal",
+      "description": "Meg tudod ezt oldani mindössze hat sor kóddal?"
     }
   },
   "scenarios": {
@@ -27,7 +27,7 @@
     },
     "bonus1": {
       "name": "Hat sor kód",
-      "description": "Oldd meg a feladatot mindössze hat sor kódból."
+      "description": "Oldd meg a feladatot mindössze hat sor kóddal."
     }
   },
   "hints": {

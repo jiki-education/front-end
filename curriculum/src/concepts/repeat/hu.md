@@ -61,7 +61,7 @@ repeat(4) {
 
 Ezeket az ismétlő utasításokat ciklusnak (_loop_ angolul) hívjuk, és sokféle ciklus létezik, amelyek mind egy kicsit másképp működnek.
 
-Még egy dolgot érdemes tudni: amikor ciklusokkal dolgozol, elengedhetetlen, hogy a kódod rendezett és áttekinthető maradjon. Ha a kódodnak jó a vizuális szerkezete, ránézésre látszik, mi történik benne. Ha viszont nem, ha elfelejted szépen behúzni a sorokat, vagy összevissza húzod be őket, minden nagyon gyorsan zavarossá válik. Ezért ebben a kurzusban mindig egy szabályt követünk. A nyitó kapcsos zárójelet mindig ugyanabba a sorba írod, mint a `repeat` utasítást (_statement_ angolul). A záró kapcsos zárójelet mindig külön sorba írod az utasítás után, a köztük lévő kódot pedig mindig két szóközzel húzod be. Így minden szépen rendezett marad, és ha ezt elfelejted, vagy más mintát próbálsz követni, hibát kapsz.
+Még egy dolgot érdemes tudni: amikor ciklusokkal dolgozol, elengedhetetlen, hogy a kódod rendezett és áttekinthető maradjon. Ha a kódodnak jó a vizuális szerkezete, ránézésre látszik, mi történik benne. Ha viszont nem, ha elfelejted szépen behúzni a sorokat, vagy összevissza húzod be őket, minden nagyon gyorsan zavarossá válik. Ezért ezen a kurzuson mindig egy szabályt követünk. A nyitó kapcsos zárójelet mindig ugyanabba a sorba írod, mint a `repeat` utasítást (_statement_ angolul). A záró kapcsos zárójelet mindig külön sorba írod az utasítás után, a köztük lévő kódot pedig mindig két szóközzel húzod be. Így minden szépen rendezett marad, és ha ezt elfelejted, vagy más mintát próbálsz követni, hibát kapsz.
 
 <img
   class="concept-image"

@@ -25,6 +25,6 @@ A feladatod eldönteni, hogy mit mondasz, amikor odaadod a plusz sütit.
 | `twoFer("Jeremy")` | `"One for Jeremy, one for me."` |
 | `twoFer("")`       | `"One for you, one for me."`    |
 
-Bónuszként: meg tudod ezt írni **mindössze 6 sor kódból**?
+Bónuszként: meg tudod ezt oldani **mindössze 6 sor kóddal**?
 
 Sok szerencsét!
