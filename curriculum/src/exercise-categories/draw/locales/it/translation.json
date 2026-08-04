@@ -32,8 +32,8 @@
       "fixedColor": "ha disegnato un cerchio con il centro in (${arg1}, ${arg2}) ed un raggio di ${arg3}"
     },
     "ellipse": {
-      "default": "ha disegnato un'ellisse con il centro in (${arg1}, ${arg2}), una larghezza radiale di ${arg3}, un'altezza radiale di ${arg4} ed il colore ${arg5}",
-      "fixedColor": "ha disegnato un'ellisse con il centro in (${arg1}, ${arg2}), una larghezza radiale di ${arg3} ed un'altezza radiale di ${arg4}"
+      "default": "ha disegnato un'ellisse con il centro in (${arg1}, ${arg2}), un raggio orizzontale di ${arg3}, un raggio verticale di ${arg4} ed il colore ${arg5}",
+      "fixedColor": "ha disegnato un'ellisse con il centro in (${arg1}, ${arg2}), un raggio orizzontale di ${arg3} ed un raggio verticale di ${arg4}"
     },
     "line": {
       "default": "ha disegnato una linea da (${arg1}, ${arg2}) a (${arg3}, ${arg4}) con il colore ${arg5}",
