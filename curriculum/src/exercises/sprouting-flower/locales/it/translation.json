@@ -1,15 +1,15 @@
 {
   "checks": {
-    "firstFlowerHeadWrong": "Il fiore nel primo fotogramma non è corretto.",
-    "finalFlowerHeadWrong": "Il fiore nell'ultimo fotogramma non è corretto.",
-    "firstPistilWrong": "Il pistillo nel primo fotogramma non è corretto.",
-    "finalPistilWrong": "Il pistillo nell'ultimo fotogramma non è corretto.",
-    "firstStemWrong": "Il gambo nel primo fotogramma non è corretto.",
-    "finalStemWrong": "Il gambo nell'ultimo fotogramma non è corretto.",
-    "firstLeftLeafWrong": "La foglia sinistra nel primo fotogramma non è corretta.",
-    "finalLeftLeafWrong": "La foglia sinistra nell'ultimo fotogramma non è corretta.",
-    "firstRightLeafWrong": "La foglia destra nel primo fotogramma non è corretta.",
-    "finalRightLeafWrong": "La foglia destra nell'ultimo fotogramma non è corretta."
+    "firstFlowerHeadWrong": "Il fiore nel primo riquadro non è corretto.",
+    "finalFlowerHeadWrong": "Il fiore nell'ultimo riquadro non è corretto.",
+    "firstPistilWrong": "Il pistillo nel primo riquadro non è corretto.",
+    "finalPistilWrong": "Il pistillo nell'ultimo riquadro non è corretto.",
+    "firstStemWrong": "Il gambo nel primo riquadro non è corretto.",
+    "finalStemWrong": "Il gambo nell'ultimo riquadro non è corretto.",
+    "firstLeftLeafWrong": "La foglia sinistra nel primo riquadro non è corretta.",
+    "finalLeftLeafWrong": "La foglia sinistra nell'ultimo riquadro non è corretta.",
+    "firstRightLeafWrong": "La foglia destra nel primo riquadro non è corretta.",
+    "finalRightLeafWrong": "La foglia destra nell'ultimo riquadro non è corretta."
   },
   "tasks": {
     "drawScene": {
@@ -30,7 +30,7 @@
     },
     "growEachIteration": {
       "question": "Come faccio a far salire e crescere il fiore a ogni iterazione?",
-      "answer": "All'inizio del corpo del ciclo, prima di qualsiasi disegno, aggiorna `flowerCenterY` e `flowerRadius` con i nuovi valori per questo fotogramma. Le istruzioni specificano gli incrementi. L'importante è aggiornarli *prima* delle chiamate di disegno, non dopo."
+      "answer": "All'inizio del corpo del ciclo, prima di qualsiasi disegno, aggiorna `flowerCenterY` e `flowerRadius` con i nuovi valori per questo riquadro. Le istruzioni specificano gli incrementi. L'importante è aggiornarli *prima* delle chiamate di disegno, non dopo."
     },
     "stemAttached": {
       "question": "Come faccio a tenere il gambo attaccato al fiore mentre sale?",
@@ -46,11 +46,11 @@
     },
     "firstFlowerCoords": {
       "question": "Puoi darmi le coordinate del primo fiore per verificare?",
-      "answer": "Alla prima iterazione, le forme dovrebbero essere:\n\n- Fiore: `circle(50, 89, 0.4)`\n- Pistillo: `circle(50, 89, 0.1)`\n- Gambo: `rectangle(49.95, 89, 0.1, 1)`\n- Foglia sinistra: `ellipse(49.75, 89.5, 0.2, 0.08)`\n- Foglia destra: `ellipse(50.25, 89.5, 0.2, 0.08)`\n\nAttiva l'interruttore delle informazioni sulla barra di riproduzione per vedere i tuoi valori in quel fotogramma."
+      "answer": "Alla prima iterazione, le forme dovrebbero essere:\n\n- Fiore: `circle(50, 89, 0.4)`\n- Pistillo: `circle(50, 89, 0.1)`\n- Gambo: `rectangle(49.95, 89, 0.1, 1)`\n- Foglia sinistra: `ellipse(49.75, 89.5, 0.2, 0.08)`\n- Foglia destra: `ellipse(50.25, 89.5, 0.2, 0.08)`\n\nAttiva l'interruttore delle informazioni sulla barra di riproduzione per vedere i tuoi valori in quel riquadro."
     },
     "finalFlowerCoords": {
       "question": "Puoi darmi le coordinate del fiore finale per verificare?",
-      "answer": "All'ultima iterazione, le forme dovrebbero essere:\n\n- Fiore: `circle(50, 30, 24)`\n- Pistillo: `circle(50, 30, 6)`\n- Gambo: `rectangle(47, 30, 6, 60)`\n- Foglia sinistra: `ellipse(35, 60, 12, 4.8)`\n- Foglia destra: `ellipse(65, 60, 12, 4.8)`\n\nAttiva l'interruttore delle informazioni sulla barra di riproduzione per vedere i tuoi valori in quel fotogramma."
+      "answer": "All'ultima iterazione, le forme dovrebbero essere:\n\n- Fiore: `circle(50, 30, 24)`\n- Pistillo: `circle(50, 30, 6)`\n- Gambo: `rectangle(47, 30, 6, 60)`\n- Foglia sinistra: `ellipse(35, 60, 12, 4.8)`\n- Foglia destra: `ellipse(65, 60, 12, 4.8)`\n\nAttiva l'interruttore delle informazioni sulla barra di riproduzione per vedere i tuoi valori in quel riquadro."
     }
   },
   "functions": {

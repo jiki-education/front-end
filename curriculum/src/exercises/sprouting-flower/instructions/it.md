@@ -8,13 +8,13 @@ Il tuo compito è creare un fiore che cresca nell'arco di `60` iterazioni.
 
 L'animazione dovrebbe apparire più o meno così.
 
-<img src="/static/images/exercise-assets/sprouting-flower/frames.webp" alt="Fotogrammi che mostrano un fiore che cresce dal terreno nell'arco di 60 iterazioni" style="width: 100%; max-width: 600px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+<img src="/static/images/exercise-assets/sprouting-flower/frames.webp" alt="Riquadri che mostrano un fiore che cresce dal terreno nell'arco di 60 iterazioni" style="width: 100%; max-width: 600px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
 La chiave di questo esercizio sta nel costruire relazioni tra i vari elementi. Si tratta di un'abilità fondamentale nella programmazione.
 
 **Prima di leggere il resto delle istruzioni**, prenditi qualche minuto per capire concettualmente come realizzarlo. Scrivi su un foglio i passi che pensi di dover seguire.
 
-**Una volta trovata una soluzione** che ti soddisfi (o dopo aver gettato la spugna), **scorri verso il basso** per vedere le istruzioni.
+**Una volta trovata una soluzione** che ti soddisfi (o dopo esserti arreso), **scorri verso il basso** per vedere le istruzioni.
 
 ---
 
