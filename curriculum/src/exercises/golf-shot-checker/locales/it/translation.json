@@ -1,0 +1,82 @@
+{
+  "checks": {
+    "wrongDistance": "La palla non ha percorso la distanza corretta per questo tiro. Dovrebbe percorrere esattamente la lunghezza del tiro dal tee.",
+    "missingPositions": "La palla deve rotolare attraverso ogni posizione un passo alla volta.",
+    "stayOnGrassPlain": "La palla dovrebbe restare sull'erba per questo tiro, non dovrebbe cadere nella buca.",
+    "stayOnGrassOvershot": "La palla ha superato la buca, quindi dovrebbe restare sull'erba e non cadere dentro.",
+    "droppedIncorrectly": "La palla ha raggiunto la buca ma non è scesa correttamente dentro.",
+    "noFireworksPeriod": "Non dovevi sparare i fuochi d'artificio.",
+    "noFireworksNoPeriod": "Non dovevi sparare i fuochi d'artificio",
+    "noFireworksAtEnd": "Non dovevi sparare i fuochi d'artificio alla fine.",
+    "shouldFireFireworks": "Dovresti sparare i fuochi d'artificio alla fine."
+  },
+  "tasks": {
+    "checkShot": {
+      "name": "Controlla se il tiro atterra nella buca",
+      "description": "Fai rotolare la palla in base alla lunghezza del tiro e, se atterra sopra la buca, falla scendere! Poi spara i fuochi d'artificio."
+    }
+  },
+  "scenarios": {
+    "tooShort": {
+      "name": "Tiro troppo corto",
+      "description": "Il golfista colpisce la palla a 23: non raggiunge la buca."
+    },
+    "justTooShort": {
+      "name": "Appena troppo corto",
+      "description": "Il golfista colpisce la palla a 57 e non rotola dentro per un pelo."
+    },
+    "justTooFar": {
+      "name": "Appena troppo lungo",
+      "description": "Il golfista colpisce la palla a 63 e questa esce appena dall'altro lato."
+    },
+    "tooLong": {
+      "name": "Tiro troppo lungo",
+      "description": "Il golfista colpisce la palla a 68 e va oltre la buca."
+    },
+    "justInsideLeft": {
+      "name": "Appena in buca",
+      "description": "Il golfista colpisce la palla a 58: raggiunge appena la buca!"
+    },
+    "justInsideRight": {
+      "name": "Quasi troppo lungo ma ok!",
+      "description": "Il golfista colpisce la palla a 62 e rimane appena nella buca!"
+    }
+  },
+  "hints": {
+    "howDoIRollRightDistance": {
+      "question": "Come faccio a far rotolare la palla per la giusta distanza a ogni tiro?",
+      "answer": "Usa `getShotLength()` per scoprire quanto lontano ha colpito la palla il golfista e memorizza il risultato in una variabile. Così saprai quante volte farla rotolare."
+    },
+    "howDoIMoveOneStep": {
+      "question": "Come faccio a muovere la palla un passo alla volta invece di farla saltare fino alla fine?",
+      "answer": "Mantieni una variabile per la posizione `x` della palla. A ogni giro del ciclo, aumentala di uno e poi fai rotolare la palla nella nuova posizione."
+    },
+    "whenShouldBallDrop": {
+      "question": "Quando dovrebbe scendere la palla nella buca?",
+      "answer": "Solo quando il tiro atterra nella buca. Controlla se la lunghezza del tiro è nell'intervallo vincente verificando insieme i limiti inferiore e superiore in un'unica condizione."
+    },
+    "whenShouldFireworksFire": {
+      "question": "Quando dovrebbero essere sparati i fuochi d'artificio?",
+      "answer": "Solo per un tiro che è atterrato nella buca, e solo quando la palla ha finito di scendere fino in fondo. Tieni insieme la discesa e i fuochi d'artificio nella stessa condizione."
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "Sposta la palla nella posizione **(x, y)**.",
+      "category": "Movimento"
+    },
+    "getShotLength": {
+      "description": "Restituisce la **lunghezza del tiro**, cioè quante unità la palla percorre verso destra.",
+      "category": "Informazione"
+    },
+    "fireFireworks": {
+      "description": "Spara fuochi d'artificio celebrativi!",
+      "category": "Azione"
+    }
+  },
+  "describers": {
+    "moveTo": "ha spostato la palla nella posizione (${arg1}, ${arg2})",
+    "getShotLength": "ha recuperato la lunghezza del tiro",
+    "fireFireworks": "ha sparato fuochi d'artificio celebrativi"
+  }
+}

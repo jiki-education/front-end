@@ -1,0 +1,68 @@
+{
+  "describers": {
+    "move": "ha spostato il cannone laser a destra"
+  },
+  "checks": {
+    "notShotAllAliens": "Non hai abbattuto tutti gli alieni."
+  },
+  "tasks": {
+    "conditionalShoot": {
+      "name": "Usa un'istruzione if per sparare solo quando c'è un alieno sopra",
+      "description": "Spostati lungo lo schermo, controllando ogni posizione. Se c'è un alieno sopra di te, sparagli. Altrimenti, vai avanti."
+    }
+  },
+  "scenarios": {
+    "conditional1": {
+      "name": "Alieni sparsi",
+      "description": "Alieni sparsi su due file con spazi vuoti"
+    },
+    "conditional2": {
+      "name": "Alieni radi",
+      "description": "Meno alieni con spazi vuoti più ampi"
+    },
+    "conditional3": {
+      "name": "File alterne",
+      "description": "Alieni che si alternano tra la fila superiore e quella inferiore"
+    },
+    "conditional4": {
+      "name": "Concentrati in basso",
+      "description": "La maggior parte degli alieni nella fila inferiore"
+    },
+    "conditional5": {
+      "name": "Formazione densa",
+      "description": "Molti alieni ammassati su entrambe le file"
+    }
+  },
+  "hints": {
+    "howToDecide": {
+      "question": "Come decido se sparare o no?",
+      "answer": "Usa un'istruzione `if` che controlla `isAlienAbove()`. Chiama `shoot()` solo quando restituisce `true`."
+    },
+    "whatIsAlienAboveGives": {
+      "question": "Cosa restituisce `isAlienAbove()`?",
+      "answer": "Restituisce `true` se c'è un alieno direttamente sopra il tuo cannone, e `false` altrimenti. Puoi inserirlo direttamente in una condizione `if`."
+    },
+    "checkEveryColumn": {
+      "question": "Come controllo ogni colonna senza scrivere lo stesso codice più e più volte?",
+      "answer": "Avvolgi la logica di controllo e sparo condizionale in un ciclo `repeat`, chiamando `move()` alla fine di ogni iterazione per passare alla colonna successiva."
+    },
+    "keepShootingEmpty": {
+      "question": "Continuo a sparare alle colonne vuote e perdo. Cosa sbaglio?",
+      "answer": "Assicurati che `shoot()` sia all'interno del blocco `if`, non dopo. La chiamata deve avvenire solo quando `isAlienAbove()` è `true`."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Sposta il cannone laser **di una posizione a destra**. Se esci dal bordo destro dello schermo, perdi!",
+      "category": "Movimento"
+    },
+    "shoot": {
+      "description": "Spara il laser verso l'alto. **Spara solo quando c'è un alieno sopra di te**, altrimenti perdi la partita!",
+      "category": "Azione"
+    },
+    "isAlienAbove": {
+      "description": "Restituisce `true` se c'è un alieno direttamente sopra il cannone laser, oppure `false` se non c'è. Usala per controllare prima di sparare!",
+      "category": "Rilevamento"
+    }
+  }
+}
