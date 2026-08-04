@@ -20,7 +20,7 @@ Mais aujourd'hui, tu as toutes les connaissances qu'il faut pour te sentir à l'
 
 Une boucle for se compose de trois parties : une initialisation (_initializer_ en anglais), une condition et une incrémentation (_increment_ en anglais).
 
-L'initialisation, ce petit bout `let i = 0`, s'exécute au tout début de la boucle. Elle ne s'exécute qu'une seule fois, et ici elle crée une boîte appelée `i` qui vaut zéro. `i` est simplement une lettre qui sert à suivre une valeur au fil de la boucle ; traditionnellement, on utilise `i` ou `x` pour ça.
+L'initialisation, cette petite partie `let i = 0`, s'exécute au tout début de la boucle. Elle ne s'exécute qu'une seule fois, et ici elle crée une boîte appelée `i` qui vaut zéro. `i` est simplement une lettre qui sert à suivre une valeur au fil de la boucle ; traditionnellement, on utilise `i` ou `x` pour ça.
 
 La partie suivante, la condition, s'exécute à chaque fois, juste avant chaque itération de la boucle.
 
@@ -30,7 +30,7 @@ Si elle ne l'est pas, on ne l'exécute pas.
 
 Et enfin vient l'incrémentation, le `i++`.
 
-`i++` veut simplement dire la même chose que `i = i + 1`. C'est juste un raccourci, une façon d'augmenter `i` de un à chaque fois.
+`i++` veut simplement dire la même chose que `i = i + 1`. C'est juste un raccourci, une façon d'augmenter `i` de un à chaque tour de boucle.
 
 Donc dans cet exemple, on met `i` à zéro. On vérifie si `i` est inférieur à deux, ce qui est le cas, donc on exécute la boucle.
 
@@ -53,8 +53,8 @@ i = i + 1 // 2
 i < 2 // false - on sort de la boucle
 ```
 
-Et on repart une troisième fois. Cette fois, on vérifie si deux est inférieur à deux, et comme ce n'est pas le cas, on n'exécute pas la boucle ; on en a même complètement terminé avec elle. On passe simplement au code qui suit. Au final, on a exécuté la boucle deux fois, et c'est bon à savoir : tant qu'on part de zéro avec une condition `i < n`, le nombre `n` correspond au nombre de fois où la boucle s'exécutera.
+Et on repart une troisième fois. Cette fois, on vérifie si deux est inférieur à deux, et comme ce n'est pas le cas, on n'exécute pas la boucle ; on en a terminé avec elle. On passe simplement au code suivant. Au final, on a exécuté la boucle deux fois, et c'est bon à savoir : tant qu'on part de zéro avec une condition `i < n`, le nombre `n` correspond au nombre de fois où la boucle s'exécutera.
 
 Donc, c'est la même chose que d'écrire repeat two.
 
-Ce n'est donc pas difficile, mais c'est bien plus alambiqué que d'écrire simplement repeat two. L'avantage d'une boucle for, c'est que tu peux faire ce que tu veux dans ces trois emplacements. Tu peux partir d'un autre nombre, avancer de plus de un à chaque fois, compter à rebours, ou utiliser une condition qui dépend d'autre chose qu'un simple compteur. C'est cette flexibilité qui fait des boucles for le véritable cheval de bataille de JavaScript.
+Ce n'est donc pas difficile, mais c'est bien plus alambiqué que d'écrire simplement repeat two. L'avantage d'une boucle for, c'est que tu peux faire ce que tu veux dans ces trois emplacements. Tu peux partir d'un autre nombre, avancer de plus de un à chaque fois, compter à rebours, ou utiliser une condition qui dépend d'autre chose qu'un simple compteur. C'est cette flexibilité qui fait des boucles for le véritable couteau suisse de JavaScript.
