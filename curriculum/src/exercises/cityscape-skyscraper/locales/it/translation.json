@@ -1,6 +1,6 @@
 {
   "checks": {
-    "totalCells": "Celle attese {{expected}}, ma trovate {{got}}.",
+    "totalCells": "Attese {{expected}} celle, ma trovate {{got}}.",
     "groundWalls": "Il piano terra dovrebbe avere muri alle posizioni (17, 2) e (21, 2).",
     "groundGlass": "Il piano terra dovrebbe avere vetri alle posizioni (18, 2) e (20, 2).",
     "groundEntrance": "Il piano terra dovrebbe avere un ingresso alla posizione (19, 2).",
@@ -42,7 +42,7 @@
   "hints": {
     "whereToStart": {
       "question": "Non so da dove iniziare.",
-      "answer": "Per prima cosa prova a disegnare un muro, un po' di vetro e un ingresso per verificare di aver capito le funzioni. Poi disegna il piano terra - è sempre uguale. Quindi usa la funzione `numFloors()` per scoprire il numero totale di piani e disegna i piani rimanenti e poi il tetto."
+      "answer": "Per prima cosa prova a disegnare un muro, un po' di vetro e un ingresso per verificare di aver capito le funzioni. Poi disegna il piano terra: è sempre uguale. Quindi usa la funzione `numFloors()` per scoprire il numero totale di piani e disegna i piani rimanenti e poi il tetto."
     },
     "tooManyTooFewFloors": {
       "question": "Ho troppi/troppo pochi piani.",
