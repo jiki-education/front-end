@@ -1,5 +1,5 @@
 ---
-title: "Pupazzo di neve"
+title: "Semplice pupazzo di neve"
 description: "Costruisci un pupazzo di neve con tre cerchi."
 en_md5: b8c4b86ef84ef659b9e869fa6504c672
 ---

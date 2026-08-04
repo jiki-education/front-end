@@ -1,6 +1,6 @@
 ---
-title: "Casa in disordine"
-description: "Riordina i pezzi di una casa in disordine."
+title: "Casa stravolta"
+description: "Riordina i pezzi di una casa stravolta."
 en_md5: a3855defc91d0911efc648ccf4c5a215
 ---
 
@@ -10,7 +10,7 @@ Lo scopo di questo esercizio è incoraggiare un pensiero lento e meticoloso. Dov
 
 Prova a posizionare ogni pezzo nell'ordine in cui sono elencati qui sotto. Quando tutto è corretto, dovresti ottenere una scena simile a questa:
 
-<img src="/static/images/exercise-assets/jumbled-house/jumbled-house-finished.webp" alt="Casa in disordine" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+<img src="/static/images/exercise-assets/jumbled-house/jumbled-house-finished.webp" alt="Casa stravolta" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
 ### Istruzioni
 
