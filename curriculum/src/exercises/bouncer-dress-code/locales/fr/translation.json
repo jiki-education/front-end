@@ -4,7 +4,7 @@
       "champagne": "C'est une adulte en tenue de soirée, elle aurait donc dû se voir offrir du champagne, mais ça n'a pas été le cas.",
       "canapes": "Les invités en tenue de soirée se voient aussi offrir des canapés, mais elle n'en a pas eu.",
       "letIn": "Toute personne en tenue de soirée doit pouvoir entrer, mais elle n'y a pas été autorisée.",
-      "notTurnedAway": "Un invité en tenue de soirée ne doit PAS être refoulé."
+      "notTurnedAway": "Une invitée en tenue de soirée ne doit PAS être refoulée."
     },
     "tuxedo": {
       "champagne": "Il a 18 ans, ce qui compte comme adulte, il aurait donc dû se voir offrir du champagne, mais ça n'a pas été le cas.",
@@ -14,9 +14,9 @@
     },
     "dress": {
       "canapes": "Elle est en tenue chic, elle aurait donc dû se voir offrir des canapés, mais ça n'a pas été le cas.",
-      "noChampagne": "Le champagne est réservé aux personnes en tenue de soirée, un invité en tenue chic ne doit donc pas s'en voir offrir.",
+      "noChampagne": "Le champagne est réservé aux personnes en tenue de soirée, une invitée en tenue chic ne doit donc pas s'en voir offrir.",
       "letIn": "Une invitée en tenue chic doit pouvoir entrer, mais elle n'y a pas été autorisée.",
-      "notTurnedAway": "Un invité en tenue chic ne doit PAS être refoulé."
+      "notTurnedAway": "Une invitée en tenue chic ne doit PAS être refoulée."
     },
     "suit": {
       "canapes": "Il est en tenue chic, il aurait donc dû se voir offrir des canapés, mais ça n'a pas été le cas.",
