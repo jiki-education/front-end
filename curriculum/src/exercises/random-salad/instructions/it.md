@@ -14,6 +14,6 @@ Stai creando un'insalata con foglie, pomodori, olive e crostini. Hai concordato 
 - Le olive hanno un sapore forte: usale con parsimonia o sovrasteranno tutto il resto. Vuoi almeno un'oliva, ma non più della metà del numero di pomodori.
 - E la regola fondamentale: il conteggio di tutti gli ingredienti deve essere generato in modo casuale!
 
-Inizia **cliccando su Esegui il codice** alcune volte per vedere come funziona l'insalata. Una volta che hai preso confidenza con l'esercizio (gioco di parole voluto), usa `Math.randomInt` (genera un numero intero casuale) e segui le regole sopra per determinare le quantità corrette degli ingredienti:
+Inizia **cliccando su Esegui il codice** alcune volte per vedere come funziona l'insalata. Una volta che hai preso confidenza con l'esercizio, usa `Math.randomInt` (genera un numero intero casuale) e segui le regole sopra per determinare le quantità corrette degli ingredienti:
 
 Divertiti a provare diverse combinazioni!

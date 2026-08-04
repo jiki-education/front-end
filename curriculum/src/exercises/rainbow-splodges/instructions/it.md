@@ -13,7 +13,7 @@ Devi disegnare **200 cerchi** con raggi casuali, in posizioni casuali, con color
 Ci sono solo tre regole:
 
 1. Mantieni la saturazione e la luminosità nell'intervallo tra 20 e 80. Puoi semplicemente usare valori fissi (per esempio 50 per entrambe, che probabilmente darà un aspetto migliore) oppure puoi osare di più e variarle entrambe.
-2. Il raggio dei cerchi deve essere maggiore di 1 e minore di 30 (altrimenti i cerchi saranno mooooolto troppo grandi!). Puoi scegliere un intervallo diverso, ma non puoi andare oltre questi limiti.
+2. Il raggio dei cerchi deve essere maggiore di 1 e minore di 30 (altrimenti i cerchi saranno troooppo grandi!). Puoi scegliere un intervallo diverso, ma non puoi andare oltre questi limiti.
 3. I cerchi non possono uscire dal riquadro. Tuttavia, molti cerchi dovrebbero toccare i bordi.
 
 Sii creativo. Prova stili diversi e guarda quale ti sembra più bello. Divertiti!

@@ -27,7 +27,7 @@
   "hints": {
     "leavesExample": {
       "question": "Dammi un esempio di come calcolare le foglie",
-      "answer": "Usa `let leaves = Math.randomInt(40, 100)` per generare una quantità casuale di foglie di insalata che puoi poi usare nelle altre funzioni."
+      "answer": "Usa `let leaves = Math.randomInt(40, 100)` per generare una quantità casuale di foglie di insalata che puoi successivamente usare nelle altre funzioni."
     },
     "leavesCount": {
       "question": "Di quante foglie ho bisogno?",
