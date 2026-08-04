@@ -1,6 +1,6 @@
 {
   "checks": {
-    "flowerCount_one": "Il proprietario si aspettava di vedere {{count}} fiore piantato. Ma tu ne hai piantato {{got}}.",
+    "flowerCount_one": "Il proprietario si aspettava di vedere {{count}} fiore piantato. Ma tu ne hai piantati {{got}}.",
     "flowerCount_other": "Il proprietario si aspettava di vedere {{count}} fiori piantati. Ma tu ne hai piantati {{got}}.",
     "flowerAtPosition": "Doveva esserci un fiore alla posizione {{position}}, ma non l'ho trovato.",
     "strayFlower": "Trovato un fiore alla posizione {{position}}, che non è dove il proprietario lo voleva. I fiori devono essere distanziati uniformemente."
