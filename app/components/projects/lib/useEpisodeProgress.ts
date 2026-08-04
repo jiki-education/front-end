@@ -1,4 +1,4 @@
-import type { MuxPlayerRefAttributes } from "@mux/mux-player-react";
+import type { JikiVideoPlayerHandle } from "@/components/ui/JikiVideoPlayer";
 import { useEffect, useRef, useState } from "react";
 import { fetchUserVideo, updateUserVideoPercentage, type UserVideoData } from "@/lib/api/user-videos";
 import { useAuthStore } from "@/lib/auth/authStore";
@@ -10,7 +10,7 @@ interface ProgressPlayer {
 }
 
 export function useEpisodeProgress(uuid: string, videoProvider?: "mux" | "youtube") {
-  const muxPlayerRef = useRef<MuxPlayerRefAttributes>(null);
+  const muxPlayerRef = useRef<JikiVideoPlayerHandle>(null);
   const ytPlayerRef = useRef<ProgressPlayer | null>(null);
   const lastReportedPercentRef = useRef(-1);
   const hasRestoredPositionRef = useRef(false);
