@@ -13,4 +13,4 @@ Hai a disposizione due funzioni:
 
 La regola del locale è che possono entrare solo le persone **di almeno 21 anni**.
 
-Chiedi l'età della persona e, se è abbastanza grande, falla entrare!
+Chiedi l'età della persona e, se ha l'età richiesta, falla entrare!
