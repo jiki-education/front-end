@@ -49,8 +49,8 @@
   },
   "hints": {
     "gettingAge": {
-      "question": "Come faccio a ottenere l'età della persona?",
-      "answer": "Chiama `getAge()` e metti il risultato in una variabile, ad esempio `let age = getAge()`. Poi puoi confrontare `age` con i numeri nelle tue condizioni."
+      "question": "Come faccio ad ottenere l'età della persona?",
+      "answer": "Chiama `getAge()` e metti il risultato in una variabile, ad esempio `let age = getAge()`. Successivamente puoi confrontare `age` con i numeri nelle tue condizioni."
     },
     "structureForRanges": {
       "question": "Quale struttura uso quando ci sono diverse fasce d'età?",

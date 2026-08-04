@@ -40,7 +40,7 @@
     },
     "oddEven": {
       "question": "Come faccio a capire se il numero di una fila è pari o dispari?",
-      "answer": "L'operatore `%` (modulo) ti dà il resto della divisione. Dividendo il numero di una fila per 2 ottieni un modo per distinguere le file dispari da quelle pari, che puoi poi verificare dentro un `if`."
+      "answer": "L'operatore `%` (modulo) ti dà il resto della divisione. Dividendo il numero di una fila per 2 ottieni un modo per distinguere le file dispari da quelle pari, che puoi successivamente verificare dentro un `if`."
     },
     "sizesAndSpacings": {
       "question": "Che dimensioni e spaziature devo usare?",
