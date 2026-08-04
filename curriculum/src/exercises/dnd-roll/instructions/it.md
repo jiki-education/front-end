@@ -1,5 +1,5 @@
 ---
-title: "D&D Roll"
+title: "Tiro di dadi in D&D"
 description: "Lancia dei dadi e colpisci un goblin in un'avventura D&D."
 en_md5: 627f6cce99fe83ecae4e1b53051201b9
 ---
