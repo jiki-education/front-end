@@ -6,10 +6,10 @@
     "rightEar": "L'oreille droite doit être un triangle marron placé au bon endroit.",
     "leftFace": "La moitié gauche de la tête doit être un triangle orange placé au bon endroit.",
     "rightFace": "La moitié droite de la tête doit être un triangle orange placé au bon endroit.",
-    "nose": "La truffe nécessite deux triangles anthracite. Tu peux la diviser haut/bas ou gauche/droite.",
+    "nose": "Le museau nécessite deux triangles anthracite. Tu peux le diviser haut/bas ou gauche/droite.",
     "leftFaceAboveEar": "La moitié gauche de la tête doit être dessinée **par-dessus** l'oreille gauche.",
     "rightFaceAboveEar": "La moitié droite de la tête doit être dessinée **par-dessus** l'oreille droite.",
-    "noseAboveFace": "La truffe doit être placée **par-dessus** la tête."
+    "noseAboveFace": "Le museau doit être placé **par-dessus** la tête."
   },
   "tasks": {
     "drawFox": {
@@ -34,7 +34,7 @@
     },
     "colors": {
       "question": "Quelle couleur va où ?",
-      "answer": "Les oreilles sont `\"brown\"`, les moitiés de la tête sont `\"orange\"`, les joues sont `\"white\"` et la truffe est `\"charcoal\"`. N'oublie pas que les couleurs sont des strings, donc elles doivent être entre guillemets."
+      "answer": "Les oreilles sont `\"brown\"`, les moitiés de la tête sont `\"orange\"`, les joues sont `\"white\"` et le museau est `\"charcoal\"`. N'oublie pas que les couleurs sont des strings, donc elles doivent être entre guillemets."
     },
     "symmetry": {
       "question": "Comment trouver les coordonnées du côté droit sans survoler ?",

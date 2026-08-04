@@ -24,7 +24,7 @@ La tête est symétrique horizontalement (le côté gauche est identique au côt
 - Deux joues `"white"`
 - Deux oreilles `"brown"`
 - Deux moitiés de tête `"orange"`
-- Une truffe `"charcoal"` (deux triangles)
+- Un museau `"charcoal"` (deux triangles)
 
 (Veille à utiliser ces couleurs quand tu dessines les triangles, et n'oublie pas de vérifier que tu les écris sous forme de _strings_ (chaînes de caractères) !)
 
