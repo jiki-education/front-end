@@ -1,15 +1,15 @@
 {
   "checks": {
     "noResult": "Tu n'as pas annoncé de résultat !",
-    "paperVsPaperResult": "Feuille contre Feuille devrait être une égalité, mais c'était \"{{got}}\".",
-    "paperVsRockResult": "Feuille contre Pierre devrait être une victoire pour Yuki, mais c'était \"{{got}}\".",
-    "paperVsScissorsResult": "Feuille contre Ciseaux devrait être une victoire pour Ando, mais c'était \"{{got}}\".",
-    "rockVsPaperResult": "Pierre contre Feuille devrait être une victoire pour Ando, mais c'était \"{{got}}\".",
-    "rockVsRockResult": "Pierre contre Pierre devrait être une égalité, mais c'était \"{{got}}\".",
-    "rockVsScissorsResult": "Pierre contre Ciseaux devrait être une victoire pour Yuki, mais c'était \"{{got}}\".",
-    "scissorsVsPaperResult": "Ciseaux contre Feuille devrait être une victoire pour Yuki, mais c'était \"{{got}}\".",
-    "scissorsVsRockResult": "Ciseaux contre Pierre devrait être une victoire pour Ando, mais c'était \"{{got}}\".",
-    "scissorsVsScissorsResult": "Ciseaux contre Ciseaux devrait être une égalité, mais c'était \"{{got}}\"."
+    "paperVsPaperResult": "Feuille contre Feuille aurait dû être une égalité, mais c'est \"{{got}}\" qui a été annoncé.",
+    "paperVsRockResult": "Feuille contre Pierre aurait dû être une victoire pour Yuki, mais c'est \"{{got}}\" qui a été annoncé.",
+    "paperVsScissorsResult": "Feuille contre Ciseaux aurait dû être une victoire pour Ando, mais c'est \"{{got}}\" qui a été annoncé.",
+    "rockVsPaperResult": "Pierre contre Feuille aurait dû être une victoire pour Ando, mais c'est \"{{got}}\" qui a été annoncé.",
+    "rockVsRockResult": "Pierre contre Pierre aurait dû être une égalité, mais c'est \"{{got}}\" qui a été annoncé.",
+    "rockVsScissorsResult": "Pierre contre Ciseaux aurait dû être une victoire pour Yuki, mais c'est \"{{got}}\" qui a été annoncé.",
+    "scissorsVsPaperResult": "Ciseaux contre Feuille aurait dû être une victoire pour Yuki, mais c'est \"{{got}}\" qui a été annoncé.",
+    "scissorsVsRockResult": "Ciseaux contre Pierre aurait dû être une victoire pour Ando, mais c'est \"{{got}}\" qui a été annoncé.",
+    "scissorsVsScissorsResult": "Ciseaux contre Ciseaux aurait dû être une égalité, mais c'est \"{{got}}\" qui a été annoncé."
   },
   "tasks": {
     "determineWinner": {

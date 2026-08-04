@@ -13,6 +13,6 @@ Chaque joueur choisit ciseaux, feuille ou pierre. On compare ensuite les deux ch
 - La feuille enveloppe la pierre (la feuille gagne).
 - Si les choix sont identiques, c'est une égalité.
 
-Ta mission : comparer les choix de Yuki et d'Ando, puis annoncer le gagnant à la salle de jeu. Utilise la fonction `announceResult(result)` (annoncer le résultat) avec comme résultat `"Ando"` si Ando a gagné, `"Yuki"` si Yuki a gagné, ou `"tie"` s'ils ont choisi la même chose.
+Ta mission : comparer les choix de Yuki et d'Ando, puis annoncer le gagnant à la salle de jeu. Utilise la fonction `announceResult(result)` (annoncer le résultat) avec comme résultat `"Ando"` si Ando a gagné, `"Yuki"` si Yuki a gagné, ou `"tie"` (égalité) s'ils ont choisi la même chose.
 
 Pour résoudre cet exercice, utilise ce que tu as appris dans la leçon précédente. Bonne chance !
