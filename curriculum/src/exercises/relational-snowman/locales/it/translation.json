@@ -41,7 +41,7 @@
   },
   "functions": {
     "circle": {
-      "description": "Disegna un cerchio con centro in (centerX, centerY) con il raggio e il colore specificati.",
+      "description": "Disegna un cerchio con centro in (centerX, centerY) con il raggio ed il colore specificati.",
       "category": "Disegno di forme geometriche"
     }
   }

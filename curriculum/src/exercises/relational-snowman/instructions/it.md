@@ -19,7 +19,7 @@ A seconda della `size` che scegli, il pupazzo di neve dovrebbe crescere.
 - L'angolo in alto a sinistra dell'area di disegno è `0,0`. L'angolo in basso a destra è `100,100`.
 - Hai una variabile già scritta `snowmanX` (coordinata X del centro dell'immagine) per il centro dell'immagine ed una variabile `size` che puoi cambiare da `1` a `5` per far crescere il pupazzo di neve.
 - Devi ricavare tutte le altre variabili usando espressioni aritmetiche.
-- Il raggio della testa è `size * 2`, il raggio del corpo è `size * 3` e il raggio della base è `size * 4`.
+- Il raggio della testa è `size * 2`, il raggio del corpo è `size * 3` ed il raggio della base è `size * 4`.
 - I cerchi devono toccarsi: il corpo si trova direttamente sopra la base e la testa si trova direttamente sopra il corpo. (Il nostro pupazzo di neve è un po' più instabile rispetto agli esercizi precedenti: ogni palla di neve è posizionata esattamente sopra quella sottostante senza che si fondano l'una nell'altra. Dev'essere una giornata molto gelida!)
 - Il fondo del cerchio della base si trova a `size` dal bordo inferiore.
 - Devi calcolare i centri di tutte e tre le palle di neve.
@@ -37,4 +37,4 @@ Il tuo compito è impostare queste variabili seguendo le istruzioni qui sopra.
 
 ### Gioca con `size`
 
-Puoi cambiare `size` da `1` a `5` e il pupazzo di neve dovrebbe crescere. Ricorda di premere "Esegui il codice" dopo averlo cambiato.
+Puoi cambiare `size` da `1` a `5` ed il pupazzo di neve dovrebbe crescere. Ricorda di premere "Esegui il codice" dopo averlo cambiato.
