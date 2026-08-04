@@ -1,21 +1,22 @@
 ---
-title: "While Loops"
-description: "A loop that keeps running while some condition stays true."
+title: "Amíg-ciklusok"
+description: "Egy ciklus, amely addig fut, amíg egy feltétel igaz marad."
+en_md5: daef89c6551b1d1cbc0e58668fd368bc
 ---
 
-The next loop to know about is a <define>while</define> loop.
+A következő ciklus, amit meg kell ismerned, a `while` (amíg) ciklus.
 
-This says, "While some condition, run the loop." So we might have a rule that says you can only shoot five times in Space Invaders. So we'd have a loop here that says, well, while the number of shots is less than five, run a loop that allows someone to play the game.
+Ez azt mondja: »Amíg egy feltétel teljesül, futtasd a ciklust.« Tehát lehet egy szabály, ami azt mondja, hogy a Space Invaders-ben csak ötször lőhetsz. Ezért lenne egy ciklusunk, ami azt mondja, nos, amíg a lövések száma kisebb, mint öt, futtassunk egy ciklust, ami lehetővé teszi, hogy valaki játsszon.
 
 ```javascript
 while (numShots < 5) {
-  // shoot alien
+  // lövés az idegenre
   numShots++
 }
 ```
 
-Each time someone shoots, we increase the `numShots` by one, and eventually we'll hit five and the loop will exit.
+Minden lövésnél megnöveljük a `numShots` értékét eggyel, és végül elérjük az ötöt, és a ciklus kilép.
 
-Now, one problem with while loops is that it's quite easy to have bugs that mean the loop never ends. And these are called <define>infinite loops</define>, and they're one of the most common bugs in programs.
+Most az egyik probléma az amíg-ciklusokkal, hogy könnyen előfordulhatnak olyan bug-ok, amik miatt a ciklus soha nem ér véget. És ezeket végtelen ciklusoknak (_infinite loops_ angolul) nevezzük, és ezek a programok egyik leggyakoribb bug-jai.
 
-When your computer slows down, the fans start spinning, everything gets loud, that's often because someone's left an infinite loop that never ends in their code.
+Amikor a számítógéped lelassul, a ventilátorok felpörögnek, minden hangos lesz, ez gyakran azért van, mert valaki egy végtelen ciklust hagyott a kódjában, ami soha nem ér véget.

@@ -1,7 +1,7 @@
 ---
 title: "Szótárak"
 description: "Egy spirálfüzetlap, ahol minden bejegyzés bal oldalán egy kulcs, jobb oldalán pedig az értéke áll, így lista helyett címkézett adatokat kapsz."
-en_md5: 1ff3ddd2a4dbb202851414e02a4935de
+en_md5: b8a26ad63301df1d00ce08e1e429cf05
 ---
 
 Ha bármiből listánk van, mentorok listája, pontszámok listája, hozzávalók listája, bármilyen lista, akkor tömböt használunk.
@@ -22,7 +22,7 @@ A jobb oldalon pedig, minden címszó mellett, ott a tényleges adat: `"Jeremy"`
 
 Ahogy a tömb, a szótár is egyetlen dolog. Egyetlen lap egy füzetből. És ahogy a tömböt, Jiki a szótárt is belerakhatja egy változóba, egy dobozba, beadhatja egy függvény bemeneteként, vagy kivehet egy szótárt a kimeneti csúszdából. Íme, így néz ki egy szótár kódban. Kapcsos zárójelekkel (`{}`) jelöljük az elejét és a végét, belül pedig párok vannak: bal oldalt egy kulcs, utána egy kettőspont, jobb oldalt pedig az érték. A párok közé vesszőt teszünk. Jiki ránéz erre, és előveszi a spirálfüzetét. Felírja: `name`, `"Jeremy"`; `age`, `42`; és így tovább, minden párra.
 
-Amikor kész, letépi a lapot, és beleteszi egy person feliratú dobozba.
+Amikor kész, letépi a lapot, és beleteszi egy `person` (személy) feliratú dobozba.
 
 Van néhány szabály, amit érdemes tudni. A kulcs mindig string. Idézőjelek közé kell tenni, és minden kulcsnak egyedinek kell lennie. Nem lehet két `name` nevű kulcs ugyanabban a szótárban.
 
@@ -37,7 +37,7 @@ Megvan tehát a szótár, de hogyan szedsz ki belőle valamit?
 Ugyanazt a szögletes zárójeles (`[]`) írásmódot használjuk, mint a tömböknél és a stringeknél, csak pozíciószám helyett egy kulcsot írunk bele. Ha tehát valakinek a nevét akarjuk kiszedni egy szótárból, ezt írjuk:
 
 ```javascript
-person["name"]
+person["name"] // "Jeremy"
 ```
 
 Ez azt mondja Jikinek, hogy nézzen bele a `person` szótárba, keresse meg a `"name"` kulcsot, és vegye ki az értékét. Jiki odamegy a person dobozhoz, kiveszi belőle a füzetlapot, végigpásztázza a kulcsokat, amíg meg nem találja a `"name"`-et, aztán leolvassa az értékét, `"Jeremy"`, és belerakja egy új, name nevű dobozba.

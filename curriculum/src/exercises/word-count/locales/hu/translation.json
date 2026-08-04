@@ -1,94 +1,94 @@
 {
   "tasks": {
     "basicWordCounting": {
-      "name": "Basic cases",
-      "description": "Write a countWords function that takes a sentence and returns a dictionary with each word as a key and its frequency as the value. Handle spaces, commas, punctuation, and numbers."
+      "name": "Alapesetek",
+      "description": "Írj egy `countWords` függvényt, amely egy mondatot kap, és egy szótárat ad vissza, ahol a kulcsok a szavak, az értékek pedig a gyakoriságuk. Kezeld a szóközöket, vesszőket, írásjeleket és számokat."
     },
     "caseNormalization": {
-      "name": "Case normalization",
-      "description": "Ensure your function handles mixed case words correctly, treats apostrophes as part of words, and handles multiple spaces."
+      "name": "Kis- és nagybetűk normalizálása",
+      "description": "Győződj meg róla, hogy a függvény helyesen kezeli a vegyes kis- és nagybetűs szavakat, a szavakban lévő aposztrófokat, és a több szóközt."
     },
     "bonusApostrophes": {
-      "name": "Bonus: Apostrophes and quotations",
-      "description": "Handle edge cases where apostrophes are used as quotation marks around words, not as part of contractions. Only apostrophes in the middle of a word should be kept."
+      "name": "Bónusz: Aposztrófok és idézőjelek",
+      "description": "Kezeld azokat az eseteket, amikor az aposztrófokat idézőjelként használják a szavak körül, nem pedig összevonások részeként. Csak a szó belsejében lévő aposztrófokat tartsd meg."
     }
   },
   "scenarios": {
     "wordCountSingleWord": {
-      "name": "Count one word",
-      "description": "Count a single word."
+      "name": "Egy szó megszámlálása",
+      "description": "Számolj meg egyetlen szót."
     },
     "wordCountMultipleUniqueWords": {
-      "name": "Count one of each word",
-      "description": "Count one of each word in a sentence."
+      "name": "Minden szóból egyet",
+      "description": "Számold meg a mondatban szereplő minden egyes szóból az egy előfordulást."
     },
     "wordCountMultipleOccurrences": {
-      "name": "Multiple occurrences",
-      "description": "Count multiple occurrences of a word."
+      "name": "Többszöri előfordulás",
+      "description": "Számold meg egy szó többszöri előfordulását."
     },
     "wordCountCrampedList": {
-      "name": "Cramped list",
-      "description": "Handle lists with cramped formatting."
+      "name": "Zsúfolt lista",
+      "description": "Kezeld a zsúfolt formázású listákat."
     },
     "wordCountIgnorePunctuation": {
-      "name": "Ignore punctuation",
-      "description": "Ignore punctuation while counting words."
+      "name": "Írásjelek figyelmen kívül hagyása",
+      "description": "Szószámláláskor hagyd figyelmen kívül az írásjeleket."
     },
     "wordCountIncludeNumbers": {
-      "name": "Include numbers",
-      "description": "Count words and include numbers."
+      "name": "Számok is számítanak",
+      "description": "Számold meg a szavakat, és a számokat is vedd figyelembe."
     },
     "wordCountNormalizeCase": {
-      "name": "Normalize case",
-      "description": "Count words regardless of case."
+      "name": "Kis- és nagybetűk normalizálása",
+      "description": "Szószámlálás a kis- és nagybetűktől függetlenül."
     },
     "wordCountWithApostrophes": {
-      "name": "Words with apostrophes",
-      "description": "Correctly handle words with apostrophes."
+      "name": "Aposztrófos szavak",
+      "description": "Helyesen kezeld az aposztrófos szavakat."
     },
     "wordCountMultipleSpaces": {
-      "name": "Multiple spaces",
-      "description": "Handle multiple spaces correctly."
+      "name": "Több szóköz",
+      "description": "Helyesen kezeld a több szóközt."
     },
     "wordCountWithApostrophesAndQuotations": {
-      "name": "Words with apostrophes and quotations",
-      "description": "Handle words with apostrophes and quotations."
+      "name": "Aposztrófos és idézőjeles szavak",
+      "description": "Kezeld az aposztrófos és idézőjeles szavakat."
     },
     "wordCountApostropheWordVariation": {
-      "name": "Apostrophe word variation",
-      "description": "Correctly count variations of words with apostrophes."
+      "name": "Aposztrófos szóváltozatok",
+      "description": "Számold meg helyesen az aposztrófos szavak változatait."
     }
   },
   "hints": {
     "caseInsensitive": {
-      "question": "How do I make the counting case-insensitive?",
-      "answer": "Lowercase the whole sentence once at the start. Then 'The' and 'the' both become 'the' and your dictionary will count them together."
+      "question": "Hogyan tehetem a számlálást kis- és nagybetűérzéketlenné?",
+      "answer": "Alakítsd az egész mondatot kisbetűssé egyszer, az elején. Így a 'The' és a 'the' is 'the' lesz, és a szótár együtt fogja őket számolni."
     },
     "splitWords": {
-      "question": "How do I split the sentence into words?",
-      "answer": "Loop through each character. If it's a letter, digit, or apostrophe, it's part of the current word, so append it. Otherwise (space, punctuation), the word is finished, so push it to your list of words and start fresh."
+      "question": "Hogyan bontsam szavakra a mondatot?",
+      "answer": "Menj végig a karaktereken. Ha egy betű, számjegy vagy aposztróf, akkor a jelenlegi szó része, ezért fűzd hozzá. Egyébként (szóköz, írásjel) a szó véget ért, ezért add a szavak listájához, és kezdj egy új szót."
     },
     "countEachWord": {
-      "question": "How do I count each word?",
-      "answer": "Use a dictionary keyed by the word. For each word, check whether it already exists as a key. If yes, add 1 to its count. If no, set it to 1."
+      "question": "Hogyan számoljam meg minden szót?",
+      "answer": "Használj egy szótárat, ahol a kulcsok a szavak. Minden szónál ellenőrizd, hogy már létezik-e kulcsként. Ha igen, adj hozzá 1-et a darabszámához. Ha nem, állítsd 1-re."
     },
     "checkKeyExists": {
-      "question": "How do I check if a key already exists?",
-      "answer": "Use `hasKey(dict, word)`. It returns true if that word is already in the dictionary."
+      "question": "Hogyan ellenőrizhetem, hogy egy kulcs létezik-e?",
+      "answer": "Használd a `hasKey(dict, word)` függvényt. Igaz értékkel tér vissza, ha a szó már létezik a szótárban."
     }
   },
   "functions": {
     "toLowerCase": {
-      "description": "Convert a string to lowercase (provided by level stdlib)",
-      "category": "String Operations"
+      "description": "Alakíts át egy stringet kisbetűssé (a szint stdlib-jéből)",
+      "category": "String műveletek"
     },
     "push": {
-      "description": "Add an element to a list and return the new list (provided by level stdlib)",
-      "category": "List Operations"
+      "description": "Adj hozzá egy elemet egy listához, és add vissza az új listát (a szint stdlib-jéből)",
+      "category": "Lista műveletek"
     },
     "hasKey": {
-      "description": "Check if a key exists in a dictionary, returns true or false (provided by level stdlib)",
-      "category": "Dictionary Operations"
+      "description": "Ellenőrizd, hogy egy kulcs létezik-e egy szótárban, igaz vagy hamis értékkel tér vissza (a szint stdlib-jéből)",
+      "category": "Szótár műveletek"
     }
   }
 }

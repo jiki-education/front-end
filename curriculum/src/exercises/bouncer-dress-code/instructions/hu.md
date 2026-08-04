@@ -1,43 +1,44 @@
 ---
-title: "Bouncer: Dress Code"
-description: "Combine the person's outfit, age, and guest-list status to decide who gets in."
+title: "Kidobó: Öltözködési szabályzat"
+description: "A vendég öltözéke, életkora és vendéglistás státusza alapján döntsd el, beengedhető-e."
+en_md5: 3e9f98d0b80d6bf0865cd0439005807b
 ---
 
-You're back to your side job as a bouncer, and tonight you're working at a venue with a strict dress code.
+Újra itt vagy a mellékállásodban, mint kidobó, és ma este egy olyan helyen dolgozol, ahol szigorú az öltözködési szabályzat.
 
-Your job is to check what the person is wearing alongside their age and decide what to do. You have some more "interesting" rules to follow.
+Az a dolgod, hogy ellenőrizd, mit visel az illető, valamint az életkorát, és ez alapján dönts. Van néhány „érdekesebb” szabályod is, amit be kell tartanod.
 
-### The rules
+### A szabályok
 
-- **Anyone** in **formal** or **smart** clothes is let in (regardless of whether they're on the guest list) and offered canapés.
-- **Adults** (18 or over) in **formal** clothes **also** get offered champagne.
-- **Children** (under 18) in any other clothes are allowed in **only if** they're on the guest list.
-- Everyone else is turned away.
+- **Bárkit**, aki **alkalmi** vagy **elegáns** ruhát visel, beengedünk (függetlenül attól, hogy rajta van-e a vendéglistán), és canapét kínálunk neki.
+- A **felnőtteket** (18 éves vagy idősebb), akik **alkalmi** ruhát viselnek, **ezen felül** pezsgővel is kínáljuk.
+- A **gyerekeket** (18 év alatt) más ruhában **csak akkor** engedjük be, ha rajta vannak a vendéglistán.
+- Mindenki mást elküldünk.
 
-The dress code categories:
+Az öltözködési kategóriák:
 
-- **Formal** means `"ballgown"` or `"tuxedo"`
-- **Smart** means `"suit"` or `"dress"`
+- **Alkalmi**: `"ballgown"` vagy `"tuxedo"`
+- **Elegáns**: `"suit"` vagy `"dress"`
 
-### Your abilities
+### A képességeid
 
-You have three functions to get data:
+Három függvényed van az adatok lekérésére:
 
-- `getOutfit()` returns the name of the outfit the person is wearing (e.g. `"ballgown"`, `"suit"`, `"denim"`)
-- `getAge()` returns their age.
-- `onGuestList()` returns whether they're on the guest list.
+- `getOutfit()` (öltözet lekérése) visszaadja a viselt ruha nevét (pl. `"ballgown"`, `"suit"`, `"denim"`)
+- `getAge()` (életkor lekérése) visszaadja az életkorát.
+- `onGuestList()` (vendéglistán van-e) visszaadja, hogy rajta van-e a vendéglistán.
 
-You are only allowed to use each of the "getting data" functions once in the solution (otherwise people are going to get annoying if you keep asking their name, etc!)
+A megoldásban minden adatlekérő függvényt csak egyszer használhatsz (különben bosszantó leszel, ha folyton a nevüket kérdezed, stb.!).
 
-You then have some actions you can do:
+Van néhány művelet, amit végrehajthatsz:
 
-- `offerChampagne()` offers the person a glass of champagne
-- `offerCanapes()` offers the person some canapés (salmon tartare)
-- `letIn()` lets the person into the venue
-- `turnAway()` turns the person away
+- `offerChampagne()` (pezsgőt kínál) egy pohár pezsgőt kínál az illetőnek
+- `offerCanapes()` (canapét kínál) némi canapét kínál (lazactatár)
+- `letIn()` (beengedi) beengedi az illetőt a helyiségbe
+- `turnAway()` (elküldi) elküldi az illetőt
 
-### Coding efficiently
+### Hatékony kódolás
 
-There are lots of possible ways to solve this. Your aim is to piece all those rules together in a way that makes the code **clear to read**. Minimise duplication where possible.
+Sokféleképpen meg lehet oldani ezt a feladatot. A célod az, hogy úgy rakd össze a szabályokat, hogy a kód **áttekinthető** legyen. Ahol lehet, kerüld a duplikációt.
 
-Have fun and good luck!
+Jó szórakozást és sok szerencsét!

@@ -1,33 +1,46 @@
 ---
 title: "Luhn"
-description: "Validate identification numbers like credit cards using the Luhn checksum."
+description: "Azonosító számok (például hitelkártyaszámok) ellenőrzése a Luhn-ellenőrzőösszeggel."
+en_md5: 07b0aea3adc2353e50a26e5cbe5cd162
 ---
 
-The Luhn formula is a simple way to check whether a number is valid. It's used all over the place, most famously to catch typos in credit card numbers.
+Az előbb az ISBN-számok érvényesítését néztük meg. Van egy másik elterjedt képlet, amit sokféle helyzetben használnak számok ellenőrzésére: a **Luhn-formula** (_Luhn formula_ angolul). Legismertebb felhasználása a hitelkártyaszámok elütéseinek kiszűrése.
 
-The numbers are given as strings, and may contain spaces for readability (for example `"4539 1488 0343 6467"`). The spaces should be ignored.
+### A Luhn-ellenőrzés
 
-### The Luhn check
+A Luhn-ellenőrzés lépései a következők:
 
-Starting from the **rightmost** digit and moving left, **double the value of every second digit**. If doubling a digit results in a number greater than 9, subtract 9 from it (so `8` doubled becomes `16`, then `16 - 9 = 7`).
+- A **jobb szélső** számjegytől indulva balra haladva **duplázzuk meg minden második számjegy értékét**.
+- Ha egy számjegy duplázása 9-nél nagyobb számot eredményez, vonjunk ki belőle 9-et.
+- Ezután adjuk össze az összes számjegyet.
+- Ha az összeg maradék nélkül osztható 10-zel, a szám érvényes.
 
-Then add up all the digits. If the total is evenly divisible by 10, the number is valid.
-
-For example, `"091"` becomes:
+Például a `"067"` esetén a következő lépéseket járjuk végig:
 
 ```
-0   9   1     original digits
-0  18   1     every second digit (from the right) doubled
-0   9   1     18 is over 9, so subtract 9 → 9
+0   6   7     // eredeti számjegyek
+0  12   7     // minden második számjegyet duplázzuk (jobbról)
+0   3   7     // a 12 nagyobb, mint 9, így kivonunk belőle 9-et → 3
+       10     // a számjegyek összeadása
+     true     // a 10 osztható 10-zel, tehát 067 érvényes
 ```
 
-The sum is `0 + 9 + 1 = 10`, which is divisible by 10, so `"091"` is valid.
+### A te feladatod
 
-A few important notes:
+Hozz létre egy `valid` (érvényes) nevű függvényt, amely egy stringet kap, és `true`-t ad vissza, ha átmegy a Luhn-ellenőrzésen, és `false`-t, ha nem.
 
-- Strings of length 1 or less are **not** valid.
-- The input may only contain digits and spaces. Any other character makes it invalid.
+A számok stringként érkeznek, és az olvashatóság érdekében tartalmazhatnak szóközöket (például `"4539 1488 0343 6467"`). A szóközöket figyelmen kívül kell hagyni.
 
-Create a function called `valid` that takes a string and returns `true` if it passes the Luhn check and `false` if it does not.
+Néhány fontos megjegyzés:
 
-Although there are many ways to solve this exercise, the solution we want you to come up with uses a `for` loop.
+- A bemenet tartalmazhat szóközöket – ezeket hagyd figyelmen kívül.
+- Ha a bemenet bármilyen más karaktert tartalmaz, `false`-t kell visszaadnod.
+- Az 1 vagy annál rövidebb hosszúságú stringek (a szóközök eltávolítása után) **nem** érvényesek.
+
+### Alkalmazd a tanultakat
+
+Bár ezt a feladatot sokféleképpen meg lehet oldani, az általunk várt megoldás egy `for` ciklust használ.
+
+Szükséged lesz az előző feladatban bemutatott <a href="/concepts/type-conversion" target="_blank" rel="noopener noreferrer">`Number(str)`</a> függvényre is.
+
+Jó szórakozást!

@@ -1,81 +1,81 @@
 {
   "describers": {
-    "canMove": "Check if the character can move forward",
-    "canTurnLeft": "Check if there is a path to the character's left",
-    "canTurnRight": "Check if there is a path to the character's right"
+    "canMove": "Ellenőrzi, hogy a figura tud-e előre mozogni",
+    "canTurnLeft": "Ellenőrzi, hogy van-e út a figura bal oldalán",
+    "canTurnRight": "Ellenőrzi, hogy van-e út a figura jobb oldalán"
   },
   "checks": {
-    "notReachedEnd": "You didn't reach the end of the maze.",
-    "turnAroundNotDefined": "You need to define a <code>turnAround</code> function at the top of your code.",
-    "turnAroundNotCalled": "You've defined <code>turnAround</code>, but you need to actually call it in your final <code>else</code> block.",
-    "maxLines": "Your program should be no more than 17 lines of code."
+    "notReachedEnd": "Nem értél el a labirintus végére.",
+    "turnAroundNotDefined": "Meg kell határoznod egy <code>turnAround</code> függvényt a kódod elején.",
+    "turnAroundNotCalled": "Meghatároztad a <code>turnAround</code> függvényt, de meg is kell hívnod a végső <code>else</code> blokkban.",
+    "maxLines": "A programod legfeljebb 17 sorból állhat."
   },
   "tasks": {
     "turnAround": {
-      "name": "Turn around at dead ends",
-      "description": "Define a turnAround() function at the top of your code that calls turnLeft() twice, then use it in the final else block. Your solver should escape the dead ends in all three mazes."
+      "name": "Fordulj meg a zsákutcákban",
+      "description": "Definiálj egy turnAround() függvényt a kódod elején, amely kétszer meghívja a turnLeft() függvényt, majd használd a végső else blokkban. Az algoritmusodnak mindhárom labirintus zsákutcáiból ki kell jutnia."
     },
     "bonusShortSolution": {
-      "name": "Bonus: keep it short",
-      "description": "Solve a maze with two dead ends, keeping your whole program to 17 lines of code or fewer."
+      "name": "Bónusz: legyen rövid",
+      "description": "Oldj meg egy két zsákutcát tartalmazó labirintust úgy, hogy a teljes programod legfeljebb 17 sorból álljon."
     }
   },
   "scenarios": {
     "maze1": {
-      "name": "A single dead end",
-      "description": "A straight corridor with one dead-end spur that forces a turn-around"
+      "name": "Egyetlen zsákutca",
+      "description": "Egy egyenes folyosó egy zsákutcával, ami megfordulásra kényszerít"
     },
     "maze2": {
-      "name": "A dead end and a turn",
-      "description": "A winding path with a dead-end spur before turning to the exit"
+      "name": "Zsákutca és kanyar",
+      "description": "Egy kanyargós útvonal, egy zsákutcával, mielőtt a kijárat felé fordulna."
     },
     "maze3": {
-      "name": "Keep it short",
-      "description": "Try and ensure your whole final program is 17 lines of code."
+      "name": "Legyen rövid",
+      "description": "Próbáld meg elérni, hogy a végleges programod 17 sorból álljon."
     }
   },
   "hints": {
     "defineFunction": {
-      "question": "How do I define a new function?",
-      "answer": "Use the `function` keyword followed by the name, parentheses for inputs, and a body in curly braces, e.g. `function turnAround() { ... }`."
+      "question": "Hogyan definiálhatok egy új függvényt?",
+      "answer": "Használd a `function` kulcsszót, utána írd a függvény nevét, majd a bemenetek számára a zárójeleket, végül a törzset kapcsos zárójelek között, például: `function turnAround() { ... }`."
     },
     "placement": {
-      "question": "Where should I put the function definition?",
-      "answer": "Put it at the top of your code, before the loop. Functions must be defined before they're called."
+      "question": "Hová tegyem a függvény definícióját?",
+      "answer": "Írd a kódod tetejére, a ciklus elé. A függvényeket a meghívásuk előtt kell definiálni."
     },
     "turnAroundBody": {
-      "question": "What should go inside `turnAround()`?",
-      "answer": "Just two calls to `turnLeft()`. Two left turns add up to facing the opposite direction."
+      "question": "Mit kell a `turnAround()` függvénybe írni?",
+      "answer": "Csak két `turnLeft()` hívás. Két balra fordulással az ellenkező irányba nézel."
     },
     "useInSolver": {
-      "question": "How do I use my new function in the maze solver?",
-      "answer": "Find the `else` block in your previous solution where you called `turnLeft()` twice and replace those two calls with a single `turnAround()` call."
+      "question": "Hogyan használhatom az új függvényemet a labirintus-megoldóban?",
+      "answer": "Keresd meg az `else` blokkot a korábbi megoldásodban, ahol kétszer hívtad meg a `turnLeft()` függvényt, és cseréld le a két hívást egyetlen `turnAround()` hívásra."
     }
   },
   "functions": {
     "move": {
-      "description": "Moves the character **one step forward** in the current direction. Walking into a wall ends your program with an error, so check what's ahead before moving!",
-      "category": "Movement"
+      "description": "A figurát **egy lépéssel előre** mozgatja az aktuális irányba. Ha falba ütközöl, a program hibával leáll, ezért mozgás előtt ellenőrizd, mi van előtted!",
+      "category": "Mozgás"
     },
     "turnLeft": {
-      "description": "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
-      "category": "Movement"
+      "description": "A figurát **90 fokkal balra** fordítja (az óramutató járásával ellentétesen). Ez megváltoztatja, hogy a figura milyen irányba néz.",
+      "category": "Mozgás"
     },
     "turnRight": {
-      "description": "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
-      "category": "Movement"
+      "description": "A figurát **90 fokkal jobbra** fordítja (az óramutató járásával megegyezően). Ez megváltoztatja, hogy a figura milyen irányba néz.",
+      "category": "Mozgás"
     },
     "canMove": {
-      "description": "Returns **true** if the space ahead of the character is not a wall, **false** otherwise.",
-      "category": "Sensing"
+      "description": "**igaz** értéket ad vissza, ha a figura előtti terület nem fal, egyébként **hamis** értéket ad vissza.",
+      "category": "Érzékelés"
     },
     "canTurnLeft": {
-      "description": "Returns **true** if the space to the character's left is not a wall, **false** otherwise.",
-      "category": "Sensing"
+      "description": "**igaz** értéket ad vissza, ha a figura bal oldalán lévő terület nem fal, egyébként **hamis** értéket ad vissza.",
+      "category": "Érzékelés"
     },
     "canTurnRight": {
-      "description": "Returns **true** if the space to the character's right is not a wall, **false** otherwise.",
-      "category": "Sensing"
+      "description": "**igaz** értéket ad vissza, ha a figura jobb oldalán lévő terület nem fal, egyébként **hamis** értéket ad vissza.",
+      "category": "Érzékelés"
     }
   }
 }

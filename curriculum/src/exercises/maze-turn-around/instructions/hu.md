@@ -1,18 +1,19 @@
 ---
-title: "Turn Around"
-description: "Create a turn-around function for the maze."
+title: "Megfordulás"
+description: "Készíts egy megfordulás függvényt a labirintushoz!"
+en_md5: bbb03498f3b5ec9956af463e85fde414
 ---
 
-In the last exercise you worked out how to solve the maze automatically. Great work!
+Az előző gyakorlatban kitaláltad, hogyan oldd meg a labirintust automatikusan. Nagyszerű munka!
 
-One of the nice things about the solution is that the code reads very naturally. It's very aligned to the algorithm. Except for one bit...
+Az egyik jó dolog a megoldásban, hogy a kód nagyon természetesen olvasható. Nagyon illeszkedik az algoritmushoz. Kivéve egy apróságot…
 
-Did you find it a bit unsatisfying that you had to use `turnLeft()` twice to turn around, rather than having a `turnAround()` function?
+Talán egy kicsit elegánstalan megoldásnak érezted, hogy kétszer kellett használnod a `turnLeft()` (fordulj balra) függvényt a megforduláshoz, ahelyett, hogy lenne egy `turnAround()` (fordulj meg) függvényed?
 
-Well, this is your opportunity to fix that!
+Nos, itt a lehetőséged, hogy kijavítsd ezt!
 
-Create a new function called `turnAround` at the top of your code. It has no inputs and doesn't return anything. It should simply call `turnLeft()` twice.
+Hozz létre egy új függvényt `turnAround` néven a kódod elején. Nincsenek paraméterei és nem ad vissza semmit. Egyszerűen hívja meg a `turnLeft()` függvényt kétszer.
 
-Then use that function in the solution in the final else statement.
+Ezután használd ezt a függvényt a megoldásban, a végső else utasításban.
 
-Try and ensure your whole final program is 17 lines of code.
+Próbáld elérni, hogy a teljes végső program 17 soros legyen.
