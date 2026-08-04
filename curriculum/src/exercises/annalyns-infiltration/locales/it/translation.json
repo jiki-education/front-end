@@ -12,7 +12,7 @@
     },
     "signal": {
       "should": "Annalyn <strong>dovrebbe</strong> segnalare al prigioniero qui, ma non l'ha fatto. Il prigioniero è sveglio e l'arciere è addormentato, quindi il segnale arriverà.",
-      "shouldNot": "Annalyn <strong>non dovrebbe</strong> segnalare al prigioniero qui. O il prigioniero è addormentato o l'arciere è sveglio, quindi segnalare fallirebbe.",
+      "shouldNot": "Annalyn <strong>non dovrebbe</strong> segnalare al prigioniero qui. O il prigioniero è addormentato o l'arciere è sveglio, quindi il tentativo fallirebbe.",
       "tooMany": "Annalyn <strong>dovrebbe</strong> segnalare al prigioniero solo una volta qui, ma l'ha fatto {{count}} volte."
     },
     "free": {
