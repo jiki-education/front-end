@@ -1,0 +1,90 @@
+{
+  "tasks": {
+    "sumTheDigits": {
+      "name": "Suma los dígitos",
+      "description": "Escribe una función llamada digitalRoot que toma un número y suma sus dígitos. Para números que ya son de un solo dígito, y para números cuyos dígitos suman un solo dígito, esta primera pasada es suficiente."
+    },
+    "collapseToSingleDigit": {
+      "name": "Sigue reduciendo hasta que quede un solo dígito",
+      "description": "A veces, sumar los dígitos una vez todavía deja más de un dígito (por ejemplo, 942 suma 15). Sigue sumando los dígitos del resultado hasta que quede un solo dígito."
+    },
+    "keepItTight": {
+      "name": "Bonus: manténlo corto",
+      "description": "Tu solución ya funciona. Para este bonus, ordénala de modo que toda la función quepa en un número pequeño de líneas, sin ningún desorden adicional."
+    }
+  },
+  "scenarios": {
+    "drZero": {
+      "name": "Cero",
+      "description": "La raíz digital de 0 es 0."
+    },
+    "drSingleDigit": {
+      "name": "Ya es un solo dígito",
+      "description": "Un número que ya es de un solo dígito es su propia raíz digital."
+    },
+    "drTwoDigits": {
+      "name": "Dos dígitos",
+      "description": "16 se reduce a 7 en una sola pasada (1 + 6)."
+    },
+    "drThreeDigits": {
+      "name": "Tres dígitos, una pasada",
+      "description": "132 se reduce a 6 en una sola pasada (1 + 3 + 2)."
+    },
+    "drThirtyNine": {
+      "name": "Se necesitan dos pasadas",
+      "description": "39 suma 12, y luego suma 3."
+    },
+    "drTwoPasses": {
+      "name": "Un número que necesita una segunda pasada",
+      "description": "942 suma 15, y luego suma 6."
+    },
+    "drLarge": {
+      "name": "Un número más grande",
+      "description": "493193 se reduce completamente a 2."
+    },
+    "drNines": {
+      "name": "Puros nueves",
+      "description": "99999 suma 45, y luego suma 9."
+    },
+    "drBonusTight": {
+      "name": "Una solución ordenada y corta",
+      "description": "12345 se reduce a 6 (1 + 2 + 3 + 4 + 5 = 15, luego 1 + 5 = 6)."
+    }
+  },
+  "hints": {
+    "whatIsIt": {
+      "question": "¿Qué es exactamente una raíz digital?",
+      "answer": "Suma todos los dígitos del número. Si eso te da un solo dígito, esa es la respuesta. Si te da más de un dígito, suma los dígitos de ese resultado también, y sigue así hasta que solo quede un dígito."
+    },
+    "sumDigits": {
+      "question": "¿Cómo sumo los dígitos de un número?",
+      "answer": "Convierte el número en un string para que puedas recorrerlo carácter por carácter con un bucle `for...of`. Mantén un total acumulado, sumando cada dígito a medida que avanzas."
+    },
+    "digitsToNumbers": {
+      "question": "Aunque cada dígito es un carácter, no un número.",
+      "answer": "Cuando recorres el string, cada carácter (como `\"4\"`) es texto. Usa `Number(char)` para convertirlo en el número `4` antes de sumarlo a tu total."
+    },
+    "whichLoop": {
+      "question": "¿Cómo sigo sin saber cuántas pasadas necesito?",
+      "answer": "No sabes de antemano cuántas veces necesitarás sumar los dígitos, así que un bucle `while` es perfecto. Sigue iterando mientras el número tenga más de un dígito."
+    },
+    "keepGoing": {
+      "question": "¿Cuándo paro?",
+      "answer": "Para tan pronto como el número sea de un solo dígito. En ese momento, devuélvelo."
+    }
+  },
+  "checks": {
+    "mustUseWhile": "¡Casi! Para este ejercicio queremos que uses un bucle `while` para seguir reduciendo hasta que quede un solo dígito.",
+    "tooManyLines": "¡Muy cerca! Tu solución funciona, pero es un poco larga. Mira si puedes acortarla."
+  },
+  "functions": {
+    "number": {
+      "description": "Convierte un string que contiene dígitos a un número",
+      "category": "Conversión de tipo"
+    },
+    "string": {
+      "description": "Convierte un número a un string",
+      "category": "Conversión de tipo"
+    }
+  }
+}

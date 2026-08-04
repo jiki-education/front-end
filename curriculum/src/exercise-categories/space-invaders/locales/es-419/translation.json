@@ -1,0 +1,18 @@
+{
+  "describers": {
+    "moveLeft": "movió el cañón láser hacia la izquierda",
+    "moveRight": "movió el cañón láser hacia la derecha",
+    "shoot": "disparó el láser hacia arriba",
+    "isAlienAbove": "determinó si había un alien encima del cañón láser",
+    "getStartingAliensInRow": "obtuvo las posiciones iniciales de la fila ${arg1} de aliens",
+    "fireFireworks": "lanzó fuegos artificiales de celebración"
+  },
+  "errors": {
+    "laserOverheated": "¡Ay, no! ¡Tu cañón láser se sobrecalentó por disparar demasiado rápido! Tienes que moverte antes de poder disparar una segunda vez.",
+    "missedShot": "¡Ay, no, fallaste! ¡No está permitido desperdiciar munición!",
+    "moveOffEdge": "¡Ay, no, intentaste moverte fuera del borde!",
+    "rowNotNumber": "¡Ay, no! La fila que ingresaste no es un número.",
+    "rowOutOfRange": "¡Ay, no! Intentaste acceder a una fila de aliens que no existe. Pediste la fila {{row}}, pero las filas están numeradas de 0 a {{max}}.",
+    "notAllAliensDead": "¡Tienes que derrotar a todos los aliens antes de poder celebrar!"
+  }
+}

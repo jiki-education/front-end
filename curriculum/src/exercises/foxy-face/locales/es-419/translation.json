@@ -1,0 +1,54 @@
+{
+  "checks": {
+    "leftCheek": "La mejilla izquierda debe ser un triángulo blanco en el lugar correcto.",
+    "rightCheek": "La mejilla derecha debe ser un triángulo blanco en el lugar correcto.",
+    "leftEar": "La oreja izquierda debe ser un triángulo marrón en el lugar correcto.",
+    "rightEar": "La oreja derecha debe ser un triángulo marrón en el lugar correcto.",
+    "leftFace": "La mitad izquierda del rostro debe ser un triángulo naranja en el lugar correcto.",
+    "rightFace": "La mitad derecha del rostro debe ser un triángulo naranja en el lugar correcto.",
+    "nose": "La nariz necesita dos triángulos color carbón. Puedes dividirla arriba/abajo o izquierda/derecha.",
+    "leftFaceAboveEar": "La mitad izquierda del rostro debe dibujarse **encima de** la oreja izquierda.",
+    "rightFaceAboveEar": "La mitad derecha del rostro debe dibujarse **encima de** la oreja derecha.",
+    "noseAboveFace": "La nariz debe estar **encima del** rostro."
+  },
+  "tasks": {
+    "drawFox": {
+      "name": "Dibuja el rostro de zorro",
+      "description": "Usa triángulos para construir un rostro de zorro geométrico sobre el fondo gris."
+    }
+  },
+  "scenarios": {
+    "drawFox": {
+      "name": "Dibuja el rostro de zorro",
+      "description": "Construye un rostro de zorro geométrico usando triángulos."
+    }
+  },
+  "hints": {
+    "callTriangle": {
+      "question": "¿Cómo llamo a la función `triangle`?",
+      "answer": "Pasa 7 argumentos en orden: los tres puntos de las esquinas (`x1, y1, x2, y2, x3, y3`) y luego el string de color, por ejemplo `triangle(50, 10, 30, 50, 70, 50, \\\"orange\\\")`."
+    },
+    "drawOrder": {
+      "question": "¿En qué orden debo dibujar las partes para que se superpongan correctamente?",
+      "answer": "Las figuras que dibujes después quedan encima de las anteriores. Dibuja primero las mejillas blancas para que las mitades naranjas del rostro las cubran casi por completo, dejando solo las puntas a la vista."
+    },
+    "colors": {
+      "question": "¿Qué colores van en cada parte?",
+      "answer": "Las orejas son de color `\\\"brown\\\"`, las mitades del rostro son `\\\"orange\\\"`, las mejillas son `\\\"white\\\"` y la nariz es `\\\"charcoal\\\"`. Recuerda que los colores son strings, así que necesitan comillas."
+    },
+    "symmetry": {
+      "question": "¿Cómo calculo las coordenadas del lado derecho sin pasar el cursor?",
+      "answer": "El zorro es simétrico respecto al centro vertical. Si un punto del lado izquierdo está en x=`30` y el centro está en x=`50`, el punto simétrico está en x=`70` (la misma distancia al otro lado del centro). Los valores de y se mantienen igual."
+    },
+    "multiplesOf5": {
+      "question": "¿Por qué no funcionan mis coordenadas?",
+      "answer": "Todos los valores que necesitas son múltiplos de 5. Si una esquina se ve ligeramente descolocada, probablemente usaste un número como `12` o `38`. Ajústalo al múltiplo de 5 más cercano (`10`, `15`, `40`, etc.)."
+    }
+  },
+  "functions": {
+    "triangle": {
+      "description": "Dibuja un triángulo con tres puntos de esquina y un color",
+      "category": "Dibujar figuras"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "describers": {
+    "move": "movió el cañón láser a la derecha"
+  },
+  "checks": {
+    "notShotAllAliens": "No derribaste a todos los extraterrestres."
+  },
+  "tasks": {
+    "shootTheAliens": {
+      "name": "Derriba a todos los extraterrestres",
+      "description": "Mueve tu cañón láser a la derecha y derriba cada extraterrestre al pasar debajo de él. No falles y no te salgas del borde."
+    }
+  },
+  "scenarios": {
+    "shootTheAliens": {
+      "name": "Derriba a los extraterrestres",
+      "description": "Muévete a la derecha y derriba a todos los extraterrestres"
+    }
+  },
+  "hints": {
+    "whatDoINeedToDo": {
+      "question": "¿Qué necesito hacer?",
+      "answer": "Como en el laberinto, necesitas mover a tu personaje (esta vez un láser, no una persona). ¡Pero también necesitas disparar desde el láser! Mueve el láser debajo de un extraterrestre y luego dispara. Luego muévete otra vez hasta que estés debajo del siguiente extraterrestre, y dispara de nuevo. ¡Continúa hasta que hayas derribado al último extraterrestre!"
+    },
+    "cantWasteAmmo": {
+      "question": "Me dice que no puedo desperdiciar munición.",
+      "answer": "Solo debes llamar a `shoot()` cuando estés directamente debajo de un extraterrestre. Intenta moverte un paso más (o quizás ya te pasaste?)"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Mueve el cañón láser **una posición a la derecha**. ¡Si te sales del borde derecho de la pantalla, pierdes!",
+      "category": "Movimiento"
+    },
+    "shoot": {
+      "description": "Dispara el láser hacia arriba. **Solo dispara cuando haya un extraterrestre encima de ti**, ¡o pierdes el juego!",
+      "category": "Acción"
+    }
+  }
+}
