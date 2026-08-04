@@ -4,7 +4,7 @@ description: "Usa le relazioni tra variabili per animare un fiore che cresce dal
 en_md5: acd8f364af4cfdc8f76ced2b17539bbb
 ---
 
-Il tuo compito è creare un fiore che cresce nell'arco di `60` iterazioni.
+Il tuo compito è creare un fiore che cresca nell'arco di `60` iterazioni.
 
 L'animazione dovrebbe apparire più o meno così.
 
