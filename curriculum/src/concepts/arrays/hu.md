@@ -1,16 +1,16 @@
 ---
 title: "Tömbök"
-description: "Elemek rendezett lánca (stringek, számok, Boolean-ök vagy bármi más), amelyet Jiki egyetlen értékként tud kezelni és továbbadni."
-en_md5: 012da550948ba2ebcfaf953cd0906f3f
+description: "Elemek rendezett lánca (stringek, számok, Boolean-ok vagy bármi más), amelyet Jiki egyetlen értékként tud kezelni és továbbadni."
+en_md5: d26ccb9e04fbc77129f3199d63a95017
 ---
 
-Eddig számokat, stringeket és Boolean-öket (ez az igaz és a hamis előkelő neve) használtál, és ezeket különböző adattípusoknak (_data types_ angolul) nevezzük. Most pedig megismerkedünk az első összetett adattípusunkkal (_compound data type_ angolul).
+Eddig számokat, stringeket és Boolean-okat (ez az igaz és a hamis előkelő neve) használtál, és ezeket különböző adattípusoknak (_data types_ angolul) nevezzük. Most pedig megismerkedünk az első összetett adattípusunkkal (_compound data type_ angolul).
 
 Ez egy olyan adattípus, amely nem csak egy dolgot tartalmazhat, hanem többet is. Ezt az adattípust tömbnek (_array_ angolul) hívjuk.
 
 Amikor a tömb szót hallod, azt szeretném, ha egy valódi láncot képzelnél el, amely sok mindent tart össze.
 
-Amiket összetart, azok bármik lehetnek: stringek, számok, Boolean-ök, akár más tömbök, sőt olyan dolgok is, amikről még nem is tanultál. De emiatt most ne aggódjunk.
+Amit összetart, az bármi lehet: stringek, számok, Boolean-ok, akár más tömbök is, sőt olyan dolgok is, amikről még nem is tanultál. De emiatt most ne aggódjunk.
 
 A láncban minden sorban van, mégpedig abban a sorrendben, ahogy összefűztük őket.
 
@@ -22,11 +22,11 @@ Bedughatja egy gép bemeneti nyílásába, és kihúzhatja a kimeneti csúszdáb
 
 A kódban ráadásul a tömb ránézésre is hasonlít egy kicsit a láncra. A két végén egy-egy szögletes zárójel (`[]`) van, közöttük pedig a sok összefűzött elem, vesszővel elválasztva.
 
-Ha például egy tömböt szeretnénk létrehozni a bootcampünk néhány tagjának nevével, készíthetünk egy `mentors` (mentorok) nevű dobozt, és beletehetjük ezt a láncot.
+Ha például egy tömböt szeretnénk létrehozni néhány mentorunk nevével, készíthetünk egy `mentors` (mentorok) nevű dobozt, és beletehetjük ezt a láncot.
 
 Leírjuk, hogy `let mentors =`, pontosan úgy, ahogy bármelyik másik doboznál, aztán jön egy nyitó szögletes zárójel, a sok elem, vagyis a nevek vesszővel elválasztva, végül egy csukó szögletes zárójel. Amikor Jiki ezt meglátja, fog négy papírlapot, mindegyik névhez egyet, aztán elővesz egy új láncot, összefűzi rajta mindet, és a kész láncot beteszi a `mentors` dobozba.
 
-Egy tömbbe bármit tehetsz: stringeket, számokat, Boolean-öket, akár vegyesen is.
+Egy tömbbe bármit tehetsz: stringeket, számokat, Boolean-okat, akár vegyesen is.
 
 Ezek mind más-más példák, de mindegyik teljesen érvényes tömb.
 
