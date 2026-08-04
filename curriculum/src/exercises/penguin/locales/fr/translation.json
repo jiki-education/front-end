@@ -16,7 +16,7 @@
     "rightIris": "L'iris droit semble un peu décalé.",
     "leftFoot": "Le pied gauche s'est égaré.",
     "rightFoot": "Le pied droit n'est pas comme il faut.",
-    "nose": "Le nez n'est pas correct."
+    "nose": "Le bec n'est pas correct."
   },
   "tasks": {
     "drawPenguin": {
@@ -40,8 +40,8 @@
       "answer": "Si le bord gauche d'un élément est à 20, son bord droit symétrique sera à 80 (100 - 20)."
     },
     "noseTrouble": {
-      "question": "Pourquoi je n'arrive pas à faire fonctionner le nez ?",
-      "answer": "Tu ne dois pas ajouter un nouveau triangle pour le nez : tu dois plutôt MODIFIER le triangle existant pour qu'il soit correct. Il te suffit de changer UNE seule valeur."
+      "question": "Pourquoi je n'arrive pas à faire fonctionner le bec ?",
+      "answer": "Tu ne dois pas ajouter un nouveau triangle pour le bec : tu dois plutôt MODIFIER le triangle existant pour qu'il soit correct. Il te suffit de changer UNE seule valeur."
     }
   },
   "functions": {
