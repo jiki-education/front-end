@@ -4,7 +4,7 @@ description: "Des morceaux de texte entre guillemets (une lettre, un mot, une ph
 en_md5: 89b04f3849f9388a46734924f35c913c
 ---
 
-Quand tu veux utiliser un nombre, tu peux littéralement l'écrire tel quel, et Jiki comprend ce que tu veux dire. Mais que faire si tu veux utiliser une lettre, un mot ou une phrase ? Par exemple, avec la fonction `rectangle` ou la fonction `circle` (cercle), et si tu avais une entrée supplémentaire où préciser la couleur ? Comment écrire la couleur pour la mettre dans la machine ? Si on écrit simplement le mot `green` (vert) ou `blue` (bleu), Jiki pensera qu'on parle d'une machine sur les étagères, et il dira : « Il n'y a pas de machine qui s'appelle green. Je ne sais pas quoi faire. »
+Quand tu veux utiliser un nombre, tu peux littéralement l'écrire tel quel, et Jiki comprend ce que tu veux dire. Mais que faire si tu veux utiliser une lettre, un mot ou une phrase ? Et si, par exemple, tu avais une entrée supplémentaire où préciser la couleur dans la fonction `rectangle` ou la fonction `circle` (cercle) ? Comment devrions-nous écrire la couleur pour pouvoir l'insérer dans la machine ? Si on écrit simplement le mot `green` (vert) ou `blue` (bleu), Jiki pensera qu'on parle d'une machine sur les étagères, et il dira : « Il n'y a pas de machine qui s'appelle « green ». Je ne sais pas quoi faire. »
 
 <img
   class="concept-image"
@@ -40,7 +40,7 @@ Donc si on veut un rectangle bleu, on écrit le nombre pour sa position à gauch
 rectangle(10, 20, 30, 40, "blue")
 ```
 
-Jiki va descendre la machine de l'étagère et mettre des pièces dans les quatre premiers entonnoirs. Ensuite, il écrira blue sur un bout de papier, il placera ce papier dans le cinquième entonnoir, puis il fera tourner la machine.
+Jiki va descendre la machine de l'étagère et mettre des pièces dans les quatre premiers entonnoirs. Ensuite, il écrira « blue » sur un bout de papier, il placera ce papier dans le cinquième entonnoir, puis il fera tourner la machine.
 
 <img
   class="concept-image"
