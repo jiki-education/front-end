@@ -20,7 +20,7 @@
   "scenarios": {
     "drawFox": {
       "name": "Disegna la faccia della volpe",
-      "description": "Costruisci una faccia di volpe geometrica usando triangoli."
+      "description": "Costruisci la faccia geometrica della volpe usando i triangoli."
     }
   },
   "hints": {

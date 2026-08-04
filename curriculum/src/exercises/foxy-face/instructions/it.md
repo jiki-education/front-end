@@ -1,6 +1,6 @@
 ---
 title: "Volpe geometrica"
-description: "Costruisci una faccia di volpe geometrica con triangoli colorati."
+description: "Costruisci la faccia geometrica della volpe con triangoli colorati."
 en_md5: 095833a5b2117c2d26500103216bf247
 ---
 
@@ -15,7 +15,7 @@ Questo esercizio ti presenta la funzione `triangle`. Si usa con 7 input. I primi
 
 ### Disegnare una faccia di volpe
 
-Il tuo compito è usare i triangoli per costruire una faccia di volpe geometrica:
+Il tuo compito è usare i triangoli per costruire la faccia geometrica della volpe:
 
 <img src="/static/images/exercise-assets/foxy-face/example.svg" alt="Volpe geometrica" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 

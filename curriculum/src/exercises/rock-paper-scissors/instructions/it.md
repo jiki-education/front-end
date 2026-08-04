@@ -13,6 +13,6 @@ Entrambi i giocatori scelgono forbici, carta o sasso. Poi confronta le loro scel
 - La carta avvolge il sasso (vince la carta).
 - Se le scelte sono uguali, è un pareggio.
 
-Il tuo compito è confrontare le scelte di Yuki e Ando e comunicare il vincitore alla sala di gioco. Usa la funzione `announceResult(result)` (comunica il risultato) con un risultato che sia `"Ando"` se ha vinto Ando, `"Yuki"` se ha vinto Yuki, oppure `"tie"` se hanno scelto la stessa cosa.
+Il tuo compito è confrontare le scelte di Yuki e Ando e comunicare il vincitore in sala giochi. Usa la funzione `announceResult(result)` (comunica il risultato) con un risultato che sia `"Ando"` se ha vinto Ando, `"Yuki"` se ha vinto Yuki, oppure `"tie"` se hanno pareggiato.
 
 Per risolvere questo esercizio, usa quello che hai imparato nella lezione precedente. Buona fortuna!
