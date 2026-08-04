@@ -21,7 +21,7 @@
   "describers": {
     "rectangle": {
       "default": "ha disegnato un rettangolo alle coordinate (${arg1}, ${arg2}) con una larghezza di ${arg3}, un'altezza di ${arg4} e il colore ${arg5}",
-      "fixedColor": "ha disegnato un rettangolo alle coordinate (${arg1}, ${arg2}) con una larghezza di ${arg3} e un'altezza di ${arg4}"
+      "fixedColor": "ha disegnato un rettangolo alle coordinate (${arg1}, ${arg2}) con una larghezza di ${arg3} ed un'altezza di ${arg4}"
     },
     "triangle": {
       "default": "ha disegnato un triangolo con tre punti: (${arg1}, ${arg2}), (${arg3}, ${arg4}) e (${arg5}, ${arg6}) con il colore ${arg7}",
@@ -29,11 +29,11 @@
     },
     "circle": {
       "default": "ha disegnato un cerchio con il centro in (${arg1}, ${arg2}), un raggio di ${arg3} e il colore ${arg4}",
-      "fixedColor": "ha disegnato un cerchio con il centro in (${arg1}, ${arg2}) e un raggio di ${arg3}"
+      "fixedColor": "ha disegnato un cerchio con il centro in (${arg1}, ${arg2}) ed un raggio di ${arg3}"
     },
     "ellipse": {
       "default": "ha disegnato un'ellisse con il centro in (${arg1}, ${arg2}), una larghezza radiale di ${arg3}, un'altezza radiale di ${arg4} e il colore ${arg5}",
-      "fixedColor": "ha disegnato un'ellisse con il centro in (${arg1}, ${arg2}), una larghezza radiale di ${arg3} e un'altezza radiale di ${arg4}"
+      "fixedColor": "ha disegnato un'ellisse con il centro in (${arg1}, ${arg2}), una larghezza radiale di ${arg3} ed un'altezza radiale di ${arg4}"
     },
     "line": {
       "default": "ha disegnato una linea da (${arg1}, ${arg2}) a (${arg3}, ${arg4}) con il colore ${arg5}",

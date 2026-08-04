@@ -23,7 +23,7 @@
   "hints": {
     "whereDoIStart": {
       "question": "Da dove inizio?",
-      "answer": "Ti vengono dati `houseWidth`, `houseHeight` e `canvasWidth`. Ricava per prima cosa le due cose di cui la struttura ha bisogno: il suo bordo sinistro (perché la casa sia centrata) e il suo bordo superiore (perché poggi sul prato). Ogni altra forma può poi essere costruita a partire dalla struttura."
+      "answer": "Ti vengono dati `houseWidth`, `houseHeight` e `canvasWidth`. Ricava inizialmente le due cose di cui la struttura ha bisogno: il suo bordo sinistro (perché la casa sia centrata) e il suo bordo superiore (perché poggi sul prato). Ogni altra forma può successivamente essere costruita a partire dalla struttura."
     },
     "keepCentered": {
       "question": "Come mantengo la casa centrata quando la larghezza cambia?",

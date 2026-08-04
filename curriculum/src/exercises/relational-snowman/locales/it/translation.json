@@ -3,7 +3,7 @@
     "base": "Il cerchio della base (quello in basso) è nella posizione sbagliata o ha le dimensioni sbagliate. Controlla `baseRadius` e `baseY`.",
     "body": "Il cerchio del corpo (quello centrale) è nella posizione sbagliata o ha le dimensioni sbagliate. Controlla `bodyRadius` e `bodyY`.",
     "head": "Il cerchio della testa (quello in alto) è nella posizione sbagliata o ha le dimensioni sbagliate. Controlla `headRadius` e `headY`.",
-    "notResponsive": "Il tuo codice non si ridimensiona correttamente quando `size` vale {{size}}. Ogni raggio e ogni coordinata Y devono essere ricavati da `size`."
+    "notResponsive": "Il tuo codice non si ridimensiona correttamente quando `size` vale {{size}}. Ogni raggio ed ogni coordinata Y devono essere ricavati da `size`."
   },
   "tasks": {
     "buildRelationalSnowman": {
@@ -14,7 +14,7 @@
   "scenarios": {
     "buildRelationalSnowman": {
       "name": "Costruisci il pupazzo di neve relazionale",
-      "description": "Ricava ogni raggio e ogni coordinata Y da `size`."
+      "description": "Ricava ogni raggio ed ogni coordinata Y da `size`."
     }
   },
   "hints": {
@@ -27,7 +27,7 @@
       "answer": "Il bordo inferiore della base si trova `size` sopra il fondo (Y=100). Il centro della base si trova un raggio della base più in alto rispetto al suo bordo inferiore."
     },
     "stackBody": {
-      "question": "Come faccio a impilare il corpo sulla base?",
+      "question": "Come faccio ad impilare il corpo sulla base?",
       "answer": "Quando due cerchi si toccano con uno direttamente sopra l'altro, la distanza tra i loro centri è uguale alla somma dei loro due raggi."
     },
     "head": {
