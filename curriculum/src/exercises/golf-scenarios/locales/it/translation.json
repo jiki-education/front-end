@@ -48,7 +48,7 @@
     }
   },
   "describers": {
-    "moveTo": "spostato la pallina alla posizione ${arg1}",
-    "getShotLength": "ottenuto la lunghezza del tiro"
+    "moveTo": "sposta la pallina alla posizione ${arg1}",
+    "getShotLength": "ottiene la lunghezza del tiro"
   }
 }

@@ -31,7 +31,7 @@
       "answer": "Devi usare `marketGrowth()` per ogni anno dei prossimi 20 anni (a partire da adesso). Restituirà un valore come 5 (per una crescita del mercato del 5%). Poi devi tenere traccia di quanti soldi hai - a partire dai $10 iniziali modificati dal tasso di interesse."
     },
     "stillStuck": {
-      "question": "Sono ancora bloccato - non capisco.",
+      "question": "Sono ancora bloccato, non capisco.",
       "answer": "OK, vediamo un po' di codice per farti iniziare. Immagina che l'anno corrente sia il 2026. Dovrai fare qualcosa del tipo: \n\n```javascript\nlet money = 10\nlet growth = marketGrowth(2026)\n\n// Devi aumentare il denaro in base alla crescita.\n// Controlla il prossimo suggerimento se ti serve la formula.\nmoney = money + ???\nreportTax(2026, money)\n\n// Ora fai il 2027\nlet growth = marketGrowth(2027)\nmoney = money + ???\nreportTax(2027, money)\n\n// Ora fai il 2028\nlet growth = marketGrowth(2028)\nmoney = money + ???\nreportTax(2028, money)\n\n// Dopo 20 anni annuncia alla tua famiglia\nannounceToFamily(money)\n```"
     },
     "formula": {
@@ -39,7 +39,7 @@
       "answer": "La formula è: \n\n```javascript\nmoney = money * (100 + marketGrowth(year)) / 100\n```"
     },
     "wrongTaxReportCount": {
-      "question": "Dice che non ho dichiarato il numero corretto di dichiarazioni fiscali.",
+      "question": "Dice che non ho presentato il numero corretto di dichiarazioni fiscali.",
       "answer": "Dovresti presentare 20 dichiarazioni fiscali per 20 anni. Usa lo scrubber per contare quante volte usi la funzione `reportTax()`."
     }
   },

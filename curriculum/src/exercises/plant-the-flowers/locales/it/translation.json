@@ -31,6 +31,6 @@
     }
   },
   "describers": {
-    "plant": "piantato un fiore alla posizione ${arg1}"
+    "plant": "pianta un fiore alla posizione ${arg1}"
   }
 }
