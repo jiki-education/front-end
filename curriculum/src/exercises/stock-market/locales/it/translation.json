@@ -28,7 +28,7 @@
   "hints": {
     "whereToStart": {
       "question": "Non so da dove iniziare",
-      "answer": "Devi usare `marketGrowth()` per ogni anno dei prossimi 20 anni (a partire da adesso). Restituirà un valore come 5 (per una crescita del mercato del 5%). Poi devi tenere traccia di quanti soldi hai - a partire dai $10 iniziali modificati dal tasso di interesse."
+      "answer": "Devi usare `marketGrowth()` per ogni anno dei prossimi 20 anni (a partire da adesso). Restituirà un valore come 5 (per una crescita del mercato del 5%). Poi devi tenere traccia di quanti soldi hai, a partire dai $10 iniziali modificati dal tasso di interesse."
     },
     "stillStuck": {
       "question": "Sono ancora bloccato, non capisco.",

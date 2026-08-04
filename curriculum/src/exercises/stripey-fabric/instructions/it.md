@@ -31,7 +31,7 @@ Stai progettando un algoritmo per creare un rotolo di tessuto a righe, che dovre
 
 Il motivo è una sequenza ripetuta di `"yellow"`, `"blue"`, `"yellow"`, `"green"`. La prima e l'ultima striscia sono `"purple"`.
 
-L'area di disegno su cui stai progettando è larga `100` e alta `100`. Devi disegnare `20` strisce, ognuna larga `5`.
+L'area di disegno è larga `100` e alta `100`. Devi disegnare `20` strisce, ognuna larga `5`.
 
 ### Regole dell'esercizio
 

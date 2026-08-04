@@ -42,7 +42,7 @@
     },
     "prisonerAwakeNaughtyDog": {
       "name": "Solo il prigioniero è sveglio",
-      "description": "Entrambi i rapitori dormono mentre il prigioniero è sveglio. Il cane è birichino — la via furtiva è aperta."
+      "description": "Entrambi i rapitori dormono mentre il prigioniero è sveglio. Il cane è birichino: la via furtiva è aperta."
     },
     "archerAndPrisonerAwakeBehavingDog": {
       "name": "Arciere e prigioniero svegli",

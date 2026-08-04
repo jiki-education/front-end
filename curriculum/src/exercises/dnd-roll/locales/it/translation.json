@@ -34,7 +34,7 @@
   "hints": {
     "chooseDie": {
       "question": "Come scelgo il tipo di dado da usare?",
-      "answer": "Per un dado a 20 facce, usa 20 come input per roll - ad esempio `roll(20)`. Per un dado a 12 facce, chiama `roll(12)`."
+      "answer": "Per un dado a 20 facce, usa 20 come input per roll, ad esempio `roll(20)`. Per un dado a 12 facce, chiama `roll(12)`."
     }
   },
   "functions": {

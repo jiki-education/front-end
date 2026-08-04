@@ -1,9 +1,9 @@
 {
   "checks": {
-    "age25NotLetIn": "La persona ha 25 anni — avrebbe dovuto essere fatta entrare, ma non lo è stata.",
-    "age18LetIn": "La persona ha 18 anni — non avrebbe dovuto essere fatta entrare, ma lo è stata.",
-    "age21NotLetIn": "La persona ha 21 anni — avrebbe dovuto essere fatta entrare, ma non lo è stata.",
-    "age20LetIn": "La persona ha esattamente 20 anni — non ha più di 20 anni, quindi non avrebbe dovuto essere fatta entrare, ma lo è stata."
+    "age25NotLetIn": "La persona ha 25 anni: avrebbe dovuto essere fatta entrare, ma non lo è stata.",
+    "age18LetIn": "La persona ha 18 anni: non avrebbe dovuto essere fatta entrare, ma lo è stata.",
+    "age21NotLetIn": "La persona ha 21 anni: avrebbe dovuto essere fatta entrare, ma non lo è stata.",
+    "age20LetIn": "La persona ha esattamente 20 anni: non ha più di 20 anni, quindi non avrebbe dovuto essere fatta entrare, ma lo è stata."
   },
   "tasks": {
     "checkAge": {
@@ -14,19 +14,19 @@
   "scenarios": {
     "age25": {
       "name": "Età 25",
-      "description": "La persona ha 25 anni — dovrebbe essere fatta entrare."
+      "description": "La persona ha 25 anni: dovrebbe essere fatta entrare."
     },
     "age18": {
       "name": "Età 18",
-      "description": "La persona ha 18 anni — non dovrebbe essere fatta entrare."
+      "description": "La persona ha 18 anni: non dovrebbe essere fatta entrare."
     },
     "age21": {
       "name": "Età 21",
-      "description": "La persona ha 21 anni — appena sopra i 20, dovrebbe essere fatta entrare."
+      "description": "La persona ha 21 anni: appena sopra i 20, dovrebbe essere fatta entrare."
     },
     "age20": {
       "name": "Età 20",
-      "description": "La persona ha esattamente 20 anni — non ha più di 20, quindi non dovrebbe essere fatta entrare."
+      "description": "La persona ha esattamente 20 anni: non ha più di 20, quindi non dovrebbe essere fatta entrare."
     }
   },
   "hints": {
@@ -36,7 +36,7 @@
     },
     "ifStatement": {
       "question": "Come faccio a variare ciò che faccio?",
-      "answer": "Usa un'istruzione `if` — dai un'occhiata al concetto se hai bisogno di più aiuto!"
+      "answer": "Usa un'istruzione `if`. Dai un'occhiata al concetto se hai bisogno di più aiuto!"
     }
   },
   "describers": {

@@ -22,7 +22,7 @@ Una volta capito, o se ti arrendi, scorri verso il basso per vedere la soluzione
 
 ### L'algoritmo
 
-OK - è stata una richiesta difficile, quindi immagino che tu abbia avuto qualche idea ma non l'abbia risolta del tutto. Ecco i passi che devi seguire:
+OK, è stata una richiesta difficile, quindi immagino che tu abbia avuto qualche idea ma non l'abbia risolta del tutto. Ecco i passi che devi seguire:
 
 - Se puoi girare a sinistra, gira a sinistra e vai avanti.
 - Altrimenti, se puoi andare avanti, vai avanti.

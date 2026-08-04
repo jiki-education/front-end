@@ -10,23 +10,23 @@
     "stripe12Green": "La striscia 12 dovrebbe essere green (è un multiplo di 4).",
     "stripe19Yellow": "La striscia 19 dovrebbe essere yellow (è dispari e non è una striscia finale).",
     "stripe20Purple": "La striscia 20 è una striscia finale, quindi dovrebbe essere purple (anche se è pari).",
-    "rectangleOnce": "Stai utilizzando la funzione <code>rectangle</code> in più punti. Dovrebbe apparire una sola volta, all'interno di un ciclo - non scrivere tutte le venti strisce a mano!"
+    "rectangleOnce": "Stai utilizzando la funzione <code>rectangle</code> in più punti. Dovrebbe apparire una sola volta, all'interno di un ciclo: non scrivere tutte le 20 strisce a mano!"
   },
   "tasks": {
     "weaveTheFabric": {
       "name": "Tessi il tessuto",
-      "description": "Disegna venti strisce verticali. Le due strisce finali sono purple; altrimenti i multipli di 4 sono green, le altre strisce pari sono blue e le strisce dispari sono yellow."
+      "description": "Disegna 20 strisce verticali. Le due strisce finali sono purple; altrimenti i multipli di 4 sono green, le altre strisce pari sono blue e le strisce dispari sono yellow."
     }
   },
   "scenarios": {
     "weaveTheFabric": {
       "name": "Tessi il tessuto a righe",
-      "description": "Disegna tutte le venti strisce con i colori corretti."
+      "description": "Disegna tutte le 20 strisce con i colori corretti."
     }
   },
   "hints": {
     "howToDraw20Stripes": {
-      "question": "Come disegno venti strisce in punti diversi?",
+      "question": "Come disegno 20 strisce in punti diversi?",
       "answer": "Tieni un contatore (chiamalo `i`) e incrementalo di uno all'interno di un ciclo `repeat`. La striscia numero `i` è larga `5`, quindi il suo bordo sinistro è `(i - 1) * 5`. Disegna un `rectangle` in quel punto, largo `5` e alto `100`."
     },
     "endStripesPurple": {
