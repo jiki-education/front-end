@@ -114,7 +114,7 @@ export default function UIKitDemoPage() {
 
           <div className={styles.panelSpaced}>
             <h3 className={styles.panelTitle}>Custom Colors</h3>
-            <p className={styles.panelDescription}>Icons with custom color using Tailwind color classes.</p>
+            <p className={styles.panelDescription}>Icons with a custom color.</p>
             <div className={styles.iconRow}>
               <Icon name="email" size={24} color="red-500" />
               <Icon name="password" size={24} color="blue-500" />

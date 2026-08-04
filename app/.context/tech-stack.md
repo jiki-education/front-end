@@ -5,7 +5,7 @@
 - **Framework**: Next.js 15.5.2 with App Router
 - **Language**: TypeScript 5
 - **UI Library**: React 19.1.0 with React Compiler
-- **Styling**: CSS Modules + a hand-written UI Kit. Tailwind is not used (fully removed); an ESLint rule blocks Tailwind classes. See `css-styles.md`.
+- **Styling**: CSS Modules + a hand-written UI Kit. An ESLint rule blocks ad-hoc utility-style classes. See `css-styles.md`.
 - **Package Manager**: pnpm
 - **Deployment Target**: Cloudflare Workers
 

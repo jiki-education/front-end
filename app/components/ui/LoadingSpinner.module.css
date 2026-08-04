@@ -1,7 +1,6 @@
 /*
- * LoadingSpinner renders on (hybrid) routes (e.g. /unsubscribe) where the
- * Tailwind utility bundle is not loaded, so its styles live here rather than in
- * Tailwind classes. Values mirror the previous utilities exactly.
+ * LoadingSpinner renders on (hybrid) routes (e.g. /unsubscribe), so its
+ * styles live here as a CSS module.
  */
 
 .wrapper {

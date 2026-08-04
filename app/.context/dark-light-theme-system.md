@@ -63,7 +63,7 @@ The semantic tokens are plain `:root` custom properties (defined per-theme in `c
 
 Available semantic tokens: `--color-bg-{primary,secondary,tertiary}`, `--color-text-{primary,secondary,tertiary}`, `--color-border-{primary,secondary}`, `--color-button-{primary,secondary}-{bg,text}`, and status colors `--color-{success,error,warning,info}-bg`.
 
-These are plain `:root`/`[data-theme="dark"]` custom properties in `colors.css` — reference them directly (`var(--color-*)`); they resolve to the active theme automatically. (There is no Tailwind utility layer; Tailwind was removed.)
+These are plain `:root`/`[data-theme="dark"]` custom properties in `colors.css` — reference them directly (`var(--color-*)`); they resolve to the active theme automatically.
 
 ### 4. CodeMirror Theme Integration
 
