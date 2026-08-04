@@ -14,7 +14,7 @@ Eccoti di nuovo con i semafori! Questa volta seguiremo lo schema degli ultimi du
 - Le variabili di colore e `center` sono già fissate per te. Il raggio (`radius`) è preimpostato a 10, ma puoi provare a cambiarlo.
 - Devi derivare tutte le variabili di posizione e dimensione come una combinazione di `radius` e/o `center`.
 - L'involucro è un rettangolo che circonda tutte e tre le luci con una spaziatura. La spaziatura è la stessa del raggio.
-- Le tre luci sono distanziate in modo uniforme verticalmente all'interno dell'involucro e l'involucro si trova al centro dell'immagine. (Quindi il centro del cerchio giallo è il centro dell'immagine).
+- Le tre luci sono distanziate in modo uniforme verticalmente all'interno dell'involucro, che si trova al centro dell'immagine. (Quindi il centro del cerchio giallo è il centro dell'immagine).
 
 ### Variabili da derivare
 

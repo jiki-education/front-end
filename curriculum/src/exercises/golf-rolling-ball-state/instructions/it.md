@@ -8,7 +8,7 @@ Siamo tornati nel mondo della creazione di un gioco di golf, ma questa volta ci�
 
 Al posto della funzione `roll()` (far rotolare) che avevamo prima, adesso abbiamo una funzione `moveTo(position)` (sposta in posizione) che sposta la pallina in un punto all'istante.
 
-Ora, quando il giocatore colpisce la pallina, potremmo semplicemente spostarla direttamente nel punto finale, ma è molto insoddisfacente vederla non animarsi. Quindi invece vogliamo usare `moveTo(position)` tante volte per far sì che sembri rotolare.
+Ora, quando il giocatore colpisce la pallina, potremmo semplicemente spostarla direttamente nel punto finale, ma è molto insoddisfacente vederla non animarsi. Noi, invece, vogliamo usare `moveTo(position)` tante volte per far sì che sembri rotolare.
 
 La pallina parte dalla posizione **28** e deve raggiungere la posizione **88**.
 
