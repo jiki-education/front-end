@@ -9,7 +9,7 @@
     },
     "solveInSixLines": {
       "name": "Los het op in zes regels code",
-      "description": "Kun je dit oplossen met maar zes regels code?"
+      "description": "Kun je dit oplossen met slechts zes regels code?"
     }
   },
   "scenarios": {
@@ -27,7 +27,7 @@
     },
     "bonus1": {
       "name": "Zes regels code",
-      "description": "Los de opdracht op met maar zes regels code."
+      "description": "Los de opdracht op met slechts zes regels code."
     }
   },
   "hints": {

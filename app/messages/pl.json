@@ -1599,7 +1599,7 @@
       "congratsWellDone": "Brawo!",
       "congratsNiceWork": "Dobra robota!",
       "congratsFantasticJob": "Fantastyczna robota!",
-      "congratsAmazingEffort": "Niesamowita praca!",
+      "congratsAmazingEffort": "Kawał dobrej roboty!",
       "congratsGreatAchievement": "Wspaniałe osiągnięcie!",
       "congratsCongratulations": "Gratulacje!",
       "congratsCongrats": "Gratki!"
@@ -1820,7 +1820,7 @@
       "inProgressTitle": "Brak wyzwań w trakcie",
       "inProgressDescription": "Żadne wyzwanie nie zostało jeszcze rozpoczęte. Przejrzyj dostępne wyzwania i kliknij „Rozpocznij”, aby zacząć pierwsze z nich.",
       "allStartedTitle": "Wszystkie wyzwania są już rozpoczęte",
-      "allStartedDescription": "Świetny postęp! Wszystkie dostępne wyzwania są już w trakcie. Tak trzymaj i doprowadź je do końca.",
+      "allStartedDescription": "Robisz postępy! Wszystkie dostępne wyzwania są już w trakcie. Tak trzymaj i doprowadź je do końca.",
       "noneToStartTitle": "Na razie nie ma wyzwań do rozpoczęcia",
       "noneToStartDescription": "Wyzwania będą pojawiać się tutaj w miarę ich odblokowywania.",
       "completedTitle": "Brak ukończonych wyzwań",
