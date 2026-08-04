@@ -1,5 +1,5 @@
 ---
-title: "Palla con stato"
+title: "Palla con memoria"
 description: "Fai rotolare una pallina da golf nella buca tenendo traccia della sua posizione."
 en_md5: e3c9b61e57c7e245a7c4624433879471
 ---

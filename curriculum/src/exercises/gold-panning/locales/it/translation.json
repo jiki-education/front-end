@@ -1,6 +1,6 @@
 {
   "errors": {
-    "needsRecharge": "Il robot deve ricaricarsi dopo aver venduto.",
+    "needsRecharge": "Il robot deve ricaricare le batterie dopo aver venduto.",
     "sellBeforeAnythingElse": "Il robot deve andare a vendere prima di fare qualsiasi altra cosa.",
     "sellNumber": "Puoi vendere solo un numero di pepite."
   },
