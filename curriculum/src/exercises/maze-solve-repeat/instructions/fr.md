@@ -1,5 +1,5 @@
 ---
-title: "Le labyrinthe des boucles"
+title: "Labyrinthe en boucle"
 description: "Réécris une solution du labyrinthe pour utiliser des boucles à la place du code qui se répète."
 en_md5: 6ee8a02aea4617a21e320428e66eab5e
 ---
