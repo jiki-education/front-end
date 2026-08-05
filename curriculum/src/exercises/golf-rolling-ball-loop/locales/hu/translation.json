@@ -1,36 +1,36 @@
 {
   "checks": {
-    "ballNotAtEnd": "The ball rolled to {{ballX}}, which isn't 60 from where it started.",
-    "missingPositions": "The ball must roll through each position one step at a time, starting from 29.",
+    "ballNotAtEnd": "A labda {{ballX}} helyre gurult, ami nem 60 lépésre van a kezdőponttól.",
+    "missingPositions": "A labdának egyesével kell áthaladnia minden pozíción, 29-től kezdve.",
     "codeQuality": {
-      "tooManyLines": "Your solution has too many lines of code. Try using a loop to make it shorter."
+      "tooManyLines": "A megoldásod túl sok kódsort tartalmaz. Próbálj ciklust használni, hogy rövidebb legyen."
     }
   },
   "tasks": {
     "rollBall": {
-      "name": "Roll the ball into the hole",
-      "description": "Roll the ball into the hole."
+      "name": "Gurítsd a labdát a lyukba",
+      "description": "Gurítsd a labdát a lyukba."
     }
   },
   "scenarios": {
     "rollBall": {
-      "name": "Roll the ball into the hole",
-      "description": "Roll the ball into the hole."
+      "name": "Gurítsd a labdát a lyukba",
+      "description": "Gurítsd a labdát a lyukba."
     }
   },
   "hints": {
     "icantWorkItOut": {
-      "question": "I can't work it out",
-      "answer": "You have two tools to use:\n- A repeat loop, which you use by writing `repeat(n) { }` where `n` is the amount of times you want to roll and where you can put anything inside the braces (`{ }`).\n- A `roll()` function that rolls the ball one step to the right.\n\nHow can you combine them?"
+      "question": "Nem tudom megoldani",
+      "answer": "Két eszközt használhatsz:\n- Egy repeat ciklus, amelyet úgy használsz, hogy beírod: `repeat(n) { }`, ahol `n` az, ahányszor gurítani szeretnél, és a kapcsos zárójelek (`{ }`) közé bármit írhatsz.\n- Egy `roll()` függvény, amely egy lépéssel jobbra gurítja a labdát.\n\nHogyan tudod ezeket kombinálni?"
     }
   },
   "functions": {
     "roll": {
-      "description": "Rolls the ball **one step to the right**.",
-      "category": "Movement"
+      "description": "**Egy lépéssel jobbra** gurítja a labdát.",
+      "category": "Mozgás"
     }
   },
   "describers": {
-    "roll": "rolled the ball one step to the right"
+    "roll": "a labdát egy lépéssel jobbra gurította"
   }
 }

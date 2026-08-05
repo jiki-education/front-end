@@ -1,0 +1,138 @@
+{
+  "welcome-to-coding-fundamentals": {
+    "title": "कोडिंग की बुनियादी बातों में आपका स्वागत है",
+    "description": "Jiki से मिलिए और सीखिए कि कोडिंग कैसे काम करती है।"
+  },
+  "using-functions": {
+    "title": "फंक्शन का इस्तेमाल",
+    "description": "फंक्शन के बारे में जानिए, वे छोटी मशीनें जो काम करती हैं।"
+  },
+  "function-inputs": {
+    "title": "इनपुट लेने वाले फंक्शन (संख्या)",
+    "description": "सीखिए कि फंक्शन को इनपुट कैसे देना है।"
+  },
+  "strings": {
+    "title": "स्ट्रिंग",
+    "description": "अपने प्रोग्राम में टेक्स्ट का इस्तेमाल करना सीखिए।"
+  },
+  "repeat-loop": {
+    "title": "Repeat लूप",
+    "description": "Jiki को एक ही काम बार-बार करने के लिए कहना सीखिए।"
+  },
+  "creating-variables": {
+    "title": "वेरिएबल बनाना/इस्तेमाल करना",
+    "description": "अपने प्रोग्राम में जानकारी सहेजना और निकालना सीखिए।"
+  },
+  "variables-together": {
+    "title": "अंकगणित और वेरिएबल",
+    "description": "वेरिएबल के साथ गणित करना सीखिए।"
+  },
+  "updating-variables": {
+    "title": "वेरिएबल अपडेट करना",
+    "description": "सीखिए कि जैसे-जैसे आपका कोड चलता है, वेरिएबल की वैल्यू कैसे बदलती है।"
+  },
+  "functions-that-return-things": {
+    "title": "वैल्यू लौटाने वाले फंक्शन",
+    "description": "सीखिए कि फंक्शन आपको जानकारी वापस कैसे दे सकते हैं।"
+  },
+  "colors": {
+    "title": "रंग (HSL और RGB)",
+    "description": "सीखिए कि बिल्कुल सही रंग चुनने के अलग-अलग तरीके क्या हैं।"
+  },
+  "animation": {
+    "title": "एनिमेशन",
+    "description": "स्क्रीन पर चीज़ों को हिलाना सीखिए।"
+  },
+  "random-numbers": {
+    "title": "रैंडम संख्याएँ",
+    "description": "अपने प्रोग्राम में रैंडम संख्या का इस्तेमाल करना सीखिए।"
+  },
+  "scope": {
+    "title": "स्कोप",
+    "description": "कोड ब्लॉक के अंदर और बाहर वेरिएबल के साथ क्या होता है, यह सीखिए।"
+  },
+  "scenarios": {
+    "title": "सिनेरियो",
+    "description": "अपने कोड को अलग-अलग शुरुआती स्थितियों में चलाना सीखिए।"
+  },
+  "nested-loops": {
+    "title": "नेस्टेड लूप",
+    "description": "लूप के अंदर लूप लगाना सीखिए।"
+  },
+  "if-statements": {
+    "title": "if स्टेटमेंट",
+    "description": "अपने कोड को परिस्थितियों के अनुसार अलग-अलग काम करने लायक बनाना सीखिए।"
+  },
+  "else-statements": {
+    "title": "else और else if",
+    "description": "कई अलग-अलग शर्तों को संभालना सीखिए।"
+  },
+  "logic-gates": {
+    "title": "लॉजिक गेट",
+    "description": "शर्तों को एक साथ जोड़ना सीखिए।"
+  },
+  "remainder": {
+    "title": "मॉड्यूलो और Not",
+    "description": "शेषफल और शर्तों को उलटने के बारे में सीखिए।"
+  },
+  "repeat-without-count": {
+    "title": "बिना इनपुट के repeat",
+    "description": "बिना गिनती बताए लूप चलाना सीखिए।"
+  },
+  "state": {
+    "title": "स्थिति",
+    "description": "बदलती हुई जानकारी के साथ शर्तों का इस्तेमाल करना सीखिए।"
+  },
+  "making-functions": {
+    "title": "अपने खुद के फंक्शन बनाना",
+    "description": "अपनी खुद की मशीनें बनाना सीखिए जिन्हें बार-बार इस्तेमाल किया जा सके।"
+  },
+  "making-functions-with-inputs": {
+    "title": "अपने फंक्शन को इनपुट देना",
+    "description": "अपने फंक्शन में इनपुट लेना सीखिए।"
+  },
+  "making-functions-with-return-values": {
+    "title": "अपने फंक्शन से वैल्यू लौटाना",
+    "description": "अपने फंक्शन से नतीजे पाना सीखिए।"
+  },
+  "string-concatenation": {
+    "title": "स्ट्रिंग जोड़ना और टेम्पलेट",
+    "description": "टेक्स्ट के टुकड़ों को आपस में जोड़ना सीखिए।"
+  },
+  "string-indexing": {
+    "title": "स्ट्रिंग इंडेक्सिंग",
+    "description": "टेक्स्ट से एक-एक अक्षर निकालना सीखिए।"
+  },
+  "string-iteration": {
+    "title": "स्ट्रिंग पर इटरेशन",
+    "description": "टेक्स्ट के हर अक्षर पर एक-एक करके जाना सीखिए।"
+  },
+  "using-multiple-functions-together": {
+    "title": "एक साथ कई फंक्शन इस्तेमाल करना",
+    "description": "फंक्शनों को मिलाकर बड़े सवाल हल करना सीखिए।"
+  },
+  "methods-and-strings": {
+    "title": "मेथड और प्रॉपर्टी",
+    "description": "पहले से बने उन टूल का इस्तेमाल करना सीखिए जो डेटा के साथ आते हैं।"
+  },
+  "for-while-loops": {
+    "title": "एडवांस्ड लूप",
+    "description": "JavaScript के सही लूप सीखिए जिनमें ज़्यादा नियंत्रण और लचीलापन हो।"
+  },
+  "arrays": {
+    "title": "ऐरे",
+    "description": "ऐरे में कई चीज़ें स्टोर करना सीखिए।"
+  },
+  "building-arrays": {
+    "title": "ऐरे बनाना",
+    "description": "टुकड़े-टुकड़े करके ऐरे बनाना सीखिए।"
+  },
+  "dictionaries": {
+    "title": "डिक्शनरी",
+    "description": "डेटा को नाम के लेबल के साथ स्टोर करना सीखिए।"
+  },
+  "updating-dictionaries": {
+    "title": "डिक्शनरी बदलना",
+    "description": "डिक्शनरी में बदलाव करना सीखिए।"
+  }
+}

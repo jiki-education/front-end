@@ -28,7 +28,7 @@
   },
   "functions": {
     "walk": {
-      "description": "Mueve al personaje **hacia adelante la cantidad de pasos indicada** en la dirección actual. Cada paso mueve una celda. El personaje se detendrá y reportará un error si choca contra una pared.",
+      "description": "Mueve al personaje **hacia adelante la cantidad de pasos indicada** en la dirección actual. Cada paso avanza al personaje una celda. El personaje se detendrá y reportará un error si choca contra una pared.",
       "category": "Movimiento"
     },
     "turnLeft": {

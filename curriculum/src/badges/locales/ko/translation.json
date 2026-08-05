@@ -1,0 +1,52 @@
+{
+  "beta_user": {
+    "name": "베타 사용자",
+    "description": "베타 기간에 Jiki에 가입했어요.",
+    "funFact": "베타 사용자는 Jiki의 미래를 함께 만들어 가는 분들이에요. 초기에 믿어 주셔서 감사합니다!"
+  },
+  "early_bird": {
+    "name": "얼리버드",
+    "description": "이른 아침에 레슨을 마쳤어요.",
+    "funFact": "일찍 일어나는 새가 벌레를 잡는다는 말이 있죠. 세상이 깨어나기 전에 코딩하는 건 초능력이에요!"
+  },
+  "first_lesson": {
+    "name": "첫걸음",
+    "description": "첫 레슨을 마쳤어요.",
+    "funFact": "모든 여정에서 가장 어려운 부분은 첫걸음을 떼는 거예요. 해내셨어요!"
+  },
+  "maze_navigator": {
+    "name": "미로 탐색자",
+    "description": "'미로 풀기' 레슨을 마쳤어요.",
+    "funFact": "미로를 푸는 알고리즘은 로봇 공학, 게임 AI, 심지어 GPS 내비게이션에도 사용돼요!"
+  },
+  "member": {
+    "name": "회원",
+    "description": "Jiki에 가입했어요.",
+    "funFact": "커뮤니티에 오신 것을 환영해요! 모든 전문가도 한때는 초보자였어요."
+  },
+  "night_owl": {
+    "name": "밤올빼미",
+    "description": "밤늦은 시간에 레슨을 마쳤어요.",
+    "funFact": "Jeremy는 어릴 적부터 밤늦게까지 코딩했어요. 세상이 잠든 밤에 코딩하는 건 뭔가 마법 같아요!"
+  },
+  "premium": {
+    "name": "프리미엄",
+    "description": "프리미엄 회원이 되었어요.",
+    "funFact": "Jiki를 후원해 주셔서 감사합니다! 프리미엄 회원 덕분에 계속 발전할 수 있어요."
+  },
+  "scenario_handler": {
+    "name": "시나리오 처리자",
+    "description": "시나리오가 포함된 연습 문제를 풀었어요.",
+    "funFact": "실제로는 '시나리오'를 '테스트'라고 부르며, 여러 상황에서 코드가 잘 작동하는지 확인하기 위해 작성한답니다."
+  },
+  "sidekick": {
+    "name": "사이드킥",
+    "description": "Jiki에게 첫 메시지를 보냈어요.",
+    "funFact": "두 사람이 함께하면 더 좋은 법이에요. Jiki와 대화해 주셔서 감사해요!"
+  },
+  "townsfolk": {
+    "name": "마을 사람들",
+    "description": "Jiki 커뮤니티 포럼에 가입했어요.",
+    "funFact": "가르치는 게 가장 배우기 좋은 방법이래요. 대화에 오신 걸 환영해요!"
+  }
+}

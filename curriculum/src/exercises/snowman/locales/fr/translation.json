@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "baseCircle": "Le cercle de la base (en bas) n'est pas correct. Vérifie snowmanCenterX, baseCenterY et baseRadius.",
+    "bodyCircle": "Le cercle du corps (au milieu) n'est pas correct. Vérifie snowmanCenterX, bodyCenterY et bodyRadius.",
+    "headCircle": "Le cercle de la tête (en haut) n'est pas correct. Vérifie snowmanCenterX, headCenterY et headRadius."
+  },
+  "tasks": {
+    "buildSnowman": {
+      "name": "Construis le bonhomme de neige",
+      "description": "Définis les valeurs des variables pour que le bonhomme de neige corresponde à l'image cible."
+    }
+  },
+  "scenarios": {
+    "buildSnowman": {
+      "name": "Construis le bonhomme de neige",
+      "description": "Définis les bonnes valeurs de variables pour dessiner le bonhomme de neige."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Je ne sais pas par où commencer",
+      "answer": "Le code d'origine dessine un cercle blanc sur le côté gauche. Tu dois corriger les valeurs de snowmanCenterX, baseCenterY et baseRadius pour placer ce cercle sur l'anneau du bas du modèle. Ajoute ensuite des variables pour les autres cercles."
+    },
+    "variableNotFoundError": {
+      "question": "J'obtiens une erreur du type « Jiki n'a pas trouvé de variable appelée ‹ XXX › »",
+      "answer": "Cela signifie que tu n'as pas créé la variable (la boîte sur les étagères de Jiki) avec le mot-clé `let`. Quand Jiki lit le code qui dessine les cercles, il s'attend à trouver les boîtes mentionnées, mais elles n'y sont pas. Tu dois donc les ajouter."
+    },
+    "stillNotDeclaredError": {
+      "question": "J'ai ajouté les variables, mais j'obtiens toujours une erreur « variable non trouvée »",
+      "answer": "Vérifie l'orthographe : tu as sans doute fait une faute de frappe. Attention, la casse compte : `bodycentery` n'est pas la même chose que `bodyCenterY`."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Dessine un cercle centré en (centerX, centerY) avec le rayon et la couleur donnés",
+      "category": "Dessin de formes"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "errors": {
+    "positionNotNumber": "position doit être un nombre"
+  },
+  "checks": {
+    "ballNotAtEnd": "La balle n'a pas atteint le trou. Elle est à la position {{ballX}}, alors qu'elle doit être à la position 88.",
+    "missingPositions": "La balle doit rouler en passant par chaque position une à une, sans sauter directement à la fin."
+  },
+  "tasks": {
+    "rollBall": {
+      "name": "Fais rouler la balle jusque dans le trou",
+      "description": "Fais rouler la balle jusque dans le trou."
+    }
+  },
+  "scenarios": {
+    "rollBall": {
+      "name": "Fais rouler la balle jusque dans le trou",
+      "description": "Fais rouler la balle jusque dans le trou."
+    }
+  },
+  "hints": {
+    "dontKnowWhereToStart": {
+      "question": "Je ne sais pas par où commencer",
+      "answer": "L'essentiel est de faire avancer la balle d'une position à la fois. Tu peux utiliser une variable pour y arriver. Réfléchis à la façon dont ça pourrait fonctionner."
+    },
+    "stillCantFigureItOut": {
+      "question": "Je n'y arrive toujours pas",
+      "answer": "Crée une variable pour suivre la position de la balle. Elle doit démarrer là où la balle se trouve maintenant, puis augmenter de un, de nombreuses fois. À chaque augmentation, appelle `moveTo(...)` en utilisant la variable comme entrée."
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "Déplace la balle à la **position** indiquée.",
+      "category": "Déplacement"
+    }
+  },
+  "describers": {
+    "moveTo": "a déplacé la balle à la position ${arg1}"
+  }
+}

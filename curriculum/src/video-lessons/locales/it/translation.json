@@ -1,0 +1,138 @@
+{
+  "welcome-to-coding-fundamentals": {
+    "title": "Benvenuto ai fondamenti di programmazione",
+    "description": "Incontra Jiki e impara le basi di come funziona la programmazione."
+  },
+  "using-functions": {
+    "title": "Usare le funzioni",
+    "description": "Impara tutto sulle funzioni, le piccole macchine che fanno succedere le cose."
+  },
+  "function-inputs": {
+    "title": "Funzioni con input (numeri)",
+    "description": "Impara a dare informazioni extra alle funzioni."
+  },
+  "strings": {
+    "title": "Stringhe",
+    "description": "Impara a usare il testo nei tuoi programmi."
+  },
+  "repeat-loop": {
+    "title": "Ciclo repeat",
+    "description": "Impara a dire a Jiki di fare le cose più volte."
+  },
+  "creating-variables": {
+    "title": "Creare e usare variabili",
+    "description": "Impara a salvare e recuperare informazioni nei tuoi programmi."
+  },
+  "variables-together": {
+    "title": "Aritmetica + variabili",
+    "description": "Impara a fare calcoli con le variabili."
+  },
+  "updating-variables": {
+    "title": "Aggiornare le variabili",
+    "description": "Impara a modificare i valori delle variabili mentre il tuo codice viene eseguito."
+  },
+  "functions-that-return-things": {
+    "title": "Funzioni che restituiscono valori",
+    "description": "Impara come le funzioni possono restituire informazioni."
+  },
+  "colors": {
+    "title": "Colori (HSL e RGB)",
+    "description": "Impara diversi modi per specificare colori precisi."
+  },
+  "animation": {
+    "title": "Animazione",
+    "description": "Impara a far muovere le cose sullo schermo."
+  },
+  "random-numbers": {
+    "title": "Numeri casuali",
+    "description": "Impara ad aggiungere casualità ai tuoi programmi."
+  },
+  "scope": {
+    "title": "Scope",
+    "description": "Impara cosa succede alle variabili all'interno e all'esterno dei blocchi di codice."
+  },
+  "scenarios": {
+    "title": "Scenari",
+    "description": "Impara a eseguire il tuo codice con diverse condizioni iniziali."
+  },
+  "nested-loops": {
+    "title": "Cicli annidati",
+    "description": "Impara a mettere cicli dentro altri cicli."
+  },
+  "if-statements": {
+    "title": "Istruzioni if",
+    "description": "Impara a far fare al tuo codice cose diverse in situazioni diverse."
+  },
+  "else-statements": {
+    "title": "Else ed else if",
+    "description": "Impara a gestire più condizioni diverse."
+  },
+  "logic-gates": {
+    "title": "Porte logiche",
+    "description": "Impara a combinare le condizioni."
+  },
+  "remainder": {
+    "title": "Modulo e not",
+    "description": "Impara tutto sui resti e su come invertire le condizioni."
+  },
+  "repeat-without-count": {
+    "title": "Repeat senza input",
+    "description": "Impara a ripetere senza sapere quante volte in anticipo."
+  },
+  "state": {
+    "title": "Stato",
+    "description": "Impara a combinare le condizioni con dati in evoluzione."
+  },
+  "making-functions": {
+    "title": "Scrivere le tue funzioni",
+    "description": "Impara a creare le tue macchine riutilizzabili."
+  },
+  "making-functions-with-inputs": {
+    "title": "Aggiungere input alle tue funzioni",
+    "description": "Impara a fare in modo che le tue funzioni accettino input."
+  },
+  "making-functions-with-return-values": {
+    "title": "Aggiungere return alle tue funzioni",
+    "description": "Impara a fare in modo che le tue funzioni restituiscano risultati."
+  },
+  "string-concatenation": {
+    "title": "Concatenazione di stringhe e template",
+    "description": "Impara a unire pezzi di testo."
+  },
+  "string-indexing": {
+    "title": "Indicizzazione delle stringhe",
+    "description": "Impara ad accedere ai singoli caratteri nel testo."
+  },
+  "string-iteration": {
+    "title": "Iterare sulle stringhe",
+    "description": "Impara a scorrere il testo un carattere alla volta."
+  },
+  "using-multiple-functions-together": {
+    "title": "Usare più funzioni insieme",
+    "description": "Impara a combinare le funzioni per risolvere problemi più grandi."
+  },
+  "methods-and-strings": {
+    "title": "Metodi e proprietà",
+    "description": "Impara a usare gli strumenti integrati forniti con i dati."
+  },
+  "for-while-loops": {
+    "title": "Cicli avanzati",
+    "description": "Impara i veri cicli JavaScript con più controllo e flessibilità."
+  },
+  "arrays": {
+    "title": "Array",
+    "description": "Impara a memorizzare collezioni di cose negli array."
+  },
+  "building-arrays": {
+    "title": "Costruire array",
+    "description": "Impara a costruire array pezzo per pezzo."
+  },
+  "dictionaries": {
+    "title": "Dizionari",
+    "description": "Impara a memorizzare dati con etichette."
+  },
+  "updating-dictionaries": {
+    "title": "Modificare dizionari",
+    "description": "Impara ad aggiornare e modificare i dizionari."
+  }
+}

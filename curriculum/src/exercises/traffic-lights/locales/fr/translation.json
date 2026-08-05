@@ -1,0 +1,40 @@
+{
+  "checks": {
+    "redLight": "Le feu rouge (en haut) n'est pas correct.",
+    "amberLight": "Le feu orange (au milieu) n'est pas correct.",
+    "greenLight": "Le feu vert (en bas) n'est pas correct.",
+    "useVariables": "Tu dois utiliser les variables plutôt que de mettre directement des nombres comme entrées des fonctions."
+  },
+  "tasks": {
+    "drawLights": {
+      "name": "Dessine le feu tricolore",
+      "description": "Utilise les variables fournies pour dessiner les trois feux de couleur sur le feu tricolore."
+    }
+  },
+  "scenarios": {
+    "drawLights": {
+      "name": "Dessine le feu tricolore",
+      "description": "Dessine les trois cercles de couleur à l'aide des variables fournies."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Je ne sais pas par où commencer",
+      "answer": "Tu vas dessiner trois cercles, exactement comme tu l'as fait jusqu'ici. La seule différence, c'est que tu utilises les variables plutôt que les nombres directement. Revois la vidéo sur les variables si tu ne comprends pas comment ça fonctionne."
+    },
+    "useVariablesError": {
+      "question": "J'obtiens « Tu dois utiliser les variables plutôt que de mettre directement des nombres comme entrées des fonctions »",
+      "answer": "Dans cet exercice, il s'agit d'utiliser les variables qu'on a définies pour toi. Plutôt que de mettre directement des nombres comme 50 ou 16 dans les fonctions, dis à Jiki d'utiliser les boîtes qu'on a déjà créées."
+    },
+    "circlesWrong": {
+      "question": "J'ai dessiné les cercles correctement, mais on me dit qu'ils sont incorrects",
+      "answer": "Vérifie que le cercle rouge est bien en haut, l'orange au milieu et le vert en bas."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Dessine un cercle centré en (centerX, centerY) avec le rayon et la couleur donnés",
+      "category": "Dessin de formes"
+    }
+  }
+}

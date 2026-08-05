@@ -1,0 +1,52 @@
+{
+  "beta_user": {
+    "name": "Beta 用户",
+    "description": "在 Beta 期间加入了 Jiki",
+    "funFact": "Beta 用户帮助塑造了 Jiki 的未来。感谢你早期对我们的信任！"
+  },
+  "early_bird": {
+    "name": "早鸟",
+    "description": "在清晨完成了一节课",
+    "funFact": "早起的鸟儿有虫吃。在世界醒来之前编程是一种超能力！"
+  },
+  "first_lesson": {
+    "name": "第一步",
+    "description": "完成了你的第一节课",
+    "funFact": "任何旅程最困难的部分就是迈出第一步。你做到了！"
+  },
+  "maze_navigator": {
+    "name": "迷宫导航者",
+    "description": "完成了“解决迷宫”课",
+    "funFact": "迷宫求解算法应用于机器人、游戏 AI，甚至 GPS 导航中！"
+  },
+  "member": {
+    "name": "成员",
+    "description": "加入了 Jiki",
+    "funFact": "欢迎加入社区！每个专家都曾是初学者。"
+  },
+  "night_owl": {
+    "name": "夜猫子",
+    "description": "在深夜完成了一节课",
+    "funFact": "Jeremy 从小就在深夜编程。在世界沉睡时编程有一种神奇的感觉！"
+  },
+  "premium": {
+    "name": "高级会员",
+    "description": "成为了高级会员",
+    "funFact": "感谢你支持 Jiki！你的高级会员身份帮助我们持续建设。"
+  },
+  "scenario_handler": {
+    "name": "场景处理者",
+    "description": "完成了包含场景的练习",
+    "funFact": "在真实世界，我们把“场景”叫做“测试”，我们编写测试来检查代码在不同的方式下是否都能正常工作。"
+  },
+  "sidekick": {
+    "name": "助手",
+    "description": "向 Jiki 发送了你的第一条消息",
+    "funFact": "两人智慧胜一人。感谢你和 Jiki 聊天！"
+  },
+  "townsfolk": {
+    "name": "镇民",
+    "description": "加入了 Jiki 社区论坛",
+    "funFact": "教是最好的学。欢迎参与讨论！"
+  }
+}

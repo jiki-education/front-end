@@ -1,0 +1,49 @@
+{
+  "describers": {
+    "move": "a déplacé le canon laser vers la droite"
+  },
+  "checks": {
+    "notShotAllAliens": "Tu n'as pas abattu tous les aliens.",
+    "tooManyLines": "Ta solution comporte trop de lignes de code. Essaie d'utiliser une boucle repeat pour la raccourcir !"
+  },
+  "tasks": {
+    "repeatShoot": {
+      "name": "Utilise une boucle repeat pour abattre tous les aliens",
+      "description": "Trouve le motif dans les positions des aliens et utilise une boucle repeat pour tous les détruire en 7 lignes de code ou moins."
+    }
+  },
+  "scenarios": {
+    "repeatShoot": {
+      "name": "Répète et tire",
+      "description": "Utilise une boucle repeat pour abattre tous les aliens"
+    }
+  },
+  "hints": {
+    "avoidRepeating": {
+      "question": "Comment éviter d'écrire `move()` et `shoot()` encore et encore ?",
+      "answer": "Utilise une boucle `repeat`. `repeat(n) { ... }` exécute le même bloc de code `n` fois."
+    },
+    "repeatingPattern": {
+      "question": "Quel est le motif qui se répète dans les positions des aliens ?",
+      "answer": "Ton canon laser commence à gauche des aliens, et ceux-ci occupent une colonne sur deux, avec trois aliens empilés dans chacune. Le motif pour chaque colonne est donc : `move`, `move`, `shoot`, `shoot`, `shoot`. Tu traverses la colonne vide pour te placer sous la colonne d'aliens, puis tu abats les aliens des trois rangées. C'est ce groupe de cinq étapes que tu veux répéter."
+    },
+    "howManyTimes": {
+      "question": "Combien de fois dois-je répéter le motif ?",
+      "answer": "Compte les groupes d'aliens sur l'écran et utilise ce nombre comme argument de `repeat`."
+    },
+    "why7Lines": {
+      "question": "Pourquoi l'objectif demande-t-il seulement 7 lignes ?",
+      "answer": "Une ligne pour l'en-tête du `repeat`, les cinq actions qui se répètent à l'intérieur, et une ligne pour l'accolade fermante : cela fait sept. Tout ce dont tu as besoin tient dans la boucle, sans rien en dehors. Si tu écris plus, c'est probablement que tu n'utilises pas encore la boucle."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Déplace le canon laser **d'une position vers la droite**. Si tu te déplaces au-delà du bord droit de l'écran, tu perds !",
+      "category": "Déplacement"
+    },
+    "shoot": {
+      "description": "Tire au laser vers le haut. **Ne tire que lorsqu'il y a un alien au-dessus de toi**, sinon tu perds la partie !",
+      "category": "Action"
+    }
+  }
+}

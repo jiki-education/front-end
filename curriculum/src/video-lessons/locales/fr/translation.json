@@ -1,0 +1,138 @@
+{
+  "welcome-to-coding-fundamentals": {
+    "title": "Bienvenue dans les Fondamentaux de la programmation",
+    "description": "Fais connaissance avec Jiki et découvre les bases du fonctionnement du code."
+  },
+  "using-functions": {
+    "title": "Utiliser les fonctions",
+    "description": "Découvre les fonctions, ces petites machines qui font que les choses se produisent."
+  },
+  "function-inputs": {
+    "title": "Les fonctions avec des entrées (nombres)",
+    "description": "Découvre comment donner des informations supplémentaires aux fonctions."
+  },
+  "strings": {
+    "title": "Les strings",
+    "description": "Découvre comment utiliser du texte dans tes programmes."
+  },
+  "repeat-loop": {
+    "title": "La boucle repeat",
+    "description": "Découvre comment dire à Jiki de faire des choses plusieurs fois."
+  },
+  "creating-variables": {
+    "title": "Créer et utiliser des variables",
+    "description": "Découvre comment enregistrer des informations dans tes programmes et les récupérer."
+  },
+  "variables-together": {
+    "title": "Arithmétique et variables",
+    "description": "Découvre comment faire des calculs avec des variables."
+  },
+  "updating-variables": {
+    "title": "Mettre à jour des variables",
+    "description": "Découvre comment changer la valeur des variables pendant que le code s'exécute."
+  },
+  "functions-that-return-things": {
+    "title": "Les fonctions qui renvoient des valeurs",
+    "description": "Découvre comment les fonctions peuvent te renvoyer des informations."
+  },
+  "colors": {
+    "title": "Les couleurs (HSL et RGB)",
+    "description": "Découvre différentes façons de préciser des couleurs exactes."
+  },
+  "animation": {
+    "title": "L'animation",
+    "description": "Découvre comment faire bouger des choses à l'écran."
+  },
+  "random-numbers": {
+    "title": "Les nombres aléatoires",
+    "description": "Découvre comment ajouter du hasard à tes programmes."
+  },
+  "scope": {
+    "title": "La portée",
+    "description": "Découvre ce qui arrive aux variables à l'intérieur et à l'extérieur des blocs de code."
+  },
+  "scenarios": {
+    "title": "Les scénarios",
+    "description": "Découvre comment exécuter ton code avec différentes conditions de départ."
+  },
+  "nested-loops": {
+    "title": "Des boucles dans des boucles",
+    "description": "Découvre comment placer des boucles à l'intérieur d'autres boucles."
+  },
+  "if-statements": {
+    "title": "Les instructions if",
+    "description": "Découvre comment faire réagir ton code différemment selon les situations."
+  },
+  "else-statements": {
+    "title": "Else et else if",
+    "description": "Découvre comment gérer plusieurs conditions différentes."
+  },
+  "logic-gates": {
+    "title": "Les portes logiques",
+    "description": "Découvre comment combiner des conditions entre elles."
+  },
+  "remainder": {
+    "title": "Modulo et NON",
+    "description": "Découvre les restes de division et comment inverser des conditions."
+  },
+  "repeat-without-count": {
+    "title": "Repeat sans entrée",
+    "description": "Découvre comment boucler sans savoir à l'avance combien de fois."
+  },
+  "state": {
+    "title": "L'état",
+    "description": "Découvre comment combiner des conditions avec des données qui changent."
+  },
+  "making-functions": {
+    "title": "Écrire tes propres fonctions",
+    "description": "Découvre comment créer tes propres machines réutilisables."
+  },
+  "making-functions-with-inputs": {
+    "title": "Ajouter des entrées à tes fonctions",
+    "description": "Découvre comment permettre à tes fonctions d'accepter des entrées."
+  },
+  "making-functions-with-return-values": {
+    "title": "Ajouter des valeurs de retour à tes fonctions",
+    "description": "Découvre comment faire en sorte que tes fonctions renvoient des résultats."
+  },
+  "string-concatenation": {
+    "title": "La concaténation de strings et les templates",
+    "description": "Découvre comment assembler des bouts de texte."
+  },
+  "string-indexing": {
+    "title": "L'indexation des strings",
+    "description": "Découvre comment accéder à un caractère précis dans un texte."
+  },
+  "string-iteration": {
+    "title": "Parcourir les strings",
+    "description": "Découvre comment parcourir un texte caractère par caractère."
+  },
+  "using-multiple-functions-together": {
+    "title": "Utiliser plusieurs fonctions ensemble",
+    "description": "Découvre comment combiner des fonctions pour résoudre des problèmes plus complexes."
+  },
+  "methods-and-strings": {
+    "title": "Méthodes et propriétés",
+    "description": "Découvre comment utiliser les outils intégrés qui accompagnent les données."
+  },
+  "for-while-loops": {
+    "title": "Les boucles avancées",
+    "description": "Découvre les vraies boucles JavaScript, avec plus de contrôle et de flexibilité."
+  },
+  "arrays": {
+    "title": "Les tableaux",
+    "description": "Découvre comment stocker des collections de choses dans des tableaux."
+  },
+  "building-arrays": {
+    "title": "Construire des tableaux",
+    "description": "Découvre comment construire des tableaux élément par élément."
+  },
+  "dictionaries": {
+    "title": "Les dictionnaires",
+    "description": "Découvre comment stocker des données avec des étiquettes nommées."
+  },
+  "updating-dictionaries": {
+    "title": "Modifier des dictionnaires",
+    "description": "Découvre comment mettre à jour le contenu des dictionnaires."
+  }
+}

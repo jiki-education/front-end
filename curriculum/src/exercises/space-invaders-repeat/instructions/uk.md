@@ -1,5 +1,5 @@
 ---
-title: "Space Invaders: Repeat"
+title: "Знову прибульці?"
 description: "Використовуємо цикли, щоб ефективно знищити хвилю прибульців."
 en_md5: 0fc2ae36efcc9d78d89873aafc7bd036
 ---

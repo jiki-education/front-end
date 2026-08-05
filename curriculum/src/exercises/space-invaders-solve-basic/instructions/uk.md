@@ -1,5 +1,5 @@
 ---
-title: "Space Invaders"
+title: "Космічні прибульці"
 description: "Збиваємо перших прибульців у знайомстві зі Space Invaders."
 en_md5: 56b9b22488ae091b5f06cb5afc5bb441
 ---

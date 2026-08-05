@@ -1,0 +1,138 @@
+{
+  "welcome-to-coding-fundamentals": {
+    "title": "欢迎来到编程基础",
+    "description": "认识 Jiki，了解编程的基本原理。"
+  },
+  "using-functions": {
+    "title": "使用函数",
+    "description": "了解函数，这些让事情发生的小机器。"
+  },
+  "function-inputs": {
+    "title": "带输入的函数（数字）",
+    "description": "学习如何向函数提供额外的信息。"
+  },
+  "strings": {
+    "title": "字符串",
+    "description": "学习如何在程序中使用文本。"
+  },
+  "repeat-loop": {
+    "title": "Repeat 循环",
+    "description": "学习如何让 Jiki 重复做事情。"
+  },
+  "creating-variables": {
+    "title": "创建与使用变量",
+    "description": "学习如何在程序中保存和获取信息。"
+  },
+  "variables-together": {
+    "title": "算术与变量",
+    "description": "学习如何用变量做数学运算。"
+  },
+  "updating-variables": {
+    "title": "更新变量",
+    "description": "学习如何在代码运行时修改变量的值。"
+  },
+  "functions-that-return-things": {
+    "title": "返回值的函数",
+    "description": "学习函数如何将信息返回给你。"
+  },
+  "colors": {
+    "title": "颜色（HSL 和 RGB）",
+    "description": "学习不同的方式来指定准确的颜色。"
+  },
+  "animation": {
+    "title": "动画",
+    "description": "学习如何让屏幕上的东西动起来。"
+  },
+  "random-numbers": {
+    "title": "随机数",
+    "description": "学习如何为你的程序添加随机性。"
+  },
+  "scope": {
+    "title": "作用域",
+    "description": "了解变量在代码块内外会发生什么。"
+  },
+  "scenarios": {
+    "title": "场景",
+    "description": "学习如何用不同的初始条件运行你的代码。"
+  },
+  "nested-loops": {
+    "title": "嵌套循环",
+    "description": "学习如何将循环放在其他循环内。"
+  },
+  "if-statements": {
+    "title": "If 语句",
+    "description": "学习如何让你的代码在不同情况下做不同的事情。"
+  },
+  "else-statements": {
+    "title": "Else 和 Else If",
+    "description": "学习如何处理多个不同的条件。"
+  },
+  "logic-gates": {
+    "title": "逻辑门",
+    "description": "学习如何将条件组合在一起。"
+  },
+  "remainder": {
+    "title": "求模与逻辑非",
+    "description": "学习余数以及如何翻转条件。"
+  },
+  "repeat-without-count": {
+    "title": "无输入参数的 Repeat",
+    "description": "学习如何在不知道循环次数的情况下进行循环。"
+  },
+  "state": {
+    "title": "状态",
+    "description": "学习如何将条件与变化的数据结合。"
+  },
+  "making-functions": {
+    "title": "编写自己的函数",
+    "description": "学习如何创建自己的可复用机器。"
+  },
+  "making-functions-with-inputs": {
+    "title": "向函数添加输入",
+    "description": "学习如何让你的函数接受输入。"
+  },
+  "making-functions-with-return-values": {
+    "title": "向函数添加返回值",
+    "description": "学习如何让你的函数返回结果。"
+  },
+  "string-concatenation": {
+    "title": "字符串拼接与模板",
+    "description": "学习如何将文本片段拼接在一起。"
+  },
+  "string-indexing": {
+    "title": "字符串下标",
+    "description": "学习如何访问文本中的单个字符。"
+  },
+  "string-iteration": {
+    "title": "遍历字符串",
+    "description": "学习如何逐个字符地处理文本。"
+  },
+  "using-multiple-functions-together": {
+    "title": "组合使用多个函数",
+    "description": "学习如何组合函数来解决更大的问题。"
+  },
+  "methods-and-strings": {
+    "title": "方法与属性",
+    "description": "学习如何使用数据上自带的工具。"
+  },
+  "for-while-loops": {
+    "title": "高级循环",
+    "description": "学习更强大的 JavaScript 循环，提供更多控制和灵活性。"
+  },
+  "arrays": {
+    "title": "数组",
+    "description": "学习如何用数组存储事物的集合。"
+  },
+  "building-arrays": {
+    "title": "构建数组",
+    "description": "学习如何逐步构建数组。"
+  },
+  "dictionaries": {
+    "title": "字典",
+    "description": "学习如何用命名的标签存储数据。"
+  },
+  "updating-dictionaries": {
+    "title": "更新字典",
+    "description": "学习如何更新和修改字典。"
+  }
+}
