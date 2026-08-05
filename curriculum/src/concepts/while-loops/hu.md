@@ -10,7 +10,7 @@ Ez azt mondja: »Amíg egy feltétel teljesül, futtasd a ciklust.« Például l
 
 ```javascript
 while (numShots < 5) {
-  // lövés a földön kívülire
+  // lövés az űrlényre
   numShots++
 }
 ```
