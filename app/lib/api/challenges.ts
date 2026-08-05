@@ -1,3 +1,4 @@
+import type { ChallengeSlug } from "@jiki/curriculum";
 import { api } from "./client";
 import type { UserConversationData } from "./types/conversation";
 
@@ -11,19 +12,16 @@ interface UserChallengeResponse {
   user_challenge: UserChallengeData;
 }
 
-// Deliberately minimal: the API also sends `title`, `description` and
-// `exercise_slug`, but the front end owns display copy (resolved from the
-// curriculum copy catalog by slug) and a challenge's slug is always equal to its
-// exercise slug. Do not re-add them — this type is the spec for what the API
-// should eventually send.
+// Identity and per-user state only; the API's payload is wider. A challenge's
+// slug is also the slug of the curriculum exercise it wraps, so it addresses both
+// the challenge (routes, progress) and that exercise (copy, content).
 export interface ChallengeData {
-  slug: string;
+  slug: ChallengeSlug;
   status?: ChallengeStatus;
 }
 
-// A challenge plus its curriculum copy, assembled during a page's load phase (a
-// challenge's slug is its exercise slug, so both resolve from the same catalog).
-// Components render this; the API supplies only the ChallengeData half.
+// What challenge components render: the API record plus the copy a page resolved
+// for it during its load phase.
 export interface ChallengeWithCopy extends ChallengeData {
   title: string;
   description: string;

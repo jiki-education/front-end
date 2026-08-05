@@ -6,7 +6,7 @@ import type { LevelWithProgress, LessonWithProgress } from "@/types/levels";
 
 function createLesson(overrides: Partial<LessonWithProgress> = {}): LessonWithProgress {
   return {
-    slug: "lesson-one",
+    slug: "maze-solve-basic",
     type: "exercise",
     status: "not_started",
     walkthrough_video_data: null,
@@ -76,8 +76,8 @@ describe("hasReachedEndOfPublishedLevels", () => {
   it("returns false when some lessons in the cutoff level are not completed", () => {
     const levels = [
       createLevel("level-one", [
-        createLesson({ slug: "l1", status: "completed" }),
-        createLesson({ slug: "l2", status: "started" })
+        createLesson({ slug: "maze-solve-basic", status: "completed" }),
+        createLesson({ slug: "space-invaders-solve-basic", status: "started" })
       ])
     ];
     expect(hasReachedEndOfPublishedLevels(levels, "level-one")).toBe(false);
@@ -86,8 +86,8 @@ describe("hasReachedEndOfPublishedLevels", () => {
   it("returns true when all lessons in the cutoff level are completed", () => {
     const levels = [
       createLevel("level-one", [
-        createLesson({ slug: "l1", status: "completed" }),
-        createLesson({ slug: "l2", status: "completed" })
+        createLesson({ slug: "maze-solve-basic", status: "completed" }),
+        createLesson({ slug: "space-invaders-solve-basic", status: "completed" })
       ])
     ];
     expect(hasReachedEndOfPublishedLevels(levels, "level-one")).toBe(true);
@@ -95,8 +95,8 @@ describe("hasReachedEndOfPublishedLevels", () => {
 
   it("only checks the cutoff level's lessons, not later levels", () => {
     const levels = [
-      createLevel("level-one", [createLesson({ slug: "l1", status: "completed" })]),
-      createLevel("level-two", [createLesson({ slug: "l2", status: "not_started" })])
+      createLevel("level-one", [createLesson({ slug: "maze-solve-basic", status: "completed" })]),
+      createLevel("level-two", [createLesson({ slug: "space-invaders-solve-basic", status: "not_started" })])
     ];
     expect(hasReachedEndOfPublishedLevels(levels, "level-one")).toBe(true);
   });

@@ -26,7 +26,7 @@ const mockToastError = toastError as jest.MockedFunction<typeof toastError>;
 
 function createLesson(overrides: Partial<LessonWithProgress> = {}): LessonWithProgress {
   return {
-    slug: "lesson-one",
+    slug: "maze-solve-basic",
     type: "exercise",
     status: "not_started",
     walkthrough_video_data: null,
@@ -55,7 +55,7 @@ describe("ExercisePath", () => {
   });
 
   it("shows an error toast and strips the param when arriving with ?lessonError", async () => {
-    mockFetchLevels.mockResolvedValue([createLevel("level-cutoff", [createLesson({ slug: "l1" })])]);
+    mockFetchLevels.mockResolvedValue([createLevel("level-cutoff", [createLesson({ slug: "maze-solve-basic" })])]);
     window.history.replaceState({}, "", "/dashboard?lessonError=1");
 
     render(<ExercisePath />);
@@ -65,7 +65,7 @@ describe("ExercisePath", () => {
   });
 
   it("does not show an error toast on a normal dashboard visit", async () => {
-    mockFetchLevels.mockResolvedValue([createLevel("level-cutoff", [createLesson({ slug: "l1" })])]);
+    mockFetchLevels.mockResolvedValue([createLevel("level-cutoff", [createLesson({ slug: "maze-solve-basic" })])]);
     window.history.replaceState({}, "", "/dashboard");
 
     render(<ExercisePath />);
@@ -77,10 +77,10 @@ describe("ExercisePath", () => {
   it("renders the ComingSoonCard when all lessons in the cutoff level are completed", async () => {
     mockFetchLevels.mockResolvedValue([
       createLevel("level-cutoff", [
-        createLesson({ slug: "l1", status: "completed" }),
-        createLesson({ slug: "l2", status: "completed" })
+        createLesson({ slug: "maze-solve-basic", status: "completed" }),
+        createLesson({ slug: "space-invaders-solve-basic", status: "completed" })
       ]),
-      createLevel("level-after", [createLesson({ slug: "l3", status: "not_started" })])
+      createLevel("level-after", [createLesson({ slug: "maze-solve-walk", status: "not_started" })])
     ]);
 
     render(<ExercisePath />);
@@ -92,10 +92,10 @@ describe("ExercisePath", () => {
   it("renders the CompletionCert when the cutoff level still has incomplete lessons", async () => {
     mockFetchLevels.mockResolvedValue([
       createLevel("level-cutoff", [
-        createLesson({ slug: "l1", status: "completed" }),
-        createLesson({ slug: "l2", status: "started" })
+        createLesson({ slug: "maze-solve-basic", status: "completed" }),
+        createLesson({ slug: "space-invaders-solve-basic", status: "started" })
       ]),
-      createLevel("level-after", [createLesson({ slug: "l3", status: "not_started" })])
+      createLevel("level-after", [createLesson({ slug: "maze-solve-walk", status: "not_started" })])
     ]);
 
     render(<ExercisePath />);

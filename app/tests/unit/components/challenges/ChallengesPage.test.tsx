@@ -1,5 +1,5 @@
 import ChallengesPage from "@/app/(app)/challenges/page";
-import { fetchChallenges } from "@/lib/api/challenges";
+import { fetchChallenges, type ChallengesResponse } from "@/lib/api/challenges";
 import { render, screen, waitFor } from "@testing-library/react";
 import { useRouter } from "next/navigation";
 
@@ -15,10 +15,10 @@ jest.mock("@/lib/api/curriculum-copy", () => {
   return {
     ...actual,
     fetchCurriculumCopy: jest.fn().mockResolvedValue({
-      "challenge-1": { title: "Challenge 1", description: "First challenge" },
-      "challenge-2": { title: "Challenge 2", description: "Second challenge" },
-      "locked-challenge": { title: "Locked Challenge", description: "A locked challenge" },
-      "unlocked-challenge": { title: "Unlocked Challenge", description: "An unlocked challenge" }
+      "structured-house": { title: "Challenge 1", description: "First challenge" },
+      checkerboard: { title: "Challenge 2", description: "Second challenge" },
+      acronym: { title: "Locked Challenge", description: "A locked challenge" },
+      sieve: { title: "Unlocked Challenge", description: "An unlocked challenge" }
     })
   };
 });
@@ -60,14 +60,14 @@ describe("ChallengesPage", () => {
   });
 
   it("should render challenges page with sidebar", async () => {
-    const mockChallenges = {
+    const mockChallenges: ChallengesResponse = {
       results: [
         {
-          slug: "challenge-1",
+          slug: "structured-house",
           status: "unlocked" as const
         },
         {
-          slug: "challenge-2",
+          slug: "checkerboard",
           status: "locked" as const
         }
       ],
@@ -122,12 +122,10 @@ describe("ChallengesPage", () => {
   });
 
   it("should render locked challenge as disabled", async () => {
-    const mockChallenges = {
+    const mockChallenges: ChallengesResponse = {
       results: [
         {
-          slug: "locked-challenge",
-          title: "Locked Challenge",
-          description: "This challenge is locked",
+          slug: "acronym",
           status: "locked" as const
         }
       ],
@@ -152,12 +150,10 @@ describe("ChallengesPage", () => {
   });
 
   it("should render unlocked challenge as clickable", async () => {
-    const mockChallenges = {
+    const mockChallenges: ChallengesResponse = {
       results: [
         {
-          slug: "unlocked-challenge",
-          title: "Unlocked Challenge",
-          description: "This challenge is unlocked",
+          slug: "sieve",
           status: "unlocked" as const
         }
       ],
@@ -176,9 +172,7 @@ describe("ChallengesPage", () => {
       expect(screen.getAllByText("Unlocked Challenge")).toHaveLength(2); // One in hero, one in content
     });
 
-    const link = screen
-      .getAllByRole("link")
-      .find((link) => link.getAttribute("href") === "/challenges/unlocked-challenge");
-    expect(link).toHaveAttribute("href", "/challenges/unlocked-challenge");
+    const link = screen.getAllByRole("link").find((link) => link.getAttribute("href") === "/challenges/sieve");
+    expect(link).toHaveAttribute("href", "/challenges/sieve");
   });
 });

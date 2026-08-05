@@ -1,3 +1,4 @@
+import { isChallengeSlug } from "@jiki/curriculum";
 import { fetchChallenges, type ChallengeData, type ChallengeStatus } from "@/lib/api/challenges";
 import { expandUnlocked, fetchUnlockedConceptSlugs, isUnlocked } from "@/lib/api/concept-unlocks";
 import {
@@ -77,16 +78,14 @@ async function setupForLoggedInUser(exercises: ExerciseInfo[], ctx: ConceptSetup
   // never returned by the unlock API) is not treated as locked / redirected away.
   const unlockedSlugs = expandUnlocked(allConcepts, rawUnlockedSlugs);
 
-  // Split concept exercises into true exercises vs challenges. A challenge's slug
-  // is always its exercise slug, so one set of slugs is enough to match on.
-  const challengeSlugs = new Set(challengesResponse.results.map((challenge) => challenge.slug));
-
+  // A concept's exercises reach students in one of two ways: as a lesson in the
+  // course path, or as a standalone challenge. They render in separate sidebar
+  // sections because they route and gate differently, but both are the same
+  // curriculum exercise underneath, so they share its title.
   const exerciseOnly: ExerciseInfo[] = [];
   const challengesForConcept: ChallengeInfo[] = [];
   for (const ex of exercises) {
-    if (challengeSlugs.has(ex.slug)) {
-      // A challenge's slug is its exercise slug, so the title already resolved
-      // with the exercise metadata — no separate lookup needed.
+    if (isChallengeSlug(ex.slug)) {
       challengesForConcept.push({ slug: ex.slug, title: ex.title });
     } else {
       exerciseOnly.push(ex);

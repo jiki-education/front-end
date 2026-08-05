@@ -54,7 +54,7 @@ describe("Store Animation Replay Bug", () => {
     const store = createOrchestratorStore({
       exercise: exercise,
       language: "jikiscript",
-      context: { type: "lesson", slug: "test-lesson" }
+      context: { type: "lesson", slug: "maze-solve-basic" }
     });
 
     // First test run - with frames (will auto-play)
@@ -118,7 +118,7 @@ describe("Store Animation Replay Bug", () => {
     const store = createOrchestratorStore({
       exercise: exercise,
       language: "jikiscript",
-      context: { type: "lesson", slug: "test-lesson" }
+      context: { type: "lesson", slug: "maze-solve-basic" }
     });
 
     // First test run - empty repeat loop (no frames)

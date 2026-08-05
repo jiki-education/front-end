@@ -6,7 +6,7 @@ type VideoLesson = Lesson & { type: "video"; data: { sources: VideoSource[] } };
 
 // Mock data for the dev page (matching backend structure)
 const mockLessonData: VideoLesson = {
-  slug: "welcome-video",
+  slug: "welcome-to-coding-fundamentals",
   type: "video",
   walkthrough_video_data: null,
   data: {

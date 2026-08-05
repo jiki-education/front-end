@@ -10,7 +10,7 @@ function createMockLessonDisplayData(overrides?: {
 }): LessonDisplayData {
   return {
     lesson: {
-      slug: "test-lesson",
+      slug: "maze-solve-basic",
       title: "Test Lesson",
       description: "Test description",
       type: "exercise",

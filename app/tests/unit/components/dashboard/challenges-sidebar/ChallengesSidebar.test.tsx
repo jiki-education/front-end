@@ -1,5 +1,6 @@
 import ChallengesSidebar from "@/components/dashboard/challenges-sidebar/ChallengesSidebar";
 import { fetchBadges } from "@/lib/api/badges";
+import type { ChallengeSlug } from "@jiki/curriculum";
 import { fetchChallenges, type ChallengeWithCopy, type ChallengeStatus } from "@/lib/api/challenges";
 import { fetchProfile } from "@/lib/api/profile";
 import { createMockUser } from "@/tests/mocks/user";
@@ -48,7 +49,7 @@ const mockFetchBadges = fetchBadges as jest.MockedFunction<typeof fetchBadges>;
 
 const authStoreMock = jest.requireMock("@/lib/auth/authStore");
 
-function makeChallenge(slug: string, status: ChallengeStatus): ChallengeWithCopy {
+function makeChallenge(slug: ChallengeSlug, status: ChallengeStatus): ChallengeWithCopy {
   return { slug, title: slug, description: `${slug} desc`, status };
 }
 
@@ -109,16 +110,16 @@ describe("ChallengesSidebar", () => {
 
     it("passes the count of non-locked challenges as unlockedCount", async () => {
       mockChallenges([
-        makeChallenge("a", "started"),
-        makeChallenge("b", "unlocked"),
-        makeChallenge("c", "completed"),
-        makeChallenge("d", "locked"),
-        makeChallenge("e", "locked")
+        makeChallenge("structured-house", "started"),
+        makeChallenge("sprouting-flower", "unlocked"),
+        makeChallenge("rainbow-ball", "completed"),
+        makeChallenge("checkerboard", "locked"),
+        makeChallenge("acronym", "locked")
       ]);
 
       render(<ChallengesSidebar />);
 
-      await screen.findByTestId("challenge-a");
+      await screen.findByTestId("challenge-structured-house");
       const recent = screen.getByTestId("recent-challenges");
       expect(recent.getAttribute("data-unlocked")).toBe("3");
     });
@@ -127,116 +128,116 @@ describe("ChallengesSidebar", () => {
   describe("recentChallenges padding", () => {
     it("returns up to 3 active (started/unlocked) challenges when available", async () => {
       mockChallenges([
-        makeChallenge("s1", "started"),
-        makeChallenge("s2", "started"),
-        makeChallenge("u1", "unlocked"),
-        makeChallenge("u2", "unlocked"),
-        makeChallenge("l1", "locked"),
-        makeChallenge("c1", "completed")
+        makeChallenge("matching-socks", "started"),
+        makeChallenge("tic-tac-toe", "started"),
+        makeChallenge("sieve", "unlocked"),
+        makeChallenge("cityscape-skyline", "unlocked"),
+        makeChallenge("acronym", "locked"),
+        makeChallenge("structured-house", "completed")
       ]);
 
       render(<ChallengesSidebar />);
 
-      await screen.findByTestId("challenge-s1");
-      expect(screen.getByTestId("challenge-s2")).toBeInTheDocument();
-      expect(screen.getByTestId("challenge-u1")).toBeInTheDocument();
-      expect(screen.queryByTestId("challenge-u2")).not.toBeInTheDocument();
-      expect(screen.queryByTestId("challenge-l1")).not.toBeInTheDocument();
-      expect(screen.queryByTestId("challenge-c1")).not.toBeInTheDocument();
+      await screen.findByTestId("challenge-matching-socks");
+      expect(screen.getByTestId("challenge-tic-tac-toe")).toBeInTheDocument();
+      expect(screen.getByTestId("challenge-sieve")).toBeInTheDocument();
+      expect(screen.queryByTestId("challenge-cityscape-skyline")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("challenge-acronym")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("challenge-structured-house")).not.toBeInTheDocument();
     });
 
     it("pads with completed challenges after active ones", async () => {
       mockChallenges([
-        makeChallenge("s1", "started"),
-        makeChallenge("c1", "completed"),
-        makeChallenge("c2", "completed"),
-        makeChallenge("c3", "completed"),
-        makeChallenge("l1", "locked")
+        makeChallenge("matching-socks", "started"),
+        makeChallenge("structured-house", "completed"),
+        makeChallenge("sprouting-flower", "completed"),
+        makeChallenge("rainbow-ball", "completed"),
+        makeChallenge("acronym", "locked")
       ]);
 
       render(<ChallengesSidebar />);
 
-      await screen.findByTestId("challenge-s1");
-      expect(screen.getByTestId("challenge-c1")).toBeInTheDocument();
-      expect(screen.getByTestId("challenge-c2")).toBeInTheDocument();
-      expect(screen.queryByTestId("challenge-c3")).not.toBeInTheDocument();
-      expect(screen.queryByTestId("challenge-l1")).not.toBeInTheDocument();
+      await screen.findByTestId("challenge-matching-socks");
+      expect(screen.getByTestId("challenge-structured-house")).toBeInTheDocument();
+      expect(screen.getByTestId("challenge-sprouting-flower")).toBeInTheDocument();
+      expect(screen.queryByTestId("challenge-rainbow-ball")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("challenge-acronym")).not.toBeInTheDocument();
     });
 
     it("prefers completed over locked when both are available for padding", async () => {
       // Regression: previously the widget padded with locked before completed,
       // hiding recently-finished challenges behind locked-but-not-started ones.
       mockChallenges([
-        makeChallenge("s1", "started"),
-        makeChallenge("l1", "locked"),
-        makeChallenge("l2", "locked"),
-        makeChallenge("c1", "completed")
+        makeChallenge("matching-socks", "started"),
+        makeChallenge("acronym", "locked"),
+        makeChallenge("caesar-cipher", "locked"),
+        makeChallenge("structured-house", "completed")
       ]);
 
       render(<ChallengesSidebar />);
 
-      await screen.findByTestId("challenge-s1");
-      expect(screen.getByTestId("challenge-c1")).toBeInTheDocument();
-      expect(screen.getByTestId("challenge-l1")).toBeInTheDocument();
-      expect(screen.queryByTestId("challenge-l2")).not.toBeInTheDocument();
+      await screen.findByTestId("challenge-matching-socks");
+      expect(screen.getByTestId("challenge-structured-house")).toBeInTheDocument();
+      expect(screen.getByTestId("challenge-acronym")).toBeInTheDocument();
+      expect(screen.queryByTestId("challenge-caesar-cipher")).not.toBeInTheDocument();
     });
 
     it("pads with locked challenges after completed when fewer than 3 active+completed exist", async () => {
       mockChallenges([
-        makeChallenge("s1", "started"),
-        makeChallenge("c1", "completed"),
-        makeChallenge("l1", "locked"),
-        makeChallenge("l2", "locked")
+        makeChallenge("matching-socks", "started"),
+        makeChallenge("structured-house", "completed"),
+        makeChallenge("acronym", "locked"),
+        makeChallenge("caesar-cipher", "locked")
       ]);
 
       render(<ChallengesSidebar />);
 
-      await screen.findByTestId("challenge-s1");
-      expect(screen.getByTestId("challenge-c1")).toBeInTheDocument();
-      expect(screen.getByTestId("challenge-l1")).toBeInTheDocument();
-      expect(screen.queryByTestId("challenge-l2")).not.toBeInTheDocument();
+      await screen.findByTestId("challenge-matching-socks");
+      expect(screen.getByTestId("challenge-structured-house")).toBeInTheDocument();
+      expect(screen.getByTestId("challenge-acronym")).toBeInTheDocument();
+      expect(screen.queryByTestId("challenge-caesar-cipher")).not.toBeInTheDocument();
     });
 
     it("falls back to locked challenges only when nothing else exists", async () => {
       mockChallenges([
-        makeChallenge("l1", "locked"),
-        makeChallenge("l2", "locked"),
-        makeChallenge("l3", "locked"),
-        makeChallenge("l4", "locked")
+        makeChallenge("acronym", "locked"),
+        makeChallenge("caesar-cipher", "locked"),
+        makeChallenge("run-length-encoding", "locked"),
+        makeChallenge("alien-detector", "locked")
       ]);
 
       render(<ChallengesSidebar />);
 
-      await screen.findByTestId("challenge-l1");
-      expect(screen.getByTestId("challenge-l2")).toBeInTheDocument();
-      expect(screen.getByTestId("challenge-l3")).toBeInTheDocument();
-      expect(screen.queryByTestId("challenge-l4")).not.toBeInTheDocument();
+      await screen.findByTestId("challenge-acronym");
+      expect(screen.getByTestId("challenge-caesar-cipher")).toBeInTheDocument();
+      expect(screen.getByTestId("challenge-run-length-encoding")).toBeInTheDocument();
+      expect(screen.queryByTestId("challenge-alien-detector")).not.toBeInTheDocument();
     });
 
     it("falls back to completed challenges only when nothing else exists", async () => {
       mockChallenges([
-        makeChallenge("c1", "completed"),
-        makeChallenge("c2", "completed"),
-        makeChallenge("c3", "completed"),
-        makeChallenge("c4", "completed")
+        makeChallenge("structured-house", "completed"),
+        makeChallenge("sprouting-flower", "completed"),
+        makeChallenge("rainbow-ball", "completed"),
+        makeChallenge("checkerboard", "completed")
       ]);
 
       render(<ChallengesSidebar />);
 
-      await screen.findByTestId("challenge-c1");
-      expect(screen.getByTestId("challenge-c2")).toBeInTheDocument();
-      expect(screen.getByTestId("challenge-c3")).toBeInTheDocument();
-      expect(screen.queryByTestId("challenge-c4")).not.toBeInTheDocument();
+      await screen.findByTestId("challenge-structured-house");
+      expect(screen.getByTestId("challenge-sprouting-flower")).toBeInTheDocument();
+      expect(screen.getByTestId("challenge-rainbow-ball")).toBeInTheDocument();
+      expect(screen.queryByTestId("challenge-checkerboard")).not.toBeInTheDocument();
     });
 
     it("returns fewer than 3 if there aren't enough challenges of any status", async () => {
-      mockChallenges([makeChallenge("s1", "started"), makeChallenge("c1", "completed")]);
+      mockChallenges([makeChallenge("matching-socks", "started"), makeChallenge("structured-house", "completed")]);
 
       render(<ChallengesSidebar />);
 
-      await screen.findByTestId("challenge-s1");
-      expect(screen.getByTestId("challenge-c1")).toBeInTheDocument();
-      expect(screen.queryByTestId("challenge-l1")).not.toBeInTheDocument();
+      await screen.findByTestId("challenge-matching-socks");
+      expect(screen.getByTestId("challenge-structured-house")).toBeInTheDocument();
+      expect(screen.queryByTestId("challenge-acronym")).not.toBeInTheDocument();
     });
   });
 });

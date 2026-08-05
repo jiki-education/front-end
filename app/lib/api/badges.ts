@@ -1,9 +1,8 @@
 import { api } from "./client";
 
-// Deliberately minimal: the API also sends `name`, `description`, `fun_fact` and
-// `num_awardees`. The front end owns badge display copy (resolved from the app
-// catalog via useBadgeContent) and nothing renders the awardee count. Do not
-// re-add them — this type is the spec for what the API should eventually send.
+// Identity and per-user state only; the API's payload is wider. A badge's name,
+// description and fun fact come from the curriculum badge catalog
+// (lib/api/curriculum-copy.ts), keyed by this slug.
 export interface BadgeData {
   id: number;
   slug: string;

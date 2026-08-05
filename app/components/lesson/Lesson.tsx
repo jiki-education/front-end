@@ -5,7 +5,7 @@ import { fetchUserCourse } from "@/lib/api/courses";
 import { ApiError } from "@/lib/api/client";
 import { fetchLesson, startLesson } from "@/lib/api/lessons";
 import type { UserCourse } from "@/types/course";
-import type { LessonWithData } from "@/types/lesson";
+import type { Lesson } from "@/types/lesson";
 import type { LastSubmissionData } from "@/lib/api/types/conversation";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
@@ -20,7 +20,7 @@ interface LessonProps {
 export default function Lesson({ slug }: LessonProps) {
   const t = useTranslations("lesson");
   const locale = useLocale();
-  const [lesson, setLesson] = useState<LessonWithData | null>(null);
+  const [lesson, setLesson] = useState<Lesson | null>(null);
   const [copy, setCopy] = useState<CurriculumCopy | null>(null);
   const [userCourse, setUserCourse] = useState<UserCourse | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);

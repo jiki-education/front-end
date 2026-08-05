@@ -29,11 +29,11 @@ export default function HintsWalkthroughPage() {
 
         <div className={styles.sections}>
           <Section label="Hints + Walkthrough Video">
-            <HintsPanel hints={sampleHints} walkthroughVideoData={walkthroughVideoData} lessonSlug="test-lesson" />
+            <HintsPanel hints={sampleHints} walkthroughVideoData={walkthroughVideoData} lessonSlug="maze-solve-basic" />
           </Section>
 
           <Section label="Walkthrough Video Only (no hints)">
-            <HintsPanel hints={[]} walkthroughVideoData={walkthroughVideoData} lessonSlug="test-lesson" />
+            <HintsPanel hints={[]} walkthroughVideoData={walkthroughVideoData} lessonSlug="maze-solve-basic" />
           </Section>
 
           <Section label="Hints Only (no walkthrough)">

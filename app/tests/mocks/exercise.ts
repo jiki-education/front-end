@@ -8,7 +8,7 @@ import { scenarios, tasks } from "./mock-exercise/scenarios";
 export function createMockExercise(overrides?: Partial<ExerciseDefinition>): ExerciseDefinition {
   return {
     type: "visual",
-    slug: "test-exercise",
+    slug: "maze-solve-basic",
     title: "Test Exercise",
     instructions: "This is a test exercise",
     levelId: "level-1",

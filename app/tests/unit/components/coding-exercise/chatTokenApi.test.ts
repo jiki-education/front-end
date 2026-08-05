@@ -33,7 +33,7 @@ describe("chatTokenApi", () => {
       });
 
       const result = await fetchChatToken({
-        context: { type: "lesson", slug: "test-exercise" },
+        context: { type: "lesson", slug: "maze-solve-basic" },
         cfTurnstileResponse: "test-token"
       });
 
@@ -45,7 +45,7 @@ describe("chatTokenApi", () => {
           "Content-Type": "application/json"
         },
         credentials: "include",
-        body: JSON.stringify({ lesson_slug: "test-exercise", cf_turnstile_response: "test-token" })
+        body: JSON.stringify({ lesson_slug: "maze-solve-basic", cf_turnstile_response: "test-token" })
       });
     });
 
@@ -56,12 +56,12 @@ describe("chatTokenApi", () => {
       });
 
       await fetchChatToken({
-        context: { type: "lesson", slug: "my-exercise-slug" },
+        context: { type: "lesson", slug: "maze-solve-basic" },
         cfTurnstileResponse: "test-token"
       });
 
       const requestBody = JSON.parse(mockFetch.mock.calls[0][1].body);
-      expect(requestBody).toEqual({ lesson_slug: "my-exercise-slug", cf_turnstile_response: "test-token" });
+      expect(requestBody).toEqual({ lesson_slug: "maze-solve-basic", cf_turnstile_response: "test-token" });
     });
 
     it("should send challenge_slug for challenge context", async () => {
@@ -71,12 +71,12 @@ describe("chatTokenApi", () => {
       });
 
       await fetchChatToken({
-        context: { type: "challenge", slug: "my-challenge-slug" },
+        context: { type: "challenge", slug: "structured-house" },
         cfTurnstileResponse: "test-token"
       });
 
       const requestBody = JSON.parse(mockFetch.mock.calls[0][1].body);
-      expect(requestBody).toEqual({ challenge_slug: "my-challenge-slug", cf_turnstile_response: "test-token" });
+      expect(requestBody).toEqual({ challenge_slug: "structured-house", cf_turnstile_response: "test-token" });
     });
 
     it("should throw ChatTokenError on 401 errors", async () => {
@@ -89,7 +89,7 @@ describe("chatTokenApi", () => {
       });
 
       await expect(
-        fetchChatToken({ context: { type: "lesson", slug: "test-exercise" }, cfTurnstileResponse: "test-token" })
+        fetchChatToken({ context: { type: "lesson", slug: "maze-solve-basic" }, cfTurnstileResponse: "test-token" })
       ).rejects.toThrow(ChatTokenError);
       expect(mockFetch).toHaveBeenCalledTimes(1);
     });
@@ -104,7 +104,7 @@ describe("chatTokenApi", () => {
       });
 
       await expect(
-        fetchChatToken({ context: { type: "lesson", slug: "test-exercise" }, cfTurnstileResponse: "test-token" })
+        fetchChatToken({ context: { type: "lesson", slug: "maze-solve-basic" }, cfTurnstileResponse: "test-token" })
       ).rejects.toThrow(ChatTokenError);
       expect(mockFetch).toHaveBeenCalledTimes(1);
     });
@@ -120,7 +120,10 @@ describe("chatTokenApi", () => {
       });
 
       try {
-        await fetchChatToken({ context: { type: "lesson", slug: "nonexistent" }, cfTurnstileResponse: "test-token" });
+        await fetchChatToken({
+          context: { type: "lesson", slug: "maze-solve-walk" },
+          cfTurnstileResponse: "test-token"
+        });
         fail("Expected ChatTokenError to be thrown");
       } catch (error) {
         expect(error).toBeInstanceOf(ChatTokenError);
@@ -141,7 +144,10 @@ describe("chatTokenApi", () => {
       });
 
       try {
-        await fetchChatToken({ context: { type: "lesson", slug: "test-exercise" }, cfTurnstileResponse: "test-token" });
+        await fetchChatToken({
+          context: { type: "lesson", slug: "maze-solve-basic" },
+          cfTurnstileResponse: "test-token"
+        });
         fail("Expected ChatTokenError to be thrown");
       } catch (error) {
         expect(error).toBeInstanceOf(ChatTokenError);
@@ -161,7 +167,10 @@ describe("chatTokenApi", () => {
       });
 
       try {
-        await fetchChatToken({ context: { type: "lesson", slug: "test-exercise" }, cfTurnstileResponse: "test-token" });
+        await fetchChatToken({
+          context: { type: "lesson", slug: "maze-solve-basic" },
+          cfTurnstileResponse: "test-token"
+        });
         fail("Expected ChatTokenError to be thrown");
       } catch (error) {
         expect(error).toBeInstanceOf(ChatTokenError);
@@ -187,7 +196,10 @@ describe("chatTokenApi", () => {
       mock403({ error: { type: "access_denied", message: "Upgrade required" } });
 
       try {
-        await fetchChatToken({ context: { type: "lesson", slug: "x" }, cfTurnstileResponse: "test-token" });
+        await fetchChatToken({
+          context: { type: "lesson", slug: "maze-solve-basic" },
+          cfTurnstileResponse: "test-token"
+        });
         fail("expected throw");
       } catch (error) {
         expect(error).toBeInstanceOf(ChatTokenAccessDeniedError);
@@ -201,7 +213,10 @@ describe("chatTokenApi", () => {
       mock403({ error: { type: "invalid_captcha", message: "Verification failed" } });
 
       try {
-        await fetchChatToken({ context: { type: "lesson", slug: "x" }, cfTurnstileResponse: "test-token" });
+        await fetchChatToken({
+          context: { type: "lesson", slug: "maze-solve-basic" },
+          cfTurnstileResponse: "test-token"
+        });
         fail("expected throw");
       } catch (error) {
         expect(error).toBeInstanceOf(ChatTokenInvalidCaptchaError);
@@ -214,7 +229,10 @@ describe("chatTokenApi", () => {
       mock403({ error: { type: "something_else", message: "Nope" } });
 
       try {
-        await fetchChatToken({ context: { type: "lesson", slug: "x" }, cfTurnstileResponse: "test-token" });
+        await fetchChatToken({
+          context: { type: "lesson", slug: "maze-solve-basic" },
+          cfTurnstileResponse: "test-token"
+        });
         fail("expected throw");
       } catch (error) {
         expect(error).toBeInstanceOf(ChatTokenError);
@@ -227,7 +245,10 @@ describe("chatTokenApi", () => {
       mock403({ unexpected: "shape" });
 
       try {
-        await fetchChatToken({ context: { type: "lesson", slug: "x" }, cfTurnstileResponse: "test-token" });
+        await fetchChatToken({
+          context: { type: "lesson", slug: "maze-solve-basic" },
+          cfTurnstileResponse: "test-token"
+        });
         fail("expected throw");
       } catch (error) {
         expect(error).toBeInstanceOf(ChatTokenError);
@@ -240,7 +261,10 @@ describe("chatTokenApi", () => {
       mock403({ error: { type: "access_denied" } });
 
       try {
-        await fetchChatToken({ context: { type: "lesson", slug: "x" }, cfTurnstileResponse: "test-token" });
+        await fetchChatToken({
+          context: { type: "lesson", slug: "maze-solve-basic" },
+          cfTurnstileResponse: "test-token"
+        });
         fail("expected throw");
       } catch (error) {
         expect(error).toBeInstanceOf(ChatTokenAccessDeniedError);

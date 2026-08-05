@@ -22,7 +22,7 @@ describe("Store Frame Changes", () => {
       const store = createOrchestratorStore({
         exercise: exercise,
         language: "jikiscript",
-        context: { type: "lesson", slug: "test-lesson" }
+        context: { type: "lesson", slug: "maze-solve-basic" }
       });
       const state = store.getState();
 
@@ -75,7 +75,7 @@ describe("Store Frame Changes", () => {
       const store = createOrchestratorStore({
         exercise: exercise,
         language: "jikiscript",
-        context: { type: "lesson", slug: "test-lesson" }
+        context: { type: "lesson", slug: "maze-solve-basic" }
       });
       const state = store.getState();
 
@@ -127,7 +127,7 @@ describe("Store Frame Changes", () => {
       const store = createOrchestratorStore({
         exercise: exercise,
         language: "javascript",
-        context: { type: "lesson", slug: "test-lesson" }
+        context: { type: "lesson", slug: "maze-solve-basic" }
       });
       const state = store.getState();
 
@@ -180,7 +180,7 @@ describe("Store Frame Changes", () => {
       const store = createOrchestratorStore({
         exercise: exercise,
         language: "jikiscript",
-        context: { type: "lesson", slug: "test-lesson" }
+        context: { type: "lesson", slug: "maze-solve-basic" }
       });
       const state = store.getState();
 

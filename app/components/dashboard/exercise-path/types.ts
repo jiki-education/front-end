@@ -1,4 +1,4 @@
-import type { Lesson } from "@/types/lesson";
+import type { LessonSummary } from "@/types/lesson";
 
 // Display wrapper for dashboard lesson rendering.
 //
@@ -6,7 +6,7 @@ import type { Lesson } from "@/types/lesson";
 // phase (see useLevels) rather than fields the API supplies — the API type
 // deliberately has neither.
 export interface LessonDisplayData {
-  lesson: Lesson & { title: string; description: string };
+  lesson: LessonSummary & { title: string; description: string };
   completed: boolean;
   locked: boolean;
   route: string;

@@ -39,7 +39,7 @@ describe("Data Initialization Priority Logic", () => {
       const store = createOrchestratorStore({
         exercise: exercise,
         language: "jikiscript",
-        context: { type: "lesson", slug: "test-lesson" }
+        context: { type: "lesson", slug: "maze-solve-basic" }
       });
       store.getState().initializeExerciseData();
 
@@ -76,7 +76,7 @@ describe("Data Initialization Priority Logic", () => {
       const store = createOrchestratorStore({
         exercise: exercise,
         language: "jikiscript",
-        context: { type: "lesson", slug: "test-lesson" }
+        context: { type: "lesson", slug: "maze-solve-basic" }
       });
       store.getState().initializeExerciseData();
 
@@ -110,7 +110,7 @@ describe("Data Initialization Priority Logic", () => {
       const store = createOrchestratorStore({
         exercise: exercise,
         language: "jikiscript",
-        context: { type: "lesson", slug: "test-lesson" }
+        context: { type: "lesson", slug: "maze-solve-basic" }
       });
       store.getState().initializeExerciseData(serverData);
 
@@ -150,7 +150,7 @@ describe("Data Initialization Priority Logic", () => {
       const store = createOrchestratorStore({
         exercise: exercise,
         language: "jikiscript",
-        context: { type: "lesson", slug: "test-lesson" }
+        context: { type: "lesson", slug: "maze-solve-basic" }
       });
       store.getState().initializeExerciseData(serverData);
 
@@ -192,7 +192,7 @@ describe("Data Initialization Priority Logic", () => {
       const store = createOrchestratorStore({
         exercise: exercise,
         language: "jikiscript",
-        context: { type: "lesson", slug: "test-lesson" }
+        context: { type: "lesson", slug: "maze-solve-basic" }
       });
       store.getState().initializeExerciseData(serverData);
 
@@ -234,7 +234,7 @@ describe("Data Initialization Priority Logic", () => {
       const store = createOrchestratorStore({
         exercise: exercise,
         language: "jikiscript",
-        context: { type: "lesson", slug: "test-lesson" }
+        context: { type: "lesson", slug: "maze-solve-basic" }
       });
       store.getState().initializeExerciseData(serverData);
 
@@ -276,7 +276,7 @@ describe("Data Initialization Priority Logic", () => {
       const store = createOrchestratorStore({
         exercise: exercise,
         language: "jikiscript",
-        context: { type: "lesson", slug: "test-lesson" }
+        context: { type: "lesson", slug: "maze-solve-basic" }
       });
       store.getState().initializeExerciseData(serverData);
 
@@ -316,7 +316,7 @@ describe("Data Initialization Priority Logic", () => {
       const store = createOrchestratorStore({
         exercise: exercise,
         language: "jikiscript",
-        context: { type: "lesson", slug: "test-lesson" }
+        context: { type: "lesson", slug: "maze-solve-basic" }
       });
       store.getState().initializeExerciseData(serverData);
 
@@ -345,7 +345,7 @@ describe("Data Initialization Priority Logic", () => {
       const store = createOrchestratorStore({
         exercise: exercise,
         language: "jikiscript",
-        context: { type: "lesson", slug: "test-lesson" }
+        context: { type: "lesson", slug: "maze-solve-basic" }
       });
       store.getState().initializeExerciseData();
 
@@ -372,7 +372,7 @@ describe("Data Initialization Priority Logic", () => {
       const store = createOrchestratorStore({
         exercise: exercise,
         language: "jikiscript",
-        context: { type: "lesson", slug: "test-lesson" }
+        context: { type: "lesson", slug: "maze-solve-basic" }
       });
       store.getState().initializeExerciseData();
 
@@ -411,7 +411,7 @@ describe("Data Initialization Priority Logic", () => {
       const store = createOrchestratorStore({
         exercise: exercise,
         language: "jikiscript",
-        context: { type: "lesson", slug: "test-lesson" }
+        context: { type: "lesson", slug: "maze-solve-basic" }
       });
       store.getState().initializeExerciseData(serverData);
 
@@ -449,7 +449,7 @@ describe("Data Initialization Priority Logic", () => {
       const store = createOrchestratorStore({
         exercise: exercise,
         language: "jikiscript",
-        context: { type: "lesson", slug: "test-lesson" }
+        context: { type: "lesson", slug: "maze-solve-basic" }
       });
       store.getState().initializeExerciseData(serverData);
 
@@ -479,7 +479,7 @@ describe("Data Initialization Priority Logic", () => {
       const store = createOrchestratorStore({
         exercise: exercise,
         language: "jikiscript",
-        context: { type: "lesson", slug: "test-lesson" }
+        context: { type: "lesson", slug: "maze-solve-basic" }
       });
 
       // Simulate calling through orchestrator

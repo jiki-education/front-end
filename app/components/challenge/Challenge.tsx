@@ -6,7 +6,6 @@ import { ApiError, getApiErrorType, NotFoundError } from "@/lib/api/client";
 import { fetchUserCourse } from "@/lib/api/courses";
 import type { LastSubmissionData } from "@/lib/api/types/conversation";
 import type { UserCourse } from "@/types/course";
-import type { ExerciseSlug } from "@jiki/curriculum";
 import dynamic from "next/dynamic";
 import { useTranslations, useLocale } from "next-intl";
 import { fetchCurriculumCopy, resolveCopy, type CurriculumCopy } from "@/lib/api/curriculum-copy";
@@ -140,7 +139,6 @@ export default function Challenge({ slug }: ChallengeProps) {
       {challenge && (
         <CodingExercise
           language={userCourse?.language || "javascript"}
-          exerciseSlug={challenge.slug as ExerciseSlug}
           context={{ type: "challenge", slug: challenge.slug }}
           levelId={userCourse?.current_level_slug ?? undefined}
           isCompleted={isCompleted}

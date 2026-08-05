@@ -9,7 +9,7 @@ export function makeTestOrchestrator(
   return new Orchestrator({
     exercise,
     language: opts.language ?? "jikiscript",
-    context: { type: "lesson", slug: opts.slug ?? "test-lesson" },
+    context: { type: "lesson", slug: opts.slug ?? "maze-solve-basic" },
     interpreterLocaleMessages: {},
     exerciseLocaleMessages: {},
     t: makeTestTranslator(),

@@ -9,7 +9,7 @@ function createLesson(overrides: Partial<LessonDisplayData> = {}): LessonDisplay
     lesson: {
       title: "Solve the Maze",
       description: "Guide Jiki through a maze.",
-      slug: "test-lesson",
+      slug: "maze-solve-basic",
       type: "exercise",
       walkthrough_video_data: [
         {

@@ -64,21 +64,21 @@ const mockBadgeCopy = {
 };
 
 const mockChallenges1: ChallengeWithCopy[] = [
-  { slug: "snake", title: "Snake", description: "Build the classic Snake game", status: "started" },
-  { slug: "calculator", title: "Calculator", description: "Build a calculator app", status: "locked" },
-  { slug: "todo-list", title: "Todo List", description: "Build a todo list app", status: "locked" }
+  { slug: "structured-house", title: "Snake", description: "Build the classic Snake game", status: "started" },
+  { slug: "checkerboard", title: "Calculator", description: "Build a calculator app", status: "locked" },
+  { slug: "acronym", title: "Todo List", description: "Build a todo list app", status: "locked" }
 ];
 
 const mockChallenges2: ChallengeWithCopy[] = [
-  { slug: "snake", title: "Snake", description: "Build the classic Snake game", status: "started" },
-  { slug: "calculator", title: "Calculator", description: "Build a calculator app", status: "unlocked" },
-  { slug: "todo-list", title: "Todo List", description: "Build a todo list app", status: "locked" }
+  { slug: "structured-house", title: "Snake", description: "Build the classic Snake game", status: "started" },
+  { slug: "checkerboard", title: "Calculator", description: "Build a calculator app", status: "unlocked" },
+  { slug: "acronym", title: "Todo List", description: "Build a todo list app", status: "locked" }
 ];
 
 const mockChallenges3: ChallengeWithCopy[] = [
-  { slug: "snake", title: "Snake", description: "Build the classic Snake game", status: "started" },
-  { slug: "calculator", title: "Calculator", description: "Build a calculator app", status: "unlocked" },
-  { slug: "todo-list", title: "Todo List", description: "Build a todo list app", status: "started" }
+  { slug: "structured-house", title: "Snake", description: "Build the classic Snake game", status: "started" },
+  { slug: "checkerboard", title: "Calculator", description: "Build a calculator app", status: "unlocked" },
+  { slug: "acronym", title: "Todo List", description: "Build a todo list app", status: "started" }
 ];
 
 export default function ChallengesSidebarDevPage() {
