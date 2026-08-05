@@ -20,4 +20,4 @@ Par exemple :
 
 Pour afficher l'heure sur l'horloge, on utilise la fonction `displayTime(hour, minutes, meridiem)` (afficher l'heure).
 
-Dans chaque scénario, l'heure actuelle change. À toi d'écrire du code qui fait fonctionner tous les scénarios. Dans le dernier scénario, on utilise la vraie heure actuelle, donc le scénario changera chaque fois que l'heure réelle avancera d'une minute !
+Dans chaque scénario, l'heure actuelle change. À toi d'écrire un code qui fonctionne avec tous les scénarios. Dans le dernier scénario, on utilise la vraie heure actuelle, donc le scénario changera chaque fois que l'heure réelle avancera d'une minute !
