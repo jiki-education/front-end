@@ -40,6 +40,7 @@ describe("CodeEditor", () => {
       exerciseSlug: "test-uuid",
       context: { type: "lesson" as const, slug: "test-lesson" },
       exerciseTitle: "Test Exercise",
+      levelTitle: "Using Functions",
       code: "const x = 1;",
       output: "",
       status: "idle",

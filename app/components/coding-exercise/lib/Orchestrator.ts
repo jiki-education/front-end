@@ -223,6 +223,10 @@ class Orchestrator {
     this.store.getState().setShouldAutoRunCode(shouldAutoRun);
   }
 
+  setLevelTitle(title: string) {
+    this.store.getState().setLevelTitle(title);
+  }
+
   setIsExerciseCompleted(completed: boolean) {
     this.store.getState().setIsExerciseCompleted(completed);
   }

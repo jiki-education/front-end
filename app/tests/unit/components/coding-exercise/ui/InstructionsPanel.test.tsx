@@ -26,7 +26,7 @@ function renderPanel() {
       conceptSlugs={["variables"]}
       exerciseTitle="Sprouting Flower"
       exerciseSlug="sprouting-flower"
-      levelId="basics"
+      levelTitle="basics"
     />
   );
 }

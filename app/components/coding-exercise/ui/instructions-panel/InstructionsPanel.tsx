@@ -7,7 +7,6 @@ import InstructionsContent from "./InstructionsContent";
 import FunctionsGrid from "./FunctionsGrid";
 import LibrarySection from "./LibrarySection";
 import { getConceptsBySlugs } from "@/lib/api/concepts";
-import { useLevelTitles } from "@/lib/i18n/useLevelTitles";
 import type { ConceptCardData } from "@/components/concepts/ConceptCard";
 import type { FunctionInfo } from "@jiki/curriculum";
 import styles from "./instructions-panel.module.css";
@@ -18,7 +17,8 @@ interface InstructionsPanelProps {
   conceptSlugs?: string[];
   exerciseTitle: string;
   exerciseSlug: string;
-  levelId: string;
+  // Resolved during the exercise load, so it is never empty while a fetch runs.
+  levelTitle: string;
   isChallenge?: boolean;
   className?: string;
 }
@@ -29,13 +29,12 @@ export default function InstructionsPanel({
   conceptSlugs,
   exerciseTitle,
   exerciseSlug,
-  levelId,
+  levelTitle,
   isChallenge = false,
   className = ""
 }: InstructionsPanelProps) {
   const t = useTranslations("codingExercise.instructionsPanel");
   const locale = useLocale();
-  const { levelTitle, loaded: levelTitleLoaded } = useLevelTitles();
   const [activeSection, setActiveSection] = useState("instructions");
   const [isExpanded, setIsExpanded] = useState(true);
   const [concepts, setConcepts] = useState<ConceptCardData[]>([]);
@@ -51,8 +50,7 @@ export default function InstructionsPanel({
   // Build exercise data from props
   const exerciseData: ExerciseData = {
     title: exerciseTitle,
-    // Blank until the per-locale catalog resolves, so the badge never flashes a raw slug.
-    level: levelTitleLoaded ? levelTitle(levelId) : "",
+    level: levelTitle,
     exerciseSlug,
     isChallenge
   };

@@ -7,13 +7,11 @@ import { fetchLevelMessages, resolveLevelTitle, type LevelMessageCatalog } from 
 /**
  * Level display titles for the active locale.
  *
- * Returns a resolver plus a `loaded` flag. The resolver always yields a string:
- * an unresolved level id (catalog missing the key, or not yet fetched) surfaces
- * as the id itself — the loud canary, never a silent English fallback (see
- * `fetchLevelMessages`). Callers that would rather show nothing than flash an id
- * while the fetch is in flight can gate on `loaded`.
+ * The resolver always yields a string: an unresolved level id (catalog missing
+ * the key, or not yet fetched) surfaces as the id itself — the loud canary, never
+ * a silent English fallback (see `fetchLevelMessages`).
  */
-export function useLevelTitles(): { levelTitle: (levelId: string) => string; loaded: boolean } {
+export function useLevelTitles(): { levelTitle: (levelId: string) => string } {
   const locale = useLocale();
   const [catalog, setCatalog] = useState<LevelMessageCatalog | null>(null);
 
@@ -31,7 +29,6 @@ export function useLevelTitles(): { levelTitle: (levelId: string) => string; loa
   }, [locale]);
 
   return {
-    levelTitle: (levelId: string) => resolveLevelTitle(catalog ?? {}, levelId),
-    loaded: catalog !== null
+    levelTitle: (levelId: string) => resolveLevelTitle(catalog ?? {}, levelId)
   };
 }

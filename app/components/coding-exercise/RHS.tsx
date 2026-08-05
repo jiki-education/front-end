@@ -27,7 +27,7 @@ export function RHS({ orchestrator }: RHSProps) {
   const t = useTranslations("codingExercise.rhs");
   const [activeTab, setActiveTab] = useState("instructions");
   const router = useRouter();
-  const { isExerciseCompleted } = useOrchestratorStore(orchestrator);
+  const { isExerciseCompleted, levelTitle } = useOrchestratorStore(orchestrator);
   const isChallenge = orchestrator.isChallenge();
   const navTarget = isChallenge ? "/challenges" : "/dashboard";
   const navLabel = isChallenge ? t("navChallenges") : t("navDashboard");
@@ -73,7 +73,7 @@ export function RHS({ orchestrator }: RHSProps) {
             conceptSlugs={exercise.conceptSlugs}
             exerciseTitle={exercise.title}
             exerciseSlug={exercise.slug}
-            levelId={exercise.levelId}
+            levelTitle={levelTitle}
             isChallenge={orchestrator.isChallenge()}
           />
         );
@@ -105,7 +105,7 @@ export function RHS({ orchestrator }: RHSProps) {
             conceptSlugs={exercise.conceptSlugs}
             exerciseTitle={exercise.title}
             exerciseSlug={exercise.slug}
-            levelId={exercise.levelId}
+            levelTitle={levelTitle}
             isChallenge={orchestrator.isChallenge()}
           />
         );
