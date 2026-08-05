@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { fetchLevelsWithProgress } from "@/lib/api/levels";
 import { LAST_PUBLISHED_LEVEL_SLUG } from "@/lib/constants/course";
+import { useLevelTitles } from "@/lib/i18n/useLevelTitles";
 import type { LevelWithProgress } from "@/types/levels";
 import type { LessonDisplayData, LevelSectionData } from "../types";
 
@@ -41,7 +42,13 @@ export function filterToPublishedLevels(
   return levels.slice(0, cutoffIndex + 1);
 }
 
-export function buildLevelSections(levels: LevelWithProgress[]): LevelSectionData[] {
+// `levelTitle` resolves a level slug to its localized display title (from the
+// curriculum level catalog). It defaults to the slug so non-React callers and
+// tests don't have to thread a resolver through.
+export function buildLevelSections(
+  levels: LevelWithProgress[],
+  levelTitle: (slug: string) => string = (slug) => slug
+): LevelSectionData[] {
   return levels.map((level, levelIndex): LevelSectionData => {
     // Lock state is driven by the API: a lesson is locked when the user hasn't
     // unlocked it yet (absent from their progress, surfaced as a "locked" status).
@@ -65,10 +72,7 @@ export function buildLevelSections(levels: LevelWithProgress[]): LevelSectionDat
 
     return {
       levelSlug: level.slug,
-      levelTitle: level.slug
-        .split("-")
-        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-        .join(" "),
+      levelTitle: levelTitle(level.slug),
       levelIndex: levelIndex + 1, // 1-based indexing for display
       lessons,
       isLocked: lessons.length > 0 ? lessons[0].locked : false,
@@ -80,6 +84,7 @@ export function buildLevelSections(levels: LevelWithProgress[]): LevelSectionDat
 }
 
 export function useLevels() {
+  const { levelTitle } = useLevelTitles();
   const [levels, setLevels] = useState<LevelWithProgress[]>([]);
   const [levelsLoading, setLevelsLoading] = useState(true);
 
@@ -103,8 +108,8 @@ export function useLevels() {
 
   const levelSections = useMemo(() => {
     const visibleLevels = reachedEndOfPublishedLevels ? filterToPublishedLevels(levels) : levels;
-    return buildLevelSections(visibleLevels);
-  }, [levels, reachedEndOfPublishedLevels]);
+    return buildLevelSections(visibleLevels, levelTitle);
+  }, [levels, reachedEndOfPublishedLevels, levelTitle]);
 
   return {
     levels,
