@@ -1,0 +1,138 @@
+{
+  "welcome-to-coding-fundamentals": {
+    "title": "Welcome to Coding Fundamentals",
+    "description": "Meet Jiki and learn the basics of how coding works."
+  },
+  "using-functions": {
+    "title": "Using Functions",
+    "description": "Learn about functions, the little machines that make things happen."
+  },
+  "function-inputs": {
+    "title": "Functions Taking Inputs (Numbers)",
+    "description": "Learn how to give extra information to functions."
+  },
+  "strings": {
+    "title": "Strings",
+    "description": "Learn how to use text in your programs."
+  },
+  "repeat-loop": {
+    "title": "Repeat Loop",
+    "description": "Learn how to tell Jiki to do things multiple times."
+  },
+  "creating-variables": {
+    "title": "Creating/Using Variables",
+    "description": "Learn how to save and retrieve information in your programs."
+  },
+  "variables-together": {
+    "title": "Arithmetic + Variables",
+    "description": "Learn how to do maths with variables."
+  },
+  "updating-variables": {
+    "title": "Updating Variables",
+    "description": "Learn how to change variable values as your code runs."
+  },
+  "functions-that-return-things": {
+    "title": "Functions That Return Things",
+    "description": "Learn how functions can give information back to you."
+  },
+  "colors": {
+    "title": "Colors (HSL and RGB)",
+    "description": "Learn different ways to specify exact colours."
+  },
+  "animation": {
+    "title": "Animation",
+    "description": "Learn how to make things move on screen."
+  },
+  "random-numbers": {
+    "title": "Random Numbers",
+    "description": "Learn how to add randomness to your programs."
+  },
+  "scope": {
+    "title": "Scope",
+    "description": "Learn what happens to variables inside and outside of code blocks."
+  },
+  "scenarios": {
+    "title": "Scenarios",
+    "description": "Learn how to run your code with different starting conditions."
+  },
+  "nested-loops": {
+    "title": "Loops in Loops",
+    "description": "Learn how to put loops inside other loops."
+  },
+  "if-statements": {
+    "title": "If Statements",
+    "description": "Learn how to make your code do different things in different situations."
+  },
+  "else-statements": {
+    "title": "Else and Else If",
+    "description": "Learn how to handle multiple different conditions."
+  },
+  "logic-gates": {
+    "title": "Logic Gates",
+    "description": "Learn how to combine conditions together."
+  },
+  "remainder": {
+    "title": "Modulo and Not",
+    "description": "Learn about remainders and how to flip conditions."
+  },
+  "repeat-without-count": {
+    "title": "Repeat Without an Input",
+    "description": "Learn how to loop without knowing how many times upfront."
+  },
+  "state": {
+    "title": "State",
+    "description": "Learn how to combine conditions with changing data."
+  },
+  "making-functions": {
+    "title": "Writing Your Own Functions",
+    "description": "Learn how to create your own reusable machines."
+  },
+  "making-functions-with-inputs": {
+    "title": "Adding Inputs to Your Functions",
+    "description": "Learn how to make your functions accept inputs."
+  },
+  "making-functions-with-return-values": {
+    "title": "Adding Returns to Your Functions",
+    "description": "Learn how to make your functions give back results."
+  },
+  "string-concatenation": {
+    "title": "String Concatenation and Templates",
+    "description": "Learn how to join bits of text together."
+  },
+  "string-indexing": {
+    "title": "String Indexing",
+    "description": "Learn how to access individual characters in text."
+  },
+  "string-iteration": {
+    "title": "Iterating Through Strings",
+    "description": "Learn how to go through text one character at a time."
+  },
+  "using-multiple-functions-together": {
+    "title": "Using Multiple Functions Together",
+    "description": "Learn how to combine functions to solve bigger problems."
+  },
+  "methods-and-strings": {
+    "title": "Methods and Properties",
+    "description": "Learn how to use built-in tools that come attached to data."
+  },
+  "for-while-loops": {
+    "title": "Advanced Loops",
+    "description": "Learn proper JavaScript loops with more control and flexibility."
+  },
+  "arrays": {
+    "title": "Arrays",
+    "description": "Learn how to store collections of things in arrays."
+  },
+  "building-arrays": {
+    "title": "Building Arrays",
+    "description": "Learn how to build up arrays piece by piece."
+  },
+  "dictionaries": {
+    "title": "Dictionaries",
+    "description": "Learn how to store data with named labels."
+  },
+  "updating-dictionaries": {
+    "title": "Changing Dictionaries",
+    "description": "Learn how to update and modify dictionaries."
+  }
+}

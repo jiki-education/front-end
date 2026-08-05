@@ -1,6 +1,6 @@
 ---
 title: "Matching Socks"
-description: ""
+description: "�"
 ---
 
 There's little in life more annoying than having odd socks where you can't find its partner. So one day you finally decide to sort those socks out!

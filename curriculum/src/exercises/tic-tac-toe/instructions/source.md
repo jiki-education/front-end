@@ -1,6 +1,6 @@
 ---
 title: "Tic Tac Toe"
-description: ""
+description: "Build the full game logic for Tic Tac Toe."
 ---
 
 Welcome to Tic Tac Toe - your first major project!
