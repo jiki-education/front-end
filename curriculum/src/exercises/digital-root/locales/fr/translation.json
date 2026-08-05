@@ -2,14 +2,14 @@
   "tasks": {
     "sumTheDigits": {
       "name": "Additionne les chiffres",
-      "description": "Écris une fonction appelée digitalRoot qui prend un nombre et additionne ses chiffres. Pour les nombres qui ne comptent déjà qu'un seul chiffre, et pour ceux dont la somme des chiffres tient sur un seul chiffre, ce premier passage suffit."
+      "description": "Écris une fonction appelée digitalRoot qui prend un nombre et additionne ses chiffres. Pour les nombres qui ne comptent déjà qu'un seul chiffre, et pour ceux dont la somme des chiffres tient en un seul, ce premier passage suffit."
     },
     "collapseToSingleDigit": {
-      "name": "Continue à réduire jusqu'à n'avoir qu'un chiffre",
-      "description": "Parfois, additionner les chiffres une seule fois laisse encore plus d'un chiffre (par exemple, la somme des chiffres de 942 est 15). Continue à additionner les chiffres du résultat jusqu'à ce qu'il ne reste qu'un seul chiffre."
+      "name": "Continue à réduire jusqu'à n'avoir plus qu'un seul chiffre",
+      "description": "Parfois, additionner les chiffres une seule fois laisse encore un nombre à plusieurs chiffres (par exemple, la somme des chiffres de 942 est 15). Continue à additionner les chiffres du résultat jusqu'à ce qu'il ne reste plus qu'un seul chiffre."
     },
     "keepItTight": {
-      "name": "Bonus : garde ta solution courte",
+      "name": "Bonus : garde ton code concis",
       "description": "Ta solution fonctionne déjà. Pour ce bonus, fais le ménage pour que la fonction entière tienne en quelques lignes, sans rien de superflu."
     }
   },
@@ -43,7 +43,7 @@
       "description": "493193 se réduit jusqu'à 2."
     },
     "drNines": {
-      "name": "Que des neuf",
+      "name": "Que des neufs",
       "description": "La somme des chiffres de 99999 est 45, et celle de 45 est 9."
     },
     "drBonusTight": {
@@ -54,11 +54,11 @@
   "hints": {
     "whatIsIt": {
       "question": "C'est quoi, exactement, une racine numérique ?",
-      "answer": "Additionne tous les chiffres du nombre. Si tu obtiens un seul chiffre, c'est la réponse. Si tu en obtiens plusieurs, additionne aussi les chiffres de ce résultat, et continue jusqu'à ce qu'il ne reste qu'un seul chiffre."
+      "answer": "Additionne tous les chiffres du nombre. Si tu obtiens un seul chiffre, c'est la réponse. Si tu en obtiens plusieurs, additionne aussi les chiffres de ce résultat, et continue jusqu'à ce qu'il ne reste plus qu'un seul chiffre."
     },
     "sumDigits": {
       "question": "Comment additionner les chiffres d'un nombre ?",
-      "answer": "Transforme le nombre en string pour pouvoir la parcourir caractère par caractère avec une boucle `for...of`. Garde un total en cours, et ajoute chaque chiffre au fur et à mesure."
+      "answer": "Transforme le nombre en string pour pouvoir le parcourir caractère par caractère avec une boucle `for...of`. Retiens la somme au fur et à mesure que tu y ajoutes chaque chiffre."
     },
     "digitsToNumbers": {
       "question": "Mais chaque chiffre est un caractère, pas un nombre.",
@@ -66,7 +66,7 @@
     },
     "whichLoop": {
       "question": "Comment continuer sans savoir combien de passages il me faut ?",
-      "answer": "Tu ne sais pas à l'avance combien de fois tu devras additionner les chiffres, donc une boucle `while` est parfaite. Continue à boucler tant que le nombre compte plus d'un chiffre."
+      "answer": "Tu ne sais pas à l'avance combien de fois tu devras additionner les chiffres, donc une boucle `while` est parfaite. Continue à boucler tant que le nombre contient plus d'un chiffre."
     },
     "keepGoing": {
       "question": "Quand est-ce que je m'arrête ?",
@@ -74,7 +74,7 @@
     }
   },
   "checks": {
-    "mustUseWhile": "Presque ! Pour cet exercice, on attend que tu utilises une boucle `while` pour continuer à réduire jusqu'à ce qu'il ne reste qu'un seul chiffre.",
+    "mustUseWhile": "Presque ! Pour cet exercice, on attend que tu utilises une boucle `while` pour continuer à réduire jusqu'à ce qu'il ne reste plus qu'un seul chiffre.",
     "tooManyLines": "Tu y es presque ! Ta solution fonctionne, mais elle est un peu longue. Vois si tu peux la raccourcir."
   },
   "functions": {

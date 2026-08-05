@@ -4,9 +4,9 @@ description: "Réduis un nombre à un seul chiffre en additionnant ses chiffres 
 en_md5: 9847d9ea8c4a86ad65869e4f7b4c718e
 ---
 
-La racine numérique (_digital root_ en anglais) d'un nombre est ce qu'on obtient quand on additionne ses chiffres encore et encore, jusqu'à ce qu'il ne reste qu'un seul chiffre.
+La racine numérique (_digital root_ en anglais) d'un nombre est ce qu'on obtient quand on additionne ses chiffres encore et encore, jusqu'à ce qu'il ne reste plus qu'un seul chiffre.
 
-Si une première addition des chiffres te laisse encore plus d'un chiffre, tu additionnes les chiffres de _ce_ résultat, et ainsi de suite jusqu'à ce qu'un seul chiffre reste.
+Si la première addition des chiffres te laisse encore un nombre à plusieurs chiffres, tu additionnes à nouveau les chiffres de _ce_ résultat, et ainsi de suite jusqu'à ce qu'il ne reste plus qu'un seul chiffre.
 
 Par exemple, pour trouver la racine numérique de `942` :
 
@@ -35,6 +35,6 @@ Là encore, remarque la majuscule au début du nom, et là encore, ne te préocc
 
 ### Mettre en pratique ce que tu as appris.
 
-Il existe bien des façons de résoudre cet exercice, mais la solution qu'on attend de toi utilise une boucle `while`.
+Il existe bien des façons de résoudre cet exercice, mais la solution attendue ici passe par l'utilisation d'une boucle `while`.
 
 Amuse-toi bien !
