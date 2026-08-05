@@ -10,7 +10,7 @@ Finora, ogni stringa che hai usato l'hai digitata direttamente. Cosa succede se 
 
 Ci sono due modi.
 
-Il primo si chiama concatenazione di stringhe, un modo un po' altisonante e leggermente confuso per dire «aggiungere due stringhe tra loro».
+Il primo si chiama concatenazione di stringhe, un modo un po' altisonante e leggermente confuso per dire di unire due stringhe tra loro.
 
 Immagina di avere due parole, `"hello"` (ciao) e `"world"` (mondo), e di voler creare una stringa che contenga `"hello world"`.
 
