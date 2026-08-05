@@ -1,6 +1,6 @@
 {
   "slug": "word-count",
-  "levelId": "dictionaries",
+  "levelId": "changing-dictionaries",
   "hints": [
     {
       "question": "hints.caseInsensitive.question",

@@ -1,6 +1,6 @@
 {
   "slug": "extract-words",
-  "levelId": "lists",
+  "levelId": "building-arrays",
   "hints": [
     {
       "question": "hints.buildingUpWord.question",

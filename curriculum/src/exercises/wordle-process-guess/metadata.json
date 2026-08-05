@@ -1,6 +1,6 @@
 {
   "slug": "wordle-process-guess",
-  "levelId": "lists",
+  "levelId": "building-arrays",
   "hints": [
     {
       "question": "hints.compareLetters.question",
