@@ -12,8 +12,7 @@ import { BadgeIcon } from "@/components/icons/BadgeIcon";
 import { BadgeNewLabel } from "@/components/ui/BadgeNewLabel";
 import LockedIcon from "@/icons/locked.svg";
 import UnlockIcon from "@/icons/unlocked.svg";
-import type { BadgeData } from "@/lib/api/badges";
-import { resolveBadgeCopy, type BadgeCopyCatalog } from "@/lib/api/curriculum-copy";
+import type { BadgeWithCopy } from "@/lib/api/badges";
 import { revealBadge } from "@/lib/api/badges";
 import { showModal } from "@/lib/modal";
 import { useTranslations } from "next-intl";
@@ -22,13 +21,11 @@ import { useEffect, useRef, useState } from "react";
 import style from "./Badges.module.css";
 
 interface BadgesProps {
-  // Badge copy resolved by the sidebar during its load phase.
-  badgeCopy: BadgeCopyCatalog;
-  badges?: BadgeData[];
+  badges?: BadgeWithCopy[];
   onBadgeRevealed?: (badgeId: number) => void;
 }
 
-export function Badges({ badges, badgeCopy, onBadgeRevealed }: BadgesProps) {
+export function Badges({ badges, onBadgeRevealed }: BadgesProps) {
   const t = useTranslations("dashboard.challengesSidebar.badges");
   const [revealingId, setRevealingId] = useState<number | null>(null);
   const [lockedDisplayIds, setLockedDisplayIds] = useState<number[] | null>(null);
@@ -53,7 +50,7 @@ export function Badges({ badges, badgeCopy, onBadgeRevealed }: BadgesProps) {
     };
   }, []);
 
-  const handleBadgeClick = async (badge: BadgeData) => {
+  const handleBadgeClick = async (badge: BadgeWithCopy) => {
     if (!isEarnedBadge(badge)) {
       return;
     }
@@ -70,11 +67,10 @@ export function Badges({ badges, badgeCopy, onBadgeRevealed }: BadgesProps) {
       }
     }
 
-    const content = resolveBadgeCopy(badgeCopy, badge.slug);
     const modalData: BadgeModalData = {
-      title: content.name,
-      description: content.description,
-      funFact: content.funFact,
+      title: badge.name,
+      description: badge.description,
+      funFact: badge.funFact,
       color: getBadgeColor(badge),
       slug: badge.slug,
       isNew: wasNewBadge
@@ -107,7 +103,7 @@ export function Badges({ badges, badgeCopy, onBadgeRevealed }: BadgesProps) {
 
   const badgeMap = new Map(earnedBadges.map((b) => [b.id, b]));
   const displayBadges = lockedDisplayIds
-    ? lockedDisplayIds.map((id) => badgeMap.get(id)).filter((b): b is BadgeData => b !== undefined)
+    ? lockedDisplayIds.map((id) => badgeMap.get(id)).filter((b): b is BadgeWithCopy => b !== undefined)
     : sortBadges(earnedBadges).slice(0, 3);
   const lockedPlaceholderCount = Math.max(0, 3 - displayBadges.length);
 

@@ -10,6 +10,14 @@ export interface BadgeData {
   unlocked_at?: string;
 }
 
+// What badge components render: the API record plus the copy a page resolved for
+// it during its load phase.
+export interface BadgeWithCopy extends BadgeData {
+  name: string;
+  description: string;
+  funFact: string;
+}
+
 export interface BadgesResponse {
   badges: BadgeData[];
   num_locked_secret_badges: number;

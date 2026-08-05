@@ -9,7 +9,7 @@ import { UserProfile } from "@/components/dashboard/challenges-sidebar/ui/UserPr
 import { UserProfileSkeleton } from "@/components/dashboard/challenges-sidebar/ui/UserProfileSkeleton";
 import styles from "@/components/dashboard/challenges-sidebar/ChallengesSidebar.module.css";
 import pageStyles from "./page.module.css";
-import type { BadgeData } from "@/lib/api/badges";
+import type { BadgeWithCopy } from "@/lib/api/badges";
 import type { ChallengeWithCopy } from "@/lib/api/challenges";
 import { useState } from "react";
 
@@ -37,31 +37,34 @@ const mockProfile: UserProfileData = {
   currentStreak: 7
 };
 
-const mockBadges: BadgeData[] = [
+const mockBadges: BadgeWithCopy[] = [
   {
     id: 1,
     slug: "first-steps",
+    name: "First Steps",
+    description: "Completed first exercise",
+    funFact: "",
     state: "revealed",
     unlocked_at: "2024-01-01"
   },
   {
     id: 2,
     slug: "streak-starter",
+    name: "Streak Starter",
+    description: "3-day streak",
+    funFact: "",
     state: "revealed",
     unlocked_at: "2024-01-05"
   },
   {
     id: 3,
     slug: "curious-mind",
+    name: "Curious Mind",
+    description: "Explored 5 concepts",
+    funFact: "",
     state: "unrevealed"
   }
 ];
-
-const mockBadgeCopy = {
-  "first-steps": { name: "First Steps", description: "Completed first exercise", funFact: "" },
-  "streak-starter": { name: "Streak Starter", description: "3-day streak", funFact: "" },
-  "curious-mind": { name: "Curious Mind", description: "Explored 5 concepts", funFact: "" }
-};
 
 const mockChallenges1: ChallengeWithCopy[] = [
   {
@@ -112,13 +115,7 @@ export default function ChallengesSidebarDevPage() {
       case "free-user":
         return (
           <>
-            <UserProfile
-              badgeCopy={mockBadgeCopy}
-              profile={mockProfile}
-              badges={mockBadges}
-              loading={false}
-              isPremium={false}
-            />
+            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} isPremium={false} />
             <ChallengesUpsellCard onUpgradeClick={() => console.debug("Upgrade clicked")} />
           </>
         );
@@ -126,13 +123,7 @@ export default function ChallengesSidebarDevPage() {
       case "premium-empty":
         return (
           <>
-            <UserProfile
-              badgeCopy={mockBadgeCopy}
-              profile={mockProfile}
-              badges={mockBadges}
-              loading={false}
-              isPremium={true}
-            />
+            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} isPremium={true} />
             <EmptyChallengesState />
           </>
         );
@@ -140,13 +131,7 @@ export default function ChallengesSidebarDevPage() {
       case "premium-1-challenge":
         return (
           <>
-            <UserProfile
-              badgeCopy={mockBadgeCopy}
-              profile={mockProfile}
-              badges={mockBadges}
-              loading={false}
-              isPremium={true}
-            />
+            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} isPremium={true} />
             <RecentChallenges
               challenges={mockChallenges1}
               unlockedCount={1}
@@ -160,13 +145,7 @@ export default function ChallengesSidebarDevPage() {
       case "premium-2-challenges":
         return (
           <>
-            <UserProfile
-              badgeCopy={mockBadgeCopy}
-              profile={mockProfile}
-              badges={mockBadges}
-              loading={false}
-              isPremium={true}
-            />
+            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} isPremium={true} />
             <RecentChallenges
               challenges={mockChallenges2}
               unlockedCount={2}
@@ -180,13 +159,7 @@ export default function ChallengesSidebarDevPage() {
       case "premium-with-challenges":
         return (
           <>
-            <UserProfile
-              badgeCopy={mockBadgeCopy}
-              profile={mockProfile}
-              badges={mockBadges}
-              loading={false}
-              isPremium={true}
-            />
+            <UserProfile profile={mockProfile} badges={mockBadges} loading={false} isPremium={true} />
             <RecentChallenges
               challenges={mockChallenges3}
               unlockedCount={5}

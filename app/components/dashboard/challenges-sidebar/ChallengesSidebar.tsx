@@ -1,8 +1,8 @@
 "use client";
 
-import { fetchBadges, type BadgeData } from "@/lib/api/badges";
+import { fetchBadges, type BadgeWithCopy } from "@/lib/api/badges";
 import { fetchChallenges, type ChallengeWithCopy } from "@/lib/api/challenges";
-import { fetchBadgeCopy, fetchCurriculumCopy, resolveCopy, type BadgeCopyCatalog } from "@/lib/api/curriculum-copy";
+import { fetchBadgeCopy, fetchCurriculumCopy, resolveBadgeCopy, resolveCopy } from "@/lib/api/curriculum-copy";
 import { useLocale } from "next-intl";
 import { RequestAbortedError } from "@/lib/api/client";
 import { fetchProfile, type ProfileData } from "@/lib/api/profile";
@@ -32,9 +32,8 @@ function ChallengesSidebar({
   const [profileLoading, setProfileLoading] = useState(true);
   const locale = useLocale();
   const [challenges, setChallenges] = useState<ChallengeWithCopy[]>([]);
-  const [badgeCopy, setBadgeCopy] = useState<BadgeCopyCatalog>({});
   const [challengesLoading, setChallengesLoading] = useState(isPremium);
-  const [badges, setBadges] = useState<BadgeData[]>([]);
+  const [badges, setBadges] = useState<BadgeWithCopy[]>([]);
   const [badgesLoading, setBadgesLoading] = useState(true);
 
   const userProfile = useMemo<UserProfileData | null>(() => {
@@ -68,8 +67,7 @@ function ChallengesSidebar({
 
     void Promise.all([fetchBadges(), fetchBadgeCopy(locale)])
       .then(([res, copy]) => {
-        setBadges(res.badges);
-        setBadgeCopy(copy);
+        setBadges(res.badges.map((b) => ({ ...b, ...resolveBadgeCopy(copy, b.slug) })));
       })
       .catch(logUnlessAborted("Failed to load badges:"))
       .finally(() => setBadgesLoading(false));
@@ -125,7 +123,6 @@ function ChallengesSidebar({
       <div>
         {/* User Profile Card */}
         <UserProfile
-          badgeCopy={badgeCopy}
           profile={userProfile}
           badges={badges}
           onBadgeRevealed={(badgeId) =>

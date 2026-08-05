@@ -1,7 +1,6 @@
 "use client";
 
-import type { BadgeData } from "@/lib/api/badges";
-import type { BadgeCopyCatalog } from "@/lib/api/curriculum-copy";
+import type { BadgeWithCopy } from "@/lib/api/badges";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import { useTranslations } from "next-intl";
 import { showAvatarEditModal } from "@/lib/modal/app";
@@ -32,21 +31,13 @@ export type UserProfileData = UserProfileWithStreaks | UserProfileWithActiveDays
 
 interface UserProfileProps {
   profile: UserProfileData | null;
-  badges?: BadgeData[];
-  badgeCopy: BadgeCopyCatalog;
+  badges?: BadgeWithCopy[];
   onBadgeRevealed?: (badgeId: number) => void;
   loading?: boolean;
   isPremium?: boolean;
 }
 
-export function UserProfile({
-  profile,
-  badges,
-  badgeCopy,
-  onBadgeRevealed,
-  loading,
-  isPremium = false
-}: UserProfileProps) {
+export function UserProfile({ profile, badges, onBadgeRevealed, loading, isPremium = false }: UserProfileProps) {
   const t = useTranslations("dashboard.challengesSidebar.userProfile");
   const shouldShowSkeleton = useDelayedLoading(loading ?? false);
 
@@ -83,7 +74,7 @@ export function UserProfile({
         </div>
         <Streak profile={profile} />
       </div>
-      <Badges badges={badges} badgeCopy={badgeCopy} onBadgeRevealed={onBadgeRevealed} />
+      <Badges badges={badges} onBadgeRevealed={onBadgeRevealed} />
     </div>
   );
 }

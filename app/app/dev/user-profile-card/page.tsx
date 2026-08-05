@@ -5,7 +5,7 @@ import { Badges } from "@/components/dashboard/challenges-sidebar/ui/UserProfile
 import { Streak } from "@/components/dashboard/challenges-sidebar/ui/UserProfile/Streak";
 import PencilIcon from "@/icons/pencil.svg";
 import PremiumStarIcon from "@/icons/premium-star.svg";
-import type { BadgeData } from "@/lib/api/badges";
+import type { BadgeWithCopy } from "@/lib/api/badges";
 import style from "./page.module.css";
 
 const mockProfile: UserProfileData = {
@@ -17,31 +17,34 @@ const mockProfile: UserProfileData = {
 
 const mockAvatarUrl = "https://avatars.githubusercontent.com/u/1?v=4";
 
-const mockBadges: BadgeData[] = [
+const mockBadges: BadgeWithCopy[] = [
   {
     id: 1,
     slug: "first-steps",
+    name: "First Steps",
+    description: "Completed first exercise",
+    funFact: "",
     state: "revealed",
     unlocked_at: "2024-01-01"
   },
   {
     id: 2,
     slug: "streak-starter",
+    name: "Streak Starter",
+    description: "3-day streak",
+    funFact: "",
     state: "unrevealed"
   },
   {
     id: 3,
     slug: "curious-mind",
+    name: "Curious Mind",
+    description: "Explored 5 concepts",
+    funFact: "",
     state: "revealed",
     unlocked_at: "2024-02-01"
   }
 ];
-
-const mockBadgeCopy = {
-  "first-steps": { name: "First Steps", description: "Completed first exercise", funFact: "" },
-  "streak-starter": { name: "Streak Starter", description: "3-day streak", funFact: "" },
-  "curious-mind": { name: "Curious Mind", description: "Explored 5 concepts", funFact: "" }
-};
 
 export default function UserProfileCardDevPage() {
   return (
@@ -85,7 +88,7 @@ function CurrentCard() {
         </div>
         <Streak profile={mockProfile} />
       </div>
-      <Badges badgeCopy={mockBadgeCopy} badges={mockBadges} />
+      <Badges badges={mockBadges} />
     </div>
   );
 }
@@ -111,7 +114,7 @@ function PremiumCard() {
         </div>
         <Streak profile={mockProfile} />
       </div>
-      <Badges badgeCopy={mockBadgeCopy} badges={mockBadges} />
+      <Badges badges={mockBadges} />
     </div>
   );
 }

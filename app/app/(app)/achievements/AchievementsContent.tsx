@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 import MedalIcon from "@/icons/medal.svg";
 import { CertificatesEmptyState } from "./CertificatesEmptyState";
 import { BadgeCard } from "./BadgeCard";
-import { fetchBadges, type BadgeData } from "@/lib/api/badges";
-import { fetchBadgeCopy, resolveBadgeCopy, type BadgeCopyCatalog } from "@/lib/api/curriculum-copy";
+import { fetchBadges, type BadgeWithCopy } from "@/lib/api/badges";
+import { fetchBadgeCopy, resolveBadgeCopy } from "@/lib/api/curriculum-copy";
 import { useLocale } from "next-intl";
 import { RequestAbortedError } from "@/lib/api/client";
 import BadgesCssModule from "./BadgeCard.module.css";
@@ -27,8 +27,7 @@ export function AchievementsContent() {
   ];
   const locale = useLocale();
   const [activeTab, setActiveTab] = useState("badges");
-  const [badges, setBadges] = useState<BadgeData[]>([]);
-  const [badgeCopy, setBadgeCopy] = useState<BadgeCopyCatalog>({});
+  const [badges, setBadges] = useState<BadgeWithCopy[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [spinningBadgeId, setSpinningBadgeId] = useState<number | null>(null);
@@ -42,8 +41,8 @@ export function AchievementsContent() {
         // Badge copy is curriculum-owned and fetched as part of this page load,
         // so cards paint with their real names rather than filling in after.
         const [response, copyCatalog] = await Promise.all([fetchBadges(), fetchBadgeCopy(locale)]);
-        setBadges(response.badges);
-        setBadgeCopy(copyCatalog);
+        const badgesWithCopy = response.badges.map((b) => ({ ...b, ...resolveBadgeCopy(copyCatalog, b.slug) }));
+        setBadges(badgesWithCopy);
         // Sort badges once and lock in the order to prevent jumping when badges are revealed
         const sorted = sortBadges(response.badges);
         setSortedBadgeIds(sorted.map((b) => b.id));
@@ -66,13 +65,7 @@ export function AchievementsContent() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locale]);
 
-  const { handleBadgeClick, cleanup } = useBadgeActions(
-    badges,
-    setBadges,
-    setSpinningBadgeId,
-    setRecentlyRevealedIds,
-    badgeCopy
-  );
+  const { handleBadgeClick, cleanup } = useBadgeActions(badges, setBadges, setSpinningBadgeId, setRecentlyRevealedIds);
 
   useEffect(() => {
     // Cleanup on unmount
@@ -97,7 +90,6 @@ export function AchievementsContent() {
             <BadgeCard
               key={badge.id}
               badge={badge}
-              content={resolveBadgeCopy(badgeCopy, badge.slug)}
               onClick={handleBadgeClick}
               isSpinning={spinningBadgeId === badge.id}
               showNewRibbon={recentlyRevealedIds.has(badge.id) || isRecentBadge(badge)}
@@ -111,10 +103,10 @@ export function AchievementsContent() {
   );
 }
 
-function sortBadgesByLockedOrder(badges: BadgeData[], sortedIds: number[]): BadgeData[] {
+function sortBadgesByLockedOrder(badges: BadgeWithCopy[], sortedIds: number[]): BadgeWithCopy[] {
   // Create a map for quick lookup
   const badgeMap = new Map(badges.map((b) => [b.id, b]));
 
   // Return badges in the locked order, filtering out any that no longer exist
-  return sortedIds.map((id) => badgeMap.get(id)).filter((badge): badge is BadgeData => badge !== undefined);
+  return sortedIds.map((id) => badgeMap.get(id)).filter((badge): badge is BadgeWithCopy => badge !== undefined);
 }
