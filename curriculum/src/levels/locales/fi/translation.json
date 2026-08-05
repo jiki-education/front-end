@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "Edistyneet silmukat"
   },
-  "lists": {
-    "title": "Listat"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "Sanakirjat"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "Kaikki yhdessä"

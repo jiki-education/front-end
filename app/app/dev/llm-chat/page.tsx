@@ -8,7 +8,7 @@ import {
 } from "@/components/coding-exercise/lib/chatApi";
 import { fetchChatToken } from "@/components/coding-exercise/lib/chatTokenApi";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { exercises } from "@jiki/curriculum";
+import { exercises, type ExerciseLessonSlug } from "@jiki/curriculum";
 import { fetchExerciseContent } from "@/lib/api/exercise-meta";
 import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./page.module.css";
@@ -41,7 +41,7 @@ export default function LLMChatTestPage() {
 
   // Exercise and code state
   const exerciseSlugs = Object.keys(exercises);
-  const [selectedExercise, setSelectedExercise] = useState<string>("maze-solve-basic");
+  const [selectedExercise, setSelectedExercise] = useState<ExerciseLessonSlug>("maze-solve-basic");
   const [selectedLanguage, setSelectedLanguage] = useState<"javascript" | "python" | "jikiscript">("jikiscript");
   const [code, setCode] = useState<string>("");
   const [contentHash, setContentHash] = useState<string>("");
@@ -515,7 +515,7 @@ function ExerciseSelector({
 }: {
   exerciseSlugs: string[];
   selectedExercise: string;
-  onSelectExercise: (slug: string) => void;
+  onSelectExercise: (slug: ExerciseLessonSlug) => void;
   isLoading: boolean;
 }) {
   return (
@@ -523,7 +523,7 @@ function ExerciseSelector({
       <label className={styles.fieldLabel}>Exercise</label>
       <select
         value={selectedExercise}
-        onChange={(e) => onSelectExercise(e.target.value)}
+        onChange={(e) => onSelectExercise(e.target.value as ExerciseLessonSlug)}
         disabled={isLoading}
         className={styles.select}
       >

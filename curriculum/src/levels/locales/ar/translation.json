@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "حلقات متقدّمة"
   },
-  "lists": {
-    "title": "القوائم"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "القواميس"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "كل شيء"

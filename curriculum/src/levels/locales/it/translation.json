@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "Cicli avanzati"
   },
-  "lists": {
-    "title": "Liste"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "Dizionari"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "Tutto quanto"

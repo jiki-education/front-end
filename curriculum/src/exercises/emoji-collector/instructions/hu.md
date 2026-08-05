@@ -1,6 +1,6 @@
 ---
 title: "Emoji Collector"
-description: ""
+description: "�"
 ---
 
 Previously, you checked for words when you looked around. But now we've upgraded the mazes to use emojis! So you need to update your code to handle these:

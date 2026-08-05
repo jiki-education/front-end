@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "进阶循环"
   },
-  "lists": {
-    "title": "列表"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "字典"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "综合运用"

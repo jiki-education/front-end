@@ -1,5 +1,7 @@
 "use client";
 
+import type { LessonDisplayData } from "@/components/dashboard/exercise-path/types";
+
 import { useState } from "react";
 import styles from "@/components/dashboard/exercise-path/ExercisePath.module.css";
 import pageStyles from "./page.module.css";
@@ -43,9 +45,9 @@ export default function UnlockAnimationTest() {
   };
 
   // Mock lesson data
-  const completingLesson = {
+  const completingLesson: LessonDisplayData = {
     lesson: {
-      slug: "lesson-1",
+      slug: "maze-solve-basic",
       type: "video" as const,
       title: "Introduction to Variables",
       description: "Learn about variables and data types",
@@ -59,9 +61,9 @@ export default function UnlockAnimationTest() {
     walkthroughVideoWatchedPercentage: 0
   };
 
-  const unlockingLesson = {
+  const unlockingLesson: LessonDisplayData = {
     lesson: {
-      slug: "lesson-2",
+      slug: "using-functions",
       type: "quiz" as const,
       title: "Variables Quiz",
       description: "Test your knowledge of variables",

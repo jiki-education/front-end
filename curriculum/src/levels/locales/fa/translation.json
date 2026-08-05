@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "حلقه‌های پیشرفته"
   },
-  "lists": {
-    "title": "فهرست‌ها"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "دیکشنری‌ها"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "همه‌چیز"

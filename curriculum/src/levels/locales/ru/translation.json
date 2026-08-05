@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "Продвинутые циклы"
   },
-  "lists": {
-    "title": "Списки"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "Словари"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "Всё вместе"

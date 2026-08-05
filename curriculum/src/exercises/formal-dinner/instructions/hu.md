@@ -34,7 +34,7 @@ In addition to the `.length` property you learned about in the last exercise, th
 // ["J", "r", "my"]
 ```
 
-`[...].slice(start)` slices off part of the `start` part of an array, and returns a NEW array with those items. For example:
+`[...].slice(start)` captures part of an array, starting at index `start` and continuing to the end of the array. The captured elements are copied into a NEW array, which is returned to you. In effect, this drops the first `start` elements. For example:
 
 ```js
 ["Jeremy", "Erik", "Aron", "DJ", "Glenn", "Isaac", "Bethany"].slice(2)

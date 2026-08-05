@@ -49,7 +49,7 @@ if (typeof TextDecoder === "undefined") {
 
 describe("Chat API JWT Authentication", () => {
   const mockPayload = {
-    exerciseSlug: "test-exercise",
+    exerciseSlug: "maze-solve-basic",
     code: "console.log('test');",
     question: "How does this work?",
     language: "javascript",
@@ -213,7 +213,7 @@ describe("Chat API JWT Authentication", () => {
       type: "signature",
       signature: "sig",
       timestamp: "2026-06-19T12:00:00.000Z",
-      exerciseSlug: "test-exercise",
+      exerciseSlug: "maze-solve-basic",
       userMessage: "How does this work?",
       messagesToday: 7,
       messagesThisMonth: 152,

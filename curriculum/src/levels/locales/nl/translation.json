@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "Gevorderde lussen"
   },
-  "lists": {
-    "title": "Lijsten"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "Dictionaries"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "Alles"

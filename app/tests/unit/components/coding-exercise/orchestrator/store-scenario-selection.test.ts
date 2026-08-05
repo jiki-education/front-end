@@ -180,7 +180,7 @@ describe("shouldShowSpotlight", () => {
 describe("setTestSuiteResult scenario selection", () => {
   function createOrchestrator() {
     const exercise = createMockExercise({
-      slug: "test-exercise",
+      slug: "maze-solve-basic",
       stubs: { javascript: "", python: "", jikiscript: "" }
     });
     return makeTestOrchestrator(exercise);
@@ -249,7 +249,7 @@ describe("setTestSuiteResult scenario selection", () => {
 describe("setCurrentTest isPlaying reset", () => {
   function createOrchestrator() {
     const exercise = createMockExercise({
-      slug: "test-exercise",
+      slug: "maze-solve-basic",
       stubs: { javascript: "", python: "", jikiscript: "" }
     });
     return makeTestOrchestrator(exercise);

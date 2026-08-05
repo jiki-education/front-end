@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "Zaawansowane pętle"
   },
-  "lists": {
-    "title": "Listy"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "Słowniki"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "Wszystko razem"

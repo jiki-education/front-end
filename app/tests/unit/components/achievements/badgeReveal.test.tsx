@@ -3,6 +3,20 @@ import type { BadgeData } from "@/lib/api/badges";
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 // Mock the API module
+jest.mock("@/lib/api/curriculum-copy", () => {
+  const actual = jest.requireActual("@/lib/api/curriculum-copy");
+  return {
+    ...actual,
+    fetchBadgeCopy: jest.fn().mockResolvedValue({
+      "test-badge": {
+        name: "Test Badge",
+        description: "A test badge",
+        funFact: "This is a fun fact about the badge"
+      }
+    })
+  };
+});
+
 jest.mock("@/lib/api/badges", () => ({
   fetchBadges: jest.fn(),
   revealBadge: jest.fn()
@@ -15,12 +29,8 @@ jest.mock("@/lib/modal", () => ({
 
 const mockUnrevealedBadge: BadgeData = {
   id: 42,
-  name: "Test Badge",
   slug: "test-badge",
-  description: "A test badge for revealing",
-  fun_fact: "This is a fun fact about the badge",
   state: "unrevealed",
-  num_awardees: 10,
   unlocked_at: "2024-01-01T00:00:00Z"
 };
 
@@ -49,9 +59,7 @@ describe("Badge Reveal Functionality", () => {
     (revealBadge as jest.Mock).mockResolvedValueOnce({
       badge: {
         id: 42,
-        name: "Test Badge",
         slug: "test-badge",
-        description: "A test badge for revealing",
         revealed: true,
         unlocked_at: "2024-01-01T00:00:00Z"
       }
@@ -79,7 +87,6 @@ describe("Badge Reveal Functionality", () => {
     expect(showModal).toHaveBeenCalledWith("badge-modal", {
       badgeData: expect.objectContaining({
         title: "Test Badge",
-        description: "A test badge for revealing",
         funFact: "This is a fun fact about the badge",
         isNew: true
       }),

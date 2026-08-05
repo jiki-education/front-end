@@ -1,5 +1,5 @@
 import ChallengesPage from "@/app/(app)/challenges/page";
-import { fetchChallenges } from "@/lib/api/challenges";
+import { fetchChallenges, type ChallengesResponse } from "@/lib/api/challenges";
 import { render, screen, waitFor } from "@testing-library/react";
 import { useRouter } from "next/navigation";
 
@@ -7,6 +7,38 @@ import { useRouter } from "next/navigation";
 jest.mock("next/navigation", () => ({
   useRouter: jest.fn()
 }));
+
+// Display copy comes from the curriculum catalog now, not the challenges API.
+// Titles here mirror the fixtures below so the assertions are unchanged.
+// Display copy comes from the curriculum catalog now, not the challenges API.
+// These titles are what the assertions below look for.
+jest.mock("@/lib/api/curriculum-copy", () => {
+  const actual = jest.requireActual("@/lib/api/curriculum-copy");
+  const titles: Record<string, string> = {
+    "structured-house": "Beginner Challenge",
+    checkerboard: "Intermediate Challenge",
+    acronym: "Advanced Challenge",
+    sieve: "Expert Challenge",
+    "sprouting-flower": "Challenge 1",
+    "rainbow-ball": "Challenge 2",
+    "caesar-cipher": "Challenge 3",
+    "run-length-encoding": "Challenge 4",
+    "alien-detector": "Challenge 5",
+    "matching-socks": "Challenge 6"
+  };
+  return {
+    ...actual,
+    fetchCurriculumCopy: jest
+      .fn()
+      .mockImplementation(() =>
+        Promise.resolve(
+          Object.fromEntries(
+            Object.entries(titles).map(([slug, title]) => [slug, { title, description: `${title} desc` }])
+          )
+        )
+      )
+  };
+});
 
 jest.mock("@/lib/api/challenges", () => ({
   fetchChallenges: jest.fn()
@@ -60,30 +92,22 @@ describe("Challenges Integration", () => {
   });
 
   it("should display challenges with different status states", async () => {
-    const mockChallenges = {
+    const mockChallenges: ChallengesResponse = {
       results: [
         {
-          slug: "beginner-challenge",
-          title: "Beginner Challenge",
-          description: "Start here - learn the basics",
+          slug: "structured-house",
           status: "unlocked" as const
         },
         {
-          slug: "intermediate-challenge",
-          title: "Intermediate Challenge",
-          description: "More challenging exercises",
+          slug: "checkerboard",
           status: "started" as const
         },
         {
-          slug: "advanced-challenge",
-          title: "Advanced Challenge",
-          description: "Complex algorithms and data structures",
+          slug: "acronym",
           status: "completed" as const
         },
         {
-          slug: "expert-challenge",
-          title: "Expert Challenge",
-          description: "Master-level challenges",
+          slug: "sieve",
           status: "locked" as const
         }
       ],
@@ -118,9 +142,9 @@ describe("Challenges Integration", () => {
     const completedChallenge = screen.getAllByText("Advanced Challenge")[0].closest("a");
     const lockedChallengeCard = screen.getAllByText("Expert Challenge")[0].closest("div")?.parentElement;
 
-    expect(unlockedChallenge).toHaveAttribute("href", "/challenges/beginner-challenge");
-    expect(startedChallenge).toHaveAttribute("href", "/challenges/intermediate-challenge");
-    expect(completedChallenge).toHaveAttribute("href", "/challenges/advanced-challenge");
+    expect(unlockedChallenge).toHaveAttribute("href", "/challenges/structured-house");
+    expect(startedChallenge).toHaveAttribute("href", "/challenges/checkerboard");
+    expect(completedChallenge).toHaveAttribute("href", "/challenges/acronym");
 
     // Locked challenge should not be a link (no <a> wrapper)
     expect(lockedChallengeCard).not.toHaveAttribute("href");
@@ -165,13 +189,17 @@ describe("Challenges Integration", () => {
     // Reset mocks to avoid interference from previous tests
     mockFetchChallenges.mockReset();
 
-    const mockChallenges = {
-      results: Array.from({ length: 6 }, (_, i) => ({
-        slug: `challenge-${i + 1}`,
-        title: `Challenge ${i + 1}`,
-        description: `Description for challenge ${i + 1}`,
-        status: "unlocked" as const
-      })),
+    const mockChallenges: ChallengesResponse = {
+      results: (
+        [
+          "sprouting-flower",
+          "rainbow-ball",
+          "caesar-cipher",
+          "run-length-encoding",
+          "alien-detector",
+          "matching-socks"
+        ] as const
+      ).map((slug) => ({ slug, status: "unlocked" as const })),
       meta: {
         current_page: 1,
         total_count: 6,

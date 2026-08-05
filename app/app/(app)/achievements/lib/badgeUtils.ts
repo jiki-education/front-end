@@ -50,7 +50,9 @@ export function getBadgeColor(badge: BadgeData): "blue" | "gold" {
   return "blue";
 }
 
-export function sortBadges(badges: BadgeData[]): BadgeData[] {
+// Generic so callers holding badges with resolved copy (BadgeWithCopy) get the
+// same type back rather than having it widened to BadgeData.
+export function sortBadges<T extends BadgeData>(badges: T[]): T[] {
   // Not toSorted(): it needs Chrome 110+/Safari 16.4+ and crashes the dashboard
   // render on older browsers (JIKI-FRONT-END-14). Copy-then-sort is equivalent.
   return [...badges].sort((a, b) => {

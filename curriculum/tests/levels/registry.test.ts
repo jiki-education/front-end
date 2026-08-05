@@ -21,8 +21,10 @@ describe("Level Registry", () => {
         "multiple-functions",
         "methods-and-properties",
         "advanced-loops",
-        "lists",
+        "arrays",
+        "building-arrays",
         "dictionaries",
+        "changing-dictionaries",
         "everything"
       ]);
     });
@@ -74,7 +76,7 @@ describe("Level Registry", () => {
       expect(ids).toContain("using-functions");
       expect(ids).toContain("variables");
       expect(ids).toContain("everything");
-      expect(ids.length).toBe(18);
+      expect(ids.length).toBe(20);
     });
 
     it("should return IDs in definition order", () => {
@@ -138,7 +140,7 @@ describe("Level Registry", () => {
     it("should not include concepts from levels after target", () => {
       const concepts = getTaughtConcepts("variables");
       expect(concepts).not.toContain("If statements");
-      expect(concepts).not.toContain("Creating lists/arrays");
+      expect(concepts).not.toContain("Creating arrays");
     });
 
     it("should return empty array for invalid level", () => {

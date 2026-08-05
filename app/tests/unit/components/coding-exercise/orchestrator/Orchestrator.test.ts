@@ -64,8 +64,8 @@ describe("Orchestrator", () => {
         slug: "uuid2",
         stubs: { javascript: "code2", python: "code2", jikiscript: "code2" }
       });
-      const orchestrator1 = makeTestOrchestrator(exercise1, { slug: "test-lesson-1" });
-      const orchestrator2 = makeTestOrchestrator(exercise2, { slug: "test-lesson-2" });
+      const orchestrator1 = makeTestOrchestrator(exercise1, { slug: "maze-solve-basic" });
+      const orchestrator2 = makeTestOrchestrator(exercise2, { slug: "maze-solve-walk" });
 
       const state1 = orchestrator1.getStore().getState();
       const state2 = orchestrator2.getStore().getState();

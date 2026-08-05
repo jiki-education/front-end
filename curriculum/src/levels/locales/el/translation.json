@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "Προχωρημένοι Βρόχοι"
   },
-  "lists": {
-    "title": "Λίστες"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "Λεξικά"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "Τα Πάντα"

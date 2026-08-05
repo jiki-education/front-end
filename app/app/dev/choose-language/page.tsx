@@ -14,10 +14,8 @@ type ChooseLanguageLesson = Lesson & {
 
 // Mock data for the dev page
 const mockLessonData: ChooseLanguageLesson = {
-  slug: "choose-language",
+  slug: "welcome-to-coding-fundamentals",
   type: "choose_language",
-  title: "Choose Your Language",
-  description: "Select your programming language",
   walkthrough_video_data: null,
   data: {
     sources: [

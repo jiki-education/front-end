@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "Vòng lặp nâng cao"
   },
-  "lists": {
-    "title": "Danh sách"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "Từ điển"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "Tất cả"

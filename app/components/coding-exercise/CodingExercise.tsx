@@ -1,6 +1,5 @@
 "use client";
 
-import type { ExerciseSlug } from "@jiki/curriculum";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
@@ -13,7 +12,6 @@ import "./codemirror.css";
 
 interface CodingExerciseProps {
   language: "javascript" | "jikiscript" | "python";
-  exerciseSlug: ExerciseSlug;
   context: ExerciseContext;
   levelId?: string;
   isCompleted: boolean;
@@ -23,7 +21,6 @@ interface CodingExerciseProps {
 
 export default function CodingExercise({
   language,
-  exerciseSlug,
   context,
   levelId,
   isCompleted,
@@ -35,7 +32,7 @@ export default function CodingExercise({
   const continueHref = context.type === "challenge" ? "/challenges" : "/dashboard";
   const { orchestrator, isLoading, loadError } = useExerciseLoader({
     language,
-    exerciseSlug,
+    exerciseSlug: context.slug,
     context,
     levelId,
     isCompleted,

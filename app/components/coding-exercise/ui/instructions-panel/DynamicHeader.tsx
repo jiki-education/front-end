@@ -32,6 +32,7 @@ export default function DynamicHeader({
   onNavigateToConceptLibrary,
   getSectionTitle
 }: DynamicHeaderProps) {
+  const t = useTranslations("codingExercise.instructionsPanel");
   return (
     <div className={`${styles.dynamicHeader} ${isExpanded ? styles.expandedHeader : styles.collapsedHeader}`}>
       {isExpanded ? (
@@ -46,7 +47,13 @@ export default function DynamicHeader({
 
             <div className={styles.headerTitleText}>
               <h1 className={styles.exerciseTitle}>{exerciseData.title}</h1>
-              <ExerciseInfoText isChallenge={exerciseData.isChallenge} level={exerciseData.level} />
+              {/* The level title is fetched per locale, so render nothing until it resolves
+                  rather than flashing a placeholder. */}
+              {(exerciseData.isChallenge || exerciseData.level !== "") && (
+                <p className={styles.exerciseInfoText}>
+                  {exerciseData.isChallenge ? t("premiumChallenge") : t("exerciseLevel", { level: exerciseData.level })}
+                </p>
+              )}
             </div>
           </div>
 
@@ -79,20 +86,6 @@ export default function DynamicHeader({
         </div>
       )}
     </div>
-  );
-}
-
-// The level title is fetched per locale, so render nothing until it resolves
-// rather than flashing a placeholder.
-function ExerciseInfoText({ isChallenge, level }: { isChallenge: boolean; level: string }) {
-  const t = useTranslations("codingExercise.instructionsPanel");
-
-  if (!isChallenge && level === "") {
-    return null;
-  }
-
-  return (
-    <p className={styles.exerciseInfoText}>{isChallenge ? t("premiumChallenge") : t("exerciseLevel", { level })}</p>
   );
 }
 

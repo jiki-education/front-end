@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "Laços Avançados"
   },
-  "lists": {
-    "title": "Listas"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "Dicionários"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "Tudo"

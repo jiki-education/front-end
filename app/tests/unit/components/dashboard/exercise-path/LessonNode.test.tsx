@@ -1,17 +1,16 @@
 import type { LessonDisplayData } from "@/components/dashboard/exercise-path/types";
 import { LessonNode } from "@/components/dashboard/exercise-path/ui/LessonNode";
-import type { Lesson } from "@/types/lesson";
 import { fireEvent, render, screen } from "@testing-library/react";
 
 function createMockLessonDisplayData(overrides?: {
-  lesson?: Partial<Lesson>;
+  lesson?: Partial<LessonDisplayData["lesson"]>;
   completed?: boolean;
   locked?: boolean;
   route?: string;
 }): LessonDisplayData {
   return {
     lesson: {
-      slug: "test-lesson",
+      slug: "maze-solve-basic",
       title: "Test Lesson",
       description: "Test description",
       type: "exercise",

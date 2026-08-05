@@ -1,14 +1,21 @@
 import { api } from "./client";
 
+// Identity and per-user state only; the API's payload is wider. A badge's name,
+// description and fun fact come from the curriculum badge catalog
+// (lib/api/curriculum-copy.ts), keyed by this slug.
 export interface BadgeData {
   id: number;
-  name: string;
   slug: string;
-  description: string;
-  fun_fact: string;
   state: "locked" | "unrevealed" | "revealed";
-  num_awardees: number;
   unlocked_at?: string;
+}
+
+// What badge components render: the API record plus the copy a page resolved for
+// it during its load phase.
+export interface BadgeWithCopy extends BadgeData {
+  name: string;
+  description: string;
+  funFact: string;
 }
 
 export interface BadgesResponse {
@@ -19,10 +26,7 @@ export interface BadgesResponse {
 export interface RevealBadgeResponse {
   badge: {
     id: number;
-    name: string;
     slug: string;
-    description: string;
-    fun_fact: string;
     revealed: boolean;
     unlocked_at: string;
   };

@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "לולאות מתקדמות"
   },
-  "lists": {
-    "title": "רשימות"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "מילונים"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "הכול"

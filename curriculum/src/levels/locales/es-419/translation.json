@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "Bucles avanzados"
   },
-  "lists": {
-    "title": "Listas"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "Diccionarios"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "Todo"

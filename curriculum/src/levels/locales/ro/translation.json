@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "Bucle avansate"
   },
-  "lists": {
-    "title": "Liste"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "Dicționare"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "Totul"

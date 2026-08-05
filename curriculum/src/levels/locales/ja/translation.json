@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "発展的なループ"
   },
-  "lists": {
-    "title": "リスト"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "辞書"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "総まとめ"

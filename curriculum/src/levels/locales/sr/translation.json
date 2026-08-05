@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "Напредне петље"
   },
-  "lists": {
-    "title": "Листе"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "Речници"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "Све"

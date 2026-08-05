@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "İleri Döngüler"
   },
-  "lists": {
-    "title": "Listeler"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "Sözlükler"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "Her Şey"

@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "Vitanzi vya Hali ya Juu"
   },
-  "lists": {
-    "title": "Orodha"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "Kamusi"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "Kila Kitu"

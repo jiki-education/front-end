@@ -37,7 +37,17 @@ export default function CodeFoldingTestPage() {
     stubs: { javascript: TEST_CODE, python: TEST_CODE, jikiscript: TEST_CODE }
   });
   const orchestratorRef = useRef<Orchestrator>(
-    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" }, {}, {}, "", () => {})
+    new Orchestrator({
+      exercise: exercise,
+      language: "jikiscript",
+      context: { type: "lesson", slug: "maze-solve-basic" },
+      interpreterLocaleMessages: {},
+      exerciseLocaleMessages: {},
+      contentHash: "",
+      onGoToDashboard: () => {},
+      levelTitle: "",
+      isCompleted: false
+    })
   );
   const orchestrator = orchestratorRef.current;
 

@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "Perulangan Lanjutan"
   },
-  "lists": {
-    "title": "List"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "Dictionary"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "Semuanya"

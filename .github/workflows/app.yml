@@ -63,6 +63,14 @@ jobs:
         working-directory: app
         run: pnpm run concept-cache:generate
 
+      - name: Generate level i18n cache
+        working-directory: app
+        run: pnpm run levels-i18n:generate
+
+      - name: Generate curriculum copy cache
+        working-directory: app
+        run: pnpm run curriculum-copy:generate
+
       - name: Generate icon types
         working-directory: app
         run: pnpm run icons:generate
@@ -174,6 +182,14 @@ jobs:
         working-directory: app
         run: pnpm run concept-cache:generate
 
+      - name: Generate level i18n cache
+        working-directory: app
+        run: pnpm run levels-i18n:generate
+
+      - name: Generate curriculum copy cache
+        working-directory: app
+        run: pnpm run curriculum-copy:generate
+
       - name: Generate icon types
         working-directory: app
         run: pnpm run icons:generate
@@ -228,6 +244,14 @@ jobs:
       - name: Generate concept cache
         working-directory: app
         run: pnpm run concept-cache:generate
+
+      - name: Generate level i18n cache
+        working-directory: app
+        run: pnpm run levels-i18n:generate
+
+      - name: Generate curriculum copy cache
+        working-directory: app
+        run: pnpm run curriculum-copy:generate
 
       - name: Generate icon types
         working-directory: app

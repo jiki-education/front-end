@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "অ্যাডভান্সড লুপ"
   },
-  "lists": {
-    "title": "লিস্ট"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "ডিকশনারি"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "সবকিছু"

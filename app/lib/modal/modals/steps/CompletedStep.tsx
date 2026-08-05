@@ -1,5 +1,6 @@
 "use client";
 
+import { ChallengeIcon } from "@/components/icons/ChallengeIcon";
 import { LessonIcon } from "@/components/icons/LessonIcon";
 import { useTranslations } from "next-intl";
 import styles from "@/app/styles/components/modals.module.css";
@@ -28,7 +29,7 @@ export function CompletedStep({
   const hasOutstandingBonuses = outstandingBonusCount > 0;
   return (
     <>
-      <CompletionTimeline exerciseSlug={exerciseSlug} />
+      <CompletionTimeline exerciseSlug={exerciseSlug} isChallenge={isChallenge} />
       <h2 className={styles.modalTitle}>{isChallenge ? t("titleChallenge") : t("titleExercise")}</h2>
       <CompletionMessage
         isChallenge={isChallenge}
@@ -51,14 +52,14 @@ export function CompletedStep({
   );
 }
 
-function CompletionTimeline({ exerciseSlug }: { exerciseSlug: string }) {
+function CompletionTimeline({ exerciseSlug, isChallenge }: { exerciseSlug: string; isChallenge: boolean }) {
   return (
     <div className={timelineStyles.exerciseTimeline}>
       <div className={`${timelineStyles.timelineLine} ${timelineStyles.timelineLineGreen}`}></div>
       <div className={`${timelineStyles.timelineBox} ${timelineStyles.timelineBoxGreen}`}></div>
       <div className={`${timelineStyles.timelineLine} ${timelineStyles.timelineLineAnimate}`}></div>
       <div className={timelineStyles.exerciseIconBox}>
-        <LessonIcon slug={exerciseSlug} />
+        {isChallenge ? <ChallengeIcon slug={exerciseSlug} /> : <LessonIcon slug={exerciseSlug} />}
         <div className={timelineStyles.exerciseIconGreenOverlay}></div>
       </div>
       <div

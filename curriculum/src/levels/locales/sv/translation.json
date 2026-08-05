@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "Avancerade loopar"
   },
-  "lists": {
-    "title": "Listor"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "Ordböcker"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "Allt"

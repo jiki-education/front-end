@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "進階迴圈"
   },
-  "lists": {
-    "title": "串列"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "字典"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "全部"

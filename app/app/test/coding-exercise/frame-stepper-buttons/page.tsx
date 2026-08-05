@@ -38,15 +38,17 @@ export default function FrameStepperButtonsTestPage() {
         jikiscript: "// Test code for frame stepping"
       }
     });
-    const orch = new Orchestrator(
-      exercise,
-      "jikiscript",
-      { type: "lesson", slug: "test-lesson" },
-      {},
-      {},
-      "",
-      () => {}
-    );
+    const orch = new Orchestrator({
+      exercise: exercise,
+      language: "jikiscript",
+      context: { type: "lesson", slug: "maze-solve-basic" },
+      interpreterLocaleMessages: {},
+      exerciseLocaleMessages: {},
+      contentHash: "",
+      onGoToDashboard: () => {},
+      levelTitle: "",
+      isCompleted: false
+    });
 
     // Create test frames and set up the test state
     const frames = mockFrames();

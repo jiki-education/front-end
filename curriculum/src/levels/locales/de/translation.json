@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "Fortgeschrittene Schleifen"
   },
-  "lists": {
-    "title": "Listen"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "Dictionaries"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "Alles"

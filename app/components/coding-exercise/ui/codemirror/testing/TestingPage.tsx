@@ -24,7 +24,17 @@ export default function TestingPage({
     stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
   });
   const orchestratorRef = useRef<Orchestrator>(
-    new Orchestrator(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" }, {}, {}, "", () => {})
+    new Orchestrator({
+      exercise: exercise,
+      language: "jikiscript",
+      context: { type: "lesson", slug: "maze-solve-basic" },
+      interpreterLocaleMessages: {},
+      exerciseLocaleMessages: {},
+      contentHash: "",
+      onGoToDashboard: () => {},
+      levelTitle: "",
+      isCompleted: false
+    })
   );
   const orchestrator = orchestratorRef.current;
 

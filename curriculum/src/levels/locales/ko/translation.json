@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "고급 반복문"
   },
-  "lists": {
-    "title": "리스트"
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
   },
   "dictionaries": {
     "title": "딕셔너리"
+  },
+  "changing-dictionaries": {
+    "title": "�"
   },
   "everything": {
     "title": "모든 것"
