@@ -155,7 +155,13 @@
     },
     "saving": "Sparar ...",
     "retry": "Försök igen",
-    "tryAgain": "Försök igen"
+    "tryAgain": "Försök igen",
+    "betaTag": {
+      "label": "�"
+    },
+    "userAvatar": {
+      "alt": "�"
+    }
   },
   "build": {
     "upcomingStreams": {
@@ -333,7 +339,8 @@
       "benefit3": "Certifikat när du slutför kurser",
       "benefit4": "Reklamfri upplevelse",
       "keep": "Behåll min prenumeration",
-      "cancel": "Säg upp prenumerationen"
+      "cancel": "Säg upp prenumerationen",
+      "defaultBillingPeriodEnd": "�"
     },
     "cancelSuccess": {
       "title": "Prenumerationen är uppsagd",
@@ -376,7 +383,9 @@
       "columnAmount": "Belopp",
       "columnType": "Typ",
       "columnMethod": "Metod",
-      "downloadReceipt": "Ladda ner kvitto"
+      "downloadReceipt": "Ladda ner kvitto",
+      "typeRecurring": "�",
+      "dateUnavailable": "�"
     },
     "profile": {
       "nameLabel": "Namn",
@@ -914,7 +923,8 @@
     },
     "error": {
       "notFound": "Begreppet hittades inte.",
-      "back": "Tillbaka till begreppen"
+      "back": "Tillbaka till begreppen",
+      "loadFailed": "�"
     },
     "relatedConcepts": {
       "heading": "Relaterade begrepp",
@@ -954,103 +964,103 @@
   },
   "seo": {
     "concepts": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "Begrepp - Jiki",
+      "description": "Utforska programmeringsbegrepp och grunder som stärker din förståelse för datavetenskap och mjukvaruutveckling.",
+      "notFound": "Begreppet hittades inte"
     },
     "achievements": {
-      "title": "�",
-      "description": "�"
+      "title": "Utmärkelser - Jiki",
+      "description": "Följ dina framsteg och lås upp utmärkelser medan du lär dig programmera."
     },
     "build": {
-      "title": "�",
-      "description": "�"
+      "title": "Lär dig bygga - Jiki",
+      "description": "Se videoserier om att bygga riktiga projekt, djupdykningar i hur saker fungerar och livesessioner med frågor och svar."
     },
     "dashboard": {
-      "title": "�",
-      "description": "�"
+      "title": "Översikt - Jiki",
+      "description": "Följ dina framsteg, fortsätt med programmeringsövningar och se dina utmärkelser."
     },
     "challenges": {
-      "title": "�",
-      "description": "�"
+      "title": "Utmaningar - Jiki",
+      "description": "Svårare programmeringsutmaningar som tar dina färdigheter vidare i takt med att du utvecklas."
     },
     "settings": {
-      "title": "�",
-      "description": "�"
+      "title": "Inställningar - Jiki",
+      "description": "Hantera ditt konto, din prenumeration och dina inställningar."
     },
     "checkEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "Kolla din mejl - Jiki",
+      "description": "Vi har skickat ett bekräftelsemejl till dig. Kolla din inkorg för att verifiera din adress och slutföra registreringen."
     },
     "confirmEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "Bekräfta e-postadress - Jiki",
+      "description": "Bekräfta din e-postadress"
     },
     "exercismCallback": {
-      "title": "�",
-      "description": "�"
+      "title": "Loggar in med Exercism - Jiki",
+      "description": "Slutför din inloggning med Exercism"
     },
     "forgotPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "Glömt lösenord - Jiki",
+      "description": "Återställ ditt lösenord"
     },
     "login": {
-      "title": "�",
-      "description": "�"
+      "title": "Logga in - Jiki",
+      "description": "Logga in på ditt Jiki-konto"
     },
     "resendConfirmation": {
-      "title": "�",
-      "description": "�"
+      "title": "Skicka bekräftelsen igen - Jiki",
+      "description": "Skicka bekräftelseinstruktionerna igen"
     },
     "resetPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "Återställ lösenord - Jiki",
+      "description": "Välj ett nytt lösenord"
     },
     "signup": {
-      "title": "�",
-      "description": "�"
+      "title": "Skapa konto - Jiki",
+      "description": "Skapa ditt Jiki-konto"
     },
     "home": {
-      "title": "�",
-      "description": "�"
+      "title": "Jiki - Lär dig programmera på ett roligt sätt",
+      "description": "Det bästa sättet att lära sig programmera och bygga i AI-eran! Från teamet bakom Exercism"
     },
     "premium": {
-      "title": "�",
-      "description": "�"
+      "title": "Premium - Jiki",
+      "description": "Snabba på din väg mot att bli redo för arbetslivet med Jiki Premium. Full tillgång till kurser, projekt, AI-hjälp och mer."
     },
     "roadmap": {
-      "title": "�",
-      "description": "�"
+      "title": "Färdplan - Jiki",
+      "description": "Det här bygger vi härnäst på Jiki. En titt, kvartal för kvartal, på kommande kurser, projekt och funktioner."
     },
     "testimonials": {
-      "title": "�",
-      "description": "�"
+      "title": "Omdömen - Jiki",
+      "description": "Vi frågade våra studenter om de gillade kursen. Så här svarade de."
     },
     "deleteAccount": {
-      "title": "�",
-      "description": "�"
+      "title": "Radera konto - Jiki",
+      "description": "Bekräfta att du vill radera ditt konto"
     },
     "unsubscribePreferences": {
-      "title": "�",
-      "description": "�"
+      "title": "E-postinställningar - Jiki",
+      "description": "Hantera dina e-postinställningar och sluta ta emot mejl från Jiki."
     },
     "unsubscribe": {
-      "title": "�",
-      "description": "�"
+      "title": "Avregistrera dig - Jiki",
+      "description": "Sluta ta emot mejl från Jiki"
     },
     "blog": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "Blogg - Jiki",
+      "description": "Läs de senaste artiklarna om programmering, utmaningar och studietips från Jiki-communityn.",
+      "notFound": "Inlägget hittades inte"
     },
     "help": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "Hjälpcenter - Jiki",
+      "description": "Svar, guider och policyer som hjälper dig att få ut mesta möjliga av Jiki.",
+      "notFound": "Artikeln hittades inte"
     },
     "guides": {
-      "title": "�",
-      "description": "�"
+      "title": "Guider - Jiki",
+      "description": "Guider som steg för steg hjälper dig att ställa in dina verktyg och få ut mesta möjliga av Jiki."
     }
   },
   "toasts": {
@@ -1430,6 +1440,7 @@
   "codingExercise": {
     "loadError": "Det gick inte att ladda övningen: {error}",
     "unknownError": "Okänt fel",
+    "exerciseNotFound": "Övningen ”{slug}” finns inte i kursmaterialet. Tillgängliga övningar: {available}",
     "runButton": {
       "run": "Kör koden",
       "running": "Kör ...",
@@ -1575,7 +1586,11 @@
       "serverError": "Serverfel. Försök igen om en liten stund.",
       "networkError": "Nätverksfel. Kontrollera din anslutning och försök igen.",
       "timeout": "Förfrågan tog för lång tid. Försök igen.",
-      "unexpected": "Ett oväntat fel inträffade. Försök igen."
+      "unexpected": "Ett oväntat fel inträffade. Försök igen.",
+      "noResponseBody": "Något gick fel när svaret togs emot. Försök igen.",
+      "streamProcessing": "Något gick fel när svaret lästes. Försök igen.",
+      "unknown": "Ett oväntat fel inträffade. Försök igen.",
+      "requestFailed": "Begäran misslyckades. Försök igen."
     },
     "stuckHeader": {
       "title": "Kört fast? Fråga Jiki!"
@@ -1602,7 +1617,17 @@
       "congratsAmazingEffort": "Imponerande insats!",
       "congratsGreatAchievement": "Vilken prestation!",
       "congratsCongratulations": "Gratulerar!",
-      "congratsCongrats": "Grattis!"
+      "congratsCongrats": "Grattis!",
+      "ioError": "<p>Fel: {message}</p>",
+      "codeCheckError": "Fel vid kodkontroll: {message}"
+    },
+    "informationTooltip": {
+      "errorHeading": "Oj, något gick fel!",
+      "closeAriaLabel": "Stäng verktygstipset"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "Lägg till brytpunkt",
+      "removeBreakpoint": "Ta bort brytpunkt"
     },
     "syntaxError": {
       "heading": "Jiki förstod inte din kod.",
@@ -1795,7 +1820,13 @@
     "loading": "Läser in prestationer ...",
     "error": "Fel: {error}",
     "certificatesEmptyTitle": "Inga certifikat ännu",
-    "certificatesEmptyBody": "Slutför kurser för att få certifikat som visar dina färdigheter. Dina certifikat visas här när du har avslutat en kurs."
+    "certificatesEmptyBody": "Slutför kurser för att få certifikat som visar dina färdigheter. Dina certifikat visas här när du har avslutat en kurs.",
+    "badge": {
+      "locked": "�",
+      "earnedToday": "�",
+      "earnedRelative": "�"
+    },
+    "loadError": "�"
   },
   "challenges": {
     "title": "Utmaningar",
@@ -1825,7 +1856,8 @@
       "noneToStartDescription": "Utmaningar dyker upp här allteftersom du låser upp dem.",
       "completedTitle": "Inga slutförda utmaningar ännu",
       "completedDescription": "Slutför din första utmaning så visas den här. Fortsätt jobba på dina pågående utmaningar för att nå dit."
-    }
+    },
+    "loadError": "�"
   },
   "subscription": {
     "tiers": {
@@ -1851,5 +1883,68 @@
         }
       }
     }
+  },
+  "blog": {
+    "header": {
+      "label": "Blogg",
+      "title": "Nyheter, insikter och funderingar",
+      "subtitle": "Djupdykningar i programmeringsspråk, kodutmaningar och konsten att lära sig programmera."
+    },
+    "postHeader": {
+      "writtenBy": "Skriven av {name}",
+      "readingTime": "{count, plural, one {# minuts läsning} other {# minuters läsning}}"
+    },
+    "featuredLatest": {
+      "label": "Senaste inlägget",
+      "byAuthor": "av {name}",
+      "readFullArticle": "Läs hela artikeln →"
+    },
+    "recentPosts": {
+      "heading": "Senaste inläggen"
+    },
+    "relatedPosts": {
+      "heading": "Relaterade inlägg"
+    },
+    "cta": {
+      "minimalTitle": "Testa Jiki gratis",
+      "minimalSubtitle": "Varje månad använder över 10 000 personer Jiki för att bemästra programmering genom praktiska övningar och stöd från erfarna mentorer.",
+      "minimalButton": "Kom igång nu",
+      "gradientTitle": "Redo att börja programmera?",
+      "gradientSubtitle": "Gå med tusentals andra som lär sig på Jiki. Lös programmeringsövningar, få feedback från mentorer och utveckla dina färdigheter. Helt gratis!",
+      "gradientButton": "Skapa ett gratis konto"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "Artiklar",
+      "title": "Hjälp och resurser",
+      "subtitle": "Guider, handledningar och svar som hjälper dig att få ut mesta möjliga av Jiki.",
+      "writtenBy": "Skriven av {name}",
+      "readingTime": "{count, plural, one {# minuts läsning} other {# minuters läsning}}"
+    },
+    "relatedArticles": {
+      "heading": "Relaterade artiklar"
+    },
+    "search": {
+      "placeholder": "Sök bland artiklarna ...",
+      "noResultsTitle": "0 träffar för ”{query}”",
+      "noResultsMessage": "Prova ett annat sökord eller bläddra bland artiklarna."
+    },
+    "filterSidebar": {
+      "filterBy": "Filtrera efter",
+      "all": "Alla",
+      "help": "Hittar du inte det du letar efter? Testa våra <blogs>bloggar</blogs>, <faqs>vanliga frågor</faqs>, <support>kontakta supporten</support> eller fråga i vår <community>community</community>"
+    },
+    "cta": {
+      "minimalTitle": "Testa Jiki gratis",
+      "minimalSubtitle": "Över 10 000 personer använder Jiki varje månad för att bemästra programmering genom praktiska övningar och stöd från erfarna mentorer.",
+      "minimalButton": "Kom igång nu",
+      "gradientTitle": "Redo att börja programmera?",
+      "gradientSubtitle": "Bli en av tusentals som lär sig programmera med Jiki. Gör övningar, få feedback från mentorer och utveckla dina färdigheter. Helt gratis!",
+      "gradientButton": "Skapa konto gratis"
+    }
+  },
+  "checkout": {
+    "declineDefault": "Din senaste betalning gick inte igenom. Försök igen med ett annat kort."
   }
 }

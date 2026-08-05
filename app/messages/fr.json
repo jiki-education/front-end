@@ -155,7 +155,13 @@
     },
     "saving": "�",
     "retry": "�",
-    "tryAgain": "�"
+    "tryAgain": "�",
+    "betaTag": {
+      "label": "�"
+    },
+    "userAvatar": {
+      "alt": "�"
+    }
   },
   "build": {
     "upcomingStreams": {
@@ -333,7 +339,8 @@
       "benefit3": "�",
       "benefit4": "�",
       "keep": "�",
-      "cancel": "�"
+      "cancel": "�",
+      "defaultBillingPeriodEnd": "�"
     },
     "cancelSuccess": {
       "title": "�",
@@ -376,7 +383,9 @@
       "columnAmount": "�",
       "columnType": "�",
       "columnMethod": "�",
-      "downloadReceipt": "�"
+      "downloadReceipt": "�",
+      "typeRecurring": "�",
+      "dateUnavailable": "�"
     },
     "profile": {
       "nameLabel": "�",
@@ -914,7 +923,8 @@
     },
     "error": {
       "notFound": "Concept introuvable.",
-      "back": "Retour aux concepts"
+      "back": "Retour aux concepts",
+      "loadFailed": "�"
     },
     "relatedConcepts": {
       "heading": "Concepts associés",
@@ -1430,6 +1440,7 @@
   "codingExercise": {
     "loadError": "Erreur lors du chargement de l'exercice : {error}",
     "unknownError": "Erreur inconnue",
+    "exerciseNotFound": "�",
     "runButton": {
       "run": "Exécuter le code",
       "running": "Exécution...",
@@ -1575,7 +1586,11 @@
       "serverError": "Erreur du serveur. Réessaie dans quelques instants.",
       "networkError": "Erreur réseau. Vérifie ta connexion et réessaie.",
       "timeout": "La requête a expiré. Réessaie.",
-      "unexpected": "Une erreur inattendue s'est produite. Réessaie."
+      "unexpected": "Une erreur inattendue s'est produite. Réessaie.",
+      "noResponseBody": "�",
+      "streamProcessing": "�",
+      "unknown": "�",
+      "requestFailed": "�"
     },
     "stuckHeader": {
       "title": "Tu bloques ? Demande à Jiki !"
@@ -1602,7 +1617,17 @@
       "congratsAmazingEffort": "Superbe effort !",
       "congratsGreatAchievement": "Belle réussite !",
       "congratsCongratulations": "Félicitations !",
-      "congratsCongrats": "Bravo !"
+      "congratsCongrats": "Bravo !",
+      "ioError": "�",
+      "codeCheckError": "�"
+    },
+    "informationTooltip": {
+      "errorHeading": "�",
+      "closeAriaLabel": "�"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "�",
+      "removeBreakpoint": "�"
     },
     "syntaxError": {
       "heading": "Jiki n'a pas compris ton code.",
@@ -1795,7 +1820,13 @@
     "loading": "�",
     "error": "�",
     "certificatesEmptyTitle": "�",
-    "certificatesEmptyBody": "�"
+    "certificatesEmptyBody": "�",
+    "badge": {
+      "locked": "�",
+      "earnedToday": "�",
+      "earnedRelative": "�"
+    },
+    "loadError": "�"
   },
   "challenges": {
     "title": "Défis",
@@ -1825,7 +1856,8 @@
       "noneToStartDescription": "Les défis apparaîtront ici au fur et à mesure que tu les débloqueras.",
       "completedTitle": "Aucun défi terminé pour le moment",
       "completedDescription": "Termine ton premier défi pour le voir apparaître ici. Continue tes défis en cours pour atteindre cette étape."
-    }
+    },
+    "loadError": "�"
   },
   "subscription": {
     "tiers": {
@@ -1851,5 +1883,68 @@
         }
       }
     }
+  },
+  "blog": {
+    "header": {
+      "label": "�",
+      "title": "�",
+      "subtitle": "�"
+    },
+    "postHeader": {
+      "writtenBy": "�",
+      "readingTime": "�"
+    },
+    "featuredLatest": {
+      "label": "�",
+      "byAuthor": "�",
+      "readFullArticle": "�"
+    },
+    "recentPosts": {
+      "heading": "�"
+    },
+    "relatedPosts": {
+      "heading": "�"
+    },
+    "cta": {
+      "minimalTitle": "�",
+      "minimalSubtitle": "�",
+      "minimalButton": "�",
+      "gradientTitle": "�",
+      "gradientSubtitle": "�",
+      "gradientButton": "�"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "�",
+      "title": "�",
+      "subtitle": "�",
+      "writtenBy": "�",
+      "readingTime": "�"
+    },
+    "relatedArticles": {
+      "heading": "�"
+    },
+    "search": {
+      "placeholder": "�",
+      "noResultsTitle": "�",
+      "noResultsMessage": "�"
+    },
+    "filterSidebar": {
+      "filterBy": "�",
+      "all": "�",
+      "help": "�"
+    },
+    "cta": {
+      "minimalTitle": "�",
+      "minimalSubtitle": "�",
+      "minimalButton": "�",
+      "gradientTitle": "�",
+      "gradientSubtitle": "�",
+      "gradientButton": "�"
+    }
+  },
+  "checkout": {
+    "declineDefault": "�"
   }
 }

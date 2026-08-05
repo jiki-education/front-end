@@ -155,7 +155,13 @@
     },
     "saving": "�",
     "retry": "�",
-    "tryAgain": "�"
+    "tryAgain": "�",
+    "betaTag": {
+      "label": "�"
+    },
+    "userAvatar": {
+      "alt": "�"
+    }
   },
   "build": {
     "upcomingStreams": {
@@ -333,7 +339,8 @@
       "benefit3": "�",
       "benefit4": "�",
       "keep": "�",
-      "cancel": "�"
+      "cancel": "�",
+      "defaultBillingPeriodEnd": "�"
     },
     "cancelSuccess": {
       "title": "�",
@@ -376,7 +383,9 @@
       "columnAmount": "�",
       "columnType": "�",
       "columnMethod": "�",
-      "downloadReceipt": "�"
+      "downloadReceipt": "�",
+      "typeRecurring": "�",
+      "dateUnavailable": "�"
     },
     "profile": {
       "nameLabel": "�",
@@ -914,7 +923,8 @@
     },
     "error": {
       "notFound": "कॉन्सेप्ट नहीं मिला।",
-      "back": "कॉन्सेप्ट पर वापस जाएँ"
+      "back": "कॉन्सेप्ट पर वापस जाएँ",
+      "loadFailed": "�"
     },
     "relatedConcepts": {
       "heading": "संबंधित कॉन्सेप्ट",
@@ -954,103 +964,103 @@
   },
   "seo": {
     "concepts": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "कॉन्सेप्ट - Jiki",
+      "description": "प्रोग्रामिंग कॉन्सेप्ट और बुनियादी बातें ब्राउज़ करें और कंप्यूटर साइंस और सॉफ्टवेयर डेवलपमेंट की समझ मजबूत करें।",
+      "notFound": "कॉन्सेप्ट नहीं मिला"
     },
     "achievements": {
-      "title": "�",
-      "description": "�"
+      "title": "उपलब्धियाँ - Jiki",
+      "description": "अपनी प्रगति ट्रैक करें और कोडिंग सीखते समय उपलब्धियाँ अनलॉक करें।"
     },
     "build": {
-      "title": "�",
-      "description": "�"
+      "title": "बनाना सीखें - Jiki",
+      "description": "वास्तविक प्रोजेक्ट बनाने, चीज़ों के काम करने के तरीके, और लाइव प्रश्नोत्तर सत्रों पर वीडियो सीरीज़ देखें।"
     },
     "dashboard": {
-      "title": "�",
-      "description": "�"
+      "title": "डैशबोर्ड - Jiki",
+      "description": "अपनी सीखने की प्रगति ट्रैक करें, कोडिंग अभ्यास जारी रखें, और अपनी उपलब्धियाँ देखें।"
     },
     "challenges": {
-      "title": "�",
-      "description": "�"
+      "title": "चैलेंज - Jiki",
+      "description": "अपनी प्रगति के साथ अपने कौशल को और आगे बढ़ाने के लिए कठिन कोडिंग चैलेंज।"
     },
     "settings": {
-      "title": "�",
-      "description": "�"
+      "title": "सेटिंग्स - Jiki",
+      "description": "अपने खाते की सेटिंग्स, सब्सक्रिप्शन, और प्राथमिकताएँ प्रबंधित करें।"
     },
     "checkEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "अपना ईमेल जाँचें - Jiki",
+      "description": "हमने आपको एक पुष्टिकरण ईमेल भेजा है। अपना पता सत्यापित करने और साइन अप पूरा करने के लिए अपना इनबॉक्स जाँचें।"
     },
     "confirmEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "ईमेल की पुष्टि करें - Jiki",
+      "description": "अपने ईमेल पते की पुष्टि करें।"
     },
     "exercismCallback": {
-      "title": "�",
-      "description": "�"
+      "title": "Exercism से साइन इन कर रहे हैं - Jiki",
+      "description": "अपना Exercism साइन इन पूरा कर रहे हैं।"
     },
     "forgotPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "पासवर्ड भूल गए - Jiki",
+      "description": "अपना पासवर्ड रीसेट करें।"
     },
     "login": {
-      "title": "�",
-      "description": "�"
+      "title": "लॉग इन - Jiki",
+      "description": "अपने Jiki खाते में साइन इन करें।"
     },
     "resendConfirmation": {
-      "title": "�",
-      "description": "�"
+      "title": "पुष्टिकरण दोबारा भेजें - Jiki",
+      "description": "पुष्टिकरण निर्देश दोबारा भेजें।"
     },
     "resetPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "पासवर्ड रीसेट करें - Jiki",
+      "description": "अपना नया पासवर्ड सेट करें।"
     },
     "signup": {
-      "title": "�",
-      "description": "�"
+      "title": "साइन अप - Jiki",
+      "description": "अपना Jiki खाता बनाएँ।"
     },
     "home": {
-      "title": "�",
-      "description": "�"
+      "title": "Jiki - मज़ेदार तरीके से कोड करना सीखें",
+      "description": "LLM-युग में कोड सीखने और बनाने का सबसे अच्छा तरीका! Exercism के पीछे की टीम द्वारा"
     },
     "premium": {
-      "title": "�",
-      "description": "�"
+      "title": "प्रीमियम - Jiki",
+      "description": "Jiki प्रीमियम के साथ जॉब-रेडी बनने की राह तेज़ करें। कोर्स, प्रोजेक्ट, AI सहायता, और बहुत कुछ तक पूर्ण पहुँच।"
     },
     "roadmap": {
-      "title": "�",
-      "description": "�"
+      "title": "रोडमैप - Jiki",
+      "description": "हम Jiki पर आगे क्या बना रहे हैं। आने वाले कोर्स, प्रोजेक्ट, और फीचर्स पर तिमाही-दर-तिमाही नज़र।"
     },
     "testimonials": {
-      "title": "�",
-      "description": "�"
+      "title": "प्रशंसापत्र - Jiki",
+      "description": "हमने अपने विद्यार्थियों से पूछा कि क्या उन्हें कोर्स पसंद आया। देखें उन्होंने क्या कहा।"
     },
     "deleteAccount": {
-      "title": "�",
-      "description": "�"
+      "title": "खाता हटाएँ - Jiki",
+      "description": "खाता हटाने की पुष्टि करें।"
     },
     "unsubscribePreferences": {
-      "title": "�",
-      "description": "�"
+      "title": "ईमेल प्राथमिकताएँ - Jiki",
+      "description": "अपनी ईमेल प्राथमिकताएँ प्रबंधित करें और Jiki ईमेल से सदस्यता छोड़ें।"
     },
     "unsubscribe": {
-      "title": "�",
-      "description": "�"
+      "title": "सदस्यता छोड़ें - Jiki",
+      "description": "Jiki ईमेल से सदस्यता छोड़ें।"
     },
     "blog": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "ब्लॉग - Jiki",
+      "description": "Jiki समुदाय से प्रोग्रामिंग, कोडिंग चैलेंज, और सीखने के सुझावों पर नवीनतम लेख पढ़ें।",
+      "notFound": "पोस्ट नहीं मिली"
     },
     "help": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "सहायता केंद्र - Jiki",
+      "description": "Jiki से अधिकतम लाभ उठाने में आपकी सहायता के लिए उत्तर, कैसे-करें, और नीतियाँ।",
+      "notFound": "लेख नहीं मिला"
     },
     "guides": {
-      "title": "�",
-      "description": "�"
+      "title": "गाइड - Jiki",
+      "description": "अपने टूल सेट अप करने और Jiki से अधिकतम लाभ उठाने में आपकी सहायता के लिए चरण-दर-चरण गाइड।"
     }
   },
   "toasts": {
@@ -1430,6 +1440,7 @@
   "codingExercise": {
     "loadError": "अभ्यास लोड करने में एरर: {error}",
     "unknownError": "अज्ञात एरर",
+    "exerciseNotFound": "पाठ्यक्रम में अभ्यास \"{slug}\" नहीं मिला। उपलब्ध अभ्यास: {available}",
     "runButton": {
       "run": "कोड चलाएँ",
       "running": "चल रहा है...",
@@ -1575,7 +1586,11 @@
       "serverError": "सर्वर एरर। कृपया कुछ पलों में फिर से कोशिश करें।",
       "networkError": "नेटवर्क एरर। कृपया अपना कनेक्शन जाँचें और फिर से कोशिश करें।",
       "timeout": "अनुरोध का समय समाप्त हो गया। कृपया फिर से कोशिश करें।",
-      "unexpected": "एक अनपेक्षित एरर हुई। कृपया फिर से कोशिश करें।"
+      "unexpected": "एक अनपेक्षित एरर हुई। कृपया फिर से कोशिश करें।",
+      "noResponseBody": "जवाब प्राप्त करने में कुछ गड़बड़ हुई। कृपया पुनः प्रयास करें।",
+      "streamProcessing": "जवाब पढ़ने में कुछ गड़बड़ हुई। कृपया पुनः प्रयास करें।",
+      "unknown": "एक अप्रत्याशित एरर आई। कृपया पुनः प्रयास करें।",
+      "requestFailed": "अनुरोध विफल रहा। कृपया पुनः प्रयास करें।"
     },
     "stuckHeader": {
       "title": "अटक महसूस कर रहे हैं? Jiki से पूछें!"
@@ -1602,7 +1617,9 @@
       "congratsAmazingEffort": "शानदार कोशिश!",
       "congratsGreatAchievement": "बड़ी उपलब्धि!",
       "congratsCongratulations": "बधाई हो!",
-      "congratsCongrats": "बधाई!"
+      "congratsCongrats": "बधाई!",
+      "ioError": "<p>एरर: {message}</p>",
+      "codeCheckError": "कोड जाँच एरर: {message}"
     },
     "informationTooltip": {
       "errorHeading": "उफ, कुछ गलत हो गया!",
@@ -1803,7 +1820,13 @@
     "loading": "�",
     "error": "�",
     "certificatesEmptyTitle": "�",
-    "certificatesEmptyBody": "�"
+    "certificatesEmptyBody": "�",
+    "badge": {
+      "locked": "�",
+      "earnedToday": "�",
+      "earnedRelative": "�"
+    },
+    "loadError": "�"
   },
   "challenges": {
     "title": "चैलेंज",
@@ -1833,7 +1856,8 @@
       "noneToStartDescription": "चैलेंज यहाँ दिखेंगे जैसे-जैसे आप उन्हें अनलॉक करेंगे।",
       "completedTitle": "अभी तक कोई चैलेंज पूरा नहीं हुआ",
       "completedDescription": "अपना पहला चैलेंज पूरा करें ताकि वह यहाँ दिखे। इस पड़ाव तक पहुँचने के लिए अपनी प्रगति में चल रहे चैलेंजों पर काम करते रहें।"
-    }
+    },
+    "loadError": "�"
   },
   "subscription": {
     "tiers": {
@@ -1859,5 +1883,68 @@
         }
       }
     }
+  },
+  "blog": {
+    "header": {
+      "label": "ब्लॉग",
+      "title": "समाचार, अंतर्दृष्टि और बातचीत",
+      "subtitle": "प्रोग्रामिंग भाषाओं, कोडिंग चैलेंज, और कोड सीखने की कला में गहराई से जानकारी।"
+    },
+    "postHeader": {
+      "writtenBy": "{name} द्वारा लिखित",
+      "readingTime": "{count, plural, one {# मिनट का पठन} other {# मिनट का पठन}}"
+    },
+    "featuredLatest": {
+      "label": "नवीनतम पोस्ट",
+      "byAuthor": "{name} द्वारा",
+      "readFullArticle": "पूरा लेख पढ़ें →"
+    },
+    "recentPosts": {
+      "heading": "हाल की पोस्ट"
+    },
+    "relatedPosts": {
+      "heading": "संबंधित पोस्ट"
+    },
+    "cta": {
+      "minimalTitle": "Jiki मुफ़्त में आज़माएँ",
+      "minimalSubtitle": "हर महीने 10,000+ शिक्षार्थी Jiki का उपयोग करके हाथों-हाथ अभ्यास और विशेषज्ञ मार्गदर्शन से प्रोग्रामिंग में महारत हासिल करते हैं।",
+      "minimalButton": "अभी शुरू करें",
+      "gradientTitle": "अपनी कोडिंग यात्रा शुरू करने के लिए तैयार?",
+      "gradientSubtitle": "Jiki पर हज़ारों शिक्षार्थियों से जुड़ें। कोडिंग अभ्यास करें, मेंटर से प्रतिक्रिया प्राप्त करें, और अपने कौशल को ऊपर उठाएँ — यह मुफ़्त है!",
+      "gradientButton": "मुफ़्त में साइन अप करें"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "लेख",
+      "title": "सहायता और संसाधन",
+      "subtitle": "गाइड, ट्यूटोरियल, और उत्तर जो आपको Jiki से अधिकतम लाभ उठाने में मदद करें।",
+      "writtenBy": "{name} द्वारा लिखित",
+      "readingTime": "{count, plural, one {# मिनट का पठन} other {# मिनट का पठन}}"
+    },
+    "relatedArticles": {
+      "heading": "संबंधित लेख"
+    },
+    "search": {
+      "placeholder": "लेख खोजें...",
+      "noResultsTitle": "\"{query}\" के लिए 0 परिणाम",
+      "noResultsMessage": "कोई दूसरा खोज शब्द आज़माएँ या लेख ब्राउज़ करें।"
+    },
+    "filterSidebar": {
+      "filterBy": "इसके अनुसार फ़िल्टर करें",
+      "all": "सभी",
+      "help": "जो खोज रहे हैं वह नहीं मिल रहा? हमारे <blogs>ब्लॉग</blogs>, <faqs>सामान्य प्रश्न</faqs>, <support>सहायता से संपर्क करें</support>, या हमारे <community>समुदाय</community> में पूछें।"
+    },
+    "cta": {
+      "minimalTitle": "Jiki मुफ़्त में आज़माएँ",
+      "minimalSubtitle": "हर महीने 10,000+ शिक्षार्थी Jiki का उपयोग करके हाथों-हाथ अभ्यास और विशेषज्ञ मार्गदर्शन से प्रोग्रामिंग में महारत हासिल करते हैं।",
+      "minimalButton": "अभी शुरू करें",
+      "gradientTitle": "अपनी कोडिंग यात्रा शुरू करने के लिए तैयार?",
+      "gradientSubtitle": "Jiki पर हज़ारों शिक्षार्थियों से जुड़ें। कोडिंग अभ्यास करें, मेंटर से प्रतिक्रिया प्राप्त करें, और अपने कौशल को ऊपर उठाएँ — यह मुफ़्त है!",
+      "gradientButton": "मुफ़्त में साइन अप करें"
+    }
+  },
+  "checkout": {
+    "declineDefault": "आपका पिछला भुगतान पूरा नहीं हुआ। कृपया किसी भिन्न कार्ड से पुनः प्रयास करें।"
   }
 }

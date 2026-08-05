@@ -964,103 +964,103 @@
   },
   "seo": {
     "concepts": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "Kavramlar - Jiki",
+      "description": "Programlama kavramlarına ve temellerine göz atarak bilgisayar bilimi ve yazılım geliştirme bilginizi güçlendirin.",
+      "notFound": "Kavram bulunamadı"
     },
     "achievements": {
-      "title": "�",
-      "description": "�"
+      "title": "Başarımlar - Jiki",
+      "description": "Kod yazmayı öğrenirken ilerlemenizi takip edin ve başarımların kilidini açın."
     },
     "build": {
-      "title": "�",
-      "description": "�"
+      "title": "Geliştirmeyi öğrenin - Jiki",
+      "description": "Gerçek projeler geliştirme üzerine video serilerini, işlerin nasıl çalıştığına dair derinlemesine incelemeleri ve canlı soru-cevap oturumlarını izleyin."
     },
     "dashboard": {
-      "title": "�",
-      "description": "�"
+      "title": "Kontrol paneli - Jiki",
+      "description": "Öğrenme ilerlemenizi takip edin, kodlama alıştırmalarına devam edin ve başarımlarınızı görüntüleyin."
     },
     "challenges": {
-      "title": "�",
-      "description": "�"
+      "title": "Meydan okumalar - Jiki",
+      "description": "İlerledikçe becerilerinizi daha da geliştirecek zorlu kodlama meydan okumaları."
     },
     "settings": {
-      "title": "�",
-      "description": "�"
+      "title": "Ayarlar - Jiki",
+      "description": "Hesap ayarlarınızı, aboneliğinizi ve tercihlerinizi yönetin."
     },
     "checkEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "E-postanızı kontrol edin - Jiki",
+      "description": "Size bir onay e-postası gönderdik. Adresinizi doğrulamak ve kaydınızı tamamlamak için gelen kutunuzu kontrol edin."
     },
     "confirmEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "E-posta onayı - Jiki",
+      "description": "E-posta adresinizi onaylayın"
     },
     "exercismCallback": {
-      "title": "�",
-      "description": "�"
+      "title": "Exercism ile giriş - Jiki",
+      "description": "Exercism girişiniz tamamlanıyor"
     },
     "forgotPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "Şifremi unuttum - Jiki",
+      "description": "Şifrenizi sıfırlayın"
     },
     "login": {
-      "title": "�",
-      "description": "�"
+      "title": "Giriş yap - Jiki",
+      "description": "Jiki hesabınıza giriş yapın"
     },
     "resendConfirmation": {
-      "title": "�",
-      "description": "�"
+      "title": "Onayı yeniden gönder - Jiki",
+      "description": "Onay talimatlarını yeniden gönderin"
     },
     "resetPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "Şifreyi sıfırla - Jiki",
+      "description": "Yeni şifrenizi belirleyin"
     },
     "signup": {
-      "title": "�",
-      "description": "�"
+      "title": "Kaydol - Jiki",
+      "description": "Jiki hesabınızı oluşturun"
     },
     "home": {
-      "title": "�",
-      "description": "�"
+      "title": "Jiki - Kod yazmayı eğlenerek öğrenin",
+      "description": "Yapay zekâ çağında kod yazmayı ve geliştirmeyi öğrenmenin en iyi yolu! Exercism'in arkasındaki ekipten."
     },
     "premium": {
-      "title": "�",
-      "description": "�"
+      "title": "Premium - Jiki",
+      "description": "Jiki Premium ile işe hazır olma yolculuğunuzu hızlandırın. Kurslara, projelere, yapay zekâ desteğine ve daha fazlasına tam erişim."
     },
     "roadmap": {
-      "title": "�",
-      "description": "�"
+      "title": "Yol haritası - Jiki",
+      "description": "Jiki'de sırada ne var? Yaklaşan kurslara, projelere ve özelliklere çeyrek çeyrek bir bakış."
     },
     "testimonials": {
-      "title": "�",
-      "description": "�"
+      "title": "Öğrenci yorumları - Jiki",
+      "description": "Öğrencilerimize kurstan memnun kalıp kalmadıklarını sorduk. İşte söyledikleri."
     },
     "deleteAccount": {
-      "title": "�",
-      "description": "�"
+      "title": "Hesabı sil - Jiki",
+      "description": "Hesap silme işlemini onaylayın"
     },
     "unsubscribePreferences": {
-      "title": "�",
-      "description": "�"
+      "title": "E-posta tercihleri - Jiki",
+      "description": "E-posta tercihlerinizi yönetin ve Jiki e-postaları aboneliğinden çıkın."
     },
     "unsubscribe": {
-      "title": "�",
-      "description": "�"
+      "title": "Abonelikten çık - Jiki",
+      "description": "Jiki e-postaları aboneliğinden çıkın"
     },
     "blog": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "Blog - Jiki",
+      "description": "Jiki topluluğundan programlama, kodlama meydan okumaları ve öğrenme ipuçları üzerine en yeni yazıları okuyun.",
+      "notFound": "Yazı bulunamadı"
     },
     "help": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "Yardım merkezi - Jiki",
+      "description": "Jiki'den en iyi şekilde yararlanmanız için yanıtlar, nasıl yapılır rehberleri ve politikalar.",
+      "notFound": "Makale bulunamadı"
     },
     "guides": {
-      "title": "�",
-      "description": "�"
+      "title": "Rehberler - Jiki",
+      "description": "Araçlarınızı kurmanıza ve Jiki'den en iyi şekilde yararlanmanıza yardımcı olacak adım adım rehberler."
     }
   },
   "toasts": {
@@ -1886,65 +1886,65 @@
   },
   "blog": {
     "header": {
-      "label": "�",
-      "title": "�",
-      "subtitle": "�"
+      "label": "Blog",
+      "title": "Haberler, fikirler ve gevezelikler",
+      "subtitle": "Programlama dillerine, kodlama zorluklarına ve kod yazmayı öğrenme sanatına dair derinlemesine yazılar."
     },
     "postHeader": {
-      "writtenBy": "�",
-      "readingTime": "�"
+      "writtenBy": "Yazan: {name}",
+      "readingTime": "{count, plural, one {# dakikalık okuma} other {# dakikalık okuma}}"
     },
     "featuredLatest": {
-      "label": "�",
-      "byAuthor": "�",
-      "readFullArticle": "�"
+      "label": "En son yazı",
+      "byAuthor": "{name} tarafından",
+      "readFullArticle": "Yazının tamamını oku →"
     },
     "recentPosts": {
-      "heading": "�"
+      "heading": "Son yazılar"
     },
     "relatedPosts": {
-      "heading": "�"
+      "heading": "İlgili yazılar"
     },
     "cta": {
-      "minimalTitle": "�",
-      "minimalSubtitle": "�",
-      "minimalButton": "�",
-      "gradientTitle": "�",
-      "gradientSubtitle": "�",
-      "gradientButton": "�"
+      "minimalTitle": "Jiki'yi ücretsiz dene",
+      "minimalSubtitle": "Her ay 10.000'den fazla öğrenci, uygulamalı alıştırmalar ve uzman mentorluk ile programlamada ustalaşmak için Jiki'yi kullanıyor.",
+      "minimalButton": "Hemen başla",
+      "gradientTitle": "Kodlama yolculuğunuza başlamaya hazır mısınız?",
+      "gradientSubtitle": "Jiki'deki binlerce öğrenciye katılın. Kodlama alıştırmaları yapın, mentorlardan geri bildirim alın ve becerilerinizi geliştirin. Üstelik ücretsiz!",
+      "gradientButton": "Ücretsiz kaydol"
     }
   },
   "articles": {
     "header": {
-      "label": "�",
-      "title": "�",
-      "subtitle": "�",
-      "writtenBy": "�",
-      "readingTime": "�"
+      "label": "Makaleler",
+      "title": "Yardım ve kaynaklar",
+      "subtitle": "Jiki'den en iyi şekilde yararlanmanıza yardımcı olacak rehberler, eğitimler ve yanıtlar.",
+      "writtenBy": "Yazan: {name}",
+      "readingTime": "{count, plural, one {# dakikalık okuma} other {# dakikalık okuma}}"
     },
     "relatedArticles": {
-      "heading": "�"
+      "heading": "İlgili makaleler"
     },
     "search": {
-      "placeholder": "�",
-      "noResultsTitle": "�",
-      "noResultsMessage": "�"
+      "placeholder": "Makalelerde ara...",
+      "noResultsTitle": "“{query}” için 0 sonuç",
+      "noResultsMessage": "Farklı bir arama terimi deneyin veya makalelere göz atın."
     },
     "filterSidebar": {
-      "filterBy": "�",
-      "all": "�",
-      "help": "�"
+      "filterBy": "Filtrele",
+      "all": "Tümü",
+      "help": "Aradığınızı bulamadınız mı? <blogs>Blog yazılarımıza</blogs> veya <faqs>SSS bölümüne</faqs> göz atın, <support>destek ekibine yazın</support> ya da <community>Topluluğumuzda</community> sorun"
     },
     "cta": {
-      "minimalTitle": "�",
-      "minimalSubtitle": "�",
-      "minimalButton": "�",
-      "gradientTitle": "�",
-      "gradientSubtitle": "�",
-      "gradientButton": "�"
+      "minimalTitle": "Jiki'yi ücretsiz dene",
+      "minimalSubtitle": "Her ay 10.000'den fazla öğrenci, uygulamalı alıştırmalar ve uzman mentorluk ile programlamada ustalaşmak için Jiki'yi kullanıyor.",
+      "minimalButton": "Hemen başla",
+      "gradientTitle": "Kodlama yolculuğunuza başlamaya hazır mısınız?",
+      "gradientSubtitle": "Jiki'deki binlerce öğrenciye katılın. Kodlama alıştırmaları yapın, mentorlardan geri bildirim alın ve becerilerinizi geliştirin. Üstelik ücretsiz!",
+      "gradientButton": "Ücretsiz kaydol"
     }
   },
   "checkout": {
-    "declineDefault": "�"
+    "declineDefault": "Son ödemeniz gerçekleşmedi. Lütfen farklı bir kartla tekrar deneyin."
   }
 }

@@ -155,7 +155,13 @@
     },
     "saving": "�",
     "retry": "�",
-    "tryAgain": "�"
+    "tryAgain": "�",
+    "betaTag": {
+      "label": "�"
+    },
+    "userAvatar": {
+      "alt": "�"
+    }
   },
   "build": {
     "upcomingStreams": {
@@ -333,7 +339,8 @@
       "benefit3": "�",
       "benefit4": "�",
       "keep": "�",
-      "cancel": "�"
+      "cancel": "�",
+      "defaultBillingPeriodEnd": "�"
     },
     "cancelSuccess": {
       "title": "�",
@@ -376,7 +383,9 @@
       "columnAmount": "�",
       "columnType": "�",
       "columnMethod": "�",
-      "downloadReceipt": "�"
+      "downloadReceipt": "�",
+      "typeRecurring": "�",
+      "dateUnavailable": "�"
     },
     "profile": {
       "nameLabel": "�",
@@ -914,7 +923,8 @@
     },
     "error": {
       "notFound": "未找到该概念。",
-      "back": "返回概念库"
+      "back": "返回概念库",
+      "loadFailed": "�"
     },
     "relatedConcepts": {
       "heading": "相关概念",
@@ -954,103 +964,103 @@
   },
   "seo": {
     "concepts": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "概念 - Jiki",
+      "description": "浏览编程概念和基础知识，加深对计算机科学和软件开发的理解。",
+      "notFound": "概念未找到"
     },
     "achievements": {
-      "title": "�",
-      "description": "�"
+      "title": "成就 - Jiki",
+      "description": "跟踪你的学习进度，在学习编程的过程中解锁成就。"
     },
     "build": {
-      "title": "�",
-      "description": "�"
+      "title": "学习构建 - Jiki",
+      "description": "观看关于构建真实项目、深入探索工作原理和现场问答的视频系列。"
     },
     "dashboard": {
-      "title": "�",
-      "description": "�"
+      "title": "仪表盘 - Jiki",
+      "description": "跟踪学习进度，继续编程练习，并查看成就。"
     },
     "challenges": {
-      "title": "�",
-      "description": "�"
+      "title": "挑战 - Jiki",
+      "description": "更难的编程挑战，推动你的技能前进。"
     },
     "settings": {
-      "title": "�",
-      "description": "�"
+      "title": "设置 - Jiki",
+      "description": "管理你的账户设置、订阅和偏好。"
     },
     "checkEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "查看你的邮箱 - Jiki",
+      "description": "我们已向你发送确认邮件。请查收收件箱，验证你的邮箱地址并完成注册。"
     },
     "confirmEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "确认邮箱 - Jiki",
+      "description": "确认你的邮箱地址"
     },
     "exercismCallback": {
-      "title": "�",
-      "description": "�"
+      "title": "通过 Exercism 登录 - Jiki",
+      "description": "完成你的 Exercism 登录"
     },
     "forgotPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "忘记密码 - Jiki",
+      "description": "重置你的密码"
     },
     "login": {
-      "title": "�",
-      "description": "�"
+      "title": "登录 - Jiki",
+      "description": "登录你的 Jiki 账户"
     },
     "resendConfirmation": {
-      "title": "�",
-      "description": "�"
+      "title": "重新发送确认邮件 - Jiki",
+      "description": "重新发送确认说明"
     },
     "resetPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "重置密码 - Jiki",
+      "description": "设置你的新密码"
     },
     "signup": {
-      "title": "�",
-      "description": "�"
+      "title": "注册 - Jiki",
+      "description": "创建你的 Jiki 账户"
     },
     "home": {
-      "title": "�",
-      "description": "�"
+      "title": "Jiki - 趣味学编程",
+      "description": "在 LLM 时代学习编程和构建的最佳方式！由 Exercism 背后的团队打造。"
     },
     "premium": {
-      "title": "�",
-      "description": "�"
+      "title": "高级版 - Jiki",
+      "description": "通过 Jiki 高级版加速你走向就业准备之路。完全访问课程、项目、AI 支持等。"
     },
     "roadmap": {
-      "title": "�",
-      "description": "�"
+      "title": "路线图 - Jiki",
+      "description": "我们在 Jiki 上接下来要构建的内容。按季度查看即将推出的课程、项目和功能。"
     },
     "testimonials": {
-      "title": "�",
-      "description": "�"
+      "title": "用户评价 - Jiki",
+      "description": "我们询问了学员是否喜欢这门课程。以下是他们的回答。"
     },
     "deleteAccount": {
-      "title": "�",
-      "description": "�"
+      "title": "删除账户 - Jiki",
+      "description": "确认删除账户"
     },
     "unsubscribePreferences": {
-      "title": "�",
-      "description": "�"
+      "title": "邮箱偏好 - Jiki",
+      "description": "管理你的邮箱偏好，并取消订阅 Jiki 邮件。"
     },
     "unsubscribe": {
-      "title": "�",
-      "description": "�"
+      "title": "取消订阅 - Jiki",
+      "description": "取消订阅 Jiki 邮件"
     },
     "blog": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "博客 - Jiki",
+      "description": "阅读来自 Jiki 社区的最新文章，内容涵盖编程、编程挑战和学习技巧。",
+      "notFound": "文章未找到"
     },
     "help": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "帮助中心 - Jiki",
+      "description": "回答、操作指南和政策，帮助你充分利用 Jiki。",
+      "notFound": "文章未找到"
     },
     "guides": {
-      "title": "�",
-      "description": "�"
+      "title": "指南 - Jiki",
+      "description": "逐步指南，帮助你设置工具并充分利用 Jiki。"
     }
   },
   "toasts": {
@@ -1430,6 +1440,7 @@
   "codingExercise": {
     "loadError": "加载练习出错：{error}",
     "unknownError": "未知错误",
+    "exerciseNotFound": "课程中未找到练习“{slug}”。可用的练习：{available}",
     "runButton": {
       "run": "运行代码",
       "running": "运行中...",
@@ -1575,7 +1586,11 @@
       "serverError": "服务器出错。请过一会儿再试。",
       "networkError": "网络错误。请检查你的网络连接后重试。",
       "timeout": "请求超时。请重试。",
-      "unexpected": "发生了意外错误。请重试。"
+      "unexpected": "发生了意外错误。请重试。",
+      "noResponseBody": "接收响应时出错。请重试。",
+      "streamProcessing": "读取响应时出错。请重试。",
+      "unknown": "发生意外错误。请重试。",
+      "requestFailed": "请求失败。请重试。"
     },
     "stuckHeader": {
       "title": "卡住了？问问 Jiki 吧！"
@@ -1593,16 +1608,26 @@
       "lintWarning": "<strong>就差一点……</strong>你的代码运行正确，但格式还需要修正。找找代码中的橙色下划线。",
       "lintWarningPlain": "你的代码运行正确，但格式还需要修正。找找代码中的橙色下划线。",
       "genericError": "哎呀，你的代码里有一个错误。",
-      "runtimeError": "�",
-      "isolatedCheckError": "�",
-      "isolatedCheckErrorDetail": "�",
+      "runtimeError": "你的代码在运行时遇到了错误。请修复上面的错误消息以继续。",
+      "isolatedCheckError": "你的代码在运行时抛出了一个错误。",
+      "isolatedCheckErrorDetail": "你的代码在运行时抛出了一个错误。（{message}）",
       "congratsWellDone": "做得好！",
       "congratsNiceWork": "干得不错！",
       "congratsFantasticJob": "干得漂亮！",
       "congratsAmazingEffort": "太了不起了！",
       "congratsGreatAchievement": "出色的成就！",
       "congratsCongratulations": "恭喜你！",
-      "congratsCongrats": "恭喜！"
+      "congratsCongrats": "恭喜！",
+      "ioError": "<p>错误：{message}</p>",
+      "codeCheckError": "代码检查错误：{message}"
+    },
+    "informationTooltip": {
+      "errorHeading": "哎呀，出错了！",
+      "closeAriaLabel": "关闭提示"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "添加断点",
+      "removeBreakpoint": "移除断点"
     },
     "syntaxError": {
       "heading": "Jiki 看不懂你的代码。",
@@ -1795,7 +1820,13 @@
     "loading": "�",
     "error": "�",
     "certificatesEmptyTitle": "�",
-    "certificatesEmptyBody": "�"
+    "certificatesEmptyBody": "�",
+    "badge": {
+      "locked": "�",
+      "earnedToday": "�",
+      "earnedRelative": "�"
+    },
+    "loadError": "�"
   },
   "challenges": {
     "title": "挑战",
@@ -1825,7 +1856,8 @@
       "noneToStartDescription": "挑战解锁后会出现在这里。",
       "completedTitle": "还没有完成的挑战",
       "completedDescription": "完成你的第一个挑战后，它会出现在这里。继续推进进行中的挑战，达成这个里程碑吧。"
-    }
+    },
+    "loadError": "�"
   },
   "subscription": {
     "tiers": {
@@ -1851,5 +1883,68 @@
         }
       }
     }
+  },
+  "blog": {
+    "header": {
+      "label": "博客",
+      "title": "新闻、见解和随笔",
+      "subtitle": "深入探索编程语言、编程挑战以及学习编程的艺术。"
+    },
+    "postHeader": {
+      "writtenBy": "作者：{name}",
+      "readingTime": "{count, plural, other {# 分钟阅读}}"
+    },
+    "featuredLatest": {
+      "label": "最新文章",
+      "byAuthor": "作者 {name}",
+      "readFullArticle": "阅读全文 →"
+    },
+    "recentPosts": {
+      "heading": "最近文章"
+    },
+    "relatedPosts": {
+      "heading": "相关文章"
+    },
+    "cta": {
+      "minimalTitle": "免费试用 Jiki",
+      "minimalSubtitle": "每月有超过 10,000 名学习者使用 Jiki，通过动手实践和专家指导掌握编程。",
+      "minimalButton": "立即开始",
+      "gradientTitle": "准备好开始你的编程之旅了吗？",
+      "gradientSubtitle": "加入 Jiki 上的数千名学习者。练习编程题，获得导师反馈，提升技能——完全免费！",
+      "gradientButton": "免费注册"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "文章",
+      "title": "帮助与资源",
+      "subtitle": "指南、教程和解答，帮助你充分利用 Jiki。",
+      "writtenBy": "作者：{name}",
+      "readingTime": "{count, plural, other {# 分钟阅读}}"
+    },
+    "relatedArticles": {
+      "heading": "相关文章"
+    },
+    "search": {
+      "placeholder": "搜索文章...",
+      "noResultsTitle": "未找到“{query}”的结果",
+      "noResultsMessage": "请尝试其他搜索词或浏览文章。"
+    },
+    "filterSidebar": {
+      "filterBy": "筛选",
+      "all": "全部",
+      "help": "找不到你要找的内容？试试我们的<blogs>博客</blogs>、<faqs>常见问题</faqs>、<support>联系支持</support>，或在<community>社区</community>提问。"
+    },
+    "cta": {
+      "minimalTitle": "免费试用 Jiki",
+      "minimalSubtitle": "每月有超过 10,000 名学习者使用 Jiki，通过动手实践和专家指导掌握编程。",
+      "minimalButton": "立即开始",
+      "gradientTitle": "准备好开始你的编程之旅了吗？",
+      "gradientSubtitle": "加入 Jiki 上的数千名学习者。练习编程题，获得导师反馈，提升技能——完全免费！",
+      "gradientButton": "免费注册"
+    }
+  },
+  "checkout": {
+    "declineDefault": "你上次的付款未成功。请使用另一张卡重试。"
   }
 }

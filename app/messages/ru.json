@@ -155,7 +155,13 @@
     },
     "saving": "�",
     "retry": "�",
-    "tryAgain": "�"
+    "tryAgain": "�",
+    "betaTag": {
+      "label": "�"
+    },
+    "userAvatar": {
+      "alt": "�"
+    }
   },
   "build": {
     "upcomingStreams": {
@@ -333,7 +339,8 @@
       "benefit3": "�",
       "benefit4": "�",
       "keep": "�",
-      "cancel": "�"
+      "cancel": "�",
+      "defaultBillingPeriodEnd": "�"
     },
     "cancelSuccess": {
       "title": "�",
@@ -376,7 +383,9 @@
       "columnAmount": "�",
       "columnType": "�",
       "columnMethod": "�",
-      "downloadReceipt": "�"
+      "downloadReceipt": "�",
+      "typeRecurring": "�",
+      "dateUnavailable": "�"
     },
     "profile": {
       "nameLabel": "�",
@@ -914,7 +923,8 @@
     },
     "error": {
       "notFound": "Концепция не найдена.",
-      "back": "Назад к концепциям"
+      "back": "Назад к концепциям",
+      "loadFailed": "�"
     },
     "relatedConcepts": {
       "heading": "Связанные концепции",
@@ -1430,6 +1440,7 @@
   "codingExercise": {
     "loadError": "Ошибка загрузки упражнения: {error}",
     "unknownError": "Неизвестная ошибка",
+    "exerciseNotFound": "�",
     "runButton": {
       "run": "Запустить код",
       "running": "Выполняется...",
@@ -1575,7 +1586,11 @@
       "serverError": "Ошибка сервера. Пожалуйста, попробуйте снова чуть позже.",
       "networkError": "Ошибка сети. Пожалуйста, проверьте подключение и попробуйте снова.",
       "timeout": "Время ожидания запроса истекло. Пожалуйста, попробуйте снова.",
-      "unexpected": "Произошла непредвиденная ошибка. Пожалуйста, попробуйте снова."
+      "unexpected": "Произошла непредвиденная ошибка. Пожалуйста, попробуйте снова.",
+      "noResponseBody": "�",
+      "streamProcessing": "�",
+      "unknown": "�",
+      "requestFailed": "�"
     },
     "stuckHeader": {
       "title": "Застряли? Спросите Jiki!"
@@ -1602,7 +1617,17 @@
       "congratsAmazingEffort": "Потрясающе!",
       "congratsGreatAchievement": "Отличный результат!",
       "congratsCongratulations": "Поздравляем!",
-      "congratsCongrats": "Мои поздравления!"
+      "congratsCongrats": "Мои поздравления!",
+      "ioError": "�",
+      "codeCheckError": "�"
+    },
+    "informationTooltip": {
+      "errorHeading": "�",
+      "closeAriaLabel": "�"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "�",
+      "removeBreakpoint": "�"
     },
     "syntaxError": {
       "heading": "Jiki не смог понять ваш код.",
@@ -1795,7 +1820,13 @@
     "loading": "�",
     "error": "�",
     "certificatesEmptyTitle": "�",
-    "certificatesEmptyBody": "�"
+    "certificatesEmptyBody": "�",
+    "badge": {
+      "locked": "�",
+      "earnedToday": "�",
+      "earnedRelative": "�"
+    },
+    "loadError": "�"
   },
   "challenges": {
     "title": "Испытания",
@@ -1825,7 +1856,8 @@
       "noneToStartDescription": "Испытания будут появляться здесь по мере того, как вы их открываете.",
       "completedTitle": "Пока нет завершённых испытаний",
       "completedDescription": "Завершите своё первое испытание, и оно появится здесь. Продолжайте работать над начатыми испытаниями, чтобы добраться до этой цели."
-    }
+    },
+    "loadError": "�"
   },
   "subscription": {
     "tiers": {
@@ -1851,5 +1883,68 @@
         }
       }
     }
+  },
+  "blog": {
+    "header": {
+      "label": "�",
+      "title": "�",
+      "subtitle": "�"
+    },
+    "postHeader": {
+      "writtenBy": "�",
+      "readingTime": "�"
+    },
+    "featuredLatest": {
+      "label": "�",
+      "byAuthor": "�",
+      "readFullArticle": "�"
+    },
+    "recentPosts": {
+      "heading": "�"
+    },
+    "relatedPosts": {
+      "heading": "�"
+    },
+    "cta": {
+      "minimalTitle": "�",
+      "minimalSubtitle": "�",
+      "minimalButton": "�",
+      "gradientTitle": "�",
+      "gradientSubtitle": "�",
+      "gradientButton": "�"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "�",
+      "title": "�",
+      "subtitle": "�",
+      "writtenBy": "�",
+      "readingTime": "�"
+    },
+    "relatedArticles": {
+      "heading": "�"
+    },
+    "search": {
+      "placeholder": "�",
+      "noResultsTitle": "�",
+      "noResultsMessage": "�"
+    },
+    "filterSidebar": {
+      "filterBy": "�",
+      "all": "�",
+      "help": "�"
+    },
+    "cta": {
+      "minimalTitle": "�",
+      "minimalSubtitle": "�",
+      "minimalButton": "�",
+      "gradientTitle": "�",
+      "gradientSubtitle": "�",
+      "gradientButton": "�"
+    }
+  },
+  "checkout": {
+    "declineDefault": "�"
   }
 }

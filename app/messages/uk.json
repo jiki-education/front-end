@@ -155,7 +155,13 @@
     },
     "saving": "�",
     "retry": "�",
-    "tryAgain": "�"
+    "tryAgain": "�",
+    "betaTag": {
+      "label": "�"
+    },
+    "userAvatar": {
+      "alt": "�"
+    }
   },
   "build": {
     "upcomingStreams": {
@@ -333,7 +339,8 @@
       "benefit3": "�",
       "benefit4": "�",
       "keep": "�",
-      "cancel": "�"
+      "cancel": "�",
+      "defaultBillingPeriodEnd": "�"
     },
     "cancelSuccess": {
       "title": "�",
@@ -376,7 +383,9 @@
       "columnAmount": "�",
       "columnType": "�",
       "columnMethod": "�",
-      "downloadReceipt": "�"
+      "downloadReceipt": "�",
+      "typeRecurring": "�",
+      "dateUnavailable": "�"
     },
     "profile": {
       "nameLabel": "�",
@@ -914,7 +923,8 @@
     },
     "error": {
       "notFound": "Поняття не знайдено.",
-      "back": "Назад до понять"
+      "back": "Назад до понять",
+      "loadFailed": "�"
     },
     "relatedConcepts": {
       "heading": "Повʼязані поняття",
@@ -954,103 +964,103 @@
   },
   "seo": {
     "concepts": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "Концепції - Jiki",
+      "description": "Переглядайте концепції та основи програмування, щоб краще розуміти компʼютерні науки та розробку програмного забезпечення.",
+      "notFound": "Концепцію не знайдено"
     },
     "achievements": {
-      "title": "�",
-      "description": "�"
+      "title": "Досягнення - Jiki",
+      "description": "Відстежуйте свій прогрес і відкривайте досягнення, навчаючись програмувати."
     },
     "build": {
-      "title": "�",
-      "description": "�"
+      "title": "Вчимося створювати - Jiki",
+      "description": "Дивіться відеосерії про створення реальних проєктів, глибокі розбори того, як усе працює, і живі сесії запитань і відповідей."
     },
     "dashboard": {
-      "title": "�",
-      "description": "�"
+      "title": "Панель керування - Jiki",
+      "description": "Відстежуйте свій прогрес у навчанні, продовжуйте вправи з програмування та переглядайте свої досягнення."
     },
     "challenges": {
-      "title": "�",
-      "description": "�"
+      "title": "Челенджі - Jiki",
+      "description": "Складніші челенджі з програмування, які допоможуть розвивати навички далі."
     },
     "settings": {
-      "title": "�",
-      "description": "�"
+      "title": "Налаштування - Jiki",
+      "description": "Керуйте налаштуваннями облікового запису, підпискою та вподобаннями."
     },
     "checkEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "Перевірте пошту - Jiki",
+      "description": "Ми надіслали лист для підтвердження. Перевірте вхідні, щоб підтвердити адресу та завершити реєстрацію."
     },
     "confirmEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "Підтвердження електронної пошти - Jiki",
+      "description": "Підтвердьте свою електронну адресу"
     },
     "exercismCallback": {
-      "title": "�",
-      "description": "�"
+      "title": "Вхід через Exercism - Jiki",
+      "description": "Завершуємо вхід через Exercism"
     },
     "forgotPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "Забули пароль - Jiki",
+      "description": "Скиньте свій пароль"
     },
     "login": {
-      "title": "�",
-      "description": "�"
+      "title": "Вхід - Jiki",
+      "description": "Увійдіть до свого облікового запису Jiki"
     },
     "resendConfirmation": {
-      "title": "�",
-      "description": "�"
+      "title": "Повторне надсилання підтвердження - Jiki",
+      "description": "Повторно надіслати лист із підтвердженням"
     },
     "resetPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "Скидання пароля - Jiki",
+      "description": "Встановіть новий пароль"
     },
     "signup": {
-      "title": "�",
-      "description": "�"
+      "title": "Реєстрація - Jiki",
+      "description": "Створіть обліковий запис Jiki"
     },
     "home": {
-      "title": "�",
-      "description": "�"
+      "title": "Jiki - вчимося програмувати із задоволенням",
+      "description": "Найкращий спосіб навчитися програмувати та створювати в епоху штучного інтелекту! Від творців Exercism"
     },
     "premium": {
-      "title": "�",
-      "description": "�"
+      "title": "Преміум - Jiki",
+      "description": "Пришвидште свій шлях до першої роботи з Jiki Преміум. Повний доступ до курсів, проєктів, підтримки від ШІ та не тільки."
     },
     "roadmap": {
-      "title": "�",
-      "description": "�"
+      "title": "План розвитку - Jiki",
+      "description": "Що ми будуємо далі в Jiki. Огляд майбутніх курсів, проєктів і можливостей по кварталах."
     },
     "testimonials": {
-      "title": "�",
-      "description": "�"
+      "title": "Відгуки - Jiki",
+      "description": "Ми запитали наших студентів, чи сподобався їм курс. Ось що вони відповіли."
     },
     "deleteAccount": {
-      "title": "�",
-      "description": "�"
+      "title": "Видалення облікового запису - Jiki",
+      "description": "Підтвердьте видалення облікового запису"
     },
     "unsubscribePreferences": {
-      "title": "�",
-      "description": "�"
+      "title": "Налаштування електронної пошти - Jiki",
+      "description": "Керуйте налаштуваннями електронної пошти та відписуйтеся від листів Jiki."
     },
     "unsubscribe": {
-      "title": "�",
-      "description": "�"
+      "title": "Відписка - Jiki",
+      "description": "Відпишіться від листів Jiki"
     },
     "blog": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "Блог - Jiki",
+      "description": "Читайте найновіші статті про програмування, челенджі з кодом і поради щодо навчання від спільноти Jiki.",
+      "notFound": "Допис не знайдено"
     },
     "help": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "Центр допомоги - Jiki",
+      "description": "Відповіді, покрокові посібники та правила, які допоможуть отримати від Jiki максимум.",
+      "notFound": "Статтю не знайдено"
     },
     "guides": {
-      "title": "�",
-      "description": "�"
+      "title": "Посібники - Jiki",
+      "description": "Покрокові посібники, які допоможуть налаштувати інструменти й отримати від Jiki максимум."
     }
   },
   "toasts": {
@@ -1430,6 +1440,7 @@
   "codingExercise": {
     "loadError": "Помилка завантаження вправи: {error}",
     "unknownError": "Невідома помилка",
+    "exerciseNotFound": "Вправу «{slug}» не знайдено в навчальній програмі. Доступні вправи: {available}",
     "runButton": {
       "run": "Запустити код",
       "running": "Виконується...",
@@ -1575,7 +1586,11 @@
       "serverError": "Помилка сервера. Спробуйте ще раз за кілька хвилин.",
       "networkError": "Помилка мережі. Перевірте зʼєднання і спробуйте ще раз.",
       "timeout": "Час очікування запиту минув. Спробуйте ще раз.",
-      "unexpected": "Сталася неочікувана помилка. Спробуйте ще раз."
+      "unexpected": "Сталася неочікувана помилка. Спробуйте ще раз.",
+      "noResponseBody": "Не вдалося отримати відповідь. Спробуйте ще раз.",
+      "streamProcessing": "Не вдалося прочитати відповідь. Спробуйте ще раз.",
+      "unknown": "Сталася неочікувана помилка. Спробуйте ще раз.",
+      "requestFailed": "Не вдалося виконати запит. Спробуйте ще раз."
     },
     "stuckHeader": {
       "title": "Застрягли? Запитайте Jiki!"
@@ -1593,16 +1608,26 @@
       "lintWarning": "<strong>Майже вийшло...</strong> Код працює правильно, але потрібно виправити форматування. Знайдіть у коді помаранчеві підкреслення.",
       "lintWarningPlain": "Код працює правильно, але потрібно виправити форматування. Знайдіть у коді помаранчеві підкреслення.",
       "genericError": "Ой-ой. У коді є помилка.",
-      "runtimeError": "�",
-      "isolatedCheckError": "�",
-      "isolatedCheckErrorDetail": "�",
+      "runtimeError": "Код натрапив на помилку під час виконання. Щоб продовжити, виправте помилку, показану вище.",
+      "isolatedCheckError": "Під час виконання код видав помилку.",
+      "isolatedCheckErrorDetail": "Під час виконання код видав помилку. ({message})",
       "congratsWellDone": "Чудова робота!",
       "congratsNiceWork": "Гарна робота!",
       "congratsFantasticJob": "Фантастично!",
       "congratsAmazingEffort": "Так тримати!",
       "congratsGreatAchievement": "Чудове досягнення!",
       "congratsCongratulations": "Вітаємо!",
-      "congratsCongrats": "Вітання!"
+      "congratsCongrats": "Вітання!",
+      "ioError": "<p>Помилка: {message}</p>",
+      "codeCheckError": "Помилка перевірки коду: {message}"
+    },
+    "informationTooltip": {
+      "errorHeading": "Ой, щось пішло не так!",
+      "closeAriaLabel": "Закрити підказку"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "Додати точку зупинки",
+      "removeBreakpoint": "Видалити точку зупинки"
     },
     "syntaxError": {
       "heading": "Jiki не зміг зрозуміти код.",
@@ -1795,7 +1820,13 @@
     "loading": "�",
     "error": "�",
     "certificatesEmptyTitle": "�",
-    "certificatesEmptyBody": "�"
+    "certificatesEmptyBody": "�",
+    "badge": {
+      "locked": "�",
+      "earnedToday": "�",
+      "earnedRelative": "�"
+    },
+    "loadError": "�"
   },
   "challenges": {
     "title": "Виклики",
@@ -1825,7 +1856,8 @@
       "noneToStartDescription": "Виклики зʼявлятимуться тут поступово, щойно їх буде відкрито.",
       "completedTitle": "Завершених викликів поки немає",
       "completedDescription": "Завершіть перший виклик, і він зʼявиться тут. Продовжуйте працювати над розпочатими викликами, щоб досягти цього етапу."
-    }
+    },
+    "loadError": "�"
   },
   "subscription": {
     "tiers": {
@@ -1851,5 +1883,68 @@
         }
       }
     }
+  },
+  "blog": {
+    "header": {
+      "label": "Блог",
+      "title": "Новини, роздуми та балачки",
+      "subtitle": "Ґрунтовні розбори мов програмування, цікаві задачі та мистецтво вчитися писати код."
+    },
+    "postHeader": {
+      "writtenBy": "Автор: {name}",
+      "readingTime": "{count, plural, one {# хвилина читання} few {# хвилини читання} many {# хвилин читання} other {# хвилини читання}}"
+    },
+    "featuredLatest": {
+      "label": "Найновіший допис",
+      "byAuthor": "від {name}",
+      "readFullArticle": "Читати повну статтю →"
+    },
+    "recentPosts": {
+      "heading": "Останні дописи"
+    },
+    "relatedPosts": {
+      "heading": "Схожі дописи"
+    },
+    "cta": {
+      "minimalTitle": "Спробуйте Jiki безкоштовно",
+      "minimalSubtitle": "Понад 10 000 учнів щомісяця опановують програмування з Jiki завдяки практичним вправам і підтримці досвідчених наставників.",
+      "minimalButton": "Почніть зараз",
+      "gradientTitle": "Готові розпочати подорож у світ програмування?",
+      "gradientSubtitle": "Приєднуйтеся до тисяч учнів на Jiki. Виконуйте вправи з програмування, отримуйте відгуки від наставників і підвищуйте свій рівень. І все це безкоштовно!",
+      "gradientButton": "Зареєструйтеся безкоштовно"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "Статті",
+      "title": "Допомога та ресурси",
+      "subtitle": "Посібники, туторіали та відповіді, що допоможуть отримати від Jiki максимум.",
+      "writtenBy": "Автор: {name}",
+      "readingTime": "{count, plural, one {# хвилина читання} few {# хвилини читання} many {# хвилин читання} other {# хвилини читання}}"
+    },
+    "relatedArticles": {
+      "heading": "Схожі статті"
+    },
+    "search": {
+      "placeholder": "Пошук статей...",
+      "noResultsTitle": "0 результатів за запитом «{query}»",
+      "noResultsMessage": "Спробуйте інший запит або перегляньте всі статті."
+    },
+    "filterSidebar": {
+      "filterBy": "Фільтрувати за",
+      "all": "Усі",
+      "help": "Не знайшли те, що шукали? Загляньте в наші <blogs>блоги</blogs>, перегляньте <faqs>поширені запитання</faqs>, <support>зверніться до підтримки</support> або запитайте в нашій <community>спільноті</community>"
+    },
+    "cta": {
+      "minimalTitle": "Спробуйте Jiki безкоштовно",
+      "minimalSubtitle": "Понад 10 000 людей щомісяця опановують програмування з Jiki через практичні вправи та підтримку досвідчених наставників.",
+      "minimalButton": "Почніть зараз",
+      "gradientTitle": "Готові розпочати подорож у світ програмування?",
+      "gradientSubtitle": "Приєднуйтеся до тисяч людей, які навчаються з Jiki. Виконуйте вправи з програмування, отримуйте відгуки від наставників і підвищуйте свій рівень. І все це безкоштовно!",
+      "gradientButton": "Зареєструйтеся безкоштовно"
+    }
+  },
+  "checkout": {
+    "declineDefault": "Останній платіж не пройшов. Будь ласка, спробуйте ще раз з іншою карткою."
   }
 }

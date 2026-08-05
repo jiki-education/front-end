@@ -964,103 +964,103 @@
   },
   "seo": {
     "concepts": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "コンセプト - Jiki",
+      "description": "プログラミングの概念と基礎を学び、コンピューターサイエンスとソフトウェア開発の理解を深めます。",
+      "notFound": "コンセプトが見つかりません"
     },
     "achievements": {
-      "title": "�",
-      "description": "�"
+      "title": "実績 - Jiki",
+      "description": "プログラミングを学びながら進捗を追跡し、実績を解除します。"
     },
     "build": {
-      "title": "�",
-      "description": "�"
+      "title": "作り方を学ぶ - Jiki",
+      "description": "実際のプロジェクトの作り方や、仕組みの詳細、ライブQ&Aセッションのビデオシリーズをご覧いただけます。"
     },
     "dashboard": {
-      "title": "�",
-      "description": "�"
+      "title": "ダッシュボード - Jiki",
+      "description": "学習の進捗を追跡し、コーディング演習を続け、実績を確認します。"
     },
     "challenges": {
-      "title": "�",
-      "description": "�"
+      "title": "チャレンジ - Jiki",
+      "description": "進歩に合わせてスキルをさらに高めるための、より難しいコーディングチャレンジ。"
     },
     "settings": {
-      "title": "�",
-      "description": "�"
+      "title": "設定 - Jiki",
+      "description": "アカウント設定、サブスクリプション、環境設定を管理します。"
     },
     "checkEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "メールを確認してください - Jiki",
+      "description": "確認メールをお送りしました。受信トレイを確認してアドレスを認証し、サインアップを完了してください。"
     },
     "confirmEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "メールアドレスを確認 - Jiki",
+      "description": "メールアドレスを確認します。"
     },
     "exercismCallback": {
-      "title": "�",
-      "description": "�"
+      "title": "Exercismでログイン - Jiki",
+      "description": "Exercismでのログインを完了しています。"
     },
     "forgotPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "パスワードをお忘れですか - Jiki",
+      "description": "パスワードをリセットします。"
     },
     "login": {
-      "title": "�",
-      "description": "�"
+      "title": "ログイン - Jiki",
+      "description": "Jikiアカウントにログインします。"
     },
     "resendConfirmation": {
-      "title": "�",
-      "description": "�"
+      "title": "確認メールを再送信 - Jiki",
+      "description": "確認手順を再送信します。"
     },
     "resetPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "パスワードをリセット - Jiki",
+      "description": "新しいパスワードを設定します。"
     },
     "signup": {
-      "title": "�",
-      "description": "�"
+      "title": "サインアップ - Jiki",
+      "description": "Jikiアカウントを作成します。"
     },
     "home": {
-      "title": "�",
-      "description": "�"
+      "title": "Jiki - 楽しくプログラミングを学ぼう",
+      "description": "LLM時代にプログラミングを学び、作り上げる最良の方法！Exercismのチームが提供します。"
     },
     "premium": {
-      "title": "�",
-      "description": "�"
+      "title": "プレミアム - Jiki",
+      "description": "Jikiプレミアムで、就職準備への道を加速します。コース、プロジェクト、AIサポートなどにフルアクセスできます。"
     },
     "roadmap": {
-      "title": "�",
-      "description": "�"
+      "title": "ロードマップ - Jiki",
+      "description": "Jikiで次に提供するものを紹介します。四半期ごとに、今後のコース、プロジェクト、機能の予定をご覧いただけます。"
     },
     "testimonials": {
-      "title": "�",
-      "description": "�"
+      "title": "体験談 - Jiki",
+      "description": "受講生にコースが楽しかったか尋ねました。その声をご紹介します。"
     },
     "deleteAccount": {
-      "title": "�",
-      "description": "�"
+      "title": "アカウント削除 - Jiki",
+      "description": "アカウント削除を確認します。"
     },
     "unsubscribePreferences": {
-      "title": "�",
-      "description": "�"
+      "title": "メール配信設定 - Jiki",
+      "description": "Jikiからのメール配信設定を管理し、配信停止します。"
     },
     "unsubscribe": {
-      "title": "�",
-      "description": "�"
+      "title": "配信停止 - Jiki",
+      "description": "Jikiからのメール配信を停止します。"
     },
     "blog": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "ブログ - Jiki",
+      "description": "プログラミングやコーディングチャレンジ、Jikiコミュニティからの学習のヒントに関する最新記事を読めます。",
+      "notFound": "投稿が見つかりません"
     },
     "help": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "ヘルプセンター - Jiki",
+      "description": "Jikiを最大限に活用するための回答、手順、ポリシー。",
+      "notFound": "記事が見つかりません"
     },
     "guides": {
-      "title": "�",
-      "description": "�"
+      "title": "ガイド - Jiki",
+      "description": "ツールのセットアップやJikiの活用に役立つステップバイステップガイド。"
     }
   },
   "toasts": {

@@ -155,7 +155,13 @@
     },
     "saving": "�",
     "retry": "�",
-    "tryAgain": "�"
+    "tryAgain": "�",
+    "betaTag": {
+      "label": "�"
+    },
+    "userAvatar": {
+      "alt": "�"
+    }
   },
   "build": {
     "upcomingStreams": {
@@ -333,7 +339,8 @@
       "benefit3": "�",
       "benefit4": "�",
       "keep": "�",
-      "cancel": "�"
+      "cancel": "�",
+      "defaultBillingPeriodEnd": "�"
     },
     "cancelSuccess": {
       "title": "�",
@@ -376,7 +383,9 @@
       "columnAmount": "�",
       "columnType": "�",
       "columnMethod": "�",
-      "downloadReceipt": "�"
+      "downloadReceipt": "�",
+      "typeRecurring": "�",
+      "dateUnavailable": "�"
     },
     "profile": {
       "nameLabel": "�",
@@ -914,7 +923,8 @@
     },
     "error": {
       "notFound": "找不到概念。",
-      "back": "回到概念列表"
+      "back": "回到概念列表",
+      "loadFailed": "�"
     },
     "relatedConcepts": {
       "heading": "相關概念",
@@ -954,103 +964,103 @@
   },
   "seo": {
     "concepts": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "概念 - Jiki",
+      "description": "瀏覽程式設計概念與基礎知識，強化你對電腦科學與軟體開發的理解。",
+      "notFound": "找不到概念"
     },
     "achievements": {
-      "title": "�",
-      "description": "�"
+      "title": "成就 - Jiki",
+      "description": "在學習寫程式的過程中追蹤你的進度並解鎖成就。"
     },
     "build": {
-      "title": "�",
-      "description": "�"
+      "title": "學習開發 - Jiki",
+      "description": "觀看關於開發真實專案的系列影片、深入探討運作原理，以及直播問答。"
     },
     "dashboard": {
-      "title": "�",
-      "description": "�"
+      "title": "儀表板 - Jiki",
+      "description": "追蹤你的學習進度、繼續寫程式練習，並查看你的成就。"
     },
     "challenges": {
-      "title": "�",
-      "description": "�"
+      "title": "挑戰 - Jiki",
+      "description": "隨著你的進步，透過更難的程式設計挑戰來進一步提升你的技能。"
     },
     "settings": {
-      "title": "�",
-      "description": "�"
+      "title": "設定 - Jiki",
+      "description": "管理你的帳號設定、訂閱和偏好設定。"
     },
     "checkEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "檢查你的電子郵件 - Jiki",
+      "description": "我們已經寄了一封確認信給你。請檢查你的收件匣以驗證電子郵件地址並完成註冊喔。"
     },
     "confirmEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "確認電子郵件 - Jiki",
+      "description": "確認你的電子郵件地址"
     },
     "exercismCallback": {
-      "title": "�",
-      "description": "�"
+      "title": "透過 Exercism 登入 - Jiki",
+      "description": "正在完成你的 Exercism 登入"
     },
     "forgotPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "忘記密碼 - Jiki",
+      "description": "重設你的密碼"
     },
     "login": {
-      "title": "�",
-      "description": "�"
+      "title": "登入 - Jiki",
+      "description": "登入你的 Jiki 帳號"
     },
     "resendConfirmation": {
-      "title": "�",
-      "description": "�"
+      "title": "重新發送確認信 - Jiki",
+      "description": "重新發送確認指示"
     },
     "resetPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "重設密碼 - Jiki",
+      "description": "設定你的新密碼"
     },
     "signup": {
-      "title": "�",
-      "description": "�"
+      "title": "註冊 - Jiki",
+      "description": "建立你的 Jiki 帳號"
     },
     "home": {
-      "title": "�",
-      "description": "�"
+      "title": "Jiki - 用有趣的方式學習寫程式",
+      "description": "在 LLM 時代學習寫程式與開發的最佳方式！由 Exercism 團隊打造"
     },
     "premium": {
-      "title": "�",
-      "description": "�"
+      "title": "進階版 - Jiki",
+      "description": "透過 Jiki 進階版加速你成為即戰力的路程。完整存取課程、專案、AI 支援等豐富內容。"
     },
     "roadmap": {
-      "title": "�",
-      "description": "�"
+      "title": "開發藍圖 - Jiki",
+      "description": "Jiki 接下來要開發的內容。按季預覽即將推出的課程、專案與功能。"
     },
     "testimonials": {
-      "title": "�",
-      "description": "�"
+      "title": "學員評價 - Jiki",
+      "description": "我們問了學員是否喜歡這門課程。以下是他們的回饋。"
     },
     "deleteAccount": {
-      "title": "�",
-      "description": "�"
+      "title": "刪除帳號 - Jiki",
+      "description": "確認刪除帳號"
     },
     "unsubscribePreferences": {
-      "title": "�",
-      "description": "�"
+      "title": "電子郵件偏好設定 - Jiki",
+      "description": "管理你的電子郵件偏好設定並取消訂閱 Jiki 的電子郵件。"
     },
     "unsubscribe": {
-      "title": "�",
-      "description": "�"
+      "title": "取消訂閱 - Jiki",
+      "description": "取消訂閱 Jiki 的電子郵件"
     },
     "blog": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "部落格 - Jiki",
+      "description": "閱讀 Jiki 社群中關於程式設計、寫程式挑戰與學習技巧的最新文章。",
+      "notFound": "找不到文章"
     },
     "help": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "說明中心 - Jiki",
+      "description": "提供解答、操作指南與政策說明，幫助你充分利用 Jiki。",
+      "notFound": "找不到文章"
     },
     "guides": {
-      "title": "�",
-      "description": "�"
+      "title": "指南 - Jiki",
+      "description": "逐步指南，幫助你設定工具並充分利用 Jiki。"
     }
   },
   "toasts": {
@@ -1430,6 +1440,7 @@
   "codingExercise": {
     "loadError": "載入練習時發生錯誤：{error}",
     "unknownError": "未知的錯誤",
+    "exerciseNotFound": "在課程大綱中找不到練習「{slug}」。可用的練習：{available}",
     "runButton": {
       "run": "執行程式碼",
       "running": "執行中...",
@@ -1575,7 +1586,11 @@
       "serverError": "伺服器錯誤。請稍候再試一次。",
       "networkError": "網路錯誤。請檢查你的連線狀態後再試一次。",
       "timeout": "請求逾時。請再試一次。",
-      "unexpected": "發生了未預期的錯誤。請再試一次。"
+      "unexpected": "發生了未預期的錯誤。請再試一次。",
+      "noResponseBody": "接收回應時發生錯誤。請再試一次。",
+      "streamProcessing": "讀取回應時發生錯誤。請再試一次。",
+      "unknown": "發生了未預期的錯誤。請再試一次。",
+      "requestFailed": "請求失敗。請再試一次。"
     },
     "stuckHeader": {
       "title": "卡關了嗎？問問 Jiki 吧！"
@@ -1593,16 +1608,26 @@
       "lintWarning": "<strong>快完成了...</strong> 你的程式碼運作正確，但你需要修正格式。請尋找程式碼中的橘色底線。",
       "lintWarningPlain": "你的程式碼運作正確，但你需要修正格式。請尋找程式碼中的橘色底線。",
       "genericError": "哎呀。你的程式碼裡有錯誤。",
-      "runtimeError": "�",
-      "isolatedCheckError": "�",
-      "isolatedCheckErrorDetail": "�",
+      "runtimeError": "你的程式碼在執行時發生了錯誤。請修正上方的錯誤訊息以繼續喔。",
+      "isolatedCheckError": "你的程式碼在執行時丟出了錯誤。",
+      "isolatedCheckErrorDetail": "你的程式碼在執行時丟出了錯誤。（{message}）",
       "congratsWellDone": "做得好！",
       "congratsNiceWork": "幹得好！",
       "congratsFantasticJob": "太棒了！",
       "congratsAmazingEffort": "很棒的嘗試！",
       "congratsGreatAchievement": "了不起的成就！",
       "congratsCongratulations": "恭喜！",
-      "congratsCongrats": "恭喜！"
+      "congratsCongrats": "恭喜！",
+      "ioError": "<p>錯誤：{message}</p>",
+      "codeCheckError": "程式碼檢查錯誤：{message}"
+    },
+    "informationTooltip": {
+      "errorHeading": "糟糕，發生了點問題！",
+      "closeAriaLabel": "關閉提示"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "新增中斷點",
+      "removeBreakpoint": "移除中斷點"
     },
     "syntaxError": {
       "heading": "Jiki 無法理解你的程式碼。",
@@ -1795,7 +1820,13 @@
     "loading": "�",
     "error": "�",
     "certificatesEmptyTitle": "�",
-    "certificatesEmptyBody": "�"
+    "certificatesEmptyBody": "�",
+    "badge": {
+      "locked": "�",
+      "earnedToday": "�",
+      "earnedRelative": "�"
+    },
+    "loadError": "�"
   },
   "challenges": {
     "title": "挑戰",
@@ -1825,7 +1856,8 @@
       "noneToStartDescription": "當你解鎖挑戰時，它們會出現在這裡。",
       "completedTitle": "尚未完成任何挑戰",
       "completedDescription": "完成你的第一個挑戰，它就會顯示在這裡。繼續進行你手邊的挑戰，達成這個里程碑吧。"
-    }
+    },
+    "loadError": "�"
   },
   "subscription": {
     "tiers": {
@@ -1851,5 +1883,68 @@
         }
       }
     }
+  },
+  "blog": {
+    "header": {
+      "label": "部落格",
+      "title": "最新消息、見解與碎碎念",
+      "subtitle": "深入探討程式語言、寫程式挑戰，以及學習寫程式的藝術。"
+    },
+    "postHeader": {
+      "writtenBy": "作者：{name}",
+      "readingTime": "{count, plural, one {閱讀時間 # 分鐘} other {閱讀時間 # 分鐘}}"
+    },
+    "featuredLatest": {
+      "label": "最新文章",
+      "byAuthor": "作者：{name}",
+      "readFullArticle": "閱讀全文 →"
+    },
+    "recentPosts": {
+      "heading": "近期文章"
+    },
+    "relatedPosts": {
+      "heading": "相關文章"
+    },
+    "cta": {
+      "minimalTitle": "免費試用 Jiki",
+      "minimalSubtitle": "每個月有超過 10,000 名學習者透過實作練習與專家導師的引導，在 Jiki 上精通程式設計。",
+      "minimalButton": "立即開始",
+      "gradientTitle": "準備好展開你的寫程式之旅了嗎？",
+      "gradientSubtitle": "加入 Jiki 上成千上萬名學習者的行列。練習寫程式、從導師那裡獲得回饋，並提升你的技能——完全免費喔！",
+      "gradientButton": "免費註冊"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "文章",
+      "title": "說明與資源",
+      "subtitle": "指南、教學與解答，幫助你充分利用 Jiki。",
+      "writtenBy": "作者：{name}",
+      "readingTime": "{count, plural, one {閱讀時間 # 分鐘} other {閱讀時間 # 分鐘}}"
+    },
+    "relatedArticles": {
+      "heading": "相關文章"
+    },
+    "search": {
+      "placeholder": "搜尋文章...",
+      "noResultsTitle": "「{query}」有 0 筆結果",
+      "noResultsMessage": "試試其他搜尋字詞，或瀏覽其他文章吧。"
+    },
+    "filterSidebar": {
+      "filterBy": "篩選條件",
+      "all": "全部",
+      "help": "找不到你要的內容嗎？試試看我們的<blogs>部落格</blogs>、<faqs>常見問題</faqs>、<support>聯絡客服</support>，或者在我們的<community>社群</community>中發問吧。"
+    },
+    "cta": {
+      "minimalTitle": "免費試用 Jiki",
+      "minimalSubtitle": "每個月有超過 10,000 名學習者透過實作練習與專家導師的引導，在 Jiki 上精通程式設計。",
+      "minimalButton": "立即開始",
+      "gradientTitle": "準備好展開你的寫程式之旅了嗎？",
+      "gradientSubtitle": "加入 Jiki 上成千上萬名學習者的行列。練習寫程式、從導師那裡獲得回饋，並提升你的技能——完全免費喔！",
+      "gradientButton": "免費註冊"
+    }
+  },
+  "checkout": {
+    "declineDefault": "你上一次的付款未成功。請換一張信用卡再試一次。"
   }
 }

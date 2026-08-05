@@ -964,103 +964,103 @@
   },
   "seo": {
     "concepts": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "개념 - Jiki",
+      "description": "프로그래밍 개념과 기초를 살펴보며 컴퓨터 과학과 소프트웨어 개발에 대한 이해를 높여보세요.",
+      "notFound": "개념을 찾을 수 없어요"
     },
     "achievements": {
-      "title": "�",
-      "description": "�"
+      "title": "업적 - Jiki",
+      "description": "코딩을 배우며 진행 상황을 추적하고 업적을 해제하세요."
     },
     "build": {
-      "title": "�",
-      "description": "�"
+      "title": "만들기 배우기 - Jiki",
+      "description": "실제 프로젝트 제작, 작동 원리 심층 분석, 실시간 질의응답 세션을 다루는 비디오 시리즈를 시청하세요."
     },
     "dashboard": {
-      "title": "�",
-      "description": "�"
+      "title": "대시보드 - Jiki",
+      "description": "학습 진도를 추적하고, 코딩 연습을 이어가며, 업적을 확인하세요."
     },
     "challenges": {
-      "title": "�",
-      "description": "�"
+      "title": "챌린지 - Jiki",
+      "description": "진행하면서 실력을 더 높일 수 있는 어려운 코딩 챌린지들입니다."
     },
     "settings": {
-      "title": "�",
-      "description": "�"
+      "title": "설정 - Jiki",
+      "description": "계정 설정, 구독 및 환경설정을 관리하세요."
     },
     "checkEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "이메일 확인 - Jiki",
+      "description": "확인 이메일을 보내드렸어요. 받은 편지함에서 주소 인증을 완료하고 가입을 마무리하세요."
     },
     "confirmEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "이메일 확인 - Jiki",
+      "description": "이메일 주소를 확인하세요."
     },
     "exercismCallback": {
-      "title": "�",
-      "description": "�"
+      "title": "Exercism으로 로그인 중 - Jiki",
+      "description": "Exercism 로그인을 완료하는 중이에요."
     },
     "forgotPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "비밀번호 찾기 - Jiki",
+      "description": "비밀번호를 재설정하세요."
     },
     "login": {
-      "title": "�",
-      "description": "�"
+      "title": "로그인 - Jiki",
+      "description": "Jiki 계정에 로그인하세요."
     },
     "resendConfirmation": {
-      "title": "�",
-      "description": "�"
+      "title": "확인 이메일 재발송 - Jiki",
+      "description": "확인 안내 이메일을 다시 보내세요."
     },
     "resetPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "비밀번호 재설정 - Jiki",
+      "description": "새 비밀번호를 설정하세요."
     },
     "signup": {
-      "title": "�",
-      "description": "�"
+      "title": "회원가입 - Jiki",
+      "description": "Jiki 계정을 만들어 보세요."
     },
     "home": {
-      "title": "�",
-      "description": "�"
+      "title": "Jiki - 코딩을 재미있게 배우세요",
+      "description": "LLM 시대에 코딩과 제작을 배우는 최고의 방법! Exercism을 만든 팀이 제공합니다."
     },
     "premium": {
-      "title": "�",
-      "description": "�"
+      "title": "프리미엄 - Jiki",
+      "description": "Jiki 프리미엄으로 취업 준비 속도를 높여 보세요. 모든 강의, 프로젝트, AI 지원 등을 자유롭게 이용할 수 있어요."
     },
     "roadmap": {
-      "title": "�",
-      "description": "�"
+      "title": "로드맵 - Jiki",
+      "description": "Jiki에서 무엇을 준비하고 있는지 분기별로 안내합니다. 다가오는 강의, 프로젝트, 기능을 살펴보세요."
     },
     "testimonials": {
-      "title": "�",
-      "description": "�"
+      "title": "후기 - Jiki",
+      "description": "수강생들에게 이 강의가 즐거웠는지 물어봤어요. 어떤 이야기가 나왔는지 확인해 보세요."
     },
     "deleteAccount": {
-      "title": "�",
-      "description": "�"
+      "title": "계정 삭제 - Jiki",
+      "description": "계정 삭제를 확인하세요."
     },
     "unsubscribePreferences": {
-      "title": "�",
-      "description": "�"
+      "title": "이메일 수신 설정 - Jiki",
+      "description": "이메일 수신 설정을 관리하고 Jiki 이메일 수신을 거부하세요."
     },
     "unsubscribe": {
-      "title": "�",
-      "description": "�"
+      "title": "수신 거부 - Jiki",
+      "description": "Jiki 이메일 수신을 거부하세요."
     },
     "blog": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "블로그 - Jiki",
+      "description": "Jiki 커뮤니티에서 프로그래밍, 코딩 챌린지, 학습 팁에 관한 최신 글을 읽어보세요.",
+      "notFound": "글을 찾을 수 없어요."
     },
     "help": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "고객센터 - Jiki",
+      "description": "Jiki를 더 잘 활용할 수 있도록 도움말, 사용 방법, 정책을 안내해 드려요.",
+      "notFound": "도움말을 찾을 수 없어요."
     },
     "guides": {
-      "title": "�",
-      "description": "�"
+      "title": "가이드 - Jiki",
+      "description": "도구 설정과 Jiki 활용법을 단계별로 안내해 드리는 가이드입니다."
     }
   },
   "toasts": {
@@ -1886,65 +1886,65 @@
   },
   "blog": {
     "header": {
-      "label": "�",
-      "title": "�",
-      "subtitle": "�"
+      "label": "블로그",
+      "title": "소식, 인사이트, 잡담",
+      "subtitle": "프로그래밍 언어, 코딩 챌린지, 코딩 학습의 기술을 깊이 파헤칩니다."
     },
     "postHeader": {
-      "writtenBy": "�",
-      "readingTime": "�"
+      "writtenBy": "{name} 작성",
+      "readingTime": "{count, plural, one {#분 읽기} other {#분 읽기}}"
     },
     "featuredLatest": {
-      "label": "�",
-      "byAuthor": "�",
-      "readFullArticle": "�"
+      "label": "최신 글",
+      "byAuthor": "{name} 글",
+      "readFullArticle": "전체 글 읽기 →"
     },
     "recentPosts": {
-      "heading": "�"
+      "heading": "최근 글"
     },
     "relatedPosts": {
-      "heading": "�"
+      "heading": "관련 글"
     },
     "cta": {
-      "minimalTitle": "�",
-      "minimalSubtitle": "�",
-      "minimalButton": "�",
-      "gradientTitle": "�",
-      "gradientSubtitle": "�",
-      "gradientButton": "�"
+      "minimalTitle": "Jiki를 무료로 사용해 보세요",
+      "minimalSubtitle": "매달 1만 명 이상의 학습자가 Jiki에서 직접 실습하고 전문가 멘토링을 받으며 프로그래밍을 익히고 있어요.",
+      "minimalButton": "지금 시작하기",
+      "gradientTitle": "코딩 여정을 시작할 준비가 되셨나요?",
+      "gradientSubtitle": "Jiki에서 수많은 학습자와 함께하세요. 코딩 문제를 풀고 멘토에게 피드백을 받으며 실력을 키워 보세요. 모두 무료로 이용할 수 있어요!",
+      "gradientButton": "무료로 가입하기"
     }
   },
   "articles": {
     "header": {
-      "label": "�",
-      "title": "�",
-      "subtitle": "�",
-      "writtenBy": "�",
-      "readingTime": "�"
+      "label": "도움말",
+      "title": "도움말과 자료",
+      "subtitle": "Jiki를 더 잘 활용할 수 있도록 가이드, 튜토리얼, 그리고 답변을 제공해 드려요.",
+      "writtenBy": "{name} 작성",
+      "readingTime": "{count, plural, one {#분 읽기} other {#분 읽기}}"
     },
     "relatedArticles": {
-      "heading": "�"
+      "heading": "관련 도움말"
     },
     "search": {
-      "placeholder": "�",
-      "noResultsTitle": "�",
-      "noResultsMessage": "�"
+      "placeholder": "도움말 검색...",
+      "noResultsTitle": "“{query}”에 대한 검색 결과가 없어요.",
+      "noResultsMessage": "다른 검색어로 시도하거나 도움말을 둘러보세요."
     },
     "filterSidebar": {
-      "filterBy": "�",
-      "all": "�",
-      "help": "�"
+      "filterBy": "필터",
+      "all": "전체",
+      "help": "찾으시는 내용이 없나요? <blogs>블로그</blogs>, <faqs>자주 묻는 질문</faqs>, <support>고객 지원팀 문의</support>, 또는 <community>커뮤니티</community>에서 물어보세요."
     },
     "cta": {
-      "minimalTitle": "�",
-      "minimalSubtitle": "�",
-      "minimalButton": "�",
-      "gradientTitle": "�",
-      "gradientSubtitle": "�",
-      "gradientButton": "�"
+      "minimalTitle": "Jiki를 무료로 사용해 보세요",
+      "minimalSubtitle": "매달 1만 명 이상의 학습자가 Jiki에서 직접 실습하고 전문가 멘토링을 받으며 프로그래밍을 익히고 있어요.",
+      "minimalButton": "지금 시작하기",
+      "gradientTitle": "코딩 여정을 시작할 준비가 되셨나요?",
+      "gradientSubtitle": "Jiki에서 수많은 학습자와 함께하세요. 코딩 문제를 풀고 멘토에게 피드백을 받으며 실력을 키워 보세요. 모두 무료로 이용할 수 있어요!",
+      "gradientButton": "무료로 가입하기"
     }
   },
   "checkout": {
-    "declineDefault": "�"
+    "declineDefault": "마지막 결제가 실패했어요. 다른 카드로 다시 시도해 주세요."
   }
 }

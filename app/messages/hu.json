@@ -1025,7 +1025,7 @@
       "description": "A legjobb módja annak, hogy az AI-korszakban megtanulj programozni és fejleszteni! Az Exercism csapatától."
     },
     "premium": {
-      "title": "�",
+      "title": "Prémium - Jiki",
       "description": "Gyorsítsd fel az utad a munkára kész tudásig a Jiki Premiummal. Teljes hozzáférés a kurzusokhoz, projektekhez, AI-támogatáshoz és még sok máshoz."
     },
     "roadmap": {
@@ -1050,17 +1050,17 @@
     },
     "blog": {
       "title": "Blog - Jiki",
-      "description": "�",
-      "notFound": "�"
+      "description": "Olvasd el a legfrissebb cikkeket a programozásról, programozási kihívásokról és tanulási tippekről a Jiki közösségtől.",
+      "notFound": "Bejegyzés nem található"
     },
     "help": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "Segítségközpont - Jiki",
+      "description": "Válaszok, útmutatók és irányelvek, hogy a legtöbbet hozhasd ki a Jikiből.",
+      "notFound": "Cikk nem található"
     },
     "guides": {
-      "title": "�",
-      "description": "�"
+      "title": "Útmutatók - Jiki",
+      "description": "Lépésről lépésre útmutatók, amelyek segítenek az eszközeid beállításában, és a legtöbbet kihozni a Jikiből."
     }
   },
   "toasts": {
@@ -1440,7 +1440,7 @@
   "codingExercise": {
     "loadError": "Hiba a feladat betöltésekor: {error}",
     "unknownError": "Ismeretlen hiba",
-    "exerciseNotFound": "�",
+    "exerciseNotFound": "A(z) „{slug}” feladat nem található a tananyagban. Elérhető feladatok: {available}",
     "runButton": {
       "run": "Kód futtatása",
       "running": "Futtatás...",
@@ -1587,10 +1587,10 @@
       "networkError": "Hálózati hiba. Ellenőrizd a kapcsolatodat, és próbáld újra.",
       "timeout": "A kérés túllépte az időkorlátot. Próbáld újra.",
       "unexpected": "Váratlan hiba történt. Próbáld újra.",
-      "noResponseBody": "�",
-      "streamProcessing": "�",
-      "unknown": "�",
-      "requestFailed": "�"
+      "noResponseBody": "Hiba történt a válasz fogadásakor. Kérlek, próbáld újra.",
+      "streamProcessing": "Hiba történt a válasz olvasásakor. Kérlek, próbáld újra.",
+      "unknown": "Váratlan hiba történt. Kérlek, próbáld újra.",
+      "requestFailed": "A kérés sikertelen volt. Kérlek, próbáld újra."
     },
     "stuckHeader": {
       "title": "Elakadtál? Kérdezd Jikit!"
@@ -1608,9 +1608,9 @@
       "lintWarning": "<strong>Majdnem kész...</strong> A kódod jól működik, de a formázást még javítanod kell. Keresd a narancssárga aláhúzásokat a kódodban.",
       "lintWarningPlain": "A kódod jól működik, de a formázást még javítanod kell. Keresd a narancssárga aláhúzásokat a kódodban.",
       "genericError": "Ajjaj! Hiba van a kódodban.",
-      "runtimeError": "�",
-      "isolatedCheckError": "�",
-      "isolatedCheckErrorDetail": "�",
+      "runtimeError": "A kódod hibába ütközött futás közben. A folytatáshoz javítsd ki a fenti hibaüzenetet.",
+      "isolatedCheckError": "A kódod hibát dobott futás közben.",
+      "isolatedCheckErrorDetail": "A kódod hibát dobott futás közben. ({message})",
       "congratsWellDone": "Szép munka!",
       "congratsNiceWork": "Ügyes vagy!",
       "congratsFantasticJob": "Fantasztikus munka!",
@@ -1618,16 +1618,16 @@
       "congratsGreatAchievement": "Nagyszerű eredmény!",
       "congratsCongratulations": "Gratulálunk!",
       "congratsCongrats": "Gratula!",
-      "ioError": "�",
-      "codeCheckError": "�"
+      "ioError": "<p>Hiba: {message}</p>",
+      "codeCheckError": "Kódellenőrzési hiba: {message}"
     },
     "informationTooltip": {
-      "errorHeading": "�",
-      "closeAriaLabel": "�"
+      "errorHeading": "Hoppá, valami hiba történt!",
+      "closeAriaLabel": "Eszköztipp bezárása"
     },
     "breakpointGutter": {
-      "addBreakpoint": "�",
-      "removeBreakpoint": "�"
+      "addBreakpoint": "Töréspont hozzáadása",
+      "removeBreakpoint": "Töréspont eltávolítása"
     },
     "syntaxError": {
       "heading": "Jiki nem értette a kódodat.",
@@ -1887,64 +1887,64 @@
   "blog": {
     "header": {
       "label": "Blog",
-      "title": "�",
-      "subtitle": "�"
+      "title": "Hírek, betekintések és elmélkedések",
+      "subtitle": "Mélyreható cikkek a programozási nyelvekről, a programozási kihívásokról és a programozás tanulásának művészetéről."
     },
     "postHeader": {
-      "writtenBy": "�",
-      "readingTime": "�"
+      "writtenBy": "Írta: {name}",
+      "readingTime": "{count, plural, one {# perces olvasás} other {# perces olvasás}}"
     },
     "featuredLatest": {
-      "label": "�",
-      "byAuthor": "�",
-      "readFullArticle": "�"
+      "label": "Legfrissebb bejegyzés",
+      "byAuthor": "Írta: {name}",
+      "readFullArticle": "Olvasd el a teljes cikket →"
     },
     "recentPosts": {
-      "heading": "�"
+      "heading": "Legutóbbi bejegyzések"
     },
     "relatedPosts": {
-      "heading": "�"
+      "heading": "Kapcsolódó bejegyzések"
     },
     "cta": {
-      "minimalTitle": "�",
-      "minimalSubtitle": "�",
-      "minimalButton": "�",
-      "gradientTitle": "�",
-      "gradientSubtitle": "�",
-      "gradientButton": "�"
+      "minimalTitle": "Próbáld ki ingyen a Jikit",
+      "minimalSubtitle": "Több mint 10 000 tanuló használja a Jikit havonta, hogy gyakorlati feladatokkal és szakértői mentorálással sajátítsa el a programozást.",
+      "minimalButton": "Kezdd el most",
+      "gradientTitle": "Készen állsz, hogy elkezdd a programozási utad?",
+      "gradientSubtitle": "Csatlakozz a több ezer tanulóhoz a Jikin. Gyakorolj programozási feladatokat, kapj visszajelzést mentoroktól, és fejleszd a készségeidet – ingyenes!",
+      "gradientButton": "Regisztrálj ingyen"
     }
   },
   "articles": {
     "header": {
-      "label": "�",
-      "title": "�",
-      "subtitle": "�",
-      "writtenBy": "�",
-      "readingTime": "�"
+      "label": "Cikkek",
+      "title": "Segítség és források",
+      "subtitle": "Útmutatók, oktatóanyagok és válaszok, hogy a legtöbbet hozhasd ki a Jikiből.",
+      "writtenBy": "Írta: {name}",
+      "readingTime": "{count, plural, one {# perces olvasás} other {# perces olvasás}}"
     },
     "relatedArticles": {
-      "heading": "�"
+      "heading": "Kapcsolódó cikkek"
     },
     "search": {
-      "placeholder": "�",
-      "noResultsTitle": "�",
-      "noResultsMessage": "�"
+      "placeholder": "Cikkek keresése...",
+      "noResultsTitle": "0 találat a(z) „{query}” kifejezésre.",
+      "noResultsMessage": "Próbálj más keresési kifejezést, vagy böngéssz a cikkek között."
     },
     "filterSidebar": {
-      "filterBy": "�",
-      "all": "�",
-      "help": "�"
+      "filterBy": "Szűrés",
+      "all": "Összes",
+      "help": "Nem találod, amit keresel? Nézd meg a <blogs>Blogokat</blogs>, a <faqs>GYIK-et</faqs>, lépj kapcsolatba a <support>támogatással</support>, vagy kérdezz a <community>közösségben</community>."
     },
     "cta": {
-      "minimalTitle": "�",
-      "minimalSubtitle": "�",
-      "minimalButton": "�",
-      "gradientTitle": "�",
-      "gradientSubtitle": "�",
-      "gradientButton": "�"
+      "minimalTitle": "Próbáld ki ingyen a Jikit",
+      "minimalSubtitle": "Több mint 10 000 tanuló használja a Jikit havonta, hogy gyakorlati feladatokkal és szakértői mentorálással sajátítsa el a programozást.",
+      "minimalButton": "Kezdd el most",
+      "gradientTitle": "Készen állsz, hogy elkezdd a programozási utad?",
+      "gradientSubtitle": "Csatlakozz a több ezer tanulóhoz a Jikin. Gyakorolj programozási feladatokat, kapj visszajelzést mentoroktól, és fejleszd a készségeidet – ingyenes!",
+      "gradientButton": "Regisztrálj ingyen"
     }
   },
   "checkout": {
-    "declineDefault": "�"
+    "declineDefault": "Az utolsó fizetésed nem sikerült. Kérlek, próbáld újra másik kártyával."
   }
 }

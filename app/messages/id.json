@@ -155,7 +155,13 @@
     },
     "saving": "�",
     "retry": "�",
-    "tryAgain": "�"
+    "tryAgain": "�",
+    "betaTag": {
+      "label": "�"
+    },
+    "userAvatar": {
+      "alt": "�"
+    }
   },
   "build": {
     "upcomingStreams": {
@@ -333,7 +339,8 @@
       "benefit3": "�",
       "benefit4": "�",
       "keep": "�",
-      "cancel": "�"
+      "cancel": "�",
+      "defaultBillingPeriodEnd": "�"
     },
     "cancelSuccess": {
       "title": "�",
@@ -376,7 +383,9 @@
       "columnAmount": "�",
       "columnType": "�",
       "columnMethod": "�",
-      "downloadReceipt": "�"
+      "downloadReceipt": "�",
+      "typeRecurring": "�",
+      "dateUnavailable": "�"
     },
     "profile": {
       "nameLabel": "�",
@@ -914,7 +923,8 @@
     },
     "error": {
       "notFound": "Konsep tidak ditemukan.",
-      "back": "Kembali ke Konsep"
+      "back": "Kembali ke Konsep",
+      "loadFailed": "�"
     },
     "relatedConcepts": {
       "heading": "Konsep terkait",
@@ -1430,6 +1440,7 @@
   "codingExercise": {
     "loadError": "Error saat memuat latihan: {error}",
     "unknownError": "Error tidak dikenal",
+    "exerciseNotFound": "�",
     "runButton": {
       "run": "Jalankan Kode",
       "running": "Menjalankan...",
@@ -1575,7 +1586,11 @@
       "serverError": "Error server. Silakan coba lagi beberapa saat lagi.",
       "networkError": "Error jaringan. Periksa koneksimu lalu coba lagi.",
       "timeout": "Permintaan melewati batas waktu. Silakan coba lagi.",
-      "unexpected": "Terjadi error tak terduga. Silakan coba lagi."
+      "unexpected": "Terjadi error tak terduga. Silakan coba lagi.",
+      "noResponseBody": "�",
+      "streamProcessing": "�",
+      "unknown": "�",
+      "requestFailed": "�"
     },
     "stuckHeader": {
       "title": "Merasa buntu? Tanya Jiki!"
@@ -1602,7 +1617,17 @@
       "congratsAmazingEffort": "Usaha yang hebat!",
       "congratsGreatAchievement": "Pencapaian yang keren!",
       "congratsCongratulations": "Selamat!",
-      "congratsCongrats": "Selamat, ya!"
+      "congratsCongrats": "Selamat, ya!",
+      "ioError": "�",
+      "codeCheckError": "�"
+    },
+    "informationTooltip": {
+      "errorHeading": "�",
+      "closeAriaLabel": "�"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "�",
+      "removeBreakpoint": "�"
     },
     "syntaxError": {
       "heading": "Jiki tidak bisa memahami kodemu.",
@@ -1795,7 +1820,13 @@
     "loading": "�",
     "error": "�",
     "certificatesEmptyTitle": "�",
-    "certificatesEmptyBody": "�"
+    "certificatesEmptyBody": "�",
+    "badge": {
+      "locked": "�",
+      "earnedToday": "�",
+      "earnedRelative": "�"
+    },
+    "loadError": "�"
   },
   "challenges": {
     "title": "Tantangan",
@@ -1825,7 +1856,8 @@
       "noneToStartDescription": "Tantangan akan muncul di sini saat kamu membukanya.",
       "completedTitle": "Belum ada tantangan yang selesai",
       "completedDescription": "Selesaikan tantangan pertamamu untuk melihatnya di sini. Terus kerjakan tantangan yang sedang berjalan untuk mencapai milestone ini."
-    }
+    },
+    "loadError": "�"
   },
   "subscription": {
     "tiers": {
@@ -1851,5 +1883,68 @@
         }
       }
     }
+  },
+  "blog": {
+    "header": {
+      "label": "�",
+      "title": "�",
+      "subtitle": "�"
+    },
+    "postHeader": {
+      "writtenBy": "�",
+      "readingTime": "�"
+    },
+    "featuredLatest": {
+      "label": "�",
+      "byAuthor": "�",
+      "readFullArticle": "�"
+    },
+    "recentPosts": {
+      "heading": "�"
+    },
+    "relatedPosts": {
+      "heading": "�"
+    },
+    "cta": {
+      "minimalTitle": "�",
+      "minimalSubtitle": "�",
+      "minimalButton": "�",
+      "gradientTitle": "�",
+      "gradientSubtitle": "�",
+      "gradientButton": "�"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "�",
+      "title": "�",
+      "subtitle": "�",
+      "writtenBy": "�",
+      "readingTime": "�"
+    },
+    "relatedArticles": {
+      "heading": "�"
+    },
+    "search": {
+      "placeholder": "�",
+      "noResultsTitle": "�",
+      "noResultsMessage": "�"
+    },
+    "filterSidebar": {
+      "filterBy": "�",
+      "all": "�",
+      "help": "�"
+    },
+    "cta": {
+      "minimalTitle": "�",
+      "minimalSubtitle": "�",
+      "minimalButton": "�",
+      "gradientTitle": "�",
+      "gradientSubtitle": "�",
+      "gradientButton": "�"
+    }
+  },
+  "checkout": {
+    "declineDefault": "�"
   }
 }

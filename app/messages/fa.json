@@ -155,7 +155,13 @@
     },
     "saving": "�",
     "retry": "�",
-    "tryAgain": "�"
+    "tryAgain": "�",
+    "betaTag": {
+      "label": "�"
+    },
+    "userAvatar": {
+      "alt": "�"
+    }
   },
   "build": {
     "upcomingStreams": {
@@ -333,7 +339,8 @@
       "benefit3": "�",
       "benefit4": "�",
       "keep": "�",
-      "cancel": "�"
+      "cancel": "�",
+      "defaultBillingPeriodEnd": "�"
     },
     "cancelSuccess": {
       "title": "�",
@@ -376,7 +383,9 @@
       "columnAmount": "�",
       "columnType": "�",
       "columnMethod": "�",
-      "downloadReceipt": "�"
+      "downloadReceipt": "�",
+      "typeRecurring": "�",
+      "dateUnavailable": "�"
     },
     "profile": {
       "nameLabel": "�",
@@ -914,7 +923,8 @@
     },
     "error": {
       "notFound": "مفهوم پیدا نشد.",
-      "back": "بازگشت به مفاهیم"
+      "back": "بازگشت به مفاهیم",
+      "loadFailed": "�"
     },
     "relatedConcepts": {
       "heading": "مفاهیم مرتبط",
@@ -954,103 +964,103 @@
   },
   "seo": {
     "concepts": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "مفاهیم - جیکی",
+      "description": "مفاهیم و اصول برنامه‌نویسی را مرور کنید تا درک خود را از علوم کامپیوتر و توسعه نرم‌افزار تقویت کنید.",
+      "notFound": "مفهوم پیدا نشد"
     },
     "achievements": {
-      "title": "�",
-      "description": "�"
+      "title": "دستاوردها - جیکی",
+      "description": "پیشرفت خود را دنبال کنید و با یادگیری برنامه‌نویسی، دستاوردها را باز کنید."
     },
     "build": {
-      "title": "�",
-      "description": "�"
+      "title": "ساختن را یاد بگیرید - جیکی",
+      "description": "مجموعه ویدیوهایی درباره ساختن پروژه‌های واقعی، کاوش‌های عمیق در نحوه کار چیزها، و جلسات پرسش و پاسخ زنده را تماشا کنید."
     },
     "dashboard": {
-      "title": "�",
-      "description": "�"
+      "title": "داشبورد - جیکی",
+      "description": "پیشرفت یادگیری خود را دنبال کنید، تمرین‌های کدنویسی را ادامه دهید و دستاوردهایتان را ببینید."
     },
     "challenges": {
-      "title": "�",
-      "description": "�"
+      "title": "چالش‌ها - جیکی",
+      "description": "چالش‌های کدنویسی سخت‌تری که مهارت‌هایتان را در حین پیشرفت به جلو می‌برند."
     },
     "settings": {
-      "title": "�",
-      "description": "�"
+      "title": "تنظیمات - جیکی",
+      "description": "تنظیمات حساب کاربری، اشتراک و ترجیحات خود را مدیریت کنید."
     },
     "checkEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "ایمیل خود را بررسی کنید - جیکی",
+      "description": "یک ایمیل تأیید برایتان ارسال کردیم. صندوق ورودی خود را بررسی کنید تا آدرس ایمیلتان تأیید شود و ثبت‌نام را به پایان برسانید."
     },
     "confirmEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "تأیید ایمیل - جیکی",
+      "description": "آدرس ایمیل خود را تأیید کنید"
     },
     "exercismCallback": {
-      "title": "�",
-      "description": "�"
+      "title": "ورود با Exercism - جیکی",
+      "description": "تکمیل ورود با Exercism"
     },
     "forgotPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "فراموشی رمز عبور - جیکی",
+      "description": "بازنشانی رمز عبور"
     },
     "login": {
-      "title": "�",
-      "description": "�"
+      "title": "ورود - جیکی",
+      "description": "به حساب جیکی خود وارد شوید"
     },
     "resendConfirmation": {
-      "title": "�",
-      "description": "�"
+      "title": "ارسال مجدد تأیید - جیکی",
+      "description": "دستورالعمل‌های تأیید را دوباره ارسال کنید"
     },
     "resetPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "بازنشانی رمز عبور - جیکی",
+      "description": "رمز عبور جدید خود را تنظیم کنید"
     },
     "signup": {
-      "title": "�",
-      "description": "�"
+      "title": "ثبت‌نام - جیکی",
+      "description": "حساب جیکی خود را ایجاد کنید"
     },
     "home": {
-      "title": "�",
-      "description": "�"
+      "title": "جیکی - برنامه‌نویسی را به روشی سرگرم‌کننده یاد بگیرید",
+      "description": "بهترین راه برای یادگیری برنامه‌نویسی و ساختن در عصر LLM! توسط تیم سازنده Exercism"
     },
     "premium": {
-      "title": "�",
-      "description": "�"
+      "title": "ویژه - جیکی",
+      "description": "مسیر آمادگی برای کار خود را با جیکی ویژه سرعت ببخشید. دسترسی کامل به دوره‌ها، پروژه‌ها، پشتیبانی AI و موارد دیگر."
     },
     "roadmap": {
-      "title": "�",
-      "description": "�"
+      "title": "نقشه راه - جیکی",
+      "description": "آنچه در جیکی در دست ساخت داریم. نگاهی فصل‌به‌فصل به دوره‌ها، پروژه‌ها و ویژگی‌های آینده."
     },
     "testimonials": {
-      "title": "�",
-      "description": "�"
+      "title": "نظرات - جیکی",
+      "description": "از دانشجویان‌مان پرسیدیم که آیا از دوره لذت برده‌اند. این هم نظراتشان."
     },
     "deleteAccount": {
-      "title": "�",
-      "description": "�"
+      "title": "حذف حساب - جیکی",
+      "description": "تأیید حذف حساب"
     },
     "unsubscribePreferences": {
-      "title": "�",
-      "description": "�"
+      "title": "تنظیمات ایمیل - جیکی",
+      "description": "تنظیمات ایمیل خود را مدیریت کنید و از ایمیل‌های جیکی لغو اشتراک نمایید."
     },
     "unsubscribe": {
-      "title": "�",
-      "description": "�"
+      "title": "لغو اشتراک - جیکی",
+      "description": "لغو اشتراک از ایمیل‌های جیکی"
     },
     "blog": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "وبلاگ - جیکی",
+      "description": "آخرین مقالات درباره برنامه‌نویسی، چالش‌های کدنویسی و نکات یادگیری از جامعه جیکی را بخوانید.",
+      "notFound": "پست پیدا نشد"
     },
     "help": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "مرکز راهنما - جیکی",
+      "description": "پاسخ‌ها، آموزش‌ها و خط‌مشی‌ها برای کمک به شما در استفاده بهتر از جیکی.",
+      "notFound": "مقاله پیدا نشد"
     },
     "guides": {
-      "title": "�",
-      "description": "�"
+      "title": "راهنماها - جیکی",
+      "description": "راهنماهای گام‌به‌گام برای کمک به شما در راه‌اندازی ابزارهایتان و استفاده بهینه از جیکی."
     }
   },
   "toasts": {
@@ -1430,6 +1440,7 @@
   "codingExercise": {
     "loadError": "خطا در بارگذاری تمرین: {error}",
     "unknownError": "خطای ناشناخته",
+    "exerciseNotFound": "تمرین «{slug}» در برنامه‌ی درسی پیدا نشد. تمرین‌های موجود: {available}",
     "runButton": {
       "run": "اجرای کد",
       "running": "در حال اجرا...",
@@ -1448,7 +1459,7 @@
       "confirmReveal": "آیا مطمئن هستید که می‌خواهید این راهنمایی را ببینید؟",
       "confirmNo": "فعلاً نه",
       "confirmYes": "بله",
-      "deepDiveHeading": "�",
+      "deepDiveHeading": "کاوش عمیق",
       "deepDiveDescription": "هنوز گیر کرده‌اید؟ ویدیوی Deep Dive جرمی را در حال حل این تمرین تماشا کنید.",
       "walkthroughThumbnailAlt": "تصویر بندانگشتی ویدیوی Deep Dive"
     },
@@ -1575,7 +1586,11 @@
       "serverError": "خطای سرور. لطفاً چند لحظه دیگر دوباره تلاش کنید.",
       "networkError": "خطای شبکه. لطفاً اتصال خود را بررسی کنید و دوباره تلاش کنید.",
       "timeout": "زمان درخواست به پایان رسید. لطفاً دوباره تلاش کنید.",
-      "unexpected": "یک خطای غیرمنتظره رخ داد. لطفاً دوباره تلاش کنید."
+      "unexpected": "یک خطای غیرمنتظره رخ داد. لطفاً دوباره تلاش کنید.",
+      "noResponseBody": "دریافت پاسخ با مشکل مواجه شد. لطفاً دوباره تلاش کنید.",
+      "streamProcessing": "خواندن پاسخ با مشکل مواجه شد. لطفاً دوباره تلاش کنید.",
+      "unknown": "خطای غیرمنتظره‌ای رخ داد. لطفاً دوباره تلاش کنید.",
+      "requestFailed": "درخواست ناموفق بود. لطفاً دوباره تلاش کنید."
     },
     "stuckHeader": {
       "title": "گیر کرده‌اید؟ از جیکی بپرسید!"
@@ -1593,16 +1608,26 @@
       "lintWarning": "<strong>تقریباً تمام است...</strong> کد شما درست کار کرد، اما باید قالب‌بندی خود را اصلاح کنید. به دنبال خطوط زیرین نارنجی در کد خود بگردید.",
       "lintWarningPlain": "کد شما درست کار کرد، اما باید قالب‌بندی خود را اصلاح کنید. به دنبال خطوط زیرین نارنجی در کد خود بگردید.",
       "genericError": "اوه اوه. کد شما یک خطا دارد.",
-      "runtimeError": "�",
-      "isolatedCheckError": "�",
-      "isolatedCheckErrorDetail": "�",
+      "runtimeError": "کد شما در حین اجرا با خطا مواجه شد. برای ادامه، پیام خطای بالا را برطرف کنید.",
+      "isolatedCheckError": "کد شما در حین اجرا خطا ایجاد کرد.",
+      "isolatedCheckErrorDetail": "کد شما در حین اجرا خطا ایجاد کرد. ({message})",
       "congratsWellDone": "آفرین!",
       "congratsNiceWork": "کارتان عالی بود!",
       "congratsFantasticJob": "فوق‌العاده بود!",
       "congratsAmazingEffort": "تلاش بی‌نظیری بود!",
       "congratsGreatAchievement": "دستاورد بزرگی بود!",
       "congratsCongratulations": "تبریک!",
-      "congratsCongrats": "تبریک!"
+      "congratsCongrats": "تبریک!",
+      "ioError": "<p>خطا: {message}</p>",
+      "codeCheckError": "خطای بررسی کد: {message}"
+    },
+    "informationTooltip": {
+      "errorHeading": "اوه، مشکلی پیش آمد!",
+      "closeAriaLabel": "بستن راهنما"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "افزودن نقطه توقف",
+      "removeBreakpoint": "حذف نقطه توقف"
     },
     "syntaxError": {
       "heading": "جیکی نتوانست کد شما را بفهمد.",
@@ -1795,7 +1820,13 @@
     "loading": "�",
     "error": "�",
     "certificatesEmptyTitle": "�",
-    "certificatesEmptyBody": "�"
+    "certificatesEmptyBody": "�",
+    "badge": {
+      "locked": "�",
+      "earnedToday": "�",
+      "earnedRelative": "�"
+    },
+    "loadError": "�"
   },
   "challenges": {
     "title": "چالش‌ها",
@@ -1825,7 +1856,8 @@
       "noneToStartDescription": "چالش‌ها با باز شدن در اینجا ظاهر می‌شوند.",
       "completedTitle": "هنوز هیچ چالشی کامل نشده است",
       "completedDescription": "اولین چالش خود را کامل کنید تا آن را اینجا ببینید. به کار روی چالش‌های در حال انجام خود ادامه دهید تا به این نقطه عطف برسید."
-    }
+    },
+    "loadError": "�"
   },
   "subscription": {
     "tiers": {
@@ -1851,5 +1883,68 @@
         }
       }
     }
+  },
+  "blog": {
+    "header": {
+      "label": "وبلاگ",
+      "title": "اخبار، بینش‌ها و گپ‌ها",
+      "subtitle": "کاوش‌های عمیق در زبان‌های برنامه‌نویسی، چالش‌های کدنویسی و هنر یادگیری برنامه‌نویسی."
+    },
+    "postHeader": {
+      "writtenBy": "نوشته‌شده توسط {name}",
+      "readingTime": "{count, plural, one {# دقیقه مطالعه} other {# دقیقه مطالعه}}"
+    },
+    "featuredLatest": {
+      "label": "آخرین پست",
+      "byAuthor": "توسط {name}",
+      "readFullArticle": "مقاله کامل را بخوانید ←"
+    },
+    "recentPosts": {
+      "heading": "پست‌های اخیر"
+    },
+    "relatedPosts": {
+      "heading": "پست‌های مرتبط"
+    },
+    "cta": {
+      "minimalTitle": "جیکی را رایگان امتحان کنید",
+      "minimalSubtitle": "بیش از ۱۰٬۰۰۰ یادگیرنده هر ماه از جیکی برای تسلط بر برنامه‌نویسی از طریق تمرین عملی و راهنمایی تخصصی استفاده می‌کنند.",
+      "minimalButton": "همین حالا شروع کنید",
+      "gradientTitle": "آماده شروع سفر کدنویسی خود هستید؟",
+      "gradientSubtitle": "به هزاران یادگیرنده در جیکی بپیوندید. تمرین‌های کدنویسی انجام دهید، از مربیان بازخورد بگیرید و مهارت‌های خود را ارتقا دهید، همه رایگان!",
+      "gradientButton": "ثبت‌نام رایگان"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "مقالات",
+      "title": "راهنما و منابع",
+      "subtitle": "راهنماها، آموزش‌ها و پاسخ‌هایی برای کمک به شما در بهره‌برداری حداکثری از جیکی.",
+      "writtenBy": "نوشته‌شده توسط {name}",
+      "readingTime": "{count, plural, one {# دقیقه مطالعه} other {# دقیقه مطالعه}}"
+    },
+    "relatedArticles": {
+      "heading": "مقالات مرتبط"
+    },
+    "search": {
+      "placeholder": "جستجوی مقالات...",
+      "noResultsTitle": "۰ نتیجه برای «{query}»",
+      "noResultsMessage": "یک عبارت جستجوی دیگر را امتحان کنید یا مقالات را مرور کنید."
+    },
+    "filterSidebar": {
+      "filterBy": "فیلتر بر اساس",
+      "all": "همه",
+      "help": "چیزی که دنبالش هستید را پیدا نمی‌کنید؟ <blogs>وبلاگ‌ها</blogs>، <faqs>سوالات متداول</faqs>، <support>تماس با پشتیبانی</support> را امتحان کنید یا در <community>جامعه</community> ما بپرسید."
+    },
+    "cta": {
+      "minimalTitle": "جیکی را رایگان امتحان کنید",
+      "minimalSubtitle": "بیش از ۱۰٬۰۰۰ یادگیرنده هر ماه از جیکی برای تسلط بر برنامه‌نویسی از طریق تمرین عملی و راهنمایی تخصصی استفاده می‌کنند.",
+      "minimalButton": "همین حالا شروع کنید",
+      "gradientTitle": "آماده شروع سفر کدنویسی خود هستید؟",
+      "gradientSubtitle": "به هزاران یادگیرنده در جیکی بپیوندید. تمرین‌های کدنویسی انجام دهید، از مربیان بازخورد بگیرید و مهارت‌های خود را ارتقا دهید، همه رایگان!",
+      "gradientButton": "ثبت‌نام رایگان"
+    }
+  },
+  "checkout": {
+    "declineDefault": "آخرین پرداخت شما انجام نشد. لطفاً با کارت دیگری دوباره تلاش کنید."
   }
 }

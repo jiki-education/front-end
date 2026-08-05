@@ -155,7 +155,13 @@
     },
     "saving": "�",
     "retry": "�",
-    "tryAgain": "�"
+    "tryAgain": "�",
+    "betaTag": {
+      "label": "�"
+    },
+    "userAvatar": {
+      "alt": "�"
+    }
   },
   "build": {
     "upcomingStreams": {
@@ -333,7 +339,8 @@
       "benefit3": "�",
       "benefit4": "�",
       "keep": "�",
-      "cancel": "�"
+      "cancel": "�",
+      "defaultBillingPeriodEnd": "�"
     },
     "cancelSuccess": {
       "title": "�",
@@ -376,7 +383,9 @@
       "columnAmount": "�",
       "columnType": "�",
       "columnMethod": "�",
-      "downloadReceipt": "�"
+      "downloadReceipt": "�",
+      "typeRecurring": "�",
+      "dateUnavailable": "�"
     },
     "profile": {
       "nameLabel": "�",
@@ -914,7 +923,8 @@
     },
     "error": {
       "notFound": "Koncept nije pronađen.",
-      "back": "Nazad na koncepte"
+      "back": "Nazad na koncepte",
+      "loadFailed": "�"
     },
     "relatedConcepts": {
       "heading": "Povezani koncepti",
@@ -1430,6 +1440,7 @@
   "codingExercise": {
     "loadError": "Greška pri učitavanju vežbe: {error}",
     "unknownError": "Nepoznata greška",
+    "exerciseNotFound": "�",
     "runButton": {
       "run": "Pokreni kod",
       "running": "Izvršava se...",
@@ -1575,7 +1586,11 @@
       "serverError": "Greška na serveru. Pokušaj ponovo za koji trenutak.",
       "networkError": "Greška na mreži. Proveri konekciju i pokušaj ponovo.",
       "timeout": "Zahtev je istekao. Pokušaj ponovo.",
-      "unexpected": "Došlo je do neočekivane greške. Pokušaj ponovo."
+      "unexpected": "Došlo je do neočekivane greške. Pokušaj ponovo.",
+      "noResponseBody": "�",
+      "streamProcessing": "�",
+      "unknown": "�",
+      "requestFailed": "�"
     },
     "stuckHeader": {
       "title": "Zapinješ? Pitaj Jikija!"
@@ -1602,7 +1617,17 @@
       "congratsAmazingEffort": "Sjajan trud!",
       "congratsGreatAchievement": "Veliki uspeh!",
       "congratsCongratulations": "Čestitamo!",
-      "congratsCongrats": "Čestitke!"
+      "congratsCongrats": "Čestitke!",
+      "ioError": "�",
+      "codeCheckError": "�"
+    },
+    "informationTooltip": {
+      "errorHeading": "�",
+      "closeAriaLabel": "�"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "�",
+      "removeBreakpoint": "�"
     },
     "syntaxError": {
       "heading": "Jiki nije razumeo tvoj kod.",
@@ -1795,7 +1820,13 @@
     "loading": "�",
     "error": "�",
     "certificatesEmptyTitle": "�",
-    "certificatesEmptyBody": "�"
+    "certificatesEmptyBody": "�",
+    "badge": {
+      "locked": "�",
+      "earnedToday": "�",
+      "earnedRelative": "�"
+    },
+    "loadError": "�"
   },
   "challenges": {
     "title": "Izazovi",
@@ -1825,7 +1856,8 @@
       "noneToStartDescription": "Izazovi će se pojavljivati ovde kako ih otključavaš.",
       "completedTitle": "Još nema završenih izazova",
       "completedDescription": "Završi svoj prvi izazov da ga vidiš ovde. Nastavi da radiš na započetim izazovima da dostigneš ovu prekretnicu."
-    }
+    },
+    "loadError": "�"
   },
   "subscription": {
     "tiers": {
@@ -1851,5 +1883,68 @@
         }
       }
     }
+  },
+  "blog": {
+    "header": {
+      "label": "�",
+      "title": "�",
+      "subtitle": "�"
+    },
+    "postHeader": {
+      "writtenBy": "�",
+      "readingTime": "�"
+    },
+    "featuredLatest": {
+      "label": "�",
+      "byAuthor": "�",
+      "readFullArticle": "�"
+    },
+    "recentPosts": {
+      "heading": "�"
+    },
+    "relatedPosts": {
+      "heading": "�"
+    },
+    "cta": {
+      "minimalTitle": "�",
+      "minimalSubtitle": "�",
+      "minimalButton": "�",
+      "gradientTitle": "�",
+      "gradientSubtitle": "�",
+      "gradientButton": "�"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "�",
+      "title": "�",
+      "subtitle": "�",
+      "writtenBy": "�",
+      "readingTime": "�"
+    },
+    "relatedArticles": {
+      "heading": "�"
+    },
+    "search": {
+      "placeholder": "�",
+      "noResultsTitle": "�",
+      "noResultsMessage": "�"
+    },
+    "filterSidebar": {
+      "filterBy": "�",
+      "all": "�",
+      "help": "�"
+    },
+    "cta": {
+      "minimalTitle": "�",
+      "minimalSubtitle": "�",
+      "minimalButton": "�",
+      "gradientTitle": "�",
+      "gradientSubtitle": "�",
+      "gradientButton": "�"
+    }
+  },
+  "checkout": {
+    "declineDefault": "�"
   }
 }

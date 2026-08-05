@@ -155,7 +155,13 @@
     },
     "saving": "�",
     "retry": "�",
-    "tryAgain": "�"
+    "tryAgain": "�",
+    "betaTag": {
+      "label": "�"
+    },
+    "userAvatar": {
+      "alt": "�"
+    }
   },
   "build": {
     "upcomingStreams": {
@@ -333,7 +339,8 @@
       "benefit3": "�",
       "benefit4": "�",
       "keep": "�",
-      "cancel": "�"
+      "cancel": "�",
+      "defaultBillingPeriodEnd": "�"
     },
     "cancelSuccess": {
       "title": "�",
@@ -376,7 +383,9 @@
       "columnAmount": "�",
       "columnType": "�",
       "columnMethod": "�",
-      "downloadReceipt": "�"
+      "downloadReceipt": "�",
+      "typeRecurring": "�",
+      "dateUnavailable": "�"
     },
     "profile": {
       "nameLabel": "�",
@@ -914,7 +923,8 @@
     },
     "error": {
       "notFound": "Concepto no encontrado.",
-      "back": "Volver a Conceptos"
+      "back": "Volver a Conceptos",
+      "loadFailed": "�"
     },
     "relatedConcepts": {
       "heading": "Conceptos relacionados",
@@ -954,103 +964,103 @@
   },
   "seo": {
     "concepts": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "Conceptos - Jiki",
+      "description": "Explora conceptos y fundamentos de programación para reforzar tu comprensión de ciencias de la computación y desarrollo de software.",
+      "notFound": "Concepto no encontrado"
     },
     "achievements": {
-      "title": "�",
-      "description": "�"
+      "title": "Logros - Jiki",
+      "description": "Sigue tu progreso y desbloquea logros mientras aprendes a programar."
     },
     "build": {
-      "title": "�",
-      "description": "�"
+      "title": "Aprende a Construir - Jiki",
+      "description": "Mira series de video sobre construcción de proyectos reales, análisis en profundidad de cómo funcionan las cosas y sesiones de preguntas y respuestas en vivo."
     },
     "dashboard": {
-      "title": "�",
-      "description": "�"
+      "title": "Panel - Jiki",
+      "description": "Sigue tu progreso de aprendizaje, continúa con los ejercicios de programación y mira tus logros."
     },
     "challenges": {
-      "title": "�",
-      "description": "�"
+      "title": "Desafíos - Jiki",
+      "description": "Desafíos de programación más difíciles para llevar tus habilidades al siguiente nivel conforme avanzas."
     },
     "settings": {
-      "title": "�",
-      "description": "�"
+      "title": "Configuración - Jiki",
+      "description": "Administra la configuración de tu cuenta, suscripción y preferencias."
     },
     "checkEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "Revisa tu correo electrónico - Jiki",
+      "description": "Te enviamos un correo de confirmación. Revisa tu bandeja de entrada para verificar tu dirección y terminar de crear tu cuenta."
     },
     "confirmEmail": {
-      "title": "�",
-      "description": "�"
+      "title": "Confirma tu correo electrónico - Jiki",
+      "description": "Confirma tu correo electrónico"
     },
     "exercismCallback": {
-      "title": "�",
-      "description": "�"
+      "title": "Iniciando sesión con Exercism - Jiki",
+      "description": "Finalizando tu inicio de sesión con Exercism"
     },
     "forgotPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "Olvidé mi contraseña - Jiki",
+      "description": "Restablece tu contraseña"
     },
     "login": {
-      "title": "�",
-      "description": "�"
+      "title": "Iniciar sesión - Jiki",
+      "description": "Inicia sesión en tu cuenta de Jiki"
     },
     "resendConfirmation": {
-      "title": "�",
-      "description": "�"
+      "title": "Reenviar confirmación - Jiki",
+      "description": "Reenviar instrucciones de confirmación"
     },
     "resetPassword": {
-      "title": "�",
-      "description": "�"
+      "title": "Restablecer contraseña - Jiki",
+      "description": "Establece tu nueva contraseña"
     },
     "signup": {
-      "title": "�",
-      "description": "�"
+      "title": "Crear cuenta - Jiki",
+      "description": "Crea tu cuenta de Jiki"
     },
     "home": {
-      "title": "�",
-      "description": "�"
+      "title": "Jiki - Aprende a Programar de Forma Divertida",
+      "description": "¡La mejor manera de aprender a programar y construir en la era de los LLM! Del equipo detrás de Exercism"
     },
     "premium": {
-      "title": "�",
-      "description": "�"
+      "title": "Premium - Jiki",
+      "description": "Acelera tu camino hacia la preparación laboral con Jiki Premium. Acceso completo a cursos, proyectos, soporte de IA y más."
     },
     "roadmap": {
-      "title": "�",
-      "description": "�"
+      "title": "Hoja de ruta - Jiki",
+      "description": "Lo que estamos construyendo próximamente en Jiki. Un vistazo trimestral a cursos, proyectos y funcionalidades próximos."
     },
     "testimonials": {
-      "title": "�",
-      "description": "�"
+      "title": "Testimonios - Jiki",
+      "description": "Preguntamos a nuestros estudiantes si habían disfrutado el curso. Esto fue lo que dijeron."
     },
     "deleteAccount": {
-      "title": "�",
-      "description": "�"
+      "title": "Eliminar cuenta - Jiki",
+      "description": "Confirma la eliminación de la cuenta"
     },
     "unsubscribePreferences": {
-      "title": "�",
-      "description": "�"
+      "title": "Preferencias de correo - Jiki",
+      "description": "Administra tus preferencias de correo electrónico y cancela la suscripción a los correos de Jiki."
     },
     "unsubscribe": {
-      "title": "�",
-      "description": "�"
+      "title": "Cancelar suscripción - Jiki",
+      "description": "Cancelar suscripción a los correos de Jiki"
     },
     "blog": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "Blog - Jiki",
+      "description": "Lee los últimos artículos sobre programación, desafíos de programación y consejos de aprendizaje de la comunidad Jiki.",
+      "notFound": "Publicación no encontrada"
     },
     "help": {
-      "title": "�",
-      "description": "�",
-      "notFound": "�"
+      "title": "Centro de Ayuda - Jiki",
+      "description": "Respuestas, guías prácticas y políticas para ayudarte a aprovechar Jiki al máximo.",
+      "notFound": "Artículo no encontrado"
     },
     "guides": {
-      "title": "�",
-      "description": "�"
+      "title": "Guías - Jiki",
+      "description": "Guías paso a paso para ayudarte a configurar tus herramientas y aprovechar Jiki al máximo."
     }
   },
   "toasts": {
@@ -1430,6 +1440,7 @@
   "codingExercise": {
     "loadError": "Error al cargar el ejercicio: {error}",
     "unknownError": "Error desconocido",
+    "exerciseNotFound": "Ejercicio \"{slug}\" no encontrado en el plan de estudios. Ejercicios disponibles: {available}",
     "runButton": {
       "run": "Ejecutar código",
       "running": "Ejecutando...",
@@ -1448,7 +1459,7 @@
       "confirmReveal": "¿Estás seguro de que quieres mostrar esta pista?",
       "confirmNo": "Por ahora no",
       "confirmYes": "Sí",
-      "deepDiveHeading": "�",
+      "deepDiveHeading": "Profundización",
       "deepDiveDescription": "¿Sigues atascado? Mira un Deep Dive de Jeremy resolviendo este ejercicio.",
       "walkthroughThumbnailAlt": "Miniatura del video de Deep Dive"
     },
@@ -1575,7 +1586,11 @@
       "serverError": "Error del servidor. Intenta de nuevo en unos momentos.",
       "networkError": "Error de red. Verifica tu conexión e intenta de nuevo.",
       "timeout": "La solicitud expiró. Intenta de nuevo.",
-      "unexpected": "Ocurrió un error inesperado. Intenta de nuevo."
+      "unexpected": "Ocurrió un error inesperado. Intenta de nuevo.",
+      "noResponseBody": "Algo salió mal al recibir la respuesta. Inténtalo de nuevo.",
+      "streamProcessing": "Algo salió mal al leer la respuesta. Inténtalo de nuevo.",
+      "unknown": "Ocurrió un error inesperado. Inténtalo de nuevo.",
+      "requestFailed": "La solicitud falló. Inténtalo de nuevo."
     },
     "stuckHeader": {
       "title": "¿Te sientes atascado? ¡Pregúntale a Jiki!"
@@ -1602,7 +1617,17 @@
       "congratsAmazingEffort": "¡Esfuerzo increíble!",
       "congratsGreatAchievement": "¡Gran logro!",
       "congratsCongratulations": "¡Felicitaciones!",
-      "congratsCongrats": "¡Felicidades!"
+      "congratsCongrats": "¡Felicidades!",
+      "ioError": "<p>Error: {message}</p>",
+      "codeCheckError": "Error de verificación de código: {message}"
+    },
+    "informationTooltip": {
+      "errorHeading": "¡Ups, algo salió mal!",
+      "closeAriaLabel": "Cerrar"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "Añadir punto de interrupción",
+      "removeBreakpoint": "Quitar punto de interrupción"
     },
     "syntaxError": {
       "heading": "Jiki no pudo entender tu código.",
@@ -1795,7 +1820,13 @@
     "loading": "�",
     "error": "�",
     "certificatesEmptyTitle": "�",
-    "certificatesEmptyBody": "�"
+    "certificatesEmptyBody": "�",
+    "badge": {
+      "locked": "�",
+      "earnedToday": "�",
+      "earnedRelative": "�"
+    },
+    "loadError": "�"
   },
   "challenges": {
     "title": "Desafíos",
@@ -1825,7 +1856,8 @@
       "noneToStartDescription": "Los desafíos aparecerán aquí a medida que los desbloquees.",
       "completedTitle": "Aún no hay desafíos completados",
       "completedDescription": "Completa tu primer desafío para verlo aquí. Sigue trabajando en tus desafíos en progreso para alcanzar este hito."
-    }
+    },
+    "loadError": "�"
   },
   "subscription": {
     "tiers": {
@@ -1851,5 +1883,68 @@
         }
       }
     }
+  },
+  "blog": {
+    "header": {
+      "label": "Blog",
+      "title": "Noticias, reflexiones y divagaciones",
+      "subtitle": "Análisis en profundidad sobre lenguajes de programación, desafíos de programación y el arte de aprender a programar."
+    },
+    "postHeader": {
+      "writtenBy": "Escrito por {name}",
+      "readingTime": "{count, plural, one {# minuto de lectura} other {# minutos de lectura}}"
+    },
+    "featuredLatest": {
+      "label": "Última publicación",
+      "byAuthor": "por {name}",
+      "readFullArticle": "Leer artículo completo →"
+    },
+    "recentPosts": {
+      "heading": "Publicaciones recientes"
+    },
+    "relatedPosts": {
+      "heading": "Publicaciones relacionadas"
+    },
+    "cta": {
+      "minimalTitle": "Prueba Jiki gratis",
+      "minimalSubtitle": "Más de 10,000 estudiantes usan Jiki para dominar la programación con práctica y mentoría experta cada mes.",
+      "minimalButton": "Empieza ahora",
+      "gradientTitle": "¿Todo listo para empezar tu viaje en la programación?",
+      "gradientSubtitle": "Únete a miles de estudiantes en Jiki. Practica ejercicios de programación, recibe comentarios de mentores y mejora tus habilidades. ¡Es gratis!",
+      "gradientButton": "Crea tu cuenta gratis"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "Artículos",
+      "title": "Ayuda y recursos",
+      "subtitle": "Guías, tutoriales y respuestas para ayudarte a aprovechar Jiki al máximo.",
+      "writtenBy": "Escrito por {name}",
+      "readingTime": "{count, plural, one {# minuto de lectura} other {# minutos de lectura}}"
+    },
+    "relatedArticles": {
+      "heading": "Artículos relacionados"
+    },
+    "search": {
+      "placeholder": "Buscar artículos…",
+      "noResultsTitle": "0 resultados para “{query}”",
+      "noResultsMessage": "Prueba con otro término de búsqueda o explora los artículos."
+    },
+    "filterSidebar": {
+      "filterBy": "Filtrar por",
+      "all": "Todos",
+      "help": "¿No encuentras lo que buscas? Prueba en nuestros <blogs>Blogs</blogs>, <faqs>Preguntas frecuentes</faqs>, <support>Contacta con soporte</support> o pregunta en nuestra <community>Comunidad</community>"
+    },
+    "cta": {
+      "minimalTitle": "Prueba Jiki gratis",
+      "minimalSubtitle": "Más de 10,000 estudiantes usan Jiki para dominar la programación con práctica y mentoría experta cada mes.",
+      "minimalButton": "Empieza ahora",
+      "gradientTitle": "¿Todo listo para empezar tu viaje en la programación?",
+      "gradientSubtitle": "Únete a miles de estudiantes en Jiki. Practica ejercicios de programación, recibe comentarios de mentores y mejora tus habilidades. ¡Es gratis!",
+      "gradientButton": "Crea tu cuenta gratis"
+    }
+  },
+  "checkout": {
+    "declineDefault": "Tu último pago no se procesó. Inténtalo de nuevo con una tarjeta diferente."
   }
 }

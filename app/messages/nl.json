@@ -155,7 +155,13 @@
     },
     "saving": "�",
     "retry": "�",
-    "tryAgain": "�"
+    "tryAgain": "�",
+    "betaTag": {
+      "label": "�"
+    },
+    "userAvatar": {
+      "alt": "�"
+    }
   },
   "build": {
     "upcomingStreams": {
@@ -333,7 +339,8 @@
       "benefit3": "�",
       "benefit4": "�",
       "keep": "�",
-      "cancel": "�"
+      "cancel": "�",
+      "defaultBillingPeriodEnd": "�"
     },
     "cancelSuccess": {
       "title": "�",
@@ -376,7 +383,9 @@
       "columnAmount": "�",
       "columnType": "�",
       "columnMethod": "�",
-      "downloadReceipt": "�"
+      "downloadReceipt": "�",
+      "typeRecurring": "�",
+      "dateUnavailable": "�"
     },
     "profile": {
       "nameLabel": "�",
@@ -914,7 +923,8 @@
     },
     "error": {
       "notFound": "Concept niet gevonden.",
-      "back": "Terug naar concepten"
+      "back": "Terug naar concepten",
+      "loadFailed": "�"
     },
     "relatedConcepts": {
       "heading": "Gerelateerde concepten",
@@ -1430,6 +1440,7 @@
   "codingExercise": {
     "loadError": "Fout bij het laden van de opdracht: {error}",
     "unknownError": "Onbekende fout",
+    "exerciseNotFound": "�",
     "runButton": {
       "run": "Code uitvoeren",
       "running": "Bezig met uitvoeren...",
@@ -1575,7 +1586,11 @@
       "serverError": "Serverfout. Probeer het zo weer opnieuw.",
       "networkError": "Netwerkfout. Controleer je verbinding en probeer het opnieuw.",
       "timeout": "Het verzoek duurde te lang. Probeer het opnieuw.",
-      "unexpected": "Er is een onverwachte fout opgetreden. Probeer het opnieuw."
+      "unexpected": "Er is een onverwachte fout opgetreden. Probeer het opnieuw.",
+      "noResponseBody": "�",
+      "streamProcessing": "�",
+      "unknown": "�",
+      "requestFailed": "�"
     },
     "stuckHeader": {
       "title": "Zit je vast? Vraag het Jiki!"
@@ -1602,7 +1617,17 @@
       "congratsAmazingEffort": "Geweldige inzet!",
       "congratsGreatAchievement": "Knappe prestatie!",
       "congratsCongratulations": "Gefeliciteerd!",
-      "congratsCongrats": "Van harte!"
+      "congratsCongrats": "Van harte!",
+      "ioError": "�",
+      "codeCheckError": "�"
+    },
+    "informationTooltip": {
+      "errorHeading": "�",
+      "closeAriaLabel": "�"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "�",
+      "removeBreakpoint": "�"
     },
     "syntaxError": {
       "heading": "Jiki begreep je code niet.",
@@ -1795,7 +1820,13 @@
     "loading": "�",
     "error": "�",
     "certificatesEmptyTitle": "�",
-    "certificatesEmptyBody": "�"
+    "certificatesEmptyBody": "�",
+    "badge": {
+      "locked": "�",
+      "earnedToday": "�",
+      "earnedRelative": "�"
+    },
+    "loadError": "�"
   },
   "challenges": {
     "title": "Uitdagingen",
@@ -1825,7 +1856,8 @@
       "noneToStartDescription": "Uitdagingen verschijnen hier zodra je ze ontgrendelt.",
       "completedTitle": "Nog geen voltooide uitdagingen",
       "completedDescription": "Rond je eerste uitdaging af om die hier te zien. Werk verder aan je lopende uitdagingen om deze mijlpaal te bereiken."
-    }
+    },
+    "loadError": "�"
   },
   "subscription": {
     "tiers": {
@@ -1851,5 +1883,68 @@
         }
       }
     }
+  },
+  "blog": {
+    "header": {
+      "label": "�",
+      "title": "�",
+      "subtitle": "�"
+    },
+    "postHeader": {
+      "writtenBy": "�",
+      "readingTime": "�"
+    },
+    "featuredLatest": {
+      "label": "�",
+      "byAuthor": "�",
+      "readFullArticle": "�"
+    },
+    "recentPosts": {
+      "heading": "�"
+    },
+    "relatedPosts": {
+      "heading": "�"
+    },
+    "cta": {
+      "minimalTitle": "�",
+      "minimalSubtitle": "�",
+      "minimalButton": "�",
+      "gradientTitle": "�",
+      "gradientSubtitle": "�",
+      "gradientButton": "�"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "�",
+      "title": "�",
+      "subtitle": "�",
+      "writtenBy": "�",
+      "readingTime": "�"
+    },
+    "relatedArticles": {
+      "heading": "�"
+    },
+    "search": {
+      "placeholder": "�",
+      "noResultsTitle": "�",
+      "noResultsMessage": "�"
+    },
+    "filterSidebar": {
+      "filterBy": "�",
+      "all": "�",
+      "help": "�"
+    },
+    "cta": {
+      "minimalTitle": "�",
+      "minimalSubtitle": "�",
+      "minimalButton": "�",
+      "gradientTitle": "�",
+      "gradientSubtitle": "�",
+      "gradientButton": "�"
+    }
+  },
+  "checkout": {
+    "declineDefault": "�"
   }
 }
