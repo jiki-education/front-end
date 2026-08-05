@@ -13,13 +13,13 @@
       "notTurnedAway": "Egy alkalmi viseletű vendéget NEM szabad elküldeni."
     },
     "dress": {
-      "canapes": "A hölgy elegánsan van, ezért canapét kellene kapnia, de nem kapott.",
+      "canapes": "A hölgy elegáns ruhában van, ezért canapét kellene kapnia, de nem kapott.",
       "noChampagne": "A pezsgő az alkalmi viselethez jár, ezért egy elegáns vendégnek nem szabad kínálni.",
       "letIn": "Egy elegáns viseletű vendéget beengednek, de őt nem engedték be.",
       "notTurnedAway": "Egy elegáns viseletű vendéget NEM szabad elküldeni."
     },
     "suit": {
-      "canapes": "A férfi elegánsan van, ezért canapét kellene kapnia, de nem kapott.",
+      "canapes": "A férfi elegáns ruhában van, ezért canapét kellene kapnia, de nem kapott.",
       "noChampagne": "A pezsgő az alkalmi viselethez jár, ezért egy elegáns vendégnek nem szabad kínálni.",
       "letIn": "Egy elegáns viseletű vendéget beengednek, de őt nem engedték be.",
       "notTurnedAway": "Egy elegáns viseletű vendéget NEM szabad elküldeni."
@@ -78,23 +78,23 @@
     },
     "dress": {
       "name": "Estélyi ruha",
-      "description": "Egy nő estélyi ruhában. Beengetik canapéval."
+      "description": "Egy nő estélyi ruhában. Beengedik canapéval."
     },
     "suit": {
       "name": "Öltöny",
-      "description": "Egy férfi öltönyben. Beengetik canapéval."
+      "description": "Egy férfi öltönyben. Beengedik canapéval."
     },
     "formalTeen": {
       "name": "Gyerek báli ruhában",
-      "description": "Egy 13 éves lány báli ruhában. Beengetik canapéval, de túl fiatal a pezsgőhöz."
+      "description": "Egy 13 éves lány báli ruhában. Beengedik canapéval, de túl fiatal a pezsgőhöz."
     },
     "smartTeen": {
       "name": "Öltönyös tinédzser",
-      "description": "Egy 15 éves fiú öltönyben. Beengetik canapéval, életkortól függetlenül."
+      "description": "Egy 15 éves fiú öltönyben. Beengedik canapéval, életkortól függetlenül."
     },
     "casualChildListed": {
       "name": "Farmeros gyerek, listán",
-      "description": "Egy 15 éves farmerban, aki a vendéglistán van. Beengetik."
+      "description": "Egy 15 éves farmerban, aki a vendéglistán van. Beengedik."
     },
     "casualChildUnlisted": {
       "name": "Melegítős gyerek, nincs listán",
