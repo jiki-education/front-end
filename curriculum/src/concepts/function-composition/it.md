@@ -67,4 +67,4 @@ Quindi se provi a fare riferimento alla variabile `count` (contatore) dall'inter
 
 In JavaScript possiamo creare variabili in cima, sopra ogni altra cosa, condivise tra le funzioni, ma ti consiglio di non farlo a meno che non ci sia una buona ragione.
 
-Più mantieni ogni funzione indipendente, e la parola tecnica per questo è pura, funzioni pure, più il tuo codice sarà pulito e meno bug creerai.
+Più mantieni ogni funzione indipendente, e la parola tecnica per questo è pura, funzioni pure, più il tuo codice sarà pulito e meno bug creerai ed avrai.
