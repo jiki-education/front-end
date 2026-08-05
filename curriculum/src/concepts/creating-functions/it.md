@@ -38,7 +38,7 @@ E poi il nostro compito sarà racchiudere tutte queste prime cinque righe in una
 
 Per trasformare queste cinque righe in una funzione, queste cinque `move` in una funzione, dobbiamo usare una nuova parola chiave: la parola chiave `function`.
 
-Quando usiamo la parola chiave `function`, dobbiamo fare due cose. Uno, specificare il nome della funzione. In questo caso, è `walk5`. E due, usare le parentesi graffe (`{}`) per racchiudere del codice che dice: «Questo è ciò che devi fare all'interno della funzione». Quindi possiamo aggiungerlo al nostro codice e stiamo dicendo a Jiki di creare una funzione chiamata `walk5` e, quando `walk5` viene usata, deve eseguire queste cinque righe di codice.
+Quando usiamo la parola chiave `function`, dobbiamo fare due cose. Uno, specificare il nome della funzione. In questo caso, è `walk5`. E due, usare le parentesi graffe (`{}`) per racchiudere del codice che dice: «Questo è ciò che devi fare all'interno della funzione». Quindi possiamo aggiungerlo al nostro codice dicendo a Jiki di creare una funzione chiamata `walk5` e, quando `walk5` viene usata, deve eseguire queste cinque righe di codice.
 
 ```javascript
 function walk5() {
