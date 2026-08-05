@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "leftBrick": "La brique de gauche n'est pas correcte.",
+    "secondBrick": "La deuxième brique n'est pas correcte.",
+    "middleBrick": "La brique du milieu n'est pas correcte.",
+    "fourthBrick": "La quatrième brique n'est pas correcte.",
+    "rightBrick": "La brique de droite n'est pas correcte.",
+    "codeQuality": {
+      "rectangleCalledOnce": "Tu utilises la fonction <code>rectangle</code> à plusieurs endroits dans ton code. Elle ne doit apparaître qu'une seule fois !"
+    }
+  },
+  "tasks": {
+    "finishWall": {
+      "name": "Termine le mur",
+      "description": "Ajoute la rangée du haut du mur !"
+    }
+  },
+  "scenarios": {
+    "finishWall": {
+      "name": "Achève le mur",
+      "description": "Ajoute la rangée du haut du mur !"
+    }
+  },
+  "hints": {
+    "positionSecondBrick": {
+      "question": "Je n'arrive pas à trouver comment placer la deuxième brique plus loin que la première",
+      "answer": "Si chaque brique fait 20 de large, tu dois placer la première à 0, la deuxième à 20, la troisième à 40, etc. Tu peux utiliser la multiplication pour y arriver. Quelle variable pourrais-tu suivre pour obtenir la suite 0, 20, puis 40, etc. ?"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dessine un rectangle à la position (left, top) avec la largeur, la hauteur et la couleur données",
+      "category": "Dessin de formes"
+    }
+  }
+}

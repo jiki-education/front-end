@@ -1,0 +1,65 @@
+{
+  "errors": {
+    "yearNumber": "L'année doit être un nombre",
+    "yearInPast": "On ne peut pas consulter la Bourse pour des années passées ! {{year}} est déjà passée.",
+    "yearTooFarFuture": "On ne sait pas ce qui se passera dans plus de 20 ans ! {{year}} est trop loin dans le futur.",
+    "balanceNumber": "Le solde doit être un nombre",
+    "moneyNumber": "L'argent doit être un nombre"
+  },
+  "checks": {
+    "taxReportCount": "On attendait 20 déclarations d'impôts (une par an), mais il y en a eu {{got}}. Vérifie que tu appelles <code>reportTax()</code> à l'intérieur de la boucle.",
+    "taxReportWrongYear": "La déclaration d'impôts n°{{index}} portait sur l'année {{actualYear}} alors qu'elle aurait dû porter sur l'année {{expectedYear}}.",
+    "taxReportWrongBalance": "Tu as déclaré un mauvais montant d'impôts pour {{year}}. Il aurait dû être de {{expected}} $ mais il était de {{actual}} $.",
+    "wrongFinalBalance": "On attendait un solde final d'environ {{expected}} $ mais le tien était de {{got}} $. Vérifie que tu appelles <code>announceToFamily()</code> après la boucle.",
+    "announcedMultipleTimes": "Tu ne dois faire l'annonce à ta famille qu'<strong>une seule fois</strong>, une fois les 20 ans écoulés, pas chaque année. Tu as appelé <code>announceToFamily()</code> {{count}} {{times}}."
+  },
+  "tasks": {
+    "growInvestment": {
+      "name": "Fais fructifier ton investissement pendant 20 ans",
+      "description": "Commence avec 10 $, simule 20 ans de croissance de la Bourse, déclare tes impôts au fisc chaque année et annonce le solde final à ta famille."
+    }
+  },
+  "scenarios": {
+    "twentyYears": {
+      "name": "20 ans de croissance",
+      "description": "Investis 10 $ et suis ton solde pendant 20 ans de croissance de la Bourse."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Je ne sais pas par où commencer",
+      "answer": "Tu dois utiliser `marketGrowth()` pour chacune des 20 prochaines années (en commençant par l'année en cours). Cette fonction renvoie une valeur comme 5 (pour une croissance de la Bourse de 5 %). Ensuite, tu dois suivre combien d'argent tu as : les 10 $ de départ, qui évoluent selon le taux d'intérêt de chaque année."
+    },
+    "stillStuck": {
+      "question": "Je bloque toujours complètement, je ne comprends pas.",
+      "answer": "OK, écrivons un peu de code pour te lancer. Imagine que l'année en cours est 2026. Tu dois faire quelque chose comme : \n\n```javascript\nlet money = 10\nlet growth = marketGrowth(2026)\n\n// Tu dois augmenter money de growth.\n// Consulte l'astuce suivante si tu as besoin de la formule.\nmoney = money + ???\nreportTax(2026, money)\n\n// Maintenant fais 2027\nlet growth = marketGrowth(2027)\nmoney = money + ???\nreportTax(2027, money)\n\n// Maintenant fais 2028\nlet growth = marketGrowth(2028)\nmoney = money + ???\nreportTax(2028, money)\n\n// Au bout de 20 ans, annonce-le à ta famille\nannounceToFamily(money)\n```"
+    },
+    "formula": {
+      "question": "Quelle est la formule pour suivre la croissance ? Je n'arrive pas à la trouver moi-même.",
+      "answer": "La formule est : \n\n```javascript\nmoney = money * (100 + marketGrowth(year)) / 100\n```"
+    },
+    "wrongTaxReportCount": {
+      "question": "Le message dit que je n'ai pas fait le bon nombre de déclarations d'impôts.",
+      "answer": "Tu dois faire 20 déclarations d'impôts pour 20 ans. Utilise le curseur pour compter combien de fois tu utilises la fonction `reportTax()`."
+    }
+  },
+  "describers": {
+    "marketGrowth": "a obtenu une croissance de la Bourse de ${return} % pour l'année ${arg1}",
+    "reportTax": "a déclaré les impôts de l'année ${arg1} : ${arg2} $",
+    "announceToFamily": "a annoncé ${arg1} $ à la famille"
+  },
+  "functions": {
+    "marketGrowth": {
+      "description": "Renvoie le pourcentage de croissance de la Bourse pour une année donnée (entre -25 et 40). Tu dois **augmenter** ton argent de ce nombre à chaque fois. (Donc 40 signifie que tes 10 $ doivent valoir 14 $, et -10 signifie que tes 10 $ descendent à 9 $)",
+      "category": "Action"
+    },
+    "reportTax": {
+      "description": "Déclare tes impôts pour une année donnée. Tu dois l'appeler chaque année, avec l'année et le montant d'argent que tu as à ce moment-là.",
+      "category": "Action"
+    },
+    "announceToFamily": {
+      "description": "Annonce ton solde final à ta famille.",
+      "category": "Action"
+    }
+  }
+}

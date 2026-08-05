@@ -1,0 +1,53 @@
+{
+  "checks": {
+    "sunWrongBeginning": "Le soleil ne semble pas correct vers le début.",
+    "sunWrongMiddle": "Le soleil ne semble pas correct vers le milieu.",
+    "sunWrongEnd": "Le soleil ne semble pas correct vers la fin.",
+    "skyNotChangingColor": "Le ciel ne semble pas changer de couleur.",
+    "sunNotChangingColor": "Le soleil ne semble pas changer de couleur."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "Anime le coucher de soleil",
+      "description": "Anime le soleil et le ciel pour donner l'impression que le soleil se couche. Le soleil doit grandir et descendre, pendant que le soleil et le ciel changent tous les deux de couleur."
+    }
+  },
+  "scenarios": {
+    "drawScene": {
+      "name": "Fais se coucher le soleil",
+      "description": "Anime le soleil et le ciel pour donner l'impression que le soleil se couche."
+    }
+  },
+  "hints": {
+    "howToAnimate": {
+      "question": "Comment animer ?",
+      "answer": "Pour animer, on suit le style flip book : on redessine toute la scène à chaque fois par-dessus les versions précédentes."
+    },
+    "whereToStart": {
+      "question": "Je ne sais pas par où commencer.",
+      "answer": "Tu dois dessiner 100 fois. Commence donc par déplacer les fonctions de dessin existantes dans une boucle repeat qui s'exécute 100 fois. Ensuite, il faut modifier les variables (rayon, couleurs, etc.) à chaque tour de boucle."
+    },
+    "whereToPutVariables": {
+      "question": "Où placer mes variables ?",
+      "answer": "Tu dois définir tes variables AVANT la boucle, puis les mettre à jour À L'INTÉRIEUR de la boucle, AVANT de dessiner les formes. Imagine Jiki qui crée des boîtes et les met à jour à chaque fois."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Dessine un cercle centré en (centerX, centerY), avec le rayon et la couleur donnés",
+      "category": "Dessin de formes"
+    },
+    "rectangle": {
+      "description": "Dessine un rectangle à la position (left, top) avec la largeur, la hauteur et la couleur données",
+      "category": "Dessin de formes"
+    },
+    "rgb": {
+      "description": "Convertit des valeurs de couleur RGB (chacune de 0 à 255) en une string de couleur hexadécimale",
+      "category": "Couleurs"
+    },
+    "hsl": {
+      "description": "Convertit des valeurs de couleur HSL (teinte 0-360, saturation 0-100, luminosité 0-100) en une string de couleur hexadécimale",
+      "category": "Couleurs"
+    }
+  }
+}

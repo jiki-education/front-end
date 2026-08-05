@@ -1,0 +1,54 @@
+{
+  "errors": {
+    "unknownDice": "Désolé, Jiki n'a pas de dé à {{sides}} faces sous la main !",
+    "announceNumber": "Tu ne peux annoncer qu'un nombre",
+    "attackNumber": "L'attaque doit être un nombre",
+    "damageNumber": "Les dégâts doivent être un nombre"
+  },
+  "describers": {
+    "roll": "a lancé un dé et a obtenu ${return}",
+    "announce": "a annoncé ${arg1}",
+    "strike": "a frappé le gobelin avec une attaque de ${arg1} et des dégâts de ${arg2}"
+  },
+  "checks": {
+    "announcementCount": "3 annonces étaient attendues, mais il y en a eu {{got}}. Vérifie que tu annonces chaque lancer.",
+    "firstAnnouncement": "La première annonce attendue était {{attack}} (le jet d'attaque), mais c'était {{got}}.",
+    "secondAnnouncement": "La deuxième annonce attendue était {{damage}} (le jet de dégâts de base), mais c'était {{got}}.",
+    "thirdAnnouncement": "La troisième annonce attendue était {{bonus}} (le jet bonus), mais c'était {{got}}.",
+    "notStruck": "Tu n'as pas frappé le gobelin. Vérifie que tu appelles <code>strike()</code>.",
+    "wrongAttack": "L'attaque attendue était {{attack}}, mais c'était {{got}}. Passe le jet d'attaque à <code>strike()</code>.",
+    "wrongDamage": "Les dégâts totaux attendus étaient {{totalDamage}} ({{damage}} + {{bonus}}), mais c'était {{got}}. Additionne les dégâts de base et le bonus."
+  },
+  "tasks": {
+    "rollAndStrike": {
+      "name": "Lance les dés et frappe le gobelin",
+      "description": "Lance trois dés (un d20 pour l'attaque, un d12 pour les dégâts de base, un d10 pour le bonus), annonce chaque lancer, puis frappe le gobelin avec ton jet d'attaque et tes dégâts totaux (base + bonus)."
+    }
+  },
+  "scenarios": {
+    "randomRolls": {
+      "name": "Lance et frappe",
+      "description": "Lance un d20 pour l'attaque, un d12 pour les dégâts de base, un d10 pour le bonus. Frappe le gobelin avec ton attaque et tes dégâts totaux."
+    }
+  },
+  "hints": {
+    "chooseDie": {
+      "question": "Comment choisir le type de dé à utiliser ?",
+      "answer": "Pour un dé à 20 faces, utilise 20 comme entrée de `roll`, par exemple `roll(20)`. Pour un dé à 12 faces, appelle `roll(12)`."
+    }
+  },
+  "functions": {
+    "roll": {
+      "description": "Lance un dé avec le nombre de faces indiqué et **renvoie** le résultat.",
+      "category": "Dés"
+    },
+    "announce": {
+      "description": "Annonce la valeur d'un lancer de dé.",
+      "category": "Action"
+    },
+    "strike": {
+      "description": "Frappe le gobelin avec le jet d'attaque et les dégâts totaux indiqués.",
+      "category": "Action"
+    }
+  }
+}

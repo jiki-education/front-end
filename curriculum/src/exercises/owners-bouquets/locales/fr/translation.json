@@ -1,0 +1,56 @@
+{
+  "checks": {
+    "flowerCount_one": "Le propriétaire s'attendait à voir {{count}} fleur plantée, mais tu en as planté {{got}}.",
+    "flowerCount_other": "Le propriétaire s'attendait à voir {{count}} fleurs plantées, mais tu en as planté {{got}}.",
+    "flowerAtPosition": "Une fleur était attendue à la position {{position}}, mais elle n'y est pas.",
+    "strayFlower": "Une fleur se trouve à la position {{position}}, alors que le propriétaire n'en voulait pas là. Les fleurs doivent être espacées uniformément."
+  },
+  "tasks": {
+    "plantFlowersEvenly": {
+      "name": "Plante les fleurs uniformément",
+      "description": "Utilise askNumberOfFlowers() pour savoir combien de fleurs planter, calcule l'écart, puis plante-les en les espaçant uniformément."
+    }
+  },
+  "scenarios": {
+    "oneFlower": {
+      "name": "Le propriétaire veut 1 fleur",
+      "description": "Dans ce scénario, `askNumberOfFlowers()` renverra 1. Plante 1 fleur à la position 50."
+    },
+    "threeFlowers": {
+      "name": "Le propriétaire veut 3 fleurs",
+      "description": "Dans ce scénario, `askNumberOfFlowers()` renverra 3. Plante 3 fleurs aux positions 25, 50 et 75."
+    },
+    "fourFlowers": {
+      "name": "Le propriétaire veut 4 fleurs",
+      "description": "Dans ce scénario, `askNumberOfFlowers()` renverra 4. Plante 4 fleurs aux positions 20, 40, 60 et 80."
+    },
+    "nineFlowers": {
+      "name": "Le propriétaire veut 9 fleurs",
+      "description": "Dans ce scénario, `askNumberOfFlowers()` renverra 9. Plante 9 fleurs aux positions 10, 20, 30, 40, 50, 60, 70, 80 et 90."
+    }
+  },
+  "hints": {
+    "chooseGap": {
+      "question": "Comment savoir où planter chaque fleur ?",
+      "answer": "Commence par calculer l'écart entre les fleurs :\n\n```javascript\n100 / (numberOfFlowers + 1)\n```\n\nLa première fleur va à cette position, et chaque fleur suivante se trouve un écart plus loin. Donc s'il y a 3 fleurs, l'écart est de 25, et elles vont aux positions 25, 50 et 75."
+    },
+    "seeScenarios": {
+      "question": "Comment voir les différents scénarios ?",
+      "answer": "Clique sur les cercles à gauche, entre ton code et les résultats."
+    }
+  },
+  "functions": {
+    "askNumberOfFlowers": {
+      "description": "Renvoie le **nombre de fleurs** à planter.",
+      "category": "Jardinage"
+    },
+    "plant": {
+      "description": "Plante une fleur à la **position** indiquée.",
+      "category": "Jardinage"
+    }
+  },
+  "describers": {
+    "askNumberOfFlowers": "a demandé le nombre de fleurs à planter",
+    "plant": "a planté une fleur à la position ${arg1}"
+  }
+}
