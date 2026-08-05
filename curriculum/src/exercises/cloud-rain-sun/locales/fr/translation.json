@@ -31,7 +31,7 @@
     },
     "sunOnTop": {
       "question": "Pourquoi mon soleil apparaît-il devant le nuage ?",
-      "answer": "Les formes dessinées en dernier se placent devant les précédentes. Dessine d'abord le soleil, puis le nuage par-dessus, pour que le nuage semble être devant le soleil."
+      "answer": "Les formes dessinées en dernier se placent devant les précédentes. Dessine d'abord le soleil, puis le nuage par-dessus, pour que le nuage apparaisse devant le soleil."
     },
     "notMatchingTemplate": {
       "question": "Pourquoi mon dessin ne correspond-il pas aux lignes du modèle ?",
@@ -48,7 +48,7 @@
       "category": "Dessin de formes"
     },
     "ellipse": {
-      "description": "Dessine une ellipse centrée en (centerX, centerY) avec le rayon horizontal radiusX, le rayon vertical radiusY et la couleur donnée",
+      "description": "Dessine une ellipse centrée en (centerX, centerY) avec le rayon horizontal radiusX, le rayon vertical radiusY et la couleur",
       "category": "Dessin de formes"
     }
   }
