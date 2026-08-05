@@ -83,7 +83,7 @@ describe("buildLevelSections", () => {
   describe("level section properties", () => {
     it("resolves the level title through the supplied resolver", () => {
       const levels = [createLevel({ slug: "intro-to-coding" })];
-      const result = buildLevelSections(levels, (slug) => `Title for ${slug}`);
+      const result = buildLevelSections(levels, {}, (slug) => `Title for ${slug}`);
       expect(result[0].levelTitle).toBe("Title for intro-to-coding");
     });
 
