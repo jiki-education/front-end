@@ -38,7 +38,7 @@ if (age < 13) {
 
 C'est le point essentiel à comprendre : un seul bloc s'exécute, jamais plus. Jiki parcourt cette chaîne de conditions, trouve la première qui est vraie, exécute le bloc correspondant, puis passe à la suite.
 
-Maintenant, il y a une chose à vraiment bien comprendre, parce qu'elle piège beaucoup de monde. Il existe une différence subtile mais très importante entre écrire deux instructions `if` séparées et utiliser `else if`. Imagine qu'on crée un programme qui donne soit un prix de base, soit un prix bonus selon le score de quelqu'un. Regarde ces deux possibilités : l'une utilise `else if`, l'autre deux instructions `if` séparées. Qu'est-ce qui va se passer de différent ?
+Maintenant, il y a une chose à vraiment bien comprendre, parce qu'elle piège beaucoup de monde. Il existe une différence subtile, mais très importante, entre écrire deux instructions `if` séparées et utiliser `else if`. Imagine qu'on crée un programme qui donne soit un prix de base, soit un prix bonus selon le score de quelqu'un. Regarde ces deux possibilités : l'une utilise `else if`, l'autre deux instructions `if` séparées. Qu'est-ce qui va se passer de différent ?
 
 ```javascript
 if (score > 100) {
@@ -61,4 +61,4 @@ Dans le premier cas, avec le `else if`, on vérifie si le score est élevé et o
 
 Mais dans le second exemple, les deux `if` sont totalement indépendants. Les deux vont s'exécuter et les deux conditions seront vraies. La personne reçoit donc deux prix. Dans le premier cas : un prix, dans le second : deux. Prends un instant pour t'assurer que tu as vraiment bien compris.
 
-Au passage, il est intéressant de noter que l'une ou l'autre version peut être la bonne selon la façon dont le jeu est conçu. Peut-être que le participant reçoit un prix normal ainsi qu'un prix bonus, ou peut-être reçoit-il seulement le prix bonus. Aucun des deux morceaux de code n'est juste ou faux en soi : ils sont simplement utiles dans des situations différentes. Mais tu dois savoir lequel tu as l'intention d'utiliser.
+Au passage, il est intéressant de noter que l'une ou l'autre version peut être la bonne selon la façon dont le jeu est conçu. Peut-être que le participant reçoit un prix de base ainsi qu'un prix bonus, ou peut-être reçoit-il seulement le prix bonus. Aucun des deux morceaux de code n'est juste ou faux en soi : ils sont simplement utiles dans des situations différentes. Mais tu dois savoir lequel tu as l'intention d'utiliser.
