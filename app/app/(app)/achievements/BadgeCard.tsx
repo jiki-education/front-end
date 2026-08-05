@@ -1,12 +1,12 @@
 import { useTranslations } from "next-intl";
 import { BadgeIcon } from "@/components/icons/BadgeIcon";
 import { BadgeNewLabel } from "@/components/ui/BadgeNewLabel";
-import type { BadgeData } from "@/lib/api/badges";
+import type { BadgeWithCopy } from "@/lib/api/badges";
 import styles from "./BadgeCard.module.css";
 import { getBadgeColor, getBadgeDateInfo, isEarnedBadge, isNewBadge } from "./lib/badgeUtils";
 
 interface BadgeCardProps {
-  badge: BadgeData;
+  badge: BadgeWithCopy;
   onClick?: (badgeId: string) => void;
   isSpinning?: boolean;
   showNewRibbon?: boolean;

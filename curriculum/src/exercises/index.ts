@@ -115,7 +115,10 @@ export const exercises = {
   "stock-market": () => import("./stock-market")
 } as const;
 
-export type ExerciseSlug = keyof typeof exercises;
+// Every exercise with a loadable module. A superset of `ExerciseSlug`: the
+// registry also carries exercises that aren't placed as a lesson or a challenge
+// yet, so they can be developed before they're reachable by students.
+export type RegisteredExerciseSlug = keyof typeof exercises;
 
 /**
  * Retrieves an exercise core definition by its slug.
@@ -126,7 +129,7 @@ export type ExerciseSlug = keyof typeof exercises;
  * @returns The exercise core definition or null if not found
  */
 export async function getExercise(slug: string): Promise<ExerciseCore | null> {
-  const loader = exercises[slug as ExerciseSlug];
+  const loader = exercises[slug as RegisteredExerciseSlug];
   if (loader === undefined) {
     return null;
   }

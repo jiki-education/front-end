@@ -1,3 +1,4 @@
+import type { ChallengeSlug } from "@jiki/curriculum";
 import { api } from "./client";
 import type { UserConversationData } from "./types/conversation";
 
@@ -11,12 +12,19 @@ interface UserChallengeResponse {
   user_challenge: UserChallengeData;
 }
 
+// Identity and per-user state only; the API's payload is wider. A challenge's
+// slug is also the slug of the curriculum exercise it wraps, so it addresses both
+// the challenge (routes, progress) and that exercise (copy, content).
 export interface ChallengeData {
-  slug: string;
+  slug: ChallengeSlug;
+  status?: ChallengeStatus;
+}
+
+// What challenge components render: the API record plus the copy a page resolved
+// for it during its load phase.
+export interface ChallengeWithCopy extends ChallengeData {
   title: string;
   description: string;
-  status?: ChallengeStatus;
-  exercise_slug?: string;
 }
 
 export interface ChallengesResponse {
@@ -36,11 +44,7 @@ export interface ChallengeSubmissionFile {
 /**
  * Fetch all challenges with status for current user
  */
-export async function fetchChallenges(params?: {
-  title?: string;
-  page?: number;
-  per?: number;
-}): Promise<ChallengesResponse> {
+export async function fetchChallenges(params?: { page?: number; per?: number }): Promise<ChallengesResponse> {
   const response = await api.get<ChallengesResponse>("/internal/challenges", {
     params
   });

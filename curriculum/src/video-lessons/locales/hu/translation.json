@@ -1,0 +1,138 @@
+{
+  "welcome-to-coding-fundamentals": {
+    "title": "�",
+    "description": "�"
+  },
+  "using-functions": {
+    "title": "�",
+    "description": "�"
+  },
+  "function-inputs": {
+    "title": "�",
+    "description": "�"
+  },
+  "strings": {
+    "title": "�",
+    "description": "�"
+  },
+  "repeat-loop": {
+    "title": "�",
+    "description": "�"
+  },
+  "creating-variables": {
+    "title": "�",
+    "description": "�"
+  },
+  "variables-together": {
+    "title": "�",
+    "description": "�"
+  },
+  "updating-variables": {
+    "title": "�",
+    "description": "�"
+  },
+  "functions-that-return-things": {
+    "title": "�",
+    "description": "�"
+  },
+  "colors": {
+    "title": "�",
+    "description": "�"
+  },
+  "animation": {
+    "title": "�",
+    "description": "�"
+  },
+  "random-numbers": {
+    "title": "�",
+    "description": "�"
+  },
+  "scope": {
+    "title": "�",
+    "description": "�"
+  },
+  "scenarios": {
+    "title": "�",
+    "description": "�"
+  },
+  "nested-loops": {
+    "title": "�",
+    "description": "�"
+  },
+  "if-statements": {
+    "title": "�",
+    "description": "�"
+  },
+  "else-statements": {
+    "title": "�",
+    "description": "�"
+  },
+  "logic-gates": {
+    "title": "�",
+    "description": "�"
+  },
+  "remainder": {
+    "title": "�",
+    "description": "�"
+  },
+  "repeat-without-count": {
+    "title": "�",
+    "description": "�"
+  },
+  "state": {
+    "title": "�",
+    "description": "�"
+  },
+  "making-functions": {
+    "title": "�",
+    "description": "�"
+  },
+  "making-functions-with-inputs": {
+    "title": "�",
+    "description": "�"
+  },
+  "making-functions-with-return-values": {
+    "title": "�",
+    "description": "�"
+  },
+  "string-concatenation": {
+    "title": "�",
+    "description": "�"
+  },
+  "string-indexing": {
+    "title": "�",
+    "description": "�"
+  },
+  "string-iteration": {
+    "title": "�",
+    "description": "�"
+  },
+  "using-multiple-functions-together": {
+    "title": "�",
+    "description": "�"
+  },
+  "methods-and-strings": {
+    "title": "�",
+    "description": "�"
+  },
+  "for-while-loops": {
+    "title": "�",
+    "description": "�"
+  },
+  "arrays": {
+    "title": "�",
+    "description": "�"
+  },
+  "building-arrays": {
+    "title": "�",
+    "description": "�"
+  },
+  "dictionaries": {
+    "title": "�",
+    "description": "�"
+  },
+  "updating-dictionaries": {
+    "title": "�",
+    "description": "�"
+  }
+}

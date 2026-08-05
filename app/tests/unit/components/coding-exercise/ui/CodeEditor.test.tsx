@@ -38,7 +38,7 @@ describe("CodeEditor", () => {
     // Default mock implementation
     mockUseOrchestratorStore.mockReturnValue({
       exerciseSlug: "test-uuid",
-      context: { type: "lesson" as const, slug: "test-lesson" },
+      context: { type: "lesson" as const, slug: "maze-solve-basic" },
       exerciseTitle: "Test Exercise",
       levelTitle: "Using Functions",
       code: "const x = 1;",

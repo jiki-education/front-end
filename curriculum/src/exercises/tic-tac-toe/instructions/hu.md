@@ -1,6 +1,6 @@
 ---
 title: "Tic Tac Toe"
-description: ""
+description: "�"
 ---
 
 Welcome to Tic Tac Toe - your first major project!

@@ -1,11 +1,11 @@
 import { useRef } from "react";
 import { showModal } from "@/lib/modal";
-import { revealBadge, type BadgeData } from "@/lib/api/badges";
+import { revealBadge, type BadgeWithCopy } from "@/lib/api/badges";
 import { isNewBadge, getBadgeColor } from "./badgeUtils";
 
 export function useBadgeActions(
-  badges: BadgeData[],
-  setBadges: React.Dispatch<React.SetStateAction<BadgeData[]>>,
+  badges: BadgeWithCopy[],
+  setBadges: React.Dispatch<React.SetStateAction<BadgeWithCopy[]>>,
   setSpinningBadgeId: React.Dispatch<React.SetStateAction<number | null>>,
   setRecentlyRevealedIds: React.Dispatch<React.SetStateAction<Set<number>>>
 ) {
@@ -39,7 +39,7 @@ export function useBadgeActions(
     const modalData = {
       title: badge.name,
       description: badge.description,
-      funFact: badge.fun_fact,
+      funFact: badge.funFact,
       color: getBadgeColor(badge),
       slug: badge.slug,
       isNew: wasNewBadge

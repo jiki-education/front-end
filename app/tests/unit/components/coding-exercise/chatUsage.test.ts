@@ -5,7 +5,7 @@ const baseSignature: SignatureData = {
   type: "signature",
   signature: "sig",
   timestamp: "2026-06-19T12:00:00.000Z",
-  exerciseSlug: "test-exercise",
+  exerciseSlug: "maze-solve-basic",
   userMessage: "hi"
 };
 

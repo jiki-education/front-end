@@ -131,7 +131,7 @@ describe("EditorManager", () => {
     store = createOrchestratorStore({
       exercise: mockExercise,
       language: "jikiscript",
-      context: { type: "lesson", slug: "test-lesson" }
+      context: { type: "lesson", slug: "maze-solve-basic" }
     });
     mockRunCode = jest.fn();
     const mockElement = document.createElement("div");

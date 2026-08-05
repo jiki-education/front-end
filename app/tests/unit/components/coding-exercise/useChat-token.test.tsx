@@ -36,7 +36,7 @@ function createMockOrchestrator() {
     getCode: () => "test code",
     currentTaskIndex: 0,
     exercise: {
-      slug: "test-exercise",
+      slug: "maze-solve-basic",
       tasks: [{ id: "task-1", name: "Task 1" }]
     }
   } as any;
@@ -51,15 +51,15 @@ describe("useChat token management", () => {
 
     // Set up default mock for useChatContext
     mockUseChatContext.mockReturnValue({
-      exerciseSlug: "test-exercise",
-      context: { type: "lesson", slug: "test-lesson" },
+      exerciseSlug: "maze-solve-basic",
+      context: { type: "lesson", slug: "maze-solve-basic" },
       currentTaskId: "task-1",
       language: "javascript",
       exerciseTitle: "Test Exercise",
       exerciseInstructions: "Test instructions",
       locale: "en",
       contentHash: "test-hash",
-      exercise: { slug: "test-exercise", tasks: [] }
+      exercise: { slug: "maze-solve-basic", tasks: [] }
     });
 
     // Default: fetchChatToken succeeds
@@ -83,7 +83,7 @@ describe("useChat token management", () => {
 
       expect(mockFetchChatToken).toHaveBeenCalledTimes(1);
       expect(mockFetchChatToken).toHaveBeenCalledWith({
-        context: { type: "lesson", slug: "test-lesson" },
+        context: { type: "lesson", slug: "maze-solve-basic" },
         cfTurnstileResponse: "test-token"
       });
       expect(mockSendChatMessage).toHaveBeenCalledTimes(1);

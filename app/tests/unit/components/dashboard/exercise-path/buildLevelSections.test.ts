@@ -3,10 +3,8 @@ import type { LevelWithProgress, LessonWithProgress } from "@/types/levels";
 
 function createLesson(overrides: Partial<LessonWithProgress> = {}): LessonWithProgress {
   return {
-    slug: "lesson-one",
-    title: "Lesson One",
+    slug: "maze-solve-basic",
     type: "exercise",
-    description: "A lesson",
     status: "not_started",
     walkthrough_video_data: null,
     walkthrough_video_watched_percentage: 0,
@@ -56,9 +54,9 @@ describe("buildLevelSections", () => {
       const levels = [
         createLevel({
           lessons: [
-            createLesson({ slug: "lesson-one", status: "completed" }),
-            createLesson({ slug: "lesson-two", status: "not_started" }),
-            createLesson({ slug: "lesson-three", status: "locked" })
+            createLesson({ slug: "maze-solve-basic", status: "completed" }),
+            createLesson({ slug: "space-invaders-solve-basic", status: "not_started" }),
+            createLesson({ slug: "maze-solve-walk", status: "locked" })
           ]
         })
       ];
@@ -74,7 +72,7 @@ describe("buildLevelSections", () => {
         createLevel({
           slug: "level-two",
           status: "not_started",
-          lessons: [createLesson({ slug: "lesson-three", status: "locked" })]
+          lessons: [createLesson({ slug: "maze-solve-walk", status: "locked" })]
         })
       ];
       const result = buildLevelSections(levels);
@@ -85,7 +83,7 @@ describe("buildLevelSections", () => {
   describe("level section properties", () => {
     it("resolves the level title through the supplied resolver", () => {
       const levels = [createLevel({ slug: "intro-to-coding" })];
-      const result = buildLevelSections(levels, (slug) => `Title for ${slug}`);
+      const result = buildLevelSections(levels, {}, (slug) => `Title for ${slug}`);
       expect(result[0].levelTitle).toBe("Title for intro-to-coding");
     });
 
@@ -106,9 +104,9 @@ describe("buildLevelSections", () => {
       const levels = [
         createLevel({
           lessons: [
-            createLesson({ slug: "l1", status: "completed" }),
-            createLesson({ slug: "l2", status: "started" }),
-            createLesson({ slug: "l3", status: "completed" })
+            createLesson({ slug: "maze-solve-basic", status: "completed" }),
+            createLesson({ slug: "space-invaders-solve-basic", status: "started" }),
+            createLesson({ slug: "maze-solve-walk", status: "completed" })
           ]
         })
       ];
@@ -120,8 +118,8 @@ describe("buildLevelSections", () => {
       const levels = [
         createLevel({
           lessons: [
-            createLesson({ slug: "l1", status: "completed" }),
-            createLesson({ slug: "l2", status: "completed" })
+            createLesson({ slug: "maze-solve-basic", status: "completed" }),
+            createLesson({ slug: "space-invaders-solve-basic", status: "completed" })
           ]
         })
       ];
@@ -135,12 +133,12 @@ describe("buildLevelSections", () => {
         createLevel({
           slug: "level-two",
           status: "not_started",
-          lessons: [createLesson({ slug: "lesson-one", status: "not_started" })]
+          lessons: [createLesson({ slug: "maze-solve-basic", status: "not_started" })]
         }),
         createLevel({
           slug: "level-three",
           status: "not_started",
-          lessons: [createLesson({ slug: "lesson-two", status: "locked" })]
+          lessons: [createLesson({ slug: "space-invaders-solve-basic", status: "locked" })]
         })
       ];
       const result = buildLevelSections(levels);
@@ -164,18 +162,18 @@ describe("buildLevelSections", () => {
 
   describe("lesson display data", () => {
     it("sets route to /lesson/{slug}", () => {
-      const levels = [createLevel({ lessons: [createLesson({ slug: "my-lesson" })] })];
+      const levels = [createLevel({ lessons: [createLesson({ slug: "fix-wall" })] })];
       const result = buildLevelSections(levels);
-      expect(result[0].lessons[0].route).toBe("/lesson/my-lesson");
+      expect(result[0].lessons[0].route).toBe("/lesson/fix-wall");
     });
 
     it("sets completed to true only for completed lessons", () => {
       const levels = [
         createLevel({
           lessons: [
-            createLesson({ slug: "l1", status: "completed" }),
-            createLesson({ slug: "l2", status: "started" }),
-            createLesson({ slug: "l3", status: "not_started" })
+            createLesson({ slug: "maze-solve-basic", status: "completed" }),
+            createLesson({ slug: "space-invaders-solve-basic", status: "started" }),
+            createLesson({ slug: "maze-solve-walk", status: "not_started" })
           ]
         })
       ];
@@ -185,10 +183,20 @@ describe("buildLevelSections", () => {
       expect(result[0].lessons[2].completed).toBe(false);
     });
 
-    it("uses lesson title from API data", () => {
-      const levels = [createLevel({ lessons: [createLesson({ title: "Owner's Bouquets" })] })];
-      const result = buildLevelSections(levels);
+    it("resolves lesson copy from the curriculum catalog, not the API", () => {
+      const levels = [createLevel({ lessons: [createLesson({ slug: "maze-solve-basic" })] })];
+      const result = buildLevelSections(levels, {
+        "maze-solve-basic": { title: "Owner's Bouquets", description: "Arrange the bouquets." }
+      });
       expect(result[0].lessons[0].lesson.title).toBe("Owner's Bouquets");
+      expect(result[0].lessons[0].lesson.description).toBe("Arrange the bouquets.");
+    });
+
+    it("falls back to the slug when the catalog has no entry", () => {
+      const levels = [createLevel({ lessons: [createLesson({ slug: "maze-solve-walk" })] })];
+      const result = buildLevelSections(levels, {});
+      expect(result[0].lessons[0].lesson.title).toBe("maze-solve-walk");
+      expect(result[0].lessons[0].lesson.description).toBe("");
     });
   });
 });

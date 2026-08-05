@@ -8,7 +8,9 @@ import { useEffect, useState } from "react";
 import MedalIcon from "@/icons/medal.svg";
 import { CertificatesEmptyState } from "./CertificatesEmptyState";
 import { BadgeCard } from "./BadgeCard";
-import { fetchBadges, type BadgeData } from "@/lib/api/badges";
+import { fetchBadges, type BadgeWithCopy } from "@/lib/api/badges";
+import { fetchBadgeCopy, resolveBadgeCopy } from "@/lib/api/curriculum-copy";
+import { useLocale } from "next-intl";
 import { RequestAbortedError } from "@/lib/api/client";
 import BadgesCssModule from "./BadgeCard.module.css";
 import { useBadgeActions } from "./lib/useBadgeActions";
@@ -23,8 +25,9 @@ export function AchievementsContent() {
     { id: "badges", label: t("tabBadges"), color: "blue" },
     { id: "certificates", label: t("tabCertificates"), color: "blue" }
   ];
+  const locale = useLocale();
   const [activeTab, setActiveTab] = useState("badges");
-  const [badges, setBadges] = useState<BadgeData[]>([]);
+  const [badges, setBadges] = useState<BadgeWithCopy[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [spinningBadgeId, setSpinningBadgeId] = useState<number | null>(null);
@@ -35,8 +38,11 @@ export function AchievementsContent() {
     async function loadBadges() {
       try {
         setLoading(true);
-        const response = await fetchBadges();
-        setBadges(response.badges);
+        // Badge copy is curriculum-owned and fetched as part of this page load,
+        // so cards paint with their real names rather than filling in after.
+        const [response, copyCatalog] = await Promise.all([fetchBadges(), fetchBadgeCopy(locale)]);
+        const badgesWithCopy = response.badges.map((b) => ({ ...b, ...resolveBadgeCopy(copyCatalog, b.slug) }));
+        setBadges(badgesWithCopy);
         // Sort badges once and lock in the order to prevent jumping when badges are revealed
         const sorted = sortBadges(response.badges);
         setSortedBadgeIds(sorted.map((b) => b.id));
@@ -57,7 +63,7 @@ export function AchievementsContent() {
     // Mount-once load; `t` is only read for a fallback error message and is
     // locale-stable, so it isn't a dependency.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [locale]);
 
   const { handleBadgeClick, cleanup } = useBadgeActions(badges, setBadges, setSpinningBadgeId, setRecentlyRevealedIds);
 
@@ -97,10 +103,10 @@ export function AchievementsContent() {
   );
 }
 
-function sortBadgesByLockedOrder(badges: BadgeData[], sortedIds: number[]): BadgeData[] {
+function sortBadgesByLockedOrder(badges: BadgeWithCopy[], sortedIds: number[]): BadgeWithCopy[] {
   // Create a map for quick lookup
   const badgeMap = new Map(badges.map((b) => [b.id, b]));
 
   // Return badges in the locked order, filtering out any that no longer exist
-  return sortedIds.map((id) => badgeMap.get(id)).filter((badge): badge is BadgeData => badge !== undefined);
+  return sortedIds.map((id) => badgeMap.get(id)).filter((badge): badge is BadgeWithCopy => badge !== undefined);
 }

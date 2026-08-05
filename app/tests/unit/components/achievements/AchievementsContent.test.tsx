@@ -4,6 +4,18 @@ import type { BadgeData } from "@/lib/api/badges";
 import { RequestAbortedError } from "@/lib/api/client";
 
 // Mock the API module
+jest.mock("@/lib/api/curriculum-copy", () => {
+  const actual = jest.requireActual("@/lib/api/curriculum-copy");
+  return {
+    ...actual,
+    fetchBadgeCopy: jest.fn().mockResolvedValue({
+      member: { name: "Member", description: "Welcome to Jiki!", funFact: "First badge ever" },
+      "first-lesson": { name: "First Lesson", description: "Complete your first lesson", funFact: "Day one" },
+      "locked-badge": { name: "Locked Badge", description: "This badge is locked", funFact: "Rare" }
+    })
+  };
+});
+
 jest.mock("@/lib/api/badges", () => ({
   fetchBadges: jest.fn(),
   revealBadge: jest.fn()
@@ -17,32 +29,20 @@ jest.mock("@/lib/modal", () => ({
 const mockBadges: BadgeData[] = [
   {
     id: 1,
-    name: "Member",
     slug: "member",
-    description: "Welcome to Jiki!",
-    fun_fact: "This was the first badge ever created",
     state: "revealed",
-    num_awardees: 100,
     unlocked_at: "2024-01-01T00:00:00Z"
   },
   {
     id: 2,
-    name: "First Lesson",
     slug: "first-lesson",
-    description: "Complete your first lesson",
-    fun_fact: "Most users earn this within their first day",
     state: "unrevealed",
-    num_awardees: 50,
     unlocked_at: "2024-01-02T00:00:00Z"
   },
   {
     id: 3,
-    name: "Locked Badge",
     slug: "locked-badge",
-    description: "This badge is locked",
-    fun_fact: "Only 1% of users have this badge",
-    state: "locked",
-    num_awardees: 25
+    state: "locked"
   }
 ];
 

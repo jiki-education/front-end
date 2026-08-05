@@ -29,7 +29,7 @@ describe("Challenges API", () => {
         data: {
           results: [
             {
-              slug: "test-challenge",
+              slug: "structured-house",
               title: "Test Challenge",
               description: "A test challenge",
               status: "unlocked"
@@ -80,7 +80,7 @@ describe("Challenges API", () => {
   describe("fetchChallenge", () => {
     it("should fetch individual challenge by slug", async () => {
       const mockChallenge = {
-        slug: "test-challenge",
+        slug: "structured-house",
         title: "Test Challenge",
         description: "A test challenge",
         status: "unlocked"
@@ -95,9 +95,9 @@ describe("Challenges API", () => {
       };
       mockApi.get.mockResolvedValue(mockResponse);
 
-      const result = await fetchChallenge("test-challenge");
+      const result = await fetchChallenge("structured-house");
 
-      expect(mockApi.get).toHaveBeenCalledWith("/internal/challenges/test-challenge");
+      expect(mockApi.get).toHaveBeenCalledWith("/internal/challenges/structured-house");
       expect(result).toEqual(mockChallenge);
     });
   });
@@ -106,23 +106,23 @@ describe("Challenges API", () => {
     it("should POST to the user_challenges start endpoint", async () => {
       mockApi.post.mockResolvedValue({ data: {}, status: 200, headers: new Headers() });
 
-      await startChallenge("test-challenge");
+      await startChallenge("structured-house");
 
-      expect(mockApi.post).toHaveBeenCalledWith("/internal/user_challenges/test-challenge/start");
+      expect(mockApi.post).toHaveBeenCalledWith("/internal/user_challenges/structured-house/start");
     });
 
     it("should propagate errors from the API", async () => {
       const error = new Error("403 challenge_locked");
       mockApi.post.mockRejectedValue(error);
 
-      await expect(startChallenge("locked-challenge")).rejects.toThrow("403 challenge_locked");
+      await expect(startChallenge("acronym")).rejects.toThrow("403 challenge_locked");
     });
   });
 
   describe("fetchUserChallenge", () => {
     it("should fetch user challenge data by slug", async () => {
       const mockUserChallenge = {
-        challenge_slug: "test-challenge",
+        challenge_slug: "structured-house",
         status: "started",
         conversation: [],
         conversation_allowed: true,
@@ -135,9 +135,9 @@ describe("Challenges API", () => {
         headers: new Headers()
       });
 
-      const result = await fetchUserChallenge("test-challenge");
+      const result = await fetchUserChallenge("structured-house");
 
-      expect(mockApi.get).toHaveBeenCalledWith("/internal/user_challenges/test-challenge");
+      expect(mockApi.get).toHaveBeenCalledWith("/internal/user_challenges/structured-house");
       expect(result).toEqual(mockUserChallenge);
     });
   });
@@ -153,9 +153,9 @@ describe("Challenges API", () => {
 
       const files = [{ filename: "solution.js", code: "console.log('hello');" }];
 
-      await submitChallengeExercise("test-challenge", files);
+      await submitChallengeExercise("structured-house", files);
 
-      expect(mockApi.post).toHaveBeenCalledWith("/internal/challenges/test-challenge/exercise_submissions", {
+      expect(mockApi.post).toHaveBeenCalledWith("/internal/challenges/structured-house/exercise_submissions", {
         submission: { files }
       });
     });
@@ -173,9 +173,9 @@ describe("Challenges API", () => {
         { filename: "utils.js", code: "export const helper = () => {};" }
       ];
 
-      await submitChallengeExercise("test-challenge", files);
+      await submitChallengeExercise("structured-house", files);
 
-      expect(mockApi.post).toHaveBeenCalledWith("/internal/challenges/test-challenge/exercise_submissions", {
+      expect(mockApi.post).toHaveBeenCalledWith("/internal/challenges/structured-house/exercise_submissions", {
         submission: { files }
       });
     });

@@ -6,10 +6,8 @@ type VideoLesson = Lesson & { type: "video"; data: { sources: VideoSource[] } };
 
 // Mock data for the dev page (matching backend structure)
 const mockLessonData: VideoLesson = {
-  slug: "welcome-video",
+  slug: "welcome-to-coding-fundamentals",
   type: "video",
-  title: "Welcome!",
-  description: "Your next lesson",
   walkthrough_video_data: null,
   data: {
     sources: [
@@ -24,5 +22,5 @@ const mockLessonData: VideoLesson = {
 };
 
 export default function VideoExercisePage() {
-  return <VideoExercise lessonData={mockLessonData} onReady={() => {}} />;
+  return <VideoExercise lessonTitle="Solve the Maze" lessonData={mockLessonData} onReady={() => {}} />;
 }

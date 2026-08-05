@@ -1,11 +1,11 @@
 import { ChallengeIcon } from "@/components/icons/ChallengeIcon";
-import type { ChallengeData } from "@/lib/api/challenges";
+import type { ChallengeWithCopy } from "@/lib/api/challenges";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import styles from "../ChallengesSidebar.module.css";
 
 interface ChallengeCardProps {
-  challenge: ChallengeData;
+  challenge: ChallengeWithCopy;
 }
 
 export function ChallengeCard({ challenge }: ChallengeCardProps) {

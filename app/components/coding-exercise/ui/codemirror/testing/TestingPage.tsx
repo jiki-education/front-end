@@ -29,7 +29,7 @@ export default function TestingPage({
     new Orchestrator({
       exercise: exercise,
       language: "jikiscript",
-      context: { type: "lesson", slug: "test-lesson" },
+      context: { type: "lesson", slug: "maze-solve-basic" },
       interpreterLocaleMessages: {},
       exerciseLocaleMessages: {},
       t: t,

@@ -1,4 +1,4 @@
-import type { ExerciseSlug } from "@jiki/curriculum";
+import type { ExerciseLessonSlug, LessonSlug, VideoLessonSlug } from "@jiki/curriculum";
 import type { ProgrammingLanguage } from "./course";
 
 // Video source type (used across lessons, walkthroughs, concepts). Every source
@@ -12,23 +12,47 @@ export interface VideoSource {
   language?: ProgrammingLanguage;
 }
 
-// Lesson type alias
 export type LessonType = "exercise" | "video" | "quiz" | "choose_language";
 
-// Base Lesson (lightweight - from levels API, dashboard, listings)
-export interface Lesson {
-  slug: string;
-  title: string;
-  description: string;
-  type: LessonType;
+// What every lesson carries, whatever its type.
+//
+// This is only what the front end reads; the API's payload is wider. Display copy
+// is not part of it — titles and descriptions come from the curriculum copy
+// catalog (lib/api/curriculum-copy.ts), keyed by the slug.
+interface LessonFields {
+  slug: LessonSlug;
   walkthrough_video_data: VideoSource[] | null;
 }
 
-// LessonWithData extends Lesson with type-specific data block
-export type LessonWithData = Lesson &
-  (
-    | { type: "video"; data: { sources: VideoSource[] } }
-    | { type: "exercise"; data: { slug: ExerciseSlug } }
-    | { type: "quiz"; data?: Record<string, unknown> }
-    | { type: "choose_language"; data: { sources: VideoSource[]; language_options: ProgrammingLanguage[] } }
-  );
+// An exercise lesson needs no data block: its slug is the curriculum exercise to
+// load.
+export interface ExerciseLesson extends LessonFields {
+  type: "exercise";
+  slug: ExerciseLessonSlug;
+}
+
+export interface VideoLesson extends LessonFields {
+  type: "video";
+  slug: VideoLessonSlug;
+  data: { sources: VideoSource[] };
+}
+
+export interface QuizLesson extends LessonFields {
+  type: "quiz";
+}
+
+export interface ChooseLanguageLesson extends LessonFields {
+  type: "choose_language";
+  data: { sources: VideoSource[]; language_options: ProgrammingLanguage[] };
+}
+
+// A lesson as the single-lesson endpoint returns it. Discriminate on `type` to
+// reach the data block and the narrowed slug.
+export type Lesson = ExerciseLesson | VideoLesson | QuizLesson | ChooseLanguageLesson;
+
+// A lesson as list endpoints return it. `SerializeLesson` omits the data block
+// unless asked (`include_data`), and `SerializeLevels` doesn't ask — so listings
+// genuinely cannot reach `data`, and the dashboard must not assume otherwise.
+export interface LessonSummary extends LessonFields {
+  type: LessonType;
+}

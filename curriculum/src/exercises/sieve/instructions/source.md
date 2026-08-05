@@ -1,6 +1,6 @@
 ---
 title: "Sieve of Eratosthenes"
-description: ""
+description: "Find all the prime numbers using an ancient algorithm."
 ---
 
 You bought a big box of random computer parts at a garage sale. You've started putting the parts together to build custom computers.

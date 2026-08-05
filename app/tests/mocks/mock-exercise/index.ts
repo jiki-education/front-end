@@ -4,7 +4,7 @@ import { tasks, scenarios } from "./scenarios";
 
 export const testExerciseDefinition: ExerciseDefinition = {
   type: "visual",
-  slug: "test-exercise",
+  slug: "maze-solve-basic",
   title: "Test Exercise",
   description: "Test exercise description",
   instructions: "This is a test exercise for unit tests",

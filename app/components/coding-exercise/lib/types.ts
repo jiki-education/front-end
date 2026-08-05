@@ -1,5 +1,5 @@
 import type { Frame, LintError } from "@jiki/interpreters/shared";
-import type { TaskProgress, Language, ReadonlyRange } from "@jiki/curriculum";
+import type { TaskProgress, Language, ReadonlyRange, ExerciseLessonSlug, ChallengeSlug } from "@jiki/curriculum";
 import type { TestResult, TestSuiteResult } from "./test-results-types";
 import type { VideoSource } from "@/types/lesson";
 
@@ -27,9 +27,11 @@ export interface CompletionResponseData {
 }
 
 // Exercise context types
+// The slug identifies both the thing the student opened (routes, progress) and
+// the curriculum exercise it runs — they're the same slug.
 export type ExerciseContext =
-  | { type: "lesson"; slug: string; walkthroughVideoData?: VideoSource[] | null }
-  | { type: "challenge"; slug: string };
+  | { type: "lesson"; slug: ExerciseLessonSlug; walkthroughVideoData?: VideoSource[] | null }
+  | { type: "challenge"; slug: ChallengeSlug };
 
 // CodeMirror editor types
 export interface UnderlineRange {

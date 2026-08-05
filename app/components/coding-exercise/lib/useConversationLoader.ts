@@ -39,6 +39,9 @@ export function useConversationLoader(context: ExerciseContext) {
 
   const loadConversation = useCallback(
     async (forceReload = false) => {
+      // Slugs are a literal union, so the type says this can't be empty — but the
+      // slug arrives from the API, which isn't type-checked. Keep the guard.
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (!slug) {
         setState((prev) => ({ ...prev, isLoading: false }));
         return;

@@ -1,6 +1,6 @@
 ---
 title: "Matching Socks"
-description: ""
+description: "Find matching pairs of socks across two laundry baskets."
 ---
 
 There's little in life more annoying than having odd socks where you can't find its partner. So one day you finally decide to sort those socks out!
