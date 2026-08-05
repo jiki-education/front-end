@@ -33,7 +33,7 @@ String(147) === "147"
 
 Là encore, remarque la majuscule au début du nom, et là encore, ne te préoccupe pas du pourquoi pour l'instant !
 
-### Mettre en pratique ce que tu as appris.
+### Mets en pratique ce que tu as appris.
 
 Il existe bien des façons de résoudre cet exercice, mais la solution attendue ici passe par l'utilisation d'une boucle `while`.
 
