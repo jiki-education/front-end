@@ -2,7 +2,7 @@
   "tasks": {
     "sumTheDigits": {
       "name": "Add össze a számjegyeket",
-      "description": "Írj egy `digitalRoot` nevű függvényt, amely egy számot fogad, és összeadja a számjegyeit. Azoknál a számoknál, amelyek már egyjegyűek, illetve amelyeknek a számjegyei egyjegyűre összegződnek, ez az első menet elég."
+      "description": "Írj egy `digitalRoot` nevű függvényt, amely egy számot fogad, és összeadja a számjegyeit. Azoknál a számoknál, amelyek már egyjegyűek, illetve amelyeknek a számjegyei egyjegyűre összegződnek, ez elég is."
     },
     "collapseToSingleDigit": {
       "name": "Add össze, amíg egyjegyű nem lesz",
@@ -20,7 +20,7 @@
     },
     "drSingleDigit": {
       "name": "Már eleve egyjegyű",
-      "description": "Egy már eleve egyjegyű szám a saját digitális gyöke."
+      "description": "Egy már eleve egyjegyű szám önmaga digitális gyöke."
     },
     "drTwoDigits": {
       "name": "Két számjegy",
@@ -62,11 +62,11 @@
     },
     "digitsToNumbers": {
       "question": "De minden számjegy karakter, nem szám.",
-      "answer": "Amikor végigmész a stringen, minden karakter (például `\"4\"`) szöveg. Használd a `Number(char)`-t, hogy átalakítsd a `4` számmá, mielőtt hozzáadnád az összeghez."
+      "answer": "Amikor végigmész a stringen, minden karakter (például `\"4\"`) szöveg. Használd a `Number(char)`-t, hogy átalakítsd a `4`-et számmá, mielőtt hozzáadnád az összeghez."
     },
     "whichLoop": {
       "question": "Hogyan haladjak tovább, ha nem tudom, hány menetre van szükség?",
-      "answer": "Előre nem tudod, hányszor kell összeadnod a számjegyeket, ezért a `while` ciklus remek választás. Csináld tovább a ciklust, amíg a számnak egynél több számjegye van."
+      "answer": "Előre nem tudod, hányszor kell összeadnod a számjegyeket, ezért a `while` ciklus remek választás. Addig fusson a ciklus, amíg a számnak egynél több számjegye van."
     },
     "keepGoing": {
       "question": "Mikor álljak meg?",
@@ -74,7 +74,7 @@
     }
   },
   "checks": {
-    "mustUseWhile": "Majdnem! Ebben a feladatban azt szeretnénk, hogy egy `while` ciklust használj, hogy addig összegezd, amíg egy számjegy marad.",
+    "mustUseWhile": "Majdnem! Ebben a feladatban azt szeretnénk, hogy egy `while` ciklust használj, hogy addig összegezz, amíg egy számjegy marad.",
     "tooManyLines": "Nagyon közel! A megoldásod működik, de egy kicsit hosszú. Nézd meg, hogy tudod-e egyszerűsíteni."
   },
   "functions": {

@@ -6,7 +6,7 @@
     },
     "spotInvalidNumbers": {
       "name": "Érvénytelen számok felismerése",
-      "description": "Azok a számok, amelyeknek minden számjegye érvényes, de az ellenőrzőösszegük nem osztható 10-zel, `false`-t adjanak vissza."
+      "description": "Azon számokra, amelyeknek minden számjegye érvényes, de az ellenőrzőösszegük nem osztható 10-zel, `false`-t adj vissza."
     },
     "rejectBadInput": {
       "name": "Rossz bemenet elutasítása",
@@ -16,35 +16,35 @@
   "scenarios": {
     "luhnSimpleValid": {
       "name": "Egy egyszerű érvényes szám",
-      "description": "Egy érvényes számnak `true`-t kell visszaadnia."
+      "description": "Egy érvényes számra `true`-t kell visszaadnod."
     },
     "luhnValidTwoDigit": {
       "name": "Érvényes kétjegyű szám",
-      "description": "Egy érvényes kétjegyű számnak `true`-t kell visszaadnia."
+      "description": "Egy érvényes kétjegyű számra `true`-t kell visszaadnod."
     },
     "luhnValidCanadianSin": {
       "name": "Érvényes kanadai SIN",
-      "description": "Egy szóközöket tartalmazó érvényes számnak `true`-t kell visszaadnia."
+      "description": "Egy szóközöket tartalmazó érvényes számra `true`-t kell visszaadnod."
     },
     "luhnValidEvenDigits": {
       "name": "Érvényes szám páros számú számjeggyel",
-      "description": "Egy érvényes, páros számú számjegyből álló számnak `true`-t kell visszaadnia."
+      "description": "Egy érvényes, páros számú számjegyből álló számra `true`-t kell visszaadnod."
     },
     "luhnValidVeryLong": {
       "name": "Nagyon hosszú szám",
-      "description": "Egy nagyon hosszú érvényes számnak is `true`-t kell visszaadnia."
+      "description": "Egy nagyon hosszú érvényes számra is `true`-t kell visszaadnod."
     },
     "luhnInvalidCanadianSin": {
       "name": "Érvénytelen kanadai SIN",
-      "description": "Annak a számnak, amelynek az ellenőrzőösszege hibás, `false`-t kell visszaadnia."
+      "description": "Arra a számra, amelynek az ellenőrzőösszege hibás, `false`-t kell visszaadnod."
     },
     "luhnInvalidCreditCard": {
       "name": "Érvénytelen hitelkártya",
-      "description": "Egy érvénytelen hitelkártyaszámnak `false`-t kell visszaadnia."
+      "description": "Egy érvénytelen hitelkártyaszámra `false`-t kell visszaadnod."
     },
     "luhnInvalidLongRemainderDiv5": {
       "name": "Érvénytelen hosszú szám, 5-tel osztható összeggel",
-      "description": "Egy hosszú szám, amelynek az összege 5-tel osztható, de 10-zel nem, `false`-t adjon vissza."
+      "description": "Arra a hosszú számra, amelynek az összege 5-tel osztható, de 10-zel nem, `false`-t adj vissza."
     },
     "luhnSingleDigit": {
       "name": "Egyjegyű szám nem érvényes",

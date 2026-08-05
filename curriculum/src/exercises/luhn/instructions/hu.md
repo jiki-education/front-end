@@ -4,7 +4,7 @@ description: "Azonosító számok (például hitelkártyaszámok) ellenőrzése 
 en_md5: 07b0aea3adc2353e50a26e5cbe5cd162
 ---
 
-Az előbb az ISBN-számok érvényesítését néztük meg. Van egy másik elterjedt képlet, amit sokféle helyzetben használnak számok ellenőrzésére: a **Luhn-formula** (_Luhn formula_ angolul). Legismertebb felhasználása a hitelkártyaszámok elütéseinek kiszűrése.
+Az előbb az ISBN-számok érvényesítését néztük meg. Van egy másik elterjedt képlet, amit sokféle helyzetben használnak számok ellenőrzésére: a **Luhn-formula** (_Luhn formula_ angolul). Legismertebb felhasználása a hitelkártyaszámok elgépeléseinek kiszűrése.
 
 ### A Luhn-ellenőrzés
 

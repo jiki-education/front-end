@@ -17,7 +17,7 @@ Például a `942` digitális gyökének kiszámításához:
 
 Tehát `942` digitális gyöke `6`.
 
-Egy olyan szám, amely már eleve egyjegyű (például `7`), a saját digitális gyöke.
+Egy olyan szám, amely már eleve egyjegyű (például `7`), önmaga digitális gyöke.
 
 Hozz létre egy `digitalRoot` nevű függvényt, amely egy számot fogad, és visszaadja annak digitális gyökét.
 
