@@ -9,6 +9,20 @@ jest.mock("next/navigation", () => ({
   useRouter: jest.fn()
 }));
 
+// The page resolves display copy from the curriculum catalog during its load
+// phase, so supply one here rather than letting the fallback silently stand in.
+jest.mock("@/lib/api/curriculum-copy", () => {
+  const actual = jest.requireActual("@/lib/api/curriculum-copy");
+  return {
+    ...actual,
+    fetchCurriculumCopy: jest.fn().mockResolvedValue({
+      "structured-house": { title: "Structured House", description: "Position every piece with variables." },
+      checkerboard: { title: "Checkerboard", description: "Draw a checkerboard of any size." },
+      "rainbow-ball": { title: "Rainbow Ball", description: "Bounce a colour-shifting ball." }
+    })
+  };
+});
+
 jest.mock("@/lib/api/challenges", () => ({
   fetchChallenge: jest.fn(),
   fetchUserChallenge: jest.fn(),

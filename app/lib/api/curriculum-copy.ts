@@ -80,16 +80,21 @@ export function fetchBadgeCopy(locale: string): Promise<BadgeCopyCatalog> {
   return fetchCatalog(locale, badgeCache, badgeCopyHashes, badgeCopyPath);
 }
 
+// The Record's index signature claims every key is present, but a slug absent
+// from the catalog (or a locale that has none) is undefined at runtime. Look the
+// key up as an own property: these catalogs are parsed JSON, so a plain index
+// would reach Object.prototype and resolve a slug like "constructor" to a
+// function rather than missing.
+function ownEntry<T>(catalog: Record<string, T>, slug: string): T | undefined {
+  return Object.prototype.hasOwnProperty.call(catalog, slug) ? catalog[slug] : undefined;
+}
+
 /** Resolve one slug's copy, falling back to the slug itself on a miss. */
 export function resolveCopy(catalog: CurriculumCopyCatalog, slug: string): CurriculumCopy {
-  // The Record's index signature claims every key is present; a slug absent from
-  // the catalog (or a locale that has none) is genuinely undefined at runtime.
-  const entry = catalog[slug] as CurriculumCopy | undefined;
-  return entry ?? { title: slug, description: "" };
+  return ownEntry(catalog, slug) ?? { title: slug, description: "" };
 }
 
 /** Resolve one badge's copy, falling back to the slug itself on a miss. */
 export function resolveBadgeCopy(catalog: BadgeCopyCatalog, slug: string): BadgeCopy {
-  const entry = catalog[slug] as BadgeCopy | undefined;
-  return entry ?? { name: slug, description: "", funFact: "" };
+  return ownEntry(catalog, slug) ?? { name: slug, description: "", funFact: "" };
 }

@@ -64,21 +64,36 @@ const mockBadgeCopy = {
 };
 
 const mockChallenges1: ChallengeWithCopy[] = [
-  { slug: "structured-house", title: "Snake", description: "Build the classic Snake game", status: "started" },
-  { slug: "checkerboard", title: "Calculator", description: "Build a calculator app", status: "locked" },
-  { slug: "acronym", title: "Todo List", description: "Build a todo list app", status: "locked" }
+  {
+    slug: "structured-house",
+    title: "Structured House",
+    description: "Drive a whole house drawing from two size anchors.",
+    status: "started"
+  },
+  { slug: "checkerboard", title: "Checkerboard", description: "Draw a checkerboard of any size.", status: "locked" },
+  { slug: "acronym", title: "Acronym", description: "Turn a phrase into its acronym.", status: "locked" }
 ];
 
 const mockChallenges2: ChallengeWithCopy[] = [
-  { slug: "structured-house", title: "Snake", description: "Build the classic Snake game", status: "started" },
-  { slug: "checkerboard", title: "Calculator", description: "Build a calculator app", status: "unlocked" },
-  { slug: "acronym", title: "Todo List", description: "Build a todo list app", status: "locked" }
+  {
+    slug: "structured-house",
+    title: "Structured House",
+    description: "Drive a whole house drawing from two size anchors.",
+    status: "started"
+  },
+  { slug: "checkerboard", title: "Checkerboard", description: "Draw a checkerboard of any size.", status: "unlocked" },
+  { slug: "acronym", title: "Acronym", description: "Turn a phrase into its acronym.", status: "locked" }
 ];
 
 const mockChallenges3: ChallengeWithCopy[] = [
-  { slug: "structured-house", title: "Snake", description: "Build the classic Snake game", status: "started" },
-  { slug: "checkerboard", title: "Calculator", description: "Build a calculator app", status: "unlocked" },
-  { slug: "acronym", title: "Todo List", description: "Build a todo list app", status: "started" }
+  {
+    slug: "structured-house",
+    title: "Structured House",
+    description: "Drive a whole house drawing from two size anchors.",
+    status: "started"
+  },
+  { slug: "checkerboard", title: "Checkerboard", description: "Draw a checkerboard of any size.", status: "unlocked" },
+  { slug: "acronym", title: "Acronym", description: "Turn a phrase into its acronym.", status: "started" }
 ];
 
 export default function ChallengesSidebarDevPage() {
