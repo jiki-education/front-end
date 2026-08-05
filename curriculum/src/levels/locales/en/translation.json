@@ -44,11 +44,17 @@
   "advanced-loops": {
     "title": "Advanced Loops"
   },
-  "lists": {
-    "title": "Lists"
+  "arrays": {
+    "title": "Arrays"
+  },
+  "building-arrays": {
+    "title": "Building Arrays"
   },
   "dictionaries": {
     "title": "Dictionaries"
+  },
+  "changing-dictionaries": {
+    "title": "Changing Dictionaries"
   },
   "everything": {
     "title": "Everything"
