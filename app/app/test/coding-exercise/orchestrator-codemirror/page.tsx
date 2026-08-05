@@ -23,16 +23,16 @@ export default function OrchestratorCodeMirrorTestPage() {
         jikiscript: "// Initial code\nconst x = 42;"
       }
     });
-    const orch = new Orchestrator(
-      exercise,
-      "jikiscript",
-      { type: "lesson", slug: "test-lesson" },
-      {},
-      {},
-      t,
-      "",
-      () => {}
-    );
+    const orch = new Orchestrator({
+      exercise: exercise,
+      language: "jikiscript",
+      context: { type: "lesson", slug: "test-lesson" },
+      interpreterLocaleMessages: {},
+      exerciseLocaleMessages: {},
+      t: t,
+      contentHash: "",
+      onGoToDashboard: () => {}
+    });
     setOrchestrator(orch);
 
     // Expose orchestrator to window for E2E testing

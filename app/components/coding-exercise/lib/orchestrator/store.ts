@@ -70,12 +70,24 @@ export function shouldShowSpotlight(
 }
 
 // Factory function to create an instance-specific store
-export function createOrchestratorStore(
-  exercise: ExerciseDefinition,
-  language: Language,
-  context: ExerciseContext,
-  onGoToDashboard?: () => void
-): StoreApi<OrchestratorStore> {
+export interface OrchestratorStoreInit {
+  exercise: ExerciseDefinition;
+  language: Language;
+  context: ExerciseContext;
+  onGoToDashboard?: () => void;
+  // Known before the store exists, so they're seeded rather than set a tick later.
+  levelTitle?: string;
+  isCompleted?: boolean;
+}
+
+export function createOrchestratorStore({
+  exercise,
+  language,
+  context,
+  onGoToDashboard,
+  levelTitle = "",
+  isCompleted = false
+}: OrchestratorStoreInit): StoreApi<OrchestratorStore> {
   return createStore<OrchestratorStore>()(
     subscribeWithSelector((set, get) => {
       const showCompletionModalIfReady = () => {
@@ -133,7 +145,7 @@ export function createOrchestratorStore(
         exerciseSlug: exercise.slug,
         context,
         exerciseTitle: exercise.title,
-        levelTitle: "",
+        levelTitle,
         code: exercise.stubs[language],
         output: "",
         status: "idle",
@@ -142,7 +154,7 @@ export function createOrchestratorStore(
         currentTestIdx: 0,
         hasCodeBeenEdited: false,
         isSpotlightActive: false,
-        isExerciseCompleted: false,
+        isExerciseCompleted: isCompleted,
         completionResponse: [],
         foldedLines: [],
         language: language,
@@ -252,7 +264,6 @@ export function createOrchestratorStore(
         },
         setCode: (code) => set({ code, hasCodeBeenEdited: true }),
         setExerciseTitle: (title) => set({ exerciseTitle: title }),
-        setLevelTitle: (title) => set({ levelTitle: title }),
         setOutput: (output) => set({ output }),
         setStatus: (status) => set({ status }),
         setError: (error) => set({ error }),

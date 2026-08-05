@@ -6,14 +6,14 @@ export function makeTestOrchestrator(
   exercise: ExerciseDefinition,
   opts: { slug?: string; language?: Language } = {}
 ): Orchestrator {
-  return new Orchestrator(
+  return new Orchestrator({
     exercise,
-    opts.language ?? "jikiscript",
-    { type: "lesson", slug: opts.slug ?? "test-lesson" },
-    {},
-    {},
-    makeTestTranslator(),
-    "",
-    () => {}
-  );
+    language: opts.language ?? "jikiscript",
+    context: { type: "lesson", slug: opts.slug ?? "test-lesson" },
+    interpreterLocaleMessages: {},
+    exerciseLocaleMessages: {},
+    t: makeTestTranslator(),
+    contentHash: "",
+    onGoToDashboard: () => {}
+  });
 }

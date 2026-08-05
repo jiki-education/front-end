@@ -19,6 +19,23 @@ import { getInterpreter } from "./test-runner/getInterpreter";
 import type { CodingExerciseTranslator, TestExpect, TestResult } from "./test-results-types";
 import type { ExerciseContext, InformationWidgetData, OrchestratorStore, UnderlineRange } from "./types";
 
+export interface OrchestratorInit {
+  exercise: ExerciseDefinition;
+  language: Language;
+  context: ExerciseContext;
+  interpreterLocaleMessages: InterpreterMessages;
+  exerciseLocaleMessages: CurriculumMessages;
+  t: CodingExerciseTranslator;
+  contentHash: string;
+  onGoToDashboard: () => void;
+  serverData?: { code: string; storedAt?: string };
+  // Both are known before construction, so they seed the store rather than being
+  // set a tick later. isCompleted keeps its setter for the runtime transition when
+  // a student finishes; the level title never changes after load.
+  levelTitle?: string;
+  isCompleted?: boolean;
+}
+
 class Orchestrator {
   readonly store: StoreApi<OrchestratorStore>; // Made readonly instead of private for methods to access
   private readonly timelineManager: TimelineManager;
@@ -44,17 +61,19 @@ class Orchestrator {
   // outside the React tree and so cannot call `useTranslations()` themselves.
   private readonly t: CodingExerciseTranslator;
 
-  constructor(
-    exercise: ExerciseDefinition,
-    language: Language,
-    context: ExerciseContext,
-    interpreterLocaleMessages: InterpreterMessages,
-    exerciseLocaleMessages: CurriculumMessages,
-    t: CodingExerciseTranslator,
-    contentHash: string,
-    onGoToDashboard: () => void,
-    serverData?: { code: string; storedAt?: string }
-  ) {
+  constructor({
+    exercise,
+    language,
+    context,
+    interpreterLocaleMessages,
+    exerciseLocaleMessages,
+    t,
+    contentHash,
+    onGoToDashboard,
+    serverData,
+    levelTitle,
+    isCompleted
+  }: OrchestratorInit) {
     this.exercise = exercise;
     this.language = language;
     this.contentHash = contentHash;
@@ -63,7 +82,7 @@ class Orchestrator {
     this.t = t;
 
     // Create instance-specific store with exercise, language, and context
-    this.store = createOrchestratorStore(exercise, language, context, onGoToDashboard);
+    this.store = createOrchestratorStore({ exercise, language, context, onGoToDashboard, levelTitle, isCompleted });
 
     // Initialize managers
     this.timelineManager = new TimelineManager(this.store);
@@ -221,10 +240,6 @@ class Orchestrator {
 
   setShouldAutoRunCode(shouldAutoRun: boolean) {
     this.store.getState().setShouldAutoRunCode(shouldAutoRun);
-  }
-
-  setLevelTitle(title: string) {
-    this.store.getState().setLevelTitle(title);
   }
 
   setIsExerciseCompleted(completed: boolean) {

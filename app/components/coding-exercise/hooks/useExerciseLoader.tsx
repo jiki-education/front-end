@@ -116,24 +116,22 @@ export function useExerciseLoader({
           : undefined;
 
         // Create orchestrator with exercise, language, and context
-        orchestratorRef.current = new Orchestrator(
+        orchestratorRef.current = new Orchestrator({
           exercise,
           language,
           context,
           interpreterLocaleMessages,
           exerciseLocaleMessages,
           t,
-          content.contentHash,
+          contentHash: content.contentHash,
           onGoToDashboard,
-          serverData
-        );
-
-        orchestratorRef.current.setIsExerciseCompleted(isCompleted);
-
-        // Resolved here rather than in the panel that renders it: the level
-        // catalog loads with the exercise, so the header paints complete instead
-        // of inserting the level line once a later fetch lands.
-        orchestratorRef.current.setLevelTitle(resolveLevelTitle(levelMessages, exercise.levelId));
+          serverData,
+          // Resolved here rather than in the panel that renders it: the level
+          // catalog loads with the exercise, so the header paints complete
+          // instead of inserting the level line once a later fetch lands.
+          levelTitle: resolveLevelTitle(levelMessages, exercise.levelId),
+          isCompleted
+        });
 
         setIsLoading(false);
       } catch (error) {

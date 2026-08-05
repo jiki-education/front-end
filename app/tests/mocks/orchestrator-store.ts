@@ -78,7 +78,6 @@ export function createMockOrchestratorStore(overrides: Partial<OrchestratorStore
 
       // Actions
       setCode: jest.fn(),
-      setLevelTitle: jest.fn(),
       setExerciseTitle: jest.fn(),
       setOutput: jest.fn(),
       setStatus: jest.fn(),

@@ -115,7 +115,6 @@ export interface OrchestratorState {
 export interface OrchestratorActions {
   setCode: (code: string) => void;
   setExerciseTitle: (title: string) => void;
-  setLevelTitle: (title: string) => void;
   setOutput: (output: string) => void;
   setStatus: (status: OrchestratorState["status"]) => void;
   setError: (error: string | null) => void;
