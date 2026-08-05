@@ -1,7 +1,7 @@
 ---
 title: "Creare e usare le variabili"
 description: "Scatole sugli scaffali di Jiki che conservano un valore con un'etichetta, così puoi recuperarlo più avanti nel tuo codice."
-en_md5: 6fca9aed7a4f51de337288e739f8b44a
+en_md5: dd0834017a8d42c22cca25966c1fdd91
 ---
 
 Le variabili sono ciò che ci permette di memorizzare informazioni. Quando programmiamo, spesso abbiamo bisogno di conservare un numero o una stringa da usare più avanti, e le variabili sono il modo in cui lo facciamo. Facciamo un passo indietro nel magazzino di Jiki: vedrai che ha un altro gruppo di scaffali. Conosciamo già il primo gruppo, quello con sopra le funzioni, quelle piccole macchine, come `move` e `rectangle`. Su questo secondo gruppo di scaffali, invece delle macchine, ci sono tante scatole: queste scatole sono le variabili. Puoi dire a Jiki di conservare qualsiasi cosa in queste scatole, e più tardi chiedergli di recuperarla. Ogni scatola ha un nome, proprio come le funzioni, e contiene una sola cosa: per ora un numero o una stringa. Più avanti nel corso vedremo come usarle per memorizzare dati più complessi.
@@ -28,7 +28,7 @@ let name = "Jeremy"
   height="400"
 />
 
-Gli abbiamo detto di creare una scatola, metterci un'etichetta e infilarci qualcosa dentro, e ora lui va a mettere la scatola sullo scaffale. Poi, in qualsiasi altro momento del tuo programma, Jiki può andare a prendere quella scatola dallo scaffale e guardare cosa c'è dentro. Inizia a costruirti questo modello mentale. Io programmo da una vita, e ancora oggi quando scrivo codice immagino di mettere qualcosa in una scatola per poi tirarla fuori più tardi. Quando vedi la parola chiave `let`, pensa davvero: "Ok, vuol dire che sto creando una nuova scatola."
+Gli abbiamo detto di creare una scatola, metterci un'etichetta e infilarci qualcosa dentro, e ora lui va a mettere la scatola sullo scaffale. Poi, in qualsiasi altro momento del tuo programma, Jiki può andare a prendere quella scatola dallo scaffale e guardare cosa c'è dentro. Inizia a costruirti questo modello mentale. Io programmo da una vita, e ancora oggi quando scrivo codice immagino di mettere qualcosa in una scatola per poi tirarla fuori più tardi. Quando vedi la parola chiave `let`, pensa davvero: «Ok, vuol dire che sto creando una nuova scatola.»
 
 Due parole sui nomi delle variabili, le etichette su queste scatole. Abbiamo alcune regole al riguardo. Primo: i nomi delle variabili non possono contenere spazi. Se vuoi usare più parole per l'etichetta di una scatola, attacchiamo le parole una all'altra e trasformiamo la prima lettera di ogni parola in maiuscola. Questo stile si chiama camel case: immagina le gobbe di un cammello che spingono in alto la prima lettera di ogni nuova parola fino a farla diventare maiuscola. Quindi, se vuoi un'etichetta con il mio nome, invece di scrivere due parole separate da uno spazio, scriviamo tutto come una parola sola con la N maiuscola: `myName`.
 
