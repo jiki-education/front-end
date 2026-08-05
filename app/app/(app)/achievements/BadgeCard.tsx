@@ -2,17 +2,20 @@ import { useTranslations } from "next-intl";
 import { BadgeIcon } from "@/components/icons/BadgeIcon";
 import { BadgeNewLabel } from "@/components/ui/BadgeNewLabel";
 import type { BadgeData } from "@/lib/api/badges";
+import type { BadgeCopy } from "@/lib/api/curriculum-copy";
 import styles from "./BadgeCard.module.css";
 import { getBadgeColor, getBadgeDateInfo, isEarnedBadge, isNewBadge } from "./lib/badgeUtils";
 
 interface BadgeCardProps {
   badge: BadgeData;
+  // Curriculum copy resolved by the page during its load phase.
+  content: BadgeCopy;
   onClick?: (badgeId: string) => void;
   isSpinning?: boolean;
   showNewRibbon?: boolean;
 }
 
-export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = false }: BadgeCardProps) {
+export function BadgeCard({ badge, content, onClick, isSpinning = false, showNewRibbon = false }: BadgeCardProps) {
   const t = useTranslations("achievements.badge");
   const isNew = isNewBadge(badge);
   const isEarned = isEarnedBadge(badge);
@@ -73,8 +76,8 @@ export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = 
               <BadgeIcon slug={badge.slug} />
               <div className={styles.ribbon}></div>
             </div>
-            <div className={styles.badgeTitle}>{badge.name}</div>
-            <div className={styles.badgeSubtitle}>{badge.description}</div>
+            <div className={styles.badgeTitle}>{content.name}</div>
+            <div className={styles.badgeSubtitle}>{content.description}</div>
             <div className={styles.badgeDate}>{badgeDate}</div>
           </div>
         </>
@@ -85,10 +88,10 @@ export function BadgeCard({ badge, onClick, isSpinning = false, showNewRibbon = 
         <div className={styles.ribbon}></div>
       </div>
       <div className={styles.badgeTitle} aria-hidden={isEarned && isNew ? true : undefined}>
-        {badge.name}
+        {content.name}
       </div>
       <div className={styles.badgeSubtitle} aria-hidden={isEarned && isNew ? true : undefined}>
-        {badge.description}
+        {content.description}
       </div>
       <div className={styles.badgeDate} aria-hidden={isEarned && isNew ? true : undefined}>
         {badgeDate}

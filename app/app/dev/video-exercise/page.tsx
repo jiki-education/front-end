@@ -8,8 +8,6 @@ type VideoLesson = Lesson & { type: "video"; data: { sources: VideoSource[] } };
 const mockLessonData: VideoLesson = {
   slug: "welcome-video",
   type: "video",
-  title: "Welcome!",
-  description: "Your next lesson",
   walkthrough_video_data: null,
   data: {
     sources: [
@@ -24,5 +22,5 @@ const mockLessonData: VideoLesson = {
 };
 
 export default function VideoExercisePage() {
-  return <VideoExercise lessonData={mockLessonData} onReady={() => {}} />;
+  return <VideoExercise lessonTitle="Solve the Maze" lessonData={mockLessonData} onReady={() => {}} />;
 }

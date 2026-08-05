@@ -8,6 +8,21 @@ jest.mock("next/navigation", () => ({
   useRouter: jest.fn()
 }));
 
+// The page resolves display copy from the curriculum catalog during its load
+// phase, so tests must supply one just as they supply the API response.
+jest.mock("@/lib/api/curriculum-copy", () => {
+  const actual = jest.requireActual("@/lib/api/curriculum-copy");
+  return {
+    ...actual,
+    fetchCurriculumCopy: jest.fn().mockResolvedValue({
+      "challenge-1": { title: "Challenge 1", description: "First challenge" },
+      "challenge-2": { title: "Challenge 2", description: "Second challenge" },
+      "locked-challenge": { title: "Locked Challenge", description: "A locked challenge" },
+      "unlocked-challenge": { title: "Unlocked Challenge", description: "An unlocked challenge" }
+    })
+  };
+});
+
 jest.mock("@/lib/api/challenges", () => ({
   fetchChallenges: jest.fn()
 }));
@@ -49,14 +64,10 @@ describe("ChallengesPage", () => {
       results: [
         {
           slug: "challenge-1",
-          title: "Challenge 1",
-          description: "First challenge",
           status: "unlocked" as const
         },
         {
           slug: "challenge-2",
-          title: "Challenge 2",
-          description: "Second challenge",
           status: "locked" as const
         }
       ],

@@ -38,6 +38,10 @@ export function curriculumCopyPath(locale: string, hash: string): string {
   return `/static/i18n/curriculum/${locale}/messages-${hash}.json`;
 }
 
+export function badgeCopyPath(locale: string, hash: string): string {
+  return `/static/i18n/badges/${locale}/messages-${hash}.json`;
+}
+
 export function interpreterMessagesPath(language: string, locale: string, hash: string): string {
   return `/static/i18n/interpreter/${language}/${locale}/messages-${hash}.json`;
 }

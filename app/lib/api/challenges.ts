@@ -11,12 +11,22 @@ interface UserChallengeResponse {
   user_challenge: UserChallengeData;
 }
 
+// Deliberately minimal: the API also sends `title`, `description` and
+// `exercise_slug`, but the front end owns display copy (resolved from the
+// curriculum copy catalog by slug) and a challenge's slug is always equal to its
+// exercise slug. Do not re-add them — this type is the spec for what the API
+// should eventually send.
 export interface ChallengeData {
   slug: string;
+  status?: ChallengeStatus;
+}
+
+// A challenge plus its curriculum copy, assembled during a page's load phase (a
+// challenge's slug is its exercise slug, so both resolve from the same catalog).
+// Components render this; the API supplies only the ChallengeData half.
+export interface ChallengeWithCopy extends ChallengeData {
   title: string;
   description: string;
-  status?: ChallengeStatus;
-  exercise_slug?: string;
 }
 
 export interface ChallengesResponse {
@@ -36,11 +46,7 @@ export interface ChallengeSubmissionFile {
 /**
  * Fetch all challenges with status for current user
  */
-export async function fetchChallenges(params?: {
-  title?: string;
-  page?: number;
-  per?: number;
-}): Promise<ChallengesResponse> {
+export async function fetchChallenges(params?: { page?: number; per?: number }): Promise<ChallengesResponse> {
   const response = await api.get<ChallengesResponse>("/internal/challenges", {
     params
   });

@@ -1,7 +1,9 @@
 "use client";
 
 import { fetchBadges, type BadgeData } from "@/lib/api/badges";
-import { fetchChallenges, type ChallengeData } from "@/lib/api/challenges";
+import { fetchChallenges, type ChallengeWithCopy } from "@/lib/api/challenges";
+import { fetchBadgeCopy, fetchCurriculumCopy, resolveCopy, type BadgeCopyCatalog } from "@/lib/api/curriculum-copy";
+import { useLocale } from "next-intl";
 import { RequestAbortedError } from "@/lib/api/client";
 import { fetchProfile, type ProfileData } from "@/lib/api/profile";
 import { useAuthStore } from "@/lib/auth/authStore";
@@ -28,7 +30,9 @@ function ChallengesSidebar({
   const isPremium = tierIncludes(user.membership_type, "premium");
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
   const [profileLoading, setProfileLoading] = useState(true);
-  const [challenges, setChallenges] = useState<ChallengeData[]>([]);
+  const locale = useLocale();
+  const [challenges, setChallenges] = useState<ChallengeWithCopy[]>([]);
+  const [badgeCopy, setBadgeCopy] = useState<BadgeCopyCatalog>({});
   const [challengesLoading, setChallengesLoading] = useState(isPremium);
   const [badges, setBadges] = useState<BadgeData[]>([]);
   const [badgesLoading, setBadgesLoading] = useState(true);
@@ -62,18 +66,23 @@ function ChallengesSidebar({
       .catch(logUnlessAborted("Failed to load profile:"))
       .finally(() => setProfileLoading(false));
 
-    void fetchBadges()
-      .then((res) => setBadges(res.badges))
+    void Promise.all([fetchBadges(), fetchBadgeCopy(locale)])
+      .then(([res, copy]) => {
+        setBadges(res.badges);
+        setBadgeCopy(copy);
+      })
       .catch(logUnlessAborted("Failed to load badges:"))
       .finally(() => setBadgesLoading(false));
 
     if (isPremium) {
-      void fetchChallenges({ per: 100 })
-        .then((res) => setChallenges(res.results))
+      void Promise.all([fetchChallenges({ per: 100 }), fetchCurriculumCopy(locale)])
+        .then(([res, catalog]) => {
+          setChallenges(res.results.map((c) => ({ ...c, ...resolveCopy(catalog, c.slug) })));
+        })
         .catch(logUnlessAborted("Failed to load challenges:"))
         .finally(() => setChallengesLoading(false));
     }
-  }, [user, isPremium]);
+  }, [user, isPremium, locale]);
 
   // Filter to get recent/in-progress challenges, padded to 3 with locked challenges - only computed for premium users
   const recentChallenges = useMemo(() => {
@@ -116,6 +125,7 @@ function ChallengesSidebar({
       <div>
         {/* User Profile Card */}
         <UserProfile
+          badgeCopy={badgeCopy}
           profile={userProfile}
           badges={badges}
           onBadgeRevealed={(badgeId) =>

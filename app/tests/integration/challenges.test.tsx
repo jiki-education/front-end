@@ -8,6 +8,30 @@ jest.mock("next/navigation", () => ({
   useRouter: jest.fn()
 }));
 
+// Display copy comes from the curriculum catalog now, not the challenges API.
+// Titles here mirror the fixtures below so the assertions are unchanged.
+jest.mock("@/lib/api/curriculum-copy", () => {
+  const actual = jest.requireActual("@/lib/api/curriculum-copy");
+  const titleize = (slug: string) =>
+    slug
+      .split("-")
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(" ");
+  return {
+    ...actual,
+    fetchCurriculumCopy: jest.fn().mockImplementation(() =>
+      Promise.resolve(
+        new Proxy(
+          {},
+          {
+            get: (_t: object, slug: string) => ({ title: titleize(slug), description: `${titleize(slug)} desc` })
+          }
+        )
+      )
+    )
+  };
+});
+
 jest.mock("@/lib/api/challenges", () => ({
   fetchChallenges: jest.fn()
 }));

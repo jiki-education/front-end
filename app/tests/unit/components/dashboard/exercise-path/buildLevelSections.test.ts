@@ -4,9 +4,7 @@ import type { LevelWithProgress, LessonWithProgress } from "@/types/levels";
 function createLesson(overrides: Partial<LessonWithProgress> = {}): LessonWithProgress {
   return {
     slug: "lesson-one",
-    title: "Lesson One",
     type: "exercise",
-    description: "A lesson",
     status: "not_started",
     walkthrough_video_data: null,
     walkthrough_video_watched_percentage: 0,
@@ -185,10 +183,20 @@ describe("buildLevelSections", () => {
       expect(result[0].lessons[2].completed).toBe(false);
     });
 
-    it("uses lesson title from API data", () => {
-      const levels = [createLevel({ lessons: [createLesson({ title: "Owner's Bouquets" })] })];
-      const result = buildLevelSections(levels);
+    it("resolves lesson copy from the curriculum catalog, not the API", () => {
+      const levels = [createLevel({ lessons: [createLesson({ slug: "owners-bouquets" })] })];
+      const result = buildLevelSections(levels, {
+        "owners-bouquets": { title: "Owner's Bouquets", description: "Arrange the bouquets." }
+      });
       expect(result[0].lessons[0].lesson.title).toBe("Owner's Bouquets");
+      expect(result[0].lessons[0].lesson.description).toBe("Arrange the bouquets.");
+    });
+
+    it("falls back to the slug when the catalog has no entry", () => {
+      const levels = [createLevel({ lessons: [createLesson({ slug: "not-in-catalog" })] })];
+      const result = buildLevelSections(levels, {});
+      expect(result[0].lessons[0].lesson.title).toBe("not-in-catalog");
+      expect(result[0].lessons[0].lesson.description).toBe("");
     });
   });
 });

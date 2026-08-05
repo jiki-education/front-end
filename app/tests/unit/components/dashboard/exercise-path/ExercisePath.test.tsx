@@ -27,9 +27,7 @@ const mockToastError = toastError as jest.MockedFunction<typeof toastError>;
 function createLesson(overrides: Partial<LessonWithProgress> = {}): LessonWithProgress {
   return {
     slug: "lesson-one",
-    title: "Lesson One",
     type: "exercise",
-    description: "A lesson",
     status: "not_started",
     walkthrough_video_data: null,
     walkthrough_video_watched_percentage: 0,

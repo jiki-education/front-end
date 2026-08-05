@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
+import type { ExerciseSlug } from "@jiki/curriculum";
 import type { UserCourse } from "@/types/course";
 import type { LessonWithData } from "@/types/lesson";
 import type { LastSubmissionData } from "@/lib/api/types/conversation";
@@ -16,6 +17,8 @@ const ChooseLanguage = dynamic(() => import("@/components/choose-language/Choose
 
 interface LessonContentProps {
   lesson: LessonWithData;
+  // Curriculum copy resolved by the parent during the page load phase.
+  lessonTitle: string;
   userCourse: UserCourse | null;
   isCompleted: boolean;
   serverSubmission: LastSubmissionData | null;
@@ -24,20 +27,21 @@ interface LessonContentProps {
 
 export default function LessonContent({
   lesson,
+  lessonTitle,
   userCourse,
   isCompleted,
   serverSubmission,
   onReady
 }: LessonContentProps) {
   if (lesson.type === "video") {
-    return <VideoExercise lessonData={lesson} onReady={onReady} />;
+    return <VideoExercise lessonData={lesson} lessonTitle={lessonTitle} onReady={onReady} />;
   }
 
   if (lesson.type === "exercise") {
     return (
       <CodingExercise
         language={userCourse?.language || "javascript"}
-        exerciseSlug={lesson.data.slug}
+        exerciseSlug={lesson.slug as ExerciseSlug}
         context={{ type: "lesson", slug: lesson.slug, walkthroughVideoData: lesson.walkthrough_video_data }}
         isCompleted={isCompleted}
         serverSubmission={serverSubmission}

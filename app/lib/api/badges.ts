@@ -1,13 +1,13 @@
 import { api } from "./client";
 
+// Deliberately minimal: the API also sends `name`, `description`, `fun_fact` and
+// `num_awardees`. The front end owns badge display copy (resolved from the app
+// catalog via useBadgeContent) and nothing renders the awardee count. Do not
+// re-add them — this type is the spec for what the API should eventually send.
 export interface BadgeData {
   id: number;
-  name: string;
   slug: string;
-  description: string;
-  fun_fact: string;
   state: "locked" | "unrevealed" | "revealed";
-  num_awardees: number;
   unlocked_at?: string;
 }
 
@@ -19,10 +19,7 @@ export interface BadgesResponse {
 export interface RevealBadgeResponse {
   badge: {
     id: number;
-    name: string;
     slug: string;
-    description: string;
-    fun_fact: string;
     revealed: boolean;
     unlocked_at: string;
   };

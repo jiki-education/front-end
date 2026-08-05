@@ -7,9 +7,9 @@ import styles from "./page.module.css";
 function createLesson(overrides: Partial<LessonDisplayData> = {}): LessonDisplayData {
   return {
     lesson: {
+      title: "Solve the Maze",
+      description: "Guide Jiki through a maze.",
       slug: "test-lesson",
-      title: "Test Lesson",
-      description: "A test lesson",
       type: "exercise",
       walkthrough_video_data: [
         {

@@ -1,6 +1,6 @@
 import ChallengesSidebar from "@/components/dashboard/challenges-sidebar/ChallengesSidebar";
 import { fetchBadges } from "@/lib/api/badges";
-import { fetchChallenges, type ChallengeData, type ChallengeStatus } from "@/lib/api/challenges";
+import { fetchChallenges, type ChallengeWithCopy, type ChallengeStatus } from "@/lib/api/challenges";
 import { fetchProfile } from "@/lib/api/profile";
 import { createMockUser } from "@/tests/mocks/user";
 import { act, render, screen, waitFor } from "@testing-library/react";
@@ -31,7 +31,7 @@ jest.mock("@/components/dashboard/challenges-sidebar/ui/ChallengesUpsellCard", (
 }));
 
 jest.mock("@/components/dashboard/challenges-sidebar/ui/RecentChallenges", () => ({
-  RecentChallenges: ({ challenges, unlockedCount }: { challenges: ChallengeData[]; unlockedCount: number }) => (
+  RecentChallenges: ({ challenges, unlockedCount }: { challenges: ChallengeWithCopy[]; unlockedCount: number }) => (
     <div data-testid="recent-challenges" data-unlocked={unlockedCount}>
       {challenges.map((p) => (
         <div key={p.slug} data-testid={`challenge-${p.slug}`} data-status={p.status}>
@@ -48,11 +48,11 @@ const mockFetchBadges = fetchBadges as jest.MockedFunction<typeof fetchBadges>;
 
 const authStoreMock = jest.requireMock("@/lib/auth/authStore");
 
-function makeChallenge(slug: string, status: ChallengeStatus): ChallengeData {
+function makeChallenge(slug: string, status: ChallengeStatus): ChallengeWithCopy {
   return { slug, title: slug, description: `${slug} desc`, status };
 }
 
-function mockChallenges(list: ChallengeData[]) {
+function mockChallenges(list: ChallengeWithCopy[]) {
   mockFetchChallenges.mockResolvedValue({
     results: list,
     meta: { current_page: 1, total_count: list.length, total_pages: 1 }

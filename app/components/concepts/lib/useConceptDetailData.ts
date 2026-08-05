@@ -77,21 +77,17 @@ async function setupForLoggedInUser(exercises: ExerciseInfo[], ctx: ConceptSetup
   // never returned by the unlock API) is not treated as locked / redirected away.
   const unlockedSlugs = expandUnlocked(allConcepts, rawUnlockedSlugs);
 
-  // Split concept exercises into true exercises vs challenges (matched by exercise_slug or slug).
-  const challengeByExerciseSlug = new Map<string, ChallengeData>();
-  for (const challenge of challengesResponse.results) {
-    if (challenge.exercise_slug) {
-      challengeByExerciseSlug.set(challenge.exercise_slug, challenge);
-    }
-    challengeByExerciseSlug.set(challenge.slug, challenge);
-  }
+  // Split concept exercises into true exercises vs challenges. A challenge's slug
+  // is always its exercise slug, so one set of slugs is enough to match on.
+  const challengeSlugs = new Set(challengesResponse.results.map((challenge) => challenge.slug));
 
   const exerciseOnly: ExerciseInfo[] = [];
   const challengesForConcept: ChallengeInfo[] = [];
   for (const ex of exercises) {
-    const match = challengeByExerciseSlug.get(ex.slug);
-    if (match) {
-      challengesForConcept.push({ slug: match.slug, title: match.title });
+    if (challengeSlugs.has(ex.slug)) {
+      // A challenge's slug is its exercise slug, so the title already resolved
+      // with the exercise metadata — no separate lookup needed.
+      challengesForConcept.push({ slug: ex.slug, title: ex.title });
     } else {
       exerciseOnly.push(ex);
     }

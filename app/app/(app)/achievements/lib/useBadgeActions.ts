@@ -1,13 +1,15 @@
 import { useRef } from "react";
 import { showModal } from "@/lib/modal";
 import { revealBadge, type BadgeData } from "@/lib/api/badges";
+import { resolveBadgeCopy, type BadgeCopyCatalog } from "@/lib/api/curriculum-copy";
 import { isNewBadge, getBadgeColor } from "./badgeUtils";
 
 export function useBadgeActions(
   badges: BadgeData[],
   setBadges: React.Dispatch<React.SetStateAction<BadgeData[]>>,
   setSpinningBadgeId: React.Dispatch<React.SetStateAction<number | null>>,
-  setRecentlyRevealedIds: React.Dispatch<React.SetStateAction<Set<number>>>
+  setRecentlyRevealedIds: React.Dispatch<React.SetStateAction<Set<number>>>,
+  badgeCopy: BadgeCopyCatalog
 ) {
   const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
   const handleBadgeClick = async (badgeId: string) => {
@@ -36,10 +38,11 @@ export function useBadgeActions(
     }
 
     // Create modal data from badge info
+    const content = resolveBadgeCopy(badgeCopy, badge.slug);
     const modalData = {
-      title: badge.name,
-      description: badge.description,
-      funFact: badge.fun_fact,
+      title: content.name,
+      description: content.description,
+      funFact: content.funFact,
       color: getBadgeColor(badge),
       slug: badge.slug,
       isNew: wasNewBadge

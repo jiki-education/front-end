@@ -1,12 +1,12 @@
 import { ChallengeIcon } from "@/components/icons/ChallengeIcon";
 import LockIcon from "@/icons/lock.svg";
-import { type ChallengeData } from "@/lib/api/challenges";
+import { type ChallengeWithCopy } from "@/lib/api/challenges";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { useTranslations } from "next-intl";
 import styles from "./ChallengeCard.module.css";
 
 interface PremiumChallengeCardProps {
-  challenge: ChallengeData & {
+  challenge: ChallengeWithCopy & {
     iconUrl?: string;
     skills?: string;
   };

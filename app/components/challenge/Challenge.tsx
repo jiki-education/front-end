@@ -8,7 +8,8 @@ import type { LastSubmissionData } from "@/lib/api/types/conversation";
 import type { UserCourse } from "@/types/course";
 import type { ExerciseSlug } from "@jiki/curriculum";
 import dynamic from "next/dynamic";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { fetchCurriculumCopy, resolveCopy, type CurriculumCopy } from "@/lib/api/curriculum-copy";
 import { useCallback, useEffect, useState } from "react";
 import ChallengeError from "./ChallengeError";
 import ChallengeLocked from "./ChallengeLocked";
@@ -24,7 +25,9 @@ interface ChallengeProps {
 
 export default function Challenge({ slug }: ChallengeProps) {
   const t = useTranslations("challenge");
+  const locale = useLocale();
   const [challenge, setChallenge] = useState<ChallengeData | null>(null);
+  const [copy, setCopy] = useState<CurriculumCopy | null>(null);
   const [userCourse, setUserCourse] = useState<UserCourse | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
   const [serverSubmission, setServerSubmission] = useState<LastSubmissionData | null>(null);
@@ -35,12 +38,12 @@ export default function Challenge({ slug }: ChallengeProps) {
 
   const handleReady = useCallback(() => setInnerReady(true), []);
 
-  // Update document title when challenge loads
+  // Update document title once copy resolves, so the tab never shows the slug
   useEffect(() => {
-    if (challenge) {
-      document.title = t("documentTitle", { title: challenge.title });
+    if (copy) {
+      document.title = t("documentTitle", { title: copy.title });
     }
-  }, [challenge, t]);
+  }, [copy, t]);
 
   useEffect(() => {
     let cancelled = false;
@@ -57,7 +60,7 @@ export default function Challenge({ slug }: ChallengeProps) {
           return;
         }
 
-        const [challengeData, userCourseData, userChallenge] = await Promise.all([
+        const [challengeData, userCourseData, userChallenge, catalog] = await Promise.all([
           fetchChallenge(slug),
           fetchUserCourse(),
           fetchUserChallenge(slug).catch((err: unknown) => {
@@ -66,7 +69,8 @@ export default function Challenge({ slug }: ChallengeProps) {
               return null;
             }
             throw err;
-          })
+          }),
+          fetchCurriculumCopy(locale)
         ]);
 
         // `cancelled` is mutated by the cleanup function across the awaits above;
@@ -77,6 +81,7 @@ export default function Challenge({ slug }: ChallengeProps) {
         }
 
         setChallenge(challengeData);
+        setCopy(resolveCopy(catalog, slug));
         setUserCourse(userCourseData);
         setIsCompleted(userChallenge?.status === "completed");
         setServerSubmission(userChallenge?.data?.last_submission ?? null);
@@ -110,7 +115,7 @@ export default function Challenge({ slug }: ChallengeProps) {
     return () => {
       cancelled = true;
     };
-  }, [slug, t]);
+  }, [slug, t, locale]);
 
   if (error) {
     return <ChallengeError error={error} />;
@@ -135,7 +140,7 @@ export default function Challenge({ slug }: ChallengeProps) {
       {challenge && (
         <CodingExercise
           language={userCourse?.language || "javascript"}
-          exerciseSlug={(challenge.exercise_slug || challenge.slug) as ExerciseSlug}
+          exerciseSlug={challenge.slug as ExerciseSlug}
           context={{ type: "challenge", slug: challenge.slug }}
           levelId={userCourse?.current_level_slug ?? undefined}
           isCompleted={isCompleted}

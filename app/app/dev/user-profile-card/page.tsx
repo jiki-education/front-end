@@ -20,34 +20,28 @@ const mockAvatarUrl = "https://avatars.githubusercontent.com/u/1?v=4";
 const mockBadges: BadgeData[] = [
   {
     id: 1,
-    name: "First Steps",
     slug: "first-steps",
-    description: "Completed first exercise",
-    fun_fact: "",
     state: "revealed",
-    num_awardees: 1000,
     unlocked_at: "2024-01-01"
   },
   {
     id: 2,
-    name: "Streak Starter",
     slug: "streak-starter",
-    description: "3-day streak",
-    fun_fact: "",
-    state: "unrevealed",
-    num_awardees: 500
+    state: "unrevealed"
   },
   {
     id: 3,
-    name: "Curious Mind",
     slug: "curious-mind",
-    description: "Explored 5 concepts",
-    fun_fact: "",
     state: "revealed",
-    num_awardees: 300,
     unlocked_at: "2024-02-01"
   }
 ];
+
+const mockBadgeCopy = {
+  "first-steps": { name: "First Steps", description: "Completed first exercise", funFact: "" },
+  "streak-starter": { name: "Streak Starter", description: "3-day streak", funFact: "" },
+  "curious-mind": { name: "Curious Mind", description: "Explored 5 concepts", funFact: "" }
+};
 
 export default function UserProfileCardDevPage() {
   return (
@@ -91,7 +85,7 @@ function CurrentCard() {
         </div>
         <Streak profile={mockProfile} />
       </div>
-      <Badges badges={mockBadges} />
+      <Badges badgeCopy={mockBadgeCopy} badges={mockBadges} />
     </div>
   );
 }
@@ -117,7 +111,7 @@ function PremiumCard() {
         </div>
         <Streak profile={mockProfile} />
       </div>
-      <Badges badges={mockBadges} />
+      <Badges badgeCopy={mockBadgeCopy} badges={mockBadges} />
     </div>
   );
 }

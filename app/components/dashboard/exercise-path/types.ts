@@ -1,8 +1,12 @@
 import type { Lesson } from "@/types/lesson";
 
-// Display wrapper for dashboard lesson rendering
+// Display wrapper for dashboard lesson rendering.
+//
+// `title`/`description` are curriculum copy resolved during the dashboard's load
+// phase (see useLevels) rather than fields the API supplies — the API type
+// deliberately has neither.
 export interface LessonDisplayData {
-  lesson: Lesson;
+  lesson: Lesson & { title: string; description: string };
   completed: boolean;
   locked: boolean;
   route: string;

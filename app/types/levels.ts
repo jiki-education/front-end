@@ -5,9 +5,7 @@ export type { Lesson, LessonType };
 
 export interface LessonWithProgress {
   slug: string;
-  title: string;
   type: LessonType;
-  description: string;
   status: "not_started" | "started" | "completed" | "locked";
   walkthrough_video_data: VideoSource[] | null;
   walkthrough_video_watched_percentage: number;

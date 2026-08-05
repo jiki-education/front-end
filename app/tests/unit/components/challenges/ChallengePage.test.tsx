@@ -64,10 +64,7 @@ describe("Challenge", () => {
 
   it("renders the coding exercise for an unlocked challenge", async () => {
     mockFetchChallenge.mockResolvedValue({
-      slug: "test-challenge",
-      title: "Test Challenge",
-      description: "A test challenge",
-      exercise_slug: "test-exercise"
+      slug: "test-challenge"
     });
     mockFetchUserChallenge.mockResolvedValue({
       challenge_slug: "test-challenge",
@@ -83,7 +80,7 @@ describe("Challenge", () => {
     });
 
     expect(screen.getByTestId("coding-exercise")).toHaveTextContent(
-      "Exercise: test-exercise, Context: challenge/test-challenge, Completed: false, Submission: no"
+      "Exercise: test-challenge, Context: challenge/test-challenge, Completed: false, Submission: no"
     );
     expect(mockStartChallenge).toHaveBeenCalledWith("test-challenge");
   });
@@ -139,9 +136,7 @@ describe("Challenge", () => {
 
   it("treats a missing user_challenge record as a fresh, not-started challenge", async () => {
     mockFetchChallenge.mockResolvedValue({
-      slug: "fresh-challenge",
-      title: "Fresh Challenge",
-      description: "Never started"
+      slug: "fresh-challenge"
     });
     mockFetchUserChallenge.mockRejectedValue(
       new NotFoundError("Not Found", { error: { type: "user_challenge_not_found" } })
@@ -161,10 +156,7 @@ describe("Challenge", () => {
 
   it("passes isCompleted and serverSubmission through for a completed challenge", async () => {
     mockFetchChallenge.mockResolvedValue({
-      slug: "done-challenge",
-      title: "Done Challenge",
-      description: "Completed",
-      exercise_slug: "done-exercise"
+      slug: "done-challenge"
     });
     mockFetchUserChallenge.mockResolvedValue({
       challenge_slug: "done-challenge",
@@ -185,7 +177,7 @@ describe("Challenge", () => {
     });
 
     expect(screen.getByTestId("coding-exercise")).toHaveTextContent(
-      "Exercise: done-exercise, Context: challenge/done-challenge, Completed: true, Submission: yes"
+      "Exercise: done-challenge, Context: challenge/done-challenge, Completed: true, Submission: yes"
     );
   });
 });
