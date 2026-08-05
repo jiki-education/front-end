@@ -20,7 +20,7 @@
     },
     "wordCountMultipleUniqueWords": {
       "name": "Minden szóból egyet",
-      "description": "Számold meg a mondatban szereplő minden egyes szóból az egy előfordulást."
+      "description": "Számolj meg a mondatban szereplő minden egyes szóból egy előfordulást."
     },
     "wordCountMultipleOccurrences": {
       "name": "Többszöri előfordulás",
@@ -69,7 +69,7 @@
       "answer": "Menj végig a karaktereken. Ha egy betű, számjegy vagy aposztróf, akkor a jelenlegi szó része, ezért fűzd hozzá. Egyébként (szóköz, írásjel) a szó véget ért, ezért add a szavak listájához, és kezdj egy új szót."
     },
     "countEachWord": {
-      "question": "Hogyan számoljam meg minden szót?",
+      "question": "Hogyan számoljak meg minden szót?",
       "answer": "Használj egy szótárat, ahol a kulcsok a szavak. Minden szónál ellenőrizd, hogy már létezik-e kulcsként. Ha igen, adj hozzá 1-et a darabszámához. Ha nem, állítsd 1-re."
     },
     "checkKeyExists": {
@@ -79,15 +79,15 @@
   },
   "functions": {
     "toLowerCase": {
-      "description": "Alakíts át egy stringet kisbetűssé (a szint stdlib-jéből)",
+      "description": "Alakíts át egy stringet kisbetűssé (a feladat stdlib-jéből)",
       "category": "String műveletek"
     },
     "push": {
-      "description": "Adj hozzá egy elemet egy listához, és add vissza az új listát (a szint stdlib-jéből)",
+      "description": "Adj hozzá egy elemet egy listához, és add vissza az új listát (a feladat stdlib-jéből)",
       "category": "Lista műveletek"
     },
     "hasKey": {
-      "description": "Ellenőrizd, hogy egy kulcs létezik-e egy szótárban, igaz vagy hamis értékkel tér vissza (a szint stdlib-jéből)",
+      "description": "Ellenőrizd, hogy egy kulcs létezik-e egy szótárban, igaz vagy hamis értékkel tér vissza (a feladat stdlib-jéből)",
       "category": "Szótár műveletek"
     }
   }
