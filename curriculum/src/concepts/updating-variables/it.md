@@ -43,7 +43,7 @@ Beh, pianterà otto fiori, ma li pianterà nello stesso punto ogni volta, che no
   height="400"
 />
 
-Quindi ciò di cui abbiamo bisogno è un modo per spostarci un po'. Dopo aver piantato un fiore, vogliamo dire a Jiki di spostare la posizione avanti di 10, pronti per piantare il prossimo fiore.
+Quindi ciò di cui abbiamo bisogno è un modo per avanzare un po'. Dopo aver piantato un fiore, vogliamo dire a Jiki di spostare la posizione avanti di 10, pronti per piantare il prossimo fiore.
 
 Allora, dimenticando il codice per un attimo, come appare logicamente farlo? Se ti dico: «Pianta il primo fiore a 10, poi il prossimo a 20, poi il prossimo a 30», come fa il tuo cervello a sapere che il prossimo dovrebbe essere piantato a 40 e quello dopo a 50?
 
