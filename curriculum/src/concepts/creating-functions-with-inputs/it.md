@@ -12,7 +12,7 @@ Ora aggiungeremo anche alle tue funzioni le fessure di input.
 
 Per farlo, devi sapere due cose. La prima è come appare, cosa devi scrivere, e la seconda è cosa succede davvero.
 
-La prima parte è piuttosto semplice. Devi solo aggiungere delle normali parentesi tonde e poi i nomi degli input che vuoi.
+La prima parte è piuttosto semplice. Devi solo aggiungere delle normali parentesi tonde (`()`) e poi i nomi degli input che vuoi.
 
 Immagina di creare una funzione che deve sparare molte volte. Chiamiamola `shootMany` (spara più volte).
 
