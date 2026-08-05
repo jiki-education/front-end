@@ -6,18 +6,18 @@
   },
   "checks": {
     "notReachedEnd": "No llegaste al final del laberinto.",
-    "turnAroundNotDefined": "Necesitas definir una función <code>turnAround</code> al inicio de tu code.",
+    "turnAroundNotDefined": "Necesitas definir una función <code>turnAround</code> al inicio de tu código.",
     "turnAroundNotCalled": "Definiste <code>turnAround</code>, pero necesitas llamarla en el bloque <code>else</code> final.",
-    "maxLines": "Tu programa no debería tener más de 17 líneas de code."
+    "maxLines": "Tu programa no debería tener más de 17 líneas de código."
   },
   "tasks": {
     "turnAround": {
       "name": "Dar la vuelta en callejones sin salida",
-      "description": "Define una función turnAround() al inicio de tu code que llame a turnLeft() dos veces, y luego úsala en el bloque else final. Tu solución debe escapar de los callejones sin salida en los tres laberintos."
+      "description": "Define una función turnAround() al inicio de tu código que llame a turnLeft() dos veces, y luego úsala en el bloque else final. Tu solución debe escapar de los callejones sin salida en los tres laberintos."
     },
     "bonusShortSolution": {
       "name": "Bonus: mantenlo corto",
-      "description": "Resuelve un laberinto con dos callejones sin salida, manteniendo todo tu programa en 17 líneas de code o menos."
+      "description": "Resuelve un laberinto con dos callejones sin salida, manteniendo todo tu programa en 17 líneas de código o menos."
     }
   },
   "scenarios": {
@@ -31,7 +31,7 @@
     },
     "maze3": {
       "name": "Mantenlo corto",
-      "description": "Trata de asegurarte de que todo tu programa final tenga 17 líneas de code."
+      "description": "Trata de asegurarte de que todo tu programa final tenga 17 líneas de código."
     }
   },
   "hints": {
@@ -41,7 +41,7 @@
     },
     "placement": {
       "question": "¿Dónde debo poner la definición de la función?",
-      "answer": "Ponla al inicio de tu code, antes del bucle. Las funciones deben definirse antes de llamarlas."
+      "answer": "Ponla al inicio de tu código, antes del bucle. Las funciones deben definirse antes de llamarlas."
     },
     "turnAroundBody": {
       "question": "¿Qué debería ir dentro de `turnAround()`?",
