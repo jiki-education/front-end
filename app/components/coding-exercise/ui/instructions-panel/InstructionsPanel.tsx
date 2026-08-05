@@ -17,7 +17,8 @@ interface InstructionsPanelProps {
   conceptSlugs?: string[];
   exerciseTitle: string;
   exerciseSlug: string;
-  levelId: string;
+  // Resolved during the exercise load, so it is never empty while a fetch runs.
+  levelTitle: string;
   isChallenge?: boolean;
   className?: string;
 }
@@ -28,7 +29,7 @@ export default function InstructionsPanel({
   conceptSlugs,
   exerciseTitle,
   exerciseSlug,
-  levelId,
+  levelTitle,
   isChallenge = false,
   className = ""
 }: InstructionsPanelProps) {
@@ -49,7 +50,7 @@ export default function InstructionsPanel({
   // Build exercise data from props
   const exerciseData: ExerciseData = {
     title: exerciseTitle,
-    level: levelId.charAt(0).toUpperCase() + levelId.slice(1).replace(/-/g, " "),
+    level: levelTitle,
     exerciseSlug,
     isChallenge
   };

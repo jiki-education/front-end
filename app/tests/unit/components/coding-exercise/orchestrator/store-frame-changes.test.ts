@@ -19,7 +19,11 @@ describe("Store Frame Changes", () => {
         slug: "test-uuid",
         stubs: { javascript: "test code", python: "test code", jikiscript: "test code" }
       });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "test-lesson" }
+      });
       const state = store.getState();
 
       const testFrame = createMockFrame(100000, {
@@ -68,7 +72,11 @@ describe("Store Frame Changes", () => {
         slug: "test-uuid",
         stubs: { javascript: "test code", python: "test code", jikiscript: "test code" }
       });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "test-lesson" }
+      });
       const state = store.getState();
 
       const testFrame = createMockFrame(100000, {
@@ -116,7 +124,11 @@ describe("Store Frame Changes", () => {
         slug: "test-uuid",
         stubs: { javascript: "test code", python: "test code", jikiscript: "test code" }
       });
-      const store = createOrchestratorStore(exercise, "javascript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "javascript",
+        context: { type: "lesson", slug: "test-lesson" }
+      });
       const state = store.getState();
 
       // Absolute offsets are 1-based in the interpreter; the underline is shifted to
@@ -165,7 +177,11 @@ describe("Store Frame Changes", () => {
         slug: "test-uuid",
         stubs: { javascript: "test code", python: "test code", jikiscript: "test code" }
       });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "test-lesson" }
+      });
       const state = store.getState();
 
       const frame1 = createMockFrame(0, { line: 1 });

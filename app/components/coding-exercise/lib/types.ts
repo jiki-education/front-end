@@ -48,6 +48,7 @@ export interface OrchestratorState {
   exerciseSlug: string;
   context: ExerciseContext;
   exerciseTitle: string; // Exercise title for UI display
+  levelTitle: string; // Localized level title for UI display, resolved at load
   code: string;
   output: string;
   status: "idle" | "running" | "success" | "error";

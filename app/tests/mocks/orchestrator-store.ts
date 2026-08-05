@@ -11,6 +11,7 @@ export function createMockOrchestratorStore(overrides: Partial<OrchestratorStore
       exerciseSlug: "test-uuid",
       context: { type: "lesson" as const, slug: "test-lesson" },
       exerciseTitle: "Test Exercise",
+      levelTitle: "Using Functions",
       code: "",
       output: "",
       status: "idle" as const,

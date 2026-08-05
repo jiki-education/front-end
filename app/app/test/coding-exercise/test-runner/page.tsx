@@ -39,16 +39,18 @@ export default function TestRunnerTestPage() {
         { id: "test-task-bonus", name: "Third Test Task", bonus: false }
       ]
     });
-    const orch = new Orchestrator(
-      exercise,
-      "jikiscript",
-      { type: "lesson", slug: "test-lesson" },
-      {},
-      {},
-      t,
-      "",
-      () => {}
-    );
+    const orch = new Orchestrator({
+      exercise: exercise,
+      language: "jikiscript",
+      context: { type: "lesson", slug: "test-lesson" },
+      interpreterLocaleMessages: {},
+      exerciseLocaleMessages: {},
+      t: t,
+      contentHash: "",
+      onGoToDashboard: () => {},
+      levelTitle: "",
+      isCompleted: false
+    });
     setOrchestrator(orch);
 
     // Expose orchestrator to window for E2E testing
