@@ -8,7 +8,7 @@ Az előző gyakorlatban kitaláltad, hogyan oldd meg a labirintust automatikusan
 
 Az egyik jó dolog a megoldásban, hogy a kód nagyon természetesen olvasható. Nagyon illeszkedik az algoritmushoz. Kivéve egy apróságot…
 
-Talán egy kicsit elegánstalan megoldásnak érezted, hogy kétszer kellett használnod a `turnLeft()` (fordulj balra) függvényt a megforduláshoz, ahelyett, hogy lenne egy `turnAround()` (fordulj meg) függvényed?
+Nem érezted egy kicsit kevésbé elegáns megoldásnak, hogy kétszer kellett használnod a `turnLeft()` (fordulj balra) függvényt a megforduláshoz, ahelyett, hogy lenne egy `turnAround()` (fordulj meg) függvényed?
 
 Nos, itt a lehetőséged, hogy kijavítsd ezt!
 

@@ -1,8 +1,8 @@
 {
   "describers": {
-    "canMove": "Ellenőrzi, hogy a figura tud-e előre mozogni",
-    "canTurnLeft": "Ellenőrzi, hogy van-e út a figura bal oldalán",
-    "canTurnRight": "Ellenőrzi, hogy van-e út a figura jobb oldalán"
+    "canMove": "Ellenőrizd, hogy a figura tud-e előre mozogni",
+    "canTurnLeft": "Ellenőrizd, hogy van-e út a figura bal oldalán",
+    "canTurnRight": "Ellenőrizd, hogy van-e út a figura jobb oldalán"
   },
   "checks": {
     "notReachedEnd": "Nem értél el a labirintus végére.",
@@ -45,7 +45,7 @@
     },
     "turnAroundBody": {
       "question": "Mit kell a `turnAround()` függvénybe írni?",
-      "answer": "Csak két `turnLeft()` hívás. Két balra fordulással az ellenkező irányba nézel."
+      "answer": "Csak két `turnLeft()` hívást. Két balra fordulással az ellenkező irányba nézel."
     },
     "useInSolver": {
       "question": "Hogyan használhatom az új függvényemet a labirintus-megoldóban?",
