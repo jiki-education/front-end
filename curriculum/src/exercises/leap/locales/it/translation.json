@@ -1,0 +1,75 @@
+{
+  "checks": {
+    "moreThanOneLine": "Hai usato più di una riga di codice all'interno della funzione."
+  },
+  "tasks": {
+    "determineLeapYear": {
+      "name": "Determina se l'anno è bisestile",
+      "description": "Scrivi una funzione chiamata isLeapYear che prende un anno come input e restituisce true se è bisestile, o false se non lo è."
+    },
+    "solveInOneLine": {
+      "name": "Risolvi in una riga di codice",
+      "description": "Riesci a risolverlo con una sola riga di codice all'interno della funzione?"
+    }
+  },
+  "scenarios": {
+    "year2015": {
+      "name": "Anno 2015",
+      "description": "Il 2015 non è divisibile per 4, quindi non è bisestile."
+    },
+    "year1970": {
+      "name": "Anno 1970",
+      "description": "Il 1970 non è divisibile per 4, quindi non è bisestile."
+    },
+    "year2100": {
+      "name": "Anno 2100",
+      "description": "Il 2100 è divisibile per 100 ma non per 400, quindi non è bisestile."
+    },
+    "year1900": {
+      "name": "Anno 1900",
+      "description": "Il 1900 è divisibile per 100 ma non per 400, quindi non è bisestile."
+    },
+    "year1800": {
+      "name": "Anno 1800",
+      "description": "Il 1800 è divisibile per 100 ma non per 400, quindi non è bisestile."
+    },
+    "year2000": {
+      "name": "Anno 2000",
+      "description": "Il 2000 è divisibile per 400, quindi è bisestile."
+    },
+    "year2400": {
+      "name": "Anno 2400",
+      "description": "Il 2400 è divisibile per 400, quindi è bisestile."
+    },
+    "year1996": {
+      "name": "Anno 1996",
+      "description": "Il 1996 è divisibile per 4 ma non per 100, quindi è bisestile."
+    },
+    "year1960": {
+      "name": "Anno 1960",
+      "description": "Il 1960 è divisibile per 4 ma non per 100, quindi è bisestile."
+    },
+    "bonus1": {
+      "name": "Una riga di codice",
+      "description": "Risolvi l'esercizio con una sola riga di codice all'interno della funzione."
+    }
+  },
+  "hints": {
+    "basicRule": {
+      "question": "Qual è la regola base per un anno bisestile?",
+      "answer": "Gli anni divisibili per 4 sono bisestili. Quindi `year % 4 === 0` è il test di partenza."
+    },
+    "exceptions": {
+      "question": "Ci sono eccezioni?",
+      "answer": "Sì. Gli anni divisibili per 100 NON sono bisestili, anche se sono divisibili per 4. Per esempio, il 1900 non è bisestile."
+    },
+    "exceptionsToExceptions": {
+      "question": "Ci sono eccezioni all'eccezione?",
+      "answer": "Sì. Gli anni divisibili per 400 sono effettivamente bisestili. Per esempio, il 2000 lo è. Quindi la regola è a cascata: divisibile per 4, ma non per 100, a meno che non sia anche per 400."
+    },
+    "checkDivisibility": {
+      "question": "Come verifico la divisibilità?",
+      "answer": "Usa l'operatore modulo `%`. `year % 4 === 0` è vero quando l'anno è esattamente divisibile per 4 senza resto. Lo stesso vale per 100 e 400."
+    }
+  }
+}

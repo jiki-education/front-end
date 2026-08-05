@@ -33,15 +33,15 @@
   "hints": {
     "whereToStart": {
       "question": "Par où commencer ?",
-      "answer": "Traite les commentaires TODO un par un, en commençant par le haut."
+      "answer": "Traite les commentaires TODO un par un, en commençant par celui du haut."
     },
     "symmetryOnCanvas": {
       "question": "Comment fonctionne la symétrie sur le canvas ?",
       "answer": "Si le bord gauche d'un élément est à 20, son bord droit symétrique sera à 80 (100 - 20)."
     },
     "noseTrouble": {
-      "question": "Pourquoi je n'arrive pas à faire fonctionner le bec ?",
-      "answer": "Tu ne dois pas ajouter un nouveau triangle pour le bec : tu dois plutôt MODIFIER le triangle existant pour qu'il soit correct. Il te suffit de changer UNE seule valeur."
+      "question": "Pourquoi je n'y arrive pas avec le bec ?",
+      "answer": "Tu ne dois pas ajouter un nouveau triangle pour le bec : tu dois plutôt MODIFIER le triangle existant pour qu'il soit correct. Tu n'as qu'UNE seule valeur à changer."
     }
   },
   "functions": {

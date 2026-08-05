@@ -1,12 +1,13 @@
 ---
-title: "Take a Walk"
-description: "Navigate the maze using a function that walks multiple steps."
+title: "Sétálj egyet"
+description: "Navigálj a labirintusban egy olyan függvény segítségével, amely egyszerre több lépést tesz meg."
+en_md5: 91ee3e60f948f052d7551029f5d6fdf7
 ---
 
-We're back in the maze again! Last time you were here, you used `move()` function to move one step at a time. That worked, but it gets pretty tedious writing `move()` many times in a row!
+Újra itt vagyunk a labirintusban! Amikor legutóbb itt jártál, a `move()` (lépj) függvénnyel léptél egyet-egyet. Ez működött, de elég unalmas sokszor leírni a `move()`-ot!
 
-In this exercise, we've replaced `move()` with a new function called `walk()`. This function takes a number as its input and moves forward that many steps. For example, `walk(3)` moves forward 3 steps, and `walk(1)` moves forward just 1 step.
+Ebben a feladatban lecseréltük a `move()`-ot egy új függvényre (_function_ angolul), a `walk()`-ra (sétálj). Ez a függvény egy számot kap bemenetként (_input_ angolul), és annyit lép előre. Például a `walk(3)` 3 lépést tesz előre, a `walk(1)` pedig pontosan 1 lépést.
 
-In all future exercises, you'll have a "Functions" section like the one below that makes it easy for you to see exactly what functions you have available and how they work.
+Minden további feladatban lesz egy „Függvények” szakasz, mint az alábbi, ami megkönnyíti, hogy pontosan lásd, milyen függvények állnak rendelkezésedre és hogyan működnek.
 
-Use `walk()`, `turnLeft()`, and `turnRight()` to navigate through the maze and reach the green target cell.
+Használd a `walk()`-ot, a `turnLeft()`-et (fordulj balra) és a `turnRight()`-et (fordulj jobbra), hogy keresztüljuss a labirintuson, és elérd a zöld célmezőt.

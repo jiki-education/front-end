@@ -1,21 +1,22 @@
 ---
-title: "Jumbled House"
-description: "Rearrange the pieces of a jumbled-up house."
+title: "Összekevert Ház"
+description: "Rendezd át egy összekevert ház darabjait."
+en_md5: a3855defc91d0911efc648ccf4c5a215
 ---
 
-Your task is to rearrange the pieces of the house. They are both misplaced and the wrong sizes.
+A feladatod, hogy átrendezd a ház darabjait. Rossz helyen vannak és rossz a méretük.
 
-The purpose of this exercise is to encourage your slow, meticulous thinking. You should be able to solve this whole exercise by carefully working through the instructions without guessing at any numbers. Take your time.
+A célja ennek a gyakorlatnak, hogy lassú, alapos gondolkodásra ösztönözzön. A gyakorlat végig megoldható úgy, ha figyelmesen követed az utasításokat, anélkül, hogy találgatnád a számokat. Szánj rá időt.
 
-Try and place each piece in the order they're listed below. When everything is correct you should have a scene that looks like this:
+Próbáld meg a darabokat a lenti sorrendben elhelyezni. Ha minden stimmel, egy ilyen jelenetet kell kapnod:
 
-<img src="/static/images/exercise-assets/jumbled-house/jumbled-house-finished.webp" alt="Jumbled House" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+<img src="/static/images/exercise-assets/jumbled-house/jumbled-house-finished.webp" alt="Összekevert Ház" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-### Instructions
+### Utasítások
 
-- The top-left of the canvas is `0,0`. The bottom-right is `100,100`.
-- The frame of the house (the big rectangle) should be `60` wide and `40` height. It should have its top-left corner at `20`x`50`.
-- The roof sits snugly on top of the house's frame. It should overhang the left and right of the house by `4` on each side. It should have a height of `20`, and its point should be centered horizontally.
-- The windows are both the same size, with a width of `12` and a height of `13`. They both sit `5` from the top of the house frame, and `10` inset from the sides.
-- The door is `14` wide and `18` tall, and sits at the bottom of the house in the center.
-- The little door knob has a radius of `1`, is inset `1` from the right, and is vertically centered in the door.
+- A vászon bal felső sarka `0,0`, a jobb alsó sarka `100,100`.
+- A ház kerete (a nagy téglalap) `60` széles és `40` magasságú (_height_ angolul) legyen. A bal felső sarka a `20`x`50` koordinátán legyen.
+- A tető szorosan illeszkedik a ház keretének tetejére. A háztól balra és jobbra `4`-et lógjon túl mindkét oldalon. A magassága `20` legyen, a csúcsa pedig vízszintesen középen legyen.
+- Az ablakok egyforma méretűek, szélességük (_width_ angolul) `12`, magasságuk `13`. Mindkettő a házkeret tetejétől `5`-re, az oldalaktól `10`-re beljebb helyezkedik el.
+- Az ajtó `14` széles és `18` magas, és a ház alján, középen van.
+- A kis kilincs sugara `1`, a jobb széltől `1`-re beljebb van, és függőlegesen az ajtó közepén van.

@@ -22,6 +22,6 @@ Ta mission est de dessiner trois cercles blancs pour construire un bonhomme de n
 - Un cercle moyen pour le **corps**, au milieu
 - Un petit cercle pour la **tête**, en haut
 
-Les trois cercles doivent être centrés horizontalement sur le canvas. Aide-toi de l'image cible.
+Les trois cercles doivent tous être centrés horizontalement sur le canvas. Utilise l'image de référence comme guide.
 
-Comme précédemment, tu dessines sur un canvas de 100 de large sur 100 de haut. Le coin en haut �  gauche du canvas est donc `0,0`, le coin en bas �  droite est `100,100`, et tu peux survoler le canvas avec la souris pour vérifier où quelque chose doit se placer. Pour te simplifier la vie, tous les nombres de cet exercice sont **divisibles par 5**.
+Comme précédemment, tu dessines sur un canvas de 100 de large sur 100 de haut. Le coin en haut à gauche du canvas est donc `0,0`, le coin en bas à droite est `100,100`, et tu peux survoler le canvas avec la souris pour vérifier où quelque chose doit se placer. Pour te simplifier la vie, tous les nombres de cet exercice sont **divisibles par 5**.

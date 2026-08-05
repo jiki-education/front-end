@@ -52,7 +52,7 @@
       "answer": "Ogni piano superiore segue lo stesso schema del piano terra ma senza l'ingresso: muri ai lati, vetro in mezzo. Ricorda che il piano terra conta già come uno dei piani, quindi devi solo impilare i rimanenti sopra di esso, salendo in `y`. Il tetto è poi una fila piena di muri che copre l'intera larghezza, e non conta come un piano."
     },
     "stuckError": {
-      "question": "Il mio secondo edificio restituisce un errore: «i costruttori sono bloccati, c'è già un muro qui». Cosa c'è che non va?",
+      "question": "Il mio secondo edificio restituisce un errore: «i muratori sono bloccati, c'è già un muro qui». Cosa c'è che non va?",
       "answer": "Il tuo secondo edificio sta cercando di costruire sopra il primo, perché non stai facendo avanzare il tracciatore di colonna tra un edificio e l'altro. Dopo aver disegnato ogni edificio, incrementalo di `width + gap` prima che inizi l'iterazione successiva. Se te ne dimentichi, ogni edificio parte dallo stesso bordo sinistro e si scontra con quello precedente."
     }
   },

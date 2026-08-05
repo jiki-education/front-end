@@ -1,55 +1,55 @@
 {
   "checks": {
-    "sun": "The sun isn't right.",
-    "cloudBody": "The cloud body isn't right.",
-    "leftPuff": "The left cloud puff isn't right.",
-    "leftCenterPuff": "The left-center cloud puff isn't right.",
-    "rightCenterPuff": "The right-center cloud puff isn't right.",
-    "rightPuff": "The right cloud puff isn't right.",
-    "rainDrop": "One of the rain drops isn't right."
+    "sun": "A nap nem megfelelő.",
+    "cloudBody": "A felhő teste nem megfelelő.",
+    "leftPuff": "A bal oldali felhőfodor nem megfelelő.",
+    "leftCenterPuff": "A bal-középső felhőfodor nem megfelelő.",
+    "rightCenterPuff": "A jobb-középső felhőfodor nem megfelelő.",
+    "rightPuff": "A jobb oldali felhőfodor nem megfelelő.",
+    "rainDrop": "Az egyik esőcsepp nem megfelelő."
   },
   "tasks": {
     "drawScene": {
-      "name": "Draw the weather scene",
-      "description": "Create a weather scene with a yellow sun, a white cloud, and blue rain drops."
+      "name": "Rajzold meg az időjárási jelenetet",
+      "description": "Rajzolj egy időjárási jelenetet sárga nappal, fehér felhővel és kék esőcseppekkel."
     }
   },
   "scenarios": {
     "drawScene": {
-      "name": "Draw the weather scene",
-      "description": "Create the complete weather scene with sun, cloud, and rain."
+      "name": "Rajzold meg az időjárási jelenetet",
+      "description": "Rajzold meg a teljes időjárási jelenetet nappal, felhővel és esővel."
     }
   },
   "hints": {
     "cloudShape": {
-      "question": "How do I build the fluffy cloud shape from simple shapes?",
-      "answer": "The cloud is one rectangle (already drawn for you as the base) with `circle`s placed along its top edge to give it the bumpy outline."
+      "question": "Hogyan építsem fel a bolyhos felhőt egyszerű alakzatokból?",
+      "answer": "A felhő egy téglalapból (ezt már megrajzoltuk neked alapként) és a felső szélén elhelyezett circle-ökből áll, hogy bolyhos körvonalat kapjon."
     },
     "raindropShape": {
-      "question": "How do I make a raindrop with `ellipse`?",
-      "answer": "Raindrops are tall and thin, so the vertical radius is bigger than the horizontal one. The horizontal radius is `3` (the one number not divisible by 5)."
+      "question": "Hogyan készítsek esőcseppet ellipse-szel?",
+      "answer": "Az esőcseppek magasak és vékonyak, ezért a függőleges sugár nagyobb, mint a vízszintes. A vízszintes sugár `3` (ez az egyetlen szám, ami nem osztható 5-tel)."
     },
     "sunOnTop": {
-      "question": "Why is my sun showing on top of the cloud?",
-      "answer": "Shapes drawn later sit in front of earlier ones. Draw the sun first, then the cloud on top, so the cloud appears to be in front of the sun."
+      "question": "Miért jelenik meg a nap a felhő előtt?",
+      "answer": "A később rajzolt alakzatok a korábban rajzoltak előtt jelennek meg. Rajzold meg először a napot, aztán a felhőt, így a felhő úgy fog kinézni, mintha a nap előtt lenne."
     },
     "notMatchingTemplate": {
-      "question": "Why isn't my drawing matching the template lines?",
-      "answer": "Your shapes should sit just inside the guide lines, not on top of them. Nearly every number you need is divisible by 5, so try the nearest multiple of 5 if a shape looks slightly off."
+      "question": "Miért nem illeszkedik a rajzom a sablonvonalakhoz?",
+      "answer": "Az alakzatoknak a segédvonalakon belül kell elhelyezkedniük, nem a vonalakon. Majdnem minden szükséges szám osztható 5-tel, úgyhogy ha egy alakzat kicsit eltolódott, próbáld a legközelebbi 5-tel osztható számot."
     }
   },
   "functions": {
     "rectangle": {
-      "description": "Draw a rectangle at position (left, top) with the given width, height, and color",
-      "category": "Drawing Shapes"
+      "description": "Rajzolj egy téglalapot a (left, top) pozícióban a megadott szélességgel, magassággal és színnel.",
+      "category": "Alakzatok rajzolása"
     },
     "circle": {
-      "description": "Draw a circle centered at (centerX, centerY) with the given radius and color",
-      "category": "Drawing Shapes"
+      "description": "Rajzolj egy kört a (centerX, centerY) középpontban a megadott sugárral és színnel.",
+      "category": "Alakzatok rajzolása"
     },
     "ellipse": {
-      "description": "Draw an ellipse centered at (centerX, centerY) with horizontal radius radiusX, vertical radius radiusY, and color",
-      "category": "Drawing Shapes"
+      "description": "Rajzolj egy ellipszist a (centerX, centerY) középpontban, a megadott vízszintes sugárral (radiusX), függőleges sugárral (radiusY) és színnel.",
+      "category": "Alakzatok rajzolása"
     }
   }
 }

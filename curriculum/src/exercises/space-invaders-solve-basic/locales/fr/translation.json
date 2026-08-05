@@ -24,7 +24,7 @@
     },
     "cantWasteAmmo": {
       "question": "On me dit que je ne peux pas gaspiller les munitions.",
-      "answer": "Tu ne dois utiliser `shoot()` que lorsque tu es juste en dessous d'un alien. Essaie d'avancer d'un pas de plus (ou peut-être es-tu allé un pas trop loin ?)"
+      "answer": "Tu ne dois utiliser `shoot()` que lorsque tu es juste en dessous d'un alien. Essaie de déplacer le canon laser d'un cran de plus (ou peut-être es-tu allé un cran trop loin ?)"
     }
   },
   "functions": {

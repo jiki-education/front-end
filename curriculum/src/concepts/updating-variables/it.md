@@ -6,7 +6,7 @@ en_md5: f9b2fbb6bfd82a620b093e88951ff841
 
 Finora, quando abbiamo creato delle variabili, abbiamo messo dei valori nelle scatole e poi li abbiamo ripresi più tardi. È stato molto utile per dare chiarezza al nostro codice e per ridurre un po' di calcoli mentali che altrimenti avremmo dovuto fare. Ma il vero valore delle variabili viene dalla possibilità di cambiare ciò che c'è dentro una scatola, ciò che c'è dentro la variabile, nel corso del programma. Così, anche se eseguiamo lo stesso pezzo di codice più volte, quello che fa può cambiare a seconda di cosa c'è dentro le scatole.
 
-Mettiamo di voler piantare un fiore in un giardino. Abbiamo una comoda funzione `plant` (pianta) che ha un solo input per la posizione in cui vogliamo mettere il fiore. Quindi, se vogliamo posizionare un fiore a 10 dal bordo, lo scriviamo così:
+Supponiamo di voler piantare un fiore in un giardino. Abbiamo una comoda funzione `plant` (pianta) che ha un solo input per la posizione in cui vogliamo mettere il fiore. Quindi, se vogliamo posizionare un fiore a 10 dal bordo, lo scriviamo così:
 
 ```javascript
 plant(10)
@@ -43,7 +43,7 @@ Beh, pianterà otto fiori, ma li pianterà nello stesso punto ogni volta, che no
   height="400"
 />
 
-Quindi ciò di cui abbiamo bisogno è un modo per spostarci un po' ogni volta. Dopo aver piantato un fiore, vogliamo dire a Jiki di spostare la posizione avanti di 10, pronti per piantare il prossimo fiore.
+Quindi ciò di cui abbiamo bisogno è un modo per spostarci un po'. Dopo aver piantato un fiore, vogliamo dire a Jiki di spostare la posizione avanti di 10, pronti per piantare il prossimo fiore.
 
 Allora, dimenticando il codice per un attimo, come appare logicamente farlo? Se ti dico: «Pianta il primo fiore a 10, poi il prossimo a 20, poi il prossimo a 30», come fa il tuo cervello a sapere che il prossimo dovrebbe essere piantato a 40 e quello dopo a 50?
 

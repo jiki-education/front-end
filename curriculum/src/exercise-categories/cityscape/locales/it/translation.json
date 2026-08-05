@@ -4,7 +4,7 @@
     "xNotWhole": "Devi usare numeri interi per `x` e `y`. Hai fornito `x` come `{{x}}`, ma non è consentito.",
     "yNotWhole": "Devi usare numeri interi per `x` e `y`. Hai fornito `y` come `{{y}}`, ma non è consentito.",
     "outsideGrid": "La posizione ({{x}}, {{y}}) è fuori dalla griglia",
-    "alreadyBuilt": "I costruttori sono bloccati. C'è già un {{existing}} alle coordinate `({{x}}, {{y}})` quindi non possono costruire qui!"
+    "alreadyBuilt": "I muratori sono bloccati. C'è già un {{existing}} alle coordinate `({{x}}, {{y}})` quindi non possono costruire qui!"
   },
   "describers": {
     "buildWall": "ha costruito un muro alla posizione (${arg1}, ${arg2})",

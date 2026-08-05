@@ -8,6 +8,6 @@ Nous revoilà dans le labyrinthe ! La dernière fois, tu as utilisé la fonctio
 
 Dans cet exercice, on a remplacé `move()` par une nouvelle fonction (_function_ en anglais) appelée `walk()` (« marcher »). Cette fonction prend un nombre en entrée (_input_ en anglais) et avance d'autant de pas. Par exemple, `walk(3)` avance de 3 pas, et `walk(1)` avance d'un seul pas.
 
-Dans tous les exercices à venir, tu trouveras une section « Fonctions » comme celle ci-dessous, qui te permet de voir facilement quelles fonctions sont à ta disposition et comment elles fonctionnent.
+Dans tous les exercices à venir, tu trouveras une section « Fonctions » comme celle ci-dessous, qui te permet de voir facilement quelles fonctions sont à ta disposition et comment celles-ci fonctionnent.
 
 Utilise `walk()`, `turnLeft()` (« tourner à gauche ») et `turnRight()` (« tourner à droite ») pour guider le personnage dans le labyrinthe jusqu'à la case cible verte.

@@ -9,10 +9,10 @@ Il primo gennaio di quest'anno hai investito 10 dollari guadagnati con fatica ne
 Ci sono tre cose da sapere sui mercati azionari:
 
 1. Sono imprevedibili. Possono crescere o diminuire ogni anno. In media tendono a crescere circa del 10%, ma possono variare notevolmente.
-2. Man mano che il mercato cresce, anche i tuoi soldi crescono, e lo fanno ancora più velocemente grazie all'interesse composto. Se quest'anno investi 10 dollari e il mercato azionario raddoppia di valore nei prossimi 10 anni, avrai 20 dollari. Se raddoppia ancora nei 10 anni successivi, avrai 40 dollari (20 dollari \* 2, non 10 dollari \* 2!)
-3. Man mano che ottieni profitti, devi informare il fisco!
+2. Man mano che il mercato cresce, anche i tuoi soldi aumentano, e lo fanno ancora più velocemente grazie all'interesse composto. Se quest'anno investi 10 dollari e il mercato azionario raddoppia di valore nei prossimi 10 anni, avrai 20 dollari. Se raddoppia ancora nei 10 anni successivi, avrai 40 dollari (20 dollari \* 2, non 10 dollari \* 2!)
+3. Quando ottieni dei profitti, devi dichiararli al fisco!
 
-### Procedimento
+### Come funziona l'esercizio
 
 Hai una funzione chiamata `marketGrowth(year)` che restituisce un numero che indica di quanto è cresciuto il mercato azionario quell'anno (ad esempio `5` significa che è cresciuto del `5%`). Quindi, se investi 10 dollari e il mercato cresce del 5%, ora hai $10.50.
 

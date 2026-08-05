@@ -1,0 +1,64 @@
+{
+  "tasks": {
+    "findTilePosition": {
+      "name": "Trova la posizione della tessera",
+      "description": "Scrivi una funzione che trova la posizione di una lettera specifica nel portatessere. Restituisci \"Move to position X\" se la lettera è presente, altrimenti \"Error: Tile not on rack\"."
+    }
+  },
+  "scenarios": {
+    "tileAtStart": {
+      "name": "Tessera all'inizio",
+      "description": "La lettera è la prima tessera nel portatessere."
+    },
+    "tileInMiddle": {
+      "name": "Tessera nel mezzo",
+      "description": "La lettera si trova nel mezzo del portatessere."
+    },
+    "tileAtEnd": {
+      "name": "Tessera alla fine",
+      "description": "La lettera è l'ultima tessera nel portatessere."
+    },
+    "tileNotFound": {
+      "name": "Tessera non trovata",
+      "description": "La lettera non è nel portatessere."
+    },
+    "emptyRack": {
+      "name": "Portatessere vuoto",
+      "description": "Un portatessere vuoto non ha tessere da trovare."
+    },
+    "firstOfDuplicates": {
+      "name": "Prima tra i duplicati",
+      "description": "Quando la lettera appare più volte, restituisci la prima posizione."
+    },
+    "longerRack": {
+      "name": "Portatessere più lungo",
+      "description": "Trovare una tessera in un portatessere più lungo."
+    }
+  },
+  "hints": {
+    "trackPosition": {
+      "question": "Come tengo traccia della posizione in cui mi trovo nel portatessere?",
+      "answer": "Usa una variabile per la posizione che parte da 1. Ogni volta che guardi una nuova tessera, la incrementi di 1."
+    },
+    "lookAtEachTile": {
+      "question": "Come faccio a guardare ogni tessera?",
+      "answer": "Un ciclo for-each ti dà ogni carattere del portatessere uno dopo l'altro."
+    },
+    "onFound": {
+      "question": "Cosa faccio quando trovo la lettera?",
+      "answer": "Costruisci il messaggio di successo. Converti il numero della posizione in una stringa, poi uniscilo al testo circostante richiesto dall'esercizio usando la concatenazione (`+`) o una stringa interpolata. Restituisci immediatamente: non c'è bisogno di continuare a cercare."
+    },
+    "addNumberToString": {
+      "question": "Non riesco ad aggiungere un numero a una stringa",
+      "answer": "Hai imparato due modi per unire le stringhe. Invece di concatenare le stringhe, prova l'altro metodo che hai imparato."
+    },
+    "positionAlwaysWrong": {
+      "question": "Perché la mia posizione è sempre sbagliata?",
+      "answer": "Assicurati di incrementare il contatore della posizione a ogni iterazione, non solo qualche volta. Altrimenti ogni tessera riporta la stessa posizione."
+    },
+    "notInRack": {
+      "question": "E se la lettera non è nel portatessere?",
+      "answer": "Restituisci il messaggio di errore solo dopo che il ciclo è terminato senza aver trovato la lettera. Se lo restituisci all'interno del ciclo, ti arrendi dopo la prima tessera non corrispondente."
+    }
+  }
+}

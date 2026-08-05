@@ -23,7 +23,7 @@
   "hints": {
     "moveNotWorking": {
       "question": "Pourquoi est-ce que `move()` ne fonctionne plus ?",
-      "answer": "Chaque exercice de Jiki propose des fonctions différentes. Dans cet exercice, tu disposes de la fonction `walk(...)`. Remplace le `n` par le nombre de pas que tu veux faire. Ainsi, `walk(1)` fait exactement la même chose que `move()` la dernière fois."
+      "answer": "Chaque exercice de Jiki propose des fonctions différentes. Dans cet exercice, tu disposes de la fonction `walk(...)`. Remplace le `n` par le nombre de pas que tu veux faire. Ainsi, `walk(1)` fait exactement la même chose que ce que `move()` faisait la dernière fois."
     }
   },
   "functions": {

@@ -18,6 +18,6 @@ Ta mission est de dessiner la moitié droite du pingouin, en essayant de le fair
 
 <img src="/static/images/exercise-assets/penguin/penguin-finished.webp" alt="Pingouin" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-On a déjà dessiné la moitié de l'image pour toi. En lisant le code qui s'y trouve, tu devrais pouvoir déduire les autres valeurs pour rendre le dessin symétrique. Rappelle-toi : le coin supérieur gauche du canvas est `0,0`, et le coin inférieur droit est `100,100`. Le pingouin est assis au milieu. Pour le bec, tu dois **modifier** les coordonnées du milieu du triangle. N'ajoute pas de nouveau triangle.
+On a déjà dessiné la moitié de l'image pour toi. En lisant le code qui s'y trouve, tu devrais pouvoir déduire les autres valeurs pour rendre le dessin symétrique. Rappelle-toi : le coin supérieur gauche du canvas est `0,0`, et le coin inférieur droit est `100,100`. Le pingouin est placé au centre. Pour le bec, tu dois **modifier** les coordonnées du milieu du triangle. N'ajoute pas de nouveau triangle.
 
 **Commence par appuyer sur _« Exécuter le code »_** pour voir à quoi ressemble l'image de départ. Amuse-toi bien !

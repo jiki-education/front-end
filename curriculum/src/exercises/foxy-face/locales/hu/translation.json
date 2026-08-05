@@ -1,54 +1,54 @@
 {
   "checks": {
-    "leftCheek": "The left cheek should be a white triangle in the right place.",
-    "rightCheek": "The right cheek should be a white triangle in the right place.",
-    "leftEar": "The left ear should be a brown triangle in the right place.",
-    "rightEar": "The right ear should be a brown triangle in the right place.",
-    "leftFace": "The left face should be an orange triangle in the right place.",
-    "rightFace": "The right face should be an orange triangle in the right place.",
-    "nose": "The nose needs two charcoal triangles. You can split it top/bottom or left/right.",
-    "leftFaceAboveEar": "The left face should be drawn **on top of** the left ear.",
-    "rightFaceAboveEar": "The right face should be drawn **on top of** the right ear.",
-    "noseAboveFace": "The nose should sit **on top of** the face."
+    "leftCheek": "A bal pofa egy white háromszög legyen a megfelelő helyen.",
+    "rightCheek": "A jobb pofa egy white háromszög legyen a megfelelő helyen.",
+    "leftEar": "A bal fül egy brown háromszög legyen a megfelelő helyen.",
+    "rightEar": "A jobb fül egy brown háromszög legyen a megfelelő helyen.",
+    "leftFace": "A bal arc egy orange háromszög legyen a megfelelő helyen.",
+    "rightFace": "A jobb arc egy orange háromszög legyen a megfelelő helyen.",
+    "nose": "Az orrhoz két charcoal háromszög kell. Feloszthatod fent/lent vagy balra/jobbra.",
+    "leftFaceAboveEar": "A bal arcot a bal fül **fölé** kell rajzolni.",
+    "rightFaceAboveEar": "A jobb arcot a jobb fül **fölé** kell rajzolni.",
+    "noseAboveFace": "Az orr az arc **tetején** legyen."
   },
   "tasks": {
     "drawFox": {
-      "name": "Draw the fox face",
-      "description": "Use triangles to build a geometric fox face on the grey background."
+      "name": "Rajzold meg a rókafejet",
+      "description": "Építs egy geometrikus rókafejet háromszögekből a szürke háttéren."
     }
   },
   "scenarios": {
     "drawFox": {
-      "name": "Draw the fox face",
-      "description": "Build a geometric fox face using triangles."
+      "name": "Rajzold meg a rókafejet",
+      "description": "Építs geometrikus rókafejet háromszögek segítségével."
     }
   },
   "hints": {
     "callTriangle": {
-      "question": "How do I call the `triangle` function?",
-      "answer": "Pass 7 arguments in order: the three corner points (`x1, y1, x2, y2, x3, y3`) and then the color string, e.g. `triangle(50, 10, 30, 50, 70, 50, \"orange\")`."
+      "question": "Hogyan hívhatom meg a `triangle` függvényt?",
+      "answer": "Addj át 7 argumentumot sorrendben: a három csúcspontot (`x1, y1, x2, y2, x3, y3`), majd a szín stringet, pl. `triangle(50, 10, 30, 50, 70, 50, \"orange\")`."
     },
     "drawOrder": {
-      "question": "What order should I draw the parts in so they overlap correctly?",
-      "answer": "Later shapes sit on top of earlier ones. Draw the white cheeks first so the orange face halves cover most of them, leaving just the cheek tips showing."
+      "question": "Milyen sorrendben rajzoljam le a részeket, hogy megfelelően fedjék egymást?",
+      "answer": "A később rajzolt alakzatok rákerülnek a korábbiakra. Először a white pofákat rajzold meg, hogy aztán a orange fél arcok nagyrészt lefedjék őket, csak a pofák hegye látszódjon."
     },
     "colors": {
-      "question": "Which colors go where?",
-      "answer": "The ears are `\"brown\"`, the face halves are `\"orange\"`, the cheeks are `\"white\"`, and the nose is `\"charcoal\"`. Remember the colors are strings, so they need quotes."
+      "question": "Melyik szín hova kerül?",
+      "answer": "A fülek `\"brown\"` színűek, a fél arcok `\"orange\"`, a pofák `\"white\"`, az orr pedig `\"charcoal\"`. Ne feledd, a színek stringek, ezért idézőjelben kell őket megadni."
     },
     "symmetry": {
-      "question": "How do I work out the coordinates on the right side without hovering?",
-      "answer": "The fox is symmetrical around the vertical middle. If a left-side point is at x=`30` and the centre is at x=`50`, the mirror point is at x=`70` (the same distance the other side of the centre). The y values stay the same."
+      "question": "Hogyan számolhatom ki a jobb oldali koordinátákat anélkül, hogy fölé vinném az egeret?",
+      "answer": "A róka szimmetrikus a függőleges középvonalra. Ha egy bal oldali pont x=`30`-nál van, a középpont pedig x=`50`-nél, akkor a tükörpont x=`70`-nél lesz (ugyanannyi távolságra a középpont másik oldalán). Az y értékek változatlanok."
     },
     "multiplesOf5": {
-      "question": "Why aren't my coordinates working?",
-      "answer": "All the values you need are multiples of 5. If a corner looks slightly off, you have probably used a number like `12` or `38`. Snap it to the nearest multiple of 5 (`10`, `15`, `40`, etc)."
+      "question": "Miért nem működnek a koordinátáim?",
+      "answer": "Az összes szükséges érték 5 többszöröse. Ha egy sarok kissé eltér, valószínűleg egy olyan számot használtál, mint `12` vagy `38`. Igazítsd a legközelebbi 5-tel osztható számhoz (`10`, `15`, `40`, stb.)."
     }
   },
   "functions": {
     "triangle": {
-      "description": "Draw a triangle with three corner points and a color",
-      "category": "Drawing Shapes"
+      "description": "Háromszög rajzolása három csúcsponttal és egy színnel.",
+      "category": "Rajzolás"
     }
   }
 }

@@ -47,7 +47,7 @@
   },
   "functions": {
     "triangle": {
-      "description": "Dessine un triangle à partir des coordonnées de trois points et d'une couleur.",
+      "description": "Dessine un triangle défini par trois sommets, avec la couleur donnée",
       "category": "Dessin de formes"
     }
   }

@@ -11,7 +11,7 @@
   "tasks": {
     "straightPath": {
       "name": "Un percorso dritto",
-      "description": "Avanzare fino alla fine del labirinto."
+      "description": "Avanza fino alla fine del labirinto."
     },
     "turnLeft": {
       "name": "Gira a sinistra se puoi",

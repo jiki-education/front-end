@@ -26,11 +26,11 @@
     },
     "coordinates": {
       "question": "Comment fonctionnent les coordonnées ?",
-      "answer": "Les coordonnées du canvas vont de (0,0) en haut à gauche à (100,100) en bas à droite. Pour les rectangles, left et top correspondent au coin en haut à gauche."
+      "answer": "Les coordonnées du canvas vont de (0,0) en haut à gauche à (100,100) en bas à droite. Pour les rectangles, `top` et `left` correspondent au coin en haut à gauche."
     },
     "roofPosition": {
       "question": "Comment trouver la position du toit ?",
-      "answer": "Le toit est un triangle qui repose sur le cadre de la maison. Réfléchis à l'endroit où doivent se trouver les points gauche et droit de sa base, compte tenu du dépassement, et à l'endroit où se place la pointe."
+      "answer": "Le toit est un triangle qui repose sur le cadre de la maison. Réfléchis à l'endroit où doivent se trouver les points gauche et droit de sa base (prends en compte son dépassement), et à l'endroit où se place la pointe."
     },
     "windowPosition": {
       "question": "Comment positionner les fenêtres ?",
@@ -51,7 +51,7 @@
       "category": "Dessin de formes"
     },
     "triangle": {
-      "description": "Dessine un triangle à partir de trois points et d'une couleur",
+      "description": "Dessine un triangle défini par trois sommets, avec la couleur donnée",
       "category": "Dessin de formes"
     }
   }

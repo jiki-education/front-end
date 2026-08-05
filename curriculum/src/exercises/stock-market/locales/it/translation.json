@@ -46,7 +46,7 @@
   "describers": {
     "marketGrowth": "ha ottenuto una crescita del mercato del ${return}% per l'anno ${arg1}",
     "reportTax": "ha dichiarato le tasse per l'anno ${arg1}: $${arg2}",
-    "announceToFamily": "ha annunciato $${arg1} alla famiglia"
+    "announceToFamily": "ha comunicato $${arg1} alla famiglia"
   },
   "functions": {
     "marketGrowth": {
@@ -54,7 +54,7 @@
       "category": "Azione"
     },
     "reportTax": {
-      "description": "Dichiara le tasse per un dato anno. Dovresti chiamare la funzione ogni anno, con l'anno e l'importo attuale di denaro che hai.",
+      "description": "Dichiara l'importo delle tasse per un dato anno. Dovresti chiamare la funzione ogni anno, con l'anno e l'importo attuale di denaro che hai.",
       "category": "Azione"
     },
     "announceToFamily": {

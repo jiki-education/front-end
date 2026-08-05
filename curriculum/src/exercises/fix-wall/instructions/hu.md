@@ -1,23 +1,24 @@
 ---
-title: "Fix the Wall"
-description: "Patch up the gaps in a broken wall with rectangles."
+title: "Javítsd meg a falat"
+description: "Töltsd ki a repedéseket a törött falon téglalapokkal."
+en_md5: ba2f5a5d726cef8cb80841c6e16132c6
 ---
 
-Welcome to your first drawing exercise. In this exercise you'll be drawing rectangles using the `rectangle` function.
+Üdvözlünk az első rajzos feladatodban. Ebben a feladatban téglalapokat fogsz rajzolni a `rectangle` (téglalap) függvény (_function_ angolul) segítségével.
 
-To draw rectangles we need to know the top and left positions, and the width and height of the rectangle. When we use the `rectangle` function, we can specify these as inputs:
+Ahhoz, hogy téglalapot rajzoljunk, ismernünk kell a felső és bal pozíciót, valamint a téglalap szélességét és magasságát. Amikor a `rectangle` függvényt használjuk, ezeket **bemenetként** (_inputs_ angolul) adhatjuk meg:
 
-- `left`: The left side of the rectangle
-- `top`: The top of the rectangle
-- `width`: How wide the rectangle is
-- `height`: How high the rectangle is
+- `left` (bal széle): A téglalap bal széle
+- `top` (felső széle): A téglalap felső széle
+- `width` (szélesség): A téglalap szélessége
+- `height` (magasság): A téglalap magassága
 
-<img src="/static/images/exercise-assets/fix-wall/intro-rectangle.webp" alt="Fix Wall" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+<img src="/static/images/exercise-assets/fix-wall/intro-rectangle.webp" alt="Javítsd meg a falat" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-You're always drawing on a canvas that's 100 width and 100 high. So the top-left of the canvas is `0,0` and the bottom right is `100,100`. **You can hover over the canvas** to check where something needs to go.
+A rajzfelület mindig 100 széles és 100 magas. Tehát a vászon bal felső sarka `0,0`, a jobb alsó sarka pedig `100,100`. **Ha fölé viszed az egeret a vászon fölött**, ellenőrizheted, hogy hova kell kerülnie valaminek.
 
-### Fixing the wall
+### A fal kijavítása
 
-Your job is to use three rectangles to fill the holes in the wall.
+A feladatod, hogy három téglalappal kitöltsd a lyukakat a falon.
 
-To make your life easier, the top, left, height and widths are all divisible by 10.
+Hogy megkönnyítsük a dolgodat, a felső, a bal, a magasság és a szélesség mind osztható 10-zel.

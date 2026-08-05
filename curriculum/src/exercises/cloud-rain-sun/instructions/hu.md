@@ -1,16 +1,17 @@
 ---
-title: "Cloud, Rain & Sun"
-description: "Create a full weather scene with clouds, rain and sunshine."
+title: "Felhő, eső és nap"
+description: "Rajzolj egy teljes időjárási jelenetet felhőkkel, esővel és napsütéssel."
+en_md5: a06cdbeb8b648c6ced759401f0133e81
 ---
 
-In this exercise your task is to draw a weather icon for a rainy day with the sun peeking out behind the clouds. When finished, it should look like this:
+Ebben a feladatban egy olyan időjárás ikont kell rajzolnod, amely egy esős napot ábrázol, ahol a nap kikandikál a felhők mögül. Ha elkészültél, így kell kinéznie:
 
-<img src="/static/images/exercise-assets/cloud-rain-sun/finished.webp" alt="Finished cloud, rain and sun scene" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.3); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+<img src="/static/images/exercise-assets/cloud-rain-sun/finished.webp" alt="Kész felhő, eső és nap jelenet" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.3); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-We've drawn a template for you. Your shapes should sit just inside the lines. We've also added the base of the cloud into the code to make things a little easier for you. **You can't change this line** (you'll see that it's greyed out and there's a locked symbol by it).
+Rajzoltunk neked egy sablont. A formáid pontosan a vonalakon belülre kell kerüljenek. A kódba már beírtuk a felhő alapját is, hogy kicsit megkönnyítsük a dolgod. **Ezt a sort nem változtathatod meg** (látni fogod, hogy ki van szürkítve, és egy lakat ikon is van mellette).
 
-You'll need the `circle` and `ellipse` functions. You should only use ellipses for the raindrops. If you use them for the sun or clouds, things won't work.
+Szükséged lesz a `circle` (kör) és az `ellipse` (ellipszis) függvényekre. Csak az esőcseppekhez használj ellipszist. Ha a naphoz vagy a felhőkhöz használod őket, nem fog működni.
 
-Nearly all the numbers you need are divisible by 5 (e.g. 5, 10, 15, etc). The only exception is the horizontal radius of the raindrops, which is `3`.
+Majdnem az összes szám, amire szükséged lesz, osztható 5-tel (pl. 5, 10, 15, stb.). Az egyetlen kivétel az esőcseppek vízszintes sugara, ami `3`.
 
-Have fun!
+Jó szórakozást!
