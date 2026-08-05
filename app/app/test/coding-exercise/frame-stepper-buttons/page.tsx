@@ -48,7 +48,9 @@ export default function FrameStepperButtonsTestPage() {
       exerciseLocaleMessages: {},
       t: t,
       contentHash: "",
-      onGoToDashboard: () => {}
+      onGoToDashboard: () => {},
+      levelTitle: "",
+      isCompleted: false
     });
 
     // Create test frames and set up the test state

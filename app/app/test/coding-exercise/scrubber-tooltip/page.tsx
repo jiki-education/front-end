@@ -39,7 +39,9 @@ export default function ScrubberTooltipTestPage() {
       exerciseLocaleMessages: {},
       t: t,
       contentHash: "",
-      onGoToDashboard: () => {}
+      onGoToDashboard: () => {},
+      levelTitle: "",
+      isCompleted: false
     })
   );
   const orchestrator = orchestratorRef.current;

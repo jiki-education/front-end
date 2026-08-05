@@ -75,7 +75,8 @@ export interface OrchestratorStoreInit {
   language: Language;
   context: ExerciseContext;
   onGoToDashboard?: () => void;
-  // Known before the store exists, so they're seeded rather than set a tick later.
+  // Seeded rather than set a tick later. Defaulted here (unlike OrchestratorInit,
+  // which requires them) so store-level tests can build a store without caring.
   levelTitle?: string;
   isCompleted?: boolean;
 }

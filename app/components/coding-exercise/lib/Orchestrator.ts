@@ -28,12 +28,14 @@ export interface OrchestratorInit {
   t: CodingExerciseTranslator;
   contentHash: string;
   onGoToDashboard: () => void;
+  // Optional because a student may genuinely have no prior submission.
   serverData?: { code: string; storedAt?: string };
-  // Both are known before construction, so they seed the store rather than being
-  // set a tick later. isCompleted keeps its setter for the runtime transition when
-  // a student finishes; the level title never changes after load.
-  levelTitle?: string;
-  isCompleted?: boolean;
+  // Required: both are known before construction, so they seed the store rather
+  // than being set a tick later. Defaulting either would reintroduce the silently
+  // wrong initial state this replaced. isCompleted keeps its setter for the
+  // runtime transition when a student finishes; the level title never changes.
+  levelTitle: string;
+  isCompleted: boolean;
 }
 
 class Orchestrator {

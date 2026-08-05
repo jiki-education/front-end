@@ -34,7 +34,9 @@ export default function TestButtonsTestPage() {
       exerciseLocaleMessages: {},
       t: t,
       contentHash: "",
-      onGoToDashboard: () => {}
+      onGoToDashboard: () => {},
+      levelTitle: "",
+      isCompleted: false
     })
   );
   const orchestrator = orchestratorRef.current;

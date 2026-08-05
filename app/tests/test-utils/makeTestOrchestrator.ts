@@ -14,6 +14,8 @@ export function makeTestOrchestrator(
     exerciseLocaleMessages: {},
     t: makeTestTranslator(),
     contentHash: "",
-    onGoToDashboard: () => {}
+    onGoToDashboard: () => {},
+    levelTitle: "",
+    isCompleted: false
   });
 }

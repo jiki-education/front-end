@@ -47,7 +47,9 @@ export default function TestRunnerTestPage() {
       exerciseLocaleMessages: {},
       t: t,
       contentHash: "",
-      onGoToDashboard: () => {}
+      onGoToDashboard: () => {},
+      levelTitle: "",
+      isCompleted: false
     });
     setOrchestrator(orch);
 

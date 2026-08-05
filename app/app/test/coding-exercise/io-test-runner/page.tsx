@@ -83,7 +83,9 @@ export default function IOTestRunnerPage() {
       exerciseLocaleMessages: {},
       t: t,
       contentHash: "",
-      onGoToDashboard: () => {}
+      onGoToDashboard: () => {},
+      levelTitle: "",
+      isCompleted: false
     });
     setOrchestrator(orch);
 

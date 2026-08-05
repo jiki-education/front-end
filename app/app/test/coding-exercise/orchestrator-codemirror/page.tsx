@@ -31,7 +31,9 @@ export default function OrchestratorCodeMirrorTestPage() {
       exerciseLocaleMessages: {},
       t: t,
       contentHash: "",
-      onGoToDashboard: () => {}
+      onGoToDashboard: () => {},
+      levelTitle: "",
+      isCompleted: false
     });
     setOrchestrator(orch);
 

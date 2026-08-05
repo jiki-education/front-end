@@ -47,7 +47,9 @@ export default function CodeFoldingTestPage() {
       exerciseLocaleMessages: {},
       t: t,
       contentHash: "",
-      onGoToDashboard: () => {}
+      onGoToDashboard: () => {},
+      levelTitle: "",
+      isCompleted: false
     })
   );
   const orchestrator = orchestratorRef.current;
