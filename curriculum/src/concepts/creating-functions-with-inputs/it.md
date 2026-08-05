@@ -4,15 +4,15 @@ description: "Aggiungere fessure di input alle tue funzioni, così possono fare 
 en_md5: f70d737888fcbda3306196ff069eb2f1
 ---
 
-Le funzioni che hai creato finora fanno sempre esattamente la stessa cosa ogni volta. `turnAround` (girati) fa sempre girare a sinistra due volte. `shootIfAlienAbove` (spara se alieno sopra) controlla e spara sempre.
+Le funzioni che hai creato finora fanno sempre esattamente la stessa cosa ogni volta. `turnAround` (girati) fa sempre girare a sinistra due volte. `shootIfAlienAbove` (spara se l'alieno è sopra) controlla e spara sempre.
 
-Ma pensa alle funzioni che hai usato durante il corso: come fanno cose diverse a seconda degli input. `Rectangle` prende left, top, width e height come input, e poi disegna un rettangolo diverso in base a ciò che gli dici.
+Ma pensa alle funzioni che hai usato durante il corso, a come fanno cose diverse a seconda degli input. `Rectangle` prende left, top, width e height come input, e poi disegna un rettangolo diverso in base a ciò che gli dici.
 
 Ora aggiungeremo anche alle tue funzioni le fessure di input.
 
 Per farlo, devi sapere due cose. La prima è come appare, cosa devi scrivere, e la seconda è cosa succede davvero.
 
-La prima parte è piuttosto semplice. Devi solo aggiungere delle normali parentesi tonde (`()`) e poi i nomi degli input che vuoi.
+La prima parte è piuttosto semplice. Devi solo aggiungere delle normali parentesi tonde e poi i nomi degli input che vuoi.
 
 Immagina di creare una funzione che deve sparare molte volte. Chiamiamola `shootMany` (spara più volte).
 
