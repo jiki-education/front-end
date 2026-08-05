@@ -1,14 +1,14 @@
 import type { Level } from "./types";
 
-const lists: Level = {
-  id: "lists",
-  title: "Lists",
-  description: "Learn to work with lists (arrays) to store and process collections of data.",
-  taughtConcepts: ["Creating lists/arrays", "Iterating over lists", "Manipulating list contents"],
+const arrays: Level = {
+  id: "arrays",
+  title: "Arrays",
+  description: "Learn how to read and work with arrays to store and process collections of data.",
+  taughtConcepts: ["Creating arrays", "Indexing into arrays", "Iterating over arrays"],
   languageFeatures: {
     jikiscript: {
       languageFeatures: {
-        allowedStdlibFunctions: ["push"]
+        allowedStdlibFunctions: []
       }
     },
     javascript: {
@@ -19,20 +19,12 @@ const lists: Level = {
             properties: ["length"],
             methods: [
               "at",
-              "push",
-              "pop",
-              "shift",
-              "unshift",
               "indexOf",
+              "lastIndexOf",
               "includes",
               "slice",
               "concat",
               "join",
-              "splice",
-              "sort",
-              "reverse",
-              "fill",
-              "lastIndexOf",
               "toString",
               "entries",
               "keys",
@@ -45,4 +37,4 @@ const lists: Level = {
   }
 };
 
-export { lists };
+export { arrays };

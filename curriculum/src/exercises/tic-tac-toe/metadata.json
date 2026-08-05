@@ -1,6 +1,6 @@
 {
   "slug": "tic-tac-toe",
-  "levelId": "lists",
+  "levelId": "changing-dictionaries",
   "hints": [
     {
       "question": "hints.whereToStart.question",

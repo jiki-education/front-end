@@ -13,8 +13,10 @@ import { stringIteration } from "./string-iteration";
 import { multipleFunctions } from "./multiple-functions";
 import { methodsAndProperties } from "./methods-and-properties";
 import { advancedLoops } from "./advanced-loops";
-import { lists } from "./lists";
+import { arrays } from "./arrays";
+import { buildingArrays } from "./building-arrays";
 import { dictionaries } from "./dictionaries";
+import { changingDictionaries } from "./changing-dictionaries";
 import { everythingLevel } from "./everything";
 import type { LanguageFeatureFlags, JavaScriptFeatureFlags, PythonFeatureFlags, JikiScriptFeatureFlags } from "./types";
 import type { Language } from "../types";
@@ -39,8 +41,10 @@ export const levels = [
   multipleFunctions,
   methodsAndProperties,
   advancedLoops,
-  lists,
+  arrays,
+  buildingArrays,
   dictionaries,
+  changingDictionaries,
   everythingLevel
 ] as const;
 

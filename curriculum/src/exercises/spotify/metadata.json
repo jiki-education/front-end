@@ -1,6 +1,6 @@
 {
   "slug": "spotify",
-  "levelId": "dictionaries",
+  "levelId": "changing-dictionaries",
   "hints": [
     {
       "question": "hints.fetchUserData.question",

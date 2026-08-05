@@ -1,6 +1,6 @@
 {
   "slug": "guest-list",
-  "levelId": "lists",
+  "levelId": "arrays",
   "hints": [
     {
       "question": "hints.keepingTrack.question",
