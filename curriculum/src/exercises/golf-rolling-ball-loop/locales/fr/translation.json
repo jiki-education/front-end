@@ -21,7 +21,7 @@
   "hints": {
     "icantWorkItOut": {
       "question": "Je n'y arrive pas",
-      "answer": "Tu as deux outils à ta disposition :\n- Une boucle repeat, que tu utilises en écrivant `repeat(n) { ... }`, où `n` est le nombre de fois que tu veux faire rouler la balle, et où tu peux remplacer les `...` par ce que tu veux, entre les accolades.\n- Une fonction `roll()` qui fait rouler la balle d'une unité vers la droite.\n\nComment peux-tu les combiner ?"
+      "answer": "Tu as deux outils à ta disposition :\n- Une boucle de répétition, que tu utilises en écrivant `repeat(n) { }`, où `n` est le nombre de fois que tu veux faire rouler la balle et où tu peux mettre ce que tu veux entre les accolades (`{ }`).\n- Une fonction `roll()` qui fait rouler la balle d'une unité vers la droite.\n\nComment peux-tu les combiner ?"
     }
   },
   "functions": {

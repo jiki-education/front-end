@@ -1,5 +1,5 @@
 ---
-title: "La balle qui roule"
+title: "Balle qui roule"
 description: "Fais rouler une balle de golf jusque dans le trou à l'aide d'une boucle."
 en_md5: 59c5bb11221dafeeae6e370996972053
 ---

@@ -6,7 +6,7 @@
     "rightEar": "L'oreille droite doit être un triangle marron placé au bon endroit.",
     "leftFace": "La moitié gauche de la tête doit être un triangle orange placé au bon endroit.",
     "rightFace": "La moitié droite de la tête doit être un triangle orange placé au bon endroit.",
-    "nose": "Le museau nécessite deux triangles anthracite. Tu peux le diviser haut/bas ou gauche/droite.",
+    "nose": "Le museau nécessite deux triangles anthracite. Tu peux le diviser en deux morceaux : haut/bas ou gauche/droite.",
     "leftFaceAboveEar": "La moitié gauche de la tête doit être dessinée **par-dessus** l'oreille gauche.",
     "rightFaceAboveEar": "La moitié droite de la tête doit être dessinée **par-dessus** l'oreille droite.",
     "noseAboveFace": "Le museau doit être placé **par-dessus** la tête."
@@ -37,7 +37,7 @@
       "answer": "Les oreilles sont `\"brown\"`, les moitiés de la tête sont `\"orange\"`, les joues sont `\"white\"` et le museau est `\"charcoal\"`. N'oublie pas que les couleurs sont des strings, donc elles doivent être entre guillemets."
     },
     "symmetry": {
-      "question": "Comment trouver les coordonnées du côté droit sans survoler ?",
+      "question": "Comment trouver les coordonnées de la partie droite sans la survoler ?",
       "answer": "Le renard est symétrique par rapport au milieu vertical. Si un point du côté gauche est à x=`30` et que le centre est à x=`50`, le point miroir est à x=`70` (à la même distance de l'autre côté du centre). Les valeurs y ne changent pas."
     },
     "multiplesOf5": {
@@ -47,7 +47,7 @@
   },
   "functions": {
     "triangle": {
-      "description": "Dessine un triangle à partir de trois points de coin et d'une couleur",
+      "description": "Dessine un triangle à partir des coordonnées de trois points et d'une couleur.",
       "category": "Dessin de formes"
     }
   }
