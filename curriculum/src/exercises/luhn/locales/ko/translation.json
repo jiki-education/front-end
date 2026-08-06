@@ -1,0 +1,117 @@
+{
+  "tasks": {
+    "doubleAndSum": {
+      "name": "두 번째 자리마다 두 배로 하고 합산하기",
+      "description": "공백을 무시하고, 오른쪽에서부터 두 번째 자리마다 숫자를 두 배로 한 다음(9보다 크면 9를 빼고), 모든 자릿수를 더한 합계가 10으로 나누어 떨어지면 true를 반환하는 valid 함수를 작성하세요."
+    },
+    "spotInvalidNumbers": {
+      "name": "유효하지 않은 번호 찾기",
+      "description": "모든 자릿수가 유효하지만 체크섬이 10으로 나누어 떨어지지 않는 번호는 false를 반환해야 해요."
+    },
+    "rejectBadInput": {
+      "name": "잘못된 입력 거부하기",
+      "description": "길이가 한 글자 이하인 문자열, 그리고 숫자나 공백이 아닌 문자가 포함된 문자열은 모두 거부해야 해요."
+    }
+  },
+  "scenarios": {
+    "luhnSimpleValid": {
+      "name": "간단한 유효한 번호",
+      "description": "유효한 번호는 true를 반환해야 해요."
+    },
+    "luhnValidTwoDigit": {
+      "name": "유효한 두 자리 번호",
+      "description": "유효한 두 자리 번호는 true를 반환해야 해요."
+    },
+    "luhnValidCanadianSin": {
+      "name": "유효한 캐나다 SIN",
+      "description": "공백이 포함된 유효한 번호는 true를 반환해야 해요."
+    },
+    "luhnValidEvenDigits": {
+      "name": "자릿수가 짝수인 유효한 번호",
+      "description": "자릿수가 짝수인 유효한 번호는 true를 반환해야 해요."
+    },
+    "luhnValidVeryLong": {
+      "name": "아주 긴 번호",
+      "description": "아주 긴 유효한 번호도 여전히 true를 반환해야 해요."
+    },
+    "luhnInvalidCanadianSin": {
+      "name": "유효하지 않은 캐나다 SIN",
+      "description": "체크섬이 맞지 않는 번호는 false를 반환해야 해요."
+    },
+    "luhnInvalidCreditCard": {
+      "name": "유효하지 않은 신용 카드 번호",
+      "description": "유효하지 않은 신용 카드 번호는 false를 반환해야 해요."
+    },
+    "luhnInvalidLongRemainderDiv5": {
+      "name": "나머지가 5인 유효하지 않은 긴 번호",
+      "description": "합계가 5로 나누어 떨어지지만 10으로는 나누어 떨어지지 않는 긴 번호는 false를 반환해야 해요."
+    },
+    "luhnSingleDigit": {
+      "name": "한 자리 숫자는 유효하지 않음",
+      "description": "한 자리 문자열은 절대 유효할 수 없어요."
+    },
+    "luhnZeroWithSpace": {
+      "name": "공백이 포함된 한 개의 0",
+      "description": "공백이 포함된 한 개의 0은 유효하지 않아요. 공백을 무시하면 숫자가 하나만 남기 때문이에요."
+    },
+    "luhnTrailingLetter": {
+      "name": "끝에 붙은 문자",
+      "description": "끝에 숫자가 아닌 문자가 붙으면 유효했던 번호도 유효하지 않게 돼요."
+    },
+    "luhnColon": {
+      "name": "콜론 문자",
+      "description": "콜론은 문자 '0'보다 1 작은 값이므로 숫자로 취급하면 안 돼요."
+    },
+    "luhnPercent": {
+      "name": "중간에 있는 퍼센트 문자",
+      "description": "중간에 숫자도 공백도 아닌 문자가 있으면, 숫자만으로는 10의 배수가 되더라도 번호가 유효하지 않아요."
+    }
+  },
+  "hints": {
+    "whatIsLuhn": {
+      "question": "Luhn 검사는 실제로 어떻게 동작하나요?",
+      "answer": "먼저 공백을 무시하세요. 그 후, 가장 오른쪽 자리에서 왼쪽으로 이동하면서 두 번째 자리마다 값을 두 배로 해요. 두 배로 한 값이 9보다 크면 9를 빼요. 모든 자릿수를 더한 합이 10으로 나누어 떨어지면 번호가 유효해요."
+    },
+    "stripSpaces": {
+      "question": "공백은 어떻게 처리하나요?",
+      "answer": "공백은 단지 가독성을 위해 있어요. `continue`로 건너뛰면 공백이 숫자로 세어지지 않고 실제 자릿수의 위치에 영향을 주지 않아요."
+    },
+    "rejectNonDigits": {
+      "question": "유효하지 않은 문자는 어떻게 거부하나요?",
+      "answer": "각 문자를 살펴볼 때, 공백이 아니고 `0123456789` 중 하나가 아니면 바로 `false`를 반환할 수 있어요. 편리한 확인 방법은 `\\\"0123456789\\\".includes(char)`예요."
+    },
+    "everySecondDigit": {
+      "question": "어떤 자릿수를 두 배로 하나요?",
+      "answer": "두 번째 자리마다요. 먼저 숫자만으로 이루어진 깨끗한 문자열을 만든 다음 인덱스를 사용해 반복문으로 각 자릿수의 위치를 알 수 있어요."
+    },
+    "fromTheRight": {
+      "question": "그런데 왼쪽이 아니라 오른쪽부터 세어야 하잖아요.",
+      "answer": "깨끗한 숫자 문자열의 길이가 `len`이고 현재 인덱스가 `i`(왼쪽에서 0부터 세어요)라면, 오른쪽에서부터의 거리는 `len - 1 - i`예요. 그 거리가 홀수일 때 그 자릿수를 두 배로 하면 돼요."
+    },
+    "doublingOverNine": {
+      "question": "두 배로 했을 때 두 자리 숫자가 나오면 어떻게 하나요?",
+      "answer": "두 배로 했을 때 자릿수가 9보다 커지면 9를 빼요. 예를 들어 6을 두 배로 하면 12가 되고, 12 - 9 = 3이에요. (이건 두 자릿수를 더하는 것과 같은 결과예요.)"
+    },
+    "finalCheck": {
+      "question": "최종 유효성 검사는 무엇인가요?",
+      "answer": "모든 자릿수(두 배로 한 것과 안 한 것 모두)를 더해서 합계가 10으로 나누어 떨어지는지, 즉 `total % 10 === 0`인지 확인하세요. 한 자리 이하인 문자열도 거부해야 한다는 걸 잊지 마세요."
+    }
+  },
+  "checks": {
+    "mustUseFor": "거의 다 됐어요! 이 연습 문제는 `for`문을 사용해서 풀어야 해요."
+  },
+  "functions": {
+    "number": {
+      "description": "숫자가 포함된 문자열을 숫자로 변환해요.",
+      "category": "형 변환"
+    },
+    "includes": {
+      "description": "문자열이 특정 부분 문자열을 포함하는지 확인해요.",
+      "category": "문자열 연산"
+    },
+    "length": {
+      "description": "문자열의 길이예요.",
+      "category": "문자열 연산"
+    }
+  }
+}

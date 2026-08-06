@@ -1,0 +1,71 @@
+{
+  "checks": {
+    "tooManyLines": "코드 줄 수가 너무 많아요. 더 짧게 만들 수 있나요?"
+  },
+  "tasks": {
+    "searchForTile": {
+      "name": "타일 찾기",
+      "description": "특정 문자 타일이 랙에 있는지 확인하는 함수를 작성하세요. 있으면 true를, 없으면 false를 반환하세요."
+    },
+    "solveInEightLines": {
+      "name": "코드 8줄로 해결하기",
+      "description": "이 연습 문제를 단 8줄의 코드로 풀 수 있나요?"
+    }
+  },
+  "scenarios": {
+    "letterFoundAtStart": {
+      "name": "첫 번째 문자",
+      "description": "찾는 문자가 랙의 첫 번째 타일인 경우"
+    },
+    "letterFoundInMiddle": {
+      "name": "중간에 있는 문자",
+      "description": "찾는 문자가 랙의 중간에 있는 경우"
+    },
+    "letterFoundAtEnd": {
+      "name": "마지막 문자",
+      "description": "찾는 문자가 랙의 마지막 타일인 경우"
+    },
+    "letterNotFound": {
+      "name": "문자 없음",
+      "description": "찾는 문자가 랙에 없는 경우"
+    },
+    "emptyRack": {
+      "name": "빈 랙",
+      "description": "빈 랙에는 찾을 타일이 하나도 없어요."
+    },
+    "duplicateLetters": {
+      "name": "중복 문자가 있는 랙",
+      "description": "찾는 문자가 중복된 타일 사이에 있는 경우"
+    },
+    "singleTileFound": {
+      "name": "타일 하나 일치",
+      "description": "찾는 문자와 일치하는 타일이 하나 있는 랙"
+    },
+    "singleTileNotFound": {
+      "name": "타일 하나 불일치",
+      "description": "찾는 문자와 일치하지 않는 타일이 하나 있는 랙"
+    },
+    "bonus1": {
+      "name": "코드 8줄",
+      "description": "이 연습 문제를 단 8줄의 코드로 해결하세요."
+    }
+  },
+  "hints": {
+    "byHand": {
+      "question": "직접 한다면 어떻게 할까요?",
+      "answer": "haystack을 한 글자씩 살펴보면서 needle과 비교해요. 일치하는 글자를 찾으면 바로 멈춰요. 끝까지 일치하는 글자가 없으면 needle이 없는 거예요."
+    },
+    "loopAndCompare": {
+      "question": "반복문과 비교는 어떻게 하나요?",
+      "answer": "for...of문은 문자열의 각 문자를 차례대로 줘요. 그 안에서 if문으로 현재 문자를 needle과 비교해요."
+    },
+    "returnTrue": {
+      "question": "언제 true를 반환해야 하나요?",
+      "answer": "일치하는 걸 찾자마자 바로 반환해요. 남은 문자를 계속 확인할 필요가 없어요."
+    },
+    "returnFalse": {
+      "question": "언제 false를 반환해야 하나요?",
+      "answer": "루프를 끝까지 돌았는데도 일치하는 글자를 찾지 못했을 때만 false를 반환해요. 흔히 하는 실수는 `return false`를 루프 안에 넣는 거예요. 그러면 첫 번째로 일치하지 않는 문자에서 바로 포기하게 돼요, 나머지는 확인하기도 전에 말이에요."
+    }
+  }
+}

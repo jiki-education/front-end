@@ -1,0 +1,99 @@
+{
+  "checks": {
+    "moreThanSixteenLines": "code를 16줄 넘게 사용했어요."
+  },
+  "tasks": {
+    "plings": {
+      "name": "Pling 소리",
+      "description": "Pling 소리를 제대로 만드는 것부터 시작해요. 숫자가 3으로 나누어떨어지면, \"Pling\"을 반환해요."
+    },
+    "plangs": {
+      "name": "Plang 소리",
+      "description": "이제 Plang 소리를 제대로 만들어요. 숫자가 5로 나누어떨어지면, 결과에 \"Plang\"을 추가해요. 3과 5 모두로 나누어떨어지면, \"PlingPlang\"을 반환해요."
+    },
+    "plongs": {
+      "name": "Plong 소리",
+      "description": "이제 Plong 소리를 제대로 만들어요. 숫자가 7로 나누어떨어지면, 결과에 \"Plong\"을 추가해요. 어떤 수는 여러 수로 동시에 나누어떨어질 수 있어요."
+    },
+    "noSound": {
+      "name": "빗방울 소리가 없는 숫자",
+      "description": "마지막으로, 숫자가 3, 5, 7 중 어느 것으로도 나누어떨어지지 않으면, 그 숫자 자체를 문자열로 반환해요."
+    },
+    "solveInSixteenLines": {
+      "name": "16줄 code로 풀기",
+      "description": "이 문제를 16줄의 code만으로 풀 수 있을까요?"
+    }
+  },
+  "scenarios": {
+    "number3": {
+      "name": "숫자 3",
+      "description": "3이 입력되면, \"Pling\"을 반환해요."
+    },
+    "number27": {
+      "name": "숫자 27",
+      "description": "27이 입력되면, \"Pling\"을 반환해요."
+    },
+    "number5": {
+      "name": "숫자 5",
+      "description": "5가 입력되면, \"Plang\"을 반환해요."
+    },
+    "number3125": {
+      "name": "숫자 3125",
+      "description": "3125가 입력되면, \"Plang\"을 반환해요."
+    },
+    "number15": {
+      "name": "숫자 15",
+      "description": "15가 입력되면, \"PlingPlang\"을 반환해요."
+    },
+    "number7": {
+      "name": "숫자 7",
+      "description": "7이 입력되면, \"Plong\"을 반환해요."
+    },
+    "number21": {
+      "name": "숫자 21",
+      "description": "21이 입력되면, \"PlingPlong\"을 반환해요."
+    },
+    "number35": {
+      "name": "숫자 35",
+      "description": "35가 입력되면, \"PlangPlong\"을 반환해요."
+    },
+    "number105": {
+      "name": "숫자 105",
+      "description": "105가 입력되면, \"PlingPlangPlong\"을 반환해요."
+    },
+    "number8": {
+      "name": "숫자 8",
+      "description": "8이 입력되면, \"8\"을 반환해요."
+    },
+    "number52": {
+      "name": "숫자 52",
+      "description": "52가 입력되면, \"52\"를 반환해요."
+    },
+    "bonus1": {
+      "name": "16줄 code",
+      "description": "연습 문제를 16줄의 code만으로 풀어요."
+    }
+  },
+  "hints": {
+    "onlyOneSound": {
+      "question": "왜 제 함수는 소리를 하나만 반환할까요?",
+      "answer": "각 `if` 안에서 `return`하면, 첫 번째 나누어떨어지는 조건에서 바로 끝나버려요. 소리들을 합쳐야 해요. 결과를 바로 반환하지 말고, 결과 문자열에 소리를 추가하고 계속 진행해요."
+    },
+    "buildCombinedSound": {
+      "question": "합쳐진 소리를 어떻게 만들어요?",
+      "answer": "빈 결과 문자열로 시작해요. 각 나누는 수 (3, 5, 7)에 대해, 그 수로 나누어떨어지면, `+`를 사용한 연결로 결과 끝에 해당 소리를 추가해요."
+    },
+    "noneMatch": {
+      "question": "나누어떨어지는 수가 하나도 없으면 어떻게 하나요?",
+      "answer": "세 가지 확인을 모두 마친 후에도 결과가 여전히 비어 있다면, 답은 그 숫자 자체를 문자열로 바꾼 거예요. 숫자를 변환하고 그것을 반환해요."
+    },
+    "convertToString": {
+      "question": "숫자를 반환했지만 문자열로 반환하라고 해요. 어떻게 하나요?",
+      "answer": "숫자와 문자열은 겉보기에는 같아도 다른 타입이에요. 숫자를 ${...}와 함께 템플릿 문자열 안에 넣어서 문자열로 변환할 수 있어요."
+    },
+    "howManyReturns": {
+      "question": "`return`문이 몇 개나 있어야 하나요?",
+      "answer": "보통 한두 개면 돼요. 핵심은 if문으로 결과 문자열을 수정하고, 마지막에 한 번만 그 결과를 반환하는 거예요."
+    }
+  }
+}
