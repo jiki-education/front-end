@@ -92,7 +92,7 @@
       "category": "Rilevamento"
     },
     "canTurnLeft": {
-      "description": "Restituisce **true** se lo spazio a sinistra del personaggio non è un muro, **false** altrimenti.",
+      "description": "Restituisce **true** se lo spazio alla sinistra del personaggio non è occupato da un muro, **false** altrimenti.",
       "category": "Rilevamento"
     },
     "canTurnRight": {
