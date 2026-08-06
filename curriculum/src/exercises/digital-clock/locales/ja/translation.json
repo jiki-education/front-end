@@ -1,0 +1,80 @@
+{
+  "errors": {
+    "hourNotNumber": "<code>hour</code>は数値でなければなりません。",
+    "minutesNotNumber": "<code>minutes</code>は数値でなければなりません。",
+    "indicatorNotString": "<code>indicator</code>は文字列でなければなりません。"
+  },
+  "checks": {
+    "notUpdated": "時計が更新されませんでした。<code>displayTime</code>関数を使っているか確認してみてください。",
+    "wrongTime": "「{{expected}}」が期待されましたが、「{{got}}」が得られました。"
+  },
+  "tasks": {
+    "displayTime": {
+      "name": "時計に時刻を表示する",
+      "description": "現在の時と分を取得し、12時間形式に変換して午前か午後を付け、displayTime()で表示します。"
+    }
+  },
+  "scenarios": {
+    "morning1": {
+      "name": "早朝",
+      "description": "6:35を「6:35am」と表示させる。"
+    },
+    "morning2": {
+      "name": "午前遅め",
+      "description": "11:04を「11:04am」と表示させる。"
+    },
+    "afternoon1": {
+      "name": "午後早め",
+      "description": "12:19を「12:19pm」と表示させる。"
+    },
+    "afternoon2": {
+      "name": "夜遅め",
+      "description": "23:32を「11:32pm」と表示させる。"
+    },
+    "midnight": {
+      "name": "真夜中",
+      "description": "真夜中を「12:00am」と表示させる。"
+    },
+    "noon": {
+      "name": "正午",
+      "description": "正午を「12:00pm」と表示させる。"
+    },
+    "now": {
+      "name": "現在の時刻を表示する",
+      "description": "現在の時刻を表示する"
+    }
+  },
+  "hints": {
+    "gettingStarted": {
+      "question": "どう始めたらいいかわかりません。",
+      "answer": "まず、`currentTimeHour()`と`currentTimeMinute()`で現在の時刻を取得し、その値で`displayTime(hour, minutes, \"am\")`を実行して結果を確認します。その後、正しい午前・午後（meridiem）と時刻表示の設定方法を考えてみてください。"
+    },
+    "meridiem": {
+      "question": "meridiemの仕組みはどうなっていますか？",
+      "answer": "0～11時は「am」、12～23時は「pm」です。真夜中（0時）は12am、正午（12時）は12pmと表示します。"
+    },
+    "hourChange": {
+      "question": "時刻表示を変える必要があるのはどのような場合ですか？",
+      "answer": "12時間制の時計では、13:00は1:00pm、14:00は2:00pmと表示されます。つまり、13→1や14→2などの関係を考えて、それに合わせて時計を調整する必要があります！"
+    }
+  },
+  "describers": {
+    "currentTimeHour": "現在の「時」を取得しました",
+    "currentTimeMinute": "現在の「分」を取得しました",
+    "displayTime": "時計に時刻を表示しました"
+  },
+  "functions": {
+    "currentTimeHour": {
+      "description": "24時間制での現在の「時」を数値で返します（例：午後11時なら23）。",
+      "category": "時刻"
+    },
+    "currentTimeMinute": {
+      "description": "現在の「分」を数値で返します。",
+      "category": "時刻"
+    },
+    "displayTime": {
+      "description": "デジタル時計に時刻を表示します。indicatorには「am」または「pm」を指定します。",
+      "category": "アクション"
+    }
+  }
+}

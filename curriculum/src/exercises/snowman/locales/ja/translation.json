@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "baseCircle": "土台（一番下）の円が正しくありません。snowmanCenterX、baseCenterY、baseRadiusを確認してください。",
+    "bodyCircle": "胴体（中央）の円が正しくありません。snowmanCenterX、bodyCenterY、bodyRadiusを確認してください。",
+    "headCircle": "頭（一番上）の円が正しくありません。snowmanCenterX、headCenterY、headRadiusを確認してください。"
+  },
+  "tasks": {
+    "buildSnowman": {
+      "name": "スノーマンを作ろう",
+      "description": "スノーマンが目標の画像と一致するように、変数の値を設定してください。"
+    }
+  },
+  "scenarios": {
+    "buildSnowman": {
+      "name": "スノーマンを作ろう",
+      "description": "スノーマンを描くために、正しい変数の値を設定してください。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "どこから始めればいいかわかりません",
+      "answer": "最初のコードでは、左側に白い円が描かれます。テンプレートの一番下の輪の上に重なるように、snowmanCenterX、baseCenterY、baseRadiusの値を正しい値に変更する必要があります。その後、他の円についても変数を追加してください。"
+    },
+    "variableNotFoundError": {
+      "question": "「Jiki could not find a variable called 'XXX'」のようなエラーが出ます",
+      "answer": "これは、`let`キーワードを使って変数（Jikiの棚の上の箱）を定義していないことを意味します。Jikiが円を描くコードを読み進めるとき、登場する箱が棚の上にあるものと思っていますが、見当たりません。ですから、それらを追加しなければなりません。"
+    },
+    "stillNotDeclaredError": {
+      "question": "変数を追加したのに、まだ「not declared」エラーが出ます",
+      "answer": "スペルを確認しましょう。おそらく打ち間違いです。大文字と小文字が区別されることに注意してください。`bodycentery` は `bodyCenterY` とは異なります。"
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "(centerX, centerY) を中心として、指定された半径と色の円を描きます。",
+      "category": "図形の描画"
+    }
+  }
+}

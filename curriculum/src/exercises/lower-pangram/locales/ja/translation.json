@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "noNestedLoops": "ループの中に別のループを入れないようにしましょう。1文字の検索を別の関数に移し、それを<code>isPangram</code>から呼び出してください。",
+    "tooManyLines": "惜しい！ヘルパー関数を活用して、もっと少ない行数で解けるか試してみてください。"
+  },
+  "tasks": {
+    "checkLowerPangram": {
+      "name": "小文字パングラムのチェック",
+      "description": "小文字の文章がアルファベットのすべての文字を含むかどうかを判定する関数を書いてください。1文字ずつの検索を行う小さなヘルパー関数を呼び出すようにします。"
+    },
+    "decomposeTightly": {
+      "name": "16行で解く",
+      "description": "おまけ：検索をヘルパー関数に切り出すと、全体の解答が16行に収まります。同じようにできますか？"
+    }
+  },
+  "scenarios": {
+    "lowerPangramEmpty": {
+      "name": "空の文章",
+      "description": "空の文章はパングラムではありません。"
+    },
+    "lowerPangramFullAlphabet": {
+      "name": "完全な小文字アルファベット",
+      "description": "完全な小文字アルファベットはパングラムです。"
+    },
+    "lowerPangramClassic": {
+      "name": "古典的なパングラム",
+      "description": "古典的なパングラムの文章は、26文字すべてを含みます。"
+    },
+    "lowerPangramMissingX": {
+      "name": "文字'x'がない",
+      "description": "文字'x'がない文章はパングラムではありません。"
+    },
+    "lowerPangramMissingH": {
+      "name": "文字'h'がない",
+      "description": "文字'h'がない文章はパングラムではありません。"
+    },
+    "lowerPangramWithUnderscores": {
+      "name": "アンダースコアを含む",
+      "description": "スペースの代わりにアンダースコアを使ったパングラム。"
+    },
+    "lowerPangramWithNumbers": {
+      "name": "数字を含む",
+      "description": "数字が含まれたパングラム。"
+    },
+    "lowerPangramNumbersReplacingLetters": {
+      "name": "数字が文字を置き換えたもの",
+      "description": "文字が数字に置き換えられた文章はパングラムではありません。"
+    },
+    "lowerPangramBonusLineCount": {
+      "name": "コンパクト",
+      "description": "検索を別の関数に切り出すと、全体の解答が16行に収まります。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "どこから始めればいいですか？",
+      "answer": "アルファベットのすべての文字が文字列の中にあるかどうかを調べる必要があります。そのために、ループと比較が必要になります。"
+    },
+    "checkEveryLetter": {
+      "question": "アルファベットのすべての文字があることをどうやって確認しますか？",
+      "answer": "`\"abcdefghijklmnopqrstuvwxyz\"`を1文字ずつループします。各文字について、文章がその文字を含むかどうかを調べます。"
+    },
+    "avoidNestedLoops": {
+      "question": "演習は解けましたが、ヘルパー関数の使い方がわかりません。",
+      "answer": "もし解けているなら、おそらく外側のループと内側のループを使っているでしょう。その内側のループは、何かが何かを含んでいるかどうかをチェックしています。その内側のループを`includes(...)`というヘルパー関数に切り出し、それを外側のループから使うのが良い方法です。ヘルパー関数は、普通の方法で定義された普通の関数です。"
+    }
+  }
+}

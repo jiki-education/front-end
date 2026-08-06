@@ -1,0 +1,97 @@
+{
+  "errors": {
+    "alreadyIssued": "この人には既にリストバンドを渡しています。一人につき一つだけ渡せます。"
+  },
+  "checks": {
+    "childWristband": "この人は8歳です。子ども用リストバンドを渡すべきですが、{{got}} が渡されました。",
+    "teenWristband": "この人は15歳です。ティーン用リストバンドを渡すべきですが、{{got}} が渡されました。",
+    "adultWristband": "この人は30歳です。大人用リストバンドを渡すべきですが、{{got}} が渡されました。",
+    "seniorWristband": "この人は70歳です。シニア用リストバンドを渡すべきですが、{{got}} が渡されました。",
+    "boundary13": "この人は13歳です。ティーン用リストバンドを渡すべきです（13歳は13歳未満ではありません）。しかし、{{got}} が渡されました。",
+    "boundary18": "この人は18歳です。大人用リストバンドを渡すべきです（18歳は18歳未満ではありません）。しかし、{{got}} が渡されました。",
+    "boundary65": "この人は65歳です。シニア用リストバンドを渡すべきです（65歳は65歳未満ではありません）。しかし、{{got}} が渡されました。"
+  },
+  "tasks": {
+    "assignWristband": {
+      "name": "正しいリストバンドを渡す",
+      "description": "人の年齢を取得し、正しいリストバンドを渡します：子ども（13歳未満）、ティーン（13〜17歳）、大人（18〜64歳）、シニア（65歳以上）。"
+    }
+  },
+  "scenarios": {
+    "childAge8": {
+      "name": "8歳（子ども）",
+      "description": "8歳の人です。子ども用リストバンドを渡すべきです。"
+    },
+    "teenAge15": {
+      "name": "15歳（ティーン）",
+      "description": "15歳の人です。ティーン用リストバンドを渡すべきです。"
+    },
+    "adultAge30": {
+      "name": "30歳（大人）",
+      "description": "30歳の人です。大人用リストバンドを渡すべきです。"
+    },
+    "seniorAge70": {
+      "name": "70歳（シニア）",
+      "description": "70歳の人です。シニア用リストバンドを渡すべきです。"
+    },
+    "boundary13": {
+      "name": "13歳（ティーン）",
+      "description": "ちょうど13歳です。この人は子どもではなくティーンです。"
+    },
+    "boundary18": {
+      "name": "18歳（大人）",
+      "description": "ちょうど18歳です。この人はティーンではなく大人です。"
+    },
+    "boundary65": {
+      "name": "65歳（シニア）",
+      "description": "ちょうど65歳です。この人は大人ではなくシニアです。"
+    }
+  },
+  "hints": {
+    "gettingAge": {
+      "question": "人の年齢を取得するにはどうすればいいですか？",
+      "answer": "`getAge()` を呼び出して、結果を変数に入れます。例：`let age = getAge()`。その後、条件の中で `age` と数値を比較できます。"
+    },
+    "structureForRanges": {
+      "question": "年齢の範囲が複数ある場合、どのような構造を使えばいいですか？",
+      "answer": "`if` / `else if` / `else` の連鎖を使います。各分岐が一つのリストバンドを処理し、いずれか一つだけが実行されます。"
+    },
+    "branchOrder": {
+      "question": "分岐の順序は重要ですか？",
+      "answer": "はい、そうです。最も若い（`age < 13`）から始め、次に `age < 18`、そして `age < 65` とします。各分岐は、それ以前の条件が満たされなかった場合にのみ実行されるため、`age >= 13 && age < 18` のような式を書く必要はありません。"
+    },
+    "seniorsElse": {
+      "question": "最後のシニアの分岐はどうすればいいですか？",
+      "answer": "シニアには条件は不要です。単に `else` で `giveSeniorWristband()` を呼び出すと、65歳以上全員をカバーできます。"
+    }
+  },
+  "describers": {
+    "getAge": "人の年齢を取得しました",
+    "giveChildWristband": "子ども用リストバンドを渡しました",
+    "giveTeenWristband": "ティーン用リストバンドを渡しました",
+    "giveAdultWristband": "大人用リストバンドを渡しました",
+    "giveSeniorWristband": "シニア用リストバンドを渡しました"
+  },
+  "functions": {
+    "getAge": {
+      "description": "外で待っている人の**年齢**を返します。",
+      "category": "情報"
+    },
+    "giveChildWristband": {
+      "description": "**子ども**用リストバンド（13歳未満）を渡します。",
+      "category": "リストバンド"
+    },
+    "giveTeenWristband": {
+      "description": "**ティーン**用リストバンド（13〜17歳）を渡します。",
+      "category": "リストバンド"
+    },
+    "giveAdultWristband": {
+      "description": "**大人**用リストバンド（18〜64歳）を渡します。",
+      "category": "リストバンド"
+    },
+    "giveSeniorWristband": {
+      "description": "**シニア**用リストバンド（65歳以上）を渡します。",
+      "category": "リストバンド"
+    }
+  }
+}

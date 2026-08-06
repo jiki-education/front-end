@@ -1,0 +1,71 @@
+{
+  "checks": {
+    "tooManyLines": "解答のコード行数が多すぎます。もっと短くできますか？"
+  },
+  "tasks": {
+    "searchForTile": {
+      "name": "タイルを探す",
+      "description": "特定の文字タイルがタイルの並びに含まれているかどうかを調べる関数を作成してください。見つかった場合は `true`、そうでなければ `false` を返します。"
+    },
+    "solveInEightLines": {
+      "name": "8行のコードで解く",
+      "description": "この演習を8行のコードだけで解けますか？"
+    }
+  },
+  "scenarios": {
+    "letterFoundAtStart": {
+      "name": "先頭の文字",
+      "description": "その文字はタイルの並びの最初のタイルです。"
+    },
+    "letterFoundInMiddle": {
+      "name": "中間の文字",
+      "description": "その文字はタイルの並びの途中にあります。"
+    },
+    "letterFoundAtEnd": {
+      "name": "末尾の文字",
+      "description": "その文字はタイルの並びの最後のタイルです。"
+    },
+    "letterNotFound": {
+      "name": "文字が見つからない",
+      "description": "その文字はタイルの並びにありません。"
+    },
+    "emptyRack": {
+      "name": "空のタイル並び",
+      "description": "空のタイルの並びには、見つかるタイルはありません。"
+    },
+    "duplicateLetters": {
+      "name": "重複タイルを含む並び",
+      "description": "その文字は重複しているタイルの中に現れます。"
+    },
+    "singleTileFound": {
+      "name": "1枚のタイルが見つかる",
+      "description": "タイルが1枚だけの並びで、その文字と一致する場合。"
+    },
+    "singleTileNotFound": {
+      "name": "1枚のタイルが見つからない",
+      "description": "タイルが1枚だけの並びで、その文字と一致しない場合。"
+    },
+    "bonus1": {
+      "name": "8行のコード",
+      "description": "この演習を8行のコードで解いてください。"
+    }
+  },
+  "hints": {
+    "byHand": {
+      "question": "手作業で行うとしたら、どうしますか？",
+      "answer": "探索対象を1文字ずつ調べ、それぞれを探す文字と比較します。一致するものが見つかったら、そこで止めます。最後まで一致するものがなければ、探す文字は存在しません。"
+    },
+    "loopAndCompare": {
+      "question": "ループと比較はどうやりますか？",
+      "answer": "`for-of`ループを使うと、文字列の各文字を順番に取り出せます。その中で、現在の文字を探す文字と`if`文で比較します。"
+    },
+    "returnTrue": {
+      "question": "いつ`true`を返せばよいですか？",
+      "answer": "一致するものが見つかったらすぐにです。残りの文字を調べても意味がありません。"
+    },
+    "returnFalse": {
+      "question": "いつ`false`を返せばよいですか？",
+      "answer": "`return false`を返すのは、ループが終了しても一致するものが見つからなかった場合だけです。よくある間違いは、`return false`をループの中に書いてしまうことです。そうすると、最初に一致しなかった文字で諦めてしまい、残りを調べる前に終わってしまいます。"
+    }
+  }
+}

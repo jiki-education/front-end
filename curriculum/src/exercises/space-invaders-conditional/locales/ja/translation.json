@@ -1,0 +1,68 @@
+{
+  "describers": {
+    "move": "レーザー砲を右に移動しました"
+  },
+  "checks": {
+    "notShotAllAliens": "すべてのエイリアンを倒していません。"
+  },
+  "tasks": {
+    "conditionalShoot": {
+      "name": "`if`文を使って、真上にエイリアンがいるときだけ発射する",
+      "description": "画面を横に移動しながら、それぞれの位置を確認します。真上にエイリアンがいれば、発射してください！　いなければ、そのまま移動を続けます。"
+    }
+  },
+  "scenarios": {
+    "conditional1": {
+      "name": "散在するエイリアン",
+      "description": "隙間のある2列に点在するエイリアン"
+    },
+    "conditional2": {
+      "name": "まばらなエイリアン",
+      "description": "エイリアンの数がより少なく、間隔が広い"
+    },
+    "conditional3": {
+      "name": "上下交互のエイリアン",
+      "description": "上段と下段に交互に配置されたエイリアン"
+    },
+    "conditional4": {
+      "name": "下段に集中",
+      "description": "エイリアンの大半が下段にいる"
+    },
+    "conditional5": {
+      "name": "密集編隊",
+      "description": "両段に密集した多くのエイリアン"
+    }
+  },
+  "hints": {
+    "howToDecide": {
+      "question": "発射するかどうかをどう判断すればいいですか？",
+      "answer": "`isAlienAbove()`を確認する`if`文を使ってください。`true`が返ってきたときだけ、`shoot()`を呼び出します。"
+    },
+    "whatIsAlienAboveGives": {
+      "question": "`isAlienAbove()`は何を返しますか？",
+      "answer": "レーザー砲の真上にエイリアンがいれば`true`を、いなければ`false`を返します。そのまま`if`の条件として使えます。"
+    },
+    "checkEveryColumn": {
+      "question": "同じコードを繰り返し書かずに、全列をチェックするにはどうすればいいですか？",
+      "answer": "条件確認と必要に応じた発射の処理を`repeat`ループで囲み、各繰り返しの最後に`move()`を呼び出して次の列に進みます。"
+    },
+    "keepShootingEmpty": {
+      "question": "エイリアンのいない列で発射し続けて負けてしまいます。何が間違っているのでしょうか？",
+      "answer": "`shoot()`が`if`ブロックの中にあることを確認してください。`if`の後に書かないでください。`isAlienAbove()`が`true`のときだけ実行される必要があります。"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "レーザー砲を**1つ右に移動**します。画面の右端からはみ出すと負けてしまいます！",
+      "category": "移動"
+    },
+    "shoot": {
+      "description": "レーザーを上に発射します。**真上にエイリアンがいるときだけ発射してください**。そうでなければ負けてしまいます！",
+      "category": "アクション"
+    },
+    "isAlienAbove": {
+      "description": "レーザー砲の真上にエイリアンがいれば`true`を、いなければ`false`を返します。発射前にチェックするために使ってください！",
+      "category": "検出"
+    }
+  }
+}

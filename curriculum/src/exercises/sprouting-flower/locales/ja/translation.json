@@ -1,0 +1,70 @@
+{
+  "checks": {
+    "firstFlowerHeadWrong": "最初のコマの花が正しくありません。",
+    "finalFlowerHeadWrong": "最後のコマの花が正しくありません。",
+    "firstPistilWrong": "最初のコマのめしべが正しくありません。",
+    "finalPistilWrong": "最後のコマのめしべが正しくありません。",
+    "firstStemWrong": "最初のコマの茎が正しくありません。",
+    "finalStemWrong": "最後のコマの茎が正しくありません。",
+    "firstLeftLeafWrong": "最初のコマの左の葉が正しくありません。",
+    "finalLeftLeafWrong": "最後のコマの左の葉が正しくありません。",
+    "firstRightLeafWrong": "最初のコマの右の葉が正しくありません。",
+    "finalRightLeafWrong": "最後のコマの右の葉が正しくありません。"
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "シーンを描く",
+      "description": "花を芽吹かせましょう。一つずつ順番に取り組みましょう！"
+    }
+  },
+  "scenarios": {
+    "drawSproutingFlower": {
+      "name": "花を芽吹かせる",
+      "description": "一つずつ順番に取り組みましょう！"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "シーンを構成するとき、どこから始めればよいですか？",
+      "answer": "一つの中心点を決めましょう。花の中心を基準にするのがよいでしょう。茎、めしべ、葉はすべてそこから導き出せます。そうすれば、アニメーションの間、花全体がまとまったままになります。"
+    },
+    "growEachIteration": {
+      "question": "各繰り返しで花を上に移動させ、成長させるにはどうすればよいですか？",
+      "answer": "ループ本体の一番上で、描画の前に、このコマ用の新しい値に`flowerCenterY`と`flowerRadius`を更新します。それぞれの変化量は指示に書いてあります。大事なのは、描画の*前*に更新することであり、後ではないということです。"
+    },
+    "stemAttached": {
+      "question": "花が上に移動しても茎が花にくっついたままになるようにするには、どうすればよいですか？",
+      "answer": "茎の上部を固定の値にしないでください。茎の上部は`flowerCenterY`です。下部は地面です。したがって、高さはその間の距離になります。幅はその高さから求めることができます。"
+    },
+    "leafSizing": {
+      "question": "花と一緒に葉が成長するように、葉のサイズをどう決めればよいですか？",
+      "answer": "葉の`radiusX`と`radiusY`は、`flowerRadius`の割合で決めます。そうすれば、花と一緒に大きくなります。葉の垂直方向の位置は、固定のY座標ではなく、茎に合わせるようにしましょう。そうすれば、花が上がるのに合わせて葉も上がります。"
+    },
+    "flowerNeverChanges": {
+      "question": "花が一度描かれただけで、その後変化しません。何が間違っているのでしょうか？",
+      "answer": "ループの前に初期値を設定しているものの、ループの*中*でそれらの値を更新していないのでしょう。ループ本体では、描画の前に毎回変数を更新する必要があります。"
+    },
+    "firstFlowerCoords": {
+      "question": "確認用に最初の花の座標を教えてもらえますか？",
+      "answer": "最初の繰り返しでは、図形は次のようになるはずです。\n\n- Flower: `circle(50, 89, 0.4)`\n- Pistil: `circle(50, 89, 0.1)`\n- Stem: `rectangle(49.95, 89, 0.1, 1)`\n- Left leaf: `ellipse(49.75, 89.5, 0.2, 0.08)`\n- Right leaf: `ellipse(50.25, 89.5, 0.2, 0.08)`\n\nそのコマでのご自身の値を確認するには、スクラバーバーの情報表示をオンにしてください。"
+    },
+    "finalFlowerCoords": {
+      "question": "確認用に最後の花の座標を教えてもらえますか？",
+      "answer": "最後の繰り返しでは、図形は次のようになるはずです。\n\n- Flower: `circle(50, 30, 24)`\n- Pistil: `circle(50, 30, 6)`\n- Stem: `rectangle(47, 30, 6, 60)`\n- Left leaf: `ellipse(35, 60, 12, 4.8)`\n- Right leaf: `ellipse(65, 60, 12, 4.8)`\n\nそのコマでのご自身の値を確認するには、スクラバーバーの情報表示をオンにしてください。"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "指定した位置(left, top)に、幅、高さ、色で**長方形**を描画します。位置は長方形の左上隅を表します。",
+      "category": "図形の描画"
+    },
+    "circle": {
+      "description": "中心位置(centerX, centerY)に、指定した半径と色で**円**を描画します。",
+      "category": "図形の描画"
+    },
+    "ellipse": {
+      "description": "中心位置(centerX, centerY)に、指定したradiusX、radiusY、色で**楕円**を描画します。",
+      "category": "図形の描画"
+    }
+  }
+}

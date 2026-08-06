@@ -1,0 +1,82 @@
+{
+  "checks": {
+    "wrongDistance": "ボールがこのショットの飛距離分転がりませんでした。ティーから飛距離の長さだけ正確に移動する必要があります。",
+    "missingPositions": "ボールは、一歩ずつそれぞれの位置を通って転がる必要があります。",
+    "stayOnGrassPlain": "このショットでは、ボールは芝生の上にとどまるはずです。ホールに落ちてはいけません。",
+    "stayOnGrassOvershot": "ボールはホールを通り過ぎたので、芝生の上にとどまるはずです。ホールに落ちてはいけません。",
+    "droppedIncorrectly": "ボールはホールに到達しましたが、正しくホールに落ちませんでした。",
+    "noFireworksPeriod": "花火を打ち上げてはいけません。",
+    "noFireworksNoPeriod": "花火を打ち上げてはいけません",
+    "noFireworksAtEnd": "最後に花火を打ち上げてはいけません。",
+    "shouldFireFireworks": "最後に花火を打ち上げる必要があります。"
+  },
+  "tasks": {
+    "checkShot": {
+      "name": "ショットがホールに入るかどうかをチェックする",
+      "description": "飛距離に基づいてボールを転がし、ホールに届いたら、ホールに入れましょう！それから花火を打ち上げましょう。"
+    }
+  },
+  "scenarios": {
+    "tooShort": {
+      "name": "ショットが短すぎる",
+      "description": "ゴルファーがボールを23打ちました — ボールはホールに届きません。"
+    },
+    "justTooShort": {
+      "name": "あと少しで足りない",
+      "description": "ゴルファーがボールを57打ちましたが、あと少しで転がり込みません。"
+    },
+    "justTooFar": {
+      "name": "わずかにオーバー",
+      "description": "ゴルファーがボールを63打ち、反対側に少し出てしまいます。"
+    },
+    "tooLong": {
+      "name": "ショットが長すぎる",
+      "description": "ゴルファーがボールを68打ちました — ボールはホールを通り過ぎます。"
+    },
+    "justInsideLeft": {
+      "name": "ぎりぎりホールに入る",
+      "description": "ゴルファーがボールを58打ちました — ちょうどホールに届きました！"
+    },
+    "justInsideRight": {
+      "name": "ぎりぎりセーフ！",
+      "description": "ゴルファーがボールを62打ちました — ギリギリホールに留まりました！"
+    }
+  },
+  "hints": {
+    "howDoIRollRightDistance": {
+      "question": "各ショットで、ボールを正しい距離だけ転がすにはどうすればよいですか？",
+      "answer": "`getShotLength()`を使って、ゴルファーがボールをどれだけ飛ばしたかを取得し、変数に保存します。それが何回転がすべきかを教えてくれます。"
+    },
+    "howDoIMoveOneStep": {
+      "question": "ボールを一度に最後までジャンプさせるのではなく、一歩ずつ移動させるにはどうすればよいですか？",
+      "answer": "ボールの`x`位置を保持する変数を用意します。ループのたびに、それを1ずつ増やし、新しい位置に転がします。"
+    },
+    "whenShouldBallDrop": {
+      "question": "ボールはいつホールに落ちるべきですか？",
+      "answer": "ショットがホールに入ったときだけです。飛距離が成功の範囲内かどうかを、下限と上限を1つの条件で同時にチェックします。"
+    },
+    "whenShouldFireworksFire": {
+      "question": "花火はいつ打ち上がるべきですか？",
+      "answer": "ホールに入ったショットの場合のみ、かつボールが底まで落ちきった後だけです。落下と花火を同じ条件の中にまとめておきます。"
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "ボールを位置 **(x, y)** に移動させます。",
+      "category": "移動"
+    },
+    "getShotLength": {
+      "description": "**ショットの飛距離** — ボールが右方向に進む単位数 — を返します。",
+      "category": "情報"
+    },
+    "fireFireworks": {
+      "description": "お祝いの花火を打ち上げます！",
+      "category": "アクション"
+    }
+  },
+  "describers": {
+    "moveTo": "ボールを位置 (${arg1}, ${arg2}) に移動させた",
+    "getShotLength": "ショットの飛距離を取得した",
+    "fireFireworks": "お祝いの花火を打ち上げた"
+  }
+}

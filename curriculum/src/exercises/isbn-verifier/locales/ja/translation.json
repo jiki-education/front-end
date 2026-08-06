@@ -1,0 +1,142 @@
+{
+  "tasks": {
+    "validateBasicIsbn": {
+      "name": "基本的なISBNの検証",
+      "description": "isValidIsbnという関数を作成してください。この関数はISBN-10の文字列を受け取り、有効な場合は`true`、無効な場合は`false`を返します。ISBN-10にはハイフンが含まれますが、これらはスキップしてください。各桁に10から1まで減っていく重みを掛けて合計し、その合計が11で割り切れるかどうかを確認します。"
+    },
+    "handleXCheckDigit": {
+      "name": "Xをチェックディジットとして扱う",
+      "description": "ISBNの末尾がXになることがあります。これは10を表します。最後の位置にあるXを処理できるように、関数を更新してください。"
+    },
+    "handleEdgeCases": {
+      "name": "エッジケースに対応する",
+      "description": "関数をより堅牢にしましょう。ハイフンなしのISBNを処理し、無効な文字は受け付けず、最後以外の位置にあるXも受け付けず、処理される桁がちょうど10桁になることを確認してください。"
+    },
+    "useContinue": {
+      "name": "ボーナス: continueを使ってハイフンをスキップする",
+      "description": "文字が数字のときだけ処理を行う代わりに、`continue`を使ってハイフンをスキップし、次の文字に進んでください。"
+    }
+  },
+  "scenarios": {
+    "isbnValid": {
+      "name": "有効なISBN",
+      "description": "有効なISBN-10は`true`を返します。"
+    },
+    "isbnValidCheckDigitX": {
+      "name": "チェックディジットがXの有効なISBN",
+      "description": "チェックディジットが'X'の有効なISBN-10は`true`を返します。"
+    },
+    "isbnValidNoDashes": {
+      "name": "ハイフンなしの有効なISBN",
+      "description": "ハイフンなしの有効なISBN-10は`true`を返します。"
+    },
+    "isbnValidNoDashesXCheck": {
+      "name": "ハイフンなしでチェックディジットがXの有効なISBN",
+      "description": "ハイフンなしでチェックディジットが'X'の有効なISBN-10は`true`を返します。"
+    },
+    "isbnInvalidCheckDigit": {
+      "name": "チェックディジットが無効なISBN",
+      "description": "チェックディジットが正しくないISBN-10は`false`を返します。"
+    },
+    "isbnInvalidCharacter": {
+      "name": "チェックディジットがX以外の文字である",
+      "description": "無効な文字を含むISBN-10は`false`を返します。"
+    },
+    "isbnInvalidCharacterNotZero": {
+      "name": "無効なチェックディジットをゼロとして扱わない",
+      "description": "無効なチェックディジットはゼロとして扱われるべきではありません。"
+    },
+    "isbnInvalidNonNumeric": {
+      "name": "ISBN内の無効な文字",
+      "description": "ISBN内の無効な文字は無視してはいけません。"
+    },
+    "isbnInvalidXPosition": {
+      "name": "Xはチェックディジットとしてのみ有効",
+      "description": "'X'はチェックディジットとしてのみ有効であるべきです。"
+    },
+    "isbnInvalidMissingCheckDigit": {
+      "name": "チェックディジットがないISBN",
+      "description": "チェックディジットがないISBN-10は`false`を返します。"
+    },
+    "isbnInvalidTooLong": {
+      "name": "長すぎるISBN",
+      "description": "長すぎるISBN-10は`false`を返します。"
+    },
+    "isbnInvalidTooShort": {
+      "name": "短すぎるISBN",
+      "description": "短すぎるISBN-10は`false`を返します。"
+    },
+    "isbnInvalidEmpty": {
+      "name": "空のISBN",
+      "description": "空のISBN文字列は`false`を返します。"
+    },
+    "isbnInvalidLengthNine": {
+      "name": "9文字のISBN",
+      "description": "9文字の入力は`false`を返します。"
+    },
+    "isbnInvalidNonNumericBeforeCheck": {
+      "name": "長さチェック前の無効な文字",
+      "description": "無効な文字は、長さのチェック前に無視されるべきではありません。"
+    },
+    "isbnInvalidExtraLength": {
+      "name": "長すぎる入力だが有効なISBNを含む",
+      "description": "10文字より長い入力は`false`を返します。"
+    },
+    "isbnBonusUseContinue": {
+      "name": "continueでハイフンをスキップしている",
+      "description": "解答が動作し、かつ`continue`を使ってハイフンをスキップしています。"
+    }
+  },
+  "hints": {
+    "howChecked": {
+      "question": "ISBN-10は実際にどのようにチェックされるのですか？",
+      "answer": "10個の各桁に、10から1へ減っていく重みを掛けます。最初の桁には10、次には9、最後の桁には1です。それらの積を合計し、その合計が11で割り切れればISBNは有効です。"
+    },
+    "dashes": {
+      "question": "ハイフンはどう扱えばいいですか？",
+      "answer": "ハイフンは単に読みやすくするためのものです。完全にスキップしてください。桁としてカウントせず、重みのカウントダウンも進めません。"
+    },
+    "trackWeight": {
+      "question": "重みをどうやって管理すればいいですか？",
+      "answer": "乗数を10で初期化した変数を用意します。桁を処理するたびに、その桁に現在の乗数を掛け、積を実行中の合計に加え、乗数を1減らします。"
+    },
+    "stringToNumber": {
+      "question": "文字列を数値に変換するにはどうすればいいですか？",
+      "answer": "2つの選択肢があります。まず、この演習で意図している方法は、`indexOf`メソッドを使う方法です。それについて考えてみてください。わからなければ、次のヒントで答えを確認してください。"
+    },
+    "stringToNumberAgain": {
+      "question": "いや、本当に、文字列を数値に変換するにはどうすればいいですか？",
+      "answer": "2つの方法があります。まず、`Number()`関数（大文字の\"N\"）を使う方法です。つまり、`Number(\"5\")`は`5`になります。復習として<a href=\"/concepts/type-conversion\" target=\"_blank\" rel=\"noopener noreferrer\">型変換</a>の概念ページをご覧ください。そのあとで、`indexOf`を使ったうまいやり方も試してみる価値があります。"
+    },
+    "handleX": {
+      "question": "'X'はどう扱えばいいですか？　それは数字じゃないですよね？",
+      "answer": "'X'は特別です。値10を表しますが、それは最後の文字としてだけ有効です。末尾にあるときは値10の桁として扱い、他の位置に現れた場合はそのISBNを無効としてください。"
+    },
+    "exactlyTenDigits": {
+      "question": "桁数がちょうど10桁であることをどう確認すればいいですか？",
+      "answer": "乗数は10から始まり、1桁ごとに1ずつ減らしました。ちょうど10桁処理していれば、乗数は0になります。そうでなければ桁数が間違っているので、拒否してください。"
+    },
+    "finalCheck": {
+      "question": "最終的な有効性のチェックは何ですか？",
+      "answer": "すべての処理が終わった後、合計が11で割り切れる（つまり `sum % 11 == 0`）なら、そのISBNは有効です。"
+    }
+  },
+  "checks": {
+    "mustUseContinue": "あと少し！このボーナスでは、`continue`を使ってハイフンをスキップしてください。",
+    "tooManyLines": "あと少し！解答は動作しますが、少し長いです。"
+  },
+  "functions": {
+    "number": {
+      "description": "数字を含む文字列を数値に変換します",
+      "category": "型変換"
+    },
+    "includes": {
+      "description": "文字列がより小さい文字列を含むかどうかを調べます（レベルの標準ライブラリーにより提供）",
+      "category": "文字列操作"
+    },
+    "indexOf": {
+      "description": "文字列の中で、より小さい文字列の位置を探します。見つからなければ-1を返します（レベルの標準ライブラリーにより提供）",
+      "category": "文字列操作"
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "checks": {
+    "frameWrong": "家のフレームが正しい位置にありません。",
+    "roofWrong": "家の屋根が正しい位置にありません。",
+    "leftWindowWrong": "左の窓の位置が正しくありません。",
+    "rightWindowWrong": "右の窓の位置が正しくありません。",
+    "doorWrong": "ドアの位置が正しくありません。",
+    "knobWrong": "ドアノブの位置が正しくありません。",
+    "doesNotScale": "家が正しく拡大縮小されていません（houseWidth={{houseWidth}}、houseHeight={{houseHeight}}の場合）。すべての位置とサイズは、ハードコードされた数値ではなく、houseWidthとhouseHeightから導き出す必要があります。"
+  },
+  "tasks": {
+    "drawHouse": {
+      "name": "家を描く",
+      "description": "`houseWidth`と`houseHeight`から家を組み立てて、中央に配置され、芝生の上にしっかりと描かれ、どのサイズでも正しいプロポーションを保つようにしてください。"
+    }
+  },
+  "scenarios": {
+    "drawTheHouse": {
+      "name": "家を描く",
+      "description": "houseWidthとhouseHeightから家を組み立てて、正しく拡大縮小されるようにしてください。"
+    }
+  },
+  "hints": {
+    "whereDoIStart": {
+      "question": "どこから始めればよいですか？",
+      "answer": "`houseWidth`、`houseHeight`、そして`canvasWidth`が与えられています。まず、フレームに必要な2つのもの、つまり左端（家を中央に配置するため）と上端（芝生の上に位置するため）を求めます。その後、他のすべての図形をフレームから組み立てることができます。"
+    },
+    "keepCentered": {
+      "question": "幅が変わっても家を中央に保つにはどうすればよいですか？",
+      "answer": "キャンバスの中央は常に`canvasWidth / 2`です。フレームがその点を中心とする場合、その左端は中央から幅の半分だけ左です。中央に配置する他のもの（屋根の頂点、ドア）も、同じ中央の点を使うことができます。"
+    },
+    "keepPlantedOnGrass": {
+      "question": "家を芝生の上にしっかりと描くにはどうすればよいですか？",
+      "answer": "家の下端が位置すべきyの値を見つけます（芝生の上端より少し下）。するとフレームの上端は、そこから家の高さの分だけ上になります。下から上に向かって作業することで、家が高くなると空に向かって伸び、芝生を突き抜けることはありません。"
+    },
+    "sizeRoofWindowsDoor": {
+      "question": "屋根、窓、ドアのサイズはどう決めればよいですか？",
+      "answer": "指示にある各サイズは、フレームの幅または高さの分数です（例えば、'幅の5分の1'は`houseWidth / 5`です）。すべての幅を`houseWidth`から、すべての高さを`houseHeight`から組み立てて、すべてが一緒に拡大縮小されるようにしてください。"
+    },
+    "breaksOnResize": {
+      "question": "デフォルトサイズでは正しく見えるのに、リサイズすると崩れます。なぜですか？",
+      "answer": "おそらくどこかで数値を導き出す代わりにハードコードしてしまっています。指示からそのまま取った値でないリテラル（キャンバスサイズや芝生の高さなど）を探してください。それはほぼ間違いなく別の変数から導き出すべきものです。それはアンカーか、または既にアンカーから構築されたもの（ドアの幅など）かもしれません。"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "位置(left, top)に、指定された幅、高さ、色で長方形を描きます。",
+      "category": "図形の描画"
+    },
+    "circle": {
+      "description": "中心(centerX, centerY)に、指定された半径と色で円を描きます。",
+      "category": "図形の描画"
+    },
+    "triangle": {
+      "description": "3つの角の点と色で三角形を描きます。",
+      "category": "図形の描画"
+    }
+  }
+}

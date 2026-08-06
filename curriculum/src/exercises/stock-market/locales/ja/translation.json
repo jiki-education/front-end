@@ -1,0 +1,65 @@
+{
+  "errors": {
+    "yearNumber": "年は数値でなければなりません。",
+    "yearInPast": "過去の年の株式市場を確認することはできません。{{year}}は過去の年です。",
+    "yearTooFarFuture": "今から20年以上先のことはわかりません。{{year}}は遠すぎる未来です。",
+    "balanceNumber": "残高は数値でなければなりません。",
+    "moneyNumber": "金額は数値でなければなりません。"
+  },
+  "checks": {
+    "taxReportCount": "20件の納税報告が必要ですが（毎年1件）、{{got}}件ありました。ループ内で<code>reportTax()</code>を呼び出しているか確認してください。",
+    "taxReportWrongYear": "{{index}}番目の納税報告が{{actualYear}}年になっていますが、{{expectedYear}}年でなければなりません。",
+    "taxReportWrongBalance": "{{year}}年の納税額が間違っています。${{expected}}であるべきが、${{actual}}でした。",
+    "wrongFinalBalance": "最終残高は約${{expected}}ですが、${{got}}でした。ループの後で<code>announceToFamily()</code>を呼び出しているか確認してください。",
+    "announcedMultipleTimes": "家族への発表は、20年経過後に<strong>一度だけ</strong>、毎年ではなく行ってください。<code>announceToFamily()</code>を{{count}} {{times}}呼び出しました。"
+  },
+  "tasks": {
+    "growInvestment": {
+      "name": "20年間投資を成長させる",
+      "description": "$10から始めて、20年間の株式市場の成長をシミュレーションし、毎年税務署に報告し、最終残高を家族に発表する。"
+    }
+  },
+  "scenarios": {
+    "twentyYears": {
+      "name": "20年間の成長",
+      "description": "$10を投資し、20年間の市場成長における残高を追跡する。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "どこから始めればいいかわかりません。",
+      "answer": "次の20年間（今年から）、毎年 `marketGrowth()` を使う必要があります。これは5（5%の市場成長）のような値を返します。その後、最初の$10から利率に応じて変化した金額を追跡する必要があります。"
+    },
+    "stillStuck": {
+      "question": "まだ本当に行き詰まっています。理解できません。",
+      "answer": "では、コードの基本を示しましょう。今年が2026年とします。次のようなコードを書く必要があります。\n\n```javascript\nlet money = 10\nlet growth = marketGrowth(2026)\n\n// 成長率に応じて金額を増やす必要があります。\n// 計算式が必要な場合は次のヒントを確認してください。\nmoney = money + ???\nreportTax(2026, money)\n\n// 次に2027年\nlet growth = marketGrowth(2027)\nmoney = money + ???\nreportTax(2027, money)\n\n// 次に2028年\nlet growth = marketGrowth(2028)\nmoney = money + ???\nreportTax(2028, money)\n\n// 20年後に家族に伝える\nannounceToFamily(money)\n```"
+    },
+    "formula": {
+      "question": "成長を追跡する計算式は何ですか？自分では解けません。",
+      "answer": "計算式は次のとおりです。\n\n```javascript\nmoney = money * (100 + marketGrowth(year)) / 100\n```"
+    },
+    "wrongTaxReportCount": {
+      "question": "納税報告の回数が正しくないと言われます。",
+      "answer": "20年分の納税報告を20回行う必要があります。スクラバーを使って、`reportTax()`関数を何回使用しているか数えてください。"
+    }
+  },
+  "describers": {
+    "marketGrowth": "${arg1}年の市場成長率${return}%を取得しました",
+    "reportTax": "${arg1}年の納税を報告しました：$${arg2}",
+    "announceToFamily": "家族に$${arg1}を発表しました"
+  },
+  "functions": {
+    "marketGrowth": {
+      "description": "指定された年の市場成長率を返します（-25〜40の範囲）。この数値を使って、金額を毎回**増やす**必要があります。（つまり、40%の場合、$10は$14になり、-10%の場合、$10は$9になります。）",
+      "category": "アクション"
+    },
+    "reportTax": {
+      "description": "指定された年の納税を報告します。毎年、現在の年と金額を指定して呼び出す必要があります。",
+      "category": "アクション"
+    },
+    "announceToFamily": {
+      "description": "家族に最終残高を発表します。",
+      "category": "アクション"
+    }
+  }
+}

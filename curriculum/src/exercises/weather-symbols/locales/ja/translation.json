@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "dayIsntCorrect": "{{day}}の天気が正しくありません。"
+  },
+  "tasks": {
+    "drawForecast": {
+      "name": "天気予報を描く",
+      "description": "各日の天気を、リスト内の位置を箱番号として、それぞれの箱に描きましょう。"
+    }
+  },
+  "scenarios": {
+    "mixedWeek": {
+      "name": "混合週",
+      "description": "6日間で色々な天気が混ざっています。"
+    },
+    "sunnyWeek": {
+      "name": "晴れの週",
+      "description": "晴れが多く、曇りの日が2日ほどあります。"
+    },
+    "rainyWeek": {
+      "name": "雨の週",
+      "description": "曇りと雨のじめじめした週。"
+    },
+    "snowyWeek": {
+      "name": "雪の週",
+      "description": "雪の多い寒い一週間。"
+    }
+  },
+  "hints": {
+    "loopWithIndex": {
+      "question": "各日を順に処理し、それぞれの箱番号を知るにはどうすればよいですか？",
+      "answer": "`days`を、`0`から`days.length - 1`までのカウンターでループします。そのカウンターが各日の箱番号です。"
+    },
+    "descriptionToSymbols": {
+      "question": "`\"Miserable 😩\"`のような説明文を天気記号に変換するにはどうすればよいですか？",
+      "answer": "各説明文を可能なものと照合し、該当する記号のリストを選びます。例えば`[\"cloud\", \"rain\"]`です。説明文とそれに対応する記号の一覧は、課題の説明に全て載っています。"
+    },
+    "weekdaysList": {
+      "question": "各箱の曜日名をどうやって取得しますか？",
+      "answer": "6つの曜日名（順に`\"Monday\"`から`\"Saturday\"`）のリストを作成し、箱番号と同じカウンターで現在の位置のものを取得します。"
+    },
+    "passArgs": {
+      "question": "`draw`には何を渡せばよいですか？",
+      "answer": "3つです：箱番号（カウンター）、その箱の曜日名、その日の天気記号のリストです。"
+    },
+    "tidyWithHelper": {
+      "question": "ループが長くなってきました。どう整理すればいいですか？",
+      "answer": "説明文から記号への変換処理を独自の関数に移し、ループからその関数を呼び出すことができます。これは任意ですが、ループが短くなり読みやすくなります。"
+    }
+  },
+  "functions": {
+    "draw": {
+      "description": "指定された天気記号を予報ボックスに描画します。引数として箱番号（0～5）、ラベルとしての曜日名、記号のリストを受け取ります。",
+      "category": "描画"
+    }
+  },
+  "describers": {
+    "draw": "${arg2}の箱に${arg3}を描きました"
+  },
+  "errors": {
+    "elementsMustBeList": "天気記号（drawへの3番目の入力）は、`[\"sun\", \"cloud\"]`のようなリストでなければなりません。",
+    "elementsMustBeStrings": "リスト内の天気記号はすべて文字列でなければなりません。例えば`\"sun\"`や`\"rain\"`です。",
+    "unknownElement": "\"{{element}}\"は天気記号ではありません。`\"sun\"`、`\"cloud\"`、`\"rain\"`、`\"snow\"`のいずれかを使用してください。",
+    "indexMustBeNumber": "箱番号（drawへの最初の入力）は数値でなければなりません。",
+    "indexOutOfRange": "箱番号は0から{{max}}までの整数でなければなりません。",
+    "dayMustBeString": "曜日（drawへの2番目の入力）は、`\"Monday\"`のようなテキストでなければなりません。"
+  }
+}

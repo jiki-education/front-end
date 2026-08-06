@@ -1,0 +1,56 @@
+{
+  "checks": {
+    "flowerCount_one": "オーナーは{{count}}本の花が植えられることを期待していました。しかし、植えられたのは{{got}}本でした。",
+    "flowerCount_other": "オーナーは{{count}}本の花が植えられることを期待していました。しかし、植えられたのは{{got}}本でした。",
+    "flowerAtPosition": "{{position}}の位置に花が植えられることを期待していましたが、見つかりませんでした。",
+    "strayFlower": "{{position}}の位置に花が見つかりましたが、それはオーナーが望んだ場所ではありません。花は均等に植える必要があります。"
+  },
+  "tasks": {
+    "plantFlowersEvenly": {
+      "name": "花を均等に植える",
+      "description": "askNumberOfFlowers()で植える花の本数を調べ、間隔を計算し、均等に植えます。"
+    }
+  },
+  "scenarios": {
+    "oneFlower": {
+      "name": "オーナーは1本の花を希望",
+      "description": "このシナリオでは、`askNumberOfFlowers()`は1を返します。50の位置に1本の花を植えます。"
+    },
+    "threeFlowers": {
+      "name": "オーナーは3本の花を希望",
+      "description": "このシナリオでは、`askNumberOfFlowers()`は3を返します。25、50、75の位置に3本の花を植えます。"
+    },
+    "fourFlowers": {
+      "name": "オーナーは4本の花を希望",
+      "description": "このシナリオでは、`askNumberOfFlowers()`は4を返します。20、40、60、80の位置に4本の花を植えます。"
+    },
+    "nineFlowers": {
+      "name": "オーナーは9本の花を希望",
+      "description": "このシナリオでは、`askNumberOfFlowers()`は9を返します。10、20、30、40、50、60、70、80、90の位置に9本の花を植えます。"
+    }
+  },
+  "hints": {
+    "chooseGap": {
+      "question": "各花を植える位置はどうやって計算しますか？",
+      "answer": "まず、花と花の間隔を計算します。\n\n```javascript\n100 / (numberOfFlowers + 1)\n```\n\n最初の花はその位置に植え、次の花はそこから間隔分だけ進んだ位置に植えます。たとえば、花が3本の場合は間隔は25になり、25、50、75の位置に植えます。"
+    },
+    "seeScenarios": {
+      "question": "異なるシナリオを見るにはどうすればいいですか？",
+      "answer": "コードと結果の間にある、左側の円をクリックしてください。"
+    }
+  },
+  "functions": {
+    "askNumberOfFlowers": {
+      "description": "植える**花の本数**を返します。",
+      "category": "ガーデニング"
+    },
+    "plant": {
+      "description": "指定した**位置**に花を植えます。",
+      "category": "ガーデニング"
+    }
+  },
+  "describers": {
+    "askNumberOfFlowers": "植える花の本数を尋ねました",
+    "plant": "${arg1}の位置に花を植えました"
+  }
+}

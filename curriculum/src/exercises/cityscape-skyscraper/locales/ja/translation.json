@@ -1,0 +1,76 @@
+{
+  "checks": {
+    "totalCells": "{{expected}}セルが必要ですが、{{got}}セルが見つかりました。",
+    "groundWalls": "地上階には、位置(17, 2)と(21, 2)に壁が必要です。",
+    "groundGlass": "地上階には、位置(18, 2)と(20, 2)にガラスが必要です。",
+    "groundEntrance": "地上階には、位置(19, 2)に入り口が必要です。",
+    "floorWalls": "{{y}}階には、位置(17, {{y}})と(21, {{y}})に壁が必要です。",
+    "floorGlass": "{{y}}階には、位置(18, {{y}})、(19, {{y}})、(20, {{y}})にガラスが必要です。",
+    "roof": "y={{roofY}}の屋根は、すべて壁でなければなりません。",
+    "codeQuality": {
+      "allArgumentsAreVariables": "関数の引数には、固定値ではなく<strong>変数</strong>を使用してください。まず値を変数に格納し、それから変数を渡してください。"
+    }
+  },
+  "tasks": {
+    "buildSkyscraper": {
+      "name": "超高層ビルを建設する",
+      "description": "入り口のある地上階、ガラスのある上層階、壁の屋根で構成される、正しい階数の超高層ビルを建設します。"
+    }
+  },
+  "scenarios": {
+    "floors6": {
+      "name": "6階建ての超高層ビル",
+      "description": "6階建ての超高層ビルを建設します。"
+    },
+    "floors8": {
+      "name": "8階建ての超高層ビル",
+      "description": "8階建ての超高層ビルを建設します。"
+    },
+    "floors10": {
+      "name": "10階建ての超高層ビル",
+      "description": "10階建ての超高層ビルを建設します。"
+    },
+    "floors12": {
+      "name": "12階建ての超高層ビル",
+      "description": "12階建ての超高層ビルを建設します。"
+    },
+    "floors16": {
+      "name": "16階建ての超高層ビル",
+      "description": "16階建ての超高層ビルを建設します。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "どこから始めればよいかわかりません。",
+      "answer": "まず、壁、ガラス、入り口を描いてみて、関数の使い方を理解しているか確認してください。次に、地上階を描きます。これはいつも同じです。それから`numFloors()`関数で合計の階数を調べ、残りの階と屋根を描いてください。"
+    },
+    "tooManyTooFewFloors": {
+      "question": "階数が多すぎたり少なすぎたりします。",
+      "answer": "`numFloors()`が5を返す場合、入り口階が1つ、ガラス階が4つ、屋根が1つになるはずです。ロジックが正しいか確認してください！"
+    }
+  },
+  "functions": {
+    "buildWall": {
+      "description": "グリッド位置(x, y)に**壁**を設置します。",
+      "category": "建築"
+    },
+    "buildGlass": {
+      "description": "グリッド位置(x, y)に**ガラス**を設置します。",
+      "category": "建築"
+    },
+    "buildEntrance": {
+      "description": "グリッド位置(x, y)に**入り口**を設置します。",
+      "category": "建築"
+    },
+    "numFloors": {
+      "description": "この建物の**階数**を返します。",
+      "category": "情報"
+    }
+  },
+  "describers": {
+    "buildWall": "位置(${arg1}, ${arg2})に壁を建設しました",
+    "buildEntrance": "位置(${arg1}, ${arg2})に入り口を建設しました",
+    "buildGlass": "位置(${arg1}, ${arg2})にガラスを建設しました",
+    "numFloors": "階数を取得しました"
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "errors": {
+    "walkedIntoFire": "火の中に歩いて入ってしまいました！",
+    "steppedInPoop": "うんちを踏んでしまいました！",
+    "lookDirectionType": "look()の引数には文字列の\"left\"、\"right\"、\"ahead\"を渡してください。",
+    "lookDirectionValue": "look()の方向は\"left\"、\"right\"、\"ahead\"のいずれかでなければなりません。"
+  },
+  "describers": {
+    "look": "指定方向を調べて、そこにあるものを返します。"
+  },
+  "checks": {
+    "notReachedEnd": "迷路のゴールに到達しませんでした。",
+    "extraTurn": "最後に余計なターンをしたようです。",
+    "canTurnLeftMissing": "<code>canTurnLeft</code>関数を定義してください。",
+    "canTurnRightMissing": "<code>canTurnRight</code>関数を定義してください。",
+    "canMoveMissing": "<code>canMove</code>関数を定義してください。",
+    "turnAroundMissing": "<code>turnAround</code>関数を定義してください。",
+    "lookOnlyOnce": "プログラム全体で<code>look()</code>は一度だけ使うようにしてください。",
+    "maxExtraLines": "追加するコードは13行以内にしてください。"
+  },
+  "tasks": {
+    "straightPath": {
+      "name": "まっすぐな道",
+      "description": "`canMove()`を実装して、キャラクターが迷路の終点まで前に進めるようにしましょう。"
+    },
+    "turnLeft": {
+      "name": "左に曲がれるなら曲がる",
+      "description": "道があるときにキャラクターが左に曲がるように、`canTurnLeft()`を実装しましょう。"
+    },
+    "turnRight": {
+      "name": "前に進めず左にも曲がれない場合は右に",
+      "description": "左にも前にも進めないときにキャラクターが右に曲がるように、`canTurnRight()`を実装しましょう。"
+    },
+    "turnAround": {
+      "name": "必要なら向きを反対にする",
+      "description": "行き止まりでは向きを反対にして進みます。3つの感知関数が連携して、どんな迷路も解けるようにしましょう。"
+    },
+    "bonusChallenges": {
+      "name": "ボーナス課題",
+      "description": "プログラム全体で`look()`関数を一度だけ使えますか？　また、追加するコードを13行以内に収めて解けますか？"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "迷路の終点まで導く",
+      "description": "まっすぐ下へ進む道"
+    },
+    "leftTurn": {
+      "name": "左に一度だけ曲がる",
+      "description": "左折する"
+    },
+    "rightTurn": {
+      "name": "右に一度だけ曲がる",
+      "description": "右折する"
+    },
+    "forks": {
+      "name": "左優先、左に行けないなら右へ",
+      "description": "分かれ道のある迷路で、左優先の行動をテストします。"
+    },
+    "turnAround": {
+      "name": "行き止まりで向きを反対にする",
+      "description": "向きを反対にする必要がある迷路"
+    },
+    "forks2": {
+      "name": "分かれ道と行き止まりのある複雑な迷路",
+      "description": "完全なアルゴリズムをテストする複雑な迷路"
+    },
+    "coverOldGround": {
+      "name": "必要なら通った道を戻る",
+      "description": "出口を見つけるために元の道を戻る必要がある迷路"
+    },
+    "bonus1": {
+      "name": "`look()`を一度だけ使う",
+      "description": "コード内で`look()`が一度だけ現れるようにして迷路を解く"
+    },
+    "bonus2": {
+      "name": "13行だけ追加する",
+      "description": "コードを13行だけ追加して迷路を解く"
+    }
+  },
+  "hints": {
+    "start": {
+      "question": "プログラムがまったく動かないとき、どこから始めればいいですか？",
+      "answer": "コードの先頭に`canTurnLeft()`、`canTurnRight()`、`canMove()`を定義し、それぞれ今は`false`を返すだけにしてください。そうすればプログラムが動き、後で各関数の中身を一つずつ書き換えられます。"
+    },
+    "findDirection": {
+      "question": "特定の方向に何があるかを調べるにはどうすればいいですか？",
+      "answer": "新しい`look(direction)`関数を使います。引数に`\"left\"`、`\"right\"`、`\"ahead\"`のいずれかを渡すと、`\"empty\"`、`\"wall\"`、`\"fire\"`、`\"poop\"`などの文字列が返ります。"
+    },
+    "safeResults": {
+      "question": "どの結果が、その方向に進んで安全であることを意味しますか？",
+      "answer": "`look()`が返す6つの結果のうち、3つは絶対に歩いて行きたくないものです。関数は、見えたものがその3つのどれでもない場合にだけ`true`を返すようにします。"
+    },
+    "avoidRepetition": {
+      "question": "3つの関数で同じロジックを繰り返しています。どうすれば避けられますか？",
+      "answer": "3つの関数は、調べる方向だけが異なります。方向を入力として受け取る追加の関数を1つ書いて、3つすべてでそれを使うようにできませんか？"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "キャラクターを現在の方向に**一歩前進**させます。壁、火、うんちの中に進むとエラーが発生しプログラムが終了しますので、進む前に前方を確認してください！",
+      "category": "移動"
+    },
+    "turnLeft": {
+      "description": "キャラクターを**左に90度**（反時計回り）回転させます。これにより、キャラクターが向いている方向が変わります。",
+      "category": "移動"
+    },
+    "turnRight": {
+      "description": "キャラクターを**右に90度**（時計回り）回転させます。これにより、キャラクターが向いている方向が変わります。",
+      "category": "移動"
+    },
+    "look": {
+      "description": "指定された方向を見て、そこにあるものを返します。方向は`\"left\"`、`\"right\"`、`\"ahead\"`のいずれかでなければなりません。返り値は`\"empty\"`、`\"wall\"`、`\"fire\"`、`\"poop\"`、`\"start\"`、`\"target\"`のいずれかです。",
+      "category": "感知"
+    }
+  }
+}

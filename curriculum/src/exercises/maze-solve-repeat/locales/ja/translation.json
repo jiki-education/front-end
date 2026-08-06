@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "notReachedEnd": "迷路のゴールに到達しませんでした。",
+    "tooManyLines": "解答のコードの行数が多すぎます。連続する`move()`の呼び出しのグループを探して、それぞれを`repeat`ループで置き換えてください。",
+    "oneLineOver": "あと1行だけ長すぎます！`repeat`ループがいつも短くなるとは限りません。2、3回の繰り返しでは、呼び出しをそのまま書くより行数が増えることもあります。だから、実際には行数を節約できていない`repeat`ループを探してください。"
+  },
+  "tasks": {
+    "solveMazeWithRepeat": {
+      "name": "`repeat`ループで迷路の解答をリファクタリングする",
+      "description": "コードを短くするために、連続する`move()`の呼び出しを`repeat`ループで置き換えます。"
+    }
+  },
+  "scenarios": {
+    "mazeRepeat1": {
+      "name": "`repeat`ループで迷路の解答をリファクタリングする",
+      "description": "連続する`move()`の呼び出しを避けるために`repeat`ループを使います。"
+    }
+  },
+  "hints": {
+    "noIdea": {
+      "question": "何をすればいいのか見当もつきません。",
+      "answer": "連続する`move()`の呼び出しのグループを探してください。たとえば、次のように書く代わりに：\n\n```javascript\nmove()\nmove()\nmove()\n```\n\n次のように書くことができます：\n\n```javascript\nrepeat(3) {\n  move()\n}\n```\n\nグループを見つけて置き換えましょう！"
+    },
+    "tooManyLines": {
+      "question": "`repeat`を使っているのに、まだ行数が多いですか？",
+      "answer": "いつも`repeat`を使う方が良いとは限りません。場合によっては、`move()`を2つ並べたままの方が短くなります。"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "現在の向きに**1歩前進**します。移動先が壁で塞がれていない場合にのみ移動します。",
+      "category": "移動"
+    },
+    "turnLeft": {
+      "description": "キャラクターを**左に90度回転**（反時計回り）します。これにより、キャラクターが向いている方向が変わります。",
+      "category": "移動"
+    },
+    "turnRight": {
+      "description": "キャラクターを**右に90度回転**（時計回り）します。これにより、キャラクターが向いている方向が変わります。",
+      "category": "移動"
+    }
+  }
+}

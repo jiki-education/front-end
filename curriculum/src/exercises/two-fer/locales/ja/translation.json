@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "moreThanSixLines": "コードが6行を超えています。"
+  },
+  "tasks": {
+    "createTwoFerFunction": {
+      "name": "two-fer関数を作成する",
+      "description": "名前を受け取り、'One for [name], one for me.' を返す twoFer 関数を書いてください。名前が指定されない場合（空文字列）、名前の代わりに 'you' を使用してください。"
+    },
+    "solveInSixLines": {
+      "name": "6行のコードで解く",
+      "description": "この問題をわずか6行のコードで解けますか？"
+    }
+  },
+  "scenarios": {
+    "twoFerDefault": {
+      "name": "名前なし",
+      "description": "名前が指定されていないので、'One for you, one for me.' を返します。"
+    },
+    "twoFerAlice": {
+      "name": "Aliceが指定された場合",
+      "description": "名前は 'Alice' なので、'One for Alice, one for me.' を返します。"
+    },
+    "twoFerTom": {
+      "name": "Tomが指定された場合",
+      "description": "名前は 'Tom' なので、'One for Tom, one for me.' を返します。"
+    },
+    "bonus1": {
+      "name": "6行のコード",
+      "description": "わずか6行のコードで演習を解きます。"
+    }
+  },
+  "hints": {
+    "whatChanges": {
+      "question": "入力によって何が変わりますか？",
+      "answer": "一つだけです。文の真ん中にある名前です。名前が与えられたらそれを使い、与えられなければ、既定の `\\\"you\\\"` を使います。"
+    },
+    "checkGivenName": {
+      "question": "「名前が与えられたか」をどのようにチェックしますか？",
+      "answer": "入力を空文字列 `\\\"\\\"` と比較するif文です。空なら `\\\"you\\\"` を使い、そうでなければ入力を使います。"
+    },
+    "buildSentence": {
+      "question": "最終的な文をどのように組み立てますか？",
+      "answer": "三つの部分（`\\\"One for \\\"`、選んだ名前、および `\\\", one for me.\\\"`）を連結（`+`）またはテンプレート文字列で結合します。"
+    }
+  }
+}
