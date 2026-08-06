@@ -26,7 +26,7 @@
     },
     "coordinates": {
       "question": "Comment fonctionnent les coordonnées ?",
-      "answer": "Les coordonnées du canvas vont de (0,0) en haut à gauche à (100,100) en bas à droite. Pour les rectangles, `top` et `left` correspondent au coin en haut à gauche."
+      "answer": "Les coordonnées du canvas vont de (0,0) en haut à gauche à (100,100) en bas à droite. Pour les rectangles, `left` et `top` correspondent au coin en haut à gauche."
     },
     "roofPosition": {
       "question": "Comment trouver la position du toit ?",
