@@ -10,7 +10,9 @@ export interface ConceptMeta {
   childrenCount: number;
   exerciseSlugs: string[];
   contentHash: string | null;
-  video_data?: VideoSource[] | null;
+  // The recap video to play, resolved for this locale at build time. Null for a
+  // concept with no video of its own.
+  video: VideoSource | null;
 }
 
 export interface ConceptForDisplay extends ConceptMeta {

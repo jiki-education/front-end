@@ -1,5 +1,6 @@
 {
   "parent": "conditionals-group",
   "order": 8,
-  "category": false
+  "category": false,
+  "video": "state"
 }

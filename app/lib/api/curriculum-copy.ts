@@ -1,10 +1,15 @@
 import { curriculumCopyHashes, badgeCopyHashes } from "@/lib/generated/curriculum-copy-hashes";
 import { assetsUrl } from "@/lib/assets";
 import { curriculumCopyPath, badgeCopyPath } from "@/lib/assets-paths";
+import type { VideoSource } from "@/types/lesson";
 
 export interface CurriculumCopy {
   title: string;
   description: string;
+  // Present only on video lessons: the video the lesson plays.
+  video?: VideoSource;
+  // Present only on exercises that have a recorded walkthrough solve.
+  walkthroughVideo?: VideoSource;
 }
 
 export interface BadgeCopy {

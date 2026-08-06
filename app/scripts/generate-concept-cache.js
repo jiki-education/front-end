@@ -29,6 +29,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import matter from "gray-matter";
 import { computeHash, writeFile } from "./lib/cache-utils.js";
+import { resolveVideo } from "./lib/videos.js";
 import { marked } from "marked";
 import hljs from "highlight.js/lib/core";
 import setupJikiscript from "@exercism/highlightjs-jikiscript";
@@ -266,6 +267,7 @@ function buildStaticFiles(concepts) {
         category: concept.config.category || false,
         childrenCount: concept.childrenCount,
         exerciseSlugs: concept.exerciseSlugs,
+        video: resolveVideo(concept.config.video, locale),
         contentHash
       });
     }

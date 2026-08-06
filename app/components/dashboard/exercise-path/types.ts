@@ -1,4 +1,4 @@
-import type { LessonSummary } from "@/types/lesson";
+import type { LessonSummary, VideoSource } from "@/types/lesson";
 
 // Display wrapper for dashboard lesson rendering.
 //
@@ -7,6 +7,8 @@ import type { LessonSummary } from "@/types/lesson";
 // deliberately has neither.
 export interface LessonDisplayData {
   lesson: LessonSummary & { title: string; description: string };
+  // The recorded walkthrough solve, if this exercise has one.
+  walkthroughVideo?: VideoSource;
   completed: boolean;
   locked: boolean;
   route: string;

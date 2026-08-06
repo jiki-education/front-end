@@ -10,8 +10,7 @@ import {
   getChildrenServer,
   getRelatedConceptsServer,
   getConceptContentServer,
-  getExercisesForConceptServer,
-  getConceptVideoDataServer
+  getExercisesForConceptServer
 } from "@/lib/concepts/server-concepts";
 import type { ConceptDetailSeed } from "@/components/concepts/lib/useConceptDetailData";
 import type { VideoSource } from "@/types/lesson";
@@ -41,14 +40,13 @@ export default async function AppConceptPage({ params }: Props) {
   let initialLeafData: ConceptDetailSeed | undefined;
   let conceptVideos: VideoSource[] = [];
   if (concept && !isCategory) {
-    const [content, relatedConcepts, relatedExercises, videoData] = await Promise.all([
+    const [content, relatedConcepts, relatedExercises] = await Promise.all([
       getConceptContentServer(slug, locale),
       getRelatedConceptsServer(slug, locale),
-      getExercisesForConceptServer(slug, locale),
-      getConceptVideoDataServer(slug)
+      getExercisesForConceptServer(slug, locale)
     ]);
-    initialLeafData = { concept, ancestors, content, relatedConcepts, relatedExercises, videoData };
-    conceptVideos = videoData ?? [];
+    initialLeafData = { concept, ancestors, content, relatedConcepts, relatedExercises };
+    conceptVideos = concept.video ? [concept.video] : [];
   }
 
   // Structured data: describe the concept as a LearningResource, emit a VideoObject

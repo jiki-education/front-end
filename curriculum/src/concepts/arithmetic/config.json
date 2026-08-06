@@ -1,5 +1,6 @@
 {
   "parent": "variables-group",
   "order": 1,
-  "category": false
+  "category": false,
+  "video": "variables-together"
 }
