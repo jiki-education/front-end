@@ -4,11 +4,11 @@ description: "Scopri se un anno è bisestile."
 en_md5: 2374b9a7671b509490f0a1e8597cd2d6
 ---
 
-In questo esercizio, esploriamo gli anni bisestili!
+In questo esercizio, esploreremo gli anni bisestili!
 
 Un anno bisestile (nel calendario gregoriano) cade:
 
-- In ogni anno che è esattamente divisibile per 4.
+- Ogni anno che è esattamente divisibile per 4.
 - A meno che non sia esattamente divisibile per 100: in quel caso, è bisestile solo se è anche esattamente divisibile per 400.
 
 Alcuni esempi:
