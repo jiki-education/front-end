@@ -1,4 +1,5 @@
 import type { ConceptMeta } from "@/types/concepts";
+import type { VideoSource } from "@/types/lesson";
 
 /** A concept's locale-invariant structure, as published by the front-end. */
 export interface ConceptStructure {
@@ -16,6 +17,10 @@ export interface ConceptCopy {
   title: string;
   description: string;
   contentHash: string | null;
+  // The recap video, already resolved for this locale: a locale can have its own
+  // recording, so which video plays is copy rather than structure. Null when the
+  // concept names no video.
+  video: VideoSource | null;
 }
 
 export type ConceptCopyCatalog = Record<string, ConceptCopy>;

@@ -10,15 +10,13 @@ function createLesson(overrides: Partial<LessonDisplayData> = {}): LessonDisplay
       title: "Solve the Maze",
       description: "Guide Jiki through a maze.",
       slug: "maze-solve-basic",
-      type: "exercise",
-      walkthrough_video_data: [
-        {
-          provider: "mux",
-          id: "PNbgUkVhy38y7OELdYseo1GAD01XG8FGLJ1nj9BvuKCU",
-          durationSeconds: 120,
-          uploadDate: "2026-01-01"
-        }
-      ]
+      type: "exercise"
+    },
+    walkthroughVideo: {
+      provider: "mux",
+      id: "PNbgUkVhy38y7OELdYseo1GAD01XG8FGLJ1nj9BvuKCU",
+      durationSeconds: 120,
+      uploadDate: "2026-01-01"
     },
     completed: false,
     locked: false,

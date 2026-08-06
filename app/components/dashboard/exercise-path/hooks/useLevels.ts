@@ -63,12 +63,12 @@ export function buildLevelSections(
           slug: lesson.slug,
           type: lesson.type,
           title: lessonCopy.title,
-          description: lessonCopy.description,
-          walkthrough_video_data: lesson.walkthrough_video_data
+          description: lessonCopy.description
         },
         completed: lesson.status === "completed",
         locked: lesson.status === "locked",
         route: `/lesson/${lesson.slug}`,
+        walkthroughVideo: lessonCopy.walkthroughVideo,
         walkthroughVideoWatchedPercentage: lesson.walkthrough_video_watched_percentage
       };
     });

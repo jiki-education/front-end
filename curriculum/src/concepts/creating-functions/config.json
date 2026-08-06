@@ -1,5 +1,6 @@
 {
   "parent": "functions-group",
   "order": 4,
-  "category": false
+  "category": false,
+  "video": "making-functions"
 }
