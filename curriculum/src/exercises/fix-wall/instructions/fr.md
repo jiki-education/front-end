@@ -1,6 +1,6 @@
 ---
 title: "Répare le mur"
-description: "Bouche les trous d'un mur abîmé avec des rectangles."
+description: "Comble les trous d'un mur abîmé avec des rectangles."
 en_md5: ba2f5a5d726cef8cb80841c6e16132c6
 ---
 
@@ -17,8 +17,8 @@ Pour dessiner un rectangle, on a besoin de connaître sa position par rapport au
 
 Tu dessines toujours sur un canvas de 100 de large et de 100 de haut. Le coin en haut à gauche du canvas est donc `0,0`, et le coin en bas à droite `100,100`. **Tu peux survoler le canvas** pour vérifier où quelque chose doit se placer.
 
-### Réparer le mur
+### Répare le mur
 
-Ton travail consiste à utiliser trois rectangles pour boucher les trous du mur.
+Ton travail consiste à utiliser trois rectangles pour combler les trous dans le mur.
 
 Pour te faciliter la vie, les positions (haut et gauche), les largeurs et les hauteurs sont toutes divisibles par 10.

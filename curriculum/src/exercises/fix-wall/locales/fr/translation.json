@@ -1,25 +1,25 @@
 {
   "checks": {
-    "topHole": "Le trou du haut n'est pas correctement bouché.",
-    "middleHole": "Le trou du milieu n'est pas correctement bouché.",
-    "bottomHole": "Le trou du bas n'est pas correctement bouché."
+    "topHole": "Le trou du haut n'est pas correctement comblé.",
+    "middleHole": "Le trou du milieu n'est pas correctement comblé.",
+    "bottomHole": "Le trou du bas n'est pas correctement comblé."
   },
   "tasks": {
     "fillHoles": {
-      "name": "Bouche les trous du mur",
-      "description": "Couvre chaque trou avec un rectangle à l'aide de la fonction rectangle."
+      "name": "Comble les trous du mur",
+      "description": "Recouvre chaque trou avec un rectangle à l'aide de la fonction rectangle."
     }
   },
   "scenarios": {
     "fillHoles": {
-      "name": "Bouche les trous",
-      "description": "Couvre chaque trou avec un rectangle."
+      "name": "Comble les trous",
+      "description": "Recouvre chaque trou avec un rectangle."
     }
   },
   "hints": {
     "howToDrawBricks": {
       "question": "Comment dessiner des briques ?",
-      "answer": "Dessine un rectangle qui couvre chaque trou. Consulte les instructions pour en savoir plus sur les différentes entrées que la fonction `rectangle` attend."
+      "answer": "Dessine un rectangle qui recouvre chaque trou. Consulte les instructions pour en savoir plus sur les différentes entrées que la fonction `rectangle` attend."
     },
     "holeSizes": {
       "question": "Quelle est la taille des trous ?",
