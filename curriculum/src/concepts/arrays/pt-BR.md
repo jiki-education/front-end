@@ -4,17 +4,17 @@ description: "Uma corrente ordenada de elementos (strings, números, Booleans ou
 en_md5: d26ccb9e04fbc77129f3199d63a95017
 ---
 
-Você já vem usando números, strings e Booleans, a palavra chique para verdadeiro e falso, e chamamos isso de diferentes tipos de dados (_data types_ em inglês). Agora vamos adicionar o nosso primeiro tipo de dado composto (_compound data type_ em inglês).
+Você já vem usando números, strings e Booleans (o nome técnico para verdadeiro e falso), e chamamos isso de diferentes tipos de dados (_data types_ em inglês). Agora vamos adicionar o nosso primeiro tipo de dado composto (_compound data type_ em inglês).
 
 É um tipo de dado que pode conter várias coisas, não só uma coisa, e esse tipo de dado se chama _array_ (vetor, em português).
 
-Quando você ouvir a palavra array, quero que pense em uma corrente física segurando várias coisas juntas.
+Quando você ouvir a palavra array, quero que pense em uma corrente segurando várias coisas juntas.
 
 Essas coisas que ela segura podem ser qualquer coisa: strings, números, Booleans, até outros arrays, até coisas que você ainda não aprendeu, mas não vamos nos preocupar com isso por enquanto.
 
 Tudo nessa corrente está em ordem: a ordem em que as coisas foram presas umas às outras.
 
-Então um array contém várias coisas, mas é uma coisa só, uma unidade: um array com vários elementos dentro dele.
+Então um array contém várias coisas, mas é uma coisa só, uma unidade: um único array com vários elementos dentro dele.
 
 O Jiki pode pegar esse array, essa corrente, e colocar em uma caixa, do mesmo jeito que ele coloca uma string em uma caixa ou um número em uma caixa.
 
