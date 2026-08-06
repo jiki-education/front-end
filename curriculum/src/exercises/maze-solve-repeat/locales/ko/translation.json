@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "notReachedEnd": "미로의 끝에 도달하지 못했어요.",
+    "tooManyLines": "코드 줄 수가 너무 많아요. 연속되는 `move()` 호출을 찾아 각 그룹을 repeat 루프로 바꿔보세요.",
+    "oneLineOver": "코드가 딱 한 줄 길어요! repeat 루프가 항상 짧은 건 아니에요: 어떤 동작을 두세 번 반복하는 것은 호출을 그냥 나열하는 것보다 더 많은 줄을 차지할 수 있어요. 그래서 실제로 줄 수를 줄여주지 않는 repeat을 찾아보세요."
+  },
+  "tasks": {
+    "solveMazeWithRepeat": {
+      "name": "repeat 루프를 사용해 미로 해결 코드 리팩토링하기",
+      "description": "코드를 짧게 만들기 위해 연속되는 `move()` 호출을 repeat 루프로 바꿔보세요."
+    }
+  },
+  "scenarios": {
+    "mazeRepeat1": {
+      "name": "repeat 루프를 사용해 미로 해결 코드 리팩토링하기",
+      "description": "연속된 `move()` 호출을 피하기 위해 repeat 루프를 사용해요."
+    }
+  },
+  "hints": {
+    "noIdea": {
+      "question": "뭘 해야 할지 모르겠어요.",
+      "answer": "연속된 `move()` 호출 그룹을 찾아보세요. 예를 들어:\n\n```javascript\nmove()\nmove()\nmove()\n```\n\n대신 이렇게 쓸 수 있어요:\n\n```javascript\nrepeat(3) {\n  move()\n}\n```\n\n그룹을 찾아서 바꿔보세요!"
+    },
+    "tooManyLines": {
+      "question": "repeat을 사용했는데도 코드 줄 수가 너무 많나요?",
+      "answer": "repeat을 사용하는 것이 항상 더 나은가요? 때로는 `move()` 두 개를 그냥 나란히 두는 것이 더 짧을 수 있어요."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "캐릭터를 현재 방향으로 **한 칸 앞으로** 이동시켜요. 목표 위치가 벽으로 막혀 있지 않을 때만 이동해요.",
+      "category": "이동"
+    },
+    "turnLeft": {
+      "description": "캐릭터를 **왼쪽으로 90도 회전**(반시계 방향)시켜요. 캐릭터가 바라보는 방향이 바뀌어요.",
+      "category": "이동"
+    },
+    "turnRight": {
+      "description": "캐릭터를 **오른쪽으로 90도 회전**(시계 방향)시켜요. 캐릭터가 바라보는 방향이 바뀌어요.",
+      "category": "이동"
+    }
+  }
+}

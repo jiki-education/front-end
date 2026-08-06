@@ -1,0 +1,117 @@
+{
+  "errors": {
+    "walkedIntoFire": "불 속으로 걸어들어갔어요!",
+    "steppedInPoop": "똥을 밟았어요!",
+    "lookDirectionType": "look() 함수는 \"left\", \"right\", \"ahead\" 중 하나의 문자열 방향을 기대해요.",
+    "lookDirectionValue": "look() 함수의 방향은 \"left\", \"right\", \"ahead\" 중 하나여야 해요."
+  },
+  "describers": {
+    "look": "주어진 방향을 살펴보고 거기 있는 것을 확인해요."
+  },
+  "checks": {
+    "notReachedEnd": "미로의 끝까지 도달하지 못했어요.",
+    "extraTurn": "끝에서 불필요한 추가 회전을 한 것 같아요.",
+    "canTurnLeftMissing": "<code>canTurnLeft</code> 함수를 정의해야 해요.",
+    "canTurnRightMissing": "<code>canTurnRight</code> 함수를 정의해야 해요.",
+    "canMoveMissing": "<code>canMove</code> 함수를 정의해야 해요.",
+    "turnAroundMissing": "<code>turnAround</code> 함수를 정의해야 해요.",
+    "lookOnlyOnce": "<code>look()</code> 함수는 전체 프로그램에서 단 한 번만 등장해야 해요.",
+    "maxExtraLines": "추가하는 코드는 13줄을 넘지 않아야 해요."
+  },
+  "tasks": {
+    "straightPath": {
+      "name": "직선 경로",
+      "description": "canMove()를 구현해서 캐릭터가 미로의 끝까지 앞으로 이동할 수 있게 해요."
+    },
+    "turnLeft": {
+      "name": "가능하면 왼쪽으로 회전하기",
+      "description": "canTurnLeft()를 구현해서 캐릭터가 길이 있을 때 왼쪽으로 회전하게 해요."
+    },
+    "turnRight": {
+      "name": "직진이나 왼쪽으로 못 갈 때 오른쪽으로 회전하기",
+      "description": "canTurnRight()를 구현해서 캐릭터가 왼쪽이나 직진으로 못 갈 때 오른쪽으로 회전하게 해요."
+    },
+    "turnAround": {
+      "name": "필요하면 뒤로 돌기",
+      "description": "막다른 길에서는 뒤로 돌아 처리해요. 이제 세 가지 감지 함수가 함께 작동하여 어떤 미로든 풀 수 있어야 해요."
+    },
+    "bonusChallenges": {
+      "name": "보너스 도전",
+      "description": "look() 함수를 전체 프로그램에서 단 한 번만 사용할 수 있나요? 그리고 코드를 13줄만 추가해서 해결할 수 있나요?"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "사람을 미로 끝까지 안내하기",
+      "description": "아래로 곧장 가는 직선 경로"
+    },
+    "leftTurn": {
+      "name": "왼쪽으로 한 번 회전",
+      "description": "왼쪽 회전 구간 탐색"
+    },
+    "rightTurn": {
+      "name": "오른쪽으로 한 번 회전",
+      "description": "오른쪽 회전 구간 탐색"
+    },
+    "forks": {
+      "name": "가능하면 왼쪽을 선택하고, 아니면 오른쪽을 선택하기",
+      "description": "왼쪽 우선을 시험하는 갈림길 미로"
+    },
+    "turnAround": {
+      "name": "막다른 길에서 뒤로 돌기",
+      "description": "뒤로 돌기가 필요한 미로"
+    },
+    "forks2": {
+      "name": "갈림길과 막다른 길이 있는 복잡한 미로",
+      "description": "전체 알고리즘을 시험하는 복잡한 미로"
+    },
+    "coverOldGround": {
+      "name": "필요하면 지나온 길 다시 가기",
+      "description": "출구를 찾으려면 되돌아가야 하는 미로"
+    },
+    "bonus1": {
+      "name": "look()를 단 한 번만 작성하기",
+      "description": "look()가 코드에 단 한 번만 등장하는 조건으로 미로 해결하기"
+    },
+    "bonus2": {
+      "name": "13줄만 추가하기",
+      "description": "코드를 13줄만 추가해서 미로 해결하기"
+    }
+  },
+  "hints": {
+    "start": {
+      "question": "프로그램이 전혀 실행되지 않을 때 어디서부터 시작해야 할까요?",
+      "answer": "코드 상단에 `canTurnLeft()`, `canTurnRight()`, `canMove()`를 정의하고 각각 일단 `false`를 반환하게 해 두세요. 그러면 프로그램이 실행되고, 본문을 하나씩 바꿔나갈 수 있어요."
+    },
+    "findDirection": {
+      "question": "주어진 방향에 무엇이 있는지 어떻게 알 수 있나요?",
+      "answer": "새로운 `look(direction)` 함수를 사용해요. `\"left\"`, `\"right\"`, `\"ahead\"` 중 하나를 전달하면 `\"empty\"`, `\"wall\"`, `\"fire\"`, `\"poop\"` 같은 문자열을 반환해요."
+    },
+    "safeResults": {
+      "question": "어떤 결과가 그 방향으로 가도 안전하다는 뜻인가요?",
+      "answer": "`look()`가 반환할 수 있는 여섯 가지 중, 세 가지는 절대 걸어들어가고 싶지 않은 것들이에요. 함수는 그 세 가지가 아닐 때만 `true`를 반환해야 해요."
+    },
+    "avoidRepetition": {
+      "question": "세 함수에서 같은 로직을 반복하고 있어요. 어떻게 피할 수 있을까요?",
+      "answer": "세 함수는 살펴보는 방향만 다를 뿐이에요. 방향을 입력으로 받는 함수를 하나 더 만들고, 세 함수에서 그 함수를 사용할 수 있을까요?"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "캐릭터를 현재 방향으로 **한 걸음 앞으로** 이동시켜요. 벽, 불, 똥으로 걸어들어가면 프로그램이 오류로 종료되니, 이동하기 전에 앞을 확인해요!",
+      "category": "이동"
+    },
+    "turnLeft": {
+      "description": "캐릭터를 **왼쪽으로 90도**(시계 반대 방향) 회전시켜요. 캐릭터가 바라보는 방향이 바뀌어요.",
+      "category": "이동"
+    },
+    "turnRight": {
+      "description": "캐릭터를 **오른쪽으로 90도**(시계 방향) 회전시켜요. 캐릭터가 바라보는 방향이 바뀌어요.",
+      "category": "이동"
+    },
+    "look": {
+      "description": "주어진 방향을 살펴보고 거기에 무엇이 있는지 반환해요. 방향은 `\"left\"`, `\"right\"`, `\"ahead\"` 중 하나여야 해요. 반환값: `\"empty\"`, `\"wall\"`, `\"fire\"`, `\"poop\"`, `\"start\"`, `\"target\"` 중 하나.",
+      "category": "감지"
+    }
+  }
+}

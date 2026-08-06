@@ -1,0 +1,80 @@
+{
+  "errors": {
+    "hourNotNumber": "<code>hour</code>는 숫자여야 해요",
+    "minutesNotNumber": "<code>minutes</code>는 숫자여야 해요",
+    "indicatorNotString": "<code>indicator</code>는 문자열이어야 해요"
+  },
+  "checks": {
+    "notUpdated": "시계가 갱신되지 않았어요. <code>displayTime</code> 함수를 사용했는지 확인해 보세요.",
+    "wrongTime": "\"{{expected}}\"이어야 하는데 \"{{got}}\"이에요"
+  },
+  "tasks": {
+    "displayTime": {
+      "name": "시계에 시간 표시하기",
+      "description": "현재 시간과 분을 가져와 12시간제 형식(am/pm)으로 변환한 다음, `displayTime()`으로 표시하세요."
+    }
+  },
+  "scenarios": {
+    "morning1": {
+      "name": "이른 아침",
+      "description": "6:35를 \"6:35am\"으로 표시하세요"
+    },
+    "morning2": {
+      "name": "늦은 아침",
+      "description": "11:04를 \"11:04am\"으로 표시하세요"
+    },
+    "afternoon1": {
+      "name": "이른 오후",
+      "description": "12:19를 \"12:19pm\"으로 표시하세요"
+    },
+    "afternoon2": {
+      "name": "늦은 저녁",
+      "description": "23:32를 \"11:32pm\"으로 표시하세요"
+    },
+    "midnight": {
+      "name": "자정",
+      "description": "자정을 \"12:00am\"으로 표시하세요"
+    },
+    "noon": {
+      "name": "정오",
+      "description": "정오를 \"12:00pm\"으로 표시하세요"
+    },
+    "now": {
+      "name": "현재 시간 표시하기",
+      "description": "현재 시간을 표시하세요"
+    }
+  },
+  "hints": {
+    "gettingStarted": {
+      "question": "어떻게 시작해야 할지 모르겠어요",
+      "answer": "`currentTimeHour()`와 `currentTimeMinute()`로 현재 시간을 가져온 다음, 그 값을 `displayTime(hour, minutes, \"am\")`에 전달해 어떤 결과가 나오는지 확인해 보세요. 그런 다음 올바른 meridiem과 올바른 시간 표시를 설정하는 방법을 찾아보세요."
+    },
+    "meridiem": {
+      "question": "meridiem은 어떻게 동작하나요?",
+      "answer": "0시부터 11시는 'am', 12시부터 23시는 'pm'이에요. 자정(0시)은 12am으로 표시하고, 정오(12시)는 12pm으로 표시해야 해요."
+    },
+    "hourChange": {
+      "question": "시간이 언제, 왜 바뀌어야 하나요?",
+      "answer": "12시간제 시계에서는 13:00을 1:00pm으로, 14:00을 2:00pm으로 표시해요. 따라서 13을 1로, 14를 2로 바꾸는 규칙을 찾아내고 시계를 그에 맞게 수정해야 해요!"
+    }
+  },
+  "describers": {
+    "currentTimeHour": "현재 시간을 가져왔어요",
+    "currentTimeMinute": "현재 분을 가져왔어요",
+    "displayTime": "시계에 시간을 표시했어요"
+  },
+  "functions": {
+    "currentTimeHour": {
+      "description": "24시간제로 현재 시간을 숫자로 반환해요 (예: 11pm은 23).",
+      "category": "시간"
+    },
+    "currentTimeMinute": {
+      "description": "현재 분을 숫자로 반환해요.",
+      "category": "시간"
+    },
+    "displayTime": {
+      "description": "디지털 시계에 시간을 표시해요. 표시자는 \"am\" 또는 \"pm\"이어야 해요.",
+      "category": "동작"
+    }
+  }
+}

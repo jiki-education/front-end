@@ -1,0 +1,55 @@
+{
+  "errors": {
+    "needsRecharge": "판매 후에는 로봇을 재충전해야 해요.",
+    "sellBeforeAnythingElse": "로봇은 다른 일을 하기 전에 먼저 판매하러 가야 해요.",
+    "sellNumber": "금 조각의 개수만 판매할 수 있어요."
+  },
+  "checks": {
+    "notSold": "금 조각을 판매하지 않았어요. 채취 후에 <code>sell()</code>을 사용하는지 확인하세요.",
+    "wrongSoldTotal": "{{expectedTotal}}개의 금 조각({{panValues}})을 판매해야 하는데, {{got}}개를 판매했어요. 각 채취 결과를 누적 합계에 더했는지 확인하세요."
+  },
+  "tasks": {
+    "panAndSell": {
+      "name": "금을 채취하고 판매하세요",
+      "description": "5번 채취하여 금 조각을 모으고, 누적 합계를 유지한 다음, 교역소에서 전부 판매하세요."
+    }
+  },
+  "scenarios": {
+    "randomPans": {
+      "name": "채취와 판매",
+      "description": "5회 채취하여 매번 무작위 수의 금 조각을 얻은 후 총합을 판매합니다."
+    }
+  },
+  "hints": {
+    "wrongSellAmount": {
+      "question": "판매할 금의 양이 잘못되었다고 나와요.",
+      "answer": "5번의 채취에서 찾은 금을 각 채취 후에 판매하지 말고, 마지막에 한꺼번에 모두 판매해야 해요."
+    },
+    "trackingTotal": {
+      "question": "채취를 여러 번 사용하고 있는데, 얼마나 모았는지 어떻게 추적해야 할지 모르겠어요.",
+      "answer": "최근 동영상 강의에서 배운 내용을 생각해 보세요. **모든** 채취를 통해 모은 금의 **총** 양을 추적하려면 변수를 사용해야 해요."
+    },
+    "fiveLines": {
+      "question": "작동은 하는데, 5줄로 줄일 수가 없어요.",
+      "answer": "해결책에 반복되는 코드가 있나요? 그렇다면, 반복을 줄이기 위해 무엇을 사용할 수 있을까요?"
+    },
+    "stillFiveLines": {
+      "question": "아직도 코드를 5줄로 줄이지 못하겠어요.",
+      "answer": "변수는 하나만 사용하면 돼요. 더 많은 변수를 사용하고 있나요?"
+    }
+  },
+  "describers": {
+    "pan": "채취하여 금 조각 ${return}개를 찾았어요.",
+    "sell": "교역소에서 금 조각 ${arg1}개를 판매했어요."
+  },
+  "functions": {
+    "pan": {
+      "description": "채취판을 강물에 담가 찾은 금 조각의 개수를 **반환**해요.",
+      "category": "채취"
+    },
+    "sell": {
+      "description": "교역소에서 금 조각을 판매해요.",
+      "category": "행동"
+    }
+  }
+}

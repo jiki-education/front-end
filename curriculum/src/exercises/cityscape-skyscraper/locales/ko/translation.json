@@ -1,0 +1,76 @@
+{
+  "checks": {
+    "totalCells": "{{expected}}개의 셀을 예상했지만 {{got}}개를 찾았어요.",
+    "groundWalls": "입구 층에는 (17, 2)와 (21, 2) 위치에 벽이 있어야 해요.",
+    "groundGlass": "입구 층에는 (18, 2)와 (20, 2) 위치에 유리가 있어야 해요.",
+    "groundEntrance": "입구 층에는 (19, 2) 위치에 입구가 있어야 해요.",
+    "floorWalls": "{{y}}층에는 (17, {{y}})와 (21, {{y}}) 위치에 벽이 있어야 해요.",
+    "floorGlass": "{{y}}층에는 (18, {{y}}), (19, {{y}}), (20, {{y}}) 위치에 유리가 있어야 해요.",
+    "roof": "y={{roofY}}의 지붕은 전체가 벽으로 채워져야 해요.",
+    "codeQuality": {
+      "allArgumentsAreVariables": "함수에 인자로 숫자 값 자체가 아닌 <strong>변수</strong>를 사용해야 해요. 먼저 값을 변수에 저장한 다음, 변수를 전달하세요."
+    }
+  },
+  "tasks": {
+    "buildSkyscraper": {
+      "name": "마천루 세우기",
+      "description": "올바른 층수로, 입구 층(입구 포함), 유리 층, 벽 지붕을 포함하는 마천루를 세우세요."
+    }
+  },
+  "scenarios": {
+    "floors6": {
+      "name": "6층 마천루",
+      "description": "6층짜리 마천루를 세우세요."
+    },
+    "floors8": {
+      "name": "8층 마천루",
+      "description": "8층짜리 마천루를 세우세요."
+    },
+    "floors10": {
+      "name": "10층 마천루",
+      "description": "10층짜리 마천루를 세우세요."
+    },
+    "floors12": {
+      "name": "12층 마천루",
+      "description": "12층짜리 마천루를 세우세요."
+    },
+    "floors16": {
+      "name": "16층 마천루",
+      "description": "16층짜리 마천루를 세우세요."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "어디서부터 시작해야 할지 모르겠어요.",
+      "answer": "먼저 벽, 유리, 입구를 하나씩 그려서 함수들을 이해했는지 확인해 보세요. 그런 다음 기본 층(항상 동일한 형태)을 그리세요. 이후 `numFloors()` 함수를 사용해 총 층수를 알아내고, 나머지 층과 지붕을 그리면 돼요."
+    },
+    "tooManyTooFewFloors": {
+      "question": "층이 너무 많거나 적어요.",
+      "answer": "`numFloors()`가 5를 반환한다면, 입구 층 하나, 유리 층 네 개, 지붕 하나로 구성되어야 해요. 로직이 맞는지 확인해 보세요!"
+    }
+  },
+  "functions": {
+    "buildWall": {
+      "description": "그리드의 (x, y) 위치에 **벽 블록**을 배치해요.",
+      "category": "건물"
+    },
+    "buildGlass": {
+      "description": "그리드의 (x, y) 위치에 **유리 패널**을 배치해요.",
+      "category": "건물"
+    },
+    "buildEntrance": {
+      "description": "그리드의 (x, y) 위치에 **입구**를 배치해요.",
+      "category": "건물"
+    },
+    "numFloors": {
+      "description": "이 건물의 **층수**를 반환해요.",
+      "category": "정보"
+    }
+  },
+  "describers": {
+    "buildWall": "위치 (${arg1}, ${arg2})에 벽을 배치했어요.",
+    "buildEntrance": "위치 (${arg1}, ${arg2})에 입구를 배치했어요.",
+    "buildGlass": "위치 (${arg1}, ${arg2})에 유리를 배치했어요.",
+    "numFloors": "층수를 가져왔어요."
+  }
+}

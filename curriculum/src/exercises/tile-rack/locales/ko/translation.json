@@ -1,0 +1,64 @@
+{
+  "tasks": {
+    "findTilePosition": {
+      "name": "타일 위치 찾기",
+      "description": "랙에서 특정 글자 타일의 위치를 찾는 함수를 작성하세요. 찾으면 \"Move to position X\"를 반환하고, 없으면 \"Error: Tile not on rack\"를 반환해요."
+    }
+  },
+  "scenarios": {
+    "tileAtStart": {
+      "name": "맨 앞 타일",
+      "description": "찾는 글자가 랙의 첫 번째 타일인 경우예요."
+    },
+    "tileInMiddle": {
+      "name": "중간 타일",
+      "description": "찾는 글자가 랙의 중간에 있는 경우예요."
+    },
+    "tileAtEnd": {
+      "name": "맨 끝 타일",
+      "description": "찾는 글자가 랙의 마지막 타일인 경우예요."
+    },
+    "tileNotFound": {
+      "name": "타일 없음",
+      "description": "찾는 글자가 랙에 없는 경우예요."
+    },
+    "emptyRack": {
+      "name": "빈 랙",
+      "description": "빈 랙에는 찾을 타일이 없어요."
+    },
+    "firstOfDuplicates": {
+      "name": "중복 첫 타일",
+      "description": "찾는 글자가 여러 번 나타날 때 첫 번째 위치를 반환해요."
+    },
+    "longerRack": {
+      "name": "긴 랙",
+      "description": "더 긴 랙에서 타일을 찾는 경우예요."
+    }
+  },
+  "hints": {
+    "trackPosition": {
+      "question": "랙에서 현재 위치를 어떻게 추적하나요?",
+      "answer": "1부터 시작하는 위치 변수를 사용하세요. 새로운 타일을 하나 볼 때마다 1씩 증가시켜요."
+    },
+    "lookAtEachTile": {
+      "question": "각 타일을 어떻게 하나씩 살펴보나요?",
+      "answer": "for-each 루프를 사용하면 랙의 각 문자를 차례로 가져올 수 있어요."
+    },
+    "onFound": {
+      "question": "글자를 찾았을 때 어떻게 하나요?",
+      "answer": "성공 메시지를 만드세요. 위치 번호를 문자열로 변환한 다음, 연결(`+`) 또는 템플릿 문자열을 사용해 연습 문제에서 요구하는 주변 텍스트와 합치세요. 찾으면 바로 반환하고 더 찾을 필요는 없어요."
+    },
+    "addNumberToString": {
+      "question": "숫자를 문자열에 더할 수 없어요",
+      "answer": "문자열을 합치는 두 가지 방법을 배웠어요. 문자열을 연결하는 대신, 배운 다른 방법을 시도해 보세요."
+    },
+    "positionAlwaysWrong": {
+      "question": "위치가 항상 잘못 나오는 이유가 뭔가요?",
+      "answer": "매 반복마다 위치 카운터를 증가시키고 있는지 확인하세요. 가끔만 증가시키면 모든 타일에서 같은 위치가 반환돼요."
+    },
+    "notInRack": {
+      "question": "글자가 랙에 없으면 어떻게 하나요?",
+      "answer": "루프가 끝날 때까지 글자를 찾지 못한 후에만 오류 메시지를 반환해야 해요. 루프 안에서 오류를 반환하면 첫 번째 불일치 타일에서 포기하게 돼요."
+    }
+  }
+}

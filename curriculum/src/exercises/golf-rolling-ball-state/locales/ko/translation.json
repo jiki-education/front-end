@@ -1,0 +1,40 @@
+{
+  "errors": {
+    "positionNotNumber": "position은 숫자여야 해요."
+  },
+  "checks": {
+    "ballNotAtEnd": "공이 홀에 도달하지 못했어요. 위치 {{ballX}}에 있지만, 위치 88에 도착해야 해요.",
+    "missingPositions": "공이 각 위치를 하나씩 거쳐서 굴러가야 해요. 바로 끝으로 건너뛰면 안 돼요."
+  },
+  "tasks": {
+    "rollBall": {
+      "name": "공을 홀에 넣기",
+      "description": "공을 홀에 넣기"
+    }
+  },
+  "scenarios": {
+    "rollBall": {
+      "name": "공을 홀에 넣기",
+      "description": "공을 홀에 넣기"
+    }
+  },
+  "hints": {
+    "dontKnowWhereToStart": {
+      "question": "어디서부터 시작해야 할지 모르겠어요.",
+      "answer": "핵심은 공을 한 번에 한 칸씩 앞으로 움직이는 거예요. 변수를 사용해서 이렇게 할 수 있어요. 어떻게 하면 될지 생각해 보세요."
+    },
+    "stillCantFigureItOut": {
+      "question": "아직도 어떻게 해야 할지 모르겠어요.",
+      "answer": "공 위치를 추적할 변수를 만들어야 해요. 변수는 지금 공의 위치에서 시작해서, 여러 번 1씩 증가시켜야 해요. 증가할 때마다 변수를 입력으로 `moveTo(...)`를 호출해야 해요."
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "공을 **position**으로 이동해요.",
+      "category": "이동"
+    }
+  },
+  "describers": {
+    "moveTo": "공을 ${arg1} 위치로 이동했어요."
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "describers": {
+    "move": "레이저 캐논을 오른쪽으로 움직였어요"
+  },
+  "checks": {
+    "notShotAllAliens": "모든 외계인을 격추하지 못했어요"
+  },
+  "tasks": {
+    "conditionalShoot": {
+      "name": "if문을 사용해 위에 외계인이 있을 때만 쏘기",
+      "description": "화면을 가로질러 이동하면서 각 위치를 확인해요. 위에 외계인이 있으면 쏘고, 없으면 그냥 넘어가요."
+    }
+  },
+  "scenarios": {
+    "conditional1": {
+      "name": "흩어진 외계인들",
+      "description": "두 줄에 걸쳐 빈칸이 있는 외계인들"
+    },
+    "conditional2": {
+      "name": "드문드문한 외계인들",
+      "description": "더 적은 외계인 수와 더 넓은 빈칸"
+    },
+    "conditional3": {
+      "name": "교대 배치",
+      "description": "윗줄과 아랫줄에 번갈아 배치된 외계인들"
+    },
+    "conditional4": {
+      "name": "하단 집중",
+      "description": "대부분의 외계인이 아래쪽 줄에 있음"
+    },
+    "conditional5": {
+      "name": "밀집 대형",
+      "description": "두 줄에 걸쳐 외계인이 빽빽이 배치됨"
+    }
+  },
+  "hints": {
+    "howToDecide": {
+      "question": "쏠지 말지 어떻게 결정하나요?",
+      "answer": "`isAlienAbove()`를 확인하는 `if`문을 사용해요. `true`를 반환할 때만 `shoot()`을 호출해요."
+    },
+    "whatIsAlienAboveGives": {
+      "question": "`isAlienAbove()`는 무엇을 반환하나요?",
+      "answer": "레이저 캐논 바로 위에 외계인이 있으면 `true`를, 없으면 `false`를 반환해요. 이 값을 `if` 조건에 바로 사용할 수 있어요."
+    },
+    "checkEveryColumn": {
+      "question": "같은 코드를 반복하지 않고 모든 열을 어떻게 확인하나요?",
+      "answer": "확인 후 쏘는 로직을 `repeat` 반복문으로 감싸고, 매 반복 끝에 `move()`를 호출하여 다음 열로 이동해요."
+    },
+    "keepShootingEmpty": {
+      "question": "계속 빈 열에 쏴서 지고 있어요. 뭐가 잘못된 걸까요?",
+      "answer": "`shoot()` 호출이 `if` 블록 안에 있는지 확인하세요. 블록 바깥에 있으면 안 돼요. `isAlienAbove()`가 `true`일 때만 호출해야 해요."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "레이저 캐논을 **오른쪽으로 한 칸** 움직여요. 화면 오른쪽 끝을 벗어나면 져요!",
+      "category": "이동"
+    },
+    "shoot": {
+      "description": "레이저를 위쪽으로 쏘아요. **위에 외계인이 있을 때만 쏘세요**, 그렇지 않으면 져요!",
+      "category": "액션"
+    },
+    "isAlienAbove": {
+      "description": "레이저 캐논 바로 위에 외계인이 있으면 `true`를, 없으면 `false`를 반환해요. 쏘기 전에 확인할 때 사용해요!",
+      "category": "탐지"
+    }
+  }
+}

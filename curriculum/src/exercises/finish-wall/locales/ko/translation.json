@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "leftBrick": "왼쪽 벽돌이 올바르지 않아요.",
+    "secondBrick": "두 번째 벽돌이 올바르지 않아요.",
+    "middleBrick": "가운데 벽돌이 올바르지 않아요.",
+    "fourthBrick": "네 번째 벽돌이 올바르지 않아요.",
+    "rightBrick": "오른쪽 벽돌이 올바르지 않아요.",
+    "codeQuality": {
+      "rectangleCalledOnce": "코드에서 <code>rectangle</code> 함수를 여러 곳에서 사용하고 있어요. 한 번만 나타나야 해요!"
+    }
+  },
+  "tasks": {
+    "finishWall": {
+      "name": "벽 완성하기",
+      "description": "벽의 맨 위층을 추가해요!"
+    }
+  },
+  "scenarios": {
+    "finishWall": {
+      "name": "벽 완성하기",
+      "description": "벽의 맨 위층을 추가해요!"
+    }
+  },
+  "hints": {
+    "positionSecondBrick": {
+      "question": "두 번째 벽돌을 첫 번째보다 더 오른쪽에 배치하는 방법을 모르겠어요.",
+      "answer": "각 벽돌의 너비가 20이라면 첫 번째는 0, 두 번째는 20, 세 번째는 40 위치에 배치해야 해요. 곱셈을 사용하면 이렇게 할 수 있어요. 어떤 변수를 추적하면 0, 20, 40 같은 패턴을 만들 수 있을까요?"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "주어진 너비, 높이, 색상으로 (왼쪽, 위쪽) 위치에 직사각형을 그려요.",
+      "category": "도형 그리기"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "tasks": {
+    "reverseStrings": {
+      "name": "문자열 뒤집기",
+      "description": "왼쪽에서 오른쪽이 아닌, 오른쪽에서 왼쪽으로 읽히도록 문자열을 뒤집어요."
+    }
+  },
+  "scenarios": {
+    "reverseEmptyString": {
+      "name": "빈 문자열",
+      "description": "빈 문자열을 뒤집으면 빈 문자열이 반환돼야 해요."
+    },
+    "reverseWord": {
+      "name": "단어",
+      "description": "'robot'이라는 단어를 뒤집어요."
+    },
+    "reverseCapitalizedWord": {
+      "name": "대문자로 시작하는 단어",
+      "description": "'Ramen'이라는 대문자로 시작하는 단어를 뒤집어요."
+    },
+    "reverseSentencePunctuation": {
+      "name": "문장 부호가 있는 문장",
+      "description": "문장 부호가 포함된 문장 'I'm hungry!'을 뒤집어요."
+    },
+    "reversePalindrome": {
+      "name": "회문",
+      "description": "회문은 뒤집어도 동일해요."
+    },
+    "reverseEvenSizedWord": {
+      "name": "짝수 길이의 단어",
+      "description": "'drawer'처럼 글자 수가 짝수인 단어를 뒤집어요."
+    },
+    "reverseWideCharacters": {
+      "name": "전각 문자",
+      "description": "'子猫' 같은 전각 문자를 뒤집어요."
+    },
+    "reverseEmojiFamily": {
+      "name": "가족 이모지",
+      "description": "가족 이모지를 뒤집어요."
+    },
+    "reverseEmojiRainbowFlag": {
+      "name": "무지개 깃발",
+      "description": "뒤집기로 무지개 깃발을 만들어요."
+    }
+  },
+  "hints": {
+    "reverseByHand": {
+      "question": "단어를 직접 손으로 뒤집으려면 어떻게 하나요?",
+      "answer": "왼쪽에서 오른쪽으로 읽지만, 오른쪽에서 왼쪽으로 써요. 또는 각 글자를 차례대로 가져와서 지금까지 쓴 것 앞에 붙여요."
+    },
+    "mapToCode": {
+      "question": "이걸 코드로 어떻게 바꿀까요?",
+      "answer": "입력 문자열을 한 글자씩 루프를 돌아요. 각 글자에 대해, 결과 앞에 붙여서 결과를 만들어요. 즉, 결과의 뒤가 아니라 앞에 넣는 거예요."
+    },
+    "prepend": {
+      "question": "'뒤에 붙이기' 대신 '앞에 붙이기'를 어떻게 하나요?",
+      "answer": "`+` 연산자를 사용하면, 앞에 붙이기는 순서만 바꾸면 돼요. `result + char` (뒤에 붙이기) 대신 `char + result` (앞에 붙이기)를 사용해요."
+    }
+  }
+}

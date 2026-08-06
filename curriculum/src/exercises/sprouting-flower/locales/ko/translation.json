@@ -1,0 +1,70 @@
+{
+  "checks": {
+    "firstFlowerHeadWrong": "첫 번째 프레임의 꽃이 올바르지 않아요.",
+    "finalFlowerHeadWrong": "마지막 프레임의 꽃이 올바르지 않아요.",
+    "firstPistilWrong": "첫 번째 프레임의 꽃술이 올바르지 않아요.",
+    "finalPistilWrong": "마지막 프레임의 꽃술이 올바르지 않아요.",
+    "firstStemWrong": "첫 번째 프레임의 줄기가 올바르지 않아요.",
+    "finalStemWrong": "마지막 프레임의 줄기가 올바르지 않아요.",
+    "firstLeftLeafWrong": "첫 번째 프레임의 왼쪽 잎이 올바르지 않아요.",
+    "finalLeftLeafWrong": "마지막 프레임의 왼쪽 잎이 올바르지 않아요.",
+    "firstRightLeafWrong": "첫 번째 프레임의 오른쪽 잎이 올바르지 않아요.",
+    "finalRightLeafWrong": "마지막 프레임의 오른쪽 잎이 올바르지 않아요."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "장면 그리기",
+      "description": "꽃이 움트게 만들어 보세요. 한 번에 한 걸음씩 해봐요!"
+    }
+  },
+  "scenarios": {
+    "drawSproutingFlower": {
+      "name": "꽃이 움트게 만들기",
+      "description": "한 번에 한 걸음씩 해봐요!"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "장면을 배치할 때 어디서부터 시작하면 좋을까요?",
+      "answer": "중심점 하나를 골라요. 꽃의 중심이 좋은 기준점이 될 거예요. 줄기, 꽃술, 잎 모두 이 점을 기준으로 계산할 수 있어요. 그러면 애니메이션이 진행되어도 꽃 전체가 이어져 있을 거예요."
+    },
+    "growEachIteration": {
+      "question": "반복할 때마다 꽃이 올라가고 자라게 하려면 어떻게 해야 하나요?",
+      "answer": "루프 본문의 맨 처음, 그리기 명령 전에 `flowerCenterY`와 `flowerRadius`를 현재 프레임의 새로운 값으로 업데이트하세요. 지시 사항에 증가치가 나와 있어요. 중요한 건 그리기 호출 *후*가 아니라 *전*에 업데이트하는 거예요."
+    },
+    "stemAttached": {
+      "question": "꽃이 위로 올라갈 때 줄기가 꽃에 붙어 있게 하려면 어떻게 해야 하나요?",
+      "answer": "줄기의 꼭대기를 고정하지 마세요. 줄기의 꼭대기는 바로 `flowerCenterY`예요. 바닥은 땅이에요. 그러면 줄기 높이는 그 사이 거리가 되는 거죠. 너비는 그 높이에서 구할 수 있어요."
+    },
+    "leafSizing": {
+      "question": "잎이 꽃과 함께 자라도록 잎 크기를 조절하려면 어떻게 해야 하나요?",
+      "answer": "잎의 `radiusX`와 `radiusY`는 `flowerRadius`의 일정 비율이에요. 그래야 함께 크기가 변해요. 잎의 세로 위치를 줄기에 맞추고, 캔버스의 고정 Y 좌표에 맞추지 마세요. 그래야 꽃과 함께 올라가요."
+    },
+    "flowerNeverChanges": {
+      "question": "꽃이 한 번 그려지고 아무 변화가 없어요. 무엇이 잘못된 걸까요?",
+      "answer": "루프 바깥에서 초기값을 한 번만 설정하고 루프 *안에서* 업데이트하지 않은 것 같아요. 루프 본문에서는 매 반복마다 변수 값을 변경한 다음 그리기 호출을 해야 해요."
+    },
+    "firstFlowerCoords": {
+      "question": "첫 번째 프레임의 꽃 좌표를 확인할 수 있게 알려주실 수 있나요?",
+      "answer": "첫 번째 반복에서 각 도형의 값은 다음과 같아야 해요:\n\n- 꽃: `circle(50, 89, 0.4)`\n- 꽃술: `circle(50, 89, 0.1)`\n- 줄기: `rectangle(49.95, 89, 0.1, 1)`\n- 왼쪽 잎: `ellipse(49.75, 89.5, 0.2, 0.08)`\n- 오른쪽 잎: `ellipse(50.25, 89.5, 0.2, 0.08)`\n\n스크러버 바의 정보 토글을 켜서 해당 프레임에서 여러분의 값을 직접 확인해 보세요."
+    },
+    "finalFlowerCoords": {
+      "question": "마지막 프레임의 꽃 좌표를 확인할 수 있게 알려주실 수 있나요?",
+      "answer": "마지막 반복에서 각 도형의 값은 다음과 같아야 해요:\n\n- 꽃: `circle(50, 30, 24)`\n- 꽃술: `circle(50, 30, 6)`\n- 줄기: `rectangle(47, 30, 6, 60)`\n- 왼쪽 잎: `ellipse(35, 60, 12, 4.8)`\n- 오른쪽 잎: `ellipse(65, 60, 12, 4.8)`\n\n스크러버 바의 정보 토글을 켜서 해당 프레임에서 여러분의 값을 직접 확인해 보세요."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "지정한 너비, 높이, 색상으로 **사각형**을 (left, top) 위치에 그려요. 이 위치는 사각형의 왼쪽 위 모서리를 나타내요.",
+      "category": "도형 그리기"
+    },
+    "circle": {
+      "description": "지정한 반지름과 색상으로 **원**을 중심점 (centerX, centerY)에 그려요.",
+      "category": "도형 그리기"
+    },
+    "ellipse": {
+      "description": "지정한 radiusX, radiusY, 색상으로 **타원**을 중심점 (centerX, centerY)에 그려요.",
+      "category": "도형 그리기"
+    }
+  }
+}

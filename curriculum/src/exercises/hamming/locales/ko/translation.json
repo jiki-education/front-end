@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "tooManyLines": "코드가 필요 이상으로 길어요. 줄일 수 있는지 살펴보세요."
+  },
+  "tasks": {
+    "calculateHammingDistance": {
+      "name": "해밍 거리 계산하기",
+      "description": "길이가 같은 두 DNA 가닥 사이의 해밍 거리를 계산하는 함수를 작성하세요. 해밍 거리는 대응하는 문자가 서로 다른 위치의 개수예요."
+    },
+    "solveInElevenLines": {
+      "name": "코드 11줄로 해결하기",
+      "description": "코드 11줄 이내로 이 문제를 풀어볼 수 있을까요?"
+    }
+  },
+  "scenarios": {
+    "hammingEmptyStrands": {
+      "name": "빈 가닥",
+      "description": "빈 가닥의 해밍 거리는 0이에요."
+    },
+    "hammingSingleLetterIdentical": {
+      "name": "동일한 한 글자 가닥",
+      "description": "한 글자로 이루어진 동일한 가닥의 해밍 거리는 0이에요."
+    },
+    "hammingLongIdenticalStrands": {
+      "name": "긴 동일한 가닥",
+      "description": "긴 동일한 가닥의 해밍 거리는 0이에요."
+    },
+    "hammingSingleLetterDifferent": {
+      "name": "서로 다른 한 글자 가닥",
+      "description": "서로 다른 한 글자 가닥의 해밍 거리는 1이에요."
+    },
+    "hammingLongDifferentStrands": {
+      "name": "긴 서로 다른 가닥",
+      "description": "서로 다른 긴 가닥의 해밍 거리를 계산해요."
+    },
+    "hammingBonusElevenLines": {
+      "name": "코드 11줄",
+      "description": "코드 11줄 이내로 연습 문제를 풀어보세요."
+    }
+  },
+  "hints": {
+    "hammingDistanceMeaning": {
+      "question": "'해밍 거리'가 쉽게 말하면 어떤 뜻인가요?",
+      "answer": "두 문자열에서 서로 다른 위치의 개수예요. 그래서 'GAGA' 대 'GATA'에서는 세 번째 위치만 달라서 거리가 1이에요."
+    },
+    "compareCharactersAtPosition": {
+      "question": "두 문자열에서 같은 위치의 문자를 어떻게 비교하나요?",
+      "answer": "두 문자열을 동시에 훑으면서 각각 같은 위치의 문자를 뽑아내야 해요."
+    },
+    "trackDifferenceCount": {
+      "question": "차이가 몇 개인지 어떻게 셀까요?",
+      "answer": "불일치를 발견할 때마다 누적 합계를 조정해서 모든 위치를 확인한 다음 반환할 수 있는 방식이 필요해요."
+    }
+  }
+}

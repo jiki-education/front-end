@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "flowerCount": "꽃을 9개 심어야 하는데 {{got}}개만 심었어요.",
+    "missingFlowerAt10": "위치 10에 꽃을 심지 않았어요.",
+    "missingFlowerAt50": "위치 50에 꽃을 심지 않았어요.",
+    "missingFlowerAt90": "위치 90에 꽃을 심지 않았어요.",
+    "tooManyLines": "코드 줄 수가 너무 많아요. 더 짧게 만드는 방법을 찾아보세요."
+  },
+  "tasks": {
+    "plantFlowers": {
+      "name": "꽃 9개 심기",
+      "description": "변수와 반복 루프를 사용해 위치 10, 20, 30, ..., 90에 꽃 9개를 심어요."
+    }
+  },
+  "scenarios": {
+    "plantFlowers": {
+      "name": "꽃 9개 심기",
+      "description": "위치 10, 20, 30, 40, 50, 60, 70, 80, 90에 꽃을 심어요."
+    }
+  },
+  "hints": {
+    "stuck": {
+      "question": "완전히 막혔어요.",
+      "answer": "반복 루프 사용법과 상태를 추적하는 변수 업데이트 방법에 대한 최근 동영상을 확인해 보세요. 필요한 모든 것이 거기에 다 나와 있을 거예요."
+    }
+  },
+  "functions": {
+    "plant": {
+      "description": "주어진 **위치**에 꽃을 심어요.",
+      "category": "원예"
+    }
+  },
+  "describers": {
+    "plant": "위치 ${arg1}에 꽃을 심었어요."
+  }
+}

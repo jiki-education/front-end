@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "tooManyLines": "راه‌حل شما خیلی خط کد دارد. می‌توانید آن را کوتاه‌تر کنید؟"
+  },
+  "tasks": {
+    "createAcronymFunction": {
+      "name": "ساخت تابع سرنام",
+      "description": "تابع سرنامی بنویسید که سه کلمه بگیرد و با گرفتن اولین حرف هر کلمه، یک سرنام سه‌حرفی برگرداند."
+    },
+    "solveInThreeLines": {
+      "name": "حل با ۳ خط کد",
+      "description": "می‌توانید این تمرین را فقط با ۳ خط کد حل کنید؟"
+    }
+  },
+  "scenarios": {
+    "png": {
+      "name": "گرافیک شبکه‌ی قابل حمل",
+      "description": "سرنام 'PNG' را از 'Portable'، 'Network' و 'Graphics' بسازید."
+    },
+    "css": {
+      "name": "شیوه‌نامهٔ آبشاری",
+      "description": "سرنام 'CSS' را از 'Cascading'، 'Style' و 'Sheets' بسازید."
+    },
+    "www": {
+      "name": "وب جهان‌گستر",
+      "description": "سرنام 'WWW' را از 'World'، 'Wide' و 'Web' بسازید."
+    },
+    "lol": {
+      "name": "کلمات با حروف کوچک",
+      "description": "سرنام 'lol' را از 'laugh'، 'out' و 'loud' بسازید."
+    },
+    "bonus1": {
+      "name": "۳ خط کد",
+      "description": "تمرین را فقط با ۳ خط کد حل کنید."
+    }
+  },
+  "hints": {
+    "firstCharacter": {
+      "question": "چطور فقط اولین حرف یک کلمه را دریافت کنم؟",
+      "answer": "با ایندکس‌گذاری رشته. اولین حرف در ایندکس `[0]` قرار دارد."
+    },
+    "buildResult": {
+      "question": "چطور نتیجهٔ سه‌حرفی را بسازم؟",
+      "answer": "اولین حرف هر کلمه را بگیرید و با استفاده از الصاق (`+`) یا template string آن‌ها را به ترتیب به هم بچسبانید."
+    }
+  }
+}

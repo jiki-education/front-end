@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "notShotAllAliens": "외계인을 모두 격추하지 못했어요.",
+    "functionNotDefined": "<code>shootIfAlienAbove</code> 함수를 정의해야 해요.",
+    "functionNotCalled": "<code>shootIfAlienAbove</code> 함수를 정의했지만, 실제로 호출해야 해요."
+  },
+  "tasks": {
+    "battleProcedures": {
+      "name": "shootIfAlienAbove 함수를 만들어 게임에서 승리하세요",
+      "description": "발사 로직을 shootIfAlienAbove() 함수로 분리한 다음, 이동 로직과 함께 사용하여 모든 외계인을 물리치세요."
+    }
+  },
+  "scenarios": {
+    "battleProcedures": {
+      "name": "전투 절차",
+      "description": "shootIfAlienAbove 함수를 사용해 모든 외계인을 물리치세요."
+    }
+  },
+  "hints": {
+    "wherePutFunction": {
+      "question": "`shootIfAlienAbove` 함수는 어디에 두어야 하나요?",
+      "answer": "코드 맨 위, 루프보다 앞에 정의하세요. 정의한 뒤에는 루프 안에서 원하는 만큼 여러 번 호출할 수 있어요."
+    },
+    "whatGoesInside": {
+      "question": "`shootIfAlienAbove` 안에는 무엇이 들어가나요?",
+      "answer": "`isAlienAbove()`를 확인하는 `if`문을 사용하세요. 이 함수가 `true`를 반환하면 `shoot()`을 호출하세요. 그게 함수의 전체 내용이에요."
+    },
+    "whatStaysInLoop": {
+      "question": "루프 안에는 무엇을 남겨두나요?",
+      "answer": "이동 로직은 모두 루프 안에 남아 있어요, 스크롤 앤 슛 연습 문제에서와 마찬가지로요. 각 반복마다: `shootIfAlienAbove()`를 호출하고, 포탑을 이동한 다음, 경계에서 방향을 바꾸세요."
+    },
+    "trackCannon": {
+      "question": "포탑이 어디에 있고 어느 방향으로 가는지 어떻게 추적하나요?",
+      "answer": "각 반복마다 업데이트하는 변수 두 개를 사용하세요. 예를 들어, `position` 변수는 좌우로 이동하고, `direction` 변수는 \\\"right\\\" 또는 \\\"left\\\" 값을 가지며 경계에 닿으면 방향을 바꿔요."
+    }
+  },
+  "functions": {
+    "moveLeft": {
+      "description": "레이저 포탑을 **왼쪽으로 한 칸** 이동해요. 화면 왼쪽 끝을 벗어나면 게임에서 지게 돼요!",
+      "category": "이동"
+    },
+    "moveRight": {
+      "description": "레이저 포탑을 **오른쪽으로 한 칸** 이동해요. 화면 오른쪽 끝을 벗어나면 게임에서 지게 돼요!",
+      "category": "이동"
+    },
+    "shoot": {
+      "description": "레이저를 위쪽으로 발사해요. **위에 외계인이 있을 때만 쏴야 해요**, 아니면 게임에서 지게 돼요! 레이저 포탑은 쉽게 과열되므로, 다시 쏘기 전에 반드시 이동해야 해요.",
+      "category": "동작"
+    },
+    "isAlienAbove": {
+      "description": "레이저 포탑 바로 위에 외계인이 있으면 `true`를, 없으면 `false`를 반환해요. 쏘기 전에 이걸로 확인하세요!",
+      "category": "탐지"
+    }
+  }
+}

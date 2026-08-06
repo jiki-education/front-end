@@ -1,0 +1,63 @@
+{
+  "checks": {
+    "tooManyLines": "코드 줄 수가 너무 많아요. 더 짧게 만들 수 있을까요?"
+  },
+  "tasks": {
+    "didTheyPass": {
+      "name": "통과 여부 판단하기",
+      "description": "운전 시험 표시를 분석하여 학생이 합격했는지 판단하는 함수를 작성하세요. 메이저 실수(💥)가 하나라도 있거나 마이너 실수(❌)가 5개 이상이면 불합격이에요."
+    },
+    "solveInElevenLines": {
+      "name": "12줄로 해결하기",
+      "description": "이 연습 문제를 단 12줄로 해결할 수 있을까요?"
+    }
+  },
+  "scenarios": {
+    "perfectMarks": {
+      "name": "완벽한 학생!",
+      "description": "모든 걸 완벽하게 해냈어요 - 와!"
+    },
+    "dangerous": {
+      "name": "사회에 위험한 인물",
+      "description": "이 사람은 도로에 내보낼 수 없어요!"
+    },
+    "oneBigMistake": {
+      "name": "큰 실수 하나",
+      "description": "큰 실수 하나면 불합격이에요!"
+    },
+    "scrapedThrough": {
+      "name": "아슬아슬하게 통과",
+      "description": "간신히 통과했어요!"
+    },
+    "oneMistakeTooMany": {
+      "name": "너무 많은 실수!",
+      "description": "작은 실수들이 쌓였네요."
+    },
+    "bonus1": {
+      "name": "12줄의 코드",
+      "description": "단 12줄로 연습 문제를 해결하세요."
+    }
+  },
+  "hints": {
+    "lookAtEachMark": {
+      "question": "각각의 표시를 어떻게 확인하나요?",
+      "answer": "marks 문자열을 한 글자씩 반복해서 살펴보세요. 각 문자는 ✅, ❌, 💥 중 하나입니다."
+    },
+    "emojiInQuotes": {
+      "question": "왜 💥에 대해 오류가 발생하나요?",
+      "answer": "💥이나 ❌ 같은 이모지도 따옴표 안에 넣어야 해요. 문자열 속의 문자도 알파벳과 마찬가지로 문자예요."
+    },
+    "majorFault": {
+      "question": "💥(메이저)를 보면 어떻게 해야 하나요?",
+      "answer": "메이저 실수가 하나라도 있으면 다른 건 상관없이 불합격이에요. 그래서 💥를 보는 즉시 `false`를 반환해도 돼요. 더 살펴볼 필요가 없어요."
+    },
+    "minorCount": {
+      "question": "횟수가 중요한 마이너 실수는 어떻게 처리하나요?",
+      "answer": "카운터 변수를 하나 만들고 ❌를 볼 때마다 1씩 더하세요. ✅는 무시해도 돼요. 아무 영향도 안 줘요."
+    },
+    "finalCheck": {
+      "question": "마지막에 무엇을 확인하나요?",
+      "answer": "반복이 끝나고 메이저가 하나도 없었다면, 마이너 횟수가 5개 미만이면 시험에 통과해요. 마이너 횟수가 5 미만이면 `true`를, 그렇지 않으면 `false`를 반환해요."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "errors": {
+    "walkExpectsNumber": "`walk()`는 걸음 수를 숫자로 입력받아야 해요."
+  },
+  "describers": {
+    "walk": "지정한 걸음 수만큼 앞으로 걷기"
+  },
+  "checks": {
+    "notReachedEnd": "미로의 끝에 도달하지 못했어요."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "사람을 미로 끝까지 안내하세요",
+      "description": "`walk()`, `turnLeft()`, `turnRight()`를 사용해 미로를 탐색하고 초록색 목표 칸에 도달하세요."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "사람을 미로 끝까지 안내하세요",
+      "description": "할 일은 초록색 목표 칸에 도달하는 거예요."
+    }
+  },
+  "hints": {
+    "moveNotWorking": {
+      "question": "왜 `move()`가 더 이상 작동하지 않을까요?",
+      "answer": "Jiki의 각 연습 문제마다 사용할 수 있는 기계가 달라요. 이번 연습 문제에서는 `walk(...)` 기계를 사용해요. 괄호 안의 숫자를 걷고 싶은 걸음 수로 바꾸세요. 그러면 `walk(1)`은 지난번 `move()`와 정확히 똑같은 동작을 해요."
+    }
+  },
+  "functions": {
+    "walk": {
+      "description": "현재 방향으로 **지정한 걸음 수만큼** 캐릭터를 앞으로 이동시켜요. 한 걸음당 한 칸씩 이동해요. 벽에 부딪히면 멈추고 오류를 알려줘요.",
+      "category": "이동"
+    },
+    "turnLeft": {
+      "description": "캐릭터를 **왼쪽으로 90도** 회전시켜요 (시계 반대 방향). 캐릭터가 바라보는 방향이 바뀌어요.",
+      "category": "이동"
+    },
+    "turnRight": {
+      "description": "캐릭터를 **오른쪽으로 90도** 회전시켜요 (시계 방향). 캐릭터가 바라보는 방향이 바뀌어요.",
+      "category": "이동"
+    }
+  }
+}

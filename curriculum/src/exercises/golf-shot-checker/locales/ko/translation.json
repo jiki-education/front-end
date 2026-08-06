@@ -1,0 +1,82 @@
+{
+  "checks": {
+    "wrongDistance": "이 샷에서 공이 올바른 거리만큼 굴러가지 않았어요. 티에서부터 정확히 샷 길이만큼 이동해야 해요.",
+    "missingPositions": "공은 한 걸음씩 각 위치를 지나며 굴러야 해요.",
+    "stayOnGrassPlain": "이 샷에서는 공이 잔디 위에 머물러야 해요. 홀 안으로 떨어지면 안 돼요.",
+    "stayOnGrassOvershot": "공이 홀을 지나쳤어요. 그래서 잔디 위에 머물러야 해요. 홀 안으로 떨어지면 안 돼요.",
+    "droppedIncorrectly": "공이 홀에 도달했지만, 제대로 홀 안으로 떨어지지 않았어요.",
+    "noFireworksPeriod": "폭죽을 발사하면 안 돼요.",
+    "noFireworksNoPeriod": "폭죽을 발사하면 안 돼요",
+    "noFireworksAtEnd": "마지막에 폭죽을 발사하면 안 돼요.",
+    "shouldFireFireworks": "마지막에 폭죽을 발사해야 해요."
+  },
+  "tasks": {
+    "checkShot": {
+      "name": "샷이 홀에 들어가는지 확인해요",
+      "description": "샷 길이에 따라 공을 굴리고, 공이 홀에 착지하면 홀 안으로 넣어요! 그런 다음 폭죽을 발사해요."
+    }
+  },
+  "scenarios": {
+    "tooShort": {
+      "name": "샷이 너무 짧음",
+      "description": "골퍼가 공을 23만큼 쳤어요. 홀에 도달하지 못해요."
+    },
+    "justTooShort": {
+      "name": "아깝게 짧음",
+      "description": "골퍼가 공을 57만큼 쳤어요. 거의 홀에 들어가지만 아깝게 들어가지 않아요."
+    },
+    "justTooFar": {
+      "name": "아깝게 지나침",
+      "description": "골퍼가 공을 63만큼 쳤어요. 공이 홀 반대쪽으로 살짝 튀어나왔어요."
+    },
+    "tooLong": {
+      "name": "샷이 너무 김",
+      "description": "골퍼가 공을 68만큼 쳤어요. 홀을 지나쳐 버렸어요."
+    },
+    "justInsideLeft": {
+      "name": "아슬아슬하게 성공",
+      "description": "골퍼가 공을 58만큼 쳤어요. 간신히 홀에 도달했어요!"
+    },
+    "justInsideRight": {
+      "name": "아깝게 멀었지만 성공",
+      "description": "골퍼가 공을 62만큼 쳤어요. 가까스로 홀에 머물렀어요!"
+    }
+  },
+  "hints": {
+    "howDoIRollRightDistance": {
+      "question": "각 샷마다 공을 올바른 거리만큼 굴리려면 어떻게 해야 하나요?",
+      "answer": "`getShotLength()`를 사용해서 골퍼가 공을 얼마나 멀리 쳤는지 알아내고, 변수에 저장해요. 그러면 몇 번 굴려야 하는지 알 수 있어요."
+    },
+    "howDoIMoveOneStep": {
+      "question": "공을 한 번에 끝까지 점프시키지 않고, 한 걸음씩 움직이려면 어떻게 해야 하나요?",
+      "answer": "공의 `x` 위치를 저장할 변수를 하나 만들어요. 루프를 돌 때마다 그 값을 1씩 증가시키고 새로운 위치로 굴려요."
+    },
+    "whenShouldBallDrop": {
+      "question": "공이 언제 홀 안으로 떨어져야 하나요?",
+      "answer": "샷이 홀에 착지했을 때만이에요. 샷 길이가 성공 범위 안에 있는지 확인하려면, 하한과 상한을 하나의 조건에서 함께 검사해요."
+    },
+    "whenShouldFireworksFire": {
+      "question": "폭죽은 언제 발사해야 하나요?",
+      "answer": "샷이 홀에 착지했을 때만, 그리고 공이 바닥까지 완전히 떨어졌을 때만이에요. 떨어지는 동작과 폭죽 발사를 같은 조건 안에 함께 넣어 두세요."
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "공을 **(x, y)** 위치로 이동시켜요.",
+      "category": "이동"
+    },
+    "getShotLength": {
+      "description": "**샷의 길이**를 반환해요. 공이 오른쪽으로 이동하는 거리를 나타내요.",
+      "category": "정보"
+    },
+    "fireFireworks": {
+      "description": "축하 폭죽을 발사해요!",
+      "category": "동작"
+    }
+  },
+  "describers": {
+    "moveTo": "공을 (${arg1}, ${arg2}) 위치로 이동시켰어요",
+    "getShotLength": "샷 길이를 가져왔어요",
+    "fireFireworks": "축하 폭죽을 쏘아 올렸어요"
+  }
+}

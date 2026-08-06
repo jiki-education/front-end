@@ -1,0 +1,56 @@
+{
+  "checks": {
+    "flowerCount_one": "집주인은 꽃 {{count}}송이가 심어지길 바랐지만, {{got}}송이를 심었어요.",
+    "flowerCount_other": "집주인은 꽃 {{count}}송이가 심어지길 바랐지만, {{got}}송이를 심었어요.",
+    "flowerAtPosition": "{{position}} 위치에 꽃이 있어야 하는데 없었어요.",
+    "strayFlower": "{{position}} 위치에 꽃이 발견되었지만, 그곳은 집주인이 원한 자리가 아니에요. 꽃은 고르게 심어야 해요."
+  },
+  "tasks": {
+    "plantFlowersEvenly": {
+      "name": "꽃을 고르게 심기",
+      "description": "askNumberOfFlowers()를 사용해 심을 꽃의 개수를 알아내고, 간격을 계산한 뒤 꽃을 고르게 심어요."
+    }
+  },
+  "scenarios": {
+    "oneFlower": {
+      "name": "집주인이 꽃 1송이를 원해요",
+      "description": "이 시나리오에서는 `askNumberOfFlowers()`가 1을 반환해요. 위치 50에 꽃 1송이를 심어요."
+    },
+    "threeFlowers": {
+      "name": "집주인이 꽃 3송이를 원해요",
+      "description": "이 시나리오에서는 `askNumberOfFlowers()`가 3을 반환해요. 위치 25, 50, 75에 꽃 3송이를 심어요."
+    },
+    "fourFlowers": {
+      "name": "집주인이 꽃 4송이를 원해요",
+      "description": "이 시나리오에서는 `askNumberOfFlowers()`가 4를 반환해요. 위치 20, 40, 60, 80에 꽃 4송이를 심어요."
+    },
+    "nineFlowers": {
+      "name": "집주인이 꽃 9송이를 원해요",
+      "description": "이 시나리오에서는 `askNumberOfFlowers()`가 9를 반환해요. 위치 10, 20, 30, 40, 50, 60, 70, 80, 90에 꽃 9송이를 심어요."
+    }
+  },
+  "hints": {
+    "chooseGap": {
+      "question": "꽃을 심을 위치를 어떻게 계산하나요?",
+      "answer": "먼저 꽃 사이의 간격을 계산해요:\n\n```javascript\n100 / (numberOfFlowers + 1)\n```\n\n첫 번째 꽃은 그 간격만큼 떨어진 지점에 심고, 그다음 꽃들은 차례대로 간격을 더해 가며 심어요. 예를 들어 꽃이 3송이면 간격은 25이고, 25, 50, 75 지점에 심어요."
+    },
+    "seeScenarios": {
+      "question": "다른 시나리오는 어떻게 보나요?",
+      "answer": "코드와 결과 사이 왼쪽에 있는 점들을 클릭해요."
+    }
+  },
+  "functions": {
+    "askNumberOfFlowers": {
+      "description": "심을 **꽃의 개수**를 반환해요.",
+      "category": "정원 가꾸기"
+    },
+    "plant": {
+      "description": "주어진 **위치**에 꽃을 심어요.",
+      "category": "정원 가꾸기"
+    }
+  },
+  "describers": {
+    "askNumberOfFlowers": "심을 꽃의 개수를 물어봤어요.",
+    "plant": "위치 ${arg1}에 꽃을 심었어요."
+  }
+}

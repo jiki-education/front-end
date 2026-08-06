@@ -1,0 +1,63 @@
+{
+  "checks": {
+    "tooManyLines": "코드 줄이 너무 많아요. 더 짧게 만들어 볼 수 있을까요?"
+  },
+  "tasks": {
+    "calculateSignPrice": {
+      "name": "간판 가격 계산하기",
+      "description": "간판의 가격을 계산하는 함수를 작성해요. 글자 하나는 $12이고, 공백은 무료라서 세지 않아요. 결과를 형식이 지정된 문자열로 반환해요."
+    },
+    "solveInNineLines": {
+      "name": "코드 9줄로 풀기",
+      "description": "이 연습 문제를 코드 9줄만으로 풀 수 있을까요?"
+    }
+  },
+  "scenarios": {
+    "simpleWord": {
+      "name": "간단한 단어",
+      "description": "공백이 없는 단어 하나."
+    },
+    "singleLetter": {
+      "name": "글자 하나",
+      "description": "글자가 하나뿐인 간판."
+    },
+    "twoWords": {
+      "name": "두 단어",
+      "description": "공백 하나를 건너뛰어야 하는 두 단어."
+    },
+    "multipleSpaces": {
+      "name": "공백 여러 개",
+      "description": "건너뛰어야 할 공백이 여러 개 있는 여러 단어."
+    },
+    "longText": {
+      "name": "긴 텍스트",
+      "description": "글자가 더 많은 긴 간판."
+    },
+    "allSpaces": {
+      "name": "공백만 있음",
+      "description": "공백만 있는 간판은 청구할 글자가 없어요."
+    },
+    "bonus1": {
+      "name": "코드 9줄",
+      "description": "코드 9줄만으로 연습 문제 풀기"
+    }
+  },
+  "hints": {
+    "whatCounting": {
+      "question": "실제로 무엇을 세고 있나요?",
+      "answer": "글자예요. 정확히는 공백이 아닌 모두를 세는 거예요. 그러니까 간판 문자열에서 공백이 아닌 문자마다 하나씩 올라가는 카운터를 만들면 돼요."
+    },
+    "loopCharacters": {
+      "question": "문자를 어떻게 하나씩 살펴보나요?",
+      "answer": "`for...of`문을 사용하면 각 문자를 차례대로 가져올 수 있어요. 그래서 한 번에 하나씩 볼 수 있어요."
+    },
+    "checkSpace": {
+      "question": "문자가 공백인지 어떻게 확인하나요?",
+      "answer": "루프 안에서 if문을 사용해 문자를 `\" \"`와 비교해요. 공백이 아닐 때만 문자를 세요."
+    },
+    "buildResultString": {
+      "question": "결과 문자열을 어떻게 만드나요?",
+      "answer": "문자열 연결이나 템플릿 문자열을 사용해요. 이에 대해 다시 보고 싶다면 개념을 확인해 보세요."
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "tasks": {
+    "createSayHelloFunction": {
+      "name": "`sayHello` 함수 만들기",
+      "description": "이름을 받아서 'Hello, [name]!' 형식의 인사말을 반환하는 `sayHello` 함수를 작성하세요."
+    }
+  },
+  "scenarios": {
+    "helloAiko": {
+      "name": "Aiko에게 인사하기",
+      "description": "'Hello, Aiko!'를 반환하기"
+    },
+    "helloPriya": {
+      "name": "Priya에게 인사하기",
+      "description": "'Hello, Priya!'를 반환하기"
+    },
+    "helloMei": {
+      "name": "Mei에게 인사하기",
+      "description": "'Hello, Mei!'를 반환하기"
+    }
+  },
+  "hints": {
+    "answerShape": {
+      "question": "만들려는 답의 기본 형태는 무엇일까요?",
+      "answer": "세 부분을 합쳐서: 고정된 시작 부분 `\"Hello, \"`, 그다음에 이름, 그리고 고정된 끝 부분 `\"!\"`."
+    },
+    "joinStrings": {
+      "question": "문자열을 어떻게 합칠 수 있나요?",
+      "answer": "`+`를 사용한 문자열 연결이나 `${}` 자리표시자를 사용한 템플릿 문자열을 통해 세 부분을 하나의 문자열로 합쳐 보세요."
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "checks": {
+    "notReachedEnd": "미로의 끝에 도달하지 못했어요.",
+    "walkNotDefined": "<code>walk</code> 함수를 정의해야 해요. 이 함수는 걸음 수를 입력으로 받아 그 횟수만큼 앞으로 이동해요."
+  },
+  "tasks": {
+    "writeWalk": {
+      "name": "걷기 함수 작성하기",
+      "description": "걷기라는 함수를 정의해요. 이 함수는 걸음 수를 입력으로 받아 그 횟수만큼 앞으로 이동해요."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "미로 탐색하기",
+      "description": "3걸음 걷기, 왼쪽으로 돌기, 2걸음 걷기, 오른쪽으로 돌기, 4걸음 걷기로 목표에 도달해요."
+    }
+  },
+  "hints": {
+    "howToMoveForward": {
+      "question": "앞으로 어떻게 이동하나요?",
+      "answer": "`move()` 함수를 사용해요."
+    },
+    "howToMoveSpecificTimes": {
+      "question": "특정 횟수만큼 앞으로 어떻게 이동하나요?",
+      "answer": "특정 횟수만큼 어떤 동작을 반복해야 했던 다른 연습 문제들을 해결한 적이 있을 거예요 (골프 공을 특정 거리만큼 굴렸던 것을 떠올려보세요). 여기서도 같은 방법을 사용해요."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "캐릭터를 현재 방향으로 **한 걸음 앞으로** 이동시켜요. 벽에 막히지 않은 경우에만 이동해요.",
+      "category": "이동"
+    },
+    "turnLeft": {
+      "description": "캐릭터를 **왼쪽으로 90도** 회전시켜요 (시계 반대 방향). 캐릭터가 바라보는 방향을 바꿔요.",
+      "category": "이동"
+    },
+    "turnRight": {
+      "description": "캐릭터를 **오른쪽으로 90도** 회전시켜요 (시계 방향). 캐릭터가 바라보는 방향을 바꿔요.",
+      "category": "이동"
+    }
+  }
+}

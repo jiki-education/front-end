@@ -1,0 +1,51 @@
+{
+  "checks": {
+    "stripe1Purple": "1번 줄무늬는 끝 줄무늬이므로 purple이어야 해요.",
+    "stripe2Blue": "2번 줄무늬는 blue여야 해요 (짝수이지만 4의 배수는 아니에요).",
+    "stripe3Yellow": "3번 줄무늬는 yellow여야 해요 (홀수이고, 끝 줄무늬가 아니에요).",
+    "stripe4Green": "4번 줄무늬는 green이어야 해요. 4의 배수이므로 짝수 규칙보다 4의 배수 규칙을 먼저 확인해야 해요.",
+    "stripe5Yellow": "5번 줄무늬는 yellow여야 해요 (홀수이고, 끝 줄무늬가 아니에요).",
+    "stripe6Blue": "6번 줄무늬는 blue여야 해요 (짝수이지만 4의 배수는 아니에요).",
+    "stripe8Green": "8번 줄무늬는 green이어야 해요 (4의 배수이에요).",
+    "stripe12Green": "12번 줄무늬는 green이어야 해요 (4의 배수이에요).",
+    "stripe19Yellow": "19번 줄무늬는 yellow여야 해요 (홀수이고, 끝 줄무늬가 아니에요).",
+    "stripe20Purple": "20번 줄무늬는 끝 줄무늬이므로 purple이어야 해요 (짝수이지만요).",
+    "rectangleOnce": "<code>rectangle</code> 함수를 여러 곳에서 사용하고 있어요. 루프 안에서 한 번만 사용해야 해요. 20개의 줄무늬를 직접 하나씩 쓰지 마세요!"
+  },
+  "tasks": {
+    "weaveTheFabric": {
+      "name": "천을 짜세요",
+      "description": "세로 줄무늬 20개를 그리세요. 양 끝 줄무늬는 purple이고, 나머지 중 4의 배수는 green, 그 외 짝수 줄무늬는 blue, 홀수 줄무늬는 yellow예요."
+    }
+  },
+  "scenarios": {
+    "weaveTheFabric": {
+      "name": "줄무늬 천을 짜세요",
+      "description": "20개의 줄무늬를 올바른 색으로 그리세요."
+    }
+  },
+  "hints": {
+    "howToDraw20Stripes": {
+      "question": "20개의 줄무늬를 각각 다른 위치에 어떻게 그리나요?",
+      "answer": "카운터(이름을 `i`라고 해요)를 두고 `repeat` 루프 안에서 1씩 증가시켜요. `i`번째 줄무늬의 너비는 `5`이므로 왼쪽 가장자리는 `(i - 1) * 5`예요. 거기에 너비가 `5`, 높이가 `100`인 `rectangle`을 그려요."
+    },
+    "endStripesPurple": {
+      "question": "양 끝 줄무늬만 purple로 만들려면 어떻게 하나요?",
+      "answer": "끝 줄무늬는 첫 번째와 마지막이에요. 하나의 비교로 '한 값 또는 다른 값'을 잡을 수 없으므로 `||` (or)를 사용하세요. `if (n === 3 || n === 7)` 같은 조건은 두 값 중 하나에 대해 참이 돼요. 이걸 두 끝 줄무늬 번호에 적용하세요."
+    },
+    "multipleOf4VsEven": {
+      "question": "4의 배수와 일반 짝수를 어떻게 구별하나요?",
+      "answer": "`%` (나머지) 연산자를 사용하세요: `n % 4 === 0`은 4의 배수에만 참이고, `n % 2 === 0`은 모든 짝수에 대해 참이에요. 4의 배수는 짝수이기도 하므로 더 엄격한 4의 배수 규칙을 먼저 확인하세요."
+    },
+    "stripe4Blue": {
+      "question": "4번 줄무늬가 blue로 나오는데 green이어야 해요. 왜 그럴까요?",
+      "answer": "`if` / `else if` 체인에서는 순서가 중요해요. 4는 4의 배수이면서 짝수이므로 `i % 2 === 0`을 먼저 확인하면 blue가 되어 green 규칙에 도달하지 못해요. 짝수 규칙보다 4의 배수 규칙을 먼저 확인하세요."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "(left, top) 위치에 주어진 너비, 높이, 색상으로 직사각형을 그려요.",
+      "category": "도형 그리기"
+    }
+  }
+}
