@@ -1,0 +1,64 @@
+{
+  "tasks": {
+    "findTilePosition": {
+      "name": "Encontrar la posición de la ficha",
+      "description": "Escribe una función que encuentre la posición de una ficha de letra específica en el soporte. Devuelve \"Move to position X\" si la encuentra, o \"Error: Tile not on rack\" si no."
+    }
+  },
+  "scenarios": {
+    "tileAtStart": {
+      "name": "Ficha al inicio",
+      "description": "La letra es la primera ficha en el soporte."
+    },
+    "tileInMiddle": {
+      "name": "Ficha en el medio",
+      "description": "La letra está en el medio del soporte."
+    },
+    "tileAtEnd": {
+      "name": "Ficha al final",
+      "description": "La letra es la última ficha en el soporte."
+    },
+    "tileNotFound": {
+      "name": "Ficha no encontrada",
+      "description": "La letra no está en el soporte."
+    },
+    "emptyRack": {
+      "name": "Soporte vacío",
+      "description": "Un soporte vacío no tiene fichas que encontrar."
+    },
+    "firstOfDuplicates": {
+      "name": "Primera de las duplicadas",
+      "description": "Cuando la letra aparece varias veces, devuelve la primera posición."
+    },
+    "longerRack": {
+      "name": "Soporte más largo",
+      "description": "Encontrar una ficha en un soporte más largo."
+    }
+  },
+  "hints": {
+    "trackPosition": {
+      "question": "¿Cómo puedo saber en qué posición estoy en el soporte?",
+      "answer": "Usa una variable de posición que empiece en 1. Cada vez que mires una nueva ficha, la incrementas en 1."
+    },
+    "lookAtEachTile": {
+      "question": "¿Cómo reviso cada ficha?",
+      "answer": "Un bucle for-each te da cada carácter del soporte, uno por uno."
+    },
+    "onFound": {
+      "question": "¿Qué hago cuando encuentro la letra?",
+      "answer": "Construye el mensaje de éxito. Convierte el número de la posición a un string y combínalo con el texto que rodea que pide el ejercicio, usando concatenación (`+`) o un template string. Devuelve inmediatamente. No hace falta seguir buscando."
+    },
+    "addNumberToString": {
+      "question": "No puedo añadir un número a un string",
+      "answer": "Has aprendido dos formas de unir strings. En lugar de concatenar strings, prueba el otro método que has aprendido."
+    },
+    "positionAlwaysWrong": {
+      "question": "¿Por qué mi posición siempre está mal?",
+      "answer": "Asegúrate de incrementar el contador de posición en cada iteración, no solo a veces. De lo contrario, cada ficha reporta la misma posición."
+    },
+    "notInRack": {
+      "question": "¿Y si la letra no está en el soporte?",
+      "answer": "Solo después de que el bucle haya terminado sin encontrar la letra debes devolver el mensaje de error. Devolver el error dentro del bucle haría que se rindiera después de la primera ficha que no coincida."
+    }
+  }
+}

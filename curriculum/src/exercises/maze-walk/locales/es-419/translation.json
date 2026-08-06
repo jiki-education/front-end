@@ -1,0 +1,42 @@
+{
+  "checks": {
+    "notReachedEnd": "No llegaste al final del laberinto.",
+    "walkNotDefined": "Debes definir una función <code>walk</code> que reciba un número de pasos y avance esa cantidad de veces."
+  },
+  "tasks": {
+    "writeWalk": {
+      "name": "Crear una función walk",
+      "description": "Define una función llamada walk que reciba un número de pasos como argumento y avance esa cantidad de veces."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Navegar por el laberinto",
+      "description": "Avanzar 3, girar a la izquierda, avanzar 2, girar a la derecha, avanzar 4 para alcanzar el objetivo."
+    }
+  },
+  "hints": {
+    "howToMoveForward": {
+      "question": "¿Cómo avanzo?",
+      "answer": "Usa la función `move()`."
+    },
+    "howToMoveSpecificTimes": {
+      "question": "¿Cómo avanzo un número específico de veces?",
+      "answer": "Ya resolviste otros ejercicios en los que tuviste que hacer algo un número específico de veces (piensa en cuando hiciste rodar la pelota de golf una distancia determinada). Usa las mismas ideas aquí."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Mueve al personaje **un paso hacia adelante** en la dirección actual. El personaje solo se moverá si la posición de destino no está bloqueada por una pared.",
+      "category": "Movimiento"
+    },
+    "turnLeft": {
+      "description": "Gira al personaje **90 grados hacia la izquierda** (en sentido antihorario). Esto cambia la dirección hacia la que mira el personaje.",
+      "category": "Movimiento"
+    },
+    "turnRight": {
+      "description": "Gira al personaje **90 grados hacia la derecha** (en sentido horario). Esto cambia la dirección hacia la que mira el personaje.",
+      "category": "Movimiento"
+    }
+  }
+}

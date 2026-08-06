@@ -1,0 +1,54 @@
+{
+  "errors": {
+    "unknownDice": "Lo siento, Jiki no tiene a mano un dado de {{sides}} caras.",
+    "announceNumber": "Solo puedes anunciar un número.",
+    "attackNumber": "El ataque debe ser un número.",
+    "damageNumber": "El daño debe ser un número."
+  },
+  "describers": {
+    "roll": "lanzó un dado y sacó ${return}",
+    "announce": "anunció ${arg1}",
+    "strike": "golpeó al goblin con ataque ${arg1} y daño ${arg2}"
+  },
+  "checks": {
+    "announcementCount": "Se esperaban 3 anuncios pero se obtuvieron {{got}}. Asegúrate de anunciar cada tirada.",
+    "firstAnnouncement": "Se esperaba que el primer anuncio fuera {{attack}} (la tirada de ataque) pero se obtuvo {{got}}.",
+    "secondAnnouncement": "Se esperaba que el segundo anuncio fuera {{damage}} (la tirada de daño base) pero se obtuvo {{got}}.",
+    "thirdAnnouncement": "Se esperaba que el tercer anuncio fuera {{bonus}} (la tirada adicional) pero se obtuvo {{got}}.",
+    "notStruck": "No golpeaste al goblin. Asegúrate de llamar a <code>strike()</code>.",
+    "wrongAttack": "Se esperaba que el ataque fuera {{attack}} pero se obtuvo {{got}}. Pasa la tirada de ataque a <code>strike()</code>.",
+    "wrongDamage": "Se esperaba que el daño total fuera {{totalDamage}} ({{damage}} + {{bonus}}) pero se obtuvo {{got}}. Suma el daño base y el adicional."
+  },
+  "tasks": {
+    "rollAndStrike": {
+      "name": "Lanza los dados y golpea al goblin",
+      "description": "Lanza tres dados (d20 para ataque, d12 para daño base, d10 para daño adicional), anuncia cada tirada y luego golpea al goblin con tu tirada de ataque y daño total (base + adicional)."
+    }
+  },
+  "scenarios": {
+    "randomRolls": {
+      "name": "Lanzar y golpear",
+      "description": "Lanza d20 para ataque, d12 para daño base, d10 para daño adicional. Golpea al goblin con tu ataque y daño total."
+    }
+  },
+  "hints": {
+    "chooseDie": {
+      "question": "¿Cómo elijo qué tipo de dado usar?",
+      "answer": "Para un dado de 20 caras, usa 20 como entrada para lanzar, por ejemplo: `roll(20)`. Para un dado de 12 caras, llama a `roll(12)`."
+    }
+  },
+  "functions": {
+    "roll": {
+      "description": "Lanza un dado con el número de caras indicado y **devuelve** el resultado.",
+      "category": "Dados"
+    },
+    "announce": {
+      "description": "Anuncia el valor de una tirada de dado.",
+      "category": "Acción"
+    },
+    "strike": {
+      "description": "Golpea al goblin con la tirada de ataque y el daño total indicados.",
+      "category": "Acción"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "notReachedEnd": "No llegaste al final del laberinto.",
+    "tooManyLines": "Tu solución tiene demasiadas líneas de código. Busca grupos de llamadas consecutivas a `move()` y reemplaza cada grupo con un bucle `repeat`.",
+    "oneLineOver": "¡Te sobra solo una línea! Un bucle `repeat` no siempre es más corto: repetir algo solo dos o tres veces puede ocupar más líneas que escribir las llamadas, así que busca algún bucle `repeat` que en realidad no te esté ahorrando nada."
+  },
+  "tasks": {
+    "solveMazeWithRepeat": {
+      "name": "Refactoriza la solución del laberinto usando bucles `repeat`",
+      "description": "Reemplaza las llamadas consecutivas a `move()` con bucles `repeat` para acortar el código."
+    }
+  },
+  "scenarios": {
+    "mazeRepeat1": {
+      "name": "Refactoriza la solución del laberinto usando bucles `repeat`",
+      "description": "Usa bucles `repeat` para evitar las llamadas consecutivas a `move()`."
+    }
+  },
+  "hints": {
+    "noIdea": {
+      "question": "No tengo idea de qué hacer",
+      "answer": "Busca grupos de llamadas consecutivas a `move()`. Por ejemplo, en lugar de:\n\n```javascript\nmove()\nmove()\nmove()\n```\n\nPuedes escribir:\n\n```javascript\nrepeat(3) {\n  move()\n}\n```\n\n¡Busca los grupos y reemplázalos!"
+    },
+    "tooManyLines": {
+      "question": "¿Usas bucles `repeat` pero te sobran líneas?",
+      "answer": "¿Siempre es mejor usar un bucle `repeat`? En algunos casos, puede ser más corto simplemente tener dos `move()` consecutivas."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Mueve al personaje **un paso hacia adelante** en la dirección actual. El personaje solo se moverá si la posición de destino no está bloqueada por una pared.",
+      "category": "Movimiento"
+    },
+    "turnLeft": {
+      "description": "Gira al personaje **90 grados a la izquierda** (en sentido antihorario). Esto cambia la dirección hacia la que mira el personaje.",
+      "category": "Movimiento"
+    },
+    "turnRight": {
+      "description": "Gira al personaje **90 grados a la derecha** (en sentido horario). Esto cambia la dirección hacia la que mira el personaje.",
+      "category": "Movimiento"
+    }
+  }
+}

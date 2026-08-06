@@ -1,0 +1,51 @@
+{
+  "checks": {
+    "stripe1Purple": "La raya 1 es una raya del extremo, por lo que debería ser púrpura.",
+    "stripe2Blue": "La raya 2 debería ser azul (es par, pero no es múltiplo de 4).",
+    "stripe3Yellow": "La raya 3 debería ser amarilla (es impar y no es una raya del extremo).",
+    "stripe4Green": "La raya 4 debería ser verde. Es múltiplo de 4, así que verifica la regla de los múltiplos de 4 antes de la regla de los pares.",
+    "stripe5Yellow": "La raya 5 debería ser amarilla (es impar y no es una raya del extremo).",
+    "stripe6Blue": "La raya 6 debería ser azul (es par, pero no es múltiplo de 4).",
+    "stripe8Green": "La raya 8 debería ser verde (es múltiplo de 4).",
+    "stripe12Green": "La raya 12 debería ser verde (es múltiplo de 4).",
+    "stripe19Yellow": "La raya 19 debería ser amarilla (es impar y no es una raya del extremo).",
+    "stripe20Purple": "La raya 20 es una raya del extremo, por lo que debería ser púrpura (aunque es par).",
+    "rectangleOnce": "Estás usando la función <code>rectangle</code> en más de un lugar. Solo debería aparecer una vez, dentro de un bucle. ¡No escribas las 20 rayas a mano!"
+  },
+  "tasks": {
+    "weaveTheFabric": {
+      "name": "Teje la tela",
+      "description": "Dibuja 20 rayas verticales. Las dos rayas de los extremos son púrpura; por lo demás, los múltiplos de 4 son verdes, las otras rayas pares son azules y las impares son amarillas."
+    }
+  },
+  "scenarios": {
+    "weaveTheFabric": {
+      "name": "Teje la tela rayada",
+      "description": "Dibuja las 20 rayas con los colores correctos."
+    }
+  },
+  "hints": {
+    "howToDraw20Stripes": {
+      "question": "¿Cómo dibujo 20 rayas en lugares diferentes?",
+      "answer": "Lleva un contador (llámalo `i`) y auméntalo de uno en uno dentro de un bucle `repeat`. La raya número `i` tiene `5` de ancho, así que su borde izquierdo es `(i - 1) * 5`. Dibuja ahí un `rectangle` que tenga `5` de ancho y `100` de alto."
+    },
+    "endStripesPurple": {
+      "question": "¿Cómo hago que solo las dos rayas de los extremos sean púrpura?",
+      "answer": "Las rayas de los extremos son la primera y la última. Una sola comparación no puede capturar 'un valor U otro', así que usa `||` (o): algo como `if (n === 3 || n === 7)` es verdadero para cualquiera de los dos valores. Aplica eso a los dos números de las rayas de los extremos."
+    },
+    "multipleOf4VsEven": {
+      "question": "¿Cómo distingo un múltiplo de 4 de un número par común?",
+      "answer": "Usa el operador `%` (residuo): `n % 4 === 0` es verdadero solo para los múltiplos de 4, y `n % 2 === 0` es verdadero para todos los números pares. Los múltiplos de 4 también son pares, así que verifica primero la regla más estricta de los múltiplos de 4."
+    },
+    "stripe4Blue": {
+      "question": "La raya 4 sale azul, pero debería ser verde. ¿Por qué?",
+      "answer": "El orden importa en una cadena de `if` / `else if`. 4 es múltiplo de 4 Y par, así que si verificas `i % 2 === 0` primero, se vuelve azul y nunca llega a la regla del verde. Verifica la regla de los múltiplos de 4 antes de la regla de los pares."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dibuja un rectángulo en la posición (izquierda, arriba) con el ancho, alto y color dados.",
+      "category": "Dibujar formas"
+    }
+  }
+}

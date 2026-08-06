@@ -1,0 +1,48 @@
+{
+  "checks": {
+    "base": "El círculo de la base (el de abajo) está en el lugar equivocado o tiene el tamaño equivocado. Revisa `baseRadius` y `baseY`.",
+    "body": "El círculo del cuerpo (el del medio) está en el lugar equivocado o tiene el tamaño equivocado. Revisa `bodyRadius` y `bodyY`.",
+    "head": "El círculo de la cabeza (el de arriba) está en el lugar equivocado o tiene el tamaño equivocado. Revisa `headRadius` y `headY`.",
+    "notResponsive": "Tu código no escala correctamente cuando `size` es {{size}}. Todos los radios y las posiciones Y deben obtenerse a partir de `size`."
+  },
+  "tasks": {
+    "buildRelationalSnowman": {
+      "name": "Construir el muñeco de nieve relacional",
+      "description": "Obtener todos los tamaños y las posiciones a partir de `size` para que el muñeco de nieve escale correctamente."
+    }
+  },
+  "scenarios": {
+    "buildRelationalSnowman": {
+      "name": "Construir el muñeco de nieve relacional",
+      "description": "Obtener cada radio y cada posición Y a partir de `size`."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "¿Por dónde empiezo?",
+      "answer": "Empieza por la base, porque es el único círculo anclado a algo fijo (la parte inferior del lienzo). Una vez que conoces `baseY`, puedes apilar el cuerpo encima y luego la cabeza encima del cuerpo."
+    },
+    "baseSits": {
+      "question": "¿Cómo calculo dónde se sitúa la base?",
+      "answer": "El borde inferior de la base está a una distancia `size` del suelo (Y=100). El centro de la base está un radio de la base más arriba de su borde inferior."
+    },
+    "stackBody": {
+      "question": "¿Cómo apilo el cuerpo sobre la base?",
+      "answer": "Cuando dos círculos se tocan y uno está directamente encima del otro, la distancia entre sus centros es igual a la suma de sus radios."
+    },
+    "head": {
+      "question": "¿Y la cabeza?",
+      "answer": "La cabeza se apoya sobre el cuerpo exactamente igual que el cuerpo se apoya sobre la base."
+    },
+    "whyDeriveFromSize": {
+      "question": "¿Por qué todo debe obtenerse a partir de `size`?",
+      "answer": "Si escribes un número fijo en el código, cambiar `size` dejará huecos o hará que los círculos se superpongan. Usar fórmulas mantiene todo en proporción."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Dibuja un círculo centrado en (centerX, centerY) con el radio y el color dados.",
+      "category": "Dibujar formas"
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "checks": {
+    "firstFlowerHeadWrong": "La cabeza de la flor en el primer cuadro no es correcta.",
+    "finalFlowerHeadWrong": "La cabeza de la flor en el último cuadro no es correcta.",
+    "firstPistilWrong": "El pistilo en el primer cuadro no es correcto.",
+    "finalPistilWrong": "El pistilo en el último cuadro no es correcto.",
+    "firstStemWrong": "El tallo en el primer cuadro no es correcto.",
+    "finalStemWrong": "El tallo en el último cuadro no es correcto.",
+    "firstLeftLeafWrong": "La hoja izquierda en el primer cuadro no es correcta.",
+    "finalLeftLeafWrong": "La hoja izquierda en el último cuadro no es correcta.",
+    "firstRightLeafWrong": "La hoja derecha en el primer cuadro no es correcta.",
+    "finalRightLeafWrong": "La hoja derecha en el último cuadro no es correcta."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "Dibuja la escena",
+      "description": "Haz que la flor brote. ¡Ve paso a paso!"
+    }
+  },
+  "scenarios": {
+    "drawSproutingFlower": {
+      "name": "Haz que la flor brote",
+      "description": "¡Ve paso a paso!"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "¿Por dónde empiezo al organizar la escena?",
+      "answer": "Elige un punto central. El centro de la flor es un buen punto de anclaje. El tallo, el pistilo y las hojas pueden derivarse de él. Así toda la flor se mantiene conectada mientras se anima."
+    },
+    "growEachIteration": {
+      "question": "¿Cómo hago que la flor suba y crezca en cada iteración?",
+      "answer": "Al principio del cuerpo del bucle, antes de cualquier dibujo, actualiza `flowerCenterY` y `flowerRadius` con sus nuevos valores para este cuadro. Las instrucciones dan las cantidades. Lo importante es actualizar *antes* de las llamadas de dibujo, no después."
+    },
+    "stemAttached": {
+      "question": "¿Cómo hago para que el tallo se mantenga pegado a la flor mientras sube?",
+      "answer": "No le des al tallo una parte superior fija. Su extremo superior *es* `flowerCenterY`. Su parte inferior es el suelo. Así que su altura es la distancia entre ambos. Luego su ancho puede derivarse de esa altura."
+    },
+    "leafSizing": {
+      "question": "¿Cómo calculo el tamaño de las hojas para que crezcan con la flor?",
+      "answer": "El `radiusX` y `radiusY` de las hojas son fracciones de `flowerRadius`. Así se escalan juntos. Fija su posición vertical al tallo, no a una Y fija del lienzo, para que suban con la flor."
+    },
+    "flowerNeverChanges": {
+      "question": "Mi flor se dibuja una vez y no cambia más. ¿Qué está mal?",
+      "answer": "Probablemente estás asignando los valores iniciales una vez antes del bucle, pero no los estás actualizando *dentro* del bucle. El cuerpo del bucle debe modificar tus variables en cada iteración, antes de las llamadas de dibujo."
+    },
+    "firstFlowerCoords": {
+      "question": "¿Me puedes dar las coordenadas de la primera flor para comparar?",
+      "answer": "En la primera iteración, las formas deberían ser:\n\n- Flor: `circle(50, 89, 0.4)`\n- Pistilo: `circle(50, 89, 0.1)`\n- Tallo: `rectangle(49.95, 89, 0.1, 1)`\n- Hoja izquierda: `ellipse(49.75, 89.5, 0.2, 0.08)`\n- Hoja derecha: `ellipse(50.25, 89.5, 0.2, 0.08)`\n\nActiva el interruptor de información en la barra scrubber para ver tus propios valores en ese cuadro."
+    },
+    "finalFlowerCoords": {
+      "question": "¿Me puedes dar las coordenadas de la última flor para comparar?",
+      "answer": "En la última iteración, las formas deberían ser:\n\n- Flor: `circle(50, 30, 24)`\n- Pistilo: `circle(50, 30, 6)`\n- Tallo: `rectangle(47, 30, 6, 60)`\n- Hoja izquierda: `ellipse(35, 60, 12, 4.8)`\n- Hoja derecha: `ellipse(65, 60, 12, 4.8)`\n\nActiva el interruptor de información en la barra scrubber para ver tus propios valores en ese cuadro."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dibuja un **rectángulo** en la posición (left, top) con el ancho, la altura y el color especificados. La posición representa la esquina superior izquierda del rectángulo.",
+      "category": "Dibujo de formas"
+    },
+    "circle": {
+      "description": "Dibuja un **círculo** en la posición central (centerX, centerY) con el radio y el color especificados.",
+      "category": "Dibujo de formas"
+    },
+    "ellipse": {
+      "description": "Dibuja una **elipse** en la posición central (centerX, centerY) con el radioX, radioY y el color especificados.",
+      "category": "Dibujo de formas"
+    }
+  }
+}

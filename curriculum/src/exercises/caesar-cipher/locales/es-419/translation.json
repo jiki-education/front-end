@@ -1,0 +1,54 @@
+{
+  "tasks": {
+    "encodeMessage": {
+      "name": "Codificar un mensaje",
+      "description": "Escribe una función `encode` que desplace cada letra de un mensaje una cantidad determinada. Los espacios deben permanecer como espacios. Las letras que se desplacen más allá de la 'z' deben volver al principio del alfabeto."
+    }
+  },
+  "scenarios": {
+    "caesarSimpleShift": {
+      "name": "Desplazamiento simple de 1",
+      "description": "Desplaza cada letra hacia adelante en 1: a->b, b->c, c->d."
+    },
+    "caesarShiftBy3": {
+      "name": "Desplazamiento de 3",
+      "description": "Desplaza cada letra hacia adelante en 3: h->k, e->h, l->o, o->r."
+    },
+    "caesarWrapAround": {
+      "name": "Vuelta al principio",
+      "description": "Cuando el desplazamiento pasa de la 'z', da la vuelta: x->a, y->b, z->c."
+    },
+    "caesarWithSpaces": {
+      "name": "Mensaje con espacios",
+      "description": "Los espacios deben permanecer como espacios; solo se desplazan las letras."
+    },
+    "caesarRot13": {
+      "name": "Cifrado ROT13",
+      "description": "ROT13 es un caso especial del cifrado César con un desplazamiento de 13."
+    }
+  },
+  "hints": {
+    "shiftingLetterByN": {
+      "question": "¿Cómo puedo pensar en desplazar una letra N posiciones?",
+      "answer": "Cada letra tiene una posición en el alfabeto (a está en la posición 0, b en la 1, y así sucesivamente). Para desplazar, encuentras esa posición, le sumas el valor del desplazamiento y luego conviertes la nueva posición de vuelta en una letra buscándola en el alfabeto."
+    },
+    "letterPosition": {
+      "question": "¿Cómo encuentro la posición de una letra en el alfabeto?",
+      "answer": "Puedes buscar una parte más pequeña dentro de un string con `indexOf`. Llamarlo sobre el string del alfabeto te da la posición de una letra, o -1 si la letra no se encuentra. Para ir en la otra dirección, indexa de nuevo en el string del alfabeto con la posición para obtener la letra."
+    },
+    "wrapPastZ": {
+      "question": "¿Qué pasa cuando el desplazamiento pasa de la 'z'?",
+      "answer": "Tiene que dar la vuelta y volver a la 'a'. El operador de residuo (`%`) es perfecto para esto. Calcular la posición módulo 26 hace que cualquier número vuelva al rango de 0 a 25."
+    },
+    "applyToWholeMessage": {
+      "question": "¿Cómo aplico esto a un mensaje completo?",
+      "answer": "Recorre cada carácter del mensaje en un bucle, desplázalo usando tu función auxiliar para una sola letra y usa la concatenación (`+`) para construir el string resultante a partir de las letras desplazadas."
+    }
+  },
+  "functions": {
+    "indexOf": {
+      "description": "Encuentra la posición de una string más pequeña dentro de una string, o -1 si no se encuentra (proporcionado por la biblioteca estándar del nivel).",
+      "category": "Operaciones con strings"
+    }
+  }
+}

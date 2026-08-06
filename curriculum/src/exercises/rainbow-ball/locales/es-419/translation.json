@@ -1,0 +1,57 @@
+{
+  "checks": {
+    "uniqueColoredCircles": "Se esperaban al menos 50 círculos con colores únicos.",
+    "uniquePositionedCircles": "Se esperaban al menos 30 posiciones diferentes.",
+    "canvasCoverage": "La pelota no pintó suficiente del lienzo. Debe rebotar hasta que más del 80% esté cubierto.",
+    "hueBounced": "El tono no alcanzó 360 para luego descender de nuevo.",
+    "hueSweep": "El rastro arcoíris no recorrió todos los colores."
+  },
+  "tasks": {
+    "rainbowBall": {
+      "name": "Crear una pelota arcoíris que rebota",
+      "description": "Crea una pelota que rebote por el lienzo, dejando un rastro de círculos coloridos que recorran los colores del arcoíris."
+    }
+  },
+  "scenarios": {
+    "rainbowBall": {
+      "name": "Pelota arcoíris",
+      "description": "Dibuja un rastro arcoíris a partir de diferentes círculos."
+    }
+  },
+  "hints": {
+    "stateToTrack": {
+      "question": "¿Qué estado necesito seguir?",
+      "answer": "La posición de la pelota y cómo se mueve. Mantenlos separados: una variable para *dónde* está la pelota, otra para *cómo cambia*. La misma idea aplica al tono: necesitas su valor actual más una dirección hacia la que se dirige."
+    },
+    "moveAndShift": {
+      "question": "¿Cómo hago que la pelota se mueva y el color cambie en cada iteración?",
+      "answer": "Al inicio de cada iteración del bucle, suma tus variables de dirección a la posición y al `tono`. De esa forma, las variables de dirección controlan por completo el movimiento. Cambiar su signo o su tamaño modifica al instante cómo se mueve la pelota y cómo cambia el color."
+    },
+    "velocityTip": {
+      "question": "No logro averiguar cómo hacer esto. ¿Algún consejo?",
+      "answer": "¿Por cuánto cambian `x` y `y`? Son una mezcla de velocidad (el tamaño del número) y dirección (si mueve la pelota hacia adelante o hacia atrás). Así que `2` sería una velocidad de 2 moviéndose hacia la derecha o hacia abajo. Y `-3` sería una velocidad de 3 moviéndose hacia la izquierda o hacia arriba. Un número que es una velocidad y una distancia se llama **velocidad** (¿hora de actualizar los nombres de tus variables?). Así que cuando quieras cambiar la dirección de la pelota, cambias el signo de la velocidad, de positivo a negativo o viceversa."
+    },
+    "bounceOffEdges": {
+      "question": "¿Cómo hago que la pelota rebote en los bordes?",
+      "answer": "Después de actualizar la posición, verifica si `x` o `y` ha cruzado el límite del lienzo. Cuando lo haga, invierte la variable de dirección para ese eje. Las instrucciones especifican el rango del lienzo."
+    },
+    "randomBounceSpeed": {
+      "question": "¿Cómo le doy al rebote una nueva velocidad aleatoria cada vez?",
+      "answer": "Cuando la pelota choque con un borde, asigna la variable de dirección usando `Math.randomInt(min, max)` en lugar de solo invertir su signo. Elige un rango positivo al rebotar en el lado izquierdo o superior, y un rango negativo al rebotar en el lado derecho o inferior."
+    },
+    "cycleHue": {
+      "question": "¿Cómo hago que el tono recorra el arcoíris?",
+      "answer": "Aplica el mismo truco al `tono` que a la posición. Cuando salga de su rango válido, invierte hueDirection. El color entonces recorrerá todo el espectro hasta arriba y volverá a bajar por sí solo."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Dibuja un círculo con su centro en (centerX, centerY) con el radio y color dados.",
+      "category": "Dibujar Formas"
+    },
+    "hsl": {
+      "description": "Convierte valores de color HSL (tono 0-360, saturación 0-100, luminosidad 0-100) a una cadena de color hexadecimal.",
+      "category": "Colores"
+    }
+  }
+}

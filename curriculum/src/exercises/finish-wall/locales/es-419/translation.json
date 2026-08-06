@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "leftBrick": "El ladrillo izquierdo no es correcto.",
+    "secondBrick": "El segundo ladrillo no es correcto.",
+    "middleBrick": "El ladrillo central no es correcto.",
+    "fourthBrick": "El cuarto ladrillo no es correcto.",
+    "rightBrick": "El ladrillo derecho no es correcto.",
+    "codeQuality": {
+      "rectangleCalledOnce": "Estás usando la función <code>rectangle</code> en varios lugares de tu código. ¡Debería aparecer solo una vez!"
+    }
+  },
+  "tasks": {
+    "finishWall": {
+      "name": "Completar la pared",
+      "description": "¡Agregar una capa superior a la pared!"
+    }
+  },
+  "scenarios": {
+    "finishWall": {
+      "name": "Completar la pared",
+      "description": "¡Agregar una capa superior a la pared!"
+    }
+  },
+  "hints": {
+    "positionSecondBrick": {
+      "question": "No logro resolver cómo colocar el segundo ladrillo más adelante del primero.",
+      "answer": "Si cada ladrillo tiene 20 de ancho, entonces debes colocar el primero en 0, el segundo en 20, el tercero en 40, etc. Puedes usar la multiplicación para lograr esto. ¿Qué variable podrías seguir que te permita tener el patrón 0, 20, luego 40, etc.?"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dibuja un rectángulo en la posición (izquierda, arriba) con el ancho, alto y color dados.",
+      "category": "Dibujar formas"
+    }
+  }
+}

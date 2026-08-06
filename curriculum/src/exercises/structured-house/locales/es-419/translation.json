@@ -1,0 +1,59 @@
+{
+  "checks": {
+    "frameWrong": "El cuerpo de la casa no está en la posición correcta.",
+    "roofWrong": "El techo de la casa no está en la posición correcta.",
+    "leftWindowWrong": "La ventana izquierda no está en la posición correcta.",
+    "rightWindowWrong": "La ventana derecha no está en la posición correcta.",
+    "doorWrong": "La puerta no está en la posición correcta.",
+    "knobWrong": "El pomo de la puerta no está en la posición correcta.",
+    "doesNotScale": "Tu casa no se redimensiona correctamente cuando houseWidth={{houseWidth}} y houseHeight={{houseHeight}}. Toda posición y tamaño debe derivarse de houseWidth y houseHeight, no de números fijos."
+  },
+  "tasks": {
+    "drawHouse": {
+      "name": "Dibuja la casa",
+      "description": "Construye la casa a partir de `houseWidth` y `houseHeight` para que se mantenga centrada, asentada sobre el césped y con las proporciones correctas a cualquier tamaño."
+    }
+  },
+  "scenarios": {
+    "drawTheHouse": {
+      "name": "Dibuja la casa",
+      "description": "Construye la casa a partir de houseWidth y houseHeight para que se redimensione correctamente."
+    }
+  },
+  "hints": {
+    "whereDoIStart": {
+      "question": "¿Por dónde empiezo?",
+      "answer": "Se te dan `houseWidth`, `houseHeight` y `canvasWidth`. Calcula las dos cosas que necesita el cuerpo primero: su borde izquierdo (para que la casa quede centrada) y su borde superior (para que quede sobre el césped). Todas las demás figuras pueden luego construirse a partir del cuerpo."
+    },
+    "keepCentered": {
+      "question": "¿Cómo mantengo la casa centrada cuando cambia el ancho?",
+      "answer": "El centro del lienzo siempre es `canvasWidth / 2`. Si el cuerpo está centrado en ese punto, su borde izquierdo está a la mitad del ancho a la izquierda del centro. Cualquier otra cosa que esté centrada (la punta del techo, la puerta) puede usar ese mismo punto central."
+    },
+    "keepPlantedOnGrass": {
+      "question": "¿Cómo mantengo la casa asentada sobre el césped?",
+      "answer": "Encuentra el valor y donde debe quedar la base de la casa (un poco por debajo del borde superior del césped). El borde superior del cuerpo está entonces a una altura de casa por encima de eso. Trabajar de abajo hacia arriba significa que una casa más alta crece hacia el cielo en lugar de hacia abajo a través del césped."
+    },
+    "sizeRoofWindowsDoor": {
+      "question": "¿Cómo dimensiono el techo, las ventanas y la puerta?",
+      "answer": "Cada tamaño en las instrucciones es una fracción del ancho o la altura del cuerpo (por ejemplo, '1/5 del ancho' es `houseWidth / 5`). Construye cada ancho a partir de `houseWidth` y cada altura a partir de `houseHeight`, para que todo se redimensione junto."
+    },
+    "breaksOnResize": {
+      "question": "Se ve bien en el tamaño por defecto pero se rompe cuando lo redimensiono. ¿Por qué?",
+      "answer": "Probablemente fijaste algún número en lugar de derivarlo. Busca cualquier literal que no sea un valor tomado directamente de las instrucciones, como el tamaño del lienzo o la altura del césped. Casi seguro debería derivarse de otra variable. Puede ser un anclaje, o algo ya construido a partir de un anclaje, como el ancho de la puerta."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dibuja un rectángulo en la posición (izquierda, superior) con el ancho, la altura y el color dados.",
+      "category": "Dibujar figuras"
+    },
+    "circle": {
+      "description": "Dibuja un círculo centrado en (centroX, centroY) con el radio y el color dados.",
+      "category": "Dibujar figuras"
+    },
+    "triangle": {
+      "description": "Dibuja un triángulo con tres vértices y un color.",
+      "category": "Dibujar figuras"
+    }
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "checks": {
+    "fastAttack": {
+      "should": "Annalyn <strong>debería</strong> atacar rápido aquí, pero no lo hizo. El caballero está dormido, así que puede atacar antes de que despierte.",
+      "shouldNot": "Annalyn <strong>no debería</strong> atacar rápido aquí. El caballero está despierto, así que atacar haría que la atraparan.",
+      "tooMany": "Annalyn <strong>solo debería</strong> atacar rápido una vez aquí, pero lo hizo {{count}} veces."
+    },
+    "spy": {
+      "should": "Annalyn <strong>debería</strong> espiar aquí, pero no lo hizo. Al menos una persona en el campamento está despierta, así que hay algo que observar.",
+      "shouldNot": "Annalyn <strong>no debería</strong> espiar aquí. Todos están dormidos, así que no hay nada que aprender.",
+      "tooMany": "Annalyn <strong>solo debería</strong> espiar una vez aquí, pero lo hizo {{count}} veces."
+    },
+    "signal": {
+      "should": "Annalyn <strong>debería</strong> hacerle señales al prisionero aquí, pero no lo hizo. El prisionero está despierto y el arquero está dormido, así que la señal llegará.",
+      "shouldNot": "Annalyn <strong>no debería</strong> hacerle señales al prisionero aquí. O el prisionero está dormido o el arquero está despierto, así que hacer señales fallaría.",
+      "tooMany": "Annalyn <strong>solo debería</strong> hacerle señales al prisionero una vez aquí, pero lo hizo {{count}} veces."
+    },
+    "free": {
+      "should": "Annalyn <strong>debería</strong> liberar al prisionero aquí, pero no lo hizo. Puede hacerlo aquí sin que la atrapen.",
+      "shouldNot": "Annalyn <strong>no debería</strong> intentar liberar al prisionero aquí. La atraparían.",
+      "tooMany": "Annalyn <strong>solo debería</strong> liberar al prisionero una vez aquí, pero lo hizo {{count}} veces."
+    }
+  },
+  "tasks": {
+    "planTheRescue": {
+      "name": "Planear el rescate",
+      "description": "Para cada campamento, realiza todas las acciones que Annalyn puede hacer de forma segura: atacar rápido si el caballero está dormido, espiar si al menos uno de ellos está despierto, hacerle señales al prisionero si el prisionero está despierto y el arquero dormido, y liberar al prisionero ya sea por la ruta del perro bien portado o por la ruta sigilosa."
+    }
+  },
+  "scenarios": {
+    "allAsleepNaughtyDog": {
+      "name": "Todos dormidos, perro portándose mal",
+      "description": "Todo el campamento está dormido, pero el perro de Annalyn se está portando mal, así que no es de ayuda."
+    },
+    "allAsleepBehavingDog": {
+      "name": "Todos dormidos, perro portándose bien",
+      "description": "Todo el campamento está dormido y el perro de Annalyn se está portando bien."
+    },
+    "knightAwakeNaughtyDog": {
+      "name": "Solo el caballero está despierto",
+      "description": "El caballero está de guardia mientras el arquero y el prisionero duermen. El perro se está portando mal."
+    },
+    "prisonerAwakeNaughtyDog": {
+      "name": "Solo el prisionero está despierto",
+      "description": "Ambos secuestradores duermen mientras el prisionero está despierto. El perro se está portando mal: la ruta sigilosa está libre."
+    },
+    "archerAndPrisonerAwakeBehavingDog": {
+      "name": "Arquero y prisionero despiertos",
+      "description": "El arquero está de guardia y el prisionero también está despierto. El perro se está portando bien."
+    },
+    "allAwakeBehavingDog": {
+      "name": "Todos despiertos, perro portándose bien",
+      "description": "Todo el campamento está completamente despierto. Incluso con el perro portándose bien, liberar no es seguro."
+    }
+  },
+  "hints": {
+    "checkCampState": {
+      "question": "¿Cómo verifico cosas sobre el campamento?",
+      "answer": "Puedes verificar cuatro cosas, cada una con una función que devuelve `true` o `false`:\n\n- ¿Está despierto el caballero? `knightIsAwake()`\n- ¿Está despierto el arquero? `archerIsAwake()`\n- ¿Está despierto el prisionero? `prisonerIsAwake()`\n- ¿Se está portando bien el perro? `dogIsBehaving()`"
+    },
+    "performActions": {
+      "question": "¿Cómo hago que Annalyn realice cada acción?",
+      "answer": "Hay cuatro acciones, cada una con su propia función:\n\n- Hacer un ataque rápido: `fastAttack()`\n- Espiar el campamento: `spy()`\n- Hacerle señales al prisionero: `signalPrisoner()`\n- Liberar al prisionero: `freePrisoner()`"
+    },
+    "knightAsleep": {
+      "question": "Un ataque rápido necesita que el caballero esté DORMIDO. ¿Cómo verifico eso?",
+      "answer": "No hay una función `isAsleep()`, pero dormido es lo opuesto a despierto. Usa `!` para invertir una condición. Imagina que queremos decirle a alguien que deje de comer cuando está lleno, pero solo tenemos una función `isHungry()`. Podemos invertirla:\n\n```javascript\nif (!isHungry()) {\n  stopEating()\n}\n```\n\nAplica la misma idea para verificar que el caballero está dormido."
+    },
+    "spyAnyoneAwake": {
+      "question": "Espiar funciona si AL MENOS UNO de ellos está despierto. ¿Cómo escribo eso?",
+      "answer": "Usa `||` (o) entre las verificaciones para que toda la condición sea `true` si alguna de ellas es `true`. Por ejemplo, esto se ejecuta cuando alguien tiene hambre, sed o ambas:\n\n```javascript\nif (isHungry() || isThirsty()) {\n  rest()\n}\n```"
+    },
+    "signalBothConditions": {
+      "question": "Hacer señales necesita que DOS cosas sean verdaderas al mismo tiempo. ¿Cómo las combino?",
+      "answer": "Usa `&&` (y) para que ambos lados deban ser `true`. Por ejemplo, esto solo se ejecuta cuando alguien tiene hambre Y sed:\n\n```javascript\nif (isHungry() && isThirsty()) {\n  drink()\n}\n```"
+    },
+    "twoWaysToSucceed": {
+      "question": "Una acción tiene dos formas completamente separadas de tener éxito. ¿Cómo manejo eso?",
+      "answer": "Cualquiera de las dos formas es suficiente por sí sola, así que tienes dos opciones.\n\nLa primera es escribir un `if` separado para cada forma, ambos haciendo la misma acción:\n\n```javascript\nif (isHungry() && hasSnack()) {\n  eat()\n}\nif (isThirsty() && hasSnack()) {\n  eat()\n}\n```\n\nLa segunda es combinar ambas formas en un solo `if` con `||`, encerrando las verificaciones de cada forma entre paréntesis para que las partes con `&&` se agrupen antes de que el `||` las divida:\n\n```javascript\nif ((isHungry() && hasSnack()) || (isThirsty() && hasSnack())) {\n  eat()\n}\n```\n\nPrimero resuelve los requisitos de cada forma por separado y luego usa el estilo que te resulte más claro."
+    }
+  },
+  "describers": {
+    "knightIsAwake": "verificó si el caballero está despierto",
+    "archerIsAwake": "verificó si el arquero está despierto",
+    "prisonerIsAwake": "verificó si el prisionero está despierto",
+    "dogIsBehaving": "verificó si el perro de Annalyn se está portando bien",
+    "fastAttack": "realizó un ataque rápido al caballero",
+    "spy": "espió al grupo",
+    "signalPrisoner": "le hizo señales al prisionero",
+    "freePrisoner": "liberó al prisionero"
+  },
+  "functions": {
+    "knightIsAwake": {
+      "description": "Devuelve `true` si el caballero está despierto, `false` si está dormido.",
+      "category": "Información"
+    },
+    "archerIsAwake": {
+      "description": "Devuelve `true` si el arquero está despierto, `false` si está dormido.",
+      "category": "Información"
+    },
+    "prisonerIsAwake": {
+      "description": "Devuelve `true` si el prisionero está despierto, `false` si está dormido.",
+      "category": "Información"
+    },
+    "dogIsBehaving": {
+      "description": "Devuelve `true` si el perro (algo travieso) de Annalyn se está portando bien.",
+      "category": "Información"
+    },
+    "fastAttack": {
+      "description": "Realiza un ataque rápido al caballero.",
+      "category": "Acción"
+    },
+    "spy": {
+      "description": "Espía al grupo.",
+      "category": "Acción"
+    },
+    "signalPrisoner": {
+      "description": "Le hace señales al prisionero usando sonidos de pájaros.",
+      "category": "Acción"
+    },
+    "freePrisoner": {
+      "description": "Se cuela en el campamento para liberar al prisionero.",
+      "category": "Acción"
+    }
+  }
+}

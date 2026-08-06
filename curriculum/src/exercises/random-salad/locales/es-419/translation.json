@@ -1,0 +1,62 @@
+{
+  "errors": {
+    "leavesNumber": "Las hojas deben ser un número",
+    "tomatoesNumber": "Los tomates deben ser un número",
+    "croutonsNumber": "Los crutones deben ser un número",
+    "olivesNumber": "Las aceitunas deben ser un número"
+  },
+  "checks": {
+    "saladNotMade": "No preparaste la ensalada. Asegúrate de llamar a <code>makeSalad()</code> con los cuatro ingredientes.",
+    "needLeavesRandomInt": "Necesitas llamar a <code>Math.randomInt(40, 100)</code> para generar la cantidad de hojas.",
+    "needTomatoesRandomInt": "Necesitas llamar a <code>Math.randomInt(5, leaves / 5)</code> para generar la cantidad de tomates.",
+    "needCroutonsRandomInt": "Necesitas llamar a <code>Math.randomInt(tomatoes, tomatoes * 2)</code> para generar la cantidad de crutones.",
+    "needOlivesRandomInt": "Necesitas llamar a <code>Math.randomInt(1, tomatoes / 2)</code> para generar la cantidad de aceitunas."
+  },
+  "tasks": {
+    "makeRandomSalad": {
+      "name": "Preparar una ensalada aleatoria",
+      "description": "Genera una cantidad aleatoria de cada ingrediente usando Math.randomInt() y prepara la ensalada."
+    }
+  },
+  "scenarios": {
+    "randomSalad": {
+      "name": "Ensalada aleatoria",
+      "description": "Prepara una ensalada con cantidades aleatorias de cada ingrediente."
+    }
+  },
+  "hints": {
+    "leavesExample": {
+      "question": "Dame un ejemplo de cómo calcular la cantidad de hojas",
+      "answer": "Usa `let leaves = Math.randomInt(40, 100)` para generar una cantidad aleatoria de hojas de ensalada que luego puedas usar en las otras funciones."
+    },
+    "leavesCount": {
+      "question": "¿Cuántas hojas necesito?",
+      "answer": "Entre 40 y 100."
+    },
+    "tomatoesCount": {
+      "question": "¿Cuántos tomates necesito?",
+      "answer": "Al menos 5, pero no más de leaves / 5"
+    },
+    "croutonsCount": {
+      "question": "¿Cuántos crutones necesito?",
+      "answer": "Al menos tantos como tomates, hasta el doble de la cantidad de tomates."
+    },
+    "olivesCount": {
+      "question": "¿Cuántas aceitunas necesito?",
+      "answer": "Al menos 1, hasta la mitad de la cantidad de tomates."
+    },
+    "makeSalad": {
+      "question": "¿Cómo preparo la ensalada?",
+      "answer": "Una vez que hayas calculado cuántos ingredientes necesitas para cada uno, ingresa leaves, tomatoes, croutons, olives en makeSalad()."
+    }
+  },
+  "describers": {
+    "makeSalad": "preparó una ensalada con ${arg1} hojas, ${arg2} tomates, ${arg3} crutones y ${arg4} aceitunas"
+  },
+  "functions": {
+    "makeSalad": {
+      "description": "Prepara una ensalada con las cantidades dadas de cada ingrediente.",
+      "category": "Acción"
+    }
+  }
+}

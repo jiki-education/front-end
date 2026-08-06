@@ -1,0 +1,82 @@
+{
+  "tasks": {
+    "checkPangram": {
+      "name": "Verificar pangrama",
+      "description": "Escribe una función que verifique si una oración es un pangrama (contiene todas las letras del alfabeto al menos una vez). La verificación debe ser sin distinción entre mayúsculas y minúsculas."
+    }
+  },
+  "scenarios": {
+    "pangramEmptySentence": {
+      "name": "Oración vacía",
+      "description": "Una oración vacía no es un pangrama."
+    },
+    "pangramPerfectLowercase": {
+      "name": "Perfecto en minúsculas",
+      "description": "Un alfabeto perfecto en minúsculas es un pangrama."
+    },
+    "pangramOnlyLowercase": {
+      "name": "Solo minúsculas",
+      "description": "Una oración con solo letras minúsculas que cubre todas las letras es un pangrama."
+    },
+    "pangramMissingX": {
+      "name": "Falta la letra 'x'",
+      "description": "Una oración a la que le falta la letra 'x' no es un pangrama."
+    },
+    "pangramMissingH": {
+      "name": "Falta la letra 'h'",
+      "description": "Una oración a la que le falta la letra 'h' no es un pangrama."
+    },
+    "pangramMissingAM": {
+      "name": "Faltan letras después de la 'm'",
+      "description": "Un string con letras de la 'a' a la 'm' en minúsculas y mayúsculas no es un pangrama."
+    },
+    "pangramWithUnderscores": {
+      "name": "Con guiones bajos",
+      "description": "Una oración pangrama con guiones bajos."
+    },
+    "pangramWithNumbers": {
+      "name": "Con números",
+      "description": "Una oración pangrama que incluye números."
+    },
+    "pangramNumbersReplacingLetters": {
+      "name": "Números que reemplazan letras",
+      "description": "Una oración donde las letras se reemplazan por números no es un pangrama."
+    },
+    "pangramMixedCasePunctuation": {
+      "name": "Mayúsculas, minúsculas y puntuación",
+      "description": "Un pangrama con mezcla de mayúsculas, minúsculas y puntuación."
+    },
+    "pangramCaseInsensitive": {
+      "name": "Letras faltantes sin distinción de mayúsculas",
+      "description": "Una oración sin distinción entre mayúsculas y minúsculas que no tiene todas las letras no es un pangrama."
+    }
+  },
+  "hints": {
+    "recall": {
+      "question": "Ya resolví esto a mano. ¿Qué cambia en realidad?",
+      "answer": "La lógica es idéntica: convierte la oración a minúsculas y luego verifica que cada letra de la 'a' a la 'z' esté presente. Lo único que cambia es *cómo* haces esos dos pasos: ahora puedes usar métodos integrados de strings en lugar de tus propias funciones auxiliares."
+    },
+    "lowercaseMethod": {
+      "question": "¿Hay una forma integrada de convertir un string a minúsculas?",
+      "answer": "Sí. Los strings tienen un método `toLowerCase()` que devuelve una copia en minúsculas. Llámalo sobre la oración una vez al principio, en lugar de recorrer los caracteres tú mismo. Recuerda que devuelve un *nuevo* string, debes guardar el resultado."
+    },
+    "includesMethod": {
+      "question": "¿Todavía necesito mi propio auxiliar para verificar si una letra está presente?",
+      "answer": "No. Los strings tienen un método `includes()` que te dice si un string aparece dentro de otro. Usa `sentence.includes(letter)` en lugar del auxiliar que escribiste la última vez."
+    },
+    "stopEarly": {
+      "question": "¿Cuándo puedo detenerme antes?",
+      "answer": "En cuanto falte una letra, devuelve `false`: no tiene sentido verificar el resto. Solo devuelve `true` una vez que todo el alfabeto se haya confirmado."
+    }
+  },
+  "functions": {
+    "toLowerCase": {
+      "description": "Devuelve una copia en minúsculas de un string (proporcionado por el nivel)",
+      "category": "Operaciones con strings"
+    },
+    "includes": {
+      "description": "Verifica si un string contiene un string más pequeño (proporcionado por el nivel)",
+      "category": "Operaciones con strings"
+    }
+  }
+}

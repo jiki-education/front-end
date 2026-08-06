@@ -1,0 +1,78 @@
+{
+  "tasks": {
+    "lookUpPlusOnes": {
+      "name": "Revisar los plus-ones",
+      "description": "Alguien te da su nombre de pila. Devuelve el número de invitados adicionales que puede traer, o `\"Not on the list!\"` si no está invitado."
+    }
+  },
+  "scenarios": {
+    "emptyList": {
+      "name": "Registro vacío",
+      "description": "Nadie trae a nadie cuando la lista está vacía."
+    },
+    "nameMissing": {
+      "name": "Rechazan a Brad",
+      "description": "El nombre no está en la lista en absoluto."
+    },
+    "namePresent": {
+      "name": "Brad puede entrar",
+      "description": "Brad está invitado y no viene solo."
+    },
+    "similarName": {
+      "name": "Parecido, pero no",
+      "description": "Bradley no es Brad, así que Brad sigue del lado equivocado de la cuerda."
+    },
+    "doubleBarrelled": {
+      "name": "Un apellido compuesto",
+      "description": "El nombre está en la lista, pero está escrito con guion."
+    },
+    "allowedNobody": {
+      "name": "Brad va solo",
+      "description": "Brad definitivamente está invitado, pero no trae a nadie con él."
+    },
+    "twoBrads": {
+      "name": "Dos Brads",
+      "description": "Hay más de un Brad en la lista esta noche, y el primero que aparece es el que está en la puerta."
+    },
+    "cher": {
+      "name": "Cher está en la ciudad",
+      "description": "Algunas personas tienen un solo nombre, y ella trajo un séquito."
+    },
+    "cheryl": {
+      "name": "Ahora se complica",
+      "description": "¿Cheryl Crow y Cher son amigas? No importa: Cheryl no es Cher."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "¿Por dónde empiezo con esto?",
+      "answer": "Imagínate haciéndolo en la puerta. Alguien dice un nombre y tú lees la lista hasta que lo encuentras. Vale la pena notar que la respuesta que tienes que darle no está escrita junto a su nombre en la lista que estás leyendo."
+    },
+    "twoLists": {
+      "question": "Hay dos listas. ¿Cómo se relacionan entre sí?",
+      "answer": "Lo que descubras sobre *dónde* está alguien en una lista es igual de cierto en la otra. Una posición es más útil para recordar que un nombre."
+    },
+    "whatCountsAsAMatch": {
+      "question": "¿Cuándo cuenta un nombre de pila como coincidencia?",
+      "answer": "\"Brad\" debería permitir la entrada a Brad Pitt, pero no a Bradley Cooper. Piensa en qué tienen de diferente esas dos entradas en el punto donde se acaban las letras que te dieron. Hay más de una forma razonable de hacer esa comparación, así que elige la que puedas explicarte a ti mismo."
+    },
+    "noSurname": {
+      "question": "Cher no tiene apellido. ¿Eso rompe algo?",
+      "answer": "Revisa de nuevo lo que tu prueba de coincidencia supone sobre una entrada de la lista. Si supone que siempre hay algo después del nombre de pila, una entrada que *solo* tiene un nombre de pila no pasará. Y a la inversa, un nombre más largo no debería poder reclamar una entrada más corta."
+    },
+    "notOnTheList": {
+      "question": "¿Qué hago cuando no están en la lista?",
+      "answer": "Entonces reciben la cadena `\"Not on the list!\"`, tal como está escrita. Vale la pena pensar en dos cosas. Primero, ¿en qué momento puedes estar *seguro* de que alguien no está en la lista? Segundo, nota que esta es una respuesta realmente diferente a la de un invitado que está invitado pero puede traer 0 invitados adicionales, así que asegúrate de que tu función nunca confunda las dos."
+    }
+  },
+  "functions": {
+    "length": {
+      "description": "La cantidad de elementos en una lista: la misma propiedad length que has usado en cadenas (provisto por level stdlib)",
+      "category": "Operaciones con listas"
+    },
+    "startsWith": {
+      "description": "Verifica si una cadena comienza con otra cadena más pequeña (provisto por level stdlib)",
+      "category": "Operaciones con cadenas"
+    }
+  }
+}

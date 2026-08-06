@@ -1,0 +1,117 @@
+{
+  "errors": {
+    "walkedIntoFire": "¡Caminaste hacia el fuego!",
+    "steppedInPoop": "¡Pisaste caca!",
+    "lookDirectionType": "look() espera una dirección de tipo string: \"left\", \"right\", o \"ahead\"",
+    "lookDirectionValue": "la dirección de look() debe ser \"left\", \"right\", o \"ahead\""
+  },
+  "describers": {
+    "look": "Mirar en una dirección y ver lo que hay allí"
+  },
+  "checks": {
+    "notReachedEnd": "No llegaste al final del laberinto.",
+    "extraTurn": "Parece que hiciste un giro extra innecesario al final.",
+    "canTurnLeftMissing": "Deberías definir una función <code>canTurnLeft</code>.",
+    "canTurnRightMissing": "Deberías definir una función <code>canTurnRight</code>.",
+    "canMoveMissing": "Deberías definir una función <code>canMove</code>.",
+    "turnAroundMissing": "Deberías definir una función <code>turnAround</code>.",
+    "lookOnlyOnce": "<code>look()</code> solo debería aparecer una vez en todo tu programa.",
+    "maxExtraLines": "No deberías agregar más de 13 líneas de código."
+  },
+  "tasks": {
+    "straightPath": {
+      "name": "Un camino recto",
+      "description": "Implementa canMove() para que el personaje pueda avanzar hasta el final del laberinto."
+    },
+    "turnLeft": {
+      "name": "Girar a la izquierda si puedes",
+      "description": "Implementa canTurnLeft() para que el personaje gire a la izquierda cuando haya un camino."
+    },
+    "turnRight": {
+      "name": "Girar a la derecha si no puedes seguir recto ni a la izquierda",
+      "description": "Implementa canTurnRight() para que el personaje gire a la derecha cuando no pueda ir a la izquierda o recto."
+    },
+    "turnAround": {
+      "name": "Dar la vuelta si es necesario",
+      "description": "Maneja los callejones sin salida dando la vuelta. Las tres funciones de sensado deberían ahora trabajar juntas para resolver cualquier laberinto."
+    },
+    "bonusChallenges": {
+      "name": "Desafíos adicionales",
+      "description": "¿Puedes usar la función look() solo una vez en todo el programa? ¿Y puedes resolverlo agregando solo 13 líneas de código?"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Guía al personaje hasta el final del laberinto",
+      "description": "Un camino recto hacia abajo"
+    },
+    "leftTurn": {
+      "name": "Un solo giro a la izquierda",
+      "description": "Navegar un giro a la izquierda"
+    },
+    "rightTurn": {
+      "name": "Un solo giro a la derecha",
+      "description": "Navegar un giro a la derecha"
+    },
+    "forks": {
+      "name": "Elige la izquierda si puedes, de lo contrario elige la derecha",
+      "description": "Un laberinto con bifurcaciones que prueba la prioridad a la izquierda"
+    },
+    "turnAround": {
+      "name": "Dar la vuelta en un callejón sin salida",
+      "description": "Un laberinto que requiere dar la vuelta"
+    },
+    "forks2": {
+      "name": "Laberinto complejo con bifurcaciones y callejones sin salida",
+      "description": "Un laberinto complejo que prueba el algoritmo completo"
+    },
+    "coverOldGround": {
+      "name": "Volver sobre tus pasos si es necesario",
+      "description": "Un laberinto donde debes volver sobre tus pasos para encontrar la salida"
+    },
+    "bonus1": {
+      "name": "Usar look() solo una vez",
+      "description": "Resolver el laberinto con look() apareciendo solo una vez en tu código"
+    },
+    "bonus2": {
+      "name": "Agregar solo 13 líneas",
+      "description": "Resolver el laberinto agregando solo 13 líneas de código"
+    }
+  },
+  "hints": {
+    "start": {
+      "question": "¿Por dónde empiezo cuando el programa ni siquiera se ejecuta?",
+      "answer": "Define `canTurnLeft()`, `canTurnRight()`, y `canMove()` al principio de tu código, cada una devolviendo solo `false` por ahora. El programa se ejecutará y podrás reemplazar los cuerpos uno a la vez."
+    },
+    "findDirection": {
+      "question": "¿Cómo averiguo qué hay en una dirección determinada?",
+      "answer": "Usa la nueva función `look(direction)`. Pasa `\"left\"`, `\"right\"`, o `\"ahead\"` y devuelve un string como `\"empty\"`, `\"wall\"`, `\"fire\"`, o `\"poop\"`."
+    },
+    "safeResults": {
+      "question": "¿Qué resultados significan que es seguro ir en esa dirección?",
+      "answer": "De las seis cosas que `look()` puede devolver, tres son cosas en las que realmente no quieres meterte. Tu función debería devolver `true` solo cuando lo que ves no sea ninguna de esas tres."
+    },
+    "avoidRepetition": {
+      "question": "Estoy repitiendo la misma lógica en tres funciones. ¿Cómo evito eso?",
+      "answer": "Las tres funciones solo difieren en la dirección que miran. ¿Podrías escribir una función extra que tome una dirección como argumento, y hacer que las tres la usen?"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Mueve al personaje **un paso hacia adelante** en la dirección actual. ¡Caminar hacia una pared, fuego o caca termina tu programa con un error, así que revisa qué hay adelante antes de moverte!",
+      "category": "Movimiento"
+    },
+    "turnLeft": {
+      "description": "Gira al personaje **90 grados a la izquierda** (en sentido antihorario). Esto cambia la dirección hacia la que mira el personaje.",
+      "category": "Movimiento"
+    },
+    "turnRight": {
+      "description": "Gira al personaje **90 grados a la derecha** (en sentido horario). Esto cambia la dirección hacia la que mira el personaje.",
+      "category": "Movimiento"
+    },
+    "look": {
+      "description": "Mira en la dirección dada y devuelve lo que hay allí. La dirección debe ser `\"left\"`, `\"right\"`, o `\"ahead\"`. Devuelve uno de: `\"empty\"`, `\"wall\"`, `\"fire\"`, `\"poop\"`, `\"start\"`, o `\"target\"`.",
+      "category": "Sensado"
+    }
+  }
+}

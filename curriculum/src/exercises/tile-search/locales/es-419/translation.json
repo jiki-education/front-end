@@ -1,0 +1,71 @@
+{
+  "checks": {
+    "tooManyLines": "Tu solución tiene demasiadas líneas de código. ¿Puedes hacerla más corta?"
+  },
+  "tasks": {
+    "searchForTile": {
+      "name": "Buscar una ficha",
+      "description": "Escribe una función que verifique si una ficha con una letra específica está en el atril. Devuelve true si la encuentra, false si no."
+    },
+    "solveInEightLines": {
+      "name": "Resuelve en 8 líneas de código",
+      "description": "¿Puedes resolver este ejercicio con solo 8 líneas de código?"
+    }
+  },
+  "scenarios": {
+    "letterFoundAtStart": {
+      "name": "Letra al inicio",
+      "description": "La letra es la primera ficha en el atril."
+    },
+    "letterFoundInMiddle": {
+      "name": "Letra en el medio",
+      "description": "La letra está en el medio del atril."
+    },
+    "letterFoundAtEnd": {
+      "name": "Letra al final",
+      "description": "La letra es la última ficha en el atril."
+    },
+    "letterNotFound": {
+      "name": "Letra no encontrada",
+      "description": "La letra no está en el atril."
+    },
+    "emptyRack": {
+      "name": "Atril vacío",
+      "description": "Un atril vacío no tiene fichas que encontrar."
+    },
+    "duplicateLetters": {
+      "name": "Atril con fichas duplicadas",
+      "description": "La letra aparece entre fichas duplicadas."
+    },
+    "singleTileFound": {
+      "name": "Una ficha encontrada",
+      "description": "Un atril con una ficha que coincide."
+    },
+    "singleTileNotFound": {
+      "name": "Una ficha no encontrada",
+      "description": "Un atril con una ficha que no coincide."
+    },
+    "bonus1": {
+      "name": "8 líneas de código",
+      "description": "Resuelve el ejercicio con solo 8 líneas de código."
+    }
+  },
+  "hints": {
+    "byHand": {
+      "question": "¿Cómo lo haría a mano?",
+      "answer": "Recorrerías el pajar letra por letra, comparando cada una con la aguja. En cuanto encuentras una coincidencia te detienes. Si llegas al final sin coincidencia, la aguja no está."
+    },
+    "loopAndCompare": {
+      "question": "¿Cómo recorro y comparo?",
+      "answer": "Un bucle for-of te da cada letra del string por turno. Dentro, un condicional if compara la letra actual con la aguja."
+    },
+    "returnTrue": {
+      "question": "¿Cuándo debo devolver true?",
+      "answer": "En cuanto encuentras una coincidencia. No tiene sentido revisar las letras restantes."
+    },
+    "returnFalse": {
+      "question": "¿Cuándo debo devolver false?",
+      "answer": "SOLO después de que el bucle haya terminado sin encontrar una coincidencia. Un error común es poner `return false` dentro del bucle. Eso se rinde después de la primera letra que no coincide, antes de haber revisado las demás."
+    }
+  }
+}

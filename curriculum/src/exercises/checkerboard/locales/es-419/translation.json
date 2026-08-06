@@ -1,0 +1,80 @@
+{
+  "checks": {
+    "border": "El tablero debe tener un borde 'black' alrededor de todo el contorno.",
+    "topLeftWhite": "El cuadrado de arriba a la izquierda debe ser white (es un cuadrado claro).",
+    "rightOfTopLeftDark": "El cuadrado a la derecha del de arriba a la izquierda debe ser 'dark brown' (un cuadrado oscuro).",
+    "bottomLeftDark": "El cuadrado de abajo a la izquierda debe ser 'dark brown' (un cuadrado oscuro).",
+    "bottomRightWhite": "El cuadrado de abajo a la derecha debe ser white.",
+    "charcoalPiece": "Debe haber una ficha charcoal en el cuadrado oscuro de la fila de arriba.",
+    "topRim": "Las fichas de las filas de arriba deben tener un aro alrededor.",
+    "whitePiece": "Debe haber una ficha white en el cuadrado oscuro de la fila de abajo.",
+    "bottomRim": "Las fichas de las filas de abajo deben tener un aro alrededor.",
+    "rimRatio": "El aro de una ficha debe tener un ancho del 80% del cuadrado: verifica el radio del círculo exterior.",
+    "innerRatio": "El centro de una ficha debe tener un ancho del 75% de toda la ficha: verifica el radio del círculo interior.",
+    "noPieceOnLight": "No debe haber una ficha en el cuadrado de arriba a la izquierda: las fichas solo van en los cuadrados oscuros.",
+    "middleRowsEmpty": "Las filas del medio deben estar vacías: solo las filas de arriba y de abajo tienen fichas."
+  },
+  "tasks": {
+    "setUpTheBoard": {
+      "name": "Prepara el tablero",
+      "description": "Dibuja el tablero de damas y coloca las fichas en los cuadrados oscuros de las filas de arriba y de abajo, y haz que funcione para cualquier tamaño de tablero."
+    }
+  },
+  "scenarios": {
+    "board8": {
+      "name": "Prepara un tablero de 8×8",
+      "description": "Dibuja el tablero de damas clásico de 8×8 y coloca las fichas listas para jugar."
+    },
+    "board6": {
+      "name": "Prepara un tablero de 6×6",
+      "description": "El mismo código debe adaptarse a un tablero más pequeño de 6×6."
+    },
+    "board10": {
+      "name": "Prepara un tablero de 10×10",
+      "description": "Y debe adaptarse a un tablero más grande de 10×10."
+    }
+  },
+  "hints": {
+    "wholeGrid": {
+      "question": "¿Cómo dibujo una cuadrícula completa de cuadrados en lugar de solo uno?",
+      "answer": "Usa bucles anidados: un bucle externo que recorre las filas y un bucle interno que recorre las columnas. Dibuja un cuadrado cada vez que se ejecuta el bucle interno."
+    },
+    "anyBoardSize": {
+      "question": "¿Cómo hago para que funcione sin importar el tamaño del tablero?",
+      "answer": "No elijas un tamaño fijo para los cuadrados. Pregunta a `getBoardSize()` cuántos cuadrados hay, calcula un tamaño de `celda` a partir de eso y del espacio disponible, y construye cada posición como un múltiplo de este."
+    },
+    "alternateColours": {
+      "question": "¿Cómo hago para que los cuadrados alternen colores?",
+      "answer": "Observa la fila y la columna de cada cuadrado juntas. El operador de residuo (`%`) te permite dividir cada cuadrado en uno de dos grupos según `row` y `col`, y esos dos grupos son exactamente los cuadrados claros y oscuros."
+    },
+    "whichSquaresGetPieces": {
+      "question": "¿Qué cuadrados llevan fichas?",
+      "answer": "Las fichas solo van en los cuadrados **oscuros**, así que puedes reutilizar la misma prueba que usaste para colorearlos. Luego, limítala aún más a solo las filas de arriba y de abajo, dejando las dos del medio vacías."
+    },
+    "ridgedPiece": {
+      "question": "¿Cómo dibujo una ficha con relieve?",
+      "answer": "Dibuja dos círculos en el mismo centro: uno más grande para el aro, y luego uno ligeramente más pequeño encima en el color de la ficha. Basa ambos radios en el tamaño de la celda para que las fichas se escalen con el tablero."
+    },
+    "rimSize": {
+      "question": "El tamaño del aro no se parece al del diagrama de muestra.",
+      "answer": "Verifica que el círculo interior sea del 75% del círculo exterior (no del 75% del cuadrado)."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dibuja un rectángulo en la posición (left, top) con el ancho, alto y color dados.",
+      "category": "Figuras"
+    },
+    "circle": {
+      "description": "Dibuja un círculo centrado en (centerX, centerY) con el radio y color dados.",
+      "category": "Figuras"
+    },
+    "getBoardSize": {
+      "description": "Devuelve el tamaño del tablero (el número de cuadrados a lo largo de cada borde) para el rompecabezas actual.",
+      "category": "Información"
+    }
+  },
+  "describers": {
+    "getBoardSize": "obtuvo el tamaño del tablero (el número de cuadrados a lo largo de cada borde)"
+  }
+}

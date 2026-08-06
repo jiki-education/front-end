@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "notShotAllAliens": "No derribaste a todos los alienígenas.",
+    "functionNotDefined": "Necesitas definir una función <code>shootIfAlienAbove</code>.",
+    "functionNotCalled": "Has definido <code>shootIfAlienAbove</code>, pero necesitas llamarla en tu solución."
+  },
+  "tasks": {
+    "battleProcedures": {
+      "name": "Crea una función shootIfAlienAbove y úsala para ganar el juego",
+      "description": "Extrae la lógica de disparo en una función shootIfAlienAbove() y luego úsala junto con la lógica de movimiento para derrotar a todos los alienígenas."
+    }
+  },
+  "scenarios": {
+    "battleProcedures": {
+      "name": "Procedimientos de batalla",
+      "description": "Derrota a todos los alienígenas usando tu función shootIfAlienAbove"
+    }
+  },
+  "hints": {
+    "wherePutFunction": {
+      "question": "¿Dónde debo poner la función `shootIfAlienAbove`?",
+      "answer": "Defínela al principio de tu código, antes del bucle. Una vez definida, puedes llamarla desde dentro del bucle tantas veces como quieras."
+    },
+    "whatGoesInside": {
+      "question": "¿Qué va dentro de `shootIfAlienAbove`?",
+      "answer": "Usa una sentencia `if` que verifique `isAlienAbove()`. Cuando eso devuelva `true`, llama a `shoot()`. Ese es todo el cuerpo de la función."
+    },
+    "whatStaysInLoop": {
+      "question": "¿Qué se queda en el bucle?",
+      "answer": "Toda la lógica de movimiento se queda en el bucle, igual que en el ejercicio de desplazamiento y disparo. En cada iteración: llama a `shootIfAlienAbove()`, luego mueve el cañón y luego cambia la dirección en los límites."
+    },
+    "trackCannon": {
+      "question": "¿Cómo hago un seguimiento de dónde está el cañón y hacia dónde va?",
+      "answer": "Usa dos variables que actualices en cada iteración. Por ejemplo, una variable `position` que aumenta o disminuye, y una variable `direction` que es `\"right\"` o `\"left\"` y cambia cuando llegas a un borde."
+    }
+  },
+  "functions": {
+    "moveLeft": {
+      "description": "Mueve el cañón láser **una posición a la izquierda**. ¡Si intentas moverte fuera del borde izquierdo de la pantalla, perderás el juego!",
+      "category": "Movimiento"
+    },
+    "moveRight": {
+      "description": "Mueve el cañón láser **una posición a la derecha**. ¡Si intentas moverte fuera del borde derecho de la pantalla, perderás el juego!",
+      "category": "Movimiento"
+    },
+    "shoot": {
+      "description": "Dispara el láser hacia arriba. **Solo dispara cuando haya un alienígena encima de ti**, ¡o perderás el juego! El cañón láser se sobrecalienta fácilmente, así que debes moverte antes de volver a disparar.",
+      "category": "Acción"
+    },
+    "isAlienAbove": {
+      "description": "Devuelve `true` si hay un alienígena directamente encima del cañón láser, o `false` si no. ¡Usa esto para verificar antes de disparar!",
+      "category": "Detección"
+    }
+  }
+}

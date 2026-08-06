@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "tooManyLines": "Usaste más líneas de las necesarias, mira si puedes reducirlo."
+  },
+  "tasks": {
+    "calculateHammingDistance": {
+      "name": "Calcular la distancia de Hamming",
+      "description": "Escribe una función que calcule la distancia de Hamming entre dos cadenas de ADN de igual longitud. La distancia de Hamming es el número de posiciones en las que los caracteres correspondientes difieren."
+    },
+    "solveInElevenLines": {
+      "name": "Resolver en once líneas de código",
+      "description": "¿Puedes resolver esto usando no más de once líneas de código?"
+    }
+  },
+  "scenarios": {
+    "hammingEmptyStrands": {
+      "name": "Cadenas vacías",
+      "description": "Las cadenas vacías tienen una distancia de Hamming de 0."
+    },
+    "hammingSingleLetterIdentical": {
+      "name": "Cadenas idénticas de una sola letra",
+      "description": "Las cadenas idénticas de una sola letra tienen una distancia de Hamming de 0."
+    },
+    "hammingLongIdenticalStrands": {
+      "name": "Cadenas largas idénticas",
+      "description": "Las cadenas largas idénticas tienen una distancia de Hamming de 0."
+    },
+    "hammingSingleLetterDifferent": {
+      "name": "Cadenas diferentes de una sola letra",
+      "description": "Las cadenas diferentes de una sola letra tienen una distancia de Hamming de 1."
+    },
+    "hammingLongDifferentStrands": {
+      "name": "Cadenas largas diferentes",
+      "description": "Las cadenas largas con diferencias tienen una distancia de Hamming calculada."
+    },
+    "hammingBonusElevenLines": {
+      "name": "Once líneas de código",
+      "description": "Resuelve el ejercicio usando no más de once líneas de código."
+    }
+  },
+  "hints": {
+    "hammingDistanceMeaning": {
+      "question": "¿Qué significa «distancia de Hamming» en términos simples?",
+      "answer": "Es el número de posiciones en las que las dos cadenas difieren. Así que 'GAGA' vs 'GATA' difieren solo en la posición 3, dando una distancia de 1."
+    },
+    "compareCharactersAtPosition": {
+      "question": "¿Cómo comparo caracteres en la misma posición en ambas cadenas?",
+      "answer": "Necesitarás recorrer ambas cadenas en sincronía, para poder extraer el carácter en el mismo lugar de cada una a medida que avanzas."
+    },
+    "trackDifferenceCount": {
+      "question": "¿Cómo hago un seguimiento de «cuántas diferencias» hay?",
+      "answer": "Necesitarás algo que lleve un total acumulado, que se ajuste cada vez que detectes una diferencia, para devolverlo una vez que hayas revisado cada posición."
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "describers": {
+    "move": "movió el cañón láser a la derecha"
+  },
+  "checks": {
+    "notShotAllAliens": "No derribaste a todos los aliens."
+  },
+  "tasks": {
+    "conditionalShoot": {
+      "name": "Usa un condicional para disparar solo cuando haya un alien encima",
+      "description": "Muévete por la pantalla, revisando cada posición. Si hay un alien encima de ti, dispárale. Si no, solo sigue moviéndote."
+    }
+  },
+  "scenarios": {
+    "conditional1": {
+      "name": "Aliens dispersos",
+      "description": "Aliens dispersos en dos filas con huecos"
+    },
+    "conditional2": {
+      "name": "Aliens escasos",
+      "description": "Menos aliens con huecos más amplios"
+    },
+    "conditional3": {
+      "name": "Filas alternadas",
+      "description": "Aliens alternando entre la fila de arriba y la de abajo"
+    },
+    "conditional4": {
+      "name": "Concentrados abajo",
+      "description": "La mayoría de los aliens en la fila de abajo"
+    },
+    "conditional5": {
+      "name": "Formación densa",
+      "description": "Muchos aliens apiñados en ambas filas"
+    }
+  },
+  "hints": {
+    "howToDecide": {
+      "question": "¿Cómo decido si disparar o no?",
+      "answer": "Usa un condicional que verifique `isAlienAbove()`. Llama a `shoot()` solo cuando devuelva `true`."
+    },
+    "whatIsAlienAboveGives": {
+      "question": "¿Qué me devuelve `isAlienAbove()`?",
+      "answer": "Devuelve `true` si hay un alien justo encima de tu cañón, y `false` en caso contrario. Puedes ponerlo directamente en la condición de un `if`."
+    },
+    "checkEveryColumn": {
+      "question": "¿Cómo reviso cada columna sin escribir el mismo código una y otra vez?",
+      "answer": "Envuelve tu lógica de revisar y disparar en un bucle `repeat`, llamando a `move()` al final de cada iteración para pasar a la siguiente columna."
+    },
+    "keepShootingEmpty": {
+      "question": "Sigo disparando a columnas vacías y pierdo. ¿Qué está mal?",
+      "answer": "Asegúrate de que `shoot()` esté dentro del bloque del `if`, no después. La llamada solo debe ocurrir cuando `isAlienAbove()` sea `true`."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Mueve el cañón láser **una posición a la derecha**. ¡Si te sales por el borde derecho de la pantalla, pierdes!",
+      "category": "Movimiento"
+    },
+    "shoot": {
+      "description": "Dispara el láser hacia arriba. **Solo dispara cuando haya un alien encima de ti**, o ¡pierdes el juego!",
+      "category": "Acción"
+    },
+    "isAlienAbove": {
+      "description": "Devuelve `true` si hay un alien justo encima del cañón láser, o `false` si no. ¡Úsala para verificar antes de disparar!",
+      "category": "Detección"
+    }
+  }
+}

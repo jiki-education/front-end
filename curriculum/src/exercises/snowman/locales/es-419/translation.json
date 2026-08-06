@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "baseCircle": "El círculo de la base (abajo) no está bien. Revisa snowmanCenterX, baseCenterY y baseRadius.",
+    "bodyCircle": "El círculo del cuerpo (centro) no está bien. Revisa snowmanCenterX, bodyCenterY y bodyRadius.",
+    "headCircle": "El círculo de la cabeza (arriba) no está bien. Revisa snowmanCenterX, headCenterY y headRadius."
+  },
+  "tasks": {
+    "buildSnowman": {
+      "name": "Construir el muñeco de nieve",
+      "description": "Establece los valores de las variables para que el muñeco de nieve coincida con la imagen objetivo."
+    }
+  },
+  "scenarios": {
+    "buildSnowman": {
+      "name": "Construir el muñeco de nieve",
+      "description": "Establece los valores correctos de las variables para dibujar el muñeco de nieve."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "No sé por dónde empezar",
+      "answer": "El código original dibuja un círculo blanco en el lado izquierdo. Necesitas cambiar los valores de snowmanCenterX, baseCenterY y baseRadius para que sean correctos y colocarlo sobre el anillo inferior de la plantilla. Luego debes agregar variables para los otros círculos."
+    },
+    "variableNotFoundError": {
+      "question": "Recibo un error como «Jiki no pudo encontrar una variable llamada 'XXX'»",
+      "answer": "Esto significa que no has creado la variable (la caja en los estantes de Jiki) usando la palabra clave `let`. Cuando Jiki lee el código que dibuja los círculos, espera encontrar las cajas referenciadas, pero no están ahí. Así que necesitas agregarlas."
+    },
+    "stillNotDeclaredError": {
+      "question": "He agregado las variables pero aún recibo un error de «no declarada»",
+      "answer": "Revisa tu ortografía; es probable que tengas un error tipográfico. Recuerda que las mayúsculas y minúsculas son importantes: `bodycentery` no es lo mismo que `bodyCenterY`."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Dibuja un círculo centrado en (centerX, centerY) con el radio y color dados.",
+      "category": "Dibujar formas"
+    }
+  }
+}

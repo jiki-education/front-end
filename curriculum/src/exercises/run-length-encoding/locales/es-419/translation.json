@@ -1,0 +1,101 @@
+{
+  "tasks": {
+    "encode": {
+      "name": "Codificar un string",
+      "description": "Escribe una función llamada encode que recorra el string, contando cuántas veces cada carácter se repite seguidamente. Reemplaza cada racha de dos o más por el número seguido del carácter, y deja los caracteres que aparecen una sola vez como están."
+    },
+    "decode": {
+      "name": "Decodificar un string",
+      "description": "Escribe una función llamada decode que invierta el proceso. Lee el número delante de un carácter y repite ese carácter esa cantidad de veces. Los números pueden tener más de un dígito."
+    }
+  },
+  "scenarios": {
+    "rleEncodeEmpty": {
+      "name": "Codificar un string vacío",
+      "description": "Codificar un string vacío devuelve un string vacío."
+    },
+    "rleEncodeSingles": {
+      "name": "Caracteres sueltos sin número",
+      "description": "Los caracteres que aparecen una sola vez se codifican sin número delante."
+    },
+    "rleEncodeNoSingles": {
+      "name": "Un string sin caracteres sueltos",
+      "description": "Las rachas de caracteres repetidos se reemplazan por un número y el carácter."
+    },
+    "rleEncodeMixed": {
+      "name": "Caracteres sueltos mezclados con rachas",
+      "description": "Las rachas y los caracteres sueltos pueden estar mezclados en un mismo string."
+    },
+    "rleEncodeWhitespace": {
+      "name": "Espacios en blanco en el string",
+      "description": "Los espacios se tratan como cualquier otro carácter, incluso en las rachas."
+    },
+    "rleEncodeLowercase": {
+      "name": "Caracteres en minúscula",
+      "description": "La codificación funciona igual para letras en minúscula."
+    },
+    "rleDecodeEmpty": {
+      "name": "Decodificar un string vacío",
+      "description": "Decodificar un string vacío devuelve un string vacío."
+    },
+    "rleDecodeSingles": {
+      "name": "Decodificar caracteres sueltos",
+      "description": "Los caracteres sin número delante aparecen una sola vez."
+    },
+    "rleDecodeNoSingles": {
+      "name": "Decodificar un string de rachas",
+      "description": "Un número seguido de un carácter se expande a esa cantidad de copias del carácter."
+    },
+    "rleDecodeMixed": {
+      "name": "Decodificar caracteres sueltos mezclados con rachas",
+      "description": "Los números con más de un dígito deben leerse por completo antes de expandir."
+    },
+    "rleDecodeWhitespace": {
+      "name": "Decodificar espacios en blanco",
+      "description": "Los espacios se expanden igual que cualquier otro carácter."
+    },
+    "rleDecodeLowercase": {
+      "name": "Decodificar caracteres en minúscula",
+      "description": "La decodificación funciona igual para letras en minúscula."
+    }
+  },
+  "hints": {
+    "whatIsRle": {
+      "question": "¿Qué hace realmente la codificación por longitud de rachas?",
+      "answer": "Comprime las rachas del mismo carácter en un número más el carácter. `\"AAAA\"` se convierte en `\"4A\"`. Un carácter solo se deja como está, sin ningún número delante, así que `\"B\"` sigue siendo `\"B\"`."
+    },
+    "countRuns": {
+      "question": "¿Cómo cuento una racha de caracteres repetidos?",
+      "answer": "Recorre el string manteniendo un registro del carácter anterior y cuántas veces se ha repetido. Cada vez que el carácter cambia, escribe la racha terminada y empieza a contar el nuevo carácter."
+    },
+    "singleChars": {
+      "question": "¿Cómo evito escribir un número delante de los caracteres sueltos?",
+      "answer": "Solo escribe el número delante si el conteo es mayor que 1. Si un carácter apareció una sola vez, escribe solo el carácter."
+    },
+    "decodeDigits": {
+      "question": "¿Cómo sé si un carácter es un dígito mientras decodifico?",
+      "answer": "Verifica si el carácter es uno de `0123456789`, por ejemplo con `\"0123456789\".includes(char)`. Si lo es, es parte de un número. Si no lo es, es el carácter a repetir."
+    },
+    "decodeMultiDigit": {
+      "question": "¿Cómo leo un número con más de un dígito, como 12?",
+      "answer": "Un número como `12` llega un dígito a la vez, así que ve construyéndolo en lugar de tratar cada dígito por separado. Cada vez que aparece otro dígito, el número que llevas hasta el momento necesita multiplicarse por diez para hacerle espacio antes de añadir el nuevo dígito. `Number()` convierte un carácter dígito en un número con el que puedes hacer cuentas."
+    },
+    "decodeRepeat": {
+      "question": "¿Cómo repito el carácter la cantidad correcta de veces?",
+      "answer": "Una vez que encuentras un carácter que no es un dígito, usa un bucle que se repita `count` veces, añadiendo el carácter a tu resultado cada vez. Luego restablece el conteo a 0, listo para la siguiente racha. Si no había conteo, trátalo como 1."
+    }
+  },
+  "functions": {
+    "number": {
+      "description": "Convierte un string que contiene un dígito en un número",
+      "category": "Conversión de tipos"
+    },
+    "includes": {
+      "description": "Verifica si un string contiene un string más pequeño",
+      "category": "Operaciones con strings"
+    }
+  },
+  "checks": {
+    "mustUseFor": "¡Casi! Para este queremos que uses un bucle `for` para repetir cada carácter la cantidad adecuada de veces."
+  }
+}
