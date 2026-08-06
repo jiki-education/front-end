@@ -1,6 +1,6 @@
 ---
 title: "Ciklusos labirintus"
-description: "Refaktorálj egy labirintusmegoldást úgy, hogy ismétlődő kód helyett ciklusokat használj."
+description: "Refaktorálj egy labirintusmegoldást úgy, hogy ismétlődő kód helyett ciklusokat használsz."
 en_md5: 6ee8a02aea4617a21e320428e66eab5e
 ---
 
