@@ -1,0 +1,82 @@
+{
+  "tasks": {
+    "checkPangram": {
+      "name": "Proveri Pangram",
+      "description": "Napiši funkciju koja proverava da li je rečenica pangram (sadrži svako slovo abecede bar jednom). Provera treba da bude neosetljiva na veličinu slova."
+    }
+  },
+  "scenarios": {
+    "pangramEmptySentence": {
+      "name": "Prazna rečenica",
+      "description": "Prazna rečenica nije pangram."
+    },
+    "pangramPerfectLowercase": {
+      "name": "Savršeno mala slova",
+      "description": "Savršen alfabet malim slovima je pangram."
+    },
+    "pangramOnlyLowercase": {
+      "name": "Samo mala slova",
+      "description": "Rečenica sa samo malim slovima koja pokriva sva slova je pangram."
+    },
+    "pangramMissingX": {
+      "name": "Nedostaje slovo 'x'",
+      "description": "Rečenica kojoj nedostaje slovo 'x' nije pangram."
+    },
+    "pangramMissingH": {
+      "name": "Nedostaje slovo 'h'",
+      "description": "Rečenica kojoj nedostaje slovo 'h' nije pangram."
+    },
+    "pangramMissingAM": {
+      "name": "Nedostaju slova posle a-m",
+      "description": "String sa 'a' do 'm' malim i velikim slovima nije pangram."
+    },
+    "pangramWithUnderscores": {
+      "name": "Sa donjim crtama",
+      "description": "Pangram rečenica sa donjim crtama."
+    },
+    "pangramWithNumbers": {
+      "name": "Sa brojevima",
+      "description": "Pangram rečenica sa uključenim brojevima."
+    },
+    "pangramNumbersReplacingLetters": {
+      "name": "Brojevi zamenjuju slova",
+      "description": "Rečenica u kojoj su slova zamenjena brojevima nije pangram."
+    },
+    "pangramMixedCasePunctuation": {
+      "name": "Mešana slova i interpunkcija",
+      "description": "Pangram sa mešanim slovima i interpunkcijom."
+    },
+    "pangramCaseInsensitive": {
+      "name": "Neosetljivo na veličinu – nedostaju slova",
+      "description": "Rečenica za koju se ne gleda veličina a nema sva slova nije pangram."
+    }
+  },
+  "hints": {
+    "recall": {
+      "question": "Već znam kako se ovo rešava ručno. Šta se zapravo menja?",
+      "answer": "Logika je ista: pretvori rečenicu u mala slova, a zatim proveri da li su prisutna sva slova od a do z. Jedina stvar koja se menja je *kako* izvodiš ta dva koraka — sada možeš da koristiš ugrađene metode stringova umesto svojih pomoćnih funkcija."
+    },
+    "lowercaseMethod": {
+      "question": "Postoji li ugrađen način da se string pretvori u mala slova?",
+      "answer": "Da. Stringovi imaju metodu `toLowerCase()` koja vraća kopiju malim slovima. Pozovi je na rečenici jednom na početku, umesto da sam prolaziš kroz karaktere. Zapamti da ona vraća *nov* string — potrebno je da sačuvaš rezultat."
+    },
+    "includesMethod": {
+      "question": "Da li mi je još uvek potrebna moja pomoćna funkcija za proveru da li je slovo prisutno?",
+      "answer": "Ne. Stringovi imaju metodu `includes()` koja ti govori da li se jedan string pojavljuje unutar drugog. Koristi `sentence.includes(letter)` umesto pomoćne funkcije iz prethodne vežbe."
+    },
+    "stopEarly": {
+      "question": "Kada mogu ranije da prekinem?",
+      "answer": "Čim jedno slovo nedostaje, vrati `false` — nema smisla proveravati ostatak. Vrati `true` tek kada je potvrđena cela abeceda."
+    }
+  },
+  "functions": {
+    "toLowerCase": {
+      "description": "Vraća kopiju stringa malim slovima (obezbeđeno od strane stdlib-a).",
+      "category": "String operacije"
+    },
+    "includes": {
+      "description": "Proverava da li string sadrži drugi string (obezbeđeno od strane stdlib-a).",
+      "category": "String operacije"
+    }
+  }
+}

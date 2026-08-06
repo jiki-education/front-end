@@ -1,0 +1,59 @@
+{
+  "checks": {
+    "frameWrong": "Okvir kuće nije na ispravnoj poziciji.",
+    "roofWrong": "Krov kuće nije na ispravnoj poziciji.",
+    "leftWindowWrong": "Levi prozor nije ispravno postavljen.",
+    "rightWindowWrong": "Desni prozor nije ispravno postavljen.",
+    "doorWrong": "Vrata nisu ispravno postavljena.",
+    "knobWrong": "Kvaka na vratima nije ispravno postavljena.",
+    "doesNotScale": "Tvoja kuća se ne prilagođava ispravno kada je houseWidth={{houseWidth}} i houseHeight={{houseHeight}}. Svaka pozicija i veličina treba da bude izvedena iz houseWidth i houseHeight, a ne da bude ručno upisane vrednosti."
+  },
+  "tasks": {
+    "drawHouse": {
+      "name": "Nacrtaj kuću",
+      "description": "Napravi kuću od `houseWidth` i `houseHeight` tako da ostane centrirana, usađena u travu i ispravno proporcionalna pri bilo kojoj veličini."
+    }
+  },
+  "scenarios": {
+    "drawTheHouse": {
+      "name": "Nacrtaj kuću",
+      "description": "Napravi kuću od houseWidth i houseHeight tako da se ispravno prilagođava."
+    }
+  },
+  "hints": {
+    "whereDoIStart": {
+      "question": "Gde da počnem?",
+      "answer": "Dati su ti `houseWidth`, `houseHeight` i `canvasWidth`. Prvo izračunaj dve stvari koje su potrebne okviru: njegovu levu ivicu (da bi kuća bila centrirana) i njegovu gornju ivicu (da bi se oslanjala na travu). Svaki drugi oblik se zatim može izgraditi iz okvira."
+    },
+    "keepCentered": {
+      "question": "Kako da kuća ostane centrirana kada se širina promeni?",
+      "answer": "Sredina platna je uvek `canvasWidth / 2`. Ako je okvir centriran u odnosu na tu tačku, njegova leva ivica je za pola širine levo od sredine. Sve ostalo što je centrirano (vrh krova, vrata) može da koristi tu istu središnju tačku."
+    },
+    "keepPlantedOnGrass": {
+      "question": "Kako da kuća ostane usađena na travi?",
+      "answer": "Pronađi y vrednost na kojoj dno kuće treba da se nalazi (malo ispod vrha trave). Vrh okvira je onda za jednu visinu kuće iznad toga. Kada se radi od dna naviše, viša kuća raste uvis ka nebu, umesto da tone kroz travu."
+    },
+    "sizeRoofWindowsDoor": {
+      "question": "Kako da odredim veličinu krova, prozora i vrata?",
+      "answer": "Svaka veličina u uputstvu je deo širine ili visine okvira (na primer, '1/5 širine' je `houseWidth / 5`). Izgradi svaku širinu od `houseWidth`, a svaku visinu od `houseHeight`, tako da se sve zajedno skalira."
+    },
+    "breaksOnResize": {
+      "question": "Izgleda ispravno pri podrazumevanoj veličini, ali se kvari kada promenim veličinu. Zašto?",
+      "answer": "Verovatno si negde ručno upisao broj umesto da si ga izveo. Potraži bilo koju bukvalnu vrednost koja nije vrednost direktno preuzeta iz uputstva, kao što je veličina platna ili visina trave. Gotovo sigurno bi trebalo da bude izvedena iz neke druge promenljive. To može biti sidro, ili nešto što je već izgrađeno od sidra, poput širine vrata."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Nacrtaj pravougaonik na poziciji (levo, gore) sa zadatom širinom, visinom i bojom.",
+      "category": "Crtanje oblika"
+    },
+    "circle": {
+      "description": "Nacrtaj krug centriran na (centerX, centerY) sa zadatim poluprečnikom i bojom.",
+      "category": "Crtanje oblika"
+    },
+    "triangle": {
+      "description": "Nacrtaj trougao sa tri tačke ugla i bojom.",
+      "category": "Crtanje oblika"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "checks": {
+    "tooManyLines": "Tvoje rešenje ima previše redova koda. Možeš li da ga skratiš?"
+  },
+  "tasks": {
+    "calculateSignPrice": {
+      "name": "Izračunaj cenu znaka",
+      "description": "Napiši funkciju koja izračunava cenu znaka. Svako slovo košta $12. Razmaci su besplatni i ne treba ih brojati. Vrati rezultat kao formatirani string."
+    },
+    "solveInNineLines": {
+      "name": "Reši u 9 redova koda",
+      "description": "Možeš li da rešiš ovu vežbu sa samo 9 redova koda?"
+    }
+  },
+  "scenarios": {
+    "simpleWord": {
+      "name": "Jednostavna reč",
+      "description": "Jedna reč bez razmaka."
+    },
+    "singleLetter": {
+      "name": "Jedno slovo",
+      "description": "Znak sa samo jednim slovom."
+    },
+    "twoWords": {
+      "name": "Dve reči",
+      "description": "Dve reči sa razmakom koji treba preskočiti."
+    },
+    "multipleSpaces": {
+      "name": "Više razmaka",
+      "description": "Više reči sa nekoliko razmaka za preskakanje."
+    },
+    "longText": {
+      "name": "Dugačak tekst",
+      "description": "Duži znak sa više slova."
+    },
+    "allSpaces": {
+      "name": "Sami razmaci",
+      "description": "Znak sa samo razmacima nema slova koja se naplaćuju."
+    },
+    "bonus1": {
+      "name": "9 redova koda",
+      "description": "Reši vežbu sa samo 9 redova koda."
+    }
+  },
+  "hints": {
+    "whatCounting": {
+      "question": "Šta zapravo brojim?",
+      "answer": "Slova. Tačnije, sve što nije razmak. Zato ti treba brojač koji se povećava za svaki karakter koji nije razmak u tekstu znaka."
+    },
+    "loopCharacters": {
+      "question": "Kako da prolazim kroz karaktere?",
+      "answer": "`for...of` petlja ti daje svaki karakter redom, tako da možeš da ih pogledaš jedan po jedan."
+    },
+    "checkSpace": {
+      "question": "Kako da proverim da li je karakter razmak?",
+      "answer": "Unutar petlje, koristi if naredbu da uporediš karakter sa `\" \"`. Broji karakter samo kada nije razmak."
+    },
+    "buildResultString": {
+      "question": "Kako da napravim rezultujući string?",
+      "answer": "Koristi spajanje stringova ili template stringove. Pogledaj koncepte ako ti treba podsetnik za ovo."
+    }
+  }
+}

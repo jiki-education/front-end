@@ -1,0 +1,117 @@
+{
+  "errors": {
+    "walkedIntoFire": "Zakoračiš u vatru!",
+    "steppedInPoop": "Ugaziš u izmet!",
+    "lookDirectionType": "look() očekuje nisku pravca: \"left\", \"right\", ili \"ahead\"",
+    "lookDirectionValue": "Pravac za look() mora biti \"left\", \"right\", ili \"ahead\""
+  },
+  "describers": {
+    "look": "Pogledaj u pravcu i vidi šta je tamo"
+  },
+  "checks": {
+    "notReachedEnd": "Nije se stiglo do kraja lavirinta.",
+    "extraTurn": "Izgleda da je napravljen dodatni nepotreban okret na kraju.",
+    "canTurnLeftMissing": "Treba da definišeš funkciju <code>canTurnLeft</code>.",
+    "canTurnRightMissing": "Treba da definišeš funkciju <code>canTurnRight</code>.",
+    "canMoveMissing": "Treba da definišeš funkciju <code>canMove</code>.",
+    "turnAroundMissing": "Treba da definišeš funkciju <code>turnAround</code>.",
+    "lookOnlyOnce": "<code>look()</code> bi trebalo da se pojavi samo jednom u tvom celom programu.",
+    "maxExtraLines": "Ne bi trebalo da dodaš više od 13 linija koda."
+  },
+  "tasks": {
+    "straightPath": {
+      "name": "Prava putanja",
+      "description": "Implementiraj canMove() tako da lik može da se kreće napred do kraja lavirinta."
+    },
+    "turnLeft": {
+      "name": "Skreni levo ako možeš",
+      "description": "Implementiraj canTurnLeft() tako da lik skrene levo kada postoji putanja."
+    },
+    "turnRight": {
+      "name": "Skreni desno ako ne možeš pravo ili levo",
+      "description": "Implementiraj canTurnRight() tako da lik skrene desno kada ne može da ide levo ili pravo."
+    },
+    "turnAround": {
+      "name": "Okreni se ako je potrebno",
+      "description": "Reši ćorsokake okretanjem. Sve tri funkcije za osećanje sada treba da rade zajedno kako bi rešile bilo koji lavirint."
+    },
+    "bonusChallenges": {
+      "name": "Bonus izazovi",
+      "description": "Da li možeš da koristiš funkciju look() samo jednom u celom programu? I da li možeš da ga rešiš dodajući samo 13 linija koda?"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Vodi osobu do kraja lavirinta",
+      "description": "Prava putanja prema dole"
+    },
+    "leftTurn": {
+      "name": "Jedno skretanje levo",
+      "description": "Savladaj skretanje levo"
+    },
+    "rightTurn": {
+      "name": "Jedno skretanje desno",
+      "description": "Savladaj skretanje desno"
+    },
+    "forks": {
+      "name": "Biraj levo ako možeš, u suprotnom biraj desno",
+      "description": "Lavirint sa račvanjima koji testira prioritet levog skretanja"
+    },
+    "turnAround": {
+      "name": "Okreni se u ćorsokaku",
+      "description": "Lavirint koji zahteva okretanje"
+    },
+    "forks2": {
+      "name": "Složen lavirint sa račvanjima i ćorsokacima",
+      "description": "Složen lavirint koji testira ceo algoritam"
+    },
+    "coverOldGround": {
+      "name": "Ponovi pređeni put ako je potrebno",
+      "description": "Lavirint u kom moraš da se vratiš istim putem da pronađeš izlaz"
+    },
+    "bonus1": {
+      "name": "Napiši look() samo jednom",
+      "description": "Reši lavirint tako da se look() pojavljuje samo jednom u tvom kodu"
+    },
+    "bonus2": {
+      "name": "Dodaj samo 13 linija",
+      "description": "Reši lavirint dodajući samo 13 linija koda"
+    }
+  },
+  "hints": {
+    "start": {
+      "question": "Odakle da počnem kada program uopšte ne radi?",
+      "answer": "Definiši canTurnLeft(), canTurnRight() i canMove() na vrhu koda, tako da svaka za sada samo vraća false. Program će tada raditi i moći ćeš da zameniš tela jednu po jednu."
+    },
+    "findDirection": {
+      "question": "Kako da saznam šta se nalazi u datom pravcu?",
+      "answer": "Koristi novu funkciju look(direction). Prosledi \"left\", \"right\" ili \"ahead\" i ona vraća nisku poput \"empty\", \"wall\", \"fire\" ili \"poop\"."
+    },
+    "safeResults": {
+      "question": "Koji rezultati znače da je bezbedno ići u tom pravcu?",
+      "answer": "Od šest stvari koje look() može da vrati, tri su stvari u koje zaista ne želiš da zakoračiš. Tvoja funkcija treba da vrati true samo kada ono što vidiš nije ništa od te tri."
+    },
+    "avoidRepetition": {
+      "question": "Ponavljam istu logiku u tri funkcije. Kako da to izbegnem?",
+      "answer": "Možeš li da napišeš još jednu funkciju koja prima pravac kao ulaz, i da sve tri koriste nju?"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Pomera lika **jedan korak napred** u trenutnom pravcu. Ulazak u zid, vatru ili izmet završava program sa greškom, zato proveri šta je ispred pre nego što se pomeriš!",
+      "category": "Kretanje"
+    },
+    "turnLeft": {
+      "description": "Okreće lika za **90 stepeni ulevo** (suprotno od kazaljke na satu). Ovo menja pravac u kom je lik okrenut.",
+      "category": "Kretanje"
+    },
+    "turnRight": {
+      "description": "Okreće lika za **90 stepeni udesno** (u smeru kazaljke na satu). Ovo menja pravac u kom je lik okrenut.",
+      "category": "Kretanje"
+    },
+    "look": {
+      "description": "Gleda u datom pravcu i vraća ono što se tamo nalazi. Pravac mora biti \"left\", \"right\" ili \"ahead\". Vraća jednu od: \"empty\", \"wall\", \"fire\", \"poop\", \"start\" ili \"target\".",
+      "category": "Osećanje"
+    }
+  }
+}

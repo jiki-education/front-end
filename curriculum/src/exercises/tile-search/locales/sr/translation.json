@@ -1,0 +1,71 @@
+{
+  "checks": {
+    "tooManyLines": "Tvoje rešenje ima previše linija koda. Možeš li ga skratiti?"
+  },
+  "tasks": {
+    "searchForTile": {
+      "name": "Pretraga pločice",
+      "description": "Napiši funkciju koja proverava da li se određena pločica sa slovom nalazi na stalazu. Vrati true ako je pronađena, false ako nije."
+    },
+    "solveInEightLines": {
+      "name": "Reši u 8 linija koda",
+      "description": "Možeš li da rešiš ovu vežbu sa samo 8 linija koda?"
+    }
+  },
+  "scenarios": {
+    "letterFoundAtStart": {
+      "name": "Slovo na početku",
+      "description": "Slovo je prva pločica na stalazu."
+    },
+    "letterFoundInMiddle": {
+      "name": "Slovo u sredini",
+      "description": "Slovo se nalazi u sredini stalaza."
+    },
+    "letterFoundAtEnd": {
+      "name": "Slovo na kraju",
+      "description": "Slovo je poslednja pločica na stalazu."
+    },
+    "letterNotFound": {
+      "name": "Slovo nije pronađeno",
+      "description": "Slovo nije na stalazu."
+    },
+    "emptyRack": {
+      "name": "Prazan stalak",
+      "description": "Prazan stalak nema pločica za traženje."
+    },
+    "duplicateLetters": {
+      "name": "Stalak sa duplikatima",
+      "description": "Slovo se pojavljuje među dupliranim pločicama."
+    },
+    "singleTileFound": {
+      "name": "Pronađena jedna pločica",
+      "description": "Stalak sa jednom pločicom koja odgovara."
+    },
+    "singleTileNotFound": {
+      "name": "Jedna pločica nije pronađena",
+      "description": "Stalak sa jednom pločicom koja ne odgovara."
+    },
+    "bonus1": {
+      "name": "8 linija koda",
+      "description": "Reši vežbu sa samo 8 linija koda."
+    }
+  },
+  "hints": {
+    "byHand": {
+      "question": "Kako da ovo uradim ručno?",
+      "answer": "Prolaziš kroz haystack slovo po slovo, upoređuješ svako sa needle. Čim naiđeš na podudaranje, staješ. Ako dođeš do kraja bez podudaranja, needle nije tamo."
+    },
+    "loopAndCompare": {
+      "question": "Kako da napravim petlju i uporedim?",
+      "answer": "For-of petlja ti daje svako slovo stringa redom. Unutar nje, if naredba upoređuje trenutno slovo sa needle."
+    },
+    "returnTrue": {
+      "question": "Kada treba da vratim true?",
+      "answer": "Čim pronađeš podudaranje. Nema svrhe proveravati preostala slova."
+    },
+    "returnFalse": {
+      "question": "Kada treba da vratim false?",
+      "answer": "SAMO nakon što se petlja završi bez pronalaženja podudaranja. Česta greška je stavljanje `return false` unutar petlje. To odustaje nakon prvog slova koje se ne podudara, pre nego što proveriš ostala."
+    }
+  }
+}

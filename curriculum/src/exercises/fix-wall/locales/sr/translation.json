@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "topHole": "Gornja rupa nije pravilno popunjena.",
+    "middleHole": "Srednja rupa nije pravilno popunjena.",
+    "bottomHole": "Donja rupa nije pravilno popunjena."
+  },
+  "tasks": {
+    "fillHoles": {
+      "name": "Popuni rupe u zidu",
+      "description": "Pokrij svaku rupu pravougaonikom koristeći funkciju rectangle."
+    }
+  },
+  "scenarios": {
+    "fillHoles": {
+      "name": "Popuni rupe",
+      "description": "Pokrij svaku rupu pravougaonikom."
+    }
+  },
+  "hints": {
+    "howToDrawBricks": {
+      "question": "Kako da nacrtam cigle?",
+      "answer": "Nacrtaj pravougaonik koji pokriva svaku rupu. Pogledaj instrukcije za informacije o različitim ulazima koje funkcija `rectangle` očekuje."
+    },
+    "holeSizes": {
+      "question": "Koje su veličine rupa?",
+      "answer": "Pređi mišem preko platna da izmeriš svaki prostor. Svi brojevi su deljivi sa 10."
+    },
+    "holeSizesReally": {
+      "question": "Ne, stvarno, koje su veličine rupa?",
+      "answer": "Svaka rupa je širine 20 i visine 10."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Nacrtaj pravougaonik na poziciji (left, top) sa datom širinom i visinom.",
+      "category": "Crtanje oblika"
+    }
+  }
+}

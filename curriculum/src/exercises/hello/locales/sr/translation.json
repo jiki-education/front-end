@@ -1,0 +1,32 @@
+{
+  "tasks": {
+    "createSayHelloFunction": {
+      "name": "Napravi sayHello funkciju",
+      "description": "Napiši sayHello funkciju koja prima ime i vraća pozdrav u formatu 'Hello, [name]!'."
+    }
+  },
+  "scenarios": {
+    "helloAiko": {
+      "name": "Pozdravi Aiko",
+      "description": "Vrati 'Hello, Aiko!'"
+    },
+    "helloPriya": {
+      "name": "Pozdravi Priya",
+      "description": "Vrati 'Hello, Priya!'"
+    },
+    "helloMei": {
+      "name": "Pozdravi Mei",
+      "description": "Vrati 'Hello, Mei!'"
+    }
+  },
+  "hints": {
+    "answerShape": {
+      "question": "Koji je osnovni oblik odgovora koji pokušavam da napravim?",
+      "answer": "Tri dela spojena: fiksni početak `\"Hello, \"`, zatim ime, pa fiksni kraj `\"!\"`."
+    },
+    "joinStrings": {
+      "question": "Kako da spojim stringove?",
+      "answer": "Koristi spajanje sa `+`, ili templejt string sa `${}` zamenjivačima, da spojiš sva tri dela u jedan string."
+    }
+  }
+}

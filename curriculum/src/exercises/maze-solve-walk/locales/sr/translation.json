@@ -1,0 +1,43 @@
+{
+  "errors": {
+    "walkExpectsNumber": "walk() očekuje broj koraka"
+  },
+  "describers": {
+    "walk": "Pomeri se napred za zadati broj koraka"
+  },
+  "checks": {
+    "notReachedEnd": "Ne stižeš do kraja lavirinta."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Provedi lik do kraja lavirinta",
+      "description": "Prođi kroz lavirint koristeći walk(), turnLeft() i turnRight() da stigneš do zelene ciljne ćelije."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Provedi lik do kraja lavirinta",
+      "description": "Tvoj zadatak je da stigneš do cilja."
+    }
+  },
+  "hints": {
+    "moveNotWorking": {
+      "question": "Zašto `move()` više ne radi?",
+      "answer": "Svaka vežba u Jikiju ima različite funkcije koje možeš da koristiš. U ovoj vežbi, imaš funkciju `walk(...)`. Zameni `n` brojem koraka koji želiš da pređeš. Tako da `walk(1)` radi potpuno isto kao što je `move()` radio prošli put."
+    }
+  },
+  "functions": {
+    "walk": {
+      "description": "Pomera lik **napred za zadati broj koraka** u trenutnom smeru. Svaki korak pomera za jedno polje. Lik će stati i prijaviti grešku ako udari u zid.",
+      "category": "Kretanje"
+    },
+    "turnLeft": {
+      "description": "Okreće lik za **90 stepeni ulevo** (suprotno od smera kazaljke na satu). Ovo menja smer u kojem je lik okrenut.",
+      "category": "Kretanje"
+    },
+    "turnRight": {
+      "description": "Okreće lik za **90 stepeni udesno** (u smeru kazaljke na satu). Ovo menja smer u kojem je lik okrenut.",
+      "category": "Kretanje"
+    }
+  }
+}

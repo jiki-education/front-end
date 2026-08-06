@@ -1,0 +1,38 @@
+{
+  "checks": {
+    "wrongPosition": "Sunce je ili na pogrešnom mestu ili je pogrešne veličine. Proveri izračunavanja za `sunX` i `sunY`, i uveri se da prosleđuješ `radius` funkciji `circle`.",
+    "notResponsive": "Tvoj kod se ne skalira pravilno kada je `gap` {{gap}} a `radius` {{radius}}. `sunX` i `sunY` treba da budu izvedeni iz `gap` i `radius`, a ne fiksni brojevi."
+  },
+  "tasks": {
+    "positionSun": {
+      "name": "Postavi sunce",
+      "description": "Izvedi `sunX` i `sunY` iz `canvasSize`, `gap` i `radius` tako da se sunce pravilno skalira."
+    }
+  },
+  "scenarios": {
+    "positionSun": {
+      "name": "Postavi sunce",
+      "description": "Izvedi poziciju sunca iz `gap` i `radius` tako da se skalira."
+    }
+  },
+  "hints": {
+    "sunXPosition": {
+      "question": "Kako da razmišljam o x poziciji sunca?",
+      "answer": "Zamisli desnu ivicu platna. Ivica sunca se nalazi na udaljenosti `gap` levo od te ivice. Centar sunca je za još jedan poluprečnik udaljen dalje od toga."
+    },
+    "sunYPosition": {
+      "question": "Kako da razmišljam o y poziciji sunca?",
+      "answer": "Ista je ideja kao za x poziciju, samo se meri od gornje ivice platna umesto od desne ivice."
+    },
+    "whyNotHardcode": {
+      "question": "Zašto ne mogu da napišem brojeve direktno?",
+      "answer": "Ako fiksiraš `sunX` i `sunY`, sunce će ostati na jednom mestu kada se promene `gap` ili `radius`. Ako ih izvedeš iz `gap` i `radius`, sunce ostaje u uglu bez obzira na vrednosti koje izabereš."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Nacrtaj krug sa centrom u (centerX, centerY), zadatim poluprečnikom i bojom.",
+      "category": "Crtanje oblika"
+    }
+  }
+}

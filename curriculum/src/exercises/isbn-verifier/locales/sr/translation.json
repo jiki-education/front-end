@@ -1,0 +1,142 @@
+{
+  "tasks": {
+    "validateBasicIsbn": {
+      "name": "Proveri osnovni ISBN",
+      "description": "Napiši funkciju pod nazivom `isValidIsbn` koja prima ISBN-10 string i vraća `true` ako je validan, `false` ako nije. ISBN-10 sadrži crtice koje treba preskočiti. Pomnoži svaku cifru težinom koja se smanjuje od 10 do 1, saberi ih i proveri da li je zbir deljiv sa 11."
+    },
+    "handleXCheckDigit": {
+      "name": "Obradi X kao kontrolnu cifru",
+      "description": "Ponekad se ISBN završava znakom X, koji predstavlja 10. Ažuriraj svoju funkciju da obradi X na poslednjoj poziciji."
+    },
+    "handleEdgeCases": {
+      "name": "Obradi granične slučajeve",
+      "description": "Učini svoju funkciju robustnom: obradi ISBN-ove bez crtica, odbaci nevalidne karaktere, odbaci X kada nije na poslednjoj poziciji i osiguraj da se obradi tačno 10 cifara."
+    },
+    "useContinue": {
+      "name": "Bonus: preskoči crtice pomoću continue",
+      "description": "Umesto da radiš samo kada je karakter cifra, koristi `continue` da preskočiš crtice i pređeš na sledeći karakter."
+    }
+  },
+  "scenarios": {
+    "isbnValid": {
+      "name": "Validan ISBN",
+      "description": "Validan ISBN-10 treba da vrati `true`."
+    },
+    "isbnValidCheckDigitX": {
+      "name": "Validan ISBN sa X kao kontrolnom cifrom",
+      "description": "Validan ISBN-10 sa kontrolnom cifrom 'X' treba da vrati `true`."
+    },
+    "isbnValidNoDashes": {
+      "name": "Validan ISBN bez crtica",
+      "description": "Validan ISBN-10 bez razdvojnih crtica treba da vrati `true`."
+    },
+    "isbnValidNoDashesXCheck": {
+      "name": "Validan ISBN bez crtica i sa X kao kontrolnom cifrom",
+      "description": "Validan ISBN-10 bez crtica i sa kontrolnom cifrom 'X' treba da vrati `true`."
+    },
+    "isbnInvalidCheckDigit": {
+      "name": "Nevalidna kontrolna cifra ISBN-a",
+      "description": "ISBN-10 sa pogrešnom kontrolnom cifrom treba da vrati `false`."
+    },
+    "isbnInvalidCharacter": {
+      "name": "Kontrolna cifra je karakter različit od X",
+      "description": "ISBN-10 koji sadrži nevalidan karakter treba da vrati `false`."
+    },
+    "isbnInvalidCharacterNotZero": {
+      "name": "Nevalidna kontrolna cifra se ne tretira kao nula",
+      "description": "Nevalidna kontrolna cifra ne treba da se tretira kao nula."
+    },
+    "isbnInvalidNonNumeric": {
+      "name": "Nevalidan karakter u ISBN-u",
+      "description": "Nevalidni karakteri u ISBN-u ne treba da se ignorišu."
+    },
+    "isbnInvalidXPosition": {
+      "name": "X je validan samo kao kontrolna cifra",
+      "description": "'X' treba da bude validan samo kao kontrolna cifra."
+    },
+    "isbnInvalidMissingCheckDigit": {
+      "name": "ISBN bez kontrolne cifre",
+      "description": "ISBN-10 bez kontrolne cifre treba da vrati `false`."
+    },
+    "isbnInvalidTooLong": {
+      "name": "Predug ISBN",
+      "description": "ISBN-10 koji je predugačak treba da vrati `false`."
+    },
+    "isbnInvalidTooShort": {
+      "name": "Prekratak ISBN",
+      "description": "ISBN-10 koji je prekratak treba da vrati `false`."
+    },
+    "isbnInvalidEmpty": {
+      "name": "Prazan ISBN",
+      "description": "Prazan ISBN string treba da vrati `false`."
+    },
+    "isbnInvalidLengthNine": {
+      "name": "ISBN ima 9 karaktera",
+      "description": "Ulaz sa 9 karaktera treba da vrati `false`."
+    },
+    "isbnInvalidNonNumericBeforeCheck": {
+      "name": "Nevalidan karakter pre provere dužine",
+      "description": "Nevalidni karakteri ne treba da se ignorišu pre provere dužine."
+    },
+    "isbnInvalidExtraLength": {
+      "name": "Ulaz je predugačak ali sadrži validan ISBN",
+      "description": "Ulaz duži od 10 karaktera treba da vrati `false`."
+    },
+    "isbnBonusUseContinue": {
+      "name": "Preskočene crtice pomoću continue",
+      "description": "Tvoje rešenje radi i koristi `continue` da preskoči crtice."
+    }
+  },
+  "hints": {
+    "howChecked": {
+      "question": "Kako se stvarno proverava ISBN-10?",
+      "answer": "Svaka od 10 cifara se množi sa smanjujućom težinom. Prva cifra sa 10, druga sa 9, sve do poslednje sa 1. Sabereš sve te proizvode. Ako je ukupan zbir deljiv sa 11, ISBN je validan."
+    },
+    "dashes": {
+      "question": "Šta da radim sa crticama?",
+      "answer": "Crtice su samo radi čitljivosti za ljude. Potpuno ih preskoči. Ne računaju se kao cifra i ne pomeraju te dalje u težinskom množenju."
+    },
+    "trackWeight": {
+      "question": "Kako da pratim težinu?",
+      "answer": "Započni promenljivu za množitelj sa 10. Svaki put kada obradiš cifru, pomnoži je sa trenutnim množiteljem, dodaj proizvod u tekući zbir, a zatim smanji množitelj za 1."
+    },
+    "stringToNumber": {
+      "question": "Kako da pretvorim string u broj?",
+      "answer": "Imaš dve opcije. Prvo, nameravani način u ovoj vežbi je da pronađeš način koristeći metod `indexOf`. Razmisli o tome. Ako ne možeš da shvatiš, pogledaj sledeći nagoveštaj za odgovor."
+    },
+    "stringToNumberAgain": {
+      "question": "Ne, stvarno, kako da pretvorim string u broj?",
+      "answer": "Dve opcije. Prvo, možeš da koristiš funkciju `Number()` (sa velikim „N“), tako da `Number(\"5\")` daje `5`. Pročitaj stranicu koncepta <a href=\"/concepts/type-conversion\" target=\"_blank\" rel=\"noopener noreferrer\">Konverzija tipova</a> ako želiš podsetnik. Takođe postoji i zgodan trik sa `indexOf` koji vredi istražiti kasnije."
+    },
+    "handleX": {
+      "question": "Kako da obradim 'X'? To nije cifra, zar ne?",
+      "answer": "'X' je poseban. Predstavlja vrednost 10, ali samo kao poslednji karakter. Tretiraj ga kao cifru sa vrednošću 10 kada ga vidiš na kraju, i odbaci ISBN ako se 'X' pojavi bilo gde drugde."
+    },
+    "exactlyTenDigits": {
+      "question": "Kako da se osiguram da ima tačno 10 cifara?",
+      "answer": "Tvoj množitelj je počeo od 10 i smanjivao se za 1 po cifri. Ako si obradio tačno 10 cifara, završiće na 0. Bilo šta drugo znači pogrešan broj cifara, pa odbaci ISBN."
+    },
+    "finalCheck": {
+      "question": "Šta je poslednja provera validnosti?",
+      "answer": "Nakon obrade svega, ISBN je validan ako je ukupan zbir deljiv sa 11 (tj. `sum % 11 == 0`)."
+    }
+  },
+  "checks": {
+    "mustUseContinue": "Skoro pa gotovo! Za ovaj bonus, koristi `continue` da preskočiš crtice.",
+    "tooManyLines": "Skoro pa gotovo! Tvoje rešenje radi, ali je malo dugačko."
+  },
+  "functions": {
+    "number": {
+      "description": "Pretvori string koji sadrži cifre u broj",
+      "category": "Konverzija tipova"
+    },
+    "includes": {
+      "description": "Proveri da li string sadrži manji string (obezbeđeno od strane stdlib-a za nivo)",
+      "category": "Operacije nad stringovima"
+    },
+    "indexOf": {
+      "description": "Pronađi poziciju manjeg stringa unutar stringa, ili -1 ako nije pronađen (obezbeđeno od strane stdlib-a za nivo)",
+      "category": "Operacije nad stringovima"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "errors": {
+    "yearNumber": "Godina mora biti broj",
+    "yearInPast": "Ne možemo proveravati berzu za prošle godine! {{year}} je u prošlosti.",
+    "yearTooFarFuture": "Ne znamo za više od 20 godina unapred! {{year}} je previše daleko u budućnosti.",
+    "balanceNumber": "Stanje mora biti broj",
+    "moneyNumber": "Novac mora biti broj"
+  },
+  "checks": {
+    "taxReportCount": "Očekivano 20 poreskih prijava (jedna godišnje) ali dobijeno {{got}}. Proveri da li pozivaš <code>reportTax()</code> unutar petlje.",
+    "taxReportWrongYear": "Poreska prijava #{{index}} je bila za godinu {{actualYear}} ali je trebalo da bude za godinu {{expectedYear}}.",
+    "taxReportWrongBalance": "Prijavio si pogrešan porez za {{year}}. Trebalo je da bude ${{expected}} ali je bilo ${{actual}}.",
+    "wrongFinalBalance": "Očekivano konačno stanje od otprilike ${{expected}} ali dobijeno ${{got}}. Proveri da li pozivaš <code>announceToFamily()</code> nakon petlje.",
+    "announcedMultipleTimes": "Trebalo bi da saopštiš svojoj porodici <strong>samo jednom</strong>, nakon što prođe 20 godina, a ne svake godine. Pozvao si <code>announceToFamily()</code> {{count}} {{times}}."
+  },
+  "tasks": {
+    "growInvestment": {
+      "name": "Uvećaj svoju investiciju tokom 20 godina",
+      "description": "Počni sa 10 dolara, simuliraj 20 godina rasta berze, prijavi poreskoj upravi svake godine i saopšti konačno stanje svojoj porodici."
+    }
+  },
+  "scenarios": {
+    "twentyYears": {
+      "name": "20 godina rasta",
+      "description": "Uloži 10 dolara i prati svoje stanje tokom 20 godina rasta berze."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Ne znam odakle da počnem",
+      "answer": "Potrebno je da koristiš `marketGrowth()` za svaku godinu u narednih 20 godina (počevši od sada). To će vratiti vrednost poput 5 (za 5% rasta berze). Zatim treba da pratiš koliko novca imaš - od početnih 10 dolara, uvećano za odgovarajuću kamatnu stopu."
+    },
+    "stillStuck": {
+      "question": "I dalje sam stvarno zaglavljen - ne razumem.",
+      "answer": "U redu, hajde da ispišemo malo koda da te pokrenemo. Zamisli da je trenutna godina 2026. Treba da uradiš nešto poput ovog: \n\n```javascript\nlet money = 10\nlet growth = marketGrowth(2026)\n\n// Treba da povećaš novac za iznos rasta.\n// Pogledaj sledeći savet ako ti treba formula za ovo.\nmoney = money + ???\nreportTax(2026, money)\n\n// Sada uradi za 2027.\nlet growth = marketGrowth(2027)\nmoney = money + ???\nreportTax(2027, money)\n\n// Sada uradi za 2028.\nlet growth = marketGrowth(2028)\nmoney = money + ???\nreportTax(2028, money)\n\n// Nakon 20 godina obavesti svoju porodicu\nannounceToFamily(money)\n```"
+    },
+    "formula": {
+      "question": "Koju formulu koristiti za praćenje rasta? Ne mogu sam da je izračunam.",
+      "answer": "Formula je: \n\n```javascript\nmoney = money * (100 + marketGrowth(year)) / 100\n```"
+    },
+    "wrongTaxReportCount": {
+      "question": "Kaže da nisi prijavio ispravan broj poreskih prijava.",
+      "answer": "Trebalo bi da prijaviš 20 poreskih prijava za 20 godina. Koristi skruber da izbrojiš koliko puta koristiš funkciju `reportTax()`."
+    }
+  },
+  "describers": {
+    "marketGrowth": "dobio rast berze od ${return}% za godinu ${arg1}",
+    "reportTax": "prijavio porez za godinu ${arg1}: $${arg2}",
+    "announceToFamily": "saopštio $${arg1} porodici"
+  },
+  "functions": {
+    "marketGrowth": {
+      "description": "Vraća procenat rasta berze za datu godinu (između -25 i 40). Treba da **povećaš** iznos novca koji imaš za ovaj broj svaki put. (Znači 40 znači da tvojih 10 dolara treba da vredi 14 dolara, a -10 znači da tvojih 10 dolara opadne na 9 dolara)",
+      "category": "Akcija"
+    },
+    "reportTax": {
+      "description": "Prijavljuje tvoj porez za datu godinu. Treba da pozoveš ovu funkciju svake godine, sa godinom i trenutnim iznosom novca koji imaš.",
+      "category": "Akcija"
+    },
+    "announceToFamily": {
+      "description": "Saopštava tvoje konačno stanje tvojoj porodici.",
+      "category": "Akcija"
+    }
+  }
+}

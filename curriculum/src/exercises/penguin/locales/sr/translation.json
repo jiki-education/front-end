@@ -1,0 +1,65 @@
+{
+  "checks": {
+    "sky": "Nešto nije u redu sa nebom.",
+    "ground": "Tlo nije u redu.",
+    "leftWing": "Levo krilo ne izgleda kako treba.",
+    "rightWing": "Desno krilo ne izgleda kako treba.",
+    "outerBody": "Spoljašnje telo nije u redu.",
+    "innerBody": "Unutrašnje telo nije u redu.",
+    "head": "Glava nije u redu.",
+    "leftFace": "Leva strana lica ne izgleda kako treba.",
+    "rightFace": "Desna strana lica ne izgleda kako treba.",
+    "lowerFace": "Donji deo lica ne izgleda kako treba.",
+    "leftEye": "Levo oko deluje pogrešno.",
+    "leftIris": "Leva zenica deluje pogrešno.",
+    "rightEye": "Desno oko deluje pogrešno.",
+    "rightIris": "Desna zenica deluje pogrešno.",
+    "leftFoot": "Levo stopalo je zalutalo.",
+    "rightFoot": "Desno stopalo nije u redu.",
+    "nose": "Nos nije kako treba."
+  },
+  "tasks": {
+    "drawPenguin": {
+      "name": "Nacrtaj simetričnog pingvina",
+      "description": "Završi crtež pingvina dodavanjem nedostajućih delova kako bi bio simetričan."
+    }
+  },
+  "scenarios": {
+    "makePenguinSymmetrical": {
+      "name": "Učini pingvina simetričnim",
+      "description": "Popravi sve TODO komentare da bi pingvin postao simetričan."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Odakle da počnem?",
+      "answer": "Prolazi kroz TODO komentare jedan po jedan, počevši od vrha."
+    },
+    "symmetryOnCanvas": {
+      "question": "Kako simetrija funkcioniše na platnu?",
+      "answer": "Ako je nešto levom ivicom na 20, njegova simetrična desna ivica će biti na 80 (100 - 20)."
+    },
+    "noseTrouble": {
+      "question": "Zašto ne mogu da sredim nos?",
+      "answer": "Ne bi trebalo da dodaješ novi trougao za nos – umesto toga, TREBA da promeniš postojeći trougao da radi ispravno. Potrebno je da promeniš samo JEDNU vrednost."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Nacrtaj pravougaonik na poziciji (levo, gore) sa zadatom širinom, visinom i bojom",
+      "category": "Crtanje oblika"
+    },
+    "circle": {
+      "description": "Nacrtaj krug centriran na (centerX, centerY) sa zadatim poluprečnikom i bojom",
+      "category": "Crtanje oblika"
+    },
+    "ellipse": {
+      "description": "Nacrtaj elipsu centriranu na (centerX, centerY) sa horizontalnim i vertikalnim poluprečnicima i bojom",
+      "category": "Crtanje oblika"
+    },
+    "triangle": {
+      "description": "Nacrtaj trougao sa tri tačke ugla i bojom",
+      "category": "Crtanje oblika"
+    }
+  }
+}

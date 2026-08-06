@@ -1,0 +1,82 @@
+{
+  "checks": {
+    "wrongDistance": "Lopta se nije dokotrljala pravu udaljenost za ovaj udarac. Treba da pređe tačno dužinu udarca od tija.",
+    "missingPositions": "Lopta mora da se kotrlja kroz svaku poziciju jedan po jedan korak.",
+    "stayOnGrassPlain": "Lopta treba da ostane na travi za ovaj udarac — ne treba da upadne u rupu.",
+    "stayOnGrassOvershot": "Lopta je prešla rupu, pa treba da ostane na travi — ne treba da upadne.",
+    "droppedIncorrectly": "Lopta je stigla do rupe, ali nije pravilno upala u nju.",
+    "noFireworksPeriod": "Nije trebalo da upališ vatromet.",
+    "noFireworksNoPeriod": "Nije trebalo da upališ vatromet",
+    "noFireworksAtEnd": "Nije trebalo da upališ vatromet na kraju.",
+    "shouldFireFireworks": "Treba da upališ vatromet na kraju."
+  },
+  "tasks": {
+    "checkShot": {
+      "name": "Proveri da li udarac završava u rupi",
+      "description": "Kotrljaj loptu na osnovu dužine udarca, pa ako se zaustavi iznad rupe, spusti je! Zatim upali vatromet."
+    }
+  },
+  "scenarios": {
+    "tooShort": {
+      "name": "Prekratak udarac",
+      "description": "Golfer udara loptu 23 — ne stiže do rupe."
+    },
+    "justTooShort": {
+      "name": "Zamalo prekratak",
+      "description": "Golfer udara loptu 57 i ona zamalo ne upada u rupu."
+    },
+    "justTooFar": {
+      "name": "Zamalo predaleko",
+      "description": "Golfer udara loptu 63 i ona iskače sa druge strane."
+    },
+    "tooLong": {
+      "name": "Predugačak udarac",
+      "description": "Golfer udara loptu 68 — ona prolazi pored rupe."
+    },
+    "justInsideLeft": {
+      "name": "Baš u rupi",
+      "description": "Golfer udara loptu 58 — ona tačno stiže do rupe!"
+    },
+    "justInsideRight": {
+      "name": "Zamalo predaleko, ali dobro!",
+      "description": "Golfer udara loptu 62 — ona jedva ostaje u rupi!"
+    }
+  },
+  "hints": {
+    "howDoIRollRightDistance": {
+      "question": "Kako da loptu zakotrljam pravu udaljenost za svaki udarac?",
+      "answer": "Koristi `getShotLength()` da saznaš koliko daleko je golfer udario loptu, i sačuvaj to u promenljivoj. To ti govori koliko puta da kotrljaš."
+    },
+    "howDoIMoveOneStep": {
+      "question": "Kako da pomeram loptu jedan po jedan korak umesto da je prebacim na kraj?",
+      "answer": "Čuvaj promenljivu za `x` poziciju lopte. Svaki put u petlji, povećaj je za jedan, a zatim zakotrljaj loptu do nove pozicije."
+    },
+    "whenShouldBallDrop": {
+      "question": "Kada treba da lopta upadne u rupu?",
+      "answer": "Samo kada udarac završi u rupi. Proveri da li je dužina udarca unutar pobedničkog raspona tako što ćeš testirati donju i gornju granicu zajedno u jednom uslovu."
+    },
+    "whenShouldFireworksFire": {
+      "question": "Kada treba da se upali vatromet?",
+      "answer": "Samo za udarac koji je završio u rupi, i tek kada se lopta spusti do dna. Neka spuštanje i paljenje vatrometa budu unutar istog uslova."
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "Pomera loptu na poziciju **(x, y)**.",
+      "category": "Pomeranje"
+    },
+    "getShotLength": {
+      "description": "Vraća **dužinu udarca** — koliko jedinica lopta prelazi udesno.",
+      "category": "Informacije"
+    },
+    "fireFireworks": {
+      "description": "Ispaljuje vatromet za proslavu!",
+      "category": "Akcija"
+    }
+  },
+  "describers": {
+    "moveTo": "pomera loptu na poziciju (${arg1}, ${arg2})",
+    "getShotLength": "dohvata dužinu udarca",
+    "fireFireworks": "ispaljuje vatromet za proslavu"
+  }
+}

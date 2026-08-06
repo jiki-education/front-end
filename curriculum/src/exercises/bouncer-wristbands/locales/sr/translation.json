@@ -1,0 +1,97 @@
+{
+  "errors": {
+    "alreadyIssued": "Ovoj osobi je već dodeljena narukvica – svako treba da dobije samo jednu."
+  },
+  "checks": {
+    "childWristband": "Osoba ima 8 godina. Treba da dobije dečju narukvicu, ali je dobila: {{got}}.",
+    "teenWristband": "Osoba ima 15 godina. Treba da dobije narukvicu za tinejdžera, ali je dobila: {{got}}.",
+    "adultWristband": "Osoba ima 30 godina. Treba da dobije narukvicu za odrasle, ali je dobila: {{got}}.",
+    "seniorWristband": "Osoba ima 70 godina. Treba da dobije narukvicu za starije, ali je dobila: {{got}}.",
+    "boundary13": "Osoba ima 13 godina. Treba da dobije narukvicu za tinejdžera (13 nije ispod 13), ali je dobila: {{got}}.",
+    "boundary18": "Osoba ima 18 godina. Treba da dobije narukvicu za odrasle (18 nije ispod 18), ali je dobila: {{got}}.",
+    "boundary65": "Osoba ima 65 godina. Treba da dobije narukvicu za starije (65 nije ispod 65), ali je dobila: {{got}}."
+  },
+  "tasks": {
+    "assignWristband": {
+      "name": "Dodeli odgovarajuću narukvicu",
+      "description": "Dobij starost osobe i daj joj odgovarajuću narukvicu: dečju (ispod 13), za tinejdžera (13-17), za odrasle (18-64) ili za starije (65+)."
+    }
+  },
+  "scenarios": {
+    "childAge8": {
+      "name": "Starost 8 (dete)",
+      "description": "Osoba od 8 godina. Treba da dobije dečju narukvicu."
+    },
+    "teenAge15": {
+      "name": "Starost 15 (tinejdžer)",
+      "description": "Osoba od 15 godina. Treba da dobije narukvicu za tinejdžera."
+    },
+    "adultAge30": {
+      "name": "Starost 30 (odrasli)",
+      "description": "Osoba od 30 godina. Treba da dobije narukvicu za odrasle."
+    },
+    "seniorAge70": {
+      "name": "Starost 70 (senior)",
+      "description": "Osoba od 70 godina. Treba da dobije narukvicu za starije."
+    },
+    "boundary13": {
+      "name": "Starost 13 (tinejdžer)",
+      "description": "Tačno 13. Tinejdžer je, ne dete."
+    },
+    "boundary18": {
+      "name": "Starost 18 (odrasli)",
+      "description": "Tačno 18. Odrasli je, ne tinejdžer."
+    },
+    "boundary65": {
+      "name": "Starost 65 (senior)",
+      "description": "Tačno 65. Senior je, ne odrasli."
+    }
+  },
+  "hints": {
+    "gettingAge": {
+      "question": "Kako da dobijem starost osobe?",
+      "answer": "Pozovi `getAge()` i stavi rezultat u promenljivu, npr. `let age = getAge()`. Zatim možeš da uporediš `age` sa brojevima u svojim uslovima."
+    },
+    "structureForRanges": {
+      "question": "Koju strukturu da koristim kada postoji više starosnih opsega?",
+      "answer": "Lanac `if` / `else if` / `else`. Svaka grana obrađuje jednu narukvicu i samo jedna grana će se izvršiti."
+    },
+    "branchOrder": {
+      "question": "Da li je redosled grana bitan?",
+      "answer": "Da. Počni od najmlađih (`age < 13`), zatim `age < 18`, a zatim `age < 65`. S obzirom da se svaka grana izvršava samo ako prethodne nisu uspele, ne moraš da pišeš stvari poput `age >= 13 && age < 18`."
+    },
+    "seniorsElse": {
+      "question": "Šta je sa seniorima na kraju?",
+      "answer": "Za njih ne treba uslov. Običan `else` koji poziva `giveSeniorWristband()` obuhvata sve koji imaju 65 i više godina."
+    }
+  },
+  "describers": {
+    "getAge": "dobio starost osobe",
+    "giveChildWristband": "dao dečju narukvicu",
+    "giveTeenWristband": "dao narukvicu za tinejdžera",
+    "giveAdultWristband": "dao narukvicu za odrasle",
+    "giveSeniorWristband": "dao narukvicu za starije"
+  },
+  "functions": {
+    "getAge": {
+      "description": "Vraća **starost** osobe koja čeka napolju.",
+      "category": "Informacije"
+    },
+    "giveChildWristband": {
+      "description": "Daje osobi **dečju** narukvicu (ispod 13).",
+      "category": "Narukvice"
+    },
+    "giveTeenWristband": {
+      "description": "Daje osobi **narukvicu za tinejdžera** (13-17).",
+      "category": "Narukvice"
+    },
+    "giveAdultWristband": {
+      "description": "Daje osobi **narukvicu za odrasle** (18-64).",
+      "category": "Narukvice"
+    },
+    "giveSeniorWristband": {
+      "description": "Daje osobi **narukvicu za starije** (65+).",
+      "category": "Narukvice"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "baseCircle": "Osnovni (donji) krug nije tačan. Proveri snowmanCenterX, baseCenterY i baseRadius.",
+    "bodyCircle": "Središnji (telo) krug nije tačan. Proveri snowmanCenterX, bodyCenterY i bodyRadius.",
+    "headCircle": "Gornji (glava) krug nije tačan. Proveri snowmanCenterX, headCenterY i headRadius."
+  },
+  "tasks": {
+    "buildSnowman": {
+      "name": "Napravi sneška",
+      "description": "Postavi vrednosti promenljivih tako da sneško odgovara ciljnoj slici."
+    }
+  },
+  "scenarios": {
+    "buildSnowman": {
+      "name": "Napravi sneška",
+      "description": "Postavi tačne vrednosti promenljivih da nacrtaš sneška."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Ne znam odakle da počnem",
+      "answer": "Originalni kod crta beli krug na levoj strani. Treba da promeniš vrednosti snowmanCenterX, baseCenterY i baseRadius tako da budu tačne kako bi ih postavio preko donjeg prstena u šablonu. Zatim treba da dodaš promenljive za ostale krugove."
+    },
+    "variableNotFoundError": {
+      "question": "Dobijam grešku poput \"Jiki could not find a variable called 'XXX'\"",
+      "answer": "To znači da nisi kreirao promenljivu (kutiju na Jikijevim policama) koristeći `let` ključnu reč. Kada Jiki čita kod koji crta krugove, očekuje da pronađe referencirane kutije, ali one nisu tamo. Zato treba da ih dodaš."
+    },
+    "stillNotDeclaredError": {
+      "question": "Dodao sam promenljive, ali i dalje dobijam grešku \"not declared\"",
+      "answer": "Proveri svoje pisanje – verovatno imaš grešku u kucanju. Zapamti da su velika i mala slova važna: `bodycentery` nije isto što i `bodyCenterY`."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Crta krug sa centrom u (centerX, centerY) sa zadatim poluprečnikom i bojom.",
+      "category": "Crtanje oblika"
+    }
+  }
+}

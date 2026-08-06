@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "noNestedLoops": "Pokušaj da ne stavljaš jednu petlju unutar druge. Premesti pretragu za jednim slovom u sopstvenu funkciju, a zatim je pozovi iz <code>isPangram</code>.",
+    "tooManyLines": "Skoro! Proveri da li možeš da ga rešiš u manje linija oslanjajući se na svoju pomoćnu funkciju."
+  },
+  "tasks": {
+    "checkLowerPangram": {
+      "name": "Proveri pangram sa malim slovima",
+      "description": "Napiši funkciju koja proverava da li rečenica sa malim slovima sadrži svako slovo abecede. Neka pozove malu pomoćnu funkciju za pretragu pojedinačnih slova."
+    },
+    "decomposeTightly": {
+      "name": "Reši je u 16 linija",
+      "description": "Bonus: sa pretragom izdvojenom u pomoćnu funkciju, celo rešenje staje u 16 linija. Možeš li da ga postigneš?"
+    }
+  },
+  "scenarios": {
+    "lowerPangramEmpty": {
+      "name": "Prazna rečenica",
+      "description": "Prazna rečenica nije pangram."
+    },
+    "lowerPangramFullAlphabet": {
+      "name": "Puna abeceda malih slova",
+      "description": "Kompletna abeceda malih slova je pangram."
+    },
+    "lowerPangramClassic": {
+      "name": "Klasičan pangram",
+      "description": "Klasična pangramska rečenica sadrži svih 26 slova."
+    },
+    "lowerPangramMissingX": {
+      "name": "Nedostaje slovo „x“",
+      "description": "Rečenica kojoj nedostaje slovo „x“ nije pangram."
+    },
+    "lowerPangramMissingH": {
+      "name": "Nedostaje slovo „h“",
+      "description": "Rečenica kojoj nedostaje slovo „h“ nije pangram."
+    },
+    "lowerPangramWithUnderscores": {
+      "name": "Sa donjim crtama",
+      "description": "Pangram sa donjim crtama umesto razmaka."
+    },
+    "lowerPangramWithNumbers": {
+      "name": "Sa brojevima",
+      "description": "Pangram sa uključenim brojevima."
+    },
+    "lowerPangramNumbersReplacingLetters": {
+      "name": "Brojevi umesto slova",
+      "description": "Rečenica u kojoj su slova zamenjena brojevima nije pangram."
+    },
+    "lowerPangramBonusLineCount": {
+      "name": "Kompaktno i uredno",
+      "description": "Celo rešenje staje u 16 linija kada pretraga živi u sopstvenoj funkciji."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Odakle da počnem?",
+      "answer": "Moraš da proveriš da li je svako slovo abecede u stringu. Zato će ti biti potrebno da koristiš petlje i poređenja."
+    },
+    "checkEveryLetter": {
+      "question": "Kako da proverim da li su sva slova abecede tu?",
+      "answer": "Petljaj kroz `\"abcdefghijklmnopqrstuvwxyz\"`, slovo po slovo. Za svako slovo, proveri da li ga rečenica sadrži."
+    },
+    "avoidNestedLoops": {
+      "question": "Vežba je rešena, ali ne znam kako da koristim pomoćnu funkciju.",
+      "answer": "Ako je ovo rešeno, verovatno imaš jednu spoljnu petlju, a zatim unutrašnju petlju. Ta unutrašnja petlja proverava da li nešto sadrži nešto drugo. Izdvajanje unutrašnje petlje u pomoćnu funkciju pod nazivom `includes(...)`, a zatim njeno korišćenje iz spoljne petlje, je verovatno dobar pristup. Pomoćna funkcija je samo obična funkcija definisana na uobičajen način."
+    }
+  }
+}

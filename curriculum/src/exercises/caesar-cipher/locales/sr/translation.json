@@ -1,0 +1,54 @@
+{
+  "tasks": {
+    "encodeMessage": {
+      "name": "Zakodiraj poruku",
+      "description": "Napiši funkciju za kodiranje koja pomera svako slovo u poruci za zadati iznos. Razmaci treba da ostanu razmaci. Slova koja pomakom pređu 'z' treba da se vrate na početak alfabeta."
+    }
+  },
+  "scenarios": {
+    "caesarSimpleShift": {
+      "name": "Jednostavan pomak za 1",
+      "description": "Pomeri svako slovo napred za 1: a->b, b->c, c->d."
+    },
+    "caesarShiftBy3": {
+      "name": "Pomak za 3",
+      "description": "Pomeri svako slovo napred za 3: h->k, e->h, l->o, o->r."
+    },
+    "caesarWrapAround": {
+      "name": "Vraćanje na početak alfabeta",
+      "description": "Kada pomeranje pređe 'z', vraća se na početak: x->a, y->b, z->c."
+    },
+    "caesarWithSpaces": {
+      "name": "Poruka sa razmacima",
+      "description": "Razmaci treba da ostanu razmaci, samo se slova pomeraju."
+    },
+    "caesarRot13": {
+      "name": "ROT13 šifrovanje",
+      "description": "ROT13 je poseban slučaj Cezarove šifre sa pomakom od 13."
+    }
+  },
+  "hints": {
+    "shiftingLetterByN": {
+      "question": "Kako da razmišljam o pomeranju slova za N pozicija?",
+      "answer": "Svako slovo ima poziciju u alfabetu (a je na poziciji 0, b na 1, i tako dalje). Da bi ga pomerio, pronađi tu poziciju, dodaj iznos pomaka, a zatim pretvori novu poziciju nazad u slovo tako što ćeš je potražiti u alfabetu."
+    },
+    "letterPosition": {
+      "question": "Kako da pronađem poziciju slova u alfabetu?",
+      "answer": "Možeš da pretražiš nisku za manjim delom pomoću `indexOf`. Pozivom na nisci alfabeta dobijaš poziciju slova, ili -1 ako slovo nije pronađeno. Da bi dobio slovo iz pozicije, indeksiraj nazad u nisku alfabeta sa tom pozicijom."
+    },
+    "wrapPastZ": {
+      "question": "Šta se dešava kada pomak pređe 'z'?",
+      "answer": "Treba da se vrati nazad na 'a'. Operator ostatka (`%`) je savršen za ovo. Uzimanje pozicije po modulu 26 vraća bilo koji broj u opseg od 0 do 25."
+    },
+    "applyToWholeMessage": {
+      "question": "Kako da ovo primenim na celu poruku?",
+      "answer": "Prođi kroz svaki znak poruke petljom, pomeri ga koristeći svoju pomoćnu funkciju za jedno slovo, i koristi spajanje (`+`) da izgradiš rezultujuću nisku od pomerenih slova."
+    }
+  },
+  "functions": {
+    "indexOf": {
+      "description": "Pronađi poziciju manje niske unutar veće niske, ili -1 ako nije pronađena (obezbeđuje biblioteka nivoa stdlib).",
+      "category": "Operacije nad niskama"
+    }
+  }
+}

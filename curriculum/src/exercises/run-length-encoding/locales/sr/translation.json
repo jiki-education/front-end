@@ -1,0 +1,101 @@
+{
+  "tasks": {
+    "encode": {
+      "name": "Kodiraj string",
+      "description": "Napiši funkciju pod imenom encode koja prolazi kroz string, brojeći koliko puta se svaki znak ponavlja u nizu. Zameni svaki niz od dva ili više ponavljanja brojem i tim znakom, a znakove koji se pojavljuju samo jednom ostavi kakve jesu."
+    },
+    "decode": {
+      "name": "Dekodiraj string",
+      "description": "Napiši funkciju pod imenom decode koja obrće postupak. Pročitaj broj ispred znaka i ponovi taj znak taj broj puta. Brojevi mogu imati više od jedne cifre."
+    }
+  },
+  "scenarios": {
+    "rleEncodeEmpty": {
+      "name": "Kodiranje praznog stringa",
+      "description": "Kodiranje praznog stringa vraća prazan string."
+    },
+    "rleEncodeSingles": {
+      "name": "Pojedinačni znakovi se ne broje",
+      "description": "Znakovi koji se pojavljuju samo jednom se kodiraju bez broja."
+    },
+    "rleEncodeNoSingles": {
+      "name": "String bez pojedinačnih znakova",
+      "description": "Nizovi ponovljenih znakova se zamenjuju brojem i tim znakom."
+    },
+    "rleEncodeMixed": {
+      "name": "Pojedinačni znakovi pomešani sa nizovima",
+      "description": "Nizovi i pojedinačni znakovi mogu biti pomešani u istom stringu."
+    },
+    "rleEncodeWhitespace": {
+      "name": "Praznine u stringu",
+      "description": "Razmaci se tretiraju kao i svaki drugi znak, uključujući i nizove."
+    },
+    "rleEncodeLowercase": {
+      "name": "Mala slova",
+      "description": "Kodiranje radi isto i za mala slova."
+    },
+    "rleDecodeEmpty": {
+      "name": "Dekodiranje praznog stringa",
+      "description": "Dekodiranje praznog stringa vraća prazan string."
+    },
+    "rleDecodeSingles": {
+      "name": "Dekodiranje pojedinačnih znakova",
+      "description": "Znakovi bez broja ispred njih se pojavljuju jednom."
+    },
+    "rleDecodeNoSingles": {
+      "name": "Dekodiranje stringa nizova",
+      "description": "Broj praćen znakom se proširuje u taj broj kopija tog znaka."
+    },
+    "rleDecodeMixed": {
+      "name": "Dekodiranje pomešanih pojedinačnih znakova i nizova",
+      "description": "Brojevi sa više od jedne cifre moraju biti u potpunosti pročitani pre proširivanja."
+    },
+    "rleDecodeWhitespace": {
+      "name": "Dekodiranje praznina",
+      "description": "Razmaci se proširuju isto kao i svaki drugi znak."
+    },
+    "rleDecodeLowercase": {
+      "name": "Dekodiranje malih slova",
+      "description": "Dekodiranje radi isto i za mala slova."
+    }
+  },
+  "hints": {
+    "whatIsRle": {
+      "question": "Šta zapravo radi run-length kodiranje?",
+      "answer": "Ono sabija nizove istog znaka u broj plus taj znak. `\"AAAA\"` postaje `\"4A\"`. Znak koji stoji sam se ostavlja bez broja ispred njega, tako da `\"B\"` ostaje `\"B\"`."
+    },
+    "countRuns": {
+      "question": "Kako da izbrojim niz ponovljenih znakova?",
+      "answer": "Prođi kroz string vodeći računa o prethodnom znaku i koliko puta se ponovio. Svaki put kad se znak promeni, zapiši završeni niz i počni da brojiš novi znak."
+    },
+    "singleChars": {
+      "question": "Kako da izbegnem zapisivanje broja za pojedinačne znakove?",
+      "answer": "Stavi broj ispred samo kad je broj ponavljanja veći od 1. Ako se znak pojavio samo jednom, zapiši samo taj znak."
+    },
+    "decodeDigits": {
+      "question": "Kako da znam da li je znak cifra prilikom dekodiranja?",
+      "answer": "Proveri da li je znak jedna od cifara `0123456789`, na primer pomoću `\"0123456789\".includes(char)`. Ako jeste, deo je broja. Ako nije, to je znak koji treba ponoviti."
+    },
+    "decodeMultiDigit": {
+      "question": "Kako da pročitam broj sa više od jedne cifre, kao što je 12?",
+      "answer": "Broj poput `12` dolazi cifru po cifru, pa ga sastavljaj u hodu umesto da svaku cifru tretiraš zasebno. Svaki put kad se pojavi još jedna cifra, broj koji trenutno imaš treba da se uveća za faktor deset kako bi napravio mesta za nju pre nego što dodaš novu cifru. `Number()` pretvara znak cifre u broj sa kojim možeš da računaš."
+    },
+    "decodeRepeat": {
+      "question": "Kako da ponovim znak tačan broj puta?",
+      "answer": "Kada naiđeš na znak koji nije cifra, upotrebi petlju koja se izvršava `count` puta, dodajući znak svom rezultatu svaki put. Zatim resetuj broj na 0 spreman za sledeći niz. Ako nije bilo broja, tretiraj ga kao 1."
+    }
+  },
+  "functions": {
+    "number": {
+      "description": "Pretvori string koji sadrži cifru u broj",
+      "category": "Konverzija tipa"
+    },
+    "includes": {
+      "description": "Proveri da li string sadrži manji string",
+      "category": "Operacije sa stringovima"
+    }
+  },
+  "checks": {
+    "mustUseFor": "Skoro! Za ovu vežbu želimo da koristiš `for` petlju da ponoviš svaki znak tačan broj puta."
+  }
+}

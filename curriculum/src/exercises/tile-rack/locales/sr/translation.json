@@ -1,0 +1,64 @@
+{
+  "tasks": {
+    "findTilePosition": {
+      "name": "Pronađi poziciju pločice",
+      "description": "Napiši funkciju koja pronalazi poziciju određenog slova (pločice) na polici. Ako je pronađeno, vrati \"Move to position X\"; ako nije, vrati \"Error: Tile not on rack\"."
+    }
+  },
+  "scenarios": {
+    "tileAtStart": {
+      "name": "Pločica na početku",
+      "description": "Slovo se nalazi na prvoj pločici na polici."
+    },
+    "tileInMiddle": {
+      "name": "Pločica u sredini",
+      "description": "Slovo se nalazi u sredini police."
+    },
+    "tileAtEnd": {
+      "name": "Pločica na kraju",
+      "description": "Slovo se nalazi na poslednjoj pločici na polici."
+    },
+    "tileNotFound": {
+      "name": "Pločica nije pronađena",
+      "description": "Slovo nije na polici."
+    },
+    "emptyRack": {
+      "name": "Prazna polica",
+      "description": "Na praznoj polici nema pločica za pronalaženje."
+    },
+    "firstOfDuplicates": {
+      "name": "Prva od duplikata",
+      "description": "Kada se slovo pojavljuje više puta, vrati prvu poziciju."
+    },
+    "longerRack": {
+      "name": "Duža polica",
+      "description": "Pronalaženje pločice na dužoj polici."
+    }
+  },
+  "hints": {
+    "trackPosition": {
+      "question": "Kako da pratim gde se nalazim na polici?",
+      "answer": "Koristi promenljivu za poziciju koja počinje od 1. Svaki put kada pogledaš novu pločicu, povećaćeš je za 1."
+    },
+    "lookAtEachTile": {
+      "question": "Kako da pogledam svaku pločicu?",
+      "answer": "for-each petlja ti daje svaki karakter sa police redom."
+    },
+    "onFound": {
+      "question": "Šta da radim kada pronađem slovo?",
+      "answer": "Sastavi poruku o uspehu. Pretvori broj pozicije u string, a zatim ga spoji sa okolnim tekstom koji vežba traži koristeći spajanje (`+`) ili template string. Vrati odmah. Nema potrebe da nastaviš da tražiš."
+    },
+    "addNumberToString": {
+      "question": "Ne mogu da dodam broj stringu.",
+      "answer": "Znaš dva načina za spajanje stringova. Umesto da ih spajaš, probaj onaj drugi metod."
+    },
+    "positionAlwaysWrong": {
+      "question": "Zašto mi pozicija uvek bude pogrešna?",
+      "answer": "Proveri da li povećavaš brojač pozicije u svakoj iteraciji, a ne samo ponekad. U suprotnom, svaka pločica će prijaviti istu poziciju."
+    },
+    "notInRack": {
+      "question": "Šta ako slovo nije na polici?",
+      "answer": "Tek kada se petlja završi, a da slovo nije pronađeno, treba da vratiš poruku o grešci. Ako vratiš grešku unutar petlje, odustaćeš nakon prve pločice koja se ne poklapa."
+    }
+  }
+}

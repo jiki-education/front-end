@@ -1,0 +1,126 @@
+{
+  "checks": {
+    "fastAttack": {
+      "should": "Annalyn <strong>bi trebalo</strong> da izvrši brzi napad ovde, ali nije. Vitez spava, tako da može da udari pre nego što se on probudi.",
+      "shouldNot": "Annalyn <strong>ne bi trebalo</strong> da izvrši brzi napad ovde. Vitez je budan, pa bi je napad razotkrio.",
+      "tooMany": "Annalyn <strong>bi trebalo</strong> da brzo napadne samo jednom ovde, ali je to uradila {{count}} puta."
+    },
+    "spy": {
+      "should": "Annalyn <strong>bi trebalo</strong> da špijunira ovde, ali nije. Bar jedna osoba u logoru je budna, tako da ima šta da se osmatra.",
+      "shouldNot": "Annalyn <strong>ne bi trebalo</strong> da špijunira ovde. Svi spavaju, tako da nema šta da se sazna.",
+      "tooMany": "Annalyn <strong>bi trebalo</strong> da špijunira samo jednom ovde, ali je to uradila {{count}} puta."
+    },
+    "signal": {
+      "should": "Annalyn <strong>bi trebalo</strong> da da znak zarobljeniku ovde, ali nije. Zarobljenik je budan, a strelac spava, tako da će signal proći.",
+      "shouldNot": "Annalyn <strong>ne bi trebalo</strong> da da znak zarobljeniku ovde. Ili zarobljenik spava, ili je strelac budan, tako da bi davanje znaka propalo.",
+      "tooMany": "Annalyn <strong>bi trebalo</strong> da da znak zarobljeniku samo jednom ovde, ali je to uradila {{count}} puta."
+    },
+    "free": {
+      "should": "Annalyn <strong>bi trebalo</strong> da oslobodi zarobljenika ovde, ali nije. Može to da uradi ovde a da ne bude uhvaćena.",
+      "shouldNot": "Annalyn <strong>ne bi trebalo</strong> da pokuša da oslobodi zarobljenika ovde. Bila bi uhvaćena.",
+      "tooMany": "Annalyn <strong>bi trebalo</strong> da oslobodi zarobljenika samo jednom ovde, ali je to uradila {{count}} puta."
+    }
+  },
+  "tasks": {
+    "planTheRescue": {
+      "name": "Isplaniraj spasavanje",
+      "description": "Za svaki logor, izvrši svaku akciju koju Annalyn može bezbedno da preduzme: brzi napad ako vitez spava, špijuniranje ako je bar jedan od njih budan, davanje znaka zarobljeniku ako je zarobljenik budan, a strelac spava, i oslobađanje zarobljenika ili putem psa koji se lepo ponaša ili lukavim putem."
+    }
+  },
+  "scenarios": {
+    "allAsleepNaughtyDog": {
+      "name": "Svi spavaju, pas je nestašan",
+      "description": "Ceo logor spava, ali je Annalynin pas nestašan, tako da nije od pomoći."
+    },
+    "allAsleepBehavingDog": {
+      "name": "Svi spavaju, pas se lepo ponaša",
+      "description": "Ceo logor spava i Annalynin pas se lepo ponaša."
+    },
+    "knightAwakeNaughtyDog": {
+      "name": "Samo vitez je budan",
+      "description": "Vitez je na straži, dok strelac i zarobljenik spavaju. Pas je nestašan."
+    },
+    "prisonerAwakeNaughtyDog": {
+      "name": "Samo zarobljenik je budan",
+      "description": "Oba otmičara spavaju dok zarobljenik leži budan. Pas je nestašan — lukavi put je otvoren."
+    },
+    "archerAndPrisonerAwakeBehavingDog": {
+      "name": "Strelac i zarobljenik su budni",
+      "description": "Strelac je na straži, a i zarobljenik je budan. Pas se lepo ponaša."
+    },
+    "allAwakeBehavingDog": {
+      "name": "Svi su budni, pas se lepo ponaša",
+      "description": "Ceo logor je potpuno budan. Čak i kad se pas lepo ponaša, oslobađanje nije bezbedno."
+    }
+  },
+  "hints": {
+    "checkCampState": {
+      "question": "Kako da proverim stanje u logoru?",
+      "answer": "Možeš da proveriš četiri stvari, svaku pomoću funkcije koja vraća `true` ili `false`:\n\n- Da li je vitez budan? `knightIsAwake()`\n- Da li je strelac budan? `archerIsAwake()`\n- Da li je zarobljenik budan? `prisonerIsAwake()`\n- Da li se pas lepo ponaša? `dogIsBehaving()`"
+    },
+    "performActions": {
+      "question": "Kako da nateram Annalyn da uradi svaku od akcija?",
+      "answer": "Postoje četiri akcije, svaka ima svoju funkciju:\n\n- Brzi napad: `fastAttack()`\n- Špijuniranje logora: `spy()`\n- Davanje znaka zarobljeniku: `signalPrisoner()`\n- Oslobađanje zarobljenika: `freePrisoner()`"
+    },
+    "knightAsleep": {
+      "question": "Za brzi napad potrebno je da vitez SPAVA. Kako da to proverim?",
+      "answer": "Ne postoji funkcija `isAsleep()`, ali spavanje je samo suprotno od budnosti. Koristi `!` da obrneš uslov. Zamisli da želimo da kažemo nekome da prestane da jede kada je sit, ali imamo samo funkciju `isHungry()`. Možemo da je obrnemo:\n\n```javascript\nif (!isHungry()) {\n  stopEating()\n}\n```\n\nPrimeni istu ideju da proveriš da li vitez spava."
+    },
+    "spyAnyoneAwake": {
+      "question": "Špijuniranje funkcioniše ako je BAR JEDAN od njih budan. Kako da to napišem?",
+      "answer": "Koristi `||` (ili) između provera tako da ceo uslov bude `true` ako je bilo koja pojedinačna `true`. Na primer, ovo se izvršava kada je neko gladan, žedan ili oba:\n\n```javascript\nif (isHungry() || isThirsty()) {\n  rest()\n}\n```"
+    },
+    "signalBothConditions": {
+      "question": "Za davanje znaka potrebno je da DVE stvari budu tačne istovremeno. Kako da ih kombinujem?",
+      "answer": "Koristi `&&` (i) tako da obe strane moraju biti `true`. Na primer, ovo se izvršava samo kada je neko gladan I žedan:\n\n```javascript\nif (isHungry() && isThirsty()) {\n  drink()\n}\n```"
+    },
+    "twoWaysToSucceed": {
+      "question": "Neka akcija ima dva potpuno odvojena načina da uspe. Kako da to rešim?",
+      "answer": "Svaki način je dovoljan sam po sebi, tako da imaš dve opcije.\n\nPrva je da napišeš poseban `if` za svaki način, oba rade istu akciju:\n\n```javascript\nif (isHungry() && hasSnack()) {\n  eat()\n}\nif (isThirsty() && hasSnack()) {\n  eat()\n}\n```\n\nDruga je da kombinuješ oba načina u jedan `if` sa `||`, stavljajući provere svakog načina u zagrade tako da se `&&` delovi grupišu pre nego što ih `||` razdvoji:\n\n```javascript\nif ((isHungry() && hasSnack()) || (isThirsty() && hasSnack())) {\n  eat()\n}\n```\n\nPrvo razradi uslove za svaki način zasebno, a zatim koristi stil koji ti je jasniji."
+    }
+  },
+  "describers": {
+    "knightIsAwake": "proverila da li je vitez budan",
+    "archerIsAwake": "proverila da li je strelac budan",
+    "prisonerIsAwake": "proverila da li je zarobljenik budan",
+    "dogIsBehaving": "proverila da li se Annalynin pas lepo ponaša",
+    "fastAttack": "izvršila brzi napad na viteza",
+    "spy": "špijunirala grupu",
+    "signalPrisoner": "dala znak zarobljeniku",
+    "freePrisoner": "oslobodila zarobljenika"
+  },
+  "functions": {
+    "knightIsAwake": {
+      "description": "Vraća `true` ako je vitez budan, `false` ako spava.",
+      "category": "Informacije"
+    },
+    "archerIsAwake": {
+      "description": "Vraća `true` ako je strelac budan, `false` ako spava.",
+      "category": "Informacije"
+    },
+    "prisonerIsAwake": {
+      "description": "Vraća `true` ako je zarobljenik budan, `false` ako spava.",
+      "category": "Informacije"
+    },
+    "dogIsBehaving": {
+      "description": "Vraća `true` ako se Annalynin (pomalo nestašan) pas lepo ponaša.",
+      "category": "Informacije"
+    },
+    "fastAttack": {
+      "description": "Izvršava brzi napad na viteza.",
+      "category": "Akcije"
+    },
+    "spy": {
+      "description": "Špijunira grupu.",
+      "category": "Akcije"
+    },
+    "signalPrisoner": {
+      "description": "Daje znak zarobljeniku koristeći ptičije zvuke.",
+      "category": "Akcije"
+    },
+    "freePrisoner": {
+      "description": "Ušunja se u logor da oslobodi zarobljenika.",
+      "category": "Akcije"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+---
+title: "Korišćenje stanja"
+description: "Kombinovanje `if` naredbi sa promenljivama koje se menjaju tokom vremena tako da tvoj program reaguje i ponaša se različito dok se izvršava."
+en_md5: e866d50be6bc7494f10e01341c40347b
+---
+
+Dobrodošao nazad. Do sada smo koristili promenljive za stvari koje imaju neko značenje, nečije godine, vreme, boju. Ažurirali smo promenljive, ali one su bile relativno statične stvari. Međutim, jedna od najčešćih upotreba promenljivih u programiranju je praćenje našeg napretka tokom nekog posla. Zamisli da gradiš zid, nešto što ćeš raditi za trenutak. U stvarnom životu, bio bi svestan koji sloj cigli gradiš, donji ili gornji, ili neki u sredini, i bio bi svestan koju ciglu treba sledeću da postaviš, treću, četvrtu, i tako dalje. Isto nam je potrebno i u digitalnom svetu. Ili zamisli da pokušavaš da napraviš automatskog bota za Space Invaders. On treba da zna gde se nalazi s leva na desno na ekranu. U programiranju, ovo zovemo stanje (engl. _state_), skraćeno od toga u kakvom je stanju.
+
+Stanje je korisno za to da znamo šta se dešava, ali postaje zaista korisno kada ga kombinujemo sa uslovima. Ako gradimo zid, moramo posle svake cigle da proverimo da li smo postavili poslednju ciglu u tom redu, i ako jesmo, moramo da pređemo na sledeći red i vratimo se na postavljanje prve cigle. Ako gradimo našeg Space Invaders bota, moramo da proverimo da li smo na ivici ekrana pre nego što se pomerimo i obrnemo smer ako jesmo, a taj smer je isto stanje, zapis o tome da li se krećemo levo ili desno.
+
+Dok napreduješ, stanje će postati jedan od najvažnijih delova programiranja, ideja o tome gde se nešto nalazi, u kakvom je stanju ili koliko smo daleko kroz našu listu zadataka. U sledeće dve vežbe koristićeš stanje da izgradiš zid i da igraš Space Invaders koristeći ideje o kojima smo upravo pričali. Veoma je važno da ove vežbe razbiješ na male korake. Razmisli tačno šta treba da znaš da bi ih rešio, stvari poput sloja cigli na kom se nalaziš ili položaja trenutne cigle. Razmisli o pravilima koja računar treba da prati da bi ceo zid bio postavljen. Ovo je sada pravo programiranje. Ovo je vrsta stvari koju mi programeri radimo iz dana u dan. Postaje složenije, ali postaje i zabavnije. Ovi šabloni na početku zahtevaju malo vremena da se navikneš na njih, tako da ne žuri i zabavi se.

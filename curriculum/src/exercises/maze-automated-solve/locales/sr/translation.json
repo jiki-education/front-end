@@ -1,0 +1,103 @@
+{
+  "describers": {
+    "canMove": "Proverava da li lik može da krene napred",
+    "canTurnLeft": "Proverava da li je prostor levo od lika slobodan",
+    "canTurnRight": "Proverava da li je prostor desno od lika slobodan"
+  },
+  "checks": {
+    "reachedEnd": "Nisi stigao do kraja lavirinta.",
+    "extraTurn": "Izgleda da si napravio nepotreban zaokret na kraju."
+  },
+  "tasks": {
+    "straightPath": {
+      "name": "Prava staza",
+      "description": "Kreni napred do kraja lavirinta."
+    },
+    "turnLeft": {
+      "name": "Skreni levo ako možeš",
+      "description": "Ako postoji put levo, idi njime!"
+    },
+    "turnRight": {
+      "name": "Skreni desno ako ne možeš pravo ili levo",
+      "description": "Ako ne postoji put levo ili pravo, kreni putem na desno."
+    },
+    "turnAround": {
+      "name": "Okreni se ako je potrebno",
+      "description": "Reši ćorsokake okretanjem. Ako ne možeš levo, pravo ili desno, okreni se i kreni napred."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Vodi lika do kraja lavirinta",
+      "description": "Prava staza prema dole"
+    },
+    "leftTurn": {
+      "name": "Jedno levo skretanje",
+      "description": "Prođi kroz levo skretanje"
+    },
+    "rightTurn": {
+      "name": "Jedno desno skretanje",
+      "description": "Prođi kroz desno skretanje"
+    },
+    "forks": {
+      "name": "Izaberi levo ako možeš, u suprotnom izaberi desno",
+      "description": "Lavirint sa račvanjima koji testira prioritet levog skretanja"
+    },
+    "turnAround": {
+      "name": "Okreni se u ćorsokaku",
+      "description": "Lavirint koji zahteva okretanje"
+    },
+    "forks2": {
+      "name": "Složen lavirint sa račvanjima i ćorsokacima",
+      "description": "Složen lavirint koji testira ceo algoritam"
+    }
+  },
+  "hints": {
+    "solveEachMaze": {
+      "question": "Da li moram da rešavam svaki lavirint posebno?",
+      "answer": "Ne. Pišeš jedan algoritam koji radi za bilo koji lavirint, a isti kod se izvršava u svakom scenariju."
+    },
+    "runEveryStep": {
+      "question": "Kako da postignem da se moj kod izvršava za svaki korak lavirinta?",
+      "answer": "Obuhvati svoju logiku u petlju `repeat`. Ona izvršava tvoj kod iznova i iznova dok ne stigneš do kraja, tako da ti je dovoljno da opišeš šta treba uraditi za jedan korak."
+    },
+    "oneCheckPerStep": {
+      "question": "Kako da osiguram da se u svakom koraku izvrši samo jedna od mojih provera?",
+      "answer": "Koristi jedan lanac `if` / `else if` / `else` umesto nekoliko odvojenih `if`-ova. Na taj način se tačno jedna grana izvršava svaki put kroz petlju."
+    },
+    "stuckAfterTurn": {
+      "question": "Skrenem, ali lik ostane zaglavljen na istom mestu.",
+      "answer": "Skretanje samo menja smer u kome je lik okrenut, ne pravi korak. Nakon skretanja, ipak treba da pozoveš `move()`."
+    },
+    "turnAroundDeadEnd": {
+      "question": "Kako da se okrenem u ćorsokaku?",
+      "answer": "Ne postoji funkcija za okretanje. Dva puta skrenuti u istom smeru (dva levo ili dva desno) ostavlja lika okrenutog nazad, odakle je došao."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Pomera lika **jedan korak napred** u trenutnom smeru. Lik će se pomeriti samo ako ciljna pozicija nije blokirana zidom.",
+      "category": "Kretanje"
+    },
+    "turnLeft": {
+      "description": "Okreće lika **90 stepeni ulevo** (suprotno od kazaljke na satu). Ovo menja smer u kome je lik okrenut.",
+      "category": "Kretanje"
+    },
+    "turnRight": {
+      "description": "Okreće lika **90 stepeni udesno** (u smeru kazaljke na satu). Ovo menja smer u kome je lik okrenut.",
+      "category": "Kretanje"
+    },
+    "canMove": {
+      "description": "Vraća **true** ako prostor ispred lika nije zid, **false** inače.",
+      "category": "Opažanje"
+    },
+    "canTurnLeft": {
+      "description": "Vraća **true** ako prostor levo od lika nije zid, **false** inače.",
+      "category": "Opažanje"
+    },
+    "canTurnRight": {
+      "description": "Vraća **true** ako prostor desno od lika nije zid, **false** inače.",
+      "category": "Opažanje"
+    }
+  }
+}

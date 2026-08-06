@@ -1,0 +1,57 @@
+{
+  "checks": {
+    "uniqueColoredCircles": "Očekuje se najmanje 50 jedinstveno obojenih krugova.",
+    "uniquePositionedCircles": "Očekuje se najmanje 30 različitih pozicija.",
+    "canvasCoverage": "Lopta nije obojila dovoljno platna. Trebalo bi da odskače dok više od 80% ne bude prekriveno.",
+    "hueBounced": "Nijansa nije dostigla 360 i nije se nakon toga smanjila.",
+    "hueSweep": "Dugin trag nije prošao kroz sve boje."
+  },
+  "tasks": {
+    "rainbowBall": {
+      "name": "Napravi dugu loptu koja odskače",
+      "description": "Napravi loptu koja odskače po platnu, ostavljajući trag šarenih krugova koji prolaze kroz sve dugine boje."
+    }
+  },
+  "scenarios": {
+    "rainbowBall": {
+      "name": "Dugina lopta",
+      "description": "Iscrtaj dugin trag sastavljen od različitih krugova."
+    }
+  },
+  "hints": {
+    "stateToTrack": {
+      "question": "Koje stanje treba da pratim?",
+      "answer": "Položaj lopte i način na koji se kreće. Razdvoji ih: jedna promenljiva za *gde* se lopta nalazi, druga za *kako* se menja. Isti princip važi i za nijansu: potrebna ti je njena trenutna vrednost i smer u kome se kreće."
+    },
+    "moveAndShift": {
+      "question": "Kako da nateram loptu da se pomera i boju da se menja u svakom frejmu?",
+      "answer": "Na početku svake iteracije petlje, dodaj svoje promenljive za smer na položaj i na `hue`. Na taj način promenljive za smer u potpunosti kontrolišu kretanje. Promena njihovog znaka ili veličine trenutno menja način na koji se lopta kreće i kako se boja menja."
+    },
+    "velocityTip": {
+      "question": "Ne mogu da shvatim kako da ovo uradim. Ima li kakvih saveta?",
+      "answer": "Šta su brojevi za koje se `x` i `y` menjaju? Oni su kombinacija brzine (veličina broja) i smera (da li pomeraju loptu napred ili nazad). Tako bi `2` predstavljalo brzinu 2 koja se kreće udesno ili naniže. A `-3` bi bilo brzina 3 koja se kreće ulevo ili naviše. Broj koji istovremeno označava brzinu i smer naziva se **brzina** (vreme je da ažuriraš imena promenljivih?). Dakle, kada želiš da promeniš smer lopte, menjaš znak brzine, iz pozitivnog u negativni ili obrnuto."
+    },
+    "bounceOffEdges": {
+      "question": "Kako da nateram loptu da odskače od ivica?",
+      "answer": "Nakon ažuriranja položaja, proveri da li je `x` ili `y` prešlo granicu platna. Kada jeste, obrni promenljivu za smer na toj osi. Instrukcije određuju opseg platna."
+    },
+    "randomBounceSpeed": {
+      "question": "Kako da svaki put pri odskoku lopta dobije nasumičnu novu brzinu?",
+      "answer": "Kada lopta udari u ivicu, postavi promenljivu za smer koristeći `Math.randomInt(min, max)` umesto da samo promeniš znak. Odaberi pozitivan opseg kada odskače od leve ili gornje ivice, a negativan opseg kada odskače od desne ili donje ivice."
+    },
+    "cycleHue": {
+      "question": "Kako da nijansa prolazi kroz sve dugine boje?",
+      "answer": "Primeni isti trik na nijansu kao i na položaj. Kada izađe iz svog dozvoljenog opsega, obrni `hueDirection`. Boja će se zatim popeti do vrha spektra i ponovo spustiti, sasvim sama."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Nacrtaj krug čiji je centar u (centerX, centerY), sa datim poluprečnikom i bojom.",
+      "category": "Crtanje oblika"
+    },
+    "hsl": {
+      "description": "Pretvori HSL vrednosti boje (nijansa 0-360, zasićenje 0-100, osvetljenost 0-100) u heksadecimalni string boje.",
+      "category": "Boje"
+    }
+  }
+}

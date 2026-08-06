@@ -1,0 +1,81 @@
+{
+  "tasks": {
+    "invalidTriangles": {
+      "name": "Neispravni trouglovi",
+      "description": "Detektuj neispravne trouglove. Trougao je neispravan ako je bilo koja stranica nula, ili ako je zbir bilo koje dve stranice manji ili jednak trećoj stranici."
+    },
+    "equilateralTriangles": {
+      "name": "Jednakostranični trouglovi",
+      "description": "Detektuj jednakostranične trouglove gde su sve tri stranice iste dužine."
+    },
+    "isoscelesTriangles": {
+      "name": "Jednakokraki trouglovi",
+      "description": "Detektuj jednakokrake trouglove gde su tačno dve stranice iste dužine."
+    },
+    "scaleneTriangles": {
+      "name": "Raznostranični trouglovi",
+      "description": "Detektuj raznostranične trouglove gde su sve tri stranice različite dužine."
+    }
+  },
+  "scenarios": {
+    "invalidEquilateralAllZero": {
+      "name": "Jednakostranični sa svim stranicama nula (0, 0, 0)",
+      "description": "Trougao sa svim stranicama nula treba da vrati \"invalid\"."
+    },
+    "isoscelesFirstInequality": {
+      "name": "Jednakokraki sa neispravnim dužinama stranica (1, 1, 3)",
+      "description": "Trougao sa prekratkim stranicama treba da vrati \"invalid\"."
+    },
+    "isoscelesSecondInequality": {
+      "name": "Jednakokraki sa neispravnim dužinama stranica (1, 3, 1)",
+      "description": "Trougao sa prekratkim stranicama treba da vrati \"invalid\"."
+    },
+    "isoscelesThirdInequality": {
+      "name": "Jednakokraki sa neispravnim dužinama stranica (3, 1, 1)",
+      "description": "Trougao sa prekratkim stranicama treba da vrati \"invalid\"."
+    },
+    "scaleneTriangleInequality": {
+      "name": "Raznostranični sa neispravnim dužinama stranica (7, 3, 2)",
+      "description": "Trougao sa prekratkim stranicama treba da vrati \"invalid\"."
+    },
+    "validEquilateral": {
+      "name": "Jednakostranični trougao (2, 2, 2)",
+      "description": "Trougao sa svim jednakim stranicama treba da vrati \"equilateral\"."
+    },
+    "validIsoscelesFirstTwoEqual": {
+      "name": "Jednakokraki trougao (4, 4, 3)",
+      "description": "Trougao sa prve dve stranice jednake treba da vrati \"isosceles\"."
+    },
+    "validIsoscelesLastTwoEqual": {
+      "name": "Jednakokraki trougao (3, 4, 4)",
+      "description": "Trougao sa poslednje dve stranice jednake treba da vrati \"isosceles\"."
+    },
+    "validIsoscelesFirstAndLastEqual": {
+      "name": "Jednakokraki trougao (4, 3, 4)",
+      "description": "Trougao sa istim prvom i poslednjom stranicom treba da vrati \"isosceles\"."
+    },
+    "validScalene": {
+      "name": "Raznostranični trougao (5, 4, 6)",
+      "description": "Trougao sa svim različitim stranicama treba da vrati \"scalene\"."
+    }
+  },
+  "hints": {
+    "whatMakesInvalid": {
+      "question": "Šta čini trougao neispravnim?",
+      "answer": "Dve stvari. Prvo, da je bilo koja stranica nula. Drugo, da je zbir bilo koje dve stranice manji ili jednak trećoj (nejednakost trougla). Prvo proveri ovo, jer nema smisla klasifikovati oblik koji zapravo nije trougao."
+    },
+    "checkOrder": {
+      "question": "Kojim redosledom treba da proverim kategorije?",
+      "answer": "Počni od najspecifičnijeg: jednakostranični (sve tri stranice jednake), zatim jednakokraki (bilo koje dve stranice jednake), a sve ostalo su raznostranični. Ako ih proveravaš pogrešnim redosledom, jednakostranični trouglovi se pogrešno klasifikuju kao jednakokraki."
+    },
+    "checkAnyTwoEqual": {
+      "question": "Kako da proverim uslov „bilo koje dve stranice su jednake“ za jednakokraki?",
+      "answer": "Tri poređenja: a === b, b === c, ili a === c. Dovoljno je da bilo koje od njih bude tačno."
+    },
+    "knowScalene": {
+      "question": "Kako da znam da je raznostranični?",
+      "answer": "Ako isključiš neispravan, jednakostranični i jednakokraki, raznostranični je jedino što preostaje. Vrati ga bez dodatnih provera."
+    }
+  },
+  "functions": {}
+}

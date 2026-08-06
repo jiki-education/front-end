@@ -1,0 +1,59 @@
+{
+  "checks": {
+    "tooManyLines": "Tvoje rešenje ima previše linija koda. Možeš li ga skratiti?"
+  },
+  "tasks": {
+    "identifyEvenOrOdd": {
+      "name": "Prepoznaj parne i neparne brojeve",
+      "description": "Napiši funkciju pod nazivom `evenOrOdd` koja prima broj i vraća `\"Even\"` ako je deljiv sa 2, ili `\"Odd\"` u suprotnom. Nula je paran broj."
+    },
+    "solveInSixLines": {
+      "name": "Reši u 6 linija koda",
+      "description": "Možeš li da rešiš ovu vežbu sa samo 6 linija koda?"
+    }
+  },
+  "scenarios": {
+    "number14": {
+      "name": "Broj 14",
+      "description": "14 je paran broj."
+    },
+    "number28": {
+      "name": "Broj 28",
+      "description": "28 je paran broj."
+    },
+    "numberMinus1": {
+      "name": "Broj -1",
+      "description": "-1 je neparan broj."
+    },
+    "number17": {
+      "name": "Broj 17",
+      "description": "17 je neparan broj."
+    },
+    "number0": {
+      "name": "Broj 0",
+      "description": "Nula se računa kao paran broj."
+    },
+    "bonus1": {
+      "name": "6 linija koda",
+      "description": "Reši vežbu sa samo 6 linija koda."
+    }
+  },
+  "hints": {
+    "howToTell": {
+      "question": "Kako mogu da prepoznam da li je broj paran ili neparan u kodu?",
+      "answer": "Matematički, broj je paran ako je deljiv sa 2 bez ostatka, a neparan ako postoji ostatak 1. Dakle, potreban ti je način da pitaš 'šta ostaje nakon deljenja sa 2?'."
+    },
+    "remainderOperator": {
+      "question": "Da li postoji operator koji mi daje ostatak pri deljenju?",
+      "answer": "Da. Operator ostatka `%` (ponekad se naziva modulo) radi upravo to. Na primer, `14 % 2` daje `0`, a `17 % 2` daje `1`. Vraća ono što ostane nakon deljenja prvog broja drugim."
+    },
+    "turnIntoEvenOdd": {
+      "question": "Imam ostatak. Kako sada da to pretvorim u \"Even\" ili \"Odd\"?",
+      "answer": "Koristi `if` naredbu da uporediš ostatak sa `0`. Ako je `number % 2` jednako `0`, vrati `\"Even\"`. U suprotnom, vrati `\"Odd\"`."
+    },
+    "zeroAndNegative": {
+      "question": "Ne mogu da shvatim kako da obradim 0 i negativne brojeve",
+      "answer": "Ne treba ti nikakav poseban slučaj za njih. `0 % 2` je `0`, pa se nula automatski tretira kao parna. A `-1 % 2` nije nula, pa se `-1` tretira kao neparan, što je upravo ono što želiš."
+    }
+  }
+}

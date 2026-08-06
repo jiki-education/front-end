@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "baseCircle": "Osnovni krug (pri dnu) nije tačan.",
+    "bodyCircle": "Krug tela (u sredini) nije tačan.",
+    "headCircle": "Krug glave (pri vrhu) nije tačan."
+  },
+  "tasks": {
+    "buildSnowman": {
+      "name": "Napravi sneška",
+      "description": "Nacrtaj tri kruga da napraviš sneška."
+    }
+  },
+  "scenarios": {
+    "buildSnowman": {
+      "name": "Napravi sneška",
+      "description": "Nacrtaj tri kruga da napraviš sneška."
+    }
+  },
+  "hints": {
+    "howToDrawCircle": {
+      "question": "Kako da nacrtam krug na platnu?",
+      "answer": "Pozovi `circle(centerX, centerY, radius)` gde su `centerX` i `centerY` koordinate centra, a `radius` je koliki je krug."
+    },
+    "circlesHorizontalPosition": {
+      "question": "Gde treba da se nalaze krugovi horizontalno?",
+      "answer": "Sva tri kruga imaju isti horizontalni centar, tako da je `centerX` `50` za svaki (platno je široko `100`)."
+    },
+    "howToStackCircles": {
+      "question": "Kako da naslagam tri kruga?",
+      "answer": "Osnovni krug je najveći i nalazi se pri dnu (visoka vrednost `centerY`). Svaki sledeći krug iznad ima manju `centerY` i manji `radius`."
+    },
+    "whatNumbersForRadii": {
+      "question": "Koje brojeve da koristim za poluprečnike?",
+      "answer": "Svi brojevi u ovoj vežbi su deljivi sa `5`. Probaj sa osnovnim poluprečnikom oko `20`, telom oko `15` i glavom oko `10`, i prilagođavaj dok se ne poravnaju sa ciljnom slikom."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Nacrtaj krug sa centrom u (centerX, centerY) i datim poluprečnikom.",
+      "category": "Crtanje oblika"
+    }
+  }
+}

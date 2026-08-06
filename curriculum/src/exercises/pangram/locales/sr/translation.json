@@ -1,0 +1,72 @@
+{
+  "tasks": {
+    "checkPangram": {
+      "name": "Proveri pangram",
+      "description": "Napiši funkciju koja proverava da li je rečenica pangram (sadrži svako slovo abecede bar jednom). Provera treba da bude bez obzira na veličinu slova."
+    }
+  },
+  "scenarios": {
+    "pangramEmptySentence": {
+      "name": "Prazna rečenica",
+      "description": "Prazna rečenica nije pangram."
+    },
+    "pangramPerfectLowercase": {
+      "name": "Savršena mala slova",
+      "description": "Savršena abeceda malim slovima je pangram."
+    },
+    "pangramOnlyLowercase": {
+      "name": "Samo mala slova",
+      "description": "Rečenica koja sadrži samo mala slova i pokriva sva slova abecede je pangram."
+    },
+    "pangramMissingX": {
+      "name": "Nedostaje slovo 'x'",
+      "description": "Rečenica kojoj nedostaje slovo 'x' nije pangram."
+    },
+    "pangramMissingH": {
+      "name": "Nedostaje slovo 'h'",
+      "description": "Rečenica kojoj nedostaje slovo 'h' nije pangram."
+    },
+    "pangramMissingAM": {
+      "name": "Nedostaju slova posle 'm'",
+      "description": "String koji sadrži samo slova od 'a' do 'm', i mala i velika, nije pangram."
+    },
+    "pangramWithUnderscores": {
+      "name": "Sa donjim crtama",
+      "description": "Pangram rečenica sa donjim crtama."
+    },
+    "pangramWithNumbers": {
+      "name": "Sa brojevima",
+      "description": "Pangram rečenica koja uključuje brojeve."
+    },
+    "pangramNumbersReplacingLetters": {
+      "name": "Brojevi umesto slova",
+      "description": "Rečenica u kojoj su brojevi zamenili slova nije pangram."
+    },
+    "pangramMixedCasePunctuation": {
+      "name": "Mešana velika i mala slova i interpunkcija",
+      "description": "Pangram sa mešanim velikim i malim slovima i interpunkcijom."
+    },
+    "pangramCaseInsensitive": {
+      "name": "Nedostaju slova bez obzira na veličinu",
+      "description": "Rečenica u kojoj se ne razlikuju velika i mala slova, a koja ne sadrži sva slova, nije pangram."
+    }
+  },
+  "hints": {
+    "helpers": {
+      "question": "Koje pomoćne funkcije će mi ovde olakšati posao?",
+      "answer": "Pomoćna funkcija `includes()` (koja pita „da li se ovaj karakter pojavljuje u ovom stringu?“) i pomoćna funkcija `toLowerCase()` (tako da te razlike u veličini slova ne zbune) čine glavnu logiku kratkom i jasnom."
+    },
+    "whyLowercase": {
+      "question": "Zašto treba da pretvorim rečenicu u mala slova?",
+      "answer": "„The quick brown fox...“ sadrži i 'T' i 't'. Ako proveravaš samo prema malim slovima, velika slova se neće poklopiti. Pretvori celu rečenicu u mala slova na početku, tako da svako poređenje bude konzistentno."
+    },
+    "checkEveryLetter": {
+      "question": "Kako da proverim da li su sva slova prisutna?",
+      "answer": "Prođi kroz svako slovo abecede `\"abcdefghijklmnopqrstuvwxyz\"`. Za svako, koristi `includes()` da proveriš da li se pojavljuje u rečenici pretvorenoj u mala slova."
+    },
+    "stopEarly": {
+      "question": "Kada mogu ranije da stanem?",
+      "answer": "Čim pronađeš slovo koje nedostaje, vrati `false`. Nema svrhe proveravati ostala. Vrati `true` tek nakon što potvrdiš celu abecedu."
+    }
+  }
+}

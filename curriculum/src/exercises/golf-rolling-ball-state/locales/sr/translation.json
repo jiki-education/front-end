@@ -1,0 +1,40 @@
+{
+  "errors": {
+    "positionNotNumber": "pozicija mora biti broj"
+  },
+  "checks": {
+    "ballNotAtEnd": "Loptica nije stigla do rupe. Nalazi se na poziciji {{ballX}}, ali treba da bude na poziciji 88.",
+    "missingPositions": "Loptica mora da se kotrlja kroz svaku poziciju pojedinačno, a ne da skoči direktno na kraj."
+  },
+  "tasks": {
+    "rollBall": {
+      "name": "Zakotrljaj lopticu u rupu",
+      "description": "Zakotrljaj lopticu u rupu."
+    }
+  },
+  "scenarios": {
+    "rollBall": {
+      "name": "Zakotrljaj lopticu u rupu",
+      "description": "Zakotrljaj lopticu u rupu."
+    }
+  },
+  "hints": {
+    "dontKnowWhereToStart": {
+      "question": "Ne znam gde da počnem.",
+      "answer": "Ključno je da svaki put pomeriš lopticu za jedan korak napred. Možeš da koristiš promenljivu da to uradiš. Razmisli kako bi to moglo da funkcioniše."
+    },
+    "stillCantFigureItOut": {
+      "question": "Još uvek ne mogu da shvatim.",
+      "answer": "Treba da napraviš promenljivu koja prati gde je loptica. Treba da počne tamo gde je sada, a zatim mnogo puta da se poveća za jedan. Svaki put kada se poveća, treba da pozoveš `moveTo(...)` koristeći promenljivu kao ulaz."
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "Pomera lopticu na **poziciju**.",
+      "category": "Kretanje"
+    }
+  },
+  "describers": {
+    "moveTo": "pomerila lopticu na poziciju ${arg1}"
+  }
+}

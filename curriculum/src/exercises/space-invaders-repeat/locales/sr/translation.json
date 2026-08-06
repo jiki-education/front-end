@@ -1,0 +1,49 @@
+{
+  "describers": {
+    "move": "pomerio laserski top udesno"
+  },
+  "checks": {
+    "notShotAllAliens": "Nisi oborio sve vanzemaljce.",
+    "tooManyLines": "Tvoje rešenje ima previše linija koda. Probaj da koristiš `repeat` petlju da ga skratiš!"
+  },
+  "tasks": {
+    "repeatShoot": {
+      "name": "Koristi `repeat` petlju da oboriš sve vanzemaljce",
+      "description": "Pronađi šablon u pozicijama vanzemaljaca i koristi `repeat` petlju da ih uništiš sve u 7 linija koda ili manje."
+    }
+  },
+  "scenarios": {
+    "repeatShoot": {
+      "name": "Ponavljanje i pucanje",
+      "description": "Koristi `repeat` petlju da oboriš sve vanzemaljce."
+    }
+  },
+  "hints": {
+    "avoidRepeating": {
+      "question": "Kako da izbegnem da pišem `move()` i `shoot()` iznova i iznova?",
+      "answer": "Koristi `repeat` petlju. `repeat(n) { ... }` pokreće isti blok koda `n` puta."
+    },
+    "repeatingPattern": {
+      "question": "Koji šablon se ponavlja u pozicijama vanzemaljaca?",
+      "answer": "Tvoj laserski top počinje levo od vanzemaljaca, a oni se nalaze u svakoj drugoj koloni sa tri vanzemaljca naslagana u svakoj. Dakle, šablon za svaku kolonu je: `move`, `move`, `shoot`, `shoot`, `shoot`. Pomičeš se preko praznog prostora na kolonu sa vanzemaljcima, a zatim obaraš sva tri reda. Ta grupa od pet koraka je ono što želiš da ponavljaš."
+    },
+    "howManyTimes": {
+      "question": "Koliko puta treba da ponovim šablon?",
+      "answer": "Izbroj grupe vanzemaljaca preko ekrana i koristi taj broj kao argument za `repeat`."
+    },
+    "why7Lines": {
+      "question": "Zašto cilj traži samo 7 linija?",
+      "answer": "Jedna linija za zaglavlje `repeat`, pet ponavljajućih akcija unutra i jedna linija za zatvorenu vitičastu zagradu čini sedam. Sve što ti treba staje unutar petlje, bez ičega izvan nje. Ako pišeš više, verovatno još ne koristiš petlju."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Pomera laserski top **jedno mesto udesno**. Ako odeš sa desne ivice ekrana, gubiš!",
+      "category": "Kretanje"
+    },
+    "shoot": {
+      "description": "Ispaljuje laser nagore. **Pucaj samo kada se vanzemaljac nalazi iznad tebe**, ili gubiš igru!",
+      "category": "Akcija"
+    }
+  }
+}

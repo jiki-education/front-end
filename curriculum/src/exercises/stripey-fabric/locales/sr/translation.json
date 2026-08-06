@@ -1,0 +1,51 @@
+{
+  "checks": {
+    "stripe1Purple": "Pruga 1 je krajnja, pa treba da bude ljubičasta.",
+    "stripe2Blue": "Pruga 2 treba da bude plava (parna je, ali nije višekratnik broja 4).",
+    "stripe3Yellow": "Pruga 3 treba da bude žuta (neparna je i nije krajnja pruga).",
+    "stripe4Green": "Pruga 4 treba da bude zelena. Višekratnik je broja 4, pa proveri pravilo za višekratnike broja 4 pre pravila za parne brojeve.",
+    "stripe5Yellow": "Pruga 5 treba da bude žuta (neparna je i nije krajnja pruga).",
+    "stripe6Blue": "Pruga 6 treba da bude plava (parna je, ali nije višekratnik broja 4).",
+    "stripe8Green": "Pruga 8 treba da bude zelena (višekratnik je broja 4).",
+    "stripe12Green": "Pruga 12 treba da bude zelena (višekratnik je broja 4).",
+    "stripe19Yellow": "Pruga 19 treba da bude žuta (neparna je i nije krajnja pruga).",
+    "stripe20Purple": "Pruga 20 je krajnja, pa treba da bude ljubičasta (iako je parna).",
+    "rectangleOnce": "Koristiš funkciju <code>rectangle</code> na više mesta. Treba da se pojavi samo jednom, unutar petlje - nemoj ručno da pišeš svih 20 pruga!"
+  },
+  "tasks": {
+    "weaveTheFabric": {
+      "name": "Ispleti tkaninu",
+      "description": "Nacrtaj 20 vertikalnih pruga. Dve krajnje pruge su ljubičaste; inače, višekratnici broja 4 su zeleni, ostale parne pruge su plave, a neparne pruge su žute."
+    }
+  },
+  "scenarios": {
+    "weaveTheFabric": {
+      "name": "Ispleti prugastu tkaninu",
+      "description": "Nacrtaj svih 20 pruga u ispravnim bojama."
+    }
+  },
+  "hints": {
+    "howToDraw20Stripes": {
+      "question": "Kako da nacrtam 20 pruga na različitim mestima?",
+      "answer": "Vodi brojač (nazovi ga `i`) i povećavaj ga za jedan unutar `repeat` petlje. Pruga broj `i` je široka `5`, tako da je njen levi rub `(i - 1) * 5`. Nacrtaj `rectangle` tamo širine `5` i visine `100`."
+    },
+    "endStripesPurple": {
+      "question": "Kako da napravim da samo dve krajnje pruge budu ljubičaste?",
+      "answer": "Krajnje pruge su prva i poslednja. Jedno poređenje ne može da obuhvati 'jedna vrednost ILI druga', pa koristi `||` (ili): nešto poput `if (n === 3 || n === 7)` je tačno za bilo koju vrednost. Primeni to na brojeve dve krajnje pruge."
+    },
+    "multipleOf4VsEven": {
+      "question": "Kako da razlikujem višekratnik broja 4 od običnog parnog broja?",
+      "answer": "Koristi `%` operator (ostatak): `n % 4 === 0` je tačno samo za višekratnike broja 4, a `n % 2 === 0` je tačno za sve parne brojeve. Višekratnici broja 4 su takođe parni, pa prvo proveri strože pravilo za višekratnike broja 4."
+    },
+    "stripe4Blue": {
+      "question": "Pruga 4 ispadne plava, a trebalo bi da bude zelena. Zašto?",
+      "answer": "Redosled je važan u `if` / `else if` lancu. 4 je višekratnik broja 4 I paran, pa ako prvo proveriš `i % 2 === 0`, postaje plava i nikada ne stiže do zelenog pravila. Proveri pravilo za višekratnike broja 4 pre pravila za parne brojeve."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Nacrtaj pravougaonik na poziciji (levo, gore) sa zadatom širinom, visinom i bojom.",
+      "category": "Crtanje oblika"
+    }
+  }
+}

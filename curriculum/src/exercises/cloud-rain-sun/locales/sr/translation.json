@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "sun": "Sunce nije ispravno.",
+    "cloudBody": "Telo oblaka nije ispravno.",
+    "leftPuff": "Levi oblačak nije ispravan.",
+    "leftCenterPuff": "Levo-središnji oblačak nije ispravan.",
+    "rightCenterPuff": "Desno-središnji oblačak nije ispravan.",
+    "rightPuff": "Desni oblačak nije ispravan.",
+    "rainDrop": "Jedna od kišnih kapi nije ispravna."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "Nacrtaj vremensku scenu",
+      "description": "Napravi vremensku scenu sa žutim suncem, belim oblakom i plavim kišnim kapima."
+    }
+  },
+  "scenarios": {
+    "drawScene": {
+      "name": "Nacrtaj vremensku scenu",
+      "description": "Napravi celu vremensku scenu sa suncem, oblakom i kišom."
+    }
+  },
+  "hints": {
+    "cloudShape": {
+      "question": "Kako da napravim pahuljasti oblak od jednostavnih oblika?",
+      "answer": "Oblak je jedan pravougaonik (već nacrtan kao osnova) sa `circle`-ovima smeštenim duž njegove gornje ivice, kako bi imao neravan obris."
+    },
+    "raindropShape": {
+      "question": "Kako da napravim kišnu kap pomoću `ellipse`?",
+      "answer": "Kišne kapi su visoke i tanke, pa je vertikalni poluprečnik veći od horizontalnog. Horizontalni poluprečnik je `3` (jedini broj koji nije deljiv sa 5)."
+    },
+    "sunOnTop": {
+      "question": "Zašto se moje sunce prikazuje preko oblaka?",
+      "answer": "Oblici koji se crtaju kasnije stoje ispred onih nacrtanih ranije. Prvo nacrtaj sunce, a zatim oblak preko njega, tako da oblak izgleda kao da je ispred sunca."
+    },
+    "notMatchingTemplate": {
+      "question": "Zašto moj crtež ne odgovara linijama šablona?",
+      "answer": "Tvoji oblici treba da budu tačno unutar linija vodiča, a ne preko njih. Skoro svi brojevi koji su ti potrebni su deljivi sa 5, pa isprobaj najbliži umnožak broja 5 ako oblik deluje malo pogrešno."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Crta pravougaonik na poziciji (levo, gore) sa zadatom širinom, visinom i bojom.",
+      "category": "Crtanje oblika"
+    },
+    "circle": {
+      "description": "Crta krug sa centrom u (centerX, centerY) sa zadatim poluprečnikom i bojom.",
+      "category": "Crtanje oblika"
+    },
+    "ellipse": {
+      "description": "Crta elipsu sa centrom u (centerX, centerY) sa horizontalnim poluprečnikom radiusX, vertikalnim poluprečnikom radiusY i bojom.",
+      "category": "Crtanje oblika"
+    }
+  }
+}

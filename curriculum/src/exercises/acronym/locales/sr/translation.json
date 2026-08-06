@@ -1,0 +1,88 @@
+{
+  "tasks": {
+    "createAcronymFunction": {
+      "name": "Napiši funkciju `acronym`",
+      "description": "Napiši funkciju koja prima frazu i vraća njen akronim: prvo slovo svake reči, velikim slovom. Reči su odvojene razmacima i crticama, a svi ostali znaci interpunkcije se zanemaruju."
+    },
+    "solveTightly": {
+      "name": "Reši u 46 linija",
+      "description": "Bonus: ako proveru slova i pretvaranje u veliko slovo izdvojiš u pomoćne funkcije koje `acronym` ponovo koristi, celo rešenje staje u 46 linija. Možeš li da ga postigneš?"
+    }
+  },
+  "scenarios": {
+    "png": {
+      "name": "Osnovni akronim: PNG",
+      "description": "Pretvori `Portable Network Graphics` u `PNG`."
+    },
+    "ror": {
+      "name": "Reči malim slovima: ROR",
+      "description": "Pretvori `Ruby on Rails` u `ROR`."
+    },
+    "gimp": {
+      "name": "Reč velikim slovima: GIMP",
+      "description": "Pretvori `GNU Image Manipulation Program` u `GIMP`."
+    },
+    "firstWordOnly": {
+      "name": "Jedna reč: H",
+      "description": "Pretvori `HyperText` u `H`."
+    },
+    "hyphenated": {
+      "name": "Fraza sa crticom: CMOS",
+      "description": "Pretvori `Complementary metal-oxide semiconductor` u `CMOS`."
+    },
+    "fifo": {
+      "name": "Odvojeno zarezima: FIFO",
+      "description": "Pretvori `First In, First Out` u `FIFO`."
+    },
+    "punctuation": {
+      "name": "Sa interpunkcijom: PHT",
+      "description": "Pretvori `Portable, HyperText, Transmitter` u `PHT`."
+    },
+    "hc": {
+      "name": "Sa apostrofom: HC",
+      "description": "Pretvori `Halley's Comet` u `HC`."
+    },
+    "simufta": {
+      "name": "Uzastopni separator: SIMUFTA",
+      "description": "Pretvori `Something - I made up from thin air` u `SIMUFTA`."
+    },
+    "trnt": {
+      "name": "Podvučeno: TRNT",
+      "description": "Pretvori `The Road _Not_ Taken` u `TRNT`."
+    },
+    "long": {
+      "name": "Veoma dugačak: ROTFLSHTMDCOALM",
+      "description": "Pretvori `Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me` u `ROTFLSHTMDCOALM`."
+    },
+    "emoji": {
+      "name": "Sa emodžijem: HW",
+      "description": "Pretvori `Hello 👋 World` u `HW`."
+    },
+    "acronymBonusLineCount": {
+      "name": "Uredno i čisto",
+      "description": "Najuurednije rešenje ponovo koristi pomoćne funkcije i staje u 46 linija. Možeš li da ga pronađeš?"
+    }
+  },
+  "checks": {
+    "tooManyLines": "Samo napred! Probaj da ga rešiš sa manje linija.",
+    "noMethods": "Ova vežba je o izradi alata od nule. Reši je bez korišćenja ugrađenih metoda."
+  },
+  "hints": {
+    "pickLetters": {
+      "question": "Kako da odaberem koja slova postaju akronim?",
+      "answer": "Akronim se sastoji od prvog slova svake reči: prvo slovo fraze, plus prvo slovo posle svakog razmaka ili crtice."
+    },
+    "findWordStarts": {
+      "question": "Kako da znam kada počinje nova reč?",
+      "answer": "Prođi kroz frazu znak po znak i prati da li si na početku nove reči. Na samom početku si odmah na početku, a zatim ponovo odmah posle svakog razmaka ili crtice. Sve što nije slovo (interpunkcija, donje crte, apostrofi) treba preskočiti, umesto da se računa kao početak reči."
+    },
+    "buildResult": {
+      "question": "Kako da gradim rezultat dok prolazim kroz frazu?",
+      "answer": "Počni sa praznim stringom i dodaj svako odabrano slovo na kraj pomoću `+`."
+    },
+    "uppercaseLetters": {
+      "question": "Kako da pretvorim slovo u veliko kada ne postoji ugrađena funkcija za to?",
+      "answer": "Ovde nema ugrađene funkcije za pretvaranje u velika slova. Kao u vežbi Pangram, možeš da poređaš nisku malih slova i nisku velikih slova, pa da svako slovo zameniš odgovarajućim velikim slovom sa iste pozicije. Slova koja su već velika mogu da ostanu kakva jesu."
+    }
+  }
+}

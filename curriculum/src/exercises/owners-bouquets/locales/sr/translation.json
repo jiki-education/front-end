@@ -1,0 +1,56 @@
+{
+  "checks": {
+    "flowerCount_one": "Vlasnik je očekivao da vidi {{count}} zasađen cvet. Ali je posađeno {{got}}.",
+    "flowerCount_other": "Vlasnik je očekivao da vidi {{count}} zasađenih cvetova. Ali je posađeno {{got}}.",
+    "flowerAtPosition": "Očekivano je da cvet bude na poziciji {{position}}, ali nije pronađen.",
+    "strayFlower": "Pronađen je cvet na poziciji {{position}}, što nije mesto gde ga je vlasnik želeo. Cvetovi treba da budu ravnomerno raspoređeni."
+  },
+  "tasks": {
+    "plantFlowersEvenly": {
+      "name": "Posadi cveće ravnomerno",
+      "description": "Koristi askNumberOfFlowers() da saznaš koliko cveća treba posaditi, izračunaj razmak, i posadi ih ravnomerno raspoređene."
+    }
+  },
+  "scenarios": {
+    "oneFlower": {
+      "name": "Vlasnik želi 1 cvet",
+      "description": "U ovom scenariju, `askNumberOfFlowers()` će vratiti 1. Posadi 1 cvet na poziciju 50."
+    },
+    "threeFlowers": {
+      "name": "Vlasnik želi 3 cveta",
+      "description": "U ovom scenariju, `askNumberOfFlowers()` će vratiti 3. Posadi 3 cveta na pozicije 25, 50 i 75."
+    },
+    "fourFlowers": {
+      "name": "Vlasnik želi 4 cveta",
+      "description": "U ovom scenariju, `askNumberOfFlowers()` će vratiti 4. Posadi 4 cveta na pozicije 20, 40, 60 i 80."
+    },
+    "nineFlowers": {
+      "name": "Vlasnik želi 9 cvetova",
+      "description": "U ovom scenariju, `askNumberOfFlowers()` će vratiti 9. Posadi 9 cvetova na pozicije 10, 20, 30, 40, 50, 60, 70, 80 i 90."
+    }
+  },
+  "hints": {
+    "chooseGap": {
+      "question": "Kako da odredim gde da posadim svaki cvet?",
+      "answer": "Prvo izračunaj razmak između cvetova:\n\n```javascript\n100 / (numberOfFlowers + 1)\n```\n\nPrvi cvet ide na tu poziciju, a svaki sledeći cvet je za jedan razmak dalje. Dakle, ako ima 3 cveta razmak je 25, i oni idu na 25, 50 i 75."
+    },
+    "seeScenarios": {
+      "question": "Kako da vidim različite scenarije?",
+      "answer": "Klikni na krugove sa leve strane, između tvog koda i rezultata."
+    }
+  },
+  "functions": {
+    "askNumberOfFlowers": {
+      "description": "Vraća **broj cvetova** koje treba posaditi.",
+      "category": "Baštovanstvo"
+    },
+    "plant": {
+      "description": "Sadi cvet na datoj **poziciji**.",
+      "category": "Baštovanstvo"
+    }
+  },
+  "describers": {
+    "askNumberOfFlowers": "zatražen je broj cvetova za sadnju",
+    "plant": "posađen je cvet na poziciji ${arg1}"
+  }
+}

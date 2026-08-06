@@ -1,0 +1,62 @@
+{
+  "tasks": {
+    "countNucleotide": {
+      "name": "Prebrojavanje nukleotida",
+      "description": "Napiši funkciju koja broji koliko puta se određeni nukleotid (A, C, G ili T) pojavljuje u lancu DNK. Vrati -1 ako nukleotid ili bilo koji karakter u lancu nije validan."
+    }
+  },
+  "scenarios": {
+    "nucleotideEmptyStrand": {
+      "name": "Prazan lanac",
+      "description": "Prazan lanac treba da vrati 0 za bilo koji validan nukleotid."
+    },
+    "nucleotideSingleMatch": {
+      "name": "Lanac sa jednim nukleotidom",
+      "description": "Lanac sa jednim karakterom koji odgovara traženom nukleotidu treba da vrati 1."
+    },
+    "nucleotideRepeated": {
+      "name": "Ponovljeni nukleotid",
+      "description": "Lanac sa ponovljenim nukleotidima treba da ih sve prebroji."
+    },
+    "nucleotideMixedStrandA": {
+      "name": "Prebroj A u mešovitom lancu",
+      "description": "Prebroji određeni nukleotid u mešovitom lancu."
+    },
+    "nucleotideMixedStrandT": {
+      "name": "Prebroj T u mešovitom lancu",
+      "description": "Prebroji drugi nukleotid u istom lancu."
+    },
+    "nucleotideInvalidNucleotide": {
+      "name": "Nevalidan nukleotid",
+      "description": "Nevalidan nukleotid treba da vrati -1."
+    },
+    "nucleotideInvalidStrand": {
+      "name": "Nevalidan lanac",
+      "description": "Lanac koji sadrži nevalidne karaktere treba da vrati -1."
+    }
+  },
+  "hints": {
+    "checkValid": {
+      "question": "Kako da proverim da li je karakter koji mi je zadat validan?",
+      "answer": "Stringovi imaju metodu `includes()` koja ti govori da li se jedan string nalazi unutar drugog. To je zgodan način da proveriš da li je karakter jedan od validnih nukleotida. Proveri pre nego što počneš da brojiš."
+    },
+    "invalidNucleotide": {
+      "question": "Šta da radim ako je nukleotid nevalidan?",
+      "answer": "Vrati `-1` odmah. Specifikacija koristi tu vrednost da označi nevalidan unos."
+    },
+    "countOccurrences": {
+      "question": "Kako da prebrojim pojavljivanja u lancu?",
+      "answer": "Prođi kroz svaki karakter lanca. Ako se karakter poklapa sa nukleotidom koji brojiš, dodaj 1 na brojač. Na kraju vrati brojač."
+    },
+    "validateStrand": {
+      "question": "Da li treba da proverim i lanac?",
+      "answer": "Da. Ako bilo koji karakter u lancu nije validan nukleotid, vrati `-1`. Proveri svaki karakter pre brojanja."
+    }
+  },
+  "functions": {
+    "includes": {
+      "description": "Proverava da li string sadrži manji string (obezbeđeno od strane stdlib-a nivoa).",
+      "category": "Operacije sa stringovima"
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "checks": {
+    "totalCells": "Očekivano {{expectedTotal}} ukupno ćelija, ali pronađeno {{got}}.",
+    "wrongPosition": "Zgrada {{building}} nije na pravom mestu. Počinje od kolone {{start}}, a trebalo bi da počinje od kolone {{expected}}.",
+    "wrongEntrance": "Zgrada {{building}}: ulaz nije na pravom mestu.",
+    "wrongGroundWalls": "Zgrada {{building}}: bočni zidovi prizemlja nisu ispravni.",
+    "wrongRoof": "Zgrada {{building}}: krov nije potpun."
+  },
+  "tasks": {
+    "buildSkyline": {
+      "name": "Izgradi gradsku panoramu",
+      "description": "Izgradi više zgrada slučajnih širina i visina kako bi napravio gradsku panoramu."
+    }
+  },
+  "scenarios": {
+    "buildings1": {
+      "name": "1 zgrada",
+      "description": "Izgradi jednu zgradu slučajne širine i visine."
+    },
+    "buildings2": {
+      "name": "2 zgrade",
+      "description": "Izgradi 2 zgrade slučajnih širina i visina."
+    },
+    "buildings3": {
+      "name": "3 zgrade",
+      "description": "Izgradi 3 zgrade slučajnih širina i visina."
+    },
+    "buildings4": {
+      "name": "4 zgrade",
+      "description": "Izgradi 4 zgrade slučajnih širina i visina."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Odakle da počnem sa ovako velikom vežbom?",
+      "answer": "Razloži na delove. Spoljašnja struktura je jedna petlja po zgradi. Unutar te petlje crtaš tri stvari redom: prizemlje (sa ulazom), gornje spratove (samo zidove i staklo) i ravan krov. Prvo obezbedi da prvi scenario prolazi za jednu zgradu, pre nego što brineš o više zgrada."
+    },
+    "buildingDimensions": {
+      "question": "Kako da znam kako koja zgrada treba da izgleda?",
+      "answer": "Pozovi `randomWidth()` i `randomNumFloors()` jednom na početku iteracije svake zgrade i sačuvaj oba u lokalne promenljive. Ako ih ponovo pozoveš, dobićeš vrednosti za *sledeću* zgradu, zato ih ne pozivaj ponovo unutar redova."
+    },
+    "trackPosition": {
+      "question": "Kako da pratim gde ide sledeća zgrada?",
+      "answer": "Čuvaj jednu promenljivu za kolonu sa leve strane trenutne zgrade. Postavi je na levu prazninu iz specifikacije. Kada završiš zgradu, pomeri je za širinu te zgrade plus za prazninu između zgrada. Ta jedna promenljiva je sve što ti treba za stanje horizontalnog pozicioniranja."
+    },
+    "groundFloorLayout": {
+      "question": "Kako da rasporedim prizemlje sa ulazom u sredini?",
+      "answer": "Prolazi kroz zgradu kolonu po kolonu. Prva i poslednja kolona su zidovi; sve između je staklo; jedna središnja kolona je ulaz. Kolona ulaza se izračunava na osnovu leve ivice zgrade i njene širine."
+    },
+    "upperFloorsAndRoof": {
+      "question": "Kako da nacrtam gornje spratove i krov?",
+      "answer": "Svaki gornji sprat je isti obrazac kao prizemlje bez ulaza: zidovi sa strane, staklo između. Upamti da se prizemlje već računa kao jedan sprat, tako da samo slažeš preostale spratove iznad njega, penjući se po `y` osi. Krov je zatim jedan pun red zidova koji pokriva celu širinu na vrhu, i ne računa se kao sprat."
+    },
+    "stuckError": {
+      "question": "Kod moje druge zgrade se javlja greška „the builders are stuck, there's already a wall here“. Šta nije u redu?",
+      "answer": "Tvoja druga zgrada pokušava da gradi preko prve, jer ne pomeraš svoj kolonski tragač između zgrada. Nakon što nacrtaš svaku zgradu, povećaj ga za `width + gap` pre nego što sledeća iteracija počne. Ako zaboraviš, svaka zgrada počinje sa iste leve ivice i sudara se sa prethodnom."
+    }
+  },
+  "functions": {
+    "buildWall": {
+      "description": "Postavlja **zidni blok** na poziciju na mreži (x, y).",
+      "category": "Građenje"
+    },
+    "buildGlass": {
+      "description": "Postavlja **stakleni panel** na poziciju na mreži (x, y).",
+      "category": "Građenje"
+    },
+    "buildEntrance": {
+      "description": "Postavlja **ulazna vrata** na poziciju na mreži (x, y).",
+      "category": "Građenje"
+    },
+    "numBuildings": {
+      "description": "Vraća **broj zgrada** koje treba izgraditi.",
+      "category": "Informacije"
+    },
+    "randomWidth": {
+      "description": "Vraća **slučajnu širinu zgrade**: 3, 5 ili 7.",
+      "category": "Informacije"
+    },
+    "randomNumFloors": {
+      "description": "Vraća **slučajan broj spratova** između 1 i 12.",
+      "category": "Informacije"
+    }
+  },
+  "describers": {
+    "buildWall": "postavio zid na poziciju (${arg1}, ${arg2})",
+    "buildEntrance": "postavio ulaz na poziciju (${arg1}, ${arg2})",
+    "buildGlass": "postavio stakleni panel na poziciju (${arg1}, ${arg2})",
+    "numBuildings": "dohvatio broj zgrada",
+    "randomWidth": "dohvatio slučajnu širinu zgrade (3-7)",
+    "randomNumFloors": "dohvatio slučajan broj spratova (1-12)"
+  }
+}

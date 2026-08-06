@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "notShotAllAliens": "Nisu oboreni svi vanzemaljci.",
+    "functionNotDefined": "Moraš da definišeš funkciju <code>shootIfAlienAbove</code>.",
+    "functionNotCalled": "Definisana je funkcija <code>shootIfAlienAbove</code>, ali moraš da je zaista pozoveš u svom rešenju."
+  },
+  "tasks": {
+    "battleProcedures": {
+      "name": "Kreiraj funkciju shootIfAlienAbove i iskoristi je da pobediš u igri",
+      "description": "Izdvoji logiku pucanja u funkciju shootIfAlienAbove(), a zatim je koristi zajedno sa logikom kretanja da pobediš sve vanzemaljce."
+    }
+  },
+  "scenarios": {
+    "battleProcedures": {
+      "name": "Borbene procedure",
+      "description": "Pobedi sve vanzemaljce koristeći svoju funkciju shootIfAlienAbove"
+    }
+  },
+  "hints": {
+    "wherePutFunction": {
+      "question": "Gde da stavim funkciju `shootIfAlienAbove`?",
+      "answer": "Definiši je na vrhu svog koda, pre petlje. Kada je definisana, možeš da je pozoveš iz petlje koliko god puta želiš."
+    },
+    "whatGoesInside": {
+      "question": "Šta ide unutar funkcije `shootIfAlienAbove`?",
+      "answer": "Koristi `if` naredbu koja proverava `isAlienAbove()`. Kada to vrati `true`, pozovi `shoot()`. To je celo telo funkcije."
+    },
+    "whatStaysInLoop": {
+      "question": "Šta ostaje u petlji?",
+      "answer": "Sva logika kretanja ostaje u petlji, isto kao u vežbi pomeraj-i-pucaj. Svaka iteracija: pozovi `shootIfAlienAbove()`, zatim pomeri top, pa promeni smer na granicama."
+    },
+    "trackCannon": {
+      "question": "Kako da pratim gde se top nalazi i u kom smeru ide?",
+      "answer": "Koristi dve promenljive koje ažuriraš u svakoj iteraciji. Na primer, promenljivu `position` koja se povećava ili smanjuje, i promenljivu `direction` koja je `\"right\"` ili `\"left\"` i menja se kada dođeš do ivice."
+    }
+  },
+  "functions": {
+    "moveLeft": {
+      "description": "Pomera laserski top za **jedno mesto ulevo**. Ako pokušaš da se pomeriš preko leve ivice ekrana, izgubićeš igru!",
+      "category": "Kretanje"
+    },
+    "moveRight": {
+      "description": "Pomera laserski top za **jedno mesto udesno**. Ako pokušaš da se pomeriš preko desne ivice ekrana, izgubićeš igru!",
+      "category": "Kretanje"
+    },
+    "shoot": {
+      "description": "Puca laserski zrak nagore. **Pucaj samo kada se iznad tebe nalazi vanzemaljac**, ili ćeš izgubiti igru! Laserski top se lako pregrejava, pa moraš da se pomeriš pre ponovnog pucanja.",
+      "category": "Akcija"
+    },
+    "isAlienAbove": {
+      "description": "Vraća `true` ako se vanzemaljac nalazi direktno iznad laserskog topa, ili `false` ako ne. Iskoristi ovo da proveriš pre pucanja!",
+      "category": "Detekcija"
+    }
+  }
+}

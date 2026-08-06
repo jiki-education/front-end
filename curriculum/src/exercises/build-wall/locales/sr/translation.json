@@ -1,0 +1,56 @@
+{
+  "checks": {
+    "bottomLeft": "Donji levi pravougaonik nije ispravan.",
+    "bottomRight": "Donji desni pravougaonik nije ispravan.",
+    "secondRowFirst": "Prvi pravougaonik u drugom redu odozdo nije ispravan.",
+    "secondRowLast": "Poslednji pravougaonik u drugom redu odozdo nije ispravan.",
+    "thirdRowMiddle": "Srednji pravougaonik u trećem redu odozdo nije ispravan.",
+    "fourthRowMiddle": "Jedan od srednjih pravougaonika u četvrtom redu odozdo nije ispravan.",
+    "topLeft": "Gornji levi pravougaonik nije ispravan.",
+    "topRight": "Gornji desni pravougaonik nije ispravan.",
+    "brickCount": "Zid treba da se sastoji od tačno 55 cigli.",
+    "codeQuality": {
+      "rectangleCalledOnce": "Koristiš funkciju <code>rectangle</code> na više mesta u kodu. Treba da se pojavi samo jednom!"
+    }
+  },
+  "tasks": {
+    "buildWall": {
+      "name": "Izgradi zid",
+      "description": "Izgradi ceo zid od 55 cigli koristeći ugnežđene petlje."
+    }
+  },
+  "scenarios": {
+    "buildWall": {
+      "name": "Izgradi zid od 55 cigli",
+      "description": "Napravi ceo šablon zida od cigli koristeći ugnežđene petlje."
+    }
+  },
+  "hints": {
+    "onlyOneRectangleCall": {
+      "question": "Mogu da pozovem `rectangle` samo jednom. Kako da nacrtam 55 cigli?",
+      "answer": "Postavi jedini poziv funkcije `rectangle` unutar petlje. Svaka iteracija menja x i y tako da se nova cigla crta na novom mestu."
+    },
+    "wholeGrid": {
+      "question": "Kako da nacrtam celu mrežu, a ne samo jedan red?",
+      "answer": "Koristi ugnežđene petlje. Spoljna petlja prolazi kroz redove (menja y), a unutrašnja petlja prolazi kroz cigle u tom redu (menja x)."
+    },
+    "offsetRows": {
+      "question": "Kako da se nosim sa redovima koji su različito pomereni?",
+      "answer": "Pogledaj pažljivo sliku. Svaki drugi red je pomeren u stranu i ima različit broj cigli. Zato ćeš želeti da obrađuješ dve vrste redova različito, birajući početnu poziciju i broj cigli za svaki."
+    },
+    "oddEven": {
+      "question": "Kako da znam da li je broj reda paran ili neparan?",
+      "answer": "Operator `%` (moduo) daje ostatak pri deljenju. Deljenjem broja reda sa 2 dobijaš način da razlikuješ neparne redove od parnih, što zatim možeš da proveriš unutar `if` naredbe."
+    },
+    "sizesAndSpacings": {
+      "question": "Koje veličine i razmake da koristim?",
+      "answer": "Svaka cigla je široka `20` i visoka `10`, tako da se x povećava za `20` između cigli u redu, a y se menja za `10` između redova."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Crta pravougaonik na poziciji (levo, gore) sa datom širinom, visinom i bojom.",
+      "category": "Crtanje oblika"
+    }
+  }
+}

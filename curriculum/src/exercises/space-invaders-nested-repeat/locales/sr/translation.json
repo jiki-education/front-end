@@ -1,0 +1,37 @@
+{
+  "describers": {
+    "move": "pomerio laserski top udesno"
+  },
+  "checks": {
+    "notShotAllAliens": "Nisu svi vanzemaljci oboreni.",
+    "tooManyLines": "Tvoje rešenje ima previše linija koda. Probaj da koristiš repeat petlju unutar druge repeat petlje da skratiš kod!"
+  },
+  "tasks": {
+    "nestedRepeatShoot": {
+      "name": "Koristi ugnežđene repeat petlje da oboriš sve vanzemaljce.",
+      "description": "Pronađi šablon u rasporedu vanzemaljaca i koristi repeat petlju unutar druge repeat petlje da ih sve uništiš u 7 linija koda ili manje."
+    }
+  },
+  "scenarios": {
+    "nestedRepeatShoot": {
+      "name": "Ugnežđeno ponavljanje i pucanje",
+      "description": "Koristi ugnežđene repeat petlje da oboriš sve vanzemaljce."
+    }
+  },
+  "hints": {
+    "cantGetTo7Lines": {
+      "question": "Ne mogu da dođem do 7 linija koda.",
+      "answer": "Razmišljaj o ovom nivou kao o dva bloka akcija koje treba da se izvrše.\n\n- Prvi blok je unutrašnji, u kome pucamo 4 puta - potrudi se da on bude tri linije dugačak.\n- Spoljašnji blok je unutrašnji blok sa pomeranjem sa obe strane. I taj spoljašnji blok treba ponoviti nekoliko puta.\n\nAko organizuješ svoj kod na ovaj način, trebalo bi da prirodno dobiješ 7 linija koda."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Pomera laserski top **jedno mesto udesno**. Ako se pomeriš sa desne ivice ekrana, gubiš!",
+      "category": "Pomeranje"
+    },
+    "shoot": {
+      "description": "Ispaljuje laser nagore. **Pucaj samo kada je vanzemaljac iznad tebe**, ili gubiš igru!",
+      "category": "Akcija"
+    }
+  }
+}

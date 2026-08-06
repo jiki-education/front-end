@@ -1,0 +1,56 @@
+{
+  "checks": {
+    "age25NotLetIn": "Osoba ima 25 godina — trebalo je da bude puštena unutra, ali nije.",
+    "age18LetIn": "Osoba ima 18 godina — nije trebalo da bude puštena unutra, ali jeste.",
+    "age21NotLetIn": "Osoba ima 21 godinu — trebalo je da bude puštena unutra, ali nije.",
+    "age20LetIn": "Osoba ima tačno 20 godina — nije preko 20, tako da nije trebalo da bude puštena unutra, ali jeste."
+  },
+  "tasks": {
+    "checkAge": {
+      "name": "Proveri godine osobe",
+      "description": "Dobavi godine osobe i proveri da li ima preko 20 godina. Ako ima, pusti je unutra."
+    }
+  },
+  "scenarios": {
+    "age25": {
+      "name": "25 godina",
+      "description": "Osoba ima 25 godina — treba da bude puštena unutra."
+    },
+    "age18": {
+      "name": "18 godina",
+      "description": "Osoba ima 18 godina — ne treba da bude puštena unutra."
+    },
+    "age21": {
+      "name": "21 godina",
+      "description": "Osoba ima 21 godinu — tek preko 20, treba da bude puštena unutra."
+    },
+    "age20": {
+      "name": "20 godina",
+      "description": "Osoba ima tačno 20 godina — nije preko 20, tako da ne treba da bude puštena unutra."
+    }
+  },
+  "hints": {
+    "askAge": {
+      "question": "Kako da saznam koliko ima godina?",
+      "answer": "Koristi funkciju `askAge()`. Ona će vratiti različitu vrednost u svakom scenariju."
+    },
+    "ifStatement": {
+      "question": "Kako da menjam ono što radim?",
+      "answer": "Koristi `if` naredbu — pogledaj koncept ako ti treba dodatna pomoć!"
+    }
+  },
+  "describers": {
+    "askAge": "pitao za godine osobe",
+    "letIn": "pustio osobu unutra"
+  },
+  "functions": {
+    "askAge": {
+      "description": "Vraća **godine** osobe koja čeka napolju.",
+      "category": "Informacije"
+    },
+    "letIn": {
+      "description": "Pušta osobu unutra.",
+      "category": "Akcija"
+    }
+  }
+}

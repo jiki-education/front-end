@@ -1,0 +1,97 @@
+{
+  "tasks": {
+    "findGuestTable": {
+      "name": "Pronađi sto gosta",
+      "description": "Napiši funkciju koja prima listu punih imena gostiju, odgovarajuću listu imena stolova i gosta koji dolazi, najavljenog kao oslovljavanje i prezime. Vrati ime stola za kojim taj gost sedi, ili `\"No table found\"` ako nije na rasporedu sedenja."
+    },
+    "solveTightly": {
+      "name": "Reši sažeto",
+      "description": "Bonus: ovo se može napisati mnogo kompaktnije nego što očekuješ. Možeš li da celo rešenje svedeš na svega nekoliko redova?"
+    }
+  },
+  "scenarios": {
+    "emptyList": {
+      "name": "Prazan raspored sedenja",
+      "description": "Niko ne sedi nigde kada je raspored prazan."
+    },
+    "nameMissing": {
+      "name": "Brad je odbijen",
+      "description": "Ime nije na rasporedu sedenja."
+    },
+    "namePresent": {
+      "name": "Brad je upućen do svog stola",
+      "description": "Brad Pitt je na rasporedu, pa gospodin Pitt dobija svoj sto."
+    },
+    "differentHonorific": {
+      "name": "Vitez kraljevstva",
+      "description": "Drugo oslovljavanje i gost koji nije prvi na rasporedu."
+    },
+    "bondSeated": {
+      "name": "Gospodin Bond, pretpostavljam",
+      "description": "James Bond je na rasporedu."
+    },
+    "bondNotSeated": {
+      "name": "Hmmm... Gospodin Bond, pretpostavljam",
+      "description": "Na rasporedu je samo Jason Bourne, a ne James Bond."
+    },
+    "partialSurname": {
+      "name": "Nije baš gospodin Pitt",
+      "description": "Ni Ada Spitt ni Hugo Ross-Pitt nisu gospodin Pitt, tako da on nema mesto ovde."
+    },
+    "lloydWebber": {
+      "name": "Šta kažeš na barona?",
+      "description": "Baron Lloyd Webber ima dve reči u prezimenu."
+    },
+    "markWebber": {
+      "name": "Da li je Mark baron?",
+      "description": "Drugi Webber se ne računa - prezime mora da se poklopi u celosti."
+    },
+    "formalDinnerBonusLineCount": {
+      "name": "Uredno i pregledno: Lord Doyle",
+      "description": "Isti raspored sedenja kao pre, ali ovog puta tvoje rešenje mora da stane u mnogo manji broj redova."
+    }
+  },
+  "hints": {
+    "twoLists": {
+      "question": "Kako su dve liste povezane?",
+      "answer": "One su par. Prvi gost sedi za prvim stolom, drugi gost za drugim stolom, i tako dalje. Dakle, nije dovoljno znati *da* je gost na rasporedu - treba da znaš *gde* se na rasporedu nalazi."
+    },
+    "comparingNames": {
+      "question": "Gost kaže 'Mr Pitt', ali na rasporedu piše 'Brad Pitt'. Kako da ih uporedim?",
+      "answer": "Ta dva stringa nikada neće biti jednaka, pa direktno poređenje neće uraditi ništa. Razmisli o tome koji deo onoga što je gost najavio se zapravo pojavljuje na rasporedu, i na kom mestu u zapisu sa rasporeda očekuješ da ga nađeš."
+    },
+    "lookalikeSurnames": {
+      "question": "Može li prezime da odgovara pogrešnom gostu?",
+      "answer": "Apsolutno može. Pročitaj 'Ada Spitt' i 'Hugo Ross-Pitt' naglas, a zatim razmisli o gospodinu Pittu. Zapitaj se šta čini prezime pravim prezimenom u toj stavci, a ne samo nekoliko slova koja se nađu na kraju."
+    },
+    "noMatch": {
+      "question": "Šta treba da vratim kada niko ne odgovara?",
+      "answer": "String `\"No table found\"`, tačno tako kako je napisano. Nezgrapniji deo je znati kada smeš to da kažeš. Ako si proverio baš prvog gosta na rasporedu i on nije tvoj čovek, da li zaista već znaš da on ne sedi negde?"
+    }
+  },
+  "checks": {
+    "tooManyLines": "Nastavi! Pokušaj da rešiš u manje redova."
+  },
+  "functions": {
+    "length": {
+      "description": "Broj elemenata u nizu - isto svojstvo `length` koje si koristio na stringovima (obezbeđeno od strane nivoa stdlib)",
+      "category": "Operacije nad nizovima"
+    },
+    "split": {
+      "description": "Deli string na niz delova, razdvajajući na svakom separatoru (obezbeđeno od strane nivoa stdlib)",
+      "category": "Operacije nad stringovima"
+    },
+    "slice": {
+      "description": "Pravi novi niz od dela niza, počev od date pozicije (obezbeđeno od strane nivoa stdlib)",
+      "category": "Operacije nad nizovima"
+    },
+    "join": {
+      "description": "Spaja elemente niza u jedan string, sa separatorom između njih (obezbeđeno od strane nivoa stdlib)",
+      "category": "Operacije nad nizovima"
+    },
+    "endsWith": {
+      "description": "Proverava da li se string završava manjim stringom (obezbeđeno od strane nivoa stdlib)",
+      "category": "Operacije nad stringovima"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "checks": {
+    "housingWrong": "Pravougaonik kućišta je ili na pogrešnom mestu ili pogrešne veličine. Proveri `housingX`, `housingY`, `housingWidth` i `housingHeight`.",
+    "redWrong": "Crveno svetlo je ili na pogrešnom mestu ili pogrešne veličine. Proveri `redY`.",
+    "yellowWrong": "Žuto svetlo je ili na pogrešnom mestu ili pogrešne veličine. Proveri `yellowY`.",
+    "greenWrong": "Zeleno svetlo je ili na pogrešnom mestu ili pogrešne veličine. Proveri `greenY`.",
+    "doesntScale": "Tvoj kod se ne skalira ispravno kada je `radius` {{radius}}. Svaka pozicija i veličina treba da budu izvedeni iz `center` i `radius`."
+  },
+  "tasks": {
+    "buildRelationalTrafficLights": {
+      "name": "Napravi relacione semafore",
+      "description": "Izvedi svaku poziciju i veličinu iz `center` i `radius` tako da se semafor ispravno skalira."
+    }
+  },
+  "scenarios": {
+    "buildRelationalTrafficLights": {
+      "name": "Napravi relacione semafore",
+      "description": "Izvedi svaku poziciju i veličinu iz `center` i `radius`."
+    }
+  },
+  "hints": {
+    "howToWorkOutYellowCenter": {
+      "question": "Kako da odredim centar žutog svetla?",
+      "answer": "Imaš promenljivu `center` koja ti je data. Možeš postaviti `yellowY` da bude jednaka njoj."
+    },
+    "howToWorkOutRedCenter": {
+      "question": "Kako da odredim centar crvenog svetla?",
+      "answer": "Ako se dva kruga dodiruju, koliko su udaljeni njihovi centri? Možeš oduzeti tu udaljenost od `center` da dobiješ crveno svetlo."
+    },
+    "whereHousingStarts": {
+      "question": "Gde počinje pravougaonik kućišta?",
+      "answer": "Ako znaš centar crvenog kruga, možeš izračunati vrh crvenog kruga. Kućište počinje 1 poluprečnik iznad vrha crvenog kruga. Slično, možeš izračunati levu stranu svetla i onda otići 1 poluprečnik dalje za početak."
+    },
+    "howBigHousing": {
+      "question": "Koliko veliko treba da bude kućište?",
+      "answer": "To je širina svetla, plus odmak od 1 poluprečnika sa svake strane. Visina je 2 poluprečnika po svetlu plus poluprečnik na vrhu i dnu za odmak."
+    },
+    "whyMultipleOfSomething": {
+      "question": "Zašto sve mora da bude umnožak nečeg drugog?",
+      "answer": "Ako upišeš broj direktno, promenom `radius`-a kućište će biti pogrešne veličine za svetla. Korišćenje formula koje uključuju `radius` i `center` održava ceo crtež u proporciji."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Nacrtaj pravougaonik na poziciji (levo, gore) sa zadatom širinom, visinom i bojom",
+      "category": "Crtanje oblika"
+    },
+    "circle": {
+      "description": "Nacrtaj krug centriran na (centerX, centerY) sa zadatim poluprečnikom i bojom",
+      "category": "Crtanje oblika"
+    }
+  }
+}
