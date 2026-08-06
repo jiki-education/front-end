@@ -1,6 +1,6 @@
 ---
 title: "Triangolo"
-description: "Classificare un triangolo come equilatero, isoscele o scaleno."
+description: "Classifica un triangolo come equilatero, isoscele o scaleno."
 en_md5: 15574e7bfbdfaffbd935bf6bba258e63
 ---
 

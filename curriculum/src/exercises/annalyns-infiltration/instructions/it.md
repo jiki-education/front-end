@@ -1,6 +1,6 @@
 ---
 title: "L'infiltrazione di Annalyn"
-description: "Combinare and, or e not per decidere quali azioni della missione Annalyn può compiere."
+description: "Combina and, or e not per decidere quali azioni della missione Annalyn può compiere."
 en_md5: ef06918ece4b67169e7fea7746cd2351
 ---
 
