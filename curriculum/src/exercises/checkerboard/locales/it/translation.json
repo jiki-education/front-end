@@ -27,17 +27,17 @@
     },
     "board6": {
       "name": "Prepara una scacchiera 6×6",
-      "description": "Lo stesso codice dovrebbe adattarsi a una scacchiera 6×6 più piccola."
+      "description": "Lo stesso codice dovrebbe adattarsi ad una scacchiera 6×6 più piccola."
     },
     "board10": {
       "name": "Prepara una scacchiera 10×10",
-      "description": "E dovrebbe adattarsi a una scacchiera 10×10 più grande."
+      "description": "E dovrebbe adattarsi ad una scacchiera 10×10 più grande."
     }
   },
   "hints": {
     "wholeGrid": {
       "question": "Come faccio a disegnare un'intera griglia di quadrati invece di uno solo?",
-      "answer": "Usa dei cicli annidati: un ciclo esterno che scorre le righe e un ciclo interno che scorre le colonne. Disegna un quadrato ogni volta che viene eseguito il ciclo interno."
+      "answer": "Usa dei cicli annidati: un ciclo esterno che scorre le righe ed un ciclo interno che scorre le colonne. Disegna un quadrato ogni volta che viene eseguito il ciclo interno."
     },
     "anyBoardSize": {
       "question": "Come faccio a farlo funzionare per qualsiasi dimensione della scacchiera?",
@@ -49,7 +49,7 @@
     },
     "whichSquaresGetPieces": {
       "question": "Su quali quadrati si posizionano i pezzi?",
-      "answer": "I pezzi si trovano esclusivamente sui quadrati **scuri**, quindi puoi riutilizzare lo stesso controllo che hai usato per colorarli. Poi restringi ulteriormente solo alle righe superiori ed inferiori, lasciando vuote le due centrali."
+      "answer": "I pezzi si trovano esclusivamente sui quadrati **scuri**, quindi puoi riutilizzare lo stesso controllo che hai usato per colorarli. Poi restringi ulteriormente solo le righe superiori ed inferiori, lasciando vuote le due centrali."
     },
     "ridgedPiece": {
       "question": "Come faccio a disegnare un pezzo con bordo in rilievo?",
