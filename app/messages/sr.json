@@ -1397,7 +1397,7 @@
         "down": "Skroluj dole do aktivne lekcije"
       },
       "milestone": {
-        "label": "Prekretnica {index}"
+        "label": "Etapa {index}"
       }
     },
     "challengesSidebar": {
@@ -1855,7 +1855,7 @@
       "noneToStartTitle": "Još nema izazova za početak",
       "noneToStartDescription": "Izazovi će se pojavljivati ovde kako ih otključavaš.",
       "completedTitle": "Još nema završenih izazova",
-      "completedDescription": "Završi svoj prvi izazov da ga vidiš ovde. Nastavi da radiš na započetim izazovima da dostigneš ovu prekretnicu."
+      "completedDescription": "Završi svoj prvi izazov da ga vidiš ovde. Nastavi da radiš na započetim izazovima da dostigneš ovaj cilj."
     },
     "loadError": "�"
   },
