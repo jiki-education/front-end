@@ -1,0 +1,82 @@
+{
+  "tasks": {
+    "checkPangram": {
+      "name": "Controlla il Pangram",
+      "description": "Scrivi una funzione che verifica se una frase è un pangramma (contiene ogni lettera dell'alfabeto almeno una volta). Il controllo non deve distinguere tra maiuscole e minuscole."
+    }
+  },
+  "scenarios": {
+    "pangramEmptySentence": {
+      "name": "Frase vuota",
+      "description": "Una frase vuota non è un pangramma."
+    },
+    "pangramPerfectLowercase": {
+      "name": "Minuscole perfette",
+      "description": "Un alfabeto minuscolo perfetto è un pangramma."
+    },
+    "pangramOnlyLowercase": {
+      "name": "Solo minuscole",
+      "description": "Una frase con solo lettere minuscole che copre tutte le lettere è un pangramma."
+    },
+    "pangramMissingX": {
+      "name": "Lettera 'x' mancante",
+      "description": "Una frase in cui manca la lettera 'x' non è un pangramma."
+    },
+    "pangramMissingH": {
+      "name": "Lettera 'h' mancante",
+      "description": "Una frase in cui manca la lettera 'h' non è un pangramma."
+    },
+    "pangramMissingAM": {
+      "name": "Lettere mancanti oltre a-m",
+      "description": "Una stringa con le lettere da 'a' a 'm' sia minuscole che maiuscole non è un pangramma."
+    },
+    "pangramWithUnderscores": {
+      "name": "Con underscore",
+      "description": "Una frase pangramma con underscore."
+    },
+    "pangramWithNumbers": {
+      "name": "Con numeri",
+      "description": "Una frase pangramma che include numeri."
+    },
+    "pangramNumbersReplacingLetters": {
+      "name": "Numeri al posto delle lettere",
+      "description": "Una frase in cui le lettere sono sostituite da numeri non è un pangramma."
+    },
+    "pangramMixedCasePunctuation": {
+      "name": "Maiuscole, minuscole e punteggiatura",
+      "description": "Un pangramma con maiuscole, minuscole e punteggiatura."
+    },
+    "pangramCaseInsensitive": {
+      "name": "Mancano lettere (ignorando maiuscole/minuscole)",
+      "description": "Una frase che non contiene tutte le lettere, indipendentemente da maiuscole e minuscole, non è un pangramma."
+    }
+  },
+  "hints": {
+    "recall": {
+      "question": "L'ho già risolto a mano. Cosa cambia in realtà?",
+      "answer": "La logica è identica: trasforma la frase in minuscolo, poi verifica che ogni lettera dalla a alla z sia presente. L'unica cosa che cambia è *come* esegui questi due passaggi: ora puoi usare i metodi integrati delle stringhe invece delle tue funzioni di aiuto."
+    },
+    "lowercaseMethod": {
+      "question": "C'è un modo integrato per rendere minuscola una stringa?",
+      "answer": "Sì. Le stringhe hanno un metodo `toLowerCase()` che restituisce una copia in minuscolo. Chiamalo sulla frase una volta all'inizio, invece di scorrere i caratteri a mano. Ricorda che restituisce una *nuova* stringa: devi conservare il risultato."
+    },
+    "includesMethod": {
+      "question": "Mi serve ancora una mia funzione di aiuto per verificare se una lettera è presente?",
+      "answer": "No. Le stringhe hanno un metodo `includes()` che ti dice se una stringa compare all'interno di un'altra. Usa `sentence.includes(letter)` al posto della funzione di aiuto che hai scritto la volta scorsa."
+    },
+    "stopEarly": {
+      "question": "Quando posso fermarmi prima?",
+      "answer": "Non appena manca una lettera, restituisci `false`: non ha senso controllare il resto. Restituisci `true` solo quando tutto l'alfabeto è stato confermato."
+    }
+  },
+  "functions": {
+    "toLowerCase": {
+      "description": "Restituisce una copia in minuscolo di una stringa (fornito dalla libreria standard del livello)",
+      "category": "Operazioni sulle stringhe"
+    },
+    "includes": {
+      "description": "Verifica se una stringa contiene una stringa più piccola (fornito dalla libreria standard del livello)",
+      "category": "Operazioni sulle stringhe"
+    }
+  }
+}

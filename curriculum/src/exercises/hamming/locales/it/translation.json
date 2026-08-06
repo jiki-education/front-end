@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "tooManyLines": "Hai usato più righe del necessario: vedi se riesci a ridurle."
+  },
+  "tasks": {
+    "calculateHammingDistance": {
+      "name": "Calcola la distanza di Hamming",
+      "description": "Scrivi una funzione che calcola la distanza di Hamming tra due filamenti di DNA della stessa lunghezza. La distanza di Hamming è il numero di posizioni in cui i caratteri corrispondenti differiscono."
+    },
+    "solveInElevenLines": {
+      "name": "Risolvi in undici righe di codice",
+      "description": "Riesci a risolverlo usando non più di undici righe di codice?"
+    }
+  },
+  "scenarios": {
+    "hammingEmptyStrands": {
+      "name": "Filamenti vuoti",
+      "description": "I filamenti vuoti hanno una distanza di Hamming di 0."
+    },
+    "hammingSingleLetterIdentical": {
+      "name": "Filamenti identici di una lettera",
+      "description": "I filamenti identici di una sola lettera hanno una distanza di Hamming di 0."
+    },
+    "hammingLongIdenticalStrands": {
+      "name": "Filamenti lunghi identici",
+      "description": "I filamenti lunghi identici hanno una distanza di Hamming di 0."
+    },
+    "hammingSingleLetterDifferent": {
+      "name": "Filamenti diversi di una lettera",
+      "description": "I filamenti diversi di una sola lettera hanno una distanza di Hamming di 1."
+    },
+    "hammingLongDifferentStrands": {
+      "name": "Filamenti lunghi diversi",
+      "description": "I filamenti lunghi con differenze hanno una distanza di Hamming calcolata."
+    },
+    "hammingBonusElevenLines": {
+      "name": "Undici righe di codice",
+      "description": "Risolvi l'esercizio usando non più di undici righe di codice."
+    }
+  },
+  "hints": {
+    "hammingDistanceMeaning": {
+      "question": "Cosa significa «distanza di Hamming» in parole semplici?",
+      "answer": "È il numero di posizioni in cui le due stringhe differiscono. Quindi «GAGA» e «GATA» differiscono solo nella posizione 3, con una distanza di 1."
+    },
+    "compareCharactersAtPosition": {
+      "question": "Come posso confrontare i caratteri nella stessa posizione in entrambe le stringhe?",
+      "answer": "Dovrai scorrere entrambe le stringhe in sincrono, in modo da poter estrarre il carattere nella stessa posizione da ciascuna mentre procedi."
+    },
+    "trackDifferenceCount": {
+      "question": "Come faccio a tenere traccia di «quante differenze» ci sono?",
+      "answer": "Avrai bisogno di qualcosa che mantenga un totale progressivo, aggiornato ogni volta che trovi una discordanza, in modo che sia pronto da restituire una volta controllate tutte le posizioni."
+    }
+  }
+}

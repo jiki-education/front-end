@@ -1,0 +1,65 @@
+{
+  "tasks": {
+    "countChancersInQueue": {
+      "name": "Conta gli intrusi",
+      "description": "Scrivi una funzione che prende la coda e la lista degli invitati e restituisce quante persone in coda non sono sulla lista degli invitati."
+    },
+    "solveTightly": {
+      "name": "Risolvilo in modo compatto",
+      "description": "Bonus: questo può essere scritto in modo molto più compatto di quanto potresti pensare. Riesci a ridurre l'intera soluzione a poche righe?"
+    }
+  },
+  "scenarios": {
+    "emptyQueue": {
+      "name": "Non si è ancora presentato nessuno",
+      "description": "Coda vuota, quindi nessuno è in attesa di entrare."
+    },
+    "everyoneChancingIt": {
+      "name": "Tutta la coda tenta la fortuna",
+      "description": "Una coda in cui nessuna delle persone in attesa è sulla lista degli invitati."
+    },
+    "everyoneInvited": {
+      "name": "Tutti sono invitati",
+      "description": "Una coda in cui ogni persona in attesa è sulla lista degli invitati."
+    },
+    "mixedQueue": {
+      "name": "Coda mista",
+      "description": "Una coda in cui alcune persone in attesa sono invitate e altre no. Uno degli intrusi ha un nome che somiglia molto a un nome sulla lista."
+    },
+    "guestsWhoHaventArrived": {
+      "name": "Invitati ancora bloccati nel traffico",
+      "description": "Una lista degli invitati con molti nomi, ma la maggior parte di quelle persone non ha ancora raggiunto la coda."
+    },
+    "longQueueShortList": {
+      "name": "Coda lunga e lista corta",
+      "description": "Una grande coda fuori, ma solo un paio di nomi sulla lista degli invitati."
+    },
+    "guestListBonusLineCount": {
+      "name": "Ordinato e pulito: coda mista",
+      "description": "La stessa coda mista di prima, ma questa volta la tua soluzione deve stare in un numero molto inferiore di righe."
+    }
+  },
+  "checks": {
+    "tooManyLines": "Continua! Vedi se riesci a risolverlo in meno righe."
+  },
+  "hints": {
+    "keepingTrack": {
+      "question": "Cosa devo tenere traccia mentre procedo?",
+      "answer": "La risposta è un unico numero, e non lo conosci finché non hai visto tutti. Quindi chiediti due cose: quale dovrebbe essere quel numero prima di aver guardato qualcuno, e cosa deve succedere quando qualcuno **non** è invitato?"
+    },
+    "whichList": {
+      "question": "Ci sono due liste qui. Quale sto esaminando?",
+      "answer": "Pensa a cosa sta contando la risposta. È un numero di persone **nella coda**, quindi è la coda che devi visitare una persona alla volta. La lista degli invitati non è qualcosa che percorri, è lo strumento con cui controlli ogni persona."
+    },
+    "realLifeBouncer": {
+      "question": "Come farebbe un vero buttafuori con un taccuino?",
+      "answer": "Immaginalo in piedi all'inizio della coda con il taccuino in una mano, che procede verso la fine. Annuncerà il numero finale solo quando avrà raggiunto l'ultima persona. Cosa sta facendo a ogni persona lungo il percorso, e cosa fa di quelle di cui non trova il nome?"
+    }
+  },
+  "functions": {
+    "includes": {
+      "description": "Verifica se un array contiene un elemento specifico (fornito dalla libreria standard del livello)",
+      "category": "Operazioni su array"
+    }
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "tasks": {
+    "createAcronymFunction": {
+      "name": "Crea la funzione per l'acronimo",
+      "description": "Scrivi una funzione che prende una frase e restituisce il suo acronimo: la prima lettera di ogni parola, in maiuscolo. Le parole sono separate da spazi e trattini, e qualsiasi altra punteggiatura viene ignorata."
+    },
+    "solveTightly": {
+      "name": "Risolvilo in 46 righe",
+      "description": "Bonus: inserendo i controlli sulle lettere e la conversione in maiuscolo in funzioni di supporto che `acronym` riutilizza, l'intera soluzione sta in 46 righe. Riesci a eguagliarla?"
+    }
+  },
+  "scenarios": {
+    "png": {
+      "name": "Acronimo di base: PNG",
+      "description": "Converti 'Portable Network Graphics' in 'PNG'."
+    },
+    "ror": {
+      "name": "Parole in minuscolo: ROR",
+      "description": "Converti 'Ruby on Rails' in 'ROR'."
+    },
+    "gimp": {
+      "name": "Parola tutta in maiuscolo: GIMP",
+      "description": "Converti 'GNU Image Manipulation Program' in 'GIMP'."
+    },
+    "firstWordOnly": {
+      "name": "Una sola parola: H",
+      "description": "Converti 'HyperText' in 'H'."
+    },
+    "hyphenated": {
+      "name": "Frase con trattino: CMOS",
+      "description": "Converti 'Complementary metal-oxide semiconductor' in 'CMOS'."
+    },
+    "fifo": {
+      "name": "Separate da virgola: FIFO",
+      "description": "Converti 'First In, First Out' in 'FIFO'."
+    },
+    "punctuation": {
+      "name": "Con punteggiatura: PHT",
+      "description": "Converti 'Portable, HyperText, Transmitter' in 'PHT'."
+    },
+    "hc": {
+      "name": "Con apostrofo: HC",
+      "description": "Converti 'Halley's Comet' in 'HC'."
+    },
+    "simufta": {
+      "name": "Delimitatori consecutivi: SIMUFTA",
+      "description": "Converti 'Something - I made up from thin air' in 'SIMUFTA'."
+    },
+    "trnt": {
+      "name": "Enfasi con trattini bassi: TRNT",
+      "description": "Converti 'The Road _Not_ Taken' in 'TRNT'."
+    },
+    "long": {
+      "name": "Uno molto lungo: ROTFLSHTMDCOALM",
+      "description": "Converti 'Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me' in 'ROTFLSHTMDCOALM'."
+    },
+    "emoji": {
+      "name": "Con un'emoji: HW",
+      "description": "Converti 'Hello 👋 World' in 'HW'."
+    },
+    "acronymBonusLineCount": {
+      "name": "Ordinato e pulito",
+      "description": "La soluzione più ordinata riutilizza le sue funzioni di supporto e sta in 46 righe. Riesci a trovarla?"
+    }
+  },
+  "checks": {
+    "tooManyLines": "Continua! Vedi se riesci a risolverlo con meno righe.",
+    "noMethods": "Questo esercizio consiste nel costruire gli strumenti da te. Risolvilo senza usare metodi predefiniti."
+  },
+  "hints": {
+    "pickLetters": {
+      "question": "Come faccio a individuare quali lettere formano l'acronimo?",
+      "answer": "L'acronimo è formato dalla lettera iniziale di ogni parola: la primissima lettera della frase, più la prima lettera dopo ogni spazio o trattino."
+    },
+    "findWordStarts": {
+      "question": "Come faccio a sapere quando inizia una nuova parola?",
+      "answer": "Percorri la frase carattere per carattere e tieni traccia se ti trovi all'inizio di una nuova parola. Sei all'inizio della frase e subito dopo ogni spazio o trattino. Tutto ciò che non è una lettera (punteggiatura, trattini bassi, apostrofi) dovrebbe essere saltato anziché contato come inizio di una parola."
+    },
+    "buildResult": {
+      "question": "Come faccio a costruire il risultato man mano?",
+      "answer": "Inizia con una stringa vuota e aggiungi ogni lettera scelta in fondo usando `+`."
+    },
+    "uppercaseLetters": {
+      "question": "Come faccio a rendere maiuscola una lettera se non esiste un metodo predefinito?",
+      "answer": "Non c'è un convertitore in maiuscolo già pronto. Proprio come in Pangram, puoi allineare un alfabeto minuscolo con uno maiuscolo e scambiare una lettera con quella nella stessa posizione. Le lettere già maiuscole possono restare come sono."
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "tasks": {
+    "checkTheName": {
+      "name": "Controlla il nome",
+      "description": "Scrivi una funzione `handleGuest` che controlla se il nome della persona inizia con le lettere consentite per la festa di stasera. Restituisci `true` se è così, altrimenti `false`."
+    },
+    "solveTightly": {
+      "name": "Risolvilo in 20 righe",
+      "description": "Bonus: con il conteggio della lunghezza estratto in una funzione di supporto che `handleGuest` riutilizza, l'intera soluzione sta in 20 righe. Riesci a eguagliarla?"
+    }
+  },
+  "scenarios": {
+    "sarahSParty": {
+      "name": "Festa S: Arriva Sarah",
+      "description": "Stasera sono consentiti solo i nomi che iniziano con \"S\". Sarah dovrebbe entrare!"
+    },
+    "bradSParty": {
+      "name": "Festa S: Arriva Brad",
+      "description": "Stasera sono consentiti solo i nomi che iniziano con \"S\". Brad dovrebbe essere respinto."
+    },
+    "bradleyBradParty": {
+      "name": "Festa Brad: Arriva Bradley",
+      "description": "Stasera sono consentiti solo i nomi che iniziano con \"Brad\". Bradley dovrebbe entrare!"
+    },
+    "bradBradleyParty": {
+      "name": "Festa Bradley: Arriva Brad",
+      "description": "Stasera sono consentiti solo i nomi che iniziano con \"Bradley\". Brad è troppo corto, quindi non è consentito."
+    },
+    "brianBradParty": {
+      "name": "Festa Brad: Arriva Brian",
+      "description": "Stasera sono consentiti solo i nomi che iniziano con \"Brad\". Brian dovrebbe essere respinto."
+    },
+    "silence": {
+      "name": "Festa S: Silenzio...",
+      "description": "La persona non dice il suo nome. Un nome vuoto non può iniziare con niente. Respingila!"
+    },
+    "cherCherParty": {
+      "name": "Festa Cher: Arriva Cher",
+      "description": "Stasera sono consentiti solo i nomi che iniziano con \"Cher\". Il nome di Cher è esattamente \"Cher\" — falla entrare!"
+    },
+    "nicheNamedPartyBonusLineCount": {
+      "name": "Compatta e ordinata",
+      "description": "La soluzione più corta sta in 20 righe. Riesci a trovarla?"
+    }
+  },
+  "checks": {
+    "tooManyLines": "Continua! Vedi se riesci a risolverlo in meno righe."
+  },
+  "hints": {
+    "checkStartsWith": {
+      "question": "Come faccio a controllare che un nome inizi con certe lettere?",
+      "answer": "Confronta ogni carattere del prefisso consentito con il carattere nella stessa posizione del nome. Se un carattere è diverso, il nome non corrisponde."
+    },
+    "loopCharacters": {
+      "question": "Come faccio a esaminare un carattere alla volta?",
+      "answer": "Usa l'iterazione su stringa per scorrere una stringa."
+    },
+    "findEquivalentLetter": {
+      "question": "Come faccio a trovare la lettera equivalente nell'altra parola?",
+      "answer": "Usa l'indicizzazione delle stringhe per trovare una lettera specifica."
+    },
+    "longerAllowedPrefix": {
+      "question": "E se il prefisso consentito è più lungo del nome?",
+      "answer": "Quella persona non può corrispondere, quindi dovresti restituire `false`."
+    }
+  }
+}
