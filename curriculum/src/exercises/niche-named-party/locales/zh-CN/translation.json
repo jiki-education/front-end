@@ -1,0 +1,67 @@
+{
+  "tasks": {
+    "checkTheName": {
+      "name": "检查名字",
+      "description": "编写一个 `handleGuest` 函数，检查这个人的名字是否以今晚派对允许的字母开头。如果是，返回 `true`；否则返回 `false`。"
+    },
+    "solveTightly": {
+      "name": "用 20 行代码解决",
+      "description": "加分项：将计算长度的逻辑提取到一个 `handleGuest` 可复用的辅助函数中，整个解决方案可以控制在 20 行以内。你能做到吗？"
+    }
+  },
+  "scenarios": {
+    "sarahSParty": {
+      "name": "S 派对：Sarah 到达",
+      "description": "今晚只有以 \"S\" 开头的名字才允许进入。Sarah 应该可以进入！"
+    },
+    "bradSParty": {
+      "name": "S 派对：Brad 到达",
+      "description": "今晚只有以 \"S\" 开头的名字才允许进入。Brad 应该被拒绝入内。"
+    },
+    "bradleyBradParty": {
+      "name": "Brad 派对：Bradley 到达",
+      "description": "今晚只有以 \"Brad\" 开头的名字才允许进入。Bradley 应该可以进入！"
+    },
+    "bradBradleyParty": {
+      "name": "Bradley 派对：Brad 到达",
+      "description": "今晚只有以 \"Bradley\" 开头的名字才允许进入。Brad 的名字太短，所以不允许他进入。"
+    },
+    "brianBradParty": {
+      "name": "Brad 派对：Brian 到达",
+      "description": "今晚只有以 \"Brad\" 开头的名字才允许进入。Brian 应该被拒绝入内。"
+    },
+    "silence": {
+      "name": "S 派对：沉默中……",
+      "description": "这个人没有说出自己的名字。空的名称不能以任何东西开头。拒绝他们！"
+    },
+    "cherCherParty": {
+      "name": "Cher 派对：Cher 到达",
+      "description": "今晚只有以 \"Cher\" 开头的名字才允许进入。Cher 的名字正好是 \"Cher\"。让她进去！"
+    },
+    "nicheNamedPartyBonusLineCount": {
+      "name": "干净利落",
+      "description": "最短的解决方案可以在 20 行内完成。你能找到吗？"
+    }
+  },
+  "checks": {
+    "tooManyLines": "继续加油！看看是否可以用更少的行数来解决。"
+  },
+  "hints": {
+    "checkStartsWith": {
+      "question": "如何检查一个名字是否以某些字母开头？",
+      "answer": "将允许前缀的每个字符与名字中相同位置的字符进行比较。如果有任何字符不同，则名字不匹配。"
+    },
+    "loopCharacters": {
+      "question": "如何一次查看一个字符？",
+      "answer": "使用字符串迭代来遍历一个字符串。"
+    },
+    "findEquivalentLetter": {
+      "question": "如何在另一个单词中找到对应的字母？",
+      "answer": "使用字符串下标来查找特定的字母。"
+    },
+    "longerAllowedPrefix": {
+      "question": "如果允许前缀比名字长怎么办？",
+      "answer": "那个人不匹配，所以你应该返回 `false`。"
+    }
+  }
+}

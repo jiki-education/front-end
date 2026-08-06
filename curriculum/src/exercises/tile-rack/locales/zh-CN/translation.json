@@ -1,0 +1,64 @@
+{
+  "tasks": {
+    "findTilePosition": {
+      "name": "查找瓷砖位置",
+      "description": "编写一个函数，找出特定字母瓷砖在字母架上的位置。如果找到了，返回 \"Move to position X\"；如果没找到，返回 \"Error: Tile not on rack\"。"
+    }
+  },
+  "scenarios": {
+    "tileAtStart": {
+      "name": "瓷砖在开头",
+      "description": "字母是字母架上的第一块瓷砖。"
+    },
+    "tileInMiddle": {
+      "name": "瓷砖在中间",
+      "description": "字母在字母架的中间。"
+    },
+    "tileAtEnd": {
+      "name": "瓷砖在末尾",
+      "description": "字母是字母架上的最后一块瓷砖。"
+    },
+    "tileNotFound": {
+      "name": "未找到瓷砖",
+      "description": "字母不在字母架上。"
+    },
+    "emptyRack": {
+      "name": "空字母架",
+      "description": "空字母架上没有要查找的瓷砖。"
+    },
+    "firstOfDuplicates": {
+      "name": "多个匹配中的第一个",
+      "description": "当字母多次出现时，返回第一个位置。"
+    },
+    "longerRack": {
+      "name": "更长的字母架",
+      "description": "在更长的字母架中找到瓷砖。"
+    }
+  },
+  "hints": {
+    "trackPosition": {
+      "question": "如何跟踪我在字母架中的位置？",
+      "answer": "使用一个初始值为 1 的位置变量。每查看一块新瓷砖，就将其加 1。"
+    },
+    "lookAtEachTile": {
+      "question": "如何查看每一块瓷砖？",
+      "answer": "for-each 循环会依次给出字母架中的每个字符。"
+    },
+    "onFound": {
+      "question": "找到字母后我该做什么？",
+      "answer": "构建成功消息。将位置数字转换成字符串，然后使用拼接（`+`）或模板字符串将其与练习要求的周围文本组合起来。立即返回，无需继续查找。"
+    },
+    "addNumberToString": {
+      "question": "我无法将数字与字符串相加",
+      "answer": "你已经学过两种拼接字符串的方法。与其使用字符串拼接，不如试试你学过的另一种方法。"
+    },
+    "positionAlwaysWrong": {
+      "question": "为什么我的位置总是不对？",
+      "answer": "请确保你在每次迭代中都递增位置计数器，而不仅仅是某些时候。否则每块瓷砖都会报告相同的位置。"
+    },
+    "notInRack": {
+      "question": "如果字母不在字母架上怎么办？",
+      "answer": "只有在循环完成且未找到字母后，才应返回错误消息。在循环内部返回错误会在第一块不匹配的瓷砖后就放弃了。"
+    }
+  }
+}

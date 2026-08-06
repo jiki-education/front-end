@@ -1,0 +1,82 @@
+{
+  "checks": {
+    "wrongDistance": "对于这次击球，球没有滚动正确的距离。它应该从发球台精确地滚动击球距离。",
+    "missingPositions": "球必须一次一步地滚动经过每个位置。",
+    "stayOnGrassPlain": "对于这次击球，球应该保持在草地上，而不应该掉进球洞里。",
+    "stayOnGrassOvershot": "球打过了球洞，所以应该保持在草地上，而不是掉进去。",
+    "droppedIncorrectly": "球到达了球洞，但没有正确地掉进去。",
+    "noFireworksPeriod": "你不应该放烟花。",
+    "noFireworksNoPeriod": "你不应该放烟花",
+    "noFireworksAtEnd": "你不应该在最后放烟花。",
+    "shouldFireFireworks": "你应该在最后放烟花。"
+  },
+  "tasks": {
+    "checkShot": {
+      "name": "检查击球是否落在球洞里",
+      "description": "根据击球长度滚动球，如果它落在球洞上方，就让它落进洞里！然后放烟花。"
+    }
+  },
+  "scenarios": {
+    "tooShort": {
+      "name": "击球太短",
+      "description": "高尔夫球手击出23，没有到达球洞。"
+    },
+    "justTooShort": {
+      "name": "就差一点",
+      "description": "高尔夫球手击出57，刚好差一点没滚进。"
+    },
+    "justTooFar": {
+      "name": "差一点过头",
+      "description": "高尔夫球手击出63，刚好从另一侧滚出去了。"
+    },
+    "tooLong": {
+      "name": "击球太远",
+      "description": "高尔夫球手击出68，球越过了球洞。"
+    },
+    "justInsideLeft": {
+      "name": "刚好进洞",
+      "description": "高尔夫球手击出58，刚好到达球洞！"
+    },
+    "justInsideRight": {
+      "name": "差点过头但没事",
+      "description": "高尔夫球手击出62，刚好留在球洞里！"
+    }
+  },
+  "hints": {
+    "howDoIRollRightDistance": {
+      "question": "如何让球按每次击球的正确距离滚动？",
+      "answer": "使用`getShotLength()`获取高尔夫球手的击球距离，并将其存储在一个变量中。这告诉你需要滚动多少次。"
+    },
+    "howDoIMoveOneStep": {
+      "question": "如何一次一步地移动球，而不是直接跳到终点？",
+      "answer": "用一个变量记录球的 `x` 位置。每次循环时，将其增加 1，然后滚动到新位置。"
+    },
+    "whenShouldBallDrop": {
+      "question": "什么时候球应该掉进球洞？",
+      "answer": "仅当击球落在球洞里时。通过在一个条件中同时检查下限和上限来判断击球长度是否在获胜范围内。"
+    },
+    "whenShouldFireworksFire": {
+      "question": "什么时候应该放烟花？",
+      "answer": "仅当击球落在球洞里时，并且仅在球掉到底部之后。将下落和烟花放在同一个条件里。"
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "将球移动到位置 **（x，y）**。",
+      "category": "移动"
+    },
+    "getShotLength": {
+      "description": "返回 **击球长度**，即球向右移动的单位数。",
+      "category": "信息"
+    },
+    "fireFireworks": {
+      "description": "发射庆祝烟花！",
+      "category": "动作"
+    }
+  },
+  "describers": {
+    "moveTo": "将球移动到了位置（${arg1}，${arg2}）",
+    "getShotLength": "获取了击球长度",
+    "fireFireworks": "发射了庆祝烟花"
+  }
+}

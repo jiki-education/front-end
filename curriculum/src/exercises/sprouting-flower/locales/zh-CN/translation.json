@@ -1,0 +1,70 @@
+{
+  "checks": {
+    "firstFlowerHeadWrong": "第一帧的花不正确。",
+    "finalFlowerHeadWrong": "最后一帧的花不正确。",
+    "firstPistilWrong": "第一帧的花蕊不正确。",
+    "finalPistilWrong": "最后一帧的花蕊不正确。",
+    "firstStemWrong": "第一帧的茎不正确。",
+    "finalStemWrong": "最后一帧的茎不正确。",
+    "firstLeftLeafWrong": "第一帧的左边的叶子不正确。",
+    "finalLeftLeafWrong": "最后一帧的左边的叶子不正确。",
+    "firstRightLeafWrong": "第一帧的右边的叶子不正确。",
+    "finalRightLeafWrong": "最后一帧的右边的叶子不正确。"
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "绘制场景",
+      "description": "让花生长出来。一次只做一步！"
+    }
+  },
+  "scenarios": {
+    "drawSproutingFlower": {
+      "name": "让花生长出来",
+      "description": "一步一步来！"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "布局场景时，我应该从哪里开始？",
+      "answer": "选择一个中心点。花的中心就是一个很好的锚点。茎、花蕊和叶子都可以从这个中心点派生出来，这样整个花在动画过程中就会保持连接。"
+    },
+    "growEachIteration": {
+      "question": "如何让花在每次迭代中上升并变大？",
+      "answer": "在循环体的最顶部，进行任何绘制之前，将 `flowerCenterY` 和 `flowerRadius` 更新为当前帧的新值。指令中给出了具体数值。关键是要在绘制*之前*更新，而不是之后。"
+    },
+    "stemAttached": {
+      "question": "当花向上移动时，如何让茎保持连接？",
+      "answer": "不要给茎一个固定的顶部。它的顶部*就是* `flowerCenterY`。底部是地面。所以它的高度是这两者之间的距离。然后可以根据这个高度计算出宽度。"
+    },
+    "leafSizing": {
+      "question": "如何设置叶子的大小，让它们和花一起生长？",
+      "answer": "叶子的 `radiusX` 和 `radiusY` 是 `flowerRadius` 的分数。这样它们会一起缩放。把它们的垂直位置锚定在茎上，而不是固定的画布 Y 坐标，这样它们就会随着花一起上升。"
+    },
+    "flowerNeverChanges": {
+      "question": "我的花绘制一次就不再改变了。哪里出错了？",
+      "answer": "你可能只在循环之前设置了一次初始值，但没有*在循环内部*更新它们。循环体必须在每次迭代中，在绘制之前，修改变量的值。"
+    },
+    "firstFlowerCoords": {
+      "question": "能给我第一朵花的坐标让我核对吗？",
+      "answer": "在第一次迭代时，各形状应为：\n\n- 花：`circle(50, 89, 0.4)`\n- 花蕊：`circle(50, 89, 0.1)`\n- 茎：`rectangle(49.95, 89, 0.1, 1)`\n- 左边的叶子：`ellipse(49.75, 89.5, 0.2, 0.08)`\n- 右边的叶子：`ellipse(50.25, 89.5, 0.2, 0.08)`\n\n切换进度条上的信息开关，即可查看该帧你自己的值。"
+    },
+    "finalFlowerCoords": {
+      "question": "能给我最后一朵花的坐标让我核对吗？",
+      "answer": "在最后一次迭代时，各形状应为：\n\n- 花：`circle(50, 30, 24)`\n- 花蕊：`circle(50, 30, 6)`\n- 茎：`rectangle(47, 30, 6, 60)`\n- 左边的叶子：`ellipse(35, 60, 12, 4.8)`\n- 右边的叶子：`ellipse(65, 60, 12, 4.8)`\n\n切换进度条上的信息开关，即可查看该帧你自己的值。"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "在 (left, top) 位置绘制一个**矩形**，宽度、高度和颜色由参数指定。这个位置代表矩形的左上角。",
+      "category": "绘制形状"
+    },
+    "circle": {
+      "description": "在 (centerX, centerY) 中心位置绘制一个**圆形**，半径和颜色由参数指定。",
+      "category": "绘制形状"
+    },
+    "ellipse": {
+      "description": "在 (centerX, centerY) 中心位置绘制一个**椭圆**，radiusX、radiusY 和颜色由参数指定。",
+      "category": "绘制形状"
+    }
+  }
+}

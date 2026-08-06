@@ -1,0 +1,82 @@
+{
+  "tasks": {
+    "checkPangram": {
+      "name": "检查 Pangram",
+      "description": "编写一个函数，检查一个句子是否是 Pangram（包含字母表中的每个字母至少一次）。检查应该不区分大小写。"
+    }
+  },
+  "scenarios": {
+    "pangramEmptySentence": {
+      "name": "空句子",
+      "description": "空句子不是 Pangram。"
+    },
+    "pangramPerfectLowercase": {
+      "name": "完美小写",
+      "description": "一个完美的小写字母表是一个 Pangram。"
+    },
+    "pangramOnlyLowercase": {
+      "name": "仅小写",
+      "description": "一个只包含小写字母且覆盖所有字母的句子是一个 Pangram。"
+    },
+    "pangramMissingX": {
+      "name": "缺少字母 'x'",
+      "description": "缺少字母 'x' 的句子不是 Pangram。"
+    },
+    "pangramMissingH": {
+      "name": "缺少字母 'h'",
+      "description": "缺少字母 'h' 的句子不是 Pangram。"
+    },
+    "pangramMissingAM": {
+      "name": "缺少 a-m 以外的字母",
+      "description": "一个包含 'a' 到 'm'（大小写都有）的字符串不是 Pangram。"
+    },
+    "pangramWithUnderscores": {
+      "name": "包含下划线",
+      "description": "一个包含下划线的 Pangram 句子。"
+    },
+    "pangramWithNumbers": {
+      "name": "包含数字",
+      "description": "一个包含数字的 Pangram 句子。"
+    },
+    "pangramNumbersReplacingLetters": {
+      "name": "数字替换字母",
+      "description": "字母被数字替换的句子不是 Pangram。"
+    },
+    "pangramMixedCasePunctuation": {
+      "name": "大小写和标点混合",
+      "description": "一个大小写和标点混合的 Pangram。"
+    },
+    "pangramCaseInsensitive": {
+      "name": "不区分大小写且缺少字母",
+      "description": "一个不区分大小写但没有包含所有字母的句子不是 Pangram。"
+    }
+  },
+  "hints": {
+    "recall": {
+      "question": "我已经手动解决过这个问题了。到底有什么变化？",
+      "answer": "逻辑是一样的：将句子转为小写，然后检查从 a 到 z 的每个字母是否都存在。唯一改变的是你执行这两个步骤的*方式*——现在你可以使用内建的字符串方法，而不是你自己写的辅助函数。"
+    },
+    "lowercaseMethod": {
+      "question": "有没有内建的方法可以把字符串转为小写？",
+      "answer": "有的。字符串有一个 `toLowerCase()` 方法，它返回一个小写副本。在开头对句子调用一次它，而不是自己循环遍历字符。记住它返回的是一个*新*字符串——你需要存储这个结果。"
+    },
+    "includesMethod": {
+      "question": "我还需要自己写的辅助函数来检查某个字母是否存在吗？",
+      "answer": "不需要。字符串有一个 `includes()` 方法，它告诉你一个字符串是否出现在另一个字符串的内部。使用 `sentence.includes(letter)` 来代替你上次写的辅助函数。"
+    },
+    "stopEarly": {
+      "question": "什么时候可以提前停止？",
+      "answer": "一旦有一个字母缺失，就返回 `false`，没有必要再去检查剩下的字母了。只有在确认了整个字母表都齐了之后，才返回 `true`。"
+    }
+  },
+  "functions": {
+    "toLowerCase": {
+      "description": "返回一个字符串的小写副本（由关卡 stdlib 提供）",
+      "category": "字符串操作"
+    },
+    "includes": {
+      "description": "检查一个字符串是否包含一个更小的字符串（由关卡 stdlib 提供）",
+      "category": "字符串操作"
+    }
+  }
+}

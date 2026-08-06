@@ -1,0 +1,103 @@
+{
+  "describers": {
+    "canMove": "检查角色能否前进",
+    "canTurnLeft": "检查角色左侧是否有通路",
+    "canTurnRight": "检查角色右侧是否有通路"
+  },
+  "checks": {
+    "reachedEnd": "你没有到达迷宫终点。",
+    "extraTurn": "你似乎在终点处做了一个多余的转向。"
+  },
+  "tasks": {
+    "straightPath": {
+      "name": "直路",
+      "description": "向前走到迷宫终点。"
+    },
+    "turnLeft": {
+      "name": "如果可以，就左转",
+      "description": "如果左边有路，就走那边！"
+    },
+    "turnRight": {
+      "name": "无法直行或左转时右转",
+      "description": "如果左边和前面都没有路，就向右走。"
+    },
+    "turnAround": {
+      "name": "必要时掉头",
+      "description": "通过掉头处理死路。如果无法左转、前进或右转，则掉头然后前进。"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "引导角色走到迷宫终点",
+      "description": "一条向下的直路"
+    },
+    "leftTurn": {
+      "name": "一个简单的左转",
+      "description": "通过一个左转弯"
+    },
+    "rightTurn": {
+      "name": "一个简单的右转",
+      "description": "通过一个右转弯"
+    },
+    "forks": {
+      "name": "如果可以，选择左边；否则选择右边",
+      "description": "带有分叉路口的迷宫，测试左转优先"
+    },
+    "turnAround": {
+      "name": "在死路掉头",
+      "description": "一个需要掉头的迷宫"
+    },
+    "forks2": {
+      "name": "带有分叉和死路的复杂迷宫",
+      "description": "一个测试完整算法的复杂迷宫"
+    }
+  },
+  "hints": {
+    "solveEachMaze": {
+      "question": "我需要分别解每个迷宫吗？",
+      "answer": "不需要。你写一个适用于任何迷宫的算法，相同的代码会在每个场景中运行。"
+    },
+    "runEveryStep": {
+      "question": "如何让我的代码在迷宫的每一步都运行？",
+      "answer": "将你的逻辑放在 repeat 循环中。它会重复运行你的代码，直到你到达终点，所以你只需要描述每一步要做什么。"
+    },
+    "oneCheckPerStep": {
+      "question": "如何确保每一步只执行一个检查？",
+      "answer": "使用一个 `if` / `else if` / `else` 链，而不是多个独立的 `if`。这样每次循环只会执行一个分支。"
+    },
+    "stuckAfterTurn": {
+      "question": "我转了弯，但角色还卡在同一个地方。",
+      "answer": "转弯只会改变角色的朝向，并不会移动。转弯后，你还需要 `move()` 前进。"
+    },
+    "turnAroundDeadEnd": {
+      "question": "在死路怎么掉头？",
+      "answer": "没有掉头函数。朝同一个方向转两次（两次左转，或两次右转）会让角色朝向它来的方向。"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "让角色沿当前方向**向前移动一步**。只有当目标位置没有墙壁阻挡时，角色才会移动。",
+      "category": "移动"
+    },
+    "turnLeft": {
+      "description": "让角色**向左转 90 度**（逆时针）。这会改变角色的朝向。",
+      "category": "移动"
+    },
+    "turnRight": {
+      "description": "让角色**向右转 90 度**（顺时针）。这会改变角色的朝向。",
+      "category": "移动"
+    },
+    "canMove": {
+      "description": "如果角色前方空间不是墙壁，返回 **true**，否则返回 **false**。",
+      "category": "感知"
+    },
+    "canTurnLeft": {
+      "description": "如果角色左侧空间不是墙壁，返回 **true**，否则返回 **false**。",
+      "category": "感知"
+    },
+    "canTurnRight": {
+      "description": "如果角色右侧空间不是墙壁，返回 **true**，否则返回 **false**。",
+      "category": "感知"
+    }
+  }
+}

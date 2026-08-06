@@ -1,0 +1,88 @@
+{
+  "tasks": {
+    "createAcronymFunction": {
+      "name": "创建首字母缩写函数",
+      "description": "编写一个函数，接收一个短语，返回其首字母缩写：取每个单词的首字母并将其大写。单词由空格和连字符分隔，其他所有标点符号均忽略。"
+    },
+    "solveTightly": {
+      "name": "用 46 行完成",
+      "description": "加分项：将字母检测和大小写转换提取到 `acronym` 可复用的辅助函数中，整个解答可以控制在 46 行内。试试看能否做到？"
+    }
+  },
+  "scenarios": {
+    "png": {
+      "name": "基本首字母缩写：PNG",
+      "description": "将 'Portable Network Graphics' 转换为 'PNG'。"
+    },
+    "ror": {
+      "name": "小写单词：ROR",
+      "description": "将 'Ruby on Rails' 转换为 'ROR'。"
+    },
+    "gimp": {
+      "name": "全大写单词：GIMP",
+      "description": "将 'GNU Image Manipulation Program' 转换为 'GIMP'。"
+    },
+    "firstWordOnly": {
+      "name": "单个单词：H",
+      "description": "将 'HyperText' 转换为 'H'。"
+    },
+    "hyphenated": {
+      "name": "连字符短语：CMOS",
+      "description": "将 'Complementary metal-oxide semiconductor' 转换为 'CMOS'。"
+    },
+    "fifo": {
+      "name": "逗号分隔：FIFO",
+      "description": "将 'First In, First Out' 转换为 'FIFO'。"
+    },
+    "punctuation": {
+      "name": "带标点：PHT",
+      "description": "将 'Portable, HyperText, Transmitter' 转换为 'PHT'。"
+    },
+    "hc": {
+      "name": "带撇号：HC",
+      "description": "将 'Halley's Comet' 转换为 'HC'。"
+    },
+    "simufta": {
+      "name": "连续分隔符：SIMUFTA",
+      "description": "将 'Something - I made up from thin air' 转换为 'SIMUFTA'。"
+    },
+    "trnt": {
+      "name": "下划线强调：TRNT",
+      "description": "将 'The Road _Not_ Taken' 转换为 'TRNT'。"
+    },
+    "long": {
+      "name": "超长首字母缩写：ROTFLSHTMDCOALM",
+      "description": "将 'Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me' 转换为 'ROTFLSHTMDCOALM'。"
+    },
+    "emoji": {
+      "name": "带表情符号：HW",
+      "description": "将 'Hello 👋 World' 转换为 'HW'。"
+    },
+    "acronymBonusLineCount": {
+      "name": "整洁优雅",
+      "description": "最整洁的解答会复用辅助函数，且控制在 46 行以内。你能找到它吗？"
+    }
+  },
+  "checks": {
+    "tooManyLines": "继续加油！看看能否用更少的行数解决它。",
+    "noMethods": "本次练习的目的是自己构建工具。请在不使用任何内置方法的情况下完成。"
+  },
+  "hints": {
+    "pickLetters": {
+      "question": "如何选择构成首字母缩写的字母？",
+      "answer": "首字母缩写由每个单词开头的字母组成：短语的第一个字母，加上每个空格或连字符后的第一个字母。"
+    },
+    "findWordStarts": {
+      "question": "如何知道一个新单词开始了？",
+      "answer": "逐个字符遍历短语，并跟踪是否处于新单词的开头。在短语开头，以及每个空格或连字符之后，都是新单词的开头。任何非字母字符（标点、下划线、撇号）都应跳过，不计作新单词的开头。"
+    },
+    "buildResult": {
+      "question": "如何边遍历边构建结果？",
+      "answer": "从一个空字符串开始，用 `+` 将选出的每个字母追加到末尾。"
+    },
+    "uppercaseLetters": {
+      "question": "在没有内置大写方法时，如何将字母转为大写？",
+      "answer": "这里没有现成的大写转换工具。就像在 Pangram 练习中一样，你可以将小写字母表和大写字母表对齐，并按位置替换字母。已经是大写的字母可以保持不变。"
+    }
+  }
+}

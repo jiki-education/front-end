@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "baseCircle": "底部（最下面的）圆不对。检查 snowmanCenterX、baseCenterY 和 baseRadius。",
+    "bodyCircle": "身体（中间的）圆不对。检查 snowmanCenterX、bodyCenterY 和 bodyRadius。",
+    "headCircle": "头部（最上面的）圆不对。检查 snowmanCenterX、headCenterY 和 headRadius。"
+  },
+  "tasks": {
+    "buildSnowman": {
+      "name": "堆雪人",
+      "description": "设置变量值，使雪人与目标图像匹配。"
+    }
+  },
+  "scenarios": {
+    "buildSnowman": {
+      "name": "堆雪人",
+      "description": "设置正确的变量值来画出雪人。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "我不知道从哪里开始",
+      "answer": "原始代码在左侧画了一个白色的圆。你需要改变 snowmanCenterX、baseCenterY 和 baseRadius 的值，让它们正确，使其覆盖模板中的底部圆环。然后你应该为其他圆添加变量。"
+    },
+    "variableNotFoundError": {
+      "question": "我收到一个类似“Jiki could not find a variable called 'XXX'”的错误",
+      "answer": "这意味着你没有用 `let` 关键字创建变量（Jiki 货架上的盒子）。当 Jiki 读取画圆的代码时，他希望找到引用的盒子，但它们不在那里。所以你需要添加它们。"
+    },
+    "stillNotDeclaredError": {
+      "question": "我添加了变量，但仍然收到“not declared”错误",
+      "answer": "检查你的拼写——很可能是拼写错误。记住大小写很重要：`bodycentery` 和 `bodyCenterY` 是不一样的。"
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "以 (centerX, centerY) 为圆心，使用给定的半径和颜色画一个圆",
+      "category": "绘制形状"
+    }
+  }
+}

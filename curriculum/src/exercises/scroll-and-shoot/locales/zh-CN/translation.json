@@ -1,0 +1,74 @@
+{
+  "checks": {
+    "notShotAllAliens": "你没有射落所有的外星人。",
+    "noRepeatWithArg": "在这个练习中你不能使用 <code>repeat(n) {}</code>。你应该只使用不带参数的 <code>repeat() {}</code> 循环。"
+  },
+  "tasks": {
+    "scrollAndShoot": {
+      "name": "在屏幕上左右移动并射落每个外星人",
+      "description": "在屏幕上来回移动激光，检查上方是否有外星人并将其射落。不要移出屏幕边缘或在外星人不在时射击，否则你会输！随着进行，敌人波次会越来越密集。"
+    }
+  },
+  "scenarios": {
+    "oneAlien": {
+      "name": "一个外星人",
+      "description": "猎杀单个外星人"
+    },
+    "oneRow": {
+      "name": "稀疏的一行",
+      "description": "底行中散落的外星人。"
+    },
+    "twoRows": {
+      "name": "两行",
+      "description": "分布在两行的外星人。"
+    },
+    "threeRows": {
+      "name": "三行",
+      "description": "遍布三行的外星人。"
+    },
+    "fullRows": {
+      "name": "满行",
+      "description": "三行密集的外星人。外星人不断重新出现！"
+    }
+  },
+  "hints": {
+    "whereDoIStart": {
+      "question": "我从哪里开始？感觉事情好多。",
+      "answer": "分解问题。首先让激光左右移动，先不管射击。等移动功能正常后，再加入射击逻辑。"
+    },
+    "trackLaserPosition": {
+      "question": "如何跟踪激光的位置？",
+      "answer": "用变量记录激光的位置。每次循环迭代时，调用 `moveLeft()` 或 `moveRight()` 后更新该变量。"
+    },
+    "whenToTurnAround": {
+      "question": "怎么知道何时该掉头？",
+      "answer": "跟踪一个方向变量（例如，向右为 `1`，向左为 `-1`）。当位置到达左边界或右边界时，翻转方向。这和 Rainbow Ball 中的反弹模式相同。"
+    },
+    "whenToShoot": {
+      "question": "什么时候应该调用 `shoot()`？",
+      "answer": "在调用 `shoot()` 之前，先检查 `isAlienAbove()`。只有它返回 `true` 时才射击，否则会浪费弹药并输掉游戏。"
+    },
+    "laserOverheating": {
+      "question": "激光一直过热，我该怎么做？",
+      "answer": "不要每次循环都射击。两次射击之间至少移动一次，好让激光炮有时间冷却。"
+    }
+  },
+  "functions": {
+    "moveLeft": {
+      "description": "将激光炮**向左移动一个位置**。如果试图移出屏幕的左边缘，就会输掉游戏！",
+      "category": "移动"
+    },
+    "moveRight": {
+      "description": "将激光炮**向右移动一个位置**。如果试图移出屏幕的右边缘，就会输掉游戏！",
+      "category": "移动"
+    },
+    "shoot": {
+      "description": "向上发射激光。**只有上方有外星人时才射击**，否则会输掉游戏！激光炮容易过热，所以再次射击前必须移动。",
+      "category": "动作"
+    },
+    "isAlienAbove": {
+      "description": "如果激光炮正上方有外星人则返回 `true`，否则返回 `false`。在射击前用它来检查！",
+      "category": "检测"
+    }
+  }
+}

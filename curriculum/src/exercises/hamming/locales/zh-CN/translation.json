@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "tooManyLines": "你用的代码行数比需要的多，看看能不能再精简一下吧。"
+  },
+  "tasks": {
+    "calculateHammingDistance": {
+      "name": "计算汉明距离",
+      "description": "编写一个函数，计算两条等长 DNA 链之间的汉明距离。汉明距离是相应位置上字符不同的位置数。"
+    },
+    "solveInElevenLines": {
+      "name": "用 11 行代码解答",
+      "description": "你能用不超过 11 行代码完成这个练习吗？"
+    }
+  },
+  "scenarios": {
+    "hammingEmptyStrands": {
+      "name": "空链",
+      "description": "空链的汉明距离是 0。"
+    },
+    "hammingSingleLetterIdentical": {
+      "name": "单个字母相同的链",
+      "description": "单个字母相同的链汉明距离为 0。"
+    },
+    "hammingLongIdenticalStrands": {
+      "name": "相同的长链",
+      "description": "相同的长链的汉明距离为 0。"
+    },
+    "hammingSingleLetterDifferent": {
+      "name": "单个字母不同的链",
+      "description": "单个字母不同的链汉明距离为 1。"
+    },
+    "hammingLongDifferentStrands": {
+      "name": "不同的长链",
+      "description": "有差异的长链会计算出一个汉明距离。"
+    },
+    "hammingBonusElevenLines": {
+      "name": "11 行代码",
+      "description": "使用不超过 11 行代码完成这个练习。"
+    }
+  },
+  "hints": {
+    "hammingDistanceMeaning": {
+      "question": "汉明距离用简单的话来解释是什么意思？",
+      "answer": "它是两个字符串中不同的位置数。所以 'GAGA' 和 'GATA' 只在第 3 个位置不同，距离是 1。"
+    },
+    "compareCharactersAtPosition": {
+      "question": "如何比较两个字符串中相同位置的字符？",
+      "answer": "你需要同步遍历两个字符串，这样在遍历过程中就可以从每个字符串的相同位置取出字符。"
+    },
+    "trackDifferenceCount": {
+      "question": "如何统计有多少处不同？",
+      "answer": "你需要一个能累加计数的东西，每次发现不匹配就更新它，这样在检查完所有位置后，就可以直接返回。"
+    }
+  }
+}

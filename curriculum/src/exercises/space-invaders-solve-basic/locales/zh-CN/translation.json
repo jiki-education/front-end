@@ -1,0 +1,40 @@
+{
+  "describers": {
+    "move": "将激光炮向右移动了一个位置"
+  },
+  "checks": {
+    "notShotAllAliens": "你没有击落所有外星人。"
+  },
+  "tasks": {
+    "shootTheAliens": {
+      "name": "击落所有外星人",
+      "description": "将你的激光炮向右移动，并在经过每个外星人下方时将其击落。不要射偏或移出屏幕右边缘！"
+    }
+  },
+  "scenarios": {
+    "shootTheAliens": {
+      "name": "击落外星人",
+      "description": "向右移动并击落所有外星人"
+    }
+  },
+  "hints": {
+    "whatDoINeedToDo": {
+      "question": "我需要做什么？",
+      "answer": "就像迷宫练习那样，你需要移动你的角色（这次是激光炮，不是人）。但你还需从激光炮发射激光！将激光炮移动到外星人下方，然后发射。然后再移动，直到你位于下一个外星人下方，再次发射。一直重复，直到击落最后一个外星人！"
+    },
+    "cantWasteAmmo": {
+      "question": "系统提示我不能浪费弹药。",
+      "answer": "你应该只在正对某个外星人下方时才`shoot()`。试着再移动一步（或者你可能多走了一步？）"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "将激光炮**向右移动一个位置**。如果移出屏幕右边缘，你就输了！",
+      "category": "移动"
+    },
+    "shoot": {
+      "description": "向上发射激光。**只有当你的上方有外星人时才可发射**，否则你就会输掉游戏！",
+      "category": "动作"
+    }
+  }
+}

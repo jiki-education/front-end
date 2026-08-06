@@ -1,0 +1,56 @@
+{
+  "checks": {
+    "flowerCount_one": "主人期望看到种了 {{count}} 朵花，但你种了 {{got}} 朵。",
+    "flowerCount_other": "主人期望看到种了 {{count}} 朵花，但你种了 {{got}} 朵。",
+    "flowerAtPosition": "期望在位置 {{position}} 有一朵花，但没有找到。",
+    "strayFlower": "在位置 {{position}} 发现了一朵花，但这不是主人想要的位置。花朵应该均匀分布。"
+  },
+  "tasks": {
+    "plantFlowersEvenly": {
+      "name": "均匀种植花朵",
+      "description": "使用 askNumberOfFlowers() 询问要种多少朵花，计算间距，然后均匀地种植它们。"
+    }
+  },
+  "scenarios": {
+    "oneFlower": {
+      "name": "主人想要 1 朵花",
+      "description": "在这个场景中，`askNumberOfFlowers()` 将返回 1。在位置 50 种植 1 朵花。"
+    },
+    "threeFlowers": {
+      "name": "主人想要 3 朵花",
+      "description": "在这个场景中，`askNumberOfFlowers()` 将返回 3。在位置 25、50 和 75 种植 3 朵花。"
+    },
+    "fourFlowers": {
+      "name": "主人想要 4 朵花",
+      "description": "在这个场景中，`askNumberOfFlowers()` 将返回 4。在位置 20、40、60 和 80 种植 4 朵花。"
+    },
+    "nineFlowers": {
+      "name": "主人想要 9 朵花",
+      "description": "在这个场景中，`askNumberOfFlowers()` 将返回 9。在位置 10、20、30、40、50、60、70、80 和 90 种植 9 朵花。"
+    }
+  },
+  "hints": {
+    "chooseGap": {
+      "question": "如何计算每朵花的种植位置？",
+      "answer": "首先计算花朵之间的间距：\n\n```javascript\n100 / (numberOfFlowers + 1)\n```\n\n第一朵花种在这个位置，之后的每一朵花都再增加一个间距。所以如果有 3 朵花，间距是 25，它们就种在 25、50 和 75。"
+    },
+    "seeScenarios": {
+      "question": "如何查看不同的场景？",
+      "answer": "点击代码和结果之间左侧的圆圈。"
+    }
+  },
+  "functions": {
+    "askNumberOfFlowers": {
+      "description": "返回要种植的**花朵数量**。",
+      "category": "园艺"
+    },
+    "plant": {
+      "description": "在指定的**位置**种植一朵花。",
+      "category": "园艺"
+    }
+  },
+  "describers": {
+    "askNumberOfFlowers": "询问了要种植的花朵数量",
+    "plant": "在位置 ${arg1} 种植了一朵花"
+  }
+}

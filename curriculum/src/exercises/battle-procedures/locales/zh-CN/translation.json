@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "notShotAllAliens": "你没有击落所有外星人。",
+    "functionNotDefined": "你需要定义一个 <code>shootIfAlienAbove</code> 函数。",
+    "functionNotCalled": "你已经定义了 <code>shootIfAlienAbove</code>，但还需要在你的解答中实际调用它。"
+  },
+  "tasks": {
+    "battleProcedures": {
+      "name": "创建一个 shootIfAlienAbove 函数，并用它来赢得游戏",
+      "description": "将射击逻辑提取到一个 shootIfAlienAbove() 函数中，然后与移动逻辑一起使用以击败所有外星人。"
+    }
+  },
+  "scenarios": {
+    "battleProcedures": {
+      "name": "战斗流程",
+      "description": "使用你的 shootIfAlienAbove 函数击败所有外星人。"
+    }
+  },
+  "hints": {
+    "wherePutFunction": {
+      "question": "我应该把 `shootIfAlienAbove` 函数放在哪里？",
+      "answer": "在代码顶部、循环之前定义它。定义之后，就可以在循环内部随意调用它了。"
+    },
+    "whatGoesInside": {
+      "question": "`shootIfAlienAbove` 里应该放什么？",
+      "answer": "使用 `if` 语句检查 `isAlienAbove()`。当它返回 `true` 时，调用 `shoot()`。这就是函数的全部内容。"
+    },
+    "whatStaysInLoop": {
+      "question": "循环里应该保留什么？",
+      "answer": "所有移动逻辑都保留在循环中，与“滚动射击”练习相同。每次迭代：调用 `shootIfAlienAbove()`，然后移动激光炮，然后在边界处调转方向。"
+    },
+    "trackCannon": {
+      "question": "如何跟踪激光炮的位置和移动方向？",
+      "answer": "使用两个变量，在每次迭代时更新。例如，一个 `position` 变量记录位置（增加或减少），以及一个 `direction` 变量，取值为 `\"right\"` 或 `\"left\"`，并在到达边缘时翻转。"
+    }
+  },
+  "functions": {
+    "moveLeft": {
+      "description": "将激光炮**向左移动一个位置**。如果试图移出屏幕左边缘，游戏会输！",
+      "category": "移动"
+    },
+    "moveRight": {
+      "description": "将激光炮**向右移动一个位置**。如果试图移出屏幕右边缘，游戏会输！",
+      "category": "移动"
+    },
+    "shoot": {
+      "description": "向上发射激光。**只有上方有外星人时才射击**，否则会输！激光炮容易过热，所以在再次射击前必须先移动。",
+      "category": "动作"
+    },
+    "isAlienAbove": {
+      "description": "如果激光炮正上方有外星人，返回 `true`，否则返回 `false`。在射击前用它检查！",
+      "category": "检测"
+    }
+  }
+}

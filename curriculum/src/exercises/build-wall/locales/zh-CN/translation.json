@@ -1,0 +1,56 @@
+{
+  "checks": {
+    "bottomLeft": "左下角的矩形不正确。",
+    "bottomRight": "右下角的矩形不正确。",
+    "secondRowFirst": "倒数第二行的第一个矩形不正确。",
+    "secondRowLast": "倒数第二行的最后一个矩形不正确。",
+    "thirdRowMiddle": "倒数第三行的中间矩形不正确。",
+    "fourthRowMiddle": "倒数第四行中的某个中间矩形不正确。",
+    "topLeft": "左上角的矩形不正确。",
+    "topRight": "右上角的矩形不正确。",
+    "brickCount": "墙壁应该由恰好 55 块砖构成。",
+    "codeQuality": {
+      "rectangleCalledOnce": "你的代码在多个位置使用了 <code>rectangle</code> 函数。它应该只出现一次！"
+    }
+  },
+  "tasks": {
+    "buildWall": {
+      "name": "建造墙壁",
+      "description": "使用嵌套循环建造一面由 55 块砖组成的完整墙壁。"
+    }
+  },
+  "scenarios": {
+    "buildWall": {
+      "name": "建造一面 55 块砖的墙",
+      "description": "使用嵌套循环创建完整的砖墙图案。"
+    }
+  },
+  "hints": {
+    "onlyOneRectangleCall": {
+      "question": "我只能调用一次 `rectangle`。要怎么画出 55 块砖？",
+      "answer": "把那次唯一的 `rectangle` 调用放进一个循环里。每次迭代都会修改 x 和 y，这样就能在新位置画出一块新砖。"
+    },
+    "wholeGrid": {
+      "question": "要怎么画出整个网格，而不只是一行？",
+      "answer": "使用嵌套循环。外层循环遍历每一行（改变 y），内层循环遍历该行的每一块砖（改变 x）。"
+    },
+    "offsetRows": {
+      "question": "要怎么处理行与行之间的偏移？",
+      "answer": "仔细观察这幅图。每隔一行都会向一侧偏移，并且砖块数量也不同。所以你需要以不同方式处理这两种行，为每一行选择起始位置和砖块数量。"
+    },
+    "oddEven": {
+      "question": "要怎么判断行号是奇数还是偶数？",
+      "answer": "`%`（求模）运算符会返回除法运算后的余数。把行号除以 2，你就能区分奇数行和偶数行，然后可以在 `if` 语句中测试这个条件。"
+    },
+    "sizesAndSpacings": {
+      "question": "应该使用什么样的尺寸和间距？",
+      "answer": "每块砖宽 20、高 10，所以同一行中，砖与砖之间 x 每次增加 20，行与行之间 y 则每次变化 10。"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "在 (left, top) 位置绘制一个具有给定宽度、高度和颜色的矩形。",
+      "category": "绘制形状"
+    }
+  }
+}

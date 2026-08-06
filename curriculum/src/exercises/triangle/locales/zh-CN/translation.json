@@ -1,0 +1,81 @@
+{
+  "tasks": {
+    "invalidTriangles": {
+      "name": "无效三角形",
+      "description": "识别无效三角形。如果任何边为零，或任意两边之和小于等于第三边，则该三角形无效。"
+    },
+    "equilateralTriangles": {
+      "name": "等边三角形",
+      "description": "识别三条边都相等的等边三角形。"
+    },
+    "isoscelesTriangles": {
+      "name": "等腰三角形",
+      "description": "识别刚好有两条边长度相等的等腰三角形。"
+    },
+    "scaleneTriangles": {
+      "name": "不等边三角形",
+      "description": "识别三条边长度都不同的不等边三角形。"
+    }
+  },
+  "scenarios": {
+    "invalidEquilateralAllZero": {
+      "name": "所有边为零的等边三角形（0, 0, 0）",
+      "description": "所有边都为零的三角形应返回 \"invalid\"。"
+    },
+    "isoscelesFirstInequality": {
+      "name": "等腰三角形边长无效（1, 1, 3）",
+      "description": "边长过短的三角形应返回 \"invalid\"。"
+    },
+    "isoscelesSecondInequality": {
+      "name": "等腰三角形边长无效（1, 3, 1）",
+      "description": "边长过短的三角形应返回 \"invalid\"。"
+    },
+    "isoscelesThirdInequality": {
+      "name": "等腰三角形边长无效（3, 1, 1）",
+      "description": "边长过短的三角形应返回 \"invalid\"。"
+    },
+    "scaleneTriangleInequality": {
+      "name": "不等边三角形边长无效（7, 3, 2）",
+      "description": "边长过短的三角形应返回 \"invalid\"。"
+    },
+    "validEquilateral": {
+      "name": "等边三角形（2, 2, 2）",
+      "description": "所有边相等的三角形应返回 \"equilateral\"。"
+    },
+    "validIsoscelesFirstTwoEqual": {
+      "name": "等腰三角形（4, 4, 3）",
+      "description": "前两条边相等的三角形应返回 \"isosceles\"。"
+    },
+    "validIsoscelesLastTwoEqual": {
+      "name": "等腰三角形（3, 4, 4）",
+      "description": "后两条边相等的三角形应返回 \"isosceles\"。"
+    },
+    "validIsoscelesFirstAndLastEqual": {
+      "name": "等腰三角形（4, 3, 4）",
+      "description": "第一条和最后一条边相等的三角形应返回 \"isosceles\"。"
+    },
+    "validScalene": {
+      "name": "不等边三角形（5, 4, 6）",
+      "description": "所有边都不相等的三角形应返回 \"scalene\"。"
+    }
+  },
+  "hints": {
+    "whatMakesInvalid": {
+      "question": "什么情况会使三角形无效？",
+      "answer": "有两个原因。第一，任何一条边为零。第二，任意两边之和小于或等于第三边（三角形不等式）。先检查这个，因为如果不是一个有效的三角形，分类就没有意义。"
+    },
+    "checkOrder": {
+      "question": "我应该按什么顺序检查这些分类？",
+      "answer": "从最具体的开始：等边（三条边都相等），然后是等腰（任意两条边相等），其他都是不等边。如果顺序搞错了，等边三角形会被错误地归类为等腰三角形。"
+    },
+    "checkAnyTwoEqual": {
+      "question": "如何检查等腰三角形的“任意两条边相等”？",
+      "answer": "三个比较：a === b、b === c 或 a === c。其中任何一个为 true 就满足条件了。"
+    },
+    "knowScalene": {
+      "question": "如何知道它是不等边三角形？",
+      "answer": "如果你已经排除了无效、等边和等腰，那么剩下的就只有不等边了。直接返回它，无需进一步检查。"
+    }
+  },
+  "functions": {}
+}

@@ -1,0 +1,54 @@
+{
+  "errors": {
+    "unknownDice": "抱歉，Jiki 手边没有 {{sides}} 面的骰子！",
+    "announceNumber": "你只能宣布一个数字",
+    "attackNumber": "攻击必须是一个数字",
+    "damageNumber": "伤害必须是一个数字"
+  },
+  "describers": {
+    "roll": "投了一次骰子，得到 ${return}",
+    "announce": "宣布了 ${arg1}",
+    "strike": "用攻击 ${arg1} 和伤害 ${arg2} 打击了哥布林"
+  },
+  "checks": {
+    "announcementCount": "预期有 3 次宣布，但得到了 {{got}} 次。确保你宣布了每一次投掷。",
+    "firstAnnouncement": "预期第一次宣布为 {{attack}}（攻击点数），但得到了 {{got}}。",
+    "secondAnnouncement": "预期第二次宣布为 {{damage}}（基础伤害点数），但得到了 {{got}}。",
+    "thirdAnnouncement": "预期第三次宣布为 {{bonus}}（额外伤害点数），但得到了 {{got}}。",
+    "notStruck": "你没有打击哥布林。确保你调用了 <code>strike()</code>。",
+    "wrongAttack": "预期攻击为 {{attack}}，但得到了 {{got}}。将攻击点数传递给 <code>strike()</code>。",
+    "wrongDamage": "预期总伤害为 {{totalDamage}}（{{damage}} + {{bonus}}），但得到了 {{got}}。把基础伤害和额外伤害加在一起。"
+  },
+  "tasks": {
+    "rollAndStrike": {
+      "name": "投骰子并打击哥布林",
+      "description": "投掷三枚骰子（d20 用于攻击，d12 用于基础伤害，d10 用于额外伤害），宣布每次投掷的结果，然后用你的攻击点数和总伤害（基础伤害 + 额外伤害）打击哥布林。"
+    }
+  },
+  "scenarios": {
+    "randomRolls": {
+      "name": "投掷并打击",
+      "description": "投掷 d20 决定攻击，d12 决定基础伤害，d10 决定额外伤害。用你的攻击点数和总伤害打击哥布林。"
+    }
+  },
+  "hints": {
+    "chooseDie": {
+      "question": "如何选择使用哪种骰子？",
+      "answer": "对于 20 面的骰子，将 20 作为输入传递给 `roll`，例如 `roll(20)`。对于 12 面的骰子，调用 `roll(12)`。"
+    }
+  },
+  "functions": {
+    "roll": {
+      "description": "投掷给定面数的骰子并**返回**结果。",
+      "category": "骰子"
+    },
+    "announce": {
+      "description": "宣布一次骰子投掷的值。",
+      "category": "行动"
+    },
+    "strike": {
+      "description": "用给定的攻击点数和总伤害打击哥布林。",
+      "category": "行动"
+    }
+  }
+}

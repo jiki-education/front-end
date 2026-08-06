@@ -1,0 +1,117 @@
+{
+  "errors": {
+    "walkedIntoFire": "你走进了火焰！",
+    "steppedInPoop": "你踩到了便便！",
+    "lookDirectionType": "look() 期望一个字符串方向：\"left\"、\"right\" 或 \"ahead\"",
+    "lookDirectionValue": "look() 的方向必须是 \"left\"、\"right\" 或 \"ahead\""
+  },
+  "describers": {
+    "look": "观察一个方向，看看那里有什么"
+  },
+  "checks": {
+    "notReachedEnd": "你没有到达迷宫的终点。",
+    "extraTurn": "你似乎在终点处做了一次多余的转向。",
+    "canTurnLeftMissing": "你应该定义一个 <code>canTurnLeft</code> 函数。",
+    "canTurnRightMissing": "你应该定义一个 <code>canTurnRight</code> 函数。",
+    "canMoveMissing": "你应该定义一个 <code>canMove</code> 函数。",
+    "turnAroundMissing": "你应该定义一个 <code>turnAround</code> 函数。",
+    "lookOnlyOnce": "<code>look()</code> 应该在你的整个程序中只出现一次。",
+    "maxExtraLines": "你应该添加的代码不超过 13 行。"
+  },
+  "tasks": {
+    "straightPath": {
+      "name": "一条直路",
+      "description": "实现 canMove()，使角色能够向前走到迷宫的终点。"
+    },
+    "turnLeft": {
+      "name": "如果可以，向左转",
+      "description": "实现 canTurnLeft()，使角色在有路时向左转。"
+    },
+    "turnRight": {
+      "name": "如果无法直行或左转，则右转",
+      "description": "实现 canTurnRight()，使角色在无法左转或直行时向右转。"
+    },
+    "turnAround": {
+      "name": "需要时转身",
+      "description": "通过转身来处理死路。现在三个感知函数应该协同工作以解决任何迷宫。"
+    },
+    "bonusChallenges": {
+      "name": "额外挑战",
+      "description": "你能在整个程序中只使用一次 look() 函数吗？并且你能只添加 13 行代码来解决吗？"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "引导角色到达迷宫终点",
+      "description": "一条向下的直路"
+    },
+    "leftTurn": {
+      "name": "一次左转",
+      "description": "通过左转"
+    },
+    "rightTurn": {
+      "name": "一次右转",
+      "description": "通过右转"
+    },
+    "forks": {
+      "name": "如果可以就左转，否则右转",
+      "description": "一个带有岔路并测试左转优先的迷宫"
+    },
+    "turnAround": {
+      "name": "在死路转身",
+      "description": "一个需要转身的迷宫"
+    },
+    "forks2": {
+      "name": "复杂迷宫，有岔路和死路",
+      "description": "一个测试完整算法的复杂迷宫"
+    },
+    "coverOldGround": {
+      "name": "需要时走回头路",
+      "description": "一个必须原路返回才能找到出口的迷宫"
+    },
+    "bonus1": {
+      "name": "只编写一次 look()",
+      "description": "在你的代码中只出现一次 look()，来解决迷宫"
+    },
+    "bonus2": {
+      "name": "只添加 13 行",
+      "description": "只添加 13 行代码来解决迷宫"
+    }
+  },
+  "hints": {
+    "start": {
+      "question": "当程序完全无法运行时，我该从哪里开始？",
+      "answer": "在你的代码顶部定义 `canTurnLeft()`、`canTurnRight()` 和 `canMove()`，暂时让它们都返回 `false`。这样程序就能运行起来，然后你可以逐个替换这些函数体。"
+    },
+    "findDirection": {
+      "question": "我如何找出某个方向上有什么？",
+      "answer": "使用新的 `look(direction)` 函数。传入 `\"left\"`、`\"right\"` 或 `\"ahead\"`，它会返回一个字符串，例如 `\"empty\"`、`\"wall\"`、`\"fire\"` 或 `\"poop\"`。"
+    },
+    "safeResults": {
+      "question": "哪些结果表示沿那个方向前进是安全的？",
+      "answer": "`look()` 能返回的六种结果中，有三种是你绝对不想走进去的。只有当看到的不属于这三种时，你的函数才应返回 `true`。"
+    },
+    "avoidRepetition": {
+      "question": "我在三个函数中重复了相同的逻辑。我该如何避免？",
+      "answer": "这三个函数只是观察的方向不同。你可以编写一个额外的函数，接受一个方向作为输入，并让这三个函数都使用它吗？"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "将角色朝当前方向**向前移动一步**。走进墙壁、火焰或便便会以错误终止程序，所以在移动前检查前方有什么！",
+      "category": "移动"
+    },
+    "turnLeft": {
+      "description": "将角色**向左转 90 度**（逆时针）。这会改变角色面向的方向。",
+      "category": "移动"
+    },
+    "turnRight": {
+      "description": "将角色**向右转 90 度**（顺时针）。这会改变角色面向的方向。",
+      "category": "移动"
+    },
+    "look": {
+      "description": "观察给定方向并返回那里的物体。方向必须是 `\"left\"`、`\"right\"` 或 `\"ahead\"`。返回以下之一：`\"empty\"`、`\"wall\"`、`\"fire\"`、`\"poop\"`、`\"start\"` 或 `\"target\"`。",
+      "category": "感知"
+    }
+  }
+}

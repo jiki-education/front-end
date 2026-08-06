@@ -1,0 +1,97 @@
+{
+  "tasks": {
+    "findGuestTable": {
+      "name": "查找客人的桌子",
+      "description": "编写一个函数，它接收客人全名列表、对应的桌名列表，以及一位以尊称加姓氏方式宣布的到达客人。返回该客人所坐的桌子名称；如果该客人不在座位安排上，则返回 `\"No table found\"`。"
+    },
+    "solveTightly": {
+      "name": "极简解法",
+      "description": "附加题：这道题可以写得比想象中简短很多。你能把整个解法缩减到寥寥几行吗？"
+    }
+  },
+  "scenarios": {
+    "emptyList": {
+      "name": "空的座位安排",
+      "description": "座位安排为空时，无人入座。"
+    },
+    "nameMissing": {
+      "name": "Brad 被拒之门外",
+      "description": "该名字不在座位安排上。"
+    },
+    "namePresent": {
+      "name": "Brad 被带到座位",
+      "description": "Brad Pitt 在座位安排上，因此 Mr Pitt 得到了他的桌子。"
+    },
+    "differentHonorific": {
+      "name": "王国骑士",
+      "description": "使用另一种尊称，且该客人并非座位安排上的第一个。"
+    },
+    "bondSeated": {
+      "name": "看来是 Bond 先生",
+      "description": "James Bond 在座位安排上。"
+    },
+    "bondNotSeated": {
+      "name": "嗯... 是 Bond 先生吗？",
+      "description": "座位安排上只有 Jason Bourne，没有 James Bond。"
+    },
+    "partialSurname": {
+      "name": "并非 Pitt 先生",
+      "description": "Ada Spitt 和 Hugo Ross-Pitt 都不是 Mr Pitt，因此他在这里没有座位。"
+    },
+    "lloydWebber": {
+      "name": "男爵呢？",
+      "description": "Baron Lloyd Webber 的姓氏包含两个单词。"
+    },
+    "markWebber": {
+      "name": "Mark 是男爵吗？",
+      "description": "不同的 Webber 不算——姓氏必须完全匹配。"
+    },
+    "formalDinnerBonusLineCount": {
+      "name": "干净利落：Lord Doyle",
+      "description": "同样的座位安排，但这次你的解法必须精简到极少的行数。"
+    }
+  },
+  "hints": {
+    "twoLists": {
+      "question": "两个列表之间是什么关系？",
+      "answer": "它们是一一对应的。第一位客人坐第一张桌子，第二位客人坐第二张桌子，依此类推。因此，仅仅知道一位客人在座位安排上还不够——你需要知道他在座位安排上的*位置*。"
+    },
+    "comparingNames": {
+      "question": "客人说“Mr Pitt”，但座位安排上是“Brad Pitt”。该如何比较它们？",
+      "answer": "这两个字符串永远不相等，所以直接比较是行不通的。想一想客人报出的信息中有哪一部分真正出现在了座位安排上，以及你预期会在座位安排条目中的哪个位置找到它。"
+    },
+    "lookalikeSurnames": {
+      "question": "姓氏会不会错误匹配到别的客人？",
+      "answer": "完全有可能。大声读一下“Ada Spitt”和“Hugo Ross-Pitt”，然后再想想 Mr Pitt。问问自己，是什么让那一行中的某个部分成为真正的姓氏，而不仅仅是恰好出现在末尾的几个字母。"
+    },
+    "noMatch": {
+      "question": "当没有人匹配时，应该返回什么？",
+      "answer": "返回字符串 `\"No table found\"`，一字不差。更难的部分在于，要明白你什么时候才能这么说。如果你只检查了座位安排上的第一位客人，发现他不是你要找的人，你就能确定他没有入座吗？"
+    }
+  },
+  "checks": {
+    "tooManyLines": "加油！试试看能不能用更少的行数来解答。"
+  },
+  "functions": {
+    "length": {
+      "description": "列表中项目的数量——与你在字符串上使用过的相同的 length 属性（由关卡标准库提供）",
+      "category": "列表操作"
+    },
+    "split": {
+      "description": "按照分隔符将字符串拆分成一个片段列表（由关卡标准库提供）",
+      "category": "字符串操作"
+    },
+    "slice": {
+      "description": "从列表的某个位置开始，提取一部分元素构成新列表（由关卡标准库提供）",
+      "category": "列表操作"
+    },
+    "join": {
+      "description": "将列表中的项目连接成一个字符串，项目之间用分隔符隔开（由关卡标准库提供）",
+      "category": "列表操作"
+    },
+    "endsWith": {
+      "description": "检查一个字符串是否以另一个较短的字符串结尾（由关卡标准库提供）",
+      "category": "字符串操作"
+    }
+  }
+}

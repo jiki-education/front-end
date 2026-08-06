@@ -1,0 +1,63 @@
+{
+  "checks": {
+    "tooManyLines": "你的解答代码行数太多了，能写得更短吗？"
+  },
+  "tasks": {
+    "didTheyPass": {
+      "name": "通过了吗？",
+      "description": "编写一个函数，分析驾驶考试的标记并判断学员是否通过。如果学员有任何大错（💥）或5个及以上小错（❌），则不通过。"
+    },
+    "solveInElevenLines": {
+      "name": "用12行代码解决",
+      "description": "你能只用12行代码完成这个练习吗？"
+    }
+  },
+  "scenarios": {
+    "perfectMarks": {
+      "name": "完美的学员！",
+      "description": "他们全都做对了——真厉害！"
+    },
+    "dangerous": {
+      "name": "马路杀手！",
+      "description": "我们可不能让他上路！"
+    },
+    "oneBigMistake": {
+      "name": "一个大错",
+      "description": "只犯一个大错就会不通过！"
+    },
+    "scrapedThrough": {
+      "name": "勉强通过",
+      "description": "他们惊险地通过了！"
+    },
+    "oneMistakeTooMany": {
+      "name": "多了一个小错！",
+      "description": "所有的小错加起来就导致不通过了。"
+    },
+    "bonus1": {
+      "name": "12行代码",
+      "description": "只用12行代码完成这个练习。"
+    }
+  },
+  "hints": {
+    "lookAtEachMark": {
+      "question": "我该如何逐个查看每个标记？",
+      "answer": "遍历标记字符串，一次一个字符。每个字符要么是✅，要么是❌，要么是💥。"
+    },
+    "emojiInQuotes": {
+      "question": "为什么我的代码遇到💥会报错？",
+      "answer": "像💥和❌这样的表情符号也需要用引号括起来。它们和字母一样，都是字符串里的字符。"
+    },
+    "majorFault": {
+      "question": "当我看到💥（大错）时该怎么办？",
+      "answer": "任何单个大错都会导致考试不通过，无论之前发生了什么。所以只要你看到一个💥，就可以立即返回`false`，没必要继续查看了。"
+    },
+    "minorCount": {
+      "question": "对于小错，计数很关键，我该怎么处理？",
+      "answer": "维护一个计数变量，每次看到❌就加1。忽略✅，它们不影响结果。"
+    },
+    "finalCheck": {
+      "question": "最后需要检查什么？",
+      "answer": "循环结束后，如果没有遇到大错，那么当小错少于5个时考试就通过。如果小错计数少于5，返回`true`，否则返回`false`。"
+    }
+  }
+}

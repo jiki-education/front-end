@@ -1,0 +1,71 @@
+{
+  "checks": {
+    "tooManyLines": "你的代码行数太多了。可以缩短一些吗？"
+  },
+  "tasks": {
+    "searchForTile": {
+      "name": "搜索字母牌",
+      "description": "编写一个函数，检查牌架中是否有特定的字母牌。如果找到，返回 true；否则返回 false。"
+    },
+    "solveInEightLines": {
+      "name": "用 8 行代码完成",
+      "description": "你能只用 8 行代码完成这个练习吗？"
+    }
+  },
+  "scenarios": {
+    "letterFoundAtStart": {
+      "name": "字母在开头",
+      "description": "字母是牌架中的第一张牌。"
+    },
+    "letterFoundInMiddle": {
+      "name": "字母在中间",
+      "description": "字母在牌架的中间。"
+    },
+    "letterFoundAtEnd": {
+      "name": "字母在末尾",
+      "description": "字母是牌架中的最后一张牌。"
+    },
+    "letterNotFound": {
+      "name": "未找到字母",
+      "description": "牌架中没有这个字母。"
+    },
+    "emptyRack": {
+      "name": "空牌架",
+      "description": "空牌架中没有牌可找。"
+    },
+    "duplicateLetters": {
+      "name": "有重复牌的牌架",
+      "description": "字母出现在重复的牌中。"
+    },
+    "singleTileFound": {
+      "name": "单张牌找到",
+      "description": "牌架中只有一张牌，并且匹配。"
+    },
+    "singleTileNotFound": {
+      "name": "单张牌未找到",
+      "description": "牌架中只有一张牌，但不匹配。"
+    },
+    "bonus1": {
+      "name": "8 行代码",
+      "description": "只用 8 行代码完成这个练习。"
+    }
+  },
+  "hints": {
+    "byHand": {
+      "question": "如何手动完成？",
+      "answer": "你会逐个字母浏览待搜索的字母牌组，将每个字母与要查找的字母比较。一旦找到匹配的就停下来。如果到了末尾还没匹配，说明要查找的字母不在里面。"
+    },
+    "loopAndCompare": {
+      "question": "怎样循环和比较？",
+      "answer": "for-of 循环会依次给出字符串中的每个字母。在循环体内，用 if 语句比较当前字母和要查找的字母。"
+    },
+    "returnTrue": {
+      "question": "什么时候返回 true？",
+      "answer": "一找到匹配的就返回 true。没必要继续检查剩下的字母。"
+    },
+    "returnFalse": {
+      "question": "什么时候返回 false？",
+      "answer": "只有在循环结束且没找到匹配时，才返回 false。一个常见的错误是把 `return false` 放在循环体内。这样会在检查第一个不匹配的字母后就放弃，还没检查完其余的。"
+    }
+  }
+}

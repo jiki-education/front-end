@@ -1,0 +1,43 @@
+{
+  "errors": {
+    "walkExpectsNumber": "walk() 需要一个步数参数"
+  },
+  "describers": {
+    "walk": "向前行走指定的步数"
+  },
+  "checks": {
+    "notReachedEnd": "你没有到达迷宫的终点。"
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "将角色引导至迷宫终点",
+      "description": "使用 walk()、turnLeft() 和 turnRight() 穿越迷宫，到达绿色目标格子。"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "将角色引导至迷宫终点",
+      "description": "你的任务是到达目标。"
+    }
+  },
+  "hints": {
+    "moveNotWorking": {
+      "question": "为什么 `move()` 不再起作用了？",
+      "answer": "Jiki 的每个练习都提供了不同的函数。在这个练习中，你可以使用 `walk(...)` 函数。把 `n` 替换成你想走的步数。所以 `walk(1)` 和之前的 `move()` 效果完全一样。"
+    }
+  },
+  "functions": {
+    "walk": {
+      "description": "使角色在当前方向上**向前移动指定的步数**。每一步移动一个格子。如果碰到墙壁，角色会停止并报错。",
+      "category": "移动"
+    },
+    "turnLeft": {
+      "description": "将角色**向左旋转 90 度**（逆时针）。这改变了角色面朝的方向。",
+      "category": "移动"
+    },
+    "turnRight": {
+      "description": "将角色**向右旋转 90 度**（顺时针）。这改变了角色面朝的方向。",
+      "category": "移动"
+    }
+  }
+}

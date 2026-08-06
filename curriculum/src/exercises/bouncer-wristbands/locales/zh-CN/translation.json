@@ -1,0 +1,97 @@
+{
+  "errors": {
+    "alreadyIssued": "你已经给这个人发过手环了，每个人只能发一个。"
+  },
+  "checks": {
+    "childWristband": "这个人 8 岁。应该得到儿童手环，但收到的是：{{got}}。",
+    "teenWristband": "这个人 15 岁。应该得到青少年手环，但收到的是：{{got}}。",
+    "adultWristband": "这个人 30 岁。应该得到成年人手环，但收到的是：{{got}}。",
+    "seniorWristband": "这个人 70 岁。应该得到老年人手环，但收到的是：{{got}}。",
+    "boundary13": "这个人 13 岁。应该得到青少年手环（13 岁不在 13 岁以下），但收到的是：{{got}}。",
+    "boundary18": "这个人 18 岁。应该得到成年人手环（18 岁不在 18 岁以下），但收到的是：{{got}}。",
+    "boundary65": "这个人 65 岁。应该得到老年人手环（65 岁不在 65 岁以下），但收到的是：{{got}}。"
+  },
+  "tasks": {
+    "assignWristband": {
+      "name": "发放正确的手环",
+      "description": "获取这个人的年龄并发放正确的手环：儿童（13 岁以下）、青少年（13-17 岁）、成年人（18-64 岁）或老年人（65 岁以上）。"
+    }
+  },
+  "scenarios": {
+    "childAge8": {
+      "name": "8 岁（儿童）",
+      "description": "一个 8 岁的孩子。应该得到儿童手环。"
+    },
+    "teenAge15": {
+      "name": "15 岁（青少年）",
+      "description": "一个 15 岁的青少年。应该得到青少年手环。"
+    },
+    "adultAge30": {
+      "name": "30 岁（成年人）",
+      "description": "一个 30 岁的成年人。应该得到成年人手环。"
+    },
+    "seniorAge70": {
+      "name": "70 岁（老年人）",
+      "description": "一个 70 岁的老年人。应该得到老年人手环。"
+    },
+    "boundary13": {
+      "name": "13 岁（青少年）",
+      "description": "刚好 13 岁。是青少年，不是儿童。"
+    },
+    "boundary18": {
+      "name": "18 岁（成年人）",
+      "description": "刚好 18 岁。是成年人，不是青少年。"
+    },
+    "boundary65": {
+      "name": "65 岁（老年人）",
+      "description": "刚好 65 岁。是老年人，不是成年人。"
+    }
+  },
+  "hints": {
+    "gettingAge": {
+      "question": "我怎么获取这个人的年龄？",
+      "answer": "调用 `getAge()` 并把结果存入一个变量，例如 `let age = getAge()`。然后在条件中你就可以把 `age` 和数字进行比较了。"
+    },
+    "structureForRanges": {
+      "question": "当有多个年龄段时，我该使用哪种结构？",
+      "answer": "一条 `if` / `else if` / `else` 链。每个分支处理一种手环，并且只有一个分支会执行。"
+    },
+    "branchOrder": {
+      "question": "分支的顺序重要吗？",
+      "answer": "是的。从最年轻的开始（`age < 13`），然后是 `age < 18`，再是 `age < 65`。因为每个分支只会在前面的分支都不满足时执行，所以你不需要写 `age >= 13 && age < 18` 这类条件。"
+    },
+    "seniorsElse": {
+      "question": "最后面的老年人呢？",
+      "answer": "不需要为他们设置条件。一个普通的 `else`，在其中调用 `giveSeniorWristband()`，就能覆盖所有 65 岁及以上的人。"
+    }
+  },
+  "describers": {
+    "getAge": "获取了这个人的年龄",
+    "giveChildWristband": "发放了儿童手环",
+    "giveTeenWristband": "发放了青少年手环",
+    "giveAdultWristband": "发放了成年人手环",
+    "giveSeniorWristband": "发放了老年人手环"
+  },
+  "functions": {
+    "getAge": {
+      "description": "返回在门外等待的那个人的**年龄**。",
+      "category": "信息"
+    },
+    "giveChildWristband": {
+      "description": "给这个人发放**儿童**手环（13 岁以下）。",
+      "category": "手环"
+    },
+    "giveTeenWristband": {
+      "description": "给这个人发放**青少年**手环（13-17 岁）。",
+      "category": "手环"
+    },
+    "giveAdultWristband": {
+      "description": "给这个人发放**成年人**手环（18-64 岁）。",
+      "category": "手环"
+    },
+    "giveSeniorWristband": {
+      "description": "给这个人发放**老年人**手环（65 岁以上）。",
+      "category": "手环"
+    }
+  }
+}

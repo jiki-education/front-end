@@ -1,0 +1,93 @@
+{
+  "checks": {
+    "totalCells": "期望总共 {{expectedTotal}} 个单元格，但发现了 {{got}} 个。",
+    "wrongPosition": "建筑 {{building}} 位置不对。它从第 {{start}} 列开始，但应该从第 {{expected}} 列开始。",
+    "wrongEntrance": "建筑 {{building}}：入口不在正确的位置。",
+    "wrongGroundWalls": "建筑 {{building}}：底层的侧墙不正确。",
+    "wrongRoof": "建筑 {{building}}：屋顶不完整。"
+  },
+  "tasks": {
+    "buildSkyline": {
+      "name": "建造城市天际线",
+      "description": "建造多栋随机宽度和高度的建筑，以创建城市天际线。"
+    }
+  },
+  "scenarios": {
+    "buildings1": {
+      "name": "1 栋建筑",
+      "description": "建造一栋随机宽度和高度的建筑。"
+    },
+    "buildings2": {
+      "name": "2 栋建筑",
+      "description": "建造两栋随机宽度和高度的建筑。"
+    },
+    "buildings3": {
+      "name": "3 栋建筑",
+      "description": "建造三栋随机宽度和高度的建筑。"
+    },
+    "buildings4": {
+      "name": "4 栋建筑",
+      "description": "建造四栋随机宽度和高度的建筑。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "面对这么大的练习，我该从哪里开始？",
+      "answer": "分解它。外部形状是每栋建筑一个循环。在该循环内，你依次绘制三样东西：底层（含入口）、上层（仅墙和玻璃）、以及平屋顶。在担心多栋建筑之前，先让第一个场景（单栋建筑）通过。"
+    },
+    "buildingDimensions": {
+      "question": "我如何知道每栋建筑应该是什么样子？",
+      "answer": "在每栋建筑的循环开始时，调用一次 `randomWidth()` 和 `randomNumFloors()`，并将两者存储在局部变量中。再次调用会给你*下一栋*建筑的值，所以不要在行内再次调用它们。"
+    },
+    "trackPosition": {
+      "question": "我如何跟踪下一栋建筑的位置？",
+      "answer": "用一个变量保存当前建筑的左起列。将其初始化为规格中的左侧间隙。完成一栋建筑后，将它增加该建筑的宽度加上建筑之间的间隙。这一个变量就是你需要的全部水平定位状态。"
+    },
+    "groundFloorLayout": {
+      "question": "如何布置中间有入口的底层？",
+      "answer": "逐列遍历该建筑。第一列和最后一列是墙；中间全部是玻璃；中间有一列是入口。入口所在的列由建筑的左边缘及其宽度计算得出。"
+    },
+    "upperFloorsAndRoof": {
+      "question": "如何绘制上层和屋顶？",
+      "answer": "每一层上层都与底层相同，但没有入口：两边是墙，中间是玻璃。请记住，底层已经算作一层，所以你只需在它上面堆叠剩余楼层，在 `y` 方向递增。然后屋顶是横跨整个宽度的整行墙，放在最顶部，并且不算作一层。"
+    },
+    "stuckError": {
+      "question": "我的第二栋建筑报错，显示“the builders are stuck, there's already a wall here”。怎么回事？",
+      "answer": "你的第二栋建筑试图建在第一栋上面，因为你没有在建筑之间推进列追踪器。绘制完每栋建筑后，在开始下一次迭代之前，将其增加 `宽度 + 间隙`。如果忘了，每栋建筑都会从同一个左边缘开始，并与前一个碰撞。"
+    }
+  },
+  "functions": {
+    "buildWall": {
+      "description": "在网格位置 (x, y) 放置一个**墙块**。",
+      "category": "建筑"
+    },
+    "buildGlass": {
+      "description": "在网格位置 (x, y) 放置一块**玻璃**。",
+      "category": "建筑"
+    },
+    "buildEntrance": {
+      "description": "在网格位置 (x, y) 放置一个**入口门**。",
+      "category": "建筑"
+    },
+    "numBuildings": {
+      "description": "返回要建造的**建筑数量**。",
+      "category": "信息"
+    },
+    "randomWidth": {
+      "description": "返回一个**随机建筑宽度**：3、5 或 7。",
+      "category": "信息"
+    },
+    "randomNumFloors": {
+      "description": "返回一个介于 1 到 12 之间的**随机楼层数**。",
+      "category": "信息"
+    }
+  },
+  "describers": {
+    "buildWall": "在位置 (${arg1}, ${arg2}) 建造了一堵墙",
+    "buildEntrance": "在位置 (${arg1}, ${arg2}) 建造了一个入口",
+    "buildGlass": "在位置 (${arg1}, ${arg2}) 建造了一块玻璃",
+    "numBuildings": "获取了建筑数量",
+    "randomWidth": "获取了一个随机建筑宽度（3-7）",
+    "randomNumFloors": "获取了一个随机楼层数（1-12）"
+  }
+}

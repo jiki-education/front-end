@@ -1,0 +1,101 @@
+{
+  "tasks": {
+    "encode": {
+      "name": "编码字符串",
+      "description": "编写一个名为 encode 的函数，遍历字符串，统计每个字符连续重复的次数。将连续出现两次及以上的字符替换为次数加字符，单独出现的字符保持原样。"
+    },
+    "decode": {
+      "name": "解码字符串",
+      "description": "编写一个名为 decode 的函数，它相反地处理。读取字符前面的数字，将该字符重复相应次数。计数的数字可能不止一位。"
+    }
+  },
+  "scenarios": {
+    "rleEncodeEmpty": {
+      "name": "编码空字符串",
+      "description": "对空字符串编码返回空字符串。"
+    },
+    "rleEncodeSingles": {
+      "name": "单独出现的字符不计次",
+      "description": "只出现一次的字符编码时前面不加数字。"
+    },
+    "rleEncodeNoSingles": {
+      "name": "没有单独出现字符的字符串",
+      "description": "连续重复的字符被替换为计数加字符。"
+    },
+    "rleEncodeMixed": {
+      "name": "单独出现的字符与连续字符混合",
+      "description": "连续的字符和单独出现的字符可以在同一个字符串中混合出现。"
+    },
+    "rleEncodeWhitespace": {
+      "name": "字符串中的空格",
+      "description": "空格和其他字符一样处理，包括在连续字符中。"
+    },
+    "rleEncodeLowercase": {
+      "name": "小写字符",
+      "description": "编码对小写字母同样有效。"
+    },
+    "rleDecodeEmpty": {
+      "name": "解码空字符串",
+      "description": "解码空字符串返回空字符串。"
+    },
+    "rleDecodeSingles": {
+      "name": "解码单独出现的字符",
+      "description": "前面没有计数的字符只出现一次。"
+    },
+    "rleDecodeNoSingles": {
+      "name": "解码全为连续字符的字符串",
+      "description": "一个计数后跟一个字符，展开为该字符的多个副本。"
+    },
+    "rleDecodeMixed": {
+      "name": "解码单独出现字符与连续字符混合",
+      "description": "多位数计数必须完整读取后再展开。"
+    },
+    "rleDecodeWhitespace": {
+      "name": "解码空格",
+      "description": "空格像其他字符一样展开。"
+    },
+    "rleDecodeLowercase": {
+      "name": "解码小写字符",
+      "description": "解码对小写字母同样有效。"
+    }
+  },
+  "hints": {
+    "whatIsRle": {
+      "question": "游程编码到底做什么？",
+      "answer": "它将同一字符连续出现的部分压缩为一个计数加该字符。\\\"AAAA\\\" 变成 \\\"4A\\\"。单独出现的字符直接保留，前面不加数字，所以 \\\"B\\\" 仍然是 \\\"B\\\"。"
+    },
+    "countRuns": {
+      "question": "如何统计连续重复字符的出现次数？",
+      "answer": "遍历字符串，记录前一个字符及其重复次数。每当字符改变时，写出已完成的连续字符计数，然后开始统计新字符。"
+    },
+    "singleChars": {
+      "question": "如何避免给单个字符添加计数？",
+      "answer": "只有计数大于 1 时才在前面加上数字。如果某个字符只出现一次，只写出字符本身。"
+    },
+    "decodeDigits": {
+      "question": "解码时如何判断一个字符是否是数字？",
+      "answer": "检查该字符是否是 0123456789 之一，例如使用 \\\"0123456789\\\".includes(char)。如果是，它就是计数的一部分。如果不是，就是要重复的字符。"
+    },
+    "decodeMultiDigit": {
+      "question": "如何读取多位数计数，比如 12？",
+      "answer": "像 12 这样的计数是一次一个数字地给出的，所以要逐步构建，而不是单独处理每个数字。每次出现一个新的数字，当前的数字需要乘以 10 来腾出位置，然后再添加新数字。Number() 可以将数字字符转换为可以用于数学运算的数字。"
+    },
+    "decodeRepeat": {
+      "question": "如何将字符重复正确的次数？",
+      "answer": "遇到非数字字符后，使用一个循环运行 count 次，每次将该字符添加到结果中。然后将计数重置为 0，为下一个连续字符做准备。如果没有计数，则按 1 处理。"
+    }
+  },
+  "functions": {
+    "number": {
+      "description": "将包含数字的字符串转换为数字",
+      "category": "类型转换"
+    },
+    "includes": {
+      "description": "检查一个字符串是否包含另一个更短的字符串",
+      "category": "字符串操作"
+    }
+  },
+  "checks": {
+    "mustUseFor": "差不多！对于这道题，我们希望你能使用 for 循环将每个字符重复正确的次数。"
+  }
+}

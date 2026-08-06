@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "topHole": "顶部的洞没有正确填补。",
+    "middleHole": "中间的洞没有正确填补。",
+    "bottomHole": "底部的洞没有正确填补。"
+  },
+  "tasks": {
+    "fillHoles": {
+      "name": "填补墙壁上的洞",
+      "description": "使用 rectangle 函数用一个矩形覆盖每个洞。"
+    }
+  },
+  "scenarios": {
+    "fillHoles": {
+      "name": "填补洞",
+      "description": "用矩形覆盖每个洞。"
+    }
+  },
+  "hints": {
+    "howToDrawBricks": {
+      "question": "如何绘制砖块？",
+      "answer": "绘制一个覆盖每个洞的矩形。查看说明以了解 `rectangle` 函数所需的各个输入信息。"
+    },
+    "holeSizes": {
+      "question": "洞的尺寸是多少？",
+      "answer": "将鼠标悬停在画布上以测量每个空间。所有数字都能被 10 整除。"
+    },
+    "holeSizesReally": {
+      "question": "说真的，洞的尺寸到底是多少？",
+      "answer": "每个洞宽 20，高 10。"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "在位置 (left, top) 处，以给定的宽度和高度绘制矩形。",
+      "category": "绘制形状"
+    }
+  }
+}

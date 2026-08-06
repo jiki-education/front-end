@@ -1,0 +1,65 @@
+{
+  "checks": {
+    "sky": "天空画错了。",
+    "ground": "地面画错了。",
+    "leftWing": "左翼看起来不对。",
+    "rightWing": "右翼看起来不对。",
+    "outerBody": "身体外部画错了。",
+    "innerBody": "身体内部画错了。",
+    "head": "头部画错了。",
+    "leftFace": "脸部的左边看起来不对。",
+    "rightFace": "脸部的右边看起来不对。",
+    "lowerFace": "脸部的下部看起来不对。",
+    "leftEye": "左眼似乎不对。",
+    "leftIris": "左眼珠似乎不对。",
+    "rightEye": "右眼似乎不对。",
+    "rightIris": "右眼珠似乎不对。",
+    "leftFoot": "左脚画错了。",
+    "rightFoot": "右脚不对。",
+    "nose": "鼻子不对。"
+  },
+  "tasks": {
+    "drawPenguin": {
+      "name": "绘制对称的企鹅",
+      "description": "补全缺失的部分，使企鹅对称。"
+    }
+  },
+  "scenarios": {
+    "makePenguinSymmetrical": {
+      "name": "让企鹅对称",
+      "description": "修复所有待办注释，使企鹅对称。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "我从哪里开始？",
+      "answer": "从上往下，一次处理一个 TODO 注释。"
+    },
+    "symmetryOnCanvas": {
+      "question": "画布上的对称是怎么工作的？",
+      "answer": "如果某物的左边缘是 20，那么它的对称右边缘就是 80（100 - 20）。"
+    },
+    "noseTrouble": {
+      "question": "为什么我的鼻子画不对？",
+      "answer": "你不应该为鼻子添加一个新的三角形——应该修改现有的三角形来正确处理。你只需要改一个值。"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "在 (left, top) 位置以给定的宽度、高度和颜色绘制矩形。",
+      "category": "绘制形状"
+    },
+    "circle": {
+      "description": "以 (centerX, centerY) 为圆心、给定半径和颜色绘制圆形。",
+      "category": "绘制形状"
+    },
+    "ellipse": {
+      "description": "以 (centerX, centerY) 为中心、给定水平半径和垂直半径以及颜色绘制椭圆。",
+      "category": "绘制形状"
+    },
+    "triangle": {
+      "description": "以三个角点和颜色绘制三角形。",
+      "category": "绘制形状"
+    }
+  }
+}

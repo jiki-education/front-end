@@ -1,0 +1,72 @@
+{
+  "tasks": {
+    "checkPangram": {
+      "name": "检查全字母句",
+      "description": "编写一个函数，检查一个句子是否为全字母句（包含字母表中的每个字母至少一次）。检查应忽略大小写。"
+    }
+  },
+  "scenarios": {
+    "pangramEmptySentence": {
+      "name": "空句子",
+      "description": "空句子不是全字母句。"
+    },
+    "pangramPerfectLowercase": {
+      "name": "完美小写",
+      "description": "一个完整的小写字母表是全字母句。"
+    },
+    "pangramOnlyLowercase": {
+      "name": "仅小写",
+      "description": "仅包含小写字母且覆盖所有字母的句子是全字母句。"
+    },
+    "pangramMissingX": {
+      "name": "缺少字母 'x'",
+      "description": "缺少字母 'x' 的句子不是全字母句。"
+    },
+    "pangramMissingH": {
+      "name": "缺少字母 'h'",
+      "description": "缺少字母 'h' 的句子不是全字母句。"
+    },
+    "pangramMissingAM": {
+      "name": "缺少 a-m 之后的字母",
+      "description": "仅含 a 到 m 的大小写字母的字符串不是全字母句。"
+    },
+    "pangramWithUnderscores": {
+      "name": "含下划线",
+      "description": "含有下划线的全字母句。"
+    },
+    "pangramWithNumbers": {
+      "name": "含数字",
+      "description": "包含数字的全字母句。"
+    },
+    "pangramNumbersReplacingLetters": {
+      "name": "数字替换字母",
+      "description": "字母被数字替代的句子不是全字母句。"
+    },
+    "pangramMixedCasePunctuation": {
+      "name": "大小写与标点混合",
+      "description": "混合大小写和标点的全字母句。"
+    },
+    "pangramCaseInsensitive": {
+      "name": "忽略大小写缺失字母",
+      "description": "一个忽略大小写但不包含所有字母的句子不是全字母句。"
+    }
+  },
+  "hints": {
+    "helpers": {
+      "question": "这里哪些辅助函数可以帮我省事？",
+      "answer": "一个 `includes()` 辅助函数（询问“这个字符是否出现在这个字符串里？”）和一个 `toLowerCase()` 辅助函数（这样大小写差异就不会绊住你了）能让主要逻辑简短明了。"
+    },
+    "whyLowercase": {
+      "question": "为什么我要把句子转为小写？",
+      "answer": "The quick brown fox... 同时包含 'T' 和 't'。如果你只检查小写字母，大写字母就匹配不上。一开始就把句子转为小写，这样每次比较就一致了。"
+    },
+    "checkEveryLetter": {
+      "question": "如何检查每个字母都出现了？",
+      "answer": "遍历字母表 \"abcdefghijklmnopqrstuvwxyz\" 中的每个字母。对每个字母，使用 `includes()` 检查它是否出现在转为小写的句子中。"
+    },
+    "stopEarly": {
+      "question": "什么时候我可以提前停止？",
+      "answer": "一旦发现一个字母缺失，就返回 `false`。没必要继续检查剩余字母。只有在整个字母表都确认存在之后，才返回 `true`。"
+    }
+  }
+}

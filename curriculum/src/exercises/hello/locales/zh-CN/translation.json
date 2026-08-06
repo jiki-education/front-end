@@ -1,0 +1,32 @@
+{
+  "tasks": {
+    "createSayHelloFunction": {
+      "name": "创建 sayHello 函数",
+      "description": "编写一个 sayHello 函数，它接收一个名字，并返回格式为 'Hello, [name]!' 的问候语。"
+    }
+  },
+  "scenarios": {
+    "helloAiko": {
+      "name": "向 Aiko 打招呼",
+      "description": "返回 'Hello, Aiko!'"
+    },
+    "helloPriya": {
+      "name": "向 Priya 打招呼",
+      "description": "返回 'Hello, Priya!'"
+    },
+    "helloMei": {
+      "name": "向 Mei 打招呼",
+      "description": "返回 'Hello, Mei!'"
+    }
+  },
+  "hints": {
+    "answerShape": {
+      "question": "我要构建的答案的基本结构是什么？",
+      "answer": "三部分拼接在一起：固定的起始部分 `\"Hello, \"`，然后是名字，最后是固定的结束部分 `\"!\"`。"
+    },
+    "joinStrings": {
+      "question": "如何拼接字符串？",
+      "answer": "使用 `+` 进行拼接，或者使用带 `${}` 占位符的模板字符串，将这三部分合并成一个字符串。"
+    }
+  }
+}

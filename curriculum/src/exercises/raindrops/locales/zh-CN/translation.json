@@ -1,0 +1,99 @@
+{
+  "checks": {
+    "moreThanSixteenLines": "你使用了超过十六行的代码。"
+  },
+  "tasks": {
+    "plings": {
+      "name": "Pling 声音",
+      "description": "首先，确保 Pling 声音正确。如果数字能被 3 整除，返回 \"Pling\"。"
+    },
+    "plangs": {
+      "name": "Plang 声音",
+      "description": "现在，确保 Plang 声音正确。如果数字能被 5 整除，将 \"Plang\" 添加到结果中。如果它能同时被 3 和 5 整除，返回 \"PlingPlang\"。"
+    },
+    "plongs": {
+      "name": "Plong 声音",
+      "description": "现在，确保 Plong 声音正确。如果数字能被 7 整除，将 \"Plong\" 添加到结果中。数字可以被多个因数整除。"
+    },
+    "noSound": {
+      "name": "没有雨滴声的数字",
+      "description": "最后，如果数字不能被 3、5 或 7 整除，返回数字本身的字符串形式。"
+    },
+    "solveInSixteenLines": {
+      "name": "用十六行代码解答",
+      "description": "你能只用十六行代码解答这道题吗？"
+    }
+  },
+  "scenarios": {
+    "number3": {
+      "name": "数字 3",
+      "description": "如果输入数字 3，返回 \"Pling\"。"
+    },
+    "number27": {
+      "name": "数字 27",
+      "description": "如果输入数字 27，返回 \"Pling\"。"
+    },
+    "number5": {
+      "name": "数字 5",
+      "description": "如果输入数字 5，返回 \"Plang\"。"
+    },
+    "number3125": {
+      "name": "数字 3125",
+      "description": "如果输入数字 3125，返回 \"Plang\"。"
+    },
+    "number15": {
+      "name": "数字 15",
+      "description": "如果输入数字 15，返回 \"PlingPlang\"。"
+    },
+    "number7": {
+      "name": "数字 7",
+      "description": "如果输入数字 7，返回 \"Plong\"。"
+    },
+    "number21": {
+      "name": "数字 21",
+      "description": "如果输入数字 21，返回 \"PlingPlong\"。"
+    },
+    "number35": {
+      "name": "数字 35",
+      "description": "如果输入数字 35，返回 \"PlangPlong\"。"
+    },
+    "number105": {
+      "name": "数字 105",
+      "description": "如果输入数字 105，返回 \"PlingPlangPlong\"。"
+    },
+    "number8": {
+      "name": "数字 8",
+      "description": "如果输入数字 8，返回 \"8\"。"
+    },
+    "number52": {
+      "name": "数字 52",
+      "description": "如果输入数字 52，返回 \"52\"。"
+    },
+    "bonus1": {
+      "name": "十六行代码",
+      "description": "用十六行代码解答该练习。"
+    }
+  },
+  "hints": {
+    "onlyOneSound": {
+      "question": "为什么我的函数只返回一种声音？",
+      "answer": "如果你在每个 `if` 语句中都 `return`，那么第一个匹配的除数就会让你提前退出。你需要把它们组合起来。不要直接返回，而是将声音添加到结果字符串后面，然后继续检查。"
+    },
+    "buildCombinedSound": {
+      "question": "如何构建组合声音？",
+      "answer": "从一个空的结果字符串开始。对于每个除数（3、5、7），如果它能整除该数字，就用 `+` 拼接将对应的声音追加到结果的末尾。"
+    },
+    "noneMatch": {
+      "question": "如果没有除数匹配怎么办？",
+      "answer": "如果三次检查后结果仍为空，答案就是数字本身的字符串形式。将数字转换然后返回它。"
+    },
+    "convertToString": {
+      "question": "我返回了数字，但要求返回字符串，我该怎么做？",
+      "answer": "数字和字符串是不同的类型，即使它们看起来一样。你可以通过将数字放入带有 `${...}` 的模板字符串中来将其转换为字符串。"
+    },
+    "howManyReturns": {
+      "question": "我应该有几个 return 语句？",
+      "answer": "通常一到两个就够了。关键在于让 if 语句修改结果字符串，最后一次性返回它。"
+    }
+  }
+}

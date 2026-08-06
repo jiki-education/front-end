@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "moreThanSixLines": "你使用了超过 6 行代码。"
+  },
+  "tasks": {
+    "createTwoFerFunction": {
+      "name": "创建 twoFer 函数",
+      "description": "编写一个 twoFer 函数，接受一个名字，并返回 'One for [name], one for me.'。如果没有提供名字（空字符串），则使用 'you' 代替名字。"
+    },
+    "solveInSixLines": {
+      "name": "用 6 行代码解决",
+      "description": "你能只用 6 行代码完成这个练习吗？"
+    }
+  },
+  "scenarios": {
+    "twoFerDefault": {
+      "name": "未提供名字",
+      "description": "未提供名字，因此返回 'One for you, one for me.'。"
+    },
+    "twoFerAlice": {
+      "name": "名字为 Alice",
+      "description": "她的名字是 'Alice'，因此返回 'One for Alice, one for me.'。"
+    },
+    "twoFerTom": {
+      "name": "名字为 Tom",
+      "description": "他的名字是 'Tom'，因此返回 'One for Tom, one for me.'。"
+    },
+    "bonus1": {
+      "name": "6 行代码",
+      "description": "只用 6 行代码解决这个练习。"
+    }
+  },
+  "hints": {
+    "whatChanges": {
+      "question": "根据输入，什么会发生变化？",
+      "answer": "只有一样。句子中间的名字。如果提供了名字，就使用它。如果没有，就使用默认的 `\"you\"`。"
+    },
+    "checkGivenName": {
+      "question": "如何检查“是否提供了名字”？",
+      "answer": "用一个 if 语句将输入与空字符串 `\"\"` 进行比较。如果为空，则使用 `\"you\"`。否则，使用输入。"
+    },
+    "buildSentence": {
+      "question": "如何构建最终的句子？",
+      "answer": "使用拼接（`+`）或模板字符串将三个部分（`\"One for \"`、所选名字和 `\", one for me.\"`）连接起来。"
+    }
+  }
+}

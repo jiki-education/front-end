@@ -1,0 +1,59 @@
+{
+  "checks": {
+    "frameWrong": "房屋的框架位置不正确。",
+    "roofWrong": "房屋的屋顶位置不正确。",
+    "leftWindowWrong": "左侧窗户位置不正确。",
+    "rightWindowWrong": "右侧窗户位置不正确。",
+    "doorWrong": "门的位置不正确。",
+    "knobWrong": "门把手的位置不正确。",
+    "doesNotScale": "当 houseWidth={{houseWidth}} 和 houseHeight={{houseHeight}} 时，你的房屋无法正确缩放。所有位置和大小都应根据 houseWidth 和 houseHeight 来推导，而不是硬编码的数字。"
+  },
+  "tasks": {
+    "drawHouse": {
+      "name": "绘制房屋",
+      "description": "根据 `houseWidth` 和 `houseHeight` 构建房屋，使其保持居中、坐落在草地上，并且在任何大小下都保持正确的比例。"
+    }
+  },
+  "scenarios": {
+    "drawTheHouse": {
+      "name": "绘制房屋",
+      "description": "根据 houseWidth 和 houseHeight 构建房屋，使其能够正确缩放。"
+    }
+  },
+  "hints": {
+    "whereDoIStart": {
+      "question": "我从哪里开始？",
+      "answer": "你得到了 `houseWidth`、`houseHeight` 和 `canvasWidth`。首先确定框架需要的两件事：它的左边缘（使房屋居中）和上边缘（使它坐落在草地上）。然后所有其他形状都可以从框架出发来构建。"
+    },
+    "keepCentered": {
+      "question": "改变宽度时，如何保持房屋居中？",
+      "answer": "画布的中心始终是 `canvasWidth / 2`。如果框架以这个点居中，那么它的左边缘就是从中点向左偏移半个宽度。其他需要居中的部分（屋顶尖顶、门）也可以使用同样的中点。"
+    },
+    "keepPlantedOnGrass": {
+      "question": "如何保持房屋坐落在草地上？",
+      "answer": "找到房屋底部应该坐落的 y 值（草地的顶部下方一点）。然后框架的顶部就在这个位置上方一个房屋高度的地方。从底部向上计算意味着更高的房子会向天空生长，而不会向下穿过草地。"
+    },
+    "sizeRoofWindowsDoor": {
+      "question": "如何确定屋顶、窗户和门的大小？",
+      "answer": "说明中的每个尺寸都是框架宽度或高度的一部分（例如，“宽度的 1/5”是 `houseWidth / 5`）。从 `houseWidth` 推导所有宽度，从 `houseHeight` 推导所有高度，这样它们就能一起缩放。"
+    },
+    "breaksOnResize": {
+      "question": "默认大小下看起来正确，但调整大小后就出问题了。为什么？",
+      "answer": "你可能在某个地方硬编码了一个数字，而不是推导出来的。查找任何不是直接来自说明的数值，比如画布大小或草地高度。几乎可以肯定，这些值应该从其他变量推导出来。可能是一个锚点，或者某个已经根据锚点构建好的值，比如门的宽度。"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "在 (left, top) 位置绘制一个矩形，设置宽度、高度和颜色。",
+      "category": "绘制形状"
+    },
+    "circle": {
+      "description": "在 (centerX, centerY) 处绘制一个圆，设置半径和颜色。",
+      "category": "绘制形状"
+    },
+    "triangle": {
+      "description": "根据三个顶点和颜色绘制一个三角形。",
+      "category": "绘制形状"
+    }
+  }
+}

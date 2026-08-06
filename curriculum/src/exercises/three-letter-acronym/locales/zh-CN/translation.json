@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "tooManyLines": "你的解答代码行数太多了，能再短一点吗？"
+  },
+  "tasks": {
+    "createAcronymFunction": {
+      "name": "创建 `acronym` 函数",
+      "description": "编写一个首字母缩写函数，接收三个单词，返回一个由每个单词的首字母组成的三字母缩写。"
+    },
+    "solveInThreeLines": {
+      "name": "用3行代码完成",
+      "description": "你能只用3行代码完成这个练习吗？"
+    }
+  },
+  "scenarios": {
+    "png": {
+      "name": "便携式网络图形",
+      "description": "从单词 'Portable'、'Network'、'Graphics' 创建首字母缩写 'PNG'。"
+    },
+    "css": {
+      "name": "层叠样式表",
+      "description": "从单词 'Cascading'、'Style'、'Sheets' 创建首字母缩写 'CSS'。"
+    },
+    "www": {
+      "name": "万维网",
+      "description": "从单词 'World'、'Wide'、'Web' 创建首字母缩写 'WWW'。"
+    },
+    "lol": {
+      "name": "小写单词",
+      "description": "从单词 'laugh'、'out'、'loud' 创建首字母缩写 'lol'。"
+    },
+    "bonus1": {
+      "name": "3行代码",
+      "description": "只用3行代码完成这个练习。"
+    }
+  },
+  "hints": {
+    "firstCharacter": {
+      "question": "如何只获取一个单词的第一个字符？",
+      "answer": "对字符串使用下标。第一个字符的下标是 `[0]`。"
+    },
+    "buildResult": {
+      "question": "如何构建这个三字母的结果？",
+      "answer": "获取每个单词的第一个字符，然后使用拼接（`+`）或模板字符串按顺序将它们连接起来。"
+    }
+  }
+}

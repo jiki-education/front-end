@@ -1,0 +1,75 @@
+{
+  "checks": {
+    "moreThanOneLine": "你在函数中使用了不止一行代码。"
+  },
+  "tasks": {
+    "determineLeapYear": {
+      "name": "判断年份是否为闰年",
+      "description": "编写一个名为 isLeapYear 的函数，它接收一个年份作为输入，如果是闰年则返回 true，否则返回 false。"
+    },
+    "solveInOneLine": {
+      "name": "用一行代码完成",
+      "description": "你能仅用函数内的一行代码完成吗？"
+    }
+  },
+  "scenarios": {
+    "year2015": {
+      "name": "2015 年",
+      "description": "2015 不能被 4 整除，所以不是闰年。"
+    },
+    "year1970": {
+      "name": "1970 年",
+      "description": "1970 不能被 4 整除，所以不是闰年。"
+    },
+    "year2100": {
+      "name": "2100 年",
+      "description": "2100 能被 100 整除但不能被 400 整除，所以不是闰年。"
+    },
+    "year1900": {
+      "name": "1900 年",
+      "description": "1900 能被 100 整除但不能被 400 整除，所以不是闰年。"
+    },
+    "year1800": {
+      "name": "1800 年",
+      "description": "1800 能被 100 整除但不能被 400 整除，所以不是闰年。"
+    },
+    "year2000": {
+      "name": "2000 年",
+      "description": "2000 能被 400 整除，所以是闰年。"
+    },
+    "year2400": {
+      "name": "2400 年",
+      "description": "2400 能被 400 整除，所以是闰年。"
+    },
+    "year1996": {
+      "name": "1996 年",
+      "description": "1996 能被 4 整除但不能被 100 整除，所以是闰年。"
+    },
+    "year1960": {
+      "name": "1960 年",
+      "description": "1960 能被 4 整除但不能被 100 整除，所以是闰年。"
+    },
+    "bonus1": {
+      "name": "一行代码",
+      "description": "只用函数内的一行代码完成练习。"
+    }
+  },
+  "hints": {
+    "basicRule": {
+      "question": "闰年的基本规则是什么？",
+      "answer": "能被 4 整除的年份是闰年。所以 `year % 4 === 0` 是起始的判断条件。"
+    },
+    "exceptions": {
+      "question": "有例外吗？",
+      "answer": "有的。能被 100 整除的年份不是闰年，即使它们也能被 4 整除。例如，1900 年就不是闰年。"
+    },
+    "exceptionsToExceptions": {
+      "question": "例外中还有例外吗？",
+      "answer": "是的。能被 400 整除的年份仍然是闰年。例如，2000 年就是。所以规则层层递进：能被 4 整除，但不能被 100 整除，除非也能被 400 整除。"
+    },
+    "checkDivisibility": {
+      "question": "如何判断整除？",
+      "answer": "使用求模运算符 `%`。`year % 4 === 0` 表示该年份能被 4 整除，无余数。对 100 和 400 同样适用。"
+    }
+  }
+}

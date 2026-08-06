@@ -1,0 +1,68 @@
+{
+  "describers": {
+    "move": "将激光炮向右移动了一个位置"
+  },
+  "checks": {
+    "notShotAllAliens": "你没有击落所有外星人。"
+  },
+  "tasks": {
+    "conditionalShoot": {
+      "name": "使用 if 语句，仅当上方有外星人时射击",
+      "description": "在屏幕上移动，检查每个位置。如果上方有外星人，就射击它。如果没有，就继续前进。"
+    }
+  },
+  "scenarios": {
+    "conditional1": {
+      "name": "分散的外星人",
+      "description": "外星人分散在两行，中间有空隙"
+    },
+    "conditional2": {
+      "name": "稀疏的外星人",
+      "description": "外星人更少，间隙更大"
+    },
+    "conditional3": {
+      "name": "交替排列的行",
+      "description": "外星人在上下两行之间交替排列"
+    },
+    "conditional4": {
+      "name": "底行密集",
+      "description": "大多数外星人都位于底行"
+    },
+    "conditional5": {
+      "name": "密集排列",
+      "description": "大量外星人挤在上下两行"
+    }
+  },
+  "hints": {
+    "howToDecide": {
+      "question": "我如何决定是否射击？",
+      "answer": "使用 `if` 语句检查 `isAlienAbove()`。仅当它返回 `true` 时才调用 `shoot()`。"
+    },
+    "whatIsAlienAboveGives": {
+      "question": "`isAlienAbove()` 会返回什么给我？",
+      "answer": "如果激光炮正上方有外星人，它就返回 `true`，否则返回 `false`。你可以直接将这个条件放进 `if` 语句的条件里。"
+    },
+    "checkEveryColumn": {
+      "question": "我怎样检查每一列，而不需要重复写同样的代码？",
+      "answer": "把检查并可能射击的逻辑放在一个 `repeat` 循环里，每次循环结束调用 `move()` 移动到下一列。"
+    },
+    "keepShootingEmpty": {
+      "question": "我一直在空列射击然后输了。哪里出错了？",
+      "answer": "确保 `shoot()` 在 `if` 语句的代码块里，而不是在它之后。这个调用应该只在 `isAlienAbove()` 为 `true` 时发生。"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "将激光炮**向右移动一个位置**。如果移出屏幕右边缘，你就输了！",
+      "category": "移动"
+    },
+    "shoot": {
+      "description": "向上发射激光。**只有上方有外星人时才射击**，否则就输了！",
+      "category": "动作"
+    },
+    "isAlienAbove": {
+      "description": "如果激光炮正上方有外星人，返回 `true`，否则返回 `false`。射击前用它来检查！",
+      "category": "检测"
+    }
+  }
+}
