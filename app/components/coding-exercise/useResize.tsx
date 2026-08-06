@@ -56,23 +56,18 @@ function setBodyDragStyles(cursor: string, userSelect: string) {
   body.style.userSelect = userSelect;
 }
 
-function isRTL(container: HTMLElement) {
-  return getComputedStyle(container).direction === "rtl";
-}
-
 function applyVertical(container: HTMLDivElement, divider: HTMLButtonElement | null, percentage: number) {
-  // `percentage` is always measured from the inline start (the LHS panel's share),
-  // so grid tracks stay start→end and follow `direction` automatically.
+  // `percentage` is always the LHS (editor) panel's share, measured from the
+  // physical left edge. The exercise split deliberately does not mirror under
+  // RTL — the container is pinned to `direction: ltr` in CSS — so the first grid
+  // track is always the physically-left one and the divider is positioned with
+  // physical `left` to match.
   const startFr = percentage / 50;
   const endFr = (100 - percentage) / 50;
   container.style.gridTemplateColumns = `${startFr}fr ${endFr}fr`;
   container.style.setProperty("--lhs-width", `${percentage}%`);
   if (divider) {
-    // Position from the inline start (not physical `left`) so the divider tracks
-    // the LHS/RHS boundary under both LTR and RTL. Inline styles win over the
-    // stylesheet's `.verticalDivider { inset-inline-start }`, so we must set the
-    // logical property here rather than physical `left`.
-    divider.style.insetInlineStart = `${percentage}%`;
+    divider.style.left = `${percentage}%`;
   }
 }
 
@@ -153,11 +148,9 @@ export function useResizablePanels() {
       }
 
       const containerRect = container.getBoundingClientRect();
-      // Measure from the inline-start edge so `percentage` is always the LHS
-      // panel's share: the left edge under LTR, the right edge under RTL.
-      const offsetFromStart = isRTL(container)
-        ? containerRect.right - moveEvent.clientX
-        : moveEvent.clientX - containerRect.left;
+      // Always measure from the physical left edge: the split does not mirror
+      // under RTL, so the LHS panel is the left one in every locale.
+      const offsetFromStart = moveEvent.clientX - containerRect.left;
       const rawPercentage = (offsetFromStart / containerRect.width) * 100;
       const percentage = clampVerticalPercentage(rawPercentage, containerRect.width);
 
