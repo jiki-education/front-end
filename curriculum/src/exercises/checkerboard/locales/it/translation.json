@@ -49,7 +49,7 @@
     },
     "whichSquaresGetPieces": {
       "question": "Quali quadrati ricevono i pezzi?",
-      "answer": "I pezzi stanno solo sui quadrati **scuri**, quindi puoi riutilizzare lo stesso controllo che hai usato per colorarli. Poi restringi ulteriormente solo alle righe superiore e inferiore, lasciando vuote le due centrali."
+      "answer": "I pezzi si trovano esclusivamente sui quadrati **scuri**, quindi puoi riutilizzare lo stesso controllo che hai usato per colorarli. Poi restringi ulteriormente solo alle righe superiore e inferiore, lasciando vuote le due centrali."
     },
     "ridgedPiece": {
       "question": "Come faccio a disegnare un pezzo con bordo in rilievo?",
