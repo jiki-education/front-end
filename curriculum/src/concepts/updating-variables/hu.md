@@ -1,12 +1,12 @@
 ---
 title: "Változók frissítése"
 description: "Változtasd meg a változó tartalmát a program futása közben, hogy pozíciókat, darabszámokat, pontszámokat és más, menet közben változó értékeket követhess nyomon."
-en_md5: 4c9cc825501564f654a5c442de6f1779
+en_md5: f9b2fbb6bfd82a620b093e88951ff841
 ---
 
 Eddig, amikor változókat hoztunk létre, értékeket tettünk dobozokba, és később kivettük őket. Ez nagyon hasznos volt: átláthatóbb lett tőle a kód, és megspórolt nekünk egy csomó fejszámolást. A változók igazi ereje viszont abban rejlik, hogy a program futása közben meg tudjuk változtatni, mi van a dobozban, mi van a változóban. Így hiába futtatjuk ugyanazt a kódrészletet többször, mindig mást csinálhat attól függően, hogy éppen mi van a dobozokban.
 
-Tegyük fel, hogy virágot szeretnénk ültetni egy kertbe. Van egy praktikus `plant` (ültet) függvényünk, amelynek egyetlen bemenete van: a pozíció, ahová a virágot tenni szeretnénk. Ha tehát a szélétől 10-re szeretnénk virágot ültetni, azt írjuk: `plant(10)`. Szép és egyszerű.
+Tegyük fel, hogy virágot szeretnénk ültetni egy kertbe. Van egy praktikus `plant` (ültet) függvényünk, amelynek egyetlen bemenete van: a pozíció, ahová a virágot tenni szeretnénk. Ha tehát a szélétől 10-re szeretnénk virágot ültetni, azt írjuk: `plant(10)`.
 
 ```javascript
 plant(10)

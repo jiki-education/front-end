@@ -1,54 +1,55 @@
 ---
-title: "Rainbow Ball"
-description: "Build a bouncing ball that paints a rainbow trail across the canvas."
+title: "Szivárványgolyó"
+description: "Hozz létre egy pattogó labdát, amely szivárványnyomot hagy a vásznon."
+en_md5: 501aa30e85d8fceb38890c72be4a0b87
 ---
 
-Your job is to create a ball that randomly bounces around the canvas, drawing a rainbow in its wake.
+A feladatod egy olyan labda létrehozása, amely véletlenszerűen pattog a vásznon, és szivárványt rajzol maga után.
 
-It should look something like this:
+Valahogy így kell kinéznie:
 
-<img src="/static/images/exercise-assets/rainbow-ball/example.gif" alt="Animated rainbow ball bouncing around the canvas leaving a coloured trail" style="width: 100%; max-width: 200px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+<img src="/static/images/exercise-assets/rainbow-ball/example.gif" alt="Animált szivárványgolyó, amely a vásznon pattog, és színes nyomot hagy maga után" style="width: 100%; max-width: 200px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-As part of this exercise, you have the `Math.randomInt(min, max)` function which returns a random integer between the `min` and `max` you give it.
+A feladat részeként rendelkezésedre áll a `Math.randomInt(min, max)` (véletlenszerű egész szám) függvény, amely egy véletlenszerű egész számot ad vissza a megadott `min` és `max` között.
 
-Take a few minutes to think through how you could solve this. This is the most valuable part of the exercise, so take your time and **write down your ideas before you read the formula below.**
+Szánj néhány percet arra, hogy végiggondold, hogyan oldhatnád meg. Ez a feladat legértékesebb része, ezért ne siess, és **írd le az ötleteidet, mielőtt elolvasod az alábbi képletet.**
 
-When you've got an idea of your approach, read on. But don't read on until you've spent some time thinking!
+Ha már van egy megközelítési ötleted, olvass tovább. De ne olvass tovább, amíg nem gondolkodtál rajta egy darabig!
 
-## The Formula
+## A képlet
 
-This project is all about having some variables that are responsible for the position of the ball, which steadily increase or decrease. And other variables that control **how** the ball is moving and change when certain criteria are met.
+Ebben a projektben olyan változókról van szó, amelyek a labda helyzetéért felelősek, és folyamatosan nőnek vagy csökkennek. Valamint más változók, amelyek szabályozzák, **hogyan** mozog a labda, és bizonyos feltételek teljesülésekor változnak.
 
-### Drawing
+### Rajzolás
 
-- The first circle you draw should be at `(5, 5)`.
-- All the circles should have a radius of `10`.
-- The colour of the circle should use HSL, starting with a hue of `100` (green), a saturation of `80` (bold colours), and a lightness of `50` (mid-brightness).
+- Az első kört, amit rajzolsz, a `(5, 5)` pontba kell elhelyezned.
+- Minden kör sugara `10` legyen.
+- A kör színéhez HSL-t használj, kezdetben `100`-as színárnyalattal (zöld), `80`-as telítettséggel (erős színek) és `50`-es világossággal (közepes fényerő).
 
-### Animating
+### Animálás
 
-- To start with, in each iteration you should move the ball `2` to the right and `1` down.
-- The hue should increase by `1` each time, until it gets to the maximum (`360`), then start reducing again. The saturation and lightness don't need to change.
+- Kezdetben minden iterációban a labdát `2`-vel jobbra és `1`-gyel lefelé mozgasd.
+- A színárnyalat minden alkalommal `1`-gyel nőjön, amíg el nem éri a maximumot (`360`), majd kezdjen csökkenni. A telítettséget és a világosságot nem kell változtatni.
 
-### Bouncing
+### Pattogás
 
-- Once the ball reaches the edge of the canvas it should change direction. (Check the hints if you can't work out how to do this.)
-- To make things more fun you should change direction using the `Math.randomInt(min, max)` function. Choose `min` and `max` that give the style of animation you want.
+- Amikor a labda eléri a vászon szélét, irányt kell változtatnia. (Ha nem tudod, hogyan csináld, nézd meg a tippeket.)
+- A dolgok még izgalmasabbá tétele érdekében a `Math.randomInt(min, max)` függvény segítségével változtasd az irányt. Válassz olyan `min` (minimum) és `max` (maximum) értékeket, amelyek a kívánt animációs stílust adják.
 
-## To pass the checks
+## Az ellenőrzések teljesítéséhez
 
-We've given you a lot of leeway in this exercise. We check that:
+Ebben a feladatban nagy szabadságot kaptál. Azt ellenőrizzük, hogy:
 
-- The first few circles are correct.
-- Over 80% of the canvas gets painted.
+- Az első néhány kör helyes-e.
+- A vászon több mint 80%-a le van-e festve.
 
-The numbers that you choose to achieve that are up to you. You probably want a repeat block that iterates between `500` and `1000` times.
+Hogy milyen számokkal éred el ezt, az a te döntésed. Valószínűleg egy olyan ismétlődő blokkot szeretnél, amely `500` és `1000` között iterál.
 
-## Break it down...
+## Bontsuk részekre…
 
-The key to this exercise is to do things one at a time:
+A feladat kulcsa, hogy lépésenként haladj:
 
-1. Make the ball change colour as it moves
-2. Make it bounce off the right hand side
-3. Make it bounce off the bottom.
-4. Make it bounce randomly
+1. A labda színe változzon, ahogy mozog.
+2. Pattanjon vissza a jobb oldalról.
+3. Pattanjon vissza az aljáról.
+4. Pattanjon véletlenszerűen.

@@ -1,7 +1,7 @@
 ---
 title: "Metódusok"
 description: 'Olyan függvények, amelyek egy értékhez tartoznak, és ponttal hívjuk meg őket, például `"Jeremy".includes("e")` vagy `"Jeremy".toUpperCase()`.'
-en_md5: 670311368b584fa925c53fb47512c9cd
+en_md5: 37c097a81459cd2ff4ae684559bd4311
 ---
 
 Eddig a stringekre és a számokra úgy gondoltunk, mint egészen statikus dolgokra.
@@ -20,7 +20,13 @@ Emlékszel például arra a függvényre, amelyikkel azt ellenőrizted, hogy egy
 
 A tulajdonságokhoz képest az a különbség, hogy a metódusokat úgy írjuk le, mint a függvényeket: zárójelekkel és bemenetekkel.
 
-Leírhatjuk tehát, hogy `"Jeremy".includes("e")`, és `true`-t kapunk vissza, hiszen a `"Jeremy"` stringben van `"e"`.
+Tehát leírhatjuk:
+
+```javascript
+"Jeremy".includes("e") // true
+```
+
+És `true`-t kapunk vissza, hiszen a `"Jeremy"` stringben van `"e"`.
 
 <img
   class="concept-image"
@@ -30,11 +36,7 @@ Leírhatjuk tehát, hogy `"Jeremy".includes("e")`, és `true`-t kapunk vissza, h
   height="400"
 />
 
-```javascript
-"Jeremy".includes("e")
-```
-
-A metódusok abban különböznek a tulajdonságoktól, hogy nem statikus tények. Valójában függvények. Gondolhatsz rájuk úgy, mint olyan függvényekre, amelyekbe be van építve egy doboz, benne a stringgel.
+A metódusok abban különböznek a tulajdonságoktól, hogy nem statikus tények. Ezek valójában függvények. Gondolhatsz rájuk úgy, mint olyan függvényekre, amelyekbe be van építve egy doboz, benne a stringgel.
 
 Hogy pontosan hogyan működnek, az most még nem számít. Jó darabig nem fogsz még ilyeneket építeni. Csak annyit jegyezz meg, hogy egy metódust úgy használsz, hogy leírsz egy pontot, utána pedig a megszokott függvényírásmódot.
 
@@ -44,6 +46,6 @@ A stringeknél azt érdemes tudni, hogy a metódusok semmit nem változtatnak me
 const name = "Jeremy"
 const bigName = name.toUpperCase()
 
-log(bigName)
-log(name)
+log(bigName) // "JEREMY"
+log(name) // "Jeremy"
 ```

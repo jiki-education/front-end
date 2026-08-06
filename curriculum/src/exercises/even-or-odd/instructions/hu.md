@@ -1,8 +1,9 @@
 ---
-title: "Even or Odd"
-description: "Write a function that works out whether a number is even or odd."
+title: Páros vagy páratlan
+description: Írj egy függvényt, amely eldönti, hogy egy szám páros-e vagy páratlan.
+en_md5: 3053a6159aabe2660bf21a9586998390
 ---
 
-Write a function called `evenOrOdd` that takes a number as its input and returns a string specifying whether the number is `"Even"` (0, 2, 4, 6, 8, etc), or `"Odd"` (1, 3, 5, 7, etc).
+Írj egy függvényt `evenOrOdd` (páros vagy páratlan) néven, amely egy számot kap bemenetként, és visszaad egy stringet, amely megadja, hogy a szám `"Even"` (0, 2, 4, 6, 8 stb.) vagy `"Odd"` (1, 3, 5, 7 stb.).
 
-To approach this problem, think about what it is that actually makes a number odd or even. Remember that you can use the remainder operator (`%`).
+A feladat megoldásához gondold át, mi teszi a számot párossá vagy páratlanná. Ne feledd, hogy használhatod a maradékosztás operátort (`%`).

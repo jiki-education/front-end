@@ -1,10 +1,10 @@
 ---
 title: "A `not` operátor"
 description: "A `!` segítségével átfordíthatsz egy Boolean értéket: az igazból hamis lesz, a hamisból igaz. Hasznos átkapcsoláshoz vagy egy ellenőrzés megfordításához."
-en_md5: 342fb86a29f8aab9d3bd623d199eec52
+en_md5: 842c4a4e9cb1fd11c4318a1508296e27
 ---
 
-Eddig, amikor azt vizsgáltuk, hogy két dolog egyenlő-e, három egyenlőségjelet használtunk. Néha viszont azt szeretnénk ellenőrizni, hogy két dolog nem egyenlő, és ehhez egy felkiáltójelet írunk, utána pedig két egyenlőségjelet. A programozásban a felkiáltójel (vagy _bang_, ahogy szerintem amerikai barátaink hívják) általában azt jelenti: nem. Képzeld el, hogy egy boltban dolgozol, és a vezetőség úgy döntött, hogy diszkós szerelésben senki nem jöhet be.
+Eddig, amikor azt vizsgáltuk, hogy két dolog egyenlő-e, három egyenlőségjelet használtunk. Néha viszont azt szeretnénk ellenőrizni, hogy két dolog nem egyenlő, és ehhez egy felkiáltójelet írunk, utána pedig két egyenlőségjelet. A programozásban a felkiáltójel (_bang_ angolul, ahogy szerintem amerikai barátaink hívják) általában azt jelenti: nem. Képzeld el, hogy egy boltban dolgozol, és a vezetőség úgy döntött, hogy diszkós szerelésben senki nem jöhet be.
 
 <img
   class="concept-image"
@@ -44,12 +44,10 @@ if (movingRight === true) {
 }
 ```
 
-Van viszont ennél elegánsabb megoldás is: ugyanez a felkiáltójel, vagyis a _bang_. Írhatjuk azt, hogy `movingRight = !movingRight`, és ez átfordítja. A `!movingRight` mindig az aktuális érték ellenkezőjét jelenti.
+Van viszont ennél elegánsabb megoldás is: ugyanez a felkiáltójel, vagyis a _bang_.
 
 ```javascript
 movingRight = !movingRight
 ```
 
-Ha tehát a `movingRight` igaz volt, most hamis lesz. Ha hamis volt, most igaz. Jiki kiveszi, ami éppen a dobozban van,
-
-a bang pedig azt mondja neki, hogy keresse meg az ellenkezőjét. Az igaz ellenkezője a hamis, a hamis ellenkezője az igaz, és ezt teszi vissza a dobozba. Ez pontosan ugyanaz, mint a hosszabb if/else elágazás, csak sokkal rövidebb és elegánsabb leírni.
+Ez átfordítja. A `!movingRight` mindig az aktuális érték ellenkezőjét jelenti. Ha tehát a `movingRight` igaz volt, most hamis lesz. Ha hamis volt, most igaz. Jiki kiveszi, ami éppen a dobozban van, a bang pedig azt mondja neki, hogy keresse meg az ellenkezőjét. Az igaz ellenkezője a hamis, a hamis ellenkezője az igaz, és ezt teszi vissza a dobozba. Ez pontosan ugyanaz, mint a hosszabb if/else elágazás, csak sokkal rövidebb és elegánsabb leírni.

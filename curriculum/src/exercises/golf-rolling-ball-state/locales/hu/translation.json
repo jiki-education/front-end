@@ -1,40 +1,40 @@
 {
   "errors": {
-    "positionNotNumber": "position must be a number"
+    "positionNotNumber": "A pozíciónak számnak kell lennie."
   },
   "checks": {
-    "ballNotAtEnd": "The ball didn't reach the hole. It's at position {{ballX}}, but needs to be at position 88.",
-    "missingPositions": "The ball must roll through each position individually, not jump directly to the end."
+    "ballNotAtEnd": "A labda nem érte el a lyukat. Jelenleg {{ballX}} pozícióban van, de a 88-as pozíción kell lennie.",
+    "missingPositions": "A labdának egyesével végig kell gurulnia az összes pozíción, nem ugorhat közvetlenül a végére."
   },
   "tasks": {
     "rollBall": {
-      "name": "Roll the ball into the hole",
-      "description": "Roll the ball into the hole."
+      "name": "Gurítsd a labdát a lyukba",
+      "description": "Gurítsd a labdát a lyukba."
     }
   },
   "scenarios": {
     "rollBall": {
-      "name": "Roll the ball into the hole",
-      "description": "Roll the ball into the hole."
+      "name": "Gurítsd a labdát a lyukba",
+      "description": "Gurítsd a labdát a lyukba."
     }
   },
   "hints": {
     "dontKnowWhereToStart": {
-      "question": "I don't know where to start",
-      "answer": "The key is to move the ball one step forward each time. You can use a variable to do this. Think about how that might work."
+      "question": "Nem tudom, hol kezdjem",
+      "answer": "A lényeg, hogy a labdát minden alkalommal egy lépéssel előbbre mozgasd. Használhatsz egy változót erre. Gondold át, hogyan működhet ez."
     },
     "stillCantFigureItOut": {
-      "question": "I still can't figure it out",
-      "answer": "You want to create a variable to track where the ball is. It should start where it is now, then many times increase by one. Every time it increases you should `moveTo(...)` using the variable as an input."
+      "question": "Még mindig nem jövök rá",
+      "answer": "Készítened kell egy változót, ami nyomon követi, hol van a labda. Kezdőértéke az legyen, ahol most van, majd sokszor növeld eggyel. Minden növelés után hívd meg a `moveTo(...)` függvényt a változóval bemenetként."
     }
   },
   "functions": {
     "moveTo": {
-      "description": "Moves the ball to **position**.",
-      "category": "Movement"
+      "description": "A labdát **pozícióra** mozgatja.",
+      "category": "Mozgás"
     }
   },
   "describers": {
-    "moveTo": "moved the ball to position ${arg1}"
+    "moveTo": "a labdát ${arg1} pozícióra mozgatta"
   }
 }

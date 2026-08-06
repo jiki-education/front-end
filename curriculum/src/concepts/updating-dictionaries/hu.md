@@ -1,12 +1,12 @@
 ---
 title: "Szótárak módosítása"
 description: "A `dict[key] = value` használata meglévő bejegyzések frissítésére vagy újak hozzáadására, valamint a `has` metódus a kulcsok ellenőrzésére."
-en_md5: eee150bd80e8d9a48439111e6062a540
+en_md5: 254912c3c672aec40b2729cd005fb1a7
 ---
 
 Tudod már, hogyan hozol létre egy szótárt, és hogyan olvasol ki belőle értékeket. De mi történik, ha megváltoznak az adatok? Egyszer én is öregebb leszek. Nem `42` leszek, hanem `43`.
 
-Hogyan frissítjük hát a szótárt? Nos, nagyon hasonlóan ahhoz, ahogy keresünk benne. Azt már tudod, hogy egy értéket szögletes zárójellel (`[]`) olvasunk ki. Nos, ha a szögletes zárójel után egy egyenlőségjelet is írunk, azzal frissíteni tudjuk a szótárt. Jiki odamegy a person dobozhoz, kiveszi a jegyzetfüzet lapját, megkeresi az `"age"` kulcsot, kiradírozza az ott lévő `42`-t, a helyére `43`-at ír, aztán a lap visszakerül a füzetbe, a füzet pedig a dobozba. Így magát a szótárt változtatjuk meg.
+Hogyan frissítjük hát a szótárt? Nos, nagyon hasonlóan ahhoz, ahogy keresünk benne. Azt már tudod, hogy egy értéket szögletes zárójellel (`[]`) olvasunk ki. Nos, ha a szögletes zárójel után egy egyenlőségjelet is írunk, azzal frissíteni tudjuk a szótárt. Jiki odamegy a person dobozhoz, kiveszi a jegyzetfüzet lapját, megkeresi az `"age"` kulcsot, kiradírozza az ott lévő `42`-t, a helyére `43`-at ír, aztán a lap visszakerül a dobozba. Így magát a szótárt változtatjuk meg.
 
 ```javascript
 person["age"] = 43
@@ -16,7 +16,7 @@ Jiki nem új szótárt készít, hanem azt a jegyzetfüzetet módosítja, ami m�
 
 És mi van akkor, ha olyan információt szeretnél hozzáadni, ami eddig nem volt benne? Nos, pontosan ugyanezt kell tenned.
 
-Ha olyan kulcsot adsz meg, amelyik nem létezik, Jiki egyszerűen felvesz egy új kulcsot a lista aljára, ezzel az értékkel.
+Ha olyan kulcsot adsz meg, amelyik nem létezik, Jiki egyszerűen felvesz egy új kulcsot a lap aljára, ezzel az értékkel.
 
 Ebben az esetben tehát kinyitja a jegyzetfüzetet, keresi a `"country"` kulcsot, látja, hogy nincs ott, és új sort ír a lap aljára: a bal oldalra a `"country"` kerül, a jobb oldalra az `"England"`.
 
@@ -35,7 +35,7 @@ Erre való a szótárak egyik metódusa, a `has` (megvan-e).
 Megadod a kulcsot, ami érdekel, Jiki pedig ellenőrzi, hogy a szótárban benne van-e ez a kulcs, és ennek megfelelően igazat vagy hamisat ad vissza.
 
 ```javascript
-person.has("age")
+person.has("age") // true
 ```
 
 Mindezt összerakva a számolós minta így néz ki:

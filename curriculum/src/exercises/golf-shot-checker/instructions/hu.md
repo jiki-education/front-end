@@ -1,18 +1,19 @@
 ---
-title: "Shot Checker"
-description: "Work out whether a golf shot landed close enough to sink."
+title: "Ütés-ellenőrző"
+description: "Ellenőrizd, hogy a golfütés elég közel landolt-e ahhoz, hogy a labda a lyukba kerüljön."
+en_md5: 0585e8c489eca5a11da4df955e647456
 ---
 
-Welcome back to the golf course. So far you've only been rolling the ball horizontally. When it got to the hole, it just sat above it. Now we're going to actually animate it down into the hole.
+Üdv újra a golfpályán! Eddig csak vízszintesen gurítottad a labdát. Amikor elérted a lyukat, a labda egyszerűen fölötte állt meg. Most viszont ténylegesen le is animáljuk, ahogy beleesik a lyukba.
 
-The first change is that the `moveTo` function now has inputs for `x` and `y`. Just like before you need to roll it one step at a time, not just jump it to the end. But this time, if the golfer gets the ball in the hole, you need to animate that final part too, moving the ball down into the hole after it's reached the right spot.
+Az első változás, hogy a `moveTo` (elmozdul) függvény most már `x` (vízszintes pozíció) és `y` (függőleges pozíció) bemenettel rendelkezik. Ugyanúgy, mint eddig, lépésről lépésre kell gurítanod, nem csak egyből a végére ugranod. De ezúttal, ha a golfozó a labdát a lyukba juttatja, ezt a végső részt is animálnod kell: miután a labda elérte a megfelelő helyet, le kell mozgatnod a lyukba.
 
-Then finally, **if the ball landed in the hole**, once it's rolled to the bottom, it's time to celebrate, so shoot of some fireworks using the `fireFireworks()` function.
+Végül, **ha a labda a lyukba érkezett**, miután legurult az aljára, itt az ideje ünnepelni, úgyhogy lőj ki némi tűzijátékot a `fireFireworks()` (tűzijátékot indít) függvény segítségével.
 
-A few things to know:
+Néhány dolog, amit tudnod kell:
 
-1. The ball starts on the tee at `x = 28`, `y = 75`, and rolls one step at a time.
-2. A successful shot means the shot's length is `58`, `59`, `60`, `61`, or `62`.
-3. You need to roll the ball down 9 units.
+1. A labda a tee-ről indul, `x = 28`, `y = 75` pozícióból, és lépésenként gurul.
+2. Egy sikeres ütés azt jelenti, hogy az ütés hossza `58`, `59`, `60`, `61` vagy `62`.
+3. Le kell gurítanod a labdát `9` egységgel.
 
-On this exercise, try and think through each step carefully and take things one step at a time. Good luck!
+Ebben a feladatban próbálj meg minden lépést alaposan átgondolni, és haladj lépésről lépésre. Sok sikert!

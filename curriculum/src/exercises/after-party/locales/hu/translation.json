@@ -1,78 +1,78 @@
 {
   "tasks": {
     "lookUpPlusOnes": {
-      "name": "Check the Plus-Ones",
+      "name": "Ellenőrizd a plusz egyeket",
       "description": "Someone gives you their first name. Return the number of extra guests they're allowed to bring in, or `Not on the list!` if they're not invited."
     }
   },
   "scenarios": {
     "emptyList": {
-      "name": "Empty register",
-      "description": "Nobody's bringing anyone in when the list is empty."
+      "name": "Üres lista",
+      "description": "Senki sem hozhat magával senkit, ha a lista üres."
     },
     "nameMissing": {
-      "name": "Brad's turned away",
-      "description": "The name's not on the list at all."
+      "name": "Bradot elutasítják",
+      "description": "A név egyáltalán nincs a listán."
     },
     "namePresent": {
-      "name": "Brad's allowed in",
-      "description": "Brad's invited, and he's not travelling alone."
+      "name": "Bradot beengedik",
+      "description": "Brad meg van hívva, és nem egyedül érkezik."
     },
     "similarName": {
-      "name": "Close, but nope",
-      "description": "Bradley is not Brad, so Brad's still on the wrong side of the rope."
+      "name": "Közel, de nem",
+      "description": "Bradley nem Brad, így Brad továbbra is a kötél rossz oldalán van."
     },
     "doubleBarrelled": {
-      "name": "A dutchman",
-      "description": "The name's on the list, but it's hyphenated."
+      "name": "Egy holland",
+      "description": "A név rajta van a listán, de kötőjellel van írva."
     },
     "allowedNobody": {
-      "name": "Brad's flying solo",
-      "description": "Brad is definitely invited. He's just not bringing anybody with him."
+      "name": "Brad egyedül érkezik",
+      "description": "Brad határozottan meg van hívva. Csak épp nem hoz magával senkit."
     },
     "twoBrads": {
-      "name": "Two Brads",
-      "description": "There's more than one Brad on the list tonight, and the first one down is the one at the door."
+      "name": "Két Brad",
+      "description": "Ma este több Brad is van a listán, és az első bejegyzett az, aki az ajtónál áll."
     },
     "cher": {
-      "name": "Cher's in town",
-      "description": "Some people only have one name, and she's brought an entourage."
+      "name": "Cher a városban",
+      "description": "Vannak, akiknek csak egy nevük van, és ő egy egész kíséretet hozott magával."
     },
     "cheryl": {
-      "name": "Getting tough now",
-      "description": "Are Cheryl Crow and Cher friends? Doesn't matter - Cheryl is not Cher."
+      "name": "Most kezd nehéz lenni",
+      "description": "Cheryl Crow és Cher barátok? Mindegy – Cheryl nem Cher."
     }
   },
   "hints": {
     "whereToStart": {
-      "question": "Where do I even start with this?",
-      "answer": "Picture yourself actually doing it on the door. Someone says a name, and you read down the clipboard until you spot them. It's worth noticing that the answer you have to give them isn't written next to their name on the list you're reading."
+      "question": "Hol is kezdjek ezzel?",
+      "answer": "Képzeld el, hogy valóban az ajtóban csinálod. Valaki mond egy nevet, te pedig végigolvasod a vágólapot, amíg meg nem találod. Érdemes észrevenned, hogy a válasz, amit adnod kell nekik, nincs odaírva a nevük mellé azon a listán, amit olvasol."
     },
     "twoLists": {
-      "question": "There are two lists. How do they relate to each other?",
-      "answer": "Whatever you learn about *where* someone is in one list is just as true in the other. A position is a more useful thing to hold onto than a name."
+      "question": "Két lista van. Hogyan kapcsolódnak egymáshoz?",
+      "answer": "Bármit tudsz meg arról, hogy *hol* van valaki az egyik listában, ugyanúgy igaz a másikra is. Egy pozíció hasznosabb dolog, amit megjegyezhetsz, mint egy név."
     },
     "whatCountsAsAMatch": {
-      "question": "When does a first name actually count as a match?",
-      "answer": "\"Brad\" should get Brad Pitt in, but not Bradley Cooper. Think about what's different about those two entries at the point where the letters you were given run out. There's more than one reasonable way to make that comparison, so pick whichever one you can explain to yourself."
+      "question": "Mikor számít egy keresztnév egyezésnek?",
+      "answer": "\"Brad\" be kell engedje Brad Pittet, de Bradley Coopert nem. Gondold át, mi a különbség a két bejegyzés között azon a ponton, ahol a kapott betűk elfogynak. Több ésszerű módszer is van az összehasonlításra, úgyhogy válaszd azt, amelyiket meg tudod magyarázni magadnak."
     },
     "noSurname": {
-      "question": "Cher hasn't got a surname. Does that break anything?",
-      "answer": "Have another look at what your match test assumes about a list entry. If it assumes there's always something after the first name, an entry that's *only* a first name won't get past it. And going the other way, a longer name shouldn't be able to claim a shorter entry."
+      "question": "Chernek nincs vezetékneve. Ez okoz valami problémát?",
+      "answer": "Nézd meg újra, mit feltételez az egyezés-ellenőrzésed egy listaelemről. Ha azt feltételezi, hogy mindig van valami a keresztnév után, akkor egy olyan bejegyzés, ami *csak* egy keresztnév, nem fog átjutni rajta. És fordítva: egy hosszabb név ne tudja igényelni a rövidebb bejegyzést."
     },
     "notOnTheList": {
-      "question": "What do I do when they're not on the list?",
+      "question": "Mit csináljak, ha nincsenek a listán?",
       "answer": "Then they get the string `Not on the list!`, exactly as written. Two things are worth thinking about here. First, at what point can you be *certain* that someone isn't on the list? Second, notice that this is a genuinely different answer from a guest who's invited but allowed 0 extra guests, so make sure your function never confuses the two."
     }
   },
   "functions": {
     "length": {
-      "description": "The number of items in a list - the same length property you've used on strings (provided by level stdlib)",
-      "category": "List Operations"
+      "description": "A lista elemeinek száma – ugyanaz a length tulajdonság, amit a stringeknél is használtál (a feladat stdlib-je biztosítja)",
+      "category": "Listaműveletek"
     },
     "startsWith": {
-      "description": "Check whether a string begins with a smaller string (provided by level stdlib)",
-      "category": "String Operations"
+      "description": "Ellenőrzi, hogy egy sztring egy kisebb sztringgel kezdődik-e (a feladat stdlib-je biztosítja)",
+      "category": "Stringműveletek"
     }
   }
 }

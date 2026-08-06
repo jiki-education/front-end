@@ -1,18 +1,19 @@
 ---
-title: "Random Salad"
-description: "Toss together a random salad from different ingredients."
+title: "Véletlen Saláta"
+description: "Dobj össze egy véletlen salátát különböző hozzávalókból."
+en_md5: cacce39b8e2caaf41ead74a68acbb808
 ---
 
-You and your partner can never agree on salad proportions — you want loads of leaves, they want extra croutons, neither of you can compromise. You've decided to let randomness settle it once and for all.
+Te és a párod sosem tudtok megegyezni a saláta arányain. Te sok levélre, ő sok krutonra vágyik, és egyikőtök sem enged. Végül úgy döntöttetek, hogy a véletlenre bízzátok a döntést, egyszer s mindenkorra.
 
-You are creating a salad with leaves, tomatoes, olives and croutons. You've agreed some strict (hard-fought!) rules:
+Egy salátát készítesz, amihez leveleket, paradicsomot, olajbogyót és krutont használsz. Néhány szigorú (kemény küzdelemben kiharcolt!) szabályban maradtatok:
 
-- You must have a sensible base of between 40 and 100 leaves.
-- Too many tomatoes makes the salad soggy and acidic. You must have at least 5 tomatoes, but no more than one per 5 leaves.
-- You need enough croutons to soak up the tomato juice, but too many and it's just a bread bowl. You agree that works out at least as many croutons as tomatoes, but no more than double the amount of tomatoes.
-- Olives have a strong flavour — use them sparingly or they'll overpower everything else. You want at least one olive, but no more than half the number of tomatoes.
-- And the crucial rule: All the ingredients counts must be generated using randomness!
+- Legalább 40, de legfeljebb 100 levélből álló értelmes alap kell.
+- Túl sok paradicsomtól a saláta vizes és savanyú lesz. Legalább 5 paradicsom kell, de legfeljebb minden 5 levélre juthat egy paradicsom.
+- Annyi krutont kell használnod, hogy felszívja a paradicsom levét, de ha túl sokat teszel, az egész olyan lesz, mint egy kenyértál. Abban maradtatok, hogy legalább annyi kruton legyen, mint paradicsom, de legfeljebb a paradicsom kétszerese.
+- Az olajbogyónak erős az íze: használd takarékosan, különben elnyomja az összes többi ízt. Legalább egy olajbogyót tegyél, de legfeljebb a paradicsomok számának a felét.
+- És a legfontosabb szabály: az összes hozzávaló mennyiségét véletlenszerűen kell előállítani!
 
-Start off by **clicking Run Code** a few times to get see how the salad works. Once you've got a flavour for the exercise (pun intended), use `Math.randomInt` and follow the rules above to select the right selection of ingredients:
+Először kattints párszor a **Run Code** gombra, hogy lásd, hogyan működik a saláta. Miután belejöttél a feladat ízébe (szándékos szóvicc), használd a `Math.randomInt`-et (véletlen egész szám), és kövesd a fenti szabályokat, hogy összeállítsd a megfelelő hozzávalókat:
 
-Have fun trying out some different combos!
+Próbálj ki néhány különböző kombinációt, és érezd jól magad!

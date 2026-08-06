@@ -1,36 +1,36 @@
 {
   "checks": {
-    "leftBrick": "The left brick isn't correct.",
-    "secondBrick": "The second brick isn't correct.",
-    "middleBrick": "The middle brick isn't correct.",
-    "fourthBrick": "The fourth brick isn't correct.",
-    "rightBrick": "The right brick isn't correct.",
+    "leftBrick": "A bal oldali tégla nem megfelelő.",
+    "secondBrick": "A második tégla nem megfelelő.",
+    "middleBrick": "A középső tégla nem megfelelő.",
+    "fourthBrick": "A negyedik tégla nem megfelelő.",
+    "rightBrick": "A jobb oldali tégla nem megfelelő.",
     "codeQuality": {
-      "rectangleCalledOnce": "You are using the <code>rectangle</code> function in multiple places in your code. It should only appear once!"
+      "rectangleCalledOnce": "A <code>rectangle</code> függvényt a kódodban több helyen is használod. Csak egyszer kellene szerepelnie!"
     }
   },
   "tasks": {
     "finishWall": {
-      "name": "Finish the wall",
-      "description": "Add a top layer to the wall!"
+      "name": "Fejezd be a falat",
+      "description": "Adj hozzá egy felső sort a falhoz!"
     }
   },
   "scenarios": {
     "finishWall": {
-      "name": "Finish off the wall",
-      "description": "Add a top layer to the wall!"
+      "name": "Fejezd be a falat",
+      "description": "Adj hozzá egy felső sort a falhoz!"
     }
   },
   "hints": {
     "positionSecondBrick": {
-      "question": "I can't work out how to position the second brick further along from the first",
-      "answer": "If each brick is 20 wide then you need to place the first at 0, the second at 20, the third at 40, etc. You can use multiplication to do this. What variable could you track that enables you to have the pattern 0, 20 then 40, etc?"
+      "question": "Nem jövök rá, hogyan helyezzem el a második téglát az elsőtől távolabb.",
+      "answer": "Ha minden tégla 20 egység széles, akkor az elsőt 0-ra, a másodikat 20-ra, a harmadikat 40-re kell tenned, és így tovább. Ezt szorzással érheted el. Milyen változót tarthatnál számon, amivel el tudod érni a 0, 20, 40, ... mintázatot?"
     }
   },
   "functions": {
     "rectangle": {
-      "description": "Draw a rectangle at position (left, top) with the given width, height, and color",
-      "category": "Drawing Shapes"
+      "description": "Téglalapot rajzol a (bal, fent) pozícióba, a megadott szélességgel, magassággal és színnel.",
+      "category": "Alakzatok rajzolása"
     }
   }
 }

@@ -1,16 +1,17 @@
 ---
-title: "Driving Test"
-description: "Mark a driving theory test and decide if they passed."
+title: "Vezetési vizsga"
+description: "Értékeld a vezetési elméleti vizsgát, és döntsd el, hogy átment-e."
+en_md5: fcd146eb38b49d8e4d096bff02e91ea7
 ---
 
-When you take your driving test in the UK, you get graded on a variety of different areas like observations, technical skills, parking, etc.
+Amikor az Egyesült Királyságban vezetési vizsgát teszel, különféle területeken osztályoznak, mint például a megfigyelés, technikai készségek, parkolás stb.
 
-You're allowed to make a few small mistakes ("minors") but not any big ones ("majors"). If you make one major, or 5 or more minors, you fail. Otherwise, they send you out on the road!
+Engedélyezett néhány apró hiba ("minor"), de nagy hibát ("major") nem követhetsz el. Ha egy major hibát, vagy 5 vagy több minort vétesz, megbuksz. Ellenkező esetben kivisznek az útra!
 
-In your spare time, you administer these Driving Tests. As the student drives, you make notes on each area:
+Szabadidődben te is lebonyolítasz ilyen vezetési vizsgákat. Miközben a tanuló vezet, minden területről jegyzetelsz:
 
-- If they make a minor mistake, you add a ❌ to the chart
-- If they make a major mistake, you add a 💥
-- If they pass that area without issue, you put down a ✅
+- Ha kisebb hibát vét, ❌-et teszel a táblázatba
+- Ha nagy hibát vét, 💥-t teszel
+- Ha hiba nélkül teljesíti azt a területet, ✅-t írsz be
 
-Write a function called `didTheyPass` that expects a string containing the pass (✅), minor (❌) and major (💥) symbols as input. It should determine if they pass or not, returning `true` if they do, and `false` if they don't.
+Írj egy `didTheyPass` (átment-e) nevű függvényt, amely bemenetként egy olyan stringet vár, ami a sikeres (✅), a kisebb hibát (❌) és a nagy hibát (💥) jelző szimbólumokat tartalmazza. A függvény döntse el, hogy átment-e a vizsgázó: `true`-t adjon vissza, ha igen, `false`-ot, ha nem.

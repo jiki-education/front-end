@@ -1,15 +1,16 @@
 ---
 title: "Bouncer"
-description: "Decide who's old enough to get into the club."
+description: "Döntsd el, ki elég idős ahhoz, hogy beengedd a klubba."
+en_md5: f7bf0680fea03342247537523546e883
 ---
 
-You're coding up a robotic bouncer for The Neon Gates bar. The robot's job is to check someone's age and decide whether to let them in.
+Egy robotkidobót programozol a The Neon Gates bárhoz. A robot feladata, hogy ellenőrizze valaki életkorát, és eldöntse, beengeti-e.
 
-You have two functions:
+Két függvényed van:
 
-- `askAge()` returns the age of the person waiting outside
-- `letIn()` lets the person in
+- `askAge()` (kérdezd le a kort) visszaadja a kint várakozó személy korát
+- `letIn()` (engedj be) beengeti a személyt
 
-The venue's policy is that only people **21 and older** are allowed in.
+A bár szabályzata szerint kizárólag **21 éves vagy idősebb** vendégek léphetnek be.
 
-Ask the person's age, and if they're old enough, let them in!
+Kérdezd meg a személy korát, és ha elég idős, engedd be!

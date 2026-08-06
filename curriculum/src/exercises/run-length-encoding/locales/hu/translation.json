@@ -1,101 +1,101 @@
 {
   "tasks": {
     "encode": {
-      "name": "Encode a string",
-      "description": "Write a function called encode that walks through the string, counting how many times each character repeats in a row. Replace each run of two or more with the count followed by the character, and leave single characters as they are."
+      "name": "Kódolj egy karakterláncot",
+      "description": "Írj egy `encode` nevű függvényt, ami végigmegy a karakterláncon, és megszámolja, hogy az egyes karakterek egymás után hányszor ismétlődnek. A kettő vagy több azonos karakterből álló sorozatokat cseréld ki a számukra és az adott karakterre, az egyedül álló karaktereket pedig hagyd változatlanul."
     },
     "decode": {
-      "name": "Decode a string",
-      "description": "Write a function called decode that reverses the process. Read the number in front of a character and repeat that character that many times. Counts can have more than one digit."
+      "name": "Dekódolj egy karakterláncot",
+      "description": "Írj egy `decode` nevű függvényt, ami megfordítja a folyamatot. Olvasd le a karakter előtt álló számot, és ismételd meg annyiszor a karaktert. A számok több számjegyből is állhatnak."
     }
   },
   "scenarios": {
     "rleEncodeEmpty": {
-      "name": "Encode an empty string",
-      "description": "Encoding an empty string gives back an empty string."
+      "name": "Üres karakterlánc kódolása",
+      "description": "Az üres karakterlánc kódolása üres karakterláncot ad vissza."
     },
     "rleEncodeSingles": {
-      "name": "Single characters are not counted",
-      "description": "Characters that appear only once are encoded without a count."
+      "name": "Az egyedül álló karakterek nem kapnak számot",
+      "description": "A csak egyszer előforduló karakterek szám nélkül kódolódnak."
     },
     "rleEncodeNoSingles": {
-      "name": "A string with no single characters",
-      "description": "Runs of repeated characters are replaced by a count and the character."
+      "name": "Karakterlánc egyedül álló karakterek nélkül",
+      "description": "Az ismétlődő karakterek sorozatait a számuk és a karakter helyettesíti."
     },
     "rleEncodeMixed": {
-      "name": "Single characters mixed with runs",
-      "description": "Runs and single characters can be mixed in the same string."
+      "name": "Egyedül álló karakterek és sorozatok keveredése",
+      "description": "Ugyanabban a karakterláncban a sorozatok és az egyedül álló karakterek keveredhetnek."
     },
     "rleEncodeWhitespace": {
-      "name": "Whitespace in the string",
-      "description": "Spaces are treated like any other character, including in runs."
+      "name": "Szóközök a karakterláncban",
+      "description": "A szóközök ugyanúgy kezelendők, mint bármely más karakter, a sorozatokban is."
     },
     "rleEncodeLowercase": {
-      "name": "Lowercase characters",
-      "description": "Encoding works the same for lowercase letters."
+      "name": "Kisbetűs karakterek",
+      "description": "A kódolás ugyanúgy működik a kisbetűkre is."
     },
     "rleDecodeEmpty": {
-      "name": "Decode an empty string",
-      "description": "Decoding an empty string gives back an empty string."
+      "name": "Üres karakterlánc dekódolása",
+      "description": "Az üres karakterlánc dekódolása üres karakterláncot ad vissza."
     },
     "rleDecodeSingles": {
-      "name": "Decode single characters",
-      "description": "Characters with no count in front of them appear once."
+      "name": "Egyedül álló karakterek dekódolása",
+      "description": "A szám nélküli karakterek egyszer jelennek meg."
     },
     "rleDecodeNoSingles": {
-      "name": "Decode a string of runs",
-      "description": "A count followed by a character expands to that many copies of the character."
+      "name": "Csak sorozatokból álló karakterlánc dekódolása",
+      "description": "A szám után következő karakter annyi példányban bővül, ahányat a szám jelez."
     },
     "rleDecodeMixed": {
-      "name": "Decode single characters mixed with runs",
-      "description": "Counts with more than one digit must be read fully before expanding."
+      "name": "Egyedül álló karakterek és sorozatok keverékének dekódolása",
+      "description": "A több számjegyű számokat teljesen be kell olvasni a bővítés előtt."
     },
     "rleDecodeWhitespace": {
-      "name": "Decode whitespace",
-      "description": "Spaces are expanded just like any other character."
+      "name": "Szóköz dekódolása",
+      "description": "A szóközök ugyanúgy bővülnek, mint bármely más karakter."
     },
     "rleDecodeLowercase": {
-      "name": "Decode lowercase characters",
-      "description": "Decoding works the same for lowercase letters."
+      "name": "Kisbetűs karakterek dekódolása",
+      "description": "A dekódolás ugyanúgy működik a kisbetűknél is."
     }
   },
   "hints": {
     "whatIsRle": {
-      "question": "What does run-length encoding actually do?",
-      "answer": "It squashes runs of the same character into a count plus the character. `\"AAAA\"` becomes `\"4A\"`. A character on its own is left alone with no number in front of it, so `\"B\"` stays `\"B\"`."
+      "question": "Mit csinál pontosan a futáshossz-kódolás?",
+      "answer": "Az egymás után ismétlődő karakterek sorozatait egy számmal és az adott karakterrel tömöríti. Az `\"AAAA\"`-ból `\"4A\"` lesz. Az egyedül álló karaktereket változatlanul hagyja, nem írunk eléjük számot, így a `\"B\"` marad `\"B\"`."
     },
     "countRuns": {
-      "question": "How do I count a run of repeated characters?",
-      "answer": "Walk through the string keeping track of the previous character and how many times it has repeated. Each time the character changes, write out the finished run and start counting the new character."
+      "question": "Hogyan számolom meg az ismétlődő karakterek sorozatát?",
+      "answer": "Menj végig a karakterláncon, és tartsd nyilván az előző karaktert és azt, hogy hányszor ismétlődött. Amikor a karakter megváltozik, írd ki a befejezett sorozatot, és kezdd el számolni az új karaktert."
     },
     "singleChars": {
-      "question": "How do I avoid writing a count for single characters?",
-      "answer": "Only put the number in front when the count is greater than 1. If a character appeared just once, write only the character."
+      "question": "Hogyan kerülhetem el, hogy számot írjak az egyedül álló karakterek elé?",
+      "answer": "Csak akkor írd elé a számot, ha a darabszám nagyobb, mint 1. Ha egy karakter csak egyszer fordul elő, csak magát a karaktert írd ki."
     },
     "decodeDigits": {
-      "question": "How do I know if a character is a digit while decoding?",
-      "answer": "Check whether the character is one of `0123456789`, for example with `\"0123456789\".includes(char)`. If it is, it's part of a count. If it isn't, it's the character to repeat."
+      "question": "Hogyan tudom eldönteni dekódolás közben, hogy egy karakter számjegy-e?",
+      "answer": "Ellenőrizd, hogy a karakter a `0123456789`-ban található-e, például `\"0123456789\".includes(char)` segítségével. Ha igen, akkor egy szám része. Ha nem, akkor ismétlendő karakter."
     },
     "decodeMultiDigit": {
-      "question": "How do I read a count with more than one digit, like 12?",
-      "answer": "A count like `12` arrives one digit at a time, so build it up as you go rather than treating each digit separately. Each time another digit turns up, the number you have so far needs to grow by a factor of ten to make room for it before you add the new digit on. `Number()` turns a digit character into a number you can do maths with."
+      "question": "Hogyan olvasok be egy több számjegyű számot, például 12-t?",
+      "answer": "Egy olyan szám, mint a `12`, számjegyenként érkezik, ezért menet közben építsd fel, ne darabonként kezeld. Amikor egy újabb számjegy jelenik meg, az addigi számot meg kell szoroznod tízzel, hogy helyet csinálj neki, mielőtt hozzáadnád az új számjegyet. A `Number()` egy számjegy karakterből számmá alakítja, amivel számolhatsz."
     },
     "decodeRepeat": {
-      "question": "How do I repeat the character the right number of times?",
-      "answer": "Once you hit a non-digit character, use a loop that runs `count` times, adding the character to your result each time. Then reset the count back to 0 ready for the next run. If there was no count, treat it as 1."
+      "question": "Hogyan ismétlem meg a karaktert a megfelelő számú alkalommal?",
+      "answer": "Amikor nem számjegy karaktert találsz, használj egy ciklust, ami `count`-szor fut le, és minden alkalommal add hozzá a karaktert az eredményhez. Ezután állítsd vissza a számot 0-ra, hogy készen állj a következő sorozatra. Ha nem volt szám, kezeld 1-nek."
     }
   },
   "functions": {
     "number": {
-      "description": "Convert a string containing a digit to a number",
-      "category": "Type Conversion"
+      "description": "Számjegy karakterláncot számmá alakít",
+      "category": "Típuskonverzió"
     },
     "includes": {
-      "description": "Check whether a string contains a smaller string",
-      "category": "String Operations"
+      "description": "Ellenőrzi, hogy egy karakterlánc tartalmaz-e egy rövidebb karakterláncot",
+      "category": "Karakterlánc-műveletek"
     }
   },
   "checks": {
-    "mustUseFor": "Almost! For this one we want you to use a `for` loop to repeat each character the right number of times."
+    "mustUseFor": "Majdnem! Ennél a feladatnál azt szeretnénk, ha egy `for` ciklussal ismételnéd meg minden karaktert a megfelelő számú alkalommal."
   }
 }

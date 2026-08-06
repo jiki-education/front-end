@@ -1,14 +1,15 @@
 ---
 title: "Hello"
-description: "Say hello to the world with your first string function."
+description: "Köszönj a világnak az első string függvényeddel."
+en_md5: f0c55b2c330b18ae05e22d967babbc9e
 ---
 
-In the next two exercises, we're going to continue practicing making functions, and start using some string manipulation.
+A következő két feladatban tovább gyakoroljuk a függvények készítését, és elkezdünk string-műveleteket használni.
 
-First of all we're going to look at the simplest case.
+Először a legegyszerűbb esetet nézzük meg.
 
-Your job is to create a function called `sayHello(name)`.
+A feladatod egy `sayHello(name)` (köszönj, név) nevű függvény létrehozása.
 
-It should return a greeting for the person, so if you write `sayHello("Jeremy")`, the function should return `"Hello, Jeremy!"`. If you write `sayHello("Nicole")` it should return `"Hello, Nicole!"`.
+Egy üdvözlést kell visszaadnia a személy számára, tehát ha azt írod, hogy `sayHello("Jeremy")`, a függvénynek a következőt kell visszaadnia: `"Hello, Jeremy!"`. Ha azt írod, hogy `sayHello("Nicole")`, akkor `"Hello, Nicole!"`-t kell visszaadnia.
 
-This should hopefully be a quick exercise and set the foundation for the more interesting next one.
+Remélhetőleg ez egy gyors feladat lesz, és megalapozza a következő, izgalmasabb feladatot.

@@ -1,93 +1,93 @@
 {
   "checks": {
-    "totalCells": "Expected {{expectedTotal}} total cells but found {{got}}.",
-    "wrongPosition": "Building {{building}} isn't in the right place. It starts at column {{start}} but should start at column {{expected}}.",
-    "wrongEntrance": "Building {{building}}: the entrance isn't in the right place.",
-    "wrongGroundWalls": "Building {{building}}: the ground-floor side walls aren't right.",
-    "wrongRoof": "Building {{building}}: the roof isn't complete."
+    "totalCells": "Várt cellák száma: {{expectedTotal}}, talált: {{got}}.",
+    "wrongPosition": "A(z) {{building}}. épület nincs a megfelelő helyen. A(z) {{start}}. oszlopnál kezdődik, de a(z) {{expected}}. oszlopnál kellene kezdődnie.",
+    "wrongEntrance": "{{building}}. épület: a bejárat nincs a megfelelő helyen.",
+    "wrongGroundWalls": "{{building}}. épület: a földszinti oldalfalak nem megfelelőek.",
+    "wrongRoof": "{{building}}. épület: a tető nem teljes."
   },
   "tasks": {
     "buildSkyline": {
-      "name": "Build the city skyline",
-      "description": "Build multiple buildings of random widths and heights to create a city skyline."
+      "name": "Építsd fel a város látképét",
+      "description": "Építs több, véletlen szélességű és magasságú épületet, hogy létrehozz egy városi látképet."
     }
   },
   "scenarios": {
     "buildings1": {
-      "name": "1 building",
-      "description": "Build a single building with random width and height."
+      "name": "1 épület",
+      "description": "Építs egyetlen épületet véletlen szélességgel és magassággal."
     },
     "buildings2": {
-      "name": "2 buildings",
-      "description": "Build 2 buildings with random widths and heights."
+      "name": "2 épület",
+      "description": "Építs 2 épületet véletlen szélességgel és magassággal."
     },
     "buildings3": {
-      "name": "3 buildings",
-      "description": "Build 3 buildings with random widths and heights."
+      "name": "3 épület",
+      "description": "Építs 3 épületet véletlen szélességgel és magassággal."
     },
     "buildings4": {
-      "name": "4 buildings",
-      "description": "Build 4 buildings with random widths and heights."
+      "name": "4 épület",
+      "description": "Építs 4 épületet véletlen szélességgel és magassággal."
     }
   },
   "hints": {
     "whereToStart": {
-      "question": "Where do I start with such a big exercise?",
-      "answer": "Break it down. The outer shape is one loop per building. Inside that loop, you draw three things in turn: the ground floor (with the entrance), the upper floors (just walls and glass), and the flat roof. Get the first scenario passing for a single building before worrying about multiple buildings."
+      "question": "Hol kezdjek hozzá egy ilyen nagy feladathoz?",
+      "answer": "Bontsd részekre. A külső forma egy ciklus épületenként. A cikluson belül három dolgot rajzolsz meg sorjában: a földszintet (a bejárattal), a felső emeleteket (csak falak és üveg), és a lapos tetőt. Először az első forgatókönyv menjen át egyetlen épületre, mielőtt több épülettel foglalkoznál."
     },
     "buildingDimensions": {
-      "question": "How do I know what each building should look like?",
-      "answer": "Call `randomWidth()` and `randomNumFloors()` once at the start of each building's iteration and store both in local variables. Calling them again gives you the *next* building's values, so don't call them again inside the rows."
+      "question": "Honnan tudom, hogy hogyan nézzen ki egy-egy épület?",
+      "answer": "Hívd meg a `randomWidth()`-et és a `randomNumFloors()`-t egyszer minden épület iterációjának elején, és tárold mindkettőt helyi változókban. Ha újra meghívod őket, a *következő* épület értékeit adják vissza, ezért ne hívd meg újra a sorokon belül."
     },
     "trackPosition": {
-      "question": "How do I track where the next building goes?",
-      "answer": "Keep a single variable for the current building's left-hand column. Start it at the spec's left gap. After you've finished a building, advance it by that building's width plus the gap between buildings. That one variable is all the horizontal positioning state you need."
+      "question": "Hogyan követem, hogy hová kerül a következő épület?",
+      "answer": "Tarts fenn egyetlen változót az aktuális épület bal oldali oszlopához. Inicializáld a specifikáció szerinti bal oldali hézagnál. Miután befejeztél egy épületet, növeld meg az épület szélességével és az épületek közötti hézaggal. Ez az egy változó tartalmazza az összes vízszintes pozicionálási információt, amire szükséged van."
     },
     "groundFloorLayout": {
-      "question": "How do I lay out the ground floor with the entrance in the middle?",
-      "answer": "Walk across the building one column at a time. The first and last columns are walls; everything in between is glass; one middle column is the entrance. The entrance's column is derived from the building's left edge and its width."
+      "question": "Hogyan rendezzem el a földszintet a középen lévő bejárattal?",
+      "answer": "Haladj végig az épületen oszloponként. Az első és az utolsó oszlop fal; a közöttük lévők mind üveg; egy középső oszlop a bejárat. A bejárat oszlopa az épület bal szélétől és a szélességétől függ."
     },
     "upperFloorsAndRoof": {
-      "question": "How do I draw the upper floors and the roof?",
-      "answer": "Each upper floor is the same pattern as the ground floor without the entrance: walls at the sides, glass in between. Remember the ground floor already counts as one of the floors, so you only stack the remaining ones above it, climbing in `y`. The roof is then one solid row of walls spanning the full width on top, and isn't counted as a floor."
+      "question": "Hogyan rajzoljam meg a felső emeleteket és a tetőt?",
+      "answer": "Minden felső emelet ugyanolyan mint a földszint, de bejárat nélkül: oldalt falak, közte üveg. Ne feledd, a földszint már egy emeletnek számít, így csak a maradék emeleteket kell fölé raknod, felfelé haladva `y`-ban. A tető ezután egy tömör falsor, amely a teljes szélességet átfogja felül, és nem számít emeletnek."
     },
     "stuckError": {
-      "question": "My second building errors with \"the builders are stuck, there's already a wall here\". What's wrong?",
-      "answer": "Your second building is trying to build on top of the first one, because you're not advancing your column tracker between buildings. After drawing each building, increase it by `width + gap` before the next iteration starts. If you forget, every building starts from the same left edge and collides with the one before it."
+      "question": "A második épületnél hibát kapok: „the builders are stuck, there's already a wall here”. Mi a baj?",
+      "answer": "A második épület azért próbál az első tetejére épülni, mert nem lépteted az oszlopkövetőt az épületek között. Minden épület megrajzolása után növeld meg `width + gap` értékkel, mielőtt a következő iteráció elkezdődik. Ha elfelejted, minden épület ugyanarról a bal szélről indul, és ütközik az előzővel."
     }
   },
   "functions": {
     "buildWall": {
-      "description": "Places a **wall block** at grid position (x, y).",
-      "category": "Building"
+      "description": "**Faltömböt** helyez el a rács (x, y) pozíciójába.",
+      "category": "Építés"
     },
     "buildGlass": {
-      "description": "Places a **glass panel** at grid position (x, y).",
-      "category": "Building"
+      "description": "**Üvegpanelt** helyez el a rács (x, y) pozíciójába.",
+      "category": "Építés"
     },
     "buildEntrance": {
-      "description": "Places an **entrance door** at grid position (x, y).",
-      "category": "Building"
+      "description": "**Bejárati ajtót** helyez el a rács (x, y) pozíciójába.",
+      "category": "Építés"
     },
     "numBuildings": {
-      "description": "Returns the **number of buildings** to construct.",
-      "category": "Info"
+      "description": "Visszaadja az **épületek számát**, amit meg kell építeni.",
+      "category": "Információ"
     },
     "randomWidth": {
-      "description": "Returns a **random building width**: 3, 5, or 7.",
-      "category": "Info"
+      "description": "Visszaad egy **véletlen épületszélességet**: 3, 5 vagy 7.",
+      "category": "Információ"
     },
     "randomNumFloors": {
-      "description": "Returns a **random number of floors** between 1 and 12.",
-      "category": "Info"
+      "description": "Visszaad egy **véletlen emeletszámot** 1 és 12 között.",
+      "category": "Információ"
     }
   },
   "describers": {
-    "buildWall": "built a wall at position (${arg1}, ${arg2})",
-    "buildEntrance": "built an entrance at position (${arg1}, ${arg2})",
-    "buildGlass": "built a glass panel at position (${arg1}, ${arg2})",
-    "numBuildings": "retrieved the number of buildings",
-    "randomWidth": "retrieved a random building width (3-7)",
-    "randomNumFloors": "retrieved a random number of floors (1-12)"
+    "buildWall": "falat épített a(z) (${arg1}, ${arg2}) pozícióban",
+    "buildEntrance": "bejáratot épített a(z) (${arg1}, ${arg2}) pozícióban",
+    "buildGlass": "üvegpanelt épített a(z) (${arg1}, ${arg2}) pozícióban",
+    "numBuildings": "lekérte az épületek számát",
+    "randomWidth": "lekérte a véletlen épületszélességet (3-7)",
+    "randomNumFloors": "lekérte a véletlen emeletszámot (1-12)"
   }
 }

@@ -1,55 +1,56 @@
 ---
-title: "Sprouting Flower"
-description: "Use variable relationships to animate a flower growing from the ground."
+title: "Kihajtó virág"
+description: "Használd a változók közötti kapcsolatokat, hogy megeleveníts egy földből kinövő virágot."
+en_md5: acd8f364af4cfdc8f76ced2b17539bbb
 ---
 
-Your task is to make a flower that grows over `60` iterations.
+A feladatod egy virág elkészítése, amely `60` iteráción keresztül nő.
 
-The animation should look something like this.
+Az animációnak valahogy így kell kinéznie.
 
-<img src="/static/images/exercise-assets/sprouting-flower/frames.webp" alt="Frames showing a flower growing from the ground over 60 iterations" style="width: 100%; max-width: 600px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+<img src="/static/images/exercise-assets/sprouting-flower/frames.webp" alt="Képkockák, amint egy virág nő ki a földből 60 iteráción át" style="width: 100%; max-width: 600px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-The key to this exercise is to build relationships between the different elements. This is a key skill in programming.
+A gyakorlat lényege, hogy összefüggéseket építs a különböző elemek között. Ez alapvető programozási készség.
 
-**Before reading any more of the instructions**, take a few minutes to work out conceptually how to achieve this. Write down the steps you think you need to follow on a piece of paper.
+**Mielőtt tovább olvasnád az utasításokat**, szánj néhány percet arra, hogy logikusan átgondold, hogyan lehet ezt megvalósítani. Írd le egy papírra a szerinted követendő lépéseket.
 
-**Once you've got a solution** you're happy with (or given up), **scroll down** to see the instructions.
+**Amikor már van egy megoldásod**, amivel elégedett vagy (vagy feladtad), **görgess lejjebb** az utasításokért.
 
 ---
 
-## How to solve it
+## Hogyan oldd meg
 
-The key component of this is the center of the flower. Everything else can be calculated off that center point. On each iteration of the loop, the center point should move up by `1` (before drawing).
+A megoldás kulcsa a virág közepe. Minden más ebből a középpontból számítható ki. A ciklus minden iterációjában a középpont `1`-gyel mozduljon felfelé (a rajzolás előtt).
 
-Here are some other things you need to know:
+Íme néhány további tudnivaló:
 
-- The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`.
-- The radius of the flower starts at `0`. It should increase by `0.4` on each iteration (before drawing).
-- The radius of the pistil (the middle yellow bit of the flower) starts at `0`. It should increase by `0.1` on each iteration (before drawing).
-- The stem should start at the center of the flower and reach the ground.
-- The stem's width is 10% of the stem's height (so `stemHeight / 10`).
-- Everything is centered on the horizontal axis.
-- The leaves sit flush against the stalk on each side.
-- The leaves sit halfway down the stem.
-- The `radiusX` of the leaves is 50% of the radius of the flower.
-- The `radiusY` of the leaves is 20% of the radius of the flower.
-- The flower head can be `"red"` or `"pink"` depending on your taste. The pistil (the flower center) should be `"yellow"`. The grass should be `"green"`. The background should be `"skyblue"`.
+- A rajzvászon bal felső sarka `0,0`. A jobb alsó sarka `100,100`.
+- A virág sugara `0`-ról indul. Minden iterációban `0.4`-del nőjön (rajzolás előtt).
+- A bibe (a virág sárga közepe) sugara `0`-ról indul. Minden iterációban `0.1`-del nőjön (rajzolás előtt).
+- A szár a virág közepéből induljon, és érjen le a földig.
+- A szár szélessége a magasságának 10%-a (tehát `stemHeight / 10` (a szár magassága osztva tízzel)).
+- Minden a vízszintes tengelyre van középre igazítva.
+- A levelek mindkét oldalon szorosan a szárhoz simulnak.
+- A levelek a szár felénél helyezkednek el.
+- A levelek `radiusX`-e (vízszintes sugara) a virág sugarának 50%-a.
+- A levelek `radiusY`-a (függőleges sugara) a virág sugarának 20%-a.
+- A virág feje lehet `"red"` vagy `"pink"`, ízlés szerint. A bibe (a virág közepe) legyen `"yellow"`. A fű legyen `"green"`. A háttér `"skyblue"`.
 
-It is **essential** to work on one thing at a time:
+**Nagyon fontos**, hogy egyszerre csak egy dologgal foglalkozz:
 
-- Start by drawing the pink flower and getting it to move up.
-- Then get it to grow.
-- Add the smaller yellow center.
-- Add the stem.
-- Add the left leaf.
-- Add the right leaf.
+- Kezdd azzal, hogy lerajzolod a rózsaszín virágot, és eléred, hogy felfelé mozogjon.
+- Aztán érd el, hogy növekedjen.
+- Add hozzá a kisebb sárga középpontot.
+- Add hozzá a szárat.
+- Add hozzá a bal levelet.
+- Add hozzá a jobb levelet.
 
-Use the scrubber bar to scroll through the code and work out where things are going wrong.
+Használd a tekerősávot a kód görgetéséhez, hogy kiderítsd, hol romlik el a dolog.
 
-### This is a tough exercise
+### Ez egy nehéz gyakorlat
 
-This is a challenging exercise. Take your time. If you get really stuck, ask for help, and remember to give us lots of information about what's not working and why you think that's the case.
+Ez egy kihívást jelentő gyakorlat. Ne siess. Ha nagyon elakadsz, kérj segítséget, és ne feledd, hogy adj minél több információt arról, mi nem működik, és szerinted miért.
 
-Use the scrubber (the play bar at the bottom left) to check the value of your variables if you're not clear on what's happening. Click on the little toggle button to see information on each line.
+Használd a tekerőt (a lejátszósáv a bal alsó sarokban), hogy ellenőrizd a változóid értékét, ha nem világos, mi történik. Kattints a kis kapcsológombra, hogy minden sorról információt láss.
 
-Remember, the learning is in the struggle. Every time you get something wrong and solve it, you're becoming a coder. Eventually it will feel easy. Just keep going.
+Ne feledd: a tanulás a küzdelemben rejlik. Minden alkalommal, amikor elrontasz valamit, majd megoldod, egyre inkább programozóvá válsz. Idővel könnyűnek fog érződni. Csak folytasd.

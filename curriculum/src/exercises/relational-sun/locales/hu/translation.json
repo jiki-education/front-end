@@ -1,38 +1,38 @@
 {
   "checks": {
-    "wrongPosition": "The sun is either in the wrong place or the wrong size. Check your `sunX` and `sunY` calculations, and make sure you're passing `radius` to `circle`.",
-    "notResponsive": "Your code doesn't scale correctly when `gap` is {{gap}} and `radius` is {{radius}}. `sunX` and `sunY` should be derived from `gap` and `radius`, not hardcoded numbers."
+    "wrongPosition": "A nap vagy rossz helyen van, vagy rossz a mérete. Ellenőrizd a `sunX` és `sunY` számításait, és győződj meg róla, hogy a `radius`-t is átadod a `circle`-nek.",
+    "notResponsive": "A kódod nem skálázódik megfelelően, amikor a `gap` {{gap}}, a `radius` pedig {{radius}}. A `sunX`-et és `sunY`-t a `gap`-ből és a `radius`-ből kell származtatni, nem beégetett számokból."
   },
   "tasks": {
     "positionSun": {
-      "name": "Position the sun",
-      "description": "Derive `sunX` and `sunY` from `canvasSize`, `gap`, and `radius` so the sun scales correctly."
+      "name": "Nap elhelyezése",
+      "description": "Származtasd a `sunX`-et és `sunY`-t a `canvasSize`-ból, a `gap`-ből és a `radius`-ből, hogy a nap megfelelően skálázódjon."
     }
   },
   "scenarios": {
     "positionSun": {
-      "name": "Position the sun",
-      "description": "Derive the sun's position from `gap` and `radius` so it scales."
+      "name": "Nap elhelyezése",
+      "description": "Származtasd a nap pozícióját a `gap`-ből és a `radius`-ből, hogy skálázódjon."
     }
   },
   "hints": {
     "sunXPosition": {
-      "question": "How should I think about the sun's x position?",
-      "answer": "Picture the right edge of the canvas. The edge of the sun sits `gap` to the left of that edge. The *centre* of the sun is one more radius further in than that."
+      "question": "Hogyan gondolkodjak a nap x-pozíciójáról?",
+      "answer": "Képzeld el a vászon jobb szélét. A nap széle `gap`-nyire van ettől a széltől balra. A nap *középpontja* még egy sugárnyival beljebb van."
     },
     "sunYPosition": {
-      "question": "How should I think about the sun's y position?",
-      "answer": "It's the same idea as the x position, but measured down from the top edge of the canvas instead of in from the right edge."
+      "question": "Hogyan gondolkodjak a nap y-pozíciójáról?",
+      "answer": "Ugyanaz az elv, mint az x-pozíciónál, de itt a vászon tetejétől lefelé mérünk, nem a jobb szélétől befelé."
     },
     "whyNotHardcode": {
-      "question": "Why can't I just write the numbers directly?",
-      "answer": "If you hardcode `sunX` and `sunY`, the sun will stay in one place when `gap` or `radius` change. Building them from `gap` and `radius` keeps the sun in the corner no matter what values you choose."
+      "question": "Miért nem írhatom be közvetlenül a számokat?",
+      "answer": "Ha beégeted a `sunX`-et és `sunY`-t, a nap egy helyben marad, ha a `gap` vagy a `radius` megváltozik. Ha a `gap`-ből és a `radius`-ből építed fel őket, a nap a sarokban marad, bármilyen értékeket is választasz."
     }
   },
   "functions": {
     "circle": {
-      "description": "Draw a circle centered at (centerX, centerY) with the given radius and color",
-      "category": "Drawing Shapes"
+      "description": "Rajzol egy kört a (centerX, centerY) középponttal, a megadott sugárral és színnel.",
+      "category": "Alakzatok rajzolása"
     }
   }
 }

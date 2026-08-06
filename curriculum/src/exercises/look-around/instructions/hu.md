@@ -1,31 +1,32 @@
 ---
-title: "Look Around"
-description: "Build the functions that check what's around you in the maze."
+title: "Nézz körül"
+description: "Készítsd el a függvényeket, amelyek megvizsgálják, mi van körülötted a labirintusban."
+en_md5: 9ca44b407519cf6b3d5fa9f3f0e3b3d3
 ---
 
-Last time you added a new function to help navigate the maze: `turnAround()`. We've got your code on the left for you to continue working on.
+Legutóbb hozzáadtál egy új függvényt, ami segít eligazodni a labirintusban: `turnAround()` (fordulj meg). A kódodat a bal oldalon látod, hogy tovább dolgozhass rajta.
 
-This time we've removed three of the functions you were previously relying on. Your job in this exercise is to implement them yourself!
+Ezúttal eltávolítottunk három függvényt, amelyekre korábban támaszkodtál. Ebben a feladatban a te feladatod, hogy te magad implementáld őket!
 
-### The functions you need to write
+### A függvények, amelyeket meg kell írnod
 
-The three functions you need to create are `canTurnLeft()`, `canTurnRight()` and `canMove()`.
+A három elkészítendő függvény: `canTurnLeft()` (balra tud-e fordulni), `canTurnRight()` (jobbra tud-e fordulni) és `canMove()` (tud-e lépni).
 
-None of the functions have any inputs. All should return a boolean specifying whether it's possible to move in that direction.
+Egyik függvénynek sincs bemenete. Mindegyik egy boolean-t adjon vissza, ami megmondja, hogy lehetséges-e abba az irányba mozogni.
 
-To help you, we've added a new `look(direction)` function. This function takes one input - a direction that can be `"left"`, `"right"`, or `"ahead"`. It returns one of:
+Segítségül hozzáadtunk egy új `look(direction)` (nézz (irány)) függvényt. Ez a függvény egy bemenetet vár – egy irányt, ami lehet `"left"`, `"right"` vagy `"ahead"`. Az alábbiak egyikét adja vissza:
 
-- `"start"` (Where you start)
-- `"target"` (Where you're trying to get to)
-- `"empty"` (The route forward!)
-- `"fire"` (Careful!)
-- `"poop"` (Ewww)
-- `"wall"` (Ouch!)
+- `"start"` (Ahonnan indulsz)
+- `"target"` (Ahova tartasz)
+- `"empty"` (A szabad út előre!)
+- `"fire"` (Vigyázz!)
+- `"poop"` (Fúj)
+- `"wall"` (Jaj!)
 
-### Notes to help you
+### Megjegyzések, amik segítenek
 
-Here are three notes to help you.
+Íme három megjegyzés, ami segít.
 
-1. A best practice in an exercise like this is to **start by creating the functions** that the code needs to run (i.e. `canTurnLeft()`, `canTurnRight()` and `canMove()`). Set their return values to be some sensible default (either `true` or `false` in this case). You can then implement the logic of each function and make some progress each time, rather than just consistently getting an error that a function doesn't exist until you've written the whole program.
-2. **You shouldn't need to change any of your existing code** for this exercise. Instead add the three functions to the top of the code.
-3. You can write **more functions** than just the ones required if it helps you.
+1. Egy ilyen feladatban bevett gyakorlat, hogy **először a függvényeket hozod létre**, amelyekre a kódnak szüksége van (vagyis `canTurnLeft()`, `canTurnRight()` és `canMove()`). Állítsd be a visszatérési értéküket valamilyen ésszerű alapértékre (ebben az esetben `true` vagy `false`). Ezután implementálhatod mindegyik függvény logikáját, és minden alkalommal haladsz egy kicsit, ahelyett, hogy folyamatosan azt a hibát kapnád, hogy a függvény nem létezik, amíg meg nem írtad az egész programot.
+2. **Ne kelljen megváltoztatnod semmit a meglévő kódból** ennél a feladatnál. Ehelyett add hozzá a három függvényt a kód elejéhez.
+3. Írhatsz **több függvényt** is, nem csak a szükségeseket, ha ez segít.

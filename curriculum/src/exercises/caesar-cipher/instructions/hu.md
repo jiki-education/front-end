@@ -1,22 +1,31 @@
 ---
-title: "Caesar Cipher"
-description: ""
+title: "Caesar-rejtjel"
+description: "Titkos üzenet titkosítása egy ókori római rejtjel segítségével."
+en_md5: 029bbd7050127405f5e67a3a20353139
 ---
 
-The Caesar Cipher is one of the earliest and simplest encryption techniques. It was used by Julius Caesar to send secret messages to his generals.
+A Caesar-rejtjel az egyik legkorábbi és legegyszerűbb titkosítási módszer. Julius Caesar használta arra, hogy titkos üzeneteket küldjön a tábornokainak.
 
-<!-- TODO: Add photo of me dressed like Caesar -->
+A rejtjel úgy működik, hogy az üzenet minden betűjét egy rögzített számmal eltolja az ábécében. Például 3-as eltolásnál az 'a'-ból 'd' lesz, a 'b'-ből 'e', és így tovább. Ha az eltolás túllép a 'z'-n, akkor körbeér az ábécé elejére.
 
-The cipher works by shifting each letter in the message by a fixed number of positions in the alphabet. For example, with a shift of 3, 'a' becomes 'd', 'b' becomes 'e', and so on. If the shift goes past 'z', it wraps around to the beginning of the alphabet.
+A szóközök maradjanak szóközök (nem tolódnak el).
 
-Spaces should be kept as spaces (not shifted).
+Hozz létre egy `encode(message, shift)` (kódol(üzenet, eltolás)) nevű függvényt, amely egy kisbetűs üzenetet és egy eltolási értéket kap, és visszaadja a kódolt üzenetet.
 
-Create a function called `encode(message, shift)` that takes a lowercase message and a shift amount, and returns the encoded message.
+Például:
 
-For example:
+- `encode("abc", 1)` eredménye `"bcd"`
+- `encode("xyz", 3)` eredménye `"abc"` (körbeér)
+- `encode("hello world", 5)` eredménye `"mjqqt btwqi"`
 
-- `encode("abc", 1)` returns `"bcd"`
-- `encode("xyz", 3)` returns `"abc"` (wraps around)
-- `encode("hello world", 5)` returns `"mjqqt btwqi"`
+Tipp: Ezt a problémát érdemes kisebb segédfüggvényekre bontani!
 
-Hint: You'll want to break this problem down into smaller helper functions!
+### Véletlen tény
+
+Egyszer egy tech-konferencia műsorvezetője voltam a portugáliai Bragában. Öt perccel azelőtt, hogy színpadra léptem volna, odajöttek hozzám a szervezők, és kissé zavartan megkérdezték, hogy nem bánnám-e, ha Julius Caesarnak öltöznék be a nap első felére, hogy megünnepeljük Braga római örökségét. Sikerült bevállalnom...?
+
+<img
+  src="/static/images/exercise-assets/caesar-cipher/jeremy-as-caesar.webp"
+  alt="Jeremy Caesar jelmezben"
+  style="width: 100%; max-width: 300px; border: 5px solid var(--color-purple-500); padding: 4px; border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;"
+/>

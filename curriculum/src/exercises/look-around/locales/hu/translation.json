@@ -1,117 +1,117 @@
 {
   "errors": {
-    "walkedIntoFire": "You walked into fire!",
-    "steppedInPoop": "You stepped in poop!",
-    "lookDirectionType": "look() expects a string direction: \"left\", \"right\", or \"ahead\"",
-    "lookDirectionValue": "look() direction must be \"left\", \"right\", or \"ahead\""
+    "walkedIntoFire": "Tűzbe sétáltál!",
+    "steppedInPoop": "Kakiba léptél!",
+    "lookDirectionType": "A look() egy string irányt vár: \"left\", \"right\" vagy \"ahead\"",
+    "lookDirectionValue": "A look() irányának a következők egyikének kell lennie: \"left\", \"right\" vagy \"ahead\""
   },
   "describers": {
-    "look": "Look in a direction and see what's there"
+    "look": "Egy adott irányba néz, és megnézi, mi van ott"
   },
   "checks": {
-    "notReachedEnd": "You didn't reach the end of the maze.",
-    "extraTurn": "You seem to have done an extra unnecessary turn at the end.",
-    "canTurnLeftMissing": "You should define a <code>canTurnLeft</code> function.",
-    "canTurnRightMissing": "You should define a <code>canTurnRight</code> function.",
-    "canMoveMissing": "You should define a <code>canMove</code> function.",
-    "turnAroundMissing": "You should define a <code>turnAround</code> function.",
-    "lookOnlyOnce": "<code>look()</code> should only appear once in your whole program.",
-    "maxExtraLines": "You should add no more than 13 lines of code."
+    "notReachedEnd": "Nem jutottál el a labirintus végére.",
+    "extraTurn": "Úgy tűnik, a végén feleslegesen fordultál egyet.",
+    "canTurnLeftMissing": "Definiálnod kell a <code>canTurnLeft</code> függvényt.",
+    "canTurnRightMissing": "Definiálnod kell a <code>canTurnRight</code> függvényt.",
+    "canMoveMissing": "Definiálnod kell a <code>canMove</code> függvényt.",
+    "turnAroundMissing": "Definiálnod kell a <code>turnAround</code> függvényt.",
+    "lookOnlyOnce": "A <code>look()</code> hívás csak egyszer szerepelhet a programodban.",
+    "maxExtraLines": "Legfeljebb 13 sort adhatsz hozzá."
   },
   "tasks": {
     "straightPath": {
-      "name": "A straight path",
-      "description": "Implement canMove() so the character can move forward to the end of the maze."
+      "name": "Egyenes út",
+      "description": "Implementáld a canMove() függvényt, hogy a figura előre tudjon menni a labirintus végéig."
     },
     "turnLeft": {
-      "name": "Turn left if you can",
-      "description": "Implement canTurnLeft() so the character turns left when there's a path."
+      "name": "Fordulj balra, ha tudsz",
+      "description": "Implementáld a canTurnLeft() függvényt, hogy a figura balra forduljon, ha van út."
     },
     "turnRight": {
-      "name": "Turn right if you can't move straight or left",
-      "description": "Implement canTurnRight() so the character turns right when it can't go left or straight."
+      "name": "Fordulj jobbra, ha se előre, se balra nem tudsz menni",
+      "description": "Implementáld a canTurnRight() függvényt, hogy a figura jobbra forduljon, ha nem tud se balra, se egyenesen továbbmenni."
     },
     "turnAround": {
-      "name": "Turn around if needed",
-      "description": "Handle dead ends by turning around. All three sensing functions should now work together to solve any maze."
+      "name": "Fordulj meg, ha szükséges",
+      "description": "Kezeld a zsákutcákat megfordulással. Most már mindhárom érzékelő függvénynek együtt kell működnie, hogy bármilyen labirintust meg tudj oldani."
     },
     "bonusChallenges": {
-      "name": "Bonus challenges",
-      "description": "Can you only use the look() function once in the whole program? And can you solve it by only adding 13 lines of code?"
+      "name": "Bónusz kihívások",
+      "description": "Meg tudod oldani úgy, hogy a look() függvényt csak egyszer használod a programban? És meg tudod oldani úgy, hogy csak 13 sornyi kódot adsz hozzá?"
     }
   },
   "scenarios": {
     "maze1": {
-      "name": "Guide person to the end of the maze",
-      "description": "A straight path down"
+      "name": "Vezesd a figurát a labirintus végéig",
+      "description": "Egy egyenes út lefelé"
     },
     "leftTurn": {
-      "name": "A single left turn",
-      "description": "Navigate a left turn"
+      "name": "Egy balra fordulás",
+      "description": "Oldj meg egy balra fordulást"
     },
     "rightTurn": {
-      "name": "A single right turn",
-      "description": "Navigate a right turn"
+      "name": "Egy jobbra fordulás",
+      "description": "Oldj meg egy jobbra fordulást"
     },
     "forks": {
-      "name": "Choose left if you can, otherwise choose right",
-      "description": "A maze with forks that tests left-priority"
+      "name": "Ha lehet, menj balra, különben jobbra",
+      "description": "Egy elágazásos labirintus, ami a balra priorizálást teszteli"
     },
     "turnAround": {
-      "name": "Turn around at a dead end",
-      "description": "A maze that requires turning around"
+      "name": "Fordulj meg a zsákutcában",
+      "description": "Egy labirintus, ami megfordulást igényel"
     },
     "forks2": {
-      "name": "Complex maze with forks and dead ends",
-      "description": "A complex maze testing the full algorithm"
+      "name": "Összetett labirintus elágazásokkal és zsákutcákkal",
+      "description": "Egy összetett labirintus, ami a teljes algoritmust teszteli"
     },
     "coverOldGround": {
-      "name": "Cover old ground if you need to",
-      "description": "A maze where you must backtrack to find the exit"
+      "name": "Ha szükséges, menj vissza a már bejárt úton",
+      "description": "Egy labirintus, ahol vissza kell menned a kijárat megtalálásához"
     },
     "bonus1": {
-      "name": "Only write look() once",
-      "description": "Solve the maze with look() appearing only once in your code"
+      "name": "Csak egyszer használd a look()-ot",
+      "description": "Oldd meg a labirintust úgy, hogy a look() csak egyszer szerepel a kódodban"
     },
     "bonus2": {
-      "name": "Add only 13 lines",
-      "description": "Solve the maze by adding only 13 lines of code"
+      "name": "Csak 13 sort adj hozzá",
+      "description": "Oldd meg a labirintust úgy, hogy csak 13 sornyi kódot adsz hozzá"
     }
   },
   "hints": {
     "start": {
-      "question": "Where do I even start when the program won't run at all?",
-      "answer": "Define `canTurnLeft()`, `canTurnRight()`, and `canMove()` at the top of your code, each just returning `false` for now. The program will then run and you can replace the bodies one at a time."
+      "question": "Hol kezdjem, ha a program egyáltalán nem fut?",
+      "answer": "Definiáld a kódod tetején a `canTurnLeft()`, `canTurnRight()` és `canMove()` függvényeket, mindegyik most csak `false`-t adjon vissza. A program ezután futni fog, és egyesével kicserélheted a függvények törzsét."
     },
     "findDirection": {
-      "question": "How do I find out what is in a given direction?",
-      "answer": "Use the new `look(direction)` function. Pass `\"left\"`, `\"right\"`, or `\"ahead\"` and it returns a string like `\"empty\"`, `\"wall\"`, `\"fire\"`, or `\"poop\"`."
+      "question": "Hogyan tudhatom meg, hogy mi van egy adott irányban?",
+      "answer": "Használd az új `look(direction)` függvényt. Adj át `\"left\"`, `\"right\"` vagy `\"ahead\"` értéket, és egy stringgel tér vissza, például `\"empty\"`, `\"wall\"`, `\"fire\"` vagy `\"poop\"`."
     },
     "safeResults": {
-      "question": "Which results mean it is safe to go that way?",
-      "answer": "Of the six things `look()` can return, three are things you really don't want to walk into. Your function should return `true` only when what you see is none of those three."
+      "question": "Mely visszatérési értékek jelzik, hogy biztonságos az adott irányba menni?",
+      "answer": "A hat dolog közül, amit a `look()` visszaadhat, három olyan, amibe tényleg nem akarsz belelépni. A függvényednek csak akkor kell `true`-t visszaadnia, ha amit látsz, az egyik sem ezek közül."
     },
     "avoidRepetition": {
-      "question": "I am repeating the same logic in three functions. How do I avoid that?",
-      "answer": "The three functions differ only in which direction they look. Could you write one extra function that takes a direction as an input, and have all three use it?"
+      "question": "Ugyanazt a logikát ismétlem három függvényben. Hogy kerülhetem ezt el?",
+      "answer": "A három függvény csak abban különbözik, hogy melyik irányba néznek. Tudnál írni egy plusz függvényt, ami egy irányt vár bemenetként, és mindhárom ezt használná?"
     }
   },
   "functions": {
     "move": {
-      "description": "Moves the character **one step forward** in the current direction. Walking into a wall, fire, or poop ends your program with an error, so check what's ahead before moving!",
-      "category": "Movement"
+      "description": "Mozgatja a figurát **egy lépéssel előre** a jelenlegi irányba. Ha falba, tűzbe vagy kakiba sétál, a program hibával leáll, ezért lépés előtt nézd meg, mi van előtted!",
+      "category": "Mozgás"
     },
     "turnLeft": {
-      "description": "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
-      "category": "Movement"
+      "description": "Elfordítja a figurát **90 fokkal balra** (az óramutató járásával ellentétesen). Ez megváltoztatja a figura irányát.",
+      "category": "Mozgás"
     },
     "turnRight": {
-      "description": "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
-      "category": "Movement"
+      "description": "Elfordítja a figurát **90 fokkal jobbra** (az óramutató járásával megegyezően). Ez megváltoztatja a figura irányát.",
+      "category": "Mozgás"
     },
     "look": {
-      "description": "Looks in the given direction and returns what's there. The direction must be `\"left\"`, `\"right\"`, or `\"ahead\"`. Returns one of: `\"empty\"`, `\"wall\"`, `\"fire\"`, `\"poop\"`, `\"start\"`, or `\"target\"`.",
-      "category": "Sensing"
+      "description": "A megadott irányba néz, és visszaadja, mi van ott. Az irány a következők egyike kell legyen: `\"left\"`, `\"right\"` vagy `\"ahead\"`. Visszatérési értéke a következők egyike: `\"empty\"`, `\"wall\"`, `\"fire\"`, `\"poop\"`, `\"start\"` vagy `\"target\"`.",
+      "category": "Érzékelés"
     }
   }
 }

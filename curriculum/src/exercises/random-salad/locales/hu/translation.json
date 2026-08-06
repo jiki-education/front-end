@@ -1,62 +1,62 @@
 {
   "errors": {
-    "leavesNumber": "Leaves must be a number",
-    "tomatoesNumber": "Tomatoes must be a number",
-    "croutonsNumber": "Croutons must be a number",
-    "olivesNumber": "Olives must be a number"
+    "leavesNumber": "A leveleknek számnak kell lenniük.",
+    "tomatoesNumber": "A paradicsomoknak számnak kell lenniük.",
+    "croutonsNumber": "A krutonoknak számnak kell lenniük.",
+    "olivesNumber": "Az olajbogyóknak számnak kell lenniük."
   },
   "checks": {
-    "saladNotMade": "You didn't make the salad. Make sure you call <code>makeSalad()</code> with all four ingredients.",
-    "needLeavesRandomInt": "You need to call <code>Math.randomInt(40, 100)</code> to generate the number of leaves.",
-    "needTomatoesRandomInt": "You need to call <code>Math.randomInt(5, leaves / 5)</code> to generate the number of tomatoes.",
-    "needCroutonsRandomInt": "You need to call <code>Math.randomInt(tomatoes, tomatoes * 2)</code> to generate the number of croutons.",
-    "needOlivesRandomInt": "You need to call <code>Math.randomInt(1, tomatoes / 2)</code> to generate the number of olives."
+    "saladNotMade": "Nem készítetted el a salátát. Győződj meg róla, hogy meghívod a <code>makeSalad()</code> függvényt mind a négy hozzávalóval.",
+    "needLeavesRandomInt": "Meg kell hívnod a <code>Math.randomInt(40, 100)</code> függvényt a levelek számának előállításához.",
+    "needTomatoesRandomInt": "Meg kell hívnod a <code>Math.randomInt(5, leaves / 5)</code> függvényt a paradicsomok számának előállításához.",
+    "needCroutonsRandomInt": "Meg kell hívnod a <code>Math.randomInt(tomatoes, tomatoes * 2)</code> függvényt a krutonok számának előállításához.",
+    "needOlivesRandomInt": "Meg kell hívnod a <code>Math.randomInt(1, tomatoes / 2)</code> függvényt az olajbogyók számának előállításához."
   },
   "tasks": {
     "makeRandomSalad": {
-      "name": "Make a random salad",
-      "description": "Generate a random amount of each ingredient using Math.randomInt() and make the salad."
+      "name": "Készíts véletlen salátát",
+      "description": "Állíts elő véletlen mennyiségűt minden hozzávalóból a Math.randomInt() használatával, és készítsd el a salátát."
     }
   },
   "scenarios": {
     "randomSalad": {
-      "name": "Random salad",
-      "description": "Make a salad with random amounts of each ingredient."
+      "name": "Véletlen saláta",
+      "description": "Készíts salátát véletlen mennyiségű hozzávalókkal."
     }
   },
   "hints": {
     "leavesExample": {
-      "question": "Give me an example of how to work out the leaves",
-      "answer": "Use `let leaves = Math.randomInt(40, 100)` to generate a random amount of salad leaves that you can then use in the other functions."
+      "question": "Adj egy példát a levelek számának meghatározására.",
+      "answer": "Használd a `let leaves = Math.randomInt(40, 100)` kódot, hogy véletlen mennyiségű salátalevelet állíts elő, amit aztán a többi függvényben használhatsz."
     },
     "leavesCount": {
-      "question": "How many leaves do I need?",
-      "answer": "Between 40 and 100."
+      "question": "Hány levélre van szükségem?",
+      "answer": "40 és 100 között."
     },
     "tomatoesCount": {
-      "question": "How many tomatoes do I need?",
-      "answer": "At least 5, but no more than leaves / 5"
+      "question": "Hány paradicsomra van szükségem?",
+      "answer": "Legalább 5, de legfeljebb leaves / 5"
     },
     "croutonsCount": {
-      "question": "How many croutons do I need?",
-      "answer": "At least as many as tomatoes, up to double the amount of tomatoes"
+      "question": "Hány krutonra van szükségem?",
+      "answer": "Legalább annyi, mint a paradicsom, legfeljebb a paradicsom kétszerese."
     },
     "olivesCount": {
-      "question": "How many olives do I need?",
-      "answer": "At least 1, up to half the number of tomatoes"
+      "question": "Hány olajbogyóra van szükségem?",
+      "answer": "Legalább 1, legfeljebb a paradicsomok számának a fele."
     },
     "makeSalad": {
-      "question": "How do I make the salad?",
-      "answer": "Once you've worked out how many ingredients you need for each, input leaves, tomatoes, croutons, olives into makeSalad()."
+      "question": "Hogyan készítsem el a salátát?",
+      "answer": "Miután kiszámoltad, mennyi hozzávalóra van szükséged, add meg a leveleket, paradicsomokat, krutonokat, olajbogyókat a makeSalad() függvénynek."
     }
   },
   "describers": {
-    "makeSalad": "made a salad with ${arg1} leaves, ${arg2} tomatoes, ${arg3} croutons, and ${arg4} olives"
+    "makeSalad": "készített egy salátát ${arg1} levéllel, ${arg2} paradicsommal, ${arg3} krutonnal és ${arg4} olajbogyóval"
   },
   "functions": {
     "makeSalad": {
-      "description": "Makes a salad with the given amounts of each ingredient.",
-      "category": "Action"
+      "description": "Elkészít egy salátát a megadott mennyiségű hozzávalókkal.",
+      "category": "Művelet"
     }
   }
 }

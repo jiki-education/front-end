@@ -1,35 +1,36 @@
 ---
-title: "Relational Sun"
-description: "Position a sun where everything's calculated from variables."
+title: "Relációs Nap"
+description: "Egy nap elhelyezése, ahol minden adat változókból számítódik."
+en_md5: d8de4704a25f3733ddaaea16f0232005
 ---
 
-In this exercise, your task is to position a sun in the top-right corner of the sky using arithmetic and variables. The key constraint is that the edge of the sun should always be a fixed **gap** away from the edge of the canvas, no matter what size the sun is.
+Ebben a feladatban a feladatod egy napot elhelyezni az égbolt jobb felső sarkában, aritmetikát és változókat használva. A legfontosabb megkötés, hogy a nap széle mindig ugyanakkora **hézag**ra legyen a vászon szélétől, függetlenül attól, mekkora a nap.
 
-We've preset four variables for you at the top of the file:
+A fájl tetején előre beállítottunk négy változót (_variables_ angolul) a számodra:
 
-- `canvasSize`: the size of the canvas, which is `100`.
-- `color`: set it to `"yellow"`.
-- `gap`: how far the sun's edge sits from the top and right edges of the canvas.
-- `radius`: the sun's radius.
+- `canvasSize` (vászonméret): a vászon mérete, ami `100`.
+- `color` (szín): értéke `"yellow"`.
+- `gap` (hézag): milyen messze van a nap széle a vászon tetejétől és jobb szélétől.
+- `radius` (sugár): a nap sugara.
 
-### A two-step Process
+### Kétlépéses folyamat
 
-To solve this exercise, do two things
+A feladat megoldásához két dolgot kell tenned:
 
-#### 1. Define derived variables
+#### 1. Származtatott változók definiálása
 
-Define `sunX` and `sunY` variables that use `gap`, `radius`, and `canvasSize` to set the centre of the sun in the top-right corner.
+Definiálj egy `sunX` (a nap x-koordinátája) és egy `sunY` (a nap y-koordinátája) változót, amelyek a `gap`, a `radius` és a `canvasSize` felhasználásával a nap középpontját a jobb felső sarokba helyezik.
 
-#### 2. Draw the circle
+#### 2. Rajzold meg a kört
 
-Draw a circle using `sunX`, `sunY`, `radius`, and `color`.
+Rajzolj egy kört a `sunX`, `sunY`, `radius` és `color` változók segítségével.
 
-## Flexibility
+## Rugalmasság
 
-The `gap` is set to 10 and the `radius` is set to 15 by default. Solve the exercise using those first so you can use the background to line things up. When your code is correct, you will see the circle appear in the correct place on the page.
+A `gap` alapértelmezetten 10, a `radius` pedig 15. Először ezekkel oldd meg a feladatot, hogy a háttér segítségével igazíthasd a dolgokat. Ha a kódod helyes, a kör a megfelelő helyen jelenik meg az oldalon.
 
-However, to pass the exercise you can't just "hard-code" the value (meaning set it to a single number), `sunX` and `sunY` must be calculations involving other variables.
+Ahhoz azonban, hogy a feladatot teljesítsd, nem elég „beégetni” az értéket (azaz egyetlen számra beállítani), a `sunX` és a `sunY` értékét más változókkal végzett számításoknak kell meghatározniuk.
 
-Once you've passed the exercise, click "Tidy my code" and try changing the values for `gap` and `radius` at the top of the file, and rerun your code to see the sun grow or shift while staying in the corner.
+Miután teljesítetted a feladatot, kattints a „Rendezd a kódom” gombra, és próbáld megváltoztatni a `gap` és a `radius` értékét a fájl tetején, majd futtasd újra a kódot, hogy lásd, ahogy a nap nő vagy elmozdul, de a sarokban marad.
 
-When you're done, you can hit "Dashboard" at the top right to continue on as normal.
+Ha végeztél, kattints a jobb felső sarokban lévő „Irányítópult” gombra, hogy a szokásos módon folytasd.

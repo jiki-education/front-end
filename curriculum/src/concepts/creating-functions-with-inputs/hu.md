@@ -1,7 +1,7 @@
 ---
 title: "Bemenetek hozzáadása a függvényekhez"
 description: "Bemeneti nyílások hozzáadása a saját függvényeidhez, hogy a kapott értékektől függően mást és mást csinálhassanak."
-en_md5: c56219cc98b181e94723b43da9f86c87
+en_md5: f70d737888fcbda3306196ff069eb2f1
 ---
 
 Az eddig elkészített függvényeid mindig pontosan ugyanazt csinálják. A `turnAround` (fordulj meg) mindig kétszer fordul balra. A `shootIfAlienAbove` (lőj, ha fölötted űrlény van) mindig ellenőriz és lő.
@@ -16,7 +16,7 @@ Az első rész egészen egyszerű. Csak leírsz egy sima zárójelet, bele pedig
 
 Képzeljük el, hogy egy olyan függvényt készítünk, amelyiknek sokszor kell lőnie. Nevezzük `shootMany`-nek (lőj sokszor).
 
-Leírjuk: `function shootMany(numShots) {`, kapcsos zárójelek, aztán jön a kód.
+Így írnánk:
 
 ```javascript
 function shootMany(numShots) {
@@ -55,7 +55,7 @@ Amikor a függvény használatához leírjuk, hogy `shootMany(5)`, a kinti Jiki 
 
 A függvényen belül pedig a `numShots` dobozt ugyanúgy használhatod, mint bármelyik másik dobozt. A `numShots` névben semmi varázslat nincs. Bárminek elnevezhettük volna. Ez csak egy utasítás mini-Jikinek, hogy a függvényen belül mindig hozzon létre egy ilyen feliratú dobozt, és tegye bele azt, amit abba a nyílásba bedobnak.
 
-És ha egyszer érték van abban a dobozban, bármit megtehetsz vele, amit dobozokkal amúgy is szoktál. Használhatod például a `numShots` dobozt egy `repeat` ciklus részeként, hogy pontosan a megfelelő számú lövést add le. Ráadásul egynél több bemeneted is lehet. Csak válaszd el őket vesszővel. Ha tehát van egy `drawStar` (rajzolj csillagot) nevű függvényünk, amely a bal felső sarkának pozíciója alapján rajzol egy csillagot, azt írnád: `function drawStar(left, top) {`, kapcsos zárójelek, majd a kódod.
+És ha egyszer érték van abban a dobozban, bármit megtehetsz vele, amit dobozokkal amúgy is szoktál. Használhatod például a `numShots` dobozt egy `repeat` ciklus részeként, hogy pontosan a megfelelő számú lövést add le. Ráadásul egynél több bemeneted is lehet. Csak válaszd el őket vesszővel. Ha tehát van egy `drawStar` (rajzolj csillagot) nevű függvényünk, amely a bal felső sarkának pozíciója alapján rajzol egy csillagot, így írnád:
 
 ```javascript
 function drawStar(left, top) {

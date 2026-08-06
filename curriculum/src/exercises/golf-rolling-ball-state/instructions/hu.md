@@ -1,14 +1,15 @@
 ---
-title: "Stateful Ball"
-description: "Roll a golf ball into the hole by tracking its position."
+title: "Állapotos labda"
+description: "Guríts egy golflabdát a lyukba a helyzetének nyomon követésével."
+en_md5: e3c9b61e57c7e245a7c4624433879471
 ---
 
-We're back in the world of building a golf game, but this time what we're building has changed.
+Ismét egy golfozós játék készítésénél tartunk, de most más a feladat.
 
-Instead of the `roll()` function we had before, we now have a `moveTo(position)` function that moves the ball to a spot instantly.
+A korábban használt `roll()` (gurítás) függvény helyett most egy `moveTo(position)` (áthelyezés egy pontra) függvényt használunk, amely azonnal a megadott pontra mozgatja a labdát.
 
-Now, when the player hits the ball, we could just move it directly to the final place, but it's very unsatisfying seeing it not animate. So instead we want to use `moveTo(position)` lots of times to make it look like it's rolling.
+Amikor a játékos elüti a labdát, akár közvetlenül a végső helyére is áthelyezhetnénk, de nagyon kiábrándító, ha nem látjuk animálni. Ezért inkább sokszor használjuk a `moveTo(position)` függvényt, hogy úgy tűnjön, mintha gurulna.
 
-The ball starts at position **28** and needs to reach position **88**.
+A labda a **28**-as pozíción kezd, és a **88**-as pozícióra kell eljutnia.
 
-You must solve this in **5 lines of code**. Good luck!
+Ezt **5 kódsorban** kell megoldanod. Sok sikert!

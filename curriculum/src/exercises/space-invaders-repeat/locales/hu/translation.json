@@ -1,49 +1,49 @@
 {
   "describers": {
-    "move": "moved the laser cannon to the right"
+    "move": "a lézerágyút jobbra mozgatta"
   },
   "checks": {
-    "notShotAllAliens": "You didn't shoot down all the aliens.",
-    "tooManyLines": "Your solution has too many lines of code. Try using a repeat loop to make it shorter!"
+    "notShotAllAliens": "Nem lőtted le az összes űrlényt.",
+    "tooManyLines": "A megoldásod túl sok kódsort tartalmaz. Próbáld ki a repeat ciklust, hogy rövidebb legyen!"
   },
   "tasks": {
     "repeatShoot": {
-      "name": "Use a repeat loop to shoot all the aliens",
-      "description": "Find the pattern in the alien positions and use a repeat loop to destroy them all in 7 lines of code or fewer."
+      "name": "Használj repeat ciklust, hogy lelődd az összes űrlényt!",
+      "description": "Találd meg a mintázatot az űrlények pozícióiban, és használj egy repeat ciklust, hogy mindet megsemmisítsd legfeljebb 7 kódsorban."
     }
   },
   "scenarios": {
     "repeatShoot": {
-      "name": "Repeat and Shoot",
-      "description": "Use a repeat loop to shoot all the aliens"
+      "name": "Ismétlés és lövés",
+      "description": "Használj repeat ciklust, hogy lelődd az összes űrlényt!"
     }
   },
   "hints": {
     "avoidRepeating": {
-      "question": "How can I avoid writing `move()` and `shoot()` over and over?",
-      "answer": "Use a `repeat` loop. `repeat(n) { ... }` runs the same block of code `n` times."
+      "question": "Hogyan kerülhetem el, hogy folyton `move()`-ot és `shoot()`-ot írjak?",
+      "answer": "Használj `repeat` ciklust. A `repeat(n) { ... }` ugyanazt a kódblokkot futtatja `n`-szer."
     },
     "repeatingPattern": {
-      "question": "What's the repeating pattern in the alien positions?",
-      "answer": "Your laser cannon starts to the left of the aliens, and they sit in every other column with three aliens stacked in each. So the pattern for each column is: `move`, `move`, `shoot`, `shoot`, `shoot`. You move across the empty gap onto the alien column, then shoot down all three rows. That five-step group is what you want to repeat."
+      "question": "Mi az ismétlődő minta az űrlények pozícióiban?",
+      "answer": "A lézerágyúd az űrlényektől balra indul, és az űrlények minden második oszlopban helyezkednek el, oszloponként három űrlény egymásra rakva. Így az egyes oszlopok mintája: `move`, `move`, `shoot`, `shoot`, `shoot`. Átlépsz az üres résen az űrlények oszlopába, majd lelövöd mind a három sort. Ezt az ötlépéses csoportot szeretnéd ismételni."
     },
     "howManyTimes": {
-      "question": "How many times should I repeat the pattern?",
-      "answer": "Count the groups of aliens across the screen and use that number as the argument to `repeat`."
+      "question": "Hányszor ismételjem meg a mintát?",
+      "answer": "Számold meg az űrlénycsoportokat a képernyőn, és használd ezt a számot a `repeat` argumentumaként!"
     },
     "why7Lines": {
-      "question": "Why does the target ask for only 7 lines?",
-      "answer": "One line for the `repeat` header, the five repeating actions inside, and one line for the closing brace makes seven. Everything you need fits inside the loop, with nothing outside it. If you're writing more, you're probably not using the loop yet."
+      "question": "Miért kér a feladat csak 7 kódsort?",
+      "answer": "Egy sor a `repeat` fejléchez, a benne lévő öt ismétlődő művelet, és egy sor a záró kapcsos zárójelhez összesen hét sort tesz ki. Minden, amire szükséged van, belefér a ciklusba, semmi sem kerül kívülre. Ha többet írsz, valószínűleg még nem használod a ciklust."
     }
   },
   "functions": {
     "move": {
-      "description": "Moves the laser cannon **one position to the right**. If you move off the right edge of the screen, you lose!",
-      "category": "Movement"
+      "description": "A lézerágyút **egy pozícióval jobbra** mozgatja. Ha lelépsz a képernyő jobb széléről, veszítesz!",
+      "category": "Mozgás"
     },
     "shoot": {
-      "description": "Shoots the laser upwards. **Only shoot when there's an alien above you**, or you lose the game!",
-      "category": "Action"
+      "description": "A lézert felfelé lövi. **Csak akkor lőj, ha űrlény van feletted**, különben elveszíted a játékot!",
+      "category": "Akció"
     }
   }
 }

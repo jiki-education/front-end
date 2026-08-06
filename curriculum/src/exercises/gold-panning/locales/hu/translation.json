@@ -1,55 +1,55 @@
 {
   "errors": {
-    "needsRecharge": "The robot needs to recharge after selling.",
-    "sellBeforeAnythingElse": "The robot needs to go and sell before it does anything else.",
-    "sellNumber": "You can only sell a number of nuggets"
+    "needsRecharge": "A robotnak fel kell töltődnie az eladás után.",
+    "sellBeforeAnythingElse": "A robotnak el kell mennie eladni, mielőtt bármi mást tenne.",
+    "sellNumber": "Eladni csak rögmennyiséget lehet."
   },
   "checks": {
-    "notSold": "You didn't sell your nuggets. Make sure you call <code>sell()</code> after panning.",
-    "wrongSoldTotal": "Expected to sell {{expectedTotal}} nuggets ({{panValues}}) but you sold {{got}}. Make sure you add each pan result to your running total."
+    "notSold": "Nem adtad el a rögöket. Győződj meg róla, hogy aranymosás után meghívod a <code>sell()</code> függvényt.",
+    "wrongSoldTotal": "Várhatóan {{expectedTotal}} rögöt kellett volna eladnod ({{panValues}}), de te {{got}} rögöt adtál el. Győződj meg róla, hogy minden mosás eredményét hozzáadod a futó összegedhez."
   },
   "tasks": {
     "panAndSell": {
-      "name": "Pan for gold and sell your haul",
-      "description": "Pan 5 times to collect gold nuggets, keeping a running total, then sell everything at the trading post."
+      "name": "Moss aranyat, és add el a rögöket.",
+      "description": "Moss aranyat 5-ször, gyűjtsd a rögöket, és tartsd nyilván a futó összeget, majd add el az összes rögöt a kereskedőállomáson."
     }
   },
   "scenarios": {
     "randomPans": {
-      "name": "Pan and sell",
-      "description": "Pan 5 times for a random number of nuggets each time, then sell the total."
+      "name": "Aranymosás és eladás",
+      "description": "Moss aranyat 5-ször, minden alkalommal véletlen számú rögöt találva, majd add el az összeset."
     }
   },
   "hints": {
     "wrongSellAmount": {
-      "question": "It says I'm selling the wrong amount of gold.",
-      "answer": "You need to sell ALL the gold you find in the 5 pans in one go at the end, not selling after each pan."
+      "question": "Azt írja ki, hogy rossz mennyiségű aranyat adok el.",
+      "answer": "Az összes aranyat, amit az 5 mosás során találsz, egyben kell eladnod a végén, nem minden mosás után külön."
     },
     "trackingTotal": {
-      "question": "I am using pan multiple times but I don't know how to keep track of how much I have.",
-      "answer": "Think about what you've learned in recent video lessons. You need to use a variable to keep track of the **total** amount of gold that you have collected across **all** the pans together."
+      "question": "Többször is mosok aranyat, de nem tudom, hogyan tartsam nyilván, mennyi aranyam van.",
+      "answer": "Gondolj arra, amit a legutóbbi videóórákon tanultál. Egy változóra van szükséged, hogy nyilvántartsd a **teljes** aranymennyiséget, amit az **összes** mosás során gyűjtöttél."
     },
     "fiveLines": {
-      "question": "I've got it working, but I can't get down to 5 lines.",
-      "answer": "Do you have repetitive code in your solution? If so, what can we use to reduce that repetitiveness?"
+      "question": "Működik, de nem tudom 5 sorra csökkenteni a kódot.",
+      "answer": "Van ismétlődő kód a megoldásodban? Ha igen, mivel lehetne csökkenteni az ismétlődést?"
     },
     "stillFiveLines": {
-      "question": "I still can't get it down to 5 lines of code.",
-      "answer": "You should only need to use one variable. Are you using more?"
+      "question": "Még mindig nem tudom 5 sorra csökkenteni.",
+      "answer": "Csak egy változót kell használnod. Többet használsz esetleg?"
     }
   },
   "describers": {
-    "pan": "panned and found ${return} nuggets",
-    "sell": "sold ${arg1} nuggets at the trading post"
+    "pan": "aranyat mosott és ${return} rögöt talált",
+    "sell": "eladott ${arg1} rögöt a kereskedőállomáson"
   },
   "functions": {
     "pan": {
-      "description": "Dips your pan in the river and **gives back** the number of gold nuggets found.",
-      "category": "Mining"
+      "description": "Belemeríti a serpenyőt a folyóba, és **visszaadja** a talált aranyrögök számát.",
+      "category": "Bányászat"
     },
     "sell": {
-      "description": "Sells your gold nuggets at the trading post.",
-      "category": "Action"
+      "description": "Eladja az aranyrögöket a kereskedőállomáson.",
+      "category": "Akció"
     }
   }
 }

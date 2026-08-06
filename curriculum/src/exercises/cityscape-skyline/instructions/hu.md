@@ -1,15 +1,16 @@
 ---
 title: "Skyline"
-description: "Build a whole city skyline of random buildings."
+description: "Építsd fel egy egész város látképét véletlenszerű épületekből."
+en_md5: cb89a31566f55397d19e1375dbac44cc
 ---
 
-In the Skyscraper exercise you created a single skyscraper of different heights. This time we're taking it further, creating a skyline of buildings of different heights and different widths.
+A Skyscraper feladatban egyetlen, különböző magasságú felhőkarcolót készítettél. Ezúttal továbblépünk, és egy városképet hozunk létre, ahol az épületek különböző magasságúak és szélességűek.
 
-You have a function `numBuildings()`, which tells you how many buildings you need to create for that scenario. You then have functions `randomWidth()` and `randomNumFloors()`. You should use these to determine the widths and number of floors of each building in that scenario. The first time you use the functions give you the values for the first building, etc.
+Van egy `numBuildings()` (épületek száma) függvényed, ami megmondja, hány épületet kell létrehoznod az adott forgatókönyvben. Ezen kívül van még a `randomWidth()` (véletlen szélesség) és a `randomNumFloors()` (véletlen emeletszám) függvény is. Ezekkel határozhatod meg az egyes épületek szélességét és emeleteinek számát az adott forgatókönyvben. Amikor először használod ezeket a függvényeket, az első épület értékeit adják vissza, amikor másodszor, a másodikét, és így tovább.
 
-The buildings start with a `1` column gap to the left, and they have a `1` column gap between them.
+Az épületek bal oldalán 1 oszlopnyi hézag van, és közöttük is 1 oszlopnyi hézag van.
 
-So if you had a scenario with `numBuildings()` returning `2`, and `randomWidth()` returning `5` then `7`, and `randomNumFloors()` returning `4` then `8`, you'd get this layout (where `xxxxx` is the concrete floor)
+Tehát ha van egy forgatókönyv, ahol a `numBuildings()` 2-t ad vissza, a `randomWidth()` először 5-öt, majd 7-et ad vissza, a `randomNumFloors()` pedig először 4-et, majd 8-at, akkor ezt az elrendezést kapod (ahol az `xxxxx` a betonpadlót jelöli):
 
 ```
        WWWWWWW

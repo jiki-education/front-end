@@ -1,36 +1,51 @@
 ---
-title: "ISBN Verifier"
-description: "Check whether a book's ISBN number is valid."
+title: "ISBN-ellenőrző"
+description: "Ellenőrizd, hogy egy könyv ISBN-száma érvényes-e."
+en_md5: 1f50053213b8649f126851f264174e53
 ---
 
-ISBNs are 10 digit numbers given to uniquely identify books. Each one is unique and follows a specific format. They also have a verification process to check they're real ISBNs.
+Minden könyv rendelkezik egy ISBN-nel, egy 10 számjegyből álló azonosítóval, amely egyértelműen azonosítja. Minden ISBN egyedi, és meghatározott formátumot követ. Létezik egy formális ellenőrzési folyamat is, amellyel ellenőrizhető, hogy egy string ISBN-e – ezt fogod elkészíteni ebben a feladatban.
 
-ISBNs normally contain dashes and look like: `3-598-21508-8`
+Az ISBN-ek általában kötőjeleket tartalmaznak, és így néznek ki: `3-598-21508-8`
 
-(There are also 13 digit ISBNs, but you can safely ignore those for this exercise!)
+(Léteznek 13 jegyű ISBN-ek is, de ezekkel most nem kell foglalkoznod!)
 
-### Verifying an ISBN
+### Az ISBN ellenőrzése
 
-To verify an ISBN, we:
+Az ISBN ellenőrzéséhez a következőket tesszük:
 
-- Start at the left and add together each digit multiplied by a weight counting down from 10 to 1.
-- Get the remainder of that total divided by 11.
-- Check whether that remainder is zero.
+- Balról indulva összeadjuk a számjegyeket, mindegyiket megszorozva egy 10‑től 1‑ig csökkenő súllyal.
+- Vesszük ennek az összegnek a 11-gyel való osztási maradékát.
+- Ellenőrizzük, hogy ez a maradék nulla-e.
 
-For example, for the ISBN `3-598-21508-8`, we would check whether:
+Például a `3-598-21508-8` ISBN esetében azt ellenőrizzük, hogy:
 
 ```
 (3*10 + 5*9 + 9*8 + 8*7 + 2*6 + 1*5 + 5*4 + 0*3 + 8*2 + 8*1) % 11 === 0
 ```
 
-Since the result is 0, this proves that our ISBN is valid.
+Mivel az eredmény 0, ez bizonyítja, hogy az ISBN-ünk érvényes.
 
-A couple more important notes:
+Néhány további fontos megjegyzés:
 
-- Sometimes an ISBN can end with an X. If that's the case, it represents `10`. If the X appears anywhere else, the ISBN is invalid.
-- ISBNs may be written with or without hyphens.
-- Any other characters make the ISBN invalid.
+- Az ISBN néha X-re végződhet. Ilyenkor az X a `10`-et jelenti. Ha az X bárhol máshol jelenik meg, az ISBN érvénytelen.
+- Az ISBN-ek kötőjelekkel vagy anélkül is írhatók.
+- Bármilyen más karakter érvénytelenné teszi az ISBN-t.
 
-Create a function called `isValidIsbn` that takes an ISBN string and returns `true` if it is valid and `false` if it is not.
+### A feladatod
 
-Although there are many ways to solve this exercise, the solution we want you to come up with uses a `continue` statement to skip the dashes.
+Készíts egy `isValidIsbn(isbn)` (érvényes ISBN) nevű függvényt, amely egy ISBN stringet kap, és `true` értéket ad vissza, ha érvényes, és `false` értéket, ha nem.
+
+### A Number(...) függvény
+
+Egy dolog, amit még nem vettünk át, de amit tudnod kell, az a `Number(str)` függvény. Ez egy olyan függvény, amely egy stringet kap, és azt a stringet számmá alakítva adja vissza. Így ha beírod, hogy `Number("1234")`, akkor `1234`-et kapsz. Ez egy furcsa függvény, mert nagybetűvel kezdődik. Most ne foglalkozz ezzel – később elmagyarázzuk, hogy miért van ez így.
+
+Erről bővebben a <a href="/concepts/type-conversion" target="_blank" rel="noopener noreferrer">Típuskonverzió fogalomoldalon</a> olvashatsz.
+
+### Használd, amit tanultál
+
+Ahogyan az előző feladatban is, bár sok érvényes megoldás létezik erre a feladatra, azt szeretnénk, ha a megoldásod egy `continue` utasítást használna.
+
+A bónusz forgatókönyv azt a kihívást állítja eléd, hogy oldd meg ezt a feladatot 22 kódsorban. Léteznek rövidebb megoldások is, de ha 22 sorban megvagy, akkor már jól optimalizáltad a kódot.
+
+Jó szórakozást hozzá!

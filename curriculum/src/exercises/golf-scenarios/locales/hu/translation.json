@@ -1,54 +1,54 @@
 {
   "checks": {
-    "wrongShotEnd": "The ball didn't end up in the right place for this shot. Check it travels the full shot length.",
-    "missingPositions": "The ball must roll through each position one step at a time, not jump straight to the end."
+    "wrongShotEnd": "A labda nem a megfelelő helyre gurult ennél az ütésnél. Ellenőrizd, hogy a teljes ütéshosszt megteszi-e.",
+    "missingPositions": "A labdának minden pozíción végig kell gurulnia, lépésről lépésre, nem ugrasztva át a végére."
   },
   "tasks": {
     "rollAndCelebrate": {
-      "name": "Roll the ball",
-      "description": "Get the shot length and roll the ball right by that amount."
+      "name": "Gurítsd a labdát",
+      "description": "Kérd le az ütés hosszát, és gurítsd a labdát annyival jobbra."
     }
   },
   "scenarios": {
     "shortShot": {
-      "name": "Short shot (20)",
-      "description": "In this scenario, `getShotLength()` will return 20. Roll the ball 20 steps from the tee."
+      "name": "Rövid ütés (20)",
+      "description": "Ebben a forgatókönyvben a `getShotLength()` 20-at ad vissza. Gurítsd a labdát 20 lépésnyit az elütőhelytől."
     },
     "mediumShot": {
-      "name": "Medium shot (35)",
-      "description": "In this scenario, `getShotLength()` will return 35. Roll the ball 35 steps from the tee."
+      "name": "Közepes ütés (35)",
+      "description": "Ebben a forgatókönyvben a `getShotLength()` 35-öt ad vissza. Gurítsd a labdát 35 lépésnyit az elütőhelytől."
     },
     "longShot": {
-      "name": "Long shot (50)",
-      "description": "In this scenario, `getShotLength()` will return 50. Roll the ball 50 steps from the tee."
+      "name": "Hosszú ütés (50)",
+      "description": "Ebben a forgatókönyvben a `getShotLength()` 50-et ad vissza. Gurítsd a labdát 50 lépésnyit az elütőhelytől."
     },
     "veryLongShot": {
-      "name": "Very long shot (60)",
-      "description": "In this scenario, `getShotLength()` will return 60. Roll the ball 60 steps from the tee."
+      "name": "Nagyon hosszú ütés (60)",
+      "description": "Ebben a forgatókönyvben a `getShotLength()` 60-at ad vissza. Gurítsd a labdát 60 lépésnyit az elütőhelytől."
     }
   },
   "hints": {
     "notSureWhereToStart": {
-      "question": "I'm not sure where to start",
-      "answer": "This is just like the previous golf exercise, where you rolled the ball a fixed number of steps. The only difference is that the number of steps is no longer a fixed value — it comes from `getShotLength()` instead. Wherever you used a number before, you can use the result of a function instead."
+      "question": "Nem tudom, hol kezdjem",
+      "answer": "Ez pont olyan, mint az előző golf-feladat, ahol egy rögzített lépésszámmal gurítottad a labdát. Az egyetlen különbség, hogy a lépések száma már nem rögzített érték – a `getShotLength()` visszatérési értéke. Ahol korábban egy számot használtál, most használhatod egy függvény eredményét is."
     },
     "ballStopsShort": {
-      "question": "My ball stops one step short (or goes one too far)",
-      "answer": "Think carefully about your starting position and how many times you roll. The ball sits on the tee at 28, so its first roll should take it to 29. Count the steps from there to where it needs to end up."
+      "question": "A labdám egy lépéssel rövidebbet gurul (vagy eggyel hosszabbat)",
+      "answer": "Gondold át alaposan a kezdő pozíciódat és azt, hogy hányszor gurítasz. A labda az elütőhelyen, a 28-as pozícióban ül, így az első gurításnak a 29-es pozícióra kell vinnie. Onnan számold ki, hány lépés szükséges a cél eléréséhez."
     }
   },
   "functions": {
     "moveTo": {
-      "description": "Moves the ball to position **x**.",
-      "category": "Movement"
+      "description": "A labdát az **x** pozícióra mozgatja.",
+      "category": "Mozgás"
     },
     "getShotLength": {
-      "description": "Returns the **length of the shot** — how many units the ball travels to the right.",
-      "category": "Information"
+      "description": "Visszaadja az **ütés hosszát** – azt, hogy a labda hány egységet gurul jobbra.",
+      "category": "Információ"
     }
   },
   "describers": {
-    "moveTo": "moved the ball to position ${arg1}",
-    "getShotLength": "retrieved the shot length"
+    "moveTo": "a labdát a(z) ${arg1} pozícióra mozgatta",
+    "getShotLength": "lekérte az ütés hosszát"
   }
 }

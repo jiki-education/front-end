@@ -1,23 +1,24 @@
 ---
-title: "Collatz Conjecture"
-description: "Explore a famous maths puzzle with your own function."
+title: "Collatz-sejtés"
+description: "Fedezz fel egy híres matematikai rejtvényt a saját függvényeddel."
+en_md5: e4f7ab61c163cdb7c2eb2b6541a2cedc
 ---
 
-One evening, you stumbled upon an old notebook filled with cryptic scribbles, as though someone had been obsessively chasing an idea. On one page, a single question stood out: **Can every number find its way to 1?** It was tied to something called the **Collatz Conjecture**, a puzzle that has baffled thinkers for decades.
+Egy este rábukkantál egy régi jegyzetfüzetre, amely tele volt rejtélyes firkálmányokkal, mintha valaki megszállottan kergetett volna egy gondolatot. Az egyik oldalon egyetlen kérdés emelkedett ki: **Vajon minden szám el tud jutni 1-ig?** Ez a **Collatz-sejtéshez** kapcsolódott, egy olyan rejtvényhez, amely évtizedek óta zavarba hozza a gondolkodókat.
 
-The rules are deceptively simple:
+A szabályok megtévesztően egyszerűek:
 
-1. Choose a number.
-2. If it's even, divide it by 2.
-3. If it's odd, multiply it by 3 and then add 1.
-4. Repeat with the result, continuing indefinitely.
+1. Válassz egy számot.
+2. Ha páros, oszd el 2-vel.
+3. Ha páratlan, szorozd meg 3-mal, és adj hozzá 1-et.
+4. Ismételd meg az eredménnyel, és folytasd a végtelenségig.
 
-For example, starting with 12:
+Például 12-vel kezdve:
 
 ```
 12 → 6 → 3 → 10 → 5 → 16 → 8 → 4 → 2 → 1
 ```
 
-Counting from the second number (6), it took 9 steps to reach 1.
+A második számtól (a 6-tól) számolva 9 lépés kellett az 1 eléréséhez.
 
-Create a function called `collatzSteps` that takes one input, a number. Return **how many steps** it takes to get from any given number to 1, following the rules of the Collatz Conjecture.
+Hozz létre egy `collatzSteps` (collatz-lépések) nevű függvényt, amely bemenetként egy számot vár. Add vissza, hogy **hány lépés** szükséges ahhoz, hogy egy tetszőleges számból eljussunk 1-ig, a Collatz-sejtés szabályait követve.

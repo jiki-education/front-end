@@ -1,14 +1,15 @@
 ---
-title: "Learn to Walk"
-description: "Create a walk function that moves multiple steps at once."
+title: "Tanulj meg járni"
+description: "Készíts egy walk függvényt, ami egyszerre több lépést tesz meg."
+en_md5: 947968a350e80258e34e31a426df8c3e
 ---
 
-We're back with the maze, and we're going to take a step away from the automated solving for a moment. When you manually solved the maze before, if you had to move three steps forward, you had to write `move()` three times.
+Visszatérünk a labirintushoz, és most egy időre eltávolodunk az automatikus megoldástól. Amikor korábban kézzel oldottad meg a labirintust, ha három lépést kellett előre lépned, háromszor kellett leírnod a `move()`-t (lépj).
 
-In this exercise, you're going to create a new function `walk(numSteps)` that takes a number of steps as its input, and moves forward that many times.
+Ebben a feladatban egy új függvényt fogsz létrehozni, `walk(numSteps)`-et (sétálj), ami bemenetként egy lépésszámot kap, és annyiszor lép előre.
 
-So using `walk(5)` should mean that you `move()` five times.
+Így ha `walk(5)`-öt használsz, az azt jelenti, hogy ötször `move()`-t futtatsz.
 
-There's some sample code that solves the maze below your function. Once you've written your function, the code below will use it alongside `turnLeft()` and `turnRight()` to navigate through the maze.
+A függvényed alatt van egy példakód, ami megoldja a labirintust. Miután megírtad a függvényt, az alábbi kód ezt a függvényt, valamint a `turnLeft()`-t (fordulj balra) és a `turnRight()`-t (fordulj jobbra) használja majd, hogy átnavigáljon a labirintuson.
 
-Good luck!
+Sok sikert!

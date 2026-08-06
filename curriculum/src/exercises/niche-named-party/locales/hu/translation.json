@@ -1,42 +1,42 @@
 {
   "tasks": {
     "checkTheName": {
-      "name": "Check the name",
-      "description": "Write a `handleGuest` function that checks whether the person's name starts with the allowed letters for tonight's party. Return `true` if it does, or `false` if it doesn't."
+      "name": "Ellenőrizd a nevet",
+      "description": "Írj egy `handleGuest` függvényt, amely ellenőrzi, hogy a személy neve a mai esti partihoz engedélyezett betűkkel kezdődik-e. Ha igen, adj vissza `true`-t, ha nem, akkor `false`-t."
     },
     "solveTightly": {
-      "name": "Solve it in 20 lines",
-      "description": "Bonus: with the length-counting pulled out into a helper function that `handleGuest` reuses, the whole solution fits in 20 lines. Can you match it?"
+      "name": "Oldd meg 20 sorban",
+      "description": "Bónusz: ha a hosszszámolást kiszervezed egy segédfüggvénybe, amit a `handleGuest` újrahasznál, a teljes megoldás belefér 20 sorba. Meg tudod csinálni?"
     }
   },
   "scenarios": {
     "sarahSParty": {
-      "name": "S Party: Sarah arrives",
-      "description": "Tonight only names starting with \"S\" are allowed. Sarah should get in!"
+      "name": "S-parti: Sarah érkezik",
+      "description": "Ma este csak az „S” betűvel kezdődő nevek engedélyezettek. Sarah bejuthat!"
     },
     "bradSParty": {
-      "name": "S Party: Brad arrives",
-      "description": "Tonight only names starting with \"S\" are allowed. Brad should be turned away."
+      "name": "S-parti: Brad érkezik",
+      "description": "Ma este csak az „S” betűvel kezdődő nevek engedélyezettek. Bradet el kell küldeni."
     },
     "bradleyBradParty": {
-      "name": "Brad Party: Bradley arrives",
-      "description": "Tonight only names starting with \"Brad\" are allowed. Bradley should get in!"
+      "name": "Brad-parti: Bradley érkezik",
+      "description": "Ma este csak a „Brad” előtaggal kezdődő nevek engedélyezettek. Bradley bejuthat!"
     },
     "bradBradleyParty": {
-      "name": "Bradley Party: Brad arrives",
-      "description": "Tonight only names starting with \"Bradley\" are allowed. Brad is too short, so he's not allowed."
+      "name": "Bradley-parti: Brad érkezik",
+      "description": "Ma este csak a „Bradley” előtaggal kezdődő nevek engedélyezettek. Brad neve túl rövid, így nem léphet be."
     },
     "brianBradParty": {
-      "name": "Brad Party: Brian arrives",
-      "description": "Tonight only names starting with \"Brad\" are allowed. Brian should be turned away."
+      "name": "Brad-parti: Brian érkezik",
+      "description": "Ma este csak a „Brad” előtaggal kezdődő nevek engedélyezettek. Brient el kell küldeni."
     },
     "silence": {
-      "name": "S Party: Silence...",
-      "description": "The person doesn't say their name. An empty name can't start with anything. Turn them away!"
+      "name": "S-parti: Csend…",
+      "description": "A személy nem mondja meg a nevét. Egy üres név nem kezdődhet semmivel. Küldd el!"
     },
     "cherCherParty": {
-      "name": "Cher Party: Cher arrives",
-      "description": "Tonight only names starting with \"Cher\" are allowed. Cher's name is exactly \"Cher\" — let her in!"
+      "name": "Cher-parti: Cher érkezik",
+      "description": "Ma este csak a „Cher” előtaggal kezdődő nevek engedélyezettek. Cher neve pontosan „Cher”, engedd be!"
     },
     "nicheNamedPartyBonusLineCount": {
       "name": "Tight and tidy",
@@ -48,20 +48,20 @@
   },
   "hints": {
     "checkStartsWith": {
-      "question": "How do I check that a name starts with certain letters?",
-      "answer": "Compare each character of the allowed prefix with the character at the same position in the name. If any character differs, the name doesn't match."
+      "question": "Hogyan ellenőrizhetem, hogy egy név bizonyos betűkkel kezdődik-e?",
+      "answer": "Hasonlítsd össze az engedélyezett előtag minden karakterét a név ugyanazon a pozícióján lévő karakterével. Ha bármelyik karakter eltér, a név nem egyezik."
     },
     "loopCharacters": {
-      "question": "How do I look at one character at a time?",
-      "answer": "Use string iteration to step through a string."
+      "question": "Hogyan nézhetem meg a karaktereket egyenként?",
+      "answer": "Használj string iterációt, hogy végiglépj egy stringen."
     },
     "findEquivalentLetter": {
-      "question": "How do I find the equivalent letter in the other word?",
-      "answer": "Use string indexing to find a specific letter."
+      "question": "Hogyan találom meg a másik szóban a megfelelő betűt?",
+      "answer": "Használj string indexelést, hogy elérj egy adott betűt."
     },
     "longerAllowedPrefix": {
-      "question": "What if the allowed prefix is longer than the name?",
-      "answer": "That person can't match, so you should return `false`."
+      "question": "Mi van, ha az engedélyezett előtag hosszabb a névnél?",
+      "answer": "Az a személy nem egyezhet, ezért `false`-t kell visszaadnod."
     }
   }
 }

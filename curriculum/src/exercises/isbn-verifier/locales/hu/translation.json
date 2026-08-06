@@ -1,142 +1,142 @@
 {
   "tasks": {
     "validateBasicIsbn": {
-      "name": "Validate a basic ISBN",
-      "description": "Write a function called isValidIsbn that takes an ISBN-10 string and returns true if valid, false if not. ISBN-10s contain dashes which should be skipped. Multiply each digit by a weight counting down from 10 to 1, sum them, and check if the total is divisible by 11."
+      "name": "Alap ISBN ellenőrzése",
+      "description": "Írj egy isValidIsbn nevű függvényt, amely egy ISBN-10 stringet kap, és true-t ad vissza, ha érvényes, false-t, ha nem. Az ISBN-10-ek kötőjeleket tartalmaznak, amelyeket ki kell hagyni. Minden számjegyet szorozz meg egy 10-től 1-ig csökkenő súllyal, add össze őket, és ellenőrizd, hogy az összeg osztható-e 11-gyel."
     },
     "handleXCheckDigit": {
-      "name": "Handle X as a check digit",
-      "description": "Sometimes an ISBN ends with an X, which represents 10. Update your function to handle X in the last position."
+      "name": "X kezelése ellenőrző számjegyként",
+      "description": "Néha egy ISBN X-re végződik, ami 10-et jelent. Frissítsd a függvényedet, hogy kezelje az X-et az utolsó pozícióban."
     },
     "handleEdgeCases": {
-      "name": "Handle edge cases",
-      "description": "Make your function robust: handle ISBNs without dashes, reject invalid characters, reject X in non-last positions, and ensure exactly 10 digits are processed."
+      "name": "Határesetek kezelése",
+      "description": "Tedd robusztussá a függvényedet: kezeld a kötőjelek nélküli ISBN-eket, utasítsd el az érvénytelen karaktereket, utasítsd el az X-et, ha nem az utolsó pozícióban van, és gondoskodj róla, hogy pontosan 10 számjegy legyen feldolgozva."
     },
     "useContinue": {
-      "name": "Bonus: skip dashes with continue",
-      "description": "Rather than only doing work when a character is a digit, use continue to skip straight past the dashes and move on to the next character."
+      "name": "Bónusz: kötőjelek átugrása continue-nal",
+      "description": "Ahelyett, hogy csak akkor dolgoznál, ha egy karakter számjegy, használd a continue-t, hogy átugord a kötőjeleket, és lépj tovább a következő karakterre."
     }
   },
   "scenarios": {
     "isbnValid": {
-      "name": "Valid ISBN",
-      "description": "A valid ISBN-10 should return true."
+      "name": "Érvényes ISBN",
+      "description": "Egy érvényes ISBN-10 true-t kell visszaadnia."
     },
     "isbnValidCheckDigitX": {
-      "name": "Valid ISBN with X as check digit",
-      "description": "A valid ISBN-10 with check digit 'X' should return true."
+      "name": "Érvényes ISBN X ellenőrző számjeggyel",
+      "description": "Egy érvényes ISBN-10 'X' ellenőrző számjeggyel true-t kell visszaadnia."
     },
     "isbnValidNoDashes": {
-      "name": "Valid ISBN without dashes",
-      "description": "A valid ISBN-10 without separating dashes should return true."
+      "name": "Érvényes ISBN kötőjelek nélkül",
+      "description": "Egy érvényes ISBN-10 elválasztó kötőjelek nélkül true-t kell visszaadnia."
     },
     "isbnValidNoDashesXCheck": {
-      "name": "Valid ISBN without dashes and X as check digit",
-      "description": "A valid ISBN-10 without dashes and check digit 'X' should return true."
+      "name": "Érvényes ISBN kötőjelek nélkül és X ellenőrző számjeggyel",
+      "description": "Egy érvényes ISBN-10 kötőjelek nélkül és 'X' ellenőrző számjeggyel true-t kell visszaadnia."
     },
     "isbnInvalidCheckDigit": {
-      "name": "Invalid ISBN check digit",
-      "description": "An ISBN-10 with an incorrect check digit should return false."
+      "name": "Érvénytelen ISBN ellenőrző számjegy",
+      "description": "Egy ISBN-10 hibás ellenőrző számjeggyel false-t kell visszaadnia."
     },
     "isbnInvalidCharacter": {
-      "name": "Check digit is a character other than X",
-      "description": "An ISBN-10 containing an invalid character should return false."
+      "name": "Az ellenőrző számjegy X-től eltérő karakter",
+      "description": "Egy ISBN-10, ami érvénytelen karaktert tartalmaz, false-t kell visszaadnia."
     },
     "isbnInvalidCharacterNotZero": {
-      "name": "Invalid check digit not treated as zero",
-      "description": "An invalid check digit should not be treated as zero."
+      "name": "Érvénytelen ellenőrző számjegy nem kezelhető nullaként",
+      "description": "Egy érvénytelen ellenőrző számjegyet nem szabad nullaként kezelni."
     },
     "isbnInvalidNonNumeric": {
-      "name": "Invalid character in ISBN",
-      "description": "Invalid characters in ISBN should not be ignored."
+      "name": "Érvénytelen karakter az ISBN-ben",
+      "description": "Az ISBN-ben lévő érvénytelen karaktereket nem szabad figyelmen kívül hagyni."
     },
     "isbnInvalidXPosition": {
-      "name": "X only valid as a check digit",
-      "description": "An 'X' should only be valid as a check digit."
+      "name": "Az X csak ellenőrző számjegyként érvényes",
+      "description": "Az 'X' csak ellenőrző számjegyként lehet érvényes."
     },
     "isbnInvalidMissingCheckDigit": {
-      "name": "ISBN without check digit",
-      "description": "An ISBN-10 without a check digit should return false."
+      "name": "ISBN ellenőrző számjegy nélkül",
+      "description": "Egy ISBN-10 ellenőrző számjegy nélkül false-t kell visszaadnia."
     },
     "isbnInvalidTooLong": {
-      "name": "Too long ISBN",
-      "description": "An ISBN-10 that is too long should return false."
+      "name": "Túl hosszú ISBN",
+      "description": "Egy túl hosszú ISBN-10 false-t kell visszaadnia."
     },
     "isbnInvalidTooShort": {
-      "name": "Too short ISBN",
-      "description": "An ISBN-10 that is too short should return false."
+      "name": "Túl rövid ISBN",
+      "description": "Egy túl rövid ISBN-10 false-t kell visszaadnia."
     },
     "isbnInvalidEmpty": {
-      "name": "Empty ISBN",
-      "description": "An empty ISBN string should return false."
+      "name": "Üres ISBN",
+      "description": "Egy üres ISBN stringnek false-t kell visszaadnia."
     },
     "isbnInvalidLengthNine": {
-      "name": "ISBN is 9 characters",
-      "description": "An input with 9 characters should return false."
+      "name": "Az ISBN 9 karakterből áll",
+      "description": "Egy 9 karakterből álló bemenet false-t kell visszaadnia."
     },
     "isbnInvalidNonNumericBeforeCheck": {
-      "name": "Invalid character before checking length",
-      "description": "Invalid characters should not be ignored before checking length."
+      "name": "Érvénytelen karakter a hossz ellenőrzése előtt",
+      "description": "Az érvénytelen karaktereket a hossz ellenőrzése előtt sem szabad figyelmen kívül hagyni."
     },
     "isbnInvalidExtraLength": {
-      "name": "Input too long but contains a valid ISBN",
-      "description": "An input longer than 10 characters should return false."
+      "name": "Túl hosszú bemenet, ami érvényes ISBN-t tartalmaz",
+      "description": "Egy 10 karakternél hosszabb bemenet false-t kell visszaadnia."
     },
     "isbnBonusUseContinue": {
-      "name": "Skipped dashes with continue",
-      "description": "Your solution works and uses continue to skip over the dashes."
+      "name": "Kötőjelek átugrása continue-nal",
+      "description": "A megoldásod működik, és a continue-t használja a kötőjelek átugrására."
     }
   },
   "hints": {
     "howChecked": {
-      "question": "How does an ISBN-10 actually get checked?",
-      "answer": "Each of the 10 digits is multiplied by a decreasing weight. The first digit by 10, the second by 9, all the way down to the last by 1. You sum all those products. If the total is divisible by 11, the ISBN is valid."
+      "question": "Hogyan ellenőrzik ténylegesen az ISBN-10-et?",
+      "answer": "Mind a 10 számjegyet egy csökkenő súllyal szorozzuk meg. Az első számjegyet 10-zel, a másodikat 9-cel, és így tovább, míg az utolsót 1-gyel. Ezeket a szorzatokat összeadjuk. Ha a teljes összeg osztható 11-gyel, az ISBN érvényes."
     },
     "dashes": {
-      "question": "What do I do with the dashes?",
-      "answer": "Dashes are just for human readability. Skip over them entirely. They don't count as a digit and they don't move you forward in the weighting."
+      "question": "Mit csináljak a kötőjelekkel?",
+      "answer": "A kötőjelek csak az emberi olvashatóságot szolgálják. Ugorj át rajtuk teljesen. Nem számítanak számjegynek, és nem befolyásolják a súlyozást."
     },
     "trackWeight": {
-      "question": "How do I keep track of the weight?",
-      "answer": "Start a multiplier variable at 10. Every time you process a digit, multiply it by the current multiplier, add the product to the running sum, then decrease the multiplier by 1."
+      "question": "Hogyan tartsam nyilván a súlyt?",
+      "answer": "Kezdj egy szorzó változóval 10-ről. Minden alkalommal, amikor feldolgozol egy számjegyet, szorozd meg az aktuális szorzóval, add hozzá a szorzatot a futó összeghez, majd csökkentsd a szorzót 1-gyel."
     },
     "stringToNumber": {
-      "question": "How do I turn the string into a number?",
-      "answer": "You have two options. Firstly, the intended way in this exercise is to find a way using the `indexOf` method. Have a think about that. If you can't figure that out, check the next hint for an answer."
+      "question": "Hogyan alakítsam a stringet számmá?",
+      "answer": "Két lehetőséged van. Először is, ebben a feladatban a szándékolt mód az, hogy az `indexOf` metódust használd. Gondolkozz el ezen. Ha nem tudod kitalálni, nézd meg a következő tippet a válaszért."
     },
     "stringToNumberAgain": {
-      "question": "No seriously, how do I turn the string into a number?",
-      "answer": "Two options. Firstly you can use the `Number()` function (with a capital \"N\"), so `Number(\"5\")` gives `5`. Read the <a href=\"/concepts/type-conversion\" target=\"_blank\" rel=\"noopener noreferrer\">Type Conversion</a> concept page if you'd like a refresher. There's also a neat `indexOf` trick worth exploring afterwards."
+      "question": "De komolyan, hogyan alakítom a stringet számmá?",
+      "answer": "Két lehetőség van. Először is használhatod a `Number()` függvényt (nagybetűs \"N\"-nel), így a `Number(\"5\")` 5-öt ad. Ha frissítenéd az ismereteidet, olvasd el a <a href=\"/concepts/type-conversion\" target=\"_blank\" rel=\"noopener noreferrer\">Típuskonverzió</a> fogalomoldalt. Van még egy ügyes `indexOf` trükk is, amit érdemes utána felfedezned."
     },
     "handleX": {
-      "question": "How do I handle 'X'. That's not a digit, is it?",
-      "answer": "'X' is special. It represents the value 10, but only as the very last character. Treat it like a digit with value 10 when you see it at the end, and reject the ISBN if 'X' appears anywhere else."
+      "question": "Hogyan kezeljem az 'X'-et? Az nem számjegy, ugye?",
+      "answer": "Az 'X' különleges. A 10-es értéket képviseli, de csak a legutolsó karakterként. Kezeld úgy, mint egy számjegyet 10-es értékkel, amikor a végén látod, és utasítsd el az ISBN-t, ha az 'X' máshol jelenik meg."
     },
     "exactlyTenDigits": {
-      "question": "How do I make sure there are exactly 10 digits?",
-      "answer": "Your multiplier started at 10 and decreased by 1 per digit. If you processed exactly 10 digits, it'll have ended up at 0. Anything else means the wrong number of digits, so reject it."
+      "question": "Hogyan biztosítsam, hogy pontosan 10 számjegy legyen?",
+      "answer": "A szorzód 10-ről indult, és számjegyenként 1-gyel csökkent. Ha pontosan 10 számjegyet dolgoztál fel, akkor a végén 0-ra állt. Bármi más a számjegyek helytelen számát jelenti, ezért utasítsd el."
     },
     "finalCheck": {
-      "question": "What's the final validity check?",
-      "answer": "After processing everything, the ISBN is valid if the total sum is divisible by 11 (i.e. `sum % 11 == 0`)."
+      "question": "Mi a végső érvényességi ellenőrzés?",
+      "answer": "Miután mindent feldolgoztál, az ISBN akkor érvényes, ha a teljes összeg osztható 11-gyel (azaz `sum % 11 == 0`)."
     }
   },
   "checks": {
-    "mustUseContinue": "So close! For this bonus, use `continue` to skip the dashes.",
-    "tooManyLines": "So close! Your solution works, but it's a little long."
+    "mustUseContinue": "Majdnem! Ehhez a bónuszhoz használd a `continue`-t a kötőjelek átugrásához.",
+    "tooManyLines": "Majdnem! A megoldásod működik, de egy kicsit hosszú."
   },
   "functions": {
     "number": {
-      "description": "Convert a string containing digits to a number",
-      "category": "Type Conversion"
+      "description": "Számjegyeket tartalmazó string átalakítása számmá",
+      "category": "Típuskonverzió"
     },
     "includes": {
-      "description": "Check whether a string contains a smaller string (provided by level stdlib)",
-      "category": "String Operations"
+      "description": "Ellenőrzi, hogy egy string tartalmaz-e egy kisebb stringet (a feladat stdlib-je biztosítja)",
+      "category": "Stringműveletek"
     },
     "indexOf": {
-      "description": "Find the position of a smaller string within a string, or -1 if it isn't found (provided by level stdlib)",
-      "category": "String Operations"
+      "description": "Megkeresi egy kisebb string pozícióját egy stringen belül, vagy -1-et ad vissza, ha nem található (a feladat stdlib-je biztosítja)",
+      "category": "Stringműveletek"
     }
   }
 }

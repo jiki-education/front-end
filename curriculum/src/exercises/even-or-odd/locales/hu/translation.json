@@ -1,59 +1,59 @@
 {
   "checks": {
-    "tooManyLines": "Your solution has too many lines of code. Can you make it shorter?"
+    "tooManyLines": "A megoldásod túl sok sorból áll. Le tudnád rövidíteni?"
   },
   "tasks": {
     "identifyEvenOrOdd": {
-      "name": "Identify even and odd numbers",
-      "description": "Write a function called evenOrOdd that takes a number and returns \"Even\" if it's divisible by 2, or \"Odd\" otherwise. Zero is even."
+      "name": "Páros és páratlan számok azonosítása",
+      "description": "Írj egy evenOrOdd nevű függvényt, ami egy számot kap, és \"Even\"-t ad vissza, ha osztható 2-vel, egyébként \"Odd\"-ot. A nulla páros."
     },
     "solveInSixLines": {
-      "name": "Solve in 6 lines of code",
-      "description": "Can you solve this exercise with only 6 lines of code?"
+      "name": "Oldd meg 6 sorban",
+      "description": "Meg tudod oldani ezt a feladatot mindössze 6 sorban?"
     }
   },
   "scenarios": {
     "number14": {
-      "name": "Number 14",
-      "description": "14 is an even number."
+      "name": "14-es szám",
+      "description": "A 14 páros szám."
     },
     "number28": {
-      "name": "Number 28",
-      "description": "28 is an even number."
+      "name": "28-as szám",
+      "description": "A 28 páros szám."
     },
     "numberMinus1": {
-      "name": "Number -1",
-      "description": "-1 is an odd number."
+      "name": "-1-es szám",
+      "description": "A -1 páratlan szám."
     },
     "number17": {
-      "name": "Number 17",
-      "description": "17 is an odd number."
+      "name": "17-es szám",
+      "description": "A 17 páratlan szám."
     },
     "number0": {
-      "name": "Number 0",
-      "description": "Zero counts as even."
+      "name": "0-s szám",
+      "description": "A nulla párosnak számít."
     },
     "bonus1": {
-      "name": "6 lines of code",
-      "description": "Solve the exercise with only 6 lines of code."
+      "name": "6 sor",
+      "description": "Oldd meg a feladatot mindössze 6 sorban."
     }
   },
   "hints": {
     "howToTell": {
-      "question": "How can I tell if a number is even or odd in code?",
-      "answer": "Mathematically, a number is even if it divides exactly by 2 with nothing left over, and odd if there's a remainder of 1. So you need a way to ask 'what's left over after dividing by 2?'."
+      "question": "Hogyan állapíthatom meg a kódban, hogy egy szám páros vagy páratlan?",
+      "answer": "Matematikailag egy szám akkor páros, ha maradék nélkül osztható 2-vel, és akkor páratlan, ha a maradék 1. Tehát szükséged van egy módra, hogy megkérdezd: „Mi marad, ha elosztod 2-vel?”"
     },
     "remainderOperator": {
-      "question": "Is there an operator that gives me the remainder of a division?",
-      "answer": "Yes. The remainder operator `%` (sometimes called modulo) does exactly this. For example, `14 % 2` gives `0`, and `17 % 2` gives `1`. It returns whatever is left after dividing the first number by the second."
+      "question": "Van olyan operátor, ami megadja egy osztás maradékát?",
+      "answer": "Igen. A maradékosztás operátor (`%`, néha modulo-ként is nevezik) pont ezt csinálja. Például `14 % 2` eredménye `0`, és `17 % 2` eredménye `1`. Azt adja vissza, ami az első szám másodikkal való osztása után marad."
     },
     "turnIntoEvenOdd": {
-      "question": "I've got the remainder. Now how do I turn that into \"Even\" or \"Odd\"?",
-      "answer": "Use an `if` statement to compare the remainder to `0`. If `number % 2` equals `0`, return `\"Even\"`. Otherwise, return `\"Odd\"`."
+      "question": "Megvan a maradék. Hogyan alakítom át ezt \"Even\"-re vagy \"Odd\"-ra?",
+      "answer": "Használj egy `if` elágazást, hogy összehasonlítsd a maradékot `0`-val. Ha `number % 2` egyenlő `0`-val, adj vissza `\"Even\"`-t. Egyébként adj vissza `\"Odd\"`-ot."
     },
     "zeroAndNegative": {
-      "question": "I can't work out how to handle 0 and negative numbers",
-      "answer": "You don't need any special case for them. `0 % 2` is `0`, so zero is treated as even automatically. And `-1 % 2` is non-zero, so `-1` is treated as odd, which is exactly what you want."
+      "question": "Nem tudom kitalálni, hogyan kezeljem a 0-t és a negatív számokat.",
+      "answer": "Nincs szükséged semmilyen különleges esetre. `0 % 2` értéke `0`, tehát a nulla automatikusan párosnak számít. És `-1 % 2` értéke nem nulla, tehát `-1` automatikusan páratlannak számít, pont ez a cél."
     }
   }
 }

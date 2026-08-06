@@ -1,20 +1,21 @@
 ---
 title: "Traffic Lights"
-description: "Draw a traffic light using variables for position and size."
+description: "Rajzolj egy közlekedési lámpát változók segítségével a pozíció és a méret megadásához."
+en_md5: 716484ce59befe362bbc13b364265362
 ---
 
-Your task is to complete the traffic light by drawing the three colored lights using the variables provided.
+A feladatod, hogy befejezd a közlekedési lámpát a három színes lámpa megrajzolásával a megadott változók (_variables_ angolul) segítségével.
 
-We've done the work of working out the positions for you. You just need to draw the circles using the right variables and the right colors.
+A pozíciókat már kiszámoltuk neked. Csak annyi a dolgod, hogy megrajzold a köröket a megfelelő változók és színek segítségével.
 
-The variables we've created are:
+Az általunk létrehozott változók:
 
-- `radius` — the radius of each light
-- `centerX` — the horizontal center of all three lights
-- `topY` — the vertical center of the top (red) light
-- `middleY` — the vertical center of the middle (amber) light
-- `bottomY` — the vertical center of the bottom (green) light
+- `radius` (sugár) — minden lámpa sugara
+- `centerX` (vízszintes középpont) — mindhárom lámpa vízszintes középpontja
+- `topY` (felső Y) — a felső (piros) lámpa függőleges középpontja
+- `middleY` (középső Y) — a középső (sárga) lámpa függőleges középpontja
+- `bottomY` (alsó Y) — az alsó (zöld) lámpa függőleges középpontja
 
-You should use `"red"`, `"amber"` and `"green"` for the colors.
+A színekhez a `"red"`, `"amber"` és `"green"` értékeket használd.
 
-Good luck!
+Sok sikert!

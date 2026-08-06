@@ -1,14 +1,15 @@
 ---
 title: "Snowman"
-description: "Set the right variable values to build a snowman."
+description: "Állítsd be a megfelelő változóértékeket a hóember megépítéséhez."
+en_md5: d95e1fcddba2afd556c42645352b910a
 ---
 
-We're back with the snowman you drew earlier from three circles. But this time you're using variables instead.
+Ismét itt van a hóember, amit korábban három körből rajzoltál. De ezúttal változókat használsz.
 
-You have the same starting point with the outline of the circles, and we've written the code for the three circles for you (these lines are readonly).
+Ugyanaz a kiindulópontod van, a körök körvonalával, és a három kör kódját mi írtuk meg neked (ezek a sorok csak olvashatóak).
 
-You need to define the correct variables to solve the exercise.
+Ahhoz, hogy megoldd a feladatot, definiálnod kell a megfelelő változókat (_variables_ angolul).
 
-We've got you started by defining the variables for the base, but given them the wrong values. You need to fix those then add equivalent variables for the body and the head.
+Elkezdtük neked azzal, hogy definiáltuk a hóember alapjához tartozó változókat, de rossz értékeket adtunk nekik. Ezeket ki kell javítanod, majd hasonló változókat kell hozzáadnod a törzshöz és a fejhez.
 
-Press "Run Code" to see the starting circle that's being drawn. You'll also get an error because you have missing variables that you need to define using `let`.
+Nyomd meg a „Run Code” gombot, hogy lásd a megrajzolt kiindulási kört. Hibát is fogsz kapni, mert hiányoznak változók, amiket a `let`-tel kell definiálnod.

@@ -1,16 +1,14 @@
 ---
-title: "Sign Price"
-description: "Calculate the cost of painting a sign, letter by letter."
+title: "Felirat ára"
+description: "Számold ki, mennyibe kerül egy felirat lefestése betűnként."
+en_md5: 67d90aae9a896a879c20956e9afc9270
 ---
 
-You run a sign-making shop. You charge $12 per letter for every sign you make. Spaces are free -- they don't cost anything.
+Egy feliratkészítő műhelyt vezetsz. Minden feliratért betűnként 12 dollárt számolsz fel. A szóközök ingyenesek (semmibe sem kerülnek).
 
-Write a function called `signPrice` that takes the text for a sign and returns a formatted message with the total price.
+Írj egy `signPrice` (a felirat ára) nevű függvényt, ami bemenetként megkapja a felirat szövegét, és visszaad egy formázott stringet a teljes árral. A string a `"That will cost "` (ez annyiba kerül) szövegből áll, amit az ár követ. Például:
 
-To count the letters, loop through each character and skip any spaces. Multiply the count by 12 to get the price. Then return a string in the format `"That will cost $X"` where X is the price.
+- `signPrice("Burgers")` (7 betű) ezt adja vissza: `"That will cost $84"`
+- `signPrice("Frank's Hotdogs")` (14 betű, szóközöket kihagyva) ezt adja vissza: `"That will cost $168"`
 
-Examples:
-
-- `signPrice("Hello")` returns `"That will cost $60"` (5 letters)
-- `signPrice("Hi There")` returns `"That will cost $84"` (7 letters, space skipped)
-- `signPrice("A")` returns `"That will cost $12"` (1 letter)
+Jó szórakozást!

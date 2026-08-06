@@ -1,19 +1,22 @@
 ---
-title: "Skyscraper"
-description: "Build a skyscraper on the city grid."
+title: "Felhőkarcoló"
+description: "Építs egy felhőkarcolót a városi rácsra."
+en_md5: 901851ded0ac8a0ef6cb80db60e59998
 ---
 
-This is the first of two exercises where you're going to be building skyscrapers.
+Ez az első abból a két feladatból, amelyekben felhőkarcolókat fogsz építeni.
 
-In this exercise, your job is to build a single skyscraper in the middle of the scene. In each scenario the height of the skyscraper varies.
+Ebben a feladatban egyetlen felhőkarcolót kell építened a jelenet közepére. Minden forgatókönyvben a felhőkarcoló magassága változik.
 
-To determine how many floors to build, you have a `numFloors()` function that returns the total height of the building.
+Ahhoz, hogy meghatározd, hány szintet kell építeni, rendelkezésedre áll egy `numFloors()` (szintek száma) függvény, ami az épület teljes magasságát adja vissza.
 
-There are three different components you can use: wall (`W`), glass (`G`) and entrance (`E`). Check the functions below to see the functions to make these.
+Három különböző komponenst használhatsz: fal (`W`), üveg (`G`) és bejárat (`E`). Nézd meg az alábbi függvényeket, hogy lásd, hogyan hozhatod létre őket.
 
-The floor closest to the ground (either the "ground floor" or "first floor" depending on your geography!) always has an entrance sandwiched between two glass segments and two outer wall segments (`WGEGW`). The other floors have three glass sandwiched with walls (`WGGGW`). And on top of the floors is a roof (`WWWWW`).
+A talajhoz legközelebbi szint (földrajztól függően „földszint” vagy „első emelet”!) mindig egy bejáratot tartalmaz. A bejáratot két üvegszegmens fogja közre, a szélein pedig egy-egy falszegmens zárja (`WGEGW`).
 
-So a 5 floor skyscraper has one entrance floor, 4 glass floors, and a roof. It should look like:
+A többi szint három üvegszegmensből áll, amelyeket falak fognak közre (`WGGGW`). A szintek tetején pedig egy tető helyezkedik el (`WWWWW`).
+
+Tehát egy 5 szintes felhőkarcolónak egy bejárati szintje, 4 üveg szintje és egy tetője van. Valahogy így kell kinéznie:
 
 ```
 WWWWW
@@ -24,8 +27,8 @@ WGGGW
 WGEGW
 ```
 
-The center of the skyscraper should be at column `19`. The ground floor starts at `2` (just above the concrete floor) and goes upwards (so in our example above, that would be an entrance floor at `2` and a roof at `7`).
+A felhőkarcoló közepének a `19`-edik oszlopban kell lennie. A földszint a `2`-es sorban kezdődik (közvetlenül a betonpadló fölött), és felfelé halad (így a fenti példában ez egy bejárati szint a `2`-es sorban, a tető pedig a `7`-esben).
 
-One key rule in this exercise is that all the values that you input into the functions must be either variables or formulas. You can't just input a number like `20`.
+Egy fontos szabály ebben a feladatban, hogy a függvényeknek átadott értékek csak változók vagy képletek lehetnek. Nem adhatsz meg közvetlenül számot, például `20`-at.
 
-Once you finish this exercise, you'll unlock a Project where you'll build whole city skylines with different numbers of buildings with different widths.
+Ha befejezted ezt a feladatot, feloldasz egy Projektet, amelyben teljes városi látképeket építhetsz fel különböző számú, eltérő szélességű épülettel.

@@ -13,58 +13,58 @@
   },
   "tasks": {
     "drawScene": {
-      "name": "Draw the scene",
-      "description": "Make the flower sprout. Take it one step at a time!"
+      "name": "Rajzold le a jelenetet",
+      "description": "Készítsd el a virág kihajtását. Haladj lépésről lépésre!"
     }
   },
   "scenarios": {
     "drawSproutingFlower": {
-      "name": "Make the flower sprout",
-      "description": "Take it one step at a time!"
+      "name": "A virág kihajtása",
+      "description": "Haladj lépésről lépésre!"
     }
   },
   "hints": {
     "whereToStart": {
-      "question": "Where should I start when laying out the scene?",
-      "answer": "Pick one central point. The centre of the flower is a good anchor. The stem, pistil, and leaves can all be derived from it. That way the whole flower stays connected as it animates."
+      "question": "Hol kezdjem a jelenet elrendezését?",
+      "answer": "Válassz ki egy központi pontot. A virág közepe jó kiindulópont. A szár, a bibe és a levelek mind ebből származtathatók. Így az egész virág együtt marad az animáció során."
     },
     "growEachIteration": {
-      "question": "How do I make the flower rise and grow each iteration?",
-      "answer": "At the very top of the loop body, before any drawing, update `flowerCenterY` and `flowerRadius` to their new values for this frame. The instructions give the amounts. What matters is updating *before* the draw calls, not after."
+      "question": "Hogyan érhetem el, hogy a virág minden iterációban felemelkedjen és növekedjen?",
+      "answer": "A ciklustörzs legtetején, bármilyen rajzolás előtt, frissítsd a `flowerCenterY` és `flowerRadius` értékét az új értékekre erre a képkockára. Az utasítások megadják a mennyiségeket. Az a lényeg, hogy a rajzolás *előtt* frissíts, ne utána."
     },
     "stemAttached": {
-      "question": "How do I keep the stem attached to the flower as it moves up?",
-      "answer": "Don't give the stem a fixed top. Its top *is* `flowerCenterY`. Its bottom is the ground. So its height is the distance between them. Its width can then be derived from that height."
+      "question": "Hogyan tarthatom a szárat a virághoz rögzítve, miközben az felfelé mozog?",
+      "answer": "Ne adj a szárnak fix felső pontot. A teteje *maga* a `flowerCenterY`. Az alja a talaj. Így a magassága a köztük lévő távolság. A szélességét ezután ebből a magasságból származtathatod."
     },
     "leafSizing": {
-      "question": "How do I size the leaves so they grow with the flower?",
-      "answer": "The leaves' `radiusX` and `radiusY` are fractions of `flowerRadius`. That way they scale together. Anchor their vertical position to the stem, not to a fixed canvas Y, so they ride up with the flower."
+      "question": "Hogyan méretezzem a leveleket, hogy a virággal együtt növekedjenek?",
+      "answer": "A levelek `radiusX` és `radiusY` értéke a `flowerRadius` törtrésze. Így együtt skálázódnak. A függőleges pozíciójukat a szárhoz rögzítsd, ne egy fix vászon Y-hoz, így a virággal együtt emelkednek."
     },
     "flowerNeverChanges": {
-      "question": "My flower draws once and never changes. What's wrong?",
-      "answer": "You're probably setting the initial values once before the loop but not updating them *inside* the loop. The loop body has to mutate your variables every iteration, before the draw calls."
+      "question": "A virágom egyszer rajzolódik ki, és soha nem változik. Mi a baj?",
+      "answer": "Valószínűleg csak egyszer állítod be a kezdőértékeket a ciklus előtt, de nem frissíted őket a cikluson *belül*. A ciklustörzsnek minden iterációban módosítania kell a változóidat, a rajzolások előtt."
     },
     "firstFlowerCoords": {
-      "question": "Can you give me the coordinates for the first flower to check against?",
-      "answer": "On the first iteration, the shapes should be:\n\n- Flower: `circle(50, 89, 0.4)`\n- Pistil: `circle(50, 89, 0.1)`\n- Stem: `rectangle(49.95, 89, 0.1, 1)`\n- Left leaf: `ellipse(49.75, 89.5, 0.2, 0.08)`\n- Right leaf: `ellipse(50.25, 89.5, 0.2, 0.08)`\n\nToggle the info switch on the scrubber bar to see your own values at that frame."
+      "question": "Megadnád az első virág koordinátáit, hogy ellenőrizhessem?",
+      "answer": "Az első iterációban az alakzatoknak ezeknek kell lenniük:\n\n- Virág: `circle(50, 89, 0.4)`\n- Bibe: `circle(50, 89, 0.1)`\n- Szár: `rectangle(49.95, 89, 0.1, 1)`\n- Bal levél: `ellipse(49.75, 89.5, 0.2, 0.08)`\n- Jobb levél: `ellipse(50.25, 89.5, 0.2, 0.08)`\n\nKapcsold be az információs kapcsolót a tekerősávon, hogy lásd a saját értékeidet ezen a képkockán."
     },
     "finalFlowerCoords": {
-      "question": "Can you give me the coordinates for the final flower to check against?",
-      "answer": "On the last iteration, the shapes should be:\n\n- Flower: `circle(50, 30, 24)`\n- Pistil: `circle(50, 30, 6)`\n- Stem: `rectangle(47, 30, 6, 60)`\n- Left leaf: `ellipse(35, 60, 12, 4.8)`\n- Right leaf: `ellipse(65, 60, 12, 4.8)`\n\nToggle the info switch on the scrubber bar to see your own values at that frame."
+      "question": "Megadnád az utolsó virág koordinátáit, hogy ellenőrizhessem?",
+      "answer": "Az utolsó iterációban az alakzatoknak ezeknek kell lenniük:\n\n- Virág: `circle(50, 30, 24)`\n- Bibe: `circle(50, 30, 6)`\n- Szár: `rectangle(47, 30, 6, 60)`\n- Bal levél: `ellipse(35, 60, 12, 4.8)`\n- Jobb levél: `ellipse(65, 60, 12, 4.8)`\n\nKapcsold be az információs kapcsolót a tekerősávon, hogy lásd a saját értékeidet ezen a képkockán."
     }
   },
   "functions": {
     "rectangle": {
-      "description": "Draws a **rectangle** at position (left, top) with the specified width, height, and color. The position represents the top-left corner of the rectangle.",
-      "category": "Drawing Shapes"
+      "description": "Egy **téglalapot** rajzol a (left, top) pozícióba a megadott szélességgel, magassággal és színnel. A pozíció a téglalap bal felső sarkát jelenti.",
+      "category": "Alakzatok rajzolása"
     },
     "circle": {
-      "description": "Draws a **circle** at center position (centerX, centerY) with the specified radius and color.",
-      "category": "Drawing Shapes"
+      "description": "Egy **kört** rajzol a (centerX, centerY) középpontba a megadott sugárral és színnel.",
+      "category": "Alakzatok rajzolása"
     },
     "ellipse": {
-      "description": "Draws an **ellipse** at center position (centerX, centerY) with the specified radiusX, radiusY, and color.",
-      "category": "Drawing Shapes"
+      "description": "Egy **ellipszist** rajzol a (centerX, centerY) középpontba a megadott radiusX, radiusY és színnel.",
+      "category": "Alakzatok rajzolása"
     }
   }
 }

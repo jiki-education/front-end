@@ -1,64 +1,64 @@
 {
   "tasks": {
     "findTilePosition": {
-      "name": "Find Tile Position",
-      "description": "Write a function that finds the position of a specific letter tile in the rack. Return \"Move to position X\" if found, or \"Error: Tile not on rack\" if not."
+      "name": "Keresd meg a betű pozícióját",
+      "description": "Írj egy függvényt, amely megkeresi egy adott betű pozícióját a betűtartóban. Ha megtalálta, adja vissza a \"Move to position X\" stringet, ha nem, akkor a \"Error: Tile not on rack\" stringet."
     }
   },
   "scenarios": {
     "tileAtStart": {
-      "name": "Tile at start",
-      "description": "The letter is the first tile in the rack."
+      "name": "Betű az elején",
+      "description": "A betű a betűtartó első betűje."
     },
     "tileInMiddle": {
-      "name": "Tile in middle",
-      "description": "The letter is in the middle of the rack."
+      "name": "Betű középen",
+      "description": "A betű a betűtartó közepén van."
     },
     "tileAtEnd": {
-      "name": "Tile at end",
-      "description": "The letter is the last tile in the rack."
+      "name": "Betű a végén",
+      "description": "A betű a betűtartó utolsó betűje."
     },
     "tileNotFound": {
-      "name": "Tile not found",
-      "description": "The letter isn't in the rack."
+      "name": "Betű nincs meg",
+      "description": "A betű nincs a betűtartóban."
     },
     "emptyRack": {
-      "name": "Empty rack",
-      "description": "An empty rack has no tiles to find."
+      "name": "Üres betűtartó",
+      "description": "Üres betűtartóban nincsenek betűk."
     },
     "firstOfDuplicates": {
-      "name": "First of duplicates",
-      "description": "When the letter appears multiple times, return the first position."
+      "name": "Első előfordulás",
+      "description": "Amikor a betű többször is előfordul, az első pozíciót adja vissza."
     },
     "longerRack": {
-      "name": "Longer rack",
-      "description": "Finding a tile in a longer rack."
+      "name": "Hosszabb betűtartó",
+      "description": "Betű keresése hosszabb betűtartóban."
     }
   },
   "hints": {
     "trackPosition": {
-      "question": "How do I keep track of where I am in the rack?",
-      "answer": "Use a position variable starting at 1. Each time you look at a new tile, you'll increase it by 1."
+      "question": "Hogyan kövessem nyomon, hol járok a betűtartóban?",
+      "answer": "Használj egy pozíció változót 1-től indítva. Minden alkalommal, amikor egy új betűt nézel, növeld meg eggyel."
     },
     "lookAtEachTile": {
-      "question": "How do I look at each tile?",
-      "answer": "A for-each loop gives you each character of the rack in turn."
+      "question": "Hogyan nézzek meg minden egyes betűt?",
+      "answer": "A for-each ciklus sorban minden karaktert átad a betűtartóból."
     },
     "onFound": {
-      "question": "What do I do when I find the letter?",
-      "answer": "Build the success message. Convert the position number to a string, then combine it with the surrounding text the exercise asks for using concatenation (`+`) or a template string. Return immediately. There's no need to keep looking."
+      "question": "Mit csináljak, amikor megtalálom a betűt?",
+      "answer": "Építsd fel a sikerüzenetet. Alakítsd át a pozíció számát stringgé, majd fűzd össze a környező szöveggel, amit a feladat kér, összefűzéssel (`+`) vagy template stringgel. Azonnal térj vissza. Nem kell tovább keresned."
     },
     "addNumberToString": {
-      "question": "I cannot add a number to a string",
-      "answer": "You've learned two ways to join strings together. Rather than concatenating strings, try the other method you've learned."
+      "question": "Nem tudok egy számot stringhez adni.",
+      "answer": "Kétféle módszert is tanultál a stringek összekapcsolására. Az összefűzés (`+`) helyett próbáld a másik, már ismert módszert."
     },
     "positionAlwaysWrong": {
-      "question": "Why is my position always wrong?",
-      "answer": "Make sure you're increasing the position counter every iteration, not just sometimes. Otherwise every tile reports the same position."
+      "question": "Miért rossz mindig a pozícióm?",
+      "answer": "Ellenőrizd, hogy minden egyes iterációban növeled a pozíciószámlálót, ne csak néha. Ellenkező esetben minden betű ugyanazt a pozíciót fogja jelezni."
     },
     "notInRack": {
-      "question": "What if the letter isn't in the rack?",
-      "answer": "Only after the loop has finished without finding the letter should you return the error message. Returning the error inside the loop would give up after the first non-matching tile."
+      "question": "Mi történjen, ha a betű nincs a betűtartóban?",
+      "answer": "Csak akkor add vissza a hibaüzenetet, miután a ciklus befejeződött anélkül, hogy megtaláltad volna a betűt. Ha a cikluson belül visszaadod a hibát, feladná már az első nem egyező betű után."
     }
   }
 }

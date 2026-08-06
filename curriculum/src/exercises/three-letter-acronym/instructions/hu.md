@@ -1,10 +1,11 @@
 ---
-title: "Three Letter Acronym"
-description: "Build an acronym from the first letter of three words."
+title: "Hárombetűs mozaikszó"
+description: "Alkoss mozaikszót három szó első betűjéből."
+en_md5: 94c35c9d8f59f6c6d15e653eeff8f61c
 ---
 
-An acronym is a word formed from the first letters of other words. For example, 'Portable Network Graphics' becomes 'PNG'.
+A mozaikszó olyan szó, amely más szavak első betűiből áll össze. Például a „Portable Network Graphics” szavakból „PNG” lesz.
 
-Write a function called `acronym(word1, word2, word3)`. It should take three words and return a three-letter acronym by taking the first letter of each word.
+Írj egy `acronym` (mozaikszó) nevű függvényt, amely három szót kap, és mindegyik szó első betűjét felhasználva egy hárombetűs mozaikszót ad vissza.
 
-For example, if given "Cascading", "Style", and "Sheets", you should return "CSS". Or for "laugh", "out", "loud", you should return "lol".
+Például ha a „Cascading”, „Style” és „Sheets” szavakat kapja, akkor a „CSS” értéket kell visszaadnia.

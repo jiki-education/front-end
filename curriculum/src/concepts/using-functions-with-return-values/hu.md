@@ -1,10 +1,10 @@
 ---
 title: "Függvények, amelyek visszaadnak valamit"
 description: "Elkapjuk az értéket, amely a függvény kimeneti csúszdáján érkezik, és felhasználjuk a kódunkban."
-en_md5: 9ce745b968f6f0c1a59484b923ede9d8
+en_md5: 830f19fb6aaf184c1f32ade792b60a12
 ---
 
-Eddig olyan függvényeket néztünk, amelyek csinálnak valamit a világban. A circle függvény kört rajzol. A move függvény odébb mozgatja a karakteredet. Néhány függvény viszont másképp működik. Ahelyett, hogy kifelé csinálna valamit, visszaad neked valamit, amit a kódodon belül használhatsz fel. Amikor egy függvény visszaad valamit Jikinek, hogy azt a kódban használja, azt mondjuk, hogy a függvény visszaad (_returning_ angolul) valamit. Visszaad valamit Jikinek. Ezeket a gépeket úgy képzelheted el, mint amelyeknek kimeneti csúszdájuk van. Megvannak már a bemeneti nyílásaink, amelyekbe bedobjuk a dolgokat, de lehet a gépen egyetlen kimeneti nyílás, vagyis egy csúszda is, amelyen valami visszajöhet. Amikor Jiki megnyomja a gép gombját, a gép zakatolni kezd, és a végén valami kipottyan a csúszdán. Lehet, hogy egy szám. Lehet, hogy egy string. Olyasmi, amit Jiki elkaphat és felhasználhat.
+Eddig olyan függvényeket néztünk, amelyek csinálnak valamit a világban. A `circle` (kört rajzol) függvény kört rajzol. A `move` (mozgat) függvény odébb mozgatja a karakteredet. Néhány függvény viszont másképp működik. Ahelyett, hogy kifelé csinálna valamit, visszaad neked valamit, amit a kódodon belül használhatsz fel. Amikor egy függvény visszaad valamit Jikinek, hogy azt a kódban használja, azt mondjuk, hogy a függvény visszaad (_returning_ angolul) valamit. Visszaad valamit Jikinek. Ezeket a gépeket úgy képzelheted el, mint amelyeknek kimeneti csúszdájuk van. Megvannak már a bemeneti nyílásaink, amelyekbe bedobjuk a dolgokat, de lehet a gépen egyetlen kimeneti nyílás, vagyis egy csúszda is, amelyen valami visszajöhet. Amikor Jiki megnyomja a gép gombját, a gép zakatolni kezd, és a végén valami kipottyan a csúszdán. Lehet, hogy egy szám. Lehet, hogy egy string. Olyasmi, amit Jiki elkaphat és felhasználhat.
 
 <img
   class="concept-image"
@@ -24,11 +24,13 @@ A legtöbb függvény, talán 95 százalékuk, visszaad valamit. Elvégeznek nek
   height="312"
 />
 
-A visszaadott értéket aztán a `let` segítségével egy dobozba tehetjük. Ha azt írjuk, hogy `let time = getCurrentTime()`, Jiki lefuttatja a gépet, elkapja a csúszdából az aktuális időt, és egy `time` nevű dobozban tárolja el.
+A visszaadott értéket aztán a `let` segítségével egy dobozba tehetjük:
 
 ```javascript
 let time = getCurrentTime()
 ```
+
+Jiki lefuttatja a gépet, elkapja a csúszdából az aktuális időt, és egy `time` nevű dobozban tárolja el.
 
 <img
   class="concept-image"

@@ -1,60 +1,60 @@
 {
   "tasks": {
     "reverseStrings": {
-      "name": "Reverse Strings",
-      "description": "Reverse a string so that it reads from right to left instead of left to right."
+      "name": "Karakterláncok megfordítása",
+      "description": "Fordíts meg egy karakterláncot, hogy jobbról balra olvasható legyen, ne balról jobbra."
     }
   },
   "scenarios": {
     "reverseEmptyString": {
-      "name": "Empty string",
-      "description": "An empty string should return an empty string when reversed."
+      "name": "Üres karakterlánc",
+      "description": "Egy üres karakterlánc megfordítva is üres karakterláncot ad vissza."
     },
     "reverseWord": {
-      "name": "A word",
-      "description": "Reverse the word 'robot'."
+      "name": "Egy szó",
+      "description": "Fordítsd meg a 'robot' szót."
     },
     "reverseCapitalizedWord": {
-      "name": "A capitalized word",
-      "description": "Reverse a capitalized word 'Ramen'."
+      "name": "Egy nagybetűs szó",
+      "description": "Fordítsd meg a nagybetűs 'Ramen' szót."
     },
     "reverseSentencePunctuation": {
-      "name": "Sentence with punctuation",
-      "description": "Reverse a sentence with punctuation 'I'm hungry!'"
+      "name": "Mondat írásjellel",
+      "description": "Fordítsd meg az 'I'm hungry!' írásjeles mondatot."
     },
     "reversePalindrome": {
-      "name": "Palindrome",
-      "description": "A palindrome remains the same when reversed."
+      "name": "Palindrom",
+      "description": "Egy palindrom megfordítva is ugyanaz marad."
     },
     "reverseEvenSizedWord": {
-      "name": "Even-sized word",
-      "description": "Reverse an even-sized word 'drawer'."
+      "name": "Páros hosszúságú szó",
+      "description": "Fordítsd meg a páros hosszúságú 'drawer' szót."
     },
     "reverseWideCharacters": {
-      "name": "Wide characters",
-      "description": "Reverse wide Unicode characters '子猫'."
+      "name": "Széles karakterek",
+      "description": "Fordítsd meg a '子猫' széles Unicode karaktereket."
     },
     "reverseEmojiFamily": {
-      "name": "Emoji Family",
-      "description": "Reverse an emoji family."
+      "name": "Emoji család",
+      "description": "Fordíts meg egy emoji családot."
     },
     "reverseEmojiRainbowFlag": {
-      "name": "Rainbow Flag",
-      "description": "Make a rainbow flag by reversing."
+      "name": "Szivárványzászló",
+      "description": "Készíts szivárványzászlót a megfordítással."
     }
   },
   "hints": {
     "reverseByHand": {
-      "question": "How would I reverse a word by hand?",
-      "answer": "You'd read it left-to-right but write it right-to-left. Equivalently, you'd take each letter in turn and put it in front of what you've written so far."
+      "question": "Hogyan lehetne kézzel megfordítani egy szót?",
+      "answer": "Balról jobbra olvasnád, de jobbról balra írnád. Vagyis minden betűt egymás után az addig leírtak elé tennél."
     },
     "mapToCode": {
-      "question": "How does that map to code?",
-      "answer": "Loop through the input string character by character. For each character, build the result by prepending. That means putting it at the FRONT of your result, not the back."
+      "question": "Hogyan valósítható meg ez kódban?",
+      "answer": "Menj végig a bemeneti karakterlánc karakterein. Minden karaktert az addigi eredmény elé illesztve építsd fel a végeredményt. Tehát a karaktert az eredmény elejére tedd, ne a végére."
     },
     "prepend": {
-      "question": "How do I 'prepend' instead of append?",
-      "answer": "With the `+` operator, prepending is just a matter of order. Instead of `result + char` (which appends), use `char + result` (which prepends)."
+      "question": "Hogyan fűzhetek a karakterlánc elejére a hozzáfűzés helyett?",
+      "answer": "A `+` operátorral az elé fűzés csak sorrend kérdése. `result + char` (ami hozzáfűz) helyett használd a `char + result` kifejezést (ami elé fűz)."
     }
   }
 }

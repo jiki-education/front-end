@@ -1,39 +1,40 @@
 ---
-title: "Relational Snowman"
-description: "Rebuild your snowman so all sizes scale from one variable."
+title: "Relációs hóember"
+description: "Építsd újra a hóembert úgy, hogy minden mérete egyetlen változóból legyen kiszámítható."
+en_md5: 1753f8d873e9a5b58885cc1daee5ea5d
 ---
 
-In this exercise, we're building another snowman, but similar to the last exercise, we're doing it so that everything can be derived from a single `size` variable using arithmetic.
+Ebben a feladatban egy újabb hóembert építünk, és hasonlóan az előző feladathoz, úgy csináljuk, hogy minden egyetlen `size` (méret) változóból legyen származtatható számtani kifejezésekkel.
 
-Depending on the `size` you choose, the snowman should grow.
+A választott `size`-től függően a hóembernek növekednie kell.
 
 <img
   src="/static/images/exercise-assets/relational-snowman/sizes.webp"
-  alt="Snowman at sizes 1 through 5"
+  alt="Hóember 1-től 5-ig tartó méretekben"
   style="width: 100%; max-width: 600px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;"
 />
 
-### How it works
+### Hogyan működik
 
-- The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`.
-- You have a pre-written variable `snowmanX` for the center of the image and a `size` variable that you can change from `1` to `5` to grow the snowman.
-- You need to derive all other variables using arithmetic expressions.
-- The radius of the head is `size * 2`, the body's radius is `size * 3`, and the base's radius is `size * 4`.
-- The circles should touch each other: the body sits directly above the base, and the head sits directly above the body. (Our snowman is a little more precarious than in previous exercises - every snowball is positioned exactly on the one below it without them melting into each other. It must be a very icy day!)
-- The bottom of the base circle sits `size` from the bottom.
-- You need to calculate the centers of all three snowballs.
+- A rajzvászon bal felső sarka `0,0`. A jobb alsó sarka `100,100`.
+- Rendelkezésedre áll egy előre megírt `snowmanX` (hóember X koordinátája) változó, ami a kép közepét adja meg, valamint egy `size` (méret) változó, amit `1`-től `5`-ig változtathatsz, hogy a hóember nőjön.
+- Az összes többi változót számtani kifejezésekkel kell származtatnod.
+- A fej sugara `size * 2`, a test sugara `size * 3`, az alap sugara `size * 4`.
+- A köröknek érintkezniük kell egymással: a test közvetlenül az alap felett helyezkedik el, a fej pedig közvetlenül a test felett. (A hóemberünk kissé ingatagabb, mint a korábbi feladatokban - minden hógolyó pontosan az alatta lévőre van helyezve anélkül, hogy beleolvadnának. Bizonyára nagyon hideg nap van!)
+- Az alapkör alja `size` távolságra van az alsó széltől.
+- Ki kell számolnod mindhárom hógolyó középpontját.
 
-### Variables
+### Változók
 
-Your task is to set these variables from the instructions above.
+A feladatod, hogy a fenti utasítások alapján beállítsd ezeket a változókat:
 
-- `headRadius`: derive from `size`
-- `bodyRadius`: derive from `size`
-- `baseRadius`: derive from `size`
-- `baseY`: derive from `size` and `baseRadius` (the base sits on the ground)
-- `bodyY`: derive from `baseY`, `baseRadius`, and `bodyRadius`
-- `headY`: derive from `bodyY`, `bodyRadius`, and `headRadius`
+- `headRadius` (fej sugara): Vezesd le a `size`-ból.
+- `bodyRadius` (test sugara): Vezesd le a `size`-ból.
+- `baseRadius` (alap sugara): Vezesd le a `size`-ból.
+- `baseY` (alap y koordinátája): Vezesd le a `size`-ból és a `baseRadius`-ból (az alap a talajon áll).
+- `bodyY` (test y koordinátája): Vezesd le a `baseY`, `baseRadius` és `bodyRadius` alapján.
+- `headY` (fej y koordinátája): Vezesd le a `bodyY`, `bodyRadius` és `headRadius` alapján.
 
-### Play with size
+### Játssz a mérettel
 
-You can change the size from `1` to `5` and the snowman should grow. Remember to press "Run code" once you change it.
+A `size`-t `1` és `5` között változtathatod, és a hóembernek nőnie kell. Ne feledd, miután megváltoztattad, kattints a „Kód futtatása” gombra.

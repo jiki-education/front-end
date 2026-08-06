@@ -1,27 +1,28 @@
 ---
 title: "After Party"
-description: "Look up how many guests a celebrity is allowed to bring, using two lists that line up."
+description: "Derítsd ki, hány vendéget hozhat magával egy híresség, két egymáshoz igazodó lista alapján."
+en_md5: c31c0988af324530b986262f47d9a745
 ---
 
-We're back to playing the role of a bouncer. But this time, we're dealing with A-List Celebrities at the After Party.
+Újra kidobóembert játszunk. De ezúttal a legnagyobb hírességekkel van dolgunk az After Partyn.
 
-When these people show up to your party, they expect you to know them just by their first-names. Brad Pitt isn't going to waste his breath telling you his surname, he'll just say "Brad", and then look at you like you're the one being awkward.
+Amikor ezek az emberek megérkeznek a partira, elvárják, hogy pusztán a keresztnevük alapján ismerd őket. Brad Pitt nem fogja az idejét vesztegetni azzal, hogy elmondja a vezetéknevét, csak annyit mond: „Brad”, aztán úgy néz rád, mintha te lennél a kínos.
 
-Tonight there are two lists on your clipboard. The first is `names`, the full names of everyone invited. The second is `plusOnes`, how many extra people each of those guests is allowed to bring in with them (their <define info="the extra guests someone is allowed to bring along">"plus-ones"</define>). The two lists were written out together, entry by entry, in the same order, so they line up. For example, the third entry of the names list corresponds to the same person as the third entry of the plusOnes list.
+Ma este két lista van a vágólapodon. Az első a `names`, a meghívottak teljes neveivel. A második a `plusOnes`, hogy hány extra embert hozhat magával minden vendég (a plusz egyeik (_plus-ones_ angolul)). A két lista együtt, tételről tételre, ugyanabban a sorrendben készült, tehát egymáshoz igazodnak. Például a names lista harmadik eleme ugyanahhoz a személyhez tartozik, mint a plusOnes lista harmadik eleme.
 
-Write a function called <define>`plusOnesFor`</define>. The function has three inputs: the `names` list, the `plusOnes` list, and the **first name** of whoever is stood in front of you right now. You should return the number of extra guests that person is allowed to bring in.
+Írj egy `plusOnesFor` (plusz egyek lekérdezése) nevű függvényt. A függvénynek három bemenete van: a `names` lista, a `plusOnes` lista, és annak a **keresztneve**, aki éppen előtted áll. A függvény adja vissza, hogy az illető hány extra vendéget hozhat magával.
 
-Be careful, though. There's a queue forming, and these people do not queue quietly. "Brad" means Brad Pitt, not Bradley Cooper. And one or two of them are famous enough to have dropped their surname altogether.
+De légy óvatos! Sor képződik, és ezek az emberek nem csendben sorakoznak. A „Brad” Brad Pittet jelenti, nem Bradley Coopert. És egy-két vendég annyira híres, hogy teljesen elhagyták a vezetéknevüket.
 
-Some guests are invited but aren't allowed to bring anyone with them, so `0` is a perfectly good answer for a name that's on the list. Someone who isn't on the list at all is a different matter entirely, and for them you should return the string <literal>`Not on the list!`</literal>, exactly as written.
+Néhány vendég meg van hívva, de nem hozhat magával senkit, így a `0` teljesen jó válasz egy olyan névre, amely szerepel a listán. Akit viszont egyáltalán nem hívtak meg, az teljesen más eset, és számukra a `"Not on the list!"` sztringet kell visszaadnod, pontosan így.
 
-### Array Methods & Properties
+### Tömb metódusok és tulajdonságok
 
-Just like strings, arrays also have methods and properties. In this exercise you might like to use the `.length` property. It works exactly the same as the string version, except now it tells you how many elements are in the array, rather than how many letters are in the string. For example:
+A stringekhez hasonlóan a tömböknek is vannak metódusaik és tulajdonságaik. Ebben a feladatban jó, ha a `.length` tulajdonságot használod. Pontosan ugyanúgy működik, mint a stringes változat, azzal a különbséggel, hogy most azt mondja meg, hány eleme van a tömbnek, nem pedig azt, hogy hány betűből áll a string. Például:
 
 ```js
 ["Jeremy", "Erik", "Aron"].length
 // 3
 ```
 
-Have fun!
+Jó szórakozást!

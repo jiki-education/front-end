@@ -1,7 +1,7 @@
 ---
 title: "Tulajdonságok"
 description: "Állandó tények egy értékről, amelyeket egy ponttal, zárójelek nélkül érünk el, például a `.length` megmondja, hány betűből áll egy string."
-en_md5: dc4f80c47bcb534e5746b8626e987cac
+en_md5: 0634cd72388bef118e9dd22131a3c1cd
 ---
 
 Eddig, amikor stringekről vagy számokról volt szó, eléggé állandó dolgokként gondoltunk rájuk.
@@ -19,7 +19,7 @@ Ehhez pedig egy új írásmódot használunk, a pontot.
 Ha például van egy `"Jeremy"` stringünk, és tudni szeretnénk a hosszát, egyszerűen leírjuk, hogy `"Jeremy".length`, és kész is.
 
 ```javascript
-"Jeremy".length
+"Jeremy".length // 6
 ```
 
 Amikor Jiki létrehoz egy stringet, megszámolja a betűket, és a sarkába egyszerűen felír egy számot, hogy hány darab van.

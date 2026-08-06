@@ -1,20 +1,21 @@
 ---
-title: "Owner's Bouquets"
-description: "Plant flowers in different garden layouts."
+title: "A tulajdonos csokrai"
+description: "Ültess virágokat különböző kertekbe."
+en_md5: bdb2a772a6549db0226a6c17326f20c6
 ---
 
-Welcome to your second exercise with scenarios.
+Üdvözlünk a második, forgatókönyvekkel dolgozó feladatodban.
 
-We're back with our automated gardening machine. Previously, we always planted 9 flowers, but now things are changing. We need our robot to be able to plant however many flowers its told to by the owner of the house.
+Itt vagyunk újra az automata kertészeti gépünkkel. Eddig mindig 9 virágot ültettünk, most viszont változnak a dolgok. A robotunknak képesnek kell lennie annyi virágot ültetni, amennyit a ház tulajdonosa mond neki.
 
-To do this we've got a function called `askNumberOfFlowers()`. When we use it, we ask the owner of the house how many flowers to plant and the function returns a number with the answer. If the function returns 3, we have to plant 3 flowers. If it returns 8, we have to plant 8 flowers.
+Ehhez van egy `askNumberOfFlowers()` (megkérdezi, hány virágot kell ültetni) nevű függvényünk. Amikor meghívjuk, megkérdezzük a ház tulajdonosát, hány virágot kell ültetni, a függvény pedig visszaad egy számot a válasszal. Ha a függvény 3-at ad vissza, 3 virágot kell ültetnünk; ha 8-at ad vissza, 8 virágot kell ültetnünk.
 
-We are under strict instructions to keep the garden neat, so we need to plant the flowers evenly across the garden. If there are 3 flowers, we need to plant them at 25,50 and 75. If there are 4 flowers, we need to plant them at 20,40,60,80, etc. (As normal, the garden is 100 units wide).
+Szigorú utasításunk van arra, hogy rendben tartsuk a kertet, ezért egyenletesen kell elültetnünk a virágokat a kertben. Ha 3 virág van, a 25, 50 és 75-ös helyeken kell elültetnünk őket. Ha 4 virág van, akkor a 20, 40, 60, 80 stb. helyeken kell elültetnünk őket. (Mint általában, a kert 100 egység széles.)
 
-### Scenarios
+### Forgatókönyvek
 
-As in the golf exercise you just solved, on the left you'll see four grey dots for the four different scenarios. **Clicking on each dot** shows you a different scenario, but this time it's the `askNumberOfFlowers()` that will return a different number each time.
+Ahogyan az előző, golfos feladatban, a bal oldalon négy szürke pontot látsz a négy különböző forgatókönyvhöz. **Minden egyes pontra kattintva** másik forgatókönyvet látsz, de ezúttal az `askNumberOfFlowers()` ad vissza más-más számot minden alkalommal.
 
-Your job is to write one program that works for all the different possible values `askNumberOfFlowers()` might return.
+Az a feladatod, hogy írj egy programot, ami működik az `askNumberOfFlowers()` által visszaadható összes lehetséges értékre.
 
-Good luck!
+Sok sikert!

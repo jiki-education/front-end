@@ -1,56 +1,56 @@
 {
   "checks": {
-    "bottomLeft": "The bottom left rectangle isn't correct.",
-    "bottomRight": "The bottom right rectangle isn't correct.",
-    "secondRowFirst": "The first rectangle on the second row from the bottom isn't correct.",
-    "secondRowLast": "The last rectangle on the second row from the bottom isn't correct.",
-    "thirdRowMiddle": "The middle rectangle on the third row from the bottom isn't correct.",
-    "fourthRowMiddle": "One of the middle rectangles on the fourth row from the bottom isn't correct.",
-    "topLeft": "The top left rectangle isn't correct.",
-    "topRight": "The top right rectangle isn't correct.",
-    "brickCount": "The wall should be made of exactly 55 bricks.",
+    "bottomLeft": "A bal alsó téglalap nem megfelelő.",
+    "bottomRight": "A jobb alsó téglalap nem megfelelő.",
+    "secondRowFirst": "Az alulról második sor első téglalapja nem megfelelő.",
+    "secondRowLast": "Az alulról második sor utolsó téglalapja nem megfelelő.",
+    "thirdRowMiddle": "Az alulról harmadik sor középső téglalapja nem megfelelő.",
+    "fourthRowMiddle": "Az alulról negyedik sor egyik középső téglalapja nem megfelelő.",
+    "topLeft": "A bal felső téglalap nem megfelelő.",
+    "topRight": "A jobb felső téglalap nem megfelelő.",
+    "brickCount": "A falnak pontosan 55 téglából kell állnia.",
     "codeQuality": {
-      "rectangleCalledOnce": "You are using the <code>rectangle</code> function in multiple places in your code. It should only appear once!"
+      "rectangleCalledOnce": "A <code>rectangle</code> függvényt a kódod több helyén is használod. Csak egyszer szerepelhet!"
     }
   },
   "tasks": {
     "buildWall": {
-      "name": "Build the wall",
-      "description": "Build a complete wall of 55 bricks using nested loops."
+      "name": "Építsd meg a falat",
+      "description": "Építs meg egy teljes falat 55 téglából, egymásba ágyazott ciklusokkal."
     }
   },
   "scenarios": {
     "buildWall": {
-      "name": "Build a wall of 55 bricks",
-      "description": "Create a complete brick wall pattern using nested loops."
+      "name": "Építs meg egy 55 téglából álló falat.",
+      "description": "Hozz létre egy teljes téglafal-mintát egymásba ágyazott ciklusokkal."
     }
   },
   "hints": {
     "onlyOneRectangleCall": {
-      "question": "I can only call `rectangle` once. How do I draw 55 bricks?",
-      "answer": "Put the single `rectangle` call inside a loop. Each iteration changes the x and y so a new brick is drawn in a new place."
+      "question": "Csak egyszer hívhatom meg a `rectangle`-et. Hogyan rajzolhatok 55 téglát?",
+      "answer": "Tedd az egyetlen `rectangle` meghívást egy ciklus belsejébe. Minden iteráció megváltoztatja az x és y értékét, így egy új tégla egy új helyre rajzolódik."
     },
     "wholeGrid": {
-      "question": "How do I draw a whole grid rather than just one row?",
-      "answer": "Use nested loops. The outer loop steps through the rows (changing y), and the inner loop steps through the bricks in that row (changing x)."
+      "question": "Hogyan rajzolhatok egy teljes rácsot, nem csak egy sort?",
+      "answer": "Használj egymásba ágyazott ciklusokat. A külső ciklus a sorokon lépked (y változik), a belső ciklus pedig az adott sor tégláin (x változik)."
     },
     "offsetRows": {
-      "question": "How do I deal with the rows being offset differently?",
-      "answer": "Look closely at the picture. Every other row is shifted sideways and has a different number of bricks. So you'll want to handle the two kinds of row differently, choosing a starting position and a brick count for each."
+      "question": "Hogyan kezelhetem, hogy a sorok eltérően vannak eltolva?",
+      "answer": "Nézd meg alaposan a képet! Minden második sor oldalra van tolva, és eltérő számú tégla van benne. Így a kétféle sort eltérően kell kezelned: válassz ki egy kezdőpozíciót és egy téglaszámot mindegyikhez."
     },
     "oddEven": {
-      "question": "How do I tell if a row number is odd or even?",
-      "answer": "The `%` (modulo) operator gives you the remainder after dividing. Dividing a row number by 2 gives you a way to tell odd rows apart from even ones, which you can then test inside an `if`."
+      "question": "Hogyan dönthetem el, hogy egy sor sorszáma páros vagy páratlan?",
+      "answer": "A `%` (modulo) operátor a maradékot adja osztás után. Egy sor sorszámát 2-vel elosztva megkülönböztetheted a páratlan sorokat a párosaktól, amit egy `if`-ben ellenőrizhetsz."
     },
     "sizesAndSpacings": {
-      "question": "What sizes and spacings do I use?",
-      "answer": "Every brick is `20` wide and `10` tall, so x goes up by `20` between bricks in a row, and y changes by `10` between rows."
+      "question": "Milyen méreteket és távolságokat használjak?",
+      "answer": "Minden tégla `20` széles és `10` magas, így x `20`-szal nő a sorban a téglák között, y pedig `10`-zel változik a sorok között."
     }
   },
   "functions": {
     "rectangle": {
-      "description": "Draw a rectangle at position (left, top) with the given width, height, and color",
-      "category": "Drawing Shapes"
+      "description": "Rajzolj egy téglalapot a (bal, felső) pozícióban, a megadott szélességgel, magassággal és színnel.",
+      "category": "Alakzatok rajzolása"
     }
   }
 }

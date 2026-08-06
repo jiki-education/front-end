@@ -1,21 +1,22 @@
 ---
-title: "Tile Search"
-description: "Search through a rack of tiles to find a specific letter."
+title: "Csempekeresés"
+description: "Keresgélj végig egy csempekészleten, hogy megtalálj egy adott betűt."
+en_md5: bbbc77ef2c270fd4228d6a20e690a095
 ---
 
-You're building a Scrabble bot. Before the bot tries to play a word, it needs to check whether it has a specific letter tile in its rack.
+Egy Scrabble-botot építesz. Mielőtt a bot megpróbál kirakni egy szót, ellenőriznie kell, hogy van-e egy adott betűcsempe a készletében.
 
-The rack is represented as a string of letters (e.g. `"SCRAB"`).
+A készlet egy betűkből álló stringként van ábrázolva (pl. `"SCRAB"`).
 
-Write a function called <define>`contains`</define> that takes two inputs:
+Írj egy `contains` (tartalmaz) nevű függvényt, amely két bemenetet kap:
 
-- <define>`haystack`</define>: the rack of tiles, as a string
-- <define>`needle`</define>: the letter to search for
+- `haystack` (szénakazal): a csempekészlet, stringként
+- `needle` (tű): a keresendő betű
 
-Return `true` if the letter is in the rack, or `false` if it isn't.
+Add vissza `true`-t, ha a betű benne van a készletben, különben `false`-t.
 
-Examples:
+Példák:
 
-- `contains("SCRAB", "A")` returns `true`
-- `contains("SCRAB", "Z")` returns `false`
-- `contains("", "A")` returns `false`
+- `contains("SCRAB", "A")` `true`-t ad vissza
+- `contains("SCRAB", "Z")` `false`-t ad vissza
+- `contains("", "A")` `false`-t ad vissza
