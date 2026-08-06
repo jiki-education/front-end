@@ -50,7 +50,6 @@ export async function fetchLevelsWithProgress(): Promise<LevelWithProgress[]> {
         slug: lesson.slug,
         type: lesson.type,
         status: userLesson?.status || "locked",
-        walkthrough_video_data: lesson.walkthrough_video_data,
         walkthrough_video_watched_percentage: userLesson?.walkthrough_video_watched_percentage ?? 0
       };
     });

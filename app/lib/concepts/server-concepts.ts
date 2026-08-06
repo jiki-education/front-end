@@ -14,9 +14,7 @@ import { conceptStructurePath, conceptCopyPath, conceptIndexPointerPath, concept
 import { assembleConcepts, type ConceptCopyCatalog, type ConceptStructure } from "./assemble";
 import { createHashResolver } from "@/lib/i18n/catalogPointer";
 import { fetchStaticContent } from "@/lib/content/fetchStaticContent";
-import { getApiUrl } from "@/lib/api/config";
 import type { ConceptMeta, ConceptAncestor, ExerciseInfo } from "@/types/concepts";
-import type { VideoSource } from "@/types/lesson";
 
 /**
  * Server-side concept loading.
@@ -112,21 +110,3 @@ export async function getExercisesForConceptServer(slug: string, locale: string)
   const metas = await getExerciseMetaBySlugsServer(concept.exerciseSlugs, locale);
   return metas.map((m) => ({ slug: m.slug, title: m.title }));
 }
-
-/**
- * Video data for a concept from the Rails external API. Null when unavailable.
- * Wrapped in React's cache() so a single render (page body + JSON-LD) shares one
- * request, and fails open to null rather than breaking the SSR'd concept page.
- */
-export const getConceptVideoDataServer = cache(async (slug: string): Promise<VideoSource[] | null> => {
-  try {
-    const res = await fetch(getApiUrl(`/external/concepts/${slug}`));
-    if (!res.ok) {
-      return null;
-    }
-    const data = (await res.json()) as { concept: { video_data: VideoSource[] | null } };
-    return data.concept.video_data;
-  } catch {
-    return null;
-  }
-});

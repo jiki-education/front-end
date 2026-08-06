@@ -112,6 +112,7 @@ export default function Lesson({ slug }: LessonProps) {
         <LessonContent
           lesson={lesson}
           lessonTitle={copy?.title ?? ""}
+          video={copy?.video}
           userCourse={userCourse}
           isCompleted={isCompleted}
           serverSubmission={serverSubmission}

@@ -1,5 +1,6 @@
 {
   "parent": "functions-group",
   "order": 2,
-  "category": false
+  "category": false,
+  "video": "function-inputs"
 }

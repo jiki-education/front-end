@@ -1,5 +1,6 @@
 {
   "parent": "loops-group",
   "order": 5,
-  "category": false
+  "category": false,
+  "video": "for-while-loops"
 }

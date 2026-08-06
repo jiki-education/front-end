@@ -30,6 +30,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { computeHash, writeFile } from "./lib/cache-utils.js";
 import { parseFrontmatter, renderMarkdown } from "@jiki.io/content-renderer";
+import { resolveVideo } from "./lib/videos.js";
 
 // Markdown to HTML (marked config, the jikiscript/javascript highlight.js
 // grammars, and the <define>/<literal> strip) lives in @jiki.io/content-renderer
@@ -258,6 +259,9 @@ function buildStaticFiles(concepts) {
       copyByLocale[locale][slug] = {
         title: localeData.title,
         description: localeData.description,
+        // A locale can have its own recording of a concept's video, so the
+        // resolved source is copy (per-locale) rather than structure.
+        video: resolveVideo(concept.config.video, locale),
         contentHash
       };
     }

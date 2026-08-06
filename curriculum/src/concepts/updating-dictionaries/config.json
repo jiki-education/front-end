@@ -1,5 +1,6 @@
 {
   "parent": "dictionaries-group",
   "order": 1,
-  "category": false
+  "category": false,
+  "video": "updating-dictionaries"
 }

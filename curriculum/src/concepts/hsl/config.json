@@ -1,5 +1,6 @@
 {
   "parent": "colors-group",
   "order": 1,
-  "category": false
+  "category": false,
+  "video": "colors"
 }
