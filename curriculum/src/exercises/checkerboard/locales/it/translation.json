@@ -12,12 +12,12 @@
     "rimRatio": "Il bordo in rilievo di un pezzo dovrebbe essere largo l'80% del quadrato: controlla il raggio del cerchio esterno.",
     "innerRatio": "Il centro del pezzo dovrebbe essere largo il 75% dell'intero pezzo: controlla il raggio del cerchio interno.",
     "noPieceOnLight": "Non dovrebbe esserci un pezzo sul quadrato in alto a sinistra: i pezzi vanno solo sui quadrati scuri.",
-    "middleRowsEmpty": "Le righe centrali dovrebbero essere vuote: solo le righe superiore e inferiore hanno i pezzi."
+    "middleRowsEmpty": "Le righe centrali dovrebbero essere vuote: solo le righe superiori ed inferiori hanno i pezzi."
   },
   "tasks": {
     "setUpTheBoard": {
       "name": "Prepara la scacchiera",
-      "description": "Disegna la scacchiera e posiziona i pezzi sui quadrati scuri delle righe superiore e inferiore, facendo in modo che il codice funzioni per qualsiasi dimensione della scacchiera."
+      "description": "Disegna la scacchiera e posiziona i pezzi sui quadrati scuri delle righe superiori ed inferiori, facendo in modo che il codice funzioni per qualsiasi dimensione della scacchiera."
     }
   },
   "scenarios": {
@@ -48,8 +48,8 @@
       "answer": "Guarda la riga e la colonna di un quadrato insieme. L'operatore modulo (`%`) ti permette di dividere ogni quadrato in uno dei due gruppi in base a `row` e `col`, e quei due gruppi sono esattamente i quadrati chiari e scuri."
     },
     "whichSquaresGetPieces": {
-      "question": "Quali quadrati ricevono i pezzi?",
-      "answer": "I pezzi si trovano esclusivamente sui quadrati **scuri**, quindi puoi riutilizzare lo stesso controllo che hai usato per colorarli. Poi restringi ulteriormente solo alle righe superiore e inferiore, lasciando vuote le due centrali."
+      "question": "Su quali quadrati si posizionano i pezzi?",
+      "answer": "I pezzi si trovano esclusivamente sui quadrati **scuri**, quindi puoi riutilizzare lo stesso controllo che hai usato per colorarli. Poi restringi ulteriormente solo alle righe superiori ed inferiori, lasciando vuote le due centrali."
     },
     "ridgedPiece": {
       "question": "Come faccio a disegnare un pezzo con bordo in rilievo?",
