@@ -1,7 +1,7 @@
 ---
 title: "Folosirea funcțiilor"
 description: "Îi spui lui Jiki să pornească una dintre mașinile lui mici scriindu-i numele urmat de două paranteze."
-en_md5: 007a425ced42fd3550bfdf9fe6f7b391
+en_md5: fc671310093a081113a8f301b6ff53fe
 ---
 
 Când scrii cod, ceea ce faci de fapt este să comunici ce vrei să se întâmple, într-un limbaj pe care calculatorul îl înțelege. Există foarte multe limbaje de programare diferite și foarte multe interpretoare care iau ce scrii tu și transformă totul în șirurile de 0 și 1 pe care calculatorul le poate înțelege. În cursul acesta, interpretorul tău este Jiki. Tot cursul îi poartă numele. El este Jiki. Jiki îți va fi prieten în călătoria asta prin programare. Treaba lui este să interpreteze codul pe care îl scrii și să îl transforme în 0 și 1, ca să poată calculatorul chiar să facă ceva cu el.
@@ -14,7 +14,7 @@ Când scrii cod, ceea ce faci de fapt este să comunici ce vrei să se întâmpl
   height="400"
 />
 
-Tot rostul programării este să îi dai interpretorului, adică lui Jiki, instrucțiunile potrivite. Și îi poți da lui Jiki o mulțime de instrucțiuni diferite, o mulțime pe care le înțelege. Poate să lipească lucruri unele de altele, poate să facă ceva de foarte multe ori, poate să spună: „Dacă se întâmplă asta, atunci trebuie să fac asta”. Poate să țină minte lucruri și să le folosească mai târziu. Îți poate da o eroare (engl. _error_) dacă ceva nu e în regulă. Le vom lua pe rând pe toate în cursul acesta. Dar lucrul esențial de înțeles este că tot ce vei face de acum înainte înseamnă să pui instrucțiuni pe o tablă, iar Jiki vine și le urmează.
+Tot rostul programării este să îi dai interpretorului, adică lui Jiki, instrucțiunile potrivite. Și îi poți da lui Jiki o mulțime de instrucțiuni diferite, o mulțime pe care le înțelege. Poate să lipească lucruri unele de altele, poate să facă ceva de foarte multe ori, poate să spună: „Dacă se întâmplă asta, atunci trebuie să fac asta”. Poate să țină minte lucruri și să le folosească mai târziu. Îți poate da o eroare dacă ceva nu e în regulă. Le vom lua pe rând pe toate în cursul acesta. Dar lucrul esențial de înțeles este că tot ce vei face de acum înainte înseamnă să pui instrucțiuni pe o tablă, iar Jiki vine și le urmează.
 
 Când am învățat eu să programez, acum 34 de ani, acesta a fost modelul mental pe care mi l-am construit și este același pe care îl am și azi. Înțeleg cum funcționează calculatoarele până la nivelul de 0 și 1, dar sincer, nu mă gândesc niciodată la asta. În mintea mea, în calculator trăiește un omuleț și eu îi spun ce să facă. Așa că vino și tu cu mine în ideea asta. Este un model mental puternic, pe care ți-l poți construi și tu, și dacă începi să te gândești atât de vizual la ce face omul din calculator, o să îți prindă foarte bine pe măsură ce înveți să programezi.
 
