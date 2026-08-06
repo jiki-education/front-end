@@ -1,6 +1,6 @@
 {
   "checks": {
-    "notShotAllAliens": "Non hai abbattuto tutti gli alieni.",
+    "notShotAllAliens": "Non hai colpito tutti gli alieni.",
     "functionNotDefined": "Devi definire una funzione <code>shootIfAlienAbove</code>.",
     "functionNotCalled": "Hai definito <code>shootIfAlienAbove</code>, ma devi effettivamente chiamarla nella tua soluzione."
   },

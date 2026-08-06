@@ -4,7 +4,7 @@ description: "Estrai la logica di sparo in una funzione riutilizzabile."
 en_md5: 3f2bb9c8622396d8ee591087d949c3de
 ---
 
-Nell'ultimo livello, hai capito come spostare un cannone laser avanti e indietro, abbattendo gli alieni. Abbiamo portato qui la tua soluzione per farti continuare.
+Nell'ultimo livello, hai capito come spostare un cannone laser avanti e indietro, colpendo gli alieni. Abbiamo portato qui la tua soluzione per farti continuare.
 
 Il codice precedente funzionava, ma la logica di sparo era mescolata con tutto il resto. Ciò che ti farà migliorare nella programmazione è dividere il codice in pezzi, ognuno dedicato a qualcosa.
 
