@@ -14,7 +14,7 @@ Cette image devrait rendre les choses plus claires :
 
 <img src="/static/images/exercise-assets/snowman-basic/intro-circle.webp" alt="Bonhomme de neige" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-### Dessiner un bonhomme de neige
+### Dessine un bonhomme de neige
 
 Ta mission est de dessiner trois cercles blancs pour construire un bonhomme de neige. Le bonhomme de neige a :
 
