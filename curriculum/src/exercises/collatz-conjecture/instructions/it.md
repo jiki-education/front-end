@@ -4,7 +4,7 @@ description: "Esplora un famoso rompicapo matematico con la tua funzione."
 en_md5: e4f7ab61c163cdb7c2eb2b6541a2cedc
 ---
 
-Una sera, ti sei imbattuto in un vecchio taccuino pieno di scarabocchi criptici, come se qualcuno avesse inseguito ossessivamente un'idea. Su una pagina, una sola domanda spiccava: **Ogni numero può trovare la via per 1?** Era legato a qualcosa chiamato **Congettura di Collatz**, un rompicapo che ha lasciato perplessi i pensatori per decenni.
+Una sera, ti sei imbattuto in un vecchio taccuino pieno di scarabocchi criptici, come se qualcuno fosse ossessionato da un'idea. Su una pagina, una sola domanda spiccava: **Ogni numero può trovare la via per 1?** Era legato a qualcosa chiamato **Congettura di Collatz**, un rompicapo che ha lasciato perplessi i pensatori per decenni.
 
 Le regole sono ingannevolmente semplici:
 
