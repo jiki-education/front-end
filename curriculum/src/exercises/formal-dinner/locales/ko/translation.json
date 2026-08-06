@@ -1,0 +1,97 @@
+{
+  "tasks": {
+    "findGuestTable": {
+      "name": "손님의 테이블 찾기",
+      "description": "손님들의 전체 이름 목록과 이에 대응하는 테이블 이름 목록, 그리고 존칭과 성으로 알려진 도착한 손님을 받는 함수를 작성하세요. 손님이 앉은 테이블 이름을 반환하고, 좌석 배치도에 없으면 `\"No table found\"`를 반환해요."
+    },
+    "solveTightly": {
+      "name": "간결하게 해결하기",
+      "description": "보너스: 생각보다 훨씬 간결하게 작성할 수 있어요. 전체 솔루션을 몇 줄로 줄일 수 있을까요?"
+    }
+  },
+  "scenarios": {
+    "emptyList": {
+      "name": "빈 좌석 배치도",
+      "description": "배치도가 비어 있으면 아무도 앉지 않아요."
+    },
+    "nameMissing": {
+      "name": "Brad 거절",
+      "description": "이름이 좌석 배치도에 없어요."
+    },
+    "namePresent": {
+      "name": "Brad 자리 안내",
+      "description": "Brad Pitt가 배치도에 있어서 Pitt 씨의 테이블을 알아내요."
+    },
+    "differentHonorific": {
+      "name": "다른 존칭",
+      "description": "다른 존칭을 사용하고, 배치도에서 첫 번째가 아닌 손님이에요."
+    },
+    "bondSeated": {
+      "name": "본드 씨 착석",
+      "description": "James Bond가 배치도에 있어요."
+    },
+    "bondNotSeated": {
+      "name": "흠... 본드 씨, 맞으시죠?",
+      "description": "James Bond가 아니라 Jason Bourne만 배치도에 있어요."
+    },
+    "partialSurname": {
+      "name": "Pitt 씨가 아니에요",
+      "description": "Ada Spitt도 Hugo Ross-Pitt도 Pitt 씨가 아니어서, 자리가 없어요."
+    },
+    "lloydWebber": {
+      "name": "남작님은 어떠세요?",
+      "description": "Lloyd Webber 남작님의 성은 두 단어예요."
+    },
+    "markWebber": {
+      "name": "Mark가 남작인가요?",
+      "description": "다른 Webber는 안 돼요 - 성이 완전히 일치해야 해요."
+    },
+    "formalDinnerBonusLineCount": {
+      "name": "간결하게: Doyle 경",
+      "description": "이전과 같은 좌석 배치도지만, 이번에는 솔루션을 훨씬 적은 줄로 작성해야 해요."
+    }
+  },
+  "hints": {
+    "twoLists": {
+      "question": "두 리스트는 서로 어떤 관계인가요?",
+      "answer": "두 리스트는 짝을 이뤄요. 첫 번째 손님은 첫 번째 테이블에, 두 번째 손님은 두 번째 테이블에 앉아요. 그래서 손님이 배치도에 *있는지* 아는 것만으로는 부족해요 - 배치도에서 *어디에* 있는지 알아야 해요."
+    },
+    "comparingNames": {
+      "question": "손님은 'Pitt 씨'라고 말하는데 배치도에는 'Brad Pitt'라고 적혀 있어요. 어떻게 비교하나요?",
+      "answer": "두 문자열은 절대 같지 않을 거예요, 그래서 단순 비교로는 안 돼요. 손님이 말한 부분 중에서 실제로 배치도에 나타나는 부분이 무엇인지, 그리고 배치도의 항목에서 그 부분을 어디에서 찾을 수 있을지 생각해 보세요."
+    },
+    "lookalikeSurnames": {
+      "question": "성씨가 엉뚱한 손님과 일치할 수 있나요?",
+      "answer": "충분히 그럴 수 있어요. 'Ada Spitt'와 'Hugo Ross-Pitt'를 소리 내어 읽어보고, 그런 다음 Pitt 씨에 대해 생각해 보세요. 단순히 끝에 있는 몇 글자가 아니라, 그 줄에서 무엇이 진짜 성씨인지 자문해 보세요."
+    },
+    "noMatch": {
+      "question": "일치하는 사람이 없을 때는 무엇을 반환해야 하나요?",
+      "answer": "정확히 `\"No table found\"` 문자열이에요. 더 까다로운 부분은 언제 그것을 말할 수 있는지 아는 거예요. 배치도의 첫 번째 손님을 확인했는데 그 사람이 아니라면, 아직 그가 어딘가에 앉아 있지 않다는 것을 확실히 알 수 있을까요?"
+    }
+  },
+  "checks": {
+    "tooManyLines": "계속해 보세요! 더 적은 줄로 해결할 수 있는지 보세요."
+  },
+  "functions": {
+    "length": {
+      "description": "목록의 항목 개수 - 문자열에서 사용했던 것과 같은 length 속성이에요 (레벨 stdlib 제공)",
+      "category": "목록 연산"
+    },
+    "split": {
+      "description": "문자열을 구분자마다 나누어 조각들의 목록으로 만들어요 (레벨 stdlib 제공)",
+      "category": "문자열 연산"
+    },
+    "slice": {
+      "description": "목록의 일부로 새로운 목록을 만들어요, 특정 위치부터 시작해요 (레벨 stdlib 제공)",
+      "category": "목록 연산"
+    },
+    "join": {
+      "description": "목록의 항목들을 하나의 문자열로 이어 붙여요, 구분자를 사이에 넣어요 (레벨 stdlib 제공)",
+      "category": "목록 연산"
+    },
+    "endsWith": {
+      "description": "문자열이 더 작은 문자열로 끝나는지 확인해요 (레벨 stdlib 제공)",
+      "category": "문자열 연산"
+    }
+  }
+}
