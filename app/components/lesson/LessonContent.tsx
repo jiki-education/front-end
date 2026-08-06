@@ -20,6 +20,7 @@ interface LessonContentProps {
   // video is already resolved for the active locale; absent for non-video lessons.
   lessonTitle: string;
   video?: VideoSource;
+  walkthroughVideo?: VideoSource;
   userCourse: UserCourse | null;
   isCompleted: boolean;
   serverSubmission: LastSubmissionData | null;
@@ -30,6 +31,7 @@ export default function LessonContent({
   lesson,
   lessonTitle,
   video,
+  walkthroughVideo,
   userCourse,
   isCompleted,
   serverSubmission,
@@ -43,7 +45,7 @@ export default function LessonContent({
     return (
       <CodingExercise
         language={userCourse?.language || "javascript"}
-        context={{ type: "lesson", slug: lesson.slug }}
+        context={{ type: "lesson", slug: lesson.slug, walkthroughVideo }}
         isCompleted={isCompleted}
         serverSubmission={serverSubmission}
         onReady={onReady}

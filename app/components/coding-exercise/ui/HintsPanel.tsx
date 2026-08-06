@@ -24,18 +24,18 @@ const VideoPlayer = dynamic(() => import("@/components/ui/JikiVideoPlayer"), { s
 
 interface HintsViewProps {
   hints: Hint[] | undefined;
-  walkthroughVideoData?: VideoSource[] | null;
+  walkthroughVideo?: VideoSource;
   lessonSlug?: string;
   className?: string;
 }
 
-export default function HintsPanel({ hints, walkthroughVideoData, lessonSlug, className = "" }: HintsViewProps) {
+export default function HintsPanel({ hints, walkthroughVideo, lessonSlug, className = "" }: HintsViewProps) {
   const t = useTranslations("codingExercise.hintsPanel");
   const [revealedHints, setRevealedHints] = useState<Set<number>>(new Set());
   const [walkthroughUnlocked, setWalkthroughUnlocked] = useState(false);
 
   const hasHints = hints && hints.length > 0;
-  const hasWalkthrough = walkthroughVideoData && walkthroughVideoData.length > 0 && lessonSlug;
+  const hasWalkthrough = walkthroughVideo && lessonSlug;
 
   if (!hasHints && !hasWalkthrough) {
     return (
@@ -98,11 +98,11 @@ export default function HintsPanel({ hints, walkthroughVideoData, lessonSlug, cl
             <h3>{t("deepDiveHeading")}</h3>
             <p>{t("deepDiveDescription")}</p>
             {walkthroughUnlocked ? (
-              <InlineWalkthroughPlayer playbackId={walkthroughVideoData[0].id} lessonSlug={lessonSlug} />
+              <InlineWalkthroughPlayer playbackId={walkthroughVideo.id} lessonSlug={lessonSlug} />
             ) : (
               <div className={style.walkthroughThumbWrapper} onClick={handleWalkthroughClick}>
                 <img
-                  src={`https://image.mux.com/${walkthroughVideoData[0].id}/thumbnail.jpg?width=400&height=225`}
+                  src={`https://image.mux.com/${walkthroughVideo.id}/thumbnail.jpg?width=400&height=225`}
                   alt={t("walkthroughThumbnailAlt")}
                   className={style.walkthroughThumb}
                 />

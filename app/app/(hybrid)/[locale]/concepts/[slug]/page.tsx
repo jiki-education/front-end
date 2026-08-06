@@ -13,7 +13,6 @@ import {
   getExercisesForConceptServer
 } from "@/lib/concepts/server-concepts";
 import type { ConceptDetailSeed } from "@/components/concepts/lib/useConceptDetailData";
-import type { VideoSource } from "@/types/lesson";
 
 interface Props {
   params: Promise<{ slug: string; locale: string }>;
@@ -38,7 +37,6 @@ export default async function AppConceptPage({ params }: Props) {
   // Leaf pages seed the full detail view (body, sidebar, video) so logged-out
   // visitors render entirely on the server.
   let initialLeafData: ConceptDetailSeed | undefined;
-  let conceptVideos: VideoSource[] = [];
   if (concept && !isCategory) {
     const [content, relatedConcepts, relatedExercises] = await Promise.all([
       getConceptContentServer(slug, locale),
@@ -46,28 +44,29 @@ export default async function AppConceptPage({ params }: Props) {
       getExercisesForConceptServer(slug, locale)
     ]);
     initialLeafData = { concept, ancestors, content, relatedConcepts, relatedExercises };
-    conceptVideos = concept.video ? [concept.video] : [];
   }
 
   // Structured data: describe the concept as a LearningResource, emit a VideoObject
-  // per walkthrough video (so Google can index the concept video), and place the
-  // concept in a breadcrumb trail.
+  // for its recap video (so Google can index it), and place the concept in a
+  // breadcrumb trail.
   const jsonLd = concept
     ? [
         conceptLearningResourceSchema(concept, locale),
-        ...conceptVideos.map((v) =>
-          videoObjectSchema({
-            path: `/concepts/${concept.slug}`,
-            locale,
-            name: concept.title,
-            description: concept.description,
-            uploadDate: v.uploadDate,
-            durationSeconds: v.durationSeconds,
-            provider: v.provider,
-            videoKey: v.id,
-            isAccessibleForFree: true
-          })
-        ),
+        ...(concept.video
+          ? [
+              videoObjectSchema({
+                path: `/concepts/${concept.slug}`,
+                locale,
+                name: concept.title,
+                description: concept.description,
+                uploadDate: concept.video.uploadDate,
+                durationSeconds: concept.video.durationSeconds,
+                provider: concept.video.provider,
+                videoKey: concept.video.id,
+                isAccessibleForFree: true
+              })
+            ]
+          : []),
         breadcrumbSchema(
           [
             { name: "Concepts", path: "/concepts" },
