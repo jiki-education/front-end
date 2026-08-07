@@ -1,0 +1,81 @@
+{
+  "describers": {
+    "canMove": "캐릭터가 앞으로 이동할 수 있는지 확인해요",
+    "canTurnLeft": "캐릭터 왼쪽에 길이 있는지 확인해요",
+    "canTurnRight": "캐릭터 오른쪽에 길이 있는지 확인해요"
+  },
+  "checks": {
+    "notReachedEnd": "미로의 끝에 도달하지 못했어요.",
+    "turnAroundNotDefined": "코드 상단에 <code>turnAround</code> 함수를 정의해야 해요.",
+    "turnAroundNotCalled": "<code>turnAround</code>를 정의했지만, 마지막 <code>else</code>문에서 실제로 호출해야 해요.",
+    "maxLines": "프로그램이 17줄을 넘지 않아야 해요."
+  },
+  "tasks": {
+    "turnAround": {
+      "name": "막다른 길에서 뒤돌기",
+      "description": "코드 상단에 `turnLeft()`를 두 번 호출하는 `turnAround()` 함수를 정의하고, 마지막 else 문에서 사용해요. 세 개의 미로 모두에서 해결 방법이 막다른 길을 빠져나와야 해요."
+    },
+    "bonusShortSolution": {
+      "name": "보너스: 짧게 유지하기",
+      "description": "두 개의 막다른 길이 있는 미로를 해결하면서, 전체 프로그램을 17줄 이하로 유지해요."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "막다른 길 하나",
+      "description": "뒤돌기를 강요하는 막다른 골목이 하나 있는 직선 복도"
+    },
+    "maze2": {
+      "name": "막다른 길과 회전",
+      "description": "출구로 향하기 전에 막다른 골목이 있는 구불구불한 길"
+    },
+    "maze3": {
+      "name": "짧게 유지하기",
+      "description": "전체 최종 프로그램이 17줄의 코드가 되도록 해보세요."
+    }
+  },
+  "hints": {
+    "defineFunction": {
+      "question": "새 함수를 어떻게 정의하나요?",
+      "answer": "`function` 키워드 뒤에 이름, 입력을 위한 괄호, 그리고 중괄호로 된 몸체를 사용해요. 예를 들어 `function turnAround() { ... }`."
+    },
+    "placement": {
+      "question": "함수 정의를 어디에 두어야 하나요?",
+      "answer": "코드 상단, 루프 앞에 두세요. 함수는 호출하기 전에 정의되어야 해요."
+    },
+    "turnAroundBody": {
+      "question": "`turnAround()` 안에는 무엇이 들어가야 하나요?",
+      "answer": "`turnLeft()`를 두 번 호출하면 돼요. 왼쪽으로 두 번 돌면 반대 방향을 바라보게 돼요."
+    },
+    "useInSolver": {
+      "question": "미로 해결 방법에서 새 함수를 어떻게 사용하나요?",
+      "answer": "이전 해결 방법에서 `turnLeft()`를 두 번 호출했던 `else` 블록을 찾아, 그 두 호출을 하나의 `turnAround()` 호출로 바꾸세요."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "캐릭터를 현재 방향으로 **한 걸음 앞으로** 이동시켜요. 벽에 부딪히면 프로그램이 오류로 종료되니, 이동하기 전에 앞을 확인하세요!",
+      "category": "이동"
+    },
+    "turnLeft": {
+      "description": "캐릭터를 **왼쪽으로 90도**(시계 반대 방향) 회전시켜요. 캐릭터가 바라보는 방향이 바뀌어요.",
+      "category": "이동"
+    },
+    "turnRight": {
+      "description": "캐릭터를 **오른쪽으로 90도**(시계 방향) 회전시켜요. 캐릭터가 바라보는 방향이 바뀌어요.",
+      "category": "이동"
+    },
+    "canMove": {
+      "description": "캐릭터 앞 공간이 벽이 아니면 **true**를, 그렇지 않으면 **false**를 반환해요.",
+      "category": "감지"
+    },
+    "canTurnLeft": {
+      "description": "캐릭터 왼쪽 공간이 벽이 아니면 **true**를, 그렇지 않으면 **false**를 반환해요.",
+      "category": "감지"
+    },
+    "canTurnRight": {
+      "description": "캐릭터 오른쪽 공간이 벽이 아니면 **true**를, 그렇지 않으면 **false**를 반환해요.",
+      "category": "감지"
+    }
+  }
+}
