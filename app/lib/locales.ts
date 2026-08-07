@@ -14,7 +14,10 @@ export const DEFAULT_LOCALE: Locale = "en";
 //
 // Note: any built/deployed environment (including staging/preview) reports
 // `NODE_ENV === "production"`, so those are en-only too; only `next dev` gets hu.
-export const SUPPORTED_LOCALES: readonly Locale[] = process.env.NODE_ENV === "production" ? ["en"] : ALL_LOCALES;
+// TEMPORARY, REVERT BEFORE MERGING: hu is served everywhere, including staging,
+// so the catalogs published by the i18n repo can be exercised in a built
+// environment. Production must go back to English only before this merges.
+export const SUPPORTED_LOCALES: readonly Locale[] = ALL_LOCALES;
 
 // Locales that read right-to-left. Empty today: both en and hu are LTR. When an
 // RTL locale (e.g. Arabic "ar", Hebrew "he") is added to ALL_LOCALES, add it
