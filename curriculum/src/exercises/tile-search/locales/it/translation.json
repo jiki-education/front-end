@@ -5,7 +5,7 @@
   "tasks": {
     "searchForTile": {
       "name": "Cerca una tessera",
-      "description": "Scrivi una funzione che verifica se una specifica lettera tessera è nel leggìo. Restituisci true se trovata, false altrimenti."
+      "description": "Scrivi una funzione che verifica se una specifica tessera è nel leggìo. Restituisci true se trovata, false altrimenti."
     },
     "solveInEightLines": {
       "name": "Risolvi in 8 righe di codice",
@@ -53,11 +53,11 @@
   "hints": {
     "byHand": {
       "question": "Come lo farei a mano?",
-      "answer": "Scorreresti haystack una lettera alla volta, confrontando ciascuna con needle. Non appena trovi una corrispondenza ti fermi. Se arrivi alla fine senza corrispondenza, needle non c'è."
+      "answer": "Scorreresti l'haystack una lettera alla volta, confrontando ciascuna con needle. Non appena trovi una corrispondenza ti fermi. Se arrivi alla fine senza corrispondenza, needle non c'è."
     },
     "loopAndCompare": {
       "question": "Come faccio a iterare e confrontare?",
-      "answer": "Un ciclo for-of ti dà ogni lettera della stringa a turno. All'interno, un'istruzione if confronta la lettera corrente con needle."
+      "answer": "Un ciclo for-of ti permette di iterare ogni lettera della stringa. All'interno, un'istruzione if confronta la lettera corrente con needle."
     },
     "returnTrue": {
       "question": "Quando dovrei restituire true?",
