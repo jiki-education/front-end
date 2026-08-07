@@ -18,18 +18,18 @@ Quando hai un'idea del tuo approccio, prosegui con la lettura. Ma non continuare
 
 ## La formula
 
-Questo progetto consiste nell'avere alcune variabili che gestiscono la posizione della palla, che aumentano o diminuiscono progressivamente, e altre variabili che controllano **come** la palla si sta muovendo e che cambiano quando certe condizioni sono soddisfatte.
+Questo progetto consiste nell'avere alcune variabili che gestiscono la posizione della palla, che aumentano o diminuiscono progressivamente, ed altre variabili che controllano **come** la palla si sta muovendo e che cambiano quando certe condizioni sono soddisfatte.
 
 ### Disegno
 
 - Il primo cerchio che disegni deve essere posizionato a `(5, 5)`.
 - Tutti i cerchi devono avere un raggio di `10`.
-- Il colore del cerchio deve usare il modello HSL, partendo da una tonalità di `100` (verde), una saturazione di `80` (colori vivaci) e una luminosità di `50` (luminosità media).
+- Il colore del cerchio deve usare il modello HSL, partendo da una tonalità di `100` (verde), una saturazione di `80` (colori vivaci) ed una luminosità di `50` (luminosità media).
 
 ### Animazione
 
-- Per cominciare, a ogni iterazione devi spostare la palla di `2` verso destra e `1` verso il basso.
-- La tonalità deve aumentare di `1` a ogni iterazione, fino a raggiungere il valore massimo (`360`), per poi iniziare a diminuire. Saturazione e luminosità non devono cambiare.
+- Per cominciare, ad ogni iterazione devi spostare la palla di `2` verso destra e `1` verso il basso.
+- La tonalità deve aumentare di `1` ad ogni iterazione, fino a raggiungere il valore massimo (`360`), per poi iniziare a diminuire. Saturazione e luminosità non devono cambiare.
 
 ### Rimbalzo
 

@@ -21,11 +21,11 @@
   "hints": {
     "stateToTrack": {
       "question": "Di quale stato devo tenere traccia?",
-      "answer": "La posizione della palla e come si sta muovendo. Tienile separate: una variabile per *dove* si trova la palla, un'altra per *come sta cambiando*. La stessa idea vale per la tonalità: ti servono il suo valore attuale e una direzione in cui sta andando."
+      "answer": "La posizione della palla e come si sta muovendo. Tienile separate: una variabile per *dove* si trova la palla, un'altra per *come sta cambiando*. La stessa idea vale per la tonalità: ti servono il suo valore attuale ed una direzione in cui sta andando."
     },
     "moveAndShift": {
-      "question": "Come faccio a far muovere la palla e a cambiare il colore a ogni iterazione?",
-      "answer": "All'inizio di ogni iterazione del ciclo, aggiungi le variabili di direzione alla posizione e a `hue`. In questo modo le variabili di direzione controllano completamente il movimento. Cambiare il loro segno o la loro grandezza cambia istantaneamente come si muove la palla e come cambia il colore."
+      "question": "Come faccio a far muovere la palla ed a cambiare il colore ad ogni iterazione?",
+      "answer": "All'inizio di ogni iterazione del ciclo, aggiungi le variabili di direzione alla posizione ed a `hue`. In questo modo le variabili di direzione controllano completamente il movimento. Cambiare il loro segno o la loro grandezza cambia istantaneamente come si muove la palla e come cambia il colore."
     },
     "velocityTip": {
       "question": "Non riesco a capire come fare. Qualche consiglio?",
@@ -37,7 +37,7 @@
     },
     "randomBounceSpeed": {
       "question": "Come faccio a dare al rimbalzo una nuova velocità casuale ogni volta?",
-      "answer": "Quando la palla tocca un bordo, imposta la variabile di direzione usando `Math.randomInt(min, max)` invece di cambiarne semplicemente il segno. Scegli un intervallo positivo quando rimbalza sul lato sinistro o in alto, e un intervallo negativo quando rimbalza sul lato destro o in basso."
+      "answer": "Quando la palla tocca un bordo, imposta la variabile di direzione usando `Math.randomInt(min, max)` invece di cambiarne semplicemente il segno. Scegli un intervallo positivo quando rimbalza sul lato sinistro o in alto, ed un intervallo negativo quando rimbalza sul lato destro o in basso."
     },
     "cycleHue": {
       "question": "Come faccio a far variare la tonalità attraverso l'arcobaleno?",
@@ -46,7 +46,7 @@
   },
   "functions": {
     "circle": {
-      "description": "Disegna un cerchio con il centro in (centerX, centerY) con il raggio e il colore specificati.",
+      "description": "Disegna un cerchio con il centro in (centerX, centerY) con il raggio ed il colore specificati.",
       "category": "Disegno di forme geometriche"
     },
     "hsl": {
