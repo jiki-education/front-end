@@ -515,12 +515,13 @@
   "landing": {
     "hero": {
       "tagline": "Sajátítsd el azokat a készségeket, amelyekkel nagyszerű dolgokat alkothatsz, hatékonyan dolgozhatsz, és <strong>{year}-ban is versenyben maradhatsz.</strong>",
-      "ctaSubtext": "...vagy olvass tovább, és tudj meg többet!",
       "loadingVideo": "A videó betöltése",
       "playVideo": "Videó lejátszása",
-      "watchPrompt": "(Nem szeretsz olvasni? <strong>Nyomd meg a lejátszás gombot</strong>, és elmondok mindent, amit tudnod kell!)",
-      "headline": "Tanulj meg <highlight>programozni és alkotni</highlight> az LLM-korszakban!",
-      "audience": "Azoknak terveztük, akik <highlight>most lépnek be a tech-iparba</highlight>, a gyorsabban fejlődni vágyó <highlight>junior fejlesztőknek</highlight>, és azoknak a <highlight>vibe-codereknek</highlight>, akik rendesen akarják csinálni a dolgokat!"
+      "watchPrompt": "Reading not your thing? <strong>Hit play</strong> and I'll tell you everything you need to know!",
+      "headline": "The modern way to learn to <highlight>code & build</highlight>",
+      "audienceBeginners": "<name>Beginners</name> who have never written a line of code",
+      "audienceJuniors": "<name>Junior devs</name> who want the foundations they skipped",
+      "audienceEntrepreneurs": "<name>Entrepreneurs</name> who want to build before they hire"
     },
     "exercism": {
       "heading": "Mitől különleges az Exercism?",

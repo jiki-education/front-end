@@ -11,7 +11,7 @@ import "@/lib/whyDidYouRender";
 import type { Metadata } from "next";
 import { ClientLocaleProvider } from "@/components/i18n/ClientLocaleProvider";
 import { getLocale, getMessages } from "next-intl/server";
-import { Poppins, Source_Code_Pro, Baloo_2 } from "next/font/google";
+import { Poppins, Source_Code_Pro, Baloo_2, Caveat } from "next/font/google";
 import Script from "next/script";
 import { ServerAuthProvider } from "../components/layout/auth/global/ServerAuthProvider";
 import "./globals.css";
@@ -32,6 +32,13 @@ const baloo2 = Baloo_2({
   variable: "--font-baloo-2",
   subsets: ["latin"],
   weight: ["800"]
+});
+
+// The landing page's handwritten asides (the hero's watch prompt, section eyebrows).
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  weight: ["700"]
 });
 
 export const metadata: Metadata = {
@@ -67,7 +74,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} dir={getLocaleDirection(locale)}>
-      <body className={`${poppins.variable} ${sourceCodePro.variable} ${baloo2.variable} ui-body`}>
+      <body className={`${poppins.variable} ${sourceCodePro.variable} ${baloo2.variable} ${caveat.variable} ui-body`}>
         <ClientLocaleProvider initialLocale={locale} initialMessages={messages}>
           <GlobalErrorHandler />
           <AttributionCapture />

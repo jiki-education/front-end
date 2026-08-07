@@ -515,12 +515,13 @@
   "landing": {
     "hero": {
       "tagline": "Learn the skills you need to create awesome things, be productive, and <strong>stay relevant in {year}.</strong>",
-      "ctaSubtext": "...or read on to learn more!",
       "loadingVideo": "Loading video",
       "playVideo": "Play video",
-      "watchPrompt": "(Reading not your thing? <strong>Click play</strong> and I'll tell you everything you need to know!)",
-      "headline": "Learn to <highlight>code and build</highlight> in the LLM era!",
-      "audience": "Designed for <highlight>people getting into tech</highlight>, <highlight>junior developers</highlight> who want to accelerate, and <highlight>vibe-coders</highlight> wanting to do things properly!"
+      "watchPrompt": "Reading not your thing? <strong>Hit play</strong> and I'll tell you everything you need to know!",
+      "headline": "The modern way to learn to <highlight>code & build</highlight>",
+      "audienceBeginners": "<name>Beginners</name> who have never written a line of code",
+      "audienceJuniors": "<name>Junior devs</name> who want the foundations they skipped",
+      "audienceEntrepreneurs": "<name>Entrepreneurs</name> who want to build before they hire"
     },
     "exercism": {
       "heading": "What makes Exercism special?",

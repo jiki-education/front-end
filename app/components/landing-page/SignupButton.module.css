@@ -1,12 +1,31 @@
 .btn {
-    padding: 18px 64px;
-    background: #7c3aed;
+    padding-block: 14px;
+    padding-inline: 30px;
+    /* Sits back into the hero at rest and comes fully forward on hover - the fill goes
+       from 78% to solid rather than changing colour, so the hover reads as the button
+       stepping out of the background rather than as a different shade of purple. */
+    background: color-mix(in srgb, var(--color-purple-600) 78%, transparent);
     color: #fff;
     font-weight: 600;
-    border-radius: 12px;
-    font-size: 20px;
+    font-size: 18px;
     border: 1px solid #c1b1dc;
+    border-radius: 12px;
     animation: btn-pulse 4.8s ease-in-out infinite;
+    transition:
+        background-color 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.btn:hover {
+    /* The pulse keeps rewriting box-shadow, so it has to stop for the hover shadow to
+       show at all. A shadow cast behind rather than a halo around it: on the dark hero a
+       purple glow lit the button up, where a drop shadow lifts it off the grid instead. */
+    animation: none;
+    background: var(--color-purple-600);
+    box-shadow:
+        0 14px 30px -8px rgba(2, 6, 23, 0.75),
+        0 5px 12px -4px rgba(2, 6, 23, 0.6);
 }
 
 .free {
@@ -15,14 +34,19 @@
     }
 }
 
+/* The resting drop shadow is carried inside the keyframes rather than set on .btn:
+   an animation on box-shadow overwrites the property outright, so a separately
+   declared shadow would never render. */
 @keyframes btn-pulse {
     0%,
     100% {
-        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        box-shadow:
+            0 8px 24px color-mix(in srgb, var(--color-purple-500) 40%, transparent),
+            0 0 5px rgba(255, 255, 255, 0.35);
     }
     50% {
         box-shadow:
-            0 0 5px rgba(255, 255, 255, 0.5),
-            0 0 5px rgba(255, 255, 255, 0.5);
+            0 8px 24px color-mix(in srgb, var(--color-purple-500) 40%, transparent),
+            0 0 12px rgba(255, 255, 255, 0.55);
     }
 }
