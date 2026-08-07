@@ -1,6 +1,6 @@
 {
   "checks": {
-    "moreThanSixLines": "आपने छह से ज़्यादा कोड लाइनों का इस्तेमाल किया।"
+    "moreThanSixLines": "आपने छह से ज़्यादा कोड की लाइनें उपयोग की हैं।"
   },
   "tasks": {
     "createTwoFerFunction": {
@@ -8,26 +8,26 @@
       "description": "एक twoFer फंक्शन लिखिए जो एक नाम लेता है और 'One for [name], one for me.' लौटाता है। अगर कोई नाम नहीं दिया गया (खाली स्ट्रिंग), तो नाम की जगह 'you' का इस्तेमाल कीजिए।"
     },
     "solveInSixLines": {
-      "name": "छह कोड लाइनों में हल कीजिए",
-      "description": "क्या आप इसे सिर्फ छह कोड लाइनों में हल कर सकते हैं?"
+      "name": "छह कोड की लाइनों में हल कीजिए",
+      "description": "क्या आप इसे सिर्फ छह कोड की लाइनों में हल कर सकते हैं?"
     }
   },
   "scenarios": {
     "twoFerDefault": {
       "name": "कोई नाम नहीं दिया गया",
-      "description": "कोई नाम नहीं दिया जाता है, इसलिए 'One for you, one for me.' लौटाता है।"
+      "description": "कोई नाम नहीं दिया है इसलिए 'One for you, one for me.' लौटाइए।"
     },
     "twoFerAlice": {
       "name": "Alice नाम दिया गया",
-      "description": "उसका नाम 'Alice' है, इसलिए 'One for Alice, one for me.' लौटाता है।"
+      "description": "उसका नाम 'Alice' है इसलिए 'One for Alice, one for me.' लौटाइए।"
     },
     "twoFerTom": {
       "name": "Tom नाम दिया गया",
-      "description": "उसका नाम 'Tom' है, इसलिए 'One for Tom, one for me.' लौटाता है।"
+      "description": "उसका नाम 'Tom' है इसलिए 'One for Tom, one for me.' लौटाइए।"
     },
     "bonus1": {
-      "name": "छह कोड लाइनें",
-      "description": "अभ्यास को सिर्फ छह कोड लाइनों में हल करना है।"
+      "name": "छह कोड की लाइनें",
+      "description": "अभ्यास को सिर्फ छह कोड की लाइनों में हल करना है।"
     }
   },
   "hints": {
