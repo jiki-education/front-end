@@ -14,7 +14,6 @@ import { useEffect, useState } from "react";
 import { FrameInfo } from "../ui-utils/FrameInfo";
 import { LineFoldingControls } from "../ui-utils/LineFoldingControls";
 import styles from "../harness.module.css";
-import { useTranslations } from "next-intl";
 
 // Create test frames similar to mockFrames
 function mockFrames(): Frame[] {
@@ -28,7 +27,6 @@ function mockFrames(): Frame[] {
 }
 
 export default function FrameStepperButtonsTestPage() {
-  const t = useTranslations("codingExercise");
   const [orchestrator, setOrchestrator] = useState<Orchestrator | null>(null);
 
   useEffect(() => {
@@ -46,7 +44,6 @@ export default function FrameStepperButtonsTestPage() {
       context: { type: "lesson", slug: "maze-solve-basic" },
       interpreterLocaleMessages: {},
       exerciseLocaleMessages: {},
-      t: t,
       proseHash: "",
       codeHash: "",
       onGoToDashboard: () => {},
@@ -113,7 +110,7 @@ export default function FrameStepperButtonsTestPage() {
     return () => {
       delete (window as any).testOrchestrator;
     };
-  }, [t]);
+  }, []);
 
   if (!orchestrator) {
     return <div>Loading...</div>;

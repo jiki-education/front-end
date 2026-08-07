@@ -50,9 +50,12 @@ Walk the whole file against these, in the Japanese reader's voice:
    must be `<literal>` (kept verbatim) or a code span. **This is the easiest thing to miss,**
    because English prose hides it.
 2. **A string whose exact spelling or length drives the lesson.** See "Load-bearing strings".
-3. **Variables, and meaning-carrying literals, in the page's code:** first appearance of each
-   earns a `<define>`. A **proper name** (`"Jeremy"`, `"Jiki"`) is also defined, but its
-   `info` steers name *rendering* rather than meaning. See "Which literals to define".
+3. **Variables, and meaning-carrying literals, in the page's code:** first appearance
+   *across the curriculum's teaching order* earns a `<define>`. If the term was already
+   `<define>`d on an earlier-taught page, it does not need re-glossing here; check the
+   earlier pages before adding a new one. A **proper name** (`"Jeremy"`, `"Jiki"`) is also
+   defined, but its `info` steers name *rendering* rather than meaning. See "Which literals
+   to define".
 4. **A new technical term or construct:** one `<define>`, where the prose introduces it.
 5. **Ordinary English words** ("letter", "position", "syntax"): no `<define>`. If it never
    appears as code and translates cleanly, leave it plain.
@@ -63,13 +66,14 @@ Mark:
 
 - **Technical terms and concept names being introduced.** `template literals`, `backticks`,
   the `for of` loop. These may be prose (not code) as long as they are genuinely technical.
-- **Variables, at the first appearance of each in a page's code.** `name`, `letter`. They
-  appear verbatim in Latin script the reader cannot read, so the first use of each earns a
-  gloss of its meaning.
-- **Meaning-carrying literals, at first appearance.** `"green"`, `"blue"`, `"hello"`,
-  `"world"`. See "Which literals to define".
-- **Proper names, at first appearance.** `"Jeremy"`, `"Jiki"`. Defined too, but the `info`
-  steers *rendering*, not meaning. See "Which literals to define".
+- **Variables, at the first appearance of each across the curriculum.** `name`, `letter`.
+  They appear verbatim in Latin script the reader cannot read, so the first use overall
+  earns a gloss of its meaning. A page does not re-gloss a variable already `<define>`d on
+  an earlier-taught page.
+- **Meaning-carrying literals, at first appearance across the curriculum.** `"green"`,
+  `"blue"`, `"hello"`, `"world"`. See "Which literals to define".
+- **Proper names, at first appearance across the curriculum.** `"Jeremy"`, `"Jiki"`. Defined
+  too, but the `info` steers *rendering*, not meaning. See "Which literals to define".
 
 Do not mark:
 
@@ -168,20 +172,26 @@ example.
   introduces it, not in the sample code.
 - **Exactly one `<define>` per term.** There is no first-use auto-detection; the author picks
   the single spot (see `voice.md`).
+- **Scope is first use across the whole curriculum, not per page.** A term already
+  `<define>`d on an earlier-taught page does not get a fresh `<define>` on a later page,
+  even though a reader could land on the later page first. Before adding a `<define>`,
+  check whether the term is already glossed on a page earlier in the teaching order
+  (e.g. `"string"` is formally introduced and glossed in
+  `curriculum/src/concepts/strings/source.md`, so `curriculum/src/concepts/variables/source.md`
+  does not redefine it). "Nothing new here" in the prose can refer to the *concept* being
+  familiar without a fresh `<define>`, because the token was already defined earlier.
 
 ## Open questions (as of 2026-07-29)
 
 These surfaced while building the rules and are not yet settled. Do not treat the working
 assumptions as law without confirming with iHiD.
 
-1. **Scope: per-page vs whole-curriculum.** Working assumption is **per page**: each concept
-   page re-glosses the tokens in its own code so a reader landing on that page can read it.
-   "Nothing new here" in the prose refers to the *concept* being familiar, not to suppressing
-   the token's define.
-
 *(Resolved 2026-07-29: which literals to define. Meaning-carrying literals are defined with a
 meaning gloss; proper names are defined too, with `info` that steers per-language name
 rendering (e.g. Japanese -san). See "Which literals to define".)*
+
+*(Resolved 2026-08-05: scope is whole-curriculum, not per-page. A term already `<define>`d on
+an earlier-taught page is not re-glossed on a later page. See "Placement".)*
 
 ## Canonical sources
 

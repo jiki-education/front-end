@@ -8,10 +8,11 @@ import type {
 } from "@jiki/curriculum";
 import { createTranslator } from "@jiki/curriculum";
 import { resolveCodeCheckError } from "./resolveCodeCheckError";
+import { editorMessage } from "../i18n/editorMessages";
 import type { InterpretResult } from "@jiki/interpreters/shared";
 import type { Messages as InterpreterMessages } from "@jiki/interpreters";
 import { AnimationTimeline as AnimationTimelineClass } from "../AnimationTimeline";
-import type { CodingExerciseTranslator, VisualTestResult } from "../test-results-types";
+import type { VisualTestResult } from "../test-results-types";
 import type { Interpreter } from "./getInterpreter";
 
 export function runVisualScenario(
@@ -22,8 +23,7 @@ export function runVisualScenario(
   interpreter: Interpreter,
   languageFeatures: Record<string, any> | undefined,
   interpreterLocaleMessages: InterpreterMessages,
-  exerciseLocaleMessages: CurriculumMessages,
-  t: CodingExerciseTranslator
+  exerciseLocaleMessages: CurriculumMessages
 ): VisualTestResult {
   // Resolve seed once so the primary run and every isolated run share the same RNG stream.
   const resolvedSeed = scenario.randomSeed === true ? Math.floor(Math.random() * 2 ** 32) : scenario.randomSeed;
@@ -49,7 +49,7 @@ export function runVisualScenario(
   // timeline, mirroring how runIsolatedCheck already behaves on a frame error.
   let expects: VisualTestExpect[];
   if (hasFrameError) {
-    expects = [{ pass: false, errorHtml: t("testResults.runtimeError") }];
+    expects = [{ pass: false, errorHtml: editorMessage("testResults.runtimeError") }];
   } else {
     const isolatedExpects: VisualTestExpect[] = (scenario.isolatedChecks ?? []).flatMap((check) =>
       runIsolatedCheck(
@@ -62,8 +62,7 @@ export function runVisualScenario(
         languageFeatures,
         resolvedSeed,
         interpreterLocaleMessages,
-        exerciseLocaleMessages,
-        t
+        exerciseLocaleMessages
       )
     );
     expects = [...primary.expects, ...isolatedExpects];
@@ -177,7 +176,9 @@ function runPrimaryCheck(
       } catch (error) {
         expects.push({
           pass: false,
-          errorHtml: `Code check error: ${error instanceof Error ? error.message : String(error)}`
+          errorHtml: editorMessage("testResults.codeCheckError", {
+            message: error instanceof Error ? error.message : String(error)
+          })
         });
       }
     }
@@ -208,8 +209,7 @@ function runIsolatedCheck(
   languageFeatures: Record<string, any> | undefined,
   randomSeed: number | undefined,
   interpreterLocaleMessages: InterpreterMessages,
-  exerciseLocaleMessages: CurriculumMessages,
-  t: CodingExerciseTranslator
+  exerciseLocaleMessages: CurriculumMessages
 ): VisualTestExpect[] {
   try {
     // `secretConstants` is the silent-constants hook: the interpreter seeds these in
@@ -232,14 +232,14 @@ function runIsolatedCheck(
     const hasFrameError = result.frames.some((f) => f.status === "ERROR");
 
     if (hasFrameError) {
-      return [{ pass: false, errorHtml: t("testResults.isolatedCheckError") }];
+      return [{ pass: false, errorHtml: editorMessage("testResults.isolatedCheckError") }];
     }
     return checkExpects;
   } catch (error) {
     return [
       {
         pass: false,
-        errorHtml: t("testResults.isolatedCheckErrorDetail", {
+        errorHtml: editorMessage("testResults.isolatedCheckErrorDetail", {
           message: error instanceof Error ? error.message : String(error)
         })
       }
