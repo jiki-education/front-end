@@ -21,12 +21,22 @@
  *   public/static/content/search/{type}/{locale}/index-{hash}.json
  *     - Lunr search indexes for articles + guides
  *
- *   lib/generated/content-hashes.ts
- *     - Hash manifest for the search indexes (type -> locale -> hash). Blog/
- *       article/guide metadata ships in content-meta-server.json instead.
+ *   public/static/content/structure-{hash}.json
+ *     - Locale-invariant post metadata: date, author, cover image, and the
+ *       featured/listed/premium/order flags, all from English config
  *
- *   lib/generated/content-meta-server.json
- *     - Full metadata for server-side rendering (SEO, list pages)
+ *   public/static/content/copy/{locale}/copy-{hash}.json
+ *     - Translated post metadata: title, excerpt, seo, tags, reading time and
+ *       that locale's content hash. Published by the i18n repo for every
+ *       non-English locale; the app merges it with the structure above.
+ *
+ *   public/static/content/meta/{locale}/index-{hash}.json
+ *     - Projects and testimonials, which are per-locale but are not Markdown and
+ *       so stay front-end published
+ *
+ *   lib/generated/content-hashes.ts
+ *     - Hash manifests for the search indexes, the per-locale metadata and the
+ *       locale-invariant structure
  *
  * Used by:
  * - Server-side content functions (lib/content/)
@@ -609,8 +619,8 @@ function buildStaticFiles(type, content) {
       writeFile(contentPath, html);
 
       // Use the HTML hash as contentHash (for URL construction). Per-entry
-      // metadata is served from the bundled content-meta-server.json, so no
-      // separate per-locale index file is emitted for blog/articles/guides.
+      // metadata is split into the locale-invariant structure and the
+      // translated copy by writeContentMeta below.
       byLocale[locale].push({ ...meta, contentHash: htmlHash });
     }
   }
@@ -669,10 +679,12 @@ function generateSearchIndexes(type, byLocale, filterFn) {
 /**
  * Write the TypeScript hash manifest.
  *
- * Only the search-index hashes are emitted: blog/articles/guides metadata is
- * served from the bundled content-meta-server.json (so no per-locale index files
- * are generated), and per-project episode indexes are fetched via the
- * `episodesIndexHash` carried in that same bundled metadata.
+ * Three kinds of hash: the search indexes, the per-locale metadata (projects and
+ * testimonials, plus the translated copy this repo writes for local dev), and
+ * the one locale-invariant structure hash. Only the default locale is ever read
+ * from the per-locale maps at runtime; the rest resolve through their pointers.
+ * Per-project episode indexes are fetched via the `episodesIndexHash` carried in
+ * the per-locale metadata.
  */
 function writeHashManifest(searchHashes, guideSearchHashes, { copyHashes, localHashes, structureHash }) {
   function formatEntries(hashes) {
@@ -728,10 +740,10 @@ export const contentStructureHash = ${JSON.stringify(structureHash)};
  *   testimonials/
  *     {locale}.json   — full testimonials data (heading, primary, quotes, marquee)
  *
- * Testimonials are structured editorial data (not markdown), so they are baked
- * verbatim into content-meta-server.json for synchronous SSR delivery. Images
- * are referenced by filename only; the presentational avatar assets live with
- * the landing-page component.
+ * Testimonials are structured editorial data (not markdown), so they are not in
+ * the corpus the i18n repo mirrors and stay front-end published, in the
+ * per-locale metadata artifact. Images are referenced by filename only; the
+ * presentational avatar assets live with the landing-page component.
  *
  * Returns: { [locale]: testimonialsData }
  */

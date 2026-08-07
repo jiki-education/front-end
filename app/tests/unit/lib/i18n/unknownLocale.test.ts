@@ -69,101 +69,100 @@ const NAMESPACES: Array<{
   pointer: string;
   artifact: string;
   body: unknown;
-  run: () => Promise<unknown>;
+  run: (locale: string) => Promise<unknown>;
 }> = [
   {
     name: "app UI message catalog",
     pointer: `/static/i18n/app/${UNKNOWN_LOCALE}/current.json`,
     artifact: `/static/i18n/app/${UNKNOWN_LOCALE}/messages-${POINTER_HASH}.json`,
     body: {},
-    run: async () =>
-      (await import("@/lib/i18n/catalogLoader")).createCatalogLoader((path) => `https://assets.test${path}`)(
-        UNKNOWN_LOCALE
-      )
+    run: async (locale: string) =>
+      (await import("@/lib/i18n/catalogLoader")).createCatalogLoader((path) => `https://assets.test${path}`)(locale)
   },
   {
     name: "exercise prose index",
     pointer: `/static/exercises/${UNKNOWN_LOCALE}/current.json`,
     artifact: `/static/exercises/${UNKNOWN_LOCALE}/index-${POINTER_HASH}.json`,
     body: [],
-    run: async () => (await import("@/lib/api/exercise-meta")).getExerciseMetaBySlugs(["x"], UNKNOWN_LOCALE)
+    run: async (locale: string) => (await import("@/lib/api/exercise-meta")).getExerciseMetaBySlugs(["x"], locale)
   },
   {
     name: "concept copy (client)",
     pointer: `/static/concepts/${UNKNOWN_LOCALE}/current.json`,
     artifact: `/static/concepts/${UNKNOWN_LOCALE}/copy-${POINTER_HASH}.json`,
     body: {},
-    run: async () => (await import("@/lib/api/concepts")).getConcepts(UNKNOWN_LOCALE)
+    run: async (locale: string) => (await import("@/lib/api/concepts")).getConcepts(locale)
   },
   {
     name: "concept copy (server)",
     pointer: `/static/concepts/${UNKNOWN_LOCALE}/current.json`,
     artifact: `/static/concepts/${UNKNOWN_LOCALE}/copy-${POINTER_HASH}.json`,
     body: {},
-    run: async () => (await import("@/lib/concepts/server-concepts")).getAllConceptsServer(UNKNOWN_LOCALE)
+    run: async (locale: string) => (await import("@/lib/concepts/server-concepts")).getAllConceptsServer(locale)
   },
   {
     name: "content copy catalog",
     pointer: `/static/content/copy/${UNKNOWN_LOCALE}/current.json`,
     artifact: `/static/content/copy/${UNKNOWN_LOCALE}/copy-${POINTER_HASH}.json`,
     body: { blog: {}, articles: {}, guides: {} },
-    run: async () => (await import("@/lib/content/contentMeta")).getContentMeta(UNKNOWN_LOCALE)
+    run: async (locale: string) => (await import("@/lib/content/contentMeta")).getContentMeta(locale)
   },
   {
     name: "level catalog",
     pointer: `/static/i18n/levels/${UNKNOWN_LOCALE}/current.json`,
     artifact: `/static/i18n/levels/${UNKNOWN_LOCALE}/messages-${POINTER_HASH}.json`,
     body: {},
-    run: async () => (await import("@/lib/api/level-meta")).fetchLevelMessages(UNKNOWN_LOCALE)
+    run: async (locale: string) => (await import("@/lib/api/level-meta")).fetchLevelMessages(locale)
   },
   {
     name: "curriculum copy catalog",
     pointer: `/static/i18n/curriculum/${UNKNOWN_LOCALE}/current.json`,
     artifact: `/static/i18n/curriculum/${UNKNOWN_LOCALE}/messages-${POINTER_HASH}.json`,
     body: {},
-    run: async () => (await import("@/lib/api/curriculum-copy")).fetchCurriculumCopy(UNKNOWN_LOCALE)
+    run: async (locale: string) => (await import("@/lib/api/curriculum-copy")).fetchCurriculumCopy(locale)
   },
   {
     name: "badge copy catalog",
     pointer: `/static/i18n/badges/${UNKNOWN_LOCALE}/current.json`,
     artifact: `/static/i18n/badges/${UNKNOWN_LOCALE}/messages-${POINTER_HASH}.json`,
     body: {},
-    run: async () => (await import("@/lib/api/curriculum-copy")).fetchBadgeCopy(UNKNOWN_LOCALE)
+    run: async (locale: string) => (await import("@/lib/api/curriculum-copy")).fetchBadgeCopy(locale)
   },
   {
     name: "exercise message catalog",
     pointer: `/static/i18n/exercises/maze/${UNKNOWN_LOCALE}/current.json`,
     artifact: `/static/i18n/exercises/maze/${UNKNOWN_LOCALE}/messages-${POINTER_HASH}.json`,
     body: {},
-    run: async () => (await import("@/lib/api/exercise-meta")).fetchExerciseMessages("maze", UNKNOWN_LOCALE)
+    run: async (locale: string) => (await import("@/lib/api/exercise-meta")).fetchExerciseMessages("maze", locale)
   },
   {
     name: "interpreter message catalog",
     pointer: `/static/i18n/interpreter/javascript/${UNKNOWN_LOCALE}/current.json`,
     artifact: `/static/i18n/interpreter/javascript/${UNKNOWN_LOCALE}/messages-${POINTER_HASH}.json`,
     body: {},
-    run: async () => (await import("@/lib/api/exercise-meta")).fetchInterpreterMessages("javascript", UNKNOWN_LOCALE)
+    run: async (locale: string) =>
+      (await import("@/lib/api/exercise-meta")).fetchInterpreterMessages("javascript", locale)
   },
   {
     name: "articles search index",
     pointer: `/static/content/search/articles/${UNKNOWN_LOCALE}/current.json`,
     artifact: `/static/content/search/articles/${UNKNOWN_LOCALE}/index-${POINTER_HASH}.json`,
     body: { index: {}, items: [] },
-    run: async () => (await import("@/lib/api/content-search")).getSearchIndex(UNKNOWN_LOCALE)
+    run: async (locale: string) => (await import("@/lib/api/content-search")).getSearchIndex(locale)
   },
   {
     name: "guides search index",
     pointer: `/static/content/search/guides/${UNKNOWN_LOCALE}/current.json`,
     artifact: `/static/content/search/guides/${UNKNOWN_LOCALE}/index-${POINTER_HASH}.json`,
     body: { index: {}, items: [] },
-    run: async () => (await import("@/lib/api/content-search")).getGuidesSearchIndex(UNKNOWN_LOCALE)
+    run: async (locale: string) => (await import("@/lib/api/content-search")).getGuidesSearchIndex(locale)
   }
 ];
 
 describe.each(NAMESPACES)("$name, for a locale absent from this build", ({ pointer, artifact, body, run }) => {
   it("resolves its hash from the pointer and fetches what the pointer names", async () => {
     global.fetch = mockFetch(body);
-    await run();
+    await run(UNKNOWN_LOCALE);
 
     // Reading the pointer is what makes the namespace independent of the build.
     // A namespace still on a compiled manifest never gets here: it has no hash
@@ -173,14 +172,23 @@ describe.each(NAMESPACES)("$name, for a locale absent from this build", ({ point
   });
 });
 
-describe("the default locale", () => {
+/**
+ * The default locale, across EVERY namespace.
+ *
+ * English ships with the deploy, atomically, so its hash is compiled in and its
+ * render path must do zero runtime resolution. That matters because almost all
+ * traffic is English, and because a pointer fetch on the English path is a
+ * request to an object that deliberately does not exist: it cannot be served,
+ * only waited on and then fallen back from.
+ *
+ * Checking one namespace was not enough. This runs the same twelve namespaces
+ * the unknown-locale cases drive, so a namespace that starts consulting a
+ * pointer for English is caught wherever it is.
+ */
+describe.each(NAMESPACES)("$name, for the default locale", ({ body, run }) => {
   it("never looks up a pointer", async () => {
-    // English ships with the deploy, atomically, so its hash is compiled in and
-    // its render path does zero runtime resolution. That matters because almost
-    // all traffic is English.
-    global.fetch = mockFetch([]);
-    const { getExerciseMetaBySlugs } = await import("@/lib/api/exercise-meta");
-    await getExerciseMetaBySlugs(["x"], "en");
+    global.fetch = mockFetch(body);
+    await run("en");
 
     expect(fetched.filter((path) => path.endsWith("current.json"))).toEqual([]);
   });
