@@ -1,0 +1,56 @@
+.frame {
+    max-width: 511px;
+    margin-inline: auto;
+    margin-block-start: 12px;
+}
+
+/* The positioning context for the faces: just the photo, nothing else. */
+.photo {
+    position: relative;
+}
+
+.image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+    border: 1px solid var(--color-gray-200);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.checks {
+    max-width: 511px;
+    margin-inline: auto;
+    /* Clearance for faces overhanging the photo's bottom edge, and for their bubbles,
+       which open upwards from there. A face hangs 26px below the photo. */
+    margin-block-start: 56px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+}
+
+.check {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-gray-600);
+    white-space: nowrap;
+}
+
+.checkIcon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: var(--color-blue-600);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .watcher {
+        animation: none;
+        opacity: 1;
+    }
+}

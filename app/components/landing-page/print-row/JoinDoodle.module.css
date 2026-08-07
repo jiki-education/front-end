@@ -1,0 +1,36 @@
+.doodle {
+    position: relative;
+    width: 240px;
+    pointer-events: none;
+}
+
+.path {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* On the end of the last dash, at the bottom right of the artwork. */
+.head {
+    position: absolute;
+    inset-inline-start: 65%;
+    inset-block-start: 98%;
+    width: 26px;
+    /* The doodle's own ink colour, matched to the artwork rather than taken from the
+       palette, so the head and the dashes read as one drawing. */
+    color: #876bd4;
+    transform: translate(-4px, -11px) rotate(41deg);
+    transform-origin: 0 50%;
+}
+
+.note {
+    position: absolute;
+    inset-inline-start: 47%;
+    inset-block-start: -10%;
+    font-family: var(--font-handwritten);
+    font-size: 29px;
+    font-weight: 700;
+    color: var(--color-purple-600);
+    white-space: nowrap;
+    transform: rotate(-4deg);
+}

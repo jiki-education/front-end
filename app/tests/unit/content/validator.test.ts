@@ -208,7 +208,7 @@ describe("validateTestimonials", () => {
   const validTestimonials = {
     heading: "What do our students think?",
     subheading: "Some extracts. <link>Read the full versions here!</link>",
-    primary: { quote: "A great quote", name: "Oleksandra", role: "Coding Newbie", image: "oleksandra.webp" },
+    primary: { html: "A great quote", name: "Oleksandra", role: "Coding Newbie", image: "oleksandra.webp" },
     quotes: [
       { slug: "fred", name: "Fred", role: "Total Beginner", image: "fred.webp", html: "Great <strong>course</strong>" },
       { slug: "artigiani", name: "@m_artigiani", role: "", image: "m_artigiani.webp", html: "A game-changer" }

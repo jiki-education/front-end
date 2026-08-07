@@ -1,0 +1,30 @@
+.typewriter {
+    /* Each word is its own inline-block so line breaking still happens at spaces, even
+       though every character is a separate element. */
+    word-break: normal;
+}
+
+.word {
+    display: inline;
+    white-space: nowrap;
+}
+
+.char {
+    visibility: hidden;
+    animation: reveal 1ms linear forwards;
+    animation-delay: calc(var(--i) * 26ms);
+}
+
+@keyframes reveal {
+    to {
+        visibility: visible;
+    }
+}
+
+/* No typing: the message is simply there. */
+@media (prefers-reduced-motion: reduce) {
+    .char {
+        visibility: visible;
+        animation: none;
+    }
+}

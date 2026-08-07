@@ -27,8 +27,9 @@ describe("Hero marquee", () => {
   });
 
   it("renders one list item per blurb", () => {
-    const { container } = render(<Hero marquee={marquee} />);
-    const items = container.querySelectorAll("ul li");
+    render(<Hero marquee={marquee} />);
+    // Scoped to the marquee list — the hero also renders an audience list.
+    const items = screen.getByTestId("marquee").querySelectorAll("li");
     expect(items).toHaveLength(marquee.length);
   });
 });

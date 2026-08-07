@@ -454,7 +454,7 @@ export function validateTestimonials(locale: string, data: unknown): void {
   if (primary === null || typeof primary !== "object" || Array.isArray(primary)) {
     throw new ValidationError(`Testimonials '${locale}.json' primary must be an object`);
   }
-  for (const field of ["quote", "name", "role", "image"] as const) {
+  for (const field of ["html", "name", "role", "image"] as const) {
     if (typeof (primary as Record<string, unknown>)[field] !== "string") {
       throw new ValidationError(`Testimonials '${locale}.json' primary.${field} must be a string`);
     }

@@ -1,235 +1,79 @@
 .testimonial-section {
-    padding-top: 60px;
-    padding-bottom: 40px;
-    background-repeat: repeat;
-    background-color: var(--light-blue);
-    background-image: url("./assets/testimonial-bg.png");
-    background-size: 300px;
+    /* The positioning context for the stitch arrow, which hangs above this section. */
+    position: relative;
+    padding-block: 0;
+    background-color: #fff;
+    background-image: radial-gradient(var(--color-gray-200) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
 
-    h2 {
-        font-size: 22px;
-        font-weight: 600;
-        text-align: center;
+/* The same looping doodle used beside the "Make Games" heading, flowing from the section
+   above down into this heading. Decorative, and it needs a wide viewport to have room:
+   below 1400px it would push the page sideways, so it goes. */
+.stitchArrow {
+    position: absolute;
+    inset-block-start: -95px;
+    inset-inline-start: calc(50% + 480px);
+    width: 220px;
+    height: auto;
+    opacity: 0.45;
+    pointer-events: none;
+}
 
-        @media (min-width: 768px) {
-            font-size: 38px;
-        }
+@media (max-width: 1400px) {
+    .stitchArrow {
+        display: none;
+    }
+}
+
+.wall {
+    /* One value for the space between notes and the space after the last one. The design
+       got the trailing gap from a bottom margin on every note, including the final one;
+       using `gap` alone leaves nothing after the wall. */
+    --wall-gap: 74px;
+
+    max-width: 1150px;
+    margin-inline: auto;
+    padding-inline: 5%;
+    padding-block: 2rem calc(1.0625rem + var(--wall-gap));
+    display: flex;
+    align-items: flex-start;
+    gap: var(--wall-gap);
+}
+
+/* The two columns sit slightly out of step with each other, so the wall reads as notes
+   pinned up by hand rather than as a grid. */
+.column {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--wall-gap);
+}
+
+/* A visual nudge, not a layout change, so it rides on the transform: the columns keep
+   their measured widths and nothing has to be pulled back with a negative margin. */
+.column:first-child {
+    transform: translateX(-18px);
+}
+
+.column:last-child {
+    transform: translateX(18px);
+}
+
+@media (max-width: 767px) {
+    .wall {
+        --wall-gap: 56px;
+
+        flex-direction: column;
     }
 
-    .subheading {
-        font-size: 16px;
-        font-weight: 400;
-        margin-bottom: 24px;
-        text-align: center;
-
-        @media (min-width: 768px) {
-            font-size: 21px;
-        }
+    .column {
+        width: 100%;
     }
 
-    .subheadingLink {
-        text-decoration: underline;
-        font-weight: 600;
-    }
-
-    .personRow {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-end;
-        gap: 8px;
-    }
-
-    .primary-quote {
-        margin-bottom: 40px;
-
-        .words {
-            font-size: 20px;
-            font-weight: 400;
-            margin-bottom: 16px;
-            display: flex;
-            flex-direction: row;
-            gap: 12px;
-
-            @media (min-width: 768px) {
-                font-size: 28px;
-            }
-
-            .mark {
-                height: 25px;
-                width: 34px;
-            }
-
-            .left-mark {
-                align-self: flex-start;
-                margin-top: 8px;
-            }
-
-            .right-mark {
-                transform: scaleX(-1);
-                display: inline;
-                margin-inline-start: 12px;
-            }
-        }
-
-        .person {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 8px;
-
-            img {
-                height: 50px;
-                width: 50px;
-                border-radius: 100%;
-                margin-inline-start: 6px;
-            }
-
-            .text {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-end;
-            }
-
-            .name {
-                font-size: 16px;
-                line-height: 100%;
-                font-weight: 600;
-                margin-bottom: 4px;
-
-                @media (min-width: 768px) {
-                    font-size: 18px;
-                }
-            }
-
-            .description {
-                font-size: 14px;
-                line-height: 100%;
-                font-weight: 400;
-
-                @media (min-width: 768px) {
-                    font-size: 16px;
-                }
-            }
-        }
-    }
-
-    .quotes {
-        display: grid;
-        grid-template-columns: repeat(1, minmax(0, 1fr));
-        gap: 24px;
-
-        @media (min-width: 768px) {
-            display: block;
-            columns: 2;
-            gap: 32px;
-        }
-    }
-
-    .quote {
-        background-color: #fff;
-        position: relative;
-        padding-bottom: 32px;
-        margin-bottom: 96px;
-        break-inside: avoid;
-        display: inline-block;
-        filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.1));
-        border-radius: 20px;
-        padding-inline-start: 24px;
-        padding-inline-end: 24px;
-        padding-top: 24px;
-
-        .words {
-            font-size: 20px;
-            font-weight: 400;
-            margin-bottom: 16px;
-            display: flex;
-            flex-direction: row;
-            gap: 12px;
-
-            p {
-                display: inline;
-
-                strong {
-                    font-weight: 600;
-                }
-            }
-
-            .mark {
-                height: 12px;
-                width: 16px;
-                filter: grayscale(100%);
-                opacity: 0.7;
-            }
-
-            .left-mark {
-                align-self: flex-start;
-                margin-top: 8px;
-            }
-
-            .right-mark {
-                transform: scaleX(-1);
-                display: inline;
-                margin-inline-start: 6px;
-            }
-        }
-
-        .stars {
-            height: 21px;
-            width: 110px;
-            margin-bottom: 8px;
-            background-image: url("/static/images/landing-page/stars-0b091.svg");
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: 100px;
-            margin-inline-start: auto;
-            background-color: #fff;
-            border-radius: 20px;
-            inset-inline-start: 16px;
-        }
-
-        .person {
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            background-color: #fff;
-            border-radius: 20px;
-            padding-inline-start: 20px;
-            padding-inline-end: 20px;
-            padding-top: 12px;
-            padding-bottom: 12px;
-            inset-inline-end: 16px;
-            filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.1));
-
-            img {
-                width: 40px;
-                height: 40px;
-                border-radius: 100%;
-            }
-
-            .text {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-end;
-            }
-
-            .name {
-                font-size: 16px;
-                line-height: 100%;
-                font-weight: 600;
-                margin-bottom: 4px;
-            }
-
-            .description {
-                font-size: 14px;
-                line-height: 100%;
-                font-weight: 400;
-
-                @media (min-width: 768px) {
-                    font-size: 16px;
-                }
-            }
-        }
+    .column:first-child,
+    .column:last-child {
+        transform: none;
     }
 }

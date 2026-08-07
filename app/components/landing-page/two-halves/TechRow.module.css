@@ -1,0 +1,68 @@
+.tech {
+    padding-block-start: 36px;
+}
+
+.label {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-gray-600);
+    margin-block-end: 18px;
+}
+
+.langs {
+    display: flex;
+    /* Wraps rather than the design's nowrap: eight 56px items plus gaps need ~600px,
+       which overflows below roughly 640px wide. */
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 22px;
+}
+
+.lang {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 56px;
+}
+
+.langIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    filter: grayscale(1) opacity(0.55);
+    /* Starts after the puzzle above has finished (its 1.15s delay plus 1.1s run), then
+       each logo follows 170ms behind the last. */
+    transition: filter 0.5s ease;
+    transition-delay: calc(2.25s + var(--i) * 170ms);
+}
+
+.langIcon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.lit .langIcon {
+    filter: grayscale(0) opacity(1);
+}
+
+.langName {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-gray-400);
+    text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .langIcon {
+        transition: none;
+        transition-delay: 0s;
+        filter: grayscale(0) opacity(1);
+    }
+}

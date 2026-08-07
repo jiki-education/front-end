@@ -1,0 +1,33 @@
+.prompt {
+    /* Caveat is set larger than the text it replaces because the face runs optically
+       small; 26px here reads as the 17px body copy did. It is not italicised - the face
+       is already a hand, and slanting it again just smears it. */
+    font-family: var(--font-handwritten);
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 1.25;
+    color: #eee;
+
+    max-width: 420px;
+    margin-top: 40px;
+    margin-inline-start: auto;
+    margin-inline-end: 0;
+    text-align: end;
+
+    @media (max-width: 1023px) {
+        display: none;
+    }
+}
+
+.highlight {
+    font-weight: 700;
+    color: #fff;
+    /* A rule under the words rather than a block behind them. Drawn as a background so
+       the thickness and the gap are both settable - an underline ties its weight to the
+       font size. Amber is the page's annotation colour on dark backgrounds. */
+    background-image: linear-gradient(var(--color-amber-300), var(--color-amber-300));
+    background-repeat: no-repeat;
+    background-size: 100% 3px;
+    background-position: 0 100%;
+    padding-bottom: 2px;
+}

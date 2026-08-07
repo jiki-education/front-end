@@ -1,0 +1,187 @@
+.section {
+    background: linear-gradient(135deg, var(--color-gray-950), var(--color-purple-900));
+    padding-block: 80px 100px;
+    padding-inline: 48px;
+}
+
+.inner {
+    max-width: 1200px;
+    margin-inline: auto;
+}
+
+.headRow {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 48px;
+    margin-block-end: 60px;
+}
+
+.head {
+    max-width: 620px;
+}
+
+.bubble {
+    display: inline-block;
+    border-radius: 50px;
+    padding-block: 5px;
+    padding-inline: 16px;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 500;
+    background: var(--color-purple-600);
+    margin-block-end: 16px;
+}
+
+.heading {
+    font-size: 36px;
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin-block-end: 14px;
+    text-wrap: balance;
+}
+
+.sub {
+    color: var(--color-gray-300);
+    font-size: 18px;
+    line-height: 1.6;
+    text-wrap: balance;
+}
+
+/* Out of flow, so it never pushes the heading around or makes the copy wrap to it. */
+.headArrow {
+    position: absolute;
+    inset-inline-end: 90px;
+    inset-block-start: 50%;
+    width: 280px;
+    height: auto;
+    flex-shrink: 0;
+    pointer-events: none;
+    fill: #fff;
+    transform: translateY(calc(-50% - 40px)) scaleX(-1) rotate(-8deg);
+}
+
+.cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px;
+}
+
+/* The three visuals are different natural heights, so each is centred in the same fixed
+   box and they sit on a shared middle line rather than a shared top edge. */
+.viz {
+    position: relative;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-block-end: 37px;
+}
+
+.item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.item h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+    margin-block-end: 0.35rem;
+}
+
+.item p {
+    font-size: 1.025rem;
+    line-height: 1.5;
+    color: var(--color-gray-400);
+}
+
+/* The disc centres on the title's centre line rather than on title-plus-paragraph,
+   which would sit it far too low. Written as a calc so it follows if either size moves. */
+.num {
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-block-start: calc((1.1rem * 1.3 - 32px) / 2);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #fff;
+    font-weight: 800;
+    font-size: 15px;
+    transition:
+        background-color 0.55s ease,
+        border-color 0.55s ease,
+        box-shadow 0.55s ease;
+}
+
+.numeral,
+.tick {
+    position: absolute;
+    transition:
+        opacity 0.55s ease,
+        transform 0.55s ease;
+}
+
+.tick {
+    width: 16px;
+    height: 16px;
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+/* Each outcome ticks 320ms behind the last, scheduled off the one class on the list so
+   the three cannot drift apart. */
+.num,
+.numeral,
+.tick {
+    transition-delay: calc(var(--i) * 320ms);
+}
+
+.ticked .num {
+    background: var(--color-purple-600);
+    border-color: #fff;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+}
+
+.ticked .numeral {
+    opacity: 0;
+    transform: scale(0.6);
+}
+
+.ticked .tick {
+    opacity: 1;
+    transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .num,
+    .numeral,
+    .tick {
+        transition: none;
+        transition-delay: 0s;
+    }
+}
+
+@media (max-width: 900px) {
+    .section {
+        padding-inline: 24px;
+    }
+
+    .cols {
+        grid-template-columns: 1fr;
+        gap: 44px;
+    }
+
+    .headArrow {
+        display: none;
+    }
+}

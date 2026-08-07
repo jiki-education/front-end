@@ -2,7 +2,7 @@
   "heading": "What do our students think?",
   "subheading": "These are some extracts from what our beta users said. <link>Read the full versions here!</link>",
   "primary": {
-    "quote": "Seeing how much effort, thought, and even love is put into this course, it's such a pleasure to be a student here. Every explanation, each exercise turn this course into a masterpiece. I really enjoy it.",
+    "html": "Seeing how much effort, thought, and even love is put into this course, it's such a pleasure to be a student here. Every explanation, each exercise turn this course into a masterpiece. I really enjoy it.",
     "name": "Oleksandra",
     "role": "Coding Newbie",
     "image": "oleksandra.webp"
