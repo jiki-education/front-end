@@ -46,8 +46,8 @@
     transform: translateX(-50%);
     /* Grey masking tape rather than the amber the design used: amber read as a highlight
        and competed with the highlighted runs in the quote itself. */
-    background: color-mix(in srgb, var(--color-gray-400) 35%, transparent);
-    border-inline: 1px solid color-mix(in srgb, var(--color-gray-400) 25%, transparent);
+    background: color-mix(in srgb, var(--color-gray-300) 44%, transparent);
+    border-inline: 1px solid color-mix(in srgb, var(--color-gray-300) 31%, transparent);
     z-index: 2;
 }
 

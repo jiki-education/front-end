@@ -569,10 +569,10 @@
       "liveQa_oleksandra": "Can someone explain closures again? I get the syntax, I just don't see why you'd ever want one.",
       "liveQa_shaun": "Ah, that actually makes sense now.",
       "liveQa_lukas": "Just deployed my first project. Genuinely didn't think I'd get this far.",
-      "liveQa_priya": "Clearest explanation of this I've found anywhere 🙌",
       "joinLive": "Join live discussion",
       "catchUp": "Catch-up later",
-      "getSupport": "Get support"
+      "getSupport": "Get support",
+      "liveQa_drac": "Clearest explanation of this I've found anywhere 🙌"
     },
     "outcomes": {
       "bubble": "At the end of the course",

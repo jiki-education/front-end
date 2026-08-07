@@ -15,48 +15,31 @@
 
 .inner {
     position: relative;
-    max-width: 1200px;
+    max-width: 800px;
     margin-inline: auto;
 }
 
+/* Hangs off the top-left of the band, pulled up by half its own height so it straddles
+   the seam into the section above.
+   
+   The horizontal offset is fluid: the column beside it has a fixed max width, so as the
+   viewport widens there is more empty space to the left and the doodle moves out into
+   it. It runs from -52px at 870px wide to -168px at 1600px, and holds at those values
+   beyond either end.
+   
+   Written as a slope and an intercept because CSS cannot multiply two lengths, so
+   "start value plus range times fraction" will not compute. The vw and px terms encode
+   the line through (870px, -52px) and (1600px, -168px).
+   
+   These were -162px and -278px when the column was 580px wide. Widening it to 800px
+   moves its left edge 110px further left, since it is centred, so both ends gained
+   110px to leave the doodle where it was on the page. */
 .join {
     position: absolute;
-    /* Anchored off the band's centre line, as the artwork was measured, rather than off
-       the inner column, whose offset changes with the viewport. */
-    inset-inline-start: calc(50% - 510px);
-    inset-block-start: -190px;
-    width: 330px;
-    pointer-events: none;
+    inset-block-start: 0;
+    inset-inline-start: clamp(-168px, -15.89vw + 86.3px, -52px);
+    transform: translateY(-50%);
     z-index: 2;
-}
-
-.joinPath {
-    width: 240px;
-    height: auto;
-    display: block;
-}
-
-/* The artwork ends on an open dash, so the head is drawn separately and placed on it. */
-.joinHead {
-    position: absolute;
-    inset-inline-start: 72px;
-    inset-block-end: -12px;
-    width: 26px;
-    color: #876bd4;
-    transform: rotate(41deg);
-    transform-origin: 0 50%;
-}
-
-.joinNote {
-    position: absolute;
-    inset-inline-start: 58px;
-    inset-block-start: 41px;
-    font-family: var(--font-handwritten);
-    font-size: 29px;
-    font-weight: 700;
-    color: var(--color-purple-600);
-    white-space: nowrap;
-    transform: rotate(-4deg);
 }
 
 .prints {
@@ -270,8 +253,8 @@
     }
 }
 
-/* The doodle is measured against the desktop layout, so it goes rather than drifting. */
-@media (max-width: 1250px) {
+/* Goes once the viewport is too narrow for it to sit clear of the prints. */
+@media (max-width: 870px) {
     .join {
         display: none;
     }

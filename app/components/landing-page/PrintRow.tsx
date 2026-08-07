@@ -2,10 +2,9 @@
 
 import type { CSSProperties } from "react";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
 import Link from "next/link";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
-import joinLoop from "./assets/join-loop-dashed.webp";
+import { JoinDoodle } from "./print-row/JoinDoodle";
 import styles from "./PrintRow.module.css";
 import { useInView } from "./hooks/useInView";
 
@@ -25,16 +24,12 @@ export function PrintRow() {
 
   return (
     <section className={styles.section}>
-      {/* The looping doodle and its handwritten aside, pointing in at the prints. */}
-      <div className={styles.join} aria-hidden="true">
-        <Image src={joinLoop} alt="" className={styles.joinPath} />
-        <svg className={styles.joinHead} viewBox="0 0 24 20">
-          <path d="M23 10 L3 18 L7.5 10 L3 2 Z" fill="currentColor" />
-        </svg>
-        <span className={styles.joinNote}>{t("joinNote")}</span>
-      </div>
-
       <div className={styles.inner}>
+        {/* Straddles the seam: half of it sits up in the section above. */}
+        <div className={styles.join}>
+          <JoinDoodle />
+        </div>
+
         <ul className={styles.prints}>
           {PRINTS.map(({ key, file, pixel }) => (
             <li key={key} className={styles.print}>

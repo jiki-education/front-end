@@ -1,0 +1,76 @@
+/* Centred on its point, so a face on an edge sits half on the photo and half off it. */
+.pop {
+    position: absolute;
+    inset-inline-start: var(--x);
+    inset-block-start: var(--y);
+    width: 52px;
+    height: 52px;
+    margin-inline-start: -26px;
+    margin-block-start: -26px;
+    animation: pop-in var(--lifetime) cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.face {
+    width: 100%;
+    height: 100%;
+    border-radius: 999px;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Percentages rather than fixed times, so a long-lived speaker and a short-lived watcher
+   share one entrance and exit, each stretched over its own lifetime. */
+@keyframes pop-in {
+    0% {
+        transform: translateY(16px) scale(0.7);
+        opacity: 0;
+    }
+    8% {
+        transform: translateY(-5px) scale(1.12);
+        opacity: 1;
+    }
+    14%,
+    88% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(10px) scale(0.85);
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pop {
+        animation: none;
+    }
+}
+
+/* Gives the bubble a definite width to shrink inside. Positioned off the face's edge by
+   60px: the face is 52px, and the pointer juts 7px out of the bubble, so the tip lands
+   against the face rather than over it. Anchored 4px in from the face's edge, which puts
+   the pointer on the face's centre line. */
+.bubbleSlot {
+    position: absolute;
+    width: 200px;
+    display: flex;
+}
+
+.right {
+    inset-inline-start: 60px;
+    justify-content: flex-start;
+}
+
+.left {
+    inset-inline-end: 60px;
+    justify-content: flex-end;
+}
+
+.down {
+    inset-block-start: 4px;
+}
+
+.up {
+    inset-block-end: 4px;
+}

@@ -1,8 +1,12 @@
 .frame {
-    position: relative;
     max-width: 511px;
     margin-inline: auto;
     margin-block-start: 12px;
+}
+
+/* The positioning context for the faces: just the photo, nothing else. */
+.photo {
+    position: relative;
 }
 
 .image {
@@ -14,64 +18,12 @@
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
-/* Each face is on screen for exactly one message: the 2.5s run plus the 700ms delay
-   matches the 3.2s cycle, so it leaves as its message is replaced. */
-.watcher {
-    position: absolute;
-    width: 52px;
-    height: 52px;
-    opacity: 0;
-    animation: float 2.5s cubic-bezier(0.34, 1.56, 0.64, 1) 700ms;
-}
-
-.watcherImage {
-    width: 100%;
-    height: 100%;
-    border-radius: 999px;
-    object-fit: cover;
-    border: 3px solid #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-@keyframes float {
-    0% {
-        transform: translateY(16px) scale(0.7);
-        opacity: 0;
-    }
-    12% {
-        transform: translateY(-5px) scale(1.12);
-        opacity: 1;
-    }
-    20%,
-    80% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(10px) scale(0.85);
-        opacity: 0;
-    }
-}
-
-.topStart {
-    inset-block-start: -16px;
-    inset-inline-start: -16px;
-}
-
-.bottomStart {
-    inset-block-end: -16px;
-    inset-inline-start: calc(15% + 30px);
-}
-
-.bottomEnd {
-    inset-block-end: 10%;
-    inset-inline-end: -16px;
-}
-
 .checks {
     max-width: 511px;
     margin-inline: auto;
-    margin-block-start: 23px;
+    /* Clearance for faces overhanging the photo's bottom edge, and for their bubbles,
+       which open upwards from there. A face hangs 26px below the photo. */
+    margin-block-start: 56px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;

@@ -1,5 +1,5 @@
 import { useLocale } from "next-intl";
-import { type StaticImageData } from "next/image";
+import Image, { type StaticImageData } from "next/image";
 import { getTestimonials } from "@/lib/content/getTestimonials";
 import abhinav from "./assets/testimonials/abhinav.webp";
 import drac from "./assets/testimonials/drac.webp";
@@ -22,6 +22,7 @@ import shaun from "./assets/testimonials/shaun.webp";
 import thom from "./assets/testimonials/thom.webp";
 import vignesh from "./assets/testimonials/vignesh.webp";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
+import headingArrow from "./assets/heading-arrow-loop.png";
 import styles from "./TestimonialsSection.module.css";
 import { StickyNote } from "./testimonials/StickyNote";
 import { TestimonialsHeading } from "./testimonials/TestimonialsHeading";
@@ -70,6 +71,8 @@ export function TestimonialsSection() {
 
   return (
     <section className={styles["testimonial-section"]}>
+      <Image src={headingArrow} alt="" aria-hidden="true" className={styles.stitchArrow} />
+
       <TestimonialsHeading
         heading={testimonials.heading}
         subheading={testimonials.subheading}
