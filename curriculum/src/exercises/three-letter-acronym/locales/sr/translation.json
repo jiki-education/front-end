@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "tooManyLines": "Tvoje rešenje ima previše linija koda. Možeš li ga skratiti?"
+  },
+  "tasks": {
+    "createAcronymFunction": {
+      "name": "Napravi akronim funkciju",
+      "description": "Napiši funkciju koja pravi akronim, prima tri reči i vraća tročlani akronim, formiran uzimanjem prvog slova svake reči."
+    },
+    "solveInThreeLines": {
+      "name": "Reši u 3 linije koda",
+      "description": "Možeš li da rešiš ovu vežbu sa samo 3 linije koda?"
+    }
+  },
+  "scenarios": {
+    "png": {
+      "name": "Prenosiva mrežna grafika",
+      "description": "Napravi akronim 'PNG' od reči 'Portable', 'Network', 'Graphics'."
+    },
+    "css": {
+      "name": "Kaskadni listovi stilova",
+      "description": "Napravi akronim 'CSS' od reči 'Cascading', 'Style', 'Sheets'."
+    },
+    "www": {
+      "name": "Svetska mreža",
+      "description": "Napravi akronim 'WWW' od reči 'World', 'Wide', 'Web'."
+    },
+    "lol": {
+      "name": "Reči malim slovima",
+      "description": "Napravi akronim 'lol' od reči 'laugh', 'out', 'loud'."
+    },
+    "bonus1": {
+      "name": "3 linije koda",
+      "description": "Reši vežbu sa samo 3 linije koda."
+    }
+  },
+  "hints": {
+    "firstCharacter": {
+      "question": "Kako da dobijem samo prvi karakter reči?",
+      "answer": "Indeksiranjem niske. Prvi karakter je na indeksu `[0]`."
+    },
+    "buildResult": {
+      "question": "Kako da sastavim tročlani rezultat?",
+      "answer": "Uzmi prvi karakter svake reči i spoji ih redom koristeći spajanje (`+`) ili šablon niske."
+    }
+  }
+}

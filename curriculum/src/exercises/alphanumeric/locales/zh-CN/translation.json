@@ -1,0 +1,67 @@
+{
+  "tasks": {
+    "classifyString": {
+      "name": "分类字符串",
+      "description": "编写辅助函数以检查字符串是否为字母、数字或字母数字，然后使用它们对输入字符串进行分类。"
+    },
+    "useContinue": {
+      "name": "使用 continue",
+      "description": "在 isAlphanumeric 检查中，当一个字符是字母或数字时，你已经确认它没问题。使用 continue 直接跳到下一个字符，而不是嵌套更多的条件。"
+    }
+  },
+  "scenarios": {
+    "duck": {
+      "name": "Duck",
+      "description": "纯字母的字符串应分类为 \"Alpha\"。"
+    },
+    "number": {
+      "name": "42",
+      "description": "纯数字的字符串应分类为 \"Numeric\"。"
+    },
+    "alphanumeric": {
+      "name": "Duck42",
+      "description": "同时包含字母和数字的字符串应分类为 \"Alphanumeric\"。"
+    },
+    "notAlphanumeric1": {
+      "name": "It's not 42!",
+      "description": "包含特殊字符的字符串应分类为 \"Unknown\"。"
+    },
+    "notAlphanumeric2": {
+      "name": "42 Rubber Duck!",
+      "description": "包含空格和特殊字符的字符串应分类为 \"Unknown\"。"
+    },
+    "alphanumericUsesContinue": {
+      "name": "使用了 continue",
+      "description": "你的解法有效，并且使用了 continue 来跳过已经处理过的字符。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "当需要编写多个函数时，我应该从哪里开始？",
+      "answer": "先从最小的辅助函数开始。每个辅助函数都会遍历字符串中的每个字符，并对每个字符进行同样的是/否判断。先让其中一个运行起来，其他的就会遵循同样的模式。"
+    },
+    "checkAllLetters": {
+      "question": "如何检查输入中的每个字符是否都是字母？",
+      "answer": "遍历每个字符，检查它是否出现在字母表中。字符串的 `.includes()` 方法正好能回答这个问题：`\"...\".includes(char)`。记得要包含小写和大写字母，否则像 \"Duck\" 中的 \"D\" 这样的大写字母就不会被计入。如果任何一个字符不在字母表中，那就不是全字母。"
+    },
+    "checkAllDigits": {
+      "question": "如何对数字进行同样的检查？",
+      "answer": "完全相同的模式，只不过检查的是 `\"0123456789\"` 而不是字母表。"
+    },
+    "alphanumericMeaning": {
+      "question": "“字母数字”是什么意思？是指同时包含两者吗？",
+      "answer": "字母数字意味着每个字符要么是字母，要么是数字。所以对于每个字符，如果是字母就没问题，如果是数字也没问题。使用 `continue` 跳过去。只有当字符既不是字母也不是数字时才拒绝。"
+    },
+    "pickingLabels": {
+      "question": "如何在 whatAmI() 的四种标签中做出选择？",
+      "answer": "调用三个辅助函数并使用 if/else。顺序很重要。先检查更严格的情况（“仅字母”和“仅数字”），再检查更宽松的“字母数字”情况。"
+    }
+  },
+  "checks": {
+    "mustUseContinue": "非常接近！使用 `continue` 跳到下一个字符。",
+    "tooManyLines": "非常接近！你的解法有效，但稍微有点长。",
+    "useIsAlpha": "本练习要求你编写一个 `isAlpha()` 辅助函数，并用它来对字符串进行分类。",
+    "useIsNumeric": "本练习要求你编写一个 `isNumeric()` 辅助函数，并用它来对字符串进行分类。",
+    "useIsAlphanumeric": "本练习要求你编写一个 `isAlphanumeric()` 辅助函数，并用它来对字符串进行分类。"
+  }
+}

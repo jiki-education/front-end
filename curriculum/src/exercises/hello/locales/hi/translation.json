@@ -1,0 +1,32 @@
+{
+  "tasks": {
+    "createSayHelloFunction": {
+      "name": "sayHello फंक्शन बनाइए",
+      "description": "sayHello फंक्शन लिखिए जो एक नाम लेता है और 'Hello, [name]!' के प्रारूप में अभिवादन लौटाता है।"
+    }
+  },
+  "scenarios": {
+    "helloAiko": {
+      "name": "Aiko को नमस्ते कहिए",
+      "description": "'Hello, Aiko!' लौटाएँ"
+    },
+    "helloPriya": {
+      "name": "Priya को नमस्ते कहिए",
+      "description": "'Hello, Priya!' लौटाएँ"
+    },
+    "helloMei": {
+      "name": "Mei को नमस्ते कहिए",
+      "description": "'Hello, Mei!' लौटाएँ"
+    }
+  },
+  "hints": {
+    "answerShape": {
+      "question": "आप जो उत्तर बनाने की कोशिश कर रहे हैं, उसका मूल ढाँचा क्या है?",
+      "answer": "तीन हिस्सों को जोड़कर: एक स्थिर शुरुआत `\"Hello, \"`, फिर नाम, और फिर एक स्थिर अंत `\"!\"`।"
+    },
+    "joinStrings": {
+      "question": "स्ट्रिंग को आपस में कैसे जोड़ें?",
+      "answer": "तीनों हिस्सों को एक स्ट्रिंग में जोड़ने के लिए, `+` से जोड़िए, या `${}` प्लेसहोल्डर वाली टेम्पलेट स्ट्रिंग का इस्तेमाल कीजिए।"
+    }
+  }
+}

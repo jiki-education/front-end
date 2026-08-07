@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "baseCircle": "आधार (नीचे का) वृत्त (circle) सही नहीं है।",
+    "bodyCircle": "धड़ (बीच का) वृत्त (circle) सही नहीं है।",
+    "headCircle": "सिर (ऊपर का) वृत्त (circle) सही नहीं है।"
+  },
+  "tasks": {
+    "buildSnowman": {
+      "name": "स्नोमैन बनाइए",
+      "description": "स्नोमैन बनाने के लिए तीन वृत्त (circle) खींचिए।"
+    }
+  },
+  "scenarios": {
+    "buildSnowman": {
+      "name": "स्नोमैन बनाइए",
+      "description": "स्नोमैन बनाने के लिए तीन वृत्त (circle) खींचिए।"
+    }
+  },
+  "hints": {
+    "howToDrawCircle": {
+      "question": "कैनवास पर एक वृत्त (circle) कैसे खींचूँ?",
+      "answer": "`circle(centerX, centerY, radius)` को कॉल कीजिए। `centerX` केंद्र की आड़ी स्थिति है, `centerY` खड़ी स्थिति है, और `radius` वृत्त (circle) का आकार बताता है।"
+    },
+    "circlesHorizontalPosition": {
+      "question": "वृत्तों (circles) की आड़ी स्थिति कहाँ होनी चाहिए?",
+      "answer": "तीनों वृत्तों (circles) का केंद्र आड़ी दिशा में एक ही जगह है, इसलिए हर वृत्त के लिए `centerX` `50` है (कैनवास `100` चौड़ा है)।"
+    },
+    "howToStackCircles": {
+      "question": "तीनों वृत्तों (circles) को एक-दूसरे के ऊपर कैसे रखूँ?",
+      "answer": "आधार वृत्त (circle) सबसे बड़ा होता है और सबसे नीचे (ऊँचा `centerY`) होता है। ऊपर के हर वृत्त (circle) का `centerY` कम होता है और `radius` भी छोटा होता है।"
+    },
+    "whatNumbersForRadii": {
+      "question": "त्रिज्याओं (radii) के लिए कौन सी संख्याएँ इस्तेमाल करूँ?",
+      "answer": "इस अभ्यास की सभी संख्याएँ `5` से विभाज्य हैं। आधार वृत्त की त्रिज्या (radius) लगभग `20`, धड़ वृत्त की लगभग `15`, और सिर वृत्त की लगभग `10` आज़माइए, और लक्ष्य से मेल खाने तक समायोजित कीजिए।"
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "दिए गए `centerX` और `centerY` पर केंद्रित, दी गई त्रिज्या (radius) का एक वृत्त (circle) खींचता है।",
+      "category": "आकृतियाँ खींचना"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "describers": {
+    "canMove": "キャラクターが前に進めるかどうかを調べる",
+    "canTurnLeft": "キャラクターの左に道があるかどうかを調べる",
+    "canTurnRight": "キャラクターの右に道があるかどうかを調べる"
+  },
+  "checks": {
+    "notReachedEnd": "迷路の終点にたどり着けませんでした。",
+    "turnAroundNotDefined": "コードの先頭に<code>turnAround</code>関数を定義する必要があります。",
+    "turnAroundNotCalled": "<code>turnAround</code>は定義されていますが、最後の<code>else</code>ブロック内で実際に呼び出す必要があります。",
+    "maxLines": "プログラムは17行以下にしてください。"
+  },
+  "tasks": {
+    "turnAround": {
+      "name": "行き止まりで振り返る",
+      "description": "コードの先頭に、turnLeft()を2回呼び出すturnAround()関数を定義し、最後のelseブロックで使用してください。作成したソルバーで、3つの迷路すべての行き止まりを脱出できるようにしましょう。"
+    },
+    "bonusShortSolution": {
+      "name": "ボーナス: 短く仕上げよう",
+      "description": "2つの行き止まりがある迷路を解き、プログラム全体を17行以内に収めてください。"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "1つの行き止まり",
+      "description": "まっすぐな廊下に、振り返る必要がある行き止まりの分岐が1つあります。"
+    },
+    "maze2": {
+      "name": "行き止まりと曲がり角",
+      "description": "曲がりくねった道で、出口に向かう前に1つの行き止まりの分岐があります。"
+    },
+    "maze3": {
+      "name": "短くしよう",
+      "description": "最終的なプログラムが17行であることを確認してください。"
+    }
+  },
+  "hints": {
+    "defineFunction": {
+      "question": "新しい関数をどのように定義しますか？",
+      "answer": "`function`キーワードに続けて関数名、入力を受け取るための括弧、そして中身を波括弧で囲みます。例：`function turnAround() { ... }`。"
+    },
+    "placement": {
+      "question": "関数の定義はどこに置けばよいですか？",
+      "answer": "コードの先頭、ループの前に置きます。関数は呼び出す前に定義する必要があります。"
+    },
+    "turnAroundBody": {
+      "question": "`turnAround()` の中には何を書けばよいですか？",
+      "answer": "`turnLeft()`を2回呼び出すだけです。2回左に回ると、反対の方向を向くことになります。"
+    },
+    "useInSolver": {
+      "question": "迷路ソルバーで新しい関数をどのように使いますか？",
+      "answer": "前回の解答の中で、`turnLeft()`を2回呼び出していた`else`ブロックを見つけ、その2回の呼び出しを1回の`turnAround()`呼び出しに置き換えます。"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "キャラクターを現在の向きに**1歩前進**させます。壁にぶつかるとエラーでプログラムが終了するので、移動前に前方を確認しましょう！",
+      "category": "移動"
+    },
+    "turnLeft": {
+      "description": "キャラクターを**左に90度**（反時計回り）回転させます。これにより、キャラクターの向いている方向が変わります。",
+      "category": "移動"
+    },
+    "turnRight": {
+      "description": "キャラクターを**右に90度**（時計回り）に回転させます。これにより、キャラクターの向いている方向が変わります。",
+      "category": "移動"
+    },
+    "canMove": {
+      "description": "キャラクターの前方が壁でなければ**true**を、そうでなければ**false**を返します。",
+      "category": "感知"
+    },
+    "canTurnLeft": {
+      "description": "キャラクターの左側が壁でなければ**true**を、そうでなければ**false**を返します。",
+      "category": "感知"
+    },
+    "canTurnRight": {
+      "description": "キャラクターの右側が壁でなければ**true**を、そうでなければ**false**を返します。",
+      "category": "感知"
+    }
+  }
+}

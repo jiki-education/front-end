@@ -1,0 +1,173 @@
+{
+  "checks": {
+    "ballgown": {
+      "champagne": "她穿着正式服装且是成年人，所以应该为她提供香槟，但并没有。",
+      "canapes": "穿正式装的客人也会提供小食，但她没有收到。",
+      "letIn": "任何穿正式装的人都应该允许入场，但她没有。",
+      "notTurnedAway": "穿正式装的客人不应该被拒绝入场。"
+    },
+    "tuxedo": {
+      "champagne": "他 18 岁，算是成年人，所以应该为他提供香槟，但并没有。",
+      "canapes": "穿正式装的客人也会提供小食，但他没有收到。",
+      "letIn": "任何穿正式装的人都应该允许入场，但他没有。",
+      "notTurnedAway": "穿正式装的客人不应该被拒绝入场。"
+    },
+    "dress": {
+      "canapes": "她穿着精致装，所以应该为她提供小食，但并没有。",
+      "noChampagne": "香槟是为正式装准备的，所以穿精致装的客人不应该提供香槟。",
+      "letIn": "穿精致装的客人应该允许入场，但她没有。",
+      "notTurnedAway": "穿精致装的客人不应该被拒绝入场。"
+    },
+    "suit": {
+      "canapes": "他穿着精致装，所以应该为他提供小食，但并没有。",
+      "noChampagne": "香槟是为正式装准备的，所以穿精致装的客人不应该提供香槟。",
+      "letIn": "穿精致装的客人应该允许入场，但他没有。",
+      "notTurnedAway": "穿精致装的客人不应该被拒绝入场。"
+    },
+    "formalTeen": {
+      "letIn": "任何穿正式装的人无论年龄都允许入场，但她没有。",
+      "canapes": "穿正式装的客人无论年龄都会提供小食，但她没有收到。",
+      "noChampagne": "她未满 18 岁，所以不应该为她提供香槟。香槟仅限成年人。",
+      "notTurnedAway": "穿正式装的客人不应该被拒绝入场。"
+    },
+    "smartTeen": {
+      "canapes": "穿精致装的人无论年龄都会提供小食，但他没有收到。",
+      "noChampagne": "香槟是为正式装准备的，所以穿精致装的客人不应该提供香槟。",
+      "letIn": "穿精致装的客人应该允许入场，但他没有。",
+      "notTurnedAway": "穿精致装的客人不应该被拒绝入场。"
+    },
+    "casualChildListed": {
+      "letIn": "贵宾名单上的未满 18 岁者，即使穿着休闲装也可以入场，但他们没有。",
+      "notTurnedAway": "贵宾名单上的未满 18 岁者不应该被拒绝入场。",
+      "noChampagne": "他们没穿正式装，所以没有香槟。",
+      "noCanapes": "他们没有穿正式装或精致装，所以没有小食。"
+    },
+    "casualChildUnlisted": {
+      "turnedAway": "穿着休闲装且不在贵宾名单上的未满 18 岁者应该被拒绝入场。",
+      "notLetIn": "穿着休闲装且不在贵宾名单上的未满 18 岁者不应该被允许入场。",
+      "noChampagne": "他们没穿正式装，所以没有香槟。",
+      "noCanapes": "他们没有穿正式装或精致装，所以没有小食。"
+    },
+    "casualAdultListed": {
+      "turnedAway": "贵宾名单例外仅适用于未满 18 岁者，所以穿着休闲装的成年人即使名单上也要被拒绝入场。",
+      "notLetIn": "穿着休闲装的成年人不应该允许入场，即使他们在贵宾名单上。",
+      "noChampagne": "他们没穿正式装，所以没有香槟。",
+      "noCanapes": "他们没有穿正式装或精致装，所以没有小食。"
+    },
+    "codeQuality": {
+      "getOutfitCalledOnce": "你应该只使用一次 <code>getOutfit()</code>。",
+      "getAgeCalledOnce": "你应该只使用一次 <code>getAge()</code>。",
+      "onGuestListCalledOnce": "你应该只使用一次 <code>onGuestList()</code>。",
+      "combinesConditions": "这个挑战是关于组合条件的。试着运用你在上一课中学到的知识。"
+    }
+  },
+  "tasks": {
+    "checkDressCode": {
+      "name": "执行入场规定",
+      "description": "检查每个人的着装、年龄和贵宾名单状态，然后应用规则。穿正式或精致服装的人可入场并提供小食。穿正式服装的成年人还提供香槟。穿着其他服装的未满 18 岁者，只有在贵宾名单上才能入场。其他人一律拒绝入场。"
+    }
+  },
+  "scenarios": {
+    "ballgown": {
+      "name": "晚礼服",
+      "description": "一位 60 多岁、穿着晚礼服的女士。她获得香槟和小食，并允许入场。"
+    },
+    "tuxedo": {
+      "name": "燕尾服",
+      "description": "一位刚满 18 岁、穿着燕尾服的男士。他获得香槟和小食，并允许入场。"
+    },
+    "dress": {
+      "name": "连衣裙",
+      "description": "一位穿着连衣裙的女士。她入场并提供小食。"
+    },
+    "suit": {
+      "name": "西装",
+      "description": "一位穿着西装的男士。他入场并提供小食。"
+    },
+    "formalTeen": {
+      "name": "穿着晚礼服的儿童",
+      "description": "一位 13 岁、穿着晚礼服的女孩。她入场并提供小食，但年龄太小不能喝香槟。"
+    },
+    "smartTeen": {
+      "name": "穿着西装的青少年",
+      "description": "一位 15 岁、穿着西装的青少年。无论年龄，他入场并提供小食。"
+    },
+    "casualChildListed": {
+      "name": "穿牛仔服的儿童，在名单上",
+      "description": "一位 15 岁、穿着牛仔服、在贵宾名单上的人。允许入场。"
+    },
+    "casualChildUnlisted": {
+      "name": "穿运动服的儿童，不在名单上",
+      "description": "一位 15 岁、穿着运动服、不在贵宾名单上的人。拒绝入场。"
+    },
+    "casualAdultListed": {
+      "name": "穿牛仔服的成年人，在名单上",
+      "description": "一位 30 岁、穿着牛仔服、在贵宾名单上的人。仍然拒绝入场。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "我从哪里开始？",
+      "answer": "获取一次着装和年龄，并将它们存储在变量中，例如 `let outfit = getOutfit()`。然后你可以基于这些变量构建所有条件。"
+    },
+    "groupingOutfits": {
+      "question": "好几种着装都会导致相同的结果。我需要为每一种都编写分支吗？",
+      "answer": "不需要。你可以使用 `||`（或）在单个条件中检查多个值，这样一组着装可以共用一个分支。"
+    },
+    "champagneRule": {
+      "question": "我如何决定谁获得香槟？",
+      "answer": "香槟的判断是独立的：当一个人是成年人且穿着正式服装时，就提供香槟。这结合了 `&&`（且）和 `||`（或），所以用括号把“或”部分括起来以正确分组。"
+    },
+    "canapesRule": {
+      "question": "谁可以获得小食并允许入场？",
+      "answer": "所有穿着正式或精致服装的人都可以。你可以用 `||` 在一个条件中列出所有四种服装。"
+    },
+    "everyoneElse": {
+      "question": "其他人呢？",
+      "answer": "唯一其他允许入场的是贵宾名单上的未满 18 岁者，这需要两个条件同时为真（`&&`）。最后用一个普通的 `else` 拒绝其他人入场。"
+    },
+    "previousLessonOperator": {
+      "question": "我不明白“我在上一课中学到的知识”指的是什么。",
+      "answer": "你需要使用 Jeremy 在上一段视频中教授的“且”运算符来组合条件。如果不确定如何使用，请重新阅读<a href=\"/concepts/logical-and\" target=\"_blank\" rel=\"noopener noreferrer\">概念页</a>。"
+    }
+  },
+  "describers": {
+    "getOutfit": "获取了该人物的着装",
+    "getAge": "获取了该人物的年龄",
+    "onGuestList": "检查了贵宾名单",
+    "offerChampagne": "提供了香槟",
+    "offerCanapes": "提供了小食",
+    "letIn": "允许该人物入场",
+    "turnAway": "拒绝了该人物入场"
+  },
+  "functions": {
+    "getOutfit": {
+      "description": "返回人物穿着的**着装**（例如 `\"ballgown\"`、`\"suit\"`、`\"denim\"`）。",
+      "category": "信息"
+    },
+    "getAge": {
+      "description": "返回在门口等待的人物的**年龄**。",
+      "category": "信息"
+    },
+    "onGuestList": {
+      "description": "如果人物在今晚的贵宾名单上则返回 `true`，否则返回 `false`。",
+      "category": "信息"
+    },
+    "offerChampagne": {
+      "description": "提供该人物一杯香槟。",
+      "category": "动作"
+    },
+    "offerCanapes": {
+      "description": "提供该人物一些小食（三文鱼鞑靼）。",
+      "category": "动作"
+    },
+    "letIn": {
+      "description": "允许该人物进入场所。",
+      "category": "动作"
+    },
+    "turnAway": {
+      "description": "拒绝该人物进入场所。",
+      "category": "动作"
+    }
+  }
+}

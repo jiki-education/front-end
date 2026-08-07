@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "tooManyLines": "解答の行数が多すぎます。もっと短くできますか？"
+  },
+  "tasks": {
+    "createAcronymFunction": {
+      "name": "アクロニム関数を作成する",
+      "description": "3つの単語を受け取り、各単語の最初の文字を取って作られた3文字のアクロニムを返すアクロニム関数を書きます。"
+    },
+    "solveInThreeLines": {
+      "name": "3行のコードで解く",
+      "description": "この演習を、たった3行のコードで解けますか？"
+    }
+  },
+  "scenarios": {
+    "png": {
+      "name": "Portable Network Graphics",
+      "description": "「Portable」「Network」「Graphics」から「PNG」というアクロニムを作成します。"
+    },
+    "css": {
+      "name": "Cascading Style Sheets",
+      "description": "「Cascading」「Style」「Sheets」から「CSS」というアクロニムを作成します。"
+    },
+    "www": {
+      "name": "World Wide Web",
+      "description": "「World」「Wide」「Web」から「WWW」というアクロニムを作成します。"
+    },
+    "lol": {
+      "name": "小文字の単語",
+      "description": "「laugh」「out」「loud」から「lol」というアクロニムを作成します。"
+    },
+    "bonus1": {
+      "name": "3行のコード",
+      "description": "この演習を3行のコードだけで解きます。"
+    }
+  },
+  "hints": {
+    "firstCharacter": {
+      "question": "単語の最初の文字だけを取り出すにはどうすればよいですか？",
+      "answer": "文字列にインデックスでアクセスします。最初の文字はインデックス`[0]`にあります。"
+    },
+    "buildResult": {
+      "question": "3文字の結果を組み立てるにはどうすればよいですか？",
+      "answer": "各単語の最初の文字を取り出し、連結（`+`）またはテンプレート文字列を使って順番に結合します。"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "baseCircle": "आधार (सबसे नीचे का) वृत्त (circle) सही नहीं है। snowmanCenterX, baseCenterY, और baseRadius की जाँच कीजिए।",
+    "bodyCircle": "शरीर (बीच का) वृत्त (circle) सही नहीं है। snowmanCenterX, bodyCenterY, और bodyRadius की जाँच कीजिए।",
+    "headCircle": "सिर (सबसे ऊपर का) वृत्त (circle) सही नहीं है। snowmanCenterX, headCenterY, और headRadius की जाँच कीजिए।"
+  },
+  "tasks": {
+    "buildSnowman": {
+      "name": "स्नोमैन बनाइए",
+      "description": "वेरिएबल की वैल्यू इस तरह सेट कीजिए कि स्नोमैन लक्ष्य छवि से मेल खाए।"
+    }
+  },
+  "scenarios": {
+    "buildSnowman": {
+      "name": "स्नोमैन बनाइए",
+      "description": "स्नोमैन बनाने के लिए सही वेरिएबल वैल्यू सेट कीजिए।"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "मुझे नहीं पता कि कहाँ से शुरू करूँ।",
+      "answer": "मूल कोड बाईं ओर एक सफेद वृत्त (circle) बनाता है। आपको snowmanCenterX, baseCenterY, और baseRadius की वैल्यू बदलकर इसे साँचे की सबसे नीचे की रिंग पर रखना होगा। इसके बाद आपको बाकी वृत्तों (circles) के लिए वेरिएबल जोड़ने होंगे।"
+    },
+    "variableNotFoundError": {
+      "question": "मुझे \"Jiki could not find a variable called 'XXX'\" जैसी एरर मिलती है।",
+      "answer": "इसका मतलब है कि आपने `let` कीवर्ड का इस्तेमाल करके वेरिएबल (Jiki की अलमारी पर रखा डिब्बा) नहीं बनाया है। जब Jiki वृत्त (circle) बनाने वाला कोड पढ़ता है, तो वह उम्मीद करता है कि जिन डिब्बों का जिक्र है वे मौजूद हों, लेकिन वे नहीं हैं। इसलिए आपको उन्हें जोड़ना होगा।"
+    },
+    "stillNotDeclaredError": {
+      "question": "मैंने वेरिएबल जोड़ दिए हैं लेकिन फिर भी मुझे \"not declared\" एरर मिल रही है।",
+      "answer": "अपनी स्पेलिंग जाँचिए – हो सकता है कि आपसे कोई टाइपिंग की गलती हुई हो। याद रखिए कि केस मायने रखता है: `bodycentery` और `bodyCenterY` एक जैसे नहीं हैं।"
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "दिए गए (centerX, centerY) बिंदु पर केंद्रित, दी गई त्रिज्या (radius) और रंग का एक वृत्त (circle) बनाएँ।",
+      "category": "आकृतियाँ बनाएँ"
+    }
+  }
+}

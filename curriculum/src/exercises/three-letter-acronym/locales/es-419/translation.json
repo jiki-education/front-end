@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "tooManyLines": "Tu solución tiene demasiadas líneas de código. ¿Puedes acortarla?"
+  },
+  "tasks": {
+    "createAcronymFunction": {
+      "name": "Crear función acrónimo",
+      "description": "Escribe una función acrónimo que reciba tres palabras y devuelva un acrónimo de tres letras formado por la primera letra de cada palabra."
+    },
+    "solveInThreeLines": {
+      "name": "Resolver en 3 líneas de código",
+      "description": "¿Puedes resolver este ejercicio con solo 3 líneas de código?"
+    }
+  },
+  "scenarios": {
+    "png": {
+      "name": "Portable Network Graphics",
+      "description": "Crea el acrónimo 'PNG' a partir de 'Portable', 'Network', 'Graphics'."
+    },
+    "css": {
+      "name": "Cascading Style Sheets",
+      "description": "Crea el acrónimo 'CSS' a partir de 'Cascading', 'Style', 'Sheets'."
+    },
+    "www": {
+      "name": "World Wide Web",
+      "description": "Crea el acrónimo 'WWW' a partir de 'World', 'Wide', 'Web'."
+    },
+    "lol": {
+      "name": "Palabras en minúscula",
+      "description": "Crea el acrónimo 'lol' a partir de 'laugh', 'out', 'loud'."
+    },
+    "bonus1": {
+      "name": "3 líneas de código",
+      "description": "Resuelve el ejercicio con solo 3 líneas de código."
+    }
+  },
+  "hints": {
+    "firstCharacter": {
+      "question": "¿Cómo obtengo solo el primer carácter de una palabra?",
+      "answer": "Accediendo al carácter por su índice en el string. El primer carácter está en el índice `[0]`."
+    },
+    "buildResult": {
+      "question": "¿Cómo construyo el resultado de tres letras?",
+      "answer": "Toma el primer carácter de cada palabra y únelos en orden usando concatenación (`+`) o un template string."
+    }
+  }
+}
