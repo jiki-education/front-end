@@ -26,8 +26,16 @@ const LOCALES = fs
   .sort();
 
 describe("level message catalogs", () => {
-  it("ships a catalog for every locale in ALL_LOCALES", () => {
-    expect(LOCALES).toEqual([...ALL_LOCALES].sort());
+  // `en` is the only catalog authored here; the rest are owned by the i18n repo
+  // and published straight to the cache tree, so this asserts what is still true
+  // on disk (en exists, and nothing unknown is present) rather than demanding a
+  // file per locale in ALL_LOCALES.
+  it("ships the canonical en catalog", () => {
+    expect(LOCALES).toContain("en");
+  });
+
+  it("ships no catalog for a locale the app does not know about", () => {
+    expect(LOCALES.filter((locale) => !(ALL_LOCALES as readonly string[]).includes(locale))).toEqual([]);
   });
 
   it("the en catalog covers exactly the level registry, in order", () => {
