@@ -1,21 +1,28 @@
 import { useTranslations } from "next-intl";
 import { MonthlyPrice } from "./MonthlyPrice";
+import { FAQItem } from "./faqs/FAQItem";
 import styles from "./FAQs.module.css";
 
 export function FAQs() {
   const t = useTranslations("landing.faqs");
   const tCommon = useTranslations("common");
   const strong = (chunks: React.ReactNode) => <strong>{chunks}</strong>;
+
   return (
     <section className={styles.faqs}>
-      <div className={styles.background}></div>
       <div className={styles.container}>
-        <h2>{t("heading")}</h2>
+        <h2 className={styles.heading}>{t("heading")}</h2>
         <p className={styles.intro}>
-          {t.rich("intro", { link: (chunks) => <a href="mailto:hello@jiki.io">{chunks}</a> })}
+          {t.rich("intro", {
+            link: (chunks) => (
+              <a className={styles.introLink} href="mailto:hello@jiki.io">
+                {chunks}
+              </a>
+            )
+          })}
         </p>
-        <div className={styles.faq}>
-          <h4>{t("q1")}</h4>
+
+        <FAQItem question={t("q1")}>
           <p>{t.rich("q1a1", { strong })}</p>
           <p>
             {t.rich("q1a2", {
@@ -37,26 +44,26 @@ export function FAQs() {
             <li>{t.rich("q1Item6", { strong })}</li>
             <li>{t.rich("q1Item7", { strong })}</li>
           </ul>
-        </div>
-        <div className={styles.faq}>
-          <h4>{t("q2")}</h4>
+        </FAQItem>
+
+        <FAQItem question={t("q2")}>
           <p>{t.rich("q2a", { strong })}</p>
-        </div>
-        <div className={styles.faq}>
-          <h4>{t("q3")}</h4>
+        </FAQItem>
+
+        <FAQItem question={t("q3")}>
           <p>{t("q3a1")}</p>
           <p>{t("q3a2")}</p>
-        </div>
-        <div className={styles.faq}>
-          <h4>{t("q4")}</h4>
+        </FAQItem>
+
+        <FAQItem question={t("q4")}>
           <p>{t("q4a1")}</p>
           <p>{t.rich("q4a2", { strong })}</p>
-        </div>
-        <div className={styles.faq}>
-          <h4>{t("q5")}</h4>
+        </FAQItem>
+
+        <FAQItem question={t("q5")}>
           <p>{t("q5a1")}</p>
           <p>{t("q5a2")}</p>
-        </div>
+        </FAQItem>
       </div>
     </section>
   );

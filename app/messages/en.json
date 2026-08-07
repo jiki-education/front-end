@@ -584,21 +584,28 @@
       "understandingBody": "Not memorised syntax. You'll be able to read unfamiliar code, reason about what it's doing, and pick up any new language far faster.",
       "codeNote": "You'll know <em>why</em> this loop ends"
     },
+    "printRow": {
+      "joinNote": "Get in on the action!",
+      "spaceInvaders": "space invaders",
+      "breakout": "breakout",
+      "maze": "maze",
+      "heading": "Ready to make your first one?",
+      "body": "Learn to code and build real projects from day one, with Jeremy guiding you every step of the way.",
+      "free": "Free to start",
+      "projects": "Real projects, week one",
+      "unstuck": "Never get stuck",
+      "cta": "Get started"
+    },
     "exercism": {
-      "heading": "What makes Exercism special?",
-      "intro": "Exercism is a <strong>longstanding nonprofit</strong> that's helped over <strong>2.5 million people</strong> level-up their coding skills.",
-      "studentsCount": "2,500,000",
-      "studentsTitle": "Exercism students",
-      "studentsDesc": "We've grown entirely by word of mouth. Good friends tell their friends about Exercism!",
-      "testimonialsCount": "85,000",
-      "testimonialsTitle": "Testimonials",
-      "testimonialsDesc": "We've been one of the most trusted resources for coding education for over a decade.",
-      "exercisesCount": "47,082,260",
-      "exercisesTitle": "Exercises Solved",
-      "exercisesDesc": "Our exercises are trusted by the coding community as the perfect way to level up!",
-      "mentoringCount": "384,906",
-      "mentoringTitle": "Mentoring Sessions",
-      "mentoringDesc": "Our unique mentoring program is one of the best ways to get tips from experts!"
+      "eyebrow": "From the makers of Exercism",
+      "heading": "The leading education platform for <highlight>coding practice</highlight>",
+      "support": "Jiki is built by <strong>the team behind Exercism</strong>. We've built on all we've learned from helping millions of students upskill.",
+      "taughtValue": "2.9M+",
+      "taughtLabel": "people taught",
+      "testimonialsValue": "85,000+",
+      "testimonialsLabel": "testimonials",
+      "submittedValue": "69M+",
+      "submittedLabel": "exercises submitted"
     },
     "signupSection": {
       "intro": "The <strong>Learn to Code</strong> curriculum is <strong>completely free</strong>. No card. No trial. No catch.",

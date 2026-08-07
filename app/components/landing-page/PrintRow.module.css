@@ -1,0 +1,278 @@
+/* Full width by virtue of not being inside a constrained parent, rather than the
+   100vw/margin-inline:calc(50% - 50vw) pair the design used, which overflows the page
+   whenever a scrollbar is present. */
+.section {
+    position: relative;
+    width: 100%;
+    padding-block: 60px 64px;
+    padding-inline: 24px;
+    text-align: center;
+    background:
+        radial-gradient(90% 60% at 15% 0%, rgba(168, 85, 247, 0.16) 0%, rgba(168, 85, 247, 0) 60%),
+        radial-gradient(80% 70% at 90% 100%, rgba(191, 215, 254, 0.42) 0%, rgba(191, 215, 254, 0) 62%),
+        linear-gradient(180deg, #fffdf8 0%, #fdf6ec 100%);
+}
+
+.inner {
+    position: relative;
+    max-width: 1200px;
+    margin-inline: auto;
+}
+
+.join {
+    position: absolute;
+    /* Anchored off the band's centre line, as the artwork was measured, rather than off
+       the inner column, whose offset changes with the viewport. */
+    inset-inline-start: calc(50% - 510px);
+    inset-block-start: -190px;
+    width: 330px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.joinPath {
+    width: 240px;
+    height: auto;
+    display: block;
+}
+
+/* The artwork ends on an open dash, so the head is drawn separately and placed on it. */
+.joinHead {
+    position: absolute;
+    inset-inline-start: 72px;
+    inset-block-end: -12px;
+    width: 26px;
+    color: #876bd4;
+    transform: rotate(41deg);
+    transform-origin: 0 50%;
+}
+
+.joinNote {
+    position: absolute;
+    inset-inline-start: 58px;
+    inset-block-start: 41px;
+    font-family: var(--font-handwritten);
+    font-size: 29px;
+    font-weight: 700;
+    color: var(--color-purple-600);
+    white-space: nowrap;
+    transform: rotate(-4deg);
+}
+
+.prints {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-block-end: 40px;
+}
+
+.print {
+    /* The caption sizes off the print's own width (cqw below), so it stays proportional. */
+    container-type: inline-size;
+    position: relative;
+    flex-shrink: 0;
+    width: 162px;
+    padding: 11px 11px 57px;
+    border-radius: 2px;
+    background: radial-gradient(120% 100% at 50% 0%, #fffefd 40%, #faf7f2 100%);
+    box-shadow:
+        0 1px 2px rgba(30, 20, 10, 0.28),
+        0 12px 24px -8px rgba(30, 20, 10, 0.22);
+}
+
+/* The prints overlap slightly, like a stack laid out by hand. */
+.print + .print {
+    margin-inline-start: -24px;
+}
+
+.print::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 2px;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.print:nth-child(1) {
+    transform: rotate(-3.5deg);
+    z-index: 1;
+}
+
+/* The middle print is the hero of the row: bigger, on top, and quietly breathing. */
+.print:nth-child(2) {
+    width: 196px;
+    z-index: 3;
+    animation: first-glow 3.2s ease-in-out infinite;
+}
+
+.print:nth-child(3) {
+    transform: rotate(3deg);
+    z-index: 2;
+}
+
+@keyframes first-glow {
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow:
+            0 1px 2px rgba(30, 20, 10, 0.28),
+            0 12px 24px -8px rgba(168, 85, 247, 0.2);
+    }
+    50% {
+        transform: scale(1.035);
+        box-shadow:
+            0 1px 2px rgba(30, 20, 10, 0.28),
+            0 18px 30px -8px rgba(168, 85, 247, 0.42);
+    }
+}
+
+.print video {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    background: var(--color-gray-100);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35);
+    filter: contrast(0.92) saturate(0.94) sepia(0.06) brightness(1.02);
+}
+
+.print video.pixel {
+    filter: none;
+}
+
+.print span {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 10px;
+    height: 26cqw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 6%;
+    font-family: var(--font-handwritten);
+    font-weight: 700;
+    font-size: calc(8.5cqw + 4px);
+    line-height: 1.05;
+    color: rgba(42, 49, 66, 0.88);
+    text-align: center;
+    transform: rotate(1.2deg);
+}
+
+.heading {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-gray-800);
+    margin-block-end: 8px;
+    text-wrap: balance;
+}
+
+.body {
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--color-gray-600);
+    max-width: 550px;
+    margin-inline: auto;
+    margin-block-end: 22px;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px 34px;
+    margin-block-end: 28px;
+}
+
+/* Each row fills in 420ms behind the last, scheduled off the one class on the list. */
+.row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-gray-400);
+    transition: color 0.45s ease;
+    transition-delay: calc(250ms + var(--i) * 420ms);
+}
+
+.tick {
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-gray-300);
+    transform: scale(0.82);
+    transition:
+        background-color 0.45s ease,
+        transform 0.5s cubic-bezier(0.34, 1.5, 0.64, 1);
+    transition-delay: calc(300ms + var(--i) * 420ms);
+}
+
+.tick svg {
+    width: 12px;
+    height: 12px;
+}
+
+.shown .row {
+    color: var(--color-gray-700);
+}
+
+.shown .tick {
+    background: var(--color-purple-600);
+    transform: scale(1);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding-block: 14px;
+    padding-inline: 34px;
+    font-size: 17px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.btn svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.2s ease;
+}
+
+.btn:hover svg {
+    transform: translateX(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .print:nth-child(2) {
+        animation: none;
+    }
+
+    .row,
+    .tick {
+        transition: none;
+        transition-delay: 0s;
+    }
+
+    .row {
+        color: var(--color-gray-700);
+    }
+
+    .tick {
+        background: var(--color-purple-600);
+        transform: scale(1);
+    }
+}
+
+/* The doodle is measured against the desktop layout, so it goes rather than drifting. */
+@media (max-width: 1250px) {
+    .join {
+        display: none;
+    }
+}

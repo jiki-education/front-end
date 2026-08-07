@@ -584,21 +584,28 @@
       "understandingBody": "Not memorised syntax. You'll be able to read unfamiliar code, reason about what it's doing, and pick up any new language far faster.",
       "codeNote": "You'll know <em>why</em> this loop ends"
     },
+    "printRow": {
+      "joinNote": "Get in on the action!",
+      "spaceInvaders": "space invaders",
+      "breakout": "breakout",
+      "maze": "maze",
+      "heading": "Ready to make your first one?",
+      "body": "Learn to code and build real projects from day one, with Jeremy guiding you every step of the way.",
+      "free": "Free to start",
+      "projects": "Real projects, week one",
+      "unstuck": "Never get stuck",
+      "cta": "Get started"
+    },
     "exercism": {
-      "heading": "Mitől különleges az Exercism?",
-      "intro": "Az Exercism <strong>régóta működő nonprofit szervezet</strong>, amely már több mint <strong>2,5 millió embernek</strong> segített fejleszteni a programozási készségeit.",
-      "studentsCount": "2 500 000",
-      "studentsTitle": "Exercism-tanuló",
-      "studentsDesc": "Kizárólag azáltal nőttünk, hogy az emberek ajánlottak minket. A jó barátok mesélnek az Exercismről a barátaiknak!",
-      "testimonialsCount": "85 000",
-      "testimonialsTitle": "Vélemény",
-      "testimonialsDesc": "Több mint egy évtizede vagyunk a programozásoktatás egyik legmegbízhatóbb forrása.",
-      "exercisesCount": "47 082 260",
-      "exercisesTitle": "Megoldott feladat",
-      "exercisesDesc": "A programozó közösség is úgy tartja: a feladataink a fejlődés tökéletes eszközei!",
-      "mentoringCount": "384 906",
-      "mentoringTitle": "Mentorálási alkalom",
-      "mentoringDesc": "Egyedülálló mentorprogramunk az egyik legjobb módja annak, hogy szakértőktől kapj tippeket!"
+      "eyebrow": "From the makers of Exercism",
+      "heading": "The leading education platform for <highlight>coding practice</highlight>",
+      "support": "Jiki is built by <strong>the team behind Exercism</strong>. We've built on all we've learned from helping millions of students upskill.",
+      "taughtValue": "2.9M+",
+      "taughtLabel": "people taught",
+      "testimonialsValue": "85,000+",
+      "testimonialsLabel": "testimonials",
+      "submittedValue": "69M+",
+      "submittedLabel": "exercises submitted"
     },
     "signupSection": {
       "intro": "A <strong>Learn to Code</strong> tananyag <strong>teljesen ingyenes</strong>. Se bankkártya, se próbaidőszak, se rejtett feltételek.",
