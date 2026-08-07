@@ -30,8 +30,28 @@ export function levelMessagesPath(locale: string, hash: string): string {
   return `/static/i18n/levels/${locale}/messages-${hash}.json`;
 }
 
+/** The mutable pointer for a locale's level catalog. See `appMessagesPointerPath`. */
+export function levelMessagesPointerPath(locale: string): string {
+  return `/static/i18n/levels/${locale}/current.json`;
+}
+
 export function appMessagesPath(locale: string, hash: string): string {
   return `/static/i18n/app/${locale}/messages-${hash}.json`;
+}
+
+/**
+ * The MUTABLE pointer that names the current hash for a locale's app catalog.
+ * Unlike every other path here this one is not content-hashed: it is a stable
+ * URL rewritten in place whenever the i18n repo publishes that locale, which is
+ * what lets a translation go live without a worker redeploy. See
+ * lib/i18n/catalogPointer.ts.
+ *
+ * Only non-default locales have one. English's hash is compiled into the worker
+ * (lib/generated/messages-hashes.ts) and published atomically with the deploy,
+ * so the English path performs no runtime lookup at all.
+ */
+export function appMessagesPointerPath(locale: string): string {
+  return `/static/i18n/app/${locale}/current.json`;
 }
 
 export function curriculumCopyPath(locale: string, hash: string): string {

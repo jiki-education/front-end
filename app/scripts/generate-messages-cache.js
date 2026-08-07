@@ -17,10 +17,19 @@
  *   public/static/i18n/app/{locale}/messages-{hash}.json
  *     - One UI-string catalog for one locale
  *
- *   lib/generated/messages-hashes.ts
- *     - Hash manifest: locale -> messages hash
+ *   public/static/i18n/app/{locale}/current.json    (non-default locales only)
+ *     - The mutable pointer naming that locale's current hash, so `next dev`
+ *       resolves a non-English locale through the same runtime path production
+ *       uses. These are NOT uploaded to R2: on R2 the i18n repo is the single
+ *       writer of every non-English pointer, and `static:upload` excludes them.
  *
- * Uploaded to R2 immutably by `static:upload` (every file is hashed).
+ *   lib/generated/messages-hashes.ts
+ *     - Hash manifest: locale -> messages hash. Only the DEFAULT locale's entry
+ *       is read at runtime (lib/i18n/catalogPointer.ts); English is the one
+ *       locale whose hash is compiled in, so the English render path performs no
+ *       runtime lookup.
+ *
+ * The hashed catalogs are uploaded to R2 immutably by `static:upload`.
  */
 
 import fs from "fs";
@@ -33,6 +42,10 @@ const MESSAGES_DIR = path.join(__dirname, "../messages");
 const STATIC_DIR = path.join(__dirname, "../public/static/i18n/app");
 const GENERATED_DIR = path.join(__dirname, "../lib/generated");
 
+// Mirrors DEFAULT_LOCALE in lib/locales.ts. The one locale whose hash is
+// compiled into the worker rather than resolved from a pointer at runtime.
+const DEFAULT_LOCALE = "en";
+
 /**
  * Build catalog files (per locale). Returns the hash manifest: { [locale]: hash }.
  */
@@ -40,6 +53,12 @@ function buildMessageFiles() {
   const hashes = {};
 
   const localeFiles = fs.readdirSync(MESSAGES_DIR).filter((name) => name.endsWith(".json"));
+
+  // A missing default catalog is fatal, never an empty manifest: the compiled
+  // English hash is the one thing the runtime cannot recover without.
+  if (!localeFiles.includes(`${DEFAULT_LOCALE}.json`)) {
+    throw new Error(`No ${DEFAULT_LOCALE}.json in ${MESSAGES_DIR}. The default locale's catalog is required.`);
+  }
 
   for (const file of localeFiles) {
     const locale = path.basename(file, ".json");
@@ -60,6 +79,14 @@ function buildMessageFiles() {
     hashes[locale] = hash;
 
     writeFile(path.join(STATIC_DIR, locale, `messages-${hash}.json`), content);
+
+    // Non-default locales are resolved through the pointer at runtime, so write
+    // one here too — otherwise `next dev` could not serve them at all. In
+    // production the equivalent object on R2 is written by the i18n repo, which
+    // is its only writer.
+    if (locale !== DEFAULT_LOCALE) {
+      writeFile(path.join(STATIC_DIR, locale, "current.json"), `${JSON.stringify({ hash })}\n`);
+    }
   }
 
   return hashes;
