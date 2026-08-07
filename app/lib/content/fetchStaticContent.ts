@@ -1,13 +1,15 @@
-import { assetsUrl } from "@/lib/server/origin";
+import { readArtifact } from "@/lib/server/artifacts";
 
 /**
  * Fetch pre-rendered HTML content from a content-hashed cache-tree file.
  * Used by Server Components to load blog/article/guide/concept/project content.
- * Served from R2 (assets.jiki.io) in production, the request origin in dev.
+ *
+ * Read from disk during the production build and from R2 at runtime, via
+ * readArtifact. A missing artifact still throws: the page cannot render without
+ * its body, and failing loudly is the point.
  */
 export async function fetchStaticContent(path: string): Promise<string> {
-  const url = await assetsUrl(path);
-  const res = await fetch(url);
+  const res = await readArtifact(path);
   if (!res.ok) {
     throw new Error(`Failed to fetch content: ${path} (${res.status})`);
   }

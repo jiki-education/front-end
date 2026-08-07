@@ -47,6 +47,15 @@ interface HashResolverOptions {
   /** Cache-tree path of a locale's pointer file. */
   pointerPath: (locale: string, scope: string | undefined) => string;
   resolveUrl: ResolveUrl;
+  /**
+   * How to read the pointer, when a plain `fetch` is not the right way.
+   *
+   * Server callers pass the artifact reader, which reads from disk during the
+   * production build. A pointer is a cache-tree object like any other, so it has
+   * exactly the same problem: the build cannot fetch one it has only just
+   * written. Given this, `resolveUrl` is used only for error messages.
+   */
+  readPointer?: (path: string) => Promise<unknown | null>;
 }
 
 // A hash is the first 12 hex chars of a SHA-256 (scripts/lib/cache-utils.js).
@@ -70,7 +79,8 @@ export function createHashResolver({
   label,
   compiledHashes,
   pointerPath,
-  resolveUrl
+  resolveUrl,
+  readPointer
 }: HashResolverOptions): (locale: string, scope?: string) => Promise<string> {
   const inFlight = new Map<string, Promise<string>>();
 
@@ -91,7 +101,7 @@ export function createHashResolver({
       return pending;
     }
 
-    const promise = fetchPointer(label, locale, scope, pointerPath, resolveUrl).finally(() => {
+    const promise = fetchPointer(label, locale, scope, pointerPath, resolveUrl, readPointer).finally(() => {
       inFlight.delete(key);
     });
     inFlight.set(key, promise);
@@ -104,9 +114,19 @@ async function fetchPointer(
   locale: string,
   scope: string | undefined,
   pointerPath: (locale: string, scope: string | undefined) => string,
-  resolveUrl: ResolveUrl
+  resolveUrl: ResolveUrl,
+  readPointer?: (path: string) => Promise<unknown | null>
 ): Promise<string> {
   const path = pointerPath(locale, scope);
+
+  if (readPointer) {
+    const body = await readPointer(path);
+    if (body === null) {
+      throw new Error(`No ${label} pointer for locale "${locale}" (${path})`);
+    }
+    return hashFrom(label, locale, path, body);
+  }
+
   const url = await resolveUrl(path);
 
   let response: Response;
@@ -127,6 +147,10 @@ async function fetchPointer(
     throw new Error(`Malformed ${label} pointer for locale "${locale}" (${path}): not JSON (${String(error)})`);
   }
 
+  return hashFrom(label, locale, path, body);
+}
+
+function hashFrom(label: string, locale: string, path: string, body: unknown): string {
   const hash = (body as { hash?: unknown } | null)?.hash;
   if (typeof hash !== "string" || !HASH_PATTERN.test(hash)) {
     throw new Error(`Malformed ${label} pointer for locale "${locale}" (${path}): no usable "hash" field`);

@@ -9,6 +9,7 @@ import {
 } from "@/lib/concepts/select";
 import { getExerciseMetaBySlugsServer } from "@/lib/api/exercise-meta-server";
 import { assetsUrl } from "@/lib/server/origin";
+import { readArtifact, readArtifactJson } from "@/lib/server/artifacts";
 import { conceptStructurePath, conceptCopyPath, conceptIndexPointerPath, conceptContentPath } from "@/lib/assets-paths";
 import { assembleConcepts, type ConceptCopyCatalog, type ConceptStructure } from "./assemble";
 import { createHashResolver } from "@/lib/i18n/catalogPointer";
@@ -34,7 +35,8 @@ const resolveHash = createHashResolver({
   label: "concept copy catalog",
   compiledHashes: () => conceptCopyHashes,
   pointerPath: (locale) => conceptIndexPointerPath(locale),
-  resolveUrl: assetsUrl
+  resolveUrl: assetsUrl,
+  readPointer: readArtifactJson
 });
 
 const fetchConceptIndex = cache(async (locale: string): Promise<ConceptMeta[]> => {
@@ -48,21 +50,18 @@ const fetchConceptIndex = cache(async (locale: string): Promise<ConceptMeta[]> =
   }
 
   // Structure and copy in parallel: two artifacts, one round trip of depth.
-  const [structureUrl, copyUrl] = await Promise.all([
-    assetsUrl(conceptStructurePath(conceptStructureHash)),
-    assetsUrl(conceptCopyPath(locale, hash))
+  const structurePath = conceptStructurePath(conceptStructureHash);
+  const [structureRes, copyRes] = await Promise.all([
+    readArtifact(structurePath),
+    readArtifact(conceptCopyPath(locale, hash))
   ]);
-  const [structureRes, copyRes] = await Promise.all([fetch(structureUrl), fetch(copyUrl)]);
   if (!structureRes.ok) {
-    throw new Error(`Failed to fetch concept structure: ${structureUrl} (${structureRes.status})`);
+    throw new Error(`Failed to read concept structure: ${structurePath} (${structureRes.status})`);
   }
   if (!copyRes.ok) {
     return [];
   }
-  return assembleConcepts(
-    (await structureRes.json()) as ConceptStructure[],
-    (await copyRes.json()) as ConceptCopyCatalog
-  );
+  return assembleConcepts(await structureRes.json<ConceptStructure[]>(), await copyRes.json<ConceptCopyCatalog>());
 });
 
 /** Every concept in a locale's index. The sitemap enumerates slugs from this. */

@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { contentIndexHashes, contentStructureHash } from "@/lib/generated/content-hashes";
 import { assetsUrl } from "@/lib/server/origin";
+import { readArtifactJson } from "@/lib/server/artifacts";
 import {
   contentStructurePath,
   contentCopyPath,
@@ -61,24 +62,19 @@ const resolveCopyHash = createHashResolver({
   label: "content copy catalog",
   compiledHashes: () => contentIndexHashes.copy,
   pointerPath: (locale) => contentCopyPointerPath(locale),
-  resolveUrl: assetsUrl
+  resolveUrl: assetsUrl,
+  readPointer: readArtifactJson
 });
 
 const resolveLocalHash = createHashResolver({
   label: "content metadata index",
   compiledHashes: () => contentIndexHashes.meta,
   pointerPath: (locale) => contentMetaPointerPath(locale),
-  resolveUrl: assetsUrl
+  resolveUrl: assetsUrl,
+  readPointer: readArtifactJson
 });
 
-async function fetchJson<T>(path: string): Promise<T | null> {
-  try {
-    const res = await fetch(await assetsUrl(path));
-    return res.ok ? ((await res.json()) as T) : null;
-  } catch {
-    return null;
-  }
-}
+const fetchJson = readArtifactJson;
 
 /**
  * Merge one type's structure with a locale's copy.

@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { exerciseIndexHashes } from "@/lib/generated/exercise-hashes";
 import { assetsUrl } from "@/lib/server/origin";
+import { readArtifact, readArtifactJson } from "@/lib/server/artifacts";
 import { exerciseIndexPath, exerciseIndexPointerPath } from "@/lib/assets-paths";
 import { createHashResolver } from "@/lib/i18n/catalogPointer";
 import type { ExerciseMetaEntry } from "@/lib/api/exercise-meta";
@@ -18,7 +19,8 @@ const resolveHash = createHashResolver({
   label: "exercise prose index",
   compiledHashes: () => exerciseIndexHashes,
   pointerPath: (locale) => exerciseIndexPointerPath(locale),
-  resolveUrl: assetsUrl
+  resolveUrl: assetsUrl,
+  readPointer: readArtifactJson
 });
 
 const fetchExerciseIndex = cache(async (locale: string): Promise<ExerciseMetaEntry[]> => {
@@ -28,12 +30,12 @@ const fetchExerciseIndex = cache(async (locale: string): Promise<ExerciseMetaEnt
   } catch {
     return [];
   }
-  const url = await assetsUrl(exerciseIndexPath(locale, hash));
-  const res = await fetch(url);
+  const path = exerciseIndexPath(locale, hash);
+  const res = await readArtifact(path);
   if (!res.ok) {
-    throw new Error(`Failed to fetch exercise index: ${url} (${res.status})`);
+    throw new Error(`Failed to read exercise index: ${path} (${res.status})`);
   }
-  return res.json() as Promise<ExerciseMetaEntry[]>;
+  return res.json<ExerciseMetaEntry[]>();
 });
 
 export async function getExerciseMetaBySlugsServer(slugs: string[], locale: string): Promise<ExerciseMetaEntry[]> {
