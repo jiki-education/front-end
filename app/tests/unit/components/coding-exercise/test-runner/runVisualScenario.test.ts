@@ -1,7 +1,9 @@
 import { runVisualScenario } from "@/components/coding-exercise/lib/test-runner/runVisualScenario";
 import type { VisualScenario, VisualExercise, CodeCheck } from "@jiki/curriculum";
 import type { Interpreter } from "@/components/coding-exercise/lib/test-runner/getInterpreter";
-import { makeTestTranslator } from "@/tests/test-utils/makeTestTranslator";
+import { seedEditorMessages } from "@/tests/test-utils/seedEditorMessages";
+
+seedEditorMessages();
 
 // Mock the AnimationTimeline
 jest.mock("@/components/coding-exercise/lib/AnimationTimeline", () => ({
@@ -77,8 +79,7 @@ describe("runVisualScenario", () => {
         mockInterpreter,
         undefined,
         {},
-        {},
-        makeTestTranslator()
+        {}
       );
 
       expect(result.status).toBe("pass");
@@ -106,8 +107,7 @@ describe("runVisualScenario", () => {
         mockInterpreter,
         undefined,
         {},
-        {},
-        makeTestTranslator()
+        {}
       );
 
       expect(result.status).toBe("fail");
@@ -141,8 +141,7 @@ describe("runVisualScenario", () => {
         mockInterpreter,
         undefined,
         {},
-        {},
-        makeTestTranslator()
+        {}
       );
 
       expect(result.status).toBe("pass");
@@ -175,8 +174,7 @@ describe("runVisualScenario", () => {
         mockInterpreter,
         undefined,
         {},
-        {},
-        makeTestTranslator()
+        {}
       );
 
       expect(result.status).toBe("fail");
@@ -209,8 +207,7 @@ describe("runVisualScenario", () => {
         mockInterpreter,
         undefined,
         {},
-        {},
-        makeTestTranslator()
+        {}
       );
 
       expect(result.status).toBe("fail");
@@ -247,8 +244,7 @@ describe("runVisualScenario", () => {
         mockInterpreter,
         undefined,
         {},
-        {},
-        makeTestTranslator()
+        {}
       );
 
       expect(result.status).toBe("fail");
@@ -284,8 +280,7 @@ describe("runVisualScenario", () => {
         mockInterpreter,
         undefined,
         {},
-        {},
-        makeTestTranslator()
+        {}
       );
 
       expect(result.status).toBe("fail");
@@ -325,8 +320,7 @@ describe("runVisualScenario", () => {
         mockInterpreter,
         undefined,
         {},
-        {},
-        makeTestTranslator()
+        {}
       );
 
       expect(result.status).toBe("fail");
@@ -373,8 +367,7 @@ describe("runVisualScenario", () => {
         mockInterpreter,
         undefined,
         {},
-        {},
-        makeTestTranslator()
+        {}
       );
 
       expect(result.status).toBe("fail");
@@ -413,8 +406,7 @@ describe("runVisualScenario", () => {
         mockInterpreter,
         undefined,
         {},
-        {},
-        makeTestTranslator()
+        {}
       );
 
       expect(result.status).toBe("pass");
@@ -451,8 +443,7 @@ describe("runVisualScenario", () => {
         mockInterpreter,
         undefined,
         {},
-        {},
-        makeTestTranslator()
+        {}
       );
 
       expect(result.status).toBe("fail");
@@ -470,17 +461,7 @@ describe("runVisualScenario", () => {
         randomSeed: 42
       };
 
-      runVisualScenario(
-        scenario,
-        "move()",
-        MockExercise as any,
-        "jikiscript",
-        mockInterpreter,
-        undefined,
-        {},
-        {},
-        makeTestTranslator()
-      );
+      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter, undefined, {}, {});
 
       expect(mockInterpreter.interpret).toHaveBeenCalledWith(
         "move()",
@@ -500,17 +481,7 @@ describe("runVisualScenario", () => {
         randomSeed: true
       };
 
-      runVisualScenario(
-        scenario,
-        "move()",
-        MockExercise as any,
-        "jikiscript",
-        mockInterpreter,
-        undefined,
-        {},
-        {},
-        makeTestTranslator()
-      );
+      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter, undefined, {}, {});
 
       expect(mockInterpreter.interpret).toHaveBeenCalledWith(
         "move()",
@@ -529,17 +500,7 @@ describe("runVisualScenario", () => {
         expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }])
       };
 
-      runVisualScenario(
-        scenario,
-        "move()",
-        MockExercise as any,
-        "jikiscript",
-        mockInterpreter,
-        undefined,
-        {},
-        {},
-        makeTestTranslator()
-      );
+      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter, undefined, {}, {});
 
       expect(mockInterpreter.interpret).toHaveBeenCalledWith(
         "move()",
@@ -578,8 +539,7 @@ describe("runVisualScenario", () => {
         mockInterpreter,
         undefined,
         {},
-        {},
-        makeTestTranslator()
+        {}
       );
 
       expect(mockInterpreter.evaluateFunction).toHaveBeenCalledWith(
@@ -605,17 +565,7 @@ describe("runVisualScenario", () => {
         expectations: jest.fn().mockReturnValue([{ pass: true, errorHtml: undefined }])
       };
 
-      runVisualScenario(
-        scenario,
-        "move()",
-        MockExercise as any,
-        "jikiscript",
-        mockInterpreter,
-        undefined,
-        {},
-        {},
-        makeTestTranslator()
-      );
+      runVisualScenario(scenario, "move()", MockExercise as any, "jikiscript", mockInterpreter, undefined, {}, {});
 
       expect(mockInterpreter.interpret).toHaveBeenCalled();
       expect(mockInterpreter.evaluateFunction).not.toHaveBeenCalled();
@@ -649,8 +599,7 @@ describe("runVisualScenario", () => {
         mockInterpreter,
         undefined,
         {},
-        {},
-        makeTestTranslator()
+        {}
       );
 
       expect(mockInterpreter.evaluateFunction).toHaveBeenCalledWith(
@@ -690,8 +639,7 @@ describe("runVisualScenario", () => {
         mockInterpreter,
         undefined,
         {},
-        {},
-        makeTestTranslator()
+        {}
       );
 
       expect(mockInterpreter.evaluateFunction).toHaveBeenCalledWith(
@@ -723,8 +671,7 @@ describe("runVisualScenario", () => {
         mockInterpreter,
         undefined,
         {},
-        {},
-        makeTestTranslator()
+        {}
       );
 
       expect(result.status).toBe("pass");
@@ -749,8 +696,7 @@ describe("runVisualScenario", () => {
         mockInterpreter,
         undefined,
         {},
-        {},
-        makeTestTranslator()
+        {}
       );
 
       expect(result.status).toBe("pass");

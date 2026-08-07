@@ -1370,8 +1370,8 @@
         "titleExercise": "Exercise completed!",
         "titleChallenge": "Challenge completed!",
         "greatWork": "Great work completing {title}!",
-        "readyExercise": "Ready to continue to the next exercise?",
-        "readyChallenge": "Ready to continue to the next challenge?",
+        "messageExercise": "Great work completing {title}! Ready to continue to the next exercise?",
+        "messageChallenge": "Great work completing {title}! Ready to continue to the next challenge?",
         "bonusPrompt": "{count, plural, one {This exercise has <strong>a bonus scenario</strong>. Would you like to solve it before moving on?} other {This exercise has <strong>bonus scenarios</strong>. Would you like to solve them before moving on?}}",
         "tidyCode": "Tidy code",
         "solveBonuses": "{count, plural, one {Solve Bonus} other {Solve Bonuses}}",
@@ -1720,7 +1720,9 @@
       "congratsAmazingEffort": "Amazing effort!",
       "congratsGreatAchievement": "Great achievement!",
       "congratsCongratulations": "Congratulations!",
-      "congratsCongrats": "Congrats!"
+      "congratsCongrats": "Congrats!",
+      "ioError": "<p>Error: {message}</p>",
+      "codeCheckError": "Code check error: {message}"
     },
     "informationTooltip": {
       "errorHeading": "Oops, something went wrong!",
@@ -1737,21 +1739,6 @@
     "unhandledError": {
       "heading": "Oops! Something went <strong>very</strong> wrong.",
       "message": "<strong>This is our error, not yours!</strong> Please tell us about this error so we can fix it. Copy the mysterious text below and share it with us on <link>the forum</link>. Thank you! 💙"
-    },
-    "informationWidget": {
-      "errorHeading": "Oops, something went wrong!",
-      "closeAriaLabel": "Close tooltip"
-    },
-    "breakpoint": {
-      "addBreakpoint": "Add breakpoint",
-      "removeBreakpoint": "Remove breakpoint"
-    },
-    "testRunner": {
-      "runtimeErrorAbove": "Your code hit an error while it was running. Fix the error message above to continue.",
-      "codeThrewError": "Your code threw an error while running.",
-      "codeThrewErrorWithDetail": "Your code threw an error while running. ({detail})",
-      "codeCheckError": "Code check error: {detail}",
-      "ioError": "<p>Error: {detail}</p>"
     }
   },
   "lesson": {
