@@ -22,7 +22,8 @@ describe("TestimonialsSection", () => {
 
   it("renders the primary quote and attribution", () => {
     render(<TestimonialsSection />);
-    expect(screen.getByText(data.primary.quote)).toBeInTheDocument();
+    // Rich text, so assert on a distinctive plain-text fragment of it.
+    expect(screen.getByText(/Seeing how much effort/)).toBeInTheDocument();
     expect(screen.getAllByText(data.primary.name).length).toBeGreaterThan(0);
     expect(screen.getByText(data.primary.role)).toBeInTheDocument();
   });

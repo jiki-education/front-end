@@ -57,8 +57,12 @@ export function TestimonialsSection() {
   const testimonials = getTestimonials(locale);
 
   // The lead testimonial is just the first note on the wall now, rather than a
-  // separately-styled block above it.
-  const notes = [testimonials.primary, ...testimonials.quotes];
+  // separately-styled block above it. Normalised to one shape so the wall does not have
+  // to care which kind of testimonial it is holding.
+  const notes = [
+    { key: "primary", ...testimonials.primary },
+    ...testimonials.quotes.map((quote) => ({ key: quote.slug, ...quote }))
+  ];
 
   // Two explicit columns rather than CSS multi-column: multicol leaves each note's
   // absolutely-positioned tape behind when it reflows a note into the next column.
@@ -77,8 +81,8 @@ export function TestimonialsSection() {
           <div key={columnIndex} className={styles.column}>
             {column.map((note, i) => (
               <StickyNote
-                key={"slug" in note ? note.slug : note.name}
-                html={"html" in note ? note.html : note.quote}
+                key={note.key}
+                html={note.html}
                 name={note.name}
                 role={note.role}
                 avatar={avatars[note.image]}

@@ -4,10 +4,11 @@ import { useEffect, useRef, useState } from "react";
 
 /**
  * Fires once, the first time the observed element crosses `threshold`, then stops
- * observing. Intended for one-shot scroll reveals: the caller turns the boolean into a
+ * observing. `rootMargin` shrinks or grows the trigger area — a negative bottom margin
+ * holds the reveal back until the element is that far up the viewport. Intended for one-shot scroll reveals: the caller turns the boolean into a
  * class name and lets CSS own the timing, rather than scheduling steps in JS.
  */
-export function useInView<T extends HTMLElement = HTMLElement>(threshold = 0.5) {
+export function useInView<T extends HTMLElement = HTMLElement>(threshold = 0.5, rootMargin?: string) {
   const ref = useRef<T>(null);
   const [inView, setInView] = useState(false);
 
@@ -29,12 +30,12 @@ export function useInView<T extends HTMLElement = HTMLElement>(threshold = 0.5) 
           observer.disconnect();
         }
       },
-      { threshold }
+      { threshold, rootMargin }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [threshold]);
+  }, [threshold, rootMargin]);
 
   return { ref, inView };
 }

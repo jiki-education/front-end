@@ -188,7 +188,8 @@ export interface Testimonial {
 }
 
 export interface PrimaryTestimonial {
-  quote: string;
+  // Authored rich text, limited to <strong>, same as the other testimonials.
+  html: string;
   name: string;
   role: string;
   image: string;

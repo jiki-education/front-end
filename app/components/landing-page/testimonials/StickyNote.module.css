@@ -44,8 +44,10 @@
     width: 92px;
     height: 24px;
     transform: translateX(-50%);
-    background: rgba(251, 191, 36, 0.5);
-    border-inline: 1px solid rgba(251, 191, 36, 0.35);
+    /* Grey masking tape rather than the amber the design used: amber read as a highlight
+       and competed with the highlighted runs in the quote itself. */
+    background: color-mix(in srgb, var(--color-gray-400) 35%, transparent);
+    border-inline: 1px solid color-mix(in srgb, var(--color-gray-400) 25%, transparent);
     z-index: 2;
 }
 
