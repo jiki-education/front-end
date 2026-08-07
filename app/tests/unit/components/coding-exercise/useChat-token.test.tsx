@@ -58,7 +58,8 @@ describe("useChat token management", () => {
       exerciseTitle: "Test Exercise",
       exerciseInstructions: "Test instructions",
       locale: "en",
-      contentHash: "test-hash",
+      proseHash: "test-prose-hash",
+      codeHash: "test-code-hash",
       exercise: { slug: "maze-solve-basic", tasks: [] }
     });
 

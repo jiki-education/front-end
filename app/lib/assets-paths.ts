@@ -14,12 +14,38 @@
 export type ContentType = "blog" | "articles" | "guides";
 export type SearchType = "articles" | "guides";
 
+/**
+ * An exercise's cached content is TWO artifacts, split along the axis each one
+ * actually varies on: prose by locale, code by programming language. They were
+ * one artifact keyed by (slug, locale, language), which duplicated identical
+ * code into every locale and, more to the point, made translated instructions
+ * impossible to publish without also republishing code the i18n repo does not
+ * hold. `code` is a reserved path segment and is never a locale.
+ */
+
+/** Prose index for one locale: [{ slug, title, description, proseHash }]. */
 export function exerciseIndexPath(locale: string, hash: string): string {
   return `/static/exercises/${locale}/index-${hash}.json`;
 }
 
-export function exerciseContentPath(slug: string, locale: string, language: string, hash: string): string {
-  return `/static/exercises/${slug}/${locale}/${language}/content-${hash}.json`;
+/** The mutable pointer for a locale's exercise prose index. See `appMessagesPointerPath`. */
+export function exerciseIndexPointerPath(locale: string): string {
+  return `/static/exercises/${locale}/current.json`;
+}
+
+/** One exercise's translated prose for one locale: { instructions }. */
+export function exerciseProsePath(slug: string, locale: string, hash: string): string {
+  return `/static/exercises/${slug}/${locale}/prose-${hash}.json`;
+}
+
+/** Code index for one programming language: { [slug]: hash }. */
+export function exerciseCodeIndexPath(language: string, hash: string): string {
+  return `/static/exercises/code/${language}/index-${hash}.json`;
+}
+
+/** One exercise's code for one programming language: { stub, solution }. */
+export function exerciseCodePath(slug: string, language: string, hash: string): string {
+  return `/static/exercises/${slug}/code/${language}/code-${hash}.json`;
 }
 
 export function exerciseMessagesPath(slug: string, locale: string, hash: string): string {

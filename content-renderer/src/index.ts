@@ -17,26 +17,47 @@
  * both repos pin it, and a rendering change is a version bump that both sides
  * take deliberately.
  *
- * ## The two prose pipelines
+ * ## The prose pipelines
  *
- * Jiki's two prose types are cached differently, and this package covers both
- * because both are byte-sensitive:
+ * Jiki's prose types are cached differently, and this package covers ALL of
+ * them, because every one is byte-sensitive and every one is published from both
+ * repos:
  *
  * - **Concept pages** are rendered to HTML at build time and served as
  *   `content-{hash}.html`. `renderMarkdown` is that pipeline.
- * - **Exercise instructions** are cached as Markdown inside a JSON content file
+ * - **Exercise instructions** are cached as Markdown inside a JSON prose file
  *   and rendered by the browser at runtime, so the build-time step is only the
  *   inline-tag strip. `prepareInstructions` is that pipeline.
+ * - **Posts** (blog, articles, guides, project episodes) are rendered to HTML at
+ *   build time like concepts, but with footnotes, a different grammar set and
+ *   image fingerprinting. `renderPost`, in `posts.ts`, is that pipeline, and the
+ *   comment there explains at length why it is a second renderer and not a flag
+ *   on this one.
  *
- * Both share `stripInlineTags`, which is the whole reason they can disagree, and
- * historically the reason they were easy to get subtly wrong in two places.
+ * All of them share `stripInlineTags`, which is the whole reason they can
+ * disagree, and historically the reason they were easy to get subtly wrong in
+ * three places.
+ *
+ * The rule the package enforces is not "one renderer". It is that no
+ * configuration of `marked` or of `highlight.js` exists anywhere else. Both of
+ * those libraries configure through global mutation, so a second copy is not a
+ * duplicate, it is a race.
  */
 
-import { createHash } from "node:crypto";
 import { Marked } from "marked";
 import { highlight, isSupportedLanguage } from "./highlighting.js";
+import { stripInlineTags } from "./shared.js";
 
 export { isSupportedLanguage, registeredLanguages } from "./highlighting.js";
+export { contentHash, stripInlineTags } from "./shared.js";
+export {
+  postImageUrl,
+  postImageUrlFromBytes,
+  registeredPostLanguages,
+  renderPost,
+  rewriteImageRefs,
+  type ResolveImage
+} from "./posts.js";
 
 /**
  * This package's version, recorded in published artifact metadata by both
@@ -47,28 +68,7 @@ export { isSupportedLanguage, registeredLanguages } from "./highlighting.js";
  * identically from source, from `dist`, and from a bundler that will not import
  * JSON. A test asserts it against package.json, so the duplication cannot drift.
  */
-export const RENDERER_VERSION = "0.1.0";
-
-/**
- * Custom inline tags the authored English may carry.
- *
- * `<define>` and `<literal>` are authoring conventions, not output: they mark a
- * term being defined and a string meant to be read literally, for the benefit of
- * translators and of tooling that reads the source. They are stripped from the
- * shipped bytes, keeping their inner text, so nothing renders them and nothing
- * has to know about them downstream.
- *
- * Translated files are already tag-free (translators receive the stripped text),
- * so the strip is a no-op for every locale but English. It still runs for all of
- * them, because a rule that only runs on one input is a rule that is only tested
- * on one input.
- */
-const INLINE_TAGS = /<\/?(?:define|literal)(?:\s[^>]*)?>/gi;
-
-/** Remove `<define>`/`<literal>` tags, keeping their inner text. */
-export function stripInlineTags(text: string): string {
-  return text.replace(INLINE_TAGS, "");
-}
+export const RENDERER_VERSION = "0.2.0";
 
 /**
  * A private `marked` instance, never the module-level `marked` singleton.
@@ -121,16 +121,4 @@ export function renderMarkdown(markdown: string): string {
  */
 export function prepareInstructions(markdown: string): string {
   return stripInlineTags(markdown.trim());
-}
-
-/**
- * The cache tree's content fingerprint: the first 12 hex chars of the SHA-256 of
- * the exact bytes written.
- *
- * It lives here because it is the other half of the same contract. A publisher
- * that renders identical bytes but fingerprints them differently writes the
- * right content to the wrong URL, which is the same outage.
- */
-export function contentHash(content: string | Uint8Array): string {
-  return createHash("sha256").update(content).digest("hex").slice(0, 12);
 }

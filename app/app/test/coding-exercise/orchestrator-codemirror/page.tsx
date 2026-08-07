@@ -30,7 +30,8 @@ export default function OrchestratorCodeMirrorTestPage() {
       interpreterLocaleMessages: {},
       exerciseLocaleMessages: {},
       t: t,
-      contentHash: "",
+      proseHash: "",
+      codeHash: "",
       onGoToDashboard: () => {},
       levelTitle: "",
       isCompleted: false

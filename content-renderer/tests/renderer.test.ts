@@ -5,9 +5,13 @@ import { describe, expect, it } from "vitest";
 import {
   RENDERER_VERSION,
   contentHash,
+  postImageUrl,
   prepareInstructions,
   registeredLanguages,
+  registeredPostLanguages,
   renderMarkdown,
+  renderPost,
+  rewriteImageRefs,
   stripInlineTags
 } from "../src/index.js";
 
@@ -103,5 +107,79 @@ describe("contentHash", () => {
 
   it("hashes bytes, so a string and its UTF-8 buffer agree", () => {
     expect(contentHash("árvíztűrő")).toBe(contentHash(Buffer.from("árvíztűrő", "utf8")));
+  });
+});
+
+describe("posts", () => {
+  // The post pipeline is the blog/articles/guides/episodes one. It is a SECOND
+  // renderer on purpose, and these assertions are the differences that make it
+  // one; if any of them starts matching the concept renderer, one of the two
+  // corpora has silently had its bytes rewritten.
+  it("registers exactly the stock web grammars", () => {
+    expect(registeredPostLanguages()).toEqual(["bash", "css", "html", "javascript", "js", "json", "shell", "xml"]);
+  });
+
+  it("renders footnotes, which the concept renderer does not", () => {
+    const markdown = "Text[^1]\n\n[^1]: The note.";
+    expect(renderPost(markdown, { resolveImage: (r) => r })).toContain("footnote");
+    expect(renderMarkdown(markdown)).not.toContain("footnote");
+  });
+
+  it("highlights a stock web language the concept renderer does not know", () => {
+    const markdown = "```json\n{}\n```";
+    expect(renderPost(markdown, { resolveImage: (r) => r })).toContain('class="hljs language-json"');
+    expect(renderMarkdown(markdown)).not.toContain("hljs");
+  });
+
+  it("takes the language from the first word of the fence info, case-insensitively", () => {
+    const html = renderPost("```JSON title=x\n{}\n```", { resolveImage: (r) => r });
+    expect(html).toContain('class="hljs language-json"');
+  });
+
+  it("hands an unknown fence back to marked's default renderer", () => {
+    const html = renderPost("```nope\na < b\n```", { resolveImage: (r) => r });
+    expect(html).not.toContain("hljs");
+    expect(html).toContain("a &lt; b");
+  });
+
+  it("strips the authoring tags, exactly as the concept renderer does", () => {
+    expect(renderPost("a <define>term</define>", { resolveImage: (r) => r })).toContain("a term");
+  });
+});
+
+describe("rewriteImageRefs", () => {
+  const resolve = (ref: string) => `/fingerprinted${ref}`;
+
+  it("rewrites markdown images", () => {
+    expect(rewriteImageRefs("![alt](/images/a.webp)", resolve)).toBe("![alt](/fingerprinted/images/a.webp)");
+  });
+
+  it("rewrites raw img tags, for captioned <figure> markup", () => {
+    expect(rewriteImageRefs('<img src="/images/a.webp" alt="x">', resolve)).toBe(
+      '<img src="/fingerprinted/images/a.webp" alt="x">'
+    );
+  });
+
+  it("leaves refs outside /images/ alone", () => {
+    expect(rewriteImageRefs("![alt](https://example.com/a.webp)", resolve)).toBe("![alt](https://example.com/a.webp)");
+  });
+
+  it("is idempotent, so a caller may rewrite before rendering", () => {
+    const once = rewriteImageRefs("![alt](/images/a.webp)", resolve);
+    expect(rewriteImageRefs(once, resolve)).toBe(once);
+  });
+});
+
+describe("postImageUrl", () => {
+  it("inserts the hash before the extension", () => {
+    expect(postImageUrl("blog/a.webp", "abc123abc123")).toBe("/static/content/images/blog/a-abc123abc123.webp");
+  });
+
+  it("appends the hash when there is no extension", () => {
+    expect(postImageUrl("blog/a", "abc123abc123")).toBe("/static/content/images/blog/a-abc123abc123");
+  });
+
+  it("is not confused by a dot in a directory name", () => {
+    expect(postImageUrl("v1.2/a.webp", "abc123abc123")).toBe("/static/content/images/v1.2/a-abc123abc123.webp");
   });
 });

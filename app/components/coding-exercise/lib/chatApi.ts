@@ -11,7 +11,12 @@ export interface ChatRequestPayload {
   history: ChatMessage[];
   nextTaskId?: string;
   locale: string; // Locale segment of the content path the Worker fetches
-  contentHash: string; // Hash for Worker to fetch exercise content from the assets cache tree
+  // Two hashes because the exercise's cached content is two artifacts: prose
+  // (instructions) is named by (slug, locale, proseHash), code (stub/solution)
+  // by (slug, language, codeHash). A consumer that wants the instructions needs
+  // only the first.
+  proseHash: string;
+  codeHash: string;
 }
 
 export interface StreamCallbacks {

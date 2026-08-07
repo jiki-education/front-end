@@ -38,49 +38,16 @@ import path from "path";
 import crypto from "crypto";
 import { fileURLToPath } from "url";
 import matter from "gray-matter";
-import { marked } from "marked";
-import markedFootnote from "marked-footnote";
-import hljs from "highlight.js/lib/core";
-import xml from "highlight.js/lib/languages/xml";
-import cssLanguage from "highlight.js/lib/languages/css";
-import javascript from "highlight.js/lib/languages/javascript";
-import bash from "highlight.js/lib/languages/bash";
-import json from "highlight.js/lib/languages/json";
 import lunr from "lunr";
 import { computeHash, writeFile } from "./lib/cache-utils.js";
+import { postImageUrl, renderPost, rewriteImageRefs } from "@jiki.io/content-renderer";
 
-hljs.registerLanguage("html", xml);
-hljs.registerLanguage("xml", xml);
-hljs.registerLanguage("css", cssLanguage);
-hljs.registerLanguage("javascript", javascript);
-hljs.registerLanguage("js", javascript);
-hljs.registerLanguage("bash", bash);
-hljs.registerLanguage("shell", bash);
-hljs.registerLanguage("json", json);
-
-marked.use(markedFootnote());
-marked.use({
-  renderer: {
-    code({ text, lang }) {
-      const language = (lang || "").split(/\s+/)[0].toLowerCase();
-      if (!language || !hljs.getLanguage(language)) return false;
-      const highlighted = hljs.highlight(text, { language }).value;
-      return `<pre><code class="hljs language-${language}">${highlighted}</code></pre>\n`;
-    }
-  }
-});
-marked.use({
-  hooks: {
-    // The authored English source (source.md) may contain custom inline tags
-    // <define>...</define> and <literal>...</literal>. The built English HTML is
-    // produced by stripping those tags while keeping their inner text. Translated
-    // files are already tag-free, so this is a no-op for them. Runs before the
-    // content hash is computed over the rendered output.
-    postprocess(html) {
-      return html.replace(/<\/?(?:define|literal)(?:\s[^>]*)?>/gi, "");
-    }
-  }
-});
+// Markdown to HTML (the marked config, the marked-footnote plugin, the stock
+// highlight.js grammar set, the /images/ rewrite, and the <define>/<literal>
+// strip) lives in @jiki.io/content-renderer rather than here, because the i18n
+// repo publishes translated posts to the same content-hashed R2 tree and its
+// bytes must match these exactly. See that package's src/posts.ts for why posts
+// are a second renderer beside the concept one rather than a flag on it.
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONTENT_DIR = path.join(__dirname, "../../content/src/posts");
@@ -133,12 +100,12 @@ function hashAndCopyImage(imageRef) {
   }
 
   const bytes = fs.readFileSync(srcPath);
-  const hash = computeHash(bytes);
-  const ext = path.extname(relPath);
-  const outRel = `${relPath.slice(0, -ext.length)}-${hash}${ext}`;
-  writeFile(path.join(STATIC_DIR, "images", outRel), bytes);
+  // The URL shape comes from the renderer package because it lands INSIDE the
+  // rendered HTML, whose hash is its filename. Two publishers that fingerprint
+  // an image differently produce different pages for identical Markdown.
+  const url = postImageUrl(relPath, computeHash(bytes));
+  writeFile(path.join(STATIC_DIR, "images", url.slice("/static/content/images/".length)), bytes);
 
-  const url = `/static/content/images/${outRel}`;
   imageUrlCache.set(imageRef, url);
   return url;
 }
@@ -149,15 +116,7 @@ function hashAndCopyImage(imageRef) {
  * the latter so posts can use <figure>/<figcaption> HTML for captioned images.
  */
 function fixImagePaths(content) {
-  let out = content.replace(
-    /!\[([^\]]*)\]\((\/images\/[^)\s]+)\)/g,
-    (_match, alt, imagePath) => `![${alt}](${hashAndCopyImage(imagePath)})`
-  );
-  out = out.replace(
-    /(<img\b[^>]*\bsrc=")(\/images\/[^"]+)(")/g,
-    (_match, pre, imagePath, post) => `${pre}${hashAndCopyImage(imagePath)}${post}`
-  );
-  return out;
+  return rewriteImageRefs(content, hashAndCopyImage);
 }
 
 /**
@@ -255,8 +214,10 @@ function processContentDir(type, requiredFields, extraFields) {
           author = fixAuthorAvatar(rawAuthor);
         }
 
-        // Pre-render markdown to HTML
-        const html = marked.parse(fixedMarkdown);
+        // Pre-render markdown to HTML. renderPost applies the same image rewrite
+        // itself (it is inside the byte contract), which is a no-op the second
+        // time because a rewritten ref no longer starts with "/images/".
+        const html = renderPost(parsed.content, { resolveImage: hashAndCopyImage });
 
         // Hash based on all inputs that affect the output
         const hashInput = crypto.createHash("sha256");
@@ -446,8 +407,9 @@ function processProjects() {
           const fileContent = fs.readFileSync(filePath, "utf-8");
           const parsed = matter(fileContent);
           const frontmatter = parsed.data;
-          const fixedMarkdown = fixImagePaths(parsed.content);
-          const html = marked.parse(fixedMarkdown);
+          // renderPost applies the /images/ rewrite itself, and the resolver
+          // copies each referenced image into the cache as it goes.
+          const html = renderPost(parsed.content, { resolveImage: hashAndCopyImage });
 
           const summary = normalizeEpisodeSummary(frontmatter.summary, `${filePath}`);
 

@@ -55,7 +55,8 @@ describe("Chat API JWT Authentication", () => {
     language: "javascript",
     history: [],
     locale: "en",
-    contentHash: "test-hash"
+    proseHash: "test-prose-hash",
+    codeHash: "test-code-hash"
   };
 
   const mockCallbacks = {
