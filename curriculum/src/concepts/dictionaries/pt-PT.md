@@ -40,7 +40,7 @@ Usamos a mesma sintaxe de parênteses retos que usámos com os arrays e as strin
 person["name"] // "Jeremy"
 ```
 
-E isso diz ao Jiki para procurar no dicionário `person`, encontrar a chave `"name"` e tirar o valor dela. O Jiki vai à caixa `person`, tira a página do bloco de notas, percorre todas as chaves até encontrar `"name"`, lê o valor, `"Jeremy"`, e põe-no numa caixa nova chamada `name`.
+E isso diz ao Jiki para procurar no dicionário `person`, encontrar a chave `"name"` e tirar o seu valor. O Jiki vai à caixa `person`, tira a página do bloco de notas, percorre todas as chaves até encontrar `"name"`, lê o valor, `"Jeremy"`, e põe-no numa caixa nova chamada `name`.
 
 Os parênteses retos significam sempre o mesmo. Estás a enfiar a mão em algo e a tirar qualquer coisa lá de dentro. Com os arrays e as strings, usas um número para dizer de que posição queres tirar algo. Com os dicionários, usas uma string para a chave.
 
