@@ -1,7 +1,13 @@
 import { cache } from "react";
-import { contentIndexHashes } from "@/lib/generated/content-hashes";
+import { contentIndexHashes, contentStructureHash } from "@/lib/generated/content-hashes";
 import { assetsUrl } from "@/lib/server/origin";
-import { contentMetaPath, contentMetaPointerPath } from "@/lib/assets-paths";
+import {
+  contentStructurePath,
+  contentCopyPath,
+  contentCopyPointerPath,
+  contentMetaPath,
+  contentMetaPointerPath
+} from "@/lib/assets-paths";
 import { createHashResolver } from "@/lib/i18n/catalogPointer";
 import type { ArticleMeta, BlogPostMeta, GuideMeta, ProjectMeta, TestimonialsData } from "./types";
 
@@ -45,14 +51,50 @@ const EMPTY: ContentMeta = {
   hasContent: { blog: false, articles: false, guides: false }
 };
 
-// English's hash is compiled in; every other locale's is read at runtime from
-// its pointer. See lib/i18n/catalogPointer.ts.
-const resolveHash = createHashResolver({
+type Entry = Record<string, unknown>;
+type Structural = Record<string, Record<string, Entry>>;
+type Copy = Record<string, Record<string, Entry>>;
+
+// English's hashes are compiled in; every other locale's are read at runtime
+// from their pointers. See lib/i18n/catalogPointer.ts.
+const resolveCopyHash = createHashResolver({
+  label: "content copy catalog",
+  compiledHashes: () => contentIndexHashes.copy,
+  pointerPath: (locale) => contentCopyPointerPath(locale),
+  resolveUrl: assetsUrl
+});
+
+const resolveLocalHash = createHashResolver({
   label: "content metadata index",
   compiledHashes: () => contentIndexHashes.meta,
   pointerPath: (locale) => contentMetaPointerPath(locale),
   resolveUrl: assetsUrl
 });
+
+async function fetchJson<T>(path: string): Promise<T | null> {
+  try {
+    const res = await fetch(await assetsUrl(path));
+    return res.ok ? ((await res.json()) as T) : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Merge one type's structure with a locale's copy.
+ *
+ * A post the locale has no copy for is DROPPED rather than filled in from
+ * English: a listing mixing translated and English entries looks like a working
+ * page, and that is the failure this split removes. `slug` and `locale` are
+ * added back because every consumer expects the flat shape.
+ */
+function assemble(structure: Structural, copy: Copy, type: string, locale: string): unknown[] {
+  const structural = structure[type] ?? {};
+  const translated = copy[type] ?? {};
+  return Object.keys(translated)
+    .filter((slug) => Object.prototype.hasOwnProperty.call(structural, slug))
+    .map((slug) => ({ slug, locale, ...structural[slug], ...translated[slug] }));
+}
 
 /**
  * One locale's metadata, or an empty set when the locale has none.
@@ -67,23 +109,38 @@ const resolveHash = createHashResolver({
  * impossible.
  */
 export const getContentMeta = cache(async (locale: string): Promise<ContentMeta> => {
-  let hash: string;
-  try {
-    hash = await resolveHash(locale);
-  } catch {
-    return EMPTY;
+  const [copyHash, localHash] = await Promise.all([
+    resolveCopyHash(locale).catch(() => null),
+    resolveLocalHash(locale).catch(() => null)
+  ]);
+
+  // Three artifacts, all in flight at once: one round trip of depth, as before.
+  const [structure, copy, local] = await Promise.all([
+    fetchJson<Structural>(contentStructurePath(contentStructureHash)),
+    copyHash ? fetchJson<Copy>(contentCopyPath(locale, copyHash)) : Promise.resolve(null),
+    localHash
+      ? fetchJson<{ projects: ProjectMeta[]; testimonials: TestimonialsData | null }>(
+          contentMetaPath(locale, localHash)
+        )
+      : Promise.resolve(null)
+  ]);
+
+  if (!structure || !copy) {
+    return { ...EMPTY, projects: local?.projects ?? [], testimonials: local?.testimonials ?? null };
   }
 
-  try {
-    const url = await assetsUrl(contentMetaPath(locale, hash));
-    const res = await fetch(url);
-    if (!res.ok) {
-      return EMPTY;
-    }
-    return { ...EMPTY, ...((await res.json()) as Partial<ContentMeta>) };
-  } catch {
-    return EMPTY;
-  }
+  const blog = assemble(structure, copy, "blog", locale) as BlogPostMeta[];
+  const articles = assemble(structure, copy, "articles", locale) as ArticleMeta[];
+  const guides = assemble(structure, copy, "guides", locale) as GuideMeta[];
+
+  return {
+    blog,
+    articles,
+    guides,
+    projects: local?.projects ?? [],
+    testimonials: local?.testimonials ?? null,
+    hasContent: { blog: blog.length > 0, articles: articles.length > 0, guides: guides.length > 0 }
+  };
 });
 
 /**

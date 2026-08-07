@@ -92,8 +92,22 @@ export function interpreterMessagesPath(language: string, locale: string, hash: 
   return `/static/i18n/interpreter/${language}/${locale}/messages-${hash}.json`;
 }
 
-export function conceptIndexPath(locale: string, hash: string): string {
-  return `/static/concepts/${locale}/index-${hash}.json`;
+/**
+ * A concept index is TWO artifacts, split along what actually varies.
+ *
+ * Structure (hierarchy, order, icon, exercise links) comes from English config
+ * and is identical in every language, so one object serves them all and the
+ * front-end publishes it. Copy (title, description, that locale's content hash)
+ * is translated, so it is per-locale and the i18n repo publishes it. The client
+ * merges them, which is what lets a locale that exists only in i18n appear in
+ * listings and carry SEO metadata without a front-end build.
+ */
+export function conceptStructurePath(hash: string): string {
+  return `/static/concepts/structure-${hash}.json`;
+}
+
+export function conceptCopyPath(locale: string, hash: string): string {
+  return `/static/concepts/${locale}/copy-${hash}.json`;
 }
 
 export function conceptContentPath(slug: string, locale: string, hash: string): string {
@@ -156,7 +170,30 @@ export function interpreterMessagesPointerPath(language: string, locale: string)
   return `/static/i18n/interpreter/${language}/${locale}/current.json`;
 }
 
-/** Per-locale metadata index for blog, articles, guides, projects and testimonials. */
+/**
+ * Post metadata is THREE artifacts, split by what each part is.
+ *
+ * Structure is locale-invariant (date, author, cover image, flags, all from
+ * English config), so the front-end publishes one object for every language.
+ * Copy is translated (title, excerpt, seo, tags, reading time, content hash), so
+ * the i18n repo publishes it per locale. The third holds projects and
+ * testimonials, which are per-locale but authored as locale maps in config and
+ * JSON rather than as Markdown, so they are not in the corpus i18n mirrors and
+ * stay front-end published.
+ */
+export function contentStructurePath(hash: string): string {
+  return `/static/content/structure-${hash}.json`;
+}
+
+export function contentCopyPath(locale: string, hash: string): string {
+  return `/static/content/copy/${locale}/copy-${hash}.json`;
+}
+
+export function contentCopyPointerPath(locale: string): string {
+  return `/static/content/copy/${locale}/current.json`;
+}
+
+/** Per-locale projects and testimonials. Front-end published; see above. */
 export function contentMetaPath(locale: string, hash: string): string {
   return `/static/content/meta/${locale}/index-${hash}.json`;
 }

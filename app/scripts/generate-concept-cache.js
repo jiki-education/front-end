@@ -6,8 +6,11 @@
  *
  * Reads concept source files from curriculum and produces:
  *
- *   public/static/concepts/{locale}/index-{hash}.json
- *     - Metadata index: all concepts with slug, title, description, hierarchy, contentHash
+ *   public/static/concepts/structure-{hash}.json
+ *     - Locale-invariant structure: slug, icon, hierarchy, exercise links
+ *
+ *   public/static/concepts/{locale}/copy-{hash}.json
+ *     - Translated copy: title, description, and that locale's content hash
  *
  *   public/static/concepts/{slug}/{locale}/content-{hash}.html
  *     - Content files: pre-rendered HTML from markdown
@@ -25,9 +28,8 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import matter from "gray-matter";
 import { computeHash, writeFile } from "./lib/cache-utils.js";
-import { renderMarkdown } from "@jiki.io/content-renderer";
+import { parseFrontmatter, renderMarkdown } from "@jiki.io/content-renderer";
 
 // Markdown to HTML (marked config, the jikiscript/javascript highlight.js
 // grammars, and the <define>/<literal> strip) lives in @jiki.io/content-renderer
@@ -166,9 +168,9 @@ function processConcepts() {
 
       try {
         const fileContent = fs.readFileSync(filePath, "utf-8");
-        const parsed = matter(fileContent);
+        const parsed = parseFrontmatter(fileContent);
         const frontmatter = parsed.data;
-        const markdown = parsed.content;
+        const markdown = parsed.body;
 
         if (!frontmatter.title) {
           throw new Error(`Missing title in frontmatter of ${filePath}`);
@@ -217,75 +219,100 @@ function processConcepts() {
  * Returns the index hashes for the manifest.
  */
 function buildStaticFiles(concepts) {
-  const byLocale = {};
+  // --- structure: locale-invariant, one artifact for every locale ------------
+  //
+  // A concept's place in the tree (its parent, its order, whether it is a
+  // category, how many children it has, which exercises it teaches) and its icon
+  // are facts about the curriculum, derived from English config.json and the
+  // exercise map. They do not vary by locale and the i18n repo does not hold
+  // them, so they are published here, once, and every locale reads the same
+  // object.
+  const structure = [];
+
+  // --- copy: translated, one artifact per locale ----------------------------
+  //
+  // Title, description, and the hash of that locale's rendered HTML. All three
+  // vary by locale and all three are things the i18n repo produces, so a locale
+  // it publishes needs nothing from a front-end build to appear in a listing.
+  const copyByLocale = {};
 
   for (const [slug, concept] of Object.entries(concepts)) {
-    for (const [locale, localeData] of Object.entries(concept.locales)) {
-      if (!byLocale[locale]) {
-        byLocale[locale] = [];
-      }
+    structure.push({
+      slug,
+      image: conceptImage(slug),
+      parentSlug: concept.config.parent || null,
+      order: concept.config.order || 0,
+      category: concept.config.category || false,
+      childrenCount: concept.childrenCount,
+      exerciseSlugs: concept.exerciseSlugs
+    });
 
-      // Write content file for non-category concepts
+    for (const [locale, localeData] of Object.entries(concept.locales)) {
       let contentHash = null;
       if (localeData.html !== null) {
         contentHash = computeHash(localeData.html);
-        const contentPath = path.join(STATIC_DIR, slug, locale, `content-${contentHash}.html`);
-        writeFile(contentPath, localeData.html);
+        writeFile(path.join(STATIC_DIR, slug, locale, `content-${contentHash}.html`), localeData.html);
       }
 
-      byLocale[locale].push({
-        slug,
+      copyByLocale[locale] ??= {};
+      copyByLocale[locale][slug] = {
         title: localeData.title,
         description: localeData.description,
-        image: conceptImage(slug),
-        parentSlug: concept.config.parent || null,
-        order: concept.config.order || 0,
-        category: concept.config.category || false,
-        childrenCount: concept.childrenCount,
-        exerciseSlugs: concept.exerciseSlugs,
         contentHash
-      });
+      };
     }
   }
 
-  // Sort each locale's concepts by order for deterministic output
-  for (const conceptList of Object.values(byLocale)) {
-    conceptList.sort((a, b) => a.order - b.order);
-  }
+  // Sorted by slug so the bytes depend on the corpus and not on directory order.
+  structure.sort((a, b) => a.slug.localeCompare(b.slug));
+  const structureContent = JSON.stringify(structure);
+  const structureHash = computeHash(structureContent);
+  writeFile(path.join(STATIC_DIR, `structure-${structureHash}.json`), structureContent);
 
-  // Write metadata indexes and collect hashes
-  const indexHashes = {};
+  const copyHashes = {};
 
-  for (const [locale, entries] of Object.entries(byLocale)) {
-    const indexContent = JSON.stringify(entries);
-    const indexHash = computeHash(indexContent);
-    indexHashes[locale] = indexHash;
-
-    const indexPath = path.join(STATIC_DIR, locale, `index-${indexHash}.json`);
-    writeFile(indexPath, indexContent);
+  for (const locale of Object.keys(copyByLocale).sort()) {
+    const ordered = {};
+    for (const slug of Object.keys(copyByLocale[locale]).sort()) {
+      ordered[slug] = copyByLocale[locale][slug];
+    }
+    const content = JSON.stringify(ordered);
+    const hash = computeHash(content);
+    copyHashes[locale] = hash;
+    writeFile(path.join(STATIC_DIR, locale, `copy-${hash}.json`), content);
 
     // A LOCAL pointer for every non-default locale, so `pnpm dev` resolves
     // translated concepts with no i18n checkout. Excluded from static:upload:
     // on R2 the i18n repo is the single writer of every non-English pointer.
     if (locale !== DEFAULT_LOCALE) {
-      writeFile(path.join(STATIC_DIR, locale, "current.json"), `${JSON.stringify({ hash: indexHash })}\n`);
+      writeFile(path.join(STATIC_DIR, locale, "current.json"), `${JSON.stringify({ hash })}\n`);
     }
   }
 
-  return { indexHashes, byLocale };
+  return { copyHashes, structureHash };
 }
 
 /**
  * Write the TypeScript hash manifest
  */
-function writeHashManifest(indexHashes) {
-  const entries = Object.entries(indexHashes)
+function writeHashManifest(copyHashes, structureHash) {
+  const entries = Object.entries(copyHashes)
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([locale, hash]) => `  ${JSON.stringify(locale)}: ${JSON.stringify(hash)}`)
     .join(",\n");
 
   const content = `// Auto-generated by scripts/generate-concept-cache.js — DO NOT EDIT
-export const conceptIndexHashes: Record<string, string> = {
+//
+// The STRUCTURE hash carries no locale: a concept's place in the tree is the
+// same in every language, so one object serves them all and it ships with the
+// deploy that describes it.
+//
+// Only the default locale's COPY hash is read at runtime; every other locale
+// resolves through its pointer, so a locale the i18n repo publishes after this
+// build still appears in listings.
+export const conceptStructureHash = ${JSON.stringify(structureHash)};
+
+export const conceptCopyHashes: Record<string, string> = {
 ${entries},
 };
 `;
@@ -310,10 +337,10 @@ function generateConceptCache() {
   const concepts = processConcepts();
 
   // Build static files (populates the icon URL cache via conceptImage)
-  const { indexHashes } = buildStaticFiles(concepts);
+  const { copyHashes, structureHash } = buildStaticFiles(concepts);
 
   // Write hash manifest
-  writeHashManifest(indexHashes);
+  writeHashManifest(copyHashes, structureHash);
 
   // Write the fingerprinted-icon manifest consumed by ConceptIcon.tsx
   const fallbackUrl = copyHashedIcon("fallback", path.join(ICONS_DIR, "fallback.webp"));
@@ -332,7 +359,7 @@ function generateConceptCache() {
 
   console.log("Concept cache generated successfully:\n");
   console.log(`   Concepts: ${conceptCount}`);
-  console.log(`   Locales: ${Object.keys(indexHashes).join(", ")}`);
+  console.log(`   Locales: ${Object.keys(copyHashes).join(", ")}`);
   console.log(`   Content files: ${contentFileCount}`);
   console.log(`   Output: ${STATIC_DIR}\n`);
 }

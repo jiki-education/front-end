@@ -37,6 +37,13 @@ function mockFetch(body: unknown) {
     if (path.endsWith("current.json")) {
       return Promise.resolve({ ok: true, json: () => Promise.resolve({ hash: POINTER_HASH }) } as unknown as Response);
     }
+    // The locale-invariant structure half. These cases are about whether the
+    // pointer is consulted, so it is served empty; the listing cases below
+    // exercise the merge itself.
+    if (/structure-[0-9a-f]+\.json$/.test(path)) {
+      const empty = path.includes("/concepts/") ? [] : { blog: {}, articles: {}, guides: {} };
+      return Promise.resolve({ ok: true, json: () => Promise.resolve(empty) } as unknown as Response);
+    }
     return Promise.resolve({
       ok: true,
       json: () => Promise.resolve(body),
@@ -82,24 +89,24 @@ const NAMESPACES: Array<{
     run: async () => (await import("@/lib/api/exercise-meta")).getExerciseMetaBySlugs(["x"], UNKNOWN_LOCALE)
   },
   {
-    name: "concept index (client)",
+    name: "concept copy (client)",
     pointer: `/static/concepts/${UNKNOWN_LOCALE}/current.json`,
-    artifact: `/static/concepts/${UNKNOWN_LOCALE}/index-${POINTER_HASH}.json`,
-    body: [],
+    artifact: `/static/concepts/${UNKNOWN_LOCALE}/copy-${POINTER_HASH}.json`,
+    body: {},
     run: async () => (await import("@/lib/api/concepts")).getConcepts(UNKNOWN_LOCALE)
   },
   {
-    name: "concept index (server)",
+    name: "concept copy (server)",
     pointer: `/static/concepts/${UNKNOWN_LOCALE}/current.json`,
-    artifact: `/static/concepts/${UNKNOWN_LOCALE}/index-${POINTER_HASH}.json`,
-    body: [],
+    artifact: `/static/concepts/${UNKNOWN_LOCALE}/copy-${POINTER_HASH}.json`,
+    body: {},
     run: async () => (await import("@/lib/concepts/server-concepts")).getAllConceptsServer(UNKNOWN_LOCALE)
   },
   {
-    name: "content metadata index",
-    pointer: `/static/content/meta/${UNKNOWN_LOCALE}/current.json`,
-    artifact: `/static/content/meta/${UNKNOWN_LOCALE}/index-${POINTER_HASH}.json`,
-    body: { blog: [], articles: [], guides: [], projects: [], testimonials: null, hasContent: {} },
+    name: "content copy catalog",
+    pointer: `/static/content/copy/${UNKNOWN_LOCALE}/current.json`,
+    artifact: `/static/content/copy/${UNKNOWN_LOCALE}/copy-${POINTER_HASH}.json`,
+    body: { blog: {}, articles: {}, guides: {} },
     run: async () => (await import("@/lib/content/contentMeta")).getContentMeta(UNKNOWN_LOCALE)
   },
   {
@@ -176,5 +183,168 @@ describe("the default locale", () => {
     await getExerciseMetaBySlugs(["x"], "en");
 
     expect(fetched.filter((path) => path.endsWith("current.json"))).toEqual([]);
+  });
+});
+
+/**
+ * The listings and the SEO metadata, which is where this had to end up.
+ *
+ * Fetching the right URL is necessary and not sufficient. The failure that
+ * actually reached users was subtler: a locale's page BODY rendered perfectly by
+ * direct URL while its listing was empty and its <title> was missing, because
+ * the index that had to name it was published with the front-end build and had
+ * never heard of the locale. So these assert the assembled RESULT for a locale
+ * absent from every compiled manifest: real entries, with translated titles.
+ */
+describe("listings and SEO, for a locale absent from this build", () => {
+  const STRUCTURE_ROUTE = /\/static\/(concepts|content)\/structure-[0-9a-f]+\.json$/;
+
+  function serve(routes: Record<string, unknown>) {
+    global.fetch = jest.fn((url: string) => {
+      const path = String(url).replace("https://assets.test", "");
+      fetched.push(path);
+      const key = STRUCTURE_ROUTE.test(path) ? path.replace(/-[0-9a-f]+\.json$/, ".json") : path;
+      if (path.endsWith("current.json")) {
+        return Promise.resolve({
+          ok: true,
+          json: () => Promise.resolve({ hash: POINTER_HASH })
+        } as unknown as Response);
+      }
+      const body = routes[key];
+      if (body === undefined) return Promise.resolve({ ok: false, status: 404 } as Response);
+      return Promise.resolve({ ok: true, json: () => Promise.resolve(body) } as unknown as Response);
+    }) as unknown as typeof fetch;
+  }
+
+  it("lists concepts, with translated titles", async () => {
+    serve({
+      "/static/concepts/structure.json": [
+        {
+          slug: "arrays",
+          image: null,
+          parentSlug: null,
+          order: 1,
+          category: false,
+          childrenCount: 0,
+          exerciseSlugs: []
+        }
+      ],
+      [`/static/concepts/${UNKNOWN_LOCALE}/copy-${POINTER_HASH}.json`]: {
+        arrays: { title: "Tömbök", description: "Egy tömb.", contentHash: "aaaaaaaaaaaa" }
+      }
+    });
+
+    const { getConcepts } = await import("@/lib/api/concepts");
+    const concepts = await getConcepts(UNKNOWN_LOCALE);
+
+    expect(concepts).toEqual([
+      expect.objectContaining({ slug: "arrays", title: "Tömbök", description: "Egy tömb.", order: 1 })
+    ]);
+  });
+
+  it("produces concept SEO metadata, with the translated title", async () => {
+    serve({
+      "/static/concepts/structure.json": [
+        {
+          slug: "arrays",
+          image: "/icon.webp",
+          parentSlug: null,
+          order: 1,
+          category: false,
+          childrenCount: 0,
+          exerciseSlugs: []
+        }
+      ],
+      [`/static/concepts/${UNKNOWN_LOCALE}/copy-${POINTER_HASH}.json`]: {
+        arrays: { title: "Tömbök", description: "Egy tömb.", contentHash: "aaaaaaaaaaaa" }
+      }
+    });
+
+    const { getConceptMetadata } = await import("@/lib/concepts/metadata");
+    await expect(getConceptMetadata("arrays", UNKNOWN_LOCALE)).resolves.toEqual(
+      expect.objectContaining({ title: "Tömbök", description: "Egy tömb." })
+    );
+  });
+
+  it("lists blog posts, merging locale-invariant structure with translated copy", async () => {
+    serve({
+      "/static/content/structure.json": {
+        blog: { hello: { date: "2026-01-01", author: { name: "iHiD" }, featured: true, coverImage: "/c.webp" } },
+        articles: {},
+        guides: {}
+      },
+      [`/static/content/copy/${UNKNOWN_LOCALE}/copy-${POINTER_HASH}.json`]: {
+        blog: {
+          hello: { title: "Helló", excerpt: "Üdv", seo: {}, tags: [], readingTime: 2, contentHash: "bbbbbbbbbbbb" }
+        },
+        articles: {},
+        guides: {}
+      }
+    });
+
+    const { getAllBlogPosts } = await import("@/lib/content/getAllBlogPosts");
+    await expect(getAllBlogPosts(UNKNOWN_LOCALE)).resolves.toEqual([
+      expect.objectContaining({
+        slug: "hello",
+        locale: UNKNOWN_LOCALE,
+        title: "Helló",
+        // from the structural half, which no translation had to restate
+        date: "2026-01-01",
+        featured: true
+      })
+    ]);
+  });
+
+  it("lets a listing route know the locale has content", async () => {
+    serve({
+      "/static/content/structure.json": {
+        blog: { hello: { date: "2026-01-01", author: { name: "iHiD" }, featured: true, coverImage: "/c.webp" } },
+        articles: {},
+        guides: {}
+      },
+      [`/static/content/copy/${UNKNOWN_LOCALE}/copy-${POINTER_HASH}.json`]: {
+        blog: {
+          hello: { title: "Helló", excerpt: "Üdv", seo: {}, tags: [], readingTime: 2, contentHash: "bbbbbbbbbbbb" }
+        },
+        articles: {},
+        guides: {}
+      }
+    });
+
+    const { hasContent } = await import("@/lib/content/contentMeta");
+    await expect(hasContent("blog", UNKNOWN_LOCALE)).resolves.toBe(true);
+    // The route 404s on this one, which is right: the locale has no guides.
+    await expect(hasContent("guides", UNKNOWN_LOCALE)).resolves.toBe(false);
+  });
+
+  it("drops an entry the locale has no copy for rather than showing English", async () => {
+    serve({
+      "/static/content/structure.json": {
+        blog: {
+          translated: { date: "2026-01-01", author: { name: "iHiD" }, featured: false, coverImage: "/c.webp" },
+          untranslated: { date: "2026-01-02", author: { name: "iHiD" }, featured: false, coverImage: "/c.webp" }
+        },
+        articles: {},
+        guides: {}
+      },
+      [`/static/content/copy/${UNKNOWN_LOCALE}/copy-${POINTER_HASH}.json`]: {
+        blog: {
+          translated: {
+            title: "Lefordítva",
+            excerpt: "x",
+            seo: {},
+            tags: [],
+            readingTime: 1,
+            contentHash: "cccccccccccc"
+          }
+        },
+        articles: {},
+        guides: {}
+      }
+    });
+
+    const { getAllBlogPosts } = await import("@/lib/content/getAllBlogPosts");
+    const posts = await getAllBlogPosts(UNKNOWN_LOCALE);
+    expect(posts.map((p) => p.slug)).toEqual(["translated"]);
   });
 });

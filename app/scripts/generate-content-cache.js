@@ -37,10 +37,14 @@ import fs from "fs";
 import path from "path";
 import crypto from "crypto";
 import { fileURLToPath } from "url";
-import matter from "gray-matter";
-import lunr from "lunr";
 import { computeHash, writeFile } from "./lib/cache-utils.js";
-import { postImageUrl, renderPost, rewriteImageRefs } from "@jiki.io/content-renderer";
+import {
+  buildSearchIndex,
+  parseFrontmatter,
+  postImageUrl,
+  renderPost,
+  rewriteImageRefs
+} from "@jiki.io/content-renderer";
 
 // Markdown to HTML (the marked config, the marked-footnote plugin, the stock
 // highlight.js grammar set, the /images/ rewrite, and the <define>/<literal>
@@ -203,9 +207,9 @@ function processContentDir(type, requiredFields, extraFields) {
 
       try {
         const fileContent = fs.readFileSync(filePath, "utf-8");
-        const parsed = matter(fileContent);
+        const parsed = parseFrontmatter(fileContent);
         const frontmatter = parsed.data;
-        const fixedMarkdown = fixImagePaths(parsed.content);
+        const fixedMarkdown = fixImagePaths(parsed.body);
 
         // Author is optional: guides have no author, whereas blog posts and
         // articles do. Only look it up (and include it in the meta) when set.
@@ -221,7 +225,7 @@ function processContentDir(type, requiredFields, extraFields) {
         // Pre-render markdown to HTML. renderPost applies the same image rewrite
         // itself (it is inside the byte contract), which is a no-op the second
         // time because a rewritten ref no longer starts with "/images/".
-        const html = renderPost(parsed.content, { resolveImage: hashAndCopyImage });
+        const html = renderPost(parsed.body, { resolveImage: hashAndCopyImage });
 
         // Hash based on all inputs that affect the output
         const hashInput = crypto.createHash("sha256");
@@ -409,11 +413,11 @@ function processProjects() {
 
         try {
           const fileContent = fs.readFileSync(filePath, "utf-8");
-          const parsed = matter(fileContent);
+          const parsed = parseFrontmatter(fileContent);
           const frontmatter = parsed.data;
           // renderPost applies the /images/ rewrite itself, and the resolver
           // copies each referenced image into the cache as it goes.
-          const html = renderPost(parsed.content, { resolveImage: hashAndCopyImage });
+          const html = renderPost(parsed.body, { resolveImage: hashAndCopyImage });
 
           const summary = normalizeEpisodeSummary(frontmatter.summary, `${filePath}`);
 
@@ -630,31 +634,21 @@ function generateSearchIndexes(type, byLocale, filterFn) {
   for (const [locale, entries] of Object.entries(byLocale)) {
     const items = entries.filter(filterFn);
 
-    const idx = lunr(function () {
-      this.ref("slug");
-      this.field("title", { boost: 10 });
-      this.field("excerpt", { boost: 5 });
-      this.field("description", { boost: 4 });
-      this.field("keywords", { boost: 3 });
-
-      for (const item of items) {
-        this.add({
+    // Built by @jiki.io/content-renderer, because a search index is derived
+    // entirely from translated copy and so is published by the i18n repo for
+    // every non-English locale. Field order, boosts and the lunr version are all
+    // part of the bytes, so they live in the package both repos pin.
+    const output = JSON.stringify(
+      buildSearchIndex(
+        items.map((item) => ({
           slug: item.slug,
           title: item.title,
           excerpt: item.excerpt,
           description: item.seo.description,
           keywords: item.seo.keywords.join(" ")
-        });
-      }
-    });
-
-    const metadata = items.map((item) => ({
-      slug: item.slug,
-      title: item.title,
-      excerpt: item.excerpt
-    }));
-
-    const output = JSON.stringify({ index: idx.toJSON(), items: metadata });
+        }))
+      )
+    );
     const searchHash = computeHash(output);
     searchHashes[locale] = searchHash;
 
@@ -680,7 +674,7 @@ function generateSearchIndexes(type, byLocale, filterFn) {
  * are generated), and per-project episode indexes are fetched via the
  * `episodesIndexHash` carried in that same bundled metadata.
  */
-function writeHashManifest(searchHashes, guideSearchHashes, contentMetaHashes) {
+function writeHashManifest(searchHashes, guideSearchHashes, { copyHashes, localHashes, structureHash }) {
   function formatEntries(hashes) {
     return Object.entries(hashes)
       .sort(([a], [b]) => a.localeCompare(b))
@@ -697,6 +691,7 @@ function writeHashManifest(searchHashes, guideSearchHashes, contentMetaHashes) {
 export const contentIndexHashes: {
   search: { articles: Record<string, string>; guides: Record<string, string> };
   meta: Record<string, string>;
+  copy: Record<string, string>;
 } = {
   search: {
     articles: {
@@ -707,9 +702,16 @@ ${formatEntries(guideSearchHashes)},
     },
   },
   meta: {
-${formatEntries(contentMetaHashes)},
+${formatEntries(localHashes)},
+  },
+  copy: {
+${formatEntries(copyHashes)},
   },
 };
+
+// Locale-invariant: every post's date, author, cover image and flags come from
+// English config, so one object serves every language and ships with the deploy.
+export const contentStructureHash = ${JSON.stringify(structureHash)};
 `;
 
   writeFile(path.join(GENERATED_DIR, "content-hashes.ts"), content);
@@ -773,45 +775,108 @@ function processTestimonials() {
  * Returns { [locale]: hash }.
  */
 function writeContentMeta(blogByLocale, articlesByLocale, guidesByLocale, projectsByLocale, testimonialsByLocale) {
+  // Post metadata splits three ways, along what each part actually is.
+  //
+  //   1. STRUCTURE, locale-invariant. Date, author, cover image, featured,
+  //      listed, premium, order. All of it comes from English config.json and
+  //      authors.json, none of it varies by language, and the i18n repo does not
+  //      hold any of it. One object serves every locale.
+  //   2. COPY, per locale. Title, excerpt, seo, tags, reading time, and the hash
+  //      of that locale's rendered HTML. Every one of those is produced by
+  //      translating, so the i18n repo publishes them and a locale it adds needs
+  //      no front-end build to appear in a listing.
+  //   3. LOCAL, per locale, front-end owned. Projects and testimonials. See
+  //      below for why these cannot go in (2).
+  const structure = { blog: {}, articles: {}, guides: {} };
+  const copyByLocale = {};
+
+  const STRUCTURAL = {
+    blog: ["date", "author", "featured", "coverImage"],
+    articles: ["date", "author", "listed"],
+    guides: ["date", "coverImage", "premium", "order"]
+  };
+  const COPY = ["title", "excerpt", "seo", "tags", "readingTime", "contentHash"];
+
+  const pick = (entry, keys) =>
+    Object.fromEntries(keys.filter((k) => entry[k] !== undefined).map((k) => [k, entry[k]]));
+
+  for (const [type, byLocale] of [
+    ["blog", blogByLocale],
+    ["articles", articlesByLocale],
+    ["guides", guidesByLocale]
+  ]) {
+    for (const [locale, entries] of Object.entries(byLocale)) {
+      for (const entry of entries) {
+        // Structure is written from whichever locale reaches it first; it is
+        // identical across all of them because every field comes from the one
+        // config.json they share.
+        structure[type][entry.slug] ??= pick(entry, STRUCTURAL[type]);
+
+        copyByLocale[locale] ??= { blog: {}, articles: {}, guides: {} };
+        copyByLocale[locale][type][entry.slug] = pick(entry, COPY);
+      }
+    }
+  }
+
+  const sortKeys = (obj) =>
+    Object.fromEntries(
+      Object.keys(obj)
+        .sort()
+        .map((k) => [k, obj[k]])
+    );
+  for (const type of Object.keys(structure)) structure[type] = sortKeys(structure[type]);
+
+  const structureContent = JSON.stringify(structure);
+  const structureHash = computeHash(structureContent);
+  writeFile(path.join(STATIC_DIR, `structure-${structureHash}.json`), structureContent);
+
+  const copyHashes = {};
+  const localHashes = {};
+
   const locales = new Set([
-    ...Object.keys(blogByLocale),
-    ...Object.keys(articlesByLocale),
-    ...Object.keys(guidesByLocale),
+    ...Object.keys(copyByLocale),
     ...Object.keys(projectsByLocale),
     ...Object.keys(testimonialsByLocale)
   ]);
 
-  const hashes = {};
-
   for (const locale of [...locales].sort()) {
-    const blog = blogByLocale[locale] ?? [];
-    const articles = articlesByLocale[locale] ?? [];
-    const guides = guidesByLocale[locale] ?? [];
-    const projects = projectsByLocale[locale] ?? [];
+    const copy = copyByLocale[locale] ?? { blog: {}, articles: {}, guides: {} };
+    for (const type of Object.keys(copy)) copy[type] = sortKeys(copy[type]);
 
-    const meta = {
-      blog,
-      articles,
-      guides,
-      projects,
-      testimonials: testimonialsByLocale[locale] ?? null,
-      hasContent: { blog: blog.length > 0, articles: articles.length > 0, guides: guides.length > 0 }
+    const copyContent = JSON.stringify(copy);
+    const copyHash = computeHash(copyContent);
+    copyHashes[locale] = copyHash;
+    writeFile(path.join(STATIC_DIR, "copy", locale, `copy-${copyHash}.json`), copyContent);
+
+    // Projects and testimonials stay FRONT-END published, per locale.
+    //
+    // Not an oversight. A project's per-locale title, description and tags are
+    // authored as locale MAPS inside the project's own config.json, and its
+    // episodesIndexHash names an artifact this script writes. Testimonials are a
+    // per-locale JSON file in the content package. None of that is Markdown, so
+    // none of it is in the corpus the i18n repo mirrors, and publishing it from
+    // there would mean teaching it a second authoring format it has no source
+    // for. So these two are the remaining front-end-owned per-locale objects.
+    const local = {
+      projects: projectsByLocale[locale] ?? [],
+      testimonials: testimonialsByLocale[locale] ?? null
     };
+    const localContent = JSON.stringify(local);
+    const localHash = computeHash(localContent);
+    localHashes[locale] = localHash;
+    writeFile(path.join(STATIC_DIR, "meta", locale, `index-${localHash}.json`), localContent);
 
-    const json = JSON.stringify(meta);
-    const hash = computeHash(json);
-    hashes[locale] = hash;
-    writeFile(path.join(STATIC_DIR, "meta", locale, `index-${hash}.json`), json);
-
-    // A LOCAL pointer for every non-default locale, so `pnpm dev` serves
-    // translated listings with no i18n checkout. Excluded from static:upload:
-    // on R2 the i18n repo is the single writer of every non-English pointer.
+    // Dev pointers, so `pnpm dev` serves translated listings with no i18n
+    // checkout. The COPY pointer is excluded from static:upload (the i18n repo
+    // is its single writer on R2); the LOCAL one is uploaded, because this repo
+    // is its only writer anywhere.
     if (locale !== DEFAULT_LOCALE) {
-      writeFile(path.join(STATIC_DIR, "meta", locale, "current.json"), `${JSON.stringify({ hash })}\n`);
+      writeFile(path.join(STATIC_DIR, "copy", locale, "current.json"), `${JSON.stringify({ hash: copyHash })}\n`);
+      writeFile(path.join(STATIC_DIR, "meta", locale, "current.json"), `${JSON.stringify({ hash: localHash })}\n`);
     }
   }
 
-  return hashes;
+  return { copyHashes, localHashes, structureHash };
 }
 
 /**
@@ -863,14 +928,14 @@ function generateContentCache() {
   const guideSearchHashes = generateSearchIndexes("guides", guidesByLocale, () => true);
 
   // Write the per-locale metadata artifacts, then the hash manifest naming them
-  const contentMetaHashes = writeContentMeta(
+  const contentMeta = writeContentMeta(
     blogByLocale,
     articlesByLocale,
     guidesByLocale,
     projectsByLocale,
     testimonialsByLocale
   );
-  writeHashManifest(searchHashes, guideSearchHashes, contentMetaHashes);
+  writeHashManifest(searchHashes, guideSearchHashes, contentMeta);
 
   // Count totals
   let contentFileCount = 0;

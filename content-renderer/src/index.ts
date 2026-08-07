@@ -50,6 +50,8 @@ import { stripInlineTags } from "./shared.js";
 
 export { isSupportedLanguage, registeredLanguages } from "./highlighting.js";
 export { contentHash, stripInlineTags } from "./shared.js";
+export { buildSearchIndex, type SearchIndex, type SearchItem } from "./search.js";
+export { parseFrontmatter, type Frontmatter } from "./frontmatter.js";
 export {
   postImageUrl,
   postImageUrlFromBytes,
@@ -68,7 +70,7 @@ export {
  * identically from source, from `dist`, and from a bundler that will not import
  * JSON. A test asserts it against package.json, so the duplication cannot drift.
  */
-export const RENDERER_VERSION = "0.2.0";
+export const RENDERER_VERSION = "0.4.0";
 
 /**
  * A private `marked` instance, never the module-level `marked` singleton.

@@ -58,9 +58,8 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import matter from "gray-matter";
 import { computeHash, writeFile } from "./lib/cache-utils.js";
-import { prepareInstructions } from "@jiki.io/content-renderer";
+import { parseFrontmatter, prepareInstructions } from "@jiki.io/content-renderer";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const EXERCISES_DIR = path.join(__dirname, "../../curriculum/src/exercises");
@@ -230,7 +229,7 @@ function processExercises() {
         const locale = baseName === "source" ? "en" : baseName;
         const filePath = path.join(instructionsDir, file.name);
         const fileContent = fs.readFileSync(filePath, "utf-8");
-        const parsed = matter(fileContent);
+        const parsed = parseFrontmatter(fileContent);
 
         if (!parsed.data.title) {
           throw new Error(`Missing title in frontmatter of ${filePath}`);
@@ -242,7 +241,7 @@ function processExercises() {
         // may carry. prepareInstructions does the trim and the strip, and lives in
         // @jiki.io/content-renderer beside the concept renderer, because both
         // repos that publish instructions must agree on these bytes.
-        const instructions = prepareInstructions(parsed.content);
+        const instructions = prepareInstructions(parsed.body);
 
         locales[locale] = {
           title: parsed.data.title,

@@ -1,10 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import lunr from "lunr";
 import { describe, expect, it } from "vitest";
 import {
   RENDERER_VERSION,
   contentHash,
+  buildSearchIndex,
   postImageUrl,
   prepareInstructions,
   registeredLanguages,
@@ -181,5 +183,30 @@ describe("postImageUrl", () => {
 
   it("is not confused by a dot in a directory name", () => {
     expect(postImageUrl("v1.2/a.webp", "abc123abc123")).toBe("/static/content/images/v1.2/a-abc123abc123.webp");
+  });
+});
+
+describe("buildSearchIndex", () => {
+  // A lunr index is a serialised structure whose bytes depend on the lunr
+  // version and on field order and boosts. Both repos build one, so all of that
+  // is contract, not preference.
+  it("indexes an item and finds it by title", () => {
+    const built = buildSearchIndex([
+      { slug: "arrays", title: "Arrays", excerpt: "An ordered chain", description: "About arrays", keywords: "list" }
+    ]);
+    const index = lunr.Index.load(built.index as object);
+    expect(index.search("arrays").map((r) => r.ref)).toEqual(["arrays"]);
+  });
+
+  it("carries only what a result row renders", () => {
+    const built = buildSearchIndex([
+      { slug: "arrays", title: "Arrays", excerpt: "An ordered chain", description: "d", keywords: "k" }
+    ]);
+    expect(built.items).toEqual([{ slug: "arrays", title: "Arrays", excerpt: "An ordered chain" }]);
+  });
+
+  it("is deterministic, which is what makes the filename hash meaningful", () => {
+    const items = [{ slug: "a", title: "A", excerpt: "e", description: "d", keywords: "k" }];
+    expect(JSON.stringify(buildSearchIndex(items))).toBe(JSON.stringify(buildSearchIndex(items)));
   });
 });

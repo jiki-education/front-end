@@ -1,7 +1,8 @@
 import { api } from "./client";
-import { conceptIndexHashes } from "@/lib/generated/concept-hashes";
+import { conceptCopyHashes, conceptStructureHash } from "@/lib/generated/concept-hashes";
 import { assetsUrl } from "@/lib/assets";
-import { conceptIndexPath, conceptIndexPointerPath, conceptContentPath } from "@/lib/assets-paths";
+import { conceptStructurePath, conceptCopyPath, conceptIndexPointerPath, conceptContentPath } from "@/lib/assets-paths";
+import { assembleConcepts, type ConceptCopyCatalog, type ConceptStructure } from "@/lib/concepts/assemble";
 import { createHashResolver } from "@/lib/i18n/catalogPointer";
 import {
   selectTopLevelConcepts,
@@ -17,8 +18,8 @@ import type { VideoSource } from "@/types/lesson";
 // its pointer, so a concept index published by the i18n repo goes live with no
 // front-end rebuild. See lib/i18n/catalogPointer.ts.
 const resolveHash = createHashResolver({
-  label: "concept index",
-  compiledHashes: () => conceptIndexHashes,
+  label: "concept copy catalog",
+  compiledHashes: () => conceptCopyHashes,
   pointerPath: (locale) => conceptIndexPointerPath(locale),
   resolveUrl: assetsUrl
 });
@@ -43,12 +44,21 @@ async function fetchAllConcepts(locale: string): Promise<ConceptMeta[]> {
     return cached;
   }
 
-  const promise = fetch(assetsUrl(conceptIndexPath(locale, hash))).then((res) => {
-    if (!res.ok) {
-      throw new Error("Failed to fetch concepts");
-    }
-    return res.json() as Promise<ConceptMeta[]>;
-  });
+  // Structure and copy in parallel: two artifacts, one round trip of depth.
+  const promise = Promise.all([
+    fetch(assetsUrl(conceptStructurePath(conceptStructureHash))).then((res) => {
+      if (!res.ok) {
+        throw new Error("Failed to fetch concept structure");
+      }
+      return res.json() as Promise<ConceptStructure[]>;
+    }),
+    fetch(assetsUrl(conceptCopyPath(locale, hash))).then((res) => {
+      if (!res.ok) {
+        throw new Error("Failed to fetch concept copy");
+      }
+      return res.json() as Promise<ConceptCopyCatalog>;
+    })
+  ]).then(([structure, copy]) => assembleConcepts(structure, copy));
   conceptIndexCache.set(key, promise);
   return promise;
 }

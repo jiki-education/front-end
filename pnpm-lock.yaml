@@ -306,9 +306,15 @@ importers:
       '@jiki/highlightjs-javascript':
         specifier: git+https://github.com/jiki-education/highlightjs-javascript.git#180157677b2637335e7677e81d6d0aeb0210546d
         version: https://codeload.github.com/jiki-education/highlightjs-javascript/tar.gz/180157677b2637335e7677e81d6d0aeb0210546d(typescript@5.9.3)
+      gray-matter:
+        specifier: 4.0.3
+        version: 4.0.3
       highlight.js:
         specifier: 11.11.1
         version: 11.11.1
+      lunr:
+        specifier: 2.3.9
+        version: 2.3.9
       marked:
         specifier: 17.0.6
         version: 17.0.6
@@ -316,6 +322,9 @@ importers:
         specifier: 1.4.0
         version: 1.4.0(marked@17.0.6)
     devDependencies:
+      '@types/lunr':
+        specifier: ^2.3.7
+        version: 2.3.7
       '@types/node':
         specifier: ^25.0.9
         version: 25.6.0

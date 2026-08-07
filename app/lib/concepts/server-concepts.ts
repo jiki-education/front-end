@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { conceptIndexHashes } from "@/lib/generated/concept-hashes";
+import { conceptCopyHashes, conceptStructureHash } from "@/lib/generated/concept-hashes";
 import {
   selectTopLevelConcepts,
   selectConcept,
@@ -9,7 +9,8 @@ import {
 } from "@/lib/concepts/select";
 import { getExerciseMetaBySlugsServer } from "@/lib/api/exercise-meta-server";
 import { assetsUrl } from "@/lib/server/origin";
-import { conceptIndexPath, conceptIndexPointerPath, conceptContentPath } from "@/lib/assets-paths";
+import { conceptStructurePath, conceptCopyPath, conceptIndexPointerPath, conceptContentPath } from "@/lib/assets-paths";
+import { assembleConcepts, type ConceptCopyCatalog, type ConceptStructure } from "./assemble";
 import { createHashResolver } from "@/lib/i18n/catalogPointer";
 import { fetchStaticContent } from "@/lib/content/fetchStaticContent";
 import { getApiUrl } from "@/lib/api/config";
@@ -30,8 +31,8 @@ import type { VideoSource } from "@/types/lesson";
 // Non-English hashes resolve at runtime from the pointer, exactly as on the
 // client, so a locale the i18n repo published after this build still renders.
 const resolveHash = createHashResolver({
-  label: "concept index",
-  compiledHashes: () => conceptIndexHashes,
+  label: "concept copy catalog",
+  compiledHashes: () => conceptCopyHashes,
   pointerPath: (locale) => conceptIndexPointerPath(locale),
   resolveUrl: assetsUrl
 });
@@ -46,12 +47,22 @@ const fetchConceptIndex = cache(async (locale: string): Promise<ConceptMeta[]> =
     return [];
   }
 
-  const url = await assetsUrl(conceptIndexPath(locale, hash));
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error(`Failed to fetch concepts index: ${url} (${res.status})`);
+  // Structure and copy in parallel: two artifacts, one round trip of depth.
+  const [structureUrl, copyUrl] = await Promise.all([
+    assetsUrl(conceptStructurePath(conceptStructureHash)),
+    assetsUrl(conceptCopyPath(locale, hash))
+  ]);
+  const [structureRes, copyRes] = await Promise.all([fetch(structureUrl), fetch(copyUrl)]);
+  if (!structureRes.ok) {
+    throw new Error(`Failed to fetch concept structure: ${structureUrl} (${structureRes.status})`);
   }
-  return res.json() as Promise<ConceptMeta[]>;
+  if (!copyRes.ok) {
+    return [];
+  }
+  return assembleConcepts(
+    (await structureRes.json()) as ConceptStructure[],
+    (await copyRes.json()) as ConceptCopyCatalog
+  );
 });
 
 /** Every concept in a locale's index. The sitemap enumerates slugs from this. */
