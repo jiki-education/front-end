@@ -533,6 +533,21 @@
       "buildBody": "Databases, auth, frontends, backends: how real technology actually works.",
       "techLabel": "Learn technologies including:"
     },
+    "learnToCode": {
+      "heading": "Learn to <word>Code</word>",
+      "intro": "We'll help you <highlight>build rock solid coding foundations</highlight>: every core concept, with tons of exercises and projects to practise on."
+    },
+    "funPrints": {
+      "eyebrow": "Look what you'll make",
+      "heading": "Make Games. Build Animations. Solve Puzzles.",
+      "sub": "Every one of these is built from the same handful of core concepts, and you'll have made <strong>hundreds</strong> like them by the end.",
+      "spaceInvaders": "Space invaders",
+      "ticTacToe": "Tic tac toe",
+      "breakout": "Breakout",
+      "mazeSolver": "Maze solver",
+      "flowerFlipbook": "Flower flipbook",
+      "footnote": "…and that's just the first few weeks!"
+    },
     "exercism": {
       "heading": "What makes Exercism special?",
       "intro": "Exercism is a <strong>longstanding nonprofit</strong> that's helped over <strong>2.5 million people</strong> level-up their coding skills.",

@@ -1,0 +1,14 @@
+.section {
+    background: #fff;
+    padding-block-end: 40px;
+}
+
+/* Deliberately unconstrained: the bands inside are full-bleed and hold their own
+   measure, so the width is theirs to set rather than something they have to escape.
+   Widening this to 100vw and pulling it back with a transform, as full-bleed usually
+   does, overflows the page whenever a scrollbar is present.  */
+.grid {
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+}

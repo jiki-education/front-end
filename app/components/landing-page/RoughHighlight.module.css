@@ -1,0 +1,26 @@
+.highlight {
+    background-image: linear-gradient(105deg, var(--color-amber-300) 0%, var(--color-amber-300) 100%);
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    background-size: 0% 100%;
+    padding: 0.05em 0.15em;
+    margin-inline: -0.15em;
+    border-radius: 3px;
+    /* So the sweep paints every line of a phrase that wraps, not just the first. */
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    transition:
+        background-size 0.6s ease,
+        color 0.6s ease;
+}
+
+.visible {
+    background-size: 100% 100%;
+    color: var(--color-gray-900);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .highlight {
+        transition: none;
+    }
+}

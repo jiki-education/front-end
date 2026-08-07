@@ -1,0 +1,191 @@
+.band {
+    /* The heading arrow hangs well outside the text column, so the band clips generously
+       rather than exactly. */
+    overflow: clip;
+    overflow-clip-margin: 420px;
+}
+
+.inner {
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 5%;
+    text-align: center;
+}
+
+.eyebrow {
+    font-family: var(--font-handwritten);
+    font-size: 29px;
+    font-weight: 700;
+    color: var(--color-purple-600);
+    transform: rotate(-2deg);
+    margin-block-end: 4px;
+}
+
+.headingWrap {
+    position: relative;
+    display: inline-block;
+}
+
+.heading {
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--color-gray-800);
+    line-height: 1.15;
+    margin-block-end: 12px;
+    text-wrap: balance;
+}
+
+/* Mirrored so the arrowhead points back in at the start of the heading, and anchored on
+   the corner the head sits in, so resizing keeps the point landing in the same place. */
+.headingArrow {
+    position: absolute;
+    inset-inline-end: calc(100% + 24px);
+    inset-block-end: -44px;
+    width: 230px;
+    height: auto;
+    opacity: 0.45;
+    transform: scaleX(-1);
+    pointer-events: none;
+}
+
+.sub {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--color-gray-600);
+    max-width: 720px;
+    margin-inline: auto;
+    margin-block-end: 44px;
+    text-wrap: balance;
+
+    strong {
+        font-weight: 700;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 26px;
+    align-items: center;
+}
+
+.grid > li {
+    /* The caption sizes off the print's own width, so the prints stay proportional
+       whatever the grid does. */
+    container-type: inline-size;
+    position: relative;
+    border-radius: 2px;
+    padding: 5% 5% 26%;
+    background: radial-gradient(120% 100% at 50% 0%, #faf8f3 40%, #ece5d9 100%);
+    box-shadow:
+        0 1px 2px rgba(30, 20, 10, 0.28),
+        0 12px 24px -8px rgba(30, 20, 10, 0.22);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+/* Paper grain. */
+.grid > li::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 2px;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.grid video {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    background: var(--color-gray-100);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.35);
+    filter: contrast(0.92) saturate(0.94) sepia(0.06) brightness(1.02);
+}
+
+.grid video.pixel {
+    filter: none;
+}
+
+.grid span {
+    position: absolute;
+    inset-inline: 0;
+    inset-block-end: 2px;
+    height: 26cqw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-inline: 6%;
+    font-family: var(--font-handwritten);
+    font-weight: 700;
+    font-size: calc(8.5cqw + 2px);
+    line-height: 1.05;
+    color: rgba(42, 49, 66, 0.88);
+    text-align: center;
+}
+
+/* Each print sits at its own angle, but they all line up on one baseline. */
+.grid > li:nth-child(1) {
+    transform: rotate(-2.5deg);
+}
+.grid > li:nth-child(1) span {
+    transform: rotate(1.2deg) translateX(-3px);
+}
+.grid > li:nth-child(2) {
+    transform: rotate(1.3deg);
+}
+.grid > li:nth-child(2) span {
+    transform: rotate(-1.5deg) translateX(4px);
+}
+.grid > li:nth-child(3) {
+    transform: rotate(-0.8deg);
+}
+.grid > li:nth-child(3) span {
+    transform: rotate(0.9deg) translateX(-5px);
+}
+.grid > li:nth-child(4) {
+    transform: rotate(2.4deg);
+}
+.grid > li:nth-child(4) span {
+    transform: rotate(-0.6deg) translateX(2px);
+}
+.grid > li:nth-child(5) {
+    transform: rotate(-1.6deg);
+}
+.grid > li:nth-child(5) span {
+    transform: rotate(1.4deg) translateX(-2px);
+}
+
+.grid > li:hover {
+    transform: rotate(0deg) scale(1.03);
+    box-shadow:
+        0 2px 4px rgba(30, 20, 10, 0.3),
+        0 18px 32px -10px rgba(30, 20, 10, 0.28);
+    z-index: 1;
+}
+
+/* Runs straight on into the ask below it, so it sits bigger and closer. */
+.footnote {
+    font-family: var(--font-handwritten);
+    font-size: 30px;
+    color: var(--color-gray-500);
+    transform: rotate(1deg);
+    margin-block: 42px 18px;
+    text-wrap: balance;
+}
+
+@media (max-width: 900px) {
+    .headingArrow {
+        display: none;
+    }
+}
+
+@media (max-width: 700px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
