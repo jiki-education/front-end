@@ -12,7 +12,7 @@
   "scenarios": {
     "maze1": {
       "name": "Naviga nel labirinto",
-      "description": "Cammina 3, gira a sinistra, cammina 2, gira a destra, cammina 4 per raggiungere il traguardo."
+      "description": "Cammina 3 volte, gira a sinistra, cammina 2 volte, gira a destra, cammina 4 volte per raggiungere il traguardo."
     }
   },
   "hints": {
