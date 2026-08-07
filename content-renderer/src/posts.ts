@@ -136,7 +136,10 @@ function extensionOf(relPath: string): string {
 export function rewriteImageRefs(markdown: string, resolveImage: ResolveImage): string {
   const resolve = (ref: string) => (ref.startsWith("/images/") ? resolveImage(ref) : ref);
   return markdown
-    .replace(/!\[([^\]]*)\]\((\/images\/[^)\s]+)\)/g, (_match, alt: string, ref: string) => `![${alt}](${resolve(ref)})`)
+    .replace(
+      /!\[([^\]]*)\]\((\/images\/[^)\s]+)\)/g,
+      (_match, alt: string, ref: string) => `![${alt}](${resolve(ref)})`
+    )
     .replace(
       /(<img\b[^>]*\bsrc=")(\/images\/[^"]+)(")/g,
       (_match, pre: string, ref: string, post: string) => `${pre}${resolve(ref)}${post}`
