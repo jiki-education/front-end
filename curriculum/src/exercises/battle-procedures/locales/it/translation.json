@@ -7,7 +7,7 @@
   "tasks": {
     "battleProcedures": {
       "name": "Crea una funzione shootIfAlienAbove e usala per vincere la partita",
-      "description": "Estrai la logica di sparo in una funzione shootIfAlienAbove(), quindi usala insieme alla logica di movimento per sconfiggere tutti gli alieni."
+      "description": "Estrai la logica di sparo in una funzione shootIfAlienAbove(), poi usala insieme alla logica di movimento per sconfiggere tutti gli alieni."
     }
   },
   "scenarios": {
@@ -27,7 +27,7 @@
     },
     "whatStaysInLoop": {
       "question": "Cosa rimane nel ciclo?",
-      "answer": "Tutta la logica di movimento rimane nel ciclo, come nell'esercizio scroll-and-shoot. A ogni iterazione: chiama `shootIfAlienAbove()`, poi muovi il cannone, poi inverti la direzione ai bordi."
+      "answer": "Tutta la logica di movimento rimane nel ciclo, come nell'esercizio Scorri e spara. A ogni iterazione: chiama `shootIfAlienAbove()`, poi muovi il cannone, poi inverti la direzione ai bordi."
     },
     "trackCannon": {
       "question": "Come faccio a tenere traccia di dove si trova il cannone e in che direzione sta andando?",
