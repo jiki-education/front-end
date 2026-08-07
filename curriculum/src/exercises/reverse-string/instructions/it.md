@@ -24,6 +24,6 @@ Si scopre che molti emoji sono in realtà composti da altri emoji uniti insieme 
 
 L'emoji famiglia (👩‍👩‍👧‍👦) è composto da due donne e due bambini. Quando viene invertito, puoi vedere i singoli caratteri (👦‍👧‍👩‍👩).
 
-L'altro è un arcobaleno e una bandiera (🌈‍️🏳). Quando inverti l'ordine per ottenere prima la bandiera e poi l'arcobaleno, diventa una bandiera arcobaleno (🏳️‍🌈️)!
+L'altro è un arcobaleno ed una bandiera (🌈‍️🏳). Quando inverti l'ordine per ottenere prima la bandiera e poi l'arcobaleno, diventa una bandiera arcobaleno (🏳️‍🌈️)!
 
 Se costruisci il tuo risultato un carattere alla volta, questi dovrebbero funzionare senza problemi. Se invece cerchi un trucco più astuto, potresti scoprire che gli emoji si spezzano.
