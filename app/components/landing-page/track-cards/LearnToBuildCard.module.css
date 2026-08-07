@@ -97,15 +97,6 @@
     min-width: 0;
 }
 
-.panelImage {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 16px;
-    border: 1px solid var(--color-gray-200);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-}
-
 /* Sits under the whole row, full width and centred. */
 .techBlock {
     max-width: 900px;

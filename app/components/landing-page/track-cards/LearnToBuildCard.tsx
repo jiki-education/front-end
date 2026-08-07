@@ -1,8 +1,6 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import Image from "next/image";
-import liveQaSession from "../assets/live-qa-session.webp";
 import DatabasesIcon from "../icons/topics/databases.svg";
 import AuthIcon from "../icons/topics/auth.svg";
 import FrontendBackendIcon from "../icons/topics/frontend-backend.svg";
@@ -10,6 +8,7 @@ import ApisIcon from "../icons/topics/apis.svg";
 import DeploymentIcon from "../icons/topics/deployment.svg";
 import LlmIntegrationIcon from "../icons/topics/llm-integration.svg";
 import { RoughHighlight } from "../RoughHighlight";
+import { LiveQAPanel } from "./live-qa/LiveQAPanel";
 import styles from "./LearnToBuildCard.module.css";
 
 const BULLETS = ["livestreams", "technologies", "portfolio"] as const;
@@ -50,12 +49,7 @@ export function LearnToBuildCard() {
           </ul>
 
           <div className={styles.panel}>
-            <Image
-              className={styles.panelImage}
-              src={liveQaSession}
-              alt={t("liveQaAlt")}
-              sizes="(max-width: 900px) 100vw, 620px"
-            />
+            <LiveQAPanel />
           </div>
         </div>
 

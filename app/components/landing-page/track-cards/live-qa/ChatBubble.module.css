@@ -1,0 +1,114 @@
+/* The shadow is a filter rather than a box-shadow so it traces the card and its pointer
+   as one silhouette instead of a plain rectangle. */
+.card {
+    position: absolute;
+    inset-block-start: -22px;
+    inset-inline-end: -24px;
+    z-index: 2;
+    width: 200px;
+    background: #fff;
+    border: 2px solid var(--color-blue-500);
+    border-radius: 12px;
+    padding: 10px;
+    filter: drop-shadow(0 6px 14px rgba(15, 23, 42, 0.18));
+    transition: height 0.35s ease;
+}
+
+/* A rotated square, so it carries the same border as the card. Pinned to 22px — the
+   face's centre — rather than the card's midpoint, which drifted away from the face
+   whenever a longer message made the card taller. */
+.card::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: -7px;
+    inset-block-start: 16px;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border-inline-start: 2px solid var(--color-blue-500);
+    border-block-end: 2px solid var(--color-blue-500);
+    transform: rotate(45deg);
+}
+
+/* Hides the card's own border where the pointer meets it, so the two read as one
+   continuous outline. */
+.card::after {
+    content: "";
+    position: absolute;
+    inset-inline-start: -2px;
+    inset-block-start: 17px;
+    width: 2px;
+    height: 10px;
+    background: #fff;
+    z-index: 2;
+}
+
+/* Clips the message's slide vertically, but lets the face sit outside the card. */
+.viewport {
+    position: relative;
+    overflow: clip;
+    overflow-clip-margin: 140px;
+}
+
+.item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    animation: slide-in 0.5s ease both;
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Sits outside the card, with the pointer aimed at it. */
+.face {
+    position: absolute;
+    inset-inline-start: -68px;
+    inset-block-start: -12px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-blue-500);
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-blue-800);
+    white-space: nowrap;
+}
+
+.message {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    line-height: 1.4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card {
+        transition: none;
+    }
+
+    .item {
+        animation: none;
+    }
+}
