@@ -4,12 +4,16 @@ import { mockAPIBadgeReveal, mockAPIBadges, mockAPIInternalMe, mockAPIFlag } fro
 import { AUTHENTICATION_COOKIE_NAME } from "@/lib/auth/cookie-config";
 import { createMockUser } from "../mocks/user";
 
+// Badge display copy is resolved from the curriculum badge catalog by slug (the
+// API's `name` is not rendered), so these slugs MUST exist in
+// curriculum/src/badges/locales/*/translation.json — an unknown slug renders as
+// the slug itself and every name assertion below fails.
 const BADGES_FIXTURE = {
   badges: [
     {
       id: 1,
       name: "First Steps",
-      slug: "first-steps",
+      slug: "first_lesson",
       icon: "test-icon-1",
       description: "Completed your first exercise",
       fun_fact: "This is the most common first badge earned",
@@ -19,8 +23,8 @@ const BADGES_FIXTURE = {
     },
     {
       id: 2,
-      name: "Code Warrior",
-      slug: "code-warrior",
+      name: "Maze Navigator",
+      slug: "maze_navigator",
       icon: "test-icon-2",
       description: "Completed 10 exercises",
       fun_fact: "Only 10% of users reach this milestone",
@@ -30,8 +34,8 @@ const BADGES_FIXTURE = {
     },
     {
       id: 3,
-      name: "Learning Journey",
-      slug: "learning-journey",
+      name: "Night Owl",
+      slug: "night_owl",
       icon: "test-icon-3",
       description: "Spent 5 hours learning",
       fun_fact: "The average time to earn this is 2 weeks",
@@ -72,7 +76,7 @@ test.describe("Badge Reveal E2E", () => {
     await mockAPIBadges(page, BADGES_FIXTURE);
     await mockAPIBadgeReveal(page, 2, {
       id: 2,
-      name: "Code Warrior",
+      name: "Maze Navigator",
       icon: "test-icon-2",
       description: "Completed 10 exercises",
       revealed: true,
@@ -86,14 +90,14 @@ test.describe("Badge Reveal E2E", () => {
     const allBadges = page.locator('[data-type="achievement"]');
     await expect(allBadges).toHaveCount(3);
 
-    const codeWarriorBadge = page.locator('[data-type="achievement"]:has-text("Code Warrior")').first();
-    await codeWarriorBadge.waitFor();
-    await expect(codeWarriorBadge).toContainText("Code Warrior");
+    const mazeNavigatorBadge = page.locator('[data-type="achievement"]:has-text("Maze Navigator")').first();
+    await mazeNavigatorBadge.waitFor();
+    await expect(mazeNavigatorBadge).toContainText("Maze Navigator");
 
-    const badgeClasses = await codeWarriorBadge.getAttribute("class");
+    const badgeClasses = await mazeNavigatorBadge.getAttribute("class");
     expect(badgeClasses).toContain("new");
 
-    await codeWarriorBadge.click();
+    await mazeNavigatorBadge.click();
 
     const modal = page.locator('[class*="modal"], [data-modal], [class*="Modal"], [class*="BadgeModal"]').first();
     await modal.waitFor({ state: "visible", timeout: 5000 });
@@ -110,12 +114,12 @@ test.describe("Badge Reveal E2E", () => {
     await modal.waitFor({ state: "hidden", timeout: 5000 });
     await page.waitForTimeout(1600);
 
-    const codeWarriorAfterClick = page.locator('[data-type="achievement"]:has-text("Code Warrior")').first();
+    const mazeNavigatorAfterClick = page.locator('[data-type="achievement"]:has-text("Maze Navigator")').first();
 
-    const codeWarriorHasNew = await codeWarriorAfterClick.locator(':text("NEW")').count();
-    expect(codeWarriorHasNew).toBe(1);
+    const mazeNavigatorHasNew = await mazeNavigatorAfterClick.locator(':text("NEW")').count();
+    expect(mazeNavigatorHasNew).toBe(1);
 
-    await expect(codeWarriorAfterClick).toBeVisible();
-    await expect(codeWarriorAfterClick).toContainText("NEW");
+    await expect(mazeNavigatorAfterClick).toBeVisible();
+    await expect(mazeNavigatorAfterClick).toContainText("NEW");
   });
 });

@@ -11,8 +11,8 @@ interface WalkthroughCardProps {
 
 export function WalkthroughCard({ lesson, isCompleting }: WalkthroughCardProps) {
   const t = useTranslations("dashboard.exercisePath.walkthrough");
-  const walkthroughVideoData = lesson.lesson.walkthrough_video_data;
-  if (!walkthroughVideoData?.length) {
+  const walkthroughVideo = lesson.walkthroughVideo;
+  if (!walkthroughVideo) {
     return null;
   }
   const isLocked = !lesson.completed;
@@ -34,20 +34,20 @@ export function WalkthroughCard({ lesson, isCompleting }: WalkthroughCardProps) 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (isLocked || !walkthroughVideoData.length) {
+    if (isLocked) {
       return;
     }
-    showVideoWalkthrough({ playbackId: walkthroughVideoData[0].id, lessonSlug: lesson.lesson.slug });
+    showVideoWalkthrough({ playbackId: walkthroughVideo.id, lessonSlug: lesson.lesson.slug });
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       e.stopPropagation();
-      if (isLocked || !walkthroughVideoData.length) {
+      if (isLocked) {
         return;
       }
-      showVideoWalkthrough({ playbackId: walkthroughVideoData[0].id, lessonSlug: lesson.lesson.slug });
+      showVideoWalkthrough({ playbackId: walkthroughVideo.id, lessonSlug: lesson.lesson.slug });
     }
   };
 

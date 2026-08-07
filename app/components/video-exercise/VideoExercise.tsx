@@ -11,20 +11,21 @@ import { NoVideoPlaceholder } from "./ui/NoVideoPlaceholder";
 import { useVideoExercise } from "./lib/useVideoExercise";
 import styles from "./VideoExercise.module.css";
 
-type VideoLesson = Lesson & { type: "video"; data: { sources: VideoSource[] } };
+type VideoLesson = Lesson & { type: "video" };
 
 export default function VideoExercise({
   lessonData,
   lessonTitle,
+  video,
   onReady
 }: {
   lessonData: VideoLesson;
   lessonTitle: string;
+  video?: VideoSource;
   onReady: () => void;
 }) {
   const t = useTranslations("videoExercise");
-  const videoSource = lessonData.data.sources[0] as VideoSource | undefined;
-  const playbackId = videoSource?.id ?? "";
+  const playbackId = video?.id ?? "";
 
   const {
     playerRef,
@@ -70,7 +71,7 @@ export default function VideoExercise({
               onCanPlay={autoplay}
             />
           ) : (
-            <NoVideoPlaceholder videoSource={videoSource} />
+            <NoVideoPlaceholder videoSource={video} />
           )}
 
           <div

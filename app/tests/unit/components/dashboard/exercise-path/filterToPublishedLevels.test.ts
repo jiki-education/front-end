@@ -9,7 +9,6 @@ function createLesson(overrides: Partial<LessonWithProgress> = {}): LessonWithPr
     slug: "maze-solve-basic",
     type: "exercise",
     status: "not_started",
-    walkthrough_video_data: null,
     walkthrough_video_watched_percentage: 0,
     ...overrides
   };

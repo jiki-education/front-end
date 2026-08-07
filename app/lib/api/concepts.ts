@@ -1,4 +1,3 @@
-import { api } from "./client";
 import { conceptIndexHashes } from "@/lib/generated/concept-hashes";
 import { assetsUrl } from "@/lib/assets";
 import { conceptIndexPath, conceptContentPath } from "@/lib/assets-paths";
@@ -10,7 +9,6 @@ import {
   selectRelatedConcepts
 } from "@/lib/concepts/select";
 import type { ConceptMeta, ConceptAncestor, ExerciseInfo } from "@/types/concepts";
-import type { VideoSource } from "@/types/lesson";
 
 // Promise-level cache to deduplicate concurrent requests for the same locale
 let cachedPromise: Promise<ConceptMeta[]> | null = null;
@@ -104,13 +102,4 @@ export async function getConceptContent(slug: string, locale: string): Promise<s
     throw new Error("Failed to fetch concept content");
   }
   return res.text();
-}
-
-export async function fetchConceptVideoData(slug: string): Promise<VideoSource[] | null> {
-  try {
-    const response = await api.get<{ concept: { video_data: VideoSource[] | null } }>(`/external/concepts/${slug}`);
-    return response.data.concept.video_data;
-  } catch {
-    return null;
-  }
 }

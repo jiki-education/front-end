@@ -2,26 +2,29 @@ import type { ExerciseLessonSlug, LessonSlug, VideoLessonSlug } from "@jiki/curr
 import type { ProgrammingLanguage } from "./course";
 
 // Video source type (used across lessons, walkthroughs, concepts). Every source
-// carries duration + upload date (a documented API contract on the Rails
-// HasVideoData concern) so the front-end can emit schema.org VideoObject JSON-LD.
+// carries duration + upload date (enforced by the video catalog generator) so the
+// front-end can emit schema.org VideoObject JSON-LD.
+//
+// This is one already-resolved video, not a set to pick from: the catalog holds
+// each video's per-locale recordings and `scripts/lib/videos.js` resolves them at
+// build time, so a locale's payload carries exactly the source it plays.
 export interface VideoSource {
   provider: "youtube" | "mux";
   id: string;
   durationSeconds: number;
   uploadDate: string;
-  language?: ProgrammingLanguage;
 }
 
 export type LessonType = "exercise" | "video" | "quiz" | "choose_language";
 
 // What every lesson carries, whatever its type.
 //
-// This is only what the front end reads; the API's payload is wider. Display copy
-// is not part of it — titles and descriptions come from the curriculum copy
-// catalog (lib/api/curriculum-copy.ts), keyed by the slug.
+// This is only what the front end reads; the API's payload is wider. Neither
+// display copy nor videos are part of it — titles, descriptions and the video to
+// play all come from the curriculum copy catalog (lib/api/curriculum-copy.ts),
+// keyed by the slug.
 interface LessonFields {
   slug: LessonSlug;
-  walkthrough_video_data: VideoSource[] | null;
 }
 
 // An exercise lesson needs no data block: its slug is the curriculum exercise to
@@ -34,7 +37,6 @@ export interface ExerciseLesson extends LessonFields {
 export interface VideoLesson extends LessonFields {
   type: "video";
   slug: VideoLessonSlug;
-  data: { sources: VideoSource[] };
 }
 
 export interface QuizLesson extends LessonFields {
@@ -43,7 +45,7 @@ export interface QuizLesson extends LessonFields {
 
 export interface ChooseLanguageLesson extends LessonFields {
   type: "choose_language";
-  data: { sources: VideoSource[]; language_options: ProgrammingLanguage[] };
+  data: { language_options: ProgrammingLanguage[] };
 }
 
 // A lesson as the single-lesson endpoint returns it. Discriminate on `type` to
