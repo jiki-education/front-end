@@ -1,0 +1,55 @@
+{
+  "name": "@jiki.io/content-renderer",
+  "version": "0.1.0",
+  "description": "Jiki's curriculum prose renderer: the single implementation of Markdown to the exact HTML bytes Jiki serves.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "author": "iHiD",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jiki-education/front-end.git",
+    "directory": "content-renderer"
+  },
+  "keywords": [
+    "jiki",
+    "markdown",
+    "renderer",
+    "curriculum"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "pnpm run build"
+  },
+  "dependencies": {
+    "@exercism/highlightjs-jikiscript": "0.0.2",
+    "@jiki/highlightjs-javascript": "git+https://github.com/jiki-education/highlightjs-javascript.git#180157677b2637335e7677e81d6d0aeb0210546d",
+    "highlight.js": "11.11.1",
+    "marked": "17.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.9",
+    "prettier": "^3.8.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.17"
+  }
+}

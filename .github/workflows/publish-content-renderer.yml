@@ -1,0 +1,74 @@
+# Publish @jiki.io/content-renderer to npm.
+#
+# ⚠️ DO NOT RENAME OR MOVE THIS FILE.
+#
+# This publishes with npm trusted publishing (OIDC): no token is stored anywhere,
+# GitHub Actions mints a short-lived OIDC token and npm verifies it came from a
+# trusted publisher it has on record. That record pins the repository owner, the
+# repository name, and THIS WORKFLOW'S FILENAME, including the `.yml` extension.
+# Renaming or moving this file breaks publishing until the trusted publisher is
+# updated at https://www.npmjs.com/package/@jiki.io/content-renderer/access, and
+# npm does not validate the config when it is saved, so the breakage first shows
+# up as an `ENEEDAUTH` on a release rather than as anything earlier.
+#
+# Publishing is manual on purpose (`workflow_dispatch`). The package version is
+# the byte-identity contract between this repo and the i18n repo: a release is a
+# deliberate act that both sides then pin, never a side effect of a merge.
+#
+# Requirements this workflow satisfies, per docs.npmjs.com/trusted-publishers:
+#   - `id-token: write`, which mints the OIDC token
+#   - npm CLI >= 11.5.1 and Node >= 22.14.0, so npm is upgraded explicitly rather
+#     than taken from whatever the runner image happens to ship
+#   - `registry-url`, which writes the .npmrc pointing at the public registry
+#   - NO NODE_AUTH_TOKEN and no secret reference at all; a token in the
+#     environment is exactly what this setup exists to remove
+#
+# Provenance attestations are generated automatically under trusted publishing,
+# so there is no `--provenance` flag here.
+
+name: Publish Content Renderer
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Upgrade npm for trusted publishing
+        run: npm install -g npm@latest
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run tests
+        working-directory: content-renderer
+        run: pnpm test
+
+      - name: Build
+        working-directory: content-renderer
+        run: pnpm run build
+
+      # `npm publish`, not `pnpm publish`: trusted publishing is an npm CLI
+      # feature and the OIDC exchange is implemented there.
+      - name: Publish to npm
+        working-directory: content-renderer
+        run: npm publish

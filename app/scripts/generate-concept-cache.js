@@ -29,38 +29,13 @@ import path from "path";
 import { fileURLToPath } from "url";
 import matter from "gray-matter";
 import { computeHash, writeFile } from "./lib/cache-utils.js";
-import { marked } from "marked";
-import hljs from "highlight.js/lib/core";
-import setupJikiscript from "@exercism/highlightjs-jikiscript";
-import setupJavascript from "@jiki/highlightjs-javascript";
+import { renderMarkdown } from "@jiki.io/content-renderer";
 
-// Match the syntax highlighting used by exercise instructions (InstructionsContent.tsx).
-// Highlighting is applied at build time so the static concept HTML is self-contained.
-hljs.registerLanguage("jikiscript", setupJikiscript);
-hljs.registerLanguage("javascript", setupJavascript);
-
-marked.use({
-  renderer: {
-    code({ text, lang }) {
-      const language = lang && hljs.getLanguage(lang) ? lang : null;
-      const highlighted = language
-        ? hljs.highlight(text, { language }).value
-        : text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-      const className = language ? ` class="hljs language-${language}"` : "";
-      return `<pre><code${className}>${highlighted}</code></pre>\n`;
-    }
-  },
-  hooks: {
-    // The authored English source (source.md) may contain custom inline tags
-    // <define>...</define> and <literal>...</literal>. The built English HTML is
-    // produced by stripping those tags while keeping their inner text. Translated
-    // files are already tag-free, so this is a no-op for them. Runs before the
-    // content hash is computed (the hash is over this postprocessed HTML).
-    postprocess(html) {
-      return html.replace(/<\/?(?:define|literal)(?:\s[^>]*)?>/gi, "");
-    }
-  }
-});
+// Markdown to HTML (marked config, the jikiscript/javascript highlight.js
+// grammars, and the <define>/<literal> strip) lives in @jiki.io/content-renderer
+// rather than here, because the i18n repo publishes translated concept pages to
+// the same content-hashed R2 tree and its bytes must match these exactly. See
+// that package's src/index.ts for why the version is the contract.
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONCEPTS_DIR = path.join(__dirname, "../../curriculum/src/concepts");
@@ -203,7 +178,7 @@ function processConcepts() {
         // Render markdown to HTML for non-category concepts
         let html = null;
         if (!config.category) {
-          html = marked.parse(markdown);
+          html = renderMarkdown(markdown);
         } else if (markdown.trim()) {
           console.warn(`   Warning: category concept "${slug}" has body content in ${file.name} — it will be ignored`);
         }
