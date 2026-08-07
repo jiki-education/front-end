@@ -21,8 +21,8 @@
   },
   "hints": {
     "answerShape": {
-      "question": "Qual è la struttura di base della risposta che sto cercando di costruire?",
-      "answer": "Tre pezzi uniti insieme: l'inizio fisso `\"Hello, \"`, poi il nome, quindi la fine fissa `\"!\"`."
+      "question": "Qual è la struttura base della risposta che sto cercando di costruire?",
+      "answer": "Tre pezzi uniti insieme: l'inizio fisso `\"Hello, \"`, poi il nome, infine la fine fissa `\"!\"`."
     },
     "joinStrings": {
       "question": "Come posso unire le stringhe?",

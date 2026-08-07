@@ -4,7 +4,7 @@ description: "Saluta il mondo con la tua prima funzione sulle stringhe."
 en_md5: f0c55b2c330b18ae05e22d967babbc9e
 ---
 
-Nei prossimi due esercizi continueremo a esercitarci a creare funzioni e inizieremo a usare la manipolazione delle stringhe.
+Nei prossimi due esercizi continueremo ad esercitarci a creare funzioni e inizieremo ad usare la manipolazione delle stringhe.
 
 Per prima cosa vediamo il caso più semplice.
 
