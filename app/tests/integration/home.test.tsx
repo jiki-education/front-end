@@ -14,13 +14,13 @@ jest.mock("@/components/i18n/LocaleBanner", () => ({
 
 describe("Home Page (Landing Page)", () => {
   it("renders the marketing landing page", async () => {
-    render(await RootPage());
+    render(await RootPage({ params: Promise.resolve({ locale: "en" }) }));
 
     expect(screen.getByText("What makes Exercism special?")).toBeInTheDocument();
   });
 
   it("has Log In and Sign Up links in the header", async () => {
-    render(await RootPage());
+    render(await RootPage({ params: Promise.resolve({ locale: "en" }) }));
 
     const loginLink = screen.getByRole("link", { name: /Log ?in/i });
     expect(loginLink).toHaveAttribute("href", "/auth/login");

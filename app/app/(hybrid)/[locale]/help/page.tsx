@@ -1,7 +1,7 @@
 import ArticlesPage from "@/components/articles/ArticlesPage";
 import AuthenticatedHeaderLayout from "@/components/layout/HeaderLayout";
 import { SUPPORTED_LOCALES } from "@/lib/locales";
-import { getAvailableLocales } from "@/lib/content";
+import { hasContent } from "@/lib/content";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
@@ -27,9 +27,9 @@ export default async function AuthenticatedLocaleArticlesPage({ params, searchPa
 
   // The default locale is served here under the naked URL (/help), rewritten
   // to /en/help by middleware; an explicit /en/help is redirected back there.
-  // Check if locale is supported and has articles
-  const locales = getAvailableLocales("articles", SUPPORTED_LOCALES);
-  if (!locales.includes(locale)) {
+  // Per-locale, and fetched: whether this locale has content is a fact about the
+  // published corpus, not about what existed when this build ran.
+  if (!(SUPPORTED_LOCALES as readonly string[]).includes(locale) || !(await hasContent("articles", locale))) {
     notFound();
   }
 

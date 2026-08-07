@@ -1,7 +1,8 @@
 import { cache } from "react";
 import { exerciseIndexHashes } from "@/lib/generated/exercise-hashes";
 import { assetsUrl } from "@/lib/server/origin";
-import { exerciseIndexPath } from "@/lib/assets-paths";
+import { exerciseIndexPath, exerciseIndexPointerPath } from "@/lib/assets-paths";
+import { createHashResolver } from "@/lib/i18n/catalogPointer";
 import type { ExerciseMetaEntry } from "@/lib/api/exercise-meta";
 
 /**
@@ -9,9 +10,22 @@ import type { ExerciseMetaEntry } from "@/lib/api/exercise-meta";
  * (lib/api/exercise-meta.ts), via an absolute origin URL. Wrapped in cache() so
  * repeated lookups in one request share a single fetch.
  */
+// Non-English hashes resolve at runtime from the pointer, exactly as on the
+// client, so a locale the i18n repo published after this build still renders
+// server-side. Reading the compiled manifest by locale here would have made the
+// server path silently build-bound while the client path was not.
+const resolveHash = createHashResolver({
+  label: "exercise prose index",
+  compiledHashes: () => exerciseIndexHashes,
+  pointerPath: (locale) => exerciseIndexPointerPath(locale),
+  resolveUrl: assetsUrl
+});
+
 const fetchExerciseIndex = cache(async (locale: string): Promise<ExerciseMetaEntry[]> => {
-  const hash = exerciseIndexHashes[locale];
-  if (!hash) {
+  let hash: string;
+  try {
+    hash = await resolveHash(locale);
+  } catch {
     return [];
   }
   const url = await assetsUrl(exerciseIndexPath(locale, hash));

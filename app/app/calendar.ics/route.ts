@@ -1,8 +1,8 @@
 import { getAllProjects } from "@/lib/content/getAllProjects";
 import { buildScheduleIcs } from "@/lib/calendar/buildScheduleIcs";
 
-export function GET() {
-  const projects = getAllProjects("en");
+export async function GET() {
+  const projects = await getAllProjects("en");
   const body = buildScheduleIcs(projects, new Date());
 
   return new Response(body, {

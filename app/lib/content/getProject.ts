@@ -15,7 +15,7 @@ export interface ProjectWithEpisodes {
  * @throws Error if the project doesn't exist for the given locale.
  */
 export async function getProject(projectSlug: string, locale: string): Promise<ProjectWithEpisodes> {
-  const allProjects = getAllProjects(locale);
+  const allProjects = await getAllProjects(locale);
   const project = allProjects.find((p) => p.slug === projectSlug);
 
   if (!project) {

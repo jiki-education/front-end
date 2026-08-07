@@ -34,7 +34,7 @@ export function createCatalogLoader(resolveUrl: ResolveUrl): (locale: string) =>
   const cache = new Map<string, Promise<Record<string, unknown>>>();
   const resolveHash = createHashResolver({
     label: "UI message catalog",
-    compiledHashes: messageHashes,
+    compiledHashes: () => messageHashes,
     pointerPath: appMessagesPointerPath,
     resolveUrl
   });

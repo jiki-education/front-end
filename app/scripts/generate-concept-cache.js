@@ -15,13 +15,11 @@
  *   lib/generated/concept-hashes.ts
  *     - Hash manifest mapping locale -> metadata index hash
  *
- *   lib/generated/concept-meta-server.json
- *     - Minimal metadata for server-side SEO (slug, title, description), keyed
- *       by locale: { [locale]: [...] }
  *
  * Used by:
  * - Client-side concept API (lib/api/concepts.ts)
- * - Server-side metadata generation (lib/concepts/metadata.ts)
+ * - Server-side concept reads (lib/concepts/server-concepts.ts), including SEO
+ *   metadata, which reads the fetched index rather than a bundled copy of it.
  */
 
 import fs from "fs";
@@ -43,6 +41,10 @@ const EXERCISE_MAP_PATH = path.join(__dirname, "../../curriculum/dist/concepts/e
 const STATIC_DIR = path.join(__dirname, "../public/static/concepts");
 const GENERATED_DIR = path.join(__dirname, "../lib/generated");
 const ICONS_DIR = path.join(__dirname, "../public/static/icons/concepts");
+
+// English. Its index hash is compiled into the worker and its artifacts ship
+// with the deploy, so it has no pointer and never needs one.
+const DEFAULT_LOCALE = "en";
 
 /**
  * Copy an icon into the concept cache under a content-hashed filename and return
@@ -261,6 +263,13 @@ function buildStaticFiles(concepts) {
 
     const indexPath = path.join(STATIC_DIR, locale, `index-${indexHash}.json`);
     writeFile(indexPath, indexContent);
+
+    // A LOCAL pointer for every non-default locale, so `pnpm dev` resolves
+    // translated concepts with no i18n checkout. Excluded from static:upload:
+    // on R2 the i18n repo is the single writer of every non-English pointer.
+    if (locale !== DEFAULT_LOCALE) {
+      writeFile(path.join(STATIC_DIR, locale, "current.json"), `${JSON.stringify({ hash: indexHash })}\n`);
+    }
   }
 
   return { indexHashes, byLocale };
@@ -285,25 +294,6 @@ ${entries},
 }
 
 /**
- * Write the server-side metadata JSON (for SEO), keyed by locale so page
- * `generateMetadata` can localise titles/descriptions with an English fallback.
- * Mirrors the shape of content-meta-server.json (`{ [locale]: [...] }`).
- */
-function writeServerMeta(byLocale) {
-  const serverMeta = {};
-  for (const [locale, entries] of Object.entries(byLocale)) {
-    serverMeta[locale] = entries.map((c) => ({
-      slug: c.slug,
-      title: c.title,
-      description: c.description,
-      image: c.image
-    }));
-  }
-
-  writeFile(path.join(GENERATED_DIR, "concept-meta-server.json"), JSON.stringify(serverMeta, null, 2));
-}
-
-/**
  * Main generation function
  */
 function generateConceptCache() {
@@ -320,7 +310,7 @@ function generateConceptCache() {
   const concepts = processConcepts();
 
   // Build static files (populates the icon URL cache via conceptImage)
-  const { indexHashes, byLocale } = buildStaticFiles(concepts);
+  const { indexHashes } = buildStaticFiles(concepts);
 
   // Write hash manifest
   writeHashManifest(indexHashes);
@@ -328,9 +318,6 @@ function generateConceptCache() {
   // Write the fingerprinted-icon manifest consumed by ConceptIcon.tsx
   const fallbackUrl = copyHashedIcon("fallback", path.join(ICONS_DIR, "fallback.webp"));
   writeIconManifest(fallbackUrl);
-
-  // Write server-side metadata
-  writeServerMeta(byLocale);
 
   // Count totals
   const conceptCount = Object.keys(concepts).length;

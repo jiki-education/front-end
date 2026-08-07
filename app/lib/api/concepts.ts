@@ -1,7 +1,8 @@
 import { api } from "./client";
 import { conceptIndexHashes } from "@/lib/generated/concept-hashes";
 import { assetsUrl } from "@/lib/assets";
-import { conceptIndexPath, conceptContentPath } from "@/lib/assets-paths";
+import { conceptIndexPath, conceptIndexPointerPath, conceptContentPath } from "@/lib/assets-paths";
+import { createHashResolver } from "@/lib/i18n/catalogPointer";
 import {
   selectTopLevelConcepts,
   selectConcept,
@@ -12,30 +13,44 @@ import {
 import type { ConceptMeta, ConceptAncestor, ExerciseInfo } from "@/types/concepts";
 import type { VideoSource } from "@/types/lesson";
 
-// Promise-level cache to deduplicate concurrent requests for the same locale
-let cachedPromise: Promise<ConceptMeta[]> | null = null;
-let cachedLocale: string | null = null;
+// English's hash is compiled in; every other locale's is read at runtime from
+// its pointer, so a concept index published by the i18n repo goes live with no
+// front-end rebuild. See lib/i18n/catalogPointer.ts.
+const resolveHash = createHashResolver({
+  label: "concept index",
+  compiledHashes: () => conceptIndexHashes,
+  pointerPath: (locale) => conceptIndexPointerPath(locale),
+  resolveUrl: assetsUrl
+});
+
+// Keyed by locale AND hash, so a republished index is picked up as a new key
+// rather than pinned for the isolate's lifetime.
+const conceptIndexCache = new Map<string, Promise<ConceptMeta[]>>();
 
 async function fetchAllConcepts(locale: string): Promise<ConceptMeta[]> {
-  if (cachedPromise && cachedLocale === locale) {
-    return cachedPromise;
-  }
-
   // No English fallback: a locale with no concept index resolves to an empty
   // list rather than silently serving English concepts.
-  const hash = conceptIndexHashes[locale];
-  if (!hash) {
+  let hash: string;
+  try {
+    hash = await resolveHash(locale);
+  } catch {
     return [];
   }
 
-  cachedLocale = locale;
-  cachedPromise = fetch(assetsUrl(conceptIndexPath(locale, hash))).then((res) => {
+  const key = `${locale}:${hash}`;
+  const cached = conceptIndexCache.get(key);
+  if (cached !== undefined) {
+    return cached;
+  }
+
+  const promise = fetch(assetsUrl(conceptIndexPath(locale, hash))).then((res) => {
     if (!res.ok) {
       throw new Error("Failed to fetch concepts");
     }
-    return res.json();
+    return res.json() as Promise<ConceptMeta[]>;
   });
-  return cachedPromise;
+  conceptIndexCache.set(key, promise);
+  return promise;
 }
 
 export async function getConcepts(locale: string): Promise<ConceptMeta[]> {

@@ -20,7 +20,7 @@ const levelMessagesCache = new Map<string, Promise<LevelMessageCatalog>>();
 // front-end rebuild. See lib/i18n/catalogPointer.ts.
 const resolveHash = createHashResolver({
   label: "level catalog",
-  compiledHashes: levelMessageHashes,
+  compiledHashes: () => levelMessageHashes,
   pointerPath: levelMessagesPointerPath,
   resolveUrl: assetsUrl
 });

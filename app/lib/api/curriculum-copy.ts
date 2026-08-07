@@ -1,6 +1,7 @@
 import { curriculumCopyHashes, badgeCopyHashes } from "@/lib/generated/curriculum-copy-hashes";
 import { assetsUrl } from "@/lib/assets";
-import { curriculumCopyPath, badgeCopyPath } from "@/lib/assets-paths";
+import { curriculumCopyPath, curriculumCopyPointerPath, badgeCopyPath, badgeCopyPointerPath } from "@/lib/assets-paths";
+import { createHashResolver } from "@/lib/i18n/catalogPointer";
 
 export interface CurriculumCopy {
   title: string;
@@ -19,6 +20,20 @@ export type BadgeCopyCatalog = Record<string, BadgeCopy>;
 // Module-level caches, keyed by locale: each catalog is fetched once per locale
 // and the same reference is handed to every consumer.
 const copyCache = new Map<string, Promise<CurriculumCopyCatalog>>();
+
+const resolveCurriculumHash = createHashResolver({
+  label: "curriculum copy catalog",
+  compiledHashes: () => curriculumCopyHashes,
+  pointerPath: (locale) => curriculumCopyPointerPath(locale),
+  resolveUrl: assetsUrl
+});
+
+const resolveBadgeHash = createHashResolver({
+  label: "badge copy catalog",
+  compiledHashes: () => badgeCopyHashes,
+  pointerPath: (locale) => badgeCopyPointerPath(locale),
+  resolveUrl: assetsUrl
+});
 const badgeCache = new Map<string, Promise<BadgeCopyCatalog>>();
 
 /**
@@ -27,24 +42,27 @@ const badgeCache = new Map<string, Promise<BadgeCopyCatalog>>();
  * unresolved slug surfaces as the slug itself, the intended loud canary rather
  * than a silent English render.
  */
-function fetchCatalog<T>(
+async function fetchCatalog<T>(
   locale: string,
   cache: Map<string, Promise<T>>,
-  hashes: Record<string, string>,
+  resolveHash: (locale: string) => Promise<string>,
   buildPath: (locale: string, hash: string) => string
 ): Promise<T> {
-  const cached = cache.get(locale);
-  if (cached !== undefined) {
-    return cached;
+  // English's hash is compiled in; every other locale's comes from its pointer,
+  // so a catalog the i18n repo republishes is picked up without a deploy.
+  let hash: string;
+  try {
+    hash = await resolveHash(locale);
+  } catch {
+    return {} as T;
   }
 
-  // The manifest's index signature claims every key is present, but a locale
-  // with no catalog is genuinely absent at runtime.
-  const hash = (hashes as Record<string, string | undefined>)[locale];
-  if (!hash) {
-    const empty = Promise.resolve({} as T);
-    cache.set(locale, empty);
-    return empty;
+  // Keyed by hash as well as locale, so a republished catalog is a new key
+  // rather than one pinned for the isolate's lifetime.
+  const key = `${locale}:${hash}`;
+  const cached = cache.get(key);
+  if (cached !== undefined) {
+    return cached;
   }
 
   const promise = (async () => {
@@ -58,7 +76,7 @@ function fetchCatalog<T>(
       return {} as T;
     }
   })();
-  cache.set(locale, promise);
+  cache.set(key, promise);
   return promise;
 }
 
@@ -72,12 +90,12 @@ function fetchCatalog<T>(
  * so copy is present on first paint rather than swapping in afterwards.
  */
 export function fetchCurriculumCopy(locale: string): Promise<CurriculumCopyCatalog> {
-  return fetchCatalog(locale, copyCache, curriculumCopyHashes, curriculumCopyPath);
+  return fetchCatalog(locale, copyCache, resolveCurriculumHash, curriculumCopyPath);
 }
 
 /** Badge display copy, keyed by badge slug. Same loading rule as above. */
 export function fetchBadgeCopy(locale: string): Promise<BadgeCopyCatalog> {
-  return fetchCatalog(locale, badgeCache, badgeCopyHashes, badgeCopyPath);
+  return fetchCatalog(locale, badgeCache, resolveBadgeHash, badgeCopyPath);
 }
 
 // The Record's index signature claims every key is present, but a slug absent

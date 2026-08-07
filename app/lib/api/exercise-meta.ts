@@ -9,7 +9,9 @@ import {
   exerciseCodeIndexPath,
   exerciseCodePath,
   exerciseMessagesPath,
-  interpreterMessagesPath
+  exerciseMessagesPointerPath,
+  interpreterMessagesPath,
+  interpreterMessagesPointerPath
 } from "@/lib/assets-paths";
 import { createHashResolver } from "@/lib/i18n/catalogPointer";
 import type { Messages } from "@jiki/interpreters";
@@ -50,7 +52,7 @@ export interface ExerciseContent {
 // repo go live without a front-end rebuild. See lib/i18n/catalogPointer.ts.
 const resolveIndexHash = createHashResolver({
   label: "exercise prose index",
-  compiledHashes: exerciseIndexHashes,
+  compiledHashes: () => exerciseIndexHashes,
   pointerPath: exerciseIndexPointerPath,
   resolveUrl: assetsUrl
 });
@@ -134,21 +136,27 @@ const interpreterMessagesCache = new Map<string, Promise<Messages>>();
  * interpreter (JavaScript) given an unsupported locale then surfaces the raw keys —
  * the intended loud canary, never a silent English fallback.
  */
+// Scoped by interpreter LANGUAGE: English from the compiled manifest, every
+// other locale from that language's pointer.
+const resolveInterpreterHash = createHashResolver({
+  label: "interpreter catalog",
+  compiledHashes: (language) => (language ? interpreterMessageHashes[language] : undefined),
+  pointerPath: (locale, language) => interpreterMessagesPointerPath(language as string, locale),
+  resolveUrl: assetsUrl
+});
+
 export async function fetchInterpreterMessages(language: string, locale: string): Promise<Messages> {
-  const key = `${language}:${locale}`;
+  let hash: string;
+  try {
+    hash = await resolveInterpreterHash(locale, language);
+  } catch {
+    return {};
+  }
+
+  const key = `${language}:${locale}:${hash}`;
   const cached = interpreterMessagesCache.get(key);
   if (cached) {
     return cached;
-  }
-
-  // The manifest's index signature claims every key is present, but a language or
-  // locale with no exported dict is genuinely absent at runtime.
-  const languageHashes = interpreterMessageHashes[language] as Record<string, string> | undefined;
-  const hash = languageHashes?.[locale];
-  if (!hash) {
-    const empty = Promise.resolve<Messages>({});
-    interpreterMessagesCache.set(key, empty);
-    return empty;
   }
 
   const promise = fetch(assetsUrl(interpreterMessagesPath(language, locale, hash))).then((res) => {
@@ -176,21 +184,27 @@ export async function fetchInterpreterMessages(language: string, locale: string)
 // (so the translator memoization downstream reuses one i18next instance).
 const messagesCache = new Map<string, Promise<Record<string, unknown>>>();
 
-export function fetchExerciseMessages(slug: string, locale: string): Promise<Record<string, unknown>> {
-  const key = `${slug}:${locale}`;
+// Scoped by exercise SLUG: English from the compiled manifest, every other
+// locale from that exercise's pointer.
+const resolveExerciseMessagesHash = createHashResolver({
+  label: "exercise catalog",
+  compiledHashes: (slug) => (slug ? exerciseMessageHashes[slug] : undefined),
+  pointerPath: (locale, slug) => exerciseMessagesPointerPath(slug as string, locale),
+  resolveUrl: assetsUrl
+});
+
+export async function fetchExerciseMessages(slug: string, locale: string): Promise<Record<string, unknown>> {
+  let hash: string;
+  try {
+    hash = await resolveExerciseMessagesHash(locale, slug);
+  } catch {
+    return {};
+  }
+
+  const key = `${slug}:${locale}:${hash}`;
   const cached = messagesCache.get(key);
   if (cached !== undefined) {
     return cached;
-  }
-
-  // The manifest's index signature claims every key is present, but an exercise
-  // or locale with no message dict is genuinely absent at runtime.
-  const slugHashes = exerciseMessageHashes[slug] as Record<string, string> | undefined;
-  const hash = slugHashes?.[locale];
-  if (!hash) {
-    const empty = Promise.resolve<Record<string, unknown>>({});
-    messagesCache.set(key, empty);
-    return empty;
   }
 
   const promise = (async () => {

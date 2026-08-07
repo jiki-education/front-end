@@ -28,10 +28,10 @@ export interface GetGuidesResult {
  * Sorted alphabetically by title. Premium guides are excluded unless
  * `includePremium` is set.
  */
-export function getGuides(options: GetGuidesOptions): GetGuidesResult {
+export async function getGuides(options: GetGuidesOptions): Promise<GetGuidesResult> {
   const { locale, tag = null, page = 1, includePremium = false } = options;
 
-  const allGuides = getAllGuides(locale);
+  const allGuides = await getAllGuides(locale);
   let filteredGuides = includePremium ? allGuides : allGuides.filter((guide) => !guide.premium);
 
   // Filter by tag if provided

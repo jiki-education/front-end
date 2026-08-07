@@ -1,7 +1,7 @@
 import GuidesPage from "@/components/guides/GuidesPage";
 import SidebarLayout from "@/components/layout/SidebarLayout";
 import { SUPPORTED_LOCALES } from "@/lib/locales";
-import { getAvailableLocales } from "@/lib/content";
+import { hasContent } from "@/lib/content";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
@@ -27,8 +27,9 @@ export default async function AuthenticatedLocaleGuidesPage({ params, searchPara
 
   // The default locale is served here under the naked URL (/guides), rewritten
   // to /en/guides by middleware; an explicit /en/guides is redirected back there.
-  const locales = getAvailableLocales("guides", SUPPORTED_LOCALES);
-  if (!locales.includes(locale)) {
+  // Per-locale, and fetched: whether this locale has content is a fact about the
+  // published corpus, not about what existed when this build ran.
+  if (!(SUPPORTED_LOCALES as readonly string[]).includes(locale) || !(await hasContent("guides", locale))) {
     notFound();
   }
 

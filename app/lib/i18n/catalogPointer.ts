@@ -34,10 +34,18 @@ export type ResolveUrl = (path: string) => string | Promise<string>;
 interface HashResolverOptions {
   /** Human-readable catalog name, used in error messages. */
   label: string;
-  /** Build-time hash manifest. Only the default locale is ever read from it. */
-  compiledHashes: Record<string, string>;
+  /**
+   * Build-time hash manifest for a scope. Only the DEFAULT LOCALE is ever read
+   * from it: every other locale resolves through the pointer, which is what
+   * decouples a translation from a front-end release.
+   *
+   * A scope is the dimension some namespaces carry besides the locale: an
+   * exercise slug for exercise catalogs, an interpreter language for interpreter
+   * catalogs. Namespaces with only a locale ignore it.
+   */
+  compiledHashes: (scope: string | undefined) => Record<string, string> | undefined;
   /** Cache-tree path of a locale's pointer file. */
-  pointerPath: (locale: string) => string;
+  pointerPath: (locale: string, scope: string | undefined) => string;
   resolveUrl: ResolveUrl;
 }
 
@@ -63,27 +71,30 @@ export function createHashResolver({
   compiledHashes,
   pointerPath,
   resolveUrl
-}: HashResolverOptions): (locale: string) => Promise<string> {
+}: HashResolverOptions): (locale: string, scope?: string) => Promise<string> {
   const inFlight = new Map<string, Promise<string>>();
 
-  return function resolveHash(locale: string): Promise<string> {
+  return function resolveHash(locale: string, scope?: string): Promise<string> {
     if (locale === DEFAULT_LOCALE) {
-      const hash = compiledHashes[locale];
+      const hash = compiledHashes(scope)?.[locale];
       if (!hash) {
-        return Promise.reject(new Error(`No compiled ${label} hash for the default locale "${locale}"`));
+        return Promise.reject(
+          new Error(`No compiled ${label} hash for the default locale "${locale}"${scope ? ` (${scope})` : ""}`)
+        );
       }
       return Promise.resolve(hash);
     }
 
-    const pending = inFlight.get(locale);
+    const key = `${scope ?? ""}:${locale}`;
+    const pending = inFlight.get(key);
     if (pending) {
       return pending;
     }
 
-    const promise = fetchPointer(label, locale, pointerPath, resolveUrl).finally(() => {
-      inFlight.delete(locale);
+    const promise = fetchPointer(label, locale, scope, pointerPath, resolveUrl).finally(() => {
+      inFlight.delete(key);
     });
-    inFlight.set(locale, promise);
+    inFlight.set(key, promise);
     return promise;
   };
 }
@@ -91,10 +102,11 @@ export function createHashResolver({
 async function fetchPointer(
   label: string,
   locale: string,
-  pointerPath: (locale: string) => string,
+  scope: string | undefined,
+  pointerPath: (locale: string, scope: string | undefined) => string,
   resolveUrl: ResolveUrl
 ): Promise<string> {
-  const path = pointerPath(locale);
+  const path = pointerPath(locale, scope);
   const url = await resolveUrl(path);
 
   let response: Response;

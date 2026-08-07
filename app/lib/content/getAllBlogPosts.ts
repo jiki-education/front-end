@@ -1,13 +1,12 @@
-import contentMeta from "@/lib/generated/content-meta-server.json";
+import { getContentMeta } from "./contentMeta";
 import type { BlogPostMeta } from "./types";
 
 /**
- * Get all blog posts metadata for a specific locale
+ * Get all blog posts metadata for a specific locale.
  * No English fallback: a locale with no posts returns an empty list (never
  * silently shows English). Returns posts sorted by date (newest first).
  */
-export function getAllBlogPosts(locale: string): BlogPostMeta[] {
-  const meta = contentMeta as { blog: { [locale: string]: BlogPostMeta[] | undefined } };
-  const posts = meta.blog[locale] ?? [];
+export async function getAllBlogPosts(locale: string): Promise<BlogPostMeta[]> {
+  const posts = (await getContentMeta(locale)).blog;
   return [...posts].sort((a, b) => b.date.localeCompare(a.date));
 }

@@ -1,7 +1,7 @@
 import BlogPage from "@/components/blog/BlogPage";
 import AuthenticatedHeaderLayout from "@/components/layout/HeaderLayout";
 import { SUPPORTED_LOCALES } from "@/lib/locales";
-import { getAvailableLocales } from "@/lib/content";
+import { hasContent } from "@/lib/content";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
@@ -27,9 +27,9 @@ export default async function AuthenticatedLocaleBlogPage({ params, searchParams
 
   // The default locale is served here under the naked URL (/blog), rewritten to
   // /en/blog by middleware; an explicit /en/blog is redirected back to /blog there.
-  // Check if locale is supported and has blog posts
-  const locales = getAvailableLocales("blog", SUPPORTED_LOCALES);
-  if (!locales.includes(locale)) {
+  // Per-locale, and fetched: whether this locale has content is a fact about the
+  // published corpus, not about what existed when this build ran.
+  if (!(SUPPORTED_LOCALES as readonly string[]).includes(locale) || !(await hasContent("blog", locale))) {
     notFound();
   }
 

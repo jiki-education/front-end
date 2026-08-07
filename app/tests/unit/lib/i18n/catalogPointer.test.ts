@@ -17,7 +17,7 @@ const POINTER_HASH = "bbbbbbbbbbbb";
 function build(resolveUrl: (path: string) => string | Promise<string> = (path) => path) {
   return createHashResolver({
     label: "UI message catalog",
-    compiledHashes: COMPILED,
+    compiledHashes: () => COMPILED,
     pointerPath: (locale) => `/static/i18n/app/${locale}/current.json`,
     resolveUrl
   });
@@ -40,7 +40,7 @@ describe("createHashResolver", () => {
   it("rejects when the default locale has no compiled hash", async () => {
     const resolve = createHashResolver({
       label: "UI message catalog",
-      compiledHashes: {},
+      compiledHashes: () => ({}),
       pointerPath: (locale) => `/static/i18n/app/${locale}/current.json`,
       resolveUrl: (path) => path
     });

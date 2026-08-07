@@ -115,3 +115,53 @@ export function projectEpisodeContentPath(slug: string, uuid: string, locale: st
 export function searchIndexPath(type: SearchType, locale: string, hash: string): string {
   return `/static/content/search/${type}/${locale}/index-${hash}.json`;
 }
+
+/**
+ * Pointers for every remaining per-locale namespace.
+ *
+ * The rule this file encodes: anything that varies by locale is a
+ * content-hashed artifact whose non-English hash is resolved at RUNTIME through
+ * a pointer, so publishing a translation never needs a front-end deploy. A
+ * namespace with an artifact but no pointer path is a namespace still pinned to
+ * the build, which is the whole failure mode this design removes.
+ */
+
+/** The mutable pointer for a locale's concept index. */
+export function conceptIndexPointerPath(locale: string): string {
+  return `/static/concepts/${locale}/current.json`;
+}
+
+/** The mutable pointer for a locale's search index of one content type. */
+export function searchIndexPointerPath(type: SearchType, locale: string): string {
+  return `/static/content/search/${type}/${locale}/current.json`;
+}
+
+/** The mutable pointer for a locale's merged curriculum copy catalog. */
+export function curriculumCopyPointerPath(locale: string): string {
+  return `/static/i18n/curriculum/${locale}/current.json`;
+}
+
+/** The mutable pointer for a locale's badge copy catalog. */
+export function badgeCopyPointerPath(locale: string): string {
+  return `/static/i18n/badges/${locale}/current.json`;
+}
+
+/** The mutable pointer for one exercise's message catalog in a locale. */
+export function exerciseMessagesPointerPath(slug: string, locale: string): string {
+  return `/static/i18n/exercises/${slug}/${locale}/current.json`;
+}
+
+/** The mutable pointer for one interpreter's message catalog in a locale. */
+export function interpreterMessagesPointerPath(language: string, locale: string): string {
+  return `/static/i18n/interpreter/${language}/${locale}/current.json`;
+}
+
+/** Per-locale metadata index for blog, articles, guides, projects and testimonials. */
+export function contentMetaPath(locale: string, hash: string): string {
+  return `/static/content/meta/${locale}/index-${hash}.json`;
+}
+
+/** The mutable pointer for a locale's content metadata index. */
+export function contentMetaPointerPath(locale: string): string {
+  return `/static/content/meta/${locale}/current.json`;
+}
