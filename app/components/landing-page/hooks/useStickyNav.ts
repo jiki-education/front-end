@@ -10,7 +10,7 @@ export function useStickyNav() {
     const exercismFace = document.querySelector<HTMLElement>("[data-exercism-face]");
     const tagline = document.querySelector<HTMLElement>("[data-tagline]");
     const videoContainer = document.querySelector<HTMLElement>("[data-video-container]");
-    const bootcampSection = document.querySelector<HTMLElement>("[data-bootcamp-section]");
+    const outcomesSection = document.querySelector<HTMLElement>("[data-outcomes-section]");
     const rockSolid = document.querySelector<HTMLElement>("[data-rock-solid]");
 
     if (!navFixed || !navSticky || !navContents) return;
@@ -40,7 +40,7 @@ export function useStickyNav() {
       });
     };
 
-    const bootcampObserverCb: IntersectionObserverCallback = (entries) => {
+    const outcomesObserverCb: IntersectionObserverCallback = (entries) => {
       if (entries[0].isIntersecting) {
         addOnPurpleClass();
       } else {
@@ -48,7 +48,7 @@ export function useStickyNav() {
       }
     };
 
-    const bootcampObserver = new IntersectionObserver(bootcampObserverCb, {
+    const outcomesObserver = new IntersectionObserver(outcomesObserverCb, {
       rootMargin: "0px 0px -90% 0px"
     });
     const navObserver = new IntersectionObserver(intersectionCallback);
@@ -56,7 +56,7 @@ export function useStickyNav() {
     if (rockSolid) navObserver.observe(rockSolid);
     if (tagline) navObserver.observe(tagline);
     if (videoContainer) navObserver.observe(videoContainer);
-    if (bootcampSection) bootcampObserver.observe(bootcampSection);
+    if (outcomesSection) outcomesObserver.observe(outcomesSection);
 
     function smoothOpacityChange(opacity: number) {
       navSticky!.style.opacity = `${opacity}`;
@@ -86,7 +86,7 @@ export function useStickyNav() {
 
     return () => {
       navObserver.disconnect();
-      bootcampObserver.disconnect();
+      outcomesObserver.disconnect();
     };
   }, []);
 }

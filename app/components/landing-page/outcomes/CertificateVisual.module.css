@@ -1,0 +1,74 @@
+.cert {
+    position: relative;
+    height: 227px;
+    width: auto;
+}
+
+.image {
+    height: 100%;
+    width: auto;
+    border-radius: 10px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+    /* Trims a hairline off the top and bottom of the source. The radius has to be
+       repeated here: a square-cornered clip-path cuts straight through border-radius. */
+    clip-path: inset(0.42% 0 round 10px);
+}
+
+.verify {
+    position: absolute;
+    inset-block-end: -12px;
+    inset-inline-end: -24px;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #0a66c2;
+    color: #fff;
+    font-size: 11.5px;
+    font-weight: 700;
+    border-radius: 999px;
+    padding-block: 6px;
+    padding-inline: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+    white-space: nowrap;
+}
+
+.verify svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+/* A burst off the pill's top-right corner. Anchored to that corner so the fan opens
+   outwards through the upper-right quadrant without any ray crossing the pill. */
+.splash {
+    position: absolute;
+    inset-block-end: 100%;
+    inset-inline-start: 100%;
+    margin-block-end: -6px;
+    margin-inline-start: -6px;
+    width: 31px;
+    height: auto;
+    pointer-events: none;
+    transform-origin: 0 100%;
+    /* A slow breath rather than a twinkle, so it reads as quietly alive beside the pill. */
+    animation: splash-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes splash-pulse {
+    0%,
+    100% {
+        transform: scale(0.9);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .splash {
+        animation: none;
+    }
+}
