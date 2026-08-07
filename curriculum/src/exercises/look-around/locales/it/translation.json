@@ -81,7 +81,7 @@
   "hints": {
     "start": {
       "question": "Da dove comincio quando il programma non si avvia per niente?",
-      "answer": "Definisci canTurnLeft(), canTurnRight() e canMove() all'inizio del codice, ognuna che restituisce false per ora. Il programma a quel punto potrà essere eseguito e potrai sostituire il corpo una alla volta."
+      "answer": "Definisci canTurnLeft(), canTurnRight() e canMove() all'inizio del codice, ognuna che restituisce false per ora. Il programma a quel punto potrà essere eseguito e potrai sostituire i corpi uno alla volta."
     },
     "findDirection": {
       "question": "Come faccio a scoprire cosa c'è in una certa direzione?",

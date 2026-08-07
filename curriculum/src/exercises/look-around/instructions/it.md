@@ -27,6 +27,6 @@ Per aiutarti, abbiamo aggiunto una nuova funzione `look(direction)` (guarda). Qu
 
 Ecco tre consigli per aiutarti.
 
-1. Una buona pratica in un esercizio come questo è **iniziare creando le funzioni** di cui il codice ha bisogno per funzionare (cioè `canTurnLeft()`, `canTurnRight()` e `canMove()`). Imposta i loro valori restituiti su un default sensato (in questo caso `true` o `false`). Poi puoi implementare la logica di ciascuna funzione e fare progressi ogni volta, invece di ricevere costantemente un errore che la funzione non esiste finché non hai scritto l'intero programma.
+1. Una buona pratica in un esercizio come questo è **iniziare creando le funzioni** di cui il codice ha bisogno per funzionare (cioè `canTurnLeft()`, `canTurnRight()` e `canMove()`). Imposta i loro valori restituiti su un default sensato (in questo caso `true` o `false`). Successivamente puoi implementare la logica di ciascuna funzione e fare progressi ogni volta, invece di ricevere costantemente un errore che la funzione non esiste finché non hai scritto l'intero programma.
 2. **Non dovresti aver bisogno di modificare il codice esistente** per questo esercizio. Aggiungi invece le tre funzioni all'inizio del codice.
 3. Puoi scrivere **altre funzioni** oltre a quelle richieste, se ti può aiutare.
