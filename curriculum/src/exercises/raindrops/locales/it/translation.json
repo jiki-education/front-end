@@ -16,7 +16,7 @@
       "description": "Ora fai in modo che i suoni Plong siano corretti. Se il numero è divisibile per 7, aggiungi \"Plong\" al risultato. I numeri possono essere divisibili per più fattori."
     },
     "noSound": {
-      "name": "Numeri senza suono di pioggia",
+      "name": "Numeri senza suono delle gocce",
       "description": "Infine, se il numero non è divisibile per 3, 5 o 7, restituisci il numero stesso come stringa."
     },
     "solveInSixteenLines": {
@@ -77,7 +77,7 @@
   "hints": {
     "onlyOneSound": {
       "question": "Perché la mia funzione restituisce solo un suono?",
-      "answer": "Se usi `return` all'interno di ogni `if`, smetti non appena il primo divisore corrisponde. Invece di restituire subito, aggiungi il suono a una stringa risultato e continua."
+      "answer": "Se usi `return` all'interno di ogni `if`, smetti non appena il primo divisore corrisponde. Invece di restituire subito, aggiungi il suono ad una stringa risultato e continua."
     },
     "buildCombinedSound": {
       "question": "Come costruisco il suono combinato?",
@@ -93,7 +93,7 @@
     },
     "howManyReturns": {
       "question": "Quante istruzioni return dovrei avere?",
-      "answer": "Di solito solo una o due. Il punto è lasciare che le istruzioni `if` modifichino la stringa risultato e poi restituire quel risultato una volta sola alla fine."
+      "answer": "Di solito solo una o due. Il punto è lasciare che le istruzioni `if` modifichino la stringa e poi restituire quel risultato una volta sola alla fine."
     }
   }
 }
