@@ -13,6 +13,7 @@ import { StickyNav } from "./StickyNav";
 import styles from "./LandingPage.module.css";
 import { SignupSection } from "./SignupSection";
 import { TestimonialsSection } from "./TestimonialsSection";
+import { TwoHalves } from "./TwoHalves";
 import { WelcomeSection } from "./WelcomeSection";
 
 interface LandingPageProps {
@@ -30,6 +31,7 @@ export function LandingPage({ latestPosts = [] }: LandingPageProps) {
       <StickyNav />
       <HeaderLayout>
         <Hero marquee={marquee} />
+        <TwoHalves />
         <WelcomeSection />
         <BootcampSection />
         <TestimonialsSection />

@@ -523,6 +523,16 @@
       "audienceJuniors": "<name>Junior devs</name> who want the foundations they skipped",
       "audienceEntrepreneurs": "<name>Entrepreneurs</name> who want to build before they hire"
     },
+    "twoHalves": {
+      "eyebrow": "Your two core skills",
+      "heading": "The two halves of being a developer",
+      "intro": "Knowing how to write code and knowing how software actually fits together are two separate skills. Learn one without the other and you get stuck. Jiki teaches them side by side, from your very first week.",
+      "codeHeading": "Learn to <word>Code</word>",
+      "codeBody": "Every core concept, with hundreds of exercises and projects to practise on.",
+      "buildHeading": "Learn to <word>Build</word>",
+      "buildBody": "Databases, auth, frontends, backends: how real technology actually works.",
+      "techLabel": "Learn technologies including:"
+    },
     "exercism": {
       "heading": "Mitől különleges az Exercism?",
       "intro": "Az Exercism <strong>régóta működő nonprofit szervezet</strong>, amely már több mint <strong>2,5 millió embernek</strong> segített fejleszteni a programozási készségeit.",
