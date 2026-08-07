@@ -4,7 +4,7 @@
   },
   "tasks": {
     "identifyEvenOrOdd": {
-      "name": "Identificare i numeri pari e dispari",
+      "name": "Identifica i numeri pari e dispari",
       "description": "Scrivi una funzione chiamata `evenOrOdd` che prende un numero come input e restituisce \"Even\" se è divisibile per 2, altrimenti \"Odd\". Zero è pari."
     },
     "solveInSixLines": {
