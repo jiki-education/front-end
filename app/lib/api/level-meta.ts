@@ -1,6 +1,7 @@
 import { levelMessageHashes } from "@/lib/generated/level-message-hashes";
 import { assetsUrl } from "@/lib/assets";
-import { levelMessagesPath } from "@/lib/assets-paths";
+import { levelMessagesPath, levelMessagesPointerPath } from "@/lib/assets-paths";
+import { createHashResolver } from "@/lib/i18n/catalogPointer";
 
 export interface LevelMessages {
   title: string;
@@ -8,31 +9,42 @@ export interface LevelMessages {
 
 export type LevelMessageCatalog = Record<string, LevelMessages>;
 
-// Module-level cache, keyed by locale: the persistent app fetches each locale's
-// level catalog once and hands the same reference to every consumer.
+// Module-level cache, keyed `${locale}:${hash}`: the persistent app fetches each
+// catalog once and hands the same reference to every consumer. Keying on the hash
+// rather than the locale is what lets a republished locale be picked up without a
+// reload — the new hash is simply a new key.
 const levelMessagesCache = new Map<string, Promise<LevelMessageCatalog>>();
+
+// English's hash is compiled in; every other locale's is read at runtime from
+// its pointer, so a level catalog published by the i18n repo goes live without a
+// front-end rebuild. See lib/i18n/catalogPointer.ts.
+const resolveHash = createHashResolver({
+  label: "level catalog",
+  compiledHashes: levelMessageHashes,
+  pointerPath: levelMessagesPointerPath,
+  resolveUrl: assetsUrl
+});
 
 /**
  * Fetch the curriculum-owned level display strings for one locale.
  *
- * On any miss (no catalog for this locale, or a failed fetch) this resolves to
- * `{}` — no en-fallback — matching the exercise and interpreter catalogs: an
- * unresolved level surfaces as its id, the intended loud canary rather than a
- * silent English render.
+ * On any miss (no catalog for this locale, no pointer, or a failed fetch) this
+ * resolves to `{}` — no en-fallback — matching the exercise and interpreter
+ * catalogs: an unresolved level surfaces as its id, the intended loud canary
+ * rather than a silent English render.
  */
-export function fetchLevelMessages(locale: string): Promise<LevelMessageCatalog> {
-  const cached = levelMessagesCache.get(locale);
-  if (cached !== undefined) {
-    return cached;
+export async function fetchLevelMessages(locale: string): Promise<LevelMessageCatalog> {
+  let hash: string;
+  try {
+    hash = await resolveHash(locale);
+  } catch {
+    return {};
   }
 
-  // The manifest's index signature claims every key is present, but a locale
-  // with no catalog is genuinely absent at runtime.
-  const hash = (levelMessageHashes as Record<string, string | undefined>)[locale];
-  if (!hash) {
-    const empty = Promise.resolve<LevelMessageCatalog>({});
-    levelMessagesCache.set(locale, empty);
-    return empty;
+  const key = `${locale}:${hash}`;
+  const cached = levelMessagesCache.get(key);
+  if (cached !== undefined) {
+    return cached;
   }
 
   const promise = (async () => {
@@ -46,7 +58,7 @@ export function fetchLevelMessages(locale: string): Promise<LevelMessageCatalog>
       return {};
     }
   })();
-  levelMessagesCache.set(locale, promise);
+  levelMessagesCache.set(key, promise);
   return promise;
 }
 
