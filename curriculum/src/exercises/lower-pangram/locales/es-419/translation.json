@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "noNestedLoops": "Evita poner un bucle dentro de otro. Mueve la búsqueda de una sola letra a su propia función y luego llámala desde <code>isPangram</code>.",
+    "tooManyLines": "¡Casi! Intenta resolverlo en menos líneas apoyándote en tu función auxiliar."
+  },
+  "tasks": {
+    "checkLowerPangram": {
+      "name": "Verificar pangrama en minúsculas",
+      "description": "Escribe una función que verifique si una oración en minúsculas contiene todas las letras del alfabeto. Haz que llame a una pequeña función auxiliar para hacer la búsqueda de cada letra."
+    },
+    "decomposeTightly": {
+      "name": "Resuélvelo en 16 líneas",
+      "description": "Extra: con la búsqueda extraída en una función auxiliar, la solución completa cabe en 16 líneas. ¿Puedes lograrlo?"
+    }
+  },
+  "scenarios": {
+    "lowerPangramEmpty": {
+      "name": "Oración vacía",
+      "description": "Una oración vacía no es un pangrama."
+    },
+    "lowerPangramFullAlphabet": {
+      "name": "Alfabeto minúsculo completo",
+      "description": "El alfabeto completo en minúsculas es un pangrama."
+    },
+    "lowerPangramClassic": {
+      "name": "Pangrama clásico",
+      "description": "La oración pangrama clásica contiene las 26 letras."
+    },
+    "lowerPangramMissingX": {
+      "name": "Falta la letra 'x'",
+      "description": "Una oración que no tiene la letra 'x' no es un pangrama."
+    },
+    "lowerPangramMissingH": {
+      "name": "Falta la letra 'h'",
+      "description": "Una oración que no tiene la letra 'h' no es un pangrama."
+    },
+    "lowerPangramWithUnderscores": {
+      "name": "Con guiones bajos",
+      "description": "Un pangrama con guiones bajos en lugar de espacios."
+    },
+    "lowerPangramWithNumbers": {
+      "name": "Con números",
+      "description": "Un pangrama que incluye números."
+    },
+    "lowerPangramNumbersReplacingLetters": {
+      "name": "Números que reemplazan letras",
+      "description": "Una oración donde las letras se reemplazan por números no es un pangrama."
+    },
+    "lowerPangramBonusLineCount": {
+      "name": "Conciso y ordenado",
+      "description": "La solución completa cabe en 16 líneas cuando la búsqueda está en su propia función."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "¿Por dónde empiezo?",
+      "answer": "Necesitas verificar si cada letra del alfabeto está en el string. Vas a necesitar hacer algunos bucles y comparaciones."
+    },
+    "checkEveryLetter": {
+      "question": "¿Cómo verifico que cada letra del alfabeto está ahí?",
+      "answer": "Recorre `\"abcdefghijklmnopqrstuvwxyz\"`, una letra a la vez. Para cada letra, verifica si la oración la contiene."
+    },
+    "avoidNestedLoops": {
+      "question": "Ya resolví el ejercicio, pero no sé cómo usar la función auxiliar.",
+      "answer": "Si ya lo resolviste, es probable que tengas un bucle externo y luego un bucle interno. Ese bucle interno está verificando si algo incluye a otra cosa. Extraer el bucle interno en una función auxiliar llamada `includes(...)`, y luego usarla desde el bucle externo, probablemente sea un buen enfoque. Una función auxiliar es simplemente una función normal definida de la manera habitual."
+    }
+  }
+}

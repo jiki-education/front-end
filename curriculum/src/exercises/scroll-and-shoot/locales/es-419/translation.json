@@ -1,0 +1,74 @@
+{
+  "checks": {
+    "notShotAllAliens": "No derribaste a todos los alienígenas.",
+    "noRepeatWithArg": "No puedes usar <code>repeat(n) {}</code> en este ejercicio. Solo debes usar bucles <code>repeat() {}</code> sin argumentos."
+  },
+  "tasks": {
+    "scrollAndShoot": {
+      "name": "Desplázate por la pantalla y dispara a todos los alienígenas",
+      "description": "Mueve el láser de un lado a otro por la pantalla, comprobando si hay un alienígena encima y derribándolo. No te salgas del borde ni dispares cuando no haya un alienígena, ¡o perderás! Las oleadas se vuelven más intensas a medida que avanzas."
+    }
+  },
+  "scenarios": {
+    "oneAlien": {
+      "name": "Un alienígena",
+      "description": "Un solo alienígena que derribar"
+    },
+    "oneRow": {
+      "name": "Una fila dispersa",
+      "description": "Alienígenas dispersos en la fila inferior"
+    },
+    "twoRows": {
+      "name": "Dos filas",
+      "description": "Alienígenas repartidos en dos filas"
+    },
+    "threeRows": {
+      "name": "Tres filas",
+      "description": "Alienígenas en las tres filas"
+    },
+    "fullRows": {
+      "name": "Filas completas",
+      "description": "Tres filas llenas. ¡Los alienígenas no dejan de reaparecer!"
+    }
+  },
+  "hints": {
+    "whereDoIStart": {
+      "question": "¿Por dónde empiezo? Parece mucho.",
+      "answer": "Divídelo. Primero, haz que el láser se mueva de un lado a otro, ignorando los disparos. Cuando el movimiento funcione, añade la lógica de disparo."
+    },
+    "trackLaserPosition": {
+      "question": "¿Cómo sigo la posición del láser?",
+      "answer": "Mantén una variable para la posición del láser. Actualízala en cada iteración del bucle cuando llames a `moveLeft()` o `moveRight()`."
+    },
+    "whenToTurnAround": {
+      "question": "¿Cómo sé cuándo dar la vuelta?",
+      "answer": "Lleva un seguimiento de una variable de dirección (por ejemplo, `1` para la derecha, `-1` para la izquierda). Cuando la posición llegue al borde izquierdo o derecho, cambia la dirección. Es el mismo patrón de rebote de la Pelota Arcoíris."
+    },
+    "whenToShoot": {
+      "question": "¿Cuándo debo llamar a `shoot()`?",
+      "answer": "Antes de llamar a `shoot()`, comprueba `isAlienAbove()`. Dispara solo si devuelve `true`; de lo contrario, desperdiciarás munición y perderás."
+    },
+    "laserOverheating": {
+      "question": "El láser no deja de sobrecalentarse. ¿Qué hago?",
+      "answer": "No dispares en cada iteración. Muévete al menos una vez entre disparos para que el cañón tenga tiempo de enfriarse."
+    }
+  },
+  "functions": {
+    "moveLeft": {
+      "description": "Mueve el cañón láser **una posición a la izquierda**. ¡Si intentas salirte del borde izquierdo de la pantalla, perderás la partida!",
+      "category": "Movimiento"
+    },
+    "moveRight": {
+      "description": "Mueve el cañón láser **una posición a la derecha**. ¡Si intentas salirte del borde derecho de la pantalla, perderás la partida!",
+      "category": "Movimiento"
+    },
+    "shoot": {
+      "description": "Dispara el láser hacia arriba. **Solo dispara cuando haya un alienígena encima de ti**, ¡o perderás la partida! El cañón láser se sobrecalienta con facilidad, así que debes moverte antes de volver a disparar.",
+      "category": "Acción"
+    },
+    "isAlienAbove": {
+      "description": "Devuelve `true` si hay un alienígena justo encima del cañón láser, o `false` si no. ¡Úsalo para comprobar antes de disparar!",
+      "category": "Detección"
+    }
+  }
+}

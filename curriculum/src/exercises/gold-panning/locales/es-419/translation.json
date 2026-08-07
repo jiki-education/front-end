@@ -1,0 +1,55 @@
+{
+  "errors": {
+    "needsRecharge": "El robot necesita recargarse después de vender.",
+    "sellBeforeAnythingElse": "El robot necesita ir y vender antes de hacer cualquier otra cosa.",
+    "sellNumber": "Solo puedes vender una cantidad de pepitas."
+  },
+  "checks": {
+    "notSold": "No vendiste tus pepitas. Asegúrate de llamar a <code>sell()</code> después de batear.",
+    "wrongSoldTotal": "Se esperaba vender {{expectedTotal}} pepitas ({{panValues}}) pero vendiste {{got}}. Asegúrate de sumar cada resultado de bateo a tu total acumulado."
+  },
+  "tasks": {
+    "panAndSell": {
+      "name": "Batea y vende el oro",
+      "description": "Batea 5 veces para recolectar pepitas de oro, llevando un total acumulado, y luego vende todo en el puesto comercial."
+    }
+  },
+  "scenarios": {
+    "randomPans": {
+      "name": "Batea y vende",
+      "description": "Batea 5 veces, cada vez con un número aleatorio de pepitas, luego vende el total."
+    }
+  },
+  "hints": {
+    "wrongSellAmount": {
+      "question": "Dice que estoy vendiendo la cantidad equivocada de oro.",
+      "answer": "Necesitas vender TODO el oro que encuentres en las 5 bateadas de una sola vez al final, no vender después de cada bateo."
+    },
+    "trackingTotal": {
+      "question": "Estoy usando pan varias veces pero no sé cómo llevar la cuenta de cuánto tengo.",
+      "answer": "Piensa en lo que has aprendido en las lecciones de video recientes. Necesitas usar una variable para llevar la cuenta de la cantidad **total** de oro que has recolectado en **todas** las bateadas juntas."
+    },
+    "fiveLines": {
+      "question": "Lo tengo funcionando, pero no puedo reducirlo a 5 líneas.",
+      "answer": "¿Tienes código repetitivo en tu solución? Si es así, ¿qué podemos usar para reducir esa repetición?"
+    },
+    "stillFiveLines": {
+      "question": "Aún no puedo reducirlo a 5 líneas de código.",
+      "answer": "Solo deberías necesitar usar una variable. ¿Estás usando más?"
+    }
+  },
+  "describers": {
+    "pan": "bateó y encontró ${return} pepitas",
+    "sell": "vendió ${arg1} pepitas en el puesto comercial"
+  },
+  "functions": {
+    "pan": {
+      "description": "Sumerge tu batea en el río y **devuelve** la cantidad de pepitas de oro encontradas.",
+      "category": "Minería"
+    },
+    "sell": {
+      "description": "Vende tus pepitas de oro en el puesto comercial.",
+      "category": "Acción"
+    }
+  }
+}

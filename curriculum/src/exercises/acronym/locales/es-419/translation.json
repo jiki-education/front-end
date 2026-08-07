@@ -1,0 +1,88 @@
+{
+  "tasks": {
+    "createAcronymFunction": {
+      "name": "Crear la función del acrónimo",
+      "description": "Escribe una función que reciba una frase y devuelva su acrónimo: la primera letra de cada palabra, en mayúsculas. Las palabras están separadas por espacios y guiones; cualquier otra puntuación se ignora."
+    },
+    "solveTightly": {
+      "name": "Resuélvelo en 46 líneas",
+      "description": "Bonus: si pones la verificación de letras y el cambio de mayúsculas/minúsculas en funciones auxiliares que `acronym` reutiliza, la solución completa cabe en 46 líneas. ¿Puedes igualarlo?"
+    }
+  },
+  "scenarios": {
+    "png": {
+      "name": "Acrónimo básico: PNG",
+      "description": "Convierte 'Portable Network Graphics' a 'PNG'."
+    },
+    "ror": {
+      "name": "Palabras en minúscula: ROR",
+      "description": "Convierte 'Ruby on Rails' a 'ROR'."
+    },
+    "gimp": {
+      "name": "Palabra en mayúsculas: GIMP",
+      "description": "Convierte 'GNU Image Manipulation Program' a 'GIMP'."
+    },
+    "firstWordOnly": {
+      "name": "Una palabra: H",
+      "description": "Convierte 'HyperText' a 'H'."
+    },
+    "hyphenated": {
+      "name": "Frase con guiones: CMOS",
+      "description": "Convierte 'Complementary metal-oxide semiconductor' a 'CMOS'."
+    },
+    "fifo": {
+      "name": "Separado por comas: FIFO",
+      "description": "Convierte 'First In, First Out' a 'FIFO'."
+    },
+    "punctuation": {
+      "name": "Con puntuación: PHT",
+      "description": "Convierte 'Portable, HyperText, Transmitter' a 'PHT'."
+    },
+    "hc": {
+      "name": "Con apóstrofe: HC",
+      "description": "Convierte \"Halley's Comet\" a 'HC'."
+    },
+    "simufta": {
+      "name": "Delimitadores consecutivos: SIMUFTA",
+      "description": "Convierte 'Something - I made up from thin air' a 'SIMUFTA'."
+    },
+    "trnt": {
+      "name": "Énfasis con guion bajo: TRNT",
+      "description": "Convierte 'The Road _Not_ Taken' a 'TRNT'."
+    },
+    "long": {
+      "name": "Uno muy largo: ROTFLSHTMDCOALM",
+      "description": "Convierte 'Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me' a 'ROTFLSHTMDCOALM'."
+    },
+    "emoji": {
+      "name": "Con un emoji: HW",
+      "description": "Convierte 'Hello 👋 World' a 'HW'."
+    },
+    "acronymBonusLineCount": {
+      "name": "Ordenado y limpio",
+      "description": "La solución más ordenada reutiliza sus funciones auxiliares y cabe en 46 líneas. ¿Puedes encontrarla?"
+    }
+  },
+  "checks": {
+    "tooManyLines": "¡Sigue intentándolo! A ver si puedes resolverlo en menos líneas.",
+    "noMethods": "Este ejercicio trata de construir las herramientas tú mismo. Resuélvelo sin usar ningún método incorporado."
+  },
+  "hints": {
+    "pickLetters": {
+      "question": "¿Cómo elijo qué letras forman el acrónimo?",
+      "answer": "El acrónimo se construye a partir de la letra que comienza cada palabra: la primera letra de la frase, más la primera letra después de cada espacio o guion."
+    },
+    "findWordStarts": {
+      "question": "¿Cómo sé cuándo empieza una nueva palabra?",
+      "answer": "Recorre la frase carácter por carácter y lleva un registro de si estás al comienzo de una nueva palabra. Estás al principio, y otra vez justo después de cualquier espacio o guion. Cualquier cosa que no sea una letra (puntuación, guiones bajos, apóstrofes) debe saltarse en lugar de contarse como el inicio de una palabra."
+    },
+    "buildResult": {
+      "question": "¿Cómo construyo el resultado a medida que avanzo?",
+      "answer": "Empieza con una cadena vacía y añade cada letra elegida al final usando `+`."
+    },
+    "uppercaseLetters": {
+      "question": "¿Cómo convierto una letra a mayúscula si no hay una función incorporada para eso?",
+      "answer": "Aquí no hay un conversor a mayúsculas ya hecho. Al igual que en Pangram, puedes alinear un alfabeto en minúsculas con uno en mayúsculas e intercambiar una letra por la que está en la misma posición. Las letras que ya están en mayúscula pueden quedarse como están."
+    }
+  }
+}

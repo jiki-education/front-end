@@ -1,0 +1,99 @@
+{
+  "checks": {
+    "moreThanSixteenLines": "Usaste más de dieciséis líneas de código."
+  },
+  "tasks": {
+    "plings": {
+      "name": "Pling",
+      "description": "Empieza por hacer bien los sonidos de Pling. Si el número es divisible entre 3, devuelve \"Pling\"."
+    },
+    "plangs": {
+      "name": "Plang",
+      "description": "Ahora haz bien los sonidos de Plang. Si el número es divisible entre 5, añade \"Plang\" al resultado. Si es divisible entre 3 y 5, devuelve \"PlingPlang\"."
+    },
+    "plongs": {
+      "name": "Plong",
+      "description": "Ahora haz bien los sonidos de Plong. Si el número es divisible entre 7, añade \"Plong\" al resultado. Los números pueden ser divisibles entre varios factores."
+    },
+    "noSound": {
+      "name": "Números sin sonido de gota de lluvia",
+      "description": "Finalmente, si el número no es divisible entre 3, 5 ni 7, devuelve el número mismo como string."
+    },
+    "solveInSixteenLines": {
+      "name": "Resolver en dieciséis líneas de código",
+      "description": "¿Puedes resolver esto con solo dieciséis líneas de código?"
+    }
+  },
+  "scenarios": {
+    "number3": {
+      "name": "Número 3",
+      "description": "Si se ingresa 3, devuelve \"Pling\"."
+    },
+    "number27": {
+      "name": "Número 27",
+      "description": "Si se ingresa 27, devuelve \"Pling\"."
+    },
+    "number5": {
+      "name": "Número 5",
+      "description": "Si se ingresa 5, devuelve \"Plang\"."
+    },
+    "number3125": {
+      "name": "Número 3125",
+      "description": "Si se ingresa 3125, devuelve \"Plang\"."
+    },
+    "number15": {
+      "name": "Número 15",
+      "description": "Si se ingresa 15, devuelve \"PlingPlang\"."
+    },
+    "number7": {
+      "name": "Número 7",
+      "description": "Si se ingresa 7, devuelve \"Plong\"."
+    },
+    "number21": {
+      "name": "Número 21",
+      "description": "Si se ingresa 21, devuelve \"PlingPlong\"."
+    },
+    "number35": {
+      "name": "Número 35",
+      "description": "Si se ingresa 35, devuelve \"PlangPlong\"."
+    },
+    "number105": {
+      "name": "Número 105",
+      "description": "Si se ingresa 105, devuelve \"PlingPlangPlong\"."
+    },
+    "number8": {
+      "name": "Número 8",
+      "description": "Si se ingresa 8, devuelve \"8\"."
+    },
+    "number52": {
+      "name": "Número 52",
+      "description": "Si se ingresa 52, devuelve \"52\"."
+    },
+    "bonus1": {
+      "name": "Dieciséis líneas de código",
+      "description": "Resuelve el ejercicio con solo dieciséis líneas de código."
+    }
+  },
+  "hints": {
+    "onlyOneSound": {
+      "question": "¿Por qué mi función solo devuelve un sonido?",
+      "answer": "Si usas `return` dentro de cada `if`, te detienes apenas el primer divisor coincide. Lo que quieres es combinarlos. En lugar de devolver, añade el sonido a un string de resultado y continúa."
+    },
+    "buildCombinedSound": {
+      "question": "¿Cómo construyo el sonido combinado?",
+      "answer": "Empieza con un string de resultado vacío. Para cada divisor (3, 5, 7), si divide al número, añade el sonido correspondiente al final del resultado usando concatenación con `+`."
+    },
+    "noneMatch": {
+      "question": "¿Qué pasa si ningún divisor coincide?",
+      "answer": "Si el resultado sigue vacío después de las tres verificaciones, la respuesta es simplemente el número mismo como string. Convierte el número y devuelve eso."
+    },
+    "convertToString": {
+      "question": "Devuelvo el número pero me pide que lo devuelva como string. ¿Cómo lo hago?",
+      "answer": "Los números y los strings son tipos diferentes, aunque se vean igual. Puedes convertir un número a string poniéndolo dentro de una plantilla de cadena con `${...}`."
+    },
+    "howManyReturns": {
+      "question": "¿Cuántas sentencias `return` debería tener?",
+      "answer": "Solo una o dos, normalmente. La idea es dejar que las condicionales modifiquen el string de resultado, y luego devolver ese resultado una vez al final."
+    }
+  }
+}
