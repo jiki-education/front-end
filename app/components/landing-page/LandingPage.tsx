@@ -9,13 +9,13 @@ import { FAQs } from "./FAQs";
 import { Hero } from "./Hero";
 import { LatestNewsSection } from "./LatestNewsSection";
 import { OutcomesSection } from "./OutcomesSection";
+import { SectionPlaceholder } from "./SectionPlaceholder";
 import { StickyNav } from "./StickyNav";
 import styles from "./LandingPage.module.css";
 import { SignupSection } from "./SignupSection";
 import { TestimonialsSection } from "./TestimonialsSection";
 import { TrackCardsSection } from "./TrackCardsSection";
 import { TwoHalves } from "./TwoHalves";
-import { WelcomeSection } from "./WelcomeSection";
 
 interface LandingPageProps {
   latestPosts?: BlogPostMeta[];
@@ -34,8 +34,8 @@ export function LandingPage({ latestPosts = [] }: LandingPageProps) {
         <Hero marquee={marquee} />
         <TwoHalves />
         <TrackCardsSection />
-        <WelcomeSection />
         <OutcomesSection />
+        <SectionPlaceholder label="Meet Jeremy" />
         <TestimonialsSection />
         <SignupSection />
         <Image className={styles.divider} src={divider} alt="" width={100} height={100} />

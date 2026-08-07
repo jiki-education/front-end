@@ -45,15 +45,3 @@
     margin-block-end: 54px;
     text-wrap: balance;
 }
-
-.demoPlaceholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    aspect-ratio: 16 / 9;
-    border-radius: 12px;
-    background: var(--color-gray-200);
-    color: var(--color-gray-500);
-    font-size: 18px;
-    font-weight: 600;
-}

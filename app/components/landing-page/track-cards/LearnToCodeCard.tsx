@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { RoughHighlight } from "../RoughHighlight";
+import { SectionPlaceholder } from "../SectionPlaceholder";
 import styles from "./LearnToCodeCard.module.css";
 
 export function LearnToCodeCard() {
@@ -20,10 +21,8 @@ export function LearnToCodeCard() {
           })}
         </p>
 
-        {/* Placeholder for the simulated exercise walkthrough, which is being built
-            separately. Deliberately unstyled beyond a grey block and not translated,
-            since none of it ships. */}
-        <div className={styles.demoPlaceholder}>Exercise walkthrough — to come</div>
+        {/* The simulated exercise walkthrough is being built separately. */}
+        <SectionPlaceholder label="Exercise walkthrough" height="520px" />
       </div>
     </div>
   );

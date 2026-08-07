@@ -1,9 +1,6 @@
 import { useLocale } from "next-intl";
-import Image, { type StaticImageData } from "next/image";
-import Link from "next/link";
+import { type StaticImageData } from "next/image";
 import { getTestimonials } from "@/lib/content/getTestimonials";
-import type { Testimonial } from "@/lib/content/types";
-import quote from "./assets/quote.webp";
 import abhinav from "./assets/testimonials/abhinav.webp";
 import drac from "./assets/testimonials/drac.webp";
 import fred from "./assets/testimonials/fred.webp";
@@ -26,13 +23,8 @@ import thom from "./assets/testimonials/thom.webp";
 import vignesh from "./assets/testimonials/vignesh.webp";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./TestimonialsSection.module.css";
-import shared from "./shared.module.css";
-
-// Quote text is authored HTML (only <strong>) and rendered via
-// dangerouslySetInnerHTML — a decorative quotation-mark glyph, universal across
-// locales, is used as the alt text for the quote-mark images.
-const QUOTE_OPEN_ALT = "“";
-const QUOTE_CLOSE_ALT = "”";
+import { StickyNote } from "./testimonials/StickyNote";
+import { TestimonialsHeading } from "./testimonials/TestimonialsHeading";
 
 // Testimonial copy lives in the content package; the presentational avatar assets
 // stay here and are looked up by the filename the content references.
@@ -63,81 +55,39 @@ export function TestimonialsSection() {
   const locale = useLocale();
   const routes = useLocaleRoutes();
   const testimonials = getTestimonials(locale);
-  const { primary } = testimonials;
+
+  // The lead testimonial is just the first note on the wall now, rather than a
+  // separately-styled block above it.
+  const notes = [testimonials.primary, ...testimonials.quotes];
+
+  // Two explicit columns rather than CSS multi-column: multicol leaves each note's
+  // absolutely-positioned tape behind when it reflows a note into the next column.
+  const columns = [notes.filter((_, i) => i % 2 === 0), notes.filter((_, i) => i % 2 === 1)];
 
   return (
     <section className={styles["testimonial-section"]}>
-      <div className={shared["lg-container"]}>
-        <h2>{testimonials.heading}</h2>
-        <p className={styles.subheading}>
-          <Subheading text={testimonials.subheading} href={routes.testimonials()} />
-        </p>
-        <div className={styles["primary-quote"]}>
-          <div className={styles.words}>
-            <Image className={`${styles.mark} ${styles["left-mark"]}`} src={quote} alt={QUOTE_OPEN_ALT} />
-            <span>
-              {primary.quote}
-              <Image className={`${styles.mark} ${styles["right-mark"]}`} src={quote} alt={QUOTE_CLOSE_ALT} />
-            </span>
+      <TestimonialsHeading
+        heading={testimonials.heading}
+        subheading={testimonials.subheading}
+        href={routes.testimonials()}
+      />
+
+      <div className={styles.wall}>
+        {columns.map((column, columnIndex) => (
+          <div key={columnIndex} className={styles.column}>
+            {column.map((note, i) => (
+              <StickyNote
+                key={"slug" in note ? note.slug : note.name}
+                html={"html" in note ? note.html : note.quote}
+                name={note.name}
+                role={note.role}
+                avatar={avatars[note.image]}
+                index={i * 2 + columnIndex}
+              />
+            ))}
           </div>
-          <div className={styles.person}>
-            <div className={styles.text}>
-              <div className={styles.name}>{primary.name}</div>
-              <div className={styles.description}>{primary.role}</div>
-            </div>
-            <Image src={avatars[primary.image]} alt={primary.name} />
-          </div>
-        </div>
-        <div className={styles.quotes}>
-          {testimonials.quotes.map((q) => (
-            <Quote key={q.slug} data={q} />
-          ))}
-        </div>
+        ))}
       </div>
     </section>
-  );
-}
-
-// The subheading is a single editorial sentence containing one <link>…</link>
-// span (kept intact so the whole sentence stays translatable). Split it into
-// before/link/after and wrap the link text in a locale-aware <Link>.
-function Subheading({ text, href }: { text: string; href: string }) {
-  const match = text.match(/^([\s\S]*)<link>([\s\S]*)<\/link>([\s\S]*)$/);
-  if (!match) {
-    return <>{text}</>;
-  }
-  const [, before, linkText, after] = match;
-  return (
-    <>
-      {before}
-      <Link className={styles.subheadingLink} href={href}>
-        {linkText}
-      </Link>
-      {after}
-    </>
-  );
-}
-
-function Quote({ data }: { data: Testimonial }) {
-  return (
-    <div className={styles.quote}>
-      <div className={styles.words}>
-        <Image className={`${styles.mark} ${styles["left-mark"]}`} src={quote} alt={QUOTE_OPEN_ALT} />
-        <span>
-          <p dangerouslySetInnerHTML={{ __html: data.html }} />
-          <Image className={`${styles.mark} ${styles["right-mark"]}`} src={quote} alt={QUOTE_CLOSE_ALT} />
-        </span>
-      </div>
-      <div className={styles.person}>
-        <div className={styles.stars}></div>
-        <div className={styles.personRow}>
-          <div className={styles.text}>
-            <div className={styles.name}>{data.name}</div>
-            <div className={styles.description}>{data.role}</div>
-          </div>
-          <Image src={avatars[data.image]} alt={data.name} />
-        </div>
-      </div>
-    </div>
   );
 }
