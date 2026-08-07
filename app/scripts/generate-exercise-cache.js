@@ -31,6 +31,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import matter from "gray-matter";
 import { computeHash, writeFile } from "./lib/cache-utils.js";
+import { prepareInstructions } from "@jiki.io/content-renderer";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const EXERCISES_DIR = path.join(__dirname, "../../curriculum/src/exercises");
@@ -205,9 +206,10 @@ function processExercises() {
         // Exercise instructions are stored as raw markdown and rendered by marked
         // at runtime (InstructionsContent.tsx), so there is no build-time marked
         // hook to strip the custom <define>/<literal> tags the English source.md
-        // may carry. Strip them here (keeping inner text) before caching; a no-op
-        // for the already tag-free translated files.
-        const instructions = parsed.content.trim().replace(/<\/?(?:define|literal)(?:\s[^>]*)?>/gi, "");
+        // may carry. prepareInstructions does the trim and the strip, and lives in
+        // @jiki.io/content-renderer beside the concept renderer, because both
+        // repos that publish instructions must agree on these bytes.
+        const instructions = prepareInstructions(parsed.content);
 
         locales[locale] = {
           title: parsed.data.title,

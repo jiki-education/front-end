@@ -60,6 +60,7 @@
     "@exercism/highlightjs-jikiscript": "^0.0.2",
     "@floating-ui/dom": "^1.7.4",
     "@floating-ui/react": "^0.27.16",
+    "@jiki.io/content-renderer": "workspace:*",
     "@jiki/curriculum": "workspace:*",
     "@jiki/highlightjs-javascript": "github:jiki-education/highlightjs-javascript",
     "@jiki/interpreters": "workspace:*",
