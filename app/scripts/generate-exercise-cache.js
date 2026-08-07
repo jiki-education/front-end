@@ -78,6 +78,10 @@ const LANGUAGE_EXTENSIONS = {
 
 const LANGUAGES = Object.keys(LANGUAGE_EXTENSIONS);
 
+// English. Its index hash is compiled into the worker and its artifacts ship
+// with the deploy, so it has no pointer and never needs one.
+const DEFAULT_LOCALE = "en";
+
 /**
  * Read a file, returning null if it doesn't exist
  */
@@ -397,6 +401,20 @@ function buildStaticFiles(exercises) {
     indexHashes[locale] = indexHash;
 
     writeFile(path.join(STATIC_DIR, locale, `index-${indexHash}.json`), indexContent);
+
+    // A LOCAL pointer for every non-default locale, so `pnpm dev` can serve
+    // translated exercises with no i18n checkout: the client resolves a
+    // non-English index hash from a pointer and never from the compiled
+    // manifest, so without one there is nothing for it to read.
+    //
+    // These are never uploaded. `static:upload` excludes them, because on R2 the
+    // i18n repo is the single writer of every non-English pointer and two
+    // writers of one mutable object is exactly the race the pointer design
+    // exists to avoid. Locally there is only ever one writer too: whichever of
+    // the two most recently wrote this tree.
+    if (locale !== DEFAULT_LOCALE) {
+      writeFile(path.join(STATIC_DIR, locale, "current.json"), `${JSON.stringify({ hash: indexHash })}\n`);
+    }
   }
 
   // Write the code indexes and collect their hashes. Keys are emitted in sorted
