@@ -1,0 +1,151 @@
+.card {
+    width: 100%;
+    background: linear-gradient(180deg, var(--color-blue-50), #fff 40%);
+    padding-block: 32px;
+
+    @media (min-width: 768px) {
+        padding-block: 48px;
+    }
+}
+
+.inner {
+    max-width: 1300px;
+    margin-inline: auto;
+    padding-inline: 5%;
+}
+
+.heading {
+    font-size: 44px;
+    line-height: 1.05;
+    font-weight: 600;
+    color: var(--color-gray-900);
+    text-align: center;
+    margin-block-end: 20px;
+
+    @media (min-width: 640px) {
+        font-size: 48px;
+        line-height: 1.15;
+    }
+}
+
+.buildWord {
+    color: var(--color-blue-600);
+    font-weight: 800;
+}
+
+.intro {
+    font-size: 22px;
+    line-height: 1.6;
+    color: var(--color-gray-700);
+    max-width: 810px;
+    margin-inline: auto;
+    margin-block-end: 24px;
+    text-align: center;
+    text-wrap: balance;
+}
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-block-start: 39px;
+
+    @media (min-width: 900px) {
+        flex-direction: row;
+        align-items: center;
+        gap: 22px;
+    }
+}
+
+.bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    @media (min-width: 900px) {
+        flex: 0 0 45%;
+        max-width: 45%;
+    }
+}
+
+.bullets li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 16px;
+    line-height: 1.6;
+    max-width: 760px;
+}
+
+.lead {
+    font-weight: 700;
+    color: var(--color-gray-700);
+}
+
+.detail {
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--color-gray-600);
+
+    strong {
+        font-weight: 600;
+    }
+}
+
+.panel {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.panelImage {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+    border: 1px solid var(--color-gray-200);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+/* Sits under the whole row, full width and centred. */
+.techBlock {
+    max-width: 900px;
+    margin-inline: auto;
+    text-align: center;
+}
+
+.topicsLabel {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--color-gray-600);
+    padding-block-start: 40px;
+    margin-block-end: 18px;
+}
+
+.pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding-block: 8px;
+    padding-inline: 16px;
+    border-radius: 999px;
+    border: 1px solid var(--color-gray-200);
+    background: var(--color-gray-50);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-blue-700);
+    white-space: nowrap;
+    box-shadow: 0 2px 5px -2px rgba(15, 23, 42, 0.18);
+}
+
+.pillIcon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}

@@ -548,6 +548,24 @@
       "flowerFlipbook": "Flower flipbook",
       "footnote": "…and that's just the first few weeks!"
     },
+    "learnToBuild": {
+      "heading": "Learn to <word>Build</word>",
+      "intro": "Alongside the code, we go deep on <highlight>how technology actually works</highlight>: databases, auth, frontends, backends and more.",
+      "livestreamsLead": "Interactive teaching livestreams",
+      "livestreamsDetail": "Stuck on a concept or your own project? Get it answered on the <strong>regular livestreams</strong>, with real questions from the community.",
+      "technologiesLead": "Learn a wide range of technologies",
+      "technologiesDetail": "Follow along with <strong>your own idea</strong> as Jeremy builds a whole platform from an empty folder, explaining every decision.",
+      "portfolioLead": "Build your portfolio with fun projects",
+      "portfolioDetail": "How Exercism and Jiki <strong>actually work</strong>, straight from the code behind them: real architecture, real trade-offs.",
+      "liveQaAlt": "Jeremy hosting a live Jiki Q&A session",
+      "topicsLabel": "Get hands on with:",
+      "databases": "Databases",
+      "auth": "Auth",
+      "frontendBackend": "Frontend vs backend",
+      "apis": "APIs",
+      "deployment": "Deployment",
+      "llmIntegration": "LLM integration"
+    },
     "exercism": {
       "heading": "What makes Exercism special?",
       "intro": "Exercism is a <strong>longstanding nonprofit</strong> that's helped over <strong>2.5 million people</strong> level-up their coding skills.",
