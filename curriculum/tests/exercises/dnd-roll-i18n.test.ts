@@ -3,7 +3,29 @@ import type { ExecutionContext, Shared } from "@jiki/interpreters";
 import DndRollExercise from "../../src/exercises/dnd-roll/Exercise";
 import { scenarios } from "../../src/exercises/dnd-roll/scenarios";
 import enDict from "../../src/exercises/dnd-roll/locales/en/translation.json";
-import huDict from "../../src/exercises/dnd-roll/locales/hu/translation.json";
+
+/**
+ * The Hungarian dict is a FIXTURE, not an import.
+ *
+ * `en` is the only locale authored in this repo; every other locale is owned by
+ * the i18n repo and published straight to the cache tree, so there is no hu file
+ * on disk to import. That suits this test: what is under test is the injection
+ * seam (a dict goes in via `setMessages`, finished localized strings come out of
+ * `logicError`/`errorHtml`), and any non-English dict proves that. Only the keys
+ * the assertions below reach are spelled.
+ */
+const huDict = {
+  errors: {
+    unknownDice: "Sajnálom, Jikinek nincs kéznél {{sides}} oldalú dobókockája!",
+    announceNumber: "Csak számot jelenthetsz be",
+    attackNumber: "A támadásnak számnak kell lennie",
+    damageNumber: "A sebzésnek számnak kell lennie"
+  },
+  checks: {
+    wrongDamage:
+      "Az összes sebzés {{totalDamage}} ({{damage}} + {{bonus}}) kellett volna legyen, de {{got}} lett. Add össze az alap sebzést és a bónuszt."
+  }
+};
 
 /**
  * Proves the logic-error seam end to end: the exercise resolves its own messages
