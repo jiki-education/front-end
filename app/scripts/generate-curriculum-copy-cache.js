@@ -16,13 +16,18 @@
  *
  * Copy is authored in two places and merged here:
  *
- *   curriculum/src/exercises/{slug}/instructions/{source|locale}.md
+ *   curriculum/src/exercises/{slug}/instructions.md
  *     - Frontmatter title + description. Already the source of truth for the
  *       exercise page itself, so it is NEVER duplicated into the catalog source
  *       below — this single-sourcing is the whole point of the catalog.
  *
- *   curriculum/src/video-lessons/locales/{locale}/translation.json
+ *   curriculum/src/video-lessons/messages.json
  *     - The video lessons, which have no other home.
+ *
+ * Both are English. The curriculum holds no other locale: translations are
+ * authored in the i18n repo and published from there straight to R2. The
+ * catalogs this emits stay keyed by locale all the same, because that is how
+ * they are addressed on R2 and by the runtime.
  *
  * Badges are curriculum-owned copy too, but they carry a different shape
  * (name/description/funFact rather than title/description), so they get their own
@@ -50,15 +55,19 @@ import { computeHash, writeFile } from "./lib/cache-utils.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const EXERCISES_DIR = path.join(__dirname, "../../curriculum/src/exercises");
-const VIDEO_LESSONS_DIR = path.join(__dirname, "../../curriculum/src/video-lessons/locales");
-const BADGES_DIR = path.join(__dirname, "../../curriculum/src/badges/locales");
+const VIDEO_LESSONS_FILE = path.join(__dirname, "../../curriculum/src/video-lessons/messages.json");
+const BADGES_FILE = path.join(__dirname, "../../curriculum/src/badges/messages.json");
 const STATIC_DIR = path.join(__dirname, "../public/static/i18n/curriculum");
 const BADGES_STATIC_DIR = path.join(__dirname, "../public/static/i18n/badges");
 const GENERATED_DIR = path.join(__dirname, "../lib/generated");
 
+// Mirrors DEFAULT_LOCALE in lib/locales.ts. The only locale the curriculum
+// authors, and so the only key any of the catalogs below carry.
+const DEFAULT_LOCALE = "en";
+
 /**
- * Read every exercise's per-locale title + description from instructions
- * frontmatter. Returns { [locale]: { [slug]: { title, description } } }.
+ * Read every exercise's title + description from its instructions frontmatter.
+ * Returns { [locale]: { [slug]: { title, description } } }.
  */
 function readExerciseCopy() {
   const byLocale = {};
@@ -78,33 +87,22 @@ function readExerciseCopy() {
       continue;
     }
 
-    const instructionsDir = path.join(EXERCISES_DIR, slug, "instructions");
-    if (!fs.existsSync(instructionsDir)) {
+    const filePath = path.join(EXERCISES_DIR, slug, "instructions.md");
+    if (!fs.existsSync(filePath)) {
       continue;
     }
 
-    const mdFiles = fs
-      .readdirSync(instructionsDir, { withFileTypes: true })
-      .filter((f) => f.isFile() && f.name.endsWith(".md"));
+    const { data } = matter(fs.readFileSync(filePath, "utf-8"));
 
-    for (const file of mdFiles) {
-      // English is authored in source.md (the source of truth); map that file to
-      // the "en" locale. Every other file is named <locale>.md (e.g. hu.md).
-      const baseName = path.basename(file.name, ".md");
-      const locale = baseName === "source" ? "en" : baseName;
-      const filePath = path.join(instructionsDir, file.name);
-      const { data } = matter(fs.readFileSync(filePath, "utf-8"));
-
-      if (!data.title) {
-        throw new Error(`Missing title in frontmatter of ${filePath}`);
-      }
-
-      byLocale[locale] ??= {};
-      byLocale[locale][slug] = {
-        title: data.title,
-        description: data.description || ""
-      };
+    if (!data.title) {
+      throw new Error(`Missing title in frontmatter of ${filePath}`);
     }
+
+    byLocale[DEFAULT_LOCALE] ??= {};
+    byLocale[DEFAULT_LOCALE][slug] = {
+      title: data.title,
+      description: data.description || ""
+    };
   }
 
   return byLocale;
@@ -115,38 +113,24 @@ function readExerciseCopy() {
  * Returns { [locale]: { [slug]: { title, description } } }.
  */
 function readVideoLessonCopy() {
-  const byLocale = {};
-
-  if (!fs.existsSync(VIDEO_LESSONS_DIR)) {
-    throw new Error(`No video-lessons locales dir at ${VIDEO_LESSONS_DIR}`);
+  if (!fs.existsSync(VIDEO_LESSONS_FILE)) {
+    throw new Error(`No video-lessons catalog at ${VIDEO_LESSONS_FILE}`);
   }
 
-  const localeDirs = fs.readdirSync(VIDEO_LESSONS_DIR, { withFileTypes: true }).filter((d) => d.isDirectory());
-
-  for (const localeDir of localeDirs) {
-    const locale = localeDir.name;
-    const messagesPath = path.join(VIDEO_LESSONS_DIR, locale, "translation.json");
-    if (!fs.existsSync(messagesPath)) {
-      continue;
-    }
-
-    let parsed;
-    try {
-      parsed = JSON.parse(fs.readFileSync(messagesPath, "utf-8"));
-    } catch (error) {
-      throw new Error(`Invalid JSON in ${messagesPath}: ${error.message}`);
-    }
-
-    for (const [slug, entry] of Object.entries(parsed)) {
-      if (!entry || !entry.title || !entry.description) {
-        throw new Error(`Video lesson "${slug}" in ${messagesPath} is missing title or description`);
-      }
-    }
-
-    byLocale[locale] = parsed;
+  let parsed;
+  try {
+    parsed = JSON.parse(fs.readFileSync(VIDEO_LESSONS_FILE, "utf-8"));
+  } catch (error) {
+    throw new Error(`Invalid JSON in ${VIDEO_LESSONS_FILE}: ${error.message}`);
   }
 
-  return byLocale;
+  for (const [slug, entry] of Object.entries(parsed)) {
+    if (!entry || !entry.title || !entry.description) {
+      throw new Error(`Video lesson "${slug}" in ${VIDEO_LESSONS_FILE} is missing title or description`);
+    }
+  }
+
+  return { [DEFAULT_LOCALE]: parsed };
 }
 
 /**
@@ -154,38 +138,24 @@ function readVideoLessonCopy() {
  * Returns { [locale]: { [slug]: { name, description, funFact } } }.
  */
 function readBadgeCopy() {
-  const byLocale = {};
-
-  if (!fs.existsSync(BADGES_DIR)) {
-    throw new Error(`No badges locales dir at ${BADGES_DIR}`);
+  if (!fs.existsSync(BADGES_FILE)) {
+    throw new Error(`No badges catalog at ${BADGES_FILE}`);
   }
 
-  const localeDirs = fs.readdirSync(BADGES_DIR, { withFileTypes: true }).filter((d) => d.isDirectory());
-
-  for (const localeDir of localeDirs) {
-    const locale = localeDir.name;
-    const messagesPath = path.join(BADGES_DIR, locale, "translation.json");
-    if (!fs.existsSync(messagesPath)) {
-      continue;
-    }
-
-    let parsed;
-    try {
-      parsed = JSON.parse(fs.readFileSync(messagesPath, "utf-8"));
-    } catch (error) {
-      throw new Error(`Invalid JSON in ${messagesPath}: ${error.message}`);
-    }
-
-    for (const [slug, entry] of Object.entries(parsed)) {
-      if (!entry || !entry.name || !entry.description || !entry.funFact) {
-        throw new Error(`Badge "${slug}" in ${messagesPath} is missing name, description or funFact`);
-      }
-    }
-
-    byLocale[locale] = parsed;
+  let parsed;
+  try {
+    parsed = JSON.parse(fs.readFileSync(BADGES_FILE, "utf-8"));
+  } catch (error) {
+    throw new Error(`Invalid JSON in ${BADGES_FILE}: ${error.message}`);
   }
 
-  return byLocale;
+  for (const [slug, entry] of Object.entries(parsed)) {
+    if (!entry || !entry.name || !entry.description || !entry.funFact) {
+      throw new Error(`Badge "${slug}" in ${BADGES_FILE} is missing name, description or funFact`);
+    }
+  }
+
+  return { [DEFAULT_LOCALE]: parsed };
 }
 
 /**

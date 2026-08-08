@@ -455,7 +455,7 @@ examples: ['["Jeremy", "Erik"].join(" likes ") → "Jeremy likes Erik"'];
 examples: ['"Jeremy".endsWith("emy") → true', '"Jeremy".endsWith("Erik") → false'];
 ```
 
-This applies to any worked example of a function or method, wherever it appears — `FunctionInfo` `examples`, hints, and the method write-ups in `instructions/source.md`.
+This applies to any worked example of a function or method, wherever it appears — `FunctionInfo` `examples`, hints, and the method write-ups in `instructions.md`.
 
 ### Step 9: Register the Exercise
 

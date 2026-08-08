@@ -1,7 +1,13 @@
-// Shared locale resolver for the i18n key-audit scripts across the monorepo
-// (app, curriculum, interpreters). Single source of truth for "which locales
-// should an audit check": PRODUCTION_LOCALES in app/lib/locales.ts, with a
-// --locales CLI override for local dev.
+// Locale resolver for the i18n key audits that still have a locale dimension.
+// Single source of truth for "which locales should an audit check":
+// PRODUCTION_LOCALES in app/lib/locales.ts, with a --locales CLI override for
+// local dev.
+//
+// Only the interpreters audit uses it. The app and curriculum audits each guard
+// a single authored catalog — English is the only locale either package holds,
+// and every translation of those catalogs is guarded in the i18n repo against
+// them — so they have no locale set to resolve. The interpreter tree really does
+// hold two catalogs per language, `en` and the machine-readable `system`.
 //
 // ## Why PRODUCTION_LOCALES and not SUPPORTED_LOCALES
 //

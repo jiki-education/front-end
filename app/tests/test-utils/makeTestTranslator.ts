@@ -1,5 +1,5 @@
 import { createTranslator } from "next-intl";
-import messages from "@/messages/en.json";
+import messages from "@/messages.json";
 import type { CodingExerciseTranslator } from "@/components/coding-exercise/lib/test-results-types";
 
 /**

@@ -17,7 +17,7 @@ Read all files in `src/exercises/$ARGUMENTS/`:
 - `index.ts` — Exercise definition export (with `functions: FunctionInfo[]`)
 - `scenarios.ts` — Tasks and test scenarios
 - `metadata.json` — Slug, title, hints
-- `instructions/source.md` — Instructions (if it exists)
+- `instructions.md` — Instructions (if it exists)
 - `llm-metadata.ts` — AI teaching guidance
 - `solution.jiki`, `solution.javascript`, `solution.py` — Solutions
 - `stub.jiki`, `stub.javascript`, `stub.py` — Starter code
@@ -34,14 +34,14 @@ Run ALL of the following checks. For each check, report either PASS or FAIL with
 
 ### Check 1: Instructions are in their own file
 
-**Rule**: Instructions should live in `instructions/source.md`, not inline in `metadata.json`.
+**Rule**: Instructions should live in `instructions.md`, not inline in `metadata.json`.
 
 **PASS** if:
 
-- `instructions/source.md` exists
+- `instructions.md` exists
 - `metadata.json` does NOT have an `instructions` field
 
-**FAIL** if instructions are still in `metadata.json` or `instructions/source.md` doesn't exist.
+**FAIL** if instructions are still in `metadata.json` or `instructions.md` doesn't exist.
 
 If this check fails, skip the remaining audit checks and move directly to the **Evolve** steps below to fix it first.
 
@@ -97,7 +97,7 @@ If this check fails, skip the remaining audit checks and move directly to the **
 
 ### Check 4: Instructions Don't Give Away the Answer
 
-**Rule**: The instructions (in `instructions/source.md`) should explain the **goal** and **available tools**, but should NOT tell students the exact code to write or the exact algorithm/logic needed.
+**Rule**: The instructions (in `instructions.md`) should explain the **goal** and **available tools**, but should NOT tell students the exact code to write or the exact algorithm/logic needed.
 
 **What's OK in instructions**:
 
@@ -141,7 +141,7 @@ If this check fails, skip the remaining audit checks and move directly to the **
 
 **Important distinction**: Function names in `Exercise.ts` `availableFunctions` and `functionName` in `scenarios.ts` IOScenario remain **snake_case** (converted at runtime). Only _user-facing text_ must use camelCase.
 
-**Check all of the following across** `instructions/source.md`, `metadata.json` (hints), `scenarios.ts` (task names, descriptions, hints, errorHtml), `index.ts` (FunctionInfo name, signature, examples), and `llm-metadata.ts`:
+**Check all of the following across** `instructions.md`, `metadata.json` (hints), `scenarios.ts` (task names, descriptions, hints, errorHtml), `index.ts` (FunctionInfo name, signature, examples), and `llm-metadata.ts`:
 
 1. **Function names are camelCase**: e.g., `getAge()` not `get_age()`, `turnLeft()` not `turn_left()`. Single-word names (`move`, `shoot`) are fine as-is.
 
@@ -181,13 +181,13 @@ Note: It is ok for the LLM instructions to have the answers! The LLM knows not t
 
 ### Check 7b: LLM Metadata Only Contains Information Gemini Wouldn't Already Know
 
-**Rule**: The LLM (Gemini) already receives, in its prompt, the **full exercise instructions** (`instructions/source.md`), the **stub**, the **solution**, and the **list of taught concepts**. (See `../llm-chat-proxy/src/prompt-builder.ts` — `buildInstructionsContentSection`, `buildInitialCodeSection`, `buildTargetCodeSection`, `buildTaughtConceptsSection`.) It is also a capable model that can read code. Therefore `llm-metadata.ts` must contain **only information Gemini would NOT already know or trivially derive from those inputs**. Anything Gemini can read off the instructions, infer from the solution, or read from the concepts list is noise and should be cut.
+**Rule**: The LLM (Gemini) already receives, in its prompt, the **full exercise instructions** (`instructions.md`), the **stub**, the **solution**, and the **list of taught concepts**. (See `../llm-chat-proxy/src/prompt-builder.ts` — `buildInstructionsContentSection`, `buildInitialCodeSection`, `buildTargetCodeSection`, `buildTaughtConceptsSection`.) It is also a capable model that can read code. Therefore `llm-metadata.ts` must contain **only information Gemini would NOT already know or trivially derive from those inputs**. Anything Gemini can read off the instructions, infer from the solution, or read from the concepts list is noise and should be cut.
 
 **The test for every sentence**: "Given the instructions, the concepts list, the stub, and the solution, would Gemini already know this?" If yes → CUT. If no → KEEP.
 
 **What Gemini already knows (so CUT it)**:
 
-- The story, rules, examples, and constraints — these are in `instructions/source.md` verbatim.
+- The story, rules, examples, and constraints — these are in `instructions.md` verbatim.
 - What the function does, its inputs/outputs/signature — stated in the instructions and visible in the solution.
 - How to solve it / the algorithm — derivable from the provided solution.
 - Which concepts/syntax the student knows — that is the taught-concepts list.
@@ -199,7 +199,7 @@ Note: It is ok for the LLM instructions to have the answers! The LLM knows not t
 - **The numbered solution steps** only insofar as they are the anchor the task descriptions reference for that mapping. Keep them terse; do not let them balloon into a re-derivation of the solution.
 - Genuinely non-obvious context: a subtlety the instructions omit, a deliberate design intent, a trap that is invisible from the instructions/solution alone.
 
-**How to check**: Read `instructions/source.md`, the concepts for the level, and the solution. Then read `description` sentence by sentence and apply the test above. The description should reduce to roughly: a one-line learning objective + terse numbered steps that exist only to anchor the per-task progression. FAIL if any sentence restates the instructions, re-derives the solution, or repeats the concepts list — i.e. tells Gemini something it already knows.
+**How to check**: Read `instructions.md`, the concepts for the level, and the solution. Then read `description` sentence by sentence and apply the test above. The description should reduce to roughly: a one-line learning objective + terse numbered steps that exist only to anchor the per-task progression. FAIL if any sentence restates the instructions, re-derives the solution, or repeats the concepts list — i.e. tells Gemini something it already knows.
 
 ---
 
@@ -285,7 +285,7 @@ Present the audit results, then the full exercise context:
 **Exercise context:**
 
 - **Exercise**: slug, title, type (visual/io), level
-- **Current instructions** (from instructions/source.md or metadata.json)
+- **Current instructions** (from instructions.md or metadata.json)
 - **Current hints** (from metadata.json and scenarios.ts tasks)
 - **Current task names/descriptions** (from scenarios.ts)
 - **Functions** (from index.ts `FunctionInfo[]`): List each function's name, signature, description, examples, and category.
@@ -311,9 +311,9 @@ Then ask the user how they'd like to proceed. Do NOT make any file changes yet �
 
 ## Evolve Steps (when user approves)
 
-### Create instructions/source.md
+### Create instructions.md
 
-Create `src/exercises/$ARGUMENTS/instructions/source.md` with the instructions content.
+Create `src/exercises/$ARGUMENTS/instructions.md` with the instructions content.
 
 **Rules for the content:**
 
@@ -326,7 +326,7 @@ Create `src/exercises/$ARGUMENTS/instructions/source.md` with the instructions c
 
 ### Ensure metadata.json has no instructions field
 
-The `instructions` field should NOT be in `metadata.json` — instructions live in `instructions/source.md`. If present, remove it. Keep all other fields (`slug`, `levelId`, `hints`).
+The `instructions` field should NOT be in `metadata.json` — instructions live in `instructions.md`. If present, remove it. Keep all other fields (`slug`, `levelId`, `hints`).
 
 ### Verify
 
@@ -344,4 +344,4 @@ pnpm test
 
 ### Iterate with user
 
-After the changes are made, present the instructions/source.md content to the user for review. Make any adjustments they request. Continue iterating until they're happy.
+After the changes are made, present the instructions.md content to the user for review. Make any adjustments they request. Continue iterating until they're happy.
