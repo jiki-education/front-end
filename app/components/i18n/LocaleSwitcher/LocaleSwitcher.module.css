@@ -2,7 +2,10 @@
     position: fixed;
     bottom: 16px;
     inset-inline-start: 16px;
-    z-index: var(--z-index-fixed);
+    /* Above the nav (100), the modals (1001) and the spotlight (1200). A staging
+       tool is useless behind the sidebar, which is where --z-index-fixed (30)
+       put it. */
+    z-index: var(--z-index-notification);
 
     display: flex;
     flex-direction: column;
