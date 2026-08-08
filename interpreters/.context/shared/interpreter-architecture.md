@@ -272,7 +272,7 @@ All interpreters MUST have consistent test categories:
 
 **IMPORTANT**: Global test setup (`tests/setup.ts`) sets the JikiScript and Python interpreters to the "system" language via `changeLanguage("system")`; individual test files should NOT call it.
 
-The **JavaScript** interpreter no longer has a global language or `changeLanguage`. It follows the inject-the-dict model: the active locale's message dict is passed per run via `EvaluationContext.localeMessages`, and a fresh translator is built for that run (`buildTranslator`/`src/shared/i18n.ts` `createTranslator`, `fallbackLng: false`). When no dict is injected it resolves in the `system` pseudo-locale, so JS tests get `system` for free; tests that assert English inject `{ localeMessages: enMessages }`. See `.context/javascript/evolution.md`.
+The **JavaScript** interpreter no longer has a global language or `changeLanguage`. It follows the inject-the-dict model: the active locale's message dict is passed per run via `EvaluationContext.localeMessages`, and a fresh translator is built for that run (`buildTranslator`/`src/shared/i18n.ts` `createTranslator`, `fallbackLng: false`). When no dict is injected it resolves in the `system` pseudo-locale, so JS tests get `system` for free; tests that assert English inject `{ localeMessages: enMessages }`. A dict declares the locale it is written in under the reserved `$locale` key (`tagLocale(locale, dict)`), and that is what plural and ordinal selection resolves against, so a test asserting an ordinal must inject `tagLocale("en", enMessages)` rather than the bare dict. See `.context/javascript/evolution.md`.
 
 ## UI Compatibility Requirements
 

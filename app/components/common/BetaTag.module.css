@@ -3,6 +3,8 @@
     inset-inline-end: -50px;
     position: fixed;
     z-index: var(--z-index-beta-tag);
+    /* The ribbon hangs off the inline-end corner, so the diagonal has to run
+       the other way in RTL for the text to read along the corner. */
     transform: rotate(45deg);
 
     background: var(--color-blue-600);
@@ -16,4 +18,8 @@
     font-weight: 700;
 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+:global([dir="rtl"]) .tag {
+    transform: rotate(-45deg);
 }

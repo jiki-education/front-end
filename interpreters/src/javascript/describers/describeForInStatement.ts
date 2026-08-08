@@ -4,7 +4,6 @@ import type { DescriptionContext } from "./types";
 import type { ForInStatement } from "../statement";
 import { JSDictionary } from "../jikiObjects";
 import { codeTag, formatJSObject } from "../helpers";
-import { addOrdinalSuffix } from "./helpers";
 
 export function describeForInStatement(frame: FrameWithResult, context: DescriptionContext): Description {
   const statement = frame.context as ForInStatement;
@@ -22,10 +21,14 @@ export function describeForInStatement(frame: FrameWithResult, context: Descript
 
   const name = codeTag(statement.variable.lexeme, statement.variable.location);
   const value = codeTag(formatJSObject(result.currentKey), statement.object.location);
-  const ordinal = addOrdinalSuffix(result.iteration);
 
   return {
-    result: context.t("description.forInStatement.result_iteration", { ordinal, name, value }),
+    result: context.t("description.forInStatement.result_iteration", {
+      count: result.iteration,
+      ordinal: true,
+      name,
+      value,
+    }),
     steps: [
       context.t("description.forInStatement.step_create", { name }),
       context.t("description.forInStatement.step_put", { value }),

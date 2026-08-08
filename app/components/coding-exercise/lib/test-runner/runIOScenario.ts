@@ -81,7 +81,7 @@ export function runIOScenario(
     );
 
     if (interpretResult.error) {
-      errorHtml = editorMessage("testRunner.ioError", { detail: interpretResult.error.message });
+      errorHtml = editorMessage("testResults.ioError", { message: interpretResult.error.message });
       actual = undefined;
     } else {
       actual = interpretResult.value;
@@ -91,8 +91,8 @@ export function runIOScenario(
     frames = interpretResult.frames;
     logLines = interpretResult.logLines;
   } catch (error) {
-    errorHtml = editorMessage("testRunner.ioError", {
-      detail: error instanceof Error ? error.message : String(error)
+    errorHtml = editorMessage("testResults.ioError", {
+      message: error instanceof Error ? error.message : String(error)
     });
     actual = undefined;
   }
@@ -123,8 +123,8 @@ export function runIOScenario(
         allCodeChecksPassed = false;
         return {
           pass: false,
-          errorHtml: editorMessage("testRunner.codeCheckError", {
-            detail: error instanceof Error ? error.message : String(error)
+          errorHtml: editorMessage("testResults.codeCheckError", {
+            message: error instanceof Error ? error.message : String(error)
           })
         };
       }

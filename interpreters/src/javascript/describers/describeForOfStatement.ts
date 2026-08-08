@@ -4,7 +4,6 @@ import type { DescriptionContext } from "./types";
 import type { ForOfStatement } from "../statement";
 import { JSArray, JSString } from "../jikiObjects";
 import { codeTag, formatJSObject } from "../helpers";
-import { addOrdinalSuffix } from "./helpers";
 
 export function describeForOfStatement(frame: FrameWithResult, context: DescriptionContext): Description {
   const statement = frame.context as ForOfStatement;
@@ -23,10 +22,14 @@ export function describeForOfStatement(frame: FrameWithResult, context: Descript
 
   const name = codeTag(statement.variable.lexeme, statement.variable.location);
   const value = codeTag(formatJSObject(result.currentElement), statement.iterable.location);
-  const ordinal = addOrdinalSuffix(result.iteration);
 
   return {
-    result: context.t("description.forOfStatement.result_iteration", { ordinal, name, value }),
+    result: context.t("description.forOfStatement.result_iteration", {
+      count: result.iteration,
+      ordinal: true,
+      name,
+      value,
+    }),
     steps: [
       context.t("description.forOfStatement.step_create", { name }),
       context.t("description.forOfStatement.step_put", { value }),
