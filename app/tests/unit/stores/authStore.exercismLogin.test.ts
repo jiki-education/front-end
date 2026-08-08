@@ -31,7 +31,9 @@ describe("AuthStore - Exercism Authentication", () => {
     premium_prices: { currency: "usd", monthly: 999, annual: 9900, country_code: null },
     provider: "exercism",
     email_confirmed: true,
-    locale: "en"
+    locale: "en",
+    locales: ["en"],
+    explicit_locale: null
   };
 
   beforeEach(() => {

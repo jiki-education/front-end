@@ -1,15 +1,16 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { createContext, useContext, useEffect, useLayoutEffect, useState, type ReactNode } from "react";
 import styles from "./LocalBanner.module.css";
 
 interface LocaleBannerBarProps {
-  href: string;
-  prefix: string;
-  cta: string;
-  or: string;
-  close: string;
+  /**
+   * The whole banner sentence, already translated into the offered language and
+   * rendered as rich text by the server (see LocaleBanner). It embeds the link
+   * and the <LocaleBannerDismiss> button, so no copy or punctuation is glued
+   * together in JSX.
+   */
+  children: ReactNode;
   /** The offered locale; dismissal is remembered per offered language. */
   offered: string;
 }
@@ -19,10 +20,11 @@ interface LocaleBannerBarProps {
 // ThemeProvider.
 const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
+const DismissContext = createContext<(() => void) | null>(null);
+
 // Presentational, dismissible bar. The offer is computed server-side (see
-// LocaleBanner); this owns the dismissed state and persists it. All strings
-// arrive already translated into the offered language.
-export function LocaleBannerBar({ href, prefix, cta, or, close, offered }: LocaleBannerBarProps) {
+// LocaleBanner); this owns the dismissed state and persists it.
+export function LocaleBannerBar({ children, offered }: LocaleBannerBarProps) {
   const [dismissed, setDismissed] = useState(false);
   const storageKey = `${DISMISS_KEY_PREFIX}${offered}`;
 
@@ -39,23 +41,29 @@ export function LocaleBannerBar({ href, prefix, cta, or, close, offered }: Local
     return null;
   }
 
+  const dismiss = () => {
+    setDismissed(true);
+    writeDismissed(storageKey);
+  };
+
   return (
     <div className={styles.banner}>
-      <span>{prefix} </span>
-      <Link href={href}>{cta}</Link> {or}{" "}
-      <button
-        type="button"
-        onClick={() => {
-          setDismissed(true);
-          writeDismissed(storageKey);
-        }}
-        aria-label={close}
-        className={styles.close}
-      >
-        {close}
-      </button>
-      .
+      <DismissContext value={dismiss}>{children}</DismissContext>
     </div>
+  );
+}
+
+/**
+ * The `<dismiss>` chunk of the banner message. Its label comes from the
+ * translated string, so the button's accessible name is the translated copy.
+ */
+export function LocaleBannerDismiss({ children }: { children: ReactNode }) {
+  const dismiss = useContext(DismissContext);
+
+  return (
+    <button type="button" onClick={() => dismiss?.()} className={styles.close}>
+      {children}
+    </button>
   );
 }
 
