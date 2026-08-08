@@ -9,7 +9,7 @@ describe("localePath", () => {
     });
 
     it("normalizes an unsupported locale to the default", () => {
-      expect(localePath("/blog", "de")).toBe("/blog");
+      expect(localePath("/blog", "zz")).toBe("/blog");
     });
   });
 
