@@ -1,10 +1,18 @@
 name: i18n
 
-# Verifies that every translation key referenced in code exists in the dict
-# files, for every production locale (SUPPORTED_LOCALES in app/lib/locales.ts —
+# Two checks, both about the locales production actually serves.
+#
+# audit-keys verifies that every translation key referenced in code exists in the
+# dict files, for every locale in PRODUCTION_LOCALES (app/lib/locales.ts,
 # currently en; a PR that puts hu live is checked against hu too). Each package
 # has its own audit script under <pkg>/scripts/audit-i18n-keys.mjs; they share
 # the locale resolver in scripts/i18n-locales.mjs.
+#
+# locale-completeness verifies that each of those locales is one the i18n repo
+# reports as fully translated. That repo publishes whatever is on its main so
+# work in progress can be reviewed on staging, which means R2 is not evidence a
+# locale is finished. Without this check, adding a locale to PRODUCTION_LOCALES
+# is a judgement call that ships; with it, it is a claim CI can refuse.
 
 on:
   push:
@@ -25,6 +33,24 @@ on:
       - ".github/workflows/i18n.yml"
 
 jobs:
+  # Nothing may enter PRODUCTION_LOCALES that the i18n repo has not finished.
+  # This reads the completeness record it publishes, so the gate is the other
+  # repo's own account of its state rather than anyone's reading of R2.
+  locale-completeness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Verify every production locale is complete
+        working-directory: app
+        run: node scripts/verify-locale-completeness.js
+
   audit-keys:
     runs-on: ubuntu-latest
     steps:

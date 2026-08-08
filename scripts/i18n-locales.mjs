@@ -1,8 +1,20 @@
 // Shared locale resolver for the i18n key-audit scripts across the monorepo
 // (app, curriculum, interpreters). Single source of truth for "which locales
-// should an audit check": the production set defined by SUPPORTED_LOCALES in
-// app/lib/locales.ts, evaluated as production, with a --locales CLI override
-// for local dev.
+// should an audit check": PRODUCTION_LOCALES in app/lib/locales.ts, with a
+// --locales CLI override for local dev.
+//
+// ## Why PRODUCTION_LOCALES and not SUPPORTED_LOCALES
+//
+// This used to infer the set from the production branch of the SUPPORTED_LOCALES
+// ternary. That worked only because the expression happened to have a shape a
+// regex could read, and it broke the moment the expression changed: a
+// three-tier version whose first branch is ALL_LOCALES parsed as "audit
+// everything", which demanded Hungarian catalogs from packages that have none.
+//
+// PRODUCTION_LOCALES exists precisely to name the set that must be complete, and
+// it is a plain literal array. Reading a constant that is declared for this
+// purpose is a contract; inferring one from the shape of a conditional was an
+// accident that held for a while.
 //
 // Usage from a package audit script:
 //   import { resolveAuditLocales } from "../../scripts/i18n-locales.mjs";
@@ -38,8 +50,7 @@ function splitList(value) {
     .filter(Boolean);
 }
 
-// Extract the array of string literals that follows a `const NAME = [ ... ]`
-// (or the production branch of the SUPPORTED_LOCALES ternary) in locales.ts.
+// Extract the array of string literals that follows a `const NAME = [ ... ]`.
 function extractArrayLiterals(segment) {
   const match = segment.match(/\[([^\]]*)\]/);
   if (!match) return null;
@@ -47,36 +58,49 @@ function extractArrayLiterals(segment) {
   return items.length ? items : null;
 }
 
-// Resolve the production locale set from app/lib/locales.ts. We read
-// ALL_LOCALES and the production branch of the SUPPORTED_LOCALES ternary
-// (`process.env.NODE_ENV === "production" ? [...] : ALL_LOCALES`). If that
-// branch is a literal array we use it; if it references ALL_LOCALES we use
-// the full set.
+/** Every failure here is fatal. See resolveProductionLocales. */
+function fail(reason) {
+  throw new Error(
+    `Cannot determine the production locale set: ${reason}.\n` +
+      `Expected a literal \`export const PRODUCTION_LOCALES: readonly Locale[] = ["en", ...]\` in\n` +
+      `  ${LOCALES_TS}\n` +
+      `Pass --locales=en,hu to override for a local run.`
+  );
+}
+
+/**
+ * The production locale set, read from PRODUCTION_LOCALES in app/lib/locales.ts.
+ *
+ * THROWS rather than guessing. The previous version fell back to English-only,
+ * or to ALL_LOCALES, whenever the parse failed, and the direction of a wrong
+ * guess is what makes that unacceptable. Guessing too WIDE is survivable and
+ * loud: the audit demands catalogs a package does not have and someone
+ * investigates. Guessing too NARROW is silent: the audit passes while never
+ * looking at a locale that is actually shipping, which is precisely the gap it
+ * exists to find.
+ *
+ * A resolver that cannot read its own source of truth knows nothing, and the
+ * only safe thing to report is that it knows nothing.
+ */
 export function resolveProductionLocales() {
   let src;
   try {
     src = readFileSync(LOCALES_TS, "utf8");
-  } catch {
-    // If we cannot find the source of truth, fail safe to English-only.
-    return ["en"];
+  } catch (error) {
+    fail(`cannot read ${LOCALES_TS} (${error.code ?? error.message})`);
   }
 
-  const allLine = src.match(/ALL_LOCALES\s*=\s*(\[[^\]]*\])/);
-  const allLocales = allLine ? extractArrayLiterals(allLine[1]) : null;
+  // Anchored on `const`, so this matches the DECLARATION and not one of the
+  // references to it further down the file. An unanchored match can run from a
+  // reference to whatever the next assignment happens to be, which is a wrong
+  // answer that looks like a right one.
+  const declaration = src.match(/\bconst\s+PRODUCTION_LOCALES\b[^=]*=\s*([^;]+);/);
+  if (!declaration) fail("no PRODUCTION_LOCALES declaration found");
 
-  const supported = src.match(/SUPPORTED_LOCALES[^=]*=\s*([^;]+);/);
-  if (supported) {
-    const expr = supported[1];
-    const ternary = expr.match(/\?([^:]+):(.+)/);
-    const prodBranch = ternary ? ternary[1] : expr;
-    if (/ALL_LOCALES/.test(prodBranch)) {
-      return allLocales ?? ["en"];
-    }
-    const literals = extractArrayLiterals(prodBranch);
-    if (literals) return literals;
-  }
+  const literals = extractArrayLiterals(declaration[1]);
+  if (!literals) fail(`PRODUCTION_LOCALES is not a literal array of strings (found: ${declaration[1].trim()})`);
 
-  return allLocales ?? ["en"];
+  return literals;
 }
 
 // Public entry point: honour a --locales flag (dev), otherwise the production set.
