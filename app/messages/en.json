@@ -83,10 +83,7 @@
       "subtitle": "Preparing your learning experience"
     },
     "localeBanner": {
-      "prefix": "You are viewing the {language} version of this page.",
-      "cta": "Change to {language}",
-      "or": "or",
-      "close": "close this notice"
+      "message": "You are viewing the {current} version of this page. <link>Change to {offered}</link> or <dismiss>close this notice</dismiss>."
     }
   },
   "common": {

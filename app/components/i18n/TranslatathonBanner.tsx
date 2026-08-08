@@ -49,7 +49,7 @@ const TRANSLATATHON_URL = "https://i18n.jiki.io";
  * Fully-translated copy for each language in the Translatathon program, keyed by
  * the program's own locale ids (matching ../../translator/languages/names.json,
  * minus `hu` which we already ship). Multi-variant languages have one entry per
- * variant (es-419/es-ES, pt-BR/pt-pt, zh-CN/zh-TW); resolveTarget maps a browser
+ * variant (es-419/es-ES, pt-BR/pt-PT, zh-CN/zh-TW); resolveTarget maps a browser
  * tag to the right one. Each string is written in that language, with the
  * language's own name for itself and a translated phrase for the translation
  * session (we don't leave "Translatathon" untranslated); only "Jiki" stays as a
@@ -158,7 +158,7 @@ const COPY: Record<string, TranslatathonCopy> = {
     post: "",
     close: "Fechar"
   },
-  "pt-pt": {
+  "pt-PT": {
     pre: "Quer ajudar-nos a traduzir o Jiki para português? ",
     link: "Junte-se à sessão de tradução",
     post: "",
@@ -341,7 +341,7 @@ function programLocale(tag: string, base: string): string | undefined {
     return region(tag) === "ES" ? "es-ES" : "es-419";
   }
   if (base === "pt") {
-    return region(tag) === "PT" ? "pt-pt" : "pt-BR";
+    return region(tag) === "PT" ? "pt-PT" : "pt-BR";
   }
   if (base === "zh") {
     const r = region(tag);

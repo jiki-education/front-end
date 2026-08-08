@@ -6,6 +6,7 @@ import { useAuthStore } from "@/lib/auth/authStore";
 import { createCatalogLoader } from "@/lib/i18n/catalogLoader";
 import { DEFAULT_TIME_ZONE, getLocaleDirection, normalizeLocale, type Locale } from "@/lib/i18n/config";
 import { setLocaleCookie } from "@/lib/i18n/localeCookie";
+import { resolveUserLocale } from "@/lib/i18n/userLocale";
 import { NextIntlClientProvider, type AbstractIntlMessages } from "next-intl";
 import { useEffect, useState, type ReactNode } from "react";
 
@@ -22,8 +23,10 @@ interface ClientLocaleProviderProps {
  *
  * The provider renders `initialLocale`/`initialMessages` (the server-resolved
  * seed) for the first paint, so external/anon SSR is unaffected. Once the auth
- * check populates `user.locale` (the authoritative preference from /internal/me),
- * if it differs from the seed we load that catalog client-side and swap.
+ * check populates the user, we resolve their authoritative locale from /internal/me
+ * (`explicit_locale`, else the first served entry of `locales`, else `locale` — see
+ * lib/i18n/userLocale.ts); if it differs from the seed we load that catalog
+ * client-side and swap.
  *
  * While a swap is in flight the provider renders `LoadingJiki` in place of its
  * children, so the app never paints in the wrong locale. "Swap pending" is
@@ -39,7 +42,7 @@ export function ClientLocaleProvider({ initialLocale, initialMessages, children 
   const [locale, setLocale] = useState(initialLocale);
   const [messages, setMessages] = useState(initialMessages);
   const [abandoned, setAbandoned] = useState<string | null>(null);
-  const userLocale = useAuthStore((state) => state.user?.locale);
+  const userLocale = useAuthStore((state) => resolveUserLocale(state.user));
 
   // For anon/logged-out users `user` is null, so `userLocale` is null and
   // `authoritative` collapses to `normalizeLocale(initialLocale)`, which equals
