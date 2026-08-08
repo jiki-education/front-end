@@ -26,7 +26,8 @@ export interface OrchestratorInit {
   interpreterLocaleMessages: InterpreterMessages;
   exerciseLocaleMessages: CurriculumMessages;
   t: CodingExerciseTranslator;
-  contentHash: string;
+  proseHash: string;
+  codeHash: string;
   onGoToDashboard: () => void;
   // Optional because a student may genuinely have no prior submission.
   serverData?: { code: string; storedAt?: string };
@@ -47,7 +48,8 @@ class Orchestrator {
   private editorRefCallback: ((element: HTMLDivElement | null) => void) | null = null;
   exercise: ExerciseDefinition;
   private readonly language: Language;
-  readonly contentHash: string;
+  readonly proseHash: string;
+  readonly codeHash: string;
   // The active locale's interpreter message catalog, injected into every interpreter
   // run so diagnostics resolve in the student's locale. Supplied by useExerciseLoader
   // for the real page (any language); tests pass an empty dict, which resolves to
@@ -70,7 +72,8 @@ class Orchestrator {
     interpreterLocaleMessages,
     exerciseLocaleMessages,
     t,
-    contentHash,
+    proseHash,
+    codeHash,
     onGoToDashboard,
     serverData,
     levelTitle,
@@ -78,7 +81,8 @@ class Orchestrator {
   }: OrchestratorInit) {
     this.exercise = exercise;
     this.language = language;
-    this.contentHash = contentHash;
+    this.proseHash = proseHash;
+    this.codeHash = codeHash;
     this.interpreterLocaleMessages = interpreterLocaleMessages;
     this.exerciseLocaleMessages = exerciseLocaleMessages;
     this.t = t;

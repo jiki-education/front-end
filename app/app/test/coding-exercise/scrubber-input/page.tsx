@@ -43,7 +43,8 @@ export default function ScrubberInputTestPage() {
       interpreterLocaleMessages: {},
       exerciseLocaleMessages: {},
       t: t,
-      contentHash: "",
+      proseHash: "",
+      codeHash: "",
       onGoToDashboard: () => {},
       levelTitle: "",
       isCompleted: false

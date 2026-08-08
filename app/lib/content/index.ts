@@ -35,7 +35,8 @@ export { getProjectEpisode } from "./getProjectEpisode";
 export { getTestimonials } from "./getTestimonials";
 
 // Utilities
-export { getAvailableLocales } from "./loader";
+export { getContentMeta } from "./contentMeta";
+export type { ContentMeta } from "./contentMeta";
 
 // Types
 export type {

@@ -16,7 +16,7 @@ interface BlogPostPageProps {
 export async function getBlogPostMetadata(slug: string, locale: string): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "seo.blog" });
   try {
-    const allPosts = getAllBlogPosts(locale);
+    const allPosts = await getAllBlogPosts(locale);
     const post = allPosts.find((p) => p.slug === slug);
     if (!post) {
       return { title: t("notFound") };
@@ -43,7 +43,7 @@ export default async function BlogPostPage({ slug, authenticated, locale }: Blog
   }
 
   // Get related blog posts (tag overlap first, topped up to a minimum of 5)
-  const allPosts = getAllBlogPosts(locale);
+  const allPosts = await getAllBlogPosts(locale);
   const relatedPosts = getRelatedBlogPosts(slug, allPosts, 5);
 
   if (authenticated) {

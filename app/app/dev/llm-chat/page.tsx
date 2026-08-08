@@ -44,7 +44,8 @@ export default function LLMChatTestPage() {
   const [selectedExercise, setSelectedExercise] = useState<ExerciseLessonSlug>("maze-solve-basic");
   const [selectedLanguage, setSelectedLanguage] = useState<"javascript" | "python" | "jikiscript">("jikiscript");
   const [code, setCode] = useState<string>("");
-  const [contentHash, setContentHash] = useState<string>("");
+  const [proseHash, setProseHash] = useState<string>("");
+  const [codeHash, setCodeHash] = useState<string>("");
   const [isLoadingExercise, setIsLoadingExercise] = useState(false);
   const [availableTasks, setAvailableTasks] = useState<Array<{ id: string; name: string }>>([]);
   const [selectedTaskId, setSelectedTaskId] = useState<string>("");
@@ -75,7 +76,8 @@ export default function LLMChatTestPage() {
         const content = await fetchExerciseContent(slug, "en", selectedLanguage);
         const starterCode = content.stub || "// Write your code here";
         setCode(starterCode);
-        setContentHash(content.contentHash);
+        setProseHash(content.proseHash);
+        setCodeHash(content.codeHash);
 
         // Load available tasks
         const tasks = exercise.tasks.map((task) => ({
@@ -88,7 +90,8 @@ export default function LLMChatTestPage() {
       } catch (err) {
         console.error("Failed to load exercise:", err);
         setCode("// Failed to load exercise code");
-        setContentHash("");
+        setProseHash("");
+        setCodeHash("");
         setAvailableTasks([]);
         setSelectedTaskId("");
       } finally {
@@ -147,7 +150,8 @@ export default function LLMChatTestPage() {
       nextTaskId: selectedTaskId || undefined, // Only include if set
       language: selectedLanguage,
       locale: "en",
-      contentHash
+      proseHash,
+      codeHash
     };
 
     addDebugEvent("request", requestPayload);

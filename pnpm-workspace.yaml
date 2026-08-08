@@ -1,6 +1,7 @@
 packages:
   - "app"
   - "content"
+  - "content-renderer"
   - "curriculum"
   - "interpreters"
   - "llm-chat-proxy"

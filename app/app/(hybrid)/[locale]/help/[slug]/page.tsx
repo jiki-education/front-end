@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function AuthenticatedLocaleArticlePage({ params }: Props) {
   const { locale, slug } = await params;
 
-  const article = getAllArticles(locale).find((a) => a.slug === slug);
+  const article = (await getAllArticles(locale)).find((a) => a.slug === slug);
   const jsonLd = article
     ? [
         articleSchema({

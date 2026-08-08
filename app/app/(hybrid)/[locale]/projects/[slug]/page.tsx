@@ -13,7 +13,7 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
-  const project = getAllProjects(locale).find((p) => p.slug === slug);
+  const project = (await getAllProjects(locale)).find((p) => p.slug === slug);
   if (!project) {
     return {};
   }

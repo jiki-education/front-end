@@ -33,7 +33,8 @@ export default function TestButtonsTestPage() {
       interpreterLocaleMessages: {},
       exerciseLocaleMessages: {},
       t: t,
-      contentHash: "",
+      proseHash: "",
+      codeHash: "",
       onGoToDashboard: () => {},
       levelTitle: "",
       isCompleted: false

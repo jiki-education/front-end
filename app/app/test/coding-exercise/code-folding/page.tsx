@@ -46,7 +46,8 @@ export default function CodeFoldingTestPage() {
       interpreterLocaleMessages: {},
       exerciseLocaleMessages: {},
       t: t,
-      contentHash: "",
+      proseHash: "",
+      codeHash: "",
       onGoToDashboard: () => {},
       levelTitle: "",
       isCompleted: false

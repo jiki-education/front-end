@@ -33,7 +33,8 @@ export default function TestingPage({
       interpreterLocaleMessages: {},
       exerciseLocaleMessages: {},
       t: t,
-      contentHash: "",
+      proseHash: "",
+      codeHash: "",
       onGoToDashboard: () => {},
       levelTitle: "",
       isCompleted: false

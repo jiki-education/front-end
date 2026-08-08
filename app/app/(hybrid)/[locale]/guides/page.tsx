@@ -1,7 +1,6 @@
 import GuidesPage from "@/components/guides/GuidesPage";
 import SidebarLayout from "@/components/layout/SidebarLayout";
-import { SUPPORTED_LOCALES } from "@/lib/locales";
-import { getAvailableLocales } from "@/lib/content";
+import { isSupportedLocale } from "@/lib/i18n/config";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
@@ -27,8 +26,11 @@ export default async function AuthenticatedLocaleGuidesPage({ params, searchPara
 
   // The default locale is served here under the naked URL (/guides), rewritten
   // to /en/guides by middleware; an explicit /en/guides is redirected back there.
-  const locales = getAvailableLocales("guides", SUPPORTED_LOCALES);
-  if (!locales.includes(locale)) {
+  // The locale list is the only gate. A locale is either fully translated or it
+  // is not served, so being supported already means it has this content; asking
+  // again at request time would put a fetch on the path of a cacheable page to
+  // answer a question the list has already answered.
+  if (!isSupportedLocale(locale)) {
     notFound();
   }
 

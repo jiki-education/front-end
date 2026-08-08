@@ -15,10 +15,17 @@
  *   public/static/i18n/levels/{locale}/messages-{hash}.json
  *     - Every level's display strings for one human locale, keyed by level id
  *
- *   lib/generated/level-message-hashes.ts
- *     - Hash manifest: locale -> messages hash
+ *   public/static/i18n/levels/{locale}/current.json    (non-default locales only)
+ *     - The mutable pointer naming that locale's current hash, so `next dev`
+ *       resolves a non-English locale through the same runtime path production
+ *       uses. NOT uploaded to R2: there the i18n repo is the single writer of
+ *       every non-English pointer, and `static:upload` excludes them.
  *
- * Uploaded to R2 immutably by `static:upload` (the whole `i18n` tree is hashed).
+ *   lib/generated/level-message-hashes.ts
+ *     - Hash manifest: locale -> messages hash. Only the DEFAULT locale's entry
+ *       is read at runtime (lib/i18n/catalogPointer.ts).
+ *
+ * The hashed catalogs are uploaded to R2 immutably by `static:upload`.
  */
 
 import fs from "fs";
@@ -30,6 +37,10 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const LEVELS_LOCALES_DIR = path.join(__dirname, "../../curriculum/src/levels/locales");
 const STATIC_DIR = path.join(__dirname, "../public/static/i18n/levels");
 const GENERATED_DIR = path.join(__dirname, "../lib/generated");
+
+// Mirrors DEFAULT_LOCALE in lib/locales.ts. The one locale whose hash is
+// compiled into the worker rather than resolved from a pointer at runtime.
+const DEFAULT_LOCALE = "en";
 
 /**
  * Build one message file per locale. Returns the hash manifest: { [locale]: hash }.
@@ -64,6 +75,10 @@ function buildMessageFiles() {
     hashes[locale] = hash;
 
     writeFile(path.join(STATIC_DIR, locale, `messages-${hash}.json`), content);
+
+    if (locale !== DEFAULT_LOCALE) {
+      writeFile(path.join(STATIC_DIR, locale, "current.json"), `${JSON.stringify({ hash })}\n`);
+    }
   }
 
   return hashes;

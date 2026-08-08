@@ -4,6 +4,8 @@ export interface ConceptMeta {
   slug: string;
   title: string;
   description: string;
+  /** Fingerprinted icon URL, or null when the concept has none. Doubles as the OG image. */
+  image: string | null;
   parentSlug: string | null;
   order: number;
   category: boolean;

@@ -87,10 +87,21 @@ jobs:
 
           echo "✅ All required environment variables are set"
 
+      # `deploy` runs the locale completeness gate before it builds anything: a
+      # locale in PRODUCTION_LOCALES that the i18n repo no longer calls complete
+      # blocks the deploy. That can happen with no front-end commit at all, which
+      # is why the PR check is not sufficient on its own.
+      #
+      # BYPASS_LOCALE_GUARD is a repository VARIABLE rather than a secret, so it
+      # is visible in the settings UI and prints in the log. Setting it makes the
+      # gate report without failing, and every deploy while it is set shouts
+      # about it, because the real risk is somebody setting it during an incident
+      # and never unsetting it.
       - name: Deploy to Cloudflare Workers
         run: pnpm run deploy
         working-directory: app
         env:
+          BYPASS_LOCALE_GUARD: ${{ vars.BYPASS_LOCALE_GUARD }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID }}

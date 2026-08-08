@@ -13,7 +13,8 @@ export function makeTestOrchestrator(
     interpreterLocaleMessages: {},
     exerciseLocaleMessages: {},
     t: makeTestTranslator(),
-    contentHash: "",
+    proseHash: "",
+    codeHash: "",
     onGoToDashboard: () => {},
     levelTitle: "",
     isCompleted: false

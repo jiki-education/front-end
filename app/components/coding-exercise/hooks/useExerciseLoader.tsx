@@ -123,7 +123,8 @@ export function useExerciseLoader({
           interpreterLocaleMessages,
           exerciseLocaleMessages,
           t,
-          contentHash: content.contentHash,
+          proseHash: content.proseHash,
+          codeHash: content.codeHash,
           onGoToDashboard,
           serverData,
           // Resolved here rather than in the panel that renders it: the level

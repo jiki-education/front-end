@@ -10,7 +10,7 @@ import type { ProcessedBlogPost } from "./types";
  * @throws Error if the post doesn't exist at all
  */
 export async function getBlogPost(slug: string, locale: string): Promise<ProcessedBlogPost> {
-  const allPosts = getAllBlogPosts(locale);
+  const allPosts = await getAllBlogPosts(locale);
   const meta = allPosts.find((p) => p.slug === slug);
 
   if (!meta) {
