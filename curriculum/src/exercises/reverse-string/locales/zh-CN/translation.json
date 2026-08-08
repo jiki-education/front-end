@@ -1,0 +1,60 @@
+{
+  "tasks": {
+    "reverseStrings": {
+      "name": "反转字符串",
+      "description": "反转字符串，使其从右向左读，而不是从左向右。"
+    }
+  },
+  "scenarios": {
+    "reverseEmptyString": {
+      "name": "空字符串",
+      "description": "空字符串反转后应返回空字符串。"
+    },
+    "reverseWord": {
+      "name": "一个单词",
+      "description": "反转单词 'robot'。"
+    },
+    "reverseCapitalizedWord": {
+      "name": "首字母大写的单词",
+      "description": "反转首字母大写的单词 'Ramen'。"
+    },
+    "reverseSentencePunctuation": {
+      "name": "带标点符号的句子",
+      "description": "反转带标点符号的句子 'I'm hungry!'。"
+    },
+    "reversePalindrome": {
+      "name": "回文",
+      "description": "回文反转后保持不变。"
+    },
+    "reverseEvenSizedWord": {
+      "name": "偶数长度单词",
+      "description": "反转偶数长度单词 'drawer'。"
+    },
+    "reverseWideCharacters": {
+      "name": "宽字符",
+      "description": "反转宽 Unicode 字符 '子猫'。"
+    },
+    "reverseEmojiFamily": {
+      "name": "家庭 Emoji",
+      "description": "反转一个家庭 Emoji。"
+    },
+    "reverseEmojiRainbowFlag": {
+      "name": "彩虹旗",
+      "description": "通过反转制作一面彩虹旗。"
+    }
+  },
+  "hints": {
+    "reverseByHand": {
+      "question": "如何手动反转一个单词？",
+      "answer": "你会从左向右读，但从右向左写。等价地，依次取每个字母，放在你已经写下的内容的前面。"
+    },
+    "mapToCode": {
+      "question": "这如何映射成代码？",
+      "answer": "逐个字符地遍历输入字符串。对每个字符，通过前置来构建结果。这意味着把它放在结果的前面，而不是后面。"
+    },
+    "prepend": {
+      "question": "如何“前置”而不是追加？",
+      "answer": "使用 `+` 运算符，前置只需要改变顺序。使用 `char + result`（前置），而不是 `result + char`（追加）。"
+    }
+  }
+}

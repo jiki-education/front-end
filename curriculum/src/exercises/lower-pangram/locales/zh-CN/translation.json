@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "noNestedLoops": "试着不要使用嵌套循环。将对单个字母的搜索移到它自己的函数里，然后从 <code>isPangram</code> 中调用它。",
+    "tooManyLines": "就差一点！看看能不能借助你的辅助函数，用更少的行数来解决这个问题。"
+  },
+  "tasks": {
+    "checkLowerPangram": {
+      "name": "检查小写全字母句",
+      "description": "编写一个函数，检查一个小写句子是否包含字母表中的每个字母。让它调用一个小型辅助函数来进行逐字母搜索。"
+    },
+    "decomposeTightly": {
+      "name": "在 16 行内完成",
+      "description": "加分项：将搜索抽离到辅助函数后，整套解决方案不超过 16 行。你能做到吗？"
+    }
+  },
+  "scenarios": {
+    "lowerPangramEmpty": {
+      "name": "空句子",
+      "description": "空句子不是全字母句。"
+    },
+    "lowerPangramFullAlphabet": {
+      "name": "完整的小写字母表",
+      "description": "完整的小写字母表是一个全字母句。"
+    },
+    "lowerPangramClassic": {
+      "name": "经典全字母句",
+      "description": "经典全字母句包含全部 26 个字母。"
+    },
+    "lowerPangramMissingX": {
+      "name": "缺少字母 'x'",
+      "description": "缺少字母 'x' 的句子不是全字母句。"
+    },
+    "lowerPangramMissingH": {
+      "name": "缺少字母 'h'",
+      "description": "缺少字母 'h' 的句子不是全字母句。"
+    },
+    "lowerPangramWithUnderscores": {
+      "name": "包含下划线",
+      "description": "用下划线代替空格的全字母句。"
+    },
+    "lowerPangramWithNumbers": {
+      "name": "包含数字",
+      "description": "包含数字的全字母句。"
+    },
+    "lowerPangramNumbersReplacingLetters": {
+      "name": "数字替换字母",
+      "description": "字母被数字替换的句子不是全字母句。"
+    },
+    "lowerPangramBonusLineCount": {
+      "name": "紧凑整洁",
+      "description": "当搜索独立成一个函数时，完整的解决方案不超过 16 行。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "从哪里开始？",
+      "answer": "你需要检查字母表中的每个字母是否都在字符串中。因此，你需要进行一些循环和比较。"
+    },
+    "checkEveryLetter": {
+      "question": "如何检查字母表中的每个字母都存在？",
+      "answer": "遍历 `\"abcdefghijklmnopqrstuvwxyz\"`，一次一个字母。对于每个字母，检查句子是否包含它。"
+    },
+    "avoidNestedLoops": {
+      "question": "我已经解决了练习，但不知道如何使用辅助函数。",
+      "answer": "如果你已经解决了这个问题，很可能你有一个外层循环和一个内层循环。这个内层循环正在检查某个东西是否包含另一个东西。将内层循环提取到一个名为 `includes(...)` 的辅助函数中，然后在外层循环中使用它，这可能是一个好方法。辅助函数只是一个用常规方式定义的普通函数。"
+    }
+  }
+}

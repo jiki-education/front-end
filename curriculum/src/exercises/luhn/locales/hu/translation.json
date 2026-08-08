@@ -1,117 +1,117 @@
 {
   "tasks": {
     "doubleAndSum": {
-      "name": "Double every second digit and sum",
-      "description": "Write a function called valid that ignores spaces, then doubles every second digit counting from the right (subtracting 9 from any result over 9), sums all the digits, and returns true when the total is divisible by 10."
+      "name": "Minden második számjegy duplázása és összegzés",
+      "description": "Írj egy `valid` nevű függvényt, amely figyelmen kívül hagyja a szóközöket, majd jobbról indulva minden második számjegyet megdupláz (9-nél nagyobb eredményből kivonva 9-et), összegzi az összes számjegyet, és `true`-t ad vissza, ha az összeg osztható 10-zel."
     },
     "spotInvalidNumbers": {
-      "name": "Spot invalid numbers",
-      "description": "Numbers whose digits are all valid but whose checksum doesn't come out divisible by 10 should return false."
+      "name": "Érvénytelen számok felismerése",
+      "description": "Azon számokra, amelyeknek minden számjegye érvényes, de az ellenőrzőösszegük nem osztható 10-zel, `false`-t adj vissza."
     },
     "rejectBadInput": {
-      "name": "Reject bad input",
-      "description": "Reject strings that are a single character or shorter, and reject any string containing a character that isn't a digit or a space."
+      "name": "Rossz bemenet elutasítása",
+      "description": "Az egyetlen karakterből álló vagy rövidebb stringeket, valamint a nem számjegyet és nem szóközt tartalmazó stringeket utasítsd el."
     }
   },
   "scenarios": {
     "luhnSimpleValid": {
-      "name": "A simple valid number",
-      "description": "A valid number should return true."
+      "name": "Egy egyszerű érvényes szám",
+      "description": "Egy érvényes számra `true`-t kell visszaadnod."
     },
     "luhnValidTwoDigit": {
-      "name": "Valid two-digit number",
-      "description": "A valid two-digit number should return true."
+      "name": "Érvényes kétjegyű szám",
+      "description": "Egy érvényes kétjegyű számra `true`-t kell visszaadnod."
     },
     "luhnValidCanadianSin": {
-      "name": "Valid Canadian SIN",
-      "description": "A valid number with spaces should return true."
+      "name": "Érvényes kanadai SIN",
+      "description": "Egy szóközöket tartalmazó érvényes számra `true`-t kell visszaadnod."
     },
     "luhnValidEvenDigits": {
-      "name": "Valid number with an even number of digits",
-      "description": "A valid number with an even number of digits should return true."
+      "name": "Érvényes szám páros számú számjeggyel",
+      "description": "Egy érvényes, páros számú számjegyből álló számra `true`-t kell visszaadnod."
     },
     "luhnValidVeryLong": {
-      "name": "Very long number",
-      "description": "A very long valid number should still return true."
+      "name": "Nagyon hosszú szám",
+      "description": "Egy nagyon hosszú érvényes számra is `true`-t kell visszaadnod."
     },
     "luhnInvalidCanadianSin": {
-      "name": "Invalid Canadian SIN",
-      "description": "A number whose checksum fails should return false."
+      "name": "Érvénytelen kanadai SIN",
+      "description": "Arra a számra, amelynek az ellenőrzőösszege hibás, `false`-t kell visszaadnod."
     },
     "luhnInvalidCreditCard": {
-      "name": "Invalid credit card",
-      "description": "An invalid credit card number should return false."
+      "name": "Érvénytelen hitelkártya",
+      "description": "Egy érvénytelen hitelkártyaszámra `false`-t kell visszaadnod."
     },
     "luhnInvalidLongRemainderDiv5": {
-      "name": "Invalid long number with a remainder divisible by 5",
-      "description": "A long number whose total is divisible by 5 but not 10 should return false."
+      "name": "Érvénytelen hosszú szám, 5-tel osztható összeggel",
+      "description": "Arra a hosszú számra, amelynek az összege 5-tel osztható, de 10-zel nem, `false`-t adj vissza."
     },
     "luhnSingleDigit": {
-      "name": "Single digit is invalid",
-      "description": "A single-digit string can never be valid."
+      "name": "Egyjegyű szám nem érvényes",
+      "description": "Egyetlen számjegyből álló string soha nem érvényes."
     },
     "luhnZeroWithSpace": {
-      "name": "Single zero with a space",
-      "description": "A single zero with a space is invalid, because only one digit remains once spaces are ignored."
+      "name": "Egyetlen nulla szóközzel",
+      "description": "Egyetlen nulla szóközzel érvénytelen, mert a szóközök figyelmen kívül hagyása után csak egy számjegy marad."
     },
     "luhnTrailingLetter": {
-      "name": "Trailing letter",
-      "description": "A valid number with a non-digit added at the end becomes invalid."
+      "name": "Végső betű",
+      "description": "Egy érvényes szám, amelynek a végéhez egy nem számjegy karaktert fűztek, érvénytelenné válik."
     },
     "luhnColon": {
-      "name": "Colon character",
-      "description": "A colon is one less than the character '0', and must not be treated as a digit."
+      "name": "Kettőspont karakter",
+      "description": "A kettőspont eggyel kisebb kódú, mint a '0' karakter, és nem szabad számjegyként kezelni."
     },
     "luhnPercent": {
-      "name": "Percent character in the middle",
-      "description": "A non-digit, non-space character in the middle makes the number invalid, even when the digits alone would sum to a multiple of 10."
+      "name": "Százalékjel a szám közepén",
+      "description": "Egy nem számjegy és nem szóköz karakter a közepén érvénytelenné teszi a számot, még akkor is, ha a számjegyek önmagukban összegezve 10-zel oszthatóak lennének."
     }
   },
   "hints": {
     "whatIsLuhn": {
-      "question": "How does the Luhn check actually work?",
-      "answer": "Ignore any spaces first. Then, starting from the rightmost digit and moving left, double every second digit. If a doubled value goes above 9, subtract 9. Add all the resulting digits together. If that total divides evenly by 10, the number is valid."
+      "question": "Hogyan működik pontosan a Luhn-ellenőrzés?",
+      "answer": "Először hagyd figyelmen kívül a szóközöket. Ezután a jobb szélső számjegytől indulva balra haladva duplázz meg minden második számjegyet. Ha a duplázott érték nagyobb 9-nél, vonj ki belőle 9-et. Add össze az így kapott összes számjegyet. Ha ez az összeg maradék nélkül osztható 10-zel, a szám érvényes."
     },
     "stripSpaces": {
-      "question": "What do I do with the spaces?",
-      "answer": "Spaces are only there for readability. Skip over them with `continue` so they don't count as digits and don't affect the positions of the real digits."
+      "question": "Mit kezdjek a szóközökkel?",
+      "answer": "A szóközök csak az olvashatóságot szolgálják. Ugorj át rajtuk a `continue` segítségével, hogy ne számítsanak számjegyként, és ne befolyásolják a valódi számjegyek pozícióját."
     },
     "rejectNonDigits": {
-      "question": "How do I reject invalid characters?",
-      "answer": "As you look at each character, if it isn't a space and isn't one of `0123456789`, you can immediately return `false`. A handy check is `\"0123456789\".includes(char)`."
+      "question": "Hogyan utasíthatom el az érvénytelen karaktereket?",
+      "answer": "Ha végignézed a karaktereket, és egy karakter nem szóköz és nem tartozik a `0123456789` halmazba, azonnal visszaadhatod `false`-t. Egy praktikus ellenőrzés: `\"0123456789\".includes(char)`."
     },
     "everySecondDigit": {
-      "question": "Which digits do I double?",
-      "answer": "Every second one. It helps to build up a clean string of just the digits first, then loop over it with an index so you can tell each digit's position."
+      "question": "Melyik számjegyeket kell dupláznom?",
+      "answer": "Minden másodikat. Segít, ha először felépítesz egy tiszta stringet, amely csak a számjegyeket tartalmazza, majd indexszel végigiterálsz rajta, hogy megállapíthasd az egyes számjegyek pozícióját."
     },
     "fromTheRight": {
-      "question": "But I need to count from the right, not the left.",
-      "answer": "If your clean digit string has length `len` and you're at index `i` (counting from 0 on the left), then its distance from the right is `len - 1 - i`. Double the digit whenever that distance is odd."
+      "question": "De jobbról kell számolnom, nem balról.",
+      "answer": "Ha a tiszta számjegystringed hossza `len`, és az `i` indexen vagy (0-tól számolva balról), akkor a jobbról mért távolsága `len - 1 - i`. Duplázd a számjegyet, amikor ez a távolság páratlan."
     },
     "doublingOverNine": {
-      "question": "What happens when doubling gives me a two-digit number?",
-      "answer": "If doubling makes the digit greater than 9, subtract 9 from it. For example 6 doubles to 12, and 12 - 9 = 3. (This gives the same answer as adding the two digits together.)"
+      "question": "Mi történik, ha a duplázás kétjegyű számot eredményez?",
+      "answer": "Ha a duplázás után a számjegy nagyobb 9-nél, vonj ki belőle 9-et. Például a 6 duplázva 12, és 12 - 9 = 3. (Ugyanezt az eredményt kapod, ha összeadod a két számjegyet.)"
     },
     "finalCheck": {
-      "question": "What's the final validity check?",
-      "answer": "Add up every digit (doubled or not) and check whether the total is divisible by 10, i.e. `total % 10 === 0`. Remember to also reject strings that have one digit or fewer."
+      "question": "Mi a végső érvényességi ellenőrzés?",
+      "answer": "Add össze az összes számjegyet (duplázva vagy anélkül), és ellenőrizd, hogy az összeg osztható-e 10-zel, azaz `total % 10 === 0`. Ne felejtsd el elutasítani azokat a stringeket, amelyek egy vagy kevesebb számjegyet tartalmaznak."
     }
   },
   "checks": {
-    "mustUseFor": "So close! This exercise wants you to solve it using a `for` loop."
+    "mustUseFor": "Majdnem sikerült! Ez a feladat azt kéri, hogy `for` ciklussal oldd meg."
   },
   "functions": {
     "number": {
-      "description": "Convert a string containing a digit to a number",
-      "category": "Type Conversion"
+      "description": "Számjegyet tartalmazó string számmá alakítása",
+      "category": "Típuskonverzió"
     },
     "includes": {
-      "description": "Check whether a string contains a smaller string",
-      "category": "String Operations"
+      "description": "Megnézi, hogy egy string tartalmaz-e egy rövidebb stringet",
+      "category": "Stringműveletek"
     },
     "length": {
-      "description": "The number of characters in a string",
-      "category": "String Operations"
+      "description": "Egy string karaktereinek száma",
+      "category": "Stringműveletek"
     }
   }
 }

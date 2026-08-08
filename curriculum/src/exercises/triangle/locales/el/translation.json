@@ -1,0 +1,81 @@
+{
+  "tasks": {
+    "invalidTriangles": {
+      "name": "Άκυρα τρίγωνα",
+      "description": "Ανίχνευσε άκυρα τρίγωνα. Ένα τρίγωνο είναι άκυρο αν κάποια πλευρά είναι μηδέν, ή αν το άθροισμα οποιωνδήποτε δύο πλευρών είναι μικρότερο ή ίσο με την τρίτη πλευρά."
+    },
+    "equilateralTriangles": {
+      "name": "Equilateral τρίγωνα",
+      "description": "Ανίχνευσε equilateral τρίγωνα όπου και οι τρεις πλευρές έχουν το ίδιο μήκος."
+    },
+    "isoscelesTriangles": {
+      "name": "Isosceles τρίγωνα",
+      "description": "Ανίχνευσε isosceles τρίγωνα όπου ακριβώς δύο πλευρές έχουν το ίδιο μήκος."
+    },
+    "scaleneTriangles": {
+      "name": "Scalene τρίγωνα",
+      "description": "Ανίχνευσε scalene τρίγωνα όπου και οι τρεις πλευρές έχουν διαφορετικά μήκη."
+    }
+  },
+  "scenarios": {
+    "invalidEquilateralAllZero": {
+      "name": "Equilateral με όλες τις πλευρές μηδέν (0, 0, 0)",
+      "description": "Ένα τρίγωνο με όλες τις πλευρές μηδέν πρέπει να επιστρέφει \"invalid\"."
+    },
+    "isoscelesFirstInequality": {
+      "name": "Isosceles με άκυρα μήκη πλευρών (1, 1, 3)",
+      "description": "Ένα τρίγωνο με πολύ κοντές πλευρές πρέπει να επιστρέφει \"invalid\"."
+    },
+    "isoscelesSecondInequality": {
+      "name": "Isosceles με άκυρα μήκη πλευρών (1, 3, 1)",
+      "description": "Ένα τρίγωνο με πολύ κοντές πλευρές πρέπει να επιστρέφει \"invalid\"."
+    },
+    "isoscelesThirdInequality": {
+      "name": "Isosceles με άκυρα μήκη πλευρών (3, 1, 1)",
+      "description": "Ένα τρίγωνο με πολύ κοντές πλευρές πρέπει να επιστρέφει \"invalid\"."
+    },
+    "scaleneTriangleInequality": {
+      "name": "Scalene με άκυρα μήκη πλευρών (7, 3, 2)",
+      "description": "Ένα τρίγωνο με πολύ κοντές πλευρές πρέπει να επιστρέφει \"invalid\"."
+    },
+    "validEquilateral": {
+      "name": "Equilateral τρίγωνο (2, 2, 2)",
+      "description": "Ένα τρίγωνο με όλες τις πλευρές ίσες πρέπει να επιστρέφει \"equilateral\"."
+    },
+    "validIsoscelesFirstTwoEqual": {
+      "name": "Isosceles τρίγωνο (4, 4, 3)",
+      "description": "Ένα τρίγωνο με τις δύο πρώτες πλευρές ίσες πρέπει να επιστρέφει \"isosceles\"."
+    },
+    "validIsoscelesLastTwoEqual": {
+      "name": "Isosceles τρίγωνο (3, 4, 4)",
+      "description": "Ένα τρίγωνο με τις δύο τελευταίες πλευρές ίσες πρέπει να επιστρέφει \"isosceles\"."
+    },
+    "validIsoscelesFirstAndLastEqual": {
+      "name": "Isosceles τρίγωνο (4, 3, 4)",
+      "description": "Ένα τρίγωνο με την ίδια πρώτη και τελευταία πλευρά πρέπει να επιστρέφει \"isosceles\"."
+    },
+    "validScalene": {
+      "name": "Scalene τρίγωνο (5, 4, 6)",
+      "description": "Ένα τρίγωνο με όλες τις πλευρές διαφορετικές πρέπει να επιστρέφει \"scalene\"."
+    }
+  },
+  "hints": {
+    "whatMakesInvalid": {
+      "question": "Τι κάνει ένα τρίγωνο άκυρο;",
+      "answer": "Δύο πράγματα. Πρώτον, αν κάποια πλευρά είναι μηδέν. Δεύτερον, αν το άθροισμα οποιωνδήποτε δύο πλευρών είναι μικρότερο ή ίσο με την τρίτη (η ανισότητα του τριγώνου). Έλεγξέ το αυτό πρώτα, αφού δεν υπάρχει λόγος να ταξινομήσεις ένα σχήμα που δεν είναι στην πραγματικότητα τρίγωνο."
+    },
+    "checkOrder": {
+      "question": "Με ποια σειρά πρέπει να ελέγξω τις κατηγορίες;",
+      "answer": "Πρώτα την πιο ειδική: equilateral (και οι τρεις πλευρές ίσες), μετά isosceles (οποιεσδήποτε δύο πλευρές ίσες), και μετά όλα τα υπόλοιπα είναι scalene. Αν το κάνεις με λάθος σειρά, τα equilateral τρίγωνα ταξινομούνται λανθασμένα ως isosceles."
+    },
+    "checkAnyTwoEqual": {
+      "question": "Πώς ελέγχω το 'οποιεσδήποτε δύο πλευρές είναι ίσες' για τα isosceles;",
+      "answer": "Τρεις συγκρίσεις: a === b, b === c, ή a === c. Αν κάποια από αυτές είναι αληθής, αρκεί."
+    },
+    "knowScalene": {
+      "question": "Πώς ξέρω ότι είναι scalene;",
+      "answer": "Αν έχεις αποκλείσει το άκυρο, το equilateral και το isosceles, το scalene είναι το μοναδικό που απομένει. Επίστρεψέ το χωρίς περαιτέρω ελέγχους."
+    }
+  },
+  "functions": {}
+}

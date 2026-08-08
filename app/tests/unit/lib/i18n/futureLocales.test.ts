@@ -43,13 +43,13 @@ describe("routing for region-suffixed locales", () => {
 
 describe("hreflang emission", () => {
   it("collapses es-419 to generic es (Google rejects UN M.49 region codes)", () => {
-    expect(hreflangLocale("es-419" as never)).toBe("es");
+    expect(hreflangLocale("es-419")).toBe("es");
   });
 
   it("passes ISO-valid ids through untouched", () => {
-    expect(hreflangLocale("es-ES" as never)).toBe("es-ES");
-    expect(hreflangLocale("pt-PT" as never)).toBe("pt-PT");
-    expect(hreflangLocale("pt-BR" as never)).toBe("pt-BR");
+    expect(hreflangLocale("es-ES")).toBe("es-ES");
+    expect(hreflangLocale("pt-PT")).toBe("pt-PT");
+    expect(hreflangLocale("pt-BR")).toBe("pt-BR");
     expect(hreflangLocale("en")).toBe("en");
   });
 

@@ -1,0 +1,81 @@
+{
+  "describers": {
+    "canMove": "Verifica se o bonequinho pode se mover para frente",
+    "canTurnLeft": "Verifica se há um caminho à esquerda do bonequinho",
+    "canTurnRight": "Verifica se há um caminho à direita do bonequinho"
+  },
+  "checks": {
+    "notReachedEnd": "Você não chegou ao fim do labirinto.",
+    "turnAroundNotDefined": "Você precisa definir uma função <code>turnAround</code> no topo do seu código.",
+    "turnAroundNotCalled": "Você definiu <code>turnAround</code>, mas precisa de fato chamá-la no seu bloco <code>else</code> final.",
+    "maxLines": "Seu programa deve ter no máximo 17 linhas de código."
+  },
+  "tasks": {
+    "turnAround": {
+      "name": "Dê meia-volta nos becos sem saída",
+      "description": "Defina uma função turnAround() no topo do seu código que chame turnLeft() duas vezes, depois use-a no bloco else final. Sua solução deve escapar dos becos sem saída nos três labirintos."
+    },
+    "bonusShortSolution": {
+      "name": "Bônus: mantenha o código curto",
+      "description": "Resolva um labirinto com dois becos sem saída, mantendo o programa inteiro em 17 linhas de código ou menos."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Um único beco sem saída",
+      "description": "Um corredor reto com um beco sem saída que obriga a dar meia-volta"
+    },
+    "maze2": {
+      "name": "Um beco sem saída e uma curva",
+      "description": "Um caminho sinuoso com um beco sem saída antes de virar para a saída"
+    },
+    "maze3": {
+      "name": "Mantenha o código curto",
+      "description": "Tente garantir que o seu programa final inteiro tenha 17 linhas de código."
+    }
+  },
+  "hints": {
+    "defineFunction": {
+      "question": "Como eu defino uma nova função?",
+      "answer": "Use a palavra-chave `function` seguida do nome, parênteses para as entradas e um corpo entre chaves, por exemplo `function turnAround() { ... }`."
+    },
+    "placement": {
+      "question": "Onde devo colocar a definição da função?",
+      "answer": "Coloque-a no topo do seu código, antes do laço. As funções precisam ser definidas antes de serem chamadas."
+    },
+    "turnAroundBody": {
+      "question": "O que deve ficar dentro de `turnAround()`?",
+      "answer": "Apenas duas chamadas de `turnLeft()`. Duas viradas à esquerda somadas fazem o bonequinho olhar para a direção oposta."
+    },
+    "useInSolver": {
+      "question": "Como uso minha nova função na solução do labirinto?",
+      "answer": "Encontre o bloco `else` da sua solução anterior onde você chamou `turnLeft()` duas vezes e substitua essas duas chamadas por uma única chamada de `turnAround()`."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Move o bonequinho **uma casa para frente** na direção atual. Andar contra uma parede encerra seu programa com um erro, então verifique o que está à frente antes de se mover!",
+      "category": "Movimento"
+    },
+    "turnLeft": {
+      "description": "Gira o bonequinho **90 graus para a esquerda** (sentido anti-horário). Isso muda a direção para onde o bonequinho está olhando.",
+      "category": "Movimento"
+    },
+    "turnRight": {
+      "description": "Gira o bonequinho **90 graus para a direita** (sentido horário). Isso muda a direção para onde o bonequinho está olhando.",
+      "category": "Movimento"
+    },
+    "canMove": {
+      "description": "Retorna **verdadeiro** se o espaço à frente do bonequinho não for uma parede e **falso** caso contrário.",
+      "category": "Percepção"
+    },
+    "canTurnLeft": {
+      "description": "Retorna **verdadeiro** se o espaço à esquerda do bonequinho não for uma parede e **falso** caso contrário.",
+      "category": "Percepção"
+    },
+    "canTurnRight": {
+      "description": "Retorna **verdadeiro** se o espaço à direita do bonequinho não for uma parede e **falso** caso contrário.",
+      "category": "Percepção"
+    }
+  }
+}

@@ -1,40 +1,40 @@
 {
   "tasks": {
     "calculateCollatzSteps": {
-      "name": "Calculate Collatz steps",
-      "description": "Write a function that takes a number and returns how many steps it takes to reach 1 following the Collatz Conjecture rules: if even, divide by 2; if odd, multiply by 3 and add 1."
+      "name": "Collatz-lépések kiszámítása",
+      "description": "Írj egy függvényt, amely bemenetként egy számot vár, és visszaadja, hogy hány lépés szükséges az 1 eléréséhez a Collatz-sejtés szabályait követve: ha páros, oszd el 2-vel; ha páratlan, szorozd meg 3-mal, és adj hozzá 1-et."
     }
   },
   "scenarios": {
     "number1": {
-      "name": "Number 1",
-      "description": "Zero steps for one."
+      "name": "1-es szám",
+      "description": "Nulla lépés az 1-es számhoz."
     },
     "number16": {
-      "name": "Number 16",
-      "description": "Divide if even."
+      "name": "16-os szám",
+      "description": "Ha páros, oszd el."
     },
     "number12": {
-      "name": "Number 12",
-      "description": "Even and odd steps."
+      "name": "12-es szám",
+      "description": "Páros és páratlan lépések."
     },
     "number1000000": {
-      "name": "Number 1000000",
-      "description": "Large number of even and odd steps."
+      "name": "1000000-es szám",
+      "description": "Nagy számú páros és páratlan lépés."
     }
   },
   "hints": {
     "loopUntilOne": {
-      "question": "How do I keep going until the number reaches 1?",
-      "answer": "Use a `repeat()` loop with no number — it repeats forever until you `return` out of it. Inside the loop, replace the number with the next number in the sequence, and return once it reaches 1."
+      "question": "Hogyan ismételjem addig, amíg a szám el nem éri az 1-et?",
+      "answer": "Használj egy `repeat()` ciklust szám nélkül — ez végtelenségig ismétlődik, amíg `return`-nel ki nem lépsz belőle. A cikluson belül helyettesítsd a számot a sorozat következő tagjával, és adj vissza, amint eléri az 1-et."
     },
     "chooseRule": {
-      "question": "How do I decide which rule to apply on each step?",
-      "answer": "Check whether the number is even. The modulo operator does this. `number % 2 === 0` means it's even. If even, halve it. Otherwise, do `3 * number + 1`."
+      "question": "Hogyan döntsem el, melyik szabályt használjam minden lépésnél?",
+      "answer": "Ellenőrizd, hogy a szám páros-e. A modulo operátor ezt csinálja. `number % 2 === 0` azt jelenti, hogy páros. Ha páros, felezd meg. Egyébként végezd el ezt: `3 * number + 1`."
     },
     "trackSteps": {
-      "question": "How do I track the answer (the number of steps)?",
-      "answer": "Keep a counter variable for how many times you've applied the rules. Think about what needs to happen to it each time round the loop, and what your function should return when the number reaches 1."
+      "question": "Hogyan számoljam a választ (a lépések számát)?",
+      "answer": "Használj egy számláló változót, hogy nyilvántartsd, hányszor alkalmaztad a szabályokat. Gondold végig, mi történjen vele minden ciklusismétlésnél, és mit adjon vissza a függvény, amikor a szám eléri az 1-et."
     }
   }
 }

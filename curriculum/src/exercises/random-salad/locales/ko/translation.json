@@ -1,0 +1,62 @@
+{
+  "errors": {
+    "leavesNumber": "Leaves는 숫자여야 해요.",
+    "tomatoesNumber": "Tomatoes는 숫자여야 해요.",
+    "croutonsNumber": "Croutons는 숫자여야 해요.",
+    "olivesNumber": "Olives는 숫자여야 해요."
+  },
+  "checks": {
+    "saladNotMade": "샐러드를 만들지 않았어요. 네 가지 재료를 모두 사용해 <code>makeSalad()</code>를 호출했는지 확인해 주세요.",
+    "needLeavesRandomInt": "잎의 개수를 생성하려면 <code>Math.randomInt(40, 100)</code>을 호출해야 해요.",
+    "needTomatoesRandomInt": "토마토의 개수를 생성하려면 <code>Math.randomInt(5, leaves / 5)</code>을 호출해야 해요.",
+    "needCroutonsRandomInt": "크루통의 개수를 생성하려면 <code>Math.randomInt(tomatoes, tomatoes * 2)</code>을 호출해야 해요.",
+    "needOlivesRandomInt": "올리브의 개수를 생성하려면 <code>Math.randomInt(1, tomatoes / 2)</code>을 호출해야 해요."
+  },
+  "tasks": {
+    "makeRandomSalad": {
+      "name": "무작위 샐러드 만들기",
+      "description": "Math.randomInt()를 사용하여 각 재료의 양을 무작위로 생성하고 샐러드를 만드세요."
+    }
+  },
+  "scenarios": {
+    "randomSalad": {
+      "name": "무작위 샐러드",
+      "description": "각 재료의 양을 무작위로 정하여 샐러드를 만듭니다."
+    }
+  },
+  "hints": {
+    "leavesExample": {
+      "question": "잎의 개수를 계산하는 예시를 보여주세요.",
+      "answer": "`let leaves = Math.randomInt(40, 100)`을 사용하여 무작위로 잎의 양을 생성할 수 있어요."
+    },
+    "leavesCount": {
+      "question": "잎이 몇 개 필요한가요?",
+      "answer": "40에서 100 사이예요."
+    },
+    "tomatoesCount": {
+      "question": "토마토가 몇 개 필요한가요?",
+      "answer": "최소 5개, 그리고 leaves / 5를 넘지 않아야 해요."
+    },
+    "croutonsCount": {
+      "question": "크루통이 몇 개 필요한가요?",
+      "answer": "최소 tomatoes 개수만큼, 최대 tomatoes 개수의 두 배예요."
+    },
+    "olivesCount": {
+      "question": "올리브가 몇 개 필요한가요?",
+      "answer": "최소 1개, 최대 tomatoes 개수의 절반이에요."
+    },
+    "makeSalad": {
+      "question": "샐러드를 어떻게 만드나요?",
+      "answer": "각 재료의 필요한 개수를 계산한 후, leaves, tomatoes, croutons, olives를 makeSalad()에 넣어요."
+    }
+  },
+  "describers": {
+    "makeSalad": "${arg1}개의 잎, ${arg2}개의 토마토, ${arg3}개의 크루통, ${arg4}개의 올리브로 샐러드를 만들었어요."
+  },
+  "functions": {
+    "makeSalad": {
+      "description": "주어진 양의 각 재료로 샐러드를 만들어요.",
+      "category": "동작"
+    }
+  }
+}

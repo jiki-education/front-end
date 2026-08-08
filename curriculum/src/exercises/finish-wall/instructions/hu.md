@@ -1,18 +1,19 @@
 ---
-title: "Finish the Wall"
-description: "Lay a row of bricks using a loop and a position variable."
+title: "Fejezd be a falat"
+description: "Rakj le egy sor téglát ciklus és egy pozícióváltozó segítségével."
+en_md5: 6d13bb1ad8a10de21422bd597308f7dd
 ---
 
-In the first drawing exercise you completed, you used the `rectangle` function to fill in some gaps in a wall. In this exercise, we build on that by using a loop to add the top layer to a wall.
+Az első rajzolós feladatban, amit megoldottál, a `rectangle` (téglalap) függvényt használtad, hogy kitölts néhány hézagot a falban. Ebben a feladatban erre építünk, és egy ciklus segítségével hozzáadjuk a felső sort a falhoz.
 
-All the layers other than the top one are already complete. You need to add the final layer of 5 bricks. The final wall should look like this:
+Az összes sor készen van, kivéve a legfelsőt. Hozzá kell adnod az utolsó, 5 téglából álló sort. A kész fal így néz ki:
 
-<img src="/static/images/exercise-assets/finish-wall/completed-wall.webp" alt="Completed Wall" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+<img src="/static/images/exercise-assets/finish-wall/completed-wall.webp" alt="Kész fal" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-Things you need to know:
+Amit tudnod kell:
 
-- Each brick is 10 high and 20 wide.
-- The `rectangle` function can only appear once in your code!
-- The correct color is `"brick"`.
+- Minden tégla 10 magas és 20 széles.
+- A `rectangle` függvény csak egyszer szerepelhet a kódodban!
+- A helyes szín a `"brick"`.
 
-Reuse the ideas you've been using recently and you'll be fine. Good luck!
+Használd fel azokat az ötleteket, amiket mostanában használtál, és minden rendben lesz. Sok sikert!

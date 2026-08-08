@@ -1,28 +1,29 @@
 ---
-title: "Structured House"
-description: "Drive a whole house drawing from two size anchors."
+title: "Strukturált ház"
+description: "Egy egész házat rajzolj meg két mérethoronyból kiindulva."
+en_md5: 783a94e5de5f4bd22cd634e07eabc131
 ---
 
-Your task is to draw a house, building the whole thing from just two anchor variables: `houseWidth` and `houseHeight`.
+A feladatod egy házat rajzolni, úgy, hogy az egész rajzot csupán két horgonyváltozóból építed fel: `houseWidth` (házszélesség) és `houseHeight` (házmagasság).
 
-We've set up the colors, the canvas width, and the two anchor variables for you. Everything else (where the house sits, the roof, the windows, the door, and the knob) should be derived from the two anchors and the fixed facts below.
+Mi már beállítottuk neked a színeket, a vászon szélességét és a két horgonyváltozót. Minden mást (hogy hol helyezkedik el a ház, a tető, az ablakok, az ajtó és a gomb) a két horgonyból és az alábbi rögzített tényekből kell származtatnod.
 
-**Think relationally!** If you do it right, you should be able to change just `houseWidth` and `houseHeight` and the whole house will resize correctly: staying centered horizontally, staying planted on the grass, and keeping its proportions. Don't hardcode positions you've worked out yourself. Build each one from the anchors.
+**Arányokban gondolkodj!** Ha jól csinálod, elég csak a `houseWidth` és `houseHeight` értékét megváltoztatnod, és az egész ház arányosan átméreteződik: vízszintesen középen marad, a fűben áll, és megtartja az arányait. Ne kódold be kézzel a kiszámolt pozíciókat! Inkább építsd fel az egyes elemeket a horgonyváltozókból.
 
-<img src="/static/images/exercise-assets/structured-house/structured-house-finished.webp" alt="The same house drawn at three different widths and heights, each staying centered and planted on the grass" style="width: 100%; box-sizing: border-box; padding: 16px; background: #fff; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+<img src="/static/images/exercise-assets/structured-house/structured-house-finished.webp" alt="Ugyanaz a ház három különböző szélességgel és magassággal megrajzolva, mindegyik vízszintesen középen marad, és a fűben áll" style="width: 100%; box-sizing: border-box; padding: 16px; background: #fff; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-### House Specifications
+### A ház specifikációja
 
-- The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`.
-- The sky fills the canvas (from `0,0` to `100,100`).
-- The grass is full width and sits at the bottom of the canvas with a height of `15`.
-- The house is always centered horizontally on the canvas.
-- The bottom of the house sits `5` below the top of the grass, and the house grows upward from there.
-- The roof sits on top of the frame. It overhangs the left and right of the frame by `1/10th` of the frame's width, its height is `1/2` of the frame's height, and its peak is centered horizontally.
-- The windows are each `1/5th` of the frame's width wide and `1/3rd` of its height tall. They sit `1/8th` of the frame's height below the top of the frame, and are inset from each side of the frame by `1/7th` of the frame's width.
-- The door is `1/5th` of the frame's width wide and `1/2` of its height tall, centered horizontally, with its bottom on the bottom of the house.
-- The door knob's radius is `1/10th` of the door's width. There is a gap of `1/10th` of the door's width between the knob and the right edge of the door. The knob is vertically centered in the door.
+- A rajzvászon bal felső sarka `0,0`. A jobb alsó sarka `100,100`.
+- Az ég betölti a vásznat (`0,0`-tól `100,100`-ig).
+- A fű teljes szélességű, és a vászon alján helyezkedik el `15` magassággal.
+- A ház mindig vízszintesen középen van a vásznon.
+- A ház alja `5`-tel a fű felső széle alatt van, és a ház onnan felfelé épül.
+- A tető a keret fölé kerül. A keret bal és jobb oldalán a keret szélességének `1/10`-ével túlnyúlik, a magassága a keret magasságának `1/2`-e, és a csúcsa vízszintesen középen van.
+- Az ablakok szélessége egyenként a keret szélességének `1/5`-e, magasságuk a keret magasságának `1/3`-a. A keret tetejéhez képest `1/8`-nyival lejjebb, a keret bal és jobb szélétől pedig `1/7`-nyival beljebb helyezkednek el.
+- Az ajtó szélessége a keret szélességének `1/5`-e, magassága a keret magasságának `1/2`-e, vízszintesen középen van, és az alja a ház aljához igazodik.
+- Az ajtógomb sugara az ajtó szélességének `1/10`-e. A gomb és az ajtó jobb széle között az ajtó szélességének `1/10`-nyi hézag van. A gomb függőlegesen az ajtó közepén helyezkedik el.
 
-### Check it works!
+### Ellenőrizd, hogy működik!
 
-Try changing the `houseWidth` and `houseHeight` variables. If your code is correct, the house will resize while staying centered and planted on the grass.
+Próbáld megváltoztatni a `houseWidth` és `houseHeight` változók értékét. Ha a kódod helyes, a ház átméreteződik, miközben vízszintesen középen marad, és a fűben áll.

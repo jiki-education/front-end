@@ -1,7 +1,7 @@
 ---
 title: "A string indexelése"
 description: "Szögletes zárójellel és egy pozíciószámmal egyetlen betűt veszünk ki egy stringből. Ne feledd, a pozíciók nullától indulnak."
-en_md5: 8b7a8d7c6330e35759579314a484fcbf
+en_md5: cd31e0366b3090b358494667003f54c9
 ---
 
 Képzeld el, hogy itt van a nevem, Jeremy, és ki szeretnéd venni belőle a monogramomat, a J betűt. Hogyan fogjunk hozzá?
@@ -14,7 +14,7 @@ Képzeld el, hogy itt van a nevem, Jeremy, és ki szeretnéd venni belőle a mon
   height="353"
 />
 
-Gondolj úgy a stringre, mint betűk sorozatára. A `"Jeremy"` hat betűből áll, J-E-R-E-M-Y, és mindegyik betűnek megvan a maga pozíciója (_position_ angolul). A `"J"` az első helyen áll, az `"y"` az utolsón.
+Gondolj úgy a stringre, mint betűk sorozatára. A `"Jeremy"` hat betűből áll, J-E-R-E-M-Y, és mindegyik betűnek megvan a maga pozíciója. A `"J"` az első helyen áll, az `"y"` az utolsón.
 
 A JavaScriptben és a legtöbb programozási nyelvben ezek a pozíciók nullától indulnak. Vagyis az első betű, a `"J"`, a nulladik pozíción van, utána jön az `"e"` az egyes pozíción, az `"r"` a kettesen, az `"e"` a hármason, az `"m"` a négyesen, az `"y"` pedig az ötösön.
 
@@ -29,15 +29,15 @@ Ha azt írjuk, hogy `"Jeremy"[0]`, azzal azt mondjuk: add ide a `"Jeremy"` szó 
 Ha azt írjuk, hogy `"Jeremy"[1]`, akkor a második betűt kérjük.
 
 ```javascript
-"Jeremy"[0]
-"Jeremy"[1]
+"Jeremy"[0] // "J"
+"Jeremy"[1] // "e"
 ```
 
 Ugyanez változókkal is működik. Ha létrehozunk egy `name` (név) nevű változót, és értékül a `"Jeremy"` stringet adjuk neki, akkor a `name[0]` szintén a `"J"` betűt adja vissza.
 
 ```javascript
 let name = "Jeremy"
-name[0]
+name[0] // "J"
 ```
 
 Egy dolgot azért tisztázzunk: amit a `name[0]` visszaad, az is csak egy string. Egy újabb papírlap, rajta egy J betűvel. Semmi különleges nincs benne. Ugyanolyan string, mint amilyen a `"Jeremy"` is.

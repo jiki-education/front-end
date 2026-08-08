@@ -1,15 +1,16 @@
 ---
-title: "Space Invaders: Repeat"
-description: "Use loops to efficiently destroy a wave of aliens."
+title: "Space Invaders: Ismétlés"
+description: "Használj ciklusokat az űrlények hullámának hatékony megsemmisítéséhez."
+en_md5: 0fc2ae36efcc9d78d89873aafc7bd036
 ---
 
-The aliens are back, and there are more of them this time!
+Az űrlények visszatértek, és ezúttal többen vannak!
 
-You have the same two functions as before:
+Ugyanaz a két függvény áll rendelkezésedre, mint korábban:
 
-- `move()` moves your laser cannon one position to the right
-- `shoot()` fires the laser upwards
+- `move()` (mozdulj) a lézerágyúdat egy pozícióval jobbra mozgatja
+- `shoot()` (lőj) kilövi a lézert felfelé
 
-You could use `move()` and `shoot()` lots of times, but there's a neater way to do this. Look at the pattern of the alien positions, think about what you've been using in the last few exercises, and see if you can solve this in only **7 lines of code**.
+Használhatnád a `move()`-ot és a `shoot()`-ot sokszor, de van ennél elegánsabb mód is. Nézd meg az űrlények pozícióinak mintázatát, gondold át, mit használtál az előző néhány feladatban, és nézd meg, meg tudod-e oldani mindössze **7 sornyi kód**ból.
 
-Have fun!
+Jó szórakozást!

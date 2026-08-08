@@ -1,0 +1,46 @@
+{
+  "checks": {
+    "firstRectangle": "Nedostaje prvi pravougaonik.",
+    "lastRectangle": "Nedostaje poslednji pravougaonik.",
+    "minSaturationLightness": "Svi pravougaonici treba da imaju zasićenost i osvetljenost od najmanje 20.",
+    "uniqueColors": "Ne postoji 100 pravougaonika različitih boja.",
+    "hueRed": "Treba da postoji pravougaonik sa nijansom blizu 0 (crvena).",
+    "huePurple": "Treba da postoji pravougaonik sa nijansom blizu 300 (ljubičasta)."
+  },
+  "tasks": {
+    "drawRainbow": {
+      "name": "Nacrtaj dugu",
+      "description": "Nacrtaj 100 uspravnih traka preko platna, svaku sa drugačijom nijansom, tako da nastane efekat duge."
+    }
+  },
+  "scenarios": {
+    "drawRainbow": {
+      "name": "Nacrtaj dugu",
+      "description": "Naslikaj 100 prelepih pravougaonika i napravi dugu."
+    }
+  },
+  "hints": {
+    "hundredRectangles": {
+      "question": "Da li moram da nacrtam 100 različitih pravougaonika?",
+      "answer": "Da, ali ne tako što ćeš napisati `rectangle(...)` 100 puta! Razmisli šta radimo kada imamo kod koji se ponavlja."
+    },
+    "colorIntoRectangle": {
+      "question": "Kako da ubacim boju u pravougaonik",
+      "answer": "Funkcija `hsl(...)` vraća string boje. Taj string boje zatim možeš da proslediš funkciji `rectangle(...)`, isto kao i ranije."
+    },
+    "hueRange": {
+      "question": "Kako da nijansa ide od 0 do 300?",
+      "answer": "Postoji 100 linija, a prva treba da ima nijansu 0. Zatim za svaku sledeću liniju treba malo da povećamo tu vrednost - druga linija bi mogla da ima nijansu 3, treća nijansu 6 itd. Na kraju ćemo stići do 300."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Crta pravougaonik na poziciji (left, top) sa zadatom širinom, visinom i bojom",
+      "category": "Crtanje oblika"
+    },
+    "hsl": {
+      "description": "Pretvara HSL vrednosti boje (nijansa 0-360, zasićenost 0-100, osvetljenost 0-100) u string boje",
+      "category": "Boje"
+    }
+  }
+}

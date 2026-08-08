@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "topHole": "上の穴が正しくふさがれていません。",
+    "middleHole": "真ん中の穴が正しくふさがれていません。",
+    "bottomHole": "下の穴が正しくふさがれていません。"
+  },
+  "tasks": {
+    "fillHoles": {
+      "name": "壁の穴をふさごう",
+      "description": "`rectangle`関数を使って、各穴を長方形で覆ってください。"
+    }
+  },
+  "scenarios": {
+    "fillHoles": {
+      "name": "穴をふさごう",
+      "description": "長方形で各穴を覆ってください。"
+    }
+  },
+  "hints": {
+    "howToDrawBricks": {
+      "question": "レンガを描くにはどうすればいいですか？",
+      "answer": "各穴を覆う長方形を描いてください。`rectangle`関数が期待する各入力の情報については、説明書を確認してください。"
+    },
+    "holeSizes": {
+      "question": "穴のサイズは何ですか？",
+      "answer": "キャンバスにカーソルを合わせて各スペースを測定してください。数値はすべて10で割り切れます。"
+    },
+    "holeSizesReally": {
+      "question": "本当に、穴のサイズは何ですか？",
+      "answer": "各穴の幅は20、高さは10です。"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "`left`（左位置）と`top`（上位置）で指定された位置に、指定された`width`（幅）と`height`（高さ）の長方形を描きます。",
+      "category": "図形の描画"
+    }
+  }
+}

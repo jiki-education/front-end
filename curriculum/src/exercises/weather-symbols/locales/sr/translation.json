@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "dayIsntCorrect": "Vreme za dan {{day}} nije tačno."
+  },
+  "tasks": {
+    "drawForecast": {
+      "name": "Nacrtaj prognozu",
+      "description": "Nacrtaj vreme svakog dana u njegovo polje, koristeći poziciju dana u nizu kao broj polja."
+    }
+  },
+  "scenarios": {
+    "mixedWeek": {
+      "name": "Šarolika sedmica",
+      "description": "Pomalo svega tokom šest dana."
+    },
+    "sunnyWeek": {
+      "name": "Sunčana sedmica",
+      "description": "Mnogo sunca, uz par oblačnijih dana."
+    },
+    "rainyWeek": {
+      "name": "Kišovita sedmica",
+      "description": "Kišna sedmica puna oblaka i padavina."
+    },
+    "snowyWeek": {
+      "name": "Snežna sedmica",
+      "description": "Hladna sedmica puna snega."
+    }
+  },
+  "hints": {
+    "loopWithIndex": {
+      "question": "Kako da prođem kroz dane i znam u koje polje ide svaki od njih?",
+      "answer": "Prođi kroz `days` petljom sa brojačem koji ide od `0` do `days.length - 1`. Taj brojač je broj polja za svaki dan."
+    },
+    "descriptionToSymbols": {
+      "question": "Kako da opis kao `\"Miserable 😩\"` pretvorim u simbole?",
+      "answer": "Uporedi opis sa svakim mogućim opisom i izaberi odgovarajući niz simbola, na primer `[\"cloud\", \"rain\"]`. U uputstvima je naveden svaki opis i njegovi simboli."
+    },
+    "weekdaysList": {
+      "question": "Kako da dobijem ime dana u nedelji za svako polje?",
+      "answer": "Napravi niz sa šest imena dana redom, od `\"Monday\"` do `\"Saturday\"`, i pročitaj ono na svojoj trenutnoj poziciji koristeći isti brojač kao za broj polja."
+    },
+    "passArgs": {
+      "question": "Šta prosleđujem funkciji `draw`?",
+      "answer": "Tri stvari: broj polja (tvoj brojač), ime dana za to polje i niz simbola za taj dan."
+    },
+    "tidyWithHelper": {
+      "question": "Petlja mi postaje predugačka. Kako da je sredim?",
+      "answer": "Pretvaranje opisa u simbole možeš izdvojiti u posebnu funkciju i pozivati je iz petlje. Ovo nije obavezno, ali bilo bi dobro da petlja ostane kratka i pregledna."
+    }
+  },
+  "functions": {
+    "draw": {
+      "description": "Crta zadate vremenske simbole u polje prognoze. Prima broj polja (od 0 do 5), ime dana kojim se polje označava i niz simbola.",
+      "category": "Crtanje"
+    }
+  },
+  "describers": {
+    "draw": "nacrtala je ${arg3} u polje za ${arg2}"
+  },
+  "errors": {
+    "elementsMustBeList": "Vremenski simboli (treći ulaz funkcije draw) moraju biti niz, na primer [\"sun\", \"cloud\"].",
+    "elementsMustBeStrings": "Svi vremenski simboli u nizu moraju biti stringovi, na primer \"sun\" ili \"rain\".",
+    "unknownElement": "\"{{element}}\" nije vremenski simbol. Koristi \"sun\", \"cloud\", \"rain\" ili \"snow\".",
+    "indexMustBeNumber": "Broj polja (prvi ulaz funkcije draw) mora biti broj.",
+    "indexOutOfRange": "Broj polja mora biti ceo broj između 0 i {{max}}.",
+    "dayMustBeString": "Dan u nedelji (drugi ulaz funkcije draw) mora biti tekst, na primer \"Monday\"."
+  }
+}

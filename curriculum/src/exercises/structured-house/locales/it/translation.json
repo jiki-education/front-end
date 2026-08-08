@@ -1,0 +1,59 @@
+{
+  "checks": {
+    "frameWrong": "La struttura della casa non è nella posizione corretta.",
+    "roofWrong": "Il tetto della casa non è nella posizione corretta.",
+    "leftWindowWrong": "La finestra sinistra non è posizionata correttamente.",
+    "rightWindowWrong": "La finestra destra non è posizionata correttamente.",
+    "doorWrong": "La porta non è posizionata correttamente.",
+    "knobWrong": "La maniglia della porta non è posizionata correttamente.",
+    "doesNotScale": "La tua casa non si ridimensiona correttamente quando houseWidth={{houseWidth}} e houseHeight={{houseHeight}}. Ogni posizione e dimensione dovrebbe essere ricavata da houseWidth e houseHeight, non da numeri fissi."
+  },
+  "tasks": {
+    "drawHouse": {
+      "name": "Disegna la casa",
+      "description": "Costruisci la casa a partire da `houseWidth` e `houseHeight` in modo che rimanga centrata, ancorata al prato e correttamente proporzionata a qualsiasi dimensione."
+    }
+  },
+  "scenarios": {
+    "drawTheHouse": {
+      "name": "Disegna la casa",
+      "description": "Costruisci la casa a partire da houseWidth e houseHeight in modo che si ridimensioni correttamente."
+    }
+  },
+  "hints": {
+    "whereDoIStart": {
+      "question": "Da dove inizio?",
+      "answer": "Ti vengono dati `houseWidth`, `houseHeight` e `canvasWidth`. Ricava inizialmente le due cose di cui la struttura ha bisogno: il suo bordo sinistro (perché la casa sia centrata) e il suo bordo superiore (perché poggi sul prato). Ogni altra forma può successivamente essere costruita a partire dalla struttura."
+    },
+    "keepCentered": {
+      "question": "Come mantengo la casa centrata quando la larghezza cambia?",
+      "answer": "Il centro dell'area di disegno è sempre `canvasWidth / 2`. Se la struttura è centrata su quel punto, il suo bordo sinistro è mezza larghezza a sinistra del centro. Qualsiasi altra cosa che sia centrata (la punta del tetto, la porta) può usare lo stesso punto centrale."
+    },
+    "keepPlantedOnGrass": {
+      "question": "Come mantengo la casa ancorata al prato?",
+      "answer": "Trova il valore y in cui dovrebbe trovarsi la base della casa (un po' sotto la cima dell'erba). Il bordo superiore della struttura si trova un'altezza della casa sopra quel punto. Lavorare dal basso verso l'alto fa sì che una casa più alta si estenda verso il cielo invece che sprofondare nell'erba."
+    },
+    "sizeRoofWindowsDoor": {
+      "question": "Come dimensiono il tetto, le finestre e la porta?",
+      "answer": "Ogni dimensione nelle istruzioni è una frazione della larghezza o dell'altezza della struttura (ad esempio, '1/5 della larghezza' è `houseWidth / 5`). Costruisci ogni larghezza a partire da `houseWidth` e ogni altezza a partire da `houseHeight`, in modo che si ridimensionino tutte insieme."
+    },
+    "breaksOnResize": {
+      "question": "Sembra giusto alla dimensione predefinita, ma si rompe quando ridimensiono. Perché?",
+      "answer": "Probabilmente hai usato un numero fisso da qualche parte invece di ricavarlo. Cerca qualsiasi numero che non sia un valore preso direttamente dalle istruzioni, come la dimensione dell'area di disegno o l'altezza dell'erba. Quasi certamente dovrebbe essere ricavato da un'altra variabile. Potrebbe essere un'ancora, o qualcosa già costruito a partire da un'ancora, come la larghezza della porta."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Disegna un rettangolo nella posizione (left, top) con la larghezza, l'altezza e il colore specificati.",
+      "category": "Disegno di forme geometriche"
+    },
+    "circle": {
+      "description": "Disegna un cerchio centrato in (centerX, centerY) con il raggio e il colore specificati.",
+      "category": "Disegno di forme geometriche"
+    },
+    "triangle": {
+      "description": "Disegna un triangolo con tre punti e un colore specificato.",
+      "category": "Disegno di forme geometriche"
+    }
+  }
+}

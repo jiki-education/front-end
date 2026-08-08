@@ -1,0 +1,70 @@
+{
+  "checks": {
+    "firstFlowerHeadWrong": "La tête de la fleur n'est pas correcte sur la première image.",
+    "finalFlowerHeadWrong": "La tête de la fleur n'est pas correcte sur la dernière image.",
+    "firstPistilWrong": "Le pistil n'est pas correct sur la première image.",
+    "finalPistilWrong": "Le pistil n'est pas correct sur la dernière image.",
+    "firstStemWrong": "La tige n'est pas correcte sur la première image.",
+    "finalStemWrong": "La tige n'est pas correcte sur la dernière image.",
+    "firstLeftLeafWrong": "La feuille gauche n'est pas correcte sur la première image.",
+    "finalLeftLeafWrong": "La feuille gauche n'est pas correcte sur la dernière image.",
+    "firstRightLeafWrong": "La feuille droite n'est pas correcte sur la première image.",
+    "finalRightLeafWrong": "La feuille droite n'est pas correcte sur la dernière image."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "Dessine la scène",
+      "description": "Fais pousser la fleur. Vas-y étape par étape !"
+    }
+  },
+  "scenarios": {
+    "drawSproutingFlower": {
+      "name": "Fais pousser la fleur",
+      "description": "Vas-y étape par étape !"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Par où commencer pour mettre en place la scène ?",
+      "answer": "Choisis un point central. Le centre de la fleur est un bon point d'ancrage : la tige, le pistil et les feuilles peuvent tous s'en déduire. Ainsi, la fleur entière reste d'un seul tenant pendant l'animation."
+    },
+    "growEachIteration": {
+      "question": "Comment faire monter et grandir la fleur à chaque itération ?",
+      "answer": "Tout en haut du corps de la boucle, avant de dessiner quoi que ce soit, mets à jour `flowerCenterY` et `flowerRadius` avec leurs nouvelles valeurs pour cette image. Les instructions donnent les quantités. Ce qui compte, c'est de faire la mise à jour *avant* les appels de dessin, pas après."
+    },
+    "stemAttached": {
+      "question": "Comment garder la tige attachée à la fleur pendant qu'elle monte ?",
+      "answer": "Ne donne pas à la tige un sommet fixe : son sommet, c'est justement `flowerCenterY`, et sa base, le sol. Sa hauteur est donc la distance entre les deux, et sa largeur peut ensuite se déduire de cette hauteur."
+    },
+    "leafSizing": {
+      "question": "Comment dimensionner les feuilles pour qu'elles grandissent avec la fleur ?",
+      "answer": "Les `radiusX` et `radiusY` des feuilles sont des fractions de `flowerRadius`, ce qui leur permet de grandir ensemble. Ancre leur position verticale sur la tige, et non sur un Y fixe du canvas, pour qu'elles montent avec la fleur."
+    },
+    "flowerNeverChanges": {
+      "question": "Ma fleur se dessine une fois puis ne change plus. Qu'est-ce qui ne va pas ?",
+      "answer": "Tu définis probablement les valeurs initiales une seule fois avant la boucle, sans les mettre à jour *à l'intérieur* de la boucle. Le corps de la boucle doit modifier tes variables à chaque itération, avant les appels de dessin."
+    },
+    "firstFlowerCoords": {
+      "question": "Peux-tu me donner les coordonnées de la première fleur pour que je vérifie ?",
+      "answer": "À la première itération, les formes doivent être les suivantes :\n\n- Fleur : `circle(50, 89, 0.4)`\n- Pistil : `circle(50, 89, 0.1)`\n- Tige : `rectangle(49.95, 89, 0.1, 1)`\n- Feuille gauche : `ellipse(49.75, 89.5, 0.2, 0.08)`\n- Feuille droite : `ellipse(50.25, 89.5, 0.2, 0.08)`\n\nActive le bouton d'informations sur la barre de lecture pour voir tes propres valeurs sur cette image."
+    },
+    "finalFlowerCoords": {
+      "question": "Peux-tu me donner les coordonnées de la dernière fleur pour que je vérifie ?",
+      "answer": "À la dernière itération, les formes doivent être les suivantes :\n\n- Fleur : `circle(50, 30, 24)`\n- Pistil : `circle(50, 30, 6)`\n- Tige : `rectangle(47, 30, 6, 60)`\n- Feuille gauche : `ellipse(35, 60, 12, 4.8)`\n- Feuille droite : `ellipse(65, 60, 12, 4.8)`\n\nActive le bouton d'informations sur la barre de lecture pour voir tes propres valeurs sur cette image."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dessine un **rectangle** à la position (left, top) avec la largeur, la hauteur et la couleur données. La position représente le coin en haut à gauche du rectangle.",
+      "category": "Dessin de formes"
+    },
+    "circle": {
+      "description": "Dessine un **cercle** centré en (centerX, centerY) avec le rayon et la couleur donnés.",
+      "category": "Dessin de formes"
+    },
+    "ellipse": {
+      "description": "Dessine une **ellipse** centrée en (centerX, centerY) avec le rayon horizontal radiusX, le rayon vertical radiusY et la couleur.",
+      "category": "Dessin de formes"
+    }
+  }
+}

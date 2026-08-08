@@ -1,0 +1,42 @@
+{
+  "checks": {
+    "uniqueColoredCircles": "Se requieren al menos 50 círculos de colores diferentes. Asegúrate de que cada círculo tenga un color aleatorio.",
+    "uniquePositionedCircles": "Se requieren al menos 30 posiciones diferentes. Asegúrate de que cada círculo tenga una posición aleatoria.",
+    "radiiRange": "Todos los círculos deben tener un radio mayor que 1 y menor que 30.",
+    "insideBox": "Los círculos no deben salirse del lienzo. Ten en cuenta el radio de cada círculo al elegir su posición.",
+    "touchEdges": "Ninguno de tus círculos tocó los bordes del lienzo. Si estás seguro de que tu código es correcto, puede que los números aleatorios no hayan colocado un círculo exactamente en un borde. ¡Prueba a ejecutarlo de nuevo!",
+    "saturationLightnessRange": "La saturación y la luminosidad deben estar ambas entre 20 y 80."
+  },
+  "tasks": {
+    "drawSplodges": {
+      "name": "Dibuja salpicaduras de arcoíris",
+      "description": "Dibuja 200 círculos en posiciones aleatorias con colores aleatorios."
+    }
+  },
+  "scenarios": {
+    "rainbowSplodges": {
+      "name": "Salpicaduras de arcoíris",
+      "description": "Dibuja 200 círculos con colores aleatorios en posiciones aleatorias."
+    }
+  },
+  "hints": {
+    "keepCirclesInBox": {
+      "question": "¿Cómo mantengo los círculos dentro del lienzo?",
+      "answer": "El orden es importante. Primero debes decidir el radio del círculo y luego asegurarte de que las posiciones izquierda y superior no permitan que se salga del lienzo."
+    },
+    "circlesEscapingBox": {
+      "question": "No puedo mantener los círculos dentro del lienzo.",
+      "answer": "Recuerda que la posición de un círculo es su centro, así que necesitas tener en cuenta su radio para mantenerlo completamente dentro. Si actualmente dejas que una posición sea tan baja como 0, el borde del círculo sobresaldrá del lienzo en una cantidad igual a su radio. Entonces, ¿a qué debe cambiar ese mínimo para que el círculo nunca quede fuera del lienzo? Luego aplica la misma lógica al máximo."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Dibuja un círculo con centro en (centerX, centerY), con el radio y color dados.",
+      "category": "Dibujar formas"
+    },
+    "hsl": {
+      "description": "Convierte valores de color HSL (tono 0-360, saturación 0-100, luminosidad 0-100) a una cadena de color hexadecimal.",
+      "category": "Colores"
+    }
+  }
+}

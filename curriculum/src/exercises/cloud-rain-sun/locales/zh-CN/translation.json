@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "sun": "太阳不对。",
+    "cloudBody": "云的主体不对。",
+    "leftPuff": "左侧云朵不对。",
+    "leftCenterPuff": "左中云朵不对。",
+    "rightCenterPuff": "右中云朵不对。",
+    "rightPuff": "右侧云朵不对。",
+    "rainDrop": "其中一个雨滴不对。"
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "绘制天气场景",
+      "description": "用黄色太阳、白色云朵和蓝色雨滴绘制天气场景。"
+    }
+  },
+  "scenarios": {
+    "drawScene": {
+      "name": "绘制天气场景",
+      "description": "绘制完整的天气场景，包含太阳、云朵和雨。"
+    }
+  },
+  "hints": {
+    "cloudShape": {
+      "question": "如何用简单形状拼出蓬松的云朵？",
+      "answer": "云朵由一个矩形（已为你绘制好作为基础部分）和沿其顶部边缘放置的 `circle` 圆形组成，从而形成凹凸的轮廓。"
+    },
+    "raindropShape": {
+      "question": "如何用 `ellipse` 绘制雨滴？",
+      "answer": "雨滴是高而细的，所以垂直半径比水平半径大。水平半径为 `3`（唯一一个不能被 5 整除的数字）。"
+    },
+    "sunOnTop": {
+      "question": "为什么我的太阳显示在云朵上面？",
+      "answer": "后绘制的形状会位于先绘制的形状之前。先绘制太阳，再绘制云朵，这样云朵就会出现在太阳前面。"
+    },
+    "notMatchingTemplate": {
+      "question": "为什么我的绘图不符合模板线条？",
+      "answer": "你的形状应位于引导线内部，而不是覆盖在它们上面。几乎你需要的所有数字都能被 5 整除，所以如果形状看起来有点偏差，试试最接近的 5 的倍数。"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "在 (left, top) 位置绘制一个矩形，具有指定的宽度、高度和颜色。",
+      "category": "绘制形状"
+    },
+    "circle": {
+      "description": "以 (centerX, centerY) 为中心绘制一个圆形，具有指定的半径和颜色。",
+      "category": "绘制形状"
+    },
+    "ellipse": {
+      "description": "以 (centerX, centerY) 为中心绘制一个椭圆，具有水平半径 radiusX、垂直半径 radiusY 和指定的颜色。",
+      "category": "绘制形状"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "Du hast das Ende des Labyrinths nicht erreicht."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Führe die Figur ans Ende des Labyrinths",
+      "description": "Navigiere durch das Labyrinth zum grünen Ziel"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Führe die Figur ans Ende des Labyrinths",
+      "description": "Deine Aufgabe ist es, deine Figur durch das Labyrinth zum grünen Zielfeld zu führen."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "Was bewege ich wohin?",
+      "answer": "Du bewegst die kleine Figur, die oben links startet, zum grünen Kreis unten rechts. Den rot gestreiften Feldern weichst du dabei aus."
+    },
+    "turnLeftTurnsRight": {
+      "question": "Wenn ich nach links drehe, dreht sich die Figur nach rechts!",
+      "answer": "Die Figur dreht sich relativ zu der Richtung, in die sie gerade schaut. Wenn sie also nach rechts schaut und sich nach links dreht, schaut sie danach nach oben."
+    }
+  }
+}

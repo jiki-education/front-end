@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "Usar funcions"
+  },
+  "strings-and-colors": {
+    "title": "Cadenes i colors"
+  },
+  "repeat-loop": {
+    "title": "Bucle repeat"
+  },
+  "variables": {
+    "title": "Variables"
+  },
+  "basic-state": {
+    "title": "Estat bàsic"
+  },
+  "functions-that-return-things": {
+    "title": "Funcions que retornen coses"
+  },
+  "conditionals": {
+    "title": "Condicionals"
+  },
+  "complex-conditionals": {
+    "title": "Condicionals complexos"
+  },
+  "conditionals-and-state": {
+    "title": "Condicionals i estat"
+  },
+  "make-your-own-functions": {
+    "title": "Crea les teves funcions"
+  },
+  "string-manipulation": {
+    "title": "Manipulació de cadenes"
+  },
+  "string-iteration": {
+    "title": "Iteració de cadenes"
+  },
+  "multiple-functions": {
+    "title": "Combinar funcions"
+  },
+  "methods-and-properties": {
+    "title": "Mètodes i propietats"
+  },
+  "advanced-loops": {
+    "title": "Bucles avançats"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "Diccionaris"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "Tot"
+  }
+}

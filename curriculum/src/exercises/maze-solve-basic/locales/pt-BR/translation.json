@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "Você não chegou ao fim do labirinto."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Leve o bonequinho até o fim do labirinto",
+      "description": "Percorra o labirinto até chegar ao alvo verde"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Leve o bonequinho até o fim do labirinto",
+      "description": "Sua missão é guiar o bonequinho pelo labirinto até o quadrado verde de chegada."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "O que eu estou movendo, e para onde?",
+      "answer": "Você está levando o bonequinho, que começa no canto superior esquerdo, até o círculo verde no canto inferior direito, desviando das casas listradas de vermelho."
+    },
+    "turnLeftTurnsRight": {
+      "question": "Quando eu viro à esquerda, o bonequinho vira à direita!",
+      "answer": "O bonequinho vira em relação à direção para onde ele está olhando. Então, se ele estiver olhando para a direita e virar à esquerda, ele passa a olhar para cima."
+    }
+  }
+}

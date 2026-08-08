@@ -1,26 +1,27 @@
 ---
-title: "Acronym"
-description: "Turn a phrase into its acronym, ignoring punctuation along the way."
+title: "Betűszó"
+description: "Alakíts egy kifejezést a betűszójává, a központozást figyelmen kívül hagyva."
+en_md5: 97e2adefc1da7867f5e218d0fe8c4fdb
 ---
 
-You've already solved simple three letter acronyms like turning `Portable Network Graphics` into `PNG`.
+Korábban már megoldottál egyszerű hárombetűs betűszókat, például a `Portable Network Graphics` kifejezést `PNG`-vé alakítottad.
 
-However, on this exercise, we're taking it one step further and dealing with all acronyms - not just three letter ones. And this is much tougher...
+Ebben a feladatban azonban tovább lépünk, és mindenféle betűszóval foglalkozunk – nem csak a hárombetűsekkel. Ez pedig jóval nehezebb…
 
-Your job is to write a function called `acronym(phrase)` that takes a phrase and returns its acronym.
+A feladatod egy `acronym(phrase)` nevű függvény megírása, ami egy kifejezést kap, és visszaadja a betűszóját.
 
-## The rules
+## A szabályok
 
-A new word begins after a **space** or a **hyphen** (`-`). Every other character — commas, apostrophes, underscores, exclamation marks, and so on — is **not** a separator and never becomes part of the acronym. Only letters count.
+Egy új szó **szóköz** vagy **kötőjel** (`-`) után kezdődik. Minden más karakter – vessző, aposztróf, aláhúzás, felkiáltójel és így tovább – **nem** elválasztó, és sosem lesz része a betűszónak. Csak a betűk számítanak.
 
-| Phrase                    | Acronym |
+| Kifejezés                 | Betűszó |
 | ------------------------- | ------- |
 | As Soon As Possible       | ASAP    |
 | Liquid-crystal display    | LCD     |
 | Thank George It's Friday! | TGIF    |
 
-## Heads up
+## Figyelem
 
-We've not given you any of the more advanced JavaScript methods you see later in the course (nothing to magically uppercase a letter or tell you whether a character is a letter in the first place). You'll need to build all those helper functions yourself before you can put the whole thing together.
+Nem adtunk neked semmilyen haladóbb JavaScript-metódust, amit a kurzus későbbi részében látsz majd (semmi, ami varázsütésre nagybetűssé alakítana egy karaktert, vagy megmondaná, hogy egy karakter egyáltalán betű-e). Előbb magadnak kell megépítened ezeket a segédfüggvényeket, mielőtt összerakhatnád az egészet.
 
-This one is trickier than it sounds. Have fun!
+Ez a feladat trükkösebb, mint amilyennek hangzik. Jó szórakozást!

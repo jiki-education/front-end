@@ -1,0 +1,40 @@
+{
+  "describers": {
+    "move": "pomerio laserski top udesno"
+  },
+  "checks": {
+    "notShotAllAliens": "Nisu oboreni svi vanzemaljci."
+  },
+  "tasks": {
+    "shootTheAliens": {
+      "name": "Obori sve vanzemaljce",
+      "description": "Pomeri svoj laserski top udesno i pucaj na svakog vanzemaljca dok prolaziš ispod njega. Nemoj promašiti i nemoj se pomeriti sa ivice!"
+    }
+  },
+  "scenarios": {
+    "shootTheAliens": {
+      "name": "Pucaj na vanzemaljce",
+      "description": "Pomeri se udesno i pucaj na sve vanzemaljce"
+    }
+  },
+  "hints": {
+    "whatDoINeedToDo": {
+      "question": "Šta treba da uradim?",
+      "answer": "Kao i u lavirintu, treba da pomeraš svog lika (ovoga puta laser, a ne osobu). Ali takođe treba da pucaš iz lasera! Pomeri laser ispod vanzemaljca, a zatim pucaj. Zatim pomeri laser ponovo dok ne budeš ispod sledećeg vanzemaljca i pucaj ponovo. Nastavi dok ne oboriš poslednjeg vanzemaljca!"
+    },
+    "cantWasteAmmo": {
+      "question": "Kažu mi da ne smem da trošim municiju.",
+      "answer": "Treba da koristiš `shoot()` samo kada si tačno ispod vanzemaljca. Probaj da se pomeriš za jedno mesto dalje (ili si možda preterao/la?)"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Pomera laserski top **jedno mesto udesno**. Ako se pomeriš sa desne ivice ekrana, gubiš!",
+      "category": "Pokret"
+    },
+    "shoot": {
+      "description": "Ispaljuje laser nagore. **Pucaj samo kada je vanzemaljac iznad tebe**, ili gubiš igru!",
+      "category": "Akcija"
+    }
+  }
+}

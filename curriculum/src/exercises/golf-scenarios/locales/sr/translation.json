@@ -1,0 +1,54 @@
+{
+  "checks": {
+    "wrongShotEnd": "Lopta nije završila na pravom mestu za ovaj udarac. Proveri da li je prešla celu dužinu udarca.",
+    "missingPositions": "Lopta mora da se kotrlja kroz svaku poziciju korak po korak, a ne da skoči pravo do kraja."
+  },
+  "tasks": {
+    "rollAndCelebrate": {
+      "name": "Zakotrljaj lopticu",
+      "description": "Uzmi dužinu udarca i zakotrljaj lopticu udesno za tu vrednost."
+    }
+  },
+  "scenarios": {
+    "shortShot": {
+      "name": "Kratak udarac (20)",
+      "description": "U ovom scenariju, `getShotLength()` će vratiti 20. Zakotrljaj lopticu 20 koraka od tee-a."
+    },
+    "mediumShot": {
+      "name": "Srednji udarac (35)",
+      "description": "U ovom scenariju, `getShotLength()` će vratiti 35. Zakotrljaj lopticu 35 koraka od tee-a."
+    },
+    "longShot": {
+      "name": "Dug udarac (50)",
+      "description": "U ovom scenariju, `getShotLength()` će vratiti 50. Zakotrljaj lopticu 50 koraka od tee-a."
+    },
+    "veryLongShot": {
+      "name": "Veoma dug udarac (60)",
+      "description": "U ovom scenariju, `getShotLength()` će vratiti 60. Zakotrljaj lopticu 60 koraka od tee-a."
+    }
+  },
+  "hints": {
+    "notSureWhereToStart": {
+      "question": "Ne znam odakle da počnem.",
+      "answer": "Ovo je isto kao prethodna vežba sa golfom, gde treba da zakotrljaš lopticu za fiksni broj koraka. Jedina razlika je što broj koraka više nije fiksna vrednost — umesto toga dolazi iz `getShotLength()`. Gde god ti je ranije trebao broj, sada možeš da koristiš rezultat funkcije."
+    },
+    "ballStopsShort": {
+      "question": "Moja loptica staje jedan korak ranije (ili ide jedan korak predaleko).",
+      "answer": "Pažljivo razmisli o svojoj početnoj poziciji i o tome koliko puta je kotrljaš. Lopta se nalazi na tee-u na poziciji 28, tako da bi njen prvi korak trebalo da je odvede na 29. Izbroj korake odatle do mesta gde treba da završi."
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "Pomera lopticu na poziciju **x**.",
+      "category": "Kretanje"
+    },
+    "getShotLength": {
+      "description": "Vraća **dužinu udarca** — koliko jedinica se lopta pomeri udesno.",
+      "category": "Informacija"
+    }
+  },
+  "describers": {
+    "moveTo": "pomerena loptica na poziciju ${arg1}",
+    "getShotLength": "preuzeta dužina udarca"
+  }
+}

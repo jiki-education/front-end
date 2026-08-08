@@ -1,0 +1,42 @@
+{
+  "checks": {
+    "notReachedEnd": "Non hai raggiunto la fine del labirinto.",
+    "walkNotDefined": "Dovresti definire una funzione <code>walk</code> che prende un numero di passi come input e avanza di quel numero di volte."
+  },
+  "tasks": {
+    "writeWalk": {
+      "name": "Scrivi una funzione walk",
+      "description": "Definisci una funzione chiamata walk che prende un numero di passi come input e avanza di quel numero di volte."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Naviga nel labirinto",
+      "description": "Cammina 3 volte, gira a sinistra, cammina 2 volte, gira a destra, cammina 4 volte per raggiungere il traguardo."
+    }
+  },
+  "hints": {
+    "howToMoveForward": {
+      "question": "Come faccio ad avanzare?",
+      "answer": "Usa la funzione `move()`."
+    },
+    "howToMoveSpecificTimes": {
+      "question": "Come faccio ad avanzare un numero specifico di volte?",
+      "answer": "Hai risolto altri esercizi in cui dovevi fare qualcosa un numero specifico di volte (pensa a quando hai fatto rotolare la pallina da golf per una distanza specifica). Usa le stesse idee qui."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Muove il personaggio **di un passo in avanti** nella direzione corrente. Il personaggio si muoverà solo se la posizione di destinazione non è bloccata da un muro.",
+      "category": "Movimento"
+    },
+    "turnLeft": {
+      "description": "Gira il personaggio **di 90 gradi a sinistra** (in senso antiorario). Questo cambia la direzione in cui è rivolto il personaggio.",
+      "category": "Movimento"
+    },
+    "turnRight": {
+      "description": "Gira il personaggio **di 90 gradi a destra** (in senso orario). Questo cambia la direzione in cui è rivolto il personaggio.",
+      "category": "Movimento"
+    }
+  }
+}

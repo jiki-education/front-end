@@ -1,18 +1,19 @@
 ---
-title: "Loopy Maze"
-description: "Refactor a maze solution to use loops instead of repeated code."
+title: "Ciklusos labirintus"
+description: "Refaktorálj egy labirintusmegoldást úgy, hogy ismétlődő kód helyett ciklusokat használsz."
+en_md5: 6ee8a02aea4617a21e320428e66eab5e
 ---
 
-You've been given a working solution to a maze, but it's very long and repetitive. Your job is to change the code to be **as few lines as possible**.
+Kaptál egy működő labirintusmegoldást, de nagyon hosszú és ismétlődő. A feladatod, hogy a kódot a lehető **legkevesebb sorossá** tedd.
 
-The secret to this is to use `repeat` loops to make the code shorter. For example. Remember a repeat loop has this syntax:
+A titok abban rejlik, hogy `repeat` ciklusokat (_loops_ angolul) használsz, hogy a kód rövidebb legyen. Például. Ne feledd, a `repeat` ciklus szintaxisa a következő:
 
 ```javascript
 repeat(3) {
-  // Whatever you want to repeat here.
+  // Ide kerülnek az ismétlendő utasítások.
 }
 ```
 
-Your job here is to make the code as short as possible - **22 lines of code**. That means thinking about when it's good to use a repeat loop and when not. Note that blank lines and lines with just comments on do not count towards the target, so feel free to space your code out to make it more readable!
+A célod itt az, hogy a kód a lehető legrövidebb legyen – **22 sorból álljon**. Ez azt jelenti, hogy végig kell gondolnod, mikor érdemes `repeat` ciklust használni, és mikor nem. Vedd figyelembe, hogy az üres sorok és a csak megjegyzéseket tartalmazó sorok nem számítanak bele a célba, úgyhogy nyugodtan tagolhatod a kódot szóközökkel, hogy olvashatóbb legyen!
 
-Good luck!
+Sok szerencsét!

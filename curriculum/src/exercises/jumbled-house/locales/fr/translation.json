@@ -1,0 +1,58 @@
+{
+  "checks": {
+    "frame": "Le cadre de la maison n'est pas correct.",
+    "roof": "Le toit de la maison n'est pas à la bonne position.",
+    "leftWindow": "Le cadre de la fenêtre de gauche n'est pas positionné correctement.",
+    "rightWindow": "Le cadre de la fenêtre de droite n'est pas positionné correctement.",
+    "door": "Le cadre de la porte n'est pas positionné correctement.",
+    "doorKnob": "La poignée de porte n'est pas positionnée correctement."
+  },
+  "tasks": {
+    "arrangeHouse": {
+      "name": "Remets la maison en ordre",
+      "description": "Remets toutes les formes à leur bonne position pour former une maison. Avance méthodiquement, morceau par morceau."
+    }
+  },
+  "scenarios": {
+    "drawTheHouse": {
+      "name": "Dessine la maison",
+      "description": "Place toutes les formes à leur bonne position pour former une maison complète."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Par où commencer ?",
+      "answer": "Avance forme par forme, dans l'ordre : le ciel, l'herbe, le cadre de la maison, le toit, les fenêtres, la porte, la poignée. Termine chaque forme avant de passer à la suivante."
+    },
+    "coordinates": {
+      "question": "Comment fonctionnent les coordonnées ?",
+      "answer": "Les coordonnées du canvas vont de (0,0) en haut à gauche à (100,100) en bas à droite. Pour les rectangles, `left` et `top` correspondent au coin en haut à gauche."
+    },
+    "roofPosition": {
+      "question": "Comment trouver la position du toit ?",
+      "answer": "Le toit est un triangle qui repose sur le cadre de la maison. Réfléchis à l'endroit où doivent se trouver les points gauche et droit de sa base (prends en compte son dépassement), et à l'endroit où se place la pointe."
+    },
+    "windowPosition": {
+      "question": "Comment positionner les fenêtres ?",
+      "answer": "Chaque fenêtre est décalée par rapport aux bords du cadre de la maison. Utilise la position et la taille du cadre de la maison, ainsi que les valeurs de retrait, pour calculer le coin en haut à gauche de chaque fenêtre."
+    },
+    "centerDoor": {
+      "question": "Comment centrer la porte ?",
+      "answer": "Pour centrer quelque chose dans une forme plus grande, réfléchis à l'espace qui reste. Si la maison est plus large que la porte, l'écart se répartit à parts égales des deux côtés."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dessine un rectangle à la position (left, top) avec la largeur, la hauteur et la couleur données",
+      "category": "Dessin de formes"
+    },
+    "circle": {
+      "description": "Dessine un cercle centré en (centerX, centerY) avec le rayon et la couleur donnés",
+      "category": "Dessin de formes"
+    },
+    "triangle": {
+      "description": "Dessine un triangle défini par trois sommets, avec la couleur donnée",
+      "category": "Dessin de formes"
+    }
+  }
+}

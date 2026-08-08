@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "ballNotAtEnd": "La pelota rodó hasta {{ballX}}, pero no está a 60 pasos de donde empezó.",
+    "missingPositions": "La pelota debe rodar por cada posición, un paso a la vez, empezando desde 29.",
+    "codeQuality": {
+      "tooManyLines": "Tu solución tiene demasiadas líneas de código. Intenta usar un bucle para acortarla."
+    }
+  },
+  "tasks": {
+    "rollBall": {
+      "name": "Haz rodar la pelota hasta el hoyo",
+      "description": "Haz rodar la pelota hasta el hoyo."
+    }
+  },
+  "scenarios": {
+    "rollBall": {
+      "name": "Haz rodar la pelota hasta el hoyo",
+      "description": "Haz rodar la pelota hasta el hoyo."
+    }
+  },
+  "hints": {
+    "icantWorkItOut": {
+      "question": "No puedo resolverlo",
+      "answer": "Tienes dos herramientas que usar:\n- Un bucle `repeat`, que usas escribiendo `repeat(n) { }`, donde `n` es la cantidad de veces que quieres rodar y puedes poner cualquier cosa dentro de las llaves (`{ }`).\n- Una función `roll()` que hace rodar la pelota un paso a la derecha.\n\n¿Cómo puedes combinarlas?"
+    }
+  },
+  "functions": {
+    "roll": {
+      "description": "Hace rodar la pelota **un paso a la derecha**.",
+      "category": "Movimiento"
+    }
+  },
+  "describers": {
+    "roll": "Rodó la pelota un paso a la derecha"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "tasks": {
+    "basicWordCounting": {
+      "name": "Casos básicos",
+      "description": "Escribe una función countWords que tome una oración y devuelva un diccionario con cada palabra como clave y su frecuencia como valor. Maneja espacios, comas, signos de puntuación y números."
+    },
+    "caseNormalization": {
+      "name": "Normalización de mayúsculas y minúsculas",
+      "description": "Asegúrate de que tu función maneje correctamente las palabras con mayúsculas y minúsculas mezcladas, trate los apóstrofos como parte de las palabras, y maneje múltiples espacios."
+    },
+    "bonusApostrophes": {
+      "name": "Extra: Apóstrofos y comillas",
+      "description": "Maneja casos límite donde los apóstrofos se usan como comillas alrededor de palabras, no como parte de contracciones. Solo los apóstrofos en medio de una palabra deben conservarse."
+    }
+  },
+  "scenarios": {
+    "wordCountSingleWord": {
+      "name": "Contar una palabra",
+      "description": "Contar una sola palabra."
+    },
+    "wordCountMultipleUniqueWords": {
+      "name": "Contar una de cada palabra",
+      "description": "Contar una de cada palabra en una oración."
+    },
+    "wordCountMultipleOccurrences": {
+      "name": "Múltiples ocurrencias",
+      "description": "Contar múltiples ocurrencias de una palabra."
+    },
+    "wordCountCrampedList": {
+      "name": "Lista apretada",
+      "description": "Manejar listas con formato apretado."
+    },
+    "wordCountIgnorePunctuation": {
+      "name": "Ignorar signos de puntuación",
+      "description": "Ignorar los signos de puntuación al contar palabras."
+    },
+    "wordCountIncludeNumbers": {
+      "name": "Incluir números",
+      "description": "Contar palabras e incluir números."
+    },
+    "wordCountNormalizeCase": {
+      "name": "Normalizar mayúsculas y minúsculas",
+      "description": "Contar palabras sin importar las mayúsculas y minúsculas."
+    },
+    "wordCountWithApostrophes": {
+      "name": "Palabras con apóstrofos",
+      "description": "Manejar correctamente las palabras con apóstrofos."
+    },
+    "wordCountMultipleSpaces": {
+      "name": "Múltiples espacios",
+      "description": "Manejar múltiples espacios correctamente."
+    },
+    "wordCountWithApostrophesAndQuotations": {
+      "name": "Palabras con apóstrofos y comillas",
+      "description": "Manejar palabras con apóstrofos y comillas."
+    },
+    "wordCountApostropheWordVariation": {
+      "name": "Variación de palabras con apóstrofos",
+      "description": "Contar correctamente las variaciones de palabras con apóstrofos."
+    }
+  },
+  "hints": {
+    "caseInsensitive": {
+      "question": "¿Cómo hago que el conteo no distinga entre mayúsculas y minúsculas?",
+      "answer": "Convierte toda la oración a minúsculas una vez al principio. Entonces 'The' y 'the' se convierten en 'the' y tu diccionario las contará juntas."
+    },
+    "splitWords": {
+      "question": "¿Cómo divido la oración en palabras?",
+      "answer": "Recorre cada carácter. Si es una letra, un dígito o un apóstrofo, es parte de la palabra actual, así que añádelo a la palabra. De lo contrario (espacio, signo de puntuación), la palabra terminó, así que añádela a tu lista de palabras y comienza de nuevo."
+    },
+    "countEachWord": {
+      "question": "¿Cómo cuento cada palabra?",
+      "answer": "Usa un diccionario indexado por la palabra. Para cada palabra, verifica si ya existe como clave. Si sí, suma 1 a su conteo. Si no, asígnale 1."
+    },
+    "checkKeyExists": {
+      "question": "¿Cómo verifico si una clave ya existe?",
+      "answer": "Usa `hasKey(dict, word)`. Devuelve true si esa palabra ya está en el diccionario."
+    }
+  },
+  "functions": {
+    "toLowerCase": {
+      "description": "Convierte una cadena a minúsculas (incluida en la biblioteca estándar del nivel)",
+      "category": "Operaciones con cadenas"
+    },
+    "push": {
+      "description": "Agrega un elemento a una lista y devuelve la nueva lista (incluida en la biblioteca estándar del nivel)",
+      "category": "Operaciones con listas"
+    },
+    "hasKey": {
+      "description": "Verifica si una clave existe en un diccionario; devuelve true o false (incluida en la biblioteca estándar del nivel)",
+      "category": "Operaciones con diccionarios"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "checks": {
+    "firstRectangle": "Falta el primer rectángulo.",
+    "lastRectangle": "Falta el último rectángulo.",
+    "minSaturationLightness": "Todos los rectángulos deben tener una saturación y una luminosidad de al menos 20.",
+    "uniqueColors": "No hay 100 rectángulos de colores distintos.",
+    "hueRed": "Debería haber un rectángulo con un tono cercano a 0 (rojo).",
+    "huePurple": "Debería haber un rectángulo con un tono cercano a 300 (morado)."
+  },
+  "tasks": {
+    "drawRainbow": {
+      "name": "Dibuja el arcoíris",
+      "description": "Dibuja 100 barras verticales a lo ancho del lienzo, cada una con un tono distinto, para crear un efecto de arcoíris."
+    }
+  },
+  "scenarios": {
+    "drawRainbow": {
+      "name": "Dibuja el arcoíris",
+      "description": "Pinta 100 hermosos rectángulos para crear un arcoíris."
+    }
+  },
+  "hints": {
+    "hundredRectangles": {
+      "question": "¿Tengo que dibujar 100 rectángulos distintos?",
+      "answer": "Sí, ¡pero no escribiendo `rectangle(...)` 100 veces! Piensa en lo que hacemos cuando tenemos código repetitivo."
+    },
+    "colorIntoRectangle": {
+      "question": "¿Cómo le paso el color al rectángulo?",
+      "answer": "`hsl(...)` devuelve un string de color. Después puedes pasarle ese string de color a la función `rectangle(...)`, igual que hiciste antes."
+    },
+    "hueRange": {
+      "question": "¿Cómo hago que el tono vaya de 0 a 300?",
+      "answer": "Hay 100 barras y la primera debe tener un tono de 0. Después, para cada barra necesitamos aumentarlo un poco, así que la segunda barra podría tener un tono de 3, la tercera un tono de 6, y así. Al final llegaremos a 300."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dibuja un rectángulo en la posición (izquierda, arriba) con el ancho, la altura y el color indicados",
+      "category": "Dibujar figuras"
+    },
+    "hsl": {
+      "description": "Convierte valores de color HSL (tono 0-360, saturación 0-100, luminosidad 0-100) en un string de color",
+      "category": "Colores"
+    }
+  }
+}

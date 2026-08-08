@@ -1,46 +1,46 @@
 {
   "errors": {
-    "allInputsNumbers": "All inputs must be numbers",
-    "blueRange": "Blue must be between 0 and 255",
-    "circleInputsNumbers": "The x, y, and radius inputs must be numbers",
-    "colorNamedOrHex": "Color must be a named color (\"orange\", \"blue\", \"white\", etc) specified in the instructions, or a hex color starting with #",
-    "colorNotAllowed": "Color should not be specified for this exercise",
-    "colorNotString": "Color must be a string",
-    "ellipseInputsNumbers": "The x, y, rx, and ry inputs must be numbers",
-    "greenRange": "Green must be between 0 and 255",
-    "heightPositive": "Height must be greater than 0",
-    "hueRange": "Hue must be between 0 and 360",
-    "lightnessRange": "Lightness must be between 0 and 100",
-    "lineInputsNumbers": "The x1, y1, x2, and y2 inputs must be numbers",
-    "rectInputsNumbers": "The x, y, width, and height inputs must be numbers",
-    "redRange": "Red must be between 0 and 255",
-    "saturationRange": "Saturation must be between 0 and 100",
-    "triangleInputsNumbers": "The x1, y1, x2, y2, x3, and y3 inputs must be numbers",
-    "widthPositive": "Width must be greater than 0"
+    "allInputsNumbers": "Minden bemenetnek számnak kell lennie",
+    "blueRange": "A kék értékének 0 és 255 között kell lennie",
+    "circleInputsNumbers": "Az x, y és radius bemenetnek számnak kell lennie",
+    "colorNamedOrHex": "A színnek a feladatleírásban megadott nevesített színnek (\"orange\", \"blue\", \"white\" stb.) vagy #-tel kezdődő hexadecimális színnek kell lennie",
+    "colorNotAllowed": "Ennél a feladatnál nem kell színt megadni",
+    "colorNotString": "A színnek stringnek kell lennie",
+    "ellipseInputsNumbers": "Az x, y, rx és ry bemenetnek számnak kell lennie",
+    "greenRange": "A zöld értékének 0 és 255 között kell lennie",
+    "heightPositive": "A magasságnak 0-nál nagyobbnak kell lennie",
+    "hueRange": "A színárnyalatnak 0 és 360 között kell lennie",
+    "lightnessRange": "A világosságnak 0 és 100 között kell lennie",
+    "lineInputsNumbers": "Az x1, y1, x2 és y2 bemenetnek számnak kell lennie",
+    "rectInputsNumbers": "Az x, y, width és height bemenetnek számnak kell lennie",
+    "redRange": "A piros értékének 0 és 255 között kell lennie",
+    "saturationRange": "A telítettségnek 0 és 100 között kell lennie",
+    "triangleInputsNumbers": "Az x1, y1, x2, y2, x3 és y3 bemenetnek számnak kell lennie",
+    "widthPositive": "A szélességnek 0-nál nagyobbnak kell lennie"
   },
   "describers": {
     "rectangle": {
-      "default": "drew a rectangle at coordinates (${arg1}, ${arg2}) with a width of ${arg3}, a height of ${arg4}, and a color of ${arg5}",
-      "fixedColor": "drew a rectangle at coordinates (${arg1}, ${arg2}) with a width of ${arg3} and a height of ${arg4}"
+      "default": "téglalapot rajzolt a (${arg1}, ${arg2}) koordinátákon, ${arg3} szélességgel, ${arg4} magassággal és ${arg5} színnel",
+      "fixedColor": "téglalapot rajzolt a (${arg1}, ${arg2}) koordinátákon, ${arg3} szélességgel és ${arg4} magassággal"
     },
     "triangle": {
-      "default": "drew a triangle with three points: (${arg1}, ${arg2}), (${arg3}, ${arg4}), and (${arg5}, ${arg6}) with a color of ${arg7}",
-      "fixedColor": "drew a triangle with three points: (${arg1}, ${arg2}), (${arg3}, ${arg4}), and (${arg5}, ${arg6})"
+      "default": "háromszöget rajzolt három ponttal: (${arg1}, ${arg2}), (${arg3}, ${arg4}) és (${arg5}, ${arg6}), ${arg7} színnel",
+      "fixedColor": "háromszöget rajzolt három ponttal: (${arg1}, ${arg2}), (${arg3}, ${arg4}) és (${arg5}, ${arg6})"
     },
     "circle": {
-      "default": "drew a circle with its center at (${arg1}, ${arg2}), a radius of ${arg3}, and a color of ${arg4}",
-      "fixedColor": "drew a circle with its center at (${arg1}, ${arg2}) and a radius of ${arg3}"
+      "default": "kört rajzolt, amelynek középpontja (${arg1}, ${arg2}), sugara ${arg3}, színe pedig ${arg4}",
+      "fixedColor": "kört rajzolt, amelynek középpontja (${arg1}, ${arg2}), sugara pedig ${arg3}"
     },
     "ellipse": {
-      "default": "drew an ellipse with its center at (${arg1}, ${arg2}), a radial width of ${arg3}, a radial height of ${arg4}, and a color of ${arg5}",
-      "fixedColor": "drew an ellipse with its center at (${arg1}, ${arg2}), a radial width of ${arg3}, and a radial height of ${arg4}"
+      "default": "ellipszist rajzolt, amelynek középpontja (${arg1}, ${arg2}), vízszintes sugara ${arg3}, függőleges sugara ${arg4}, színe pedig ${arg5}",
+      "fixedColor": "ellipszist rajzolt, amelynek középpontja (${arg1}, ${arg2}), vízszintes sugara ${arg3}, függőleges sugara pedig ${arg4}"
     },
     "line": {
-      "default": "drew a line from (${arg1}, ${arg2}) to (${arg3}, ${arg4}) with a color of ${arg5}",
-      "fixedColor": "drew a line from (${arg1}, ${arg2}) to (${arg3}, ${arg4})"
+      "default": "vonalat rajzolt a (${arg1}, ${arg2}) pontból a (${arg3}, ${arg4}) pontba, ${arg5} színnel",
+      "fixedColor": "vonalat rajzolt a (${arg1}, ${arg2}) pontból a (${arg3}, ${arg4}) pontba"
     },
-    "clear": "cleared the canvas",
-    "hsl": "converted HSL color (hue: ${arg1}, saturation: ${arg2}, lightness: ${arg3}) to a hex string",
-    "rgb": "converted RGB color (red: ${arg1}, green: ${arg2}, blue: ${arg3}) to a hex string"
+    "clear": "letörölte a vásznat",
+    "hsl": "a HSL színt (színárnyalat: ${arg1}, telítettség: ${arg2}, világosság: ${arg3}) hexadecimális stringgé alakította",
+    "rgb": "az RGB színt (piros: ${arg1}, zöld: ${arg2}, kék: ${arg3}) hexadecimális stringgé alakította"
   }
 }

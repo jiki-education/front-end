@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "flowerCount": "9本の花が必要ですが、{{got}}本見つかりました。",
+    "missingFlowerAt10": "位置10に花がありません。",
+    "missingFlowerAt50": "位置50に花がありません。",
+    "missingFlowerAt90": "位置90に花がありません。",
+    "tooManyLines": "解答のコードが長すぎます。もっと短くする方法を見つけてみてください。"
+  },
+  "tasks": {
+    "plantFlowers": {
+      "name": "9本の花を植える",
+      "description": "変数と`repeat`ループを使って、10、20、30、...、90の位置に9本の花を植えます。"
+    }
+  },
+  "scenarios": {
+    "plantFlowers": {
+      "name": "9本の花を植える",
+      "description": "10、20、30、40、50、60、70、80、90の位置に花を植えます。"
+    }
+  },
+  "hints": {
+    "stuck": {
+      "question": "どうしても先に進めません",
+      "answer": "`repeat`ループの使い方と、変数を更新して状態を追跡する方法について、最近の動画を確認しましょう。きっと必要な情報がすべて説明されています。"
+    }
+  },
+  "functions": {
+    "plant": {
+      "description": "指定された**位置**に花を植えます。",
+      "category": "ガーデニング"
+    }
+  },
+  "describers": {
+    "plant": "位置${arg1}に花を植えました"
+  }
+}

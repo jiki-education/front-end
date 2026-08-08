@@ -1,0 +1,48 @@
+{
+  "checks": {
+    "base": "Il cerchio della base (quello in basso) è nella posizione sbagliata o ha le dimensioni sbagliate. Controlla `baseRadius` e `baseY`.",
+    "body": "Il cerchio del corpo (quello centrale) è nella posizione sbagliata o ha le dimensioni sbagliate. Controlla `bodyRadius` e `bodyY`.",
+    "head": "Il cerchio della testa (quello in alto) è nella posizione sbagliata o ha le dimensioni sbagliate. Controlla `headRadius` e `headY`.",
+    "notResponsive": "Il tuo codice non si ridimensiona correttamente quando `size` vale {{size}}. Ogni raggio ed ogni coordinata Y devono essere ricavati da `size`."
+  },
+  "tasks": {
+    "buildRelationalSnowman": {
+      "name": "Costruisci il pupazzo di neve relazionale",
+      "description": "Ricava tutte le dimensioni e le posizioni da `size` in modo che il pupazzo di neve si ridimensioni correttamente."
+    }
+  },
+  "scenarios": {
+    "buildRelationalSnowman": {
+      "name": "Costruisci il pupazzo di neve relazionale",
+      "description": "Ricava ogni raggio ed ogni coordinata Y da `size`."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Da dove comincio?",
+      "answer": "Inizia dalla base, perché è l'unico cerchio ancorato a qualcosa di fisso (il fondo dell'area di disegno). Una volta che conosci `baseY`, puoi impilare il corpo sopra di essa, e poi la testa sopra il corpo."
+    },
+    "baseSits": {
+      "question": "Come faccio a capire dove si trova la base?",
+      "answer": "Il bordo inferiore della base si trova `size` sopra il fondo (Y=100). Il centro della base si trova un raggio della base più in alto rispetto al suo bordo inferiore."
+    },
+    "stackBody": {
+      "question": "Come faccio ad impilare il corpo sulla base?",
+      "answer": "Quando due cerchi si toccano con uno direttamente sopra l'altro, la distanza tra i loro centri è uguale alla somma dei loro due raggi."
+    },
+    "head": {
+      "question": "E la testa?",
+      "answer": "La testa poggia sul corpo esattamente nello stesso modo in cui il corpo poggia sulla base."
+    },
+    "whyDeriveFromSize": {
+      "question": "Perché tutto deve essere ricavato da `size`?",
+      "answer": "Se inserisci un numero fisso, cambiando `size` si creano spazi vuoti o sovrapposizioni tra i cerchi. Usare le formule mantiene tutto in proporzione."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Disegna un cerchio con centro in (centerX, centerY) con il raggio ed il colore specificati.",
+      "category": "Disegno di forme geometriche"
+    }
+  }
+}

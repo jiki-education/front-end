@@ -1,0 +1,53 @@
+{
+  "checks": {
+    "housingWrong": "外壳矩形要么位置不对，要么大小不对。请检查 `housingX`、`housingY`、`housingWidth` 和 `housingHeight`。",
+    "redWrong": "红色灯要么位置不对，要么大小不对。请检查 `redY`。",
+    "yellowWrong": "黄色灯要么位置不对，要么大小不对。请检查 `yellowY`。",
+    "greenWrong": "绿色灯要么位置不对，要么大小不对。请检查 `greenY`。",
+    "doesntScale": "你的代码在 `radius` 为 {{radius}} 时无法正确缩放。每个位置和大小都应从 `center` 和 `radius` 推导得出。"
+  },
+  "tasks": {
+    "buildRelationalTrafficLights": {
+      "name": "构建相对交通灯",
+      "description": "从 `center` 和 `radius` 推导出所有位置和大小，使交通灯正确缩放。"
+    }
+  },
+  "scenarios": {
+    "buildRelationalTrafficLights": {
+      "name": "构建相对交通灯",
+      "description": "从 `center` 和 `radius` 推导出所有位置和大小。"
+    }
+  },
+  "hints": {
+    "howToWorkOutYellowCenter": {
+      "question": "如何求出黄色灯的中心？",
+      "answer": "你已经有了一个提供给你的 `center` 变量。你可以将 `yellowY` 设置为等于它。"
+    },
+    "howToWorkOutRedCenter": {
+      "question": "如何求出红色灯的中心？",
+      "answer": "如果两个圆圈相切，它们的中心相距多远？你可以从 `center` 中减去这个距离来得到红色灯的位置。"
+    },
+    "whereHousingStarts": {
+      "question": "外壳矩形从哪里开始？",
+      "answer": "如果你知道红色圆圈的中心，你可以计算出红色圆圈的顶部。外壳开始于红色圆圈顶部上方一个半径的位置。同样，你可以计算一盏灯的左侧，然后向左一个半径作为外壳的起点。"
+    },
+    "howBigHousing": {
+      "question": "外壳应该多大？",
+      "answer": "外壳宽度是一盏灯的宽度加上每边一个半径的内边距。高度是每盏灯两个半径，加上顶部和底部各一个半径的内边距。"
+    },
+    "whyMultipleOfSomething": {
+      "question": "为什么所有东西都必须是某个值的倍数？",
+      "answer": "如果你硬编码一个数字，修改 `radius` 后，外壳的大小将不适合灯。使用涉及 `radius` 和 `center` 的公式可以使整个图形保持比例。"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "在 (left, top) 处绘制一个具有指定宽度、高度和颜色的矩形。",
+      "category": "绘制形状"
+    },
+    "circle": {
+      "description": "在 (centerX, centerY) 处绘制一个具有给定半径和颜色的圆。",
+      "category": "绘制形状"
+    }
+  }
+}

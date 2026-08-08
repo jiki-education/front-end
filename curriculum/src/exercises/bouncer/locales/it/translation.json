@@ -1,0 +1,56 @@
+{
+  "checks": {
+    "age25NotLetIn": "La persona ha 25 anni: avrebbe dovuto essere fatta entrare, ma non lo è stata.",
+    "age18LetIn": "La persona ha 18 anni: non avrebbe dovuto essere fatta entrare, ma lo è stata.",
+    "age21NotLetIn": "La persona ha 21 anni: avrebbe dovuto essere fatta entrare, ma non lo è stata.",
+    "age20LetIn": "La persona ha esattamente 20 anni: non ha più di 20 anni, quindi non avrebbe dovuto essere fatta entrare, ma lo è stata."
+  },
+  "tasks": {
+    "checkAge": {
+      "name": "Controlla l'età della persona",
+      "description": "Ottieni l'età della persona e controlla se ha più di 20 anni. Se sì, falla entrare."
+    }
+  },
+  "scenarios": {
+    "age25": {
+      "name": "Età 25",
+      "description": "La persona ha 25 anni: dovrebbe essere fatta entrare."
+    },
+    "age18": {
+      "name": "Età 18",
+      "description": "La persona ha 18 anni: non dovrebbe essere fatta entrare."
+    },
+    "age21": {
+      "name": "Età 21",
+      "description": "La persona ha 21 anni: appena sopra i 20, dovrebbe essere fatta entrare."
+    },
+    "age20": {
+      "name": "Età 20",
+      "description": "La persona ha esattamente 20 anni: non ha più di 20, quindi non dovrebbe essere fatta entrare."
+    }
+  },
+  "hints": {
+    "askAge": {
+      "question": "Come faccio a sapere la loro età?",
+      "answer": "Usa la funzione `askAge()`. Restituirà un valore diverso in ogni scenario."
+    },
+    "ifStatement": {
+      "question": "Come faccio a variare ciò che faccio?",
+      "answer": "Usa un'istruzione `if`. Dai un'occhiata al concetto se hai bisogno di più aiuto!"
+    }
+  },
+  "describers": {
+    "askAge": "ha chiesto l'età della persona",
+    "letIn": "ha fatto entrare la persona"
+  },
+  "functions": {
+    "askAge": {
+      "description": "Restituisce l'**età** della persona in attesa fuori.",
+      "category": "Informazione"
+    },
+    "letIn": {
+      "description": "Fa entrare la persona.",
+      "category": "Azione"
+    }
+  }
+}

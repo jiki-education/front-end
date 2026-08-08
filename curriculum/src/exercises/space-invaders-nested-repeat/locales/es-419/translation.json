@@ -1,0 +1,37 @@
+{
+  "describers": {
+    "move": "Movió el cañón láser a la derecha"
+  },
+  "checks": {
+    "notShotAllAliens": "No derribaste a todos los alienígenas.",
+    "tooManyLines": "Tu solución tiene demasiadas líneas de código. ¡Intenta usar un bucle repeat dentro de otro bucle repeat para acortarla!"
+  },
+  "tasks": {
+    "nestedRepeatShoot": {
+      "name": "Usa bucles repeat anidados para disparar a todos los alienígenas",
+      "description": "Encuentra el patrón en las posiciones de los alienígenas y usa un bucle repeat dentro de otro bucle repeat para destruirlos a todos en 7 líneas de código o menos."
+    }
+  },
+  "scenarios": {
+    "nestedRepeatShoot": {
+      "name": "Repeat anidado y disparo",
+      "description": "Usa bucles repeat anidados para disparar a todos los alienígenas"
+    }
+  },
+  "hints": {
+    "cantGetTo7Lines": {
+      "question": "No logro que quede en 7 líneas de código.",
+      "answer": "Piensa en este nivel como dos bloques de acciones que deben ocurrir.\n\n- El primer bloque es el interno, donde disparamos 4 veces; asegúrate de que tenga tres líneas de largo.\n- El bloque externo es el bloque interno con algo de movimiento a ambos lados. Ese bloque externo también debe repetirse unas cuantas veces.\n\nSi estructuras tu código de esta manera, naturalmente debería terminar en 7 líneas de código."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Mueve el cañón láser **una posición a la derecha**. Si te sales del borde derecho de la pantalla, ¡pierdes!",
+      "category": "Movimiento"
+    },
+    "shoot": {
+      "description": "Dispara el láser hacia arriba. **Solo dispara cuando haya un alienígena encima de ti**, ¡o pierdes la partida!",
+      "category": "Acción"
+    }
+  }
+}

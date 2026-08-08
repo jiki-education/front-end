@@ -1,0 +1,40 @@
+{
+  "checks": {
+    "redLight": "Crveno svetlo (gore) nije ispravno.",
+    "amberLight": "Amber svetlo (sredina) nije ispravno.",
+    "greenLight": "Zeleno svetlo (dole) nije ispravno.",
+    "useVariables": "Treba da koristiš promenljive umesto da direktno koristiš brojeve kao ulaze funkcije."
+  },
+  "tasks": {
+    "drawLights": {
+      "name": "Nacrtaj svetla semafora",
+      "description": "Iskoristi date promenljive da nacrtaš tri obojena svetla na semaforu."
+    }
+  },
+  "scenarios": {
+    "drawLights": {
+      "name": "Nacrtaj svetla semafora",
+      "description": "Nacrtaj tri obojena kruga koristeći date promenljive."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Ne znam odakle da počnem.",
+      "answer": "Nacrtaćeš tri kruga, baš kao što to i inače radiš. Jedina razlika je što koristiš promenljive, a ne direktno brojeve. Pogledaj ponovo video o promenljivama ako ne razumeš kako to funkcioniše."
+    },
+    "useVariablesError": {
+      "question": "Dobijam poruku: „Treba da koristiš promenljive umesto da direktno koristiš brojeve kao ulaze funkcije“.",
+      "answer": "Ova vežba je o korišćenju promenljivih koje smo definisali za tebe. Umesto da direktno stavljaš brojeve poput 50 ili 16 u funkcije, reci Jikiju da koristi kutije koje smo već kreirali."
+    },
+    "circlesWrong": {
+      "question": "Kada nacrtam krugove ispravno, poruka kaže da su pogrešni.",
+      "answer": "Pobrini se da je crveni krug na vrhu, amber u sredini, a zeleni na dnu."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Nacrtaj krug sa centrom u (centerX, centerY) sa datim poluprečnikom i bojom.",
+      "category": "Crtanje oblika"
+    }
+  }
+}

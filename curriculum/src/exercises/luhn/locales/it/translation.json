@@ -1,0 +1,117 @@
+{
+  "tasks": {
+    "doubleAndSum": {
+      "name": "Raddoppia una cifra ogni due e somma",
+      "description": "Scrivi una funzione chiamata valid che ignora gli spazi, poi raddoppia una cifra ogni due contando da destra (sottraendo 9 da ogni risultato superiore a 9), somma tutte le cifre e restituisce true quando il totale è divisibile per 10."
+    },
+    "spotInvalidNumbers": {
+      "name": "Individua i numeri non validi",
+      "description": "I numeri le cui cifre sono tutte valide ma la cui somma di controllo non risulta divisibile per 10 devono restituire false."
+    },
+    "rejectBadInput": {
+      "name": "Rifiuta gli input non validi",
+      "description": "Rifiuta le stringhe lunghe un solo carattere o meno, e rifiuta qualsiasi stringa che contenga un carattere che non sia una cifra o uno spazio."
+    }
+  },
+  "scenarios": {
+    "luhnSimpleValid": {
+      "name": "Un numero valido semplice",
+      "description": "Un numero valido deve restituire true."
+    },
+    "luhnValidTwoDigit": {
+      "name": "Numero valido di due cifre",
+      "description": "Un numero valido di due cifre deve restituire true."
+    },
+    "luhnValidCanadianSin": {
+      "name": "SIN canadese valido",
+      "description": "Un numero valido con spazi deve restituire true."
+    },
+    "luhnValidEvenDigits": {
+      "name": "Numero valido con un numero pari di cifre",
+      "description": "Un numero valido con un numero pari di cifre deve restituire true."
+    },
+    "luhnValidVeryLong": {
+      "name": "Numero molto lungo",
+      "description": "Un numero valido molto lungo deve comunque restituire true."
+    },
+    "luhnInvalidCanadianSin": {
+      "name": "SIN canadese non valido",
+      "description": "Un numero la cui somma di controllo fallisce deve restituire false."
+    },
+    "luhnInvalidCreditCard": {
+      "name": "Carta di credito non valida",
+      "description": "Un numero di carta di credito non valido deve restituire false."
+    },
+    "luhnInvalidLongRemainderDiv5": {
+      "name": "Numero lungo non valido con un totale divisibile per 5",
+      "description": "Un numero lungo il cui totale è divisibile per 5 ma non per 10 deve restituire false."
+    },
+    "luhnSingleDigit": {
+      "name": "Una sola cifra non è valida",
+      "description": "Una stringa di una sola cifra non può mai essere valida."
+    },
+    "luhnZeroWithSpace": {
+      "name": "Un solo zero con uno spazio",
+      "description": "Un solo zero con uno spazio non è valido, perché una volta ignorati gli spazi resta una sola cifra."
+    },
+    "luhnTrailingLetter": {
+      "name": "Lettera alla fine",
+      "description": "Un numero valido con un carattere non numerico aggiunto alla fine diventa non valido."
+    },
+    "luhnColon": {
+      "name": "Carattere due punti",
+      "description": "I due punti hanno un valore inferiore di uno rispetto al carattere '0' e non devono essere trattati come una cifra."
+    },
+    "luhnPercent": {
+      "name": "Carattere percentuale nel mezzo",
+      "description": "Un carattere che non è né una cifra né uno spazio in mezzo al numero lo rende non valido, anche quando la somma delle sole cifre darebbe un multiplo di 10."
+    }
+  },
+  "hints": {
+    "whatIsLuhn": {
+      "question": "Come funziona davvero il controllo di Luhn?",
+      "answer": "Prima di tutto ignora gli spazi. Poi, partendo dalla cifra più a destra e procedendo verso sinistra, raddoppia una cifra ogni due. Se un valore raddoppiato supera 9, sottrai 9. Somma tutte le cifre ottenute. Se il totale è esattamente divisibile per 10, il numero è valido."
+    },
+    "stripSpaces": {
+      "question": "Cosa faccio con gli spazi?",
+      "answer": "Gli spazi servono solo a facilitare la lettura. Saltali con `continue`, così non contano come cifre e non influenzano le posizioni delle cifre vere."
+    },
+    "rejectNonDigits": {
+      "question": "Come rifiuto i caratteri non validi?",
+      "answer": "Mentre esamini ogni carattere, se non è uno spazio e non è una delle cifre `0123456789`, puoi restituire subito `false`. Un controllo comodo è `\"0123456789\".includes(char)`."
+    },
+    "everySecondDigit": {
+      "question": "Quali cifre devo raddoppiare?",
+      "answer": "Una ogni due. Aiuta costruire prima una stringa pulita con le sole cifre, poi scorrerla in un ciclo con un indice, così puoi sapere la posizione di ogni cifra."
+    },
+    "fromTheRight": {
+      "question": "Ma devo contare da destra, non da sinistra.",
+      "answer": "Se la tua stringa pulita di cifre ha lunghezza `len` e ti trovi all'indice `i` (contando da 0 a partire da sinistra), la sua distanza da destra è `len - 1 - i`. Raddoppia la cifra ogni volta che questa distanza è dispari."
+    },
+    "doublingOverNine": {
+      "question": "Cosa succede quando il raddoppio mi dà un numero di due cifre?",
+      "answer": "Se raddoppiando la cifra ottieni un numero maggiore di 9, sottrai 9. Per esempio 6 raddoppiato fa 12, e 12 - 9 = 3. (Il risultato è lo stesso che otterresti sommando le due cifre tra loro.)"
+    },
+    "finalCheck": {
+      "question": "Qual è il controllo finale di validità?",
+      "answer": "Somma tutte le cifre (raddoppiate o no) e controlla se il totale è divisibile per 10, cioè `total % 10 === 0`. Ricordati anche di rifiutare le stringhe che hanno una cifra o meno."
+    }
+  },
+  "checks": {
+    "mustUseFor": "Ci sei quasi! Questo esercizio va risolto usando un ciclo `for`."
+  },
+  "functions": {
+    "number": {
+      "description": "Converte una stringa che contiene una cifra in un numero",
+      "category": "Conversione di tipo"
+    },
+    "includes": {
+      "description": "Controlla se una stringa contiene una stringa più piccola",
+      "category": "Operazioni sulle stringhe"
+    },
+    "length": {
+      "description": "Il numero di caratteri in una stringa",
+      "category": "Operazioni sulle stringhe"
+    }
+  }
+}

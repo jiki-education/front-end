@@ -21,7 +21,7 @@
     },
     "turnLeftTurnsRight": {
       "question": "When I turn left, the person turns right!",
-      "answer": "The person turns relative to the position they're facing. So if you are facing right, and turn left, the person will change to face up."
+      "answer": "The person turns relative to the position they're facing. So if they are facing right, and turn left, the person will change to face up."
     }
   }
 }

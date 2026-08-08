@@ -1,26 +1,27 @@
 ---
 title: "Snowman"
-description: "Build a snowman from three circles."
+description: "Építs hóembert három körből."
+en_md5: b8c4b86ef84ef659b9e869fa6504c672
 ---
 
-This exercise introduces you to the `circle` function, which we use with 3 inputs:
+Ez a gyakorlat bemutatja a `circle` függvényt, amit 3 bemenettel (_inputs_ angolul) használunk:
 
-- `centerX`: The central horizontal (x) position of the center of the circle
-- `centerY`: The central vertical (y) position of the center of the circle
-- `radius`: How big the circle is
+- `\`centerX\`` (vízszintes középpont): A kör középpontjának vízszintes (x) pozíciója
+- `\`centerY\`` (függőleges középpont): A kör középpontjának függőleges (y) pozíciója
+- `\`radius\`` (sugár): A kör mérete
 
-This image should make things clearer:
+Ez a kép segít megérteni:
 
-<img src="/static/images/exercise-assets/snowman-basic/intro-circle.webp" alt="Snowman" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+<img src="/static/images/exercise-assets/snowman-basic/intro-circle.webp" alt="Hóember" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-### Drawing a snowman
+### Hóember rajzolása
 
-Your job is to draw three white circles to build a snowman. The snowman has:
+A feladatod, hogy három fehér körből építs egy hóembert. A hóember részei:
 
-- A large **base** circle at the bottom
-- A medium **body** circle in the middle
-- A small **head** circle at the top
+- Egy nagy **alap** kör alul
+- Egy közepes **test** kör középen
+- Egy kis **fej** kör felül
 
-All three circles should be centered horizontally on the canvas. Use the target image as a guide.
+Mindhárom körnek vízszintesen középre kell esnie a vásznon. Használd útmutatóként a célképet.
 
-As before, you're drawing on a canvas that's 100 wide and 100 high. So the top-left of the canvas is `0,0`, the bottom right is `100,100`, and you can hover over the canvas to check where something needs to go. To make your life easier, all numbers in this exercise are **divisible by 5**.
+Ahogy korábban is, egy 100 egység széles és 100 egység magas vászonra rajzolsz. Tehát a vászon bal felső sarka `0,0`, a jobb alsó sarka `100,100`, és az egérrel a vászon fölé állva ellenőrizheted, hová kell kerülnie valaminek. Hogy megkönnyítsük a dolgodat, ebben a gyakorlatban minden szám **osztható 5-tel**.

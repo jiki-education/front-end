@@ -1,0 +1,88 @@
+{
+  "tasks": {
+    "createAcronymFunction": {
+      "name": "頭字語関数を作りましょう",
+      "description": "フレーズを受け取り、その頭字語を返す関数を書きます。頭字語は各単語の先頭の文字を大文字にしたものです。単語の区切りはスペースまたはハイフンで、それ以外の句読点は無視します。"
+    },
+    "solveTightly": {
+      "name": "46行で解きましょう",
+      "description": "ボーナス：文字かどうかの判定と大文字・小文字の変換を補助関数に切り出し、それを`acronym`が再利用することで、全体を46行以内に収められます。挑戦してみませんか？"
+    }
+  },
+  "scenarios": {
+    "png": {
+      "name": "基本的な頭字語：PNG",
+      "description": "「Portable Network Graphics」を「PNG」に変換します。"
+    },
+    "ror": {
+      "name": "小文字の単語：ROR",
+      "description": "「Ruby on Rails」を「ROR」に変換します。"
+    },
+    "gimp": {
+      "name": "すべて大文字の単語：GIMP",
+      "description": "「GNU Image Manipulation Program」を「GIMP」に変換します。"
+    },
+    "firstWordOnly": {
+      "name": "単語ひとつ：H",
+      "description": "「HyperText」を「H」に変換します。"
+    },
+    "hyphenated": {
+      "name": "ハイフン付きフレーズ：CMOS",
+      "description": "「Complementary metal-oxide semiconductor」を「CMOS」に変換します。"
+    },
+    "fifo": {
+      "name": "カンマ区切り：FIFO",
+      "description": "「First In, First Out」を「FIFO」に変換します。"
+    },
+    "punctuation": {
+      "name": "句読点あり：PHT",
+      "description": "「Portable, HyperText, Transmitter」を「PHT」に変換します。"
+    },
+    "hc": {
+      "name": "アポストロフィあり：HC",
+      "description": "「Halley's Comet」を「HC」に変換します。"
+    },
+    "simufta": {
+      "name": "区切り文字が連続：SIMUFTA",
+      "description": "「Something - I made up from thin air」を「SIMUFTA」に変換します。"
+    },
+    "trnt": {
+      "name": "アンダースコア強調：TRNT",
+      "description": "「The Road _Not_ Taken」を「TRNT」に変換します。"
+    },
+    "long": {
+      "name": "とても長いもの：ROTFLSHTMDCOALM",
+      "description": "「Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me」を「ROTFLSHTMDCOALM」に変換します。"
+    },
+    "emoji": {
+      "name": "絵文字あり：HW",
+      "description": "「Hello 👋 World」を「HW」に変換します。"
+    },
+    "acronymBonusLineCount": {
+      "name": "きれいにまとめて",
+      "description": "最も整理された解答は補助関数を再利用して46行に収まります。見つけられますか？"
+    }
+  },
+  "checks": {
+    "tooManyLines": "その調子！もっと少ない行数で解けるか試してみましょう。",
+    "noMethods": "この演習では、道具を自分で作ることが目的です。組み込みのメソッドを使わずに解いてください。"
+  },
+  "hints": {
+    "pickLetters": {
+      "question": "頭字語になる文字をどうやって見つければいいですか？",
+      "answer": "頭字語は各単語の先頭の文字から作られます。つまり、フレーズの先頭の文字と、スペースまたはハイフンの直後の文字です。"
+    },
+    "findWordStarts": {
+      "question": "新しい単語が始まる時はどうやってわかりますか？",
+      "answer": "フレーズを1文字ずつたどりながら、今が新しい単語の先頭かどうかを記録します。先頭はフレーズの最初と、スペースまたはハイフンの直後です。英字でないもの（句読点、アンダースコア、アポストロフィなど）は単語の開始と見なさず、スキップします。"
+    },
+    "buildResult": {
+      "question": "結果をどうやって組み立てていけばいいですか？",
+      "answer": "空の文字列から始めて、選んだ文字を`+`で末尾に追加していきます。"
+    },
+    "uppercaseLetters": {
+      "question": "組み込みの大文字化機能がない場合、どうやって文字を大文字にしますか？",
+      "answer": "ここにはあらかじめ用意された大文字化の道具はありません。Pangramのときと同じように、小文字のアルファベットと大文字のアルファベットを並べて、同じ位置の文字に置き換えます。すでに大文字の文字はそのままにします。"
+    }
+  }
+}

@@ -1,14 +1,15 @@
 ---
-title: "Plant the Flowers"
-description: "Plant a row of flowers across the garden, one by one."
+title: "Virágültetés"
+description: "Ültess virágsort a kertben, egyesével."
+en_md5: aec4e105cc50c20f461c3554904e55f8
 ---
 
-You're creating an automated flower-planting machine.
+Egy automatikus virágültető gépet készítesz.
 
-It should plant flowers evenly across a lawn, at intervals of `10` apart. So the first flower should be at position `10`, the second at `20`, etc.
+A gépnek egyenletesen kell virágokat ültetnie a pázsiton, egymástól `10`-es távolságra. Tehát az első virág a `10`-es pozícióba kerüljön, a második a `20`-asba, és így tovább.
 
-You have a `plant(position)` function that takes a position as input. For example: `plant(10)` plants a flower at position 10.
+Rendelkezésedre áll egy `plant(position)` (ültet adott pozícióra) függvény, ami egy pozíciót vár bemenetként. Például: `plant(10)` elültet egy virágot a 10-es pozícióba.
 
-You need to solve this exercise in **5 lines of code**, so you'll need to find a way to not just write `plant(10)`, `plant(20)` etc.
+A feladatot **5 sornyi kóddal** kell megoldanod, tehát találnod kell egy megoldást, ami nem csupán abból áll, hogy egymás után leírod: `plant(10)`, `plant(20)` stb.
 
-Good luck!
+Sok szerencsét!

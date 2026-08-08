@@ -1,0 +1,53 @@
+{
+  "checks": {
+    "housingWrong": "하우징 직사각형의 위치가 잘못되었거나 크기가 잘못되었습니다. `housingX`, `housingY`, `housingWidth`, `housingHeight`을 확인하세요.",
+    "redWrong": "빨간색 신호등의 위치가 잘못되었거나 크기가 잘못되었습니다. `redY`를 확인하세요.",
+    "yellowWrong": "노란색 신호등의 위치가 잘못되었거나 크기가 잘못되었습니다. `yellowY`를 확인하세요.",
+    "greenWrong": "초록색 신호등의 위치가 잘못되었거나 크기가 잘못되었습니다. `greenY`를 확인하세요.",
+    "doesntScale": "`radius`가 {{radius}}일 때 코드가 올바르게 크기 조절되지 않습니다. 모든 위치와 크기는 `center`와 `radius`로부터 유도되어야 합니다."
+  },
+  "tasks": {
+    "buildRelationalTrafficLights": {
+      "name": "상대적 신호등 만들기",
+      "description": "`center`와 `radius`로부터 모든 위치와 크기를 유도하여 신호등이 올바르게 크기 조절되도록 하세요."
+    }
+  },
+  "scenarios": {
+    "buildRelationalTrafficLights": {
+      "name": "상대적 신호등 만들기",
+      "description": "`center`와 `radius`로부터 모든 위치와 크기를 유도하세요."
+    }
+  },
+  "hints": {
+    "howToWorkOutYellowCenter": {
+      "question": "노란색 신호등의 중심을 어떻게 알아내나요?",
+      "answer": "`center`라는 변수가 제공되어 있습니다. `yellowY`를 그 값으로 설정하면 됩니다."
+    },
+    "howToWorkOutRedCenter": {
+      "question": "빨간색 신호등의 중심을 어떻게 알아내나요?",
+      "answer": "두 원이 붙어 있다면 중심 사이의 거리는 얼마일까요? 이 값을 `center`에서 빼면 빨간색 신호등의 중심을 구할 수 있습니다."
+    },
+    "whereHousingStarts": {
+      "question": "하우징 직사각형은 어디에서 시작하나요?",
+      "answer": "빨간색 원의 중심을 알면 빨간색 원의 상단을 계산할 수 있습니다. 하우징은 빨간색 원의 상단에서 반지름 하나만큼 위에서 시작합니다. 마찬가지로 신호등의 왼쪽을 계산한 다음, 거기서 반지름 하나만큼 더 왼쪽으로 가면 하우징의 시작점이 됩니다."
+    },
+    "howBigHousing": {
+      "question": "하우징의 크기는 얼마나 되어야 하나요?",
+      "answer": "너비는 신호등 하나의 너비에 양옆으로 반지름 하나씩 여백을 더한 값입니다. 높이는 신호등 하나당 반지름 두 개씩에 위아래로 반지름 하나씩 여백을 더한 값입니다."
+    },
+    "whyMultipleOfSomething": {
+      "question": "왜 모든 것을 다른 값의 배수로 만들어야 하나요?",
+      "answer": "숫자를 직접 적으면 `radius`를 변경했을 때 하우징이 신호등에 맞지 않는 크기로 남게 됩니다. `radius`와 `center`를 포함한 식을 사용하면 전체 그림이 비율을 유지합니다."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "주어진 너비, 높이, 색상으로 (left, top) 위치에 직사각형을 그립니다.",
+      "category": "도형 그리기"
+    },
+    "circle": {
+      "description": "주어진 반지름과 색상으로 (centerX, centerY)를 중심으로 하는 원을 그립니다.",
+      "category": "도형 그리기"
+    }
+  }
+}

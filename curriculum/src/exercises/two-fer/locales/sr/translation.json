@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "moreThanSixLines": "Tvoje rešenje koristi više od šest linija koda."
+  },
+  "tasks": {
+    "createTwoFerFunction": {
+      "name": "Napravi two-fer funkciju",
+      "description": "Napiši funkciju twoFer koja prima ime i vraća 'One for [name], one for me.' Ako ime nije zadato (prazan string), umesto imena upotrebi 'you'."
+    },
+    "solveInSixLines": {
+      "name": "Reši u šest linija koda",
+      "description": "Možeš li ovo da rešiš sa samo šest linija koda?"
+    }
+  },
+  "scenarios": {
+    "twoFerDefault": {
+      "name": "Ime nije zadato",
+      "description": "Ime nije zadato, pa vrati 'One for you, one for me.'"
+    },
+    "twoFerAlice": {
+      "name": "Zadato ime je Alice",
+      "description": "Njeno ime je 'Alice', pa vrati 'One for Alice, one for me.'"
+    },
+    "twoFerTom": {
+      "name": "Zadato ime je Tom",
+      "description": "Njegovo ime je 'Tom', pa vrati 'One for Tom, one for me.'"
+    },
+    "bonus1": {
+      "name": "Šest linija koda",
+      "description": "Reši vežbu sa samo šest linija koda."
+    }
+  },
+  "hints": {
+    "whatChanges": {
+      "question": "Šta se menja u zavisnosti od ulaza?",
+      "answer": "Samo jedna stvar. Ime u sredini rečenice. Ako je ime zadato, upotrebi ga. Ako nije, upotrebi podrazumevano `\"you\"`."
+    },
+    "checkGivenName": {
+      "question": "Kako da proverim da li je ime zadato?",
+      "answer": "Pomoću `if` naredbe koja poredi ulaz sa praznim stringom `\"\"`. Ako je prazan, upotrebi `\"you\"`. U suprotnom, upotrebi ulaz."
+    },
+    "buildSentence": {
+      "question": "Kako da sastavim konačnu rečenicu?",
+      "answer": "Spoji tri dela (`\"One for \"`, izabrano ime i `\", one for me.\"`) pomoću spajanja stringova (`+`) ili šablonskog stringa."
+    }
+  }
+}

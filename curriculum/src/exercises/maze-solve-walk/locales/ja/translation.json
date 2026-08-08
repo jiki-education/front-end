@@ -1,0 +1,43 @@
+{
+  "errors": {
+    "walkExpectsNumber": "walk()には歩数（数値）の指定が必要です"
+  },
+  "describers": {
+    "walk": "指定された歩数分、前に進む"
+  },
+  "checks": {
+    "notReachedEnd": "迷路のゴールにたどり着けませんでした"
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "人を迷路のゴールまで案内する",
+      "description": "walk()、turnLeft()、turnRight()を使って迷路を進み、緑色の目標マスにたどり着きましょう。"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "人を迷路のゴールまで案内する",
+      "description": "ゴールにたどり着くことが目的です。"
+    }
+  },
+  "hints": {
+    "moveNotWorking": {
+      "question": "なぜ`move()`が使えなくなったのですか？",
+      "answer": "Jikiの演習ごとに使える関数が異なります。この演習では、`walk(...)`関数が使えます。`n`の部分を、進みたい歩数に置き換えてください。つまり、`walk(1)`は前回の`move()`とまったく同じ動きをします。"
+    }
+  },
+  "functions": {
+    "walk": {
+      "description": "現在の向きで、**指定された歩数分、前方に**進みます。1歩で1マス進みます。壁にぶつかると停止し、エラーを報告します。",
+      "category": "移動"
+    },
+    "turnLeft": {
+      "description": "キャラクターを**左に90度**（反時計回り）回転させます。向いている方向が変わります。",
+      "category": "移動"
+    },
+    "turnRight": {
+      "description": "キャラクターを**右に90度**（時計回り）回転させます。向いている方向が変わります。",
+      "category": "移動"
+    }
+  }
+}

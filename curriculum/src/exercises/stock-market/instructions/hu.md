@@ -1,20 +1,21 @@
 ---
-title: "Stock Market"
-description: "Track your investment as the stock market randomly rises and falls."
+title: "Tőzsde"
+description: "Kövesd nyomon a befektetésed, miközben a tőzsde véletlenszerűen emelkedik és csökken."
+en_md5: 233edb21475a3846a567f3bdda98ce84
 ---
 
-On the first of January this year, you invested a hard-earned $10 into the stock market. You've decided to keep it a secret from your family and only tell them after 20 years when it's (hopefully!) gained lots of value.
+Az idei év január elsején befektettél a kemény munkával megkeresett 10 dollárodat a tőzsdére. Úgy döntöttél, titokban tartod a családod előtt, és csak 20 év múlva árulod el, amikor (remélhetőleg!) sokat ér majd.
 
-There are three things to understand about stock markets:
+Három dolgot kell tudni a tőzsdéről:
 
-1. They're unpredictable. They might grow or fall each year. On average they tend to grow about 10% but it can vary dramatically.
-2. As they grow, your money grows faster than the stock market due to compound interest. If you invest $10 this year, and the stock market doubles in value over the next 10 years you'll have $20. If it doubles again over the next 10 years, you'll have $40 ($20 \* 2, not $10 \* 2!)
-3. As you make profit, you have to tell the taxman about it!
+1. Kiszámíthatatlanok. Évente növekedhetnek vagy csökkenhetnek. Átlagosan körülbelül 10%-kal nőnek, de ez drámaian változhat.
+2. Ahogy nőnek, a pénzed a kamatos kamat miatt gyorsabban nő, mint a tőzsde. Ha idén befektetsz 10 dollárt, és a tőzsde értéke megduplázódik 10 év alatt, 20 dollárod lesz. Ha az azt következő 10 évben ismét megduplázódik, 40 dollárod lesz (20 $ \* 2, nem 10 $ \* 2!).
+3. Amikor profitot termelsz, be kell jelentened az adóhivatalnak!
 
-### Exercise Flow
+### A feladat menete
 
-You have a function called `marketGrowth(year)` which returns a number of how much the stock market has grown by this year (e.g. `5` meaning it grew by `5%`). So if you invest $10 and it grows by 5%, you now have $10.50.
+Van egy függvényed, a `marketGrowth(year)` (piaci növekedés), ami visszaadja, hogy a tőzsde hány százalékkal nőtt az adott évben (például `5` azt jelenti, hogy `5%`-kal nőtt). Tehát ha befektetsz 10 dollárt, és 5%-kal nő, akkor most 10,50 dollárod van.
 
-Your job is to track how much money you have each year and report it to the taxman using `reportTax(year, balance)`. Then after 20 years, announce to your family the final amount using `announceToFamily(value)`. The first `marketGrowth(...)` year should be this current year.
+A feladatod, hogy nyomon kövesd, mennyi pénzed van évente, és jelentsd az adóhivatalnak a `reportTax(year, balance)` (adóbejelentés) segítségével. Majd 20 év után jelentsd be a családodnak a végső összeget a `announceToFamily(value)` (családi bejelentés) használatával. Az első `marketGrowth(...)` év az aktuális év legyen.
 
-Check the functions below for more details, and if you get stuck, you can always check the hints!
+További részletekért nézd meg az alábbi függvényeket, és ha elakadsz, mindig megnézheted a tippeket!

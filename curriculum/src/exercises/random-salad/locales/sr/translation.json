@@ -1,0 +1,62 @@
+{
+  "errors": {
+    "leavesNumber": "Broj listova mora biti broj",
+    "tomatoesNumber": "Broj paradajza mora biti broj",
+    "croutonsNumber": "Broj krutona mora biti broj",
+    "olivesNumber": "Broj maslina mora biti broj"
+  },
+  "checks": {
+    "saladNotMade": "Salata nije napravljena. Obavezno pozovi <code>makeSalad()</code> sa sva četiri sastojka.",
+    "needLeavesRandomInt": "Potrebno je pozvati <code>Math.randomInt(40, 100)</code> da bi se generisao broj listova.",
+    "needTomatoesRandomInt": "Potrebno je pozvati <code>Math.randomInt(5, leaves / 5)</code> da bi se generisao broj paradajza.",
+    "needCroutonsRandomInt": "Potrebno je pozvati <code>Math.randomInt(tomatoes, tomatoes * 2)</code> da bi se generisao broj krutona.",
+    "needOlivesRandomInt": "Potrebno je pozvati <code>Math.randomInt(1, tomatoes / 2)</code> da bi se generisao broj maslina."
+  },
+  "tasks": {
+    "makeRandomSalad": {
+      "name": "Napravi nasumičnu salatu",
+      "description": "Generiši nasumičnu količinu svakog sastojka koristeći Math.randomInt() i napravi salatu."
+    }
+  },
+  "scenarios": {
+    "randomSalad": {
+      "name": "Nasumična salata",
+      "description": "Napravi salatu sa nasumičnim količinama svakog sastojka."
+    }
+  },
+  "hints": {
+    "leavesExample": {
+      "question": "Pokaži mi primer kako da izračunaš broj listova",
+      "answer": "Koristi `let leaves = Math.randomInt(40, 100)` da generišeš nasumičan broj listova salate koji zatim možeš da koristiš u ostalim funkcijama."
+    },
+    "leavesCount": {
+      "question": "Koliko mi listova treba?",
+      "answer": "Između 40 i 100."
+    },
+    "tomatoesCount": {
+      "question": "Koliko mi paradajza treba?",
+      "answer": "Najmanje 5, ali ne više od leaves / 5"
+    },
+    "croutonsCount": {
+      "question": "Koliko mi krutona treba?",
+      "answer": "Najmanje koliko i paradajza, do duplo više od broja paradajza"
+    },
+    "olivesCount": {
+      "question": "Koliko mi maslina treba?",
+      "answer": "Najmanje 1, do polovine broja paradajza"
+    },
+    "makeSalad": {
+      "question": "Kako da napravim salatu?",
+      "answer": "Kada izračunaš koliko ti je svakog sastojka potrebno, pozovi makeSalad() sa listovima, paradajzom, krutonima i maslinama."
+    }
+  },
+  "describers": {
+    "makeSalad": "napravljena salata sa ${arg1} listova, ${arg2} paradajza, ${arg3} krutona i ${arg4} maslina"
+  },
+  "functions": {
+    "makeSalad": {
+      "description": "Pravi salatu sa datim količinama svakog sastojka.",
+      "category": "Akcija"
+    }
+  }
+}

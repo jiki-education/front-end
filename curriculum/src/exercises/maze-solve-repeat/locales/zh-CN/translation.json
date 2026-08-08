@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "notReachedEnd": "你没有到达迷宫的终点。",
+    "tooManyLines": "你的解答代码行数太多。寻找连续的 move() 调用组，并用 repeat 循环替换每一组。",
+    "oneLineOver": "你只多了一行代码！repeat 循环并不总是更短：重复某段代码两三次可能比直接写出调用占用更多行，所以找出那些实际上没有节省任何行数的 repeat 循环。"
+  },
+  "tasks": {
+    "solveMazeWithRepeat": {
+      "name": "使用 repeat 循环重构迷宫解法",
+      "description": "用 repeat 循环替换连续的 `move()` 调用，使代码更短。"
+    }
+  },
+  "scenarios": {
+    "mazeRepeat1": {
+      "name": "使用 repeat 循环重构迷宫解法",
+      "description": "使用 repeat 循环来避免连续的 `move()` 调用。"
+    }
+  },
+  "hints": {
+    "noIdea": {
+      "question": "我不知道该做什么",
+      "answer": "寻找连续的 `move()` 调用组。例如，不要这样写：\n\n```javascript\nmove()\nmove()\nmove()\n```\n\n你可以这样写：\n\n```javascript\nrepeat(3) {\n  move()\n}\n```\n\n找到这些组并替换它们！"
+    },
+    "tooManyLines": {
+      "question": "使用了 repeat 循环，但代码行数还是太多？",
+      "answer": "使用 repeat 循环总是更好吗？有些情况下，直接连续写两个 move 可能更短。"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "将角色沿当前方向**向前移动一步**。只有当目标位置没有被墙挡住时，角色才会移动。",
+      "category": "移动"
+    },
+    "turnLeft": {
+      "description": "将角色**向左旋转 90 度**（逆时针）。这会改变角色面朝的方向。",
+      "category": "移动"
+    },
+    "turnRight": {
+      "description": "将角色**向右旋转 90 度**（顺时针）。这会改变角色面朝的方向。",
+      "category": "移动"
+    }
+  }
+}

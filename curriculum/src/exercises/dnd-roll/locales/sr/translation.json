@@ -1,0 +1,54 @@
+{
+  "errors": {
+    "unknownDice": "Izvini - Jiki nema pri ruci kockicu sa {{sides}} strana!",
+    "announceNumber": "Možeš da objaviš samo broj.",
+    "attackNumber": "Napad mora biti broj.",
+    "damageNumber": "Šteta mora biti broj."
+  },
+  "describers": {
+    "roll": "baca kockicu i dobija ${return}",
+    "announce": "objavljuje ${arg1}",
+    "strike": "napada goblina sa napadom ${arg1} i štetom ${arg2}"
+  },
+  "checks": {
+    "announcementCount": "Očekuje se 3 objave, ali je dobijeno {{got}}. Proveri da li objavljuješ svako bacanje.",
+    "firstAnnouncement": "Očekuje se da prva objava bude {{attack}} (rezultat napada), ali je dobijeno {{got}}.",
+    "secondAnnouncement": "Očekuje se da druga objava bude {{damage}} (osnovna šteta), ali je dobijeno {{got}}.",
+    "thirdAnnouncement": "Očekuje se da treća objava bude {{bonus}} (dodatna šteta), ali je dobijeno {{got}}.",
+    "notStruck": "Goblin nije napadnut. Proveri da li pozivaš <code>strike()</code>.",
+    "wrongAttack": "Očekuje se da napad bude {{attack}}, ali je dobijeno {{got}}. Prosledi rezultat napada funkciji <code>strike()</code>.",
+    "wrongDamage": "Očekuje se da ukupna šteta bude {{totalDamage}} ({{damage}} + {{bonus}}), ali je dobijeno {{got}}. Saberi osnovnu i dodatnu štetu."
+  },
+  "tasks": {
+    "rollAndStrike": {
+      "name": "Baci kockice i napadni goblina",
+      "description": "Baci tri kockice (d20 za napad, d12 za osnovnu štetu, d10 za dodatnu), objavi svako bacanje, zatim napadni goblina koristeći rezultat napada i ukupnu štetu (osnovna + dodatna)."
+    }
+  },
+  "scenarios": {
+    "randomRolls": {
+      "name": "Baci i napadni",
+      "description": "Baci d20 za napad, d12 za osnovnu štetu, d10 za dodatnu. Napadni goblina sa napadom i ukupnom štetom."
+    }
+  },
+  "hints": {
+    "chooseDie": {
+      "question": "Kako da izaberem koju vrstu kockice da koristim?",
+      "answer": "Za dvadesetostranu kockicu, koristi 20 kao ulaz za roll - npr. `roll(20)`. Za dvanaestostranu kockicu, pozovi `roll(12)`."
+    }
+  },
+  "functions": {
+    "roll": {
+      "description": "Baca kockicu sa datim brojem strana i **vraća** rezultat.",
+      "category": "Kockice"
+    },
+    "announce": {
+      "description": "Objavljuje rezultat bacanja kockice.",
+      "category": "Akcija"
+    },
+    "strike": {
+      "description": "Napada goblina koristeći dati rezultat napada i ukupnu štetu.",
+      "category": "Akcija"
+    }
+  }
+}

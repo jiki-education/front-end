@@ -1,0 +1,81 @@
+{
+  "tasks": {
+    "invalidTriangles": {
+      "name": "Triángulos inválidos",
+      "description": "Detecta triángulos inválidos. Un triángulo es inválido si algún lado es cero, o si la suma de dos lados cualesquiera es menor o igual al tercer lado."
+    },
+    "equilateralTriangles": {
+      "name": "Triángulos equiláteros",
+      "description": "Detecta triángulos equiláteros donde los tres lados tienen la misma longitud."
+    },
+    "isoscelesTriangles": {
+      "name": "Triángulos isósceles",
+      "description": "Detecta triángulos isósceles donde exactamente dos lados tienen la misma longitud."
+    },
+    "scaleneTriangles": {
+      "name": "Triángulos escalenos",
+      "description": "Detecta triángulos escalenos donde los tres lados tienen longitudes diferentes."
+    }
+  },
+  "scenarios": {
+    "invalidEquilateralAllZero": {
+      "name": "Equilátero con todos los lados cero (0, 0, 0)",
+      "description": "Un triángulo con todos los lados en cero debe devolver \"invalid\"."
+    },
+    "isoscelesFirstInequality": {
+      "name": "Isósceles con longitudes de lados inválidas (1, 1, 3)",
+      "description": "Un triángulo con lados demasiado cortos debe devolver \"invalid\"."
+    },
+    "isoscelesSecondInequality": {
+      "name": "Isósceles con longitudes de lados inválidas (1, 3, 1)",
+      "description": "Un triángulo con lados demasiado cortos debe devolver \"invalid\"."
+    },
+    "isoscelesThirdInequality": {
+      "name": "Isósceles con longitudes de lados inválidas (3, 1, 1)",
+      "description": "Un triángulo con lados demasiado cortos debe devolver \"invalid\"."
+    },
+    "scaleneTriangleInequality": {
+      "name": "Escaleno con longitudes de lados inválidas (7, 3, 2)",
+      "description": "Un triángulo con lados demasiado cortos debe devolver \"invalid\"."
+    },
+    "validEquilateral": {
+      "name": "Triángulo equilátero (2, 2, 2)",
+      "description": "Un triángulo con todos los lados iguales debe devolver \"equilateral\"."
+    },
+    "validIsoscelesFirstTwoEqual": {
+      "name": "Triángulo isósceles (4, 4, 3)",
+      "description": "Un triángulo con los dos primeros lados iguales debe devolver \"isosceles\"."
+    },
+    "validIsoscelesLastTwoEqual": {
+      "name": "Triángulo isósceles (3, 4, 4)",
+      "description": "Un triángulo con los dos últimos lados iguales debe devolver \"isosceles\"."
+    },
+    "validIsoscelesFirstAndLastEqual": {
+      "name": "Triángulo isósceles (4, 3, 4)",
+      "description": "Un triángulo con el primer y último lado iguales debe devolver \"isosceles\"."
+    },
+    "validScalene": {
+      "name": "Triángulo escaleno (5, 4, 6)",
+      "description": "Un triángulo con todos los lados diferentes debe devolver \"scalene\"."
+    }
+  },
+  "hints": {
+    "whatMakesInvalid": {
+      "question": "¿Qué hace que un triángulo sea inválido?",
+      "answer": "Dos cosas. Primero, que algún lado sea cero. Segundo, que la suma de dos lados cualesquiera sea menor o igual al tercero (la desigualdad triangular). Verifica esto primero, ya que no tiene sentido clasificar una figura que no es realmente un triángulo."
+    },
+    "checkOrder": {
+      "question": "¿En qué orden debo verificar las categorías?",
+      "answer": "De más específico a menos: equilátero (los tres lados iguales), luego isósceles (dos lados cualesquiera iguales), y todo lo demás es escaleno. Hacerlo en el orden incorrecto haría que los triángulos equiláteros se clasifiquen erróneamente como isósceles."
+    },
+    "checkAnyTwoEqual": {
+      "question": "¿Cómo verifico 'dos lados cualesquiera son iguales' para isósceles?",
+      "answer": "Tres comparaciones: a === b, b === c o a === c. Con que una de ellas sea verdadera es suficiente."
+    },
+    "knowScalene": {
+      "question": "¿Cómo sé que es escaleno?",
+      "answer": "Si has descartado inválido, equilátero e isósceles, lo único que queda es escaleno. Devuélvelo sin más verificaciones."
+    }
+  },
+  "functions": {}
+}

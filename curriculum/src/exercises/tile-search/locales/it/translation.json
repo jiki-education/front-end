@@ -1,0 +1,71 @@
+{
+  "checks": {
+    "tooManyLines": "La tua soluzione ha troppe righe di codice. Riesci a renderla più breve?"
+  },
+  "tasks": {
+    "searchForTile": {
+      "name": "Cerca una tessera",
+      "description": "Scrivi una funzione che verifica se una specifica tessera è nel leggìo. Restituisci true se trovata, false altrimenti."
+    },
+    "solveInEightLines": {
+      "name": "Risolvi in 8 righe di codice",
+      "description": "Riesci a risolvere questo esercizio con solo 8 righe di codice?"
+    }
+  },
+  "scenarios": {
+    "letterFoundAtStart": {
+      "name": "Lettera all'inizio",
+      "description": "La lettera è la prima tessera nel leggìo."
+    },
+    "letterFoundInMiddle": {
+      "name": "Lettera in mezzo",
+      "description": "La lettera è nel mezzo del leggìo."
+    },
+    "letterFoundAtEnd": {
+      "name": "Lettera alla fine",
+      "description": "La lettera è l'ultima tessera nel leggìo."
+    },
+    "letterNotFound": {
+      "name": "Lettera non trovata",
+      "description": "La lettera non è nel leggìo."
+    },
+    "emptyRack": {
+      "name": "Leggìo vuoto",
+      "description": "Un leggìo vuoto non ha tessere da trovare."
+    },
+    "duplicateLetters": {
+      "name": "Leggìo con duplicati",
+      "description": "La lettera appare tra tessere duplicate."
+    },
+    "singleTileFound": {
+      "name": "Tessera singola trovata",
+      "description": "Un leggìo con una tessera che corrisponde."
+    },
+    "singleTileNotFound": {
+      "name": "Tessera singola non trovata",
+      "description": "Un leggìo con una tessera che non corrisponde."
+    },
+    "bonus1": {
+      "name": "8 righe di codice",
+      "description": "Risolvi l'esercizio con solo 8 righe di codice."
+    }
+  },
+  "hints": {
+    "byHand": {
+      "question": "Come lo farei a mano?",
+      "answer": "Scorreresti l'haystack una lettera alla volta, confrontando ciascuna con needle. Non appena trovi una corrispondenza ti fermi. Se arrivi alla fine senza corrispondenza, needle non c'è."
+    },
+    "loopAndCompare": {
+      "question": "Come faccio a iterare e confrontare?",
+      "answer": "Un ciclo for-of ti permette di iterare ogni lettera della stringa. All'interno, un'istruzione if confronta la lettera corrente con needle."
+    },
+    "returnTrue": {
+      "question": "Quando dovrei restituire true?",
+      "answer": "Non appena trovi una corrispondenza. Non ha senso controllare le lettere rimanenti."
+    },
+    "returnFalse": {
+      "question": "Quando dovrei restituire false?",
+      "answer": "SOLO dopo che il ciclo è terminato senza aver trovato una corrispondenza. Un errore comune è mettere `return false` all'interno del ciclo. Questo si arrende subito dopo la prima lettera non corrispondente, prima di aver controllato il resto."
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "checks": {
+    "totalCells": "Previste {{expectedTotal}} celle totali, ma trovate {{got}}.",
+    "wrongPosition": "L'edificio {{building}} non è nella posizione giusta. Inizia alla colonna {{start}} ma dovrebbe iniziare alla colonna {{expected}}.",
+    "wrongEntrance": "Edificio {{building}}: l'ingresso non è nella posizione giusta.",
+    "wrongGroundWalls": "Edificio {{building}}: i muri laterali del piano terra non sono corretti.",
+    "wrongRoof": "Edificio {{building}}: il tetto non è completo."
+  },
+  "tasks": {
+    "buildSkyline": {
+      "name": "Costruisci lo skyline della città",
+      "description": "Costruisci più edifici di larghezze e altezze casuali per creare uno skyline urbano."
+    }
+  },
+  "scenarios": {
+    "buildings1": {
+      "name": "1 edificio",
+      "description": "Costruisci un singolo edificio con larghezza e altezza casuali."
+    },
+    "buildings2": {
+      "name": "2 edifici",
+      "description": "Costruisci 2 edifici con larghezze e altezze casuali."
+    },
+    "buildings3": {
+      "name": "3 edifici",
+      "description": "Costruisci 3 edifici con larghezze e altezze casuali."
+    },
+    "buildings4": {
+      "name": "4 edifici",
+      "description": "Costruisci 4 edifici con larghezze e altezze casuali."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Da dove comincio con un esercizio così grande?",
+      "answer": "Scomponi il problema. Il ciclo esterno gestisce un edificio alla volta. All'interno di quel ciclo, disegni tre cose a turno: il piano terra (con l'ingresso), i piani superiori (solo muri e vetro) e il tetto piatto. Fai passare il primo scenario con un solo edificio prima di preoccuparti di più edifici."
+    },
+    "buildingDimensions": {
+      "question": "Come faccio a sapere che aspetto deve avere ogni edificio?",
+      "answer": "Chiama `randomWidth()` e `randomNumFloors()` una volta all'inizio dell'iterazione di ogni edificio e salva entrambi i valori in variabili locali. Chiamarli di nuovo restituisce i valori dell'edificio *successivo*, quindi non chiamarli di nuovo all'interno delle righe."
+    },
+    "trackPosition": {
+      "question": "Come faccio a tenere traccia di dove va il prossimo edificio?",
+      "answer": "Tieni una singola variabile per la colonna di sinistra dell'edificio corrente. Inizializzala con lo spazio a sinistra specificato. Dopo aver finito un edificio, aumentala della larghezza di quell'edificio più lo spazio tra gli edifici. Quell'unica variabile è tutto quello che ti serve per la posizione orizzontale."
+    },
+    "groundFloorLayout": {
+      "question": "Come faccio a disporre il piano terra con l'ingresso al centro?",
+      "answer": "Percorri l'edificio una colonna alla volta. La prima e l'ultima colonna sono muri; tutto il resto è vetro; una colonna centrale è l'ingresso. La colonna dell'ingresso si calcola a partire dal bordo sinistro dell'edificio e dalla sua larghezza."
+    },
+    "upperFloorsAndRoof": {
+      "question": "Come disegno i piani superiori e il tetto?",
+      "answer": "Ogni piano superiore segue lo stesso schema del piano terra ma senza l'ingresso: muri ai lati, vetro in mezzo. Ricorda che il piano terra conta già come uno dei piani, quindi devi solo impilare i rimanenti sopra di esso, salendo in `y`. Il tetto è poi una fila piena di muri che copre l'intera larghezza, e non conta come un piano."
+    },
+    "stuckError": {
+      "question": "Il mio secondo edificio restituisce un errore: «i muratori sono bloccati, c'è già un muro qui». Cosa c'è che non va?",
+      "answer": "Il tuo secondo edificio sta cercando di costruire sopra il primo, perché non stai facendo avanzare il tracciatore di colonna tra un edificio e l'altro. Dopo aver disegnato ogni edificio, incrementalo di `width + gap` prima che inizi l'iterazione successiva. Se te ne dimentichi, ogni edificio parte dallo stesso bordo sinistro e si scontra con quello precedente."
+    }
+  },
+  "functions": {
+    "buildWall": {
+      "description": "Posiziona un **muro** nella posizione (x, y) della griglia.",
+      "category": "Costruzione"
+    },
+    "buildGlass": {
+      "description": "Posiziona un **pannello di vetro** nella posizione (x, y) della griglia.",
+      "category": "Costruzione"
+    },
+    "buildEntrance": {
+      "description": "Posiziona una **porta d'ingresso** nella posizione (x, y) della griglia.",
+      "category": "Costruzione"
+    },
+    "numBuildings": {
+      "description": "Restituisce il **numero di edifici** da costruire.",
+      "category": "Informazioni"
+    },
+    "randomWidth": {
+      "description": "Restituisce una **larghezza casuale dell'edificio**: 3, 5 o 7.",
+      "category": "Informazioni"
+    },
+    "randomNumFloors": {
+      "description": "Restituisce un **numero casuale di piani** tra 1 e 12.",
+      "category": "Informazioni"
+    }
+  },
+  "describers": {
+    "buildWall": "ha costruito un muro alla posizione (${arg1}, ${arg2})",
+    "buildEntrance": "ha costruito un ingresso alla posizione (${arg1}, ${arg2})",
+    "buildGlass": "ha costruito un pannello di vetro alla posizione (${arg1}, ${arg2})",
+    "numBuildings": "ha ottenuto il numero di edifici",
+    "randomWidth": "ha ottenuto una larghezza casuale dell'edificio (3-7)",
+    "randomNumFloors": "ha ottenuto un numero casuale di piani (1-12)"
+  }
+}

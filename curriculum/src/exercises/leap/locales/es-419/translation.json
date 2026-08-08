@@ -1,0 +1,75 @@
+{
+  "checks": {
+    "moreThanOneLine": "Usaste más de una línea de código dentro de la función."
+  },
+  "tasks": {
+    "determineLeapYear": {
+      "name": "Determina si el año es bisiesto",
+      "description": "Escribe una función llamada `isLeapYear` que recibe un año como argumento y devuelve `true` si es bisiesto, o `false` si no lo es."
+    },
+    "solveInOneLine": {
+      "name": "Resuelve en una línea de código",
+      "description": "¿Puedes resolver esto con solo una línea de código dentro de la función?"
+    }
+  },
+  "scenarios": {
+    "year2015": {
+      "name": "Año 2015",
+      "description": "2015 no es divisible por 4, así que no es bisiesto."
+    },
+    "year1970": {
+      "name": "Año 1970",
+      "description": "1970 no es divisible por 4, así que no es bisiesto."
+    },
+    "year2100": {
+      "name": "Año 2100",
+      "description": "2100 es divisible por 100 pero no por 400, así que no es bisiesto."
+    },
+    "year1900": {
+      "name": "Año 1900",
+      "description": "1900 es divisible por 100 pero no por 400, así que no es bisiesto."
+    },
+    "year1800": {
+      "name": "Año 1800",
+      "description": "1800 es divisible por 100 pero no por 400, así que no es bisiesto."
+    },
+    "year2000": {
+      "name": "Año 2000",
+      "description": "2000 es divisible por 400, así que es bisiesto."
+    },
+    "year2400": {
+      "name": "Año 2400",
+      "description": "2400 es divisible por 400, así que es bisiesto."
+    },
+    "year1996": {
+      "name": "Año 1996",
+      "description": "1996 es divisible por 4 pero no por 100, así que es bisiesto."
+    },
+    "year1960": {
+      "name": "Año 1960",
+      "description": "1960 es divisible por 4 pero no por 100, así que es bisiesto."
+    },
+    "bonus1": {
+      "name": "Una línea de código",
+      "description": "Resuelve el ejercicio con solo una línea de código dentro de la función."
+    }
+  },
+  "hints": {
+    "basicRule": {
+      "question": "¿Cuál es la regla básica para un año bisiesto?",
+      "answer": "Los años divisibles por 4 son bisiestos. Así que `year % 4 === 0` es la prueba inicial."
+    },
+    "exceptions": {
+      "question": "¿Hay excepciones?",
+      "answer": "Sí. Los años divisibles por 100 NO son bisiestos, aunque sean divisibles por 4. Por ejemplo, 1900 no es bisiesto."
+    },
+    "exceptionsToExceptions": {
+      "question": "¿Hay excepciones a la excepción?",
+      "answer": "Sí. Los años divisibles por 400 SÍ son bisiestos después de todo. Por ejemplo, 2000 lo es. Así que la regla es: divisible por 4, pero no por 100, a menos que también sea divisible por 400."
+    },
+    "checkDivisibility": {
+      "question": "¿Cómo verifico la divisibilidad?",
+      "answer": "Usa el operador de residuo `%`. `year % 4 === 0` es verdadero cuando el año se divide exactamente por 4 sin dejar residuo. El mismo truco funciona para 100 y 400."
+    }
+  }
+}

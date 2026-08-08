@@ -17,9 +17,13 @@ describe("stripLocalePrefix", () => {
   });
 
   it("does not strip an unsupported segment (it isn't a locale)", () => {
-    expect(stripLocalePrefix("/de/blog")).toBe("/de/blog");
+    expect(stripLocalePrefix("/zz/blog")).toBe("/zz/blog");
     expect(stripLocalePrefix("/xx")).toBe("/xx");
-    // Region subtags only strip once supported; pt-BR isn't yet, so it's left as-is.
-    expect(stripLocalePrefix("/pt-BR/blog")).toBe("/pt-BR/blog");
+    // A region subtag on an unsupported region is not a locale either.
+    expect(stripLocalePrefix("/de-AT/blog")).toBe("/de-AT/blog");
+  });
+
+  it("strips a supported region-subtag locale prefix", () => {
+    expect(stripLocalePrefix("/pt-BR/blog")).toBe("/blog");
   });
 });

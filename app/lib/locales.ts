@@ -1,25 +1,70 @@
 // Every locale the codebase knows about: types, message catalogs (messages/*.json)
 // and localized content are all authored against this full set, regardless of
 // which locales a given environment actually serves. `Locale` is derived from
-// this, so hu types/content stay valid even when hu isn't served.
-export const ALL_LOCALES = ["en", "hu"] as const;
+// this, so a locale's types/content stay valid even when it isn't served.
+//
+// This mirrors the locale set the curriculum package ships translations for
+// (curriculum/src/**/locales/*), in canonical BCP-47 casing.
+export const ALL_LOCALES = [
+  "en",
+  "ar",
+  "bn",
+  "ca",
+  "de",
+  "el",
+  "es-419",
+  "es-ES",
+  "fa",
+  "fi",
+  "fr",
+  "he",
+  "hi",
+  "hu",
+  "id",
+  "it",
+  "ja",
+  "ko",
+  "nl",
+  "pl",
+  "pt-BR",
+  "pt-PT",
+  "ro",
+  "ru",
+  "sr",
+  "sv",
+  "sw",
+  "tr",
+  "uk",
+  "ur",
+  "vi",
+  "zh-CN",
+  "zh-TW"
+] as const;
 export type Locale = (typeof ALL_LOCALES)[number];
 
 export const DEFAULT_LOCALE: Locale = "en";
 
-// Locales actually served in this environment. Production ships English only for
-// now; local development serves the full set so the localization work stays
-// testable. `NODE_ENV` is statically inlined by Next in both the server and
-// client bundles, so this resolves identically on the edge and in the browser.
+// STAGING-ONLY BRANCH — DO NOT MERGE TO MAIN.
 //
-// Note: any built/deployed environment (including staging/preview) reports
-// `NODE_ENV === "production"`, so those are en-only too; only `next dev` gets hu.
-export const SUPPORTED_LOCALES: readonly Locale[] = process.env.NODE_ENV === "production" ? ["en"] : ALL_LOCALES;
+// Every known locale is served unconditionally so the full locale surface
+// (routing, hreflang, Accept-Language negotiation, the `locales` preference list
+// from /internal/me) can be exercised end-to-end on staging.jiki.io.
+//
+// This deliberately has no environment gate. `ENVIRONMENT=staging` cannot be used
+// here: it is a Cloudflare Worker runtime var, so it exists only server-side and is
+// NOT inlined into the client bundle. Gating on it would make the server serve every
+// locale while the browser still believed in `en` alone, desyncing locale routing and
+// link-building from SSR. `NODE_ENV` is inlined in both bundles but cannot separate
+// staging from production, since staging is a production build.
+//
+// So the safety property here is branch discipline, not code: this branch ships to
+// staging only and must never be deployed to production.
+export const SUPPORTED_LOCALES: readonly Locale[] = ALL_LOCALES;
 
-// Locales that read right-to-left. Empty today: both en and hu are LTR. When an
-// RTL locale (e.g. Arabic "ar", Hebrew "he") is added to ALL_LOCALES, add it
-// here too so `<html dir>` flips to "rtl" for it.
-export const RTL_LOCALES: ReadonlySet<Locale> = new Set([]);
+// Locales that read right-to-left, driving `dir="rtl"` on `<html>` via
+// getLocaleDirection() (server-rendered in app/layout.tsx, synced client-side on
+// locale swap in ClientLocaleProvider).
+export const RTL_LOCALES: ReadonlySet<Locale> = new Set(["ar", "fa", "he", "ur"]);
 
 // Text direction for a locale: "rtl" for locales in RTL_LOCALES, "ltr" otherwise
 // (including any unknown/unsupported string). Drives `dir` on `<html>` (server via

@@ -1,0 +1,56 @@
+{
+  "checks": {
+    "flowerCount_one": "Il proprietario si aspettava di vedere {{count}} fiore piantato. Ma tu ne hai piantati {{got}}.",
+    "flowerCount_other": "Il proprietario si aspettava di vedere {{count}} fiori piantati. Ma tu ne hai piantati {{got}}.",
+    "flowerAtPosition": "Doveva esserci un fiore alla posizione {{position}}, ma non l'ho trovato.",
+    "strayFlower": "Trovato un fiore alla posizione {{position}}, che non è dove il proprietario lo voleva. I fiori devono essere distanziati uniformemente."
+  },
+  "tasks": {
+    "plantFlowersEvenly": {
+      "name": "Pianta i fiori in modo uniforme",
+      "description": "Usa askNumberOfFlowers() per scoprire quanti fiori piantare, calcola la distanza e piantali in modo uniforme."
+    }
+  },
+  "scenarios": {
+    "oneFlower": {
+      "name": "Il proprietario vuole 1 fiore",
+      "description": "In questo scenario, `askNumberOfFlowers()` restituirà 1. Pianta 1 fiore alla posizione 50."
+    },
+    "threeFlowers": {
+      "name": "Il proprietario vuole 3 fiori",
+      "description": "In questo scenario, `askNumberOfFlowers()` restituirà 3. Pianta 3 fiori alle posizioni 25, 50 e 75."
+    },
+    "fourFlowers": {
+      "name": "Il proprietario vuole 4 fiori",
+      "description": "In questo scenario, `askNumberOfFlowers()` restituirà 4. Pianta 4 fiori alle posizioni 20, 40, 60 e 80."
+    },
+    "nineFlowers": {
+      "name": "Il proprietario vuole 9 fiori",
+      "description": "In questo scenario, `askNumberOfFlowers()` restituirà 9. Pianta 9 fiori alle posizioni 10, 20, 30, 40, 50, 60, 70, 80 e 90."
+    }
+  },
+  "hints": {
+    "chooseGap": {
+      "question": "Come faccio a capire dove piantare ogni fiore?",
+      "answer": "Per prima cosa calcola la distanza tra i fiori:\n\n```javascript\n100 / (numberOfFlowers + 1)\n```\n\nIl primo fiore va a quella posizione, e ogni fiore successivo è un'altra distanza più avanti. Quindi, se ci sono 3 fiori, la distanza è 25 e vanno alle posizioni 25, 50 e 75."
+    },
+    "seeScenarios": {
+      "question": "Come posso vedere i diversi scenari?",
+      "answer": "Clicca sui cerchi sul lato sinistro, tra il tuo codice e i risultati."
+    }
+  },
+  "functions": {
+    "askNumberOfFlowers": {
+      "description": "Restituisce il **numero di fiori** da piantare.",
+      "category": "Giardinaggio"
+    },
+    "plant": {
+      "description": "Pianta un fiore alla **posizione** indicata.",
+      "category": "Giardinaggio"
+    }
+  },
+  "describers": {
+    "askNumberOfFlowers": "ha chiesto il numero di fiori da piantare",
+    "plant": "ha piantato un fiore alla posizione ${arg1}"
+  }
+}

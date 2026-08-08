@@ -1,0 +1,90 @@
+{
+  "tasks": {
+    "sumTheDigits": {
+      "name": "Additionne les chiffres",
+      "description": "Écris une fonction appelée digitalRoot qui prend un nombre et additionne ses chiffres. Pour les nombres qui ne comptent déjà qu'un seul chiffre, et pour ceux dont la somme des chiffres tient en un seul, ce premier passage suffit."
+    },
+    "collapseToSingleDigit": {
+      "name": "Continue à réduire jusqu'à n'avoir plus qu'un seul chiffre",
+      "description": "Parfois, additionner les chiffres une seule fois laisse encore un nombre à plusieurs chiffres (par exemple, la somme des chiffres de 942 est 15). Continue à additionner les chiffres du résultat jusqu'à ce qu'il ne reste plus qu'un seul chiffre."
+    },
+    "keepItTight": {
+      "name": "Bonus : garde ton code concis",
+      "description": "Ta solution fonctionne déjà. Pour ce bonus, fais le ménage pour que la fonction entière tienne en quelques lignes, sans rien de superflu."
+    }
+  },
+  "scenarios": {
+    "drZero": {
+      "name": "Zéro",
+      "description": "La racine numérique de 0 est 0."
+    },
+    "drSingleDigit": {
+      "name": "Déjà un seul chiffre",
+      "description": "Un nombre qui ne compte déjà qu'un seul chiffre est sa propre racine numérique."
+    },
+    "drTwoDigits": {
+      "name": "Deux chiffres",
+      "description": "16 se réduit à 7 en un seul passage (1 + 6)."
+    },
+    "drThreeDigits": {
+      "name": "Trois chiffres, un seul passage",
+      "description": "132 se réduit à 6 en un seul passage (1 + 3 + 2)."
+    },
+    "drThirtyNine": {
+      "name": "Deux passages nécessaires",
+      "description": "La somme des chiffres de 39 est 12, et celle de 12 est 3."
+    },
+    "drTwoPasses": {
+      "name": "Un nombre qui demande un deuxième passage",
+      "description": "La somme des chiffres de 942 est 15, et celle de 15 est 6."
+    },
+    "drLarge": {
+      "name": "Un nombre plus grand",
+      "description": "493193 se réduit jusqu'à 2."
+    },
+    "drNines": {
+      "name": "Que des neufs",
+      "description": "La somme des chiffres de 99999 est 45, et celle de 45 est 9."
+    },
+    "drBonusTight": {
+      "name": "Une solution courte et soignée",
+      "description": "12345 se réduit à 6 (1 + 2 + 3 + 4 + 5 = 15, puis 1 + 5 = 6)."
+    }
+  },
+  "hints": {
+    "whatIsIt": {
+      "question": "C'est quoi, exactement, une racine numérique ?",
+      "answer": "Additionne tous les chiffres du nombre. Si tu obtiens un seul chiffre, c'est la réponse. Si tu en obtiens plusieurs, additionne aussi les chiffres de ce résultat, et continue jusqu'à ce qu'il ne reste plus qu'un seul chiffre."
+    },
+    "sumDigits": {
+      "question": "Comment additionner les chiffres d'un nombre ?",
+      "answer": "Transforme le nombre en string pour pouvoir le parcourir caractère par caractère avec une boucle `for...of`. Retiens la somme au fur et à mesure que tu y ajoutes chaque chiffre."
+    },
+    "digitsToNumbers": {
+      "question": "Mais chaque chiffre est un caractère, pas un nombre.",
+      "answer": "Quand tu parcours la string, chaque caractère (comme `\"4\"`) est du texte. Utilise `Number(char)` pour le transformer en nombre `4` avant de l'ajouter à ton total."
+    },
+    "whichLoop": {
+      "question": "Comment continuer sans savoir combien de passages il me faut ?",
+      "answer": "Tu ne sais pas à l'avance combien de fois tu devras additionner les chiffres, donc une boucle `while` est parfaite. Continue à boucler tant que le nombre contient plus d'un chiffre."
+    },
+    "keepGoing": {
+      "question": "Quand est-ce que je m'arrête ?",
+      "answer": "Arrête-toi dès que le nombre ne compte plus qu'un seul chiffre. À ce moment-là, renvoie-le."
+    }
+  },
+  "checks": {
+    "mustUseWhile": "Presque ! Pour cet exercice, on attend que tu utilises une boucle `while` pour continuer à réduire jusqu'à ce qu'il ne reste plus qu'un seul chiffre.",
+    "tooManyLines": "Tu y es presque ! Ta solution fonctionne, mais elle est un peu longue. Vois si tu peux la raccourcir."
+  },
+  "functions": {
+    "number": {
+      "description": "Convertit une string composée de chiffres en nombre",
+      "category": "Conversion de type"
+    },
+    "string": {
+      "description": "Convertit un nombre en string",
+      "category": "Conversion de type"
+    }
+  }
+}

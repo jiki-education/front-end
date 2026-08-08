@@ -1,65 +1,65 @@
 {
   "tasks": {
     "countChancersInQueue": {
-      "name": "Count the chancers",
-      "description": "Write a function that takes the queue and the guest list, and returns how many of the people queueing are not on the guest list."
+      "name": "Beugrók száma",
+      "description": "Írj egy függvényt, amely a sor és a vendéglista alapján visszaadja, hogy a sorban állók közül hányan nincsenek a vendéglistán."
     },
     "solveTightly": {
-      "name": "Solve it tightly",
-      "description": "Bonus: this can be written far more compactly than you might expect. Can you get the whole solution down to just a handful of lines?"
+      "name": "Tömör megoldás",
+      "description": "Bónusz: ezt sokkal tömörebben is meg lehet írni, mint gondolnád. Le tudod redukálni a teljes megoldást pár sorra?"
     }
   },
   "scenarios": {
     "emptyQueue": {
-      "name": "Nobody has turned up yet",
-      "description": "An empty queue, so nobody is waiting to get in."
+      "name": "Még senki sem érkezett meg",
+      "description": "Üres sor, így senki sem vár a bejutásra."
     },
     "everyoneChancingIt": {
-      "name": "The whole queue is chancing it",
-      "description": "A queue where none of the people waiting are on the guest list."
+      "name": "Mindenki beugró",
+      "description": "Egy sor, ahol a várakozók közül senki sincs a vendéglistán."
     },
     "everyoneInvited": {
-      "name": "Everyone is invited",
-      "description": "A queue where every person waiting is on the guest list."
+      "name": "Mindenki meghívott",
+      "description": "Egy sor, ahol a várakozók mindegyike rajta van a vendéglistán."
     },
     "mixedQueue": {
-      "name": "A mixed queue",
-      "description": "A queue where some of the people waiting are invited and some aren't. One of the chancers has a name that looks a lot like a name on the list."
+      "name": "Vegyes sor",
+      "description": "Egy sor, ahol a várakozók egy része meghívott, más része nem. Az egyik beugró neve nagyon hasonlít egy vendéglistán szereplő névre."
     },
     "guestsWhoHaventArrived": {
-      "name": "Guests still stuck in traffic",
-      "description": "A guest list with lots of names on it, but most of those people haven't reached the queue yet."
+      "name": "Vendégek még dugóban",
+      "description": "Egy vendéglista rengeteg névvel, de a legtöbbjük még nem ért a sorhoz."
     },
     "longQueueShortList": {
-      "name": "A long queue and a short list",
-      "description": "A big queue outside, but only a couple of names on the guest list."
+      "name": "Hosszú sor, rövid lista",
+      "description": "Nagy sor kint, de csak pár név a vendéglistán."
     },
     "guestListBonusLineCount": {
-      "name": "Neat and tidy: a mixed queue",
-      "description": "The same mixed queue as before, but this time your solution has to fit into a much smaller number of lines."
+      "name": "Tiszta, rendezett: vegyes sor",
+      "description": "Ugyanaz a vegyes sor, mint korábban, de ezúttal a megoldásodnak sokkal kevesebb sorba kell férnie."
     }
   },
   "checks": {
-    "tooManyLines": "Keep going! See if you can solve it in fewer lines."
+    "tooManyLines": "Folytasd! Próbáld meg kevesebb sorban megoldani."
   },
   "hints": {
     "keepingTrack": {
-      "question": "What do I need to keep track of as I go?",
-      "answer": "The answer is a single number, and you don't know it until you've seen everyone. So ask yourself two things: what should that number be before you've looked at anybody at all, and what needs to happen to it when someone turns out **not** to be invited?"
+      "question": "Mit kell számon tartanom menet közben?",
+      "answer": "A válasz egyetlen szám, és addig nem tudod, amíg mindenkit meg nem néztél. Kérdezd meg magadtól két dolgot: mi legyen ez a szám, mielőtt bárkire is ránéztél, és mi történjen vele, amikor kiderül, hogy valaki **nincs** meghívva?"
     },
     "whichList": {
-      "question": "There are two lists here. Which one am I working through?",
-      "answer": "Think about what the answer is counting. It's a number of people **in the queue**, so it's the queue you need to visit one person at a time. The guest list isn't something you walk through, it's the thing you check each person against."
+      "question": "Itt két lista van. Melyiken megyek végig?",
+      "answer": "Gondold át, mit számol a válasz. A **sorban** álló emberek számát, tehát a soron kell végigmenned egyesével. A vendéglistán nem mész végig, azt csak ellenőrzésre használod minden egyes embernél."
     },
     "realLifeBouncer": {
-      "question": "How would a real bouncer do this with a clipboard?",
-      "answer": "Picture them stood at the front of the queue with the clipboard in one hand, working their way towards the back. They only shout out the final number once they've reached the last person. What are they doing to each person on the way, and what are they doing about the ones whose names they can't find?"
+      "question": "Hogyan csinálná ezt egy igazi kidobó egy vágólappal?",
+      "answer": "Képzeld el, ahogy a sor elején áll, egyik kezében a vágólap, és lépked hátrafelé. Csak a legvégén kiabálja be a végső számot, miután az utolsó emberhez is elért. Mit csinál közben minden egyes emberrel, és mit kezd azokkal, akiknek a nevét nem találja?"
     }
   },
   "functions": {
     "includes": {
-      "description": "Check whether a list contains a specific item (provided by level stdlib)",
-      "category": "List Operations"
+      "description": "Ellenőrzi, hogy egy lista tartalmaz-e egy adott elemet (a feladat stdlib-je biztosítja).",
+      "category": "Listaműveletek"
     }
   }
 }

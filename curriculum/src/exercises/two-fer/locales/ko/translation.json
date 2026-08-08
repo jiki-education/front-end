@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "moreThanSixLines": "6줄보다 많은 코드를 사용했어요."
+  },
+  "tasks": {
+    "createTwoFerFunction": {
+      "name": "둘을 하나로 함수 작성하기",
+      "description": "이름을 받아 'One for [name], one for me.'를 반환하는 twoFer 함수를 작성해요. 이름이 주어지지 않으면(빈 문자열) 'you'를 사용해요."
+    },
+    "solveInSixLines": {
+      "name": "6줄로 풀기",
+      "description": "이 문제를 단 6줄의 코드로 풀 수 있을까요?"
+    }
+  },
+  "scenarios": {
+    "twoFerDefault": {
+      "name": "이름이 주어지지 않음",
+      "description": "이름이 주어지지 않으면 'One for you, one for me.'를 반환해요."
+    },
+    "twoFerAlice": {
+      "name": "'Alice'가 주어짐",
+      "description": "이름이 'Alice'이므로 'One for Alice, one for me.'를 반환해요."
+    },
+    "twoFerTom": {
+      "name": "'Tom'이 주어짐",
+      "description": "이름이 'Tom'이므로 'One for Tom, one for me.'를 반환해요."
+    },
+    "bonus1": {
+      "name": "6줄의 코드",
+      "description": "단 6줄의 코드로 문제를 풀어요."
+    }
+  },
+  "hints": {
+    "whatChanges": {
+      "question": "입력에 따라 무엇이 달라지나요?",
+      "answer": "단 한 가지예요. 문장 중간에 있는 이름이에요. 이름이 주어지면 그 이름을 사용하고, 없으면 기본값 `\\\"you\\\"`를 사용해요."
+    },
+    "checkGivenName": {
+      "question": "'이름이 주어졌는지'를 어떻게 확인할까요?",
+      "answer": "입력값을 빈 문자열 \\\"\\\"과 비교하는 if문을 사용해요. 빈 문자열이면 \\\"you\\\"를 사용하고, 그렇지 않으면 입력값을 사용해요."
+    },
+    "buildSentence": {
+      "question": "최종 문장을 어떻게 만들까요?",
+      "answer": "세 조각(`\\\"One for \\\"`, 선택한 이름, 그리고 `\\\", one for me.\\\"`)을 연결(`+`)이나 템플릿 문자열로 합쳐요."
+    }
+  }
+}

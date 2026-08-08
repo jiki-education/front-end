@@ -1,0 +1,52 @@
+{
+  "beta_user": {
+    "name": "Usuario Beta",
+    "description": "Te uniste a Jiki durante la beta",
+    "funFact": "Los usuarios beta ayudan a dar forma al futuro de Jiki. ¡Gracias por creer en nosotros desde el principio!"
+  },
+  "early_bird": {
+    "name": "Madrugador",
+    "description": "Completaste una lección en la madrugada",
+    "funFact": "Al que madruga, Dios le ayuda. ¡Programar antes de que el mundo despierte es un superpoder!"
+  },
+  "first_lesson": {
+    "name": "Primeros Pasos",
+    "description": "Completaste tu primera lección",
+    "funFact": "La parte más difícil de cualquier viaje es dar el primer paso. ¡Lo lograste!"
+  },
+  "maze_navigator": {
+    "name": "Navegante de Laberintos",
+    "description": "Completaste la lección Resuelve un laberinto",
+    "funFact": "¡Los algoritmos para resolver laberintos se usan en robótica, inteligencia artificial de videojuegos e incluso en navegación GPS!"
+  },
+  "member": {
+    "name": "Miembro",
+    "description": "Te uniste a Jiki",
+    "funFact": "¡Bienvenido a la comunidad! Todo experto alguna vez fue principiante."
+  },
+  "night_owl": {
+    "name": "Búho Nocturno",
+    "description": "Completaste una lección en altas horas de la noche",
+    "funFact": "Jeremy creció programando hasta altas horas de la noche. ¡Hay algo mágico en programar cuando el mundo duerme!"
+  },
+  "premium": {
+    "name": "Premium",
+    "description": "Te convertiste en miembro Premium",
+    "funFact": "¡Gracias por apoyar a Jiki! Tu membresía premium nos ayuda a seguir construyendo."
+  },
+  "scenario_handler": {
+    "name": "Manejador de Escenarios",
+    "description": "Resolviste un ejercicio con escenarios",
+    "funFact": "En el mundo real, nos referimos a los \"escenarios\" como \"pruebas\" y las escribimos para verificar que nuestro código funcione de diferentes maneras."
+  },
+  "sidekick": {
+    "name": "Compañero",
+    "description": "Enviaste tu primer mensaje a Jiki",
+    "funFact": "Dos cabezas piensan mejor que una. ¡Gracias por conversar con Jiki!"
+  },
+  "townsfolk": {
+    "name": "Vecino",
+    "description": "Te uniste al foro de la comunidad de Jiki",
+    "funFact": "La mejor manera de aprender es enseñar. ¡Bienvenido a la conversación!"
+  }
+}

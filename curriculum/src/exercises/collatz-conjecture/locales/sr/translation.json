@@ -1,0 +1,40 @@
+{
+  "tasks": {
+    "calculateCollatzSteps": {
+      "name": "Izračunaj Collatzove korake",
+      "description": "Napiši funkciju koja prima broj i vraća koliko je koraka potrebno da se stigne do 1 po pravilima Collatzove hipoteze: ako je paran, podeli sa 2; ako je neparan, pomnoži sa 3 i dodaj 1."
+    }
+  },
+  "scenarios": {
+    "number1": {
+      "name": "Broj 1",
+      "description": "Nula koraka za jedan."
+    },
+    "number16": {
+      "name": "Broj 16",
+      "description": "Podeli ako je paran."
+    },
+    "number12": {
+      "name": "Broj 12",
+      "description": "Parne i neparne korake."
+    },
+    "number1000000": {
+      "name": "Broj 1000000",
+      "description": "Veliki broj parnih i neparnih koraka."
+    }
+  },
+  "hints": {
+    "loopUntilOne": {
+      "question": "Kako da nastavim dok broj ne dostigne 1?",
+      "answer": "Koristi `repeat()` petlju bez broja — ponavlja se beskonačno sve dok iz nje ne izađeš pomoću `return`-a. Unutar petlje, zameni broj sledećim brojem u nizu, a kada broj dostigne 1, pozovi `return`."
+    },
+    "chooseRule": {
+      "question": "Kako da odlučim koje pravilo da primenim u svakom koraku?",
+      "answer": "Proveri da li je broj paran. Operator modulo to radi. `number % 2 === 0` znači da je paran. Ako je paran, prepolovi ga. U suprotnom, izračunaj `3 * number + 1`."
+    },
+    "trackSteps": {
+      "question": "Kako da pratim odgovor (broj koraka)?",
+      "answer": "Koristi brojačku promenljivu koja pamti koliko si puta primenio pravila. Razmisli šta treba da joj se desi u svakom krugu petlje i šta tvoja funkcija treba da vrati kada broj dostigne 1."
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "errors": {
+    "positionNotNumber": "positionは数値である必要があります。"
+  },
+  "checks": {
+    "ballNotAtEnd": "ボールが穴に到達しませんでした。位置は{{ballX}}ですが、位置88に到達する必要があります。",
+    "missingPositions": "ボールは、各位置を順番に経由して転がる必要があります。最後まで直接ジャンプしないでください。"
+  },
+  "tasks": {
+    "rollBall": {
+      "name": "ボールを穴に転がす",
+      "description": "ボールを穴に転がします。"
+    }
+  },
+  "scenarios": {
+    "rollBall": {
+      "name": "ボールを穴に転がす",
+      "description": "ボールを穴に転がします。"
+    }
+  },
+  "hints": {
+    "dontKnowWhereToStart": {
+      "question": "どこから始めればいいかわかりません。",
+      "answer": "ポイントは、ボールを1ずつ前に進めることです。そのために変数を使うことができます。どうすればいいか考えてみましょう。"
+    },
+    "stillCantFigureItOut": {
+      "question": "それでもわかりません。",
+      "answer": "ボールの位置を追跡するための変数を作成します。その変数は現在の位置から始め、何度も1ずつ増やします。1増やすたびに、その変数を入力として`moveTo(...)`を使ってください。"
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "ボールを**position**に移動します。",
+      "category": "移動"
+    }
+  },
+  "describers": {
+    "moveTo": "ボールを位置${arg1}に移動しました。"
+  }
+}

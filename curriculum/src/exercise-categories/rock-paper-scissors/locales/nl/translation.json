@@ -1,0 +1,11 @@
+{
+  "errors": {
+    "invalidResult": "O nee! Je hebt een ongeldig resultaat omgeroepen. Er heerst chaos in de speelzaal! Roep alsjeblieft \"Yuki\", \"Ando\" of \"tie\" om.",
+    "wrongResult": "O nee! Je hebt het verkeerde resultaat omgeroepen. Er heerst chaos in de speelzaal!\n\nJe had `\"{{expected}}\"` moeten omroepen, maar je riep `\"{{got}}\"` om."
+  },
+  "describers": {
+    "announceResult": "riep het resultaat van het spel om als ${arg1}",
+    "getYukiChoice": "gaf Yuki's keuze terug",
+    "getAndoChoice": "gaf Ando's keuze terug"
+  }
+}

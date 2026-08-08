@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "استخدام الدوال"
+  },
+  "strings-and-colors": {
+    "title": "النصوص والألوان"
+  },
+  "repeat-loop": {
+    "title": "حلقة التكرار"
+  },
+  "variables": {
+    "title": "المتغيّرات"
+  },
+  "basic-state": {
+    "title": "الحالة الأساسية"
+  },
+  "functions-that-return-things": {
+    "title": "دوال تُرجع قيمًا"
+  },
+  "conditionals": {
+    "title": "الشروط"
+  },
+  "complex-conditionals": {
+    "title": "الشروط المركّبة"
+  },
+  "conditionals-and-state": {
+    "title": "الشروط والحالة"
+  },
+  "make-your-own-functions": {
+    "title": "اصنع دوالك الخاصة"
+  },
+  "string-manipulation": {
+    "title": "معالجة النصوص"
+  },
+  "string-iteration": {
+    "title": "المرور على النصوص"
+  },
+  "multiple-functions": {
+    "title": "استخدام عدة دوال معًا"
+  },
+  "methods-and-properties": {
+    "title": "الأساليب والخصائص"
+  },
+  "advanced-loops": {
+    "title": "حلقات متقدّمة"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "القواميس"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "كل شيء"
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "welcome-to-coding-fundamentals": {
+    "title": "プログラミングの基礎へようこそ",
+    "description": "Jikiに会って、プログラミングの基本的な仕組みを学びましょう。"
+  },
+  "using-functions": {
+    "title": "関数を使う",
+    "description": "関数について学びます。関数は、物事を起こす小さな機械のようなものです。"
+  },
+  "function-inputs": {
+    "title": "入力を受け取る関数（数値）",
+    "description": "関数に追加の情報を渡す方法を学びます。"
+  },
+  "strings": {
+    "title": "文字列",
+    "description": "プログラムでテキストを使う方法を学びます。"
+  },
+  "repeat-loop": {
+    "title": "繰り返しループ",
+    "description": "Jikiに、ある処理を何度も繰り返すように指示する方法を学びます。"
+  },
+  "creating-variables": {
+    "title": "変数の作成と使用",
+    "description": "プログラムで情報を保存したり取り出したりする方法を学びます。"
+  },
+  "variables-together": {
+    "title": "計算と変数",
+    "description": "変数を使って計算する方法を学びます。"
+  },
+  "updating-variables": {
+    "title": "変数の更新",
+    "description": "コードの実行中に変数の値を変更する方法を学びます。"
+  },
+  "functions-that-return-things": {
+    "title": "戻り値のある関数",
+    "description": "関数が情報を返す仕組みを学びます。"
+  },
+  "colors": {
+    "title": "色（HSL と RGB）",
+    "description": "正確な色を指定するさまざまな方法を学びます。"
+  },
+  "animation": {
+    "title": "アニメーション",
+    "description": "画面上で物を動かす方法を学びます。"
+  },
+  "random-numbers": {
+    "title": "ランダムな数値",
+    "description": "プログラムにランダム性を加える方法を学びます。"
+  },
+  "scope": {
+    "title": "スコープ",
+    "description": "コードブロックの内側と外側で、変数がどのように扱われるかを学びます。"
+  },
+  "scenarios": {
+    "title": "シナリオ",
+    "description": "異なる開始条件でコードを実行する方法を学びます。"
+  },
+  "nested-loops": {
+    "title": "入れ子のループ",
+    "description": "ループの中に別のループを入れる方法を学びます。"
+  },
+  "if-statements": {
+    "title": "if文",
+    "description": "状況に応じてコードの動作を変える方法を学びます。"
+  },
+  "else-statements": {
+    "title": "else と else if",
+    "description": "複数の異なる条件を扱う方法を学びます。"
+  },
+  "logic-gates": {
+    "title": "論理演算",
+    "description": "条件を組み合わせる方法を学びます。"
+  },
+  "remainder": {
+    "title": "余りと否定",
+    "description": "余りの計算と、条件を反転させる方法を学びます。"
+  },
+  "repeat-without-count": {
+    "title": "入力なしの繰り返し",
+    "description": "あらかじめ繰り返し回数がわからなくても、ループを実行する方法を学びます。"
+  },
+  "state": {
+    "title": "状態",
+    "description": "変化するデータと条件を組み合わせる方法を学びます。"
+  },
+  "making-functions": {
+    "title": "独自の関数を作る",
+    "description": "再利用できる自分だけの機械（関数）を作る方法を学びます。"
+  },
+  "making-functions-with-inputs": {
+    "title": "関数に入力を追加する",
+    "description": "関数が入力を受け取れるようにする方法を学びます。"
+  },
+  "making-functions-with-return-values": {
+    "title": "関数に戻り値を追加する",
+    "description": "関数が結果を返すようにする方法を学びます。"
+  },
+  "string-concatenation": {
+    "title": "文字列の連結とテンプレート",
+    "description": "テキストの断片をつなぎ合わせる方法を学びます。"
+  },
+  "string-indexing": {
+    "title": "文字列のインデックス",
+    "description": "テキスト内の個々の文字にアクセスする方法を学びます。"
+  },
+  "string-iteration": {
+    "title": "文字列を繰り返し処理する",
+    "description": "テキストを1文字ずつ処理する方法を学びます。"
+  },
+  "using-multiple-functions-together": {
+    "title": "複数の関数を組み合わせて使う",
+    "description": "関数を組み合わせて、より大きな問題を解決する方法を学びます。"
+  },
+  "methods-and-strings": {
+    "title": "メソッドとプロパティ",
+    "description": "データに付属している組み込みツールを使う方法を学びます。"
+  },
+  "for-while-loops": {
+    "title": "高度なループ",
+    "description": "より細かく制御できる、本格的な JavaScript のループを学びます。"
+  },
+  "arrays": {
+    "title": "配列",
+    "description": "物の集まりを配列に保存する方法を学びます。"
+  },
+  "building-arrays": {
+    "title": "配列を作る",
+    "description": "配列を1つずつ組み立てていく方法を学びます。"
+  },
+  "dictionaries": {
+    "title": "辞書",
+    "description": "名前付きのラベルでデータを保存する方法を学びます。"
+  },
+  "updating-dictionaries": {
+    "title": "辞書を変更する",
+    "description": "辞書を更新したり修正したりする方法を学びます。"
+  }
+}

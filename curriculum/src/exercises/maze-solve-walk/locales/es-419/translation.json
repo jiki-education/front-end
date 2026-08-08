@@ -1,0 +1,43 @@
+{
+  "errors": {
+    "walkExpectsNumber": "walk() espera un número de pasos"
+  },
+  "describers": {
+    "walk": "Avanza hacia adelante una cantidad determinada de pasos"
+  },
+  "checks": {
+    "notReachedEnd": "No llegaste al final del laberinto."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Guía al personaje al final del laberinto",
+      "description": "Recorre el laberinto usando walk(), turnLeft() y turnRight() para llegar a la celda verde de destino."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Guía al personaje al final del laberinto",
+      "description": "Tu objetivo es llegar al destino."
+    }
+  },
+  "hints": {
+    "moveNotWorking": {
+      "question": "¿Por qué `move()` ya no funciona?",
+      "answer": "Cada ejercicio en Jiki tiene diferentes funciones que puedes usar. En este ejercicio, tienes la función `walk(...)`. Reemplaza la `n` por el número de pasos que quieras caminar. Así, `walk(1)` hace exactamente lo mismo que `move()` la última vez."
+    }
+  },
+  "functions": {
+    "walk": {
+      "description": "Mueve al personaje **hacia adelante la cantidad de pasos indicada** en la dirección actual. Cada paso avanza al personaje una celda. El personaje se detendrá y reportará un error si choca contra una pared.",
+      "category": "Movimiento"
+    },
+    "turnLeft": {
+      "description": "Gira al personaje **90 grados a la izquierda** (en sentido antihorario). Esto cambia la dirección en la que mira el personaje.",
+      "category": "Movimiento"
+    },
+    "turnRight": {
+      "description": "Gira al personaje **90 grados a la derecha** (en sentido horario). Esto cambia la dirección en la que mira el personaje.",
+      "category": "Movimiento"
+    }
+  }
+}

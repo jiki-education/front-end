@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "Lik nije stigao do kraja lavirinta."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Provedi lika do kraja lavirinta",
+      "description": "Prođi kroz lavirint i stigni do zelenog cilja"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Provedi lika do kraja lavirinta",
+      "description": "Tvoj zadatak je da provedeš svog lika kroz lavirint do zelenog polja koje je cilj."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "Šta pomeram i kuda?",
+      "answer": "Pomeraš malog lika, koji kreće iz gornjeg levog ugla, do zelenog kruga u donjem desnom uglu, zaobilazeći sva crveno prugasta polja."
+    },
+    "turnLeftTurnsRight": {
+      "question": "Kada skrenem levo, lik skreće desno!",
+      "answer": "Lik se okreće u odnosu na smer u kom trenutno gleda. Ako gleda udesno, a skrene levo, lik će se okrenuti nagore."
+    }
+  }
+}

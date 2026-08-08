@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "baseCircle": "밑판(아래쪽) 원이 맞지 않아요.",
+    "bodyCircle": "몸통(가운데) 원이 맞지 않아요.",
+    "headCircle": "머리(위쪽) 원이 맞지 않아요."
+  },
+  "tasks": {
+    "buildSnowman": {
+      "name": "눈사람 만들기",
+      "description": "원 세 개를 그려 눈사람을 만드세요."
+    }
+  },
+  "scenarios": {
+    "buildSnowman": {
+      "name": "눈사람 만들기",
+      "description": "원 세 개를 그려 눈사람을 만드세요."
+    }
+  },
+  "hints": {
+    "howToDrawCircle": {
+      "question": "캔버스에 원을 어떻게 그리나요?",
+      "answer": "`circle(centerX, centerY, radius)` 함수를 호출하세요. `centerX`는 중심 가로 좌표, `centerY`는 중심 세로 좌표, `radius`는 반지름을 나타내요."
+    },
+    "circlesHorizontalPosition": {
+      "question": "원들은 가로로 어디에 위치해야 하나요?",
+      "answer": "세 원 모두 가로 중심이 같아요. 그래서 각 원의 `centerX`는 `50`이에요 (캔버스 너비가 `100`이니까요)."
+    },
+    "howToStackCircles": {
+      "question": "세 개의 원을 어떻게 쌓아 올리나요?",
+      "answer": "밑판 원은 가장 크고 캔버스 아래쪽에 가까이 위치해요 (그래서 `centerY`가 커요). 위에 있는 원들은 `centerY`와 `radius`가 점점 작아져요."
+    },
+    "whatNumbersForRadii": {
+      "question": "각 원의 반지름은 어떤 숫자를 사용해야 하나요?",
+      "answer": "이 연습 문제의 모든 숫자는 `5`로 나누어 떨어져요. 밑판 반지름으로 `20`, 몸통은 `15`, 머리는 `10` 정도를 시도해 보고, 목표 이미지와 맞을 때까지 조정해 보세요."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "(`centerX`, `centerY`)를 중심으로, 주어진 반지름을 사용하여 원을 그려요.",
+      "category": "도형 그리기"
+    }
+  }
+}

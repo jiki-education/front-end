@@ -1,0 +1,266 @@
+{
+  "error": {
+    "syntax": {
+      "InvalidAssignmentTargetExpression": "Objetivo de asignación no válido. Solo puedes asignar a variables.",
+      "AssignmentInExpression": "Probablemente querías usar `===`, no `=`, para comparar dos valores, no para actualizar la variable. No está permitido asignar variables dentro de una sentencia en este editor.",
+      "StrictEqualityRequired": "Por favor cambia `==` por `===`.\n\nEn JavaScript completo, puedes usar `==` o `===` para ver si dos cosas son iguales. Sin embargo, generalmente se considera una buena práctica usar `===`, así que hemos desactivado `==` en Jiki.",
+      "StrictInequalityRequired": "Por favor cambia `!=` por `!==`.\n\nEn JavaScript completo, puedes usar `!=` o `!==` para ver si dos cosas son diferentes. Sin embargo, generalmente se considera una buena práctica usar `!==`, así que hemos desactivado `!=` en Jiki.",
+      "MissingBacktickToTerminateTemplateLiteral": "¿Olvidaste agregar un acento grave de cierre? Quizás quisiste escribir:\n\n``` `{{string}}` ```",
+      "QuoteUsedToTerminateTemplateLiteral": "¿Usaste `{{quote}}` en lugar de un acento grave `` ` `` para cerrar el template string? Quizás quisiste escribir:\n\n``` `{{string}}` ```",
+      "MissingDoubleQuoteToTerminateString": "¿Olvidaste agregar la comilla de cierre? Quizás quisiste escribir:\n\n```\"{{string}}\"```",
+      "MissingExpression": "Jiki no entendió qué hacer con {{token}} aquí.",
+      "MissingClassNameAfterNew": "Jiki esperaba el nombre de una clase después de `new`, pero no encontró ninguna.",
+      "UnexpectedElseWithoutMatchingIf": "No hay una sentencia `if` después de la cual venga este `else`. Revisa si tienes demasiadas (o muy pocas) llaves de cierre antes de esta línea.",
+      "MissingInitializerInConstDeclaration": "Falta el valor inicial en la declaración de la constante. Las constantes deben inicializarse cuando se declaran.",
+      "MissingInitializerInVariableDeclaration": "Falta el valor inicial en la declaración de la variable. Debes proporcionar un valor cuando declaras una variable con `let`.",
+      "ConstInForLoopInit": "No puedes usar `const` en un bucle `for` clásico. La variable del bucle necesita ser modificada (por ejemplo, i++), pero las variables `const` no pueden cambiar. Usa `let` en su lugar, o considera usar un bucle `for...of` si estás iterando sobre un array.",
+      "MissingLetInForOf": "Debes declarar la variable del bucle con `let`. Por ejemplo, escribe `for (let {{name}} of ...)` en lugar de `for ({{name}} of ...)`.\n\nEn JavaScript completo puedes omitir el `let` si ya declaraste la variable, pero es un caso poco común y lo hemos desactivado en esta versión del lenguaje.",
+      "MissingLetInForIn": "Debes declarar la variable del bucle con `let`. Por ejemplo, escribe `for (let {{name}} in ...)` en lugar de `for ({{name}} in ...)`.\n\nEn JavaScript completo puedes omitir el `let` si ya declaraste la variable, pero es un caso poco común y lo hemos desactivado en esta versión del lenguaje.",
+      "MissingLetInForLoopInit": "Debes declarar la variable del bucle con `let`. Por ejemplo, escribe `for (let i = 0; ...)` en lugar de `for (i = 0; ...)`.\n\nEn JavaScript completo puedes omitir el `let` si ya declaraste la variable, pero es un caso poco común y lo hemos desactivado en esta versión del lenguaje.",
+      "UnexpectedDoubleIdentifier": "Jiki no entendió qué querías que hiciera aquí.",
+      "MissingDeclarationKeywordWithSuggestion": "¿Quisiste decir `{{suggestion}}` en lugar de `{{name}}`? Las declaraciones de variables deben comenzar con `let` o `const`.",
+      "MissingLeftParenthesisAfterIf": "Falta el paréntesis de apertura `(` después de la palabra clave `if`.",
+      "MissingRightBraceAfterBlock": "Falta la llave de cierre `}` después de la sentencia de bloque.",
+      "MissingRightBraceInTemplateLiteral": "Jiki no pudo encontrar una llave de cierre (`}`) en este template literal. Revisa si la olvidaste o hubo un error tipográfico. La forma correcta es ``` `...${...}...` ```.",
+      "MissingRightBracketInArray": "Falta el corchete de cierre `]` para cerrar el array.",
+      "MissingRightBracketInMemberAccess": "Falta el corchete de cierre `]` después del índice del array.",
+      "MissingRightParenthesisAfterExpression": "Falta el paréntesis de cierre `)` después de la expresión.",
+      "MissingRightParenthesisAfterIfCondition": "Falta el paréntesis de cierre `)` después de la condición del `if`.",
+      "MissingRightParenthesisAfterFunctionCall": "¿Olvidaste el paréntesis de cierre `)` al llamar a la función {{function}}?",
+      "MissingEndOfLine": "Jiki no esperaba que `{{current}}` apareciera aquí después de `{{previous}}`.",
+      "MissingVariableName": "Falta el nombre de la variable en la declaración. Debes proporcionar un nombre después de `let`.",
+      "MultipleStatementsPerLine": "En Jiki, solo puedes poner una sentencia por línea. No puedes separar varias sentencias con punto y coma. Por favor, pon la segunda sentencia en su propia línea.",
+      "TrailingCommaInArray": "No se permiten comas al final en los arrays.",
+      "TrailingCommaInDictionary": "No se permiten comas al final en los objetos.",
+      "InvalidDictionaryKey": "Clave de objeto no válida. Las claves deben ser identificadores, strings o números.",
+      "MissingColonInDictionary": "Falta dos puntos `:` después de la clave del objeto.",
+      "DuplicateDictionaryKey": "Clave `{{key}}` duplicada en el objeto literal.",
+      "MissingRightBraceInDictionary": "Falta la llave de cierre `}` para cerrar el objeto.",
+      "UnimplementedToken": "La funcionalidad `{{lexeme}}` no está disponible aún en tu nivel actual.",
+      "PermanentlyExcludedToken": "La funcionalidad `{{lexeme}}` no está disponible en esta versión de JavaScript.",
+      "UnknownCharacter": "Jiki no entendió qué hacer con {{character}} aquí.",
+      "UnterminatedBlockComment": "Jiki no pudo encontrar el `*/` necesario para cerrar este comentario de bloque.",
+      "NestedFunctionDeclaration": "Las declaraciones de funciones solo se permiten en el nivel superior, no dentro de bloques u otras funciones.",
+      "MissingFunctionName": "Falta el nombre de la función después de la palabra clave `function`.",
+      "MissingLeftParenthesisAfterFunctionName": "Falta el paréntesis de apertura `(` después del nombre de la función.",
+      "MissingParameterName": "Falta el nombre del parámetro en la declaración de la función.",
+      "DuplicateParameterName": "Nombre de parámetro `{{name}}` duplicado en la declaración de la función.",
+      "MissingRightParenthesisAfterParameters": "Falta el paréntesis de cierre `)` después de los parámetros de la función.",
+      "MissingLeftBraceBeforeFunctionBody": "Falta la llave de apertura `{` antes del cuerpo de la función.",
+      "BreakStatementNotAllowed": "Jiki no te permite usar `break` en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "ContinueStatementNotAllowed": "Jiki no te permite usar `continue` en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "FunctionDeclarationNotAllowed": "Jiki no te permite crear tus propias funciones en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "ReturnStatementNotAllowed": "Jiki no te permite usar `return` en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "RepeatStatementNotAllowed": "Jiki no te permite usar `repeat` en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "UpdateExpressionNotAllowed": "Jiki no te permite usar `++` o `--` en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "LiteralExpressionNotAllowed": "Jiki no te permite usar valores simples como números, strings y booleanos en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "BinaryExpressionNotAllowed": "Jiki no te permite usar operadores como `+`, `-` o `>` en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "LogicalExpressionNotAllowed": "Jiki no te permite usar operadores lógicos como `&&` o `||` en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "UnaryExpressionNotAllowed": "Jiki no te permite poner `-` o `!` delante de un valor en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "GroupingExpressionNotAllowed": "Jiki no te permite usar paréntesis para agrupar cosas en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "IdentifierExpressionNotAllowed": "Jiki no te permite usar el valor de una variable en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "AssignmentExpressionNotAllowed": "Jiki no te permite cambiar una variable en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "TemplateLiteralExpressionNotAllowed": "Jiki no te permite usar plantillas de string con acentos graves en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "ArrayExpressionNotAllowed": "Jiki no te permite usar arrays en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "IndexExpressionNotAllowed": "Jiki no te permite buscar elementos con corchetes en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "MemberExpressionNotAllowed": "Jiki no te permite usar un punto para leer una propiedad en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "DictionaryExpressionNotAllowed": "Jiki no te permite crear objetos con llaves en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "CallExpressionNotAllowed": "Jiki no te permite usar llamadas a funciones en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "ExpressionStatementNotAllowed": "Jiki no te permite escribir una línea que solo tenga una expresión en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "VariableDeclarationNotAllowed": "Jiki no te permite crear variables con `let` en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "BlockStatementNotAllowed": "Jiki no te permite agrupar líneas de código dentro de `{ }` en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "IfStatementNotAllowed": "Jiki no te permite usar `if` en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "ForStatementNotAllowed": "Jiki no te permite usar bucles `for` clásicos en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "ForOfStatementNotAllowed": "Jiki no te permite usar bucles `for…of` en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "WhileStatementNotAllowed": "Jiki no te permite usar bucles `while` en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "UnexpectedTokenInTemplateLiteral": "Jiki no esperaba un {{token}} aquí.",
+      "MissingLeftParenAfterRepeat": "Falta el paréntesis de apertura `(` después de `repeat`.",
+      "MissingRightParenAfterRepeatCount": "Falta el paréntesis de cierre `)` después del número de repeticiones.",
+      "ForInStatementNotAllowed": "Jiki no te permite usar bucles `for…in` en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "NewExpressionNotAllowed": "Jiki no te permite usar `new` en este ejercicio. Intenta resolver el ejercicio solo con los conceptos que hemos visto en las lecciones.",
+      "BlockRequired": "Necesitas usar llaves `{ }` después de `{{keyword}}`."
+    },
+    "lint": {
+      "ClosingBraceNotOnOwnLine": "Pon la llave de cierre `}` en su propia línea para mantener el orden.",
+      "OpeningBraceContentNotOnOwnLine": "Pon el código dentro de las llaves en una línea nueva para mantener el orden.",
+      "IncorrectIndentation": "Jiki esperaba {{expected}} espacios de sangría aquí, pero esta línea tiene {{actual}} espacios.\n\nMantener tu código correctamente sangrado te ayudará a evitar muchos errores, ya que podrás entender claramente cómo está anidado el código.",
+      "IncorrectIndentationAtTopLevel": "Jiki esperaba {{expected}} espacios de sangría al inicio de la línea, pero no hay ninguno.\n\nMantener tu código correctamente sangrado te ayudará a evitar muchos errores, ya que podrás entender claramente cómo está anidado el código."
+    },
+    "runtime": {
+      "FunctionExecutionError": "Error al ejecutar la función `{{function}}`: {{message}}",
+      "IndexOutOfRange": "Este array solo tiene {{length}} elementos, pero intentaste acceder al índice {{index}}. Recuerda que el primer elemento tiene el índice 0 en JavaScript.",
+      "StringIndexOutOfRange": "Este string solo tiene {{length}} caracteres, pero intentaste acceder al índice {{index}}. Recuerda que el primer carácter tiene el índice 0 en JavaScript.",
+      "ComparisonWithUndefined": "Intentaste comparar dos valores, pero uno de ellos no tenía ningún valor asignado. No deberías poder hacer esto en Jiki, así que por favor abre un tema en el foro con tu código para que podamos investigar.",
+      "ComparisonWithUndefinedFromFunction": "Intentaste comparar el resultado de una función que no devolvió nada. Asegúrate de que la función `{{name}}` devuelva un valor en todas las situaciones antes de comparar su resultado.",
+      "AssignmentToUndefined": "Intentaste almacenar un valor que no está definido. Una variable siempre debe contener un valor real.",
+      "AssignmentToUndefinedFromFunction": "Intentaste almacenar el resultado de una función que no devuelve nada. Asegúrate de que la función devuelva un valor antes de almacenar su resultado.",
+      "UpdateOperatorRequiresNumber": "Jiki no puede usar {{operator}} en un {{type}} - solo en números.",
+      "PropertyNotFound": "La propiedad `{{property}}` no existe en {{type}}.",
+      "MethodUsedWithoutParentheses": "La propiedad `{{property}}` no existe en {{type}}. ¿Quisiste usar el método `{{property}}`? Si es así, recuerda que debes agregar paréntesis como lo harías con una función normal.",
+      "ShadowingDisabled": "El sombreado de variables está desactivado. La variable `{{name}}` ya está declarada en un ámbito exterior.",
+      "VariableAlreadyDeclared": "La variable `{{name}}` ya ha sido declarada en este ámbito. Usa un nombre diferente o asigna a la variable existente en su lugar.",
+      "AssignmentToConstant": "No se puede reasignar la variable constante `{{name}}`. Las constantes no pueden cambiarse después de ser declaradas.",
+      "TruthinessDisabled": "Solo se permiten valores booleanos en las condiciones, pero se obtuvo `{{value}}`.",
+      "ArrayIndexNotNumber": "Solo puedes usar un número como índice de array, como `myArray[0]`.",
+      "ArrayIndexNotInteger": "Solo puedes usar un número entero como índice de array - los decimales como `1.5` no funcionan.",
+      "StringIndexNotNumber": "Solo puedes buscar un carácter en un string usando un número, como `myString[0]`.",
+      "StringIndexNotInteger": "Solo puedes buscar un carácter en un string usando un número entero - los decimales como `1.5` no funcionan.",
+      "ComputedAccessNotAllowedForStdlib": "Necesitas usar un punto para acceder a esto, como `myArray.length`, en lugar de corchetes.",
+      "ComputedAccessNotAllowedForBuiltin": "Necesitas usar un punto para acceder a esto, como `Math.max`, en lugar de corchetes.",
+      "CannotReadPropertiesOfType": "No puedes leer una propiedad de un {{type}}.",
+      "CannotSetPropertyOfType": "No puedes establecer una propiedad en un {{type}}.",
+      "BracketNotationNotAllowedOnInstance": "No puedes usar corchetes en una instancia de clase - usa un punto en su lugar, como `myObject.property`.",
+      "NotCallable": "No puedes usar {{callableType}} como una función e intentar ejecutarla.",
+      "VariableNotDeclared": "Jiki no pudo encontrar una variable llamada `{{name}}`.",
+      "ReturnOutsideFunction": "Usaste la palabra clave `return`, pero no estás dentro de una función. Las sentencias `return` solo pueden usarse dentro de funciones.",
+      "BreakOutsideLoop": "Usaste la palabra clave `break`, pero no estás dentro de un bucle. Las sentencias `break` solo pueden usarse dentro de bucles `for` o `while`.",
+      "ContinueOutsideLoop": "Usaste la palabra clave `continue`, pero no estás dentro de un bucle. Las sentencias `continue` solo pueden usarse dentro de bucles `for` o `while`.",
+      "ForOfLoopTargetNotIterable": "El bucle `for...of` requiere un valor iterable (como un array o string), pero proporcionaste un {{type}} con valor {{value}}.",
+      "MethodNotYetImplemented": "El método `{{method}}` es válido, pero aún no está disponible para ti.",
+      "MethodNotYetAvailable": "El método `{{method}}` no está disponible en tu nivel actual de aprendizaje. ¡Sigue progresando para desbloquear esta funcionalidad!",
+      "PropertyNotYetAvailable": "La propiedad `{{property}}` no está disponible en tu nivel actual de aprendizaje. ¡Sigue progresando para desbloquear esta funcionalidad!",
+      "MaxIterationsReached": "Tu código se ejecutó demasiado tiempo y fue detenido para evitar un bucle infinito. El número máximo de veces que los bucles pueden ejecutarse en este ejercicio es {{max}}.",
+      "RepeatCountMustBeNumber": "repeat() requiere un número, pero se obtuvo {{type}}.",
+      "RepeatCountMustBeNonNegative": "El número de repeticiones de repeat() debe ser 0 o mayor, pero se obtuvo {{value}}.",
+      "RepeatCountTooHigh": "El número de repeticiones {{value}} excede el máximo de {{max}} iteraciones.",
+      "FunctionAlreadyDefined": "Ya existe una función llamada `{{name}}`. Por favor elige un nombre diferente.",
+      "TypeCoercionNotAllowed": "No se permite la coerción de tipos entre {{leftType}} y {{rightType}} con el operador `{{operator}}`.",
+      "UnaryTypeCoercionNotAllowed": "No se permite la coerción de tipos: el operador `{{operator}}` no puede aplicarse a un {{operand}}.",
+      "ComparisonRequiresNumber": "El operador `{{operator}}` requiere que ambos valores sean números.",
+      "NodeNotAllowed": "{{nodeType}} no está permitido en tu nivel actual de aprendizaje.",
+      "InvalidNumberOfArguments_exact": "Esta función tiene $t(phrases.slotCount, {\"count\": {{expected}} }) pero proporcionaste $t(phrases.inputCount, {\"count\": {{got}} }) para que Jiki use con ella.",
+      "InvalidNumberOfArguments_atLeast": "Esta función necesita al menos $t(phrases.slotCount, {\"count\": {{expected}} }) pero proporcionaste $t(phrases.inputCount, {\"count\": {{got}} }) para que Jiki use con ella.",
+      "InvalidNumberOfArguments_range": "Esta función tiene entre {{min}} y {{max}} ranuras de entrada pero proporcionaste $t(phrases.inputCount, {\"count\": {{got}} }) para que Jiki use con ella.",
+      "FunctionNotFound": "Jiki no pudo encontrar una función llamada `{{name}}`.",
+      "LogicErrorInExecution": "{{message}}",
+      "ForInLoopTargetNotObject": "El bucle `for...in` requiere un objeto sobre el cual iterar, pero proporcionaste un {{type}} con valor {{value}}.",
+      "InOperatorRequiresObject": "El operador `in` requiere un objeto/diccionario en el lado derecho, pero le diste un {{type}}.",
+      "InOperatorRequiresStringKey": "El operador `in` requiere una clave de tipo string en el lado izquierdo, pero le diste un {{type}}.",
+      "InOperatorRequiresIntegerIndex": "El operador `in` requiere un índice entero cuando se usa con arrays, pero le diste un {{type}}.",
+      "InWithArrayNotAllowed": "Aunque la palabra clave `in` puede usarse con arrays, es una funcionalidad más avanzada. Por ahora, limítate a usarla solo con diccionarios.",
+      "ClassNotFound": "La clase `{{name}}` no está definida.",
+      "PropertyNotFoundOnInstance": "La propiedad `{{property}}` no existe en las instancias de `{{className}}`.",
+      "UnexpectedUncalledFunction": "Hiciste referencia a la función `{{name}}` pero en realidad no la usaste. ¿Olvidaste agregar `()` al final?"
+    },
+    "disabledLanguageFeature": {
+      "DisabledFeatureExcludeListViolation": "La funcionalidad `{{lexeme}}` no está disponible aún en tu nivel actual.",
+      "DisabledFeatureIncludeListViolation": "La funcionalidad `{{lexeme}}` no está disponible aún en tu nivel actual."
+    },
+    "stdlib": {
+      "StdlibExactArgs": "{{functionName}}() tiene {{expected}} ranura(s) de entrada, pero solo proporcionaste {{received}} cosa(s) para poner en ellas.",
+      "StdlibAtLeastArgs": "{{functionName}}() tiene al menos {{minimum}} ranura(s) de entrada, pero solo proporcionaste {{received}} cosa(s) para poner en ellas.",
+      "StdlibArgRange": "{{functionName}}() tiene entre {{min}} y {{max}} ranuras de entrada, pero solo proporcionaste {{received}} cosa(s) para poner en ellas.",
+      "StdlibArgTypeMismatch": "{{functionName}}() esperaba que {{argName}} fuera un {{expected}}, pero le diste un {{received}}.",
+      "StdlibArgMustBeInteger": "{{functionName}}() esperaba que {{argName}} fuera un número entero, pero le diste {{value}}.",
+      "MethodNotYetImplemented": "El método `{{method}}` es válido, pero aún no está disponible para ti.",
+      "StdlibRandomIntMinGreaterThanMax": "randomInt() esperaba que el primer número ({{min}}) fuera menor o igual que el segundo número ({{max}}).",
+      "NumberConversionFailed": "Jiki intentó convertir `{{value}}` a un número, pero no es un número válido. Agrega algunas comprobaciones antes de usar `Number(str)`."
+    }
+  },
+  "phrases": {
+    "slotCount_one": "una ranura de entrada",
+    "slotCount_other": "{{count}} ranuras de entrada",
+    "inputCount_one": "una entrada",
+    "inputCount_other": "{{count}} entradas"
+  },
+  "description": {
+    "assignmentExpression": {
+      "element_put": "Jiki puso {{value}} en la ranura en el índice {{index}} del array.",
+      "variable_found": "Jiki encontró la caja {{name}}.",
+      "variable_put": "Jiki puso {{value}} en la caja."
+    },
+    "binaryExpression": {
+      "evaluated": "Jiki evaluó {{expr}} y determinó que era {{value}}."
+    },
+    "breakStatement": {
+      "result": "Esta línea salió inmediatamente del bucle.",
+      "step": "Jiki vio esto y decidió continuar después de este bucle."
+    },
+    "callExpression": {
+      "logResult": "Esto registró <code>{{output}}</code>.",
+      "logResultBlank": "Esto imprimió una línea en blanco.",
+      "logStep": "¡Jiki escribió <code>{{output}}</code> aquí para ti!",
+      "logStepBlank": "¡Jiki escribió una línea en blanco aquí para ti!",
+      "summary": "Esto usó la función {{fn}}.",
+      "used": "Jiki usó la función {{call}}.",
+      "usedReturned": "Jiki usó la función {{call}}, que devolvió {{value}}."
+    },
+    "common": {
+      "defaultFunctionName": "una función"
+    },
+    "continueStatement": {
+      "result": "Esta línea dejó de ejecutar más código en esta iteración.",
+      "step": "Jiki vio esto y decidió pasar a la siguiente iteración."
+    },
+    "expressionStatement": {
+      "callResult": "Esto usó la función {{functionName}}.",
+      "result_default": "Esta expresión se evaluó como <code>{{value}}</code>.",
+      "step_default": "Jiki evaluó esta expresión y obtuvo <code>{{value}}</code>."
+    },
+    "forInStatement": {
+      "result_empty": "El objeto estaba vacío, así que esta línea no hizo nada.",
+      "result_iteration_ordinal_other": "Esta línea inició la {{count}}.ª iteración con la variable {{name}} establecida en {{value}}.",
+      "step_create": "Jiki creó una nueva caja llamada {{name}}.",
+      "step_empty": "Jiki revisó el objeto, vio que estaba vacío y decidió no hacer nada más en esta línea.",
+      "step_put": "Jiki puso {{value}} en la caja y la colocó en el estante, lista para usar en el bloque de código."
+    },
+    "forOfStatement": {
+      "result_empty": "El {{type}} estaba vacío, así que esta línea no hizo nada.",
+      "result_iteration_ordinal_other": "Esta línea inició la {{count}}.ª iteración con la variable {{name}} establecida en {{value}}.",
+      "step_create": "Jiki creó una nueva caja llamada {{name}}.",
+      "step_empty": "Jiki revisó el {{type}}, vio que estaba vacío y decidió no hacer nada más en esta línea.",
+      "step_put": "Jiki puso {{value}} en la caja y la colocó en el estante, lista para usar en el bloque de código."
+    },
+    "identifierExpression": {
+      "lookup": "Jiki tomó la caja llamada {{name}} del estante y sacó {{value}} de ella."
+    },
+    "ifStatement": {
+      "result_false": "La condición se evaluó como <code>false</code>, así que el bloque de código no se ejecutó.",
+      "result_false_else": "La condición se evaluó como <code>false</code>, así que se ejecutó el bloque else.",
+      "result_true": "La condición se evaluó como <code>true</code>, así que se ejecutó el bloque de código.",
+      "step_false": "El resultado fue <code>false</code>, así que Jiki decidió saltarse el bloque if.",
+      "step_false_else": "El resultado fue <code>false</code>, así que Jiki decidió ejecutar el bloque else.",
+      "step_true": "El resultado fue <code>true</code>, así que Jiki decidió ejecutar el bloque if."
+    },
+    "logicalExpression": {
+      "evaluated": "Jiki evaluó {{expr}} y determinó que el resultado era {{value}}.",
+      "shortCircuited": "Jiki vio que el lado izquierdo del {{operator}} era {{value}}, así que no se molestó en mirar el lado derecho."
+    },
+    "memberExpression": {
+      "array": "Jiki obtuvo el elemento en el índice {{index}} del array y determinó que era {{value}}.",
+      "string": "Jiki obtuvo el carácter en el índice {{index}} del string y determinó que era {{value}}."
+    },
+    "repeatStatement": {
+      "foreverResult_ordinal_other": "Esta línea inició la {{count}}.ª iteración de este bloque repeat.",
+      "foreverStep_ordinal_other": "Jiki inició la {{count}}.ª iteración del bucle repeat.",
+      "repeatResult_ordinal_other": "Esta línea inició la {{count}}.ª iteración de este bloque repeat.",
+      "repeatStep": "Jiki aumentó su contador interno para este bucle a <code>{{iteration}}</code>, verificó <code>{{iteration}} &le; {{countValue}}</code> y decidió ejecutar el bloque de código.",
+      "zeroResult": "Se le pidió al bloque repeat que se ejecutara <code>0</code> veces, así que esta línea no hizo nada.",
+      "zeroStep": "Jiki vio que el bucle debía ejecutarse <code>0</code> veces, así que decidió no hacer nada más en esta línea."
+    },
+    "returnStatement": {
+      "final": "Jiki limpió y salió de la función.",
+      "naked_result": "Esto finalizó la función. No se ejecutó más código dentro de la función.",
+      "value_chute": "Jiki puso {{value}} en la rampa de salida.",
+      "value_result": "Esto devolvió {{value}} y finalizó la función. No se ejecutó más código dentro de la función."
+    },
+    "unaryExpression": {
+      "minus": "Jiki evaluó que {{expr}} es {{value}}.",
+      "not": "Jiki evaluó que {{expr}} es {{value}}."
+    },
+    "variableDeclaration": {
+      "result_const": "Esto creó una nueva constante llamada {{name}} y estableció su valor en {{value}}.",
+      "result_let": "Esto creó una nueva variable llamada {{name}} y estableció su valor en {{value}}.",
+      "result_uninit": "Esto creó una nueva variable llamada {{name}}.",
+      "step_create": "Jiki creó una nueva caja llamada {{name}}.",
+      "step_put": "Jiki puso {{value}} en la caja.",
+      "step_uninit": "Jiki creó una nueva caja vacía llamada {{name}}."
+    },
+    "whileStatement": {
+      "result_false": "La condición se evaluó como <code>false</code>, así que el bucle se detuvo.",
+      "result_true": "La condición se evaluó como <code>true</code>, así que el cuerpo del bucle se ejecutó.",
+      "step_false": "El resultado fue <code>false</code>, así que Jiki decidió detener el bucle.",
+      "step_true": "El resultado fue <code>true</code>, así que Jiki decidió ejecutar el cuerpo del bucle."
+    }
+  }
+}

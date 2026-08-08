@@ -1,0 +1,81 @@
+{
+  "describers": {
+    "canMove": "Vérifie si le personnage peut avancer",
+    "canTurnLeft": "Vérifie s'il y a un passage à gauche du personnage",
+    "canTurnRight": "Vérifie s'il y a un passage à droite du personnage"
+  },
+  "checks": {
+    "notReachedEnd": "Tu n'as pas atteint la sortie du labyrinthe.",
+    "turnAroundNotDefined": "Tu dois définir une fonction <code>turnAround</code> en haut de ton code.",
+    "turnAroundNotCalled": "Tu as défini <code>turnAround</code>, mais il faut encore l'appeler dans ton bloc <code>else</code> final.",
+    "maxLines": "Ton programme ne doit pas dépasser 17 lignes de code."
+  },
+  "tasks": {
+    "turnAround": {
+      "name": "Fais demi-tour dans les impasses",
+      "description": "Définis en haut de ton code une fonction turnAround() qui appelle turnLeft() deux fois, puis utilise-la dans le bloc else final. Ton programme doit faire sortir le personnage des impasses des trois labyrinthes."
+    },
+    "bonusShortSolution": {
+      "name": "Bonus : fais court",
+      "description": "Fais sortir le personnage d'un labyrinthe à deux impasses, tout en gardant, pour l'ensemble de ton programme, 17 lignes de code ou moins."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Une seule impasse",
+      "description": "Un couloir tout droit avec une impasse qui oblige à faire demi-tour"
+    },
+    "maze2": {
+      "name": "Une impasse et un virage",
+      "description": "Un chemin sinueux avec une impasse avant de tourner vers la sortie"
+    },
+    "maze3": {
+      "name": "Fais court",
+      "description": "Essaie de faire en sorte que l'ensemble de ton programme final tienne en 17 lignes de code."
+    }
+  },
+  "hints": {
+    "defineFunction": {
+      "question": "Comment définir une nouvelle fonction ?",
+      "answer": "Utilise le mot-clé `function` suivi du nom, de parenthèses pour les entrées et d'un corps entre accolades, par exemple `function turnAround() { ... }`."
+    },
+    "placement": {
+      "question": "Où placer la définition de la fonction ?",
+      "answer": "Place-la en haut de ton code, avant la boucle. Les fonctions doivent être définies avant d'être appelées."
+    },
+    "turnAroundBody": {
+      "question": "Que mettre dans `turnAround()` ?",
+      "answer": "Simplement deux appels à `turnLeft()` : deux virages à gauche placent le personnage face à la direction opposée."
+    },
+    "useInSolver": {
+      "question": "Comment utiliser ma nouvelle fonction dans ma solution du labyrinthe ?",
+      "answer": "Retrouve le bloc `else` de ta solution précédente, celui où tu appelais `turnLeft()` deux fois, et remplace ces deux appels par un seul appel à `turnAround()`."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Déplace le personnage **d'une case vers l'avant** dans la direction actuelle. Foncer dans un mur met fin à ton programme avec une erreur, alors vérifie ce qu'il y a devant avant d'avancer !",
+      "category": "Déplacement"
+    },
+    "turnLeft": {
+      "description": "Fait pivoter le personnage de **90 degrés vers la gauche** (dans le sens inverse des aiguilles d'une montre). Cela change la direction dans laquelle le personnage regarde.",
+      "category": "Déplacement"
+    },
+    "turnRight": {
+      "description": "Fait pivoter le personnage de **90 degrés vers la droite** (dans le sens des aiguilles d'une montre). Cela change la direction dans laquelle le personnage regarde.",
+      "category": "Déplacement"
+    },
+    "canMove": {
+      "description": "Renvoie **true** si la case devant le personnage n'est pas un mur, et **false** sinon.",
+      "category": "Détection"
+    },
+    "canTurnLeft": {
+      "description": "Renvoie **true** si la case à gauche du personnage n'est pas un mur, et **false** sinon.",
+      "category": "Détection"
+    },
+    "canTurnRight": {
+      "description": "Renvoie **true** si la case à droite du personnage n'est pas un mur, et **false** sinon.",
+      "category": "Détection"
+    }
+  }
+}

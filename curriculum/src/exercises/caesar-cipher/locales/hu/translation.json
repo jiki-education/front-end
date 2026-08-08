@@ -1,54 +1,54 @@
 {
   "tasks": {
     "encodeMessage": {
-      "name": "Encode a message",
-      "description": "Write an encode function that shifts each letter in a message by a given amount. Spaces should remain as spaces. Letters that shift past 'z' should wrap around to the beginning of the alphabet."
+      "name": "Üzenet kódolása",
+      "description": "Írj egy `encode` függvényt, amely az üzenet minden betűjét eltolja egy adott értékkel. A szóközök maradjanak szóközök. Azok a betűk, amelyeknél az eltolás túllép a 'z'-n, körbeérnek az ábécé elejére."
     }
   },
   "scenarios": {
     "caesarSimpleShift": {
-      "name": "Simple shift by 1",
-      "description": "Shift each letter forward by 1: a->b, b->c, c->d."
+      "name": "Egyszerű eltolás 1-gyel",
+      "description": "Minden betűt 1-gyel eltolunk előre: a→b, b→c, c→d."
     },
     "caesarShiftBy3": {
-      "name": "Shift by 3",
-      "description": "Shift each letter forward by 3: h->k, e->h, l->o, o->r."
+      "name": "3-as eltolás",
+      "description": "Minden betűt 3-mal eltolunk előre: h→k, e→h, l→o, o→r."
     },
     "caesarWrapAround": {
-      "name": "Wrap around the alphabet",
-      "description": "When shifting goes past 'z', it wraps around: x->a, y->b, z->c."
+      "name": "Körbeérés az ábécében",
+      "description": "Amikor az eltolás túllép a 'z'-n, körbeér: x→a, y→b, z→c."
     },
     "caesarWithSpaces": {
-      "name": "Message with spaces",
-      "description": "Spaces should remain as spaces, only letters are shifted."
+      "name": "Üzenet szóközökkel",
+      "description": "A szóközök maradjanak szóközök, csak a betűk tolódnak el."
     },
     "caesarRot13": {
-      "name": "ROT13 encryption",
-      "description": "ROT13 is a special case of the Caesar cipher with a shift of 13."
+      "name": "ROT13 titkosítás",
+      "description": "A ROT13 a Caesar-rejtjel egy speciális esete 13-as eltolással."
     }
   },
   "hints": {
     "shiftingLetterByN": {
-      "question": "How do I think about shifting a letter by N positions?",
-      "answer": "Each letter has a position in the alphabet (a is at position 0, b at 1, and so on). To shift, you find that position, add the shift amount, then turn the new position back into a letter by looking it up in the alphabet."
+      "question": "Hogyan gondolkodjak egy betű N pozícióval való eltolásáról?",
+      "answer": "Minden betűnek van egy pozíciója az ábécében (az 'a' a 0. pozícióban van, a 'b' az 1. pozícióban, és így tovább). Az eltoláshoz keresd meg ezt a pozíciót, add hozzá az eltolás értékét, majd a kapott új pozíció alapján vedd ki a betűt az ábécéből."
     },
     "letterPosition": {
-      "question": "How do I find the position of a letter in the alphabet?",
-      "answer": "You can search a string for a smaller piece with `indexOf`. Calling it on the alphabet string gives you a letter's position, or -1 if the letter isn't found. To go the other way, index back into the alphabet string with the position to get the letter."
+      "question": "Hogyan találom meg egy betű pozícióját az ábécében?",
+      "answer": "Az `indexOf` segítségével kereshetsz meg egy rövidebb szöveget egy szövegben. Ha meghívod az ábécé szövegre, visszaadja a betű pozícióját, vagy -1-et, ha nem találja. A visszafelé irányhoz használd a pozíciót az ábécé szöveg indexelésére, hogy megkapd a betűt."
     },
     "wrapPastZ": {
-      "question": "What happens when the shift goes past 'z'?",
-      "answer": "It needs to wrap around back to 'a'. The modulo operator (`%`) is perfect for this. Taking the position modulo 26 brings any number back into the 0 to 25 range."
+      "question": "Mi történik, amikor az eltolás túllép a 'z'-n?",
+      "answer": "Körbe kell érnie az ábécé elejére, az 'a'-hoz. A modulo operátor (`%`) tökéletes erre. Ha a pozíciót modulo 26-tal vesszük, az bármilyen számot a 0 és 25 közötti tartományba hozza."
     },
     "applyToWholeMessage": {
-      "question": "How do I apply this to a whole message?",
-      "answer": "Loop through each character of the message, shift it using your single-letter helper, and use concatenation (`+`) to build up the result string from the shifted letters."
+      "question": "Hogyan alkalmazzam ezt egy teljes üzenetre?",
+      "answer": "Menj végig ciklusban az üzenet minden karakterén, told el az egybetűs segédfüggvényeddel, és használj összefűzést (`+`) a kapott betűkből álló eredmény karakterlánc felépítéséhez."
     }
   },
   "functions": {
     "indexOf": {
-      "description": "Find the position of a smaller string within a string, or -1 if it isn't found (provided by level stdlib)",
-      "category": "String Operations"
+      "description": "Megkeresi egy rövidebb karakterlánc pozícióját egy karakterláncban, vagy -1-et ad vissza, ha nem találja (a feladat stdlib-je biztosítja).",
+      "category": "Szövegműveletek"
     }
   }
 }

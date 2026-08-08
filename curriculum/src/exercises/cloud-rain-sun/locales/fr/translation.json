@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "sun": "Le soleil n'est pas correct.",
+    "cloudBody": "Le corps du nuage n'est pas correct.",
+    "leftPuff": "La bosse gauche du nuage n'est pas correcte.",
+    "leftCenterPuff": "La bosse centre-gauche du nuage n'est pas correcte.",
+    "rightCenterPuff": "La bosse centre-droite du nuage n'est pas correcte.",
+    "rightPuff": "La bosse droite du nuage n'est pas correcte.",
+    "rainDrop": "Une des gouttes de pluie n'est pas correcte."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "Dessine la scène météo",
+      "description": "Crée une scène météo avec un soleil jaune, un nuage blanc et des gouttes de pluie bleues."
+    }
+  },
+  "scenarios": {
+    "drawScene": {
+      "name": "Dessine la scène météo",
+      "description": "Crée la scène météo complète avec le soleil, le nuage et la pluie."
+    }
+  },
+  "hints": {
+    "cloudShape": {
+      "question": "Comment construire la forme cotonneuse du nuage à partir de formes simples ?",
+      "answer": "Le nuage est un rectangle (déjà dessiné pour toi comme base), avec des `circle` placés le long de son bord supérieur pour lui donner son contour bosselé."
+    },
+    "raindropShape": {
+      "question": "Comment faire une goutte de pluie avec `ellipse` ?",
+      "answer": "Les gouttes de pluie sont hautes et fines, le rayon vertical est donc plus grand que le rayon horizontal. Le rayon horizontal est `3` (le seul nombre qui n'est pas divisible par 5)."
+    },
+    "sunOnTop": {
+      "question": "Pourquoi mon soleil apparaît-il devant le nuage ?",
+      "answer": "Les formes dessinées en dernier se placent devant les précédentes. Dessine d'abord le soleil, puis le nuage par-dessus, pour que le nuage apparaisse devant le soleil."
+    },
+    "notMatchingTemplate": {
+      "question": "Pourquoi mon dessin ne correspond-il pas aux lignes du modèle ?",
+      "answer": "Tes formes doivent se placer juste à l'intérieur des lignes du modèle, pas dessus. Presque tous les nombres dont tu as besoin sont divisibles par 5 : si une forme semble légèrement décalée, essaie le multiple de 5 le plus proche."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dessine un rectangle à la position (left, top) avec la largeur, la hauteur et la couleur données",
+      "category": "Dessin de formes"
+    },
+    "circle": {
+      "description": "Dessine un cercle centré en (centerX, centerY) avec le rayon et la couleur donnés",
+      "category": "Dessin de formes"
+    },
+    "ellipse": {
+      "description": "Dessine une ellipse centrée en (centerX, centerY) avec le rayon horizontal radiusX, le rayon vertical radiusY et la couleur",
+      "category": "Dessin de formes"
+    }
+  }
+}

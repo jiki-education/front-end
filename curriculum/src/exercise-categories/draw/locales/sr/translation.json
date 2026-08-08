@@ -1,0 +1,46 @@
+{
+  "errors": {
+    "allInputsNumbers": "Svi ulazi moraju biti brojevi",
+    "blueRange": "Plava mora biti između 0 i 255",
+    "circleInputsNumbers": "Ulazi x, y i radius moraju biti brojevi",
+    "colorNamedOrHex": "Boja mora biti imenovana boja (\"orange\", \"blue\", \"white\" itd.) navedena u uputstvima, ili heksadecimalna boja koja počinje sa #",
+    "colorNotAllowed": "U ovoj vežbi boja ne treba da se navodi",
+    "colorNotString": "Boja mora biti string",
+    "ellipseInputsNumbers": "Ulazi x, y, rx i ry moraju biti brojevi",
+    "greenRange": "Zelena mora biti između 0 i 255",
+    "heightPositive": "Visina mora biti veća od 0",
+    "hueRange": "Nijansa mora biti između 0 i 360",
+    "lightnessRange": "Osvetljenost mora biti između 0 i 100",
+    "lineInputsNumbers": "Ulazi x1, y1, x2 i y2 moraju biti brojevi",
+    "rectInputsNumbers": "Ulazi x, y, width i height moraju biti brojevi",
+    "redRange": "Crvena mora biti između 0 i 255",
+    "saturationRange": "Zasićenost mora biti između 0 i 100",
+    "triangleInputsNumbers": "Ulazi x1, y1, x2, y2, x3 i y3 moraju biti brojevi",
+    "widthPositive": "Širina mora biti veća od 0"
+  },
+  "describers": {
+    "rectangle": {
+      "default": "nacrtala je pravougaonik na koordinatama (${arg1}, ${arg2}), širine ${arg3}, visine ${arg4} i boje ${arg5}",
+      "fixedColor": "nacrtala je pravougaonik na koordinatama (${arg1}, ${arg2}), širine ${arg3} i visine ${arg4}"
+    },
+    "triangle": {
+      "default": "nacrtala je trougao sa tri tačke: (${arg1}, ${arg2}), (${arg3}, ${arg4}) i (${arg5}, ${arg6}), boje ${arg7}",
+      "fixedColor": "nacrtala je trougao sa tri tačke: (${arg1}, ${arg2}), (${arg3}, ${arg4}) i (${arg5}, ${arg6})"
+    },
+    "circle": {
+      "default": "nacrtala je krug sa centrom u (${arg1}, ${arg2}), poluprečnikom ${arg3} i bojom ${arg4}",
+      "fixedColor": "nacrtala je krug sa centrom u (${arg1}, ${arg2}) i poluprečnikom ${arg3}"
+    },
+    "ellipse": {
+      "default": "nacrtala je elipsu sa centrom u (${arg1}, ${arg2}), radijalnom širinom ${arg3}, radijalnom visinom ${arg4} i bojom ${arg5}",
+      "fixedColor": "nacrtala je elipsu sa centrom u (${arg1}, ${arg2}), radijalnom širinom ${arg3} i radijalnom visinom ${arg4}"
+    },
+    "line": {
+      "default": "nacrtala je liniju od (${arg1}, ${arg2}) do (${arg3}, ${arg4}), boje ${arg5}",
+      "fixedColor": "nacrtala je liniju od (${arg1}, ${arg2}) do (${arg3}, ${arg4})"
+    },
+    "clear": "obrisala je platno",
+    "hsl": "pretvorila je HSL boju (nijansa: ${arg1}, zasićenost: ${arg2}, osvetljenost: ${arg3}) u heksadecimalni string",
+    "rgb": "pretvorila je RGB boju (crvena: ${arg1}, zelena: ${arg2}, plava: ${arg3}) u heksadecimalni string"
+  }
+}

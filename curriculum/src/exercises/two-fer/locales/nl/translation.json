@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "moreThanSixLines": "Je hebt meer dan zes regels code gebruikt."
+  },
+  "tasks": {
+    "createTwoFerFunction": {
+      "name": "Maak de two-fer-functie",
+      "description": "Schrijf een twoFer-functie die een naam aanneemt en 'One for [name], one for me.' teruggeeft. Als er geen naam is gegeven (lege string), gebruik dan 'you' in plaats van de naam."
+    },
+    "solveInSixLines": {
+      "name": "Los het op in zes regels code",
+      "description": "Kun je dit oplossen met slechts zes regels code?"
+    }
+  },
+  "scenarios": {
+    "twoFerDefault": {
+      "name": "Geen naam gegeven",
+      "description": "Er is geen naam gegeven, dus geef 'One for you, one for me.' terug."
+    },
+    "twoFerAlice": {
+      "name": "De naam is Alice",
+      "description": "Haar naam is 'Alice', dus geef 'One for Alice, one for me.' terug."
+    },
+    "twoFerTom": {
+      "name": "De naam is Tom",
+      "description": "Zijn naam is 'Tom', dus geef 'One for Tom, one for me.' terug."
+    },
+    "bonus1": {
+      "name": "Zes regels code",
+      "description": "Los de opdracht op met slechts zes regels code."
+    }
+  },
+  "hints": {
+    "whatChanges": {
+      "question": "Wat verandert er op basis van de invoer?",
+      "answer": "Maar één ding: de naam in het midden van de zin. Heb je een naam gekregen, gebruik die dan. Zo niet, gebruik dan de standaardwaarde `\"you\"`."
+    },
+    "checkGivenName": {
+      "question": "Hoe controleer ik of ik een naam heb gekregen?",
+      "answer": "Met een if-statement dat de invoer vergelijkt met de lege string `\"\"`. Is die leeg, gebruik dan `\"you\"`. Anders gebruik je de invoer."
+    },
+    "buildSentence": {
+      "question": "Hoe bouw ik de uiteindelijke zin op?",
+      "answer": "Plak de drie stukken (`\"One for \"`, de gekozen naam en `\", one for me.\"`) aan elkaar met concatenatie (`+`) of een template string."
+    }
+  }
+}

@@ -1,0 +1,1855 @@
+{
+  "layout": {
+    "footer": {
+      "about": {
+        "heading": "Kuhusu",
+        "aboutJiki": "Kuhusu Jiki",
+        "testimonials": "Shuhuda",
+        "ourTeam": "Timu yetu",
+        "premium": "Jiki Premium",
+        "roadmap": "Mpango wa baadaye"
+      },
+      "legal": {
+        "heading": "Kisheria",
+        "termsOfUsage": "Masharti ya matumizi",
+        "privacyPolicy": "Sera ya faragha",
+        "cookiePolicy": "Sera ya vidakuzi",
+        "codeOfConduct": "Kanuni za maadili",
+        "accessibility": "Ufikivu"
+      },
+      "keepInTouch": {
+        "heading": "Endelea Kuwasiliana",
+        "blog": "Blogu ya Jiki",
+        "youtube": "Chaneli ya YouTube ya Jiki",
+        "reportAbuse": "Ripoti matumizi mabaya",
+        "sitemap": "Ramani ya tovuti"
+      },
+      "freeContent": {
+        "heading": "Maudhui ya Bure",
+        "codingConcepts": "Dhana za Kupanga Programu",
+        "agenticGuides": "Miongozo ya Kupanga Programu katika Enzi ya Agentic Coding"
+      },
+      "getHelp": {
+        "heading": "Pata Msaada",
+        "helpCenter": "Kituo cha Msaada",
+        "faqs": "Maswali ya mara kwa mara",
+        "contactUs": "Wasiliana nasi",
+        "siteStatus": "Hali ya tovuti"
+      },
+      "copyright": "© {year} Jiki Ltd"
+    },
+    "externalHeader": {
+      "homeAriaLabel": "Ukurasa wa mwanzo wa Jiki",
+      "logoAlt": "Jiki",
+      "aboutJiki": "Kuhusu Jiki",
+      "premium": "�",
+      "testimonials": "Shuhuda",
+      "login": "Ingia",
+      "signUp": "Jisajili Bila Malipo",
+      "menuAriaLabel": "Fungua menyu",
+      "closeMenuAriaLabel": "Funga menyu"
+    },
+    "internalHeader": {
+      "homeAriaLabel": "Ukurasa wa mwanzo wa Jiki",
+      "logoAlt": "Jiki",
+      "backToJiki": "Rudi kwa Jiki →"
+    },
+    "sidebar": {
+      "groups": {
+        "learnToCode": "Jifunze Kupanga Programu",
+        "learnToBuild": "Jifunze Kujenga",
+        "community": "Jumuiya",
+        "more": "Zaidi"
+      },
+      "nav": {
+        "learn": "Misingi ya Kupanga Programu",
+        "build": "Miradi",
+        "challenges": "Changamoto",
+        "concepts": "Dhana za Kupanga Programu",
+        "achievements": "Mafanikio",
+        "guides": "Miongozo",
+        "videos": "Video",
+        "blog": "Blogu",
+        "forum": "Jukwaa",
+        "settings": "Mipangilio",
+        "help": "Msaada",
+        "upgrade": "Boresha hadi Premium",
+        "logOut": "Toka"
+      },
+      "premiumPill": "�"
+    },
+    "loading": {
+      "title": "Tunamwamsha Jiki",
+      "subtitle": "Tunaandaa mazingira yako ya kujifunza"
+    },
+    "localeBanner": {
+      "message": "Unaangalia toleo la {current} la ukurasa huu. <link>Badilisha kwenda {offered}</link> au <dismiss>funga ilani hii</dismiss>."
+    }
+  },
+  "common": {
+    "continue": "�",
+    "close": "�",
+    "cancel": "�",
+    "confirm": "�",
+    "processing": "�",
+    "reloadPage": "�",
+    "loading": "�",
+    "languageNames": {
+      "en": "�",
+      "el": "�",
+      "fa": "�",
+      "fr": "�",
+      "hu": "�",
+      "it": "�",
+      "nl": "�",
+      "pt-BR": "�",
+      "pt-PT": "�",
+      "ru": "�",
+      "sr": "�",
+      "uk": "�",
+      "zh-TW": "�"
+    },
+    "verifying": "�",
+    "sending": "�",
+    "perMonth": "�",
+    "validation": {
+      "emailInvalid": "�",
+      "passwordRequired": "�",
+      "passwordMinLength": "�",
+      "currentPasswordRequired": "�",
+      "newPasswordRequired": "�",
+      "passwordsNoMatch": "�"
+    },
+    "pagination": {
+      "label": "�",
+      "previousPage": "�",
+      "nextPage": "�"
+    },
+    "loadingJiki": {
+      "alt": "�"
+    },
+    "otpInput": {
+      "label": "�",
+      "digitLabel": "�"
+    },
+    "closeButton": {
+      "label": "�"
+    },
+    "copyButton": {
+      "label": "�",
+      "copied": "�"
+    },
+    "soundToggle": {
+      "mute": "�",
+      "unmute": "�"
+    },
+    "themeToggle": {
+      "switchToDark": "�",
+      "switchToSystem": "�",
+      "switchToLight": "�",
+      "toggle": "�",
+      "description": "�"
+    },
+    "badgeNewLabel": {
+      "label": "�"
+    },
+    "saving": "�",
+    "retry": "�",
+    "tryAgain": "�"
+  },
+  "build": {
+    "upcomingStreams": {
+      "heading": "�",
+      "toBeAnnounced": "�",
+      "subscribeButton": "�"
+    },
+    "hub": {
+      "title": "�",
+      "description": "�"
+    }
+  },
+  "auth": {
+    "oauth": {
+      "useGoogle": "�",
+      "useExercism": "�",
+      "divider": "�"
+    },
+    "fields": {
+      "emailLabel": "�",
+      "emailPlaceholder": "�",
+      "passwordLabel": "�",
+      "passwordPlaceholder": "�",
+      "emailRequired": "�"
+    },
+    "captchaError": {
+      "signup": "�",
+      "login": "�",
+      "generic": "�"
+    },
+    "login": {
+      "title": "�",
+      "invalidCredentials": "�",
+      "forgotPassword": "�",
+      "submit": "�",
+      "submitting": "�",
+      "unconfirmed": "�",
+      "resend": "�",
+      "noAccount": "�"
+    },
+    "signup": {
+      "title": "�",
+      "emailAlreadyRegistered": "�",
+      "submit": "�",
+      "submitting": "�",
+      "haveAccount": "�",
+      "resend": "�"
+    },
+    "forgotPassword": {
+      "title": "�",
+      "subtitle": "�",
+      "successMessage": "�",
+      "submit": "�",
+      "remembered": "�"
+    },
+    "resetPassword": {
+      "invalidTitle": "�",
+      "invalidMessage": "�",
+      "requestNewLink": "�",
+      "title": "�",
+      "subtitle": "�",
+      "tokenMissing": "�",
+      "confirmationRequired": "�",
+      "successMessage": "�",
+      "newPasswordLabel": "�",
+      "newPasswordPlaceholder": "�",
+      "confirmPasswordLabel": "�",
+      "confirmPasswordPlaceholder": "�",
+      "submit": "�",
+      "submitting": "�",
+      "remembered": "�"
+    },
+    "resendConfirmation": {
+      "title": "�",
+      "subtitle": "�",
+      "successMessage": "�",
+      "submit": "�",
+      "confirmed": "�"
+    },
+    "checkInbox": {
+      "heading": "�",
+      "sentTo": "�",
+      "hint": "�"
+    },
+    "emailConfirmed": {
+      "heading": "�",
+      "message": "�"
+    },
+    "confirmEmail": {
+      "pendingTitle": "�",
+      "pendingDescription": "�",
+      "errorTitle": "�",
+      "errorMessage": "�",
+      "errorCta": "�"
+    },
+    "exercismCallback": {
+      "errorTitle": "�",
+      "errorCta": "�",
+      "pendingTitle": "�",
+      "pendingDescription": "�",
+      "authFailed": "�"
+    },
+    "errorCard": {
+      "needHelp": "�"
+    },
+    "twoFactorVerify": {
+      "title": "�",
+      "subtitle": "�",
+      "codeLabel": "�"
+    },
+    "twoFactorSetup": {
+      "instructionsHeading": "�",
+      "appsHint": "�",
+      "codeLabel": "�"
+    },
+    "unsubscribe": {
+      "noToken": "�",
+      "linkInvalid": "�",
+      "tooManyRequests": "�",
+      "serviceUnavailable": "�",
+      "unableToProcess": "�",
+      "networkError": "�",
+      "processingTitle": "�",
+      "processingDescription": "�",
+      "successTitle": "�",
+      "successDescription": "�",
+      "errorTitle": "�"
+    },
+    "twoFactor": {
+      "cancel": "�",
+      "invalidCode": "�",
+      "verificationFailed": "�"
+    },
+    "layout": {
+      "logoAlt": "�",
+      "tagline": "�",
+      "description": "�",
+      "createdBy": "�",
+      "brand": "�"
+    }
+  },
+  "settings": {
+    "page": {
+      "title": "�",
+      "description": "�",
+      "tabAccount": "�",
+      "tabSubscription": "�",
+      "tabNotifications": "�",
+      "tabLearning": "�",
+      "tabDanger": "�"
+    },
+    "avatarEdit": {
+      "adjustTitle": "�",
+      "adjustSubtitle": "�",
+      "back": "�",
+      "save": "�",
+      "changeTitle": "�",
+      "changeSubtitlePart1": "�",
+      "changeSubtitlePart2": "�",
+      "uploadText": "�",
+      "uploadHint": "�"
+    },
+    "avatarUpload": {
+      "label": "�"
+    },
+    "avatarPreview": {
+      "alt": "�"
+    },
+    "cancelConfirm": {
+      "title": "�",
+      "message": "�",
+      "benefitsTitle": "�",
+      "benefit1": "�",
+      "benefit2": "�",
+      "benefit3": "�",
+      "benefit4": "�",
+      "keep": "�",
+      "cancel": "�"
+    },
+    "cancelSuccess": {
+      "title": "�",
+      "message": "�",
+      "accessUntil": "�",
+      "resubscribeNote": "�",
+      "gotIt": "�"
+    },
+    "changeEmail": {
+      "title": "�",
+      "importantLabel": "�",
+      "importantText": "�",
+      "currentEmailLabel": "�",
+      "newEmailLabel": "�",
+      "newEmailPlaceholder": "�",
+      "passwordLabel": "�",
+      "passwordPlaceholder": "�",
+      "passwordHint": "�",
+      "newEmailRequired": "�",
+      "emailSame": "�",
+      "updateFailed": "�",
+      "submit": "�"
+    },
+    "deleteAccount": {
+      "sendFailed": "�",
+      "confirmTitle": "�",
+      "confirmMessage": "�",
+      "submit": "�",
+      "securityTitle": "�",
+      "securityMessage": "�",
+      "understand": "�"
+    },
+    "paymentHistory": {
+      "title": "�",
+      "subtitle": "�",
+      "loading": "�",
+      "error": "�",
+      "empty": "�",
+      "columnDate": "�",
+      "columnAmount": "�",
+      "columnType": "�",
+      "columnMethod": "�",
+      "downloadReceipt": "�"
+    },
+    "profile": {
+      "nameLabel": "�",
+      "namePlaceholder": "�",
+      "updateName": "�",
+      "nameEmpty": "�",
+      "nameTooLong": "�",
+      "handleLabel": "�",
+      "handlePlaceholder": "�",
+      "updateHandle": "�",
+      "handleEmpty": "�",
+      "handleInvalid": "�",
+      "handleTooShort": "�",
+      "handleTooLong": "�",
+      "emailLabel": "�",
+      "emailPlaceholder": "�",
+      "updateEmail": "�",
+      "emailEmpty": "�",
+      "confirmationPendingHint": "�",
+      "emailNotConfirmed": "�",
+      "confirmationPending": "�"
+    },
+    "subscriptionSection": {
+      "loadingCardTitle": "�",
+      "loadingCardDescription": "�",
+      "loadingData": "�"
+    },
+    "benefits": {
+      "activeSubtitle": "�",
+      "cancellingSubtitle": "�",
+      "resubscribeTitle": "�",
+      "resubscribeButton": "�",
+      "activeHeading": "�",
+      "cancellingHeading": "�",
+      "footer": "�",
+      "resubscribe": "�"
+    },
+    "cancelSectionPanel": {
+      "title": "�",
+      "description": "�",
+      "cancel": "�"
+    },
+    "premiumUpsell": {
+      "subtitle": "�",
+      "planName": "�",
+      "upgrade": "�",
+      "headline": "�",
+      "dailyNote": "�"
+    },
+    "neverSubscribed": {
+      "heading": "�",
+      "subtitle": "�",
+      "featuresLabel": "�",
+      "upgradeAriaLabel": "�",
+      "upgrade": "�"
+    },
+    "errorBoundary": {
+      "title": "�",
+      "messagePart1": "�",
+      "messagePart2": "�",
+      "refresh": "�",
+      "detailsSummary": "�"
+    },
+    "danger": {
+      "sessionLabel": "�",
+      "sessionDescription": "�",
+      "logout": "�",
+      "deleteLabel": "�",
+      "deleteDescription": "�",
+      "deleteButton": "�"
+    },
+    "learning": {
+      "streaksLabel": "�",
+      "streaksDescription": "�",
+      "toggleAriaLabel": "�",
+      "learnMore": "�"
+    },
+    "notifications": {
+      "toggleAriaLabel": "�",
+      "essentialTitle": "�",
+      "essentialDescription": "�",
+      "featuresTitle": "�",
+      "featuresDescription": "�",
+      "livestreamsTitle": "�",
+      "livestreamsDescription": "�",
+      "milestonesTitle": "�",
+      "milestonesDescription": "�",
+      "activityTitle": "�",
+      "activityDescription": "�",
+      "onboardingTitle": "�",
+      "onboardingDescription": "�"
+    },
+    "editableField": {
+      "update": "�",
+      "edit": "�",
+      "saveFailed": "�"
+    },
+    "passwordField": {
+      "updateFailed": "�",
+      "currentLabel": "�",
+      "currentPlaceholder": "�",
+      "newLabel": "�",
+      "newPlaceholder": "�",
+      "confirmLabel": "�",
+      "confirmPlaceholder": "�",
+      "submit": "�",
+      "label": "�",
+      "change": "�"
+    },
+    "subscriptionStatus": {
+      "statusActive": "�",
+      "statusCanceled": "�",
+      "statusPaymentFailed": "�",
+      "statusCancelling": "�",
+      "statusIncomplete": "�",
+      "statusSessionExpired": "�",
+      "statusNotSubscribed": "�",
+      "currentPlan": "�",
+      "cancellingMessage": "�",
+      "currentPlanAriaLabel": "�",
+      "statusAriaLabel": "�",
+      "messageCanceled": "�",
+      "messagePaymentFailed": "�",
+      "messageCancelling": "�",
+      "messageIncomplete": "�",
+      "messageIncompleteExpired": "�",
+      "active": "�",
+      "activeWithBilling": "�",
+      "cancellingRemaining": "�",
+      "cancellingEnds": "�",
+      "free": "�",
+      "planLabel": "�"
+    }
+  },
+  "landing": {
+    "hero": {
+      "tagline": "�",
+      "ctaSubtext": "�",
+      "loadingVideo": "�",
+      "playVideo": "�",
+      "watchPrompt": "�",
+      "headline": "�",
+      "audience": "�"
+    },
+    "exercism": {
+      "heading": "�",
+      "intro": "�",
+      "studentsCount": "�",
+      "studentsTitle": "�",
+      "studentsDesc": "�",
+      "testimonialsCount": "�",
+      "testimonialsTitle": "�",
+      "testimonialsDesc": "�",
+      "exercisesCount": "�",
+      "exercisesTitle": "�",
+      "exercisesDesc": "�",
+      "mentoringCount": "�",
+      "mentoringTitle": "�",
+      "mentoringDesc": "�"
+    },
+    "signupSection": {
+      "intro": "�",
+      "button": "�",
+      "heading": "�"
+    },
+    "signupButton": {
+      "label": "�"
+    },
+    "faqs": {
+      "heading": "�",
+      "q1": "�",
+      "q1a1": "�",
+      "q1Item1": "�",
+      "q1Item2": "�",
+      "q1Item3": "�",
+      "q1Item4": "�",
+      "q1Item5": "�",
+      "q1Item6": "�",
+      "q1Item7": "�",
+      "q2": "�",
+      "q2a": "�",
+      "q3": "�",
+      "q3a1": "�",
+      "q3a2": "�",
+      "q4": "�",
+      "q4a1": "�",
+      "q4a2": "�",
+      "q5": "�",
+      "q5a1": "�",
+      "q5a2": "�",
+      "intro": "�",
+      "q1a2": "�"
+    },
+    "latestNews": {
+      "heading": "�",
+      "byAuthor": "�",
+      "subheading": "�"
+    },
+    "welcome": {
+      "para1": "�",
+      "para2": "�",
+      "para3": "�",
+      "hiThere": "�",
+      "para4": "�",
+      "para5": "�",
+      "heading2": "�",
+      "para6": "�",
+      "para7": "�",
+      "para8": "�",
+      "heading3": "�",
+      "para9": "�",
+      "rhodriAlt": "�",
+      "captionShort": "�",
+      "captionLong": "�",
+      "para11": "�",
+      "para12": "�",
+      "heading4": "�",
+      "para13": "�",
+      "listItem1": "�",
+      "listItem2": "�",
+      "para14": "�",
+      "spaceInvadersLabel": "�",
+      "ticTacToeLabel": "�",
+      "breakoutLabel": "�",
+      "mazeLabel": "�",
+      "heading5": "�",
+      "para15": "�",
+      "ctaButton": "�",
+      "heading": "�",
+      "para10": "�",
+      "para17": "�",
+      "para16": "�"
+    },
+    "bootcamp": {
+      "tagWhatWeCover": "�",
+      "menuHeading": "�",
+      "menuIntro": "�",
+      "part1Heading": "�",
+      "part1Bubble": "�",
+      "part1Intro": "�",
+      "part1Item2": "�",
+      "part1Item3": "�",
+      "part1Item4": "�",
+      "part1Duration": "�",
+      "part1Alt": "�",
+      "levelsHeading": "�",
+      "levelsSideheading": "�",
+      "levelsIntro": "�",
+      "levelsSubIntro": "�",
+      "penguinAlt": "�",
+      "level2": "�",
+      "golfLabel": "�",
+      "level3": "�",
+      "flowerLabel": "�",
+      "flowerLevel": "�",
+      "spaceInvadersLabel": "�",
+      "level7": "�",
+      "wallLabel": "�",
+      "level10": "�",
+      "wordleAlt": "�",
+      "level12": "�",
+      "ticTacToeLabel": "�",
+      "level14": "�",
+      "mazeLabel": "�",
+      "level16": "�",
+      "dreamingHouseLabel": "�",
+      "level20": "�",
+      "breakoutLabel": "�",
+      "levelEnd": "�",
+      "buildingHeading": "�",
+      "buildingIntro": "�",
+      "part2Heading": "�",
+      "part2Bubble": "�",
+      "part2Intro": "�",
+      "part2Item1": "�",
+      "part2Item2": "�",
+      "part2Item3": "�",
+      "part2Duration": "�",
+      "jeremyLivestreamAlt": "�",
+      "certificateBubble": "�",
+      "certificateHeading": "�",
+      "certificatePara1": "�",
+      "certificatePara2": "�",
+      "certificateAlt": "�",
+      "linkedinAlt": "�",
+      "linkedinShare": "�",
+      "part1Item1": "�"
+    }
+  },
+  "premium": {
+    "page": {
+      "heading": "�",
+      "subheading": "�"
+    },
+    "planPrice": {
+      "basic": "�",
+      "premium": "�",
+      "free": "�",
+      "perMonth": "�"
+    },
+    "planBadge": {
+      "free": "�",
+      "premium": "�"
+    },
+    "table": {
+      "comparePlans": "�",
+      "comparePlansDesc": "�",
+      "checkNo": "�"
+    },
+    "values": {
+      "oneConversation": "�",
+      "unlimited": "�",
+      "firstEpisodes": "�",
+      "fullAccess": "�",
+      "sampleEpisode": "�"
+    },
+    "categories": {
+      "codingFundamentals": "�",
+      "buildWithJeremy": "�",
+      "support": "�",
+      "certificates": "�",
+      "experience": "�"
+    },
+    "features": {
+      "codingExercisesTitle": "�",
+      "codingExercisesDesc": "�",
+      "conceptLibraryTitle": "�",
+      "conceptLibraryDesc": "�",
+      "jikiChallengesTitle": "�",
+      "jikiChallengesDesc": "�",
+      "askJikiTitle": "�",
+      "askJikiDesc": "�",
+      "buildingFundamentalsTitle": "�",
+      "buildingFundamentalsDesc": "�",
+      "howThingsWorkTitle": "�",
+      "howThingsWorkDesc": "�",
+      "earlyAccessTitle": "�",
+      "earlyAccessDesc": "�",
+      "communityForumsTitle": "�",
+      "communityForumsDesc": "�",
+      "livestreamsTitle": "�",
+      "livestreamsDesc": "�",
+      "certificatesTitle": "�",
+      "certificatesDesc": "�",
+      "adFreeTitle": "�",
+      "adFreeDesc": "�"
+    },
+    "faq": {
+      "title": "�",
+      "q1": "�",
+      "a1": "�",
+      "q2": "�",
+      "a2": "�",
+      "q3": "�",
+      "a3": "�",
+      "q4": "�",
+      "q5": "�",
+      "a5": "�",
+      "a4": "�"
+    },
+    "cta": {
+      "alreadyPremiumTitle": "�",
+      "alreadyPremiumDesc": "�",
+      "upgradeTitle": "�",
+      "upgradeDesc": "�",
+      "upgradeButton": "�",
+      "freeTitle": "�",
+      "freeDesc": "�",
+      "freeButton": "�"
+    },
+    "publicPrice": {
+      "unavailable": "�"
+    },
+    "benefits": {
+      "unlimitedAiTitle": "�",
+      "unlimitedAiDescription": "�",
+      "unlimitedContentTitle": "�",
+      "unlimitedContentDescription": "�",
+      "certificatesTitle": "�",
+      "certificatesDescription": "�",
+      "adFreeTitle": "�",
+      "adFreeDescription": "�",
+      "prioritySupportTitle": "�",
+      "prioritySupportDescription": "�",
+      "earlyAccessTitle": "�",
+      "earlyAccessDescription": "�"
+    }
+  },
+  "roadmap": {
+    "page": {
+      "heading": "�",
+      "subheading": "�",
+      "disclaimer": "�"
+    },
+    "status": {
+      "shipped": "�",
+      "inProgress": "�",
+      "planned": "�"
+    },
+    "changelog": {
+      "title": "�",
+      "subtitle": "�",
+      "learnToBuildLaunch": {
+        "date": "�",
+        "title": "�",
+        "description": "�"
+      },
+      "milestones6To10": {
+        "date": "�",
+        "title": "�",
+        "description": "�"
+      },
+      "jikiLaunch": {
+        "date": "�",
+        "title": "�",
+        "description": "�"
+      }
+    },
+    "phases": {
+      "now": {
+        "label": "�",
+        "timeframe": "�",
+        "summary": "�",
+        "learnToBuild": {
+          "title": "�",
+          "description": "�"
+        },
+        "launchBugs": {
+          "title": "�",
+          "description": "�"
+        },
+        "earlyFeedback": {
+          "title": "�",
+          "description": "�"
+        },
+        "foundations": {
+          "title": "�",
+          "description": "�"
+        }
+      },
+      "next": {
+        "label": "�",
+        "timeframe": "�",
+        "summary": "�",
+        "betaToLive": {
+          "title": "�",
+          "description": "�"
+        },
+        "deepDiveVideos": {
+          "title": "�",
+          "description": "�"
+        },
+        "newLanguages": {
+          "title": "�",
+          "description": "�"
+        },
+        "pythonVersion": {
+          "title": "�",
+          "description": "�"
+        }
+      },
+      "future": {
+        "label": "�",
+        "timeframe": "�",
+        "summary": "�",
+        "moreLanguages": {
+          "title": "�",
+          "description": "�"
+        },
+        "sql": {
+          "title": "�",
+          "description": "�"
+        }
+      }
+    }
+  },
+  "misc": {
+    "chooseLanguage": {
+      "selectLanguage": "�",
+      "backToVideo": "�",
+      "tooltip": "�",
+      "saving": "�",
+      "confirmChoice": "�",
+      "questionTitle": "�",
+      "javascript": "�",
+      "python": "�",
+      "chooseForMe": "�",
+      "cantChange": "�",
+      "noVideo": "�",
+      "videoInstruction": "�"
+    },
+    "deleteAccount": {
+      "deletedTitle": "�",
+      "deletedSubtitle": "�",
+      "deletingTitle": "�",
+      "deletingSubtitle": "�",
+      "errorTitle": "�",
+      "errorSubtitle": "�",
+      "expiredTitle": "�",
+      "expiredSubtitle": "�",
+      "expiredSecondary": "�",
+      "goHome": "�"
+    },
+    "errorPage": {
+      "serverErrorTitle": "�",
+      "serverErrorMessage": "�",
+      "serverErrorAction": "�",
+      "notFoundTitle": "�",
+      "notFoundMessage": "�",
+      "notFoundAction": "�"
+    },
+    "testimonialsPage": {
+      "title": "�",
+      "subtitle": "�",
+      "quoteOpenAlt": "�",
+      "quoteCloseAlt": "�"
+    }
+  },
+  "concepts": {
+    "breadcrumb": {
+      "root": "Dhana za Kupanga Programu"
+    },
+    "list": {
+      "heading": "Maktaba ya Dhana",
+      "intro": "Hapa unaweza kupitia na kurudia dhana ulizojifunza.",
+      "searchPlaceholder": "Tafuta dhana...",
+      "emptyTitle": "Hakuna dhana bado",
+      "emptyBody": "Kamilisha masomo ili kufungua Dhana mpya. Kila dhana unayoimudu katika masomo yako inapatikana hapa kwa mapitio yako.",
+      "noResultsTitle": "Matokeo 0 ya \"<query></query>\"",
+      "noResultsMessage": "Jaribu neno lingine la utafutaji au vinjari maktaba."
+    },
+    "card": {
+      "locked": "Imefungwa",
+      "subConcepts": "{count, plural, one {dhana ndogo #} other {dhana ndogo #}}"
+    },
+    "error": {
+      "notFound": "Dhana haikupatikana.",
+      "back": "Rudi kwenye Dhana"
+    },
+    "relatedConcepts": {
+      "heading": "Dhana Zinazohusiana",
+      "description": "Angalia dhana hizi nyingine zinazohusiana:",
+      "locked": "Dhana hii imefungwa"
+    },
+    "relatedExercises": {
+      "heading": "Mazoezi Yanayohusiana",
+      "description": "Mazoezi haya ni njia nzuri za kuifanyia mazoezi dhana hii!",
+      "signupPrompt": "<link>Jisajili</link> ili kuyatatua!",
+      "locked": "Zoezi hili limefungwa"
+    },
+    "relatedChallenges": {
+      "heading": "Changamoto Zinazohusiana",
+      "description": "Changamoto hizi zinakuwezesha kuitumia dhana hii kwa vitendo.",
+      "locked": "Changamoto hii imefungwa"
+    },
+    "videoRecap": {
+      "loggedInHeader": "Tazama Somo Tena",
+      "loggedInDescription": "Jikumbushe ulipojifunza dhana hii kwa kutazama tena kipindi cha ufundishaji",
+      "loggedOutHeader": "Tazama Somo",
+      "loggedOutDescription": "Jifunze dhana hii pamoja na Jeremy na Jiki!",
+      "playAriaLabel": "Cheza video ya marudio ya somo",
+      "thumbnailAlt": "Picha ndogo ya marudio ya somo"
+    },
+    "signupCta": {
+      "title": "Uko Tayari Kuanza Safari Yako ya Kupanga Programu?",
+      "subtitle": "Jiunge na maelfu ya wanafunzi kwenye Jiki. Fanya mazoezi ya kupanga programu, pata maoni kutoka kwa washauri, na uboreshe ujuzi wako. Na yote ni bure!",
+      "button": "Jisajili Bila Malipo"
+    },
+    "upgradeCard": {
+      "logoAlt": "Jiki",
+      "heading": "Anza <highlight>safari yako ya kupanga programu</highlight> leo!",
+      "text": "Jisajili kwenye Jiki ujifunze kupanga programu kwa mazoezi shirikishi, miradi halisi, na msaada maalum kwako. Zaidi ya yote, <free>ni bure!</free>",
+      "button": "Jisajili Bila Malipo"
+    }
+  },
+  "seo": {
+    "concepts": {
+      "title": "�",
+      "description": "�",
+      "notFound": "�"
+    },
+    "achievements": {
+      "title": "�",
+      "description": "�"
+    },
+    "build": {
+      "title": "�",
+      "description": "�"
+    },
+    "dashboard": {
+      "title": "�",
+      "description": "�"
+    },
+    "challenges": {
+      "title": "�",
+      "description": "�"
+    },
+    "settings": {
+      "title": "�",
+      "description": "�"
+    },
+    "checkEmail": {
+      "title": "�",
+      "description": "�"
+    },
+    "confirmEmail": {
+      "title": "�",
+      "description": "�"
+    },
+    "exercismCallback": {
+      "title": "�",
+      "description": "�"
+    },
+    "forgotPassword": {
+      "title": "�",
+      "description": "�"
+    },
+    "login": {
+      "title": "�",
+      "description": "�"
+    },
+    "resendConfirmation": {
+      "title": "�",
+      "description": "�"
+    },
+    "resetPassword": {
+      "title": "�",
+      "description": "�"
+    },
+    "signup": {
+      "title": "�",
+      "description": "�"
+    },
+    "home": {
+      "title": "�",
+      "description": "�"
+    },
+    "premium": {
+      "title": "�",
+      "description": "�"
+    },
+    "roadmap": {
+      "title": "�",
+      "description": "�"
+    },
+    "testimonials": {
+      "title": "�",
+      "description": "�"
+    },
+    "deleteAccount": {
+      "title": "�",
+      "description": "�"
+    },
+    "unsubscribePreferences": {
+      "title": "�",
+      "description": "�"
+    },
+    "unsubscribe": {
+      "title": "�",
+      "description": "�"
+    },
+    "blog": {
+      "title": "�",
+      "description": "�",
+      "notFound": "�"
+    },
+    "help": {
+      "title": "�",
+      "description": "�",
+      "notFound": "�"
+    },
+    "guides": {
+      "title": "�",
+      "description": "�"
+    }
+  },
+  "toasts": {
+    "subscription": {
+      "loginRequired": "�",
+      "checkoutFailed": "�",
+      "alreadyPremium": "�",
+      "checkoutSessionFailed": "�",
+      "portalFailed": "�",
+      "canceled": "�",
+      "cancelFailed": "�",
+      "reactivated": "�",
+      "reactivateFailed": "�",
+      "paymentPortalFailed": "�"
+    },
+    "auth": {
+      "sessionExpired": "�"
+    },
+    "logout": {
+      "loading": "�",
+      "success": "�",
+      "failed": "�"
+    },
+    "avatar": {
+      "updated": "�",
+      "uploadFailed": "�",
+      "networkError": "�",
+      "invalidImageType": "�",
+      "imageTooLarge": "�"
+    },
+    "settings": {
+      "fetchFailed": "�",
+      "settingUpdated": "�",
+      "updateFailed": "�",
+      "notificationUpdateFailed": "�",
+      "streaksUpdateFailed": "�"
+    },
+    "exercise": {
+      "submissionFailed": "�",
+      "chatSaveFailed": "�",
+      "chatSaveCaptchaFailed": "�",
+      "lessonSaveError": "�"
+    },
+    "lesson": {
+      "loadFailed": "�"
+    }
+  },
+  "modals": {
+    "welcomeToPremium": {
+      "badge": "Mwanachama wa Premium",
+      "description": "Asante kwa kuboresha! Sasa unaweza kufikia manufaa yote ya Premium, yakiwemo magumzo yasiyo na kikomo na Jiki, Miradi, na Jifunze Kujenga!",
+      "title": "Karibu kwenye <highlight>Premium!</highlight>"
+    },
+    "subscriptionSuccess": {
+      "chatGate": {
+        "title": "Karibu kwenye Gumzo la AI!",
+        "description": "Msaidizi wako wa AI sasa amefunguliwa na yuko tayari kukusaidia na mazoezi yako ya kupanga programu.",
+        "feature1": "Uliza maswali kuhusu msimbo wako",
+        "feature2": "Pata maelezo ya dhana ngumu",
+        "feature3": "Pokea vidokezo na mwongozo maalum kwako"
+      },
+      "featureGate": {
+        "title": "Huduma Imefunguliwa!",
+        "description": "Sasa unaweza kufikia huduma za Premium zitakazoboresha uzoefu wako wa kujifunza."
+      },
+      "settings": {
+        "title": "Karibu kwenye {tier}!",
+        "description": "Usajili wako umewashwa. Chunguza huduma zako mpya kwenye mipangilio."
+      },
+      "general": {
+        "title": "Karibu kwenye {tier}!",
+        "description": "Asante kwa kuboresha mpango wako. Sasa unaweza kufikia huduma zote za Premium."
+      },
+      "planLabel": "Mpango wa {tier}",
+      "whatYouCanDo": "Unachoweza kufanya sasa:",
+      "getStarted": "Anza",
+      "continueLearning": "Endelea Kujifunza",
+      "skipForNow": "Ruka kwa sasa",
+      "renewalNotice": "Usajili wako utahuishwa kiotomatiki tarehe {date}. Dhibiti usajili wako katika Mipangilio."
+    },
+    "confirmation": {
+      "defaultTitle": "Thibitisha Kitendo",
+      "defaultMessage": "Una uhakika unataka kuendelea?"
+    },
+    "info": {
+      "defaultTitle": "Taarifa",
+      "defaultButton": "Nimeelewa!"
+    },
+    "connectionError": {
+      "title": "Samahani! Muunganisho umepotea",
+      "subtitle": "Jiki alichanganyikiwa kidogo na muunganisho ukakatika. Usijali, tunafanya kazi kurejesha mambo sawa!",
+      "reconnecting": "Inaunganisha tena",
+      "helpText": "Subiri kidogo tu, kwa kawaida hili hujirekebisha lenyewe baada ya muda mfupi.<br></br>Tatizo likiendelea, <link>angalia ukurasa wetu wa hali</link>."
+    },
+    "sessionExpired": {
+      "title": "Kipindi Kimeisha",
+      "description": "Kipindi chako kimeisha. Tafadhali ingia tena."
+    },
+    "paymentVerificationFailed": {
+      "title": "Hatukuweza kuthibitisha malipo yako",
+      "description": "Kuna kitu kimeenda vibaya wakati wa kukagua na Stripe. Jaribu kupakia upya ukurasa baada ya muda mfupi. Kama Premium bado haijawashwa, wasiliana na timu ya msaada."
+    },
+    "levelMilestone": {
+      "title": "🎉 Kiwango Kimekamilika!",
+      "message": "Hongera! Umekamilisha <strong>{levelTitle}</strong> na kuzimudu dhana zake zote.",
+      "lessonsCompleted": "Masomo Yaliyokamilika",
+      "xpEarned": "XP Zilizopatikana",
+      "readyNext": "Sasa uko tayari kufungua kiwango kinachofuata na kuendelea na safari yako ya kujifunza!",
+      "goToDashboard": "Nenda kwenye Dashibodi",
+      "continueNextLevel": "Endelea hadi Kiwango Kinachofuata"
+    },
+    "badge": {
+      "funFact": "Jambo la Kuvutia",
+      "keepGoing": "Songa Mbele!"
+    },
+    "authError": {
+      "title": "Umetolewa nje ya akaunti.",
+      "subtitle": "Kwa sababu fulani umetolewa nje ya akaunti (labda ukaguzi wa usalama, au labda ulitoka kwenye kifaa kingine?). Tafadhali pakia upya ukurasa ili kuendelea.",
+      "helpText": "Hili likiendelea kutokea, jaribu <cookiesLink>kufuta vidakuzi vyako</cookiesLink> au <supportLink>wasiliana na timu ya msaada</supportLink>."
+    },
+    "rateLimit": {
+      "title": "Umeenda kasi mno.",
+      "subtitle": "Umetuma maombi mengi mno kwenye seva zetu, kwa hiyo tunakusimamisha kwa sekunde chache. Tafadhali subiri na utaunganishwa tena kiotomatiki.",
+      "autoRefresh": "Ukurasa huu utajipakia upya wenyewe",
+      "noteLabel": "Kumbuka:",
+      "noteText": "Kufungua vichupo vipya au kutuma maombi zaidi kutaongeza muda wako wa kusubiri.",
+      "reconnecting": "Inaunganisha tena baada ya <timer>{count}</timer> {count, plural, one {sekunde} other {sekunde}}"
+    },
+    "exerciseSuccess": {
+      "defaultTitle": "Hongera!",
+      "defaultMessage": "Majaribio yote yamefaulu! Umekamilisha zoezi hili."
+    },
+    "welcome": {
+      "title": "Karibu kwa Jiki!",
+      "subtitle": "Tazama video hii fupi ili kuanza.",
+      "skipTitle": "Ruka video ya karibu?",
+      "skipMessage": "Video hii inakusaidia kupata manufaa zaidi kutoka kwa Jiki. Una uhakika unataka kuiruka?",
+      "skipConfirm": "Ruka video",
+      "skipCancel": "Endelea kutazama"
+    },
+    "subscription": {
+      "chatGate": {
+        "headline": "Fungua Msaidizi wa Gumzo la AI",
+        "description": "Pata msaada wa papo hapo kwenye mazoezi yako ya kupanga programu kutoka kwa msaidizi wetu wa AI."
+      },
+      "featureGate": {
+        "headlineFallback": "Huduma za Premium",
+        "headline": "Fungua {feature}",
+        "description": "Boresha mpango wako ili kufikia huduma za hali ya juu na uzoefu bora zaidi wa kujifunza."
+      },
+      "settings": {
+        "headline": "Chagua Mpango Wako",
+        "description": "Chagua mpango wa usajili unaokufaa zaidi katika kujifunza kwako."
+      },
+      "general": {
+        "headline": "Boresha Mpango Wako",
+        "description": "Chagua mpango unaolingana na malengo yako ya kujifunza na ufungue huduma za hali ya juu."
+      },
+      "unlockWith": "Utakachofungua kwa {feature}:",
+      "recommended": "Inapendekezwa",
+      "choosePremium": "Chagua Premium",
+      "subscribeAriaLabel": "Jiunge na mpango wa {plan}",
+      "renewNotice": "Usajili wako utahuishwa kiotomatiki kila mwezi. Unaweza kughairi wakati wowote kutoka kwenye mipangilio yako.",
+      "notNow": "Si sasa, labda baadaye"
+    },
+    "walkthroughConfirm": {
+      "title": "Jaribu kulitatua mwenyewe kwanza?",
+      "intro": "Kabla ya kutazama Uchambuzi wa Kina, unaweza kutumia nyenzo hizi kukusaidia kufaulu majaribio mwenyewe:",
+      "tryFirst": "Nitajaribu kwanza",
+      "watchDeepDive": "Tazama Uchambuzi wa Kina",
+      "conceptPages": "<strong>Kurasa za Dhana</strong>: pitia dhana zinazotumika katika zoezi hili",
+      "askJiki": "<strong>Uliza Jiki</strong>: pata msaada maalum kutoka kwa Jiki bila kufichuliwa majibu",
+      "whatHappened": "<strong>Vidokezo vya “Nini kilitokea?”</strong>: pitia msimbo wako mstari kwa mstari uone kilichoenda vibaya",
+      "revealHints": "<strong>Funua Vidokezo vyote</strong>: soma vidokezo vyote hapo juu upate mwongozo"
+    },
+    "paymentConfirming": {
+      "title": "Tunathibitisha malipo yako…",
+      "description": "Subiri kidogo wakati tunathibitisha malipo yako na Stripe. Kwa kawaida hii huchukua muda mfupi tu."
+    },
+    "example": {
+      "defaultTitle": "Dirisha la Mfano",
+      "defaultMessage": "Hili ni dirisha la mfano!"
+    },
+    "paymentProcessing": {
+      "title": "Malipo Yanashughulikiwa",
+      "description": "Asante. Tunasubiri mtoa huduma wako wa malipo atutumie fedha. Mara tu atakapotuma, tutaboresha mpango wako hadi Premium na kukutumia barua pepe.",
+      "continue": "Endelea kutumia Jiki"
+    },
+    "exerciseCompletion": {
+      "success": {
+        "title": "Senario Zote Zimefaulu",
+        "titleBonus": "Senario Zote za Msingi Zimefaulu",
+        "messageExercise": "Kazi nzuri! Uko tayari kukamilisha zoezi hili na kuendelea na changamoto inayofuata.",
+        "messageChallenge": "Kazi nzuri! Uko tayari kukamilisha changamoto hii na kuendelea mbele.",
+        "completeExercise": "Kamilisha Zoezi",
+        "completeChallenge": "Kamilisha Changamoto"
+      },
+      "conceptUnlocked": {
+        "title": "Dhana imefunguliwa!",
+        "messageGeneric": "Umefungua dhana mpya ya kuchunguza.",
+        "messageNamed": "Umefungua dhana mpya: <strong>{title}</strong>"
+      },
+      "completed": {
+        "titleExercise": "Zoezi limekamilika!",
+        "titleChallenge": "Changamoto imekamilika!",
+        "greatWork": "Hongera kwa kukamilisha {title}!",
+        "messageExercise": "Hongera kwa kukamilisha {title}! Uko tayari kuendelea na zoezi linalofuata?",
+        "messageChallenge": "Hongera kwa kukamilisha {title}! Uko tayari kuendelea na changamoto inayofuata?",
+        "bonusPrompt": "{count, plural, one {Zoezi hili lina <strong>senario ya bonasi</strong>. Ungependa kuitatua kabla ya kuendelea?} other {Zoezi hili lina <strong>senario za bonasi</strong>. Ungependa kuzitatua kabla ya kuendelea?}}",
+        "tidyCode": "Safisha msimbo",
+        "solveBonuses": "{count, plural, one {Tatua Bonasi} other {Tatua Bonasi}}",
+        "moveOn": "Endelea"
+      },
+      "difficultyRating": {
+        "title": "Tathmini uzoefu wako",
+        "message": "Tusaidie kuboresha {title} kwa kuitathmini.",
+        "rateDifficulty": "Tathmini ugumu",
+        "rateFun": "Tathmini kiwango cha furaha",
+        "difficultyTooEasy": "Rahisi mno",
+        "difficultyEasy": "Rahisi",
+        "difficultyJustRight": "Sawa kabisa",
+        "difficultyHard": "Ngumu",
+        "difficultyTooHard": "Ngumu mno",
+        "funFrustrating": "Inakera",
+        "funPrettyGood": "Nzuri kiasi",
+        "funAmazing": "Ya ajabu!",
+        "rateDifficultyAriaLabel": "Tathmini ugumu kama {label}",
+        "rateFunAriaLabel": "Tathmini furaha kama {label}",
+        "funOptionFallback": "chaguo {number}"
+      },
+      "challengeUnlocked": {
+        "title": "Changamoto imefunguliwa!",
+        "message": "Hongera! Mazoezi yote hayo yanamaanisha uko tayari kukabiliana na changamoto ngumu zaidi.",
+        "newLabel": "Mpya",
+        "premiumInfo": "<strong>Kwa wanachama wa Premium pekee.</strong> <link>Boresha akaunti yako</link> ili kufikia Changamoto unapozifungua."
+      }
+    },
+    "premiumUpgrade": {
+      "skipLink": "Si sasa, labda baadaye",
+      "userAvatarAlt": "Mtumiaji",
+      "upgrade": "Boresha hadi Premium",
+      "planName": "Jiki Premium",
+      "featureLearnToBuild": "Ufikiaji kamili wa <strong>Jifunze Kujenga</strong>",
+      "featureChallenges": "Kabiliana na <strong>Changamoto</strong> ngumu zaidi",
+      "featureAi": "<strong>Msaada wa AI</strong> usio na kikomo kutoka kwa Jiki",
+      "featureLivestreams": "<strong>Vipindi vya moja kwa moja vya maswali na majibu</strong> unavyoweza kujiunga navyo",
+      "featureCertificates": "Pata <strong>vyeti</strong> vya kozi",
+      "featureAdFree": "Kujifunza <strong>bila matangazo</strong>",
+      "featureEarlyAccess": "<strong>Ufikiaji wa mapema</strong> wa huduma mpya",
+      "basic": {
+        "subheading": "Boresha hadi Premium ili kuharakisha safari yako ya kuwa tayari kwa ajira.",
+        "planName": "Mpango wa Msingi",
+        "planPrice": "Bure milele",
+        "feature1": "Zaidi ya Mazoezi 80 ya Kupanga Programu",
+        "feature2": "Maktaba Kamili ya Dhana",
+        "feature3": "Uliza Jiki kwenye zoezi moja",
+        "note": "+ Ufikiaji wa video za YouTube za umma na majukwaa ya jumuiya kwa nyenzo zaidi za kujifunza.",
+        "headline": "<highlight>Harakisha</highlight> kujifunza kwako!"
+      },
+      "dailyNote": "(Ni <price></price> tu kwa siku)"
+    },
+    "subscriptionCheckout": {
+      "connectingToStripe": "Inaunganisha na Stripe",
+      "paymentFailed": "Malipo yameshindikana",
+      "unexpectedError": "Hitilafu isiyotarajiwa imetokea. Tafadhali jaribu tena.",
+      "paymentFailedTitle": "Malipo yameshindikana",
+      "paymentInfoAriaLabel": "Taarifa za malipo",
+      "pay": "Lipa",
+      "orderTitle": "Jiki {tier}",
+      "orderBilling": "Unalipa kila mwezi. Ghairi wakati wowote.",
+      "perMonthShort": "/mwezi",
+      "securedBy": "Inalindwa na <stripe>stripe</stripe>",
+      "error": "Hitilafu: {message}"
+    },
+    "calendarSubscribe": {
+      "title": "Jiunge na Kalenda",
+      "description": "Ongeza vipindi vya moja kwa moja vya Jiki kwenye kalenda yako. Vipindi vipya vinaonekana kiotomatiki vinapopangwa.",
+      "apple": "Jiunge kupitia Apple",
+      "google": "Jiunge kupitia Google",
+      "otherLabel": "Outlook na kalenda nyingine",
+      "otherHelp": "Nakili kiungo hiki na ukiongeze kama kalenda uliyojiunga nayo.",
+      "copied": "Imenakiliwa"
+    }
+  },
+  "challenge": {
+    "backToChallenges": "�",
+    "error": {
+      "message": "�"
+    },
+    "loadError": "�",
+    "documentTitle": "�",
+    "locked": {
+      "title": "�",
+      "description": "�"
+    },
+    "premiumRequired": {
+      "title": "�",
+      "description": "�"
+    }
+  },
+  "dashboard": {
+    "exercisePath": {
+      "comingSoon": {
+        "title": "Masomo Zaidi Yanakuja Hivi Karibuni",
+        "description": "Tunakamilisha masomo yanayofuata. Rudi hivi karibuni kuendelea na safari yako!"
+      },
+      "walkthrough": {
+        "label": "Uchambuzi wa Kina",
+        "watch": "Tazama"
+      },
+      "start": {
+        "title": "Mwanzo wa Safari Yako"
+      },
+      "completionCert": {
+        "title": "Cheti cha Kukamilisha",
+        "description": "Kamilisha mazoezi yote upate cheti chako cha kukamilisha na kuonyesha ujuzi wako mpya!",
+        "progress": "{percentage}% imekamilika"
+      },
+      "lessonNode": {
+        "status": {
+          "complete": "Limekamilika",
+          "locked": "Limefungwa",
+          "inProgress": "Linaendelea"
+        },
+        "type": {
+          "video": "Video",
+          "quiz": "Maswali",
+          "choice": "Chaguo",
+          "exercise": "Zoezi"
+        }
+      },
+      "scrollToActive": {
+        "up": "Sogeza juu hadi somo linaloendelea",
+        "down": "Sogeza chini hadi somo linaloendelea"
+      },
+      "milestone": {
+        "label": "Hatua Muhimu {index}"
+      }
+    },
+    "challengesSidebar": {
+      "empty": {
+        "title": "Changamoto zinakusubiri!",
+        "description": "Kamilisha mazoezi ili kufungua changamoto halisi za kupanga programu. Jenga michezo, programu na zana zinazodhihirisha ujuzi wako."
+      },
+      "upsell": {
+        "title": "Changamoto Mpya Zinakusubiri!",
+        "description": "Unganisha ujuzi wako na ujipime kwa Changamoto za Premium."
+      },
+      "userProfile": {
+        "premiumMember": "Mwanachama wa Premium"
+      },
+      "challengeCard": {
+        "status": {
+          "locked": "Imefungwa",
+          "notStarted": "Haijaanza",
+          "inProgress": "Inaendelea",
+          "completed": "Imekamilika",
+          "available": "Inapatikana"
+        }
+      },
+      "streak": {
+        "activeDays": "{count, plural, one {Umejifunza jumla ya siku #.} other {Umejifunza jumla ya siku #.}}",
+        "noStreak": "Fanya mazoezi leo kuanzisha mfululizo wako!",
+        "oneDayStreak": "Fanya mazoezi kila siku kujenga mfululizo!",
+        "multiDayStreak": "{count, plural, one {Una mfululizo wa siku #!} other {Una mfululizo wa siku #!}}"
+      },
+      "badges": {
+        "title": "Beji"
+      },
+      "recent": {
+        "title": "Changamoto za Hivi Karibuni",
+        "unlockedCount": "{count} zimefunguliwa",
+        "viewAll": "Tazama Changamoto Zote"
+      }
+    }
+  },
+  "codingExercise": {
+    "loadError": "Hitilafu wakati wa kupakia zoezi: {error}",
+    "unknownError": "Hitilafu isiyojulikana",
+    "runButton": {
+      "run": "Endesha Msimbo",
+      "running": "Inaendesha...",
+      "resetAriaLabel": "Anzisha upya zoezi",
+      "resetTooltip": "Bofya kuanzisha upya zoezi",
+      "resetConfirmTitle": "Uanzishe upya msimbo wako?",
+      "resetConfirmMessage": "Hii itarudisha msimbo wako mwanzoni. Usijali, hutapoteza mazungumzo yako na Jiki.",
+      "resetConfirmButton": "Ndiyo, anzisha upya"
+    },
+    "hintsPanel": {
+      "title": "Vidokezo",
+      "description": "Ukikwama kwenye zoezi hili, vidokezo hivi vinaweza kukuelekeza njia sahihi. Bofya kidokezo ili kufunua ushauri wa msaada.",
+      "empty": "Hakuna vidokezo kwa zoezi hili.",
+      "reveal": "Funua",
+      "hide": "Ficha",
+      "confirmReveal": "Una uhakika unataka kufunua kidokezo hiki?",
+      "confirmNo": "Si kwa sasa",
+      "confirmYes": "Ndiyo",
+      "deepDiveHeading": "Uchambuzi wa Kina",
+      "deepDiveDescription": "Bado umekwama? Tazama uchambuzi wa kina wa Jeremy akitatua zoezi hili.",
+      "walkthroughThumbnailAlt": "Picha ndogo ya video ya Uchambuzi wa Kina"
+    },
+    "chatHeader": {
+      "title": "Uliza Jiki",
+      "description": "Uliza maswali na upate msaada kutoka kwa msaidizi wako wa AI wa kupanga programu"
+    },
+    "chatStatus": {
+      "errorLabel": "Hitilafu:"
+    },
+    "chatPanel": {
+      "unavailable": "Gumzo halipatikani"
+    },
+    "chatMessages": {
+      "greeting": "Habari! Nikusaidie nini kwenye zoezi hili?"
+    },
+    "chatInput": {
+      "placeholder": "Andika swali lako hapa...",
+      "limitReachedPlaceholder": "Umefikia kikomo chako cha ujumbe",
+      "respondPlaceholder": "Mjibu Jiki..."
+    },
+    "conversation": {
+      "loadError": "Imeshindikana kupakia historia ya mazungumzo: {error}"
+    },
+    "typeItAssistant": {
+      "thinking": "Jiki anafikiri"
+    },
+    "functionsView": {
+      "empty": "Hakuna vitendakazi kwa zoezi hili.",
+      "examples": "Mifano"
+    },
+    "tasksView": {
+      "empty": "Hakuna kazi kwa zoezi hili.",
+      "bonus": "Bonasi"
+    },
+    "logPanel": {
+      "title": "Kumbukumbu ya Senario",
+      "emptyDescription": "Haya ni matokeo ya uendeshaji wa msimbo wako. Hapa unaweza kuchambua mabadiliko uliyofanya. Tumia <code>console.log()</code> kurekodi thamani.",
+      "description": "Haya ni matokeo ya uendeshaji wa msimbo wako kwa senario ya <scenario>{name}</scenario>. Hapa unaweza kuchambua mabadiliko uliyofanya. Tumia <code>console.log()</code> kurekodi thamani.",
+      "emptyState": "Bado hujarekodi chochote"
+    },
+    "instructionsPanel": {
+      "instructionsTitle": "Maagizo",
+      "functionsTitle": "Vitendakazi na Metodu",
+      "conceptLibraryTitle": "Maktaba ya Dhana",
+      "functionsIntro": "Hivi ni vitendakazi na metodu unazoweza kutumia katika zoezi hili.",
+      "functionsExamplesLabel": "Mifano:",
+      "loadingConcepts": "Inapakia dhana...",
+      "premiumChallenge": "Changamoto ya Premium",
+      "exerciseLevel": "Zoezi • {level}",
+      "libraryEmpty": "Hapa ndipo utakapoona Dhana unapoendelea na mazoezi. Hizi zitakuwa marejeo unayoweza kutumia kujikumbusha ulichojifunza.",
+      "libraryChallenges": "Unaweza kutumia dhana zozote ulizojifunza hadi sasa katika zoezi hili. Rejea Maktaba yako ya Dhana unapotaka kujikumbusha ulichojifunza.",
+      "libraryWithConcepts": "Hizi ndizo dhana muhimu zinazotumika katika zoezi hili. Zitumie kujikumbusha ulichojifunza hadi sasa.",
+      "openConceptLibrary": "Fungua Maktaba ya Dhana"
+    },
+    "scrubber": {
+      "previousFrame": "Fremu iliyotangulia",
+      "nextFrame": "Fremu inayofuata",
+      "previousBreakpoint": "Breakpoint iliyotangulia",
+      "nextBreakpoint": "Breakpoint inayofuata",
+      "toggleInfoOn": "Washa paneli ya taarifa",
+      "toggleInfoOff": "Zima paneli ya taarifa",
+      "showInfoWidget": "Onyesha kidirisha cha taarifa",
+      "hideInfoWidget": "Ficha kidirisha cha taarifa",
+      "disabledCodeEdited": "Msimbo umehaririwa, kwa hiyo tumezima kitelezi. Bonyeza \"Endesha Msimbo\" ili kukiwasha tena.",
+      "disabledSpotlight": "Kitelezi kimezimwa: hali ya Spotlight inatumika.",
+      "disabledNotEnoughFrames": "Kitelezi kimezimwa: hakuna fremu za kutosha kusogeza."
+    },
+    "avatars": {
+      "jikiAlt": "Jiki",
+      "userAlt": "Wewe"
+    },
+    "rhs": {
+      "tabInstructions": "Maagizo",
+      "tabAskJiki": "Uliza Jiki",
+      "tabLog": "Kumbukumbu",
+      "tabHints": "Vidokezo",
+      "navChallenges": "Changamoto",
+      "navDashboard": "Dashibodi"
+    },
+    "canStart": {
+      "placeholder": "Andika swali lako hapa...",
+      "askAbout": "Uliza kuhusu...",
+      "askJiki": "Uliza Jiki",
+      "freeIncluded": "Mazungumzo ya kwanza yamejumuishwa katika mpango wako wa Bure",
+      "premiumIncluded": "Imejumuishwa katika mpango wako wa <premium>Premium</premium>",
+      "phraseWhyNotWorking": "kwa nini msimbo wako haufanyi kazi",
+      "phraseHowToFixBug": "jinsi ya kurekebisha bug",
+      "phraseWhatErrorMeans": "maana ya hitilafu hii",
+      "phraseHowToApproach": "jinsi ya kukabiliana na zoezi hili",
+      "phraseHowToGetUnstuck": "jinsi ya kujinasua ukikwama"
+    },
+    "freeUserLimitReached": {
+      "description": "Umetumia mazungumzo yako ya bure. Endelea kujifunza kwa msaada wa Jiki kuhusu dhana, utatuzi wa hitilafu, na kusonga mbele kwenye mazoezi.",
+      "upgradeButton": "Boresha hadi Jiki Premium",
+      "price": "Kwa <price></price> tu!"
+    },
+    "lockedFooter": {
+      "freeLimitText": "Hupo tena kwenye Mpango wa Premium. <upgrade>Boresha</upgrade> ili kuendelea na mazungumzo.",
+      "premiumBlockedText": "Umefikia vikomo vyetu vya matumizi ya haki. Tafadhali jaribu tena kesho.",
+      "learnMoreFairUse": "Jifunze zaidi kuhusu vikomo vya matumizi ya haki"
+    },
+    "chatUsageNotice": {
+      "warning": {
+        "daily": "Unakaribia kikomo chako cha kila siku (ujumbe {used}/{limit} leo).",
+        "monthly": "Unakaribia kikomo chako cha kila mwezi (ujumbe {used}/{limit} mwezi huu)."
+      },
+      "limitReached": {
+        "daily": "Umetumia ujumbe wote {limit} wa leo. Unarejeshwa upya usiku wa manane kwa saa za UTC.",
+        "monthly": "Umetumia ujumbe wote {limit} mwezi huu. Unarejeshwa upya tarehe 1."
+      },
+      "learnMore": "Jifunze Zaidi"
+    },
+    "chatError": {
+      "sessionExpired": "Kipindi kimeisha. Tafadhali jaribu tena.",
+      "verificationFailed": "Uthibitishaji umeshindikana. Tafadhali jaribu tena.",
+      "authFailed": "Uthibitishaji wa utambulisho umeshindikana. Tafadhali ingia tena.",
+      "tokenServerError": "Hitilafu ya seva wakati wa kuanzisha gumzo. Tafadhali jaribu tena.",
+      "tokenInitFailed": "Imeshindikana kuanzisha gumzo. Tafadhali jaribu tena.",
+      "exerciseMismatch": "Zoezi halilingani. Tafadhali pakia upya ukurasa kisha ujaribu tena.",
+      "authExpired": "Uthibitishaji umeisha. Tafadhali pakia upya ukurasa.",
+      "tooManyRequests": "Maombi mengi mno. Tafadhali subiri kidogo kisha ujaribu tena.",
+      "serviceUnavailable": "Huduma ya gumzo haipatikani kwa sasa. Tafadhali jaribu tena baadaye.",
+      "serverError": "Hitilafu ya seva. Tafadhali jaribu tena baada ya muda mfupi.",
+      "networkError": "Hitilafu ya mtandao. Tafadhali angalia muunganisho wako kisha ujaribu tena.",
+      "timeout": "Ombi limechukua muda mrefu mno. Tafadhali jaribu tena.",
+      "unexpected": "Hitilafu isiyotarajiwa imetokea. Tafadhali jaribu tena."
+    },
+    "stuckHeader": {
+      "title": "Umekwama? Uliza Jiki!"
+    },
+    "testResults": {
+      "passBadge": "Imefaulu",
+      "failBadge": "Imeshindwa",
+      "pendingBadge": "Inasubiri",
+      "pendingMessage": "Endesha msimbo wako uone kama senario hii inafaulu au inashindwa.",
+      "codeRun": "Msimbo ulioendeshwa",
+      "expected": "Kilichotarajiwa",
+      "actual": "Kilichotokea",
+      "noReturn": "[Kitendakazi chako hakikurejesha chochote]",
+      "clickRunCode": "Bofya “Endesha Msimbo” uone msimbo wako unafanya nini.",
+      "lintWarning": "<strong>Karibu umefika...</strong> Msimbo wako ulifanya kazi vizuri, lakini unahitaji kurekebisha muundo wa uandishi. Tafuta mistari ya chini ya rangi ya machungwa katika msimbo wako.",
+      "lintWarningPlain": "Msimbo wako ulifanya kazi vizuri, lakini unahitaji kurekebisha muundo wa uandishi. Tafuta mistari ya chini ya rangi ya machungwa katika msimbo wako.",
+      "genericError": "Lo! Msimbo wako una hitilafu.",
+      "runtimeError": "�",
+      "isolatedCheckError": "�",
+      "isolatedCheckErrorDetail": "�",
+      "congratsWellDone": "Umefanya vizuri!",
+      "congratsNiceWork": "Kazi nzuri!",
+      "congratsFantasticJob": "Kazi bora kabisa!",
+      "congratsAmazingEffort": "Juhudi za ajabu!",
+      "congratsGreatAchievement": "Mafanikio makubwa!",
+      "congratsCongratulations": "Hongera nyingi!",
+      "congratsCongrats": "Hongera!"
+    },
+    "syntaxError": {
+      "heading": "Jiki hakuelewa msimbo wako.",
+      "message": "Usiwe na wasiwasi. Soma na urekebishe hitilafu iliyo kwenye ujumbe hapo juu, kisha endesha msimbo tena."
+    },
+    "unhandledError": {
+      "heading": "Lo! Kuna kitu kimeenda <strong>vibaya sana</strong>.",
+      "message": "<strong>Hii ni hitilafu yetu, si yako!</strong> Tafadhali tuambie kuhusu hitilafu hii ili tuweze kuirekebisha. Nakili maandishi ya ajabu hapa chini na uyashiriki nasi kwenye <link>jukwaa</link>. Asante! 💙"
+    }
+  },
+  "lesson": {
+    "documentTitle": "{title} - Zoezi - Jiki",
+    "loadError": "Imeshindikana kupakia somo",
+    "backToDashboard": "Rudi kwenye Dashibodi",
+    "error": {
+      "message": "Hitilafu: {error}"
+    },
+    "quizNotImplemented": "Masomo ya maswali bado hayapatikani",
+    "quitButton": {
+      "title": "Acha Somo",
+      "message": "Una uhakika unataka kuacha somo hili? Maendeleo yako hayatahifadhiwa.",
+      "confirm": "Acha",
+      "cancel": "Endelea Kujifunza",
+      "ariaLabel": "Acha somo"
+    },
+    "loadingPage": {
+      "loading": "Inapakia",
+      "message": {
+        "video": "Inaandaa somo la video",
+        "chooseLanguage": "Inapakia chaguo za lugha",
+        "exercise": "Inaandaa kihariri cha msimbo"
+      },
+      "tip": {
+        "video": "💡 Kidokezo: Unaweza kubadilisha kasi ya video kwa kutumia vidhibiti",
+        "chooseLanguage": "💡 Kidokezo: Chagua lugha unayotaka kujifunzia",
+        "exercise": "💡 Kidokezo: Tumia Cmd/Ctrl + Enter kuendesha msimbo wako haraka"
+      }
+    },
+    "loadingModal": {
+      "title": "Tunakuandalia somo lako",
+      "subtitle": "Tunaandaa kitu kulingana na mapendeleo na maendeleo yako"
+    }
+  },
+  "quizCard": {
+    "submit": "Wasilisha",
+    "nextQuestion": "Swali Linalofuata",
+    "codeInputPlaceholder": "// Andika msimbo wako hapa...",
+    "feedback": {
+      "correct": "Sahihi!",
+      "incorrect": "Bado kidogo!"
+    },
+    "fillIn": {
+      "successTitle": "Kamili!",
+      "successMessage": "Nafasi zote zimejazwa kwa usahihi!",
+      "incorrectTitle": "{count, plural, one {Nafasi # si sahihi} other {Nafasi # si sahihi}}",
+      "errorMessage": "Pitia majibu yako kisha ujaribu tena."
+    },
+    "coding": {
+      "successTitle": "Vizuri sana!",
+      "successMessage": "Msimbo wako ni sahihi!",
+      "errorTitle": "Bado kidogo",
+      "errorMessage": "Angalia sintaksia yako kisha ujaribu tena."
+    }
+  },
+  "videoExercise": {
+    "noVideoSource": "Hakuna chanzo cha video kinachopatikana",
+    "provider": "Mtoa huduma: {provider}",
+    "skipHint": "Huwezi kuruka mbele unapotazama mara ya kwanza, lakini unaweza kurudisha nyuma wakati wowote.",
+    "pill": {
+      "complete": "Somo Limekamilika",
+      "progress": "Maendeleo ya Somo",
+      "watching": "Unatazama <title>{name}</title>",
+      "finished": "Umemaliza <title>{name}</title>",
+      "finishTooltip": "Maliza kutazama ili kuendelea"
+    }
+  },
+  "projects": {
+    "projectCard": {
+      "comingSoon": "�",
+      "comingSoonLabel": "�"
+    },
+    "episodeCard": {
+      "premium": "�"
+    },
+    "episodeSummary": {
+      "heading": "�",
+      "whereWeStart": "�",
+      "whereWeEnd": "�",
+      "whatWeCover": "�"
+    },
+    "projectPage": {
+      "backToAllProjects": "�"
+    },
+    "episodePage": {
+      "backToProject": "�",
+      "relevantGuidesDescription": "�"
+    },
+    "relevantGuides": {
+      "heading": "�"
+    }
+  },
+  "guides": {
+    "guidesContent": {
+      "pageHeading": "�",
+      "searchPlaceholder": "�",
+      "filterAll": "�",
+      "noResultsTitle": "�",
+      "noResultsMessage": "�"
+    },
+    "guideCard": {
+      "premium": "�"
+    },
+    "guideBreadcrumb": {
+      "guides": "�"
+    },
+    "premiumGate": {
+      "lockedTitle": "�",
+      "lockedSubtitle": "�",
+      "unlockButton": "�"
+    },
+    "relatedGuides": {
+      "heading": "�"
+    },
+    "featuredInProjects": {
+      "heading": "�"
+    },
+    "metadata": {
+      "notFoundTitle": "�"
+    }
+  },
+  "unsubscribe": {
+    "title": "�",
+    "subtitle": "�",
+    "updateError": "�",
+    "toggleAria": "�",
+    "manage": {
+      "title": "�",
+      "description": "�",
+      "updated": "�",
+      "save": "�"
+    },
+    "all": {
+      "title": "�",
+      "description": "�",
+      "success": "�",
+      "button": "�"
+    },
+    "email": {
+      "alreadyTitle": "�",
+      "alreadyDescription": "�",
+      "title": "�",
+      "description": "�",
+      "success": "�",
+      "button": "�",
+      "fallbackType": "�"
+    },
+    "types": {
+      "newsletters": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "event_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "milestone_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "activity_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "onboarding_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      }
+    }
+  },
+  "achievements": {
+    "title": "�",
+    "description": "�",
+    "tabBadges": "�",
+    "tabCertificates": "�",
+    "loading": "�",
+    "error": "�",
+    "certificatesEmptyTitle": "�",
+    "certificatesEmptyBody": "�"
+  },
+  "challenges": {
+    "title": "Changamoto",
+    "description": "Jenga programu na michezo halisi ili kufanyia mazoezi ujuzi wako wa kupanga programu.",
+    "tabAll": "Zote",
+    "tabInProgress": "Zinazoendelea",
+    "tabNotStarted": "Hazijaanza",
+    "tabComplete": "Zilizokamilika",
+    "tabLocked": "Zilizofungwa",
+    "error": "Hitilafu: {error}",
+    "codingChallenge": "Changamoto ya Kupanga Programu",
+    "premiumOnly": "Premium Pekee",
+    "status": {
+      "locked": "Imefungwa",
+      "unlocked": "Haijaanza",
+      "started": "Inaendelea",
+      "completed": "Imekamilika"
+    },
+    "empty": {
+      "noneAvailable": "Hakuna changamoto zinazopatikana bado.",
+      "noneFound": "Hakuna changamoto zilizopatikana.",
+      "inProgressTitle": "Hakuna changamoto zinazoendelea",
+      "inProgressDescription": "Bado hujaanza changamoto yoyote. Vinjari changamoto zilizopo kisha ubofye \"Anza\" ili kuanza changamoto yako ya kwanza.",
+      "allStartedTitle": "Changamoto zote zimeanzwa",
+      "allStartedDescription": "Maendeleo mazuri! Umeanza kufanyia kazi changamoto zote zilizopo. Endelea ili kuzikamilisha.",
+      "noneToStartTitle": "Hakuna changamoto za kuanza bado",
+      "noneToStartDescription": "Changamoto zitaonekana hapa unapozifungua.",
+      "completedTitle": "Hakuna changamoto zilizokamilika bado",
+      "completedDescription": "Kamilisha changamoto yako ya kwanza ili kuiona hapa. Endelea kufanyia kazi changamoto zako zinazoendelea ili kufikia hatua hii."
+    }
+  },
+  "subscription": {
+    "tiers": {
+      "standard": {
+        "name": "�",
+        "description": "�",
+        "features": {
+          "freeCourses": "�",
+          "basicExercises": "�",
+          "communitySupport": "�",
+          "aiHelpPerMonth": "�"
+        }
+      },
+      "premium": {
+        "name": "�",
+        "description": "�",
+        "features": {
+          "allFreeFeatures": "�",
+          "unlimitedAi": "�",
+          "allExercises": "�",
+          "certificates": "�",
+          "adFree": "�"
+        }
+      }
+    }
+  }
+}

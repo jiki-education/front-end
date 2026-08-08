@@ -1,0 +1,103 @@
+{
+  "describers": {
+    "canMove": "캐릭터가 앞으로 이동할 수 있는지 확인해요.",
+    "canTurnLeft": "캐릭터 왼쪽에 길이 있는지 확인해요.",
+    "canTurnRight": "캐릭터 오른쪽에 길이 있는지 확인해요."
+  },
+  "checks": {
+    "reachedEnd": "미로의 끝에 도달하지 못했어요.",
+    "extraTurn": "마지막에 불필요한 회전을 한 것 같아요."
+  },
+  "tasks": {
+    "straightPath": {
+      "name": "직선 경로",
+      "description": "미로의 끝까지 앞으로 이동해요."
+    },
+    "turnLeft": {
+      "name": "가능하면 왼쪽으로 회전",
+      "description": "왼쪽에 길이 있다면 그 길로 가요!"
+    },
+    "turnRight": {
+      "name": "직진이나 왼쪽이 안 되면 오른쪽으로 회전",
+      "description": "왼쪽이나 앞으로 길이 없다면, 오른쪽 길을 가요."
+    },
+    "turnAround": {
+      "name": "필요하면 뒤로 돌기",
+      "description": "막다른 곳에서는 뒤로 돌아야 해요. 왼쪽, 직진, 오른쪽 모두 갈 수 없다면 뒤로 돌아서 앞으로 이동해요."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "캐릭터를 미로 끝까지 안내하기",
+      "description": "아래쪽으로 곧은 길"
+    },
+    "leftTurn": {
+      "name": "한 번의 왼쪽 회전",
+      "description": "왼쪽 회전 통과하기"
+    },
+    "rightTurn": {
+      "name": "한 번의 오른쪽 회전",
+      "description": "오른쪽 회전 통과하기"
+    },
+    "forks": {
+      "name": "왼쪽이 가능하면 왼쪽, 아니면 오른쪽",
+      "description": "왼쪽 우선 방식을 테스트하는 갈림길이 있는 미로"
+    },
+    "turnAround": {
+      "name": "막다른 곳에서 뒤로 돌기",
+      "description": "뒤로 돌아야 하는 미로"
+    },
+    "forks2": {
+      "name": "갈림길과 막다른 곳이 있는 복잡한 미로",
+      "description": "전체 알고리즘을 테스트하는 복잡한 미로"
+    }
+  },
+  "hints": {
+    "solveEachMaze": {
+      "question": "각 미로를 따로 해결해야 하나요?",
+      "answer": "아니요, 모든 미로에 통하는 알고리즘 하나를 작성하면, 그 코드가 각 시나리오에서 똑같이 실행돼요."
+    },
+    "runEveryStep": {
+      "question": "코드를 미로의 각 단계마다 실행하게 하려면 어떻게 해야 하나요?",
+      "answer": "논리를 repeat 루프 안에 넣어요. 그러면 끝에 도달할 때까지 코드가 반복 실행되므로 한 단계에서 할 일만 설명하면 돼요."
+    },
+    "oneCheckPerStep": {
+      "question": "단계마다 검사 중 하나만 실행되도록 하려면 어떻게 해야 하나요?",
+      "answer": "여러 개의 별도 `if` 문 대신 하나의 `if` / `else if` / `else` 체인을 사용하세요. 그러면 루프를 돌 때마다 정확히 하나의 분기만 실행돼요."
+    },
+    "stuckAfterTurn": {
+      "question": "회전을 해도 캐릭터가 같은 자리에 멈춰 있어요.",
+      "answer": "회전은 캐릭터가 바라보는 방향만 바꿀 뿐, 한 걸음도 이동하지 않아요. 회전한 후에도 여전히 `move()`가 필요해요."
+    },
+    "turnAroundDeadEnd": {
+      "question": "막다른 곳에서 어떻게 뒤로 돌아요?",
+      "answer": "뒤로 도는 함수는 따로 없어요. 같은 방향으로 두 번 회전하면 (왼쪽으로 두 번 또는 오른쪽으로 두 번) 캐릭터가 왔던 방향을 바라보게 돼요."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "캐릭터를 현재 방향으로 **한 걸음 앞으로** 이동시켜요. 대상 칸이 벽으로 막혀 있지 않을 때만 이동해요.",
+      "category": "이동"
+    },
+    "turnLeft": {
+      "description": "캐릭터를 **왼쪽으로 90도** 회전시켜요 (시계 반대 방향). 캐릭터가 바라보는 방향이 바뀌어요.",
+      "category": "이동"
+    },
+    "turnRight": {
+      "description": "캐릭터를 **오른쪽으로 90도** 회전시켜요 (시계 방향). 캐릭터가 바라보는 방향이 바뀌어요.",
+      "category": "이동"
+    },
+    "canMove": {
+      "description": "캐릭터 앞쪽 칸이 벽이 아니면 **true**를, 그렇지 않으면 **false**를 반환해요.",
+      "category": "감지"
+    },
+    "canTurnLeft": {
+      "description": "캐릭터 왼쪽 칸이 벽이 아니면 **true**를, 그렇지 않으면 **false**를 반환해요.",
+      "category": "감지"
+    },
+    "canTurnRight": {
+      "description": "캐릭터 오른쪽 칸이 벽이 아니면 **true**를, 그렇지 않으면 **false**를 반환해요.",
+      "category": "감지"
+    }
+  }
+}

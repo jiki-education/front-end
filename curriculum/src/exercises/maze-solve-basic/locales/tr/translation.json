@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "Labirentin sonuna ulaşamadınız."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Karakteri labirentin sonuna götürün",
+      "description": "Yeşil hedefe ulaşmak için labirentte ilerleyin"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Karakteri labirentin sonuna götürün",
+      "description": "Göreviniz, karakterinizi labirentin içinden geçirip yeşil hedef karesine ulaştırmaktır."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "Neyi, nereye götürüyorum?",
+      "answer": "Sol üstte başlayan küçük karakteri, kırmızı çizgili hücrelerden kaçınarak sağ alttaki yeşil daireye götürüyorsunuz."
+    },
+    "turnLeftTurnsRight": {
+      "question": "Sola döndüğümde karakter sağa dönüyor!",
+      "answer": "Karakter, baktığı yöne göre döner. Yani sağa bakıyorken sola dönerse, yukarı bakmaya başlar."
+    }
+  }
+}

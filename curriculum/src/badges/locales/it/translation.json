@@ -1,0 +1,52 @@
+{
+  "beta_user": {
+    "name": "Utente beta",
+    "description": "Iscritto a Jiki durante la beta",
+    "funFact": "Gli utenti beta aiutano a plasmare il futuro di Jiki. Grazie per aver creduto in noi fin dall'inizio!"
+  },
+  "early_bird": {
+    "name": "Mattiniero",
+    "description": "Completata una lezione nelle prime ore del mattino",
+    "funFact": "Il mattiniero prende il verme. Programmare prima che il mondo si svegli è un superpotere!"
+  },
+  "first_lesson": {
+    "name": "Primi passi",
+    "description": "Completata la tua prima lezione",
+    "funFact": "La parte più difficile di ogni viaggio è fare il primo passo. Ce l'hai fatta!"
+  },
+  "maze_navigator": {
+    "name": "Navigatore di labirinti",
+    "description": "Completata la lezione Risolvi un labirinto",
+    "funFact": "Gli algoritmi per risolvere labirinti sono usati nella robotica, nell'intelligenza artificiale dei giochi e persino nella navigazione GPS!"
+  },
+  "member": {
+    "name": "Membro",
+    "description": "Iscritto a Jiki",
+    "funFact": "Benvenuto nella comunità! Ogni esperto un tempo era un principiante."
+  },
+  "night_owl": {
+    "name": "Nottambulo",
+    "description": "Completata una lezione nelle ore notturne",
+    "funFact": "Jeremy è cresciuto programmando fino a tarda notte. C'è qualcosa di magico nel programmare mentre il mondo dorme!"
+  },
+  "premium": {
+    "name": "Premium",
+    "description": "Diventato membro Premium",
+    "funFact": "Grazie per sostenere Jiki! Il tuo abbonamento Premium ci aiuta a continuare a costruire."
+  },
+  "scenario_handler": {
+    "name": "Gestore di scenari",
+    "description": "Risolto un esercizio con scenari",
+    "funFact": "Nel mondo reale, chiamiamo «scenari» i «test» e li scriviamo per verificare che il nostro codice funzioni in modi diversi."
+  },
+  "sidekick": {
+    "name": "Spalla",
+    "description": "Inviato il tuo primo messaggio a Jiki",
+    "funFact": "Due teste sono meglio di una. Grazie per aver chiacchierato con Jiki!"
+  },
+  "townsfolk": {
+    "name": "Cittadini",
+    "description": "Iscritto al forum della comunità di Jiki",
+    "funFact": "Il modo migliore per imparare è insegnare. Benvenuto nella conversazione!"
+  }
+}

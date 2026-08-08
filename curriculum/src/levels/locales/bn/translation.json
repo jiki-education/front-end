@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "ফাংশন ব্যবহার"
+  },
+  "strings-and-colors": {
+    "title": "স্ট্রিং ও রঙ"
+  },
+  "repeat-loop": {
+    "title": "রিপিট লুপ"
+  },
+  "variables": {
+    "title": "ভেরিয়েবল"
+  },
+  "basic-state": {
+    "title": "বেসিক স্টেট"
+  },
+  "functions-that-return-things": {
+    "title": "রিটার্ন করা ফাংশন"
+  },
+  "conditionals": {
+    "title": "কন্ডিশনাল"
+  },
+  "complex-conditionals": {
+    "title": "জটিল কন্ডিশনাল"
+  },
+  "conditionals-and-state": {
+    "title": "কন্ডিশনাল ও স্টেট"
+  },
+  "make-your-own-functions": {
+    "title": "নিজের ফাংশন বানানো"
+  },
+  "string-manipulation": {
+    "title": "স্ট্রিং ম্যানিপুলেশন"
+  },
+  "string-iteration": {
+    "title": "স্ট্রিং ইটারেশন"
+  },
+  "multiple-functions": {
+    "title": "একাধিক ফাংশন একসাথে"
+  },
+  "methods-and-properties": {
+    "title": "মেথড ও প্রপার্টি"
+  },
+  "advanced-loops": {
+    "title": "অ্যাডভান্সড লুপ"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "ডিকশনারি"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "সবকিছু"
+  }
+}

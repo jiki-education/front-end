@@ -42,7 +42,7 @@
       "homeAriaLabel": "Jiki kezdőlap",
       "logoAlt": "Jiki",
       "aboutJiki": "A Jikiről",
-      "premium": "Premium",
+      "premium": "�",
       "testimonials": "Vélemények",
       "login": "Bejelentkezés",
       "signUp": "Regisztrálj ingyen",
@@ -76,17 +76,14 @@
         "upgrade": "Válts Premiumra",
         "logOut": "Kijelentkezés"
       },
-      "premiumPill": "Premium"
+      "premiumPill": "�"
     },
     "loading": {
       "title": "Jiki éppen ébredezik",
       "subtitle": "Előkészítjük a tanulási élményed"
     },
     "localeBanner": {
-      "prefix": "Az oldal {language} nyelvű verzióját látod.",
-      "cta": "Váltás erre: {language}",
-      "or": "vagy",
-      "close": "értesítés bezárása"
+      "message": "Az oldal {current} nyelvű verzióját látod. <link>Váltás erre: {offered}</link> vagy <dismiss>értesítés bezárása</dismiss>."
     }
   },
   "common": {
@@ -99,7 +96,18 @@
     "loading": "Betöltés...",
     "languageNames": {
       "en": "Angol",
-      "hu": "Magyar"
+      "el": "Görög",
+      "fa": "Perzsa",
+      "fr": "�",
+      "hu": "Magyar",
+      "it": "�",
+      "nl": "�",
+      "pt-BR": "Portugál (brazíliai)",
+      "pt-PT": "Portugál (európai)",
+      "ru": "Orosz",
+      "sr": "Szerb",
+      "uk": "Ukrán",
+      "zh-TW": "�"
     },
     "verifying": "Ellenőrzés...",
     "sending": "Küldés...",
@@ -149,10 +157,10 @@
     "retry": "Újra",
     "tryAgain": "Próbáld újra",
     "betaTag": {
-      "label": "Beta Version"
+      "label": "�"
     },
     "userAvatar": {
-      "alt": "User avatar"
+      "alt": "�"
     }
   },
   "build": {
@@ -332,7 +340,7 @@
       "benefit4": "Reklámmentes élmény",
       "keep": "Megtartom az előfizetésem",
       "cancel": "Előfizetés lemondása",
-      "defaultBillingPeriodEnd": "your billing period end"
+      "defaultBillingPeriodEnd": "�"
     },
     "cancelSuccess": {
       "title": "Előfizetés lemondva",
@@ -376,8 +384,8 @@
       "columnType": "Típus",
       "columnMethod": "Mód",
       "downloadReceipt": "Nyugta letöltése",
-      "typeRecurring": "Recurring",
-      "dateUnavailable": "Date unavailable"
+      "typeRecurring": "�",
+      "dateUnavailable": "�"
     },
     "profile": {
       "nameLabel": "Név",
@@ -673,14 +681,14 @@
       "subheading": "Gyorsítsd fel az utad a munkára kész tudásig. Nyisd meg az összes kurzust és projektet, a korlátlan AI-támogatást és minden mást, amit a Jiki kínál."
     },
     "planPrice": {
-      "basic": "Basic",
-      "premium": "Premium",
+      "basic": "�",
+      "premium": "�",
       "free": "Ingyenes",
       "perMonth": "havonta"
     },
     "planBadge": {
       "free": "Ingyenes",
-      "premium": "Premium"
+      "premium": "�"
     },
     "table": {
       "comparePlans": "Hasonlítsd össze a csomagokat",
@@ -916,7 +924,7 @@
     "error": {
       "notFound": "A fogalom nem található.",
       "back": "Vissza a fogalmakhoz",
-      "loadFailed": "Failed to load concept. Please try again later."
+      "loadFailed": "�"
     },
     "relatedConcepts": {
       "heading": "Kapcsolódó fogalmak",
@@ -1017,7 +1025,7 @@
       "description": "A legjobb módja annak, hogy az AI-korszakban megtanulj programozni és fejleszteni! Az Exercism csapatától."
     },
     "premium": {
-      "title": "Premium - Jiki",
+      "title": "Prémium - Jiki",
       "description": "Gyorsítsd fel az utad a munkára kész tudásig a Jiki Premiummal. Teljes hozzáférés a kurzusokhoz, projektekhez, AI-támogatáshoz és még sok máshoz."
     },
     "roadmap": {
@@ -1042,17 +1050,17 @@
     },
     "blog": {
       "title": "Blog - Jiki",
-      "description": "Read the latest articles about programming, coding challenges, and learning tips from the Jiki community.",
-      "notFound": "Post Not Found"
+      "description": "Olvasd el a legfrissebb cikkeket a programozásról, programozási kihívásokról és tanulási tippekről a Jiki közösségtől.",
+      "notFound": "Bejegyzés nem található"
     },
     "help": {
-      "title": "Help Center - Jiki",
-      "description": "Answers, how-tos, and policies to help you get the most out of Jiki.",
-      "notFound": "Article Not Found"
+      "title": "Segítségközpont - Jiki",
+      "description": "Válaszok, útmutatók és irányelvek, hogy a legtöbbet hozhasd ki a Jikiből.",
+      "notFound": "Cikk nem található"
     },
     "guides": {
-      "title": "Guides - Jiki",
-      "description": "Step by step guides to help you set up your tools and get the most out of Jiki."
+      "title": "Útmutatók - Jiki",
+      "description": "Lépésről lépésre útmutatók, amelyek segítenek az eszközeid beállításában, és a legtöbbet kihozni a Jikiből."
     }
   },
   "toasts": {
@@ -1259,8 +1267,8 @@
         "titleExercise": "Feladat teljesítve!",
         "titleChallenge": "Kihívás teljesítve!",
         "greatWork": "Szép munka, teljesítetted: {title}!",
-        "readyExercise": "Mehetünk tovább a következő feladatra?",
-        "readyChallenge": "Mehetünk tovább a következő kihívásra?",
+        "messageExercise": "Szép munka, teljesítetted: {title}! Mehetünk tovább a következő feladatra?",
+        "messageChallenge": "Szép munka, teljesítetted: {title}! Mehetünk tovább a következő kihívásra?",
         "bonusPrompt": "{count, plural, one {Ehhez a feladathoz tartozik <strong>egy bónuszforgatókönyv</strong> is. Megoldod, mielőtt továbblépsz?} other {Ehhez a feladathoz <strong>bónuszforgatókönyvek</strong> is tartoznak. Megoldod őket, mielőtt továbblépsz?}}",
         "tidyCode": "Kód rendezése",
         "solveBonuses": "{count, plural, one {Bónusz megoldása} other {Bónuszok megoldása}}",
@@ -1343,7 +1351,7 @@
       "message": "Hiba: {error}"
     },
     "loadError": "A kihívás betöltése nem sikerült",
-    "documentTitle": "{title} - Challenge - Jiki",
+    "documentTitle": "�",
     "locked": {
       "title": "Zárolt kihívás",
       "description": "Ez a kihívás jelenleg zárolva van. Az előző leckék teljesítésével oldhatod fel."
@@ -1432,7 +1440,7 @@
   "codingExercise": {
     "loadError": "Hiba a feladat betöltésekor: {error}",
     "unknownError": "Ismeretlen hiba",
-    "exerciseNotFound": "Exercise \"{slug}\" not found in curriculum. Available exercises: {available}",
+    "exerciseNotFound": "A(z) „{slug}” feladat nem található a tananyagban. Elérhető feladatok: {available}",
     "runButton": {
       "run": "Kód futtatása",
       "running": "Futtatás...",
@@ -1579,10 +1587,10 @@
       "networkError": "Hálózati hiba. Ellenőrizd a kapcsolatodat, és próbáld újra.",
       "timeout": "A kérés túllépte az időkorlátot. Próbáld újra.",
       "unexpected": "Váratlan hiba történt. Próbáld újra.",
-      "noResponseBody": "Something went wrong receiving the response. Please try again.",
-      "streamProcessing": "Something went wrong reading the response. Please try again.",
-      "unknown": "An unexpected error occurred. Please try again.",
-      "requestFailed": "The request failed. Please try again."
+      "noResponseBody": "Hiba történt a válasz fogadásakor. Kérlek, próbáld újra.",
+      "streamProcessing": "Hiba történt a válasz olvasásakor. Kérlek, próbáld újra.",
+      "unknown": "Váratlan hiba történt. Kérlek, próbáld újra.",
+      "requestFailed": "A kérés sikertelen volt. Kérlek, próbáld újra."
     },
     "stuckHeader": {
       "title": "Elakadtál? Kérdezd Jikit!"
@@ -1600,24 +1608,26 @@
       "lintWarning": "<strong>Majdnem kész...</strong> A kódod jól működik, de a formázást még javítanod kell. Keresd a narancssárga aláhúzásokat a kódodban.",
       "lintWarningPlain": "A kódod jól működik, de a formázást még javítanod kell. Keresd a narancssárga aláhúzásokat a kódodban.",
       "genericError": "Ajjaj! Hiba van a kódodban.",
-      "runtimeError": "�",
-      "isolatedCheckError": "�",
-      "isolatedCheckErrorDetail": "�",
+      "runtimeError": "A kódod hibába ütközött futás közben. A folytatáshoz javítsd ki a fenti hibaüzenetet.",
+      "isolatedCheckError": "A kódod hibát dobott futás közben.",
+      "isolatedCheckErrorDetail": "A kódod hibát dobott futás közben. ({message})",
       "congratsWellDone": "Szép munka!",
       "congratsNiceWork": "Ügyes vagy!",
       "congratsFantasticJob": "Fantasztikus munka!",
       "congratsAmazingEffort": "Lenyűgöző teljesítmény!",
       "congratsGreatAchievement": "Nagyszerű eredmény!",
       "congratsCongratulations": "Gratulálunk!",
-      "congratsCongrats": "Gratula!"
+      "congratsCongrats": "Gratula!",
+      "ioError": "<p>Hiba: {message}</p>",
+      "codeCheckError": "Kódellenőrzési hiba: {message}"
     },
     "informationTooltip": {
-      "errorHeading": "�",
-      "closeAriaLabel": "�"
+      "errorHeading": "Hoppá, valami hiba történt!",
+      "closeAriaLabel": "Eszköztipp bezárása"
     },
     "breakpointGutter": {
-      "addBreakpoint": "�",
-      "removeBreakpoint": "�"
+      "addBreakpoint": "Töréspont hozzáadása",
+      "removeBreakpoint": "Töréspont eltávolítása"
     },
     "syntaxError": {
       "heading": "Jiki nem értette a kódodat.",
@@ -1626,25 +1636,10 @@
     "unhandledError": {
       "heading": "Hoppá! Valami <strong>nagyon</strong> félrement.",
       "message": "<strong>Ez a mi hibánk, nem a tiéd!</strong> Kérünk, jelezd nekünk ezt a hibát, hogy kijavíthassuk. Másold ki a lenti rejtélyes szöveget, és oszd meg velünk <link>a fórumon</link>. Köszönjük! 💙"
-    },
-    "informationWidget": {
-      "errorHeading": "Oops, something went wrong!",
-      "closeAriaLabel": "Close tooltip"
-    },
-    "breakpoint": {
-      "addBreakpoint": "Add breakpoint",
-      "removeBreakpoint": "Remove breakpoint"
-    },
-    "testRunner": {
-      "runtimeErrorAbove": "Your code hit an error while it was running. Fix the error message above to continue.",
-      "codeThrewError": "Your code threw an error while running.",
-      "codeThrewErrorWithDetail": "Your code threw an error while running. ({detail})",
-      "codeCheckError": "Code check error: {detail}",
-      "ioError": "<p>Error: {detail}</p>"
     }
   },
   "lesson": {
-    "documentTitle": "{title} - Exercise - Jiki",
+    "documentTitle": "�",
     "loadError": "A lecke betöltése nem sikerült",
     "backToDashboard": "Vissza az irányítópultra",
     "error": {
@@ -1715,7 +1710,7 @@
       "comingSoonLabel": "Hamarosan"
     },
     "episodeCard": {
-      "premium": "Premium"
+      "premium": "�"
     },
     "episodeSummary": {
       "heading": "Az epizód röviden",
@@ -1743,7 +1738,7 @@
       "noResultsMessage": "Próbálj más keresőszót, vagy böngéssz az útmutatók között."
     },
     "guideCard": {
-      "premium": "Premium"
+      "premium": "�"
     },
     "guideBreadcrumb": {
       "guides": "Útmutatók"
@@ -1827,11 +1822,11 @@
     "certificatesEmptyTitle": "Még nincs tanúsítványod",
     "certificatesEmptyBody": "Végezz el kurzusokat, és szerezz tanúsítványokat, amelyek megmutatják a tudásod. A tanúsítványaid itt jelennek meg, amint befejeztél egy kurzust.",
     "badge": {
-      "locked": "Locked",
-      "earnedToday": "Earned today",
-      "earnedRelative": "Earned {distance}"
+      "locked": "�",
+      "earnedToday": "�",
+      "earnedRelative": "�"
     },
-    "loadError": "Failed to load badges"
+    "loadError": "�"
   },
   "challenges": {
     "title": "Kihívások",
@@ -1862,7 +1857,7 @@
       "completedTitle": "Még nincs befejezett kihívás",
       "completedDescription": "Fejezd be az első kihívásodat, hogy itt lásd. Dolgozz tovább a folyamatban lévő kihívásaidon, hogy elérd ezt a mérföldkövet."
     },
-    "loadError": "Failed to load challenges"
+    "loadError": "�"
   },
   "subscription": {
     "tiers": {
@@ -1877,7 +1872,7 @@
         }
       },
       "premium": {
-        "name": "Premium",
+        "name": "�",
         "description": "Oldj fel haladó funkciókat",
         "features": {
           "allFreeFeatures": "Minden Ingyenes funkció",
@@ -1892,64 +1887,64 @@
   "blog": {
     "header": {
       "label": "Blog",
-      "title": "News, insights and witterings",
-      "subtitle": "Deep dives into programming languages, coding challenges, and the art of learning to code."
+      "title": "Hírek, betekintések és elmélkedések",
+      "subtitle": "Mélyreható cikkek a programozási nyelvekről, a programozási kihívásokról és a programozás tanulásának művészetéről."
     },
     "postHeader": {
-      "writtenBy": "Written by {name}",
-      "readingTime": "{count, plural, one {# minute read} other {# minute read}}"
+      "writtenBy": "Írta: {name}",
+      "readingTime": "{count, plural, one {# perces olvasás} other {# perces olvasás}}"
     },
     "featuredLatest": {
-      "label": "Latest Post",
-      "byAuthor": "by {name}",
-      "readFullArticle": "Read full article →"
+      "label": "Legfrissebb bejegyzés",
+      "byAuthor": "Írta: {name}",
+      "readFullArticle": "Olvasd el a teljes cikket →"
     },
     "recentPosts": {
-      "heading": "Recent Posts"
+      "heading": "Legutóbbi bejegyzések"
     },
     "relatedPosts": {
-      "heading": "Related Posts"
+      "heading": "Kapcsolódó bejegyzések"
     },
     "cta": {
-      "minimalTitle": "Try Jiki for free",
-      "minimalSubtitle": "10,000+ learners use Jiki to master programming through hands-on practice and expert mentorship every month.",
-      "minimalButton": "Get started now",
-      "gradientTitle": "Ready to Start Your Coding Journey?",
-      "gradientSubtitle": "Join thousands of learners on Jiki. Practice coding exercises, get feedback from mentors, and level up your skills — it's free!",
-      "gradientButton": "Sign Up For Free"
+      "minimalTitle": "Próbáld ki ingyen a Jikit",
+      "minimalSubtitle": "Több mint 10 000 tanuló használja a Jikit havonta, hogy gyakorlati feladatokkal és szakértői mentorálással sajátítsa el a programozást.",
+      "minimalButton": "Kezdd el most",
+      "gradientTitle": "Készen állsz, hogy elkezdd a programozási utad?",
+      "gradientSubtitle": "Csatlakozz a több ezer tanulóhoz a Jikin. Gyakorolj programozási feladatokat, kapj visszajelzést mentoroktól, és fejleszd a készségeidet – ingyenes!",
+      "gradientButton": "Regisztrálj ingyen"
     }
   },
   "articles": {
     "header": {
-      "label": "Articles",
-      "title": "Help and resources",
-      "subtitle": "Guides, tutorials, and answers to help you get the most out of Jiki.",
-      "writtenBy": "Written by {name}",
-      "readingTime": "{count, plural, one {# minute read} other {# minute read}}"
+      "label": "Cikkek",
+      "title": "Segítség és források",
+      "subtitle": "Útmutatók, oktatóanyagok és válaszok, hogy a legtöbbet hozhasd ki a Jikiből.",
+      "writtenBy": "Írta: {name}",
+      "readingTime": "{count, plural, one {# perces olvasás} other {# perces olvasás}}"
     },
     "relatedArticles": {
-      "heading": "Related Articles"
+      "heading": "Kapcsolódó cikkek"
     },
     "search": {
-      "placeholder": "Search articles...",
-      "noResultsTitle": "0 results for “{query}”",
-      "noResultsMessage": "Try a different search term or browse the articles."
+      "placeholder": "Cikkek keresése...",
+      "noResultsTitle": "0 találat a(z) „{query}” kifejezésre.",
+      "noResultsMessage": "Próbálj más keresési kifejezést, vagy böngéssz a cikkek között."
     },
     "filterSidebar": {
-      "filterBy": "Filter by",
-      "all": "All",
-      "help": "Can't find what you're looking for? Try our <blogs>Blogs</blogs>, <faqs>FAQs</faqs>, <support>Contact support</support>, or ask in our <community>Community</community>"
+      "filterBy": "Szűrés",
+      "all": "Összes",
+      "help": "Nem találod, amit keresel? Nézd meg a <blogs>Blogokat</blogs>, a <faqs>GYIK-et</faqs>, lépj kapcsolatba a <support>támogatással</support>, vagy kérdezz a <community>közösségben</community>."
     },
     "cta": {
-      "minimalTitle": "Try Jiki for free",
-      "minimalSubtitle": "10,000+ learners use Jiki to master programming through hands-on practice and expert mentorship every month.",
-      "minimalButton": "Get started now",
-      "gradientTitle": "Ready to Start Your Coding Journey?",
-      "gradientSubtitle": "Join thousands of learners on Jiki. Practice coding exercises, get feedback from mentors, and level up your skills — it's free!",
-      "gradientButton": "Sign Up For Free"
+      "minimalTitle": "Próbáld ki ingyen a Jikit",
+      "minimalSubtitle": "Több mint 10 000 tanuló használja a Jikit havonta, hogy gyakorlati feladatokkal és szakértői mentorálással sajátítsa el a programozást.",
+      "minimalButton": "Kezdd el most",
+      "gradientTitle": "Készen állsz, hogy elkezdd a programozási utad?",
+      "gradientSubtitle": "Csatlakozz a több ezer tanulóhoz a Jikin. Gyakorolj programozási feladatokat, kapj visszajelzést mentoroktól, és fejleszd a készségeidet – ingyenes!",
+      "gradientButton": "Regisztrálj ingyen"
     }
   },
   "checkout": {
-    "declineDefault": "Your last payment didn't go through. Please try again with a different card."
+    "declineDefault": "Az utolsó fizetésed nem sikerült. Kérlek, próbáld újra másik kártyával."
   }
 }

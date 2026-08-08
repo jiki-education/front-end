@@ -1,0 +1,117 @@
+{
+  "tasks": {
+    "doubleAndSum": {
+      "name": "Dobre cada segundo dígito e some",
+      "description": "Escreva uma função chamada valid que ignora os espaços, depois dobra cada segundo dígito contando a partir da direita (subtraindo 9 de qualquer resultado maior que 9), soma todos os dígitos e retorna true quando o total é divisível por 10."
+    },
+    "spotInvalidNumbers": {
+      "name": "Identifique números inválidos",
+      "description": "Números cujos dígitos são todos válidos, mas cuja soma de verificação não resulta em um valor divisível por 10, devem retornar false."
+    },
+    "rejectBadInput": {
+      "name": "Rejeite entradas inválidas",
+      "description": "Rejeite strings com um único caractere ou menos e rejeite qualquer string que contenha um caractere que não seja um dígito ou um espaço."
+    }
+  },
+  "scenarios": {
+    "luhnSimpleValid": {
+      "name": "Um número válido simples",
+      "description": "Um número válido deve retornar true."
+    },
+    "luhnValidTwoDigit": {
+      "name": "Número válido de dois dígitos",
+      "description": "Um número válido de dois dígitos deve retornar true."
+    },
+    "luhnValidCanadianSin": {
+      "name": "SIN canadense válido",
+      "description": "Um número válido com espaços deve retornar true."
+    },
+    "luhnValidEvenDigits": {
+      "name": "Número válido com quantidade par de dígitos",
+      "description": "Um número válido com uma quantidade par de dígitos deve retornar true."
+    },
+    "luhnValidVeryLong": {
+      "name": "Número muito longo",
+      "description": "Um número válido muito longo também deve retornar true."
+    },
+    "luhnInvalidCanadianSin": {
+      "name": "SIN canadense inválido",
+      "description": "Um número cuja soma de verificação falha deve retornar false."
+    },
+    "luhnInvalidCreditCard": {
+      "name": "Cartão de crédito inválido",
+      "description": "Um número de cartão de crédito inválido deve retornar false."
+    },
+    "luhnInvalidLongRemainderDiv5": {
+      "name": "Número longo inválido com resto divisível por 5",
+      "description": "Um número longo cujo total é divisível por 5, mas não por 10, deve retornar false."
+    },
+    "luhnSingleDigit": {
+      "name": "Um único dígito é inválido",
+      "description": "Uma string de um único dígito nunca pode ser válida."
+    },
+    "luhnZeroWithSpace": {
+      "name": "Um único zero com espaço",
+      "description": "Um único zero com um espaço é inválido, porque só resta um dígito depois que os espaços são ignorados."
+    },
+    "luhnTrailingLetter": {
+      "name": "Letra no final",
+      "description": "Um número válido com um caractere que não é dígito adicionado ao final se torna inválido."
+    },
+    "luhnColon": {
+      "name": "Caractere de dois-pontos",
+      "description": "O caractere de dois-pontos vem uma posição antes do caractere '0' e não deve ser tratado como um dígito."
+    },
+    "luhnPercent": {
+      "name": "Caractere de porcentagem no meio",
+      "description": "Um caractere que não é dígito nem espaço no meio torna o número inválido, mesmo quando os dígitos sozinhos somariam um múltiplo de 10."
+    }
+  },
+  "hints": {
+    "whatIsLuhn": {
+      "question": "Como a verificação de Luhn funciona, afinal?",
+      "answer": "Primeiro, ignore os espaços. Depois, começando pelo dígito mais à direita e indo para a esquerda, dobre cada segundo dígito. Se um valor dobrado passar de 9, subtraia 9. Some todos os dígitos resultantes. Se o total for divisível por 10, o número é válido."
+    },
+    "stripSpaces": {
+      "question": "O que eu faço com os espaços?",
+      "answer": "Os espaços existem só para facilitar a leitura. Pule-os com `continue` para que eles não contem como dígitos e não afetem as posições dos dígitos de verdade."
+    },
+    "rejectNonDigits": {
+      "question": "Como eu rejeito caracteres inválidos?",
+      "answer": "Ao olhar cada caractere, se ele não for um espaço e não for um dos caracteres de `0123456789`, você pode retornar `false` imediatamente. Uma verificação útil é `\"0123456789\".includes(char)`."
+    },
+    "everySecondDigit": {
+      "question": "Quais dígitos eu dobro?",
+      "answer": "Cada segundo dígito. Ajuda montar primeiro uma string limpa só com os dígitos e depois percorrê-la em um laço com um índice, para saber a posição de cada dígito."
+    },
+    "fromTheRight": {
+      "question": "Mas eu preciso contar a partir da direita, não da esquerda.",
+      "answer": "Se a sua string limpa de dígitos tem comprimento `len` e você está no índice `i` (contando a partir do 0, na esquerda), a distância dele até a direita é `len - 1 - i`. Dobre o dígito sempre que essa distância for ímpar."
+    },
+    "doublingOverNine": {
+      "question": "O que acontece quando dobrar me dá um número de dois dígitos?",
+      "answer": "Se dobrar deixar o dígito maior que 9, subtraia 9 dele. Por exemplo, 6 dobrado vira 12, e 12 - 9 = 3. (Isso dá o mesmo resultado que somar os dois dígitos.)"
+    },
+    "finalCheck": {
+      "question": "Qual é a verificação final de validade?",
+      "answer": "Some todos os dígitos (dobrados ou não) e verifique se o total é divisível por 10, ou seja, `total % 10 === 0`. Lembre-se também de rejeitar strings que tenham um dígito ou menos."
+    }
+  },
+  "checks": {
+    "mustUseFor": "Quase lá! Este exercício quer que você o resolva usando um laço `for`."
+  },
+  "functions": {
+    "number": {
+      "description": "Converte uma string que contém um dígito em um número",
+      "category": "Conversão de tipos"
+    },
+    "includes": {
+      "description": "Verifica se uma string contém uma string menor",
+      "category": "Operações com strings"
+    },
+    "length": {
+      "description": "O número de caracteres em uma string",
+      "category": "Operações com strings"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "checks": {
+    "sky": "El cielo no está bien.",
+    "ground": "El suelo no está bien.",
+    "leftWing": "El ala izquierda no parece correcta.",
+    "rightWing": "El ala derecha no parece correcta.",
+    "outerBody": "El cuerpo externo no está bien.",
+    "innerBody": "El cuerpo interno no está bien.",
+    "head": "La cabeza no está bien.",
+    "leftFace": "El lado izquierdo de la cara no se ve bien.",
+    "rightFace": "El lado derecho de la cara no se ve bien.",
+    "lowerFace": "La parte inferior de la cara no se ve bien.",
+    "leftEye": "El ojo izquierdo no parece estar bien.",
+    "leftIris": "El iris izquierdo no parece estar bien.",
+    "rightEye": "El ojo derecho no parece estar bien.",
+    "rightIris": "El iris derecho no parece estar bien.",
+    "leftFoot": "La pata izquierda no está bien.",
+    "rightFoot": "La pata derecha no está bien.",
+    "nose": "El pico no está bien."
+  },
+  "tasks": {
+    "drawPenguin": {
+      "name": "Dibuja el pingüino simétrico",
+      "description": "Completa el dibujo del pingüino agregando las partes que faltan para que sea simétrico."
+    }
+  },
+  "scenarios": {
+    "makePenguinSymmetrical": {
+      "name": "Haz que el pingüino sea simétrico",
+      "description": "Arregla todos los comentarios TODO para hacer que el pingüino sea simétrico."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "¿Dónde empiezo?",
+      "answer": "Trabaja en los comentarios TODO uno por uno, empezando desde arriba."
+    },
+    "symmetryOnCanvas": {
+      "question": "¿Cómo funciona la simetría en el lienzo?",
+      "answer": "Si el borde izquierdo de algo es 20, su borde derecho simétrico será 80 (100 - 20)."
+    },
+    "noseTrouble": {
+      "question": "¿Por qué no puedo hacer que el pico funcione?",
+      "answer": "No deberías agregar un nuevo triángulo para el pico; en lugar de eso, debes CAMBIAR el triángulo existente para que funcione correctamente. Solo necesitas cambiar UN valor."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dibuja un rectángulo en la posición (izquierda, arriba) con el ancho, la altura y el color dados.",
+      "category": "Dibujar formas"
+    },
+    "circle": {
+      "description": "Dibuja un círculo centrado en (centerX, centerY) con el radio y el color dados.",
+      "category": "Dibujar formas"
+    },
+    "ellipse": {
+      "description": "Dibuja una elipse centrada en (centerX, centerY) con los radios horizontal y vertical y el color dados.",
+      "category": "Dibujar formas"
+    },
+    "triangle": {
+      "description": "Dibuja un triángulo con tres puntos de esquina y un color.",
+      "category": "Dibujar formas"
+    }
+  }
+}

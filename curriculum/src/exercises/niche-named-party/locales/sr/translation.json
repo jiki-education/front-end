@@ -1,0 +1,67 @@
+{
+  "tasks": {
+    "checkTheName": {
+      "name": "Proveri ime",
+      "description": "Napiši funkciju `handleGuest` koja proverava da li ime osobe počinje dozvoljenim prefiksom za večerašnju žurku. Vrati `true` ako počinje, a `false` ako ne počinje."
+    },
+    "solveTightly": {
+      "name": "Reši u 20 linija",
+      "description": "Bonus: kada se brojanje dužine izdvoji u pomoćnu funkciju koju `handleGuest` ponovo koristi, celo rešenje staje u 20 linija. Možeš li da ga pronađeš?"
+    }
+  },
+  "scenarios": {
+    "sarahSParty": {
+      "name": "S žurka: Sarah dolazi",
+      "description": "Večeras su dozvoljena samo imena koja počinju sa „S”. Sarah treba da uđe!"
+    },
+    "bradSParty": {
+      "name": "S žurka: Brad dolazi",
+      "description": "Večeras su dozvoljena samo imena koja počinju sa „S”. Brad ne bi trebalo da uđe."
+    },
+    "bradleyBradParty": {
+      "name": "Brad žurka: Bradley dolazi",
+      "description": "Večeras su dozvoljena samo imena koja počinju sa „Brad”. Bradley treba da uđe!"
+    },
+    "bradBradleyParty": {
+      "name": "Bradley žurka: Brad dolazi",
+      "description": "Večeras su dozvoljena samo imena koja počinju sa „Bradley”. Brad je prekratak, pa nije dozvoljen."
+    },
+    "brianBradParty": {
+      "name": "Brad žurka: Brian dolazi",
+      "description": "Večeras su dozvoljena samo imena koja počinju sa „Brad”. Brian treba da bude odbijen."
+    },
+    "silence": {
+      "name": "S žurka: Tišina...",
+      "description": "Osoba ne kaže svoje ime. Prazno ime ne može da počne ni sa čim. Odbij ga!"
+    },
+    "cherCherParty": {
+      "name": "Cher žurka: Cher dolazi",
+      "description": "Večeras su dozvoljena samo imena koja počinju sa „Cher”. Cherino ime je tačno „Cher” – pusti je da uđe!"
+    },
+    "nicheNamedPartyBonusLineCount": {
+      "name": "Uredno i čisto",
+      "description": "Najkraće rešenje staje u 20 linija. Možeš li da ga pronađeš?"
+    }
+  },
+  "checks": {
+    "tooManyLines": "Samo napred! Pokušaj da rešiš sa manje linija."
+  },
+  "hints": {
+    "checkStartsWith": {
+      "question": "Kako da proverim da ime počinje određenim slovima?",
+      "answer": "Uporedi svaki karakter dozvoljenog prefiksa sa karakterom na istoj poziciji u imenu. Ako se bilo koji karakter razlikuje, ime se ne poklapa."
+    },
+    "loopCharacters": {
+      "question": "Kako da prolazim kroz karaktere jedan po jedan?",
+      "answer": "Koristi iteraciju kroz string da prolaziš kroz karaktere."
+    },
+    "findEquivalentLetter": {
+      "question": "Kako da pronađem odgovarajuće slovo u drugoj reči?",
+      "answer": "Koristi indeksiranje stringova da pronađeš određeno slovo."
+    },
+    "longerAllowedPrefix": {
+      "question": "Šta ako je dozvoljeni prefiks duži od imena?",
+      "answer": "U tom slučaju ime se ne poklapa, pa treba da vratiš `false`."
+    }
+  }
+}

@@ -12,7 +12,7 @@ Képzeld el például, hogy a labirintusban vagy, és 10 lépést szeretnél el�
 
 Ahelyett, hogy tízszer egymás után leírnánk, hogy `move` (ami elég fárasztó), arra van szükségünk, hogy azt mondhassuk: „Hé, Jiki, amit most mondok, azt csináld meg tízszer!
 
-`Move`."
+`Move`.”
 
 Ehhez a kódban az első kulcsszavunkat (_keyword_ angolul) kell használnunk. A kulcsszavak olyan utasítások, amelyeket Jiki magától megért. Kicsit úgy néznek ki, mint a gépek, de nem azok. Amikor Jiki meglát egy kulcsszót, nem keres hozzá gépet a polcon, hanem egyszerűen tudja, mit kell tennie. Ez be van építve az agyába. A kurzus során nagyjából 20 különböző kulcsszót fogunk megtanulni, és az első közülük a `repeat`.
 
@@ -24,7 +24,7 @@ Ehhez a kódban az első kulcsszavunkat (_keyword_ angolul) kell használnunk. A
   height="400"
 />
 
-A `repeat` kulcsszó pontosan azt csinálja, amit fent leírtam. Azt mondja Jikinek: „Amit ezután mondok, azt ismételd meg ennyiszer." Nézd meg ezt a kódot. Először a `repeat` kulcsszóval közöljük Jikivel, hogy valamit többször fog megcsinálni. Utána sima zárójelbe (`()`) írjuk, hányszor szeretnénk, hogy Jiki megismételje a dolgot, majd jönnek ezek a kapcsos zárójelek (`{}`), és a kapcsos zárójelek között van mindaz, amit Jikinek ismételnie kell. Ez a minta egyébként hihetetlenül gyakori a programozásban: megadunk egy kulcsszót, általában valamilyen információval (itt éppen azzal, hányszor csináljon meg valamit), utána pedig egy kódblokkot (_code block_ angolul) kapcsos zárójelek között. Visszatérve a labirintushoz: ahelyett, hogy leírnánk, hogy `move`, `move`, `move`, `move`, azt írhatjuk, hogy négyszer ismételje meg a `move`-ot.
+A `repeat` kulcsszó pontosan azt csinálja, amit fent leírtam. Azt mondja Jikinek: „Amit ezután mondok, azt ismételd meg ennyiszer.” Nézd meg ezt a kódot. Először a `repeat` kulcsszóval közöljük Jikivel, hogy valamit többször fog megcsinálni. Utána sima zárójelbe (`()`) írjuk, hányszor szeretnénk, hogy Jiki megismételje a dolgot, majd jönnek ezek a kapcsos zárójelek (`{}`), és a kapcsos zárójelek között van mindaz, amit Jikinek ismételnie kell. Ez a minta egyébként hihetetlenül gyakori a programozásban: megadunk egy kulcsszót, általában valamilyen információval (itt éppen azzal, hányszor csináljon meg valamit), utána pedig egy kódblokkot (_code block_ angolul) kapcsos zárójelek között. Visszatérve a labirintushoz: ahelyett, hogy leírnánk, hogy `move`, `move`, `move`, `move`, azt írhatjuk, hogy négyszer ismételje meg a `move`-ot.
 
 ```javascript
 repeat(4) {
@@ -61,7 +61,7 @@ repeat(4) {
 
 Ezeket az ismétlő utasításokat ciklusnak (_loop_ angolul) hívjuk, és sokféle ciklus létezik, amelyek mind egy kicsit másképp működnek.
 
-Még egy dolgot érdemes tudni: amikor ciklusokkal dolgozol, elengedhetetlen, hogy a kódod rendezett és áttekinthető maradjon. Ha a kódodnak jó a vizuális szerkezete, ránézésre látszik, mi történik benne. Ha viszont nem, ha elfelejted szépen behúzni a sorokat, vagy összevissza húzod be őket, minden nagyon gyorsan zavarossá válik. Ezért ebben a kurzusban mindig egy szabályt követünk. A nyitó kapcsos zárójelet mindig ugyanabba a sorba írod, mint a `repeat` utasítást (_statement_ angolul). A záró kapcsos zárójelet mindig külön sorba írod az utasítás után, a köztük lévő kódot pedig mindig két szóközzel húzod be. Így minden szépen rendezett marad, és ha ezt elfelejted, vagy más mintát próbálsz követni, hibát kapsz.
+Még egy dolgot érdemes tudni: amikor ciklusokkal dolgozol, elengedhetetlen, hogy a kódod rendezett és áttekinthető maradjon. Ha a kódodnak jó a vizuális szerkezete, ránézésre látszik, mi történik benne. Ha viszont nem, ha elfelejted szépen behúzni a sorokat, vagy összevissza húzod be őket, minden nagyon gyorsan zavarossá válik. Ezért ezen a kurzuson mindig egy szabályt követünk. A nyitó kapcsos zárójelet mindig ugyanabba a sorba írod, mint a `repeat` utasítást (_statement_ angolul). A záró kapcsos zárójelet mindig külön sorba írod az utasítás után, a köztük lévő kódot pedig mindig két szóközzel húzod be. Így minden szépen rendezett marad, és ha ezt elfelejted, vagy más mintát próbálsz követni, hibát kapsz.
 
 <img
   class="concept-image"

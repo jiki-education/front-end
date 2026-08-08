@@ -1,12 +1,13 @@
 ---
-title: "Rainbow"
-description: "Paint a rainbow from 100 colourful vertical bars."
+title: "Szivárvány"
+description: "Fess szivárványt 100 színes függőleges sávból."
+en_md5: 18cf1d57b1f3683a4484b507528f9acb
 ---
 
-Your task is to make a beautiful rainbow pattern made up of 100 vertical bars. It should look like this:
+A feladatod egy gyönyörű szivárványminta megrajzolása 100 függőleges sávból. Így kell kinéznie:
 
-<img src="/static/images/exercise-assets/rainbow/example.webp" alt="Rainbow" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+<img src="/static/images/exercise-assets/rainbow/example.webp" alt="Szivárvány" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-The rainbow is made up of `100` bars, each going from top to bottom with a width of `1`. The first bar should have an `x` of `0`, and the final bar should have an `x` of `99`.
+A szivárvány `100` sávból áll, mindegyik fentről lefelé fut, és `1` a szélessége. Az első sáv `x` (vízszintes pozíció) értéke `0` legyen, az utolsóé pedig `99`.
 
-To set the color, use the `hsl(...)` function. This returns a color string that you can then use as the final input in `rectangle(...)`. Setting the saturation and lightness values to around `50` is probably best. The first bar should have a **hue** of `0`. The hue should increase for each bar and end up somewhere near 300.
+A szín beállításához használd a `hsl(...)` (színárnyalat, telítettség, világosság) függvényt. Ez egy színt leíró stringet ad vissza (_return_ angolul), amit aztán a `rectangle(...)` (téglalap) utolsó bemeneteként használhatsz. A telítettség (_saturation_ angolul) és a világosság (_lightness_ angolul) értékét a legjobb `50` körülire állítani. Az első sáv **színárnyalata** (_hue_ angolul) `0` legyen. A színárnyalat sávról sávra növekedjen, és a végére érjen valahova 300 közelébe.

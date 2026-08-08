@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "Funktioiden käyttö"
+  },
+  "strings-and-colors": {
+    "title": "Merkkijonot ja värit"
+  },
+  "repeat-loop": {
+    "title": "Toistosilmukka"
+  },
+  "variables": {
+    "title": "Muuttujat"
+  },
+  "basic-state": {
+    "title": "Tilan perusteet"
+  },
+  "functions-that-return-things": {
+    "title": "Arvoa palauttavat funktiot"
+  },
+  "conditionals": {
+    "title": "Ehtolauseet"
+  },
+  "complex-conditionals": {
+    "title": "Monimutkaiset ehtolauseet"
+  },
+  "conditionals-and-state": {
+    "title": "Ehtolauseet ja tila"
+  },
+  "make-your-own-functions": {
+    "title": "Omat funktiot"
+  },
+  "string-manipulation": {
+    "title": "Merkkijonojen käsittely"
+  },
+  "string-iteration": {
+    "title": "Merkkijonojen läpikäynti"
+  },
+  "multiple-functions": {
+    "title": "Useita funktioita yhdessä"
+  },
+  "methods-and-properties": {
+    "title": "Metodit ja ominaisuudet"
+  },
+  "advanced-loops": {
+    "title": "Edistyneet silmukat"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "Sanakirjat"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "Kaikki yhdessä"
+  }
+}

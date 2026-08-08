@@ -1,0 +1,76 @@
+{
+  "checks": {
+    "totalCells": "期望 {{expected}} 个单元格，但找到了 {{got}} 个。",
+    "groundWalls": "底层应该在位置 (17, 2) 和 (21, 2) 有墙。",
+    "groundGlass": "底层应该在位置 (18, 2) 和 (20, 2) 有玻璃。",
+    "groundEntrance": "底层应该在位置 (19, 2) 有一个入口。",
+    "floorWalls": "{{y}} 层应该在位置 (17, {{y}}) 和 (21, {{y}}) 有墙。",
+    "floorGlass": "{{y}} 层应该在位置 (18, {{y}})、(19, {{y}}) 和 (20, {{y}}) 有玻璃。",
+    "roof": "y={{roofY}} 处的屋顶应该全是墙。",
+    "codeQuality": {
+      "allArgumentsAreVariables": "你应该使用<strong>变量</strong>作为函数的参数，而不是字面值。先将值存入变量，再传递变量。"
+    }
+  },
+  "tasks": {
+    "buildSkyscraper": {
+      "name": "建造摩天大楼",
+      "description": "建造一座楼层数正确的摩天大楼，包括有入口的底层、带玻璃的上层楼层和一个全是墙的屋顶。"
+    }
+  },
+  "scenarios": {
+    "floors6": {
+      "name": "6 层摩天大楼",
+      "description": "建造一座 6 层的摩天大楼。"
+    },
+    "floors8": {
+      "name": "8 层摩天大楼",
+      "description": "建造一座 8 层的摩天大楼。"
+    },
+    "floors10": {
+      "name": "10 层摩天大楼",
+      "description": "建造一座 10 层的摩天大楼。"
+    },
+    "floors12": {
+      "name": "12 层摩天大楼",
+      "description": "建造一座 12 层的摩天大楼。"
+    },
+    "floors16": {
+      "name": "16 层摩天大楼",
+      "description": "建造一座 16 层的摩天大楼。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "我不知道从哪里开始。",
+      "answer": "首先试着画一堵墙、一些玻璃和一个入口，看看你是否理解了这些函数。然后画底层——这始终是一样的。接着用 `numFloors()` 函数查出一共有多少层，然后画剩下的楼层，最后画屋顶。"
+    },
+    "tooManyTooFewFloors": {
+      "question": "我的楼层太多/太少了。",
+      "answer": "如果 `numFloors()` 返回 5，那应该是一个入口层、4 个玻璃层和一个屋顶。检查你的逻辑是否正确！"
+    }
+  },
+  "functions": {
+    "buildWall": {
+      "description": "在网格位置 (x, y) 放置一个**墙块**。",
+      "category": "建造"
+    },
+    "buildGlass": {
+      "description": "在网格位置 (x, y) 放置一块**玻璃板**。",
+      "category": "建造"
+    },
+    "buildEntrance": {
+      "description": "在网格位置 (x, y) 放置一个**入口门**。",
+      "category": "建造"
+    },
+    "numFloors": {
+      "description": "返回该建筑的**楼层数**。",
+      "category": "信息"
+    }
+  },
+  "describers": {
+    "buildWall": "在位置 (${arg1}, ${arg2}) 建造了一堵墙",
+    "buildEntrance": "在位置 (${arg1}, ${arg2}) 建造了一个入口",
+    "buildGlass": "在位置 (${arg1}, ${arg2}) 建造了一块玻璃板",
+    "numFloors": "获取了楼层数"
+  }
+}

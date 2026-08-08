@@ -1,0 +1,48 @@
+{
+  "checks": {
+    "base": "Le cercle de la base (en bas) est soit au mauvais endroit, soit à la mauvaise taille. Vérifie `baseRadius` et `baseY`.",
+    "body": "Le cercle du corps (au milieu) est soit au mauvais endroit, soit à la mauvaise taille. Vérifie `bodyRadius` et `bodyY`.",
+    "head": "Le cercle de la tête (en haut) est soit au mauvais endroit, soit à la mauvaise taille. Vérifie `headRadius` et `headY`.",
+    "notResponsive": "Ton code ne s'adapte pas correctement quand `size` vaut {{size}}. Chaque rayon et chaque position y doivent être calculés à partir de `size`."
+  },
+  "tasks": {
+    "buildRelationalSnowman": {
+      "name": "Construis le bonhomme de neige relationnel",
+      "description": "Calcule toutes les tailles et positions à partir de `size` pour que le bonhomme de neige s'adapte correctement."
+    }
+  },
+  "scenarios": {
+    "buildRelationalSnowman": {
+      "name": "Construis le bonhomme de neige relationnel",
+      "description": "Calcule chaque rayon et chaque position y à partir de `size`."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Par où commencer ?",
+      "answer": "Commence par la base, car c'est le seul cercle rattaché à quelque chose de fixe (le bas du canvas). Une fois que tu connais `baseY`, tu peux empiler le corps dessus, puis la tête sur le corps."
+    },
+    "baseSits": {
+      "question": "Comment savoir où se place la base ?",
+      "answer": "Le bord inférieur de la base se trouve à `size` au-dessus du sol (Y=100). Le centre de la base se situe un rayon de la base plus haut que son bord inférieur."
+    },
+    "stackBody": {
+      "question": "Comment empiler le corps sur la base ?",
+      "answer": "Quand deux cercles se touchent, l'un directement au-dessus de l'autre, la distance entre leurs centres est égale à la somme de leurs deux rayons."
+    },
+    "head": {
+      "question": "Et la tête ?",
+      "answer": "La tête repose sur le corps exactement de la même façon que le corps repose sur la base."
+    },
+    "whyDeriveFromSize": {
+      "question": "Pourquoi tout doit-il être calculé à partir de `size` ?",
+      "answer": "Si tu écris un nombre en dur, changer `size` laissera des espaces ou des chevauchements entre les cercles. Avec des formules, tout reste proportionné."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Dessine un cercle centré en (centerX, centerY) avec le rayon et la couleur donnés",
+      "category": "Dessin de formes"
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "noNestedLoops": "루프 안에 또 다른 루프를 넣지 않도록 해 보세요. 한 글자를 찾는 부분을 별도의 함수로 분리한 다음, <code>isPangram</code>에서 그 함수를 호출해 보세요.",
+    "tooManyLines": "거의 다 왔어요! 헬퍼 함수를 활용하면 더 적은 줄로 해결할 수 있어요."
+  },
+  "tasks": {
+    "checkLowerPangram": {
+      "name": "소문자 팬그램 확인하기",
+      "description": "소문자로 된 문장이 알파벳의 모든 글자를 포함하는지 확인하는 함수를 작성해 보세요. 각 글자 검색은 작은 헬퍼 함수를 호출하여 처리하도록 해요."
+    },
+    "decomposeTightly": {
+      "name": "16줄로 풀어보기",
+      "description": "보너스: 검색 부분을 헬퍼 함수로 분리하면 전체 코드를 16줄 안에 작성할 수 있어요. 한번 해볼까요?"
+    }
+  },
+  "scenarios": {
+    "lowerPangramEmpty": {
+      "name": "빈 문장",
+      "description": "빈 문장은 팬그램이 아니에요."
+    },
+    "lowerPangramFullAlphabet": {
+      "name": "알파벳 전체 소문자",
+      "description": "알파벳 소문자 전체는 팬그램이에요."
+    },
+    "lowerPangramClassic": {
+      "name": "클래식 팬그램",
+      "description": "전형적인 팬그램 문장은 26개의 글자를 모두 포함해요."
+    },
+    "lowerPangramMissingX": {
+      "name": "'x' 글자 없음",
+      "description": "'x' 글자가 빠진 문장은 팬그램이 아니에요."
+    },
+    "lowerPangramMissingH": {
+      "name": "'h' 글자 없음",
+      "description": "'h' 글자가 빠진 문장은 팬그램이 아니에요."
+    },
+    "lowerPangramWithUnderscores": {
+      "name": "밑줄이 있는 문장",
+      "description": "공백 대신 밑줄을 사용한 팬그램."
+    },
+    "lowerPangramWithNumbers": {
+      "name": "숫자가 포함된 문장",
+      "description": "숫자가 포함된 팬그램."
+    },
+    "lowerPangramNumbersReplacingLetters": {
+      "name": "글자를 숫자로 대체한 문장",
+      "description": "글자가 숫자로 대체된 문장은 팬그램이 아니에요."
+    },
+    "lowerPangramBonusLineCount": {
+      "name": "간결하고 깔끔하게",
+      "description": "검색을 별도 함수로 분리하면 전체 코드가 16줄 안에 들어맞아요."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "어디서부터 시작해야 할까요?",
+      "answer": "알파벳 모든 글자가 문자열에 포함되어 있는지 확인해야 해요. 그러려면 루프를 돌면서 비교하는 과정이 필요할 거예요."
+    },
+    "checkEveryLetter": {
+      "question": "알파벳 모든 글자가 있는지 어떻게 확인하나요?",
+      "answer": "`\"abcdefghijklmnopqrstuvwxyz\"` 문자열을 순회하며, 한 글자씩 문장에 들어있는지 확인해 보세요."
+    },
+    "avoidNestedLoops": {
+      "question": "연습 문제는 풀었는데 헬퍼 함수를 어떻게 사용해야 할지 모르겠어요.",
+      "answer": "이미 해결하셨다면, 아마 바깥쪽 루프 하나와 안쪽 루프 하나를 사용하셨을 거예요. 그 안쪽 루프는 어떤 것을 포함하는지 확인하고 있을 텐데요. 안쪽 루프를 `includes(...)`라는 헬퍼 함수로 분리한 다음, 바깥쪽 루프에서 그 함수를 호출해 보세요. 헬퍼 함수는 평범한 방법으로 정의한 일반 함수일 뿐이에요."
+    }
+  }
+}

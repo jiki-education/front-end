@@ -1,0 +1,72 @@
+{
+  "tasks": {
+    "checkPangram": {
+      "name": "Controlla il pangramma",
+      "description": "Scrivi una funzione che verifica se una frase è un pangramma (contiene ogni lettera dell'alfabeto almeno una volta). Il controllo non deve distinguere tra maiuscole e minuscole."
+    }
+  },
+  "scenarios": {
+    "pangramEmptySentence": {
+      "name": "Frase vuota",
+      "description": "Una frase vuota non è un pangramma."
+    },
+    "pangramPerfectLowercase": {
+      "name": "Alfabeto perfetto in minuscolo",
+      "description": "Un alfabeto perfetto tutto in minuscolo è un pangramma."
+    },
+    "pangramOnlyLowercase": {
+      "name": "Solo lettere minuscole",
+      "description": "Una frase con solo lettere minuscole che copre tutte le lettere è un pangramma."
+    },
+    "pangramMissingX": {
+      "name": "Lettera mancante 'x'",
+      "description": "Una frase senza la lettera 'x' non è un pangramma."
+    },
+    "pangramMissingH": {
+      "name": "Lettera mancante 'h'",
+      "description": "Una frase senza la lettera 'h' non è un pangramma."
+    },
+    "pangramMissingAM": {
+      "name": "Lettere mancanti oltre a-m",
+      "description": "Una stringa con le lettere dalla 'a' alla 'm' in minuscolo e maiuscolo non è un pangramma."
+    },
+    "pangramWithUnderscores": {
+      "name": "Con trattini bassi",
+      "description": "Un pangramma con trattini bassi."
+    },
+    "pangramWithNumbers": {
+      "name": "Con numeri",
+      "description": "Un pangramma con numeri inclusi."
+    },
+    "pangramNumbersReplacingLetters": {
+      "name": "Numeri al posto delle lettere",
+      "description": "Una frase in cui le lettere sono sostituite da numeri non è un pangramma."
+    },
+    "pangramMixedCasePunctuation": {
+      "name": "Maiuscole/minuscole miste e punteggiatura",
+      "description": "Un pangramma con maiuscole e minuscole miste e punteggiatura."
+    },
+    "pangramCaseInsensitive": {
+      "name": "Lettere mancanti (non distingue maiuscole/minuscole)",
+      "description": "Una frase senza distinzione tra maiuscole e minuscole che non contiene tutte le lettere non è un pangramma."
+    }
+  },
+  "hints": {
+    "helpers": {
+      "question": "Quali funzioni ausiliarie mi semplificano il compito?",
+      "answer": "Una funzione ausiliaria `includes()` (che chiede 'questo carattere compare in questa stringa?') e una `toLowerCase()` (così le differenze tra maiuscole e minuscole non ti fanno inciampare) rendono la logica principale breve e chiara."
+    },
+    "whyLowercase": {
+      "question": "Perché dovrei convertire la frase in minuscolo?",
+      "answer": "'The quick brown fox...' contiene sia 'T' che 't'. Se controlli solo le lettere minuscole, le maiuscole non corrisponderanno. Converti la frase in minuscolo una volta all'inizio così ogni confronto è coerente."
+    },
+    "checkEveryLetter": {
+      "question": "Come posso verificare che ci siano tutte le lettere?",
+      "answer": "Scorri ogni lettera dell'alfabeto `\"abcdefghijklmnopqrstuvwxyz\"`. Per ognuna, usa `includes()` per verificare se compare nella frase convertita in minuscolo."
+    },
+    "stopEarly": {
+      "question": "Quando posso fermarmi in anticipo?",
+      "answer": "Non appena trovi una lettera mancante, restituisci `false`. Non ha senso controllare il resto. Restituisci `true` solo dopo aver confermato l'intero alfabeto."
+    }
+  }
+}

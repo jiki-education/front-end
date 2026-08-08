@@ -1,0 +1,126 @@
+{
+  "checks": {
+    "fastAttack": {
+      "should": "安娜琳<strong>应该</strong>在这里进行快速攻击，但她没有。骑士睡着了，所以她可以趁他醒来之前发起攻击。",
+      "shouldNot": "安娜琳<strong>不应该</strong>在这里进行快速攻击。骑士醒着，攻击会被抓住。",
+      "tooMany": "安娜琳<strong>应该</strong>只快速攻击一次，但她做了{{count}}次。"
+    },
+    "spy": {
+      "should": "安娜琳<strong>应该</strong>在这里侦察，但她没有。营地中至少有一人醒着，所以有情况可以观察。",
+      "shouldNot": "安娜琳<strong>不应该</strong>在这里侦察。所有人都睡着了，没有什么可打探的。",
+      "tooMany": "安娜琳<strong>应该</strong>只侦察一次，但她做了{{count}}次。"
+    },
+    "signal": {
+      "should": "安娜琳<strong>应该</strong>在这里向囚犯发信号，但她没有。囚犯醒着，弓箭手睡着了，信号能传达。",
+      "shouldNot": "安娜琳<strong>不应该</strong>在这里向囚犯发信号。要么囚犯睡着了，要么弓箭手醒着，发信号会失败。",
+      "tooMany": "安娜琳<strong>应该</strong>只发一次信号，但她做了{{count}}次。"
+    },
+    "free": {
+      "should": "安娜琳<strong>应该</strong>在这里解救囚犯，但她没有。她可以做到而不被抓住。",
+      "shouldNot": "安娜琳<strong>不应该</strong>在这里尝试解救囚犯。她会被抓住。",
+      "tooMany": "安娜琳<strong>应该</strong>只解救一次囚犯，但她做了{{count}}次。"
+    }
+  },
+  "tasks": {
+    "planTheRescue": {
+      "name": "制定救援计划",
+      "description": "对于每个营地，执行安娜琳可以安全采取的每个行动：如果骑士睡着了就快速攻击；如果至少有一人醒着就侦察；如果囚犯醒着且弓箭手睡着了就向囚犯发信号；以及通过狗听话的途径或悄悄潜入的途径解救囚犯。"
+    }
+  },
+  "scenarios": {
+    "allAsleepNaughtyDog": {
+      "name": "所有人睡着了，狗不听话",
+      "description": "整个营地都睡着了，但安娜琳的狗不听话，所以帮不上忙。"
+    },
+    "allAsleepBehavingDog": {
+      "name": "所有人睡着了，狗听话",
+      "description": "整个营地都睡着了，安娜琳的狗很听话。"
+    },
+    "knightAwakeNaughtyDog": {
+      "name": "只有骑士醒着",
+      "description": "骑士在放哨，弓箭手和囚犯在睡觉。狗不听话。"
+    },
+    "prisonerAwakeNaughtyDog": {
+      "name": "只有囚犯醒着",
+      "description": "两个绑架者都睡着了，囚犯却醒着。狗不听话——悄悄潜入的途径是可行的。"
+    },
+    "archerAndPrisonerAwakeBehavingDog": {
+      "name": "弓箭手和囚犯醒着",
+      "description": "弓箭手在放哨，囚犯也醒着。狗很听话。"
+    },
+    "allAwakeBehavingDog": {
+      "name": "所有人都醒着，狗听话",
+      "description": "整个营地都完全清醒。即使狗听话，解救囚犯也不安全。"
+    }
+  },
+  "hints": {
+    "checkCampState": {
+      "question": "如何检查营地的情况？",
+      "answer": "你可以检查四件事，每个都有一个返回`true`或`false`的函数：\n\n- 骑士醒着吗？`knightIsAwake()`\n- 弓箭手醒着吗？`archerIsAwake()`\n- 囚犯醒着吗？`prisonerIsAwake()`\n- 狗听话吗？`dogIsBehaving()`"
+    },
+    "performActions": {
+      "question": "如何让安娜琳执行每个动作？",
+      "answer": "有四个动作，各有一个函数：\n\n- 快速攻击：`fastAttack()`\n- 侦察营地：`spy()`\n- 向囚犯发信号：`signalPrisoner()`\n- 解救囚犯：`freePrisoner()`"
+    },
+    "knightAsleep": {
+      "question": "快速攻击需要骑士睡着。如何检查？",
+      "answer": "没有`isAsleep()`这样的函数，但睡着就是醒着的反面。用`!`来翻转条件。想象我们要在某人饱了的时候告诉他停止吃，但我们只有一个`isHungry()`函数。我们可以把它反过来：\n\n```javascript\nif (!isHungry()) {\n  stopEating()\n}\n```\n\n用同样的思路来检查骑士睡着了。"
+    },
+    "spyAnyoneAwake": {
+      "question": "侦察在至少一人醒着的情况下才有效。怎么写？",
+      "answer": "在检查之间用`||`（或），这样只要有一个为`true`，整个条件就是`true`。例如，当某人饿了或渴了或两者都有时，这段代码会运行：\n\n```javascript\nif (isHungry() || isThirsty()) {\n  rest()\n}\n```"
+    },
+    "signalBothConditions": {
+      "question": "发信号需要两个条件同时为真。如何组合它们？",
+      "answer": "使用`&&`（与），这样两边都必须为`true`。例如，只有当某人饿了且渴了时才会运行：\n\n```javascript\nif (isHungry() && isThirsty()) {\n  drink()\n}\n```"
+    },
+    "twoWaysToSucceed": {
+      "question": "一个动作有两种完全不同的成功途径。如何处理？",
+      "answer": "每种途径单独就足够了，所以有两个选择。\n\n第一个是为每种途径写一个单独的`if`，都执行相同的动作：\n\n```javascript\nif (isHungry() && hasSnack()) {\n  eat()\n}\nif (isThirsty() && hasSnack()) {\n  eat()\n}\n```\n\n第二个是将两种途径合并到一个`if`中，用`||`，把每个途径的检查用括号括起来，这样`&&`部分会先组合，然后再由`||`分开：\n\n```javascript\nif ((isHungry() && hasSnack()) || (isThirsty() && hasSnack())) {\n  eat()\n}\n```\n\n先分别弄清每种途径的要求，然后选择你认为更清晰的方式。"
+    }
+  },
+  "describers": {
+    "knightIsAwake": "检查了骑士是否醒着",
+    "archerIsAwake": "检查了弓箭手是否醒着",
+    "prisonerIsAwake": "检查了囚犯是否醒着",
+    "dogIsBehaving": "检查了安娜琳的狗是否听话",
+    "fastAttack": "对骑士进行了快速攻击",
+    "spy": "侦察了这群人",
+    "signalPrisoner": "向囚犯发了信号",
+    "freePrisoner": "解救了囚犯"
+  },
+  "functions": {
+    "knightIsAwake": {
+      "description": "如果骑士醒着返回`true`，睡着返回`false`。",
+      "category": "信息"
+    },
+    "archerIsAwake": {
+      "description": "如果弓箭手醒着返回`true`，睡着返回`false`。",
+      "category": "信息"
+    },
+    "prisonerIsAwake": {
+      "description": "如果囚犯醒着返回`true`，睡着返回`false`。",
+      "category": "信息"
+    },
+    "dogIsBehaving": {
+      "description": "如果安娜琳的（有点调皮的）狗听话，返回`true`。",
+      "category": "信息"
+    },
+    "fastAttack": {
+      "description": "对骑士进行快速攻击。",
+      "category": "动作"
+    },
+    "spy": {
+      "description": "侦察这群人。",
+      "category": "动作"
+    },
+    "signalPrisoner": {
+      "description": "用鸟叫声向囚犯发信号。",
+      "category": "动作"
+    },
+    "freePrisoner": {
+      "description": "悄悄潜入营地解救囚犯。",
+      "category": "动作"
+    }
+  }
+}

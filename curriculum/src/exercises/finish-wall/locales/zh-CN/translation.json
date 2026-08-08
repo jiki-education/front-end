@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "leftBrick": "左边的砖块不正确。",
+    "secondBrick": "第二个砖块不正确。",
+    "middleBrick": "中间的砖块不正确。",
+    "fourthBrick": "第四个砖块不正确。",
+    "rightBrick": "右边的砖块不正确。",
+    "codeQuality": {
+      "rectangleCalledOnce": "你在代码中多处使用了 <code>rectangle</code> 函数。它应该只出现一次！"
+    }
+  },
+  "tasks": {
+    "finishWall": {
+      "name": "完成墙壁",
+      "description": "为墙壁添加顶层！"
+    }
+  },
+  "scenarios": {
+    "finishWall": {
+      "name": "完成墙壁",
+      "description": "为墙壁添加顶层！"
+    }
+  },
+  "hints": {
+    "positionSecondBrick": {
+      "question": "我不知道怎么把第二个砖块放在第一个砖块的右边，隔一段距离。",
+      "answer": "如果每个砖块宽 20，那么你需要把第一个放在 0，第二个放在 20，第三个放在 40，以此类推。你可以用乘法来实现。你可以跟踪哪个变量来得到 0, 20, 40 这样的模式？"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "在 (left, top) 位置使用指定的宽度、高度和颜色绘制一个矩形。",
+      "category": "绘制形状"
+    }
+  }
+}

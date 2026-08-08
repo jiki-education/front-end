@@ -1,0 +1,54 @@
+{
+  "checks": {
+    "wrongShotEnd": "球在这次击球后没有到达正确的位置。请检查球是否滚动了完整的击球距离。",
+    "missingPositions": "球必须逐个位置地滚动，一步接一步，不能直接跳到终点。"
+  },
+  "tasks": {
+    "rollAndCelebrate": {
+      "name": "滚动球",
+      "description": "获取击球距离，并将球向右滚动相应距离。"
+    }
+  },
+  "scenarios": {
+    "shortShot": {
+      "name": "短击球（20）",
+      "description": "在这个场景中，`getShotLength()` 会返回 20。将球从球座开始滚动 20 步。"
+    },
+    "mediumShot": {
+      "name": "中击球（35）",
+      "description": "在这个场景中，`getShotLength()` 会返回 35。将球从球座开始滚动 35 步。"
+    },
+    "longShot": {
+      "name": "长击球（50）",
+      "description": "在这个场景中，`getShotLength()` 会返回 50。将球从球座开始滚动 50 步。"
+    },
+    "veryLongShot": {
+      "name": "远击球（60）",
+      "description": "在这个场景中，`getShotLength()` 会返回 60。将球从球座开始滚动 60 步。"
+    }
+  },
+  "hints": {
+    "notSureWhereToStart": {
+      "question": "我不确定从哪里开始",
+      "answer": "这和之前的高尔夫练习一样，你要把球滚动固定的步数。唯一的不同是，步数不再是一个固定值，而是来自 `getShotLength()`。以前你用数字的地方，现在可以用函数的返回值来代替。"
+    },
+    "ballStopsShort": {
+      "question": "我的球少滚了一步（或多滚了一步）",
+      "answer": "仔细想想你的起始位置和你要滚动多少次。球起始于位置 28，因此第一次滚动应该到达 29。从那里开始数步数，直到它应该到达的地方。"
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "将球移动到位置 **x**。",
+      "category": "移动"
+    },
+    "getShotLength": {
+      "description": "返回 **击球距离**，即球向右移动的单位数。",
+      "category": "信息"
+    }
+  },
+  "describers": {
+    "moveTo": "将球移动到位置 ${arg1}",
+    "getShotLength": "获取了击球距离"
+  }
+}

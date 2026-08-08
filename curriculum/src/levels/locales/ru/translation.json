@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "Использование функций"
+  },
+  "strings-and-colors": {
+    "title": "Строки и цвета"
+  },
+  "repeat-loop": {
+    "title": "Цикл повторения"
+  },
+  "variables": {
+    "title": "Переменные"
+  },
+  "basic-state": {
+    "title": "Основы состояния"
+  },
+  "functions-that-return-things": {
+    "title": "Функции, возвращающие значения"
+  },
+  "conditionals": {
+    "title": "Условия"
+  },
+  "complex-conditionals": {
+    "title": "Сложные условия"
+  },
+  "conditionals-and-state": {
+    "title": "Условия и состояние"
+  },
+  "make-your-own-functions": {
+    "title": "Свои функции"
+  },
+  "string-manipulation": {
+    "title": "Работа со строками"
+  },
+  "string-iteration": {
+    "title": "Перебор строк"
+  },
+  "multiple-functions": {
+    "title": "Несколько функций вместе"
+  },
+  "methods-and-properties": {
+    "title": "Методы и свойства"
+  },
+  "advanced-loops": {
+    "title": "Продвинутые циклы"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "Словари"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "Всё вместе"
+  }
+}

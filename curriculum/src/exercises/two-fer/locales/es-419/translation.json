@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "moreThanSixLines": "Usaste más de seis líneas de código."
+  },
+  "tasks": {
+    "createTwoFerFunction": {
+      "name": "Crea la función twoFer",
+      "description": "Escribe una función twoFer que tome un nombre y devuelva 'One for [name], one for me.' Si no se da un nombre (cadena vacía), usa 'you' en lugar del nombre."
+    },
+    "solveInSixLines": {
+      "name": "Resuelve en seis líneas de código",
+      "description": "¿Puedes resolver esto en solo seis líneas de código?"
+    }
+  },
+  "scenarios": {
+    "twoFerDefault": {
+      "name": "Sin nombre",
+      "description": "No se da un nombre, así que devuelve 'One for you, one for me.'"
+    },
+    "twoFerAlice": {
+      "name": "Nombre dado: Alice",
+      "description": "Su nombre es 'Alice', así que devuelve 'One for Alice, one for me.'"
+    },
+    "twoFerTom": {
+      "name": "Nombre dado: Tom",
+      "description": "Su nombre es 'Tom', así que devuelve 'One for Tom, one for me.'"
+    },
+    "bonus1": {
+      "name": "Seis líneas de código",
+      "description": "Resuelve el ejercicio en solo seis líneas de código."
+    }
+  },
+  "hints": {
+    "whatChanges": {
+      "question": "¿Qué cambia según el argumento?",
+      "answer": "Solo una cosa. El nombre en medio de la oración. Si te dan un nombre, úsalo. Si no, usa el valor por defecto `\\\"you\\\"`."
+    },
+    "checkGivenName": {
+      "question": "¿Cómo verifico si me dieron un nombre?",
+      "answer": "Un condicional que compara el argumento con la cadena vacía `\\\"\\\"`. Si está vacía, usa `\\\"you\\\"`. De lo contrario, usa el argumento."
+    },
+    "buildSentence": {
+      "question": "¿Cómo construyo la oración final?",
+      "answer": "Une las tres partes (`\\\"One for \\\"`, el nombre elegido y `\\\", one for me.\\\"`) usando concatenación (`+`) o una plantilla de cadena."
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "checks": {
+    "border": "Tabla treba da ima crnu ivicu celom svojom dužinom.",
+    "topLeftWhite": "Gornje levo polje treba da bude belo (to je svetlo polje).",
+    "rightOfTopLeftDark": "Polje desno od gornjeg levog treba da bude tamno braon (tamno polje).",
+    "bottomLeftDark": "Donje levo polje treba da bude tamno braon (tamno polje).",
+    "bottomRightWhite": "Donje desno polje treba da bude belo.",
+    "charcoalPiece": "Trebalo bi da postoji figura boje charcoal na tamnom polju u gornjem redu.",
+    "topRim": "Figure u gornjim redovima treba da imaju obrub.",
+    "whitePiece": "Trebalo bi da postoji bela figura na tamnom polju u donjem redu.",
+    "bottomRim": "Figure u donjim redovima treba da imaju obrub.",
+    "rimRatio": "Obrub figure treba da bude širok 80% širine njenog polja - proveri poluprečnik spoljnog kruga.",
+    "innerRatio": "Središnji krug figure treba da bude širok 75% čitave figure - proveri poluprečnik unutrašnjeg kruga.",
+    "noPieceOnLight": "Na gornjem levom polju ne bi trebalo da bude figure - figure idu samo na tamna polja.",
+    "middleRowsEmpty": "Srednji redovi treba da budu prazni - samo gornji i donji redovi imaju figure."
+  },
+  "tasks": {
+    "setUpTheBoard": {
+      "name": "Postavi tablu",
+      "description": "Nacrtaj tablu za dame i postavi figure na tamna polja gornjih i donjih redova - i napravi da radi za bilo koju veličinu table."
+    }
+  },
+  "scenarios": {
+    "board8": {
+      "name": "Postavi tablu 8×8",
+      "description": "Nacrtaj klasičnu tablu za dame 8×8 i rasporedi figure spremne za igru."
+    },
+    "board6": {
+      "name": "Postavi tablu 6×6",
+      "description": "Isti kod treba da radi i na manjoj tabli 6×6."
+    },
+    "board10": {
+      "name": "Postavi tablu 10×10",
+      "description": "I treba da radi i na većoj tabli 10×10."
+    }
+  },
+  "hints": {
+    "wholeGrid": {
+      "question": "Kako da nacrtam celu mrežu polja, a ne samo jedno?",
+      "answer": "Koristi ugnežđene petlje: spoljnu petlju koja prolazi kroz redove i unutrašnju petlju koja prolazi kroz kolone. Nacrtaj jedno polje svaki put kada se izvrši unutrašnja petlja."
+    },
+    "anyBoardSize": {
+      "question": "Kako da napravim da radi bez obzira na veličinu table?",
+      "answer": "Ne biraj fiksnu veličinu polja. Pitaj `getBoardSize()` koliko ima polja, izračunaj jednu veličinu `cell` iz toga i dostupnog prostora, i izgradi svaku poziciju kao njen umnožak."
+    },
+    "alternateColours": {
+      "question": "Kako da napravim da se polja naizmenično boje?",
+      "answer": "Pogledaj red i kolonu polja zajedno. Operator ostatka (`%`) ti omogućava da svako polje podeliš u jednu od dve grupe na osnovu `row` i `col`, a te dve grupe su upravo svetla i tamna polja."
+    },
+    "whichSquaresGetPieces": {
+      "question": "Koja polja dobijaju figure?",
+      "answer": "Figure se nalaze samo na **tamnim** poljima, pa možeš ponovo da upotrebiš isti test koji koristiš za bojenje. Zatim suzi dalje na samo gornji i donji red, ostavljajući srednja dva prazna."
+    },
+    "ridgedPiece": {
+      "question": "Kako da nacrtam figuru sa obrubom?",
+      "answer": "Nacrtaj dva kruga u istom centru: veći za obrub, a zatim malo manji preko njega u boji figure. Zasnuj oba poluprečnika na veličini polja tako da se figure skaliraju sa tablom."
+    },
+    "rimSize": {
+      "question": "Veličina obruba ne izgleda kao na primeru dijagrama.",
+      "answer": "Proveri da li je unutrašnji krug 75% spoljnog kruga (ne 75% polja)."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Nacrtaj pravougaonik na poziciji (left, top) sa zadatom širinom, visinom i bojom.",
+      "category": "Crtanje oblika"
+    },
+    "circle": {
+      "description": "Nacrtaj krug sa centrom u (centerX, centerY) sa datim poluprečnikom i bojom.",
+      "category": "Crtanje oblika"
+    },
+    "getBoardSize": {
+      "description": "Vraća veličinu table (broj polja duž svake ivice) za trenutnu slagalicu.",
+      "category": "Informacije"
+    }
+  },
+  "describers": {
+    "getBoardSize": "dohvatio veličinu table (broj polja duž svake ivice)"
+  }
+}

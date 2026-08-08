@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "No has llegado al final del laberinto."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Lleva al personaje hasta el final del laberinto",
+      "description": "Recorre el laberinto para llegar al objetivo verde"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Lleva al personaje hasta el final del laberinto",
+      "description": "Tu tarea es guiar a tu personaje por el laberinto hasta la casilla verde de meta."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "¿Qué muevo y hacia dónde?",
+      "answer": "Estás moviendo al personaje, que empieza arriba a la izquierda, hasta el círculo verde de abajo a la derecha, evitando las casillas con rayas rojas."
+    },
+    "turnLeftTurnsRight": {
+      "question": "¡Cuando giro a la izquierda, el personaje gira a la derecha!",
+      "answer": "El personaje gira con respecto a la dirección hacia la que está mirando. Así que si mira a la derecha y gira a la izquierda, pasará a mirar hacia arriba."
+    }
+  }
+}

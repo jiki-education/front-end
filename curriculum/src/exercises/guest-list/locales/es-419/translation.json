@@ -1,0 +1,65 @@
+{
+  "tasks": {
+    "countChancersInQueue": {
+      "name": "Cuenta los colados",
+      "description": "Escribe una función que reciba la fila y la lista de invitados, y devuelva cuántas de las personas que están en la fila no están en la lista de invitados."
+    },
+    "solveTightly": {
+      "name": "Resuélvelo de forma compacta",
+      "description": "Bonus: esto puede escribirse de forma mucho más compacta de lo que imaginas. ¿Puedes reducir toda la solución a solo unas pocas líneas?"
+    }
+  },
+  "scenarios": {
+    "emptyQueue": {
+      "name": "Nadie ha llegado todavía",
+      "description": "Una fila vacía, así que no hay nadie esperando para entrar."
+    },
+    "everyoneChancingIt": {
+      "name": "Toda la fila se está colando",
+      "description": "Una fila en la que ninguna de las personas que esperan está en la lista de invitados."
+    },
+    "everyoneInvited": {
+      "name": "Todos están invitados",
+      "description": "Una fila en la que todas las personas que esperan están en la lista de invitados."
+    },
+    "mixedQueue": {
+      "name": "Una fila mixta",
+      "description": "Una fila en la que algunas de las personas que esperan están invitadas y otras no. Uno de los colados tiene un nombre que se parece mucho a un nombre de la lista."
+    },
+    "guestsWhoHaventArrived": {
+      "name": "Invitados atrapados en el tráfico",
+      "description": "Una lista de invitados con muchos nombres, pero la mayoría de esas personas aún no han llegado a la fila."
+    },
+    "longQueueShortList": {
+      "name": "Una fila larga y una lista corta",
+      "description": "Una fila grande afuera, pero solo un par de nombres en la lista de invitados."
+    },
+    "guestListBonusLineCount": {
+      "name": "Limpio y ordenado: una fila mixta",
+      "description": "La misma fila mixta de antes, pero esta vez tu solución debe caber en un número mucho menor de líneas."
+    }
+  },
+  "checks": {
+    "tooManyLines": "¡Sigue intentándolo! Mira si puedes resolverlo en menos líneas."
+  },
+  "hints": {
+    "keepingTrack": {
+      "question": "¿De qué debo llevar la cuenta mientras avanzo?",
+      "answer": "La respuesta es un solo número, y no lo sabes hasta que has visto a todos. Así que pregúntate dos cosas: ¿cuál debería ser ese número antes de haber mirado a nadie?, y ¿qué debe pasarle cuando alguien resulta **no** estar invitado?"
+    },
+    "whichList": {
+      "question": "¿Cuál debo recorrer?",
+      "answer": "Piensa en qué está contando la respuesta. Es un número de personas **en la fila**, así que es la fila la que necesitas recorrer persona por persona. La lista de invitados no es algo que recorras, es contra lo que verificas a cada persona."
+    },
+    "realLifeBouncer": {
+      "question": "¿Cómo lo haría un portero de verdad con un portapapeles?",
+      "answer": "Imagínalo parado al frente de la fila con el portapapeles en una mano, avanzando hacia el final. Solo anuncia el número final cuando ha llegado a la última persona. ¿Qué le hace a cada persona en el camino, y qué hace con aquellos cuyos nombres no encuentra?"
+    }
+  },
+  "functions": {
+    "includes": {
+      "description": "Verifica si una lista contiene un elemento específico (proporcionado por la biblioteca estándar del nivel).",
+      "category": "Operaciones de lista"
+    }
+  }
+}

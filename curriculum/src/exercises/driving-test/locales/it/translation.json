@@ -1,0 +1,63 @@
+{
+  "checks": {
+    "tooManyLines": "La tua soluzione ha troppe righe di codice. Puoi renderla più corta?"
+  },
+  "tasks": {
+    "didTheyPass": {
+      "name": "Ha superato l'esame?",
+      "description": "Scrivi una funzione che analizza i simboli dell'esame di guida e determina se il candidato ha superato l'esame. Un candidato viene bocciato se ha qualsiasi errore grave (💥) o 5 o più errori minori (❌)."
+    },
+    "solveInElevenLines": {
+      "name": "Risolvi in 12 righe di codice",
+      "description": "Riesci a risolvere questo esercizio con solo 12 righe di codice?"
+    }
+  },
+  "scenarios": {
+    "perfectMarks": {
+      "name": "Il candidato perfetto!",
+      "description": "Ha fatto tutto giusto, wow!"
+    },
+    "dangerous": {
+      "name": "Pericolo pubblico",
+      "description": "Non possiamo mandare in strada questo!"
+    },
+    "oneBigMistake": {
+      "name": "Un solo errore grave",
+      "description": "Basta un solo errore grave per essere bocciati!"
+    },
+    "scrapedThrough": {
+      "name": "Per un pelo",
+      "description": "Ha rischiato, ma ha superato l'esame!"
+    },
+    "oneMistakeTooMany": {
+      "name": "Un errore di troppo!",
+      "description": "Tutti quei piccoli errori si sono accumulati."
+    },
+    "bonus1": {
+      "name": "12 righe di codice",
+      "description": "Risolvi l'esercizio con solo 12 righe di codice."
+    }
+  },
+  "hints": {
+    "lookAtEachMark": {
+      "question": "Come faccio a guardare ogni singolo simbolo?",
+      "answer": "Scorri la stringa di simboli un carattere alla volta. Ogni carattere è ✅, ❌ o 💥."
+    },
+    "emojiInQuotes": {
+      "question": "Perché il mio codice si lamenta di 💥?",
+      "answer": "Le emoji come 💥 e ❌ devono comunque essere racchiuse tra virgolette. Sono caratteri in una stringa proprio come le lettere."
+    },
+    "majorFault": {
+      "question": "Cosa devo fare quando vedo un 💥 (errore grave)?",
+      "answer": "Un solo errore grave fa bocciare all'esame, a prescindere da cos'altro è successo. Quindi puoi restituire `false` subito appena ne vedi uno. Non c'è bisogno di continuare a guardare."
+    },
+    "minorCount": {
+      "question": "Come gestisco gli errori minori, dove il conteggio è importante?",
+      "answer": "Tieni una variabile contatore e aggiungi 1 ogni volta che vedi una ❌. Ignora le ✅, non cambiano nulla."
+    },
+    "finalCheck": {
+      "question": "Cosa controllo alla fine?",
+      "answer": "Una volta che il ciclo è finito e non hai visto errori gravi, l'esame è superato se ci sono stati meno di 5 errori minori. Restituisci `true` se il conteggio degli errori minori è inferiore a 5, altrimenti `false`."
+    }
+  }
+}

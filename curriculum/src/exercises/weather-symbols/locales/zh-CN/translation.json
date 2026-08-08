@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "dayIsntCorrect": "第{{day}}天的天气不对。"
+  },
+  "tasks": {
+    "drawForecast": {
+      "name": "绘制天气预报",
+      "description": "将每天的天气绘制到各自的盒子中，并将当天的位置在列表中的序号作为盒子编号。"
+    }
+  },
+  "scenarios": {
+    "mixedWeek": {
+      "name": "混合的一周",
+      "description": "六天中包含了各种天气。"
+    },
+    "sunnyWeek": {
+      "name": "阳光明媚的一周",
+      "description": "大部分日子阳光明媚，只有一两天多云。"
+    },
+    "rainyWeek": {
+      "name": "多雨的一周",
+      "description": "乌云笼罩，阴雨绵绵的一周。"
+    },
+    "snowyWeek": {
+      "name": "多雪的一周",
+      "description": "寒冷的一周，天天大雪纷飞。"
+    }
+  },
+  "hints": {
+    "loopWithIndex": {
+      "question": "如何遍历 days 列表，并知道每个描述对应哪个盒子？",
+      "answer": "使用一个从 0 到 days.length - 1 的计数器遍历 days 数组。这个计数器就是每个描述对应的盒子编号。"
+    },
+    "descriptionToSymbols": {
+      "question": "如何把像 \"Miserable 😩\" 这样的描述转换成符号？",
+      "answer": "逐一匹配描述，找到对应的符号数组，例如 [\"cloud\", \"rain\"]。练习说明中列出了所有描述及其符号。"
+    },
+    "weekdaysList": {
+      "question": "如何知道每个盒子该标注星期几？",
+      "answer": "按顺序创建一个包含六个星期名称的列表，从 \"Monday\" 到 \"Saturday\"。使用与盒子编号相同的计数器，读取列表中对应位置的名称。"
+    },
+    "passArgs": {
+      "question": "应该向 draw 传递什么？",
+      "answer": "三个参数：盒子编号（即你的计数器）、该盒子对应的星期名称，以及该天的符号数组。"
+    },
+    "tidyWithHelper": {
+      "question": "我的循环变得越来越长，怎样能整理得简洁些？",
+      "answer": "你可以将描述到符号的匹配过程放到一个独立的函数中，然后在循环里调用它。这是可选的，但能让循环简短易读。"
+    }
+  },
+  "functions": {
+    "draw": {
+      "description": "将给定的天气符号绘制到一个天气预报盒子中。参数包括：盒子编号（0 到 5）、要标注的星期几名称，以及符号列表。",
+      "category": "绘图"
+    }
+  },
+  "describers": {
+    "draw": "将 ${arg3} 绘制到 ${arg2} 的盒子里。"
+  },
+  "errors": {
+    "elementsMustBeList": "天气符号（draw 的第三个参数）必须是一个数组，例如 [\"sun\", \"cloud\"]。",
+    "elementsMustBeStrings": "数组中的天气符号必须全部是字符串，例如 \"sun\" 或 \"rain\"。",
+    "unknownElement": "\"{{element}}\" 不是一个有效的天气符号。请使用 \"sun\"、\"cloud\"、\"rain\" 或 \"snow\"。",
+    "indexMustBeNumber": "盒子编号（draw 的第一个参数）必须是一个数字。",
+    "indexOutOfRange": "盒子编号必须是 0 到 {{max}} 之间的整数。",
+    "dayMustBeString": "星期几（draw 的第二个参数）必须是字符串，例如 \"Monday\"。"
+  }
+}

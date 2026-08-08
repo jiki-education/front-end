@@ -1,0 +1,62 @@
+{
+  "errors": {
+    "leavesNumber": "Leaves एक संख्या होनी चाहिए",
+    "tomatoesNumber": "Tomatoes एक संख्या होना चाहिए",
+    "croutonsNumber": "Croutons एक संख्या होना चाहिए",
+    "olivesNumber": "Olives एक संख्या होना चाहिए"
+  },
+  "checks": {
+    "saladNotMade": "आपने सलाद नहीं बनाया। सुनिश्चित करें कि आप सभी चार सामग्रियों के साथ <code>makeSalad()</code> को कॉल करें।",
+    "needLeavesRandomInt": "पत्तियों की संख्या तय करने के लिए आपको <code>Math.randomInt(40, 100)</code> कॉल करने की ज़रूरत है।",
+    "needTomatoesRandomInt": "टमाटरों की संख्या तय करने के लिए आपको <code>Math.randomInt(5, leaves / 5)</code> कॉल करने की ज़रूरत है।",
+    "needCroutonsRandomInt": "क्राउटन की संख्या तय करने के लिए आपको <code>Math.randomInt(tomatoes, tomatoes * 2)</code> कॉल करने की ज़रूरत है।",
+    "needOlivesRandomInt": "जैतूनों की संख्या तय करने के लिए आपको <code>Math.randomInt(1, tomatoes / 2)</code> कॉल करने की ज़रूरत है।"
+  },
+  "tasks": {
+    "makeRandomSalad": {
+      "name": "रैंडम सलाद बनाइए",
+      "description": "Math.randomInt() का इस्तेमाल करके हर सामग्री की रैंडम मात्रा तय करें और सलाद बनाएँ।"
+    }
+  },
+  "scenarios": {
+    "randomSalad": {
+      "name": "रैंडम सलाद",
+      "description": "हर सामग्री की रैंडम मात्रा से सलाद बनाएँ।"
+    }
+  },
+  "hints": {
+    "leavesExample": {
+      "question": "पत्तियों की संख्या कैसे तय करें इसका एक उदाहरण दीजिए।",
+      "answer": "पत्तियों की रैंडम मात्रा तय करने के लिए `let leaves = Math.randomInt(40, 100)` का इस्तेमाल करें, जिसे आप बाद में दूसरे फंक्शनों में इस्तेमाल कर सकते हैं।"
+    },
+    "leavesCount": {
+      "question": "मुझे कितनी पत्तियाँ चाहिए?",
+      "answer": "40 से 100 के बीच।"
+    },
+    "tomatoesCount": {
+      "question": "मुझे कितने टमाटर चाहिए?",
+      "answer": "कम से कम 5, लेकिन leaves / 5 से ज़्यादा नहीं।"
+    },
+    "croutonsCount": {
+      "question": "मुझे कितने क्राउटन चाहिए?",
+      "answer": "कम से कम टमाटरों जितने, और टमाटरों की संख्या के दोगुने तक।"
+    },
+    "olivesCount": {
+      "question": "मुझे कितने जैतून चाहिए?",
+      "answer": "कम से कम 1, और टमाटरों की संख्या के आधे तक।"
+    },
+    "makeSalad": {
+      "question": "मैं सलाद कैसे बनाऊँ?",
+      "answer": "हर सामग्री की मात्रा तय करने के बाद, leaves, tomatoes, croutons, olives को makeSalad() में डालें।"
+    }
+  },
+  "describers": {
+    "makeSalad": "${arg1} पत्तियों, ${arg2} टमाटरों, ${arg3} क्राउटन और ${arg4} जैतूनों के साथ सलाद बनाया।"
+  },
+  "functions": {
+    "makeSalad": {
+      "description": "हर सामग्री की दी गई मात्रा के साथ सलाद बनाता है।",
+      "category": "एक्शन"
+    }
+  }
+}

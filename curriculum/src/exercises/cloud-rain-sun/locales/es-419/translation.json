@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "sun": "El sol no está bien.",
+    "cloudBody": "El cuerpo de la nube no está bien.",
+    "leftPuff": "El esponjado izquierdo de la nube no está bien.",
+    "leftCenterPuff": "El esponjado central izquierdo de la nube no está bien.",
+    "rightCenterPuff": "El esponjado central derecho de la nube no está bien.",
+    "rightPuff": "El esponjado derecho de la nube no está bien.",
+    "rainDrop": "Una de las gotas de lluvia no está bien."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "Dibuja la escena climática",
+      "description": "Crea una escena climática con un sol amarillo, una nube blanca y gotas de lluvia azules."
+    }
+  },
+  "scenarios": {
+    "drawScene": {
+      "name": "Dibuja la escena climática",
+      "description": "Crea la escena climática completa con sol, nube y lluvia."
+    }
+  },
+  "hints": {
+    "cloudShape": {
+      "question": "¿Cómo construyo la forma esponjosa de la nube a partir de formas simples?",
+      "answer": "La nube es un rectángulo (ya dibujado para ti como la base) con `circle`s colocados a lo largo de su borde superior para darle el contorno ondulado."
+    },
+    "raindropShape": {
+      "question": "¿Cómo hago una gota de lluvia con `ellipse`?",
+      "answer": "Las gotas de lluvia son altas y delgadas, así que el radio vertical es más grande que el horizontal. El radio horizontal es `3` (el único número que no es divisible entre 5)."
+    },
+    "sunOnTop": {
+      "question": "¿Por qué mi sol aparece encima de la nube?",
+      "answer": "Las formas dibujadas después quedan delante de las anteriores. Dibuja el sol primero, luego la nube encima, para que la nube parezca estar delante del sol."
+    },
+    "notMatchingTemplate": {
+      "question": "¿Por qué mi dibujo no coincide con las líneas de la plantilla?",
+      "answer": "Tus formas deben quedar justo dentro de las líneas guía, no encima de ellas. Casi todos los números que necesitas son divisibles entre 5, así que prueba con el múltiplo de 5 más cercano si una forma parece un poco incorrecta."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dibuja un rectángulo en la posición (izquierda, arriba) con el ancho, alto y color dados.",
+      "category": "Dibujar formas"
+    },
+    "circle": {
+      "description": "Dibuja un círculo centrado en (centerX, centerY) con el radio y color dados.",
+      "category": "Dibujar formas"
+    },
+    "ellipse": {
+      "description": "Dibuja una elipse centrada en (centerX, centerY) con radio horizontal radiusX, radio vertical radiusY y color.",
+      "category": "Dibujar formas"
+    }
+  }
+}

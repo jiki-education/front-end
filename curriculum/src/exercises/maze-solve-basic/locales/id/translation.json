@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "Kamu belum sampai ke ujung labirin."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Pandu tokohnya sampai ke ujung labirin",
+      "description": "Telusuri labirinnya untuk mencapai target hijau"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Pandu tokohnya sampai ke ujung labirin",
+      "description": "Tugasmu adalah memandu tokohmu melewati labirin sampai ke kotak tujuan berwarna hijau."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "Aku memindahkan apa dan ke mana?",
+      "answer": "Kamu memindahkan tokoh kecil yang mulai dari pojok kiri atas ke lingkaran hijau di pojok kanan bawah, sambil menghindari sel bergaris merah."
+    },
+    "turnLeftTurnsRight": {
+      "question": "Waktu aku belok kiri, tokohnya malah belok kanan!",
+      "answer": "Tokohnya berbelok relatif terhadap arah yang sedang dia hadapi. Jadi kalau dia sedang menghadap ke kanan lalu belok kiri, dia akan berbalik menghadap ke atas."
+    }
+  }
+}

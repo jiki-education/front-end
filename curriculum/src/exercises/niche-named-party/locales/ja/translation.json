@@ -1,0 +1,67 @@
+{
+  "tasks": {
+    "checkTheName": {
+      "name": "名前をチェックする",
+      "description": "`handleGuest`関数を作成し、その人の名前が今夜のパーティーで許可される文字で始まるかどうかを確認しましょう。始まる場合は`true`を、そうでない場合は`false`を返しましょう。"
+    },
+    "solveTightly": {
+      "name": "20行で解答する",
+      "description": "ボーナス: 文字数を数える処理をヘルパー関数に分けて、`handleGuest`から呼び出すことで、解答全体が20行に収まります。同じように書けるか挑戦してみましょう。"
+    }
+  },
+  "scenarios": {
+    "sarahSParty": {
+      "name": "Sパーティー：Sarahが到着",
+      "description": "今夜は\"S\"で始まる名前の人だけが入場できます。Sarahは入場できるはずです！"
+    },
+    "bradSParty": {
+      "name": "Sパーティー：Bradが到着",
+      "description": "今夜は\"S\"で始まる名前の人だけが入場できます。Bradは追い返されます。"
+    },
+    "bradleyBradParty": {
+      "name": "Bradパーティー：Bradleyが到着",
+      "description": "今夜は\"Brad\"で始まる名前の人だけが入場できます。Bradleyは入場できるはずです！"
+    },
+    "bradBradleyParty": {
+      "name": "Bradleyパーティー：Bradが到着",
+      "description": "今夜は\"Bradley\"で始まる名前の人だけが入場できます。Bradは短すぎるため、入場できません。"
+    },
+    "brianBradParty": {
+      "name": "Bradパーティー：Brianが到着",
+      "description": "今夜は\"Brad\"で始まる名前の人だけが入場できます。Brianは追い返されます。"
+    },
+    "silence": {
+      "name": "Sパーティー：無言…",
+      "description": "その人は名前を言いません。空の名前では何も始まらないので、追い返しましょう。"
+    },
+    "cherCherParty": {
+      "name": "Cherパーティー：Cherが到着",
+      "description": "今夜は\"Cher\"で始まる名前の人だけが入場できます。Cherの名前は\"Cher\"そのものです。入場させましょう！"
+    },
+    "nicheNamedPartyBonusLineCount": {
+      "name": "きれいに整頓",
+      "description": "最短の解答は20行に収まります。見つけられますか？"
+    }
+  },
+  "checks": {
+    "tooManyLines": "続けてみましょう！もっと少ない行数で解けるか試してみてください。"
+  },
+  "hints": {
+    "checkStartsWith": {
+      "question": "名前が特定の文字で始まるかどうかを確認するにはどうすればいいですか？",
+      "answer": "許可される先頭文字列の各文字を、名前の同じ位置の文字と比較します。いずれかの文字が異なれば、その名前は一致しません。"
+    },
+    "loopCharacters": {
+      "question": "1文字ずつ確認するにはどうすればいいですか？",
+      "answer": "文字列の繰り返し処理を使って、文字列を1文字ずつ見ていきます。"
+    },
+    "findEquivalentLetter": {
+      "question": "もう一方の単語の対応する文字を見つけるにはどうすればいいですか？",
+      "answer": "文字列のインデックスを使って、特定の文字を取得します。"
+    },
+    "longerAllowedPrefix": {
+      "question": "許可される先頭文字列が名前より長い場合はどうなりますか？",
+      "answer": "その場合は一致しないので、`false`を返してください。"
+    }
+  }
+}

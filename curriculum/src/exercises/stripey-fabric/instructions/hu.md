@@ -1,11 +1,12 @@
 ---
-title: "Stripey Fabric"
-description: "Weave a striped pattern by choosing each stripe's colour correctly."
+title: "Csíkos szövet"
+description: "Csíkos mintát szősz az egyes csíkok színének helyes megválasztásával."
+en_md5: ba93b39f1883d50139d243a16e3c204f
 ---
 
-You're designing an algorithm to create a roll of stripey fabric, which should look like this:
+Egy csíkos anyagtekercset létrehozó algoritmust tervezel, ami így néz ki:
 
-<svg viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Twenty vertical stripes: purple at each end, with green, blue and yellow stripes in between" style="width: 200px; height: 200px; display: block; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;padding:4px;margin-top:-8px">
+<svg viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Húsz függőleges csík: mindkét végén lila, közöttük zöld, kék és sárga csíkok váltakoznak." style="width: 200px; height: 200px; display: block; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;padding:4px;margin-top:-8px">
   <rect x="0" y="0" width="5" height="100" fill="#A020F0" />
   <rect x="5" y="0" width="5" height="100" fill="#56AEFF" />
   <rect x="10" y="0" width="5" height="100" fill="#ffed06" />
@@ -28,14 +29,14 @@ You're designing an algorithm to create a roll of stripey fabric, which should l
   <rect x="95" y="0" width="5" height="100" fill="#A020F0" />
 </svg>
 
-The pattern is a repeating sequence of `"yellow"`, `"blue"`, `"yellow"`, `"green"`. The first and last stripes are `"purple"`.
+A minta egy ismétlődő sorozat: `"yellow"`, `"blue"`, `"yellow"`, `"green"`. Az első és az utolsó csík `"purple"`.
 
-The canvas you're designing on is `100` wide and `100` tall. You need to draw `20` stripes, each `5` wide.
+A vászon, amin dolgozol, `100` széles és `100` magas. `20` csíkot kell rajzolnod, mindegyik `5` széles.
 
-### Exercise Rules
+### A feladat szabályai
 
-You cannot solve this exercise by just writing 20 rectangle statements. Your code should scale to any size of fabric. In fact, you can only use the `rectangle(...)` function once in your code!
+Ezt a feladatot nem oldhatod meg úgy, hogy egyszerűen 20 téglalap-utasítást írsz. A kódodnak tetszőleges méretű anyaggal is működnie kell. Sőt, a `rectangle(...)` (téglalap) függvényt csak egyszer használhatod a kódodban!
 
-Instead, you need to loop and use the remainder operator we saw in the last video lesson. Think carefully about the order of the statements - that's the key to succeeding on this exercise.
+Ehelyett ciklust kell használnod, és a maradék (_remainder_ angolul) operátort (_operator_ angolul), amit az előző videóleckében láttunk. Gondold át alaposan az utasítások sorrendjét – ezen múlik, hogy sikerül-e a feladat.
 
-Take your time and have fun!
+Nyugodtan dolgozz, és érezd jól magad!

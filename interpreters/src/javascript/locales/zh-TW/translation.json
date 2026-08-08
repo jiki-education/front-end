@@ -1,0 +1,268 @@
+{
+  "error": {
+    "syntax": {
+      "InvalidAssignmentTargetExpression": "無效的指定目標。你只能賦值給變數喔。",
+      "AssignmentInExpression": "你這裡可能是想用 `===` 來比較兩個值，而不是用 `=`。在這個編輯器裡，不允許在敘述中指定變數喔。",
+      "StrictEqualityRequired": "請把 `==` 改成 `===` 喔。\n\n在完整的 JavaScript 中，你可以用 `==` 或 `===` 來檢查兩個東西是否相等。不過，通常大家會認為使用 `===` 是比較好的做法，所以我們在 Jiki 裡停用了 `==`。",
+      "StrictInequalityRequired": "請把 `!=` 改成 `!==` 喔。\n\n在完整的 JavaScript 中，你可以用 `!=` 或 `!==` 來檢查兩個東西是否不同。不過，通常大家會認為使用 `!==` 是比較好的做法，所以我們在 Jiki 裡停用了 `!=`。",
+      "MissingBacktickToTerminateTemplateLiteral": "你是不是忘了加上結尾的反引號呢？也許你是想寫：\n\n``` `{{string}}` ```",
+      "QuoteUsedToTerminateTemplateLiteral": "你是不是用了 `{{quote}}` 而不是反引號 `` ` `` 來結束樣板字串呢？也許你是想寫：\n\n``` `{{string}}` ```",
+      "MissingDoubleQuoteToTerminateString": "你是不是忘了加上結尾的引號呢？也許你是想寫：\n\n```\"{{string}}\"```",
+      "MissingExpression": "Jiki 不太懂在這裡該拿 {{token}} 怎麼辦喔。",
+      "MissingClassNameAfterNew": "Jiki 預期在 `new` 之後會看到類別的名稱，但是沒有找到喔。",
+      "UnexpectedElseWithoutMatchingIf": "這個 `else` 前面沒有對應的 `if` 條件式喔。請檢查一下這行上方是不是多寫（或少寫）了右大括號呢。",
+      "MissingInitializerInConstDeclaration": "宣告常數時缺少了初始值。常數在宣告時就必須給定一個值喔。",
+      "MissingInitializerInVariableDeclaration": "宣告變數時缺少了初始值。使用 `let` 宣告變數時，必須提供一個值喔。",
+      "ConstInForLoopInit": "你不能在 C 語言風格的 `for` 迴圈裡使用 `const` 喔。迴圈變數需要被修改（例如 i++），但是常數是不能改變的。請改用 `let`，或者如果你要走訪陣列的話，可以考慮使用 `for...of` 迴圈。",
+      "MissingLetInForOf": "你需要用 `let` 來宣告迴圈變數喔。例如，請寫 `for (let {{name}} of ...)` 而不是 `for ({{name}} of ...)`。\n\n在完整的 JavaScript 中，如果你已經宣告過這個變數，是可以省略 `let` 的，但這是不常見的用法，所以我們在這個版本的語言中把它停用了。",
+      "MissingLetInForIn": "你需要用 `let` 來宣告迴圈變數喔。例如，請寫 `for (let {{name}} in ...)` 而不是 `for ({{name}} in ...)`。\n\n在完整的 JavaScript 中，如果你已經宣告過這個變數，是可以省略 `let` 的，但這是不常見的用法，所以我們在這個版本的語言中把它停用了。",
+      "MissingLetInForLoopInit": "你需要用 `let` 來宣告迴圈變數喔。例如，請寫 `for (let i = 0; ...)` 而不是 `for (i = 0; ...)`。\n\n在完整的 JavaScript 中，如果你已經宣告過這個變數，是可以省略 `let` 的，但這是不常見的用法，所以我們在這個版本的語言中把它停用了。",
+      "UnexpectedDoubleIdentifier": "Jiki 不太懂你希望他在這裡做什麼喔。",
+      "MissingDeclarationKeywordWithSuggestion": "你是想寫 `{{suggestion}}` 而不是 `{{name}}` 嗎？宣告變數時必須以 `let` 或 `const` 開頭喔。",
+      "MissingLeftParenthesisAfterIf": "在 `if` 關鍵字後面缺少了左括號 `(` 喔。",
+      "MissingRightBraceAfterBlock": "在程式區塊後面缺少了右大括號 `}` 喔。",
+      "MissingRightBraceInTemplateLiteral": "Jiki 在這個樣板字串裡找不到右大括號（`}`）喔。請檢查一下是不是漏掉了或是打錯字了呢。正確的格式是 ``` `...${...}...` ```。",
+      "MissingRightBracketInArray": "缺少了用來關閉陣列的右方括號 `]` 喔。",
+      "MissingRightBracketInMemberAccess": "在陣列索引後面缺少了右方括號 `]` 喔。",
+      "MissingRightParenthesisAfterExpression": "在運算式後面缺少了右括號 `)` 喔。",
+      "MissingRightParenthesisAfterIfCondition": "在 `if` 條件後面缺少了右括號 `)` 喔。",
+      "MissingRightParenthesisAfterFunctionCall": "呼叫 {{function}} 函式時，你是不是忘了加上右括號 `)` 呢？",
+      "MissingEndOfLine": "Jiki 沒想到 `{{current}}` 會出現在 `{{previous}}` 後面喔。",
+      "MissingVariableName": "宣告時缺少了變數名稱。你必須在 `let` 後面提供一個名稱喔。",
+      "MultipleStatementsPerLine": "在 Jiki 裡，一行只能放一個敘述喔。你不能用分號把多個敘述隔開。請把第二個敘述放到新的一行吧。",
+      "TrailingCommaInArray": "陣列中不允許在最後面加上逗號喔。",
+      "TrailingCommaInDictionary": "物件中不允許在最後面加上逗號喔。",
+      "InvalidDictionaryKey": "無效的物件鍵值。鍵值必須是識別字、字串或數字喔。",
+      "MissingColonInDictionary": "在物件鍵值後面缺少了冒號 `:` 喔。",
+      "DuplicateDictionaryKey": "在物件中有重複的鍵值 `{{key}}` 喔。",
+      "MissingRightBraceInDictionary": "缺少了用來關閉物件的右大括號 `}` 喔。",
+      "UnimplementedToken": "`{{lexeme}}` 這個功能在你目前的關卡還不能使用喔。",
+      "PermanentlyExcludedToken": "`{{lexeme}}` 這個功能在這個版本的 JavaScript 中無法使用喔。",
+      "UnknownCharacter": "Jiki 不太懂在這裡該拿 {{character}} 怎麼辦喔。",
+      "UnterminatedBlockComment": "Jiki 找不到用來關閉這個區塊註解的 `*/` 喔。",
+      "NestedFunctionDeclaration": "函式只能在最頂層宣告，不能放在程式區塊或其他函式裡面喔。",
+      "MissingFunctionName": "在 `function` 關鍵字後面缺少了函式名稱喔。",
+      "MissingLeftParenthesisAfterFunctionName": "在函式名稱後面缺少了左括號 `(` 喔。",
+      "MissingParameterName": "宣告函式時缺少了參數名稱喔。",
+      "DuplicateParameterName": "宣告函式時有重複的參數名稱 `{{name}}` 喔。",
+      "MissingRightParenthesisAfterParameters": "在函式參數後面缺少了右括號 `)` 喔。",
+      "MissingLeftBraceBeforeFunctionBody": "在函式主體前面缺少了左大括號 `{` 喔。",
+      "BreakStatementNotAllowed": "Jiki 不允許你在這個練習中使用 `break` 喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "ContinueStatementNotAllowed": "Jiki 不允許你在這個練習中使用 `continue` 喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "FunctionDeclarationNotAllowed": "Jiki 不允許你在這個練習中建立自己的函式喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "ReturnStatementNotAllowed": "Jiki 不允許你在這個練習中使用 `return` 喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "RepeatStatementNotAllowed": "Jiki 不允許你在這個練習中使用 `repeat` 喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "UpdateExpressionNotAllowed": "Jiki 不允許你在這個練習中使用 `++` 或 `--` 喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "LiteralExpressionNotAllowed": "Jiki 不允許你在這個練習中使用像數字、字串和布林值這樣的一般值喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "BinaryExpressionNotAllowed": "Jiki 不允許你在這個練習中使用像 `+`、`-` 或 `>` 這樣的運算子喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "LogicalExpressionNotAllowed": "Jiki 不允許你在這個練習中使用像 `&&` 或 `||` 這樣的邏輯運算子喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "UnaryExpressionNotAllowed": "Jiki 不允許你在這個練習中把 `-` 或 `!` 放在值的前面喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "GroupingExpressionNotAllowed": "Jiki 不允許你在這個練習中使用括號來把東西分組喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "IdentifierExpressionNotAllowed": "Jiki 不允許你在這個練習中使用變數的值喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "AssignmentExpressionNotAllowed": "Jiki 不允許你在這個練習中改變變數喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "TemplateLiteralExpressionNotAllowed": "Jiki 不允許你在這個練習中使用帶有反引號的樣板字串喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "ArrayExpressionNotAllowed": "Jiki 不允許你在這個練習中使用陣列喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "IndexExpressionNotAllowed": "Jiki 不允許你在這個練習中使用方括號來尋找項目喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "MemberExpressionNotAllowed": "Jiki 不允許你在這個練習中使用點來讀取屬性喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "DictionaryExpressionNotAllowed": "Jiki 不允許你在這個練習中使用大括號來建立物件喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "CallExpressionNotAllowed": "Jiki 不允許你在這個練習中呼叫函式喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "ExpressionStatementNotAllowed": "Jiki 不允許你在這個練習中寫出只有運算式的一行程式碼喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "VariableDeclarationNotAllowed": "Jiki 不允許你在這個練習中使用 `let` 來建立變數喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "BlockStatementNotAllowed": "Jiki 不允許你在這個練習中把多行程式碼分組在 `{ }` 裡面喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "IfStatementNotAllowed": "Jiki 不允許你在這個練習中使用 `if` 喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "ForStatementNotAllowed": "Jiki 不允許你在這個練習中使用 C 語言風格的 `for` 迴圈喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "ForOfStatementNotAllowed": "Jiki 不允許你在這個練習中使用 `for…of` 迴圈喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "WhileStatementNotAllowed": "Jiki 不允許你在這個練習中使用 `while` 迴圈喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "UnexpectedTokenInTemplateLiteral": "Jiki 沒想到這裡會出現 {{token}} 喔。",
+      "MissingLeftParenAfterRepeat": "在 `repeat` 後面缺少了左括號 `(` 喔。",
+      "MissingRightParenAfterRepeatCount": "在重複次數後面缺少了右括號 `)` 喔。",
+      "ForInStatementNotAllowed": "Jiki 不允許你在這個練習中使用 `for…in` 迴圈喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "NewExpressionNotAllowed": "Jiki 不允許你在這個練習中使用 `new` 喔。試著只用我們在單元裡學過的概念來解開這個練習吧。",
+      "BlockRequired": "你需要在 `{{keyword}}` 後面使用 `{ }` 大括號喔。"
+    },
+    "lint": {
+      "ClosingBraceNotOnOwnLine": "把右大括號 `}` 放在獨立的一行，讓程式碼保持整潔吧。",
+      "OpeningBraceContentNotOnOwnLine": "把大括號裡面的程式碼放在新的一行，讓程式碼保持整潔吧。",
+      "IncorrectIndentation": "Jiki 預期這裡要有 {{expected}} 個空格的縮排，但這行縮排了 {{actual}} 個空格喔。\n\n保持程式碼正確縮排可以幫你避免很多錯誤，因為這樣你能更清楚地了解程式碼是如何巢狀排列的。",
+      "IncorrectIndentationAtTopLevel": "Jiki 預期在這行的開頭要有 {{expected}} 個空格的縮排，但是這裡沒有喔。\n\n保持程式碼正確縮排可以幫你避免很多錯誤，因為這樣你能更清楚地了解程式碼是如何巢狀排列的。"
+    },
+    "runtime": {
+      "FunctionExecutionError": "執行 `{{function}}` 函式時發生錯誤：{{message}}",
+      "IndexOutOfRange": "這個陣列只有 {{length}} 個元素，但你試著存取索引 {{index}} 喔。記住，在 JavaScript 裡，第一個元素的索引是 0。",
+      "StringIndexOutOfRange": "這個字串只有 {{length}} 個字元，但你試著存取索引 {{index}} 喔。記住，在 JavaScript 裡，第一個字元的索引是 0。",
+      "ComparisonWithUndefined": "你試著比較兩個值，但其中一個沒有被設定成任何東西喔。在 Jiki 裡你應該沒辦法這麼做，所以請帶著你的程式碼在論壇上發文，讓我們來調查一下吧。",
+      "ComparisonWithUndefinedFromFunction": "你試著比較一個沒有回傳任何東西的函式結果喔。在比較它的結果之前，請確保 `{{name}}` 函式在所有情況下都會回傳一個值。",
+      "AssignmentToUndefined": "你試著儲存一個沒有被設定成任何東西的值喔。變數應該總是要裝著一個實際的值。",
+      "AssignmentToUndefinedFromFunction": "你試著儲存一個沒有回傳任何東西的函式結果喔。在儲存它的結果之前，請確保這個函式會回傳一個值。",
+      "UpdateOperatorRequiresNumber": "Jiki 不能在 {{type}} 上使用 {{operator}} 喔，只能用在數字上。",
+      "PropertyNotFound": "`{{property}}` 屬性不存在於 {{type}} 上喔。",
+      "MethodUsedWithoutParentheses": "`{{property}}` 屬性不存在於 {{type}} 上喔。你是想使用 `{{property}}` 方法嗎？如果是的話，記住你需要像一般函式一樣加上括號喔。",
+      "ShadowingDisabled": "變數遮蔽（Variable shadowing）被停用了。變數 `{{name}}` 已經在外層的作用域宣告過囉。",
+      "VariableAlreadyDeclared": "變數 `{{name}}` 已經在這個作用域宣告過囉。請使用不同的名稱，或是直接賦值給現有的變數吧。",
+      "AssignmentToConstant": "不能重新賦值給常數變數 `{{name}}` 喔。常數在宣告之後就不能再改變了。",
+      "TruthinessDisabled": "條件中只允許使用布林值，但得到了 `{{value}}` 喔。",
+      "ArrayIndexNotNumber": "你只能用數字作為陣列索引喔，像是 `myArray[0]`。",
+      "ArrayIndexNotInteger": "你只能用整數作為陣列索引喔，像 `1.5` 這樣的小數是不行的。",
+      "StringIndexNotNumber": "你只能用數字來尋找字串中的字元喔，像是 `myString[0]`。",
+      "StringIndexNotInteger": "你只能用整數來尋找字串中的字元喔，像 `1.5` 這樣的小數是不行的。",
+      "ComputedAccessNotAllowedForStdlib": "你需要用點來取得這個東西喔，像是 `myArray.length`，而不是用方括號。",
+      "ComputedAccessNotAllowedForBuiltin": "你需要用點來取得這個東西喔，像是 `Math.max`，而不是用方括號。",
+      "CannotReadPropertiesOfType": "你不能從 {{type}} 讀取屬性喔。",
+      "CannotSetPropertyOfType": "你不能在 {{type}} 上設定屬性喔。",
+      "BracketNotationNotAllowedOnInstance": "你不能在類別實體上使用方括號喔，請改用點，像是 `myObject.property`。",
+      "NotCallable": "你不能把 {{callableType}} 當作函式來試著執行它喔。",
+      "VariableNotDeclared": "Jiki 找不到叫做 `{{name}}` 的變數喔。",
+      "ReturnOutsideFunction": "你使用了 `return` 關鍵字，但你不在函式裡面喔。`return` 敘述只能在函式裡面使用。",
+      "BreakOutsideLoop": "你使用了 `break` 關鍵字，但你不在迴圈裡面喔。`break` 敘述只能在 `for` 或 `while` 迴圈裡面使用。",
+      "ContinueOutsideLoop": "你使用了 `continue` 關鍵字，但你不在迴圈裡面喔。`continue` 敘述只能在 `for` 或 `while` 迴圈裡面使用。",
+      "ForOfLoopTargetNotIterable": "`for...of` 迴圈需要一個可疊代的值（像是陣列或字串），但你提供了一個值為 {{value}} 的 {{type}} 喔。",
+      "MethodNotYetImplemented": "`{{method}}` 是一個有效的方法，但你現在還不能使用它喔。",
+      "MethodNotYetAvailable": "`{{method}}` 方法在你目前的關卡還不能使用喔。繼續前進來解鎖這個功能吧！",
+      "PropertyNotYetAvailable": "`{{property}}` 屬性在你目前的關卡還不能使用喔。繼續前進來解鎖這個功能吧！",
+      "MaxIterationsReached": "你的程式碼執行太久了，為了防止無限迴圈，我們把它停下來了。在這個練習中，迴圈最多只能執行 {{max}} 次喔。",
+      "RepeatCountMustBeNumber": "`repeat()` 需要一個數字，但得到了 {{type}} 喔。",
+      "RepeatCountMustBeNonNegative": "`repeat()` 的次數必須是 0 或更大，但得到了 {{value}} 喔。",
+      "RepeatCountTooHigh": "`repeat()` 的次數 {{value}} 超過了最多 {{max}} 次疊代的限制喔。",
+      "FunctionAlreadyDefined": "已經有一個叫做 `{{name}}` 的函式囉。請選擇一個不同的名稱吧。",
+      "TypeCoercionNotAllowed": "不允許在使用 `{{operator}}` 運算子時，在 {{leftType}} 和 {{rightType}} 之間進行型別轉換喔。",
+      "UnaryTypeCoercionNotAllowed": "不允許型別轉換：`{{operator}}` 運算子不能應用在 {{operand}} 上喔。",
+      "ComparisonRequiresNumber": "`{{operator}}` 運算子需要兩個值都是數字喔。",
+      "NodeNotAllowed": "{{nodeType}} 在你目前的關卡還不能使用喔。",
+      "InvalidNumberOfArguments_exact": "這個函式有 $t(phrases.slotCount, {\"count\": {{expected}} })，但你提供了 $t(phrases.inputCount, {\"count\": {{got}} }) 讓 Jiki 使用喔。",
+      "InvalidNumberOfArguments_atLeast": "這個函式至少需要 $t(phrases.slotCount, {\"count\": {{expected}} })，但你提供了 $t(phrases.inputCount, {\"count\": {{got}} }) 讓 Jiki 使用喔。",
+      "InvalidNumberOfArguments_range": "這個函式有 {{min}} 到 {{max}} 個投入口，但你提供了 $t(phrases.inputCount, {\"count\": {{got}} }) 讓 Jiki 使用喔。",
+      "FunctionNotFound": "Jiki 找不到叫做 `{{name}}` 的函式喔。",
+      "LogicErrorInExecution": "{{message}}",
+      "ForInLoopTargetNotObject": "`for...in` 迴圈需要一個物件來進行疊代，但你提供了一個值為 {{value}} 的 {{type}} 喔。",
+      "InOperatorRequiresObject": "`in` 運算子需要在右邊放一個物件或字典，但你給了它一個 {{type}} 喔。",
+      "InOperatorRequiresStringKey": "`in` 運算子需要在左邊放一個字串鍵值，但你給了它一個 {{type}} 喔。",
+      "InOperatorRequiresIntegerIndex": "`in` 運算子與陣列一起使用時需要一個整數索引，但你給了它一個 {{type}} 喔。",
+      "InWithArrayNotAllowed": "雖然 `in` 關鍵字可以跟陣列一起使用，但這是比較進階的功能。現在，請先只把它用在字典上吧。",
+      "ClassNotFound": "類別 `{{name}}` 還沒有被定義喔。",
+      "PropertyNotFoundOnInstance": "屬性 `{{property}}` 不存在於 `{{className}}` 的實體上喔。",
+      "UnexpectedUncalledFunction": "你參考了 `{{name}}` 函式，但沒有真的使用它喔。你是不是忘了在最後面加上 `()` 呢？"
+    },
+    "disabledLanguageFeature": {
+      "DisabledFeatureExcludeListViolation": "`{{lexeme}}` 這個功能在你目前的關卡還不能使用喔。",
+      "DisabledFeatureIncludeListViolation": "`{{lexeme}}` 這個功能在你目前的關卡還不能使用喔。"
+    },
+    "stdlib": {
+      "StdlibExactArgs": "`{{functionName}}()` 有 {{expected}} 個投入口，但你只提供了 {{received}} 個東西放進去喔。",
+      "StdlibAtLeastArgs": "`{{functionName}}()` 至少有 {{minimum}} 個投入口，但你只提供了 {{received}} 個東西放進去喔。",
+      "StdlibArgRange": "`{{functionName}}()` 有 {{min}} 到 {{max}} 個投入口，但你只提供了 {{received}} 個東西放進去喔。",
+      "StdlibArgTypeMismatch": "`{{functionName}}()` 預期 {{argName}} 是一個 {{expected}}，但你給了它一個 {{received}} 喔。",
+      "StdlibArgMustBeInteger": "`{{functionName}}()` 預期 {{argName}} 是一個整數，但你給了它 {{value}} 喔。",
+      "MethodNotYetImplemented": "`{{method}}` 是一個有效的方法，但你現在還不能使用它喔。",
+      "StdlibRandomIntMinGreaterThanMax": "`randomInt()` 預期第一個數字（{{min}}）會小於或等於第二個數字（{{max}}）喔。",
+      "NumberConversionFailed": "Jiki 試著把 `{{value}}` 轉換成數字，但它不是一個有效的數字喔。在使用 `Number(str)` 之前，先加上一些檢查吧。"
+    }
+  },
+  "phrases": {
+    "slotCount_zero": "0 個投入口",
+    "slotCount_one": "1 個投入口",
+    "slotCount_other": "{{count}} 個投入口",
+    "inputCount_zero": "0 個輸入",
+    "inputCount_one": "1 個輸入",
+    "inputCount_other": "{{count}} 個輸入"
+  },
+  "description": {
+    "assignmentExpression": {
+      "element_put": "Jiki 把 {{value}} 放進陣列中索引為 {{index}} 的位置裡了。",
+      "variable_found": "Jiki 找到了 {{name}} 盒子。",
+      "variable_put": "Jiki 把 {{value}} 放進盒子裡了。"
+    },
+    "binaryExpression": {
+      "evaluated": "Jiki 評估了 {{expr}}，並判斷它是 {{value}}。"
+    },
+    "breakStatement": {
+      "result": "這行程式碼立刻離開了迴圈。",
+      "step": "Jiki 看到這個，決定繼續執行迴圈之後的程式碼。"
+    },
+    "callExpression": {
+      "logResult": "這印出了 <code>{{output}}</code>。",
+      "logResultBlank": "這印出了一個空白行。",
+      "logStep": "Jiki 在這裡為你寫下了 <code>{{output}}</code> 喔！",
+      "logStepBlank": "Jiki 在這裡為你寫下了一個空白行喔！",
+      "summary": "這使用了 {{fn}} 函式。",
+      "used": "Jiki 使用了 {{call}} 函式。",
+      "usedReturned": "Jiki 使用了 {{call}} 函式，它回傳了 {{value}}。"
+    },
+    "common": {
+      "defaultFunctionName": "一個函式"
+    },
+    "continueStatement": {
+      "result": "這行程式碼停止在這次疊代中執行更多程式碼。",
+      "step": "Jiki 看到這個，決定繼續進行下一次疊代。"
+    },
+    "expressionStatement": {
+      "callResult": "這使用了 {{functionName}} 函式。",
+      "result_default": "這個運算式的評估結果為 <code>{{value}}</code>。",
+      "step_default": "Jiki 評估了這個運算式，並得到了 <code>{{value}}</code>。"
+    },
+    "forInStatement": {
+      "result_empty": "這個物件是空的，所以這行程式碼什麼都沒做。",
+      "result_iteration_ordinal_other": "這行程式碼開始了第 {{count}} 次疊代，並把 {{name}} 變數設定為 {{value}}。",
+      "step_create": "Jiki 建立了一個叫做 {{name}} 的新盒子。",
+      "step_empty": "Jiki 檢查了這個物件，發現它是空的，所以決定在這行不再做任何事。",
+      "step_put": "Jiki 把 {{value}} 放進盒子裡，然後把它放在架子上，準備在程式區塊裡使用。"
+    },
+    "forOfStatement": {
+      "result_empty": "這個 {{type}} 是空的，所以這行程式碼什麼都沒做。",
+      "result_iteration_ordinal_other": "這行程式碼開始了第 {{count}} 次疊代，並把 {{name}} 變數設定為 {{value}}。",
+      "step_create": "Jiki 建立了一個叫做 {{name}} 的新盒子。",
+      "step_empty": "Jiki 檢查了這個 {{type}}，發現它是空的，所以決定在這行不再做任何事。",
+      "step_put": "Jiki 把 {{value}} 放進盒子裡，然後把它放在架子上，準備在程式區塊裡使用。"
+    },
+    "identifierExpression": {
+      "lookup": "Jiki 從架子上拿下了叫做 {{name}} 的盒子，並從裡面拿出了 {{value}}。"
+    },
+    "ifStatement": {
+      "result_false": "條件評估為 <code>false</code>，所以程式區塊沒有執行。",
+      "result_false_else": "條件評估為 <code>false</code>，所以執行了 `else` 區塊。",
+      "result_true": "條件評估為 <code>true</code>，所以程式區塊執行了。",
+      "step_false": "結果是 <code>false</code>，所以 Jiki 決定跳過 `if` 區塊。",
+      "step_false_else": "結果是 <code>false</code>，所以 Jiki 決定執行 `else` 區塊。",
+      "step_true": "結果是 <code>true</code>，所以 Jiki 決定執行 `if` 區塊。"
+    },
+    "logicalExpression": {
+      "evaluated": "Jiki 評估了 {{expr}}，並判斷結果是 {{value}}。",
+      "shortCircuited": "Jiki 看到 {{operator}} 的左邊是 {{value}}，所以就不去看右邊了。"
+    },
+    "memberExpression": {
+      "array": "Jiki 取得了陣列中索引為 {{index}} 的項目，並判斷它是 {{value}}。",
+      "string": "Jiki 取得了字串中索引為 {{index}} 的字元，並判斷它是 {{value}}。"
+    },
+    "repeatStatement": {
+      "foreverResult_ordinal_other": "這行程式碼開始了這個 `repeat` 區塊的第 {{count}} 次疊代。",
+      "foreverStep_ordinal_other": "Jiki 開始了 `repeat` 迴圈的第 {{count}} 次疊代。",
+      "repeatResult_ordinal_other": "這行程式碼開始了這個 `repeat` 區塊的第 {{count}} 次疊代。",
+      "repeatStep": "Jiki 把他這個迴圈的內部計數器增加到 <code>{{iteration}}</code>，檢查了 <code>{{iteration}} &le; {{countValue}}</code>，然後決定執行程式區塊。",
+      "zeroResult": "這個 `repeat` 區塊被要求執行 <code>0</code> 次，所以這行程式碼什麼都沒做。",
+      "zeroStep": "Jiki 看到這個迴圈應該執行 <code>0</code> 次，所以決定在這行不再做任何事。"
+    },
+    "returnStatement": {
+      "final": "Jiki 整理了一下，然後離開了函式。",
+      "naked_result": "這結束了函式。函式裡沒有再執行其他程式碼了。",
+      "value_chute": "Jiki 把 {{value}} 放進了出料口。",
+      "value_result": "這回傳了 {{value}} 並結束了函式。函式裡沒有再執行其他程式碼了。"
+    },
+    "unaryExpression": {
+      "minus": "Jiki 評估了 {{expr}} 是 {{value}}。",
+      "not": "Jiki 評估了 {{expr}} 是 {{value}}。"
+    },
+    "variableDeclaration": {
+      "result_const": "這建立了一個叫做 {{name}} 的新常數，並把它的值設定為 {{value}}。",
+      "result_let": "這建立了一個叫做 {{name}} 的新變數，並把它的值設定為 {{value}}。",
+      "result_uninit": "這建立了一個叫做 {{name}} 的新變數。",
+      "step_create": "Jiki 建立了一個叫做 {{name}} 的新盒子。",
+      "step_put": "Jiki 把 {{value}} 放進盒子裡了。",
+      "step_uninit": "Jiki 建立了一個叫做 {{name}} 的新空盒子。"
+    },
+    "whileStatement": {
+      "result_false": "條件評估為 <code>false</code>，所以迴圈停止了。",
+      "result_true": "條件評估為 <code>true</code>，所以執行了迴圈主體。",
+      "step_false": "結果是 <code>false</code>，所以 Jiki 決定停止迴圈。",
+      "step_true": "結果是 <code>true</code>，所以 Jiki 決定執行迴圈主體。"
+    }
+  }
+}

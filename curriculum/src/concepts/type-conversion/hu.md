@@ -1,15 +1,16 @@
 ---
 title: "Type Conversion"
-description: "Turning a value of one type into another, like converting a string of digits into a number with `Number()`, or a number into a string with `toString()`."
+description: "Egy érték átalakítása egyik típusból a másikba, például egy számjegyekből álló string számmá alakítása a `Number()` segítségével, vagy egy szám stringgé alakítása a `String()` segítségével."
+en_md5: 8d85e3d274a6cdfdb74bd0488b685f18
 ---
 
-Every value in our programs has a type. `"7"` is a string and `7` is a number. They might look almost identical, but Jiki treats them very differently. You can't add the string `"7"` to the number `3` and expect to get `10`, because one of them is a piece of text and the other is a quantity.
+A programjainkban minden értéknek van típusa. A `"7"` egy string, a `7` pedig egy szám. Első ránézésre szinte egyformák, de Jiki teljesen másképp kezeli őket. Nem adhatod hozzá a `"7"` stringet a `3` számhoz, és várhatod, hogy `10`-et kapj, mert az egyik egy szövegrészlet, a másik pedig egy mennyiség.
 
-Quite often we need to move a value from one type to another. This is called <define>type conversion</define>, and there are two conversions you'll reach for all the time.
+Gyakran előfordul, hogy egy értéket át kell helyeznünk egyik típusból a másikba. Ezt típuskonverziónak (_type conversion_ angolul) nevezzük, és van két ilyen konverzió, amit folyton használni fogsz.
 
-### Turning a string into a number
+### String átalakítása számmá
 
-When you read characters out of a string, each character is itself a string, even when it looks like a digit. Before you can do any arithmetic with it, you need to turn it into a real number. We do that with `Number()`.
+Amikor karaktereket olvasol ki egy stringből, minden karakter maga is egy string, még akkor is, ha számjegynek néz ki. Mielőtt bármilyen számolást végeznél vele, valódi számmá kell alakítanod. Ezt a `Number()` segítségével teheted meg.
 
 ```javascript
 Number("7")
@@ -19,7 +20,7 @@ Number("42")
 // 42
 ```
 
-Once you have an actual number, you can add it, multiply it, and everything else.
+Ha már valódi számod van, összeadhatod, szorozhatod, és bármi mást is csinálhatsz vele.
 
 ```javascript
 let digit = Number("7")
@@ -27,16 +28,19 @@ let doubled = digit * 2
 // 14
 ```
 
-If you hand `Number()` something that isn't a valid number, like `Number("cat")`, you won't get a number back at all, so it's worth making sure you only give it strings that really are digits.
+Ha a `Number()`-nek olyasmit adsz, ami nem érvényes szám, például `Number("cat")`, akkor egyáltalán nem kapsz vissza számot, ezért érdemes megbizonyosodnod arról, hogy csak olyan stringeket adsz neki, amelyek tényleg számjegyekből állnak.
 
-### Turning a number into a string
+### Szám átalakítása stringgé
 
-The opposite direction is just as handy. Sometimes you have a number and you want to treat it as text, maybe to join it onto another string or to look at its individual digits. Every number has a `toString()` method that hands you back a string version of itself.
+Az ellenkező irány is ugyanilyen hasznos. Néha van egy számod, és szövegként szeretnéd kezelni, például hogy hozzáfűzd egy másik stringhez, vagy megnézd az egyes számjegyeit. Ezt a `String()` segítségével teheted meg, ami a `Number()` tükörképe.
 
 ```javascript
-let count = 42
-count.toString()
+String(42)
 // "42"
+
+let count = 7
+String(count)
+// "7"
 ```
 
-Now that it's a string, you can use all the usual string tools on it, like reading it character by character or checking its length.
+Most, hogy már string, használhatod rajta az összes megszokott stringműveletet, például karakterenként beolvashatod, vagy megnézheted a hosszát.

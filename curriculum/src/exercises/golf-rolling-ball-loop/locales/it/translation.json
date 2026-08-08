@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "ballNotAtEnd": "La pallina si trova a {{ballX}}, che non è 60 rispetto al punto di partenza.",
+    "missingPositions": "La pallina deve rotolare attraverso ogni posizione un passo alla volta, partendo da 29.",
+    "codeQuality": {
+      "tooManyLines": "La tua soluzione ha troppe righe di codice. Prova a usare un ciclo per accorciarla."
+    }
+  },
+  "tasks": {
+    "rollBall": {
+      "name": "Fai rotolare la pallina nella buca",
+      "description": "Fai rotolare la pallina nella buca."
+    }
+  },
+  "scenarios": {
+    "rollBall": {
+      "name": "Fai rotolare la pallina nella buca",
+      "description": "Fai rotolare la pallina nella buca."
+    }
+  },
+  "hints": {
+    "icantWorkItOut": {
+      "question": "Non riesco a capirlo",
+      "answer": "Hai due strumenti da usare:\n- Un ciclo repeat, che usi scrivendo `repeat(n) { }` dove `n` è il numero di volte che vuoi far rotolare la pallina e dove puoi mettere qualsiasi cosa dentro le parentesi graffe (`{ }`).\n- Una funzione `roll()` che fa rotolare la pallina di un passo verso destra.\n\nCome puoi combinarli?"
+    }
+  },
+  "functions": {
+    "roll": {
+      "description": "Fa rotolare la pallina **di un passo verso destra**.",
+      "category": "Movimento"
+    }
+  },
+  "describers": {
+    "roll": "ha fatto rotolare la pallina di un passo verso destra"
+  }
+}

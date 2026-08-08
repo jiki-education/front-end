@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "Åh nej, du ramlade av kanten på labyrinten!",
+    "hitWall": "Aj, du gick rakt in i en vägg!",
+    "walkedIntoFire": "Aj! Du gick rakt in i elden!",
+    "walkedIntoPoop": "Usch! Du klev rakt i bajset! 💩💩💩"
+  },
+  "describers": {
+    "move": "Flytta figuren en ruta framåt",
+    "turnLeft": "Sväng figuren 90 grader åt vänster",
+    "turnRight": "Sväng figuren 90 grader åt höger"
+  }
+}

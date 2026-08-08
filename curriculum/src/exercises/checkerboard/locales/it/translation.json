@@ -1,0 +1,80 @@
+{
+  "checks": {
+    "border": "La scacchiera dovrebbe avere un bordo nero tutto intorno.",
+    "topLeftWhite": "Il quadrato in alto a sinistra dovrebbe essere bianco (è un quadrato chiaro).",
+    "rightOfTopLeftDark": "Il quadrato a destra di quello in alto a sinistra dovrebbe essere marrone scuro (un quadrato scuro).",
+    "bottomLeftDark": "Il quadrato in basso a sinistra dovrebbe essere marrone scuro (un quadrato scuro).",
+    "bottomRightWhite": "Il quadrato in basso a destra dovrebbe essere bianco.",
+    "charcoalPiece": "Dovrebbe esserci un pezzo color carbone sul quadrato scuro nella riga superiore.",
+    "topRim": "I pezzi nelle righe superiori dovrebbero avere un bordo in rilievo.",
+    "whitePiece": "Dovrebbe esserci un pezzo bianco sul quadrato scuro nella riga inferiore.",
+    "bottomRim": "I pezzi nelle righe inferiori dovrebbero avere un bordo in rilievo.",
+    "rimRatio": "Il bordo in rilievo di un pezzo dovrebbe essere largo l'80% del quadrato: controlla il raggio del cerchio esterno.",
+    "innerRatio": "Il centro del pezzo dovrebbe essere largo il 75% dell'intero pezzo: controlla il raggio del cerchio interno.",
+    "noPieceOnLight": "Non dovrebbe esserci un pezzo sul quadrato in alto a sinistra: i pezzi vanno solo sui quadrati scuri.",
+    "middleRowsEmpty": "Le righe centrali dovrebbero essere vuote: solo le righe superiori ed inferiori hanno i pezzi."
+  },
+  "tasks": {
+    "setUpTheBoard": {
+      "name": "Prepara la scacchiera",
+      "description": "Disegna la scacchiera e posiziona i pezzi sui quadrati scuri delle righe superiori ed inferiori, facendo in modo che il codice funzioni per qualsiasi dimensione della scacchiera."
+    }
+  },
+  "scenarios": {
+    "board8": {
+      "name": "Prepara una scacchiera 8×8",
+      "description": "Disegna la classica scacchiera 8×8 e disponi i pezzi pronti per giocare."
+    },
+    "board6": {
+      "name": "Prepara una scacchiera 6×6",
+      "description": "Lo stesso codice dovrebbe adattarsi ad una scacchiera 6×6 più piccola."
+    },
+    "board10": {
+      "name": "Prepara una scacchiera 10×10",
+      "description": "E dovrebbe adattarsi ad una scacchiera 10×10 più grande."
+    }
+  },
+  "hints": {
+    "wholeGrid": {
+      "question": "Come faccio a disegnare un'intera griglia di quadrati invece di uno solo?",
+      "answer": "Usa dei cicli annidati: un ciclo esterno che scorre le righe ed un ciclo interno che scorre le colonne. Disegna un quadrato ogni volta che viene eseguito il ciclo interno."
+    },
+    "anyBoardSize": {
+      "question": "Come faccio a farlo funzionare per qualsiasi dimensione della scacchiera?",
+      "answer": "Non scegliere una dimensione fissa per i quadrati. Chiedi a `getBoardSize()` quanti quadrati ci sono, calcola una dimensione `cell` a partire da quella e dallo spazio disponibile, e costruisci ogni posizione come suo multiplo."
+    },
+    "alternateColours": {
+      "question": "Come faccio a far sì che i quadrati si alternino di colore?",
+      "answer": "Guarda la riga e la colonna di un quadrato insieme. L'operatore modulo (`%`) ti permette di dividere ogni quadrato in uno dei due gruppi in base a `row` e `col`, e quei due gruppi sono esattamente i quadrati chiari e scuri."
+    },
+    "whichSquaresGetPieces": {
+      "question": "Su quali quadrati si posizionano i pezzi?",
+      "answer": "I pezzi si trovano esclusivamente sui quadrati **scuri**, quindi puoi riutilizzare lo stesso controllo che hai usato per colorarli. Poi restringi ulteriormente solo le righe superiori ed inferiori, lasciando vuote le due centrali."
+    },
+    "ridgedPiece": {
+      "question": "Come faccio a disegnare un pezzo con bordo in rilievo?",
+      "answer": "Disegna due cerchi con lo stesso centro: uno più grande per il bordo esterno, poi uno leggermente più piccolo sopra, del colore del pezzo. Basa entrambi i raggi sulla dimensione della cella, in modo che i pezzi si adattino alla scacchiera."
+    },
+    "rimSize": {
+      "question": "La dimensione del bordo non corrisponde al diagramma di esempio.",
+      "answer": "Controlla che il cerchio interno sia il 75% del cerchio esterno (non il 75% del quadrato)."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Disegna un rettangolo in posizione (left, top) con larghezza, altezza e colore specificati.",
+      "category": "Disegno di forme geometriche"
+    },
+    "circle": {
+      "description": "Disegna un cerchio centrato in (centerX, centerY) con raggio e colore specificati.",
+      "category": "Disegno di forme geometriche"
+    },
+    "getBoardSize": {
+      "description": "Restituisce la dimensione della scacchiera (il numero di quadrati su ciascun lato) per il puzzle corrente.",
+      "category": "Informazioni"
+    }
+  },
+  "describers": {
+    "getBoardSize": "ha recuperato la dimensione della scacchiera (il numero di quadrati su ciascun lato)"
+  }
+}

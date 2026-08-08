@@ -1,0 +1,1950 @@
+{
+  "layout": {
+    "footer": {
+      "about": {
+        "heading": "O nama",
+        "aboutJiki": "O Jikiju",
+        "testimonials": "Utisci",
+        "ourTeam": "Naš tim",
+        "premium": "Jiki Premium",
+        "roadmap": "Plan razvoja"
+      },
+      "legal": {
+        "heading": "Pravno",
+        "termsOfUsage": "Uslovi korišćenja",
+        "privacyPolicy": "Politika privatnosti",
+        "cookiePolicy": "Politika kolačića",
+        "codeOfConduct": "Kodeks ponašanja",
+        "accessibility": "Pristupačnost"
+      },
+      "keepInTouch": {
+        "heading": "Ostanimo u kontaktu",
+        "blog": "Jikijev blog",
+        "youtube": "Jikijev YouTube kanal",
+        "reportAbuse": "Prijavi zloupotrebu",
+        "sitemap": "Mapa sajta"
+      },
+      "freeContent": {
+        "heading": "Besplatan sadržaj",
+        "codingConcepts": "Koncepti programiranja",
+        "agenticGuides": "Vodiči za programiranje u eri agentnog kodiranja"
+      },
+      "getHelp": {
+        "heading": "Pomoć",
+        "helpCenter": "Centar za pomoć",
+        "faqs": "Česta pitanja",
+        "contactUs": "Kontaktiraj nas",
+        "siteStatus": "Status sajta"
+      },
+      "copyright": "© {year} Jiki Ltd"
+    },
+    "externalHeader": {
+      "homeAriaLabel": "Jiki početna",
+      "logoAlt": "Jiki",
+      "aboutJiki": "O Jikiju",
+      "premium": "�",
+      "testimonials": "Utisci",
+      "login": "Prijava",
+      "signUp": "Registruj se besplatno",
+      "menuAriaLabel": "Otvori meni",
+      "closeMenuAriaLabel": "Zatvori meni"
+    },
+    "internalHeader": {
+      "homeAriaLabel": "Jiki početna",
+      "logoAlt": "Jiki",
+      "backToJiki": "Nazad na Jiki →"
+    },
+    "sidebar": {
+      "groups": {
+        "learnToCode": "Nauči da programiraš",
+        "learnToBuild": "Nauči da praviš",
+        "community": "Zajednica",
+        "more": "Više"
+      },
+      "nav": {
+        "learn": "Osnove programiranja",
+        "build": "Projekti",
+        "challenges": "Izazovi",
+        "concepts": "Koncepti programiranja",
+        "achievements": "Dostignuća",
+        "guides": "Vodiči",
+        "videos": "Video snimci",
+        "blog": "Blog",
+        "forum": "Forum",
+        "settings": "Podešavanja",
+        "help": "Pomoć",
+        "upgrade": "Pređi na Premium",
+        "logOut": "Odjavi se"
+      },
+      "premiumPill": "�"
+    },
+    "loading": {
+      "title": "Jiki se budi",
+      "subtitle": "Spremamo sve za tvoje učenje"
+    },
+    "localeBanner": {
+      "message": "Gledaš verziju ove stranice na jeziku {current}. <link>Pređi na {offered}</link> ili <dismiss>zatvori ovo obaveštenje</dismiss>."
+    }
+  },
+  "common": {
+    "continue": "�",
+    "close": "�",
+    "cancel": "�",
+    "confirm": "�",
+    "processing": "�",
+    "reloadPage": "�",
+    "loading": "�",
+    "languageNames": {
+      "en": "�",
+      "el": "�",
+      "fa": "�",
+      "fr": "�",
+      "hu": "�",
+      "it": "�",
+      "nl": "�",
+      "pt-BR": "�",
+      "pt-PT": "�",
+      "ru": "�",
+      "sr": "�",
+      "uk": "�",
+      "zh-TW": "�"
+    },
+    "verifying": "�",
+    "sending": "�",
+    "perMonth": "�",
+    "validation": {
+      "emailInvalid": "�",
+      "passwordRequired": "�",
+      "passwordMinLength": "�",
+      "currentPasswordRequired": "�",
+      "newPasswordRequired": "�",
+      "passwordsNoMatch": "�"
+    },
+    "pagination": {
+      "label": "�",
+      "previousPage": "�",
+      "nextPage": "�"
+    },
+    "loadingJiki": {
+      "alt": "�"
+    },
+    "otpInput": {
+      "label": "�",
+      "digitLabel": "�"
+    },
+    "closeButton": {
+      "label": "�"
+    },
+    "copyButton": {
+      "label": "�",
+      "copied": "�"
+    },
+    "soundToggle": {
+      "mute": "�",
+      "unmute": "�"
+    },
+    "themeToggle": {
+      "switchToDark": "�",
+      "switchToSystem": "�",
+      "switchToLight": "�",
+      "toggle": "�",
+      "description": "�"
+    },
+    "badgeNewLabel": {
+      "label": "�"
+    },
+    "saving": "�",
+    "retry": "�",
+    "tryAgain": "�",
+    "betaTag": {
+      "label": "�"
+    },
+    "userAvatar": {
+      "alt": "�"
+    }
+  },
+  "build": {
+    "upcomingStreams": {
+      "heading": "�",
+      "toBeAnnounced": "�",
+      "subscribeButton": "�"
+    },
+    "hub": {
+      "title": "�",
+      "description": "�"
+    }
+  },
+  "auth": {
+    "oauth": {
+      "useGoogle": "�",
+      "useExercism": "�",
+      "divider": "�"
+    },
+    "fields": {
+      "emailLabel": "�",
+      "emailPlaceholder": "�",
+      "passwordLabel": "�",
+      "passwordPlaceholder": "�",
+      "emailRequired": "�"
+    },
+    "captchaError": {
+      "signup": "�",
+      "login": "�",
+      "generic": "�"
+    },
+    "login": {
+      "title": "�",
+      "invalidCredentials": "�",
+      "forgotPassword": "�",
+      "submit": "�",
+      "submitting": "�",
+      "unconfirmed": "�",
+      "resend": "�",
+      "noAccount": "�"
+    },
+    "signup": {
+      "title": "�",
+      "emailAlreadyRegistered": "�",
+      "submit": "�",
+      "submitting": "�",
+      "haveAccount": "�",
+      "resend": "�"
+    },
+    "forgotPassword": {
+      "title": "�",
+      "subtitle": "�",
+      "successMessage": "�",
+      "submit": "�",
+      "remembered": "�"
+    },
+    "resetPassword": {
+      "invalidTitle": "�",
+      "invalidMessage": "�",
+      "requestNewLink": "�",
+      "title": "�",
+      "subtitle": "�",
+      "tokenMissing": "�",
+      "confirmationRequired": "�",
+      "successMessage": "�",
+      "newPasswordLabel": "�",
+      "newPasswordPlaceholder": "�",
+      "confirmPasswordLabel": "�",
+      "confirmPasswordPlaceholder": "�",
+      "submit": "�",
+      "submitting": "�",
+      "remembered": "�"
+    },
+    "resendConfirmation": {
+      "title": "�",
+      "subtitle": "�",
+      "successMessage": "�",
+      "submit": "�",
+      "confirmed": "�"
+    },
+    "checkInbox": {
+      "heading": "�",
+      "sentTo": "�",
+      "hint": "�"
+    },
+    "emailConfirmed": {
+      "heading": "�",
+      "message": "�"
+    },
+    "confirmEmail": {
+      "pendingTitle": "�",
+      "pendingDescription": "�",
+      "errorTitle": "�",
+      "errorMessage": "�",
+      "errorCta": "�"
+    },
+    "exercismCallback": {
+      "errorTitle": "�",
+      "errorCta": "�",
+      "pendingTitle": "�",
+      "pendingDescription": "�",
+      "authFailed": "�"
+    },
+    "errorCard": {
+      "needHelp": "�"
+    },
+    "twoFactorVerify": {
+      "title": "�",
+      "subtitle": "�",
+      "codeLabel": "�"
+    },
+    "twoFactorSetup": {
+      "instructionsHeading": "�",
+      "appsHint": "�",
+      "codeLabel": "�"
+    },
+    "unsubscribe": {
+      "noToken": "�",
+      "linkInvalid": "�",
+      "tooManyRequests": "�",
+      "serviceUnavailable": "�",
+      "unableToProcess": "�",
+      "networkError": "�",
+      "processingTitle": "�",
+      "processingDescription": "�",
+      "successTitle": "�",
+      "successDescription": "�",
+      "errorTitle": "�"
+    },
+    "twoFactor": {
+      "cancel": "�",
+      "invalidCode": "�",
+      "verificationFailed": "�"
+    },
+    "layout": {
+      "logoAlt": "�",
+      "tagline": "�",
+      "description": "�",
+      "createdBy": "�",
+      "brand": "�"
+    }
+  },
+  "settings": {
+    "page": {
+      "title": "�",
+      "description": "�",
+      "tabAccount": "�",
+      "tabSubscription": "�",
+      "tabNotifications": "�",
+      "tabLearning": "�",
+      "tabDanger": "�"
+    },
+    "avatarEdit": {
+      "adjustTitle": "�",
+      "adjustSubtitle": "�",
+      "back": "�",
+      "save": "�",
+      "changeTitle": "�",
+      "changeSubtitlePart1": "�",
+      "changeSubtitlePart2": "�",
+      "uploadText": "�",
+      "uploadHint": "�"
+    },
+    "avatarUpload": {
+      "label": "�"
+    },
+    "avatarPreview": {
+      "alt": "�"
+    },
+    "cancelConfirm": {
+      "title": "�",
+      "message": "�",
+      "benefitsTitle": "�",
+      "benefit1": "�",
+      "benefit2": "�",
+      "benefit3": "�",
+      "benefit4": "�",
+      "keep": "�",
+      "cancel": "�",
+      "defaultBillingPeriodEnd": "�"
+    },
+    "cancelSuccess": {
+      "title": "�",
+      "message": "�",
+      "accessUntil": "�",
+      "resubscribeNote": "�",
+      "gotIt": "�"
+    },
+    "changeEmail": {
+      "title": "�",
+      "importantLabel": "�",
+      "importantText": "�",
+      "currentEmailLabel": "�",
+      "newEmailLabel": "�",
+      "newEmailPlaceholder": "�",
+      "passwordLabel": "�",
+      "passwordPlaceholder": "�",
+      "passwordHint": "�",
+      "newEmailRequired": "�",
+      "emailSame": "�",
+      "updateFailed": "�",
+      "submit": "�"
+    },
+    "deleteAccount": {
+      "sendFailed": "�",
+      "confirmTitle": "�",
+      "confirmMessage": "�",
+      "submit": "�",
+      "securityTitle": "�",
+      "securityMessage": "�",
+      "understand": "�"
+    },
+    "paymentHistory": {
+      "title": "�",
+      "subtitle": "�",
+      "loading": "�",
+      "error": "�",
+      "empty": "�",
+      "columnDate": "�",
+      "columnAmount": "�",
+      "columnType": "�",
+      "columnMethod": "�",
+      "downloadReceipt": "�",
+      "typeRecurring": "�",
+      "dateUnavailable": "�"
+    },
+    "profile": {
+      "nameLabel": "�",
+      "namePlaceholder": "�",
+      "updateName": "�",
+      "nameEmpty": "�",
+      "nameTooLong": "�",
+      "handleLabel": "�",
+      "handlePlaceholder": "�",
+      "updateHandle": "�",
+      "handleEmpty": "�",
+      "handleInvalid": "�",
+      "handleTooShort": "�",
+      "handleTooLong": "�",
+      "emailLabel": "�",
+      "emailPlaceholder": "�",
+      "updateEmail": "�",
+      "emailEmpty": "�",
+      "confirmationPendingHint": "�",
+      "emailNotConfirmed": "�",
+      "confirmationPending": "�"
+    },
+    "subscriptionSection": {
+      "loadingCardTitle": "�",
+      "loadingCardDescription": "�",
+      "loadingData": "�"
+    },
+    "benefits": {
+      "activeSubtitle": "�",
+      "cancellingSubtitle": "�",
+      "resubscribeTitle": "�",
+      "resubscribeButton": "�",
+      "activeHeading": "�",
+      "cancellingHeading": "�",
+      "footer": "�",
+      "resubscribe": "�"
+    },
+    "cancelSectionPanel": {
+      "title": "�",
+      "description": "�",
+      "cancel": "�"
+    },
+    "premiumUpsell": {
+      "subtitle": "�",
+      "planName": "�",
+      "upgrade": "�",
+      "headline": "�",
+      "dailyNote": "�"
+    },
+    "neverSubscribed": {
+      "heading": "�",
+      "subtitle": "�",
+      "featuresLabel": "�",
+      "upgradeAriaLabel": "�",
+      "upgrade": "�"
+    },
+    "errorBoundary": {
+      "title": "�",
+      "messagePart1": "�",
+      "messagePart2": "�",
+      "refresh": "�",
+      "detailsSummary": "�"
+    },
+    "danger": {
+      "sessionLabel": "�",
+      "sessionDescription": "�",
+      "logout": "�",
+      "deleteLabel": "�",
+      "deleteDescription": "�",
+      "deleteButton": "�"
+    },
+    "learning": {
+      "streaksLabel": "�",
+      "streaksDescription": "�",
+      "toggleAriaLabel": "�",
+      "learnMore": "�"
+    },
+    "notifications": {
+      "toggleAriaLabel": "�",
+      "essentialTitle": "�",
+      "essentialDescription": "�",
+      "featuresTitle": "�",
+      "featuresDescription": "�",
+      "livestreamsTitle": "�",
+      "livestreamsDescription": "�",
+      "milestonesTitle": "�",
+      "milestonesDescription": "�",
+      "activityTitle": "�",
+      "activityDescription": "�",
+      "onboardingTitle": "�",
+      "onboardingDescription": "�"
+    },
+    "editableField": {
+      "update": "�",
+      "edit": "�",
+      "saveFailed": "�"
+    },
+    "passwordField": {
+      "updateFailed": "�",
+      "currentLabel": "�",
+      "currentPlaceholder": "�",
+      "newLabel": "�",
+      "newPlaceholder": "�",
+      "confirmLabel": "�",
+      "confirmPlaceholder": "�",
+      "submit": "�",
+      "label": "�",
+      "change": "�"
+    },
+    "subscriptionStatus": {
+      "statusActive": "�",
+      "statusCanceled": "�",
+      "statusPaymentFailed": "�",
+      "statusCancelling": "�",
+      "statusIncomplete": "�",
+      "statusSessionExpired": "�",
+      "statusNotSubscribed": "�",
+      "currentPlan": "�",
+      "cancellingMessage": "�",
+      "currentPlanAriaLabel": "�",
+      "statusAriaLabel": "�",
+      "messageCanceled": "�",
+      "messagePaymentFailed": "�",
+      "messageCancelling": "�",
+      "messageIncomplete": "�",
+      "messageIncompleteExpired": "�",
+      "active": "�",
+      "activeWithBilling": "�",
+      "cancellingRemaining": "�",
+      "cancellingEnds": "�",
+      "free": "�",
+      "planLabel": "�"
+    }
+  },
+  "landing": {
+    "hero": {
+      "tagline": "�",
+      "ctaSubtext": "�",
+      "loadingVideo": "�",
+      "playVideo": "�",
+      "watchPrompt": "�",
+      "headline": "�",
+      "audience": "�"
+    },
+    "exercism": {
+      "heading": "�",
+      "intro": "�",
+      "studentsCount": "�",
+      "studentsTitle": "�",
+      "studentsDesc": "�",
+      "testimonialsCount": "�",
+      "testimonialsTitle": "�",
+      "testimonialsDesc": "�",
+      "exercisesCount": "�",
+      "exercisesTitle": "�",
+      "exercisesDesc": "�",
+      "mentoringCount": "�",
+      "mentoringTitle": "�",
+      "mentoringDesc": "�"
+    },
+    "signupSection": {
+      "intro": "�",
+      "button": "�",
+      "heading": "�"
+    },
+    "signupButton": {
+      "label": "�"
+    },
+    "faqs": {
+      "heading": "�",
+      "q1": "�",
+      "q1a1": "�",
+      "q1Item1": "�",
+      "q1Item2": "�",
+      "q1Item3": "�",
+      "q1Item4": "�",
+      "q1Item5": "�",
+      "q1Item6": "�",
+      "q1Item7": "�",
+      "q2": "�",
+      "q2a": "�",
+      "q3": "�",
+      "q3a1": "�",
+      "q3a2": "�",
+      "q4": "�",
+      "q4a1": "�",
+      "q4a2": "�",
+      "q5": "�",
+      "q5a1": "�",
+      "q5a2": "�",
+      "intro": "�",
+      "q1a2": "�"
+    },
+    "latestNews": {
+      "heading": "�",
+      "byAuthor": "�",
+      "subheading": "�"
+    },
+    "welcome": {
+      "para1": "�",
+      "para2": "�",
+      "para3": "�",
+      "hiThere": "�",
+      "para4": "�",
+      "para5": "�",
+      "heading2": "�",
+      "para6": "�",
+      "para7": "�",
+      "para8": "�",
+      "heading3": "�",
+      "para9": "�",
+      "rhodriAlt": "�",
+      "captionShort": "�",
+      "captionLong": "�",
+      "para11": "�",
+      "para12": "�",
+      "heading4": "�",
+      "para13": "�",
+      "listItem1": "�",
+      "listItem2": "�",
+      "para14": "�",
+      "spaceInvadersLabel": "�",
+      "ticTacToeLabel": "�",
+      "breakoutLabel": "�",
+      "mazeLabel": "�",
+      "heading5": "�",
+      "para15": "�",
+      "ctaButton": "�",
+      "heading": "�",
+      "para10": "�",
+      "para17": "�",
+      "para16": "�"
+    },
+    "bootcamp": {
+      "tagWhatWeCover": "�",
+      "menuHeading": "�",
+      "menuIntro": "�",
+      "part1Heading": "�",
+      "part1Bubble": "�",
+      "part1Intro": "�",
+      "part1Item2": "�",
+      "part1Item3": "�",
+      "part1Item4": "�",
+      "part1Duration": "�",
+      "part1Alt": "�",
+      "levelsHeading": "�",
+      "levelsSideheading": "�",
+      "levelsIntro": "�",
+      "levelsSubIntro": "�",
+      "penguinAlt": "�",
+      "level2": "�",
+      "golfLabel": "�",
+      "level3": "�",
+      "flowerLabel": "�",
+      "flowerLevel": "�",
+      "spaceInvadersLabel": "�",
+      "level7": "�",
+      "wallLabel": "�",
+      "level10": "�",
+      "wordleAlt": "�",
+      "level12": "�",
+      "ticTacToeLabel": "�",
+      "level14": "�",
+      "mazeLabel": "�",
+      "level16": "�",
+      "dreamingHouseLabel": "�",
+      "level20": "�",
+      "breakoutLabel": "�",
+      "levelEnd": "�",
+      "buildingHeading": "�",
+      "buildingIntro": "�",
+      "part2Heading": "�",
+      "part2Bubble": "�",
+      "part2Intro": "�",
+      "part2Item1": "�",
+      "part2Item2": "�",
+      "part2Item3": "�",
+      "part2Duration": "�",
+      "jeremyLivestreamAlt": "�",
+      "certificateBubble": "�",
+      "certificateHeading": "�",
+      "certificatePara1": "�",
+      "certificatePara2": "�",
+      "certificateAlt": "�",
+      "linkedinAlt": "�",
+      "linkedinShare": "�",
+      "part1Item1": "�"
+    }
+  },
+  "premium": {
+    "page": {
+      "heading": "�",
+      "subheading": "�"
+    },
+    "planPrice": {
+      "basic": "�",
+      "premium": "�",
+      "free": "�",
+      "perMonth": "�"
+    },
+    "planBadge": {
+      "free": "�",
+      "premium": "�"
+    },
+    "table": {
+      "comparePlans": "�",
+      "comparePlansDesc": "�",
+      "checkNo": "�"
+    },
+    "values": {
+      "oneConversation": "�",
+      "unlimited": "�",
+      "firstEpisodes": "�",
+      "fullAccess": "�",
+      "sampleEpisode": "�"
+    },
+    "categories": {
+      "codingFundamentals": "�",
+      "buildWithJeremy": "�",
+      "support": "�",
+      "certificates": "�",
+      "experience": "�"
+    },
+    "features": {
+      "codingExercisesTitle": "�",
+      "codingExercisesDesc": "�",
+      "conceptLibraryTitle": "�",
+      "conceptLibraryDesc": "�",
+      "jikiChallengesTitle": "�",
+      "jikiChallengesDesc": "�",
+      "askJikiTitle": "�",
+      "askJikiDesc": "�",
+      "buildingFundamentalsTitle": "�",
+      "buildingFundamentalsDesc": "�",
+      "howThingsWorkTitle": "�",
+      "howThingsWorkDesc": "�",
+      "earlyAccessTitle": "�",
+      "earlyAccessDesc": "�",
+      "communityForumsTitle": "�",
+      "communityForumsDesc": "�",
+      "livestreamsTitle": "�",
+      "livestreamsDesc": "�",
+      "certificatesTitle": "�",
+      "certificatesDesc": "�",
+      "adFreeTitle": "�",
+      "adFreeDesc": "�"
+    },
+    "faq": {
+      "title": "�",
+      "q1": "�",
+      "a1": "�",
+      "q2": "�",
+      "a2": "�",
+      "q3": "�",
+      "a3": "�",
+      "q4": "�",
+      "q5": "�",
+      "a5": "�",
+      "a4": "�"
+    },
+    "cta": {
+      "alreadyPremiumTitle": "�",
+      "alreadyPremiumDesc": "�",
+      "upgradeTitle": "�",
+      "upgradeDesc": "�",
+      "upgradeButton": "�",
+      "freeTitle": "�",
+      "freeDesc": "�",
+      "freeButton": "�"
+    },
+    "publicPrice": {
+      "unavailable": "�"
+    },
+    "benefits": {
+      "unlimitedAiTitle": "�",
+      "unlimitedAiDescription": "�",
+      "unlimitedContentTitle": "�",
+      "unlimitedContentDescription": "�",
+      "certificatesTitle": "�",
+      "certificatesDescription": "�",
+      "adFreeTitle": "�",
+      "adFreeDescription": "�",
+      "prioritySupportTitle": "�",
+      "prioritySupportDescription": "�",
+      "earlyAccessTitle": "�",
+      "earlyAccessDescription": "�"
+    }
+  },
+  "roadmap": {
+    "page": {
+      "heading": "�",
+      "subheading": "�",
+      "disclaimer": "�"
+    },
+    "status": {
+      "shipped": "�",
+      "inProgress": "�",
+      "planned": "�"
+    },
+    "changelog": {
+      "title": "�",
+      "subtitle": "�",
+      "learnToBuildLaunch": {
+        "date": "�",
+        "title": "�",
+        "description": "�"
+      },
+      "milestones6To10": {
+        "date": "�",
+        "title": "�",
+        "description": "�"
+      },
+      "jikiLaunch": {
+        "date": "�",
+        "title": "�",
+        "description": "�"
+      }
+    },
+    "phases": {
+      "now": {
+        "label": "�",
+        "timeframe": "�",
+        "summary": "�",
+        "learnToBuild": {
+          "title": "�",
+          "description": "�"
+        },
+        "launchBugs": {
+          "title": "�",
+          "description": "�"
+        },
+        "earlyFeedback": {
+          "title": "�",
+          "description": "�"
+        },
+        "foundations": {
+          "title": "�",
+          "description": "�"
+        }
+      },
+      "next": {
+        "label": "�",
+        "timeframe": "�",
+        "summary": "�",
+        "betaToLive": {
+          "title": "�",
+          "description": "�"
+        },
+        "deepDiveVideos": {
+          "title": "�",
+          "description": "�"
+        },
+        "newLanguages": {
+          "title": "�",
+          "description": "�"
+        },
+        "pythonVersion": {
+          "title": "�",
+          "description": "�"
+        }
+      },
+      "future": {
+        "label": "�",
+        "timeframe": "�",
+        "summary": "�",
+        "moreLanguages": {
+          "title": "�",
+          "description": "�"
+        },
+        "sql": {
+          "title": "�",
+          "description": "�"
+        }
+      }
+    }
+  },
+  "misc": {
+    "chooseLanguage": {
+      "selectLanguage": "�",
+      "backToVideo": "�",
+      "tooltip": "�",
+      "saving": "�",
+      "confirmChoice": "�",
+      "questionTitle": "�",
+      "javascript": "�",
+      "python": "�",
+      "chooseForMe": "�",
+      "cantChange": "�",
+      "noVideo": "�",
+      "videoInstruction": "�"
+    },
+    "deleteAccount": {
+      "deletedTitle": "�",
+      "deletedSubtitle": "�",
+      "deletingTitle": "�",
+      "deletingSubtitle": "�",
+      "errorTitle": "�",
+      "errorSubtitle": "�",
+      "expiredTitle": "�",
+      "expiredSubtitle": "�",
+      "expiredSecondary": "�",
+      "goHome": "�"
+    },
+    "errorPage": {
+      "serverErrorTitle": "�",
+      "serverErrorMessage": "�",
+      "serverErrorAction": "�",
+      "notFoundTitle": "�",
+      "notFoundMessage": "�",
+      "notFoundAction": "�"
+    },
+    "testimonialsPage": {
+      "title": "�",
+      "subtitle": "�",
+      "quoteOpenAlt": "�",
+      "quoteCloseAlt": "�"
+    }
+  },
+  "concepts": {
+    "breadcrumb": {
+      "root": "Koncepti programiranja"
+    },
+    "list": {
+      "heading": "Biblioteka koncepata",
+      "intro": "Ovde možeš da pregledaš i obnoviš naučene koncepte.",
+      "searchPlaceholder": "Pretraži koncepte...",
+      "emptyTitle": "Još nema koncepata",
+      "emptyBody": "Završi lekcije da otključaš nove koncepte. Svaki koncept koji savladaš u lekcijama postaje dostupan ovde za obnavljanje.",
+      "noResultsTitle": "0 rezultata za \"<query></query>\"",
+      "noResultsMessage": "Probaj drugi pojam za pretragu ili pregledaj biblioteku."
+    },
+    "card": {
+      "locked": "Zaključano",
+      "subConcepts": "{count, plural, one {# potkoncept} few {# potkoncepta} other {# potkoncepata}}"
+    },
+    "error": {
+      "notFound": "Koncept nije pronađen.",
+      "back": "Nazad na koncepte",
+      "loadFailed": "�"
+    },
+    "relatedConcepts": {
+      "heading": "Povezani koncepti",
+      "description": "Pogledaj i ove povezane koncepte:",
+      "locked": "Ovaj koncept je zaključan"
+    },
+    "relatedExercises": {
+      "heading": "Povezane vežbe",
+      "description": "Ove vežbe su odličan način da uvežbaš ovaj koncept!",
+      "signupPrompt": "<link>Registruj se</link> da ih rešiš!",
+      "locked": "Ova vežba je zaključana"
+    },
+    "relatedChallenges": {
+      "heading": "Povezani izazovi",
+      "description": "Kroz ove izazove možeš da primeniš ovaj koncept u praksi.",
+      "locked": "Ovaj izazov je zaključan"
+    },
+    "videoRecap": {
+      "loggedInHeader": "Pogledaj lekciju ponovo",
+      "loggedInDescription": "Podseti se ovog koncepta ponovnim gledanjem snimka lekcije",
+      "loggedOutHeader": "Pogledaj lekciju",
+      "loggedOutDescription": "Nauči ovaj koncept uz Jeremyja i Jikija!",
+      "playAriaLabel": "Pusti snimak lekcije",
+      "thumbnailAlt": "Sličica snimka lekcije"
+    },
+    "signupCta": {
+      "title": "Želiš da započneš svoje programersko putovanje?",
+      "subtitle": "Pridruži se hiljadama učenika na Jikiju. Vežbaj programiranje kroz zadatke, dobijaj povratne informacije od mentora i unapredi svoje veštine. Potpuno besplatno!",
+      "button": "Registruj se besplatno"
+    },
+    "upgradeCard": {
+      "logoAlt": "Jiki",
+      "heading": "Započni svoje <highlight>programersko putovanje</highlight> danas!",
+      "text": "Registruj se na Jiki i nauči da programiraš kroz interaktivne vežbe, prave projekte i personalizovanu podršku. A najbolje od svega, <free>besplatno je!</free>",
+      "button": "Registruj se besplatno"
+    }
+  },
+  "seo": {
+    "concepts": {
+      "title": "�",
+      "description": "�",
+      "notFound": "�"
+    },
+    "achievements": {
+      "title": "�",
+      "description": "�"
+    },
+    "build": {
+      "title": "�",
+      "description": "�"
+    },
+    "dashboard": {
+      "title": "�",
+      "description": "�"
+    },
+    "challenges": {
+      "title": "�",
+      "description": "�"
+    },
+    "settings": {
+      "title": "�",
+      "description": "�"
+    },
+    "checkEmail": {
+      "title": "�",
+      "description": "�"
+    },
+    "confirmEmail": {
+      "title": "�",
+      "description": "�"
+    },
+    "exercismCallback": {
+      "title": "�",
+      "description": "�"
+    },
+    "forgotPassword": {
+      "title": "�",
+      "description": "�"
+    },
+    "login": {
+      "title": "�",
+      "description": "�"
+    },
+    "resendConfirmation": {
+      "title": "�",
+      "description": "�"
+    },
+    "resetPassword": {
+      "title": "�",
+      "description": "�"
+    },
+    "signup": {
+      "title": "�",
+      "description": "�"
+    },
+    "home": {
+      "title": "�",
+      "description": "�"
+    },
+    "premium": {
+      "title": "�",
+      "description": "�"
+    },
+    "roadmap": {
+      "title": "�",
+      "description": "�"
+    },
+    "testimonials": {
+      "title": "�",
+      "description": "�"
+    },
+    "deleteAccount": {
+      "title": "�",
+      "description": "�"
+    },
+    "unsubscribePreferences": {
+      "title": "�",
+      "description": "�"
+    },
+    "unsubscribe": {
+      "title": "�",
+      "description": "�"
+    },
+    "blog": {
+      "title": "�",
+      "description": "�",
+      "notFound": "�"
+    },
+    "help": {
+      "title": "�",
+      "description": "�",
+      "notFound": "�"
+    },
+    "guides": {
+      "title": "�",
+      "description": "�"
+    }
+  },
+  "toasts": {
+    "subscription": {
+      "loginRequired": "�",
+      "checkoutFailed": "�",
+      "alreadyPremium": "�",
+      "checkoutSessionFailed": "�",
+      "portalFailed": "�",
+      "canceled": "�",
+      "cancelFailed": "�",
+      "reactivated": "�",
+      "reactivateFailed": "�",
+      "paymentPortalFailed": "�"
+    },
+    "auth": {
+      "sessionExpired": "�"
+    },
+    "logout": {
+      "loading": "�",
+      "success": "�",
+      "failed": "�"
+    },
+    "avatar": {
+      "updated": "�",
+      "uploadFailed": "�",
+      "networkError": "�",
+      "invalidImageType": "�",
+      "imageTooLarge": "�"
+    },
+    "settings": {
+      "fetchFailed": "�",
+      "settingUpdated": "�",
+      "updateFailed": "�",
+      "notificationUpdateFailed": "�",
+      "streaksUpdateFailed": "�"
+    },
+    "exercise": {
+      "submissionFailed": "�",
+      "chatSaveFailed": "�",
+      "chatSaveCaptchaFailed": "�",
+      "lessonSaveError": "�"
+    },
+    "lesson": {
+      "loadFailed": "�"
+    }
+  },
+  "modals": {
+    "welcomeToPremium": {
+      "badge": "Premium član",
+      "description": "Hvala na nadogradnji! Sada imaš pristup svim Premium pogodnostima, uključujući neograničene razgovore sa Jikijem, Projekte i Learn to Build!",
+      "title": "<highlight>Premium</highlight> je tvoj!"
+    },
+    "subscriptionSuccess": {
+      "chatGate": {
+        "title": "AI čet te čeka!",
+        "description": "Tvoj AI asistent je sada otključan i spreman da ti pomogne sa vežbama programiranja.",
+        "feature1": "Postavljaj pitanja o svom kodu",
+        "feature2": "Dobijaj objašnjenja složenih koncepata",
+        "feature3": "Primaj personalizovane savete i smernice"
+      },
+      "featureGate": {
+        "title": "Funkcionalnost otključana!",
+        "description": "Sada imaš pristup premium funkcionalnostima koje će unaprediti tvoje učenje."
+      },
+      "settings": {
+        "title": "{tier} je tvoj!",
+        "description": "Tvoja pretplata je aktivirana. Istraži nove funkcionalnosti u podešavanjima."
+      },
+      "general": {
+        "title": "{tier} je tvoj!",
+        "description": "Hvala na nadogradnji plana. Sada imaš pristup svim premium funkcionalnostima."
+      },
+      "planLabel": "{tier} plan",
+      "whatYouCanDo": "Šta sada možeš:",
+      "getStarted": "Počni",
+      "continueLearning": "Nastavi sa učenjem",
+      "skipForNow": "Preskoči za sada",
+      "renewalNotice": "Tvoja pretplata će se automatski obnoviti {date}. Pretplatom upravljaš u podešavanjima."
+    },
+    "confirmation": {
+      "defaultTitle": "Potvrdi radnju",
+      "defaultMessage": "Sigurno želiš da nastaviš?"
+    },
+    "info": {
+      "defaultTitle": "Informacija",
+      "defaultButton": "Važi!"
+    },
+    "connectionError": {
+      "title": "Ups! Veza je prekinuta",
+      "subtitle": "Jiki se malo zapetljao i izgubio vezu. Bez brige - radimo na tome da sve ponovo povežemo!",
+      "reconnecting": "Ponovno povezivanje",
+      "helpText": "Samo sačekaj - ovo se obično samo reši za nekoliko trenutaka.<br></br>Ako se problem nastavi, <link>pogledaj našu statusnu stranicu</link>."
+    },
+    "sessionExpired": {
+      "title": "Sesija je istekla",
+      "description": "Tvoja sesija je istekla. Prijavi se ponovo."
+    },
+    "paymentVerificationFailed": {
+      "title": "Nismo uspeli da potvrdimo tvoju uplatu",
+      "description": "Nešto je pošlo naopako pri proveri sa Stripe-om. Probaj da osvežiš stranicu za koji trenutak. Ako Premium i dalje nije aktivan, kontaktiraj podršku."
+    },
+    "levelMilestone": {
+      "title": "🎉 Nivo završen!",
+      "message": "Čestitamo! Nivo <strong>{levelTitle}</strong> je uspešno završen, a svi njegovi koncepti savladani.",
+      "lessonsCompleted": "Završene lekcije",
+      "xpEarned": "Osvojeni XP",
+      "readyNext": "Sledeći nivo te čeka - otključaj ga i nastavi svoje putovanje kroz učenje!",
+      "goToDashboard": "Idi na kontrolnu tablu",
+      "continueNextLevel": "Nastavi na sledeći nivo"
+    },
+    "badge": {
+      "funFact": "Zanimljivost",
+      "keepGoing": "Samo napred!"
+    },
+    "authError": {
+      "title": "Došlo je do odjave.",
+      "subtitle": "Iz nekog razloga došlo je do odjave (možda bezbednosna provera, možda odjava na drugom uređaju?). Učitaj stranicu ponovo da nastaviš.",
+      "helpText": "Ako se ovo ponavlja, probaj da <cookiesLink>obrišeš kolačiće</cookiesLink> ili <supportLink>kontaktiraj podršku</supportLink>."
+    },
+    "rateLimit": {
+      "title": "Prebrzo ideš.",
+      "subtitle": "Poslato je previše zahteva ka našim serverima, pa te stavljamo na pauzu na nekoliko sekundi. Sačekaj i veza će se automatski ponovo uspostaviti.",
+      "autoRefresh": "Stranica će se automatski osvežiti",
+      "noteLabel": "Napomena:",
+      "noteText": "Otvaranje novih kartica ili slanje dodatnih zahteva produžiće čekanje.",
+      "reconnecting": "Ponovno povezivanje za <timer>{count}</timer> {count, plural, one {sekundu} few {sekunde} other {sekundi}}"
+    },
+    "exerciseSuccess": {
+      "defaultTitle": "Čestitamo!",
+      "defaultMessage": "Svi testovi su prošli! Vežba je uspešno završena."
+    },
+    "welcome": {
+      "title": "Upoznaj Jiki!",
+      "subtitle": "Pogledaj ovaj kratak video za početak.",
+      "skipTitle": "Preskačeš uvodni video?",
+      "skipMessage": "Ovaj video ti pomaže da izvučeš najviše iz Jikija. Sigurno želiš da ga preskočiš?",
+      "skipConfirm": "Preskoči video",
+      "skipCancel": "Nastavi da gledaš"
+    },
+    "subscription": {
+      "chatGate": {
+        "headline": "Otključaj AI čet asistenta",
+        "description": "Dobij trenutnu pomoć sa vežbama programiranja od našeg AI asistenta."
+      },
+      "featureGate": {
+        "headlineFallback": "Premium funkcionalnosti",
+        "headline": "Otključaj {feature}",
+        "description": "Nadogradi svoj plan za pristup naprednim funkcionalnostima i još bolje iskustvo učenja."
+      },
+      "settings": {
+        "headline": "Izaberi svoj plan",
+        "description": "Izaberi plan pretplate koji najbolje odgovara tvom učenju."
+      },
+      "general": {
+        "headline": "Nadogradi svoj plan",
+        "description": "Izaberi plan koji odgovara tvojim ciljevima učenja i otključaj napredne funkcionalnosti."
+      },
+      "unlockWith": "Šta ćeš otključati uz {feature}:",
+      "recommended": "Preporučeno",
+      "choosePremium": "Izaberi Premium",
+      "subscribeAriaLabel": "Pretplati se na {plan} plan",
+      "renewNotice": "Pretplata se automatski obnavlja svakog meseca. Možeš je otkazati bilo kada u podešavanjima.",
+      "notNow": "Ne sada, možda kasnije"
+    },
+    "walkthroughConfirm": {
+      "title": "Hoćeš prvo da probaš samostalno?",
+      "intro": "Pre nego što pogledaš Deep Dive, možda želiš da uz ove resurse samostalno prođeš testove:",
+      "tryFirst": "Prvo ću da probam",
+      "watchDeepDive": "Pogledaj Deep Dive",
+      "conceptPages": "<strong>Stranice koncepata</strong> - pregledaj koncepte koji se koriste u ovoj vežbi",
+      "askJiki": "<strong>Pitaj Jikija</strong> - dobij personalizovanu pomoć od Jikija bez otkrivanja rešenja",
+      "whatHappened": "<strong>Saveti „Šta se desilo?“</strong> - prođi kroz svoj kod liniju po liniju i vidi šta je pošlo naopako",
+      "revealHints": "<strong>Otkrij sve nagoveštaje</strong> - pročitaj sve nagoveštaje iznad za smernice"
+    },
+    "paymentConfirming": {
+      "title": "Potvrđujemo tvoju uplatu…",
+      "description": "Sačekaj trenutak dok potvrdimo uplatu sa Stripe-om. Ovo obično traje samo koji trenutak."
+    },
+    "example": {
+      "defaultTitle": "Primer modala",
+      "defaultMessage": "Ovo je primer modala!"
+    },
+    "paymentProcessing": {
+      "title": "Obrada uplate",
+      "description": "Hvala. Čekamo da nam tvoj provajder plaćanja prosledi sredstva. Čim stignu, nadogradićemo tvoj plan na Premium i poslati ti imejl.",
+      "continue": "Nastavi da koristiš Jiki"
+    },
+    "exerciseCompletion": {
+      "success": {
+        "title": "Svi scenariji su prošli",
+        "titleBonus": "Svi osnovni scenariji su prošli",
+        "messageExercise": "Sjajno! Možeš da završiš ovu vežbu i pređeš na sledeći izazov.",
+        "messageChallenge": "Sjajno! Možeš da završiš ovaj izazov i nastaviš dalje.",
+        "completeExercise": "Završi vežbu",
+        "completeChallenge": "Završi izazov"
+      },
+      "conceptUnlocked": {
+        "title": "Koncept otključan!",
+        "messageGeneric": "Otključan je nov koncept za istraživanje.",
+        "messageNamed": "Otključan je nov koncept: <strong>{title}</strong>"
+      },
+      "completed": {
+        "titleExercise": "Vežba završena!",
+        "titleChallenge": "Izazov završen!",
+        "greatWork": "Svaka čast! {title} je iza tebe!",
+        "messageExercise": "Svaka čast! {title} je iza tebe! Idemo na sledeću vežbu?",
+        "messageChallenge": "Svaka čast! {title} je iza tebe! Idemo na sledeći izazov?",
+        "bonusPrompt": "{count, plural, one {Ova vežba ima <strong>bonus scenario</strong>. Želiš li da ga rešiš pre nego što nastaviš?} other {Ova vežba ima <strong>bonus scenarije</strong>. Želiš li da ih rešiš pre nego što nastaviš?}}",
+        "tidyCode": "Sredi kod",
+        "solveBonuses": "{count, plural, one {Reši bonus} other {Reši bonuse}}",
+        "moveOn": "Nastavi dalje"
+      },
+      "difficultyRating": {
+        "title": "Oceni svoje iskustvo",
+        "message": "Pomozi nam da poboljšamo {title} svojom ocenom.",
+        "rateDifficulty": "Oceni težinu",
+        "rateFun": "Oceni zabavnost",
+        "difficultyTooEasy": "Prelako",
+        "difficultyEasy": "Lako",
+        "difficultyJustRight": "Taman",
+        "difficultyHard": "Teško",
+        "difficultyTooHard": "Preteško",
+        "funFrustrating": "Frustrirajuće",
+        "funPrettyGood": "Prilično dobro",
+        "funAmazing": "Sjajno!",
+        "rateDifficultyAriaLabel": "Oceni težinu kao {label}",
+        "rateFunAriaLabel": "Oceni zabavnost kao {label}",
+        "funOptionFallback": "opcija {number}"
+      },
+      "challengeUnlocked": {
+        "title": "Izazov otključan!",
+        "message": "Čestitamo! Posle tolikog vežbanja, vreme je za teži izazov.",
+        "newLabel": "Novo",
+        "premiumInfo": "<strong>Ekskluzivno za Premium članove.</strong> <link>Nadogradi svoj nalog</link> da pristupiš izazovima čim ih otključaš."
+      }
+    },
+    "premiumUpgrade": {
+      "skipLink": "Ne sada, možda kasnije",
+      "userAvatarAlt": "Korisnik",
+      "upgrade": "Pređi na Premium",
+      "planName": "Jiki Premium",
+      "featureLearnToBuild": "Pun pristup <strong>Learn to Build</strong> sadržaju",
+      "featureChallenges": "Isprobaj teže <strong>izazove</strong>",
+      "featureAi": "Neograničena <strong>AI podrška</strong> od Jikija",
+      "featureLivestreams": "Redovni <strong>Q&A prenosi uživo</strong> kojima se možeš priključiti",
+      "featureCertificates": "Osvoji <strong>sertifikate</strong> za kurseve",
+      "featureAdFree": "Učenje <strong>bez reklama</strong>",
+      "featureEarlyAccess": "<strong>Rani pristup</strong> novim funkcionalnostima",
+      "basic": {
+        "subheading": "Pređi na Premium i ubrzaj svoj put do posla.",
+        "planName": "Basic plan",
+        "planPrice": "Zauvek besplatno",
+        "feature1": "Preko 80 vežbi programiranja",
+        "feature2": "Kompletna biblioteka koncepata",
+        "feature3": "Pitaj Jikija na jednoj vežbi",
+        "note": "+ Pristup javnim YouTube snimcima i forumima zajednice za dodatne resurse za učenje.",
+        "headline": "<highlight>Ubrzaj</highlight> svoje učenje!"
+      },
+      "dailyNote": "(To je samo <price></price> dnevno)"
+    },
+    "subscriptionCheckout": {
+      "connectingToStripe": "Povezivanje sa Stripe-om",
+      "paymentFailed": "Plaćanje nije uspelo",
+      "unexpectedError": "Došlo je do neočekivane greške. Probaj ponovo.",
+      "paymentFailedTitle": "Plaćanje nije uspelo",
+      "paymentInfoAriaLabel": "Podaci o plaćanju",
+      "pay": "Plati",
+      "orderTitle": "Jiki {tier}",
+      "orderBilling": "Naplata je mesečna. Otkaži bilo kada.",
+      "perMonthShort": "/mes.",
+      "securedBy": "Obezbeđuje <stripe>stripe</stripe>",
+      "error": "Greška: {message}"
+    },
+    "calendarSubscribe": {
+      "title": "Pretplati se na kalendar",
+      "description": "Dodaj Jikijeve sesije uživo u svoj kalendar. Nove sesije se pojavljuju automatski čim budu zakazane.",
+      "apple": "Pretplati se preko Apple-a",
+      "google": "Pretplati se preko Google-a",
+      "otherLabel": "Outlook i drugi kalendari",
+      "otherHelp": "Kopiraj ovaj link i dodaj ga kao pretplaćeni kalendar.",
+      "copied": "Kopirano"
+    }
+  },
+  "challenge": {
+    "backToChallenges": "�",
+    "error": {
+      "message": "�"
+    },
+    "loadError": "�",
+    "documentTitle": "�",
+    "locked": {
+      "title": "�",
+      "description": "�"
+    },
+    "premiumRequired": {
+      "title": "�",
+      "description": "�"
+    }
+  },
+  "dashboard": {
+    "exercisePath": {
+      "comingSoon": {
+        "title": "Uskoro stižu nove lekcije",
+        "description": "Vredno radimo na sledećim lekcijama. Navrati uskoro i nastavi svoje putovanje!"
+      },
+      "walkthrough": {
+        "label": "Dublji uvid",
+        "watch": "Pogledaj"
+      },
+      "start": {
+        "title": "Početak tvog putovanja"
+      },
+      "completionCert": {
+        "title": "Sertifikat o završetku",
+        "description": "Završi sve vežbe da dobiješ sertifikat o završetku i pokažeš svoje nove veštine!",
+        "progress": "{percentage}% završeno"
+      },
+      "lessonNode": {
+        "status": {
+          "complete": "Završeno",
+          "locked": "Zaključano",
+          "inProgress": "U toku"
+        },
+        "type": {
+          "video": "Video",
+          "quiz": "Kviz",
+          "choice": "Izbor",
+          "exercise": "Vežba"
+        }
+      },
+      "scrollToActive": {
+        "up": "Skroluj gore do aktivne lekcije",
+        "down": "Skroluj dole do aktivne lekcije"
+      },
+      "milestone": {
+        "label": "Etapa {index}"
+      }
+    },
+    "challengesSidebar": {
+      "empty": {
+        "title": "Izazovi te čekaju!",
+        "description": "Završi vežbe da otključaš prave programerske izazove. Pravi igre, aplikacije i alate koji će oživeti tvoje veštine."
+      },
+      "upsell": {
+        "title": "Novi izazovi te čekaju!",
+        "description": "Udruži svoje veštine i oprobaj se u Premium izazovima."
+      },
+      "userProfile": {
+        "premiumMember": "Premium član"
+      },
+      "challengeCard": {
+        "status": {
+          "locked": "Zaključano",
+          "notStarted": "Nije započeto",
+          "inProgress": "U toku",
+          "completed": "Završeno",
+          "available": "Dostupno"
+        }
+      },
+      "streak": {
+        "activeDays": "{count, plural, one {Ukupno # dan učenja.} few {Ukupno # dana učenja.} other {Ukupno # dana učenja.}}",
+        "noStreak": "Vežbaj danas i započni svoju seriju!",
+        "oneDayStreak": "Vežbaj svaki dan da izgradiš seriju!",
+        "multiDayStreak": "{count, plural, one {Imaš seriju od # dana!} other {Imaš seriju od # dana!}}"
+      },
+      "badges": {
+        "title": "Bedževi"
+      },
+      "recent": {
+        "title": "Nedavni izazovi",
+        "unlockedCount": "{count} otključano",
+        "viewAll": "Pogledaj sve izazove"
+      }
+    }
+  },
+  "codingExercise": {
+    "loadError": "Greška pri učitavanju vežbe: {error}",
+    "unknownError": "Nepoznata greška",
+    "exerciseNotFound": "�",
+    "runButton": {
+      "run": "Pokreni kod",
+      "running": "Izvršava se...",
+      "resetAriaLabel": "Resetuj vežbu",
+      "resetTooltip": "Klikni da resetuješ vežbu",
+      "resetConfirmTitle": "Da resetuješ svoj kod?",
+      "resetConfirmMessage": "Ovo će vratiti tvoj kod na početak. Bez brige, ovim ne gubiš razgovore sa Jikijem.",
+      "resetConfirmButton": "Da, resetuj"
+    },
+    "hintsPanel": {
+      "title": "Saveti",
+      "description": "Ako zapneš na ovoj vežbi, ovi saveti mogu da te usmere u pravom smeru. Klikni na savet da otkriješ korisne smernice.",
+      "empty": "Za ovu vežbu nema saveta.",
+      "reveal": "Otkrij",
+      "hide": "Sakrij",
+      "confirmReveal": "Sigurno želiš da otkriješ ovaj savet?",
+      "confirmNo": "Ne još",
+      "confirmYes": "Da",
+      "deepDiveHeading": "Detaljna analiza",
+      "deepDiveDescription": "I dalje zapinješ? Pogledaj detaljnu analizu u kojoj Jeremy rešava ovu vežbu.",
+      "walkthroughThumbnailAlt": "Sličica videa detaljne analize"
+    },
+    "chatHeader": {
+      "title": "Pitaj Jikija",
+      "description": "Postavljaj pitanja i dobij pomoć od svog AI asistenta za programiranje"
+    },
+    "chatStatus": {
+      "errorLabel": "Greška:"
+    },
+    "chatPanel": {
+      "unavailable": "Ćaskanje nije dostupno"
+    },
+    "chatMessages": {
+      "greeting": "Zdravo! Kako mogu da ti pomognem sa ovom vežbom?"
+    },
+    "chatInput": {
+      "placeholder": "Ovde ukucaj svoje pitanje...",
+      "limitReachedPlaceholder": "Dostignut je limit poruka",
+      "respondPlaceholder": "Odgovori Jikiju..."
+    },
+    "conversation": {
+      "loadError": "Učitavanje istorije razgovora nije uspelo: {error}"
+    },
+    "typeItAssistant": {
+      "thinking": "Jiki razmišlja"
+    },
+    "functionsView": {
+      "empty": "Za ovu vežbu nema dostupnih funkcija.",
+      "examples": "Primeri"
+    },
+    "tasksView": {
+      "empty": "Za ovu vežbu nema dostupnih zadataka.",
+      "bonus": "Bonus"
+    },
+    "logPanel": {
+      "title": "Dnevnik scenarija",
+      "emptyDescription": "Ovo je ispis izvršavanja tvog koda. Ovde možeš da analiziraš izmene koje praviš. Koristi <code>console.log()</code> da ispišeš vrednosti.",
+      "description": "Ovo je ispis izvršavanja tvog koda za scenario <scenario>{name}</scenario>. Ovde možeš da analiziraš izmene koje praviš. Koristi <code>console.log()</code> da ispišeš vrednosti.",
+      "emptyState": "Još ništa nije ispisano"
+    },
+    "instructionsPanel": {
+      "instructionsTitle": "Uputstva",
+      "functionsTitle": "Funkcije i metode",
+      "conceptLibraryTitle": "Biblioteka koncepata",
+      "functionsIntro": "Ovo su funkcije i metode koje možeš da koristiš u ovoj vežbi.",
+      "functionsExamplesLabel": "Primeri:",
+      "loadingConcepts": "Učitavanje koncepata...",
+      "premiumChallenge": "Premium izazov",
+      "exerciseLevel": "Vežba • {level}",
+      "libraryEmpty": "Ovde ćeš videti koncepte kako napreduješ kroz vežbe. To su podsetnici kojima možeš da osvežiš znanje kad god zatreba.",
+      "libraryChallenges": "U ovoj vežbi možeš da koristiš sve koncepte koje znaš do sada. Zaviri u svoju Biblioteku koncepata kad želiš da se podsetiš naučenog.",
+      "libraryWithConcepts": "Ovo su ključni koncepti koji se koriste u ovoj vežbi. Iskoristi ih da osvežiš dosadašnje znanje.",
+      "openConceptLibrary": "Otvori Biblioteku koncepata"
+    },
+    "scrubber": {
+      "previousFrame": "Prethodni korak",
+      "nextFrame": "Sledeći korak",
+      "previousBreakpoint": "Prethodna tačka prekida",
+      "nextBreakpoint": "Sledeća tačka prekida",
+      "toggleInfoOn": "Uključi info panel",
+      "toggleInfoOff": "Isključi info panel",
+      "showInfoWidget": "Prikaži info vidžet",
+      "hideInfoWidget": "Sakrij info vidžet",
+      "disabledCodeEdited": "Kod je izmenjen, pa smo isključili klizač. Pritisni „Pokreni kod” da ga ponovo uključiš.",
+      "disabledSpotlight": "Klizač je isključen: aktivan je Spotlight režim.",
+      "disabledNotEnoughFrames": "Klizač je isključen: nema dovoljno koraka za premotavanje."
+    },
+    "avatars": {
+      "jikiAlt": "Jiki",
+      "userAlt": "Ti"
+    },
+    "rhs": {
+      "tabInstructions": "Uputstva",
+      "tabAskJiki": "Pitaj Jikija",
+      "tabLog": "Dnevnik",
+      "tabHints": "Saveti",
+      "navChallenges": "Izazovi",
+      "navDashboard": "Kontrolna tabla"
+    },
+    "canStart": {
+      "placeholder": "Ovde ukucaj svoje pitanje...",
+      "askAbout": "Pitaj o...",
+      "askJiki": "Pitaj Jikija",
+      "freeIncluded": "Prvi razgovor je uključen u tvoj besplatni plan",
+      "premiumIncluded": "Uključeno u tvoj <premium>Premium</premium> plan",
+      "phraseWhyNotWorking": "zašto tvoj kod ne radi",
+      "phraseHowToFixBug": "kako da ispraviš bag",
+      "phraseWhatErrorMeans": "šta znači ova greška",
+      "phraseHowToApproach": "kako da pristupiš ovoj vežbi",
+      "phraseHowToGetUnstuck": "kako da nastaviš kad zapneš"
+    },
+    "freeUserLimitReached": {
+      "description": "Tvoj besplatni razgovor je iskorišćen. Nastavi da učiš uz Jikijevu pomoć oko koncepata, ispravljanja grešaka i napredovanja kroz vežbe.",
+      "upgradeButton": "Pređi na Jiki Premium",
+      "price": "Samo <price></price>!"
+    },
+    "lockedFooter": {
+      "freeLimitText": "Više nisi na Premium planu. <upgrade>Nadogradi</upgrade> da nastaviš razgovor.",
+      "premiumBlockedText": "Dostignut je limit fer korišćenja. Pokušaj ponovo sutra.",
+      "learnMoreFairUse": "Saznaj više o ograničenjima fer korišćenja"
+    },
+    "chatUsageNotice": {
+      "warning": {
+        "daily": "Bliži se tvoj dnevni limit ({used}/{limit} poruka danas).",
+        "monthly": "Bliži se tvoj mesečni limit ({used}/{limit} poruka ovog meseca)."
+      },
+      "limitReached": {
+        "daily": "Potrošene su sve današnje poruke, njih {limit}. Resetuju se u ponoć po UTC-u.",
+        "monthly": "Potrošeno je svih {limit} poruka za ovaj mesec. Resetuju se 1. u mesecu."
+      },
+      "learnMore": "Saznaj više"
+    },
+    "chatError": {
+      "sessionExpired": "Sesija je istekla. Pokušaj ponovo.",
+      "verificationFailed": "Verifikacija nije uspela. Pokušaj ponovo.",
+      "authFailed": "Autentifikacija nije uspela. Prijavi se ponovo.",
+      "tokenServerError": "Greška na serveru pri pokretanju ćaskanja. Pokušaj ponovo.",
+      "tokenInitFailed": "Pokretanje ćaskanja nije uspelo. Pokušaj ponovo.",
+      "exerciseMismatch": "Vežba se ne poklapa. Osveži stranicu i pokušaj ponovo.",
+      "authExpired": "Autentifikacija je istekla. Osveži stranicu.",
+      "tooManyRequests": "Previše zahteva. Sačekaj trenutak, pa pokušaj ponovo.",
+      "serviceUnavailable": "Servis za ćaskanje je privremeno nedostupan. Pokušaj ponovo kasnije.",
+      "serverError": "Greška na serveru. Pokušaj ponovo za koji trenutak.",
+      "networkError": "Greška na mreži. Proveri konekciju i pokušaj ponovo.",
+      "timeout": "Zahtev je istekao. Pokušaj ponovo.",
+      "unexpected": "Došlo je do neočekivane greške. Pokušaj ponovo.",
+      "noResponseBody": "�",
+      "streamProcessing": "�",
+      "unknown": "�",
+      "requestFailed": "�"
+    },
+    "stuckHeader": {
+      "title": "Zapinješ? Pitaj Jikija!"
+    },
+    "testResults": {
+      "passBadge": "Uspešno",
+      "failBadge": "Neuspešno",
+      "pendingBadge": "Na čekanju",
+      "pendingMessage": "Pokreni kod da vidiš da li ovaj scenario prolazi ili pada.",
+      "codeRun": "Izvršeni kod",
+      "expected": "Očekivano",
+      "actual": "Dobijeno",
+      "noReturn": "[Tvoja funkcija nije ništa vratila]",
+      "clickRunCode": "Klikni „Pokreni kod” da vidiš šta tvoj kod radi.",
+      "lintWarning": "<strong>Samo još malo...</strong> Tvoj kod radi ispravno, ali treba da središ formatiranje. Potraži narandžasta podvlačenja u kodu.",
+      "lintWarningPlain": "Tvoj kod radi ispravno, ali treba da središ formatiranje. Potraži narandžasta podvlačenja u kodu.",
+      "genericError": "Ups. Tvoj kod ima grešku.",
+      "runtimeError": "�",
+      "isolatedCheckError": "�",
+      "isolatedCheckErrorDetail": "�",
+      "congratsWellDone": "Svaka čast!",
+      "congratsNiceWork": "Odlično urađeno!",
+      "congratsFantasticJob": "Fantastičan posao!",
+      "congratsAmazingEffort": "Sjajan trud!",
+      "congratsGreatAchievement": "Veliki uspeh!",
+      "congratsCongratulations": "Čestitamo!",
+      "congratsCongrats": "Čestitke!",
+      "ioError": "�",
+      "codeCheckError": "�"
+    },
+    "informationTooltip": {
+      "errorHeading": "�",
+      "closeAriaLabel": "�"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "�",
+      "removeBreakpoint": "�"
+    },
+    "syntaxError": {
+      "heading": "Jiki nije razumeo tvoj kod.",
+      "message": "Bez panike. Pročitaj i ispravi grešku iz poruke iznad, pa ponovo pokreni kod."
+    },
+    "unhandledError": {
+      "heading": "Ups! Nešto je pošlo <strong>veoma</strong> naopako.",
+      "message": "<strong>Ovo je naša greška, ne tvoja!</strong> Javi nam ovu grešku da bismo mogli da je ispravimo. Kopiraj misteriozni tekst ispod i podeli ga sa nama na <link>forumu</link>. Hvala! 💙"
+    }
+  },
+  "lesson": {
+    "documentTitle": "{title} - Vežba - Jiki",
+    "loadError": "Učitavanje lekcije nije uspelo",
+    "backToDashboard": "Nazad na kontrolnu tablu",
+    "error": {
+      "message": "Greška: {error}"
+    },
+    "quizNotImplemented": "Kviz lekcije još nisu podržane",
+    "quitButton": {
+      "title": "Napusti lekciju",
+      "message": "Sigurno želiš da napustiš ovu lekciju? Tvoj napredak neće biti sačuvan.",
+      "confirm": "Napusti",
+      "cancel": "Nastavi sa učenjem",
+      "ariaLabel": "Napusti lekciju"
+    },
+    "loadingPage": {
+      "loading": "Učitavanje",
+      "message": {
+        "video": "Pripremamo video lekciju",
+        "chooseLanguage": "Učitavamo opcije jezika",
+        "exercise": "Pripremamo editor koda"
+      },
+      "tip": {
+        "video": "💡 Savet: Brzinu reprodukcije videa možeš da podesiš u kontrolama",
+        "chooseLanguage": "💡 Savet: Izaberi jezik sa kojim želiš da učiš",
+        "exercise": "💡 Savet: Pritisni Cmd/Ctrl + Enter da brzo pokreneš kod"
+      }
+    },
+    "loadingModal": {
+      "title": "Prilagođavamo tvoju lekciju",
+      "subtitle": "Pravimo nešto na osnovu tvojih želja i napretka"
+    }
+  },
+  "quizCard": {
+    "submit": "Potvrdi",
+    "nextQuestion": "Sledeće pitanje",
+    "codeInputPlaceholder": "// Ovde ukucaj svoj kod...",
+    "feedback": {
+      "correct": "Tačno!",
+      "incorrect": "Nije baš tačno!"
+    },
+    "fillIn": {
+      "successTitle": "Savršeno!",
+      "successMessage": "Sva polja su tačno popunjena!",
+      "incorrectTitle": "{count, plural, one {# polje je netačno} few {# polja su netačna} other {# polja je netačno}}",
+      "errorMessage": "Pregledaj svoje odgovore i pokušaj ponovo."
+    },
+    "coding": {
+      "successTitle": "Odlično!",
+      "successMessage": "Tvoj kod je tačan!",
+      "errorTitle": "Nije baš tačno",
+      "errorMessage": "Proveri sintaksu i pokušaj ponovo."
+    }
+  },
+  "videoExercise": {
+    "noVideoSource": "Nema dostupnog video izvora",
+    "provider": "Provajder: {provider}",
+    "skipHint": "Pri prvom gledanju ne možeš da preskačeš unapred, ali uvek možeš da premotaš unazad.",
+    "pill": {
+      "complete": "Lekcija završena",
+      "progress": "Napredak lekcije",
+      "watching": "Gledaš <title>{name}</title>",
+      "finished": "Odgledano: <title>{name}</title>",
+      "finishTooltip": "Odgledaj do kraja da nastaviš"
+    }
+  },
+  "projects": {
+    "projectCard": {
+      "comingSoon": "�",
+      "comingSoonLabel": "�"
+    },
+    "episodeCard": {
+      "premium": "�"
+    },
+    "episodeSummary": {
+      "heading": "�",
+      "whereWeStart": "�",
+      "whereWeEnd": "�",
+      "whatWeCover": "�"
+    },
+    "projectPage": {
+      "backToAllProjects": "�"
+    },
+    "episodePage": {
+      "backToProject": "�",
+      "relevantGuidesDescription": "�"
+    },
+    "relevantGuides": {
+      "heading": "�"
+    }
+  },
+  "guides": {
+    "guidesContent": {
+      "pageHeading": "�",
+      "searchPlaceholder": "�",
+      "filterAll": "�",
+      "noResultsTitle": "�",
+      "noResultsMessage": "�"
+    },
+    "guideCard": {
+      "premium": "�"
+    },
+    "guideBreadcrumb": {
+      "guides": "�"
+    },
+    "premiumGate": {
+      "lockedTitle": "�",
+      "lockedSubtitle": "�",
+      "unlockButton": "�"
+    },
+    "relatedGuides": {
+      "heading": "�"
+    },
+    "featuredInProjects": {
+      "heading": "�"
+    },
+    "metadata": {
+      "notFoundTitle": "�"
+    }
+  },
+  "unsubscribe": {
+    "title": "�",
+    "subtitle": "�",
+    "updateError": "�",
+    "toggleAria": "�",
+    "manage": {
+      "title": "�",
+      "description": "�",
+      "updated": "�",
+      "save": "�"
+    },
+    "all": {
+      "title": "�",
+      "description": "�",
+      "success": "�",
+      "button": "�"
+    },
+    "email": {
+      "alreadyTitle": "�",
+      "alreadyDescription": "�",
+      "title": "�",
+      "description": "�",
+      "success": "�",
+      "button": "�",
+      "fallbackType": "�"
+    },
+    "types": {
+      "newsletters": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "event_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "milestone_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "activity_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "onboarding_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      }
+    }
+  },
+  "achievements": {
+    "title": "�",
+    "description": "�",
+    "tabBadges": "�",
+    "tabCertificates": "�",
+    "loading": "�",
+    "error": "�",
+    "certificatesEmptyTitle": "�",
+    "certificatesEmptyBody": "�",
+    "badge": {
+      "locked": "�",
+      "earnedToday": "�",
+      "earnedRelative": "�"
+    },
+    "loadError": "�"
+  },
+  "challenges": {
+    "title": "Izazovi",
+    "description": "Gradi stvarne aplikacije i igre i uvežbaj svoje programerske veštine.",
+    "tabAll": "Svi",
+    "tabInProgress": "U toku",
+    "tabNotStarted": "Nezapočeti",
+    "tabComplete": "Završeni",
+    "tabLocked": "Zaključani",
+    "error": "Greška: {error}",
+    "codingChallenge": "Programerski izazov",
+    "premiumOnly": "Samo uz Premium",
+    "status": {
+      "locked": "Zaključano",
+      "unlocked": "Nije započeto",
+      "started": "U toku",
+      "completed": "Završeno"
+    },
+    "empty": {
+      "noneAvailable": "Još nema dostupnih izazova.",
+      "noneFound": "Nijedan izazov nije pronađen.",
+      "inProgressTitle": "Nema izazova u toku",
+      "inProgressDescription": "Još uvek nemaš započetih izazova. Pregledaj dostupne izazove i klikni na \"Započni\" da počneš svoj prvi izazov.",
+      "allStartedTitle": "Svi izazovi su započeti",
+      "allStartedDescription": "Odličan napredak! Svi dostupni izazovi su već započeti. Nastavi tako i završi ih.",
+      "noneToStartTitle": "Još nema izazova za početak",
+      "noneToStartDescription": "Izazovi će se pojavljivati ovde kako ih otključavaš.",
+      "completedTitle": "Još nema završenih izazova",
+      "completedDescription": "Završi svoj prvi izazov da ga vidiš ovde. Nastavi da radiš na započetim izazovima da dostigneš ovaj cilj."
+    },
+    "loadError": "�"
+  },
+  "subscription": {
+    "tiers": {
+      "standard": {
+        "name": "�",
+        "description": "�",
+        "features": {
+          "freeCourses": "�",
+          "basicExercises": "�",
+          "communitySupport": "�",
+          "aiHelpPerMonth": "�"
+        }
+      },
+      "premium": {
+        "name": "�",
+        "description": "�",
+        "features": {
+          "allFreeFeatures": "�",
+          "unlimitedAi": "�",
+          "allExercises": "�",
+          "certificates": "�",
+          "adFree": "�"
+        }
+      }
+    }
+  },
+  "blog": {
+    "header": {
+      "label": "�",
+      "title": "�",
+      "subtitle": "�"
+    },
+    "postHeader": {
+      "writtenBy": "�",
+      "readingTime": "�"
+    },
+    "featuredLatest": {
+      "label": "�",
+      "byAuthor": "�",
+      "readFullArticle": "�"
+    },
+    "recentPosts": {
+      "heading": "�"
+    },
+    "relatedPosts": {
+      "heading": "�"
+    },
+    "cta": {
+      "minimalTitle": "�",
+      "minimalSubtitle": "�",
+      "minimalButton": "�",
+      "gradientTitle": "�",
+      "gradientSubtitle": "�",
+      "gradientButton": "�"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "�",
+      "title": "�",
+      "subtitle": "�",
+      "writtenBy": "�",
+      "readingTime": "�"
+    },
+    "relatedArticles": {
+      "heading": "�"
+    },
+    "search": {
+      "placeholder": "�",
+      "noResultsTitle": "�",
+      "noResultsMessage": "�"
+    },
+    "filterSidebar": {
+      "filterBy": "�",
+      "all": "�",
+      "help": "�"
+    },
+    "cta": {
+      "minimalTitle": "�",
+      "minimalSubtitle": "�",
+      "minimalButton": "�",
+      "gradientTitle": "�",
+      "gradientSubtitle": "�",
+      "gradientButton": "�"
+    }
+  },
+  "checkout": {
+    "declineDefault": "�"
+  }
+}

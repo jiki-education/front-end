@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "Fonksiyonları Kullanmak"
+  },
+  "strings-and-colors": {
+    "title": "Metinler ve Renkler"
+  },
+  "repeat-loop": {
+    "title": "Tekrar Döngüsü"
+  },
+  "variables": {
+    "title": "Değişkenler"
+  },
+  "basic-state": {
+    "title": "Temel Durum"
+  },
+  "functions-that-return-things": {
+    "title": "Değer Döndüren Fonksiyonlar"
+  },
+  "conditionals": {
+    "title": "Koşullar"
+  },
+  "complex-conditionals": {
+    "title": "Karmaşık Koşullar"
+  },
+  "conditionals-and-state": {
+    "title": "Koşullar ve Durum"
+  },
+  "make-your-own-functions": {
+    "title": "Kendi Fonksiyonlarını Yaz"
+  },
+  "string-manipulation": {
+    "title": "Metin İşleme"
+  },
+  "string-iteration": {
+    "title": "Metinde Gezinme"
+  },
+  "multiple-functions": {
+    "title": "Fonksiyonları Birlikte Kullanmak"
+  },
+  "methods-and-properties": {
+    "title": "Metotlar ve Özellikler"
+  },
+  "advanced-loops": {
+    "title": "İleri Döngüler"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "Sözlükler"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "Her Şey"
+  }
+}

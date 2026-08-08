@@ -1,0 +1,65 @@
+{
+  "errors": {
+    "yearNumber": "L'anno deve essere un numero",
+    "yearInPast": "Non possiamo controllare il mercato azionario per anni passati! {{year}} è nel passato.",
+    "yearTooFarFuture": "Non abbiamo informazioni sul mercato azionario oltre 20 anni da adesso! {{year}} è troppo nel futuro.",
+    "balanceNumber": "Il saldo deve essere un numero",
+    "moneyNumber": "I soldi devono essere un numero"
+  },
+  "checks": {
+    "taxReportCount": "Mi aspettavo 20 dichiarazioni fiscali (una per anno) ma ne ho ricevute {{got}}. Assicurati di chiamare <code>reportTax()</code> nel ciclo.",
+    "taxReportWrongYear": "La dichiarazione fiscale n. {{index}} era per l'anno {{actualYear}} ma avrebbe dovuto essere per l'anno {{expectedYear}}.",
+    "taxReportWrongBalance": "Hai dichiarato l'importo sbagliato per le tasse del {{year}}. Avrebbe dovuto essere ${{expected}} ma era ${{actual}}.",
+    "wrongFinalBalance": "Mi aspettavo un importo finale di circa ${{expected}} ma ho ottenuto ${{got}}. Assicurati di chiamare <code>announceToFamily()</code> dopo il ciclo.",
+    "announcedMultipleTimes": "Dovresti annunciare alla tua famiglia <strong>una volta sola</strong>, dopo che sono trascorsi i 20 anni, non ogni anno. Hai chiamato <code>announceToFamily()</code> {{count}} {{times}}."
+  },
+  "tasks": {
+    "growInvestment": {
+      "name": "Fai crescere il tuo investimento per 20 anni",
+      "description": "Inizia con $10, simula 20 anni di crescita del mercato azionario, dichiara le tasse ogni anno e annuncia l'importo finale alla tua famiglia."
+    }
+  },
+  "scenarios": {
+    "twentyYears": {
+      "name": "20 anni di crescita",
+      "description": "Investi $10 e tieni traccia del tuo saldo per 20 anni di crescita del mercato."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Non so da dove iniziare",
+      "answer": "Devi usare `marketGrowth()` per ogni anno dei prossimi 20 anni (a partire da adesso). Restituirà un valore come 5 (per una crescita del mercato del 5%). Poi devi tenere traccia di quanti soldi hai, a partire dai $10 iniziali modificati dal tasso di interesse."
+    },
+    "stillStuck": {
+      "question": "Sono ancora bloccato, non capisco.",
+      "answer": "OK, vediamo un po' di codice per farti iniziare. Immagina che l'anno corrente sia il 2026. Dovrai fare qualcosa del tipo: \n\n```javascript\nlet money = 10\nlet growth = marketGrowth(2026)\n\n// Devi aggiornare il valore del denaro in base alla crescita del mercato.\n// Controlla il prossimo suggerimento se ti serve la formula.\nmoney = money + ???\nreportTax(2026, money)\n\n// Ora fai il 2027\nlet growth = marketGrowth(2027)\nmoney = money + ???\nreportTax(2027, money)\n\n// Ora fai il 2028\nlet growth = marketGrowth(2028)\nmoney = money + ???\nreportTax(2028, money)\n\n// Dopo 20 anni annuncia alla tua famiglia\nannounceToFamily(money)\n```"
+    },
+    "formula": {
+      "question": "Qual è la formula per tenere traccia della crescita? Non riesco a capirla da solo.",
+      "answer": "La formula è: \n\n```javascript\nmoney = money * (100 + marketGrowth(year)) / 100\n```"
+    },
+    "wrongTaxReportCount": {
+      "question": "Dice che non ho presentato il numero corretto di dichiarazioni fiscali.",
+      "answer": "Dovresti presentare 20 dichiarazioni fiscali per 20 anni. Usa lo scrubber per contare quante volte usi la funzione `reportTax()`."
+    }
+  },
+  "describers": {
+    "marketGrowth": "ha ottenuto una crescita del mercato del ${return}% per l'anno ${arg1}",
+    "reportTax": "ha dichiarato le tasse per l'anno ${arg1}: $${arg2}",
+    "announceToFamily": "ha comunicato $${arg1} alla famiglia"
+  },
+  "functions": {
+    "marketGrowth": {
+      "description": "Restituisce la percentuale di crescita del mercato per un dato anno (tra -25 e 40). Dovrai **aggiornare** il valore del denaro applicando questa percentuale ogni volta. (Quindi 40 significa che i tuoi $10 dovrebbero valere $14, e -10 significa che i tuoi $10 scendono a $9)",
+      "category": "Azione"
+    },
+    "reportTax": {
+      "description": "Dichiara l'importo delle tasse per un dato anno. Dovresti chiamare la funzione ogni anno, con l'anno e l'importo attuale di denaro che hai.",
+      "category": "Azione"
+    },
+    "announceToFamily": {
+      "description": "Annuncia l'importo finale alla tua famiglia.",
+      "category": "Azione"
+    }
+  }
+}

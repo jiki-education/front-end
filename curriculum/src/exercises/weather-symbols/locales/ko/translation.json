@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "dayIsntCorrect": "{{day}}의 날씨가 맞지 않아요."
+  },
+  "tasks": {
+    "drawForecast": {
+      "name": "예보 그리기",
+      "description": "각 날의 날씨를 해당 요일의 칸에 그리는데, 배열에서 그 날의 위치를 칸 번호로 사용해요."
+    }
+  },
+  "scenarios": {
+    "mixedWeek": {
+      "name": "혼합된 한 주",
+      "description": "6일에 걸쳐 이것저것 조금씩."
+    },
+    "sunnyWeek": {
+      "name": "화창한 한 주",
+      "description": "대체로 화창하고, 구름 낀 날이 조금 있어요."
+    },
+    "rainyWeek": {
+      "name": "비 오는 한 주",
+      "description": "구름과 비로 축축한 한 주."
+    },
+    "snowyWeek": {
+      "name": "눈 오는 한 주",
+      "description": "눈으로 가득 찬 추운 한 주."
+    }
+  },
+  "hints": {
+    "loopWithIndex": {
+      "question": "각 날짜가 어느 칸에 들어가는지 어떻게 알면서 days를 순회할 수 있을까요?",
+      "answer": "`days`를 `0`부터 `days.length - 1`까지 카운터를 사용해서 순회하세요. 그 카운터가 각 날짜의 칸 번호예요."
+    },
+    "descriptionToSymbols": {
+      "question": "`\"Miserable 😩\"`과 같은 설명을 기호로 어떻게 변환할까요?",
+      "answer": "설명을 가능한 모든 설명과 비교해서 맞는 기호 배열을 고르세요. 예를 들면 `[\"cloud\", \"rain\"]`이 있어요. 지시 사항에 모든 설명과 해당 기호가 나와 있어요."
+    },
+    "weekdaysList": {
+      "question": "각 칸에 해당하는 요일 이름을 어떻게 가져올까요?",
+      "answer": "`\"Monday\"`부터 `\"Saturday\"`까지 여섯 요일 이름을 순서대로 배열로 만든 다음, 현재 위치의 값을 칸 번호와 같은 카운터로 읽어요."
+    },
+    "passArgs": {
+      "question": "`draw`에 무엇을 전달해야 하나요?",
+      "answer": "세 가지를 전달해요: 칸 번호(카운터), 그 칸에 해당하는 요일 이름, 그리고 그날의 기호 배열이에요."
+    },
+    "tidyWithHelper": {
+      "question": "루프가 길어지고 있어요. 어떻게 정리할 수 있을까요?",
+      "answer": "설명을 기호로 변환하는 부분을 별도의 함수로 옮겨서 루프에서 호출할 수 있어요. 이건 선택 사항이지만, 루프를 짧고 읽기 쉽게 만들어 줘요."
+    }
+  },
+  "functions": {
+    "draw": {
+      "description": "주어진 날씨 기호를 예보 칸에 그려요. 칸 번호(0~5), 칸에 붙일 요일 이름, 그리고 기호 배열을 받아요.",
+      "category": "그리기"
+    }
+  },
+  "describers": {
+    "draw": "${arg2}의 칸에 ${arg3}을 그렸어요."
+  },
+  "errors": {
+    "elementsMustBeList": "날씨 기호(draw의 세 번째 입력)는 `[\"sun\", \"cloud\"]` 같은 배열이어야 해요.",
+    "elementsMustBeStrings": "배열 안의 날씨 기호는 모두 `\"sun\"`이나 `\"rain\"`과 같은 문자열이어야 해요.",
+    "unknownElement": "`\"{{element}}\"`은 날씨 기호가 아니에요. `\"sun\"`, `\"cloud\"`, `\"rain\"`, `\"snow\"` 중 하나를 사용하세요.",
+    "indexMustBeNumber": "칸 번호(draw의 첫 번째 입력)는 숫자여야 해요.",
+    "indexOutOfRange": "칸 번호는 0과 {{max}} 사이의 정수여야 해요.",
+    "dayMustBeString": "요일(draw의 두 번째 입력)은 `\"Monday\"`와 같은 텍스트여야 해요."
+  }
+}

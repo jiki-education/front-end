@@ -1,0 +1,82 @@
+{
+  "checks": {
+    "wrongDistance": "La pelota no rodó la distancia correcta para este tiro. Debe recorrer exactamente la longitud del tiro desde el tee.",
+    "missingPositions": "La pelota debe rodar por cada posición paso a paso.",
+    "stayOnGrassPlain": "La pelota debe quedarse en el pasto en este tiro: no debe entrar en el hoyo.",
+    "stayOnGrassOvershot": "La pelota sobrepasó el hoyo, así que debe quedarse en el pasto: no debe entrar.",
+    "droppedIncorrectly": "La pelota llegó al hoyo pero no entró correctamente.",
+    "noFireworksPeriod": "No debiste haber disparado los fuegos artificiales.",
+    "noFireworksNoPeriod": "No debiste haber disparado los fuegos artificiales",
+    "noFireworksAtEnd": "No debiste haber disparado los fuegos artificiales al final.",
+    "shouldFireFireworks": "Debes disparar los fuegos artificiales al final."
+  },
+  "tasks": {
+    "checkShot": {
+      "name": "Verificar si el tiro entra en el hoyo",
+      "description": "Haz rodar la pelota según la longitud del tiro, y si cae sobre el hoyo, ¡métela! Luego, dispara fuegos artificiales."
+    }
+  },
+  "scenarios": {
+    "tooShort": {
+      "name": "Tiro demasiado corto",
+      "description": "El golfista golpea la pelota a una distancia de 23: no llega al hoyo."
+    },
+    "justTooShort": {
+      "name": "Por poco demasiado corto",
+      "description": "El golfista golpea la pelota a una distancia de 57 y por poco no entra."
+    },
+    "justTooFar": {
+      "name": "Por poco demasiado lejos",
+      "description": "El golfista golpea la pelota a una distancia de 63 y apenas se sale por el otro lado."
+    },
+    "tooLong": {
+      "name": "Tiro demasiado largo",
+      "description": "El golfista golpea la pelota a una distancia de 68: se pasa del hoyo."
+    },
+    "justInsideLeft": {
+      "name": "Apenas dentro del hoyo",
+      "description": "El golfista golpea la pelota a una distancia de 58: ¡apenas alcanza el hoyo!"
+    },
+    "justInsideRight": {
+      "name": "Casi demasiado lejos, pero bien",
+      "description": "El golfista golpea la pelota a una distancia de 62: ¡por poco se queda en el hoyo!"
+    }
+  },
+  "hints": {
+    "howDoIRollRightDistance": {
+      "question": "¿Cómo hago para que la pelota ruede la distancia correcta en cada tiro?",
+      "answer": "Usa `getShotLength()` para saber a qué distancia el golfista golpeó la pelota y almacénalo en una variable. Eso te dice cuántas veces rodar."
+    },
+    "howDoIMoveOneStep": {
+      "question": "¿Cómo muevo la pelota paso a paso en lugar de saltar hasta el final?",
+      "answer": "Mantén una variable para la posición `x` de la pelota. Cada vez que des una vuelta al bucle, auméntala en uno y luego rueda a la nueva posición."
+    },
+    "whenShouldBallDrop": {
+      "question": "¿Cuándo debe entrar la pelota en el hoyo?",
+      "answer": "Solo cuando el tiro entra en el hoyo. Verifica si la longitud del tiro está dentro del rango ganador comprobando los límites inferior y superior juntos en una sola condición."
+    },
+    "whenShouldFireworksFire": {
+      "question": "¿Cuándo deben dispararse los fuegos artificiales?",
+      "answer": "Solo para un tiro que entró en el hoyo, y solo después de que la pelota haya terminado de bajar hasta el fondo. Mantén la bajada y los fuegos artificiales juntos dentro de la misma condición."
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "Mueve la pelota a la posición **(x, y)**.",
+      "category": "Movimiento"
+    },
+    "getShotLength": {
+      "description": "Devuelve la **longitud del tiro**: cuántas unidades se desplaza la pelota hacia la derecha.",
+      "category": "Información"
+    },
+    "fireFireworks": {
+      "description": "¡Dispara fuegos artificiales de celebración!",
+      "category": "Acción"
+    }
+  },
+  "describers": {
+    "moveTo": "movió la pelota a la posición (${arg1}, ${arg2})",
+    "getShotLength": "obtuvo la longitud del tiro",
+    "fireFireworks": "disparó fuegos artificiales de celebración"
+  }
+}

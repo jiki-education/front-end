@@ -1,0 +1,54 @@
+{
+  "checks": {
+    "leftCheek": "La joue gauche doit être un triangle blanc placé au bon endroit.",
+    "rightCheek": "La joue droite doit être un triangle blanc placé au bon endroit.",
+    "leftEar": "L'oreille gauche doit être un triangle marron placé au bon endroit.",
+    "rightEar": "L'oreille droite doit être un triangle marron placé au bon endroit.",
+    "leftFace": "La moitié gauche de la tête doit être un triangle orange placé au bon endroit.",
+    "rightFace": "La moitié droite de la tête doit être un triangle orange placé au bon endroit.",
+    "nose": "Le museau nécessite deux triangles anthracite. Tu peux le diviser en deux morceaux : haut/bas ou gauche/droite.",
+    "leftFaceAboveEar": "La moitié gauche de la tête doit être dessinée **par-dessus** l'oreille gauche.",
+    "rightFaceAboveEar": "La moitié droite de la tête doit être dessinée **par-dessus** l'oreille droite.",
+    "noseAboveFace": "Le museau doit être placé **par-dessus** la tête."
+  },
+  "tasks": {
+    "drawFox": {
+      "name": "Dessine la tête de renard",
+      "description": "Utilise des triangles pour construire une tête de renard géométrique sur le fond gris."
+    }
+  },
+  "scenarios": {
+    "drawFox": {
+      "name": "Dessine la tête de renard",
+      "description": "Construis une tête de renard géométrique à l'aide de triangles."
+    }
+  },
+  "hints": {
+    "callTriangle": {
+      "question": "Comment appeler la fonction `triangle` ?",
+      "answer": "Passe 7 arguments dans l'ordre : les trois points des coins (`x1, y1, x2, y2, x3, y3`), puis la couleur sous forme de string, par exemple `triangle(50, 10, 30, 50, 70, 50, \"orange\")`."
+    },
+    "drawOrder": {
+      "question": "Dans quel ordre dessiner les parties pour qu'elles se superposent correctement ?",
+      "answer": "Les formes dessinées plus tard se placent par-dessus les précédentes. Dessine d'abord les joues blanches pour que les moitiés orange de la tête en recouvrent la plus grande partie, en ne laissant dépasser que le bout des joues."
+    },
+    "colors": {
+      "question": "Quelle couleur va où ?",
+      "answer": "Les oreilles sont `\"brown\"`, les moitiés de la tête sont `\"orange\"`, les joues sont `\"white\"` et le museau est `\"charcoal\"`. N'oublie pas que les couleurs sont des strings, donc elles doivent être entre guillemets."
+    },
+    "symmetry": {
+      "question": "Comment trouver les coordonnées de la partie droite sans la survoler ?",
+      "answer": "Le renard est symétrique par rapport au milieu vertical. Si un point du côté gauche est à x=`30` et que le centre est à x=`50`, le point miroir est à x=`70` (à la même distance de l'autre côté du centre). Les valeurs y ne changent pas."
+    },
+    "multiplesOf5": {
+      "question": "Pourquoi mes coordonnées ne fonctionnent pas ?",
+      "answer": "Toutes les valeurs dont tu as besoin sont des multiples de 5. Si un coin semble légèrement décalé, tu as probablement utilisé un nombre comme `12` ou `38`. Ramène-le au multiple de 5 le plus proche (`10`, `15`, `40`, etc.)."
+    }
+  },
+  "functions": {
+    "triangle": {
+      "description": "Dessine un triangle défini par trois sommets, avec la couleur donnée",
+      "category": "Dessin de formes"
+    }
+  }
+}

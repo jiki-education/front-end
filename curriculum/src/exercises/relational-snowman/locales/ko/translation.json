@@ -1,0 +1,48 @@
+{
+  "checks": {
+    "base": "바닥(아래쪽) 원이 잘못된 위치에 있거나 크기가 잘못되었어요. `baseRadius`와 `baseY`를 확인해 보세요.",
+    "body": "몸통(가운데) 원이 잘못된 위치에 있거나 크기가 잘못되었어요. `bodyRadius`와 `bodyY`를 확인해 보세요.",
+    "head": "머리(위쪽) 원이 잘못된 위치에 있거나 크기가 잘못되었어요. `headRadius`와 `headY`를 확인해 보세요.",
+    "notResponsive": "`size`가 {{size}}일 때 눈사람 크기가 제대로 조정되지 않아요. 모든 반지름과 y 좌표는 `size`로부터 유도해야 해요."
+  },
+  "tasks": {
+    "buildRelationalSnowman": {
+      "name": "관계형 눈사람 만들기",
+      "description": "모든 크기와 위치를 `size`로부터 유도하여 눈사람이 올바르게 크기 조정되도록 하세요."
+    }
+  },
+  "scenarios": {
+    "buildRelationalSnowman": {
+      "name": "관계형 눈사람 만들기",
+      "description": "모든 반지름과 y 좌표를 `size`로부터 유도하세요."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "어디서부터 시작해야 할까요?",
+      "answer": "바닥은 캔버스 아래쪽에 고정되어 있는 유일한 원이므로 바닥부터 시작하세요. `baseY`를 알고 나면 그 위에 몸통을 쌓고, 다시 그 위에 머리를 쌓을 수 있어요."
+    },
+    "baseSits": {
+      "question": "바닥의 위치를 어떻게 구할 수 있나요?",
+      "answer": "바닥 원의 아래쪽 가장자리는 지면(Y=100)에서 `size`만큼 위에 있어요. 바닥의 중심은 그 가장자리에서 `baseRadius`만큼 더 위에 있어요."
+    },
+    "stackBody": {
+      "question": "몸통을 바닥 위에 어떻게 쌓나요?",
+      "answer": "두 원이 하나가 다른 하나 바로 위에 닿아 있을 때, 두 원의 중심 사이의 거리는 두 반지름의 합과 같아요."
+    },
+    "head": {
+      "question": "머리는 어떻게 하나요?",
+      "answer": "머리는 몸통 위에 정확히 같은 방식으로 놓여요. 몸통이 바닥 위에 놓이는 것과 마찬가지로요."
+    },
+    "whyDeriveFromSize": {
+      "question": "왜 모든 것이 `size`로부터 유도되어야 하나요?",
+      "answer": "숫자를 하드코딩하면 `size`를 바꿀 때 원들 사이에 틈이 생기거나 겹칠 수 있어요. 공식을 사용하면 모든 것이 비율을 유지해요."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "주어진 반지름과 색상으로 (centerX, centerY)를 중심으로 원을 그려요.",
+      "category": "도형 그리기"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "checks": {
+    "tooManyLines": "La tua soluzione ha troppe righe di codice. Puoi accorciarla?"
+  },
+  "tasks": {
+    "calculateSignPrice": {
+      "name": "Calcola il prezzo del cartello",
+      "description": "Scrivi una funzione che calcola il prezzo di un cartello. Ogni lettera costa $12. Gli spazi sono gratuiti e non vanno contati. Restituisci il risultato come una stringa formattata."
+    },
+    "solveInNineLines": {
+      "name": "Risolvi in 9 righe di codice",
+      "description": "Riesci a risolvere l'esercizio con solo 9 righe di codice?"
+    }
+  },
+  "scenarios": {
+    "simpleWord": {
+      "name": "Parola semplice",
+      "description": "Una singola parola senza spazi."
+    },
+    "singleLetter": {
+      "name": "Lettera singola",
+      "description": "Un cartello con una sola lettera."
+    },
+    "twoWords": {
+      "name": "Due parole",
+      "description": "Due parole con uno spazio che va saltato."
+    },
+    "multipleSpaces": {
+      "name": "Spazi multipli",
+      "description": "Più parole con diversi spazi da saltare."
+    },
+    "longText": {
+      "name": "Testo lungo",
+      "description": "Un cartello più lungo con più lettere."
+    },
+    "allSpaces": {
+      "name": "Solo spazi",
+      "description": "Un cartello con solo spazi non ha lettere da addebitare."
+    },
+    "bonus1": {
+      "name": "9 righe di codice",
+      "description": "Risolvi l'esercizio con solo 9 righe di codice."
+    }
+  },
+  "hints": {
+    "whatCounting": {
+      "question": "Cosa sto contando esattamente?",
+      "answer": "Lettere. Nello specifico, tutto ciò che non è uno spazio. Quindi ti serve un contatore che aumenti per ogni carattere che non è uno spazio nel testo del cartello."
+    },
+    "loopCharacters": {
+      "question": "Come faccio a scorrere i caratteri?",
+      "answer": "Un ciclo `for...of` ti dà ogni carattere a turno, così puoi esaminarli uno alla volta."
+    },
+    "checkSpace": {
+      "question": "Come faccio a verificare se un carattere è uno spazio?",
+      "answer": "All'interno del ciclo, usa un'istruzione if per confrontare il carattere con `\" \"`. Conta il carattere solo quando non è uno spazio."
+    },
+    "buildResultString": {
+      "question": "Come costruisco la stringa del risultato?",
+      "answer": "Usa la concatenazione di stringhe o le stringhe interpolate. Consulta i concetti se hai bisogno di un ripasso."
+    }
+  }
+}

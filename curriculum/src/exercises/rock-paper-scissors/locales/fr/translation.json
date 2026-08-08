@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "noResult": "Tu n'as pas annoncé de résultat !",
+    "paperVsPaperResult": "Feuille contre Feuille aurait dû être une égalité, mais c'est \"{{got}}\" qui a été annoncé.",
+    "paperVsRockResult": "Feuille contre Pierre aurait dû être une victoire pour Yuki, mais c'est \"{{got}}\" qui a été annoncé.",
+    "paperVsScissorsResult": "Feuille contre Ciseaux aurait dû être une victoire pour Ando, mais c'est \"{{got}}\" qui a été annoncé.",
+    "rockVsPaperResult": "Pierre contre Feuille aurait dû être une victoire pour Ando, mais c'est \"{{got}}\" qui a été annoncé.",
+    "rockVsRockResult": "Pierre contre Pierre aurait dû être une égalité, mais c'est \"{{got}}\" qui a été annoncé.",
+    "rockVsScissorsResult": "Pierre contre Ciseaux aurait dû être une victoire pour Yuki, mais c'est \"{{got}}\" qui a été annoncé.",
+    "scissorsVsPaperResult": "Ciseaux contre Feuille aurait dû être une victoire pour Yuki, mais c'est \"{{got}}\" qui a été annoncé.",
+    "scissorsVsRockResult": "Ciseaux contre Pierre aurait dû être une victoire pour Ando, mais c'est \"{{got}}\" qui a été annoncé.",
+    "scissorsVsScissorsResult": "Ciseaux contre Ciseaux aurait dû être une égalité, mais c'est \"{{got}}\" qui a été annoncé."
+  },
+  "tasks": {
+    "determineWinner": {
+      "name": "Détermine le gagnant",
+      "description": "Récupère les choix des deux joueurs et annonce le bon résultat : \"Yuki\", \"Ando\" ou \"tie\"."
+    }
+  },
+  "scenarios": {
+    "paperVsPaper": {
+      "name": "Feuille contre Feuille",
+      "description": "C'est une égalité. Annonce-la correctement !"
+    },
+    "paperVsRock": {
+      "name": "Feuille contre Pierre",
+      "description": "La feuille de Yuki bat la pierre d'Ando. Annonce que Yuki a gagné !"
+    },
+    "paperVsScissors": {
+      "name": "Feuille contre Ciseaux",
+      "description": "Les ciseaux d'Ando battent la feuille de Yuki. Annonce qu'Ando a gagné."
+    },
+    "rockVsPaper": {
+      "name": "Pierre contre Feuille",
+      "description": "La feuille d'Ando bat la pierre de Yuki. Annonce qu'Ando a gagné."
+    },
+    "rockVsRock": {
+      "name": "Pierre contre Pierre",
+      "description": "C'est une égalité. Annonce-la correctement !"
+    },
+    "rockVsScissors": {
+      "name": "Pierre contre Ciseaux",
+      "description": "La pierre de Yuki bat les ciseaux d'Ando. Annonce que Yuki a gagné."
+    },
+    "scissorsVsPaper": {
+      "name": "Ciseaux contre Feuille",
+      "description": "Les ciseaux de Yuki battent la feuille d'Ando. Annonce que Yuki a gagné."
+    },
+    "scissorsVsRock": {
+      "name": "Ciseaux contre Pierre",
+      "description": "La pierre d'Ando bat les ciseaux de Yuki. Annonce qu'Ando a gagné."
+    },
+    "scissorsVsScissors": {
+      "name": "Ciseaux contre Ciseaux",
+      "description": "C'est une égalité. Annonce-la correctement !"
+    }
+  },
+  "hints": {
+    "howToStart": {
+      "question": "Comment commencer ?",
+      "answer": "Récupère les choix de Yuki et d'Ando avec les fonctions fournies et stocke-les dans des variables pour pouvoir les comparer."
+    },
+    "simplestCase": {
+      "question": "Quel est le cas le plus simple à traiter en premier ?",
+      "answer": "L'égalité. Si les deux choix sont identiques, tu peux annoncer une égalité tout de suite et ignorer le reste."
+    },
+    "checkCombination": {
+      "question": "Comment vérifier une combinaison gagnante précise ?",
+      "answer": "Utilise `&&` (et) pour combiner deux conditions qui doivent toutes les deux être vraies, par exemple « Yuki a choisi la pierre ET Ando a choisi les ciseaux » signifie que Yuki gagne."
+    },
+    "shorterWay": {
+      "question": "Je me retrouve avec des tas d'instructions `if`. Y a-t-il un moyen plus court ?",
+      "answer": "Pars du principe qu'un des joueurs gagne par défaut, puis vérifie seulement les trois combinaisons où l'autre joueur gagne. Cela réduit les cas à peu près de moitié."
+    },
+    "invalidChoice": {
+      "question": "Et si un joueur saisit autre chose que pierre, feuille ou ciseaux ?",
+      "answer": "Tu n'as pas à t'en soucier ici. Les fonctions fournies ne renvoient jamais autre chose que les trois choix valides."
+    }
+  },
+  "functions": {
+    "getYukiChoice": {
+      "description": "Renvoie le choix de Yuki : `\"rock\"`, `\"paper\"` ou `\"scissors\"`.",
+      "category": "Jeu"
+    },
+    "getAndoChoice": {
+      "description": "Renvoie le choix d'Ando : `\"rock\"`, `\"paper\"` ou `\"scissors\"`.",
+      "category": "Jeu"
+    },
+    "announceResult": {
+      "description": "Annonce le résultat de la partie. Passe-lui `\"Yuki\"`, `\"Ando\"` ou `\"tie\"`.",
+      "category": "Jeu"
+    }
+  }
+}

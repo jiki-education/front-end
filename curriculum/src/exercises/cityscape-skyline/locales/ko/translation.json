@@ -1,0 +1,93 @@
+{
+  "checks": {
+    "totalCells": "예상한 전체 셀 수는 {{expectedTotal}}개인데 {{got}}개를 찾았어요.",
+    "wrongPosition": "{{building}}번 건물이 올바른 위치에 있지 않아요. {{start}} 열에서 시작하지만, {{expected}} 열에서 시작해야 해요.",
+    "wrongEntrance": "{{building}}번 건물: 입구가 올바른 위치에 있지 않아요.",
+    "wrongGroundWalls": "{{building}}번 건물: 1층 측면 벽이 올바르지 않아요.",
+    "wrongRoof": "{{building}}번 건물: 지붕이 완성되지 않았어요."
+  },
+  "tasks": {
+    "buildSkyline": {
+      "name": "도시 스카이라인 건설하기",
+      "description": "무작위 너비와 높이로 여러 건물을 지어 도시 스카이라인을 완성하세요."
+    }
+  },
+  "scenarios": {
+    "buildings1": {
+      "name": "건물 1개",
+      "description": "무작위 너비와 높이로 건물을 1개 건설하세요."
+    },
+    "buildings2": {
+      "name": "건물 2개",
+      "description": "무작위 너비와 높이로 건물 2개를 건설하세요."
+    },
+    "buildings3": {
+      "name": "건물 3개",
+      "description": "무작위 너비와 높이로 건물 3개를 건설하세요."
+    },
+    "buildings4": {
+      "name": "건물 4개",
+      "description": "무작위 너비와 높이로 건물 4개를 건설하세요."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "이렇게 큰 연습 문제를 어디서부터 시작해야 할까요?",
+      "answer": "문제를 작게 쪼개어 생각해 보세요. 전체적인 구조는 건물마다 하나의 반복문을 사용하는 거예요. 그 반복문 안에서 세 가지를 순서대로 그리면 돼요: 1층(입구 포함), 위층(벽과 유리만), 그리고 평평한 지붕. 여러 건물을 고민하기 전에 건물 하나에 대한 첫 번째 시나리오가 통과되도록 만드세요."
+    },
+    "buildingDimensions": {
+      "question": "각 건물이 어떻게 생겨야 하는지 어떻게 알 수 있나요?",
+      "answer": "건물을 하나씩 처리하는 반복문의 시작 부분에서 `randomWidth()`와 `randomNumFloors()`를 딱 한 번씩 호출하고, 두 값을 지역 변수에 담아두세요. 이것들을 다시 호출하면 *다음* 건물의 값이 나오므로, 행(row)을 그리는 안쪽에서는 다시 호출하지 마세요."
+    },
+    "trackPosition": {
+      "question": "다음 건물이 어디에 그려질지 어떻게 추적하나요?",
+      "answer": "현재 건물의 왼쪽 시작 열을 추적할 변수 하나만 두세요. 이 변수는 연습 문제에서 정한 왼쪽 간격(1 열)에서 시작합니다. 건물을 하나 다 그린 뒤에는, 그 건물의 너비에 건물 사이 간격(1 열)을 더한 만큼 증가시키면 됩니다. 수평 위치를 관리하는 데 이 변수 하나면 충분해요."
+    },
+    "groundFloorLayout": {
+      "question": "중간에 입구가 있는 1층을 어떻게 배치하나요?",
+      "answer": "건물을 한 열씩 이동하면서 그리세요. 가장 왼쪽 열과 가장 오른쪽 열은 벽이고, 그 사이는 모두 유리이며, 가운데 열 하나가 입구입니다. 입구가 위치할 열은 건물의 왼쪽 가장자리와 너비를 이용해 계산할 수 있어요."
+    },
+    "upperFloorsAndRoof": {
+      "question": "위층과 지붕은 어떻게 그리나요?",
+      "answer": "위층은 각각 입구만 없는 1층과 같은 모양으로 그리면 됩니다: 양쪽에 벽, 그 사이는 유리. 1층도 이미 전체 층수에 포함되므로, 나머지 층들만 `y` 좌표를 증가시키며 그 위에 쌓으면 됩니다. 마지막으로, 지붕은 건물 너비 전체를 아우르는 벽 한 줄로 최상단에 쌓고, 지붕은 층수에 포함되지 않아요."
+    },
+    "stuckError": {
+      "question": "두 번째 건물을 지을 때 \"the builders are stuck, there's already a wall here\" 오류가 발생해요. 무엇이 문제인가요?",
+      "answer": "두 번째 건물이 첫 번째 건물 위에 지어지려고 해서 그래요. 건물 사이에서 열 추적 변수를 전진시키지 않아서 발생하는 문제예요. 건물을 하나 그린 뒤에, 다음 반복이 시작되기 전에 `width + gap` 만큼 더해 주세요. 잊어버리면 모든 건물이 같은 왼쪽 가장자리에서 시작하면서 앞 건물과 충돌해요."
+    }
+  },
+  "functions": {
+    "buildWall": {
+      "description": "격자의 (x, y) 위치에 **벽 블록**을 놓습니다.",
+      "category": "건설"
+    },
+    "buildGlass": {
+      "description": "격자의 (x, y) 위치에 **유리 패널**을 놓습니다.",
+      "category": "건설"
+    },
+    "buildEntrance": {
+      "description": "격자의 (x, y) 위치에 **출입문**을 놓습니다.",
+      "category": "건설"
+    },
+    "numBuildings": {
+      "description": "지어야 할 **건물의 개수**를 반환합니다.",
+      "category": "정보"
+    },
+    "randomWidth": {
+      "description": "**무작위 건물 너비**를 반환합니다: 3, 5, 또는 7.",
+      "category": "정보"
+    },
+    "randomNumFloors": {
+      "description": "1부터 12 사이의 **무작위 층수**를 반환합니다.",
+      "category": "정보"
+    }
+  },
+  "describers": {
+    "buildWall": "(${arg1}, ${arg2})에 벽을 건설했어요.",
+    "buildEntrance": "(${arg1}, ${arg2})에 출입문을 건설했어요.",
+    "buildGlass": "(${arg1}, ${arg2})에 유리 패널을 건설했어요.",
+    "numBuildings": "건물의 개수를 조회했어요.",
+    "randomWidth": "무작위 건물 너비(3-7)를 가져왔어요.",
+    "randomNumFloors": "무작위 층수(1-12)를 가져왔어요."
+  }
+}

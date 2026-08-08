@@ -1,0 +1,11 @@
+{
+  "errors": {
+    "invalidResult": "Oj då! Du utropade ett ogiltigt resultat. Det är kaos i spelhallen! Utropa antingen \"Yuki\", \"Ando\" eller \"tie\".",
+    "wrongResult": "Oj då! Du utropade fel resultat. Det är kaos i spelhallen!\n\nDu skulle ha utropat `\"{{expected}}\"` men du utropade `\"{{got}}\"`."
+  },
+  "describers": {
+    "announceResult": "utropade spelets resultat som ${arg1}",
+    "getYukiChoice": "returnerade valet för Yuki",
+    "getAndoChoice": "returnerade valet för Ando"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "describers": {
+    "moveLeft": "a déplacé le canon laser vers la gauche",
+    "moveRight": "a déplacé le canon laser vers la droite",
+    "shoot": "a tiré au laser vers le haut",
+    "isAlienAbove": "a déterminé s'il y avait un alien au-dessus du canon laser",
+    "getStartingAliensInRow": "a récupéré les positions de départ des aliens de la rangée ${arg1}",
+    "fireFireworks": "a tiré des feux d'artifice pour fêter ça"
+  },
+  "errors": {
+    "laserOverheated": "Oh non ! Ton canon laser a surchauffé à force de tirer trop vite ! Tu dois te déplacer avant de pouvoir tirer une seconde fois.",
+    "missedShot": "Oh non, tu as raté ta cible. Il est interdit de gaspiller les munitions !",
+    "moveOffEdge": "Oh non, tu as essayé de déplacer le canon laser au-delà du bord !",
+    "rowNotNumber": "Oh non, la valeur que tu as fournie pour la rangée n'est pas un nombre.",
+    "rowOutOfRange": "Oh non, tu as essayé d'accéder à une rangée d'aliens qui n'existe pas. Tu as demandé la rangée {{row}}, mais les rangées sont numérotées de 0 à {{max}}.",
+    "notAllAliensDead": "Tu dois abattre tous les aliens avant de pouvoir fêter la victoire !"
+  }
+}

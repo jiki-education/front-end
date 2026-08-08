@@ -1,0 +1,42 @@
+{
+  "checks": {
+    "notReachedEnd": "你没能到达迷宫的终点。",
+    "walkNotDefined": "你应该定义一个接收步数作为输入并向前移动相应次数的 <code>walk</code> 函数。"
+  },
+  "tasks": {
+    "writeWalk": {
+      "name": "编写 walk 函数",
+      "description": "定义一个名为 walk 的函数，它接收一个步数作为输入，并向前移动相应次数。"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "在迷宫中导航",
+      "description": "向前走 3 步，左转，向前走 2 步，右转，向前走 4 步，到达目标。"
+    }
+  },
+  "hints": {
+    "howToMoveForward": {
+      "question": "如何向前移动？",
+      "answer": "使用 `move()` 函数。"
+    },
+    "howToMoveSpecificTimes": {
+      "question": "如何向前移动指定的次数？",
+      "answer": "你之前解决过一些需要重复特定次数的练习（比如让高尔夫球滚动特定距离），这里使用相同的思路即可。"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "将角色沿当前方向**向前移动一步**。只有当目标位置没有被墙壁阻挡时，角色才会移动。",
+      "category": "移动"
+    },
+    "turnLeft": {
+      "description": "将角色**向左转 90 度**（逆时针）。这会改变角色面朝的方向。",
+      "category": "移动"
+    },
+    "turnRight": {
+      "description": "将角色**向右转 90 度**（顺时针）。这会改变角色面朝的方向。",
+      "category": "移动"
+    }
+  }
+}

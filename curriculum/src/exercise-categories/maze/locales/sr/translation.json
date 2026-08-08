@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "O ne, umalo da padneš sa ivice lavirinta!",
+    "hitWall": "Jao, ideš pravo u zid!",
+    "walkedIntoFire": "Jao! Ideš pravo u vatru!",
+    "walkedIntoPoop": "Bljak! Ideš pravo u kaku! 💩💩💩"
+  },
+  "describers": {
+    "move": "Pomera lika za jedno polje napred",
+    "turnLeft": "Okreće lika za 90 stepeni ulevo",
+    "turnRight": "Okreće lika za 90 stepeni udesno"
+  }
+}

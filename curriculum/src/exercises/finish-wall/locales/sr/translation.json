@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "leftBrick": "Leva cigla nije ispravna.",
+    "secondBrick": "Druga cigla nije ispravna.",
+    "middleBrick": "Srednja cigla nije ispravna.",
+    "fourthBrick": "Četvrta cigla nije ispravna.",
+    "rightBrick": "Desna cigla nije ispravna.",
+    "codeQuality": {
+      "rectangleCalledOnce": "Koristiš funkciju <code>rectangle</code> na više mesta u svom kodu. Treba da se pojavi samo jednom!"
+    }
+  },
+  "tasks": {
+    "finishWall": {
+      "name": "Završi zid",
+      "description": "Dodaj gornji sloj na zid!"
+    }
+  },
+  "scenarios": {
+    "finishWall": {
+      "name": "Završi zid",
+      "description": "Dodaj gornji sloj na zid!"
+    }
+  },
+  "hints": {
+    "positionSecondBrick": {
+      "question": "Ne mogu da shvatim kako da postavim drugu ciglu dalje od prve.",
+      "answer": "Ako je svaka cigla širine 20, onda prvu treba postaviti na 0, drugu na 20, treću na 40, itd. Možeš da koristiš množenje da to uradiš. Koju promenljivu bi mogao da pratiš da dobiješ obrazac 0, 20, pa 40, itd.?"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Nacrtaj pravougaonik na poziciji (levo, gore) sa datom širinom, visinom i bojom.",
+      "category": "Crtanje oblika"
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "tasks": {
+    "findGuestTable": {
+      "name": "Buscar la mesa del invitado",
+      "description": "Escribe una función que reciba la lista de los nombres completos de los invitados, la lista correspondiente de los nombres de las mesas y un invitado que llega anunciado con un tratamiento honorífico y un apellido. Devuelve el nombre de la mesa en la que está sentado ese invitado o `\"No table found\"` si no aparece en el plan de asientos."
+    },
+    "solveTightly": {
+      "name": "Compacta tu solución",
+      "description": "Bonus: esto se puede escribir de una forma mucho más compacta de lo que imaginas. ¿Puedes reducir toda la solución a solo un puñado de líneas?"
+    }
+  },
+  "scenarios": {
+    "emptyList": {
+      "name": "Plan de asientos vacío",
+      "description": "Nadie está sentado en ningún lado cuando el plan está vacío."
+    },
+    "nameMissing": {
+      "name": "Brad es rechazado",
+      "description": "El nombre no está en el plan de asientos."
+    },
+    "namePresent": {
+      "name": "Brad es acompañado a su mesa",
+      "description": "Brad Pitt está en el plan, así que Mr Pitt recibe su mesa."
+    },
+    "differentHonorific": {
+      "name": "Caballero del reino",
+      "description": "Un tratamiento honorífico diferente y un invitado que no es el primero en el plan."
+    },
+    "bondSeated": {
+      "name": "Mr Bond, supongo",
+      "description": "James Bond está en el plan."
+    },
+    "bondNotSeated": {
+      "name": "Hmmm... Mr Bond, supongo",
+      "description": "Solo Jason Bourne está en el plan, no James Bond."
+    },
+    "partialSurname": {
+      "name": "No es exactamente Mr Pitt",
+      "description": "Ni Ada Spitt ni Hugo Ross-Pitt son Mr Pitt, así que él no tiene asiento aquí."
+    },
+    "lloydWebber": {
+      "name": "¿Qué tal un barón?",
+      "description": "El barón Lloyd Webber tiene dos palabras en su apellido."
+    },
+    "markWebber": {
+      "name": "¿Mark es el barón?",
+      "description": "Un Webber diferente no cuenta: el apellido tiene que coincidir por completo."
+    },
+    "formalDinnerBonusLineCount": {
+      "name": "Impecable: Lord Doyle",
+      "description": "El mismo plan de asientos de antes, pero esta vez tu solución debe caber en un número mucho menor de líneas."
+    }
+  },
+  "hints": {
+    "twoLists": {
+      "question": "¿Cómo se relacionan entre sí las dos listas?",
+      "answer": "Están emparejadas. El primer invitado está en la primera mesa, el segundo en la segunda, y así sucesivamente. Así que no basta con saber *que* un invitado está en el plan: necesitas saber *dónde* está en el plan."
+    },
+    "comparingNames": {
+      "question": "El invitado dice 'Mr Pitt' pero el plan dice 'Brad Pitt'. ¿Cómo los comparo?",
+      "answer": "Esos dos strings nunca serán iguales, así que una comparación directa no te llevará a ningún lado. Piensa en qué parte de lo que el invitado anunció aparece realmente en el plan, y en qué lugar de la entrada del plan esperarías encontrarla."
+    },
+    "lookalikeSurnames": {
+      "question": "¿Podría un apellido coincidir con el invitado equivocado?",
+      "answer": "Por supuesto que sí. Lee 'Ada Spitt' y 'Hugo Ross-Pitt' en voz alta y luego piensa en Mr Pitt. Pregúntate qué hace que un apellido sea un apellido real en esa línea, en lugar de solo algunas letras que están al final de la misma."
+    },
+    "noMatch": {
+      "question": "¿Qué debo devolver cuando nadie coincida?",
+      "answer": "El string `\"No table found\"`, exactamente como está escrito. La parte más difícil es saber cuándo tienes permitido decirlo. Si ya revisaste al primer invitado del plan y no es tu persona, ¿realmente sabes ya que no está sentado en otro lado?"
+    }
+  },
+  "checks": {
+    "tooManyLines": "¡Sigue intentándolo! Intenta resolverlo en menos líneas."
+  },
+  "functions": {
+    "length": {
+      "description": "El número de elementos en un array: la misma propiedad length que has usado en strings (proporcionada por la biblioteca estándar del nivel)",
+      "category": "Operaciones con arrays"
+    },
+    "split": {
+      "description": "Divide un string en un array de fragmentos, separando en cada separador (proporcionado por la biblioteca estándar del nivel)",
+      "category": "Operaciones con strings"
+    },
+    "slice": {
+      "description": "Crea un nuevo array a partir de una parte de un array, comenzando en una posición (proporcionado por la biblioteca estándar del nivel)",
+      "category": "Operaciones con arrays"
+    },
+    "join": {
+      "description": "Une los elementos de un array en un solo string, con un separador entre ellos (proporcionado por la biblioteca estándar del nivel)",
+      "category": "Operaciones con arrays"
+    },
+    "endsWith": {
+      "description": "Comprueba si un string termina con un string más pequeño (proporcionado por la biblioteca estándar del nivel)",
+      "category": "Operaciones con strings"
+    }
+  }
+}

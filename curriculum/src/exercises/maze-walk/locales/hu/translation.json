@@ -1,42 +1,42 @@
 {
   "checks": {
-    "notReachedEnd": "You didn't reach the end of the maze.",
-    "walkNotDefined": "You should define a <code>walk</code> function that takes a number of steps and moves forward that many times."
+    "notReachedEnd": "Nem érted el a labirintus végét.",
+    "walkNotDefined": "Definiálnod kell egy <code>walk</code> függvényt, ami egy lépésszámot kap, és annyiszor lép előre."
   },
   "tasks": {
     "writeWalk": {
-      "name": "Write a walk function",
-      "description": "Define a function called walk that takes a number of steps as its input and moves forward that many times."
+      "name": "Írj egy walk függvényt",
+      "description": "Definiálj egy walk nevű függvényt, ami bemenetként egy lépésszámot kap, és annyiszor lép előre."
     }
   },
   "scenarios": {
     "maze1": {
-      "name": "Navigate the maze",
-      "description": "Walk 3, turn left, walk 2, turn right, walk 4 to reach the target."
+      "name": "Navigálj a labirintusban",
+      "description": "Lépj 3-at, fordulj balra, lépj 2-t, fordulj jobbra, lépj 4-et, hogy elérd a célt."
     }
   },
   "hints": {
     "howToMoveForward": {
-      "question": "How do I move forward?",
-      "answer": "Use the `move()` function."
+      "question": "Hogyan lépjek előre?",
+      "answer": "Használd a `move()` függvényt."
     },
     "howToMoveSpecificTimes": {
-      "question": "How do I move forward a specific number of times?",
-      "answer": "You have solved other exercises where you had to do something a specific number of times (think back to making the golf ball roll a specific distance). Use the same ideas here."
+      "question": "Hogyan lépjek előre egy adott számú alkalommal?",
+      "answer": "Már megoldottál olyan feladatokat, ahol valamit egy adott számú alkalommal kellett megtenned (gondolj például arra, amikor a golflabdát egy adott távolságra gurítottad). Itt is ugyanazokat az ötleteket használd."
     }
   },
   "functions": {
     "move": {
-      "description": "Moves the character **one step forward** in the current direction. The character will only move if the target position is not blocked by a wall.",
-      "category": "Movement"
+      "description": "A figurát **egy lépéssel előre** mozgatja az aktuális irányban. A figura csak akkor mozdul, ha a célpozíciót nem blokkolja fal.",
+      "category": "Mozgás"
     },
     "turnLeft": {
-      "description": "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
-      "category": "Movement"
+      "description": "A figurát **90 fokkal balra** fordítja (óramutató járásával ellentétes irányba). Ez megváltoztatja a figura irányát.",
+      "category": "Mozgás"
     },
     "turnRight": {
-      "description": "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
-      "category": "Movement"
+      "description": "A figurát **90 fokkal jobbra** fordítja (óramutató járásával megegyező irányba). Ez megváltoztatja a figura irányát.",
+      "category": "Mozgás"
     }
   }
 }

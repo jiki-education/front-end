@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "ballNotAtEnd": "球滚动到了{{ballX}}，但离出发点不是 60 步。",
+    "missingPositions": "球必须一步一步地滚动经过每个位置，从 29 开始。",
+    "codeQuality": {
+      "tooManyLines": "你的代码行数太多。试着用循环来缩短它。"
+    }
+  },
+  "tasks": {
+    "rollBall": {
+      "name": "把球滚进洞里",
+      "description": "把球滚进洞里"
+    }
+  },
+  "scenarios": {
+    "rollBall": {
+      "name": "把球滚进洞里",
+      "description": "把球滚进洞里"
+    }
+  },
+  "hints": {
+    "icantWorkItOut": {
+      "question": "我解不出来",
+      "answer": "你可以使用两个工具：\n- 一个 `repeat` 循环，通过写 `repeat(n) { }` 来使用，其中 `n` 是你想要滚动的次数，你可以在花括号（`{ }`）里放任何内容。\n- 一个 `roll()` 函数，将球向右滚动一步。\n\n你怎样把它们结合起来？"
+    }
+  },
+  "functions": {
+    "roll": {
+      "description": "将球**向右滚动一步**。",
+      "category": "移动"
+    }
+  },
+  "describers": {
+    "roll": "将球向右滚动了一步"
+  }
+}

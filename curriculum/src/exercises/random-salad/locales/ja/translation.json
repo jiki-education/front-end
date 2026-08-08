@@ -1,0 +1,62 @@
+{
+  "errors": {
+    "leavesNumber": "葉っぱの値は数値でなければなりません。",
+    "tomatoesNumber": "トマトの値は数値でなければなりません。",
+    "croutonsNumber": "クルトンの値は数値でなければなりません。",
+    "olivesNumber": "オリーブの値は数値でなければなりません。"
+  },
+  "checks": {
+    "saladNotMade": "サラダが作られていません。4つの材料すべてを指定して <code>makeSalad()</code> を呼び出しているか確認してください。",
+    "needLeavesRandomInt": "葉っぱの枚数を生成するには、<code>Math.randomInt(40, 100)</code> を呼び出す必要があります。",
+    "needTomatoesRandomInt": "トマトの数を生成するには、<code>Math.randomInt(5, leaves / 5)</code> を呼び出す必要があります。",
+    "needCroutonsRandomInt": "クルトンの数を生成するには、<code>Math.randomInt(tomatoes, tomatoes * 2)</code> を呼び出す必要があります。",
+    "needOlivesRandomInt": "オリーブの数を生成するには、<code>Math.randomInt(1, tomatoes / 2)</code> を呼び出す必要があります。"
+  },
+  "tasks": {
+    "makeRandomSalad": {
+      "name": "ランダムなサラダを作る",
+      "description": "Math.randomInt() を使って各材料の量をランダムに生成し、サラダを作ります。"
+    }
+  },
+  "scenarios": {
+    "randomSalad": {
+      "name": "ランダムサラダ",
+      "description": "各材料の量をランダムにしてサラダを作ります。"
+    }
+  },
+  "hints": {
+    "leavesExample": {
+      "question": "葉っぱの枚数の決め方の例を教えてください",
+      "answer": "`let leaves = Math.randomInt(40, 100)` を使ってサラダの葉っぱの枚数をランダムに生成します。この値は他の関数でも使えます。"
+    },
+    "leavesCount": {
+      "question": "葉っぱは何枚必要ですか？",
+      "answer": "40枚から100枚の間です。"
+    },
+    "tomatoesCount": {
+      "question": "トマトは何個必要ですか？",
+      "answer": "少なくとも5個、葉っぱ5枚につき1個を超えないこと。"
+    },
+    "croutonsCount": {
+      "question": "クルトンは何個必要ですか？",
+      "answer": "トマトの数以上、トマトの2倍以下です。"
+    },
+    "olivesCount": {
+      "question": "オリーブは何個必要ですか？",
+      "answer": "少なくとも1個、トマトの数の半分以下です。"
+    },
+    "makeSalad": {
+      "question": "どうやってサラダを作りますか？",
+      "answer": "各材料の量を決めたら、makeSalad() に葉っぱ、トマト、クルトン、オリーブを渡します。"
+    }
+  },
+  "describers": {
+    "makeSalad": "葉っぱ${arg1}枚、トマト${arg2}個、クルトン${arg3}個、オリーブ${arg4}個でサラダを作りました。"
+  },
+  "functions": {
+    "makeSalad": {
+      "description": "指定された量の各材料でサラダを作ります。",
+      "category": "アクション"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "Sử dụng hàm"
+  },
+  "strings-and-colors": {
+    "title": "Chuỗi và màu sắc"
+  },
+  "repeat-loop": {
+    "title": "Vòng lặp repeat"
+  },
+  "variables": {
+    "title": "Biến"
+  },
+  "basic-state": {
+    "title": "Trạng thái cơ bản"
+  },
+  "functions-that-return-things": {
+    "title": "Hàm trả về giá trị"
+  },
+  "conditionals": {
+    "title": "Câu lệnh điều kiện"
+  },
+  "complex-conditionals": {
+    "title": "Điều kiện phức tạp"
+  },
+  "conditionals-and-state": {
+    "title": "Điều kiện và trạng thái"
+  },
+  "make-your-own-functions": {
+    "title": "Tự viết hàm"
+  },
+  "string-manipulation": {
+    "title": "Xử lý chuỗi"
+  },
+  "string-iteration": {
+    "title": "Duyệt chuỗi"
+  },
+  "multiple-functions": {
+    "title": "Kết hợp nhiều hàm"
+  },
+  "methods-and-properties": {
+    "title": "Phương thức và thuộc tính"
+  },
+  "advanced-loops": {
+    "title": "Vòng lặp nâng cao"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "Từ điển"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "Tất cả"
+  }
+}

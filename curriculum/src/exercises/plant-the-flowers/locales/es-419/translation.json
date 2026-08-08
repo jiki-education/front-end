@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "flowerCount": "Se esperaban 9 flores, pero se encontraron {{got}}.",
+    "missingFlowerAt10": "Falta una flor en la posición 10.",
+    "missingFlowerAt50": "Falta una flor en la posición 50.",
+    "missingFlowerAt90": "Falta una flor en la posición 90.",
+    "tooManyLines": "Tu solución tiene demasiadas líneas de código. Intenta encontrar una manera de hacerla más corta."
+  },
+  "tasks": {
+    "plantFlowers": {
+      "name": "Planta 9 flores",
+      "description": "Usa una variable y un bucle repeat para plantar 9 flores en las posiciones 10, 20, 30, ..., 90."
+    }
+  },
+  "scenarios": {
+    "plantFlowers": {
+      "name": "Planta 9 flores",
+      "description": "Plantar flores en las posiciones 10, 20, 30, 40, 50, 60, 70, 80 y 90."
+    }
+  },
+  "hints": {
+    "stuck": {
+      "question": "Estoy totalmente atascado.",
+      "answer": "Revisa los videos recientes sobre cómo usar bucles repeat y actualizar variables para rastrear el estado. Te dirán todo lo que necesitas saber."
+    }
+  },
+  "functions": {
+    "plant": {
+      "description": "Planta una flor en la **posición** dada.",
+      "category": "Jardinería"
+    }
+  },
+  "describers": {
+    "plant": "plantó una flor en la posición ${arg1}"
+  }
+}

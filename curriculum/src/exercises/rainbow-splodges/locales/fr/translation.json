@@ -1,0 +1,42 @@
+{
+  "checks": {
+    "uniqueColoredCircles": "Il faut au moins 50 cercles de couleurs différentes. Assure-toi que chaque cercle a une couleur aléatoire.",
+    "uniquePositionedCircles": "Il faut au moins 30 positions différentes. Assure-toi que chaque cercle a une position aléatoire.",
+    "radiiRange": "Le rayon de chaque cercle doit être d'au moins 1 et inférieur à 30.",
+    "insideBox": "Les cercles ne doivent pas sortir du cadre. Tiens compte du rayon de chaque cercle quand tu choisis sa position.",
+    "touchEdges": "Aucun de tes cercles ne touche les bords du canvas. Si tu penses que ton code est correct, il se peut que les nombres aléatoires n'aient simplement pas placé de cercle exactement sur un bord. Essaie de l'exécuter à nouveau !",
+    "saturationLightnessRange": "La saturation et la luminosité doivent toutes les deux être comprises entre 20 et 80."
+  },
+  "tasks": {
+    "drawSplodges": {
+      "name": "Dessine des taches arc-en-ciel",
+      "description": "Dessine 200 cercles à des positions aléatoires avec des couleurs aléatoires."
+    }
+  },
+  "scenarios": {
+    "rainbowSplodges": {
+      "name": "Taches arc-en-ciel",
+      "description": "Dessine 200 cercles de couleurs aléatoires à des positions aléatoires."
+    }
+  },
+  "hints": {
+    "keepCirclesInBox": {
+      "question": "Comment garder les cercles à l'intérieur du cadre ?",
+      "answer": "L'ordre est important. Il faut d'abord décider du rayon du cercle, puis t'assurer que ses positions top et left ne lui permettent jamais de dépasser du cadre."
+    },
+    "circlesEscapingBox": {
+      "question": "Je n'arrive pas à garder mes cercles dans le cadre",
+      "answer": "Rappelle-toi que la position d'un cercle est son centre, donc il faut tenir compte de son rayon pour que le cercle entier reste à l'intérieur. Si tu laisses une position descendre jusqu'à 0, le bord du cercle dépassera du cadre d'une longueur égale à son rayon. Alors, à quelle valeur ce minimum doit-il passer pour que le cercle ne sorte jamais du cadre ? Applique ensuite la même logique au maximum."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Dessine un cercle centré en (centerX, centerY), avec le rayon et la couleur donnés",
+      "category": "Dessin de formes"
+    },
+    "hsl": {
+      "description": "Convertit des valeurs de couleur HSL (teinte 0-360, saturation 0-100, luminosité 0-100) en une string de couleur hexadécimale",
+      "category": "Couleurs"
+    }
+  }
+}

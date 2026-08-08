@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "tooManyLines": "Koristiš više linija nego što je potrebno — pokušaj da skratiš."
+  },
+  "tasks": {
+    "calculateHammingDistance": {
+      "name": "Izračunaj Hammingovo rastojanje",
+      "description": "Napiši funkciju koja izračunava Hammingovo rastojanje između dva DNK lanca jednake dužine. Hammingovo rastojanje je broj pozicija na kojima se odgovarajući karakteri razlikuju."
+    },
+    "solveInElevenLines": {
+      "name": "Reši u jedanaest linija koda",
+      "description": "Možeš li da rešiš ovo koristeći najviše jedanaest linija koda?"
+    }
+  },
+  "scenarios": {
+    "hammingEmptyStrands": {
+      "name": "Prazni lanci",
+      "description": "Prazni lanci imaju Hammingovo rastojanje 0."
+    },
+    "hammingSingleLetterIdentical": {
+      "name": "Jednoslovni identični lanci",
+      "description": "Jednoslovni identični lanci imaju Hammingovo rastojanje 0."
+    },
+    "hammingLongIdenticalStrands": {
+      "name": "Dugi identični lanci",
+      "description": "Dugi identični lanci imaju Hammingovo rastojanje 0."
+    },
+    "hammingSingleLetterDifferent": {
+      "name": "Jednoslovni različiti lanci",
+      "description": "Jednoslovni različiti lanci imaju Hammingovo rastojanje 1."
+    },
+    "hammingLongDifferentStrands": {
+      "name": "Dugi različiti lanci",
+      "description": "Dugi različiti lanci imaju izračunato Hammingovo rastojanje."
+    },
+    "hammingBonusElevenLines": {
+      "name": "Jedanaest linija koda",
+      "description": "Reši vežbu koristeći najviše jedanaest linija koda."
+    }
+  },
+  "hints": {
+    "hammingDistanceMeaning": {
+      "question": "Šta „Hammingovo rastojanje” znači jednostavnim rečima?",
+      "answer": "To je broj pozicija na kojima se dva stringa razlikuju. Na primer, 'GAGA' i 'GATA' se razlikuju samo na poziciji 3, što daje rastojanje 1."
+    },
+    "compareCharactersAtPosition": {
+      "question": "Kako da uporedim karaktere na istoj poziciji u oba stringa?",
+      "answer": "Moraćeš da prolaziš kroz oba stringa sinhronizovano, tako da možeš da uzmeš karakter na istom mestu iz svakog dok ideš."
+    },
+    "trackDifferenceCount": {
+      "question": "Kako da pratim „koliko ima razlika”?",
+      "answer": "Trebaće ti nešto što održava tekući zbir, ažuriran kad god primetiš neslaganje, tako da bude spremno za vraćanje kad proveriš svaku poziciju."
+    }
+  }
+}

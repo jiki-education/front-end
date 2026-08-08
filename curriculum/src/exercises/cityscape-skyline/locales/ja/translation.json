@@ -1,0 +1,93 @@
+{
+  "checks": {
+    "totalCells": "セルの総数は{{expectedTotal}}個が必要ですが、{{got}}個になっています。",
+    "wrongPosition": "建物{{building}}の位置が正しくありません。列{{start}}から始まっていますが、列{{expected}}から始まる必要があります。",
+    "wrongEntrance": "建物{{building}}：入口の位置が正しくありません。",
+    "wrongGroundWalls": "建物{{building}}：1階の両端の壁が正しくありません。",
+    "wrongRoof": "建物{{building}}：屋根が完成していません。"
+  },
+  "tasks": {
+    "buildSkyline": {
+      "name": "街のスカイラインを作る",
+      "description": "ランダムな幅と高さの建物を複数作って、街のスカイラインを作ります。"
+    }
+  },
+  "scenarios": {
+    "buildings1": {
+      "name": "建物1棟",
+      "description": "ランダムな幅と高さで建物を1棟作ります。"
+    },
+    "buildings2": {
+      "name": "建物2棟",
+      "description": "ランダムな幅と高さで建物を2棟作ります。"
+    },
+    "buildings3": {
+      "name": "建物3棟",
+      "description": "ランダムな幅と高さで建物を3棟作ります。"
+    },
+    "buildings4": {
+      "name": "建物4棟",
+      "description": "ランダムな幅と高さで建物を4棟作ります。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "こんなに大きな演習、どこから始めればいいの？",
+      "answer": "細かく分けて考えましょう。外側のループは各建物ごとに1回です。そのループの中で、順番に3つの部分を描きます：1階（入口付き）、上の階（壁とガラスだけ）、そして平らな屋根です。複数の建物を心配する前に、まず1棟の建物のシナリオを通過させましょう。"
+    },
+    "buildingDimensions": {
+      "question": "各建物がどんな形か知るには？",
+      "answer": "各建物の繰り返しの最初に `randomWidth()` と `randomNumFloors()` を1回ずつ呼び出し、両方ともローカル変数に保存します。もう一度呼び出すと*次の*建物の値が得られるので、行の内部で再び呼び出さないでください。"
+    },
+    "trackPosition": {
+      "question": "次の建物の位置をどうやって追跡する？",
+      "answer": "現在の建物の左端の列を保持する変数を1つだけ使います。仕様書の左の隙間から始めます。建物を描き終えたら、その建物の幅と建物間の隙間を加算して前進させます。この変数だけで水平方向の配置はすべて管理できます。"
+    },
+    "groundFloorLayout": {
+      "question": "入口を中央にした1階をどう配置する？",
+      "answer": "建物を1列ずつ横切ります。最初と最後の列は壁で、その間はすべてガラス、中央の1列が入口です。入口の列は建物の左端と幅から計算します。"
+    },
+    "upperFloorsAndRoof": {
+      "question": "上の階と屋根はどうやって描く？",
+      "answer": "上の各階は1階と同じパターンで、入口がありません。両端が壁、間がガラスです。1階も階数の1つに数えられるので、残りの階だけを上に積み重ね、`y`座標を増やします。屋根はその上に幅全体にわたる壁の列を1行描き、階数には含めません。"
+    },
+    "stuckError": {
+      "question": "2つ目の建物で「the builders are stuck, there's already a wall here」というエラーが出ます。何が問題？",
+      "answer": "建物間で列のトラッカーを進めていないため、2つ目の建物が1つ目の上に建てようとしています。各建物を描いた後、次の繰り返しが始まる前に `幅 + 隙間` 分だけ増やしてください。忘れると、すべての建物が同じ左端から始まり、前の建物と衝突します。"
+    }
+  },
+  "functions": {
+    "buildWall": {
+      "description": "グリッド位置(x, y)に**壁ブロック**を配置します。",
+      "category": "建設"
+    },
+    "buildGlass": {
+      "description": "グリッド位置(x, y)に**ガラスパネル**を配置します。",
+      "category": "建設"
+    },
+    "buildEntrance": {
+      "description": "グリッド位置(x, y)に**入口ドア**を配置します。",
+      "category": "建設"
+    },
+    "numBuildings": {
+      "description": "建設する**建物の数**を返します。",
+      "category": "情報"
+    },
+    "randomWidth": {
+      "description": "**ランダムな建物の幅**（3、5、7のいずれか）を返します。",
+      "category": "情報"
+    },
+    "randomNumFloors": {
+      "description": "1から12の間の**ランダムな階数**を返します。",
+      "category": "情報"
+    }
+  },
+  "describers": {
+    "buildWall": "位置(${arg1}, ${arg2})に壁を作りました。",
+    "buildEntrance": "位置(${arg1}, ${arg2})に入口を作りました。",
+    "buildGlass": "位置(${arg1}, ${arg2})にガラスパネルを作りました。",
+    "numBuildings": "建物の数を取得しました。",
+    "randomWidth": "ランダムな建物の幅（3-7）を取得しました。",
+    "randomNumFloors": "ランダムな階数（1-12）を取得しました。"
+  }
+}

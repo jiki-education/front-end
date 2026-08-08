@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "Non hai raggiunto la fine del labirinto."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Guida il personaggio fino alla fine del labirinto",
+      "description": "Attraversa il labirinto per raggiungere il bersaglio verde"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Guida il personaggio fino alla fine del labirinto",
+      "description": "Il tuo compito è guidare il personaggio attraverso il labirinto fino alla casella verde di arrivo."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "Che cosa devo spostare, e dove?",
+      "answer": "Devi portare l'omino, che parte in alto a sinistra, fino al cerchio verde in basso a destra, evitando le caselle a righe rosse."
+    },
+    "turnLeftTurnsRight": {
+      "question": "Quando giro a sinistra, il personaggio gira a destra!",
+      "answer": "Il personaggio gira rispetto alla direzione in cui è rivolto. Quindi, se è rivolto verso destra e gira a sinistra, il personaggio si ritroverà rivolto verso l'alto."
+    }
+  }
+}

@@ -1,40 +1,40 @@
 {
   "describers": {
-    "move": "moved the laser cannon to the right"
+    "move": "jobbra mozgatta a lézerágyút"
   },
   "checks": {
-    "notShotAllAliens": "You didn't shoot down all the aliens."
+    "notShotAllAliens": "Nem lőtted le az összes űrlényt."
   },
   "tasks": {
     "shootTheAliens": {
-      "name": "Shoot all the aliens",
-      "description": "Move your laser cannon to the right and shoot each alien as you pass underneath it. Don't miss or move off the edge!"
+      "name": "Lődd le az összes űrlényt",
+      "description": "Mozgasd jobbra a lézerágyúdat, és lődd le az űrlényeket, ahogy elhaladsz alattuk. Ne lőj mellé, és ne lépj le a pálya széléről!"
     }
   },
   "scenarios": {
     "shootTheAliens": {
-      "name": "Shoot the Aliens",
-      "description": "Move right and shoot all the aliens"
+      "name": "Lődd le az űrlényeket",
+      "description": "Mozogj jobbra, és lődd le az összes űrlényt"
     }
   },
   "hints": {
     "whatDoINeedToDo": {
-      "question": "What do I need to do?",
-      "answer": "Like the maze, you need to move your character (this time a laser, not a person). But you also need to shoot from the laser! Move the laser underneath an alien then shoot. Then move again until you're under the next alien, and shoot again. Continue until you've shot down the last alien!"
+      "question": "Mi a dolgom?",
+      "answer": "A labirintushoz hasonlóan itt is mozgatnod kell a figurádat (csak most nem ember, hanem egy lézer). De ezúttal lőnöd is kell vele! Vidd a lézert egy űrlény alá, aztán lőj. Utána mozogj tovább, amíg a következő űrlény alá nem érsz, és lőj újra. Így haladj, amíg az utolsó űrlényt is le nem lőtted!"
     },
     "cantWasteAmmo": {
-      "question": "I get told I can't waste ammo.",
-      "answer": "You should only `shoot()` when you're directly below an alien. Try moving one step further (or maybe you've gone one too far?)"
+      "question": "Azt írja ki, hogy nem pazarolhatok lőszert.",
+      "answer": "Csak akkor használd a `shoot()`-ot, ha pontosan egy űrlény alatt állsz. Próbálj meg egy lépéssel tovább menni (vagy lehet, hogy eggyel túl messzire mentél?)"
     }
   },
   "functions": {
     "move": {
-      "description": "Moves the laser cannon **one position to the right**. If you move off the right edge of the screen, you lose!",
-      "category": "Movement"
+      "description": "**Egy pozícióval jobbra** mozgatja a lézerágyút. Ha lelépsz a képernyő jobb széléről, veszítesz!",
+      "category": "Mozgás"
     },
     "shoot": {
-      "description": "Shoots the laser upwards. **Only shoot when there's an alien above you**, or you lose the game!",
-      "category": "Action"
+      "description": "Felfelé lő a lézerrel. **Csak akkor lőj, ha van feletted űrlény**, különben elveszíted a játékot!",
+      "category": "Művelet"
     }
   }
 }

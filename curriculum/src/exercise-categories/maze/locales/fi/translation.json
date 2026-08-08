@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "Voi ei! Yritit pudota sokkelon reunalta!",
+    "hitWall": "Auts! Kävelit päin seinää!",
+    "walkedIntoFire": "Auts! Kävelit tuleen!",
+    "walkedIntoPoop": "Yäk! Kävelit kakkaan! 💩💩💩"
+  },
+  "describers": {
+    "move": "Siirtää hahmoa yhden ruudun eteenpäin",
+    "turnLeft": "Kääntää hahmoa 90 astetta vasemmalle",
+    "turnRight": "Kääntää hahmoa 90 astetta oikealle"
+  }
+}

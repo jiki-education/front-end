@@ -1,0 +1,40 @@
+{
+  "errors": {
+    "positionNotNumber": "La posición debe ser un número."
+  },
+  "checks": {
+    "ballNotAtEnd": "La pelota no llegó al hoyo. Está en la posición {{ballX}}, pero debe estar en la posición 88.",
+    "missingPositions": "La pelota debe rodar por cada posición una por una, sin saltar directamente al final."
+  },
+  "tasks": {
+    "rollBall": {
+      "name": "Rodar la pelota hasta el hoyo",
+      "description": "Rodar la pelota hasta el hoyo."
+    }
+  },
+  "scenarios": {
+    "rollBall": {
+      "name": "Rodar la pelota hasta el hoyo",
+      "description": "Rodar la pelota hasta el hoyo."
+    }
+  },
+  "hints": {
+    "dontKnowWhereToStart": {
+      "question": "No sé por dónde empezar",
+      "answer": "La clave es mover la pelota un paso hacia adelante cada vez. Puedes usar una variable para hacerlo. Piensa en cómo podría funcionar."
+    },
+    "stillCantFigureItOut": {
+      "question": "Sigo sin poder resolverlo",
+      "answer": "Quieres crear una variable para rastrear dónde está la pelota. Debe comenzar donde está ahora, luego aumentar en uno muchas veces. Cada vez que aumente, debes usar `moveTo(...)` pasando la variable como argumento."
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "Mueve la pelota a la **posición**.",
+      "category": "Movimiento"
+    }
+  },
+  "describers": {
+    "moveTo": "movió la pelota a la posición ${arg1}"
+  }
+}

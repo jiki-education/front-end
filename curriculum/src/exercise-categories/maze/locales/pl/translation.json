@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "O nie! Ludzik o mało nie spadł z krawędzi labiryntu!",
+    "hitWall": "Auć! Ludzik wszedł w ścianę!",
+    "walkedIntoFire": "Auć! Ludzik wszedł w ogień!",
+    "walkedIntoPoop": "O fuj! Ludzik wszedł w kupę! 💩💩💩"
+  },
+  "describers": {
+    "move": "Przesuwa ludzika o jedno pole do przodu",
+    "turnLeft": "Obraca ludzika o 90 stopni w lewo",
+    "turnRight": "Obraca ludzika o 90 stopni w prawo"
+  }
+}

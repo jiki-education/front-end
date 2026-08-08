@@ -1,0 +1,32 @@
+{
+  "tasks": {
+    "createSayHelloFunction": {
+      "name": "sayHello関数を作成",
+      "description": "名前を受け取り、「Hello, [name]!」という挨拶を返すsayHello関数を書いてください。"
+    }
+  },
+  "scenarios": {
+    "helloAiko": {
+      "name": "Aikoに挨拶",
+      "description": "「Hello, Aiko!」を返す"
+    },
+    "helloPriya": {
+      "name": "Priyaに挨拶",
+      "description": "「Hello, Priya!」を返す"
+    },
+    "helloMei": {
+      "name": "Meiに挨拶",
+      "description": "「Hello, Mei!」を返す"
+    }
+  },
+  "hints": {
+    "answerShape": {
+      "question": "作成しようとしている解答の基本的な形は何ですか？",
+      "answer": "3つの部品を結合します。最初の固定部分`\"Hello, \"`、次に名前、最後の固定部分`\"!\"`です。"
+    },
+    "joinStrings": {
+      "question": "文字列を連結するにはどうすればよいですか？",
+      "answer": "`+`を使った連結、または`${}`プレースホルダーを使ったテンプレート文字列を用いて、3つの部品を1つの文字列に結合してください。"
+    }
+  }
+}

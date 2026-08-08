@@ -1,0 +1,46 @@
+{
+  "errors": {
+    "allInputsNumbers": "सभी इनपुट संख्याएँ होनी चाहिए।",
+    "blueRange": "नीला रंग 0 से 255 के बीच होना चाहिए।",
+    "circleInputsNumbers": "x, y और radius इनपुट संख्याएँ होनी चाहिए।",
+    "colorNamedOrHex": "रंग या तो निर्देशों में बताया गया कोई नाम वाला रंग (\"orange\", \"blue\", \"white\", वगैरह) होना चाहिए, या # से शुरू होने वाला कोई हेक्स रंग।",
+    "colorNotAllowed": "इस अभ्यास में रंग नहीं बताना है।",
+    "colorNotString": "रंग एक स्ट्रिंग होनी चाहिए।",
+    "ellipseInputsNumbers": "x, y, rx और ry इनपुट संख्याएँ होनी चाहिए।",
+    "greenRange": "हरा रंग 0 से 255 के बीच होना चाहिए।",
+    "heightPositive": "ऊँचाई 0 से बड़ी होनी चाहिए।",
+    "hueRange": "मूल रंग 0 से 360 के बीच होना चाहिए।",
+    "lightnessRange": "हल्कापन 0 से 100 के बीच होना चाहिए।",
+    "lineInputsNumbers": "x1, y1, x2 और y2 इनपुट संख्याएँ होनी चाहिए।",
+    "rectInputsNumbers": "x, y, width और height इनपुट संख्याएँ होनी चाहिए।",
+    "redRange": "लाल रंग 0 से 255 के बीच होना चाहिए।",
+    "saturationRange": "संतृप्ति 0 से 100 के बीच होनी चाहिए।",
+    "triangleInputsNumbers": "x1, y1, x2, y2, x3 और y3 इनपुट संख्याएँ होनी चाहिए।",
+    "widthPositive": "चौड़ाई 0 से बड़ी होनी चाहिए।"
+  },
+  "describers": {
+    "rectangle": {
+      "default": "(${arg1}, ${arg2}) पर ${arg3} चौड़ाई, ${arg4} ऊँचाई और ${arg5} रंग वाला एक आयत (rectangle) बनाया",
+      "fixedColor": "(${arg1}, ${arg2}) पर ${arg3} चौड़ाई और ${arg4} ऊँचाई वाला एक आयत (rectangle) बनाया"
+    },
+    "triangle": {
+      "default": "तीन बिंदुओं (${arg1}, ${arg2}), (${arg3}, ${arg4}) और (${arg5}, ${arg6}) से ${arg7} रंग का एक त्रिभुज (triangle) बनाया",
+      "fixedColor": "तीन बिंदुओं (${arg1}, ${arg2}), (${arg3}, ${arg4}) और (${arg5}, ${arg6}) से एक त्रिभुज (triangle) बनाया"
+    },
+    "circle": {
+      "default": "(${arg1}, ${arg2}) पर केंद्र, ${arg3} त्रिज्या और ${arg4} रंग वाला एक वृत्त (circle) बनाया",
+      "fixedColor": "(${arg1}, ${arg2}) पर केंद्र और ${arg3} त्रिज्या वाला एक वृत्त (circle) बनाया"
+    },
+    "ellipse": {
+      "default": "(${arg1}, ${arg2}) पर केंद्र, ${arg3} आड़ी त्रिज्या, ${arg4} खड़ी त्रिज्या और ${arg5} रंग वाला एक दीर्घवृत्त (ellipse) बनाया",
+      "fixedColor": "(${arg1}, ${arg2}) पर केंद्र, ${arg3} आड़ी त्रिज्या और ${arg4} खड़ी त्रिज्या वाला एक दीर्घवृत्त (ellipse) बनाया"
+    },
+    "line": {
+      "default": "(${arg1}, ${arg2}) से (${arg3}, ${arg4}) तक ${arg5} रंग की एक रेखा खींची",
+      "fixedColor": "(${arg1}, ${arg2}) से (${arg3}, ${arg4}) तक एक रेखा खींची"
+    },
+    "clear": "कैनवास साफ किया",
+    "hsl": "HSL रंग (मूल रंग: ${arg1}, संतृप्ति: ${arg2}, हल्कापन: ${arg3}) को हेक्स स्ट्रिंग में बदला",
+    "rgb": "RGB रंग (लाल: ${arg1}, हरा: ${arg2}, नीला: ${arg3}) को हेक्स स्ट्रिंग में बदला"
+  }
+}

@@ -1,71 +1,71 @@
 {
   "checks": {
-    "tooManyLines": "Your solution has too many lines of code. Can you make it shorter?"
+    "tooManyLines": "A megoldásod túl sok kódsorból áll. Le tudod rövidíteni?"
   },
   "tasks": {
     "searchForTile": {
-      "name": "Search for a Tile",
-      "description": "Write a function that checks whether a specific letter tile is in the rack. Return true if found, false if not."
+      "name": "Csempe keresése",
+      "description": "Írj egy függvényt, ami ellenőrzi, hogy egy adott betűcsempe benne van-e a készletben. True-t adj vissza, ha megtalálta, false-t, ha nem."
     },
     "solveInEightLines": {
-      "name": "Solve in 8 lines of code",
-      "description": "Can you solve this exercise with only 8 lines of code?"
+      "name": "Oldd meg 8 kódsorban",
+      "description": "Meg tudod oldani ezt a feladatot mindössze 8 kódsorban?"
     }
   },
   "scenarios": {
     "letterFoundAtStart": {
-      "name": "Letter at the start",
-      "description": "The letter is the first tile in the rack."
+      "name": "Betű az elején",
+      "description": "A betű az első csempe a készletben."
     },
     "letterFoundInMiddle": {
-      "name": "Letter in the middle",
-      "description": "The letter is in the middle of the rack."
+      "name": "Betű középen",
+      "description": "A betű a készlet közepén van."
     },
     "letterFoundAtEnd": {
-      "name": "Letter at the end",
-      "description": "The letter is the last tile in the rack."
+      "name": "Betű a végén",
+      "description": "A betű az utolsó csempe a készletben."
     },
     "letterNotFound": {
-      "name": "Letter not found",
-      "description": "The letter isn't in the rack."
+      "name": "Nincs meg a betű",
+      "description": "A betű nincs benne a készletben."
     },
     "emptyRack": {
-      "name": "Empty rack",
-      "description": "An empty rack has no tiles to find."
+      "name": "Üres készlet",
+      "description": "Egy üres készletben nincsenek megtalálható csempék."
     },
     "duplicateLetters": {
-      "name": "Rack with duplicates",
-      "description": "The letter appears among duplicate tiles."
+      "name": "Duplikált csempék",
+      "description": "A betű ismétlődő csempék között jelenik meg."
     },
     "singleTileFound": {
-      "name": "Single tile found",
-      "description": "A rack with one tile that matches."
+      "name": "Egyetlen csempe megtalálható",
+      "description": "Egy készlet egyetlen csempével, ami egyezik."
     },
     "singleTileNotFound": {
-      "name": "Single tile not found",
-      "description": "A rack with one tile that doesn't match."
+      "name": "Egyetlen csempe nem egyezik",
+      "description": "Egy készlet egyetlen csempével, ami nem egyezik."
     },
     "bonus1": {
-      "name": "8 lines of code",
-      "description": "Solve the exercise with only 8 lines of code."
+      "name": "8 kódsor",
+      "description": "Oldd meg a feladatot mindössze 8 kódsorban."
     }
   },
   "hints": {
     "byHand": {
-      "question": "How would I do this by hand?",
-      "answer": "You'd go through the haystack one letter at a time, comparing each to the needle. As soon as you found a match you'd stop. If you got to the end without a match, the needle isn't there."
+      "question": "Hogy csinálnám ezt kézzel?",
+      "answer": "Betűnként végigmennél a szénakazalon, és minden betűt összehasonlítanál a tűvel. Amint találsz egyezést, megállsz. Ha a végére érsz anélkül, hogy egyezést találtál volna, a tű nincs ott."
     },
     "loopAndCompare": {
-      "question": "How do I loop and compare?",
-      "answer": "A for-of loop gives you each letter of the string in turn. Inside, an if-statement compares the current letter to the needle."
+      "question": "Hogyan csináljak ciklust és hasonlítsak össze?",
+      "answer": "Egy for-of ciklus sorban megadja a string minden betűjét. A cikluson belül egy if-utasítás összehasonlítja az aktuális betűt a tűvel."
     },
     "returnTrue": {
-      "question": "When should I return true?",
-      "answer": "As soon as you find a match. There's no point checking the remaining letters."
+      "question": "Mikor adjak vissza true-t?",
+      "answer": "Amint találsz egyezést. Nincs értelme tovább ellenőrizni a hátralévő betűket."
     },
     "returnFalse": {
-      "question": "When should I return false?",
-      "answer": "ONLY after the loop has finished without finding a match. A common mistake is putting `return false` inside the loop. That gives up after the very first non-matching letter, before you've checked the rest."
+      "question": "Mikor adjak vissza false-t?",
+      "answer": "CSAK akkor adj vissza false-t, ha a ciklus már befejeződött, és nem találtál egyezést. Gyakori hiba, hogy a `return false`-t a cikluson belülre írod. Ez már az első nem egyező betűnél feladja, mielőtt a többit ellenőrizted volna."
     }
   }
 }

@@ -1,52 +1,52 @@
 {
   "beta_user": {
-    "name": "�",
-    "description": "�",
-    "funFact": "�"
+    "name": "Béta felhasználó",
+    "description": "Csatlakoztál Jikihez a béta alatt",
+    "funFact": "A béta felhasználók segítenek formálni Jiki jövőjét. Köszönjük, hogy ilyen korán hittél bennünk!"
   },
   "early_bird": {
-    "name": "�",
-    "description": "�",
-    "funFact": "�"
+    "name": "Korán kelő",
+    "description": "Befejeztél egy leckét a kora reggeli órákban",
+    "funFact": "Ki korán kel, aranyat lel. Szupererő kódolni, mielőtt a világ felébred!"
   },
   "first_lesson": {
-    "name": "�",
-    "description": "�",
-    "funFact": "�"
+    "name": "Első lépések",
+    "description": "Befejezted az első leckédet",
+    "funFact": "Minden utazás legnehezebb része az első lépés megtétele. Megcsináltad!"
   },
   "maze_navigator": {
-    "name": "�",
-    "description": "�",
-    "funFact": "�"
+    "name": "Labirintus-navigátor",
+    "description": "Befejezted a Labirintus megoldása leckét",
+    "funFact": "A labirintusmegoldó algoritmusokat robotikában, játék-AI-ban és még GPS-navigációban is használják!"
   },
   "member": {
-    "name": "�",
-    "description": "�",
-    "funFact": "�"
+    "name": "Tag",
+    "description": "Csatlakoztál a Jikihez",
+    "funFact": "Üdv a közösségben! Minden szakértő egyszer kezdő volt."
   },
   "night_owl": {
-    "name": "�",
-    "description": "�",
-    "funFact": "�"
+    "name": "Éjjeli bagoly",
+    "description": "Befejeztél egy leckét a késő esti órákban",
+    "funFact": "Jeremy úgy nőtt fel, hogy késő éjszakáig kódolt. Van valami varázslatos abban, ha kódolsz, miközben a világ alszik!"
   },
   "premium": {
-    "name": "�",
-    "description": "�",
-    "funFact": "�"
+    "name": "Prémium",
+    "description": "Prémium tag lettél",
+    "funFact": "Köszönjük, hogy támogatod Jikit! A prémium tagságod segít, hogy tovább fejleszthessünk."
   },
   "scenario_handler": {
-    "name": "�",
-    "description": "�",
-    "funFact": "�"
+    "name": "Forgatókönyv-kezelő",
+    "description": "Oldj meg egy feladatot forgatókönyvekkel.",
+    "funFact": "A való világban a »forgatókönyveket« »teszteknek« nevezzük, és azért írjuk őket, hogy ellenőrizzük, a kódunk különböző módokon működik-e."
   },
   "sidekick": {
-    "name": "�",
-    "description": "�",
-    "funFact": "�"
+    "name": "Segítőtárs",
+    "description": "Elküldted az első üzenetedet Jikinek",
+    "funFact": "Két fej jobb, mint egy. Köszönjük, hogy csevegtél Jikivel!"
   },
   "townsfolk": {
-    "name": "�",
-    "description": "�",
-    "funFact": "�"
+    "name": "Városlakók",
+    "description": "Csatlakoztál a Jiki közösségi fórumához",
+    "funFact": "A legjobb módja a tanulásnak, ha tanítasz. Üdv a beszélgetésben!"
   }
 }

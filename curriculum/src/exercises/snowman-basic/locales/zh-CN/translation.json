@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "baseCircle": "底座（底部）的圆画得不对。",
+    "bodyCircle": "身体（中间的）圆画得不对。",
+    "headCircle": "头部（顶部的）圆画得不对。"
+  },
+  "tasks": {
+    "buildSnowman": {
+      "name": "构建雪人",
+      "description": "绘制三个圆形来构建雪人。"
+    }
+  },
+  "scenarios": {
+    "buildSnowman": {
+      "name": "构建雪人",
+      "description": "绘制三个圆形来构建雪人。"
+    }
+  },
+  "hints": {
+    "howToDrawCircle": {
+      "question": "如何在画布上绘制一个圆形？",
+      "answer": "调用 `circle(centerX, centerY, radius)`，其中 `centerX` 和 `centerY` 是中心坐标，`radius` 是圆的大小。"
+    },
+    "circlesHorizontalPosition": {
+      "question": "这些圆形应该在水平方向上放在什么位置？",
+      "answer": "三个圆形拥有相同的水平中心，所以每个圆形的 `centerX` 都是 `50`（画布宽度为 `100`）。"
+    },
+    "howToStackCircles": {
+      "question": "如何堆叠这三个圆形？",
+      "answer": "底座圆最大，位于底部附近（较高的 `centerY`）。上面每一个圆形的 `centerY` 较小，`radius` 也较小。"
+    },
+    "whatNumbersForRadii": {
+      "question": "半径应该使用什么数字？",
+      "answer": "本练习中的所有数字都能被 `5` 整除。尝试底座半径约`20`，身体半径约`15`，头部半径约`10`，调整直到与目标对齐。"
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "绘制一个以 (centerX, centerY) 为圆心、具有给定半径的圆形。",
+      "category": "绘制形状"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "baseCircle": "Le cercle de la base (en bas) n'est pas correct.",
+    "bodyCircle": "Le cercle du corps (au milieu) n'est pas correct.",
+    "headCircle": "Le cercle de la tête (en haut) n'est pas correct."
+  },
+  "tasks": {
+    "buildSnowman": {
+      "name": "Construis le bonhomme de neige",
+      "description": "Dessine trois cercles pour construire le bonhomme de neige."
+    }
+  },
+  "scenarios": {
+    "buildSnowman": {
+      "name": "Construis le bonhomme de neige",
+      "description": "Dessine trois cercles pour construire le bonhomme de neige."
+    }
+  },
+  "hints": {
+    "howToDrawCircle": {
+      "question": "Comment dessiner un cercle sur le canvas ?",
+      "answer": "Appelle `circle(centerX, centerY, radius)`, où `centerX` et `centerY` sont les coordonnées du centre, et `radius` la taille du cercle."
+    },
+    "circlesHorizontalPosition": {
+      "question": "Où placer les cercles horizontalement ?",
+      "answer": "Les trois cercles partagent le même centre horizontal, donc `centerX` vaut `50` pour chacun (le canvas fait `100` de large)."
+    },
+    "howToStackCircles": {
+      "question": "Comment empiler les trois cercles ?",
+      "answer": "Le cercle de la base est le plus grand et se trouve près du bas (un `centerY` élevé). Chaque cercle au-dessus a un `centerY` plus petit et un `radius` plus petit."
+    },
+    "whatNumbersForRadii": {
+      "question": "Quels nombres utiliser pour les rayons ?",
+      "answer": "Tous les nombres de cet exercice sont divisibles par `5`. Essaie un rayon d'environ `20` pour la base, `15` pour le corps et `10` pour la tête, puis ajuste jusqu'à ce qu'ils correspondent au modèle."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Dessine un cercle centré en (centerX, centerY) avec le rayon donné",
+      "category": "Dessin de formes"
+    }
+  }
+}

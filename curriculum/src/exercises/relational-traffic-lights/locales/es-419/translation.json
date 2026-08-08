@@ -1,0 +1,53 @@
+{
+  "checks": {
+    "housingWrong": "El rectángulo de la caja está en el lugar incorrecto o tiene el tamaño incorrecto. Revisa `housingX`, `housingY`, `housingWidth` y `housingHeight`.",
+    "redWrong": "La luz roja está en el lugar incorrecto o tiene el tamaño incorrecto. Revisa `redY`.",
+    "yellowWrong": "La luz amarilla está en el lugar incorrecto o tiene el tamaño incorrecto. Revisa `yellowY`.",
+    "greenWrong": "La luz verde está en el lugar incorrecto o tiene el tamaño incorrecto. Revisa `greenY`.",
+    "doesntScale": "Tu código no escala correctamente cuando `radius` es {{radius}}. Cada posición y tamaño debe derivarse de `center` y `radius`."
+  },
+  "tasks": {
+    "buildRelationalTrafficLights": {
+      "name": "Construye el semáforo relacional",
+      "description": "Deriva cada posición y tamaño a partir de `center` y `radius` para que el semáforo escale correctamente."
+    }
+  },
+  "scenarios": {
+    "buildRelationalTrafficLights": {
+      "name": "Construye el semáforo relacional",
+      "description": "Deriva cada posición y tamaño a partir de `center` y `radius`."
+    }
+  },
+  "hints": {
+    "howToWorkOutYellowCenter": {
+      "question": "¿Cómo calculo el centro de la luz amarilla?",
+      "answer": "Tienes una variable `center` que se te proporciona. Puedes asignar `yellowY` para que sea igual a ella."
+    },
+    "howToWorkOutRedCenter": {
+      "question": "¿Cómo calculo el centro de la luz roja?",
+      "answer": "Si los dos círculos se tocan, ¿a qué distancia están sus centros? Puedes restar esto de `center` para obtener la luz roja."
+    },
+    "whereHousingStarts": {
+      "question": "¿Dónde empieza el rectángulo de la caja?",
+      "answer": "Si conoces el centro del círculo rojo, puedes calcular la parte superior del círculo rojo. La caja empieza 1 radio por encima (antes) de la parte superior del círculo rojo. De manera similar, puedes calcular el lado izquierdo de una luz y luego ir 1 radio más allá para el inicio."
+    },
+    "howBigHousing": {
+      "question": "¿Qué tan grande debe ser la caja?",
+      "answer": "Es el ancho de una luz, más un relleno de 1 radio a cada lado. La altura es de 2 radios por luz más un radio arriba y abajo para el relleno."
+    },
+    "whyMultipleOfSomething": {
+      "question": "¿Por qué todo debe ser un múltiplo de otra cosa?",
+      "answer": "Si codificas un número fijo, al cambiar `radius` la caja tendrá el tamaño incorrecto para las luces. Usar fórmulas que involucren `radius` y `center` mantiene todo el dibujo en proporción."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dibuja un rectángulo en la posición (izquierda, arriba) con el ancho, alto y color dados.",
+      "category": "Dibujar formas"
+    },
+    "circle": {
+      "description": "Dibuja un círculo centrado en (centerX, centerY) con el radio y color dados.",
+      "category": "Dibujar formas"
+    }
+  }
+}

@@ -1,15 +1,16 @@
 ---
 title: "Space Invaders: Nested Repeat"
-description: "Fill the screen with rows and columns of aliens, then destroy them all."
+description: "Töltsd meg a képernyőt sorokba és oszlopokba rendezett űrlényekkel, majd semmisítsd meg mindet."
+en_md5: 86d826fafb0f610f2a0697bcfd29e8ff
 ---
 
-Even more aliens have appeared, and now they're **four rows deep**!
+Még több űrlény tűnt fel, ráadásul most már **négy sor mélyen** vannak!
 
-You have the same two functions as before:
+Ugyanaz a két függvény áll a rendelkezésedre, mint korábban:
 
-- `move()` moves your laser cannon one position to the right
-- `shoot()` fires the laser upwards
+- `move()` (`mozog`) egy pozícióval jobbra mozgatja a lézerágyúdat.
+- `shoot()` (`lő`) felfelé tüzel.
 
-The difference is you need to shoot multiple aliens per row.
+A különbség annyi, hogy most soronként több űrlényt kell kilőnöd.
 
-Your solution must be **7 lines of code or fewer**. Good luck!
+A megoldásod legfeljebb **7 sornyi kódból** állhat. Sok szerencsét!

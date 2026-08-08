@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "Oh nee, je probeerde van de rand van het doolhof te vallen!",
+    "hitWall": "Au, je bent tegen een muur gelopen!",
+    "walkedIntoFire": "Au! Je bent het vuur in gelopen!",
+    "walkedIntoPoop": "Gadver! Je bent in de poep gestapt! 💩💩💩"
+  },
+  "describers": {
+    "move": "Beweegt het personage één vakje naar voren",
+    "turnLeft": "Draait het personage 90 graden naar links",
+    "turnRight": "Draait het personage 90 graden naar rechts"
+  }
+}

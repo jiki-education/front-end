@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "Du kom inte fram till slutet av labyrinten."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Vägled figuren till slutet av labyrinten",
+      "description": "Ta dig genom labyrinten fram till det gröna målet"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Vägled figuren till slutet av labyrinten",
+      "description": "Din uppgift är att ta figuren genom labyrinten fram till den gröna målrutan."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "Vad är det jag ska flytta, och vart?",
+      "answer": "Du flyttar den lilla figuren, som börjar uppe till vänster, till den gröna cirkeln nere till höger, utan att gå på de rödrandiga rutorna."
+    },
+    "turnLeftTurnsRight": {
+      "question": "När jag svänger vänster svänger figuren höger!",
+      "answer": "Figuren svänger i förhållande till det håll den är vänd åt. Om den är vänd åt höger och svänger vänster, blir figuren vänd uppåt."
+    }
+  }
+}

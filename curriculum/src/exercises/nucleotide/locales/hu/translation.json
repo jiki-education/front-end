@@ -1,62 +1,62 @@
 {
   "tasks": {
     "countNucleotide": {
-      "name": "Count a Nucleotide",
-      "description": "Write a function that counts how many times a specific nucleotide (A, C, G, or T) appears in a DNA strand. Return -1 if the nucleotide or any character in the strand is invalid."
+      "name": "Nukleotid számlálása",
+      "description": "Írj egy függvényt, ami megszámolja, hányszor fordul elő egy adott nukleotid (A, C, G vagy T) egy DNS-szálban. Adj vissza -1-et, ha a nukleotid vagy a szál bármely karaktere érvénytelen."
     }
   },
   "scenarios": {
     "nucleotideEmptyStrand": {
-      "name": "Empty strand",
-      "description": "An empty strand should return 0 for any valid nucleotide."
+      "name": "Üres szál",
+      "description": "Egy üres szálnak minden érvényes nukleotidra 0-t kell visszaadnia."
     },
     "nucleotideSingleMatch": {
-      "name": "Single nucleotide strand",
-      "description": "A single-character strand matching the target should return 1."
+      "name": "Egy nukleotidból álló szál",
+      "description": "Egy olyan egy karakterből álló szál, ami megegyezik a keresett nukleotiddal, 1-et ad vissza."
     },
     "nucleotideRepeated": {
-      "name": "Repeated nucleotide",
-      "description": "A strand of repeated nucleotides should count all of them."
+      "name": "Ismétlődő nukleotid",
+      "description": "Egy ismétlődő nukleotidokból álló szál mindegyik nukleotidot megszámolja."
     },
     "nucleotideMixedStrandA": {
-      "name": "Count A in mixed strand",
-      "description": "Count a specific nucleotide in a mixed strand."
+      "name": "A megszámlálása vegyes szálban",
+      "description": "Számold meg egy adott nukleotid előfordulását egy vegyes szálban."
     },
     "nucleotideMixedStrandT": {
-      "name": "Count T in mixed strand",
-      "description": "Count a different nucleotide in the same strand."
+      "name": "T megszámlálása vegyes szálban",
+      "description": "Számold meg egy másik nukleotidot ugyanabban a szálban."
     },
     "nucleotideInvalidNucleotide": {
-      "name": "Invalid nucleotide",
-      "description": "An invalid nucleotide character should return -1."
+      "name": "Érvénytelen nukleotid",
+      "description": "Egy érvénytelen nukleotid karakter -1-et ad vissza."
     },
     "nucleotideInvalidStrand": {
-      "name": "Invalid strand",
-      "description": "A strand containing invalid characters should return -1."
+      "name": "Érvénytelen szál",
+      "description": "Egy érvénytelen karaktereket tartalmazó szál -1-et ad vissza."
     }
   },
   "hints": {
     "checkValid": {
-      "question": "How do I check that the character I'm asked about is valid?",
-      "answer": "Strings have an `includes()` method that tells you whether one string appears inside another. That's a handy way to ask whether a character is one of the valid nucleotides. Validate before you start counting."
+      "question": "Hogyan ellenőrizhetem, hogy a keresett karakter érvényes-e?",
+      "answer": "A stringek rendelkeznek egy `includes()` metódussal, ami megmondja, hogy egy karakterlánc része-e egy másiknak. Ez egy kényelmes módja annak, hogy megállapítsd, a karakter az érvényes nukleotidok közé tartozik-e. Ellenőrizz, mielőtt hozzálátnál a számláláshoz!"
     },
     "invalidNucleotide": {
-      "question": "What do I do if the nucleotide is invalid?",
-      "answer": "Return `-1` immediately. The spec uses that value to signal an invalid input."
+      "question": "Mi a teendő, ha a nukleotid érvénytelen?",
+      "answer": "Azonnal adj vissza `-1`-et. A feladat ezt az értéket használja az érvénytelen bemenet jelzésére."
     },
     "countOccurrences": {
-      "question": "How do I count occurrences in the strand?",
-      "answer": "Loop through each character of the strand. If the character matches the nucleotide you're counting, add 1 to a counter. Return the counter at the end."
+      "question": "Hogyan számolhatom meg az előfordulásokat a szálban?",
+      "answer": "Menj végig a szál minden karakterén egy ciklussal. Ha a karakter megegyezik a keresett nukleotiddal, növeld a számlálót 1-gyel. A végén add vissza a számláló értékét."
     },
     "validateStrand": {
-      "question": "Should I validate the strand too?",
-      "answer": "Yes. If any character in the strand isn't a valid nucleotide, return `-1`. Check each character before counting."
+      "question": "A szálat is ellenőriznem kell?",
+      "answer": "Igen. Ha a szál bármelyik karaktere nem érvényes nukleotid, adj vissza `-1`-et. Ellenőrizz minden karaktert, mielőtt számolnál."
     }
   },
   "functions": {
     "includes": {
-      "description": "Check whether a string contains a smaller string (provided by level stdlib)",
-      "category": "String Operations"
+      "description": "Megvizsgálja, hogy egy string tartalmaz-e egy rövidebb stringet (a feladat stdlib-je biztosítja).",
+      "category": "Stringműveletek"
     }
   }
 }

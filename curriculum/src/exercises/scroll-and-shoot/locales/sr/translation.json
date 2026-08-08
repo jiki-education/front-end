@@ -1,0 +1,74 @@
+{
+  "checks": {
+    "notShotAllAliens": "Nisi oborio sve vanzemaljce.",
+    "noRepeatWithArg": "Ne smeš koristiti <code>repeat(n) {}</code> u ovoj vežbi. Treba da koristiš samo <code>repeat() {}</code> petlje bez ulaza."
+  },
+  "tasks": {
+    "scrollAndShoot": {
+      "name": "Pomeri se i pucaj",
+      "description": "Pomeraj laser levo-desno preko ekrana, proveravajući da li se iznad tebe nalazi vanzemaljac i obarajući ga. Ne idi preko ivice i ne pucaj kada nema vanzemaljca, ili ćeš izgubiti! Talasi postaju sve zahtevniji kako napreduješ."
+    }
+  },
+  "scenarios": {
+    "oneAlien": {
+      "name": "Jedan vanzemaljac",
+      "description": "Jedan vanzemaljac koga treba oboriti."
+    },
+    "oneRow": {
+      "name": "Jedan proređen red",
+      "description": "Razbacani vanzemaljci u donjem redu."
+    },
+    "twoRows": {
+      "name": "Dva reda",
+      "description": "Vanzemaljci raspoređeni u dva reda."
+    },
+    "threeRows": {
+      "name": "Tri reda",
+      "description": "Vanzemaljci u sva tri reda."
+    },
+    "fullRows": {
+      "name": "Puni redovi",
+      "description": "Tri puna reda. Vanzemaljci se iznova pojavljuju!"
+    }
+  },
+  "hints": {
+    "whereDoIStart": {
+      "question": "Odakle da počnem? Ovo deluje kao puno toga.",
+      "answer": "Razloži na korake. Prvo pomeraj laser levo-desno, zanemarujući pucanje. Kad to proradi, dodaj logiku za pucanje."
+    },
+    "trackLaserPosition": {
+      "question": "Kako da pratim gde se laser nalazi?",
+      "answer": "Čuvaj promenljivu za poziciju lasera. Ažuriraj je u svakoj iteraciji petlje kad pozoveš `moveLeft()` ili `moveRight()`."
+    },
+    "whenToTurnAround": {
+      "question": "Kako da znam kada da se okrenem?",
+      "answer": "Čuvaj promenljivu za smer (npr. `1` za desno, `-1` za levo). Kad pozicija stigne do leve ili desne granice, promeni smer. Ovo je isti obrazac odbijanja kao u Rainbow Ball."
+    },
+    "whenToShoot": {
+      "question": "Kada treba da pozovem `shoot()`?",
+      "answer": "Pre nego što pozoveš `shoot()`, proveri `isAlienAbove()`. Pucaj samo ako vrati `true`, u suprotnom ćeš potrošiti municiju i izgubiti."
+    },
+    "laserOverheating": {
+      "question": "Laser se stalno pregreva. Šta da radim?",
+      "answer": "Ne pucaj svaku iteraciju. Pomeri se bar jednom između pucnjeva da bi top imao vremena da se ohladi."
+    }
+  },
+  "functions": {
+    "moveLeft": {
+      "description": "Pomera laserski top **jednu poziciju ulevo**. Ako pokušaš da odeš preko leve ivice ekrana, izgubićeš igru!",
+      "category": "Kretanje"
+    },
+    "moveRight": {
+      "description": "Pomera laserski top **jednu poziciju udesno**. Ako pokušaš da odeš preko desne ivice ekrana, izgubićeš igru!",
+      "category": "Kretanje"
+    },
+    "shoot": {
+      "description": "Puca laserom nagore. **Pucaj samo kada je vanzemaljac iznad tebe**, ili ćeš izgubiti igru! Laserski top se lako pregreva, tako da moraš da se pomeriš pre sledećeg pucanja.",
+      "category": "Akcija"
+    },
+    "isAlienAbove": {
+      "description": "Vraća `true` ako je vanzemaljac tačno iznad laserskog topa, ili `false` ako nije. Koristi ovo da proveriš pre pucanja!",
+      "category": "Detekcija"
+    }
+  }
+}

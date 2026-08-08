@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "noResult": "Non hai comunicato nessun risultato!",
+    "paperVsPaperResult": "Carta vs Carta dovrebbe essere un pareggio, ma il risultato è stato \"{{got}}\".",
+    "paperVsRockResult": "Carta vs Sasso dovrebbe essere una vittoria per Yuki, ma il risultato è stato \"{{got}}\".",
+    "paperVsScissorsResult": "Carta vs Forbici dovrebbe essere una vittoria per Ando, ma il risultato è stato \"{{got}}\".",
+    "rockVsPaperResult": "Sasso vs Carta dovrebbe essere una vittoria per Ando, ma il risultato è stato \"{{got}}\".",
+    "rockVsRockResult": "Sasso vs Sasso dovrebbe essere un pareggio, ma il risultato è stato \"{{got}}\".",
+    "rockVsScissorsResult": "Sasso vs Forbici dovrebbe essere una vittoria per Yuki, ma il risultato è stato \"{{got}}\".",
+    "scissorsVsPaperResult": "Forbici vs Carta dovrebbe essere una vittoria per Yuki, ma il risultato è stato \"{{got}}\".",
+    "scissorsVsRockResult": "Forbici vs Sasso dovrebbe essere una vittoria per Ando, ma il risultato è stato \"{{got}}\".",
+    "scissorsVsScissorsResult": "Forbici vs Forbici dovrebbe essere un pareggio, ma il risultato è stato \"{{got}}\"."
+  },
+  "tasks": {
+    "determineWinner": {
+      "name": "Determina il vincitore",
+      "description": "Ottieni le scelte di entrambi i giocatori e comunica il risultato corretto: \"Yuki\", \"Ando\" o \"tie\"."
+    }
+  },
+  "scenarios": {
+    "paperVsPaper": {
+      "name": "Carta vs Carta",
+      "description": "È un pareggio. Comunicalo correttamente!"
+    },
+    "paperVsRock": {
+      "name": "Carta vs Sasso",
+      "description": "La carta di Yuki batte il sasso di Ando. Comunica Yuki come vincitore!"
+    },
+    "paperVsScissors": {
+      "name": "Carta vs Forbici",
+      "description": "Le forbici di Ando battono la carta di Yuki. Comunica Ando come vincitore."
+    },
+    "rockVsPaper": {
+      "name": "Sasso vs Carta",
+      "description": "La carta di Ando batte il sasso di Yuki. Comunica Ando come vincitore."
+    },
+    "rockVsRock": {
+      "name": "Sasso vs Sasso",
+      "description": "È un pareggio. Comunicalo correttamente!"
+    },
+    "rockVsScissors": {
+      "name": "Sasso vs Forbici",
+      "description": "Il sasso di Yuki batte le forbici di Ando. Comunica Yuki come vincitore."
+    },
+    "scissorsVsPaper": {
+      "name": "Forbici vs Carta",
+      "description": "Le forbici di Yuki battono la carta di Ando. Comunica Yuki come vincitore."
+    },
+    "scissorsVsRock": {
+      "name": "Forbici vs Sasso",
+      "description": "Il sasso di Ando batte le forbici di Yuki. Comunica Ando come vincitore."
+    },
+    "scissorsVsScissors": {
+      "name": "Forbici vs Forbici",
+      "description": "È un pareggio. Comunicalo correttamente!"
+    }
+  },
+  "hints": {
+    "howToStart": {
+      "question": "Come inizio?",
+      "answer": "Ottieni le scelte di Yuki e di Ando con le funzioni disponibili e salvale in variabili, così puoi confrontarle."
+    },
+    "simplestCase": {
+      "question": "Qual è il caso più semplice da gestire per primo?",
+      "answer": "Il pareggio. Se le due scelte sono uguali, puoi comunicare subito un pareggio e saltare il resto."
+    },
+    "checkCombination": {
+      "question": "Come controllo una specifica combinazione vincente?",
+      "answer": "Usa `&&` (cioè \"e\") per combinare due condizioni che devono essere entrambe vere: ad esempio \"Yuki ha scelto sasso E Ando ha scelto forbici\" significa che vince Yuki."
+    },
+    "shorterWay": {
+      "question": "Mi ritrovo con un sacco di istruzioni `if`. C'è un modo più corto?",
+      "answer": "Imposta come risultato predefinito la vittoria di un giocatore, poi controlla solo le tre combinazioni in cui vince l'altro. Così i casi si riducono circa della metà."
+    },
+    "invalidChoice": {
+      "question": "E se un giocatore inserisce qualcosa che non è sasso, carta o forbici?",
+      "answer": "Qui non devi preoccupartene. Le funzioni disponibili restituiscono sempre e solo una delle tre scelte valide."
+    }
+  },
+  "functions": {
+    "getYukiChoice": {
+      "description": "Restituisce la scelta di Yuki: una tra `\"rock\"`, `\"paper\"` e `\"scissors\"`.",
+      "category": "Gioco"
+    },
+    "getAndoChoice": {
+      "description": "Restituisce la scelta di Ando: una tra `\"rock\"`, `\"paper\"` e `\"scissors\"`.",
+      "category": "Gioco"
+    },
+    "announceResult": {
+      "description": "Comunica il risultato della partita. Passa `\"Yuki\"`, `\"Ando\"` oppure `\"tie\"`.",
+      "category": "Gioco"
+    }
+  }
+}

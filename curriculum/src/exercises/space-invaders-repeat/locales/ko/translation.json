@@ -1,0 +1,49 @@
+{
+  "describers": {
+    "move": "레이저 포를 오른쪽으로 이동시켰어요."
+  },
+  "checks": {
+    "notShotAllAliens": "외계인을 모두 격추하지 못했어요.",
+    "tooManyLines": "코드 줄이 너무 많아요. `repeat` 루프를 사용해서 더 짧게 만들어 보세요!"
+  },
+  "tasks": {
+    "repeatShoot": {
+      "name": "`repeat` 루프를 사용해 모든 외계인을 격추하세요.",
+      "description": "외계인의 위치 패턴을 찾고 `repeat` 루프를 사용해 코드 7줄 이내로 모두 물리치세요."
+    }
+  },
+  "scenarios": {
+    "repeatShoot": {
+      "name": "반복과 발사",
+      "description": "`repeat` 루프로 모든 외계인을 격추하세요."
+    }
+  },
+  "hints": {
+    "avoidRepeating": {
+      "question": "`move()`와 `shoot()`를 계속 반복해서 쓰지 않으려면 어떻게 해야 할까요?",
+      "answer": "`repeat` 루프를 사용하세요. `repeat(n) { ... }`은 동일한 코드 블록을 `n`번 실행해요."
+    },
+    "repeatingPattern": {
+      "question": "외계인의 위치에서 반복되는 패턴은 무엇일까요?",
+      "answer": "레이저 포는 외계인들의 왼쪽에서 시작하고, 외계인들은 한 열 건너 한 열씩, 각 열에 세 마리씩 쌓여 있어요. 그래서 각 열의 패턴은 `move`, `move`, `shoot`, `shoot`, `shoot`입니다. 빈 공간을 가로질러 외계인 열로 이동한 다음, 세 행의 외계인을 모두 격추하세요. 이 다섯 동작을 반복하면 돼요."
+    },
+    "howManyTimes": {
+      "question": "패턴을 몇 번 반복해야 하나요?",
+      "answer": "화면에 있는 외계인 그룹의 개수를 세고, 그 숫자를 `repeat`의 인자로 사용하세요."
+    },
+    "why7Lines": {
+      "question": "왜 목표가 7줄일까요?",
+      "answer": "`repeat` 헤더 한 줄, 내부의 반복 동작 다섯 줄, 닫는 중괄호 한 줄을 합치면 일곱 줄이 돼요. 필요한 모든 코드가 루프 안에 들어가고, 루프 밖에는 아무 코드도 없어요. 더 많은 줄을 쓰고 있다면, 아직 루프를 사용하지 않은 걸 거예요."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "레이저 포를 **오른쪽으로 한 칸** 이동시켜요. 화면 오른쪽 끝을 벗어나면 지게 돼요!",
+      "category": "이동"
+    },
+    "shoot": {
+      "description": "위쪽으로 레이저를 발사해요. **위에 외계인이 있을 때만 발사하세요**, 그렇지 않으면 지게 돼요!",
+      "category": "액션"
+    }
+  }
+}

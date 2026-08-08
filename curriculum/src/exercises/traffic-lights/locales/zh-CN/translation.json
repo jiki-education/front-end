@@ -1,0 +1,40 @@
+{
+  "checks": {
+    "redLight": "红灯（顶部）不正确。",
+    "amberLight": "黄灯（中部）不正确。",
+    "greenLight": "绿灯（底部）不正确。",
+    "useVariables": "你应该使用变量，而不是直接将数字作为函数输入。"
+  },
+  "tasks": {
+    "drawLights": {
+      "name": "绘制交通灯",
+      "description": "使用提供的变量绘制交通灯上的三个彩色灯。"
+    }
+  },
+  "scenarios": {
+    "drawLights": {
+      "name": "绘制交通灯",
+      "description": "使用提供的变量绘制三个彩色圆形。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "我不知道从哪里开始",
+      "answer": "你将绘制三个圆形，就像之前一样。唯一的不同是，你使用的是变量，而不是直接使用数字。如果不明白怎么用，请回看关于变量的视频。"
+    },
+    "useVariablesError": {
+      "question": "我收到了“你应该使用变量，而不是直接将数字作为函数输入”的提示",
+      "answer": "这个练习的重点是使用我们为你定义的变量。不要直接把像 50 或 16 这样的数字放到函数里，而是要告诉 Jiki 使用我们已经创建好的盒子。"
+    },
+    "circlesWrong": {
+      "question": "我画了正确的圆形，但提示说不对",
+      "answer": "确保红灯在顶部，黄灯在中间，绿灯在底部。"
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "以 (centerX, centerY) 为中心，使用给定的半径和颜色绘制一个圆形。",
+      "category": "绘制形状"
+    }
+  }
+}

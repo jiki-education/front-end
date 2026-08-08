@@ -1,0 +1,101 @@
+{
+  "tasks": {
+    "encode": {
+      "name": "Codifica una stringa",
+      "description": "Scrivi una funzione chiamata `encode` che percorre la stringa, contando quante volte ogni carattere si ripete di seguito. Sostituisci ogni sequenza di due o più caratteri uguali con il conteggio seguito dal carattere, e lascia i caratteri singoli così come sono."
+    },
+    "decode": {
+      "name": "Decodifica una stringa",
+      "description": "Scrivi una funzione chiamata `decode` che inverte il processo. Leggi il numero davanti a un carattere e ripeti quel carattere quel numero di volte. I conteggi possono avere più di una cifra."
+    }
+  },
+  "scenarios": {
+    "rleEncodeEmpty": {
+      "name": "Codifica una stringa vuota",
+      "description": "Codificare una stringa vuota restituisce una stringa vuota."
+    },
+    "rleEncodeSingles": {
+      "name": "I caratteri singoli non vengono contati",
+      "description": "I caratteri che compaiono una sola volta vengono codificati senza conteggio."
+    },
+    "rleEncodeNoSingles": {
+      "name": "Una stringa senza caratteri singoli",
+      "description": "Le sequenze di caratteri ripetuti vengono sostituite da un conteggio e il carattere."
+    },
+    "rleEncodeMixed": {
+      "name": "Caratteri singoli mescolati a sequenze",
+      "description": "Sequenze e caratteri singoli possono essere mescolati nella stessa stringa."
+    },
+    "rleEncodeWhitespace": {
+      "name": "Spazio bianco nella stringa",
+      "description": "Gli spazi sono trattati come qualsiasi altro carattere, anche nelle sequenze."
+    },
+    "rleEncodeLowercase": {
+      "name": "Caratteri minuscoli",
+      "description": "La codifica funziona allo stesso modo per le lettere minuscole."
+    },
+    "rleDecodeEmpty": {
+      "name": "Decodifica una stringa vuota",
+      "description": "Decodificare una stringa vuota restituisce una stringa vuota."
+    },
+    "rleDecodeSingles": {
+      "name": "Decodifica caratteri singoli",
+      "description": "I caratteri senza conteggio davanti compaiono una volta sola."
+    },
+    "rleDecodeNoSingles": {
+      "name": "Decodifica una stringa di sequenze",
+      "description": "Un conteggio seguito da un carattere si espande in quel numero di copie del carattere."
+    },
+    "rleDecodeMixed": {
+      "name": "Decodifica caratteri singoli mescolati a sequenze",
+      "description": "I conteggi con più di una cifra devono essere letti completamente prima di essere espansi."
+    },
+    "rleDecodeWhitespace": {
+      "name": "Decodifica spazio bianco",
+      "description": "Gli spazi vengono espansi come qualsiasi altro carattere."
+    },
+    "rleDecodeLowercase": {
+      "name": "Decodifica caratteri minuscoli",
+      "description": "La decodifica funziona allo stesso modo per le lettere minuscole."
+    }
+  },
+  "hints": {
+    "whatIsRle": {
+      "question": "Cosa fa esattamente la codifica run-length?",
+      "answer": "Comprime le sequenze dello stesso carattere in un conteggio più il carattere. `\\\"AAAA\\\"` diventa `\\\"4A\\\"`. Un carattere da solo viene lasciato così com'è, senza alcun numero davanti, quindi `\\\"B\\\"` rimane `\\\"B\\\"`."
+    },
+    "countRuns": {
+      "question": "Come faccio a contare una sequenza di caratteri ripetuti?",
+      "answer": "Percorri la stringa tenendo traccia del carattere precedente e di quante volte si è ripetuto. Ogni volta che il carattere cambia, scrivi la sequenza completata e inizia a contare il nuovo carattere."
+    },
+    "singleChars": {
+      "question": "Come faccio a evitare di scrivere un conteggio per i caratteri singoli?",
+      "answer": "Metti il numero davanti solo quando il conteggio è maggiore di 1. Se un carattere è comparso una sola volta, scrivi solo il carattere."
+    },
+    "decodeDigits": {
+      "question": "Come faccio a sapere se un carattere è una cifra durante la decodifica?",
+      "answer": "Controlla se il carattere è uno di `0123456789`, ad esempio con `\\\"0123456789\\\".includes(char)`. Se lo è, fa parte di un conteggio. Se non lo è, è il carattere da ripetere."
+    },
+    "decodeMultiDigit": {
+      "question": "Come faccio a leggere un conteggio con più di una cifra, come 12?",
+      "answer": "Un conteggio come `12` arriva una cifra alla volta, quindi costruiscilo man mano invece di trattare ogni cifra separatamente. Ogni volta che compare un'altra cifra, il numero che hai finora deve essere moltiplicato per dieci per fare spazio prima di aggiungere la nuova cifra. `Number()` converte un carattere cifra in un numero con cui puoi fare calcoli."
+    },
+    "decodeRepeat": {
+      "question": "Come faccio a ripetere il carattere il numero giusto di volte?",
+      "answer": "Una volta incontrato un carattere non numerico, usa un ciclo che venga eseguito `count` volte, aggiungendo il carattere al risultato ogni volta. Poi azzera il conteggio a 0, pronto per la prossima sequenza. Se non c'era un conteggio, consideralo come 1."
+    }
+  },
+  "functions": {
+    "number": {
+      "description": "Converte una stringa che contiene una cifra in un numero",
+      "category": "Conversione di tipo"
+    },
+    "includes": {
+      "description": "Controlla se una stringa contiene una stringa più piccola",
+      "category": "Operazioni su stringhe"
+    }
+  },
+  "checks": {
+    "mustUseFor": "Quasi! Per questo esercizio vogliamo che tu usi un ciclo `for` per ripetere ogni carattere il numero giusto di volte."
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "errors": {
+    "needsRecharge": "机器人在出售后需要充电。",
+    "sellBeforeAnythingElse": "机器人需要先去出售金块，然后再做其他事情。",
+    "sellNumber": "你只能出售一个数字（即金块数量）。"
+  },
+  "checks": {
+    "notSold": "你没有出售你的金块。确保在淘金之后调用 <code>sell()</code>。",
+    "wrongSoldTotal": "期望出售 {{expectedTotal}} 个金块（{{panValues}}），但你出售了 {{got}} 个。确保将每次淘金结果加到你的累计总数中。"
+  },
+  "tasks": {
+    "panAndSell": {
+      "name": "淘金并出售收获",
+      "description": "淘金 5 次收集金块，记录累计总数，然后在交易站出售所有金块。"
+    }
+  },
+  "scenarios": {
+    "randomPans": {
+      "name": "淘金并出售",
+      "description": "每次淘金随机获得一些金块，共淘金 5 次，然后出售总数。"
+    }
+  },
+  "hints": {
+    "wrongSellAmount": {
+      "question": "它说我出售的金块数量不对。",
+      "answer": "你需要在最后一次性出售 5 次淘金找到的所有金块，而不是每次淘金后就出售。"
+    },
+    "trackingTotal": {
+      "question": "我多次使用淘金，但不知道如何跟踪我拥有的金块数量。",
+      "answer": "回想一下你最近在视频课上学到的内容。你需要使用一个变量来跟踪你在**所有**淘金过程中累计收集到的金块**总数**。"
+    },
+    "fiveLines": {
+      "question": "我已经让它工作了，但我无法缩减到 5 行代码。",
+      "answer": "你的解答中是否有重复的代码？如果有，我们可以用什么来减少这种重复？"
+    },
+    "stillFiveLines": {
+      "question": "我还是无法缩减到 5 行代码。",
+      "answer": "你应该只需要使用一个变量。你是否使用了多个？"
+    }
+  },
+  "describers": {
+    "pan": "淘金并找到 ${return} 个金块",
+    "sell": "在交易站出售了 ${arg1} 个金块"
+  },
+  "functions": {
+    "pan": {
+      "description": "将你的淘金盘浸入河中，并 **返回** 找到的金块数量。",
+      "category": "采矿"
+    },
+    "sell": {
+      "description": "在交易站出售你的金块。",
+      "category": "动作"
+    }
+  }
+}

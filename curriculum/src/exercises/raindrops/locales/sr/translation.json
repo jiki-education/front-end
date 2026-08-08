@@ -1,0 +1,99 @@
+{
+  "checks": {
+    "moreThanSixteenLines": "Tvoj kod ima više od šesnaest linija."
+  },
+  "tasks": {
+    "plings": {
+      "name": "Plingovi",
+      "description": "Započni tako što ćeš ispravno postići Pling zvukove. Ako je broj deljiv sa 3, vrati \"Pling\"."
+    },
+    "plangs": {
+      "name": "Plangovi",
+      "description": "Sada pravilno postigni Plang zvukove. Ako je broj deljiv sa 5, dodaj \"Plang\" rezultatu. Ako je deljiv i sa 3 i sa 5, vrati \"PlingPlang\"."
+    },
+    "plongs": {
+      "name": "Plongovi",
+      "description": "Sada pravilno postigni Plong zvukove. Ako je broj deljiv sa 7, dodaj \"Plong\" rezultatu. Brojevi mogu biti deljivi sa više faktora."
+    },
+    "noSound": {
+      "name": "Brojevi bez zvuka kišnih kapi",
+      "description": "Konačno, ako broj nije deljiv ni sa 3, ni sa 5, ni sa 7, vrati sam broj kao string."
+    },
+    "solveInSixteenLines": {
+      "name": "Reši u šesnaest linija koda",
+      "description": "Možeš li ovo rešiti sa samo šesnaest linija koda?"
+    }
+  },
+  "scenarios": {
+    "number3": {
+      "name": "Broj 3",
+      "description": "Ako je ulaz 3, vrati \"Pling\"."
+    },
+    "number27": {
+      "name": "Broj 27",
+      "description": "Ako je ulaz 27, vrati \"Pling\"."
+    },
+    "number5": {
+      "name": "Broj 5",
+      "description": "Ako je ulaz 5, vrati \"Plang\"."
+    },
+    "number3125": {
+      "name": "Broj 3125",
+      "description": "Ako je ulaz 3125, vrati \"Plang\"."
+    },
+    "number15": {
+      "name": "Broj 15",
+      "description": "Ako je ulaz 15, vrati \"PlingPlang\"."
+    },
+    "number7": {
+      "name": "Broj 7",
+      "description": "Ako je ulaz 7, vrati \"Plong\"."
+    },
+    "number21": {
+      "name": "Broj 21",
+      "description": "Ako je ulaz 21, vrati \"PlingPlong\"."
+    },
+    "number35": {
+      "name": "Broj 35",
+      "description": "Ako je ulaz 35, vrati \"PlangPlong\"."
+    },
+    "number105": {
+      "name": "Broj 105",
+      "description": "Ako je ulaz 105, vrati \"PlingPlangPlong\"."
+    },
+    "number8": {
+      "name": "Broj 8",
+      "description": "Ako je ulaz 8, vrati \"8\"."
+    },
+    "number52": {
+      "name": "Broj 52",
+      "description": "Ako je ulaz 52, vrati \"52\"."
+    },
+    "bonus1": {
+      "name": "Šesnaest linija koda",
+      "description": "Reši vežbu sa samo šesnaest linija koda."
+    }
+  },
+  "hints": {
+    "onlyOneSound": {
+      "question": "Zašto moja funkcija vraća samo jedan zvuk?",
+      "answer": "Ako koristiš `return` unutar svakog `if`-a, odustaješ čim se prvi delilac poklopi. Treba da ih kombinuješ. Umesto da vraćaš, dodaj zvuk na string rezultata i nastavi dalje."
+    },
+    "buildCombinedSound": {
+      "question": "Kako da izgradim kombinovani zvuk?",
+      "answer": "Počni sa praznim stringom rezultata. Za svaki delilac (3, 5, 7), ako deli broj, dodaj odgovarajući zvuk na kraj rezultata koristeći spajanje sa `+`."
+    },
+    "noneMatch": {
+      "question": "Šta ako se nijedan delilac ne poklapa?",
+      "answer": "Ako je rezultat i dalje prazan nakon sve tri provere, odgovor je samo sam broj kao string. Pretvori broj i vrati ga."
+    },
+    "convertToString": {
+      "question": "Vraćam broj, ali traži da ga vratim kao string. Kako da to uradim?",
+      "answer": "Brojevi i stringovi su različiti tipovi, čak i ako izgledaju isto. Možeš pretvoriti broj u string tako što ga staviš unutar template stringa pomoću `${...}`."
+    },
+    "howManyReturns": {
+      "question": "Koliko `return` naredbi treba da imam?",
+      "answer": "Obično samo jednu ili dve. Cela poenta je u tome da `if` naredbe modifikuju string rezultata, a zatim da se taj rezultat vrati jednom na kraju."
+    }
+  }
+}

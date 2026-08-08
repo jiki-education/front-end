@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "dayIsntCorrect": "Cuaca hari ke-{{day}} belum tepat."
+  },
+  "tasks": {
+    "drawForecast": {
+      "name": "Gambar prakiraan cuacanya",
+      "description": "Gambarkan cuaca setiap hari ke dalam kotaknya masing-masing, dengan posisi hari dalam daftar sebagai nomor kotaknya."
+    }
+  },
+  "scenarios": {
+    "mixedWeek": {
+      "name": "Minggu yang beragam",
+      "description": "Ada sedikit dari segalanya sepanjang enam hari itu."
+    },
+    "sunnyWeek": {
+      "name": "Minggu yang cerah",
+      "description": "Banyak sinar matahari, dengan beberapa hari yang lebih berawan."
+    },
+    "rainyWeek": {
+      "name": "Minggu yang hujan",
+      "description": "Minggu basah yang penuh awan dan hujan."
+    },
+    "snowyWeek": {
+      "name": "Minggu bersalju",
+      "description": "Minggu dingin yang penuh salju."
+    }
+  },
+  "hints": {
+    "loopWithIndex": {
+      "question": "Bagaimana cara menelusuri hari-harinya dan tahu setiap hari masuk ke kotak yang mana?",
+      "answer": "Lakukan perulangan pada `days` dengan sebuah penghitung yang berjalan dari `0` sampai `days.length - 1`. Penghitung itulah nomor kotak untuk setiap hari."
+    },
+    "descriptionToSymbols": {
+      "question": "Bagaimana cara mengubah deskripsi seperti `\"Miserable 😩\"` menjadi simbol?",
+      "answer": "Cocokkan deskripsinya dengan setiap kemungkinan yang ada, lalu pilih daftar simbol yang sesuai, misalnya `[\"cloud\", \"rain\"]`. Instruksinya mencantumkan setiap deskripsi beserta simbolnya."
+    },
+    "weekdaysList": {
+      "question": "Bagaimana cara mendapatkan nama hari untuk setiap kotak?",
+      "answer": "Buat sebuah daftar berisi enam nama hari secara berurutan, dari `\"Monday\"` sampai `\"Saturday\"`, lalu baca nama di posisimu saat ini menggunakan penghitung yang sama dengan nomor kotak."
+    },
+    "passArgs": {
+      "question": "Apa saja yang perlu kuberikan ke `draw`?",
+      "answer": "Tiga hal: nomor kotak (penghitungmu), nama hari untuk kotak itu, dan daftar simbol untuk hari itu."
+    },
+    "tidyWithHelper": {
+      "question": "Perulanganku jadi panjang. Bagaimana cara merapikannya?",
+      "answer": "Kamu bisa memindahkan pencocokan deskripsi-ke-simbol ke dalam fungsinya sendiri dan memanggil fungsi itu dari dalam perulangan. Ini opsional, tapi membuat perulanganmu tetap pendek dan mudah dibaca."
+    }
+  },
+  "functions": {
+    "draw": {
+      "description": "Menggambar simbol cuaca yang diberikan ke dalam sebuah kotak prakiraan. Menerima nomor kotak (0 sampai 5), nama hari untuk labelnya, dan daftar simbolnya.",
+      "category": "Menggambar"
+    }
+  },
+  "describers": {
+    "draw": "menggambar ${arg3} ke dalam kotak hari ${arg2}"
+  },
+  "errors": {
+    "elementsMustBeList": "Simbol cuaca (input ketiga untuk draw) harus berupa daftar, seperti [\"sun\", \"cloud\"].",
+    "elementsMustBeStrings": "Semua simbol cuaca dalam daftar harus berupa string, seperti \"sun\" atau \"rain\".",
+    "unknownElement": "\"{{element}}\" bukan simbol cuaca. Gunakan \"sun\", \"cloud\", \"rain\", atau \"snow\".",
+    "indexMustBeNumber": "Nomor kotak (input pertama untuk draw) harus berupa angka.",
+    "indexOutOfRange": "Nomor kotak harus berupa bilangan bulat antara 0 dan {{max}}.",
+    "dayMustBeString": "Nama hari (input kedua untuk draw) harus berupa teks, seperti \"Monday\"."
+  }
+}

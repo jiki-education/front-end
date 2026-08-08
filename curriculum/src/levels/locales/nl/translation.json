@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "Functies gebruiken"
+  },
+  "strings-and-colors": {
+    "title": "Strings en kleuren"
+  },
+  "repeat-loop": {
+    "title": "Repeat-lus"
+  },
+  "variables": {
+    "title": "Variabelen"
+  },
+  "basic-state": {
+    "title": "Basistoestand"
+  },
+  "functions-that-return-things": {
+    "title": "Functies die iets teruggeven"
+  },
+  "conditionals": {
+    "title": "Voorwaarden"
+  },
+  "complex-conditionals": {
+    "title": "Complexe voorwaarden"
+  },
+  "conditionals-and-state": {
+    "title": "Voorwaarden en toestand"
+  },
+  "make-your-own-functions": {
+    "title": "Eigen functies maken"
+  },
+  "string-manipulation": {
+    "title": "Strings bewerken"
+  },
+  "string-iteration": {
+    "title": "Strings doorlopen"
+  },
+  "multiple-functions": {
+    "title": "Meerdere functies combineren"
+  },
+  "methods-and-properties": {
+    "title": "Methodes en eigenschappen"
+  },
+  "advanced-loops": {
+    "title": "Gevorderde lussen"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "Dictionaries"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "Alles"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "errors": {
+    "yearNumber": "年份必须是数字",
+    "yearInPast": "我们无法检查旧年份的股票市场！{{year}} 是过去的年份。",
+    "yearTooFarFuture": "我们不知道距今超过 20 年的情况！{{year}} 太遥远了。",
+    "balanceNumber": "余额必须是数字",
+    "moneyNumber": "金额必须是数字"
+  },
+  "checks": {
+    "taxReportCount": "预期有 20 份税务报告（每年一份），但得到了 {{got}} 份。请确保你在循环内调用了 <code>reportTax()</code>。",
+    "taxReportWrongYear": "第 {{index}} 份税务报告对应的是 {{actualYear}} 年，但本应是 {{expectedYear}} 年。",
+    "taxReportWrongBalance": "你为 {{year}} 年申报的税额有误。应为 ${{expected}}，实际为 ${{actual}}。",
+    "wrongFinalBalance": "预期最终余额约为 ${{expected}}，但得到了 ${{got}}。请确保你在循环结束后调用 <code>announceToFamily()</code>。",
+    "announcedMultipleTimes": "你应该只在 20 年结束后向家人宣布<strong>一次</strong>，而不是每年都宣布。你调用了 <code>announceToFamily()</code> {{count}} {{times}}。"
+  },
+  "tasks": {
+    "growInvestment": {
+      "name": "让你的投资增长 20 年",
+      "description": "从 $10 开始，模拟 20 年的股票市场增长，每年向税务员报税，并向家人宣布最终余额。"
+    }
+  },
+  "scenarios": {
+    "twentyYears": {
+      "name": "20 年的增长",
+      "description": "投资 $10，并在 20 年的市场增长中跟踪你的余额。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "我不知道从哪里开始",
+      "answer": "你需要在接下来的 20 年里（从今年开始）每年使用 `marketGrowth()`。它会返回一个像 5（对应 5% 的市场增长）这样的值。然后你需要跟踪你有多少钱——从你开始的 $10 根据利率变化。"
+    },
+    "stillStuck": {
+      "question": "我还是很困扰——我不明白。",
+      "answer": "好的，让我们详细列举一些代码来帮助你开始。假设当前年份是 2026 年。你需要做类似这样的事情： \n\n```javascript\nlet money = 10\nlet growth = marketGrowth(2026)\n\n// 你需要根据增长率增加金额。\n// 如果你需要计算公式，请查看下一条提示。\nmoney = money + ???\nreportTax(2026, money)\n\n// 现在处理 2027 年\nlet growth = marketGrowth(2027)\nmoney = money + ???\nreportTax(2027, money)\n\n// 现在处理 2028 年\nlet growth = marketGrowth(2028)\nmoney = money + ???\nreportTax(2028, money)\n\n// 20 年后告诉你的家人\nannounceToFamily(money)\n```"
+    },
+    "formula": {
+      "question": "跟踪增长的公式是什么？我自己算不出来。",
+      "answer": "公式是： \n\n```javascript\nmoney = money * (100 + marketGrowth(year)) / 100\n```"
+    },
+    "wrongTaxReportCount": {
+      "question": "它说我提交的税务报告数量不对。",
+      "answer": "你应该为 20 年提交 20 份税务报告。使用时间滑块来数一数你调用了多少次 `reportTax()` 函数。"
+    }
+  },
+  "describers": {
+    "marketGrowth": "获取了 ${arg1} 年的市场增长率 ${return}%",
+    "reportTax": "报告了 ${arg1} 年的税务：$${arg2}",
+    "announceToFamily": "向家人宣布了 $${arg1}"
+  },
+  "functions": {
+    "marketGrowth": {
+      "description": "返回给定年份的市场增长率（介于 -25 和 40 之间）。你需要每次用这个数字**增加**你的金额。（因此，40 意味着你的 $10 应该变成 $14，而 -10 意味着你的 $10 下降到 $9）",
+      "category": "操作"
+    },
+    "reportTax": {
+      "description": "报告给定年份的税务。你应该每年调用一次，传入年份和当前金额。",
+      "category": "操作"
+    },
+    "announceToFamily": {
+      "description": "向家人宣布你的最终余额。",
+      "category": "操作"
+    }
+  }
+}

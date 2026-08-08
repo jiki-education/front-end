@@ -1,0 +1,55 @@
+{
+  "errors": {
+    "needsRecharge": "Robot mora da se napuni nakon prodaje.",
+    "sellBeforeAnythingElse": "Robot mora da ode i proda pre nego što uradi bilo šta drugo.",
+    "sellNumber": "Možeš da prodaš samo broj grumenčića."
+  },
+  "checks": {
+    "notSold": "Nisi prodao svoje grumenčiće. Obavezno pozovi <code>sell()</code> nakon ispiranja.",
+    "wrongSoldTotal": "Očekivano da prodaš {{expectedTotal}} grumenčića ({{panValues}}), ali ti si prodao {{got}}. Obavezno dodaj svaki rezultat ispiranja u svoj tekući zbir."
+  },
+  "tasks": {
+    "panAndSell": {
+      "name": "Ispiraj zlato i prodaj svoj ulov.",
+      "description": "Isperi 5 puta da sakupiš zlatne grumenčiće, vodeći tekući zbir, a zatim prodaj sve na trgovačkoj stanici."
+    }
+  },
+  "scenarios": {
+    "randomPans": {
+      "name": "Isperi i prodaj",
+      "description": "Isperi 5 puta sa nasumičnim brojem grumenčića svaki put, a zatim prodaj ukupni iznos."
+    }
+  },
+  "hints": {
+    "wrongSellAmount": {
+      "question": "Kaže da prodajem pogrešnu količinu zlata.",
+      "answer": "Treba da prodaš sve zlato koje pronađeš u 5 ispiranja odjednom na kraju, a ne da prodaješ nakon svakog ispiranja."
+    },
+    "trackingTotal": {
+      "question": "Koristim ispiranje više puta, ali ne znam kako da pratim koliko zlata sam sakupio.",
+      "answer": "Razmisli o tome šta si naučio u nedavnim video lekcijama. Treba da koristiš promenljivu da pratiš **ukupnu** količinu zlata koju si sakupio tokom **svih** ispiranja zajedno."
+    },
+    "fiveLines": {
+      "question": "Uspelo mi je, ali ne mogu da svedem na 5 linija.",
+      "answer": "Da li imaš kod koji se ponavlja u svom rešenju? Ako da, šta možemo da koristimo da smanjimo to ponavljanje?"
+    },
+    "stillFiveLines": {
+      "question": "I dalje ne mogu da svedem na 5 linija koda.",
+      "answer": "Treba da koristiš samo jednu promenljivu. Da li koristiš više?"
+    }
+  },
+  "describers": {
+    "pan": "isperao i pronašao ${return} grumenčića",
+    "sell": "prodao ${arg1} grumenčića na trgovačkoj stanici"
+  },
+  "functions": {
+    "pan": {
+      "description": "Potapa tvoj pladanj u reku i **vraća** broj pronađenih zlatnih grumenčića.",
+      "category": "Rudarenje"
+    },
+    "sell": {
+      "description": "Prodaje tvoje zlatne grumenčiće na trgovačkoj stanici.",
+      "category": "Akcija"
+    }
+  }
+}

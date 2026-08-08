@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "No has arribat al final del laberint."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Guia el personatge fins al final del laberint",
+      "description": "Recorre el laberint per arribar a l'objectiu verd"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Guia el personatge fins al final del laberint",
+      "description": "La teva feina és guiar el personatge pel laberint fins a la casella verda d'arribada."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "Què moc i cap a on?",
+      "answer": "Mous el personatge, que comença a dalt a l'esquerra, fins al cercle verd de baix a la dreta, evitant les caselles ratllades de vermell."
+    },
+    "turnLeftTurnsRight": {
+      "question": "Quan giro a l'esquerra, el personatge gira a la dreta!",
+      "answer": "El personatge gira respecte a la direcció cap a on mira. Així, si mira cap a la dreta i gira a l'esquerra, passarà a mirar cap amunt."
+    }
+  }
+}

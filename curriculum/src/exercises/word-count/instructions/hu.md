@@ -1,18 +1,19 @@
 ---
-title: "Word Count"
-description: "Count how many times each word appears in a sentence."
+title: "Szószámlálás"
+description: "Számold meg, hányszor fordul elő egy-egy szó egy mondatban."
+en_md5: f9b46f800337d7fff2aab88b6e368e3d
 ---
 
-You teach English as a foreign language to high school students. You've decided to base your entire curriculum on TV shows. You need to analyze which words are used, and how often they're repeated.
+Angolt tanítasz idegen nyelvként középiskolás diákoknak. Úgy döntöttél, hogy az egész tananyagodat tévéműsorokra alapozod. Elemezned kell, hogy mely szavak fordulnak elő, és milyen gyakran ismétlődnek.
 
-Your task is to count how many times each word occurs in a subtitle of a drama. The subtitles use only ASCII characters.
+A feladatod, hogy megszámold, hányszor fordul elő egy-egy szó egy dráma feliratában. A feliratok csak ASCII karaktereket használnak.
 
-The characters often speak in casual English, using contractions like _they're_ or _it's_. Though these contractions come from two words, the contraction is considered a single word.
+A szereplők gyakran kötetlen angolt beszélnek, és olyan összevonásokat használnak, mint a _they're_ vagy az _it's_. Bár ezek az összevonások két szóból származnak, az összevonás egyetlen szónak számít.
 
-Words can be separated by any form of punctuation (e.g. ":", "!", or "?") or spaces. The only punctuation that does not separate words is the apostrophe in contractions.
+A szavakat bármilyen írásjel (például „:”, „!” vagy „?”) vagy szóköz választhatja el egymástól. Az egyetlen írásjel, amely nem választja el a szavakat, az összevonásokban szereplő aposztróf.
 
-Numbers are considered words. If the subtitles say "It costs 100 dollars" then "100" will be its own word.
+A számok is szónak számítanak. Ha a felirat azt mondja, hogy „It costs 100 dollars”, akkor a „100” külön szó lesz.
 
-Words are case insensitive. For example, the word "you" occurs three times in: "You come back, you hear me? DO YOU HEAR ME?"
+A szavak kis- és nagybetűérzéketlenek. Például a „you” szó háromszor fordul elő ebben: „You come back, you hear me? DO YOU HEAR ME?”
 
-Create a function called `countWords` that takes a sentence as its input, and returns a dictionary with words as keys and their frequencies as values.
+Hozz létre egy `countWords` (számold meg a szavakat) nevű függvényt, amely bemenetként egy mondatot kap, és egy szótárat ad vissza, ahol a kulcsok a szavak, az értékek pedig a gyakoriságuk.

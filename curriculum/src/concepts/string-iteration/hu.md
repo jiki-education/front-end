@@ -1,18 +1,18 @@
 ---
-title: "Végigmegyünk a string betűin"
-description: "A `for-of` ciklussal lépésről lépésre végigmegyünk egy string összes betűjén, és mindegyikkel csinálunk valamit."
-en_md5: c17aa5f377cf4ed0d66522780bf8ec83
+title: "Iterálás a stringeken"
+description: "A `for of` ciklussal lépésről lépésre végigmegyünk egy string összes betűjén, és mindegyikkel csinálunk valamit."
+en_md5: 584ac0a187a9e5244b84f0fd417494f3
 ---
 
 Egy string egy-egy betűjét szögletes zárójellel (`[]`) érheted el. Most azt nézzük meg, hogyan mehetsz végig egy stringen úgy, hogy a betűit egyenként veszed ki.
 
-Ehhez egy új fajta ciklusra lesz szükségünk. Eddig a repeat ciklust használtuk, most viszont egy úgynevezett `for-of` ciklus következik. Ez két új kulcsszót jelent: a `for`-t és az `of`-ot.
+Ehhez egy új fajta ciklusra lesz szükségünk. Eddig a repeat ciklust használtuk, most viszont egy úgynevezett `for of` ciklus (ami sorra veszi a gyűjtemény minden elemét) következik. Ez két új kulcsszót jelent: a `for`-t és az `of`-ot.
 
 A `for` kulcsszóval a későbbiekben is sok helyen találkozunk majd. Állhat önmagában, vagy párban az `in`-nel vagy az `of`-fal. Egyelőre az utóbbira, az `of`-ra koncentrálunk.
 
 Nézzünk is meg egy kis kódot.
 
-Először létrehozunk egy `name` (név) nevű változót, amiben a `"Jeremy"` string van. Ebben még semmi újdonság nincs.
+Először létrehozunk egy `name` (név) nevű változót, amiben a `"Jeremy"` (a Jeremy név) string van. Ebben még semmi újdonság nincs.
 
 Aztán jön ez a sor: `for (let letter of name) {`. Elég sok minden történik benne, úgyhogy vegyük végig szépen lassan.
 
@@ -25,7 +25,7 @@ for (let letter of name) {
 
 Először is ott a `for` kulcsszó. Ebből tudja Jiki, hogy ciklust szeretnénk. Előrenéz, meglátja az `of`-ot, és már tudja is, hogy for-of ciklusról van szó.
 
-Ez pedig azt jelenti, hogy nem egy repeat ciklust használunk, ahol azt mondjuk: „menjünk körbe tízszer", hanem azt mondjuk: „menjünk végig a string összes betűjén". Ezt jelenti a for-of.
+Ez pedig azt jelenti, hogy nem egy repeat ciklust használunk, ahol azt mondjuk: „menjünk körbe tízszer”, hanem azt mondjuk: „menjünk végig a string összes betűjén”. Ezt jelenti a for-of.
 
 Aztán ott ez a `let letter` rész. Ez pontosan ugyanaz, mint fentebb a `let name`: egyszerűen létrehozunk egy `letter` (betű) nevű változót.
 

@@ -1,32 +1,32 @@
 {
   "tasks": {
     "createSayHelloFunction": {
-      "name": "Create sayHello function",
-      "description": "Write a sayHello function that takes a name and returns a greeting in the format 'Hello, [name]!'."
+      "name": "Hozd létre a sayHello függvényt",
+      "description": "Írj egy sayHello függvényt, amely egy nevet vár paraméterül, és visszaadja az 'Hello, [name]!' formátumú üdvözlést."
     }
   },
   "scenarios": {
     "helloAiko": {
-      "name": "Greet Aiko",
-      "description": "Return 'Hello, Aiko!'"
+      "name": "Köszöntsd Aiko-t",
+      "description": "Add vissza: 'Hello, Aiko!'"
     },
     "helloPriya": {
-      "name": "Greet Priya",
-      "description": "Return 'Hello, Priya!'"
+      "name": "Köszöntsd Priya-t",
+      "description": "Add vissza: 'Hello, Priya!'"
     },
     "helloMei": {
-      "name": "Greet Mei",
-      "description": "Return 'Hello, Mei!'"
+      "name": "Köszöntsd Mei-t",
+      "description": "Add vissza: 'Hello, Mei!'"
     }
   },
   "hints": {
     "answerShape": {
-      "question": "What's the basic shape of the answer I'm trying to build?",
-      "answer": "Three pieces joined together: the fixed start `\"Hello, \"`, then the name, then the fixed end `\"!\"`."
+      "question": "Hogy néz ki alapvetően a válasz, amit meg kell alkotnom?",
+      "answer": "Három összeillesztett darab: a rögzített kezdő `\"Hello, \"`, aztán a név, végül a rögzített záró `\"!\"`."
     },
     "joinStrings": {
-      "question": "How do I join strings together?",
-      "answer": "Use concatenation with `+`, or a template string with `${}` placeholders, to stick all three pieces together into a single string."
+      "question": "Hogyan fűzök össze stringeket?",
+      "answer": "Használj konkatenációt a `+` jellel, vagy template stringet `${}` helyőrzőkkel, hogy a három részt egyetlen stringgé illeszd össze."
     }
   }
 }

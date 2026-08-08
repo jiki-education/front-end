@@ -1,0 +1,93 @@
+{
+  "checks": {
+    "totalCells": "Se esperaban {{expectedTotal}} celdas en total, pero se encontraron {{got}}.",
+    "wrongPosition": "El edificio {{building}} no está en el lugar correcto. Comienza en la columna {{start}} pero debería comenzar en la columna {{expected}}.",
+    "wrongEntrance": "Edificio {{building}}: la entrada no está en el lugar correcto.",
+    "wrongGroundWalls": "Edificio {{building}}: las paredes laterales de la planta baja no están bien.",
+    "wrongRoof": "Edificio {{building}}: el techo no está completo."
+  },
+  "tasks": {
+    "buildSkyline": {
+      "name": "Construye el horizonte urbano",
+      "description": "Construye varios edificios de anchos y alturas aleatorias para crear un horizonte urbano."
+    }
+  },
+  "scenarios": {
+    "buildings1": {
+      "name": "1 edificio",
+      "description": "Construye un solo edificio con ancho y altura aleatorios."
+    },
+    "buildings2": {
+      "name": "2 edificios",
+      "description": "Construye 2 edificios con anchos y alturas aleatorios."
+    },
+    "buildings3": {
+      "name": "3 edificios",
+      "description": "Construye 3 edificios con anchos y alturas aleatorios."
+    },
+    "buildings4": {
+      "name": "4 edificios",
+      "description": "Construye 4 edificios con anchos y alturas aleatorios."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "¿Por dónde empiezo con un ejercicio tan grande?",
+      "answer": "Divídelo en partes. La estructura externa es un bucle por cada edificio. Dentro de ese bucle, dibuja tres cosas una tras otra: la planta baja (con la entrada), los pisos superiores (solo paredes y vidrio) y el techo plano. Haz que el primer escenario pase para un solo edificio antes de preocuparte por varios edificios."
+    },
+    "buildingDimensions": {
+      "question": "¿Cómo sé cuál es la apariencia de cada edificio?",
+      "answer": "Llama a `randomWidth()` y `randomNumFloors()` una vez al inicio de la iteración de cada edificio y guarda ambos en variables locales. Si las llamas de nuevo obtienes los valores del *siguiente* edificio, así que no las llames otra vez dentro de las filas."
+    },
+    "trackPosition": {
+      "question": "¿Cómo hago un seguimiento de dónde va el siguiente edificio?",
+      "answer": "Mantén una sola variable para la columna izquierda del edificio actual. Iníciala con la separación izquierda de la especificación. Después de terminar un edificio, avánzala por el ancho de ese edificio más la separación entre edificios. Esa única variable es todo el estado de posicionamiento horizontal que necesitas."
+    },
+    "groundFloorLayout": {
+      "question": "¿Cómo distribuyo la planta baja con la entrada en el medio?",
+      "answer": "Recorre el edificio columna por columna. La primera y la última columna son paredes; todo lo demás es vidrio; una columna central es la entrada. La columna de la entrada se calcula a partir del borde izquierdo del edificio y su ancho."
+    },
+    "upperFloorsAndRoof": {
+      "question": "¿Cómo dibujo los pisos superiores y el techo?",
+      "answer": "Cada piso superior sigue el mismo patrón que la planta baja pero sin la entrada: paredes a los lados, vidrio en medio. Recuerda que la planta baja ya cuenta como uno de los pisos, así que solo apilas los restantes encima, subiendo en `y`. El techo es luego una fila completa de paredes que ocupa todo el ancho en la parte superior, y no se cuenta como un piso."
+    },
+    "stuckError": {
+      "question": "Mi segundo edificio da error con «the builders are stuck, there's already a wall here». ¿Qué está mal?",
+      "answer": "Tu segundo edificio está intentando construir encima del primero, porque no estás avanzando tu rastreador de columnas entre edificios. Después de dibujar cada edificio, increméntalo por `width + gap` antes de que empiece la siguiente iteración. Si lo olvidas, cada edificio empieza desde el mismo borde izquierdo y choca con el anterior."
+    }
+  },
+  "functions": {
+    "buildWall": {
+      "description": "Coloca un **bloque de pared** en la posición (x, y) de la cuadrícula.",
+      "category": "Construcción"
+    },
+    "buildGlass": {
+      "description": "Coloca un **panel de vidrio** en la posición (x, y) de la cuadrícula.",
+      "category": "Construcción"
+    },
+    "buildEntrance": {
+      "description": "Coloca una **puerta de entrada** en la posición (x, y) de la cuadrícula.",
+      "category": "Construcción"
+    },
+    "numBuildings": {
+      "description": "Devuelve el **número de edificios** a construir.",
+      "category": "Información"
+    },
+    "randomWidth": {
+      "description": "Devuelve un **ancho de edificio aleatorio**: 3, 5 o 7.",
+      "category": "Información"
+    },
+    "randomNumFloors": {
+      "description": "Devuelve un **número aleatorio de pisos** entre 1 y 12.",
+      "category": "Información"
+    }
+  },
+  "describers": {
+    "buildWall": "construyó una pared en la posición (${arg1}, ${arg2})",
+    "buildEntrance": "construyó una entrada en la posición (${arg1}, ${arg2})",
+    "buildGlass": "construyó un panel de vidrio en la posición (${arg1}, ${arg2})",
+    "numBuildings": "obtuvo el número de edificios",
+    "randomWidth": "obtuvo un ancho de edificio aleatorio (3-7)",
+    "randomNumFloors": "obtuvo un número aleatorio de pisos (1-12)"
+  }
+}

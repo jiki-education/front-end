@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "Kutumia Vitendakazi"
+  },
+  "strings-and-colors": {
+    "title": "Mifuatano na Rangi"
+  },
+  "repeat-loop": {
+    "title": "Kitanzi cha Kurudia"
+  },
+  "variables": {
+    "title": "Vigezo"
+  },
+  "basic-state": {
+    "title": "Hali za Msingi"
+  },
+  "functions-that-return-things": {
+    "title": "Vitendakazi Vinavyorudisha Vitu"
+  },
+  "conditionals": {
+    "title": "Masharti"
+  },
+  "complex-conditionals": {
+    "title": "Masharti Changamano"
+  },
+  "conditionals-and-state": {
+    "title": "Masharti na Hali"
+  },
+  "make-your-own-functions": {
+    "title": "Tengeneza Vitendakazi Vyako"
+  },
+  "string-manipulation": {
+    "title": "Kushughulikia Mifuatano"
+  },
+  "string-iteration": {
+    "title": "Kupitia Mifuatano"
+  },
+  "multiple-functions": {
+    "title": "Kutumia Vitendakazi Vingi Pamoja"
+  },
+  "methods-and-properties": {
+    "title": "Mbinu na Sifa"
+  },
+  "advanced-loops": {
+    "title": "Vitanzi vya Hali ya Juu"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "Kamusi"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "Kila Kitu"
+  }
+}

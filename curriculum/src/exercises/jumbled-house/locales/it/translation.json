@@ -1,0 +1,58 @@
+{
+  "checks": {
+    "frame": "Il telaio della casa non è corretto.",
+    "roof": "Il tetto della casa non è nella posizione corretta.",
+    "leftWindow": "Il telaio della finestra sinistra non è posizionato correttamente.",
+    "rightWindow": "Il telaio della finestra destra non è posizionato correttamente.",
+    "door": "Il telaio della porta non è posizionato correttamente.",
+    "doorKnob": "Il pomello della porta non è posizionato correttamente."
+  },
+  "tasks": {
+    "arrangeHouse": {
+      "name": "Disponi correttamente la casa",
+      "description": "Riordina tutte le forme nelle posizioni corrette per formare una casa. Procedi con ogni pezzo in modo metodico."
+    }
+  },
+  "scenarios": {
+    "drawTheHouse": {
+      "name": "Disegna la casa",
+      "description": "Disponi tutte le forme nelle posizioni corrette per formare una casa completa."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Da dove comincio?",
+      "answer": "Procedi con ogni forma in ordine: cielo, erba, telaio della casa, tetto, finestre, porta, pomello. Sistema ognuna correttamente prima di passare alla successiva."
+    },
+    "coordinates": {
+      "question": "Come funzionano le coordinate?",
+      "answer": "Le coordinate dell'area di disegno vanno da (0,0) in alto a sinistra a (100,100) in basso a destra. Per i rettangoli, left e top sono l'angolo in alto a sinistra."
+    },
+    "roofPosition": {
+      "question": "Come calcolo la posizione del tetto?",
+      "answer": "Il tetto è un triangolo che si trova sopra il telaio della casa. Pensa a dove devono trovarsi i punti di base sinistro e destro considerando la sporgenza, e a dove si trova la punta."
+    },
+    "windowPosition": {
+      "question": "Come posiziono le finestre?",
+      "answer": "Ogni finestra è spostata rispetto ai bordi del telaio della casa. Usa la posizione e la dimensione del telaio della casa insieme ai valori di rientro per calcolare l'angolo in alto a sinistra di ogni finestra."
+    },
+    "centerDoor": {
+      "question": "Come centro la porta?",
+      "answer": "Per centrare qualcosa dentro una forma più grande, pensa allo spazio rimanente. Se la casa è più larga della porta, lo spazio viene diviso equamente su entrambi i lati."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Disegna un rettangolo nella posizione (left, top) con la larghezza, l'altezza e il colore indicati",
+      "category": "Disegno di forme geometriche"
+    },
+    "circle": {
+      "description": "Disegna un cerchio centrato in (centerX, centerY) con il raggio e il colore indicati",
+      "category": "Disegno di forme geometriche"
+    },
+    "triangle": {
+      "description": "Disegna un triangolo con tre punti d'angolo e un colore",
+      "category": "Disegno di forme geometriche"
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "errors": {
+    "alreadyIssued": "이미 이 사람에게 손목 밴드를 줬어요. 한 사람당 손목 밴드는 한 개만 줘야 해요."
+  },
+  "checks": {
+    "childWristband": "이 사람은 8살이에요. 어린이 손목 밴드를 받아야 하는데, 받은 것은 {{got}}이에요.",
+    "teenWristband": "이 사람은 15살이에요. 청소년 손목 밴드를 받아야 하는데, 받은 것은 {{got}}이에요.",
+    "adultWristband": "이 사람은 30살이에요. 성인 손목 밴드를 받아야 하는데, 받은 것은 {{got}}이에요.",
+    "seniorWristband": "이 사람은 70살이에요. 시니어 손목 밴드를 받아야 하는데, 받은 것은 {{got}}이에요.",
+    "boundary13": "이 사람은 13살이에요. 청소년 손목 밴드를 받아야 해요 (13살은 13세 미만이 아니에요). 그런데 받은 것은 {{got}}이에요.",
+    "boundary18": "이 사람은 18살이에요. 성인 손목 밴드를 받아야 해요 (18살은 18세 미만이 아니에요). 그런데 받은 것은 {{got}}이에요.",
+    "boundary65": "이 사람은 65살이에요. 시니어 손목 밴드를 받아야 해요 (65살은 65세 미만이 아니에요). 그런데 받은 것은 {{got}}이에요."
+  },
+  "tasks": {
+    "assignWristband": {
+      "name": "알맞은 손목 밴드 지정하기",
+      "description": "사람의 나이를 가져와서 알맞은 손목 밴드를 주세요: 어린이 (13세 미만), 청소년 (13-17세), 성인 (18-64세), 시니어 (65세 이상)."
+    }
+  },
+  "scenarios": {
+    "childAge8": {
+      "name": "8살 (어린이)",
+      "description": "8살짜리 사람이에요. 어린이 손목 밴드를 받아야 해요."
+    },
+    "teenAge15": {
+      "name": "15살 (청소년)",
+      "description": "15살짜리 사람이에요. 청소년 손목 밴드를 받아야 해요."
+    },
+    "adultAge30": {
+      "name": "30살 (성인)",
+      "description": "30살짜리 사람이에요. 성인 손목 밴드를 받아야 해요."
+    },
+    "seniorAge70": {
+      "name": "70살 (시니어)",
+      "description": "70살짜리 사람이에요. 시니어 손목 밴드를 받아야 해요."
+    },
+    "boundary13": {
+      "name": "13살 (청소년)",
+      "description": "딱 13살이에요. 어린이가 아니라 청소년이에요."
+    },
+    "boundary18": {
+      "name": "18살 (성인)",
+      "description": "딱 18살이에요. 청소년이 아니라 성인이에요."
+    },
+    "boundary65": {
+      "name": "65살 (시니어)",
+      "description": "딱 65살이에요. 성인이 아니라 시니어예요."
+    }
+  },
+  "hints": {
+    "gettingAge": {
+      "question": "사람의 나이를 어떻게 가져오나요?",
+      "answer": "`getAge()`를 호출하고 결과를 변수에 담으세요. 예: `let age = getAge()`. 그러면 조건문에서 `age`와 숫자를 비교할 수 있어요."
+    },
+    "structureForRanges": {
+      "question": "여러 연령 구간이 있을 때 어떤 구조를 사용하나요?",
+      "answer": "`if` / `else if` / `else` 체인을 사용하세요. 각 분기는 하나의 손목 밴드를 처리하고, 오직 하나의 분기만 실행돼요."
+    },
+    "branchOrder": {
+      "question": "분기의 순서가 중요한가요?",
+      "answer": "네. 가장 어린 나이부터 시작하세요 (`age < 13`), 그다음 `age < 18`, 그다음 `age < 65`. 각 분기는 이전 분기가 실패했을 때만 실행되므로 `age >= 13 && age < 18` 같은 조건을 쓸 필요가 없어요."
+    },
+    "seniorsElse": {
+      "question": "마지막에 시니어는 어떻게 하나요?",
+      "answer": "시니어에게는 조건이 필요 없어요. 그냥 `else`로 `giveSeniorWristband()`를 호출하면 65세 이상인 모든 사람을 처리해요."
+    }
+  },
+  "describers": {
+    "getAge": "사람의 나이를 가져왔어요",
+    "giveChildWristband": "어린이 손목 밴드를 줬어요",
+    "giveTeenWristband": "청소년 손목 밴드를 줬어요",
+    "giveAdultWristband": "성인 손목 밴드를 줬어요",
+    "giveSeniorWristband": "시니어 손목 밴드를 줬어요"
+  },
+  "functions": {
+    "getAge": {
+      "description": "바깥에서 기다리는 사람의 **나이**를 반환해요.",
+      "category": "정보"
+    },
+    "giveChildWristband": {
+      "description": "사람에게 **어린이** 손목 밴드(13세 미만)를 줘요.",
+      "category": "손목 밴드"
+    },
+    "giveTeenWristband": {
+      "description": "사람에게 **청소년** 손목 밴드(13-17세)를 줘요.",
+      "category": "손목 밴드"
+    },
+    "giveAdultWristband": {
+      "description": "사람에게 **성인** 손목 밴드(18-64세)를 줘요.",
+      "category": "손목 밴드"
+    },
+    "giveSeniorWristband": {
+      "description": "사람에게 **시니어** 손목 밴드(65세 이상)를 줘요.",
+      "category": "손목 밴드"
+    }
+  }
+}

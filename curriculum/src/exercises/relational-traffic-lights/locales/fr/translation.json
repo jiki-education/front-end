@@ -1,0 +1,53 @@
+{
+  "checks": {
+    "housingWrong": "Le rectangle du boîtier est mal placé ou n'a pas la bonne taille. Vérifie `housingX`, `housingY`, `housingWidth` et `housingHeight`.",
+    "redWrong": "Le feu rouge est mal placé ou n'a pas la bonne taille. Vérifie `redY`.",
+    "yellowWrong": "Le feu jaune est mal placé ou n'a pas la bonne taille. Vérifie `yellowY`.",
+    "greenWrong": "Le feu vert est mal placé ou n'a pas la bonne taille. Vérifie `greenY`.",
+    "doesntScale": "Ton code ne se redimensionne pas correctement quand `radius` vaut {{radius}}. Chaque position et chaque taille doivent être calculées à partir de `center` et de `radius`."
+  },
+  "tasks": {
+    "buildRelationalTrafficLights": {
+      "name": "Construis le feu tricolore relationnel",
+      "description": "Calcule chaque position et chaque taille à partir de `center` et de `radius`, pour que le feu tricolore se redimensionne correctement."
+    }
+  },
+  "scenarios": {
+    "buildRelationalTrafficLights": {
+      "name": "Construis le feu tricolore relationnel",
+      "description": "Calcule chaque position et chaque taille à partir de `center` et de `radius`."
+    }
+  },
+  "hints": {
+    "howToWorkOutYellowCenter": {
+      "question": "Comment trouver le centre du feu jaune ?",
+      "answer": "On te fournit déjà une variable `center`. Tu peux affecter sa valeur à `yellowY`."
+    },
+    "howToWorkOutRedCenter": {
+      "question": "Comment trouver le centre du feu rouge ?",
+      "answer": "Si deux cercles se touchent, quelle distance sépare leurs centres ? Tu peux soustraire cette distance de `center` pour obtenir le feu rouge."
+    },
+    "whereHousingStarts": {
+      "question": "Où commence le rectangle du boîtier ?",
+      "answer": "Si tu connais le centre du cercle rouge, tu peux calculer le haut du cercle rouge. Le boîtier commence un rayon au-dessus (avant) du haut du cercle rouge. De la même façon, tu peux calculer le bord gauche d'un feu, puis reculer d'un rayon de plus pour trouver le début du boîtier."
+    },
+    "howBigHousing": {
+      "question": "Quelle taille doit faire le boîtier ?",
+      "answer": "C'est la largeur d'un feu, plus une marge d'un rayon de chaque côté. La hauteur, c'est 2 rayons par feu, plus un rayon en haut et un rayon en bas pour la marge."
+    },
+    "whyMultipleOfSomething": {
+      "question": "Pourquoi tout doit-il être un multiple d'autre chose ?",
+      "answer": "Si tu mets un nombre en dur, changer `radius` laissera le boîtier à la mauvaise taille par rapport aux feux. Avec des formules qui utilisent `radius` et `center`, tout le dessin reste bien proportionné."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dessine un rectangle à la position (left, top) avec la largeur, la hauteur et la couleur données",
+      "category": "Dessin de formes"
+    },
+    "circle": {
+      "description": "Dessine un cercle centré en (centerX, centerY) avec le rayon et la couleur donnés",
+      "category": "Dessin de formes"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "describers": {
+    "canMove": "Proverava da li lik može da se pomeri napred",
+    "canTurnLeft": "Proverava da li postoji put levo od lika",
+    "canTurnRight": "Proverava da li postoji put desno od lika"
+  },
+  "checks": {
+    "notReachedEnd": "Lik nije stigao do kraja lavirinta.",
+    "turnAroundNotDefined": "Treba da definišeš funkciju <code>turnAround</code> na vrhu svog koda.",
+    "turnAroundNotCalled": "Funkcija <code>turnAround</code> je definisana, ali treba i da je pozoveš u svom poslednjem <code>else</code> bloku.",
+    "maxLines": "Tvoj program ne bi trebalo da ima više od 17 redova koda."
+  },
+  "tasks": {
+    "turnAround": {
+      "name": "Okreni se u ćorsokacima",
+      "description": "Definiši funkciju turnAround() na vrhu svog koda koja dvaput poziva turnLeft(), a zatim je iskoristi u poslednjem else bloku. Tvoje rešenje treba da izvede lika iz ćorsokaka u sva tri lavirinta."
+    },
+    "bonusShortSolution": {
+      "name": "Bonus: neka bude kratko",
+      "description": "Reši lavirint sa dva ćorsokaka, tako da ceo tvoj program ima najviše 17 redova koda."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Jedan ćorsokak",
+      "description": "Prav hodnik sa jednim ćorsokakom zbog kog moraš da se okreneš"
+    },
+    "maze2": {
+      "name": "Ćorsokak i skretanje",
+      "description": "Vijugav put sa ćorsokakom pre skretanja ka izlazu"
+    },
+    "maze3": {
+      "name": "Neka bude kratko",
+      "description": "Potrudi se da tvoj ceo konačni program ima 17 redova koda."
+    }
+  },
+  "hints": {
+    "defineFunction": {
+      "question": "Kako da definišem novu funkciju?",
+      "answer": "Upotrebi ključnu reč `function`, zatim ime, zagrade za ulaze i telo u vitičastim zagradama, npr. `function turnAround() { ... }`."
+    },
+    "placement": {
+      "question": "Gde treba da stavim definiciju funkcije?",
+      "answer": "Stavi je na vrh svog koda, pre petlje. Funkcije moraju biti definisane pre nego što se pozovu."
+    },
+    "turnAroundBody": {
+      "question": "Šta treba da bude unutar `turnAround()`?",
+      "answer": "Samo dva poziva funkcije `turnLeft()`. Dva skretanja ulevo zajedno znače okret na suprotnu stranu."
+    },
+    "useInSolver": {
+      "question": "Kako da upotrebim novu funkciju u rešenju lavirinta?",
+      "answer": "Pronađi `else` blok u svom prethodnom rešenju, tamo gde se `turnLeft()` poziva dvaput, i zameni ta dva poziva jednim pozivom `turnAround()`."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Pomera lika za **jedno polje napred** u trenutnom smeru. Ako lik uđe u zid, tvoj program se završava greškom, zato proveri šta je ispred pre nego što se pomeriš!",
+      "category": "Kretanje"
+    },
+    "turnLeft": {
+      "description": "Okreće lika za **90 stepeni ulevo** (suprotno od kazaljke na satu). Time se menja smer u kom lik gleda.",
+      "category": "Kretanje"
+    },
+    "turnRight": {
+      "description": "Okreće lika za **90 stepeni udesno** (u smeru kazaljke na satu). Time se menja smer u kom lik gleda.",
+      "category": "Kretanje"
+    },
+    "canMove": {
+      "description": "Vraća **true** ako polje ispred lika nije zid, u suprotnom **false**.",
+      "category": "Osmatranje"
+    },
+    "canTurnLeft": {
+      "description": "Vraća **true** ako polje levo od lika nije zid, u suprotnom **false**.",
+      "category": "Osmatranje"
+    },
+    "canTurnRight": {
+      "description": "Vraća **true** ako polje desno od lika nije zid, u suprotnom **false**.",
+      "category": "Osmatranje"
+    }
+  }
+}

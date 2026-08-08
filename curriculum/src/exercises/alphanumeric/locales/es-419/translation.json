@@ -1,0 +1,67 @@
+{
+  "tasks": {
+    "classifyString": {
+      "name": "Clasifica un string",
+      "description": "Escribe funciones auxiliares para verificar si un string es alfabético, numérico o alfanumérico, y luego úsalas para clasificar el string de entrada."
+    },
+    "useContinue": {
+      "name": "Usa continue",
+      "description": "En tu verificación isAlphanumeric, una vez que un carácter es una letra o un dígito con el que estás conforme, usa continue para pasar directamente al siguiente carácter en lugar de anidar más condiciones."
+    }
+  },
+  "scenarios": {
+    "duck": {
+      "name": "Duck",
+      "description": "Un string puramente alfabético debe clasificarse como \"Alpha\"."
+    },
+    "number": {
+      "name": "42",
+      "description": "Un string puramente numérico debe clasificarse como \"Numeric\"."
+    },
+    "alphanumeric": {
+      "name": "Duck42",
+      "description": "Un string que contiene tanto letras como números debe clasificarse como \"Alphanumeric\"."
+    },
+    "notAlphanumeric1": {
+      "name": "It's not 42!",
+      "description": "Un string con caracteres especiales debe clasificarse como \"Unknown\"."
+    },
+    "notAlphanumeric2": {
+      "name": "42 Rubber Duck!",
+      "description": "Un string con espacios y caracteres especiales debe clasificarse como \"Unknown\"."
+    },
+    "alphanumericUsesContinue": {
+      "name": "Se usó continue",
+      "description": "Tu solución funciona y usa continue para saltar los caracteres que ya están considerados."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "¿Por dónde empiezo cuando hay que escribir varias funciones?",
+      "answer": "Elige primero la función auxiliar más pequeña. Cada auxiliar recorre los caracteres del string y hace el mismo tipo de pregunta de sí/no sobre cada uno. Haz que una funcione y las otras seguirán la misma forma."
+    },
+    "checkAllLetters": {
+      "question": "¿Cómo verifico si cada carácter del string es una letra?",
+      "answer": "Recorre cada carácter y verifica si aparece en el alfabeto. El método `.includes()` de un string responde exactamente a eso: `\"...\".includes(char)`. Recuerda incluir tanto letras minúsculas como mayúsculas, de lo contrario una mayúscula como la \"D\" en \"Duck\" no contará. Si algún carácter no está en el alfabeto, no es totalmente alfabético."
+    },
+    "checkAllDigits": {
+      "question": "¿Cómo hago la misma verificación para dígitos?",
+      "answer": "Exactamente el mismo patrón, pero verifica contra `\"0123456789\"` en lugar del alfabeto."
+    },
+    "alphanumericMeaning": {
+      "question": "¿Qué significa 'alfanumérico'? ¿Significa que debe tener ambos?",
+      "answer": "Alfanumérico significa que cada carácter es una letra O un dígito. Así que para cada carácter, si es alfabético estás bien, y si es numérico también. Usa `continue` para pasar al siguiente. Solo debes rechazarlo si no es ninguna de las dos."
+    },
+    "pickingLabels": {
+      "question": "¿Cómo elijo entre las cuatro etiquetas en whatAmI()?",
+      "answer": "Llama a las tres funciones auxiliares y usa if/else. El orden importa. Verifica los casos más estrictos ('solo alfabético' y 'solo numérico') antes de 'alfanumérico', que es el caso más amplio."
+    }
+  },
+  "checks": {
+    "mustUseContinue": "¡Casi! Usa `continue` para pasar al siguiente carácter.",
+    "tooManyLines": "¡Casi! Tu solución funciona, pero es un poco larga.",
+    "useIsAlpha": "Este ejercicio quiere que escribas una función auxiliar `isAlpha()` y la uses para clasificar el string.",
+    "useIsNumeric": "Este ejercicio quiere que escribas una función auxiliar `isNumeric()` y la uses para clasificar el string.",
+    "useIsAlphanumeric": "Este ejercicio quiere que escribas una función auxiliar `isAlphanumeric()` y la uses para clasificar el string."
+  }
+}

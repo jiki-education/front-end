@@ -1,0 +1,90 @@
+{
+  "tasks": {
+    "sumTheDigits": {
+      "name": "各位求和",
+      "description": "编写一个名为 digitalRoot 的函数，它接收一个数字并将其各位数字相加。对于已经是一位数的数字，以及各位数字之和为一位数的数字，这第一步就足够了。"
+    },
+    "collapseToSingleDigit": {
+      "name": "持续压缩直至一位数",
+      "description": "有时候，加一次各位数字之后，结果仍然不止一位数（比如 942 加起来是 15）。那就再把这个结果的各位相加，一直加到只剩一位数为止。"
+    },
+    "keepItTight": {
+      "name": "加分挑战：保持简练",
+      "description": "你的解答已经可以运行了。在这个加分挑战中，请精简一下，让整个函数只占几行，没有多余的杂乱内容。"
+    }
+  },
+  "scenarios": {
+    "drZero": {
+      "name": "零",
+      "description": "0 的数字根是 0。"
+    },
+    "drSingleDigit": {
+      "name": "已经是一位数",
+      "description": "已经是一位数的数字，其数字根就是它自己。"
+    },
+    "drTwoDigits": {
+      "name": "两位数",
+      "description": "16 在一次相加后就压缩为 7（1 + 6）。"
+    },
+    "drThreeDigits": {
+      "name": "三位数，一次相加",
+      "description": "132 在一次相加后就压缩为 6（1 + 3 + 2）。"
+    },
+    "drThirtyNine": {
+      "name": "需要两次相加",
+      "description": "39 各位相加得到 12，然后再相加得到 3。"
+    },
+    "drTwoPasses": {
+      "name": "需要第二次相加的数字",
+      "description": "942 各位相加得到 15，然后再相加得到 6。"
+    },
+    "drLarge": {
+      "name": "一个更大的数字",
+      "description": "493193 一直压缩到 2。"
+    },
+    "drNines": {
+      "name": "全部是 9",
+      "description": "99999 各位相加得到 45，然后再相加得到 9。"
+    },
+    "drBonusTight": {
+      "name": "一个精简、简短的解答",
+      "description": "12345 压缩到 6（1 + 2 + 3 + 4 + 5 = 15，然后 1 + 5 = 6）。"
+    }
+  },
+  "hints": {
+    "whatIsIt": {
+      "question": "数字根到底是什么？",
+      "answer": "把这个数字的各位都加起来。如果加完是一位数，这就是答案。如果加完还不止一位数，就把得到的结果的各位再相加，一直这样下去直到只剩一位数。"
+    },
+    "sumDigits": {
+      "question": "怎么把数字的各位加起来？",
+      "answer": "把数字转换成字符串，这样你就可以用 `for...of` 循环逐个字符地遍历它。在遍历过程中，维护一个运行总和，每次加上一个数字。"
+    },
+    "digitsToNumbers": {
+      "question": "不过，每个数字其实是一个字符，并不是数字。",
+      "answer": "遍历字符串时，每个字符（比如 `\"4\"`）都是文本。用 `Number(char)` 把它转换成数字 `4`，然后再加到你的总和里。"
+    },
+    "whichLoop": {
+      "question": "在不知道需要相加多少次的情况下，怎么让这个循环一直运行下去？",
+      "answer": "你事先并不知道需要把各位相加多少次，所以 `while` 循环特别适合。在数字大于一位数的时候，就一直循环下去。"
+    },
+    "keepGoing": {
+      "question": "什么时候停下来？",
+      "answer": "数字变成一位数了就立刻停下来。这个时候，把它返回。"
+    }
+  },
+  "checks": {
+    "mustUseWhile": "快对了！在这个练习里，我们希望你能用 `while` 循环来反复压缩，直到剩下一位数。",
+    "tooManyLines": "差一点！你的解答可以运行，但有点长了。看看能不能再精简一下。"
+  },
+  "functions": {
+    "number": {
+      "description": "把包含数字的字符串转换成数字",
+      "category": "类型转换"
+    },
+    "string": {
+      "description": "把数字转换成字符串",
+      "category": "类型转换"
+    }
+  }
+}

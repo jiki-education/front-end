@@ -1,0 +1,46 @@
+{
+  "errors": {
+    "allInputsNumbers": "Alle Eingabewerte müssen Zahlen sein",
+    "blueRange": "Blau muss zwischen 0 und 255 liegen",
+    "circleInputsNumbers": "Die Eingabewerte x, y und radius müssen Zahlen sein",
+    "colorNamedOrHex": "Die Farbe muss eine in der Anleitung angegebene benannte Farbe sein (\"orange\", \"blue\", \"white\" usw.) oder eine Hex-Farbe, die mit # beginnt",
+    "colorNotAllowed": "Für diese Übung darfst du keine Farbe angeben",
+    "colorNotString": "Die Farbe muss ein String sein",
+    "ellipseInputsNumbers": "Die Eingabewerte x, y, rx und ry müssen Zahlen sein",
+    "greenRange": "Grün muss zwischen 0 und 255 liegen",
+    "heightPositive": "Die Höhe muss größer als 0 sein",
+    "hueRange": "Der Farbton muss zwischen 0 und 360 liegen",
+    "lightnessRange": "Die Helligkeit muss zwischen 0 und 100 liegen",
+    "lineInputsNumbers": "Die Eingabewerte x1, y1, x2 und y2 müssen Zahlen sein",
+    "rectInputsNumbers": "Die Eingabewerte x, y, width und height müssen Zahlen sein",
+    "redRange": "Rot muss zwischen 0 und 255 liegen",
+    "saturationRange": "Die Sättigung muss zwischen 0 und 100 liegen",
+    "triangleInputsNumbers": "Die Eingabewerte x1, y1, x2, y2, x3 und y3 müssen Zahlen sein",
+    "widthPositive": "Die Breite muss größer als 0 sein"
+  },
+  "describers": {
+    "rectangle": {
+      "default": "hat ein Rechteck an den Koordinaten (${arg1}, ${arg2}) mit einer Breite von ${arg3}, einer Höhe von ${arg4} und der Farbe ${arg5} gezeichnet",
+      "fixedColor": "hat ein Rechteck an den Koordinaten (${arg1}, ${arg2}) mit einer Breite von ${arg3} und einer Höhe von ${arg4} gezeichnet"
+    },
+    "triangle": {
+      "default": "hat ein Dreieck mit den drei Punkten (${arg1}, ${arg2}), (${arg3}, ${arg4}) und (${arg5}, ${arg6}) in der Farbe ${arg7} gezeichnet",
+      "fixedColor": "hat ein Dreieck mit den drei Punkten (${arg1}, ${arg2}), (${arg3}, ${arg4}) und (${arg5}, ${arg6}) gezeichnet"
+    },
+    "circle": {
+      "default": "hat einen Kreis mit Mittelpunkt (${arg1}, ${arg2}), einem Radius von ${arg3} und der Farbe ${arg4} gezeichnet",
+      "fixedColor": "hat einen Kreis mit Mittelpunkt (${arg1}, ${arg2}) und einem Radius von ${arg3} gezeichnet"
+    },
+    "ellipse": {
+      "default": "hat eine Ellipse mit Mittelpunkt (${arg1}, ${arg2}), einem horizontalen Radius von ${arg3}, einem vertikalen Radius von ${arg4} und der Farbe ${arg5} gezeichnet",
+      "fixedColor": "hat eine Ellipse mit Mittelpunkt (${arg1}, ${arg2}), einem horizontalen Radius von ${arg3} und einem vertikalen Radius von ${arg4} gezeichnet"
+    },
+    "line": {
+      "default": "hat eine Linie von (${arg1}, ${arg2}) nach (${arg3}, ${arg4}) in der Farbe ${arg5} gezeichnet",
+      "fixedColor": "hat eine Linie von (${arg1}, ${arg2}) nach (${arg3}, ${arg4}) gezeichnet"
+    },
+    "clear": "hat die Zeichenfläche gelöscht",
+    "hsl": "hat die HSL-Farbe (Farbton: ${arg1}, Sättigung: ${arg2}, Helligkeit: ${arg3}) in einen Hex-String umgewandelt",
+    "rgb": "hat die RGB-Farbe (Rot: ${arg1}, Grün: ${arg2}, Blau: ${arg3}) in einen Hex-String umgewandelt"
+  }
+}

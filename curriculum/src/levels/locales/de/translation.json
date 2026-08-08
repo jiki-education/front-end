@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "Funktionen verwenden"
+  },
+  "strings-and-colors": {
+    "title": "Strings und Farben"
+  },
+  "repeat-loop": {
+    "title": "Repeat-Schleife"
+  },
+  "variables": {
+    "title": "Variablen"
+  },
+  "basic-state": {
+    "title": "Einfacher Zustand"
+  },
+  "functions-that-return-things": {
+    "title": "Funktionen mit Rückgabe"
+  },
+  "conditionals": {
+    "title": "Bedingungen"
+  },
+  "complex-conditionals": {
+    "title": "Komplexe Bedingungen"
+  },
+  "conditionals-and-state": {
+    "title": "Bedingungen und Zustand"
+  },
+  "make-your-own-functions": {
+    "title": "Eigene Funktionen schreiben"
+  },
+  "string-manipulation": {
+    "title": "Strings bearbeiten"
+  },
+  "string-iteration": {
+    "title": "Strings durchlaufen"
+  },
+  "multiple-functions": {
+    "title": "Funktionen kombinieren"
+  },
+  "methods-and-properties": {
+    "title": "Methoden und Eigenschaften"
+  },
+  "advanced-loops": {
+    "title": "Fortgeschrittene Schleifen"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "Dictionaries"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "Alles"
+  }
+}

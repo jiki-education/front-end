@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "tooManyLines": "La tua soluzione ha troppe righe di codice. Puoi accorciarla?"
+  },
+  "tasks": {
+    "createAcronymFunction": {
+      "name": "Crea la funzione `acronym`",
+      "description": "Scrivi una funzione per calcolare un acronimo che accetti tre parole e restituisca un acronimo di tre lettere formato dalla prima lettera di ciascuna parola."
+    },
+    "solveInThreeLines": {
+      "name": "Risolvi in 3 righe di codice",
+      "description": "Riesci a risolvere questo esercizio con solo 3 righe di codice?"
+    }
+  },
+  "scenarios": {
+    "png": {
+      "name": "Portable Network Graphics",
+      "description": "Crea l'acronimo 'PNG' da 'Portable', 'Network', 'Graphics'."
+    },
+    "css": {
+      "name": "Cascading Style Sheets",
+      "description": "Crea l'acronimo 'CSS' da 'Cascading', 'Style', 'Sheets'."
+    },
+    "www": {
+      "name": "World Wide Web",
+      "description": "Crea l'acronimo 'WWW' da 'World', 'Wide', 'Web'."
+    },
+    "lol": {
+      "name": "Parole minuscole",
+      "description": "Crea l'acronimo 'lol' da 'laugh', 'out', 'loud'."
+    },
+    "bonus1": {
+      "name": "3 righe di codice",
+      "description": "Risolvi l'esercizio con solo 3 righe di codice."
+    }
+  },
+  "hints": {
+    "firstCharacter": {
+      "question": "Come faccio a ottenere solo il primo carattere di una parola?",
+      "answer": "Indicizzando la stringa. Il primo carattere si trova all'indice `[0]`."
+    },
+    "buildResult": {
+      "question": "Come faccio a costruire il risultato di tre lettere?",
+      "answer": "Prendi il primo carattere di ogni parola e uniscili nell'ordine usando la concatenazione (`+`) o una stringa interpolata."
+    }
+  }
+}

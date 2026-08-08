@@ -1,0 +1,103 @@
+{
+  "describers": {
+    "canMove": "Verifica si el personaje puede avanzar",
+    "canTurnLeft": "Verifica si hay un camino a la izquierda del personaje",
+    "canTurnRight": "Verifica si hay un camino a la derecha del personaje"
+  },
+  "checks": {
+    "reachedEnd": "No llegaste al final del laberinto.",
+    "extraTurn": "Parece que hiciste un giro extra innecesario al final."
+  },
+  "tasks": {
+    "straightPath": {
+      "name": "Un camino recto",
+      "description": "Avanza hasta el final del laberinto."
+    },
+    "turnLeft": {
+      "name": "Gira a la izquierda si puedes",
+      "description": "¡Si hay un camino a la izquierda, tómalo!"
+    },
+    "turnRight": {
+      "name": "Gira a la derecha si no puedes avanzar ni a la izquierda",
+      "description": "Si no hay un camino a la izquierda ni al frente, toma el camino a la derecha."
+    },
+    "turnAround": {
+      "name": "Date la vuelta si es necesario",
+      "description": "Enfrenta los callejones sin salida dando la vuelta. Si no puedes ir a la izquierda, al frente o a la derecha, date la vuelta y avanza."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Guía al personaje hasta el final del laberinto",
+      "description": "Un camino recto hacia abajo"
+    },
+    "leftTurn": {
+      "name": "Un solo giro a la izquierda",
+      "description": "Recorre un giro a la izquierda"
+    },
+    "rightTurn": {
+      "name": "Un solo giro a la derecha",
+      "description": "Recorre un giro a la derecha"
+    },
+    "forks": {
+      "name": "Elige la izquierda si puedes; si no, la derecha",
+      "description": "Un laberinto con bifurcaciones que prueba la prioridad de la izquierda"
+    },
+    "turnAround": {
+      "name": "Date la vuelta en un callejón sin salida",
+      "description": "Un laberinto que requiere darse la vuelta"
+    },
+    "forks2": {
+      "name": "Laberinto complejo con bifurcaciones y callejones sin salida",
+      "description": "Un laberinto complejo que prueba el algoritmo completo"
+    }
+  },
+  "hints": {
+    "solveEachMaze": {
+      "question": "¿Tengo que resolver cada laberinto por separado?",
+      "answer": "No. Escribes un algoritmo que funciona para cualquier laberinto y el mismo código se ejecuta en cada escenario."
+    },
+    "runEveryStep": {
+      "question": "¿Cómo hago para que mi código se ejecute en cada paso del laberinto?",
+      "answer": "Envuelve tu lógica en el bucle repeat. Ejecuta tu código una y otra vez hasta que llegues al final, así que solo necesitas describir qué hacer en un solo paso."
+    },
+    "oneCheckPerStep": {
+      "question": "¿Cómo me aseguro de que solo una de mis verificaciones ocurra en cada paso?",
+      "answer": "Usa una sola cadena de if / else if / else en lugar de varios if separados. De esa forma, exactamente una rama se ejecuta cada vez que pasa por el bucle."
+    },
+    "stuckAfterTurn": {
+      "question": "Giro, pero el personaje se queda atascado en el mismo lugar.",
+      "answer": "Girar solo cambia la dirección hacia la que mira el personaje, no da un paso. Después de girar, todavía necesitas hacer move()."
+    },
+    "turnAroundDeadEnd": {
+      "question": "¿Cómo me doy la vuelta en un callejón sin salida?",
+      "answer": "No hay una función para darse la vuelta. Girar dos veces hacia el mismo lado (dos giros a la izquierda o dos a la derecha) deja al personaje mirando hacia atrás por donde vino."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Mueve al personaje **un paso hacia adelante** en la dirección actual. El personaje solo se moverá si la posición de destino no está bloqueada por una pared.",
+      "category": "Movimiento"
+    },
+    "turnLeft": {
+      "description": "Gira al personaje **90 grados a la izquierda** (en sentido antihorario). Esto cambia la dirección hacia la que mira el personaje.",
+      "category": "Movimiento"
+    },
+    "turnRight": {
+      "description": "Gira al personaje **90 grados a la derecha** (en sentido horario). Esto cambia la dirección hacia la que mira el personaje.",
+      "category": "Movimiento"
+    },
+    "canMove": {
+      "description": "Devuelve **true** si el espacio frente al personaje no es una pared, **false** en caso contrario.",
+      "category": "Detección"
+    },
+    "canTurnLeft": {
+      "description": "Devuelve **true** si el espacio a la izquierda del personaje no es una pared, **false** en caso contrario.",
+      "category": "Detección"
+    },
+    "canTurnRight": {
+      "description": "Devuelve **true** si el espacio a la derecha del personaje no es una pared, **false** en caso contrario.",
+      "category": "Detección"
+    }
+  }
+}

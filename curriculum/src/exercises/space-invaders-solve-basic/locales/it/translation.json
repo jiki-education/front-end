@@ -1,0 +1,40 @@
+{
+  "describers": {
+    "move": "ha spostato il cannone laser a destra"
+  },
+  "checks": {
+    "notShotAllAliens": "Non hai abbattuto tutti gli alieni."
+  },
+  "tasks": {
+    "shootTheAliens": {
+      "name": "Abbatti tutti gli alieni",
+      "description": "Sposta il tuo cannone laser verso destra e spara a ogni alieno mentre ci passi sotto. Non sbagliare il colpo e non uscire dal bordo!"
+    }
+  },
+  "scenarios": {
+    "shootTheAliens": {
+      "name": "Abbatti gli alieni",
+      "description": "Spostati verso destra e abbatti tutti gli alieni"
+    }
+  },
+  "hints": {
+    "whatDoINeedToDo": {
+      "question": "Cosa devo fare?",
+      "answer": "Come nel labirinto, devi muovere il tuo personaggio (questa volta un laser, non una persona). Ma devi anche sparare dal laser! Sposta il laser sotto un alieno, poi spara. Poi spostati di nuovo finché non sei sotto il prossimo alieno, e spara ancora. Continua finché non hai abbattuto l'ultimo alieno!"
+    },
+    "cantWasteAmmo": {
+      "question": "Mi viene detto che non posso sprecare munizioni.",
+      "answer": "Dovresti usare `shoot()` solo quando sei direttamente sotto un alieno. Prova a spostarti di un passo in più (o forse sei andato un passo troppo oltre?)"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Sposta il cannone laser **di una posizione verso destra**. Se esci dal bordo destro dello schermo, perdi!",
+      "category": "Movimento"
+    },
+    "shoot": {
+      "description": "Spara il laser verso l'alto. **Spara solo quando c'è un alieno sopra di te**, altrimenti perdi la partita!",
+      "category": "Azione"
+    }
+  }
+}

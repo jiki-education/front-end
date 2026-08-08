@@ -1,0 +1,56 @@
+{
+  "checks": {
+    "bottomLeft": "Il rettangolo in basso a sinistra non è corretto.",
+    "bottomRight": "Il rettangolo in basso a destra non è corretto.",
+    "secondRowFirst": "Il primo rettangolo della seconda fila dal basso non è corretto.",
+    "secondRowLast": "L'ultimo rettangolo della seconda fila dal basso non è corretto.",
+    "thirdRowMiddle": "Il rettangolo centrale della terza fila dal basso non è corretto.",
+    "fourthRowMiddle": "Uno dei rettangoli centrali della quarta fila dal basso non è corretto.",
+    "topLeft": "Il rettangolo in alto a sinistra non è corretto.",
+    "topRight": "Il rettangolo in alto a destra non è corretto.",
+    "brickCount": "Il muro deve essere composto esattamente da 55 mattoni.",
+    "codeQuality": {
+      "rectangleCalledOnce": "Stai usando la funzione <code>rectangle</code> in più punti del tuo codice. Dovrebbe apparire una sola volta!"
+    }
+  },
+  "tasks": {
+    "buildWall": {
+      "name": "Costruisci il muro",
+      "description": "Costruisci un muro completo di 55 mattoni usando cicli annidati."
+    }
+  },
+  "scenarios": {
+    "buildWall": {
+      "name": "Costruisci un muro di 55 mattoni",
+      "description": "Crea un motivo a muro di mattoni completo usando cicli annidati."
+    }
+  },
+  "hints": {
+    "onlyOneRectangleCall": {
+      "question": "Posso chiamare `rectangle` una sola volta. Come faccio a disegnare 55 mattoni?",
+      "answer": "Metti l'unica chiamata a `rectangle` dentro un ciclo. A ogni iterazione cambiano x e y in modo che un nuovo mattone venga disegnato in una nuova posizione."
+    },
+    "wholeGrid": {
+      "question": "Come faccio a disegnare un'intera griglia invece di una sola fila?",
+      "answer": "Usa cicli annidati. Il ciclo esterno scorre le file (cambiando y), e il ciclo interno scorre i mattoni in quella fila (cambiando x)."
+    },
+    "offsetRows": {
+      "question": "Come gestisco il fatto che le file sono sfalsate in modo diverso?",
+      "answer": "Osserva attentamente l'immagine. Una fila su due è spostata lateralmente e ha un numero diverso di mattoni. Quindi dovrai gestire i due tipi di fila in modo diverso, scegliendo una posizione di partenza e un numero di mattoni per ciascuna."
+    },
+    "oddEven": {
+      "question": "Come faccio a capire se il numero di una fila è pari o dispari?",
+      "answer": "L'operatore `%` (modulo) ti dà il resto della divisione. Dividendo il numero di una fila per 2 ottieni un modo per distinguere le file dispari da quelle pari, che puoi successivamente verificare dentro un `if`."
+    },
+    "sizesAndSpacings": {
+      "question": "Che dimensioni e spaziature devo usare?",
+      "answer": "Ogni mattone è largo `20` e alto `10`, quindi x aumenta di `20` tra un mattone e l'altro in una fila, e y cambia di `10` tra una fila e l'altra."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Disegna un rettangolo nella posizione (left, top) con la larghezza, l'altezza e il colore specificati",
+      "category": "Disegno di forme geometriche"
+    }
+  }
+}

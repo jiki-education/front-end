@@ -1,0 +1,117 @@
+{
+  "tasks": {
+    "doubleAndSum": {
+      "name": "翻倍每隔一位数字并求和",
+      "description": "编写一个名为 valid 的函数，忽略空格，然后从右边开始数每隔一位数字翻倍（翻倍结果大于 9 时减去 9），将所有数字相加，当总和能被 10 整除时返回 true。"
+    },
+    "spotInvalidNumbers": {
+      "name": "识别无效号码",
+      "description": "所有数字都有效但总和不能被 10 整除的号码应返回 false。"
+    },
+    "rejectBadInput": {
+      "name": "拒绝无效输入",
+      "description": "拒绝只含一个字符或更短的字符串，以及任何包含非数字或空格字符的字符串。"
+    }
+  },
+  "scenarios": {
+    "luhnSimpleValid": {
+      "name": "一个简单的有效号码",
+      "description": "有效号码应返回 true。"
+    },
+    "luhnValidTwoDigit": {
+      "name": "有效的两位数号码",
+      "description": "有效的两位数号码应返回 true。"
+    },
+    "luhnValidCanadianSin": {
+      "name": "有效的加拿大 SIN 号码",
+      "description": "一个包含空格的有效号码应返回 true。"
+    },
+    "luhnValidEvenDigits": {
+      "name": "有效的偶数位号码",
+      "description": "包含偶数位数字的有效号码应返回 true。"
+    },
+    "luhnValidVeryLong": {
+      "name": "非常长的号码",
+      "description": "一个非常长的有效号码仍应返回 true。"
+    },
+    "luhnInvalidCanadianSin": {
+      "name": "无效的加拿大 SIN 号码",
+      "description": "总和不能被 10 整除的号码应返回 false。"
+    },
+    "luhnInvalidCreditCard": {
+      "name": "无效的信用卡号码",
+      "description": "无效的信用卡号码应返回 false。"
+    },
+    "luhnInvalidLongRemainderDiv5": {
+      "name": "总和能被 5 整除的无效长号码",
+      "description": "一个总和能被 5 整除但不能被 10 整除的长号码应返回 false。"
+    },
+    "luhnSingleDigit": {
+      "name": "一位数无效",
+      "description": "一位数字的字符串永远无效。"
+    },
+    "luhnZeroWithSpace": {
+      "name": "含空格的单个零",
+      "description": "含空格的单个零是无效的，因为忽略空格后只剩一位数字。"
+    },
+    "luhnTrailingLetter": {
+      "name": "末尾有字母",
+      "description": "有效号码末尾添加非数字字符后变为无效。"
+    },
+    "luhnColon": {
+      "name": "冒号字符",
+      "description": "冒号在字符 '0' 之前一位，不能被视为数字。"
+    },
+    "luhnPercent": {
+      "name": "中间带有百分号字符",
+      "description": "号码中间有任何非数字、非空格字符都会使其无效，即使仅数字部分的总和是 10 的倍数。"
+    }
+  },
+  "hints": {
+    "whatIsLuhn": {
+      "question": "Luhn 校验究竟如何工作？",
+      "answer": "首先忽略所有空格。然后，从最右边的数字开始向左，每隔一位数字翻倍。如果翻倍后的值大于 9，则减去 9。将所有处理后的数字相加。如果总和能被 10 整除，则该号码有效。"
+    },
+    "stripSpaces": {
+      "question": "如何处理空格？",
+      "answer": "空格仅为可读性添加。使用 `continue` 跳过它们，这样它们不计入位数，也不影响真实数字的位置。"
+    },
+    "rejectNonDigits": {
+      "question": "如何拒绝无效字符？",
+      "answer": "在检查每个字符时，如果它既不是空格也不是 `0123456789` 中的一个，你可以立即返回 `false`。一个很便利的检查方法是 `\\\"0123456789\\\".includes(char)`。"
+    },
+    "everySecondDigit": {
+      "question": "我应该翻倍哪些数字？",
+      "answer": "每隔一个。先构建一个只含数字的干净字符串会很有帮助，然后用索引遍历它，这样就能知道每个数字的位置。"
+    },
+    "fromTheRight": {
+      "question": "但我需要从右边开始数，而不是左边。",
+      "answer": "如果你的干净数字字符串长度为 `len`，且当前索引为 `i`（从左边以 0 开始计数），那么它离右边的距离就是 `len - 1 - i`。当距离为奇数时，就翻倍该数字。"
+    },
+    "doublingOverNine": {
+      "question": "翻倍后得到两位数会怎样？",
+      "answer": "如果翻倍后数字大于 9，就减去 9。例如 6 翻倍到 12，12 - 9 = 3。（这等同于将两个数字相加。）"
+    },
+    "finalCheck": {
+      "question": "最后如何检查有效性？",
+      "answer": "将所有数字（包括翻倍后的）加起来，检查总和是否能被 10 整除，即 `total % 10 === 0`。记得还要拒绝只有一位或更少数字的字符串。"
+    }
+  },
+  "checks": {
+    "mustUseFor": "差一点！这个练习要求你使用 `for` 循环来解答。"
+  },
+  "functions": {
+    "number": {
+      "description": "将包含数字的字符串转换为数字",
+      "category": "类型转换"
+    },
+    "includes": {
+      "description": "检查字符串是否包含子字符串",
+      "category": "字符串操作"
+    },
+    "length": {
+      "description": "字符串的字符数",
+      "category": "字符串操作"
+    }
+  }
+}

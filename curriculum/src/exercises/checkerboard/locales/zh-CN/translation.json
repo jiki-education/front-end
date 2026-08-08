@@ -1,0 +1,80 @@
+{
+  "checks": {
+    "border": "棋盘边缘应有一圈完整的黑色边框。",
+    "topLeftWhite": "左上角的方格应为白色（这是一个浅色方格）。",
+    "rightOfTopLeftDark": "左上角右侧的方格应该是深棕色（深色方格）。",
+    "bottomLeftDark": "左下角的方格应该是深棕色（深色方格）。",
+    "bottomRightWhite": "右下角的方格应为白色。",
+    "charcoalPiece": "顶行的深色方格上应有一个炭灰色棋子。",
+    "topRim": "顶部行的棋子应有外层边框。",
+    "whitePiece": "底部行的深色方格上应有一个白色棋子。",
+    "bottomRim": "底部行的棋子应有外层边框。",
+    "rimRatio": "棋子的外层边框应占所在方格宽度的 80%——请检查外圆的半径。",
+    "innerRatio": "棋子的中心部分应为整个棋子宽度的 75%——请检查内圆的半径。",
+    "noPieceOnLight": "左上角方格上不应有棋子——棋子只能放在深色方格上。",
+    "middleRowsEmpty": "中间行应为空——只有顶部和底部的行有棋子。"
+  },
+  "tasks": {
+    "setUpTheBoard": {
+      "name": "布置棋盘",
+      "description": "绘制棋盘，并将棋子放在顶部行和底部行的深色方格上——并且代码要适用于任意尺寸的棋盘。"
+    }
+  },
+  "scenarios": {
+    "board8": {
+      "name": "布置 8×8 棋盘",
+      "description": "绘制经典的 8×8 棋盘，并摆好棋子，准备开始游戏。"
+    },
+    "board6": {
+      "name": "布置 6×6 棋盘",
+      "description": "同样的代码也应适用于更小的 6×6 棋盘。"
+    },
+    "board10": {
+      "name": "布置 10×10 棋盘",
+      "description": "同时，也应能放大适用于更大的 10×10 棋盘。"
+    }
+  },
+  "hints": {
+    "wholeGrid": {
+      "question": "如何绘制整个方格网格，而不是只画一个？",
+      "answer": "使用嵌套循环：外层循环遍历行，内层循环遍历列。每执行一次内层循环就绘制一个方格。"
+    },
+    "anyBoardSize": {
+      "question": "如何使代码适用于各种尺寸的棋盘？",
+      "answer": "不要选择固定的方格尺寸。通过调用 `getBoardSize()` 获取方格数量，然后根据这个数量和可用空间计算出一个 `cell`（单元格）尺寸，并以此为基础确定所有位置。"
+    },
+    "alternateColours": {
+      "question": "如何让方格的颜色交替出现？",
+      "answer": "同时观察方格所在的行和列。取余运算符（`%`）可以让你根据 `row` 和 `col` 将所有方格分入两个组，这两个组正好对应浅色和深色方格。"
+    },
+    "whichSquaresGetPieces": {
+      "question": "哪些方格需要放棋子？",
+      "answer": "棋子只能放在**深色**方格上，所以你可以复用给它们上色时所用的相同判断。然后，进一步限定为只有顶部和底部的行，中间两行留空。"
+    },
+    "ridgedPiece": {
+      "question": "如何绘制一个有楞的棋子？",
+      "answer": "在同一个中心点绘制两个圆：较大的一个作为外层边框，然后在它上面用棋子的颜色绘制一个稍小的圆作为内层。两个圆的半径都应基于单元格大小，这样棋子就能随棋盘一起缩放。"
+    },
+    "rimSize": {
+      "question": "边框大小看起来和示例图不一样。",
+      "answer": "请检查内圆是否为外圆的 75%（而不是方格的 75%）。"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "在位置 (`left`, `top`) 处，以给定的宽度、高度和颜色绘制一个矩形。",
+      "category": "绘制形状"
+    },
+    "circle": {
+      "description": "以 (`centerX`, `centerY`) 为圆心，使用给定的半径和颜色绘制一个圆。",
+      "category": "绘制形状"
+    },
+    "getBoardSize": {
+      "description": "返回当前谜题的棋盘大小（每边的方格数量）",
+      "category": "信息"
+    }
+  },
+  "describers": {
+    "getBoardSize": "获取了棋盘的大小（每边的方格数量）"
+  }
+}

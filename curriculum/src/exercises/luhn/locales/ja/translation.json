@@ -1,0 +1,117 @@
+{
+  "tasks": {
+    "doubleAndSum": {
+      "name": "右から1つおきの数字を2倍して合計",
+      "description": "スペースを無視し、右から数えて1つおきの数字を2倍し（9を超えたら9を引く）、すべての数字を合計して10で割り切れる場合に`true`を返す`valid`関数を作成してください。"
+    },
+    "spotInvalidNumbers": {
+      "name": "無効な番号を見分ける",
+      "description": "すべての数字が有効でも、チェックサムが10で割り切れない番号は`false`を返します。"
+    },
+    "rejectBadInput": {
+      "name": "不正な入力を拒否する",
+      "description": "1文字以下の文字列、または数字とスペース以外の文字が含まれている文字列は無効とみなしてください。"
+    }
+  },
+  "scenarios": {
+    "luhnSimpleValid": {
+      "name": "単純な有効な番号",
+      "description": "有効な番号は`true`を返します。"
+    },
+    "luhnValidTwoDigit": {
+      "name": "有効な2桁の番号",
+      "description": "有効な2桁の番号は`true`を返します。"
+    },
+    "luhnValidCanadianSin": {
+      "name": "有効なカナダのSIN",
+      "description": "スペースを含む有効な番号は`true`を返します。"
+    },
+    "luhnValidEvenDigits": {
+      "name": "有効な偶数桁の番号",
+      "description": "有効な偶数桁の番号は`true`を返します。"
+    },
+    "luhnValidVeryLong": {
+      "name": "非常に長い番号",
+      "description": "非常に長い有効な番号でも`true`を返します。"
+    },
+    "luhnInvalidCanadianSin": {
+      "name": "無効なカナダのSIN",
+      "description": "チェックサムが通らない番号は`false`を返します。"
+    },
+    "luhnInvalidCreditCard": {
+      "name": "無効なクレジットカード番号",
+      "description": "無効なクレジットカード番号は`false`を返します。"
+    },
+    "luhnInvalidLongRemainderDiv5": {
+      "name": "合計が5で割り切れるが10で割り切れない長い番号",
+      "description": "合計が5で割り切れても10で割り切れない長い番号は`false`を返します。"
+    },
+    "luhnSingleDigit": {
+      "name": "1桁の番号は無効",
+      "description": "1桁の文字列は決して有効になりません。"
+    },
+    "luhnZeroWithSpace": {
+      "name": "スペースを含む1桁の0",
+      "description": "スペースを含む1つの0は無効です。スペースを無視すると1桁しか残らないからです。"
+    },
+    "luhnTrailingLetter": {
+      "name": "末尾に英字が付いた番号",
+      "description": "末尾に数字以外の文字が追加された有効な番号は無効になります。"
+    },
+    "luhnColon": {
+      "name": "コロン文字",
+      "description": "コロン（`:`）は文字`'0'`より1小さい値であり、数字として扱ってはいけません。"
+    },
+    "luhnPercent": {
+      "name": "途中にパーセント記号が含まれる番号",
+      "description": "途中に数字でもスペースでもない文字が含まれている場合、数字だけなら合計が10の倍数になっていたとしても、その番号は無効です。"
+    }
+  },
+  "hints": {
+    "whatIsLuhn": {
+      "question": "ルーンチェックは実際にどのように動くのですか？",
+      "answer": "最初にすべてのスペースを無視します。次に、右端の数字から左に向かって、1つおきの数字を2倍します。2倍した結果が9より大きい場合は9を引きます。得られた数字をすべて合計します。その合計が10で割り切れれば、番号は有効です。"
+    },
+    "stripSpaces": {
+      "question": "スペースはどうすればいいですか？",
+      "answer": "スペースは読みやすさのためにあるだけです。`continue`を使ってスキップし、数字としてカウントされないように、また実際の数字の位置に影響を与えないようにします。"
+    },
+    "rejectNonDigits": {
+      "question": "無効な文字を拒否するにはどうすればいいですか？",
+      "answer": "各文字を調べて、スペースでも`0123456789`のいずれでもなければ、すぐに`false`を返します。`\"0123456789\".includes(char)`を使うと便利です。"
+    },
+    "everySecondDigit": {
+      "question": "どの数字を2倍すればいいですか？",
+      "answer": "1つおきです。まず数字だけのきれいな文字列を作り、それからインデックスを使ってループして各数字の位置がわかるようにするとやりやすいです。"
+    },
+    "fromTheRight": {
+      "question": "でも、左からではなく右から数えないといけませんよね？",
+      "answer": "数字だけの文字列の長さが`len`で、今が左から数えて`i`番目（0始まり）だとすると、右からの距離は`len - 1 - i`になります。その距離が奇数のときに数字を2倍します。"
+    },
+    "doublingOverNine": {
+      "question": "2倍すると2桁の数字になったらどうしますか？",
+      "answer": "2倍して9を超えたら、9を引きます。たとえば6を2倍すると12になり、12 - 9 = 3です。（これは2桁の数字を足し合わせたのと同じ答えになります。）"
+    },
+    "finalCheck": {
+      "question": "最終的な有効性チェックは何ですか？",
+      "answer": "すべての数字（2倍したものもそうでないものも）を合計し、その合計が10で割り切れるかどうか、つまり`total % 10 === 0`かどうかをチェックします。1桁以下の文字列も拒否するのを忘れないでください。"
+    }
+  },
+  "checks": {
+    "mustUseFor": "もう少しです！この演習では`for`ループを使って解くことが求められています。"
+  },
+  "functions": {
+    "number": {
+      "description": "数字を含む文字列を数値に変換します",
+      "category": "型変換"
+    },
+    "includes": {
+      "description": "文字列が部分文字列を含むかどうかを調べます",
+      "category": "文字列操作"
+    },
+    "length": {
+      "description": "文字列の文字数",
+      "category": "文字列操作"
+    }
+  }
+}

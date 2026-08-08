@@ -1,0 +1,126 @@
+{
+  "checks": {
+    "fastAttack": {
+      "should": "アナリンはここで<strong>素早く攻撃をするべきです</strong>が、しませんでした。騎士が寝ているので、起きる前に攻撃できます。",
+      "shouldNot": "アナリンはここで<strong>素早く攻撃をするべきではありません</strong>。騎士が起きているので、攻撃すると捕まってしまいます。",
+      "tooMany": "アナリンはここで<strong>素早く攻撃を一度だけするべき</strong>ですが、{{count}}回行いました。"
+    },
+    "spy": {
+      "should": "アナリンはここで<strong>偵察するべきです</strong>が、しませんでした。キャンプの誰かが起きているので、見張るものがあります。",
+      "shouldNot": "アナリンはここで<strong>偵察するべきではありません</strong>。全員が寝ているので、学べることは何もありません。",
+      "tooMany": "アナリンはここで<strong>偵察を一度だけするべき</strong>ですが、{{count}}回行いました。"
+    },
+    "signal": {
+      "should": "アナリンはここで<strong>囚人に合図を送るべきです</strong>が、しませんでした。囚人が起きていて、弓使いが寝ているので、合図は届きます。",
+      "shouldNot": "アナリンはここで<strong>囚人に合図を送るべきではありません</strong>。囚人が寝ているか、弓使いが起きているので、合図は失敗するでしょう。",
+      "tooMany": "アナリンはここで<strong>囚人に合図を一度だけ送るべき</strong>ですが、{{count}}回行いました。"
+    },
+    "free": {
+      "should": "アナリンはここで<strong>囚人を解放するべきです</strong>が、しませんでした。ここで捕まらずに解放できます。",
+      "shouldNot": "アナリンはここで<strong>囚人を解放しようとするべきではありません</strong>。捕まってしまうでしょう。",
+      "tooMany": "アナリンはここで<strong>囚人を一度だけ解放するべき</strong>ですが、{{count}}回行いました。"
+    }
+  },
+  "tasks": {
+    "planTheRescue": {
+      "name": "救助の計画を立てる",
+      "description": "各キャンプで、アナリンが安全に行えるすべてのアクションを実行してください。騎士が寝ているなら素早く攻撃、少なくとも一人が起きているなら偵察、囚人が起きていて弓使いが寝ているなら囚人に合図を送ります。また、犬がおとなしくしているルートか、アナリンが潜入するルートのいずれかで囚人を解放します。"
+    }
+  },
+  "scenarios": {
+    "allAsleepNaughtyDog": {
+      "name": "全員寝ている、犬がいたずら中",
+      "description": "キャンプ全体が寝ていますが、アナリンの犬がいたずらをしているので役に立ちません。"
+    },
+    "allAsleepBehavingDog": {
+      "name": "全員寝ている、犬はおとなしくしている",
+      "description": "キャンプ全体が寝ていて、アナリンの犬はおとなしくしています。"
+    },
+    "knightAwakeNaughtyDog": {
+      "name": "騎士だけが起きている",
+      "description": "騎士が見張りをしていて、弓使いと囚人は寝ています。犬はいたずらをしています。"
+    },
+    "prisonerAwakeNaughtyDog": {
+      "name": "囚人だけが起きている",
+      "description": "誘拐犯の両方が寝ている間に、囚人は起きています。犬はいたずらをしています — 潜入ルートが開いています。"
+    },
+    "archerAndPrisonerAwakeBehavingDog": {
+      "name": "弓使いと囚人が起きている",
+      "description": "弓使いが見張りをしていて、囚人も起きています。犬はおとなしくしています。"
+    },
+    "allAwakeBehavingDog": {
+      "name": "全員起きている、犬はおとなしくしている",
+      "description": "キャンプ全体がしっかり起きています。犬がおとなしくしていても、解放は安全ではありません。"
+    }
+  },
+  "hints": {
+    "checkCampState": {
+      "question": "キャンプの様子を調べるにはどうすればいいですか？",
+      "answer": "4つのことを確認できます。それぞれ `true` か `false` を返す関数があります：\n\n- 騎士は起きていますか？ `knightIsAwake()`\n- 弓使いは起きていますか？ `archerIsAwake()`\n- 囚人は起きていますか？ `prisonerIsAwake()`\n- 犬はおとなしくしていますか？ `dogIsBehaving()`"
+    },
+    "performActions": {
+      "question": "アナリンに各アクションを行わせるにはどうすればいいですか？",
+      "answer": "4つのアクションがあり、それぞれ独自の関数です：\n\n- 素早く攻撃する： `fastAttack()`\n- キャンプを偵察する： `spy()`\n- 囚人に合図を送る： `signalPrisoner()`\n- 囚人を解放する： `freePrisoner()`"
+    },
+    "knightAsleep": {
+      "question": "素早く攻撃には騎士が寝ている必要があります。それをどう確認すればいいですか？",
+      "answer": "`isAsleep()` という関数はありませんが、寝ていることは起きていることの反対です。条件を逆にするには `!` を使います。お腹がいっぱいになったら食べるのをやめるように言いたいけど、`isHungry()` という関数しかない場合を想像してください。それを反転させます：\n\n```javascript\nif (!isHungry()) {\n  stopEating()\n}\n```\n\n同じ考え方を、騎士が寝ているかどうかを確認するのに適用してください。"
+    },
+    "spyAnyoneAwake": {
+      "question": "偵察は、少なくとも誰か一人が起きている場合に有効です。それをどう書けばいいですか？",
+      "answer": "チェックの間に `||`（または）を使うと、どれか一つでも `true` なら全体の条件が `true` になります。例えば、お腹が空いているか、のどが渇いているか、またはその両方の場合に実行します：\n\n```javascript\nif (isHungry() || isThirsty()) {\n  rest()\n}\n```"
+    },
+    "signalBothConditions": {
+      "question": "合図を送るには、2つのことが同時に true である必要があります。それらをどう組み合わせますか？",
+      "answer": "`&&`（かつ）を使うと、両方が `true` である必要があります。例えば、お腹が空いていて、かつ、のどが渇いている場合にのみ実行します：\n\n```javascript\nif (isHungry() && isThirsty()) {\n  drink()\n}\n```"
+    },
+    "twoWaysToSucceed": {
+      "question": "あるアクションには、完全に別々の2つの成功方法があります。それをどう処理しますか？",
+      "answer": "どちらの方法でも単独で十分なので、2つの選択肢があります。\n\n1つ目は、各方法に別々の `if` を書いて、両方で同じアクションを行う方法です：\n\n```javascript\nif (isHungry() && hasSnack()) {\n  eat()\n}\nif (isThirsty() && hasSnack()) {\n  eat()\n}\n```\n\n2つ目は、両方の方法を `||` で1つの `if` にまとめ、各方法のチェックを括弧で囲んで、`||` が分割する前に `&&` の部分がグループ化されるようにする方法です：\n\n```javascript\nif ((isHungry() && hasSnack()) || (isThirsty() && hasSnack())) {\n  eat()\n}\n```\n\n最初に各方法の条件を個別に考えてから、より明確だと思うスタイルを選んでください。"
+    }
+  },
+  "describers": {
+    "knightIsAwake": "騎士が起きているかどうかを調べた",
+    "archerIsAwake": "弓使いが起きているかどうかを調べた",
+    "prisonerIsAwake": "囚人が起きているかどうかを調べた",
+    "dogIsBehaving": "アナリンの犬がおとなしくしているかどうかを調べた",
+    "fastAttack": "騎士に素早く攻撃した",
+    "spy": "グループを偵察した",
+    "signalPrisoner": "囚人に合図を送った",
+    "freePrisoner": "囚人を解放した"
+  },
+  "functions": {
+    "knightIsAwake": {
+      "description": "騎士が起きていれば `true` を、寝ていれば `false` を返します。",
+      "category": "情報"
+    },
+    "archerIsAwake": {
+      "description": "弓使いが起きていれば `true` を、寝ていれば `false` を返します。",
+      "category": "情報"
+    },
+    "prisonerIsAwake": {
+      "description": "囚人が起きていれば `true` を、寝ていれば `false` を返します。",
+      "category": "情報"
+    },
+    "dogIsBehaving": {
+      "description": "アナリンの（少しいたずら好きな）犬がおとなしくしていれば `true` を返します。",
+      "category": "情報"
+    },
+    "fastAttack": {
+      "description": "騎士に素早く攻撃します。",
+      "category": "アクション"
+    },
+    "spy": {
+      "description": "グループを偵察します。",
+      "category": "アクション"
+    },
+    "signalPrisoner": {
+      "description": "鳥の鳴き声を使って囚人に合図を送ります。",
+      "category": "アクション"
+    },
+    "freePrisoner": {
+      "description": "キャンプに潜入して囚人を解放します。",
+      "category": "アクション"
+    }
+  }
+}

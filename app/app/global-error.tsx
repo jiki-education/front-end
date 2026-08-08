@@ -22,7 +22,12 @@ interface GlobalErrorCopy {
   actionLabel: string;
 }
 
-const COPY: Record<Locale, GlobalErrorCopy> = {
+// English is required (it is the fallback for every locale without an entry);
+// every other locale is optional, so adding a locale doesn't break the build —
+// it just falls back to English until its copy is hand-written here.
+type GlobalErrorCopyMap = Partial<Record<Locale, GlobalErrorCopy>> & { en: GlobalErrorCopy };
+
+const COPY: GlobalErrorCopyMap = {
   en: {
     title: "Something went wrong",
     message: "We encountered an unexpected error. Sorry about that!",
@@ -32,6 +37,164 @@ const COPY: Record<Locale, GlobalErrorCopy> = {
     title: "Valami hiba történt",
     message: "Váratlan hiba lépett fel. Elnézést kérünk emiatt!",
     actionLabel: "Próbáld újra"
+  },
+  el: {
+    title: "Κάτι πήγε στραβά",
+    message: "Παρουσιάστηκε ένα απρόσμενο σφάλμα. Συγγνώμη γι' αυτό!",
+    actionLabel: "Δοκίμασε ξανά"
+  },
+  ru: {
+    title: "Что-то пошло не так",
+    message: "Произошла непредвиденная ошибка. Приносим извинения!",
+    actionLabel: "Попробовать снова"
+  },
+  sr: {
+    title: "Nešto je pošlo po zlu",
+    message: "Došlo je do neočekivane greške. Izvini zbog toga!",
+    actionLabel: "Probaj ponovo"
+  },
+  "pt-PT": {
+    title: "Algo correu mal",
+    message: "Ocorreu um erro inesperado. Pedimos desculpa!",
+    actionLabel: "Tenta novamente"
+  },
+  uk: {
+    title: "Щось пішло не так",
+    message: "Сталася неочікувана помилка. Перепрошуємо!",
+    actionLabel: "Спробувати ще раз"
+  },
+  "pt-BR": {
+    title: "Algo deu errado",
+    message: "Ocorreu um erro inesperado. Sentimos muito!",
+    actionLabel: "Tente novamente"
+  },
+  fa: {
+    title: "مشکلی پیش آمد",
+    message: "یک خطای غیرمنتظره رخ داد. متأسفیم!",
+    actionLabel: "دوباره تلاش کنید"
+  },
+  pl: {
+    title: "Coś poszło nie tak",
+    message: "Wystąpił nieoczekiwany błąd. Przepraszamy!",
+    actionLabel: "Spróbuj ponownie"
+  },
+  "es-419": {
+    title: "Algo salió mal",
+    message: "Ocurrió un error inesperado. ¡Lo sentimos!",
+    actionLabel: "Intenta de nuevo"
+  },
+  hi: {
+    title: "कुछ गड़बड़ हो गई",
+    message: "हमें एक अनपेक्षित एरर मिली। इसके लिए हमें खेद है!",
+    actionLabel: "फिर से कोशिश करें"
+  },
+  fi: {
+    title: "Jokin meni pieleen",
+    message: "Tapahtui odottamaton virhe. Pahoittelemme!",
+    actionLabel: "Yritä uudelleen"
+  },
+  he: {
+    title: "משהו השתבש",
+    message: "נתקלנו בשגיאה לא צפויה. מצטערים!",
+    actionLabel: "ניסיון חוזר"
+  },
+  bn: {
+    title: "কিছু একটা ভুল হয়েছে",
+    message: "একটি অপ্রত্যাশিত এরর হয়েছে। এর জন্য আমরা দুঃখিত!",
+    actionLabel: "আবার চেষ্টা করুন"
+  },
+  id: {
+    title: "Ada yang tidak beres",
+    message: "Terjadi kesalahan yang tidak terduga. Maaf, ya!",
+    actionLabel: "Coba lagi"
+  },
+  de: {
+    title: "Etwas ist schiefgelaufen",
+    message: "Es ist ein unerwarteter Fehler aufgetreten. Das tut uns leid!",
+    actionLabel: "Versuch es noch mal"
+  },
+  ar: {
+    title: "حدث خطأ ما",
+    message: "واجهنا خطأً غير متوقع. نعتذر عن ذلك!",
+    actionLabel: "حاول مرة أخرى"
+  },
+  sv: {
+    title: "Något gick fel",
+    message: "Ett oväntat fel inträffade. Vi ber om ursäkt!",
+    actionLabel: "Försök igen"
+  },
+  ur: {
+    title: "کچھ غلط ہو گیا",
+    message: "ایک غیر متوقع غلطی پیش آ گئی۔ اس کے لیے معذرت!",
+    actionLabel: "دوبارہ کوشش کریں"
+  },
+  tr: {
+    title: "Bir şeyler ters gitti",
+    message: "Beklenmedik bir hata oluştu. Bunun için özür dileriz!",
+    actionLabel: "Tekrar dene"
+  },
+  sw: {
+    title: "Kuna kitu kimeenda vibaya",
+    message: "Tumekumbana na hitilafu isiyotarajiwa. Tunaomba radhi!",
+    actionLabel: "Jaribu tena"
+  },
+  // Not yet translated: English copy verbatim until a website-copy pass covers
+  // these languages. The crash page must render usable text, so it never carries
+  // the catalog's `�` untranslated sentinel.
+  fr: {
+    title: "Quelque chose s'est mal passé",
+    message: "Une erreur inattendue s'est produite. Désolé !",
+    actionLabel: "Réessayer"
+  },
+  it: {
+    title: "Qualcosa è andato storto",
+    message: "Si è verificato un errore imprevisto. Ci dispiace!",
+    actionLabel: "Riprova"
+  },
+  nl: {
+    title: "Er is iets misgegaan",
+    message: "Er is een onverwachte fout opgetreden. Sorry daarvoor!",
+    actionLabel: "Probeer opnieuw"
+  },
+  "zh-TW": {
+    title: "出了點問題",
+    message: "我們遇到了非預期的錯誤，真的很抱歉！",
+    actionLabel: "再試一次"
+  },
+  "zh-CN": {
+    title: "出了点问题",
+    message: "我们遇到了意外的错误，非常抱歉！",
+    actionLabel: "再试一次"
+  },
+  ca: {
+    title: "Alguna cosa ha anat malament",
+    message: "Hi ha hagut un error inesperat. Ho sentim!",
+    actionLabel: "Torna-ho a provar"
+  },
+  "es-ES": {
+    title: "Algo ha salido mal",
+    message: "Ha ocurrido un error inesperado. ¡Lo sentimos!",
+    actionLabel: "Inténtalo de nuevo"
+  },
+  ja: {
+    title: "問題が発生しました",
+    message: "予期しないエラーが発生しました。申し訳ありません！",
+    actionLabel: "もう一度試す"
+  },
+  ro: {
+    title: "Ceva nu a mers bine",
+    message: "A apărut o eroare neașteptată. Ne pare rău!",
+    actionLabel: "Încearcă din nou"
+  },
+  vi: {
+    title: "Đã có lỗi xảy ra",
+    message: "Đã xảy ra một lỗi không mong muốn. Chúng tôi xin lỗi vì điều này!",
+    actionLabel: "Thử lại"
+  },
+  ko: {
+    title: "문제가 발생했어요",
+    message: "예기치 않은 오류가 발생했어요. 불편을 드려 죄송해요!",
+    actionLabel: "다시 시도하기"
   }
 };
 
@@ -95,7 +258,7 @@ export function resolveGlobalErrorLocale(): Locale {
 // not present in the dictionary.
 export function getGlobalErrorCopy(locale: string): GlobalErrorCopy {
   const dictionary: Record<string, GlobalErrorCopy | undefined> = COPY;
-  return dictionary[locale] ?? COPY[DEFAULT_LOCALE];
+  return dictionary[locale] ?? COPY.en;
 }
 
 function readCookie(name: string): string | undefined {

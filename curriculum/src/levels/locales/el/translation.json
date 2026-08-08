@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "Χρήση Συναρτήσεων"
+  },
+  "strings-and-colors": {
+    "title": "Συμβολοσειρές και Χρώματα"
+  },
+  "repeat-loop": {
+    "title": "Βρόχος Επανάληψης"
+  },
+  "variables": {
+    "title": "Μεταβλητές"
+  },
+  "basic-state": {
+    "title": "Βασική Κατάσταση"
+  },
+  "functions-that-return-things": {
+    "title": "Συναρτήσεις που Επιστρέφουν Τιμές"
+  },
+  "conditionals": {
+    "title": "Συνθήκες"
+  },
+  "complex-conditionals": {
+    "title": "Σύνθετες Συνθήκες"
+  },
+  "conditionals-and-state": {
+    "title": "Συνθήκες και Κατάσταση"
+  },
+  "make-your-own-functions": {
+    "title": "Φτιάξε τις Δικές σου Συναρτήσεις"
+  },
+  "string-manipulation": {
+    "title": "Επεξεργασία Συμβολοσειρών"
+  },
+  "string-iteration": {
+    "title": "Διάσχιση Συμβολοσειρών"
+  },
+  "multiple-functions": {
+    "title": "Συνδυασμός Συναρτήσεων"
+  },
+  "methods-and-properties": {
+    "title": "Μέθοδοι και Ιδιότητες"
+  },
+  "advanced-loops": {
+    "title": "Προχωρημένοι Βρόχοι"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "Λεξικά"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "Τα Πάντα"
+  }
+}

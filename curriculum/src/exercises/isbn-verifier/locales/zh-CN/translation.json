@@ -1,0 +1,142 @@
+{
+  "tasks": {
+    "validateBasicIsbn": {
+      "name": "验证基本 ISBN",
+      "description": "编写一个名为 isValidIsbn 的函数，接受一个 ISBN-10 字符串，如果有效则返回 true，否则返回 false。ISBN-10 含有需要跳过的连字符。将每位数字乘以从 10 递减到 1 的权重，求和，检查总和是否能被 11 整除。"
+    },
+    "handleXCheckDigit": {
+      "name": "将 X 作为校验位处理",
+      "description": "有时 ISBN 以 X 结尾，它代表 10。更新你的函数，使其能处理最后一位上的 X。"
+    },
+    "handleEdgeCases": {
+      "name": "处理边界情况",
+      "description": "使你的函数更稳健：处理不带连字符的 ISBN，拒绝无效字符，拒绝 X 出现在非最后一位的情况，并确保恰好处理了 10 位数字。"
+    },
+    "useContinue": {
+      "name": "附加：使用 continue 跳过连字符",
+      "description": "不要在仅当字符为数字时才执行操作，而是使用 continue 直接跳过连字符，继续处理下一个字符。"
+    }
+  },
+  "scenarios": {
+    "isbnValid": {
+      "name": "有效的 ISBN",
+      "description": "有效的 ISBN-10 应返回 true。"
+    },
+    "isbnValidCheckDigitX": {
+      "name": "有效的 ISBN，X 作为校验位",
+      "description": "校验位为 'X' 的有效 ISBN-10 应返回 true。"
+    },
+    "isbnValidNoDashes": {
+      "name": "不带连字符的有效 ISBN",
+      "description": "不带分隔连字符的有效 ISBN-10 应返回 true。"
+    },
+    "isbnValidNoDashesXCheck": {
+      "name": "不带连字符且 X 作为校验位的有效 ISBN",
+      "description": "不带连字符且校验位为 'X' 的有效 ISBN-10 应返回 true。"
+    },
+    "isbnInvalidCheckDigit": {
+      "name": "无效的 ISBN 校验位",
+      "description": "校验位不正确的 ISBN-10 应返回 false。"
+    },
+    "isbnInvalidCharacter": {
+      "name": "校验位是 X 以外的字符",
+      "description": "包含无效字符的 ISBN-10 应返回 false。"
+    },
+    "isbnInvalidCharacterNotZero": {
+      "name": "无效的校验位不能视为零",
+      "description": "无效的校验位不应视为零。"
+    },
+    "isbnInvalidNonNumeric": {
+      "name": "ISBN 中包含无效字符",
+      "description": "ISBN 中的无效字符不应被忽略。"
+    },
+    "isbnInvalidXPosition": {
+      "name": "X 仅当校验位时有效",
+      "description": "'X' 仅当校验位时才有效。"
+    },
+    "isbnInvalidMissingCheckDigit": {
+      "name": "缺少校验位的 ISBN",
+      "description": "缺少校验位的 ISBN-10 应返回 false。"
+    },
+    "isbnInvalidTooLong": {
+      "name": "过长的 ISBN",
+      "description": "过长的 ISBN-10 应返回 false。"
+    },
+    "isbnInvalidTooShort": {
+      "name": "过短的 ISBN",
+      "description": "过短的 ISBN-10 应返回 false。"
+    },
+    "isbnInvalidEmpty": {
+      "name": "空 ISBN",
+      "description": "空 ISBN 字符串应返回 false。"
+    },
+    "isbnInvalidLengthNine": {
+      "name": "ISBN 为 9 位",
+      "description": "9 位字符的输入应返回 false。"
+    },
+    "isbnInvalidNonNumericBeforeCheck": {
+      "name": "长度检查前遇到无效字符",
+      "description": "在检查长度之前，无效字符不应被忽略。"
+    },
+    "isbnInvalidExtraLength": {
+      "name": "输入过长但包含有效的 ISBN",
+      "description": "超过 10 个字符的输入应返回 false。"
+    },
+    "isbnBonusUseContinue": {
+      "name": "使用 continue 跳过了连字符",
+      "description": "你的解答正确，并且使用了 continue 跳过连字符。"
+    }
+  },
+  "hints": {
+    "howChecked": {
+      "question": "ISBN-10 实际上是如何被验证的？",
+      "answer": "10 位数字的每一位都乘以一个递减的权重。第一位乘以 10，第二位乘以 9，以此类推，最后一位乘以 1。然后将所有乘积相加。如果总和能被 11 整除，这个 ISBN 就是有效的。"
+    },
+    "dashes": {
+      "question": "我应该如何处理连字符？",
+      "answer": "连字符只是为了方便人阅读。完全跳过它们。它们不算作一个数字，也不会影响权重的变化。"
+    },
+    "trackWeight": {
+      "question": "我该如何跟踪权重？",
+      "answer": "设置一个乘数变量，初始值为 10。每次处理一个数字时，将其乘以当前的乘数，将结果加到总和中，然后将乘数减 1。"
+    },
+    "stringToNumber": {
+      "question": "我如何将字符串转换为数字？",
+      "answer": "你有两个选择。首先，本练习的目的之一是让你使用 `indexOf` 方法找到解决方法。想一想。如果想不到，可以查看下一个提示获取答案。"
+    },
+    "stringToNumberAgain": {
+      "question": "不开玩笑，我到底该如何将字符串转换为数字？",
+      "answer": "两个选择。首先，你可以使用 `Number()` 函数（注意是大写的 \"N\"），所以 `Number(\"5\")` 返回 `5`。如果想复习一下，可以阅读 <a href=\"/concepts/type-conversion\" target=\"_blank\" rel=\"noopener noreferrer\">类型转换</a> 的概念页面。此外，还有一个巧妙的 `indexOf` 技巧值得探索。"
+    },
+    "handleX": {
+      "question": "'X' 怎么处理？它不是数字，对吧？",
+      "answer": "'X' 是特殊的。它代表数值 10，但只能作为最后一个字符。当出现在末尾时，将其视为值为 10 的数字；如果 'X' 出现在其他位置，则拒绝该 ISBN。"
+    },
+    "exactlyTenDigits": {
+      "question": "我如何确保恰好有 10 位数字？",
+      "answer": "你的乘数从 10 开始，每处理一位数字就减 1。如果你恰好处理了 10 位数字，乘数最终会变为 0。否则就说明数字位数不对，应该拒绝该 ISBN。"
+    },
+    "finalCheck": {
+      "question": "最后的有效性检查是什么？",
+      "answer": "处理完所有字符后，如果总和能被 11 整除（即 `sum % 11 == 0`），则 ISBN 有效。"
+    }
+  },
+  "checks": {
+    "mustUseContinue": "就差一点！附加要求：使用 `continue` 跳过连字符。",
+    "tooManyLines": "就差一点！你的解答可以运行，但有点长了。"
+  },
+  "functions": {
+    "number": {
+      "description": "将包含数字的字符串转换为数字",
+      "category": "类型转换"
+    },
+    "includes": {
+      "description": "检查字符串是否包含一个子字符串（由关卡标准库提供）",
+      "category": "字符串操作"
+    },
+    "indexOf": {
+      "description": "查找子字符串在字符串中的位置，如果未找到则返回 -1（由关卡标准库提供）",
+      "category": "字符串操作"
+    }
+  }
+}

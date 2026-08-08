@@ -1,0 +1,58 @@
+{
+  "checks": {
+    "frame": "房子的框架不正确。",
+    "roof": "房子的屋顶位置不正确。",
+    "leftWindow": "左窗框的位置不正确。",
+    "rightWindow": "右窗框的位置不正确。",
+    "door": "门框的位置不正确。",
+    "doorKnob": "门把手的位置不正确。"
+  },
+  "tasks": {
+    "arrangeHouse": {
+      "name": "正确排列房子",
+      "description": "将所有形状重新排列到正确位置，组成一座房子。有条不紊地处理每一个部分。"
+    }
+  },
+  "scenarios": {
+    "drawTheHouse": {
+      "name": "画出房子",
+      "description": "将所有形状放在正确位置，组成完整的房子。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "我从哪里开始？",
+      "answer": "按顺序处理每个形状——天空、草地、房子框架、屋顶、窗户、门、门把手。先确保每个都正确，再继续下一个。"
+    },
+    "coordinates": {
+      "question": "坐标是怎么工作的？",
+      "answer": "画布坐标从左上角的 (0,0) 到右下角的 (100,100)。对于矩形，left 和 top 指的是左上角。"
+    },
+    "roofPosition": {
+      "question": "如何计算屋顶的位置？",
+      "answer": "屋顶是一个位于房子框架顶部的三角形。考虑左右底点应该在什么位置，因为有悬挑，以及顶点在哪里。"
+    },
+    "windowPosition": {
+      "question": "如何放置窗户？",
+      "answer": "每扇窗户都从房子框架的边缘偏移。使用房子框架的位置和大小，结合内缩值，计算每扇窗户的左上角。"
+    },
+    "centerDoor": {
+      "question": "如何将门居中？",
+      "answer": "要将某物在更大形状内居中，考虑剩余空间。如果房子比门宽，那么间隙就在两侧均分。"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "在 (left, top) 位置绘制一个给定宽度、高度和颜色的矩形",
+      "category": "绘制形状"
+    },
+    "circle": {
+      "description": "在以 (centerX, centerY) 为中心的圆，给定半径和颜色",
+      "category": "绘制形状"
+    },
+    "triangle": {
+      "description": "用三个顶点坐标和颜色绘制一个三角形",
+      "category": "绘制形状"
+    }
+  }
+}

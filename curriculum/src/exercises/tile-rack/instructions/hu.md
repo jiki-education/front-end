@@ -1,15 +1,18 @@
 ---
-title: "Tile Rack"
-description: "Find exactly where a letter sits on the tile rack."
+title: "Betűtartó"
+description: "Találd meg pontosan, hol van egy betű a betűtartón."
+en_md5: 156e18323706fc278f7a887f421c01f3
 ---
 
-You're building an automated Scrabble bot. The bot has a rack of letter tiles represented as a string (e.g. `"AERHBT"`). When the bot decides which letter to play, it needs to know which position to move its hand to in order to pick up the tile.
+Egy automata Scrabble-botot építesz. A botnak van egy betűtartója, amit egy string reprezentál (pl. `"AERHBT"`). Amikor a bot eldönti, melyik betűt játssza ki, tudnia kell, melyik pozícióba mozdítsa a kezét, hogy felvegye a betűt.
 
-Write a function called `findTile` that takes the rack (a string of letters) and the letter to find. If the tile is found, return `"Move to position X"` where X is the position of the first matching tile (starting from 1). If the tile isn't in the rack, return `"Error: Tile not on rack"`.
+Írj egy `findTile` (keresd meg a betűt) nevű függvényt, amely paraméterként megkapja a betűtartót (egy betűkből álló stringet) és a keresendő betűt. Ha megtalálod a betűt, add vissza a `"Move to position X"` stringet, ahol X az első egyező betű pozíciója (1-től számolva). Ha a betű nincs a tartóban, add vissza az `"Error: Tile not on rack"` stringet.
 
-### Examples
+Ahhoz, hogy összeállítsd az eredménystringet, át kell alakítanod a pozíció számát stringgé, és össze kell fűznöd a részeket összefűzéssel (`+`) vagy template stringgel.
 
-- `findTile("ABCDE", "A")` returns `"Move to position 1"`
-- `findTile("ABCDE", "C")` returns `"Move to position 3"`
-- `findTile("BANANA", "A")` returns `"Move to position 2"` (the first A)
-- `findTile("ABCDE", "Z")` returns `"Error: Tile not on rack"`
+### Példák
+
+- `findTile("ABCDE", "A")` visszaadja `"Move to position 1"`
+- `findTile("ABCDE", "C")` visszaadja `"Move to position 3"`
+- `findTile("BANANA", "A")` visszaadja `"Move to position 2"` (az első A-t)
+- `findTile("ABCDE", "Z")` visszaadja `"Error: Tile not on rack"`

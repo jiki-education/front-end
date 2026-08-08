@@ -1,0 +1,42 @@
+{
+  "checks": {
+    "uniqueColoredCircles": "Očekuje se najmanje 50 krugova sa jedinstvenim bojama. Proveri da svaki krug ima nasumičnu boju.",
+    "uniquePositionedCircles": "Očekuje se najmanje 30 različitih pozicija. Proveri da svaki krug ima nasumičnu poziciju.",
+    "radiiRange": "Svi poluprečnici krugova moraju biti barem 1 i manji od 30.",
+    "insideBox": "Krugovi ne smeju izaći van okvira. Uračunaj poluprečnik svakog kruga kada biraš njegovu poziciju.",
+    "touchEdges": "Nijedan od tvojih krugova nije dodirnuo ivice platna. Ako si siguran da je tvoj kod ispravan, moguće je da nasumični brojevi nisu slučajno postavili krug tačno na ivicu. Probaj da ga ponovo pokreneš!",
+    "saturationLightnessRange": "Zasićenost i osvetljenost moraju obe biti između 20 i 80."
+  },
+  "tasks": {
+    "drawSplodges": {
+      "name": "Nacrtaj dugine mrlje",
+      "description": "Nacrtaj 200 krugova na nasumičnim pozicijama sa nasumičnim bojama."
+    }
+  },
+  "scenarios": {
+    "rainbowSplodges": {
+      "name": "Dugine mrlje",
+      "description": "Nacrtaj 200 nasumično obojenih krugova na nasumičnim pozicijama."
+    }
+  },
+  "hints": {
+    "keepCirclesInBox": {
+      "question": "Kako da krugovi ostanu unutar okvira?",
+      "answer": "Redosled je važan. Prvo odaberi poluprečnik kruga, a zatim se pobrini da njegove leva i gornja pozicija nikada ne omoguće da izađe van okvira."
+    },
+    "circlesEscapingBox": {
+      "question": "Ne mogu da zadržim krugove unutar okvira.",
+      "answer": "Seti se da je pozicija kruga njegov centar, tako da moraš da uzmeš u obzir njegov poluprečnik da bi ceo krug ostao unutra. Ako trenutno dozvoliš da pozicija ide sve do 0, ivica kruga će viriti van okvira za dužinu svog poluprečnika. Dakle, na šta treba da promeniš taj minimum da krug nikada ne bi bio van okvira? Zatim primeni istu logiku na maksimum."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Nacrtaj krug sa centrom u (centerX, centerY) sa datim poluprečnikom i bojom.",
+      "category": "Crtanje oblika"
+    },
+    "hsl": {
+      "description": "Pretvori HSL vrednosti boje (nijansa 0-360, zasićenost 0-100, osvetljenost 0-100) u heksadecimalni string boje.",
+      "category": "Boje"
+    }
+  }
+}

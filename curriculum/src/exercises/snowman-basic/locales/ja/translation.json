@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "baseCircle": "土台（一番下）の円が正しくありません。",
+    "bodyCircle": "胴体（真ん中）の円が正しくありません。",
+    "headCircle": "頭（一番上）の円が正しくありません。"
+  },
+  "tasks": {
+    "buildSnowman": {
+      "name": "スノーマンを作りましょう",
+      "description": "3つの円を描いてスノーマンを作りましょう。"
+    }
+  },
+  "scenarios": {
+    "buildSnowman": {
+      "name": "スノーマンを作りましょう",
+      "description": "3つの円を描いてスノーマンを作りましょう。"
+    }
+  },
+  "hints": {
+    "howToDrawCircle": {
+      "question": "キャンバスに円を描くにはどうすればいいですか？",
+      "answer": "`circle(centerX, centerY, radius)`を呼び出してください。`centerX`と`centerY`は中心の座標、`radius`は円の大きさです。"
+    },
+    "circlesHorizontalPosition": {
+      "question": "円を水平方向にどこに配置すればよいですか？",
+      "answer": "3つの円はすべて同じ水平方向の中心を持つので、`centerX`はすべて`50`になります（キャンバスの幅は`100`です）。"
+    },
+    "howToStackCircles": {
+      "question": "3つの円を積み重ねるにはどうすればいいですか？",
+      "answer": "土台の円は一番大きく、一番下に配置されます（`centerY`が大きい）。その上にくる円は、`centerY`と`radius`がより小さくなります。"
+    },
+    "whatNumbersForRadii": {
+      "question": "半径にはどの数値を使えばいいですか？",
+      "answer": "この演習のすべての数値は`5`で割り切れます。土台の半径は`20`前後、胴体は`15`前後、頭は`10`前後から始めて、目標と一致するように調整してみてください。"
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "中心座標(centerX, centerY)に、指定された半径の円を描きます。",
+      "category": "図形の描画"
+    }
+  }
+}

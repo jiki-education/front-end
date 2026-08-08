@@ -1,99 +1,99 @@
 {
   "checks": {
-    "moreThanSixteenLines": "You used more than sixteen lines of code."
+    "moreThanSixteenLines": "Több mint tizenhat sornyi kódot használtál."
   },
   "tasks": {
     "plings": {
-      "name": "Plings",
-      "description": "Start off by getting the Pling sounds right. If the number is divisible by 3, return \"Pling\"."
+      "name": "Plingek",
+      "description": "Kezdd azzal, hogy a Pling hangokat helyesen kapod meg. Ha a szám osztható 3-mal, add vissza a \"Pling\" értéket."
     },
     "plangs": {
-      "name": "Plangs",
-      "description": "Now get the Plang sounds right. If the number is divisible by 5, add \"Plang\" to the result. If it's divisible by both 3 and 5, return \"PlingPlang\"."
+      "name": "Plangok",
+      "description": "Most a Plang hangokat kapd meg helyesen. Ha a szám osztható 5-tel, add hozzá a \"Plang\" értéket az eredményhez. Ha 3-mal és 5-tel is osztható, add vissza a \"PlingPlang\" értéket."
     },
     "plongs": {
-      "name": "Plongs",
-      "description": "Now get the Plong sounds right. If the number is divisible by 7, add \"Plong\" to the result. Numbers can be divisible by multiple factors."
+      "name": "Plongok",
+      "description": "Most a Plong hangokat kapd meg helyesen. Ha a szám osztható 7-tel, add hozzá a \"Plong\" értéket az eredményhez. A számok több tényezővel is oszthatók lehetnek."
     },
     "noSound": {
-      "name": "Numbers with no raindrop sound",
-      "description": "Finally, if the number is not divisible by 3, 5, or 7, return the number itself as a string."
+      "name": "Esőcsepp-hang nélküli számok",
+      "description": "Végül, ha a szám nem osztható 3-mal, 5-tel vagy 7-tel, add vissza a számot magát stringként."
     },
     "solveInSixteenLines": {
-      "name": "Solve in sixteen lines of code",
-      "description": "Can you solve this with only sixteen lines of code?"
+      "name": "Oldd meg tizenhat sornyi kóddal",
+      "description": "Meg tudod oldani mindössze tizenhat sornyi kóddal?"
     }
   },
   "scenarios": {
     "number3": {
-      "name": "Number 3",
-      "description": "If 3 is input, return \"Pling\"."
+      "name": "3-as szám",
+      "description": "Ha a bemenet 3, add vissza a \"Pling\" értéket."
     },
     "number27": {
-      "name": "Number 27",
-      "description": "If 27 is input, return \"Pling\"."
+      "name": "27-es szám",
+      "description": "Ha a bemenet 27, add vissza a \"Pling\" értéket."
     },
     "number5": {
-      "name": "Number 5",
-      "description": "If 5 is input, return \"Plang\"."
+      "name": "5-ös szám",
+      "description": "Ha a bemenet 5, add vissza a \"Plang\" értéket."
     },
     "number3125": {
-      "name": "Number 3125",
-      "description": "If 3125 is input, return \"Plang\"."
+      "name": "3125-ös szám",
+      "description": "Ha a bemenet 3125, add vissza a \"Plang\" értéket."
     },
     "number15": {
-      "name": "Number 15",
-      "description": "If 15 is input, return \"PlingPlang\"."
+      "name": "15-ös szám",
+      "description": "Ha a bemenet 15, add vissza a \"PlingPlang\" értéket."
     },
     "number7": {
-      "name": "Number 7",
-      "description": "If 7 is input, return \"Plong\"."
+      "name": "7-es szám",
+      "description": "Ha a bemenet 7, add vissza a \"Plong\" értéket."
     },
     "number21": {
-      "name": "Number 21",
-      "description": "If 21 is input, return \"PlingPlong\"."
+      "name": "21-es szám",
+      "description": "Ha a bemenet 21, add vissza a \"PlingPlong\" értéket."
     },
     "number35": {
-      "name": "Number 35",
-      "description": "If 35 is input, return \"PlangPlong\"."
+      "name": "35-ös szám",
+      "description": "Ha a bemenet 35, add vissza a \"PlangPlong\" értéket."
     },
     "number105": {
-      "name": "Number 105",
-      "description": "If 105 is input, return \"PlingPlangPlong\"."
+      "name": "105-ös szám",
+      "description": "Ha a bemenet 105, add vissza a \"PlingPlangPlong\" értéket."
     },
     "number8": {
-      "name": "Number 8",
-      "description": "If 8 is input, return \"8\"."
+      "name": "8-as szám",
+      "description": "Ha a bemenet 8, add vissza a \"8\" értéket."
     },
     "number52": {
-      "name": "Number 52",
-      "description": "If 52 is input, return \"52\"."
+      "name": "52-es szám",
+      "description": "Ha a bemenet 52, add vissza a \"52\" értéket."
     },
     "bonus1": {
-      "name": "Sixteen lines of code",
-      "description": "Solve the exercise with only sixteen lines of code."
+      "name": "Tizenhat sornyi kód",
+      "description": "Oldd meg a feladatot mindössze tizenhat sornyi kóddal."
     }
   },
   "hints": {
     "onlyOneSound": {
-      "question": "Why does my function only return one sound?",
-      "answer": "If you `return` inside each `if`, you give up as soon as the first divisor matches. You want to combine them. Instead of returning, append the sound to a result string and keep going."
+      "question": "Miért ad vissza a függvényem csak egy hangot?",
+      "answer": "Ha minden `if`-ben `return`-ölsz, akkor azonnal feladod, amint az első osztó megegyezik. Szeretnéd összekombinálni őket. Ahelyett, hogy visszaadnál, fűzd hozzá a hangot egy eredmény stringhez, és folytasd tovább."
     },
     "buildCombinedSound": {
-      "question": "How do I build up the combined sound?",
-      "answer": "Start with an empty result string. For each divisor (3, 5, 7), if it divides the number, append the corresponding sound onto the end of the result using concatenation with `+`."
+      "question": "Hogyan építhetem fel az összetett hangot?",
+      "answer": "Kezdd üres eredmény stringgel. Minden osztónál (3, 5, 7), ha osztja a számot, fűzd hozzá a megfelelő hangot az eredmény végéhez összefűzéssel, a `+` operátor használatával."
     },
     "noneMatch": {
-      "question": "What if none of the divisors match?",
-      "answer": "If the result is still empty after all three checks, the answer is just the number itself as a string. Convert the number and return that."
+      "question": "Mi van, ha egyik osztó sem egyezik?",
+      "answer": "Ha az eredmény még mindig üres mindhárom ellenőrzés után, a válasz egyszerűen a szám maga stringként. Alakítsd át a számot, és add vissza azt."
     },
     "convertToString": {
-      "question": "I return the number but it wants me to return it as a string. How do I do that?",
-      "answer": "Numbers and strings are different types, even if they look the same. You can convert a number to a string by putting it inside a template string with `${...}`."
+      "question": "Visszaadom a számot, de azt akarja, hogy stringként adjam vissza. Hogyan csináljam?",
+      "answer": "A számok és a stringek különböző típusok, még ha ugyanúgy is néznek ki. Egy számot úgy tudsz stringgé alakítani, hogy beteszed egy string-sablonba a `${...}` segítségével."
     },
     "howManyReturns": {
-      "question": "How many return statements should I have?",
-      "answer": "Just one or two, typically. The whole point is letting the if-statements modify the result string, then returning that result once at the end."
+      "question": "Hány `return` utasítást kellene használnom?",
+      "answer": "Általában csak egy vagy kettő. A lényeg az, hogy hagyd, hogy az elágazások módosítsák az eredmény stringet, majd egyszer a végén add vissza azt az eredményt."
     }
   }
 }

@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "notReachedEnd": "Non hai raggiunto la fine del labirinto.",
+    "tooManyLines": "La tua soluzione ha troppe righe di codice. Cerca gruppi di chiamate consecutive a move() e sostituisci ogni gruppo con un ciclo repeat.",
+    "oneLineOver": "Sei una riga troppo lungo! Un ciclo repeat non è sempre più corto: ripetere qualcosa solo due o tre volte può richiedere più righe che scriverlo per esteso, quindi cerca un repeat che in realtà non ti sta facendo risparmiare nulla."
+  },
+  "tasks": {
+    "solveMazeWithRepeat": {
+      "name": "Riorganizza la soluzione del labirinto usando cicli repeat",
+      "description": "Sostituisci le chiamate consecutive a `move()` con cicli repeat per accorciare il codice."
+    }
+  },
+  "scenarios": {
+    "mazeRepeat1": {
+      "name": "Riorganizza la soluzione del labirinto usando cicli repeat",
+      "description": "Usa cicli repeat per evitare chiamate consecutive a `move()`."
+    }
+  },
+  "hints": {
+    "noIdea": {
+      "question": "Non ho idea di cosa fare",
+      "answer": "Cerca gruppi di chiamate consecutive a `move()`. Per esempio, invece di:\n\n```javascript\nmove()\nmove()\nmove()\n```\n\nPuoi scrivere:\n\n```javascript\nrepeat(3) {\n  move()\n}\n```\n\nTrova i gruppi e sostituiscili!"
+    },
+    "tooManyLines": {
+      "question": "Stai usando i repeat ma hai ancora troppe righe?",
+      "answer": "È sempre meglio usare un repeat? In alcuni casi, potrebbe essere più corto avere semplicemente due move uno accanto all'altro."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Sposta il personaggio **di un passo in avanti** nella direzione attuale. Il personaggio si muove solo se la posizione di destinazione non è bloccata da un muro.",
+      "category": "Movimento"
+    },
+    "turnLeft": {
+      "description": "Gira il personaggio **di 90 gradi a sinistra** (in senso antiorario). Questo cambia la direzione verso cui è rivolto il personaggio.",
+      "category": "Movimento"
+    },
+    "turnRight": {
+      "description": "Gira il personaggio **di 90 gradi a destra** (in senso orario). Questo cambia la direzione verso cui è rivolto il personaggio.",
+      "category": "Movimento"
+    }
+  }
+}

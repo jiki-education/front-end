@@ -1,6 +1,7 @@
 ---
 title: "D&D dobás"
 description: "Dobj a kockákkal, és csapj le egy koboldra egy D&D kalandban."
+en_md5: 627f6cce99fe83ecae4e1b53051201b9
 ---
 
 Egy botot készítesz, amelyik Dungeons and Dragonst (DnD) tud játszani. Ha nem ismered a DnD-t, az alapötlet az, hogy sok különböző helyzettel találkozol, és kockákkal dobsz, hogy kiderüljön, mi történik. Sokféle kocka van, különböző oldalszámmal (nem csak a hatoldalú kocka, amit megszokhattál)!
@@ -17,8 +18,8 @@ Minden kockadobás után be kell jelentened a dobott számot a többi játékosn
 
 Három függvényt használhatsz:
 
-- A `roll(sides)` feldob egy adott oldalszámú kockát. Ez a függvény visszaadja az eredményt.
-- Az `announce(value)` bejelent egy kockadobást.
-- A `strike(attack, damage)` lecsap a koboldra a támadó dobásoddal és az összes sebzéssel.
+- A `roll(sides)` (adott oldalszámú kockát dob) feldob egy adott oldalszámú kockát. Ez a függvény visszaadja (`returns` angolul) az eredményt.
+- Az `announce(value)` (bejelent) bejelent egy kockadobást.
+- A `strike(attack, damage)` (lecsap) lecsap a koboldra a támadó dobásoddal és az összes sebzéssel.
 
 **Fontos:** Minden alkalommal, amikor meghívod a `roll()`-t, Jiki feldob egy kockát, és más számot kap. Ne várd, hogy ugyanazt a kockát kétszer feldobva mindig ugyanaz a szám jön ki.

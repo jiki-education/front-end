@@ -1,0 +1,59 @@
+{
+  "checks": {
+    "tooManyLines": "你的代码行数太多了。能缩短一些吗？"
+  },
+  "tasks": {
+    "identifyEvenOrOdd": {
+      "name": "识别偶数和奇数",
+      "description": "编写一个名为 evenOrOdd 的函数，它接受一个数字，如果能被 2 整除则返回 \"Even\"，否则返回 \"Odd\"。零是偶数。"
+    },
+    "solveInSixLines": {
+      "name": "用 6 行代码解决",
+      "description": "你能只用 6 行代码完成这个练习吗？"
+    }
+  },
+  "scenarios": {
+    "number14": {
+      "name": "数字 14",
+      "description": "14 是一个偶数。"
+    },
+    "number28": {
+      "name": "数字 28",
+      "description": "28 是一个偶数。"
+    },
+    "numberMinus1": {
+      "name": "数字 -1",
+      "description": "-1 是一个奇数。"
+    },
+    "number17": {
+      "name": "数字 17",
+      "description": "17 是一个奇数。"
+    },
+    "number0": {
+      "name": "数字 0",
+      "description": "零算作偶数。"
+    },
+    "bonus1": {
+      "name": "6 行代码",
+      "description": "只用 6 行代码完成这个练习。"
+    }
+  },
+  "hints": {
+    "howToTell": {
+      "question": "在代码中如何判断一个数字是偶数还是奇数？",
+      "answer": "从数学上讲，一个数字能被 2 整除没有余数就是偶数，如果余数是 1 就是奇数。所以你需要一种方法来得到“除以 2 后余数是多少？”。"
+    },
+    "remainderOperator": {
+      "question": "有没有一个运算符可以给出除法的余数？",
+      "answer": "有的。求余运算符 `%`（有时也叫做取模运算符）正是用来做这个的。例如，`14 % 2`得到`0`，`17 % 2`得到`1`。它会返回第一个数字除以第二个数字的余数。"
+    },
+    "turnIntoEvenOdd": {
+      "question": "我已经得到了余数。现在该怎么把它变成 \"Even\" 或 \"Odd\" 呢？",
+      "answer": "使用`if`语句将余数与`0`进行比较。如果`number % 2`等于`0`，返回`\"Even\"`。否则，返回`\"Odd\"`。"
+    },
+    "zeroAndNegative": {
+      "question": "我不知道该如何处理 0 和负数",
+      "answer": "你不需要为它们做任何特殊处理。因为 `0 % 2` 是 `0`，所以零会自动被视为偶数。而 `-1 % 2` 是非零，因此 `-1` 被视为奇数，这正是你需要的。"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "checks": {
+    "totalCells": "Očekivano {{expected}} ćelija, ali pronađeno {{got}}.",
+    "groundWalls": "Prizemni sprat bi trebalo da ima zidove na pozicijama (17, 2) i (21, 2).",
+    "groundGlass": "Prizemni sprat bi trebalo da ima staklo na pozicijama (18, 2) i (20, 2).",
+    "groundEntrance": "Prizemni sprat bi trebalo da ima ulaz na poziciji (19, 2).",
+    "floorWalls": "Sprat {{y}} bi trebalo da ima zidove na pozicijama (17, {{y}}) i (21, {{y}}).",
+    "floorGlass": "Sprat {{y}} bi trebalo da ima staklo na pozicijama (18, {{y}}), (19, {{y}}) i (20, {{y}}).",
+    "roof": "Krov na y={{roofY}} bi trebalo da se sastoji samo od zidova.",
+    "codeQuality": {
+      "allArgumentsAreVariables": "Trebalo bi da koristiš <strong>promenljive</strong> kao argumente funkcija, a ne literalne vrednosti. Prvo sačuvaj vrednosti u promenljive, a zatim prosledi te promenljive."
+    }
+  },
+  "tasks": {
+    "buildSkyscraper": {
+      "name": "Sagradi neboder",
+      "description": "Sagradi neboder sa tačnim brojem spratova, uključujući prizemni sprat sa ulazom, gornje spratove sa staklima i krovom od zidova."
+    }
+  },
+  "scenarios": {
+    "floors6": {
+      "name": "Neboder od 6 spratova",
+      "description": "Sagradi neboder sa 6 spratova."
+    },
+    "floors8": {
+      "name": "Neboder od 8 spratova",
+      "description": "Sagradi neboder sa 8 spratova."
+    },
+    "floors10": {
+      "name": "Neboder od 10 spratova",
+      "description": "Sagradi neboder sa 10 spratova."
+    },
+    "floors12": {
+      "name": "Neboder od 12 spratova",
+      "description": "Sagradi neboder sa 12 spratova."
+    },
+    "floors16": {
+      "name": "Neboder od 16 spratova",
+      "description": "Sagradi neboder sa 16 spratova."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Ne znam odakle da počnem.",
+      "answer": "Prvo probaj da sagradiš zid, malo stakla i ulaz da proveriš da li razumeš funkcije. Zatim sagradi prizemni sprat - on je uvek isti. Zatim iskoristi funkciju `numFloors()` da saznaš koliko ukupno ima spratova i sagradi preostale spratove, a zatim krov."
+    },
+    "tooManyTooFewFloors": {
+      "question": "Imam previše ili premalo spratova.",
+      "answer": "Ako `numFloors()` vrati 5, to bi trebalo da bude jedan sprat sa ulazom, 4 staklena sprata i 1 krov. Proveri da li je tvoja logika ispravna!"
+    }
+  },
+  "functions": {
+    "buildWall": {
+      "description": "Postavlja **zidni segment** na poziciju (x, y) na mreži.",
+      "category": "Izgradnja"
+    },
+    "buildGlass": {
+      "description": "Postavlja **stakleni segment** na poziciju (x, y) na mreži.",
+      "category": "Izgradnja"
+    },
+    "buildEntrance": {
+      "description": "Postavlja **ulazna vrata** na poziciju (x, y) na mreži.",
+      "category": "Izgradnja"
+    },
+    "numFloors": {
+      "description": "Vraća **broj spratova** za ovu zgradu.",
+      "category": "Informacije"
+    }
+  },
+  "describers": {
+    "buildWall": "sagradio zid na poziciji (${arg1}, ${arg2})",
+    "buildEntrance": "sagradio ulaz na poziciji (${arg1}, ${arg2})",
+    "buildGlass": "sagradio stakleni segment na poziciji (${arg1}, ${arg2})",
+    "numFloors": "preuzeo broj spratova"
+  }
+}

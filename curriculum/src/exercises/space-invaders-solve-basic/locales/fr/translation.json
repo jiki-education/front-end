@@ -1,0 +1,40 @@
+{
+  "describers": {
+    "move": "a déplacé le canon laser vers la droite"
+  },
+  "checks": {
+    "notShotAllAliens": "Tu n'as pas abattu tous les aliens."
+  },
+  "tasks": {
+    "shootTheAliens": {
+      "name": "Abats tous les aliens",
+      "description": "Déplace ton canon laser vers la droite et tire sur chaque alien quand tu passes en dessous. Ne rate aucun tir et ne te déplace pas au-delà du bord !"
+    }
+  },
+  "scenarios": {
+    "shootTheAliens": {
+      "name": "Abats les aliens",
+      "description": "Déplace-toi vers la droite et abats tous les aliens"
+    }
+  },
+  "hints": {
+    "whatDoINeedToDo": {
+      "question": "Qu'est-ce que je dois faire ?",
+      "answer": "Comme dans le labyrinthe, tu dois déplacer ton personnage (cette fois un laser, pas une personne). Mais tu dois aussi tirer avec le laser ! Déplace le laser sous un alien, puis tire. Déplace-toi ensuite jusqu'à te trouver sous l'alien suivant, et tire encore. Continue jusqu'à ce que tu aies abattu le dernier alien !"
+    },
+    "cantWasteAmmo": {
+      "question": "On me dit que je ne peux pas gaspiller les munitions.",
+      "answer": "Tu ne dois utiliser `shoot()` que lorsque tu es juste en dessous d'un alien. Essaie de déplacer le canon laser d'un cran de plus (ou peut-être es-tu allé un cran trop loin ?)"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Déplace le canon laser **d'une position vers la droite**. Si tu te déplaces au-delà du bord droit de l'écran, tu perds !",
+      "category": "Déplacement"
+    },
+    "shoot": {
+      "description": "Tire au laser vers le haut. **Ne tire que lorsqu'il y a un alien au-dessus de toi**, sinon tu perds la partie !",
+      "category": "Action"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "moreThanSixLines": "Tu as utilisé plus de six lignes de code."
+  },
+  "tasks": {
+    "createTwoFerFunction": {
+      "name": "Crée la fonction two-fer",
+      "description": "Écris une fonction twoFer qui prend un nom et renvoie 'One for [name], one for me.' Si aucun nom n'est donné (string vide), utilise 'you' à la place du nom."
+    },
+    "solveInSixLines": {
+      "name": "Résous en six lignes de code",
+      "description": "Peux-tu résoudre ceci en n'utilisant que six lignes de code ?"
+    }
+  },
+  "scenarios": {
+    "twoFerDefault": {
+      "name": "Aucun nom donné",
+      "description": "Aucun nom n'est donné, donc renvoie 'One for you, one for me.'"
+    },
+    "twoFerAlice": {
+      "name": "Le nom donné est Alice",
+      "description": "Elle s'appelle 'Alice', donc renvoie 'One for Alice, one for me.'"
+    },
+    "twoFerTom": {
+      "name": "Le nom donné est Tom",
+      "description": "Il s'appelle 'Tom', donc renvoie 'One for Tom, one for me.'"
+    },
+    "bonus1": {
+      "name": "Six lignes de code",
+      "description": "Résous l'exercice en seulement six lignes de code."
+    }
+  },
+  "hints": {
+    "whatChanges": {
+      "question": "Qu'est-ce qui change selon l'entrée ?",
+      "answer": "Une seule chose : le nom au milieu de la phrase. Si on t'a donné un nom, utilise-le. Sinon, utilise la valeur par défaut `\"you\"`."
+    },
+    "checkGivenName": {
+      "question": "Comment vérifier si on m'a donné un nom ?",
+      "answer": "Avec une instruction `if` qui compare l'entrée à la string vide `\"\"`. Si elle est vide, utilise `\"you\"`. Sinon, utilise l'entrée."
+    },
+    "buildSentence": {
+      "question": "Comment construire la phrase finale ?",
+      "answer": "Assemble les trois morceaux (`\"One for \"`, le nom choisi et `\", one for me.\"`) avec la concaténation (`+`) ou une template string."
+    }
+  }
+}

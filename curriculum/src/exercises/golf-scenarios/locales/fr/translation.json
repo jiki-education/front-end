@@ -1,0 +1,54 @@
+{
+  "checks": {
+    "wrongShotEnd": "La balle n'a pas terminé au bon endroit pour ce coup. Vérifie qu'elle parcourt toute la longueur du coup.",
+    "missingPositions": "La balle doit rouler en passant par chaque position une à une, sans sauter directement à la fin."
+  },
+  "tasks": {
+    "rollAndCelebrate": {
+      "name": "Fais rouler la balle",
+      "description": "Récupère la longueur du coup et fais rouler la balle d'autant vers la droite."
+    }
+  },
+  "scenarios": {
+    "shortShot": {
+      "name": "Coup court (20)",
+      "description": "Dans ce scénario, `getShotLength()` renverra 20. Fais rouler la balle de 20 positions depuis le tee."
+    },
+    "mediumShot": {
+      "name": "Coup moyen (35)",
+      "description": "Dans ce scénario, `getShotLength()` renverra 35. Fais rouler la balle de 35 positions depuis le tee."
+    },
+    "longShot": {
+      "name": "Coup long (50)",
+      "description": "Dans ce scénario, `getShotLength()` renverra 50. Fais rouler la balle de 50 positions depuis le tee."
+    },
+    "veryLongShot": {
+      "name": "Coup très long (60)",
+      "description": "Dans ce scénario, `getShotLength()` renverra 60. Fais rouler la balle de 60 positions depuis le tee."
+    }
+  },
+  "hints": {
+    "notSureWhereToStart": {
+      "question": "Je ne sais pas par où commencer",
+      "answer": "C'est exactement comme l'exercice de golf précédent, où tu faisais rouler la balle d'un nombre fixe de positions. La seule différence, c'est que ce nombre n'est plus une valeur fixe : il vient désormais de `getShotLength()`. Partout où tu utilisais un nombre avant, tu peux utiliser le résultat d'une fonction à la place."
+    },
+    "ballStopsShort": {
+      "question": "Ma balle s'arrête une position trop tôt (ou va une position trop loin)",
+      "answer": "Réfléchis bien à la position de départ et au nombre de fois où tu fais rouler la balle. La balle est posée sur le tee à la position 28, donc son premier déplacement doit l'amener à 29. Compte les positions entre ce point et l'endroit où elle doit terminer."
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "Déplace la balle à la position **x**.",
+      "category": "Déplacement"
+    },
+    "getShotLength": {
+      "description": "Renvoie la **longueur du coup**, c'est-à-dire le nombre d'unités que la balle parcourt vers la droite.",
+      "category": "Information"
+    }
+  },
+  "describers": {
+    "moveTo": "a déplacé la balle à la position ${arg1}",
+    "getShotLength": "a récupéré la longueur du coup"
+  }
+}

@@ -1,10 +1,10 @@
 ---
 title: "Usando funções"
 description: "Peça ao Jiki para usar uma das maquininhas dele escrevendo o nome dela seguido de dois parênteses."
-en_md5: 007a425ced42fd3550bfdf9fe6f7b391
+en_md5: fc671310093a081113a8f301b6ff53fe
 ---
 
-Quando você escreve código, o que você está fazendo de verdade é comunicar o que você quer que aconteça, numa linguagem que o computador entende. Existem muitas linguagens de programação diferentes, e muitos intérpretes (_interpreters_ em inglês) diferentes que pegam o que você escreve e transformam nos uns e zeros que o computador consegue entender. Neste curso, o seu intérprete é o Jiki. O curso todo leva o nome dele. Este é o Jiki. Ele vai ser seu amigo nessa jornada de programação. O trabalho dele é interpretar o código que você escreve e transformar nos uns e zeros com os quais o computador realmente consegue trabalhar.
+Quando você escreve código, o que você está fazendo de verdade é comunicar o que você quer que aconteça, numa linguagem que o computador entende. Existem muitas linguagens de programação diferentes, e muitos intérpretes diferentes que pegam o que você escreve e transformam nos uns e zeros que o computador consegue entender. Neste curso, o seu intérprete é o Jiki. O curso todo leva o nome dele. Este é o Jiki. Ele vai ser seu amigo nessa jornada de programação. O trabalho dele é interpretar o código que você escreve e transformar nos uns e zeros com os quais o computador realmente consegue trabalhar.
 
 <img
   class="concept-image"
@@ -14,7 +14,7 @@ Quando você escreve código, o que você está fazendo de verdade é comunicar 
   height="400"
 />
 
-A essência da programação é dar as instruções certas ao intérprete, no caso o Jiki. E existem muitas instruções diferentes que você pode dar para ele, muita coisa que ele entende. Ele consegue juntar coisas, consegue fazer algo várias vezes, consegue dizer: “Se isso acontecer, então eu preciso fazer aquilo.” Ele consegue guardar coisas e usar de novo mais tarde. E, se algo não estiver certo, ele pode te dar um erro (_error_ em inglês). Vamos ver todas essas coisas ao longo do curso. Mas o mais importante de entender é que tudo o que você vai fazer é colocar instruções num quadro para o Jiki chegar e seguir.
+A essência da programação é dar as instruções certas ao intérprete, no caso o Jiki. E existem muitas instruções diferentes que você pode dar para ele, muita coisa que ele entende. Ele consegue juntar coisas, consegue fazer algo várias vezes, consegue dizer: “Se isso acontecer, então eu preciso fazer aquilo.” Ele consegue guardar coisas e usar de novo mais tarde. E, se algo não estiver certo, ele pode te dar um erro. Vamos ver todas essas coisas ao longo do curso. Mas o mais importante de entender é que tudo o que você vai fazer é escrever instruções num quadro para o Jiki chegar e seguir.
 
 Quando eu aprendi a programar, 34 anos atrás, foi esse o modelo mental que eu construí, e é o mesmo que eu tenho até hoje. Eu entendo como o computador funciona até o nível dos uns e zeros, mas, sinceramente, nunca penso nisso. Na minha cabeça, tem um homenzinho morando dentro do computador, e eu digo para ele o que fazer. Então venha comigo nessa. É um modelo mental poderoso, que você também pode construir. Se você começar a pensar de um jeito bem visual no que essa pessoa dentro do computador está fazendo, isso vai te ajudar muito enquanto você aprende a programar.
 

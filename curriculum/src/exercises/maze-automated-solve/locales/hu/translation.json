@@ -1,103 +1,103 @@
 {
   "describers": {
-    "canMove": "Check if the character can move forward",
-    "canTurnLeft": "Check if there is a path to the character's left",
-    "canTurnRight": "Check if there is a path to the character's right"
+    "canMove": "Ellenőrizd, hogy a figura tud-e előre menni",
+    "canTurnLeft": "Ellenőrizd, hogy a figura balra tud-e fordulni",
+    "canTurnRight": "Ellenőrizd, hogy a figura jobbra tud-e fordulni"
   },
   "checks": {
-    "reachedEnd": "You didn't reach the end of the maze.",
-    "extraTurn": "You seem to have done an extra unnecessary turn at the end."
+    "reachedEnd": "Nem érted el a labirintus végét.",
+    "extraTurn": "Úgy tűnik, a végén fölöslegesen fordultál."
   },
   "tasks": {
     "straightPath": {
-      "name": "A straight path",
-      "description": "Move forward to the end of the maze."
+      "name": "Egyenes út",
+      "description": "Menj előre a labirintus végéig."
     },
     "turnLeft": {
-      "name": "Turn left if you can",
-      "description": "If there's a path to the left, take it!"
+      "name": "Fordulj balra, ha tudsz",
+      "description": "Ha van út balra, arra menj!"
     },
     "turnRight": {
-      "name": "Turn right if you can't move straight or left",
-      "description": "If there's not a path to the left or straight ahead, take the path to the right."
+      "name": "Fordulj jobbra, ha nem tudsz egyenesen vagy balra menni",
+      "description": "Ha nincs út balra vagy egyenesen, fordulj jobbra."
     },
     "turnAround": {
-      "name": "Turn around if needed",
-      "description": "Handle dead ends by turning around. If you can't go left, straight, or right, turn around and move forward."
+      "name": "Fordulj meg, ha szükséges",
+      "description": "Kezeld a zsákutcákat a megfordulással. Ha nem tudsz balra, egyenesen vagy jobbra menni, fordulj meg, és menj előre."
     }
   },
   "scenarios": {
     "maze1": {
-      "name": "Guide person to the end of the maze",
-      "description": "A straight path down"
+      "name": "Vezesd a figurát a labirintus végéig",
+      "description": "Egyenes út lefelé"
     },
     "leftTurn": {
-      "name": "A single left turn",
-      "description": "Navigate a left turn"
+      "name": "Egyetlen balra fordulás",
+      "description": "Navigálj egy balra fordulást"
     },
     "rightTurn": {
-      "name": "A single right turn",
-      "description": "Navigate a right turn"
+      "name": "Egyetlen jobbra fordulás",
+      "description": "Navigálj egy jobbra fordulást"
     },
     "forks": {
-      "name": "Choose left if you can, otherwise choose right",
-      "description": "A maze with forks that tests left-priority"
+      "name": "Balra, ha tudsz, egyébként jobbra",
+      "description": "Egy labirintus elágazásokkal, ami a balra prioritást teszteli"
     },
     "turnAround": {
-      "name": "Turn around at a dead end",
-      "description": "A maze that requires turning around"
+      "name": "Fordulj meg a zsákutcában",
+      "description": "Egy labirintus, ami megfordulást igényel"
     },
     "forks2": {
-      "name": "Complex maze with forks and dead ends",
-      "description": "A complex maze testing the full algorithm"
+      "name": "Összetett labirintus elágazásokkal és zsákutcákkal",
+      "description": "Egy összetett labirintus, ami a teljes algoritmust teszteli"
     }
   },
   "hints": {
     "solveEachMaze": {
-      "question": "Do I have to solve each maze separately?",
-      "answer": "No. You write one algorithm that works for any maze, and the same code runs on every scenario."
+      "question": "Minden labirintust külön kell megoldanom?",
+      "answer": "Nem. Egyetlen algoritmust írsz, ami bármilyen labirintusra működik, és ugyanaz a kód fut le minden forgatókönyv esetén."
     },
     "runEveryStep": {
-      "question": "How do I get my code to run for every step of the maze?",
-      "answer": "Wrap your logic in the repeat loop. It runs your code over and over until you reach the end, so you only need to describe what to do for a single step."
+      "question": "Hogyan érem el, hogy a kódom a labirintus minden lépésénél lefusson?",
+      "answer": "Tedd a logikádat a `repeat` ciklusba. Ez addig futtatja a kódodat újra és újra, amíg el nem éred a végét, így csak azt kell leírnod, hogy mit tegyen egyetlen lépésben."
     },
     "oneCheckPerStep": {
-      "question": "How do I make sure only one of my checks happens each step?",
-      "answer": "Use a single `if` / `else if` / `else` chain rather than several separate `if`s. That way exactly one branch runs each time through the loop."
+      "question": "Hogyan érhetem el, hogy lépésenként csak az egyik ellenőrzés fusson le?",
+      "answer": "Használj egyetlen `if` / `else if` / `else` láncot több különálló `if` helyett. Így a ciklus minden lefutásakor pontosan egy ág hajtódik végre."
     },
     "stuckAfterTurn": {
-      "question": "I turn, but the character gets stuck in the same spot.",
-      "answer": "Turning only changes the direction the character faces, it doesn't take a step. After turning, you still need to `move()`."
+      "question": "Elfordulok, de a figura ugyanott marad.",
+      "answer": "A fordulás csak a figura irányát változtatja meg, nem tesz egy lépést sem. Fordulás után még a `move()`-ot is meg kell hívnod."
     },
     "turnAroundDeadEnd": {
-      "question": "How do I turn around at a dead end?",
-      "answer": "There's no turn-around function. Turning the same way twice (two left turns, or two right turns) leaves the character facing back the way it came."
+      "question": "Hogyan fordulhatok meg a zsákutcában?",
+      "answer": "Nincs külön megfordulás függvény. Ha kétszer fordulsz ugyanabba az irányba (két balra fordulás vagy két jobbra fordulás), a figura visszafelé fog nézni, amerre jött."
     }
   },
   "functions": {
     "move": {
-      "description": "Moves the character **one step forward** in the current direction. The character will only move if the target position is not blocked by a wall.",
-      "category": "Movement"
+      "description": "A figurát **egy lépéssel előre** mozgatja az aktuális irányba. A figura csak akkor mozog, ha a célmezőt nem zárja el fal.",
+      "category": "Mozgás"
     },
     "turnLeft": {
-      "description": "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
-      "category": "Movement"
+      "description": "A figurát **90 fokkal balra** forgatja (az óramutató járásával ellentétes irányba). Ez megváltoztatja, hogy merre néz a figura.",
+      "category": "Mozgás"
     },
     "turnRight": {
-      "description": "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
-      "category": "Movement"
+      "description": "A figurát **90 fokkal jobbra** forgatja (az óramutató járásával megegyező irányba). Ez megváltoztatja, hogy merre néz a figura.",
+      "category": "Mozgás"
     },
     "canMove": {
-      "description": "Returns **true** if the space ahead of the character is not a wall, **false** otherwise.",
-      "category": "Sensing"
+      "description": "**Igaz** értéket ad vissza, ha a figura előtti mező nem fal, egyébként **hamis** értéket.",
+      "category": "Érzékelés"
     },
     "canTurnLeft": {
-      "description": "Returns **true** if the space to the character's left is not a wall, **false** otherwise.",
-      "category": "Sensing"
+      "description": "**Igaz** értéket ad vissza, ha a figura bal oldalán lévő mező nem fal, egyébként **hamis** értéket.",
+      "category": "Érzékelés"
     },
     "canTurnRight": {
-      "description": "Returns **true** if the space to the character's right is not a wall, **false** otherwise.",
-      "category": "Sensing"
+      "description": "**Igaz** értéket ad vissza, ha a figura jobb oldalán lévő mező nem fal, egyébként **hamis** értéket.",
+      "category": "Érzékelés"
     }
   }
 }

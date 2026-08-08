@@ -1,58 +1,58 @@
 {
   "checks": {
-    "frame": "The frame of the house is not correct.",
-    "roof": "The roof of the house is not at the correct position.",
-    "leftWindow": "The left window frame isn't positioned correctly.",
-    "rightWindow": "The right window frame isn't positioned correctly.",
-    "door": "The door frame isn't positioned correctly.",
-    "doorKnob": "The door knob isn't positioned correctly."
+    "frame": "A ház kerete nem megfelelő.",
+    "roof": "A ház teteje nincs a megfelelő helyen.",
+    "leftWindow": "A bal ablak nincs a megfelelő helyen.",
+    "rightWindow": "A jobb ablak nincs a megfelelő helyen.",
+    "door": "Az ajtó nincs a megfelelő helyen.",
+    "doorKnob": "A kilincs nincs a megfelelő helyen."
   },
   "tasks": {
     "arrangeHouse": {
-      "name": "Correctly arrange the house",
-      "description": "Rearrange all the shapes to their correct positions to form a house. Work through each piece methodically."
+      "name": "Rendezd el helyesen a házat",
+      "description": "Rendezd át az összes alakzatot a megfelelő helyükre, hogy egy házat alkossanak. Haladj módszeresen végig minden darabon."
     }
   },
   "scenarios": {
     "drawTheHouse": {
-      "name": "Draw the house",
-      "description": "Arrange all shapes in their correct positions to form a complete house."
+      "name": "Rajzold meg a házat",
+      "description": "Rendezd el az összes alakzatot a megfelelő helyére, hogy egy teljes házat alkossanak."
     }
   },
   "hints": {
     "whereToStart": {
-      "question": "Where do I start?",
-      "answer": "Work through each shape in order - sky, grass, house frame, roof, windows, door, knob. Get each one right before moving on."
+      "question": "Hol kezdjem?",
+      "answer": "Haladj végig sorban az alakzatokon – ég, fű, ház kerete, tető, ablakok, ajtó, kilincs. Mindegyiket helyezd el helyesen, mielőtt továbblépsz."
     },
     "coordinates": {
-      "question": "How do coordinates work?",
-      "answer": "The canvas coordinates go from (0,0) at top-left to (100,100) at bottom-right. For rectangles, the left and top are the top-left corner."
+      "question": "Hogyan működnek a koordináták?",
+      "answer": "A vászon koordinátái a bal felső saroktól (0,0) indulnak, és a jobb alsó sarokban (100,100) érnek véget. Téglalapok esetén a bal és a felső értékek a bal felső sarkot jelölik."
     },
     "roofPosition": {
-      "question": "How do I figure out the roof position?",
-      "answer": "The roof is a triangle that sits on top of the house frame. Think about where the left and right base points need to be given the overhang, and where the peak sits."
+      "question": "Hogyan számolhatom ki a tető helyzetét?",
+      "answer": "A tető egy háromszög, amely a ház keretének tetején helyezkedik el. Gondold át, hogy az adott túlnyúlást figyelembe véve hova kell kerülniük a bal és jobb oldali alap pontoknak, és hol helyezkedik el a csúcsa."
     },
     "windowPosition": {
-      "question": "How do I position the windows?",
-      "answer": "Each window is offset from the house frame's edges. Use the house frame's position and size along with the inset values to calculate each window's top-left corner."
+      "question": "Hogyan helyezzem el az ablakokat?",
+      "answer": "Mindkét ablak a ház keretének széleitől adott távolságra van. A ház keretének pozíciója és mérete, valamint a behúzás értéke alapján számold ki az ablakok bal felső sarkát."
     },
     "centerDoor": {
-      "question": "How do I center the door?",
-      "answer": "To center something inside a larger shape, think about the leftover space. If the house is wider than the door, the gap is split equally on both sides."
+      "question": "Hogyan középre igazíthatom az ajtót?",
+      "answer": "Ha valamit egy nagyobb alakzaton belülre szeretnél középre igazítani, gondold át a maradék helyet. Ha a ház szélesebb az ajtónál, a fennmaradó helyet egyenlően oszd el a két oldalon."
     }
   },
   "functions": {
     "rectangle": {
-      "description": "Draw a rectangle at position (left, top) with the given width, height, and color",
-      "category": "Drawing Shapes"
+      "description": "Rajzolj egy téglalapot a megadott (bal, fent) pozícióba a megadott szélességgel, magassággal és színnel.",
+      "category": "Alakzatok rajzolása"
     },
     "circle": {
-      "description": "Draw a circle centered at (centerX, centerY) with the given radius and color",
-      "category": "Drawing Shapes"
+      "description": "Rajzolj egy kört, amelynek középpontja (centerX, centerY), a megadott sugárral és színnel.",
+      "category": "Alakzatok rajzolása"
     },
     "triangle": {
-      "description": "Draw a triangle with three corner points and a color",
-      "category": "Drawing Shapes"
+      "description": "Rajzolj egy háromszöget három sarokponttal és egy színnel.",
+      "category": "Alakzatok rajzolása"
     }
   }
 }

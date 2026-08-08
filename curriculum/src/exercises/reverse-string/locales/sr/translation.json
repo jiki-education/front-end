@@ -1,0 +1,60 @@
+{
+  "tasks": {
+    "reverseStrings": {
+      "name": "Obrni stringove",
+      "description": "Obrni string tako da se čita s desna na levo umesto s leva na desno."
+    }
+  },
+  "scenarios": {
+    "reverseEmptyString": {
+      "name": "Prazan string",
+      "description": "Prazan string treba da vrati prazan string kada se obrne."
+    },
+    "reverseWord": {
+      "name": "Reč",
+      "description": "Obrni reč „robot“."
+    },
+    "reverseCapitalizedWord": {
+      "name": "Reč sa velikim početnim slovom",
+      "description": "Obrni reč sa velikim početnim slovom „Ramen“."
+    },
+    "reverseSentencePunctuation": {
+      "name": "Rečenica sa interpunkcijom",
+      "description": "Obrni rečenicu sa interpunkcijom „I'm hungry!“"
+    },
+    "reversePalindrome": {
+      "name": "Palindrom",
+      "description": "Palindrom ostaje isti kada se obrne."
+    },
+    "reverseEvenSizedWord": {
+      "name": "Reč parne dužine",
+      "description": "Obrni reč parne dužine „drawer“."
+    },
+    "reverseWideCharacters": {
+      "name": "Široki karakteri",
+      "description": "Obrni široke Unicode karaktere „子猫“."
+    },
+    "reverseEmojiFamily": {
+      "name": "Emodži porodica",
+      "description": "Obrni emodži porodicu."
+    },
+    "reverseEmojiRainbowFlag": {
+      "name": "Zastava duge",
+      "description": "Napravi zastavu duge obrtanjem."
+    }
+  },
+  "hints": {
+    "reverseByHand": {
+      "question": "Kako ručno obrnuti reč?",
+      "answer": "Čita se s leva na desno, ali piše s desna na levo. Drugim rečima, uzmeš svako slovo redom i staviš ga ispred onoga što si do tada napisao."
+    },
+    "mapToCode": {
+      "question": "Kako to preslikati u kod?",
+      "answer": "Prođi kroz ulazni string karakter po karakter. Za svaki karakter, gradi rezultat dodavanjem na početak. To znači da ga stavljaš na POČETAK rezultata, a ne na kraj."
+    },
+    "prepend": {
+      "question": "Kako da dodam na početak umesto na kraj?",
+      "answer": "Sa operatorom `+`, dodavanje na početak je samo pitanje redosleda. Umesto `result + char` (što dodaje na kraj), koristi `char + result` (što dodaje na početak)."
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "errors": {
+    "alreadyIssued": "Ya le has dado una pulsera a esta persona: cada persona solo debe recibir una."
+  },
+  "checks": {
+    "childWristband": "La persona tiene 8 años. Debería recibir una pulsera de niño, pero recibió: {{got}}.",
+    "teenWristband": "La persona tiene 15 años. Debería recibir una pulsera de adolescente, pero recibió: {{got}}.",
+    "adultWristband": "La persona tiene 30 años. Debería recibir una pulsera de adulto, pero recibió: {{got}}.",
+    "seniorWristband": "La persona tiene 70 años. Debería recibir una pulsera de adulto mayor, pero recibió: {{got}}.",
+    "boundary13": "La persona tiene 13 años. Debería recibir una pulsera de adolescente (13 no es menor de 13), pero recibió: {{got}}.",
+    "boundary18": "La persona tiene 18 años. Debería recibir una pulsera de adulto (18 no es menor de 18), pero recibió: {{got}}.",
+    "boundary65": "La persona tiene 65 años. Debería recibir una pulsera de adulto mayor (65 no es menor de 65), pero recibió: {{got}}."
+  },
+  "tasks": {
+    "assignWristband": {
+      "name": "Asigna la pulsera correcta",
+      "description": "Obtén la edad de la persona y dale la pulsera correcta: niño (menor de 13 años), adolescente (13-17), adulto (18-64) o adulto mayor (65+)."
+    }
+  },
+  "scenarios": {
+    "childAge8": {
+      "name": "Edad 8 (niño)",
+      "description": "Un niño de 8 años. Debería recibir una pulsera de niño."
+    },
+    "teenAge15": {
+      "name": "Edad 15 (adolescente)",
+      "description": "Un adolescente de 15 años. Debería recibir una pulsera de adolescente."
+    },
+    "adultAge30": {
+      "name": "Edad 30 (adulto)",
+      "description": "Un adulto de 30 años. Debería recibir una pulsera de adulto."
+    },
+    "seniorAge70": {
+      "name": "Edad 70 (adulto mayor)",
+      "description": "Un adulto mayor de 70 años. Debería recibir una pulsera de adulto mayor."
+    },
+    "boundary13": {
+      "name": "Edad 13 (adolescente)",
+      "description": "Exactamente 13 años. Es un adolescente, no un niño."
+    },
+    "boundary18": {
+      "name": "Edad 18 (adulto)",
+      "description": "Exactamente 18 años. Es un adulto, no un adolescente."
+    },
+    "boundary65": {
+      "name": "Edad 65 (adulto mayor)",
+      "description": "Exactamente 65 años. Es un adulto mayor, no un adulto."
+    }
+  },
+  "hints": {
+    "gettingAge": {
+      "question": "¿Cómo obtengo la edad de la persona?",
+      "answer": "Llama a `getAge()` y guarda el resultado en una variable, por ejemplo `let age = getAge()`. Luego puedes comparar `age` con números en tus condicionales."
+    },
+    "structureForRanges": {
+      "question": "¿Qué estructura uso cuando hay varios rangos de edad?",
+      "answer": "Una cadena de `if` / `else if` / `else`. Cada rama maneja una pulsera y solo se ejecutará una rama."
+    },
+    "branchOrder": {
+      "question": "¿Importa el orden de las ramas?",
+      "answer": "Sí. Empieza con la edad más baja (`age < 13`), luego `age < 18`, luego `age < 65`. Como cada rama solo se ejecuta si las anteriores fallaron, no necesitas escribir cosas como `age >= 13 && age < 18`."
+    },
+    "seniorsElse": {
+      "question": "¿Y los adultos mayores al final?",
+      "answer": "No necesitas una condición para ellos. Un simple `else` que llama a `giveSeniorWristband()` captura a todas las personas de 65 años o más."
+    }
+  },
+  "describers": {
+    "getAge": "obtuvo la edad de la persona",
+    "giveChildWristband": "dio una pulsera de niño",
+    "giveTeenWristband": "dio una pulsera de adolescente",
+    "giveAdultWristband": "dio una pulsera de adulto",
+    "giveSeniorWristband": "dio una pulsera de adulto mayor"
+  },
+  "functions": {
+    "getAge": {
+      "description": "Devuelve la **edad** de la persona que espera afuera.",
+      "category": "Información"
+    },
+    "giveChildWristband": {
+      "description": "Da a la persona una pulsera de **niño** (menor de 13).",
+      "category": "Pulseras"
+    },
+    "giveTeenWristband": {
+      "description": "Da a la persona una pulsera de **adolescente** (13-17).",
+      "category": "Pulseras"
+    },
+    "giveAdultWristband": {
+      "description": "Da a la persona una pulsera de **adulto** (18-64).",
+      "category": "Pulseras"
+    },
+    "giveSeniorWristband": {
+      "description": "Da a la persona una pulsera de **adulto mayor** (65+).",
+      "category": "Pulseras"
+    }
+  }
+}

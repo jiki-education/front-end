@@ -1,7 +1,7 @@
 ---
 title: "HSL színek"
 description: "Színek felépítése színárnyalatból (az árnyalat, 0–360), telítettségből (mennyire élénk, 0–100) és világosságból (mennyire fényes, 0–100)."
-en_md5: ea9405f74e8608a50deedb8399a11971
+en_md5: d751e07ccf6b5a58a11d3d2af1026b93
 ---
 
 A HSL egészen másképp közelíti meg a színeket, mint az RGB. A HSL a színárnyalat (_hue (H)_ angolul), a telítettség (_saturation (S)_ angolul) és a világosság (_lightness (L)_ angolul) szavak rövidítése. Van egy `hsl` nevű függvényed, amely három számot vár: egyet a színárnyalathoz, egyet a telítettséghez és egyet a világossághoz, és egy színt ad vissza. Nézzük meg, mit is jelent ez a három szó.
@@ -39,9 +39,9 @@ A színárnyalat azt adja meg, milyen színt szeretnél, és nullától 360-ig t
 Ha tehát egy normál piros kört szeretnénk, amit RGB-vel 255, nulla, nullaként írtunk volna le (csupa piros, semmi zöld, semmi kék), itt a nulla, 100, 50 értékeket használnánk. Nulla a piros színárnyalathoz, 100 a telítettséghez, vagyis teljes szín, és 50 a világossághoz, ami a normál fényerő. Ha zöld kört akarunk belőle csinálni, elég a színárnyalatot `120`-ra átírni. Ha sötétebb zöldet szeretnénk, csökkentsük a világosságot `25`-re.
 
 ```javascript
-hsl(0, 100, 50)
-hsl(120, 100, 50)
-hsl(120, 100, 25)
+hsl(0, 100, 50) // piros
+hsl(120, 100, 50) // zöld
+hsl(120, 100, 25) // sötétzöld
 ```
 
 Ha fakóbb zöldet szeretnénk, kivehetünk belőle egy kis színt, egy kis telítettséget, mondjuk levehetjük `30`-ra.

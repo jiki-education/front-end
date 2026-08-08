@@ -1,90 +1,90 @@
 {
   "tasks": {
     "sumTheDigits": {
-      "name": "Sum the digits",
-      "description": "Write a function called digitalRoot that takes a number and adds its digits together. For numbers that are already a single digit, and for numbers whose digits sum to a single digit, this first pass is enough."
+      "name": "Add össze a számjegyeket",
+      "description": "Írj egy `digitalRoot` nevű függvényt, amely egy számot fogad, és összeadja a számjegyeit. Azoknál a számoknál, amelyek már egyjegyűek, illetve amelyeknek a számjegyei egyjegyűre összegződnek, ez elég is."
     },
     "collapseToSingleDigit": {
-      "name": "Keep collapsing until one digit is left",
-      "description": "Sometimes summing the digits once still leaves more than one digit (for example 942 sums to 15). Keep summing the digits of the result until a single digit remains."
+      "name": "Add össze, amíg egyjegyű nem lesz",
+      "description": "Néha a számjegyek egyszeri összeadása után még mindig több számjegy marad (például a 942 15-re összegződik). Add össze az eredmény számjegyeit, amíg egyetlen számjegy nem marad."
     },
     "keepItTight": {
-      "name": "Bonus: keep it short",
-      "description": "Your solution already works. For this bonus, tidy it up so the whole function fits in a small number of lines, without any extra clutter."
+      "name": "Bónusz: legyen rövid",
+      "description": "A megoldásod már működik. Ennél a bónusznál tisztogasd meg úgy, hogy a függvény elférjen néhány sorban, felesleges dolgok nélkül."
     }
   },
   "scenarios": {
     "drZero": {
-      "name": "Zero",
-      "description": "The digital root of 0 is 0."
+      "name": "Nulla",
+      "description": "A 0 digitális gyöke 0."
     },
     "drSingleDigit": {
-      "name": "Already a single digit",
-      "description": "A number that is already a single digit is its own digital root."
+      "name": "Már eleve egyjegyű",
+      "description": "Egy már eleve egyjegyű szám önmaga digitális gyöke."
     },
     "drTwoDigits": {
-      "name": "Two digits",
-      "description": "16 collapses to 7 in a single pass (1 + 6)."
+      "name": "Két számjegy",
+      "description": "A 16 egy menetben 7-re összegződik (1 + 6)."
     },
     "drThreeDigits": {
-      "name": "Three digits, one pass",
-      "description": "132 collapses to 6 in a single pass (1 + 3 + 2)."
+      "name": "Három számjegy, egy menet",
+      "description": "A 132 egy menetben 6-ra összegződik (1 + 3 + 2)."
     },
     "drThirtyNine": {
-      "name": "Two passes needed",
-      "description": "39 sums to 12, which then sums to 3."
+      "name": "Két menet szükséges",
+      "description": "A 39 12-re összegződik, ami aztán 3-ra összegződik."
     },
     "drTwoPasses": {
-      "name": "A number that needs a second pass",
-      "description": "942 sums to 15, which then sums to 6."
+      "name": "Egy szám, amelyik második menetet igényel",
+      "description": "A 942 15-re összegződik, ami aztán 6-ra összegződik."
     },
     "drLarge": {
-      "name": "A larger number",
-      "description": "493193 collapses all the way down to 2."
+      "name": "Egy nagyobb szám",
+      "description": "A 493193 egészen 2-re összegződik."
     },
     "drNines": {
-      "name": "All nines",
-      "description": "99999 sums to 45, which then sums to 9."
+      "name": "Csupa kilences",
+      "description": "A 99999 45-re összegződik, ami aztán 9-re összegződik."
     },
     "drBonusTight": {
-      "name": "A tidy, short solution",
-      "description": "12345 collapses down to 6 (1 + 2 + 3 + 4 + 5 = 15, then 1 + 5 = 6)."
+      "name": "Egy tiszta, rövid megoldás",
+      "description": "A 12345 6-ra összegződik (1 + 2 + 3 + 4 + 5 = 15, majd 1 + 5 = 6)."
     }
   },
   "hints": {
     "whatIsIt": {
-      "question": "What exactly is a digital root?",
-      "answer": "Add up all the digits of the number. If that gives you a single digit, that's the answer. If it gives you more than one digit, add up the digits of that result too, and keep going until only one digit is left."
+      "question": "Pontosan mi a digitális gyök?",
+      "answer": "Add össze a szám összes számjegyét. Ha ez egyjegyű számot ad, az a válasz. Ha egynél több számjegyet kapsz, add össze ennek az eredménynek a számjegyeit is, és folytasd, amíg csak egy számjegy marad."
     },
     "sumDigits": {
-      "question": "How do I add up the digits of a number?",
-      "answer": "Turn the number into a string so you can walk through it character by character with a `for...of` loop. Keep a running total, adding each digit as you go."
+      "question": "Hogyan adjam össze egy szám számjegyeit?",
+      "answer": "Alakítsd a számot stringgé, hogy egy `for...of` ciklussal karakterenként végig tudj menni rajta. Tarts nyilván egy futó összeget, és minden számjegyet adj hozzá."
     },
     "digitsToNumbers": {
-      "question": "Each digit is a character though, not a number.",
-      "answer": "When you loop over the string, each character (like `\"4\"`) is text. Use `Number(char)` to turn it into the number `4` before adding it to your total."
+      "question": "De minden számjegy karakter, nem szám.",
+      "answer": "Amikor végigmész a stringen, minden karakter (például `\"4\"`) szöveg. Használd a `Number(char)`-t, hogy átalakítsd a `4`-et számmá, mielőtt hozzáadnád az összeghez."
     },
     "whichLoop": {
-      "question": "How do I keep going without knowing how many passes I need?",
-      "answer": "You don't know in advance how many times you'll need to sum the digits, so a `while` loop is a great fit. Keep looping while the number has more than one digit."
+      "question": "Hogyan haladjak tovább, ha nem tudom, hány menetre van szükség?",
+      "answer": "Előre nem tudod, hányszor kell összeadnod a számjegyeket, ezért a `while` ciklus remek választás. Addig fusson a ciklus, amíg a számnak egynél több számjegye van."
     },
     "keepGoing": {
-      "question": "When do I stop?",
-      "answer": "Stop as soon as the number is a single digit. At that point, return it."
+      "question": "Mikor álljak meg?",
+      "answer": "Állj meg, amint a szám egyjegyű. Ekkor add vissza."
     }
   },
   "checks": {
-    "mustUseWhile": "Almost! For this exercise we want you to use a `while` loop to keep collapsing until a single digit remains.",
-    "tooManyLines": "So close! Your solution works, but it's a little long. See if you can tighten it up."
+    "mustUseWhile": "Majdnem! Ebben a feladatban azt szeretnénk, hogy egy `while` ciklust használj, hogy addig összegezz, amíg egy számjegy marad.",
+    "tooManyLines": "Nagyon közel! A megoldásod működik, de egy kicsit hosszú. Nézd meg, hogy tudod-e egyszerűsíteni."
   },
   "functions": {
     "number": {
-      "description": "Convert a string containing digits to a number",
-      "category": "Type Conversion"
+      "description": "Számjegyeket tartalmazó string átalakítása számmá",
+      "category": "Típuskonverzió"
     },
     "string": {
-      "description": "Convert a number into a string",
-      "category": "Type Conversion"
+      "description": "Szám átalakítása stringgé",
+      "category": "Típuskonverzió"
     }
   }
 }

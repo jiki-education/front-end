@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "notReachedEnd": "Kraj lavirinta nije dostignut.",
+    "tooManyLines": "Tvoje rešenje ima previše linija koda. Potraži grupe uzastopnih poziva move() i zameni svaku grupu repeat petljom.",
+    "oneLineOver": "Premašuješ samo za jednu liniju! Repeat petlja nije uvek kraća: ponavljanje nečega samo dva ili tri puta može zauzeti više linija nego ispisivanje poziva, pa potraži repeat koji ti zapravo ništa ne štedi."
+  },
+  "tasks": {
+    "solveMazeWithRepeat": {
+      "name": "Prepravi rešenje lavirinta koristeći repeat petlje",
+      "description": "Zameni uzastopne pozive `move()` sa repeat petljama da bi kod bio kraći."
+    }
+  },
+  "scenarios": {
+    "mazeRepeat1": {
+      "name": "Prepravi rešenje lavirinta koristeći repeat petlje",
+      "description": "Koristi repeat petlje da izbegneš uzastopne pozive `move()`."
+    }
+  },
+  "hints": {
+    "noIdea": {
+      "question": "Nemam pojma šta da radim",
+      "answer": "Potraži grupe uzastopnih poziva `move()`. Na primer, umesto:\n\n```javascript\nmove()\nmove()\nmove()\n```\n\nMožeš napisati:\n\n```javascript\nrepeat(3) {\n  move()\n}\n```\n\nPronađi grupe i zameni ih!"
+    },
+    "tooManyLines": {
+      "question": "Koristiš repeat petlje ali imaš previše linija?",
+      "answer": "Da li je uvek bolje koristiti repeat? U nekim slučajevima, možda je kraće samo imati dva move poziva jedan pored drugog."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Pomera lik **jedan korak napred** u trenutnom pravcu. Lik će se pomeriti samo ako ciljna pozicija nije blokirana zidom.",
+      "category": "Pokret"
+    },
+    "turnLeft": {
+      "description": "Okreće lik **za 90 stepeni ulevo** (suprotno od kazaljke na satu). Ovo menja pravac u kojem je lik okrenut.",
+      "category": "Pokret"
+    },
+    "turnRight": {
+      "description": "Okreće lik **za 90 stepeni udesno** (u smeru kazaljke na satu). Ovo menja pravac u kojem je lik okrenut.",
+      "category": "Pokret"
+    }
+  }
+}

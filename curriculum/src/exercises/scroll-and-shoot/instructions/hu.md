@@ -1,18 +1,19 @@
 ---
-title: "Scroll and Shoot"
-description: "Scroll through Space Invaders and take out the aliens."
+title: "Görgetés és lövés"
+description: "Görgess végig a Space Invaders-en, és iktasd ki az űrlényeket."
+en_md5: a238bdc121bdfe425015d2e9e6b872d5
 ---
 
-We're back with Space Invaders. Last time you only needed to move from left to right to shoot all the aliens down. But this time you need to also bounce the laser from left to right taking multiple passes to shoot the aliens down.
+Újra itt a Space Invaders. Legutóbb csak balról jobbra kellett mozognod, hogy lelődd az összes űrlényt. De most a lézert ide-oda kell pattogtatnod, és több menetben kell leszedned az űrlényeket.
 
-You can move the laser left and right using the `moveLeft()` and `moveRight()` functions. You can experiment to see how far left and right you can move. If you go off the edge of the screen, you lose.
+A lézert a `moveLeft()` (balra mozgat) és `moveRight()` (jobbra mozgat) függvényekkel mozgathatod balra és jobbra. Kísérletezhetsz, hogy meglásd, milyen messzire tudsz elmenni balra és jobbra. Ha leesel a képernyő széléről, vesztesz.
 
-As before, when you move, you need to check whether there's an alien above you using the `isAlienAbove()` function and then `shoot()` it if so. If you shoot when there's not an alien, you'll lose the game - wasting ammo is not allowed!
+Mint korábban, amikor mozogsz, ellenőrizned kell, hogy van-e fölötted űrlény az `isAlienAbove()` (van-e fölötte űrlény) függvénnyel, és ha igen, akkor a `shoot()` (lő) függvénnyel lőj rá. Ha akkor lősz, amikor nincs ott űrlény, akkor vesztesz, mert a lőszerpazarlás tilos!
 
-The laser cannon easily overheats. You need to move between shots to keep it cool.
+A lézerágyú könnyen túlmelegszik. Mozognod kell a lövések között, hogy hűvösen tartsd.
 
-The waves get busier as you go. In the final wave the aliens respawn, so there's no way to know in advance how many shots you'll need - your loop has to keep running until every alien is gone.
+A hullámok egyre sűrűbbek lesznek, ahogy haladsz. Az utolsó hullámban az űrlények újra megjelennek, így nem lehet előre tudni, hány lövésre lesz szükséged. A ciklusodnak addig kell futnia, amíg minden űrlény el nem tűnik.
 
-One rule in this exercise, to pass the final scenario, you cannot use a repeat loop with an input (ie you **can** use `repeat() { ... }` but you **can't** use `repeat(10) { ... }`).
+Ebben a feladatban egy szabály van: az utolsó forgatókönyv teljesítéséhez nem használhatsz bemenettel rendelkező repeat ciklust (vagyis használhatod a `repeat() { ... }`-t, de a `repeat(10) { ... }`-t **nem** használhatod).
 
-Once all the aliens have been shot down, you win! Good luck!
+Ha az összes űrlényt lelőtted, nyersz! Sok szerencsét!

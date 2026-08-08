@@ -1,0 +1,46 @@
+{
+  "checks": {
+    "firstRectangle": "Brakuje pierwszego prostokąta.",
+    "lastRectangle": "Brakuje ostatniego prostokąta.",
+    "minSaturationLightness": "Wszystkie prostokąty powinny mieć nasycenie i jasność co najmniej 20.",
+    "uniqueColors": "Nie ma 100 prostokątów w różnych kolorach.",
+    "hueRed": "Powinien być prostokąt o odcieniu bliskim 0 (czerwony).",
+    "huePurple": "Powinien być prostokąt o odcieniu bliskim 300 (fioletowy)."
+  },
+  "tasks": {
+    "drawRainbow": {
+      "name": "Narysuj tęczę",
+      "description": "Narysuj na płótnie 100 pionowych pasków, każdy w innym odcieniu, aby uzyskać efekt tęczy."
+    }
+  },
+  "scenarios": {
+    "drawRainbow": {
+      "name": "Narysuj tęczę",
+      "description": "Namaluj 100 pięknych prostokątów tworzących tęczę."
+    }
+  },
+  "hints": {
+    "hundredRectangles": {
+      "question": "Czy muszę narysować 100 osobnych prostokątów?",
+      "answer": "Tak, ale nie przez wpisanie `rectangle(...)` 100 razy! Zastanów się, co robimy, gdy kod się powtarza."
+    },
+    "colorIntoRectangle": {
+      "question": "Jak przekazać kolor do prostokąta?",
+      "answer": "Funkcja `hsl(...)` zwraca kolor jako string. Możesz go potem przekazać do funkcji `rectangle(...)`, tak jak wcześniej."
+    },
+    "hueRange": {
+      "question": "Jak sprawić, żeby odcień zmieniał się od 0 do 300?",
+      "answer": "Pasków jest 100, a pierwszy powinien mieć odcień 0. Przy każdym kolejnym trzeba tę wartość trochę zwiększyć: drugi pasek może mieć odcień 3, trzeci 6 i tak dalej. W końcu dojdziemy do 300."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Rysuje prostokąt w punkcie (left, top) o podanej szerokości, wysokości i kolorze",
+      "category": "Rysowanie kształtów"
+    },
+    "hsl": {
+      "description": "Konwertuje wartości koloru HSL (odcień 0-360, nasycenie 0-100, jasność 0-100) na string z kolorem",
+      "category": "Kolory"
+    }
+  }
+}

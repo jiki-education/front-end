@@ -1,0 +1,46 @@
+{
+  "errors": {
+    "allInputsNumbers": "所有輸入都必須是數字",
+    "blueRange": "藍色值必須介於 0 到 255 之間",
+    "circleInputsNumbers": "x、y 和 radius 這幾個輸入都必須是數字",
+    "colorNamedOrHex": "顏色必須是說明中指定的具名顏色（\"orange\"、\"blue\"、\"white\" 等），或是以 # 開頭的十六進位色碼",
+    "colorNotAllowed": "這個練習不需要指定顏色",
+    "colorNotString": "顏色必須是字串",
+    "ellipseInputsNumbers": "x、y、rx 和 ry 這幾個輸入都必須是數字",
+    "greenRange": "綠色值必須介於 0 到 255 之間",
+    "heightPositive": "高度必須大於 0",
+    "hueRange": "色相值必須介於 0 到 360 之間",
+    "lightnessRange": "亮度值必須介於 0 到 100 之間",
+    "lineInputsNumbers": "x1、y1、x2 和 y2 這幾個輸入都必須是數字",
+    "rectInputsNumbers": "x、y、width 和 height 這幾個輸入都必須是數字",
+    "redRange": "紅色值必須介於 0 到 255 之間",
+    "saturationRange": "飽和度值必須介於 0 到 100 之間",
+    "triangleInputsNumbers": "x1、y1、x2、y2、x3 和 y3 這幾個輸入都必須是數字",
+    "widthPositive": "寬度必須大於 0"
+  },
+  "describers": {
+    "rectangle": {
+      "default": "在座標 (${arg1}, ${arg2}) 畫了一個矩形，寬度為 ${arg3}、高度為 ${arg4}、顏色為 ${arg5}",
+      "fixedColor": "在座標 (${arg1}, ${arg2}) 畫了一個矩形，寬度為 ${arg3}、高度為 ${arg4}"
+    },
+    "triangle": {
+      "default": "畫了一個三角形，三個頂點分別是 (${arg1}, ${arg2})、(${arg3}, ${arg4}) 和 (${arg5}, ${arg6})，顏色為 ${arg7}",
+      "fixedColor": "畫了一個三角形，三個頂點分別是 (${arg1}, ${arg2})、(${arg3}, ${arg4}) 和 (${arg5}, ${arg6})"
+    },
+    "circle": {
+      "default": "畫了一個圓形，圓心在 (${arg1}, ${arg2})，半徑為 ${arg3}，顏色為 ${arg4}",
+      "fixedColor": "畫了一個圓形，圓心在 (${arg1}, ${arg2})，半徑為 ${arg3}"
+    },
+    "ellipse": {
+      "default": "畫了一個橢圓形，中心在 (${arg1}, ${arg2})，水平半徑為 ${arg3}、垂直半徑為 ${arg4}，顏色為 ${arg5}",
+      "fixedColor": "畫了一個橢圓形，中心在 (${arg1}, ${arg2})，水平半徑為 ${arg3}、垂直半徑為 ${arg4}"
+    },
+    "line": {
+      "default": "畫了一條線，從 (${arg1}, ${arg2}) 到 (${arg3}, ${arg4})，顏色為 ${arg5}",
+      "fixedColor": "畫了一條線，從 (${arg1}, ${arg2}) 到 (${arg3}, ${arg4})"
+    },
+    "clear": "清除了畫布",
+    "hsl": "把 HSL 顏色（色相：${arg1}，飽和度：${arg2}，亮度：${arg3}）轉換成十六進位色碼字串",
+    "rgb": "把 RGB 顏色（紅：${arg1}，綠：${arg2}，藍：${arg3}）轉換成十六進位色碼字串"
+  }
+}

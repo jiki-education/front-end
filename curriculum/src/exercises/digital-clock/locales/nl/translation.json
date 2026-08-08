@@ -1,0 +1,80 @@
+{
+  "errors": {
+    "hourNotNumber": "hour moet een getal zijn",
+    "minutesNotNumber": "minutes moet een getal zijn",
+    "indicatorNotString": "indicator moet een string zijn"
+  },
+  "checks": {
+    "notUpdated": "De klok is niet bijgewerkt. Zorg dat je de functie <code>displayTime</code> gebruikt.",
+    "wrongTime": "Verwachtte \"{{expected}}\", maar kreeg \"{{got}}\""
+  },
+  "tasks": {
+    "displayTime": {
+      "name": "Toon de tijd op de klok",
+      "description": "Haal het huidige uur en het huidige aantal minuten op, zet ze om naar 12-uursnotatie met am/pm en toon ze met displayTime()."
+    }
+  },
+  "scenarios": {
+    "morning1": {
+      "name": "Vroege ochtend",
+      "description": "Toon 6:35 als \"6:35am\""
+    },
+    "morning2": {
+      "name": "Late ochtend",
+      "description": "Toon 11:04 als \"11:04am\""
+    },
+    "afternoon1": {
+      "name": "Vroege middag",
+      "description": "Toon 12:19 als \"12:19pm\""
+    },
+    "afternoon2": {
+      "name": "Late avond",
+      "description": "Toon 23:32 als \"11:32pm\""
+    },
+    "midnight": {
+      "name": "Middernacht",
+      "description": "Toon middernacht als \"12:00am\""
+    },
+    "noon": {
+      "name": "Twaalf uur 's middags",
+      "description": "Toon twaalf uur 's middags als \"12:00pm\""
+    },
+    "now": {
+      "name": "Toon de huidige tijd",
+      "description": "Toon de huidige tijd"
+    }
+  },
+  "hints": {
+    "gettingStarted": {
+      "question": "Ik weet niet hoe ik moet beginnen",
+      "answer": "Gebruik `currentTimeHour()` en `currentTimeMinute()` om de huidige tijd op te halen, en gebruik daarna `displayTime(hour, minutes, \"am\")` met die waarden om te zien wat er gebeurt. Zoek vervolgens uit hoe je het juiste meridiem en de juiste uurweergave instelt."
+    },
+    "meridiem": {
+      "question": "Hoe werkt het meridiem?",
+      "answer": "De uren 0-11 zijn 'am', de uren 12-23 zijn 'pm'. Middernacht (uur 0) moet als 12am worden getoond. Twaalf uur 's middags (uur 12) moet als 12pm worden getoond."
+    },
+    "hourChange": {
+      "question": "Wanneer en waarom moet het uur veranderen?",
+      "answer": "Op een 12-uursklok wordt 13:00 weergegeven als 1:00pm en 14:00 als 2:00pm. Zoek dus uit wat het verband is tussen 13->1, 14->2 enzovoort, en pas de klok daarop aan!"
+    }
+  },
+  "describers": {
+    "currentTimeHour": "haalde het huidige uur op",
+    "currentTimeMinute": "haalde het huidige aantal minuten op",
+    "displayTime": "toonde de tijd op de klok"
+  },
+  "functions": {
+    "currentTimeHour": {
+      "description": "Geeft het huidige uur terug in 24-uurstijd (bijvoorbeeld 23 voor 11 uur 's avonds), als een getal.",
+      "category": "Tijd"
+    },
+    "currentTimeMinute": {
+      "description": "Geeft het huidige aantal minuten terug als een getal.",
+      "category": "Tijd"
+    },
+    "displayTime": {
+      "description": "Toont de tijd op de digitale klok. De indicator moet \"am\" of \"pm\" zijn.",
+      "category": "Actie"
+    }
+  }
+}

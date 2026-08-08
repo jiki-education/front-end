@@ -1,0 +1,103 @@
+{
+  "describers": {
+    "canMove": "Controlla se il personaggio può muoversi in avanti",
+    "canTurnLeft": "Controlla se c'è un percorso alla sinistra del personaggio",
+    "canTurnRight": "Controlla se c'è un percorso alla destra del personaggio"
+  },
+  "checks": {
+    "reachedEnd": "Non hai raggiunto la fine del labirinto.",
+    "extraTurn": "Sembra che tu abbia fatto una svolta in più non necessaria alla fine."
+  },
+  "tasks": {
+    "straightPath": {
+      "name": "Un percorso dritto",
+      "description": "Avanza fino alla fine del labirinto."
+    },
+    "turnLeft": {
+      "name": "Gira a sinistra se puoi",
+      "description": "Se c'è un percorso a sinistra, prendilo!"
+    },
+    "turnRight": {
+      "name": "Gira a destra se non puoi andare avanti né a sinistra",
+      "description": "Se non c'è un percorso a sinistra o dritto davanti a te, prendi il percorso a destra."
+    },
+    "turnAround": {
+      "name": "Girati se necessario",
+      "description": "Gestisci i vicoli ciechi girandoti. Se non puoi andare a sinistra, dritto o a destra, girati e vai avanti."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Guida il personaggio fino alla fine del labirinto",
+      "description": "Un percorso dritto verso il basso"
+    },
+    "leftTurn": {
+      "name": "Una svolta a sinistra",
+      "description": "Percorrere una svolta a sinistra"
+    },
+    "rightTurn": {
+      "name": "Una svolta a destra",
+      "description": "Percorrere una svolta a destra"
+    },
+    "forks": {
+      "name": "Scegli sinistra se puoi, altrimenti destra",
+      "description": "Un labirinto con bivi che verifica la priorità a sinistra"
+    },
+    "turnAround": {
+      "name": "Girati a un vicolo cieco",
+      "description": "Un labirinto che richiede di girarsi"
+    },
+    "forks2": {
+      "name": "Labirinto complesso con bivi e vicoli ciechi",
+      "description": "Un labirinto complesso che verifica l'algoritmo completo"
+    }
+  },
+  "hints": {
+    "solveEachMaze": {
+      "question": "Devo risolvere ogni labirinto separatamente?",
+      "answer": "No. Scrivi un algoritmo che funziona per qualsiasi labirinto, e lo stesso codice viene eseguito su ogni scenario."
+    },
+    "runEveryStep": {
+      "question": "Come faccio a far eseguire il mio codice a ogni passo del labirinto?",
+      "answer": "Metti la tua logica nel ciclo `repeat`. Esegue il tuo codice ripetutamente fino a raggiungere la fine, quindi devi solo descrivere cosa fare per un singolo passo."
+    },
+    "oneCheckPerStep": {
+      "question": "Come faccio a fare in modo che solo un controllo venga eseguito a ogni passo?",
+      "answer": "Usa una singola catena di `if` / `else if` / `else` invece di diversi `if` separati. In questo modo, a ogni giro del ciclo viene eseguito esattamente un ramo."
+    },
+    "stuckAfterTurn": {
+      "question": "Mi giro, ma il personaggio rimane bloccato nello stesso punto.",
+      "answer": "Girarsi modifica solo la direzione in cui il personaggio è rivolto, non lo fa avanzare. Dopo esserti girato, devi comunque usare `move()`."
+    },
+    "turnAroundDeadEnd": {
+      "question": "Come faccio a girarmi a un vicolo cieco?",
+      "answer": "Non esiste una funzione per girarsi. Girando due volte nella stessa direzione (due giri a sinistra o due giri a destra) il personaggio torna a guardare verso la direzione da cui è venuto."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Muove il personaggio di **un passo in avanti** nella direzione attuale. Il personaggio si muove solo se la posizione di destinazione non è bloccata da un muro.",
+      "category": "Movimento"
+    },
+    "turnLeft": {
+      "description": "Gira il personaggio di **90 gradi a sinistra** (in senso antiorario). Cambia la direzione in cui il personaggio è rivolto.",
+      "category": "Movimento"
+    },
+    "turnRight": {
+      "description": "Gira il personaggio di **90 gradi a destra** (in senso orario). Cambia la direzione in cui il personaggio è rivolto.",
+      "category": "Movimento"
+    },
+    "canMove": {
+      "description": "Restituisce **true** se lo spazio davanti al personaggio non è un muro, **false** altrimenti.",
+      "category": "Rilevamento"
+    },
+    "canTurnLeft": {
+      "description": "Restituisce **true** se lo spazio alla sinistra del personaggio non è occupato da un muro, **false** altrimenti.",
+      "category": "Rilevamento"
+    },
+    "canTurnRight": {
+      "description": "Restituisce **true** se lo spazio a destra del personaggio non è un muro, **false** altrimenti.",
+      "category": "Rilevamento"
+    }
+  }
+}

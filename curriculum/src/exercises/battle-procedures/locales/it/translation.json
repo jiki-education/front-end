@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "notShotAllAliens": "Non hai colpito tutti gli alieni.",
+    "functionNotDefined": "Devi definire una funzione <code>shootIfAlienAbove</code>.",
+    "functionNotCalled": "Hai definito <code>shootIfAlienAbove</code>, ma devi effettivamente chiamarla nella soluzione."
+  },
+  "tasks": {
+    "battleProcedures": {
+      "name": "Crea una funzione shootIfAlienAbove e usala per vincere la partita",
+      "description": "Estrai la logica di sparo in una funzione shootIfAlienAbove(), poi usala insieme alla logica di movimento per sconfiggere tutti gli alieni."
+    }
+  },
+  "scenarios": {
+    "battleProcedures": {
+      "name": "Tecniche di combattimento",
+      "description": "Sconfiggi tutti gli alieni usando la funzione shootIfAlienAbove"
+    }
+  },
+  "hints": {
+    "wherePutFunction": {
+      "question": "Dove metto la funzione `shootIfAlienAbove`?",
+      "answer": "Definiscila all'inizio del codice, prima del ciclo. Una volta definita, puoi chiamarla dall'interno del ciclo tutte le volte che vuoi."
+    },
+    "whatGoesInside": {
+      "question": "Cosa va dentro `shootIfAlienAbove`?",
+      "answer": "Usa un'istruzione `if` che controlla `isAlienAbove()`. Quando restituisce `true`, chiama `shoot()`. Questo è tutto il corpo della funzione."
+    },
+    "whatStaysInLoop": {
+      "question": "Cosa rimane nel ciclo?",
+      "answer": "Tutta la logica di movimento rimane nel ciclo, come nell'esercizio Scorri e spara. A ogni iterazione: chiama `shootIfAlienAbove()`, poi muovi il cannone, poi inverti la direzione ai bordi."
+    },
+    "trackCannon": {
+      "question": "Come faccio a tenere traccia di dove si trova il cannone e in che direzione sta andando?",
+      "answer": "Usa due variabili che aggiorni a ogni iterazione. Per esempio, una variabile `position` che aumenta o diminuisce, e una variabile `direction` che è `\"right\"` o `\"left\"` e si inverte quando raggiungi un bordo."
+    }
+  },
+  "functions": {
+    "moveLeft": {
+      "description": "Sposta il cannone laser **di una posizione a sinistra**. Se provi a muoverti oltre il bordo sinistro dello schermo, perdi la partita!",
+      "category": "Movimento"
+    },
+    "moveRight": {
+      "description": "Sposta il cannone laser **di una posizione a destra**. Se provi a muoverti oltre il bordo destro dello schermo, perdi la partita!",
+      "category": "Movimento"
+    },
+    "shoot": {
+      "description": "Spara il laser verso l'alto. **Spara solo quando c'è un alieno sopra di te**, o perdi la partita! Il cannone laser si surriscalda facilmente, quindi devi muoverti prima di sparare di nuovo.",
+      "category": "Azione"
+    },
+    "isAlienAbove": {
+      "description": "Restituisce `true` se c'è un alieno direttamente sopra il cannone laser, o `false` altrimenti. Usala per controllare prima di sparare!",
+      "category": "Rilevamento"
+    }
+  }
+}

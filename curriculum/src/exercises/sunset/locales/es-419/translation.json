@@ -1,0 +1,53 @@
+{
+  "checks": {
+    "sunWrongBeginning": "Parece que el sol no está bien al principio.",
+    "sunWrongMiddle": "Parece que el sol no está bien hacia la mitad.",
+    "sunWrongEnd": "Parece que el sol no está bien hacia el final.",
+    "skyNotChangingColor": "Parece que el cielo no está cambiando de color.",
+    "sunNotChangingColor": "Parece que el sol no está cambiando de color."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "Animar el atardecer",
+      "description": "Anima el sol y el cielo para que parezca que el sol se está poniendo. El sol debe hacerse más grande y bajar, mientras que tanto el sol como el cielo cambian de color."
+    }
+  },
+  "scenarios": {
+    "drawScene": {
+      "name": "Hacer que el sol se ponga",
+      "description": "Anima el sol y el cielo para que parezca que el sol se está poniendo."
+    }
+  },
+  "hints": {
+    "howToAnimate": {
+      "question": "¿Cómo animo?",
+      "answer": "Para animar, seguimos el estilo de libro animado: vuelve a dibujar toda la escena cada vez encima de la versión anterior."
+    },
+    "whereToStart": {
+      "question": "No sé por dónde empezar.",
+      "answer": "Tienes que dibujar 100 veces. Así que empieza por mover las funciones de dibujo existentes dentro de un bucle repeat que se ejecute 100 veces. Luego necesitas cambiar las variables (radio, colores, etc.) cada vez que se ejecuta el bucle."
+    },
+    "whereToPutVariables": {
+      "question": "¿Dónde pongo mis variables?",
+      "answer": "Debes establecer tus variables ANTES del bucle y luego actualizarlas DENTRO del bucle, ANTES de dibujar las formas. Piensa en cómo Jiki crea cajas y las actualiza cada vez."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Dibuja un círculo con su centro en (centerX, centerY), el radio dado y el color.",
+      "category": "Dibujar figuras"
+    },
+    "rectangle": {
+      "description": "Dibuja un rectángulo en la posición (left, top) con el ancho, la altura y el color dados.",
+      "category": "Dibujar figuras"
+    },
+    "rgb": {
+      "description": "Convierte valores de color RGB (cada uno de 0 a 255) a una cadena de color hexadecimal.",
+      "category": "Colores"
+    },
+    "hsl": {
+      "description": "Convierte valores de color HSL (tono de 0 a 360, saturación de 0 a 100, luminosidad de 0 a 100) a una cadena de color hexadecimal.",
+      "category": "Colores"
+    }
+  }
+}

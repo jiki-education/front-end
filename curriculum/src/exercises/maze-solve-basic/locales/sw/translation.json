@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "Hukufika mwisho wa mzingile."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Mwongoze mtu hadi mwisho wa mzingile",
+      "description": "Pita ndani ya mzingile hadi ufikie lengo la kijani"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Mwongoze mtu hadi mwisho wa mzingile",
+      "description": "Kazi yako ni kumwongoza mtu wako kupitia mzingile hadi kwenye mraba wa kijani wa lengo."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "Ninamsogeza nani na kumpeleka wapi?",
+      "answer": "Unamsogeza yule mtu mdogo, anayeanzia juu kushoto, hadi kwenye duara la kijani lililo chini kulia, huku ukiepuka mraba wote wenye mistari mekundu."
+    },
+    "turnLeftTurnsRight": {
+      "question": "Ninapogeuka kushoto, mtu anageuka kulia!",
+      "answer": "Mtu anageuka kulingana na upande anaoutazama. Kwa hiyo akiwa anatazama kulia, na akageuka kushoto, mtu atageuka kutazama juu."
+    }
+  }
+}

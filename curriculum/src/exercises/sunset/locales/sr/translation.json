@@ -1,0 +1,53 @@
+{
+  "checks": {
+    "sunWrongBeginning": "Sunce izgleda pogrešno blizu početka.",
+    "sunWrongMiddle": "Sunce izgleda pogrešno blizu sredine.",
+    "sunWrongEnd": "Sunce izgleda pogrešno blizu kraja.",
+    "skyNotChangingColor": "Izgleda da se boja neba ne menja.",
+    "sunNotChangingColor": "Izgleda da se boja sunca ne menja."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "Animiraj zalazak sunca",
+      "description": "Animiraj sunce i nebo tako da izgleda kao da sunce zalazi. Sunce treba da postane veće i da se spušta, dok se i sunce i nebo menjaju boje."
+    }
+  },
+  "scenarios": {
+    "drawScene": {
+      "name": "Neka sunce zađe",
+      "description": "Animiraj sunce i nebo tako da izgleda kao da sunce zalazi."
+    }
+  },
+  "hints": {
+    "howToAnimate": {
+      "question": "Kako da animiram?",
+      "answer": "Da bi animirao, prati stil flip-book-a: svaki put nacrtaj celu scenu preko prethodnih verzija."
+    },
+    "whereToStart": {
+      "question": "Ne znam odakle da počnem.",
+      "answer": "Potrebno je da nacrtaš 100 puta. Zato počni tako što ćeš postojeće funkcije za crtanje prebaciti u `repeat` petlju koja se izvršava 100 puta. Zatim treba da menjaš promenljive (poluprečnik, boje, itd.) za svaku iteraciju petlje."
+    },
+    "whereToPutVariables": {
+      "question": "Gde da stavim promenljive?",
+      "answer": "Potrebno je da postaviš promenljive PRE petlje, a zatim ih ažuriraš UNUTAR petlje, PRE crtanja oblika. Razmisli o tome kako Jiki kreira kutije i ažurira ih svaki put."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Crta krug sa centrom na (centerX, centerY), zadatim poluprečnikom i bojom.",
+      "category": "Crtanje oblika"
+    },
+    "rectangle": {
+      "description": "Crta pravougaonik na poziciji (left, top) sa zadatom širinom, visinom i bojom.",
+      "category": "Crtanje oblika"
+    },
+    "rgb": {
+      "description": "Pretvara RGB vrednosti boja (svaka 0-255) u heksadecimalni string boje.",
+      "category": "Boje"
+    },
+    "hsl": {
+      "description": "Pretvara HSL vrednosti boja (ton 0-360, zasićenje 0-100, osvetljenje 0-100) u heksadecimalni string boje.",
+      "category": "Boje"
+    }
+  }
+}

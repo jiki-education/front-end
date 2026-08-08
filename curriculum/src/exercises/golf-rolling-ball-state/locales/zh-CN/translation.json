@@ -1,0 +1,40 @@
+{
+  "errors": {
+    "positionNotNumber": "位置必须是一个数字"
+  },
+  "checks": {
+    "ballNotAtEnd": "球没有进洞。当前位置在 {{ballX}}，但需要到达 88。",
+    "missingPositions": "球必须逐个位置滚动，不能直接跳到终点。"
+  },
+  "tasks": {
+    "rollBall": {
+      "name": "将球滚入洞中",
+      "description": "将球滚入洞中"
+    }
+  },
+  "scenarios": {
+    "rollBall": {
+      "name": "将球滚入洞中",
+      "description": "将球滚入洞中"
+    }
+  },
+  "hints": {
+    "dontKnowWhereToStart": {
+      "question": "我不知道从哪里开始",
+      "answer": "关键是每次将球向前移动一步。你可以使用一个变量来实现。想想看如何做到。"
+    },
+    "stillCantFigureItOut": {
+      "question": "我还是想不出来",
+      "answer": "你需要创建一个变量来跟踪球的位置。它应该从当前的位置开始，然后多次每次增加 1。每次增加时，你应该使用变量作为输入来调用 `moveTo(...)`。"
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "将球移动到**位置**",
+      "category": "移动"
+    }
+  },
+  "describers": {
+    "moveTo": "将球移动到位置 ${arg1}"
+  }
+}

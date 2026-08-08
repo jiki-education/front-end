@@ -1,0 +1,62 @@
+{
+  "errors": {
+    "leavesNumber": "叶子必须是数字。",
+    "tomatoesNumber": "番茄必须是数字。",
+    "croutonsNumber": "面包丁必须是数字。",
+    "olivesNumber": "橄榄必须是数字。"
+  },
+  "checks": {
+    "saladNotMade": "你没有制作沙拉。确保你调用了 <code>makeSalad()</code>，并传入全部四种食材。",
+    "needLeavesRandomInt": "你需要调用 <code>Math.randomInt(40, 100)</code> 来生成叶子的数量。",
+    "needTomatoesRandomInt": "你需要调用 <code>Math.randomInt(5, leaves / 5)</code> 来生成番茄的数量。",
+    "needCroutonsRandomInt": "你需要调用 <code>Math.randomInt(tomatoes, tomatoes * 2)</code> 来生成面包丁的数量。",
+    "needOlivesRandomInt": "你需要调用 <code>Math.randomInt(1, tomatoes / 2)</code> 来生成橄榄的数量。"
+  },
+  "tasks": {
+    "makeRandomSalad": {
+      "name": "制作随机沙拉",
+      "description": "使用 Math.randomInt() 生成每种食材的随机数量，并制作沙拉。"
+    }
+  },
+  "scenarios": {
+    "randomSalad": {
+      "name": "随机沙拉",
+      "description": "用每种食材的随机数量来制作沙拉。"
+    }
+  },
+  "hints": {
+    "leavesExample": {
+      "question": "给我一个计算叶子数量的示例。",
+      "answer": "使用 `let leaves = Math.randomInt(40, 100)` 来生成随机的叶子数量，之后你可以在其他函数中使用它。"
+    },
+    "leavesCount": {
+      "question": "我需要多少叶子？",
+      "answer": "在 40 到 100 之间。"
+    },
+    "tomatoesCount": {
+      "question": "我需要多少番茄？",
+      "answer": "至少 5 个，但不能超过 leaves / 5。"
+    },
+    "croutonsCount": {
+      "question": "我需要多少面包丁？",
+      "answer": "至少和番茄一样多，最多不超过番茄的两倍。"
+    },
+    "olivesCount": {
+      "question": "我需要多少橄榄？",
+      "answer": "至少 1 个，最多不超过番茄数量的一半。"
+    },
+    "makeSalad": {
+      "question": "如何制作沙拉？",
+      "answer": "一旦你确定每种食材需要多少，就将叶子、番茄、面包丁、橄榄传入 makeSalad()。"
+    }
+  },
+  "describers": {
+    "makeSalad": "用 ${arg1} 片叶子、${arg2} 个番茄、${arg3} 个面包丁和 ${arg4} 个橄榄制作了一份沙拉。"
+  },
+  "functions": {
+    "makeSalad": {
+      "description": "根据给定的每种食材数量制作沙拉。",
+      "category": "动作"
+    }
+  }
+}

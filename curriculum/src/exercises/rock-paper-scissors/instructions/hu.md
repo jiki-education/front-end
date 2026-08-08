@@ -1,17 +1,18 @@
 ---
-title: "Rock, Paper, Scissors"
-description: "Determine the winner of a Rock Paper Scissors game."
+title: "Kő, papír, olló"
+description: "Döntsd el, ki nyerte a kő-papír-olló játszmát."
+en_md5: de8c1277063dfab2294bf0ff053616ee
 ---
 
-**Yuki** and **Ando** are playing a game of Rock, Paper, Scissors. We need to write some code that can determine and announce the winner.
+**Yuki** és **Ando** kő-papír-ollót játszanak. Írjunk olyan kódot, ami eldönti és be is jelenti, hogy ki nyert.
 
-Both players choose scissors, paper or rock. Then compare what they chose:
+Mindkét játékos ollót, papírt vagy követ választ. Ezután hasonlítsd össze, mit választottak:
 
-- Rock blunts scissors (rock wins).
-- Scissors cut paper (scissors wins).
-- Paper smothers rock (paper wins).
-- If the choices are the same, it's a tie.
+- A kő kicsorbítja az ollót (a kő nyer).
+- Az olló elvágja a papírt (az olló nyer).
+- A papír becsomagolja a követ (a papír nyer).
+- Ha ugyanazt választották, az döntetlen.
 
-Your job is to compare the choices Yuki and Ando make and announce the winner to the playing hall. You should use the `announceResult(result)` function with a result of either `"Ando"` if Ando won, `"Yuki"` if Yuki won, or `"tie"` if they chose the same thing.
+A te dolgod, hogy összehasonlítsd Yuki és Ando választását, és bejelentsd a győztest a játékteremnek. Ehhez az `announceResult(result)` (jelentsd be az eredményt) függvényt használd: az eredmény `"Ando"`, ha Ando nyert, `"Yuki"`, ha Yuki nyert, és `"tie"`, ha ugyanazt választották.
 
-To solve this exercise, use what you learned in the previous lesson. Good luck!
+A feladat megoldásához használd, amit az előző leckében tanultál. Sok sikert!

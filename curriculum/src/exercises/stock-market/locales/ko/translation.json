@@ -1,0 +1,65 @@
+{
+  "errors": {
+    "yearNumber": "연도는 숫자여야 해요.",
+    "yearInPast": "과거 연도에 대해서는 주식 시장을 확인할 수 없어요! {{year}}년은 이미 지난 연도예요.",
+    "yearTooFarFuture": "지금으로부터 20년이 넘는 미래는 알 수 없어요! {{year}}년은 너무 먼 미래예요.",
+    "balanceNumber": "잔액은 숫자여야 해요.",
+    "moneyNumber": "돈은 숫자여야 해요."
+  },
+  "checks": {
+    "taxReportCount": "20개의 세금 신고가 필요하지만(매년 1회) {{got}}개만 했어요. 반복문 안에서 <code>reportTax()</code>를 호출했는지 확인해 보세요.",
+    "taxReportWrongYear": "{{index}}번째 세금 신고는 {{actualYear}}년에 대한 것이지만 {{expectedYear}}년이어야 했어요.",
+    "taxReportWrongBalance": "{{year}}년에 대해 잘못된 세금을 신고했어요. ${{expected}}였어야 하지만 ${{actual}}였어요.",
+    "wrongFinalBalance": "최종 잔액이 약 ${{expected}}였어야 하지만 ${{got}}가 되었어요. 반복문이 끝난 후에 <code>announceToFamily()</code>를 호출했는지 확인해 보세요.",
+    "announcedMultipleTimes": "가족에게는 20년이 끝난 후에 <strong>한 번만</strong> 알려야 하고, 매년 알리면 안 돼요. <code>announceToFamily()</code>를 {{count}} {{times}} 호출했어요."
+  },
+  "tasks": {
+    "growInvestment": {
+      "name": "20년 동안 투자금 키우기",
+      "description": "$10로 시작하여 20년간의 주식 시장 성장을 시뮬레이션하고, 매년 세금을 신고한 후, 최종 잔액을 가족에게 알리세요."
+    }
+  },
+  "scenarios": {
+    "twentyYears": {
+      "name": "20년간의 성장",
+      "description": "$10를 투자하고 20년 동안 시장 성장에 따른 잔액을 추적하세요."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "어디서부터 시작해야 할지 모르겠어요.",
+      "answer": "지금부터 앞으로 20년 동안 매년 `marketGrowth()`를 호출해야 해요. 그러면 시장 성장률(예: 5% 성장은 5)과 같은 값을 반환해요. 그런 다음 처음 투자한 $10에 이 이자율을 적용해서 변동된 잔액을 추적해야 해요."
+    },
+    "stillStuck": {
+      "question": "아직도 완전히 막혔어요. 이해가 안 돼요.",
+      "answer": "좋아요, 시작하는 데 도움이 되도록 코드를 자세히 적어볼게요. 현재 연도가 2026년이라고 상상해 보세요. 다음과 같이 해야 해요:\n\n```javascript\nlet money = 10\nlet growth = marketGrowth(2026)\n\n// 성장률만큼 돈을 늘려야 해요.\n// 공식이 필요하면 다음 힌트를 확인하세요.\nmoney = money + ???\nreportTax(2026, money)\n\n// 이제 2027년도 해요\nlet growth = marketGrowth(2027)\nmoney = money + ???\nreportTax(2027, money)\n\n// 이제 2028년도 해요\nlet growth = marketGrowth(2028)\nmoney = money + ???\nreportTax(2028, money)\n\n// 20년 후에 가족에게 알리세요\nannounceToFamily(money)\n```"
+    },
+    "formula": {
+      "question": "성장률을 추적하는 공식이 뭐예요? 혼자서는 못 찾겠어요.",
+      "answer": "공식은 다음과 같아요:\n\n```javascript\nmoney = money * (100 + marketGrowth(year)) / 100\n```"
+    },
+    "wrongTaxReportCount": {
+      "question": "세금 신고 횟수가 정확하지 않다고 나와요.",
+      "answer": "20년 동안 20번의 세금 신고를 해야 해요. 스크러버를 사용해서 `reportTax()` 함수를 몇 번 호출했는지 세어 보세요."
+    }
+  },
+  "describers": {
+    "marketGrowth": "${arg1}년의 시장 성장률 ${return}%를 받았습니다.",
+    "reportTax": "${arg1}년 세금 신고: $${arg2}",
+    "announceToFamily": "가족에게 $${arg1}를 알렸습니다."
+  },
+  "functions": {
+    "marketGrowth": {
+      "description": "주어진 연도의 시장 성장률(%)을 반환합니다(범위: -25에서 40). 이 값을 사용해서 보유한 금액을 매번 **증가**시켜야 해요. (즉, 40이면 $10이 $14가 되어야 하고, -10이면 $10이 $9로 줄어듭니다.)",
+      "category": "동작"
+    },
+    "reportTax": {
+      "description": "주어진 연도의 세금을 신고합니다. 매년 연도와 현재 금액을 인자로 넣어 호출해야 해요.",
+      "category": "동작"
+    },
+    "announceToFamily": {
+      "description": "최종 잔액을 가족에게 알립니다.",
+      "category": "동작"
+    }
+  }
+}

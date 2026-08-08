@@ -1,0 +1,54 @@
+{
+  "errors": {
+    "unknownDice": "죄송해요, Jiki는 {{sides}}면체 주사위를 가지고 있지 않아요!",
+    "announceNumber": "숫자만 발표할 수 있어요.",
+    "attackNumber": "공격 점수는 숫자여야 해요.",
+    "damageNumber": "피해량은 숫자여야 해요."
+  },
+  "describers": {
+    "roll": "주사위를 굴려 ${return}이/가 나왔어요",
+    "announce": "${arg1}을/를 발표했어요",
+    "strike": "공격 점수 ${arg1}와 피해량 ${arg2}로 고블린을 공격했어요"
+  },
+  "checks": {
+    "announcementCount": "3번의 발표를 예상했지만 {{got}}번 발표했어요. 주사위를 굴릴 때마다 발표하는지 확인하세요.",
+    "firstAnnouncement": "첫 번째 발표가 {{attack}}(공격 점수)여야 하는데 {{got}}이 나왔어요.",
+    "secondAnnouncement": "두 번째 발표가 {{damage}}(기본 피해 점수)여야 하는데 {{got}}이 나왔어요.",
+    "thirdAnnouncement": "세 번째 발표가 {{bonus}}(보너스 피해 점수)여야 하는데 {{got}}이 나왔어요.",
+    "notStruck": "고블린을 공격하지 않았어요. <code>strike()</code>를 호출했는지 확인하세요.",
+    "wrongAttack": "공격 점수가 {{attack}}이어야 하는데 {{got}}이 나왔어요. 공격 점수를 <code>strike()</code>에 전달하세요.",
+    "wrongDamage": "총 피해량이 {{totalDamage}} ({{damage}} + {{bonus}})이어야 하는데 {{got}}이 나왔어요. 기본 피해 점수와 보너스 피해 점수를 더하세요."
+  },
+  "tasks": {
+    "rollAndStrike": {
+      "name": "주사위를 굴리고 고블린을 공격하세요",
+      "description": "20면체 주사위(공격), 12면체 주사위(기본 피해), 10면체 주사위(보너스)를 굴려 각 결과를 발표한 뒤, 공격 점수와 총 피해량(기본 피해 + 보너스)으로 고블린을 공격하세요."
+    }
+  },
+  "scenarios": {
+    "randomRolls": {
+      "name": "굴리고 공격하기",
+      "description": "20면체 주사위로 공격 점수를, 12면체 주사위로 기본 피해 점수를, 10면체 주사위로 보너스 피해 점수를 굴리세요. 공격 점수와 총 피해량으로 고블린을 공격하세요."
+    }
+  },
+  "hints": {
+    "chooseDie": {
+      "question": "어떤 주사위를 사용할지 어떻게 알 수 있나요?",
+      "answer": "20면체 주사위는 `roll(20)`, 12면체 주사위는 `roll(12)`를 호출하세요."
+    }
+  },
+  "functions": {
+    "roll": {
+      "description": "주어진 면 수의 주사위를 굴려 결과를 **반환**해요.",
+      "category": "주사위"
+    },
+    "announce": {
+      "description": "주사위 결과를 발표해요.",
+      "category": "행동"
+    },
+    "strike": {
+      "description": "주어진 공격 점수와 총 피해량으로 고블린을 공격해요.",
+      "category": "행동"
+    }
+  }
+}

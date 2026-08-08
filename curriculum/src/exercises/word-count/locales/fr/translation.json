@@ -1,0 +1,94 @@
+{
+  "tasks": {
+    "basicWordCounting": {
+      "name": "Cas de base",
+      "description": "Écris une fonction countWords qui prend une phrase et renvoie un dictionnaire avec chaque mot comme clé et sa fréquence comme valeur. Gère les espaces, les virgules, la ponctuation et les nombres."
+    },
+    "caseNormalization": {
+      "name": "Normalisation de la casse",
+      "description": "Assure-toi que ta fonction gère correctement les mots en casse mixte, traite les apostrophes comme faisant partie des mots et gère les espaces multiples."
+    },
+    "bonusApostrophes": {
+      "name": "Bonus : apostrophes et guillemets",
+      "description": "Gère les cas limites où les apostrophes servent de guillemets autour des mots au lieu de faire partie d'une contraction. Seules les apostrophes au milieu d'un mot doivent être conservées."
+    }
+  },
+  "scenarios": {
+    "wordCountSingleWord": {
+      "name": "Compte un mot",
+      "description": "Compte un seul mot."
+    },
+    "wordCountMultipleUniqueWords": {
+      "name": "Compte une occurrence de chaque mot",
+      "description": "Compte une occurrence de chaque mot dans une phrase."
+    },
+    "wordCountMultipleOccurrences": {
+      "name": "Occurrences multiples",
+      "description": "Compte plusieurs occurrences d'un même mot."
+    },
+    "wordCountCrampedList": {
+      "name": "Liste compacte",
+      "description": "Gère les listes au format compact."
+    },
+    "wordCountIgnorePunctuation": {
+      "name": "Ignore la ponctuation",
+      "description": "Ignore la ponctuation en comptant les mots."
+    },
+    "wordCountIncludeNumbers": {
+      "name": "Inclus les nombres",
+      "description": "Compte les mots en incluant les nombres."
+    },
+    "wordCountNormalizeCase": {
+      "name": "Normalise la casse",
+      "description": "Compte les mots sans tenir compte de la casse."
+    },
+    "wordCountWithApostrophes": {
+      "name": "Mots avec apostrophes",
+      "description": "Gère correctement les mots avec apostrophes."
+    },
+    "wordCountMultipleSpaces": {
+      "name": "Espaces multiples",
+      "description": "Gère correctement les espaces multiples."
+    },
+    "wordCountWithApostrophesAndQuotations": {
+      "name": "Mots avec apostrophes et guillemets",
+      "description": "Gère les mots avec apostrophes et guillemets."
+    },
+    "wordCountApostropheWordVariation": {
+      "name": "Variantes de mots avec apostrophe",
+      "description": "Compte correctement les variantes de mots avec apostrophe."
+    }
+  },
+  "hints": {
+    "caseInsensitive": {
+      "question": "Comment rendre le comptage insensible à la casse ?",
+      "answer": "Mets toute la phrase en minuscules une seule fois au début. Ainsi, « The » et « the » deviennent tous les deux « the », et le dictionnaire les comptera ensemble."
+    },
+    "splitWords": {
+      "question": "Comment découper la phrase en mots ?",
+      "answer": "Parcours chaque caractère. Si c'est une lettre, un chiffre ou une apostrophe, il fait partie du mot en cours, donc ajoute-le à ce mot. Sinon (espace, ponctuation), le mot est terminé : ajoute-le au tableau des mots et repars sur un nouveau mot."
+    },
+    "countEachWord": {
+      "question": "Comment compter chaque mot ?",
+      "answer": "Utilise un dictionnaire dont les clés sont les mots. Pour chaque mot, vérifie s'il existe déjà comme clé. Si oui, ajoute 1 à son compteur. Sinon, mets-le à 1."
+    },
+    "checkKeyExists": {
+      "question": "Comment vérifier si une clé existe déjà ?",
+      "answer": "Utilise `hasKey(dict, word)`. Elle renvoie vrai si ce mot est déjà dans le dictionnaire."
+    }
+  },
+  "functions": {
+    "toLowerCase": {
+      "description": "Convertit une string en minuscules (fournie par la bibliothèque standard du niveau)",
+      "category": "Opérations sur les strings"
+    },
+    "push": {
+      "description": "Ajoute un élément à un tableau et renvoie le nouveau tableau (fournie par la bibliothèque standard du niveau)",
+      "category": "Opérations sur les tableaux"
+    },
+    "hasKey": {
+      "description": "Vérifie si une clé existe dans un dictionnaire, renvoie vrai ou faux (fournie par la bibliothèque standard du niveau)",
+      "category": "Opérations sur les dictionnaires"
+    }
+  }
+}

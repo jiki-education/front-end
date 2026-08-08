@@ -1,0 +1,37 @@
+{
+  "describers": {
+    "move": "激光炮向右移动了"
+  },
+  "checks": {
+    "notShotAllAliens": "你没有消灭所有外星人。",
+    "tooManyLines": "你的解答代码行数太多。试试用嵌套的 repeat 循环来缩短代码吧！"
+  },
+  "tasks": {
+    "nestedRepeatShoot": {
+      "name": "使用嵌套的 repeat 循环消灭所有外星人",
+      "description": "找出外星人位置的规律，然后使用嵌套的 repeat 循环，在 7 行代码或更少内消灭所有外星人。"
+    }
+  },
+  "scenarios": {
+    "nestedRepeatShoot": {
+      "name": "嵌套 Repeat 和射击",
+      "description": "使用嵌套的 repeat 循环消灭所有外星人"
+    }
+  },
+  "hints": {
+    "cantGetTo7Lines": {
+      "question": "我没办法把代码写到 7 行以内。",
+      "answer": "将这个关卡看作由两大块操作组成。\n\n- 第一块是内层操作，我们射击 4 次——确保这部分只有三行代码。\n- 外层操作是在内层操作的前后各加一些移动操作。这个外层操作也需要重复几次。\n\n如果你这样组织代码，最终自然就是 7 行代码。"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "将激光炮**向右移动一格**。如果移出屏幕右边缘，你就输了！",
+      "category": "移动"
+    },
+    "shoot": {
+      "description": "向上发射激光。**只有上方有外星人时才可射击**，否则就会输掉游戏！",
+      "category": "动作"
+    }
+  }
+}

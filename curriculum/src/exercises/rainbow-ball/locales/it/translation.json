@@ -1,0 +1,57 @@
+{
+  "checks": {
+    "uniqueColoredCircles": "Previsti almeno 50 cerchi di colore diverso.",
+    "uniquePositionedCircles": "Previste almeno 30 posizioni diverse.",
+    "canvasCoverage": "La palla non ha colorato a sufficienza l'area di disegno. Dovrebbe rimbalzare fino a coprire più dell'80%.",
+    "hueBounced": "La tonalità non ha raggiunto 360 per poi scendere di nuovo.",
+    "hueSweep": "La scia arcobaleno non ha attraversato tutti i colori."
+  },
+  "tasks": {
+    "rainbowBall": {
+      "name": "Crea una palla arcobaleno che rimbalza",
+      "description": "Crea una palla che rimbalza sull'area di disegno, lasciando una scia di cerchi colorati che attraversano i colori dell'arcobaleno."
+    }
+  },
+  "scenarios": {
+    "rainbowBall": {
+      "name": "Palla arcobaleno",
+      "description": "Disegna una scia arcobaleno con cerchi diversi."
+    }
+  },
+  "hints": {
+    "stateToTrack": {
+      "question": "Di quale stato devo tenere traccia?",
+      "answer": "La posizione della palla e come si sta muovendo. Tienile separate: una variabile per *dove* si trova la palla, un'altra per *come sta cambiando*. La stessa idea vale per la tonalità: ti servono il suo valore attuale ed una direzione in cui sta andando."
+    },
+    "moveAndShift": {
+      "question": "Come faccio a far muovere la palla ed a cambiare il colore ad ogni iterazione?",
+      "answer": "All'inizio di ogni iterazione del ciclo, aggiungi le variabili di direzione alla posizione ed a `hue`. In questo modo le variabili di direzione controllano completamente il movimento. Cambiare il loro segno o la loro grandezza cambia istantaneamente come si muove la palla e come cambia il colore."
+    },
+    "velocityTip": {
+      "question": "Non riesco a capire come fare. Qualche consiglio?",
+      "answer": "Cosa sono questi numeri di cui cambiano `x` e `y`? Sono una combinazione di velocità (la grandezza del numero) e direzione (se sposta la palla in avanti o indietro). Quindi `2` sarebbe una velocità di 2 che si muove verso destra o verso il basso. E `-3` sarebbe una velocità di 3 che si muove verso sinistra o verso l'alto. Un numero che rappresenta velocità e direzione si chiama **velocità** (è ora di aggiornare i nomi delle variabili?). Quindi quando vuoi cambiare la direzione della palla, cambi il segno della velocità, da positivo a negativo o viceversa."
+    },
+    "bounceOffEdges": {
+      "question": "Come faccio a far rimbalzare la palla sui bordi?",
+      "answer": "Dopo aver aggiornato la posizione, controlla se `x` o `y` ha superato il bordo dell'area di disegno. Se è così, inverti la variabile di direzione per quell'asse. Le istruzioni specificano l'intervallo dell'area di disegno."
+    },
+    "randomBounceSpeed": {
+      "question": "Come faccio a dare al rimbalzo una nuova velocità casuale ogni volta?",
+      "answer": "Quando la palla tocca un bordo, imposta la variabile di direzione usando `Math.randomInt(min, max)` invece di cambiarne semplicemente il segno. Scegli un intervallo positivo quando rimbalza sul lato sinistro o in alto, ed un intervallo negativo quando rimbalza sul lato destro o in basso."
+    },
+    "cycleHue": {
+      "question": "Come faccio a far variare la tonalità attraverso l'arcobaleno?",
+      "answer": "Applica lo stesso trucco a `hue` come per la posizione. Quando esce dall'intervallo valido, inverti `hueDirection`. Il colore salirà quindi fino in cima allo spettro e poi scenderà di nuovo da solo."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Disegna un cerchio con il centro in (centerX, centerY) con il raggio ed il colore specificati.",
+      "category": "Disegno di forme geometriche"
+    },
+    "hsl": {
+      "description": "Converte i valori di colore HSL (tonalità 0-360, saturazione 0-100, luminosità 0-100) in una stringa di colore esadecimale.",
+      "category": "Colori"
+    }
+  }
+}

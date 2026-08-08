@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "noResult": "Nie ogłoszono żadnego wyniku!",
+    "paperVsPaperResult": "Papier kontra papier to remis, a ogłoszono \"{{got}}\".",
+    "paperVsRockResult": "W starciu papier kontra kamień wygrywa Yuki, a ogłoszono \"{{got}}\".",
+    "paperVsScissorsResult": "W starciu papier kontra nożyce wygrywa Ando, a ogłoszono \"{{got}}\".",
+    "rockVsPaperResult": "W starciu kamień kontra papier wygrywa Ando, a ogłoszono \"{{got}}\".",
+    "rockVsRockResult": "Kamień kontra kamień to remis, a ogłoszono \"{{got}}\".",
+    "rockVsScissorsResult": "W starciu kamień kontra nożyce wygrywa Yuki, a ogłoszono \"{{got}}\".",
+    "scissorsVsPaperResult": "W starciu nożyce kontra papier wygrywa Yuki, a ogłoszono \"{{got}}\".",
+    "scissorsVsRockResult": "W starciu nożyce kontra kamień wygrywa Ando, a ogłoszono \"{{got}}\".",
+    "scissorsVsScissorsResult": "Nożyce kontra nożyce to remis, a ogłoszono \"{{got}}\"."
+  },
+  "tasks": {
+    "determineWinner": {
+      "name": "Ustal zwycięzcę",
+      "description": "Pobierz wybory obu graczy i ogłoś właściwy wynik: \"Yuki\", \"Ando\" albo \"tie\"."
+    }
+  },
+  "scenarios": {
+    "paperVsPaper": {
+      "name": "Papier kontra papier",
+      "description": "Remis. Ogłoś go poprawnie!"
+    },
+    "paperVsRock": {
+      "name": "Papier kontra kamień",
+      "description": "Papier Yuki pokonuje kamień Ando. Ogłoś zwycięstwo Yuki!"
+    },
+    "paperVsScissors": {
+      "name": "Papier kontra nożyce",
+      "description": "Nożyce Ando pokonują papier Yuki. Ogłoś zwycięstwo Ando."
+    },
+    "rockVsPaper": {
+      "name": "Kamień kontra papier",
+      "description": "Papier Ando pokonuje kamień Yuki. Ogłoś zwycięstwo Ando."
+    },
+    "rockVsRock": {
+      "name": "Kamień kontra kamień",
+      "description": "Remis. Ogłoś go poprawnie!"
+    },
+    "rockVsScissors": {
+      "name": "Kamień kontra nożyce",
+      "description": "Kamień Yuki pokonuje nożyce Ando. Ogłoś zwycięstwo Yuki."
+    },
+    "scissorsVsPaper": {
+      "name": "Nożyce kontra papier",
+      "description": "Nożyce Yuki pokonują papier Ando. Ogłoś zwycięstwo Yuki."
+    },
+    "scissorsVsRock": {
+      "name": "Nożyce kontra kamień",
+      "description": "Kamień Ando pokonuje nożyce Yuki. Ogłoś zwycięstwo Ando."
+    },
+    "scissorsVsScissors": {
+      "name": "Nożyce kontra nożyce",
+      "description": "Remis. Ogłoś go poprawnie!"
+    }
+  },
+  "hints": {
+    "howToStart": {
+      "question": "Od czego zacząć?",
+      "answer": "Pobierz wybory Yuki i Ando za pomocą dostępnych funkcji i zapisz je w zmiennych, żeby móc je porównać."
+    },
+    "simplestCase": {
+      "question": "Który przypadek najprościej obsłużyć na początku?",
+      "answer": "Remis. Jeśli oba wybory są równe, możesz od razu ogłosić remis i pominąć resztę."
+    },
+    "checkCombination": {
+      "question": "Jak sprawdzić konkretną wygrywającą kombinację?",
+      "answer": "Użyj `&&` (czyli „i”), aby połączyć dwa warunki, które muszą być spełnione jednocześnie: jeśli Yuki ma kamień I Ando ma nożyce, wygrywa Yuki."
+    },
+    "shorterWay": {
+      "question": "Mam mnóstwo instrukcji `if`. Czy da się krócej?",
+      "answer": "Przyjmij domyślnie, że wygrywa jeden z graczy, a potem sprawdź tylko trzy kombinacje, w których wygrywa drugi. To zmniejsza liczbę przypadków mniej więcej o połowę."
+    },
+    "invalidChoice": {
+      "question": "A co, jeśli gracz poda coś innego niż kamień, papier lub nożyce?",
+      "answer": "Tutaj nie musisz się tym przejmować. Dostępne funkcje zawsze zwracają jeden z trzech prawidłowych wyborów."
+    }
+  },
+  "functions": {
+    "getYukiChoice": {
+      "description": "Zwraca wybór Yuki: `\"rock\"`, `\"paper\"` albo `\"scissors\"`.",
+      "category": "Gra"
+    },
+    "getAndoChoice": {
+      "description": "Zwraca wybór Ando: `\"rock\"`, `\"paper\"` albo `\"scissors\"`.",
+      "category": "Gra"
+    },
+    "announceResult": {
+      "description": "Ogłasza wynik gry. Przekaż `\"Yuki\"`, `\"Ando\"` albo `\"tie\"`.",
+      "category": "Gra"
+    }
+  }
+}

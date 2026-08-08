@@ -1,0 +1,142 @@
+{
+  "tasks": {
+    "validateBasicIsbn": {
+      "name": "기본 ISBN 유효성 검증",
+      "description": "isValidIsbn이라는 함수를 작성하세요. 이 함수는 ISBN-10 문자열을 받아서 유효하면 true를, 아니면 false를 반환해야 합니다. ISBN-10에는 하이픈이 포함되어 있으며, 이는 건너뛰어야 합니다. 각 자릿수에 10부터 1까지 내려가는 가중치를 곱한 값을 모두 더한 후, 합계가 11로 나누어 떨어지는지 확인하세요."
+    },
+    "handleXCheckDigit": {
+      "name": "체크 자릿수로서 X 처리하기",
+      "description": "ISBN이 X로 끝나는 경우가 있어요. X는 10을 나타냅니다. 마지막 위치에 X가 올 때를 처리하도록 함수를 수정하세요."
+    },
+    "handleEdgeCases": {
+      "name": "예외 상황 처리",
+      "description": "함수를 견고하게 만드세요: 하이픈이 없는 ISBN을 처리하고, 유효하지 않은 문자를 거부하며, 마지막 위치가 아닌 곳의 X를 거부하고, 정확히 10개의 자릿수가 처리되는지 확인하세요."
+    },
+    "useContinue": {
+      "name": "보너스: continue로 하이픈 건너뛰기",
+      "description": "문자가 숫자일 때만 작업을 수행하는 대신, continue를 사용하여 하이픈을 바로 건너뛰고 다음 문자로 넘어가세요."
+    }
+  },
+  "scenarios": {
+    "isbnValid": {
+      "name": "유효한 ISBN",
+      "description": "유효한 ISBN-10은 true를 반환해야 합니다."
+    },
+    "isbnValidCheckDigitX": {
+      "name": "체크 자릿수가 X인 유효한 ISBN",
+      "description": "체크 자릿수가 'X'인 유효한 ISBN-10은 true를 반환해야 합니다."
+    },
+    "isbnValidNoDashes": {
+      "name": "하이픈이 없는 유효한 ISBN",
+      "description": "구분 하이픈이 없는 유효한 ISBN-10은 true를 반환해야 합니다."
+    },
+    "isbnValidNoDashesXCheck": {
+      "name": "하이픈이 없고 체크 자릿수가 X인 유효한 ISBN",
+      "description": "하이픈이 없고 체크 자릿수가 'X'인 유효한 ISBN-10은 true를 반환해야 합니다."
+    },
+    "isbnInvalidCheckDigit": {
+      "name": "잘못된 ISBN 체크 자릿수",
+      "description": "잘못된 체크 자릿수를 가진 ISBN-10은 false를 반환해야 합니다."
+    },
+    "isbnInvalidCharacter": {
+      "name": "체크 자릿수가 X가 아닌 문자인 경우",
+      "description": "유효하지 않은 문자가 포함된 ISBN-10은 false를 반환해야 합니다."
+    },
+    "isbnInvalidCharacterNotZero": {
+      "name": "잘못된 체크 자릿수를 0으로 처리하지 않기",
+      "description": "잘못된 체크 자릿수는 0으로 처리되어서는 안 됩니다."
+    },
+    "isbnInvalidNonNumeric": {
+      "name": "ISBN에 유효하지 않은 문자가 있음",
+      "description": "ISBN의 유효하지 않은 문자는 무시되어서는 안 됩니다."
+    },
+    "isbnInvalidXPosition": {
+      "name": "X는 체크 자릿수로만 유효함",
+      "description": "'X'는 체크 자릿수로만 유효해야 합니다."
+    },
+    "isbnInvalidMissingCheckDigit": {
+      "name": "체크 자릿수가 없는 ISBN",
+      "description": "체크 자릿수가 없는 ISBN-10은 false를 반환해야 합니다."
+    },
+    "isbnInvalidTooLong": {
+      "name": "너무 긴 ISBN",
+      "description": "너무 긴 ISBN-10은 false를 반환해야 합니다."
+    },
+    "isbnInvalidTooShort": {
+      "name": "너무 짧은 ISBN",
+      "description": "너무 짧은 ISBN-10은 false를 반환해야 합니다."
+    },
+    "isbnInvalidEmpty": {
+      "name": "빈 ISBN",
+      "description": "빈 ISBN 문자열은 false를 반환해야 합니다."
+    },
+    "isbnInvalidLengthNine": {
+      "name": "ISBN이 9자인 경우",
+      "description": "9자의 입력은 false를 반환해야 합니다."
+    },
+    "isbnInvalidNonNumericBeforeCheck": {
+      "name": "길이 검사 전에 유효하지 않은 문자가 있는 경우",
+      "description": "길이를 검사하기 전에 유효하지 않은 문자를 무시해서는 안 됩니다."
+    },
+    "isbnInvalidExtraLength": {
+      "name": "입력이 너무 길지만 유효한 ISBN을 포함하는 경우",
+      "description": "10자 이상의 입력은 false를 반환해야 합니다."
+    },
+    "isbnBonusUseContinue": {
+      "name": "continue로 하이픈 건너뛰기",
+      "description": "여러분의 코드는 정상 작동하며, 하이픈을 건너뛰기 위해 continue를 사용합니다."
+    }
+  },
+  "hints": {
+    "howChecked": {
+      "question": "ISBN-10은 실제로 어떻게 검증되나요?",
+      "answer": "10개의 각 자릿수에 점점 감소하는 가중치를 곱합니다. 첫 번째 자릿수는 10, 두 번째는 9, 마지막은 1까지 곱한 후, 모든 곱을 더합니다. 합계가 11로 나누어 떨어지면 ISBN이 유효합니다."
+    },
+    "dashes": {
+      "question": "하이픈은 어떻게 처리하나요?",
+      "answer": "하이픈은 사람이 읽기 쉽게 하려는 용도일 뿐입니다. 완전히 건너뛰세요. 자릿수로 간주하지 않고, 가중치에도 영향을 주지 않습니다."
+    },
+    "trackWeight": {
+      "question": "가중치를 어떻게 추적하나요?",
+      "answer": "곱셈 변수를 10으로 시작하세요. 자릿수를 처리할 때마다 현재 곱셈 값으로 해당 자릿수와 곱하고, 그 결과를 누적 합계에 더한 다음 곱셈 값을 1씩 줄이세요."
+    },
+    "stringToNumber": {
+      "question": "문자열을 어떻게 숫자로 바꾸나요?",
+      "answer": "두 가지 방법이 있어요. 첫 번째로, 이 연습 문제에서 의도한 방법은 `indexOf` 메서드를 활용하는 거예요. 한번 생각해 보세요. 그래도 모르겠다면 다음 힌트를 확인하세요."
+    },
+    "stringToNumberAgain": {
+      "question": "아니 정말로, 문자열을 어떻게 숫자로 바꾸나요?",
+      "answer": "두 가지 방법이 있어요. 첫째, `Number()` 함수(대문자 \"N\" 사용)를 사용하는 방법이에요. `Number(\"5\")`는 `5`를 반환하죠. 더 자세히 알고 싶다면 <a href=\"/concepts/type-conversion\" target=\"_blank\" rel=\"noopener noreferrer\">타입 변환</a> 개념 페이지를 읽어보세요. 나중에 살펴볼 `indexOf`를 활용한 깔끔한 트릭도 있어요."
+    },
+    "handleX": {
+      "question": "'X'는 어떻게 처리하나요? 숫자가 아니잖아요, 그렇죠?",
+      "answer": "'X'는 특별해요. 10이라는 값을 나타내지만, 오직 마지막 문자일 때만 그렇습니다. 마지막에 올 경우 값이 10인 숫자처럼 처리하고, 다른 위치에 나타나면 ISBN을 거부하세요."
+    },
+    "exactlyTenDigits": {
+      "question": "정확히 10개의 자릿수가 있는지 어떻게 확인하나요?",
+      "answer": "곱셈 값은 10에서 시작하여 자릿수 하나당 1씩 줄어들어요. 정확히 10개의 자릿수를 처리했다면 곱셈 값이 0이 될 거예요. 그렇지 않다면 자릿수 개수가 잘못된 것이므로 거부하세요."
+    },
+    "finalCheck": {
+      "question": "최종 유효성 검사는 무엇인가요?",
+      "answer": "모든 처리가 끝난 후, 총합이 11로 나누어 떨어지면(즉 `sum % 11 == 0`) ISBN이 유효합니다."
+    }
+  },
+  "checks": {
+    "mustUseContinue": "거의 다 왔어요! 이 보너스에서는 `continue`를 사용하여 하이픈을 건너뛰세요.",
+    "tooManyLines": "거의 다 왔어요! 코드는 잘 작동하지만, 조금 길어요."
+  },
+  "functions": {
+    "number": {
+      "description": "숫자가 포함된 문자열을 숫자로 변환합니다",
+      "category": "타입 변환"
+    },
+    "includes": {
+      "description": "문자열이 더 작은 문자열을 포함하는지 확인합니다 (레벨 표준 라이브러리 제공)",
+      "category": "문자열 연산"
+    },
+    "indexOf": {
+      "description": "문자열 내에서 더 작은 문자열의 위치를 찾거나, 찾지 못하면 -1을 반환합니다 (레벨 표준 라이브러리 제공)",
+      "category": "문자열 연산"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "checks": {
+    "wrongPosition": "Le soleil est au mauvais endroit ou n'a pas la bonne taille. Vérifie les calculs de `sunX` et `sunY`, et assure-toi de bien passer `radius` à `circle`.",
+    "notResponsive": "Le code ne s'adapte pas correctement quand `gap` vaut {{gap}} et `radius` vaut {{radius}}. `sunX` et `sunY` doivent être dérivés de `gap` et `radius`, pas des nombres codés en dur."
+  },
+  "tasks": {
+    "positionSun": {
+      "name": "Positionne le soleil",
+      "description": "Dérive `sunX` et `sunY` de `canvasSize`, `gap` et `radius` pour que le soleil s'adapte correctement."
+    }
+  },
+  "scenarios": {
+    "positionSun": {
+      "name": "Positionne le soleil",
+      "description": "Dérive la position du soleil de `gap` et `radius` pour qu'elle s'adapte."
+    }
+  },
+  "hints": {
+    "sunXPosition": {
+      "question": "Comment raisonner sur la position x du soleil ?",
+      "answer": "Imagine le bord droit du canvas. Le bord du soleil se trouve à `gap` à gauche de ce bord. Le *centre* du soleil, lui, est encore un rayon plus loin vers l'intérieur."
+    },
+    "sunYPosition": {
+      "question": "Comment raisonner sur la position y du soleil ?",
+      "answer": "C'est la même idée que pour la position x, mais mesurée vers le bas depuis le bord supérieur du canvas, au lieu de vers l'intérieur depuis le bord droit."
+    },
+    "whyNotHardcode": {
+      "question": "Pourquoi ne pas simplement écrire les nombres directement ?",
+      "answer": "Si tu codes en dur `sunX` et `sunY`, le soleil restera au même endroit quand `gap` ou `radius` changent. Si tu les construis à partir de `gap` et `radius`, le soleil reste dans le coin quelles que soient les valeurs que tu choisis."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Dessine un cercle centré en (centerX, centerY), avec le rayon et la couleur donnés",
+      "category": "Dessin de formes"
+    }
+  }
+}

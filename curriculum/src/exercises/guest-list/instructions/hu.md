@@ -1,17 +1,18 @@
 ---
-title: "Guest List"
-description: "Count how many people in the queue aren't on the guest list."
+title: "Vendéglista"
+description: "Számold meg, hányan nincsenek a vendéglistán a sorban állók közül."
+en_md5: 6d87b63b656a720f470f66520b181586
 ---
 
-You're a bouncer at the Oscars. There's a queue of hopefuls outside, and the guest list is in your hand. A lot of the queue is chancing it.
+Egy exkluzív klub kidobója vagy. Van egy vendéglistád (_guest list_ angolul), de úgy véled, hogy a sorban (_queue_ angolul) állók közül sokan egyáltalán nincsenek rajta, és csak szerencsével próbálnak bejutni.
 
-Before you open the doors, the organisers want to know how bad it is. Of the people currently queueing, how many aren't invited at all?
+Mielőtt kinyitod az ajtókat, a szervezők tudni szeretnék, mennyire rossz a helyzet. A jelenleg sorban állók közül hányan nincsenek egyáltalán meghívva?
 
-Write a function called `numChancersInQueue`. The function has two inputs:
+Írj egy `numChancersInQueue` nevű függvényt (beugrók száma a sorban). A függvénynek két bemenete van:
 
-- The first is the queue, passed as a list of names (strings)
-- The second is the guest list, also a list of names
+- Az első a sor, nevekből álló tömbként átadva
+- A második a vendéglista, szintén nevekből álló tömbként
 
-You should return how many of the people in the queue are **not** on the guest list.
+A függvénynek azt kell visszaadnia, hogy a sorban állók közül hányan **nincsenek** a vendéglistán.
 
-Anyone who's on the guest list but hasn't turned up yet isn't in the queue, so they're neither a guest you're counting nor a chancer. They're not your problem.
+Jó szórakozást!

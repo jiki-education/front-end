@@ -1,88 +1,88 @@
 {
   "tasks": {
     "createAcronymFunction": {
-      "name": "Create acronym function",
-      "description": "Write a function that takes a phrase and returns its acronym: the first letter of each word, in uppercase. Words are separated by spaces and hyphens, and any other punctuation is ignored."
+      "name": "Hozd létre a betűszó függvényt",
+      "description": "Írj egy függvényt, ami egy kifejezést kap, és visszaadja a betűszóját: minden szó első betűjét, nagybetűsen. A szavakat szóközök és kötőjelek választják el, minden más írásjelet figyelmen kívül hagy."
     },
     "solveTightly": {
-      "name": "Solve it in 46 lines",
-      "description": "Bonus: with the letter-testing and case-swapping pulled into helper functions that `acronym` reuses, the whole solution fits in 46 lines. Can you match it?"
+      "name": "Oldd meg 46 sorban",
+      "description": "Bónusz: ha a betűvizsgálatot és a betűméret cseréjét segédfüggvényekbe szervezed, amiket az `acronym` újrahasznál, a teljes megoldás belefér 46 sorba. Meg tudod csinálni?"
     }
   },
   "scenarios": {
     "png": {
-      "name": "Basic acronym: PNG",
-      "description": "Convert 'Portable Network Graphics' to 'PNG'."
+      "name": "Alap betűszó: PNG",
+      "description": "Alakítsd át a 'Portable Network Graphics' kifejezést 'PNG'-vé."
     },
     "ror": {
-      "name": "Lowercase words: ROR",
-      "description": "Convert 'Ruby on Rails' to 'ROR'."
+      "name": "Kisbetűs szavak: ROR",
+      "description": "Alakítsd át a 'Ruby on Rails' kifejezést 'ROR'-vé."
     },
     "gimp": {
-      "name": "All caps word: GIMP",
-      "description": "Convert 'GNU Image Manipulation Program' to 'GIMP'."
+      "name": "Csupa nagybetűs szó: GIMP",
+      "description": "Alakítsd át a 'GNU Image Manipulation Program' kifejezést 'GIMP'-vé."
     },
     "firstWordOnly": {
-      "name": "Single word: H",
-      "description": "Convert 'HyperText' to 'H'."
+      "name": "Egyetlen szó: H",
+      "description": "Alakítsd át a 'HyperText' kifejezést 'H'-vé."
     },
     "hyphenated": {
-      "name": "Hyphenated phrase: CMOS",
-      "description": "Convert 'Complementary metal-oxide semiconductor' to 'CMOS'."
+      "name": "Kötőjeles kifejezés: CMOS",
+      "description": "Alakítsd át a 'Complementary metal-oxide semiconductor' kifejezést 'CMOS'-vé."
     },
     "fifo": {
-      "name": "Comma-separated: FIFO",
-      "description": "Convert 'First In, First Out' to 'FIFO'."
+      "name": "Vesszővel tagolt: FIFO",
+      "description": "Alakítsd át a 'First In, First Out' kifejezést 'FIFO'-vé."
     },
     "punctuation": {
-      "name": "With punctuation: PHT",
-      "description": "Convert 'Portable, HyperText, Transmitter' to 'PHT'."
+      "name": "Írásjelekkel: PHT",
+      "description": "Alakítsd át a 'Portable, HyperText, Transmitter' kifejezést 'PHT'-vé."
     },
     "hc": {
-      "name": "With an apostrophe: HC",
-      "description": "Convert 'Halley's Comet' to 'HC'."
+      "name": "Aposztróffal: HC",
+      "description": "Alakítsd át a 'Halley's Comet' kifejezést 'HC'-vé."
     },
     "simufta": {
-      "name": "Consecutive delimiters: SIMUFTA",
-      "description": "Convert 'Something - I made up from thin air' to 'SIMUFTA'."
+      "name": "Egymást követő elválasztók: SIMUFTA",
+      "description": "Alakítsd át a 'Something - I made up from thin air' kifejezést 'SIMUFTA'-vé."
     },
     "trnt": {
-      "name": "Underscore emphasis: TRNT",
-      "description": "Convert 'The Road _Not_ Taken' to 'TRNT'."
+      "name": "Aláhúzásos kiemelés: TRNT",
+      "description": "Alakítsd át a 'The Road _Not_ Taken' kifejezést 'TRNT'-vé."
     },
     "long": {
-      "name": "A very long one: ROTFLSHTMDCOALM",
-      "description": "Convert 'Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me' to 'ROTFLSHTMDCOALM'."
+      "name": "Nagyon hosszú: ROTFLSHTMDCOALM",
+      "description": "Alakítsd át a 'Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me' kifejezést 'ROTFLSHTMDCOALM'-vé."
     },
     "emoji": {
-      "name": "With an emoji: HW",
-      "description": "Convert 'Hello 👋 World' to 'HW'."
+      "name": "Emojival: HW",
+      "description": "Alakítsd át a 'Hello 👋 World' kifejezést 'HW'-vé."
     },
     "acronymBonusLineCount": {
-      "name": "Neat and tidy",
-      "description": "The tidiest solution reuses its helpers and fits in 46 lines. Can you find it?"
+      "name": "Tiszta és rendezett",
+      "description": "A legrendezettebb megoldás újrahasználja a segédfüggvényeket, és belefér 46 sorba. Megtalálod?"
     }
   },
   "checks": {
-    "tooManyLines": "Keep going! See if you can solve it in fewer lines.",
-    "noMethods": "This exercise is about building the tools yourself. Solve it without using any built-in methods."
+    "tooManyLines": "Folytasd! Próbáld meg kevesebb sorban megoldani.",
+    "noMethods": "Ebben a feladatban te magad építed fel az eszközöket. Oldd meg bármilyen beépített metódus használata nélkül."
   },
   "hints": {
     "pickLetters": {
-      "question": "How do I pick out which letters become the acronym?",
-      "answer": "The acronym is built from the letter that starts each word: the very first letter of the phrase, plus the first letter after every space or hyphen."
+      "question": "Hogyan választom ki, mely betűk alkotják a betűszót?",
+      "answer": "A betűszó a szavak kezdőbetűiből áll: a kifejezés legelső betűje, plusz minden szóköz vagy kötőjel utáni első betű."
     },
     "findWordStarts": {
-      "question": "How do I know when a new word starts?",
-      "answer": "Walk the phrase one character at a time and keep track of whether you're at the start of a new word. You are at the very beginning, and again straight after any space or hyphen. Anything that isn't a letter (punctuation, underscores, apostrophes) should be skipped rather than counted as the start of a word."
+      "question": "Honnan tudom, mikor kezdődik egy új szó?",
+      "answer": "Lépkedj végig a kifejezésen karakterenként, és jegyezd meg, hogy épp egy új szó elején jársz-e. A legelején, és minden szóköz vagy kötőjel után új szó kezdődik. Ami nem betű (írásjel, aláhúzás, aposztróf), azt hagyd ki, ne számítsd bele a betűszóba."
     },
     "buildResult": {
-      "question": "How do I build up the result as I go?",
-      "answer": "Start with an empty string and add each chosen letter onto the end using `+`."
+      "question": "Hogyan építem fel az eredményt menet közben?",
+      "answer": "Indulj ki egy üres karakterláncból, és minden kiválasztott betűt fűzz hozzá a `+` jellel."
     },
     "uppercaseLetters": {
-      "question": "How do I make a letter uppercase when there's no built-in for it?",
-      "answer": "There's no ready-made uppercaser here. Just like in Pangram, you can line up a lowercase alphabet against an uppercase one and swap a letter for the one at the same position. Letters that are already uppercase can stay as they are."
+      "question": "Hogyan csinálok egy betűből nagybetűt, ha nincs rá beépített eszköz?",
+      "answer": "Itt nincs kész nagybetűsítő. Mint a Pangramban, állítsd szembe a kisbetűs és a nagybetűs ábécét, és cseréld ki a betűt az azonos pozícióban lévő nagybetűsre. Amelyik betű már nagybetű, az maradhat."
     }
   }
 }

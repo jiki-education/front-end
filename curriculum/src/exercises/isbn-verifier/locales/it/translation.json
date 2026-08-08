@@ -1,0 +1,142 @@
+{
+  "tasks": {
+    "validateBasicIsbn": {
+      "name": "Verifica di base di un ISBN",
+      "description": "Scrivi una funzione chiamata isValidIsbn che prende una stringa ISBN-10 e restituisce true se valida, false altrimenti. Gli ISBN-10 contengono trattini che vanno saltati. Moltiplica ogni cifra per un peso a scalare da 10 a 1, sommali e verifica che il totale sia divisibile per 11."
+    },
+    "handleXCheckDigit": {
+      "name": "Gestisci la X come cifra di controllo",
+      "description": "A volte un ISBN termina con una X, che rappresenta 10. Aggiorna la tua funzione per gestire la X nell'ultima posizione."
+    },
+    "handleEdgeCases": {
+      "name": "Gestisci i casi limite",
+      "description": "Rendi la tua funzione robusta: gestisci gli ISBN senza trattini, rifiuta i caratteri non validi, rifiuta la X in posizioni diverse dall'ultima e assicurati di elaborare esattamente 10 cifre."
+    },
+    "useContinue": {
+      "name": "Bonus: salta i trattini con continue",
+      "description": "Invece di eseguire codice solo quando un carattere è una cifra, usa continue per saltare direttamente i trattini e passare al carattere successivo."
+    }
+  },
+  "scenarios": {
+    "isbnValid": {
+      "name": "ISBN valido",
+      "description": "Un ISBN-10 valido dovrebbe restituire true."
+    },
+    "isbnValidCheckDigitX": {
+      "name": "ISBN valido con X come cifra di controllo",
+      "description": "Un ISBN-10 valido con cifra di controllo 'X' dovrebbe restituire true."
+    },
+    "isbnValidNoDashes": {
+      "name": "ISBN valido senza trattini",
+      "description": "Un ISBN-10 valido senza trattini di separazione dovrebbe restituire true."
+    },
+    "isbnValidNoDashesXCheck": {
+      "name": "ISBN valido senza trattini e con X come cifra di controllo",
+      "description": "Un ISBN-10 valido senza trattini e con cifra di controllo 'X' dovrebbe restituire true."
+    },
+    "isbnInvalidCheckDigit": {
+      "name": "Cifra di controllo ISBN non valida",
+      "description": "Un ISBN-10 con una cifra di controllo errata dovrebbe restituire false."
+    },
+    "isbnInvalidCharacter": {
+      "name": "La cifra di controllo è un carattere diverso da X",
+      "description": "Un ISBN-10 che contiene un carattere non valido dovrebbe restituire false."
+    },
+    "isbnInvalidCharacterNotZero": {
+      "name": "Cifra di controllo non valida non trattata come zero",
+      "description": "Una cifra di controllo non valida non dovrebbe essere trattata come zero."
+    },
+    "isbnInvalidNonNumeric": {
+      "name": "Carattere non valido nell'ISBN",
+      "description": "I caratteri non validi nell'ISBN non dovrebbero essere ignorati."
+    },
+    "isbnInvalidXPosition": {
+      "name": "X valida solo come cifra di controllo",
+      "description": "Una 'X' dovrebbe essere valida solo come cifra di controllo."
+    },
+    "isbnInvalidMissingCheckDigit": {
+      "name": "ISBN senza cifra di controllo",
+      "description": "Un ISBN-10 senza cifra di controllo dovrebbe restituire false."
+    },
+    "isbnInvalidTooLong": {
+      "name": "ISBN troppo lungo",
+      "description": "Un ISBN-10 troppo lungo dovrebbe restituire false."
+    },
+    "isbnInvalidTooShort": {
+      "name": "ISBN troppo corto",
+      "description": "Un ISBN-10 troppo corto dovrebbe restituire false."
+    },
+    "isbnInvalidEmpty": {
+      "name": "ISBN vuoto",
+      "description": "Una stringa ISBN vuota dovrebbe restituire false."
+    },
+    "isbnInvalidLengthNine": {
+      "name": "ISBN di 9 caratteri",
+      "description": "Un input di 9 caratteri dovrebbe restituire false."
+    },
+    "isbnInvalidNonNumericBeforeCheck": {
+      "name": "Carattere non valido prima del controllo lunghezza",
+      "description": "I caratteri non validi non dovrebbero essere ignorati prima di controllare la lunghezza."
+    },
+    "isbnInvalidExtraLength": {
+      "name": "Input troppo lungo ma contiene un ISBN valido",
+      "description": "Un input più lungo di 10 caratteri dovrebbe restituire false."
+    },
+    "isbnBonusUseContinue": {
+      "name": "Trattini saltati con continue",
+      "description": "La tua soluzione funziona e usa continue per saltare i trattini."
+    }
+  },
+  "hints": {
+    "howChecked": {
+      "question": "Come viene effettivamente verificato un ISBN-10?",
+      "answer": "Ognuna delle 10 cifre viene moltiplicata per un peso decrescente. La prima cifra per 10, la seconda per 9, fino all'ultima per 1. Somma tutti quei prodotti. Se il totale è divisibile per 11, l'ISBN è valido."
+    },
+    "dashes": {
+      "question": "Cosa faccio con i trattini?",
+      "answer": "I trattini servono solo per la leggibilità umana. Saltali completamente. Non contano come cifra e non fanno avanzare il peso."
+    },
+    "trackWeight": {
+      "question": "Come tengo traccia del peso?",
+      "answer": "Inizia con una variabile moltiplicatore a 10. Ogni volta che elabori una cifra, moltiplicala per il moltiplicatore corrente, aggiungi il prodotto alla somma parziale, quindi decrementa il moltiplicatore di 1."
+    },
+    "stringToNumber": {
+      "question": "Come trasformo la stringa in un numero?",
+      "answer": "Hai due opzioni. Innanzitutto, il modo previsto in questo esercizio è trovare un modo usando il metodo `indexOf`. Pensaci. Se non riesci a capirlo, controlla il prossimo suggerimento per una risposta."
+    },
+    "stringToNumberAgain": {
+      "question": "No, sul serio, come trasformo la stringa in un numero?",
+      "answer": "Due opzioni. Per prima cosa puoi usare la funzione `Number()` (con la \"N\" maiuscola), quindi `Number(\"5\")` dà `5`. Leggi la pagina del concetto <a href=\"/concepts/type-conversion\" target=\"_blank\" rel=\"noopener noreferrer\">Conversione di tipo</a> se vuoi un ripasso. C'è anche un bel trucco con `indexOf` che vale la pena esplorare dopo."
+    },
+    "handleX": {
+      "question": "Come gestisco 'X'? Quella non è una cifra, vero?",
+      "answer": "'X' è speciale. Rappresenta il valore 10, ma solo come ultimo carattere. Trattala come una cifra con valore 10 quando la vedi alla fine, e rifiuta l'ISBN se 'X' compare in qualsiasi altra posizione."
+    },
+    "exactlyTenDigits": {
+      "question": "Come mi assicuro che ci siano esattamente 10 cifre?",
+      "answer": "Il tuo moltiplicatore è partito da 10 ed è diminuito di 1 per ogni cifra. Se hai elaborato esattamente 10 cifre, sarà finito a 0. Qualsiasi altro valore significa un numero sbagliato di cifre, quindi rifiuta l'ISBN."
+    },
+    "finalCheck": {
+      "question": "Qual è il controllo finale di validità?",
+      "answer": "Dopo aver elaborato tutto, l'ISBN è valido se la somma totale è divisibile per 11 (cioè `sum % 11 == 0`)."
+    }
+  },
+  "checks": {
+    "mustUseContinue": "Ci sei quasi! Per questo bonus, usa `continue` per saltare i trattini.",
+    "tooManyLines": "Ci sei quasi! La tua soluzione funziona, ma è un po' lunga."
+  },
+  "functions": {
+    "number": {
+      "description": "Converte una stringa contenente cifre in un numero",
+      "category": "Conversione di tipo"
+    },
+    "includes": {
+      "description": "Verifica se una stringa contiene una stringa più piccola (fornita dalla libreria standard del livello)",
+      "category": "Operazioni sulle stringhe"
+    },
+    "indexOf": {
+      "description": "Trova la posizione di una stringa più piccola all'interno di una stringa, o -1 se non viene trovata (fornita dalla libreria standard del livello)",
+      "category": "Operazioni sulle stringhe"
+    }
+  }
+}

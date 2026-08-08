@@ -1,16 +1,17 @@
 ---
-title: "Space Invaders: Conditional"
-description: "Only shoot when there's an alien in your sights."
+title: "Space Invaders: Feltételes"
+description: "Csak akkor lőj, ha űrlény van a célkeresztedben."
+en_md5: 4a603e339af722e912ab2ff9b25cc287
 ---
 
-The aliens have changed their formation! They're now arranged in two rows, but not every column has an alien.
+Az űrlények megváltoztatták a formációjukat! Most két sorban helyezkednek el, de nem minden oszlopban van űrlény.
 
-You have three functions:
+Három függvényed van:
 
-- `move()` moves your laser cannon one position to the right
-- `shoot()` fires the laser upwards
-- `isAlienAbove()` returns `true` if there's an alien above you, or `false` if not
+- A `move()` (elmozdul) egy pozícióval jobbra mozgatja a lézerágyúdat.
+- A `shoot()` (lő) felfelé lövi a lézert.
+- Az `isAlienAbove()` (van-e fölötte űrlény) `true`-t ad vissza, ha van fölötted űrlény, `false`-t, ha nincs.
 
-You need to move across the screen, checking each position. If there's an alien above you, shoot it! If not, just move on.
+Végig kell menned a képernyőn, és minden pozíciót ellenőrizned. Ha űrlény van fölötted, lődd le! Ha nincs, csak menj tovább.
 
-**Don't shoot when there's no alien above you, or you lose!**
+**Ne lőj, ha nincs fölötted űrlény, különben veszítesz!**

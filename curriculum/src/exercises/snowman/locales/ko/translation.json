@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "baseCircle": "아래쪽 원이 올바르지 않아요. snowmanCenterX, baseCenterY, baseRadius를 확인하세요.",
+    "bodyCircle": "몸통(가운데) 원이 올바르지 않아요. snowmanCenterX, bodyCenterY, bodyRadius를 확인하세요.",
+    "headCircle": "머리(위쪽) 원이 올바르지 않아요. snowmanCenterX, headCenterY, headRadius를 확인하세요."
+  },
+  "tasks": {
+    "buildSnowman": {
+      "name": "눈사람 만들기",
+      "description": "눈사람이 목표 이미지와 일치하도록 변수 값을 설정해요."
+    }
+  },
+  "scenarios": {
+    "buildSnowman": {
+      "name": "눈사람 만들기",
+      "description": "눈사람을 그리기 위해 올바른 변수 값을 설정해요."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "어디서 시작해야 할지 모르겠어요.",
+      "answer": "원래 코드는 왼쪽에 흰색 원을 그려요. 템플릿의 아래쪽 고리 위에 오도록 snowmanCenterX, baseCenterY, baseRadius의 값을 올바르게 바꿔야 해요. 그런 다음 다른 원들을 위한 변수를 추가해야 해요."
+    },
+    "variableNotFoundError": {
+      "question": "\"Jiki could not find a variable called 'XXX'\" 같은 오류가 발생해요.",
+      "answer": "`let` 키워드를 사용해서 변수(Jiki의 선반 위 상자)를 만들지 않았다는 뜻이에요. Jiki가 원을 그리는 코드를 읽을 때, 참조된 상자를 찾아야 하는데 없어요. 그래서 추가해야 해요."
+    },
+    "stillNotDeclaredError": {
+      "question": "변수를 추가했지만 여전히 \"not declared\" 오류가 발생해요.",
+      "answer": "철자를 확인해 보세요 — 오타가 있을 가능성이 높아요. 대소문자가 중요하다는 점을 기억하세요: `bodycentery`는 `bodyCenterY`와 같지 않아요."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "중심이 (centerX, centerY)이고, 지정된 반지름과 색으로 원을 그려요.",
+      "category": "도형 그리기"
+    }
+  }
+}

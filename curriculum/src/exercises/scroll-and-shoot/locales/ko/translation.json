@@ -1,0 +1,74 @@
+{
+  "checks": {
+    "notShotAllAliens": "모든 외계인을 격추하지 못했어요.",
+    "noRepeatWithArg": "이 연습 문제에서는 <code>repeat(n) {}</code>을 사용할 수 없어요. 입력값이 없는 <code>repeat() {}</code> 루프만 사용해야 해요."
+  },
+  "tasks": {
+    "scrollAndShoot": {
+      "name": "화면을 가로지르며 모든 외계인 격추하기",
+      "description": "레이저를 좌우로 움직이며 위에 외계인이 있는지 확인하고 격추하세요. 화면 가장자리로 벗어나거나 외계인이 없을 때 발사하면 져요! 진행할수록 웨이브는 점점 더 치열해져요."
+    }
+  },
+  "scenarios": {
+    "oneAlien": {
+      "name": "외계인 한 마리",
+      "description": "격추해야 할 외계인 한 마리"
+    },
+    "oneRow": {
+      "name": "드문드문한 한 행",
+      "description": "아래쪽 행에 흩어져 있는 외계인들"
+    },
+    "twoRows": {
+      "name": "두 행",
+      "description": "두 행에 걸쳐 있는 외계인들"
+    },
+    "threeRows": {
+      "name": "세 행",
+      "description": "세 행에 걸친 외계인들"
+    },
+    "fullRows": {
+      "name": "가득 찬 행",
+      "description": "세 행이 꽉 찼어요. 외계인들이 계속 다시 나타나요!"
+    }
+  },
+  "hints": {
+    "whereDoIStart": {
+      "question": "어디서부터 시작해야 할까요? 할 게 많아 보이네요.",
+      "answer": "단계별로 나누어 보세요. 먼저 발사는 무시하고 레이저를 좌우로 움직이는 것부터 시작하세요. 움직임이 제대로 되면 그다음에 발사 로직을 추가하세요."
+    },
+    "trackLaserPosition": {
+      "question": "레이저 위치를 어떻게 추적할까요?",
+      "answer": "레이저 위치를 저장할 변수를 하나 만들어 두고, 루프 한 번 반복할 때마다 `moveLeft()`나 `moveRight()`를 호출하면서 그 변수를 업데이트하세요."
+    },
+    "whenToTurnAround": {
+      "question": "언제 방향을 바꿔야 하는지 어떻게 알 수 있을까요?",
+      "answer": "방향을 나타내는 변수를 하나 두고(예: 오른쪽은 `1`, 왼쪽은 `-1`), 위치가 왼쪽 또는 오른쪽 경계에 도달하면 방향을 반대로 바꾸세요. 이전에 무지개 공에서 했던 것과 똑같은 튕기기 패턴이에요."
+    },
+    "whenToShoot": {
+      "question": "언제 `shoot()`을 호출해야 할까요?",
+      "answer": "`shoot()`을 호출하기 전에 `isAlienAbove()`로 확인하세요. `true`를 반환할 때만 발사하고, 그렇지 않으면 탄약을 낭비하게 돼요."
+    },
+    "laserOverheating": {
+      "question": "레이저가 계속 과열되는데, 어떻게 하면 좋을까요?",
+      "answer": "매 루프마다 발사하지 마세요. 발사 사이에 최소 한 번은 움직여서 레이저 포대가 식을 시간을 주세요."
+    }
+  },
+  "functions": {
+    "moveLeft": {
+      "description": "레이저 포대를 **왼쪽으로 한 칸** 이동시켜요. 화면 왼쪽 가장자리 밖으로 나가려 하면 게임에서 져요!",
+      "category": "이동"
+    },
+    "moveRight": {
+      "description": "레이저 포대를 **오른쪽으로 한 칸** 이동시켜요. 화면 오른쪽 가장자리 밖으로 나가려 하면 게임에서 져요!",
+      "category": "이동"
+    },
+    "shoot": {
+      "description": "레이저를 위로 발사해요. **위에 외계인이 있을 때만 발사하세요**, 그렇지 않으면 게임에서 져요! 레이저 포대는 쉽게 과열되므로, 다시 발사하기 전에 반드시 움직여야 해요.",
+      "category": "동작"
+    },
+    "isAlienAbove": {
+      "description": "레이저 포대 바로 위에 외계인이 있으면 `true`, 없으면 `false`를 반환해요. 발사하기 전에 이것으로 확인하세요!",
+      "category": "탐지"
+    }
+  }
+}

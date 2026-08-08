@@ -1,0 +1,70 @@
+{
+  "checks": {
+    "firstFlowerHeadWrong": "Glavni deo cveta na prvom kadru nije ispravan.",
+    "finalFlowerHeadWrong": "Glavni deo cveta na poslednjem kadru nije ispravan.",
+    "firstPistilWrong": "Tučak na prvom kadru nije ispravan.",
+    "finalPistilWrong": "Tučak na poslednjem kadru nije ispravan.",
+    "firstStemWrong": "Stabljika na prvom kadru nije ispravna.",
+    "finalStemWrong": "Stabljika na poslednjem kadru nije ispravna.",
+    "firstLeftLeafWrong": "Levi list na prvom kadru nije ispravan.",
+    "finalLeftLeafWrong": "Levi list na poslednjem kadru nije ispravan.",
+    "firstRightLeafWrong": "Desni list na prvom kadru nije ispravan.",
+    "finalRightLeafWrong": "Desni list na poslednjem kadru nije ispravan."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "Nacrtaj scenu",
+      "description": "Neka cvet nikne. Radi korak po korak!"
+    }
+  },
+  "scenarios": {
+    "drawSproutingFlower": {
+      "name": "Neka cvet nikne",
+      "description": "Radi korak po korak!"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Odakle da počnem kada postavljam scenu?",
+      "answer": "Izaberi jednu centralnu tačku. Centar cveta je dobro sidro. Stabljika, tučak i lišće mogu svi da se izvedu iz njega. Tako ceo cvet ostaje povezan dok se animira."
+    },
+    "growEachIteration": {
+      "question": "Kako da nateram cvet da se podiže i raste u svakoj iteraciji?",
+      "answer": "Na samom početku tela petlje, pre bilo kakvog crtanja, ažuriraj `flowerCenterY` i `flowerRadius` na njihove nove vrednosti za ovaj kadar. U uputstvima su navedene vrednosti. Važno je da ih ažuriraš *pre* poziva za crtanje, a ne posle."
+    },
+    "stemAttached": {
+      "question": "Kako da stabljika ostane prikačena za cvet dok se pomera nagore?",
+      "answer": "Ne daj stabljici fiksni vrh. Njen vrh *je* `flowerCenterY`. Njeno dno je tlo. Tako da je njena visina rastojanje između njih. Njena širina se zatim može izvesti iz te visine."
+    },
+    "leafSizing": {
+      "question": "Kako da podesim veličinu lišća tako da raste zajedno sa cvetom?",
+      "answer": "`radiusX` i `radiusY` lišća su delovi `flowerRadius`. Tako se skaliraju zajedno. Usidri njihov vertikalni položaj za stabljiku, a ne za fiksnu Y koordinatu platna, tako da se podižu zajedno sa cvetom."
+    },
+    "flowerNeverChanges": {
+      "question": "Moj cvet se nacrta jednom i nikada se ne menja. Šta nije u redu?",
+      "answer": "Verovatno postavljaš početne vrednosti jednom pre petlje, ali ih ne ažuriraš *unutar* petlje. Telo petlje mora da menja tvoje promenljive u svakoj iteraciji, pre poziva za crtanje."
+    },
+    "firstFlowerCoords": {
+      "question": "Možeš li da mi daš koordinate za prvi cvet da uporedim?",
+      "answer": "U prvoj iteraciji, oblici bi trebalo da budu:\n\n- Cvet: `circle(50, 89, 0.4)`\n- Tučak: `circle(50, 89, 0.1)`\n- Stabljika: `rectangle(49.95, 89, 0.1, 1)`\n- Levi list: `ellipse(49.75, 89.5, 0.2, 0.08)`\n- Desni list: `ellipse(50.25, 89.5, 0.2, 0.08)`\n\nUključi prekidač za informacije na traci za reprodukciju da vidiš svoje vrednosti na tom kadru."
+    },
+    "finalFlowerCoords": {
+      "question": "Možeš li da mi daš koordinate za poslednji cvet da uporedim?",
+      "answer": "U poslednjoj iteraciji, oblici bi trebalo da budu:\n\n- Cvet: `circle(50, 30, 24)`\n- Tučak: `circle(50, 30, 6)`\n- Stabljika: `rectangle(47, 30, 6, 60)`\n- Levi list: `ellipse(35, 60, 12, 4.8)`\n- Desni list: `ellipse(65, 60, 12, 4.8)`\n\nUključi prekidač za informacije na traci za reprodukciju da vidiš svoje vrednosti na tom kadru."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Nacrta **pravougaonik** na poziciji (levo, gore) sa navedenom širinom, visinom i bojom. Pozicija predstavlja gornji levi ugao pravougaonika.",
+      "category": "Crtanje oblika"
+    },
+    "circle": {
+      "description": "Nacrta **krug** na centralnoj poziciji (centerX, centerY) sa navedenim poluprečnikom i bojom.",
+      "category": "Crtanje oblika"
+    },
+    "ellipse": {
+      "description": "Nacrta **elipsu** na centralnoj poziciji (centerX, centerY) sa navedenim radiusX, radiusY i bojom.",
+      "category": "Crtanje oblika"
+    }
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "noResult": "Rezultat nije objavljen!",
+    "paperVsPaperResult": "Papir protiv papira treba da bude nerešeno, a bilo je \"{{got}}\".",
+    "paperVsRockResult": "Papir protiv kamena treba da bude pobeda za Yukija, a bilo je \"{{got}}\".",
+    "paperVsScissorsResult": "Papir protiv makaza treba da bude pobeda za Anda, a bilo je \"{{got}}\".",
+    "rockVsPaperResult": "Kamen protiv papira treba da bude pobeda za Anda, a bilo je \"{{got}}\".",
+    "rockVsRockResult": "Kamen protiv kamena treba da bude nerešeno, a bilo je \"{{got}}\".",
+    "rockVsScissorsResult": "Kamen protiv makaza treba da bude pobeda za Yukija, a bilo je \"{{got}}\".",
+    "scissorsVsPaperResult": "Makaze protiv papira treba da bude pobeda za Yukija, a bilo je \"{{got}}\".",
+    "scissorsVsRockResult": "Makaze protiv kamena treba da bude pobeda za Anda, a bilo je \"{{got}}\".",
+    "scissorsVsScissorsResult": "Makaze protiv makaza treba da bude nerešeno, a bilo je \"{{got}}\"."
+  },
+  "tasks": {
+    "determineWinner": {
+      "name": "Odredi pobednika",
+      "description": "Uzmi izbore oba igrača i objavi tačan rezultat: \"Yuki\", \"Ando\" ili \"tie\"."
+    }
+  },
+  "scenarios": {
+    "paperVsPaper": {
+      "name": "Papir protiv papira",
+      "description": "Nerešeno je. Objavi to ispravno!"
+    },
+    "paperVsRock": {
+      "name": "Papir protiv kamena",
+      "description": "Yukijev papir pobeđuje Andov kamen. Objavi Yukija kao pobednika!"
+    },
+    "paperVsScissors": {
+      "name": "Papir protiv makaza",
+      "description": "Andove makaze pobeđuju Yukijev papir. Objavi Anda kao pobednika."
+    },
+    "rockVsPaper": {
+      "name": "Kamen protiv papira",
+      "description": "Andov papir pobeđuje Yukijev kamen. Objavi Anda kao pobednika."
+    },
+    "rockVsRock": {
+      "name": "Kamen protiv kamena",
+      "description": "Nerešeno je. Objavi to ispravno!"
+    },
+    "rockVsScissors": {
+      "name": "Kamen protiv makaza",
+      "description": "Yukijev kamen pobeđuje Andove makaze. Objavi Yukija kao pobednika."
+    },
+    "scissorsVsPaper": {
+      "name": "Makaze protiv papira",
+      "description": "Yukijeve makaze pobeđuju Andov papir. Objavi Yukija kao pobednika."
+    },
+    "scissorsVsRock": {
+      "name": "Makaze protiv kamena",
+      "description": "Andov kamen pobeđuje Yukijeve makaze. Objavi Anda kao pobednika."
+    },
+    "scissorsVsScissors": {
+      "name": "Makaze protiv makaza",
+      "description": "Nerešeno je. Objavi to ispravno!"
+    }
+  },
+  "hints": {
+    "howToStart": {
+      "question": "Kako da počnem?",
+      "answer": "Uzmi Yukijev i Andov izbor pomoću dostupnih funkcija i sačuvaj ih u promenljive, da možeš da ih uporediš."
+    },
+    "simplestCase": {
+      "question": "Koji je najjednostavniji slučaj za početak?",
+      "answer": "Nerešeno. Ako su oba izbora jednaka, možeš odmah da objaviš nerešeno i preskočiš ostalo."
+    },
+    "checkCombination": {
+      "question": "Kako da proverim određenu pobedničku kombinaciju?",
+      "answer": "Koristi `&&` (i) da spojiš dva uslova koja oba moraju biti tačna, npr. „Yuki je izabrao kamen I Ando je izabrao makaze” znači da Yuki pobeđuje."
+    },
+    "shorterWay": {
+      "question": "Nakupilo mi se mnogo `if` naredbi. Postoji li kraći način?",
+      "answer": "Podrazumevano postavi rezultat na pobedu jednog igrača, pa proveri samo tri kombinacije u kojima pobeđuje drugi igrač. Time otprilike prepoloviš broj slučajeva."
+    },
+    "invalidChoice": {
+      "question": "Šta ako igrač unese nešto što nije papir, kamen ili makaze?",
+      "answer": "O tome ovde ne moraš da brineš. Dostupne funkcije uvek vraćaju samo jedan od tri važeća izbora."
+    }
+  },
+  "functions": {
+    "getYukiChoice": {
+      "description": "Vraća Yukijev izbor: `\"rock\"`, `\"paper\"` ili `\"scissors\"`.",
+      "category": "Igra"
+    },
+    "getAndoChoice": {
+      "description": "Vraća Andov izbor: `\"rock\"`, `\"paper\"` ili `\"scissors\"`.",
+      "category": "Igra"
+    },
+    "announceResult": {
+      "description": "Objavljuje rezultat igre. Prosledi `\"Yuki\"`, `\"Ando\"` ili `\"tie\"`.",
+      "category": "Igra"
+    }
+  }
+}

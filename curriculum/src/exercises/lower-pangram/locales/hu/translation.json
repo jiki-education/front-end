@@ -1,64 +1,64 @@
 {
   "checks": {
-    "noNestedLoops": "Try not to put one loop inside another. Move the search for a single letter into its own function, then call it from <code>isPangram</code>.",
-    "tooManyLines": "Almost! See if you can solve it in fewer lines by leaning on your helper function."
+    "noNestedLoops": "Próbáld meg ne egymásba ágyazni a ciklusokat. A keresést egyetlen betűre helyezd át egy saját függvénybe, majd hívd meg az <code>isPangram</code>-ból.",
+    "tooManyLines": "Majdnem! Próbáld meg kevesebb sorban megoldani a segédfüggvényed segítségével."
   },
   "tasks": {
     "checkLowerPangram": {
-      "name": "Check Lower Pangram",
-      "description": "Write a function that checks whether a lowercase sentence contains every letter of the alphabet. Have it call a small helper function to do the per-letter search."
+      "name": "Kisbetűs pangramma ellenőrzése",
+      "description": "Írj egy függvényt, amely ellenőrzi, hogy egy kisbetűs mondat tartalmazza-e az ábécé összes betűjét. Használj egy kis segédfüggvényt a betűnkénti kereséshez."
     },
     "decomposeTightly": {
-      "name": "Solve it in 16 lines",
-      "description": "Bonus: with the search pulled out into a helper, the whole solution fits in 16 lines. Can you match it?"
+      "name": "Oldd meg 16 sorban",
+      "description": "Bónusz: ha a keresést külön segédfüggvénybe szervezed ki, a teljes megoldás 16 sorba fér. Meg tudod csinálni?"
     }
   },
   "scenarios": {
     "lowerPangramEmpty": {
-      "name": "Empty sentence",
-      "description": "An empty sentence is not a pangram."
+      "name": "Üres mondat",
+      "description": "Az üres mondat nem pangramma."
     },
     "lowerPangramFullAlphabet": {
-      "name": "Full lowercase alphabet",
-      "description": "The complete lowercase alphabet is a pangram."
+      "name": "Teljes kisbetűs ábécé",
+      "description": "A teljes kisbetűs ábécé pangramma."
     },
     "lowerPangramClassic": {
-      "name": "Classic pangram",
-      "description": "The classic pangram sentence contains all 26 letters."
+      "name": "Klasszikus pangramma",
+      "description": "A klasszikus pangramma-mondat mind a 26 betűt tartalmazza."
     },
     "lowerPangramMissingX": {
-      "name": "Missing letter 'x'",
-      "description": "A sentence missing the letter 'x' is not a pangram."
+      "name": "Hiányzó „x” betű",
+      "description": "Az a mondat, amelyből hiányzik az „x” betű, nem pangramma."
     },
     "lowerPangramMissingH": {
-      "name": "Missing letter 'h'",
-      "description": "A sentence missing the letter 'h' is not a pangram."
+      "name": "Hiányzó „h” betű",
+      "description": "Az a mondat, amelyből hiányzik a „h” betű, nem pangramma."
     },
     "lowerPangramWithUnderscores": {
-      "name": "With underscores",
-      "description": "A pangram with underscores instead of spaces."
+      "name": "Aláhúzásjelekkel",
+      "description": "Pangramma aláhúzásjelekkel szóközök helyett."
     },
     "lowerPangramWithNumbers": {
-      "name": "With numbers",
-      "description": "A pangram with numbers included."
+      "name": "Számokkal",
+      "description": "Pangramma számokkal."
     },
     "lowerPangramNumbersReplacingLetters": {
-      "name": "Numbers replacing letters",
-      "description": "A sentence where letters are replaced by numbers is not a pangram."
+      "name": "Betűk helyett számok",
+      "description": "Az a mondat, ahol a betűket számok helyettesítik, nem pangramma."
     },
     "lowerPangramBonusLineCount": {
-      "name": "Tight and tidy",
-      "description": "The complete solution fits in 16 lines when the search lives in its own function."
+      "name": "Kompakt és tiszta",
+      "description": "A teljes megoldás 16 sorba fér, ha a keresés saját függvényben van."
     }
   },
   "hints": {
     "whereToStart": {
-      "question": "Where do I start?",
-      "answer": "You need to check whether every letter of the alphabet is in the string. So you're going to need to do some looping and comparing."
+      "question": "Hol kezdjem?",
+      "answer": "Azt kell ellenőrizned, hogy az ábécé minden betűje benne van-e a stringben. Tehát ciklusokra és összehasonlításokra lesz szükséged."
     },
     "checkEveryLetter": {
-      "question": "How do I check that every letter of the alphabet is there?",
-      "answer": "Loop through `\"abcdefghijklmnopqrstuvwxyz\"`, one letter at a time. For each letter, check whether the sentence contains it."
+      "question": "Hogyan ellenőrizhetem, hogy az ábécé minden betűje benne van-e?",
+      "answer": "Menj végig az „abcdefghijklmnopqrstuvwxyz” stringen egy ciklussal, betűről betűre. Minden betűre ellenőrizd, hogy a mondat tartalmazza-e."
     },
     "avoidNestedLoops": {
       "question": "How do I do this without nesting loops?",

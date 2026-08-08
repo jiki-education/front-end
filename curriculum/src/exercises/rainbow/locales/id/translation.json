@@ -1,0 +1,46 @@
+{
+  "checks": {
+    "firstRectangle": "Persegi panjang pertama belum ada.",
+    "lastRectangle": "Persegi panjang terakhir belum ada.",
+    "minSaturationLightness": "Semua persegi panjang harus memiliki saturasi dan kecerahan minimal 20.",
+    "uniqueColors": "Belum ada 100 persegi panjang dengan warna yang berbeda-beda.",
+    "hueRed": "Harus ada persegi panjang dengan hue mendekati 0 (merah).",
+    "huePurple": "Harus ada persegi panjang dengan hue mendekati 300 (ungu)."
+  },
+  "tasks": {
+    "drawRainbow": {
+      "name": "Gambar pelangi",
+      "description": "Gambar 100 batang vertikal di sepanjang kanvas, masing-masing dengan hue yang berbeda untuk menciptakan efek pelangi."
+    }
+  },
+  "scenarios": {
+    "drawRainbow": {
+      "name": "Gambar pelangi",
+      "description": "Lukis 100 persegi panjang yang indah untuk menciptakan pelangi."
+    }
+  },
+  "hints": {
+    "hundredRectangles": {
+      "question": "Apakah saya harus menggambar 100 persegi panjang yang berbeda?",
+      "answer": "Ya, tapi bukan dengan menulis `rectangle(...)` sebanyak 100 kali! Pikirkan apa yang kita lakukan saat menemui kode yang berulang-ulang."
+    },
+    "colorIntoRectangle": {
+      "question": "Bagaimana cara memasukkan warna ke dalam persegi panjang",
+      "answer": "Fungsi `hsl(...)` mengembalikan sebuah string warna. Kamu bisa meneruskan string warna itu ke fungsi `rectangle(...)` seperti yang sudah kamu lakukan sebelumnya."
+    },
+    "hueRange": {
+      "question": "Bagaimana cara membuat hue berjalan dari 0 sampai 300?",
+      "answer": "Ada 100 garis, dan garis pertama harus memiliki hue 0. Lalu untuk setiap garis berikutnya, kita perlu menambah nilainya sedikit demi sedikit. Jadi garis kedua mungkin memiliki hue 3, garis ketiga hue 6, dan seterusnya. Pada akhirnya kita akan sampai di 300."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Gambar persegi panjang pada posisi (left, top) dengan lebar, tinggi, dan warna yang diberikan",
+      "category": "Menggambar bentuk"
+    },
+    "hsl": {
+      "description": "Ubah nilai warna HSL (hue 0-360, saturasi 0-100, kecerahan 0-100) menjadi sebuah string warna",
+      "category": "Warna"
+    }
+  }
+}

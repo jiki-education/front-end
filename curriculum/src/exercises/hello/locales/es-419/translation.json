@@ -1,0 +1,32 @@
+{
+  "tasks": {
+    "createSayHelloFunction": {
+      "name": "Crear la función sayHello",
+      "description": "Escribe una función sayHello que tome un nombre y devuelva un saludo en el formato 'Hello, [name]!'."
+    }
+  },
+  "scenarios": {
+    "helloAiko": {
+      "name": "Saludar a Aiko",
+      "description": "Devolver 'Hello, Aiko!'"
+    },
+    "helloPriya": {
+      "name": "Saludar a Priya",
+      "description": "Devolver 'Hello, Priya!'"
+    },
+    "helloMei": {
+      "name": "Saludar a Mei",
+      "description": "Devolver 'Hello, Mei!'"
+    }
+  },
+  "hints": {
+    "answerShape": {
+      "question": "¿Cuál es la estructura básica de la respuesta que estoy intentando construir?",
+      "answer": "Tres piezas unidas: el inicio fijo `\"Hello, \"`, luego el nombre, y luego el final fijo `\"!\"`."
+    },
+    "joinStrings": {
+      "question": "¿Cómo uno strings?",
+      "answer": "Usa la concatenación con `+`, o un template string con marcadores `${}`, para unir las tres piezas en un solo string."
+    }
+  }
+}

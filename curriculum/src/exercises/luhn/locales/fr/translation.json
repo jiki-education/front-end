@@ -1,0 +1,117 @@
+{
+  "tasks": {
+    "doubleAndSum": {
+      "name": "Double un chiffre sur deux puis additionne-les",
+      "description": "Écris une fonction appelée valid qui ignore les espaces, puis, en partant de la droite, double un chiffre sur deux (y soustraire 9 si le résultat est supérieur à 9), additionne ensuite tous les chiffres et renvoie true lorsque le total est divisible par 10."
+    },
+    "spotInvalidNumbers": {
+      "name": "Repérer les numéros invalides",
+      "description": "Les numéros dont tous les chiffres sont valides mais dont la somme de contrôle n'est pas divisible par 10 doivent renvoyer false."
+    },
+    "rejectBadInput": {
+      "name": "Rejeter les entrées incorrectes",
+      "description": "Rejette les strings d'un seul caractère ou moins, ainsi que toutes les strings contenant un caractère qui n'est ni un chiffre ni un espace."
+    }
+  },
+  "scenarios": {
+    "luhnSimpleValid": {
+      "name": "Un numéro valide simple",
+      "description": "Un numéro valide doit renvoyer true."
+    },
+    "luhnValidTwoDigit": {
+      "name": "Numéro valide à deux chiffres",
+      "description": "Un numéro valide à deux chiffres doit renvoyer true."
+    },
+    "luhnValidCanadianSin": {
+      "name": "Numéro d'assurance sociale canadien valide",
+      "description": "Un numéro valide contenant des espaces doit renvoyer true."
+    },
+    "luhnValidEvenDigits": {
+      "name": "Numéro valide avec un nombre pair de chiffres",
+      "description": "Un numéro valide avec un nombre pair de chiffres doit renvoyer true."
+    },
+    "luhnValidVeryLong": {
+      "name": "Numéro très long",
+      "description": "Un très long numéro valide doit quand même renvoyer true."
+    },
+    "luhnInvalidCanadianSin": {
+      "name": "Numéro d'assurance sociale canadien invalide",
+      "description": "Un numéro dont la somme de contrôle échoue doit renvoyer false."
+    },
+    "luhnInvalidCreditCard": {
+      "name": "Carte bancaire invalide",
+      "description": "Un numéro de carte bancaire invalide doit renvoyer false."
+    },
+    "luhnInvalidLongRemainderDiv5": {
+      "name": "Long numéro invalide avec un reste divisible par 5",
+      "description": "Un long numéro dont le total est divisible par 5 mais pas par 10 doit renvoyer false."
+    },
+    "luhnSingleDigit": {
+      "name": "Un chiffre unique est invalide",
+      "description": "Une string d'un seul chiffre ne peut jamais être valide."
+    },
+    "luhnZeroWithSpace": {
+      "name": "Un unique zéro avec un espace",
+      "description": "Un unique zéro accompagné d'un espace est invalide, car il ne reste plus qu'un seul chiffre une fois les espaces ignorés."
+    },
+    "luhnTrailingLetter": {
+      "name": "Une lettre à la fin",
+      "description": "Un numéro valide auquel on ajoute un caractère non numérique à la fin devient invalide."
+    },
+    "luhnColon": {
+      "name": "Caractère deux-points",
+      "description": "Le deux-points vaut un de moins que le caractère '0' et ne doit pas être traité comme un chiffre."
+    },
+    "luhnPercent": {
+      "name": "Caractère pourcentage au milieu",
+      "description": "Un caractère qui n'est ni un chiffre ni un espace au milieu rend le numéro invalide, même quand la somme de ces chiffres est un multiple de 10."
+    }
+  },
+  "hints": {
+    "whatIsLuhn": {
+      "question": "Comment fonctionne la vérification de Luhn, concrètement ?",
+      "answer": "Ignore d'abord les espaces. Ensuite, en partant du chiffre le plus à droite et en allant vers la gauche, double un chiffre sur deux. Si un chiffre doublé dépasse 9, soustrais-lui 9. Additionne tous les chiffres obtenus. Si ce total est divisible par 10, le numéro est valide."
+    },
+    "stripSpaces": {
+      "question": "Que faire des espaces ?",
+      "answer": "Les espaces ne sont là que pour faciliter la lecture. Ignore-les avec `continue` pour qu'ils ne comptent pas comme des chiffres et ne décalent pas les positions des vrais chiffres."
+    },
+    "rejectNonDigits": {
+      "question": "Comment rejeter les caractères invalides ?",
+      "answer": "En examinant chaque caractère, s'il n'est ni un espace ni l'un des caractères `0123456789`, tu peux immédiatement renvoyer `false`. Une vérification pratique est `\"0123456789\".includes(char)`."
+    },
+    "everySecondDigit": {
+      "question": "Quels chiffres dois-je doubler ?",
+      "answer": "Un sur deux. Il est plus simple de construire d'abord une string propre ne contenant que les chiffres, puis de la parcourir avec un indice pour connaître la position de chaque chiffre."
+    },
+    "fromTheRight": {
+      "question": "Mais je dois compter depuis la droite, pas depuis la gauche.",
+      "answer": "Si ta string de chiffres propre a une longueur `len` et que tu es à l'indice `i` (en comptant depuis 0 à gauche), alors sa distance depuis la droite est `len - 1 - i`. Double le chiffre chaque fois que cette distance est impaire."
+    },
+    "doublingOverNine": {
+      "question": "Que se passe-t-il quand le doublement donne un nombre à deux chiffres ?",
+      "answer": "Si le doublement rend le chiffre supérieur à 9, soustrais-lui 9. Par exemple, 6 doublé donne 12, et 12 - 9 = 3. (Cela donne le même résultat que d'additionner les deux chiffres.)"
+    },
+    "finalCheck": {
+      "question": "Quel est le dernier contrôle de validité ?",
+      "answer": "Additionne chaque chiffre (doublé ou non) et vérifie si le total est divisible par 10, c'est-à-dire `total % 10 === 0`. N'oublie pas de rejeter aussi les strings qui ont un chiffre ou moins."
+    }
+  },
+  "checks": {
+    "mustUseFor": "Tu y es presque ! Cet exercice est à résoudre avec une boucle `for`."
+  },
+  "functions": {
+    "number": {
+      "description": "Convertir une string contenant un chiffre en nombre",
+      "category": "Conversion de type"
+    },
+    "includes": {
+      "description": "Vérifier si une string contient une string plus petite",
+      "category": "Opérations sur les strings"
+    },
+    "length": {
+      "description": "Le nombre de caractères dans une string",
+      "category": "Opérations sur les strings"
+    }
+  }
+}

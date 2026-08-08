@@ -1,36 +1,37 @@
 ---
-title: "Checkerboard"
-description: "Draw a checkerboard of any size and set it up for a game, deriving every position from the board size."
+title: "Dámatábla"
+description: "Rajzolj egy tetszőleges méretű dámatáblát, és készítsd elő a bábukat egy játékra, minden pozíciót a tábla méretéből származtatva."
+en_md5: 1669c45c882ce94e16651bfc2d77a172
 ---
 
-In this project you'll draw a checkerboard and set up the pieces on it, ready for a game of draughts (also known as checkers).
+Ebben a projektben egy dámatáblát rajzolsz, és elhelyezed rajta a bábukat, előkészítve egy dáma (vagy angolul checkers) játékot.
 
-Your code needs to work for **any board size**. We've given you three sample boards to try. One puzzle uses the classic 8x8 board, another a smaller 6x6, another a larger 10x10. You can use `getBoardSize()` to find out how many squares wide and tall the board is this time (the boards are always square).
+A kódodnak **bármilyen táblaméretre** működnie kell. Három mintatáblát adtunk neked kipróbálásra. Az egyik feladvány a klasszikus 8×8-as táblát használja, a másik egy kisebb 6×6-ost, a harmadik egy nagyobb 10×10-est. A `getBoardSize()` (táblaméret lekérése) segítségével megtudhatod, hogy hány négyzet széles és magas a tábla éppen (a táblák mindig négyzet alakúak).
 
 <div style="display: flex; gap: 8px; margin: 12px 0;">
-  <img src="/static/images/exercise-assets/checkerboard/board-6.svg" alt="6x6 checkerboard" style="width: 33.333%; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);" />
-  <img src="/static/images/exercise-assets/checkerboard/board-8.svg" alt="8x8 checkerboard" style="width: 33.333%; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);" />
-  <img src="/static/images/exercise-assets/checkerboard/board-10.svg" alt="10x10 checkerboard" style="width: 33.333%; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);" />
+  <img src="/static/images/exercise-assets/checkerboard/board-6.svg" alt="6×6-os dámatábla" style="width: 33.333%; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);" />
+  <img src="/static/images/exercise-assets/checkerboard/board-8.svg" alt="8×8-os dámatábla" style="width: 33.333%; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);" />
+  <img src="/static/images/exercise-assets/checkerboard/board-10.svg" alt="10×10-os dámatábla" style="width: 33.333%; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);" />
 </div>
 
-### The Board
+### A tábla
 
-As normal, the canvas is always `100` wide and `100` tall. Follow these two rules:
+Ahogy szoktuk, a vászon mindig `100` széles és `100` magas. Kövesd ezt a két szabályt:
 
-- The board has a `"black"` border around the edge that has a width of `2`.
-- The squares should alternate between `"dark brown"` and `"white"`, sharing the space inside the border neatly. The bottom-left square is always dark brown, not white.
+- A tábla szélén egy `"black"` színű, `2` vastagságú szegély fut körbe.
+- A négyzetek felváltva `"dark brown"` és `"white"` színűek legyenek, egyenletesen kitöltve a szegélyen belüli területet. A bal alsó négyzet mindig dark brown, és nem white.
 
-### The pieces
+### A bábuk
 
-- Each piece lives in the center of a square.
-- The pieces are ridged circles, with an outer border and an inner color:
-  - The full piece is 80% as wide as the square.
-  - The inner circle is 75% as wide as the full piece.
-- The rows at the **top** of the board get `"charcoal"` pieces (each with a `"black"` rim).
-- The rows at the **bottom** get `"white"` pieces (each with a `"grey"` rim).
-- Pieces only ever sit on the **dark** squares.
-- The **middle two rows** are always left empty. All the other rows have pieces on.
+- Minden bábu egy négyzet közepén helyezkedik el.
+- A bábuk bordázott körök, külső peremmel és belső színnel:
+  - A teljes bábu szélessége a négyzet szélességének 80%-a.
+  - A belső kör szélessége a teljes bábu szélességének 75%-a.
+- A tábla **tetején** lévő sorok `"charcoal"` színű bábukat kapnak (mindegyik `"black"` peremmel).
+- A tábla **alján** lévő sorok `"white"` színű bábukat kapnak (mindegyik `"grey"` peremmel).
+- A bábuk kizárólag a **sötét** négyzeteken állnak.
+- A **középső két sor** mindig üresen marad. Az összes többi sorban vannak bábuk.
 
-## Think relationally
+## Gondolkodj arányokban
 
-The heart of this exercise is to **never hardcode** the sizes and positions. Work out a single "cell" size from the board size, then build every square and every piece from it. Get it right and the exact same code will draw a small 6x6 board and a larger 10x10 one without changing a single number.
+Ennek a feladatnak a lényege, hogy **soha ne égetj be** méreteket és pozíciókat. Számold ki egyetlen cella méretét a tábla méretéből, majd ebből építsd fel az összes négyzetet és bábut. Ha jól csinálod, ugyanaz a kód egy kis 6×6-os táblát és egy nagyobb 10×10-est is kirajzol, anélkül hogy egyetlen számot is át kellene írnod.

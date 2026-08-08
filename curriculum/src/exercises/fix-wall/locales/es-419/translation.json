@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "topHole": "El agujero superior no está rellenado correctamente.",
+    "middleHole": "El agujero del medio no está rellenado correctamente.",
+    "bottomHole": "El agujero inferior no está rellenado correctamente."
+  },
+  "tasks": {
+    "fillHoles": {
+      "name": "Rellena los agujeros del muro",
+      "description": "Cubre cada agujero con un rectángulo usando la función `rectangle`."
+    }
+  },
+  "scenarios": {
+    "fillHoles": {
+      "name": "Rellena los agujeros",
+      "description": "Cubre cada agujero con un rectángulo."
+    }
+  },
+  "hints": {
+    "howToDrawBricks": {
+      "question": "¿Cómo dibujo los ladrillos?",
+      "answer": "Dibuja un rectángulo que cubra cada agujero. Revisa las instrucciones para obtener información sobre los diferentes argumentos que espera la función `rectangle`."
+    },
+    "holeSizes": {
+      "question": "¿Qué tamaño tienen los agujeros?",
+      "answer": "Pasa el cursor sobre el lienzo para medir cada espacio. Todos los números son divisibles por 10."
+    },
+    "holeSizesReally": {
+      "question": "No, en serio, ¿qué tamaño tienen los agujeros?",
+      "answer": "Cada agujero mide 20 de ancho y 10 de altura."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dibuja un rectángulo en la posición (left, top) con el ancho y la altura dados.",
+      "category": "Dibujar formas"
+    }
+  }
+}

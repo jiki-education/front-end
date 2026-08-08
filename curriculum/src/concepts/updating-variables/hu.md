@@ -1,12 +1,12 @@
 ---
 title: "Változók frissítése"
 description: "Változtasd meg a változó tartalmát a program futása közben, hogy pozíciókat, darabszámokat, pontszámokat és más, menet közben változó értékeket követhess nyomon."
-en_md5: 4c9cc825501564f654a5c442de6f1779
+en_md5: f9b2fbb6bfd82a620b093e88951ff841
 ---
 
 Eddig, amikor változókat hoztunk létre, értékeket tettünk dobozokba, és később kivettük őket. Ez nagyon hasznos volt: átláthatóbb lett tőle a kód, és megspórolt nekünk egy csomó fejszámolást. A változók igazi ereje viszont abban rejlik, hogy a program futása közben meg tudjuk változtatni, mi van a dobozban, mi van a változóban. Így hiába futtatjuk ugyanazt a kódrészletet többször, mindig mást csinálhat attól függően, hogy éppen mi van a dobozokban.
 
-Tegyük fel, hogy virágot szeretnénk ültetni egy kertbe. Van egy praktikus `plant` (ültet) függvényünk, amelynek egyetlen bemenete van: a pozíció, ahová a virágot tenni szeretnénk. Ha tehát a szélétől 10-re szeretnénk virágot ültetni, azt írjuk: `plant(10)`. Szép és egyszerű.
+Tegyük fel, hogy virágot szeretnénk ültetni egy kertbe. Van egy praktikus `plant` (ültet) függvényünk, amelynek egyetlen bemenete van: a pozíció, ahová a virágot tenni szeretnénk. Ha tehát a szélétől 10-re szeretnénk virágot ültetni, azt írjuk: `plant(10)`.
 
 ```javascript
 plant(10)
@@ -45,11 +45,11 @@ Nos, nyolc virágot fog ültetni, csakhogy mindet ugyanarra a helyre, ami nem ig
 
 Arra van tehát szükségünk, hogy minden alkalommal egy kicsit odébb lépjünk. Miután elültettünk egy virágot, azt szeretnénk mondani Jikinek, hogy vigye odébb a pozíciót 10-zel, hogy készen álljon a következő virág ültetésére.
 
-Felejtsük el egy pillanatra a kódot: logikailag hogyan néz ki mindez? Ha azt mondom neked: „Ültesd az első virágot 10-hez, a következőt 20-hoz, az utána következőt 30-hoz", honnan tudja az agyad, hogy a következőt 40-hez kell ültetni, az azt követőt pedig 50-hez?
+Felejtsük el egy pillanatra a kódot: logikailag hogyan néz ki mindez? Ha azt mondom neked: „Ültesd az első virágot 10-hez, a következőt 20-hoz, az utána következőt 30-hoz”, honnan tudja az agyad, hogy a következőt 40-hez kell ültetni, az azt követőt pedig 50-hez?
 
 Az agyad azt csinálja, hogy észben tartja az aktuális számot, hozzáad 10-et, majd frissíti ezt a számot a fejedben.
 
-És pontosan ugyanezt megtehetjük kódban is. Ehhez azt mondjuk: „Frissítsd (_update_ angolul) a position dobozt úgy, hogy az aktuális pozícióérték plusz 10 legyen benne."
+És pontosan ugyanezt megtehetjük kódban is. Ehhez azt mondjuk: „Frissítsd (_update_ angolul) a position dobozt úgy, hogy az aktuális pozícióérték plusz 10 legyen benne.”
 
 Amikor Jiki ezt meglátja, kiveszi az aktuális számot a position dobozból, hozzáad 10-et, elvégzi a matekot, összeadja a kettőt, majd az eredményt visszateszi a dobozba a következő alkalomra.
 
@@ -65,7 +65,7 @@ position = position + 10
   height="400"
 />
 
-Ha ezt beépítjük a programunkba, vagyis azt mondjuk: „A pozíció kezdőértéke legyen 10", aztán nyolcszor ültetünk egy virágot a pozíciónál, majd a pozíciót 10-zel nagyobbra állítjuk, mint előtte volt, a kódunk működik, és nyolc, szépen elosztott virágot kapunk.
+Ha ezt beépítjük a programunkba, vagyis azt mondjuk: „A pozíció kezdőértéke legyen 10”, aztán nyolcszor ültetünk egy virágot a pozíciónál, majd a pozíciót 10-zel nagyobbra állítjuk, mint előtte volt, a kódunk működik, és nyolc, szépen elosztott virágot kapunk.
 
 Figyeld meg, hogy nincs `let` (legyen), amikor a változót frissítjük. Ez nagyon fontos. Amikor Jiki egy `let`-et lát, új dobozt készít. Itt viszont nem új dobozt akarunk készíteni, hanem azt akarjuk megváltoztatni, ami a már meglévő dobozunkban van.
 

@@ -1,14 +1,15 @@
 ---
-title: "Battle Procedures"
-description: "Extract your shooting logic into a reusable function."
+title: "Harci eljárások"
+description: "Vond ki a lövési logikádat egy újrahasználható függvénybe."
+en_md5: 3f2bb9c8622396d8ee591087d949c3de
 ---
 
-In the last level, you worked out how to move a laser cannon back and forth, shooting down aliens. We've brought your solution over for you to continue on;
+Az előző szinten rájöttél, hogyan mozgasd a lézerágyút ide-oda, lelőve az űrlényeket. Áthoztuk a megoldásodat, hogy folytathasd;
 
-The previous code worked, but the shooting logic was mixed in with everything else. As you get better at coding, one of the things that will make you succeed is breaking your code into small chunks that each do one thing.
+Az előző kód működött, de a lövési logika össze volt keverve minden mással. Ahogy egyre jobb leszel a programozásban, a siker egyik kulcsa, hogy a kódodat kis, egy-egy dolgot csináló darabokra bontod.
 
-In this exercise, you need to extract the shooting logic into its own function called `shootIfAlienAbove`. This function has the responsibility of checking if there's an alien above the laser cannon and, if so, shooting it down.
+Ebben a feladatban ki kell szervezned a lövési logikát egy saját függvénybe, amit így hívunk: `shootIfAlienAbove` (lőj, ha űrlény van fölötte). Ennek a függvénynek az a feladata, hogy ellenőrizze, van-e űrlény a lézerágyú fölött, és ha igen, lője le.
 
-The rest of the game logic (tracking position, changing direction at boundaries, moving the laser) stays in the loop as before.
+A játéklogika többi része (a pozíció követése, irányváltás a széleken, a lézer mozgatása) ugyanúgy a ciklusban marad, mint eddig.
 
-Create your `shootIfAlienAbove` function, then use it inside the loop alongside the movement logic.
+Hozd létre a `shootIfAlienAbove` függvényt, majd használd a ciklusban a mozgatási logikával együtt.

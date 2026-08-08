@@ -1,0 +1,56 @@
+{
+  "checks": {
+    "age25NotLetIn": "顾客 25 岁，本应被允许进入，但没有。",
+    "age18LetIn": "顾客 18 岁，本不应被允许进入，但被允许进入了。",
+    "age21NotLetIn": "顾客 21 岁，本应被允许进入，但没有。",
+    "age20LetIn": "顾客正好 20 岁，没有超过 20 岁，所以不应该被允许进入，但却被允许了。"
+  },
+  "tasks": {
+    "checkAge": {
+      "name": "检查顾客的年龄",
+      "description": "获取顾客的年龄，并检查是否超过 20 岁。如果超过，就允许他们进入。"
+    }
+  },
+  "scenarios": {
+    "age25": {
+      "name": "25 岁",
+      "description": "顾客 25 岁，应该被允许进入。"
+    },
+    "age18": {
+      "name": "18 岁",
+      "description": "顾客 18 岁，不应该被允许进入。"
+    },
+    "age21": {
+      "name": "21 岁",
+      "description": "顾客 21 岁，刚超过 20 岁，应该被允许进入。"
+    },
+    "age20": {
+      "name": "20 岁",
+      "description": "顾客正好 20 岁，没有超过 20 岁，所以不应该被允许进入。"
+    }
+  },
+  "hints": {
+    "askAge": {
+      "question": "如何知道他们的年龄？",
+      "answer": "使用`askAge()`函数。它会在每个场景中返回不同的值。"
+    },
+    "ifStatement": {
+      "question": "如何根据年龄采取不同行动？",
+      "answer": "使用`if`语句——如果需要更多帮助，请查看相关概念！"
+    }
+  },
+  "describers": {
+    "askAge": "询问了顾客的年龄",
+    "letIn": "允许顾客进入"
+  },
+  "functions": {
+    "askAge": {
+      "description": "返回在外面等待的顾客的**年龄**。",
+      "category": "信息"
+    },
+    "letIn": {
+      "description": "允许顾客进入。",
+      "category": "操作"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "checks": {
+    "bottomLeft": "El rectángulo inferior izquierdo no es correcto.",
+    "bottomRight": "El rectángulo inferior derecho no es correcto.",
+    "secondRowFirst": "El primer rectángulo de la segunda fila desde abajo no es correcto.",
+    "secondRowLast": "El último rectángulo de la segunda fila desde abajo no es correcto.",
+    "thirdRowMiddle": "El rectángulo del medio de la tercera fila desde abajo no es correcto.",
+    "fourthRowMiddle": "Uno de los rectángulos del medio de la cuarta fila desde abajo no es correcto.",
+    "topLeft": "El rectángulo superior izquierdo no es correcto.",
+    "topRight": "El rectángulo superior derecho no es correcto.",
+    "brickCount": "El muro debe tener exactamente 55 ladrillos.",
+    "codeQuality": {
+      "rectangleCalledOnce": "Estás usando la función <code>rectangle</code> en varios lugares de tu código. ¡Solo debería aparecer una vez!"
+    }
+  },
+  "tasks": {
+    "buildWall": {
+      "name": "Construye el muro",
+      "description": "Construye un muro completo de 55 ladrillos usando bucles anidados."
+    }
+  },
+  "scenarios": {
+    "buildWall": {
+      "name": "Construye un muro de 55 ladrillos",
+      "description": "Crea un patrón de muro de ladrillos completo usando bucles anidados."
+    }
+  },
+  "hints": {
+    "onlyOneRectangleCall": {
+      "question": "Solo puedo llamar a `rectangle` una vez. ¿Cómo dibujo 55 ladrillos?",
+      "answer": "Coloca la única llamada a `rectangle` dentro de un bucle. Cada iteración cambia x e y para que se dibuje un nuevo ladrillo en un lugar nuevo."
+    },
+    "wholeGrid": {
+      "question": "¿Cómo dibujo una cuadrícula completa en lugar de una sola fila?",
+      "answer": "Usa bucles anidados. El bucle exterior recorre las filas (cambiando y), y el bucle interior recorre los ladrillos de esa fila (cambiando x)."
+    },
+    "offsetRows": {
+      "question": "¿Cómo manejo que las filas estén desplazadas de forma diferente?",
+      "answer": "Observa bien la imagen. Cada dos filas está desplazada hacia un lado y tiene un número diferente de ladrillos. Entonces, vas a querer manejar los dos tipos de fila de manera diferente, eligiendo una posición inicial y una cantidad de ladrillos para cada una."
+    },
+    "oddEven": {
+      "question": "¿Cómo sé si el número de una fila es par o impar?",
+      "answer": "El operador `%` (residuo) te da el resto de la división. Dividir el número de fila por 2 te da una manera de distinguir las filas impares de las pares, lo que luego puedes probar dentro de un `if`."
+    },
+    "sizesAndSpacings": {
+      "question": "¿Qué tamaños y espaciados uso?",
+      "answer": "Cada ladrillo mide `20` de ancho y `10` de alto, por lo que x aumenta en `20` entre ladrillos en una fila, e y cambia en `10` entre filas."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dibuja un rectángulo en la posición (izquierda, arriba) con el ancho, alto y color dados.",
+      "category": "Dibujar formas"
+    }
+  }
+}

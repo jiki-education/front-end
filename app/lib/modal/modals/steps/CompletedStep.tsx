@@ -81,20 +81,14 @@ function CompletionMessage({
   exerciseTitle: string;
 }) {
   const t = useTranslations("modals.exerciseCompletion.completed");
-  const greatWork = t("greatWork", { title: exerciseTitle });
-
   if (isChallenge) {
-    return (
-      <p className={styles.modalMessage}>
-        {greatWork} {t("readyChallenge")}
-      </p>
-    );
+    return <p className={styles.modalMessage}>{t("messageChallenge", { title: exerciseTitle })}</p>;
   }
 
   if (outstandingBonusCount > 0) {
     return (
       <>
-        <p className={styles.modalMessage}>{greatWork}</p>
+        <p className={styles.modalMessage}>{t("greatWork", { title: exerciseTitle })}</p>
         <p className={styles.modalMessage}>
           {t.rich("bonusPrompt", {
             count: outstandingBonusCount,
@@ -105,11 +99,7 @@ function CompletionMessage({
     );
   }
 
-  return (
-    <p className={styles.modalMessage}>
-      {greatWork} {t("readyExercise")}
-    </p>
-  );
+  return <p className={styles.modalMessage}>{t("messageExercise", { title: exerciseTitle })}</p>;
 }
 
 function BonusActions({

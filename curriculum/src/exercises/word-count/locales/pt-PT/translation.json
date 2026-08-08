@@ -1,0 +1,94 @@
+{
+  "tasks": {
+    "basicWordCounting": {
+      "name": "Casos básicos",
+      "description": "Escreve uma função countWords que recebe uma frase e devolve um dicionário com cada palavra como chave e a sua frequência como valor. Trata espaços, vírgulas, pontuação e números."
+    },
+    "caseNormalization": {
+      "name": "Normalização de maiúsculas e minúsculas",
+      "description": "Garante que a tua função trata corretamente palavras com maiúsculas e minúsculas misturadas, considera os apóstrofos como parte das palavras e lida com espaços múltiplos."
+    },
+    "bonusApostrophes": {
+      "name": "Bónus: apóstrofos e citações",
+      "description": "Trata os casos especiais em que os apóstrofos são usados como aspas à volta das palavras, e não como parte de contrações. Só os apóstrofos no meio de uma palavra devem ser mantidos."
+    }
+  },
+  "scenarios": {
+    "wordCountSingleWord": {
+      "name": "Contar uma palavra",
+      "description": "Conta uma única palavra."
+    },
+    "wordCountMultipleUniqueWords": {
+      "name": "Contar uma de cada palavra",
+      "description": "Conta uma ocorrência de cada palavra numa frase."
+    },
+    "wordCountMultipleOccurrences": {
+      "name": "Várias ocorrências",
+      "description": "Conta várias ocorrências de uma palavra."
+    },
+    "wordCountCrampedList": {
+      "name": "Lista compacta",
+      "description": "Trata listas com formatação compacta."
+    },
+    "wordCountIgnorePunctuation": {
+      "name": "Ignorar a pontuação",
+      "description": "Ignora a pontuação ao contar as palavras."
+    },
+    "wordCountIncludeNumbers": {
+      "name": "Incluir números",
+      "description": "Conta as palavras e inclui os números."
+    },
+    "wordCountNormalizeCase": {
+      "name": "Normalizar maiúsculas e minúsculas",
+      "description": "Conta as palavras independentemente de serem maiúsculas ou minúsculas."
+    },
+    "wordCountWithApostrophes": {
+      "name": "Palavras com apóstrofos",
+      "description": "Trata corretamente palavras com apóstrofos."
+    },
+    "wordCountMultipleSpaces": {
+      "name": "Espaços múltiplos",
+      "description": "Trata corretamente os espaços múltiplos."
+    },
+    "wordCountWithApostrophesAndQuotations": {
+      "name": "Palavras com apóstrofos e citações",
+      "description": "Trata palavras com apóstrofos e citações."
+    },
+    "wordCountApostropheWordVariation": {
+      "name": "Variações de palavras com apóstrofos",
+      "description": "Conta corretamente variações de palavras com apóstrofos."
+    }
+  },
+  "hints": {
+    "caseInsensitive": {
+      "question": "Como faço para a contagem ignorar maiúsculas e minúsculas?",
+      "answer": "Converte a frase inteira para minúsculas logo no início. Assim, 'The' e 'the' passam ambos a 'the' e o teu dicionário conta-os em conjunto."
+    },
+    "splitWords": {
+      "question": "Como divido a frase em palavras?",
+      "answer": "Percorre cada caráter. Se for uma letra, um dígito ou um apóstrofo, faz parte da palavra atual, por isso acrescenta-o. Caso contrário (espaço, pontuação), a palavra terminou, por isso adiciona-a à tua lista de palavras e começa uma nova."
+    },
+    "countEachWord": {
+      "question": "Como conto cada palavra?",
+      "answer": "Usa um dicionário com as palavras como chaves. Para cada palavra, verifica se já existe como chave. Se sim, soma 1 à sua contagem. Se não, define-a como 1."
+    },
+    "checkKeyExists": {
+      "question": "Como verifico se uma chave já existe?",
+      "answer": "Usa `hasKey(dict, word)`. Devolve verdadeiro se essa palavra já estiver no dicionário."
+    }
+  },
+  "functions": {
+    "toLowerCase": {
+      "description": "Converte uma string para minúsculas (fornecida pela stdlib do nível)",
+      "category": "Operações com strings"
+    },
+    "push": {
+      "description": "Adiciona um elemento a uma lista e devolve a nova lista (fornecida pela stdlib do nível)",
+      "category": "Operações com listas"
+    },
+    "hasKey": {
+      "description": "Verifica se uma chave existe num dicionário; devolve verdadeiro ou falso (fornecida pela stdlib do nível)",
+      "category": "Operações com dicionários"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "checks": {
+    "base": "底座（底部的）圆形要么位置错误，要么大小错误。请检查 `baseRadius` 和 `baseY`。",
+    "body": "身体（中间的）圆形要么位置错误，要么大小错误。请检查 `bodyRadius` 和 `bodyY`。",
+    "head": "头部（顶部的）圆形要么位置错误，要么大小错误。请检查 `headRadius` 和 `headY`。",
+    "notResponsive": "当 `size` 为 {{size}} 时，你的代码没有正确缩放。每个半径和 y 坐标都应该从 `size` 推导出来。"
+  },
+  "tasks": {
+    "buildRelationalSnowman": {
+      "name": "搭建关联雪人",
+      "description": "从 `size` 推导出所有大小和位置，以便雪人能够正确缩放。"
+    }
+  },
+  "scenarios": {
+    "buildRelationalSnowman": {
+      "name": "搭建关联雪人",
+      "description": "从 `size` 推导出每个半径和 y 坐标。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "我应该从哪里开始？",
+      "answer": "从底座开始，因为它是唯一锚定在一个固定位置（画布底部）的圆形。一旦你知道了 `baseY`，你就可以把身体叠放在它上面，然后把头部叠放在身体上面。"
+    },
+    "baseSits": {
+      "question": "如何确定底座的位置？",
+      "answer": "底座的底边位于地面（Y=100）上方 `size` 处。底座圆心在其底边之上再往上一个底座半径的距离。"
+    },
+    "stackBody": {
+      "question": "如何把身体叠放在底座上？",
+      "answer": "当两个圆相切，其中一个直接位于另一个上方时，它们圆心之间的距离等于两个半径之和。"
+    },
+    "head": {
+      "question": "那头部呢？",
+      "answer": "头部与身体的关系，和身体与底座的关系完全一样。"
+    },
+    "whyDeriveFromSize": {
+      "question": "为什么所有内容都必须从 `size` 推导？",
+      "answer": "如果你直接写死一个数字，那么修改 `size` 会在圆之间留下间隙或造成重叠。使用公式能让所有部分保持比例。"
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "以 (centerX, centerY) 为圆心，用指定的半径和颜色画一个圆。",
+      "category": "绘制形状"
+    }
+  }
+}

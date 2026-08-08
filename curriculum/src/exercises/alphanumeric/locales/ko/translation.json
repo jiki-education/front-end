@@ -1,0 +1,67 @@
+{
+  "tasks": {
+    "classifyString": {
+      "name": "문자열 분류하기",
+      "description": "문자열이 알파벳, 숫자, 또는 영숫자인지 확인하는 헬퍼 함수를 작성하고, 이를 사용해 입력 문자열을 분류하세요."
+    },
+    "useContinue": {
+      "name": "continue 사용하기",
+      "description": "isAlphanumeric 확인에서, 문자가 알파벳이나 숫자이면 그대로 넘어가도 됩니다. 조건문을 중첩하지 말고, continue를 사용해 바로 다음 문자로 이동하세요."
+    }
+  },
+  "scenarios": {
+    "duck": {
+      "name": "Duck",
+      "description": "순수한 알파벳 문자열은 \"Alpha\"로 분류돼야 해요."
+    },
+    "number": {
+      "name": "42",
+      "description": "순수한 숫자 문자열은 \"Numeric\"으로 분류돼야 해요."
+    },
+    "alphanumeric": {
+      "name": "Duck42",
+      "description": "알파벳과 숫자가 모두 포함된 문자열은 \"Alphanumeric\"으로 분류돼야 해요."
+    },
+    "notAlphanumeric1": {
+      "name": "It's not 42!",
+      "description": "특수 문자가 포함된 문자열은 \"Unknown\"으로 분류돼야 해요."
+    },
+    "notAlphanumeric2": {
+      "name": "42 Rubber Duck!",
+      "description": "공백과 특수 문자가 포함된 문자열은 \"Unknown\"으로 분류돼야 해요."
+    },
+    "alphanumericUsesContinue": {
+      "name": "continue 사용",
+      "description": "여러분의 해결책이 제대로 작동하며, continue를 사용해 이미 확인된 문자는 건너뛰어요."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "여러 함수를 작성해야 할 때 어디서부터 시작해야 하나요?",
+      "answer": "가장 작은 헬퍼 함수부터 고르세요. 각 헬퍼 함수는 문자열의 문자들을 순회하며 각 문자에 대해 동일한 예/아니오 질문을 던집니다. 하나를 작동시키면 나머지도 같은 방식으로 따라 하면 됩니다."
+    },
+    "checkAllLetters": {
+      "question": "입력값의 모든 문자가 알파벳 문자인지 어떻게 확인하나요?",
+      "answer": "각 문자를 순회하며 알파벳에 포함되는지 확인하세요. 문자열의 `.includes()` 메서드가 바로 그 역할을 합니다: `\"...\".includes(char)`. 소문자와 대문자를 모두 포함해야 한다는 점을 잊지 마세요. 그렇지 않으면 \"Duck\"의 \"D\" 같은 대문자는 알파벳으로 인식되지 않습니다. 어떤 문자라도 알파벳에 포함되지 않으면, 전체가 알파벳이 아닙니다."
+    },
+    "checkAllDigits": {
+      "question": "숫자에 대해 동일한 확인을 어떻게 하나요?",
+      "answer": "완전히 동일한 방식으로, 알파벳 대신 `\"0123456789\"`를 기준으로 확인하면 됩니다."
+    },
+    "alphanumericMeaning": {
+      "question": "'영숫자'가 무슨 뜻인가요? 알파벳과 숫자 모두를 의미하나요?",
+      "answer": "영숫자는 각 문자가 알파벳 문자이거나 숫자임을 의미합니다. 따라서 각 문자에 대해, 알파벳이면 통과이고 숫자여도 통과입니다. `continue`를 사용해 건너뛰세요. 알파벳도 숫자도 아닐 때만 거부하면 됩니다."
+    },
+    "pickingLabels": {
+      "question": "whatAmI()에서 네 가지 레이블 중 어떻게 선택하나요?",
+      "answer": "세 헬퍼 함수를 모두 호출하고 if/else를 사용하세요. 순서가 중요합니다. 더 엄격한 경우('알파벳만', '숫자만')를 먼저 확인하고, 그다음에 덜 엄격한 '영숫자'를 확인하세요."
+    }
+  },
+  "checks": {
+    "mustUseContinue": "거의 다 왔어요! `continue`를 사용해 다음 문자로 건너뛰세요.",
+    "tooManyLines": "거의 다 왔어요! 해결책이 작동하지만, 조금 길어요.",
+    "useIsAlpha": "이 연습 문제에서는 `isAlpha()` 헬퍼 함수를 작성하고 이를 사용해 문자열을 분류해야 합니다.",
+    "useIsNumeric": "이 연습 문제에서는 `isNumeric()` 헬퍼 함수를 작성하고 이를 사용해 문자열을 분류해야 합니다.",
+    "useIsAlphanumeric": "이 연습 문제에서는 `isAlphanumeric()` 헬퍼 함수를 작성하고 이를 사용해 문자열을 분류해야 합니다."
+  }
+}

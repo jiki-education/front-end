@@ -1,18 +1,19 @@
 ---
-title: "Golf Shot Scenarios"
-description: "Roll a ball to the correct spot in different scenarios."
+title: "Golfütés-forgatókönyvek"
+description: "Gurítsd a labdát a megfelelő helyre különböző forgatókönyvekben."
+en_md5: 5dea6a4869e39840c7d3644f320a9fac
 ---
 
-Welcome to your first exercise with scenarios.
+Üdv az első forgatókönyves feladatodban!
 
-We're back at the golf course. In this exercise, you're going to build on the previous exercises but with a new twist. As before you need to move the ball using the `moveTo(x)` function, moving **one step at a time**, not just jumping it to the end. The ball **starts on the tee at position 28.**
+Újra a golfpályán vagyunk. Ebben a feladatban az előzőekre építkezel, de egy új csavarral. A labdát most is a `moveTo(x)` (adott pozícióra lépés) függvénnyel mozgatod, **lépésről lépésre**, nem ugrasztva át a végére. A labda **az elütőhelyen kezd, a 28. pozícióban.**
 
-What's new is that rather than moving a fixed amount, we're going to move a different amount depending on how far the golfer has hit the ball. To get the distance the golfer has hit the ball, you can use the `getShotLength()` function which returns a number.
+Az újdonság, hogy nem egy rögzített értékkel mozgunk, hanem attól függően, hogy a golfozó milyen messzire ütötte a labdát. A labda ütésének távolságát a `getShotLength()` (ütés hosszának lekérése) függvénnyel kaphatod meg, amely egy számot ad vissza.
 
-### Scenarios
+### Forgatókönyvek
 
-On the left, you'll notice four grey dots for the four different scenarios. **Clicking on each dot** shows you a different scenario - where `getShotLength()` will return a different number. If you click `"Run Code"`, you'll see they all go red.
+A bal oldalon négy szürke pontot látsz a négy különböző forgatókönyvhöz. **Mindegyik pontra kattintva** egy másik forgatókönyvet látsz – ahol a `getShotLength()` különböző számot ad vissza. Ha a `"Run Code"` gombra kattintasz, láthatod, hogy mind piros lesz.
 
-Your job is to write one program that works for all the different possible values that `getShotLength()` might return.
+A te feladatod, hogy írj egyetlen programot, amely működik a `getShotLength()` által visszaadott összes lehetséges értékre.
 
-Good luck and have fun!
+Sok szerencsét és jó szórakozást!

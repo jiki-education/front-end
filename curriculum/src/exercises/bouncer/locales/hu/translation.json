@@ -1,56 +1,56 @@
 {
   "checks": {
-    "age25NotLetIn": "The person is 25 — they should have been let in, but weren't.",
-    "age18LetIn": "The person is 18 — they should not have been let in, but were.",
-    "age21NotLetIn": "The person is 21 — they should have been let in, but weren't.",
-    "age20LetIn": "The person is exactly 20 — not over 20, so they should not have been let in, but were."
+    "age25NotLetIn": "A személy 25 éves — be kellett volna engedned, de nem tetted.",
+    "age18LetIn": "A személy 18 éves — nem kellett volna beengedned, de beengetted.",
+    "age21NotLetIn": "A személy 21 éves — be kellett volna engedned, de nem tetted.",
+    "age20LetIn": "A személy pontosan 20 éves — nem 20 év feletti, ezért nem kellett volna beengedned, de beengetted."
   },
   "tasks": {
     "checkAge": {
-      "name": "Check the person's age",
-      "description": "Get the person's age and check if they're over 20. If they are, let them in."
+      "name": "Ellenőrizd a személy korát",
+      "description": "Kérd le a személy korát, és ellenőrizd, hogy 20 év feletti-e. Ha igen, engedd be!"
     }
   },
   "scenarios": {
     "age25": {
-      "name": "Age 25",
-      "description": "The person is 25 years old — they should be let in."
+      "name": "25 éves",
+      "description": "A személy 25 éves — be kell engedned."
     },
     "age18": {
-      "name": "Age 18",
-      "description": "The person is 18 years old — they should not be let in."
+      "name": "18 éves",
+      "description": "A személy 18 éves — nem engedheted be."
     },
     "age21": {
-      "name": "Age 21",
-      "description": "The person is 21 years old — just above 20, they should be let in."
+      "name": "21 éves",
+      "description": "A személy 21 éves — éppen 20 év feletti, be kell engedned."
     },
     "age20": {
-      "name": "Age 20",
-      "description": "The person is exactly 20 — not over 20, so they should not be let in."
+      "name": "20 éves",
+      "description": "A személy pontosan 20 éves — nem 20 év feletti, ezért nem engedheted be."
     }
   },
   "hints": {
     "askAge": {
-      "question": "How do I know their age?",
-      "answer": "Use the `askAge()` function. It will return a different value in each scenario."
+      "question": "Hogyan tudhatom meg a korát?",
+      "answer": "Használd az `askAge()` függvényt. Minden forgatókönyvben más értéket ad vissza."
     },
     "ifStatement": {
-      "question": "How do I vary what I do?",
-      "answer": "Use an `if` statement - check the concept if you need more help!"
+      "question": "Hogyan változtathatom, hogy mit tegyek?",
+      "answer": "Használj egy `if` utasítást – nézd meg a fogalmat, ha több segítségre van szükséged!"
     }
   },
   "describers": {
-    "askAge": "asked the person's age",
-    "letIn": "let the person in"
+    "askAge": "lekérdezte a személy korát",
+    "letIn": "beengette a személyt"
   },
   "functions": {
     "askAge": {
-      "description": "Returns the **age** of the person waiting outside.",
-      "category": "Information"
+      "description": "Visszaadja a kint várakozó személy **korát**.",
+      "category": "Információ"
     },
     "letIn": {
-      "description": "Lets the person in.",
-      "category": "Action"
+      "description": "Beengedi a személyt.",
+      "category": "Művelet"
     }
   }
 }

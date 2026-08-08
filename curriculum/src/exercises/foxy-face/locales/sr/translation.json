@@ -1,0 +1,54 @@
+{
+  "checks": {
+    "leftCheek": "Levi obraz treba da bude beli trougao na pravom mestu.",
+    "rightCheek": "Desni obraz treba da bude beli trougao na pravom mestu.",
+    "leftEar": "Levo uho treba da bude braon trougao na pravom mestu.",
+    "rightEar": "Desno uho treba da bude braon trougao na pravom mestu.",
+    "leftFace": "Leva polovina lica treba da bude narandžasti trougao na pravom mestu.",
+    "rightFace": "Desna polovina lica treba da bude narandžasti trougao na pravom mestu.",
+    "nose": "Nos treba da se sastoji od dva charcoal trougla. Možeš ga podeliti gore/dole ili levo/desno.",
+    "leftFaceAboveEar": "Leva polovina lica treba da bude nacrtana **preko** levog uha.",
+    "rightFaceAboveEar": "Desna polovina lica treba da bude nacrtana **preko** desnog uha.",
+    "noseAboveFace": "Nos treba da stoji **preko** lica."
+  },
+  "tasks": {
+    "drawFox": {
+      "name": "Nacrtaj lisičje lice",
+      "description": "Koristi trouglove da napraviš geometrijsko lisičje lice na sivoj pozadini."
+    }
+  },
+  "scenarios": {
+    "drawFox": {
+      "name": "Nacrtaj lisičje lice",
+      "description": "Napravi geometrijsko lisičje lice koristeći trouglove."
+    }
+  },
+  "hints": {
+    "callTriangle": {
+      "question": "Kako da pozovem funkciju `triangle`?",
+      "answer": "Prenesi 7 argumenata redom: tri ugaone tačke (`x1, y1, x2, y2, x3, y3`) i zatim string boje, npr. `triangle(50, 10, 30, 50, 70, 50, \"orange\")`."
+    },
+    "drawOrder": {
+      "question": "Kojim redosledom treba da crtam delove da bi se pravilno preklapali?",
+      "answer": "Kasnije nacrtani oblici se nalaze iznad prethodnih. Prvo nacrtaj bele obraze da bi narandžaste polovine lica pokrile veći deo njih, tako da ostanu vidljivi samo vrhovi obraza."
+    },
+    "colors": {
+      "question": "Koje boje gde idu?",
+      "answer": "Uši su `\"brown\"`, polovine lica su `\"orange\"`, obrazi su `\"white\"`, a nos je `\"charcoal\"`. Zapamti da su boje stringovi, pa ih piši pod navodnicima."
+    },
+    "symmetry": {
+      "question": "Kako da odredim koordinate na desnoj strani bez prelaženja mišem?",
+      "answer": "Lisica je simetrična u odnosu na vertikalnu sredinu. Ako je tačka na levoj strani na x=`30`, a centar na x=`50`, preslikana tačka je na x=`70` (jednaka udaljenost sa druge strane centra). Y vrednosti ostaju iste."
+    },
+    "multiplesOf5": {
+      "question": "Zašto mi koordinate ne rade?",
+      "answer": "Sve vrednosti koje ti trebaju su deljive sa 5. Ako ti se čini da je neki ugao malo pogrešan, verovatno si koristio broj poput `12` ili `38`. Postavi ga na najbliži broj deljiv sa 5 (`10`, `15`, `40`, itd)."
+    }
+  },
+  "functions": {
+    "triangle": {
+      "description": "Crta trougao sa tri ugaone tačke i bojom.",
+      "category": "Crtanje oblika"
+    }
+  }
+}

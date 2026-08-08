@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "שימוש בפונקציות"
+  },
+  "strings-and-colors": {
+    "title": "מחרוזות וצבעים"
+  },
+  "repeat-loop": {
+    "title": "לולאת חזרה"
+  },
+  "variables": {
+    "title": "משתנים"
+  },
+  "basic-state": {
+    "title": "מצב בסיסי"
+  },
+  "functions-that-return-things": {
+    "title": "פונקציות שמחזירות ערכים"
+  },
+  "conditionals": {
+    "title": "תנאים"
+  },
+  "complex-conditionals": {
+    "title": "תנאים מורכבים"
+  },
+  "conditionals-and-state": {
+    "title": "תנאים ומצב"
+  },
+  "make-your-own-functions": {
+    "title": "כתיבת פונקציות משלכם"
+  },
+  "string-manipulation": {
+    "title": "עיבוד מחרוזות"
+  },
+  "string-iteration": {
+    "title": "מעבר על מחרוזות"
+  },
+  "multiple-functions": {
+    "title": "שילוב כמה פונקציות"
+  },
+  "methods-and-properties": {
+    "title": "מתודות ותכונות"
+  },
+  "advanced-loops": {
+    "title": "לולאות מתקדמות"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "מילונים"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "הכול"
+  }
+}

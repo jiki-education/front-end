@@ -1,0 +1,32 @@
+{
+  "tasks": {
+    "createSayHelloFunction": {
+      "name": "Crea la funzione sayHello",
+      "description": "Scrivi una funzione sayHello che prende un nome e restituisce un saluto nella forma 'Hello, [name]!'."
+    }
+  },
+  "scenarios": {
+    "helloAiko": {
+      "name": "Saluta Aiko",
+      "description": "Restituisce 'Hello, Aiko!'"
+    },
+    "helloPriya": {
+      "name": "Saluta Priya",
+      "description": "Restituisce 'Hello, Priya!'"
+    },
+    "helloMei": {
+      "name": "Saluta Mei",
+      "description": "Restituisce 'Hello, Mei!'"
+    }
+  },
+  "hints": {
+    "answerShape": {
+      "question": "Qual è la struttura base della risposta che sto cercando di costruire?",
+      "answer": "Tre pezzi uniti insieme: l'inizio fisso `\"Hello, \"`, poi il nome, infine la fine fissa `\"!\"`."
+    },
+    "joinStrings": {
+      "question": "Come posso unire le stringhe?",
+      "answer": "Usa la concatenazione con `+`, oppure una stringa interpolata con i segnaposto `${}`, per unire tutti e tre i pezzi in un'unica stringa."
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "describers": {
+    "canMove": "Controlla se il personaggio può muoversi in avanti",
+    "canTurnLeft": "Controlla se c'è un passaggio alla sinistra del personaggio",
+    "canTurnRight": "Controlla se c'è un passaggio alla destra del personaggio"
+  },
+  "checks": {
+    "notReachedEnd": "Non hai raggiunto la fine del labirinto.",
+    "turnAroundNotDefined": "Devi definire una funzione <code>turnAround</code> all'inizio del tuo codice.",
+    "turnAroundNotCalled": "Hai definito <code>turnAround</code>, ma devi anche chiamarla nel tuo blocco <code>else</code> finale.",
+    "maxLines": "Il tuo programma non dovrebbe superare le 17 righe di codice."
+  },
+  "tasks": {
+    "turnAround": {
+      "name": "Girati nei vicoli ciechi",
+      "description": "Definisci all'inizio del tuo codice una funzione turnAround() che chiama turnLeft() due volte, poi usala nel blocco else finale. Il tuo risolutore deve uscire dai vicoli ciechi in tutti e tre i labirinti."
+    },
+    "bonusShortSolution": {
+      "name": "Bonus: tienilo corto",
+      "description": "Risolvi un labirinto con due vicoli ciechi tenendo l'intero programma entro le 17 righe di codice."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Un solo vicolo cieco",
+      "description": "Un corridoio dritto con una diramazione a vicolo cieco che obbliga a girarsi"
+    },
+    "maze2": {
+      "name": "Un vicolo cieco e una svolta",
+      "description": "Un percorso tortuoso con una diramazione a vicolo cieco prima della svolta verso l'uscita"
+    },
+    "maze3": {
+      "name": "Tienilo corto",
+      "description": "Cerca di fare in modo che il tuo programma finale sia di 17 righe di codice in tutto."
+    }
+  },
+  "hints": {
+    "defineFunction": {
+      "question": "Come si definisce una nuova funzione?",
+      "answer": "Usa la parola chiave `function` seguita dal nome, dalle parentesi per gli input e da un corpo tra parentesi graffe, ad esempio `function turnAround() { ... }`."
+    },
+    "placement": {
+      "question": "Dove devo mettere la definizione della funzione?",
+      "answer": "Mettila all'inizio del tuo codice, prima del ciclo. Le funzioni devono essere definite prima di essere chiamate."
+    },
+    "turnAroundBody": {
+      "question": "Che cosa deve esserci dentro `turnAround()`?",
+      "answer": "Solo due chiamate a `turnLeft()`. Due giri a sinistra ti lasciano rivolto nella direzione opposta."
+    },
+    "useInSolver": {
+      "question": "Come uso la mia nuova funzione nel risolutore del labirinto?",
+      "answer": "Trova il blocco `else` della tua soluzione precedente in cui chiamavi `turnLeft()` due volte e sostituisci quelle due chiamate con un'unica chiamata a `turnAround()`."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Sposta il personaggio di **un passo in avanti** nella direzione attuale. Camminare contro un muro termina il programma con un errore, quindi controlla che cosa c'è davanti prima di muoverti!",
+      "category": "Movimento"
+    },
+    "turnLeft": {
+      "description": "Fa girare il personaggio di **90 gradi a sinistra** (in senso antiorario). Questo cambia la direzione in cui il personaggio è rivolto.",
+      "category": "Movimento"
+    },
+    "turnRight": {
+      "description": "Fa girare il personaggio di **90 gradi a destra** (in senso orario). Questo cambia la direzione in cui il personaggio è rivolto.",
+      "category": "Movimento"
+    },
+    "canMove": {
+      "description": "Restituisce **true** se la casella davanti al personaggio non è un muro, **false** altrimenti.",
+      "category": "Percezione"
+    },
+    "canTurnLeft": {
+      "description": "Restituisce **true** se la casella alla sinistra del personaggio non è un muro, **false** altrimenti.",
+      "category": "Percezione"
+    },
+    "canTurnRight": {
+      "description": "Restituisce **true** se la casella alla destra del personaggio non è un muro, **false** altrimenti.",
+      "category": "Percezione"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 ---
 title: "Scope"
 description: "Ismerd meg, hogyan kap minden kapcsos zárójel saját polcot, és miért él egy változó csak addig, amíg a kódblokkja."
-en_md5: 1d89bf5a147e2a345f7c1856fd62718b
+en_md5: 4d5fc2d1d304725660102e9aaceea4c3
 ---
 
 Képzelj el egy kódot, amely minden futtatáskor máshová rajzol egy kört, mi pedig 10 kört szeretnénk rajzolni, mindet más helyre. Ezt összeköthetnénk egy ciklussal. De ha nagyon figyelsz, itt észrevehettél valami furcsát.
@@ -30,7 +30,7 @@ Akkor most hibás a kód, vagy valami más furcsaság történik itt?
   height="400"
 />
 
-Nos, kiderül, hogy a kóddal semmi baj. Ez teljesen érvényes JavaScript, és egy _scope_-nak (hatókör), más néven scopingnak nevezett fogalomnak köszönhetően működik.
+Nos, kiderül, hogy a kóddal semmi baj. Ez teljesen érvényes JavaScript, és egy hatókör (_scope_ angolul) vagy scoping nevű fogalomnak köszönhetően működik.
 
 A scope elsőre valószínűleg egészen egyszerűnek tűnik majd, de garantálom, hogy a pályafutásod hátralévő részében még sok fejfájást fog okozni. A scope-pal még a legtapasztaltabb fejlesztőknek is meggyűlik a baja, és ebből a szempontból a JavaScript az egyik legbonyolultabb nyelv. Azért mondom ezt el, hogy amikor te is beleütközöl egy scope-problémába, ne érezd magad rosszul miatta. De nagyon figyelj erre a részre, mert fontos.
 

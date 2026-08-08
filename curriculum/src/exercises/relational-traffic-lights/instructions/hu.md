@@ -1,28 +1,29 @@
 ---
-title: "Relational Traffic Lights"
-description: "Rebuild your traffic light so everything scales together."
+title: "Relációs jelzőlámpák"
+description: "Építsd újra a jelzőlámpádat úgy, hogy minden együtt skálázódjon."
+en_md5: d54633094a8d14f73b298fe4827504c4
 ---
 
-You're back with the traffic lights! This time, we're going to follow the pattern from the last two exercises, and build the traffic lights so that as we change the radius, they rescale correctly. To achieve this we have a series of variables we can set to be relative to either/both `center` and `radius`.
+Újra itt vagy a jelzőlámpákkal! Ezúttal az előző két feladat mintáját követve építjük meg a jelzőlámpákat úgy, hogy amikor megváltoztatjuk a sugarat, minden helyesen átméreteződjön. Ehhez van egy sor változónk, amiket beállíthatunk úgy, hogy a `center` (középpont) vagy a `radius` (sugár) valamelyikéhez (vagy mindkettőhöz) viszonyítva legyenek megadva.
 
-<img src="/static/images/exercise-assets/relational-traffic-lights/target.webp" alt="Target traffic light" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+<img src="/static/images/exercise-assets/relational-traffic-lights/target.webp" alt="Cél jelzőlámpa" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-### How it works
+### A működése
 
-- The top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`.
-- The color variables and `center` are fixed for you. The `radius` is preset to 10, but you can experiment with changing it.
-- You need to derive all position and size variables as some combination of `radius` and/or `center`.
-- The housing is a rectangle that surrounds all three lights with padding. The padding is the same as the radius.
-- The three lights are evenly spaced vertically inside the housing and the housing is in the center of the image. (So the center of the yellow circle is the center of the image).
+- A rajzvászon bal felső sarka `0,0`. A jobb alsó `100,100`.
+- A színváltozók és a `center` rögzítettek számodra. A `radius` alapértelmezetten 10, de megváltoztathatod, és kísérletezhetsz vele.
+- Az összes pozíció- és méretváltozót a `radius` és/vagy a `center` valamilyen kombinációjaként kell kiszámítanod.
+- A burkolat egy téglalap, ami körülveszi mind a három fényt, térközzel. A térköz megegyezik a sugárral.
+- A három fény függőlegesen egyenletesen oszlik el a burkolaton belül, és a burkolat a kép közepén van. (Tehát a sárga kör középpontja a kép középpontja.)
 
-### Variables to derive
+### Származtatandó változók
 
-All of these variables should use either `radius` or `center` (e.g. some formula like `radius * 7` or `center - (radius * 2)`)
+Az összes változónak a `radius` vagy a `center` valamilyen felhasználásával kell megadva lennie (például `radius * 7` vagy `center - (radius * 2)`)
 
-- `redY`, `yellowY`, `greenY` — the vertical centers of each light
-- `housingX`, `housingY` — the top-left corner of the housing rectangle
-- `housingWidth`, `housingHeight` — the size of the housing rectangle
+- `redY` (a piros fény függőleges középpontja), `yellowY` (a sárgáé), `greenY` (a zöldé) — az egyes fények függőleges középpontjai
+- `housingX` (a burkolat bal felső sarkának x koordinátája), `housingY` (a burkolat bal felső sarkának y koordinátája) — a burkolat bal felső sarka
+- `housingWidth` (a burkolat szélessége), `housingHeight` (a burkolat magassága) — a burkolat mérete
 
-### Testing the responsiveness
+### A reszponzivitás tesztelése
 
-As you're working, you can change the radius from `2` - `12` to see whether things scale correctly. If your code is correct, you should see everything scale nicely around the center of the image!
+Munka közben a sugarat `2` - `12` között változtathatod, hogy megnézd, minden helyesen skálázódik-e. Ha jól írtad meg a kódot, minden szépen skálázódik a kép középpontja körül!

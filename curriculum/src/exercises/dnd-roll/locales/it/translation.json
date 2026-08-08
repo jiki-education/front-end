@@ -1,0 +1,54 @@
+{
+  "errors": {
+    "unknownDice": "Spiacente, Jiki non ha un dado a {{sides}} facce a portata di mano!",
+    "announceNumber": "Puoi annunciare solo un numero",
+    "attackNumber": "L'attacco deve essere un numero",
+    "damageNumber": "Il danno deve essere un numero"
+  },
+  "describers": {
+    "roll": "ha lanciato un dado e ha ottenuto ${return}",
+    "announce": "ha annunciato ${arg1}",
+    "strike": "ha colpito il goblin con l'attacco ${arg1} e il danno ${arg2}"
+  },
+  "checks": {
+    "announcementCount": "Erano attesi 3 annunci, ma ne hai fatti {{got}}. Assicurati di annunciare ogni lancio.",
+    "firstAnnouncement": "Il primo annuncio doveva essere {{attack}} (il tiro per attaccare), ma hai ottenuto {{got}}.",
+    "secondAnnouncement": "Il secondo annuncio doveva essere {{damage}} (il tiro per il danno base), ma hai ottenuto {{got}}.",
+    "thirdAnnouncement": "Il terzo annuncio doveva essere {{bonus}} (il tiro per il danno bonus), ma hai ottenuto {{got}}.",
+    "notStruck": "Non hai colpito il goblin. Assicurati di chiamare <code>strike()</code>.",
+    "wrongAttack": "L'attacco doveva essere {{attack}}, ma hai ottenuto {{got}}. Passa il tiro per attaccare a <code>strike()</code>.",
+    "wrongDamage": "Il danno totale doveva essere {{totalDamage}} ({{damage}} + {{bonus}}), ma hai ottenuto {{got}}. Somma il danno base e il bonus."
+  },
+  "tasks": {
+    "rollAndStrike": {
+      "name": "Lancia i dadi e colpisci il goblin",
+      "description": "Lancia tre dadi (d20 per l'attacco, d12 per il danno base, d10 per il bonus), annuncia ogni lancio, poi colpisci il goblin con il tuo tiro per attaccare e il danno totale (base + bonus)."
+    }
+  },
+  "scenarios": {
+    "randomRolls": {
+      "name": "Lancia e colpisci",
+      "description": "Lancia un d20 per l'attacco, d12 per il danno base, d10 per il bonus. Colpisci il goblin con il tuo attacco e il danno totale."
+    }
+  },
+  "hints": {
+    "chooseDie": {
+      "question": "Come scelgo il tipo di dado da usare?",
+      "answer": "Per un dado a 20 facce, usa 20 come input per roll, ad esempio `roll(20)`. Per un dado a 12 facce, chiama `roll(12)`."
+    }
+  },
+  "functions": {
+    "roll": {
+      "description": "Lancia un dado con il numero di facce dato e **restituisce** il risultato.",
+      "category": "Dadi"
+    },
+    "announce": {
+      "description": "Annuncia il valore di un lancio di dado.",
+      "category": "Azione"
+    },
+    "strike": {
+      "description": "Colpisce il goblin con il tiro per attaccare e il danno totale dati.",
+      "category": "Azione"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "Ludzik nie dotarł do końca labiryntu."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Poprowadź ludzika do końca labiryntu",
+      "description": "Przeprowadź ludzika przez labirynt do zielonego celu"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Poprowadź ludzika do końca labiryntu",
+      "description": "Twoim zadaniem jest przeprowadzenie ludzika przez labirynt na zielone pole mety."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "Co i gdzie mam przesunąć?",
+      "answer": "Musisz przeprowadzić małego ludzika z lewego górnego rogu do zielonego kółka w prawym dolnym rogu, omijając pola oznaczone czerwonymi paskami."
+    },
+    "turnLeftTurnsRight": {
+      "question": "Każę ludzikowi obrócić się w lewo, a on obraca się w prawo!",
+      "answer": "Ludzik zawsze obraca się względem kierunku, w którym jest zwrócony. Jeśli więc patrzy w prawą stronę i dostanie polecenie obrotu w lewo, zacznie patrzeć do góry."
+    }
+  }
+}

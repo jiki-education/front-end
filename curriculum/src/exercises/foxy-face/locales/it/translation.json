@@ -1,0 +1,54 @@
+{
+  "checks": {
+    "leftCheek": "La guancia sinistra dovrebbe essere un triangolo bianco nel posto giusto.",
+    "rightCheek": "La guancia destra dovrebbe essere un triangolo bianco nel posto giusto.",
+    "leftEar": "L'orecchio sinistro dovrebbe essere un triangolo marrone nel posto giusto.",
+    "rightEar": "L'orecchio destro dovrebbe essere un triangolo marrone nel posto giusto.",
+    "leftFace": "Il lato sinistro della faccia dovrebbe essere un triangolo arancione nel posto giusto.",
+    "rightFace": "Il lato destro della faccia dovrebbe essere un triangolo arancione nel posto giusto.",
+    "nose": "Il naso ha bisogno di due triangoli color antracite. Puoi dividerlo in alto/basso o sinistra/destra.",
+    "leftFaceAboveEar": "Il lato sinistro della faccia dovrebbe essere disegnato **sopra** l'orecchio sinistro.",
+    "rightFaceAboveEar": "Il lato destro della faccia dovrebbe essere disegnato **sopra** l'orecchio destro.",
+    "noseAboveFace": "Il naso dovrebbe trovarsi **sopra** la faccia."
+  },
+  "tasks": {
+    "drawFox": {
+      "name": "Disegna la faccia della volpe",
+      "description": "Usa i triangoli per costruire la faccia geometrica della volpe sullo sfondo grigio."
+    }
+  },
+  "scenarios": {
+    "drawFox": {
+      "name": "Disegna la faccia della volpe",
+      "description": "Costruisci la faccia geometrica della volpe usando i triangoli."
+    }
+  },
+  "hints": {
+    "callTriangle": {
+      "question": "Come chiamo la funzione `triangle`?",
+      "answer": "Passa 7 argomenti in ordine: i tre punti d'angolo (`x1, y1, x2, y2, x3, y3`) e poi la stringa del colore, ad esempio `triangle(50, 10, 30, 50, 70, 50, \"orange\")`."
+    },
+    "drawOrder": {
+      "question": "In che ordine devo disegnare le parti perché si sovrappongano correttamente?",
+      "answer": "Le forme disegnate dopo si trovano sopra quelle disegnate prima. Disegna prima le guance bianche, così le metà arancioni della faccia ne coprono la maggior parte, lasciando visibili solo le punte delle guance."
+    },
+    "colors": {
+      "question": "Quali colori vanno dove?",
+      "answer": "Le orecchie sono `\"brown\"`, le metà della faccia sono `\"orange\"`, le guance sono `\"white\"` e il naso è `\"charcoal\"`. Ricorda che i colori sono stringhe, quindi hanno bisogno delle virgolette."
+    },
+    "symmetry": {
+      "question": "Come calcolo le coordinate del lato destro senza passare il mouse?",
+      "answer": "La volpe è simmetrica rispetto al centro verticale. Se un punto sul lato sinistro è a x=`30` e il centro è a x=`50`, il punto speculare è a x=`70` (la stessa distanza dall'altra parte del centro). I valori di y restano gli stessi."
+    },
+    "multiplesOf5": {
+      "question": "Perché le mie coordinate non funzionano?",
+      "answer": "Tutti i valori di cui hai bisogno sono multipli di 5. Se un angolo sembra leggermente storto, probabilmente hai usato un numero come `12` o `38`. Arrotondalo al multiplo di 5 più vicino (`10`, `15`, `40`, ecc.)."
+    }
+  },
+  "functions": {
+    "triangle": {
+      "description": "Disegna un triangolo con tre punti d'angolo e un colore",
+      "category": "Disegno di forme geometriche"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "tasks": {
+    "encodeMessage": {
+      "name": "编码一条消息",
+      "description": "编写一个编码函数，将消息中的每个字母按给定量移动。空格应保持为空格。移动超过'z'的字母应循环回绕到字母表的开头。"
+    }
+  },
+  "scenarios": {
+    "caesarSimpleShift": {
+      "name": "简单移动1位",
+      "description": "将每个字母向前移动1位：a->b, b->c, c->d。"
+    },
+    "caesarShiftBy3": {
+      "name": "移动3位",
+      "description": "将每个字母向前移动3位：h->k, e->h, l->o, o->r。"
+    },
+    "caesarWrapAround": {
+      "name": "循环回绕字母表",
+      "description": "当移动超过'z'时，进行循环回绕：x->a, y->b, z->c。"
+    },
+    "caesarWithSpaces": {
+      "name": "带空格的消息",
+      "description": "空格应保持为空格，只有字母会被移动。"
+    },
+    "caesarRot13": {
+      "name": "ROT13加密",
+      "description": "ROT13是凯撒密码的一种特殊情况，其移动量为13。"
+    }
+  },
+  "hints": {
+    "shiftingLetterByN": {
+      "question": "如何理解将字母移动N位？",
+      "answer": "每个字母在字母表中都有一个位置（a在位置0，b在位置1，依此类推）。要进行移动，找到这个位置，加上移动量，然后通过在字母表中查找，将新位置转回为字母。"
+    },
+    "letterPosition": {
+      "question": "如何找到字母在字母表中的位置？",
+      "answer": "你可以使用`indexOf`在字符串中搜索一个较小的片段。在字母表字符串上调用它，可以得到字母的位置；如果未找到字母，则返回-1。反过来，根据位置索引回字母表字符串，就能得到对应的字母。"
+    },
+    "wrapPastZ": {
+      "question": "当移动超过'z'时会发生什么？",
+      "answer": "需要循环回绕到'a'。取模运算符（`%`）非常适合这种情况。将位置对26取模，可以将任何数字带回到0到25的范围内。"
+    },
+    "applyToWholeMessage": {
+      "question": "如何将这个方法应用到整个消息？",
+      "answer": "循环遍历消息中的每个字符，使用你的单字母辅助函数进行移动，并使用拼接（`+`）将移动后的字母构建成结果字符串。"
+    }
+  },
+  "functions": {
+    "indexOf": {
+      "description": "在字符串中查找一个较小字符串的位置，如果未找到则返回-1（由关卡标准库提供）",
+      "category": "字符串操作"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "moreThanSixLines": "Twój kod ma więcej niż sześć linijek."
+  },
+  "tasks": {
+    "createTwoFerFunction": {
+      "name": "Stwórz funkcję two-fer",
+      "description": "Napisz funkcję twoFer, która przyjmuje imię i zwraca „One for [name], one for me.” Jeśli nie podano imienia (pusty string), użyj „you” zamiast imienia."
+    },
+    "solveInSixLines": {
+      "name": "Rozwiąż w sześciu linijkach kodu",
+      "description": "Czy uda Ci się rozwiązać to w zaledwie sześciu linijkach kodu?"
+    }
+  },
+  "scenarios": {
+    "twoFerDefault": {
+      "name": "Nie podano imienia",
+      "description": "Nie podano imienia, więc zwróć „One for you, one for me.”"
+    },
+    "twoFerAlice": {
+      "name": "Podano imię Alice",
+      "description": "Ma na imię Alice, więc zwróć „One for Alice, one for me.”"
+    },
+    "twoFerTom": {
+      "name": "Podano imię Tom",
+      "description": "Ma na imię Tom, więc zwróć „One for Tom, one for me.”"
+    },
+    "bonus1": {
+      "name": "Sześć linijek kodu",
+      "description": "Rozwiąż to ćwiczenie w zaledwie sześciu linijkach kodu."
+    }
+  },
+  "hints": {
+    "whatChanges": {
+      "question": "Co zmienia się w zależności od danych wejściowych?",
+      "answer": "Tylko jedna rzecz: imię w środku zdania. Jeśli podano imię, użyj go. Jeśli nie, użyj domyślnego `\"you\"`."
+    },
+    "checkGivenName": {
+      "question": "Jak sprawdzić, czy podano imię?",
+      "answer": "Instrukcją warunkową porównującą dane wejściowe z pustym stringiem `\"\"`. Jeśli jest pusty, użyj `\"you\"`. W przeciwnym razie użyj danych wejściowych."
+    },
+    "buildSentence": {
+      "question": "Jak zbudować końcowe zdanie?",
+      "answer": "Połącz trzy części (`\"One for \"`, wybrane imię oraz `\", one for me.\"`) za pomocą konkatenacji (`+`) lub template stringa."
+    }
+  }
+}

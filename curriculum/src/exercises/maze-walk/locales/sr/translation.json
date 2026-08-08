@@ -1,0 +1,42 @@
+{
+  "checks": {
+    "notReachedEnd": "Ne stižeš do kraja lavirinta.",
+    "walkNotDefined": "Treba da definišeš funkciju <code>walk</code> koja prima broj koraka i pomera se napred onoliko puta."
+  },
+  "tasks": {
+    "writeWalk": {
+      "name": "Napiši funkciju walk",
+      "description": "Definiši funkciju pod imenom walk koja prima broj koraka kao ulaz i pomera se napred onoliko puta."
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Kreći se kroz lavirint",
+      "description": "Hodaj 3, okreni se levo, hodaj 2, okreni se desno, hodaj 4 da stigneš do cilja."
+    }
+  },
+  "hints": {
+    "howToMoveForward": {
+      "question": "Kako da se pomerim napred?",
+      "answer": "Koristi funkciju `move()`."
+    },
+    "howToMoveSpecificTimes": {
+      "question": "Kako da se pomerim napred određeni broj puta?",
+      "answer": "Rešavaš vežbe gde moraš da uradiš nešto određeni broj puta (seti se kako teraš lopticu za golf da se kotrlja tačno određenu udaljenost). Koristi iste ideje ovde."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Pomera lik **jedan korak napred** u trenutnom smeru. Lik će se pomeriti samo ako odredišna pozicija nije blokirana zidom.",
+      "category": "Kretanje"
+    },
+    "turnLeft": {
+      "description": "Okreće lik za **90 stepeni ulevo** (suprotno od kazaljke na satu). Ovo menja pravac u kome je lik okrenut.",
+      "category": "Kretanje"
+    },
+    "turnRight": {
+      "description": "Okreće lik za **90 stepeni udesno** (u smeru kazaljke na satu). Ovo menja pravac u kome je lik okrenut.",
+      "category": "Kretanje"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "checks": {
+    "housingWrong": "ハウジングの長方形の位置かサイズが間違っています。`housingX`、`housingY`、`housingWidth`、`housingHeight`を確認してください。",
+    "redWrong": "赤色のライトの位置かサイズが間違っています。`redY`を確認してください。",
+    "yellowWrong": "黄色のライトの位置かサイズが間違っています。`yellowY`を確認してください。",
+    "greenWrong": "緑色のライトの位置かサイズが間違っています。`greenY`を確認してください。",
+    "doesntScale": "`radius`が{{radius}}のとき、コードが正しくスケーリングされていません。すべての位置とサイズは、`center`と`radius`から導出する必要があります。"
+  },
+  "tasks": {
+    "buildRelationalTrafficLights": {
+      "name": "関連する信号機を作成しましょう",
+      "description": "すべての位置とサイズを`center`と`radius`から導出し、信号機が正しくスケーリングされるようにしましょう。"
+    }
+  },
+  "scenarios": {
+    "buildRelationalTrafficLights": {
+      "name": "関連する信号機を作成する",
+      "description": "すべての位置とサイズを`center`と`radius`から導出する。"
+    }
+  },
+  "hints": {
+    "howToWorkOutYellowCenter": {
+      "question": "黄色のライトの中心を求めるにはどうすればいいですか？",
+      "answer": "`center`という変数が用意されています。`yellowY`に`center`を代入すればよいです。"
+    },
+    "howToWorkOutRedCenter": {
+      "question": "赤色のライトの中心を求めるにはどうすればいいですか？",
+      "answer": "赤の円と黄色の円が接している場合、その中心同士の距離はどのくらいでしょうか？　その距離を`center`から引くと、赤いライトの中心の座標が得られます。"
+    },
+    "whereHousingStarts": {
+      "question": "ハウジングの長方形はどこから描き始めればいいですか？",
+      "answer": "赤い円の中心がわかれば、赤い円の上端を計算できます。ハウジングは、その上端から半径1つ分上（手前）から始まります。同様に、ライトの左端を計算し、そこから半径1つ分左に進めば、ハウジングの左端が求められます。"
+    },
+    "howBigHousing": {
+      "question": "ハウジングのサイズはどのくらいにすればいいですか？",
+      "answer": "幅はライトの直径（半径2つ分）に、左右のパディングとして半径1つ分ずつを足したものです。高さは、ライトの直径が3つ分に、上下のパディングとして半径1つ分ずつを足したものです。"
+    },
+    "whyMultipleOfSomething": {
+      "question": "なぜすべての値は、`radius`や`center`を使って計算しないといけないのですか？",
+      "answer": "数値を直接書き込むと、`radius`を変更したときにハウジングのサイズがライトに対して正しくなくなります。`radius`と`center`を使った式で計算することで、図形全体のバランスが保たれます。"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "指定した位置 (left, top) に、指定した幅、高さ、色で長方形を描画します。",
+      "category": "図形の描画"
+    },
+    "circle": {
+      "description": "指定した中心座標 (centerX, centerY) に、指定した半径と色で円を描画します。",
+      "category": "図形の描画"
+    }
+  }
+}

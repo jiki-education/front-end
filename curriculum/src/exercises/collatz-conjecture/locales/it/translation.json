@@ -1,0 +1,40 @@
+{
+  "tasks": {
+    "calculateCollatzSteps": {
+      "name": "Calcola i passi di Collatz",
+      "description": "Scrivi una funzione che prende un numero e restituisce quanti passi ci vogliono per arrivare a 1 seguendo le regole della Congettura di Collatz: se è pari, dividi per 2; se è dispari, moltiplica per 3 e aggiungi 1."
+    }
+  },
+  "scenarios": {
+    "number1": {
+      "name": "Numero 1",
+      "description": "Zero passi per uno."
+    },
+    "number16": {
+      "name": "Numero 16",
+      "description": "Dividi se è pari."
+    },
+    "number12": {
+      "name": "Numero 12",
+      "description": "Passi pari e dispari."
+    },
+    "number1000000": {
+      "name": "Numero 1000000",
+      "description": "Un gran numero di passi pari e dispari."
+    }
+  },
+  "hints": {
+    "loopUntilOne": {
+      "question": "Come faccio a continuare finché il numero non arriva a 1?",
+      "answer": "Usa un ciclo `repeat()` senza numero: si ripete all'infinito finché non esci con `return`. All'interno del ciclo, sostituisci il numero con il prossimo numero nella sequenza, e restituisci quando arriva a 1."
+    },
+    "chooseRule": {
+      "question": "Come decido quale regola applicare a ogni passo?",
+      "answer": "Controlla se il numero è pari. L'operatore modulo serve a questo. `number % 2 === 0` significa che è pari. Se è pari, dividilo per 2. Altrimenti, fai `3 * number + 1`."
+    },
+    "trackSteps": {
+      "question": "Come tengo traccia della risposta (il numero di passi)?",
+      "answer": "Tieni una variabile contatore per quante volte hai applicato le regole. Pensa a cosa deve succedere a ogni giro del ciclo, e a cosa la tua funzione dovrebbe restituire quando il numero arriva a 1."
+    }
+  }
+}

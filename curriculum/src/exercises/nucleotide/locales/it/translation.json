@@ -1,0 +1,62 @@
+{
+  "tasks": {
+    "countNucleotide": {
+      "name": "Conta un nucleotide",
+      "description": "Scrivi una funzione che conta quante volte un nucleotide specifico (A, C, G, o T) compare in un filamento di DNA. Restituisci -1 se il nucleotide o qualsiasi carattere nel filamento non è valido."
+    }
+  },
+  "scenarios": {
+    "nucleotideEmptyStrand": {
+      "name": "Filamento vuoto",
+      "description": "Un filamento vuoto dovrebbe restituire 0 per qualsiasi nucleotide valido."
+    },
+    "nucleotideSingleMatch": {
+      "name": "Filamento a nucleotide singolo",
+      "description": "Un filamento di un solo carattere che corrisponde al nucleotide cercato dovrebbe restituire 1."
+    },
+    "nucleotideRepeated": {
+      "name": "Nucleotidi ripetuti",
+      "description": "Un filamento di nucleotidi ripetuti dovrebbe contarli tutti."
+    },
+    "nucleotideMixedStrandA": {
+      "name": "Conta A in un filamento misto",
+      "description": "Conta un nucleotide specifico in un filamento misto."
+    },
+    "nucleotideMixedStrandT": {
+      "name": "Conta T in un filamento misto",
+      "description": "Conta un nucleotide diverso nello stesso filamento."
+    },
+    "nucleotideInvalidNucleotide": {
+      "name": "Nucleotide non valido",
+      "description": "Un carattere di nucleotide non valido dovrebbe restituire -1."
+    },
+    "nucleotideInvalidStrand": {
+      "name": "Filamento non valido",
+      "description": "Un filamento che contiene caratteri non validi dovrebbe restituire -1."
+    }
+  },
+  "hints": {
+    "checkValid": {
+      "question": "Come posso verificare che il carattere richiesto sia valido?",
+      "answer": "Le stringhe hanno un metodo `includes()` che dice se una stringa compare all'interno di un'altra. È un modo comodo per chiedere se un carattere è uno dei nucleotidi validi. Fai la validazione prima di iniziare a contare."
+    },
+    "invalidNucleotide": {
+      "question": "Cosa faccio se il nucleotide non è valido?",
+      "answer": "Restituisci `-1` immediatamente. La specifica usa quel valore per segnalare un input non valido."
+    },
+    "countOccurrences": {
+      "question": "Come conto le occorrenze nel filamento?",
+      "answer": "Esegui un ciclo su ogni carattere del filamento. Se il carattere corrisponde al nucleotide che stai contando, aggiungi 1 a un contatore. Alla fine restituisci il contatore."
+    },
+    "validateStrand": {
+      "question": "Devo validare anche il filamento?",
+      "answer": "Sì. Se un qualsiasi carattere nel filamento non è un nucleotide valido, restituisci `-1`. Controlla ogni carattere prima di contare."
+    }
+  },
+  "functions": {
+    "includes": {
+      "description": "Controlla se una stringa contiene una stringa più piccola (fornito dalla libreria standard del livello)",
+      "category": "Operazioni sulle stringhe"
+    }
+  }
+}

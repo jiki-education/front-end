@@ -1,54 +1,55 @@
 ---
-title: "Formal Dinner"
-description: "Look up which table a guest is seated at from the seating plan."
+title: "Hivatalos vacsora"
+description: "Keresd ki az ülésrendből, hogy egy vendég melyik asztalnál ül."
+en_md5: b93bf1949411dbc2a19e5b48c3ae869a
 ---
 
-You're back in your side hustle as a bouncer. It's the evening after the After Party, and there's yet another shindig. This time it's a formal dinner, so tonight you're less "burly man on a door" and more "person with a clipboard and a nice waistcoat".
+Visszatértél a kidobói mellékállásodba. Az After Party utáni este van, és máris itt a következő összejövetel. Ezúttal egy hivatalos vacsora, úgyhogy ma este kevésbé vagy „ajtóban álló izomember”, mint inkább „egy dossziés, elegáns mellényes személy”.
 
-This definitely isn't the place to use **just** your first name. In fact it isn't the place to use your first name at all. Here, everyone goes by an <define>honorific</define> (Miss, Mr, Dr, etc) and their surname.
+Itt semmiképp sem elég **csak** a keresztneved használni. Igazából egyáltalán nem itt a helye a keresztnévnek. Itt mindenki megszólítást (_honorific_ angolul) és a vezetéknevét használja (pl. Miss, Mr, Dr stb.).
 
-The organisers have handed you the seating plan as two separate lists. One holds the guests' full names. The other holds the name of the table each guest is sitting at (named after trees and flowers). As with "After Party", the two lists line up: the guest at position 3 in the first list sits at the table at position 3 in the second list.
+A szervezők két listában adták át az ülésrendet. Az egyiken a vendégek teljes nevei vannak. A másikon annak az asztalnak a neve, ahol minden vendég ül (minden asztalt fáról vagy virágról neveztek el). Az After Partyhoz hasonlóan a két lista párhuzamos: az első lista 3. helyén álló vendég a második lista 3. helyén lévő asztalnál foglal helyet.
 
-So when Mr Pitt sweeps in, you need to work out that this is the "Brad Pitt" on your list, and then tell him which table he's on.
+Amikor tehát Mr Pitt beviharzik, ki kell találnod, hogy ő a listádon szereplő „Brad Pitt”, és meg kell mondanod neki, melyik asztalnál ül.
 
-Write a function called <define info="looks up the table a guest is seated at">`tableFor`</define>. The function has three inputs:
+Írj egy `tableFor` (megkeresi, hogy egy vendég melyik asztalnál ül) nevű függvényt. A függvény három bemenetet kap:
 
-- The first is the list of guests' full names, as strings
-- The second is the list of table names, in the same order as the guests
-- The third is the arriving guest, formatted as an honorific followed by their surname (e.g. "Mr Pitt")
+- Az első a vendégek teljes neveinek listája, stringek formájában
+- A második az asztalnevek listája, ugyanabban a sorrendben, mint a vendégek
+- A harmadik pedig az érkező vendég, megszólítással és vezetéknévvel formázva (pl. „Mr Pitt”)
 
-Return the name of the table the guest is sitting at. If they're not on the seating plan at all, return the string <literal>`No table found`</literal> instead (no chancers here!).
+Add vissza annak az asztalnak a nevét, ahol a vendég ül. Ha egyáltalán nincs rajta az ülésrenden, akkor a `"No table found"` stringet add vissza (nincs itt helye mázlistáknak!).
 
-The honorific is always exactly one word, and everything after it is the guest's surname. Most surnames are one word, but a few grand ones run to two.
+A megszólítás mindig pontosan egy szó, és ami utána következik, az a vendég vezetékneve. A legtöbb vezetéknév egy szóból áll, de néhány előkelőbb név két szóra nyúlik.
 
-Be careful, though. Plenty of surnames look a lot like other surnames.
+De vigyázz, mert rengeteg vezetéknév nagyon hasonlít más vezetéknevekre.
 
-### String/Array Methods & Properties
+### String/Array metódusok és tulajdonságok
 
-In addition to the `.length` property you learned about in the last exercise, there are four methods that you might find useful. There are lots of ways to solve this exercise, but these will get you to the shortest possible solution.
+Az előző feladatban megismert `.length` tulajdonság mellett négy olyan metódus is létezik, amelyek hasznosak lehetnek. Sokféleképpen megoldhatod a feladatot, de ezek segítségével juthatsz el a legrövidebb megoldáshoz.
 
-`"...".split(substring)` splits a string using another string. For example:
+`"...".split(részstring)` egy stringet darabol fel egy másik string mentén. Például:
 
 ```js
 `"Jeremy".split("e")`
 // ["J", "r", "my"]
 ```
 
-`[...].slice(start)` captures part of an array, starting at index `start` and continuing to the end of the array. The captured elements are copied into a NEW array, which is returned to you. In effect, this drops the first `start` elements. For example:
+`[...].slice(start)` egy tömb egy részét fogja meg, a `start` indextől kezdve a tömb végéig. A kimetszett elemek egy **új** tömbbe kerülnek, amit visszakapsz. Tulajdonképpen eldobja az első `start` elemet. Például:
 
 ```js
 ["Jeremy", "Erik", "Aron", "DJ", "Glenn", "Isaac", "Bethany"].slice(2)
 // ["Aron", "DJ", "Glenn", "Isaac", "Bethany"]
 ```
 
-`[...].join(string)` joins together the elements of an array with the provided string. For example:
+`[...].join(string)` egy tömb elemeit összefűzi a megadott stringgel. Például:
 
 ```js
 ["Jeremy", "Erik", "Aron", "DJ", "Glenn", "Isaac", "Bethany"].join(" likes ")
 // Jeremy likes Erik likes Aron likes DJ likes Glenn likes Isaac likes Bethany
 ```
 
-`"...".endsWith(string)` tells you whether a string finishes with another string. For example:
+`"...".endsWith(string)` megmondja, hogy egy string egy másik stringgel végződik-e. Például:
 
 ```js
 "Jeremy".endsWith("emy")

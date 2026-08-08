@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "Bạn chưa đến được cuối mê cung."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Dẫn nhân vật đến cuối mê cung",
+      "description": "Đi qua mê cung để đến được ô đích màu xanh lá"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Dẫn nhân vật đến cuối mê cung",
+      "description": "Việc của bạn là dẫn nhân vật đi qua mê cung để đến ô đích màu xanh lá."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "Mình phải di chuyển cái gì, đi đâu?",
+      "answer": "Bạn cần đưa nhân vật nhỏ, xuất phát ở góc trên bên trái, đến hình tròn màu xanh lá ở góc dưới bên phải, và tránh các ô kẻ sọc đỏ."
+    },
+    "turnLeftTurnsRight": {
+      "question": "Mình cho quay sang trái mà nhân vật lại quay sang phải!",
+      "answer": "Nhân vật quay so với hướng đang nhìn. Vì vậy nếu nhân vật đang nhìn sang phải mà quay sang trái thì nhân vật sẽ chuyển sang nhìn lên trên."
+    }
+  }
+}

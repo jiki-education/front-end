@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "फंक्शन का उपयोग"
+  },
+  "strings-and-colors": {
+    "title": "स्ट्रिंग और रंग"
+  },
+  "repeat-loop": {
+    "title": "रिपीट लूप"
+  },
+  "variables": {
+    "title": "वेरिएबल"
+  },
+  "basic-state": {
+    "title": "बेसिक स्टेट"
+  },
+  "functions-that-return-things": {
+    "title": "चीज़ें लौटाने वाले फंक्शन"
+  },
+  "conditionals": {
+    "title": "कंडिशनल"
+  },
+  "complex-conditionals": {
+    "title": "जटिल कंडिशनल"
+  },
+  "conditionals-and-state": {
+    "title": "कंडिशनल और स्टेट"
+  },
+  "make-your-own-functions": {
+    "title": "अपने फंक्शन बनाइए"
+  },
+  "string-manipulation": {
+    "title": "स्ट्रिंग मैनिपुलेशन"
+  },
+  "string-iteration": {
+    "title": "स्ट्रिंग इटरेशन"
+  },
+  "multiple-functions": {
+    "title": "कई फंक्शन एक साथ"
+  },
+  "methods-and-properties": {
+    "title": "मेथड और प्रॉपर्टी"
+  },
+  "advanced-loops": {
+    "title": "एडवांस्ड लूप"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "डिक्शनरी"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "सब कुछ"
+  }
+}

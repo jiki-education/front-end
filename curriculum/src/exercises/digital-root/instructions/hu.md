@@ -1,23 +1,40 @@
 ---
-title: "Digital Root"
-description: "Collapse a number down to a single digit by repeatedly summing its digits."
+title: "Digitális gyök"
+description: "Számítsd ki egy szám digitális gyökét a számjegyei ismételt összeadásával."
+en_md5: 9847d9ea8c4a86ad65869e4f7b4c718e
 ---
 
-The digital root of a number is what you get when you keep adding its digits together until only a single digit is left.
+Egy szám digitális gyöke (_digital root_ angolul) az, amit akkor kapsz, amikor addig adod össze a számjegyeit, amíg már csak egyetlen számjegy marad.
 
-If adding the digits once still leaves you with more than one digit, you add the digits of _that_ result, and keep going until a single digit remains.
+Ha a számjegyek egyszeri összeadása után még mindig több számjegyből álló eredményt kapsz, akkor ennek az eredménynek a számjegyeit adod össze, és ezt addig folytatod, amíg egyetlen számjegy nem marad.
 
-For example, to find the digital root of `942`:
+Például a `942` digitális gyökének kiszámításához:
 
 ```
 9 + 4 + 2 = 15
 1 + 5 = 6
 ```
 
-So the digital root of `942` is `6`.
+Tehát `942` digitális gyöke `6`.
 
-A number that is already a single digit (like `7`) is its own digital root.
+Egy olyan szám, amely már eleve egyjegyű (például `7`), önmaga digitális gyöke.
 
-Create a function called `digitalRoot` that takes a number and returns its digital root.
+Hozz létre egy `digitalRoot` nevű függvényt, amely egy számot fogad, és visszaadja annak digitális gyökét.
 
-Although there are many ways to solve this exercise, the solution we want you to come up with uses a `while` loop.
+### A `String()` függvény
+
+Az utóbbi pár leckében hozzáférhettél a `Number(str)` függvényhez, amely egy stringet számmá alakít.
+
+Ugyanezt fordítva is megteheted, és a `String(num)` függvénnyel egy számot stringgé alakíthatsz. Például:
+
+```js
+String(147) === "147"
+```
+
+Figyeld meg, hogy itt is nagy kezdőbetűvel írjuk, és egyelőre ne törődj az okával!
+
+### A tanultak gyakorlatba ültetése
+
+Bár ezt a feladatot sokféleképpen meg lehet oldani, a megoldás, amit szeretnénk, ha kitalálnál, egy `while` ciklust használ.
+
+Jó szórakozást!

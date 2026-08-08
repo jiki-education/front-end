@@ -1,0 +1,62 @@
+{
+  "errors": {
+    "leavesNumber": "برگ باید یک عدد باشد",
+    "tomatoesNumber": "گوجه باید یک عدد باشد",
+    "croutonsNumber": "کروتون باید یک عدد باشد",
+    "olivesNumber": "زیتون باید یک عدد باشد"
+  },
+  "checks": {
+    "saladNotMade": "شما سالاد را درست نکردید. مطمئن شوید که <code>makeSalad()</code> را با هر چهار ماده صدا می‌زنید.",
+    "needLeavesRandomInt": "باید <code>Math.randomInt(40, 100)</code> را صدا بزنید تا تعداد برگ‌ها را تولید کنید.",
+    "needTomatoesRandomInt": "باید <code>Math.randomInt(5, leaves / 5)</code> را صدا بزنید تا تعداد گوجه‌ها را تولید کنید.",
+    "needCroutonsRandomInt": "باید <code>Math.randomInt(tomatoes, tomatoes * 2)</code> را صدا بزنید تا تعداد کروتون‌ها را تولید کنید.",
+    "needOlivesRandomInt": "باید <code>Math.randomInt(1, tomatoes / 2)</code> را صدا بزنید تا تعداد زیتون‌ها را تولید کنید."
+  },
+  "tasks": {
+    "makeRandomSalad": {
+      "name": "یک سالاد تصادفی درست کنید",
+      "description": "با استفاده از Math.randomInt() یک مقدار تصادفی از هر ماده تولید کنید و سالاد را درست کنید."
+    }
+  },
+  "scenarios": {
+    "randomSalad": {
+      "name": "سالاد تصادفی",
+      "description": "سالادی با مقادیر تصادفی از هر ماده درست کنید."
+    }
+  },
+  "hints": {
+    "leavesExample": {
+      "question": "مثالی از نحوه‌ی تعیین تعداد برگ‌ها بدهید.",
+      "answer": "از `let leaves = Math.randomInt(40, 100)` استفاده کنید تا یک مقدار تصادفی از برگ‌های سالاد تولید کنید که سپس می‌توانید در توابع دیگر استفاده کنید."
+    },
+    "leavesCount": {
+      "question": "چند برگ نیاز دارم؟",
+      "answer": "بین ۴۰ و ۱۰۰."
+    },
+    "tomatoesCount": {
+      "question": "چند گوجه نیاز دارم؟",
+      "answer": "حداقل ۵، اما بیشتر از leaves / 5 نباشد."
+    },
+    "croutonsCount": {
+      "question": "چند کروتون نیاز دارم؟",
+      "answer": "حداقل به اندازه‌ی گوجه‌ها، تا دو برابر تعدادشان."
+    },
+    "olivesCount": {
+      "question": "چند زیتون نیاز دارم؟",
+      "answer": "حداقل ۱، تا نصف تعداد گوجه‌ها."
+    },
+    "makeSalad": {
+      "question": "سالاد را چطور درست کنم؟",
+      "answer": "بعد از اینکه تعداد لازم از هر ماده را تعیین کردید، برگ، گوجه، کروتون و زیتون را به makeSalad() بدهید."
+    }
+  },
+  "describers": {
+    "makeSalad": "سالادی با ${arg1} برگ، ${arg2} گوجه، ${arg3} کروتون و ${arg4} زیتون درست شد."
+  },
+  "functions": {
+    "makeSalad": {
+      "description": "سالادی با مقادیر داده‌شده از هر ماده درست می‌کند.",
+      "category": "عملیات"
+    }
+  }
+}

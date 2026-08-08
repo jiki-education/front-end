@@ -1,0 +1,53 @@
+{
+  "checks": {
+    "sunWrongBeginning": "太阳在动画开始时似乎不太对。",
+    "sunWrongMiddle": "太阳在动画中间部分似乎不太对。",
+    "sunWrongEnd": "太阳在动画结束时似乎不太对。",
+    "skyNotChangingColor": "天空似乎没有改变颜色。",
+    "sunNotChangingColor": "太阳似乎没有改变颜色。"
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "制作日落动画",
+      "description": "让太阳和天空动起来，呈现出太阳落山的效果。太阳应该逐渐变大并向下移动，同时太阳和天空的颜色都要发生变化。"
+    }
+  },
+  "scenarios": {
+    "drawScene": {
+      "name": "让太阳落山",
+      "description": "让太阳和天空动起来，呈现出太阳落山的效果。"
+    }
+  },
+  "hints": {
+    "howToAnimate": {
+      "question": "如何制作动画？",
+      "answer": "要制作动画，我们采用手翻书风格——每次在上一个版本的上面重新绘制整个场景。"
+    },
+    "whereToStart": {
+      "question": "我不知道从哪里开始。",
+      "answer": "你需要绘制 100 次。所以，先把现有的绘图函数移进一个重复 100 次的 repeat 循环里。然后，在每次循环运行时，更改变量（半径、颜色等）。"
+    },
+    "whereToPutVariables": {
+      "question": "我的变量应该放在哪里？",
+      "answer": "你需要在循环之前设置变量，然后在循环内部，在绘制形状之前更新它们。想象一下 Jiki 每次创建盒子并更新它们的过程。"
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "以中心点为 (centerX, centerY)，使用给定的半径和颜色绘制一个圆。",
+      "category": "绘制形状"
+    },
+    "rectangle": {
+      "description": "在位置 (left, top) 绘制一个给定宽度、高度和颜色的矩形。",
+      "category": "绘制形状"
+    },
+    "rgb": {
+      "description": "将 RGB 颜色值（每个值 0-255）转换为十六进制颜色字符串。",
+      "category": "颜色"
+    },
+    "hsl": {
+      "description": "将 HSL 颜色值（色相 0-360，饱和度 0-100，亮度 0-100）转换为十六进制颜色字符串。",
+      "category": "颜色"
+    }
+  }
+}

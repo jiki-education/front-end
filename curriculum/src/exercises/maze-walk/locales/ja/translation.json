@@ -1,0 +1,42 @@
+{
+  "checks": {
+    "notReachedEnd": "迷路の終わりに到達しませんでした。",
+    "walkNotDefined": "歩数を受け取り、その回数だけ前に進む<code>walk</code>関数を定義してください。"
+  },
+  "tasks": {
+    "writeWalk": {
+      "name": "walk関数を書く",
+      "description": "歩数を受け取り、その回数だけ前に進むwalkという関数を定義してください。"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "迷路を進む",
+      "description": "3歩進み、左に曲がり、2歩進み、右に曲がり、4歩進んで目標に到達する。"
+    }
+  },
+  "hints": {
+    "howToMoveForward": {
+      "question": "前に進むにはどうすればいいですか？",
+      "answer": "`move()`関数を使います。"
+    },
+    "howToMoveSpecificTimes": {
+      "question": "指定した回数だけ前に進むにはどうすればいいですか？",
+      "answer": "これまでの演習で、指定した回数だけ動作を繰り返す方法を学びました（ゴルフボールを特定の距離だけ転がした演習を思い出してください）。ここでも同じ考え方を使ってください。"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "現在の方向に**1歩前進**します。キャラクターは、目的の位置が壁で塞がれていない場合にのみ移動します。",
+      "category": "移動"
+    },
+    "turnLeft": {
+      "description": "キャラクターを**左に90度回転**（反時計回り）させます。これにより進行方向が変わります。",
+      "category": "移動"
+    },
+    "turnRight": {
+      "description": "キャラクターを**右に90度回転**（時計回り）させます。これにより進行方向が変わります。",
+      "category": "移動"
+    }
+  }
+}

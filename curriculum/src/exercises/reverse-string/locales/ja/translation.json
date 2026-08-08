@@ -1,0 +1,60 @@
+{
+  "tasks": {
+    "reverseStrings": {
+      "name": "文字列の反転",
+      "description": "文字列を反転させ、左から右ではなく右から左に読めるようにします。"
+    }
+  },
+  "scenarios": {
+    "reverseEmptyString": {
+      "name": "空文字列",
+      "description": "空文字列を反転させると、空文字列が返ります。"
+    },
+    "reverseWord": {
+      "name": "単語",
+      "description": "'robot' という単語を反転させてください。"
+    },
+    "reverseCapitalizedWord": {
+      "name": "大文字で始まる単語",
+      "description": "大文字で始まる単語 'Ramen' を反転させてください。"
+    },
+    "reverseSentencePunctuation": {
+      "name": "句読点を含む文",
+      "description": "句読点を含む文 'I'm hungry!' を反転させてください。"
+    },
+    "reversePalindrome": {
+      "name": "回文",
+      "description": "回文は反転しても同じままです。"
+    },
+    "reverseEvenSizedWord": {
+      "name": "偶数文字数の単語",
+      "description": "偶数文字数の単語 'drawer' を反転させてください。"
+    },
+    "reverseWideCharacters": {
+      "name": "全角文字",
+      "description": "全角文字 '子猫' を反転させてください。"
+    },
+    "reverseEmojiFamily": {
+      "name": "絵文字の家族",
+      "description": "絵文字の家族を反転させてください。"
+    },
+    "reverseEmojiRainbowFlag": {
+      "name": "レインボーフラッグ",
+      "description": "反転させてレインボーフラッグを作ってください。"
+    }
+  },
+  "hints": {
+    "reverseByHand": {
+      "question": "単語を手で反転させるには、どうしますか？",
+      "answer": "左から右に読んで、右から左に書きます。つまり、各文字を順に取り出し、今まで書いたものの前に置いていきます。"
+    },
+    "mapToCode": {
+      "question": "それをコードにすると、どうなりますか？",
+      "answer": "入力文字列を1文字ずつループします。各文字を、結果の前に追加していきます。つまり、結果の後ろではなく前に置くのです。"
+    },
+    "prepend": {
+      "question": "後ろに追加（append）ではなく、前に追加（prepend）するにはどうすればよいですか？",
+      "answer": "`+` 演算子では、前に追加するのは順序の問題です。`result + char`（後ろに追加）の代わりに、`char + result`（前に追加）を使います。"
+    }
+  }
+}

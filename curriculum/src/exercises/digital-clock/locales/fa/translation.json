@@ -1,0 +1,80 @@
+{
+  "errors": {
+    "hourNotNumber": "<code>hour</code> باید یک عدد باشد",
+    "minutesNotNumber": "<code>minutes</code> باید یک عدد باشد",
+    "indicatorNotString": "<code>indicator</code> باید یک رشته باشد"
+  },
+  "checks": {
+    "notUpdated": "ساعت به‌روزرسانی نشد. مطمئن شوید که از تابع <code>displayTime</code> استفاده می‌کنید.",
+    "wrongTime": "\"{{expected}}\" انتظار می‌رفت اما \"{{got}}\" دریافت شد"
+  },
+  "tasks": {
+    "displayTime": {
+      "name": "نمایش زمان روی ساعت",
+      "description": "ساعت و دقیقه جاری را بگیرید، به قالب ۱۲ ساعته با am/pm تبدیل کنید و با استفاده از displayTime() آن را نمایش دهید."
+    }
+  },
+  "scenarios": {
+    "morning1": {
+      "name": "صبح زود",
+      "description": "۶:۳۵ را به‌صورت \"6:35am\" نمایش دهید"
+    },
+    "morning2": {
+      "name": "نزدیکای ظهر",
+      "description": "۱۱:۰۴ را به‌صورت \"11:04am\" نمایش دهید"
+    },
+    "afternoon1": {
+      "name": "اول بعدازظهر",
+      "description": "۱۲:۱۹ را به‌صورت \"12:19pm\" نمایش دهید"
+    },
+    "afternoon2": {
+      "name": "آخر شب",
+      "description": "۲۳:۳۲ را به‌صورت \"11:32pm\" نمایش دهید"
+    },
+    "midnight": {
+      "name": "نیمه‌شب",
+      "description": "نیمه‌شب را به‌صورت \"12:00am\" نمایش دهید"
+    },
+    "noon": {
+      "name": "ظهر",
+      "description": "ظهر را به‌صورت \"12:00pm\" نمایش دهید"
+    },
+    "now": {
+      "name": "نمایش زمان جاری",
+      "description": "نمایش زمان جاری"
+    }
+  },
+  "hints": {
+    "gettingStarted": {
+      "question": "نمی‌دانم چطور شروع کنم",
+      "answer": "از `currentTimeHour()` و `currentTimeMinute()` برای گرفتن زمان جاری استفاده کنید، سپس با `displayTime(hour, minutes, \"am\")` و مقادیر آن‌ها ببینید چه اتفاقی می‌افتد. بعد بفهمید چطور meridiem درست و نمایش ساعت درست را تنظیم کنید."
+    },
+    "meridiem": {
+      "question": "meridiem چطور کار می‌کند؟",
+      "answer": "ساعت‌های ۰ تا ۱۱ 'am' و ساعت‌های ۱۲ تا ۲۳ 'pm' هستند. نیمه‌شب (ساعت ۰) باید به‌صورت 12am نمایش داده شود. ظهر (ساعت ۱۲) باید به‌صورت 12pm نمایش داده شود."
+    },
+    "hourChange": {
+      "question": "چه زمانی و چرا ساعت باید تغییر کند؟",
+      "answer": "در یک ساعت ۱۲ ساعته، ۱۳:۰۰ به‌صورت 1:00pm و ۱۴:۰۰ به‌صورت 2:00pm نمایش داده می‌شود، پس باید رابطهٔ بین ۱۳->۱ و ۱۴->۲ و ... را پیدا کنید و ساعت را بر اساس آن تنظیم کنید!"
+    }
+  },
+  "describers": {
+    "currentTimeHour": "ساعت جاری دریافت شد",
+    "currentTimeMinute": "دقیقه جاری دریافت شد",
+    "displayTime": "زمان روی ساعت نمایش داده شد"
+  },
+  "functions": {
+    "currentTimeHour": {
+      "description": "ساعت جاری را با استفاده از نمایش ۲۴ ساعته (مثلاً ۲۳ برای ۱۱ شب) به‌صورت یک عدد برمی‌گرداند.",
+      "category": "زمان"
+    },
+    "currentTimeMinute": {
+      "description": "دقیقه جاری را به‌صورت یک عدد برمی‌گرداند.",
+      "category": "زمان"
+    },
+    "displayTime": {
+      "description": "زمان را روی ساعت دیجیتال نمایش می‌دهد. نشانگر باید \"am\" یا \"pm\" باشد.",
+      "category": "عملیات"
+    }
+  }
+}

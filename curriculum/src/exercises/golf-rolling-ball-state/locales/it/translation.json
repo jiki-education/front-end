@@ -1,0 +1,40 @@
+{
+  "errors": {
+    "positionNotNumber": "la posizione deve essere un numero"
+  },
+  "checks": {
+    "ballNotAtEnd": "La pallina non ha raggiunto la buca. Si trova alla posizione {{ballX}}, ma deve essere alla posizione 88.",
+    "missingPositions": "La pallina deve rotolare attraverso ogni posizione singolarmente, non saltare direttamente alla fine."
+  },
+  "tasks": {
+    "rollBall": {
+      "name": "Fai rotolare la pallina nella buca",
+      "description": "Fai rotolare la pallina nella buca."
+    }
+  },
+  "scenarios": {
+    "rollBall": {
+      "name": "Fai rotolare la pallina nella buca",
+      "description": "Fai rotolare la pallina nella buca."
+    }
+  },
+  "hints": {
+    "dontKnowWhereToStart": {
+      "question": "Non so da dove iniziare",
+      "answer": "La chiave è muovere la pallina di un passo in avanti ogni volta. Puoi usare una variabile per farlo. Pensa a come potrebbe funzionare."
+    },
+    "stillCantFigureItOut": {
+      "question": "Non riesco ancora a capirlo",
+      "answer": "Devi creare una variabile per tenere traccia di dove si trova la pallina. Dovrebbe iniziare da dove è ora, poi aumentare di uno molte volte. Ogni volta che aumenta, dovresti chiamare `moveTo(...)` usando la variabile come input."
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "Sposta la pallina alla **posizione** indicata.",
+      "category": "Movimento"
+    }
+  },
+  "describers": {
+    "moveTo": "ha spostato la pallina alla posizione ${arg1}"
+  }
+}

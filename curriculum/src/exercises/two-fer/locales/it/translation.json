@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "moreThanSixLines": "Hai usato più di sei righe di codice."
+  },
+  "tasks": {
+    "createTwoFerFunction": {
+      "name": "Crea la funzione two-fer",
+      "description": "Scrivi una funzione twoFer che riceve un nome e restituisce 'One for [name], one for me.' Se non viene dato nessun nome (stringa vuota), usa 'you' al posto del nome."
+    },
+    "solveInSixLines": {
+      "name": "Risolvi in sei righe di codice",
+      "description": "Riesci a risolverlo con solo sei righe di codice?"
+    }
+  },
+  "scenarios": {
+    "twoFerDefault": {
+      "name": "Nessun nome dato",
+      "description": "Non viene dato nessun nome, quindi restituisci 'One for you, one for me.'"
+    },
+    "twoFerAlice": {
+      "name": "Il nome dato è Alice",
+      "description": "Il suo nome è 'Alice', quindi restituisci 'One for Alice, one for me.'"
+    },
+    "twoFerTom": {
+      "name": "Il nome dato è Tom",
+      "description": "Il suo nome è 'Tom', quindi restituisci 'One for Tom, one for me.'"
+    },
+    "bonus1": {
+      "name": "Sei righe di codice",
+      "description": "Risolvi l'esercizio con solo sei righe di codice."
+    }
+  },
+  "hints": {
+    "whatChanges": {
+      "question": "Che cosa cambia in base all'input?",
+      "answer": "Una cosa sola: il nome in mezzo alla frase. Se ti è stato dato un nome, usalo. Altrimenti usa il valore predefinito `\"you\"`."
+    },
+    "checkGivenName": {
+      "question": "Come faccio a controllare se mi è stato dato un nome?",
+      "answer": "Con un'istruzione if che confronta l'input con la stringa vuota `\"\"`. Se è vuota, usa `\"you\"`. Altrimenti, usa l'input."
+    },
+    "buildSentence": {
+      "question": "Come faccio a costruire la frase finale?",
+      "answer": "Unisci i tre pezzi (`\"One for \"`, il nome scelto e `\", one for me.\"`) usando la concatenazione (`+`) o una stringa speciale."
+    }
+  }
+}

@@ -1,0 +1,1950 @@
+{
+  "layout": {
+    "footer": {
+      "about": {
+        "heading": "Hakkımızda",
+        "aboutJiki": "Jiki hakkında",
+        "testimonials": "Kullanıcı yorumları",
+        "ourTeam": "Ekibimiz",
+        "premium": "Jiki Premium",
+        "roadmap": "Yol haritası"
+      },
+      "legal": {
+        "heading": "Yasal",
+        "termsOfUsage": "Kullanım koşulları",
+        "privacyPolicy": "Gizlilik politikası",
+        "cookiePolicy": "Çerez politikası",
+        "codeOfConduct": "Davranış kuralları",
+        "accessibility": "Erişilebilirlik"
+      },
+      "keepInTouch": {
+        "heading": "İletişimde kalın",
+        "blog": "Jiki'nin blogu",
+        "youtube": "Jiki'nin YouTube kanalı",
+        "reportAbuse": "Kötüye kullanımı bildir",
+        "sitemap": "Site haritası"
+      },
+      "freeContent": {
+        "heading": "Ücretsiz içerik",
+        "codingConcepts": "Kodlama Kavramları",
+        "agenticGuides": "Ajanlı kodlama çağında kodlama rehberleri"
+      },
+      "getHelp": {
+        "heading": "Yardım",
+        "helpCenter": "Yardım merkezi",
+        "faqs": "SSS",
+        "contactUs": "Bize ulaşın",
+        "siteStatus": "Site durumu"
+      },
+      "copyright": "© {year} Jiki Ltd"
+    },
+    "externalHeader": {
+      "homeAriaLabel": "Jiki ana sayfa",
+      "logoAlt": "Jiki",
+      "aboutJiki": "Jiki hakkında",
+      "premium": "Premium",
+      "testimonials": "Kullanıcı yorumları",
+      "login": "Giriş yap",
+      "signUp": "Ücretsiz kaydol",
+      "menuAriaLabel": "Menüyü aç",
+      "closeMenuAriaLabel": "Menüyü kapat"
+    },
+    "internalHeader": {
+      "homeAriaLabel": "Jiki ana sayfa",
+      "logoAlt": "Jiki",
+      "backToJiki": "Jiki'ye dön →"
+    },
+    "sidebar": {
+      "groups": {
+        "learnToCode": "Kodlamayı Öğren",
+        "learnToBuild": "Geliştirmeyi Öğren",
+        "community": "Topluluk",
+        "more": "Daha fazlası"
+      },
+      "nav": {
+        "learn": "Kodlama Temelleri",
+        "build": "Projeler",
+        "challenges": "Meydan Okumalar",
+        "concepts": "Kodlama Kavramları",
+        "achievements": "Başarımlar",
+        "guides": "Rehberler",
+        "videos": "Videolar",
+        "blog": "Blog",
+        "forum": "Forum",
+        "settings": "Ayarlar",
+        "help": "Yardım",
+        "upgrade": "Premium'a yükselt",
+        "logOut": "Çıkış yap"
+      },
+      "premiumPill": "Premium"
+    },
+    "loading": {
+      "title": "Jiki uyanıyor",
+      "subtitle": "Öğrenme deneyiminiz hazırlanıyor"
+    },
+    "localeBanner": {
+      "message": "Bu sayfanın {current} sürümünü görüntülüyorsunuz. <link>{offered} diline geç</link> veya <dismiss>bu bildirimi kapat</dismiss>."
+    }
+  },
+  "common": {
+    "continue": "�",
+    "close": "�",
+    "cancel": "�",
+    "confirm": "�",
+    "processing": "�",
+    "reloadPage": "�",
+    "loading": "�",
+    "languageNames": {
+      "en": "�",
+      "el": "�",
+      "fa": "�",
+      "fr": "�",
+      "hu": "�",
+      "it": "�",
+      "nl": "�",
+      "pt-BR": "�",
+      "pt-PT": "�",
+      "ru": "�",
+      "sr": "�",
+      "uk": "�",
+      "zh-TW": "�"
+    },
+    "verifying": "�",
+    "sending": "�",
+    "perMonth": "�",
+    "validation": {
+      "emailInvalid": "�",
+      "passwordRequired": "�",
+      "passwordMinLength": "�",
+      "currentPasswordRequired": "�",
+      "newPasswordRequired": "�",
+      "passwordsNoMatch": "�"
+    },
+    "pagination": {
+      "label": "�",
+      "previousPage": "�",
+      "nextPage": "�"
+    },
+    "loadingJiki": {
+      "alt": "�"
+    },
+    "otpInput": {
+      "label": "�",
+      "digitLabel": "�"
+    },
+    "closeButton": {
+      "label": "�"
+    },
+    "copyButton": {
+      "label": "�",
+      "copied": "�"
+    },
+    "soundToggle": {
+      "mute": "�",
+      "unmute": "�"
+    },
+    "themeToggle": {
+      "switchToDark": "�",
+      "switchToSystem": "�",
+      "switchToLight": "�",
+      "toggle": "�",
+      "description": "�"
+    },
+    "badgeNewLabel": {
+      "label": "�"
+    },
+    "saving": "�",
+    "retry": "�",
+    "tryAgain": "�",
+    "betaTag": {
+      "label": "�"
+    },
+    "userAvatar": {
+      "alt": "�"
+    }
+  },
+  "build": {
+    "upcomingStreams": {
+      "heading": "�",
+      "toBeAnnounced": "�",
+      "subscribeButton": "�"
+    },
+    "hub": {
+      "title": "�",
+      "description": "�"
+    }
+  },
+  "auth": {
+    "oauth": {
+      "useGoogle": "�",
+      "useExercism": "�",
+      "divider": "�"
+    },
+    "fields": {
+      "emailLabel": "�",
+      "emailPlaceholder": "�",
+      "passwordLabel": "�",
+      "passwordPlaceholder": "�",
+      "emailRequired": "�"
+    },
+    "captchaError": {
+      "signup": "�",
+      "login": "�",
+      "generic": "�"
+    },
+    "login": {
+      "title": "�",
+      "invalidCredentials": "�",
+      "forgotPassword": "�",
+      "submit": "�",
+      "submitting": "�",
+      "unconfirmed": "�",
+      "resend": "�",
+      "noAccount": "�"
+    },
+    "signup": {
+      "title": "�",
+      "emailAlreadyRegistered": "�",
+      "submit": "�",
+      "submitting": "�",
+      "haveAccount": "�",
+      "resend": "�"
+    },
+    "forgotPassword": {
+      "title": "�",
+      "subtitle": "�",
+      "successMessage": "�",
+      "submit": "�",
+      "remembered": "�"
+    },
+    "resetPassword": {
+      "invalidTitle": "�",
+      "invalidMessage": "�",
+      "requestNewLink": "�",
+      "title": "�",
+      "subtitle": "�",
+      "tokenMissing": "�",
+      "confirmationRequired": "�",
+      "successMessage": "�",
+      "newPasswordLabel": "�",
+      "newPasswordPlaceholder": "�",
+      "confirmPasswordLabel": "�",
+      "confirmPasswordPlaceholder": "�",
+      "submit": "�",
+      "submitting": "�",
+      "remembered": "�"
+    },
+    "resendConfirmation": {
+      "title": "�",
+      "subtitle": "�",
+      "successMessage": "�",
+      "submit": "�",
+      "confirmed": "�"
+    },
+    "checkInbox": {
+      "heading": "�",
+      "sentTo": "�",
+      "hint": "�"
+    },
+    "emailConfirmed": {
+      "heading": "�",
+      "message": "�"
+    },
+    "confirmEmail": {
+      "pendingTitle": "�",
+      "pendingDescription": "�",
+      "errorTitle": "�",
+      "errorMessage": "�",
+      "errorCta": "�"
+    },
+    "exercismCallback": {
+      "errorTitle": "�",
+      "errorCta": "�",
+      "pendingTitle": "�",
+      "pendingDescription": "�",
+      "authFailed": "�"
+    },
+    "errorCard": {
+      "needHelp": "�"
+    },
+    "twoFactorVerify": {
+      "title": "�",
+      "subtitle": "�",
+      "codeLabel": "�"
+    },
+    "twoFactorSetup": {
+      "instructionsHeading": "�",
+      "appsHint": "�",
+      "codeLabel": "�"
+    },
+    "unsubscribe": {
+      "noToken": "�",
+      "linkInvalid": "�",
+      "tooManyRequests": "�",
+      "serviceUnavailable": "�",
+      "unableToProcess": "�",
+      "networkError": "�",
+      "processingTitle": "�",
+      "processingDescription": "�",
+      "successTitle": "�",
+      "successDescription": "�",
+      "errorTitle": "�"
+    },
+    "twoFactor": {
+      "cancel": "�",
+      "invalidCode": "�",
+      "verificationFailed": "�"
+    },
+    "layout": {
+      "logoAlt": "�",
+      "tagline": "�",
+      "description": "�",
+      "createdBy": "�",
+      "brand": "�"
+    }
+  },
+  "settings": {
+    "page": {
+      "title": "�",
+      "description": "�",
+      "tabAccount": "�",
+      "tabSubscription": "�",
+      "tabNotifications": "�",
+      "tabLearning": "�",
+      "tabDanger": "�"
+    },
+    "avatarEdit": {
+      "adjustTitle": "�",
+      "adjustSubtitle": "�",
+      "back": "�",
+      "save": "�",
+      "changeTitle": "�",
+      "changeSubtitlePart1": "�",
+      "changeSubtitlePart2": "�",
+      "uploadText": "�",
+      "uploadHint": "�"
+    },
+    "avatarUpload": {
+      "label": "�"
+    },
+    "avatarPreview": {
+      "alt": "�"
+    },
+    "cancelConfirm": {
+      "title": "�",
+      "message": "�",
+      "benefitsTitle": "�",
+      "benefit1": "�",
+      "benefit2": "�",
+      "benefit3": "�",
+      "benefit4": "�",
+      "keep": "�",
+      "cancel": "�",
+      "defaultBillingPeriodEnd": "�"
+    },
+    "cancelSuccess": {
+      "title": "�",
+      "message": "�",
+      "accessUntil": "�",
+      "resubscribeNote": "�",
+      "gotIt": "�"
+    },
+    "changeEmail": {
+      "title": "�",
+      "importantLabel": "�",
+      "importantText": "�",
+      "currentEmailLabel": "�",
+      "newEmailLabel": "�",
+      "newEmailPlaceholder": "�",
+      "passwordLabel": "�",
+      "passwordPlaceholder": "�",
+      "passwordHint": "�",
+      "newEmailRequired": "�",
+      "emailSame": "�",
+      "updateFailed": "�",
+      "submit": "�"
+    },
+    "deleteAccount": {
+      "sendFailed": "�",
+      "confirmTitle": "�",
+      "confirmMessage": "�",
+      "submit": "�",
+      "securityTitle": "�",
+      "securityMessage": "�",
+      "understand": "�"
+    },
+    "paymentHistory": {
+      "title": "�",
+      "subtitle": "�",
+      "loading": "�",
+      "error": "�",
+      "empty": "�",
+      "columnDate": "�",
+      "columnAmount": "�",
+      "columnType": "�",
+      "columnMethod": "�",
+      "downloadReceipt": "�",
+      "typeRecurring": "�",
+      "dateUnavailable": "�"
+    },
+    "profile": {
+      "nameLabel": "�",
+      "namePlaceholder": "�",
+      "updateName": "�",
+      "nameEmpty": "�",
+      "nameTooLong": "�",
+      "handleLabel": "�",
+      "handlePlaceholder": "�",
+      "updateHandle": "�",
+      "handleEmpty": "�",
+      "handleInvalid": "�",
+      "handleTooShort": "�",
+      "handleTooLong": "�",
+      "emailLabel": "�",
+      "emailPlaceholder": "�",
+      "updateEmail": "�",
+      "emailEmpty": "�",
+      "confirmationPendingHint": "�",
+      "emailNotConfirmed": "�",
+      "confirmationPending": "�"
+    },
+    "subscriptionSection": {
+      "loadingCardTitle": "�",
+      "loadingCardDescription": "�",
+      "loadingData": "�"
+    },
+    "benefits": {
+      "activeSubtitle": "�",
+      "cancellingSubtitle": "�",
+      "resubscribeTitle": "�",
+      "resubscribeButton": "�",
+      "activeHeading": "�",
+      "cancellingHeading": "�",
+      "footer": "�",
+      "resubscribe": "�"
+    },
+    "cancelSectionPanel": {
+      "title": "�",
+      "description": "�",
+      "cancel": "�"
+    },
+    "premiumUpsell": {
+      "subtitle": "�",
+      "planName": "�",
+      "upgrade": "�",
+      "headline": "�",
+      "dailyNote": "�"
+    },
+    "neverSubscribed": {
+      "heading": "�",
+      "subtitle": "�",
+      "featuresLabel": "�",
+      "upgradeAriaLabel": "�",
+      "upgrade": "�"
+    },
+    "errorBoundary": {
+      "title": "�",
+      "messagePart1": "�",
+      "messagePart2": "�",
+      "refresh": "�",
+      "detailsSummary": "�"
+    },
+    "danger": {
+      "sessionLabel": "�",
+      "sessionDescription": "�",
+      "logout": "�",
+      "deleteLabel": "�",
+      "deleteDescription": "�",
+      "deleteButton": "�"
+    },
+    "learning": {
+      "streaksLabel": "�",
+      "streaksDescription": "�",
+      "toggleAriaLabel": "�",
+      "learnMore": "�"
+    },
+    "notifications": {
+      "toggleAriaLabel": "�",
+      "essentialTitle": "�",
+      "essentialDescription": "�",
+      "featuresTitle": "�",
+      "featuresDescription": "�",
+      "livestreamsTitle": "�",
+      "livestreamsDescription": "�",
+      "milestonesTitle": "�",
+      "milestonesDescription": "�",
+      "activityTitle": "�",
+      "activityDescription": "�",
+      "onboardingTitle": "�",
+      "onboardingDescription": "�"
+    },
+    "editableField": {
+      "update": "�",
+      "edit": "�",
+      "saveFailed": "�"
+    },
+    "passwordField": {
+      "updateFailed": "�",
+      "currentLabel": "�",
+      "currentPlaceholder": "�",
+      "newLabel": "�",
+      "newPlaceholder": "�",
+      "confirmLabel": "�",
+      "confirmPlaceholder": "�",
+      "submit": "�",
+      "label": "�",
+      "change": "�"
+    },
+    "subscriptionStatus": {
+      "statusActive": "�",
+      "statusCanceled": "�",
+      "statusPaymentFailed": "�",
+      "statusCancelling": "�",
+      "statusIncomplete": "�",
+      "statusSessionExpired": "�",
+      "statusNotSubscribed": "�",
+      "currentPlan": "�",
+      "cancellingMessage": "�",
+      "currentPlanAriaLabel": "�",
+      "statusAriaLabel": "�",
+      "messageCanceled": "�",
+      "messagePaymentFailed": "�",
+      "messageCancelling": "�",
+      "messageIncomplete": "�",
+      "messageIncompleteExpired": "�",
+      "active": "�",
+      "activeWithBilling": "�",
+      "cancellingRemaining": "�",
+      "cancellingEnds": "�",
+      "free": "�",
+      "planLabel": "�"
+    }
+  },
+  "landing": {
+    "hero": {
+      "tagline": "�",
+      "ctaSubtext": "�",
+      "loadingVideo": "�",
+      "playVideo": "�",
+      "watchPrompt": "�",
+      "headline": "�",
+      "audience": "�"
+    },
+    "exercism": {
+      "heading": "�",
+      "intro": "�",
+      "studentsCount": "�",
+      "studentsTitle": "�",
+      "studentsDesc": "�",
+      "testimonialsCount": "�",
+      "testimonialsTitle": "�",
+      "testimonialsDesc": "�",
+      "exercisesCount": "�",
+      "exercisesTitle": "�",
+      "exercisesDesc": "�",
+      "mentoringCount": "�",
+      "mentoringTitle": "�",
+      "mentoringDesc": "�"
+    },
+    "signupSection": {
+      "intro": "�",
+      "button": "�",
+      "heading": "�"
+    },
+    "signupButton": {
+      "label": "�"
+    },
+    "faqs": {
+      "heading": "�",
+      "q1": "�",
+      "q1a1": "�",
+      "q1Item1": "�",
+      "q1Item2": "�",
+      "q1Item3": "�",
+      "q1Item4": "�",
+      "q1Item5": "�",
+      "q1Item6": "�",
+      "q1Item7": "�",
+      "q2": "�",
+      "q2a": "�",
+      "q3": "�",
+      "q3a1": "�",
+      "q3a2": "�",
+      "q4": "�",
+      "q4a1": "�",
+      "q4a2": "�",
+      "q5": "�",
+      "q5a1": "�",
+      "q5a2": "�",
+      "intro": "�",
+      "q1a2": "�"
+    },
+    "latestNews": {
+      "heading": "�",
+      "byAuthor": "�",
+      "subheading": "�"
+    },
+    "welcome": {
+      "para1": "�",
+      "para2": "�",
+      "para3": "�",
+      "hiThere": "�",
+      "para4": "�",
+      "para5": "�",
+      "heading2": "�",
+      "para6": "�",
+      "para7": "�",
+      "para8": "�",
+      "heading3": "�",
+      "para9": "�",
+      "rhodriAlt": "�",
+      "captionShort": "�",
+      "captionLong": "�",
+      "para11": "�",
+      "para12": "�",
+      "heading4": "�",
+      "para13": "�",
+      "listItem1": "�",
+      "listItem2": "�",
+      "para14": "�",
+      "spaceInvadersLabel": "�",
+      "ticTacToeLabel": "�",
+      "breakoutLabel": "�",
+      "mazeLabel": "�",
+      "heading5": "�",
+      "para15": "�",
+      "ctaButton": "�",
+      "heading": "�",
+      "para10": "�",
+      "para17": "�",
+      "para16": "�"
+    },
+    "bootcamp": {
+      "tagWhatWeCover": "�",
+      "menuHeading": "�",
+      "menuIntro": "�",
+      "part1Heading": "�",
+      "part1Bubble": "�",
+      "part1Intro": "�",
+      "part1Item2": "�",
+      "part1Item3": "�",
+      "part1Item4": "�",
+      "part1Duration": "�",
+      "part1Alt": "�",
+      "levelsHeading": "�",
+      "levelsSideheading": "�",
+      "levelsIntro": "�",
+      "levelsSubIntro": "�",
+      "penguinAlt": "�",
+      "level2": "�",
+      "golfLabel": "�",
+      "level3": "�",
+      "flowerLabel": "�",
+      "flowerLevel": "�",
+      "spaceInvadersLabel": "�",
+      "level7": "�",
+      "wallLabel": "�",
+      "level10": "�",
+      "wordleAlt": "�",
+      "level12": "�",
+      "ticTacToeLabel": "�",
+      "level14": "�",
+      "mazeLabel": "�",
+      "level16": "�",
+      "dreamingHouseLabel": "�",
+      "level20": "�",
+      "breakoutLabel": "�",
+      "levelEnd": "�",
+      "buildingHeading": "�",
+      "buildingIntro": "�",
+      "part2Heading": "�",
+      "part2Bubble": "�",
+      "part2Intro": "�",
+      "part2Item1": "�",
+      "part2Item2": "�",
+      "part2Item3": "�",
+      "part2Duration": "�",
+      "jeremyLivestreamAlt": "�",
+      "certificateBubble": "�",
+      "certificateHeading": "�",
+      "certificatePara1": "�",
+      "certificatePara2": "�",
+      "certificateAlt": "�",
+      "linkedinAlt": "�",
+      "linkedinShare": "�",
+      "part1Item1": "�"
+    }
+  },
+  "premium": {
+    "page": {
+      "heading": "�",
+      "subheading": "�"
+    },
+    "planPrice": {
+      "basic": "�",
+      "premium": "�",
+      "free": "�",
+      "perMonth": "�"
+    },
+    "planBadge": {
+      "free": "�",
+      "premium": "�"
+    },
+    "table": {
+      "comparePlans": "�",
+      "comparePlansDesc": "�",
+      "checkNo": "�"
+    },
+    "values": {
+      "oneConversation": "�",
+      "unlimited": "�",
+      "firstEpisodes": "�",
+      "fullAccess": "�",
+      "sampleEpisode": "�"
+    },
+    "categories": {
+      "codingFundamentals": "�",
+      "buildWithJeremy": "�",
+      "support": "�",
+      "certificates": "�",
+      "experience": "�"
+    },
+    "features": {
+      "codingExercisesTitle": "�",
+      "codingExercisesDesc": "�",
+      "conceptLibraryTitle": "�",
+      "conceptLibraryDesc": "�",
+      "jikiChallengesTitle": "�",
+      "jikiChallengesDesc": "�",
+      "askJikiTitle": "�",
+      "askJikiDesc": "�",
+      "buildingFundamentalsTitle": "�",
+      "buildingFundamentalsDesc": "�",
+      "howThingsWorkTitle": "�",
+      "howThingsWorkDesc": "�",
+      "earlyAccessTitle": "�",
+      "earlyAccessDesc": "�",
+      "communityForumsTitle": "�",
+      "communityForumsDesc": "�",
+      "livestreamsTitle": "�",
+      "livestreamsDesc": "�",
+      "certificatesTitle": "�",
+      "certificatesDesc": "�",
+      "adFreeTitle": "�",
+      "adFreeDesc": "�"
+    },
+    "faq": {
+      "title": "�",
+      "q1": "�",
+      "a1": "�",
+      "q2": "�",
+      "a2": "�",
+      "q3": "�",
+      "a3": "�",
+      "q4": "�",
+      "q5": "�",
+      "a5": "�",
+      "a4": "�"
+    },
+    "cta": {
+      "alreadyPremiumTitle": "�",
+      "alreadyPremiumDesc": "�",
+      "upgradeTitle": "�",
+      "upgradeDesc": "�",
+      "upgradeButton": "�",
+      "freeTitle": "�",
+      "freeDesc": "�",
+      "freeButton": "�"
+    },
+    "publicPrice": {
+      "unavailable": "�"
+    },
+    "benefits": {
+      "unlimitedAiTitle": "�",
+      "unlimitedAiDescription": "�",
+      "unlimitedContentTitle": "�",
+      "unlimitedContentDescription": "�",
+      "certificatesTitle": "�",
+      "certificatesDescription": "�",
+      "adFreeTitle": "�",
+      "adFreeDescription": "�",
+      "prioritySupportTitle": "�",
+      "prioritySupportDescription": "�",
+      "earlyAccessTitle": "�",
+      "earlyAccessDescription": "�"
+    }
+  },
+  "roadmap": {
+    "page": {
+      "heading": "�",
+      "subheading": "�",
+      "disclaimer": "�"
+    },
+    "status": {
+      "shipped": "�",
+      "inProgress": "�",
+      "planned": "�"
+    },
+    "changelog": {
+      "title": "�",
+      "subtitle": "�",
+      "learnToBuildLaunch": {
+        "date": "�",
+        "title": "�",
+        "description": "�"
+      },
+      "milestones6To10": {
+        "date": "�",
+        "title": "�",
+        "description": "�"
+      },
+      "jikiLaunch": {
+        "date": "�",
+        "title": "�",
+        "description": "�"
+      }
+    },
+    "phases": {
+      "now": {
+        "label": "�",
+        "timeframe": "�",
+        "summary": "�",
+        "learnToBuild": {
+          "title": "�",
+          "description": "�"
+        },
+        "launchBugs": {
+          "title": "�",
+          "description": "�"
+        },
+        "earlyFeedback": {
+          "title": "�",
+          "description": "�"
+        },
+        "foundations": {
+          "title": "�",
+          "description": "�"
+        }
+      },
+      "next": {
+        "label": "�",
+        "timeframe": "�",
+        "summary": "�",
+        "betaToLive": {
+          "title": "�",
+          "description": "�"
+        },
+        "deepDiveVideos": {
+          "title": "�",
+          "description": "�"
+        },
+        "newLanguages": {
+          "title": "�",
+          "description": "�"
+        },
+        "pythonVersion": {
+          "title": "�",
+          "description": "�"
+        }
+      },
+      "future": {
+        "label": "�",
+        "timeframe": "�",
+        "summary": "�",
+        "moreLanguages": {
+          "title": "�",
+          "description": "�"
+        },
+        "sql": {
+          "title": "�",
+          "description": "�"
+        }
+      }
+    }
+  },
+  "misc": {
+    "chooseLanguage": {
+      "selectLanguage": "�",
+      "backToVideo": "�",
+      "tooltip": "�",
+      "saving": "�",
+      "confirmChoice": "�",
+      "questionTitle": "�",
+      "javascript": "�",
+      "python": "�",
+      "chooseForMe": "�",
+      "cantChange": "�",
+      "noVideo": "�",
+      "videoInstruction": "�"
+    },
+    "deleteAccount": {
+      "deletedTitle": "�",
+      "deletedSubtitle": "�",
+      "deletingTitle": "�",
+      "deletingSubtitle": "�",
+      "errorTitle": "�",
+      "errorSubtitle": "�",
+      "expiredTitle": "�",
+      "expiredSubtitle": "�",
+      "expiredSecondary": "�",
+      "goHome": "�"
+    },
+    "errorPage": {
+      "serverErrorTitle": "�",
+      "serverErrorMessage": "�",
+      "serverErrorAction": "�",
+      "notFoundTitle": "�",
+      "notFoundMessage": "�",
+      "notFoundAction": "�"
+    },
+    "testimonialsPage": {
+      "title": "�",
+      "subtitle": "�",
+      "quoteOpenAlt": "�",
+      "quoteCloseAlt": "�"
+    }
+  },
+  "concepts": {
+    "breadcrumb": {
+      "root": "Kodlama Kavramları"
+    },
+    "list": {
+      "heading": "Kavram Kitaplığı",
+      "intro": "Burada öğrendiğiniz kavramları gözden geçirip tekrar edebilirsiniz.",
+      "searchPlaceholder": "Kavramlarda ara...",
+      "emptyTitle": "Henüz kavram yok",
+      "emptyBody": "Yeni kavramların kilidini açmak için dersleri tamamlayın. Derslerde öğrendiğiniz her kavram, burada gözden geçirebilmeniz için kullanılabilir hâle gelir.",
+      "noResultsTitle": "“<query></query>” için 0 sonuç",
+      "noResultsMessage": "Farklı bir arama terimi deneyin veya kitaplığa göz atın."
+    },
+    "card": {
+      "locked": "Kilitli",
+      "subConcepts": "{count, plural, one {# alt kavram} other {# alt kavram}}"
+    },
+    "error": {
+      "notFound": "Kavram bulunamadı.",
+      "back": "Kavramlara dön",
+      "loadFailed": "Kavram yüklenemedi. Lütfen daha sonra tekrar deneyin."
+    },
+    "relatedConcepts": {
+      "heading": "İlgili kavramlar",
+      "description": "Şu ilgili kavramlara da göz atın:",
+      "locked": "Bu kavram kilitli"
+    },
+    "relatedExercises": {
+      "heading": "İlgili alıştırmalar",
+      "description": "Bu alıştırmalar, bu kavramı pekiştirmek için harika birer fırsat!",
+      "signupPrompt": "Çözmek için <link>kaydolun</link>!",
+      "locked": "Bu alıştırma kilitli"
+    },
+    "relatedChallenges": {
+      "heading": "İlgili meydan okumalar",
+      "description": "Bu meydan okumalar, bu kavramı uygulamaya dökmenizi sağlar.",
+      "locked": "Bu meydan okuma kilitli"
+    },
+    "videoRecap": {
+      "loggedInHeader": "Dersi yeniden izleyin",
+      "loggedInDescription": "Ders kaydını yeniden izleyerek bu kavramı öğrendiğiniz anı hatırlayın",
+      "loggedOutHeader": "Dersi izleyin",
+      "loggedOutDescription": "Bu kavramı Jeremy ve Jiki ile öğrenin!",
+      "playAriaLabel": "Ders özeti videosunu oynat",
+      "thumbnailAlt": "Ders özeti küçük resmi"
+    },
+    "signupCta": {
+      "title": "Kodlama yolculuğunuza başlamaya hazır mısınız?",
+      "subtitle": "Jiki'de binlerce öğrenciye katılın. Kodlama alıştırmaları yapın, mentorlardan geri bildirim alın ve becerilerinizi geliştirin. Üstelik tamamen ücretsiz!",
+      "button": "Ücretsiz kaydol"
+    },
+    "upgradeCard": {
+      "logoAlt": "Jiki",
+      "heading": "<highlight>Kodlama yolculuğunuza</highlight> bugün başlayın!",
+      "text": "Jiki'ye kaydolun; etkileşimli alıştırmalar, gerçek projeler ve kişiye özel destekle kodlamayı öğrenin. En güzeli de şu: <free>tamamen ücretsiz!</free>",
+      "button": "Ücretsiz kaydol"
+    }
+  },
+  "seo": {
+    "concepts": {
+      "title": "Kavramlar - Jiki",
+      "description": "Programlama kavramlarına ve temellerine göz atarak bilgisayar bilimi ve yazılım geliştirme bilginizi güçlendirin.",
+      "notFound": "Kavram bulunamadı"
+    },
+    "achievements": {
+      "title": "Başarımlar - Jiki",
+      "description": "Kod yazmayı öğrenirken ilerlemenizi takip edin ve başarımların kilidini açın."
+    },
+    "build": {
+      "title": "Geliştirmeyi öğrenin - Jiki",
+      "description": "Gerçek projeler geliştirme üzerine video serilerini, işlerin nasıl çalıştığına dair derinlemesine incelemeleri ve canlı soru-cevap oturumlarını izleyin."
+    },
+    "dashboard": {
+      "title": "Kontrol paneli - Jiki",
+      "description": "Öğrenme ilerlemenizi takip edin, kodlama alıştırmalarına devam edin ve başarımlarınızı görüntüleyin."
+    },
+    "challenges": {
+      "title": "Meydan okumalar - Jiki",
+      "description": "İlerledikçe becerilerinizi daha da geliştirecek zorlu kodlama meydan okumaları."
+    },
+    "settings": {
+      "title": "Ayarlar - Jiki",
+      "description": "Hesap ayarlarınızı, aboneliğinizi ve tercihlerinizi yönetin."
+    },
+    "checkEmail": {
+      "title": "E-postanızı kontrol edin - Jiki",
+      "description": "Size bir onay e-postası gönderdik. Adresinizi doğrulamak ve kaydınızı tamamlamak için gelen kutunuzu kontrol edin."
+    },
+    "confirmEmail": {
+      "title": "E-posta onayı - Jiki",
+      "description": "E-posta adresinizi onaylayın"
+    },
+    "exercismCallback": {
+      "title": "Exercism ile giriş - Jiki",
+      "description": "Exercism girişiniz tamamlanıyor"
+    },
+    "forgotPassword": {
+      "title": "Şifremi unuttum - Jiki",
+      "description": "Şifrenizi sıfırlayın"
+    },
+    "login": {
+      "title": "Giriş yap - Jiki",
+      "description": "Jiki hesabınıza giriş yapın"
+    },
+    "resendConfirmation": {
+      "title": "Onayı yeniden gönder - Jiki",
+      "description": "Onay talimatlarını yeniden gönderin"
+    },
+    "resetPassword": {
+      "title": "Şifreyi sıfırla - Jiki",
+      "description": "Yeni şifrenizi belirleyin"
+    },
+    "signup": {
+      "title": "Kaydol - Jiki",
+      "description": "Jiki hesabınızı oluşturun"
+    },
+    "home": {
+      "title": "Jiki - Kod yazmayı eğlenerek öğrenin",
+      "description": "Yapay zekâ çağında kod yazmayı ve geliştirmeyi öğrenmenin en iyi yolu! Exercism'in arkasındaki ekipten."
+    },
+    "premium": {
+      "title": "Premium - Jiki",
+      "description": "Jiki Premium ile işe hazır olma yolculuğunuzu hızlandırın. Kurslara, projelere, yapay zekâ desteğine ve daha fazlasına tam erişim."
+    },
+    "roadmap": {
+      "title": "Yol haritası - Jiki",
+      "description": "Jiki'de sırada ne var? Yaklaşan kurslara, projelere ve özelliklere çeyrek çeyrek bir bakış."
+    },
+    "testimonials": {
+      "title": "Öğrenci yorumları - Jiki",
+      "description": "Öğrencilerimize kurstan memnun kalıp kalmadıklarını sorduk. İşte söyledikleri."
+    },
+    "deleteAccount": {
+      "title": "Hesabı sil - Jiki",
+      "description": "Hesap silme işlemini onaylayın"
+    },
+    "unsubscribePreferences": {
+      "title": "E-posta tercihleri - Jiki",
+      "description": "E-posta tercihlerinizi yönetin ve Jiki e-postaları aboneliğinden çıkın."
+    },
+    "unsubscribe": {
+      "title": "Abonelikten çık - Jiki",
+      "description": "Jiki e-postaları aboneliğinden çıkın"
+    },
+    "blog": {
+      "title": "Blog - Jiki",
+      "description": "Jiki topluluğundan programlama, kodlama meydan okumaları ve öğrenme ipuçları üzerine en yeni yazıları okuyun.",
+      "notFound": "Yazı bulunamadı"
+    },
+    "help": {
+      "title": "Yardım merkezi - Jiki",
+      "description": "Jiki'den en iyi şekilde yararlanmanız için yanıtlar, nasıl yapılır rehberleri ve politikalar.",
+      "notFound": "Makale bulunamadı"
+    },
+    "guides": {
+      "title": "Rehberler - Jiki",
+      "description": "Araçlarınızı kurmanıza ve Jiki'den en iyi şekilde yararlanmanıza yardımcı olacak adım adım rehberler."
+    }
+  },
+  "toasts": {
+    "subscription": {
+      "loginRequired": "�",
+      "checkoutFailed": "�",
+      "alreadyPremium": "�",
+      "checkoutSessionFailed": "�",
+      "portalFailed": "�",
+      "canceled": "�",
+      "cancelFailed": "�",
+      "reactivated": "�",
+      "reactivateFailed": "�",
+      "paymentPortalFailed": "�"
+    },
+    "auth": {
+      "sessionExpired": "�"
+    },
+    "logout": {
+      "loading": "�",
+      "success": "�",
+      "failed": "�"
+    },
+    "avatar": {
+      "updated": "�",
+      "uploadFailed": "�",
+      "networkError": "�",
+      "invalidImageType": "�",
+      "imageTooLarge": "�"
+    },
+    "settings": {
+      "fetchFailed": "�",
+      "settingUpdated": "�",
+      "updateFailed": "�",
+      "notificationUpdateFailed": "�",
+      "streaksUpdateFailed": "�"
+    },
+    "exercise": {
+      "submissionFailed": "�",
+      "chatSaveFailed": "�",
+      "chatSaveCaptchaFailed": "�",
+      "lessonSaveError": "�"
+    },
+    "lesson": {
+      "loadFailed": "�"
+    }
+  },
+  "modals": {
+    "welcomeToPremium": {
+      "badge": "Premium Üye",
+      "description": "Yükselttiğiniz için teşekkürler! Artık Jiki ile sınırsız sohbet, Projeler ve Geliştirmeyi Öğren dahil tüm Premium avantajlarına erişebilirsiniz!",
+      "title": "<highlight>Premium'a</highlight> hoş geldiniz!"
+    },
+    "subscriptionSuccess": {
+      "chatGate": {
+        "title": "Yapay zekâ sohbetine hoş geldiniz!",
+        "description": "Yapay zekâ asistanınızın kilidi açıldı; kodlama alıştırmalarınızda size yardımcı olmaya hazır.",
+        "feature1": "Kodunuzla ilgili sorular sorun",
+        "feature2": "Karmaşık kavramlar için açıklamalar alın",
+        "feature3": "Kişiye özel ipuçları ve yönlendirme alın"
+      },
+      "featureGate": {
+        "title": "Özelliğin kilidi açıldı!",
+        "description": "Artık öğrenme deneyiminizi zenginleştirecek premium özelliklere erişebilirsiniz."
+      },
+      "settings": {
+        "title": "{tier} planına hoş geldiniz!",
+        "description": "Aboneliğiniz etkinleştirildi. Yeni özelliklerinizi ayarlardan keşfedin."
+      },
+      "general": {
+        "title": "{tier} planına hoş geldiniz!",
+        "description": "Planınızı yükselttiğiniz için teşekkürler. Artık tüm premium özelliklere erişebilirsiniz."
+      },
+      "planLabel": "{tier} Planı",
+      "whatYouCanDo": "Artık şunları yapabilirsiniz:",
+      "getStarted": "Başla",
+      "continueLearning": "Öğrenmeye devam et",
+      "skipForNow": "Şimdilik geç",
+      "renewalNotice": "Aboneliğiniz {date} tarihinde otomatik olarak yenilenecek. Aboneliğinizi Ayarlar'dan yönetebilirsiniz."
+    },
+    "confirmation": {
+      "defaultTitle": "İşlemi onayla",
+      "defaultMessage": "Devam etmek istediğinizden emin misiniz?"
+    },
+    "info": {
+      "defaultTitle": "Bilgi",
+      "defaultButton": "Anladım!"
+    },
+    "connectionError": {
+      "title": "Eyvah! Bağlantı koptu",
+      "subtitle": "Jiki'nin kabloları biraz dolandı ve bağlantı koptu. Merak etmeyin, her şeyi yeniden bağlamak için çalışıyoruz!",
+      "reconnecting": "Yeniden bağlanılıyor",
+      "helpText": "Biraz bekleyin, bu sorun genellikle birkaç dakika içinde kendiliğinden düzelir.<br></br>Sorun devam ederse <link>durum sayfamıza göz atın</link>."
+    },
+    "sessionExpired": {
+      "title": "Oturum süresi doldu",
+      "description": "Oturumunuzun süresi doldu. Lütfen yeniden giriş yapın."
+    },
+    "paymentVerificationFailed": {
+      "title": "Ödemenizi doğrulayamadık",
+      "description": "Stripe ile kontrol sırasında bir sorun oluştu. Biraz sonra sayfayı yenilemeyi deneyin. Premium hâlâ etkin değilse destek ekibiyle iletişime geçin."
+    },
+    "levelMilestone": {
+      "title": "🎉 Seviye tamamlandı!",
+      "message": "Tebrikler! <strong>{levelTitle}</strong> seviyesini başarıyla tamamladınız ve tüm kavramlarında ustalaştınız.",
+      "lessonsCompleted": "Tamamlanan dersler",
+      "xpEarned": "Kazanılan XP",
+      "readyNext": "Artık bir sonraki seviyenin kilidini açıp öğrenme yolculuğunuza devam etmeye hazırsınız!",
+      "goToDashboard": "Panele git",
+      "continueNextLevel": "Sonraki seviyeye geç"
+    },
+    "badge": {
+      "funFact": "İlginç bilgi",
+      "keepGoing": "Böyle devam!"
+    },
+    "authError": {
+      "title": "Oturumunuz kapatıldı.",
+      "subtitle": "Bir nedenle oturumunuz kapatıldı (belki bir güvenlik kontrolü, belki de başka bir cihazda çıkış yaptınız?). Devam etmek için lütfen sayfayı yenileyin.",
+      "helpText": "Bu sorun tekrarlanırsa <cookiesLink>çerezlerinizi temizlemeyi</cookiesLink> deneyin veya <supportLink>destek ekibiyle iletişime geçin</supportLink>."
+    },
+    "rateLimit": {
+      "title": "Biraz hızlı gittiniz.",
+      "subtitle": "Sunucularımıza çok fazla istek gönderdiğiniz için sizi birkaç saniyeliğine beklemeye alıyoruz. Lütfen bekleyin; bağlantınız otomatik olarak yeniden kurulacak.",
+      "autoRefresh": "Bu sayfa otomatik olarak yenilenecek",
+      "noteLabel": "Not:",
+      "noteText": "Yeni sekmeler açmak veya ek istekler göndermek bekleme sürenizi uzatır.",
+      "reconnecting": "<timer>{count}</timer> {count, plural, one {saniye} other {saniye}} içinde yeniden bağlanılıyor"
+    },
+    "exerciseSuccess": {
+      "defaultTitle": "Tebrikler!",
+      "defaultMessage": "Tüm testler geçti! Bu alıştırmayı başarıyla tamamladınız."
+    },
+    "welcome": {
+      "title": "Jiki'ye hoş geldiniz!",
+      "subtitle": "Başlamak için bu kısa videoyu izleyin.",
+      "skipTitle": "Tanıtım videosu atlansın mı?",
+      "skipMessage": "Bu video Jiki'den en iyi şekilde yararlanmanıza yardımcı olur. Atlamak istediğinizden emin misiniz?",
+      "skipConfirm": "Videoyu atla",
+      "skipCancel": "İzlemeye devam et"
+    },
+    "subscription": {
+      "chatGate": {
+        "headline": "Yapay zekâ sohbet asistanının kilidini açın",
+        "description": "Kodlama alıştırmalarınızda yapay zekâ asistanımızdan anında yardım alın."
+      },
+      "featureGate": {
+        "headlineFallback": "Premium özellikler",
+        "headline": "{feature} özelliğinin kilidini açın",
+        "description": "Gelişmiş özelliklere ve daha zengin bir öğrenme deneyimine erişmek için planınızı yükseltin."
+      },
+      "settings": {
+        "headline": "Planınızı seçin",
+        "description": "Öğrenme ihtiyaçlarınıza en uygun abonelik planını seçin."
+      },
+      "general": {
+        "headline": "Planınızı yükseltin",
+        "description": "Öğrenme hedeflerinize uyan planı seçin ve gelişmiş özelliklerin kilidini açın."
+      },
+      "unlockWith": "{feature} ile şunların kilidi açılır:",
+      "recommended": "Önerilen",
+      "choosePremium": "Premium'u seç",
+      "subscribeAriaLabel": "{plan} planına abone ol",
+      "renewNotice": "Aboneliğiniz her ay otomatik olarak yenilenir. Dilediğiniz zaman ayarlardan iptal edebilirsiniz.",
+      "notNow": "Şimdi değil, belki sonra"
+    },
+    "walkthroughConfirm": {
+      "title": "Önce kendiniz çözmeyi dener misiniz?",
+      "intro": "Derin İnceleme'yi izlemeden önce, testleri kendi başınıza geçmek için şu kaynaklardan yararlanabilirsiniz:",
+      "tryFirst": "Önce ben deneyeyim",
+      "watchDeepDive": "Derin İnceleme'yi izle",
+      "conceptPages": "<strong>Kavram sayfaları</strong>: bu alıştırmada kullanılan kavramları gözden geçirin",
+      "askJiki": "<strong>Jiki'ye Sor</strong>: çözümü ele vermeden Jiki'den kişiye özel yardım alın",
+      "whatHappened": "<strong>“Ne oldu?” ipuçları</strong>: neyin ters gittiğini görmek için kodunuzda satır satır ilerleyin",
+      "revealHints": "<strong>Tüm ipuçlarını açın</strong>: yol göstermesi için yukarıdaki ipuçlarının hepsini okuyun"
+    },
+    "paymentConfirming": {
+      "title": "Ödemeniz doğrulanıyor…",
+      "description": "Ödemenizi Stripe ile doğrularken biraz bekleyin. Bu genellikle yalnızca birkaç saniye sürer."
+    },
+    "example": {
+      "defaultTitle": "Örnek pencere",
+      "defaultMessage": "Bu bir örnek pencere!"
+    },
+    "paymentProcessing": {
+      "title": "Ödeme işleniyor",
+      "description": "Teşekkürler. Ödeme sağlayıcınızın tutarı bize iletmesini bekliyoruz. İletir iletmez planınızı Premium'a yükseltip size bir e-posta göndereceğiz.",
+      "continue": "Jiki'yi kullanmaya devam et"
+    },
+    "exerciseCompletion": {
+      "success": {
+        "title": "Tüm senaryolar geçti",
+        "titleBonus": "Tüm temel senaryolar geçti",
+        "messageExercise": "Harika iş! Bu alıştırmayı tamamlayıp bir sonrakine geçmeye hazırsınız.",
+        "messageChallenge": "Harika iş! Bu meydan okumayı tamamlayıp devam etmeye hazırsınız.",
+        "completeExercise": "Alıştırmayı tamamla",
+        "completeChallenge": "Meydan okumayı tamamla"
+      },
+      "conceptUnlocked": {
+        "title": "Kavramın kilidi açıldı!",
+        "messageGeneric": "Keşfedilecek yeni bir kavramın kilidini açtınız.",
+        "messageNamed": "Yeni bir kavramın kilidini açtınız: <strong>{title}</strong>"
+      },
+      "completed": {
+        "titleExercise": "Alıştırma tamamlandı!",
+        "titleChallenge": "Meydan okuma tamamlandı!",
+        "greatWork": "Harika iş, {title} tamamlandı!",
+        "messageExercise": "Harika iş, {title} tamamlandı! Sonraki alıştırmaya geçmeye hazır mısınız?",
+        "messageChallenge": "Harika iş, {title} tamamlandı! Sonraki meydan okumaya geçmeye hazır mısınız?",
+        "bonusPrompt": "{count, plural, one {Bu alıştırmada <strong>bir bonus senaryo</strong> var. Devam etmeden önce çözmek ister misiniz?} other {Bu alıştırmada <strong>bonus senaryolar</strong> var. Devam etmeden önce çözmek ister misiniz?}}",
+        "tidyCode": "Kodu toparla",
+        "solveBonuses": "{count, plural, one {Bonusu çöz} other {Bonusları çöz}}",
+        "moveOn": "Devam et"
+      },
+      "difficultyRating": {
+        "title": "Deneyiminizi değerlendirin",
+        "message": "Değerlendirmenizle {title} deneyimini iyileştirmemize yardımcı olun.",
+        "rateDifficulty": "Zorluğu değerlendirin",
+        "rateFun": "Eğlence düzeyini değerlendirin",
+        "difficultyTooEasy": "Çok kolay",
+        "difficultyEasy": "Kolay",
+        "difficultyJustRight": "Tam kararında",
+        "difficultyHard": "Zor",
+        "difficultyTooHard": "Çok zor",
+        "funFrustrating": "Sinir bozucu",
+        "funPrettyGood": "Gayet iyi",
+        "funAmazing": "Muhteşem!",
+        "rateDifficultyAriaLabel": "Zorluğu {label} olarak değerlendir",
+        "rateFunAriaLabel": "Eğlenceyi {label} olarak değerlendir",
+        "funOptionFallback": "seçenek {number}"
+      },
+      "challengeUnlocked": {
+        "title": "Meydan okumanın kilidi açıldı!",
+        "message": "Tebrikler! Bunca pratikten sonra daha zorlu bir meydan okumaya hazırsınız.",
+        "newLabel": "Yeni",
+        "premiumInfo": "<strong>Yalnızca Premium üyelere özel.</strong> Kilidini açtığınız meydan okumalara erişmek için <link>hesabınızı yükseltin</link>."
+      }
+    },
+    "premiumUpgrade": {
+      "skipLink": "Şimdi değil, belki sonra",
+      "userAvatarAlt": "Kullanıcı",
+      "upgrade": "Premium'a yükselt",
+      "planName": "Jiki Premium",
+      "featureLearnToBuild": "<strong>Geliştirmeyi Öğren</strong> bölümüne tam erişim",
+      "featureChallenges": "Daha zorlu <strong>meydan okumalara</strong> erişin",
+      "featureAi": "Jiki'den sınırsız <strong>yapay zekâ desteği</strong>",
+      "featureLivestreams": "Katılabileceğiniz düzenli <strong>soru-cevap yayınları</strong>",
+      "featureCertificates": "Kurslar için <strong>sertifikalar</strong> kazanın",
+      "featureAdFree": "<strong>Reklamsız</strong> öğrenme deneyimi",
+      "featureEarlyAccess": "Yeni özelliklere <strong>erken erişim</strong>",
+      "basic": {
+        "subheading": "İşe hazır olma yolculuğunuzu hızlandırmak için Premium'a yükseltin.",
+        "planName": "Temel Plan",
+        "planPrice": "Sonsuza kadar ücretsiz",
+        "feature1": "80'den fazla kodlama alıştırması",
+        "feature2": "Kavram Kitaplığı'nın tamamı",
+        "feature3": "Bir alıştırmada Jiki'ye Sor",
+        "note": "+ Ek öğrenme kaynakları için herkese açık YouTube videolarına ve topluluk forumlarına erişim.",
+        "headline": "Öğrenmenizi <highlight>hızlandırın</highlight>!"
+      },
+      "dailyNote": "(Günde yalnızca <price></price>)"
+    },
+    "subscriptionCheckout": {
+      "connectingToStripe": "Stripe'a bağlanılıyor",
+      "paymentFailed": "Ödeme başarısız",
+      "unexpectedError": "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.",
+      "paymentFailedTitle": "Ödeme başarısız",
+      "paymentInfoAriaLabel": "Ödeme bilgileri",
+      "pay": "Öde",
+      "orderTitle": "Jiki {tier}",
+      "orderBilling": "Aylık faturalandırılır. Dilediğiniz zaman iptal edebilirsiniz.",
+      "perMonthShort": "/ay",
+      "securedBy": "<stripe>stripe</stripe> güvencesiyle",
+      "error": "Hata: {message}"
+    },
+    "calendarSubscribe": {
+      "title": "Takvime abone ol",
+      "description": "Jiki'nin canlı oturumlarını takviminize ekleyin. Yeni oturumlar planlandıkça otomatik olarak görünür.",
+      "apple": "Apple'da abone ol",
+      "google": "Google'da abone ol",
+      "otherLabel": "Outlook ve diğer takvimler",
+      "otherHelp": "Bu bağlantıyı kopyalayın ve abone olunan takvim olarak ekleyin.",
+      "copied": "Kopyalandı"
+    }
+  },
+  "challenge": {
+    "backToChallenges": "�",
+    "error": {
+      "message": "�"
+    },
+    "loadError": "�",
+    "documentTitle": "�",
+    "locked": {
+      "title": "�",
+      "description": "�"
+    },
+    "premiumRequired": {
+      "title": "�",
+      "description": "�"
+    }
+  },
+  "dashboard": {
+    "exercisePath": {
+      "comingSoon": {
+        "title": "Daha fazla ders yakında",
+        "description": "Sıradaki dersler üzerinde çalışıyoruz. Yolculuğunuza devam etmek için yakında tekrar bakın!"
+      },
+      "walkthrough": {
+        "label": "Derin İnceleme",
+        "watch": "İzle"
+      },
+      "start": {
+        "title": "Yolculuğunuzun başlangıcı"
+      },
+      "completionCert": {
+        "title": "Bitirme sertifikası",
+        "description": "Bitirme sertifikanızı almak ve yeni becerilerinizi sergilemek için tüm alıştırmaları tamamlayın!",
+        "progress": "%{percentage} tamamlandı"
+      },
+      "lessonNode": {
+        "status": {
+          "complete": "Tamamlandı",
+          "locked": "Kilitli",
+          "inProgress": "Devam ediyor"
+        },
+        "type": {
+          "video": "Video",
+          "quiz": "Quiz",
+          "choice": "Seçim",
+          "exercise": "Alıştırma"
+        }
+      },
+      "scrollToActive": {
+        "up": "Yukarıdaki etkin derse kaydır",
+        "down": "Aşağıdaki etkin derse kaydır"
+      },
+      "milestone": {
+        "label": "{index}. kilometre taşı"
+      }
+    },
+    "challengesSidebar": {
+      "empty": {
+        "title": "Meydan okumalar sizi bekliyor!",
+        "description": "Gerçek kodlama meydan okumalarının kilidini açmak için alıştırmaları tamamlayın. Becerilerinizi hayata geçiren oyunlar, uygulamalar ve araçlar geliştirin."
+      },
+      "upsell": {
+        "title": "Yeni meydan okumalar sizi bekliyor!",
+        "description": "Becerilerinizi birleştirin ve Premium meydan okumalarla kendinizi sınayın."
+      },
+      "userProfile": {
+        "premiumMember": "Premium Üye"
+      },
+      "challengeCard": {
+        "status": {
+          "locked": "Kilitli",
+          "notStarted": "Başlanmadı",
+          "inProgress": "Devam ediyor",
+          "completed": "Tamamlandı",
+          "available": "Açık"
+        }
+      },
+      "streak": {
+        "activeDays": "{count, plural, one {Toplam # gün çalıştınız.} other {Toplam # gün çalıştınız.}}",
+        "noStreak": "Serinizi başlatmak için bugün pratik yapın!",
+        "oneDayStreak": "Seri oluşturmak için her gün pratik yapın!",
+        "multiDayStreak": "{count, plural, one {# günlük bir seriniz var!} other {# günlük bir seriniz var!}}"
+      },
+      "badges": {
+        "title": "Rozetler"
+      },
+      "recent": {
+        "title": "Son meydan okumalar",
+        "unlockedCount": "{count} açıldı",
+        "viewAll": "Tüm meydan okumaları gör"
+      }
+    }
+  },
+  "codingExercise": {
+    "loadError": "Alıştırma yüklenirken hata oluştu: {error}",
+    "unknownError": "Bilinmeyen hata",
+    "exerciseNotFound": "“{slug}” alıştırması müfredatta bulunamadı. Mevcut alıştırmalar: {available}",
+    "runButton": {
+      "run": "Kodu çalıştır",
+      "running": "Çalışıyor...",
+      "resetAriaLabel": "Alıştırmayı sıfırla",
+      "resetTooltip": "Alıştırmayı sıfırlamak için tıklayın",
+      "resetConfirmTitle": "Kodunuz sıfırlansın mı?",
+      "resetConfirmMessage": "Bu işlem kodunuzu başlangıç hâline döndürür. Merak etmeyin, Jiki ile konuşmalarınız kaybolmaz.",
+      "resetConfirmButton": "Evet, sıfırla"
+    },
+    "hintsPanel": {
+      "title": "İpuçları",
+      "description": "Bu alıştırmada takıldıysanız bu ipuçları size doğru yönü gösterebilir. Yararlı önerileri görmek için bir ipucuna tıklayın.",
+      "empty": "Bu alıştırma için ipucu yok.",
+      "reveal": "Göster",
+      "hide": "Gizle",
+      "confirmReveal": "Bu ipucunu görmek istediğinizden emin misiniz?",
+      "confirmNo": "Şimdilik hayır",
+      "confirmYes": "Evet",
+      "deepDiveHeading": "Derin İnceleme",
+      "deepDiveDescription": "Hâlâ takıldınız mı? Jeremy'nin bu alıştırmayı adım adım çözüşünü izleyin.",
+      "walkthroughThumbnailAlt": "Derin İnceleme videosu küçük resmi"
+    },
+    "chatHeader": {
+      "title": "Jiki'ye Sor",
+      "description": "Sorular sorun, yapay zekâ kodlama asistanınızdan yardım alın"
+    },
+    "chatStatus": {
+      "errorLabel": "Hata:"
+    },
+    "chatPanel": {
+      "unavailable": "Sohbet kullanılamıyor"
+    },
+    "chatMessages": {
+      "greeting": "Merhaba! Bu alıştırmada size nasıl yardımcı olabilirim?"
+    },
+    "chatInput": {
+      "placeholder": "Sorunuzu buraya yazın...",
+      "limitReachedPlaceholder": "Mesaj sınırınıza ulaştınız",
+      "respondPlaceholder": "Jiki'ye yanıt verin..."
+    },
+    "conversation": {
+      "loadError": "Konuşma geçmişi yüklenemedi: {error}"
+    },
+    "typeItAssistant": {
+      "thinking": "Jiki düşünüyor"
+    },
+    "functionsView": {
+      "empty": "Bu alıştırma için kullanılabilir fonksiyon yok.",
+      "examples": "Örnekler"
+    },
+    "tasksView": {
+      "empty": "Bu alıştırma için görev yok.",
+      "bonus": "Bonus"
+    },
+    "logPanel": {
+      "title": "Senaryo günlüğü",
+      "emptyDescription": "Bu, kodunuzun çalıştırılmasıyla oluşan çıktıdır. Yaptığınız değişiklikleri burada inceleyebilirsiniz. Değerleri yazdırmak için <code>console.log()</code> kullanın.",
+      "description": "Bu, <scenario>{name}</scenario> senaryosu için kodunuzun çalıştırılmasıyla oluşan çıktıdır. Yaptığınız değişiklikleri burada inceleyebilirsiniz. Değerleri yazdırmak için <code>console.log()</code> kullanın.",
+      "emptyState": "Henüz hiçbir şey yazdırmadınız"
+    },
+    "instructionsPanel": {
+      "instructionsTitle": "Talimatlar",
+      "functionsTitle": "Fonksiyonlar ve metotlar",
+      "conceptLibraryTitle": "Kavram Kitaplığı",
+      "functionsIntro": "Bu alıştırmada kullanabileceğiniz fonksiyonlar ve metotlar şunlar.",
+      "functionsExamplesLabel": "Örnekler:",
+      "loadingConcepts": "Kavramlar yükleniyor...",
+      "premiumChallenge": "Premium Meydan Okuma",
+      "exerciseLevel": "Alıştırma • {level}",
+      "libraryEmpty": "Alıştırmalarda ilerledikçe kavramları burada göreceksiniz. Bunlar, öğrendiklerinizi hatırlamak için başvurabileceğiniz kaynaklar olacak.",
+      "libraryChallenges": "Bu alıştırmada şimdiye kadar öğrendiğiniz tüm kavramları kullanabilirsiniz. Öğrendiklerinizi hatırlamak istediğinizde Kavram Kitaplığınıza dönün.",
+      "libraryWithConcepts": "Bu alıştırmada kullanılan temel kavramlar şunlar. Şimdiye kadar öğrendiklerinizi tazelemek için bunlardan yararlanın.",
+      "openConceptLibrary": "Kavram Kitaplığı'nı aç"
+    },
+    "scrubber": {
+      "previousFrame": "Önceki kare",
+      "nextFrame": "Sonraki kare",
+      "previousBreakpoint": "Önceki kesme noktası",
+      "nextBreakpoint": "Sonraki kesme noktası",
+      "toggleInfoOn": "Bilgi panelini aç",
+      "toggleInfoOff": "Bilgi panelini kapat",
+      "showInfoWidget": "Bilgi aracını göster",
+      "hideInfoWidget": "Bilgi aracını gizle",
+      "disabledCodeEdited": "Kod düzenlendiği için oynatma çubuğunu devre dışı bıraktık. Yeniden etkinleştirmek için “Kodu çalıştır” düğmesine basın.",
+      "disabledSpotlight": "Oynatma çubuğu devre dışı: Spotlight modu etkin.",
+      "disabledNotEnoughFrames": "Oynatma çubuğu devre dışı: Gezinecek yeterli kare yok."
+    },
+    "avatars": {
+      "jikiAlt": "Jiki",
+      "userAlt": "Siz"
+    },
+    "rhs": {
+      "tabInstructions": "Talimatlar",
+      "tabAskJiki": "Jiki'ye Sor",
+      "tabLog": "Günlük",
+      "tabHints": "İpuçları",
+      "navChallenges": "Meydan Okumalar",
+      "navDashboard": "Panel"
+    },
+    "canStart": {
+      "placeholder": "Sorunuzu buraya yazın...",
+      "askAbout": "Şunları sorabilirsiniz...",
+      "askJiki": "Jiki'ye Sor",
+      "freeIncluded": "İlk konuşma Ücretsiz planınıza dahil",
+      "premiumIncluded": "<premium>Premium</premium> planınıza dahil",
+      "phraseWhyNotWorking": "kodunuz neden çalışmıyor",
+      "phraseHowToFixBug": "bir bug nasıl düzeltilir",
+      "phraseWhatErrorMeans": "bu hata ne anlama geliyor",
+      "phraseHowToApproach": "bu alıştırmaya nasıl yaklaşmalı",
+      "phraseHowToGetUnstuck": "takıldığınız noktadan nasıl çıkarsınız"
+    },
+    "freeUserLimitReached": {
+      "description": "Ücretsiz konuşma hakkınızı kullandınız. Kavramlar, hata ayıklama ve alıştırmalarda ilerleme konularında Jiki'nin yardımıyla öğrenmeye devam edin.",
+      "upgradeButton": "Jiki Premium'a yükselt",
+      "price": "Sadece <price></price>!"
+    },
+    "lockedFooter": {
+      "freeLimitText": "Artık Premium planda değilsiniz. Konuşmaya devam etmek için <upgrade>yükseltin</upgrade>.",
+      "premiumBlockedText": "Adil kullanım sınırımıza ulaştınız. Lütfen yarın tekrar deneyin.",
+      "learnMoreFairUse": "Adil kullanım sınırları hakkında daha fazla bilgi"
+    },
+    "chatUsageNotice": {
+      "warning": {
+        "daily": "Günlük sınırınıza yaklaşıyorsunuz (bugün {used}/{limit} mesaj).",
+        "monthly": "Aylık sınırınıza yaklaşıyorsunuz (bu ay {used}/{limit} mesaj)."
+      },
+      "limitReached": {
+        "daily": "Bugünün {limit} mesajının tamamını kullandınız. Sınır, gece yarısı (UTC) sıfırlanır.",
+        "monthly": "Bu ayın {limit} mesajının tamamını kullandınız. Sınır, ayın 1'inde sıfırlanır."
+      },
+      "learnMore": "Daha fazla bilgi"
+    },
+    "chatError": {
+      "sessionExpired": "Oturum süresi doldu. Lütfen tekrar deneyin.",
+      "verificationFailed": "Doğrulama başarısız. Lütfen tekrar deneyin.",
+      "authFailed": "Kimlik doğrulama başarısız. Lütfen yeniden giriş yapın.",
+      "tokenServerError": "Sohbet başlatılırken sunucu hatası oluştu. Lütfen tekrar deneyin.",
+      "tokenInitFailed": "Sohbet başlatılamadı. Lütfen tekrar deneyin.",
+      "exerciseMismatch": "Alıştırma uyuşmazlığı. Lütfen sayfayı yenileyip tekrar deneyin.",
+      "authExpired": "Kimlik doğrulamanın süresi doldu. Lütfen sayfayı yenileyin.",
+      "tooManyRequests": "Çok fazla istek gönderildi. Lütfen biraz bekleyip tekrar deneyin.",
+      "serviceUnavailable": "Sohbet hizmeti geçici olarak kullanılamıyor. Lütfen daha sonra tekrar deneyin.",
+      "serverError": "Sunucu hatası. Lütfen birazdan tekrar deneyin.",
+      "networkError": "Ağ hatası. Lütfen bağlantınızı kontrol edip tekrar deneyin.",
+      "timeout": "İstek zaman aşımına uğradı. Lütfen tekrar deneyin.",
+      "unexpected": "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.",
+      "noResponseBody": "Yanıt alınırken bir sorun oluştu. Lütfen tekrar deneyin.",
+      "streamProcessing": "Yanıt okunurken bir sorun oluştu. Lütfen tekrar deneyin.",
+      "unknown": "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.",
+      "requestFailed": "İstek başarısız oldu. Lütfen tekrar deneyin."
+    },
+    "stuckHeader": {
+      "title": "Takıldınız mı? Jiki'ye sorun!"
+    },
+    "testResults": {
+      "passBadge": "Geçti",
+      "failBadge": "Başarısız",
+      "pendingBadge": "Bekliyor",
+      "pendingMessage": "Bu senaryonun geçip geçmediğini görmek için kodunuzu çalıştırın.",
+      "codeRun": "Çalıştırılan kod",
+      "expected": "Beklenen",
+      "actual": "Alınan",
+      "noReturn": "[Fonksiyonunuz hiçbir şey döndürmedi]",
+      "clickRunCode": "Kodunuzun ne yaptığını görmek için “Kodu çalıştır” düğmesine tıklayın.",
+      "lintWarning": "<strong>Az kaldı...</strong> Kodunuz doğru çalıştı ama biçimlendirmeyi düzeltmeniz gerekiyor. Kodunuzdaki turuncu alt çizgilere bakın.",
+      "lintWarningPlain": "Kodunuz doğru çalıştı ama biçimlendirmeyi düzeltmeniz gerekiyor. Kodunuzdaki turuncu alt çizgilere bakın.",
+      "genericError": "Eyvah! Kodunuzda bir hata var.",
+      "runtimeError": "Kodunuz çalışırken bir hatayla karşılaştı. Devam etmek için yukarıdaki hata mesajında belirtilen sorunu düzeltin.",
+      "isolatedCheckError": "Kodunuz çalışırken bir hata verdi.",
+      "isolatedCheckErrorDetail": "Kodunuz çalışırken bir hata verdi. ({message})",
+      "congratsWellDone": "Çok iyi!",
+      "congratsNiceWork": "Güzel iş!",
+      "congratsFantasticJob": "Harika iş!",
+      "congratsAmazingEffort": "Muhteşem bir çaba!",
+      "congratsGreatAchievement": "Büyük başarı!",
+      "congratsCongratulations": "Tebrikler!",
+      "congratsCongrats": "Bravo!",
+      "ioError": "<p>Hata: {message}</p>",
+      "codeCheckError": "Kod denetimi hatası: {message}"
+    },
+    "informationTooltip": {
+      "errorHeading": "Eyvah, bir şeyler ters gitti!",
+      "closeAriaLabel": "Bilgi balonunu kapat"
+    },
+    "breakpointGutter": {
+      "addBreakpoint": "Kesme noktası ekle",
+      "removeBreakpoint": "Kesme noktasını kaldır"
+    },
+    "syntaxError": {
+      "heading": "Jiki kodunuzu anlayamadı.",
+      "message": "Panik yok. Yukarıdaki mesajda belirtilen hatayı okuyup düzeltin, sonra kodu yeniden çalıştırın."
+    },
+    "unhandledError": {
+      "heading": "Eyvah! Bir şeyler <strong>çok</strong> ters gitti.",
+      "message": "<strong>Bu bizim hatamız, sizin değil!</strong> Düzeltebilmemiz için lütfen bu hatayı bize bildirin. Aşağıdaki gizemli metni kopyalayıp <link>forumda</link> bizimle paylaşın. Teşekkürler! 💙"
+    }
+  },
+  "lesson": {
+    "documentTitle": "{title} - Alıştırma - Jiki",
+    "loadError": "Ders yüklenemedi",
+    "backToDashboard": "Panele dön",
+    "error": {
+      "message": "Hata: {error}"
+    },
+    "quizNotImplemented": "Quiz dersleri henüz hazır değil",
+    "quitButton": {
+      "title": "Dersten çık",
+      "message": "Bu dersten çıkmak istediğinizden emin misiniz? İlerlemeniz kaydedilmeyecek.",
+      "confirm": "Çık",
+      "cancel": "Öğrenmeye devam et",
+      "ariaLabel": "Dersten çık"
+    },
+    "loadingPage": {
+      "loading": "Yükleniyor",
+      "message": {
+        "video": "Video dersi hazırlanıyor",
+        "chooseLanguage": "Dil seçenekleri yükleniyor",
+        "exercise": "Kod editörü hazırlanıyor"
+      },
+      "tip": {
+        "video": "💡 İpucu: Video oynatma hızını kontrolleri kullanarak ayarlayabilirsiniz",
+        "chooseLanguage": "💡 İpucu: Öğrenmek istediğiniz dili seçin",
+        "exercise": "💡 İpucu: Kodunuzu hızlıca çalıştırmak için Cmd/Ctrl + Enter kullanın"
+      }
+    },
+    "loadingModal": {
+      "title": "Dersiniz kişiselleştiriliyor",
+      "subtitle": "Tercihlerinize ve ilerlemenize göre bir şeyler hazırlıyoruz"
+    }
+  },
+  "quizCard": {
+    "submit": "Gönder",
+    "nextQuestion": "Sonraki soru",
+    "codeInputPlaceholder": "// Kodunuzu buraya yazın...",
+    "feedback": {
+      "correct": "Doğru!",
+      "incorrect": "Tam olarak değil!"
+    },
+    "fillIn": {
+      "successTitle": "Mükemmel!",
+      "successMessage": "Tüm boşluklar doğru dolduruldu!",
+      "incorrectTitle": "{count, plural, one {# boşluk yanlış} other {# boşluk yanlış}}",
+      "errorMessage": "Yanıtlarınızı gözden geçirip tekrar deneyin."
+    },
+    "coding": {
+      "successTitle": "Harika!",
+      "successMessage": "Kodunuz doğru!",
+      "errorTitle": "Tam olarak değil",
+      "errorMessage": "Söz diziminizi kontrol edip tekrar deneyin."
+    }
+  },
+  "videoExercise": {
+    "noVideoSource": "Video kaynağı bulunamadı",
+    "provider": "Sağlayıcı: {provider}",
+    "skipHint": "İlk izlemede ileri saramazsınız ama dilediğiniz zaman geri sarabilirsiniz.",
+    "pill": {
+      "complete": "Ders tamamlandı",
+      "progress": "Ders ilerlemesi",
+      "watching": "<title>{name}</title> izleniyor",
+      "finished": "<title>{name}</title> bitti",
+      "finishTooltip": "Devam etmek için izlemeyi bitirin"
+    }
+  },
+  "projects": {
+    "projectCard": {
+      "comingSoon": "�",
+      "comingSoonLabel": "�"
+    },
+    "episodeCard": {
+      "premium": "�"
+    },
+    "episodeSummary": {
+      "heading": "�",
+      "whereWeStart": "�",
+      "whereWeEnd": "�",
+      "whatWeCover": "�"
+    },
+    "projectPage": {
+      "backToAllProjects": "�"
+    },
+    "episodePage": {
+      "backToProject": "�",
+      "relevantGuidesDescription": "�"
+    },
+    "relevantGuides": {
+      "heading": "�"
+    }
+  },
+  "guides": {
+    "guidesContent": {
+      "pageHeading": "�",
+      "searchPlaceholder": "�",
+      "filterAll": "�",
+      "noResultsTitle": "�",
+      "noResultsMessage": "�"
+    },
+    "guideCard": {
+      "premium": "�"
+    },
+    "guideBreadcrumb": {
+      "guides": "�"
+    },
+    "premiumGate": {
+      "lockedTitle": "�",
+      "lockedSubtitle": "�",
+      "unlockButton": "�"
+    },
+    "relatedGuides": {
+      "heading": "�"
+    },
+    "featuredInProjects": {
+      "heading": "�"
+    },
+    "metadata": {
+      "notFoundTitle": "�"
+    }
+  },
+  "unsubscribe": {
+    "title": "�",
+    "subtitle": "�",
+    "updateError": "�",
+    "toggleAria": "�",
+    "manage": {
+      "title": "�",
+      "description": "�",
+      "updated": "�",
+      "save": "�"
+    },
+    "all": {
+      "title": "�",
+      "description": "�",
+      "success": "�",
+      "button": "�"
+    },
+    "email": {
+      "alreadyTitle": "�",
+      "alreadyDescription": "�",
+      "title": "�",
+      "description": "�",
+      "success": "�",
+      "button": "�",
+      "fallbackType": "�"
+    },
+    "types": {
+      "newsletters": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "event_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "milestone_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "activity_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      },
+      "onboarding_emails": {
+        "title": "�",
+        "description": "�",
+        "shortLabel": "�"
+      }
+    }
+  },
+  "achievements": {
+    "title": "�",
+    "description": "�",
+    "tabBadges": "�",
+    "tabCertificates": "�",
+    "loading": "�",
+    "error": "�",
+    "certificatesEmptyTitle": "�",
+    "certificatesEmptyBody": "�",
+    "badge": {
+      "locked": "�",
+      "earnedToday": "�",
+      "earnedRelative": "�"
+    },
+    "loadError": "�"
+  },
+  "challenges": {
+    "title": "Meydan Okumalar",
+    "description": "Kodlama becerilerinizi geliştirmek için gerçek uygulamalar ve oyunlar yapın.",
+    "tabAll": "Tümü",
+    "tabInProgress": "Devam edenler",
+    "tabNotStarted": "Başlanmayanlar",
+    "tabComplete": "Tamamlananlar",
+    "tabLocked": "Kilitli",
+    "error": "Hata: {error}",
+    "codingChallenge": "Kodlama Meydan Okuması",
+    "premiumOnly": "Yalnızca Premium",
+    "status": {
+      "locked": "Kilitli",
+      "unlocked": "Başlanmadı",
+      "started": "Devam ediyor",
+      "completed": "Tamamlandı"
+    },
+    "empty": {
+      "noneAvailable": "Henüz meydan okuma yok.",
+      "noneFound": "Meydan okuma bulunamadı.",
+      "inProgressTitle": "Devam eden meydan okuma yok",
+      "inProgressDescription": "Henüz hiçbir meydan okumaya başlamadınız. Mevcut meydan okumalara göz atın ve ilkine başlamak için “Başla” düğmesine tıklayın.",
+      "allStartedTitle": "Tüm meydan okumalara başlandı",
+      "allStartedDescription": "Harika ilerliyorsunuz! Mevcut tüm meydan okumalara başladınız. Tamamlamak için böyle devam edin.",
+      "noneToStartTitle": "Henüz başlanacak meydan okuma yok",
+      "noneToStartDescription": "Kilitlerini açtıkça meydan okumalar burada görünecek.",
+      "completedTitle": "Henüz tamamlanmış meydan okuma yok",
+      "completedDescription": "İlkini burada görmek için bir meydan okumayı tamamlayın. Bu hedefe ulaşmak için devam eden meydan okumalarınız üzerinde çalışmayı sürdürün."
+    },
+    "loadError": "Meydan okumalar yüklenemedi"
+  },
+  "subscription": {
+    "tiers": {
+      "standard": {
+        "name": "�",
+        "description": "�",
+        "features": {
+          "freeCourses": "�",
+          "basicExercises": "�",
+          "communitySupport": "�",
+          "aiHelpPerMonth": "�"
+        }
+      },
+      "premium": {
+        "name": "�",
+        "description": "�",
+        "features": {
+          "allFreeFeatures": "�",
+          "unlimitedAi": "�",
+          "allExercises": "�",
+          "certificates": "�",
+          "adFree": "�"
+        }
+      }
+    }
+  },
+  "blog": {
+    "header": {
+      "label": "Blog",
+      "title": "Haberler, fikirler ve gevezelikler",
+      "subtitle": "Programlama dillerine, kodlama zorluklarına ve kod yazmayı öğrenme sanatına dair derinlemesine yazılar."
+    },
+    "postHeader": {
+      "writtenBy": "Yazan: {name}",
+      "readingTime": "{count, plural, one {# dakikalık okuma} other {# dakikalık okuma}}"
+    },
+    "featuredLatest": {
+      "label": "En son yazı",
+      "byAuthor": "{name} tarafından",
+      "readFullArticle": "Yazının tamamını oku →"
+    },
+    "recentPosts": {
+      "heading": "Son yazılar"
+    },
+    "relatedPosts": {
+      "heading": "İlgili yazılar"
+    },
+    "cta": {
+      "minimalTitle": "Jiki'yi ücretsiz dene",
+      "minimalSubtitle": "Her ay 10.000'den fazla öğrenci, uygulamalı alıştırmalar ve uzman mentorluk ile programlamada ustalaşmak için Jiki'yi kullanıyor.",
+      "minimalButton": "Hemen başla",
+      "gradientTitle": "Kodlama yolculuğunuza başlamaya hazır mısınız?",
+      "gradientSubtitle": "Jiki'deki binlerce öğrenciye katılın. Kodlama alıştırmaları yapın, mentorlardan geri bildirim alın ve becerilerinizi geliştirin. Üstelik ücretsiz!",
+      "gradientButton": "Ücretsiz kaydol"
+    }
+  },
+  "articles": {
+    "header": {
+      "label": "Makaleler",
+      "title": "Yardım ve kaynaklar",
+      "subtitle": "Jiki'den en iyi şekilde yararlanmanıza yardımcı olacak rehberler, eğitimler ve yanıtlar.",
+      "writtenBy": "Yazan: {name}",
+      "readingTime": "{count, plural, one {# dakikalık okuma} other {# dakikalık okuma}}"
+    },
+    "relatedArticles": {
+      "heading": "İlgili makaleler"
+    },
+    "search": {
+      "placeholder": "Makalelerde ara...",
+      "noResultsTitle": "“{query}” için 0 sonuç",
+      "noResultsMessage": "Farklı bir arama terimi deneyin veya makalelere göz atın."
+    },
+    "filterSidebar": {
+      "filterBy": "Filtrele",
+      "all": "Tümü",
+      "help": "Aradığınızı bulamadınız mı? <blogs>Blog yazılarımıza</blogs> veya <faqs>SSS bölümüne</faqs> göz atın, <support>destek ekibine yazın</support> ya da <community>Topluluğumuzda</community> sorun"
+    },
+    "cta": {
+      "minimalTitle": "Jiki'yi ücretsiz dene",
+      "minimalSubtitle": "Her ay 10.000'den fazla öğrenci, uygulamalı alıştırmalar ve uzman mentorluk ile programlamada ustalaşmak için Jiki'yi kullanıyor.",
+      "minimalButton": "Hemen başla",
+      "gradientTitle": "Kodlama yolculuğunuza başlamaya hazır mısınız?",
+      "gradientSubtitle": "Jiki'deki binlerce öğrenciye katılın. Kodlama alıştırmaları yapın, mentorlardan geri bildirim alın ve becerilerinizi geliştirin. Üstelik ücretsiz!",
+      "gradientButton": "Ücretsiz kaydol"
+    }
+  },
+  "checkout": {
+    "declineDefault": "Son ödemeniz gerçekleşmedi. Lütfen farklı bir kartla tekrar deneyin."
+  }
+}

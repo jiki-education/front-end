@@ -1,0 +1,67 @@
+{
+  "tasks": {
+    "classifyString": {
+      "name": "文字列の分類",
+      "description": "文字列が英字、数字、または英数字で構成されているかを判定するヘルパー関数を作成し、それらを使って入力文字列を分類します。"
+    },
+    "useContinue": {
+      "name": "continueを使う",
+      "description": "`isAlphanumeric`のチェックで、文字が英字または数字であれば、それで満足です。`continue`を使ってすぐ次の文字に進み、余計な条件の入れ子を避けましょう。"
+    }
+  },
+  "scenarios": {
+    "duck": {
+      "name": "Duck",
+      "description": "英字のみの文字列は\"Alpha\"に分類されます。"
+    },
+    "number": {
+      "name": "42",
+      "description": "数字のみの文字列は\"Numeric\"に分類されます。"
+    },
+    "alphanumeric": {
+      "name": "Duck42",
+      "description": "英字と数字の両方を含む文字列は\"Alphanumeric\"に分類されます。"
+    },
+    "notAlphanumeric1": {
+      "name": "It's not 42!",
+      "description": "記号を含む文字列は\"Unknown\"に分類されます。"
+    },
+    "notAlphanumeric2": {
+      "name": "42 Rubber Duck!",
+      "description": "スペースや記号を含む文字列は\"Unknown\"に分類されます。"
+    },
+    "alphanumericUsesContinue": {
+      "name": "continueを使用",
+      "description": "解答は正しく動作し、`continue`を使ってすでに確認した文字を飛ばしています。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "いくつか関数を作るとき、どこから始めるのが良いですか？",
+      "answer": "まずは一番小さなヘルパーから取り組みましょう。どのヘルパーも文字列の各文字をループして、同じ種類の「はい/いいえ」の質問をします。1つが動作すれば、他の関数も同じ形で書けます。"
+    },
+    "checkAllLetters": {
+      "question": "入力のすべての文字が英字かどうかを確認するにはどうすればいいですか？",
+      "answer": "各文字をループして、アルファベットに含まれるかどうかをチェックします。文字列の`.includes()`メソッドがまさにそれを実現します。`\"...\".includes(char)`というコードでチェックできます。大文字と小文字の両方を含めるのを忘れないでください。そうしないと、\"Duck\"の\"D\"のような大文字がカウントされません。1文字でもアルファベットに含まれていなければ、全体が英字ではありません。"
+    },
+    "checkAllDigits": {
+      "question": "数字について同じチェックをするにはどうすればいいですか？",
+      "answer": "全く同じパターンで、アルファベットの代わりに`\"0123456789\"`を使ってチェックします。"
+    },
+    "alphanumericMeaning": {
+      "question": "「英数字」とはどういう意味ですか？　両方ですか？",
+      "answer": "英数字は、各文字が英字または数字のどちらかであることを意味します。したがって、各文字について、英字であればそれでよく、数字でも同様です。`continue`を使ってスキップしましょう。どちらでもない場合にのみ、不合格と判断します。"
+    },
+    "pickingLabels": {
+      "question": "`whatAmI()`で4つのラベルからどれかを選ぶにはどうすればよいですか？",
+      "answer": "3つのヘルパーをすべて呼び出して、`if`/`else`を使います。順番に注意してください。「英字のみ」や「数字のみ」のような厳しい条件を先に確認し、より緩い「英数字」は後回しにします。"
+    }
+  },
+  "checks": {
+    "mustUseContinue": "おしい！次の文字にスキップするために`continue`を使ってください。",
+    "tooManyLines": "おしい！解答は正しく動作していますが、少し長めです。",
+    "useIsAlpha": "この演習では、`isAlpha()`ヘルパーを作って文字列の分類に使ってください。",
+    "useIsNumeric": "この演習では、`isNumeric()`ヘルパーを作って文字列の分類に使ってください。",
+    "useIsAlphanumeric": "この演習では、`isAlphanumeric()`ヘルパーを作って文字列の分類に使ってください。"
+  }
+}

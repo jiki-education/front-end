@@ -1,0 +1,76 @@
+{
+  "checks": {
+    "totalCells": "Attese {{expected}} celle, ma trovate {{got}}.",
+    "groundWalls": "Il piano terra dovrebbe avere muri alle posizioni (17, 2) e (21, 2).",
+    "groundGlass": "Il piano terra dovrebbe avere vetri alle posizioni (18, 2) e (20, 2).",
+    "groundEntrance": "Il piano terra dovrebbe avere un ingresso alla posizione (19, 2).",
+    "floorWalls": "Il piano {{y}} dovrebbe avere muri alle posizioni (17, {{y}}) e (21, {{y}}).",
+    "floorGlass": "Il piano {{y}} dovrebbe avere vetri alle posizioni (18, {{y}}), (19, {{y}}) e (20, {{y}}).",
+    "roof": "Il tetto a y={{roofY}} dovrebbe essere tutto muri.",
+    "codeQuality": {
+      "allArgumentsAreVariables": "Dovresti usare <strong>variabili</strong> come argomenti delle funzioni, non valori letterali. Prima memorizza i valori nelle variabili, poi passa le variabili."
+    }
+  },
+  "tasks": {
+    "buildSkyscraper": {
+      "name": "Costruisci il grattacielo",
+      "description": "Costruisci un grattacielo con il numero corretto di piani, incluso un piano terra con ingresso, piani superiori con vetri e un tetto di muri."
+    }
+  },
+  "scenarios": {
+    "floors6": {
+      "name": "Grattacielo di 6 piani",
+      "description": "Costruisci un grattacielo di 6 piani."
+    },
+    "floors8": {
+      "name": "Grattacielo di 8 piani",
+      "description": "Costruisci un grattacielo di 8 piani."
+    },
+    "floors10": {
+      "name": "Grattacielo di 10 piani",
+      "description": "Costruisci un grattacielo di 10 piani."
+    },
+    "floors12": {
+      "name": "Grattacielo di 12 piani",
+      "description": "Costruisci un grattacielo di 12 piani."
+    },
+    "floors16": {
+      "name": "Grattacielo di 16 piani",
+      "description": "Costruisci un grattacielo di 16 piani."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Non so da dove iniziare.",
+      "answer": "Per prima cosa prova a disegnare un muro, un po' di vetro e un ingresso per verificare di aver capito le funzioni. Poi disegna il piano terra: è sempre uguale. Quindi usa la funzione `numFloors()` per scoprire il numero totale di piani e disegna i piani rimanenti e poi il tetto."
+    },
+    "tooManyTooFewFloors": {
+      "question": "Ho troppi/troppo pochi piani.",
+      "answer": "Se `numFloors()` restituisce 5, dovrebbero esserci un piano con ingresso, 4 piani di vetro e 1 tetto. Controlla che la tua logica sia corretta!"
+    }
+  },
+  "functions": {
+    "buildWall": {
+      "description": "Posiziona un **blocco di muro** alla posizione (x, y) della griglia.",
+      "category": "Costruzione"
+    },
+    "buildGlass": {
+      "description": "Posiziona un **pannello di vetro** alla posizione (x, y) della griglia.",
+      "category": "Costruzione"
+    },
+    "buildEntrance": {
+      "description": "Posiziona una **porta d'ingresso** alla posizione (x, y) della griglia.",
+      "category": "Costruzione"
+    },
+    "numFloors": {
+      "description": "Restituisce il **numero di piani** per questo edificio.",
+      "category": "Info"
+    }
+  },
+  "describers": {
+    "buildWall": "ha costruito un muro alla posizione (${arg1}, ${arg2})",
+    "buildEntrance": "ha costruito un ingresso alla posizione (${arg1}, ${arg2})",
+    "buildGlass": "ha costruito un pannello di vetro alla posizione (${arg1}, ${arg2})",
+    "numFloors": "ha recuperato il numero di piani"
+  }
+}

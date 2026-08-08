@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "noResult": "Du hast kein Ergebnis verkündet!",
+    "paperVsPaperResult": "Papier gegen Papier sollte ein Unentschieden sein, aber es war \"{{got}}\".",
+    "paperVsRockResult": "Papier gegen Stein sollte ein Sieg für Yuki sein, aber es war \"{{got}}\".",
+    "paperVsScissorsResult": "Papier gegen Schere sollte ein Sieg für Ando sein, aber es war \"{{got}}\".",
+    "rockVsPaperResult": "Stein gegen Papier sollte ein Sieg für Ando sein, aber es war \"{{got}}\".",
+    "rockVsRockResult": "Stein gegen Stein sollte ein Unentschieden sein, aber es war \"{{got}}\".",
+    "rockVsScissorsResult": "Stein gegen Schere sollte ein Sieg für Yuki sein, aber es war \"{{got}}\".",
+    "scissorsVsPaperResult": "Schere gegen Papier sollte ein Sieg für Yuki sein, aber es war \"{{got}}\".",
+    "scissorsVsRockResult": "Schere gegen Stein sollte ein Sieg für Ando sein, aber es war \"{{got}}\".",
+    "scissorsVsScissorsResult": "Schere gegen Schere sollte ein Unentschieden sein, aber es war \"{{got}}\"."
+  },
+  "tasks": {
+    "determineWinner": {
+      "name": "Ermittle den Gewinner",
+      "description": "Hole die Wahl beider Spieler und verkünde das richtige Ergebnis: \"Yuki\", \"Ando\" oder \"tie\"."
+    }
+  },
+  "scenarios": {
+    "paperVsPaper": {
+      "name": "Papier gegen Papier",
+      "description": "Es ist ein Unentschieden. Verkünde es richtig!"
+    },
+    "paperVsRock": {
+      "name": "Papier gegen Stein",
+      "description": "Yukis Papier schlägt Andos Stein. Verkünde Yuki als Gewinner!"
+    },
+    "paperVsScissors": {
+      "name": "Papier gegen Schere",
+      "description": "Andos Schere schlägt Yukis Papier. Verkünde Ando als Gewinner."
+    },
+    "rockVsPaper": {
+      "name": "Stein gegen Papier",
+      "description": "Andos Papier schlägt Yukis Stein. Verkünde Ando als Gewinner."
+    },
+    "rockVsRock": {
+      "name": "Stein gegen Stein",
+      "description": "Es ist ein Unentschieden. Verkünde es richtig!"
+    },
+    "rockVsScissors": {
+      "name": "Stein gegen Schere",
+      "description": "Yukis Stein schlägt Andos Schere. Verkünde Yuki als Gewinner."
+    },
+    "scissorsVsPaper": {
+      "name": "Schere gegen Papier",
+      "description": "Yukis Schere schlägt Andos Papier. Verkünde Yuki als Gewinner."
+    },
+    "scissorsVsRock": {
+      "name": "Schere gegen Stein",
+      "description": "Andos Stein schlägt Yukis Schere. Verkünde Ando als Gewinner."
+    },
+    "scissorsVsScissors": {
+      "name": "Schere gegen Schere",
+      "description": "Es ist ein Unentschieden. Verkünde es richtig!"
+    }
+  },
+  "hints": {
+    "howToStart": {
+      "question": "Wie fange ich an?",
+      "answer": "Hole mit den bereitgestellten Funktionen, was Yuki und Ando gewählt haben, und speichere die Werte in Variablen, damit du sie vergleichen kannst."
+    },
+    "simplestCase": {
+      "question": "Was ist der einfachste Fall, mit dem ich anfangen sollte?",
+      "answer": "Ein Unentschieden. Wenn beide dasselbe gewählt haben, kannst du sofort ein Unentschieden verkünden und den Rest überspringen."
+    },
+    "checkCombination": {
+      "question": "Wie prüfe ich eine bestimmte Gewinnkombination?",
+      "answer": "Verwende `&&` (und), um zwei Bedingungen zu verbinden, die beide wahr sein müssen. Zum Beispiel bedeutet „Yuki hat Stein gewählt UND Ando hat Schere gewählt“, dass Yuki gewinnt."
+    },
+    "shorterWay": {
+      "question": "Ich lande bei ganz vielen `if`-Anweisungen. Geht das auch kürzer?",
+      "answer": "Setze das Ergebnis standardmäßig auf einen Sieg für den einen Spieler und prüfe dann nur die drei Kombinationen, in denen der andere Spieler gewinnt. Das halbiert die Fälle ungefähr."
+    },
+    "invalidChoice": {
+      "question": "Was ist, wenn ein Spieler etwas anderes als Stein, Papier oder Schere eingibt?",
+      "answer": "Darum musst du dir hier keine Sorgen machen. Die bereitgestellten Funktionen geben immer nur eine der drei gültigen Möglichkeiten zurück."
+    }
+  },
+  "functions": {
+    "getYukiChoice": {
+      "description": "Gibt Yukis Wahl zurück: `\"rock\"`, `\"paper\"` oder `\"scissors\"`.",
+      "category": "Spiel"
+    },
+    "getAndoChoice": {
+      "description": "Gibt Andos Wahl zurück: `\"rock\"`, `\"paper\"` oder `\"scissors\"`.",
+      "category": "Spiel"
+    },
+    "announceResult": {
+      "description": "Verkündet das Ergebnis des Spiels. Übergib `\"Yuki\"`, `\"Ando\"` oder `\"tie\"`.",
+      "category": "Spiel"
+    }
+  }
+}

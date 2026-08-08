@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "flowerCount": "Previsti 9 fiori, ma trovati {{got}}.",
+    "missingFlowerAt10": "Manca un fiore alla posizione 10.",
+    "missingFlowerAt50": "Manca un fiore alla posizione 50.",
+    "missingFlowerAt90": "Manca un fiore alla posizione 90.",
+    "tooManyLines": "La tua soluzione ha troppe righe di codice. Prova a trovare un modo per accorciarla."
+  },
+  "tasks": {
+    "plantFlowers": {
+      "name": "Pianta 9 fiori",
+      "description": "Usa una variabile e un ciclo repeat per piantare 9 fiori alle posizioni 10, 20, 30, ..., 90."
+    }
+  },
+  "scenarios": {
+    "plantFlowers": {
+      "name": "Pianta 9 fiori",
+      "description": "Pianta fiori alle posizioni 10, 20, 30, 40, 50, 60, 70, 80 e 90."
+    }
+  },
+  "hints": {
+    "stuck": {
+      "question": "Sono completamente bloccato",
+      "answer": "Controlla i video recenti su come usare i cicli repeat e su come aggiornare le variabili per tenere traccia dello stato. Dovrebbero dirti tutto ciò che ti serve sapere."
+    }
+  },
+  "functions": {
+    "plant": {
+      "description": "Pianta un fiore alla **posizione** indicata.",
+      "category": "Giardinaggio"
+    }
+  },
+  "describers": {
+    "plant": "pianta un fiore alla posizione ${arg1}"
+  }
+}

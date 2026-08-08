@@ -1,0 +1,78 @@
+{
+  "tasks": {
+    "lookUpPlusOnes": {
+      "name": "Proveri broj pratnje",
+      "description": "Neko ti kaže svoje ime. Vrati broj dodatnih gostiju koje sme da povede, ili `\"Not on the list!\"` ako nije pozvan."
+    }
+  },
+  "scenarios": {
+    "emptyList": {
+      "name": "Prazan spisak",
+      "description": "Niko ne dovodi nikoga kada je spisak prazan."
+    },
+    "nameMissing": {
+      "name": "Bred je odbijen",
+      "description": "Ime uopšte nije na spisku."
+    },
+    "namePresent": {
+      "name": "Bred je pušten",
+      "description": "Bred je pozvan i ne dolazi sam."
+    },
+    "similarName": {
+      "name": "Blizu, ali ne",
+      "description": "Bradley nije Brad, tako da je Brad i dalje na pogrešnoj strani užeta."
+    },
+    "doubleBarrelled": {
+      "name": "Holandanin",
+      "description": "Ime je na spisku, ali ima crticu."
+    },
+    "allowedNobody": {
+      "name": "Bred dolazi sam",
+      "description": "Bred je definitivno pozvan. Samo ne dovodi nikoga sa sobom."
+    },
+    "twoBrads": {
+      "name": "Dva Breda",
+      "description": "Ima više od jednog Breda na spisku večeras, a prvi na spisku je onaj na vratima."
+    },
+    "cher": {
+      "name": "Cher je u gradu",
+      "description": "Neki ljudi imaju samo jedno ime, a ona je dovela pratnju."
+    },
+    "cheryl": {
+      "name": "Postaje teško",
+      "description": "Da li su Cheryl Crow i Cher prijatelji? Nije bitno - Cheryl nije Cher."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Odakle uopšte da počnem?",
+      "answer": "Zamisli da zaista radiš na vratima. Neko kaže ime, a ti čitaš niz klipbord dok ih ne primetiš. Vredi primetiti da odgovor koji treba da im daš nije napisan pored njihovog imena na spisku koji čitaš."
+    },
+    "twoLists": {
+      "question": "Postoje dva spiska. Kako su oni povezani?",
+      "answer": "Šta god da saznaš o *tome gde* se neko nalazi u jednom nizu, jednako je tačno i u drugom. Poziciju je korisnije zapamtiti nego ime."
+    },
+    "whatCountsAsAMatch": {
+      "question": "Kada se samo ime zapravo računa kao poklapanje?",
+      "answer": "„Brad“ treba da propusti Brad Pitt-a, ali ne i Bradley Cooper-a. Razmisli o tome šta je različito kod ta dva unosa u trenutku kada slova koja su ti data prestanu. Postoji više od jednog razumnog načina da se to uporedi, pa izaberi onaj koji možeš sebi da objasniš."
+    },
+    "noSurname": {
+      "question": "Cher nema prezime. Da li to nešto kvari?",
+      "answer": "Pogledaj ponovo šta tvoj test poklapanja pretpostavlja o unosu u nizu. Ako pretpostavlja da uvek postoji nešto posle imena, unos koji je *samo* ime neće proći. A u suprotnom smeru, duže ime ne bi trebalo da može da prisvoji kraći unos."
+    },
+    "notOnTheList": {
+      "question": "Šta da radim kada nisu na spisku?",
+      "answer": "Onda dobijaju string `\"Not on the list!\"`, tačno onako kako je napisano. Dve stvari vredi razmotriti ovde. Prvo, u kom trenutku možeš biti *siguran* da neko nije na spisku? Drugo, primeti da je ovo zaista drugačiji odgovor od gosta koji je pozvan ali mu je dozvoljeno 0 dodatnih gostiju, pa se pobrini da tvoja funkcija nikada ne pomeša ta dva."
+    }
+  },
+  "functions": {
+    "length": {
+      "description": "Broj elemenata u nizu - isto svojstvo length koje si koristio na stringovima (obezbeđeno od strane stdlib-a).",
+      "category": "Operacije nad nizovima"
+    },
+    "startsWith": {
+      "description": "Proverava da li string počinje manjim stringom (obezbeđeno od strane stdlib-a).",
+      "category": "Operacije nad stringovima"
+    }
+  }
+}

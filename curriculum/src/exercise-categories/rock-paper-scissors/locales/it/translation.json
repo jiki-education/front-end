@@ -1,0 +1,11 @@
+{
+  "errors": {
+    "invalidResult": "Oh no! Hai comunicato un risultato non valido. Nella sala di gioco è scoppiato il caos! Comunica \"Yuki\", \"Ando\" oppure \"tie\".",
+    "wrongResult": "Oh no! Hai comunicato il risultato sbagliato. Nella sala di gioco è scoppiato il caos!\n\nAvresti dovuto comunicare `\"{{expected}}\"`, ma hai comunicato `\"{{got}}\"`."
+  },
+  "describers": {
+    "announceResult": "ha comunicato ${arg1} come risultato della partita",
+    "getYukiChoice": "ha restituito la scelta di Yuki",
+    "getAndoChoice": "ha restituito la scelta di Ando"
+  }
+}

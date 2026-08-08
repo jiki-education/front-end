@@ -1,0 +1,59 @@
+{
+  "checks": {
+    "frameWrong": "집의 프레임이 올바른 위치에 있지 않아요.",
+    "roofWrong": "집의 지붕이 올바른 위치에 있지 않아요.",
+    "leftWindowWrong": "왼쪽 창문이 올바르게 배치되지 않았어요.",
+    "rightWindowWrong": "오른쪽 창문이 올바르게 배치되지 않았어요.",
+    "doorWrong": "문이 올바르게 배치되지 않았어요.",
+    "knobWrong": "문 손잡이가 올바르게 배치되지 않았어요.",
+    "doesNotScale": "houseWidth가 {{houseWidth}}이고 houseHeight가 {{houseHeight}}일 때 집이 올바르게 크기 조절되지 않아요. 모든 위치와 크기는 houseWidth와 houseHeight에서 계산해야 하며, 하드코딩된 숫자를 사용하면 안 돼요."
+  },
+  "tasks": {
+    "drawHouse": {
+      "name": "집 그리기",
+      "description": "`houseWidth`와 `houseHeight`를 바탕으로 집을 만들어, 집이 어떤 크기에서도 중앙에 위치하고, 잔디 위에 자리 잡으며, 올바른 비율을 유지하도록 하세요."
+    }
+  },
+  "scenarios": {
+    "drawTheHouse": {
+      "name": "집 그리기",
+      "description": "houseWidth와 houseHeight로 집을 만들어 올바르게 크기 조정되도록 해요."
+    }
+  },
+  "hints": {
+    "whereDoIStart": {
+      "question": "어디서부터 시작해야 할까요?",
+      "answer": "`houseWidth`, `houseHeight`, `canvasWidth`가 주어져요. 먼저 프레임의 왼쪽 가장자리(집을 가운데에 두기 위해)와 위쪽 가장자리(잔디에 붙도록)를 계산하세요. 그러면 나머지 모든 도형을 프레임에서 만들 수 있어요."
+    },
+    "keepCentered": {
+      "question": "너비가 변할 때 집을 어떻게 중앙에 유지하나요?",
+      "answer": "그림판의 가운데는 언제나 `canvasWidth / 2`예요. 프레임이 이 점을 기준으로 중앙에 놓이면, 왼쪽 가장자리는 중앙으로부터 너비의 절반만큼 왼쪽에 있어요. 중앙에 정렬된 다른 요소(지붕 꼭대기, 문)도 이 동일한 중앙점을 사용하면 돼요."
+    },
+    "keepPlantedOnGrass": {
+      "question": "집을 잔디 위에 단단히 자리 잡게 하려면 어떻게 하나요?",
+      "answer": "집 바닥이 위치해야 할 y 좌표를 찾으세요(잔디 상단에서 약간 아래). 그러면 프레임의 상단은 그 지점에서 집 높이만큼 위에 위치해요. 아래에서 위로 계산하면, 더 높은 집도 잔디 밑으로 내려가지 않고 하늘로 솟아오르게 돼요."
+    },
+    "sizeRoofWindowsDoor": {
+      "question": "지붕, 창문, 문의 크기를 어떻게 결정할까요?",
+      "answer": "지시 사항에 적힌 각 크기는 프레임 너비나 높이의 분수 형태예요 (예: '넓이의 1/5'은 `houseWidth / 5`). 모든 너비는 `houseWidth`를, 모든 높이는 `houseHeight`를 기준으로 만들어야 모두 한꺼번에 크기가 조절돼요."
+    },
+    "breaksOnResize": {
+      "question": "기본 크기에서는 괜찮아 보이는데, 크기를 바꾸면 깨져요. 왜 그런가요?",
+      "answer": "어딘가에 하드코딩된 숫자가 있을 거예요. 그림판 크기나 잔디 높이처럼 지시 사항에서 직접 가져온 것이 아닌 모든 리터럴을 살펴보세요. 대부분 다른 변수에서 계산해야 해요. 즉, 기준이 되는 값이거나, 이미 기준에서 계산된 값(문의 너비 등)일 거예요."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "(left, top) 위치에 주어진 너비, 높이, 색상으로 직사각형을 그려요.",
+      "category": "도형 그리기"
+    },
+    "circle": {
+      "description": "(centerX, centerY)를 중심으로 주어진 반지름과 색상으로 원을 그려요.",
+      "category": "도형 그리기"
+    },
+    "triangle": {
+      "description": "세 개의 꼭짓점과 색상으로 삼각형을 그려요.",
+      "category": "도형 그리기"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "checks": {
+    "wrongShotEnd": "이 샷에서 공이 올바른 위치에 가지 못했어요. 공이 샷 거리만큼 이동했는지 확인해 보세요.",
+    "missingPositions": "공은 각 위치를 한 걸음씩 지나가야 해요. 곧장 끝으로 점프하면 안 돼요."
+  },
+  "tasks": {
+    "rollAndCelebrate": {
+      "name": "공 굴리기",
+      "description": "샷 거리를 가져와서 그만큼 공을 오른쪽으로 굴리세요."
+    }
+  },
+  "scenarios": {
+    "shortShot": {
+      "name": "짧은 샷 (20)",
+      "description": "이 시나리오에서는 `getShotLength()`가 20을 반환해요. 공을 티에서 20걸음 굴리세요."
+    },
+    "mediumShot": {
+      "name": "중간 샷 (35)",
+      "description": "이 시나리오에서는 `getShotLength()`가 35를 반환해요. 공을 티에서 35걸음 굴리세요."
+    },
+    "longShot": {
+      "name": "긴 샷 (50)",
+      "description": "이 시나리오에서는 `getShotLength()`가 50을 반환해요. 공을 티에서 50걸음 굴리세요."
+    },
+    "veryLongShot": {
+      "name": "아주 긴 샷 (60)",
+      "description": "이 시나리오에서는 `getShotLength()`가 60을 반환해요. 공을 티에서 60걸음 굴리세요."
+    }
+  },
+  "hints": {
+    "notSureWhereToStart": {
+      "question": "어디서부터 시작해야 할지 모르겠어요.",
+      "answer": "이전 골프 연습 문제와 비슷해요. 거기서는 공을 정해진 걸음 수만큼 굴렸죠. 유일한 차이는 걸음 수가 더 이상 고정된 값이 아니고 `getShotLength()`에서 얻은 값을 사용한다는 점이에요. 전에 숫자를 썼던 곳에 함수의 결과를 사용하면 돼요."
+    },
+    "ballStopsShort": {
+      "question": "공이 한 걸음 짧게 멈추거나 한 걸음 더 나가요.",
+      "answer": "출발 위치와 굴리는 횟수를 잘 생각해 보세요. 공은 28번 티에 놓여 있어요. 첫 걸음으로 29로 가야 해요. 거기서부터 도착 지점까지 걸음 수를 세어 보세요."
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "공을 **x** 위치로 이동해요.",
+      "category": "이동"
+    },
+    "getShotLength": {
+      "description": "**샷 거리**를 반환해요. 공이 오른쪽으로 이동하는 단위 수를 알려줘요.",
+      "category": "정보"
+    }
+  },
+  "describers": {
+    "moveTo": "공을 ${arg1} 위치로 이동했어요.",
+    "getShotLength": "샷 거리를 가져왔어요."
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "errors": {
+    "hourNotNumber": "<code>hour</code> mora biti broj",
+    "minutesNotNumber": "<code>minutes</code> mora biti broj",
+    "indicatorNotString": "<code>indicator</code> mora biti string"
+  },
+  "checks": {
+    "notUpdated": "Sat nije ažuriran. Proveri da li koristiš funkciju <code>displayTime</code>.",
+    "wrongTime": "Očekivano je \"{{expected}}\", a dobijeno \"{{got}}\""
+  },
+  "tasks": {
+    "displayTime": {
+      "name": "Prikaži vreme na satu",
+      "description": "Uzmi trenutni sat i minut, pretvori ih u 12-časovni format sa am/pm i prikaži vreme pomoću displayTime()."
+    }
+  },
+  "scenarios": {
+    "morning1": {
+      "name": "Rano jutro",
+      "description": "Prikaži 6:35 kao \"6:35am\""
+    },
+    "morning2": {
+      "name": "Kasno jutro",
+      "description": "Prikaži 11:04 kao \"11:04am\""
+    },
+    "afternoon1": {
+      "name": "Rano popodne",
+      "description": "Prikaži 12:19 kao \"12:19pm\""
+    },
+    "afternoon2": {
+      "name": "Kasno veče",
+      "description": "Prikaži 23:32 kao \"11:32pm\""
+    },
+    "midnight": {
+      "name": "Ponoć",
+      "description": "Prikaži ponoć kao \"12:00am\""
+    },
+    "noon": {
+      "name": "Podne",
+      "description": "Prikaži podne kao \"12:00pm\""
+    },
+    "now": {
+      "name": "Prikaži trenutno vreme",
+      "description": "Prikaži trenutno vreme"
+    }
+  },
+  "hints": {
+    "gettingStarted": {
+      "question": "Ne znam kako da počnem",
+      "answer": "Koristi `currentTimeHour()` i `currentTimeMinute()` da dobiješ trenutno vreme, a zatim pozovi `displayTime(hour, minutes, \"am\")` sa tim vrednostima da vidiš šta se dešava. Zatim smisli kako da podesiš ispravan meridiem i ispravan prikaz sata."
+    },
+    "meridiem": {
+      "question": "Kako funkcioniše meridiem?",
+      "answer": "Sati 0-11 su 'am', a sati 12-23 su 'pm'. Ponoć (sat 0) treba da se prikaže kao 12am. Podne (sat 12) treba da se prikaže kao 12pm."
+    },
+    "hourChange": {
+      "question": "Kada i zašto sat mora da se promeni?",
+      "answer": "Na 12-časovnom satu, 13:00 se predstavlja kao 1:00pm, a 14:00 kao 2:00pm, pa treba da otkriješ vezu između 13->1, 14->2 itd. i da u skladu sa tim prilagodiš sat!"
+    }
+  },
+  "describers": {
+    "currentTimeHour": "preuzet je trenutni sat",
+    "currentTimeMinute": "preuzet je trenutni minut",
+    "displayTime": "vreme je prikazano na satu"
+  },
+  "functions": {
+    "currentTimeHour": {
+      "description": "Vraća trenutni sat u 24-časovnom formatu (npr. 23 za 11pm), kao broj.",
+      "category": "Vreme"
+    },
+    "currentTimeMinute": {
+      "description": "Vraća trenutni minut kao broj.",
+      "category": "Vreme"
+    },
+    "displayTime": {
+      "description": "Prikazuje vreme na digitalnom satu. Indikator treba da bude \"am\" ili \"pm\".",
+      "category": "Akcija"
+    }
+  }
+}

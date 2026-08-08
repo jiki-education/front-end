@@ -1,0 +1,46 @@
+{
+  "checks": {
+    "firstRectangle": "O primeiro retângulo está faltando.",
+    "lastRectangle": "O último retângulo está faltando.",
+    "minSaturationLightness": "Todos os retângulos devem ter saturação e luminosidade de pelo menos 20.",
+    "uniqueColors": "Não há 100 retângulos de cores diferentes.",
+    "hueRed": "Deve haver um retângulo com matiz perto de 0 (vermelho).",
+    "huePurple": "Deve haver um retângulo com matiz perto de 300 (roxo)."
+  },
+  "tasks": {
+    "drawRainbow": {
+      "name": "Desenhe o arco-íris",
+      "description": "Desenhe 100 barras verticais pela tela de desenho, cada uma com um matiz diferente, para criar o efeito de arco-íris."
+    }
+  },
+  "scenarios": {
+    "drawRainbow": {
+      "name": "Desenhe o arco-íris",
+      "description": "Pinte 100 lindos retângulos para criar um arco-íris."
+    }
+  },
+  "hints": {
+    "hundredRectangles": {
+      "question": "Preciso desenhar 100 retângulos diferentes?",
+      "answer": "Sim, mas não escrevendo `rectangle(...)` 100 vezes! Pense no que fazemos quando temos código repetitivo."
+    },
+    "colorIntoRectangle": {
+      "question": "Como coloco a cor no retângulo?",
+      "answer": "A função `hsl(...)` retorna uma string de cor. Você pode então passar essa string de cor para a função `rectangle(...)`, como você já fez antes."
+    },
+    "hueRange": {
+      "question": "Como faço o matiz ir de 0 a 300?",
+      "answer": "São 100 linhas, e a primeira deve ter um matiz de 0. Depois, para cada linha, precisamos aumentar um pouco esse valor: a segunda linha pode ter um matiz de 3, a terceira um matiz de 6, e assim por diante. No final, chegaremos a 300."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Desenha um retângulo na posição (left, top) com a largura, a altura e a cor indicadas",
+      "category": "Desenhar formas"
+    },
+    "hsl": {
+      "description": "Converte valores de cor HSL (matiz 0-360, saturação 0-100, luminosidade 0-100) em uma string de cor",
+      "category": "Cores"
+    }
+  }
+}

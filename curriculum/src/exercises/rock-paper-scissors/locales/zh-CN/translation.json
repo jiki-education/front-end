@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "noResult": "你没有宣布结果！",
+    "paperVsPaperResult": "布对布应该是平局，但得到的是\"{{got}}\"。",
+    "paperVsRockResult": "布对石头应该是 Yuki 赢，但得到的是\"{{got}}\"。",
+    "paperVsScissorsResult": "布对剪刀应该是 Ando 赢，但得到的是\"{{got}}\"。",
+    "rockVsPaperResult": "石头对布应该是 Ando 赢，但得到的是\"{{got}}\"。",
+    "rockVsRockResult": "石头对石头应该是平局，但得到的是\"{{got}}\"。",
+    "rockVsScissorsResult": "石头对剪刀应该是 Yuki 赢，但得到的是\"{{got}}\"。",
+    "scissorsVsPaperResult": "剪刀对布应该是 Yuki 赢，但得到的是\"{{got}}\"。",
+    "scissorsVsRockResult": "剪刀对石头应该是 Ando 赢，但得到的是\"{{got}}\"。",
+    "scissorsVsScissorsResult": "剪刀对剪刀应该是平局，但得到的是\"{{got}}\"。"
+  },
+  "tasks": {
+    "determineWinner": {
+      "name": "确定胜者",
+      "description": "获取两位玩家的选择，并宣布正确的结果：\"Yuki\"、\"Ando\" 或 \"tie\"。"
+    }
+  },
+  "scenarios": {
+    "paperVsPaper": {
+      "name": "布对布",
+      "description": "平局。请正确宣布！"
+    },
+    "paperVsRock": {
+      "name": "布对石头",
+      "description": "Yuki 的布胜过 Ando 的石头。宣布 Yuki 获胜！"
+    },
+    "paperVsScissors": {
+      "name": "布对剪刀",
+      "description": "Ando 的剪刀胜过 Yuki 的布。宣布 Ando 获胜。"
+    },
+    "rockVsPaper": {
+      "name": "石头对布",
+      "description": "Ando 的布胜过 Yuki 的石头。宣布 Ando 获胜。"
+    },
+    "rockVsRock": {
+      "name": "石头对石头",
+      "description": "平局。请正确宣布！"
+    },
+    "rockVsScissors": {
+      "name": "石头对剪刀",
+      "description": "Yuki 的石头胜过 Ando 的剪刀。宣布 Yuki 获胜。"
+    },
+    "scissorsVsPaper": {
+      "name": "剪刀对布",
+      "description": "Yuki 的剪刀胜过 Ando 的布。宣布 Yuki 获胜。"
+    },
+    "scissorsVsRock": {
+      "name": "剪刀对石头",
+      "description": "Ando 的石头胜过 Yuki 的剪刀。宣布 Ando 获胜。"
+    },
+    "scissorsVsScissors": {
+      "name": "剪刀对剪刀",
+      "description": "平局。请正确宣布！"
+    }
+  },
+  "hints": {
+    "howToStart": {
+      "question": "如何开始？",
+      "answer": "使用提供的函数获取 Yuki 和 Ando 的选择，并存储在变量中以便比较。"
+    },
+    "simplestCase": {
+      "question": "最简单的情况是什么？",
+      "answer": "平局。如果双方选择相同，可以直接宣布平局并跳过剩余部分。"
+    },
+    "checkCombination": {
+      "question": "如何检查特定的获胜组合？",
+      "answer": "使用 `&&`（且）组合两个必须同时为真的条件，例如 \"Yuki 出石头且 Ando 出剪刀\" 意味着 Yuki 获胜。"
+    },
+    "shorterWay": {
+      "question": "我写了很多 `if` 语句。有更简短的方法吗？",
+      "answer": "将结果默认为一名玩家获胜，然后只检查另一名玩家获胜的三种组合。这样能将情况减少大约一半。"
+    },
+    "invalidChoice": {
+      "question": "如果玩家输入了石头、剪刀或布之外的内容怎么办？",
+      "answer": "这里你不用担心。提供的函数只会返回三种有效选择之一。"
+    }
+  },
+  "functions": {
+    "getYukiChoice": {
+      "description": "返回 Yuki 的选择——`\"rock\"`、`\"paper\"` 或 `\"scissors\"` 之一。",
+      "category": "游戏"
+    },
+    "getAndoChoice": {
+      "description": "返回 Ando 的选择——`\"rock\"`、`\"paper\"` 或 `\"scissors\"` 之一。",
+      "category": "游戏"
+    },
+    "announceResult": {
+      "description": "宣布游戏结果。传入 `\"Yuki\"`、`\"Ando\"` 或 `\"tie\"`。",
+      "category": "游戏"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "checks": {
+    "sky": "하늘이 잘못되었어요.",
+    "ground": "바닥이 잘못되었어요.",
+    "leftWing": "왼쪽 날개가 이상해 보여요.",
+    "rightWing": "오른쪽 날개가 이상해 보여요.",
+    "outerBody": "바깥쪽 몸통이 잘못되었어요.",
+    "innerBody": "안쪽 몸통이 잘못되었어요.",
+    "head": "머리가 잘못되었어요.",
+    "leftFace": "얼굴 왼쪽이 이상해 보여요.",
+    "rightFace": "얼굴 오른쪽이 이상해 보여요.",
+    "lowerFace": "얼굴 아래쪽이 이상해 보여요.",
+    "leftEye": "왼쪽 눈이 잘못된 것 같아요.",
+    "leftIris": "왼쪽 홍채가 잘못된 것 같아요.",
+    "rightEye": "오른쪽 눈이 잘못된 것 같아요.",
+    "rightIris": "오른쪽 홍채가 잘못된 것 같아요.",
+    "leftFoot": "왼쪽 발이 잘못되었어요.",
+    "rightFoot": "오른쪽 발이 틀렸어요.",
+    "nose": "코가 틀렸어요."
+  },
+  "tasks": {
+    "drawPenguin": {
+      "name": "대칭 펭귄 그리기",
+      "description": "대칭이 되도록 누락된 부분을 추가하여 펭귄 그림을 완성하세요."
+    }
+  },
+  "scenarios": {
+    "makePenguinSymmetrical": {
+      "name": "펭귄을 대칭으로 만들기",
+      "description": "펭귄을 대칭으로 만들기 위해 모든 TODO 주석을 해결하세요."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "어디서부터 시작하나요?",
+      "answer": "맨 위에서부터 TODO 주석을 하나씩 처리해 보세요."
+    },
+    "symmetryOnCanvas": {
+      "question": "캔버스에서 대칭은 어떻게 작동하나요?",
+      "answer": "어떤 것의 왼쪽 끝이 20이면, 대칭되는 오른쪽 끝은 80(100 - 20)이 돼요."
+    },
+    "noseTrouble": {
+      "question": "코가 왜 제대로 그려지지 않을까요?",
+      "answer": "코를 위해 새 삼각형을 추가하면 안 돼요. 대신 기존 삼각형을 올바르게 작동하도록 변경해야 해요. 단 하나의 값만 바꾸면 돼요."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "(left, top) 위치에 주어진 너비, 높이, 색상으로 사각형을 그려요.",
+      "category": "도형 그리기"
+    },
+    "circle": {
+      "description": "주어진 반지름과 색상으로 중심이 (centerX, centerY)인 원을 그려요.",
+      "category": "도형 그리기"
+    },
+    "ellipse": {
+      "description": "주어진 가로 반지름, 세로 반지름, 색상으로 중심이 (centerX, centerY)인 타원을 그려요.",
+      "category": "도형 그리기"
+    },
+    "triangle": {
+      "description": "세 개의 꼭짓점과 색상으로 삼각형을 그려요.",
+      "category": "도형 그리기"
+    }
+  }
+}

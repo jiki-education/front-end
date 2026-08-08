@@ -1,0 +1,54 @@
+{
+  "checks": {
+    "wrongShotEnd": "La pallina non è finita nel posto giusto per questo tiro. Controlla che percorra l'intera lunghezza del tiro.",
+    "missingPositions": "La pallina deve passare per ogni posizione un passo alla volta, senza saltare direttamente alla fine."
+  },
+  "tasks": {
+    "rollAndCelebrate": {
+      "name": "Fai rotolare la pallina",
+      "description": "Ottieni la lunghezza del tiro e fai rotolare la pallina verso destra di quella quantità."
+    }
+  },
+  "scenarios": {
+    "shortShot": {
+      "name": "Tiro corto (20)",
+      "description": "In questo scenario, `getShotLength()` restituirà 20. Fai rotolare la pallina di 20 passi dal tee."
+    },
+    "mediumShot": {
+      "name": "Tiro medio (35)",
+      "description": "In questo scenario, `getShotLength()` restituirà 35. Fai rotolare la pallina di 35 passi dal tee."
+    },
+    "longShot": {
+      "name": "Tiro lungo (50)",
+      "description": "In questo scenario, `getShotLength()` restituirà 50. Fai rotolare la pallina di 50 passi dal tee."
+    },
+    "veryLongShot": {
+      "name": "Tiro molto lungo (60)",
+      "description": "In questo scenario, `getShotLength()` restituirà 60. Fai rotolare la pallina di 60 passi dal tee."
+    }
+  },
+  "hints": {
+    "notSureWhereToStart": {
+      "question": "Non so da dove iniziare",
+      "answer": "È proprio come l'esercizio di golf precedente, in cui facevi rotolare la pallina di un numero fisso di passi. L'unica differenza è che il numero di passi non è più un valore fisso, ma viene da `getShotLength()`. Ovunque prima usavi un numero, puoi usare invece il risultato di una funzione."
+    },
+    "ballStopsShort": {
+      "question": "La mia pallina si ferma un passo prima (o va un passo troppo oltre)",
+      "answer": "Pensa attentamente alla posizione di partenza e a quante volte fai rotolare la pallina. La pallina si trova sul tee alla posizione 28, quindi il primo rotolamento dovrebbe portarla a 29. Conta i passi da lì fino a dove deve arrivare."
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "Sposta la pallina alla posizione **x**.",
+      "category": "Movimento"
+    },
+    "getShotLength": {
+      "description": "Restituisce la **lunghezza del tiro**, ovvero di quante unità la pallina si sposta verso destra.",
+      "category": "Informazione"
+    }
+  },
+  "describers": {
+    "moveTo": "sposta la pallina alla posizione ${arg1}",
+    "getShotLength": "ottiene la lunghezza del tiro"
+  }
+}

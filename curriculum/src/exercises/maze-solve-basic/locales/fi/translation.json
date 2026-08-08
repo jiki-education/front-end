@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "Et päässyt sokkelon loppuun."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Vie hahmo sokkelon loppuun",
+      "description": "Kulje sokkelon läpi vihreään maaliin"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Vie hahmo sokkelon loppuun",
+      "description": "Tehtäväsi on ohjata hahmo sokkelon läpi vihreään maaliruutuun."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "Mitä minun pitää siirtää ja minne?",
+      "answer": "Siirrät pientä hahmoa, joka aloittaa vasemmasta yläkulmasta, oikeassa alakulmassa olevaan vihreään ympyrään. Väistä matkalla punaraidalliset ruudut."
+    },
+    "turnLeftTurnsRight": {
+      "question": "Käännyn vasemmalle, mutta hahmo kääntyykin oikealle!",
+      "answer": "Hahmo kääntyy aina suhteessa siihen suuntaan, johon se katsoo. Jos se siis katsoo oikealle ja kääntyy vasemmalle, se katsoo sen jälkeen ylöspäin."
+    }
+  }
+}

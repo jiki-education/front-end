@@ -8,7 +8,6 @@ import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters/shared";
 import { useEffect, useRef } from "react";
 import styles from "../harness.module.css";
-import { useTranslations } from "next-intl";
 
 // Create frames for testing
 function mockFrames(): Frame[] {
@@ -32,7 +31,6 @@ const result = add(2, 3);
 console.log(result);`;
 
 export default function CodeFoldingTestPage() {
-  const t = useTranslations("codingExercise");
   // Use ref to ensure single orchestrator instance (following CodingExercise pattern)
   const exercise = createMockExercise({
     slug: "test-code-folding",
@@ -45,7 +43,6 @@ export default function CodeFoldingTestPage() {
       context: { type: "lesson", slug: "maze-solve-basic" },
       interpreterLocaleMessages: {},
       exerciseLocaleMessages: {},
-      t: t,
       contentHash: "",
       onGoToDashboard: () => {},
       levelTitle: "",

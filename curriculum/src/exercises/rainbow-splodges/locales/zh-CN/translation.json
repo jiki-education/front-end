@@ -1,0 +1,42 @@
+{
+  "checks": {
+    "uniqueColoredCircles": "预期至少有 50 个颜色各不相同的圆。请确保每个圆都有随机的颜色。",
+    "uniquePositionedCircles": "预期至少有 30 个不同的位置。请确保每个圆都有随机的位置。",
+    "radiiRange": "所有圆的半径必须至少为 1 且小于 30。",
+    "insideBox": "圆不能跑到画布外面。在选择位置时，要考虑每个圆的半径。",
+    "touchEdges": "没有一个圆碰到画布的边缘。如果你确信代码没问题，可能只是随机数没有恰好把圆放在边缘上。再运行一次试试！",
+    "saturationLightnessRange": "饱和度和亮度都必须介于 20 到 80 之间。"
+  },
+  "tasks": {
+    "drawSplodges": {
+      "name": "绘制彩虹斑点",
+      "description": "在随机位置绘制 200 个具有随机颜色的圆。"
+    }
+  },
+  "scenarios": {
+    "rainbowSplodges": {
+      "name": "彩虹斑点",
+      "description": "在随机位置绘制 200 个颜色随机的圆。"
+    }
+  },
+  "hints": {
+    "keepCirclesInBox": {
+      "question": "如何让圆保持在画布内？",
+      "answer": "顺序很重要。你需要先确定圆的半径，然后确保它的左侧和顶部位置不会让它超出画布。"
+    },
+    "circlesEscapingBox": {
+      "question": "我无法让圆保持在画布内",
+      "answer": "记住，圆的位置是它的圆心，所以你需要考虑它的半径才能让整个圆都在画布内。如果你现在允许某个位置低至 0，圆的边缘就会伸出画布，超出半径那么远。那么，为了让圆永远不会跑到画布外面，这个最小值需要改为多少呢？然后用同样的逻辑处理最大值。"
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "在 (centerX, centerY) 处绘制一个具有给定半径和颜色的圆",
+      "category": "绘制形状"
+    },
+    "hsl": {
+      "description": "将 HSL 颜色值（色相 0-360，饱和度 0-100，亮度 0-100）转换为十六进制颜色字符串",
+      "category": "颜色"
+    }
+  }
+}

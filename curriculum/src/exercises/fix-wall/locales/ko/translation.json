@@ -1,0 +1,39 @@
+{
+  "checks": {
+    "topHole": "위쪽 구멍이 제대로 메워지지 않았어요.",
+    "middleHole": "가운데 구멍이 제대로 메워지지 않았어요.",
+    "bottomHole": "아래쪽 구멍이 제대로 메워지지 않았어요."
+  },
+  "tasks": {
+    "fillHoles": {
+      "name": "벽의 구멍 메우기",
+      "description": "`rectangle` 함수를 사용해 직사각형으로 각 구멍을 덮어 보세요."
+    }
+  },
+  "scenarios": {
+    "fillHoles": {
+      "name": "구멍 메우기",
+      "description": "직사각형으로 각 구멍을 덮어요."
+    }
+  },
+  "hints": {
+    "howToDrawBricks": {
+      "question": "벽돌을 어떻게 그리나요?",
+      "answer": "각 구멍을 덮는 직사각형을 그리세요. `rectangle` 함수가 필요로 하는 여러 입력에 대한 정보는 설명에서 확인하세요."
+    },
+    "holeSizes": {
+      "question": "구멍의 크기는 어떻게 되나요?",
+      "answer": "캔버스 위에 마우스를 올려 각 공간의 크기를 확인해 보세요. 모든 숫자는 10의 배수예요."
+    },
+    "holeSizesReally": {
+      "question": "아니요, 정말로 구멍의 크기가 어떻게 되나요?",
+      "answer": "각 구멍의 너비는 20, 높이는 10이에요."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "주어진 너비와 높이로 (left, top) 위치에 직사각형을 그려요.",
+      "category": "도형 그리기"
+    }
+  }
+}

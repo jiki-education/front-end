@@ -1,76 +1,76 @@
 {
   "checks": {
-    "totalCells": "Expected {{expected}} cells but found {{got}}.",
-    "groundWalls": "The ground floor should have walls at positions (17, 2) and (21, 2).",
-    "groundGlass": "The ground floor should have glass at positions (18, 2) and (20, 2).",
-    "groundEntrance": "The ground floor should have an entrance at position (19, 2).",
-    "floorWalls": "Floor {{y}} should have walls at positions (17, {{y}}) and (21, {{y}}).",
-    "floorGlass": "Floor {{y}} should have glass at positions (18, {{y}}), (19, {{y}}), and (20, {{y}}).",
-    "roof": "The roof at y={{roofY}} should be all walls.",
+    "totalCells": "{{expected}} cellát vártam, de {{got}} cellát találtam.",
+    "groundWalls": "A földszinten falaknak kell lenniük a (17, 2) és (21, 2) pozíciókban.",
+    "groundGlass": "A földszinten üvegnek kell lennie a (18, 2) és (20, 2) pozíciókban.",
+    "groundEntrance": "A földszinten a (19, 2) pozícióban bejáratnak kell lennie.",
+    "floorWalls": "A {{y}}. szinten falaknak kell lenniük a (17, {{y}}) és (21, {{y}}) pozíciókban.",
+    "floorGlass": "A {{y}}. szinten üvegnek kell lennie a (18, {{y}}), (19, {{y}}) és (20, {{y}}) pozíciókban.",
+    "roof": "A(z) y={{roofY}} magasságban lévő tetőnek teljes egészében falakból kell állnia.",
     "codeQuality": {
-      "allArgumentsAreVariables": "You should use <strong>variables</strong> as arguments to functions, not literal values. Store values in variables first, then pass the variables."
+      "allArgumentsAreVariables": "A függvények argumentumaiként <strong>változókat</strong> kell használnod, nem közvetlen értékeket. Először tárold az értékeket változókban, majd add át a változókat."
     }
   },
   "tasks": {
     "buildSkyscraper": {
-      "name": "Build the skyscraper",
-      "description": "Build a skyscraper with the correct number of floors, including a ground floor with entrance, upper floors with glass, and a wall roof."
+      "name": "Felhőkarcoló építése",
+      "description": "Építs egy felhőkarcolót a megfelelő számú szinttel: egy bejáratot tartalmazó földszintet, üveges felső szinteket és egy falakból álló tetőt."
     }
   },
   "scenarios": {
     "floors6": {
-      "name": "6-floor skyscraper",
-      "description": "Build a skyscraper with 6 floors."
+      "name": "6-szintes felhőkarcoló",
+      "description": "Építs egy 6-szintes felhőkarcolót."
     },
     "floors8": {
-      "name": "8-floor skyscraper",
-      "description": "Build a skyscraper with 8 floors."
+      "name": "8-szintes felhőkarcoló",
+      "description": "Építs egy 8-szintes felhőkarcolót."
     },
     "floors10": {
-      "name": "10-floor skyscraper",
-      "description": "Build a skyscraper with 10 floors."
+      "name": "10-szintes felhőkarcoló",
+      "description": "Építs egy 10-szintes felhőkarcolót."
     },
     "floors12": {
-      "name": "12-floor skyscraper",
-      "description": "Build a skyscraper with 12 floors."
+      "name": "12-szintes felhőkarcoló",
+      "description": "Építs egy 12-szintes felhőkarcolót."
     },
     "floors16": {
-      "name": "16-floor skyscraper",
-      "description": "Build a skyscraper with 16 floors."
+      "name": "16-szintes felhőkarcoló",
+      "description": "Építs egy 16-szintes felhőkarcolót."
     }
   },
   "hints": {
     "whereToStart": {
-      "question": "I don't know where to start.",
-      "answer": "Firstly try drawing a wall, some glass, and an entrance to check you understand the functions. Then draw the base floor - this is always the same. Then use the `numFloors()` function to find out how many floors there are in total and draw the remaining floors and then the roof."
+      "question": "Nem tudom, hol kezdjem.",
+      "answer": "Először próbálj meg lerakni egy falat, üveget és bejáratot, hogy ellenőrizd, érted-e a függvényeket. Ezután rakd le a földszintet – ez mindig ugyanolyan. Majd használd a `numFloors()` függvényt, hogy megtudd, hány szintes a felhőkarcoló, és rakd le a többi szintet, végül a tetőt."
     },
     "tooManyTooFewFloors": {
-      "question": "I have too many/too few floors.",
-      "answer": "If `numFloors()` returns 5, that should be one entrance floor, 4 glass floors, and 1 roof. Check your logic is correct!"
+      "question": "Túl sok vagy túl kevés a szintem.",
+      "answer": "Ha a `numFloors()` 5-öt ad vissza, akkor egy bejárati szintnek, 4 üveg szintnek és 1 tetőnek kell lennie. Ellenőrizd a logikádat!"
     }
   },
   "functions": {
     "buildWall": {
-      "description": "Places a **wall block** at grid position (x, y).",
-      "category": "Building"
+      "description": "Lerak egy **falblokkot** a (x, y) pozícióba.",
+      "category": "Építés"
     },
     "buildGlass": {
-      "description": "Places a **glass panel** at grid position (x, y).",
-      "category": "Building"
+      "description": "Lerak egy **üvegtáblát** a (x, y) pozícióba.",
+      "category": "Építés"
     },
     "buildEntrance": {
-      "description": "Places an **entrance door** at grid position (x, y).",
-      "category": "Building"
+      "description": "Lerak egy **bejárati ajtót** a (x, y) pozícióba.",
+      "category": "Építés"
     },
     "numFloors": {
-      "description": "Returns the **number of floors** for this building.",
-      "category": "Info"
+      "description": "Visszaadja az épület **szintjeinek számát**.",
+      "category": "Információ"
     }
   },
   "describers": {
-    "buildWall": "built a wall at position (${arg1}, ${arg2})",
-    "buildEntrance": "built an entrance at position (${arg1}, ${arg2})",
-    "buildGlass": "built a glass panel at position (${arg1}, ${arg2})",
-    "numFloors": "retrieved the number of floors"
+    "buildWall": "falat épített a (${arg1}, ${arg2}) pozícióba",
+    "buildEntrance": "bejáratot épített a (${arg1}, ${arg2}) pozícióba",
+    "buildGlass": "üvegtáblát épített a (${arg1}, ${arg2}) pozícióba",
+    "numFloors": "lekérdezte a szintek számát"
   }
 }

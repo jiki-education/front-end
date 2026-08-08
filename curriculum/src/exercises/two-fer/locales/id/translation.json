@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "moreThanSixLines": "Kamu menggunakan lebih dari enam baris kode."
+  },
+  "tasks": {
+    "createTwoFerFunction": {
+      "name": "Buat fungsi two-fer",
+      "description": "Tulis sebuah fungsi twoFer yang menerima sebuah nama dan mengembalikan 'One for [name], one for me.' Kalau tidak ada nama yang diberikan (string kosong), gunakan 'you' sebagai pengganti nama."
+    },
+    "solveInSixLines": {
+      "name": "Selesaikan dalam enam baris kode",
+      "description": "Bisakah kamu menyelesaikannya hanya dengan enam baris kode?"
+    }
+  },
+  "scenarios": {
+    "twoFerDefault": {
+      "name": "Tidak ada nama yang diberikan",
+      "description": "Tidak ada nama yang diberikan, jadi kembalikan 'One for you, one for me.'"
+    },
+    "twoFerAlice": {
+      "name": "Nama yang diberikan: Alice",
+      "description": "Namanya 'Alice', jadi kembalikan 'One for Alice, one for me.'"
+    },
+    "twoFerTom": {
+      "name": "Nama yang diberikan: Tom",
+      "description": "Namanya 'Tom', jadi kembalikan 'One for Tom, one for me.'"
+    },
+    "bonus1": {
+      "name": "Enam baris kode",
+      "description": "Selesaikan latihan ini hanya dengan enam baris kode."
+    }
+  },
+  "hints": {
+    "whatChanges": {
+      "question": "Apa yang berubah berdasarkan input?",
+      "answer": "Hanya satu hal: nama di tengah kalimatnya. Kalau kamu diberi sebuah nama, gunakan nama itu. Kalau tidak, gunakan nilai default `\"you\"`."
+    },
+    "checkGivenName": {
+      "question": "Bagaimana cara mengecek 'apakah aku diberi nama'?",
+      "answer": "Gunakan percabangan `if` yang membandingkan input dengan string kosong `\"\"`. Kalau kosong, gunakan `\"you\"`. Kalau tidak, gunakan input tersebut."
+    },
+    "buildSentence": {
+      "question": "Bagaimana cara menyusun kalimat akhirnya?",
+      "answer": "Gabungkan ketiga bagiannya (`\"One for \"`, nama yang dipilih, dan `\", one for me.\"`) menggunakan penggabungan (`+`) atau template string."
+    }
+  }
+}

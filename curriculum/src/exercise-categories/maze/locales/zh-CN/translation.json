@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "哎呀，你差点从迷宫的边缘掉下去！",
+    "hitWall": "哎哟，你撞到墙上了！",
+    "walkedIntoFire": "哎哟！你走进火里了！",
+    "walkedIntoPoop": "好恶心！你踩到便便了！💩💩💩"
+  },
+  "describers": {
+    "move": "把角色向前移动一格",
+    "turnLeft": "把角色向左转 90 度",
+    "turnRight": "把角色向右转 90 度"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "notShotAllAliens": "エイリアンをすべて撃ち落とせていません。",
+    "functionNotDefined": "<code>shootIfAlienAbove</code>関数を定義する必要があります。",
+    "functionNotCalled": "<code>shootIfAlienAbove</code>は定義されていますが、解答の中で実際に呼び出す必要があります。"
+  },
+  "tasks": {
+    "battleProcedures": {
+      "name": "shootIfAlienAbove関数を作成し、それを使ってゲームに勝利しましょう。",
+      "description": "射撃のロジックを shootIfAlienAbove() 関数に抽出し、それを移動のロジックと共に使用してすべてのエイリアンを倒しましょう。"
+    }
+  },
+  "scenarios": {
+    "battleProcedures": {
+      "name": "バトル手順",
+      "description": "shootIfAlienAbove関数を使ってすべてのエイリアンを倒しましょう。"
+    }
+  },
+  "hints": {
+    "wherePutFunction": {
+      "question": "`shootIfAlienAbove`関数はどこに置けばよいですか？",
+      "answer": "コードの先頭、ループの前に定義します。定義したら、ループ内から必要なだけ何度でも呼び出せます。"
+    },
+    "whatGoesInside": {
+      "question": "`shootIfAlienAbove`の中には何を書けばよいですか？",
+      "answer": "`isAlienAbove()`をチェックする`if`文を使います。それが`true`を返したら、`shoot()`を呼び出します。それが関数の本体のすべてです。"
+    },
+    "whatStaysInLoop": {
+      "question": "ループの中には何を残しますか？",
+      "answer": "移動のロジックはすべてループの中に残します。前回のスクロール＆シュートの演習と同じです。各反復で：`shootIfAlienAbove()`を呼び出し、次に砲を移動させ、端で方向を反転させます。"
+    },
+    "trackCannon": {
+      "question": "砲の位置と進行方向をどのように追跡すればよいですか？",
+      "answer": "各反復で更新する2つの変数を使います。例えば、増減する`position`変数と、`\\\"right\\\"`または`\\\"left\\\"`で、端に当たったら反転する`direction`変数です。"
+    }
+  },
+  "functions": {
+    "moveLeft": {
+      "description": "レーザー砲を**1つ左の位置に**動かします。画面の左端から外に出ようとすると、ゲームオーバーです！",
+      "category": "移動"
+    },
+    "moveRight": {
+      "description": "レーザー砲を**1つ右の位置に**動かします。画面の右端から外に出ようとすると、ゲームオーバーです！",
+      "category": "移動"
+    },
+    "shoot": {
+      "description": "レーザーを上に向けて発射します。**真上にエイリアンがいる時だけ撃ってください**、さもないとゲームオーバーです！レーザー砲は熱くなりやすいので、再び撃つ前に移動しなければなりません。",
+      "category": "アクション"
+    },
+    "isAlienAbove": {
+      "description": "レーザー砲の真上にエイリアンがいれば`true`を、そうでなければ`false`を返します。撃つ前にこれを使ってチェックしましょう！",
+      "category": "検出"
+    }
+  }
+}

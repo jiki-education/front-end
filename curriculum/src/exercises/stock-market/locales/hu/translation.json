@@ -1,65 +1,65 @@
 {
   "errors": {
-    "yearNumber": "Year must be a number",
-    "yearInPast": "We can't check the stock market for old years! {{year}} is in the past.",
-    "yearTooFarFuture": "We don't know about more than 20 years from now! {{year}} is too far in the future.",
-    "balanceNumber": "Balance must be a number",
-    "moneyNumber": "Money must be a number"
+    "yearNumber": "Az évszámnak számnak kell lennie",
+    "yearInPast": "Nem nézhetjük meg a tőzsdét régebbi évekre! {{year}} már a múlté.",
+    "yearTooFarFuture": "Nem tudjuk, mi lesz 20 év múlva! {{year}} túl messze van a jövőben.",
+    "balanceNumber": "Az egyenlegnek számnak kell lennie",
+    "moneyNumber": "Az összegnek számnak kell lennie"
   },
   "checks": {
-    "taxReportCount": "Expected 20 tax reports (one per year) but got {{got}}. Make sure you call <code>reportTax()</code> inside the loop.",
-    "taxReportWrongYear": "Tax report #{{index}} was for year {{actualYear}} but should have been for year {{expectedYear}}.",
-    "taxReportWrongBalance": "You reported the wrong tax for {{year}}. It should have been ${{expected}} but was ${{actual}}.",
-    "wrongFinalBalance": "Expected a final balance of approximately ${{expected}} but got ${{got}}. Make sure you call <code>announceToFamily()</code> after the loop.",
-    "announcedMultipleTimes": "You should only announce to your family <strong>once</strong>, after the 20 years are up, not every year. You called <code>announceToFamily()</code> {{count}} {{times}}."
+    "taxReportCount": "20 adóbejelentést vártunk (évente egyet), de {{got}} érkezett. Győződj meg róla, hogy a cikluson belül hívod-e meg a <code>reportTax()</code> függvényt.",
+    "taxReportWrongYear": "A(z) #{{index}}. adóbejelentés {{actualYear}} évre szólt, pedig {{expectedYear}} évre kellett volna.",
+    "taxReportWrongBalance": "Hibás adót jelentettél {{year}} évre. ${{expected}} helyett ${{actual}} összeget adtál meg.",
+    "wrongFinalBalance": "Kb. ${{expected}} végső egyenlegre számítottunk, de ${{got}} lett. Ellenőrizd, hogy a ciklus után hívod-e meg a <code>announceToFamily()</code> függvényt.",
+    "announcedMultipleTimes": "Csak <strong>egyszer</strong> kell bejelentened a családodnak, a 20 év letelte után, nem minden évben. A <code>announceToFamily()</code> függvényt {{count}} {{times}} hívtad meg."
   },
   "tasks": {
     "growInvestment": {
-      "name": "Grow your investment over 20 years",
-      "description": "Start with $10, simulate 20 years of stock market growth, report to the taxman each year, and announce the final balance to your family."
+      "name": "Növeld a befektetésed 20 éven át",
+      "description": "Kezdj 10 dollárral, szimulálj 20 évnyi tőzsdei növekedést, minden évben készíts adóbejelentést, és a végén jelentsd be a végső egyenleget a családodnak."
     }
   },
   "scenarios": {
     "twentyYears": {
-      "name": "20 years of growth",
-      "description": "Invest $10 and track your balance over 20 years of market growth."
+      "name": "20 év növekedés",
+      "description": "Fektess be 10 dollárt, és kövesd nyomon az egyenleged 20 év tőzsdei növekedés során."
     }
   },
   "hints": {
     "whereToStart": {
-      "question": "I don't know where to start",
-      "answer": "You need to use `marketGrowth()` for each year over the next 20 years (starting from now). That will return a value like 5 (for 5% market growth). You then need to track how much money you have - from the $10 you started changed by whatever the interest rate is."
+      "question": "Nem tudom, hol kezdjem",
+      "answer": "A `marketGrowth()` függvényt kell használnod minden évre az elkövetkező 20 évben (a mostanitól kezdve). Ez egy olyan értéket ad vissza, mint például 5 (5%-os piaci növekedés esetén). Ezután nyomon kell követned, mennyi pénzed van – a kezdeti 10 dollárból kiindulva, ami a piaci növekedés mértékétől függően változik."
     },
     "stillStuck": {
-      "question": "I'm still really stuck - I don't get it.",
-      "answer": "OK, so let's spell out some code to get you started. Imagine the current year is 2026. You need to do something like: \n\n```javascript\nlet money = 10\nlet growth = marketGrowth(2026)\n\n// You need to increase money by growth.\n// Check the next hint if you need the formula for this.\nmoney = money + ???\nreportTax(2026, money)\n\n// Now do 2027\nlet growth = marketGrowth(2027)\nmoney = money + ???\nreportTax(2027, money)\n\n// Now do 2028\nlet growth = marketGrowth(2028)\nmoney = money + ???\nreportTax(2028, money)\n\n// After 20 years tell your family\nannounceToFamily(money)\n```"
+      "question": "Még mindig el vagyok akadva – nem értem.",
+      "answer": "Rendben, akkor mutatok egy kis kódot, hogy elkezdhesd. Képzeld el, hogy a mostani év 2026. Valami ilyesmit kell csinálnod: \n\n```javascript\nlet money = 10\nlet growth = marketGrowth(2026)\n\n// A növekedés mértékével kell növelned a pénzt.\n// Ha szükséged van a képletre, nézd meg a következő tippet.\nmoney = money + ???\nreportTax(2026, money)\n\n// Most jöjjön 2027\nlet growth = marketGrowth(2027)\nmoney = money + ???\nreportTax(2027, money)\n\n// Most jöjjön 2028\nlet growth = marketGrowth(2028)\nmoney = money + ???\nreportTax(2028, money)\n\n// 20 év után szólj a családodnak\nannounceToFamily(money)\n```"
     },
     "formula": {
-      "question": "What's the formula to track the growth? I can't work it out myself.",
-      "answer": "The formula is: \n\n```javascript\nmoney = money * (100 + marketGrowth(year)) / 100\n```"
+      "question": "Mi a képlet a növekedés nyomon követésére? Nem tudom kitalálni magamtól.",
+      "answer": "A képlet a következő: \n\n```javascript\nmoney = money * (100 + marketGrowth(year)) / 100\n```"
     },
     "wrongTaxReportCount": {
-      "question": "It says I've not reported the right amount of tax returns.",
-      "answer": "You should report 20 tax returns for 20 years. Use the scrubber to count how many times you use the `reportTax()` function."
+      "question": "Azt írja, hogy nem a megfelelő mennyiségű adóbejelentést tettem meg.",
+      "answer": "20 évre 20 adóbejelentést kell benyújtanod. Használd a scrubbert, hogy megszámold, hányszor hívod meg a `reportTax()` függvényt."
     }
   },
   "describers": {
-    "marketGrowth": "got market growth of ${return}% for year ${arg1}",
-    "reportTax": "reported tax for year ${arg1}: $${arg2}",
-    "announceToFamily": "announced $${arg1} to the family"
+    "marketGrowth": "${arg1}. évre ${return}% piaci növekedést kapott",
+    "reportTax": "adóbejelentés ${arg1}. évre: $${arg2}",
+    "announceToFamily": "bejelentette a családnak: $${arg1}"
   },
   "functions": {
     "marketGrowth": {
-      "description": "Returns the market growth percentage for a given year (between -25 and 40). You'll need to **increase** the amount of money you have by this number each time. (So 40 means that your $10 should be worth $14, and -10 means your $10 goes down to $9)",
-      "category": "Action"
+      "description": "Visszaadja a piaci növekedés százalékát egy adott évre (-25 és 40 között). Minden alkalommal **ennyivel kell növelned** a pénzed összegét. (Tehát a 40 azt jelenti, hogy a 10 dollárod 14 dollárt ér, a -10 pedig azt, hogy a 10 dollárod 9 dollárra csökken.)",
+      "category": "Művelet"
     },
     "reportTax": {
-      "description": "Reports your tax for a given year. You should call this every year, with the year and the current amount of money you have.",
-      "category": "Action"
+      "description": "Beküldi az adóbejelentést egy adott évre. Ezt a függvényt minden évben meg kell hívnod, az évvel és a jelenlegi pénzösszegeddel együtt.",
+      "category": "Művelet"
     },
     "announceToFamily": {
-      "description": "Announces your final balance to your family.",
-      "category": "Action"
+      "description": "Bejelenti a végső egyenleget a családodnak.",
+      "category": "Művelet"
     }
   }
 }

@@ -16,7 +16,7 @@ import { TaskManager } from "./orchestrator/TaskManager";
 import { TestSuiteManager } from "./orchestrator/TestSuiteManager";
 import { TimelineManager } from "./orchestrator/TimelineManager";
 import { getInterpreter } from "./test-runner/getInterpreter";
-import type { CodingExerciseTranslator, TestExpect, TestResult } from "./test-results-types";
+import type { TestExpect, TestResult } from "./test-results-types";
 import type { ExerciseContext, InformationWidgetData, OrchestratorStore, UnderlineRange } from "./types";
 
 export interface OrchestratorInit {
@@ -25,7 +25,6 @@ export interface OrchestratorInit {
   context: ExerciseContext;
   interpreterLocaleMessages: InterpreterMessages;
   exerciseLocaleMessages: CurriculumMessages;
-  t: CodingExerciseTranslator;
   contentHash: string;
   onGoToDashboard: () => void;
   // Optional because a student may genuinely have no prior submission.
@@ -58,10 +57,6 @@ class Orchestrator {
   // useExerciseLoader (fetched in the blocking load); tests default to an empty
   // dict, which resolves keys as-is.
   private readonly exerciseLocaleMessages: CurriculumMessages;
-  // Translator for the `codingExercise` namespace. Held so it can be handed to the
-  // EditorManager (and from there to the CodeMirror extensions), which are built
-  // outside the React tree and so cannot call `useTranslations()` themselves.
-  private readonly t: CodingExerciseTranslator;
 
   constructor({
     exercise,
@@ -69,7 +64,6 @@ class Orchestrator {
     context,
     interpreterLocaleMessages,
     exerciseLocaleMessages,
-    t,
     contentHash,
     onGoToDashboard,
     serverData,
@@ -81,7 +75,6 @@ class Orchestrator {
     this.contentHash = contentHash;
     this.interpreterLocaleMessages = interpreterLocaleMessages;
     this.exerciseLocaleMessages = exerciseLocaleMessages;
-    this.t = t;
 
     // Create instance-specific store with exercise, language, and context
     this.store = createOrchestratorStore({ exercise, language, context, onGoToDashboard, levelTitle, isCompleted });
@@ -93,7 +86,6 @@ class Orchestrator {
       this.store,
       this.interpreterLocaleMessages,
       this.exerciseLocaleMessages,
-      t,
       this.taskManager,
       context
     );
@@ -132,7 +124,6 @@ class Orchestrator {
             this.exercise.slug,
             this.store.getState().code,
             this.getStoredOrDefaultReadonlyRanges(),
-            this.t,
             this.runCode.bind(this),
             (code: string) => this.lintCodeDebounced(code)
           );

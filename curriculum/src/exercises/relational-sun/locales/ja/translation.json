@@ -1,0 +1,38 @@
+{
+  "checks": {
+    "wrongPosition": "太陽の位置が間違っているか、大きさが違います。`sunX`と`sunY`の計算を確認し、`radius`を`circle`に渡しているかどうか確かめてください。",
+    "notResponsive": "`gap`（隙間）が{{gap}}、`radius`（半径）が{{radius}}の場合に、コードが正しく対応していません。`sunX`と`sunY`は`gap`と`radius`から計算で導き出す必要があります。数字を直接書いて（ハードコードして）はいけません。"
+  },
+  "tasks": {
+    "positionSun": {
+      "name": "太陽の位置を決めよう",
+      "description": "`canvasSize`（キャンバスサイズ）、`gap`（隙間）、`radius`（半径）から`sunX`と`sunY`を導き出し、太陽が正しく配置されるようにします。"
+    }
+  },
+  "scenarios": {
+    "positionSun": {
+      "name": "太陽の位置を決めよう",
+      "description": "`gap`（隙間）と`radius`（半径）から太陽の位置を導き出し、拡大縮小に対応できるようにします。"
+    }
+  },
+  "hints": {
+    "sunXPosition": {
+      "question": "太陽のx座標をどのように考えればよいでしょうか？",
+      "answer": "キャンバスの右端を想像してください。太陽の端は、その端から`gap`だけ左にあります。太陽の*中心*は、そこからさらに半径1つ分だけ内側に入ります。"
+    },
+    "sunYPosition": {
+      "question": "太陽のy座標をどのように考えればよいでしょうか？",
+      "answer": "x座標の場合と同じ考え方ですが、右端から内側ではなく、キャンバスの上端から下方向に測ります。"
+    },
+    "whyNotHardcode": {
+      "question": "なぜ数字を直接書いてはいけないのですか？",
+      "answer": "`sunX`と`sunY`をハードコードしてしまうと、`gap`や`radius`が変わっても太陽が同じ場所に留まってしまいます。`gap`と`radius`から計算して作ることで、どのような値を選んでも太陽は常に隅に配置されます。"
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "指定された半径と色で、中心が(centerX, centerY)の円を描きます。",
+      "category": "図形の描画"
+    }
+  }
+}

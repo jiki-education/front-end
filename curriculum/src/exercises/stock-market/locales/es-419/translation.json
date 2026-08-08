@@ -1,0 +1,65 @@
+{
+  "errors": {
+    "yearNumber": "El año debe ser un número",
+    "yearInPast": "¡No podemos consultar la bolsa de valores para años pasados! {{year}} ya pasó.",
+    "yearTooFarFuture": "¡No podemos saber más de 20 años a partir de ahora! {{year}} está muy lejos en el futuro.",
+    "balanceNumber": "El saldo debe ser un número",
+    "moneyNumber": "El dinero debe ser un número"
+  },
+  "checks": {
+    "taxReportCount": "Se esperaban 20 reportes de impuestos (uno por año) pero se obtuvieron {{got}}. Asegúrate de llamar a <code>reportTax()</code> dentro del bucle.",
+    "taxReportWrongYear": "El reporte de impuestos #{{index}} era para el año {{actualYear}} pero debería haber sido para el año {{expectedYear}}.",
+    "taxReportWrongBalance": "Reportaste el impuesto equivocado para el año {{year}}. Debería haber sido ${{expected}} pero fue ${{actual}}.",
+    "wrongFinalBalance": "Se esperaba un saldo final de aproximadamente ${{expected}} pero se obtuvo ${{got}}. Asegúrate de llamar a <code>announceToFamily()</code> después del bucle.",
+    "announcedMultipleTimes": "Solo debes anunciar a tu familia <strong>una vez</strong>, después de que pasen los 20 años, no cada año. Llamaste a <code>announceToFamily()</code> {{count}} {{times}}."
+  },
+  "tasks": {
+    "growInvestment": {
+      "name": "Haz crecer tu inversión durante 20 años",
+      "description": "Comienza con $10, simula 20 años de crecimiento de la bolsa, informa al recaudador de impuestos cada año y anuncia el saldo final a tu familia."
+    }
+  },
+  "scenarios": {
+    "twentyYears": {
+      "name": "20 años de crecimiento",
+      "description": "Invierte $10 y monitorea tu saldo durante 20 años de crecimiento de la bolsa."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "No sé por dónde empezar",
+      "answer": "Necesitas usar `marketGrowth()` para cada año de los próximos 20 años (comenzando desde ahora). Eso devolverá un valor como 5 (para un crecimiento del mercado del 5%). Luego debes llevar un seguimiento de cuánto dinero tienes, partiendo de los $10 iniciales y modificado por la tasa de interés que corresponda."
+    },
+    "stillStuck": {
+      "question": "Sigo sin saber cómo avanzar, no lo entiendo.",
+      "answer": "Bien, vamos a detallar algo de código para que empieces. Imagina que el año actual es 2026. Necesitas hacer algo como: \n\n```javascript\nlet money = 10\nlet growth = marketGrowth(2026)\n\n// Necesitas aumentar el dinero según el crecimiento.\n// Revisa la siguiente pista si necesitas la fórmula para esto.\nmoney = money + ???\nreportTax(2026, money)\n\n// Ahora haz 2027\nlet growth = marketGrowth(2027)\nmoney = money + ???\nreportTax(2027, money)\n\n// Ahora haz 2028\nlet growth = marketGrowth(2028)\nmoney = money + ???\nreportTax(2028, money)\n\n// Después de 20 años, anúnciale a tu familia\nannounceToFamily(money)\n```"
+    },
+    "formula": {
+      "question": "¿Cuál es la fórmula para seguir el crecimiento? No puedo encontrarla yo solo.",
+      "answer": "La fórmula es: \n\n```javascript\nmoney = money * (100 + marketGrowth(year)) / 100\n```"
+    },
+    "wrongTaxReportCount": {
+      "question": "Dice que no he hecho la cantidad correcta de reportes de impuestos.",
+      "answer": "Debes reportar 20 declaraciones de impuestos por los 20 años. Usa el deslizador para contar cuántas veces usas la función `reportTax()`."
+    }
+  },
+  "describers": {
+    "marketGrowth": "obtuvo un crecimiento del mercado del ${return}% para el año ${arg1}",
+    "reportTax": "reportó impuestos del año ${arg1}: $${arg2}",
+    "announceToFamily": "anunció $${arg1} a la familia"
+  },
+  "functions": {
+    "marketGrowth": {
+      "description": "Devuelve el porcentaje de crecimiento del mercado para un año dado (entre -25 y 40). Tendrás que **aumentar** la cantidad de dinero que tienes según este número cada vez. (Por lo tanto, 40 significa que tus $10 deberían valer $14, y -10 significa que tus $10 bajan a $9)",
+      "category": "Acción"
+    },
+    "reportTax": {
+      "description": "Reporta tus impuestos para un año dado. Debes llamarla cada año, con el año y la cantidad actual de dinero que tengas.",
+      "category": "Acción"
+    },
+    "announceToFamily": {
+      "description": "Anuncia tu saldo final a tu familia.",
+      "category": "Acción"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "Menggunakan Fungsi"
+  },
+  "strings-and-colors": {
+    "title": "String dan Warna"
+  },
+  "repeat-loop": {
+    "title": "Perulangan Repeat"
+  },
+  "variables": {
+    "title": "Variabel"
+  },
+  "basic-state": {
+    "title": "State Dasar"
+  },
+  "functions-that-return-things": {
+    "title": "Fungsi yang Mengembalikan Nilai"
+  },
+  "conditionals": {
+    "title": "Kondisional"
+  },
+  "complex-conditionals": {
+    "title": "Kondisional Kompleks"
+  },
+  "conditionals-and-state": {
+    "title": "Kondisional dan State"
+  },
+  "make-your-own-functions": {
+    "title": "Membuat Fungsi Sendiri"
+  },
+  "string-manipulation": {
+    "title": "Manipulasi String"
+  },
+  "string-iteration": {
+    "title": "Iterasi String"
+  },
+  "multiple-functions": {
+    "title": "Menggabungkan Beberapa Fungsi"
+  },
+  "methods-and-properties": {
+    "title": "Metode dan Properti"
+  },
+  "advanced-loops": {
+    "title": "Perulangan Lanjutan"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "Dictionary"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "Semuanya"
+  }
+}

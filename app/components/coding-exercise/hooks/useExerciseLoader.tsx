@@ -122,7 +122,6 @@ export function useExerciseLoader({
           context,
           interpreterLocaleMessages,
           exerciseLocaleMessages,
-          t,
           contentHash: content.contentHash,
           onGoToDashboard,
           serverData,

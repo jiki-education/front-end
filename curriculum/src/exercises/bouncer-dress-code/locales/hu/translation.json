@@ -1,173 +1,173 @@
 {
   "checks": {
     "ballgown": {
-      "champagne": "She's an adult in formal wear, so she should be offered champagne, but she wasn't.",
-      "canapes": "Formal guests are offered canapés too, but she wasn't.",
-      "letIn": "Anyone in formal wear should be let in, but she wasn't.",
-      "notTurnedAway": "A guest in formal wear should NOT be turned away."
+      "champagne": "A hölgy felnőtt, és alkalmiban van, ezért pezsgőt kellene kapnia, de nem kapott.",
+      "canapes": "Az alkalmi vendégek canapét is kapnak, de ő nem kapott.",
+      "letIn": "Bárkit, aki alkalmiban van, beengednek, de őt nem engedték be.",
+      "notTurnedAway": "Egy alkalmi viseletű vendéget NEM szabad elküldeni."
     },
     "tuxedo": {
-      "champagne": "He's 18, which counts as an adult, so he should be offered champagne, but he wasn't.",
-      "canapes": "Formal guests are offered canapés too, but he wasn't.",
-      "letIn": "Anyone in formal wear should be let in, but he wasn't.",
-      "notTurnedAway": "A guest in formal wear should NOT be turned away."
+      "champagne": "18 éves, ami felnőttnek számít, ezért pezsgőt kellene kapnia, de nem kapott.",
+      "canapes": "Az alkalmi vendégek canapét is kapnak, de ő nem kapott.",
+      "letIn": "Bárkit, aki alkalmiban van, beengednek, de őt nem engedték be.",
+      "notTurnedAway": "Egy alkalmi viseletű vendéget NEM szabad elküldeni."
     },
     "dress": {
-      "canapes": "She's in smart wear, so she should be offered canapés, but she wasn't.",
-      "noChampagne": "Champagne is for formal wear, so a smart guest shouldn't be offered it.",
-      "letIn": "A guest in smart wear should be let in, but she wasn't.",
-      "notTurnedAway": "A guest in smart wear should NOT be turned away."
+      "canapes": "A hölgy elegáns ruhában van, ezért canapét kellene kapnia, de nem kapott.",
+      "noChampagne": "A pezsgő az alkalmi viselethez jár, ezért egy elegáns vendégnek nem szabad kínálni.",
+      "letIn": "Egy elegáns viseletű vendéget beengednek, de őt nem engedték be.",
+      "notTurnedAway": "Egy elegáns viseletű vendéget NEM szabad elküldeni."
     },
     "suit": {
-      "canapes": "He's in smart wear, so he should be offered canapés, but he wasn't.",
-      "noChampagne": "Champagne is for formal wear, so a smart guest shouldn't be offered it.",
-      "letIn": "A guest in smart wear should be let in, but he wasn't.",
-      "notTurnedAway": "A guest in smart wear should NOT be turned away."
+      "canapes": "A férfi elegáns ruhában van, ezért canapét kellene kapnia, de nem kapott.",
+      "noChampagne": "A pezsgő az alkalmi viselethez jár, ezért egy elegáns vendégnek nem szabad kínálni.",
+      "letIn": "Egy elegáns viseletű vendéget beengednek, de őt nem engedték be.",
+      "notTurnedAway": "Egy elegáns viseletű vendéget NEM szabad elküldeni."
     },
     "formalTeen": {
-      "letIn": "Anyone in formal wear is let in, whatever their age, but she wasn't.",
-      "canapes": "Formal guests are offered canapés whatever their age, but she wasn't.",
-      "noChampagne": "She's under 18, so she shouldn't be offered champagne. Champagne is for adults only.",
-      "notTurnedAway": "A guest in formal wear should NOT be turned away."
+      "letIn": "Bárkit, aki alkalmiban van, beengednek, életkortól függetlenül, de őt nem engedték be.",
+      "canapes": "Az alkalmi vendégek életkortól függetlenül canapét kapnak, de ő nem kapott.",
+      "noChampagne": "18 év alatti, ezért nem szabad pezsgőt kínálni neki. A pezsgő csak felnőtteknek jár.",
+      "notTurnedAway": "Egy alkalmi viseletű vendéget NEM szabad elküldeni."
     },
     "smartTeen": {
-      "canapes": "Smart wear gets canapés whatever their age, but he wasn't offered any.",
-      "noChampagne": "Champagne is for formal wear, so a smart guest shouldn't be offered it.",
-      "letIn": "A guest in smart wear should be let in, but he wasn't.",
-      "notTurnedAway": "A guest in smart wear should NOT be turned away."
+      "canapes": "Az elegáns viselet életkortól függetlenül canapét kap, de ő nem kapott.",
+      "noChampagne": "A pezsgő az alkalmi viselethez jár, ezért egy elegáns vendégnek nem szabad kínálni.",
+      "letIn": "Egy elegáns viseletű vendéget beengednek, de őt nem engedték be.",
+      "notTurnedAway": "Egy elegáns viseletű vendéget NEM szabad elküldeni."
     },
     "casualChildListed": {
-      "letIn": "An under-18 on the guest list is allowed in, even in casual clothes, but they weren't.",
-      "notTurnedAway": "An under-18 on the guest list should NOT be turned away.",
-      "noChampagne": "They're not in formal wear, so no champagne.",
-      "noCanapes": "They're not in formal or smart wear, so no canapés."
+      "letIn": "Egy 18 év alatti vendég a vendéglistáról beengedhető, hétköznapi ruhában is, de nem engedték be.",
+      "notTurnedAway": "Egy 18 év alatti vendéget a vendéglistáról NEM szabad elküldeni.",
+      "noChampagne": "Nem alkalmi viseletben van, ezért nincs pezsgő.",
+      "noCanapes": "Sem alkalmi, sem elegáns viseletben nincs, ezért nincs canapé."
     },
     "casualChildUnlisted": {
-      "turnedAway": "An under-18 in casual clothes who isn't on the guest list should be turned away.",
-      "notLetIn": "An under-18 in casual clothes who isn't on the guest list should NOT be let in.",
-      "noChampagne": "They're not in formal wear, so no champagne.",
-      "noCanapes": "They're not in formal or smart wear, so no canapés."
+      "turnedAway": "Egy 18 év alatti vendéget hétköznapi ruhában, aki nincs a vendéglistán, el kell küldeni.",
+      "notLetIn": "Egy 18 év alatti vendéget hétköznapi ruhában, aki nincs a vendéglistán, NEM szabad beengedni.",
+      "noChampagne": "Nem alkalmi viseletben van, ezért nincs pezsgő.",
+      "noCanapes": "Sem alkalmi, sem elegáns viseletben nincs, ezért nincs canapé."
     },
     "casualAdultListed": {
-      "turnedAway": "The guest-list exception is only for under-18s, so an adult in casual clothes is turned away even if they're on the list.",
-      "notLetIn": "An adult in casual clothes should NOT be let in, even if they're on the guest list.",
-      "noChampagne": "They're not in formal wear, so no champagne.",
-      "noCanapes": "They're not in formal or smart wear, so no canapés."
+      "turnedAway": "A vendéglistás kivétel csak 18 év alattiakra vonatkozik, ezért egy hétköznapi ruhás felnőttet akkor is elküldenek, ha a listán van.",
+      "notLetIn": "Egy hétköznapi ruhás felnőttet NEM szabad beengedni, még akkor sem, ha a vendéglistán van.",
+      "noChampagne": "Nem alkalmi viseletben van, ezért nincs pezsgő.",
+      "noCanapes": "Sem alkalmi, sem elegáns viseletben nincs, ezért nincs canapé."
     },
     "codeQuality": {
-      "getOutfitCalledOnce": "You should only use <code>getOutfit()</code> once.",
-      "getAgeCalledOnce": "You should only use <code>getAge()</code> once.",
-      "onGuestListCalledOnce": "You should only use <code>onGuestList()</code> once.",
-      "combinesConditions": "This challenge is about combining conditions. Try using what you've learned in the previous lesson."
+      "getOutfitCalledOnce": "A <code>getOutfit()</code> függvényt csak egyszer szabad használni.",
+      "getAgeCalledOnce": "A <code>getAge()</code> függvényt csak egyszer szabad használni.",
+      "onGuestListCalledOnce": "A <code>onGuestList()</code> függvényt csak egyszer szabad használni.",
+      "combinesConditions": "Ez a feladat a feltételek kombinálásáról szól. Próbáld meg alkalmazni, amit az előző leckében tanultál."
     }
   },
   "tasks": {
     "checkDressCode": {
-      "name": "Enforce the door policy",
-      "description": "Check each person's outfit, age, and guest-list status, then apply the rules. Formal or smart clothes get in with canapés. Adults in formal clothes also get champagne. Under-18s in other clothes get in only if they're on the guest list. Everyone else is turned away."
+      "name": "Az öltözködési szabályzat betartatása",
+      "description": "Ellenőrizd minden személy öltözetét, életkorát és vendéglistás státuszát, majd alkalmazd a szabályokat. Az alkalmi vagy elegáns ruhát viselők beengedhetők canapéval. Az alkalmi ruhás felnőttek pezsgőt is kapnak. A 18 év alattiak más ruhában csak akkor mehetnek be, ha a vendéglistán vannak. Mindenki mást elküldenek."
     }
   },
   "scenarios": {
     "ballgown": {
-      "name": "Ballgown",
-      "description": "A woman in her 60s wearing a ballgown. She gets champagne and canapés, and is let in."
+      "name": "Báli ruha",
+      "description": "Egy 60-as éveiben járó nő báli ruhában. Pezsgőt és canapét kap, és beengedik."
     },
     "tuxedo": {
-      "name": "Tuxedo",
-      "description": "A man in a tuxedo who has just turned 18. He gets champagne and canapés, and is let in."
+      "name": "Szmoking",
+      "description": "Egy férfi szmokingban, aki épp most töltötte be a 18-at. Pezsgőt és canapét kap, és beengedik."
     },
     "dress": {
-      "name": "Dress",
-      "description": "A woman in a dress. She's let in with canapés."
+      "name": "Estélyi ruha",
+      "description": "Egy nő estélyi ruhában. Beengedik canapéval."
     },
     "suit": {
-      "name": "Suit",
-      "description": "A man in a suit. He's let in with canapés."
+      "name": "Öltöny",
+      "description": "Egy férfi öltönyben. Beengedik canapéval."
     },
     "formalTeen": {
-      "name": "Child in a ballgown",
-      "description": "A 13-year-old in a ballgown. She's let in with canapés, but is too young for champagne."
+      "name": "Gyerek báli ruhában",
+      "description": "Egy 13 éves lány báli ruhában. Beengedik canapéval, de túl fiatal a pezsgőhöz."
     },
     "smartTeen": {
-      "name": "Teenager in a suit",
-      "description": "A 15-year-old in a suit. He's let in with canapés, regardless of age."
+      "name": "Öltönyös tinédzser",
+      "description": "Egy 15 éves fiú öltönyben. Beengedik canapéval, életkortól függetlenül."
     },
     "casualChildListed": {
-      "name": "Child in denim, on the list",
-      "description": "A 15-year-old in denim who's on the guest list. They're let in."
+      "name": "Farmeros gyerek, listán",
+      "description": "Egy 15 éves farmerban, aki a vendéglistán van. Beengedik."
     },
     "casualChildUnlisted": {
-      "name": "Child in a tracksuit, not on the list",
-      "description": "A 15-year-old in a tracksuit who isn't on the guest list. They're turned away."
+      "name": "Melegítős gyerek, nincs listán",
+      "description": "Egy 15 éves melegítőben, aki nincs a vendéglistán. Elküldik."
     },
     "casualAdultListed": {
-      "name": "Adult in denim, on the list",
-      "description": "A 30-year-old in denim who's on the guest list. They're still turned away."
+      "name": "Farmeros felnőtt, listán",
+      "description": "Egy 30 éves farmerban, aki a vendéglistán van. Mégis elküldik."
     }
   },
   "hints": {
     "whereToStart": {
-      "question": "Where do I start?",
-      "answer": "Fetch the outfit and the age once each and store them in variables, e.g. `let outfit = getOutfit()`. Then you can build all your conditions from those variables."
+      "question": "Hol kezdjem?",
+      "answer": "Kérd le egyszer az öltözetet és az életkort, és tárold el őket változókba, pl. `let outfit = getOutfit()`. Ezután ezekből a változókból építheted fel az összes feltételt."
     },
     "groupingOutfits": {
-      "question": "Several outfits lead to the same outcome. Do I need a branch for each one?",
-      "answer": "No. You can check for more than one value in a single condition using `||` (or), so a group of outfits can share one branch."
+      "question": "Több öltözet ugyanarra az eredményre vezet. Kell mindegyikhez egy külön ág?",
+      "answer": "Nem. Egyetlen feltételben több értéket is ellenőrizhetsz a `||` (vagy) használatával, így egy öltözetcsoport osztozhat egy ágon."
     },
     "champagneRule": {
-      "question": "How do I decide who gets champagne?",
-      "answer": "Champagne is its own decision: offer it when the person is an adult AND wearing something formal. That combines `&&` (and) with `||` (or), so put parentheses around the 'or' part to group it correctly."
+      "question": "Hogyan döntöm el, ki kap pezsgőt?",
+      "answer": "A pezsgő külön döntés: akkor kínáld, ha az illető felnőtt ÉS alkalmiban van. Ez ötvözi a `&&` (és) és `||` (vagy) operátort, ezért tedd zárójelbe a 'vagy' részt a helyes csoportosításhoz."
     },
     "canapesRule": {
-      "question": "Who gets canapés and gets let in?",
-      "answer": "Everyone dressed up does, which is any of the four formal or smart outfits. You can list them all in a single condition with `||`."
+      "question": "Ki kap canapét és kit engednek be?",
+      "answer": "Mindenki, aki ki van öltözve, ami bármelyik a négy alkalmi vagy elegáns öltözetből. Egyetlen feltételben felsorolhatod mindet a `||` segítségével."
     },
     "everyoneElse": {
-      "question": "What about everyone else?",
-      "answer": "The only other people allowed in are under-18s on the guest list, which needs two things to both be true (`&&`). Finish with a plain `else` that turns everyone else away."
+      "question": "És mi a helyzet mindenki mással?",
+      "answer": "Az egyetlen más beengedett csoport a 18 év alattiak a vendéglistán, amihez mindkét feltételnek igaznak kell lennie (`&&`). Fejezd be egy sima `else` ággal, amely mindenki mást elküld."
     },
     "previousLessonOperator": {
-      "question": "I don't know what it means by \"what I learned in the previous lesson\".",
-      "answer": "You need to use the \"and\" operator that Jeremy taught in the previous video to combine conditionals. Re-read the <a href=\"/concepts/logical-and\" target=\"_blank\" rel=\"noopener noreferrer\">concept page</a> if you're not sure how to use it."
+      "question": "Nem tudom, mit jelent az, hogy \"amit az előző leckében tanultam\".",
+      "answer": "Az előző videóban Jeremy által tanított \"és\" operátort kell használnod a feltételek kombinálásához. Olvasd újra a <a href=\"/concepts/logical-and\" target=\"_blank\" rel=\"noopener noreferrer\">fogalomtári oldalt</a>, ha nem vagy biztos a használatában."
     }
   },
   "describers": {
-    "getOutfit": "retrieved the person's outfit",
-    "getAge": "retrieved the person's age",
-    "onGuestList": "checked the guest list",
-    "offerChampagne": "offered champagne",
-    "offerCanapes": "offered canapés",
-    "letIn": "let the person in",
-    "turnAway": "turned the person away"
+    "getOutfit": "lekérte az illető öltözetét",
+    "getAge": "lekérte az illető életkorát",
+    "onGuestList": "ellenőrizte a vendéglistát",
+    "offerChampagne": "pezsgőt kínált",
+    "offerCanapes": "canapét kínált",
+    "letIn": "beengedte az illetőt",
+    "turnAway": "elküldte az illetőt"
   },
   "functions": {
     "getOutfit": {
-      "description": "Returns the **outfit** the person is wearing (e.g. `\"ballgown\"`, `\"suit\"`, `\"denim\"`).",
-      "category": "Information"
+      "description": "Visszaadja az illető által viselt **öltözet** nevét (pl. `\"ballgown\"`, `\"suit\"`, `\"denim\"`).",
+      "category": "Információ"
     },
     "getAge": {
-      "description": "Returns the **age** of the person waiting at the door.",
-      "category": "Information"
+      "description": "Visszaadja az ajtóban várakozó illető **életkorát**.",
+      "category": "Információ"
     },
     "onGuestList": {
-      "description": "Returns `true` if the person is on tonight's guest list, otherwise `false`.",
-      "category": "Information"
+      "description": "`true`-t ad vissza, ha az illető rajta van az esti vendéglistán, egyébként `false`-t.",
+      "category": "Információ"
     },
     "offerChampagne": {
-      "description": "Offers the person a glass of champagne.",
-      "category": "Action"
+      "description": "Egy pohár pezsgőt kínál az illetőnek.",
+      "category": "Művelet"
     },
     "offerCanapes": {
-      "description": "Offers the person some canapés (salmon tartare).",
-      "category": "Action"
+      "description": "Néhány canapét kínál az illetőnek (lazactatár).",
+      "category": "Művelet"
     },
     "letIn": {
-      "description": "Lets the person into the venue.",
-      "category": "Action"
+      "description": "Beengedi az illetőt a helyiségbe.",
+      "category": "Művelet"
     },
     "turnAway": {
-      "description": "Turns the person away from the venue.",
-      "category": "Action"
+      "description": "Elküldi az illetőt a helyiségből.",
+      "category": "Művelet"
     }
   }
 }

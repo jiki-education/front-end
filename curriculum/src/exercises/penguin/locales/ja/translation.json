@@ -1,0 +1,65 @@
+{
+  "checks": {
+    "sky": "空の描画が正しくありません。",
+    "ground": "地面の描画が正しくありません。",
+    "leftWing": "左の翼が正しくないようです。",
+    "rightWing": "右の翼が正しくないようです。",
+    "outerBody": "外側の体が正しくありません。",
+    "innerBody": "内側の体が正しくありません。",
+    "head": "頭が正しくありません。",
+    "leftFace": "顔の左側が正しくないようです。",
+    "rightFace": "顔の右側が正しくないようです。",
+    "lowerFace": "顔の下部が正しくないようです。",
+    "leftEye": "左目がずれているようです。",
+    "leftIris": "左の虹彩がずれているようです。",
+    "rightEye": "右目がずれているようです。",
+    "rightIris": "右の虹彩がずれているようです。",
+    "leftFoot": "左足がずれてしまいました。",
+    "rightFoot": "右足が正しくありません。",
+    "nose": "鼻が正しくありません。"
+  },
+  "tasks": {
+    "drawPenguin": {
+      "name": "左右対称のペンギンを描く",
+      "description": "左右対称になるように、欠けている部分を追加してペンギンの絵を完成させましょう。"
+    }
+  },
+  "scenarios": {
+    "makePenguinSymmetrical": {
+      "name": "ペンギンを左右対称にする",
+      "description": "ペンギンを左右対称にするため、すべてのTODOコメントに対応しましょう。"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "どこから始めればいいですか？",
+      "answer": "上から順に、TODOコメントにひとつずつ取り組んでください。"
+    },
+    "symmetryOnCanvas": {
+      "question": "描画領域での左右対称はどのように機能しますか？",
+      "answer": "左端が20なら、対称の右端は80（100 - 20）になります。"
+    },
+    "noseTrouble": {
+      "question": "鼻がうまくいかないのはなぜですか？",
+      "answer": "鼻のために新しい三角形を追加する必要はありません。今ある三角形を正しく動くように変更する必要があります。変更する値は1つだけです。"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "(left, top)の位置に、指定した幅、高さ、色の長方形を描きます。",
+      "category": "図形の描画"
+    },
+    "circle": {
+      "description": "(centerX, centerY)を中心として、指定した半径と色の円を描きます。",
+      "category": "図形の描画"
+    },
+    "ellipse": {
+      "description": "(centerX, centerY)を中心として、指定した横の半径、縦の半径、色の楕円を描きます。",
+      "category": "図形の描画"
+    },
+    "triangle": {
+      "description": "3つの頂点と色を指定して三角形を描きます。",
+      "category": "図形の描画"
+    }
+  }
+}

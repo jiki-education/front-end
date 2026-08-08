@@ -1,0 +1,54 @@
+{
+  "checks": {
+    "wrongShotEnd": "La pelota no terminó en el lugar correcto para este golpe. Verifica que recorra la distancia completa del golpe.",
+    "missingPositions": "La pelota debe rodar por cada posición un paso a la vez, no saltar directamente al final."
+  },
+  "tasks": {
+    "rollAndCelebrate": {
+      "name": "Haz rodar la pelota",
+      "description": "Obtén la distancia del golpe y haz rodar la pelota hacia la derecha esa distancia."
+    }
+  },
+  "scenarios": {
+    "shortShot": {
+      "name": "Golpe corto (20)",
+      "description": "En este escenario, `getShotLength()` devolverá 20. Haz rodar la pelota 20 pasos desde el tee."
+    },
+    "mediumShot": {
+      "name": "Golpe medio (35)",
+      "description": "En este escenario, `getShotLength()` devolverá 35. Haz rodar la pelota 35 pasos desde el tee."
+    },
+    "longShot": {
+      "name": "Golpe largo (50)",
+      "description": "En este escenario, `getShotLength()` devolverá 50. Haz rodar la pelota 50 pasos desde el tee."
+    },
+    "veryLongShot": {
+      "name": "Golpe muy largo (60)",
+      "description": "En este escenario, `getShotLength()` devolverá 60. Haz rodar la pelota 60 pasos desde el tee."
+    }
+  },
+  "hints": {
+    "notSureWhereToStart": {
+      "question": "No sé por dónde empezar",
+      "answer": "Esto es igual que el ejercicio de golf anterior, en el que hiciste rodar la pelota una cantidad fija de pasos. La única diferencia es que el número de pasos ya no es un valor fijo, sino que ahora viene de `getShotLength()`. Donde antes usabas un número, ahora puedes usar el resultado de una función."
+    },
+    "ballStopsShort": {
+      "question": "Mi pelota se detiene un paso antes (o se pasa por uno)",
+      "answer": "Piensa bien en tu posición inicial y cuántas veces haces rodar la pelota. La pelota está sobre el tee en la posición 28, así que el primer movimiento debe llevarla a la 29. Cuenta los pasos desde ahí hasta donde debe terminar."
+    }
+  },
+  "functions": {
+    "moveTo": {
+      "description": "Mueve la pelota a la posición **x**.",
+      "category": "Movimiento"
+    },
+    "getShotLength": {
+      "description": "Devuelve la **distancia del golpe**: cuántas unidades se desplaza la pelota hacia la derecha.",
+      "category": "Información"
+    }
+  },
+  "describers": {
+    "moveTo": "movió la pelota a la posición ${arg1}",
+    "getShotLength": "obtuvo la distancia del golpe"
+  }
+}

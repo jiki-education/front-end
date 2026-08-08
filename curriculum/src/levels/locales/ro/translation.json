@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "Folosirea funcțiilor"
+  },
+  "strings-and-colors": {
+    "title": "Șiruri și culori"
+  },
+  "repeat-loop": {
+    "title": "Bucla repeat"
+  },
+  "variables": {
+    "title": "Variabile"
+  },
+  "basic-state": {
+    "title": "Stare de bază"
+  },
+  "functions-that-return-things": {
+    "title": "Funcții care returnează valori"
+  },
+  "conditionals": {
+    "title": "Condiționale"
+  },
+  "complex-conditionals": {
+    "title": "Condiționale complexe"
+  },
+  "conditionals-and-state": {
+    "title": "Condiționale și stare"
+  },
+  "make-your-own-functions": {
+    "title": "Creează-ți propriile funcții"
+  },
+  "string-manipulation": {
+    "title": "Manipularea șirurilor"
+  },
+  "string-iteration": {
+    "title": "Iterarea șirurilor"
+  },
+  "multiple-functions": {
+    "title": "Mai multe funcții împreună"
+  },
+  "methods-and-properties": {
+    "title": "Metode și proprietăți"
+  },
+  "advanced-loops": {
+    "title": "Bucle avansate"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "Dicționare"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "Totul"
+  }
+}

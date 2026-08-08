@@ -1,0 +1,62 @@
+{
+  "errors": {
+    "leavesNumber": "Il numero di foglie deve essere un numero",
+    "tomatoesNumber": "Il numero di pomodori deve essere un numero",
+    "croutonsNumber": "Il numero di crostini deve essere un numero",
+    "olivesNumber": "Il numero di olive deve essere un numero"
+  },
+  "checks": {
+    "saladNotMade": "Non hai preparato l'insalata. Assicurati di chiamare <code>makeSalad()</code> con tutti e quattro gli ingredienti.",
+    "needLeavesRandomInt": "Devi chiamare <code>Math.randomInt(40, 100)</code> per generare il numero di foglie.",
+    "needTomatoesRandomInt": "Devi chiamare <code>Math.randomInt(5, leaves / 5)</code> per generare il numero di pomodori.",
+    "needCroutonsRandomInt": "Devi chiamare <code>Math.randomInt(tomatoes, tomatoes * 2)</code> per generare il numero di crostini.",
+    "needOlivesRandomInt": "Devi chiamare <code>Math.randomInt(1, tomatoes / 2)</code> per generare il numero di olive."
+  },
+  "tasks": {
+    "makeRandomSalad": {
+      "name": "Prepara un'insalata casuale",
+      "description": "Genera una quantità casuale di ogni ingrediente usando Math.randomInt() e prepara l'insalata."
+    }
+  },
+  "scenarios": {
+    "randomSalad": {
+      "name": "Insalata casuale",
+      "description": "Prepara un'insalata con quantità casuali di ogni ingrediente."
+    }
+  },
+  "hints": {
+    "leavesExample": {
+      "question": "Dammi un esempio di come calcolare le foglie",
+      "answer": "Usa `let leaves = Math.randomInt(40, 100)` per generare una quantità casuale di foglie di insalata che puoi successivamente usare nelle altre funzioni."
+    },
+    "leavesCount": {
+      "question": "Di quante foglie ho bisogno?",
+      "answer": "Tra 40 e 100."
+    },
+    "tomatoesCount": {
+      "question": "Di quanti pomodori ho bisogno?",
+      "answer": "Almeno 5, ma non più di leaves / 5"
+    },
+    "croutonsCount": {
+      "question": "Di quanti crostini ho bisogno?",
+      "answer": "Almeno tanti quanti sono i pomodori, fino al doppio della quantità di pomodori"
+    },
+    "olivesCount": {
+      "question": "Di quante olive ho bisogno?",
+      "answer": "Almeno 1, fino alla metà del numero di pomodori"
+    },
+    "makeSalad": {
+      "question": "Come preparo l'insalata?",
+      "answer": "Una volta che hai calcolato quanti ingredienti ti servono per ognuno, inserisci leaves, tomatoes, croutons, olives in makeSalad()."
+    }
+  },
+  "describers": {
+    "makeSalad": "ha preparato un'insalata con ${arg1} foglie, ${arg2} pomodori, ${arg3} crostini e ${arg4} olive"
+  },
+  "functions": {
+    "makeSalad": {
+      "description": "Prepara un'insalata con le quantità indicate di ogni ingrediente.",
+      "category": "Azione"
+    }
+  }
+}

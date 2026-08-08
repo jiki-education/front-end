@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "dayIsntCorrect": "La météo du jour {{day}} n'est pas la bonne."
+  },
+  "tasks": {
+    "drawForecast": {
+      "name": "Dessine les prévisions",
+      "description": "Dessine la météo de chaque jour dans sa propre boîte, en utilisant la position du jour dans le tableau comme numéro de boîte."
+    }
+  },
+  "scenarios": {
+    "mixedWeek": {
+      "name": "Une semaine variée",
+      "description": "Un peu de tout au fil des six jours."
+    },
+    "sunnyWeek": {
+      "name": "Une semaine ensoleillée",
+      "description": "Beaucoup de soleil, avec quelques jours plus nuageux."
+    },
+    "rainyWeek": {
+      "name": "Une semaine pluvieuse",
+      "description": "Une semaine bien humide, entre nuages et pluie."
+    },
+    "snowyWeek": {
+      "name": "Une semaine neigeuse",
+      "description": "Une semaine froide et pleine de neige."
+    }
+  },
+  "hints": {
+    "loopWithIndex": {
+      "question": "Comment parcourir les jours et savoir dans quelle boîte va chacun d'eux ?",
+      "answer": "Parcours `days` avec un compteur qui va de `0` à `days.length - 1`. Ce compteur est le numéro de boîte de chaque jour."
+    },
+    "descriptionToSymbols": {
+      "question": "Comment transformer une description comme `\"Miserable 😩\"` en symboles ?",
+      "answer": "Compare la description à chacune des descriptions possibles et choisis le tableau de symboles qui correspond, par exemple `[\"cloud\", \"rain\"]`. Les instructions listent chaque description avec ses symboles."
+    },
+    "weekdaysList": {
+      "question": "Comment obtenir le nom du jour de la semaine pour chaque boîte ?",
+      "answer": "Crée un tableau des six noms de jours dans l'ordre, de `\"Monday\"` à `\"Saturday\"`, et lis celui qui se trouve à ta position actuelle en utilisant le même compteur que pour le numéro de boîte."
+    },
+    "passArgs": {
+      "question": "Qu'est-ce que je passe à `draw` ?",
+      "answer": "Trois choses : le numéro de boîte (ton compteur), le nom du jour de la semaine pour cette boîte, et le tableau de symboles de ce jour."
+    },
+    "tidyWithHelper": {
+      "question": "Ma boucle devient longue. Comment la rendre plus lisible ?",
+      "answer": "Tu peux déplacer la correspondance entre description et symboles dans sa propre fonction et l'appeler depuis la boucle. C'est facultatif, mais ça garde la boucle courte et facile à lire."
+    }
+  },
+  "functions": {
+    "draw": {
+      "description": "Dessine les symboles météo donnés dans une boîte de prévisions. Elle prend le numéro de boîte (de 0 à 5), le nom du jour de la semaine à inscrire dessus, et le tableau de symboles.",
+      "category": "Dessin"
+    }
+  },
+  "describers": {
+    "draw": "a dessiné ${arg3} dans la boîte de ${arg2}"
+  },
+  "errors": {
+    "elementsMustBeList": "Les symboles météo (la troisième entrée de draw) doivent être un tableau, comme [\"sun\", \"cloud\"].",
+    "elementsMustBeStrings": "Les symboles météo du tableau doivent tous être des strings, comme \"sun\" ou \"rain\".",
+    "unknownElement": "\"{{element}}\" n'est pas un symbole météo. Utilise \"sun\", \"cloud\", \"rain\" ou \"snow\".",
+    "indexMustBeNumber": "Le numéro de boîte (la première entrée de draw) doit être un nombre.",
+    "indexOutOfRange": "Le numéro de boîte doit être un nombre entier entre 0 et {{max}}.",
+    "dayMustBeString": "Le jour de la semaine (la deuxième entrée de draw) doit être du texte, comme \"Monday\"."
+  }
+}

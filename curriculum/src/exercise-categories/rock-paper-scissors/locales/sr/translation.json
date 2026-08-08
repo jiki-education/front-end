@@ -1,0 +1,11 @@
+{
+  "errors": {
+    "invalidResult": "O ne! Objavljen je nevažeći rezultat. Nastao je haos u sali za igru! Objavi \"Yuki\", \"Ando\" ili \"tie\".",
+    "wrongResult": "O ne! Objavljen je pogrešan rezultat. Nastao je haos u sali za igru!\n\nTrebalo je da objaviš `\"{{expected}}\"`, a objavljeno je `\"{{got}}\"`."
+  },
+  "describers": {
+    "announceResult": "objavljuje rezultat igre kao ${arg1}",
+    "getYukiChoice": "vraća Yukijev izbor",
+    "getAndoChoice": "vraća Andov izbor"
+  }
+}

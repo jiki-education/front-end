@@ -1,0 +1,90 @@
+{
+  "tasks": {
+    "sumTheDigits": {
+      "name": "Saberi cifre",
+      "description": "Napiši funkciju pod nazivom digitalRoot koja prima broj i sabira njegove cifre. Za brojeve koji već imaju samo jednu cifru, i za brojeve čije cifre daju jednocifren zbir, ovaj prvi prolaz je dovoljan."
+    },
+    "collapseToSingleDigit": {
+      "name": "Nastavi da sažimaš dok ne ostane jedna cifra",
+      "description": "Ponekad i posle prvog sabiranja cifara ostane više od jedne cifre (na primer, cifre broja 942 daju zbir 15). Nastavi da sabiraš cifre rezultata dok ne ostane jedna cifra."
+    },
+    "keepItTight": {
+      "name": "Bonus: neka bude kratko",
+      "description": "Tvoje rešenje već radi. Za ovaj bonus ga sredi tako da cela funkcija stane u mali broj linija, bez ikakvog viška."
+    }
+  },
+  "scenarios": {
+    "drZero": {
+      "name": "Nula",
+      "description": "Digitalni koren broja 0 je 0."
+    },
+    "drSingleDigit": {
+      "name": "Već jedna cifra",
+      "description": "Broj koji već ima samo jednu cifru sam je svoj digitalni koren."
+    },
+    "drTwoDigits": {
+      "name": "Dve cifre",
+      "description": "16 se sažima u 7 u jednom prolazu (1 + 6)."
+    },
+    "drThreeDigits": {
+      "name": "Tri cifre, jedan prolaz",
+      "description": "132 se sažima u 6 u jednom prolazu (1 + 3 + 2)."
+    },
+    "drThirtyNine": {
+      "name": "Potrebna dva prolaza",
+      "description": "39 daje zbir 12, koji zatim daje zbir 3."
+    },
+    "drTwoPasses": {
+      "name": "Broj kome treba drugi prolaz",
+      "description": "942 daje zbir 15, koji zatim daje zbir 6."
+    },
+    "drLarge": {
+      "name": "Veći broj",
+      "description": "493193 se sažima sve do 2."
+    },
+    "drNines": {
+      "name": "Same devetke",
+      "description": "99999 daje zbir 45, koji zatim daje zbir 9."
+    },
+    "drBonusTight": {
+      "name": "Uredno, kratko rešenje",
+      "description": "12345 se sažima u 6 (1 + 2 + 3 + 4 + 5 = 15, zatim 1 + 5 = 6)."
+    }
+  },
+  "hints": {
+    "whatIsIt": {
+      "question": "Šta je tačno digitalni koren?",
+      "answer": "Saberi sve cifre broja. Ako time dobiješ jednu cifru, to je odgovor. Ako dobiješ više od jedne cifre, saberi i cifre tog rezultata, i tako nastavi dok ne ostane samo jedna cifra."
+    },
+    "sumDigits": {
+      "question": "Kako da saberem cifre broja?",
+      "answer": "Pretvori broj u string tako da možeš da prođeš kroz njega karakter po karakter pomoću `for...of` petlje. Vodi tekući zbir i dodaj mu svaku cifru redom."
+    },
+    "digitsToNumbers": {
+      "question": "Ali svaka cifra je karakter, a ne broj.",
+      "answer": "Kada u petlji prolaziš kroz string, svaki karakter (kao `\"4\"`) je tekst. Upotrebi `Number(char)` da ga pretvoriš u broj `4` pre nego što ga dodaš zbiru."
+    },
+    "whichLoop": {
+      "question": "Kako da nastavim kada ne znam koliko prolaza mi treba?",
+      "answer": "Ne znaš unapred koliko puta će trebati da sabereš cifre, pa je `while` petlja odličan izbor. Ponavljaj petlju dok broj ima više od jedne cifre."
+    },
+    "keepGoing": {
+      "question": "Kada da stanem?",
+      "answer": "Stani čim broj postane jednocifren. Tada ga vrati."
+    }
+  },
+  "checks": {
+    "mustUseWhile": "Skoro! Za ovu vežbu želimo da upotrebiš `while` petlju i da sažimaš broj dok ne ostane jedna cifra.",
+    "tooManyLines": "Tako blizu! Tvoje rešenje radi, ali je malo predugačko. Probaj da ga skratiš."
+  },
+  "functions": {
+    "number": {
+      "description": "Pretvara string koji sadrži cifre u broj",
+      "category": "Konverzija tipova"
+    },
+    "string": {
+      "description": "Pretvara broj u string",
+      "category": "Konverzija tipova"
+    }
+  }
+}

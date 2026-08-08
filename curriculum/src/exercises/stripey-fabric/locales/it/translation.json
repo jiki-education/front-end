@@ -1,0 +1,51 @@
+{
+  "checks": {
+    "stripe1Purple": "La striscia 1 è una striscia finale, quindi dovrebbe essere purple.",
+    "stripe2Blue": "La striscia 2 dovrebbe essere blue (è pari, ma non è un multiplo di 4).",
+    "stripe3Yellow": "La striscia 3 dovrebbe essere yellow (è dispari e non è una striscia finale).",
+    "stripe4Green": "La striscia 4 dovrebbe essere green. È un multiplo di 4, quindi controlla la regola del multiplo di 4 prima della regola dei pari.",
+    "stripe5Yellow": "La striscia 5 dovrebbe essere yellow (è dispari e non è una striscia finale).",
+    "stripe6Blue": "La striscia 6 dovrebbe essere blue (è pari, ma non è un multiplo di 4).",
+    "stripe8Green": "La striscia 8 dovrebbe essere green (è un multiplo di 4).",
+    "stripe12Green": "La striscia 12 dovrebbe essere green (è un multiplo di 4).",
+    "stripe19Yellow": "La striscia 19 dovrebbe essere yellow (è dispari e non è una striscia finale).",
+    "stripe20Purple": "La striscia 20 è una striscia finale, quindi dovrebbe essere purple (anche se è pari).",
+    "rectangleOnce": "Stai utilizzando la funzione <code>rectangle</code> in più punti. Dovrebbe apparire una sola volta, all'interno di un ciclo: non scrivere tutte le 20 strisce a mano!"
+  },
+  "tasks": {
+    "weaveTheFabric": {
+      "name": "Tessi il tessuto",
+      "description": "Disegna 20 strisce verticali. Le due strisce finali sono purple; altrimenti i multipli di 4 sono green, le altre strisce pari sono blue e le strisce dispari sono yellow."
+    }
+  },
+  "scenarios": {
+    "weaveTheFabric": {
+      "name": "Tessi il tessuto a righe",
+      "description": "Disegna tutte le 20 strisce con i colori corretti."
+    }
+  },
+  "hints": {
+    "howToDraw20Stripes": {
+      "question": "Come disegno 20 strisce in punti diversi?",
+      "answer": "Tieni un contatore (chiamalo `i`) e incrementalo di uno all'interno di un ciclo `repeat`. La striscia numero `i` è larga `5`, quindi il suo bordo sinistro è `(i - 1) * 5`. Disegna un `rectangle` in quel punto, largo `5` e alto `100`."
+    },
+    "endStripesPurple": {
+      "question": "Come faccio a rendere purple solo le due strisce finali?",
+      "answer": "Le strisce finali sono la prima e l'ultima. Un singolo confronto non può catturare «un valore o un altro», quindi usa `||` (or): qualcosa come `if (n === 3 || n === 7)` è vero per entrambi i valori. Applicalo ai due numeri delle strisce finali."
+    },
+    "multipleOf4VsEven": {
+      "question": "Come distinguo un multiplo di 4 da un normale numero pari?",
+      "answer": "Usa l'operatore `%` (resto): `n % 4 === 0` è vero solo per i multipli di 4, e `n % 2 === 0` è vero per tutti i numeri pari. I multipli di 4 sono anche pari, quindi controlla prima la regola più restrittiva del multiplo di 4."
+    },
+    "stripe4Blue": {
+      "question": "La striscia 4 viene blue, ma dovrebbe essere green. Perché?",
+      "answer": "L'ordine conta in una catena `if` / `else if`. 4 è un multiplo di 4 E pari, quindi se controlli prima `i % 2 === 0` diventa blue e non raggiunge mai la regola green. Controlla la regola del multiplo di 4 prima della regola dei pari."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Disegna un rettangolo nella posizione (left, top) con i valori specificati di width, height e color.",
+      "category": "Disegno di forme geometriche"
+    }
+  }
+}

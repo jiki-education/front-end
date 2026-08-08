@@ -4,10 +4,10 @@
 /**
  * Locale completeness check.
  *
- * Production serves only the LIVE languages (lib/locales.ts SUPPORTED_LOCALES —
- * currently just `en`), and en is the canonical source, so a live deploy can't
- * ship missing files. Before promoting another language to live (e.g. hu), run
- * this to confirm it's complete:
+ * `SUPPORTED_LOCALES` (lib/locales.ts) now serves every known language, but most
+ * of them are incomplete — they fall back to the `en` catalog rather than failing.
+ * en is the canonical source, so run this to see how complete a given language
+ * actually is before relying on it:
  *
  *   pnpm verify:locale hu            # strict: exit 1 if hu is missing anything
  *   pnpm verify:locale hu es-ES      # check several

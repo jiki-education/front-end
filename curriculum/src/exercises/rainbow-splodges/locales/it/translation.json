@@ -1,0 +1,42 @@
+{
+  "checks": {
+    "uniqueColoredCircles": "Ci si aspetta almeno 50 cerchi con colori diversi. Assicurati che ogni cerchio abbia un colore casuale.",
+    "uniquePositionedCircles": "Ci si aspetta almeno 30 posizioni diverse. Assicurati che ogni cerchio abbia una posizione casuale.",
+    "radiiRange": "Tutti i raggi dei cerchi devono essere almeno 1 e inferiori a 30.",
+    "insideBox": "I cerchi non devono uscire dal riquadro. Tieni conto del raggio di ciascun cerchio quando scegli la sua posizione.",
+    "touchEdges": "Nessuno dei tuoi cerchi ha toccato i bordi dell'area di disegno. Se sei sicuro che il tuo codice sia corretto, potrebbe essere che i numeri casuali non abbiano fatto atterrare un cerchio esattamente su un bordo. Prova a eseguirlo di nuovo!",
+    "saturationLightnessRange": "La saturazione e la luminosità devono essere entrambe tra 20 e 80."
+  },
+  "tasks": {
+    "drawSplodges": {
+      "name": "Disegna macchie arcobaleno",
+      "description": "Disegna 200 cerchi in posizioni casuali con colori casuali."
+    }
+  },
+  "scenarios": {
+    "rainbowSplodges": {
+      "name": "Macchie arcobaleno",
+      "description": "Disegna 200 cerchi con colori casuali in posizioni casuali."
+    }
+  },
+  "hints": {
+    "keepCirclesInBox": {
+      "question": "Come faccio a mantenere i cerchi dentro il riquadro?",
+      "answer": "L'ordine è importante. Devi prima decidere il raggio del cerchio, poi assicurarti che le sue posizioni left e top non gli permettano mai di uscire dal riquadro."
+    },
+    "circlesEscapingBox": {
+      "question": "Non riesco a tenere i cerchi nel riquadro",
+      "answer": "Ricorda che la posizione di un cerchio è il suo centro, quindi dovrai tenere conto del suo raggio per mantenere l'intero cerchio all'interno. Se al momento permetti a una posizione di essere bassa come 0, il bordo del cerchio sporgerebbe oltre il riquadro per il suo raggio. Quindi, come deve cambiare quel minimo affinché il cerchio non si trovi mai fuori dal riquadro? Poi applica la stessa logica al massimo."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Disegna un cerchio con il centro in (centerX, centerY) con il raggio e il colore dati.",
+      "category": "Disegno di forme geometriche"
+    },
+    "hsl": {
+      "description": "Converte i valori di colore HSL (tonalità 0-360, saturazione 0-100, luminosità 0-100) in una stringa di colore esadecimale.",
+      "category": "Colori"
+    }
+  }
+}

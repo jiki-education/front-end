@@ -1,7 +1,7 @@
 ---
 title: "Visszatérési érték hozzáadása a függvényekhez"
 description: "A `return` kulcsszóval kimeneti csúszdát adhatsz a saját függvényeidnek, amely egy értéket ad vissza a hívónak."
-en_md5: 82630650eb68508771ea5b29baad9b67
+en_md5: 51d31f709a7051c29b499a31ad68555e
 ---
 
 Már tudod, hogyan hozz létre függvényeket bemenettel és bemenet nélkül. Egyetlen dolog maradt hátra, és utána a függvénykészítés igazi mesterévé válsz: meg kell tanulnod, hogyan adj a függvényeidnek kimeneti csúszdát.

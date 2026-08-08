@@ -1,0 +1,54 @@
+{
+  "tasks": {
+    "encodeMessage": {
+      "name": "메시지 암호화하기",
+      "description": "각 글자를 주어진 값만큼 이동시키는 encode 함수를 만드세요. 공백은 그대로 공백으로 남아요. 'z'를 넘어서 이동한 글자는 알파벳의 처음으로 돌아가요."
+    }
+  },
+  "scenarios": {
+    "caesarSimpleShift": {
+      "name": "1만큼 이동",
+      "description": "각 글자를 1만큼 앞으로 이동: a->b, b->c, c->d."
+    },
+    "caesarShiftBy3": {
+      "name": "3만큼 이동",
+      "description": "각 글자를 3만큼 앞으로 이동: h->k, e->h, l->o, o->r."
+    },
+    "caesarWrapAround": {
+      "name": "알파벳 끝에서 돌아가기",
+      "description": "이동이 'z'를 넘어가면 처음으로 돌아가요: x->a, y->b, z->c."
+    },
+    "caesarWithSpaces": {
+      "name": "공백이 있는 메시지",
+      "description": "공백은 그대로 공백으로 남아요, 글자만 이동합니다."
+    },
+    "caesarRot13": {
+      "name": "ROT13 암호화",
+      "description": "ROT13은 이동 값이 13인 시저 암호의 특수한 경우예요."
+    }
+  },
+  "hints": {
+    "shiftingLetterByN": {
+      "question": "글자를 N만큼 이동시키는 방법을 어떻게 생각해야 할까요?",
+      "answer": "각 글자는 알파벳에서 위치를 가져요 (a는 0, b는 1, 이런 식이에요). 이동하려면 그 위치를 찾아 이동 값을 더한 후, 알파벳에서 해당 위치를 찾아 다시 글자로 바꿔요."
+    },
+    "letterPosition": {
+      "question": "알파벳에서 글자의 위치를 어떻게 찾나요?",
+      "answer": "`indexOf`로 문자열에서 작은 부분을 찾을 수 있어요. 알파벳 문자열에서 `indexOf`를 호출하면 글자의 위치를 반환하고, 글자가 없으면 -1을 반환해요. 반대로, 위치를 사용해 알파벳 문자열에서 그 위치에 있는 글자를 가져올 수 있어요."
+    },
+    "wrapPastZ": {
+      "question": "이동 값이 'z'를 넘어가면 어떻게 되나요?",
+      "answer": "알파벳 처음으로 돌아가야 해요. 모듈로 연산자(`%`)가 이럴 때 딱이에요. 위치를 26으로 나눈 나머지를 구하면 어떤 숫자든 0에서 25 사이로 만들어 줘요."
+    },
+    "applyToWholeMessage": {
+      "question": "전체 메시지에 이걸 어떻게 적용하나요?",
+      "answer": "메시지의 각 글자를 반복문으로 돌면서, 한 글자 도우미 함수를 사용해 이동시키고, 연결(`+`)을 사용해 이동된 글자들로 결과 문자열을 만들어요."
+    }
+  },
+  "functions": {
+    "indexOf": {
+      "description": "문자열에서 작은 문자열의 위치를 찾아요. 찾지 못하면 -1을 반환해요. (레벨 stdlib 제공)",
+      "category": "문자열 연산"
+    }
+  }
+}

@@ -8,7 +8,6 @@ import { createMockExercise } from "@/tests/mocks/exercise";
 import type { Frame } from "@jiki/interpreters/shared";
 import { useEffect, useRef } from "react";
 import styles from "../harness.module.css";
-import { useTranslations } from "next-intl";
 
 // Create frames for testing with specific timeline positions
 function mockFrames(): Frame[] {
@@ -25,7 +24,6 @@ function mockFrames(): Frame[] {
 }
 
 export default function ScrubberInputTestPage() {
-  const t = useTranslations("codingExercise");
   // Use ref to ensure single orchestrator instance (following CodingExercise pattern)
   const exercise = createMockExercise({
     slug: "test-scrubber-input",
@@ -42,7 +40,6 @@ export default function ScrubberInputTestPage() {
       context: { type: "lesson", slug: "maze-solve-basic" },
       interpreterLocaleMessages: {},
       exerciseLocaleMessages: {},
-      t: t,
       contentHash: "",
       onGoToDashboard: () => {},
       levelTitle: "",

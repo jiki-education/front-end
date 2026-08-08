@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "dayIsntCorrect": "Het weer van dag {{day}} klopt niet."
+  },
+  "tasks": {
+    "drawForecast": {
+      "name": "Teken de weersverwachting",
+      "description": "Teken het weer van elke dag in een eigen vak, met de positie van de dag in de lijst als vaknummer."
+    }
+  },
+  "scenarios": {
+    "mixedWeek": {
+      "name": "Een gemengde week",
+      "description": "Van alles wat, verdeeld over de zes dagen."
+    },
+    "sunnyWeek": {
+      "name": "Een zonnige week",
+      "description": "Veel zonneschijn, met een paar bewolkte dagen ertussen."
+    },
+    "rainyWeek": {
+      "name": "Een regenachtige week",
+      "description": "Een kletsnatte week vol wolken en regen."
+    },
+    "snowyWeek": {
+      "name": "Een besneeuwde week",
+      "description": "Een koude week vol sneeuw."
+    }
+  },
+  "hints": {
+    "loopWithIndex": {
+      "question": "Hoe ga ik de dagen langs en weet ik in welk vak elke dag hoort?",
+      "answer": "Doorloop `days` met een teller die van `0` tot en met `days.length - 1` gaat. Die teller is het vaknummer voor elke dag."
+    },
+    "descriptionToSymbols": {
+      "question": "Hoe zet ik een beschrijving als `\"Miserable 😩\"` om in symbolen?",
+      "answer": "Vergelijk de beschrijving met elke mogelijke beschrijving en kies de bijbehorende lijst met symbolen, bijvoorbeeld `[\"cloud\", \"rain\"]`. In de instructies staat elke beschrijving met de bijbehorende symbolen."
+    },
+    "weekdaysList": {
+      "question": "Hoe kom ik aan de naam van de weekdag voor elk vak?",
+      "answer": "Maak een lijst met de zes namen van de weekdagen op volgorde, van `\"Monday\"` tot en met `\"Saturday\"`, en lees de naam op je huidige positie af met dezelfde teller als het vaknummer."
+    },
+    "passArgs": {
+      "question": "Wat geef ik mee aan `draw`?",
+      "answer": "Drie dingen: het vaknummer (je teller), de naam van de weekdag voor dat vak, en de lijst met symbolen voor die dag."
+    },
+    "tidyWithHelper": {
+      "question": "Mijn lus wordt lang. Hoe kan ik hem opruimen?",
+      "answer": "Je kunt het omzetten van beschrijvingen-naar-symbolen in een aparte functie zetten en die vanuit de lus aanroepen. Dit is optioneel, maar zo blijft de lus kort en overzichtelijk."
+    }
+  },
+  "functions": {
+    "draw": {
+      "description": "Teken de opgegeven weersymbolen in een vak van de weersverwachting. Verwacht het vaknummer (0 tot en met 5), de naam van de weekdag als label, en de lijst met symbolen.",
+      "category": "Tekenen"
+    }
+  },
+  "describers": {
+    "draw": "tekende ${arg3} in het vak van ${arg2}"
+  },
+  "errors": {
+    "elementsMustBeList": "De derde invoer voor draw (de weersymbolen) moet een lijst zijn, zoals [\"sun\", \"cloud\"].",
+    "elementsMustBeStrings": "De weersymbolen in de lijst moeten allemaal strings zijn, zoals \"sun\" of \"rain\".",
+    "unknownElement": "\"{{element}}\" is geen weersymbool. Gebruik \"sun\", \"cloud\", \"rain\" of \"snow\".",
+    "indexMustBeNumber": "Het vaknummer (de eerste invoer voor draw) moet een getal zijn.",
+    "indexOutOfRange": "Het vaknummer moet een heel getal tussen 0 en {{max}} zijn.",
+    "dayMustBeString": "De weekdag (de tweede invoer voor draw) moet tekst zijn, zoals \"Monday\"."
+  }
+}

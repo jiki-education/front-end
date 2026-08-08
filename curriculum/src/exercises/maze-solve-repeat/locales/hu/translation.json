@@ -1,43 +1,43 @@
 {
   "checks": {
-    "notReachedEnd": "You didn't reach the end of the maze.",
-    "tooManyLines": "Your solution has too many lines of code. Look for groups of consecutive move() calls and replace each group with a repeat loop.",
-    "oneLineOver": "You're just one line too long! A repeat loop isn't always shorter: repeating something only two or three times can take more lines than writing the calls out, so look for a repeat that isn't actually saving you anything."
+    "notReachedEnd": "Nem érted el a labirintus végét.",
+    "tooManyLines": "A megoldásod túl sok kódsort tartalmaz. Keress egymás utáni `move()` hívásokat tartalmazó csoportokat, és cseréld ki őket egy-egy `repeat` ciklusra.",
+    "oneLineOver": "Csak egy sorral vagy hosszabb a kelleténél! A `repeat` ciklus nem mindig rövidebb: ha valamit csak kétszer vagy háromszor ismételsz, több sorba kerülhet, mintha kiírnád a hívásokat. Keresd meg azt a `repeat`-et, ami valójában nem rövidíti a kódot!"
   },
   "tasks": {
     "solveMazeWithRepeat": {
-      "name": "Refactor the maze solution using repeat loops",
-      "description": "Replace consecutive `move()` calls with repeat loops to make the code shorter."
+      "name": "Refaktoráld a labirintusmegoldást repeat ciklusokkal",
+      "description": "Cseréld ki az egymás utáni `move()` hívásokat `repeat` ciklusokra, hogy rövidebb legyen a kód."
     }
   },
   "scenarios": {
     "mazeRepeat1": {
-      "name": "Refactor the maze solution using repeat loops",
-      "description": "Use repeat loops to avoid consecutive `move()` calls."
+      "name": "Refaktoráld a labirintusmegoldást repeat ciklusokkal",
+      "description": "Használj `repeat` ciklusokat, hogy elkerüld az egymás utáni `move()` hívásokat."
     }
   },
   "hints": {
     "noIdea": {
-      "question": "I have no idea what to do",
-      "answer": "Look for groups of consecutive `move()` calls. For example, instead of:\n\n```javascript\nmove()\nmove()\nmove()\n```\n\nYou can write:\n\n```javascript\nrepeat(3) {\n  move()\n}\n```\n\nFind the groups and replace them!"
+      "question": "Fogalmam sincs, mit csináljak",
+      "answer": "Keress egymás utáni `move()` hívásokból álló csoportokat. Például a következő helyett:\n\n```javascript\nmove()\nmove()\nmove()\n```\n\nírhatod ezt:\n\n```javascript\nrepeat(3) {\n  move()\n}\n```\n\nKeresd meg a csoportokat, és cseréld ki őket!"
     },
     "tooManyLines": {
-      "question": "Using repeats but got too many lines?",
-      "answer": "Is it always better to use a repeat? In some cases, it might be shorter to just have two moves next to each other."
+      "question": "`repeat`-eket használsz, de túl sok a sorod?",
+      "answer": "Mindig érdemes `repeat`-et használni? Van, amikor rövidebb, ha egyszerűen egymás után írsz két `move()`-ot."
     }
   },
   "functions": {
     "move": {
-      "description": "Moves the character **one step forward** in the current direction. The character will only move if the target position is not blocked by a wall.",
-      "category": "Movement"
+      "description": "A figurát **egy lépéssel előre** mozgatja a jelenlegi irányba. A figura csak akkor mozdul, ha a célhelyet nem blokkolja fal.",
+      "category": "Mozgás"
     },
     "turnLeft": {
-      "description": "Turns the character **90 degrees to the left** (counterclockwise). This changes the direction the character is facing.",
-      "category": "Movement"
+      "description": "Elfordítja a figurát **90 fokkal balra** (az óramutató járásával ellentétesen). Ez megváltoztatja a figura irányát.",
+      "category": "Mozgás"
     },
     "turnRight": {
-      "description": "Turns the character **90 degrees to the right** (clockwise). This changes the direction the character is facing.",
-      "category": "Movement"
+      "description": "Elfordítja a figurát **90 fokkal jobbra** (az óramutató járásával megegyezően). Ez megváltoztatja a figura irányát.",
+      "category": "Mozgás"
     }
   }
 }

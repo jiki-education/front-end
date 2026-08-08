@@ -1,0 +1,38 @@
+{
+  "checks": {
+    "wrongPosition": "太阳的位置或大小不正确。请检查 `sunX` 和 `sunY` 的计算，并确保将 `radius` 作为参数传入 `circle`。",
+    "notResponsive": "当 `gap` 为 {{gap}}、`radius` 为 {{radius}} 时，你的代码无法正确缩放。`sunX` 和 `sunY` 应基于 `gap` 和 `radius` 计算得出，而非硬编码数字。"
+  },
+  "tasks": {
+    "positionSun": {
+      "name": "放置太阳",
+      "description": "基于 `canvasSize`、`gap` 和 `radius` 推导出 `sunX` 和 `sunY`，使太阳正确缩放。"
+    }
+  },
+  "scenarios": {
+    "positionSun": {
+      "name": "放置太阳",
+      "description": "基于 `gap` 和 `radius` 推导出太阳的位置，使其正确缩放。"
+    }
+  },
+  "hints": {
+    "sunXPosition": {
+      "question": "我该如何考虑太阳的 x 坐标？",
+      "answer": "想象画布的右边缘。太阳的边缘在该边缘左侧 `gap` 的位置。太阳的*中心*则再往左一个 `radius` 的距离。"
+    },
+    "sunYPosition": {
+      "question": "我该如何考虑太阳的 y 坐标？",
+      "answer": "思路与 x 坐标相同，只是从画布的上边缘向下测量，而非从右边缘向左。"
+    },
+    "whyNotHardcode": {
+      "question": "为什么我不能直接写数字？",
+      "answer": "如果你硬编码 `sunX` 和 `sunY`，当 `gap` 或 `radius` 改变时，太阳会停留在原地。而根据 `gap` 和 `radius` 计算它们，则无论你选择什么值，太阳都会始终待在角落。"
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "以 (centerX, centerY) 为中心，使用指定的半径和颜色绘制一个圆形。",
+      "category": "绘制形状"
+    }
+  }
+}

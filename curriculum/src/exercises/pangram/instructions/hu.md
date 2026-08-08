@@ -1,12 +1,22 @@
 ---
 title: "Pangram"
-description: "Check if a sentence contains every letter of the alphabet, regardless of case."
+description: "Ellenőrizd, hogy egy mondat az ábécé minden betűjét tartalmazza-e, kis- és nagybetűtől függetlenül."
+en_md5: 8fae2df6ec4385478e4236fa49e21256
 ---
 
-You work for a company that sells fonts through their website. They'd like to show a different sentence each time someone views a font on their website. To give a comprehensive sense of the font, the random sentences should use all the letters in the English alphabet.
+Üdv a Pangram sorozat második részében! Emlékezz vissza: a pangram olyan mondat, amely az ábécé minden betűjét legalább egyszer tartalmazza.
 
-A pangram is a sentence using every letter of the alphabet at least once. It is case insensitive, so it doesn't matter if a letter is lower-case (e.g. 'k') or upper-case (e.g. 'K').
+Ez a feladat egy összetettebb változata annak a korábbi Pangram feladatnak, amit már megoldottál, mert itt nagybetűket is használunk. Ez meglepően sok bonyodalmat okoz.
 
-Create a function called `isPangram` that takes a sentence as a string, and returns a boolean representing whether it is, or is not, a pangram.
+Hozz létre egy `isPangram` (pangram?) nevű függvényt, amely egy mondatot kap stringként, és egy boolean-t ad vissza, ami megmondja, hogy a mondat pangram-e vagy sem.
 
-The best known English pangram is: "The quick brown fox jumps over the lazy dog."
+Kiindulásként megkaptad a korábbi kódodat.
+
+### Segédfüggvények
+
+A meglévő segédfüggvényed mellett (amit javasoltunk, hogy `includes`-nak nevezz el) azt javasoljuk, hogy hozz létre két új segédfüggvényt, hogy megkönnyítsd a feladat megoldását. E függvények nevei szabványosak, és javasoljuk, hogy ragaszkodj hozzájuk:
+
+1. `indexOf(haystack, needle)`: Egy függvény, ami kiszámítja, hogy **hol** található a tű a szénakazalban. Tehát ahelyett, hogy `true`/`false` értékkel térne vissza, mint az `includes`, a tű **indexét** adja vissza. Például az `indexOf("Jeremy", "r")` `2`-t adna vissza (ne feledd, hogy 0-tól számolunk).
+2. `toLowerCase(someString)`: Egy függvény, ami egy stringet kap, és kisbetűsre alakítva adja vissza. Például a `toLowerCase("JeReMy")` eredménye `"jeremy"` lenne.
+
+Jó szórakozást!

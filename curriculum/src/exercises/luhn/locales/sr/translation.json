@@ -1,0 +1,117 @@
+{
+  "tasks": {
+    "doubleAndSum": {
+      "name": "Udvostruči svaku drugu cifru i saberi",
+      "description": "Napiši funkciju pod imenom valid koja zanemaruje razmake, zatim udvostručuje svaku drugu cifru brojeći zdesna (oduzimajući 9 od svakog rezultata većeg od 9), sabira sve cifre i vraća true kada je zbir deljiv sa 10."
+    },
+    "spotInvalidNumbers": {
+      "name": "Prepoznaj neispravne brojeve",
+      "description": "Brojevi čije su sve cifre ispravne, ali čija kontrolna suma nije deljiva sa 10, treba da vrate false."
+    },
+    "rejectBadInput": {
+      "name": "Odbaci loš ulaz",
+      "description": "Odbaci stringove dužine jednog karaktera ili kraće, kao i svaki string koji sadrži karakter koji nije ni cifra ni razmak."
+    }
+  },
+  "scenarios": {
+    "luhnSimpleValid": {
+      "name": "Jednostavan ispravan broj",
+      "description": "Ispravan broj treba da vrati true."
+    },
+    "luhnValidTwoDigit": {
+      "name": "Ispravan dvocifreni broj",
+      "description": "Ispravan dvocifreni broj treba da vrati true."
+    },
+    "luhnValidCanadianSin": {
+      "name": "Ispravan kanadski SIN broj",
+      "description": "Ispravan broj sa razmacima treba da vrati true."
+    },
+    "luhnValidEvenDigits": {
+      "name": "Ispravan broj sa parnim brojem cifara",
+      "description": "Ispravan broj sa parnim brojem cifara treba da vrati true."
+    },
+    "luhnValidVeryLong": {
+      "name": "Veoma dugačak broj",
+      "description": "Veoma dugačak ispravan broj i dalje treba da vrati true."
+    },
+    "luhnInvalidCanadianSin": {
+      "name": "Neispravan kanadski SIN broj",
+      "description": "Broj čija kontrolna suma ne prolazi treba da vrati false."
+    },
+    "luhnInvalidCreditCard": {
+      "name": "Neispravna kreditna kartica",
+      "description": "Neispravan broj kreditne kartice treba da vrati false."
+    },
+    "luhnInvalidLongRemainderDiv5": {
+      "name": "Neispravan dugačak broj sa ostatkom deljivim sa 5",
+      "description": "Dugačak broj čiji je zbir deljiv sa 5, ali ne i sa 10, treba da vrati false."
+    },
+    "luhnSingleDigit": {
+      "name": "Jedna cifra nije ispravna",
+      "description": "String od jedne cifre nikada ne može biti ispravan."
+    },
+    "luhnZeroWithSpace": {
+      "name": "Jedna nula sa razmakom",
+      "description": "Jedna nula sa razmakom nije ispravna, jer kada se razmaci zanemare ostaje samo jedna cifra."
+    },
+    "luhnTrailingLetter": {
+      "name": "Slovo na kraju",
+      "description": "Ispravan broj kome je na kraj dodat karakter koji nije cifra postaje neispravan."
+    },
+    "luhnColon": {
+      "name": "Karakter dvotačka",
+      "description": "Dvotačka je za jedan manja od karaktera '0' i ne sme se tretirati kao cifra."
+    },
+    "luhnPercent": {
+      "name": "Znak procenta u sredini",
+      "description": "Karakter u sredini koji nije ni cifra ni razmak čini broj neispravnim, čak i kada bi zbir samih cifara bio deljiv sa 10."
+    }
+  },
+  "hints": {
+    "whatIsLuhn": {
+      "question": "Kako Luhnova provera zapravo funkcioniše?",
+      "answer": "Prvo zanemari sve razmake. Zatim, počevši od krajnje desne cifre i krećući se ulevo, udvostruči svaku drugu cifru. Ako udvostručena vrednost pređe 9, oduzmi 9. Saberi sve dobijene cifre. Ako je taj zbir deljiv sa 10, broj je ispravan."
+    },
+    "stripSpaces": {
+      "question": "Šta da radim sa razmacima?",
+      "answer": "Razmaci postoje samo radi čitljivosti. Preskoči ih pomoću `continue` da se ne bi računali kao cifre i da ne bi uticali na pozicije pravih cifara."
+    },
+    "rejectNonDigits": {
+      "question": "Kako da odbacim neispravne karaktere?",
+      "answer": "Dok prolaziš kroz karaktere, ako neki nije razmak i nije jedan od `0123456789`, možeš odmah da vratiš `false`. Zgodna provera je `\"0123456789\".includes(char)`."
+    },
+    "everySecondDigit": {
+      "question": "Koje cifre udvostručujem?",
+      "answer": "Svaku drugu. Pomaže da prvo napraviš čist string koji sadrži samo cifre, pa da zatim prolaziš kroz njega petljom sa indeksom, tako da možeš da odrediš poziciju svake cifre."
+    },
+    "fromTheRight": {
+      "question": "Ali treba da brojim zdesna, a ne sleva.",
+      "answer": "Ako tvoj čisti string cifara ima dužinu `len`, a ti si na indeksu `i` (brojeći od 0 sleva), onda je njegova udaljenost od desnog kraja `len - 1 - i`. Udvostruči cifru kad god je ta udaljenost neparna."
+    },
+    "doublingOverNine": {
+      "question": "Šta se dešava kada udvostručavanjem dobijem dvocifren broj?",
+      "answer": "Ako udvostručavanjem cifra postane veća od 9, oduzmi 9 od nje. Na primer, 6 udvostručeno daje 12, a 12 - 9 = 3. (Ovo daje isti rezultat kao sabiranje te dve cifre.)"
+    },
+    "finalCheck": {
+      "question": "Koja je konačna provera ispravnosti?",
+      "answer": "Saberi sve cifre (udvostručene ili ne) i proveri da li je zbir deljiv sa 10, tj. `total % 10 === 0`. Ne zaboravi da odbaciš i stringove koji imaju jednu cifru ili manje."
+    }
+  },
+  "checks": {
+    "mustUseFor": "Tako blizu! Ova vežba traži da je rešiš pomoću `for` petlje."
+  },
+  "functions": {
+    "number": {
+      "description": "Pretvori string koji sadrži cifru u broj",
+      "category": "Konverzija tipova"
+    },
+    "includes": {
+      "description": "Proveri da li string sadrži manji string",
+      "category": "Operacije nad stringovima"
+    },
+    "length": {
+      "description": "Broj karaktera u stringu",
+      "category": "Operacije nad stringovima"
+    }
+  }
+}

@@ -1,27 +1,28 @@
 ---
-title: "Raindrop Sounds"
-description: "Turn numbers into raindrop sounds: Pling, Plang and Plong."
+title: "Esőcsepp-hangok"
+description: "Alakítsd a számokat esőcsepp-hangokká: Pling, Plang és Plong."
+en_md5: 93b85e63b3d48e4e7f6d249592b367a1
 ---
 
-Raindrops is a version of the classic FizzBuzz challenge that's been used in programming interviews forever.
+A Raindrops a klasszikus FizzBuzz-feladat egy változata, amit programozási interjúkon már régóta használnak.
 
-Your task is to convert a number into its corresponding raindrop sounds.
+A feladatod, hogy egy számot a neki megfelelő esőcsepp-hangokká alakíts.
 
-We do this by seeing what the number is divisible by (e.g. the number 10 is divisible by 1, 2, 5 and 10. The number 12 is divisible by 1, 2, 3, 4, 6 and 12).
+Ezt úgy csináljuk, hogy megnézzük, a szám mivel osztható (például a 10 osztható 1-gyel, 2-vel, 5-tel és 10-zel, a 12 pedig osztható 1-gyel, 2-vel, 3-mal, 4-gyel, 6-tal és 12-vel).
 
-If a given number:
+Ha egy adott szám:
 
-- is divisible by 3, add "Pling" to the result.
-- is divisible by 5, add "Plang" to the result.
-- is divisible by 7, add "Plong" to the result.
-- is not divisible by 3, 5, or 7, the result should be the number as a string.
+- osztható 3-mal, add hozzá az eredményhez a "Pling" stringet.
+- osztható 5-tel, add hozzá az eredményhez a "Plang" stringet.
+- osztható 7-tel, add hozzá az eredményhez a "Plong" stringet.
+- nem osztható 3-mal, 5-tel vagy 7-tel, akkor az eredmény a szám stringként jelenjen meg.
 
-You need to create a function called `raindrops(num)` that takes the number as an input and returns its Raindrops sounds.
+Létre kell hoznod egy `raindrops(num)` (esőcseppek(szám)) nevű függvényt, amely bemenetként egy számot kap, és visszaadja az esőcsepp-hangjait.
 
-Build the result string using concatenation (`+`) or a template string.
+Az eredmény stringet összefűzés (_concatenation_ angolul) (`+`) vagy egy string-sablon (_template string_ angolul) segítségével állítsd össze.
 
-### Examples
+### Példák
 
-- `raindrops(28)` returns "Plong" because 28 is divisible by 7, but not 3 or 5.
-- `raindrops(30)` returns "PlingPlang" because 30 is divisible by 3 and 5, but not 7.
-- `raindrops(34)` returns the string "34" because the number 34 is not divisible by 3, 5, or 7.
+- A `raindrops(28)` a "Plong" értéket adja vissza, mert a 28 osztható 7-tel, de 3-mal és 5-tel nem.
+- A `raindrops(30)` a "PlingPlang" értéket adja vissza, mert a 30 osztható 3-mal és 5-tel, de 7-tel nem.
+- A `raindrops(34)` a "34" értéket adja vissza, mert a 34 nem osztható 3-mal, 5-tel vagy 7-tel.

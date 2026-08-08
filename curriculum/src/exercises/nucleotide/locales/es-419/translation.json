@@ -1,0 +1,62 @@
+{
+  "tasks": {
+    "countNucleotide": {
+      "name": "Contar un nucleótido",
+      "description": "Escribe una función que cuente cuántas veces aparece un nucleótido específico (A, C, G o T) en una hebra de ADN. Devuelve -1 si el nucleótido no es válido o si la hebra contiene algún carácter inválido."
+    }
+  },
+  "scenarios": {
+    "nucleotideEmptyStrand": {
+      "name": "Hebra vacía",
+      "description": "Una hebra vacía debe devolver 0 para cualquier nucleótido válido."
+    },
+    "nucleotideSingleMatch": {
+      "name": "Hebra de un solo nucleótido",
+      "description": "Una hebra de un solo carácter que coincida con el nucleótido buscado debe devolver 1."
+    },
+    "nucleotideRepeated": {
+      "name": "Nucleótido repetido",
+      "description": "Una hebra de nucleótidos repetidos debe contarlos todos."
+    },
+    "nucleotideMixedStrandA": {
+      "name": "Contar A en hebra mixta",
+      "description": "Contar un nucleótido específico en una hebra mixta."
+    },
+    "nucleotideMixedStrandT": {
+      "name": "Contar T en hebra mixta",
+      "description": "Contar un nucleótido diferente en la misma hebra."
+    },
+    "nucleotideInvalidNucleotide": {
+      "name": "Nucleótido inválido",
+      "description": "Un carácter de nucleótido inválido debe devolver -1."
+    },
+    "nucleotideInvalidStrand": {
+      "name": "Hebra inválida",
+      "description": "Una hebra que contenga caracteres inválidos debe devolver -1."
+    }
+  },
+  "hints": {
+    "checkValid": {
+      "question": "¿Cómo verifico que el carácter que me piden sea válido?",
+      "answer": "Las cadenas de caracteres tienen un método `includes()` que te dice si una cadena aparece dentro de otra. Es una manera práctica de preguntar si un carácter es uno de los nucleótidos válidos. Valida antes de empezar a contar."
+    },
+    "invalidNucleotide": {
+      "question": "¿Qué hago si el nucleótido no es válido?",
+      "answer": "Devuelve `-1` inmediatamente. La especificación usa ese valor para indicar una entrada inválida."
+    },
+    "countOccurrences": {
+      "question": "¿Cómo cuento las apariciones en la hebra?",
+      "answer": "Recorre cada carácter de la hebra. Si el carácter coincide con el nucleótido que estás contando, suma 1 a un contador. Devuelve el contador al final."
+    },
+    "validateStrand": {
+      "question": "¿Debo validar la hebra también?",
+      "answer": "Sí. Si algún carácter de la hebra no es un nucleótido válido, devuelve `-1`. Verifica cada carácter antes de contar."
+    }
+  },
+  "functions": {
+    "includes": {
+      "description": "Verifica si una cadena de caracteres contiene otra cadena más pequeña (proporcionada por la biblioteca estándar del nivel)",
+      "category": "Operaciones con cadenas"
+    }
+  }
+}

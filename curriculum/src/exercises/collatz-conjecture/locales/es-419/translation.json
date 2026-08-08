@@ -1,0 +1,40 @@
+{
+  "tasks": {
+    "calculateCollatzSteps": {
+      "name": "Calcular los pasos de Collatz",
+      "description": "Escribe una función que tome un número y devuelva cuántos pasos toma llegar al 1 siguiendo las reglas de la Conjetura de Collatz: si es par, divide entre 2; si es impar, multiplica por 3 y suma 1."
+    }
+  },
+  "scenarios": {
+    "number1": {
+      "name": "Número 1",
+      "description": "Cero pasos para el uno."
+    },
+    "number16": {
+      "name": "Número 16",
+      "description": "Divide si es par."
+    },
+    "number12": {
+      "name": "Número 12",
+      "description": "Pasos pares e impares."
+    },
+    "number1000000": {
+      "name": "Número 1000000",
+      "description": "Gran cantidad de pasos pares e impares."
+    }
+  },
+  "hints": {
+    "loopUntilOne": {
+      "question": "¿Cómo sigo hasta que el número llegue a 1?",
+      "answer": "Usa un bucle `repeat()` sin número: se repite indefinidamente hasta que uses `return` para salir de él. Dentro del bucle, reemplaza el número por el siguiente número de la secuencia, y devuelve una vez que llegue a 1."
+    },
+    "chooseRule": {
+      "question": "¿Cómo decido qué regla aplicar en cada paso?",
+      "answer": "Comprueba si el número es par. El operador de módulo lo hace. `number % 2 === 0` significa que es par. Si es par, divídelo entre 2. De lo contrario, haz `3 * number + 1`."
+    },
+    "trackSteps": {
+      "question": "¿Cómo llevo la cuenta de la respuesta (el número de pasos)?",
+      "answer": "Mantén una variable contador para cuántas veces has aplicado las reglas. Piensa en qué debe sucederle cada vez que das una vuelta al bucle, y qué debe devolver tu función cuando el número llegue a 1."
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "checks": {
+    "firstRectangle": "Il manque le premier rectangle.",
+    "lastRectangle": "Il manque le dernier rectangle.",
+    "minSaturationLightness": "Tous les rectangles doivent avoir une saturation et une luminosité d'au moins 20.",
+    "uniqueColors": "Il n'y a pas 100 rectangles de couleurs différentes.",
+    "hueRed": "Il devrait y avoir un rectangle avec une teinte proche de 0 (rouge).",
+    "huePurple": "Il devrait y avoir un rectangle avec une teinte proche de 300 (violet)."
+  },
+  "tasks": {
+    "drawRainbow": {
+      "name": "Dessine l'arc-en-ciel",
+      "description": "Dessine 100 barres verticales sur toute la largeur du canvas, chacune avec une teinte différente pour créer un effet d'arc-en-ciel."
+    }
+  },
+  "scenarios": {
+    "drawRainbow": {
+      "name": "Dessine l'arc-en-ciel",
+      "description": "Peins 100 magnifiques rectangles pour créer un arc-en-ciel."
+    }
+  },
+  "hints": {
+    "hundredRectangles": {
+      "question": "Est-ce que je dois dessiner 100 rectangles différents ?",
+      "answer": "Oui, mais pas en écrivant `rectangle(...)` 100 fois ! Pense à ce qu'on fait quand on a du code qui se répète."
+    },
+    "colorIntoRectangle": {
+      "question": "Comment mettre de la couleur dans le rectangle ?",
+      "answer": "La fonction `hsl(...)` renvoie une string de couleur. Tu peux ensuite passer cette string de couleur à la fonction `rectangle(...)`, comme tu l'as déjà fait."
+    },
+    "hueRange": {
+      "question": "Comment faire passer la teinte de 0 à 300 ?",
+      "answer": "Il y a 100 lignes, et la première doit avoir une teinte de 0. Ensuite, pour chaque nouvelle ligne, il faut l'augmenter un peu : la deuxième ligne pourrait avoir une teinte de 3, la troisième une teinte de 6, et ainsi de suite. On finira par arriver à 300."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dessine un rectangle à la position (left, top) avec la largeur, la hauteur et la couleur données",
+      "category": "Dessin de formes"
+    },
+    "hsl": {
+      "description": "Convertit des valeurs de couleur HSL (teinte 0-360, saturation 0-100, luminosité 0-100) en une string de couleur",
+      "category": "Couleurs"
+    }
+  }
+}

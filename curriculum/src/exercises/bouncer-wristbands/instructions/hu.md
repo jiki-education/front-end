@@ -1,19 +1,20 @@
 ---
-title: "Bouncer: Wristbands"
-description: "Give people the right coloured wristband based on their age."
+title: "Bouncer: Karszalagok"
+description: "Adj a résztvevőknek a koruknak megfelelő színű karszalagot."
+en_md5: 64e55ffccf4bcef0bc3deb9770874dc8
 ---
 
-You're back working as a bouncer, but this time for a local community event where the venue has a wristband system that give access to different areas based on age.
+Újra kidobó vagy, de most egy helyi közösségi rendezvényen dolgozol, ahol karszalagokkal szabályozzák, hogy ki melyik területre léphet be a korától függően.
 
-You have a `getAge()` function that returns the age of the person who you need to give a wristband to. You need to determine what category they fall into, then use one of four functions to give them the right wristband:
+Rendelkezésedre áll egy `getAge()` (életkor lekérése) függvény, ami visszaadja annak a személynek a korát, akinek karszalagot kell adnod. Meg kell határoznod, hogy melyik kategóriába tartozik, majd a négy függvény valamelyikével oda kell adnod neki a megfelelő karszalagot:
 
-- Children are under 13
-- Teens are 13-17 inclusive
-- Adults are 18-64
-- Seniors are 65+
+- A gyerekek 13 év alattiak
+- A tinédzserek 13 és 17 év között vannak (a határokat is beleértve)
+- A felnőttek 18 és 64 év közöttiek
+- Az idősek 65 év felettiek
 
-The four functions are `giveChildWristband()`, `giveTeenWristband()`, `giveAdultWristband()` and `giveSeniorWristband()`.
+A négy függvény: `giveChildWristband()` (gyerekkarszalag adása), `giveTeenWristband()` (tinédzser karszalag adása), `giveAdultWristband()` (felnőtt karszalag adása) és `giveSeniorWristband()` (idős karszalag adása).
 
-Each scenario has a different aged person. Get their age and give them the correct wristband!
+Minden forgatókönyvben más korú személy szerepel. Kérd le a korát, és add oda neki a megfelelő karszalagot!
 
-Have fun!
+Jó szórakozást!

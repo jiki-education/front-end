@@ -1,21 +1,22 @@
 ---
-title: "Leap Years"
-description: "Work out whether a year is a leap year."
+title: "Szökőévek"
+description: "Állapítsd meg, hogy egy év szökőév-e."
+en_md5: 2374b9a7671b509490f0a1e8597cd2d6
 ---
 
-In this exercise, we're exploring Leap Years!
+Ebben a feladatban a szökőévekkel ismerkedünk!
 
-A leap year (in the Gregorian calendar) occurs:
+A szökőév (a Gergely-naptár szerint) akkor következik be:
 
-- In every year that is evenly divisible by 4.
-- Unless the year is evenly divisible by 100, in which case it's only a leap year if the year is also evenly divisible by 400.
+- Minden olyan évben, amelyik maradék nélkül osztható 4-gyel.
+- Kivéve, ha az év 100-zal is osztható maradék nélkül: ekkor csak akkor szökőév, ha 400-zal is osztható maradék nélkül.
 
-Some examples:
+Néhány példa:
 
-- 1997 was not a leap year as it's not divisible by 4.
-- 1900 was not a leap year as it's not divisible by 400.
-- 2000 was a leap year!
+- 1997 nem volt szökőév, mert nem osztható 4-gyel.
+- 1900 nem volt szökőév, mert nem osztható 400-zal.
+- 2000 szökőév volt!
 
-Your job is to write a function called `isLeapYear` that takes a year as its input and returns `true` if it is a leap year, or `false` if it is not.
+A feladatod, hogy írj egy `isLeapYear` (szökőév-e) nevű függvényt, amely bemenetként egy évet kap, és `true`-t ad vissza, ha az szökőév, vagy `false`-t, ha nem.
 
-Take your time on this one. Think it through before starting!
+Szánj rá időt! Gondold át alaposan, mielőtt nekiállsz!

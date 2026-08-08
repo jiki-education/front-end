@@ -1,0 +1,90 @@
+{
+  "tasks": {
+    "sumTheDigits": {
+      "name": "Soma os algarismos",
+      "description": "Escreve uma função chamada digitalRoot que recebe um número e soma os seus algarismos. Para números que já têm um único algarismo, e para números cujos algarismos somam um único algarismo, esta primeira passagem chega."
+    },
+    "collapseToSingleDigit": {
+      "name": "Continua a reduzir até restar um algarismo",
+      "description": "Às vezes, somar os algarismos uma vez ainda deixa mais do que um algarismo (por exemplo, 942 soma 15). Continua a somar os algarismos do resultado até restar um único algarismo."
+    },
+    "keepItTight": {
+      "name": "Bónus: mantém a solução curta",
+      "description": "A tua solução já funciona. Para este bónus, arruma-a para que a função inteira caiba num número pequeno de linhas, sem nada a mais."
+    }
+  },
+  "scenarios": {
+    "drZero": {
+      "name": "Zero",
+      "description": "A raiz digital de 0 é 0."
+    },
+    "drSingleDigit": {
+      "name": "Já é um único algarismo",
+      "description": "Um número que já tem um único algarismo é a sua própria raiz digital."
+    },
+    "drTwoDigits": {
+      "name": "Dois algarismos",
+      "description": "16 reduz-se a 7 numa única passagem (1 + 6)."
+    },
+    "drThreeDigits": {
+      "name": "Três algarismos, uma passagem",
+      "description": "132 reduz-se a 6 numa única passagem (1 + 3 + 2)."
+    },
+    "drThirtyNine": {
+      "name": "São precisas duas passagens",
+      "description": "39 soma 12, que por sua vez soma 3."
+    },
+    "drTwoPasses": {
+      "name": "Um número que precisa de uma segunda passagem",
+      "description": "942 soma 15, que por sua vez soma 6."
+    },
+    "drLarge": {
+      "name": "Um número maior",
+      "description": "493193 reduz-se até chegar a 2."
+    },
+    "drNines": {
+      "name": "Só noves",
+      "description": "99999 soma 45, que por sua vez soma 9."
+    },
+    "drBonusTight": {
+      "name": "Uma solução curta e arrumada",
+      "description": "12345 reduz-se a 6 (1 + 2 + 3 + 4 + 5 = 15, e depois 1 + 5 = 6)."
+    }
+  },
+  "hints": {
+    "whatIsIt": {
+      "question": "O que é exatamente uma raiz digital?",
+      "answer": "Soma todos os algarismos do número. Se isso te der um único algarismo, essa é a resposta. Se te der mais do que um algarismo, soma também os algarismos desse resultado, e continua até restar apenas um algarismo."
+    },
+    "sumDigits": {
+      "question": "Como somo os algarismos de um número?",
+      "answer": "Transforma o número numa string para poderes percorrê-la caráter a caráter com um ciclo `for...of`. Mantém um total acumulado, somando cada algarismo à medida que avanças."
+    },
+    "digitsToNumbers": {
+      "question": "Mas cada algarismo é um caráter, não um número.",
+      "answer": "Quando percorres a string, cada caráter (como `\"4\"`) é texto. Usa `Number(char)` para o transformares no número `4` antes de o somares ao teu total."
+    },
+    "whichLoop": {
+      "question": "Como continuo sem saber quantas passagens vou precisar?",
+      "answer": "Não sabes de antemão quantas vezes vais precisar de somar os algarismos, por isso um ciclo `while` encaixa na perfeição. Continua o ciclo enquanto o número tiver mais do que um algarismo."
+    },
+    "keepGoing": {
+      "question": "Quando é que paro?",
+      "answer": "Para assim que o número for um único algarismo. Nesse momento, devolve-o."
+    }
+  },
+  "checks": {
+    "mustUseWhile": "Quase! Neste exercício queremos que uses um ciclo `while` para continuares a reduzir até restar um único algarismo.",
+    "tooManyLines": "Por pouco! A tua solução funciona, mas está um bocadinho longa. Vê se a consegues encurtar."
+  },
+  "functions": {
+    "number": {
+      "description": "Converte uma string com algarismos num número",
+      "category": "Conversão de Tipos"
+    },
+    "string": {
+      "description": "Converte um número numa string",
+      "category": "Conversão de Tipos"
+    }
+  }
+}

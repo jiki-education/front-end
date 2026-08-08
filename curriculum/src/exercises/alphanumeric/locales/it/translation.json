@@ -1,0 +1,67 @@
+{
+  "tasks": {
+    "classifyString": {
+      "name": "Classifica una stringa",
+      "description": "Scrivi funzioni di supporto per verificare se una stringa è alfabetica, numerica o alfanumerica, poi usale per classificare la stringa di input."
+    },
+    "useContinue": {
+      "name": "Usa continue",
+      "description": "Nel tuo controllo isAlphanumeric, una volta che un carattere è una lettera o una cifra, ne sei soddisfatto. Usa continue per passare direttamente al carattere successivo invece di annidare altre condizioni."
+    }
+  },
+  "scenarios": {
+    "duck": {
+      "name": "Duck",
+      "description": "Una stringa puramente alfabetica dovrebbe essere classificata come \"Alpha\"."
+    },
+    "number": {
+      "name": "42",
+      "description": "Una stringa puramente numerica dovrebbe essere classificata come \"Numeric\"."
+    },
+    "alphanumeric": {
+      "name": "Duck42",
+      "description": "Una stringa con lettere e numeri dovrebbe essere classificata come \"Alphanumeric\"."
+    },
+    "notAlphanumeric1": {
+      "name": "It's not 42!",
+      "description": "Una stringa con caratteri speciali dovrebbe essere classificata come \"Unknown\"."
+    },
+    "notAlphanumeric2": {
+      "name": "42 Rubber Duck!",
+      "description": "Una stringa con spazi e caratteri speciali dovrebbe essere classificata come \"Unknown\"."
+    },
+    "alphanumericUsesContinue": {
+      "name": "Usato continue",
+      "description": "La tua soluzione funziona e usa continue per saltare i caratteri già considerati."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Da dove dovrei iniziare quando ci sono diverse funzioni da scrivere?",
+      "answer": "Scegli la funzione di supporto più piccola per prima. Ogni helper scorre i caratteri della stringa e fa lo stesso tipo di domanda sì/no su ciascuno di essi. Fanne funzionare una e le altre seguiranno la stessa struttura."
+    },
+    "checkAllLetters": {
+      "question": "Come faccio a verificare se ogni carattere nell'input è una lettera?",
+      "answer": "Scorri ogni carattere e controlla se appare nell'alfabeto. Il metodo `.includes()` di una stringa risponde esattamente a questa domanda: `\"...\".includes(char)`. Ricorda di includere sia le lettere minuscole che maiuscole, altrimenti una maiuscola come la \"D\" in \"Duck\" non verrebbe contata. Se un carattere non è nell'alfabeto, la stringa non è tutta alfabetica."
+    },
+    "checkAllDigits": {
+      "question": "Come faccio a fare lo stesso controllo per le cifre?",
+      "answer": "Esattamente lo stesso schema, ma controlla contro `\"0123456789\"` invece dell'alfabeto."
+    },
+    "alphanumericMeaning": {
+      "question": "Cosa significa 'alfanumerico'? Significa entrambi?",
+      "answer": "Alfanumerico significa che ogni carattere è una lettera O una cifra. Quindi per ogni carattere, se è alfabetico sei soddisfatto, e se è numerico lo sei anche. Usa `continue` per passare oltre. Solo se non è nessuno dei due lo rifiuti."
+    },
+    "pickingLabels": {
+      "question": "Come faccio a scegliere tra le quattro etichette in whatAmI()?",
+      "answer": "Chiama tutte e tre le funzioni di supporto e usa if/else. L'ordine è importante. Controlla i casi più restrittivi ('solo lettere' e 'solo numeri') prima di 'alfanumerico', che è il caso più ampio."
+    }
+  },
+  "checks": {
+    "mustUseContinue": "Ci sei quasi! Usa `continue` per passare al carattere successivo.",
+    "tooManyLines": "Ci sei quasi! La tua soluzione funziona, ma è un po' lunga.",
+    "useIsAlpha": "Questo esercizio richiede di scrivere una funzione di supporto `isAlpha()` e usarla per classificare la stringa.",
+    "useIsNumeric": "Questo esercizio richiede di scrivere una funzione di supporto `isNumeric()` e usarla per classificare la stringa.",
+    "useIsAlphanumeric": "Questo esercizio richiede di scrivere una funzione di supporto `isAlphanumeric()` e usarla per classificare la stringa."
+  }
+}

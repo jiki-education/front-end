@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "noResult": "Du tillkännagav inget resultat!",
+    "paperVsPaperResult": "Papper mot papper borde bli tie, men det blev \"{{got}}\".",
+    "paperVsRockResult": "Papper mot sten borde bli en vinst för Yuki, men det blev \"{{got}}\".",
+    "paperVsScissorsResult": "Papper mot sax borde bli en vinst för Ando, men det blev \"{{got}}\".",
+    "rockVsPaperResult": "Sten mot papper borde bli en vinst för Ando, men det blev \"{{got}}\".",
+    "rockVsRockResult": "Sten mot sten borde bli tie, men det blev \"{{got}}\".",
+    "rockVsScissorsResult": "Sten mot sax borde bli en vinst för Yuki, men det blev \"{{got}}\".",
+    "scissorsVsPaperResult": "Sax mot papper borde bli en vinst för Yuki, men det blev \"{{got}}\".",
+    "scissorsVsRockResult": "Sax mot sten borde bli en vinst för Ando, men det blev \"{{got}}\".",
+    "scissorsVsScissorsResult": "Sax mot sax borde bli tie, men det blev \"{{got}}\"."
+  },
+  "tasks": {
+    "determineWinner": {
+      "name": "Avgör vinnaren",
+      "description": "Hämta båda spelarnas val och tillkännage rätt resultat: \"Yuki\", \"Ando\" eller \"tie\"."
+    }
+  },
+  "scenarios": {
+    "paperVsPaper": {
+      "name": "Papper mot papper",
+      "description": "Det blir oavgjort. Tillkännage det korrekt!"
+    },
+    "paperVsRock": {
+      "name": "Papper mot sten",
+      "description": "Papper slår sten, så Yuki vinner. Tillkännage Yuki som vinnare!"
+    },
+    "paperVsScissors": {
+      "name": "Papper mot sax",
+      "description": "Sax slår papper, så Ando vinner. Tillkännage Ando som vinnare."
+    },
+    "rockVsPaper": {
+      "name": "Sten mot papper",
+      "description": "Papper slår sten, så Ando vinner. Tillkännage Ando som vinnare."
+    },
+    "rockVsRock": {
+      "name": "Sten mot sten",
+      "description": "Det blir oavgjort. Tillkännage det korrekt!"
+    },
+    "rockVsScissors": {
+      "name": "Sten mot sax",
+      "description": "Sten slår sax, så Yuki vinner. Tillkännage Yuki som vinnare."
+    },
+    "scissorsVsPaper": {
+      "name": "Sax mot papper",
+      "description": "Sax slår papper, så Yuki vinner. Tillkännage Yuki som vinnare."
+    },
+    "scissorsVsRock": {
+      "name": "Sax mot sten",
+      "description": "Sten slår sax, så Ando vinner. Tillkännage Ando som vinnare."
+    },
+    "scissorsVsScissors": {
+      "name": "Sax mot sax",
+      "description": "Det blir oavgjort. Tillkännage det korrekt!"
+    }
+  },
+  "hints": {
+    "howToStart": {
+      "question": "Hur börjar jag?",
+      "answer": "Hämta valen som Yuki och Ando gör med de medföljande funktionerna, och spara dem i variabler så att du kan jämföra dem."
+    },
+    "simplestCase": {
+      "question": "Vilket är det enklaste fallet att hantera först?",
+      "answer": "En tie. Om båda valen är likadana kan du tillkännage tie direkt och hoppa över resten."
+    },
+    "checkCombination": {
+      "question": "Hur kontrollerar jag en specifik vinnande kombination?",
+      "answer": "Använd `&&` (och) för att kombinera två villkor som båda måste vara sanna, till exempel betyder ”Yuki valde sten OCH Ando valde sax” att Yuki vinner."
+    },
+    "shorterWay": {
+      "question": "Jag hamnar med massor av `if`-satser. Finns det ett kortare sätt?",
+      "answer": "Sätt standardresultatet till att en spelare vinner, och kontrollera sedan bara de tre kombinationerna där den andra spelaren vinner. Det halverar ungefär antalet fall."
+    },
+    "invalidChoice": {
+      "question": "Vad händer om en spelare anger något annat än sten, sax eller papper?",
+      "answer": "Det behöver du inte oroa dig för här. De medföljande funktionerna returnerar alltid ett av de tre giltiga valen."
+    }
+  },
+  "functions": {
+    "getYukiChoice": {
+      "description": "Returnerar valet som Yuki gör: `\"rock\"`, `\"paper\"` eller `\"scissors\"`.",
+      "category": "Spel"
+    },
+    "getAndoChoice": {
+      "description": "Returnerar valet som Ando gör: `\"rock\"`, `\"paper\"` eller `\"scissors\"`.",
+      "category": "Spel"
+    },
+    "announceResult": {
+      "description": "Tillkännager resultatet av spelet. Skicka in `\"Yuki\"`, `\"Ando\"` eller `\"tie\"`.",
+      "category": "Spel"
+    }
+  }
+}

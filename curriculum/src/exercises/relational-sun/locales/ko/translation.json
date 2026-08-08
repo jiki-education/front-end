@@ -1,0 +1,38 @@
+{
+  "checks": {
+    "wrongPosition": "태양이 잘못된 위치에 있거나 크기가 잘못되었어요. `sunX`와 `sunY` 계산을 확인하고, `circle`에 `radius`를 제대로 전달했는지 확인해 보세요.",
+    "notResponsive": "`gap`이 {{gap}}이고 `radius`가 {{radius}}일 때 코드가 올바르게 조정되지 않아요. `sunX`와 `sunY`는 직접 숫자를 하드코딩하지 말고 `gap`과 `radius`로부터 계산해야 해요."
+  },
+  "tasks": {
+    "positionSun": {
+      "name": "태양 배치하기",
+      "description": "`canvasSize`, `gap`, `radius`로 `sunX`와 `sunY`를 계산하여 태양이 제대로 조정되도록 해 보세요."
+    }
+  },
+  "scenarios": {
+    "positionSun": {
+      "name": "태양 배치하기",
+      "description": "`gap`과 `radius`로 태양의 위치를 계산하여 태양이 제대로 조정되도록 해 보세요."
+    }
+  },
+  "hints": {
+    "sunXPosition": {
+      "question": "태양의 x 좌표는 어떻게 생각하면 될까요?",
+      "answer": "캔버스의 오른쪽 가장자리를 상상해 보세요. 태양의 가장자리는 그 가장자리에서 왼쪽으로 `gap`만큼 떨어져 있어요. 태양의 *중심*은 거기서 반지름만큼 더 안쪽에 있어요."
+    },
+    "sunYPosition": {
+      "question": "태양의 y 좌표는 어떻게 생각하면 될까요?",
+      "answer": "x 좌표와 같은 개념이에요. 오른쪽 가장자리에서 왼쪽으로 재는 대신, 캔버스 위쪽 가장자리에서 아래로 잰다는 점만 달라요."
+    },
+    "whyNotHardcode": {
+      "question": "왜 숫자를 바로 쓰면 안 되나요?",
+      "answer": "`sunX`와 `sunY`를 하드코딩하면, `gap`이나 `radius`가 변해도 태양이 한곳에 머물러요. `gap`과 `radius`로부터 계산하면, 어떤 값을 선택하든 태양이 항상 모서리에 위치하도록 해요."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "(centerX, centerY) 좌표를 중심으로, 주어진 반지름과 색상으로 원을 그려요.",
+      "category": "도형 그리기"
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "checks": {
+    "firstRectangle": "De eerste rechthoek ontbreekt.",
+    "lastRectangle": "De laatste rechthoek ontbreekt.",
+    "minSaturationLightness": "Alle rechthoeken moeten een verzadiging en helderheid van minstens 20 hebben.",
+    "uniqueColors": "Er zijn geen 100 rechthoeken met verschillende kleuren.",
+    "hueRed": "Er moet een rechthoek zijn met een kleurtoon dicht bij 0 (rood).",
+    "huePurple": "Er moet een rechthoek zijn met een kleurtoon dicht bij 300 (paars)."
+  },
+  "tasks": {
+    "drawRainbow": {
+      "name": "Teken de regenboog",
+      "description": "Teken 100 verticale balken over het canvas, elk met een andere kleurtoon, zodat er een regenboogeffect ontstaat."
+    }
+  },
+  "scenarios": {
+    "drawRainbow": {
+      "name": "Teken de regenboog",
+      "description": "Schilder 100 prachtige rechthoeken om een regenboog te maken."
+    }
+  },
+  "hints": {
+    "hundredRectangles": {
+      "question": "Moet ik 100 verschillende rechthoeken tekenen?",
+      "answer": "Ja, maar niet door 100 keer `rectangle(...)` te schrijven! Denk na over wat we doen als we code hebben die zich herhaalt."
+    },
+    "colorIntoRectangle": {
+      "question": "Hoe krijg ik de kleur in de rechthoek?",
+      "answer": "De functie `hsl(...)` geeft een kleurstring terug. Die kleurstring kun je vervolgens aan de functie `rectangle(...)` doorgeven, zoals je eerder hebt gedaan."
+    },
+    "hueRange": {
+      "question": "Hoe laat ik de kleurtoon van 0 naar 300 gaan?",
+      "answer": "Er zijn 100 balken, en de eerste moet een kleurtoon van 0 hebben. Voor elke volgende balk verhogen we die een beetje: de tweede balk krijgt bijvoorbeeld een kleurtoon van 3, de derde een kleurtoon van 6, enzovoort. Uiteindelijk komen we bij 300 uit."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Teken een rechthoek op positie (left, top) met de opgegeven breedte, hoogte en kleur",
+      "category": "Vormen tekenen"
+    },
+    "hsl": {
+      "description": "Zet HSL-kleurwaarden (kleurtoon 0-360, verzadiging 0-100, helderheid 0-100) om naar een kleurstring",
+      "category": "Kleuren"
+    }
+  }
+}

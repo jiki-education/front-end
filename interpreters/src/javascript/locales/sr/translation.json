@@ -1,0 +1,268 @@
+{
+  "error": {
+    "syntax": {
+      "InvalidAssignmentTargetExpression": "Nevažeći cilj dodele. Vrednosti možeš da dodeljuješ samo promenljivama.",
+      "AssignmentInExpression": "Ovde ti verovatno treba `===`, a ne `=`, da uporediš dve vrednosti, a ne da promeniš promenljivu. Dodela vrednosti promenljivama unutar naredbe nije dozvoljena u ovom editoru.",
+      "StrictEqualityRequired": "Zameni `==` sa `===`.\n\nU punom JavaScriptu možeš da koristiš `==` ili `===` da proveriš da li su dve stvari jednake. Ipak, opšte je prihvaćeno da je bolja praksa koristiti `===`, pa smo `==` isključili u Jikiju.",
+      "StrictInequalityRequired": "Zameni `!=` sa `!==`.\n\nU punom JavaScriptu možeš da koristiš `!=` ili `!==` da proveriš da li se dve stvari razlikuju. Ipak, opšte je prihvaćeno da je bolja praksa koristiti `!==`, pa smo `!=` isključili u Jikiju.",
+      "MissingBacktickToTerminateTemplateLiteral": "Da li na kraju nedostaje obrnuti apostrof? Možda je trebalo da napišeš:\n\n``` `{{string}}` ```",
+      "QuoteUsedToTerminateTemplateLiteral": "Da li na kraju šablonskog stringa stoji `{{quote}}` umesto obrnutog apostrofa `` ` ``? Možda je trebalo da napišeš:\n\n``` `{{string}}` ```",
+      "MissingDoubleQuoteToTerminateString": "Da li na kraju nedostaje navodnik? Možda je trebalo da napišeš:\n\n```\"{{string}}\"```",
+      "MissingExpression": "Jiki nije razumeo šta ovde treba da uradi sa {{token}}.",
+      "MissingClassNameAfterNew": "Jiki je posle `new` očekivao ime klase, ali ga nije našao.",
+      "UnexpectedElseWithoutMatchingIf": "Ne postoji `if` naredba iza koje bi ovaj `else` došao. Proveri da li iznad ove linije imaš previše (ili premalo) zatvorenih vitičastih zagrada.",
+      "MissingInitializerInConstDeclaration": "Nedostaje početna vrednost u deklaraciji konstante. Konstantama se vrednost mora dodeliti pri deklarisanju.",
+      "MissingInitializerInVariableDeclaration": "Nedostaje početna vrednost u deklaraciji promenljive. Kada deklarišeš promenljivu pomoću `let`, moraš da joj daš vrednost.",
+      "ConstInForLoopInit": "Ne možeš da koristiš `const` u for petlji u C stilu. Promenljiva petlje mora da se menja (npr. i++), a const promenljive ne mogu da se menjaju. Umesto toga upotrebi `let`, ili razmisli o for...of petlji ako prolaziš kroz niz.",
+      "MissingLetInForOf": "Promenljivu petlje moraš da deklarišeš pomoću `let`. Na primer, napiši `for (let {{name}} of ...)` umesto `for ({{name}} of ...)`.\n\nU punom JavaScriptu smeš da izostaviš `let` ako je promenljiva već deklarisana, ali to je neuobičajen slučaj, pa smo tu mogućnost isključili u ovoj verziji jezika.",
+      "MissingLetInForIn": "Promenljivu petlje moraš da deklarišeš pomoću `let`. Na primer, napiši `for (let {{name}} in ...)` umesto `for ({{name}} in ...)`.\n\nU punom JavaScriptu smeš da izostaviš `let` ako je promenljiva već deklarisana, ali to je neuobičajen slučaj, pa smo tu mogućnost isključili u ovoj verziji jezika.",
+      "MissingLetInForLoopInit": "Promenljivu petlje moraš da deklarišeš pomoću `let`. Na primer, napiši `for (let i = 0; ...)` umesto `for (i = 0; ...)`.\n\nU punom JavaScriptu smeš da izostaviš `let` ako je promenljiva već deklarisana, ali to je neuobičajen slučaj, pa smo tu mogućnost isključili u ovoj verziji jezika.",
+      "UnexpectedDoubleIdentifier": "Jiki nije razumeo šta želiš da ovde uradi.",
+      "MissingDeclarationKeywordWithSuggestion": "Da li je trebalo da napišeš `{{suggestion}}` umesto `{{name}}`? Deklaracija promenljive mora da počne sa `let` ili `const`.",
+      "MissingLeftParenthesisAfterIf": "Nedostaje otvorena zagrada `(` posle ključne reči `if`.",
+      "MissingRightBraceAfterBlock": "Nedostaje zatvorena vitičasta zagrada `}` posle bloka.",
+      "MissingRightBraceInTemplateLiteral": "Jiki nije mogao da nađe zatvorenu vitičastu zagradu (`}`) u ovom šablonskom stringu. Proveri da negde ne nedostaje ili da se nije potkrala greška u kucanju. Ispravan oblik je ``` `...${...}...` ```.",
+      "MissingRightBracketInArray": "Nedostaje zatvorena uglasta zagrada `]` na kraju niza.",
+      "MissingRightBracketInMemberAccess": "Nedostaje zatvorena uglasta zagrada `]` posle indeksa niza.",
+      "MissingRightParenthesisAfterExpression": "Nedostaje zatvorena zagrada `)` posle izraza.",
+      "MissingRightParenthesisAfterIfCondition": "Nedostaje zatvorena zagrada `)` posle uslova u if naredbi.",
+      "MissingRightParenthesisAfterFunctionCall": "Da li nedostaje zatvorena zagrada `)` u pozivu funkcije {{function}}?",
+      "MissingEndOfLine": "Jiki nije očekivao da se `{{current}}` pojavi ovde posle `{{previous}}`.",
+      "MissingVariableName": "Nedostaje ime promenljive u deklaraciji. Posle `let` moraš da navedeš ime.",
+      "MultipleStatementsPerLine": "U Jikiju možeš da staviš samo jednu naredbu po liniji. Ne možeš da razdvajaš više naredbi tačka-zarezima. Stavi drugu naredbu u posebnu liniju.",
+      "TrailingCommaInArray": "U nizovima nije dozvoljen zarez posle poslednjeg elementa.",
+      "TrailingCommaInDictionary": "U objektima nije dozvoljen zarez posle poslednje stavke.",
+      "InvalidDictionaryKey": "Nevažeći ključ objekta. Ključevi moraju biti identifikatori, stringovi ili brojevi.",
+      "MissingColonInDictionary": "Nedostaje dvotačka `:` posle ključa objekta.",
+      "DuplicateDictionaryKey": "Ključ `{{key}}` se ponavlja u objektu.",
+      "MissingRightBraceInDictionary": "Nedostaje zatvorena vitičasta zagrada `}` na kraju objekta.",
+      "UnimplementedToken": "Funkcionalnost `{{lexeme}}` još nije dostupna na tvom trenutnom nivou.",
+      "PermanentlyExcludedToken": "Funkcionalnost `{{lexeme}}` nije dostupna u ovoj verziji JavaScripta.",
+      "UnknownCharacter": "Jiki nije razumeo šta ovde treba da uradi sa {{character}}.",
+      "UnterminatedBlockComment": "Jiki nije mogao da nađe `*/` koji zatvara ovaj blok komentar.",
+      "NestedFunctionDeclaration": "Deklaracije funkcija su dozvoljene samo na najvišem nivou, ne unutar blokova ili drugih funkcija.",
+      "MissingFunctionName": "Nedostaje ime funkcije posle ključne reči `function`.",
+      "MissingLeftParenthesisAfterFunctionName": "Nedostaje otvorena zagrada `(` posle imena funkcije.",
+      "MissingParameterName": "Nedostaje ime parametra u deklaraciji funkcije.",
+      "DuplicateParameterName": "Ime parametra `{{name}}` se ponavlja u deklaraciji funkcije.",
+      "MissingRightParenthesisAfterParameters": "Nedostaje zatvorena zagrada `)` posle parametara funkcije.",
+      "MissingLeftBraceBeforeFunctionBody": "Nedostaje otvorena vitičasta zagrada `{` pre tela funkcije.",
+      "BreakStatementNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš `break`. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "ContinueStatementNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš `continue`. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "FunctionDeclarationNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da praviš sopstvene funkcije. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "ReturnStatementNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš `return`. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "RepeatStatementNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš `repeat`. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "UpdateExpressionNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš `++` ili `--`. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "LiteralExpressionNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš obične vrednosti kao što su brojevi, stringovi i Boolean vrednosti. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "BinaryExpressionNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš operatore kao što su `+`, `-` ili `>`. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "LogicalExpressionNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš logičke operatore kao što su `&&` ili `||`. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "UnaryExpressionNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da stavljaš `-` ili `!` ispred vrednosti. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "GroupingExpressionNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš obične zagrade za grupisanje. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "IdentifierExpressionNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš vrednost promenljive. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "AssignmentExpressionNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da menjaš promenljivu. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "TemplateLiteralExpressionNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš šablonske stringove sa obrnutim apostrofima. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "ArrayExpressionNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš nizove. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "IndexExpressionNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da pristupaš stavkama pomoću uglastih zagrada. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "MemberExpressionNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš tačku za čitanje svojstva. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "DictionaryExpressionNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da praviš objekte pomoću vitičastih zagrada. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "CallExpressionNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš pozive funkcija. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "ExpressionStatementNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da napišeš liniju koja sadrži samo izraz. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "VariableDeclarationNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da praviš promenljive pomoću `let`. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "BlockStatementNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da grupišeš linije koda unutar `{ }`. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "IfStatementNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš `if`. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "ForStatementNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš `for` petlje u C stilu. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "ForOfStatementNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš `for…of` petlje. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "WhileStatementNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš `while` petlje. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "UnexpectedTokenInTemplateLiteral": "Jiki ovde nije očekivao {{token}}.",
+      "MissingLeftParenAfterRepeat": "Nedostaje otvorena zagrada `(` posle `repeat`.",
+      "MissingRightParenAfterRepeatCount": "Nedostaje zatvorena zagrada `)` posle broja ponavljanja.",
+      "ForInStatementNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš `for…in` petlje. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "NewExpressionNotAllowed": "Jiki ti u ovoj vežbi ne dozvoljava da koristiš `new`. Probaj da rešiš vežbu samo uz ideje koje smo obradili u lekcijama.",
+      "BlockRequired": "Posle `{{keyword}}` moraš da koristiš vitičaste zagrade { }."
+    },
+    "lint": {
+      "ClosingBraceNotOnOwnLine": "Stavi zatvorenu vitičastu zagradu `}` u posebnu liniju da kod ostane uredan.",
+      "OpeningBraceContentNotOnOwnLine": "Stavi kod unutar vitičastih zagrada u novu liniju da kod ostane uredan.",
+      "IncorrectIndentation": "Jiki je ovde očekivao uvlačenje od {{expected}} razmaka, ali je ova linija uvučena za {{actual}}.\n\nPravilno uvlačenje koda pomoći će ti da izbegneš mnogo bagova, jer se mnogo jasnije vidi kako je kod ugnežden.",
+      "IncorrectIndentationAtTopLevel": "Jiki je na početku linije očekivao uvlačenje od {{expected}} razmaka, ali ga tamo nema.\n\nPravilno uvlačenje koda pomoći će ti da izbegneš mnogo bagova, jer se mnogo jasnije vidi kako je kod ugnežden."
+    },
+    "runtime": {
+      "FunctionExecutionError": "Greška pri izvršavanju funkcije `{{function}}`: {{message}}",
+      "IndexOutOfRange": "Dužina ovog niza je {{length}}, a ti pokušavaš da pristupiš indeksu {{index}}. Zapamti da prvi element u JavaScriptu ima indeks 0.",
+      "StringIndexOutOfRange": "Dužina ovog stringa je {{length}}, a ti pokušavaš da pristupiš indeksu {{index}}. Zapamti da prvi karakter u JavaScriptu ima indeks 0.",
+      "ComparisonWithUndefined": "Pokušavaš da uporediš dve vrednosti, ali jedna od njih nije postavljena ni na šta. Ovo ne bi trebalo da bude moguće u Jikiju, pa te molimo da na forumu otvoriš temu sa svojim kodom kako bismo istražili.",
+      "ComparisonWithUndefinedFromFunction": "Pokušavaš da uporediš rezultat funkcije koja ništa nije vratila. Pobrini se da funkcija `{{name}}` u svim situacijama vraća vrednost pre nego što uporediš njen rezultat.",
+      "AssignmentToUndefined": "Pokušavaš da sačuvaš vrednost koja nije postavljena ni na šta. Promenljiva bi uvek trebalo da sadrži stvarnu vrednost.",
+      "AssignmentToUndefinedFromFunction": "Pokušavaš da sačuvaš rezultat funkcije koja ništa ne vraća. Pobrini se da funkcija vraća vrednost pre nego što sačuvaš njen rezultat.",
+      "UpdateOperatorRequiresNumber": "Jiki ne može da primeni {{operator}} na {{type}}, već samo na brojeve.",
+      "PropertyNotFound": "Svojstvo `{{property}}` ne postoji na tipu {{type}}.",
+      "MethodUsedWithoutParentheses": "Svojstvo `{{property}}` ne postoji na tipu {{type}}. Da li možda želiš da upotrebiš metodu `{{property}}`? Ako je tako, zapamti da moraš da dodaš zagrade, kao kod obične funkcije.",
+      "ShadowingDisabled": "Senčenje promenljivih je isključeno. Promenljiva `{{name}}` je već deklarisana u spoljašnjem opsegu.",
+      "VariableAlreadyDeclared": "Promenljiva `{{name}}` je već deklarisana u ovom opsegu. Upotrebi drugo ime ili dodeli vrednost postojećoj promenljivoj.",
+      "AssignmentToConstant": "Konstanti `{{name}}` ne može ponovo da se dodeli vrednost. Konstante ne mogu da se menjaju nakon što su deklarisane.",
+      "TruthinessDisabled": "U uslovima su dozvoljene samo Boolean vrednosti, a ovde je dobijeno `{{value}}`.",
+      "ArrayIndexNotNumber": "Kao indeks niza možeš da koristiš samo broj, npr. `myArray[0]`.",
+      "ArrayIndexNotInteger": "Kao indeks niza možeš da koristiš samo ceo broj, decimalni brojevi poput `1.5` ne rade.",
+      "StringIndexNotNumber": "Karakter u stringu možeš da potražiš samo pomoću broja, npr. `myString[0]`.",
+      "StringIndexNotInteger": "Karakter u stringu možeš da potražiš samo pomoću celog broja, decimalni brojevi poput `1.5` ne rade.",
+      "ComputedAccessNotAllowedForStdlib": "Do ovoga moraš da dođeš pomoću tačke, npr. `myArray.length`, a ne pomoću uglastih zagrada.",
+      "ComputedAccessNotAllowedForBuiltin": "Do ovoga moraš da dođeš pomoću tačke, npr. `Math.max`, a ne pomoću uglastih zagrada.",
+      "CannotReadPropertiesOfType": "Ne možeš da čitaš svojstvo sa tipa {{type}}.",
+      "CannotSetPropertyOfType": "Ne možeš da postaviš svojstvo na tip {{type}}.",
+      "BracketNotationNotAllowedOnInstance": "Na instanci klase ne možeš da koristiš uglaste zagrade, upotrebi tačku, npr. `myObject.property`.",
+      "NotCallable": "Ne možeš da koristiš {{callableType}} kao funkciju i da pokušavaš to da pokreneš.",
+      "VariableNotDeclared": "Jiki nije mogao da nađe promenljivu sa imenom `{{name}}`.",
+      "ReturnOutsideFunction": "Koristiš ključnu reč `return`, ali nisi unutar funkcije. Return naredbe mogu da se koriste samo unutar funkcija.",
+      "BreakOutsideLoop": "Koristiš ključnu reč `break`, ali nisi unutar petlje. Break naredbe mogu da se koriste samo unutar for ili while petlji.",
+      "ContinueOutsideLoop": "Koristiš ključnu reč `continue`, ali nisi unutar petlje. Continue naredbe mogu da se koriste samo unutar for ili while petlji.",
+      "ForOfLoopTargetNotIterable": "for...of petlja zahteva vrednost kroz koju može da se prolazi (poput niza ili stringa), a ti joj daješ {{type}} sa vrednošću {{value}}.",
+      "MethodNotYetImplemented": "Metoda `{{method}}` postoji, ali ti još nije dostupna.",
+      "MethodNotYetAvailable": "Metoda `{{method}}` nije dostupna na tvom trenutnom nivou učenja. Nastavi da napreduješ i ova funkcionalnost će se otključati!",
+      "PropertyNotYetAvailable": "Svojstvo `{{property}}` nije dostupno na tvom trenutnom nivou učenja. Nastavi da napreduješ i ova funkcionalnost će se otključati!",
+      "MaxIterationsReached": "Tvoj kod se izvršavao predugo, pa je zaustavljen da bi se sprečila beskonačna petlja. Najveći dozvoljeni broj izvršavanja petlji u ovoj vežbi je {{max}}.",
+      "RepeatCountMustBeNumber": "repeat() zahteva broj, a dobijeno je {{type}}.",
+      "RepeatCountMustBeNonNegative": "Broj ponavljanja za repeat() mora biti 0 ili veći, a dobijeno je {{value}}.",
+      "RepeatCountTooHigh": "Broj ponavljanja {{value}} za repeat() premašuje maksimum od {{max}} iteracija.",
+      "FunctionAlreadyDefined": "Već postoji funkcija sa imenom `{{name}}`. Izaberi drugo ime.",
+      "TypeCoercionNotAllowed": "Implicitna konverzija tipova nije dozvoljena između {{leftType}} i {{rightType}} sa operatorom `{{operator}}`.",
+      "UnaryTypeCoercionNotAllowed": "Implicitna konverzija tipova nije dozvoljena: operator `{{operator}}` ne može da se primeni na {{operand}}.",
+      "ComparisonRequiresNumber": "Operator `{{operator}}` zahteva da obe vrednosti budu brojevi.",
+      "NodeNotAllowed": "{{nodeType}} nije dozvoljeno na tvom trenutnom nivou učenja.",
+      "InvalidNumberOfArguments_exact": "Ova funkcija ima $t(phrases.slotCount, {\"count\": {{expected}} }), ali Jikiju daješ $t(phrases.inputCount, {\"count\": {{got}} }) da upotrebi sa njom.",
+      "InvalidNumberOfArguments_atLeast": "Ovoj funkciji treba najmanje $t(phrases.slotCount, {\"count\": {{expected}} }), ali Jikiju daješ $t(phrases.inputCount, {\"count\": {{got}} }) da upotrebi sa njom.",
+      "InvalidNumberOfArguments_range": "Ova funkcija ima između {{min}} i {{max}} ulaznih otvora, ali Jikiju daješ $t(phrases.inputCount, {\"count\": {{got}} }) da upotrebi sa njom.",
+      "FunctionNotFound": "Jiki nije mogao da nađe funkciju sa imenom `{{name}}`.",
+      "LogicErrorInExecution": "{{message}}",
+      "ForInLoopTargetNotObject": "for...in petlja zahteva objekat kroz koji će prolaziti, a ti joj daješ {{type}} sa vrednošću {{value}}.",
+      "InOperatorRequiresObject": "Operator `in` sa desne strane zahteva objekat ili rečnik, a ti mu daješ {{type}}.",
+      "InOperatorRequiresStringKey": "Operator `in` sa leve strane zahteva string ključ, a ti mu daješ {{type}}.",
+      "InOperatorRequiresIntegerIndex": "Kada se koristi sa nizovima, operator `in` zahteva celobrojni indeks, a ti mu daješ {{type}}.",
+      "InWithArrayNotAllowed": "Iako ključna reč `in` može da se koristi sa nizovima, to je naprednija funkcionalnost. Za sada je koristi samo sa rečnicima.",
+      "ClassNotFound": "Klasa `{{name}}` nije definisana.",
+      "PropertyNotFoundOnInstance": "Svojstvo `{{property}}` ne postoji na instancama klase `{{className}}`.",
+      "UnexpectedUncalledFunction": "Pominješ funkciju `{{name}}`, ali je zapravo ne koristiš. Da li na kraju nedostaju `()`?"
+    },
+    "disabledLanguageFeature": {
+      "DisabledFeatureExcludeListViolation": "Funkcionalnost `{{lexeme}}` još nije dostupna na tvom trenutnom nivou.",
+      "DisabledFeatureIncludeListViolation": "Funkcionalnost `{{lexeme}}` još nije dostupna na tvom trenutnom nivou."
+    },
+    "stdlib": {
+      "StdlibExactArgs": "Broj ulaznih otvora funkcije {{functionName}}() je {{expected}}, a broj stvari koje im daješ je samo {{received}}.",
+      "StdlibAtLeastArgs": "Najmanji broj ulaznih otvora funkcije {{functionName}}() je {{minimum}}, a broj stvari koje im daješ je samo {{received}}.",
+      "StdlibArgRange": "Funkcija {{functionName}}() ima između {{min}} i {{max}} ulaznih otvora, a broj stvari koje im daješ je samo {{received}}.",
+      "StdlibArgTypeMismatch": "Funkcija {{functionName}}() je očekivala da {{argName}} bude {{expected}}, a ti joj daješ {{received}}.",
+      "StdlibArgMustBeInteger": "Funkcija {{functionName}}() je očekivala da {{argName}} bude ceo broj, a ti joj daješ {{value}}.",
+      "MethodNotYetImplemented": "Metoda `{{method}}` postoji, ali ti još nije dostupna.",
+      "StdlibRandomIntMinGreaterThanMax": "randomInt() očekuje da prvi broj ({{min}}) bude manji ili jednak drugom broju ({{max}}).",
+      "NumberConversionFailed": "Jiki je pokušao da pretvori `{{value}}` u broj, ali to nije važeći broj. Dodaj neke provere pre korišćenja `Number(str)`."
+    }
+  },
+  "phrases": {
+    "slotCount_one": "{{count}} ulazni otvor",
+    "slotCount_few": "{{count}} ulazna otvora",
+    "slotCount_other": "{{count}} ulaznih otvora",
+    "inputCount_one": "{{count}} ulaz",
+    "inputCount_few": "{{count}} ulaza",
+    "inputCount_other": "{{count}} ulaza"
+  },
+  "description": {
+    "assignmentExpression": {
+      "element_put": "Jiki je stavio {{value}} na mesto sa indeksom {{index}} u nizu.",
+      "variable_found": "Jiki je našao kutiju {{name}}.",
+      "variable_put": "Jiki je stavio {{value}} u kutiju."
+    },
+    "binaryExpression": {
+      "evaluated": "Jiki je izračunao {{expr}} i utvrdio da je to {{value}}."
+    },
+    "breakStatement": {
+      "result": "Ova linija je odmah izašla iz petlje.",
+      "step": "Jiki je ovo video i odlučio da pređe na kod posle ove petlje."
+    },
+    "callExpression": {
+      "logResult": "Ovo je ispisalo <code>{{output}}</code>.",
+      "logResultBlank": "Ovo je ispisalo praznu liniju.",
+      "logStep": "Jiki je ovde napisao <code>{{output}}</code> za tebe!",
+      "logStepBlank": "Jiki je ovde napisao praznu liniju za tebe!",
+      "summary": "Ovo je upotrebilo funkciju {{fn}}.",
+      "used": "Jiki je upotrebio funkciju {{call}}.",
+      "usedReturned": "Jiki je upotrebio funkciju {{call}}, koja je vratila {{value}}."
+    },
+    "common": {
+      "defaultFunctionName": "funkcija"
+    },
+    "continueStatement": {
+      "result": "Ova linija je zaustavila izvršavanje ostatka koda u ovoj iteraciji.",
+      "step": "Jiki je ovo video i odlučio da pređe na sledeću iteraciju."
+    },
+    "expressionStatement": {
+      "callResult": "Ovo je upotrebilo funkciju {{functionName}}.",
+      "result_default": "Vrednost ovog izraza je <code>{{value}}</code>.",
+      "step_default": "Jiki je izračunao ovaj izraz i dobio <code>{{value}}</code>."
+    },
+    "forInStatement": {
+      "result_empty": "Objekat je bio prazan, pa ova linija nije uradila ništa.",
+      "result_iteration_ordinal_other": "Ova linija je započela {{count}}. iteraciju, sa promenljivom {{name}} postavljenom na {{value}}.",
+      "step_create": "Jiki je napravio novu kutiju sa imenom {{name}}.",
+      "step_empty": "Jiki je proverio objekat, video da je prazan i odlučio da na ovoj liniji ne radi ništa dalje.",
+      "step_put": "Jiki je stavio {{value}} u kutiju, a kutiju na policu, spremnu za korišćenje u bloku koda."
+    },
+    "forOfStatement": {
+      "result_empty": "{{type}} je bio prazan, pa ova linija nije uradila ništa.",
+      "result_iteration_ordinal_other": "Ova linija je započela {{count}}. iteraciju, sa promenljivom {{name}} postavljenom na {{value}}.",
+      "step_create": "Jiki je napravio novu kutiju sa imenom {{name}}.",
+      "step_empty": "Jiki je proverio {{type}}, video da je prazan i odlučio da na ovoj liniji ne radi ništa dalje.",
+      "step_put": "Jiki je stavio {{value}} u kutiju, a kutiju na policu, spremnu za korišćenje u bloku koda."
+    },
+    "identifierExpression": {
+      "lookup": "Jiki je uzeo kutiju sa imenom {{name}} sa police i izvadio {{value}} iz nje."
+    },
+    "ifStatement": {
+      "result_false": "Vrednost uslova je bila <code>false</code>, pa se blok koda nije izvršio.",
+      "result_false_else": "Vrednost uslova je bila <code>false</code>, pa se izvršio else blok.",
+      "result_true": "Vrednost uslova je bila <code>true</code>, pa se blok koda izvršio.",
+      "step_false": "Rezultat je bio <code>false</code>, pa je Jiki odlučio da preskoči if blok.",
+      "step_false_else": "Rezultat je bio <code>false</code>, pa je Jiki odlučio da izvrši else blok.",
+      "step_true": "Rezultat je bio <code>true</code>, pa je Jiki odlučio da izvrši if blok."
+    },
+    "logicalExpression": {
+      "evaluated": "Jiki je izračunao {{expr}} i utvrdio da je rezultat {{value}}.",
+      "shortCircuited": "Jiki je video da je leva strana operatora {{operator}} bila {{value}}, pa se nije ni trudio da pogleda desnu stranu."
+    },
+    "memberExpression": {
+      "array": "Jiki je uzeo stavku sa indeksom {{index}} iz niza i utvrdio da je to {{value}}.",
+      "string": "Jiki je uzeo karakter sa indeksom {{index}} iz stringa i utvrdio da je to {{value}}."
+    },
+    "repeatStatement": {
+      "foreverResult_ordinal_other": "Ova linija je započela {{count}}. iteraciju ovog repeat bloka.",
+      "foreverStep_ordinal_other": "Jiki je započeo {{count}}. iteraciju repeat petlje.",
+      "repeatResult_ordinal_other": "Ova linija je započela {{count}}. iteraciju ovog repeat bloka.",
+      "repeatStep": "Jiki je povećao svoj interni brojač za ovu petlju na <code>{{iteration}}</code>, proverio <code>{{iteration}} &le; {{countValue}}</code> i odlučio da izvrši blok koda.",
+      "zeroResult": "Od repeat bloka je traženo da se izvrši <code>0</code> puta, pa ova linija nije uradila ništa.",
+      "zeroStep": "Jiki je video da petlju treba izvršiti <code>0</code> puta, pa je odlučio da na ovoj liniji ne radi ništa dalje."
+    },
+    "returnStatement": {
+      "final": "Jiki je pospremio i napustio funkciju.",
+      "naked_result": "Ovo je završilo funkciju. U funkciji se više nijedan kod nije izvršio.",
+      "value_chute": "Jiki je stavio {{value}} u izlazni otvor.",
+      "value_result": "Ovo je vratilo {{value}} i završilo funkciju. U funkciji se više nijedan kod nije izvršio."
+    },
+    "unaryExpression": {
+      "minus": "Jiki je izračunao da je {{expr}} jednako {{value}}.",
+      "not": "Jiki je izračunao da je {{expr}} jednako {{value}}."
+    },
+    "variableDeclaration": {
+      "result_const": "Ovo je napravilo novu konstantu sa imenom {{name}} i postavilo njenu vrednost na {{value}}.",
+      "result_let": "Ovo je napravilo novu promenljivu sa imenom {{name}} i postavilo njenu vrednost na {{value}}.",
+      "result_uninit": "Ovo je napravilo novu promenljivu sa imenom {{name}}.",
+      "step_create": "Jiki je napravio novu kutiju sa imenom {{name}}.",
+      "step_put": "Jiki je stavio {{value}} u kutiju.",
+      "step_uninit": "Jiki je napravio novu praznu kutiju sa imenom {{name}}."
+    },
+    "whileStatement": {
+      "result_false": "Vrednost uslova je bila <code>false</code>, pa se petlja zaustavila.",
+      "result_true": "Vrednost uslova je bila <code>true</code>, pa se telo petlje izvršilo.",
+      "step_false": "Rezultat je bio <code>false</code>, pa je Jiki odlučio da zaustavi petlju.",
+      "step_true": "Rezultat je bio <code>true</code>, pa je Jiki odlučio da izvrši telo petlje."
+    }
+  }
+}

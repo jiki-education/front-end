@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "sun": "해가 맞지 않아요.",
+    "cloudBody": "구름 몸체가 맞지 않아요.",
+    "leftPuff": "왼쪽 구름 돌기가 맞지 않아요.",
+    "leftCenterPuff": "왼쪽 중앙 구름 돌기가 맞지 않아요.",
+    "rightCenterPuff": "오른쪽 중앙 구름 돌기가 맞지 않아요.",
+    "rightPuff": "오른쪽 구름 돌기가 맞지 않아요.",
+    "rainDrop": "빗방울 중 하나가 맞지 않아요."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "날씨 장면 그리기",
+      "description": "노란 해, 흰 구름, 파란 빗방울이 있는 날씨 장면을 만들어 보세요."
+    }
+  },
+  "scenarios": {
+    "drawScene": {
+      "name": "날씨 장면 그리기",
+      "description": "해, 구름, 비가 있는 완전한 날씨 장면을 만들어 보세요."
+    }
+  },
+  "hints": {
+    "cloudShape": {
+      "question": "간단한 도형으로 구름의 푹신한 모양을 어떻게 만드나요?",
+      "answer": "구름은 하나의 직사각형(이미 기본 형태로 그려져 있어요)의 윗변을 따라 `circle`들을 배치해서 울퉁불퉁한 윤곽을 만든 거예요."
+    },
+    "raindropShape": {
+      "question": "`ellipse`로 빗방울을 어떻게 만드나요?",
+      "answer": "빗방울은 길고 얇아서 세로 반지름이 가로 반지름보다 커요. 가로 반지름은 `3`이에요 (5로 나누어 떨어지지 않는 유일한 숫자예요)."
+    },
+    "sunOnTop": {
+      "question": "해가 왜 구름 위에 보이죠?",
+      "answer": "나중에 그린 도형이 앞에 그린 도형보다 앞에 배치돼요. 해를 먼저 그리고 나서 구름을 그리면 구름이 해 앞에 있는 것처럼 보여요."
+    },
+    "notMatchingTemplate": {
+      "question": "왜 내 그림이 틀 선과 맞지 않나요?",
+      "answer": "도형은 틀 선 위가 아니라 그 안쪽에 딱 맞게 배치해야 해요. 필요한 숫자는 거의 모두 5로 나누어 떨어져요. 도형이 조금 어긋나 보이면 가장 가까운 5의 배수를 사용해 보세요."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "주어진 너비, 높이, 색상으로 (왼쪽, 위쪽) 위치에 직사각형을 그려요.",
+      "category": "도형 그리기"
+    },
+    "circle": {
+      "description": "주어진 반지름과 색상으로 (centerX, centerY)를 중심으로 원을 그려요.",
+      "category": "도형 그리기"
+    },
+    "ellipse": {
+      "description": "가로 반지름(radiusX), 세로 반지름(radiusY), 색상을 가지고 (centerX, centerY)를 중심으로 타원을 그려요.",
+      "category": "도형 그리기"
+    }
+  }
+}

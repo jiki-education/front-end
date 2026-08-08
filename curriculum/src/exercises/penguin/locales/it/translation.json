@@ -1,0 +1,65 @@
+{
+  "checks": {
+    "sky": "Il cielo non è corretto.",
+    "ground": "Il terreno non è corretto.",
+    "leftWing": "L'ala sinistra non sembra corretta.",
+    "rightWing": "L'ala destra non sembra corretta.",
+    "outerBody": "Il corpo esterno non è corretto.",
+    "innerBody": "Il corpo interno non è corretto.",
+    "head": "La testa non è corretta.",
+    "leftFace": "Il lato sinistro del viso non sembra corretto.",
+    "rightFace": "Il lato destro del viso non sembra corretto.",
+    "lowerFace": "La parte inferiore del viso non sembra corretta.",
+    "leftEye": "L'occhio sinistro sembra sbagliato.",
+    "leftIris": "L'iride sinistra sembra sbagliata.",
+    "rightEye": "L'occhio destro sembra sbagliato.",
+    "rightIris": "L'iride destra sembra sbagliata.",
+    "leftFoot": "Il piede sinistro è fuori posto.",
+    "rightFoot": "Il piede destro non è corretto.",
+    "nose": "Il naso non è corretto."
+  },
+  "tasks": {
+    "drawPenguin": {
+      "name": "Disegna il pinguino simmetrico",
+      "description": "Completa il disegno del pinguino aggiungendo le parti mancanti per renderlo simmetrico."
+    }
+  },
+  "scenarios": {
+    "makePenguinSymmetrical": {
+      "name": "Rendi il pinguino simmetrico",
+      "description": "Risolvi tutti i commenti TODO per rendere il pinguino simmetrico."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Da dove comincio?",
+      "answer": "Procedi attraverso i commenti TODO uno alla volta, iniziando dall'alto."
+    },
+    "symmetryOnCanvas": {
+      "question": "Come funziona la simmetria sull'area di disegno?",
+      "answer": "Se il bordo sinistro di qualcosa è 20, il suo bordo destro simmetrico sarà 80 (100 - 20)."
+    },
+    "noseTrouble": {
+      "question": "Perché non riesco a far funzionare il naso?",
+      "answer": "Non dovresti aggiungere un nuovo triangolo per il naso, ma MODIFICARE il triangolo esistente perché funzioni correttamente. Devi cambiare solo UN valore."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Disegna un rettangolo nella posizione (left, top) con la larghezza, l'altezza e il colore indicati",
+      "category": "Disegno di forme geometriche"
+    },
+    "circle": {
+      "description": "Disegna un cerchio centrato in (centerX, centerY) con il raggio e il colore indicati",
+      "category": "Disegno di forme geometriche"
+    },
+    "ellipse": {
+      "description": "Disegna un'ellisse centrata in (centerX, centerY) con i raggi orizzontale e verticale e il colore indicati",
+      "category": "Disegno di forme geometriche"
+    },
+    "triangle": {
+      "description": "Disegna un triangolo con tre punti d'angolo e un colore",
+      "category": "Disegno di forme geometriche"
+    }
+  }
+}

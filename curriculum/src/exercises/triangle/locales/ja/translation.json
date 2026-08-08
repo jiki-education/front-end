@@ -1,0 +1,81 @@
+{
+  "tasks": {
+    "invalidTriangles": {
+      "name": "無効な三角形",
+      "description": "無効な三角形を検出します。三角形は、いずれかの辺が0の場合、または任意の2辺の合計が残りの1辺以下の場合に無効です。"
+    },
+    "equilateralTriangles": {
+      "name": "正三角形",
+      "description": "3辺すべての長さが等しい正三角形を検出します。"
+    },
+    "isoscelesTriangles": {
+      "name": "二等辺三角形",
+      "description": "ちょうど2辺の長さが等しい二等辺三角形を検出します。"
+    },
+    "scaleneTriangles": {
+      "name": "不等辺三角形",
+      "description": "3辺すべての長さが異なる不等辺三角形を検出します。"
+    }
+  },
+  "scenarios": {
+    "invalidEquilateralAllZero": {
+      "name": "すべての辺が0の正三角形 (0, 0, 0)",
+      "description": "すべての辺が0の三角形は \"invalid\" を返すべきです。"
+    },
+    "isoscelesFirstInequality": {
+      "name": "無効な辺の長さの二等辺三角形 (1, 1, 3)",
+      "description": "辺が短すぎる三角形は \"invalid\" を返すべきです。"
+    },
+    "isoscelesSecondInequality": {
+      "name": "無効な辺の長さの二等辺三角形 (1, 3, 1)",
+      "description": "辺が短すぎる三角形は \"invalid\" を返すべきです。"
+    },
+    "isoscelesThirdInequality": {
+      "name": "無効な辺の長さの二等辺三角形 (3, 1, 1)",
+      "description": "辺が短すぎる三角形は \"invalid\" を返すべきです。"
+    },
+    "scaleneTriangleInequality": {
+      "name": "無効な辺の長さの不等辺三角形 (7, 3, 2)",
+      "description": "辺が短すぎる三角形は \"invalid\" を返すべきです。"
+    },
+    "validEquilateral": {
+      "name": "正三角形 (2, 2, 2)",
+      "description": "すべての辺が等しい三角形は \"equilateral\" を返すべきです。"
+    },
+    "validIsoscelesFirstTwoEqual": {
+      "name": "二等辺三角形 (4, 4, 3)",
+      "description": "最初の2辺が等しい三角形は \"isosceles\" を返すべきです。"
+    },
+    "validIsoscelesLastTwoEqual": {
+      "name": "二等辺三角形 (3, 4, 4)",
+      "description": "最後の2辺が等しい三角形は \"isosceles\" を返すべきです。"
+    },
+    "validIsoscelesFirstAndLastEqual": {
+      "name": "二等辺三角形 (4, 3, 4)",
+      "description": "最初と最後の辺が等しい三角形は \"isosceles\" を返すべきです。"
+    },
+    "validScalene": {
+      "name": "不等辺三角形 (5, 4, 6)",
+      "description": "すべての辺が異なる三角形は \"scalene\" を返すべきです。"
+    }
+  },
+  "hints": {
+    "whatMakesInvalid": {
+      "question": "三角形が無効になるのはどのような場合ですか？",
+      "answer": "2つあります。1つ目は、いずれかの辺が0であること。2つ目は、任意の2辺の合計が残りの1辺以下であること（三角不等式）です。これは最初に確認しましょう。そもそも三角形でない形を分類しても意味がありませんから。"
+    },
+    "checkOrder": {
+      "question": "どの順番で分類をチェックすればよいですか？",
+      "answer": "最も厳しい条件から順にチェックします。最初に正三角形（3辺すべてが等しい）、次に二等辺三角形（任意の2辺が等しい）、残りは不等辺三角形です。順番を間違えると、正三角形が二等辺三角形と誤って分類されてしまいます。"
+    },
+    "checkAnyTwoEqual": {
+      "question": "二等辺三角形の条件「任意の2辺が等しい」はどのようにチェックしますか？",
+      "answer": "3つの比較を行います。a === b、b === c、または a === c のいずれかが成り立てば十分です。"
+    },
+    "knowScalene": {
+      "question": "不等辺三角形だとどうやって判断しますか？",
+      "answer": "無効、正三角形、二等辺三角形が除外されれば、残るは不等辺三角形だけです。それ以上チェックせずに返しましょう。"
+    }
+  },
+  "functions": {}
+}

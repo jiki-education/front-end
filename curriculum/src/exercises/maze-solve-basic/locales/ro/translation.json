@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "Nu ai ajuns la capătul labirintului."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Condu personajul până la capătul labirintului",
+      "description": "Navighează prin labirint ca să ajungi la ținta verde"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Condu personajul până la capătul labirintului",
+      "description": "Treaba ta este să-ți conduci personajul prin labirint până la pătratul verde de sosire."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "Ce mut și unde?",
+      "answer": "Muți omulețul, care pornește din stânga sus, până la cercul verde din dreapta jos, ocolind celulele cu dungi roșii."
+    },
+    "turnLeftTurnsRight": {
+      "question": "Când întorc la stânga, personajul se întoarce la dreapta!",
+      "answer": "Personajul se întoarce față de direcția în care este orientat. Deci dacă este orientat spre dreapta și se întoarce la stânga, va ajunge să fie orientat în sus."
+    }
+  }
+}

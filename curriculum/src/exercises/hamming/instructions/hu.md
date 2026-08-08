@@ -1,24 +1,25 @@
 ---
 title: "Hamming"
-description: "Count the differences between two DNA strands."
+description: "Számold meg a két DNS-szál közötti különbségeket."
+en_md5: 629f74899d402283c34d3bfbb17777b8
 ---
 
-This is a classic Exercism exercise about molecular biology!
+Ez egy klasszikus Exercism-feladat a molekuláris biológiáról!
 
-Your body is made up of cells that contain DNA. Those cells regularly wear out and need replacing, which they achieve by dividing into daughter cells. In fact, the average human body experiences about 10 quadrillion cell divisions in a lifetime!
+A tested sejtekből épül fel, amelyek DNS-t tartalmaznak. Ezek a sejtek rendszeresen elhasználódnak és pótlásra szorulnak, amit úgy érnek el, hogy leánysejtekre osztódnak. Sőt, egy átlagos emberi test élete során körülbelül 10 kvadrillió sejtosztódáson megy keresztül!
 
-When cells divide, their DNA replicates too. Sometimes during this process mistakes happen and single pieces of DNA get encoded with the incorrect information. If we compare two strands of DNA and count the differences between them, we can see how many mistakes occurred. This is known as the "Hamming distance".
+Amikor a sejtek osztódnak, a DNS-ük is másolódik. Néha e folyamat során hibák történnek, és a DNS egyes darabjai hibás információval kódolódnak. Ha összehasonlítunk két DNS-szálat, és megszámoljuk a köztük lévő különbségeket, láthatjuk, hány hiba történt. Ezt nevezzük „Hamming-távolság”-nak.
 
-The Hamming distance is useful in many areas of science, not just biology, so it's a nice phrase to be familiar with!
+A Hamming-távolság a tudomány számos területén hasznos, nem csak a biológiában, így jó, ha ismerjük ezt a fogalmat!
 
-Your task is to calculate the Hamming distance between two DNA strands. DNA uses the letters C, A, G and T. Two strands might look like this:
+A feladatod, hogy kiszámítsd két DNS-szál Hamming-távolságát. A DNS a C, A, G és T betűket használja. Két szál így nézhet ki:
 
     GAGCCTACTAACGGGAT
     CATCGTAATGACGGCCT
     ^ ^ ^  ^ ^    ^^
 
-They have 7 differences, and therefore the Hamming distance is 7.
+Köztük 7 eltérés van, így a Hamming-távolság 7.
 
-Create a function called `hammingDistance` that has two inputs: the two DNA strands as strings. It should return a number as the distance.
+Hozz létre egy `hammingDistance` (hamming-távolság) nevű függvényt, amelynek két bemenete van: a két DNS-szál, stringként. Egy számot kell visszaadnia a távolságként.
 
-Both DNA strands will always be the same length.
+A két DNS-szál mindig azonos hosszúságú lesz.

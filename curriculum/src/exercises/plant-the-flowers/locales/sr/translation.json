@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "flowerCount": "Očekivano 9 cvetova, ali pronađeno {{got}}.",
+    "missingFlowerAt10": "Nedostaje cvet na poziciji 10.",
+    "missingFlowerAt50": "Nedostaje cvet na poziciji 50.",
+    "missingFlowerAt90": "Nedostaje cvet na poziciji 90.",
+    "tooManyLines": "Tvoje rešenje ima previše linija koda. Pokušaj da nađeš način da ga skratiš."
+  },
+  "tasks": {
+    "plantFlowers": {
+      "name": "Posadi 9 cvetova",
+      "description": "Koristi promenljivu i `repeat` petlju da posadiš 9 cvetova na pozicijama 10, 20, 30, ..., 90."
+    }
+  },
+  "scenarios": {
+    "plantFlowers": {
+      "name": "Posadi 9 cvetova",
+      "description": "Posadi cveće na pozicijama 10, 20, 30, 40, 50, 60, 70, 80 i 90."
+    }
+  },
+  "hints": {
+    "stuck": {
+      "question": "Ne znam kako da nastavim.",
+      "answer": "Pogledaj nedavne video snimke o tome kako da koristiš `repeat` petlje i kako da ažuriraš promenljive da pratiš stanje. Trebalo bi da ti pruže sve potrebne informacije."
+    }
+  },
+  "functions": {
+    "plant": {
+      "description": "Sadi cvet na datoj **poziciji**.",
+      "category": "Baštovanstvo"
+    }
+  },
+  "describers": {
+    "plant": "posadio cvet na poziciji ${arg1}"
+  }
+}

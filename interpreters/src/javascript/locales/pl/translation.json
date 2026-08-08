@@ -1,0 +1,272 @@
+{
+  "error": {
+    "syntax": {
+      "InvalidAssignmentTargetExpression": "Nieprawidłowy cel przypisania. Wartości można przypisywać tylko do zmiennych.",
+      "AssignmentInExpression": "Prawdopodobnie chodziło Ci tutaj o `===`, a nie `=`, aby porównać dwie wartości, a nie zmienić zmienną. Przypisywanie zmiennych wewnątrz instrukcji nie jest dozwolone w tym edytorze.",
+      "StrictEqualityRequired": "Zmień `==` na `===`.\n\nW pełnym języku JavaScript można używać `==` lub `===`, aby sprawdzić, czy dwie rzeczy są równe. Za dobrą praktykę uważa się jednak stosowanie `===`, dlatego wyłączyliśmy `==` w Jiki.",
+      "StrictInequalityRequired": "Zmień `!=` na `!==`.\n\nW pełnym języku JavaScript można używać `!=` lub `!==`, aby sprawdzić, czy dwie rzeczy się różnią. Za dobrą praktykę uważa się jednak stosowanie `!==`, dlatego wyłączyliśmy `!=` w Jiki.",
+      "MissingBacktickToTerminateTemplateLiteral": "Czy nie zabrakło końcowego odwrotnego apostrofu? Może chodziło Ci o:\n\n``` `{{string}}` ```",
+      "QuoteUsedToTerminateTemplateLiteral": "Czy zamiast odwrotnego apostrofu `` ` `` kończysz string szablonowy znakiem `{{quote}}`? Może chodziło Ci o:\n\n``` `{{string}}` ```",
+      "MissingDoubleQuoteToTerminateString": "Czy nie zabrakło końcowego cudzysłowu? Może chodziło Ci o:\n\n```\"{{string}}\"```",
+      "MissingExpression": "Jiki nie zrozumiał, co ma tutaj zrobić z {{token}}.",
+      "MissingClassNameAfterNew": "Jiki oczekiwał nazwy klasy po `new`, ale jej nie znalazł.",
+      "UnexpectedElseWithoutMatchingIf": "Nie ma instrukcji `if`, po której następowałoby to `else`. Sprawdź, czy powyżej tej linii nie masz za dużo (albo za mało) zamykających nawiasów klamrowych.",
+      "MissingInitializerInConstDeclaration": "Brak wartości początkowej w deklaracji stałej. Stałe muszą otrzymać wartość w momencie deklaracji.",
+      "MissingInitializerInVariableDeclaration": "Brak wartości początkowej w deklaracji zmiennej. Deklarując zmienną za pomocą `let`, musisz podać jej wartość.",
+      "ConstInForLoopInit": "W pętli for w stylu C nie można używać `const`. Zmienna pętli musi się zmieniać (np. i++), a zmiennych zadeklarowanych jako const zmieniać nie można. Użyj zamiast tego `let` albo rozważ pętlę for...of, jeśli iterujesz po tablicy.",
+      "MissingLetInForOf": "Zmienną pętli musisz zadeklarować za pomocą `let`. Napisz na przykład `for (let {{name}} of ...)` zamiast `for ({{name}} of ...)`.\n\nW pełnym języku JavaScript można pominąć `let`, jeśli zmienna została już wcześniej zadeklarowana, ale to nietypowy przypadek i wyłączyliśmy go w tej wersji języka.",
+      "MissingLetInForIn": "Zmienną pętli musisz zadeklarować za pomocą `let`. Napisz na przykład `for (let {{name}} in ...)` zamiast `for ({{name}} in ...)`.\n\nW pełnym języku JavaScript można pominąć `let`, jeśli zmienna została już wcześniej zadeklarowana, ale to nietypowy przypadek i wyłączyliśmy go w tej wersji języka.",
+      "MissingLetInForLoopInit": "Zmienną pętli musisz zadeklarować za pomocą `let`. Napisz na przykład `for (let i = 0; ...)` zamiast `for (i = 0; ...)`.\n\nW pełnym języku JavaScript można pominąć `let`, jeśli zmienna została już wcześniej zadeklarowana, ale to nietypowy przypadek i wyłączyliśmy go w tej wersji języka.",
+      "UnexpectedDoubleIdentifier": "Jiki nie zrozumiał, czego tutaj od niego oczekujesz.",
+      "MissingDeclarationKeywordWithSuggestion": "Czy chodziło Ci o `{{suggestion}}` zamiast `{{name}}`? Deklaracja zmiennej musi zaczynać się od `let` lub `const`.",
+      "MissingLeftParenthesisAfterIf": "Brak otwierającego nawiasu `(` po słowie kluczowym `if`.",
+      "MissingRightBraceAfterBlock": "Brak zamykającego nawiasu klamrowego `}` po bloku instrukcji.",
+      "MissingRightBraceInTemplateLiteral": "Jiki nie mógł znaleźć zamykającego nawiasu klamrowego (`}`) w tym stringu szablonowym. Sprawdź, czy go nie brakuje albo czy nie wkradła się literówka. Poprawna postać to ``` `...${...}...` ```.",
+      "MissingRightBracketInArray": "Brak zamykającego nawiasu kwadratowego `]` kończącego tablicę.",
+      "MissingRightBracketInMemberAccess": "Brak zamykającego nawiasu kwadratowego `]` po indeksie tablicy.",
+      "MissingRightParenthesisAfterExpression": "Brak zamykającego nawiasu `)` po wyrażeniu.",
+      "MissingRightParenthesisAfterIfCondition": "Brak zamykającego nawiasu `)` po warunku if.",
+      "MissingRightParenthesisAfterFunctionCall": "Czy przy wywołaniu funkcji {{function}} nie zabrakło zamykającego nawiasu `)`?",
+      "MissingEndOfLine": "Jiki nie spodziewał się `{{current}}` w tym miejscu po `{{previous}}`.",
+      "MissingVariableName": "Brak nazwy zmiennej w deklaracji. Po `let` musisz podać nazwę.",
+      "MultipleStatementsPerLine": "W Jiki w jednej linii może znajdować się tylko jedna instrukcja. Nie można rozdzielać wielu instrukcji średnikami. Przenieś drugą instrukcję do osobnej linii.",
+      "TrailingCommaInArray": "Końcowe przecinki nie są dozwolone w tablicach.",
+      "TrailingCommaInDictionary": "Końcowe przecinki nie są dozwolone w obiektach.",
+      "InvalidDictionaryKey": "Nieprawidłowy klucz obiektu. Klucze muszą być identyfikatorami, stringami lub liczbami.",
+      "MissingColonInDictionary": "Brak dwukropka `:` po kluczu obiektu.",
+      "DuplicateDictionaryKey": "Klucz `{{key}}` powtarza się w tym obiekcie.",
+      "MissingRightBraceInDictionary": "Brak zamykającego nawiasu klamrowego `}` kończącego obiekt.",
+      "UnimplementedToken": "Funkcjonalność `{{lexeme}}` nie jest jeszcze dostępna na Twoim obecnym poziomie.",
+      "PermanentlyExcludedToken": "Funkcjonalność `{{lexeme}}` nie jest dostępna w tej wersji języka JavaScript.",
+      "UnknownCharacter": "Jiki nie zrozumiał, co ma tutaj zrobić z {{character}}.",
+      "UnterminatedBlockComment": "Jiki nie mógł znaleźć `*/` potrzebnego do zamknięcia tego komentarza blokowego.",
+      "NestedFunctionDeclaration": "Deklaracje funkcji są dozwolone tylko na najwyższym poziomie, a nie wewnątrz bloków ani innych funkcji.",
+      "MissingFunctionName": "Brak nazwy funkcji po słowie kluczowym `function`.",
+      "MissingLeftParenthesisAfterFunctionName": "Brak otwierającego nawiasu `(` po nazwie funkcji.",
+      "MissingParameterName": "Brak nazwy parametru w deklaracji funkcji.",
+      "DuplicateParameterName": "Nazwa parametru `{{name}}` powtarza się w deklaracji funkcji.",
+      "MissingRightParenthesisAfterParameters": "Brak zamykającego nawiasu `)` po parametrach funkcji.",
+      "MissingLeftBraceBeforeFunctionBody": "Brak otwierającego nawiasu klamrowego `{` przed ciałem funkcji.",
+      "BreakStatementNotAllowed": "W tym zadaniu Jiki nie pozwala używać `break`. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "ContinueStatementNotAllowed": "W tym zadaniu Jiki nie pozwala używać `continue`. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "FunctionDeclarationNotAllowed": "W tym zadaniu Jiki nie pozwala tworzyć własnych funkcji. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "ReturnStatementNotAllowed": "W tym zadaniu Jiki nie pozwala używać `return`. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "RepeatStatementNotAllowed": "W tym zadaniu Jiki nie pozwala używać `repeat`. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "UpdateExpressionNotAllowed": "W tym zadaniu Jiki nie pozwala używać `++` ani `--`. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "LiteralExpressionNotAllowed": "W tym zadaniu Jiki nie pozwala używać samych wartości, takich jak liczby, stringi i wartości logiczne. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "BinaryExpressionNotAllowed": "W tym zadaniu Jiki nie pozwala używać operatorów takich jak `+`, `-` czy `>`. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "LogicalExpressionNotAllowed": "W tym zadaniu Jiki nie pozwala używać operatorów logicznych takich jak `&&` czy `||`. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "UnaryExpressionNotAllowed": "W tym zadaniu Jiki nie pozwala stawiać `-` ani `!` przed wartością. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "GroupingExpressionNotAllowed": "W tym zadaniu Jiki nie pozwala używać nawiasów do grupowania. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "IdentifierExpressionNotAllowed": "W tym zadaniu Jiki nie pozwala korzystać z wartości zmiennych. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "AssignmentExpressionNotAllowed": "W tym zadaniu Jiki nie pozwala zmieniać zmiennych. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "TemplateLiteralExpressionNotAllowed": "W tym zadaniu Jiki nie pozwala używać stringów szablonowych z odwrotnymi apostrofami. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "ArrayExpressionNotAllowed": "W tym zadaniu Jiki nie pozwala używać tablic. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "IndexExpressionNotAllowed": "W tym zadaniu Jiki nie pozwala wyszukiwać elementów za pomocą nawiasów kwadratowych. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "MemberExpressionNotAllowed": "W tym zadaniu Jiki nie pozwala używać kropki do odczytu właściwości. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "DictionaryExpressionNotAllowed": "W tym zadaniu Jiki nie pozwala tworzyć obiektów za pomocą nawiasów klamrowych. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "CallExpressionNotAllowed": "W tym zadaniu Jiki nie pozwala używać wywołań funkcji. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "ExpressionStatementNotAllowed": "W tym zadaniu Jiki nie pozwala pisać linii, w której jest samo wyrażenie. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "VariableDeclarationNotAllowed": "W tym zadaniu Jiki nie pozwala tworzyć zmiennych za pomocą `let`. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "BlockStatementNotAllowed": "W tym zadaniu Jiki nie pozwala grupować linii kodu wewnątrz `{ }`. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "IfStatementNotAllowed": "W tym zadaniu Jiki nie pozwala używać `if`. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "ForStatementNotAllowed": "W tym zadaniu Jiki nie pozwala używać pętli `for` w stylu C. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "ForOfStatementNotAllowed": "W tym zadaniu Jiki nie pozwala używać pętli `for…of`. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "WhileStatementNotAllowed": "W tym zadaniu Jiki nie pozwala używać pętli `while`. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "UnexpectedTokenInTemplateLiteral": "Jiki nie spodziewał się tutaj {{token}}.",
+      "MissingLeftParenAfterRepeat": "Brak otwierającego nawiasu `(` po `repeat`.",
+      "MissingRightParenAfterRepeatCount": "Brak zamykającego nawiasu `)` po liczbie powtórzeń.",
+      "ForInStatementNotAllowed": "W tym zadaniu Jiki nie pozwala używać pętli `for…in`. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "NewExpressionNotAllowed": "W tym zadaniu Jiki nie pozwala używać `new`. Spróbuj rozwiązać to zadanie, używając tylko tego, co omówiliśmy dotąd w lekcjach.",
+      "BlockRequired": "Po `{{keyword}}` musisz użyć nawiasów klamrowych { }."
+    },
+    "lint": {
+      "ClosingBraceNotOnOwnLine": "Umieść zamykający nawias klamrowy `}` w osobnej linii, aby zachować porządek.",
+      "OpeningBraceContentNotOnOwnLine": "Umieść kod wewnątrz nawiasów klamrowych w nowej linii, aby zachować porządek.",
+      "IncorrectIndentation": "Jiki oczekiwał w tym miejscu wcięcia o szerokości {{expected}} spacji, ale ta linia ma wcięcie o szerokości {{actual}} spacji.\n\nPoprawne wcięcia pomogą Ci uniknąć wielu błędów, bo znacznie wyraźniej widać wtedy, jak kod jest zagnieżdżony.",
+      "IncorrectIndentationAtTopLevel": "Jiki oczekiwał na początku tej linii wcięcia o szerokości {{expected}} spacji, ale nie ma tam żadnego.\n\nPoprawne wcięcia pomogą Ci uniknąć wielu błędów, bo znacznie wyraźniej widać wtedy, jak kod jest zagnieżdżony."
+    },
+    "runtime": {
+      "FunctionExecutionError": "Błąd podczas wykonywania funkcji `{{function}}`: {{message}}",
+      "IndexOutOfRange": "Liczba elementów w tej tablicy to tylko {{length}}, a próbujesz odczytać indeks {{index}}. Pamiętaj, że w języku JavaScript pierwszy element ma indeks 0.",
+      "StringIndexOutOfRange": "Liczba znaków w tym stringu to tylko {{length}}, a próbujesz odczytać indeks {{index}}. Pamiętaj, że w języku JavaScript pierwszy znak ma indeks 0.",
+      "ComparisonWithUndefined": "Próbujesz porównać dwie wartości, ale jedna z nich nie ma ustawionej żadnej wartości. W Jiki nie powinno to być możliwe, więc prosimy, załóż wątek na forum i wklej swój kod, abyśmy mogli to zbadać.",
+      "ComparisonWithUndefinedFromFunction": "Próbujesz porównać wynik funkcji, która nic nie zwróciła. Upewnij się, że funkcja `{{name}}` zwraca wartość w każdej sytuacji, zanim porównasz jej wynik.",
+      "AssignmentToUndefined": "Próbujesz zapisać coś, co nie ma żadnej wartości. Zmienna powinna zawsze przechowywać konkretną wartość.",
+      "AssignmentToUndefinedFromFunction": "Próbujesz zapisać wynik funkcji, która nic nie zwraca. Upewnij się, że funkcja zwraca wartość, zanim zapiszesz jej wynik.",
+      "UpdateOperatorRequiresNumber": "Jiki nie może użyć {{operator}} na wartości typu {{type}}, a jedynie na liczbach.",
+      "PropertyNotFound": "Właściwość `{{property}}` nie istnieje na wartości typu {{type}}.",
+      "MethodUsedWithoutParentheses": "Właściwość `{{property}}` nie istnieje na wartości typu {{type}}. Czy chodziło Ci o metodę `{{property}}`? Jeśli tak, pamiętaj o dodaniu nawiasów, tak jak przy zwykłej funkcji.",
+      "ShadowingDisabled": "Przesłanianie zmiennych jest wyłączone. Zmienna `{{name}}` jest już zadeklarowana w zewnętrznym zakresie.",
+      "VariableAlreadyDeclared": "Zmienna `{{name}}` została już zadeklarowana w tym zakresie. Użyj innej nazwy albo przypisz wartość do istniejącej zmiennej.",
+      "AssignmentToConstant": "Nie można ponownie przypisać wartości do stałej `{{name}}`. Stałych nie można zmieniać po ich zadeklarowaniu.",
+      "TruthinessDisabled": "W warunkach dozwolone są tylko wartości logiczne, a otrzymano `{{value}}`.",
+      "ArrayIndexNotNumber": "Jako indeksu tablicy można używać tylko liczby, np. `myArray[0]`.",
+      "ArrayIndexNotInteger": "Jako indeksu tablicy można używać tylko liczby całkowitej, ułamki takie jak `1.5` nie zadziałają.",
+      "StringIndexNotNumber": "Znak w stringu można odczytać tylko za pomocą liczby, np. `myString[0]`.",
+      "StringIndexNotInteger": "Znak w stringu można odczytać tylko za pomocą liczby całkowitej, ułamki takie jak `1.5` nie zadziałają.",
+      "ComputedAccessNotAllowedForStdlib": "Aby się do tego dostać, użyj kropki, np. `myArray.length`, a nie nawiasów kwadratowych.",
+      "ComputedAccessNotAllowedForBuiltin": "Aby się do tego dostać, użyj kropki, np. `Math.max`, a nie nawiasów kwadratowych.",
+      "CannotReadPropertiesOfType": "Nie można odczytać właściwości z wartości typu {{type}}.",
+      "CannotSetPropertyOfType": "Nie można ustawić właściwości na wartości typu {{type}}.",
+      "BracketNotationNotAllowedOnInstance": "Na instancji klasy nie można używać nawiasów kwadratowych, użyj kropki, np. `myObject.property`.",
+      "NotCallable": "Nie można traktować {{callableType}} jak funkcji i próbować tego uruchomić.",
+      "VariableNotDeclared": "Jiki nie mógł znaleźć zmiennej o nazwie `{{name}}`.",
+      "ReturnOutsideFunction": "Używasz słowa kluczowego `return`, ale nie jesteś wewnątrz funkcji. Instrukcji return można używać tylko wewnątrz funkcji.",
+      "BreakOutsideLoop": "Używasz słowa kluczowego `break`, ale nie jesteś wewnątrz pętli. Instrukcji break można używać tylko wewnątrz pętli for lub while.",
+      "ContinueOutsideLoop": "Używasz słowa kluczowego `continue`, ale nie jesteś wewnątrz pętli. Instrukcji continue można używać tylko wewnątrz pętli for lub while.",
+      "ForOfLoopTargetNotIterable": "Pętla for...of wymaga wartości, po której można iterować (np. tablicy lub stringa), a podano wartość {{value}} typu {{type}}.",
+      "MethodNotYetImplemented": "Metoda `{{method}}` jest poprawną metodą, ale nie jest jeszcze dla Ciebie dostępna.",
+      "MethodNotYetAvailable": "Metoda `{{method}}` nie jest dostępna na Twoim obecnym poziomie nauki. Ucz się dalej, aby odblokować tę możliwość!",
+      "PropertyNotYetAvailable": "Właściwość `{{property}}` nie jest dostępna na Twoim obecnym poziomie nauki. Ucz się dalej, aby odblokować tę możliwość!",
+      "MaxIterationsReached": "Twój kod działał zbyt długo i został zatrzymany, aby zapobiec nieskończonej pętli. Maksymalna liczba przebiegów pętli w tym zadaniu to {{max}}.",
+      "RepeatCountMustBeNumber": "repeat() wymaga liczby, a otrzymano wartość typu {{type}}.",
+      "RepeatCountMustBeNonNegative": "Liczba powtórzeń repeat() musi wynosić 0 lub więcej, a otrzymano {{value}}.",
+      "RepeatCountTooHigh": "Liczba powtórzeń repeat() ({{value}}) przekracza maksymalną liczbę iteracji, która wynosi {{max}}.",
+      "FunctionAlreadyDefined": "Istnieje już funkcja o nazwie `{{name}}`. Wybierz inną nazwę.",
+      "TypeCoercionNotAllowed": "Automatyczna konwersja typów między {{leftType}} a {{rightType}} przy operatorze `{{operator}}` nie jest dozwolona.",
+      "UnaryTypeCoercionNotAllowed": "Automatyczna konwersja typów nie jest dozwolona: operatora `{{operator}}` nie można zastosować do wartości typu {{operand}}.",
+      "ComparisonRequiresNumber": "Operator `{{operator}}` wymaga, aby obie wartości były liczbami.",
+      "NodeNotAllowed": "Element {{nodeType}} nie jest dozwolony na Twoim obecnym poziomie nauki.",
+      "InvalidNumberOfArguments_exact": "Ta funkcja ma $t(phrases.slotCount, {\"count\": {{expected}} }), ale Jiki otrzymał $t(phrases.inputCount, {\"count\": {{got}} }) do użycia z nią.",
+      "InvalidNumberOfArguments_atLeast": "Ta funkcja ma co najmniej $t(phrases.slotCount, {\"count\": {{expected}} }), ale Jiki otrzymał $t(phrases.inputCount, {\"count\": {{got}} }) do użycia z nią.",
+      "InvalidNumberOfArguments_range": "Ta funkcja ma od {{min}} do {{max}} otworów wejściowych, ale Jiki otrzymał $t(phrases.inputCount, {\"count\": {{got}} }) do użycia z nią.",
+      "FunctionNotFound": "Jiki nie mógł znaleźć funkcji o nazwie `{{name}}`.",
+      "LogicErrorInExecution": "{{message}}",
+      "ForInLoopTargetNotObject": "Pętla for...in wymaga obiektu, po którym można iterować, a podano wartość {{value}} typu {{type}}.",
+      "InOperatorRequiresObject": "Operator `in` wymaga po prawej stronie obiektu/słownika, a zamiast tego otrzymał wartość typu {{type}}.",
+      "InOperatorRequiresStringKey": "Operator `in` wymaga po lewej stronie klucza będącego stringiem, a zamiast tego otrzymał wartość typu {{type}}.",
+      "InOperatorRequiresIntegerIndex": "Operator `in` używany z tablicami wymaga indeksu będącego liczbą całkowitą, a zamiast tego otrzymał wartość typu {{type}}.",
+      "InWithArrayNotAllowed": "Chociaż słowa kluczowego `in` można używać z tablicami, to bardziej zaawansowana funkcjonalność. Na razie używaj go tylko ze słownikami.",
+      "ClassNotFound": "Klasa `{{name}}` nie jest zdefiniowana.",
+      "PropertyNotFoundOnInstance": "Właściwość `{{property}}` nie istnieje na instancjach klasy `{{className}}`.",
+      "UnexpectedUncalledFunction": "Odwołujesz się do funkcji `{{name}}`, ale w rzeczywistości jej nie używasz. Czy na końcu nie zabrakło `()`?"
+    },
+    "disabledLanguageFeature": {
+      "DisabledFeatureExcludeListViolation": "Funkcjonalność `{{lexeme}}` nie jest jeszcze dostępna na Twoim obecnym poziomie.",
+      "DisabledFeatureIncludeListViolation": "Funkcjonalność `{{lexeme}}` nie jest jeszcze dostępna na Twoim obecnym poziomie."
+    },
+    "stdlib": {
+      "StdlibExactArgs": "Funkcja {{functionName}}() ma otwory wejściowe w liczbie {{expected}}, ale liczba rzeczy podanych do włożenia w nie to tylko {{received}}.",
+      "StdlibAtLeastArgs": "Funkcja {{functionName}}() ma otwory wejściowe w liczbie co najmniej {{minimum}}, ale liczba rzeczy podanych do włożenia w nie to tylko {{received}}.",
+      "StdlibArgRange": "Funkcja {{functionName}}() ma od {{min}} do {{max}} otworów wejściowych, ale liczba rzeczy podanych do włożenia w nie to tylko {{received}}.",
+      "StdlibArgTypeMismatch": "{{functionName}}() oczekuje, że {{argName}} będzie typu {{expected}}, a podano wartość typu {{received}}.",
+      "StdlibArgMustBeInteger": "{{functionName}}() oczekuje, że {{argName}} będzie liczbą całkowitą, a podano {{value}}.",
+      "MethodNotYetImplemented": "Metoda `{{method}}` jest poprawną metodą, ale nie jest jeszcze dla Ciebie dostępna.",
+      "StdlibRandomIntMinGreaterThanMax": "randomInt() oczekuje, że pierwsza liczba ({{min}}) będzie mniejsza lub równa drugiej liczbie ({{max}}).",
+      "NumberConversionFailed": "Jiki próbował przekonwertować `{{value}}` na liczbę, ale to nie jest poprawna liczba. Dodaj odpowiednie sprawdzenia, zanim użyjesz `Number(str)`."
+    }
+  },
+  "phrases": {
+    "slotCount_zero": "zero otworów wejściowych",
+    "slotCount_one": "jeden otwór wejściowy",
+    "slotCount_few": "{{count}} otwory wejściowe",
+    "slotCount_many": "{{count}} otworów wejściowych",
+    "slotCount_other": "{{count}} otworu wejściowego",
+    "inputCount_zero": "zero wartości wejściowych",
+    "inputCount_one": "jedną wartość wejściową",
+    "inputCount_few": "{{count}} wartości wejściowe",
+    "inputCount_many": "{{count}} wartości wejściowych",
+    "inputCount_other": "{{count}} wartości wejściowej"
+  },
+  "description": {
+    "assignmentExpression": {
+      "element_put": "Jiki umieścił {{value}} w miejscu o indeksie {{index}} w tablicy.",
+      "variable_found": "Jiki znalazł pudełko {{name}}.",
+      "variable_put": "Jiki włożył {{value}} do pudełka."
+    },
+    "binaryExpression": {
+      "evaluated": "Jiki obliczył {{expr}} i ustalił, że to {{value}}."
+    },
+    "breakStatement": {
+      "result": "Ta linia natychmiast zakończyła pętlę.",
+      "step": "Jiki zobaczył to i postanowił przejść do miejsca za tą pętlą."
+    },
+    "callExpression": {
+      "logResult": "Wypisano <code>{{output}}</code>.",
+      "logResultBlank": "Wypisano pustą linię.",
+      "logStep": "Jiki wypisał tutaj dla Ciebie <code>{{output}}</code>!",
+      "logStepBlank": "Jiki wypisał tutaj dla Ciebie pustą linię!",
+      "summary": "Użyto tutaj funkcji {{fn}}.",
+      "used": "Jiki użył funkcji {{call}}.",
+      "usedReturned": "Jiki użył funkcji {{call}}, która zwróciła {{value}}."
+    },
+    "common": {
+      "defaultFunctionName": "funkcja"
+    },
+    "continueStatement": {
+      "result": "Ta linia zatrzymała wykonywanie dalszego kodu w tej iteracji.",
+      "step": "Jiki zobaczył to i postanowił przejść do następnej iteracji."
+    },
+    "expressionStatement": {
+      "callResult": "Użyto tutaj funkcji {{functionName}}.",
+      "result_default": "To wyrażenie dało wynik <code>{{value}}</code>.",
+      "step_default": "Jiki obliczył to wyrażenie i otrzymał <code>{{value}}</code>."
+    },
+    "forInStatement": {
+      "result_empty": "Obiekt był pusty, więc ta linia nic nie zrobiła.",
+      "result_iteration_ordinal_other": "Ta linia rozpoczęła {{count}}. iterację ze zmienną {{name}} ustawioną na {{value}}.",
+      "step_create": "Jiki utworzył nowe pudełko o nazwie {{name}}.",
+      "step_empty": "Jiki sprawdził obiekt, zobaczył, że jest pusty, i postanowił nie robić nic więcej w tej linii.",
+      "step_put": "Jiki włożył {{value}} do pudełka i odstawił je na półkę, gotowe do użycia w bloku kodu."
+    },
+    "forOfStatement": {
+      "result_empty": "Ta wartość ({{type}}) była pusta, więc ta linia nic nie zrobiła.",
+      "result_iteration_ordinal_other": "Ta linia rozpoczęła {{count}}. iterację ze zmienną {{name}} ustawioną na {{value}}.",
+      "step_create": "Jiki utworzył nowe pudełko o nazwie {{name}}.",
+      "step_empty": "Jiki sprawdził tę wartość ({{type}}), zobaczył, że jest pusta, i postanowił nie robić nic więcej w tej linii.",
+      "step_put": "Jiki włożył {{value}} do pudełka i odstawił je na półkę, gotowe do użycia w bloku kodu."
+    },
+    "identifierExpression": {
+      "lookup": "Jiki zdjął z półki pudełko o nazwie {{name}} i wyjął z niego {{value}}."
+    },
+    "ifStatement": {
+      "result_false": "Warunek dał wynik <code>false</code>, więc blok kodu nie został wykonany.",
+      "result_false_else": "Warunek dał wynik <code>false</code>, więc wykonany został blok else.",
+      "result_true": "Warunek dał wynik <code>true</code>, więc blok kodu został wykonany.",
+      "step_false": "Wynik to <code>false</code>, więc Jiki postanowił pominąć blok if.",
+      "step_false_else": "Wynik to <code>false</code>, więc Jiki postanowił wykonać blok else.",
+      "step_true": "Wynik to <code>true</code>, więc Jiki postanowił wykonać blok if."
+    },
+    "logicalExpression": {
+      "evaluated": "Jiki obliczył {{expr}} i ustalił, że wynik to {{value}}.",
+      "shortCircuited": "Jiki zobaczył, że lewa strona operatora {{operator}} to {{value}}, więc nie zaglądał już na prawą stronę."
+    },
+    "memberExpression": {
+      "array": "Jiki pobrał element o indeksie {{index}} z tablicy i ustalił, że to {{value}}.",
+      "string": "Jiki pobrał znak o indeksie {{index}} ze stringa i ustalił, że to {{value}}."
+    },
+    "repeatStatement": {
+      "foreverResult_ordinal_other": "Ta linia rozpoczęła {{count}}. iterację tego bloku repeat.",
+      "foreverStep_ordinal_other": "Jiki rozpoczął {{count}}. iterację pętli repeat.",
+      "repeatResult_ordinal_other": "Ta linia rozpoczęła {{count}}. iterację tego bloku repeat.",
+      "repeatStep": "Jiki zwiększył swój wewnętrzny licznik tej pętli do <code>{{iteration}}</code>, sprawdził <code>{{iteration}} &le; {{countValue}}</code> i postanowił wykonać blok kodu.",
+      "zeroResult": "Blok repeat miał się wykonać <code>0</code> razy, więc ta linia nic nie zrobiła.",
+      "zeroStep": "Jiki zobaczył, że pętla ma się wykonać <code>0</code> razy, więc postanowił nie robić nic więcej w tej linii."
+    },
+    "returnStatement": {
+      "final": "Jiki posprzątał i opuścił funkcję.",
+      "naked_result": "To zakończyło funkcję. Żaden dalszy kod w funkcji nie został wykonany.",
+      "value_chute": "Jiki umieścił {{value}} w kanale zwrotnym.",
+      "value_result": "Zwrócono {{value}} i zakończono funkcję. Żaden dalszy kod w funkcji nie został wykonany."
+    },
+    "unaryExpression": {
+      "minus": "Jiki obliczył, że {{expr}} to {{value}}.",
+      "not": "Jiki obliczył, że {{expr}} to {{value}}."
+    },
+    "variableDeclaration": {
+      "result_const": "Ta linia utworzyła nową stałą o nazwie {{name}} i ustawiła jej wartość na {{value}}.",
+      "result_let": "Ta linia utworzyła nową zmienną o nazwie {{name}} i ustawiła jej wartość na {{value}}.",
+      "result_uninit": "Ta linia utworzyła nową zmienną o nazwie {{name}}.",
+      "step_create": "Jiki utworzył nowe pudełko o nazwie {{name}}.",
+      "step_put": "Jiki włożył {{value}} do pudełka.",
+      "step_uninit": "Jiki utworzył nowe puste pudełko o nazwie {{name}}."
+    },
+    "whileStatement": {
+      "result_false": "Warunek dał wynik <code>false</code>, więc pętla się zatrzymała.",
+      "result_true": "Warunek dał wynik <code>true</code>, więc ciało pętli zostało wykonane.",
+      "step_false": "Wynik to <code>false</code>, więc Jiki postanowił zatrzymać pętlę.",
+      "step_true": "Wynik to <code>true</code>, więc Jiki postanowił wykonać ciało pętli."
+    }
+  }
+}

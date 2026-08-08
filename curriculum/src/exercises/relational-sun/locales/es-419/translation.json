@@ -1,0 +1,38 @@
+{
+  "checks": {
+    "wrongPosition": "El sol está en el lugar incorrecto o tiene el tamaño incorrecto. Revisa tus cálculos de `sunX` y `sunY`, y asegúrate de que le estás pasando `radius` a `circle`.",
+    "notResponsive": "Tu código no escala correctamente cuando `gap` es {{gap}} y `radius` es {{radius}}. `sunX` y `sunY` deben derivarse de `gap` y `radius`, no ser números fijos."
+  },
+  "tasks": {
+    "positionSun": {
+      "name": "Posicionar el sol",
+      "description": "Derivar `sunX` y `sunY` a partir de `canvasSize`, `gap` y `radius` para que el sol escale correctamente."
+    }
+  },
+  "scenarios": {
+    "positionSun": {
+      "name": "Posicionar el sol",
+      "description": "Derivar la posición del sol a partir de `gap` y `radius` para que escale."
+    }
+  },
+  "hints": {
+    "sunXPosition": {
+      "question": "¿Cómo debo pensar en la posición x del sol?",
+      "answer": "Imagina el borde derecho del lienzo. El borde del sol está `gap` a la izquierda de ese borde. El *centro* del sol está un radio más adentro que eso."
+    },
+    "sunYPosition": {
+      "question": "¿Cómo debo pensar en la posición y del sol?",
+      "answer": "Es la misma idea que la posición x, pero medida hacia abajo desde el borde superior del lienzo en lugar de hacia adentro desde el borde derecho."
+    },
+    "whyNotHardcode": {
+      "question": "¿Por qué no puedo escribir los números directamente?",
+      "answer": "Si hardcodeas `sunX` y `sunY`, el sol se quedará en un solo lugar cuando `gap` o `radius` cambien. Construirlos a partir de `gap` y `radius` mantiene el sol en la esquina sin importar qué valores elijas."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Dibuja un círculo centrado en (centerX, centerY) con el radio y el color dados.",
+      "category": "Dibujar formas"
+    }
+  }
+}

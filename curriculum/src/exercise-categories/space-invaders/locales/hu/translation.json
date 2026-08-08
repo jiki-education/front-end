@@ -1,18 +1,18 @@
 {
   "describers": {
-    "moveLeft": "moved the laser cannon to the left",
-    "moveRight": "moved the laser cannon to the right",
-    "shoot": "shot the laser upwards",
-    "isAlienAbove": "determined if there was an alien above the laser cannon",
-    "getStartingAliensInRow": "retrieved the starting positions of row ${arg1} of aliens",
-    "fireFireworks": "fired off celebratory fireworks"
+    "moveLeft": "balra mozgatta a lézerágyút",
+    "moveRight": "jobbra mozgatta a lézerágyút",
+    "shoot": "felfelé lőtt a lézerrel",
+    "isAlienAbove": "megállapította, hogy volt-e űrlény a lézerágyú felett",
+    "getStartingAliensInRow": "lekérte az űrlények ${arg1}. sorának kiinduló pozícióit",
+    "fireFireworks": "ünnepi tűzijátékot lőtt ki"
   },
   "errors": {
-    "laserOverheated": "Oh no! Your laser cannon overheated from shooting too fast! You need to move before you can shoot a second time.",
-    "missedShot": "Oh no, you missed. Wasting ammo is not allowed!",
-    "moveOffEdge": "Oh no, you tried to move off the edge!",
-    "rowNotNumber": "Oh no, the row input you provided is not a number.",
-    "rowOutOfRange": "Oh no, you tried to access a row of aliens that doesn't exist. You asked for row {{row}}, but the rows are numbered 0 to {{max}}.",
-    "notAllAliensDead": "You need to defeat all the aliens before you can celebrate!"
+    "laserOverheated": "Jaj ne! A lézerágyúd túlmelegedett, mert túl gyorsan lőttél! Mielőtt másodszor is lőnél, mozognod kell.",
+    "missedShot": "Jaj ne, mellélőttél. Lőszert pazarolni tilos!",
+    "moveOffEdge": "Jaj ne, megpróbáltál lelépni a pálya széléről!",
+    "rowNotNumber": "Jaj ne, a megadott sorérték nem szám.",
+    "rowOutOfRange": "Jaj ne, olyan űrlénysort kértél le, ami nem létezik. Ezt a sort kérted: {{row}}, de csak a 0 és {{max}} közötti sorok léteznek.",
+    "notAllAliensDead": "Előbb az összes űrlényt le kell győznöd, csak utána ünnepelhetsz!"
   }
 }

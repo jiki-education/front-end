@@ -1,0 +1,52 @@
+{
+  "beta_user": {
+    "name": "Utilisateur bêta",
+    "description": "Tu as rejoint Jiki pendant la bêta",
+    "funFact": "Les utilisateurs bêta aident à façonner l'avenir de Jiki. Merci d'avoir cru en nous dès le début !"
+  },
+  "early_bird": {
+    "name": "Lève-tôt",
+    "description": "Tu as terminé une leçon au petit matin",
+    "funFact": "L'avenir appartient à ceux qui se lèvent tôt. Coder avant que le monde se réveille, c'est un superpouvoir !"
+  },
+  "first_lesson": {
+    "name": "Premiers pas",
+    "description": "Tu as terminé ta première leçon",
+    "funFact": "Le plus dur dans tout voyage, c'est de faire le premier pas. Et tu l'as fait !"
+  },
+  "maze_navigator": {
+    "name": "Explorateur de labyrinthe",
+    "description": "Tu as terminé la leçon « Évade-toi du labyrinthe »",
+    "funFact": "Les algorithmes d'exploration de labyrinthe servent en robotique, dans l'intelligence artificielle des jeux vidéo et même dans la navigation GPS !"
+  },
+  "member": {
+    "name": "Membre",
+    "description": "Tu as rejoint Jiki",
+    "funFact": "Bienvenue dans la communauté ! Tous les experts ont un jour été débutants."
+  },
+  "night_owl": {
+    "name": "Oiseau de nuit",
+    "description": "Tu as terminé une leçon tard dans la nuit",
+    "funFact": "Jeremy a grandi en codant tard dans la nuit. Coder pendant que le monde dort, ça a quelque chose de magique !"
+  },
+  "premium": {
+    "name": "Premium",
+    "description": "Tu as rejoint les membres Premium",
+    "funFact": "Merci de soutenir Jiki ! Ton abonnement Premium nous aide à continuer de construire la plateforme."
+  },
+  "scenario_handler": {
+    "name": "Maître des scénarios",
+    "description": "Tu as résolu un exercice avec des scénarios",
+    "funFact": "Dans le monde réel, on appelle les « scénarios » des « tests », et on les écrit pour vérifier que le code fonctionne dans différentes situations."
+  },
+  "sidekick": {
+    "name": "Acolyte",
+    "description": "Tu as envoyé ton premier message à Jiki",
+    "funFact": "Deux avis valent mieux qu'un. Merci de discuter avec Jiki !"
+  },
+  "townsfolk": {
+    "name": "Villageois",
+    "description": "Tu as rejoint le forum de la communauté Jiki",
+    "funFact": "La meilleure façon d'apprendre, c'est d'enseigner. Bienvenue dans la conversation !"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "errors": {
+    "allInputsNumbers": "Alle invoerwaarden moeten getallen zijn",
+    "blueRange": "Blauw moet tussen 0 en 255 liggen",
+    "circleInputsNumbers": "De invoerwaarden x, y en radius moeten getallen zijn",
+    "colorNamedOrHex": "De kleur moet een benoemde kleur zijn (\"orange\", \"blue\", \"white\", enz.) uit de instructies, of een hexadecimale kleur die met # begint",
+    "colorNotAllowed": "Voor deze opdracht geef je geen kleur op",
+    "colorNotString": "De kleur moet een string zijn",
+    "ellipseInputsNumbers": "De invoerwaarden x, y, rx en ry moeten getallen zijn",
+    "greenRange": "Groen moet tussen 0 en 255 liggen",
+    "heightPositive": "De hoogte moet groter zijn dan 0",
+    "hueRange": "De kleurtoon moet tussen 0 en 360 liggen",
+    "lightnessRange": "De helderheid moet tussen 0 en 100 liggen",
+    "lineInputsNumbers": "De invoerwaarden x1, y1, x2 en y2 moeten getallen zijn",
+    "rectInputsNumbers": "De invoerwaarden x, y, width en height moeten getallen zijn",
+    "redRange": "Rood moet tussen 0 en 255 liggen",
+    "saturationRange": "De verzadiging moet tussen 0 en 100 liggen",
+    "triangleInputsNumbers": "De invoerwaarden x1, y1, x2, y2, x3 en y3 moeten getallen zijn",
+    "widthPositive": "De breedte moet groter zijn dan 0"
+  },
+  "describers": {
+    "rectangle": {
+      "default": "tekende een rechthoek op coördinaten (${arg1}, ${arg2}) met een breedte van ${arg3}, een hoogte van ${arg4} en de kleur ${arg5}",
+      "fixedColor": "tekende een rechthoek op coördinaten (${arg1}, ${arg2}) met een breedte van ${arg3} en een hoogte van ${arg4}"
+    },
+    "triangle": {
+      "default": "tekende een driehoek met drie punten: (${arg1}, ${arg2}), (${arg3}, ${arg4}) en (${arg5}, ${arg6}), met de kleur ${arg7}",
+      "fixedColor": "tekende een driehoek met drie punten: (${arg1}, ${arg2}), (${arg3}, ${arg4}) en (${arg5}, ${arg6})"
+    },
+    "circle": {
+      "default": "tekende een cirkel met het middelpunt op (${arg1}, ${arg2}), een straal van ${arg3} en de kleur ${arg4}",
+      "fixedColor": "tekende een cirkel met het middelpunt op (${arg1}, ${arg2}) en een straal van ${arg3}"
+    },
+    "ellipse": {
+      "default": "tekende een ellips met het middelpunt op (${arg1}, ${arg2}), een radiale breedte van ${arg3}, een radiale hoogte van ${arg4} en de kleur ${arg5}",
+      "fixedColor": "tekende een ellips met het middelpunt op (${arg1}, ${arg2}), een radiale breedte van ${arg3} en een radiale hoogte van ${arg4}"
+    },
+    "line": {
+      "default": "tekende een lijn van (${arg1}, ${arg2}) naar (${arg3}, ${arg4}) met de kleur ${arg5}",
+      "fixedColor": "tekende een lijn van (${arg1}, ${arg2}) naar (${arg3}, ${arg4})"
+    },
+    "clear": "maakte het canvas leeg",
+    "hsl": "zette de HSL-kleur (kleurtoon: ${arg1}, verzadiging: ${arg2}, helderheid: ${arg3}) om naar een hexadecimale string",
+    "rgb": "zette de RGB-kleur (rood: ${arg1}, groen: ${arg2}, blauw: ${arg3}) om naar een hexadecimale string"
+  }
+}

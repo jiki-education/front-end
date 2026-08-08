@@ -1,0 +1,49 @@
+{
+  "describers": {
+    "move": "ha spostato il cannone laser verso destra"
+  },
+  "checks": {
+    "notShotAllAliens": "Non hai abbattuto tutti gli alieni.",
+    "tooManyLines": "La tua soluzione ha troppe righe di codice. Prova a usare un ciclo repeat per renderla più corta!"
+  },
+  "tasks": {
+    "repeatShoot": {
+      "name": "Usa un ciclo repeat per sparare a tutti gli alieni",
+      "description": "Trova lo schema nelle posizioni degli alieni e usa un ciclo repeat per distruggerli tutti in 7 righe di codice o meno."
+    }
+  },
+  "scenarios": {
+    "repeatShoot": {
+      "name": "Ripeti e spara",
+      "description": "Usa un ciclo repeat per sparare a tutti gli alieni"
+    }
+  },
+  "hints": {
+    "avoidRepeating": {
+      "question": "Come posso evitare di scrivere `move()` e `shoot()` molte volte?",
+      "answer": "Usa un ciclo `repeat`. `repeat(n) { ... }` esegue lo stesso blocco di codice `n` volte."
+    },
+    "repeatingPattern": {
+      "question": "Qual è lo schema che si ripete nelle posizioni degli alieni?",
+      "answer": "Il tuo cannone laser parte a sinistra degli alieni, e loro si trovano in colonne alterne con tre alieni impilati in ciascuna. Quindi lo schema per ogni colonna è: `move`, `move`, `shoot`, `shoot`, `shoot`. Attraversi lo spazio vuoto fino alla colonna degli alieni, poi abbatti tutte e tre le file. Quel gruppo di cinque passi è ciò che devi ripetere."
+    },
+    "howManyTimes": {
+      "question": "Quante volte devo ripetere lo schema?",
+      "answer": "Conta i gruppi di alieni sullo schermo e usa quel numero come argomento per `repeat`."
+    },
+    "why7Lines": {
+      "question": "Perché l'obiettivo richiede solo 7 righe?",
+      "answer": "Una riga per l'intestazione `repeat`, le cinque azioni ripetute all'interno e una riga per la parentesi graffa di chiusura fanno sette. Tutto ciò che ti serve sta dentro il ciclo, senza nulla fuori. Se stai scrivendo di più, probabilmente non stai ancora usando il ciclo."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Sposta il cannone laser **di una posizione verso destra**. Se esci dal bordo destro dello schermo, perdi!",
+      "category": "Movimento"
+    },
+    "shoot": {
+      "description": "Spara il laser verso l'alto. **Spara solo quando c'è un alieno sopra di te**, altrimenti perdi la partita!",
+      "category": "Azione"
+    }
+  }
+}

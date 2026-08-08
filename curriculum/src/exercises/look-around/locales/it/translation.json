@@ -1,0 +1,117 @@
+{
+  "errors": {
+    "walkedIntoFire": "Sei finito nel fuoco!",
+    "steppedInPoop": "Hai calpestato della cacca!",
+    "lookDirectionType": "look() richiede una stringa come direzione: \\\"left\\\", \\\"right\\\" o \\\"ahead\\\"",
+    "lookDirectionValue": "La direzione di look() deve essere \\\"left\\\", \\\"right\\\" o \\\"ahead\\\""
+  },
+  "describers": {
+    "look": "Guarda in una direzione e vedi cosa c'è"
+  },
+  "checks": {
+    "notReachedEnd": "Non hai raggiunto la fine del labirinto.",
+    "extraTurn": "Sembra che tu abbia fatto una girata extra non necessaria alla fine.",
+    "canTurnLeftMissing": "Dovresti definire una funzione <code>canTurnLeft</code>.",
+    "canTurnRightMissing": "Dovresti definire una funzione <code>canTurnRight</code>.",
+    "canMoveMissing": "Dovresti definire una funzione <code>canMove</code>.",
+    "turnAroundMissing": "Dovresti definire una funzione <code>turnAround</code>.",
+    "lookOnlyOnce": "<code>look()</code> dovrebbe apparire una sola volta in tutto il programma.",
+    "maxExtraLines": "Dovresti aggiungere non più di 13 righe di codice."
+  },
+  "tasks": {
+    "straightPath": {
+      "name": "Un percorso dritto",
+      "description": "Implementa canMove() in modo che il personaggio possa muoversi avanti fino alla fine del labirinto."
+    },
+    "turnLeft": {
+      "name": "Gira a sinistra se puoi",
+      "description": "Implementa canTurnLeft() in modo che il personaggio giri a sinistra quando c'è un percorso."
+    },
+    "turnRight": {
+      "name": "Gira a destra se non puoi andare dritto o a sinistra",
+      "description": "Implementa canTurnRight() in modo che il personaggio giri a destra quando non può andare a sinistra o dritto."
+    },
+    "turnAround": {
+      "name": "Girati se necessario",
+      "description": "Gestisci i vicoli ciechi girandoti. Tutte e tre le funzioni di rilevamento dovrebbero ora lavorare insieme per risolvere qualsiasi labirinto."
+    },
+    "bonusChallenges": {
+      "name": "Sfide bonus",
+      "description": "Riesci a usare la funzione look() una sola volta in tutto il programma? E riesci a risolverlo aggiungendo solo 13 righe di codice?"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Guida il personaggio alla fine del labirinto",
+      "description": "Un percorso dritto verso il basso"
+    },
+    "leftTurn": {
+      "name": "Una sola svolta a sinistra",
+      "description": "Affronta una svolta a sinistra"
+    },
+    "rightTurn": {
+      "name": "Una sola svolta a destra",
+      "description": "Affronta una svolta a destra"
+    },
+    "forks": {
+      "name": "Scegli sinistra se puoi, altrimenti destra",
+      "description": "Un labirinto con bivi che testa la priorità a sinistra"
+    },
+    "turnAround": {
+      "name": "Girati in un vicolo cieco",
+      "description": "Un labirinto che richiede di girarsi"
+    },
+    "forks2": {
+      "name": "Labirinto complesso con bivi e vicoli ciechi",
+      "description": "Un labirinto complesso che mette alla prova l'algoritmo completo"
+    },
+    "coverOldGround": {
+      "name": "Ripercorri la strada già fatta se necessario",
+      "description": "Un labirinto in cui devi tornare indietro per trovare l'uscita"
+    },
+    "bonus1": {
+      "name": "Scrivi look() una sola volta",
+      "description": "Risolvi il labirinto con look() che compare una sola volta nel tuo codice"
+    },
+    "bonus2": {
+      "name": "Aggiungi solo 13 righe",
+      "description": "Risolvi il labirinto aggiungendo solo 13 righe di codice"
+    }
+  },
+  "hints": {
+    "start": {
+      "question": "Da dove comincio quando il programma non si avvia per niente?",
+      "answer": "Definisci canTurnLeft(), canTurnRight() e canMove() all'inizio del codice, ognuna che restituisce false per ora. Il programma a quel punto potrà essere eseguito e potrai sostituire i corpi uno alla volta."
+    },
+    "findDirection": {
+      "question": "Come faccio a scoprire cosa c'è in una certa direzione?",
+      "answer": "Usa la nuova funzione look(direction). Passa \\\"left\\\", \\\"right\\\" o \\\"ahead\\\" e restituisce una stringa come \\\"empty\\\", \\\"wall\\\", \\\"fire\\\" o \\\"poop\\\"."
+    },
+    "safeResults": {
+      "question": "Quali risultati indicano che è sicuro andare in quella direzione?",
+      "answer": "Delle sei cose che look() può restituire, tre sono cose in cui non vuoi proprio finire dentro. La tua funzione dovrebbe restituire true solo quando ciò che vedi non è nessuna di quelle tre."
+    },
+    "avoidRepetition": {
+      "question": "Sto ripetendo la stessa logica in tre funzioni. Come posso evitarlo?",
+      "answer": "Le tre funzioni differiscono solo per la direzione in cui guardano. Potresti scrivere una funzione aggiuntiva che prende una direzione come input e far sì che tutte e tre la utilizzino?"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Muove il personaggio di **un passo avanti** nella direzione corrente. Camminare contro un muro, il fuoco o la cacca termina il programma con un errore, quindi controlla cosa c'è davanti prima di muoverti!",
+      "category": "Movimento"
+    },
+    "turnLeft": {
+      "description": "Ruota il personaggio di **90 gradi a sinistra** (in senso antiorario). Questo cambia la direzione verso cui il personaggio è rivolto.",
+      "category": "Movimento"
+    },
+    "turnRight": {
+      "description": "Ruota il personaggio di **90 gradi a destra** (in senso orario). Questo cambia la direzione verso cui il personaggio è rivolto.",
+      "category": "Movimento"
+    },
+    "look": {
+      "description": "Guarda nella direzione data e restituisce cosa c'è. La direzione deve essere \\\"left\\\", \\\"right\\\" o \\\"ahead\\\". Restituisce uno tra: \\\"empty\\\", \\\"wall\\\", \\\"fire\\\", \\\"poop\\\", \\\"start\\\" o \\\"target\\\".",
+      "category": "Rilevamento"
+    }
+  }
+}

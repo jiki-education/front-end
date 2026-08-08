@@ -1,75 +1,75 @@
 {
   "checks": {
-    "moreThanOneLine": "You used more than one line of code within the function."
+    "moreThanOneLine": "Több mint egy sor kódot használtál a függvényen belül."
   },
   "tasks": {
     "determineLeapYear": {
-      "name": "Determine if the year is a leap year",
-      "description": "Write a function called isLeapYear that takes a year as its input and returns true if it is a leap year, or false if it is not."
+      "name": "Döntsd el, hogy az év szökőév-e",
+      "description": "Írj egy isLeapYear nevű függvényt, amely egy évet kap bemenetként, és true-t ad vissza, ha szökőév, vagy false-t, ha nem."
     },
     "solveInOneLine": {
-      "name": "Solve in one line of code",
-      "description": "Can you solve this with only one line of code within the function?"
+      "name": "Oldd meg egy sor kóddal",
+      "description": "Meg tudod oldani egyetlen sor kóddal a függvényen belül?"
     }
   },
   "scenarios": {
     "year2015": {
-      "name": "Year 2015",
-      "description": "2015 is not divisible by 4 so is not a leap year."
+      "name": "2015-ös év",
+      "description": "2015 nem osztható 4-gyel maradék nélkül, így nem szökőév."
     },
     "year1970": {
-      "name": "Year 1970",
-      "description": "1970 is not divisible by 4 so is not a leap year."
+      "name": "1970-es év",
+      "description": "1970 nem osztható 4-gyel maradék nélkül, így nem szökőév."
     },
     "year2100": {
-      "name": "Year 2100",
-      "description": "2100 is divisible by 100 but not by 400 so is not a leap year."
+      "name": "2100-as év",
+      "description": "2100 osztható 100-zal, de nem osztható 400-zal, így nem szökőév."
     },
     "year1900": {
-      "name": "Year 1900",
-      "description": "1900 is divisible by 100 but not by 400 so is not a leap year."
+      "name": "1900-as év",
+      "description": "1900 osztható 100-zal, de nem osztható 400-zal, így nem szökőév."
     },
     "year1800": {
-      "name": "Year 1800",
-      "description": "1800 is divisible by 100 but not by 400 so is not a leap year."
+      "name": "1800-as év",
+      "description": "1800 osztható 100-zal, de nem osztható 400-zal, így nem szökőév."
     },
     "year2000": {
-      "name": "Year 2000",
-      "description": "2000 is divisible by 400 so is a leap year."
+      "name": "2000-es év",
+      "description": "2000 osztható 400-zal, így szökőév."
     },
     "year2400": {
-      "name": "Year 2400",
-      "description": "2400 is divisible by 400 so is a leap year."
+      "name": "2400-es év",
+      "description": "2400 osztható 400-zal, így szökőév."
     },
     "year1996": {
-      "name": "Year 1996",
-      "description": "1996 is divisible by 4 but not by 100 so is a leap year."
+      "name": "1996-os év",
+      "description": "1996 osztható 4-gyel, de nem osztható 100-zal, így szökőév."
     },
     "year1960": {
-      "name": "Year 1960",
-      "description": "1960 is divisible by 4 but not by 100 so is a leap year."
+      "name": "1960-as év",
+      "description": "1960 osztható 4-gyel, de nem osztható 100-zal, így szökőév."
     },
     "bonus1": {
-      "name": "One line of code",
-      "description": "Solve the exercise with only one line of code within the function."
+      "name": "Egy sor kód",
+      "description": "Oldd meg a feladatot egyetlen sor kóddal a függvényen belül."
     }
   },
   "hints": {
     "basicRule": {
-      "question": "What's the basic rule for a leap year?",
-      "answer": "Years divisible by 4 are leap years. So `year % 4 === 0` is the starting test."
+      "question": "Mi a szökőévek alapszabálya?",
+      "answer": "A 4-gyel osztható évek szökőévek. Tehát a `year % 4 === 0` a kiinduló feltétel."
     },
     "exceptions": {
-      "question": "Are there exceptions?",
-      "answer": "Yes. Years divisible by 100 are NOT leap years, even though they're divisible by 4. For example, 1900 isn't a leap year."
+      "question": "Vannak kivételek?",
+      "answer": "Igen. A 100-zal osztható évek NEM szökőévek, bár oszthatók 4-gyel. Például 1900 nem szökőév."
     },
     "exceptionsToExceptions": {
-      "question": "Are there exceptions to the exception?",
-      "answer": "Yes. Years divisible by 400 ARE leap years after all. For example, 2000 is. So the rule cascades: divisible by 4, but not by 100, unless also by 400."
+      "question": "Vannak kivételek a kivétel alól?",
+      "answer": "Igen. A 400-zal osztható évek mégis szökőévek. Például 2000 az. Tehát a szabály így rétegződik: osztható 4-gyel, de nem 100-zal, kivéve, ha 400-zal is osztható."
     },
     "checkDivisibility": {
-      "question": "How do I check divisibility?",
-      "answer": "Use the remainder operator `%`. `year % 4 === 0` is true when the year divides exactly by 4 with nothing left over. Same trick with 100 and 400."
+      "question": "Hogyan ellenőrizhetem az oszthatóságot?",
+      "answer": "Használd a maradék operátort (`%`). A `year % 4 === 0` akkor igaz, ha az év maradék nélkül osztható 4-gyel. Ugyanez a trükk működik 100-zal és 400-zal is."
     }
   }
 }

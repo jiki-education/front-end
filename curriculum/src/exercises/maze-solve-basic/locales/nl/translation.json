@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "Je hebt het einde van het doolhof niet bereikt."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Breng het poppetje naar het einde van het doolhof",
+      "description": "Navigeer door het doolhof naar het groene doel"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Breng het poppetje naar het einde van het doolhof",
+      "description": "Jouw taak is om je poppetje door het doolhof naar het groene doelvakje te navigeren."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "Wat verplaats ik waarheen?",
+      "answer": "Je verplaatst het poppetje, dat linksboven begint, naar de groene cirkel rechtsonder. Rood gestreepte vakjes moet je vermijden."
+    },
+    "turnLeftTurnsRight": {
+      "question": "Als ik naar links draai, draait het poppetje naar rechts!",
+      "answer": "Het poppetje draait ten opzichte van de richting waarin het kijkt. Kijkt het naar rechts en draait het naar links, dan kijkt het poppetje daarna omhoog."
+    }
+  }
+}

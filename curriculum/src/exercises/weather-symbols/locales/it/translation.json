@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "dayIsntCorrect": "Il meteo del giorno {{day}} non è corretto."
+  },
+  "tasks": {
+    "drawForecast": {
+      "name": "Disegna le previsioni",
+      "description": "Disegna il meteo di ogni giorno nel suo riquadro, usando la posizione del giorno nell'array come numero del riquadro."
+    }
+  },
+  "scenarios": {
+    "mixedWeek": {
+      "name": "Una settimana variabile",
+      "description": "Un po' di tutto nei sei giorni."
+    },
+    "sunnyWeek": {
+      "name": "Una settimana di sole",
+      "description": "Tanto sole, con un paio di giornate più nuvolose."
+    },
+    "rainyWeek": {
+      "name": "Una settimana di pioggia",
+      "description": "Una settimana inzuppata, tra nuvole e pioggia."
+    },
+    "snowyWeek": {
+      "name": "Una settimana di neve",
+      "description": "Una settimana fredda e piena di neve."
+    }
+  },
+  "hints": {
+    "loopWithIndex": {
+      "question": "Come faccio a scorrere i giorni e sapere in quale riquadro va ciascuno?",
+      "answer": "Scorri `days` con un contatore che va da `0` a `days.length - 1`. Quel contatore è il numero del riquadro di ogni giorno."
+    },
+    "descriptionToSymbols": {
+      "question": "Come faccio a trasformare una descrizione come `\"Miserable 😩\"` in simboli?",
+      "answer": "Confronta la descrizione con ciascuna di quelle possibili e scegli l'array di simboli corrispondente, ad esempio `[\"cloud\", \"rain\"]`. Le istruzioni elencano ogni descrizione con i suoi simboli."
+    },
+    "weekdaysList": {
+      "question": "Come faccio a ottenere il nome del giorno della settimana per ogni riquadro?",
+      "answer": "Crea un array con i nomi dei sei giorni della settimana in ordine, da `\"Monday\"` a `\"Saturday\"`, e leggi quello nella posizione attuale usando lo stesso contatore del numero del riquadro."
+    },
+    "passArgs": {
+      "question": "Cosa passo a `draw`?",
+      "answer": "Tre cose: il numero del riquadro (il tuo contatore), il nome del giorno della settimana per quel riquadro e l'array di simboli per quel giorno."
+    },
+    "tidyWithHelper": {
+      "question": "Il mio ciclo sta diventando lungo. Come posso sistemarlo?",
+      "answer": "Puoi spostare la conversione da descrizione a simboli in una funzione a parte e chiamarla dal ciclo. È facoltativo, ma mantiene il ciclo corto e facile da leggere."
+    }
+  },
+  "functions": {
+    "draw": {
+      "description": "Disegna i simboli meteo indicati in un riquadro delle previsioni. Riceve il numero del riquadro (da 0 a 5), il nome del giorno della settimana con cui etichettarlo e l'array di simboli.",
+      "category": "Disegno"
+    }
+  },
+  "describers": {
+    "draw": "ha disegnato ${arg3} nel riquadro di ${arg2}"
+  },
+  "errors": {
+    "elementsMustBeList": "I simboli meteo (il terzo input di draw) devono essere un array, ad esempio [\"sun\", \"cloud\"].",
+    "elementsMustBeStrings": "Tutti i simboli meteo nell'array devono essere stringhe, ad esempio \"sun\" o \"rain\".",
+    "unknownElement": "\"{{element}}\" non è un simbolo meteo. Usa \"sun\", \"cloud\", \"rain\" o \"snow\".",
+    "indexMustBeNumber": "Il numero del riquadro (il primo input di draw) deve essere un numero.",
+    "indexOutOfRange": "Il numero del riquadro deve essere un numero intero compreso tra 0 e {{max}}.",
+    "dayMustBeString": "Il giorno della settimana (il secondo input di draw) deve essere testo, ad esempio \"Monday\"."
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "tasks": {
+    "reverseStrings": {
+      "name": "Invertire stringhe",
+      "description": "Invertire una stringa in modo che venga letta da destra a sinistra anziché da sinistra a destra."
+    }
+  },
+  "scenarios": {
+    "reverseEmptyString": {
+      "name": "Stringa vuota",
+      "description": "Una stringa vuota dovrebbe restituire una stringa vuota quando viene invertita."
+    },
+    "reverseWord": {
+      "name": "Una parola",
+      "description": "Invertire la parola 'robot'."
+    },
+    "reverseCapitalizedWord": {
+      "name": "Parola con la maiuscola",
+      "description": "Invertire una parola con l'iniziale maiuscola, 'Ramen'."
+    },
+    "reverseSentencePunctuation": {
+      "name": "Frase con punteggiatura",
+      "description": "Invertire una frase con punteggiatura: 'I'm hungry!'"
+    },
+    "reversePalindrome": {
+      "name": "Palindromo",
+      "description": "Un palindromo rimane uguale quando viene invertito."
+    },
+    "reverseEvenSizedWord": {
+      "name": "Parola di lunghezza pari",
+      "description": "Invertire una parola di lunghezza pari, 'drawer'."
+    },
+    "reverseWideCharacters": {
+      "name": "Caratteri a larghezza intera",
+      "description": "Invertire caratteri Unicode a larghezza intera, '子猫'."
+    },
+    "reverseEmojiFamily": {
+      "name": "Famiglia di emoji",
+      "description": "Invertire una famiglia di emoji."
+    },
+    "reverseEmojiRainbowFlag": {
+      "name": "Bandiera arcobaleno",
+      "description": "Crea una bandiera arcobaleno invertendo."
+    }
+  },
+  "hints": {
+    "reverseByHand": {
+      "question": "Come posso invertire una parola a mano?",
+      "answer": "La leggi da sinistra a destra ma la scrivi da destra a sinistra. In pratica, prendi ogni lettera e la metti davanti a quello che hai scritto finora."
+    },
+    "mapToCode": {
+      "question": "Come si traduce in codice?",
+      "answer": "Scorri la stringa di input carattere per carattere. Per ogni carattere, costruisci il risultato anteponendolo. Significa metterlo all'INIZIO del risultato, non alla fine."
+    },
+    "prepend": {
+      "question": "Come faccio ad anteporre invece di accodare?",
+      "answer": "Con l'operatore `+`, anteporre è solo una questione di ordine. Invece di `result + char` (che accoda), usa `char + result` (che antepone)."
+    }
+  }
+}

@@ -1,43 +1,43 @@
 {
   "checks": {
-    "baseCircle": "The base (bottom) circle isn't right.",
-    "bodyCircle": "The body (middle) circle isn't right.",
-    "headCircle": "The head (top) circle isn't right."
+    "baseCircle": "Az alap (alsó) kör nem megfelelő.",
+    "bodyCircle": "A test (középső) kör nem megfelelő.",
+    "headCircle": "A fej (felső) kör nem megfelelő."
   },
   "tasks": {
     "buildSnowman": {
-      "name": "Build the snowman",
-      "description": "Draw three circles to build the snowman."
+      "name": "Hóember építése",
+      "description": "Rajzolj három kört a hóember megépítéséhez."
     }
   },
   "scenarios": {
     "buildSnowman": {
-      "name": "Build the snowman",
-      "description": "Draw three circles to build the snowman."
+      "name": "Hóember építése",
+      "description": "Rajzolj három kört a hóember megépítéséhez."
     }
   },
   "hints": {
     "howToDrawCircle": {
-      "question": "How do I draw a circle on the canvas?",
-      "answer": "Call `circle(centerX, centerY, radius)` where `centerX` and `centerY` are the center coordinates, and `radius` is how big it is."
+      "question": "Hogyan rajzoljak kört a vászonra?",
+      "answer": "Hívd meg a `circle(centerX, centerY, radius)` függvényt, ahol a `centerX` és a `centerY` a kör középpontjának koordinátái, a `radius` pedig a méretét adja meg."
     },
     "circlesHorizontalPosition": {
-      "question": "Where should the circles be positioned horizontally?",
-      "answer": "All three circles share the same horizontal center, so `centerX` is `50` for each (the canvas is `100` wide)."
+      "question": "Hol kell elhelyezkedniük a köröknek vízszintesen?",
+      "answer": "Mindhárom körnek ugyanaz a vízszintes középpontja, tehát a `centerX` mindegyiknél `50` (a vászon szélessége `100`)."
     },
     "howToStackCircles": {
-      "question": "How do I stack the three circles?",
-      "answer": "The base circle is the largest and sits near the bottom (high `centerY`). Each circle above has a smaller `centerY` and a smaller `radius`."
+      "question": "Hogyan helyezzem el a három kört egymás fölött?",
+      "answer": "Az alap kör a legnagyobb, és közel az aljához helyezkedik el (magas `centerY`). A felette lévő köröknek kisebb a `centerY` és a `radius` értékük."
     },
     "whatNumbersForRadii": {
-      "question": "What numbers should I use for the radii?",
-      "answer": "All numbers in this exercise are divisible by `5`. Try a base radius around `20`, a body around `15`, and a head around `10`, adjusting until they line up with the target."
+      "question": "Milyen számokat használjak a sugarakra?",
+      "answer": "Próbálj egy kb. `20`-as sugarat az alaphoz, `15`-öset a testhez és `10`-eset a fejhez, majd igazítsd addig, amíg nem illeszkednek a célképhez."
     }
   },
   "functions": {
     "circle": {
-      "description": "Draw a circle centered at (centerX, centerY) with the given radius",
-      "category": "Drawing Shapes"
+      "description": "Kört rajzol a megadott (centerX, centerY) középponttal és sugárral.",
+      "category": "Alakzatok rajzolása"
     }
   }
 }

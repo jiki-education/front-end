@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "baseCircle": "Il cerchio della base (in basso) non è corretto.",
+    "bodyCircle": "Il cerchio del corpo (al centro) non è corretto.",
+    "headCircle": "Il cerchio della testa (in alto) non è corretto."
+  },
+  "tasks": {
+    "buildSnowman": {
+      "name": "Costruisci il pupazzo di neve",
+      "description": "Disegna tre cerchi per costruire il pupazzo di neve."
+    }
+  },
+  "scenarios": {
+    "buildSnowman": {
+      "name": "Costruisci il pupazzo di neve",
+      "description": "Disegna tre cerchi per costruire il pupazzo di neve."
+    }
+  },
+  "hints": {
+    "howToDrawCircle": {
+      "question": "Come disegno un cerchio sull'area di disegno?",
+      "answer": "Chiama `circle(centerX, centerY, radius)`, dove `centerX` e `centerY` sono le coordinate del centro, e `radius` indica quanto è grande."
+    },
+    "circlesHorizontalPosition": {
+      "question": "Dove devono essere posizionati orizzontalmente i cerchi?",
+      "answer": "Tutti e tre i cerchi condividono lo stesso centro orizzontale, quindi `centerX` è `50` per ciascuno (l'area di disegno è larga `100`)."
+    },
+    "howToStackCircles": {
+      "question": "Come impilo i tre cerchi?",
+      "answer": "Il cerchio di base è il più grande e si trova vicino al fondo (un `centerY` alto). Ogni cerchio sopra ha un `centerY` più piccolo e un `radius` più piccolo."
+    },
+    "whatNumbersForRadii": {
+      "question": "Che numeri devo usare per i raggi?",
+      "answer": "Tutti i numeri di questo esercizio sono divisibili per `5`. Prova un raggio di base intorno a `20`, uno per il corpo intorno a `15` e uno per la testa intorno a `10`, aggiustando finché non si allineano con il modello."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Disegna un cerchio centrato in (centerX, centerY) con il raggio indicato",
+      "category": "Disegno di forme geometriche"
+    }
+  }
+}

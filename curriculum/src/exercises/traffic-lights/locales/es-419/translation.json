@@ -1,0 +1,40 @@
+{
+  "checks": {
+    "redLight": "La luz roja (superior) no está bien.",
+    "amberLight": "La luz ámbar (del medio) no está bien.",
+    "greenLight": "La luz verde (inferior) no está bien.",
+    "useVariables": "Deberías usar las variables en lugar de poner números directamente como argumentos de las funciones."
+  },
+  "tasks": {
+    "drawLights": {
+      "name": "Dibuja el semáforo",
+      "description": "Usa las variables proporcionadas para dibujar las tres luces de colores en el semáforo."
+    }
+  },
+  "scenarios": {
+    "drawLights": {
+      "name": "Dibuja el semáforo",
+      "description": "Dibuja los tres círculos de colores usando las variables proporcionadas."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "No sé por dónde empezar",
+      "answer": "Vas a dibujar tres círculos, igual que has estado haciendo antes. La única diferencia es que vas a usar las variables, no los números directamente. Vuelve a ver el video de las variables si no entiendes cómo funciona."
+    },
+    "useVariablesError": {
+      "question": "Me sale \"Deberías usar las variables en lugar de poner números directamente como argumentos de las funciones\"",
+      "answer": "Este ejercicio trata de usar las variables que definimos para ti. En lugar de poner números como 50 o 16 directamente en las funciones, dile a Jiki que use las cajas que ya creamos."
+    },
+    "circlesWrong": {
+      "question": "Dibujé los círculos bien, pero dice que están mal.",
+      "answer": "Asegúrate de que el círculo rojo esté arriba, el ámbar esté en el medio y el verde esté abajo."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Dibuja un círculo centrado en (centerX, centerY) con el radio y color dados.",
+      "category": "Dibujar formas"
+    }
+  }
+}

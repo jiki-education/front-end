@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "Använda funktioner"
+  },
+  "strings-and-colors": {
+    "title": "Strängar och färger"
+  },
+  "repeat-loop": {
+    "title": "Repeat-loopen"
+  },
+  "variables": {
+    "title": "Variabler"
+  },
+  "basic-state": {
+    "title": "Grundläggande tillstånd"
+  },
+  "functions-that-return-things": {
+    "title": "Funktioner som returnerar saker"
+  },
+  "conditionals": {
+    "title": "Villkor"
+  },
+  "complex-conditionals": {
+    "title": "Komplexa villkor"
+  },
+  "conditionals-and-state": {
+    "title": "Villkor och tillstånd"
+  },
+  "make-your-own-functions": {
+    "title": "Skapa egna funktioner"
+  },
+  "string-manipulation": {
+    "title": "Stränghantering"
+  },
+  "string-iteration": {
+    "title": "Strängiteration"
+  },
+  "multiple-functions": {
+    "title": "Kombinera flera funktioner"
+  },
+  "methods-and-properties": {
+    "title": "Metoder och egenskaper"
+  },
+  "advanced-loops": {
+    "title": "Avancerade loopar"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "Ordböcker"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "Allt"
+  }
+}

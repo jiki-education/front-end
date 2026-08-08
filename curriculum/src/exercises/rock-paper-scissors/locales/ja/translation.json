@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "noResult": "結果が発表されていません！",
+    "paperVsPaperResult": "パー対パーは引き分けのはずですが、\"{{got}}\" でした。",
+    "paperVsRockResult": "パー対グーはゆきの勝ちのはずですが、\"{{got}}\" でした。",
+    "paperVsScissorsResult": "パー対チョキは安藤の勝ちのはずですが、\"{{got}}\" でした。",
+    "rockVsPaperResult": "グー対パーは安藤の勝ちのはずですが、\"{{got}}\" でした。",
+    "rockVsRockResult": "グー対グーは引き分けのはずですが、\"{{got}}\" でした。",
+    "rockVsScissorsResult": "グー対チョキはゆきの勝ちのはずですが、\"{{got}}\" でした。",
+    "scissorsVsPaperResult": "チョキ対パーはゆきの勝ちのはずですが、\"{{got}}\" でした。",
+    "scissorsVsRockResult": "チョキ対グーは安藤の勝ちのはずですが、\"{{got}}\" でした。",
+    "scissorsVsScissorsResult": "チョキ対チョキは引き分けのはずですが、\"{{got}}\" でした。"
+  },
+  "tasks": {
+    "determineWinner": {
+      "name": "勝者を判定する",
+      "description": "両方のプレイヤーの手を取得し、正しい結果を発表します：\\\"Yuki\\\"、\\\"Ando\\\"、\\\"tie\\\"。"
+    }
+  },
+  "scenarios": {
+    "paperVsPaper": {
+      "name": "パー対パー",
+      "description": "引き分けです。正しく発表してください！"
+    },
+    "paperVsRock": {
+      "name": "パー対グー",
+      "description": "ゆきのパーが安藤のグーに勝ちます。ゆきの勝ちを発表してください！"
+    },
+    "paperVsScissors": {
+      "name": "パー対チョキ",
+      "description": "安藤のチョキがゆきのパーに勝ちます。安藤の勝ちを発表してください。"
+    },
+    "rockVsPaper": {
+      "name": "グー対パー",
+      "description": "安藤のパーがゆきのグーに勝ちます。安藤の勝ちを発表してください。"
+    },
+    "rockVsRock": {
+      "name": "グー対グー",
+      "description": "引き分けです。正しく発表してください！"
+    },
+    "rockVsScissors": {
+      "name": "グー対チョキ",
+      "description": "ゆきのグーが安藤のチョキに勝ちます。ゆきの勝ちを発表してください。"
+    },
+    "scissorsVsPaper": {
+      "name": "チョキ対パー",
+      "description": "ゆきのチョキが安藤のパーに勝ちます。ゆきの勝ちを発表してください。"
+    },
+    "scissorsVsRock": {
+      "name": "チョキ対グー",
+      "description": "安藤のグーがゆきのチョキに勝ちます。安藤の勝ちを発表してください。"
+    },
+    "scissorsVsScissors": {
+      "name": "チョキ対チョキ",
+      "description": "引き分けです。正しく発表してください！"
+    }
+  },
+  "hints": {
+    "howToStart": {
+      "question": "どうやって始めますか？",
+      "answer": "提供されている関数を使って、ゆきと安藤の手を取得し、変数に保存して比べられるようにしましょう。"
+    },
+    "simplestCase": {
+      "question": "最初に処理する最も簡単なケースは何ですか？",
+      "answer": "引き分けです。両方の手が同じなら、すぐに引き分けを発表して、残りの処理をスキップできます。"
+    },
+    "checkCombination": {
+      "question": "特定の勝ちの組み合わせをどのように確認しますか？",
+      "answer": "`&&`（and）を使って、両方が真でなければならない2つの条件を組み合わせます。例えば、「ゆきがグーを選び、かつ安藤がチョキを選んだ」ならゆきの勝ちです。"
+    },
+    "shorterWay": {
+      "question": "`if`文がたくさんになってしまいます。もっと短い方法はありますか？",
+      "answer": "デフォルトで一方のプレイヤーの勝ちに設定し、もう一方のプレイヤーが勝つ3つの組み合わせだけを確認します。これでケースが約半分になります。"
+    },
+    "invalidChoice": {
+      "question": "プレイヤーがグー、チョキ、パー以外のものを入力したらどうなりますか？",
+      "answer": "ここでは気にする必要はありません。提供されている関数は、常に3つの有効な手のいずれかだけを返します。"
+    }
+  },
+  "functions": {
+    "getYukiChoice": {
+      "description": "ゆきの手を返します。`\\\"rock\\\"`、`\\\"paper\\\"`、`\\\"scissors\\\"` のいずれかです。",
+      "category": "ゲーム"
+    },
+    "getAndoChoice": {
+      "description": "安藤の手を返します。`\\\"rock\\\"`、`\\\"paper\\\"`、`\\\"scissors\\\"` のいずれかです。",
+      "category": "ゲーム"
+    },
+    "announceResult": {
+      "description": "ゲームの結果を発表します。`\\\"Yuki\\\"`、`\\\"Ando\\\"`、`\\\"tie\\\"` を渡してください。",
+      "category": "ゲーム"
+    }
+  }
+}

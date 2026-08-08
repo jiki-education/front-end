@@ -1,0 +1,67 @@
+{
+  "tasks": {
+    "classifyString": {
+      "name": "Klasifikuj string",
+      "description": "Napiši pomoćne funkcije koje proveravaju da li je string slovni, numerički ili alfanumerički, a zatim ih upotrebi da klasifikuješ ulazni string."
+    },
+    "useContinue": {
+      "name": "Koristi continue",
+      "description": "U tvojoj isAlphanumeric proveri, kada je karakter slovo ili cifra, zadovoljan si njime. Koristi continue da odmah pređeš na sledeći karakter umesto da ugnježđuješ još uslova."
+    }
+  },
+  "scenarios": {
+    "duck": {
+      "name": "Duck",
+      "description": "String koji sadrži samo slova treba da se klasifikuje kao \"Alpha\"."
+    },
+    "number": {
+      "name": "42",
+      "description": "String koji sadrži samo brojeve treba da se klasifikuje kao \"Numeric\"."
+    },
+    "alphanumeric": {
+      "name": "Duck42",
+      "description": "String koji sadrži i slova i brojeve treba da se klasifikuje kao \"Alphanumeric\"."
+    },
+    "notAlphanumeric1": {
+      "name": "It's not 42!",
+      "description": "String sa specijalnim karakterima treba da se klasifikuje kao \"Unknown\"."
+    },
+    "notAlphanumeric2": {
+      "name": "42 Rubber Duck!",
+      "description": "String sa razmacima i specijalnim karakterima treba da se klasifikuje kao \"Unknown\"."
+    },
+    "alphanumericUsesContinue": {
+      "name": "Korišćen continue",
+      "description": "Tvoje rešenje radi i koristi continue da preskoči karaktere koji su već obrađeni."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Odakle da počnem kada ima više funkcija za pisanje?",
+      "answer": "Prvo odaberi najmanju pomoćnu funkciju. Svaka pomoćna funkcija prolazi kroz karaktere stringa i postavlja isto pitanje da/ne o svakom od njih. Neka prva proradi, a ostale će pratiti isti oblik."
+    },
+    "checkAllLetters": {
+      "question": "Kako da proverim da li je svaki karakter u ulazu slovo?",
+      "answer": "Prođi kroz svaki karakter i proveri da li se pojavljuje u abecedi. Metoda `.includes()` stringa odgovara upravo na to: `\"...\".includes(char)`. Ne zaboravi da uključiš i mala i velika slova, inače veliko slovo poput \"D\" u \"Duck\" neće biti uračunato. Ako bilo koji karakter nije u abecedi, onda nije sve slovno."
+    },
+    "checkAllDigits": {
+      "question": "Kako da uradim istu proveru za cifre?",
+      "answer": "Potpuno isti obrazac, samo proveravaj prema \"0123456789\" umesto abecede."
+    },
+    "alphanumericMeaning": {
+      "question": "Šta znači 'alfanumerički'? Da li to znači i jedno i drugo?",
+      "answer": "Alfanumerički znači da je svaki karakter ili slovo ILI cifra. Dakle, za svaki karakter, ako je slovni, to ti je u redu, a ako je numerički, to ti je takođe u redu. Koristi `continue` da preskočiš. Samo ako nije ni jedno, treba da odbiješ."
+    },
+    "pickingLabels": {
+      "question": "Kako da odaberem između četiri oznake u whatAmI()?",
+      "answer": "Pozovi sve tri pomoćne funkcije i koristi if/else. Redosled je važan. Proveri strožije slučajeve ('samo slova' i 'samo brojevi') pre 'alfanumerički', koji je blaži slučaj."
+    }
+  },
+  "checks": {
+    "mustUseContinue": "Tako blizu! Koristi `continue` da preskočiš na sledeći karakter.",
+    "tooManyLines": "Tako blizu! Tvoje rešenje radi, ali je malo predugačko.",
+    "useIsAlpha": "Ova vežba želi da napišeš pomoćnu funkciju `isAlpha()` i iskoristiš je za klasifikaciju stringa.",
+    "useIsNumeric": "Ova vežba želi da napišeš pomoćnu funkciju `isNumeric()` i iskoristiš je za klasifikaciju stringa.",
+    "useIsAlphanumeric": "Ova vežba želi da napišeš pomoćnu funkciju `isAlphanumeric()` i iskoristiš je za klasifikaciju stringa."
+  }
+}

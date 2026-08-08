@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "Lo, umejaribu kuanguka kutoka ukingoni mwa mzingile!",
+    "hitWall": "Ayaa, umegonga ukuta!",
+    "walkedIntoFire": "Ayaa! Umeingia motoni!",
+    "walkedIntoPoop": "Ashakum! Umekanyaga kinyesi! 💩💩💩"
+  },
+  "describers": {
+    "move": "Msogeze mhusika mbele mraba mmoja",
+    "turnLeft": "Mgeuze mhusika digrii 90 kushoto",
+    "turnRight": "Mgeuze mhusika digrii 90 kulia"
+  }
+}

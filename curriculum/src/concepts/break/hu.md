@@ -1,7 +1,7 @@
 ---
 title: "Break"
 description: "A `break` kulcsszó használata a ciklus törzsében: azonnal kilépünk a ciklusból, és a ciklus utáni kóddal folytatjuk."
-en_md5: f8227210406f1fd67f41fdb58e6c196d
+en_md5: 30148766de67ae467ab1a4852ad35895
 ---
 
 A `break` kulcsszót bármelyik ciklus törzsében bárhol használhatod.

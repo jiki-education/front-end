@@ -1,138 +1,138 @@
 {
   "welcome-to-coding-fundamentals": {
-    "title": "�",
-    "description": "�"
+    "title": "Üdvözlünk a programozás alapjainál",
+    "description": "Ismerd meg Jikit, és tanuld meg, hogyan működik a programozás."
   },
   "using-functions": {
-    "title": "�",
-    "description": "�"
+    "title": "Függvények használata",
+    "description": "Tanulj a függvényekről, a kis gépekről, amelyek elvégzik a feladatokat."
   },
   "function-inputs": {
-    "title": "�",
-    "description": "�"
+    "title": "Bemenetekkel rendelkező függvények (számok)",
+    "description": "Tanuld meg, hogyan adhatsz plusz információkat a függvényeknek."
   },
   "strings": {
-    "title": "�",
-    "description": "�"
+    "title": "Stringek",
+    "description": "Tanuld meg, hogyan használhatsz szöveget a programjaidban."
   },
   "repeat-loop": {
-    "title": "�",
-    "description": "�"
+    "title": "Repeat ciklus",
+    "description": "Tanuld meg, hogyan utasíthatod Jikit arra, hogy többször is elvégezzen dolgokat."
   },
   "creating-variables": {
-    "title": "�",
-    "description": "�"
+    "title": "Változók létrehozása és használata",
+    "description": "Tanuld meg, hogyan ments el és kérj le információkat a programjaidban."
   },
   "variables-together": {
-    "title": "�",
-    "description": "�"
+    "title": "Számtan és változók",
+    "description": "Tanuld meg, hogyan végezhetsz matematikai műveleteket változókkal."
   },
   "updating-variables": {
-    "title": "�",
-    "description": "�"
+    "title": "Változók frissítése",
+    "description": "Tanuld meg, hogyan változtathatod meg a változók értékét a kód futása közben."
   },
   "functions-that-return-things": {
-    "title": "�",
-    "description": "�"
+    "title": "Visszaadó függvények",
+    "description": "Tanuld meg, hogyan adhatnak vissza információkat a függvények."
   },
   "colors": {
-    "title": "�",
-    "description": "�"
+    "title": "Színek (HSL és RGB)",
+    "description": "Tanulj meg különböző módokat pontos színek megadására."
   },
   "animation": {
-    "title": "�",
-    "description": "�"
+    "title": "Animáció",
+    "description": "Tanuld meg, hogyan mozgathatsz dolgokat a képernyőn."
   },
   "random-numbers": {
-    "title": "�",
-    "description": "�"
+    "title": "Véletlenszámok",
+    "description": "Tanuld meg, hogyan adhatsz véletlenszerűséget a programjaidhoz."
   },
   "scope": {
-    "title": "�",
-    "description": "�"
+    "title": "Scope",
+    "description": "Tanuld meg, mi történik a változókkal a kódblokkokon belül és kívül."
   },
   "scenarios": {
-    "title": "�",
-    "description": "�"
+    "title": "Forgatókönyvek",
+    "description": "Tanuld meg, hogyan futtasd a kódodat különböző kezdőfeltételekkel."
   },
   "nested-loops": {
-    "title": "�",
-    "description": "�"
+    "title": "Egymásba ágyazott ciklusok",
+    "description": "Tanuld meg, hogyan ágyazhatsz ciklusokat más ciklusokba."
   },
   "if-statements": {
-    "title": "�",
-    "description": "�"
+    "title": "Elágazások",
+    "description": "Tanuld meg, hogyan végezzen a kódod különböző dolgokat különböző helyzetekben."
   },
   "else-statements": {
-    "title": "�",
-    "description": "�"
+    "title": "Else és else if",
+    "description": "Tanuld meg, hogyan kezelhetsz több különböző feltételt."
   },
   "logic-gates": {
-    "title": "�",
-    "description": "�"
+    "title": "Logikai kapuk",
+    "description": "Tanuld meg, hogyan kombinálhatsz feltételeket."
   },
   "remainder": {
-    "title": "�",
-    "description": "�"
+    "title": "Moduló és not",
+    "description": "Tanulj a maradékokról és arról, hogyan fordíthatod meg a feltételeket."
   },
   "repeat-without-count": {
-    "title": "�",
-    "description": "�"
+    "title": "Repeat bemenet nélkül",
+    "description": "Tanuld meg, hogyan csinálhatsz ciklust anélkül, hogy előre tudnád, hányszor fusson."
   },
   "state": {
-    "title": "�",
-    "description": "�"
+    "title": "Állapot",
+    "description": "Tanuld meg, hogyan kombinálhatsz feltételeket változó adatokkal."
   },
   "making-functions": {
-    "title": "�",
-    "description": "�"
+    "title": "Saját függvények írása",
+    "description": "Tanuld meg, hogyan hozz létre saját újrahasználható gépeket."
   },
   "making-functions-with-inputs": {
-    "title": "�",
-    "description": "�"
+    "title": "Bemenetek hozzáadása a függvényeidhez",
+    "description": "Tanuld meg, hogyan fogadhatnak bemeneteket a függvényeid."
   },
   "making-functions-with-return-values": {
-    "title": "�",
-    "description": "�"
+    "title": "Visszatérési érték hozzáadása a függvényeidhez",
+    "description": "Tanuld meg, hogyan adhatnak vissza eredményeket a függvényeid."
   },
   "string-concatenation": {
-    "title": "�",
-    "description": "�"
+    "title": "String-összefűzés és sablonok",
+    "description": "Tanuld meg, hogyan fűzhetsz össze szövegrészeket."
   },
   "string-indexing": {
-    "title": "�",
-    "description": "�"
+    "title": "String-indexelés",
+    "description": "Tanuld meg, hogyan érhetsz el egyes karaktereket a szövegben."
   },
   "string-iteration": {
-    "title": "�",
-    "description": "�"
+    "title": "Iterálás stringeken",
+    "description": "Tanuld meg, hogyan járhatsz végig egy szöveget karakterenként."
   },
   "using-multiple-functions-together": {
-    "title": "�",
-    "description": "�"
+    "title": "Több függvény együttes használata",
+    "description": "Tanuld meg, hogyan kombinálhatsz függvényeket nagyobb problémák megoldásához."
   },
   "methods-and-strings": {
-    "title": "�",
-    "description": "�"
+    "title": "Metódusok és tulajdonságok",
+    "description": "Tanuld meg, hogyan használhatod az adatokhoz csatolt beépített eszközöket."
   },
   "for-while-loops": {
-    "title": "�",
-    "description": "�"
+    "title": "Haladó ciklusok",
+    "description": "Tanuld meg, hogyan működnek a valódi JavaScript ciklusok, amelyekkel könnyebben és rugalmasabban tudsz feladatokat megoldani."
   },
   "arrays": {
-    "title": "�",
-    "description": "�"
+    "title": "Tömbök",
+    "description": "Tanuld meg, hogyan tárolhatsz dolgok gyűjteményeit tömbökben."
   },
   "building-arrays": {
-    "title": "�",
-    "description": "�"
+    "title": "Tömbök építése",
+    "description": "Tanuld meg, hogyan építhetsz fel tömböket darabonként."
   },
   "dictionaries": {
-    "title": "�",
-    "description": "�"
+    "title": "Szótárak",
+    "description": "Tanuld meg, hogyan tárolhatsz adatokat elnevezett kulcsok segítségével."
   },
   "updating-dictionaries": {
-    "title": "�",
-    "description": "�"
+    "title": "Szótárak módosítása",
+    "description": "Tanuld meg, hogyan frissítheted és módosíthatod a szótárakat."
   }
 }

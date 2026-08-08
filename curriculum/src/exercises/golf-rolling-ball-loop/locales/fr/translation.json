@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "ballNotAtEnd": "La balle a roulé jusqu'à {{ballX}}, ce qui ne fait pas 60 unités depuis son point de départ.",
+    "missingPositions": "La balle doit passer par chaque position, une unité à la fois, en partant de 29.",
+    "codeQuality": {
+      "tooManyLines": "Ta solution contient trop de lignes de code. Essaie d'utiliser une boucle pour la raccourcir."
+    }
+  },
+  "tasks": {
+    "rollBall": {
+      "name": "Fais rouler la balle jusque dans le trou",
+      "description": "Fais rouler la balle jusque dans le trou."
+    }
+  },
+  "scenarios": {
+    "rollBall": {
+      "name": "Fais rouler la balle jusque dans le trou",
+      "description": "Fais rouler la balle jusque dans le trou."
+    }
+  },
+  "hints": {
+    "icantWorkItOut": {
+      "question": "Je n'y arrive pas",
+      "answer": "Tu as deux outils à ta disposition :\n- Une boucle de répétition, que tu utilises en écrivant `repeat(n) { }`, où `n` est le nombre de fois que tu veux faire rouler la balle et où tu peux mettre ce que tu veux entre les accolades (`{ }`).\n- Une fonction `roll()` qui fait rouler la balle d'une unité vers la droite.\n\nComment peux-tu les combiner ?"
+    }
+  },
+  "functions": {
+    "roll": {
+      "description": "Fait rouler la balle **d'une unité vers la droite**.",
+      "category": "Déplacement"
+    }
+  },
+  "describers": {
+    "roll": "a fait rouler la balle d'une unité vers la droite"
+  }
+}

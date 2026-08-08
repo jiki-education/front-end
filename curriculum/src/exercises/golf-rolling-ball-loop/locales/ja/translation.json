@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "ballNotAtEnd": "ボールは{{ballX}}まで転がりましたが、スタート地点から60歩の場所ではありません。",
+    "missingPositions": "ボールは、29から始めて、一歩ずつ各位置を転がらなければなりません。",
+    "codeQuality": {
+      "tooManyLines": "解答のコードの行数が多すぎます。ループを使って短くしてみましょう。"
+    }
+  },
+  "tasks": {
+    "rollBall": {
+      "name": "ボールを穴まで転がす",
+      "description": "ボールを穴まで転がす。"
+    }
+  },
+  "scenarios": {
+    "rollBall": {
+      "name": "ボールを穴まで転がす",
+      "description": "ボールを穴まで転がす。"
+    }
+  },
+  "hints": {
+    "icantWorkItOut": {
+      "question": "解き方がわかりません",
+      "answer": "使える道具は2つあります：\n- `repeat`ループです。これは `repeat(n) { }` と書きます。`n` は転がしたい回数で、中括弧（`{ }`）の中には何でも書けます。\n- `roll()` 関数です。これはボールを右に1歩転がします。\n\nどう組み合わせればいいでしょうか？"
+    }
+  },
+  "functions": {
+    "roll": {
+      "description": "ボールを**右に1歩**転がします。",
+      "category": "移動"
+    }
+  },
+  "describers": {
+    "roll": "ボールを右に1歩転がした"
+  }
+}

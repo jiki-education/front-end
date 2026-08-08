@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "leftBrick": "左のレンガが正しくありません。",
+    "secondBrick": "2番目のレンガが正しくありません。",
+    "middleBrick": "中央のレンガが正しくありません。",
+    "fourthBrick": "4番目のレンガが正しくありません。",
+    "rightBrick": "右のレンガが正しくありません。",
+    "codeQuality": {
+      "rectangleCalledOnce": "コード内の複数の場所で<code>rectangle</code>関数を使っています。1回だけ使う必要があります！"
+    }
+  },
+  "tasks": {
+    "finishWall": {
+      "name": "壁を完成させよう",
+      "description": "壁に最上段を追加しよう！"
+    }
+  },
+  "scenarios": {
+    "finishWall": {
+      "name": "壁を完成させよう",
+      "description": "壁に最上段を追加しよう！"
+    }
+  },
+  "hints": {
+    "positionSecondBrick": {
+      "question": "2つ目のレンガを1つ目のレンガより右にずらして配置する方法がわかりません。",
+      "answer": "各レンガの幅が20なら、最初のレンガを0、2番目を20、3番目を40の位置に配置する必要があります。掛け算を使うと、このパターンを作れます。0、20、40というパターンを実現するために、どの変数を追跡すればよいですか？"
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "指定された幅、高さ、色で、位置（left, top）に長方形を描きます。",
+      "category": "図形描画"
+    }
+  }
+}

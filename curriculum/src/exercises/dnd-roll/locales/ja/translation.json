@@ -1,0 +1,54 @@
+{
+  "errors": {
+    "unknownDice": "すみません、Jikiは{{sides}}面ダイスを持っていません！",
+    "announceNumber": "宣言できるのは数値だけです。",
+    "attackNumber": "攻撃値は数値でなければなりません。",
+    "damageNumber": "ダメージは数値でなければなりません。"
+  },
+  "describers": {
+    "roll": "サイコロを振り、${return}が出ました。",
+    "announce": "${arg1}を宣言しました。",
+    "strike": "攻撃ロール${arg1}、ダメージ${arg2}でゴブリンを攻撃しました。"
+  },
+  "checks": {
+    "announcementCount": "3回の宣言が必要ですが、{{got}}回でした。各出目を必ず宣言してください。",
+    "firstAnnouncement": "最初の宣言は{{attack}}（攻撃ロール）のはずですが、{{got}}でした。",
+    "secondAnnouncement": "2番目の宣言は{{damage}}（基本ダメージ）のはずですが、{{got}}でした。",
+    "thirdAnnouncement": "3番目の宣言は{{bonus}}（追加ダメージ）のはずですが、{{got}}でした。",
+    "notStruck": "ゴブリンを攻撃していません。<code>strike()</code>を呼び出しているか確認してください。",
+    "wrongAttack": "攻撃ロールは{{attack}}のはずですが、{{got}}でした。<code>strike()</code>に攻撃ロールを渡してください。",
+    "wrongDamage": "合計ダメージは{{totalDamage}}（{{damage}} + {{bonus}}）のはずですが、{{got}}でした。基本ダメージと追加ダメージを合計してください。"
+  },
+  "tasks": {
+    "rollAndStrike": {
+      "name": "サイコロを振ってゴブリンを攻撃する",
+      "description": "3つのサイコロを振り（攻撃用にd20、基本ダメージ用にd12、追加ダメージ用にd10）、それぞれの出目を宣言してから、攻撃ロールと合計ダメージ（基本＋追加）でゴブリンを攻撃してください。"
+    }
+  },
+  "scenarios": {
+    "randomRolls": {
+      "name": "ダイスを振って攻撃",
+      "description": "攻撃にd20、基本ダメージにd12、追加ダメージにd10を振り、攻撃ロールと合計ダメージでゴブリンを攻撃します。"
+    }
+  },
+  "hints": {
+    "chooseDie": {
+      "question": "どのサイコロを使うか、どうやって決めればいいですか？",
+      "answer": "20面ダイスを使うには、`roll`の入力に20を指定します。例えば`roll(20)`です。12面ダイスなら`roll(12)`を呼び出します。"
+    }
+  },
+  "functions": {
+    "roll": {
+      "description": "指定された面数のサイコロを振り、結果を**返します**。",
+      "category": "サイコロ"
+    },
+    "announce": {
+      "description": "サイコロの出目を宣言します。",
+      "category": "アクション"
+    },
+    "strike": {
+      "description": "指定された攻撃ロールと合計ダメージでゴブリンを攻撃します。",
+      "category": "アクション"
+    }
+  }
+}

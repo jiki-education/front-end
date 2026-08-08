@@ -1,0 +1,54 @@
+{
+  "tasks": {
+    "encodeMessage": {
+      "name": "Codifica un messaggio",
+      "description": "Scrivi una funzione `encode` che sposta ciascuna lettera di un messaggio di uno spostamento dato. Gli spazi devono rimanere spazi. Le lettere che, dopo lo spostamento, superano la 'z' devono ricominciare dall'inizio dell'alfabeto."
+    }
+  },
+  "scenarios": {
+    "caesarSimpleShift": {
+      "name": "Semplice spostamento di 1",
+      "description": "Sposta ciascuna lettera in avanti di 1: a->b, b->c, c->d."
+    },
+    "caesarShiftBy3": {
+      "name": "Spostamento di 3",
+      "description": "Sposta ciascuna lettera in avanti di 3: h->k, e->h, l->o, o->r."
+    },
+    "caesarWrapAround": {
+      "name": "Ricomincia dall'inizio dell'alfabeto",
+      "description": "Quando lo spostamento supera la 'z', ricomincia dall'inizio: x->a, y->b, z->c."
+    },
+    "caesarWithSpaces": {
+      "name": "Messaggio con spazi",
+      "description": "Gli spazi devono rimanere spazi, solo le lettere vengono spostate."
+    },
+    "caesarRot13": {
+      "name": "Cifratura ROT13",
+      "description": "ROT13 è un caso particolare del cifrario di Cesare con uno spostamento di 13."
+    }
+  },
+  "hints": {
+    "shiftingLetterByN": {
+      "question": "Come ragiono sullo spostamento di una lettera di N posizioni?",
+      "answer": "Ogni lettera ha una posizione nell'alfabeto (a è in posizione 0, b in posizione 1 e così via). Per spostarla, devi trovare quella posizione, aggiungere il valore dello spostamento e quindi trasformare la nuova posizione in una lettera cercandola nell'alfabeto."
+    },
+    "letterPosition": {
+      "question": "Come trovo la posizione di una lettera nell'alfabeto?",
+      "answer": "Puoi cercare una stringa all'interno di un'altra con `indexOf`. Chiamando `indexOf` sulla stringa che contiene l'alfabeto ottieni la posizione di una lettera, oppure -1 se la lettera non viene trovata. Per fare il contrario, puoi usare la posizione come indice sulla stringa dell'alfabeto per ottenere la lettera."
+    },
+    "wrapPastZ": {
+      "question": "Cosa succede quando lo spostamento supera la 'z'?",
+      "answer": "La lettera deve ricominciare dalla 'a'. L'operatore modulo (`%`) è perfetto per questo. Calcolare il modulo 26 della posizione riporta qualsiasi numero nell'intervallo da 0 a 25."
+    },
+    "applyToWholeMessage": {
+      "question": "Come applico questo a un intero messaggio?",
+      "answer": "Scorri ciascun carattere del messaggio, spostalo usando la tua funzione ausiliaria per una singola lettera, e usa la concatenazione (`+`) per costruire la stringa risultante dalle lettere spostate."
+    }
+  },
+  "functions": {
+    "indexOf": {
+      "description": "Trova la posizione di una stringa più piccola all'interno di una stringa, oppure -1 se non viene trovata (fornito dalla libreria standard del livello).",
+      "category": "Operazioni sulle stringhe"
+    }
+  }
+}

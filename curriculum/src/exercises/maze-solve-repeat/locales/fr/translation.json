@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "notReachedEnd": "Tu n'as pas atteint la sortie du labyrinthe.",
+    "tooManyLines": "Ta solution contient trop de lignes de code. Cherche les groupes d'appels à `move()` qui se suivent et remplace chaque groupe par une boucle `repeat`.",
+    "oneLineOver": "Il n'y a qu'une seule ligne de trop ! Une boucle `repeat` n'est pas toujours plus courte : répéter quelque chose seulement deux ou trois fois peut prendre plus de lignes que d'écrire les appels un par un, alors cherche un `repeat` qui, en réalité, ne t'a rien fait gagner."
+  },
+  "tasks": {
+    "solveMazeWithRepeat": {
+      "name": "Réécris la solution du labyrinthe avec des boucles `repeat`",
+      "description": "Remplace les appels à `move()` qui se suivent par des boucles `repeat` pour raccourcir le code."
+    }
+  },
+  "scenarios": {
+    "mazeRepeat1": {
+      "name": "Réécris la solution du labyrinthe avec des boucles `repeat`",
+      "description": "Utilise des boucles `repeat` pour éviter les appels à `move()` qui se suivent."
+    }
+  },
+  "hints": {
+    "noIdea": {
+      "question": "Je ne sais pas du tout quoi faire",
+      "answer": "Cherche les groupes d'appels à `move()` qui se suivent. Par exemple, au lieu de :\n\n```javascript\nmove()\nmove()\nmove()\n```\n\ntu peux écrire :\n\n```javascript\nrepeat(3) {\n  move()\n}\n```\n\nTrouve les groupes et remplace-les !"
+    },
+    "tooManyLines": {
+      "question": "Tu utilises des `repeat`, mais il y a trop de lignes ?",
+      "answer": "Est-ce toujours mieux d'utiliser un `repeat` ? Dans certains cas, il peut être plus court d'écrire simplement deux `move` l'un après l'autre."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Déplace le personnage **d'une case vers l'avant** dans la direction actuelle. Le personnage n'avance que si la case visée n'est pas bloquée par un mur.",
+      "category": "Déplacement"
+    },
+    "turnLeft": {
+      "description": "Fait pivoter le personnage de **90 degrés vers la gauche** (dans le sens inverse des aiguilles d'une montre). Cela change la direction dans laquelle le personnage regarde.",
+      "category": "Déplacement"
+    },
+    "turnRight": {
+      "description": "Fait pivoter le personnage de **90 degrés vers la droite** (dans le sens des aiguilles d'une montre). Cela change la direction dans laquelle le personnage regarde.",
+      "category": "Déplacement"
+    }
+  }
+}

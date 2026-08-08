@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "Ôi không, bạn suýt rơi khỏi mép mê cung rồi!",
+    "hitWall": "Ối, bạn đi thẳng vào tường rồi!",
+    "walkedIntoFire": "Ối! Bạn đi thẳng vào đống lửa rồi!",
+    "walkedIntoPoop": "Eo ơi! Bạn giẫm phải bãi phân rồi! 💩💩💩"
+  },
+  "describers": {
+    "move": "Di chuyển nhân vật tiến lên một ô",
+    "turnLeft": "Xoay nhân vật 90 độ sang trái",
+    "turnRight": "Xoay nhân vật 90 độ sang phải"
+  }
+}

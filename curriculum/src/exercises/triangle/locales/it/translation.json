@@ -1,0 +1,81 @@
+{
+  "tasks": {
+    "invalidTriangles": {
+      "name": "Triangoli non validi",
+      "description": "Rileva i triangoli non validi. Un triangolo non è valido se un lato è zero, o se la somma di due lati qualsiasi è minore o uguale al terzo lato."
+    },
+    "equilateralTriangles": {
+      "name": "Triangoli equilateri",
+      "description": "Rileva i triangoli equilateri in cui tutti e tre i lati hanno la stessa lunghezza."
+    },
+    "isoscelesTriangles": {
+      "name": "Triangoli isosceli",
+      "description": "Rileva i triangoli isosceli in cui esattamente due lati hanno la stessa lunghezza."
+    },
+    "scaleneTriangles": {
+      "name": "Triangoli scaleni",
+      "description": "Rileva i triangoli scaleni in cui tutti e tre i lati hanno lunghezze diverse."
+    }
+  },
+  "scenarios": {
+    "invalidEquilateralAllZero": {
+      "name": "Equilatero con tutti i lati zero (0, 0, 0)",
+      "description": "Un triangolo con tutti i lati zero dovrebbe restituire \"invalid\"."
+    },
+    "isoscelesFirstInequality": {
+      "name": "Isoscele con lati non validi (1, 1, 3)",
+      "description": "Un triangolo con lati troppo corti dovrebbe restituire \"invalid\"."
+    },
+    "isoscelesSecondInequality": {
+      "name": "Isoscele con lati non validi (1, 3, 1)",
+      "description": "Un triangolo con lati troppo corti dovrebbe restituire \"invalid\"."
+    },
+    "isoscelesThirdInequality": {
+      "name": "Isoscele con lati non validi (3, 1, 1)",
+      "description": "Un triangolo con lati troppo corti dovrebbe restituire \"invalid\"."
+    },
+    "scaleneTriangleInequality": {
+      "name": "Scaleno con lati non validi (7, 3, 2)",
+      "description": "Un triangolo con lati troppo corti dovrebbe restituire \"invalid\"."
+    },
+    "validEquilateral": {
+      "name": "Triangolo equilatero (2, 2, 2)",
+      "description": "Un triangolo con tutti i lati uguali dovrebbe restituire \"equilateral\"."
+    },
+    "validIsoscelesFirstTwoEqual": {
+      "name": "Triangolo isoscele (4, 4, 3)",
+      "description": "Un triangolo con i primi due lati uguali dovrebbe restituire \"isosceles\"."
+    },
+    "validIsoscelesLastTwoEqual": {
+      "name": "Triangolo isoscele (3, 4, 4)",
+      "description": "Un triangolo con gli ultimi due lati uguali dovrebbe restituire \"isosceles\"."
+    },
+    "validIsoscelesFirstAndLastEqual": {
+      "name": "Triangolo isoscele (4, 3, 4)",
+      "description": "Un triangolo con il primo e l'ultimo lato uguali dovrebbe restituire \"isosceles\"."
+    },
+    "validScalene": {
+      "name": "Triangolo scaleno (5, 4, 6)",
+      "description": "Un triangolo con tutti i lati diversi dovrebbe restituire \"scalene\"."
+    }
+  },
+  "hints": {
+    "whatMakesInvalid": {
+      "question": "Cosa rende un triangolo non valido?",
+      "answer": "Due cose. Prima, se un lato è zero. Seconda, se la somma di due lati qualsiasi è minore o uguale al terzo (la disuguaglianza triangolare). Controlla prima questo, perché non ha senso classificare una forma che in realtà non è un triangolo."
+    },
+    "checkOrder": {
+      "question": "In che ordine dovrei controllare le categorie?",
+      "answer": "Prima la più specifica: equilatero (tutti e tre i lati uguali), poi isoscele (due lati qualsiasi uguali), poi tutto il resto è scaleno. Farle nell'ordine sbagliato significa che i triangoli equilateri vengono classificati erroneamente come isosceli."
+    },
+    "checkAnyTwoEqual": {
+      "question": "Come controllo se due lati qualsiasi sono uguali per un triangolo isoscele?",
+      "answer": "Tre confronti: a === b, b === c, o a === c. Basta che uno di questi sia vero."
+    },
+    "knowScalene": {
+      "question": "Come faccio a sapere che è scaleno?",
+      "answer": "Se hai escluso non valido, equilatero e isoscele, scaleno è l'unica cosa rimasta. Restituiscilo senza ulteriori controlli."
+    }
+  },
+  "functions": {}
+}

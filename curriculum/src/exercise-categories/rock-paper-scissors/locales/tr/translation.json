@@ -1,0 +1,11 @@
+{
+  "errors": {
+    "invalidResult": "Eyvah! Geçersiz bir sonuç duyurdunuz. Oyun salonunda kargaşa çıktı! \"Yuki\", \"Ando\" veya \"tie\" sonuçlarından birini duyurun.",
+    "wrongResult": "Eyvah! Yanlış sonucu duyurdunuz. Oyun salonunda kargaşa çıktı!\n\n`\"{{expected}}\"` duyurmanız gerekirken `\"{{got}}\"` duyurdunuz."
+  },
+  "describers": {
+    "announceResult": "oyunun sonucunu ${arg1} olarak duyurdu",
+    "getYukiChoice": "Yuki'nin seçimini döndürdü",
+    "getAndoChoice": "Ando'nun seçimini döndürdü"
+  }
+}

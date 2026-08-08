@@ -1,0 +1,80 @@
+{
+  "errors": {
+    "hourNotNumber": "<code>hour</code> 必须是数字",
+    "minutesNotNumber": "<code>minutes</code> 必须是数字",
+    "indicatorNotString": "<code>indicator</code> 必须是字符串"
+  },
+  "checks": {
+    "notUpdated": "时钟没有被更新。请确保你使用了 <code>displayTime</code> 函数。",
+    "wrongTime": "预期 \"{{expected}}\"，但得到了 \"{{got}}\""
+  },
+  "tasks": {
+    "displayTime": {
+      "name": "在时钟上显示时间",
+      "description": "获取当前小时和分钟，转换为12小时制并附上 am/pm，然后使用 displayTime() 显示。"
+    }
+  },
+  "scenarios": {
+    "morning1": {
+      "name": "清晨",
+      "description": "将 6:35 显示为 \"6:35am\""
+    },
+    "morning2": {
+      "name": "上午",
+      "description": "将 11:04 显示为 \"11:04am\""
+    },
+    "afternoon1": {
+      "name": "午后",
+      "description": "将 12:19 显示为 \"12:19pm\""
+    },
+    "afternoon2": {
+      "name": "深夜",
+      "description": "将 23:32 显示为 \"11:32pm\""
+    },
+    "midnight": {
+      "name": "午夜",
+      "description": "将午夜显示为 \"12:00am\""
+    },
+    "noon": {
+      "name": "正午",
+      "description": "将正午显示为 \"12:00pm\""
+    },
+    "now": {
+      "name": "显示当前时间",
+      "description": "显示当前时间"
+    }
+  },
+  "hints": {
+    "gettingStarted": {
+      "question": "我不知道如何开始",
+      "answer": "使用 `currentTimeHour()` 和 `currentTimeMinute()` 获取当前时间，然后使用 `displayTime(hour, minutes, \"am\")` 并传入它们的值来看看会发生什么。接着找出如何设置正确的午别以及正确的小时显示。"
+    },
+    "meridiem": {
+      "question": "午别是如何工作的？",
+      "answer": "小时 0-11 为 'am'，小时 12-23 为 'pm'。午夜（小时 0）应显示为 12am。正午（小时 12）应显示为 12pm。"
+    },
+    "hourChange": {
+      "question": "何时以及为什么小时需要改变？",
+      "answer": "在12小时制时钟上，13:00 表示为 1:00pm，14:00 表示为 2:00pm，因此你需要找出 13->1 和 14->2 等之间的关系，并相应地调整时钟！"
+    }
+  },
+  "describers": {
+    "currentTimeHour": "获取了当前小时",
+    "currentTimeMinute": "获取了当前分钟",
+    "displayTime": "在时钟上显示了时间"
+  },
+  "functions": {
+    "currentTimeHour": {
+      "description": "返回24小时制下的当前小时数（例如 23 表示晚上11点），结果是一个数字。",
+      "category": "时间"
+    },
+    "currentTimeMinute": {
+      "description": "返回当前分钟数，结果是一个数字。",
+      "category": "时间"
+    },
+    "displayTime": {
+      "description": "在数字时钟上显示时间。指示符应为 \"am\" 或 \"pm\"。",
+      "category": "动作"
+    }
+  }
+}

@@ -1,21 +1,22 @@
 ---
-title: "Triangle"
-description: "Classify a triangle as equilateral, isosceles or scalene."
+title: "Háromszög"
+description: "Határozd meg, hogy a háromszög egyenlő oldalú, egyenlő szárú vagy általános."
+en_md5: 15574e7bfbdfaffbd935bf6bba258e63
 ---
 
-Your task is to create a function that checks whether a triangle is equilateral, isosceles, scalene, or invalid.
+A feladatod egy olyan függvény létrehozása, amely ellenőrzi, hogy egy háromszög egyenlő oldalú, egyenlő szárú, általános vagy érvénytelen-e.
 
-### Triangles
+### Háromszögek
 
-- An _equilateral_ triangle has all three sides the same length.
-- An _isosceles_ triangle has two sides the same length.
-- A _scalene_ triangle has all sides of different lengths.
+- Az _egyenlő oldalú_ háromszög mindhárom oldala egyenlő hosszúságú.
+- Az _egyenlő szárú_ háromszögnek két oldala egyenlő hosszúságú.
+- Az _általános_ háromszög mindhárom oldala különböző hosszúságú.
 
-For a triangle to be valid:
+A háromszög akkor érvényes, ha:
 
-- All sides have to be greater than 0
-- If you add together any two sides, the total must be larger than the third side.
+- Minden oldal nagyobb, mint 0
+- Bármely két oldal összege nagyobb, mint a harmadik oldal.
 
-### The function
+### A függvény
 
-The function must be called `determineTriangleType`. It must take three inputs, which will be numbers for the three sides of the triangle. It must return one of `"invalid"`, `"equilateral"`, `"isosceles"` or `"scalene"`.
+A függvény neve `determineTriangleType` (háromszög típusának meghatározása). Három bemenetet vár, ezek a háromszög három oldalának hosszát megadó számok. A visszatérési értéke a következők egyike: `"invalid"`, `"equilateral"`, `"isosceles"` vagy `"scalene"`.

@@ -1,0 +1,62 @@
+{
+  "tasks": {
+    "countNucleotide": {
+      "name": "뉴클레오타이드 개수 세기",
+      "description": "특정 뉴클레오타이드(A, C, G, T)가 DNA 가닥에서 몇 번 등장하는지 세는 함수를 만들어요. 뉴클레오타이드가 유효하지 않거나 가닥에 유효하지 않은 문자가 있으면 -1을 반환해요."
+    }
+  },
+  "scenarios": {
+    "nucleotideEmptyStrand": {
+      "name": "빈 가닥",
+      "description": "빈 가닥의 경우, 유효한 뉴클레오타이드라면 0을 반환해요."
+    },
+    "nucleotideSingleMatch": {
+      "name": "단일 뉴클레오타이드 가닥",
+      "description": "대상 뉴클레오타이드와 일치하는 한 글자 가닥은 1을 반환해요."
+    },
+    "nucleotideRepeated": {
+      "name": "반복된 뉴클레오타이드",
+      "description": "반복된 뉴클레오타이드로 이루어진 가닥의 경우, 모두 세어 반환해요."
+    },
+    "nucleotideMixedStrandA": {
+      "name": "혼합 가닥에서 A 개수 세기",
+      "description": "혼합 가닥에서 특정 뉴클레오타이드의 개수를 세어요."
+    },
+    "nucleotideMixedStrandT": {
+      "name": "혼합 가닥에서 T 개수 세기",
+      "description": "같은 가닥에서 다른 뉴클레오타이드의 개수를 세어요."
+    },
+    "nucleotideInvalidNucleotide": {
+      "name": "유효하지 않은 뉴클레오타이드",
+      "description": "유효하지 않은 뉴클레오타이드 문자이면 -1을 반환해요."
+    },
+    "nucleotideInvalidStrand": {
+      "name": "유효하지 않은 가닥",
+      "description": "유효하지 않은 문자가 포함된 가닥은 -1을 반환해요."
+    }
+  },
+  "hints": {
+    "checkValid": {
+      "question": "찾으라는 문자가 유효한지 어떻게 확인하나요?",
+      "answer": "문자열에는 하나의 문자열이 다른 문자열 안에 나타나는지 알려주는 `includes()` 메서드가 있어요. 이걸로 어떤 문자가 유효한 뉴클레오타이드 중 하나인지 쉽게 확인할 수 있어요. 개수를 세기 전에 먼저 유효성을 확인해요."
+    },
+    "invalidNucleotide": {
+      "question": "뉴클레오타이드가 유효하지 않으면 어떻게 하나요?",
+      "answer": "바로 `-1`을 반환해요. 문제에서는 이 값을 사용해 유효하지 않은 입력을 알려요."
+    },
+    "countOccurrences": {
+      "question": "가닥에서 몇 번 나오는지 어떻게 세나요?",
+      "answer": "가닥의 각 문자를 순회하며 반복문을 돌아요. 확인하려는 뉴클레오타이드와 일치하면 카운터에 1을 더해요. 마지막에 카운터를 반환해요."
+    },
+    "validateStrand": {
+      "question": "가닥도 유효성을 확인해야 하나요?",
+      "answer": "네. 가닥에 유효하지 않은 문자가 하나라도 있으면 `-1`을 반환해요. 개수를 세기 전에 각 문자를 확인해요."
+    }
+  },
+  "functions": {
+    "includes": {
+      "description": "문자열에 다른 문자열이 포함되어 있는지 확인해요 (레벨 표준 라이브러리에서 제공).",
+      "category": "문자열 연산"
+    }
+  }
+}

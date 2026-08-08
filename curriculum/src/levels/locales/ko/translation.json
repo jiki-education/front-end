@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "함수 사용하기"
+  },
+  "strings-and-colors": {
+    "title": "문자열과 색"
+  },
+  "repeat-loop": {
+    "title": "반복문"
+  },
+  "variables": {
+    "title": "변수"
+  },
+  "basic-state": {
+    "title": "기본 상태"
+  },
+  "functions-that-return-things": {
+    "title": "값을 돌려주는 함수"
+  },
+  "conditionals": {
+    "title": "조건문"
+  },
+  "complex-conditionals": {
+    "title": "복잡한 조건문"
+  },
+  "conditionals-and-state": {
+    "title": "조건문과 상태"
+  },
+  "make-your-own-functions": {
+    "title": "나만의 함수 만들기"
+  },
+  "string-manipulation": {
+    "title": "문자열 다루기"
+  },
+  "string-iteration": {
+    "title": "문자열 반복하기"
+  },
+  "multiple-functions": {
+    "title": "여러 함수 함께 쓰기"
+  },
+  "methods-and-properties": {
+    "title": "메서드와 속성"
+  },
+  "advanced-loops": {
+    "title": "고급 반복문"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "딕셔너리"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "모든 것"
+  }
+}

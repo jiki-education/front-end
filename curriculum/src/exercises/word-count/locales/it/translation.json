@@ -1,0 +1,94 @@
+{
+  "tasks": {
+    "basicWordCounting": {
+      "name": "Casi base",
+      "description": "Scrivi una funzione countWords che riceve una frase e restituisce un dizionario con ogni parola come chiave e la sua frequenza come valore. Gestisci spazi, virgole, punteggiatura e numeri."
+    },
+    "caseNormalization": {
+      "name": "Normalizzazione di maiuscole e minuscole",
+      "description": "Assicurati che la tua funzione gestisca correttamente le parole con maiuscole e minuscole miste, tratti gli apostrofi come parte delle parole e gestisca gli spazi multipli."
+    },
+    "bonusApostrophes": {
+      "name": "Bonus: apostrofi e citazioni",
+      "description": "Gestisci i casi limite in cui gli apostrofi sono usati come virgolette intorno alle parole, non come parte di una contrazione. Vanno mantenuti solo gli apostrofi in mezzo a una parola."
+    }
+  },
+  "scenarios": {
+    "wordCountSingleWord": {
+      "name": "Conta una parola",
+      "description": "Conta una singola parola."
+    },
+    "wordCountMultipleUniqueWords": {
+      "name": "Conta un'occorrenza per parola",
+      "description": "Conta un'occorrenza di ogni parola in una frase."
+    },
+    "wordCountMultipleOccurrences": {
+      "name": "Occorrenze multiple",
+      "description": "Conta più occorrenze di una parola."
+    },
+    "wordCountCrampedList": {
+      "name": "Lista compatta",
+      "description": "Gestisci liste con formattazione compatta."
+    },
+    "wordCountIgnorePunctuation": {
+      "name": "Ignora la punteggiatura",
+      "description": "Ignora la punteggiatura mentre conti le parole."
+    },
+    "wordCountIncludeNumbers": {
+      "name": "Includi i numeri",
+      "description": "Conta le parole includendo i numeri."
+    },
+    "wordCountNormalizeCase": {
+      "name": "Normalizza maiuscole e minuscole",
+      "description": "Conta le parole senza distinzione tra maiuscole e minuscole."
+    },
+    "wordCountWithApostrophes": {
+      "name": "Parole con apostrofi",
+      "description": "Gestisci correttamente le parole con apostrofi."
+    },
+    "wordCountMultipleSpaces": {
+      "name": "Spazi multipli",
+      "description": "Gestisci correttamente gli spazi multipli."
+    },
+    "wordCountWithApostrophesAndQuotations": {
+      "name": "Parole con apostrofi e citazioni",
+      "description": "Gestisci parole con apostrofi e citazioni."
+    },
+    "wordCountApostropheWordVariation": {
+      "name": "Varianti di parole con apostrofo",
+      "description": "Conta correttamente le varianti di parole con apostrofi."
+    }
+  },
+  "hints": {
+    "caseInsensitive": {
+      "question": "Come faccio a contare senza distinzione tra maiuscole e minuscole?",
+      "answer": "Converti tutta la frase in minuscolo una volta all'inizio. Così 'The' e 'the' diventano entrambe 'the' e il tuo dizionario le conterà insieme."
+    },
+    "splitWords": {
+      "question": "Come faccio a dividere la frase in parole?",
+      "answer": "Scorri ogni carattere. Se è una lettera, una cifra o un apostrofo, fa parte della parola corrente, quindi aggiungilo. Altrimenti (spazio, punteggiatura), la parola è finita: aggiungila al tuo array di parole e ricomincia da capo."
+    },
+    "countEachWord": {
+      "question": "Come faccio a contare ogni parola?",
+      "answer": "Usa un dizionario con le parole come chiavi. Per ogni parola, controlla se esiste già come chiave. Se sì, aggiungi 1 al suo conteggio. Se no, impostalo a 1."
+    },
+    "checkKeyExists": {
+      "question": "Come faccio a controllare se una chiave esiste già?",
+      "answer": "Usa `hasKey(dict, word)`. Restituisce true se quella parola è già nel dizionario."
+    }
+  },
+  "functions": {
+    "toLowerCase": {
+      "description": "Converte una stringa in minuscolo (fornita dalla libreria standard del livello)",
+      "category": "Operazioni sulle stringhe"
+    },
+    "push": {
+      "description": "Aggiunge un elemento a un array e restituisce il nuovo array (fornita dalla libreria standard del livello)",
+      "category": "Operazioni sugli array"
+    },
+    "hasKey": {
+      "description": "Controlla se una chiave esiste in un dizionario, restituisce true o false (fornita dalla libreria standard del livello)",
+      "category": "Operazioni sui dizionari"
+    }
+  }
+}

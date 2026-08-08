@@ -1,0 +1,58 @@
+{
+  "checks": {
+    "frame": "El marco de la casa no es correcto.",
+    "roof": "El techo de la casa no está en la posición correcta.",
+    "leftWindow": "El marco de la ventana izquierda no está colocado correctamente.",
+    "rightWindow": "El marco de la ventana derecha no está colocado correctamente.",
+    "door": "El marco de la puerta no está colocado correctamente.",
+    "doorKnob": "La perilla de la puerta no está colocada correctamente."
+  },
+  "tasks": {
+    "arrangeHouse": {
+      "name": "Ordenar la casa correctamente",
+      "description": "Reordena todas las figuras a sus posiciones correctas para formar una casa. Trabaja cada pieza metódicamente."
+    }
+  },
+  "scenarios": {
+    "drawTheHouse": {
+      "name": "Dibuja la casa",
+      "description": "Coloca todas las figuras en sus posiciones correctas para formar una casa completa."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "¿Por dónde empiezo?",
+      "answer": "Trabaja cada figura en orden: cielo, pasto, marco de la casa, techo, ventanas, puerta, perilla. Asegúrate de que cada una esté bien antes de pasar a la siguiente."
+    },
+    "coordinates": {
+      "question": "¿Cómo funcionan las coordenadas?",
+      "answer": "Las coordenadas del lienzo van de (0,0) en la esquina superior izquierda a (100,100) en la esquina inferior derecha. Para los rectángulos, izquierda y arriba corresponden a la esquina superior izquierda."
+    },
+    "roofPosition": {
+      "question": "¿Cómo determino la posición del techo?",
+      "answer": "El techo es un triángulo que se asienta encima del marco de la casa. Piensa en dónde deben estar los puntos base izquierdo y derecho considerando el saliente, y dónde queda la punta."
+    },
+    "windowPosition": {
+      "question": "¿Cómo coloco las ventanas?",
+      "answer": "Cada ventana está desplazada respecto a los bordes del marco de la casa. Usa la posición y el tamaño del marco junto con los valores de separación para calcular la esquina superior izquierda de cada ventana."
+    },
+    "centerDoor": {
+      "question": "¿Cómo centro la puerta?",
+      "answer": "Para centrar algo dentro de una figura más grande, piensa en el espacio sobrante. Si la casa es más ancha que la puerta, el espacio se divide en partes iguales a cada lado."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dibuja un rectángulo en la posición (izquierda, arriba) con el ancho, la altura y el color dados.",
+      "category": "Dibujar Figuras"
+    },
+    "circle": {
+      "description": "Dibuja un círculo centrado en (centerX, centerY) con el radio y el color dados.",
+      "category": "Dibujar Figuras"
+    },
+    "triangle": {
+      "description": "Dibuja un triángulo con tres puntos de esquina y un color.",
+      "category": "Dibujar Figuras"
+    }
+  }
+}

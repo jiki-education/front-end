@@ -1,0 +1,55 @@
+{
+  "errors": {
+    "needsRecharge": "Le robot doit se recharger après avoir vendu.",
+    "sellBeforeAnythingElse": "Le robot doit aller vendre avant de faire quoi que ce soit d'autre.",
+    "sellNumber": "Tu ne peux vendre qu'un nombre de pépites"
+  },
+  "checks": {
+    "notSold": "Tu n'as pas vendu tes pépites. Pense à appeler <code>sell()</code> après avoir orpaillé.",
+    "wrongSoldTotal": "Il fallait vendre {{expectedTotal}} pépites ({{panValues}}), mais tu en as vendu {{got}}. Vérifie que tu ajoutes le résultat de chaque batée à ton total."
+  },
+  "tasks": {
+    "panAndSell": {
+      "name": "Cherche de l'or et vends ta récolte",
+      "description": "Orpaille 5 fois pour récolter des pépites d'or, garde le compte au fur et à mesure, puis vends tout au comptoir."
+    }
+  },
+  "scenarios": {
+    "randomPans": {
+      "name": "Orpaille et vends",
+      "description": "Orpaille 5 fois, avec à chaque fois un nombre aléatoire de pépites, puis vends le total."
+    }
+  },
+  "hints": {
+    "wrongSellAmount": {
+      "question": "On me dit que je ne vends pas la bonne quantité d'or.",
+      "answer": "Tu dois vendre TOUT l'or trouvé au cours des 5 batées en une seule fois, à la fin, et non vendre après chaque batée."
+    },
+    "trackingTotal": {
+      "question": "J'utilise pan plusieurs fois, mais je ne sais pas comment garder le compte de ce que j'ai.",
+      "answer": "Repense à ce que tu as appris dans les dernières leçons vidéo. Tu dois utiliser une variable pour garder le compte de la quantité **totale** d'or récoltée sur **l'ensemble** des batées."
+    },
+    "fiveLines": {
+      "question": "Mon code fonctionne, mais je n'arrive pas à descendre à 5 lignes.",
+      "answer": "Est-ce qu'il y a du code qui se répète dans ta solution ? Si oui, qu'est-ce qu'on peut utiliser pour éviter cette répétition ?"
+    },
+    "stillFiveLines": {
+      "question": "Je n'arrive toujours pas à descendre à 5 lignes de code.",
+      "answer": "Une seule variable devrait suffire. En utilises-tu plus ?"
+    }
+  },
+  "describers": {
+    "pan": "a orpaillé et trouvé ${return} pépites",
+    "sell": "a vendu ${arg1} pépites au comptoir"
+  },
+  "functions": {
+    "pan": {
+      "description": "Plonge ta batée dans la rivière et **renvoie** le nombre de pépites d'or trouvées.",
+      "category": "Orpaillage"
+    },
+    "sell": {
+      "description": "Vend tes pépites d'or au comptoir.",
+      "category": "Action"
+    }
+  }
+}

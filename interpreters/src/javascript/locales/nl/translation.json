@@ -1,0 +1,268 @@
+{
+  "error": {
+    "syntax": {
+      "InvalidAssignmentTargetExpression": "Ongeldig toewijzingsdoel. Je kunt alleen waarden aan variabelen toewijzen.",
+      "AssignmentInExpression": "Je bedoelde hier waarschijnlijk `===` in plaats van `=`, om twee waarden te vergelijken in plaats van de variabele bij te werken. Een variabele toewijzen binnen een statement is in deze editor niet toegestaan.",
+      "StrictEqualityRequired": "Verander `==` in `===`.\n\nIn volledig JavaScript kun je zowel `==` als `===` gebruiken om te kijken of twee dingen gelijk zijn. Het wordt echter algemeen als best practice gezien om `===` te gebruiken, dus hebben we `==` in Jiki uitgeschakeld.",
+      "StrictInequalityRequired": "Verander `!=` in `!==`.\n\nIn volledig JavaScript kun je zowel `!=` als `!==` gebruiken om te kijken of twee dingen verschillend zijn. Het wordt echter algemeen als best practice gezien om `!==` te gebruiken, dus hebben we `!=` in Jiki uitgeschakeld.",
+      "MissingBacktickToTerminateTemplateLiteral": "Ben je een backtick aan het einde vergeten? Misschien bedoelde je:\n\n``` `{{string}}` ```",
+      "QuoteUsedToTerminateTemplateLiteral": "Heb je `{{quote}}` gebruikt in plaats van een backtick `` ` `` om de template string af te sluiten? Misschien bedoelde je:\n\n``` `{{string}}` ```",
+      "MissingDoubleQuoteToTerminateString": "Ben je het aanhalingsteken aan het einde vergeten? Misschien bedoelde je:\n\n```\"{{string}}\"```",
+      "MissingExpression": "Jiki begreep niet wat hij hier met {{token}} moest doen.",
+      "MissingClassNameAfterNew": "Jiki verwachtte de naam van een class na `new`, maar vond er geen.",
+      "UnexpectedElseWithoutMatchingIf": "Er is geen `if`-statement waar deze `else` op volgt. Controleer of je hierboven niet te veel (of te weinig) sluitende accolades hebt.",
+      "MissingInitializerInConstDeclaration": "Er ontbreekt een beginwaarde in de const-declaratie. Constanten moeten een waarde krijgen op het moment dat je ze declareert.",
+      "MissingInitializerInVariableDeclaration": "Er ontbreekt een beginwaarde in de variabeledeclaratie. Je moet een waarde opgeven wanneer je een variabele declareert met `let`.",
+      "ConstInForLoopInit": "Je kunt `const` niet gebruiken in een C-stijl for-loop. De lusvariabele moet aangepast kunnen worden (bijv. i++), maar const-variabelen kunnen niet veranderen. Gebruik in plaats daarvan `let`, of overweeg een for...of-loop als je over een array itereert.",
+      "MissingLetInForOf": "Je moet de lusvariabele declareren met `let`. Schrijf bijvoorbeeld `for (let {{name}} of ...)` in plaats van `for ({{name}} of ...)`.\n\nIn volledig JavaScript mag je de `let` weglaten als je de variabele al eerder gedeclareerd hebt, maar dat is een ongebruikelijke situatie en we hebben het in deze versie van de taal uitgeschakeld.",
+      "MissingLetInForIn": "Je moet de lusvariabele declareren met `let`. Schrijf bijvoorbeeld `for (let {{name}} in ...)` in plaats van `for ({{name}} in ...)`.\n\nIn volledig JavaScript mag je de `let` weglaten als je de variabele al eerder gedeclareerd hebt, maar dat is een ongebruikelijke situatie en we hebben het in deze versie van de taal uitgeschakeld.",
+      "MissingLetInForLoopInit": "Je moet de lusvariabele declareren met `let`. Schrijf bijvoorbeeld `for (let i = 0; ...)` in plaats van `for (i = 0; ...)`.\n\nIn volledig JavaScript mag je de `let` weglaten als je de variabele al eerder gedeclareerd hebt, maar dat is een ongebruikelijke situatie en we hebben het in deze versie van de taal uitgeschakeld.",
+      "UnexpectedDoubleIdentifier": "Jiki begreep niet wat je wilde dat hij hier deed.",
+      "MissingDeclarationKeywordWithSuggestion": "Bedoelde je `{{suggestion}}` in plaats van `{{name}}`? Variabeledeclaraties moeten beginnen met `let` of `const`.",
+      "MissingLeftParenthesisAfterIf": "Er ontbreekt een openend haakje `(` na het sleutelwoord `if`.",
+      "MissingRightBraceAfterBlock": "Er ontbreekt een sluitende accolade `}` na het codeblok.",
+      "MissingRightBraceInTemplateLiteral": "Jiki kon geen sluitende accolade (`}`) vinden in deze template literal. Controleer of je hem niet vergeten bent of een typfout hebt gemaakt. De juiste vorm is ``` `...${...}...` ```.",
+      "MissingRightBracketInArray": "Er ontbreekt een sluitende vierkante haak `]` om de array af te sluiten.",
+      "MissingRightBracketInMemberAccess": "Er ontbreekt een sluitende vierkante haak `]` na de array-index.",
+      "MissingRightParenthesisAfterExpression": "Er ontbreekt een sluitend haakje `)` na de expressie.",
+      "MissingRightParenthesisAfterIfCondition": "Er ontbreekt een sluitend haakje `)` na de if-voorwaarde.",
+      "MissingRightParenthesisAfterFunctionCall": "Ben je het sluitende haakje `)` vergeten bij het aanroepen van de functie {{function}}?",
+      "MissingEndOfLine": "Jiki verwachtte hier geen `{{current}}` na de `{{previous}}`.",
+      "MissingVariableName": "Er ontbreekt een variabelenaam in de declaratie. Je moet een naam opgeven na `let`.",
+      "MultipleStatementsPerLine": "In Jiki mag je maar één statement per regel zetten. Je kunt niet meerdere statements scheiden met puntkomma's. Zet het tweede statement op een eigen regel.",
+      "TrailingCommaInArray": "Een komma aan het einde is niet toegestaan in arrays.",
+      "TrailingCommaInDictionary": "Een komma aan het einde is niet toegestaan in objecten.",
+      "InvalidDictionaryKey": "Ongeldige objectsleutel. Sleutels moeten identifiers, strings of getallen zijn.",
+      "MissingColonInDictionary": "Er ontbreekt een dubbele punt `:` na de objectsleutel.",
+      "DuplicateDictionaryKey": "De sleutel `{{key}}` komt twee keer voor in het object.",
+      "MissingRightBraceInDictionary": "Er ontbreekt een sluitende accolade `}` om het object af te sluiten.",
+      "UnimplementedToken": "De feature `{{lexeme}}` is op jouw huidige niveau nog niet beschikbaar.",
+      "PermanentlyExcludedToken": "De feature `{{lexeme}}` is niet beschikbaar in deze versie van JavaScript.",
+      "UnknownCharacter": "Jiki begreep niet wat hij hier met {{character}} moest doen.",
+      "UnterminatedBlockComment": "Jiki kon de `*/` niet vinden die nodig is om dit blokcommentaar af te sluiten.",
+      "NestedFunctionDeclaration": "Functiedeclaraties zijn alleen toegestaan op het hoogste niveau, niet binnen blokken of andere functies.",
+      "MissingFunctionName": "Er ontbreekt een functienaam na het sleutelwoord `function`.",
+      "MissingLeftParenthesisAfterFunctionName": "Er ontbreekt een openend haakje `(` na de functienaam.",
+      "MissingParameterName": "Er ontbreekt een parameternaam in de functiedeclaratie.",
+      "DuplicateParameterName": "De parameternaam `{{name}}` komt twee keer voor in de functiedeclaratie.",
+      "MissingRightParenthesisAfterParameters": "Er ontbreekt een sluitend haakje `)` na de parameters van de functie.",
+      "MissingLeftBraceBeforeFunctionBody": "Er ontbreekt een openende accolade `{` vóór de body van de functie.",
+      "BreakStatementNotAllowed": "In deze opdracht mag je van Jiki geen `break` gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "ContinueStatementNotAllowed": "In deze opdracht mag je van Jiki geen `continue` gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "FunctionDeclarationNotAllowed": "In deze opdracht mag je van Jiki geen eigen functies maken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "ReturnStatementNotAllowed": "In deze opdracht mag je van Jiki geen `return` gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "RepeatStatementNotAllowed": "In deze opdracht mag je van Jiki geen `repeat` gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "UpdateExpressionNotAllowed": "In deze opdracht mag je van Jiki geen `++` of `--` gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "LiteralExpressionNotAllowed": "In deze opdracht mag je van Jiki geen losse waarden zoals getallen, strings en booleans gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "BinaryExpressionNotAllowed": "In deze opdracht mag je van Jiki geen operatoren zoals `+`, `-` of `>` gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "LogicalExpressionNotAllowed": "In deze opdracht mag je van Jiki geen logische operatoren zoals `&&` of `||` gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "UnaryExpressionNotAllowed": "In deze opdracht mag je van Jiki geen `-` of `!` vóór een waarde zetten. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "GroupingExpressionNotAllowed": "In deze opdracht mag je van Jiki geen ronde haakjes gebruiken om dingen te groeperen. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "IdentifierExpressionNotAllowed": "In deze opdracht mag je van Jiki de waarde van een variabele niet gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "AssignmentExpressionNotAllowed": "In deze opdracht mag je van Jiki geen variabele veranderen. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "TemplateLiteralExpressionNotAllowed": "In deze opdracht mag je van Jiki geen template strings met backticks gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "ArrayExpressionNotAllowed": "In deze opdracht mag je van Jiki geen arrays gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "IndexExpressionNotAllowed": "In deze opdracht mag je van Jiki geen items opzoeken met vierkante haakjes. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "MemberExpressionNotAllowed": "In deze opdracht mag je van Jiki geen punt gebruiken om een eigenschap te lezen. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "DictionaryExpressionNotAllowed": "In deze opdracht mag je van Jiki geen objecten maken met accolades. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "CallExpressionNotAllowed": "In deze opdracht mag je van Jiki geen functieaanroepen gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "ExpressionStatementNotAllowed": "In deze opdracht mag je van Jiki geen regel schrijven waar alleen een expressie op staat. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "VariableDeclarationNotAllowed": "In deze opdracht mag je van Jiki geen variabelen maken met `let`. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "BlockStatementNotAllowed": "In deze opdracht mag je van Jiki geen regels code groeperen binnen `{ }`. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "IfStatementNotAllowed": "In deze opdracht mag je van Jiki geen `if` gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "ForStatementNotAllowed": "In deze opdracht mag je van Jiki geen C-stijl `for`-loops gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "ForOfStatementNotAllowed": "In deze opdracht mag je van Jiki geen `for…of`-loops gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "WhileStatementNotAllowed": "In deze opdracht mag je van Jiki geen `while`-loops gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "UnexpectedTokenInTemplateLiteral": "Jiki verwachtte hier geen {{token}}.",
+      "MissingLeftParenAfterRepeat": "Er ontbreekt een openend haakje `(` na `repeat`.",
+      "MissingRightParenAfterRepeatCount": "Er ontbreekt een sluitend haakje `)` na het aantal herhalingen.",
+      "ForInStatementNotAllowed": "In deze opdracht mag je van Jiki geen `for…in`-loops gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "NewExpressionNotAllowed": "In deze opdracht mag je van Jiki geen `new` gebruiken. Probeer de opdracht op te lossen met alleen de ideeën die we in de lessen behandeld hebben.",
+      "BlockRequired": "Je moet accolades { } gebruiken na `{{keyword}}`."
+    },
+    "lint": {
+      "ClosingBraceNotOnOwnLine": "Zet de sluitende accolade `}` op een eigen regel om je code netjes te houden.",
+      "OpeningBraceContentNotOnOwnLine": "Zet de code binnen de accolades op een nieuwe regel om je code netjes te houden.",
+      "IncorrectIndentation": "Jiki verwachtte hier {{expected}} spaties inspringing, maar deze regel is met {{actual}} spaties ingesprongen.\n\nDoor je code goed in te laten springen voorkom je veel bugs, omdat je veel duidelijker ziet hoe de code genest is.",
+      "IncorrectIndentationAtTopLevel": "Jiki verwachtte {{expected}} spaties inspringing aan het begin van de regel, maar die zijn er niet.\n\nDoor je code goed in te laten springen voorkom je veel bugs, omdat je veel duidelijker ziet hoe de code genest is."
+    },
+    "runtime": {
+      "FunctionExecutionError": "Fout bij het uitvoeren van de functie `{{function}}`: {{message}}",
+      "IndexOutOfRange": "Deze array heeft maar {{length}} elementen, maar je probeerde index {{index}} te gebruiken. Onthoud dat het eerste element in JavaScript index 0 heeft.",
+      "StringIndexOutOfRange": "Deze string heeft maar {{length}} tekens, maar je probeerde index {{index}} te gebruiken. Onthoud dat het eerste teken in JavaScript index 0 heeft.",
+      "ComparisonWithUndefined": "Je probeerde twee waarden te vergelijken, maar één daarvan had geen waarde. Dit zou in Jiki niet mogelijk moeten zijn, dus open alsjeblieft een topic op het forum met je code, zodat we het kunnen onderzoeken.",
+      "ComparisonWithUndefinedFromFunction": "Je probeerde het resultaat te vergelijken van een functie die niets teruggaf. Zorg dat de functie `{{name}}` in alle situaties een waarde teruggeeft voordat je het resultaat ervan vergelijkt.",
+      "AssignmentToUndefined": "Je probeerde een waarde op te slaan die op niets is ingesteld. Een variabele moet altijd een echte waarde bevatten.",
+      "AssignmentToUndefinedFromFunction": "Je probeerde het resultaat op te slaan van een functie die niets teruggeeft. Zorg dat de functie een waarde teruggeeft voordat je het resultaat opslaat.",
+      "UpdateOperatorRequiresNumber": "Jiki kan {{operator}} niet gebruiken op een {{type}}, alleen op getallen.",
+      "PropertyNotFound": "De eigenschap `{{property}}` bestaat niet op {{type}}.",
+      "MethodUsedWithoutParentheses": "De eigenschap `{{property}}` bestaat niet op {{type}}. Bedoelde je de methode `{{property}}`? Zo ja, vergeet dan niet om haakjes toe te voegen, net als bij een gewone functie.",
+      "ShadowingDisabled": "Shadowing van variabelen is uitgeschakeld. De variabele `{{name}}` is al gedeclareerd in een omliggende scope.",
+      "VariableAlreadyDeclared": "De variabele `{{name}}` is al gedeclareerd in deze scope. Gebruik een andere naam of wijs een waarde toe aan de bestaande variabele.",
+      "AssignmentToConstant": "Je kunt de constante `{{name}}` niet opnieuw toewijzen. Constanten kunnen niet veranderen nadat ze gedeclareerd zijn.",
+      "TruthinessDisabled": "Alleen booleans zijn toegestaan in voorwaarden, maar Jiki kreeg `{{value}}`.",
+      "ArrayIndexNotNumber": "Je kunt alleen een getal gebruiken als array-index, zoals `myArray[0]`.",
+      "ArrayIndexNotInteger": "Je kunt alleen een geheel getal gebruiken als array-index; kommagetallen zoals `1.5` werken niet.",
+      "StringIndexNotNumber": "Je kunt een teken in een string alleen opzoeken met een getal, zoals `myString[0]`.",
+      "StringIndexNotInteger": "Je kunt een teken in een string alleen opzoeken met een geheel getal; kommagetallen zoals `1.5` werken niet.",
+      "ComputedAccessNotAllowedForStdlib": "Hier moet je een punt gebruiken, zoals `myArray.length`, in plaats van vierkante haakjes.",
+      "ComputedAccessNotAllowedForBuiltin": "Hier moet je een punt gebruiken, zoals `Math.max`, in plaats van vierkante haakjes.",
+      "CannotReadPropertiesOfType": "Je kunt geen eigenschap lezen van een {{type}}.",
+      "CannotSetPropertyOfType": "Je kunt geen eigenschap instellen op een {{type}}.",
+      "BracketNotationNotAllowedOnInstance": "Je kunt geen vierkante haakjes gebruiken op een instantie van een class; gebruik een punt, zoals `myObject.property`.",
+      "NotCallable": "Je kunt {{callableType}} niet als een functie gebruiken en proberen uit te voeren.",
+      "VariableNotDeclared": "Jiki kon geen variabele vinden met de naam `{{name}}`.",
+      "ReturnOutsideFunction": "Je gebruikte het sleutelwoord `return`, maar je zit niet in een functie. Return-statements kunnen alleen binnen functies gebruikt worden.",
+      "BreakOutsideLoop": "Je gebruikte het sleutelwoord `break`, maar je zit niet in een lus. Break-statements kunnen alleen binnen for- of while-loops gebruikt worden.",
+      "ContinueOutsideLoop": "Je gebruikte het sleutelwoord `continue`, maar je zit niet in een lus. Continue-statements kunnen alleen binnen for- of while-loops gebruikt worden.",
+      "ForOfLoopTargetNotIterable": "Een for...of-loop heeft een itereerbare waarde nodig (zoals een array of string), maar je gaf een {{type}} met de waarde {{value}}.",
+      "MethodNotYetImplemented": "De methode `{{method}}` is een geldige methode, maar is nog niet voor je beschikbaar.",
+      "MethodNotYetAvailable": "De methode `{{method}}` is op jouw huidige leerniveau nog niet beschikbaar. Ga zo door om deze feature te ontgrendelen!",
+      "PropertyNotYetAvailable": "De eigenschap `{{property}}` is op jouw huidige leerniveau nog niet beschikbaar. Ga zo door om deze feature te ontgrendelen!",
+      "MaxIterationsReached": "Je code draaide te lang en is gestopt om een oneindige lus te voorkomen. In deze opdracht mogen de lussen maximaal {{max}} keer draaien.",
+      "RepeatCountMustBeNumber": "repeat() heeft een getal nodig, maar kreeg {{type}}.",
+      "RepeatCountMustBeNonNegative": "Het aantal bij repeat() moet 0 of hoger zijn, maar was {{value}}.",
+      "RepeatCountTooHigh": "Het aantal {{value}} bij repeat() is hoger dan het maximum van {{max}} herhalingen.",
+      "FunctionAlreadyDefined": "Er bestaat al een functie met de naam `{{name}}`. Kies een andere naam.",
+      "TypeCoercionNotAllowed": "Automatische typeconversie tussen {{leftType}} en {{rightType}} met de operator `{{operator}}` is niet toegestaan.",
+      "UnaryTypeCoercionNotAllowed": "Automatische typeconversie is niet toegestaan: de operator `{{operator}}` kan niet toegepast worden op een {{operand}}.",
+      "ComparisonRequiresNumber": "De operator `{{operator}}` vereist dat beide waarden getallen zijn.",
+      "NodeNotAllowed": "{{nodeType}} is op jouw huidige leerniveau niet toegestaan.",
+      "InvalidNumberOfArguments_exact": "Deze functie heeft $t(phrases.slotCount, {\"count\": {{expected}} }), maar je gaf Jiki $t(phrases.inputCount, {\"count\": {{got}} }) om daarbij te gebruiken.",
+      "InvalidNumberOfArguments_atLeast": "Deze functie heeft minstens $t(phrases.slotCount, {\"count\": {{expected}} }) nodig, maar je gaf Jiki $t(phrases.inputCount, {\"count\": {{got}} }) om daarbij te gebruiken.",
+      "InvalidNumberOfArguments_range": "Deze functie heeft tussen de {{min}} en {{max}} invoergleuven, maar je gaf Jiki $t(phrases.inputCount, {\"count\": {{got}} }) om daarbij te gebruiken.",
+      "FunctionNotFound": "Jiki kon geen functie vinden met de naam `{{name}}`.",
+      "LogicErrorInExecution": "{{message}}",
+      "ForInLoopTargetNotObject": "Een for...in-loop heeft een object nodig om over te itereren, maar je gaf een {{type}} met de waarde {{value}}.",
+      "InOperatorRequiresObject": "De operator `in` vereist een object/dictionary aan de rechterkant, maar je gaf hem een {{type}}.",
+      "InOperatorRequiresStringKey": "De operator `in` vereist een string als sleutel aan de linkerkant, maar je gaf hem een {{type}}.",
+      "InOperatorRequiresIntegerIndex": "De operator `in` vereist een geheel getal als index wanneer je hem met arrays gebruikt, maar je gaf hem een {{type}}.",
+      "InWithArrayNotAllowed": "Het sleutelwoord `in` kan weliswaar met arrays gebruikt worden, maar dat is een geavanceerdere feature. Gebruik het voorlopig alleen met dictionaries.",
+      "ClassNotFound": "De class `{{name}}` is niet gedefinieerd.",
+      "PropertyNotFoundOnInstance": "De eigenschap `{{property}}` bestaat niet op instanties van `{{className}}`.",
+      "UnexpectedUncalledFunction": "Je verwees naar de functie `{{name}}`, maar je hebt de functie niet echt gebruikt. Ben je vergeten om `()` aan het einde te zetten?"
+    },
+    "disabledLanguageFeature": {
+      "DisabledFeatureExcludeListViolation": "De feature `{{lexeme}}` is op jouw huidige niveau nog niet beschikbaar.",
+      "DisabledFeatureIncludeListViolation": "De feature `{{lexeme}}` is op jouw huidige niveau nog niet beschikbaar."
+    },
+    "stdlib": {
+      "StdlibExactArgs": "Het aantal invoergleuven van {{functionName}}() is {{expected}}, maar je gaf maar {{received}} ding(en) om erin te stoppen.",
+      "StdlibAtLeastArgs": "Het aantal invoergleuven van {{functionName}}() is minstens {{minimum}}, maar je gaf maar {{received}} ding(en) om erin te stoppen.",
+      "StdlibArgRange": "{{functionName}}() heeft tussen de {{min}} en {{max}} invoergleuven, maar je gaf maar {{received}} ding(en) om erin te stoppen.",
+      "StdlibArgTypeMismatch": "{{functionName}}() verwachtte dat {{argName}} een {{expected}} zou zijn, maar je gaf een {{received}}.",
+      "StdlibArgMustBeInteger": "{{functionName}}() verwachtte dat {{argName}} een geheel getal zou zijn, maar je gaf {{value}}.",
+      "MethodNotYetImplemented": "De methode `{{method}}` is een geldige methode, maar is nog niet voor je beschikbaar.",
+      "StdlibRandomIntMinGreaterThanMax": "randomInt() verwachtte dat het eerste getal ({{min}}) kleiner dan of gelijk aan het tweede getal ({{max}}) zou zijn.",
+      "NumberConversionFailed": "Jiki probeerde `{{value}}` om te zetten naar een getal, maar het is geen geldig getal. Voeg wat controles toe voordat je `Number(str)` gebruikt."
+    }
+  },
+  "phrases": {
+    "slotCount_zero": "geen invoergleuven",
+    "slotCount_one": "één invoergleuf",
+    "slotCount_other": "{{count}} invoergleuven",
+    "inputCount_zero": "geen invoerwaarden",
+    "inputCount_one": "één invoerwaarde",
+    "inputCount_other": "{{count}} invoerwaarden"
+  },
+  "description": {
+    "assignmentExpression": {
+      "element_put": "Jiki heeft {{value}} op de plek met index {{index}} in de array gezet.",
+      "variable_found": "Jiki heeft de doos {{name}} gevonden.",
+      "variable_put": "Jiki heeft {{value}} in de doos gedaan."
+    },
+    "binaryExpression": {
+      "evaluated": "Jiki heeft {{expr}} geëvalueerd en vastgesteld dat het {{value}} was."
+    },
+    "breakStatement": {
+      "result": "Door deze regel werd de lus meteen verlaten.",
+      "step": "Jiki zag dit en besloot verder te gaan na deze lus."
+    },
+    "callExpression": {
+      "logResult": "Dit logde <code>{{output}}</code>.",
+      "logResultBlank": "Dit printte een lege regel.",
+      "logStep": "Jiki heeft hier <code>{{output}}</code> voor je geschreven!",
+      "logStepBlank": "Jiki heeft hier een lege regel voor je geschreven!",
+      "summary": "Dit gebruikte de functie {{fn}}.",
+      "used": "Jiki heeft de functie {{call}} gebruikt.",
+      "usedReturned": "Jiki heeft de functie {{call}} gebruikt, die {{value}} teruggaf."
+    },
+    "common": {
+      "defaultFunctionName": "een functie"
+    },
+    "continueStatement": {
+      "result": "Deze regel stopte met het uitvoeren van verdere code in deze iteratie.",
+      "step": "Jiki zag dit en besloot door te gaan naar de volgende iteratie."
+    },
+    "expressionStatement": {
+      "callResult": "Dit gebruikte de functie {{functionName}}.",
+      "result_default": "Deze expressie leverde <code>{{value}}</code> op.",
+      "step_default": "Jiki heeft deze expressie geëvalueerd en kreeg <code>{{value}}</code>."
+    },
+    "forInStatement": {
+      "result_empty": "Het object was leeg, dus deze regel deed niets.",
+      "result_iteration_ordinal_other": "Deze regel startte de {{count}}e iteratie, met de variabele {{name}} ingesteld op {{value}}.",
+      "step_create": "Jiki heeft een nieuwe doos gemaakt met de naam {{name}}.",
+      "step_empty": "Jiki heeft het object gecontroleerd, zag dat het leeg was en besloot verder niets te doen op deze regel.",
+      "step_put": "Jiki heeft {{value}} in de doos gedaan en de doos op de plank gezet, klaar om te gebruiken in het codeblok."
+    },
+    "forOfStatement": {
+      "result_empty": "De {{type}} was leeg, dus deze regel deed niets.",
+      "result_iteration_ordinal_other": "Deze regel startte de {{count}}e iteratie, met de variabele {{name}} ingesteld op {{value}}.",
+      "step_create": "Jiki heeft een nieuwe doos gemaakt met de naam {{name}}.",
+      "step_empty": "Jiki heeft de {{type}} gecontroleerd, zag dat die leeg was en besloot verder niets te doen op deze regel.",
+      "step_put": "Jiki heeft {{value}} in de doos gedaan en de doos op de plank gezet, klaar om te gebruiken in het codeblok."
+    },
+    "identifierExpression": {
+      "lookup": "Jiki heeft de doos met de naam {{name}} van de planken gepakt en er {{value}} uit gehaald."
+    },
+    "ifStatement": {
+      "result_false": "De voorwaarde leverde <code>false</code> op, dus het codeblok werd niet uitgevoerd.",
+      "result_false_else": "De voorwaarde leverde <code>false</code> op, dus het else-blok werd uitgevoerd.",
+      "result_true": "De voorwaarde leverde <code>true</code> op, dus het codeblok werd uitgevoerd.",
+      "step_false": "Het resultaat was <code>false</code>, dus Jiki besloot het if-blok over te slaan.",
+      "step_false_else": "Het resultaat was <code>false</code>, dus Jiki besloot het else-blok uit te voeren.",
+      "step_true": "Het resultaat was <code>true</code>, dus Jiki besloot het if-blok uit te voeren."
+    },
+    "logicalExpression": {
+      "evaluated": "Jiki heeft {{expr}} geëvalueerd en vastgesteld dat het resultaat {{value}} was.",
+      "shortCircuited": "Jiki zag dat de linkerkant van de {{operator}} {{value}} was en nam daarom niet de moeite om naar de rechterkant te kijken."
+    },
+    "memberExpression": {
+      "array": "Jiki heeft het item op index {{index}} in de array gepakt en vastgesteld dat het {{value}} was.",
+      "string": "Jiki heeft het teken op index {{index}} in de string gepakt en vastgesteld dat het {{value}} was."
+    },
+    "repeatStatement": {
+      "foreverResult_ordinal_other": "Deze regel startte de {{count}}e iteratie van dit repeat-blok.",
+      "foreverStep_ordinal_other": "Jiki startte de {{count}}e iteratie van de repeat-loop.",
+      "repeatResult_ordinal_other": "Deze regel startte de {{count}}e iteratie van dit repeat-blok.",
+      "repeatStep": "Jiki verhoogde zijn interne teller voor deze lus naar <code>{{iteration}}</code>, controleerde <code>{{iteration}} &le; {{countValue}}</code> en besloot het codeblok uit te voeren.",
+      "zeroResult": "Het repeat-blok moest <code>0</code> keer draaien, dus deze regel deed niets.",
+      "zeroStep": "Jiki zag dat de lus <code>0</code> keer uitgevoerd moest worden en besloot daarom verder niets te doen op deze regel."
+    },
+    "returnStatement": {
+      "final": "Jiki heeft opgeruimd en de functie verlaten.",
+      "naked_result": "Dit beëindigde de functie. Er werd geen verdere code in de functie uitgevoerd.",
+      "value_chute": "Jiki heeft {{value}} in de resultaatglijbaan gelegd.",
+      "value_result": "Dit gaf {{value}} terug en beëindigde de functie. Er werd geen verdere code in de functie uitgevoerd."
+    },
+    "unaryExpression": {
+      "minus": "Jiki heeft geëvalueerd dat {{expr}} {{value}} is.",
+      "not": "Jiki heeft geëvalueerd dat {{expr}} {{value}} is."
+    },
+    "variableDeclaration": {
+      "result_const": "Dit maakte een nieuwe constante met de naam {{name}} en stelde de waarde in op {{value}}.",
+      "result_let": "Dit maakte een nieuwe variabele met de naam {{name}} en stelde de waarde in op {{value}}.",
+      "result_uninit": "Dit maakte een nieuwe variabele met de naam {{name}}.",
+      "step_create": "Jiki heeft een nieuwe doos gemaakt met de naam {{name}}.",
+      "step_put": "Jiki heeft {{value}} in de doos gedaan.",
+      "step_uninit": "Jiki heeft een nieuwe lege doos gemaakt met de naam {{name}}."
+    },
+    "whileStatement": {
+      "result_false": "De voorwaarde leverde <code>false</code> op, dus de lus stopte.",
+      "result_true": "De voorwaarde leverde <code>true</code> op, dus de body van de lus werd uitgevoerd.",
+      "step_false": "Het resultaat was <code>false</code>, dus Jiki besloot de lus te stoppen.",
+      "step_true": "Het resultaat was <code>true</code>, dus Jiki besloot de body van de lus uit te voeren."
+    }
+  }
+}

@@ -1,42 +1,42 @@
 {
   "checks": {
-    "uniqueColoredCircles": "Expected at least 50 uniquely colored circles. Make sure each circle has a random color.",
-    "uniquePositionedCircles": "Expected at least 30 different positions. Make sure each circle has a random position.",
-    "radiiRange": "All circle radii must be at least 1 and less than 30.",
-    "insideBox": "Circles must not go outside the box. Account for each circle's radius when choosing its position.",
-    "touchEdges": "None of your circles touched the edges of the canvas. If you're confident your code is correct, it might be that the random numbers didn't happen to land a circle exactly on an edge. Try running it again!",
-    "saturationLightnessRange": "Saturation and lightness must both be between 20 and 80."
+    "uniqueColoredCircles": "Legalább 50 különböző színű körre számítottunk. Ügyelj arra, hogy minden kör véletlenszerű színt kapjon.",
+    "uniquePositionedCircles": "Legalább 30 különböző pozícióra számítottunk. Ügyelj arra, hogy minden kör véletlenszerű pozíciót kapjon.",
+    "radiiRange": "Minden kör sugarának legalább 1-nek és 30-nál kisebbnek kell lennie.",
+    "insideBox": "A körök nem mehetnek ki a dobozból. A pozíció kiválasztásakor vedd figyelembe a kör sugarát.",
+    "touchEdges": "Egyik köröd sem érte el a vászon szélét. Ha biztos vagy benne, hogy a kódod rendben van, akkor lehet, hogy a véletlen számok miatt nem került egy kör sem pontosan a szélére. Próbáld újra futtatni!",
+    "saturationLightnessRange": "A telítettség és a világosság értékének is 20 és 80 között kell lennie."
   },
   "tasks": {
     "drawSplodges": {
-      "name": "Draw rainbow splodges",
-      "description": "Draw 200 circles at random positions with random colors."
+      "name": "Szivárványpacák rajzolása",
+      "description": "Rajzolj 200 kört véletlenszerű pozíciókba, véletlenszerű színekkel."
     }
   },
   "scenarios": {
     "rainbowSplodges": {
-      "name": "Rainbow splodges",
-      "description": "Draw 200 randomly colored circles at random positions."
+      "name": "Szivárványpacák",
+      "description": "Rajzolj 200 véletlen színű kört véletlen pozíciókban."
     }
   },
   "hints": {
     "keepCirclesInBox": {
-      "question": "How do I keep the circles inside the box?",
-      "answer": "The order is important. You need to decide on the radius of the circle, then make sure it's left and top positions never allow it to be pushed outside the box."
+      "question": "Hogyan tartsam bent a köröket a dobozban?",
+      "answer": "A sorrend fontos. Először határozd meg a kör sugarát, majd ügyelj arra, hogy a bal és a felső pozíció soha ne engedje, hogy a kör kilógjon a dobozból."
     },
     "circlesEscapingBox": {
-      "question": "I can't keep my circles in the box",
-      "answer": "Remember that a circle's position is its center, so you'll need to account for its radius to keep the whole circle inside. If you currently let a position be as low as 0, the circle's edge will stick out past the box by its radius. So what does that minimum need to change to so the circle never sits outside the box? Then apply the same logic to the maximum."
+      "question": "Nem tudom bent tartani a köröket a dobozban.",
+      "answer": "Ne feledd, hogy a kör pozíciója a középpontját jelöli, ezért a sugarával is számolnod kell, hogy a kör teljes egészében a dobozon belül maradjon. Ha jelenleg a pozíció minimuma 0, akkor a kör széle a sugarával túl lóg a dobozon. Tehát mire kell módosítani ezt a minimumot, hogy a kör soha ne lógjon ki? Majd ugyanezt a logikát alkalmazd a maximumra is."
     }
   },
   "functions": {
     "circle": {
-      "description": "Draw a circle with its center at (centerX, centerY) with the given radius and color",
-      "category": "Drawing Shapes"
+      "description": "Kör rajzolása a megadott középponttal (centerX, centerY), sugárral és színnel.",
+      "category": "Alakzatok rajzolása"
     },
     "hsl": {
-      "description": "Convert HSL color values (hue 0-360, saturation 0-100, lightness 0-100) to a hex color string",
-      "category": "Colors"
+      "description": "HSL színértékek (árnyalat 0-360, telítettség 0-100, világosság 0-100) átalakítása hexadecimális szín karakterlánccá.",
+      "category": "Színek"
     }
   }
 }

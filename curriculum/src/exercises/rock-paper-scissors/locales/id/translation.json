@@ -1,0 +1,94 @@
+{
+  "checks": {
+    "noResult": "Kamu belum mengumumkan hasil!",
+    "paperVsPaperResult": "Kertas vs Kertas seharusnya seri, tetapi hasilnya \"{{got}}\".",
+    "paperVsRockResult": "Kertas vs Batu seharusnya dimenangkan Yuki, tetapi hasilnya \"{{got}}\".",
+    "paperVsScissorsResult": "Kertas vs Gunting seharusnya dimenangkan Ando, tetapi hasilnya \"{{got}}\".",
+    "rockVsPaperResult": "Batu vs Kertas seharusnya dimenangkan Ando, tetapi hasilnya \"{{got}}\".",
+    "rockVsRockResult": "Batu vs Batu seharusnya seri, tetapi hasilnya \"{{got}}\".",
+    "rockVsScissorsResult": "Batu vs Gunting seharusnya dimenangkan Yuki, tetapi hasilnya \"{{got}}\".",
+    "scissorsVsPaperResult": "Gunting vs Kertas seharusnya dimenangkan Yuki, tetapi hasilnya \"{{got}}\".",
+    "scissorsVsRockResult": "Gunting vs Batu seharusnya dimenangkan Ando, tetapi hasilnya \"{{got}}\".",
+    "scissorsVsScissorsResult": "Gunting vs Gunting seharusnya seri, tetapi hasilnya \"{{got}}\"."
+  },
+  "tasks": {
+    "determineWinner": {
+      "name": "Tentukan pemenangnya",
+      "description": "Ambil pilihan kedua pemain dan umumkan hasil yang benar: \"Yuki\", \"Ando\", atau \"tie\"."
+    }
+  },
+  "scenarios": {
+    "paperVsPaper": {
+      "name": "Kertas vs Kertas",
+      "description": "Hasilnya seri. Umumkan dengan benar!"
+    },
+    "paperVsRock": {
+      "name": "Kertas vs Batu",
+      "description": "Kertas Yuki mengalahkan batu Ando. Umumkan Yuki sebagai pemenangnya!"
+    },
+    "paperVsScissors": {
+      "name": "Kertas vs Gunting",
+      "description": "Gunting Ando mengalahkan kertas Yuki. Umumkan Ando sebagai pemenangnya."
+    },
+    "rockVsPaper": {
+      "name": "Batu vs Kertas",
+      "description": "Kertas Ando mengalahkan batu Yuki. Umumkan Ando sebagai pemenangnya."
+    },
+    "rockVsRock": {
+      "name": "Batu vs Batu",
+      "description": "Hasilnya seri. Umumkan dengan benar!"
+    },
+    "rockVsScissors": {
+      "name": "Batu vs Gunting",
+      "description": "Batu Yuki mengalahkan gunting Ando. Umumkan Yuki sebagai pemenangnya."
+    },
+    "scissorsVsPaper": {
+      "name": "Gunting vs Kertas",
+      "description": "Gunting Yuki mengalahkan kertas Ando. Umumkan Yuki sebagai pemenangnya."
+    },
+    "scissorsVsRock": {
+      "name": "Gunting vs Batu",
+      "description": "Batu Ando mengalahkan gunting Yuki. Umumkan Ando sebagai pemenangnya."
+    },
+    "scissorsVsScissors": {
+      "name": "Gunting vs Gunting",
+      "description": "Hasilnya seri. Umumkan dengan benar!"
+    }
+  },
+  "hints": {
+    "howToStart": {
+      "question": "Bagaimana cara memulainya?",
+      "answer": "Ambil pilihan Yuki dan Ando menggunakan fungsi yang sudah disediakan, lalu simpan di variabel supaya bisa kamu bandingkan."
+    },
+    "simplestCase": {
+      "question": "Kasus apa yang paling sederhana untuk ditangani lebih dulu?",
+      "answer": "Seri. Kalau kedua pilihan sama, kamu bisa langsung mengumumkan seri dan melewati sisanya."
+    },
+    "checkCombination": {
+      "question": "Bagaimana cara memeriksa satu kombinasi kemenangan tertentu?",
+      "answer": "Gunakan `&&` (dan) untuk menggabungkan dua kondisi yang harus sama-sama benar, misalnya \"Yuki memilih batu DAN Ando memilih gunting\" berarti Yuki menang."
+    },
+    "shorterWay": {
+      "question": "Aku malah menulis banyak sekali percabangan `if`. Ada cara yang lebih singkat?",
+      "answer": "Anggap dulu hasilnya kemenangan salah satu pemain, lalu cukup periksa tiga kombinasi ketika pemain satunya yang menang. Jumlah kasusnya jadi berkurang kira-kira setengahnya."
+    },
+    "invalidChoice": {
+      "question": "Bagaimana kalau pemain memasukkan sesuatu selain batu, kertas, atau gunting?",
+      "answer": "Kamu tidak perlu memikirkan hal itu di sini. Fungsi yang disediakan hanya akan mengembalikan salah satu dari tiga pilihan yang valid."
+    }
+  },
+  "functions": {
+    "getYukiChoice": {
+      "description": "Mengembalikan pilihan Yuki, yaitu salah satu dari `\"rock\"`, `\"paper\"`, atau `\"scissors\"`.",
+      "category": "Permainan"
+    },
+    "getAndoChoice": {
+      "description": "Mengembalikan pilihan Ando, yaitu salah satu dari `\"rock\"`, `\"paper\"`, atau `\"scissors\"`.",
+      "category": "Permainan"
+    },
+    "announceResult": {
+      "description": "Mengumumkan hasil permainan. Berikan `\"Yuki\"`, `\"Ando\"`, atau `\"tie\"`.",
+      "category": "Permainan"
+    }
+  }
+}

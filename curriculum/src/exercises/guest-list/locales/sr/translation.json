@@ -1,0 +1,65 @@
+{
+  "tasks": {
+    "countChancersInQueue": {
+      "name": "Prebroj one koji se provlače",
+      "description": "Napiši funkciju koja prima red i listu gostiju, i vraća koliko ljudi u redu nije na listi gostiju."
+    },
+    "solveTightly": {
+      "name": "Reši to kompaktno",
+      "description": "Bonus: ovo se može napisati mnogo kraće nego što misliš. Možeš li sažeti celo rešenje na samo nekoliko linija?"
+    }
+  },
+  "scenarios": {
+    "emptyQueue": {
+      "name": "Još niko nije došao",
+      "description": "Prazan red, tako da niko ne čeka da uđe."
+    },
+    "everyoneChancingIt": {
+      "name": "Ceo red pokušava da se provuče",
+      "description": "Red u kom niko od onih koji čekaju nije na listi gostiju."
+    },
+    "everyoneInvited": {
+      "name": "Svi su pozvani",
+      "description": "Red u kom je svaka osoba koja čeka na listi gostiju."
+    },
+    "mixedQueue": {
+      "name": "Mešovit red",
+      "description": "Red u kom su neki od onih koji čekaju pozvani, a neki nisu. Jedan od onih koji pokušava da se provuče ima ime koje veoma liči na ime sa liste."
+    },
+    "guestsWhoHaventArrived": {
+      "name": "Gosti koji su još zaglavljeni u saobraćaju",
+      "description": "Lista gostiju sa mnogo imena na njoj, ali većina tih ljudi još nije stigla do reda."
+    },
+    "longQueueShortList": {
+      "name": "Dugačak red i kratka lista",
+      "description": "Veliki red napolju, ali samo nekoliko imena na listi gostiju."
+    },
+    "guestListBonusLineCount": {
+      "name": "Uredno i čisto: mešovit red",
+      "description": "Isti mešovit red kao ranije, ali sada tvoje rešenje mora da stane u znatno manji broj linija."
+    }
+  },
+  "checks": {
+    "tooManyLines": "Nastavi! Probaj da ga rešiš sa manje linija."
+  },
+  "hints": {
+    "keepingTrack": {
+      "question": "Šta treba da pratim dok idem?",
+      "answer": "Odgovor je jedan broj, i ne znaš ga dok ne pregledaš sve. Zapitaj se dve stvari: koji taj broj treba da bude pre nego što si uopšte pogledao bilo koga, i šta treba da se desi s njim kada se ispostavi da neko **nije** pozvan?"
+    },
+    "whichList": {
+      "question": "Ovde imaš dve liste: red i listu gostiju. Kroz koju od njih treba da prolazim?",
+      "answer": "Razmisli o tome šta odgovor broji. To je broj ljudi **u redu**, tako da je red ono kroz šta treba da prođeš jednu po jednu osobu. Lista gostiju nije nešto kroz šta prolaziš, to je ono sa čime proveravaš svaku osobu."
+    },
+    "realLifeBouncer": {
+      "question": "Kako bi pravi izbacivač ovo uradio sa klipbordom?",
+      "answer": "Zamisli ih kako stoje na početku reda sa klipbordom u jednoj ruci i probijaju se prema kraju. Tek kad stignu do poslednje osobe, izvikuju konačan broj. Šta rade sa svakom osobom na tom putu, i šta rade sa onima čija imena ne mogu da pronađu?"
+    }
+  },
+  "functions": {
+    "includes": {
+      "description": "Proverava da li niz sadrži zadati element (obezbeđeno od strane stdlib-a za nivo).",
+      "category": "Operacije nad nizovima"
+    }
+  }
+}

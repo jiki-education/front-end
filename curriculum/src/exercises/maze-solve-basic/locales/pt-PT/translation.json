@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "Não chegaste ao fim do labirinto."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Guia a personagem até ao fim do labirinto",
+      "description": "Percorre o labirinto até chegares ao alvo verde"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Guia a personagem até ao fim do labirinto",
+      "description": "A tua missão é levar a tua personagem pelo labirinto até ao quadrado verde de destino."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "O que é que estou a mover e para onde?",
+      "answer": "Estás a mover a pequena personagem, que começa no canto superior esquerdo, até ao círculo verde no canto inferior direito, evitando as células às riscas vermelhas."
+    },
+    "turnLeftTurnsRight": {
+      "question": "Quando viro à esquerda, a personagem vira à direita!",
+      "answer": "A personagem vira em relação à direção para onde está virada. Por isso, se estiver virada para a direita e virar à esquerda, a personagem passa a estar virada para cima."
+    }
+  }
+}

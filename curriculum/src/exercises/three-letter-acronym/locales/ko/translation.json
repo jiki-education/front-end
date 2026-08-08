@@ -1,0 +1,47 @@
+{
+  "checks": {
+    "tooManyLines": "코드가 너무 길어요. 더 짧게 만들 수 있을까요?"
+  },
+  "tasks": {
+    "createAcronymFunction": {
+      "name": "두문자어 함수 만들기",
+      "description": "세 개의 단어를 받아서 각 단어의 첫 글자로 만든 세 글자 두문자어를 반환하는 함수를 작성해요."
+    },
+    "solveInThreeLines": {
+      "name": "코드 3줄로 해결하기",
+      "description": "이 연습 문제를 코드 3줄만으로 풀 수 있을까요?"
+    }
+  },
+  "scenarios": {
+    "png": {
+      "name": "휴대용 네트워크 그래픽",
+      "description": "'Portable', 'Network', 'Graphics'에서 두문자어 'PNG'를 만드세요."
+    },
+    "css": {
+      "name": "캐스케이딩 스타일 시트",
+      "description": "'Cascading', 'Style', 'Sheets'에서 두문자어 'CSS'를 만드세요."
+    },
+    "www": {
+      "name": "월드 와이드 웹",
+      "description": "'World', 'Wide', 'Web'에서 두문자어 'WWW'를 만드세요."
+    },
+    "lol": {
+      "name": "소문자 단어",
+      "description": "'laugh', 'out', 'loud'에서 두문자어 'lol'을 만드세요."
+    },
+    "bonus1": {
+      "name": "코드 3줄",
+      "description": "코드 3줄만으로 연습 문제를 해결하세요."
+    }
+  },
+  "hints": {
+    "firstCharacter": {
+      "question": "단어의 첫 글자만 가져오려면 어떻게 하나요?",
+      "answer": "문자열 인덱싱을 사용하면 돼요. 첫 글자는 인덱스 `[0]`으로 가져올 수 있어요."
+    },
+    "buildResult": {
+      "question": "세 글자 결과를 어떻게 만드나요?",
+      "answer": "각 단어의 첫 글자를 가져와서 연결(`+`)이나 템플릿 문자열을 사용해 순서대로 합치면 돼요."
+    }
+  }
+}

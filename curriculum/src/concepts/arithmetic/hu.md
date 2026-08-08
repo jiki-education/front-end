@@ -1,7 +1,7 @@
 ---
 title: "Aritmetika"
 description: "Változók és matematika együtt: összeadással, kivonással, szorzással és osztással az értékek összekapcsolódhatnak és függhetnek egymástól."
-en_md5: "5aa5ff055dc84b3eacee17c87e362831"
+en_md5: 7ce54754a3ca29896609a01a51b12377
 ---
 
 Eddig amikor változókat hoztunk létre, csak egyszerű értékeket használtunk: egy számot, mondjuk az `50`-et, vagy egy stringet, például a `"yellow"`-t. A változók viszont akkor válnak igazán erőssé, amikor egymással kombinálva használjuk őket. Amikor például azt mondhatjuk, hogy a téglalap bal széle a vászon szélétől egy adott távolságra legyen.
@@ -40,34 +40,34 @@ let width = 100 - left * 2
 let height = 100 - top * 2
 ```
 
-Mostantól ha megváltoztatjuk a `left` vagy a `top` értékét, a `width` és a `height` is vele változik. A dolgok tehát kezdenek összefüggeni egymással. És mi a helyzet a vászonnal? Az most 100. De mi van, ha a vásznunk egyszer 200 széles és magas lesz? Nos, érdemes létrehozni egy `canvasSize` (a vászon mérete) nevű változót, és beállítani 100-ra. Így a `width` már `canvasSize` mínusz `left` szorozva kettővel, a `height` pedig `canvasSize` mínusz `top` szorozva kettővel.
+Mostantól ha megváltoztatjuk a `left` vagy a `top` értékét, a `width` és a `height` is megváltoznak. A dolgok tehát kezdenek összefüggeni egymással. És mi a helyzet a vászonnal? Az most 100. De mi van, ha a vásznunk egyszer 200 széles és magas lesz? Nos, érdemes létrehozni egy `canvasSize` (a vászon mérete) nevű változót, és beállítani 100-ra. Így a `width` már `canvasSize` mínusz `left` szorozva kettővel, a `height` pedig `canvasSize` mínusz `top` szorozva kettővel.
 
 ```javascript
 let canvasSize = 100
 let left = 20
 let top = 30
-let width = canvasSize - left * 2
-let height = canvasSize - top * 2
+let width = canvasSize - left * 2 // 60
+let height = canvasSize - top * 2 // 40
 
 rectangle(left, top, width, height, "blue")
 ```
 
-Gondoljuk végig, mit csinál Jiki, amikor leírjuk, hogy a `height` legyen `canvasSize` mínusz `top` szorozva kettővel. Először leveszi a polcról a `top` dobozt, és 20-at talál benne. Előveszi a zsebszámológépét, kiszámolja, hogy 20-szor 2 az 40, és ezt fejben megjegyzi.
+Gondoljuk végig, mit csinál Jiki, amikor leírjuk, hogy a `height` legyen `canvasSize` mínusz `top` szorozva kettővel. Először leveszi a polcról a `top` dobozt, és 30-at talál benne. Előveszi a zsebszámológépét, kiszámolja, hogy 30-szor 2 az 60, és ezt fejben megjegyzi.
 
 <img
   class="concept-image"
   src="/static/images/concept-assets/arithmetic/flow-of-images-1.webp"
-  alt="Jiki leveszi a top dobozt a polcról, és kiszámolja, hogy 20-szor 2 az 40"
+  alt="Jiki leveszi a top dobozt a polcról, és kiszámolja, hogy 30-szor 2 az 60"
   width="377"
   height="400"
 />
 
-Ezután leveszi a polcról a `canvasSize` dobozt, abban 100-at talál, és kiszámolja, hogy 100 mínusz 40 az 60. Innentől már tudja, hogy valójában azt mondjuk: a `height` legyen 60. Engedelmeskedik hát a let-nek: fog egy új dobozt, ráírja, hogy `height`, és beleteszi a 60-at. Amikor pedig később használjuk a `height`-et, egyszerűen kiveszi belőle a 60-at.
+Ezután leveszi a polcról a `canvasSize` dobozt, abban 100-at talál, és kiszámolja, hogy 100 mínusz 60 az 40. Innentől már tudja, hogy valójában azt mondjuk: a `height` legyen 40. Engedelmeskedik hát a let-nek: fog egy új dobozt, ráírja, hogy `height`, és beleteszi a 40-et. Amikor pedig később használjuk a `height`-et, egyszerűen kiveszi belőle a 40-et.
 
 <img
   class="concept-image"
   src="/static/images/concept-assets/arithmetic/flow-of-images-3.webp"
-  alt="Jiki fog egy új dobozt, ráírja, hogy height, és beleteszi a 60-at"
+  alt="Jiki fog egy új dobozt, ráírja, hogy height, és beleteszi a 40-et"
   width="462"
   height="400"
 />

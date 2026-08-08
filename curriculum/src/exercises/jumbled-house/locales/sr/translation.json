@@ -1,0 +1,58 @@
+{
+  "checks": {
+    "frame": "Okvir kuće nije ispravan.",
+    "roof": "Krov kuće nije na ispravnom položaju.",
+    "leftWindow": "Levi prozor nije ispravno postavljen.",
+    "rightWindow": "Desni prozor nije ispravno postavljen.",
+    "door": "Vrata nisu ispravno postavljena.",
+    "doorKnob": "Kvaka nije ispravno postavljena."
+  },
+  "tasks": {
+    "arrangeHouse": {
+      "name": "Preuredi kuću",
+      "description": "Preuredi sve delove na njihova ispravna mesta kako bi formirao kuću. Metodički prođi kroz svaki deo."
+    }
+  },
+  "scenarios": {
+    "drawTheHouse": {
+      "name": "Nacrtaj kuću",
+      "description": "Preuredi sve delove na njihova ispravna mesta kako bi formirao potpunu kuću."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Odakle da počnem?",
+      "answer": "Prođi kroz svaki deo redom – nebo, trava, okvir kuće, krov, prozori, vrata, kvaka. Postavi svaki ispravno pre nego što pređeš na sledeći."
+    },
+    "coordinates": {
+      "question": "Kako funkcionišu koordinate?",
+      "answer": "Koordinate platna idu od (0,0) u gornjem levom uglu do (100,100) u donjem desnom uglu. Za pravougaonike, levo i gore označavaju gornji levi ugao."
+    },
+    "roofPosition": {
+      "question": "Kako da odredim položaj krova?",
+      "answer": "Krov je trougao koji se nalazi na vrhu okvira kuće. Razmisli gde treba da budu leva i desna osnovna tačka s obzirom na prepust, i gde se nalazi vrh."
+    },
+    "windowPosition": {
+      "question": "Kako da postavim prozore?",
+      "answer": "Svaki prozor je udaljen od ivica okvira kuće. Koristi položaj i veličinu okvira kuće zajedno sa vrednostima uvlačenja da izračunaš gornji levi ugao svakog prozora."
+    },
+    "centerDoor": {
+      "question": "Kako da centriram vrata?",
+      "answer": "Da bi centrirao nešto unutar većeg oblika, razmisli o preostalom prostoru. Ako je kuća šira od vrata, razmak se jednako deli na obe strane."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Nacrtaj pravougaonik na poziciji (left, top) sa zadatom širinom, visinom i bojom.",
+      "category": "Crtanje oblika"
+    },
+    "circle": {
+      "description": "Nacrtaj krug sa centrom na (centerX, centerY) sa zadatim radijusom i bojom.",
+      "category": "Crtanje oblika"
+    },
+    "triangle": {
+      "description": "Nacrtaj trougao sa tri tačke ugla i bojom.",
+      "category": "Crtanje oblika"
+    }
+  }
+}

@@ -1,80 +1,80 @@
 {
   "checks": {
-    "border": "The board should have a black border all the way around the edge.",
-    "topLeftWhite": "The top-left square should be white (it's a light square).",
-    "rightOfTopLeftDark": "The square to the right of the top-left one should be dark brown (a dark square).",
-    "bottomLeftDark": "The bottom-left square should be dark brown (a dark square).",
-    "bottomRightWhite": "The bottom-right square should be white.",
-    "charcoalPiece": "There should be a charcoal piece on the dark square in the top row.",
-    "topRim": "The pieces in the top rows should have a rim around them.",
-    "whitePiece": "There should be a white piece on the dark square in the bottom row.",
-    "bottomRim": "The pieces in the bottom rows should have a rim around them.",
-    "rimRatio": "The rim of a piece should be 80% as wide as its square - check the outer circle's radius.",
-    "innerRatio": "The centre of a piece should be 75% as wide as the whole piece - check the inner circle's radius.",
-    "noPieceOnLight": "There shouldn't be a piece on the top-left square - pieces only go on the dark squares.",
-    "middleRowsEmpty": "The middle rows should be empty - only the top and bottom rows have pieces."
+    "border": "A táblának a széle körül egy black színű szegélye kell, hogy legyen.",
+    "topLeftWhite": "A bal felső négyzetnek white színűnek kell lennie (ez egy világos négyzet).",
+    "rightOfTopLeftDark": "A bal felső négyzettől jobbra lévő négyzetnek dark brown színűnek kell lennie (egy sötét négyzet).",
+    "bottomLeftDark": "A bal alsó négyzetnek dark brown színűnek kell lennie (egy sötét négyzet).",
+    "bottomRightWhite": "A jobb alsó négyzetnek white színűnek kell lennie.",
+    "charcoalPiece": "A felső sorban lévő sötét négyzeten egy charcoal színű bábunak kell lennie.",
+    "topRim": "A felső sorokban lévő bábuknak peremmel kell rendelkezniük.",
+    "whitePiece": "Az alsó sorban lévő sötét négyzeten egy white színű bábunak kell lennie.",
+    "bottomRim": "Az alsó sorokban lévő bábuknak peremmel kell rendelkezniük.",
+    "rimRatio": "A bábu peremének a négyzet szélességének 80%-ának kell lennie - ellenőrizd a külső kör sugarát.",
+    "innerRatio": "A bábu közepének a teljes bábu 75%-ának kell lennie szélességben - ellenőrizd a belső kör sugarát.",
+    "noPieceOnLight": "A bal felső négyzeten ne legyen bábu – a bábuk csak a sötét négyzeteken helyezkednek el.",
+    "middleRowsEmpty": "A középső sorok legyenek üresek – csak a felső és az alsó sorokban vannak bábuk."
   },
   "tasks": {
     "setUpTheBoard": {
-      "name": "Set up the board",
-      "description": "Draw the checkerboard and place the pieces on the dark squares of the top and bottom rows - and make it work for any board size."
+      "name": "Tábla előkészítése",
+      "description": "Rajzold meg a dámatáblát, és helyezd el a bábukat a felső és alsó sorok sötét négyzetein – és működjön bármilyen táblaméret esetén."
     }
   },
   "scenarios": {
     "board8": {
-      "name": "Set up an 8×8 board",
-      "description": "Draw the classic 8×8 checkerboard and lay out the pieces ready to play."
+      "name": "8×8-as tábla előkészítése",
+      "description": "Rajzold meg a klasszikus 8×8-as dámatáblát, és helyezd el a bábukat játszásra készen."
     },
     "board6": {
-      "name": "Set up a 6×6 board",
-      "description": "The same code should scale down to a smaller 6×6 board."
+      "name": "6×6-os tábla előkészítése",
+      "description": "Ugyanannak a kódnak működnie kell egy kisebb 6×6-os táblán is."
     },
     "board10": {
-      "name": "Set up a 10×10 board",
-      "description": "And it should scale up to a larger 10×10 board."
+      "name": "10×10-es tábla előkészítése",
+      "description": "És működnie kell egy nagyobb 10×10-es táblán is."
     }
   },
   "hints": {
     "wholeGrid": {
-      "question": "How do I draw a whole grid of squares rather than just one?",
-      "answer": "Use nested loops: an outer loop that steps through the rows and an inner loop that steps through the columns. Draw one square each time the inner loop runs."
+      "question": "Hogyan rajzolhatok egy teljes négyzethálót egyetlen négyzet helyett?",
+      "answer": "Használj egymásba ágyazott ciklusokat: egy külső ciklust, ami végigmegy a sorokon, és egy belső ciklust, ami végigmegy az oszlopokon. Minden egyes belső ciklusfutáskor rajzolj egy négyzetet."
     },
     "anyBoardSize": {
-      "question": "How do I make it work whatever the board size is?",
-      "answer": "Don't pick a fixed square size. Ask `getBoardSize()` how many squares there are, work out a single `cell` size from that and the space available, and build every position as a multiple of it."
+      "question": "Hogyan érhetem el, hogy tetszőleges táblaméret esetén is működjön?",
+      "answer": "Ne válassz rögzített négyzetméretet. Kérdezd le a `getBoardSize()`-t, hogy hány négyzet van, számold ki ebből és a rendelkezésre álló helyből egy `cell` méretét, és minden pozíciót ennek többszöröseként építs fel."
     },
     "alternateColours": {
-      "question": "How do I make the squares alternate colours?",
-      "answer": "Look at a square's row and column together. The remainder operator (`%`) lets you split every square into one of two groups based on `row` and `col`, and those two groups are exactly the light and dark squares."
+      "question": "Hogyan érhetem el, hogy a négyzetek színe váltakozzon?",
+      "answer": "Nézd meg egy négyzet sor- és oszlopindexét együtt. A maradékképző operátor (`%`) lehetővé teszi, hogy minden négyzetet a `row` és `col` alapján két csoport valamelyikébe sorolj, és ez a két csoport pontosan a világos és sötét négyzeteket adja."
     },
     "whichSquaresGetPieces": {
-      "question": "Which squares get pieces?",
-      "answer": "Pieces only sit on the **dark** squares, so you can reuse the same test you used to colour them. Then narrow it further to only the top and bottom rows, leaving the middle two empty."
+      "question": "Mely négyzetekre kerülnek bábuk?",
+      "answer": "A bábuk kizárólag a **sötét** négyzeteken állnak, így felhasználhatod ugyanazt a feltételt, amivel a színezést végezted. Ezután szűkítsd le a kört a felső és az alsó sorokra, a középső kettőt üresen hagyva."
     },
     "ridgedPiece": {
-      "question": "How do I draw a ridged piece?",
-      "answer": "Draw two circles at the same centre: a larger one for the rim, then a slightly smaller one on top in the piece's colour. Base both radii on the cell size so the pieces scale with the board."
+      "question": "Hogyan rajzolhatok egy bordázott bábut?",
+      "answer": "Rajzolj két kört ugyanazzal a középponttal: egy nagyobbat a peremnek, majd egy kicsivel kisebbet rá a bábu színével. Mindkettő sugarát a cella méretéből számold ki, hogy a bábuk a táblával arányosan méreteződjenek."
     },
     "rimSize": {
-      "question": "The size of the rim doesn't look like the sample diagram.",
-      "answer": "Check that the inner circle is 75% of the outer circle (not 75% of the square)."
+      "question": "A perem mérete nem egyezik a mintadiagrammal.",
+      "answer": "Ellenőrizd, hogy a belső kör a külső kör 75%-a (ne a négyzet 75%-a)."
     }
   },
   "functions": {
     "rectangle": {
-      "description": "Draw a rectangle at position (left, top) with the given width, height, and color",
-      "category": "Drawing Shapes"
+      "description": "Rajzol egy téglalapot a (bal, fent) pozícióban a megadott szélességgel, magassággal és színnel.",
+      "category": "Alakzatok rajzolása"
     },
     "circle": {
-      "description": "Draw a circle centered at (centerX, centerY) with the given radius and color",
-      "category": "Drawing Shapes"
+      "description": "Rajzol egy kört, aminek a középpontja (centerX, centerY), a megadott sugárral és színnel.",
+      "category": "Alakzatok rajzolása"
     },
     "getBoardSize": {
-      "description": "Returns the size of the board (the number of squares along each edge) for the current puzzle",
-      "category": "Information"
+      "description": "Visszaadja a tábla méretét (a négyzetek számát mindkét oldal mentén) az aktuális feladványhoz.",
+      "category": "Információ"
     }
   },
   "describers": {
-    "getBoardSize": "retrieved the size of the board (the number of squares along each edge)"
+    "getBoardSize": "lekérte a tábla méretét (a négyzetek számát mindkét oldal mentén)"
   }
 }

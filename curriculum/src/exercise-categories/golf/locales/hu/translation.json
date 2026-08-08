@@ -1,12 +1,12 @@
 {
   "errors": {
-    "xNotNumber": "x must be a number",
-    "yNotNumber": "y must be a number"
+    "xNotNumber": "x-nek számnak kell lennie",
+    "yNotNumber": "y-nek számnak kell lennie"
   },
   "describers": {
-    "rollRight": "rolled the ball one unit to the right",
-    "moveTo": "moved the ball to the given position",
-    "getShotLength": "retrieved the shot length",
-    "fireFireworks": "fired off celebratory fireworks"
+    "rollRight": "a labdát egy egységgel jobbra gurította",
+    "moveTo": "a labdát a megadott pozícióba mozgatta",
+    "getShotLength": "a lövés hosszát lekérte",
+    "fireFireworks": "ünnepi tűzijátékot fellőtt"
   }
 }

@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "ballNotAtEnd": "공이 {{ballX}}까지 굴러갔는데, 시작 지점에서 60걸음 떨어진 곳이 아니에요.",
+    "missingPositions": "공이 29부터 시작해서 한 걸음씩 각 위치를 통과해야 해요.",
+    "codeQuality": {
+      "tooManyLines": "코드 줄이 너무 많아요. 루프를 사용해서 더 짧게 만들어 보세요."
+    }
+  },
+  "tasks": {
+    "rollBall": {
+      "name": "공을 홀에 굴려 넣어요",
+      "description": "공을 홀에 굴려 넣어요."
+    }
+  },
+  "scenarios": {
+    "rollBall": {
+      "name": "공을 홀에 굴려 넣어요",
+      "description": "공을 홀에 굴려 넣어요."
+    }
+  },
+  "hints": {
+    "icantWorkItOut": {
+      "question": "어떻게 해야 할지 모르겠어요",
+      "answer": "두 가지 도구를 사용할 수 있어요:\n- `repeat` 루프는 `repeat(n) { }`처럼 작성하는데, `n`은 굴리고 싶은 횟수이고, 중괄호(`{ }`) 안에 원하는 코드를 넣을 수 있어요.\n- 공을 오른쪽으로 한 걸음 굴리는 `roll()` 함수가 있어요.\n\n이 둘을 어떻게 조합하면 될까요?"
+    }
+  },
+  "functions": {
+    "roll": {
+      "description": "공을 **오른쪽으로 한 걸음** 굴려요.",
+      "category": "이동"
+    }
+  },
+  "describers": {
+    "roll": "공을 오른쪽으로 한 걸음 굴렸어요"
+  }
+}

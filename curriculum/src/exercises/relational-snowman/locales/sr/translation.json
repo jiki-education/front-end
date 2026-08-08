@@ -1,0 +1,48 @@
+{
+  "checks": {
+    "base": "Osnova (donji krug) je ili na pogrešnom mestu ili pogrešne veličine. Proveri `baseRadius` i `baseY`.",
+    "body": "Telo (srednji krug) je ili na pogrešnom mestu ili pogrešne veličine. Proveri `bodyRadius` i `bodyY`.",
+    "head": "Glava (gornji krug) je ili na pogrešnom mestu ili pogrešne veličine. Proveri `headRadius` i `headY`.",
+    "notResponsive": "Tvoj kod ne skalira ispravno kada je `size` {{size}}. Svaki poluprečnik i y koordinata treba da budu izvedeni iz `size`."
+  },
+  "tasks": {
+    "buildRelationalSnowman": {
+      "name": "Napravi relacionog sneška",
+      "description": "Izvedi sve veličine i pozicije iz `size` tako da sneško ispravno skalira."
+    }
+  },
+  "scenarios": {
+    "buildRelationalSnowman": {
+      "name": "Napravi relacionog sneška",
+      "description": "Izvedi svaki poluprečnik i y koordinatu iz `size`."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Gde da počnem?",
+      "answer": "Počni od osnove, jer je to jedini krug usidren za nešto fiksno (dno platna). Kada odrediš `baseY`, možeš da postaviš telo na nju, a zatim glavu na telo."
+    },
+    "baseSits": {
+      "question": "Kako da odredim gde se nalazi osnova?",
+      "answer": "Donja ivica osnove je na visini `size` od dna (Y=100). Centar osnove je za jedan poluprečnik osnove iznad njene donje ivice."
+    },
+    "stackBody": {
+      "question": "Kako da postavim telo na osnovu?",
+      "answer": "Kada se dva kruga dodiruju, jedan tačno iznad drugog, rastojanje između njihovih centara jednako je zbiru njihovih poluprečnika."
+    },
+    "head": {
+      "question": "A šta je sa glavom?",
+      "answer": "Glava se nalazi na telu na potpuno isti način kao telo na osnovi."
+    },
+    "whyDeriveFromSize": {
+      "question": "Zašto sve mora da bude izvedeno iz `size`?",
+      "answer": "Ako ukucaš broj direktno, promena `size` će ostaviti praznine ili preklapanja između krugova. Korišćenje formula održava sve proporcionalnim."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Nacrtaj krug sa centrom u (centerX, centerY) sa datim poluprečnikom i bojom.",
+      "category": "Crtanje oblika"
+    }
+  }
+}

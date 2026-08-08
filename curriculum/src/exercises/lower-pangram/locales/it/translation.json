@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "noNestedLoops": "Cerca di non mettere un ciclo dentro l'altro. Sposta la ricerca di una singola lettera in una sua funzione, poi chiamala da <code>isPangram</code>.",
+    "tooManyLines": "Quasi! Prova a risolverlo in meno righe appoggiandoti alla tua funzione helper."
+  },
+  "tasks": {
+    "checkLowerPangram": {
+      "name": "Verifica il pangramma minuscolo",
+      "description": "Scrivi una funzione che verifica se una frase in minuscolo contiene ogni lettera dell'alfabeto. Falle chiamare una piccola funzione helper per eseguire la ricerca lettera per lettera."
+    },
+    "decomposeTightly": {
+      "name": "Risolvilo in 16 righe",
+      "description": "Bonus: con la ricerca spostata in una funzione helper, l'intera soluzione sta in 16 righe. Riesci a eguagliarla?"
+    }
+  },
+  "scenarios": {
+    "lowerPangramEmpty": {
+      "name": "Frase vuota",
+      "description": "Una frase vuota non è un pangramma."
+    },
+    "lowerPangramFullAlphabet": {
+      "name": "Alfabeto minuscolo completo",
+      "description": "L'alfabeto minuscolo completo è un pangramma."
+    },
+    "lowerPangramClassic": {
+      "name": "Pangramma classico",
+      "description": "La classica frase pangramma contiene tutte le 26 lettere."
+    },
+    "lowerPangramMissingX": {
+      "name": "Lettera 'x' mancante",
+      "description": "Una frase a cui manca la lettera 'x' non è un pangramma."
+    },
+    "lowerPangramMissingH": {
+      "name": "Lettera 'h' mancante",
+      "description": "Una frase a cui manca la lettera 'h' non è un pangramma."
+    },
+    "lowerPangramWithUnderscores": {
+      "name": "Con underscore",
+      "description": "Un pangramma con underscore al posto degli spazi."
+    },
+    "lowerPangramWithNumbers": {
+      "name": "Con numeri",
+      "description": "Un pangramma che include numeri."
+    },
+    "lowerPangramNumbersReplacingLetters": {
+      "name": "Numeri al posto delle lettere",
+      "description": "Una frase in cui le lettere sono sostituite da numeri non è un pangramma."
+    },
+    "lowerPangramBonusLineCount": {
+      "name": "Compatto e pulito",
+      "description": "La soluzione completa sta in 16 righe quando la ricerca è nella propria funzione."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Da dove comincio?",
+      "answer": "Devi verificare che ogni lettera dell'alfabeto sia nella stringa. Quindi avrai bisogno di fare cicli e confronti."
+    },
+    "checkEveryLetter": {
+      "question": "Come faccio a verificare che ogni lettera dell'alfabeto sia presente?",
+      "answer": "Scorri `\"abcdefghijklmnopqrstuvwxyz\"`, una lettera alla volta. Per ogni lettera, verifica se la frase la contiene."
+    },
+    "avoidNestedLoops": {
+      "question": "Ho risolto l'esercizio ma non so come usare la funzione helper.",
+      "answer": "Se hai risolto l'esercizio, probabilmente hai un ciclo esterno e uno interno. Quel ciclo interno verifica se qualcosa include qualcos'altro. Estrarre il ciclo interno in una funzione helper chiamata `includes(...)` e poi usarla dal ciclo esterno è probabilmente un buon approccio. Una funzione helper è semplicemente una funzione normale definita nel modo normale."
+    }
+  }
+}

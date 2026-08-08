@@ -1,0 +1,53 @@
+{
+  "checks": {
+    "sunWrongBeginning": "태양이 처음 부분에서 잘못된 것 같아요.",
+    "sunWrongMiddle": "태양이 중간 부분에서 잘못된 것 같아요.",
+    "sunWrongEnd": "태양이 끝 부분에서 잘못된 것 같아요.",
+    "skyNotChangingColor": "하늘의 색상이 변하지 않는 것 같아요.",
+    "sunNotChangingColor": "태양의 색상이 변하지 않는 것 같아요."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "석양 애니메이션",
+      "description": "태양이 지는 것처럼 보이도록 태양과 하늘을 애니메이션으로 만들어요. 태양은 점점 커지고 아래로 움직이며, 태양과 하늘의 색상이 변해야 해요."
+    }
+  },
+  "scenarios": {
+    "drawScene": {
+      "name": "태양 지게 하기",
+      "description": "태양이 지는 것처럼 보이도록 태양과 하늘을 애니메이션으로 만들어요."
+    }
+  },
+  "hints": {
+    "howToAnimate": {
+      "question": "애니메이션은 어떻게 만드나요?",
+      "answer": "애니메이션은 플립북 방식으로, 매번 이전 버전 위에 전체 장면을 다시 그리는 거예요."
+    },
+    "whereToStart": {
+      "question": "어디서 시작해야 할지 모르겠어요.",
+      "answer": "100번 그려야 해요. 기존 그리기 함수들을 100번 실행되는 `repeat` 반복 안으로 옮기세요. 그런 다음 반복이 실행될 때마다 변수(반지름, 색상 등)를 변경해야 해요."
+    },
+    "whereToPutVariables": {
+      "question": "변수는 어디에 두어야 하나요?",
+      "answer": "반복 전에 변수를 설정하고, 반복 안에서 도형을 그리기 전에 변수를 업데이트해야 해요. Jiki가 상자를 만들고 매번 업데이트하는 과정을 생각해 보세요."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "중심이 (centerX, centerY)이고, 주어진 반지름과 색상을 가진 원을 그려요.",
+      "category": "도형 그리기"
+    },
+    "rectangle": {
+      "description": "위치 (left, top)에 주어진 너비, 높이, 색상으로 직사각형을 그려요.",
+      "category": "도형 그리기"
+    },
+    "rgb": {
+      "description": "RGB 색상 값(각각 0~255)을 16진수 색상 문자열로 변환해요.",
+      "category": "색상"
+    },
+    "hsl": {
+      "description": "HSL 색상 값(색상 0~360, 채도 0~100, 명도 0~100)을 16진수 색상 문자열로 변환해요.",
+      "category": "색상"
+    }
+  }
+}

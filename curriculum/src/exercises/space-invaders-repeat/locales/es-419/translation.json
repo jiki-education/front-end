@@ -1,0 +1,49 @@
+{
+  "describers": {
+    "move": "movió el cañón láser a la derecha"
+  },
+  "checks": {
+    "notShotAllAliens": "No derribaste a todos los alienígenas.",
+    "tooManyLines": "Tu solución tiene demasiadas líneas de código. ¡Intenta usar un bucle `repeat` para hacerla más corta!"
+  },
+  "tasks": {
+    "repeatShoot": {
+      "name": "Usa un bucle `repeat` para disparar a todos los alienígenas",
+      "description": "Encuentra el patrón en las posiciones de los alienígenas y usa un bucle `repeat` para destruirlos a todos en 7 líneas de código o menos."
+    }
+  },
+  "scenarios": {
+    "repeatShoot": {
+      "name": "Repetir y disparar",
+      "description": "Usa un bucle `repeat` para disparar a todos los alienígenas"
+    }
+  },
+  "hints": {
+    "avoidRepeating": {
+      "question": "¿Cómo puedo evitar escribir `move()` y `shoot()` una y otra vez?",
+      "answer": "Usa un bucle `repeat`. `repeat(n) { ... }` ejecuta el mismo bloque de código `n` veces."
+    },
+    "repeatingPattern": {
+      "question": "¿Cuál es el patrón repetitivo en las posiciones de los alienígenas?",
+      "answer": "Tu cañón láser empieza a la izquierda de los alienígenas, y ellos se ubican en cada dos columnas, con tres alienígenas apilados en cada una. Así que el patrón para cada columna es: `move`, `move`, `shoot`, `shoot`, `shoot`. Te mueves a través del espacio vacío hacia la columna del alienígena, y luego derribas las tres filas. Ese grupo de cinco pasos es lo que quieres repetir."
+    },
+    "howManyTimes": {
+      "question": "¿Cuántas veces debo repetir el patrón?",
+      "answer": "Cuenta los grupos de alienígenas en la pantalla y usa ese número como argumento de `repeat`."
+    },
+    "why7Lines": {
+      "question": "¿Por qué el objetivo pide solo 7 líneas?",
+      "answer": "Una línea para el encabezado `repeat`, las cinco acciones repetidas dentro y una línea para la llave de cierre suman siete. Todo lo que necesitas cabe dentro del bucle, sin nada fuera de él. Si estás escribiendo más, probablemente aún no estás usando el bucle."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Mueve el cañón láser **una posición a la derecha**. ¡Si te mueves fuera del borde derecho de la pantalla, pierdes!",
+      "category": "Movimiento"
+    },
+    "shoot": {
+      "description": "Dispara el láser hacia arriba. **Solo dispara cuando haya un alienígena encima de ti**, ¡o pierdes el juego!",
+      "category": "Acción"
+    }
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "checks": {
+    "tooManyLines": "Tvoje rešenje ima previše linija koda. Možeš li ga skratiti?"
+  },
+  "tasks": {
+    "didTheyPass": {
+      "name": "Da li su položili?",
+      "description": "Napiši funkciju koja analizira ocene sa vozačkog ispita i određuje da li je učenik položio. Učenik pada ako ima bilo koju veliku grešku (💥) ili 5 ili više malih grešaka (❌)."
+    },
+    "solveInElevenLines": {
+      "name": "Reši u 12 linija koda",
+      "description": "Možeš li da rešiš ovu vežbu sa samo 12 linija koda?"
+    }
+  },
+  "scenarios": {
+    "perfectMarks": {
+      "name": "Savršeni učenik!",
+      "description": "Sve su uradili kako treba - vau!"
+    },
+    "dangerous": {
+      "name": "Opasnost po društvo",
+      "description": "Ovoga ne smemo pustiti na put!"
+    },
+    "oneBigMistake": {
+      "name": "Jedna velika greška",
+      "description": "Dovoljna je samo jedna velika greška da se padne!"
+    },
+    "scrapedThrough": {
+      "name": "Jedva položio",
+      "description": "Bili su na ivici, ali su položili!"
+    },
+    "oneMistakeTooMany": {
+      "name": "Jedna greška previše!",
+      "description": "Sve te male greške su se sabrale."
+    },
+    "bonus1": {
+      "name": "12 linija koda",
+      "description": "Reši vežbu sa samo 12 linija koda."
+    }
+  },
+  "hints": {
+    "lookAtEachMark": {
+      "question": "Kako da pregledam svaki pojedinačni simbol?",
+      "answer": "Prođi kroz string sa simbolima znak po znak, jedan po jedan. Svaki znak je ili ✅, ❌, ili 💥."
+    },
+    "emojiInQuotes": {
+      "question": "Zašto se moj kod buni zbog 💥?",
+      "answer": "Emoji poput 💥 i ❌ i dalje moraju biti pod znacima navoda. Oni su znakovi u stringu, baš kao i slova."
+    },
+    "majorFault": {
+      "question": "Šta da radim kada vidim 💥 (veliku grešku)?",
+      "answer": "Svaka pojedinačna velika greška obara ispit, bez obzira šta se još desilo. Zato možeš da vratiš `false` odmah čim je vidiš. Nema potrebe da nastaviš da gledaš."
+    },
+    "minorCount": {
+      "question": "Kako da radim sa malim greškama, kada je bitan broj?",
+      "answer": "Vodi brojačku promenljivu i dodaj joj 1 svaki put kada vidiš ❌. Ignoriši ✅, one ne menjaju ništa."
+    },
+    "finalCheck": {
+      "question": "Šta treba da proverim na kraju?",
+      "answer": "Kada se petlja završi i nisi video veliku grešku, ispit je položen ako je bilo manje od 5 malih grešaka. Vrati `true` ako je broj malih grešaka manji od 5, u suprotnom `false`."
+    }
+  }
+}

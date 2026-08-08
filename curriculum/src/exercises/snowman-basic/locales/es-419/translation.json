@@ -1,0 +1,43 @@
+{
+  "checks": {
+    "baseCircle": "El círculo de la base (inferior) no está bien.",
+    "bodyCircle": "El círculo del cuerpo (del medio) no está bien.",
+    "headCircle": "El círculo de la cabeza (superior) no está bien."
+  },
+  "tasks": {
+    "buildSnowman": {
+      "name": "Construye el muñeco de nieve",
+      "description": "Dibuja tres círculos para construir el muñeco de nieve."
+    }
+  },
+  "scenarios": {
+    "buildSnowman": {
+      "name": "Construye el muñeco de nieve",
+      "description": "Dibuja tres círculos para construir el muñeco de nieve."
+    }
+  },
+  "hints": {
+    "howToDrawCircle": {
+      "question": "¿Cómo dibujo un círculo en el lienzo?",
+      "answer": "Llama a `circle(centerX, centerY, radius)` donde `centerX` y `centerY` son las coordenadas del centro y `radius` es qué tan grande es el círculo."
+    },
+    "circlesHorizontalPosition": {
+      "question": "¿Dónde deben estar los círculos horizontalmente?",
+      "answer": "Los tres círculos comparten el mismo centro horizontal, así que `centerX` es `50` para cada uno (el lienzo tiene un ancho de `100`)."
+    },
+    "howToStackCircles": {
+      "question": "¿Cómo apilo los tres círculos?",
+      "answer": "El círculo de la base es el más grande y está cerca de la parte inferior (un `centerY` alto). Cada círculo de arriba tiene un `centerY` más pequeño y un `radius` más pequeño."
+    },
+    "whatNumbersForRadii": {
+      "question": "¿Qué números debo usar para los radios?",
+      "answer": "Todos los números en este ejercicio son divisibles por `5`. Prueba con un radio de la base de alrededor de `20`, un radio del cuerpo de alrededor de `15`, y un radio de la cabeza de alrededor de `10`, ajustándolos hasta que coincidan con la imagen objetivo."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Dibuja un círculo centrado en (centerX, centerY) con el radio dado.",
+      "category": "Dibujar figuras"
+    }
+  }
+}

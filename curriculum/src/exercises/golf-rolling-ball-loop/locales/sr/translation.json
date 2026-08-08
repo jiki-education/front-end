@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "ballNotAtEnd": "Loptica se dokotrljala do {{ballX}}, što nije 60 koraka od početne pozicije.",
+    "missingPositions": "Loptica mora da se kotrlja kroz svaku poziciju korak po korak, počevši od 29.",
+    "codeQuality": {
+      "tooManyLines": "Tvoje rešenje ima previše linija koda. Probaj da koristiš petlju da ga skratiš."
+    }
+  },
+  "tasks": {
+    "rollBall": {
+      "name": "Zakotrljaj lopticu u rupu",
+      "description": "Zakotrljaj lopticu u rupu."
+    }
+  },
+  "scenarios": {
+    "rollBall": {
+      "name": "Zakotrljaj lopticu u rupu",
+      "description": "Zakotrljaj lopticu u rupu."
+    }
+  },
+  "hints": {
+    "icantWorkItOut": {
+      "question": "Ne mogu da rešim.",
+      "answer": "Imaš dva alata na raspolaganju:\n- `repeat` petlju, koju koristiš tako što napišeš `repeat(n) { }`, gde `n` predstavlja broj puta koliko želiš da kotrljaš, a unutar vitičastih zagrada (`{ }`) možeš da staviš bilo šta.\n- Funkciju `roll()` koja kotrlja lopticu jedan korak udesno.\n\nKako možeš da ih kombinuješ?"
+    }
+  },
+  "functions": {
+    "roll": {
+      "description": "Kotrlja lopticu **jedan korak udesno**.",
+      "category": "Kretanje"
+    }
+  },
+  "describers": {
+    "roll": "zakotrljao lopticu jedan korak udesno"
+  }
+}

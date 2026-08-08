@@ -1,0 +1,27 @@
+{
+  "checks": {
+    "didNotReachEnd": "Tu n'as pas atteint la sortie du labyrinthe."
+  },
+  "tasks": {
+    "solveMaze": {
+      "name": "Guide le personnage jusqu'à la sortie du labyrinthe",
+      "description": "Explore le labyrinthe jusqu'à la cible verte"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "Guide le personnage jusqu'à la sortie du labyrinthe",
+      "description": "Ta mission est de guider ton personnage à travers le labyrinthe jusqu'à la case verte d'arrivée."
+    }
+  },
+  "hints": {
+    "whatAmIMoving": {
+      "question": "Qu'est-ce que je déplace, et vers où ?",
+      "answer": "Tu déplaces le petit personnage, qui part d'en haut à gauche, jusqu'au cercle vert en bas à droite. Évite les cases rayées de rouge."
+    },
+    "turnLeftTurnsRight": {
+      "question": "Quand je tourne à gauche, le personnage tourne à droite !",
+      "answer": "Le personnage tourne par rapport à la direction dans laquelle il regarde. Donc si le personnage regarde vers la droite et qu'il tourne à gauche, il se retrouvera tourné vers le haut."
+    }
+  }
+}

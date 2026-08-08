@@ -1,0 +1,59 @@
+{
+  "checks": {
+    "tooManyLines": "La tua soluzione ha troppe righe di codice. Riesci a renderla più corta?"
+  },
+  "tasks": {
+    "identifyEvenOrOdd": {
+      "name": "Identifica i numeri pari e dispari",
+      "description": "Scrivi una funzione chiamata `evenOrOdd` che prende un numero come input e restituisce \"Even\" se è divisibile per 2, altrimenti \"Odd\". Zero è pari."
+    },
+    "solveInSixLines": {
+      "name": "Risolvi in 6 righe di codice",
+      "description": "Riesci a risolvere questo esercizio con solo 6 righe di codice?"
+    }
+  },
+  "scenarios": {
+    "number14": {
+      "name": "Numero 14",
+      "description": "14 è un numero pari."
+    },
+    "number28": {
+      "name": "Numero 28",
+      "description": "28 è un numero pari."
+    },
+    "numberMinus1": {
+      "name": "Numero -1",
+      "description": "-1 è un numero dispari."
+    },
+    "number17": {
+      "name": "Numero 17",
+      "description": "17 è un numero dispari."
+    },
+    "number0": {
+      "name": "Numero 0",
+      "description": "Zero è considerato pari."
+    },
+    "bonus1": {
+      "name": "6 righe di codice",
+      "description": "Risolvi l'esercizio con solo 6 righe di codice."
+    }
+  },
+  "hints": {
+    "howToTell": {
+      "question": "Come posso stabilire se un numero è pari o dispari nel codice?",
+      "answer": "Matematicamente, un numero è pari se si divide esattamente per 2 senza resto, ed è dispari se c'è un resto di 1. Quindi ti serve un modo per chiederti «cosa rimane dopo aver diviso per 2?»."
+    },
+    "remainderOperator": {
+      "question": "C'è un operatore che mi dà il resto di una divisione?",
+      "answer": "Sì. L'operatore modulo `%` (a volte chiamato resto) fa esattamente questo. Per esempio, `14 % 2` dà `0`, e `17 % 2` dà `1`. Restituisce ciò che rimane dopo aver diviso il primo numero per il secondo."
+    },
+    "turnIntoEvenOdd": {
+      "question": "Ho il resto. Ora come lo trasformo in \"Even\" o \"Odd\"?",
+      "answer": "Usa un'istruzione `if` per confrontare il resto con `0`. Se `number % 2` è uguale a `0`, restituisci \"Even\". Altrimenti, restituisci \"Odd\"."
+    },
+    "zeroAndNegative": {
+      "question": "Non riesco a capire come gestire lo zero e i numeri negativi",
+      "answer": "Non hai bisogno di un caso particolare per loro. `0 % 2` è `0`, quindi lo zero viene considerato pari automaticamente. E `-1 % 2` è diverso da zero, quindi `-1` viene considerato dispari, che è esattamente quello che vuoi."
+    }
+  }
+}

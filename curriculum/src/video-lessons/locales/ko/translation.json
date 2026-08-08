@@ -1,0 +1,138 @@
+{
+  "welcome-to-coding-fundamentals": {
+    "title": "코딩 기초에 오신 것을 환영해요",
+    "description": "Jiki를 만나고 코딩의 기본 원리를 배워요."
+  },
+  "using-functions": {
+    "title": "함수 사용하기",
+    "description": "일을 처리하는 작은 기계, 함수에 대해 배워요."
+  },
+  "function-inputs": {
+    "title": "입력(숫자)을 받는 함수",
+    "description": "함수에 추가 정보를 전달하는 방법을 배워요."
+  },
+  "strings": {
+    "title": "문자열",
+    "description": "프로그램에서 텍스트를 사용하는 방법을 배워요."
+  },
+  "repeat-loop": {
+    "title": "Repeat 루프",
+    "description": "Jiki에게 동작을 여러 번 반복시키는 방법을 배워요."
+  },
+  "creating-variables": {
+    "title": "변수 만들기/사용하기",
+    "description": "프로그램에서 정보를 저장하고 불러오는 방법을 배워요."
+  },
+  "variables-together": {
+    "title": "산술 연산 + 변수",
+    "description": "변수로 산술 연산을 하는 방법을 배워요."
+  },
+  "updating-variables": {
+    "title": "변수 업데이트하기",
+    "description": "코드가 실행되는 동안 변수 값을 변경하는 방법을 배워요."
+  },
+  "functions-that-return-things": {
+    "title": "값을 반환하는 함수",
+    "description": "함수가 결과를 반환하는 방법을 배워요."
+  },
+  "colors": {
+    "title": "색상 (HSL과 RGB)",
+    "description": "정확한 색상을 지정하는 다양한 방법을 배워요."
+  },
+  "animation": {
+    "title": "애니메이션",
+    "description": "화면에서 물체를 움직이는 방법을 배워요."
+  },
+  "random-numbers": {
+    "title": "랜덤 숫자",
+    "description": "프로그램에 랜덤한 요소를 추가하는 방법을 배워요."
+  },
+  "scope": {
+    "title": "스코프",
+    "description": "코드 블록 안팎에서 변수가 어떻게 작동하는지 배워요."
+  },
+  "scenarios": {
+    "title": "시나리오",
+    "description": "다양한 초기 조건으로 코드를 실행하는 방법을 배워요."
+  },
+  "nested-loops": {
+    "title": "중첩 루프",
+    "description": "루프 안에 다른 루프를 넣는 방법을 배워요."
+  },
+  "if-statements": {
+    "title": "if문",
+    "description": "다양한 상황에서 코드가 다른 동작을 하도록 만드는 방법을 배워요."
+  },
+  "else-statements": {
+    "title": "else와 else if",
+    "description": "여러 가지 다른 조건을 처리하는 방법을 배워요."
+  },
+  "logic-gates": {
+    "title": "논리 게이트",
+    "description": "조건들을 결합하는 방법을 배워요."
+  },
+  "remainder": {
+    "title": "모듈로와 NOT",
+    "description": "나머지 연산과 조건을 반전시키는 방법을 배워요."
+  },
+  "repeat-without-count": {
+    "title": "입력 없는 Repeat",
+    "description": "미리 횟수를 알지 못해도 반복하는 방법을 배워요."
+  },
+  "state": {
+    "title": "상태",
+    "description": "조건과 변화하는 데이터를 결합하는 방법을 배워요."
+  },
+  "making-functions": {
+    "title": "직접 함수 만들기",
+    "description": "재사용 가능한 나만의 기계를 만드는 방법을 배워요."
+  },
+  "making-functions-with-inputs": {
+    "title": "함수에 입력 추가하기",
+    "description": "함수가 입력을 받도록 만드는 방법을 배워요."
+  },
+  "making-functions-with-return-values": {
+    "title": "함수에 반환값 추가하기",
+    "description": "함수가 결과를 반환하도록 만드는 방법을 배워요."
+  },
+  "string-concatenation": {
+    "title": "문자열 연결과 템플릿",
+    "description": "텍스트 조각들을 연결하는 방법을 배워요."
+  },
+  "string-indexing": {
+    "title": "문자열 인덱싱",
+    "description": "텍스트에서 개별 문자에 접근하는 방법을 배워요."
+  },
+  "string-iteration": {
+    "title": "문자열 순회하기",
+    "description": "텍스트를 한 글자씩 순회하는 방법을 배워요."
+  },
+  "using-multiple-functions-together": {
+    "title": "여러 함수 함께 사용하기",
+    "description": "함수를 조합해서 더 큰 문제를 해결하는 방법을 배워요."
+  },
+  "methods-and-strings": {
+    "title": "메서드와 속성",
+    "description": "데이터에 붙어 있는 내장 도구를 사용하는 방법을 배워요."
+  },
+  "for-while-loops": {
+    "title": "고급 루프",
+    "description": "더 많은 제어와 유연성을 제공하는 JavaScript 루프를 제대로 배워요."
+  },
+  "arrays": {
+    "title": "배열",
+    "description": "물건의 모음을 배열에 저장하는 방법을 배워요."
+  },
+  "building-arrays": {
+    "title": "배열 만들기",
+    "description": "배열을 하나씩 쌓아 올리는 방법을 배워요."
+  },
+  "dictionaries": {
+    "title": "딕셔너리",
+    "description": "이름이 붙은 레이블로 데이터를 저장하는 방법을 배워요."
+  },
+  "updating-dictionaries": {
+    "title": "딕셔너리 변경하기",
+    "description": "딕셔너리를 업데이트하고 수정하는 방법을 배워요."
+  }
+}

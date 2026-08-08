@@ -1,0 +1,65 @@
+{
+  "checks": {
+    "sky": "Il y a un souci avec le ciel.",
+    "ground": "Il y a un souci avec le sol.",
+    "leftWing": "L'aile gauche ne semble pas correcte.",
+    "rightWing": "L'aile droite ne semble pas correcte.",
+    "outerBody": "Il y a un souci avec l'extérieur du corps.",
+    "innerBody": "Il y a un souci avec l'intérieur du corps.",
+    "head": "Il y a un souci avec la tête.",
+    "leftFace": "Le côté gauche du visage ne semble pas correct.",
+    "rightFace": "Le côté droit du visage ne semble pas correct.",
+    "lowerFace": "Le bas du visage ne semble pas correct.",
+    "leftEye": "L'œil gauche semble un peu décalé.",
+    "leftIris": "L'iris gauche semble un peu décalé.",
+    "rightEye": "L'œil droit semble un peu décalé.",
+    "rightIris": "L'iris droit semble un peu décalé.",
+    "leftFoot": "Le pied gauche s'est égaré.",
+    "rightFoot": "Le pied droit n'est pas comme il faut.",
+    "nose": "Le bec n'est pas correct."
+  },
+  "tasks": {
+    "drawPenguin": {
+      "name": "Dessine le pingouin symétrique",
+      "description": "Complète le dessin du pingouin en ajoutant les parties manquantes pour le rendre symétrique."
+    }
+  },
+  "scenarios": {
+    "makePenguinSymmetrical": {
+      "name": "Rends le pingouin symétrique",
+      "description": "Corrige tous les commentaires TODO pour rendre le pingouin symétrique."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Par où commencer ?",
+      "answer": "Traite les commentaires TODO un par un, en commençant par celui du haut."
+    },
+    "symmetryOnCanvas": {
+      "question": "Comment fonctionne la symétrie sur le canvas ?",
+      "answer": "Si le bord gauche d'un élément est à 20, son bord droit symétrique sera à 80 (100 - 20)."
+    },
+    "noseTrouble": {
+      "question": "Pourquoi je n'y arrive pas avec le bec ?",
+      "answer": "Tu ne dois pas ajouter un nouveau triangle pour le bec : tu dois plutôt MODIFIER le triangle existant pour qu'il soit correct. Tu n'as qu'UNE seule valeur à changer."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dessine un rectangle à la position (left, top) avec la largeur, la hauteur et la couleur données",
+      "category": "Dessin de formes"
+    },
+    "circle": {
+      "description": "Dessine un cercle centré en (centerX, centerY) avec le rayon et la couleur donnés",
+      "category": "Dessin de formes"
+    },
+    "ellipse": {
+      "description": "Dessine une ellipse centrée en (centerX, centerY) avec le rayon horizontal, le rayon vertical et la couleur donnés",
+      "category": "Dessin de formes"
+    },
+    "triangle": {
+      "description": "Dessine un triangle défini par trois sommets, avec la couleur donnée",
+      "category": "Dessin de formes"
+    }
+  }
+}

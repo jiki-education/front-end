@@ -1,0 +1,63 @@
+{
+  "checks": {
+    "tooManyLines": "Tu solución tiene demasiadas líneas de código. ¿Puedes hacerla más corta?"
+  },
+  "tasks": {
+    "didTheyPass": {
+      "name": "¿Aprobó?",
+      "description": "Escribe una función que analice las marcas de un examen de manejo y determine si el estudiante aprobó. Un estudiante reprueba si tiene alguna falta grave (💥) o 5 o más faltas leves (❌)."
+    },
+    "solveInElevenLines": {
+      "name": "Resolver en 12 líneas de código",
+      "description": "¿Puedes resolver este ejercicio con solo 12 líneas de código?"
+    }
+  },
+  "scenarios": {
+    "perfectMarks": {
+      "name": "¡El estudiante perfecto!",
+      "description": "¡Hizo todo bien, vaya!"
+    },
+    "dangerous": {
+      "name": "Peligro para la sociedad",
+      "description": "¡No podemos dejar que salga a la carretera!"
+    },
+    "oneBigMistake": {
+      "name": "Un error grave",
+      "description": "¡Un solo error grave es suficiente para reprobar!"
+    },
+    "scrapedThrough": {
+      "name": "Aprobó raspando",
+      "description": "¡Estuvo cerca, pero aprobó!"
+    },
+    "oneMistakeTooMany": {
+      "name": "¡Un error de más!",
+      "description": "Todos esos errores leves se acumularon."
+    },
+    "bonus1": {
+      "name": "12 líneas de código",
+      "description": "Resuelve el ejercicio con solo 12 líneas de código."
+    }
+  },
+  "hints": {
+    "lookAtEachMark": {
+      "question": "¿Cómo puedo ver cada marca individualmente?",
+      "answer": "Recorre el string de marcas carácter por carácter. Cada carácter es ✅, ❌ o 💥."
+    },
+    "emojiInQuotes": {
+      "question": "¿Por qué mi código se queja de 💥?",
+      "answer": "Los emojis como 💥 y ❌ todavía necesitan estar entre comillas. Son caracteres en un string, igual que las letras."
+    },
+    "majorFault": {
+      "question": "¿Qué debo hacer cuando veo un 💥 (grave)?",
+      "answer": "Una sola falta grave hace que el examen se repruebe, sin importar lo que haya pasado antes. Así que puedes devolver `false` en cuanto veas una. No necesitas seguir buscando."
+    },
+    "minorCount": {
+      "question": "¿Cómo manejo las faltas leves, donde la cantidad importa?",
+      "answer": "Mantén una variable contador y súmale 1 cada vez que veas un ❌. Ignora los ✅, no cambian nada."
+    },
+    "finalCheck": {
+      "question": "¿Qué verifico al final?",
+      "answer": "Una vez que el bucle termina y no has visto ninguna falta grave, el examen se aprueba si hubo menos de 5 faltas leves. Devuelve `true` si la cantidad de faltas leves es menor que 5, de lo contrario devuelve `false`."
+    }
+  }
+}

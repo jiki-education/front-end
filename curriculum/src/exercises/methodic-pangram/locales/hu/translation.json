@@ -1,82 +1,82 @@
 {
   "tasks": {
     "checkPangram": {
-      "name": "Check Pangram",
-      "description": "Write a function that checks if a sentence is a pangram (contains every letter of the alphabet at least once). The check should be case-insensitive."
+      "name": "Pangramma ellenőrzése",
+      "description": "Írj egy függvényt, ami ellenőrzi, hogy egy mondat pangramma-e (tartalmazza az ábécé minden betűjét legalább egyszer). Az ellenőrzés legyen kis-nagybetű-érzéketlen."
     }
   },
   "scenarios": {
     "pangramEmptySentence": {
-      "name": "Empty sentence",
-      "description": "An empty sentence is not a pangram."
+      "name": "Üres mondat",
+      "description": "Egy üres mondat nem pangramma."
     },
     "pangramPerfectLowercase": {
-      "name": "Perfect lowercase",
-      "description": "A perfect lowercase alphabet is a pangram."
+      "name": "Tökéletes kisbetűs",
+      "description": "Egy tökéletes kisbetűs ábécé pangramma."
     },
     "pangramOnlyLowercase": {
-      "name": "Only lowercase",
-      "description": "A sentence with only lowercase letters covering all letters is a pangram."
+      "name": "Csak kisbetűk",
+      "description": "Egy csak kisbetűket tartalmazó mondat, ami az összes betűt lefedi, pangramma."
     },
     "pangramMissingX": {
-      "name": "Missing letter 'x'",
-      "description": "A sentence missing the letter 'x' is not a pangram."
+      "name": "Hiányzó 'x' betű",
+      "description": "Egy mondat, amiből hiányzik az 'x' betű, nem pangramma."
     },
     "pangramMissingH": {
-      "name": "Missing letter 'h'",
-      "description": "A sentence missing the letter 'h' is not a pangram."
+      "name": "Hiányzó 'h' betű",
+      "description": "Egy mondat, amiből hiányzik a 'h' betű, nem pangramma."
     },
     "pangramMissingAM": {
-      "name": "Missing letters beyond a-m",
-      "description": "A string with 'a' to 'm' in lowercase and uppercase is not a pangram."
+      "name": "Hiányzó betűk a-m után",
+      "description": "Egy string, ami csak 'a'-tól 'm'-ig tartalmaz kis- és nagybetűket, nem pangramma."
     },
     "pangramWithUnderscores": {
-      "name": "With underscores",
-      "description": "A pangram sentence with underscores."
+      "name": "Aláhúzásjelekkel",
+      "description": "Egy pangramma mondat aláhúzásjelekkel."
     },
     "pangramWithNumbers": {
-      "name": "With numbers",
-      "description": "A pangram sentence with numbers included."
+      "name": "Számokkal",
+      "description": "Egy pangramma mondat, ami számokat is tartalmaz."
     },
     "pangramNumbersReplacingLetters": {
-      "name": "Numbers replacing letters",
-      "description": "A sentence where letters are replaced by numbers is not a pangram."
+      "name": "Betűk helyett számok",
+      "description": "Egy mondat, amiben a betűk számokra vannak cserélve, nem pangramma."
     },
     "pangramMixedCasePunctuation": {
-      "name": "Mixed case and punctuation",
-      "description": "A pangram with mixed case and punctuation."
+      "name": "Vegyes kis- és nagybetűk és írásjelek",
+      "description": "Egy pangramma vegyes kis- és nagybetűkkel és írásjelekkel."
     },
     "pangramCaseInsensitive": {
-      "name": "Case insensitive missing letters",
-      "description": "A case-insensitive sentence without all letters is not a pangram."
+      "name": "Kis-nagybetű-érzéketlen hiányzó betűk",
+      "description": "Egy kis-nagybetű-érzéketlen mondat, ami nem tartalmazza az összes betűt, nem pangramma."
     }
   },
   "hints": {
     "recall": {
-      "question": "I already solved this by hand. What actually changes?",
-      "answer": "The logic is identical: lowercase the sentence, then check every letter from a to z is present. The only thing that changes is *how* you do those two steps — you can now use built-in string methods instead of your own helper functions."
+      "question": "Ezt már kézzel megoldottuk. Mi változik valójában?",
+      "answer": "A logika ugyanaz: kisbetűsítsd a mondatot, majd ellenőrizd, hogy minden betű jelen van a-tól z-ig. Az egyetlen változás az, hogy *hogyan* végzed el ezt a két lépést — mostantól használhatod a beépített string-metódusokat a saját segédfüggvényeid helyett."
     },
     "lowercaseMethod": {
-      "question": "Is there a built-in way to lowercase a string?",
-      "answer": "Yes. Strings have a `toLowerCase()` method that returns a lowercase copy. Call it on the sentence once at the start, instead of looping over the characters yourself. Remember it returns a *new* string — you need to store the result."
+      "question": "Van beépített mód egy string kisbetűssé alakítására?",
+      "answer": "Igen. A stringeknek van egy `toLowerCase()` metódusa, ami egy kisbetűs másolatot ad vissza. Hívd meg a mondaton egyszer az elején, ahelyett, hogy végigiterálnál a karaktereken egyesével. Ne feledd, hogy egy *új* stringet ad vissza — el kell tárolnod az eredményt."
     },
     "includesMethod": {
-      "question": "Do I still need my own helper to check a letter is present?",
-      "answer": "No. Strings have an `includes()` method that tells you whether one string appears inside another. Use `sentence.includes(letter)` in place of the helper you wrote last time."
+      "question": "Még mindig szükségem van a saját segédfüggvényemre, hogy ellenőrizzem, jelen van-e egy betű?",
+      "answer": "Nem. A stringeknek van egy `includes()` metódusa, ami megmondja, hogy egy string megtalálható-e egy másikban. Használd a `sentence.includes(letter)` hívást a múltkor írt segédfüggvény helyett."
     },
     "stopEarly": {
-      "question": "When can I stop early?",
-      "answer": "As soon as one letter is missing, return `false` — there's no point checking the rest. Only return `true` once the whole alphabet has been confirmed."
+      "question": "Mikor állhatok meg korán?",
+      "answer": "Amint egy betű hiányzik, térj vissza `false`-szal — nincs értelme tovább ellenőrizni. Csak akkor térj vissza `true`-val, ha az egész ábécét leellenőrizted."
     }
   },
   "functions": {
     "toLowerCase": {
-      "description": "Return a lowercase copy of a string (provided by level stdlib)",
-      "category": "String Operations"
+      "description": "Visszaad egy string kisbetűs másolatát (a feladat stdlib-je biztosítja)",
+      "category": "Stringműveletek"
     },
     "includes": {
-      "description": "Check whether a string contains a smaller string (provided by level stdlib)",
-      "category": "String Operations"
+      "description": "Ellenőrzi, hogy egy string tartalmaz-e egy kisebb stringet (a feladat stdlib-je biztosítja)",
+      "category": "Stringműveletek"
     }
   }
 }

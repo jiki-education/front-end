@@ -1,0 +1,46 @@
+{
+  "checks": {
+    "firstRectangle": "İlk dikdörtgen eksik.",
+    "lastRectangle": "Son dikdörtgen eksik.",
+    "minSaturationLightness": "Tüm dikdörtgenlerin doygunluk ve açıklık değerleri en az 20 olmalı.",
+    "uniqueColors": "100 farklı renkte dikdörtgen bulunmuyor.",
+    "hueRed": "Renk tonu 0'a (kırmızı) yakın bir dikdörtgen olmalı.",
+    "huePurple": "Renk tonu 300'e (mor) yakın bir dikdörtgen olmalı."
+  },
+  "tasks": {
+    "drawRainbow": {
+      "name": "Gökkuşağını çizin",
+      "description": "Tuval boyunca her biri farklı renk tonuna sahip 100 dikey çubuk çizerek bir gökkuşağı efekti oluşturun."
+    }
+  },
+  "scenarios": {
+    "drawRainbow": {
+      "name": "Gökkuşağını çizin",
+      "description": "Bir gökkuşağı oluşturmak için 100 güzel dikdörtgen boyayın."
+    }
+  },
+  "hints": {
+    "hundredRectangles": {
+      "question": "100 farklı dikdörtgen mi çizmem gerekiyor?",
+      "answer": "Evet, ama `rectangle(...)` fonksiyonunu 100 kez yazarak değil! Tekrarlayan kodla karşılaştığımızda ne yaptığımızı düşünün."
+    },
+    "colorIntoRectangle": {
+      "question": "Rengi dikdörtgene nasıl aktarırım?",
+      "answer": "`hsl(...)` fonksiyonu bir renk karakter dizisi döndürür. Bu karakter dizisini, daha önce yaptığınız gibi `rectangle(...)` fonksiyonuna girdi olarak verebilirsiniz."
+    },
+    "hueRange": {
+      "question": "Renk tonunun 0'dan 300'e gitmesini nasıl sağlarım?",
+      "answer": "100 çizgi var ve ilkinin renk tonu 0 olmalı. Sonra her çizgi için bu değeri biraz artırmamız gerekiyor: ikinci çizginin renk tonu 3, üçüncüsününki 6 olabilir ve bu böyle devam eder. Sonunda 300'e ulaşırız."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Verilen genişlik, yükseklik ve renkle (left, top) konumunda bir dikdörtgen çizer",
+      "category": "Şekil çizme"
+    },
+    "hsl": {
+      "description": "HSL renk değerlerini (renk tonu 0-360, doygunluk 0-100, açıklık 0-100) bir renk karakter dizisine dönüştürür",
+      "category": "Renkler"
+    }
+  }
+}

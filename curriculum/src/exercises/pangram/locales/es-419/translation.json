@@ -1,0 +1,72 @@
+{
+  "tasks": {
+    "checkPangram": {
+      "name": "Verificar pangrama",
+      "description": "Escribe una función que verifique si una oración es un pangrama (contiene cada letra del alfabeto al menos una vez). La verificación debe ser sin importar mayúsculas o minúsculas."
+    }
+  },
+  "scenarios": {
+    "pangramEmptySentence": {
+      "name": "Oración vacía",
+      "description": "Una oración vacía no es un pangrama."
+    },
+    "pangramPerfectLowercase": {
+      "name": "Minúsculas perfectas",
+      "description": "Un alfabeto perfecto en minúsculas es un pangrama."
+    },
+    "pangramOnlyLowercase": {
+      "name": "Solo minúsculas",
+      "description": "Una oración con solo letras minúsculas que cubre todas las letras es un pangrama."
+    },
+    "pangramMissingX": {
+      "name": "Falta la letra 'x'",
+      "description": "Una oración a la que le falta la letra 'x' no es un pangrama."
+    },
+    "pangramMissingH": {
+      "name": "Falta la letra 'h'",
+      "description": "Una oración a la que le falta la letra 'h' no es un pangrama."
+    },
+    "pangramMissingAM": {
+      "name": "Faltan letras más allá de a-m",
+      "description": "Un string con letras de la 'a' a la 'm' en minúsculas y mayúsculas no es un pangrama."
+    },
+    "pangramWithUnderscores": {
+      "name": "Con guiones bajos",
+      "description": "Una oración pangrama con guiones bajos."
+    },
+    "pangramWithNumbers": {
+      "name": "Con números",
+      "description": "Una oración pangrama que incluye números."
+    },
+    "pangramNumbersReplacingLetters": {
+      "name": "Números reemplazando letras",
+      "description": "Una oración donde las letras son reemplazadas por números no es un pangrama."
+    },
+    "pangramMixedCasePunctuation": {
+      "name": "Mezcla de mayúsculas y puntuación",
+      "description": "Un pangrama con mezcla de mayúsculas y puntuación."
+    },
+    "pangramCaseInsensitive": {
+      "name": "Faltan letras sin importar mayúsculas",
+      "description": "Una oración sin importar mayúsculas que no tiene todas las letras no es un pangrama."
+    }
+  },
+  "hints": {
+    "helpers": {
+      "question": "¿Qué funciones auxiliares me ahorrarán problemas aquí?",
+      "answer": "Una función auxiliar `includes()` (que pregunta '¿este carácter aparece en este string?') y una `toLowerCase()` (para que las diferencias de mayúsculas no te hagan tropezar) hacen que la lógica principal sea corta y clara."
+    },
+    "whyLowercase": {
+      "question": "¿Por qué debería convertir la oración a minúsculas?",
+      "answer": "'The quick brown fox...' contiene tanto 'T' como 't'. Si solo comparas con letras minúsculas, las mayúsculas no coincidirán. Convierte la oración a minúsculas una vez al principio para que cada comparación sea consistente."
+    },
+    "checkEveryLetter": {
+      "question": "¿Cómo verifico que cada letra esté?",
+      "answer": "Recorre cada letra del alfabeto `\"abcdefghijklmnopqrstuvwxyz\"`. Para cada una, usa `includes()` para verificar si aparece en la oración en minúsculas."
+    },
+    "stopEarly": {
+      "question": "¿Cuándo puedo detenerme antes?",
+      "answer": "Tan pronto encuentres una letra que falta, devuelve `false`. No tiene sentido verificar el resto. Solo devuelve `true` después de que se haya confirmado todo el alfabeto."
+    }
+  }
+}

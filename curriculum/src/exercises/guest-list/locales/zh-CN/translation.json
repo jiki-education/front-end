@@ -1,0 +1,65 @@
+{
+  "tasks": {
+    "countChancersInQueue": {
+      "name": "统计未受邀人数",
+      "description": "编写一个函数，接收队列和嘉宾名单，返回排队者中不在嘉宾名单上的人数。"
+    },
+    "solveTightly": {
+      "name": "精简实现",
+      "description": "加分项：这段代码可以写得比你想象的更紧凑。你能把整个解答压缩到寥寥几行吗？"
+    }
+  },
+  "scenarios": {
+    "emptyQueue": {
+      "name": "还没有人出现",
+      "description": "空队列，所以没人等着进去。"
+    },
+    "everyoneChancingIt": {
+      "name": "全队列碰运气",
+      "description": "队列中所有等待者都不在嘉宾名单上。"
+    },
+    "everyoneInvited": {
+      "name": "全员受邀",
+      "description": "队列中所有等待者都在嘉宾名单上。"
+    },
+    "mixedQueue": {
+      "name": "混合队列",
+      "description": "一个队列，其中有些等待者受邀，有些则没有。其中一个未受邀者的名字看起来和名单上的某个名字很像。"
+    },
+    "guestsWhoHaventArrived": {
+      "name": "堵在路上的嘉宾",
+      "description": "一个有很多名字的嘉宾名单，但这些名字对应的人大部分还未出现在队列中。"
+    },
+    "longQueueShortList": {
+      "name": "长队列，短名单",
+      "description": "外面排着长队，但嘉宾名单上只有零星几个名字。"
+    },
+    "guestListBonusLineCount": {
+      "name": "简洁版：混合队列",
+      "description": "和之前一样的混合队列，但这次你的解答必须压缩到更少的行数。"
+    }
+  },
+  "checks": {
+    "tooManyLines": "继续加油！试试用更少的行数解决。"
+  },
+  "hints": {
+    "keepingTrack": {
+      "question": "我在进行过程中需要跟踪什么？",
+      "answer": "答案是一个数字，只有把所有人都看一遍你才知道。所以问自己两个问题：在还没看任何人之前，那个数字应该是什么？当发现某人**没有**受邀时，应该对它做什么？"
+    },
+    "whichList": {
+      "question": "这里有两个列表。我应该遍历哪一个？",
+      "answer": "想想答案在数什么。是**队列里**的人数，所以你需要一次访问一个队列中的人。嘉宾名单不是你遍历的东西，而是你对每一个人检查的东西。"
+    },
+    "realLifeBouncer": {
+      "question": "现实中的门卫用写字板会怎么做？",
+      "answer": "想象他站在队列最前面，一手拿着写字板，一直朝队尾移动。只有走到最后一个人，他才会喊出最终数字。在这个过程中，他对每个人做了什么？对于找不到名字的人，他又做了什么？"
+    }
+  },
+  "functions": {
+    "includes": {
+      "description": "检查列表是否包含特定项（由关卡标准库提供）",
+      "category": "列表操作"
+    }
+  }
+}

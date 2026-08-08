@@ -1,0 +1,81 @@
+{
+  "describers": {
+    "canMove": "检查角色是否可以向前移动",
+    "canTurnLeft": "检查角色左侧是否有路",
+    "canTurnRight": "检查角色右侧是否有路"
+  },
+  "checks": {
+    "notReachedEnd": "你没有到达迷宫的尽头。",
+    "turnAroundNotDefined": "你需要在代码顶部定义一个<code>turnAround</code>函数。",
+    "turnAroundNotCalled": "你已经定义了<code>turnAround</code>，但你需要在最后的<code>else</code>代码块中实际调用它。",
+    "maxLines": "你的程序不应超过17行代码。"
+  },
+  "tasks": {
+    "turnAround": {
+      "name": "在死胡同处转身",
+      "description": "在代码顶部定义一个turnAround()函数，该函数调用两次turnLeft()，然后在最后的else代码块中使用它。你的求解器应该能够走出所有三个迷宫中的死胡同。"
+    },
+    "bonusShortSolution": {
+      "name": "附加题：保持简短",
+      "description": "解决一个有两条死胡同的迷宫，保持整个程序不超过17行代码。"
+    }
+  },
+  "scenarios": {
+    "maze1": {
+      "name": "一条死胡同",
+      "description": "一条带有死胡同岔路的笔直走廊，需要你转身。"
+    },
+    "maze2": {
+      "name": "有死胡同和转弯",
+      "description": "一条蜿蜒的小路，在转向出口前有一条死胡同岔路。"
+    },
+    "maze3": {
+      "name": "保持简洁",
+      "description": "确保你的整个最终程序保持在17行代码以内。"
+    }
+  },
+  "hints": {
+    "defineFunction": {
+      "question": "我如何定义一个新函数？",
+      "answer": "使用`function`关键字，后面跟着函数名、用于输入的括号以及花括号内的函数体，例如`function turnAround() { ... }`。"
+    },
+    "placement": {
+      "question": "我应该把函数定义放在哪里？",
+      "answer": "把它放在代码顶部，在循环之前。函数必须在调用之前定义。"
+    },
+    "turnAroundBody": {
+      "question": "`turnAround()`里面应该放什么？",
+      "answer": "只需要两次`turnLeft()`调用。两次左转组合起来就是朝相反方向。"
+    },
+    "useInSolver": {
+      "question": "我如何在迷宫求解器中使用我的新函数？",
+      "answer": "找到你之前解法中调用两次`turnLeft()`的`else`代码块，然后用一次`turnAround()`调用替换那两次调用。"
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "使角色沿当前方向**向前移动一步**。撞墙会导致程序以错误结束，所以移动前请检查前方！",
+      "category": "移动"
+    },
+    "turnLeft": {
+      "description": "使角色**向左转90度**（逆时针）。这会改变角色面朝的方向。",
+      "category": "移动"
+    },
+    "turnRight": {
+      "description": "使角色**向右转90度**（顺时针）。这会改变角色面朝的方向。",
+      "category": "移动"
+    },
+    "canMove": {
+      "description": "如果角色前方不是墙，则返回**true**，否则返回**false**。",
+      "category": "感知"
+    },
+    "canTurnLeft": {
+      "description": "如果角色左侧不是墙，则返回**true**，否则返回**false**。",
+      "category": "感知"
+    },
+    "canTurnRight": {
+      "description": "如果角色右侧不是墙，则返回**true**，否则返回**false**。",
+      "category": "感知"
+    }
+  }
+}

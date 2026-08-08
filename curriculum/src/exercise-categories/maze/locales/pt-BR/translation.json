@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "Ah, não! Você tentou sair pela borda do labirinto!",
+    "hitWall": "Ai! Você bateu numa parede!",
+    "walkedIntoFire": "Ai! Você andou direto para o fogo!",
+    "walkedIntoPoop": "Eca! Você pisou no cocô! 💩💩💩"
+  },
+  "describers": {
+    "move": "Move o bonequinho uma casa para frente",
+    "turnLeft": "Gira o bonequinho 90 graus para a esquerda",
+    "turnRight": "Gira o bonequinho 90 graus para a direita"
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "errors": {
+    "alreadyIssued": "Hai già assegnato un braccialetto a questa persona: ognuno deve riceverne solo uno."
+  },
+  "checks": {
+    "childWristband": "La persona ha 8 anni. Dovrebbe ricevere un braccialetto da bambino, ma ha ricevuto: {{got}}.",
+    "teenWristband": "La persona ha 15 anni. Dovrebbe ricevere un braccialetto da adolescente, ma ha ricevuto: {{got}}.",
+    "adultWristband": "La persona ha 30 anni. Dovrebbe ricevere un braccialetto da adulto, ma ha ricevuto: {{got}}.",
+    "seniorWristband": "La persona ha 70 anni. Dovrebbe ricevere un braccialetto da anziano, ma ha ricevuto: {{got}}.",
+    "boundary13": "La persona ha 13 anni. Dovrebbe ricevere un braccialetto da adolescente (13 non è sotto i 13), ma ha ricevuto: {{got}}.",
+    "boundary18": "La persona ha 18 anni. Dovrebbe ricevere un braccialetto da adulto (18 non è sotto i 18), ma ha ricevuto: {{got}}.",
+    "boundary65": "La persona ha 65 anni. Dovrebbe ricevere un braccialetto da anziano (65 non è sotto i 65), ma ha ricevuto: {{got}}."
+  },
+  "tasks": {
+    "assignWristband": {
+      "name": "Assegna il braccialetto corretto",
+      "description": "Ottieni l'età della persona e assegnale il braccialetto corretto: bambino (sotto i 13), adolescente (13-17), adulto (18-64) o anziano (65+)."
+    }
+  },
+  "scenarios": {
+    "childAge8": {
+      "name": "Età 8 (bambino)",
+      "description": "Un bambino di 8 anni. Dovrebbe ricevere un braccialetto da bambino."
+    },
+    "teenAge15": {
+      "name": "Età 15 (adolescente)",
+      "description": "Un adolescente di 15 anni. Dovrebbe ricevere un braccialetto da adolescente."
+    },
+    "adultAge30": {
+      "name": "Età 30 (adulto)",
+      "description": "Un adulto di 30 anni. Dovrebbe ricevere un braccialetto da adulto."
+    },
+    "seniorAge70": {
+      "name": "Età 70 (anziano)",
+      "description": "Un anziano di 70 anni. Dovrebbe ricevere un braccialetto da anziano."
+    },
+    "boundary13": {
+      "name": "Età 13 (adolescente)",
+      "description": "Esattamente 13 anni. È un adolescente, non un bambino."
+    },
+    "boundary18": {
+      "name": "Età 18 (adulto)",
+      "description": "Esattamente 18 anni. È un adulto, non un adolescente."
+    },
+    "boundary65": {
+      "name": "Età 65 (anziano)",
+      "description": "Esattamente 65 anni. È un anziano, non un adulto."
+    }
+  },
+  "hints": {
+    "gettingAge": {
+      "question": "Come faccio ad ottenere l'età della persona?",
+      "answer": "Chiama `getAge()` e metti il risultato in una variabile, ad esempio `let age = getAge()`. Successivamente puoi confrontare `age` con i numeri nelle tue condizioni."
+    },
+    "structureForRanges": {
+      "question": "Quale struttura uso quando ci sono diverse fasce d'età?",
+      "answer": "Una catena `if` / `else if` / `else`. Ogni ramo gestisce un braccialetto e solo un ramo verrà eseguito."
+    },
+    "branchOrder": {
+      "question": "L'ordine dei rami è importante?",
+      "answer": "Sì. Inizia dal più giovane (`age < 13`), poi `age < 18`, poi `age < 65`. Poiché ogni ramo viene eseguito solo se i precedenti non sono stati soddisfatti, non hai bisogno di scrivere cose come `age >= 13 && age < 18`."
+    },
+    "seniorsElse": {
+      "question": "E per gli anziani alla fine?",
+      "answer": "Non hai bisogno di una condizione per loro. Un semplice `else` che chiama `giveSeniorWristband()` prende tutti quelli di 65 anni e oltre."
+    }
+  },
+  "describers": {
+    "getAge": "ha ottenuto l'età della persona",
+    "giveChildWristband": "ha dato un braccialetto da bambino",
+    "giveTeenWristband": "ha dato un braccialetto da adolescente",
+    "giveAdultWristband": "ha dato un braccialetto da adulto",
+    "giveSeniorWristband": "ha dato un braccialetto da anziano"
+  },
+  "functions": {
+    "getAge": {
+      "description": "Restituisce l'**età** della persona che aspetta fuori.",
+      "category": "Informazioni"
+    },
+    "giveChildWristband": {
+      "description": "Assegna alla persona un braccialetto da **bambino** (sotto i 13 anni).",
+      "category": "Braccialetti"
+    },
+    "giveTeenWristband": {
+      "description": "Assegna alla persona un braccialetto da **adolescente** (13-17).",
+      "category": "Braccialetti"
+    },
+    "giveAdultWristband": {
+      "description": "Assegna alla persona un braccialetto da **adulto** (18-64).",
+      "category": "Braccialetti"
+    },
+    "giveSeniorWristband": {
+      "description": "Assegna alla persona un braccialetto da **anziano** (65+).",
+      "category": "Braccialetti"
+    }
+  }
+}

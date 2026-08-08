@@ -1,0 +1,88 @@
+{
+  "tasks": {
+    "createAcronymFunction": {
+      "name": "ساخت تابع سرنام",
+      "description": "تابعی بنویسید که یک عبارت را بگیرد و سرنام آن را برگرداند: حرف اول هر کلمه، با حروف بزرگ. کلمات با فاصله و خط تیره از هم جدا می‌شوند و سایر نشانه‌های نگارشی نادیده گرفته می‌شوند."
+    },
+    "solveTightly": {
+      "name": "حل آن در ۴۶ خط",
+      "description": "امتیاز: با انتقال بررسی حروف و تغییر بزرگی و کوچکی به توابع کمکی که `acronym` از آن‌ها استفاده مجدد می‌کند، کل راه‌حل در ۴۶ خط جا می‌شود. می‌توانید به آن برسید؟"
+    }
+  },
+  "scenarios": {
+    "png": {
+      "name": "سرنام پایه: PNG",
+      "description": "تبدیل «Portable Network Graphics» به «PNG»"
+    },
+    "ror": {
+      "name": "کلمات با حروف کوچک: ROR",
+      "description": "تبدیل «Ruby on Rails» به «ROR»"
+    },
+    "gimp": {
+      "name": "کلمه تمام بزرگ: GIMP",
+      "description": "تبدیل «GNU Image Manipulation Program» به «GIMP»"
+    },
+    "firstWordOnly": {
+      "name": "تک کلمه: H",
+      "description": "تبدیل «HyperText» به «H»"
+    },
+    "hyphenated": {
+      "name": "عبارت دارای خط تیره: CMOS",
+      "description": "تبدیل «Complementary metal-oxide semiconductor» به «CMOS»"
+    },
+    "fifo": {
+      "name": "جداشده با ویرگول: FIFO",
+      "description": "تبدیل «First In, First Out» به «FIFO»"
+    },
+    "punctuation": {
+      "name": "با نشانه‌های نگارشی: PHT",
+      "description": "تبدیل «Portable, HyperText, Transmitter» به «PHT»"
+    },
+    "hc": {
+      "name": "با آپوستروف: HC",
+      "description": "تبدیل «Halley's Comet» به «HC»"
+    },
+    "simufta": {
+      "name": "جداکننده‌های پشت‌سرهم: SIMUFTA",
+      "description": "تبدیل «Something - I made up from thin air» به «SIMUFTA»"
+    },
+    "trnt": {
+      "name": "تأکید با زیرخط: TRNT",
+      "description": "تبدیل «The Road _Not_ Taken» به «TRNT»"
+    },
+    "long": {
+      "name": "یک عبارت خیلی بلند: ROTFLSHTMDCOALM",
+      "description": "تبدیل «Rolling On The Floor Laughing So Hard That My Dogs Came Over And Licked Me» به «ROTFLSHTMDCOALM»"
+    },
+    "emoji": {
+      "name": "با ایموجی: HW",
+      "description": "تبدیل «Hello 👋 World» به «HW»"
+    },
+    "acronymBonusLineCount": {
+      "name": "تمیز و مرتب",
+      "description": "مرتب‌ترین راه‌حل از توابع کمکی استفاده مجدد می‌کند و در ۴۶ خط جا می‌شود. می‌توانید پیدایش کنید؟"
+    }
+  },
+  "checks": {
+    "tooManyLines": "ادامه دهید! ببینید می‌توانید آن را در خطوط کمتری حل کنید.",
+    "noMethods": "این تمرین درباره ساختن ابزارها توسط خودتان است. آن را بدون استفاده از هیچ متد داخلی حل کنید."
+  },
+  "hints": {
+    "pickLetters": {
+      "question": "چطور حروفی که سرنام را تشکیل می‌دهند جدا کنم؟",
+      "answer": "سرنام از حرفی که هر کلمه را شروع می‌کند ساخته می‌شود: اولین حرف عبارت، به‌علاوه اولین حرف بعد از هر فاصله یا خط تیره."
+    },
+    "findWordStarts": {
+      "question": "از کجا بفهمم یک کلمه جدید شروع شده است؟",
+      "answer": "عبارت را کاراکتر به کاراکتر پیمایش کنید و دنبال کنید که آیا در شروع یک کلمه جدید هستید یا نه. در همان ابتدا هستید، و دوباره بلافاصله بعد از هر فاصله یا خط تیره. هر چیزی که حرف نباشد (نشانه‌های نگارشی، زیرخط، آپوستروف) باید رد شود نه اینکه به عنوان شروع یک کلمه حساب شود."
+    },
+    "buildResult": {
+      "question": "چطور نتیجه را هنگام پیشروی بسازم؟",
+      "answer": "با یک رشته خالی شروع کنید و هر حرف انتخاب‌شده را با استفاده از `+` به انتها اضافه کنید."
+    },
+    "uppercaseLetters": {
+      "question": "چطور یک حرف را بزرگ کنم وقتی متد داخلی‌ای برایش نیست؟",
+      "answer": "هیچ بزرگ‌کننده‌ی آماده‌ای اینجا نیست. درست مثل تمرین Pangram، می‌توانید یک الفبای کوچک را در مقابل یک الفبای بزرگ ردیف کنید و هر حرف را با حرفی که در همان موقعیت است عوض کنید. حروفی که از قبل بزرگ هستند می‌توانند همان‌طور بمانند."
+    }
+  }
+}

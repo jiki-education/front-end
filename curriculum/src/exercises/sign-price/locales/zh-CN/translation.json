@@ -1,0 +1,63 @@
+{
+  "checks": {
+    "tooManyLines": "你的代码行数太多了。可以缩短一些吗？"
+  },
+  "tasks": {
+    "calculateSignPrice": {
+      "name": "计算招牌价格",
+      "description": "编写一个计算招牌价格的函数。每个字母收费 12 美元，空格免费且不计数。将结果作为格式化字符串返回。"
+    },
+    "solveInNineLines": {
+      "name": "用 9 行代码解决",
+      "description": "你能只用 9 行代码完成这个练习吗？"
+    }
+  },
+  "scenarios": {
+    "simpleWord": {
+      "name": "简单单词",
+      "description": "一个没有空格的单字。"
+    },
+    "singleLetter": {
+      "name": "单个字母",
+      "description": "只有一个字母的招牌。"
+    },
+    "twoWords": {
+      "name": "两个单词",
+      "description": "两个单词间有一个空格，应被跳过。"
+    },
+    "multipleSpaces": {
+      "name": "多个空格",
+      "description": "多个单词，包含多个需要跳过的空格。"
+    },
+    "longText": {
+      "name": "长文本",
+      "description": "一个更长的招牌，字母更多。"
+    },
+    "allSpaces": {
+      "name": "全是空格",
+      "description": "只有空格的招牌没有字母需要收费。"
+    },
+    "bonus1": {
+      "name": "9 行代码",
+      "description": "只用 9 行代码完成练习。"
+    }
+  },
+  "hints": {
+    "whatCounting": {
+      "question": "我实际上在计算什么？",
+      "answer": "字母。具体来说，任何不是空格的字符。因此你需要一个计数器，每遇到招牌文本中的一个非空格字符就加一。"
+    },
+    "loopCharacters": {
+      "question": "如何遍历字符？",
+      "answer": "使用 `for...of` 循环可以逐个获取字符，这样你就能一次查看一个字符。"
+    },
+    "checkSpace": {
+      "question": "如何检查一个字符是否为空格？",
+      "answer": "在循环内部，使用 if 语句将字符与 `\" \"` 进行比较。只有当字符不是空格时才计数。"
+    },
+    "buildResultString": {
+      "question": "如何构建结果字符串？",
+      "answer": "使用字符串拼接或模板字符串。如果需要复习这些概念，可以查看相关概念页。"
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "checks": {
+    "notShotAllAliens": "Non hai abbattuto tutti gli alieni.",
+    "noRepeatWithArg": "Non puoi usare <code>repeat(n) {}</code> in questo esercizio. Dovresti usare solo cicli <code>repeat() {}</code> senza input."
+  },
+  "tasks": {
+    "scrollAndShoot": {
+      "name": "Scorri sullo schermo e spara a ogni alieno",
+      "description": "Muovi il laser avanti e indietro sullo schermo, controllando se c'è un alieno sopra di te e abbattendolo. Non uscire dai bordi o sparare quando non c'è un alieno, altrimenti perdi! Le ondate si fanno più intense man mano che vai avanti."
+    }
+  },
+  "scenarios": {
+    "oneAlien": {
+      "name": "Un alieno",
+      "description": "Un singolo alieno da abbattere"
+    },
+    "oneRow": {
+      "name": "Una fila sparsa",
+      "description": "Alcuni alieni sparsi nella fila inferiore"
+    },
+    "twoRows": {
+      "name": "Due file",
+      "description": "Alieni distribuiti su due file"
+    },
+    "threeRows": {
+      "name": "Tre file",
+      "description": "Alieni su tutte e tre le file"
+    },
+    "fullRows": {
+      "name": "File piene",
+      "description": "Tre file piene. Gli alieni continuano a tornare!"
+    }
+  },
+  "hints": {
+    "whereDoIStart": {
+      "question": "Da dove comincio? Sembra tanto.",
+      "answer": "Dividilo in parti più piccole. Fai muovere il laser da una parte all'altra per primo, senza sparare. Quando il movimento funziona, aggiungi la logica per sparare."
+    },
+    "trackLaserPosition": {
+      "question": "Come faccio a tenere traccia della posizione del laser?",
+      "answer": "Usa una variabile per la posizione del laser. Aggiornala a ogni iterazione del ciclo mentre chiami `moveLeft()` o `moveRight()`."
+    },
+    "whenToTurnAround": {
+      "question": "Come faccio a sapere quando invertire la direzione?",
+      "answer": "Tieni traccia di una variabile per la direzione (per esempio `1` per destra, `-1` per sinistra). Quando la posizione raggiunge il bordo sinistro o destro, inverti la direzione. È lo stesso schema di rimbalzo dell'esercizio Rainbow Ball."
+    },
+    "whenToShoot": {
+      "question": "Quando devo chiamare `shoot()`?",
+      "answer": "Prima di chiamare `shoot()`, controlla `isAlienAbove()`. Spara solo se restituisce `true`, altrimenti sprecherai munizioni e perderai."
+    },
+    "laserOverheating": {
+      "question": "Il laser continua a surriscaldarsi. Cosa faccio?",
+      "answer": "Non sparare a ogni iterazione. Muoviti almeno una volta tra un colpo e l'altro in modo che il cannone abbia il tempo di raffreddarsi."
+    }
+  },
+  "functions": {
+    "moveLeft": {
+      "description": "Sposta il cannone laser **di una posizione a sinistra**. Se provi a uscire dal bordo sinistro dello schermo, perderai la partita!",
+      "category": "Movimento"
+    },
+    "moveRight": {
+      "description": "Sposta il cannone laser **di una posizione a destra**. Se provi a uscire dal bordo destro dello schermo, perderai la partita!",
+      "category": "Movimento"
+    },
+    "shoot": {
+      "description": "Spara il laser verso l'alto. **Spara solo quando c'è un alieno sopra di te**, o perderai la partita! Il cannone laser si surriscalda facilmente, quindi devi muoverti prima di sparare di nuovo.",
+      "category": "Azione"
+    },
+    "isAlienAbove": {
+      "description": "Restituisce `true` se c'è un alieno direttamente sopra il cannone laser, o `false` altrimenti. Usalo per controllare prima di sparare!",
+      "category": "Rilevamento"
+    }
+  }
+}

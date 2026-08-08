@@ -1,0 +1,68 @@
+{
+  "checks": {
+    "dayIsntCorrect": "O tempo do dia {{day}} não está correto."
+  },
+  "tasks": {
+    "drawForecast": {
+      "name": "Desenha a previsão",
+      "description": "Desenha o tempo de cada dia na sua própria caixa, usando a posição do dia na lista como número da caixa."
+    }
+  },
+  "scenarios": {
+    "mixedWeek": {
+      "name": "Uma semana variada",
+      "description": "Um pouco de tudo ao longo dos seis dias."
+    },
+    "sunnyWeek": {
+      "name": "Uma semana soalheira",
+      "description": "Muito sol, com um ou dois dias mais nublados."
+    },
+    "rainyWeek": {
+      "name": "Uma semana chuvosa",
+      "description": "Uma semana encharcada, de nuvens e chuva."
+    },
+    "snowyWeek": {
+      "name": "Uma semana com neve",
+      "description": "Uma semana fria e cheia de neve."
+    }
+  },
+  "hints": {
+    "loopWithIndex": {
+      "question": "Como percorro os dias e sei em que caixa fica cada um?",
+      "answer": "Percorre `days` num ciclo com um contador que vai de `0` até `days.length - 1`. Esse contador é o número da caixa de cada dia."
+    },
+    "descriptionToSymbols": {
+      "question": "Como transformo uma descrição como `\"Miserable 😩\"` em símbolos?",
+      "answer": "Compara a descrição com cada uma das descrições possíveis e escolhe a lista de símbolos correspondente, por exemplo `[\"cloud\", \"rain\"]`. As instruções listam todas as descrições e os seus símbolos."
+    },
+    "weekdaysList": {
+      "question": "Como obtenho o nome do dia da semana para cada caixa?",
+      "answer": "Cria uma lista com os nomes dos seis dias da semana por ordem, de `\"Monday\"` a `\"Saturday\"`, e lê o que está na tua posição atual usando o mesmo contador que usas para o número da caixa."
+    },
+    "passArgs": {
+      "question": "O que passo à função `draw`?",
+      "answer": "Três coisas: o número da caixa (o teu contador), o nome do dia da semana dessa caixa e a lista de símbolos desse dia."
+    },
+    "tidyWithHelper": {
+      "question": "O meu ciclo está a ficar comprido. Como o posso arrumar?",
+      "answer": "Podes mover a correspondência entre descrições e símbolos para uma função própria e chamá-la a partir do ciclo. É opcional, mas mantém o ciclo curto e fácil de ler."
+    }
+  },
+  "functions": {
+    "draw": {
+      "description": "Desenha os símbolos meteorológicos indicados numa caixa da previsão. Recebe o número da caixa (0 a 5), o nome do dia da semana com que a identificar e a lista de símbolos.",
+      "category": "Desenho"
+    }
+  },
+  "describers": {
+    "draw": "desenhou ${arg3} na caixa de ${arg2}"
+  },
+  "errors": {
+    "elementsMustBeList": "Os símbolos meteorológicos (o terceiro valor que passas a draw) têm de ser uma lista, como [\"sun\", \"cloud\"].",
+    "elementsMustBeStrings": "Todos os símbolos meteorológicos na lista têm de ser strings, como \"sun\" ou \"rain\".",
+    "unknownElement": "\"{{element}}\" não é um símbolo meteorológico. Usa \"sun\", \"cloud\", \"rain\" ou \"snow\".",
+    "indexMustBeNumber": "O número da caixa (o primeiro valor que passas a draw) tem de ser um número.",
+    "indexOutOfRange": "O número da caixa tem de ser um número inteiro entre 0 e {{max}}.",
+    "dayMustBeString": "O dia da semana (o segundo valor que passas a draw) tem de ser texto, como \"Monday\"."
+  }
+}

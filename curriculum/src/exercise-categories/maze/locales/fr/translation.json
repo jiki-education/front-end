@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "Oh non, tu as failli tomber du bord du labyrinthe !",
+    "hitWall": "Ouille, tu as foncé dans un mur !",
+    "walkedIntoFire": "Aïe ! Tu as marché droit dans le feu !",
+    "walkedIntoPoop": "Beurk ! Tu as marché dans la crotte ! 💩💩💩"
+  },
+  "describers": {
+    "move": "Déplace le personnage d'une case vers l'avant",
+    "turnLeft": "Fait pivoter le personnage de 90 degrés vers la gauche",
+    "turnRight": "Fait pivoter le personnage de 90 degrés vers la droite"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "errors": {
+    "allInputsNumbers": "Tüm girdiler sayı olmalı",
+    "blueRange": "Mavi değeri 0 ile 255 arasında olmalı",
+    "circleInputsNumbers": "x, y ve radius girdileri sayı olmalı",
+    "colorNamedOrHex": "Renk, talimatlarda belirtilen adlandırılmış renklerden biri (\"orange\", \"blue\", \"white\" vb.) ya da # ile başlayan bir hex renk olmalı",
+    "colorNotAllowed": "Bu alıştırmada renk belirtilmemeli",
+    "colorNotString": "Renk bir karakter dizisi olmalı",
+    "ellipseInputsNumbers": "x, y, rx ve ry girdileri sayı olmalı",
+    "greenRange": "Yeşil değeri 0 ile 255 arasında olmalı",
+    "heightPositive": "Yükseklik 0'dan büyük olmalı",
+    "hueRange": "Renk tonu 0 ile 360 arasında olmalı",
+    "lightnessRange": "Açıklık 0 ile 100 arasında olmalı",
+    "lineInputsNumbers": "x1, y1, x2 ve y2 girdileri sayı olmalı",
+    "rectInputsNumbers": "x, y, width ve height girdileri sayı olmalı",
+    "redRange": "Kırmızı değeri 0 ile 255 arasında olmalı",
+    "saturationRange": "Doygunluk 0 ile 100 arasında olmalı",
+    "triangleInputsNumbers": "x1, y1, x2, y2, x3 ve y3 girdileri sayı olmalı",
+    "widthPositive": "Genişlik 0'dan büyük olmalı"
+  },
+  "describers": {
+    "rectangle": {
+      "default": "(${arg1}, ${arg2}) koordinatlarında, genişliği ${arg3}, yüksekliği ${arg4} ve rengi ${arg5} olan bir dikdörtgen çizdi",
+      "fixedColor": "(${arg1}, ${arg2}) koordinatlarında, genişliği ${arg3} ve yüksekliği ${arg4} olan bir dikdörtgen çizdi"
+    },
+    "triangle": {
+      "default": "üç noktası (${arg1}, ${arg2}), (${arg3}, ${arg4}) ve (${arg5}, ${arg6}), rengi ${arg7} olan bir üçgen çizdi",
+      "fixedColor": "üç noktası (${arg1}, ${arg2}), (${arg3}, ${arg4}) ve (${arg5}, ${arg6}) olan bir üçgen çizdi"
+    },
+    "circle": {
+      "default": "merkezi (${arg1}, ${arg2}) noktasında, yarıçapı ${arg3} ve rengi ${arg4} olan bir daire çizdi",
+      "fixedColor": "merkezi (${arg1}, ${arg2}) noktasında, yarıçapı ${arg3} olan bir daire çizdi"
+    },
+    "ellipse": {
+      "default": "merkezi (${arg1}, ${arg2}) noktasında, yatay yarıçapı ${arg3}, dikey yarıçapı ${arg4} ve rengi ${arg5} olan bir elips çizdi",
+      "fixedColor": "merkezi (${arg1}, ${arg2}) noktasında, yatay yarıçapı ${arg3} ve dikey yarıçapı ${arg4} olan bir elips çizdi"
+    },
+    "line": {
+      "default": "(${arg1}, ${arg2}) noktasından (${arg3}, ${arg4}) noktasına, rengi ${arg5} olan bir çizgi çizdi",
+      "fixedColor": "(${arg1}, ${arg2}) noktasından (${arg3}, ${arg4}) noktasına bir çizgi çizdi"
+    },
+    "clear": "tuvali temizledi",
+    "hsl": "HSL rengini (renk tonu: ${arg1}, doygunluk: ${arg2}, açıklık: ${arg3}) bir hex karakter dizisine dönüştürdü",
+    "rgb": "RGB rengini (kırmızı: ${arg1}, yeşil: ${arg2}, mavi: ${arg3}) bir hex karakter dizisine dönüştürdü"
+  }
+}

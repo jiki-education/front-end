@@ -1,0 +1,59 @@
+{
+  "checks": {
+    "frameWrong": "Le cadre de la maison n'est pas à la bonne position.",
+    "roofWrong": "Le toit de la maison n'est pas à la bonne position.",
+    "leftWindowWrong": "La fenêtre de gauche n'est pas positionnée correctement.",
+    "rightWindowWrong": "La fenêtre de droite n'est pas positionnée correctement.",
+    "doorWrong": "La porte n'est pas positionnée correctement.",
+    "knobWrong": "La poignée de porte n'est pas positionnée correctement.",
+    "doesNotScale": "La maison ne se redimensionne pas correctement quand houseWidth={{houseWidth}} et houseHeight={{houseHeight}}. Chaque position et chaque taille doivent être calculées à partir de houseWidth et houseHeight, pas codées en dur."
+  },
+  "tasks": {
+    "drawHouse": {
+      "name": "Dessine la maison",
+      "description": "Construis la maison à partir de `houseWidth` et `houseHeight` pour qu'elle reste centrée, posée sur l'herbe et bien proportionnée à n'importe quelle taille."
+    }
+  },
+  "scenarios": {
+    "drawTheHouse": {
+      "name": "Dessine la maison",
+      "description": "Construis la maison à partir de houseWidth et houseHeight pour qu'elle se redimensionne correctement."
+    }
+  },
+  "hints": {
+    "whereDoIStart": {
+      "question": "Par où commencer ?",
+      "answer": "On te donne `houseWidth`, `houseHeight` et `canvasWidth`. Commence par déterminer les deux choses dont le cadre a besoin : son bord gauche (pour que la maison soit centrée) et son bord haut (pour qu'elle soit posée sur l'herbe). Toutes les autres formes peuvent ensuite être construites à partir du cadre."
+    },
+    "keepCentered": {
+      "question": "Comment garder la maison centrée quand la largeur change ?",
+      "answer": "Le milieu du canvas est toujours `canvasWidth / 2`. Si le cadre est centré sur ce point, son bord gauche se trouve une demi-largeur à gauche du milieu. Tout ce qui est centré par ailleurs (la pointe du toit, la porte) peut utiliser ce même point milieu."
+    },
+    "keepPlantedOnGrass": {
+      "question": "Comment garder la maison posée sur l'herbe ?",
+      "answer": "Trouve la valeur y où le bas de la maison doit se trouver (un peu en dessous du haut de l'herbe). Le haut du cadre se trouve alors une hauteur de maison au-dessus. En partant du bas vers le haut, une maison plus haute grandit vers le ciel au lieu de s'enfoncer dans l'herbe."
+    },
+    "sizeRoofWindowsDoor": {
+      "question": "Comment dimensionner le toit, les fenêtres et la porte ?",
+      "answer": "Chaque taille dans les instructions est une fraction de la largeur ou de la hauteur du cadre (par exemple, « 1/5 de la largeur » est `houseWidth / 5`). Construis chaque largeur à partir de `houseWidth` et chaque hauteur à partir de `houseHeight`, pour qu'elles se redimensionnent toutes ensemble."
+    },
+    "breaksOnResize": {
+      "question": "Tout est correct à la taille par défaut, mais ça casse quand je redimensionne. Pourquoi ?",
+      "answer": "Tu as probablement codé un nombre en dur quelque part au lieu de le calculer. Cherche le moindre nombre écrit tel quel qui n'est pas une valeur venue directement des instructions, comme la taille du canvas ou la hauteur de l'herbe. Il devrait presque certainement être calculé à partir d'une autre variable, que ce soit un ancrage ou quelque chose de déjà construit à partir d'un ancrage, comme la largeur de la porte."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Dessine un rectangle à la position (left, top) avec la largeur, la hauteur et la couleur données",
+      "category": "Dessin de formes"
+    },
+    "circle": {
+      "description": "Dessine un cercle centré en (centerX, centerY) avec le rayon et la couleur donnés",
+      "category": "Dessin de formes"
+    },
+    "triangle": {
+      "description": "Dessine un triangle défini par trois sommets, avec la couleur donnée",
+      "category": "Dessin de formes"
+    }
+  }
+}

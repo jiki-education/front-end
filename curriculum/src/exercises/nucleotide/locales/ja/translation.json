@@ -1,0 +1,62 @@
+{
+  "tasks": {
+    "countNucleotide": {
+      "name": "ヌクレオチドを数える",
+      "description": "特定のヌクレオチド（A、C、G、T）がDNA鎖に出現する回数を数える関数を作成してください。ヌクレオチドまたは鎖内の文字が無効な場合は -1 を返します。"
+    }
+  },
+  "scenarios": {
+    "nucleotideEmptyStrand": {
+      "name": "空の鎖",
+      "description": "空の鎖の場合、任意の有効なヌクレオチドに対して 0 を返す必要があります。"
+    },
+    "nucleotideSingleMatch": {
+      "name": "1文字の鎖",
+      "description": "指定されたヌクレオチドと一致する1文字の鎖は、1 を返す必要があります。"
+    },
+    "nucleotideRepeated": {
+      "name": "ヌクレオチドの繰り返し",
+      "description": "同じヌクレオチドが繰り返される鎖では、そのすべてを数える必要があります。"
+    },
+    "nucleotideMixedStrandA": {
+      "name": "混合鎖でAを数える",
+      "description": "混合鎖で特定のヌクレオチドを数えます。"
+    },
+    "nucleotideMixedStrandT": {
+      "name": "混合鎖でTを数える",
+      "description": "同じ鎖で別のヌクレオチドを数えます。"
+    },
+    "nucleotideInvalidNucleotide": {
+      "name": "無効なヌクレオチド",
+      "description": "無効なヌクレオチド文字の場合は -1 を返す必要があります。"
+    },
+    "nucleotideInvalidStrand": {
+      "name": "無効な鎖",
+      "description": "無効な文字を含む鎖の場合は -1 を返す必要があります。"
+    }
+  },
+  "hints": {
+    "checkValid": {
+      "question": "指定された文字が有効かどうかを確認するにはどうすればよいですか？",
+      "answer": "文字列には `includes()` メソッドがあり、ある文字列が別の文字列の中に含まれているかどうかを調べることができます。これは、文字が有効なヌクレオチドの1つであるかどうかを確認する便利な方法です。カウントを始める前に検証しましょう。"
+    },
+    "invalidNucleotide": {
+      "question": "ヌクレオチドが無効な場合はどうすればよいですか？",
+      "answer": "すぐに `-1` を返します。仕様では、無効な入力を示すためにその値を使用します。"
+    },
+    "countOccurrences": {
+      "question": "鎖内での出現回数を数えるにはどうすればよいですか？",
+      "answer": "鎖の各文字をループします。その文字が数えているヌクレオチドと一致する場合、カウンターに 1 を加えます。最後にカウンターを返します。"
+    },
+    "validateStrand": {
+      "question": "鎖も検証する必要がありますか？",
+      "answer": "はい。鎖内のいずれかの文字が有効なヌクレオチドでない場合は、`-1` を返します。カウントする前に各文字を確認してください。"
+    }
+  },
+  "functions": {
+    "includes": {
+      "description": "文字列が指定された部分文字列を含むかどうかを確認します（レベル標準ライブラリにより提供）",
+      "category": "文字列操作"
+    }
+  }
+}

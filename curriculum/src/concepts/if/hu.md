@@ -1,7 +1,7 @@
 ---
 title: "Elágazások"
 description: "Az `if` kulcsszó használata, hogy egy kódblokk csak akkor fusson le, ha egy feltétel igaz. Olyan, mint amikor a kidobó eldönti, kit enged be."
-en_md5: 44c0308ae479c0b30fb4b8cf06980071
+en_md5: 8797e078e1ad90b7652373baf6f96f28
 ---
 
 Van egy kulcsszó, amivel megmondhatjuk Jikinek, hogy csak bizonyos helyzetekben csináljon valamit. Képzeld el, hogy egy bár bejáratát őrző kódot írsz, mondjuk te vagy a kidobó, és Jiki csak akkor nyithatja ki az ajtót, ha valaki megfelelően van felöltözve. Vagy éppen te intheted le a kockás zászlóval a versenyt a célban, de Jikinek tudnia kell, hogy ezt csak az utolsó körben szabad megtennie. Az ilyen helyzetekben az `if` kulcsszót fogjuk használni.
@@ -43,11 +43,11 @@ Ezeket az összehasonlításokat jelekkel írjuk le. Valószínűleg ismered má
   height="400"
 />
 
-Így nem keverjük össze azzal, amikor változót hozunk létre vagy frissítünk, ilyenkor ugyanis egyetlen egyenlőségjel jelenti azt, hogy „ezt tedd a dobozba". Csak azt jegyezd meg, hogy összehasonlításhoz három egyenlőségjel kell.
+Így nem keverjük össze azzal, amikor változót hozunk létre vagy frissítünk, ilyenkor ugyanis egyetlen egyenlőségjel jelenti azt, hogy „ezt tedd a dobozba”. Csak azt jegyezd meg, hogy összehasonlításhoz három egyenlőségjel kell.
 
 Stringeket is összehasonlíthatsz. A `"hello"` egyenlő a `"hello"`-val: ez igaz, a két string ugyanaz. De itt légy óvatos, mert Jiki a két papírlapon lévő stringek minden egyes karakterét (_character_ angolul) összehasonlítja. A nagy H-s `"Hello"` nem ugyanaz, mint a kis h-s `"hello"`: két különböző string. Az összehasonlításuk ezért hamis lenne, mert a nagy H és a kis h különböző karakterek.
 
-Ja, és mellesleg: az igaz és a hamis értékeket _Boolean_-nek (logikai érték) hívják. Ez is egy technikásan hangzó szó, pedig nagyon egyszerű: csak egy hivatalos elnevezés arra, hogy valami vagy igaz, vagy hamis. Szóval ha azt hallod tőlem vagy mástól, hogy Boolean, az csak annyit jelent: igaz vagy hamis. Nézzük meg mindezt működés közben. Képzeld el, hogy azt a robotkidobót építjük egy klubnak, és azt mondjuk, hogy a kidobó csak akkor nyithatja ki az ajtót, ha az illető legalább 21 éves. Van egy `askAge` (kérdezd meg az életkort) függvényünk, amivel megkérdezhetjük valakinek az életkorát, és az eredményét egy `age` (életkor) nevű változóba mentjük. Utána mondhatjuk azt, hogy ha ez az `age` nagyobb, mint 20, kinyitjuk az ajtót. Ha tehát az `askAge` `30`-at ad vissza, kinyitjuk, ha pedig `12`-t, akkor nem.
+Ja, és mellesleg: az igaz és a hamis értékeket _Boolean_-nek (logikai érték) hívják. Ez egy szakzsargonnak hangzó szó, de valójában nagyon egyszerű: csak egy hivatalos elnevezés arra, hogy valami vagy igaz, vagy hamis. Szóval ha találkozol a Boolean szóval, az csak annyit jelent: igaz vagy hamis. Nézzük meg mindezt működés közben. Képzeld el, hogy a fent említett robotkidobót készítjük el egy klubnak, és azt mondjuk, hogy a kidobó csak akkor nyithatja ki az ajtót, ha az illető legalább 21 éves. Van egy `askAge` (kérdezd meg az életkort) függvényünk, amivel megkérdezhetjük valakinek az életkorát, és az eredményét egy `age` (életkor) nevű változóba mentjük. Utána mondhatjuk azt, hogy ha ez az `age` nagyobb, mint 20, akkor kinyitjuk az ajtót. Ha tehát az `askAge` `30`-at ad vissza, akkor kinyitjuk, ha pedig `12`-t, akkor nem.
 
 ```javascript
 let age = askAge()

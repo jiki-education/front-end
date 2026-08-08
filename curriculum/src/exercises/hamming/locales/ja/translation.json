@@ -1,0 +1,55 @@
+{
+  "checks": {
+    "tooManyLines": "必要以上に行数を使っています。もう少し短くできないか見直してみましょう。"
+  },
+  "tasks": {
+    "calculateHammingDistance": {
+      "name": "ハミング距離を計算する",
+      "description": "同じ長さの2本のDNA鎖間のハミング距離を計算する関数を書いてください。ハミング距離とは、対応する位置の文字が異なる箇所の数です。"
+    },
+    "solveInElevenLines": {
+      "name": "11行で解く",
+      "description": "11行以内のコードでこの問題を解けますか？"
+    }
+  },
+  "scenarios": {
+    "hammingEmptyStrands": {
+      "name": "空のDNA鎖",
+      "description": "空のDNA鎖のハミング距離は0です。"
+    },
+    "hammingSingleLetterIdentical": {
+      "name": "1文字の同一DNA鎖",
+      "description": "1文字で同一のDNA鎖のハミング距離は0です。"
+    },
+    "hammingLongIdenticalStrands": {
+      "name": "長い同一DNA鎖",
+      "description": "長い同一のDNA鎖のハミング距離は0です。"
+    },
+    "hammingSingleLetterDifferent": {
+      "name": "1文字の異なるDNA鎖",
+      "description": "1文字で異なるDNA鎖のハミング距離は1です。"
+    },
+    "hammingLongDifferentStrands": {
+      "name": "長い異なるDNA鎖",
+      "description": "異なる部分のある長いDNA鎖のハミング距離は計算して求められます。"
+    },
+    "hammingBonusElevenLines": {
+      "name": "11行のコード",
+      "description": "11行以内のコードで演習を解きます。"
+    }
+  },
+  "hints": {
+    "hammingDistanceMeaning": {
+      "question": "「ハミング距離」を平易な言葉で言うとどういう意味ですか？",
+      "answer": "2つの文字列で異なる位置の数です。例えば 'GAGA' と 'GATA' では3番目の位置だけが異なるので、距離は1になります。"
+    },
+    "compareCharactersAtPosition": {
+      "question": "同じ位置にある文字を、2つの文字列でどう比較すればいいですか？",
+      "answer": "両方の文字列を同時に進めていき、同じ位置の文字をそれぞれ取り出せるようにする必要があります。"
+    },
+    "trackDifferenceCount": {
+      "question": "違いがいくつあるかをどうやって数えればいいですか？",
+      "answer": "違いを見つけるたびに更新される合計を保持するものが必要です。すべての位置をチェックし終えたら、それを返せるようにしておきます。"
+    }
+  }
+}

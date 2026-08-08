@@ -1,16 +1,17 @@
 ---
-title: "Gold Panning"
-description: "Pan for gold nuggets in a river and sell what you find."
+title: "Aranymosás"
+description: "Moss aranyrögöket a folyóban, és add el, amit találsz."
+en_md5: 8bde716ada0b3c0edb30f1ae680448f0
 ---
 
-Before California was the home of tech, it was the home of gold! Over 300,000 people came and started searching the rivers for little nuggets of gold to sell.
+Mielőtt Kalifornia a technika otthona lett, az arany otthona volt! Több mint 300 000 ember érkezett, és elkezdték a folyókat kis aranyrögök után kutatni, hogy eladják őket.
 
-In this exercise, you're building a robot that's going out to pan for gold.
+Ebben a feladatban egy robotot építesz, aki kimegy aranyat mosni.
 
-You have a `pan()` function, which you can use to pan some gold out of the water. The function returns the amount of nuggets you find.
+Rendelkezésedre áll egy `pan()` (aranyat mos) függvény, amellyel kimersz egy kis aranyat a vízből. A függvény visszaadja (_return_ angolul) a talált rögök számát.
 
-You also have a `sell(numberOfNuggets)` function that you can use to sell the total number of nuggets you find.
+Van egy `sell(numberOfNuggets)` (elad) függvényed is, amellyel eladhatod a talált rögök teljes számát.
 
-Your robot has enough capacity to pan a few times before selling. You need to write code so that it heads to the river, pans **5 times**, keeping track of how much gold it's collected as it goes, and then sells the total number of nuggets it has found (across all 5 pans at the end).
+A robotodnak elegendő kapacitása van, hogy néhányszor aranyat mosson, mielőtt eladná. Olyan kódot kell írnod, amivel elmegy a folyóhoz, **ötször** aranyat mos, és közben nyilvántartja, mennyi aranyat gyűjtött, majd eladja a talált rögök teljes számát (az összes öt mosásból a végén).
 
-Solve the puzzle in **5 lines of code** (or less)!
+Oldd meg a feladatot **legfeljebb 5 sornyi kódban**!

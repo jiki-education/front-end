@@ -1,48 +1,48 @@
 {
   "checks": {
-    "base": "The base (bottom) circle is either in the wrong place or the wrong size. Check `baseRadius` and `baseY`.",
-    "body": "The body (middle) circle is either in the wrong place or the wrong size. Check `bodyRadius` and `bodyY`.",
-    "head": "The head (top) circle is either in the wrong place or the wrong size. Check `headRadius` and `headY`.",
-    "notResponsive": "Your code doesn't scale correctly when `size` is {{size}}. Every radius and y position should be derived from `size`."
+    "base": "Az alap (alsó) kör vagy rossz helyen van, vagy rossz méretű. Ellenőrizd a `baseRadius`-t és a `baseY`-t.",
+    "body": "A test (középső) kör vagy rossz helyen van, vagy rossz méretű. Ellenőrizd a `bodyRadius`-t és a `bodyY`-t.",
+    "head": "A fej (felső) kör vagy rossz helyen van, vagy rossz méretű. Ellenőrizd a `headRadius`-t és a `headY`-t.",
+    "notResponsive": "A kódod nem skálázódik megfelelően, amikor a `size` értéke {{size}}. Minden sugarat és y koordinátát a `size`-ból kell származtatni."
   },
   "tasks": {
     "buildRelationalSnowman": {
-      "name": "Build the relational snowman",
-      "description": "Derive all sizes and positions from `size` so the snowman scales correctly."
+      "name": "Relációs hóember építése",
+      "description": "Származtasd az összes méretet és pozíciót a `size`-ból, hogy a hóember arányosan nőjön."
     }
   },
   "scenarios": {
     "buildRelationalSnowman": {
-      "name": "Build the relational snowman",
-      "description": "Derive every radius and y position from `size`."
+      "name": "Relációs hóember építése",
+      "description": "Származtasd az összes sugarat és y koordinátát a `size`-ból."
     }
   },
   "hints": {
     "whereToStart": {
-      "question": "Where should I start?",
-      "answer": "Start with the base, because it's the only circle anchored to anything fixed (the bottom of the canvas). Once you know `baseY`, you can stack the body on top of it, and then the head on top of the body."
+      "question": "Hol érdemes kezdeni?",
+      "answer": "Kezdd az alappal, mert ez az egyetlen kör, ami valami fixhez van rögzítve (a rajzvászon aljához). Ha már tudod a `baseY`-t, ráhelyezheted a testet az alap tetejére, majd a fejet a test tetejére."
     },
     "baseSits": {
-      "question": "How do I work out where the base sits?",
-      "answer": "The bottom edge of the base sits `size` above the ground (Y=100). The center of the base is one base-radius further up from its bottom edge."
+      "question": "Hogyan tudod kiszámolni, hol helyezkedik el az alap?",
+      "answer": "Az alap alsó éle `size` távolságra van a talajtól (Y=100). Az alap középpontja az alsó élétől egy `baseRadius`-nyival feljebb van."
     },
     "stackBody": {
-      "question": "How do I stack the body on the base?",
-      "answer": "When two circles touch with one directly above the other, the distance between their centers equals the sum of their two radii."
+      "question": "Hogyan helyezem a testet az alapra?",
+      "answer": "Amikor két kör érintkezik, és az egyik közvetlenül a másik felett van, a középpontjaik távolsága megegyezik a két sugár összegével."
     },
     "head": {
-      "question": "What about the head?",
-      "answer": "The head sits on the body in exactly the same way as the body sits on the base."
+      "question": "És a fej?",
+      "answer": "A fej pontosan ugyanúgy helyezkedik el a testen, mint a test az alapon."
     },
     "whyDeriveFromSize": {
-      "question": "Why must everything be derived from `size`?",
-      "answer": "If you hardcode a number, changing `size` will leave gaps or overlaps between the circles. Using formulas keeps everything in proportion."
+      "question": "Miért kell mindent a `size`-ból származtatni?",
+      "answer": "Ha egy konkrét számot rögzítesz, a `size` megváltoztatásakor hézagok vagy átfedések lesznek a körök között. A képletek használatával minden arányos marad."
     }
   },
   "functions": {
     "circle": {
-      "description": "Draw a circle centered at (centerX, centerY) with the given radius and color",
-      "category": "Drawing Shapes"
+      "description": "Rajzolj egy kört a (centerX, centerY) középponttal, a megadott sugárral és színnel.",
+      "category": "Alakzatok rajzolása"
     }
   }
 }

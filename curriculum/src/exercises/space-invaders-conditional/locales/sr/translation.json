@@ -1,0 +1,68 @@
+{
+  "describers": {
+    "move": "pomerio laserski top udesno"
+  },
+  "checks": {
+    "notShotAllAliens": "Nisi oborio sve vanzemaljce."
+  },
+  "tasks": {
+    "conditionalShoot": {
+      "name": "Koristi if naredbu da pucaš samo kada je vanzemaljac iznad",
+      "description": "Kreći se po ekranu, proveravajući svaku poziciju. Ako je vanzemaljac iznad tebe, pucaj na njega. Ako nije, samo nastavi dalje."
+    }
+  },
+  "scenarios": {
+    "conditional1": {
+      "name": "Rasuti vanzemaljci",
+      "description": "Vanzemaljci rasuti u dva reda sa prazninama"
+    },
+    "conditional2": {
+      "name": "Retki vanzemaljci",
+      "description": "Manje vanzemaljaca sa većim prazninama"
+    },
+    "conditional3": {
+      "name": "Naizmenični redovi",
+      "description": "Vanzemaljci naizmenično u gornjem i donjem redu"
+    },
+    "conditional4": {
+      "name": "Gust donji red",
+      "description": "Većina vanzemaljaca u donjem redu"
+    },
+    "conditional5": {
+      "name": "Gusta formacija",
+      "description": "Mnogo vanzemaljaca zbijenih u oba reda"
+    }
+  },
+  "hints": {
+    "howToDecide": {
+      "question": "Kako da odlučim da li da pucam ili ne?",
+      "answer": "Koristi `if` naredbu koja proverava `isAlienAbove()`. Pozovi `shoot()` samo kada vrati `true`."
+    },
+    "whatIsAlienAboveGives": {
+      "question": "Šta mi vraća `isAlienAbove()`?",
+      "answer": "Vraća `true` ako je vanzemaljac direktno iznad tvog topa, a `false` u suprotnom. Možeš ga staviti direktno u `if` uslov."
+    },
+    "checkEveryColumn": {
+      "question": "Kako da proverim svaku kolonu bez pisanja istog koda iznova i iznova?",
+      "answer": "Stavi svoju logiku proveri-i-pucaj u `repeat` petlju, pozivajući `move()` na kraju svake iteracije da se pomeriš na sledeću kolonu."
+    },
+    "keepShootingEmpty": {
+      "question": "Stalno pucam u prazne kolone i gubim. Šta nije u redu?",
+      "answer": "Pobrini se da je `shoot()` unutar `if` bloka, a ne posle njega. Poziv treba da se desi samo kada je `isAlienAbove()` `true`."
+    }
+  },
+  "functions": {
+    "move": {
+      "description": "Pomera laserski top **jedno mesto udesno**. Ako izađeš sa desne ivice ekrana, gubiš!",
+      "category": "Kretanje"
+    },
+    "shoot": {
+      "description": "Ispaljuje laser naviše. **Pucaj samo kada je vanzemaljac iznad tebe**, inače gubiš igru!",
+      "category": "Akcija"
+    },
+    "isAlienAbove": {
+      "description": "Vraća `true` ako je vanzemaljac direktno iznad laserskog topa, ili `false` ako nije. Koristi ovo da proveriš pre pucanja!",
+      "category": "Detekcija"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "checks": {
+    "wrongPosition": "Il sole è nella posizione sbagliata o ha la dimensione sbagliata. Controlla i calcoli di `sunX` e `sunY` e assicurati di passare `radius` a `circle`.",
+    "notResponsive": "Il tuo codice non si adatta correttamente quando `gap` è {{gap}} e `radius` è {{radius}}. `sunX` e `sunY` devono essere derivati da `gap` e `radius`, non da valori fissi."
+  },
+  "tasks": {
+    "positionSun": {
+      "name": "Posiziona il sole",
+      "description": "Deriva `sunX` e `sunY` da `canvasSize`, `gap` e `radius` in modo che il sole si posizioni correttamente."
+    }
+  },
+  "scenarios": {
+    "positionSun": {
+      "name": "Posiziona il sole",
+      "description": "Deriva la posizione del sole da `gap` e `radius` in modo che si adatti."
+    }
+  },
+  "hints": {
+    "sunXPosition": {
+      "question": "Come posso ragionare sulla posizione x del sole?",
+      "answer": "Immagina il bordo destro dell'area di disegno. Il bordo del sole si trova `gap` a sinistra di quel bordo. Il *centro* del sole è spostato ancora di un raggio verso sinistra."
+    },
+    "sunYPosition": {
+      "question": "Come posso ragionare sulla posizione y del sole?",
+      "answer": "Vale lo stesso principio della posizione x, ma misurata verso il basso a partire dal bordo superiore dell'area di disegno invece che dal bordo destro."
+    },
+    "whyNotHardcode": {
+      "question": "Perché non posso scrivere direttamente i numeri?",
+      "answer": "Se scrivi valori fissi per `sunX` e `sunY`, il sole resterà nello stesso punto quando `gap` o `radius` cambiano. Calcolarli a partire da `gap` e `radius` mantiene il sole nell'angolo qualsiasi valore tu scelga."
+    }
+  },
+  "functions": {
+    "circle": {
+      "description": "Disegna un cerchio centrato in (centerX, centerY) con il raggio e il colore specificati.",
+      "category": "Disegno di forme geometriche"
+    }
+  }
+}

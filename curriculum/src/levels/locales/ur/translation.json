@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "فنکشنز کا استعمال"
+  },
+  "strings-and-colors": {
+    "title": "سٹرنگز اور رنگ"
+  },
+  "repeat-loop": {
+    "title": "ریپیٹ لوپ"
+  },
+  "variables": {
+    "title": "ویری ایبلز"
+  },
+  "basic-state": {
+    "title": "بنیادی سٹیٹ"
+  },
+  "functions-that-return-things": {
+    "title": "قدر واپس کرنے والے فنکشنز"
+  },
+  "conditionals": {
+    "title": "کنڈیشنلز"
+  },
+  "complex-conditionals": {
+    "title": "پیچیدہ کنڈیشنلز"
+  },
+  "conditionals-and-state": {
+    "title": "کنڈیشنلز اور سٹیٹ"
+  },
+  "make-your-own-functions": {
+    "title": "اپنے فنکشنز بنائیں"
+  },
+  "string-manipulation": {
+    "title": "سٹرنگ میں ردوبدل"
+  },
+  "string-iteration": {
+    "title": "سٹرنگ اِٹریشن"
+  },
+  "multiple-functions": {
+    "title": "کئی فنکشنز ایک ساتھ"
+  },
+  "methods-and-properties": {
+    "title": "میتھڈز اور پراپرٹیز"
+  },
+  "advanced-loops": {
+    "title": "ایڈوانسڈ لوپس"
+  },
+  "arrays": {
+    "title": "�"
+  },
+  "building-arrays": {
+    "title": "�"
+  },
+  "dictionaries": {
+    "title": "ڈکشنریز"
+  },
+  "changing-dictionaries": {
+    "title": "�"
+  },
+  "everything": {
+    "title": "سب کچھ"
+  }
+}

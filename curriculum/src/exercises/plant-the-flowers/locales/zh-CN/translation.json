@@ -1,0 +1,36 @@
+{
+  "checks": {
+    "flowerCount": "预期种 9 朵花，但种了 {{got}} 朵。",
+    "missingFlowerAt10": "在位置 10 处缺少一朵花。",
+    "missingFlowerAt50": "在位置 50 处缺少一朵花。",
+    "missingFlowerAt90": "在位置 90 处缺少一朵花。",
+    "tooManyLines": "你的代码行数太多了。试着缩短它。"
+  },
+  "tasks": {
+    "plantFlowers": {
+      "name": "种 9 朵花",
+      "description": "使用一个变量和一个 repeat 循环在位置 10、20、30、...、90 种 9 朵花。"
+    }
+  },
+  "scenarios": {
+    "plantFlowers": {
+      "name": "种 9 朵花",
+      "description": "在位置 10、20、30、40、50、60、70、80 和 90 种花。"
+    }
+  },
+  "hints": {
+    "stuck": {
+      "question": "我完全卡住了",
+      "answer": "看看最近的视频，了解如何使用 repeat 循环以及如何更新变量来跟踪状态。它们会告诉你所有需要知道的内容。"
+    }
+  },
+  "functions": {
+    "plant": {
+      "description": "在给定的**位置**种植一朵花。",
+      "category": "园艺"
+    }
+  },
+  "describers": {
+    "plant": "在位置 ${arg1} 种植了一朵花"
+  }
+}

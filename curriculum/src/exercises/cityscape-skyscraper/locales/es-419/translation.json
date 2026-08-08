@@ -1,0 +1,76 @@
+{
+  "checks": {
+    "totalCells": "Se esperaban {{expected}} celdas, pero se encontraron {{got}}.",
+    "groundWalls": "La planta baja debe tener muros en las posiciones (17, 2) y (21, 2).",
+    "groundGlass": "La planta baja debe tener vidrio en las posiciones (18, 2) y (20, 2).",
+    "groundEntrance": "La planta baja debe tener una entrada en la posición (19, 2).",
+    "floorWalls": "El piso {{y}} debe tener muros en las posiciones (17, {{y}}) y (21, {{y}}).",
+    "floorGlass": "El piso {{y}} debe tener vidrio en las posiciones (18, {{y}}), (19, {{y}}) y (20, {{y}}).",
+    "roof": "El techo en y={{roofY}} debe ser completamente de muros.",
+    "codeQuality": {
+      "allArgumentsAreVariables": "Debes usar <strong>variables</strong> como argumentos de las funciones, no valores literales. Primero guarda los valores en variables y luego pásalas como argumentos."
+    }
+  },
+  "tasks": {
+    "buildSkyscraper": {
+      "name": "Construye el rascacielos",
+      "description": "Construye un rascacielos con la cantidad correcta de pisos, que incluya una planta baja con entrada, pisos superiores con vidrio y un techo de muro."
+    }
+  },
+  "scenarios": {
+    "floors6": {
+      "name": "Rascacielos de 6 pisos",
+      "description": "Construye un rascacielos de 6 pisos."
+    },
+    "floors8": {
+      "name": "Rascacielos de 8 pisos",
+      "description": "Construye un rascacielos de 8 pisos."
+    },
+    "floors10": {
+      "name": "Rascacielos de 10 pisos",
+      "description": "Construye un rascacielos de 10 pisos."
+    },
+    "floors12": {
+      "name": "Rascacielos de 12 pisos",
+      "description": "Construye un rascacielos de 12 pisos."
+    },
+    "floors16": {
+      "name": "Rascacielos de 16 pisos",
+      "description": "Construye un rascacielos de 16 pisos."
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "No sé por dónde empezar.",
+      "answer": "Primero, intenta dibujar un muro, algo de vidrio y una entrada para verificar que entiendes las funciones. Luego dibuja el piso base (este siempre es igual). Después, usa la función `numFloors()` para averiguar cuántos pisos hay en total y dibuja los pisos restantes y luego el techo."
+    },
+    "tooManyTooFewFloors": {
+      "question": "Tengo demasiados/muy pocos pisos.",
+      "answer": "Si `numFloors()` devuelve 5, eso debe ser un piso de entrada, 4 pisos de vidrio y 1 techo. ¡Verifica que tu lógica sea correcta!"
+    }
+  },
+  "functions": {
+    "buildWall": {
+      "description": "Coloca un **bloque de muro** en la posición de la cuadrícula (x, y).",
+      "category": "Construcción"
+    },
+    "buildGlass": {
+      "description": "Coloca un **panel de vidrio** en la posición de la cuadrícula (x, y).",
+      "category": "Construcción"
+    },
+    "buildEntrance": {
+      "description": "Coloca una **puerta de entrada** en la posición de la cuadrícula (x, y).",
+      "category": "Construcción"
+    },
+    "numFloors": {
+      "description": "Devuelve el **número de pisos** de este edificio.",
+      "category": "Información"
+    }
+  },
+  "describers": {
+    "buildWall": "construyó un muro en la posición (${arg1}, ${arg2})",
+    "buildEntrance": "construyó una entrada en la posición (${arg1}, ${arg2})",
+    "buildGlass": "construyó un panel de vidrio en la posición (${arg1}, ${arg2})",
+    "numFloors": "obtuvo el número de pisos"
+  }
+}

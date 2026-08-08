@@ -4,7 +4,7 @@ description: "Vezesd végig Jikit a labirintuson egyszerű utasításokkal."
 en_md5: bbd838559fba4dcf527a55ba135703cd
 ---
 
-Üdvözlünk az első feladatodban!
+Üdvözlünk az első feladatodnál!
 
 Ez a feladat azt a célt szolgálja, hogy megismerkedj a tanulási környezet működésével. Az a dolgod, hogy megoldd a bal oldalon látható labirintust úgy, hogy utasításokat adsz a kis figurának. Leírod az összes utasítást, amit a figurának követnie kell, majd a **Kód futtatása** gombra kattintasz, hogy végre is hajtsa őket.
 

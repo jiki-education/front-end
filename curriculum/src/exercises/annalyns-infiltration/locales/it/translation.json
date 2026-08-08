@@ -1,0 +1,126 @@
+{
+  "checks": {
+    "fastAttack": {
+      "should": "Annalyn <strong>dovrebbe</strong> eseguire un attacco veloce qui, ma non l'ha fatto. Il cavaliere è addormentato, quindi può attaccare prima che si svegli.",
+      "shouldNot": "Annalyn <strong>non dovrebbe</strong> eseguire un attacco veloce qui. Il cavaliere è sveglio, quindi attaccare la farebbe catturare.",
+      "tooMany": "Annalyn <strong>dovrebbe</strong> eseguire un attacco veloce solo una volta qui, ma l'ha fatto {{count}} volte."
+    },
+    "spy": {
+      "should": "Annalyn <strong>dovrebbe</strong> spiare qui, ma non l'ha fatto. Almeno una persona nel campo è sveglia, quindi c'è qualcosa da osservare.",
+      "shouldNot": "Annalyn <strong>non dovrebbe</strong> spiare qui. Sono tutti addormentati, quindi non c'è niente da imparare.",
+      "tooMany": "Annalyn <strong>dovrebbe</strong> spiare solo una volta qui, ma l'ha fatto {{count}} volte."
+    },
+    "signal": {
+      "should": "Annalyn <strong>dovrebbe</strong> segnalare al prigioniero qui, ma non l'ha fatto. Il prigioniero è sveglio e l'arciere è addormentato, quindi il segnale arriverà.",
+      "shouldNot": "Annalyn <strong>non dovrebbe</strong> segnalare al prigioniero qui. O il prigioniero è addormentato o l'arciere è sveglio, quindi il tentativo fallirebbe.",
+      "tooMany": "Annalyn <strong>dovrebbe</strong> segnalare al prigioniero solo una volta qui, ma l'ha fatto {{count}} volte."
+    },
+    "free": {
+      "should": "Annalyn <strong>dovrebbe</strong> liberare il prigioniero qui, ma non l'ha fatto. Può farlo qui senza essere catturata.",
+      "shouldNot": "Annalyn <strong>non dovrebbe</strong> provare a liberare il prigioniero qui. Verrebbe catturata.",
+      "tooMany": "Annalyn <strong>dovrebbe</strong> liberare il prigioniero solo una volta qui, ma l'ha fatto {{count}} volte."
+    }
+  },
+  "tasks": {
+    "planTheRescue": {
+      "name": "Pianifica il salvataggio",
+      "description": "Per ogni campo, esegui ogni azione che Annalyn può compiere in sicurezza: attacco veloce se il cavaliere è addormentato, spia se almeno uno di loro è sveglio, segnala al prigioniero se il prigioniero è sveglio e l'arciere è addormentato, e libera il prigioniero tramite la via del cane che si comporta bene o quella furtiva."
+    }
+  },
+  "scenarios": {
+    "allAsleepNaughtyDog": {
+      "name": "Tutti addormentati, cane birichino",
+      "description": "L'intero campo è addormentato, ma il cane di Annalyn è birichino, quindi non è di aiuto."
+    },
+    "allAsleepBehavingDog": {
+      "name": "Tutti addormentati, cane che si comporta bene",
+      "description": "L'intero campo è addormentato e il cane di Annalyn si comporta bene."
+    },
+    "knightAwakeNaughtyDog": {
+      "name": "Solo il cavaliere è sveglio",
+      "description": "Il cavaliere è di guardia mentre l'arciere e il prigioniero dormono. Il cane è birichino."
+    },
+    "prisonerAwakeNaughtyDog": {
+      "name": "Solo il prigioniero è sveglio",
+      "description": "Entrambi i rapitori dormono mentre il prigioniero è sveglio. Il cane è birichino: la via furtiva è aperta."
+    },
+    "archerAndPrisonerAwakeBehavingDog": {
+      "name": "Arciere e prigioniero svegli",
+      "description": "L'arciere è di guardia e anche il prigioniero è sveglio. Il cane si comporta bene."
+    },
+    "allAwakeBehavingDog": {
+      "name": "Tutti svegli, cane che si comporta bene",
+      "description": "L'intero campo è del tutto sveglio. Anche se il cane si comporta bene, liberare non è sicuro."
+    }
+  },
+  "hints": {
+    "checkCampState": {
+      "question": "Come posso controllare le cose del campo?",
+      "answer": "Puoi controllare quattro cose, ciascuna con una funzione che restituisce `true` o `false`:\n\n- Il cavaliere è sveglio? `knightIsAwake()`\n- L'arciere è sveglio? `archerIsAwake()`\n- Il prigioniero è sveglio? `prisonerIsAwake()`\n- Il cane si comporta bene? `dogIsBehaving()`"
+    },
+    "performActions": {
+      "question": "Come faccio a far compiere ad Annalyn le azioni?",
+      "answer": "Ci sono quattro azioni, ciascuna con la propria funzione:\n\n- Eseguire un attacco veloce: `fastAttack()`\n- Spiare il campo: `spy()`\n- Segnalare al prigioniero: `signalPrisoner()`\n- Liberare il prigioniero: `freePrisoner()`"
+    },
+    "knightAsleep": {
+      "question": "Un attacco veloce richiede che il cavaliere sia ADDORMENTATO. Come faccio a controllarlo?",
+      "answer": "Non esiste una funzione `isAsleep()`, ma addormentato è semplicemente l'opposto di sveglio. Usa `!` per invertire una condizione. Immagina di voler dire a qualcuno di smettere di mangiare quando è sazio, ma abbiamo solo una funzione `isHungry()`. Possiamo invertirla:\n\n```javascript\nif (!isHungry()) {\n  stopEating()\n}\n```\n\nApplica la stessa idea per verificare che il cavaliere sia addormentato."
+    },
+    "spyAnyoneAwake": {
+      "question": "Spiare funziona se ALMENO UNO di loro è sveglio. Come posso scriverlo?",
+      "answer": "Usa `||` (or) tra i controlli in modo che l'intera condizione sia `true` se anche una sola è `true`. Ad esempio, questo viene eseguito quando qualcuno ha fame, sete o entrambi:\n\n```javascript\nif (isHungry() || isThirsty()) {\n  rest()\n}\n```"
+    },
+    "signalBothConditions": {
+      "question": "Segnalare richiede che DUE condizioni siano vere contemporaneamente. Come posso combinarle?",
+      "answer": "Usa `&&` (and) in modo che entrambi i lati debbano essere `true`. Ad esempio, questo viene eseguito solo quando qualcuno ha fame E sete:\n\n```javascript\nif (isHungry() && isThirsty()) {\n  drink()\n}\n```"
+    },
+    "twoWaysToSucceed": {
+      "question": "Un'azione ha due modi completamente separati per avere successo. Come gestirlo?",
+      "answer": "Entrambi i modi sono sufficienti da soli, quindi hai due opzioni.\n\nLa prima è scrivere un `if` separato per ogni modo, entrambi eseguono la stessa azione:\n\n```javascript\nif (isHungry() && hasSnack()) {\n  eat()\n}\nif (isThirsty() && hasSnack()) {\n  eat()\n}\n```\n\nLa seconda è combinare entrambi i modi in un unico `if` con `||`, racchiudendo i controlli di ciascun modo tra parentesi in modo che le parti con `&&` vengano raggruppate prima che `||` li separi:\n\n```javascript\nif ((isHungry() && hasSnack()) || (isThirsty() && hasSnack())) {\n  eat()\n}\n```\n\nScopri prima i requisiti di ciascun modo, poi usa lo stile che trovi più chiaro."
+    }
+  },
+  "describers": {
+    "knightIsAwake": "ha verificato se il cavaliere è sveglio",
+    "archerIsAwake": "ha verificato se l'arciere è sveglio",
+    "prisonerIsAwake": "ha verificato se il prigioniero è sveglio",
+    "dogIsBehaving": "ha verificato se il cane di Annalyn si comporta bene",
+    "fastAttack": "ha eseguito un attacco veloce al cavaliere",
+    "spy": "ha spiato il gruppo",
+    "signalPrisoner": "ha segnalato al prigioniero",
+    "freePrisoner": "ha liberato il prigioniero"
+  },
+  "functions": {
+    "knightIsAwake": {
+      "description": "Restituisce `true` se il cavaliere è sveglio, `false` se è addormentato.",
+      "category": "Informazioni"
+    },
+    "archerIsAwake": {
+      "description": "Restituisce `true` se l'arciere è sveglio, `false` se è addormentato.",
+      "category": "Informazioni"
+    },
+    "prisonerIsAwake": {
+      "description": "Restituisce `true` se il prigioniero è sveglio, `false` se è addormentato.",
+      "category": "Informazioni"
+    },
+    "dogIsBehaving": {
+      "description": "Restituisce `true` se il cane (un po' birichino) di Annalyn si comporta bene.",
+      "category": "Informazioni"
+    },
+    "fastAttack": {
+      "description": "Esegue un attacco veloce al cavaliere.",
+      "category": "Azione"
+    },
+    "spy": {
+      "description": "Spia il gruppo.",
+      "category": "Azione"
+    },
+    "signalPrisoner": {
+      "description": "Segnala al prigioniero usando versi di uccelli.",
+      "category": "Azione"
+    },
+    "freePrisoner": {
+      "description": "Si intrufola nel campo per liberare il prigioniero.",
+      "category": "Azione"
+    }
+  }
+}

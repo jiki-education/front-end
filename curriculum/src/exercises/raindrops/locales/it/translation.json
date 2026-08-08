@@ -1,0 +1,99 @@
+{
+  "checks": {
+    "moreThanSixteenLines": "Hai usato più di sedici righe di codice."
+  },
+  "tasks": {
+    "plings": {
+      "name": "Plings",
+      "description": "Inizia facendo in modo che i suoni Pling siano corretti. Se il numero è divisibile per 3, restituisci \"Pling\"."
+    },
+    "plangs": {
+      "name": "Plangs",
+      "description": "Ora fai in modo che i suoni Plang siano corretti. Se il numero è divisibile per 5, aggiungi \"Plang\" al risultato. Se è divisibile sia per 3 che per 5, restituisci \"PlingPlang\"."
+    },
+    "plongs": {
+      "name": "Plongs",
+      "description": "Ora fai in modo che i suoni Plong siano corretti. Se il numero è divisibile per 7, aggiungi \"Plong\" al risultato. I numeri possono essere divisibili per più fattori."
+    },
+    "noSound": {
+      "name": "Numeri senza suono delle gocce",
+      "description": "Infine, se il numero non è divisibile per 3, 5 o 7, restituisci il numero stesso come stringa."
+    },
+    "solveInSixteenLines": {
+      "name": "Risolvi in sedici righe di codice",
+      "description": "Riesci a risolverlo con solo sedici righe di codice?"
+    }
+  },
+  "scenarios": {
+    "number3": {
+      "name": "Numero 3",
+      "description": "Se l'input è 3, restituisci \"Pling\"."
+    },
+    "number27": {
+      "name": "Numero 27",
+      "description": "Se l'input è 27, restituisci \"Pling\"."
+    },
+    "number5": {
+      "name": "Numero 5",
+      "description": "Se l'input è 5, restituisci \"Plang\"."
+    },
+    "number3125": {
+      "name": "Numero 3125",
+      "description": "Se l'input è 3125, restituisci \"Plang\"."
+    },
+    "number15": {
+      "name": "Numero 15",
+      "description": "Se l'input è 15, restituisci \"PlingPlang\"."
+    },
+    "number7": {
+      "name": "Numero 7",
+      "description": "Se l'input è 7, restituisci \"Plong\"."
+    },
+    "number21": {
+      "name": "Numero 21",
+      "description": "Se l'input è 21, restituisci \"PlingPlong\"."
+    },
+    "number35": {
+      "name": "Numero 35",
+      "description": "Se l'input è 35, restituisci \"PlangPlong\"."
+    },
+    "number105": {
+      "name": "Numero 105",
+      "description": "Se l'input è 105, restituisci \"PlingPlangPlong\"."
+    },
+    "number8": {
+      "name": "Numero 8",
+      "description": "Se l'input è 8, restituisci \"8\"."
+    },
+    "number52": {
+      "name": "Numero 52",
+      "description": "Se l'input è 52, restituisci \"52\"."
+    },
+    "bonus1": {
+      "name": "Sedici righe di codice",
+      "description": "Risolvi l'esercizio con solo sedici righe di codice."
+    }
+  },
+  "hints": {
+    "onlyOneSound": {
+      "question": "Perché la mia funzione restituisce solo un suono?",
+      "answer": "Se usi `return` all'interno di ogni `if`, smetti non appena il primo divisore corrisponde. Invece di restituire subito, aggiungi il suono ad una stringa risultato e continua."
+    },
+    "buildCombinedSound": {
+      "question": "Come costruisco il suono combinato?",
+      "answer": "Inizia con una stringa risultato vuota. Per ogni divisore (3, 5, 7), se divide il numero, aggiungi il suono corrispondente alla fine del risultato usando la concatenazione con `+`."
+    },
+    "noneMatch": {
+      "question": "Cosa succede se nessuno dei divisori corrisponde?",
+      "answer": "Se il risultato è ancora vuoto dopo tutti e tre i controlli, la risposta è semplicemente il numero stesso come stringa. Converti il numero e restituiscilo."
+    },
+    "convertToString": {
+      "question": "Restituisco il numero ma mi chiede di restituirlo come stringa. Come faccio?",
+      "answer": "I numeri e le stringhe sono tipi diversi, anche se sembrano uguali. Puoi convertire un numero in una stringa mettendolo all'interno di una stringa interpolata con `${...}`."
+    },
+    "howManyReturns": {
+      "question": "Quante istruzioni return dovrei avere?",
+      "answer": "Di solito solo una o due. Il punto è lasciare che le istruzioni `if` modifichino la stringa e poi restituire quel risultato una volta sola alla fine."
+    }
+  }
+}

@@ -1,22 +1,23 @@
 ---
-title: "Penguin"
-description: "Complete a symmetrical penguin drawing."
+title: "Pingvin"
+description: "Fejezd be a szimmetrikus pingvinrajzot."
+en_md5: bff370c28fd178d8c0ac9f65e3384e81
 ---
 
-In this exercise we draw ellipses for the first time, and also think a bit more about the symmetry we mentioned in Foxy Face.
+Ebben a feladatban először rajzolunk ellipsziseket, és egy kicsit továbbgondoljuk a szimmetriát, amiről a Rókafejben már volt szó.
 
-This exercise uses ellipses. Ellipses are like stretched out circles. We still specify the center point, but rather than just one radius we use two - the horizontal radius and the vertical radius. If the vertical radius is larger than the horizontal one, the ellipse will look tall. And if the horizontal radius is larger than the vertical one, the ellipse will look squat. If you set both the radii to be the same, you have a circle again!
+Ez a feladat ellipsziseket használ. Az ellipszis olyan, mint egy kinyújtott kör. A középpontot itt is megadjuk, de egy sugár helyett kettőt használunk – a vízszintes sugarat és a függőleges sugarat. Ha a függőleges sugár nagyobb, mint a vízszintes, az ellipszis magasnak tűnik. Ha pedig a vízszintes sugár nagyobb, mint a függőleges, az ellipszis lapos. Ha mindkét sugarat ugyanakkorára állítod, újra egy kört kapsz!
 
-The `ellipse` function takes 5 inputs: the center position (`centerX`, `centerY`), the horizontal radius (`radiusX`), the vertical radius (`radiusY`), and the color:
+Az `ellipse` (ellipszis) függvény 5 bemenetet vár: a középpont pozícióját (`centerX` – a középpont x koordinátája, `centerY` – a középpont y koordinátája), a vízszintes sugarat (`radiusX` – a vízszintes sugár), a függőleges sugarat (`radiusY` – a függőleges sugár) és a színt:
 
-<img src="/static/images/exercise-assets/penguin/intro-ellipse.webp" alt="Ellipse function diagram" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+<img src="/static/images/exercise-assets/penguin/intro-ellipse.webp" alt="Az `ellipse` függvény diagramja" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-### The Penguin
+### A pingvin
 
-Your task is to draw the right hand side of the penguin, and to try and do so **WITHOUT** hovering over the coordinates or guessing at them. The finished drawing should look like this:
+A feladatod, hogy megrajzold a pingvin jobb oldalát, éspedig **ANÉLKÜL**, hogy az egérrel a koordináták fölé mennél, vagy találgatnál. Az elkészült rajznak így kell kinéznie:
 
-<img src="/static/images/exercise-assets/penguin/penguin-finished.webp" alt="Penguin" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
+<img src="/static/images/exercise-assets/penguin/penguin-finished.webp" alt="Pingvin" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 8px;" />
 
-We've drawn half the image for you. By reading the code that's there, you should be able to work out the other details to make it symmetrical. Remember, the top-left of the drawing canvas is `0,0`. The bottom-right is `100,100`. The penguin is sitting in the middle. For the nose, you should **change** the middle coordinates of the triangle. Don't add a new triangle.
+A kép egyik felét már megrajzoltuk neked. A meglévő kódot olvasva ki kell tudnod találni a többi részletet, hogy szimmetrikus legyen. Ne feledd: a rajzvászon bal felső sarka a `0,0` pont, a jobb alsó sarka a `100,100`. A pingvin középen ül. Az orrhoz a háromszög középső koordinátáit kell **megváltoztatnod**, ne vegyél fel új háromszöget.
 
-**Start by pressing _"Run Code"_** to see what the starting image looks like. Have fun!
+**Kezdd a „Kód futtatása” gomb megnyomásával**, hogy lásd, hogyan néz ki a kezdő kép. Jó szórakozást!

@@ -1,0 +1,32 @@
+{
+  "tasks": {
+    "createSayHelloFunction": {
+      "name": "ایجاد تابع sayHello",
+      "description": "تابع sayHello بنویسید که یک اسم دریافت کند و یک خوش‌آمدگویی به شکل 'Hello, [name]!' برگرداند."
+    }
+  },
+  "scenarios": {
+    "helloAiko": {
+      "name": "خوش‌آمدگویی به Aiko",
+      "description": "برگرداندن 'Hello, Aiko!'"
+    },
+    "helloPriya": {
+      "name": "خوش‌آمدگویی به Priya",
+      "description": "برگرداندن 'Hello, Priya!'"
+    },
+    "helloMei": {
+      "name": "خوش‌آمدگویی به Mei",
+      "description": "برگرداندن 'Hello, Mei!'"
+    }
+  },
+  "hints": {
+    "answerShape": {
+      "question": "ساختار کلی جوابی که می‌خواهم بسازم چیست؟",
+      "answer": "سه تکه که به هم چسبانده شده‌اند: ابتدای ثابت `\"Hello, \"`، سپس اسم، و انتهای ثابت `\"!\"`."
+    },
+    "joinStrings": {
+      "question": "چطور رشته‌ها را به هم بچسبانم؟",
+      "answer": "برای چسباندن هر سه تکه به هم و ساختن یک رشته‌ی واحد، از الحاق با `+` یا یک رشته‌ی الگو با جایگزین‌های `${}` استفاده کنید."
+    }
+  }
+}

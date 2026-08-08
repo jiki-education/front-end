@@ -1,0 +1,62 @@
+{
+  "errors": {
+    "leavesNumber": "La quantité de feuilles doit être un nombre",
+    "tomatoesNumber": "La quantité de tomates doit être un nombre",
+    "croutonsNumber": "La quantité de croûtons doit être un nombre",
+    "olivesNumber": "La quantité d'olives doit être un nombre"
+  },
+  "checks": {
+    "saladNotMade": "Tu n'as pas préparé la salade. Vérifie que tu appelles <code>makeSalad()</code> avec les quatre ingrédients.",
+    "needLeavesRandomInt": "Tu dois appeler <code>Math.randomInt(40, 100)</code> pour générer le nombre de feuilles.",
+    "needTomatoesRandomInt": "Tu dois appeler <code>Math.randomInt(5, leaves / 5)</code> pour générer le nombre de tomates.",
+    "needCroutonsRandomInt": "Tu dois appeler <code>Math.randomInt(tomatoes, tomatoes * 2)</code> pour générer le nombre de croûtons.",
+    "needOlivesRandomInt": "Tu dois appeler <code>Math.randomInt(1, tomatoes / 2)</code> pour générer le nombre d'olives."
+  },
+  "tasks": {
+    "makeRandomSalad": {
+      "name": "Prépare une salade aléatoire",
+      "description": "Génère une quantité aléatoire de chaque ingrédient avec Math.randomInt() et prépare la salade."
+    }
+  },
+  "scenarios": {
+    "randomSalad": {
+      "name": "Salade aléatoire",
+      "description": "Prépare une salade avec des quantités aléatoires de chaque ingrédient."
+    }
+  },
+  "hints": {
+    "leavesExample": {
+      "question": "Donne-moi un exemple pour calculer le nombre de feuilles",
+      "answer": "Utilise `let leaves = Math.randomInt(40, 100)` pour générer une quantité aléatoire de feuilles de salade, que tu pourras ensuite utiliser dans les autres fonctions."
+    },
+    "leavesCount": {
+      "question": "De combien de feuilles ai-je besoin ?",
+      "answer": "Entre 40 et 100."
+    },
+    "tomatoesCount": {
+      "question": "De combien de tomates ai-je besoin ?",
+      "answer": "Au moins 5, mais pas plus de leaves / 5"
+    },
+    "croutonsCount": {
+      "question": "De combien de croûtons ai-je besoin ?",
+      "answer": "Au moins autant que de tomates, jusqu'au double du nombre de tomates"
+    },
+    "olivesCount": {
+      "question": "De combien d'olives ai-je besoin ?",
+      "answer": "Au moins 1, jusqu'à la moitié du nombre de tomates"
+    },
+    "makeSalad": {
+      "question": "Comment préparer la salade ?",
+      "answer": "Une fois que tu as déterminé la quantité de chaque ingrédient, passe leaves, tomatoes, croutons et olives à makeSalad()."
+    }
+  },
+  "describers": {
+    "makeSalad": "a préparé une salade avec ${arg1} feuilles, ${arg2} tomates, ${arg3} croûtons et ${arg4} olives"
+  },
+  "functions": {
+    "makeSalad": {
+      "description": "Prépare une salade avec la quantité indiquée de chaque ingrédient.",
+      "category": "Action"
+    }
+  }
+}

@@ -1,19 +1,20 @@
 ---
-title: "Sunset"
-description: "Animate a beautiful sunset scene."
+title: "Naplemente"
+description: "Animálj egy gyönyörű naplementét."
+en_md5: 7c3be1e23fc2e78ff399e91c6aef0477
 ---
 
-Your task is to animate a sunset scene that lasts 100 iterations. It should look like this (the flickering is exactly what you see with flipbooks too!):
+A feladatod, hogy egy naplementét animálj, ami 100 iteráción át tart. Így kell kinéznie (a villódzás pont olyan, mint amit a flipbookoknál is látsz!):
 
-<img src="/static/images/exercise-assets/sunset/example.webp" alt="Sunset" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 16px;" />
+<img src="/static/images/exercise-assets/sunset/example.webp" alt="Naplemente" style="width: 100%; max-width: 300px; border: 1px solid rgba(0, 0, 0, 0.1); border-radius: 5px; box-shadow: 0 0 3px rgba(0, 0, 0, 0.1); margin-bottom: 16px;" />
 
-We've drawn the initial scene for you. You need to animate a few things, using the flip-book style you learned in the last video:
+A kezdeti jelenetet mi rajzoltuk meg neked. Néhány dolgot kell animálnod, a legutóbbi videóban tanult flipbook-stílusban:
 
-- **The size of the sun**: It should start with a radius of 5 and grow by 0.2 each iteration.
-- **The position of the sun**: It has an initial center of (50, 10), and should lower in the sky by 1 each iteration.
-- **The color of the sun**: Animate from yellow to orange using RGB. You can choose whatever values you like, but we recommending start with `255, 237, 0` and reducing the green for a nice effect.
-- **The color of the sky**: Use HSL to animate the sky color. You'll want to increase the hue throughout the animation. Choose values that you think look nice. We've gone for a pink sunset in the animation above, but you can choose all sorts of different vibes!
+- **A nap mérete**: Kezdetben a sugara 5 legyen, és iterációnként 0,2-vel nőjön.
+- **A nap pozíciója**: A kiinduló középpontja (50, 10), és iterációnként 1-gyel lejjebb kell kerülnie az égen.
+- **A nap színe**: Animáld sárgáról narancssárgára RGB segítségével. Választhatsz bármilyen értéket, de mi azt javasoljuk, hogy kezdd `255, 237, 0`-val, és csökkentsd a zöldet a szép hatás érdekében.
+- **Az ég színe**: Használd a HSL-t az ég színének animálásához. A színárnyalatot (_hue_ angolul) kell növelned az animáció során. Válassz olyan értékeket, amik szerinted jól mutatnak. Mi egy rózsaszínes naplementét választottunk a fenti animációban, de te bármilyen hangulatot választhatsz!
 
-Remember: to animate in flip-book style, we are simply drawing the whole scene again over the top of the previous version.
+Ne feledd: flipbook-stílusban animálni annyit tesz, hogy egyszerűen újra megrajzolod a teljes jelenetet az előző verzió tetejére.
 
-Good luck!
+Sok szerencsét!

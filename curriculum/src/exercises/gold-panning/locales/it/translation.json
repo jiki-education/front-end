@@ -1,0 +1,55 @@
+{
+  "errors": {
+    "needsRecharge": "Il robot deve ricaricare le batterie dopo aver venduto.",
+    "sellBeforeAnythingElse": "Il robot deve andare a vendere prima di fare qualsiasi altra cosa.",
+    "sellNumber": "Puoi vendere solo un numero di pepite."
+  },
+  "checks": {
+    "notSold": "Non hai venduto le tue pepite. Assicurati di chiamare <code>sell()</code> dopo aver setacciato.",
+    "wrongSoldTotal": "Ci si aspettava di vendere {{expectedTotal}} pepite ({{panValues}}), ma hai venduto {{got}}. Assicurati di aggiungere il risultato di ogni setacciata al totale progressivo."
+  },
+  "tasks": {
+    "panAndSell": {
+      "name": "Setaccia l'oro e vendi il raccolto",
+      "description": "Setaccia 5 volte per raccogliere pepite d'oro, tenendo un totale progressivo, poi vendi tutto al mercato."
+    }
+  },
+  "scenarios": {
+    "randomPans": {
+      "name": "Setaccia e vendi",
+      "description": "Setaccia 5 volte per un numero casuale di pepite ogni volta, poi vendi il totale."
+    }
+  },
+  "hints": {
+    "wrongSellAmount": {
+      "question": "Dice che sto vendendo la quantità sbagliata di oro.",
+      "answer": "Devi vendere TUTTO l'oro che trovi nelle 5 setacciate in una volta sola alla fine, non venderlo dopo ogni setacciata."
+    },
+    "trackingTotal": {
+      "question": "Sto usando pan più volte ma non so come tenere traccia di quanto ne ho.",
+      "answer": "Pensa a ciò che hai imparato nelle recenti lezioni video. Devi usare una variabile per tenere traccia della quantità **totale** di oro che hai raccolto in **tutte** le setacciate insieme."
+    },
+    "fiveLines": {
+      "question": "Sono riuscito a farlo funzionare, ma non riesco a ridurlo a 5 righe.",
+      "answer": "Hai del codice ripetitivo nella tua soluzione? Se sì, cosa possiamo usare per ridurre quella ripetitività?"
+    },
+    "stillFiveLines": {
+      "question": "Non riesco ancora a ridurlo a 5 righe di codice.",
+      "answer": "Dovresti aver bisogno di usare solo una variabile. Ne stai usando di più?"
+    }
+  },
+  "describers": {
+    "pan": "ha setacciato e ha trovato ${return} pepite",
+    "sell": "ha venduto ${arg1} pepite al mercato"
+  },
+  "functions": {
+    "pan": {
+      "description": "Immerge il tuo setaccio nel fiume e **restituisce** il numero di pepite d'oro trovate.",
+      "category": "Estrazione"
+    },
+    "sell": {
+      "description": "Vende le tue pepite d'oro al mercato.",
+      "category": "Azione"
+    }
+  }
+}

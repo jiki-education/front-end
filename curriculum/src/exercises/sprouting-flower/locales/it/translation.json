@@ -1,0 +1,70 @@
+{
+  "checks": {
+    "firstFlowerHeadWrong": "Il fiore nel primo riquadro non è corretto.",
+    "finalFlowerHeadWrong": "Il fiore nell'ultimo riquadro non è corretto.",
+    "firstPistilWrong": "Il pistillo nel primo riquadro non è corretto.",
+    "finalPistilWrong": "Il pistillo nell'ultimo riquadro non è corretto.",
+    "firstStemWrong": "Il gambo nel primo riquadro non è corretto.",
+    "finalStemWrong": "Il gambo nell'ultimo riquadro non è corretto.",
+    "firstLeftLeafWrong": "La foglia sinistra nel primo riquadro non è corretta.",
+    "finalLeftLeafWrong": "La foglia sinistra nell'ultimo riquadro non è corretta.",
+    "firstRightLeafWrong": "La foglia destra nel primo riquadro non è corretta.",
+    "finalRightLeafWrong": "La foglia destra nell'ultimo riquadro non è corretta."
+  },
+  "tasks": {
+    "drawScene": {
+      "name": "Disegna la scena",
+      "description": "Fai germogliare il fiore. Lavora un passo alla volta!"
+    }
+  },
+  "scenarios": {
+    "drawSproutingFlower": {
+      "name": "Fai germogliare il fiore",
+      "description": "Lavora un passo alla volta!"
+    }
+  },
+  "hints": {
+    "whereToStart": {
+      "question": "Da dove dovrei iniziare per comporre la scena?",
+      "answer": "Scegli un punto centrale. Il centro del fiore è un buon punto di riferimento. Il gambo, il pistillo e le foglie possono essere calcolati a partire da esso. Così l'intero fiore rimane connesso durante l'animazione."
+    },
+    "growEachIteration": {
+      "question": "Come faccio a far salire e crescere il fiore a ogni iterazione?",
+      "answer": "All'inizio del corpo del ciclo, prima di qualsiasi disegno, aggiorna `flowerCenterY` e `flowerRadius` con i nuovi valori per questo riquadro. Le istruzioni specificano gli incrementi. L'importante è aggiornarli *prima* delle chiamate di disegno, non dopo."
+    },
+    "stemAttached": {
+      "question": "Come faccio a tenere il gambo attaccato al fiore mentre sale?",
+      "answer": "Non dare al gambo un'estremità superiore fissa. La sua estremità superiore *è* `flowerCenterY`. La sua estremità inferiore è il terreno. Quindi la sua altezza è la distanza tra di esse. La sua larghezza può essere quindi calcolata da quell'altezza."
+    },
+    "leafSizing": {
+      "question": "Come faccio a dimensionare le foglie in modo che crescano insieme al fiore?",
+      "answer": "I `radiusX` e `radiusY` delle foglie sono frazioni di `flowerRadius`. In questo modo si ridimensionano insieme. Ancora la loro posizione verticale al gambo, non a una Y fissa dell'area di disegno, in modo che salgano insieme al fiore."
+    },
+    "flowerNeverChanges": {
+      "question": "Il mio fiore viene disegnato una volta e non cambia mai. Cosa c'è che non va?",
+      "answer": "Probabilmente imposti i valori iniziali una volta prima del ciclo ma non li aggiorni *all'interno* del ciclo. Il corpo del ciclo deve modificare le variabili a ogni iterazione, prima delle chiamate di disegno."
+    },
+    "firstFlowerCoords": {
+      "question": "Puoi darmi le coordinate del primo fiore per verificare?",
+      "answer": "Alla prima iterazione, le forme dovrebbero essere:\n\n- Fiore: `circle(50, 89, 0.4)`\n- Pistillo: `circle(50, 89, 0.1)`\n- Gambo: `rectangle(49.95, 89, 0.1, 1)`\n- Foglia sinistra: `ellipse(49.75, 89.5, 0.2, 0.08)`\n- Foglia destra: `ellipse(50.25, 89.5, 0.2, 0.08)`\n\nAttiva l'interruttore delle informazioni sulla barra di riproduzione per vedere i tuoi valori in quel riquadro."
+    },
+    "finalFlowerCoords": {
+      "question": "Puoi darmi le coordinate del fiore finale per verificare?",
+      "answer": "All'ultima iterazione, le forme dovrebbero essere:\n\n- Fiore: `circle(50, 30, 24)`\n- Pistillo: `circle(50, 30, 6)`\n- Gambo: `rectangle(47, 30, 6, 60)`\n- Foglia sinistra: `ellipse(35, 60, 12, 4.8)`\n- Foglia destra: `ellipse(65, 60, 12, 4.8)`\n\nAttiva l'interruttore delle informazioni sulla barra di riproduzione per vedere i tuoi valori in quel riquadro."
+    }
+  },
+  "functions": {
+    "rectangle": {
+      "description": "Disegna un **rettangolo** alla posizione (left, top) con la larghezza, l'altezza e il colore specificati. La posizione rappresenta l'angolo in alto a sinistra del rettangolo.",
+      "category": "Disegno di forme geometriche"
+    },
+    "circle": {
+      "description": "Disegna un **cerchio** alla posizione centrale (centerX, centerY) con il raggio e il colore specificati.",
+      "category": "Disegno di forme geometriche"
+    },
+    "ellipse": {
+      "description": "Disegna un'**ellisse** alla posizione centrale (centerX, centerY) con radiusX, radiusY e colore specificati.",
+      "category": "Disegno di forme geometriche"
+    }
+  }
+}

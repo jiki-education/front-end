@@ -1,0 +1,46 @@
+{
+  "errors": {
+    "allInputsNumbers": "Todos os valores de entrada têm de ser números",
+    "blueRange": "O valor do azul tem de estar entre 0 e 255",
+    "circleInputsNumbers": "Os valores de x, y e raio têm de ser números",
+    "colorNamedOrHex": "A cor deve ser definida pelo seu nome (\"orange\", \"blue\", \"white\", etc.), conforme indicado nas instruções, ou por uma cor hexadecimal que comece por #",
+    "colorNotAllowed": "A cor não deve ser indicada neste exercício",
+    "colorNotString": "A cor tem de ser uma string",
+    "ellipseInputsNumbers": "Os valores de x, y, rx e ry têm de ser números",
+    "greenRange": "O valor do verde tem de estar entre 0 e 255",
+    "heightPositive": "A altura tem de ser maior do que 0",
+    "hueRange": "O valor do matiz tem de estar entre 0 e 360",
+    "lightnessRange": "O valor da luminosidade tem de estar entre 0 e 100",
+    "lineInputsNumbers": "Os valores de x1, y1, x2 e y2 têm de ser números",
+    "rectInputsNumbers": "Os valores de x, y, largura e altura têm de ser números",
+    "redRange": "O valor do vermelho tem de estar entre 0 e 255",
+    "saturationRange": "O valor da saturação tem de estar entre 0 e 100",
+    "triangleInputsNumbers": "Os valores de x1, y1, x2, y2, x3 e y3 têm de ser números",
+    "widthPositive": "A largura tem de ser maior do que 0"
+  },
+  "describers": {
+    "rectangle": {
+      "default": "desenhou um retângulo nas coordenadas (${arg1}, ${arg2}) com uma largura de ${arg3}, uma altura de ${arg4} e a cor ${arg5}",
+      "fixedColor": "desenhou um retângulo nas coordenadas (${arg1}, ${arg2}) com uma largura de ${arg3} e uma altura de ${arg4}"
+    },
+    "triangle": {
+      "default": "desenhou um triângulo com três pontos: (${arg1}, ${arg2}), (${arg3}, ${arg4}) e (${arg5}, ${arg6}), com a cor ${arg7}",
+      "fixedColor": "desenhou um triângulo com três pontos: (${arg1}, ${arg2}), (${arg3}, ${arg4}) e (${arg5}, ${arg6})"
+    },
+    "circle": {
+      "default": "desenhou um círculo com o centro em (${arg1}, ${arg2}), um raio de ${arg3} e a cor ${arg4}",
+      "fixedColor": "desenhou um círculo com o centro em (${arg1}, ${arg2}) e um raio de ${arg3}"
+    },
+    "ellipse": {
+      "default": "desenhou uma elipse com o centro em (${arg1}, ${arg2}), uma largura radial de ${arg3}, uma altura radial de ${arg4} e a cor ${arg5}",
+      "fixedColor": "desenhou uma elipse com o centro em (${arg1}, ${arg2}), uma largura radial de ${arg3} e uma altura radial de ${arg4}"
+    },
+    "line": {
+      "default": "desenhou uma linha de (${arg1}, ${arg2}) até (${arg3}, ${arg4}) com a cor ${arg5}",
+      "fixedColor": "desenhou uma linha de (${arg1}, ${arg2}) até (${arg3}, ${arg4})"
+    },
+    "clear": "limpou a tela",
+    "hsl": "converteu a cor HSL (matiz: ${arg1}, saturação: ${arg2}, luminosidade: ${arg3}) numa string hexadecimal",
+    "rgb": "converteu a cor RGB (vermelho: ${arg1}, verde: ${arg2}, azul: ${arg3}) numa string hexadecimal"
+  }
+}

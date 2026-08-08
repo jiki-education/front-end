@@ -1,0 +1,13 @@
+{
+  "errors": {
+    "fellOffEdge": "Vai! Ai încercat să cazi de pe marginea labirintului!",
+    "hitWall": "Au! Ai intrat într-un zid!",
+    "walkedIntoFire": "Au! Ai intrat direct în foc!",
+    "walkedIntoPoop": "Bleah! Ai călcat direct în caca! 💩💩💩"
+  },
+  "describers": {
+    "move": "Mută personajul cu o celulă înainte",
+    "turnLeft": "Întoarce personajul cu 90 de grade la stânga",
+    "turnRight": "Întoarce personajul cu 90 de grade la dreapta"
+  }
+}

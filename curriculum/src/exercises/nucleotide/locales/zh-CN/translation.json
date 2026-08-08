@@ -1,0 +1,62 @@
+{
+  "tasks": {
+    "countNucleotide": {
+      "name": "计算核苷酸数量",
+      "description": "编写一个函数，计算特定核苷酸（A、C、G 或 T）在 DNA 链中出现的次数。如果核苷酸无效或链中包含无效字符，返回 -1。"
+    }
+  },
+  "scenarios": {
+    "nucleotideEmptyStrand": {
+      "name": "空链",
+      "description": "对于任何有效核苷酸，空链应返回 0。"
+    },
+    "nucleotideSingleMatch": {
+      "name": "单核苷酸链",
+      "description": "与目标匹配的单字符链应返回 1。"
+    },
+    "nucleotideRepeated": {
+      "name": "重复核苷酸",
+      "description": "由重复核苷酸组成的链应计算所有出现的次数。"
+    },
+    "nucleotideMixedStrandA": {
+      "name": "计数混合链中的 A",
+      "description": "在混合链中计数特定核苷酸。"
+    },
+    "nucleotideMixedStrandT": {
+      "name": "计数混合链中的 T",
+      "description": "在同一条链中计数另一种核苷酸。"
+    },
+    "nucleotideInvalidNucleotide": {
+      "name": "无效核苷酸",
+      "description": "无效的核苷酸字符应返回 -1。"
+    },
+    "nucleotideInvalidStrand": {
+      "name": "无效链",
+      "description": "包含无效字符的链应返回 -1。"
+    }
+  },
+  "hints": {
+    "checkValid": {
+      "question": "如何检查我所要查找的字符是否有效？",
+      "answer": "字符串有一个 `includes()` 方法，可以告诉你一个字符串是否出现在另一个字符串中。这是检查某个字符是否为有效核苷酸的好方法。先验证，再开始计数。"
+    },
+    "invalidNucleotide": {
+      "question": "如果核苷酸无效怎么办？",
+      "answer": "立即返回 `-1`。规范使用该值来表示无效输入。"
+    },
+    "countOccurrences": {
+      "question": "如何计算链中出现的次数？",
+      "answer": "遍历链中的每个字符。如果该字符与你正在计数的核苷酸匹配，则将计数器加 1。最后返回计数器的值。"
+    },
+    "validateStrand": {
+      "question": "我也需要验证链吗？",
+      "answer": "是的。如果链中有任何字符不是有效核苷酸，返回 `-1`。在计数之前检查每个字符。"
+    }
+  },
+  "functions": {
+    "includes": {
+      "description": "检查一个字符串是否包含另一个较短的字符串（由关卡标准库提供）",
+      "category": "字符串操作"
+    }
+  }
+}

@@ -4,11 +4,13 @@ import {
   breakpointState,
   breakpointGutter
 } from "@/components/coding-exercise/ui/codemirror/extensions/breakpoint";
-import { makeTestTranslator } from "@/tests/test-utils/makeTestTranslator";
+import { seedEditorMessages } from "@/tests/test-utils/seedEditorMessages";
 
-// `breakpointGutter` is now a factory that takes the injected translator (the gutter
-// markers' hover titles are user-facing copy), so build it once for these tests.
-const breakpointGutterExtension = breakpointGutter(makeTestTranslator());
+// The gutter markers' hover titles are user-facing copy resolved through the
+// editorMessages registry, so seed it with the real English catalog.
+seedEditorMessages();
+
+const breakpointGutterExtension = breakpointGutter;
 
 // Mock DOM methods
 const mockCreateElement = jest.fn(() => ({

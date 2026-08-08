@@ -1,0 +1,11 @@
+{
+  "errors": {
+    "invalidResult": "Aduh! Kamu mengumumkan hasil yang tidak valid. Aula pertandingan jadi kacau! Silakan umumkan \"Yuki\", \"Ando\", atau \"tie\".",
+    "wrongResult": "Aduh! Kamu mengumumkan hasil yang salah. Aula pertandingan jadi kacau!\n\nSeharusnya kamu mengumumkan `\"{{expected}}\"`, tetapi kamu malah mengumumkan `\"{{got}}\"`."
+  },
+  "describers": {
+    "announceResult": "mengumumkan hasil permainan sebagai ${arg1}",
+    "getYukiChoice": "mengembalikan pilihan Yuki",
+    "getAndoChoice": "mengembalikan pilihan Ando"
+  }
+}

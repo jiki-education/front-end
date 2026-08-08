@@ -1,0 +1,80 @@
+{
+  "errors": {
+    "hourNotNumber": "<code>hour</code> harus berupa angka",
+    "minutesNotNumber": "<code>minutes</code> harus berupa angka",
+    "indicatorNotString": "<code>indicator</code> harus berupa string"
+  },
+  "checks": {
+    "notUpdated": "Jamnya belum diperbarui. Pastikan kamu menggunakan fungsi <code>displayTime</code>.",
+    "wrongTime": "Seharusnya \"{{expected}}\", tetapi yang didapat \"{{got}}\""
+  },
+  "tasks": {
+    "displayTime": {
+      "name": "Tampilkan waktu pada jam",
+      "description": "Ambil jam dan menit saat ini, ubah ke format 12 jam dengan am/pm, lalu tampilkan menggunakan displayTime()."
+    }
+  },
+  "scenarios": {
+    "morning1": {
+      "name": "Pagi-pagi",
+      "description": "Tampilkan 6:35 sebagai \"6:35am\""
+    },
+    "morning2": {
+      "name": "Menjelang siang",
+      "description": "Tampilkan 11:04 sebagai \"11:04am\""
+    },
+    "afternoon1": {
+      "name": "Awal siang",
+      "description": "Tampilkan 12:19 sebagai \"12:19pm\""
+    },
+    "afternoon2": {
+      "name": "Larut malam",
+      "description": "Tampilkan 23:32 sebagai \"11:32pm\""
+    },
+    "midnight": {
+      "name": "Tengah malam",
+      "description": "Tampilkan tengah malam sebagai \"12:00am\""
+    },
+    "noon": {
+      "name": "Tengah hari",
+      "description": "Tampilkan tengah hari sebagai \"12:00pm\""
+    },
+    "now": {
+      "name": "Tampilkan waktu saat ini",
+      "description": "Tampilkan waktu saat ini"
+    }
+  },
+  "hints": {
+    "gettingStarted": {
+      "question": "Aku tidak tahu harus mulai dari mana",
+      "answer": "Gunakan `currentTimeHour()` dan `currentTimeMinute()` untuk mendapatkan waktu saat ini, lalu gunakan `displayTime(hour, minutes, \"am\")` dengan nilai-nilai itu untuk melihat apa yang terjadi. Setelah itu, cari cara menentukan meridiem yang benar dan tampilan jam yang benar."
+    },
+    "meridiem": {
+      "question": "Bagaimana cara kerja meridiem?",
+      "answer": "Jam 0-11 memakai 'am', jam 12-23 memakai 'pm'. Tengah malam (jam 0) harus ditampilkan sebagai 12am. Tengah hari (jam 12) harus ditampilkan sebagai 12pm."
+    },
+    "hourChange": {
+      "question": "Kapan dan mengapa angka jamnya perlu diubah?",
+      "answer": "Pada jam 12 jam, pukul 13:00 ditampilkan sebagai 1:00pm dan pukul 14:00 ditampilkan sebagai 2:00pm. Jadi kamu perlu mencari hubungan antara 13->1, 14->2, dan seterusnya, lalu menyesuaikan jamnya!"
+    }
+  },
+  "describers": {
+    "currentTimeHour": "mengambil jam saat ini",
+    "currentTimeMinute": "mengambil menit saat ini",
+    "displayTime": "menampilkan waktu pada jam"
+  },
+  "functions": {
+    "currentTimeHour": {
+      "description": "Mengembalikan jam saat ini dalam format 24 jam (misalnya 23 untuk pukul 11 malam) sebagai angka.",
+      "category": "Waktu"
+    },
+    "currentTimeMinute": {
+      "description": "Mengembalikan menit saat ini sebagai angka.",
+      "category": "Waktu"
+    },
+    "displayTime": {
+      "description": "Menampilkan waktu pada jam digital. Indikatornya harus \"am\" atau \"pm\".",
+      "category": "Aksi"
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "checks": {
+    "moreThanOneLine": "Koristiš više od jedne linije koda unutar funkcije."
+  },
+  "tasks": {
+    "determineLeapYear": {
+      "name": "Odredi da li je godina prestupna",
+      "description": "Napiši funkciju pod nazivom `isLeapYear` koja prima godinu kao ulaz i vraća `true` ako je prestupna, odnosno `false` ako nije."
+    },
+    "solveInOneLine": {
+      "name": "Reši u jednoj liniji koda",
+      "description": "Možeš li da rešiš ovo koristeći samo jednu liniju koda unutar funkcije?"
+    }
+  },
+  "scenarios": {
+    "year2015": {
+      "name": "Godina 2015",
+      "description": "2015. nije deljiva sa 4, tako da nije prestupna."
+    },
+    "year1970": {
+      "name": "Godina 1970",
+      "description": "1970. nije deljiva sa 4, tako da nije prestupna."
+    },
+    "year2100": {
+      "name": "Godina 2100",
+      "description": "2100. je deljiva sa 100, ali ne i sa 400, tako da nije prestupna."
+    },
+    "year1900": {
+      "name": "Godina 1900",
+      "description": "1900. je deljiva sa 100, ali ne i sa 400, tako da nije prestupna."
+    },
+    "year1800": {
+      "name": "Godina 1800",
+      "description": "1800. je deljiva sa 100, ali ne i sa 400, tako da nije prestupna."
+    },
+    "year2000": {
+      "name": "Godina 2000",
+      "description": "2000. je deljiva sa 400, tako da je prestupna."
+    },
+    "year2400": {
+      "name": "Godina 2400",
+      "description": "2400. je deljiva sa 400, tako da je prestupna."
+    },
+    "year1996": {
+      "name": "Godina 1996",
+      "description": "1996. je deljiva sa 4, ali ne i sa 100, tako da je prestupna."
+    },
+    "year1960": {
+      "name": "Godina 1960",
+      "description": "1960. je deljiva sa 4, ali ne i sa 100, tako da je prestupna."
+    },
+    "bonus1": {
+      "name": "Jedna linija koda",
+      "description": "Reši vežbu koristeći samo jednu liniju koda unutar funkcije."
+    }
+  },
+  "hints": {
+    "basicRule": {
+      "question": "Koje je osnovno pravilo za prestupnu godinu?",
+      "answer": "Godine deljive sa 4 su prestupne. Dakle, `year % 4 === 0` je početni test."
+    },
+    "exceptions": {
+      "question": "Da li postoje izuzeci?",
+      "answer": "Da. Godine deljive sa 100 NISU prestupne, iako su deljive sa 4. Na primer, 1900. nije prestupna."
+    },
+    "exceptionsToExceptions": {
+      "question": "Da li postoje izuzeci od izuzetka?",
+      "answer": "Da. Godine deljive sa 400 su ipak prestupne. Na primer, 2000. je prestupna. Dakle, pravilo se grana: deljiva sa 4, ali ne i sa 100, osim ako je takođe deljiva sa 400."
+    },
+    "checkDivisibility": {
+      "question": "Kako da proverim deljivost?",
+      "answer": "Koristi operator ostatka `%`. `year % 4 === 0` je tačno kada je godina deljiva sa 4 bez ostatka. Isti trik važi i za 100 i za 400."
+    }
+  }
+}

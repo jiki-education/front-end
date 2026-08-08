@@ -1,10 +1,11 @@
 ---
-title: "Rolling Ball"
-description: "Roll a golf ball into the hole using a loop."
+title: "Guruló labda"
+description: "Gurítsd be a golflabdát a lyukba egy ciklus használatával."
+en_md5: 59c5bb11221dafeeae6e370996972053
 ---
 
-Let's put the `repeat` loop into action!
+Lássuk működés közben a `repeat` ciklust (_loop_ angolul)!
 
-A golf ball is sitting on the tee. Your job is to roll it into the hole, which is 60 steps away.
+A golflabda a tee-n ül. A feladatod, hogy gurítsd be a lyukba, ami 60 lépésnyire van.
 
-Solve this exercise in **three lines of code**. Have fun!
+Oldd meg ezt a feladatot **három kódsorban**. Jó szórakozást!
