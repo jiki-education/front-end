@@ -1,18 +1,21 @@
-import { LocaleBannerBar } from "@/components/i18n/LocaleBannerBar";
+import { LocaleBannerBar, LocaleBannerDismiss } from "@/components/i18n/LocaleBannerBar";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import Link from "next/link";
 
-const props = {
-  href: "/blog/x",
-  offered: "en",
-  prefix: "You are viewing the Hungarian version of this page.",
-  cta: "Change to English",
-  or: "or",
-  close: "close this notice"
-};
+// Stands in for the rich-text output the server component builds from the
+// single `layout.localeBanner.message` key.
+function message() {
+  return (
+    <>
+      You are viewing the Hungarian version of this page. <Link href="/blog/x">Change to English</Link> or{" "}
+      <LocaleBannerDismiss>close this notice</LocaleBannerDismiss>.
+    </>
+  );
+}
 
-function renderBar(overrides: Partial<typeof props> = {}) {
-  return render(<LocaleBannerBar {...props} {...overrides} />);
+function renderBar(offered = "en") {
+  return render(<LocaleBannerBar offered={offered}>{message()}</LocaleBannerBar>);
 }
 
 describe("LocaleBannerBar", () => {
@@ -46,7 +49,7 @@ describe("LocaleBannerBar", () => {
 
   it("still renders when a different locale was the one dismissed", () => {
     window.localStorage.setItem("locale-banner-dismissed:hu", "1");
-    renderBar({ offered: "en" });
+    renderBar("en");
 
     expect(screen.getByText(/You are viewing the Hungarian version/)).toBeInTheDocument();
   });
