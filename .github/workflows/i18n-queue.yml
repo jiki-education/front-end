@@ -105,7 +105,7 @@ jobs:
           # A token with `issues: write` on jiki-education/i18n. The default
           # GITHUB_TOKEN is scoped to this repo and cannot open an issue in
           # another one.
-          GH_TOKEN: ${{ secrets.I18N_QUEUE_TOKEN }}
+          GH_TOKEN: ${{ secrets.I18N_ISSUES_PAT }}
           I18N_REPO: jiki-education/i18n
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PR_TITLE: ${{ github.event.pull_request.title }}
