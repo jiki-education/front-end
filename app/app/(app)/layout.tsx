@@ -1,4 +1,5 @@
 import { ClientAuthGuard } from "../../components/layout/auth/internal/ClientAuthGuard";
+import { LocaleSwitcher } from "@/components/i18n/LocaleSwitcher/LocaleSwitcher";
 import { TranslatathonBanner } from "@/components/i18n/TranslatathonBanner";
 import { CheckoutReturnHandler } from "@/components/checkout/CheckoutReturnHandler";
 import { WelcomeModalHandler } from "@/components/WelcomeModalHandler";
@@ -35,6 +36,12 @@ export default function AppLayout({
     <ClientAuthGuard>
       <AppModalRegistrar />
       <TranslatathonBanner />
+      {/* STAGING-ONLY: hand-testing affordance for the full locale set. It sits
+          in the layout rather than on the dashboard so it reaches the lesson and
+          settings pages too, which are the app-internal pages a translator
+          otherwise cannot see in their own language. Belongs to this branch and
+          must not reach production. */}
+      <LocaleSwitcher />
       {children}
       <CheckoutReturnHandler />
       <WelcomeModalHandler />
