@@ -48,18 +48,21 @@ content/
 
 ### Slug-First Structure
 
-Content is organized by slug (post identifier), not by language. Each post lives in its own directory with locale-specific markdown files:
+Content is organized by slug (post identifier). Each post lives in its own directory:
 
 ```
 posts/blog/jiki-is-born/
-├── source.md # Required (authored English source)
-└── xx.md     # Optional (where xx is locale code like hu, de, ja, etc.)
+└── source.md # The authored English source
 ```
+
+Translations are authored in the `i18n` repo, at
+`locales/<locale>/content/posts/blog/jiki-is-born/page.md`, and published to R2
+from there. The slug is the coordinate both repos address a post by, so adding a
+language changes nothing here.
 
 This makes it easy to:
 
-- See all translations for a post
-- Add new languages without restructuring
+- Keep the English source and its structural metadata together
 - Ensure slug consistency across locales
 
 ### English Required

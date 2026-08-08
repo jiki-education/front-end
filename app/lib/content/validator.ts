@@ -321,8 +321,16 @@ export function validateNoDuplicateSlugs(slugs: string[]): void {
   }
 }
 
-// Required locales that must exist for all content
+// Locales whose JSON content lives in this repo: testimonials, and a project's
+// localized config.json maps (title, description, tags). Those are not Markdown,
+// so the i18n extraction has not reached them and this repo still holds both.
 export const REQUIRED_LOCALES = ["en", "hu"] as const;
+
+// Locales whose MARKDOWN lives in this repo, which is English and only English.
+// Every translated post, article, guide and episode is authored in the i18n repo
+// and published to R2 from there, so a `<locale>.md` beside a `source.md` is not
+// something this repo can be missing.
+export const REQUIRED_MARKDOWN_LOCALES = ["en"] as const;
 
 /**
  * Validate that all required locale files exist for a content item
@@ -339,7 +347,7 @@ export function validateRequiredLocales(
     guide: "Guide",
     episode: "Episode"
   };
-  for (const locale of REQUIRED_LOCALES) {
+  for (const locale of REQUIRED_MARKDOWN_LOCALES) {
     if (!existingLocales.includes(locale)) {
       const expectedFile = path.join(slugDir, `${locale}.md`);
       throw new ValidationError(`${typeLabels[type]} '${slug}' is missing required locale file: ${expectedFile}`);
@@ -399,7 +407,7 @@ export function validateEpisodeSummaryParity(slug: string, localeSummaries: Reco
     return;
   }
 
-  for (const locale of REQUIRED_LOCALES) {
+  for (const locale of REQUIRED_MARKDOWN_LOCALES) {
     const summary = localeSummaries[locale];
     if (summary === null || summary === undefined || typeof summary !== "object") {
       throw new ValidationError(

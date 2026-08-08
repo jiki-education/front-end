@@ -118,12 +118,13 @@ Build will fail if any validation rule is violated.
 
 ## Multi-Language Support
 
-Each locale has its own markdown file with its own frontmatter:
+Each locale has its own markdown file with its own frontmatter. English is
+`source.md` here; every translation is `page.md` in the `i18n` repo, under
+`locales/<locale>/content/posts/blog/jiki-is-born/`:
 
 ```
-posts/blog/jiki-is-born/
-├── source.md
-└── hu.md
+front-end/content/src/posts/blog/jiki-is-born/source.md
+i18n/locales/hu/content/posts/blog/jiki-is-born/page.md
 ```
 
 Each file must have complete frontmatter. Fields like `title`, `excerpt`, and `seo.description` should be translated. Structural fields like `author`, `date`, `featured`, and `coverImage` typically remain the same across locales.
@@ -143,7 +144,7 @@ date: "2025-01-15"
 ---
 ```
 
-**hu.md:**
+**hu (`i18n/locales/hu/.../page.md`):**
 
 ```yaml
 ---

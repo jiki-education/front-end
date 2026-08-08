@@ -86,18 +86,15 @@ content/
 │       ├── blog/             # Blog posts
 │       │   └── [slug]/
 │       │       ├── config.json  # Structural metadata (required)
-│       │       ├── source.md     # English source (required)
-│       │       └── hu.md        # Hungarian (optional)
+│       │       └── source.md     # English source (the only Markdown here)
 │       ├── articles/         # Evergreen articles
 │       │   └── [slug]/
 │       │       ├── config.json  # Structural metadata (required)
-│       │       ├── source.md
-│       │       └── hu.md
+│       │       └── source.md
 │       ├── guides/           # Guides (see Guides section)
 │       │   └── [slug]/
 │       │       ├── config.json
-│       │       ├── source.md
-│       │       └── hu.md
+│       │       └── source.md
 │       └── projects/         # Build with Jeremy projects + episodes
 │           ├── config.json   # { "projects": [ordered slugs] }
 │           └── [project-slug]/
@@ -127,16 +124,18 @@ Content is organized **slug-first**, not language-first:
 ```
 posts/blog/jiki-is-born/
 ├── config.json  # Structural metadata
-├── source.md    # English content (required, the authored source)
-└── hu.md        # Hungarian content (optional)
+└── source.md    # English content (the authored source)
 ```
 
 This structure:
 
-- Makes translations easy to manage
 - Ensures slug consistency
-- Allows adding new languages without restructuring
 - Centralizes structural metadata in config.json
+
+Translations do not live here. Every translated post, article, guide and episode
+is authored in the `i18n` repo, at `locales/<locale>/content/posts/...`, and
+published to R2 from there. This package holds English, and the structural
+metadata that does not vary by language.
 
 ### Metadata Structure
 
@@ -277,10 +276,9 @@ pnpm run format:check      # Check formatting
 1. **Create post directory**: `src/posts/blog/[slug]/`
 2. **Create config.json**: Add structural metadata (date, author, featured, coverImage)
 3. **Add English version**: `source.md` with translatable frontmatter (title, excerpt, tags, seo)
-4. **Optionally add translations**: `hu.md`, `ja.md`, etc. with translated content
-5. **Add cover image**: Place in `images/blog/`
-6. **Generate content**: `cd ../app && pnpm run generate:content`
-7. **Run tests**: `pnpm test -- content` to validate
+4. **Add cover image**: Place in `images/blog/`
+5. **Generate content**: `cd ../app && pnpm run generate:content`
+6. **Run tests**: `pnpm test -- content` to validate
 
 ### Adding a New Article
 
@@ -288,7 +286,7 @@ Same process as blog post, but in `src/posts/articles/[slug]/`
 
 **Note**: Articles are **auto-discovered** from the directory structure. No manual registration in a config file is needed - the app's `generate:content` script automatically finds all article directories.
 
-**Required locales**: Both `source.md` (English) and `hu.md` are required for all articles and blog posts.
+**Required locales**: `source.md` (English) is the only Markdown file required, and the only one this package holds. Translations are authored in the `i18n` repo.
 
 ### Adding a New Author
 
