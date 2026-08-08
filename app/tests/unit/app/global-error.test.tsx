@@ -40,13 +40,13 @@ describe("resolveGlobalErrorLocale", () => {
   });
 
   it("ignores an unsupported URL locale segment and falls through to the default", () => {
-    setPathname("/de/blog");
+    setPathname("/zz/blog");
     expect(resolveGlobalErrorLocale()).toBe("en");
   });
 
   it("ignores an unsupported NEXT_LOCALE cookie value", () => {
     setPathname("/dashboard");
-    document.cookie = `${LOCALE_COOKIE_NAME}=de`;
+    document.cookie = `${LOCALE_COOKIE_NAME}=zz`;
     expect(resolveGlobalErrorLocale()).toBe("en");
   });
 });
