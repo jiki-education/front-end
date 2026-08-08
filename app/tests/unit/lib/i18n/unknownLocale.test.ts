@@ -303,7 +303,12 @@ describe("listings and SEO, for a locale absent from this build", () => {
     ]);
   });
 
-  it("lets a listing route know the locale has content", async () => {
+  it("is the only thing a listing route needs, because the locale list is the gate", async () => {
+    // There is no runtime "does this locale have guides" check any more. A
+    // locale is either fully translated or it is not served, so being in
+    // SUPPORTED_LOCALES already means every content type is there. Asking again
+    // per request would put a fetch on the path of a cacheable page to answer a
+    // question the list has already answered.
     serve({
       "/static/content/structure.json": {
         blog: { hello: { date: "2026-01-01", author: { name: "iHiD" }, featured: true, coverImage: "/c.webp" } },
@@ -319,10 +324,9 @@ describe("listings and SEO, for a locale absent from this build", () => {
       }
     });
 
-    const { hasContent } = await import("@/lib/content/contentMeta");
-    await expect(hasContent("blog", UNKNOWN_LOCALE)).resolves.toBe(true);
-    // The route 404s on this one, which is right: the locale has no guides.
-    await expect(hasContent("guides", UNKNOWN_LOCALE)).resolves.toBe(false);
+    const { isSupportedLocale } = await import("@/lib/i18n/config");
+    expect(isSupportedLocale(UNKNOWN_LOCALE)).toBe(false);
+    expect(isSupportedLocale("en")).toBe(true);
   });
 
   it("drops an entry the locale has no copy for rather than showing English", async () => {

@@ -22,3 +22,23 @@ export const DEPLOY_ENV: DeployEnv = process.env.ENVIRONMENT === "staging" ? "st
 export function isStaging(): boolean {
   return DEPLOY_ENV === "staging";
 }
+
+/**
+ * The same tier, decided at BUILD time rather than at request time.
+ *
+ * Two mechanisms for one question looks redundant and is not. `ENVIRONMENT` is a
+ * Worker var, so it exists only in the edge runtime; it can never reach the
+ * client bundle, because the bundle is bytes on disk long before any Worker var
+ * is bound. That is fine for the things it already drives (indexing, caching),
+ * which are server decisions.
+ *
+ * It is NOT fine for the supported-locale set. That is read on the client too
+ * (the locale switcher, hreflang, the layout), so it has to be statically known
+ * at build time. It can be, because staging and production do not share a build:
+ * `deploy` and `deploy:staging` each run their own, so a `NEXT_PUBLIC_` variable
+ * is inlined into both halves of the bundle by the build that set it.
+ *
+ * Fail-safe in the same direction as `DEPLOY_ENV`: anything unset or unknown is
+ * production, so the permissive staging behaviour cannot fire by accident.
+ */
+export const BUILD_DEPLOY_ENV: DeployEnv = process.env.NEXT_PUBLIC_DEPLOY_ENV === "staging" ? "staging" : "production";

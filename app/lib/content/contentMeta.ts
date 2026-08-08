@@ -39,8 +39,6 @@ export interface ContentMeta {
   guides: GuideMeta[];
   projects: ProjectMeta[];
   testimonials: TestimonialsData | null;
-  /** What the listing routes 404 on. A per-locale fact, kept in the locale's own artifact. */
-  hasContent: { blog: boolean; articles: boolean; guides: boolean };
 }
 
 const EMPTY: ContentMeta = {
@@ -48,8 +46,7 @@ const EMPTY: ContentMeta = {
   articles: [],
   guides: [],
   projects: [],
-  testimonials: null,
-  hasContent: { blog: false, articles: false, guides: false }
+  testimonials: null
 };
 
 type Entry = Record<string, unknown>;
@@ -134,21 +131,6 @@ export const getContentMeta = cache(async (locale: string): Promise<ContentMeta>
     articles,
     guides,
     projects: local?.projects ?? [],
-    testimonials: local?.testimonials ?? null,
-    hasContent: { blog: blog.length > 0, articles: articles.length > 0, guides: guides.length > 0 }
+    testimonials: local?.testimonials ?? null
   };
 });
-
-/**
- * Whether a locale has any content of one type.
- *
- * Replaces the old `getAvailableLocales`, which answered a cross-locale question
- * ("which locales have blog posts") that only ever had one caller shape: a
- * listing route asking whether to 404. A cross-locale index would need both
- * repos to write one object, breaking the single-writer rule that keeps the two
- * publishers from losing each other's updates. The per-locale question needs no
- * such thing.
- */
-export async function hasContent(type: "blog" | "articles" | "guides", locale: string): Promise<boolean> {
-  return (await getContentMeta(locale)).hasContent[type];
-}
