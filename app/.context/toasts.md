@@ -39,7 +39,7 @@ toastSuccess("subscription.canceled", { date: new Date().toLocaleDateString() })
 toastError("exercise.submissionFailed", undefined, { id: "exercise-submission-error" });
 ```
 
-Keys live under the `toasts` namespace in `messages/{locale}.json`, grouped by
+Keys live under the `toasts` namespace in `messages.json`, grouped by
 area (`subscription.*`, `settings.*`, `avatar.*`, `logout.*`, `auth.*`,
 `exercise.*`). The `ToastKey` type is derived from that namespace, so
 `pnpm typecheck` rejects an unknown key.

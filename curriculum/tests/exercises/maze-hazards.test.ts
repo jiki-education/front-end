@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import type { ExecutionContext } from "@jiki/interpreters";
 import MazeSolveBasicExercise from "../../src/exercises/maze-solve-basic/Exercise";
-import enDict from "../../src/exercise-categories/maze/locales/en/translation.json";
+import enDict from "../../src/exercise-categories/maze/messages.json";
 
 /**
  * Fire cells (grid value 4) and poop cells (grid value 5) are hazards, not

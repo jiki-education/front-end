@@ -3,10 +3,12 @@ name: i18n
 # Two checks, both about the locales production actually serves.
 #
 # audit-keys verifies that every translation key referenced in code exists in the
-# dict files, for every locale in PRODUCTION_LOCALES (app/lib/locales.ts,
-# currently en; a PR that puts hu live is checked against hu too). Each package
-# has its own audit script under <pkg>/scripts/audit-i18n-keys.mjs; they share
-# the locale resolver in scripts/i18n-locales.mjs.
+# catalog it is resolved from. The app and curriculum each author one catalog per
+# item, English, so their audits have no locale dimension; the interpreters hold
+# a catalog per locale and theirs is checked against every locale in
+# PRODUCTION_LOCALES (app/lib/locales.ts, currently en), via the resolver in
+# scripts/i18n-locales.mjs. Each package has its own audit script under
+# <pkg>/scripts/audit-i18n-keys.mjs.
 #
 # locale-completeness verifies that each of those locales is one the i18n repo
 # reports as fully translated. That repo publishes whatever is on its main so

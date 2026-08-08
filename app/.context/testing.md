@@ -412,7 +412,7 @@ const result = object.method!(); // Assert method exists
 ### Translations in Tests (next-intl)
 
 `jest.setup.js` globally mocks next-intl: components using `useTranslations` render the real
-English strings from `messages/en.json` (no provider needed per test). The mock supports
+English strings from `messages.json` (no provider needed per test). The mock supports
 namespaces, dotted keys, `{var}` interpolation, simple ICU plurals
 (`{count, plural, one {...} other {...}}`), and `t.rich` with nested tags. Consequences:
 

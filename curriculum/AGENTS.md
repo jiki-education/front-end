@@ -113,8 +113,8 @@ curriculum/
 │   │       ├── Exercise.ts   # Exercise implementation
 │   │       ├── scenarios.ts  # Exercise scenarios/levels
 │   │       ├── metadata.json # Slug, levelId, hints
-│   │       ├── instructions/ # Locale-specific instruction files
-│   │       │   └── source.md # English instructions (frontmatter: title, description)
+│   │       ├── instructions.md # English instructions (frontmatter: title, description)
+│   │       ├── messages.json # English runtime message catalog for the exercise
 │   │       ├── stub.*        # Starter code per language (.javascript, .py, .jiki)
 │   │       └── solution.*    # Solution code per language
 │   └── levels/               # Learning level definitions (language features)
@@ -329,7 +329,7 @@ Exercise background images and visual assets live in `images/exercise-assets/[ex
 2. In the exercise's `scenarios.ts`, call `setupBackground("/static/images/exercise-assets/[exercise-name]/image.png")`
 3. Do NOT use external URLs (e.g., `https://assets.exercism.org/bootcamp/...`) — all assets must be local
 
-**Images in instructions (`instructions/source.md`):**
+**Images in instructions (`instructions.md`):**
 
 Use an `<img>` tag with consistent styling — do NOT use markdown `![]()` syntax. Example:
 
@@ -343,7 +343,7 @@ Use an `<img>` tag with consistent styling — do NOT use markdown `![]()` synta
 
 ### Translation markup tags (`<define>` / `<literal>`)
 
-English `source.md` (and concept `source.md`, hints, etc.) may carry two custom inline tags that are **instructions to the translation pipeline**, not rendered markup. They are stripped (inner text kept) at build time by `app/scripts/generate-exercise-cache.js`, and the translator (Claude, in the separate `translator` repo) expands them per language:
+English `instructions.md` (and concept `source.md`, hints, etc.) may carry two custom inline tags that are **instructions to the translation pipeline**, not rendered markup. They are stripped (inner text kept) at build time by `app/scripts/generate-exercise-cache.js`, and the translator (Claude, in the separate `translator` repo) expands them per language:
 
 - `<define>term</define>` — marks the **one** spot where `term` is introduced. The translator emits a one-time gloss showing the target-language word with the English in brackets (e.g. `pangram (_pangram_ angolul)`), then strips the tag. Use it once, on first/introductory use. Optional attributes: `info="plain-English meaning hint"` (advisory, for opaque code identifiers) and `en="exact English bracket text"` (prescriptive, only when the bracket must show more than the bare term, e.g. `<define en="red (R)">red</define>`).
 - `<literal>term</literal>` — keep `term` verbatim, no gloss.

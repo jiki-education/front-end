@@ -9,18 +9,22 @@ import { challengeSlugs, exerciseLessonSlugs, videoLessonSlugs } from "@jiki/cur
 // The catalog is keyed by slug across exercises, video lessons and challenges.
 // Every slug a student can reach must resolve, or the UI renders a raw slug — the
 // deliberate loud canary, which is exactly what these tests keep out of main.
+//
+// English is the only copy on disk here; translations are authored in the i18n
+// repo and published from there, and their key parity is guarded there against
+// these same files.
 
 const CURRICULUM = path.join(__dirname, "../../../curriculum/src");
-const VIDEO_LESSON_COPY = path.join(CURRICULUM, "video-lessons/locales");
-const BADGE_COPY = path.join(CURRICULUM, "badges/locales");
+const VIDEO_LESSON_COPY = path.join(CURRICULUM, "video-lessons/messages.json");
+const BADGE_COPY = path.join(CURRICULUM, "badges/messages.json");
 
 function readJson(file: string): Record<string, Record<string, string>> {
   return JSON.parse(fs.readFileSync(file, "utf-8"));
 }
 
-// Exercise copy lives in instructions frontmatter; "en" is authored in source.md.
-function exerciseCopy(slug: string, locale: string): { title?: string; description?: string } | null {
-  const file = path.join(CURRICULUM, "exercises", slug, "instructions", locale === "en" ? "source.md" : `${locale}.md`);
+// Exercise copy lives in instructions frontmatter.
+function exerciseCopy(slug: string): { title?: string; description?: string } | null {
+  const file = path.join(CURRICULUM, "exercises", slug, "instructions.md");
   if (!fs.existsSync(file)) {
     return null;
   }
@@ -29,41 +33,33 @@ function exerciseCopy(slug: string, locale: string): { title?: string; descripti
 
 describe("curriculum copy catalog sources", () => {
   describe("video lessons", () => {
-    it("has an en entry for every video lesson slug, and no extras", () => {
-      const authored = Object.keys(readJson(path.join(VIDEO_LESSON_COPY, "en/translation.json")));
+    it("has an entry for every video lesson slug, and no extras", () => {
+      const authored = Object.keys(readJson(VIDEO_LESSON_COPY));
       expect(authored.sort()).toEqual([...videoLessonSlugs].sort());
     });
 
-    it("has non-empty en title and description for every entry", () => {
-      const catalog = readJson(path.join(VIDEO_LESSON_COPY, "en/translation.json"));
+    it("has non-empty title and description for every entry", () => {
+      const catalog = readJson(VIDEO_LESSON_COPY);
       for (const [slug, entry] of Object.entries(catalog)) {
         expect(entry.title).toBeTruthy();
         expect(entry.description).toBeTruthy();
         expect(slug).toBeTruthy();
       }
     });
-
-    it("keeps every locale structurally identical to en", () => {
-      const enKeys = Object.keys(readJson(path.join(VIDEO_LESSON_COPY, "en/translation.json"))).sort();
-      for (const locale of fs.readdirSync(VIDEO_LESSON_COPY)) {
-        const keys = Object.keys(readJson(path.join(VIDEO_LESSON_COPY, locale, "translation.json"))).sort();
-        expect(keys).toEqual(enKeys);
-      }
-    });
   });
 
   describe("exercises and challenges", () => {
-    it("has en frontmatter copy for every exercise lesson", () => {
+    it("has frontmatter copy for every exercise lesson", () => {
       for (const slug of exerciseLessonSlugs) {
-        const copy = exerciseCopy(slug, "en");
+        const copy = exerciseCopy(slug);
         expect(copy).not.toBeNull();
         expect(copy?.title).toBeTruthy();
       }
     });
 
-    it("has en frontmatter copy for every challenge", () => {
+    it("has frontmatter copy for every challenge", () => {
       for (const slug of challengeSlugs) {
-        const copy = exerciseCopy(slug, "en");
+        const copy = exerciseCopy(slug);
         expect(copy).not.toBeNull();
         expect(copy?.title).toBeTruthy();
         // Challenge cards render the description, so an empty one is a visible gap.
@@ -82,17 +78,12 @@ describe("curriculum copy catalog sources", () => {
   });
 
   describe("badges", () => {
-    it("keeps every locale structurally identical to en", () => {
-      const enKeys = Object.keys(readJson(path.join(BADGE_COPY, "en/translation.json"))).sort();
-      expect(enKeys.length).toBeGreaterThan(0);
-      for (const locale of fs.readdirSync(BADGE_COPY)) {
-        const keys = Object.keys(readJson(path.join(BADGE_COPY, locale, "translation.json"))).sort();
-        expect(keys).toEqual(enKeys);
-      }
+    it("has at least one badge", () => {
+      expect(Object.keys(readJson(BADGE_COPY)).length).toBeGreaterThan(0);
     });
 
-    it("has non-empty en name, description and fun fact for every badge", () => {
-      const catalog = readJson(path.join(BADGE_COPY, "en/translation.json"));
+    it("has non-empty name, description and fun fact for every badge", () => {
+      const catalog = readJson(BADGE_COPY);
       for (const entry of Object.values(catalog)) {
         expect(entry.name).toBeTruthy();
         expect(entry.description).toBeTruthy();

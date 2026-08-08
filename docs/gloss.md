@@ -1,7 +1,8 @@
 # Authoring `<define>` and `<literal>` in curriculum source
 
-**Audience:** anyone (human or a Claude session) editing curriculum `source.md` files, e.g.
-`front-end/curriculum/src/concepts/*/source.md`.
+**Audience:** anyone (human or a Claude session) editing authored curriculum prose, e.g.
+`front-end/curriculum/src/concepts/*/source.md` and
+`front-end/curriculum/src/exercises/*/instructions.md`.
 
 This explains **how to decide where to put `<define>`/`<literal>` markup when writing the
 English source.** It does not cover how a translation pass expands them: that mechanism is
@@ -37,7 +38,7 @@ Reading in **English** hides all three questions, because in English everything 
 and nothing gets translated. The bugs are invisible until you actually adopt the Japanese
 reader's eyes. That is why this is a technique you *perform*, not a principle you remember.
 
-## Scan before you edit a `source.md`
+## Scan before you edit a page
 
 This scan **is** that Japanese read, turned into a checklist. Run it every time. The failure
 mode is **silent**: a missing `<literal>` or a wrong `<define>` reads perfectly in English

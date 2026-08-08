@@ -1,60 +1,40 @@
 /**
- * Guards for the curriculum level display catalogs
- * (`curriculum/src/levels/locales/{locale}/translation.json`).
+ * Guards for the curriculum level display catalog
+ * (`curriculum/src/levels/messages.json`).
  *
  * These are curriculum content, not app chrome, so they live with the curriculum
- * rather than in `messages/*.json` — but they need the same invariants: every
- * locale carries the same key tree, and the `en` catalog stays in lockstep with
- * the level registry (which remains the source of truth for level ids and their
- * canonical English titles).
+ * rather than in `messages.json` at the app root. English is the only catalog on
+ * disk here — every translation of it is authored in the i18n repo and published
+ * straight to the cache tree — so what is guarded is that the one authored
+ * catalog stays in lockstep with the level registry (which remains the source of
+ * truth for level ids and their canonical English titles), and that its entries
+ * are well formed. Cross-locale key parity is the i18n repo's guard, against the
+ * same file, and cannot be checked from here.
  */
 import fs from "fs";
 import path from "path";
 import { levels } from "@jiki/curriculum";
-import { ALL_LOCALES } from "@/lib/locales";
 
-const LOCALES_DIR = path.join(__dirname, "../../../curriculum/src/levels/locales");
+const CATALOG_FILE = path.join(__dirname, "../../../curriculum/src/levels/messages.json");
 
-function readCatalog(locale: string): Record<string, { title: string }> {
-  return JSON.parse(fs.readFileSync(path.join(LOCALES_DIR, locale, "translation.json"), "utf-8"));
+function readCatalog(): Record<string, { title: string }> {
+  return JSON.parse(fs.readFileSync(CATALOG_FILE, "utf-8"));
 }
 
-const LOCALES = fs
-  .readdirSync(LOCALES_DIR, { withFileTypes: true })
-  .filter((entry) => entry.isDirectory())
-  .map((entry) => entry.name)
-  .sort();
-
-describe("level message catalogs", () => {
-  // `en` is the only catalog authored here; the rest are owned by the i18n repo
-  // and published straight to the cache tree, so this asserts what is still true
-  // on disk (en exists, and nothing unknown is present) rather than demanding a
-  // file per locale in ALL_LOCALES.
-  it("ships the canonical en catalog", () => {
-    expect(LOCALES).toContain("en");
+describe("level message catalog", () => {
+  it("covers exactly the level registry, in order", () => {
+    expect(Object.keys(readCatalog())).toEqual(levels.map((level) => level.id));
   });
 
-  it("ships no catalog for a locale the app does not know about", () => {
-    expect(LOCALES.filter((locale) => !(ALL_LOCALES as readonly string[]).includes(locale))).toEqual([]);
-  });
-
-  it("the en catalog covers exactly the level registry, in order", () => {
-    expect(Object.keys(readCatalog("en"))).toEqual(levels.map((level) => level.id));
-  });
-
-  it("the en titles match the level registry", () => {
-    const en = readCatalog("en");
+  it("titles match the level registry", () => {
+    const catalog = readCatalog();
     for (const level of levels) {
-      expect(en[level.id].title).toBe(level.title);
+      expect(catalog[level.id].title).toBe(level.title);
     }
   });
 
-  it.each(LOCALES)("the %s catalog has the same key tree as en", (locale) => {
-    expect(Object.keys(readCatalog(locale)).sort()).toEqual(Object.keys(readCatalog("en")).sort());
-  });
-
-  it.each(LOCALES)("every %s entry has a well-formed title", (locale) => {
-    for (const [id, entry] of Object.entries(readCatalog(locale))) {
+  it("every entry has a well-formed title", () => {
+    for (const [id, entry] of Object.entries(readCatalog())) {
       expect(typeof entry.title).toBe("string");
       expect(entry.title).toBe(entry.title.trim());
       expect(entry.title.length).toBeGreaterThan(0);

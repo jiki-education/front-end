@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, vi } from "vitest";
 import type { ExecutionContext, Shared } from "@jiki/interpreters";
 import DndRollExercise from "../../src/exercises/dnd-roll/Exercise";
 import { scenarios } from "../../src/exercises/dnd-roll/scenarios";
-import enDict from "../../src/exercises/dnd-roll/locales/en/translation.json";
+import enDict from "../../src/exercises/dnd-roll/messages.json";
 
 /**
  * The Hungarian dict is a FIXTURE, not an import.

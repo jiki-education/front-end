@@ -10,16 +10,17 @@
  * runtime from the content-hashed cache tree, never bundled, so the worker bundle
  * doesn't grow with the locale count.
  *
- * Reads curriculum level locale sources and produces:
+ * Reads `curriculum/src/levels/messages.json` — English, the only locale the
+ * curriculum authors, every other one being published straight to R2 by the i18n
+ * repo — and produces:
  *
  *   public/static/i18n/levels/{locale}/messages-{hash}.json
  *     - Every level's display strings for one human locale, keyed by level id
  *
- *   public/static/i18n/levels/{locale}/current.json    (non-default locales only)
- *     - The mutable pointer naming that locale's current hash, so `next dev`
- *       resolves a non-English locale through the same runtime path production
- *       uses. NOT uploaded to R2: there the i18n repo is the single writer of
- *       every non-English pointer, and `static:upload` excludes them.
+ * No `current.json` pointer is written. A pointer is how a NON-default locale is
+ * resolved at runtime, and this script emits only the default locale; every
+ * other locale's catalog and pointer are written by the i18n repo, to R2 in
+ * production and into `public/` locally by `i18n-content:generate`.
  *
  *   lib/generated/level-message-hashes.ts
  *     - Hash manifest: locale -> messages hash. Only the DEFAULT locale's entry
@@ -34,7 +35,7 @@ import { fileURLToPath } from "url";
 import { computeHash, writeFile } from "./lib/cache-utils.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const LEVELS_LOCALES_DIR = path.join(__dirname, "../../curriculum/src/levels/locales");
+const LEVELS_MESSAGES_FILE = path.join(__dirname, "../../curriculum/src/levels/messages.json");
 const STATIC_DIR = path.join(__dirname, "../public/static/i18n/levels");
 const GENERATED_DIR = path.join(__dirname, "../lib/generated");
 
@@ -43,45 +44,30 @@ const GENERATED_DIR = path.join(__dirname, "../lib/generated");
 const DEFAULT_LOCALE = "en";
 
 /**
- * Build one message file per locale. Returns the hash manifest: { [locale]: hash }.
+ * Build the default locale's message file. Returns the hash manifest:
+ * { [locale]: hash }, still keyed by locale because that is what the runtime
+ * manifest is and what the R2 key carries.
  */
 function buildMessageFiles() {
-  const hashes = {};
-
-  if (!fs.existsSync(LEVELS_LOCALES_DIR)) {
-    throw new Error(`No level locales dir at ${LEVELS_LOCALES_DIR}`);
+  if (!fs.existsSync(LEVELS_MESSAGES_FILE)) {
+    throw new Error(`No level catalog at ${LEVELS_MESSAGES_FILE}`);
   }
 
-  const localeDirs = fs.readdirSync(LEVELS_LOCALES_DIR, { withFileTypes: true }).filter((d) => d.isDirectory());
-
-  for (const localeDir of localeDirs) {
-    const locale = localeDir.name;
-    const messagesPath = path.join(LEVELS_LOCALES_DIR, locale, "translation.json");
-    if (!fs.existsSync(messagesPath)) {
-      continue;
-    }
-
-    // Parse + re-stringify to a normalized, compact form so the hash is stable
-    // regardless of source formatting.
-    let messages;
-    try {
-      messages = JSON.parse(fs.readFileSync(messagesPath, "utf-8"));
-    } catch (error) {
-      throw new Error(`Invalid JSON in ${messagesPath}: ${error.message}`);
-    }
-
-    const content = JSON.stringify(messages);
-    const hash = computeHash(content);
-    hashes[locale] = hash;
-
-    writeFile(path.join(STATIC_DIR, locale, `messages-${hash}.json`), content);
-
-    if (locale !== DEFAULT_LOCALE) {
-      writeFile(path.join(STATIC_DIR, locale, "current.json"), `${JSON.stringify({ hash })}\n`);
-    }
+  // Parse + re-stringify to a normalized, compact form so the hash is stable
+  // regardless of source formatting.
+  let messages;
+  try {
+    messages = JSON.parse(fs.readFileSync(LEVELS_MESSAGES_FILE, "utf-8"));
+  } catch (error) {
+    throw new Error(`Invalid JSON in ${LEVELS_MESSAGES_FILE}: ${error.message}`);
   }
 
-  return hashes;
+  const content = JSON.stringify(messages);
+  const hash = computeHash(content);
+
+  writeFile(path.join(STATIC_DIR, DEFAULT_LOCALE, `messages-${hash}.json`), content);
+
+  return { [DEFAULT_LOCALE]: hash };
 }
 
 /**

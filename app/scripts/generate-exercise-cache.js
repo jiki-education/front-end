@@ -141,11 +141,16 @@ function deriveFamily(exercisePath) {
 
 /**
  * Load per-family base catalogs (curriculum-owned shared strings, e.g. a base
- * class's logicError messages) authored once under
- * `exercise-categories/<family>/locales/<locale>/translation.json`. Merged into
- * each family member's emitted pack at build time, so the shared strings are
- * authored/translated once but every member's runtime dict is self-contained.
- * Returns { [family]: { [locale]: dict } }.
+ * class's logicError messages) authored once in
+ * `exercise-categories/<family>/messages.json`. Merged into each family member's
+ * emitted pack at build time, so the shared strings are authored once but every
+ * member's runtime dict is self-contained.
+ *
+ * The curriculum holds English and nothing else — every other locale is authored
+ * in the i18n repo and published from there — so there is one catalog per family
+ * and it is the default locale's. Returns { [family]: { [locale]: dict } },
+ * keyed by locale still, because that is the shape the merge below consumes and
+ * the emitted artifacts are addressed by.
  */
 function loadBaseCatalogs() {
   const bases = {};
@@ -156,26 +161,17 @@ function loadBaseCatalogs() {
     if (!familyDir.isDirectory()) {
       continue;
     }
-    const localesDir = path.join(EXERCISE_CATEGORIES_DIR, familyDir.name, "locales");
-    if (!fs.existsSync(localesDir)) {
+    // Families with no shared strings ship no catalog at all, which is not an error.
+    const catalogPath = path.join(EXERCISE_CATEGORIES_DIR, familyDir.name, "messages.json");
+    const raw = readFileOrNull(catalogPath);
+    if (raw === null) {
       continue;
     }
-    const perLocale = {};
-    for (const localeDir of fs.readdirSync(localesDir, { withFileTypes: true })) {
-      if (!localeDir.isDirectory()) {
-        continue;
-      }
-      const raw = readFileOrNull(path.join(localesDir, localeDir.name, "translation.json"));
-      if (raw === null) {
-        continue;
-      }
-      try {
-        perLocale[localeDir.name] = JSON.parse(raw);
-      } catch (error) {
-        throw new Error(`Invalid JSON in base catalog ${familyDir.name}/${localeDir.name}: ${error.message}`);
-      }
+    try {
+      bases[familyDir.name] = { [DEFAULT_LOCALE]: JSON.parse(raw) };
+    } catch (error) {
+      throw new Error(`Invalid JSON in base catalog ${catalogPath}: ${error.message}`);
     }
-    bases[familyDir.name] = perLocale;
   }
   return bases;
 }
@@ -213,48 +209,36 @@ function processExercises() {
       throw new Error(`Invalid JSON in ${metadataPath}: ${error.message}`);
     }
 
-    // Read instruction files per locale
-    const instructionsDir = path.join(exercisePath, "instructions");
+    // Read the authored instructions. The curriculum holds English only; every
+    // translation is authored in the i18n repo and published from there, so this
+    // is one file, not a directory to enumerate. The result stays keyed by locale
+    // because the emitted artifacts and index are addressed by locale.
+    const instructionsPath = path.join(exercisePath, "instructions.md");
     const locales = {};
+    const instructionsRaw = readFileOrNull(instructionsPath);
 
-    if (fs.existsSync(instructionsDir)) {
-      const mdFiles = fs
-        .readdirSync(instructionsDir, { withFileTypes: true })
-        .filter((f) => f.isFile() && f.name.endsWith(".md"));
-
-      for (const file of mdFiles) {
-        // English is authored in source.md (the source of truth); map that file to
-        // the "en" locale. Every other file is named <locale>.md (e.g. hu.md).
-        const baseName = path.basename(file.name, ".md");
-        const locale = baseName === "source" ? "en" : baseName;
-        const filePath = path.join(instructionsDir, file.name);
-        const fileContent = fs.readFileSync(filePath, "utf-8");
-        const parsed = parseFrontmatter(fileContent);
-
-        if (!parsed.data.title) {
-          throw new Error(`Missing title in frontmatter of ${filePath}`);
-        }
-
-        // Exercise instructions are stored as raw markdown and rendered by marked
-        // at runtime (InstructionsContent.tsx), so there is no build-time marked
-        // hook to strip the custom <define>/<literal> tags the English source.md
-        // may carry. prepareInstructions does the trim and the strip, and lives in
-        // @jiki.io/content-renderer beside the concept renderer, because both
-        // repos that publish instructions must agree on these bytes.
-        const instructions = prepareInstructions(parsed.body);
-
-        locales[locale] = {
-          title: parsed.data.title,
-          description: parsed.data.description || "",
-          instructions
-        };
-      }
-    }
-
-    if (Object.keys(locales).length === 0) {
-      console.warn(`   Warning: exercise "${slug}" has no instruction files — skipping`);
+    if (instructionsRaw === null) {
+      console.warn(`   Warning: exercise "${slug}" has no instructions.md — skipping`);
       continue;
     }
+
+    const parsed = parseFrontmatter(instructionsRaw);
+
+    if (!parsed.data.title) {
+      throw new Error(`Missing title in frontmatter of ${instructionsPath}`);
+    }
+
+    // Exercise instructions are stored as raw markdown and rendered by marked
+    // at runtime (InstructionsContent.tsx), so there is no build-time marked
+    // hook to strip the custom <define>/<literal> tags the English instructions
+    // may carry. prepareInstructions does the trim and the strip, and lives in
+    // @jiki.io/content-renderer beside the concept renderer, because both
+    // repos that publish instructions must agree on these bytes.
+    locales[DEFAULT_LOCALE] = {
+      title: parsed.data.title,
+      description: parsed.data.description || "",
+      instructions: prepareInstructions(parsed.body)
+    };
 
     // Read stubs and solutions per language
     const stubs = {};
@@ -272,26 +256,20 @@ function processExercises() {
       }
     }
 
-    // Read per-locale message catalogs (curriculum-owned i18n dicts). These are
-    // decoupled from instruction locales: an exercise can ship a `hu` message
-    // dict for its runtime logic-error strings without a `hu` instructions file.
+    // Read the exercise's message catalog (curriculum-owned i18n dict: runtime
+    // logic-error and errorHtml strings). English only, for the same reason the
+    // instructions are; translated catalogs are published by the i18n repo.
     // Each catalog is emitted as a standalone artifact and fetched by the ACTIVE
-    // UI locale at runtime, independent of the (content) instruction locale.
+    // UI locale at runtime, independent of the (content) instruction locale,
+    // which is why the map stays keyed by locale here.
     const messages = {};
-    const localesDir = path.join(exercisePath, "locales");
-    if (fs.existsSync(localesDir)) {
-      const localeDirs = fs.readdirSync(localesDir, { withFileTypes: true }).filter((d) => d.isDirectory());
-      for (const localeDir of localeDirs) {
-        const translationPath = path.join(localesDir, localeDir.name, "translation.json");
-        const raw = readFileOrNull(translationPath);
-        if (raw === null) {
-          continue;
-        }
-        try {
-          messages[localeDir.name] = JSON.parse(raw);
-        } catch (error) {
-          throw new Error(`Invalid JSON in ${translationPath}: ${error.message}`);
-        }
+    const messagesPath = path.join(exercisePath, "messages.json");
+    const messagesRaw = readFileOrNull(messagesPath);
+    if (messagesRaw !== null) {
+      try {
+        messages[DEFAULT_LOCALE] = JSON.parse(messagesRaw);
+      } catch (error) {
+        throw new Error(`Invalid JSON in ${messagesPath}: ${error.message}`);
       }
     }
 
