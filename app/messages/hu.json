@@ -83,10 +83,7 @@
       "subtitle": "Előkészítjük a tanulási élményed"
     },
     "localeBanner": {
-      "prefix": "Az oldal {language} nyelvű verzióját látod.",
-      "cta": "Váltás erre: {language}",
-      "or": "vagy",
-      "close": "értesítés bezárása"
+      "message": "Az oldal {current} nyelvű verzióját látod. <link>Váltás erre: {offered}</link> vagy <dismiss>értesítés bezárása</dismiss>."
     }
   },
   "common": {
@@ -97,10 +94,6 @@
     "processing": "Feldolgozás...",
     "reloadPage": "Oldal újratöltése",
     "loading": "Betöltés...",
-    "languageNames": {
-      "en": "Angol",
-      "hu": "Magyar"
-    },
     "verifying": "Ellenőrzés...",
     "sending": "Küldés...",
     "perMonth": "/hó",
