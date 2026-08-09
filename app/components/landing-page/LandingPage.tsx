@@ -6,9 +6,9 @@ import { Exercism } from "./Exercism";
 import { FAQs } from "./FAQs";
 import { Hero } from "./Hero";
 import { LatestNewsSection } from "./LatestNewsSection";
+import { MeetJeremy } from "./MeetJeremy";
 import { OutcomesSection } from "./OutcomesSection";
 import { PrintRow } from "./PrintRow";
-import { SectionPlaceholder } from "./SectionPlaceholder";
 import { StickyNav } from "./StickyNav";
 import styles from "./LandingPage.module.css";
 import { TestimonialsSection } from "./TestimonialsSection";
@@ -33,7 +33,7 @@ export function LandingPage({ latestPosts = [] }: LandingPageProps) {
         <TwoHalves />
         <TrackCardsSection />
         <OutcomesSection />
-        <SectionPlaceholder label="Meet Jeremy" />
+        <MeetJeremy />
         <TestimonialsSection />
         <PrintRow />
         <Exercism />

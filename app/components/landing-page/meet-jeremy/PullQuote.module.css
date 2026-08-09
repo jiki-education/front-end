@@ -1,0 +1,84 @@
+.quote {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    margin-block-start: 30px;
+    padding-block-start: 28px;
+    border-block-start: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.mark {
+    font-family: Georgia, serif;
+    font-size: 56px;
+    line-height: 0;
+    color: var(--color-purple-200);
+    flex: none;
+}
+
+.quote blockquote {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--color-gray-700);
+    max-width: 560px;
+}
+
+.quote blockquote strong {
+    font-weight: 600;
+    background: linear-gradient(transparent 62%, var(--color-amber-200) 62%);
+}
+
+.who {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    flex: none;
+}
+
+/* The ring is a gradient behind the photo rather than a border on it, so the three
+   brand colours run round the edge. */
+.ring {
+    display: block;
+    flex: none;
+    padding: 2.5px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--color-purple-500) 0%, var(--color-blue-500) 55%, #2dd4bf 100%);
+}
+
+.who img {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    object-fit: cover;
+    border: 2px solid #fff;
+}
+
+.who strong {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--color-gray-800);
+    white-space: nowrap;
+}
+
+.who em {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 600;
+    font-style: normal;
+    line-height: 1.25;
+    color: var(--color-gray-400);
+}
+
+@media (max-width: 767px) {
+    .quote {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .mark {
+        display: none;
+    }
+}

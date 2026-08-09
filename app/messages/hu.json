@@ -592,6 +592,25 @@
       "understandingBody": "Not memorised syntax. You'll be able to read unfamiliar code, reason about what it's doing, and pick up any new language far faster.",
       "codeNote": "You'll know <em>why</em> this loop ends"
     },
+    "meetJeremy": {
+      "portraitAlt": "Jeremy Walker",
+      "intro": "Hi there! 👋 I'm Jeremy, and I've helped over <strong>millions of people</strong> level up their coding skills, all around the world.",
+      "badgeDeveloper": "Senior Developer",
+      "badgeTeacher": "Passionate teacher",
+      "badgeMission": "Mission Driven",
+      "developerTitle": "Senior Developer",
+      "developerDetail": "Full stack • 35 years experience • Codes in 20+ languages (including his own!) • AI Degree (from 2005) • Patented Heart Surgery AI system",
+      "teacherTitle": "Passionate Teacher",
+      "teacherDetail": "20 years experience • 3M+ people taught • Founded four education companies",
+      "entrepreneurTitle": "Mission Driven Entrepreneur",
+      "entrepreneurDetail": "Founder of multiple for-good orgs including Exercism, Kaido, Thalamus, and more • Runs one of the world's largest OSS projects",
+      "story": "I've spent 20 years in and around this stuff. I started out in AI, back when that meant something very different, and ended up co-inventing a patented system still used in heart surgery today. I've built and run companies that worked, and a few that didn't. And I founded Exercism, a not-for-profit that has now taught over three million people to code, for free, forever.",
+      "why": "Programming gave me a career, a livelihood and a lot of good years. I've never stopped wanting other people to have that too.",
+      "signature": "— Jeremy",
+      "quote": "You learn to write code by writing code to solve problems that match, and push, your abilities. <strong>Jeremy is a master teacher.</strong>",
+      "quoteName": "Thom Chittom",
+      "quoteRole": "Beginner"
+    },
     "printRow": {
       "joinNote": "Get in on the action!",
       "spaceInvaders": "space invaders",
