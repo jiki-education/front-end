@@ -1,6 +1,6 @@
 "use client";
 
-import { ApiError } from "@/lib/api/client";
+import { ApiError, getApiErrorType } from "@/lib/api/client";
 import { readAttribution } from "@/lib/attribution";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { useAuth } from "@/lib/auth/useAuth";
@@ -106,10 +106,7 @@ export function SignupForm() {
       console.error("Signup failed:", err);
 
       if (err instanceof ApiError) {
-        if (
-          err.status === 403 &&
-          (err.data as { error?: { type?: string } } | undefined)?.error?.type === "invalid_captcha"
-        ) {
+        if (err.status === 403 && getApiErrorType(err) === "invalid_captcha") {
           setCaptchaError(true);
           return;
         }

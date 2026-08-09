@@ -67,7 +67,7 @@ function AuthSection({
   isAuthenticated: boolean;
   user: { email: string } | null;
   isAuthLoading: boolean;
-  authError: string | null;
+  authError: unknown;
   onLogin: () => void;
 }) {
   if (isAuthenticated && user) {
@@ -84,9 +84,9 @@ function AuthSection({
     <div className={styles.authBoxPrompt}>
       <h2 className={styles.authTitle}>Authentication Required</h2>
       <p className={styles.authText}>You need to be logged in to test Stripe subscription flows.</p>
-      {authError && (
+      {authError != null && (
         <p className={styles.authError}>
-          <strong>Error:</strong> {authError}
+          <strong>Error:</strong> {String(authError)}
         </p>
       )}
       <button onClick={onLogin} disabled={isAuthLoading} className={styles.loginButton}>

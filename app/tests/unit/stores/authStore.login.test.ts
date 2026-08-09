@@ -112,18 +112,19 @@ describe("AuthStore - Login", () => {
       expect(state.isAuthenticated).toBe(false);
     });
 
-    it("should throw generic Error on other HTTP errors", async () => {
+    it("should throw an ApiError carrying the type on other HTTP errors", async () => {
       mockFetch.mockResolvedValue({
         ok: false,
         status: 500,
-        json: () => Promise.resolve({ error: { message: "Server error" } })
+        json: () => Promise.resolve({ error: { type: "invalid_request" } })
       });
 
       const { login } = useAuthStore.getState();
 
-      await expect(login({ email: "test@example.com", password: "password" }, "test-token")).rejects.toThrow(
-        "Server error"
-      );
+      await expect(login({ email: "test@example.com", password: "password" }, "test-token")).rejects.toMatchObject({
+        status: 500,
+        data: { error: { type: "invalid_request" } }
+      });
 
       const state = useAuthStore.getState();
       expect(state.user).toBeNull();
@@ -267,11 +268,11 @@ describe("AuthStore - Login", () => {
       ).rejects.toThrow(AuthenticationError);
     });
 
-    it("should throw generic Error on other HTTP errors", async () => {
+    it("should throw an ApiError carrying the type on other HTTP errors", async () => {
       mockFetch.mockResolvedValue({
         ok: false,
         status: 422,
-        json: () => Promise.resolve({ error: { message: "Validation failed" } })
+        json: () => Promise.resolve({ error: { type: "validation_error" } })
       });
 
       const { signup } = useAuthStore.getState();
@@ -285,7 +286,7 @@ describe("AuthStore - Login", () => {
           },
           "test-token"
         )
-      ).rejects.toThrow("Validation failed");
+      ).rejects.toMatchObject({ status: 422, data: { error: { type: "validation_error" } } });
     });
 
     it("should call fetch with correct parameters", async () => {

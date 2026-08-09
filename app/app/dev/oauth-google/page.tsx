@@ -173,7 +173,7 @@ function AuthStatusSection({
   isAuthenticated: boolean;
   user: { email: string; name: string | null } | null;
   isAuthLoading: boolean;
-  authError: string | null;
+  authError: unknown;
   onTraditionalLogin: () => void;
   onLogout: () => void;
 }) {
@@ -209,9 +209,9 @@ function AuthStatusSection({
       <p className={styles.unauthText}>
         You can test Google OAuth while logged out (new account) or logged in (account linking).
       </p>
-      {authError && (
+      {authError != null && (
         <p className={styles.authErrorText}>
-          <strong>Auth Error:</strong> {authError}
+          <strong>Auth Error:</strong> {String(authError)}
         </p>
       )}
       <button onClick={onTraditionalLogin} className={styles.loginButton}>

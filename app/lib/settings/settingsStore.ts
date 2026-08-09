@@ -10,7 +10,8 @@ import { settingsApi } from "@/lib/api/settings";
 import { setLocaleCookie } from "@/lib/i18n/localeCookie";
 import type { UserSettings, UpdateSettingParams, UpdateNotificationParams } from "@/lib/api/types/settings";
 import { notificationField } from "@/lib/notifications/config";
-import toast from "react-hot-toast";
+import { getApiErrorType } from "@/lib/api/client";
+import { toastApiError } from "@/lib/api/apiErrors";
 import { toastError, toastSuccess } from "@/lib/toast";
 
 interface SettingsState {
@@ -50,10 +51,10 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
     } catch (error) {
       const errorObj = error instanceof Error ? error : new Error("Failed to fetch settings");
       set({ error: errorObj, loading: false });
-      // Surface the server-provided message when we have one (it's dynamic and
-      // not translatable client-side); otherwise show a translated fallback.
-      if (error instanceof Error) {
-        toast.error(error.message);
+      // Prefer copy for the specific type the API sent; otherwise (network
+      // failure, unrecognised body) fall back to the generic message.
+      if (getApiErrorType(error)) {
+        toastApiError(error);
       } else {
         toastError("settings.fetchFailed");
       }
@@ -104,8 +105,8 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
         set({ settings: currentSettings });
       }
 
-      if (error instanceof Error) {
-        toast.error(error.message);
+      if (getApiErrorType(error)) {
+        toastApiError(error);
       } else {
         toastError("settings.updateFailed");
       }
@@ -158,8 +159,8 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
       // Rollback on error
       set({ settings: currentSettings });
 
-      if (error instanceof Error) {
-        toast.error(error.message);
+      if (getApiErrorType(error)) {
+        toastApiError(error);
       } else {
         toastError("settings.notificationUpdateFailed");
       }
@@ -189,8 +190,8 @@ export const useSettingsStore = create<SettingsState>((set, get) => ({
       // Rollback on error
       set({ settings: currentSettings });
 
-      if (error instanceof Error) {
-        toast.error(error.message);
+      if (getApiErrorType(error)) {
+        toastApiError(error);
       } else {
         toastError("settings.streaksUpdateFailed");
       }

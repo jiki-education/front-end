@@ -5,11 +5,10 @@
  * Handles all user settings-related API interactions
  */
 
-import { api, ApiError } from "./client";
+import { api } from "./client";
 import type {
   UserSettings,
   SettingsResponse,
-  SettingsError,
   UpdateSettingParams,
   UpdateNotificationParams,
   NotificationSlug
@@ -34,32 +33,10 @@ class SettingsApi {
       body.sudo_password = sudoPassword;
     }
 
-    try {
-      const response = await api.patch<SettingsResponse>(`/internal/settings/${field}`, body);
-      return response.data.settings;
-    } catch (error) {
-      if (error instanceof ApiError) {
-        const errorData = error.data as SettingsError | undefined;
-
-        if (errorData?.error) {
-          // Create a more specific error message
-          if (errorData.error.type === "invalid_password") {
-            throw new Error("Current password is incorrect");
-          }
-
-          if (errorData.error.type === "validation_error" && errorData.error.errors) {
-            // Format validation errors
-            const messages = Object.entries(errorData.error.errors)
-              .map(([field, errors]) => `${field}: ${errors.join(", ")}`)
-              .join("; ");
-            throw new Error(messages);
-          }
-
-          throw new Error(errorData.error.message);
-        }
-      }
-      throw error;
-    }
+    // The ApiError propagates untouched: it carries the `type` the API sent,
+    // and the copy for that type is resolved at the render site.
+    const response = await api.patch<SettingsResponse>(`/internal/settings/${field}`, body);
+    return response.data.settings;
   }
 
   /**
@@ -101,19 +78,8 @@ class SettingsApi {
    * Update notification preference
    */
   async updateNotification({ slug, value }: UpdateNotificationParams): Promise<UserSettings> {
-    try {
-      const response = await api.patch<SettingsResponse>(`/internal/settings/notifications/${slug}`, { value });
-      return response.data.settings;
-    } catch (error) {
-      if (error instanceof ApiError) {
-        const errorData = error.data as SettingsError | undefined;
-
-        if (errorData?.error) {
-          throw new Error(errorData.error.message);
-        }
-      }
-      throw error;
-    }
+    const response = await api.patch<SettingsResponse>(`/internal/settings/notifications/${slug}`, { value });
+    return response.data.settings;
   }
 
   /**
@@ -137,19 +103,8 @@ class SettingsApi {
    * Update streaks enabled setting
    */
   async updateStreaks(enabled: boolean): Promise<UserSettings> {
-    try {
-      const response = await api.patch<SettingsResponse>("/internal/settings/streaks", { enabled });
-      return response.data.settings;
-    } catch (error) {
-      if (error instanceof ApiError) {
-        const errorData = error.data as SettingsError | undefined;
-
-        if (errorData?.error) {
-          throw new Error(errorData.error.message);
-        }
-      }
-      throw error;
-    }
+    const response = await api.patch<SettingsResponse>("/internal/settings/streaks", { enabled });
+    return response.data.settings;
   }
 }
 
