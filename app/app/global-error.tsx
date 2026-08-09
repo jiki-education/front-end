@@ -22,7 +22,21 @@ interface GlobalErrorCopy {
   actionLabel: string;
 }
 
-const COPY: Record<Locale, GlobalErrorCopy> = {
+// STAGING PREVIEW ONLY (branch translatathon-2-serve-all-locales): the type is
+// relaxed from `Record<Locale, …>` to "en required, the rest optional".
+//
+// `Record<Locale, …>` is what forces the by-hand entry described above, and it is
+// the right type on main. It cannot survive this branch, though: expanding
+// ALL_LOCALES to 33 makes it demand 32 more entries at once, and the only two
+// ways to satisfy it are both wrong. Machine-translating a crash page is out, and
+// pasting the English copy 32 times would bury the one real translation in noise
+// that has to be deleted again later.
+//
+// Nothing is lost at runtime. `getGlobalErrorCopy` is string-keyed and already
+// falls back to English for a locale it has no entry for, so an untranslated
+// locale renders exactly the same words either way. The relaxation is discarded
+// along with this branch, which restores the by-hand guarantee.
+const COPY: { en: GlobalErrorCopy } & Partial<Record<Locale, GlobalErrorCopy>> = {
   en: {
     title: "Something went wrong",
     message: "We encountered an unexpected error. Sorry about that!",
@@ -95,7 +109,7 @@ export function resolveGlobalErrorLocale(): Locale {
 // not present in the dictionary.
 export function getGlobalErrorCopy(locale: string): GlobalErrorCopy {
   const dictionary: Record<string, GlobalErrorCopy | undefined> = COPY;
-  return dictionary[locale] ?? COPY[DEFAULT_LOCALE];
+  return dictionary[locale] ?? COPY.en;
 }
 
 function readCookie(name: string): string | undefined {

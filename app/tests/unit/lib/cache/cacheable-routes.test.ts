@@ -46,18 +46,17 @@ describe("cacheable-routes", () => {
 
     describe("locale-prefix handling is config-driven (not a loose regex)", () => {
       it("does not cache an unsupported locale prefix", () => {
-        // "de" isn't in SUPPORTED_LOCALES, so /de/blog is a 404 route, not a
+        // "zz" isn't in SUPPORTED_LOCALES, so /zz/blog is a 404 route, not a
         // cacheable page. The old /[a-z]{2}/ regex wrongly cached these.
-        expect(isCacheableRoute("/de/blog")).toBe(false);
+        expect(isCacheableRoute("/zz/blog")).toBe(false);
         expect(isCacheableRoute("/xx/concepts")).toBe(false);
-        expect(isCacheableRoute("/de")).toBe(false);
+        expect(isCacheableRoute("/zz")).toBe(false);
       });
 
-      it("would cache region-subtag locales once they are supported", () => {
-        // Guards the pt-BR case: caching keys off SUPPORTED_LOCALES, so adding a
-        // hyphenated locale there makes /pt-BR/blog cacheable with no regex change.
-        // (pt-BR isn't supported yet, so it's uncacheable today.)
-        expect(isCacheableRoute("/pt-BR/blog")).toBe(false);
+      it("caches region-subtag locales", () => {
+        // Guards the pt-BR case: caching keys off SUPPORTED_LOCALES rather than a
+        // two-letter regex, so a hyphenated locale is cacheable with no regex change.
+        expect(isCacheableRoute("/pt-BR/blog")).toBe(true);
       });
     });
 

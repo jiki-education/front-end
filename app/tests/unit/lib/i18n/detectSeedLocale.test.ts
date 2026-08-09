@@ -10,7 +10,7 @@ describe("detectSeedLocale", () => {
   });
 
   it("returns undefined for an unsupported locale (normalizes to default -> omit)", () => {
-    expect(detectSeedLocale("de")).toBeUndefined();
+    expect(detectSeedLocale("zz")).toBeUndefined();
     expect(detectSeedLocale("")).toBeUndefined();
     expect(detectSeedLocale("not-a-locale")).toBeUndefined();
   });
