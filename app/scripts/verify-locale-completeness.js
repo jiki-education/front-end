@@ -55,22 +55,21 @@ import { fileURLToPath } from "url";
 
 const COMPLETENESS_URL = "https://assets.jiki.io/static/i18n/completeness.json";
 
-// PRODUCTION_LOCALES is read out of the source rather than imported, because
-// importing it would drag in the app's whole TypeScript module graph for one
-// array. There is still exactly one place the list is written down.
-const LOCALES_FILE = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "lib", "locales.ts");
-
-function readArray(name) {
-  const source = fs.readFileSync(LOCALES_FILE, "utf8");
-  const match = source.match(new RegExp(`${name}[^=]*=\\s*\\[([^\\]]*)\\]`));
-  if (!match) {
-    throw new Error(`could not find ${name} in ${LOCALES_FILE}`);
-  }
-  return [...match[1].matchAll(/"([^"]+)"/g)].map((m) => m[1]);
-}
+// The same file lib/locales.ts imports, read directly. This runs as a plain node
+// script before the build, so it cannot import from lib/locales.ts without a
+// TypeScript module graph. It used to find the list by matching a regex against
+// that file, which could start at a mention of the name in a comment and run on
+// to the next array: on a branch carrying 33 locales it read ALL_LOCALES and
+// demanded completeness for every one of them. One file, two readers, no parsing.
+const PRODUCTION_LOCALES_FILE = path.join(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "..",
+  "lib",
+  "production-locales.json"
+);
 
 const DEFAULT_LOCALE = "en";
-const PRODUCTION_LOCALES = readArray("PRODUCTION_LOCALES");
+const PRODUCTION_LOCALES = JSON.parse(fs.readFileSync(PRODUCTION_LOCALES_FILE, "utf8"));
 
 const url = process.env.JIKI_COMPLETENESS_URL ?? COMPLETENESS_URL;
 const locales = PRODUCTION_LOCALES.filter((locale) => locale !== DEFAULT_LOCALE);

@@ -33,7 +33,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const LOCALES_TS = join(HERE, "..", "app", "lib", "locales.ts");
+const PRODUCTION_LOCALES_JSON = join(HERE, "..", "app", "lib", "production-locales.json");
 
 // Parse the `--locales=a,b` / `--locales a,b` flag out of an argv slice.
 function parseLocalesFlag(argv) {
@@ -54,14 +54,6 @@ function splitList(value) {
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean);
-}
-
-// Extract the array of string literals that follows a `const NAME = [ ... ]`.
-function extractArrayLiterals(segment) {
-  const match = segment.match(/\[([^\]]*)\]/);
-  if (!match) return null;
-  const items = [...match[1].matchAll(/["'`]([^"'`]+)["'`]/g)].map((m) => m[1]);
-  return items.length ? items : null;
 }
 
 /** Every failure here is fatal. See resolveProductionLocales. */
@@ -89,24 +81,30 @@ function fail(reason) {
  * only safe thing to report is that it knows nothing.
  */
 export function resolveProductionLocales() {
-  let src;
+  // The same file app/lib/locales.ts imports. This used to parse the array out of
+  // locales.ts, which meant a source edit could quietly change what a blocking
+  // check gates on: an unanchored match could run from a mention of the name in a
+  // comment to whatever the next array happened to be, which is a wrong answer
+  // wearing the shape of a right one. There is nothing to parse now.
+  let raw;
   try {
-    src = readFileSync(LOCALES_TS, "utf8");
+    raw = readFileSync(PRODUCTION_LOCALES_JSON, "utf8");
   } catch (error) {
-    fail(`cannot read ${LOCALES_TS} (${error.code ?? error.message})`);
+    fail(`cannot read ${PRODUCTION_LOCALES_JSON} (${error.code ?? error.message})`);
   }
 
-  // Anchored on `const`, so this matches the DECLARATION and not one of the
-  // references to it further down the file. An unanchored match can run from a
-  // reference to whatever the next assignment happens to be, which is a wrong
-  // answer that looks like a right one.
-  const declaration = src.match(/\bconst\s+PRODUCTION_LOCALES\b[^=]*=\s*([^;]+);/);
-  if (!declaration) fail("no PRODUCTION_LOCALES declaration found");
+  let locales;
+  try {
+    locales = JSON.parse(raw);
+  } catch (error) {
+    fail(`${PRODUCTION_LOCALES_JSON} is not valid JSON (${error.message})`);
+  }
 
-  const literals = extractArrayLiterals(declaration[1]);
-  if (!literals) fail(`PRODUCTION_LOCALES is not a literal array of strings (found: ${declaration[1].trim()})`);
+  if (!Array.isArray(locales) || locales.length === 0 || !locales.every((l) => typeof l === "string" && l)) {
+    fail(`${PRODUCTION_LOCALES_JSON} must be a non-empty array of locale strings`);
+  }
 
-  return literals;
+  return locales;
 }
 
 // Public entry point: honour a --locales flag (dev), otherwise the production set.
