@@ -1,6 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/lib/auth/authStore";
+import { ApiErrorMessage } from "@/lib/api/apiErrors";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -62,9 +63,9 @@ export function ResendConfirmationForm() {
         </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          {error && (
+          {error != null && (
             <div className={styles.successMessage} style={{ display: "block" }}>
-              {error}
+              <ApiErrorMessage error={error} />
             </div>
           )}
 

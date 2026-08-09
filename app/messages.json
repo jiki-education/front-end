@@ -1048,6 +1048,124 @@
       "description": "Step by step guides to help you set up your tools and get the most out of Jiki."
     }
   },
+  "apiErrors": {
+    "unknown": "Something went wrong. Please try again.",
+    "unauthenticated": "You need to log in before continuing.",
+    "invalid_credentials": "Invalid email or password",
+    "unconfirmed": "Please confirm your email address",
+    "forbidden": "You don't have access to this",
+    "access_denied": "Access denied",
+    "premium_required": "This is only available to premium members",
+    "invalid_signature": "Invalid signature",
+    "invalid_captcha": "We couldn't check whether you're a human. Please try again.",
+    "invalid_token": "That link is invalid or has expired",
+    "token_expired": "That link has expired",
+    "session_expired": "Your session has expired. Please log in again.",
+    "invalid_otp": "Invalid verification code",
+    "invalid_unsubscribe_token": "That unsubscribe link is invalid or has expired",
+    "not_found": "We couldn't find what you were looking for",
+    "lesson_not_found": "We couldn't find that lesson",
+    "level_not_found": "We couldn't find that level",
+    "course_not_found": "We couldn't find that course",
+    "user_not_found": "We couldn't find that user",
+    "challenge_not_found": "We couldn't find that challenge",
+    "concept_not_found": "We couldn't find that concept",
+    "badge_not_found": "We couldn't find that badge",
+    "user_challenge_not_found": "We couldn't find your progress on that challenge",
+    "user_video_not_found": "We couldn't find your progress on that video",
+    "user_lesson_not_found": "We couldn't find your progress on that lesson",
+    "user_level_not_found": "We couldn't find your progress on that level",
+    "validation_error": "Please check what you entered and try again.",
+    "duplicate_filename": "You've used the same filename more than once: {filenames}",
+    "file_too_large": "{filename} is too large. Files can be up to {maxBytes} bytes.",
+    "too_many_files": "You've added {count} files. You can submit up to {max}.",
+    "invalid_submission": "We couldn't accept that submission.",
+    "lesson_in_progress": "Finish the lesson you're on before starting a new one",
+    "lesson_not_unlocked": "Complete the earlier lessons in this level first",
+    "level_not_completed": "Complete the level you're on first",
+    "challenge_locked": "Complete the lesson that unlocks this challenge first",
+    "lesson_incomplete": "Complete your current lessons first",
+    "concept_locked": "This concept is still locked",
+    "language_already_chosen": "You've already chosen your language",
+    "invalid_language": "That isn't a language you can choose",
+    "missing_course": "We couldn't tell which course you meant",
+    "invalid_password": "Your current password is incorrect",
+    "locale_update_failed": "We couldn't change your language",
+    "name_update_failed": "We couldn't change your name",
+    "email_update_failed": "We couldn't change your email address",
+    "password_update_failed": "We couldn't change your password",
+    "handle_update_failed": "We couldn't change your handle",
+    "notification_update_failed": "We couldn't change your notification setting",
+    "streaks_update_failed": "We couldn't change your streaks setting",
+    "flag_invalid": "That isn't a setting you can change",
+    "no_image_provided": "Choose an image first",
+    "invalid_image_type": "Please choose a JPEG, PNG, GIF, or WebP image",
+    "invalid_avatar": "We couldn't use that image as your avatar",
+    "avatar_too_large": "That image is too large to use as your avatar",
+    "translation_error": "We couldn't translate that",
+    "stripe_error": "Something went wrong taking your payment. Please try again.",
+    "exercism_unavailable": "We couldn't reach Exercism. Please try again shortly.",
+    "no_exercism_link": "This account isn't linked to Exercism",
+    "invalid_product": "That isn't a plan you can buy",
+    "existing_subscription": "You've already got an active subscription",
+    "invalid_return_url": "We couldn't send you back to the right page",
+    "checkout_failed": "We couldn't start your checkout. Please try again.",
+    "no_customer": "We couldn't find your billing details",
+    "portal_failed": "We couldn't open your billing portal. Please try again.",
+    "missing_session_id": "We couldn't find your checkout session",
+    "invalid_session": "That checkout session isn't valid",
+    "verification_failed": "We couldn't verify your payment",
+    "no_subscription": "You haven't got an active subscription",
+    "same_interval": "You're already billed this way",
+    "invalid_interval": "That isn't a billing period you can choose",
+    "update_failed": "We couldn't update your subscription. Please try again.",
+    "invalid_request": "We couldn't handle that request",
+    "cancel_failed": "We couldn't cancel your subscription. Please try again.",
+    "not_cancelling": "Your subscription isn't scheduled to be cancelled",
+    "reactivate_failed": "We couldn't reactivate your subscription. Please try again.",
+    "checkout_payment_incomplete": "Your payment wasn't completed. Please try again.",
+    "unauthorized": "You don't have access to this",
+    "fields": {
+      "email": "Email address",
+      "password": "Password",
+      "password_confirmation": "Password confirmation",
+      "current_password": "Current password",
+      "name": "Name",
+      "handle": "Handle",
+      "locale": "Language",
+      "enabled": "That setting"
+    },
+    "validation": {
+      "blank": "{field} can't be blank.",
+      "invalid": "{field} isn't valid.",
+      "taken": "{field} is already taken.",
+      "confirmation": "{field} doesn't match.",
+      "too_short": "{field} must be at least {count, plural, one {# character} other {# characters}}.",
+      "too_long": "{field} must be at most {count, plural, one {# character} other {# characters}}.",
+      "wrong_length": "{field} must be exactly {count, plural, one {# character} other {# characters}}.",
+      "inclusion": "{field} isn't one of the options you can choose.",
+      "exclusion": "{field} isn't available.",
+      "not_a_number": "{field} must be a number.",
+      "accepted": "{field} must be accepted.",
+      "present": "{field} must be blank.",
+      "boolean_required": "{field} can only be on or off."
+    },
+    "reasons": {
+      "invalid_submission": {
+        "no_files": "Add at least one file before submitting.",
+        "filename_required": "Every file needs a name.",
+        "code_required": "Add some code before submitting."
+      }
+    },
+    "subscriptions": {
+      "unauthorized": "That checkout session belongs to a different account"
+    },
+    "accountDeletion": {
+      "invalid_token": "This account deletion link is invalid or has expired",
+      "token_expired": "This account deletion link has expired",
+      "stripe_error": "We couldn't cancel your subscription, so we haven't deleted your account. Please try again or contact support."
+    }
+  },
   "toasts": {
     "subscription": {
       "loginRequired": "Please log in to upgrade your account",
@@ -1252,8 +1370,8 @@
         "titleExercise": "Exercise completed!",
         "titleChallenge": "Challenge completed!",
         "greatWork": "Great work completing {title}!",
-        "readyExercise": "Ready to continue to the next exercise?",
-        "readyChallenge": "Ready to continue to the next challenge?",
+        "messageExercise": "Great work completing {title}! Ready to continue to the next exercise?",
+        "messageChallenge": "Great work completing {title}! Ready to continue to the next challenge?",
         "bonusPrompt": "{count, plural, one {This exercise has <strong>a bonus scenario</strong>. Would you like to solve it before moving on?} other {This exercise has <strong>bonus scenarios</strong>. Would you like to solve them before moving on?}}",
         "tidyCode": "Tidy code",
         "solveBonuses": "{count, plural, one {Solve Bonus} other {Solve Bonuses}}",
@@ -1602,7 +1720,9 @@
       "congratsAmazingEffort": "Amazing effort!",
       "congratsGreatAchievement": "Great achievement!",
       "congratsCongratulations": "Congratulations!",
-      "congratsCongrats": "Congrats!"
+      "congratsCongrats": "Congrats!",
+      "ioError": "<p>Error: {message}</p>",
+      "codeCheckError": "Code check error: {message}"
     },
     "informationTooltip": {
       "errorHeading": "Oops, something went wrong!",
@@ -1619,21 +1739,6 @@
     "unhandledError": {
       "heading": "Oops! Something went <strong>very</strong> wrong.",
       "message": "<strong>This is our error, not yours!</strong> Please tell us about this error so we can fix it. Copy the mysterious text below and share it with us on <link>the forum</link>. Thank you! 💙"
-    },
-    "informationWidget": {
-      "errorHeading": "Oops, something went wrong!",
-      "closeAriaLabel": "Close tooltip"
-    },
-    "breakpoint": {
-      "addBreakpoint": "Add breakpoint",
-      "removeBreakpoint": "Remove breakpoint"
-    },
-    "testRunner": {
-      "runtimeErrorAbove": "Your code hit an error while it was running. Fix the error message above to continue.",
-      "codeThrewError": "Your code threw an error while running.",
-      "codeThrewErrorWithDetail": "Your code threw an error while running. ({detail})",
-      "codeCheckError": "Code check error: {detail}",
-      "ioError": "<p>Error: {detail}</p>"
     }
   },
   "lesson": {
@@ -1943,6 +2048,45 @@
     }
   },
   "checkout": {
-    "declineDefault": "Your last payment didn't go through. Please try again with a different card."
+    "declineDefault": "Your last payment didn't go through. Please try again with a different card.",
+    "declineCodes": {
+      "approve_with_id": "Your payment couldn't be authorised. Please try again, and if it still doesn't go through, contact your card issuer.",
+      "call_issuer": "Your card was declined. Please contact your card issuer to find out why.",
+      "card_not_supported": "Your card doesn't support this kind of payment. Please try a different card.",
+      "card_velocity_exceeded": "Your card has gone over its limit. Please try a different card, or contact your card issuer.",
+      "currency_not_supported": "Your card doesn't support this currency. Please try a different card.",
+      "do_not_honor": "Your card was declined. Please contact your card issuer to find out why.",
+      "do_not_try_again": "Your card was declined. Please try a different card, or contact your card issuer.",
+      "duplicate_transaction": "This looks like a payment you've just made. Please check your statement before trying again.",
+      "expired_card": "Your card has expired. Please try a different card.",
+      "generic_decline": "Your card was declined. Please contact your card issuer to find out why.",
+      "incorrect_number": "That card number doesn't look right. Please check it and try again.",
+      "incorrect_cvc": "That security code doesn't look right. Please check it and try again.",
+      "incorrect_pin": "That PIN wasn't right. Please check it and try again.",
+      "incorrect_zip": "That postcode didn't match your card. Please check it and try again.",
+      "insufficient_funds": "Your card hasn't got enough funds. Please try a different card.",
+      "invalid_account": "Your card issuer can't accept this payment. Please try a different card.",
+      "invalid_amount": "Your card issuer wouldn't accept this amount. Please contact them to find out why.",
+      "invalid_cvc": "That security code isn't valid. Please check it and try again.",
+      "invalid_expiry_year": "That expiry date isn't valid. Please check it and try again.",
+      "invalid_number": "That card number isn't valid. Please check it and try again.",
+      "invalid_pin": "That PIN isn't valid. Please check it and try again.",
+      "issuer_not_available": "We couldn't reach your card issuer. Please try again in a moment.",
+      "new_account_information_available": "Your card details have changed. Please try again with your current card.",
+      "no_action_taken": "Your card was declined. Please contact your card issuer to find out why.",
+      "not_permitted": "Your card issuer doesn't allow this payment. Please contact them to find out why.",
+      "pin_try_exceeded": "You've tried your PIN too many times. Please try a different card.",
+      "processing_error": "Something went wrong processing your card. Please try again in a moment.",
+      "reenter_transaction": "Your payment couldn't be processed. Please try again.",
+      "restricted_card": "Your card can't be used for this payment. Please try a different card.",
+      "revocation_of_all_authorizations": "Your card issuer has stopped payments on this card. Please try a different card.",
+      "revocation_of_authorization": "Your card issuer has stopped this payment. Please try a different card.",
+      "service_not_allowed": "Your card issuer doesn't allow this payment. Please contact them to find out why.",
+      "stop_payment_order": "Your card issuer has stopped this payment. Please try a different card.",
+      "testmode_decline": "This was a test card. Please use a real card to pay.",
+      "transaction_not_allowed": "Your card issuer doesn't allow this payment. Please contact them to find out why.",
+      "try_again_later": "Your card was declined. Please try again in a few minutes.",
+      "withdrawal_count_limit_exceeded": "Your card has hit its limit. Please try a different card, or contact your card issuer."
+    }
   }
 }

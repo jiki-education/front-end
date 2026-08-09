@@ -321,13 +321,14 @@ export function validateNoDuplicateSlugs(slugs: string[]): void {
   }
 }
 
-// Required locales that must exist for all content
-export const REQUIRED_LOCALES = ["en", "hu"] as const;
-
 /**
- * Validate that all required locale files exist for a content item
+ * Validate that a content item has its English source file.
+ *
+ * English is the only locale authored in this repo; translations live in the
+ * i18n repo. `existingLocales` is the set of locales the item's md files
+ * provide, with source.md counting as "en".
  */
-export function validateRequiredLocales(
+export function validateEnglishSource(
   type: "blog" | "article" | "guide" | "episode",
   slug: string,
   slugDir: string,
@@ -339,11 +340,9 @@ export function validateRequiredLocales(
     guide: "Guide",
     episode: "Episode"
   };
-  for (const locale of REQUIRED_LOCALES) {
-    if (!existingLocales.includes(locale)) {
-      const expectedFile = path.join(slugDir, `${locale}.md`);
-      throw new ValidationError(`${typeLabels[type]} '${slug}' is missing required locale file: ${expectedFile}`);
-    }
+  if (!existingLocales.includes("en")) {
+    const expectedFile = path.join(slugDir, "source.md");
+    throw new ValidationError(`${typeLabels[type]} '${slug}' is missing its English source file: ${expectedFile}`);
   }
 }
 
@@ -352,13 +351,13 @@ export const LOCALIZED_PROJECT_FIELDS = ["title", "description", "tags"] as cons
 
 /**
  * Validate that a project's localized config.json maps (title, description, tags)
- * contain an entry for every required locale.
+ * carry the English copy.
  *
  * Unlike blog/article/guide posts, a project's translatable copy lives in
- * config.json as `{ en: ..., hu: ... }` maps rather than in per-language md
- * files, so a missing translation cannot be caught by a missing-file check.
+ * config.json as locale-keyed maps rather than in per-language md files. Only the
+ * `en` entry is authored here; translations live in the i18n repo.
  */
-export function validateProjectRequiredLocales(slug: string, config: unknown): void {
+export function validateProjectEnglishCopy(slug: string, config: unknown): void {
   if (config === null || typeof config !== "object") {
     throw new ValidationError(`Project '${slug}' has invalid config.json: not an object`);
   }
@@ -369,59 +368,44 @@ export function validateProjectRequiredLocales(slug: string, config: unknown): v
     const map = cfg[field];
     if (map === null || typeof map !== "object" || Array.isArray(map)) {
       throw new ValidationError(
-        `Project '${slug}' config.json field '${field}' must be a localized map (e.g. { "en": ..., "hu": ... })`
+        `Project '${slug}' config.json field '${field}' must be a localized map (e.g. { "en": ... })`
       );
     }
 
-    for (const locale of REQUIRED_LOCALES) {
-      if (!(locale in (map as Record<string, unknown>))) {
-        throw new ValidationError(
-          `Project '${slug}' config.json field '${field}' is missing required locale: '${locale}'`
-        );
-      }
+    if (!("en" in (map as Record<string, unknown>))) {
+      throw new ValidationError(`Project '${slug}' config.json field '${field}' is missing required locale: 'en'`);
     }
   }
 }
 
 /**
- * Validate episode summary-block parity across locales.
+ * Validate an episode's summary block.
  *
- * The `summary` frontmatter block (from/to/keyConcepts) is optional, but if the
- * English episode defines one, every required locale must define a well-formed one
- * too, so a translation stub cannot silently drop it.
- *
- * `localeSummaries` maps each existing locale to its parsed frontmatter `summary`
- * value (or undefined when absent).
+ * The `summary` frontmatter block (from/to/keyConcepts) is optional, but when
+ * source.md defines one it must be well formed. `summary` is the parsed
+ * frontmatter value, or undefined when absent.
  */
-export function validateEpisodeSummaryParity(slug: string, localeSummaries: Record<string, unknown>): void {
-  // Nothing to enforce if the English episode has no summary block.
-  if (localeSummaries["en"] === undefined) {
+export function validateEpisodeSummary(slug: string, summary: unknown): void {
+  if (summary === undefined) {
     return;
   }
 
-  for (const locale of REQUIRED_LOCALES) {
-    const summary = localeSummaries[locale];
-    if (summary === null || summary === undefined || typeof summary !== "object") {
-      throw new ValidationError(
-        `Episode '${slug}' (${locale}) is missing required summary block (present in source.md)`
-      );
-    }
+  if (summary === null || typeof summary !== "object" || Array.isArray(summary)) {
+    throw new ValidationError(`Episode '${slug}' has invalid summary: must be an object`);
+  }
 
-    const s = summary as Record<string, unknown>;
+  const s = summary as Record<string, unknown>;
 
-    if (typeof s.from !== "string" || s.from.trim() === "") {
-      throw new ValidationError(`Episode '${slug}' (${locale}) has invalid summary.from: must be non-empty string`);
-    }
+  if (typeof s.from !== "string" || s.from.trim() === "") {
+    throw new ValidationError(`Episode '${slug}' has invalid summary.from: must be non-empty string`);
+  }
 
-    if (typeof s.to !== "string" || s.to.trim() === "") {
-      throw new ValidationError(`Episode '${slug}' (${locale}) has invalid summary.to: must be non-empty string`);
-    }
+  if (typeof s.to !== "string" || s.to.trim() === "") {
+    throw new ValidationError(`Episode '${slug}' has invalid summary.to: must be non-empty string`);
+  }
 
-    if (!Array.isArray(s.keyConcepts) || s.keyConcepts.length === 0) {
-      throw new ValidationError(
-        `Episode '${slug}' (${locale}) has invalid summary.keyConcepts: must be non-empty array`
-      );
-    }
+  if (!Array.isArray(s.keyConcepts) || s.keyConcepts.length === 0) {
+    throw new ValidationError(`Episode '${slug}' has invalid summary.keyConcepts: must be non-empty array`);
   }
 }
 

@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { ApiError } from "@/lib/api/client";
+import { getApiErrorType } from "@/lib/api/client";
+import { useApiErrorMessage } from "@/lib/api/apiErrors";
 import { OTPInput } from "@/components/ui/OTPInput";
 import { useTranslations } from "next-intl";
 import authStyles from "./AuthForm.module.css";
@@ -25,6 +26,7 @@ export function TwoFactorSetupForm({
   const t = useTranslations("auth.twoFactorSetup");
   const tCommon = useTranslations("common");
   const tShared = useTranslations("auth.twoFactor");
+  const apiErrorMessage = useApiErrorMessage();
   const { setup2FA, isLoading } = useAuthStore();
   const [otpCode, setOtpCode] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -40,13 +42,13 @@ export function TwoFactorSetupForm({
       onSuccess();
     } catch (err) {
       console.error("2FA setup failed:", err);
-      if (err instanceof ApiError) {
-        const errorData = err.data as { error?: { type?: string; message?: string } } | undefined;
-        if (errorData?.error?.type === "session_expired") {
+      const type = getApiErrorType(err);
+      if (type) {
+        if (type === "session_expired") {
           onSessionExpired();
           return;
         }
-        setError(errorData?.error?.message || tShared("invalidCode"));
+        setError(apiErrorMessage(err));
       } else {
         setError(tShared("verificationFailed"));
       }

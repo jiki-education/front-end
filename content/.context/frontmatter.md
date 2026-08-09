@@ -118,43 +118,10 @@ Build will fail if any validation rule is violated.
 
 ## Multi-Language Support
 
-Each locale has its own markdown file with its own frontmatter:
-
-```
-posts/blog/jiki-is-born/
-├── source.md
-└── hu.md
-```
-
-Each file must have complete frontmatter. Fields like `title`, `excerpt`, and `seo.description` should be translated. Structural fields like `author`, `date`, `featured`, and `coverImage` typically remain the same across locales.
-
-### Example: English vs Hungarian
-
-**source.md (English):**
-
-```yaml
----
-title: "Getting Started with Jiki"
-excerpt: "Learn how to start your coding journey."
-seo:
-  description: "Complete guide to starting with Jiki"
-author: "jeremy"
-date: "2025-01-15"
----
-```
-
-**hu.md:**
-
-```yaml
----
-title: "Kezdés a Jikivel"
-excerpt: "Tanuld meg, hogyan kezdheted el a kódolási utazásodat."
-seo:
-  description: "Teljes útmutató a Jiki használatának megkezdéséhez"
-author: "jeremy"
-date: "2025-01-15"
----
-```
+This package holds English only. Translations live in the `i18n` repo, keyed by the same
+slugs. Translated frontmatter carries the same fields, with `title`, `excerpt` and
+`seo.description` translated; structural fields (`author`, `date`, `featured`, `coverImage`)
+come from `config.json` and are shared across every locale.
 
 ## Future Enhancements
 

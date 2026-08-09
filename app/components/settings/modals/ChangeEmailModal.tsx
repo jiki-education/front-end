@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { hideModal } from "@/lib/modal/store";
+import { getApiErrorType } from "@/lib/api/client";
+import { useApiErrorMessage } from "@/lib/api/apiErrors";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import styles from "./ChangeEmailModal.module.css";
 
@@ -14,6 +16,7 @@ interface ChangeEmailModalProps {
 export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps) {
   const t = useTranslations("settings.changeEmail");
   const tCommon = useTranslations("common");
+  const apiErrorMessage = useApiErrorMessage();
   const [newEmail, setNewEmail] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [isSaving, setIsSaving] = useState(false);
@@ -55,7 +58,7 @@ export function ChangeEmailModal({ currentEmail, onSave }: ChangeEmailModalProps
       await onSave(newEmail, currentPassword);
       hideModal();
     } catch (err) {
-      setError(err instanceof Error ? err.message : t("updateFailed"));
+      setError(getApiErrorType(err) ? apiErrorMessage(err) : t("updateFailed"));
     } finally {
       setIsSaving(false);
     }

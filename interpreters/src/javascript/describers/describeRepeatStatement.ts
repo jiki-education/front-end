@@ -3,7 +3,6 @@ import type { Description, FrameWithResult } from "../../shared/frames";
 import type { DescriptionContext } from "./types";
 import type { RepeatStatement } from "../statement";
 import { describeExpression } from "./describeSteps";
-import { addOrdinalSuffix } from "./helpers";
 import { unwrapJSObject } from "../jikiObjects";
 
 export function describeRepeatStatement(frame: FrameWithResult, context: DescriptionContext): Description {
@@ -12,9 +11,9 @@ export function describeRepeatStatement(frame: FrameWithResult, context: Descrip
 
   // No-argument repeat (forever loop) - no count to describe
   if (frameResult.count === null) {
-    const ordinal = addOrdinalSuffix(frameResult.iteration);
-    const result = context.t("description.repeatStatement.foreverResult", { ordinal });
-    const steps = [context.t("description.repeatStatement.foreverStep", { ordinal })];
+    const ordinal = { count: frameResult.iteration, ordinal: true };
+    const result = context.t("description.repeatStatement.foreverResult", ordinal);
+    const steps = [context.t("description.repeatStatement.foreverStep", ordinal)];
     return { result, steps };
   }
 
@@ -37,9 +36,11 @@ function describeNoRepeats(_frameResult: EvaluationResultRepeatStatement, contex
 }
 
 function describeRepeat(frameResult: EvaluationResultRepeatStatement, context: DescriptionContext): Description {
-  const ordinal = addOrdinalSuffix(frameResult.iteration);
   const countValue = unwrapJSObject(frameResult.count!.jikiObject);
-  const result = context.t("description.repeatStatement.repeatResult", { ordinal });
+  const result = context.t("description.repeatStatement.repeatResult", {
+    count: frameResult.iteration,
+    ordinal: true,
+  });
   const steps = [
     context.t("description.repeatStatement.repeatStep", {
       iteration: frameResult.iteration,

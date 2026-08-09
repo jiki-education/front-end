@@ -5,6 +5,9 @@ import {
   validateAuthors,
   validateNoDuplicateSlugs,
   validateTestimonials,
+  validateEnglishSource,
+  validateProjectEnglishCopy,
+  validateEpisodeSummary,
   ValidationError
 } from "@/lib/content/validator";
 import type { AuthorRegistry } from "@/lib/content/types";
@@ -258,5 +261,64 @@ describe("validateTestimonials", () => {
   it("should reject an empty marquee", () => {
     const invalid = { ...validTestimonials, marquee: [] };
     expect(() => validateTestimonials("en", invalid)).toThrow(/marquee/);
+  });
+});
+
+describe("validateEnglishSource", () => {
+  it("should accept a slug dir with an English source", () => {
+    expect(() => validateEnglishSource("blog", "my-post", "/posts/my-post", ["en"])).not.toThrow();
+  });
+
+  it("should reject a slug dir with no English source", () => {
+    expect(() => validateEnglishSource("blog", "my-post", "/posts/my-post", [])).toThrow(/source\.md/);
+  });
+
+  it("should not require any other locale", () => {
+    // Translations live in the i18n repo, so English alone is complete here.
+    expect(() => validateEnglishSource("guide", "my-guide", "/posts/my-guide", ["en"])).not.toThrow();
+  });
+});
+
+describe("validateProjectEnglishCopy", () => {
+  const validConfig = {
+    title: { en: "A project" },
+    description: { en: "About the project" },
+    tags: { en: ["web"] }
+  };
+
+  it("should accept a config with English copy", () => {
+    expect(() => validateProjectEnglishCopy("my-project", validConfig)).not.toThrow();
+  });
+
+  it("should reject a field that is not a localized map", () => {
+    const invalid = { ...validConfig, title: "A project" };
+    expect(() => validateProjectEnglishCopy("my-project", invalid)).toThrow(/localized map/);
+  });
+
+  it("should reject a field missing the English entry", () => {
+    const invalid = { ...validConfig, description: { fr: "Le projet" } };
+    expect(() => validateProjectEnglishCopy("my-project", invalid)).toThrow(/'en'/);
+  });
+});
+
+describe("validateEpisodeSummary", () => {
+  const validSummary = { from: "Nothing", to: "A homepage", keyConcepts: ["html"] };
+
+  it("should accept an absent summary", () => {
+    expect(() => validateEpisodeSummary("episode-1", undefined)).not.toThrow();
+  });
+
+  it("should accept a well-formed summary", () => {
+    expect(() => validateEpisodeSummary("episode-1", validSummary)).not.toThrow();
+  });
+
+  it("should reject a summary with an empty from", () => {
+    expect(() => validateEpisodeSummary("episode-1", { ...validSummary, from: "  " })).toThrow(/summary\.from/);
+  });
+
+  it("should reject a summary with no keyConcepts", () => {
+    expect(() => validateEpisodeSummary("episode-1", { ...validSummary, keyConcepts: [] })).toThrow(
+      /summary\.keyConcepts/
+    );
   });
 });

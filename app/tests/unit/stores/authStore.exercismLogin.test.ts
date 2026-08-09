@@ -102,12 +102,16 @@ describe("AuthStore - Exercism Authentication", () => {
       mockFetch.mockResolvedValue({
         ok: false,
         status: 401,
-        json: () => Promise.resolve({ error: { message: "Exercism authentication failed" } })
+        json: () => Promise.resolve({ error: { type: "invalid_credentials" } })
       });
 
       const { exercismLogin } = useAuthStore.getState();
 
-      await expect(exercismLogin("invalid-code", "test-verifier")).rejects.toThrow("Exercism authentication failed");
+      // The API sends no message, so the thrown error carries the type through
+      // for the render site to translate.
+      await expect(exercismLogin("invalid-code", "test-verifier")).rejects.toMatchObject({
+        data: { error: { type: "invalid_credentials" } }
+      });
 
       const state = useAuthStore.getState();
       expect(state.user).toBeNull();

@@ -6,7 +6,8 @@ import * as checkoutUtils from "@/lib/subscriptions/checkout";
 import * as handlers from "@/components/settings/subscription/handlers";
 import { showSubscriptionCheckout } from "@/lib/modal/app";
 import { toastError, toastSuccess } from "@/lib/toast";
-import toast from "react-hot-toast";
+import { toastApiError } from "@/lib/api/apiErrors";
+import { ApiError } from "@/lib/api/client";
 
 // Mock the external dependencies
 jest.mock("@/lib/api/subscriptions");
@@ -14,6 +15,7 @@ jest.mock("@/lib/subscriptions/checkout");
 jest.mock("@/lib/modal");
 jest.mock("@/lib/modal/app");
 jest.mock("@/lib/toast");
+jest.mock("@/lib/api/apiErrors");
 jest.mock("react-hot-toast");
 
 const mockSubscriptionApi = subscriptionApi as jest.Mocked<typeof subscriptionApi>;
@@ -21,8 +23,7 @@ const mockCheckoutUtils = checkoutUtils as jest.Mocked<typeof checkoutUtils>;
 const mockShowSubscriptionCheckout = showSubscriptionCheckout as jest.MockedFunction<typeof showSubscriptionCheckout>;
 const mockToastError = toastError as jest.MockedFunction<typeof toastError>;
 const mockToastSuccess = toastSuccess as jest.MockedFunction<typeof toastSuccess>;
-// Raw react-hot-toast is still used directly for dynamic server error messages.
-const mockToast = toast as jest.Mocked<typeof toast>;
+const mockToastApiError = toastApiError as jest.MockedFunction<typeof toastApiError>;
 
 describe("Subscription handlers", () => {
   beforeEach(() => {
@@ -113,15 +114,26 @@ describe("Subscription handlers", () => {
       expect(mockRefreshUser).toHaveBeenCalled();
     });
 
-    it("handles cancellation failure", async () => {
+    it("handles cancellation failure with no API error type", async () => {
       const mockRefreshUser = jest.fn();
       const mockError = new Error("Cancellation failed");
       mockSubscriptionApi.cancelSubscription.mockRejectedValue(mockError);
 
       await handlers.handleCancelSubscription(mockRefreshUser);
 
-      expect(mockToast.error).toHaveBeenCalledWith("Cancellation failed");
+      expect(mockToastError).toHaveBeenCalledWith("subscription.cancelFailed");
       expect(console.error).toHaveBeenCalledWith(mockError);
+    });
+
+    it("shows copy for the type when the API sent one", async () => {
+      const mockRefreshUser = jest.fn();
+      const mockError = new ApiError(422, "Unprocessable Entity", { error: { type: "not_cancelling" } });
+      mockSubscriptionApi.cancelSubscription.mockRejectedValue(mockError);
+
+      await handlers.handleCancelSubscription(mockRefreshUser);
+
+      expect(mockToastApiError).toHaveBeenCalledWith(mockError, "subscriptions");
+      expect(mockToastError).not.toHaveBeenCalled();
     });
   });
 

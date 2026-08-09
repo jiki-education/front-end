@@ -435,7 +435,7 @@ function AuthSection({
   isAuthenticated: boolean;
   user: { email: string } | null;
   isAuthLoading: boolean;
-  authError: string | null;
+  authError: unknown;
   onLogin: () => void;
 }) {
   if (isAuthenticated && user) {
@@ -452,9 +452,9 @@ function AuthSection({
     <div className={styles.authPrompt}>
       <h2 className={styles.authPromptTitle}>Authentication Required</h2>
       <p className={styles.authPromptText}>You need to be logged in to test the LLM Chat Proxy.</p>
-      {authError && (
+      {authError != null && (
         <p className={styles.authError}>
-          <strong>Error:</strong> {authError}
+          <strong>Error:</strong> {String(authError)}
         </p>
       )}
       <button onClick={onLogin} disabled={isAuthLoading} className={styles.buttonLogin}>

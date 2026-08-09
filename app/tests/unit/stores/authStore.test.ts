@@ -95,12 +95,14 @@ describe("AuthStore - Google Authentication", () => {
     it("should handle authentication errors and update store state", async () => {
       mockFetch.mockResolvedValue({
         ok: false,
-        json: () => Promise.resolve({ error: { message: "Google authentication failed" } })
+        json: () => Promise.resolve({ error: { type: "invalid_credentials" } })
       });
 
       const { googleLogin } = useAuthStore.getState();
 
-      await expect(googleLogin("invalid-code")).rejects.toThrow("Google authentication failed");
+      await expect(googleLogin("invalid-code")).rejects.toMatchObject({
+        data: { error: { type: "invalid_credentials" } }
+      });
 
       const state = useAuthStore.getState();
       expect(state.user).toBeNull();

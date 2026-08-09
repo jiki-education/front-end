@@ -3,6 +3,7 @@
 // which locales a given environment actually serves. `Locale` is derived from
 // this, so a locale's types and content stay valid even when it isn't served.
 import { BUILD_DEPLOY_ENV } from "./env";
+import productionLocales from "./production-locales.json";
 
 // ┌──────────────────────────────────────────────────────────────────────────┐
 // │ STAGING PREVIEW ONLY. THIS BRANCH IS DEPLOYED, NEVER MERGED.             │
@@ -75,7 +76,32 @@ export const DEFAULT_LOCALE: Locale = "en";
 // publishing is deliberately permissive, so work in progress reaches R2 and can
 // be reviewed, and this is what stops a half-translated locale being served to a
 // reader who has no way to tell.
-export const PRODUCTION_LOCALES: readonly Locale[] = ["en"];
+//
+// It lives in JSON so the deploy gate can read the same bytes this module does.
+// That gate runs as a plain node script before the build, so it cannot import
+// from here without pulling in a TypeScript module graph, and it used to find
+// this list by matching a regex against this file. That regex could start at a
+// mention of the name in a comment and run on to the next array, which made it
+// read ALL_LOCALES while believing it had read this. One file, two readers, no
+// parsing.
+//
+// ALL_LOCALES stays in TypeScript because `Locale` is derived from it, and a JSON
+// import is `string[]` rather than a literal union.
+export const PRODUCTION_LOCALES: readonly Locale[] = productionLocales as readonly Locale[];
+
+// A production locale the codebase does not know is not a locale: no `Locale`
+// type, no route, no catalog. The array type cannot enforce that once the values
+// come from JSON, so it is asserted here, at import, which fails the build rather
+// than a request. The failure this prevents is silent: a stray space or the wrong
+// casing (`pt-pt` for `pt-PT`) yields an entry that is in the production list and
+// serves nothing.
+const unknownProductionLocales = productionLocales.filter((locale) => !ALL_LOCALES.includes(locale as Locale));
+if (unknownProductionLocales.length > 0) {
+  throw new Error(
+    `production-locales.json lists locales the codebase does not know: ${unknownProductionLocales.join(", ")}. ` +
+      `Add them to ALL_LOCALES first, or correct the spelling.`
+  );
+}
 
 // Locales actually served in this environment.
 //

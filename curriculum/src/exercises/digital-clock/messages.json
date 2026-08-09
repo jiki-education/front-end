@@ -1,8 +1,8 @@
 {
   "errors": {
-    "hourNotNumber": "hour must be a number",
-    "minutesNotNumber": "minutes must be a number",
-    "indicatorNotString": "indicator must be a string"
+    "hourNotNumber": "<code>hour</code> must be a number",
+    "minutesNotNumber": "<code>minutes</code> must be a number",
+    "indicatorNotString": "<code>indicator</code> must be a string"
   },
   "checks": {
     "notUpdated": "The clock didn't get updated. Make sure you use the <code>displayTime</code> function.",
