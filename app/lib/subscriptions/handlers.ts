@@ -12,6 +12,8 @@ import {
 } from "@/lib/api/subscriptions";
 import { createCheckoutReturnUrl } from "@/lib/subscriptions/checkout";
 import { getApiUrl } from "@/lib/api/config";
+import { getApiErrorType } from "@/lib/api/client";
+import { toastApiError } from "@/lib/api/apiErrors";
 import { hideModal } from "@/lib/modal";
 import { showSubscriptionCheckout } from "@/lib/modal/app";
 import toast from "react-hot-toast";
@@ -81,9 +83,9 @@ export async function handleCancelSubscription(refreshUser: RefreshUserFn) {
     toastSuccess("subscription.canceled", { date: new Date(response.cancels_at).toLocaleDateString() });
     await refreshUser();
   } catch (error) {
-    // Show the server message when present (dynamic); else a translated fallback.
-    if (error instanceof Error) {
-      toast.error(error.message);
+    // Prefer copy for the specific type the API sent; else a generic fallback.
+    if (getApiErrorType(error)) {
+      toastApiError(error, "subscriptions");
     } else {
       toastError("subscription.cancelFailed");
     }
@@ -97,8 +99,8 @@ export async function handleReactivateSubscription(refreshUser: RefreshUserFn) {
     toastSuccess("subscription.reactivated");
     await refreshUser();
   } catch (error) {
-    if (error instanceof Error) {
-      toast.error(error.message);
+    if (getApiErrorType(error)) {
+      toastApiError(error, "subscriptions");
     } else {
       toastError("subscription.reactivateFailed");
     }
@@ -113,8 +115,8 @@ export async function handleRetryPayment(_refreshUser: RefreshUserFn) {
     // Note: We don't call refreshUser here since user will be redirected
     // The page will refresh when they return from the portal
   } catch (error) {
-    if (error instanceof Error) {
-      toast.error(error.message);
+    if (getApiErrorType(error)) {
+      toastApiError(error, "subscriptions");
     } else {
       toastError("subscription.paymentPortalFailed");
     }

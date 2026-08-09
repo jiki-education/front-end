@@ -133,7 +133,7 @@ describe("TwoFactorSetupForm", () => {
 
   describe("error handling", () => {
     it("displays error message on invalid code", async () => {
-      const apiError = new ApiError(401, "Invalid code", { error: { message: "Invalid verification code" } });
+      const apiError = new ApiError(401, "Invalid code", { error: { type: "invalid_otp" } });
       mockSetup2FA.mockRejectedValue(apiError);
       renderForm();
 
@@ -148,7 +148,7 @@ describe("TwoFactorSetupForm", () => {
     });
 
     it("clears OTP input after error", async () => {
-      const apiError = new ApiError(401, "Invalid code", { error: { message: "Invalid code" } });
+      const apiError = new ApiError(401, "Invalid code", { error: { type: "invalid_otp" } });
       mockSetup2FA.mockRejectedValue(apiError);
       renderForm();
 
@@ -158,7 +158,7 @@ describe("TwoFactorSetupForm", () => {
       fireEvent.change(firstInput, { target: { value: "123456" } });
 
       await waitFor(() => {
-        expect(screen.getByText("Invalid code")).toBeInTheDocument();
+        expect(screen.getByText("Invalid verification code")).toBeInTheDocument();
       });
 
       // All inputs should be cleared

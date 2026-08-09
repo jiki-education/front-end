@@ -19,7 +19,9 @@ interface AuthStore {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  error: string | null;
+  // The error itself, not copy. The API sends a `type`, not a message, so the
+  // string a user reads is resolved at the render site by `<ApiErrorMessage>`.
+  error: unknown;
   hasCheckedAuth: boolean;
 
   // Actions
@@ -38,7 +40,7 @@ interface AuthStore {
   clearError: () => void;
   setLoading: (loading: boolean) => void;
   setUser: (user: User) => void;
-  setNoUser: (error?: string | null) => void;
+  setNoUser: (error?: unknown) => void;
 }
 
 export const useAuthStore = create<AuthStore>()((set, get) => ({
@@ -52,13 +54,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   // Login action - calls Rails directly
   // Returns the response so caller can handle 2FA flows
   login: (credentials, cfTurnstileResponse) =>
-    requestLogin(
-      set,
-      get,
-      "/auth/login",
-      { user: credentials, cf_turnstile_response: cfTurnstileResponse },
-      "Login failed"
-    ),
+    requestLogin(set, get, "/auth/login", { user: credentials, cf_turnstile_response: cfTurnstileResponse }),
 
   // Complete 2FA setup for first-time admin users
   setup2FA: async (otpCode: string) => {
@@ -73,8 +69,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       if (!response.ok) {
         const errorData = await response.json();
-        const message = errorData.error?.message || "2FA setup failed";
-        throw new ApiError(response.status, message, errorData);
+        throw new ApiError(response.status, response.statusText, errorData);
       }
 
       const data = await response.json();
@@ -102,8 +97,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       if (!response.ok) {
         const errorData = await response.json();
-        const message = errorData.error?.message || "2FA verification failed";
-        throw new ApiError(response.status, message, errorData);
+        throw new ApiError(response.status, response.statusText, errorData);
       }
 
       const data = await response.json();
@@ -121,20 +115,13 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
   // Google login action - calls Rails directly
   // The API finds-or-creates the user, so attribution is sent in case this is a signup
   // Returns the response so caller can handle 2FA flows (same as login)
-  googleLogin: (code) =>
-    requestLogin(set, get, "/auth/google", { code, attribution: readAttribution() }, "Google login failed"),
+  googleLogin: (code) => requestLogin(set, get, "/auth/google", { code, attribution: readAttribution() }),
 
   // Exercism login action - calls Rails directly
   // The API finds-or-creates the user, so attribution is sent in case this is a signup
   // Returns the response so caller can handle 2FA flows (same as login)
   exercismLogin: (code, codeVerifier) =>
-    requestLogin(
-      set,
-      get,
-      "/auth/exercism",
-      { code, code_verifier: codeVerifier, attribution: readAttribution() },
-      "Exercism login failed"
-    ),
+    requestLogin(set, get, "/auth/exercism", { code, code_verifier: codeVerifier, attribution: readAttribution() }),
 
   // Signup action - calls Rails directly
   // Returns user data so caller can check email_confirmed status
@@ -155,11 +142,10 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
 
       if (!response.ok) {
         const errorData = await response.json();
-        const message = errorData.error?.message || "Signup failed";
         if (response.status === 401) {
-          throw new AuthenticationError(message, errorData);
+          throw new AuthenticationError(response.statusText, errorData);
         }
-        throw new ApiError(response.status, message, errorData);
+        throw new ApiError(response.status, response.statusText, errorData);
       }
 
       const data = await response.json();
@@ -218,7 +204,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       setLocaleCookie(locale);
     }
   },
-  setNoUser: (error?: string | null) => {
+  setNoUser: (error?: unknown) => {
     set({
       user: null,
       isAuthenticated: false,
@@ -314,8 +300,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       await authService.requestPasswordReset({ email }, cfTurnstileResponse);
       set({ isLoading: false });
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Failed to send reset email";
-      set({ isLoading: false, error: message });
+      set({ isLoading: false, error });
       throw error;
     }
   },
@@ -327,8 +312,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       await authService.resetPassword(data);
       set({ isLoading: false });
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Failed to reset password";
-      set({ isLoading: false, error: message });
+      set({ isLoading: false, error });
       throw error;
     }
   },
@@ -340,8 +324,7 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
       await authService.resendConfirmation(email);
       set({ isLoading: false });
     } catch (error) {
-      const message = error instanceof Error ? error.message : "Failed to resend confirmation email";
-      set({ isLoading: false, error: message });
+      set({ isLoading: false, error });
       throw error;
     }
   },
@@ -364,8 +347,7 @@ async function requestLogin(
   set: StoreApi<AuthStore>["setState"],
   get: StoreApi<AuthStore>["getState"],
   path: string,
-  body: object,
-  failureMessage: string
+  body: object
 ): Promise<LoginResponse> {
   set({ isLoading: true });
   try {
@@ -378,12 +360,11 @@ async function requestLogin(
 
     if (!response.ok) {
       const errorData = await response.json();
-      const message = errorData.error?.message || failureMessage;
       // Throw AuthenticationError for 401 so forms can detect invalid credentials
       if (response.status === 401) {
-        throw new AuthenticationError(message, errorData);
+        throw new AuthenticationError(response.statusText, errorData);
       }
-      throw new Error(message);
+      throw new ApiError(response.status, response.statusText, errorData);
     }
 
     const data = await response.json();

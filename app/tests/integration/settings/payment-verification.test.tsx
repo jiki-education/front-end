@@ -161,14 +161,17 @@ describe("Payment Verification Integration", () => {
       payment_status: "unpaid",
       payment_state: "failed",
       subscription_status: "incomplete",
-      decline_reason: "Your card has insufficient funds."
+      decline_code: "insufficient_funds"
     });
 
     render(<CheckoutReturnHandler />);
 
     await waitFor(() => {
       expect(mockHandleSubscribe).toHaveBeenCalledWith(
-        expect.objectContaining({ interval: "annual", priorError: "Your card has insufficient funds." })
+        expect.objectContaining({
+          interval: "annual",
+          priorError: "Your card hasn't got enough funds. Please try a different card."
+        })
       );
     });
     expect(mockShowPaymentVerificationFailed).not.toHaveBeenCalled();
@@ -179,17 +182,39 @@ describe("Payment Verification Integration", () => {
   it("reopens checkout for a declined session (CheckoutIncompleteError) without reporting", async () => {
     mockExtractAndClearCheckoutSessionId.mockReturnValue("cs_test_incomplete");
     mockVerifyCheckoutSession.mockRejectedValue(
-      new CheckoutIncompleteError("Unprocessable Entity", {}, "Your card was declined.", "monthly")
+      new CheckoutIncompleteError("Unprocessable Entity", {}, "expired_card", "monthly")
     );
 
     render(<CheckoutReturnHandler />);
 
     await waitFor(() => {
       expect(mockHandleSubscribe).toHaveBeenCalledWith(
-        expect.objectContaining({ interval: "monthly", priorError: "Your card was declined." })
+        expect.objectContaining({
+          interval: "monthly",
+          priorError: "Your card has expired. Please try a different card."
+        })
       );
     });
     expect(mockShowPaymentVerificationFailed).not.toHaveBeenCalled();
+  });
+
+  it("shows the generic decline line for a code we deliberately do not explain", async () => {
+    // Stripe advises never distinguishing the fraud-signalling codes from a plain
+    // decline, so `stolen_card` has no catalog entry and falls through.
+    mockExtractAndClearCheckoutSessionId.mockReturnValue("cs_test_fraud");
+    mockVerifyCheckoutSession.mockRejectedValue(
+      new CheckoutIncompleteError("Unprocessable Entity", {}, "stolen_card", "monthly")
+    );
+
+    render(<CheckoutReturnHandler />);
+
+    await waitFor(() => {
+      expect(mockHandleSubscribe).toHaveBeenCalledWith(
+        expect.objectContaining({
+          priorError: "Your last payment didn't go through. Please try again with a different card."
+        })
+      );
+    });
   });
 
   it("does nothing when no checkout_return param present", () => {

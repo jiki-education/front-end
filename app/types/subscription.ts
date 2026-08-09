@@ -56,8 +56,10 @@ export interface VerifyCheckoutResponse {
   // to "processing" (never "failed") when the PaymentIntent can't be read.
   payment_state: CheckoutPaymentState;
   subscription_status: "active" | "incomplete";
-  // Customer-safe Stripe reason, only set when payment_state === "failed" (may still be null).
-  decline_reason?: string | null;
+  // Stripe's stable decline code (`insufficient_funds`, `expired_card`, …), only set when
+  // payment_state === "failed" (may still be null). Never rendered directly: the copy for
+  // it lives under `checkout.declineCodes` in the catalog.
+  decline_code?: string | null;
   // Informational — the currency the session used. Currency is derived server-side from
   // the user on checkout creation, so the FE doesn't echo this back.
   currency?: string;
