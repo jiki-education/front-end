@@ -9,7 +9,6 @@ import { LatestNewsSection } from "./LatestNewsSection";
 import { MeetJeremy } from "./MeetJeremy";
 import { OutcomesSection } from "./OutcomesSection";
 import { PrintRow } from "./PrintRow";
-import { StickyNav } from "./StickyNav";
 import styles from "./LandingPage.module.css";
 import { TestimonialsSection } from "./TestimonialsSection";
 import { TrackCardsSection } from "./TrackCardsSection";
@@ -27,7 +26,6 @@ export function LandingPage({ latestPosts = [] }: LandingPageProps) {
 
   return (
     <div className={styles.page}>
-      <StickyNav />
       <HeaderLayout>
         <Hero marquee={marquee} />
         <TwoHalves />

@@ -634,11 +634,6 @@
       "submittedValue": "69M+",
       "submittedLabel": "exercises submitted"
     },
-    "signupSection": {
-      "intro": "A <strong>Learn to Code</strong> tananyag <strong>teljesen ingyenes</strong>. Se bankkártya, se próbaidőszak, se rejtett feltételek.",
-      "button": "Regisztrálj és kezdj programozni →",
-      "heading": "Vágj bele - <strong>ingyenes!</strong>"
-    },
     "signupButton": {
       "label": "Regisztrálj <free>(ingyenes!)</free>"
     },
@@ -671,41 +666,6 @@
       "heading": "Legfrissebb híreink",
       "byAuthor": "írta: {name}",
       "subheading": "Kövesd nyomon <link>a blogunkon</link>, mi történik éppen a Jikinél."
-    },
-    "welcome": {
-      "para1": "2026-ban bárki megnyithatja a Cursort, és percek alatt összerakhat egy teljesen működő terméket. Lehet, hogy te magad is kipróbáltad már! Amit régen <strong>évekig tartott volna megtanulni</strong> elkészíteni, az ma másodpercek alatt elérhető. Mit jelent hát ma fejlesztőnek lenni? Mit jelent <strong>karriert építeni a tech-iparban</strong>?",
-      "para2": "Eláruljuk a titkot, amiről senki sem beszél. <highlight><strong>A szoftverfejlesztés sosem a kódírásról szólt.</strong></highlight> A kódírás csak az a mód, ahogyan a számítógéppel kommunikálsz. Az igazi készség mindig is a <strong>kritikus gondolkodás</strong>, a <strong>problémamegoldás</strong>, az <strong>építés és a rendszertervezés</strong> volt. Mindig is arról szólt, hogy az ötleteket <strong>valósággá formáljuk</strong>.",
-      "para3": "Az LLM-eknek köszönhetően <highlight><strong>nem kell éveket töltened a kódírás mesteri elsajátításával</strong></highlight> ahhoz, hogy hasznos munkát végezz. De tanulnivalód így is bőven akad! Meg kell tanulnod a <strong>programozás alapjait</strong>. Meg kell értened, <strongHighlight>hogyan működik minden</strongHighlight>. Meg kell tanulnod, <strongHighlight>hogyan építs</strongHighlight>. De ez az út <strong>sokkal szórakoztatóbb</strong>, mint valaha. Én pedig azért vagyok itt, <strong><you>hogy végigkísérjelek ezen az úton!</you></strong>",
-      "hiThere": "Szia! <wave>👋</wave> Jeremy vagyok, és már több mint <highlight>kétmillió embernek</highlight> segítettem fejleszteni a programozási készségeit.",
-      "para4": "Húsz éven át azt mondtam mindenkinek, aki a tech-iparba készült: tanulj meg nagyon jól kódot írni, és utána kezdd el kitalálni, hogyan készülnek az igazi alkalmazások. Az LLM-eknek köszönhetően viszont <strong>ez a tanács mostanra a feje tetejére állt</strong>.",
-      "para5": "Ha ma kezdesz, a munkád nagy része <strong>a kód olvasása lesz, nem az írása.</strong> Ez pedig valami olyasmit jelent, amit kicsit szomorú bevallanom...",
-      "heading2": "Kódírásban <strong>igazán jónak lenni</strong> <highlight>kezd lényegtelenné válni</highlight> 😢",
-      "para6": "Kódírásban sosem leszel jobb egy LLM-nél. Én 34 éve programozom, és az LLM-ek már az én szintemen járnak. <strong>Nem fogod utolérni őket.</strong>",
-      "para7": "DE, és ez a nagy de: <strong>nem is kell!</strong> Én ma már szinte sosem írok kódot. Hagyom, hogy az LLM-ek megírják helyettem, és ezt te is megteheted. Cserébe <strongHighlight>több idő jut az igazán érdekes dolgokra</strongHighlight>. És ebben a kurzusban pontosan ezt fogom megtanítani neked!",
-      "para8": "Szerintem <strong>hihetetlenül izgalmas számodra</strong>, hogy ma kezdhetsz. Nem kell 10 évet töltened egy készség mesteri elsajátításával ahhoz, hogy hasznos legyél. <strong>Azonnal elkezdhetsz igazi dolgokat csinálni!</strong>",
-      "heading3": "<highlight>Úgy tanulsz, hogy alkotsz!</highlight>",
-      "para9": "Nyolcévesen kezdtem programozni. Akkoriban nem létezett a YouTube. Nem voltak „tanulj meg programozni” oldalak. Még internetem sem volt. Lényegében egyetlen módon lehetett tanulni: <strong>alkotni kellett. Méghozzá rengeteget!</strong>",
-      "rhodriAlt": "Jeremy és Rhodri 1998-ban, első fizetett weboldaluk készítése közben",
-      "captionShort": "1998: Épp az első weboldalamat készítem, amiért fizettek.",
-      "captionLong": "1998: Rhodrival az első weboldalunkat készítjük, amiért fizettek.",
-      "para11": "Alkottam, játszottam, kísérleteztem. Jól szórakoztam!",
-      "para12": "És eközben igazán jó lettem. <strong>Elsajátítottam a programozói gondolkodásmódot,</strong> és leraktam azokat az alapokat, amelyekre az egész karrieremet építettem.",
-      "heading4": "<highlight>A két rész</highlight>, amelyből ma a programozás megtanulása áll...",
-      "para13": "Másfajta kurzust készítettünk. Olyat, amely másképp tanítja a programozás alapjait, és amelyben velem együtt <strong>építesz szórakoztató dolgokat</strong> és oldasz meg érdekes problémákat. Két részből áll:",
-      "listItem1": "<strong>Tanuld meg a programozás alapjait</strong>. Megtanítjuk az alapokat, hogy értsd, mit épít éppen az LLM. Ez ma is ugyanolyan nélkülözhetetlen, mint valaha.",
-      "listItem2": "<strong>Tanuld meg, hogyan építs</strong>. Dolgozz velem együtt, miközben agentikus kódolással igazi projekteket készítek, és mindent megmutatok, amit egy igazi fejlesztőnek tudnia kell. Csatlakozz az élő adásokhoz, kérdezz, és gyere alkotni velünk!",
-      "para14": "Néhány hónapon belül eljutsz a nulláról odáig, hogy a semmiből, kódban építesz olyan játékokat, mint a <strong>Space Invaders, a Tic Tac Toe és a</strong> <strong>Breakout</strong>. Közben pedig megtanulod, hogyan készíts valódi projekteket: <strong>adatbázisokat használsz</strong>, hitelesítést építesz be, API-kkal dolgozol, weboldalakat élesítesz... Csupa olyat csinálsz, amit az igazi fejlesztők!",
-      "spaceInvadersLabel": "Képernyőkép a Space Invaders játékból",
-      "ticTacToeLabel": "Képernyőkép a Tic Tac Toe játékból",
-      "breakoutLabel": "Képernyőkép a Breakout játékból",
-      "mazeLabel": "Képernyőkép a labirintusmegoldó botról",
-      "heading5": "Jól hangzik?",
-      "para15": "Ha mindez <highlight>izgalmasan hangzik</highlight>, örülnék, ha csatlakoznál hozzánk! 💙",
-      "ctaButton": "Elég a beszédből! Vágjunk bele!",
-      "heading": "<highlight>A programozás megváltozott.</highlight> A tanulás módjának is változnia kell.",
-      "para10": "És alkottam is! Először játékokat készítettem, aztán kis botokat, amelyek ellen játszani lehetett. Ahogy nőttem, weboldalakat csináltam magamnak és a barátaimnak, <eventually>végül pedig ügyfeleknek is.</eventually>",
-      "para17": "Több részletre vagy kíváncsi? Vagy meghallgatnád azokat, akiket már tanítottam? Olvass tovább lentebb, vagy <link>regisztrálj most!</link>",
-      "para16": "Az alap „tanulj meg programozni” tananyag <strong>teljesen ingyenes</strong>: több mint 200 órányi szórakoztató kihívás, amivel csiszolhatod a tudásod. A többinek pedig, ahol követhetsz, miközben megtanítom, hogyan építs dolgokat, mindössze <price></price> az ára (ennél olcsóbban már nem tudnánk adni úgy, hogy a számláinkat is kifizessük!)"
     }
   },
   "premium": {

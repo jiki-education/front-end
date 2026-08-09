@@ -17,12 +17,10 @@ const OUTCOMES = [
 
 export function OutcomesSection() {
   const t = useTranslations("landing.outcomes");
-  // StickyNav keys off this section to decide when to show, a job the old bootcamp
-  // section used to do.
   const { ref, inView } = useInView<HTMLOListElement>(0.3);
 
   return (
-    <section className={styles.section} data-outcomes-section>
+    <section className={styles.section}>
       <div className={styles.inner}>
         <div className={styles.headRow}>
           <div className={styles.head}>

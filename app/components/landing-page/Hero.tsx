@@ -18,14 +18,14 @@ export function Hero({ marquee }: { marquee: string[] }) {
           {/* The headline sizes off its own column rather than the viewport, so it stays
               proportional to the copy beside it instead of to the window. */}
           <div className={styles.headlineBox}>
-            <h1 data-rock-solid>
+            <h1>
               {t.rich("headline", {
                 highlight: (chunks) => <span className={styles.headlineHighlight}>{chunks}</span>
               })}
             </h1>
           </div>
 
-          <p className={styles.tagline} data-tagline>
+          <p className={styles.tagline}>
             {t.rich("tagline", {
               year: new Date().getFullYear(),
               strong: (chunks) => <strong>{chunks}</strong>

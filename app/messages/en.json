@@ -634,11 +634,6 @@
       "submittedValue": "69M+",
       "submittedLabel": "exercises submitted"
     },
-    "signupSection": {
-      "intro": "The <strong>Learn to Code</strong> curriculum is <strong>completely free</strong>. No card. No trial. No catch.",
-      "button": "Sign up & start coding →",
-      "heading": "Get started - <strong>it's free!</strong>"
-    },
     "signupButton": {
       "label": "Sign Up <free>(it's free!)</free>"
     },
@@ -671,41 +666,6 @@
       "heading": "Our latest news",
       "byAuthor": "by {name}",
       "subheading": "Keep up to date with what's happening at Jiki in <link>our blog</link>."
-    },
-    "welcome": {
-      "para1": "In 2026, anyone can open Cursor and create a fully-functional product in minutes. Maybe you've done it yourself! Something that would have taken you <strong>years to learn</strong> to make in the past is now available in seconds. So what does it mean to be a developer now? What does it mean to have a <strong>career in tech</strong>?",
-      "para2": "Here's a secret no-one tells you. <highlight><strong>Software engineering has never been about writing code.</strong></highlight> Coding is how you communicate with the computer, but the real skill has always been in <strong>critical-thinking</strong>, in <strong>problem solving</strong>, in <strong>building and architecting</strong>. It's always been about taking ideas and <strong>turning them into reality</strong>.",
-      "para3": "Thanks to LLMs <highlight><strong>you don't have to spend years mastering coding</strong></highlight> in order to be useful. But you still have a lot to learn! You still need to learn <strong>coding fundamentals</strong>. You need to learn <strongHighlight>how everything works</strongHighlight>. You need to learn <strongHighlight>how to build</strongHighlight>. But the journey is <strong>much more fun</strong> than it's ever been before. And I'm here <strong><you>to be your guide on that journey!</you></strong>",
-      "hiThere": "Hi there! <wave>👋</wave> I'm Jeremy, and I've helped over <highlight>two million people</highlight> level up their coding skills.",
-      "para4": "For 20 years, I've been telling people that want to get into tech to get really good at writing code, and then start to work out how to make real apps. But now, thanks to LLMs - <strong>that advice is upside down</strong>.",
-      "para5": "If you're starting out today then most of your work is going to be <strong>reading code, not writing it.</strong> And that means something that's a little sad for me to admit...",
-      "heading2": "<strong>Getting good</strong> at writing code is <highlight>becoming irrelevant</highlight> 😢",
-      "para6": "You are never going to be better than an LLM at writing code. I have been coding for 34 years and LLMs are at my level. <strong>You won't catch up.</strong>",
-      "para7": "BUT, and this is the big but, <strong>you don't need to!</strong> I almost never write code now. I let the LLMs do it for me, and you can too. Instead we get to <strongHighlight>do more of the actual interesting stuff</strongHighlight>. And that's what I'm going to teach you in this course!",
-      "para8": "I think it's <strong>incredibly exciting for you</strong> to be starting out today. You don't need to spend 10 years mastering a skill to be useful. <strong>You can start doing real things straight away!</strong>",
-      "heading3": "<highlight>You learn by making stuff!</highlight>",
-      "para9": "I started coding when I was 8. Back then, YouTube didn't exist. There weren't any \"learn to code\" websites. I didn't even have the internet. There was basically only one way to learn. <strong>Make stuff. Lots of stuff!</strong>",
-      "rhodriAlt": "Jeremy and Rhodri in 1998 making their first paid website",
-      "captionShort": "1998: Me making the first website I ever got paid for.",
-      "captionLong": "1998: Me and Rhodri making the first website we ever got paid for.",
-      "para11": "I created, I played, I experimented. I had fun!",
-      "para12": "And through this, I got really good. <strong>I learned the coder mindset,</strong> and I laid the foundations that I've built my whole career on.",
-      "heading4": "<highlight>The two parts</highlight> to learning programming today...",
-      "para13": "We've made a different type of course. One that teaches you the fundamentals of programming differently, and gets you <strong>building fun things</strong> and solving interesting problems alongside me. It has two parts:",
-      "listItem1": "<strong>Learn coding fundamentals</strong>. We'll teach you the fundamentals of coding so you can understand what an LLM is building - as essential as ever.",
-      "listItem2": "<strong>Learn how to build</strong>. Work alongside me as I make real projects using agentic coding and show you everything you need to know to be a real developer. Join me for livestreams, ask questions, come and have fun making stuff!",
-      "para14": "Within a few months, you'll go from zero to being able to build games like <strong>Space Invaders, Tic Tac Toe, and</strong> <strong>Breakout</strong> in code from scratch. And in parallel, you'll be learning how to make real-world projects, <strong>using databases</strong>, adding auth, using APIs, deploying websites... Doing all the real stuff that developers do!",
-      "spaceInvadersLabel": "Space Invaders game screenshot",
-      "ticTacToeLabel": "Tic Tac Toe game screenshot",
-      "breakoutLabel": "Breakout game screenshot",
-      "mazeLabel": "Maze solving bot screenshot",
-      "heading5": "Sound fun?",
-      "para15": "If all <highlight>this sounds exciting</highlight>, then I'd love for you to join us! 💙",
-      "ctaButton": "Enough with all the talking! Let's do this!",
-      "heading": "<highlight>Coding has changed.</highlight> The way you learn needs to change too.",
-      "para10": "And make stuff I did! I started making games and then graduated to making little bots to play against. And as I grew older I made websites for me and my friends, and <eventually>eventually for customers.</eventually>",
-      "para17": "Want more details? Or to hear from others that I've taught? Read on below for even more details or <link>just sign up!</link>",
-      "para16": "The core \"learn to code\" curriculum is <strong>entirely free</strong> - over 200 hours of fun challenges to hone your skills. And the rest, where you get to follow me as I teach you how to build things, costs only <price></price> (as cheap as we can make it and still pay the bills!)"
     }
   },
   "premium": {

@@ -27,7 +27,7 @@ export function HeroVideo() {
   const [ready, setReady] = useState(false);
 
   return (
-    <div className={styles.container} data-video-container>
+    <div className={styles.container}>
       {playing && (
         <div className={`${styles.muxOverlay} ${ready ? styles.ready : ""}`}>
           <MuxPlayerLazy
