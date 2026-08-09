@@ -3,8 +3,8 @@
     background-repeat: no-repeat;
     background-position: 0 50%;
     background-size: 0% 100%;
-    padding: 0.05em 0.15em;
-    margin-inline: -0.15em;
+    padding: 1.1px 3.3px;
+    margin-inline: -3.3px;
     border-radius: 3px;
     /* So the sweep paints every line of a phrase that wraps, not just the first. */
     box-decoration-break: clone;

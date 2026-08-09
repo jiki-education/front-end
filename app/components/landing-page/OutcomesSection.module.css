@@ -87,15 +87,15 @@
 }
 
 .item h4 {
-    font-size: 1.1rem;
+    font-size: 17.6px;
     font-weight: 700;
     color: #fff;
     line-height: 1.3;
-    margin-block-end: 0.35rem;
+    margin-block-end: 5.6px;
 }
 
 .item p {
-    font-size: 1.025rem;
+    font-size: 16.4px;
     line-height: 1.5;
     color: var(--color-gray-400);
 }
@@ -110,7 +110,7 @@
     justify-content: center;
     width: 32px;
     height: 32px;
-    margin-block-start: calc((1.1rem * 1.3 - 32px) / 2);
+    margin-block-start: calc((17.6px * 1.3 - 32px) / 2);
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.18);

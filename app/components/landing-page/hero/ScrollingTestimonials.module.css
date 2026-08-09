@@ -40,8 +40,8 @@
         will-change: transform;
 
         li {
-            background: url("/static/images/landing-page/stars-0b091.svg") right center / 4em auto no-repeat;
-            padding-inline-end: 5em;
+            background: url("/static/images/landing-page/stars-0b091.svg") right center / 76px auto no-repeat;
+            padding-inline-end: 95px;
             margin-inline-end: 20px;
         }
     }

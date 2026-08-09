@@ -52,8 +52,8 @@
 }
 
 /* Three lines, with the space for them reserved so the cards line up whatever the
-   excerpt length. The reservation is derived from the line-height rather than repeating
-   the number, so the two cannot drift apart. */
+   excerpt length. The reservation restates the font-size below, so the two have to be
+   changed together. */
 .excerpt {
     --excerpt-line-height: 1.7;
     --excerpt-lines: 3;
@@ -61,7 +61,7 @@
     font-size: 15px;
     color: var(--color-gray-600);
     line-height: var(--excerpt-line-height);
-    min-height: calc(var(--excerpt-lines) * var(--excerpt-line-height) * 1em);
+    min-height: calc(var(--excerpt-lines) * var(--excerpt-line-height) * 15px);
     display: -webkit-box;
     -webkit-line-clamp: var(--excerpt-lines);
     line-clamp: var(--excerpt-lines);

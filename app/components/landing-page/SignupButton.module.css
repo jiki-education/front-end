@@ -28,11 +28,10 @@
         0 5px 12px -4px rgba(2, 6, 23, 0.6);
 }
 
-/* The aside sits quieter than the ask it hangs off. Sized off the button rather than
-   fixed, so it stays 2px down whatever the button is set to. */
+/* The aside sits quieter than the ask it hangs off: 2px down from the button's 18px. */
 .free {
     font-weight: 500;
-    font-size: calc(1em - 2px);
+    font-size: 16px;
 
     @media (max-width: 767px) {
         display: none;

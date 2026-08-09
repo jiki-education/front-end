@@ -35,7 +35,7 @@
     max-width: 1150px;
     margin-inline: auto;
     padding-inline: 5%;
-    padding-block: 2rem calc(1.0625rem + var(--wall-gap));
+    padding-block: 32px calc(17px + var(--wall-gap));
     display: flex;
     align-items: flex-start;
     gap: var(--wall-gap);

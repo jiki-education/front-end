@@ -118,7 +118,7 @@
     background-image: linear-gradient(var(--ex-yellow), var(--ex-yellow));
     background-repeat: no-repeat;
     background-position: 0 88%;
-    background-size: 100% 0.52em;
+    background-size: 100% 21.84px;
     padding-inline: 6px;
     margin-inline: -6px;
 }
@@ -255,6 +255,11 @@
 
     .heading {
         font-size: 32px;
+    }
+
+    /* Tracks .heading down from 42px, keeping the swipe the same fraction of the text. */
+    .highlight {
+        background-size: 100% 16.64px;
     }
 
     .shape {
