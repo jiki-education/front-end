@@ -29,33 +29,26 @@
 }
 
 .portrait {
-    position: relative;
     width: 220px;
     border-radius: 20px;
     margin-block-end: 20px;
 }
 
+/* Two concentric bands: a tight purple-500 border, then a wider purple-300 ring
+   carried as a spread-only shadow. A shadow rather than a second element because
+   it follows the border radius on its own and takes no layout space, so the photo
+   still measures 220px to the grid. */
 .portrait img {
     display: block;
     width: 100%;
     height: auto;
     aspect-ratio: 1;
     object-fit: cover;
-    position: relative;
-    z-index: 1;
     border: 3px solid var(--color-purple-500);
     border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
-}
-
-/* The block behind the photo, offset down and to the right. */
-.portrait::before {
-    content: "";
-    position: absolute;
-    z-index: 0;
-    inset: 5px -10px -5px 4px;
-    border-radius: 22px;
-    background: var(--color-purple-300);
+    box-shadow:
+        0 0 0 9px var(--color-purple-300),
+        0 10px 24px -6px rgba(15, 23, 42, 0.18);
 }
 
 .intro {
