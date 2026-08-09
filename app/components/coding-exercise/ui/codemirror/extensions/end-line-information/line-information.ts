@@ -6,7 +6,6 @@ import { highlightedLineField } from "../lineHighlighter";
 import { placeholderTheme } from "../placeholder-widget";
 import { cleanupAllInformationTooltips } from "./cleanup";
 import { InformationWidget } from "./information-widget";
-import type { CodingExerciseTranslator } from "../../../../lib/test-results-types";
 
 export const showInfoWidgetEffect = StateEffect.define<boolean>();
 
@@ -48,11 +47,7 @@ export const informationWidgetDataField = StateField.define<InformationWidgetDat
   }
 });
 
-function lineInformationWidget(
-  view: EditorView,
-  onClose: (view: EditorView) => void,
-  t: CodingExerciseTranslator
-): DecorationSet {
+function lineInformationWidget(view: EditorView, onClose: (view: EditorView) => void): DecorationSet {
   const widgets: Range<Decoration>[] = [];
 
   const shouldShowWidget = view.state.field(showInfoWidgetField);
@@ -70,7 +65,7 @@ function lineInformationWidget(
   const { html, status } = widgetData;
 
   const deco = Decoration.widget({
-    widget: new InformationWidget(html, status, view, onClose, t),
+    widget: new InformationWidget(html, status, view, onClose),
     side: 1
   });
 
@@ -84,11 +79,9 @@ function lineInformationWidget(
 class EndlineDecoration {
   placeholders: DecorationSet;
   onClose: (view: EditorView) => void;
-  t: CodingExerciseTranslator;
-  constructor(view: EditorView, onClose: (view: EditorView) => void, t: CodingExerciseTranslator) {
+  constructor(view: EditorView, onClose: (view: EditorView) => void) {
     this.onClose = onClose;
-    this.t = t;
-    this.placeholders = lineInformationWidget(view, this.onClose, this.t);
+    this.placeholders = lineInformationWidget(view, this.onClose);
   }
   update(update: ViewUpdate) {
     if (
@@ -98,15 +91,15 @@ class EndlineDecoration {
       update.startState.field(showInfoWidgetField) !== update.state.field(showInfoWidgetField) ||
       update.startState.field(informationWidgetDataField) !== update.state.field(informationWidgetDataField)
     ) {
-      this.placeholders = lineInformationWidget(update.view, this.onClose, this.t);
+      this.placeholders = lineInformationWidget(update.view, this.onClose);
     }
   }
 }
 
-function endlineDecoration(onClose: (view: EditorView) => void, t: CodingExerciseTranslator) {
+function endlineDecoration(onClose: (view: EditorView) => void) {
   return ViewPlugin.define(
     (view) => {
-      return new EndlineDecoration(view, onClose, t);
+      return new EndlineDecoration(view, onClose);
     },
     {
       decorations: (instance) => instance.placeholders,
@@ -119,12 +112,6 @@ function endlineDecoration(onClose: (view: EditorView) => void, t: CodingExercis
   );
 }
 
-export function lineInformationExtension({
-  onClose,
-  t
-}: {
-  onClose: (view: EditorView) => void;
-  t: CodingExerciseTranslator;
-}) {
-  return [placeholderTheme, endlineDecoration(onClose, t)];
+export function lineInformationExtension({ onClose }: { onClose: (view: EditorView) => void }) {
+  return [placeholderTheme, endlineDecoration(onClose)];
 }

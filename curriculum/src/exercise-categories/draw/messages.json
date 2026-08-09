@@ -32,8 +32,8 @@
       "fixedColor": "drew a circle with its center at (${arg1}, ${arg2}) and a radius of ${arg3}"
     },
     "ellipse": {
-      "default": "drew an ellipse with its center at (${arg1}, ${arg2}), a radial width of ${arg3}, a radial height of ${arg4}, and a color of ${arg5}",
-      "fixedColor": "drew an ellipse with its center at (${arg1}, ${arg2}), a radial width of ${arg3}, and a radial height of ${arg4}"
+      "default": "drew an ellipse with its center at (${arg1}, ${arg2}), a horizontal radius of ${arg3}, a vertical radius of ${arg4}, and a color of ${arg5}",
+      "fixedColor": "drew an ellipse with its center at (${arg1}, ${arg2}), a horizontal radius of ${arg3}, and a vertical radius of ${arg4}"
     },
     "line": {
       "default": "drew a line from (${arg1}, ${arg2}) to (${arg3}, ${arg4}) with a color of ${arg5}",

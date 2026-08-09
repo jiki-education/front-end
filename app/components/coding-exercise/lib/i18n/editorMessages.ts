@@ -5,46 +5,50 @@
 // async context, so they cannot call next-intl's `useTranslations`/
 // `getTranslations`. This is the "pass-a-key" indirection from
 // `.context/i18n.md`: these modules resolve keys through this registry, which a
-// React component (with `useTranslations("codingExercise")`) seeds once per
-// exercise load via `setEditorMessages`.
+// React component (with `useTranslations("codingExercise")`) seeds on every
+// render via `setEditorMessages`.
 //
-// English defaults are baked in so behaviour is correct before seeding and in
-// unit tests that never mount the provider.
+// Resolution happens per call rather than at construction time, so a locale
+// change reaches strings that would otherwise be baked into long-lived objects.
+// The gutter markers matter most here: they are created once and reused for
+// every redraw, so an eagerly-resolved title would stay frozen at mount locale.
+//
+// English defaults are baked in so behaviour is correct before seeding.
 
 type EditorMessageKey =
-  | "informationWidget.errorHeading"
-  | "informationWidget.closeAriaLabel"
-  | "breakpoint.addBreakpoint"
-  | "breakpoint.removeBreakpoint"
-  | "testRunner.runtimeErrorAbove"
-  | "testRunner.codeThrewError"
-  | "testRunner.codeThrewErrorWithDetail"
-  | "testRunner.codeCheckError"
-  | "testRunner.ioError";
+  | "informationTooltip.errorHeading"
+  | "informationTooltip.closeAriaLabel"
+  | "breakpointGutter.addBreakpoint"
+  | "breakpointGutter.removeBreakpoint"
+  | "testResults.runtimeError"
+  | "testResults.isolatedCheckError"
+  | "testResults.isolatedCheckErrorDetail"
+  | "testResults.codeCheckError"
+  | "testResults.ioError";
 
-// Values may carry ICU params ({detail}); a plain function keeps the registry
+// Values may carry ICU params ({message}); a plain function keeps the registry
 // framework-agnostic and mirrors next-intl's `(key, values) => string` shape.
 type Translate = (key: EditorMessageKey, values?: Record<string, string>) => string;
 
 const DEFAULTS: Record<EditorMessageKey, (values?: Record<string, string>) => string> = {
-  "informationWidget.errorHeading": () => "Oops, something went wrong!",
-  "informationWidget.closeAriaLabel": () => "Close tooltip",
-  "breakpoint.addBreakpoint": () => "Add breakpoint",
-  "breakpoint.removeBreakpoint": () => "Remove breakpoint",
-  "testRunner.runtimeErrorAbove": () =>
+  "informationTooltip.errorHeading": () => "Oops, something went wrong!",
+  "informationTooltip.closeAriaLabel": () => "Close tooltip",
+  "breakpointGutter.addBreakpoint": () => "Add breakpoint",
+  "breakpointGutter.removeBreakpoint": () => "Remove breakpoint",
+  "testResults.runtimeError": () =>
     "Your code hit an error while it was running. Fix the error message above to continue.",
-  "testRunner.codeThrewError": () => "Your code threw an error while running.",
-  "testRunner.codeThrewErrorWithDetail": (v) => `Your code threw an error while running. (${v?.detail ?? ""})`,
-  "testRunner.codeCheckError": (v) => `Code check error: ${v?.detail ?? ""}`,
-  "testRunner.ioError": (v) => `<p>Error: ${v?.detail ?? ""}</p>`
+  "testResults.isolatedCheckError": () => "Your code threw an error while running.",
+  "testResults.isolatedCheckErrorDetail": (v) => `Your code threw an error while running. (${v?.message ?? ""})`,
+  "testResults.codeCheckError": (v) => `Code check error: ${v?.message ?? ""}`,
+  "testResults.ioError": (v) => `<p>Error: ${v?.message ?? ""}</p>`
 };
 
 let translate: Translate | null = null;
 
 /**
- * Seed the registry with a live translator. Call once from a React component
- * that holds `useTranslations("codingExercise")`. Passing a translator scoped to
- * the `codingExercise` namespace means keys here are the leaf paths below it.
+ * Seed the registry with a live translator. Called from a React component that
+ * holds `useTranslations("codingExercise")`. Passing a translator scoped to the
+ * `codingExercise` namespace means keys here are the leaf paths below it.
  */
 export function setEditorMessages(t: Translate): void {
   translate = t;
