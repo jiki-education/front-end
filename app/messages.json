@@ -2040,6 +2040,45 @@
     }
   },
   "checkout": {
-    "declineDefault": "Your last payment didn't go through. Please try again with a different card."
+    "declineDefault": "Your last payment didn't go through. Please try again with a different card.",
+    "declineCodes": {
+      "approve_with_id": "Your payment couldn't be authorised. Please try again, and if it still doesn't go through, contact your card issuer.",
+      "call_issuer": "Your card was declined. Please contact your card issuer to find out why.",
+      "card_not_supported": "Your card doesn't support this kind of payment. Please try a different card.",
+      "card_velocity_exceeded": "Your card has gone over its limit. Please try a different card, or contact your card issuer.",
+      "currency_not_supported": "Your card doesn't support this currency. Please try a different card.",
+      "do_not_honor": "Your card was declined. Please contact your card issuer to find out why.",
+      "do_not_try_again": "Your card was declined. Please try a different card, or contact your card issuer.",
+      "duplicate_transaction": "This looks like a payment you've just made. Please check your statement before trying again.",
+      "expired_card": "Your card has expired. Please try a different card.",
+      "generic_decline": "Your card was declined. Please contact your card issuer to find out why.",
+      "incorrect_number": "That card number doesn't look right. Please check it and try again.",
+      "incorrect_cvc": "That security code doesn't look right. Please check it and try again.",
+      "incorrect_pin": "That PIN wasn't right. Please check it and try again.",
+      "incorrect_zip": "That postcode didn't match your card. Please check it and try again.",
+      "insufficient_funds": "Your card hasn't got enough funds. Please try a different card.",
+      "invalid_account": "Your card issuer can't accept this payment. Please try a different card.",
+      "invalid_amount": "Your card issuer wouldn't accept this amount. Please contact them to find out why.",
+      "invalid_cvc": "That security code isn't valid. Please check it and try again.",
+      "invalid_expiry_year": "That expiry date isn't valid. Please check it and try again.",
+      "invalid_number": "That card number isn't valid. Please check it and try again.",
+      "invalid_pin": "That PIN isn't valid. Please check it and try again.",
+      "issuer_not_available": "We couldn't reach your card issuer. Please try again in a moment.",
+      "new_account_information_available": "Your card details have changed. Please try again with your current card.",
+      "no_action_taken": "Your card was declined. Please contact your card issuer to find out why.",
+      "not_permitted": "Your card issuer doesn't allow this payment. Please contact them to find out why.",
+      "pin_try_exceeded": "You've tried your PIN too many times. Please try a different card.",
+      "processing_error": "Something went wrong processing your card. Please try again in a moment.",
+      "reenter_transaction": "Your payment couldn't be processed. Please try again.",
+      "restricted_card": "Your card can't be used for this payment. Please try a different card.",
+      "revocation_of_all_authorizations": "Your card issuer has stopped payments on this card. Please try a different card.",
+      "revocation_of_authorization": "Your card issuer has stopped this payment. Please try a different card.",
+      "service_not_allowed": "Your card issuer doesn't allow this payment. Please contact them to find out why.",
+      "stop_payment_order": "Your card issuer has stopped this payment. Please try a different card.",
+      "testmode_decline": "This was a test card. Please use a real card to pay.",
+      "transaction_not_allowed": "Your card issuer doesn't allow this payment. Please contact them to find out why.",
+      "try_again_later": "Your card was declined. Please try again in a few minutes.",
+      "withdrawal_count_limit_exceeded": "Your card has hit its limit. Please try a different card, or contact your card issuer."
+    }
   }
 }
