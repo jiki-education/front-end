@@ -14,7 +14,7 @@ export function CredentialRail() {
     <ul className={styles.rail}>
       {CREDENTIALS.map((key) => (
         <li key={key} className={styles.item}>
-          <h4 className={styles.title}>{t(`${key}Title`)}</h4>
+          <h3 className={styles.title}>{t(`${key}Title`)}</h3>
           <p className={styles.detail}>{t(`${key}Detail`)}</p>
         </li>
       ))}

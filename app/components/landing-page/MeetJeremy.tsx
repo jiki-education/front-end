@@ -16,8 +16,7 @@ export function MeetJeremy() {
       <div className={styles.inner}>
         <div className={styles.grid}>
           <div className={styles.portraitColumn}>
-            {/* A square crop laid on a purple block shifted behind it, like a sticker on
-                coloured card. */}
+            {/* A square crop inside two concentric purple bands. */}
             <div className={styles.portrait}>
               <Image src={jeremyPortrait} alt={t("portraitAlt")} sizes="220px" />
             </div>
@@ -25,9 +24,11 @@ export function MeetJeremy() {
           </div>
 
           <div>
-            <p className={styles.intro}>
+            {/* The section's heading, carrying its own type rather than the h2 default, so
+                the outline gets an entry without inventing copy for screen readers only. */}
+            <h2 className={styles.intro}>
               {t.rich("intro", { strong: (chunks) => <strong className={styles.noWrap}>{chunks}</strong> })}
-            </p>
+            </h2>
 
             <CredentialBadges />
 
