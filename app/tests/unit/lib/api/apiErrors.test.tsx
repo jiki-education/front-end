@@ -61,10 +61,10 @@ describe("ApiErrorMessage", () => {
     expect(screen.getByText("We couldn't accept that submission.")).toBeInTheDocument();
   });
 
-  describe("validation_error details", () => {
+  describe("validation_error / *_update_failed field errors", () => {
     it("names the field and the failure", () => {
       const error = apiError({
-        error: { type: "validation_error", details: { email: [{ error: "invalid" }] } }
+        error: { type: "validation_error", errors: { email: [{ error: "invalid" }] } }
       });
       render(<ApiErrorMessage error={error} />);
       expect(screen.getByText("Email address isn't valid.")).toBeInTheDocument();
@@ -72,7 +72,7 @@ describe("ApiErrorMessage", () => {
 
     it("interpolates the count on a length failure", () => {
       const error = apiError({
-        error: { type: "validation_error", details: { password: [{ error: "too_short", count: 8 }] } }
+        error: { type: "validation_error", errors: { password: [{ error: "too_short", count: 8 }] } }
       });
       render(<ApiErrorMessage error={error} />);
       expect(screen.getByText("Password must be at least 8 characters.")).toBeInTheDocument();
@@ -82,7 +82,7 @@ describe("ApiErrorMessage", () => {
       const error = apiError({
         error: {
           type: "validation_error",
-          details: { email: [{ error: "taken" }], handle: [{ error: "blank" }] }
+          errors: { email: [{ error: "taken" }], handle: [{ error: "blank" }] }
         }
       });
       render(<ApiErrorMessage error={error} />);
@@ -93,7 +93,7 @@ describe("ApiErrorMessage", () => {
       const error = apiError({
         error: {
           type: "validation_error",
-          details: { some_internal_column: [{ error: "invalid" }], email: [{ error: "blank" }] }
+          errors: { some_internal_column: [{ error: "invalid" }], email: [{ error: "blank" }] }
         }
       });
       render(<ApiErrorMessage error={error} />);
@@ -102,13 +102,46 @@ describe("ApiErrorMessage", () => {
 
     it("falls back to the generic line when nothing resolves", () => {
       const error = apiError({
-        error: { type: "validation_error", details: { some_internal_column: [{ error: "whatever" }] } }
+        error: { type: "validation_error", errors: { some_internal_column: [{ error: "whatever" }] } }
       });
       render(<ApiErrorMessage error={error} />);
       expect(screen.getByText("Please check what you entered and try again.")).toBeInTheDocument();
     });
 
-    it("falls back to the generic line when the API sends no details", () => {
+    it("prefers field detail over a *_update_failed type's own copy", () => {
+      const error = apiError({
+        error: { type: "handle_update_failed", errors: { handle: [{ error: "taken" }] } }
+      });
+      render(<ApiErrorMessage error={error} />);
+      expect(screen.getByText("Handle is already taken.")).toBeInTheDocument();
+    });
+
+    it("reads the reshaped boolean_required detail", () => {
+      const error = apiError({
+        error: { type: "streaks_update_failed", errors: { enabled: [{ error: "boolean_required" }] } }
+      });
+      render(<ApiErrorMessage error={error} />);
+      expect(screen.getByText("That setting can only be on or off.")).toBeInTheDocument();
+    });
+
+    it("never renders the echoed value", () => {
+      const error = apiError({
+        error: { type: "validation_error", errors: { email: [{ error: "invalid", value: "nope@@" }] } }
+      });
+      render(<ApiErrorMessage error={error} />);
+      expect(screen.getByText("Email address isn't valid.")).toBeInTheDocument();
+      expect(screen.queryByText(/nope@@/)).not.toBeInTheDocument();
+    });
+
+    it("falls back to the type's own copy when nothing in errors resolves", () => {
+      const error = apiError({
+        error: { type: "handle_update_failed", errors: { some_internal_column: [{ error: "whatever" }] } }
+      });
+      render(<ApiErrorMessage error={error} />);
+      expect(screen.getByText("We couldn't change your handle")).toBeInTheDocument();
+    });
+
+    it("falls back to the generic line when the type sends no errors hash", () => {
       render(<ApiErrorMessage error={apiError({ error: { type: "validation_error" } })} />);
       expect(screen.getByText("Please check what you entered and try again.")).toBeInTheDocument();
     });

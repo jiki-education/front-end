@@ -1116,7 +1116,6 @@
     "invalid_session": "That checkout session isn't valid",
     "verification_failed": "We couldn't verify your payment",
     "no_subscription": "You haven't got an active subscription",
-    "same_tier": "You're already on this plan",
     "same_interval": "You're already billed this way",
     "invalid_interval": "That isn't a billing period you can choose",
     "update_failed": "We couldn't update your subscription. Please try again.",

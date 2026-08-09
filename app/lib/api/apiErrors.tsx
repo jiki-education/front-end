@@ -58,11 +58,12 @@ function resolveApiError(t: Translator, error: unknown, context?: ApiErrorContex
     return t("unknown");
   }
 
-  if (type === "validation_error") {
-    const detailed = resolveValidationDetails(t, error);
-    if (detailed) {
-      return detailed;
-    }
+  // Any type may carry field-level detail, not just `validation_error`: every
+  // `*_update_failed` sends the same `errors` hash. Prefer it when it resolves,
+  // since "Handle is already taken" beats "We couldn't change your handle".
+  const detailed = resolveFieldErrors(t, error);
+  if (detailed) {
+    return detailed;
   }
 
   const values = extractValues(error);
@@ -87,28 +88,31 @@ function resolveApiError(t: Translator, error: unknown, context?: ApiErrorContex
 }
 
 /**
- * Turn a `validation_error`'s `details` into a sentence per failing field.
+ * Turn an `errors` hash into a sentence per failing field.
  *
- * `details` is ActiveRecord's `errors.details`, which is symbolic rather than
- * prose: `{ email: [{ error: "invalid" }], password: [{ error: "too_short",
- * count: 8 }] }`. The symbol names the message (`validation.<code>`), the field
- * names its subject (`fields.<field>`), and anything else in the entry is an
- * ICU value, which is where `count` in "at least 8 characters" comes from.
+ * `errors` is ActiveRecord's `errors.details`, which is symbolic rather than
+ * prose: `{ email: [{ error: "invalid", value: "bad" }], password: [{ error:
+ * "too_short", count: 6 }] }`. The symbol names the message
+ * (`validation.<code>`), the field names its subject (`fields.<field>`), and
+ * anything else in the entry is an ICU value, which is where `count` in "at
+ * least 6 characters" comes from.
+ *
+ * `value` is the user's own rejected input, echoed back. No message
+ * interpolates it, so it is carried but never rendered.
  *
  * Returns null when nothing could be resolved (an unknown field, an unknown
- * code, or an API that has not sent `details` yet), so the caller falls back to
- * the generic `validation_error` line. A half-rendered list would be worse than
- * one honest sentence, so a field we cannot name is dropped rather than shown
- * with its raw wire key.
+ * code, or a type that sends no `errors` at all), so the caller falls back to
+ * the type's own copy. A field we cannot name is dropped rather than shown with
+ * its raw wire key.
  */
-function resolveValidationDetails(t: Translator, error: unknown): string | null {
-  const details = (extractErrorField(error) as { details?: unknown } | null)?.details;
-  if (typeof details !== "object" || details === null) {
+function resolveFieldErrors(t: Translator, error: unknown): string | null {
+  const errors = (extractErrorField(error) as { errors?: unknown } | null)?.errors;
+  if (typeof errors !== "object" || errors === null) {
     return null;
   }
 
   const sentences: string[] = [];
-  for (const [field, entries] of Object.entries(details)) {
+  for (const [field, entries] of Object.entries(errors)) {
     if (!Array.isArray(entries) || !isLeaf(t, `fields.${field}`)) {
       continue;
     }
