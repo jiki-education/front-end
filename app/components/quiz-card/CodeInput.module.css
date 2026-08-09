@@ -4,8 +4,7 @@
 
 .textarea {
     width: 100%;
-    /* h-32: authored against Tailwind defaults (8rem); these test pages never
-       rendered under the project's px scale, so use the intended 128px. */
+    /* 8rem, i.e. 128px */
     height: 128px;
     padding-inline: 4px;
     padding-block: 12px;

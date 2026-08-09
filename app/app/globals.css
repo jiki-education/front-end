@@ -1,18 +1,16 @@
 /**
- * Jiki UI Kit - Global stylesheet (no Tailwind)
+ * Jiki UI Kit - Global stylesheet
  *
- * Loaded by the root layout, so it ships to every route. Tailwind itself
- * now lives in app.css (loaded only by the (app) layout); external pages
- * get just the design tokens + hand-written ui-kit below.
+ * Loaded by the root layout, so it ships to every route: the design tokens
+ * + hand-written ui-kit below.
  */
 
-/* Declare the cascade-layer order up front (globals loads before app.css)
-   so the base reset sits below Tailwind's utilities layer. Matches the order
-   Tailwind establishes, so app-page utilities override the reset. */
+/* Declare the cascade-layer order up front so the base reset sits below the
+   utilities layer, letting page-level utilities override the reset. */
 @layer theme, base, components, utilities;
 
 /* ============================================
-   BASE - reset (replaces Tailwind preflight)
+   BASE - reset
    ============================================ */
 @import "./styles/base.css";
 
