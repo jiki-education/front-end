@@ -1126,8 +1126,30 @@
     "reactivate_failed": "We couldn't reactivate your subscription. Please try again.",
     "checkout_payment_incomplete": "Your payment wasn't completed. Please try again.",
     "unauthorized": "You don't have access to this",
+    "fields": {
+      "email": "Email address",
+      "password": "Password",
+      "password_confirmation": "Password confirmation",
+      "current_password": "Current password",
+      "name": "Name",
+      "handle": "Handle",
+      "locale": "Language",
+      "enabled": "That setting"
+    },
     "validation": {
-      "boolean_required": "That setting can only be on or off"
+      "blank": "{field} can't be blank.",
+      "invalid": "{field} isn't valid.",
+      "taken": "{field} is already taken.",
+      "confirmation": "{field} doesn't match.",
+      "too_short": "{field} must be at least {count, plural, one {# character} other {# characters}}.",
+      "too_long": "{field} must be at most {count, plural, one {# character} other {# characters}}.",
+      "wrong_length": "{field} must be exactly {count, plural, one {# character} other {# characters}}.",
+      "inclusion": "{field} isn't one of the options you can choose.",
+      "exclusion": "{field} isn't available.",
+      "not_a_number": "{field} must be a number.",
+      "accepted": "{field} must be accepted.",
+      "present": "{field} must be blank.",
+      "boolean_required": "{field} can only be on or off."
     },
     "reasons": {
       "invalid_submission": {

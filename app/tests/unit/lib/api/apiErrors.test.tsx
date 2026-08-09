@@ -61,6 +61,59 @@ describe("ApiErrorMessage", () => {
     expect(screen.getByText("We couldn't accept that submission.")).toBeInTheDocument();
   });
 
+  describe("validation_error details", () => {
+    it("names the field and the failure", () => {
+      const error = apiError({
+        error: { type: "validation_error", details: { email: [{ error: "invalid" }] } }
+      });
+      render(<ApiErrorMessage error={error} />);
+      expect(screen.getByText("Email address isn't valid.")).toBeInTheDocument();
+    });
+
+    it("interpolates the count on a length failure", () => {
+      const error = apiError({
+        error: { type: "validation_error", details: { password: [{ error: "too_short", count: 8 }] } }
+      });
+      render(<ApiErrorMessage error={error} />);
+      expect(screen.getByText("Password must be at least 8 characters.")).toBeInTheDocument();
+    });
+
+    it("reports every failing field", () => {
+      const error = apiError({
+        error: {
+          type: "validation_error",
+          details: { email: [{ error: "taken" }], handle: [{ error: "blank" }] }
+        }
+      });
+      render(<ApiErrorMessage error={error} />);
+      expect(screen.getByText("Email address is already taken. Handle can't be blank.")).toBeInTheDocument();
+    });
+
+    it("drops a field it cannot name rather than showing the wire key", () => {
+      const error = apiError({
+        error: {
+          type: "validation_error",
+          details: { some_internal_column: [{ error: "invalid" }], email: [{ error: "blank" }] }
+        }
+      });
+      render(<ApiErrorMessage error={error} />);
+      expect(screen.getByText("Email address can't be blank.")).toBeInTheDocument();
+    });
+
+    it("falls back to the generic line when nothing resolves", () => {
+      const error = apiError({
+        error: { type: "validation_error", details: { some_internal_column: [{ error: "whatever" }] } }
+      });
+      render(<ApiErrorMessage error={error} />);
+      expect(screen.getByText("Please check what you entered and try again.")).toBeInTheDocument();
+    });
+
+    it("falls back to the generic line when the API sends no details", () => {
+      render(<ApiErrorMessage error={apiError({ error: { type: "validation_error" } })} />);
+      expect(screen.getByText("Please check what you entered and try again.")).toBeInTheDocument();
+    });
+  });
+
   it("falls back to the generic message for a type with no entry", () => {
     render(<ApiErrorMessage error={apiError({ error: { type: "some_type_we_have_never_seen" } })} />);
     expect(screen.getByText("Something went wrong. Please try again.")).toBeInTheDocument();

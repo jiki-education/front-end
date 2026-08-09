@@ -58,6 +58,13 @@ function resolveApiError(t: Translator, error: unknown, context?: ApiErrorContex
     return t("unknown");
   }
 
+  if (type === "validation_error") {
+    const detailed = resolveValidationDetails(t, error);
+    if (detailed) {
+      return detailed;
+    }
+  }
+
   const values = extractValues(error);
 
   // Most specific first: a flow that redefines the type, then a type whose
@@ -77,6 +84,53 @@ function resolveApiError(t: Translator, error: unknown, context?: ApiErrorContex
     }
   }
   return t("unknown");
+}
+
+/**
+ * Turn a `validation_error`'s `details` into a sentence per failing field.
+ *
+ * `details` is ActiveRecord's `errors.details`, which is symbolic rather than
+ * prose: `{ email: [{ error: "invalid" }], password: [{ error: "too_short",
+ * count: 8 }] }`. The symbol names the message (`validation.<code>`), the field
+ * names its subject (`fields.<field>`), and anything else in the entry is an
+ * ICU value, which is where `count` in "at least 8 characters" comes from.
+ *
+ * Returns null when nothing could be resolved (an unknown field, an unknown
+ * code, or an API that has not sent `details` yet), so the caller falls back to
+ * the generic `validation_error` line. A half-rendered list would be worse than
+ * one honest sentence, so a field we cannot name is dropped rather than shown
+ * with its raw wire key.
+ */
+function resolveValidationDetails(t: Translator, error: unknown): string | null {
+  const details = (extractErrorField(error) as { details?: unknown } | null)?.details;
+  if (typeof details !== "object" || details === null) {
+    return null;
+  }
+
+  const sentences: string[] = [];
+  for (const [field, entries] of Object.entries(details)) {
+    if (!Array.isArray(entries) || !isLeaf(t, `fields.${field}`)) {
+      continue;
+    }
+    for (const entry of entries) {
+      if (typeof entry !== "object" || entry === null) {
+        continue;
+      }
+      const { error: code, ...rest } = entry as { error?: unknown };
+      if (typeof code !== "string" || !isLeaf(t, `validation.${code}`)) {
+        continue;
+      }
+      const values: ErrorValues = { field: t(`fields.${field}` as Parameters<Translator>[0]) };
+      for (const [key, value] of Object.entries(rest)) {
+        if (typeof value === "string" || typeof value === "number") {
+          values[camelize(key)] = value;
+        }
+      }
+      sentences.push(t(`validation.${code}` as Parameters<Translator>[0], values));
+    }
+  }
+
+  return sentences.length > 0 ? sentences.join(" ") : null;
 }
 
 /**
@@ -100,11 +154,8 @@ function isLeaf(t: Translator, key: string): boolean {
  * sends today (`filenames`) reads as a list in a sentence.
  */
 function extractValues(error: unknown): ErrorValues {
-  if (!(error instanceof ApiError) || typeof error.data !== "object" || error.data === null) {
-    return {};
-  }
-  const errorField = (error.data as { error?: unknown }).error;
-  if (typeof errorField !== "object" || errorField === null) {
+  const errorField = extractErrorField(error);
+  if (!errorField) {
     return {};
   }
 
@@ -120,6 +171,18 @@ function extractValues(error: unknown): ErrorValues {
     }
   }
   return values;
+}
+
+// The `error` object inside an ApiError's body, or null for anything else.
+function extractErrorField(error: unknown): Record<string, unknown> | null {
+  if (!(error instanceof ApiError) || typeof error.data !== "object" || error.data === null) {
+    return null;
+  }
+  const errorField = (error.data as { error?: unknown }).error;
+  if (typeof errorField !== "object" || errorField === null) {
+    return null;
+  }
+  return errorField as Record<string, unknown>;
 }
 
 function camelize(key: string): string {
