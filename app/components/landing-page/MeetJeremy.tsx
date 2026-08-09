@@ -19,7 +19,7 @@ export function MeetJeremy() {
             {/* A square crop laid on a purple block shifted behind it, like a sticker on
                 coloured card. */}
             <div className={styles.portrait}>
-              <Image src={jeremyPortrait} alt={t("portraitAlt")} sizes="176px" />
+              <Image src={jeremyPortrait} alt={t("portraitAlt")} sizes="220px" />
             </div>
             <CredentialRail />
           </div>
