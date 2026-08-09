@@ -1,16 +1,24 @@
 /**
- * Guards for the next-intl message catalogs.
+ * Guards for the next-intl message catalog.
  *
  * The unit-test suite mocks next-intl, so a syntactically invalid ICU message
  * (unclosed brace, malformed plural, bad tag) would only surface at runtime.
  * This test runs every catalog string through the real ICU parser, and also
  * enforces the catalog invariants documented in .context/i18n.md.
+ *
+ * There is one catalog, `messages.json`. Only English is authored in this repo;
+ * every other locale's catalog is authored in the i18n repo and published
+ * straight to the cache tree, and its key parity with this file is guarded
+ * there.
  */
+import fs from "fs";
+import path from "path";
 import { IntlMessageFormat } from "intl-messageformat";
-import en from "@/messages/en.json";
-import hu from "@/messages/hu.json";
 
-const CATALOGS = { en, hu } as const;
+const MESSAGES_FILE = path.resolve(__dirname, "../../messages.json");
+const LOCALE = "en";
+
+const catalog = JSON.parse(fs.readFileSync(MESSAGES_FILE, "utf8")) as unknown;
 
 function flatten(node: unknown, prefix = ""): Record<string, string> {
   const result: Record<string, string> = {};
@@ -25,21 +33,25 @@ function flatten(node: unknown, prefix = ""): Record<string, string> {
   return result;
 }
 
-describe("message catalogs", () => {
-  it.each(Object.keys(CATALOGS) as (keyof typeof CATALOGS)[])("every %s message is valid ICU", (locale) => {
+const messages = flatten(catalog);
+
+describe("message catalog", () => {
+  it("is not empty", () => {
+    // Everything below iterates the flattened catalog, which would pass
+    // vacuously if it were empty. This is the check that it is not.
+    expect(Object.keys(messages).length).toBeGreaterThan(0);
+  });
+
+  it("every message is valid ICU", () => {
     const failures: string[] = [];
-    for (const [key, message] of Object.entries(flatten(CATALOGS[locale]))) {
+    for (const [key, message] of Object.entries(messages)) {
       try {
-        new IntlMessageFormat(message, locale);
+        new IntlMessageFormat(message, LOCALE);
       } catch (error) {
         failures.push(`${key}: ${error instanceof Error ? error.message : String(error)}`);
       }
     }
     expect(failures).toEqual([]);
-  });
-
-  it("en and hu have identical key trees", () => {
-    expect(Object.keys(flatten(hu)).sort()).toEqual(Object.keys(flatten(en)).sort());
   });
 
   it("plural messages stay within the subset the jest next-intl mock supports", () => {
@@ -50,20 +62,16 @@ describe("message catalogs", () => {
     // silently produce wrong output in unit tests — fail loudly here instead.
     // If you need a richer plural, upgrade the mock in jest.setup.js first.
     const supportedPlural = /\{\w+, plural, one \{(?:[^{}]|\{\w+\})*\} other \{(?:[^{}]|\{\w+\})*\}\}/g;
-    for (const locale of Object.keys(CATALOGS) as (keyof typeof CATALOGS)[]) {
-      const unsupported = Object.entries(flatten(CATALOGS[locale]))
-        .filter(([, message]) => message.replace(supportedPlural, "").includes(", plural,"))
-        .map(([key]) => `${locale}:${key}`);
-      expect(unsupported).toEqual([]);
-    }
+    const unsupported = Object.entries(messages)
+      .filter(([, message]) => message.replace(supportedPlural, "").includes(", plural,"))
+      .map(([key]) => key);
+    expect(unsupported).toEqual([]);
   });
 
   it("no message has leading or trailing whitespace", () => {
-    for (const locale of Object.keys(CATALOGS) as (keyof typeof CATALOGS)[]) {
-      const padded = Object.entries(flatten(CATALOGS[locale]))
-        .filter(([, message]) => message !== message.trim())
-        .map(([key]) => `${locale}:${key}`);
-      expect(padded).toEqual([]);
-    }
+    const padded = Object.entries(messages)
+      .filter(([, message]) => message !== message.trim())
+      .map(([key]) => key);
+    expect(padded).toEqual([]);
   });
 });

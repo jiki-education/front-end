@@ -115,6 +115,7 @@ import { createOrchestratorStore } from "@/components/coding-exercise/lib/orches
 import { EditorManager, clampRangesToDoc } from "@/components/coding-exercise/lib/orchestrator/EditorManager";
 import type { ReadonlyRange } from "@jiki/curriculum";
 import { createMockExercise } from "@/tests/mocks/exercise";
+import { makeTestTranslator } from "@/tests/test-utils/makeTestTranslator";
 import type { EditorView } from "@codemirror/view";
 
 describe("EditorManager", () => {
@@ -127,13 +128,25 @@ describe("EditorManager", () => {
       slug: "test-uuid",
       stubs: { javascript: "const x = 1;", python: "const x = 1;", jikiscript: "const x = 1;" }
     });
-    store = createOrchestratorStore(mockExercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+    store = createOrchestratorStore({
+      exercise: mockExercise,
+      language: "jikiscript",
+      context: { type: "lesson", slug: "maze-solve-basic" }
+    });
     mockRunCode = jest.fn();
     const mockElement = document.createElement("div");
 
     // Set the values in the store that EditorManager will read
 
-    editorManager = new EditorManager(mockElement, store, "test-uuid", "const x = 1;", [], mockRunCode);
+    editorManager = new EditorManager(
+      mockElement,
+      store,
+      "test-uuid",
+      "const x = 1;",
+      [],
+      makeTestTranslator(),
+      mockRunCode
+    );
   });
 
   describe("constructor", () => {

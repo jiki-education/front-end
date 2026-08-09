@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { localePath } from "@/lib/i18n/routes";
 import type { BlogPostMeta } from "@/lib/content/types";
@@ -12,6 +13,7 @@ interface FeaturedLatestPostProps {
 }
 
 export default function FeaturedLatestPost({ post, locale }: FeaturedLatestPostProps) {
+  const t = useTranslations("blog.featuredLatest");
   const postUrl = localePath(`/blog/${post.slug}`, locale);
 
   return (
@@ -22,19 +24,19 @@ export default function FeaturedLatestPost({ post, locale }: FeaturedLatestPostP
       />
       <div className={styles.featuredLatestContent}>
         <div className={styles.featuredLatestMetaRow}>
-          <div className={styles.featuredLatestLabel}>Latest Post</div>
+          <div className={styles.featuredLatestLabel}>{t("label")}</div>
           <span className={styles.featuredLatestDate}>
             <CalendarIcon />
             {formatBlogDate(post.date)}
           </span>
           <span className={styles.featuredLatestAuthor}>
             <AuthorAvatar author={post.author} size={18} />
-            by {post.author.name}
+            {t("byAuthor", { name: post.author.name })}
           </span>
         </div>
         <h2 className={styles.featuredLatestTitle}>{post.title}</h2>
         <p className={styles.featuredLatestExcerpt}>{post.excerpt}</p>
-        <span className={styles.featuredLatestLink}>Read full article →</span>
+        <span className={styles.featuredLatestLink}>{t("readFullArticle")}</span>
       </div>
     </Link>
   );

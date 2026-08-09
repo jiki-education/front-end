@@ -80,6 +80,7 @@
 .error :not(pre) > code {
     background-color: var(--color-red-50);
     color: var(--color-red-600);
+    font-size: 15px;
 }
 
 .informationTooltip pre + p {

@@ -39,7 +39,7 @@ toastSuccess("subscription.canceled", { date: new Date().toLocaleDateString() })
 toastError("exercise.submissionFailed", undefined, { id: "exercise-submission-error" });
 ```
 
-Keys live under the `toasts` namespace in `messages/{locale}.json`, grouped by
+Keys live under the `toasts` namespace in `messages.json`, grouped by
 area (`subscription.*`, `settings.*`, `avatar.*`, `logout.*`, `auth.*`,
 `exercise.*`). The `ToastKey` type is derived from that namespace, so
 `pnpm typecheck` rejects an unknown key.
@@ -56,19 +56,27 @@ For rich content (a link inside the message), render a small component that
 calls `t.rich(...)` and pass its element to `toast.error`; see
 `lib/toasts/lessonSaveError.tsx`.
 
-### Dynamic server messages
+### API error toasts
 
-API error toasts show the server-provided `error.message` when present (it is
-dynamic and not translatable client-side) and fall back to a translated key
-otherwise:
+The API sends a stable `error.type`, never human-readable text, so an API error
+toast resolves its copy from the `apiErrors` namespace via `toastApiError`.
+Errors with no type (network failures, unrecognised bodies) still fall back to a
+flow-specific key:
 
 ```typescript
-if (error instanceof Error) {
-  toast.error(error.message);
+import { getApiErrorType } from "@/lib/api/client";
+import { toastApiError } from "@/lib/api/apiErrors";
+
+if (getApiErrorType(error)) {
+  toastApiError(error);
 } else {
   toastError("settings.updateFailed");
 }
 ```
+
+Pass a context as the second argument (`toastApiError(error, "subscriptions")`)
+in flows where a type means something different from its unscoped meaning. See
+`lib/api/apiErrors.tsx`.
 
 ### Raw react-hot-toast (dev-only / non-localized)
 

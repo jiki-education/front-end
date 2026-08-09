@@ -1,9 +1,9 @@
 import { api, NotFoundError } from "./client";
-import type { LessonWithData } from "@/types/lesson";
+import type { Lesson } from "@/types/lesson";
 import type { UserConversationData } from "./types/conversation";
 
 export interface LessonResponse {
-  lesson: LessonWithData;
+  lesson: Lesson;
 }
 
 export interface UserLessonData extends UserConversationData {
@@ -17,7 +17,7 @@ export interface UserLessonResponse {
 /**
  * Fetch lesson details by slug
  */
-export async function fetchLesson(slug: string): Promise<LessonWithData> {
+export async function fetchLesson(slug: string): Promise<Lesson> {
   const response = await api.get<LessonResponse>(`/internal/lessons/${slug}`);
   return response.data.lesson;
 }

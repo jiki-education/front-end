@@ -1,4 +1,4 @@
-import type { ChallengeData } from "@/lib/api/challenges";
+import type { ChallengeWithCopy } from "@/lib/api/challenges";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import { EmptyChallengesState } from "./EmptyChallengesState";
 import { RecentChallengesSkeleton } from "./RecentChallengesSkeleton";
 
 interface RecentChallengesProps {
-  challenges: ChallengeData[];
+  challenges: ChallengeWithCopy[];
   unlockedCount: number;
   onChallengeClick?: (challengeId: string) => void;
   onViewAllClick?: () => void;

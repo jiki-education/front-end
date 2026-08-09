@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 export default function CodingExerciseDevPage() {
   return (
     <CodingExercise
-      exerciseSlug="maze-solve-basic"
       language="javascript"
       context={{ type: "lesson", slug: "maze-solve-basic" }}
       isCompleted={false}

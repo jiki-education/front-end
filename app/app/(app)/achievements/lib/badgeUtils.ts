@@ -21,16 +21,26 @@ export function isRecentBadge(badge: BadgeData): boolean {
   return daysSinceUnlock <= 7;
 }
 
-export function getBadgeDate(badge: BadgeData): string {
+export type BadgeDateInfo =
+  | { status: "locked" }
+  | { status: "earnedToday" }
+  | { status: "earnedRelative"; distance: string };
+
+// Returns the badge's earned-state so the consumer can translate the label.
+// The `distance` is still date-fns' English relative time (e.g. "3 days ago");
+// localizing that requires passing a date-fns locale and is tracked separately.
+export function getBadgeDateInfo(badge: BadgeData): BadgeDateInfo {
   if (!badge.unlocked_at) {
-    return "Locked";
+    return { status: "locked" };
   }
 
   const unlocked = new Date(badge.unlocked_at);
   const distance = formatDistanceToNow(unlocked, { addSuffix: true });
 
-  // Convert "X ago" to "Earned X ago" for better UX
-  return distance.replace("ago", "").trim() === "today" ? "Earned today" : `Earned ${distance}`;
+  if (distance.replace("ago", "").trim() === "today") {
+    return { status: "earnedToday" };
+  }
+  return { status: "earnedRelative", distance };
 }
 
 export function getBadgeColor(badge: BadgeData): "blue" | "gold" {
@@ -40,7 +50,9 @@ export function getBadgeColor(badge: BadgeData): "blue" | "gold" {
   return "blue";
 }
 
-export function sortBadges(badges: BadgeData[]): BadgeData[] {
+// Generic so callers holding badges with resolved copy (BadgeWithCopy) get the
+// same type back rather than having it widened to BadgeData.
+export function sortBadges<T extends BadgeData>(badges: T[]): T[] {
   // Not toSorted(): it needs Chrome 110+/Safari 16.4+ and crashes the dashboard
   // render on older browsers (JIKI-FRONT-END-14). Copy-then-sort is equivalent.
   return [...badges].sort((a, b) => {

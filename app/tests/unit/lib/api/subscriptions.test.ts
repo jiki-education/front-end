@@ -109,13 +109,12 @@ describe("verifyCheckoutSession", () => {
     await expect(verifyCheckoutSession("cs_test_invalid")).rejects.toThrow("Session not found");
   });
 
-  it("throws CheckoutIncompleteError carrying the decline reason and interval for an incomplete payment", async () => {
+  it("throws CheckoutIncompleteError carrying the decline code and interval for an incomplete payment", async () => {
     mockedApiPost.mockRejectedValue(
       new ApiError(422, "Unprocessable Entity", {
         error: {
           type: "checkout_payment_incomplete",
-          message: "Your payment wasn't completed. Please try again.",
-          decline_reason: "Your card has insufficient funds.",
+          decline_code: "insufficient_funds",
           interval: "monthly"
         }
       })
@@ -123,18 +122,18 @@ describe("verifyCheckoutSession", () => {
 
     const error = await verifyCheckoutSession("cs_test_decline").catch((e) => e);
     expect(error).toBeInstanceOf(CheckoutIncompleteError);
-    expect(error.declineReason).toBe("Your card has insufficient funds.");
+    expect(error.declineCode).toBe("insufficient_funds");
     expect(error.interval).toBe("monthly");
   });
 
-  it("defaults the interval to annual and the reason to null when the API omits them", async () => {
+  it("defaults the interval to annual and the code to null when the API omits them", async () => {
     mockedApiPost.mockRejectedValue(
       new ApiError(422, "Unprocessable Entity", { error: { type: "checkout_payment_incomplete" } })
     );
 
     const error = await verifyCheckoutSession("cs_test_decline").catch((e) => e);
     expect(error).toBeInstanceOf(CheckoutIncompleteError);
-    expect(error.declineReason).toBeNull();
+    expect(error.declineCode).toBeNull();
     expect(error.interval).toBe("annual");
   });
 

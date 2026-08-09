@@ -16,8 +16,28 @@ import { TaskManager } from "./orchestrator/TaskManager";
 import { TestSuiteManager } from "./orchestrator/TestSuiteManager";
 import { TimelineManager } from "./orchestrator/TimelineManager";
 import { getInterpreter } from "./test-runner/getInterpreter";
-import type { TestExpect, TestResult } from "./test-results-types";
+import type { CodingExerciseTranslator, TestExpect, TestResult } from "./test-results-types";
 import type { ExerciseContext, InformationWidgetData, OrchestratorStore, UnderlineRange } from "./types";
+
+export interface OrchestratorInit {
+  exercise: ExerciseDefinition;
+  language: Language;
+  context: ExerciseContext;
+  interpreterLocaleMessages: InterpreterMessages;
+  exerciseLocaleMessages: CurriculumMessages;
+  t: CodingExerciseTranslator;
+  proseHash: string;
+  codeHash: string;
+  onGoToDashboard: () => void;
+  // Optional because a student may genuinely have no prior submission.
+  serverData?: { code: string; storedAt?: string };
+  // Required: both are known before construction, so they seed the store rather
+  // than being set a tick later. Defaulting either would reintroduce the silently
+  // wrong initial state this replaced. isCompleted keeps its setter for the
+  // runtime transition when a student finishes; the level title never changes.
+  levelTitle: string;
+  isCompleted: boolean;
+}
 
 class Orchestrator {
   readonly store: StoreApi<OrchestratorStore>; // Made readonly instead of private for methods to access
@@ -28,7 +48,8 @@ class Orchestrator {
   private editorRefCallback: ((element: HTMLDivElement | null) => void) | null = null;
   exercise: ExerciseDefinition;
   private readonly language: Language;
-  readonly contentHash: string;
+  readonly proseHash: string;
+  readonly codeHash: string;
   // The active locale's interpreter message catalog, injected into every interpreter
   // run so diagnostics resolve in the student's locale. Supplied by useExerciseLoader
   // for the real page (any language); tests pass an empty dict, which resolves to
@@ -39,25 +60,35 @@ class Orchestrator {
   // useExerciseLoader (fetched in the blocking load); tests default to an empty
   // dict, which resolves keys as-is.
   private readonly exerciseLocaleMessages: CurriculumMessages;
+  // Translator for the `codingExercise` namespace. Held so it can be handed to the
+  // EditorManager (and from there to the CodeMirror extensions), which are built
+  // outside the React tree and so cannot call `useTranslations()` themselves.
+  private readonly t: CodingExerciseTranslator;
 
-  constructor(
-    exercise: ExerciseDefinition,
-    language: Language,
-    context: ExerciseContext,
-    interpreterLocaleMessages: InterpreterMessages,
-    exerciseLocaleMessages: CurriculumMessages,
-    contentHash: string,
-    onGoToDashboard: () => void,
-    serverData?: { code: string; storedAt?: string }
-  ) {
+  constructor({
+    exercise,
+    language,
+    context,
+    interpreterLocaleMessages,
+    exerciseLocaleMessages,
+    t,
+    proseHash,
+    codeHash,
+    onGoToDashboard,
+    serverData,
+    levelTitle,
+    isCompleted
+  }: OrchestratorInit) {
     this.exercise = exercise;
     this.language = language;
-    this.contentHash = contentHash;
+    this.proseHash = proseHash;
+    this.codeHash = codeHash;
     this.interpreterLocaleMessages = interpreterLocaleMessages;
     this.exerciseLocaleMessages = exerciseLocaleMessages;
+    this.t = t;
 
     // Create instance-specific store with exercise, language, and context
-    this.store = createOrchestratorStore(exercise, language, context, onGoToDashboard);
+    this.store = createOrchestratorStore({ exercise, language, context, onGoToDashboard, levelTitle, isCompleted });
 
     // Initialize managers
     this.timelineManager = new TimelineManager(this.store);
@@ -66,6 +97,7 @@ class Orchestrator {
       this.store,
       this.interpreterLocaleMessages,
       this.exerciseLocaleMessages,
+      t,
       this.taskManager,
       context
     );
@@ -104,6 +136,7 @@ class Orchestrator {
             this.exercise.slug,
             this.store.getState().code,
             this.getStoredOrDefaultReadonlyRanges(),
+            this.t,
             this.runCode.bind(this),
             (code: string) => this.lintCodeDebounced(code)
           );

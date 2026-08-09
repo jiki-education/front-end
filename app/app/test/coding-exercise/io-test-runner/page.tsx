@@ -10,6 +10,7 @@ import { IOExercise } from "@jiki/curriculum";
 import type { IOExerciseDefinition, IOScenario, Task } from "@jiki/curriculum";
 import { useEffect, useState } from "react";
 import styles from "../harness.module.css";
+import { useTranslations } from "next-intl";
 
 const initialCode = `function acronym with phrase do
   return "CAT"
@@ -56,6 +57,7 @@ class TestIOExercise extends IOExercise {
 }
 
 export default function IOTestRunnerPage() {
+  const t = useTranslations("codingExercise");
   const [orchestrator, setOrchestrator] = useState<Orchestrator | null>(null);
 
   useEffect(() => {
@@ -73,15 +75,19 @@ export default function IOTestRunnerPage() {
       tasks,
       scenarios
     };
-    const orch = new Orchestrator(
-      exercise,
-      "jikiscript",
-      { type: "lesson", slug: "test-lesson" },
-      {},
-      {},
-      "",
-      () => {}
-    );
+    const orch = new Orchestrator({
+      exercise: exercise,
+      language: "jikiscript",
+      context: { type: "lesson", slug: "maze-solve-basic" },
+      interpreterLocaleMessages: {},
+      exerciseLocaleMessages: {},
+      t: t,
+      proseHash: "",
+      codeHash: "",
+      onGoToDashboard: () => {},
+      levelTitle: "",
+      isCompleted: false
+    });
     setOrchestrator(orch);
 
     // Expose orchestrator to window for E2E testing
@@ -90,7 +96,7 @@ export default function IOTestRunnerPage() {
     return () => {
       delete (window as any).testOrchestrator;
     };
-  }, []);
+  }, [t]);
 
   if (!orchestrator) {
     return <div>Loading...</div>;

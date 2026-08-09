@@ -11,13 +11,17 @@ export interface ChatContext {
   currentTaskId: string | null;
   language: string;
   locale: string; // Locale the exercise content was loaded for (path segment of the content URL)
-  contentHash: string; // Hash for fetching exercise content from static files
+  // The exercise's content is two artifacts, so it takes two hashes to name it:
+  // prose (instructions, per locale) and code (stub/solution, per language).
+  proseHash: string;
+  codeHash: string;
   exercise: any; // Full exercise object
 }
 
 export function useChatContext(orchestrator: Orchestrator): ChatContext {
-  // The orchestrator's contentHash was resolved for the active UI locale (see
-  // useExerciseLoader), so the same locale must accompany it to the proxy.
+  // The orchestrator's proseHash was resolved for the active UI locale (see
+  // useExerciseLoader), so the same locale must accompany it to the proxy. The
+  // codeHash carries no locale at all; `language` is what names it.
   const locale = useLocale();
 
   return useMemo(() => {
@@ -32,7 +36,8 @@ export function useChatContext(orchestrator: Orchestrator): ChatContext {
       currentTaskId: storeState.currentTaskId,
       language: storeState.language,
       locale,
-      contentHash: orchestrator.contentHash,
+      proseHash: orchestrator.proseHash,
+      codeHash: orchestrator.codeHash,
       exercise
     };
   }, [orchestrator, locale]);

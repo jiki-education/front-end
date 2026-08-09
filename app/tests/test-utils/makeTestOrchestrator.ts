@@ -1,17 +1,22 @@
 import Orchestrator from "@/components/coding-exercise/lib/Orchestrator";
-import type { ExerciseDefinition, Language } from "@jiki/curriculum";
+import type { ExerciseDefinition, ExerciseLessonSlug, Language } from "@jiki/curriculum";
+import { makeTestTranslator } from "./makeTestTranslator";
 
 export function makeTestOrchestrator(
   exercise: ExerciseDefinition,
-  opts: { slug?: string; language?: Language } = {}
+  opts: { slug?: ExerciseLessonSlug; language?: Language } = {}
 ): Orchestrator {
-  return new Orchestrator(
+  return new Orchestrator({
     exercise,
-    opts.language ?? "jikiscript",
-    { type: "lesson", slug: opts.slug ?? "test-lesson" },
-    {},
-    {},
-    "",
-    () => {}
-  );
+    language: opts.language ?? "jikiscript",
+    context: { type: "lesson", slug: opts.slug ?? "maze-solve-basic" },
+    interpreterLocaleMessages: {},
+    exerciseLocaleMessages: {},
+    t: makeTestTranslator(),
+    proseHash: "",
+    codeHash: "",
+    onGoToDashboard: () => {},
+    levelTitle: "",
+    isCompleted: false
+  });
 }

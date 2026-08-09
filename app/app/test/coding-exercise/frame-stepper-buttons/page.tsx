@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { FrameInfo } from "../ui-utils/FrameInfo";
 import { LineFoldingControls } from "../ui-utils/LineFoldingControls";
 import styles from "../harness.module.css";
+import { useTranslations } from "next-intl";
 
 // Create test frames similar to mockFrames
 function mockFrames(): Frame[] {
@@ -27,6 +28,7 @@ function mockFrames(): Frame[] {
 }
 
 export default function FrameStepperButtonsTestPage() {
+  const t = useTranslations("codingExercise");
   const [orchestrator, setOrchestrator] = useState<Orchestrator | null>(null);
 
   useEffect(() => {
@@ -38,15 +40,19 @@ export default function FrameStepperButtonsTestPage() {
         jikiscript: "// Test code for frame stepping"
       }
     });
-    const orch = new Orchestrator(
-      exercise,
-      "jikiscript",
-      { type: "lesson", slug: "test-lesson" },
-      {},
-      {},
-      "",
-      () => {}
-    );
+    const orch = new Orchestrator({
+      exercise: exercise,
+      language: "jikiscript",
+      context: { type: "lesson", slug: "maze-solve-basic" },
+      interpreterLocaleMessages: {},
+      exerciseLocaleMessages: {},
+      t: t,
+      proseHash: "",
+      codeHash: "",
+      onGoToDashboard: () => {},
+      levelTitle: "",
+      isCompleted: false
+    });
 
     // Create test frames and set up the test state
     const frames = mockFrames();
@@ -107,7 +113,7 @@ export default function FrameStepperButtonsTestPage() {
     return () => {
       delete (window as any).testOrchestrator;
     };
-  }, []);
+  }, [t]);
 
   if (!orchestrator) {
     return <div>Loading...</div>;

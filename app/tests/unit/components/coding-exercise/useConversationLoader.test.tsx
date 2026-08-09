@@ -11,8 +11,8 @@ jest.mock("@/lib/api/challenges");
 const mockFetchUserLesson = fetchUserLesson as jest.MockedFunction<typeof fetchUserLesson>;
 const mockFetchUserChallenge = fetchUserChallenge as jest.MockedFunction<typeof fetchUserChallenge>;
 
-const lessonContext: ExerciseContext = { type: "lesson", slug: "test-exercise" };
-const challengeContext: ExerciseContext = { type: "challenge", slug: "test-challenge" };
+const lessonContext: ExerciseContext = { type: "lesson", slug: "maze-solve-basic" };
+const challengeContext: ExerciseContext = { type: "challenge", slug: "structured-house" };
 
 describe("useConversationLoader", () => {
   beforeEach(() => {
@@ -33,7 +33,7 @@ describe("useConversationLoader", () => {
     ];
 
     mockFetchUserLesson.mockResolvedValue({
-      lesson_slug: "test-exercise",
+      lesson_slug: "maze-solve-basic",
       status: "started",
       conversation: mockConversation,
       conversation_allowed: true,
@@ -55,14 +55,14 @@ describe("useConversationLoader", () => {
     expect(result.current.conversation).toEqual(mockConversation);
     expect(result.current.conversationAllowed).toBe(true);
     expect(result.current.error).toBeNull();
-    expect(mockFetchUserLesson).toHaveBeenCalledWith("test-exercise");
+    expect(mockFetchUserLesson).toHaveBeenCalledWith("maze-solve-basic");
   });
 
   it("should load challenge conversations via fetchUserChallenge", async () => {
     const mockConversation: ChatMessage[] = [{ role: "user", content: "Challenge question" }];
 
     mockFetchUserChallenge.mockResolvedValue({
-      challenge_slug: "test-challenge",
+      challenge_slug: "structured-house",
       status: "started",
       conversation: mockConversation,
       conversation_allowed: true
@@ -75,14 +75,14 @@ describe("useConversationLoader", () => {
     });
 
     expect(result.current.conversation).toEqual(mockConversation);
-    expect(mockFetchUserChallenge).toHaveBeenCalledWith("test-challenge");
+    expect(mockFetchUserChallenge).toHaveBeenCalledWith("structured-house");
     expect(mockFetchUserLesson).not.toHaveBeenCalled();
   });
 
   it("should treat NotFoundError as a fresh, empty, allowed conversation", async () => {
     mockFetchUserLesson.mockRejectedValue(new NotFoundError("Not Found"));
 
-    const { result } = renderHook(() => useConversationLoader({ type: "lesson", slug: "new-exercise" }));
+    const { result } = renderHook(() => useConversationLoader({ type: "lesson", slug: "maze-solve-basic" }));
 
     await waitFor(() => {
       expect(result.current.isLoading).toBe(false);
@@ -95,7 +95,7 @@ describe("useConversationLoader", () => {
 
   it("should fail closed when an existing record has conversation_allowed false", async () => {
     mockFetchUserLesson.mockResolvedValue({
-      lesson_slug: "test-exercise",
+      lesson_slug: "maze-solve-basic",
       status: "started",
       conversation: [],
       conversation_allowed: false,
@@ -113,7 +113,7 @@ describe("useConversationLoader", () => {
 
   it("should fail closed when an existing record omits conversation_allowed", async () => {
     mockFetchUserLesson.mockResolvedValue({
-      lesson_slug: "test-exercise",
+      lesson_slug: "maze-solve-basic",
       status: "started",
       conversation: []
       // conversation_allowed intentionally omitted (backend may not emit it yet)
@@ -142,7 +142,11 @@ describe("useConversationLoader", () => {
   });
 
   it("should handle empty context slug", async () => {
-    const { result } = renderHook(() => useConversationLoader({ type: "lesson", slug: "" }));
+    // Slugs are a literal union now, so an empty slug is unrepresentable in the
+    // types. The runtime guard still matters (the API is not type-checked), so
+    // construct the invalid state deliberately to prove the guard holds.
+    const emptySlugContext = { type: "lesson", slug: "" } as unknown as ExerciseContext;
+    const { result } = renderHook(() => useConversationLoader(emptySlugContext));
 
     await waitFor(() => {
       expect(result.current.isLoading).toBe(false);
@@ -157,14 +161,14 @@ describe("useConversationLoader", () => {
     const mockConversation: ChatMessage[] = [{ role: "user", content: "Cached message" }];
 
     mockFetchUserLesson.mockResolvedValue({
-      lesson_slug: "cached-exercise",
+      lesson_slug: "maze-solve-basic",
       status: "started",
       conversation: mockConversation,
       conversation_allowed: true,
       data: {}
     });
 
-    const cachedContext: ExerciseContext = { type: "lesson", slug: "cached-exercise" };
+    const cachedContext: ExerciseContext = { type: "lesson", slug: "maze-solve-basic" };
     const { result, rerender } = renderHook(({ context }) => useConversationLoader(context), {
       initialProps: { context: cachedContext }
     });
@@ -177,40 +181,40 @@ describe("useConversationLoader", () => {
     expect(mockFetchUserLesson).toHaveBeenCalledTimes(1);
 
     // Rerender with an equivalent context (same type + slug)
-    rerender({ context: { type: "lesson", slug: "cached-exercise" } });
+    rerender({ context: { type: "lesson", slug: "maze-solve-basic" } });
 
     // Should not call API again
     expect(mockFetchUserLesson).toHaveBeenCalledTimes(1);
     expect(result.current.conversation).toEqual(mockConversation);
   });
 
-  it("should keep lesson and challenge caches separate even with the same slug", async () => {
+  it("should key the cache by context type, reloading when it changes", async () => {
     const lessonConversation: ChatMessage[] = [{ role: "user", content: "Lesson message" }];
     const challengeConversation: ChatMessage[] = [{ role: "user", content: "Challenge message" }];
 
     mockFetchUserLesson.mockResolvedValue({
-      lesson_slug: "shared-slug",
+      lesson_slug: "maze-solve-basic",
       status: "started",
       conversation: lessonConversation,
       conversation_allowed: true,
       data: {}
     });
     mockFetchUserChallenge.mockResolvedValue({
-      challenge_slug: "shared-slug",
+      challenge_slug: "structured-house",
       status: "started",
       conversation: challengeConversation,
       conversation_allowed: true
     });
 
     const { result, rerender } = renderHook(({ context }) => useConversationLoader(context), {
-      initialProps: { context: { type: "lesson", slug: "shared-slug" } as ExerciseContext }
+      initialProps: { context: { type: "lesson", slug: "maze-solve-basic" } as ExerciseContext }
     });
 
     await waitFor(() => {
       expect(result.current.conversation).toEqual(lessonConversation);
     });
 
-    rerender({ context: { type: "challenge", slug: "shared-slug" } as ExerciseContext });
+    rerender({ context: { type: "challenge", slug: "structured-house" } as ExerciseContext });
 
     await waitFor(() => {
       expect(result.current.conversation).toEqual(challengeConversation);
@@ -226,14 +230,14 @@ describe("useConversationLoader", () => {
 
     mockFetchUserLesson
       .mockResolvedValueOnce({
-        lesson_slug: "exercise-1",
+        lesson_slug: "maze-solve-basic",
         status: "started",
         conversation: mockConversation1,
         conversation_allowed: true,
         data: {}
       })
       .mockResolvedValueOnce({
-        lesson_slug: "exercise-2",
+        lesson_slug: "maze-solve-walk",
         status: "started",
         conversation: mockConversation2,
         conversation_allowed: true,
@@ -241,7 +245,7 @@ describe("useConversationLoader", () => {
       });
 
     const { result, rerender } = renderHook(({ context }) => useConversationLoader(context), {
-      initialProps: { context: { type: "lesson", slug: "exercise-1" } as ExerciseContext }
+      initialProps: { context: { type: "lesson", slug: "maze-solve-basic" } as ExerciseContext }
     });
 
     // Wait for first load
@@ -252,7 +256,7 @@ describe("useConversationLoader", () => {
     expect(result.current.conversation).toEqual(mockConversation1);
 
     // Change to different exercise
-    rerender({ context: { type: "lesson", slug: "exercise-2" } as ExerciseContext });
+    rerender({ context: { type: "lesson", slug: "maze-solve-walk" } as ExerciseContext });
 
     // Should load again
     await waitFor(() => {
@@ -264,14 +268,14 @@ describe("useConversationLoader", () => {
 
   it("should retry with force reload", async () => {
     mockFetchUserLesson.mockRejectedValueOnce(new Error("Network error")).mockResolvedValueOnce({
-      lesson_slug: "retry-exercise",
+      lesson_slug: "maze-solve-basic",
       status: "started",
       conversation: [{ role: "user", content: "Retry successful" }],
       conversation_allowed: true,
       data: {}
     });
 
-    const { result } = renderHook(() => useConversationLoader({ type: "lesson", slug: "retry-exercise" }));
+    const { result } = renderHook(() => useConversationLoader({ type: "lesson", slug: "maze-solve-basic" }));
 
     // Wait for initial error
     await waitFor(() => {

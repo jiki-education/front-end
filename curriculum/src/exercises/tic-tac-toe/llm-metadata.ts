@@ -9,7 +9,7 @@ interface LLMMetadata {
 
 export const llmMetadata: LLMMetadata = {
   description: `
-    This is the major capstone project of the lists level, bringing together lists,
+    This is a major capstone project bringing together arrays,
     conditionals, loops, functions and drawing in a complete Tic Tac Toe game.
   `,
 

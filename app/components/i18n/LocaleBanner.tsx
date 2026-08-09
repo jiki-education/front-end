@@ -1,6 +1,8 @@
-import { LocaleBannerBar } from "@/components/i18n/LocaleBannerBar";
+import { LocaleBannerBar, LocaleBannerDismiss } from "@/components/i18n/LocaleBannerBar";
+import Link from "next/link";
 import { AUTHENTICATION_COOKIE_NAME } from "@/lib/auth/cookie-config";
 import { LOCALE_COOKIE_NAME, PATHNAME_HEADER } from "@/lib/i18n/config";
+import { languageName } from "@/lib/i18n/languageNames";
 import { resolveBannerOffer } from "@/lib/i18n/localeBanner";
 import { getTranslations } from "next-intl/server";
 import { cookies, headers } from "next/headers";
@@ -32,19 +34,16 @@ export async function LocaleBanner() {
     return null;
   }
 
-  const [t, names] = await Promise.all([
-    getTranslations({ locale: offer.offered, namespace: "layout.localeBanner" }),
-    getTranslations({ locale: offer.offered, namespace: "common.languageNames" })
-  ]);
+  const t = await getTranslations({ locale: offer.offered, namespace: "layout.localeBanner" });
 
   return (
-    <LocaleBannerBar
-      href={offer.href}
-      offered={offer.offered}
-      prefix={t("prefix", { language: names(offer.current) })}
-      cta={t("cta", { language: names(offer.offered) })}
-      or={t("or")}
-      close={t("close")}
-    />
+    <LocaleBannerBar offered={offer.offered}>
+      {t.rich("message", {
+        current: languageName(offer.current, offer.offered),
+        offered: languageName(offer.offered, offer.offered),
+        link: (chunks) => <Link href={offer.href}>{chunks}</Link>,
+        dismiss: (chunks) => <LocaleBannerDismiss>{chunks}</LocaleBannerDismiss>
+      })}
+    </LocaleBannerBar>
   );
 }

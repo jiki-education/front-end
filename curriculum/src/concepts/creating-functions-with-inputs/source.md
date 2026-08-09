@@ -15,7 +15,7 @@ The first bit is quite straightforward. You just add some normal brackets and th
 
 So imagine we're creating a function that should shoot many times. Let's call it <define>`shootMany`</define>.
 
-We'd write `function shootMany(numShots) {` curly braces and then some code.
+We'd write it like this:
 
 ```javascript
 function shootMany(numShots) {
@@ -23,7 +23,7 @@ function shootMany(numShots) {
 }
 ```
 
-When you want to use this function, you'd write `shootMany(5)` if you want to shoot five shots, or `shootMany(2)` if you want to use two shots.
+When you want to use this function, you'd call it with the number of shots you want:
 
 ```javascript
 shootMany(5)
@@ -54,7 +54,7 @@ When we write `shootMany(5)` to use the function, Jiki on the outside goes and g
 
 And then within the function, you can just use the `numShots` box just like you'd use any other box. There's nothing magical about the name `numShots`. We could have called it anything we wanted. All it is is an instruction for mini-Jiki to always create a box with that label on inside the function and put whatever's passed into that slot into that box.
 
-And once you've got a value in that box, you can do anything you'd normally do with boxes. You could use the `numShots` box as part of a repeat loop to shoot the correct amount of times. And you can have more than one input too. Just separate them with commas. So if we have a function called <define>`drawStar`</define> that draws a star based on its top-left position, you'd write `function drawStar(left, top) {` curly braces, and then your code.
+And once you've got a value in that box, you can do anything you'd normally do with boxes. You could use the `numShots` box as part of a repeat loop to shoot the correct amount of times. And you can have more than one input too. Just separate them with commas. So if we have a function called <define>`drawStar`</define> that draws a star based on its top-left position, you'd write it like this:
 
 ```javascript
 function drawStar(left, top) {

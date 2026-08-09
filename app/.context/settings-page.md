@@ -53,7 +53,7 @@ components/settings/
 
 ### Subscription States
 
-The component handles all 9 subscription states as defined in `STRIPE_IMPLEMENTATION.md`:
+The component handles all 9 subscription states:
 
 1. **never_subscribed**: Show upgrade options with plan comparison
 2. **incomplete_payment**: Guide user through payment completion

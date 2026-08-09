@@ -1,3 +1,4 @@
+import { getTranslations } from "next-intl/server";
 import { getBlogPosts } from "@/lib/content";
 import { localePath } from "@/lib/i18n/routes";
 import Pagination from "@/components/ui/Pagination";
@@ -12,20 +13,19 @@ interface BlogPageProps {
   page?: string | null;
 }
 
-export default function BlogPage({ authenticated: _, locale, page }: BlogPageProps) {
+export default async function BlogPage({ authenticated: _, locale, page }: BlogPageProps) {
+  // getTranslations, not useTranslations: this is an async server component now,
+  // because the post list it renders is fetched rather than bundled.
+  const t = await getTranslations("blog.header");
   const pageNum = page ? Math.max(1, parseInt(page, 10) || 1) : 1;
-  const { posts, totalPages, currentPage } = getBlogPosts({ locale, page: pageNum });
+  const { posts, totalPages, currentPage } = await getBlogPosts({ locale, page: pageNum });
 
   const [latestPost, ...remainingPosts] = posts;
 
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.pageContent}>
-        <PageHeader
-          label="Blog"
-          title="News, insights and witterings"
-          subtitle="Deep dives into programming languages, coding challenges, and the art of learning to code."
-        />
+        <PageHeader label={t("label")} title={t("title")} subtitle={t("subtitle")} />
         <FeaturedLatestPost post={latestPost} locale={locale} />
         {remainingPosts.length > 0 && <BlogPostsGrid posts={remainingPosts} />}
         <Pagination

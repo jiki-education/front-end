@@ -19,7 +19,7 @@ export default async function AuthenticatedLocaleGuidePage({ params }: Props) {
 
   // Guides are reference articles (not step-based how-tos), so TechArticle. Their
   // single `date` is a "last updated" stamp, hence dateModified.
-  const guide = getAllGuides(locale).find((g) => g.slug === slug);
+  const guide = (await getAllGuides(locale)).find((g) => g.slug === slug);
   const jsonLd = guide
     ? [
         articleSchema({

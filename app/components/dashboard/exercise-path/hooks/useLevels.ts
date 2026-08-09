@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
+import { useLocale } from "next-intl";
 import { fetchLevelsWithProgress } from "@/lib/api/levels";
+import { fetchCurriculumCopy, resolveCopy, type CurriculumCopyCatalog } from "@/lib/api/curriculum-copy";
 import { LAST_PUBLISHED_LEVEL_SLUG } from "@/lib/constants/course";
+import { fetchLevelMessages, resolveLevelTitle, type LevelMessageCatalog } from "@/lib/api/level-meta";
 import type { LevelWithProgress } from "@/types/levels";
 import type { LessonDisplayData, LevelSectionData } from "../types";
 
@@ -41,17 +44,26 @@ export function filterToPublishedLevels(
   return levels.slice(0, cutoffIndex + 1);
 }
 
-export function buildLevelSections(levels: LevelWithProgress[]): LevelSectionData[] {
+// Both catalogs are loaded alongside the levels themselves, so every section and
+// node has its real text on first paint. They default to empty/slug so non-React
+// callers and tests don't have to thread them through; an entry missing from a
+// catalog renders its slug.
+export function buildLevelSections(
+  levels: LevelWithProgress[],
+  copy: CurriculumCopyCatalog = {},
+  levelTitle: (slug: string) => string = (slug) => slug
+): LevelSectionData[] {
   return levels.map((level, levelIndex): LevelSectionData => {
     // Lock state is driven by the API: a lesson is locked when the user hasn't
     // unlocked it yet (absent from their progress, surfaced as a "locked" status).
     const lessons: LessonDisplayData[] = level.lessons.map((lesson) => {
+      const lessonCopy = resolveCopy(copy, lesson.slug);
       return {
         lesson: {
           slug: lesson.slug,
           type: lesson.type,
-          title: lesson.title,
-          description: lesson.description,
+          title: lessonCopy.title,
+          description: lessonCopy.description,
           walkthrough_video_data: lesson.walkthrough_video_data
         },
         completed: lesson.status === "completed",
@@ -65,10 +77,7 @@ export function buildLevelSections(levels: LevelWithProgress[]): LevelSectionDat
 
     return {
       levelSlug: level.slug,
-      levelTitle: level.slug
-        .split("-")
-        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-        .join(" "),
+      levelTitle: levelTitle(level.slug),
       levelIndex: levelIndex + 1, // 1-based indexing for display
       lessons,
       isLocked: lessons.length > 0 ? lessons[0].locked : false,
@@ -80,22 +89,34 @@ export function buildLevelSections(levels: LevelWithProgress[]): LevelSectionDat
 }
 
 export function useLevels() {
+  const locale = useLocale();
   const [levels, setLevels] = useState<LevelWithProgress[]>([]);
+  const [copy, setCopy] = useState<CurriculumCopyCatalog>({});
+  const [levelMessages, setLevelMessages] = useState<LevelMessageCatalog>({});
   const [levelsLoading, setLevelsLoading] = useState(true);
 
   useEffect(() => {
     async function loadLevels() {
       try {
         setLevelsLoading(true);
-        const data = await fetchLevelsWithProgress();
+        // Both catalogs are part of the dashboard's load, not a later top-up:
+        // holding the skeleton until all three land means every section heading
+        // and lesson node paints with its real text instead of flashing a slug.
+        const [data, catalog, levelCatalog] = await Promise.all([
+          fetchLevelsWithProgress(),
+          fetchCurriculumCopy(locale),
+          fetchLevelMessages(locale)
+        ]);
         setLevels(data);
+        setCopy(catalog);
+        setLevelMessages(levelCatalog);
       } finally {
         setLevelsLoading(false);
       }
     }
 
     void loadLevels();
-  }, []);
+  }, [locale]);
 
   const reachedEndOfPublishedLevels = useMemo(() => {
     return hasReachedEndOfPublishedLevels(levels);
@@ -103,8 +124,8 @@ export function useLevels() {
 
   const levelSections = useMemo(() => {
     const visibleLevels = reachedEndOfPublishedLevels ? filterToPublishedLevels(levels) : levels;
-    return buildLevelSections(visibleLevels);
-  }, [levels, reachedEndOfPublishedLevels]);
+    return buildLevelSections(visibleLevels, copy, (slug) => resolveLevelTitle(levelMessages, slug));
+  }, [levels, copy, levelMessages, reachedEndOfPublishedLevels]);
 
   return {
     levels,

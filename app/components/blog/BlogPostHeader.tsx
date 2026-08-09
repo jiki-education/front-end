@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import type { ProcessedBlogPost } from "@/lib/content/types";
 import { formatBlogDate } from "@/lib/utils";
 import AuthorAvatar from "@/components/ui/AuthorAvatar";
@@ -11,6 +12,7 @@ interface BlogPostHeaderProps {
 }
 
 export default function BlogPostHeader({ post }: BlogPostHeaderProps) {
+  const t = useTranslations("blog.postHeader");
   return (
     <header className={styles.articleHeader}>
       <div className={`${shared["lg-container"]} ${styles.articleHeaderInner}`}>
@@ -32,13 +34,13 @@ export default function BlogPostHeader({ post }: BlogPostHeaderProps) {
               <span className={styles.metaIcon}>
                 <AuthorAvatar author={post.author} size={18} />
               </span>
-              <span>Written by {post.author.name}</span>
+              <span>{t("writtenBy", { name: post.author.name })}</span>
             </div>
             <div className={styles.metaItem}>
               <span className={styles.metaIcon}>
                 <ClockIcon />
               </span>
-              <span>{post.readingTime} minute read</span>
+              <span>{t("readingTime", { count: post.readingTime })}</span>
             </div>
           </div>
         </div>

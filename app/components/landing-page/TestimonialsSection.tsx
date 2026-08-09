@@ -1,8 +1,6 @@
-import { useLocale } from "next-intl";
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
-import { getTestimonials } from "@/lib/content/getTestimonials";
-import type { Testimonial } from "@/lib/content/types";
+import type { Testimonial, TestimonialsData } from "@/lib/content/types";
 import quote from "./assets/quote.webp";
 import abhinav from "./assets/testimonials/abhinav.webp";
 import drac from "./assets/testimonials/drac.webp";
@@ -59,10 +57,16 @@ const avatars: Record<string, StaticImageData> = {
   "vignesh.webp": vignesh
 };
 
-export function TestimonialsSection() {
-  const locale = useLocale();
+/**
+ * Testimonials arrive as a PROP rather than being read here.
+ *
+ * They are fetched now, not bundled, and this component uses hooks
+ * (useLocaleRoutes), which rules out making it async. So the fetch is hoisted to
+ * the async page that renders it and the data comes down as a prop, which is the
+ * ordinary Next.js split: routes fetch, components render.
+ */
+export function TestimonialsSection({ testimonials }: { testimonials: TestimonialsData }) {
   const routes = useLocaleRoutes();
-  const testimonials = getTestimonials(locale);
   const { primary } = testimonials;
 
   return (

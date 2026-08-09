@@ -6,8 +6,11 @@
  *
  * Reads concept source files from curriculum and produces:
  *
- *   public/static/concepts/{locale}/index-{hash}.json
- *     - Metadata index: all concepts with slug, title, description, hierarchy, contentHash
+ *   public/static/concepts/structure-{hash}.json
+ *     - Locale-invariant structure: slug, icon, hierarchy, exercise links
+ *
+ *   public/static/concepts/{locale}/copy-{hash}.json
+ *     - Translated copy: title, description, and that locale's content hash
  *
  *   public/static/concepts/{slug}/{locale}/content-{hash}.html
  *     - Content files: pre-rendered HTML from markdown
@@ -15,52 +18,24 @@
  *   lib/generated/concept-hashes.ts
  *     - Hash manifest mapping locale -> metadata index hash
  *
- *   lib/generated/concept-meta-server.json
- *     - Minimal metadata for server-side SEO (slug, title, description), keyed
- *       by locale: { [locale]: [...] }
  *
  * Used by:
  * - Client-side concept API (lib/api/concepts.ts)
- * - Server-side metadata generation (lib/concepts/metadata.ts)
+ * - Server-side concept reads (lib/concepts/server-concepts.ts), including SEO
+ *   metadata, which reads the fetched index rather than a bundled copy of it.
  */
 
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import matter from "gray-matter";
 import { computeHash, writeFile } from "./lib/cache-utils.js";
-import { marked } from "marked";
-import hljs from "highlight.js/lib/core";
-import setupJikiscript from "@exercism/highlightjs-jikiscript";
-import setupJavascript from "@jiki/highlightjs-javascript";
+import { parseFrontmatter, renderMarkdown } from "@jiki.io/content-renderer";
 
-// Match the syntax highlighting used by exercise instructions (InstructionsContent.tsx).
-// Highlighting is applied at build time so the static concept HTML is self-contained.
-hljs.registerLanguage("jikiscript", setupJikiscript);
-hljs.registerLanguage("javascript", setupJavascript);
-
-marked.use({
-  renderer: {
-    code({ text, lang }) {
-      const language = lang && hljs.getLanguage(lang) ? lang : null;
-      const highlighted = language
-        ? hljs.highlight(text, { language }).value
-        : text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-      const className = language ? ` class="hljs language-${language}"` : "";
-      return `<pre><code${className}>${highlighted}</code></pre>\n`;
-    }
-  },
-  hooks: {
-    // The authored English source (source.md) may contain custom inline tags
-    // <define>...</define> and <literal>...</literal>. The built English HTML is
-    // produced by stripping those tags while keeping their inner text. Translated
-    // files are already tag-free, so this is a no-op for them. Runs before the
-    // content hash is computed (the hash is over this postprocessed HTML).
-    postprocess(html) {
-      return html.replace(/<\/?(?:define|literal)(?:\s[^>]*)?>/gi, "");
-    }
-  }
-});
+// Markdown to HTML (marked config, the jikiscript/javascript highlight.js
+// grammars, and the <define>/<literal> strip) lives in @jiki.io/content-renderer
+// rather than here, because the i18n repo publishes translated concept pages to
+// the same content-hashed R2 tree and its bytes must match these exactly. See
+// that package's src/index.ts for why the version is the contract.
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CONCEPTS_DIR = path.join(__dirname, "../../curriculum/src/concepts");
@@ -68,6 +43,10 @@ const EXERCISE_MAP_PATH = path.join(__dirname, "../../curriculum/dist/concepts/e
 const STATIC_DIR = path.join(__dirname, "../public/static/concepts");
 const GENERATED_DIR = path.join(__dirname, "../lib/generated");
 const ICONS_DIR = path.join(__dirname, "../public/static/icons/concepts");
+
+// English. Its index hash is compiled into the worker and its artifacts ship
+// with the deploy, so it has no pointer and never needs one.
+const DEFAULT_LOCALE = "en";
 
 /**
  * Copy an icon into the concept cache under a content-hashed filename and return
@@ -189,9 +168,9 @@ function processConcepts() {
 
       try {
         const fileContent = fs.readFileSync(filePath, "utf-8");
-        const parsed = matter(fileContent);
+        const parsed = parseFrontmatter(fileContent);
         const frontmatter = parsed.data;
-        const markdown = parsed.content;
+        const markdown = parsed.body;
 
         if (!frontmatter.title) {
           throw new Error(`Missing title in frontmatter of ${filePath}`);
@@ -203,7 +182,7 @@ function processConcepts() {
         // Render markdown to HTML for non-category concepts
         let html = null;
         if (!config.category) {
-          html = marked.parse(markdown);
+          html = renderMarkdown(markdown);
         } else if (markdown.trim()) {
           console.warn(`   Warning: category concept "${slug}" has body content in ${file.name} — it will be ignored`);
         }
@@ -240,92 +219,105 @@ function processConcepts() {
  * Returns the index hashes for the manifest.
  */
 function buildStaticFiles(concepts) {
-  const byLocale = {};
+  // --- structure: locale-invariant, one artifact for every locale ------------
+  //
+  // A concept's place in the tree (its parent, its order, whether it is a
+  // category, how many children it has, which exercises it teaches) and its icon
+  // are facts about the curriculum, derived from English config.json and the
+  // exercise map. They do not vary by locale and the i18n repo does not hold
+  // them, so they are published here, once, and every locale reads the same
+  // object.
+  const structure = [];
+
+  // --- copy: translated, one artifact per locale ----------------------------
+  //
+  // Title, description, and the hash of that locale's rendered HTML. All three
+  // vary by locale and all three are things the i18n repo produces, so a locale
+  // it publishes needs nothing from a front-end build to appear in a listing.
+  const copyByLocale = {};
 
   for (const [slug, concept] of Object.entries(concepts)) {
-    for (const [locale, localeData] of Object.entries(concept.locales)) {
-      if (!byLocale[locale]) {
-        byLocale[locale] = [];
-      }
+    structure.push({
+      slug,
+      image: conceptImage(slug),
+      parentSlug: concept.config.parent || null,
+      order: concept.config.order || 0,
+      category: concept.config.category || false,
+      childrenCount: concept.childrenCount,
+      exerciseSlugs: concept.exerciseSlugs
+    });
 
-      // Write content file for non-category concepts
+    for (const [locale, localeData] of Object.entries(concept.locales)) {
       let contentHash = null;
       if (localeData.html !== null) {
         contentHash = computeHash(localeData.html);
-        const contentPath = path.join(STATIC_DIR, slug, locale, `content-${contentHash}.html`);
-        writeFile(contentPath, localeData.html);
+        writeFile(path.join(STATIC_DIR, slug, locale, `content-${contentHash}.html`), localeData.html);
       }
 
-      byLocale[locale].push({
-        slug,
+      copyByLocale[locale] ??= {};
+      copyByLocale[locale][slug] = {
         title: localeData.title,
         description: localeData.description,
-        image: conceptImage(slug),
-        parentSlug: concept.config.parent || null,
-        order: concept.config.order || 0,
-        category: concept.config.category || false,
-        childrenCount: concept.childrenCount,
-        exerciseSlugs: concept.exerciseSlugs,
         contentHash
-      });
+      };
     }
   }
 
-  // Sort each locale's concepts by order for deterministic output
-  for (const conceptList of Object.values(byLocale)) {
-    conceptList.sort((a, b) => a.order - b.order);
+  // Sorted by slug so the bytes depend on the corpus and not on directory order.
+  structure.sort((a, b) => a.slug.localeCompare(b.slug));
+  const structureContent = JSON.stringify(structure);
+  const structureHash = computeHash(structureContent);
+  writeFile(path.join(STATIC_DIR, `structure-${structureHash}.json`), structureContent);
+
+  const copyHashes = {};
+
+  for (const locale of Object.keys(copyByLocale).sort()) {
+    const ordered = {};
+    for (const slug of Object.keys(copyByLocale[locale]).sort()) {
+      ordered[slug] = copyByLocale[locale][slug];
+    }
+    const content = JSON.stringify(ordered);
+    const hash = computeHash(content);
+    copyHashes[locale] = hash;
+    writeFile(path.join(STATIC_DIR, locale, `copy-${hash}.json`), content);
+
+    // A LOCAL pointer for every non-default locale, so `pnpm dev` resolves
+    // translated concepts with no i18n checkout. Excluded from static:upload:
+    // on R2 the i18n repo is the single writer of every non-English pointer.
+    if (locale !== DEFAULT_LOCALE) {
+      writeFile(path.join(STATIC_DIR, locale, "current.json"), `${JSON.stringify({ hash })}\n`);
+    }
   }
 
-  // Write metadata indexes and collect hashes
-  const indexHashes = {};
-
-  for (const [locale, entries] of Object.entries(byLocale)) {
-    const indexContent = JSON.stringify(entries);
-    const indexHash = computeHash(indexContent);
-    indexHashes[locale] = indexHash;
-
-    const indexPath = path.join(STATIC_DIR, locale, `index-${indexHash}.json`);
-    writeFile(indexPath, indexContent);
-  }
-
-  return { indexHashes, byLocale };
+  return { copyHashes, structureHash };
 }
 
 /**
  * Write the TypeScript hash manifest
  */
-function writeHashManifest(indexHashes) {
-  const entries = Object.entries(indexHashes)
+function writeHashManifest(copyHashes, structureHash) {
+  const entries = Object.entries(copyHashes)
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([locale, hash]) => `  ${JSON.stringify(locale)}: ${JSON.stringify(hash)}`)
     .join(",\n");
 
   const content = `// Auto-generated by scripts/generate-concept-cache.js — DO NOT EDIT
-export const conceptIndexHashes: Record<string, string> = {
+//
+// The STRUCTURE hash carries no locale: a concept's place in the tree is the
+// same in every language, so one object serves them all and it ships with the
+// deploy that describes it.
+//
+// Only the default locale's COPY hash is read at runtime; every other locale
+// resolves through its pointer, so a locale the i18n repo publishes after this
+// build still appears in listings.
+export const conceptStructureHash = ${JSON.stringify(structureHash)};
+
+export const conceptCopyHashes: Record<string, string> = {
 ${entries},
 };
 `;
 
   writeFile(path.join(GENERATED_DIR, "concept-hashes.ts"), content);
-}
-
-/**
- * Write the server-side metadata JSON (for SEO), keyed by locale so page
- * `generateMetadata` can localise titles/descriptions with an English fallback.
- * Mirrors the shape of content-meta-server.json (`{ [locale]: [...] }`).
- */
-function writeServerMeta(byLocale) {
-  const serverMeta = {};
-  for (const [locale, entries] of Object.entries(byLocale)) {
-    serverMeta[locale] = entries.map((c) => ({
-      slug: c.slug,
-      title: c.title,
-      description: c.description,
-      image: c.image
-    }));
-  }
-
-  writeFile(path.join(GENERATED_DIR, "concept-meta-server.json"), JSON.stringify(serverMeta, null, 2));
 }
 
 /**
@@ -345,17 +337,14 @@ function generateConceptCache() {
   const concepts = processConcepts();
 
   // Build static files (populates the icon URL cache via conceptImage)
-  const { indexHashes, byLocale } = buildStaticFiles(concepts);
+  const { copyHashes, structureHash } = buildStaticFiles(concepts);
 
   // Write hash manifest
-  writeHashManifest(indexHashes);
+  writeHashManifest(copyHashes, structureHash);
 
   // Write the fingerprinted-icon manifest consumed by ConceptIcon.tsx
   const fallbackUrl = copyHashedIcon("fallback", path.join(ICONS_DIR, "fallback.webp"));
   writeIconManifest(fallbackUrl);
-
-  // Write server-side metadata
-  writeServerMeta(byLocale);
 
   // Count totals
   const conceptCount = Object.keys(concepts).length;
@@ -370,7 +359,7 @@ function generateConceptCache() {
 
   console.log("Concept cache generated successfully:\n");
   console.log(`   Concepts: ${conceptCount}`);
-  console.log(`   Locales: ${Object.keys(indexHashes).join(", ")}`);
+  console.log(`   Locales: ${Object.keys(copyHashes).join(", ")}`);
   console.log(`   Content files: ${contentFileCount}`);
   console.log(`   Output: ${STATIC_DIR}\n`);
 }

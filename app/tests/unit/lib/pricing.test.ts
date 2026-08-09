@@ -74,6 +74,13 @@ describe("formatMonthlyPrice", () => {
     expect(result).not.toContain(".00");
   });
 
+  it("scales a currency Intl reports as zero-decimal but Stripe bills in 1/100ths", () => {
+    // 39900 para -> RSD 399, not RSD 39,900
+    const result = formatMonthlyPrice(prices({ currency: "rsd", monthly: 39900, country_code: "RS" }));
+    expect(result).toContain("399");
+    expect(result).not.toContain("39,900");
+  });
+
   it("accepts a lowercase currency code", () => {
     // 1050 cents -> €10.50
     const result = formatMonthlyPrice(prices({ currency: "eur", monthly: 1050 }));

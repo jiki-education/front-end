@@ -1,6 +1,7 @@
 "use client";
 
 import { useAuthStore } from "@/lib/auth/authStore";
+import { ApiErrorMessage } from "@/lib/api/apiErrors";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -105,7 +106,11 @@ export function ResetPasswordForm() {
         </header>
 
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-          {error && <div className={styles.errorMessage}>{error}</div>}
+          {error != null && (
+            <div className={styles.errorMessage}>
+              <ApiErrorMessage error={error} />
+            </div>
+          )}
 
           {successMessage && (
             <div className={styles.successMessage} style={{ display: "block" }}>

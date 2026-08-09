@@ -11,7 +11,12 @@ export interface ChatRequestPayload {
   history: ChatMessage[];
   nextTaskId?: string;
   locale: string; // Locale segment of the content path the Worker fetches
-  contentHash: string; // Hash for Worker to fetch exercise content from the assets cache tree
+  // Two hashes because the exercise's cached content is two artifacts: prose
+  // (instructions) is named by (slug, locale, proseHash), code (stub/solution)
+  // by (slug, language, codeHash). A consumer that wants the instructions needs
+  // only the first.
+  proseHash: string;
+  codeHash: string;
 }
 
 export interface StreamCallbacks {
@@ -21,11 +26,17 @@ export interface StreamCallbacks {
   onComplete: (fullResponse: string, signature: SignatureData | null) => void;
 }
 
+// `code` is a stable, machine-readable discriminator for client-originated
+// failures (no HTTP status to classify on) so `formatChatError` can map them to
+// a localized `chatError.*` key instead of relaying a hardcoded English message.
+export type ChatApiErrorCode = "no_response_body" | "stream_processing" | "unknown" | "request_failed";
+
 export class ChatApiError extends Error {
   constructor(
     message: string,
     public status?: number,
-    public data?: unknown
+    public data?: unknown,
+    public code?: ChatApiErrorCode
   ) {
     super(message);
     this.name = "ChatApiError";
@@ -52,9 +63,11 @@ export class ChatUsageLimitError extends Error {
 }
 
 // 429 rate_limited: short burst throttle. Transient — the user can try again
-// shortly, but we don't auto-retry (that would just hammer the throttle).
+// shortly, but we don't auto-retry (that would just hammer the throttle). When
+// the proxy supplies user-facing copy it passes through as `message`; otherwise
+// the handler falls back to the localized `chatError.tooManyRequests` key.
 export class ChatRateLimitedError extends Error {
-  constructor(message: string = "Too many requests. Please wait a moment and try again.") {
+  constructor(message: string = "") {
     super(message);
     this.name = "ChatRateLimitedError";
   }
@@ -139,11 +152,18 @@ async function performChatRequest(
         }
       }
 
-      throw new ChatApiError(`HTTP ${response.status}: ${response.statusText}`, response.status, errorData);
+      // Non-user-facing developer message; the user sees a localized key resolved
+      // from `code`/`status` in formatChatError.
+      throw new ChatApiError(
+        `HTTP ${response.status}: ${response.statusText}`,
+        response.status,
+        errorData,
+        "request_failed"
+      );
     }
 
     if (!response.body) {
-      throw new ChatApiError("No response body received");
+      throw new ChatApiError("No response body received", undefined, undefined, "no_response_body");
     }
 
     await handleStreamingResponse(response.body, callbacks);
@@ -157,7 +177,7 @@ async function performChatRequest(
       throw error;
     }
     const message = error instanceof Error ? error.message : "Unknown error";
-    throw new ChatApiError(message);
+    throw new ChatApiError(message, undefined, undefined, "unknown");
   }
 }
 
@@ -245,6 +265,6 @@ async function handleStreamingResponse(body: ReadableStream<Uint8Array>, callbac
   } catch (error) {
     const message = error instanceof Error ? error.message : "Stream processing error";
     callbacks.onError(message);
-    throw new ChatApiError(message);
+    throw new ChatApiError(message, undefined, undefined, "stream_processing");
   }
 }

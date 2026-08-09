@@ -1,6 +1,6 @@
 "use client";
 
-import type { BadgeData } from "@/lib/api/badges";
+import type { BadgeWithCopy } from "@/lib/api/badges";
 import { useDelayedLoading } from "@/lib/hooks/useDelayedLoading";
 import { useTranslations } from "next-intl";
 import { showAvatarEditModal } from "@/lib/modal/app";
@@ -31,7 +31,7 @@ export type UserProfileData = UserProfileWithStreaks | UserProfileWithActiveDays
 
 interface UserProfileProps {
   profile: UserProfileData | null;
-  badges?: BadgeData[];
+  badges?: BadgeWithCopy[];
   onBadgeRevealed?: (badgeId: number) => void;
   loading?: boolean;
   isPremium?: boolean;

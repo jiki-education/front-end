@@ -5,10 +5,11 @@ import { fetchUserCourse } from "@/lib/api/courses";
 import { ApiError } from "@/lib/api/client";
 import { fetchLesson, startLesson } from "@/lib/api/lessons";
 import type { UserCourse } from "@/types/course";
-import type { LessonWithData } from "@/types/lesson";
+import type { Lesson } from "@/types/lesson";
 import type { LastSubmissionData } from "@/lib/api/types/conversation";
 import { useCallback, useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { fetchCurriculumCopy, resolveCopy, type CurriculumCopy } from "@/lib/api/curriculum-copy";
 import LessonContent from "./LessonContent";
 import LessonError from "./LessonError";
 
@@ -18,7 +19,9 @@ interface LessonProps {
 
 export default function Lesson({ slug }: LessonProps) {
   const t = useTranslations("lesson");
-  const [lesson, setLesson] = useState<LessonWithData | null>(null);
+  const locale = useLocale();
+  const [lesson, setLesson] = useState<Lesson | null>(null);
+  const [copy, setCopy] = useState<CurriculumCopy | null>(null);
   const [userCourse, setUserCourse] = useState<UserCourse | null>(null);
   const [isCompleted, setIsCompleted] = useState(false);
   const [serverSubmission, setServerSubmission] = useState<LastSubmissionData | null>(null);
@@ -28,12 +31,13 @@ export default function Lesson({ slug }: LessonProps) {
 
   const handleReady = useCallback(() => setInnerReady(true), []);
 
-  // Update document title when lesson loads
+  // Update document title when lesson loads. Waits for the resolved copy so the
+  // tab never briefly shows the raw slug.
   useEffect(() => {
-    if (lesson) {
-      document.title = t("documentTitle", { title: lesson.title });
+    if (copy) {
+      document.title = t("documentTitle", { title: copy.title });
     }
-  }, [lesson, t]);
+  }, [copy, t]);
 
   // Load lesson and user course on mount
   useEffect(() => {
@@ -46,16 +50,18 @@ export default function Lesson({ slug }: LessonProps) {
         // or existing), so a single request guarantees the row exists for every
         // entry path into the page (direct link, bookmark, new tab, dashboard)
         // and gives us its status — no read-404-start-reread dance.
-        const [lessonData, userCourseData, userLesson] = await Promise.all([
+        const [lessonData, userCourseData, userLesson, catalog] = await Promise.all([
           fetchLesson(slug),
           fetchUserCourse(),
-          startLesson(slug)
+          startLesson(slug),
+          fetchCurriculumCopy(locale)
         ]);
         if (cancelled) {
           return;
         }
 
         setLesson(lessonData);
+        setCopy(resolveCopy(catalog, slug));
         setUserCourse(userCourseData);
         setIsCompleted(userLesson.status === "completed");
         setServerSubmission(userLesson.data?.last_submission ?? null);
@@ -88,7 +94,7 @@ export default function Lesson({ slug }: LessonProps) {
     return () => {
       cancelled = true;
     };
-  }, [slug, t]);
+  }, [slug, t, locale]);
 
   if (error) {
     return <LessonError error={error} />;
@@ -105,6 +111,7 @@ export default function Lesson({ slug }: LessonProps) {
       {lesson && (
         <LessonContent
           lesson={lesson}
+          lessonTitle={copy?.title ?? ""}
           userCourse={userCourse}
           isCompleted={isCompleted}
           serverSubmission={serverSubmission}

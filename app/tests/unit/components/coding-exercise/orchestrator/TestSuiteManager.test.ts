@@ -2,6 +2,7 @@ import { TestSuiteManager } from "@/components/coding-exercise/lib/orchestrator/
 import type { ExerciseContext } from "@/components/coding-exercise/lib/types";
 import { ApiError, AuthenticationError, NetworkError, RateLimitError } from "@/lib/api/client";
 import { createMockExercise, createMockOrchestratorStore } from "@/tests/mocks";
+import { makeTestTranslator } from "@/tests/test-utils/makeTestTranslator";
 
 jest.mock("@/components/coding-exercise/lib/test-runner/runTests", () => ({
   runTests: jest.fn()
@@ -40,7 +41,7 @@ describe("TestSuiteManager", () => {
       currentTest: null,
       language: "javascript"
     });
-    return new TestSuiteManager(mockStore, {}, {}, undefined, context);
+    return new TestSuiteManager(mockStore, {}, {}, makeTestTranslator(), undefined, context);
   }
 
   beforeEach(() => {
@@ -53,7 +54,7 @@ describe("TestSuiteManager", () => {
 
   describe("runCode submission", () => {
     it("submits to the lesson endpoint when context is a lesson", async () => {
-      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+      const manager = buildManager({ type: "lesson", slug: "maze-solve-basic" });
 
       const { submitLessonExercise } = await import("@/lib/api/lessons");
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
@@ -62,11 +63,13 @@ describe("TestSuiteManager", () => {
       await manager.runCode(mockCode, mockExercise);
       await flushMicrotasks();
 
-      expect(submitLessonExercise).toHaveBeenCalledWith("solve-a-maze", [{ filename: "solution.js", code: mockCode }]);
+      expect(submitLessonExercise).toHaveBeenCalledWith("maze-solve-basic", [
+        { filename: "solution.js", code: mockCode }
+      ]);
     });
 
     it("submits to the challenge endpoint when context is a challenge", async () => {
-      const manager = buildManager({ type: "challenge", slug: "build-a-blog" });
+      const manager = buildManager({ type: "challenge", slug: "structured-house" });
 
       const { submitChallengeExercise } = await import("@/lib/api/challenges");
       const { submitLessonExercise } = await import("@/lib/api/lessons");
@@ -76,7 +79,7 @@ describe("TestSuiteManager", () => {
       await manager.runCode(mockCode, mockExercise);
       await flushMicrotasks();
 
-      expect(submitChallengeExercise).toHaveBeenCalledWith("build-a-blog", [
+      expect(submitChallengeExercise).toHaveBeenCalledWith("structured-house", [
         { filename: "solution.js", code: mockCode }
       ]);
       expect(submitLessonExercise).not.toHaveBeenCalled();
@@ -98,18 +101,18 @@ describe("TestSuiteManager", () => {
     });
 
     it("runs tests with the language regardless of submission state", async () => {
-      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+      const manager = buildManager({ type: "lesson", slug: "maze-solve-basic" });
 
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
       (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
 
       await manager.runCode(mockCode, mockExercise);
 
-      expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise, "javascript", {}, {});
+      expect(runTests).toHaveBeenCalledWith(mockCode, mockExercise, "javascript", {}, {}, expect.any(Function));
     });
 
     it("does not block test execution when submission fails", async () => {
-      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+      const manager = buildManager({ type: "lesson", slug: "maze-solve-basic" });
 
       const { submitLessonExercise } = await import("@/lib/api/lessons");
       (submitLessonExercise as jest.Mock).mockRejectedValueOnce(new NetworkError("offline"));
@@ -124,7 +127,7 @@ describe("TestSuiteManager", () => {
 
   describe("submission error handling", () => {
     it("toasts on a generic ApiError (e.g. 500)", async () => {
-      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+      const manager = buildManager({ type: "lesson", slug: "maze-solve-basic" });
 
       const { submitLessonExercise } = await import("@/lib/api/lessons");
       (submitLessonExercise as jest.Mock).mockRejectedValueOnce(new ApiError(500, "Internal Server Error"));
@@ -144,7 +147,7 @@ describe("TestSuiteManager", () => {
     });
 
     it("does not toast on NetworkError (handled globally)", async () => {
-      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+      const manager = buildManager({ type: "lesson", slug: "maze-solve-basic" });
 
       const { submitLessonExercise } = await import("@/lib/api/lessons");
       (submitLessonExercise as jest.Mock).mockRejectedValueOnce(new NetworkError("offline"));
@@ -166,7 +169,7 @@ describe("TestSuiteManager", () => {
       const { toastError } = await import("@/lib/toast");
 
       for (const error of [new AuthenticationError("Unauthorized"), new RateLimitError("Too Many Requests", 1)]) {
-        const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+        const manager = buildManager({ type: "lesson", slug: "maze-solve-basic" });
         (submitLessonExercise as jest.Mock).mockRejectedValueOnce(error);
         (runTests as jest.Mock).mockReturnValue({ tests: [], passed: true });
 
@@ -180,7 +183,7 @@ describe("TestSuiteManager", () => {
 
   describe("runCode error handling", () => {
     it("handles syntax errors correctly", async () => {
-      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+      const manager = buildManager({ type: "lesson", slug: "maze-solve-basic" });
 
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
       const syntaxError = {
@@ -209,7 +212,7 @@ describe("TestSuiteManager", () => {
     });
 
     it("clears the underline range at the start of every run", async () => {
-      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+      const manager = buildManager({ type: "lesson", slug: "maze-solve-basic" });
 
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
       (runTests as jest.Mock).mockResolvedValue({ tests: [], status: "pass" });
@@ -220,7 +223,7 @@ describe("TestSuiteManager", () => {
     });
 
     it("rethrows non-syntax errors in test/dev so they surface in the overlay", async () => {
-      const manager = buildManager({ type: "lesson", slug: "solve-a-maze" });
+      const manager = buildManager({ type: "lesson", slug: "maze-solve-basic" });
 
       const { runTests } = await import("@/components/coding-exercise/lib/test-runner/runTests");
       (runTests as jest.Mock).mockImplementation(() => {

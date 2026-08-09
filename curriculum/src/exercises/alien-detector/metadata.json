@@ -1,6 +1,6 @@
 {
   "slug": "alien-detector",
-  "levelId": "lists",
+  "levelId": "arrays",
   "hints": [
     {
       "question": "hints.knowWhereAliens.question",

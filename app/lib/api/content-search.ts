@@ -1,7 +1,8 @@
 import lunr from "lunr";
 import { contentIndexHashes } from "@/lib/generated/content-hashes";
 import { assetsUrl } from "@/lib/assets";
-import { searchIndexPath } from "@/lib/assets-paths";
+import { searchIndexPath, searchIndexPointerPath } from "@/lib/assets-paths";
+import { createHashResolver } from "@/lib/i18n/catalogPointer";
 import type { SearchIndexData } from "@/lib/content/types";
 
 // A locale with no search index resolves to an empty (but valid) lunr index
@@ -17,9 +18,22 @@ function emptySearchIndex(): SearchIndexData {
   return { index: idx.toJSON(), items: [] };
 }
 
+// The scope here is the content TYPE (articles or guides), so one resolver
+// serves both: English from the compiled manifest, every other locale from its
+// pointer, so a search index published by the i18n repo goes live with no
+// front-end rebuild.
+const resolveHash = createHashResolver({
+  label: "search index",
+  compiledHashes: (type) => contentIndexHashes.search[type as "articles" | "guides"],
+  pointerPath: (locale, type) => searchIndexPointerPath(type as "articles" | "guides", locale),
+  resolveUrl: assetsUrl
+});
+
 async function fetchSearchIndex(type: "articles" | "guides", locale: string): Promise<SearchIndexData> {
-  const hash = contentIndexHashes.search[type][locale];
-  if (!hash) {
+  let hash: string;
+  try {
+    hash = await resolveHash(locale, type);
+  } catch {
     return emptySearchIndex();
   }
 

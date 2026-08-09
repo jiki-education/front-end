@@ -4,17 +4,18 @@
  * i18n translation-key audit for the app (next-intl).
  *
  * Verifies that every translation key referenced in the code has a matching
- * entry in the message dictionary (`app/messages/<locale>.json`) for EVERY
- * production locale — not just English. Production ships English only today, but
- * this script re-checks the whole production set defined by SUPPORTED_LOCALES in
- * `app/lib/locales.ts`, so the day hu (or any locale) goes live, a key missing
- * from that locale's dict is a hard failure exactly like a missing en key.
+ * entry in the message dictionary, `app/messages.json`.
+ *
+ * That is one file and not one per locale because the app authors English and
+ * nothing else: every translation of this catalog lives in the i18n repo, which
+ * publishes it straight to R2 and runs its own key-parity guard against this file
+ * as the original. A locale going live therefore cannot introduce a missing key
+ * here, and there is no locale set for this script to resolve.
  *
  * Usage:
- *   node scripts/audit-i18n-keys.mjs                # production locales
- *   node scripts/audit-i18n-keys.mjs --locales=en,hu   # dev override
+ *   node scripts/audit-i18n-keys.mjs
  *
- * Exit code: non-zero if any referenced key is missing from any checked locale.
+ * Exit code: non-zero if any referenced key is missing.
  *
  * How key references are found (next-intl conventions):
  *   - `const t = useTranslations("namespace")` / `= await getTranslations("ns")`
@@ -45,12 +46,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-// Shared monorepo locale resolver (production SUPPORTED_LOCALES + --locales override).
-import { resolveAuditLocales } from "../../scripts/i18n-locales.mjs";
-
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const APP_DIR = path.join(__dirname, "..");
-const MESSAGES_DIR = path.join(APP_DIR, "messages");
+const MESSAGES_FILE = path.join(APP_DIR, "messages.json");
 
 // Directories scanned for key references.
 const SCAN_DIRS = ["app", "components", "lib", "hooks"].map((d) => path.join(APP_DIR, d));
@@ -61,13 +59,12 @@ const IGNORE_DIRS = new Set(["node_modules", ".next", "dist", "coverage", ".open
 // Message dictionary helpers
 // ---------------------------------------------------------------------------
 
-/** Load a locale dict, returning the parsed object (or null if absent). */
-function loadDict(locale) {
-  const file = path.join(MESSAGES_DIR, `${locale}.json`);
-  if (!fs.existsSync(file)) {
+/** Load the message dictionary, returning the parsed object (or null if absent). */
+function loadDict() {
+  if (!fs.existsSync(MESSAGES_FILE)) {
     return null;
   }
-  return JSON.parse(fs.readFileSync(file, "utf8"));
+  return JSON.parse(fs.readFileSync(MESSAGES_FILE, "utf8"));
 }
 
 /**
@@ -309,12 +306,7 @@ function scanToastCalls(file, refs, dynamics) {
 // ---------------------------------------------------------------------------
 
 function main() {
-  const argv = process.argv.slice(2);
-  const locales = resolveAuditLocales(argv);
-  const usedOverride = argv.some((a) => a === "--locales" || a.startsWith("--locales="));
-
-  console.log(`i18n key audit — ${usedOverride ? "override" : "production"} locales: ${locales.join(", ")}`);
-  console.log(`Dicts: app/messages/<locale>.json  (next-intl)\n`);
+  console.log(`i18n key audit — app/messages.json  (next-intl)\n`);
 
   // Gather references from source.
   const refs = new Map(); // fullKey -> Set<where>
@@ -335,50 +327,37 @@ function main() {
   console.log(`Dynamic / unverifiable references:  ${dynamics.length}`);
   console.log(`Existence probes (t.has, not required): ${hasProbes.size}\n`);
 
-  // Load dicts and their path sets.
-  const dictPaths = new Map(); // locale -> Set<path>
-  for (const locale of locales) {
-    const dict = loadDict(locale);
-    if (!dict) {
-      console.error(`✗ ${locale}: messages/${locale}.json NOT FOUND — cannot audit this locale.`);
-      dictPaths.set(locale, null);
-      continue;
-    }
-    dictPaths.set(locale, collectPaths(dict, "", new Set()));
-  }
+  // Load the dictionary and its path set.
+  const baseDict = loadDict();
+  const dictPathSet = baseDict ? collectPaths(baseDict, "", new Set()) : null;
 
-  // ---- MISSING KEYS (per production locale) ----
+  // ---- MISSING KEYS ----
   let anyMissing = false;
   const sortedRefs = [...refs.keys()].sort();
 
-  for (const locale of locales) {
-    const paths = dictPaths.get(locale);
-    if (paths === null) {
-      anyMissing = true;
-      continue; // dict file itself missing — already reported above.
-    }
-    const missing = sortedRefs.filter((k) => !paths.has(k));
-    if (missing.length === 0) {
-      console.log(`✓ ${locale}: 0 missing keys (${sortedRefs.length} referenced keys all present)`);
-      continue;
-    }
+  if (dictPathSet === null) {
+    console.error(`✗ app/messages.json NOT FOUND — cannot audit.`);
     anyMissing = true;
-    console.log(`✗ ${locale}: ${missing.length} MISSING key(s) — should be added to messages/${locale}.json:`);
-    for (const key of missing) {
-      const wheres = [...refs.get(key)].sort();
-      console.log(`    ${key}`);
-      console.log(
-        `        referenced by: ${wheres.slice(0, 5).join(", ")}${wheres.length > 5 ? `, +${wheres.length - 5} more` : ""}`
-      );
+  } else {
+    const missing = sortedRefs.filter((k) => !dictPathSet.has(k));
+    if (missing.length === 0) {
+      console.log(`✓ 0 missing keys (${sortedRefs.length} referenced keys all present)`);
+    } else {
+      anyMissing = true;
+      console.log(`✗ ${missing.length} MISSING key(s) — should be added to messages.json:`);
+      for (const key of missing) {
+        const wheres = [...refs.get(key)].sort();
+        console.log(`    ${key}`);
+        console.log(
+          `        referenced by: ${wheres.slice(0, 5).join(", ")}${wheres.length > 5 ? `, +${wheres.length - 5} more` : ""}`
+        );
+      }
     }
   }
 
-  // ---- UNUSED KEYS (lower priority; against baseline en if present, else first locale) ----
-  const baseline = locales.includes("en") ? "en" : locales[0];
-  const basePaths = dictPaths.get(baseline);
-  if (basePaths) {
+  // ---- UNUSED KEYS (lower priority) ----
+  if (dictPathSet) {
     // Leaf keys only: a node whose children are all used is naturally "used".
-    const baseDict = loadDict(baseline);
     const leaves = new Set();
     (function leafWalk(o, p) {
       for (const [k, v] of Object.entries(o)) {
@@ -401,9 +380,7 @@ function main() {
       // descendant of a referenced namespace key?
       return !referencedPrefixes.some((r) => leaf === r || leaf.startsWith(`${r}.`));
     });
-    console.log(
-      `\nUnused leaf keys in ${baseline} (lower priority — may be referenced dynamically or dead): ${unused.length}`
-    );
+    console.log(`\nUnused leaf keys (lower priority — may be referenced dynamically or dead): ${unused.length}`);
     for (const k of unused.slice(0, 40).sort()) {
       console.log(`    ${k}`);
     }
@@ -433,10 +410,10 @@ function main() {
 
   console.log("");
   if (anyMissing) {
-    console.log("RESULT: FAIL — missing keys above must be added before those locales ship.");
+    console.log("RESULT: FAIL — missing keys above must be added to messages.json.");
     process.exit(1);
   }
-  console.log("RESULT: PASS — every statically-resolved key is present in all checked locales.");
+  console.log("RESULT: PASS — every statically-resolved key is present in messages.json.");
 }
 
 main();

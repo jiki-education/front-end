@@ -9,8 +9,8 @@ import { UserProfile } from "@/components/dashboard/challenges-sidebar/ui/UserPr
 import { UserProfileSkeleton } from "@/components/dashboard/challenges-sidebar/ui/UserProfileSkeleton";
 import styles from "@/components/dashboard/challenges-sidebar/ChallengesSidebar.module.css";
 import pageStyles from "./page.module.css";
-import type { BadgeData } from "@/lib/api/badges";
-import type { ChallengeData } from "@/lib/api/challenges";
+import type { BadgeWithCopy } from "@/lib/api/badges";
+import type { ChallengeWithCopy } from "@/lib/api/challenges";
 import { useState } from "react";
 
 type StateId =
@@ -37,54 +37,66 @@ const mockProfile: UserProfileData = {
   currentStreak: 7
 };
 
-const mockBadges: BadgeData[] = [
+const mockBadges: BadgeWithCopy[] = [
   {
     id: 1,
-    name: "First Steps",
     slug: "first-steps",
+    name: "First Steps",
     description: "Completed first exercise",
-    fun_fact: "",
+    funFact: "",
     state: "revealed",
-    num_awardees: 1000,
     unlocked_at: "2024-01-01"
   },
   {
     id: 2,
-    name: "Streak Starter",
     slug: "streak-starter",
+    name: "Streak Starter",
     description: "3-day streak",
-    fun_fact: "",
+    funFact: "",
     state: "revealed",
-    num_awardees: 500,
     unlocked_at: "2024-01-05"
   },
   {
     id: 3,
-    name: "Curious Mind",
     slug: "curious-mind",
+    name: "Curious Mind",
     description: "Explored 5 concepts",
-    fun_fact: "",
-    state: "unrevealed",
-    num_awardees: 300
+    funFact: "",
+    state: "unrevealed"
   }
 ];
 
-const mockChallenges1: ChallengeData[] = [
-  { slug: "snake", title: "Snake", description: "Build the classic Snake game", status: "started" },
-  { slug: "calculator", title: "Calculator", description: "Build a calculator app", status: "locked" },
-  { slug: "todo-list", title: "Todo List", description: "Build a todo list app", status: "locked" }
+const mockChallenges1: ChallengeWithCopy[] = [
+  {
+    slug: "structured-house",
+    title: "Structured House",
+    description: "Drive a whole house drawing from two size anchors.",
+    status: "started"
+  },
+  { slug: "checkerboard", title: "Checkerboard", description: "Draw a checkerboard of any size.", status: "locked" },
+  { slug: "acronym", title: "Acronym", description: "Turn a phrase into its acronym.", status: "locked" }
 ];
 
-const mockChallenges2: ChallengeData[] = [
-  { slug: "snake", title: "Snake", description: "Build the classic Snake game", status: "started" },
-  { slug: "calculator", title: "Calculator", description: "Build a calculator app", status: "unlocked" },
-  { slug: "todo-list", title: "Todo List", description: "Build a todo list app", status: "locked" }
+const mockChallenges2: ChallengeWithCopy[] = [
+  {
+    slug: "structured-house",
+    title: "Structured House",
+    description: "Drive a whole house drawing from two size anchors.",
+    status: "started"
+  },
+  { slug: "checkerboard", title: "Checkerboard", description: "Draw a checkerboard of any size.", status: "unlocked" },
+  { slug: "acronym", title: "Acronym", description: "Turn a phrase into its acronym.", status: "locked" }
 ];
 
-const mockChallenges3: ChallengeData[] = [
-  { slug: "snake", title: "Snake", description: "Build the classic Snake game", status: "started" },
-  { slug: "calculator", title: "Calculator", description: "Build a calculator app", status: "unlocked" },
-  { slug: "todo-list", title: "Todo List", description: "Build a todo list app", status: "started" }
+const mockChallenges3: ChallengeWithCopy[] = [
+  {
+    slug: "structured-house",
+    title: "Structured House",
+    description: "Drive a whole house drawing from two size anchors.",
+    status: "started"
+  },
+  { slug: "checkerboard", title: "Checkerboard", description: "Draw a checkerboard of any size.", status: "unlocked" },
+  { slug: "acronym", title: "Acronym", description: "Turn a phrase into its acronym.", status: "started" }
 ];
 
 export default function ChallengesSidebarDevPage() {

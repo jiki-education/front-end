@@ -14,14 +14,14 @@ interface GuideDetailContentProps {
   guide: ProcessedGuide;
   relatedGuides?: GuideMeta[];
   featuredInEpisodes?: FeaturedInEpisode[];
-  locale?: string;
+  locale: string;
 }
 
 export default function GuideDetailContent({
   guide,
   relatedGuides = [],
   featuredInEpisodes = [],
-  locale = "en"
+  locale
 }: GuideDetailContentProps) {
   // Premium guides render through the gate (teaser + upgrade CTA for non-premium
   // viewers); free guides render in full for everyone.

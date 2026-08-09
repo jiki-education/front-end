@@ -70,12 +70,25 @@ export function shouldShowSpotlight(
 }
 
 // Factory function to create an instance-specific store
-export function createOrchestratorStore(
-  exercise: ExerciseDefinition,
-  language: Language,
-  context: ExerciseContext,
-  onGoToDashboard?: () => void
-): StoreApi<OrchestratorStore> {
+export interface OrchestratorStoreInit {
+  exercise: ExerciseDefinition;
+  language: Language;
+  context: ExerciseContext;
+  onGoToDashboard?: () => void;
+  // Seeded rather than set a tick later. Defaulted here (unlike OrchestratorInit,
+  // which requires them) so store-level tests can build a store without caring.
+  levelTitle?: string;
+  isCompleted?: boolean;
+}
+
+export function createOrchestratorStore({
+  exercise,
+  language,
+  context,
+  onGoToDashboard,
+  levelTitle = "",
+  isCompleted = false
+}: OrchestratorStoreInit): StoreApi<OrchestratorStore> {
   return createStore<OrchestratorStore>()(
     subscribeWithSelector((set, get) => {
       const showCompletionModalIfReady = () => {
@@ -133,6 +146,7 @@ export function createOrchestratorStore(
         exerciseSlug: exercise.slug,
         context,
         exerciseTitle: exercise.title,
+        levelTitle,
         code: exercise.stubs[language],
         output: "",
         status: "idle",
@@ -141,7 +155,7 @@ export function createOrchestratorStore(
         currentTestIdx: 0,
         hasCodeBeenEdited: false,
         isSpotlightActive: false,
-        isExerciseCompleted: false,
+        isExerciseCompleted: isCompleted,
         completionResponse: [],
         foldedLines: [],
         language: language,
@@ -396,15 +410,24 @@ export function createOrchestratorStore(
           const infoWidgetHtml = processMessageContent(rawContent);
 
           // Runtime error frames highlight the line in red (cm-highlightedLine--error);
-          // success frames use the default info styling. Unlike syntax errors, runtime
-          // error frames do NOT underline a specific location.
+          // success frames use the default info styling. Error frames also underline the
+          // exact span the error points at (e.g. the offending function call in a
+          // comparison), matching how syntax errors are surfaced. Absolute offsets are
+          // 1-based in the interpreter, so we shift to CodeMirror's 0-based positions.
           const isError = frame.status === "ERROR";
+          const errorLocation = isError ? frame.error?.location : undefined;
+          const underlineRange = errorLocation
+            ? {
+                from: Math.max(0, errorLocation.absolute.begin - 1),
+                to: Math.max(0, errorLocation.absolute.end - 1)
+              }
+            : undefined;
 
           set({
             currentFrame: frame,
             highlightedLine: frame.line,
             highlightedLineColor: isError ? ERROR_HIGHLIGHT_COLOR : INFO_HIGHLIGHT_COLOR,
-            underlineRange: undefined,
+            underlineRange,
             // Update information widget data whenever frame changes
             informationWidgetData: {
               html: infoWidgetHtml,
@@ -681,6 +704,7 @@ export function useOrchestratorStore(orchestrator: { getStore: () => StoreApi<Or
       exerciseSlug: state.exerciseSlug,
       context: state.context,
       exerciseTitle: state.exerciseTitle,
+      levelTitle: state.levelTitle,
       code: state.code,
       output: state.output,
       status: state.status,

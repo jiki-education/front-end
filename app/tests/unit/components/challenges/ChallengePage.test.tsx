@@ -9,6 +9,20 @@ jest.mock("next/navigation", () => ({
   useRouter: jest.fn()
 }));
 
+// The page resolves display copy from the curriculum catalog during its load
+// phase, so supply one here rather than letting the fallback silently stand in.
+jest.mock("@/lib/api/curriculum-copy", () => {
+  const actual = jest.requireActual("@/lib/api/curriculum-copy");
+  return {
+    ...actual,
+    fetchCurriculumCopy: jest.fn().mockResolvedValue({
+      "structured-house": { title: "Structured House", description: "Position every piece with variables." },
+      checkerboard: { title: "Checkerboard", description: "Draw a checkerboard of any size." },
+      "rainbow-ball": { title: "Rainbow Ball", description: "Bounce a colour-shifting ball." }
+    })
+  };
+});
+
 jest.mock("@/lib/api/challenges", () => ({
   fetchChallenge: jest.fn(),
   fetchUserChallenge: jest.fn(),
@@ -20,10 +34,10 @@ jest.mock("@/lib/api/courses", () => ({
 }));
 
 jest.mock("@/components/coding-exercise/CodingExercise", () => {
-  return function MockCodingExercise({ exerciseSlug, context, isCompleted, serverSubmission }: any) {
+  return function MockCodingExercise({ context, isCompleted, serverSubmission }: any) {
     return (
       <div data-testid="coding-exercise">
-        Exercise: {exerciseSlug}, Context: {context.type}/{context.slug}, Completed: {String(isCompleted)}, Submission:{" "}
+        Exercise: {context.slug}, Context: {context.type}/{context.slug}, Completed: {String(isCompleted)}, Submission:{" "}
         {serverSubmission ? "yes" : "no"}
       </div>
     );
@@ -64,34 +78,31 @@ describe("Challenge", () => {
 
   it("renders the coding exercise for an unlocked challenge", async () => {
     mockFetchChallenge.mockResolvedValue({
-      slug: "test-challenge",
-      title: "Test Challenge",
-      description: "A test challenge",
-      exercise_slug: "test-exercise"
+      slug: "structured-house"
     });
     mockFetchUserChallenge.mockResolvedValue({
-      challenge_slug: "test-challenge",
+      challenge_slug: "structured-house",
       status: "started",
       conversation: [],
       conversation_allowed: true
     });
 
-    render(<Challenge slug="test-challenge" />);
+    render(<Challenge slug="structured-house" />);
 
     await waitFor(() => {
       expect(screen.getByTestId("coding-exercise")).toBeInTheDocument();
     });
 
     expect(screen.getByTestId("coding-exercise")).toHaveTextContent(
-      "Exercise: test-exercise, Context: challenge/test-challenge, Completed: false, Submission: no"
+      "Exercise: structured-house, Context: challenge/structured-house, Completed: false, Submission: no"
     );
-    expect(mockStartChallenge).toHaveBeenCalledWith("test-challenge");
+    expect(mockStartChallenge).toHaveBeenCalledWith("structured-house");
   });
 
   it("shows the locked screen when /start rejects with challenge_locked", async () => {
     mockStartChallenge.mockRejectedValue(new ApiError(403, "Forbidden", { error: { type: "challenge_locked" } }));
 
-    render(<Challenge slug="locked-challenge" />);
+    render(<Challenge slug="acronym" />);
 
     await waitFor(() => {
       expect(screen.getByText("Challenge Locked")).toBeInTheDocument();
@@ -124,13 +135,13 @@ describe("Challenge", () => {
   it("shows the error screen when challenge content fails to load", async () => {
     mockFetchChallenge.mockRejectedValue(new Error("Boom"));
     mockFetchUserChallenge.mockResolvedValue({
-      challenge_slug: "test-challenge",
+      challenge_slug: "structured-house",
       status: "started",
       conversation: [],
       conversation_allowed: true
     });
 
-    render(<Challenge slug="test-challenge" />);
+    render(<Challenge slug="structured-house" />);
 
     await waitFor(() => {
       expect(screen.getByText("Error: Boom")).toBeInTheDocument();
@@ -139,15 +150,13 @@ describe("Challenge", () => {
 
   it("treats a missing user_challenge record as a fresh, not-started challenge", async () => {
     mockFetchChallenge.mockResolvedValue({
-      slug: "fresh-challenge",
-      title: "Fresh Challenge",
-      description: "Never started"
+      slug: "rainbow-ball"
     });
     mockFetchUserChallenge.mockRejectedValue(
       new NotFoundError("Not Found", { error: { type: "user_challenge_not_found" } })
     );
 
-    render(<Challenge slug="fresh-challenge" />);
+    render(<Challenge slug="rainbow-ball" />);
 
     await waitFor(() => {
       expect(screen.getByTestId("coding-exercise")).toBeInTheDocument();
@@ -155,19 +164,16 @@ describe("Challenge", () => {
 
     // Falls back to the challenge slug as the exercise slug, not completed, no submission.
     expect(screen.getByTestId("coding-exercise")).toHaveTextContent(
-      "Exercise: fresh-challenge, Context: challenge/fresh-challenge, Completed: false, Submission: no"
+      "Exercise: rainbow-ball, Context: challenge/rainbow-ball, Completed: false, Submission: no"
     );
   });
 
   it("passes isCompleted and serverSubmission through for a completed challenge", async () => {
     mockFetchChallenge.mockResolvedValue({
-      slug: "done-challenge",
-      title: "Done Challenge",
-      description: "Completed",
-      exercise_slug: "done-exercise"
+      slug: "checkerboard"
     });
     mockFetchUserChallenge.mockResolvedValue({
-      challenge_slug: "done-challenge",
+      challenge_slug: "checkerboard",
       status: "completed",
       conversation: [],
       conversation_allowed: true,
@@ -178,14 +184,14 @@ describe("Challenge", () => {
       }
     });
 
-    render(<Challenge slug="done-challenge" />);
+    render(<Challenge slug="checkerboard" />);
 
     await waitFor(() => {
       expect(screen.getByTestId("coding-exercise")).toBeInTheDocument();
     });
 
     expect(screen.getByTestId("coding-exercise")).toHaveTextContent(
-      "Exercise: done-exercise, Context: challenge/done-challenge, Completed: true, Submission: yes"
+      "Exercise: checkerboard, Context: challenge/checkerboard, Completed: true, Submission: yes"
     );
   });
 });

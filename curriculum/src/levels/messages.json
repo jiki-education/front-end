@@ -1,0 +1,62 @@
+{
+  "using-functions": {
+    "title": "Using Functions"
+  },
+  "strings-and-colors": {
+    "title": "Strings and Colors"
+  },
+  "repeat-loop": {
+    "title": "Repeat Loop"
+  },
+  "variables": {
+    "title": "Variables"
+  },
+  "basic-state": {
+    "title": "Basic State"
+  },
+  "functions-that-return-things": {
+    "title": "Functions That Return Things"
+  },
+  "conditionals": {
+    "title": "Conditionals"
+  },
+  "complex-conditionals": {
+    "title": "Complex Conditionals"
+  },
+  "conditionals-and-state": {
+    "title": "Conditionals and State"
+  },
+  "make-your-own-functions": {
+    "title": "Make Your Own Functions"
+  },
+  "string-manipulation": {
+    "title": "String Manipulation"
+  },
+  "string-iteration": {
+    "title": "String Iteration"
+  },
+  "multiple-functions": {
+    "title": "Using Multiple Functions Together"
+  },
+  "methods-and-properties": {
+    "title": "Methods and Properties"
+  },
+  "advanced-loops": {
+    "title": "Advanced Loops"
+  },
+  "arrays": {
+    "title": "Arrays"
+  },
+  "building-arrays": {
+    "title": "Building Arrays"
+  },
+  "dictionaries": {
+    "title": "Dictionaries"
+  },
+  "changing-dictionaries": {
+    "title": "Changing Dictionaries"
+  },
+  "everything": {
+    "title": "Everything"
+  }
+}

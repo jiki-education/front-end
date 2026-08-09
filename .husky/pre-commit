@@ -1,5 +1,19 @@
 #!/bin/sh
 
+# Anchor on the repo root explicitly. Git runs hooks from the top of the work
+# tree, but it exports GIT_DIR without exporting GIT_WORK_TREE, so once we cd
+# into a package git would otherwise treat *that* directory as the repo root
+# (see scripts/pre-commit-lib.sh). Every package hook is entered in a subshell
+# so the current directory can never drift between steps.
+REPO_ROOT="$(pwd)"
+
+# Open one transaction for the whole run. Package hooks may reformat and
+# auto-fix files, but nothing reaches the index until every package has passed.
+# If any of them fails, the rewrites are undone on the way out and the index is
+# left exactly as it was found.
+. "$REPO_ROOT/scripts/pre-commit-lib.sh"
+pc_session_begin "$REPO_ROOT" || exit 1
+
 echo "🔍 Detecting changed packages..."
 
 # Get all staged files
@@ -13,17 +27,13 @@ CONTENT_CHANGED=false
 LLM_CHAT_PROXY_CHANGED=false
 
 for file in $STAGED_FILES; do
-  if echo "$file" | grep -q "^app/"; then
-    APP_CHANGED=true
-  elif echo "$file" | grep -q "^curriculum/"; then
-    CURRICULUM_CHANGED=true
-  elif echo "$file" | grep -q "^interpreters/"; then
-    INTERPRETERS_CHANGED=true
-  elif echo "$file" | grep -q "^content/"; then
-    CONTENT_CHANGED=true
-  elif echo "$file" | grep -q "^llm-chat-proxy/"; then
-    LLM_CHAT_PROXY_CHANGED=true
-  fi
+  case "$file" in
+    app/*) APP_CHANGED=true ;;
+    curriculum/*) CURRICULUM_CHANGED=true ;;
+    interpreters/*) INTERPRETERS_CHANGED=true ;;
+    content/*) CONTENT_CHANGED=true ;;
+    llm-chat-proxy/*) LLM_CHAT_PROXY_CHANGED=true ;;
+  esac
 done
 
 # Build all packages in dependency order (always runs to ensure everything is available)
@@ -31,20 +41,16 @@ echo "\n🔨 Building packages in dependency order..."
 FAILED=false
 
 echo "Building interpreters..."
-cd interpreters && pnpm run build
-if [ $? -ne 0 ]; then
+if ! (cd "$REPO_ROOT/interpreters" && pnpm run build); then
   echo "❌ Failed to build interpreters"
   FAILED=true
 fi
-cd ..
 
 echo "Building curriculum..."
-cd curriculum && pnpm run build
-if [ $? -ne 0 ]; then
+if ! (cd "$REPO_ROOT/curriculum" && pnpm run build); then
   echo "❌ Failed to build curriculum"
   FAILED=true
 fi
-cd ..
 
 if [ "$FAILED" = true ]; then
   echo "\n❌ Build failed in one or more packages"
@@ -57,53 +63,50 @@ echo "✅ All packages built successfully\n"
 
 if [ "$APP_CHANGED" = true ]; then
   echo "\n📦 Running app pre-commit checks..."
-  cd app && ./scripts/pre-commit
-  if [ $? -ne 0 ]; then
+  if ! (cd "$REPO_ROOT/app" && ./scripts/pre-commit); then
     FAILED=true
   fi
-  cd ..
 fi
 
 if [ "$CURRICULUM_CHANGED" = true ]; then
   echo "\n📦 Running curriculum pre-commit checks..."
-  cd curriculum && ./scripts/pre-commit
-  if [ $? -ne 0 ]; then
+  if ! (cd "$REPO_ROOT/curriculum" && ./scripts/pre-commit); then
     FAILED=true
   fi
-  cd ..
 fi
 
 if [ "$INTERPRETERS_CHANGED" = true ]; then
   echo "\n📦 Running interpreters pre-commit checks..."
-  cd interpreters && ./scripts/pre-commit
-  if [ $? -ne 0 ]; then
+  if ! (cd "$REPO_ROOT/interpreters" && ./scripts/pre-commit); then
     FAILED=true
   fi
-  cd ..
 fi
 
 if [ "$CONTENT_CHANGED" = true ]; then
   echo "\n📦 Running content pre-commit checks..."
-  cd content && ./scripts/pre-commit
-  if [ $? -ne 0 ]; then
+  if ! (cd "$REPO_ROOT/content" && ./scripts/pre-commit); then
     FAILED=true
   fi
-  cd ..
 fi
 
 if [ "$LLM_CHAT_PROXY_CHANGED" = true ]; then
   echo "\n📦 Running llm-chat-proxy pre-commit checks..."
-  cd llm-chat-proxy && ./scripts/pre-commit
-  if [ $? -ne 0 ]; then
+  if ! (cd "$REPO_ROOT/llm-chat-proxy" && ./scripts/pre-commit); then
     FAILED=true
   fi
-  cd ..
 fi
 
 if [ "$FAILED" = true ]; then
   echo "\n❌ Pre-commit checks failed in one or more packages"
   exit 1
 fi
+
+# Everything passed: commit the transaction, staging whatever the formatters
+# and --fix passes rewrote.
+pc_session_commit || {
+  echo "\n❌ Failed to stage formatted files"
+  exit 1
+}
 
 if [ "$APP_CHANGED" = false ] && [ "$CURRICULUM_CHANGED" = false ] && [ "$INTERPRETERS_CHANGED" = false ] && [ "$CONTENT_CHANGED" = false ] && [ "$LLM_CHAT_PROXY_CHANGED" = false ]; then
   echo "✅ No package files changed, skipping pre-commit checks"

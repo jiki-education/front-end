@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { confirmAccountDeletion } from "@/lib/auth/service";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { ApiError } from "@/lib/api";
+import { ApiError, getApiErrorType } from "@/lib/api";
 import DeletingState from "./DeletingState";
 import DeletedState from "./DeletedState";
 import ErrorState from "./ErrorState";
@@ -18,6 +18,7 @@ export default function DeleteAccountConfirmContent() {
   const setNoUser = useAuthStore((state) => state.setNoUser);
 
   const [status, setStatus] = useState<Status>("deleting");
+  const [failure, setFailure] = useState<unknown>(null);
   const hasStartedDeletion = useRef(false);
 
   useEffect(() => {
@@ -45,9 +46,14 @@ export default function DeleteAccountConfirmContent() {
         if (!isMounted) {
           return;
         }
-        // 4xx errors indicate invalid/expired token
-        // 5xx or network errors are server-side issues
-        if (error instanceof ApiError && error.status >= 400 && error.status < 500) {
+        // A 4xx is normally a bad or expired token, but `stripe_error` is a
+        // failure to cancel the subscription, which is not an expired link and
+        // must not be reported as one.
+        const type = getApiErrorType(error);
+        if (type === "stripe_error") {
+          setFailure(error);
+          setStatus("error");
+        } else if (error instanceof ApiError && error.status >= 400 && error.status < 500) {
           setStatus("expired");
         } else {
           setStatus("error");
@@ -74,5 +80,5 @@ export default function DeleteAccountConfirmContent() {
     return <ExpiredLinkState />;
   }
 
-  return <ErrorState />;
+  return <ErrorState error={failure} />;
 }

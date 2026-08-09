@@ -1,4 +1,5 @@
 import { ClientAuthGuard } from "../../components/layout/auth/internal/ClientAuthGuard";
+import { TranslatathonBanner } from "@/components/i18n/TranslatathonBanner";
 import { CheckoutReturnHandler } from "@/components/checkout/CheckoutReturnHandler";
 import { WelcomeModalHandler } from "@/components/WelcomeModalHandler";
 import { AppModalRegistrar } from "@/lib/modal/AppModalRegistrar";
@@ -33,6 +34,7 @@ export default function AppLayout({
   return (
     <ClientAuthGuard>
       <AppModalRegistrar />
+      <TranslatathonBanner />
       {children}
       <CheckoutReturnHandler />
       <WelcomeModalHandler />

@@ -266,7 +266,7 @@ export const scenarios: VisualScenario[] = [
     // codeChecks[].pass runs against InterpretResult/Language only (see CodeCheck in
     // ../types) — no exercise/translator instance is reachable from this scope, so these
     // checks resolve their error message via errorKey against the exercise's catalog
-    // (locales/en/translation.json) later, rather than calling `t` directly.
+    // (messages.json) later, rather than calling `t` directly.
     codeChecks: [
       {
         pass: (result) => result.assertors.assertFunctionDefined("can_turn_left"),

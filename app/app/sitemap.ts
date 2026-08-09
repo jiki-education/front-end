@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import conceptMetaServer from "@/lib/generated/concept-meta-server.json";
+import { getAllConceptsServer } from "@/lib/concepts/server-concepts";
 import { getAllArticles } from "@/lib/content/getAllArticles";
 import { getAllBlogPosts } from "@/lib/content/getAllBlogPosts";
 import { getAllGuides } from "@/lib/content/getAllGuides";
@@ -18,15 +18,18 @@ const STATIC_ROUTES = [
   "/roadmap"
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    ...staticEntries(),
-    ...blogEntries(),
-    ...articleEntries(),
-    ...guideEntries(),
-    ...projectEntries(),
-    ...conceptEntries()
-  ];
+// Async because every content list it enumerates is now fetched rather than
+// bundled. Next supports an async sitemap; what it does not support is a sitemap
+// that silently omits a locale's content because the data shipped with the build.
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [blog, articles, guides, projects, concepts] = await Promise.all([
+    blogEntries(),
+    articleEntries(),
+    guideEntries(),
+    projectEntries(),
+    conceptEntries()
+  ]);
+  return [...staticEntries(), ...blog, ...articles, ...guides, ...projects, ...concepts];
 }
 
 // Every entry carries reciprocal hreflang alternates (xhtml:link) so Google
@@ -45,34 +48,33 @@ function staticEntries(): MetadataRoute.Sitemap {
   return STATIC_ROUTES.map((route) => entry(route));
 }
 
-function blogEntries(): MetadataRoute.Sitemap {
-  return getAllBlogPosts("en").map((post) => entry(`/blog/${post.slug}`, { lastModified: post.date }));
+async function blogEntries(): Promise<MetadataRoute.Sitemap> {
+  return (await getAllBlogPosts("en")).map((post) => entry(`/blog/${post.slug}`, { lastModified: post.date }));
 }
 
-function articleEntries(): MetadataRoute.Sitemap {
-  return getAllArticles("en")
+async function articleEntries(): Promise<MetadataRoute.Sitemap> {
+  return (await getAllArticles("en"))
     .filter((article) => article.listed)
     .map((article) => entry(`/help/${article.slug}`, { lastModified: article.date }));
 }
 
-function guideEntries(): MetadataRoute.Sitemap {
+async function guideEntries(): Promise<MetadataRoute.Sitemap> {
   // Premium guides are deliberately kept out of the sitemap so they are not
   // surfaced externally.
-  return getAllGuides("en")
+  return (await getAllGuides("en"))
     .filter((guide) => !guide.premium)
     .map((guide) => entry(`/guides/${guide.slug}`, { lastModified: guide.date }));
 }
 
-function projectEntries(): MetadataRoute.Sitemap {
+async function projectEntries(): Promise<MetadataRoute.Sitemap> {
   // Coming-soon projects (no episodes) have no detail page. Episode pages are
   // not listed individually — the episode list lives on the project page.
-  return getAllProjects("en")
+  return (await getAllProjects("en"))
     .filter((project) => project.episodeCount > 0)
     .map((project) => entry(`/projects/${project.slug}`));
 }
 
-function conceptEntries(): MetadataRoute.Sitemap {
-  // Slugs are locale-independent; the en set is the canonical full list.
-  const concepts = (conceptMetaServer as Record<string, { slug: string }[] | undefined>).en ?? [];
-  return concepts.map((concept) => entry(`/concepts/${concept.slug}`));
+async function conceptEntries(): Promise<MetadataRoute.Sitemap> {
+  // Slugs are locale-independent, so the en index is the canonical full list.
+  return (await getAllConceptsServer("en")).map((concept) => entry(`/concepts/${concept.slug}`));
 }

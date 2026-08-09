@@ -166,7 +166,11 @@ describe("Store Auto-Play Behavior", () => {
   describe("setTestSuiteResult", () => {
     it("should set shouldAutoPlay to true", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       store.getState().setShouldPlayOnTestChange(false);
 
       const testResults = {
@@ -181,7 +185,11 @@ describe("Store Auto-Play Behavior", () => {
 
     it("should reset testCurrentTimes before setting first test", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       const test1 = createMockTest("test-1");
       const test2 = createMockTest("test-2");
 
@@ -205,7 +213,11 @@ describe("Store Auto-Play Behavior", () => {
 
     it("should set hasCodeBeenEdited to false and status to success", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       store.getState().setHasCodeBeenEdited(true);
       store.getState().setStatus("idle");
 
@@ -222,7 +234,11 @@ describe("Store Auto-Play Behavior", () => {
 
     it("should call setCurrentTest with last test when all pass", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       const test1 = createMockTest("test-1");
       const test2 = createMockTest("test-2");
 
@@ -239,7 +255,11 @@ describe("Store Auto-Play Behavior", () => {
 
     it("should hide information widget when auto-playing first test", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
 
       // Show widget before running tests
       store.getState().setShouldShowInformationWidget(true);
@@ -259,7 +279,11 @@ describe("Store Auto-Play Behavior", () => {
   describe("setCurrentTest", () => {
     it("should not set currentTestTime in initial state update", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       const test = createMockTest("test-1");
 
       // The initial set should not include currentTestTime
@@ -274,7 +298,11 @@ describe("Store Auto-Play Behavior", () => {
 
     it("should call setCurrentTestTime with force=true", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       const test = createMockTest("test-1");
 
       const setCurrentTestTimeSpy = jest.spyOn(store.getState(), "setCurrentTestTime");
@@ -286,7 +314,11 @@ describe("Store Auto-Play Behavior", () => {
 
     it("should auto-play if shouldAutoPlay is true", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       const test = createMockTest("test-1");
       store.getState().setShouldPlayOnTestChange(true);
 
@@ -298,7 +330,11 @@ describe("Store Auto-Play Behavior", () => {
 
     it("should not auto-play if shouldAutoPlay is false", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       const test = createMockTest("test-1");
       store.getState().setShouldPlayOnTestChange(false);
 
@@ -310,7 +346,11 @@ describe("Store Auto-Play Behavior", () => {
 
     it("should hide information widget when switching tests with auto-play", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       const test1 = createMockTest("test-1");
       const test2 = createMockTest("test-2");
 
@@ -333,7 +373,11 @@ describe("Store Auto-Play Behavior", () => {
   describe("setCurrentTest with error frames", () => {
     it("should auto-play when test has error frame and shouldPlayOnTestChange is true", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       const test = createMockErrorTest("test-1");
       store.getState().setShouldPlayOnTestChange(true);
 
@@ -345,7 +389,11 @@ describe("Store Auto-Play Behavior", () => {
 
     it("should jump directly to error frame when shouldPlayOnTestChange is false", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       const test = createMockErrorTest("test-1");
       store.getState().setShouldPlayOnTestChange(false);
 
@@ -358,7 +406,11 @@ describe("Store Auto-Play Behavior", () => {
 
     it("should show information widget via onComplete when error test finishes playing", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       const test = createMockErrorTest("test-1");
       store.getState().setShouldPlayOnTestChange(true);
 
@@ -382,7 +434,11 @@ describe("Store Auto-Play Behavior", () => {
       // never fire, silently swallowing the error. Treat a zero-duration timeline as not autoplayable
       // and jump straight to the error frame with the widget shown.
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       const test = createMockErrorAtStartTest("test-1");
       store.getState().setShouldPlayOnTestChange(true);
 
@@ -397,7 +453,11 @@ describe("Store Auto-Play Behavior", () => {
   describe("setCurrentTestTime with force flag", () => {
     it("should update state when force=true even if time is same", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       const test = createMockTest("test-1");
       store.getState().setCurrentTest(test);
 
@@ -412,7 +472,11 @@ describe("Store Auto-Play Behavior", () => {
 
     it("should skip update when time is same and force=false", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       const test = createMockTest("test-1");
       store.getState().setCurrentTest(test);
 
@@ -430,7 +494,11 @@ describe("Store Auto-Play Behavior", () => {
 
     it("should persist time to testCurrentTimes map", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       const test = createMockTest("test-1");
       store.getState().setCurrentTest(test);
 
@@ -443,7 +511,11 @@ describe("Store Auto-Play Behavior", () => {
   describe("setIsPlaying", () => {
     it("should call animationTimeline.play when playing=true", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       const test = createMockTest("test-1");
       store.getState().setCurrentTest(test);
 
@@ -454,7 +526,11 @@ describe("Store Auto-Play Behavior", () => {
 
     it("should hide information widget when playing=true", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       const test = createMockTest("test-1");
 
       // Disable auto-play to start paused
@@ -472,7 +548,11 @@ describe("Store Auto-Play Behavior", () => {
 
     it("should not call play when playing=false", () => {
       const exercise = createMockExercise({ slug: "test-uuid", stubs: { javascript: "", python: "", jikiscript: "" } });
-      const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+      const store = createOrchestratorStore({
+        exercise: exercise,
+        language: "jikiscript",
+        context: { type: "lesson", slug: "maze-solve-basic" }
+      });
       const test = createMockTest("test-1");
 
       // Don't auto-play on setCurrentTest
@@ -504,7 +584,11 @@ describe("Store Auto-Play Behavior", () => {
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
         });
-        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+        const store = createOrchestratorStore({
+          exercise: exercise,
+          language: "jikiscript",
+          context: { type: "lesson", slug: "maze-solve-basic" }
+        });
 
         expect(store.getState().isSpotlightActive).toBe(false);
 
@@ -523,7 +607,11 @@ describe("Store Auto-Play Behavior", () => {
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
         });
-        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+        const store = createOrchestratorStore({
+          exercise: exercise,
+          language: "jikiscript",
+          context: { type: "lesson", slug: "maze-solve-basic" }
+        });
 
         const testResults = {
           tests: [createMockTest("test-1"), createMockTest("test-2")],
@@ -547,7 +635,11 @@ describe("Store Auto-Play Behavior", () => {
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
         });
-        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+        const store = createOrchestratorStore({
+          exercise: exercise,
+          language: "jikiscript",
+          context: { type: "lesson", slug: "maze-solve-basic" }
+        });
 
         store.getState().setIsExerciseCompleted(true);
 
@@ -566,7 +658,11 @@ describe("Store Auto-Play Behavior", () => {
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
         });
-        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+        const store = createOrchestratorStore({
+          exercise: exercise,
+          language: "jikiscript",
+          context: { type: "lesson", slug: "maze-solve-basic" }
+        });
         const failedTest = createMockTest("test-1");
         failedTest.status = "fail";
 
@@ -591,7 +687,11 @@ describe("Store Auto-Play Behavior", () => {
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
         });
-        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+        const store = createOrchestratorStore({
+          exercise: exercise,
+          language: "jikiscript",
+          context: { type: "lesson", slug: "maze-solve-basic" }
+        });
 
         // First passing run: animation completes, modal shows, spotlight clears
         const test1 = createMockTest("test-1");
@@ -619,7 +719,11 @@ describe("Store Auto-Play Behavior", () => {
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
         });
-        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+        const store = createOrchestratorStore({
+          exercise: exercise,
+          language: "jikiscript",
+          context: { type: "lesson", slug: "maze-solve-basic" }
+        });
         const test1 = createMockTest("test-1");
 
         const testResults = {
@@ -644,7 +748,11 @@ describe("Store Auto-Play Behavior", () => {
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
         });
-        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+        const store = createOrchestratorStore({
+          exercise: exercise,
+          language: "jikiscript",
+          context: { type: "lesson", slug: "maze-solve-basic" }
+        });
         const test1 = createMockTest("test-1");
 
         store.getState().setIsExerciseCompleted(true);
@@ -673,7 +781,11 @@ describe("Store Auto-Play Behavior", () => {
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
         });
-        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+        const store = createOrchestratorStore({
+          exercise: exercise,
+          language: "jikiscript",
+          context: { type: "lesson", slug: "maze-solve-basic" }
+        });
         const failedTest = createMockTest("test-1");
         failedTest.status = "fail";
 
@@ -698,7 +810,11 @@ describe("Store Auto-Play Behavior", () => {
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
         });
-        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+        const store = createOrchestratorStore({
+          exercise: exercise,
+          language: "jikiscript",
+          context: { type: "lesson", slug: "maze-solve-basic" }
+        });
         const test1 = createMockTest("test-1");
 
         const testResults = {
@@ -726,7 +842,11 @@ describe("Store Auto-Play Behavior", () => {
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
         });
-        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+        const store = createOrchestratorStore({
+          exercise: exercise,
+          language: "jikiscript",
+          context: { type: "lesson", slug: "maze-solve-basic" }
+        });
 
         store.getState().setTestSuiteResult({
           tests: [createMockIOTest("io-1"), createMockIOTest("io-2")],
@@ -742,7 +862,11 @@ describe("Store Auto-Play Behavior", () => {
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
         });
-        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+        const store = createOrchestratorStore({
+          exercise: exercise,
+          language: "jikiscript",
+          context: { type: "lesson", slug: "maze-solve-basic" }
+        });
 
         store.getState().setTestSuiteResult({
           tests: [createMockIOTest("io-1", "fail")],
@@ -759,7 +883,11 @@ describe("Store Auto-Play Behavior", () => {
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
         });
-        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+        const store = createOrchestratorStore({
+          exercise: exercise,
+          language: "jikiscript",
+          context: { type: "lesson", slug: "maze-solve-basic" }
+        });
 
         store.getState().setTestSuiteResult({
           tests: [createMockIOTest("io-1")],
@@ -778,7 +906,11 @@ describe("Store Auto-Play Behavior", () => {
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
         });
-        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+        const store = createOrchestratorStore({
+          exercise: exercise,
+          language: "jikiscript",
+          context: { type: "lesson", slug: "maze-solve-basic" }
+        });
 
         store.getState().setTestSuiteResult({
           tests: [createMockIOTest("io-1")],
@@ -798,7 +930,11 @@ describe("Store Auto-Play Behavior", () => {
           slug: "test-uuid",
           stubs: { javascript: "", python: "", jikiscript: "" }
         });
-        const store = createOrchestratorStore(exercise, "jikiscript", { type: "lesson", slug: "test-lesson" });
+        const store = createOrchestratorStore({
+          exercise: exercise,
+          language: "jikiscript",
+          context: { type: "lesson", slug: "maze-solve-basic" }
+        });
 
         store.getState().setTestSuiteResult({
           tests: [createMockTest("visual-1")],

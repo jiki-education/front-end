@@ -1,11 +1,11 @@
 import { ChallengeIcon } from "@/components/icons/ChallengeIcon";
-import { type ChallengeData } from "@/lib/api/challenges";
+import { type ChallengeWithCopy } from "@/lib/api/challenges";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import styles from "./ChallengeCard.module.css";
 
 interface ChallengeCardProps {
-  challenge: ChallengeData & {
+  challenge: ChallengeWithCopy & {
     progress?: number; // 0-100 percentage
     iconUrl?: string;
     skills?: string;

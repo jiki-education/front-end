@@ -13,7 +13,15 @@ import styles from "./VideoExercise.module.css";
 
 type VideoLesson = Lesson & { type: "video"; data: { sources: VideoSource[] } };
 
-export default function VideoExercise({ lessonData, onReady }: { lessonData: VideoLesson; onReady: () => void }) {
+export default function VideoExercise({
+  lessonData,
+  lessonTitle,
+  onReady
+}: {
+  lessonData: VideoLesson;
+  lessonTitle: string;
+  onReady: () => void;
+}) {
   const t = useTranslations("videoExercise");
   const videoSource = lessonData.data.sources[0] as VideoSource | undefined;
   const playbackId = videoSource?.id ?? "";
@@ -81,7 +89,7 @@ export default function VideoExercise({ lessonData, onReady }: { lessonData: Vid
         videoProgress={videoProgress}
         showCheckmark={showCheckmark}
         isAlreadyCompleted={isAlreadyCompleted}
-        lessonTitle={lessonData.title}
+        lessonTitle={lessonTitle}
         isMarking={isMarking}
         onContinue={handleContinue}
       />

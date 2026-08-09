@@ -1,7 +1,5 @@
-import { useLocale } from "next-intl";
 import Image from "next/image";
-import type { BlogPostMeta } from "@/lib/content/types";
-import { getTestimonials } from "@/lib/content/getTestimonials";
+import type { BlogPostMeta, TestimonialsData } from "@/lib/content/types";
 import divider from "./assets/divider.webp";
 import HeaderLayout from "../layout/HeaderLayout";
 import { BootcampSection } from "./BootcampSection";
@@ -17,13 +15,18 @@ import { WelcomeSection } from "./WelcomeSection";
 
 interface LandingPageProps {
   latestPosts?: BlogPostMeta[];
+  /**
+   * Fetched by the page that renders this, not read here: testimonials are a
+   * per-locale artifact now rather than bundled data, and this component uses
+   * hooks, so it cannot be async.
+   */
+  testimonials: TestimonialsData | null;
 }
 
-export function LandingPage({ latestPosts = [] }: LandingPageProps) {
-  // Resolve testimonials server-side (synchronous, from the bundled content meta)
-  // and hand the marquee blurbs to the client-rendered Hero as a serialized prop,
-  // so the content data never ships in the client bundle.
-  const { marquee } = getTestimonials(useLocale());
+export function LandingPage({ latestPosts = [], testimonials }: LandingPageProps) {
+  // The marquee blurbs go to the client-rendered Hero as a serialized prop, so
+  // the content data never ships in the client bundle.
+  const marquee = testimonials?.marquee ?? [];
 
   return (
     <div className={styles.page}>
@@ -32,7 +35,7 @@ export function LandingPage({ latestPosts = [] }: LandingPageProps) {
         <Hero marquee={marquee} />
         <WelcomeSection />
         <BootcampSection />
-        <TestimonialsSection />
+        {testimonials ? <TestimonialsSection testimonials={testimonials} /> : null}
         <SignupSection />
         <Image className={styles.divider} src={divider} alt="" width={100} height={100} />
         <Exercism />

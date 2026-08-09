@@ -4,52 +4,47 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 INTERPRETERS_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$INTERPRETERS_DIR" || exit 1
 
+. "$INTERPRETERS_DIR/../scripts/pre-commit-lib.sh"
+pc_init "$INTERPRETERS_DIR" || exit 1
+
 echo "Running pre-commit checks..."
+
+# Paths stay exactly as git reports them (repo-relative) and are only ever made
+# absolute by prefixing the repo root, so no prefix can be mis-stripped.
+FORMAT_LIST="$PC_TMP/format"
+pc_staged_files '\.(ts|tsx|js|jsx|json|md|yml)$' > "$FORMAT_LIST"
+
+# Snapshot everything we might rewrite, so a failure anywhere below leaves the
+# working tree and the index exactly as it found them.
+pc_snapshot "$FORMAT_LIST"
 
 # Run formatter on changed files only
 echo "💅 Formatting changed files..."
-STAGED_FILES_RELATIVE=$(git diff --cached --name-only --diff-filter=ACMR | grep "^interpreters/" | grep -E '\.(ts|tsx|js|jsx|json|md|yml)$' | sed 's|^interpreters/||' || true)
-if [ -n "$STAGED_FILES_RELATIVE" ]; then
-    echo "Formatting: $STAGED_FILES_RELATIVE"
-    # Convert relative paths to absolute paths for prettier
-    STAGED_FILES_ABSOLUTE=$(echo "$STAGED_FILES_RELATIVE" | sed "s|^|$INTERPRETERS_DIR/|")
-    pnpm exec prettier --write $STAGED_FILES_ABSOLUTE
-    # Re-add formatted files (use paths relative to current directory, which is INTERPRETERS_DIR)
-    git add $STAGED_FILES_RELATIVE
+if [ -s "$FORMAT_LIST" ]; then
+    echo "Formatting:"
+    cat "$FORMAT_LIST"
+    pc_run_on "$FORMAT_LIST" pnpm exec prettier --write || pc_fail "❌ Formatting failed. Commit aborted."
 else
     echo "No files to format"
 fi
 
 # Run ESLint check (treating warnings as errors)
 echo "🔍 Running ESLint..."
-pnpm run lint --max-warnings=0
-if [ $? -ne 0 ]; then
-    echo "❌ ESLint check failed (errors or warnings found). Commit aborted."
-    exit 1
-fi
+pnpm run lint --max-warnings=0 || pc_fail "❌ ESLint check failed (errors or warnings found). Commit aborted."
 
 # Run type check
 echo "🔍 Type checking..."
-pnpm run typecheck
-if [ $? -ne 0 ]; then
-    echo "❌ Type check failed. Commit aborted."
-    exit 1
-fi
+pnpm run typecheck || pc_fail "❌ Type check failed. Commit aborted."
 
 # Run tests
 echo "🧪 Running tests..."
-pnpm test
-if [ $? -ne 0 ]; then
-    echo "❌ Tests failed. Commit aborted."
-    exit 1
-fi
+pnpm test || pc_fail "❌ Tests failed. Commit aborted."
 
 # Run benchmark tests
 echo "⚡ Running benchmark tests..."
-pnpm test:benchmark
-if [ $? -ne 0 ]; then
-    echo "❌ Benchmark tests failed. Commit aborted."
-    exit 1
-fi
+pnpm test:benchmark || pc_fail "❌ Benchmark tests failed. Commit aborted."
+
+# Everything passed: now, and only now, stage whatever the formatter rewrote.
+pc_finish || pc_fail "❌ Failed to stage formatted files. Commit aborted."
 
 echo "✅ All checks passed!"

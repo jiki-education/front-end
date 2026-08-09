@@ -1,7 +1,6 @@
 import BlogPage from "@/components/blog/BlogPage";
 import AuthenticatedHeaderLayout from "@/components/layout/HeaderLayout";
-import { SUPPORTED_LOCALES } from "@/lib/locales";
-import { getAvailableLocales } from "@/lib/content";
+import { isSupportedLocale } from "@/lib/i18n/config";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
@@ -27,9 +26,11 @@ export default async function AuthenticatedLocaleBlogPage({ params, searchParams
 
   // The default locale is served here under the naked URL (/blog), rewritten to
   // /en/blog by middleware; an explicit /en/blog is redirected back to /blog there.
-  // Check if locale is supported and has blog posts
-  const locales = getAvailableLocales("blog", SUPPORTED_LOCALES);
-  if (!locales.includes(locale)) {
+  // The locale list is the only gate. A locale is either fully translated or it
+  // is not served, so being supported already means it has this content; asking
+  // again at request time would put a fetch on the path of a cacheable page to
+  // answer a question the list has already answered.
+  if (!isSupportedLocale(locale)) {
     notFound();
   }
 

@@ -13,7 +13,7 @@ import type { ProcessedGuide } from "./types";
  * @throws Error if the guide doesn't exist at all
  */
 export async function getGuide(slug: string, locale: string): Promise<ProcessedGuide> {
-  const allGuides = getAllGuides(locale);
+  const allGuides = await getAllGuides(locale);
   const meta = allGuides.find((g) => g.slug === slug);
 
   if (!meta) {

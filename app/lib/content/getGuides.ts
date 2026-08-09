@@ -5,7 +5,7 @@ import { type GuideTagSlug } from "./types";
 const GUIDES_PAGE_SIZE = 10;
 
 export interface GetGuidesOptions {
-  locale?: string;
+  locale: string;
   tag?: GuideTagSlug | null;
   page?: number;
   /**
@@ -28,10 +28,10 @@ export interface GetGuidesResult {
  * Sorted alphabetically by title. Premium guides are excluded unless
  * `includePremium` is set.
  */
-export function getGuides(options: GetGuidesOptions = {}): GetGuidesResult {
-  const { locale = "en", tag = null, page = 1, includePremium = false } = options;
+export async function getGuides(options: GetGuidesOptions): Promise<GetGuidesResult> {
+  const { locale, tag = null, page = 1, includePremium = false } = options;
 
-  const allGuides = getAllGuides(locale);
+  const allGuides = await getAllGuides(locale);
   let filteredGuides = includePremium ? allGuides : allGuides.filter((guide) => !guide.premium);
 
   // Filter by tag if provided

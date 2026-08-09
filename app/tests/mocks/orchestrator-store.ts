@@ -9,8 +9,9 @@ export function createMockOrchestratorStore(overrides: Partial<OrchestratorStore
     subscribeWithSelector<OrchestratorStore>((set, _get) => ({
       // Default state
       exerciseSlug: "test-uuid",
-      context: { type: "lesson" as const, slug: "test-lesson" },
+      context: { type: "lesson" as const, slug: "maze-solve-basic" },
       exerciseTitle: "Test Exercise",
+      levelTitle: "Using Functions",
       code: "",
       output: "",
       status: "idle" as const,

@@ -1,7 +1,7 @@
 import type { ExerciseDefinition, Language, Messages as CurriculumMessages } from "@jiki/curriculum";
 import { getLanguageFeatures } from "@jiki/curriculum";
 import type { Messages as InterpreterMessages } from "@jiki/interpreters";
-import type { TestResult, TestSuiteResult } from "../test-results-types";
+import type { CodingExerciseTranslator, TestResult, TestSuiteResult } from "../test-results-types";
 import { bonusScenarioSlugs } from "../bonusScenarios";
 import { runIOScenario } from "./runIOScenario";
 import { runVisualScenario } from "./runVisualScenario";
@@ -12,7 +12,8 @@ export async function runTests(
   exercise: ExerciseDefinition,
   language: Language,
   interpreterLocaleMessages: InterpreterMessages,
-  exerciseLocaleMessages: CurriculumMessages
+  exerciseLocaleMessages: CurriculumMessages,
+  t: CodingExerciseTranslator
 ): Promise<TestSuiteResult> {
   const interpreter = await getInterpreter(language);
 
@@ -62,7 +63,8 @@ export async function runTests(
         interpreter,
         languageFeatures,
         interpreterLocaleMessages,
-        messages
+        messages,
+        t
       );
       tests.push(result);
     }

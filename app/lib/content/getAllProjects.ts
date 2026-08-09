@@ -1,4 +1,4 @@
-import contentMeta from "@/lib/generated/content-meta-server.json";
+import { getContentMeta } from "./contentMeta";
 import type { ProjectMeta } from "./types";
 
 /**
@@ -6,11 +6,7 @@ import type { ProjectMeta } from "./types";
  * No English fallback: a locale with no projects returns an empty list (never
  * silently shows English).
  */
-export function getAllProjects(locale: string): ProjectMeta[] {
-  const meta = contentMeta as {
-    projects?: { [locale: string]: ProjectMeta[] | undefined };
-  };
-  const byLocale = meta.projects ?? {};
-  const projects = byLocale[locale] ?? [];
+export async function getAllProjects(locale: string): Promise<ProjectMeta[]> {
+  const projects = (await getContentMeta(locale)).projects;
   return [...projects].sort((a, b) => a.order - b.order);
 }

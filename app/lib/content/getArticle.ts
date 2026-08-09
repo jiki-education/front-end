@@ -10,7 +10,7 @@ import type { ProcessedArticle } from "./types";
  * @throws Error if the article doesn't exist at all
  */
 export async function getArticle(slug: string, locale: string): Promise<ProcessedArticle> {
-  const allArticles = getAllArticles(locale);
+  const allArticles = await getAllArticles(locale);
   const meta = allArticles.find((a) => a.slug === slug);
 
   if (!meta) {

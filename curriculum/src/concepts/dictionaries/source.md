@@ -36,7 +36,7 @@ So you've got a dictionary, but how do you get something back out of it?
 We use the same square bracket syntax as we did with arrays and strings, but instead of a position number, we put in a key. So if we want to get someone's name out of a dictionary, we write:
 
 ```javascript
-person["name"]
+person["name"] // "Jeremy"
 ```
 
 And that tells Jiki to look in the `person` dictionary, find the key for `"name"`, and to get out its value. Jiki goes to the person box, takes out the page from the notebook, scans through all the keys until he finds `"name"`, and then reads off the value, `"Jeremy"`, and puts it in a new box called name.

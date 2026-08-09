@@ -121,13 +121,13 @@ export class RateLimitError extends ApiError {
 // Thrown by verifyCheckoutSession when the API reports `checkout_payment_incomplete`
 // — the Stripe checkout never completed (declined / abandoned / expired payment).
 // This is an expected outcome, not a bug, so callers surface it to the user (reopen
-// checkout) without reporting it to Sentry. `declineReason` is the customer-safe Stripe
-// reason when available, else null; `interval` is the plan they were buying.
+// checkout) without reporting it to Sentry. `declineCode` is Stripe's stable decline code
+// when available, else null; `interval` is the plan they were buying.
 export class CheckoutIncompleteError extends ApiError {
   constructor(
     statusText: string,
     data: unknown,
-    public declineReason: string | null,
+    public declineCode: string | null,
     public interval: BillingInterval
   ) {
     super(422, statusText, data);

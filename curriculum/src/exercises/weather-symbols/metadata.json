@@ -1,6 +1,6 @@
 {
   "slug": "weather-symbols",
-  "levelId": "lists",
+  "levelId": "arrays",
   "hints": [
     {
       "question": "hints.loopWithIndex.question",

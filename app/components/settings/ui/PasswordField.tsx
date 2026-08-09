@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { getApiErrorType } from "@/lib/api/client";
+import { useApiErrorMessage } from "@/lib/api/apiErrors";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import styles from "./PasswordField.module.css";
 
@@ -13,6 +15,7 @@ interface PasswordFieldProps {
 export default function PasswordField({ onSave, disabled = false }: PasswordFieldProps) {
   const t = useTranslations("settings.passwordField");
   const tCommon = useTranslations("common");
+  const apiErrorMessage = useApiErrorMessage();
   const [isEditing, setIsEditing] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -54,7 +57,7 @@ export default function PasswordField({ onSave, disabled = false }: PasswordFiel
       setIsEditing(false);
       resetForm();
     } catch (err) {
-      setError(err instanceof Error ? err.message : t("updateFailed"));
+      setError(getApiErrorType(err) ? apiErrorMessage(err) : t("updateFailed"));
     } finally {
       setIsSaving(false);
     }

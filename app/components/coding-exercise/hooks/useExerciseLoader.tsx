@@ -4,8 +4,10 @@ import { exercises, type ExerciseSlug, type ExerciseDefinition, type Language } 
 import Orchestrator from "../lib/Orchestrator";
 import type { ExerciseContext } from "../lib/types";
 import { findFileForLanguage, hasPlaceholders, interpolateStub } from "../lib/stubInterpolation";
+import { setEditorMessages } from "../lib/i18n/editorMessages";
 import { getInterpreter } from "../lib/test-runner/getInterpreter";
 import { fetchExerciseContent, fetchExerciseMessages, fetchInterpreterMessages } from "@/lib/api/exercise-meta";
+import { fetchLevelMessages, resolveLevelTitle } from "@/lib/api/level-meta";
 import { localizeExerciseDefinition } from "@/lib/i18n/localizeExercise";
 import type { LastSubmissionData } from "@/lib/api/types/conversation";
 
@@ -38,6 +40,11 @@ export function useExerciseLoader({
   const uiLocale = useLocale();
   const t = useTranslations("codingExercise");
 
+  // Seed the plain-.ts editor/test-runner message registry with the active-locale
+  // translator so CodeMirror extensions and scenario runners resolve their strings
+  // in-locale (they run outside any React/async context). See lib/i18n/editorMessages.ts.
+  setEditorMessages((key, values) => t(key, values));
+
   useEffect(() => {
     const loadExercise = async () => {
       try {
@@ -45,9 +52,7 @@ export function useExerciseLoader({
         const loader = exercises[exerciseSlug];
         // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
         if (!loader) {
-          throw new Error(
-            `Exercise "${exerciseSlug}" not found in curriculum. Available exercises: ${Object.keys(exercises).join(", ")}`
-          );
+          throw new Error(t("exerciseNotFound", { slug: exerciseSlug, available: Object.keys(exercises).join(", ") }));
         }
 
         // Warm the interpreter chunk in the background. getInterpreter() uses a
@@ -64,12 +69,14 @@ export function useExerciseLoader({
         // active UI locale with NO fallback: an exercise that lacks a blob for this
         // locale simply fails to load (only dnd-roll ships non-en content during
         // the pilot).
-        const [exerciseModule, content, exerciseLocaleMessages, interpreterLocaleMessages] = await Promise.all([
-          loader().then((m) => m.default),
-          fetchExerciseContent(exerciseSlug, uiLocale, language),
-          fetchExerciseMessages(exerciseSlug, uiLocale),
-          fetchInterpreterMessages(language, uiLocale)
-        ]);
+        const [exerciseModule, content, exerciseLocaleMessages, interpreterLocaleMessages, levelMessages] =
+          await Promise.all([
+            loader().then((m) => m.default),
+            fetchExerciseContent(exerciseSlug, uiLocale, language),
+            fetchExerciseMessages(exerciseSlug, uiLocale),
+            fetchInterpreterMessages(language, uiLocale),
+            fetchLevelMessages(uiLocale)
+          ]);
 
         // Assemble into full ExerciseDefinition.
         // Only the active language's stub/solution are loaded; the cast is safe because
@@ -109,18 +116,23 @@ export function useExerciseLoader({
           : undefined;
 
         // Create orchestrator with exercise, language, and context
-        orchestratorRef.current = new Orchestrator(
+        orchestratorRef.current = new Orchestrator({
           exercise,
           language,
           context,
           interpreterLocaleMessages,
           exerciseLocaleMessages,
-          content.contentHash,
+          t,
+          proseHash: content.proseHash,
+          codeHash: content.codeHash,
           onGoToDashboard,
-          serverData
-        );
-
-        orchestratorRef.current.setIsExerciseCompleted(isCompleted);
+          serverData,
+          // Resolved here rather than in the panel that renders it: the level
+          // catalog loads with the exercise, so the header paints complete
+          // instead of inserting the level line once a later fetch lands.
+          levelTitle: resolveLevelTitle(levelMessages, exercise.levelId),
+          isCompleted
+        });
 
         setIsLoading(false);
       } catch (error) {

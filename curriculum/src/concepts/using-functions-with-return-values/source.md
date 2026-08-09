@@ -23,11 +23,13 @@ Most functions, probably 95% of them, return something. They might do some maths
   height="312"
 />
 
-And then we can put that returned value into a box using `let`. If we say `let time = getCurrentTime()`, Jiki will run the machine, get the current time from the chute, and store it in a box called `time`.
+And then we can put that returned value into a box using `let`:
 
 ```javascript
 let time = getCurrentTime()
 ```
+
+Jiki will run the machine, get the current time from the chute, and store it in a box called `time`.
 
 <img
   class="concept-image"

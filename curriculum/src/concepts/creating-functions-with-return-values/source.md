@@ -29,7 +29,7 @@ The `return` keyword tells Mini Jiki to push something out of the return chute.
   height="335"
 />
 
-So let's make a function, and let's call it <define>`meaningOfLife`</define>, and this function's job is always just to return the number `42`. It doesn't have any inputs. We write `function meaningOfLife()` and inside the body, `return 42`.
+So let's make a function, and let's call it <define>`meaningOfLife`</define>, and this function's job is always just to return the number `42`. It doesn't have any inputs. We write it like this:
 
 ```javascript
 function meaningOfLife() {

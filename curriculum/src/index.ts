@@ -1,7 +1,21 @@
 // Main exports from the curriculum package
 
 // Export the exercise registry, loader function, and type
-export { exercises, getExercise, type ExerciseSlug } from "./exercises";
+export { exercises, getExercise, type RegisteredExerciseSlug } from "./exercises";
+
+// Export the slug registries so consumers can classify a slug without the API
+export {
+  exerciseLessonSlugs,
+  videoLessonSlugs,
+  challengeSlugs,
+  isChallengeSlug,
+  isVideoLessonSlug,
+  type ExerciseLessonSlug,
+  type VideoLessonSlug,
+  type ChallengeSlug,
+  type LessonSlug,
+  type ExerciseSlug
+} from "./slugs";
 
 // Export core types
 export type { Language } from "./types";

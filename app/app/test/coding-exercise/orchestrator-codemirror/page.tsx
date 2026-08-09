@@ -8,8 +8,10 @@ import { CodeMirror } from "@/components/coding-exercise/ui/codemirror/CodeMirro
 import { createMockExercise } from "@/tests/mocks/exercise";
 import { useEffect, useState } from "react";
 import styles from "../harness.module.css";
+import { useTranslations } from "next-intl";
 
 export default function OrchestratorCodeMirrorTestPage() {
+  const t = useTranslations("codingExercise");
   const [orchestrator, setOrchestrator] = useState<Orchestrator | null>(null);
 
   useEffect(() => {
@@ -21,15 +23,19 @@ export default function OrchestratorCodeMirrorTestPage() {
         jikiscript: "// Initial code\nconst x = 42;"
       }
     });
-    const orch = new Orchestrator(
-      exercise,
-      "jikiscript",
-      { type: "lesson", slug: "test-lesson" },
-      {},
-      {},
-      "",
-      () => {}
-    );
+    const orch = new Orchestrator({
+      exercise: exercise,
+      language: "jikiscript",
+      context: { type: "lesson", slug: "maze-solve-basic" },
+      interpreterLocaleMessages: {},
+      exerciseLocaleMessages: {},
+      t: t,
+      proseHash: "",
+      codeHash: "",
+      onGoToDashboard: () => {},
+      levelTitle: "",
+      isCompleted: false
+    });
     setOrchestrator(orch);
 
     // Expose orchestrator to window for E2E testing
@@ -38,7 +44,7 @@ export default function OrchestratorCodeMirrorTestPage() {
     return () => {
       delete (window as any).testOrchestrator;
     };
-  }, []);
+  }, [t]);
 
   if (!orchestrator) {
     return <div>Loading...</div>;

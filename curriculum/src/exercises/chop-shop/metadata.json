@@ -1,6 +1,6 @@
 {
   "slug": "chop-shop",
-  "levelId": "lists",
+  "levelId": "building-arrays",
   "hints": [
     {
       "question": "hints.whereToStart.question",

@@ -1,0 +1,52 @@
+{
+  "beta_user": {
+    "name": "Beta User",
+    "description": "Joined Jiki during the beta",
+    "funFact": "Beta users help shape the future of Jiki. Thank you for believing in us early!"
+  },
+  "early_bird": {
+    "name": "Early Bird",
+    "description": "Completed a lesson in the early-morning hours",
+    "funFact": "The early bird catches the worm. Coding before the world wakes up is a superpower!"
+  },
+  "first_lesson": {
+    "name": "First Steps",
+    "description": "Completed your first lesson",
+    "funFact": "The hardest part of any journey is taking the first step. You did it!"
+  },
+  "maze_navigator": {
+    "name": "Maze Navigator",
+    "description": "Completed the Solve a Maze lesson",
+    "funFact": "Maze-solving algorithms are used in robotics, game AI, and even GPS navigation!"
+  },
+  "member": {
+    "name": "Member",
+    "description": "Joined Jiki",
+    "funFact": "Welcome to the community! Every expert was once a beginner."
+  },
+  "night_owl": {
+    "name": "Night Owl",
+    "description": "Completed a lesson in the late-night hours",
+    "funFact": "Jeremy grew up coding late into the night. There is something magical about coding when the world is asleep!"
+  },
+  "premium": {
+    "name": "Premium",
+    "description": "Became a Premium member",
+    "funFact": "Thanks for supporting Jiki! Your premium membership helps us keep building."
+  },
+  "scenario_handler": {
+    "name": "Scenario Handler",
+    "description": "Solve an Exercise with Scenarios",
+    "funFact": "In the real world, we refer to \"scenarios\" as \"tests\" and we write them to check our code works in different ways."
+  },
+  "sidekick": {
+    "name": "Sidekick",
+    "description": "Sent your first message to Jiki",
+    "funFact": "Two heads are better than one. Thanks for chatting with Jiki!"
+  },
+  "townsfolk": {
+    "name": "Townsfolk",
+    "description": "Joined the Jiki community forum",
+    "funFact": "The best way to learn is to teach. Welcome to the conversation!"
+  }
+}

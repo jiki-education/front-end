@@ -23,4 +23,4 @@ Our website is compliant with the Web Content Accessibility Guidelines version 2
 ## Improving accessibility
 
 We are always keen to know if parts of our website are not accessible.
-If you find something that's not good enough, please open an issue on our [GitHub repository](https://github.com/jikidotdev/jiki/issues) explaining what we need to improve.
+If you find something that's not good enough, please let us know on our [forum](https://forum.jiki.io) explaining what we need to improve.

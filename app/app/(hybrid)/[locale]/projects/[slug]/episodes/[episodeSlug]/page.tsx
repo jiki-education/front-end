@@ -36,7 +36,7 @@ export default async function LocaleEpisodePage({ params }: Props) {
     notFound();
   }
 
-  const allGuides = getAllGuides(locale);
+  const allGuides = await getAllGuides(locale);
   const guides = episode.guides
     .map((guideSlug) => allGuides.find((g) => g.slug === guideSlug))
     .filter((g) => g !== undefined);

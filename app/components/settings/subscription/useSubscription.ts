@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useFormatter } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { showModal } from "@/lib/modal";
 import { toastError } from "@/lib/toast";
 import { getSubscriptionState } from "./utils";
@@ -13,6 +13,7 @@ interface UseSubscriptionProps {
 
 export function useSubscription({ user, refreshUser }: UseSubscriptionProps) {
   const format = useFormatter();
+  const t = useTranslations("settings.cancelConfirm");
   const [isLoading, setIsLoading] = useState(false);
 
   // Get subscription state and data
@@ -84,7 +85,7 @@ export function useSubscription({ user, refreshUser }: UseSubscriptionProps) {
     });
 
   const handleCancel = () => {
-    const premiumEndDate = nextBillingDate || "your billing period end";
+    const premiumEndDate = nextBillingDate || t("defaultBillingPeriodEnd");
 
     showModal("cancel-subscription-confirm-modal", {
       premiumEndDate,

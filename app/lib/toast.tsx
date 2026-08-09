@@ -11,7 +11,7 @@
  * `<Toaster>`, which is mounted within the `NextIntlClientProvider` in the root
  * layout. Callers never need a hook or the current locale.
  *
- * Keys live under the `toasts` namespace in `messages/{locale}.json`. The
+ * Keys live under the `toasts` namespace in `messages.json`. The
  * `ToastKey` type is derived from that namespace, so `pnpm typecheck` rejects
  * unknown keys.
  */
@@ -20,7 +20,7 @@ import { useTranslations } from "next-intl";
 import toast, { type ToastOptions } from "react-hot-toast";
 
 // Valid dotted keys of the `toasts` namespace, sourced from next-intl's own
-// translator typing (which is generated from messages/en.json via global.d.ts).
+// translator typing (which is generated from messages.json via global.d.ts).
 export type ToastKey = Parameters<ReturnType<typeof useTranslations<"toasts">>>[0];
 export type ToastValues = Record<string, string | number>;
 

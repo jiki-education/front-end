@@ -91,6 +91,7 @@
       "IndexOutOfRange": "IndexOutOfRange: index: {{index}}: length: {{length}}",
       "StringIndexOutOfRange": "StringIndexOutOfRange: index: {{index}}: length: {{length}}",
       "ComparisonWithUndefined": "ComparisonWithUndefined: operator: {{operator}}: side: {{side}}",
+      "ComparisonWithUndefinedFromFunction": "ComparisonWithUndefinedFromFunction: operator: {{operator}}: side: {{side}}: function: {{name}}",
       "AssignmentToUndefined": "AssignmentToUndefined",
       "AssignmentToUndefinedFromFunction": "AssignmentToUndefinedFromFunction",
       "UpdateOperatorRequiresNumber": "UpdateOperatorRequiresNumber: operator: {{operator}}: type: {{type}}",

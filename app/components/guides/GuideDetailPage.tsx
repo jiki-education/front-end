@@ -11,10 +11,10 @@ interface GuideDetailPageProps {
 }
 
 // Helper for generateMetadata
-export async function getGuideMetadata(slug: string, locale: string = "en"): Promise<Metadata> {
+export async function getGuideMetadata(slug: string, locale: string): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "guides.metadata" });
   try {
-    const allGuides = getAllGuides(locale);
+    const allGuides = await getAllGuides(locale);
     const guide = allGuides.find((g) => g.slug === slug);
     if (!guide) {
       return { title: t("notFoundTitle") };
@@ -36,7 +36,7 @@ export async function getGuideMetadata(slug: string, locale: string = "en"): Pro
  */
 async function getFeaturedInEpisodes(guideSlug: string, locale: string): Promise<FeaturedInEpisode[]> {
   const featuredIn: FeaturedInEpisode[] = [];
-  for (const projectMeta of getAllProjects(locale)) {
+  for (const projectMeta of await getAllProjects(locale)) {
     if (projectMeta.episodeCount === 0) {
       continue;
     }
@@ -65,7 +65,7 @@ export default async function GuideDetailPage({ slug, locale }: GuideDetailPageP
     notFound();
   }
 
-  const allGuides = getAllGuides(locale);
+  const allGuides = await getAllGuides(locale);
   const relatedGuides = getRelatedGuides(slug, allGuides, 5);
   const featuredInEpisodes = await getFeaturedInEpisodes(slug, locale);
 
