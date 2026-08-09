@@ -1,6 +1,10 @@
 {
   "checks": {
+    "flowerCount_zero": "The owner expected to see no flowers planted. But you planted {{got}}.",
     "flowerCount_one": "The owner expected to see {{count}} flower planted. But you planted {{got}}.",
+    "flowerCount_two": "∅",
+    "flowerCount_few": "∅",
+    "flowerCount_many": "∅",
     "flowerCount_other": "The owner expected to see {{count}} flowers planted. But you planted {{got}}.",
     "flowerAtPosition": "Expected a flower at position {{position}}, but didn't find one.",
     "strayFlower": "Found a flower at position {{position}}, which isn't where the owner wanted one. The flowers should be evenly spaced."
