@@ -1,5 +1,5 @@
 ---
-title: "Else If"
+title: "Using `else if` Chains"
 description: "Chaining `else if` clauses to check several conditions in order, running only the first block whose condition is true."
 ---
 

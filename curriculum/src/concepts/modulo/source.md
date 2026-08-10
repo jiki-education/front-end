@@ -1,5 +1,5 @@
 ---
-title: "Remainder"
+title: "Using the `%` Operator for Remainders"
 description: "Using the `%` operator to get what's left over after division, often used to check if a number is even or odd."
 ---
 
