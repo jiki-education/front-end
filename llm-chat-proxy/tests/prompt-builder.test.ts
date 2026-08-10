@@ -8,7 +8,8 @@ const mockContent = {
   solution: "move_right()\nmove_down()\nmove_right()"
 };
 
-const CONTENT_URL = "https://assets.jiki.io/static/exercises/maze-solve-basic/en/jikiscript/content-abc123def456.json";
+const PROSE_URL = "https://assets.jiki.io/static/exercises/maze-solve-basic/en/prose-abc123def456.json";
+const CODE_URL = "https://assets.jiki.io/static/exercises/maze-solve-basic/code/jikiscript/code-def456abc123.json";
 
 // Mock global fetch for content URL requests
 beforeEach(() => {
@@ -28,7 +29,8 @@ function defaultOpts(overrides: Record<string, unknown> = {}) {
     question: "test",
     history: [],
     language: "jikiscript" as const,
-    contentUrl: CONTENT_URL,
+    proseUrl: PROSE_URL,
+    codeUrl: CODE_URL,
     ...overrides
   };
 }
@@ -292,9 +294,10 @@ describe("Prompt Builder", () => {
     expect(prompt).toContain(mockContent.solution);
   });
 
-  it("should fetch content from the provided URL", async () => {
+  it("should fetch prose and code from the provided URLs", async () => {
     await buildPrompt(defaultOpts());
-    expect(fetch).toHaveBeenCalledWith(CONTENT_URL);
+    expect(fetch).toHaveBeenCalledWith(PROSE_URL);
+    expect(fetch).toHaveBeenCalledWith(CODE_URL);
   });
 });
 
