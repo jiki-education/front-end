@@ -15,7 +15,10 @@ interface PromptOptions {
   history: ChatMessage[];
   nextTaskId?: string;
   language: Language;
-  contentUrl: string; // URL to fetch exercise content (instructions, stub, solution)
+  // Exercise content is two artifacts: prose (instructions, per locale) and
+  // code (stub/solution, per language). See app/lib/assets-paths.ts.
+  proseUrl: string;
+  codeUrl: string;
 }
 
 // Input validation limits to prevent abuse and prompt injection
@@ -81,10 +84,20 @@ function validateInput(question: string, history: ChatMessage[]): void {
 /**
  * Fetches exercise content (instructions, stub, solution) from the app's static files.
  */
-async function fetchExerciseContent(contentUrl: string): Promise<ExerciseContent> {
-  const res = await fetch(contentUrl);
+async function fetchExerciseContent(proseUrl: string, codeUrl: string): Promise<ExerciseContent> {
+  const [prose, code] = await Promise.all([fetchJson(proseUrl), fetchJson(codeUrl)]);
+
+  return {
+    instructions: (prose as { instructions: string }).instructions,
+    stub: (code as { stub: string }).stub,
+    solution: (code as { solution: string }).solution
+  };
+}
+
+async function fetchJson(url: string): Promise<unknown> {
+  const res = await fetch(url);
   if (!res.ok) {
-    throw new Error(`Failed to fetch exercise content from ${contentUrl}: ${res.status}`);
+    throw new Error(`Failed to fetch exercise content from ${url}: ${res.status}`);
   }
   return res.json();
 }
@@ -99,7 +112,7 @@ async function fetchExerciseContent(contentUrl: string): Promise<ExerciseContent
  * @throws Error if exercise is not found or input validation fails
  */
 export async function buildPrompt(options: PromptOptions): Promise<{ systemInstruction: string; prompt: string }> {
-  const { exerciseSlug, code, question, history, nextTaskId, language, contentUrl } = options;
+  const { exerciseSlug, code, question, history, nextTaskId, language, proseUrl, codeUrl } = options;
 
   // Validate input before building prompt
   validateInput(question, history);
@@ -108,7 +121,7 @@ export async function buildPrompt(options: PromptOptions): Promise<{ systemInstr
   const { code: croppedCode, wasCropped: codeWasCropped } = cropCode(code);
 
   // Load exercise core (scenarios, tasks, level) and content (stub, solution) in parallel
-  const [exercise, content] = await Promise.all([getExercise(exerciseSlug), fetchExerciseContent(contentUrl)]);
+  const [exercise, content] = await Promise.all([getExercise(exerciseSlug), fetchExerciseContent(proseUrl, codeUrl)]);
 
   if (exercise === null) {
     throw new Error(`Exercise not found: ${exerciseSlug}`);
