@@ -19,7 +19,9 @@ jest.mock("next/navigation", () => ({
       query: {},
       asPath: "/dashboard"
     };
-  }
+  },
+  // The external header's language switcher builds its targets from the current path.
+  usePathname: () => "/dashboard"
 }));
 
 // Mock SVG imports

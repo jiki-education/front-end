@@ -47,7 +47,10 @@
       "login": "Bejelentkezés",
       "signUp": "Regisztrálj ingyen",
       "menuAriaLabel": "Menü megnyitása",
-      "closeMenuAriaLabel": "Menü bezárása"
+      "closeMenuAriaLabel": "Menü bezárása",
+      "languageAriaLabel": "Change language",
+      "languageComingSoon": "Coming soon",
+      "languageComingSoonBadge": "Soon"
     },
     "internalHeader": {
       "homeAriaLabel": "Jiki kezdőlap",

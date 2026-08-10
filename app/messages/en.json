@@ -47,7 +47,10 @@
       "login": "Login",
       "signUp": "Sign Up For Free",
       "menuAriaLabel": "Open menu",
-      "closeMenuAriaLabel": "Close menu"
+      "closeMenuAriaLabel": "Close menu",
+      "languageAriaLabel": "Change language",
+      "languageComingSoon": "Coming soon",
+      "languageComingSoonBadge": "Soon"
     },
     "internalHeader": {
       "homeAriaLabel": "Jiki home",

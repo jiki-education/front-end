@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import CrossIcon from "@/icons/cross.svg";
 import HamburgerIcon from "@/icons/hamburger.svg";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import styles from "./external.module.css";
 
 export default function ExternalButtons() {
@@ -27,6 +28,8 @@ export default function ExternalButtons() {
       </div>
 
       <div className={styles.authButtons}>
+        <LanguageSwitcher />
+
         <Link href={routes.authLogin()} className="ui-btn ui-btn-small ui-btn-secondary">
           {t("login")}
         </Link>
