@@ -9,6 +9,7 @@
 
 import { ALIENS, simulate } from "./simulation";
 import { BAD, GOOD } from "./code-listing";
+import { TIMELINE } from "./timeline";
 import type { Action, CalloutId, CursorTarget, Outcome, Tab } from "./timeline";
 
 /** A shot in flight: keyed so React can animate each one and drop it when it expires. */
@@ -214,6 +215,22 @@ export function reducer(state: VideoState, action: Action): VideoState {
     default:
       return state;
   }
+}
+
+/**
+ * The state the video is in `ms` into a loop.
+ *
+ * The timeline is pure and the reducer has no side effects, so any moment is reachable by
+ * replaying the beats up to it rather than waiting for them. That is what makes the video
+ * seekable at all — see `/dev/ltc-video`, which uses this to scrub while tuning the cursor
+ * anchors in `stage-geometry.ts`.
+ *
+ * Two beats can't be replayed faithfully, and both are cosmetic: `expireShot` is dispatched by a
+ * shot's own animation ending rather than by the timeline, so shots accumulate instead of
+ * clearing, and `flashEditLine` is a keyframe retrigger with nothing to retrigger when frozen.
+ */
+export function stateAt(ms: number): VideoState {
+  return TIMELINE.beats.reduce((state, beat) => (beat.at <= ms ? reducer(state, beat.action) : state), INITIAL_STATE);
 }
 
 /**

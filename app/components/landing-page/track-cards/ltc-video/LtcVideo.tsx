@@ -9,6 +9,7 @@ import { Confetti, Cursor, ErrorCallout, SuccessModal } from "./StageOverlays";
 import { PlayIcon, ResetIcon } from "./icons";
 import { LEFT_CALLOUTS, RIGHT_CALLOUTS } from "./strings";
 import { SPEED, TIMELINE } from "./timeline";
+import type { VideoState } from "./state";
 import { useVideoTimeline } from "./useVideoTimeline";
 import styles from "./LtcVideo.module.css";
 
@@ -23,9 +24,13 @@ import styles from "./LtcVideo.module.css";
  * transition. That keeps the main thread doing one dispatch every ~145ms during the busiest
  * stretch, with the motion itself on the compositor.
  */
-export function LtcVideo() {
+export function LtcVideo({ frozenState }: { frozenState?: VideoState } = {}) {
   const t = useTranslations("landing.learnToCode.demo");
-  const { rootRef, state, reducedMotion, loopKey, dispatch } = useVideoTimeline();
+  // `/dev/ltc-video` scrubs the timeline by handing a state in directly, which also stops the
+  // scheduler so nothing is competing to drive the frame.
+  const timeline = useVideoTimeline({ paused: frozenState !== undefined });
+  const { rootRef, reducedMotion, loopKey, dispatch } = timeline;
+  const state = frozenState ?? timeline.state;
 
   const demoClasses = [
     styles.demo,

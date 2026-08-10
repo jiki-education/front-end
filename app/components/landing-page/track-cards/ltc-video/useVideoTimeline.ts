@@ -20,7 +20,7 @@ const REDUCED_MOTION_STATE = reducedMotionState();
  * animations it drives and comes back mid-garbage. The prototype missed this. Stopping and
  * restarting from the top is both cheaper and correct.
  */
-export function useVideoTimeline() {
+export function useVideoTimeline({ paused = false }: { paused?: boolean } = {}) {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE);
   const [reducedMotion, setReducedMotion] = useState(false);
   const { ref: rootRef, inView } = useInView<HTMLDivElement>(START_THRESHOLD);
@@ -43,8 +43,9 @@ export function useVideoTimeline() {
   }, []);
 
   useEffect(() => {
-    // Reduced motion holds a still frame, so there is nothing to schedule.
-    if (!inView || reducedMotion) return;
+    // Reduced motion holds a still frame, and `paused` means something else is driving the state
+    // (the dev scrubber), so in both cases there is nothing to schedule.
+    if (!inView || reducedMotion || paused) return;
 
     const timers = timersRef.current;
     const clearTimers = () => {
@@ -88,7 +89,7 @@ export function useVideoTimeline() {
       document.removeEventListener("visibilitychange", onVisibility);
       clearTimers();
     };
-  }, [inView, reducedMotion]);
+  }, [inView, reducedMotion, paused]);
 
   return {
     rootRef,

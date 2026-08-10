@@ -154,32 +154,47 @@ export function TickIcon({ className }: { className: string }) {
 }
 
 /**
- * The arrow, shifted so its tip sits exactly on the element's origin.
+ * The arrow. Its tip is the path's first point, at (5, 2.5).
  *
- * The source path starts at (5, 2.5), which at the rendered 38px left several pixels of dead
- * space above and left of the tip — so the pointer appeared to click with its middle. Translating
- * the path by that offset makes the hotspot the element's own top-left corner, which is what the
- * anchor coordinates assume.
+ * Framed by `ARROW_VIEWBOX` rather than translated, for the same reason as the hand below: a
+ * `translate` inside the SVG moves the artwork in viewBox units, which the element's 38px width
+ * then scales by ~1.58 — so shifting by the tip's own coordinates overshoots the origin by half
+ * as much again, and the pointer clicks with its middle.
  */
 export function CursorIcon() {
+  return <path d="M5 2.5l13 9.5-6 .8 3 7.2-2.6 1.2-3-7.2-4.4 4.2z" />;
+}
+
+/** The arrow's viewBox, framed so the tip at (5, 2.5) lands on the element's origin. */
+export const ARROW_VIEWBOX = "5 2.5 24 24";
+
+/**
+ * A closed grabbing hand, for the beat where the learner drags the scrubber.
+ *
+ * Unlike the arrow this is a line drawing with no tip: the hotspot is the middle of the grip. The
+ * path is left where it was authored and the framing is done by the viewBox instead — see
+ * `GRAB_VIEWBOX`. Translating it onto the origin the way the arrow does would push two thirds of
+ * the hand outside a `0 0 24 24` box and clip it away.
+ */
+export function GrabCursorIcon() {
   return (
-    <g transform="translate(-5, -2.5)">
-      <path d="M5 2.5l13 9.5-6 .8 3 7.2-2.6 1.2-3-7.2-4.4 4.2z" />
-    </g>
+    <path d="M8 11V6.6a1.6 1.6 0 0 1 3.2 0V10m0-.6a1.6 1.6 0 0 1 3.2 0V11m0-.4a1.6 1.6 0 0 1 3.2 0V11m-9.6 0V9.4a1.6 1.6 0 0 0-3.2 0v4.2c0 4 3 6.4 6.6 6.4s6.2-2.4 6.2-6.4V11" />
   );
 }
 
 /**
- * A closed grabbing hand, for the beat where the learner drags the scrubber. The fingers curl
- * around the thumb, so the hotspot is the middle of the grip rather than a tip.
+ * The grab hand's own viewBox, offset so the grip lands on the element's origin.
+ *
+ * The path's box is x 4.8→17.6, y 5→20 (`getBBox`), but the hotspot is not its centre: on a
+ * grabbing hand the point that holds the thing being dragged is the knuckle line where the finger
+ * curls meet the palm, near the top. That is (11.2, 11) — a bbox centre instead leaves the pointer
+ * hanging below the scrubber thumb.
+ *
+ * The values are that point unnegated: `min-x`/`min-y` name the path coordinate that maps to the
+ * element's top-left, so they *are* the hotspot. Negating them — the instinct, by analogy with a
+ * `translate` — pushes the hand down-right by twice the offset.
  */
-export function GrabCursorIcon() {
-  return (
-    <g transform="translate(-12, -11)">
-      <path d="M8 11V6.6a1.6 1.6 0 0 1 3.2 0V10m0-.6a1.6 1.6 0 0 1 3.2 0V11m0-.4a1.6 1.6 0 0 1 3.2 0V11m-9.6 0V9.4a1.6 1.6 0 0 0-3.2 0v4.2c0 4 3 6.4 6.6 6.4s6.2-2.4 6.2-6.4V11" />
-    </g>
-  );
-}
+export const GRAB_VIEWBOX = "11.2 11 24 24";
 
 /**
  * Reassembled from the four quadrant SVGs in

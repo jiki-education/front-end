@@ -1,0 +1,202 @@
+.page {
+    min-height: 100vh;
+    background: var(--color-gray-100);
+    padding: 24px 16px 60px;
+}
+
+.header {
+    max-width: 900px;
+    margin-inline: auto;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.blurb {
+    color: var(--color-gray-600);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.blurb code,
+.readout code {
+    background: var(--color-gray-200);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 12px;
+}
+
+/* ===== Controls ===== */
+
+.controls {
+    max-width: 900px;
+    margin-inline: auto;
+    background: #fff;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 24px;
+}
+
+.sliderRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.slider {
+    flex: 1;
+}
+
+.time {
+    font-variant-numeric: tabular-nums;
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 150px;
+    text-align: end;
+}
+
+.dim {
+    color: var(--color-gray-500);
+    font-weight: 400;
+}
+
+/* Ticks for the cursor beats, laid over a rail the same width as the slider's travel. */
+.markers {
+    position: relative;
+    height: 18px;
+    margin: 2px 0 10px;
+}
+
+.marker {
+    position: absolute;
+    inset-block-start: 4px;
+    width: 3px;
+    height: 10px;
+    padding: 0;
+    border: 0;
+    border-radius: 2px;
+    background: var(--color-purple-400);
+    cursor: pointer;
+    transform: translateX(-50%);
+}
+
+.marker:hover {
+    background: var(--color-purple-600);
+    height: 14px;
+}
+
+.markerActive {
+    background: var(--color-purple-800);
+    height: 14px;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.button {
+    background: var(--color-gray-100);
+    border: 1px solid var(--color-gray-300);
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background: var(--color-gray-200);
+}
+
+.toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--color-gray-600);
+    cursor: pointer;
+}
+
+.readout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 14px 0 0;
+}
+
+.readout dt {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-gray-500);
+    margin-bottom: 3px;
+}
+
+.readout dd {
+    margin: 0;
+}
+
+/* ===== Stage and its overlay =====
+   The video draws its stage with `transform: scale()` from its top-left, so the drawn box starts
+   at the wrapper's origin and the overlay can be sized to match it with a plain percentage width.
+   Nothing here reads the scale: `.stage` already shrinks its own footprint to what is painted. */
+
+.stageWrap {
+    position: relative;
+    width: fit-content;
+    margin-inline: auto;
+    cursor: crosshair;
+}
+
+.overlay {
+    /* Matches the stage's 16 / 11.4 box. Pointer events pass through so clicks still reach the
+       stage underneath and get measured against it. */
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 50;
+}
+
+.cross {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    margin: -7px 0 0 -7px;
+}
+
+.cross::before,
+.cross::after {
+    content: "";
+    position: absolute;
+    background: currentcolor;
+}
+
+.cross::before {
+    inset-inline-start: 50%;
+    inset-block: 0;
+    width: 1px;
+    margin-inline-start: -0.5px;
+}
+
+.cross::after {
+    inset-block-start: 50%;
+    inset-inline: 0;
+    height: 1px;
+    margin-block-start: -0.5px;
+}
+
+/* Where the cursor's tip is right now. */
+.crossTip {
+    color: var(--color-green-500);
+}
+
+/* Where you last clicked. */
+.crossProbe {
+    color: var(--color-red-500);
+}

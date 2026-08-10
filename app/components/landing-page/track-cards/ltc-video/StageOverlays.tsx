@@ -1,5 +1,5 @@
 import { useTranslations } from "next-intl";
-import { CursorIcon, GrabCursorIcon, TickIcon, WarningIcon } from "./icons";
+import { ARROW_VIEWBOX, CursorIcon, GRAB_VIEWBOX, GrabCursorIcon, TickIcon, WarningIcon } from "./icons";
 import { CONFETTI, cursorOffset } from "./stage-geometry";
 import type { VideoState } from "./state";
 import { SPEED, STEP } from "./timeline";
@@ -71,6 +71,11 @@ export function Confetti({ firing }: { firing: boolean }) {
  * through one `scale()`, so every anchor is knowable as a constant. That removes the prototype's
  * per-move `getBoundingClientRect` + `offsetWidth` reads, which forced layout on every one of
  * the eight scrub steps.
+ *
+ * Both pointers put their hotspot on the element's origin by offsetting their viewBox onto it —
+ * the arrow's tip, the hand's grip — so the anchors in `stage-geometry.ts` mean the same thing
+ * whichever is showing. Never translate the artwork instead: the element is 38px across a 24-unit
+ * viewBox, so an inner `translate` is magnified ~1.58× and overshoots.
  */
 export function Cursor({ state }: { state: VideoState }) {
   const { x, y } = cursorOffset(state.cursor);
@@ -81,7 +86,7 @@ export function Cursor({ state }: { state: VideoState }) {
       className={`${styles.cursor} ${grabbing ? styles.cursorScrubbing : ""} ${
         state.cursorVisible ? "" : styles.cursorHidden
       }`}
-      viewBox="0 0 24 24"
+      viewBox={grabbing ? GRAB_VIEWBOX : ARROW_VIEWBOX}
       fill={grabbing ? "none" : "#fff"}
       stroke="var(--color-gray-800)"
       strokeWidth={grabbing ? 1.7 : 1.5}
