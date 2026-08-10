@@ -21,16 +21,16 @@ import type { ArticleMeta, BlogPostMeta, GuideMeta, ProjectMeta, TestimonialsDat
  *
  * ## Why this is fetched rather than imported
  *
- * It used to be `lib/generated/content-meta-server.json`, a single cross-locale
- * blob bundled into the worker and read synchronously. That put every listing,
- * every `generateMetadata` and the whole landing page on data fixed at BUILD
- * time. A locale the i18n repo published afterwards could serve its post bodies
- * perfectly from R2 and still be invisible in every listing and every sitemap,
- * because the thing that knew the posts existed shipped with the deploy.
+ * A single cross-locale blob bundled into the worker and read synchronously
+ * would put every listing, every `generateMetadata` and the whole landing page
+ * on data fixed at BUILD time. A locale the i18n repo publishes after that
+ * build could then serve its post bodies perfectly from R2 and still be
+ * invisible in every listing and every sitemap, because the thing that knows
+ * the posts exist would ship with the deploy.
  *
- * It is now one content-hashed artifact per locale, resolved through the same
- * pointer every other translated artifact uses, so it is on exactly the same
- * footing as the prose it describes.
+ * So it is one content-hashed artifact per locale, resolved through the same
+ * pointer every other translated artifact uses, on exactly the same footing as
+ * the prose it describes.
  *
  * These accessors are all SERVER side, so they resolve URLs through
  * `lib/server/origin`. Being async is not a reason for an exception: server
@@ -179,8 +179,8 @@ function assembleProjects(
  * Wrapped in React's `cache()` so the several accessors a single page calls
  * share one fetch and one parse per request.
  *
- * A miss resolves to empty rather than to English. Posts have never had an
- * English fallback, because silently showing English to a reader who asked for
+ * A miss resolves to empty rather than to English. Posts have no English
+ * fallback, because silently showing English to a reader who asked for
  * another language is the failure this whole split exists to make impossible.
  * `getTestimonials` and the PROJECTS are the two deliberate exceptions, and both
  * say so where they are built: there are three projects and they are the site's
@@ -194,7 +194,8 @@ export const getContentMeta = cache(async (locale: string): Promise<ContentMeta>
     locale === DEFAULT_LOCALE ? Promise.resolve(null) : resolveProjectCopyHash(DEFAULT_LOCALE).catch(() => null)
   ]);
 
-  // Every artifact in flight at once: one round trip of depth, as before.
+  // Every artifact in flight at once, so the whole set costs one round trip of
+  // depth however many artifacts it grows to.
   const [structure, copy, local, projectCopy, englishProjectCopy] = await Promise.all([
     fetchJson<Structural>(contentStructurePath(contentStructureHash)),
     copyHash ? fetchJson<Copy>(contentCopyPath(locale, copyHash)) : Promise.resolve(null),

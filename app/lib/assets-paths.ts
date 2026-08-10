@@ -129,11 +129,11 @@ export function projectEpisodeContentPath(slug: string, uuid: string, locale: st
 /**
  * One locale's project copy catalog: `{ [projectSlug]: { title, description, tags } }`.
  *
- * A project's learner-facing copy used to be authored as locale maps inside each
- * project's config.json, which made this repo a second home for translated
- * content. It is now a catalog like any other: English in
+ * A project's learner-facing copy is a catalog like any other: English in
  * content/src/posts/projects/messages.json, every other locale published here by
- * the i18n repo. Note the locale sits where a project SLUG sits in the two paths
+ * the i18n repo. It is never authored as locale maps inside a project's
+ * config.json, because that would make this repo a second home for translated
+ * content. Note the locale sits where a project SLUG sits in the two paths
  * above, so a locale code can never also be a project slug.
  */
 export function projectCopyPath(locale: string, hash: string): string {

@@ -354,10 +354,10 @@ export const PROJECT_COPY_FIELDS = ["title", "description", "tags"] as const;
 /**
  * Validate a project's config.json holds structure ONLY.
  *
- * The copy fields used to live here as locale-keyed maps, which made this repo a
- * second home for translated content. They are not merely absent now, they are
- * rejected: a stray `title` map would be read by nothing and would quietly look
- * like the place to translate.
+ * The copy fields do not belong here, and are not merely absent: they are
+ * rejected. A locale-keyed `title` map in a project's config.json would make
+ * this repo a second home for translated content, and it would be read by
+ * nothing while quietly looking like the place to translate.
  */
 export function validateProjectConfigIsStructural(slug: string, config: unknown): void {
   if (config === null || typeof config !== "object" || Array.isArray(config)) {

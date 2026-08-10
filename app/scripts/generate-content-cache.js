@@ -320,8 +320,8 @@ function processProjects() {
 
   // The English copy catalog. Every project's title, description and tags live
   // here and nowhere else: translations of them are published by the i18n repo,
-  // so keeping a locale map in each project's config.json would have been a
-  // second home for translated content.
+  // so a locale map in a project's config.json would make this repo a second
+  // home for translated content.
   const messagesPath = path.join(projectsDir, "messages.json");
   if (!fs.existsSync(messagesPath)) {
     throw new Error(`Missing projects/messages.json at ${messagesPath}`);
@@ -376,7 +376,7 @@ function processProjects() {
     for (const field of ["title", "description", "tags"]) {
       if (field in projectConfig) {
         throw new Error(
-          `Project "${projectSlug}" config.json still carries "${field}". Learner-facing copy moved to projects/messages.json; config.json holds structure only.`
+          `Project "${projectSlug}" config.json must not contain "${field}". Learner-facing copy lives in projects/messages.json; config.json holds structure only.`
         );
       }
     }
@@ -598,7 +598,7 @@ function buildProjectStaticFiles(processed) {
   // DEFAULT LOCALE plus any locale an episode .md exists for. It is deliberately
   // NOT "every locale with project copy": copy comes from the i18n repo and
   // episodes are Markdown this repo renders, so the two sets move independently
-  // and pretending otherwise is what used to make non-English listings empty.
+  // and conflating them empties non-English listings.
   const episodeLocales = new Set([DEFAULT_LOCALE, ...Object.keys(episodesBy)]);
 
   const projectsStructure = {};
@@ -830,12 +830,13 @@ function processTestimonials() {
 /**
  * Write ONE metadata artifact per locale, plus its dev pointer.
  *
- * This used to be a single `content-meta-server.json` bundled into the worker
- * and imported synchronously. That made every listing page, every piece of SEO
- * metadata and the whole landing page depend on data fixed at BUILD time, so a
- * locale the i18n repo published afterwards could serve its post bodies from R2
- * and still be invisible in every listing. Per-locale, content-hashed and
- * fetched, it is on exactly the same footing as every other translated artifact.
+ * One artifact per locale, rather than a single cross-locale blob bundled into
+ * the worker and imported synchronously. A bundled blob would make every
+ * listing page, every piece of SEO metadata and the whole landing page depend
+ * on data fixed at BUILD time, so a locale the i18n repo publishes after that
+ * build could serve its post bodies from R2 and still be invisible in every
+ * listing. Per-locale, content-hashed and fetched, it is on exactly the same
+ * footing as every other translated artifact.
  *
  * `hasContent` is what the listing routes 404 on. It is a per-locale fact, so it
  * lives in that locale's own artifact rather than in a cross-locale index that
@@ -918,14 +919,15 @@ function writeContentMeta(blogByLocale, articlesByLocale, guidesByLocale, projec
     // JSON file in the content package, not Markdown, so they are not in the
     // corpus the i18n repo mirrors.
     //
-    // Projects used to be here too, and are not any more. Their title,
-    // description and tags were authored as locale MAPS inside each project's
-    // config.json, which made this repo a second home for translated content;
-    // and because the locale set was derived from those maps, which only ever
-    // held `en`, a non-English project listing was empty unless a translated
-    // episode .md happened to exist. They are now split like posts: the
-    // locale-invariant structure above, and a copy catalog the i18n repo
+    // Projects do NOT belong here: they split like posts, into the
+    // locale-invariant structure above and a copy catalog the i18n repo
     // publishes per locale (English authored in projects/messages.json).
+    // Writing their title, description or tags into this per-locale blob, or
+    // into locale MAPS in each project's config.json, would make this repo a
+    // second home for translated content, and it would derive the locale set
+    // from copy this repo only ever authors in `en`, so every non-English
+    // project listing would be empty unless a translated episode .md happened
+    // to exist.
     const local = {
       testimonials: testimonialsByLocale[locale] ?? null
     };
