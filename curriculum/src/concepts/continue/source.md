@@ -1,5 +1,5 @@
 ---
-title: "Continue"
+title: "The \`continue\` Keyword"
 description: "Using the `continue` keyword inside a loop to skip the rest of this iteration and jump straight to the next one."
 ---
 
