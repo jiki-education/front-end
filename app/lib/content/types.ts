@@ -2,33 +2,9 @@
 export const ARTICLE_TAG_SLUGS = ["legal", "premium", "exercises", "videos"] as const;
 export type ArticleTagSlug = (typeof ARTICLE_TAG_SLUGS)[number];
 
-// Tag labels for each locale
-export const ARTICLE_TAG_LABELS: Record<ArticleTagSlug, Record<string, string>> = {
-  legal: { en: "Legal", hu: "Jogi" },
-  premium: { en: "Premium", hu: "Prémium" },
-  exercises: { en: "Exercises", hu: "Gyakorlatok" },
-  videos: { en: "Videos", hu: "Videók" }
-};
-
-export function getArticleTagLabel(slug: ArticleTagSlug, locale: string): string {
-  return ARTICLE_TAG_LABELS[slug][locale] || ARTICLE_TAG_LABELS[slug].en;
-}
-
 // Guide tag slugs - used in URLs and frontmatter
 export const GUIDE_TAG_SLUGS = ["editors", "installation", "agentic-coding", "front-end-basics"] as const;
 export type GuideTagSlug = (typeof GUIDE_TAG_SLUGS)[number];
-
-// Tag labels for each locale
-export const GUIDE_TAG_LABELS: Record<GuideTagSlug, Record<string, string>> = {
-  editors: { en: "Editors", hu: "Szerkesztők" },
-  installation: { en: "Installation", hu: "Telepítés" },
-  "agentic-coding": { en: "Agentic Coding", hu: "Agentikus kódolás" },
-  "front-end-basics": { en: "Front-End Basics", hu: "Front-end alapok" }
-};
-
-export function getGuideTagLabel(slug: GuideTagSlug, locale: string): string {
-  return GUIDE_TAG_LABELS[slug][locale] || GUIDE_TAG_LABELS[slug].en;
-}
 
 export interface Frontmatter {
   title: string;
