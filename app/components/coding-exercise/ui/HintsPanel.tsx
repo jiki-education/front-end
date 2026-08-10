@@ -121,7 +121,7 @@ export default function HintsPanel({ hints, walkthroughVideoData, lessonSlug, cl
 }
 
 function InlineWalkthroughPlayer({ playbackId, lessonSlug }: { playbackId: string; lessonSlug: string }) {
-  const { playerRef, handleTimeUpdate, handleVideoEnd, handleCanPlay } = useWalkthroughProgress(lessonSlug);
+  const { playerRef, handleTimeUpdate, handleVideoEnd, restorePosition } = useWalkthroughProgress(lessonSlug);
 
   return (
     <div className={style.walkthroughPlayerWrapper}>
@@ -132,7 +132,8 @@ function InlineWalkthroughPlayer({ playbackId, lessonSlug }: { playbackId: strin
         className={style.walkthroughPlayer}
         onTimeUpdate={handleTimeUpdate}
         onEnded={handleVideoEnd}
-        onCanPlay={handleCanPlay}
+        onLoadedMetadata={restorePosition}
+        onCanPlay={restorePosition}
       />
     </div>
   );

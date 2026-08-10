@@ -3,14 +3,16 @@
 import { createPlayer } from "@videojs/react";
 import { videoFeatures, VideoSkin } from "@videojs/react/video";
 import { MuxVideo } from "@videojs/react/media/mux-video";
+import { MuxData } from "@videojs/react/media/mux-data";
 import "@videojs/react/video/skin.css";
 import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { handleVideoPlayerError } from "./videoPlayerError";
 import styles from "./JikiVideoPlayer.module.css";
 
-// Mux Data environment key. Mux Player self-configured telemetry off the
-// playbackId, but Video.js's MuxData needs an explicit key to emit beacons.
-// Sourced from the Mux dashboard; telemetry is simply off until it's set.
+// Mux Data environment key. Optional for Mux-hosted playback: the beacon reports
+// the playbackId as its video_id and Mux attributes the view to the owning
+// environment, which is how Mux Player self-configured telemetry. Set it only to
+// monitor sources Mux doesn't host.
 const MUX_ENV_KEY = process.env.NEXT_PUBLIC_MUX_ENV_KEY;
 
 // Mux serves every asset as HLS; a playbackId maps 1:1 to these URLs.
@@ -51,10 +53,7 @@ export interface JikiVideoPlayerProps {
   onCanPlay?: () => void;
   onLoadedMetadata?: () => void;
   onError?: (error: Error) => void;
-  // Mux Data telemetry metadata (e.g. { video_title }). NOTE: unlike Mux Player
-  // (which self-configured Mux Data from the playbackId), Video.js's MuxData needs
-  // an envKey to actually emit beacons — see muxEnvKey below. Without a key the
-  // metadata is inert.
+  // Mux Data telemetry metadata (e.g. { video_title }).
   metadata?: Record<string, unknown>;
 }
 
@@ -77,10 +76,11 @@ const JikiVideoPlayer = forwardRef<JikiVideoPlayerHandle, JikiVideoPlayerProps>(
             streamType="on-demand"
             autoPlay={autoPlay}
             playsInline
-            config={MUX_ENV_KEY ? { muxData: { envKey: MUX_ENV_KEY, metadata } } : undefined}
           />
         </VideoSkin>
       </div>
+      {/* Registers Mux Data against the media above; renders nothing. */}
+      <MuxData playerSoftwareName="jiki-video-player" envKey={MUX_ENV_KEY} metadata={metadata} />
       <PlayerBridge ref={ref} {...callbacks} />
     </Player.Provider>
   );

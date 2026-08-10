@@ -73,6 +73,10 @@ jest.mock("@videojs/react/media/mux-video", () => ({
   MuxVideo: () => null
 }));
 
+jest.mock("@videojs/react/media/mux-data", () => ({
+  MuxData: () => null
+}));
+
 jest.mock("@videojs/react/video/skin.css", () => ({}), { virtual: true });
 
 function resetStore() {

@@ -12,7 +12,7 @@ interface VideoWalkthroughModalProps {
 }
 
 export function VideoWalkthroughModal({ playbackId, lessonSlug }: VideoWalkthroughModalProps) {
-  const { playerRef, handleTimeUpdate, handleVideoEnd, handleCanPlay } = useWalkthroughProgress(lessonSlug);
+  const { playerRef, handleTimeUpdate, handleVideoEnd, restorePosition } = useWalkthroughProgress(lessonSlug);
 
   return (
     <div className={styles.videoWrapper}>
@@ -23,7 +23,8 @@ export function VideoWalkthroughModal({ playbackId, lessonSlug }: VideoWalkthrou
         className={styles.muxPlayer}
         onTimeUpdate={handleTimeUpdate}
         onEnded={handleVideoEnd}
-        onCanPlay={handleCanPlay}
+        onLoadedMetadata={restorePosition}
+        onCanPlay={restorePosition}
       />
     </div>
   );

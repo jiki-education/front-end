@@ -56,7 +56,9 @@ export function useWalkthroughProgress(lessonSlug: string) {
     }
   };
 
-  const handleCanPlay = () => {
+  // Wired to both `loadedmetadata` and `canplay` so a restore that can't run yet
+  // (no duration) is retried rather than lost. Guarded to run at most once.
+  const restorePosition = () => {
     if (hasRestoredPositionRef.current) {
       return;
     }
@@ -66,13 +68,20 @@ export function useWalkthroughProgress(lessonSlug: string) {
       return;
     }
 
+    // Seeking before metadata is ready defers the write inside the player until
+    // `loadedmetadata`, so don't burn the guard yet — retry on the next event.
+    const duration = player.duration || 0;
+    if (!duration) {
+      return;
+    }
+
     hasRestoredPositionRef.current = true;
 
     try {
       const savedTime = localStorage.getItem(getStorageKey(lessonSlug));
       if (savedTime) {
         const time = parseFloat(savedTime);
-        if (time > 0 && time < (player.duration || Infinity)) {
+        if (time > 0 && time < duration) {
           player.currentTime = time;
         }
       }
@@ -93,6 +102,6 @@ export function useWalkthroughProgress(lessonSlug: string) {
     playerRef,
     handleTimeUpdate,
     handleVideoEnd,
-    handleCanPlay
+    restorePosition
   };
 }
