@@ -96,8 +96,9 @@ content/
 │       │       └── source.md
 │       └── projects/         # Build with Jeremy projects + episodes
 │           ├── config.json   # { "projects": [ordered slugs] }
+│           ├── messages.json # English copy: { slug: { title, description, tags } }
 │           └── [project-slug]/
-│               ├── config.json  # Project details + episodes: [uuid, ...] (ordered)
+│               ├── config.json  # Project structure + episodes: [uuid, ...] (ordered)
 │               └── [episode-uuid]/
 │                   ├── config.json  # Episode metadata (video, premium, guides)
 │                   └── source.md    # Frontmatter + transcript body (English source)
@@ -207,8 +208,9 @@ For guides that explain how to install a piece of software, follow this conventi
 
 ### Projects
 
-**Projects** ("Build with Jeremy") live in `src/posts/projects/` and have a two-level structure: a top-level `config.json` lists project slugs in display order, each project directory has a `config.json` (localized `title`/`description`/`audience`/`cadence` maps, `image`, `livestream`, `upcoming_streams`, and an ordered `episodes` array of UUIDs), and each episode lives in a UUID-named directory.
+**Projects** ("Build with Jeremy") live in `src/posts/projects/` and have a two-level structure: a top-level `config.json` lists project slugs in display order, a top-level `messages.json` holds every project's English copy, each project directory has a `config.json` (`image`, `livestream`, `upcoming_streams`, and an ordered `episodes` array of UUIDs), and each episode lives in a UUID-named directory.
 
+- **Learner-facing project copy lives in `projects/messages.json`, never in a project's `config.json`.** It is a catalog keyed by project slug, each entry holding `title`, `description` and `tags`. English is authored here; every translation is published by the `i18n` repo. A `title`/`description`/`tags` key left in a project's `config.json` is a build error, because it would read as the place to translate and nothing would consume it.
 - A project with an **empty `episodes` array is "coming soon"**: it renders as a non-clickable teaser and has no detail page. There is no explicit status field.
 - Episode **config.json** holds structural metadata: `slug` (used in the URL), `date`, `author`, `videoProvider` (`youtube` or `mux`), `videoKey`, `durationSeconds`, `premium`, `image`, and `guides` (an array of guide slugs shown as a sidebar on the episode page).
 - Episode **markdown** frontmatter has `title`, `excerpt`, `seo`, and an optional `summary` block (`from`, `to`, `keyConcepts` — freeform prose describing the episode's journey). The markdown body is the episode's **transcript**, rendered below the video.

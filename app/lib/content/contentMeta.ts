@@ -7,9 +7,12 @@ import {
   contentCopyPath,
   contentCopyPointerPath,
   contentMetaPath,
-  contentMetaPointerPath
+  contentMetaPointerPath,
+  projectCopyPath,
+  projectCopyPointerPath
 } from "@/lib/assets-paths";
 import { createHashResolver } from "@/lib/i18n/catalogPointer";
+import { DEFAULT_LOCALE } from "@/lib/locales";
 import type { ArticleMeta, BlogPostMeta, GuideMeta, ProjectMeta, TestimonialsData } from "./types";
 
 /**
@@ -71,6 +74,14 @@ const resolveLocalHash = createHashResolver({
   readPointer: readArtifactJson
 });
 
+const resolveProjectCopyHash = createHashResolver({
+  label: "project copy catalog",
+  compiledHashes: () => contentIndexHashes.projects,
+  pointerPath: (locale) => projectCopyPointerPath(locale),
+  resolveUrl: assetsUrl,
+  readPointer: readArtifactJson
+});
+
 const fetchJson = readArtifactJson;
 
 /**
@@ -90,36 +101,126 @@ function assemble(structure: Structural, copy: Copy, type: string, locale: strin
 }
 
 /**
+ * The structural half of one project, as the front-end publishes it.
+ *
+ * Every field is optional because this is a FETCHED artifact: it may have been
+ * written by an older deploy than the code reading it, and a listing is not the
+ * place to throw over a missing field.
+ */
+interface ProjectStructure {
+  order?: number;
+  image?: string;
+  livestream?: boolean;
+  upcomingStreams?: string[];
+  /** Per locale, the episode index the front-end BUILT for that locale. */
+  episodes?: Record<string, { count: number; hash: string } | undefined>;
+}
+
+/** The translated half, published per locale by the i18n repo. */
+interface ProjectCopy {
+  title?: string;
+  description?: string;
+  tags?: string[];
+}
+
+/**
+ * Merge the projects' structure with a locale's copy, falling back to English.
+ *
+ * Projects deliberately behave the OPPOSITE way to posts. A post with no
+ * translation is dropped, because a listing mixing languages looks like a
+ * working page. There are three projects and they are the site's headline
+ * feature: dropping one leaves a blank hub, so an untranslated project shows its
+ * English copy instead. `english` is that fallback, and it is per FIELD, so a
+ * catalog that translates the title but not the tags still renders tags.
+ *
+ * ## episodesIndexHash
+ *
+ * Episodes are Markdown this repo renders, so an episode index exists only for
+ * locales the FRONT-END built. A locale with translated project copy but no
+ * episode index of its own therefore reads the DEFAULT LOCALE's index, and
+ * `episodesLocale` records which locale the hash belongs to so `getProject` asks
+ * for a path that exists. The alternative, treating a missing index as no
+ * episodes, would silently empty a project page the moment its copy was
+ * translated.
+ */
+function assembleProjects(
+  structure: Record<string, ProjectStructure>,
+  copy: Record<string, ProjectCopy> | null,
+  english: Record<string, ProjectCopy> | null,
+  locale: string
+): ProjectMeta[] {
+  return Object.keys(structure).map((slug) => {
+    const s = structure[slug];
+    // The ONE place project copy is read. `tags` is an array here; if the i18n
+    // repo ever publishes it as an ordered object, this is the single edit.
+    const merged: ProjectCopy = { ...english?.[slug], ...copy?.[slug] };
+    const episodes = s.episodes?.[locale] ?? s.episodes?.[DEFAULT_LOCALE];
+
+    return {
+      slug,
+      locale,
+      order: s.order ?? 0,
+      image: s.image ?? "",
+      livestream: s.livestream ?? false,
+      upcomingStreams: s.upcomingStreams ?? [],
+      title: merged.title ?? slug,
+      description: merged.description ?? "",
+      tags: merged.tags ?? [],
+      episodeCount: episodes?.count ?? 0,
+      episodesIndexHash: episodes?.hash ?? "",
+      episodesLocale: s.episodes?.[locale] ? locale : DEFAULT_LOCALE
+    };
+  });
+}
+
+/**
  * One locale's metadata, or an empty set when the locale has none.
  *
  * Wrapped in React's `cache()` so the several accessors a single page calls
  * share one fetch and one parse per request.
  *
- * A miss resolves to empty rather than to English. No accessor here has ever
- * had an English fallback (`getTestimonials` is the single deliberate
- * exception, and says so), because silently showing English to a reader who
- * asked for another language is the failure this whole split exists to make
- * impossible.
+ * A miss resolves to empty rather than to English. Posts have never had an
+ * English fallback, because silently showing English to a reader who asked for
+ * another language is the failure this whole split exists to make impossible.
+ * `getTestimonials` and the PROJECTS are the two deliberate exceptions, and both
+ * say so where they are built: there are three projects and they are the site's
+ * headline feature, so an untranslated one shows English rather than vanishing.
  */
 export const getContentMeta = cache(async (locale: string): Promise<ContentMeta> => {
-  const [copyHash, localHash] = await Promise.all([
+  const [copyHash, localHash, projectCopyHash, englishProjectCopyHash] = await Promise.all([
     resolveCopyHash(locale).catch(() => null),
-    resolveLocalHash(locale).catch(() => null)
+    resolveLocalHash(locale).catch(() => null),
+    resolveProjectCopyHash(locale).catch(() => null),
+    locale === DEFAULT_LOCALE ? Promise.resolve(null) : resolveProjectCopyHash(DEFAULT_LOCALE).catch(() => null)
   ]);
 
-  // Three artifacts, all in flight at once: one round trip of depth, as before.
-  const [structure, copy, local] = await Promise.all([
+  // Every artifact in flight at once: one round trip of depth, as before.
+  const [structure, copy, local, projectCopy, englishProjectCopy] = await Promise.all([
     fetchJson<Structural>(contentStructurePath(contentStructureHash)),
     copyHash ? fetchJson<Copy>(contentCopyPath(locale, copyHash)) : Promise.resolve(null),
     localHash
-      ? fetchJson<{ projects: ProjectMeta[]; testimonials: TestimonialsData | null }>(
-          contentMetaPath(locale, localHash)
-        )
+      ? fetchJson<{ testimonials: TestimonialsData | null }>(contentMetaPath(locale, localHash))
+      : Promise.resolve(null),
+    projectCopyHash
+      ? fetchJson<Record<string, ProjectCopy>>(projectCopyPath(locale, projectCopyHash))
+      : Promise.resolve(null),
+    englishProjectCopyHash
+      ? fetchJson<Record<string, ProjectCopy>>(projectCopyPath(DEFAULT_LOCALE, englishProjectCopyHash))
       : Promise.resolve(null)
   ]);
 
+  // Projects come from the locale-invariant structure, so they survive a locale
+  // with no translated posts at all.
+  const projectStructure = (structure as { projects?: Record<string, ProjectStructure> } | null)?.projects ?? {};
+  const projects = assembleProjects(
+    projectStructure,
+    projectCopy,
+    locale === DEFAULT_LOCALE ? projectCopy : englishProjectCopy,
+    locale
+  );
+
   if (!structure || !copy) {
-    return { ...EMPTY, projects: local?.projects ?? [], testimonials: local?.testimonials ?? null };
+    return { ...EMPTY, projects, testimonials: local?.testimonials ?? null };
   }
 
   const blog = assemble(structure, copy, "blog", locale) as BlogPostMeta[];
@@ -130,7 +231,7 @@ export const getContentMeta = cache(async (locale: string): Promise<ContentMeta>
     blog,
     articles,
     guides,
-    projects: local?.projects ?? [],
+    projects,
     testimonials: local?.testimonials ?? null
   };
 });

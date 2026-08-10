@@ -23,20 +23,27 @@
  *
  *   public/static/content/structure-{hash}.json
  *     - Locale-invariant post metadata: date, author, cover image, and the
- *       featured/listed/premium/order flags, all from English config
+ *       featured/listed/premium/order flags, all from English config, plus the
+ *       projects' structure (order, image, livestream, upcoming streams, and
+ *       each locale's episode index hash)
  *
  *   public/static/content/copy/{locale}/copy-{hash}.json
  *     - Translated post metadata: title, excerpt, seo, tags, reading time and
  *       that locale's content hash. Published by the i18n repo for every
  *       non-English locale; the app merges it with the structure above.
  *
+ *   public/static/content/projects/{locale}/meta-{hash}.json
+ *     - Translated project copy: title, description, tags. Only the English one
+ *       is written here (from projects/messages.json); the i18n repo publishes
+ *       every other locale to the same path shape.
+ *
  *   public/static/content/meta/{locale}/index-{hash}.json
- *     - Projects and testimonials, which are per-locale but are not Markdown and
- *       so stay front-end published
+ *     - Testimonials, which are per-locale but are not Markdown and so stay
+ *       front-end published
  *
  *   lib/generated/content-hashes.ts
- *     - Hash manifests for the search indexes, the per-locale metadata and the
- *       locale-invariant structure
+ *     - Hash manifests for the search indexes, the per-locale metadata, the
+ *       English project copy catalog and the locale-invariant structure
  *
  * Used by:
  * - Server-side content functions (lib/content/)
@@ -277,8 +284,9 @@ function processContentDir(type, requiredFields, extraFields) {
  * Structure:
  *   projects/
  *     config.json                 — { projects: ["slug1", "slug2", ...] } (ordered)
+ *     messages.json               — English copy catalog: { slug: { title, description, tags } }
  *     {project-slug}/
- *       config.json               — project details + episodes: [uuid, ...] (ordered)
+ *       config.json               — project structure + episodes: [uuid, ...] (ordered)
  *       {uuid}/
  *         config.json             — episode metadata (no project, no order)
  *         {locale}.md             — episode content per locale (body is the transcript)
@@ -308,6 +316,21 @@ function processProjects() {
 
   if (!Array.isArray(topConfig.projects)) {
     throw new Error(`projects/config.json must have a "projects" array of slugs`);
+  }
+
+  // The English copy catalog. Every project's title, description and tags live
+  // here and nowhere else: translations of them are published by the i18n repo,
+  // so keeping a locale map in each project's config.json would have been a
+  // second home for translated content.
+  const messagesPath = path.join(projectsDir, "messages.json");
+  if (!fs.existsSync(messagesPath)) {
+    throw new Error(`Missing projects/messages.json at ${messagesPath}`);
+  }
+  let projectCopy;
+  try {
+    projectCopy = JSON.parse(fs.readFileSync(messagesPath, "utf-8"));
+  } catch (error) {
+    throw new Error(`Invalid JSON in ${messagesPath}: ${error.message}`);
   }
 
   const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -349,6 +372,25 @@ function processProjects() {
     }
     if (typeof projectConfig.image !== "string" || !projectConfig.image) {
       throw new Error(`Project "${projectSlug}" is missing required "image" field`);
+    }
+    for (const field of ["title", "description", "tags"]) {
+      if (field in projectConfig) {
+        throw new Error(
+          `Project "${projectSlug}" config.json still carries "${field}". Learner-facing copy moved to projects/messages.json; config.json holds structure only.`
+        );
+      }
+    }
+    const copy = projectCopy[projectSlug];
+    if (!copy || typeof copy !== "object" || Array.isArray(copy)) {
+      throw new Error(`Project "${projectSlug}" has no entry in projects/messages.json`);
+    }
+    for (const field of ["title", "description"]) {
+      if (typeof copy[field] !== "string" || !copy[field]) {
+        throw new Error(`Project "${projectSlug}" messages.json "${field}" must be a non-empty string`);
+      }
+    }
+    if (!Array.isArray(copy.tags) || copy.tags.some((t) => typeof t !== "string" || !t)) {
+      throw new Error(`Project "${projectSlug}" messages.json "tags" must be an array of non-empty strings`);
     }
 
     projectsList.push({ slug: projectSlug, ...projectConfig });
@@ -469,7 +511,12 @@ function processProjects() {
     }
   }
 
-  return { projectsData: { projects: projectsList }, episodes };
+  const unknownCopySlugs = Object.keys(projectCopy).filter((slug) => !seenProjectSlugs.has(slug));
+  if (unknownCopySlugs.length > 0) {
+    throw new Error(`projects/messages.json has entries for unknown projects: ${unknownCopySlugs.join(", ")}`);
+  }
+
+  return { projectsData: { projects: projectsList }, episodes, projectCopy };
 }
 
 /**
@@ -499,18 +546,25 @@ function normalizeEpisodeSummary(summary, sourcePath) {
  * Build static files for the projects/ section.
  *
  * Emits:
- *   - public/static/content/projects/{projectSlug}/{uuid}/{locale}-{htmlHash}.html
- *   - public/static/content/projects/{projectSlug}/episodes-{locale}-{indexHash}.json
+ *   - public/static/content/projects/{projectSlug}/{uuid}/{locale}/content-{htmlHash}.html
+ *   - public/static/content/projects/{projectSlug}/{locale}/index-{indexHash}.json
+ *   - public/static/content/projects/en/meta-{hash}.json  (the English copy catalog)
  *
- * Returns: { projectsByLocale } where projectsByLocale[locale] = [projectEntry], each projectEntry
- *   contains slug, order, title, description, episodeCount, episodesIndexHash.
+ * Returns: { projectsStructure, projectCopyHash }.
+ *
+ * `projectsStructure[slug]` is the LOCALE-INVARIANT half of a project: order,
+ * image, livestream, upcomingStreams, and an `episodes` map of every locale the
+ * front-end built an episode index for. The translatable half (title,
+ * description, tags) is not here at all: it is a catalog, English authored in
+ * content/src/posts/projects/messages.json and every other locale published by
+ * the i18n repo.
  */
 function buildProjectStaticFiles(processed) {
   if (!processed) {
-    return { projectsByLocale: {} };
+    return { projectsStructure: {}, projectCopyHash: null };
   }
 
-  const { projectsData, episodes } = processed;
+  const { projectsData, episodes, projectCopy } = processed;
 
   // episodesBy[locale][projectSlug] = [episodeMeta]
   const episodesBy = {};
@@ -540,39 +594,31 @@ function buildProjectStaticFiles(processed) {
     }
   }
 
-  const projectsByLocale = {};
+  // Every locale the front-end has an episode index to write. That is the
+  // DEFAULT LOCALE plus any locale an episode .md exists for. It is deliberately
+  // NOT "every locale with project copy": copy comes from the i18n repo and
+  // episodes are Markdown this repo renders, so the two sets move independently
+  // and pretending otherwise is what used to make non-English listings empty.
+  const episodeLocales = new Set([DEFAULT_LOCALE, ...Object.keys(episodesBy)]);
 
-  // Determine all locales that have any project content. Project titles only use
-  // locales declared in config title maps; episodes contribute locales too.
-  const allLocales = new Set();
-  for (const p of projectsData.projects) {
-    for (const loc of Object.keys(p.title || {})) {
-      allLocales.add(loc);
+  const projectsStructure = {};
+
+  let order = 0;
+  for (const project of projectsData.projects) {
+    order += 1;
+    const upcomingStreams = Array.isArray(project.upcoming_streams) ? project.upcoming_streams : [];
+    if (typeof project.image !== "string" || !project.image) {
+      throw new Error(`Project "${project.slug}" is missing required "image" field`);
     }
-  }
-  for (const loc of Object.keys(episodesBy)) {
-    allLocales.add(loc);
-  }
+    if (typeof project.livestream !== "boolean") {
+      throw new Error(`Project "${project.slug}" is missing required boolean "livestream" field`);
+    }
 
-  for (const locale of allLocales) {
-    projectsByLocale[locale] = [];
-
-    let order = 0;
-    for (const project of projectsData.projects) {
-      order += 1;
-      const title = (project.title && (project.title[locale] || project.title.en)) || project.slug;
-      const description = (project.description && (project.description[locale] || project.description.en)) || "";
-      const tags = (project.tags && (project.tags[locale] || project.tags.en)) || [];
-      const upcomingStreams = Array.isArray(project.upcoming_streams) ? project.upcoming_streams : [];
-      if (typeof project.image !== "string" || !project.image) {
-        throw new Error(`Project "${project.slug}" is missing required "image" field`);
-      }
-      const image = project.image;
-      if (typeof project.livestream !== "boolean") {
-        throw new Error(`Project "${project.slug}" is missing required boolean "livestream" field`);
-      }
-      const livestream = project.livestream;
-
+    // episodes[locale] = { count, hash }. A locale absent from this map has no
+    // episode index of its own and reads the default locale's; see
+    // lib/content/contentMeta.ts.
+    const episodesByLocale = {};
+    for (const locale of episodeLocales) {
       const projectEpisodes = (episodesBy[locale] && episodesBy[locale][project.slug]) || [];
       const sortedEpisodes = [...projectEpisodes].sort((a, b) => a.order - b.order);
 
@@ -581,23 +627,26 @@ function buildProjectStaticFiles(processed) {
       const indexPath = path.join(STATIC_DIR, "projects", project.slug, locale, `index-${indexHash}.json`);
       writeFile(indexPath, indexJson);
 
-      projectsByLocale[locale].push({
-        slug: project.slug,
-        order,
-        title,
-        description,
-        tags,
-        image,
-        livestream,
-        upcomingStreams,
-        episodeCount: sortedEpisodes.length,
-        episodesIndexHash: indexHash,
-        locale
-      });
+      episodesByLocale[locale] = { count: sortedEpisodes.length, hash: indexHash };
     }
+
+    projectsStructure[project.slug] = {
+      order,
+      image: project.image,
+      livestream: project.livestream,
+      upcomingStreams,
+      episodes: episodesByLocale
+    };
   }
 
-  return { projectsByLocale };
+  // The English copy catalog, published to the same R2 path shape the i18n repo
+  // publishes every other locale to. English ships with the deploy and its hash
+  // is compiled in, so it needs no pointer; see lib/i18n/catalogPointer.ts.
+  const projectCopyJson = JSON.stringify(projectCopy);
+  const projectCopyHash = computeHash(projectCopyJson);
+  writeFile(path.join(STATIC_DIR, "projects", DEFAULT_LOCALE, `meta-${projectCopyHash}.json`), projectCopyJson);
+
+  return { projectsStructure, projectCopyHash };
 }
 
 /**
@@ -679,14 +728,18 @@ function generateSearchIndexes(type, byLocale, filterFn) {
 /**
  * Write the TypeScript hash manifest.
  *
- * Three kinds of hash: the search indexes, the per-locale metadata (projects and
- * testimonials, plus the translated copy this repo writes for local dev), and
- * the one locale-invariant structure hash. Only the default locale is ever read
- * from the per-locale maps at runtime; the rest resolve through their pointers.
- * Per-project episode indexes are fetched via the `episodesIndexHash` carried in
- * the per-locale metadata.
+ * Four kinds of hash: the search indexes, the per-locale metadata
+ * (testimonials, plus the translated post copy this repo writes for local dev),
+ * the English project copy catalog, and the one locale-invariant structure hash.
+ * Only the default locale is ever read from the per-locale maps at runtime; the
+ * rest resolve through their pointers. Per-project episode indexes are fetched
+ * via the episode hashes carried in the structure.
  */
-function writeHashManifest(searchHashes, guideSearchHashes, { copyHashes, localHashes, structureHash }) {
+function writeHashManifest(
+  searchHashes,
+  guideSearchHashes,
+  { copyHashes, localHashes, structureHash, projectCopyHash }
+) {
   function formatEntries(hashes) {
     return Object.entries(hashes)
       .sort(([a], [b]) => a.localeCompare(b))
@@ -704,6 +757,7 @@ export const contentIndexHashes: {
   search: { articles: Record<string, string>; guides: Record<string, string> };
   meta: Record<string, string>;
   copy: Record<string, string>;
+  projects: Record<string, string>;
 } = {
   search: {
     articles: {
@@ -718,6 +772,9 @@ ${formatEntries(localHashes)},
   },
   copy: {
 ${formatEntries(copyHashes)},
+  },
+  projects: {
+${formatEntries(projectCopyHash ? { [DEFAULT_LOCALE]: projectCopyHash } : {})},
   },
 };
 
@@ -786,20 +843,21 @@ function processTestimonials() {
  *
  * Returns { [locale]: hash }.
  */
-function writeContentMeta(blogByLocale, articlesByLocale, guidesByLocale, projectsByLocale, testimonialsByLocale) {
+function writeContentMeta(blogByLocale, articlesByLocale, guidesByLocale, projectsStructure, testimonialsByLocale) {
   // Post metadata splits three ways, along what each part actually is.
   //
   //   1. STRUCTURE, locale-invariant. Date, author, cover image, featured,
-  //      listed, premium, order. All of it comes from English config.json and
-  //      authors.json, none of it varies by language, and the i18n repo does not
-  //      hold any of it. One object serves every locale.
+  //      listed, premium, order, and now the projects' structure too. All of it
+  //      comes from English config.json and authors.json, none of it varies by
+  //      language, and the i18n repo does not hold any of it. One object serves
+  //      every locale.
   //   2. COPY, per locale. Title, excerpt, seo, tags, reading time, and the hash
   //      of that locale's rendered HTML. Every one of those is produced by
   //      translating, so the i18n repo publishes them and a locale it adds needs
-  //      no front-end build to appear in a listing.
-  //   3. LOCAL, per locale, front-end owned. Projects and testimonials. See
-  //      below for why these cannot go in (2).
-  const structure = { blog: {}, articles: {}, guides: {} };
+  //      no front-end build to appear in a listing. Projects have their own copy
+  //      catalog, at its own path; see buildProjectStaticFiles.
+  //   3. LOCAL, per locale, front-end owned. Testimonials only. See below.
+  const structure = { blog: {}, articles: {}, guides: {}, projects: projectsStructure };
   const copyByLocale = {};
 
   const STRUCTURAL = {
@@ -845,11 +903,7 @@ function writeContentMeta(blogByLocale, articlesByLocale, guidesByLocale, projec
   const copyHashes = {};
   const localHashes = {};
 
-  const locales = new Set([
-    ...Object.keys(copyByLocale),
-    ...Object.keys(projectsByLocale),
-    ...Object.keys(testimonialsByLocale)
-  ]);
+  const locales = new Set([...Object.keys(copyByLocale), ...Object.keys(testimonialsByLocale)]);
 
   for (const locale of [...locales].sort()) {
     const copy = copyByLocale[locale] ?? { blog: {}, articles: {}, guides: {} };
@@ -860,17 +914,19 @@ function writeContentMeta(blogByLocale, articlesByLocale, guidesByLocale, projec
     copyHashes[locale] = copyHash;
     writeFile(path.join(STATIC_DIR, "copy", locale, `copy-${copyHash}.json`), copyContent);
 
-    // Projects and testimonials stay FRONT-END published, per locale.
+    // Testimonials stay FRONT-END published, per locale: they are a per-locale
+    // JSON file in the content package, not Markdown, so they are not in the
+    // corpus the i18n repo mirrors.
     //
-    // Not an oversight. A project's per-locale title, description and tags are
-    // authored as locale MAPS inside the project's own config.json, and its
-    // episodesIndexHash names an artifact this script writes. Testimonials are a
-    // per-locale JSON file in the content package. None of that is Markdown, so
-    // none of it is in the corpus the i18n repo mirrors, and publishing it from
-    // there would mean teaching it a second authoring format it has no source
-    // for. So these two are the remaining front-end-owned per-locale objects.
+    // Projects used to be here too, and are not any more. Their title,
+    // description and tags were authored as locale MAPS inside each project's
+    // config.json, which made this repo a second home for translated content;
+    // and because the locale set was derived from those maps, which only ever
+    // held `en`, a non-English project listing was empty unless a translated
+    // episode .md happened to exist. They are now split like posts: the
+    // locale-invariant structure above, and a copy catalog the i18n repo
+    // publishes per locale (English authored in projects/messages.json).
     const local = {
-      projects: projectsByLocale[locale] ?? [],
       testimonials: testimonialsByLocale[locale] ?? null
     };
     const localContent = JSON.stringify(local);
@@ -932,7 +988,7 @@ function generateContentCache() {
   const { byLocale: blogByLocale } = buildStaticFiles("blog", blog);
   const { byLocale: articlesByLocale } = buildStaticFiles("articles", articles);
   const { byLocale: guidesByLocale } = buildStaticFiles("guides", guides);
-  const { projectsByLocale } = buildProjectStaticFiles(projectsProcessed);
+  const { projectsStructure, projectCopyHash } = buildProjectStaticFiles(projectsProcessed);
 
   // Generate search indexes. Articles index only `listed` ones; guides index all
   // (including premium guides, which stay searchable but are kept out of the sitemap).
@@ -944,10 +1000,10 @@ function generateContentCache() {
     blogByLocale,
     articlesByLocale,
     guidesByLocale,
-    projectsByLocale,
+    projectsStructure,
     testimonialsByLocale
   );
-  writeHashManifest(searchHashes, guideSearchHashes, contentMeta);
+  writeHashManifest(searchHashes, guideSearchHashes, { ...contentMeta, projectCopyHash });
 
   // Count totals
   let contentFileCount = 0;
@@ -976,12 +1032,7 @@ function generateContentCache() {
   console.log(`   Content files: ${contentFileCount}`);
   console.log(
     `   Locales: ${[
-      ...new Set([
-        ...Object.keys(blogByLocale),
-        ...Object.keys(articlesByLocale),
-        ...Object.keys(guidesByLocale),
-        ...Object.keys(projectsByLocale)
-      ])
+      ...new Set([...Object.keys(blogByLocale), ...Object.keys(articlesByLocale), ...Object.keys(guidesByLocale)])
     ]
       .sort()
       .join(", ")}`

@@ -22,7 +22,9 @@ export async function getProject(projectSlug: string, locale: string): Promise<P
     throw new Error(`Project not found: ${projectSlug}`);
   }
 
-  const url = projectEpisodesIndexPath(project.slug, project.locale, project.episodesIndexHash);
+  // `episodesLocale`, not `locale`: a locale with translated project copy but no
+  // episode Markdown of its own reads the default locale's index. See ProjectMeta.
+  const url = projectEpisodesIndexPath(project.slug, project.episodesLocale, project.episodesIndexHash);
   const json = await fetchStaticContent(url);
   const episodes = JSON.parse(json) as EpisodeMeta[];
 

@@ -6,7 +6,8 @@ import {
   validateNoDuplicateSlugs,
   validateTestimonials,
   validateEnglishSource,
-  validateProjectEnglishCopy,
+  validateProjectConfigIsStructural,
+  validateProjectCopyCatalog,
   validateEpisodeSummary,
   ValidationError
 } from "@/lib/content/validator";
@@ -279,25 +280,59 @@ describe("validateEnglishSource", () => {
   });
 });
 
-describe("validateProjectEnglishCopy", () => {
+describe("validateProjectConfigIsStructural", () => {
   const validConfig = {
-    title: { en: "A project" },
-    description: { en: "About the project" },
-    tags: { en: ["web"] }
+    image: "cover.webp",
+    livestream: true,
+    upcoming_streams: [],
+    episodes: []
   };
 
-  it("should accept a config with English copy", () => {
-    expect(() => validateProjectEnglishCopy("my-project", validConfig)).not.toThrow();
+  it("should accept a config holding structure only", () => {
+    expect(() => validateProjectConfigIsStructural("my-project", validConfig)).not.toThrow();
   });
 
-  it("should reject a field that is not a localized map", () => {
-    const invalid = { ...validConfig, title: "A project" };
-    expect(() => validateProjectEnglishCopy("my-project", invalid)).toThrow(/localized map/);
+  it("should reject copy left behind in config.json", () => {
+    const invalid = { ...validConfig, title: { en: "A project" } };
+    expect(() => validateProjectConfigIsStructural("my-project", invalid)).toThrow(/messages\.json/);
   });
 
-  it("should reject a field missing the English entry", () => {
-    const invalid = { ...validConfig, description: { fr: "Le projet" } };
-    expect(() => validateProjectEnglishCopy("my-project", invalid)).toThrow(/'en'/);
+  it("should reject a config that is not an object", () => {
+    expect(() => validateProjectConfigIsStructural("my-project", [])).toThrow(/not an object/);
+  });
+});
+
+describe("validateProjectCopyCatalog", () => {
+  const slugs = ["my-project"];
+  const validCatalog = {
+    "my-project": {
+      title: "A project",
+      description: "About the project",
+      tags: ["web"]
+    }
+  };
+
+  it("should accept a well-formed catalog", () => {
+    expect(() => validateProjectCopyCatalog(validCatalog, slugs)).not.toThrow();
+  });
+
+  it("should reject a project with no entry", () => {
+    expect(() => validateProjectCopyCatalog({}, slugs)).toThrow(/missing an entry/);
+  });
+
+  it("should reject an empty title", () => {
+    const invalid = { "my-project": { ...validCatalog["my-project"], title: "  " } };
+    expect(() => validateProjectCopyCatalog(invalid, slugs)).toThrow(/'title'/);
+  });
+
+  it("should reject tags that are not an array of strings", () => {
+    const invalid = { "my-project": { ...validCatalog["my-project"], tags: { "0": "web" } } };
+    expect(() => validateProjectCopyCatalog(invalid, slugs)).toThrow(/'tags'/);
+  });
+
+  it("should reject an entry for a project that does not exist", () => {
+    const invalid = { ...validCatalog, "ghost-project": validCatalog["my-project"] };
+    expect(() => validateProjectCopyCatalog(invalid, slugs)).toThrow(/unknown projects/);
   });
 });
 

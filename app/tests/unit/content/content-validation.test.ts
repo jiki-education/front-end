@@ -9,7 +9,8 @@ import {
   validateAuthors,
   validateNoDuplicateSlugs,
   validateEnglishSource,
-  validateProjectEnglishCopy,
+  validateProjectConfigIsStructural,
+  validateProjectCopyCatalog,
   validateEpisodeSummary,
   validateTestimonials
 } from "@/lib/content/validator";
@@ -206,6 +207,18 @@ describe("Content Validation", () => {
         return fs.statSync(path.join(projectsDir, item)).isDirectory();
       });
 
+      // Learner-facing project copy is a catalog, not per-project config: English
+      // here, every other locale published by the i18n repo.
+      it("should have a valid English copy catalog", () => {
+        const listedSlugs = JSON.parse(fs.readFileSync(path.join(projectsDir, "config.json"), "utf-8"))
+          .projects as string[];
+        const catalog = JSON.parse(fs.readFileSync(path.join(projectsDir, "messages.json"), "utf-8"));
+
+        expect(() => {
+          validateProjectCopyCatalog(catalog, listedSlugs);
+        }).not.toThrow();
+      });
+
       projectSlugs.forEach((slug) => {
         describe(`Project: ${slug}`, () => {
           const projectDir = path.join(projectsDir, slug);
@@ -215,12 +228,12 @@ describe("Content Validation", () => {
             expect(fs.existsSync(configFile)).toBe(true);
           });
 
-          it("should have English copy in config.json", () => {
+          it("should have a config.json holding structure only", () => {
             const configFile = path.join(projectDir, "config.json");
             const config = JSON.parse(fs.readFileSync(configFile, "utf-8"));
 
             expect(() => {
-              validateProjectEnglishCopy(slug, config);
+              validateProjectConfigIsStructural(slug, config);
             }).not.toThrow();
           });
 
