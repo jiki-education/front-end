@@ -538,7 +538,67 @@
     },
     "learnToCode": {
       "heading": "Learn to <word>Code</word>",
-      "intro": "Master the core skill we use to translate our thoughts into languages that a computer can understand. We'll help you <highlight>build rock solid coding foundations</highlight>."
+      "intro": "Master the core skill we use to translate our thoughts into languages that a computer can understand. We'll help you <highlight>build rock solid coding foundations</highlight>.",
+      "demo": {
+        "stageDescription": "An animation of the Jiki app: a learner runs a space-invaders exercise, the code moves the laser cannon off the edge of the grid, they ask Jiki for help, correct the boundary from 20 to 11, and the exercise passes.",
+        "run": "Run Code",
+        "tabInstructions": "Instructions",
+        "tabJiki": "Ask Jiki",
+        "tabLog": "Log",
+        "tabHints": "Hints",
+        "instrHeading": "Alien Detector",
+        "instr1": "The aliens are scattered across three rows, and some columns have more than one.",
+        "instr2": "You have three functions to work with:",
+        "fnRight": "moves your laser cannon one column to the right",
+        "fnLeft": "moves it one column to the left",
+        "fnShoot": "fires the laser upwards",
+        "instr3": "There are 11 columns. Move off either edge and you lose, so keep track of where you are.",
+        "scenarioTitle": "Three rows: aliens spread across all three rows",
+        "badgePending": "Pending",
+        "badgeFail": "Fail",
+        "badgePass": "Pass",
+        "verdictPending": "Run your code to see whether this scenario passes.",
+        "verdictFail": "Your code hit an error while it was running. Fix the error message above.",
+        "verdictPass": "All six aliens destroyed. Nice work!",
+        "errorTitle": "Oh no, you've gone too far!",
+        "errorBody": "Your laser cannon moved off the right edge of the screen. Remember to track your position and reverse direction at the end.",
+        "chat1": "Hey there! What's up?",
+        "chat2": "My cannon keeps going off the edge of the screen.",
+        "chat3": "Let's look at the line you just wrote. You turn around once <code>position</code> reaches 20 — but how many columns does the grid actually have?",
+        "chat4": "Eleven.",
+        "chat5": "That's it. <code>position</code> never reaches 20, so <code>move_left()</code> never runs. Change that boundary to 11 and the cannon will turn at the last column.",
+        "chatPlaceholder": "Respond to Jiki...",
+        "jikiAvatarAlt": "Jiki",
+        "successTitle": "Congratulations!",
+        "successBody": "All tests passed! You've successfully completed this exercise.",
+        "successBtn": "Continue"
+      },
+      "callouts": {
+        "tested": {
+          "title": "Every exercise is a real program",
+          "body": "Loops, conditionals, variables, all doing <hl>something you can watch play out</hl> on screen."
+        },
+        "see": {
+          "title": "See what your code did",
+          "body": "Your instructions, playing out in front of you. <hl>No guessing</hl> what the computer heard."
+        },
+        "rewind": {
+          "title": "Rewind your own code",
+          "body": "Step back through every instruction and <hl>watch exactly what happened</hl>, one line at a time."
+        },
+        "errors": {
+          "title": "Errors in plain English",
+          "body": "When something breaks, <hl>Jiki tells you what went wrong</hl> in normal English, not technical jargon."
+        },
+        "help": {
+          "title": "Help, not answers",
+          "body": "Ask Jiki anything and <hl>get help working it out</hl>, rather than the solution pasted in."
+        },
+        "next": {
+          "title": "Always one step up",
+          "body": "Each exercise asks for a little more than the last. The <hl>next step is always within reach</hl>."
+        }
+      }
     },
     "funPrints": {
       "eyebrow": "Look what you'll make",
