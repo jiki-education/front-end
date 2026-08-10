@@ -118,12 +118,33 @@ export function contentBodyPath(type: ContentType, slug: string, locale: string,
   return `/static/content/${type}/${slug}/${locale}/content-${hash}.html`;
 }
 
-export function projectEpisodesIndexPath(slug: string, locale: string, hash: string): string {
-  return `/static/content/projects/${slug}/${locale}/index-${hash}.json`;
-}
-
+/**
+ * One episode's rendered body. There is no episode INDEX path beside it: an
+ * episode's listing metadata splits into the locale-invariant structure and
+ * that locale's copy artifact, both below, so it is read with every other
+ * post's rather than fetched per project.
+ */
 export function projectEpisodeContentPath(slug: string, uuid: string, locale: string, hash: string): string {
   return `/static/content/projects/${slug}/${uuid}/${locale}/content-${hash}.html`;
+}
+
+/**
+ * One locale's project copy catalog: `{ [projectSlug]: { title, description, tags } }`.
+ *
+ * A project's learner-facing copy is a catalog like any other: English in
+ * content/src/posts/projects/messages.json, every other locale published here by
+ * the i18n repo. It is never authored as locale maps inside a project's
+ * config.json, because that would make this repo a second home for translated
+ * content. Note the locale sits where a project SLUG sits in the two paths
+ * above, so a locale code can never also be a project slug.
+ */
+export function projectCopyPath(locale: string, hash: string): string {
+  return `/static/content/projects/${locale}/meta-${hash}.json`;
+}
+
+/** The mutable pointer for a locale's project copy catalog. The i18n repo owns it. */
+export function projectCopyPointerPath(locale: string): string {
+  return `/static/content/projects/${locale}/current.json`;
 }
 
 export function searchIndexPath(type: SearchType, locale: string, hash: string): string {
@@ -174,12 +195,12 @@ export function interpreterMessagesPointerPath(language: string, locale: string)
  * Post metadata is THREE artifacts, split by what each part is.
  *
  * Structure is locale-invariant (date, author, cover image, flags, all from
- * English config), so the front-end publishes one object for every language.
- * Copy is translated (title, excerpt, seo, tags, reading time, content hash), so
- * the i18n repo publishes it per locale. The third holds projects and
- * testimonials, which are per-locale but authored as locale maps in config and
- * JSON rather than as Markdown, so they are not in the corpus i18n mirrors and
- * stay front-end published.
+ * English config, plus the projects' structure), so the front-end publishes one
+ * object for every language. Copy is translated (title, excerpt, seo, tags,
+ * reading time, content hash), so the i18n repo publishes it per locale. The
+ * third holds testimonials, which are per-locale but authored as JSON rather
+ * than as Markdown, so they are not in the corpus i18n mirrors and stay
+ * front-end published. Project copy is a fourth, at `projectCopyPath` above.
  */
 export function contentStructurePath(hash: string): string {
   return `/static/content/structure-${hash}.json`;
@@ -193,7 +214,7 @@ export function contentCopyPointerPath(locale: string): string {
   return `/static/content/copy/${locale}/current.json`;
 }
 
-/** Per-locale projects and testimonials. Front-end published; see above. */
+/** Per-locale testimonials. Front-end published; see above. */
 export function contentMetaPath(locale: string, hash: string): string {
   return `/static/content/meta/${locale}/index-${hash}.json`;
 }

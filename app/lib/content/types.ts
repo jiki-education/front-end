@@ -102,8 +102,8 @@ export interface ProjectMeta {
   image: string;
   livestream: boolean;
   upcomingStreams: string[];
+  /** How many episodes this locale has, counted from the assembled list. */
   episodeCount: number;
-  episodesIndexHash: string;
   locale: string;
 }
 
@@ -130,10 +130,12 @@ export interface EpisodeMeta {
   image: string;
   guides: string[];
   summary: EpisodeSummary | null;
+  tags: string[];
   seo: {
     description: string;
     keywords: string[];
   };
+  readingTime: number;
   contentHash: string;
   locale: string;
 }

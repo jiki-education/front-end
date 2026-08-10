@@ -1,0 +1,17 @@
+{
+  "build-your-personal-homepage": {
+    "title": "Build your Personal Homepage",
+    "description": "Join Jeremy as he builds his own homepage from scratch. Learn about how to use Agentic Coding, how the Web Works, and deploy your first website.",
+    "tags": ["Agentic Coding", "Git and GitHub", "HTML/CSS/JavaScript Basics"]
+  },
+  "build-a-nutrition-platform": {
+    "title": "Build a Nutrition Platform",
+    "description": "Join Jeremy as he builds a platform to calculate recipes from the ingredients in his house. Choose your own food-related project to build!",
+    "tags": ["Agentic Coding", "NextJS", "React", "Databases"]
+  },
+  "building-a-real-web-platform": {
+    "title": "Build a Learning Platform",
+    "description": "Join Jeremy as he builds a full Japanese language-learning platform. Choose your own learning platform to build, then wrestle with every decision, feature and bug alongside him, and learn along the way.",
+    "tags": ["Agentic Coding", "Full-Stack Web", "Advanced"]
+  }
+}
