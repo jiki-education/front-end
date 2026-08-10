@@ -1,5 +1,5 @@
 ---
-title: "Repeat Loop"
+title: "The `repeat` Loop"
 description: "Using the `repeat` keyword to tell Jiki to run the code inside the curly brackets a specific number of times."
 ---
 

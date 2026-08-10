@@ -1,5 +1,5 @@
 ---
-title: "Iterating Through Strings"
+title: "Looping Through Strings with `for ... of`"
 description: "Using a `for of` loop to step through every letter in a string, doing something with each one in turn."
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: "The `not` operator"
+title: "The `!` (Not) Operator"
 description: "Using `!` to flip a boolean: true becomes false and false becomes true, useful for toggling or inverting checks."
 ---
 

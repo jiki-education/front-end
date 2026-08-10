@@ -1,5 +1,5 @@
 ---
-title: "For Loops"
+title: "Understanding `for` Loops"
 description: "A loop with three parts (an initializer, a condition, and an increment) giving you full control over iteration."
 ---
 

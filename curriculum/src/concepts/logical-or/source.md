@@ -1,5 +1,5 @@
 ---
-title: "The `or` keyword"
+title: "The `||` (Or) Operator"
 description: "Combining two conditions with `||` so the whole condition is true when at least one of the parts is true."
 ---
 
