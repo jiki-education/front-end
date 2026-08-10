@@ -11,8 +11,8 @@ Imagine a bakery that has a holiday offer where you can buy two cookies for the 
 
 Your task is to determine what you will say as you give away the extra cookie.
 
-- If you know the person's name (e.g. Alice), then you will say: "One for Alice, one for me."
-- If you don't know the person's name, you will say: "One for you, one for me."
+- If you know the person's name (e.g. Alice), then you will say: `"One for Alice, one for me."`
+- If you don't know the person's name, you will say: `"One for you, one for me."`
 
 Write a function called <define>`twoFer(name)`</define> that returns the appropriate dialogue.
 
