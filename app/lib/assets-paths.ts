@@ -118,10 +118,12 @@ export function contentBodyPath(type: ContentType, slug: string, locale: string,
   return `/static/content/${type}/${slug}/${locale}/content-${hash}.html`;
 }
 
-export function projectEpisodesIndexPath(slug: string, locale: string, hash: string): string {
-  return `/static/content/projects/${slug}/${locale}/index-${hash}.json`;
-}
-
+/**
+ * One episode's rendered body. There is no episode INDEX path beside it: an
+ * episode's listing metadata splits into the locale-invariant structure and
+ * that locale's copy artifact, both below, so it is read with every other
+ * post's rather than fetched per project.
+ */
 export function projectEpisodeContentPath(slug: string, uuid: string, locale: string, hash: string): string {
   return `/static/content/projects/${slug}/${uuid}/${locale}/content-${hash}.html`;
 }

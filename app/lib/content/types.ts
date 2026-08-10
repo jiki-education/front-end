@@ -126,17 +126,8 @@ export interface ProjectMeta {
   image: string;
   livestream: boolean;
   upcomingStreams: string[];
+  /** How many episodes this locale has, counted from the assembled list. */
   episodeCount: number;
-  episodesIndexHash: string;
-  /**
-   * The locale `episodesIndexHash` belongs to, which is NOT always `locale`.
-   *
-   * Project copy is translated by the i18n repo, but episodes are Markdown the
-   * front-end renders, so a locale can have translated copy and no episode index
-   * of its own. It then reads the default locale's index, and this says so, so
-   * the fetch asks for a path that exists. See `assembleProjects`.
-   */
-  episodesLocale: string;
   locale: string;
 }
 
@@ -163,10 +154,12 @@ export interface EpisodeMeta {
   image: string;
   guides: string[];
   summary: EpisodeSummary | null;
+  tags: string[];
   seo: {
     description: string;
     keywords: string[];
   };
+  readingTime: number;
   contentHash: string;
   locale: string;
 }

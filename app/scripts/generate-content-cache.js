@@ -12,9 +12,6 @@
  *   public/static/content/{type}/{slug}/{locale}/content-{hash}.html
  *     - Content files: pre-rendered HTML from markdown
  *
- *   public/static/content/projects/{slug}/{locale}/index-{hash}.json
- *     - Per-project episode index
- *
  *   public/static/content/projects/{slug}/{uuid}/{locale}/content-{hash}.html
  *     - Episode content files: pre-rendered HTML from markdown
  *
@@ -24,12 +21,14 @@
  *   public/static/content/structure-{hash}.json
  *     - Locale-invariant post metadata: date, author, cover image, and the
  *       featured/listed/premium/order flags, all from English config, plus the
- *       projects' structure (order, image, livestream, upcoming streams, and
- *       each locale's episode index hash)
+ *       projects' structure (order, image, livestream, upcoming streams) and
+ *       every episode's (uuid, slug, project, order, date, author, video,
+ *       duration, premium, image, guides), keyed by "{project}/{uuid}"
  *
  *   public/static/content/copy/{locale}/copy-{hash}.json
- *     - Translated post metadata: title, excerpt, seo, tags, reading time and
- *       that locale's content hash. Published by the i18n repo for every
+ *     - Translated post and episode metadata: title, excerpt, seo, tags, reading
+ *       time and that locale's content hash, under `blog`, `articles`, `guides`
+ *       and `project-episodes`. Published by the i18n repo for every
  *       non-English locale; the app merges it with the structure above.
  *
  *   public/static/content/projects/{locale}/meta-{hash}.json
@@ -495,7 +494,9 @@ function processProjects() {
             image: config.image,
             guides: config.guides || [],
             summary,
+            tags: frontmatter.tags || [],
             seo: frontmatter.seo || { description: frontmatter.excerpt, keywords: [] },
+            readingTime: estimateReadingTime(parsed.body),
             contentHash,
             locale
           };
@@ -543,31 +544,67 @@ function normalizeEpisodeSummary(summary, sourcePath) {
 }
 
 /**
- * Build static files for the projects/ section.
+ * The structural half of an episode: everything that is identical in every
+ * language because it comes from the episode's config.json, not its prose.
+ */
+const EPISODE_STRUCTURAL = [
+  "uuid",
+  "slug",
+  "project",
+  "order",
+  "date",
+  "author",
+  "videoProvider",
+  "videoKey",
+  "durationSeconds",
+  "premium",
+  "image",
+  "guides"
+];
+
+/**
+ * The translated half. The first six are the shape every post type's copy
+ * entry has. `summary` is the seventh and is episodes' alone: the from/to
+ * promise and the concept chips a learner reads before pressing play, which is
+ * prose, so it can no more sit in the locale-invariant half than the title can.
+ */
+const EPISODE_COPY = ["title", "excerpt", "seo", "tags", "readingTime", "contentHash", "summary"];
+
+/**
+ * Build static files for the projects/ section, and split what they carry.
  *
  * Emits:
  *   - public/static/content/projects/{projectSlug}/{uuid}/{locale}/content-{htmlHash}.html
- *   - public/static/content/projects/{projectSlug}/{locale}/index-{indexHash}.json
- *   - public/static/content/projects/en/meta-{hash}.json  (the English copy catalog)
+ *   - public/static/content/projects/en/meta-{hash}.json  (the English project copy catalog)
  *
- * Returns: { projectsStructure, projectCopyHash }.
+ * Returns: { projectsStructure, episodeStructure, episodeCopyByLocale, projectCopyHash }.
  *
  * `projectsStructure[slug]` is the LOCALE-INVARIANT half of a project: order,
- * image, livestream, upcomingStreams, and an `episodes` map of every locale the
- * front-end built an episode index for. The translatable half (title,
+ * image, livestream and upcomingStreams. The translatable half (title,
  * description, tags) is not here at all: it is a catalog, English authored in
  * content/src/posts/projects/messages.json and every other locale published by
  * the i18n repo.
+ *
+ * Episodes split the same way, and are keyed by the TWO-PART slug
+ * `<project>/<uuid>`. A UUID is unique on its own, but the pair is the honest
+ * key: it is the coordinate the i18n repo publishes an episode's copy under, and
+ * it is a project's episode list read straight off the key. Their structure
+ * rides in the locale-invariant object here; their title, excerpt, seo, tags,
+ * reading time, content hash and summary ride in each locale's copy artifact,
+ * English written here and every other locale published by the i18n repo.
  */
 function buildProjectStaticFiles(processed) {
   if (!processed) {
-    return { projectsStructure: {}, projectCopyHash: null };
+    return { projectsStructure: {}, episodeStructure: {}, episodeCopyByLocale: {}, projectCopyHash: null };
   }
 
   const { projectsData, episodes, projectCopy } = processed;
 
-  // episodesBy[locale][projectSlug] = [episodeMeta]
-  const episodesBy = {};
+  const pickFields = (entry, keys) =>
+    Object.fromEntries(keys.filter((k) => entry[k] !== undefined).map((k) => [k, entry[k]]));
+
+  const episodeStructure = {};
+  const episodeCopyByLocale = {};
 
   for (const episode of episodes) {
     for (const [locale, { meta, html }] of Object.entries(episode.locales)) {
@@ -582,24 +619,17 @@ function buildProjectStaticFiles(processed) {
       );
       writeFile(htmlPath, html);
 
-      const finalMeta = { ...meta, contentHash: htmlHash };
+      const key = `${meta.project}/${episode.uuid}`;
 
-      if (!episodesBy[locale]) {
-        episodesBy[locale] = {};
-      }
-      if (!episodesBy[locale][meta.project]) {
-        episodesBy[locale][meta.project] = [];
-      }
-      episodesBy[locale][meta.project].push(finalMeta);
+      // Structure is written from whichever locale reaches it first; it is
+      // identical across all of them because every field comes from the one
+      // config.json they share.
+      episodeStructure[key] ??= pickFields(meta, EPISODE_STRUCTURAL);
+
+      episodeCopyByLocale[locale] ??= {};
+      episodeCopyByLocale[locale][key] = pickFields({ ...meta, contentHash: htmlHash }, EPISODE_COPY);
     }
   }
-
-  // Every locale the front-end has an episode index to write. That is the
-  // DEFAULT LOCALE plus any locale an episode .md exists for. It is deliberately
-  // NOT "every locale with project copy": copy comes from the i18n repo and
-  // episodes are Markdown this repo renders, so the two sets move independently
-  // and conflating them empties non-English listings.
-  const episodeLocales = new Set([DEFAULT_LOCALE, ...Object.keys(episodesBy)]);
 
   const projectsStructure = {};
 
@@ -614,28 +644,11 @@ function buildProjectStaticFiles(processed) {
       throw new Error(`Project "${project.slug}" is missing required boolean "livestream" field`);
     }
 
-    // episodes[locale] = { count, hash }. A locale absent from this map has no
-    // episode index of its own and reads the default locale's; see
-    // lib/content/contentMeta.ts.
-    const episodesByLocale = {};
-    for (const locale of episodeLocales) {
-      const projectEpisodes = (episodesBy[locale] && episodesBy[locale][project.slug]) || [];
-      const sortedEpisodes = [...projectEpisodes].sort((a, b) => a.order - b.order);
-
-      const indexJson = JSON.stringify(sortedEpisodes);
-      const indexHash = computeHash(indexJson);
-      const indexPath = path.join(STATIC_DIR, "projects", project.slug, locale, `index-${indexHash}.json`);
-      writeFile(indexPath, indexJson);
-
-      episodesByLocale[locale] = { count: sortedEpisodes.length, hash: indexHash };
-    }
-
     projectsStructure[project.slug] = {
       order,
       image: project.image,
       livestream: project.livestream,
-      upcomingStreams,
-      episodes: episodesByLocale
+      upcomingStreams
     };
   }
 
@@ -646,7 +659,7 @@ function buildProjectStaticFiles(processed) {
   const projectCopyHash = computeHash(projectCopyJson);
   writeFile(path.join(STATIC_DIR, "projects", DEFAULT_LOCALE, `meta-${projectCopyHash}.json`), projectCopyJson);
 
-  return { projectsStructure, projectCopyHash };
+  return { projectsStructure, episodeStructure, episodeCopyByLocale, projectCopyHash };
 }
 
 /**
@@ -732,8 +745,7 @@ function generateSearchIndexes(type, byLocale, filterFn) {
  * (testimonials, plus the translated post copy this repo writes for local dev),
  * the English project copy catalog, and the one locale-invariant structure hash.
  * Only the default locale is ever read from the per-locale maps at runtime; the
- * rest resolve through their pointers. Per-project episode indexes are fetched
- * via the episode hashes carried in the structure.
+ * rest resolve through their pointers.
  */
 function writeHashManifest(
   searchHashes,
@@ -844,22 +856,41 @@ function processTestimonials() {
  *
  * Returns { [locale]: hash }.
  */
-function writeContentMeta(blogByLocale, articlesByLocale, guidesByLocale, projectsStructure, testimonialsByLocale) {
+function writeContentMeta(
+  blogByLocale,
+  articlesByLocale,
+  guidesByLocale,
+  { projectsStructure, episodeStructure, episodeCopyByLocale },
+  testimonialsByLocale
+) {
   // Post metadata splits three ways, along what each part actually is.
   //
   //   1. STRUCTURE, locale-invariant. Date, author, cover image, featured,
-  //      listed, premium, order, and now the projects' structure too. All of it
-  //      comes from English config.json and authors.json, none of it varies by
-  //      language, and the i18n repo does not hold any of it. One object serves
-  //      every locale.
+  //      listed, premium, order, the projects' structure and every episode's.
+  //      All of it comes from English config.json and authors.json, none of it
+  //      varies by language, and the i18n repo does not hold any of it. One
+  //      object serves every locale.
   //   2. COPY, per locale. Title, excerpt, seo, tags, reading time, and the hash
-  //      of that locale's rendered HTML. Every one of those is produced by
-  //      translating, so the i18n repo publishes them and a locale it adds needs
-  //      no front-end build to appear in a listing. Projects have their own copy
-  //      catalog, at its own path; see buildProjectStaticFiles.
+  //      of that locale's rendered HTML, for posts and for project episodes
+  //      alike. Every one of those is produced by translating, so the i18n repo
+  //      publishes them and a locale it adds needs no front-end build to appear
+  //      in a listing. Projects themselves have their own copy catalog, at its
+  //      own path; see buildProjectStaticFiles.
   //   3. LOCAL, per locale, front-end owned. Testimonials only. See below.
-  const structure = { blog: {}, articles: {}, guides: {}, projects: projectsStructure };
+  const structure = {
+    blog: {},
+    articles: {},
+    guides: {},
+    projects: projectsStructure,
+    "project-episodes": episodeStructure
+  };
+  const emptyCopy = () => ({ blog: {}, articles: {}, guides: {}, "project-episodes": {} });
   const copyByLocale = {};
+
+  for (const [locale, entries] of Object.entries(episodeCopyByLocale)) {
+    copyByLocale[locale] ??= emptyCopy();
+    copyByLocale[locale]["project-episodes"] = entries;
+  }
 
   const STRUCTURAL = {
     blog: ["date", "author", "featured", "coverImage"],
@@ -883,7 +914,7 @@ function writeContentMeta(blogByLocale, articlesByLocale, guidesByLocale, projec
         // config.json they share.
         structure[type][entry.slug] ??= pick(entry, STRUCTURAL[type]);
 
-        copyByLocale[locale] ??= { blog: {}, articles: {}, guides: {} };
+        copyByLocale[locale] ??= emptyCopy();
         copyByLocale[locale][type][entry.slug] = pick(entry, COPY);
       }
     }
@@ -907,7 +938,7 @@ function writeContentMeta(blogByLocale, articlesByLocale, guidesByLocale, projec
   const locales = new Set([...Object.keys(copyByLocale), ...Object.keys(testimonialsByLocale)]);
 
   for (const locale of [...locales].sort()) {
-    const copy = copyByLocale[locale] ?? { blog: {}, articles: {}, guides: {} };
+    const copy = copyByLocale[locale] ?? emptyCopy();
     for (const type of Object.keys(copy)) copy[type] = sortKeys(copy[type]);
 
     const copyContent = JSON.stringify(copy);
@@ -923,11 +954,9 @@ function writeContentMeta(blogByLocale, articlesByLocale, guidesByLocale, projec
     // locale-invariant structure above and a copy catalog the i18n repo
     // publishes per locale (English authored in projects/messages.json).
     // Writing their title, description or tags into this per-locale blob, or
-    // into locale MAPS in each project's config.json, would make this repo a
-    // second home for translated content, and it would derive the locale set
-    // from copy this repo only ever authors in `en`, so every non-English
-    // project listing would be empty unless a translated episode .md happened
-    // to exist.
+    // into locale MAPS in each project's config.json, makes this repo a second
+    // home for translated content and derives a locale set from copy this repo
+    // only ever authors in `en`.
     const local = {
       testimonials: testimonialsByLocale[locale] ?? null
     };
@@ -990,7 +1019,7 @@ function generateContentCache() {
   const { byLocale: blogByLocale } = buildStaticFiles("blog", blog);
   const { byLocale: articlesByLocale } = buildStaticFiles("articles", articles);
   const { byLocale: guidesByLocale } = buildStaticFiles("guides", guides);
-  const { projectsStructure, projectCopyHash } = buildProjectStaticFiles(projectsProcessed);
+  const { projectCopyHash, ...projectArtifacts } = buildProjectStaticFiles(projectsProcessed);
 
   // Generate search indexes. Articles index only `listed` ones; guides index all
   // (including premium guides, which stay searchable but are kept out of the sitemap).
@@ -1002,7 +1031,7 @@ function generateContentCache() {
     blogByLocale,
     articlesByLocale,
     guidesByLocale,
-    projectsStructure,
+    projectArtifacts,
     testimonialsByLocale
   );
   writeHashManifest(searchHashes, guideSearchHashes, { ...contentMeta, projectCopyHash });
