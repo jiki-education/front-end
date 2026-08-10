@@ -1843,6 +1843,12 @@
     "guideCard": {
       "premium": "Premium"
     },
+    "tags": {
+      "editors": "Editors",
+      "installation": "Installation",
+      "agentic-coding": "Agentic Coding",
+      "front-end-basics": "Front-End Basics"
+    },
     "guideBreadcrumb": {
       "guides": "Guides"
     },
@@ -2037,6 +2043,12 @@
       "filterBy": "Filter by",
       "all": "All",
       "help": "Can't find what you're looking for? Try our <blogs>Blogs</blogs>, <faqs>FAQs</faqs>, <support>Contact support</support>, or ask in our <community>Community</community>"
+    },
+    "tags": {
+      "legal": "Legal",
+      "premium": "Premium",
+      "exercises": "Exercises",
+      "videos": "Videos"
     },
     "cta": {
       "minimalTitle": "Try Jiki for free",

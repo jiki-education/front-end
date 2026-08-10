@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { type ArticleTagSlug, getArticleTagLabel } from "@/lib/content/types";
+import type { ArticleTagSlug } from "@/lib/content/types";
 import { FORUM_URL } from "@/lib/constants/social";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./FilterSidebar.module.css";
@@ -11,11 +11,11 @@ import styles from "./FilterSidebar.module.css";
 interface FilterSidebarProps {
   tagSlugs: readonly ArticleTagSlug[];
   selectedTag: ArticleTagSlug | null;
-  locale: string;
 }
 
-export default function FilterSidebar({ tagSlugs, selectedTag, locale }: FilterSidebarProps) {
+export default function FilterSidebar({ tagSlugs, selectedTag }: FilterSidebarProps) {
   const t = useTranslations("articles.filterSidebar");
+  const tTags = useTranslations("articles.tags");
   const pathname = usePathname();
   const routes = useLocaleRoutes();
 
@@ -39,7 +39,7 @@ export default function FilterSidebar({ tagSlugs, selectedTag, locale }: FilterS
             href={buildTagUrl(slug)}
             className={`${styles.filterTag} ${selectedTag === slug ? styles.active : ""}`}
           >
-            {getArticleTagLabel(slug, locale)}
+            {tTags(slug)}
           </Link>
         ))}
       </div>

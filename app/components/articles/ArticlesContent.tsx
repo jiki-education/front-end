@@ -84,7 +84,7 @@ export default function ArticlesContent({
         )}
       </div>
 
-      <FilterSidebar tagSlugs={tagSlugs} selectedTag={selectedTag} locale={locale} />
+      <FilterSidebar tagSlugs={tagSlugs} selectedTag={selectedTag} />
     </div>
   );
 }

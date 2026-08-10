@@ -9,7 +9,7 @@ import StudyBookIcon from "@/icons/study-book.svg";
 import { ConceptsLayout } from "@/components/concepts";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { tierIncludes } from "@/lib/pricing";
-import { getGuideTagLabel, type GuideMeta, type GuideTagSlug } from "@/lib/content/types";
+import type { GuideMeta, GuideTagSlug } from "@/lib/content/types";
 import { useGuidesSearch } from "@/lib/hooks/useGuidesSearch";
 import Pagination from "@/components/ui/Pagination";
 import GuideCard from "./GuideCard";
@@ -27,6 +27,7 @@ interface GuidesContentProps {
 
 export default function GuidesContent({ guides, locale, selectedTag, tagSlugs }: GuidesContentProps) {
   const t = useTranslations("guides.guidesContent");
+  const tTags = useTranslations("guides.tags");
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { searchQuery, setSearchQuery, searchResults } = useGuidesSearch(locale);
@@ -100,7 +101,7 @@ export default function GuidesContent({ guides, locale, selectedTag, tagSlugs }:
             href={buildTagUrl(slug)}
             className={`${styles.filterTag} ${selectedTag === slug ? styles.active : ""}`}
           >
-            {getGuideTagLabel(slug, locale)}
+            {tTags(slug)}
           </Link>
         ))}
       </div>
