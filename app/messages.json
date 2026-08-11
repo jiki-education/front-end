@@ -531,7 +531,7 @@
     },
     "learnToCode": {
       "heading": "Learn to <word>Code</word>",
-      "intro": "Master the core skill we use to translate our thoughts into languages that a computer can understand. We'll help you <highlight>build rock solid coding foundations</highlight>.",
+      "intro": "Master coding, the core skill we use to communicate our desires to a computer. We'll help you <highlight>build rock solid coding foundations</highlight>.",
       "demo": {
         "stageDescription": "An animation of the Jiki app: a learner runs a space-invaders exercise, the code moves the laser cannon off the edge of the grid, they ask Jiki for help, correct the boundary from 20 to 11, and the exercise passes.",
         "run": "Run Code",
