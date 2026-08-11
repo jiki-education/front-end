@@ -1,0 +1,115 @@
+/* Positioned against the face it belongs to, not the photo: the face moves, so the
+   bubble has to travel with it. The shadow is a filter rather than a box-shadow so it
+   traces the card and its pointer as one silhouette instead of a plain rectangle. */
+.card {
+    position: relative;
+    z-index: 2;
+    /* Shrinks to the message rather than sitting at a fixed width, so a short comment
+       does not leave half the bubble empty. Every character is laid out from the start
+       even though they reveal one at a time, so the width is settled before typing
+       begins and the bubble never jumps mid-message. */
+    width: max-content;
+    max-width: 200px;
+    background: #fff;
+    border: 2px solid var(--color-blue-500);
+    border-radius: 12px;
+    padding: 10px;
+    filter: drop-shadow(0 6px 14px rgba(15, 23, 42, 0.18));
+    transition: height 0.35s ease;
+}
+
+/* Which side of the face the bubble hangs off. Faces in the last quarter take the left
+   side, or the bubble runs off the edge. */
+
+/* A rotated square, so it carries the same border as the card. Pinned near the top
+   rather than the card's midpoint, which drifts away from the face as the card grows. */
+.card::before {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    transform: rotate(45deg);
+}
+
+.card::before {
+    inset-block-start: 16px;
+}
+
+.right::before {
+    inset-inline-start: -7px;
+    border-inline-start: 2px solid var(--color-blue-500);
+    border-block-end: 2px solid var(--color-blue-500);
+}
+
+.left::before {
+    inset-inline-end: -7px;
+    border-inline-end: 2px solid var(--color-blue-500);
+    border-block-start: 2px solid var(--color-blue-500);
+}
+
+/* Hides the card's own border where the pointer meets it, so the two read as one
+   continuous outline. */
+.card::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 10px;
+    background: #fff;
+    z-index: 2;
+}
+
+.card::after {
+    inset-block-start: 17px;
+}
+
+.right::after {
+    inset-inline-start: -2px;
+}
+
+.left::after {
+    inset-inline-end: -2px;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    animation: slide-in 0.5s ease both;
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.name {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-blue-800);
+    white-space: nowrap;
+}
+
+.message {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    line-height: 1.4;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card {
+        transition: none;
+    }
+
+    .item {
+        animation: none;
+    }
+}

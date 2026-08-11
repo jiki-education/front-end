@@ -16,7 +16,10 @@ describe("Home Page (Landing Page)", () => {
   it("renders the marketing landing page", async () => {
     render(await RootPage({ params: Promise.resolve({ locale: "en" }) }));
 
-    expect(screen.getByText("What makes Exercism special?")).toBeInTheDocument();
+    // Anchored on the page's own top-level heading and one late section, so this stays a
+    // check that the marketing page rendered end to end rather than a copy assertion.
+    expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
+    expect(screen.getByText("Frequently Asked Questions")).toBeInTheDocument();
   });
 
   it("has Log In and Sign Up links in the header", async () => {

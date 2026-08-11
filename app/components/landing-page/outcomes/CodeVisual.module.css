@@ -1,0 +1,103 @@
+/* Sits a touch above the centre line the other two visuals share, so the note and arrow
+   beneath it have room without pushing the snippet down the column. */
+.code {
+    position: relative;
+    top: -3px;
+    width: 96%;
+    height: 227px;
+    border-radius: 10px;
+    background: var(--color-gray-950);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+    overflow: hidden;
+}
+
+.bar {
+    display: flex;
+    gap: 5px;
+    padding-block: 8px;
+    padding-inline: 11px;
+    border-block-end: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.bar i {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.code pre {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    line-height: 1.75;
+    color: var(--color-gray-300);
+    padding-block: 11px 14px;
+    padding-inline: 14px;
+    overflow: hidden;
+}
+
+.kw {
+    color: var(--color-purple-300);
+}
+.fn {
+    color: var(--color-blue-200);
+}
+.str {
+    color: var(--color-green-200);
+}
+.cmt {
+    color: var(--color-gray-500);
+}
+
+/* The one marked line: an amber wash bled to the snippet's edges. */
+.hit {
+    display: block;
+    background: rgba(251, 191, 36, 0.14);
+    box-shadow: inset 3px 0 0 var(--color-amber-300);
+    margin-inline: -14px;
+    padding-inline: 14px;
+}
+
+.anno {
+    position: absolute;
+    inset-block-end: 32px;
+    inset-inline-end: 0;
+    text-align: end;
+    font-family: var(--font-handwritten);
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 1.15;
+    color: var(--color-amber-300);
+    max-width: 190px;
+    text-wrap: balance;
+    z-index: 5;
+
+    em {
+        font-style: italic;
+    }
+}
+
+.arrow {
+    position: absolute;
+    inset-block-end: 70px;
+    inset-inline-end: 122px;
+    /* Flipped and tilted so the curve sweeps up into the note rather than down. */
+    transform: rotateX(180deg) rotateZ(-15deg);
+    width: 72px;
+    height: 24px;
+    color: var(--color-amber-300);
+    overflow: visible;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    z-index: 5;
+}
+
+@media (max-width: 900px) {
+    .anno,
+    .arrow {
+        display: none;
+    }
+}

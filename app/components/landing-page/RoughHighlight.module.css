@@ -1,0 +1,35 @@
+/* Ink and depth are variables so a surface can pitch the sweep lighter, darker, or as a
+   band along the baseline, without a second copy of this component. Unset, it stays the
+   full amber-200 wash the track cards use; `--rough-highlight-from: 75%` turns the same
+   sweep into an underline, since the ink then starts three-quarters down the line box. */
+.highlight {
+    --ink: var(--rough-highlight-color, var(--color-amber-200));
+    --from: var(--rough-highlight-from, 0%);
+
+    background-image: linear-gradient(transparent var(--from), var(--ink) var(--from));
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    background-size: 0% 100%;
+    padding: 1.1px 3.3px;
+    margin-inline: -3.3px;
+    border-radius: 3px;
+    /* So the sweep paints every line of a phrase that wraps, not just the first. */
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    transition:
+        background-size 0.6s ease,
+        color 0.6s ease;
+    /* Set per phrase, so a run sweeps in order rather than all at once. */
+    transition-delay: var(--delay, 0s);
+}
+
+.visible {
+    background-size: 100% 100%;
+    color: var(--color-gray-900);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .highlight {
+        transition: none;
+    }
+}

@@ -1,0 +1,1418 @@
+/* The "Learn to Code" walkthrough.
+
+   The app is drawn at a fixed 1040px and scaled as one piece, so everything inside stays in
+   proportion and the column can't be driven by its content.
+
+   Motion notes: the laser, the scrubber fill/thumb and the progress bar all move on `transform`
+   rather than `left`/`width`, so they run on the compositor instead of laying out on every
+   frame. The stage scales with `transform: scale()` rather than `zoom`, which keeps the cursor's
+   coordinate space identical to the stage's own units — no measuring needed. */
+
+.root {
+    /* Brand confetti colours, from lib/confetti.ts. */
+    --confetti-1: #fe3c00;
+    --confetti-2: #afc8f3;
+    --confetti-3: #4c2e55;
+    --confetti-4: #e9de3f;
+    --confetti-5: #beeeab;
+
+    --ltc-scale: 0.55;
+    --stage-w: 1040px;
+    /* Anchors below are authored against the 0.55 scale, so they follow it if it ever changes. */
+    --ltc-k: calc(var(--ltc-scale) / 0.55);
+
+    position: relative;
+    z-index: 1;
+    padding-inline: 24px;
+}
+
+/* Three columns: the callout rails sit beside the stage rather than being pushed off it. The
+   middle column is capped rather than content-sized, so the video can't change width as it
+   plays. */
+.demo {
+    display: grid;
+    grid-template-columns: minmax(180px, 260px) auto minmax(180px, 260px);
+    gap: 26px;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.rail {
+    position: relative;
+    min-width: 0;
+    /* Above the stage's own layers, so the leader lines can overlay it. */
+    z-index: 20;
+}
+
+/* ===== Callouts ===== */
+
+.callout {
+    position: absolute;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 240px;
+    background: var(--color-purple-600);
+    border: 2px solid var(--color-purple-600);
+    border-radius: 10px;
+    padding: 13px 20px;
+    box-shadow:
+        0 14px 28px -14px rgb(88 28 135 / 45%),
+        0 4px 10px -6px rgb(15 23 42 / 20%);
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+        opacity 0.45s ease,
+        transform 0.45s ease;
+}
+
+.calloutShown {
+    opacity: 1;
+    transform: none;
+}
+
+/* Balancing is deliberately off: these cards are a fixed width, and balanced wrapping left the
+   lines ragged rather than filling to the edge. */
+.callout h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+    margin-block: 0 3px;
+    text-wrap-style: auto;
+}
+
+.callout p {
+    font-size: 13.5px;
+    font-weight: 400;
+    color: var(--color-purple-100);
+    line-height: 1.55;
+    margin-block: 0;
+    text-wrap-style: auto;
+}
+
+/* Marker sweep: a pen stroke reading top line to bottom line, so a wrapped phrase fills in the
+   order it is read rather than every line at once. Each visual line is its own element carrying
+   its line index in `--line`, which offsets its start from the one authored duration/lead-in
+   below. `--sweep-span` is the fraction of the duration each line takes, so the lines overlap
+   slightly and the stroke stays continuous instead of stopping at every wrap. */
+.highlight {
+    --sweep-dur: 0.55s;
+    --sweep-lead: 0.3s;
+    --sweep-span: 0.72;
+}
+
+.highlightLine {
+    background-image: linear-gradient(105deg, var(--color-amber-300) 0%, var(--color-amber-300) 100%);
+    background-repeat: no-repeat;
+    background-position: 0 50%;
+    background-size: 0% 100%;
+    padding: 0.05em 0.1em;
+    margin: 0 -0.1em;
+    box-decoration-break: clone;
+
+    /* Each line starts where the previous one is finishing. */
+    --sweep-step: calc(var(--sweep-dur) * (1 - var(--sweep-span)));
+    --sweep-delay: calc(var(--sweep-lead) + var(--line, 0) * var(--sweep-step));
+}
+
+/* An animation rather than a transition: the split spans are created after the phrase is
+   measured, so on the closing frames they can first mount with the card already shown. A
+   transition has no earlier value to leave from there and lands fully drawn; an animation always
+   runs from its own `from`, so the stroke plays whenever the card comes up. */
+.highlightSwept .highlightLine {
+    animation: markerSweep calc(var(--sweep-dur) * var(--sweep-span)) ease-out var(--sweep-delay) both;
+}
+
+@keyframes markerSweep {
+    from {
+        background-size: 0% 100%;
+        color: inherit;
+    }
+
+    to {
+        background-size: 100% 100%;
+        color: var(--color-gray-900);
+    }
+}
+
+/* Before the lines are measured the phrase renders as one run, so it is never mid-sweep at a
+   stale width — it simply has no marker yet. */
+.highlightUnmeasured .highlightLine {
+    animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .highlightSwept .highlightLine {
+        animation-duration: 1ms;
+        animation-delay: 0s;
+    }
+}
+
+/* Leader: one element carrying both the rule and the dot at its far end, so the whole thing
+   rotates as a unit. Each card leans a different way — decorative, but they all still land on
+   the region they describe. */
+.callout::after {
+    content: "";
+    position: absolute;
+    top: 17px;
+    width: var(--leader-w, 66px);
+    height: 10px;
+    background-repeat: no-repeat;
+}
+
+.railLeft .callout {
+    inset-inline-end: 0;
+}
+
+.railLeft .callout::after {
+    inset-inline-start: 100%;
+    margin-inline-start: 4px;
+    transform-origin: left center;
+    transform: rotate(var(--lean, 0deg));
+    background-image:
+        radial-gradient(circle at calc(100% - 5px) 50%, var(--color-purple-500) 4.5px, transparent 5px),
+        linear-gradient(var(--color-purple-300), var(--color-purple-300));
+    background-size:
+        100% 100%,
+        calc(100% - 7px) 2px;
+    background-position:
+        0 0,
+        0 50%;
+}
+
+.railRight .callout {
+    inset-inline-start: 0;
+}
+
+.railRight .callout::after {
+    inset-inline-end: 100%;
+    margin-inline-end: 4px;
+    transform-origin: right center;
+    transform: rotate(var(--lean, 0deg));
+    background-image:
+        radial-gradient(circle at 5px 50%, var(--color-purple-500) 4.5px, transparent 5px),
+        linear-gradient(var(--color-purple-300), var(--color-purple-300));
+    background-size:
+        100% 100%,
+        calc(100% - 7px) 2px;
+    background-position:
+        0 0,
+        100% 50%;
+}
+
+/* Per-card lean and vertical anchor, scaled with the stage. */
+.callout_tested {
+    --lean: -13deg;
+    --leader-w: 51px;
+
+    top: calc(36px * var(--ltc-k));
+    inset-inline-end: 15px;
+}
+
+.callout_see {
+    --lean: 11deg;
+
+    top: calc(296px * var(--ltc-k));
+}
+
+/* Sits 15px further left than the others, so its leader stops short of the play button rather
+   than landing on it. */
+.callout_rewind {
+    --lean: 32deg;
+    --leader-w: 57px;
+
+    bottom: calc(30px * var(--ltc-k));
+    inset-inline-end: 15px;
+}
+
+.callout_rewind::after {
+    top: auto;
+    bottom: 17px;
+}
+
+.callout_errors {
+    --lean: -8deg;
+
+    top: calc(74px * var(--ltc-k));
+}
+
+.callout_help {
+    --lean: 10deg;
+
+    top: calc(154px * var(--ltc-k));
+}
+
+.callout_next {
+    --lean: -13deg;
+
+    top: calc(164px * var(--ltc-k));
+}
+
+/* ===== Finale: every callout on screen at once, stacked and centred against the video =====
+   The cards keep their annotation styling; their leaders straighten out and stop on the edge of
+   the video rather than reaching for a particular region. */
+.finale .rail {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* relative, not static: the leader is positioned against its own card, and a static card would
+   hand that job to the rail.
+
+   The timeline dismisses the in-video cards before this class lands, so the jump from absolute
+   anchors to flex columns happens while every card is transparent; they then fade in already in
+   place. The fade is the only thing that transitions — position and colour switch instantly,
+   under cover of the opacity. */
+.finale .callout {
+    position: relative;
+    inset: auto;
+    max-width: 255px;
+    background: #fff;
+    border-color: var(--color-purple-400);
+    box-shadow:
+        0 14px 28px -14px rgb(15 23 42 / 35%),
+        0 4px 10px -6px rgb(15 23 42 / 20%);
+    /* 4px margin + 22px to the dot's centre lands it on the frame edge, 26px away. */
+    --lean: 0deg;
+    --leader-w: 27px;
+
+    transform: none;
+    transition: opacity 0.4s ease;
+}
+
+.finale .callout h4 {
+    color: var(--color-purple-600);
+}
+
+.finale .callout p {
+    color: var(--color-gray-700);
+}
+
+/* The closing frame is a summary, not an annotation, so the marker comes off and the phrase
+   reads as ordinary body copy. */
+.finale .highlightLine {
+    background-image: none;
+    color: var(--color-gray-700);
+    animation: none;
+}
+
+.finale .callout_rewind::after {
+    top: 17px;
+    bottom: auto;
+}
+
+/* Held 15px clear of the frame, so the dots stop short of the edge rather than sitting on it. */
+.finale .railLeft .callout {
+    margin-inline-start: auto;
+    margin-inline-end: 15px;
+}
+
+.finale .railRight .callout {
+    margin-inline-start: 15px;
+}
+
+/* The whole set lands on full-strength purple... */
+.allGlow .calloutShown {
+    border-color: var(--color-purple-600);
+}
+
+/* ...then settles, borders quietening off. */
+.allLit .calloutShown {
+    border-color: var(--color-gray-200);
+}
+
+/* ===== Progress through the video itself, above the frame ===== */
+
+.videoWrap {
+    position: relative;
+}
+
+.videoProgress {
+    position: absolute;
+    bottom: calc(100% + 20px);
+    inset-inline: 0;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--color-gray-200);
+    overflow: hidden;
+}
+
+.videoProgress i {
+    display: block;
+    height: 100%;
+    width: 100%;
+    border-radius: 2px;
+    background: var(--color-purple-600);
+    /* Scaled from the leading edge rather than animating width, so the whole 28s sweep
+       composites instead of laying out the bar on every frame. */
+    transform: scaleX(0);
+    transform-origin: left center;
+}
+
+.videoProgressRunning {
+    animation: fill linear forwards;
+}
+
+/* Reduced motion holds a still frame, so the bar sits complete rather than animating. */
+.videoProgressFull {
+    transform: scaleX(1);
+}
+
+@keyframes fill {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/* ===== Stage: this whole box is the "video" ===== */
+
+.stage {
+    position: relative;
+    width: var(--stage-w);
+    /* Scaled as one piece, so every size inside keeps its proportion. transform rather than
+       zoom: it composites, and it leaves the inner coordinate space untouched so the cursor's
+       anchors are plain constants. */
+    transform: scale(var(--ltc-scale));
+    transform-origin: top left;
+    /* The scaled box still occupies its full unscaled size in layout, so the wrapper is sized
+       down to what is actually drawn. */
+    margin-inline-end: calc(var(--stage-w) * (var(--ltc-scale) - 1));
+    margin-block-end: calc(var(--stage-h) * (var(--ltc-scale) - 1));
+    --stage-h: calc(var(--stage-w) * 11.4 / 16);
+
+    box-sizing: content-box;
+    aspect-ratio: 16 / 11.4;
+    background: var(--color-gray-50);
+    border-radius: 14px;
+    /* Visible so the fake cursor isn't sliced off at the bottom edge when it reaches the
+       scrubber. Everything else clips itself. */
+    overflow: visible;
+    border: 1px solid var(--color-gray-200);
+    box-shadow:
+        0 60px 110px -50px rgb(15 23 42 / 50%),
+        0 24px 50px -30px rgb(15 23 42 / 30%);
+    display: grid;
+    grid-template-columns: 1fr 396px;
+    gap: 8px;
+    padding: 8px;
+    font-size: 14px;
+    user-select: none;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* The editor card is a fixed height, tall enough for the twelve-line version plus the run bar:
+   the code grows as the learner edits and the stage must not reflow mid-video. */
+.left {
+    display: grid;
+    grid-template-rows: 381px 1fr;
+    gap: 8px;
+    min-width: 0;
+}
+
+.editorCard {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    min-height: 0;
+}
+
+/* ===== Code editor ===== */
+
+.editor {
+    position: relative;
+    padding: 10px 0;
+    overflow: hidden;
+}
+
+/* Gutter divider, as CodeMirror draws on .cm-gutters. Numbers end at 32px and the code starts
+   at 47px, so the rule at 39px has 7px of clear space either side. */
+.editor::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    inset-inline-start: 39px;
+    width: 1px;
+    background: var(--color-gray-200);
+}
+
+/* Type from codemirror.css: Source Code Pro, 2px 4px line padding, right-aligned numbers at the
+   same size as the code. */
+.codeLine {
+    display: flex;
+    gap: 15px;
+    padding: 2px 14px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 22px;
+    white-space: pre;
+}
+
+.lineNumber {
+    width: 18px;
+    text-align: end;
+    color: var(--color-gray-400);
+    flex: none;
+    font-size: 14px;
+}
+
+.lineText {
+    position: relative;
+    color: var(--color-gray-700);
+}
+
+.codeLineActive {
+    background: var(--color-blue-50);
+}
+
+.codeLineAdded {
+    animation: flash 1.6s ease-out forwards;
+}
+
+.codeLineError {
+    background: var(--color-red-50);
+}
+
+/* The fill and ring belong to the text layer: which line errored isn't knowable at capture
+   time. */
+.codeLineError .lineText {
+    box-shadow: 0 0 0 2px var(--color-red-500);
+    border-radius: 4px;
+    padding: 0 4px;
+    margin: 0 -4px;
+}
+
+@keyframes flash {
+    /* Mixed into transparent rather than white, so whatever is behind the row shows through and
+       the flash reads as a tint rather than a fill. */
+    0%,
+    55% {
+        background: color-mix(in srgb, var(--color-green-200) 20%, transparent);
+    }
+
+    100% {
+        background: transparent;
+    }
+}
+
+.kw {
+    color: var(--color-purple-600);
+}
+
+.fn {
+    color: var(--color-blue-600);
+}
+
+.nm {
+    color: var(--color-red-600);
+}
+
+.caret {
+    display: inline-block;
+    width: 1.5px;
+    height: 15px;
+    background: var(--color-gray-800);
+    vertical-align: -2px;
+    margin-inline-start: 1px;
+    animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* ===== Run bar ===== */
+
+.runbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 8px 12px;
+    border-top: 1px solid var(--color-gray-200);
+    background: var(--color-gray-50);
+}
+
+.resetBtn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid var(--color-gray-200);
+    background: #fff;
+    display: grid;
+    place-items: center;
+    color: var(--color-gray-500);
+    flex: none;
+}
+
+.runBtn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: var(--color-blue-600);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    white-space: nowrap;
+    transition:
+        transform 0.12s ease,
+        background 0.12s ease;
+}
+
+.runBtnPressed {
+    transform: scale(0.94);
+    background: var(--color-blue-700);
+}
+
+/* ===== Exercise card: scenario copy | game canvas, scrubber underneath ===== */
+
+.exercise {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    min-height: 0;
+}
+
+.exerciseBody {
+    display: grid;
+    grid-template-columns: minmax(0, 220px) 1fr;
+    gap: 14px;
+    padding: 12px 14px;
+    min-height: 0;
+}
+
+.scenarioTitle {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-gray-800);
+    line-height: 1.35;
+    margin-bottom: 8px;
+    text-wrap-style: auto;
+}
+
+.scenario p {
+    font-size: 12.5px;
+    color: var(--color-gray-600);
+    line-height: 1.5;
+    margin-bottom: 0;
+    text-wrap-style: auto;
+}
+
+/* Pending is amber, so the three verdicts read as a traffic light. */
+.badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    background: var(--color-amber-600);
+    color: #fff;
+}
+
+.scenarioFail .badge {
+    background: var(--color-red-500);
+}
+
+.scenarioFail .verdict {
+    color: var(--color-red-600);
+}
+
+.scenarioPass .badge {
+    background: var(--color-green-700);
+}
+
+.scenarioPass .verdict {
+    color: var(--color-green-800);
+}
+
+/* ===== Game canvas ===== */
+/* Squarer than the pane it sits in: height-led, 4:3, centred in its column. Sprites live in
+   .playfield, inset 5px, so the aliens never touch the canvas edge. The cannon is free to
+   overshoot it — that overshoot is what the error shows. */
+
+.game {
+    position: relative;
+    height: 100%;
+    aspect-ratio: 4 / 3;
+    max-width: 100%;
+    justify-self: center;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #222;
+    background-image: radial-gradient(rgb(255 255 255 / 5%), #000);
+}
+
+.playfield {
+    position: absolute;
+    inset: 5px;
+}
+
+.alien {
+    position: absolute;
+    width: 8.2%;
+    transform: translateX(-50%);
+    color: #fff;
+    transition: opacity 0.12s linear;
+}
+
+.alien svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.alienDead {
+    opacity: 0;
+}
+
+/* The cannon glides between columns on a translate, so consecutive moves join into one
+   movement. --step matches the JS STEP.
+
+   A percentage in `translateX` resolves against the element's own width, not its container, so
+   the cannon rides inside a full-width rail and translates by a percentage of that instead. The
+   sprite is then held at its own size inside, centred on the rail's leading edge. */
+.laserRail {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 7%;
+    height: 0;
+    transform: translateX(var(--col-x));
+    transition: transform var(--step, 145ms) linear;
+}
+
+.laser {
+    position: absolute;
+    bottom: 0;
+    inset-inline-start: 0;
+    width: 9%;
+    /* Centres the sprite on the column the rail has moved to. */
+    transform: translateX(-50%);
+}
+
+.laser svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.laserOffEdge {
+    filter: drop-shadow(0 0 7px var(--color-red-500));
+}
+
+/* A dash travelling from the cannon's nose up to the alien it kills.
+
+   The rail spans the playfield's full height, so the streak's `top` and its travel distance are
+   both percentages of the field rather than of the 15px streak itself. */
+.shotRail {
+    position: absolute;
+    inset-block: 0;
+    width: 0;
+}
+
+.shot {
+    position: absolute;
+    width: 3px;
+    height: 15px;
+    background: #fff;
+    border-radius: 2px;
+    transform: translateX(-50%);
+    /* Kept in step with SHOT_MS in timeline.ts, which `stateAt` uses to decide which shots are
+       still in flight on a seeked frame. */
+    animation: shot 110ms linear forwards;
+}
+
+/* `top` rather than a transform: the endpoints are percentages of the playfield, which only
+   resolve correctly against the rail. It is a 110ms animation on a 3px element, so the layout
+   cost is nil — unlike the multi-second sweeps, which are all on transforms. */
+@keyframes shot {
+    from {
+        top: var(--from);
+    }
+
+    to {
+        top: var(--to);
+    }
+}
+
+/* ===== Scrubber strip ===== */
+/* The thumb is 16px and centres on the track ends, so it overhangs each end by 8px. */
+
+.scrubber {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 7px 14px;
+    border-top: 1px solid var(--color-gray-200);
+    background: var(--color-gray-50);
+}
+
+.play {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--color-blue-600);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    flex: none;
+}
+
+.track {
+    flex: 1;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--color-gray-200);
+    position: relative;
+}
+
+/* Fill and thumb both move on transform: a whole run is one continuous sweep, and scaling
+   composites where animating width would lay the strip out on every frame. */
+.track i {
+    position: absolute;
+    inset-block: 0;
+    inset-inline: 0;
+    background: var(--color-blue-500);
+    border-radius: 2px;
+    transform: scaleX(var(--progress, 0));
+    transform-origin: left center;
+    transition: transform var(--track-ms, 145ms) linear;
+}
+
+/* The thumb rides a full-width rail for the same reason the cannon does: a percentage in
+   `translateX` would resolve against the 16px thumb rather than the track. */
+.thumbRail {
+    position: absolute;
+    inset-inline: 0;
+    top: 50%;
+    height: 0;
+    transform: translateX(calc(var(--progress, 0) * 100%));
+    transition: transform var(--track-ms, 145ms) linear;
+}
+
+.track b {
+    position: absolute;
+    box-sizing: border-box;
+    inset-inline-start: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid var(--color-blue-600);
+    /* Centres the 16px thumb on the position the rail has reached. */
+    transform: translate(-8px, -8px);
+}
+
+.step {
+    width: 24px;
+    height: 22px;
+    border-radius: 5px;
+    border: 1px solid var(--color-gray-200);
+    background: #fff;
+    color: var(--color-gray-500);
+    display: grid;
+    place-items: center;
+    flex: none;
+}
+
+/* ===== Right panel ===== */
+
+.panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.tabs {
+    display: flex;
+    gap: 20px;
+    padding: 11px 18px 0;
+    border-bottom: 1px solid var(--color-gray-200);
+    flex: none;
+}
+
+.tab {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 10px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--color-gray-500);
+    white-space: nowrap;
+}
+
+.tab[data-selected] {
+    color: var(--color-blue-600);
+}
+
+.tab[data-selected]::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: -1px;
+    height: 2.5px;
+    background: var(--color-blue-600);
+    border-radius: 2px;
+}
+
+/* The two panel states. Only one is visible; they crossfade. */
+.shotState {
+    position: absolute;
+    inset: 43px 0 0;
+    padding: 18px;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.shotStateLive {
+    opacity: 1;
+}
+
+.instrHeading {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--color-gray-800);
+    margin-block-start: 0;
+    margin-bottom: 12px;
+}
+
+.instructions p {
+    font-size: 13px;
+    color: var(--color-gray-700);
+    line-height: 1.65;
+    margin-bottom: 11px;
+    text-wrap-style: balance;
+}
+
+/* Bullets, indent and spacing from instructions-panel.module.css. */
+.instructions ul {
+    list-style: disc;
+    padding-inline-start: 24px;
+    margin-bottom: 11px;
+}
+
+.instructions li {
+    font-size: 13px;
+    color: var(--color-gray-700);
+    line-height: 1.6;
+    margin-bottom: 8px;
+    text-wrap-style: balance;
+}
+
+.instructions li:last-child {
+    margin-bottom: 0;
+}
+
+.instructions code,
+.bubble code {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    background: var(--color-purple-100);
+    color: var(--color-purple-700);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* ===== Error callout ===== */
+/* Mirrors informationTooltip.module.css: 2px red border, red title with a divider under it, and
+   an arrow pointing back at the code line. A child of the stage rather than the panel, since it
+   has to overhang the panel's edge the way the real CodeMirror tooltip does. */
+
+.errorCallout {
+    position: absolute;
+    z-index: 6;
+    width: 412px;
+    /* Anchored to the errored line and overhanging the panel's leading edge, so the arrow points
+       back at the code the way the real CodeMirror widget does. Constants because the listing is
+       a fixed height and the panel a fixed width: line 6 starts at 147, the panel at 642. */
+    top: 139px;
+    inset-inline-start: 592px;
+    background: #fff;
+    border: 2px solid var(--color-red-500);
+    border-radius: 8px;
+    box-shadow:
+        0 22px 44px -14px rgb(15 23 42 / 38%),
+        0 8px 24px rgb(239 68 68 / 20%);
+    opacity: 0;
+    transform: translateY(-8px);
+    transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+}
+
+.errorCalloutShown {
+    opacity: 1;
+    transform: none;
+}
+
+.errorCallout::before {
+    content: "";
+    position: absolute;
+    top: 16px;
+    inset-inline-start: -9px;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    transform: rotate(45deg);
+    border-inline-start: 2px solid var(--color-red-500);
+    border-bottom: 2px solid var(--color-red-500);
+}
+
+.errorTitle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16.5px;
+    font-weight: 700;
+    color: var(--color-red-500);
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--color-gray-200);
+    text-wrap-style: balance;
+}
+
+.errorBody {
+    font-size: 15px;
+    color: var(--color-gray-700);
+    line-height: 1.6;
+    padding: 13px 16px;
+    text-wrap-style: balance;
+}
+
+/* ===== Ask Jiki ===== */
+
+.jikiPanel {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    padding: 18px;
+    overflow: hidden;
+}
+
+/* Input styling from ChatInput.module.css, scaled to this stage. */
+.chatInput {
+    flex: none;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 18px 14px;
+    background: var(--color-gray-50);
+    border-top: 1px solid var(--color-gray-100);
+}
+
+.chatInput .who {
+    margin-top: 4px;
+}
+
+.chatField {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+/* Balancing off: this is a textarea, so it should fill each line the way typed text does. */
+.chatBox {
+    height: 72px;
+    padding: 11px 12px;
+    border: 2px solid var(--color-purple-200);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--color-gray-400);
+    text-wrap-style: auto;
+    transition: border-color 0.2s;
+}
+
+.chatBoxTyping {
+    color: var(--color-gray-800);
+    border-color: var(--color-purple-300);
+}
+
+.chatBox .caret {
+    height: 13px;
+    vertical-align: -2px;
+}
+
+.send {
+    position: absolute;
+    bottom: 8px;
+    inset-inline-end: 8px;
+    display: flex;
+    align-items: center;
+    background: var(--color-blue-600);
+    color: #fff;
+    border-radius: 6px;
+    padding: 7px 9px;
+    transition:
+        transform 0.12s ease,
+        background 0.12s ease;
+}
+
+.sendPressed {
+    transform: scale(0.9);
+    background: var(--color-blue-700);
+}
+
+.msg {
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+.msgShown {
+    opacity: 1;
+    transform: none;
+}
+
+/* Avatars match ChatMessageItem.module.css: round, cover-cropped, faint ring. Backgrounds
+   rather than <img> so the learner placeholder can be scaled up — its source has whitespace
+   baked in and would otherwise float in the circle. */
+.who {
+    flex: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #fff center / cover no-repeat;
+    box-shadow: 0 0 2px 1px var(--color-gray-300);
+}
+
+/* Balancing off: bubbles size to their content, and balanced wrapping left short messages
+   breaking oddly rather than filling the line. */
+.bubble {
+    padding: 9px 12px;
+    border-radius: 10px;
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--color-gray-800);
+    text-wrap-style: auto;
+}
+
+.msgJiki .bubble {
+    background: var(--color-purple-50);
+}
+
+.msgMe {
+    flex-direction: row-reverse;
+}
+
+.msgMe .bubble {
+    background: var(--color-blue-50);
+}
+
+/* ===== Success modal + confetti ===== */
+/* A spotlight rather than a flat dim, so the card feels lit rather than sitting on a grey
+   sheet. The card is a sibling above the confetti, so the confetti flies over the dimmed page
+   but under the modal. */
+
+.modalScrim {
+    position: absolute;
+    inset: 0;
+    z-index: 12;
+    border-radius: 14px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    background: radial-gradient(58% 52% at 50% 46%, rgb(255 255 255 / 22%), rgb(15 23 42 / 52%) 68%);
+}
+
+.modalScrimShown {
+    opacity: 1;
+}
+
+.modalWrap {
+    position: absolute;
+    inset: 0;
+    z-index: 16;
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modalWrapShown {
+    opacity: 1;
+}
+
+/* Blue rim plus a layered shadow, so the card lifts off the scrim. */
+.modal {
+    width: min(410px, 74%);
+    background: #fff;
+    border: 2px solid var(--color-blue-600);
+    border-radius: 12px;
+    padding: 42px 26px 44px;
+    text-align: center;
+    box-shadow:
+        0 28px 56px -16px rgb(15 23 42 / 50%),
+        0 10px 20px -10px rgb(15 23 42 / 30%);
+    transform: scale(0.94);
+    transition: transform 0.3s cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+
+.modalWrapShown .modal {
+    transform: none;
+}
+
+.modalTitle {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--color-blue-600);
+    margin-bottom: 10px;
+    text-wrap-style: balance;
+}
+
+.modal p {
+    font-size: 15.5px;
+    color: var(--color-gray-600);
+    line-height: 1.6;
+    margin-bottom: 18px;
+    text-wrap-style: balance;
+}
+
+.go {
+    display: inline-block;
+    padding: 9px 22px;
+    border-radius: 8px;
+    background: var(--color-blue-600);
+    border: 2px solid var(--color-blue-200);
+    color: #fff;
+    font-weight: 700;
+    font-size: 17px;
+}
+
+/* Green tick: the ring draws, then the mark, then the whole thing settles. */
+.tick {
+    display: block;
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 14px;
+    overflow: visible;
+}
+
+.tick circle,
+.tick path {
+    fill: none;
+    stroke: var(--color-green-500);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.tick circle {
+    stroke-width: 4;
+    stroke-dasharray: 145;
+    stroke-dashoffset: 145;
+}
+
+.tick path {
+    stroke-width: 5;
+    stroke-dasharray: 36;
+    stroke-dashoffset: 36;
+}
+
+.modalWrapShown .tick {
+    animation: tickPop 0.45s cubic-bezier(0.34, 1.4, 0.64, 1) both;
+}
+
+.modalWrapShown .tick circle {
+    animation: tickDraw 0.45s ease-out forwards;
+}
+
+.modalWrapShown .tick path {
+    animation: tickDraw 0.3s 0.34s ease-out forwards;
+}
+
+@keyframes tickDraw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes tickPop {
+    0% {
+        transform: scale(0.7);
+    }
+
+    60% {
+        transform: scale(1.06);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.confetti {
+    position: absolute;
+    inset: 0;
+    z-index: 14;
+    border-radius: 14px;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.confetti i {
+    position: absolute;
+    bottom: -14px;
+    width: 9px;
+    height: 12px;
+    border-radius: 1px;
+    opacity: 0;
+}
+
+.confettiFiring i {
+    animation: pop 2.1s cubic-bezier(0.16, 0.62, 0.38, 1) forwards;
+}
+
+@keyframes pop {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    60% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(var(--dx), var(--dy)) rotate(var(--rot));
+    }
+}
+
+/* ===== Fake mouse cursor ===== */
+
+/* The icons fill from their own `currentColor`, so the only paint CSS sets here is `color`; the
+   shadow just lifts the pointer off whatever it is over. */
+.cursor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    color: var(--color-purple-600);
+    transition:
+        transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+        opacity 0.2s ease;
+    pointer-events: none;
+    filter: drop-shadow(0 2px 3px rgb(0 0 0 / 35%));
+}
+
+/* The glyph carries its own hotspot offset so the wrapper's transform stays a pure anchor that
+   transitions cleanly. It swaps between arrow and hand without touching the wrapper. */
+.cursorGlyph {
+    display: block;
+    width: 38px;
+    height: 38px;
+}
+
+/* While dragging the scrubber the cursor moves in lockstep with the thumb: same duration, same
+   easing, so it doesn't trail behind it. */
+.cursorScrubbing {
+    transition:
+        transform var(--step, 145ms) linear,
+        opacity 0.2s ease;
+}
+
+.cursorHidden {
+    opacity: 0;
+}
+
+/* ===== Narrow screens and reduced motion =====
+   Two cases where the rails can't work: too narrow to hold them, or motion is off so the cards
+   can't take turns. Both drop them under the app as a plain row, all six readable at once. */
+
+@media (max-width: 1180px), (prefers-reduced-motion: reduce) {
+    .demo,
+    .finale {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 20px;
+        justify-items: center;
+    }
+
+    .videoWrap {
+        order: -1;
+    }
+
+    .rail,
+    .finale .rail {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 18px;
+        width: 100%;
+    }
+
+    .callout,
+    .finale .callout {
+        position: static;
+        inset: auto;
+        max-width: none;
+        opacity: 1;
+        transform: none;
+        margin-inline: 0;
+    }
+
+    .callout::after,
+    .finale .callout::after {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .caret,
+    .codeLineAdded,
+    .videoProgressRunning,
+    .confettiFiring i {
+        animation: none;
+    }
+
+    .tick circle,
+    .tick path {
+        stroke-dashoffset: 0;
+    }
+
+    .modalWrapShown .tick,
+    .modalWrapShown .tick circle,
+    .modalWrapShown .tick path {
+        animation: none;
+    }
+
+    .laser,
+    .track i,
+    .track b,
+    .cursor {
+        transition: none;
+    }
+}

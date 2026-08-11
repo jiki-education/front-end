@@ -1,0 +1,124 @@
+.section {
+    position: relative;
+    z-index: 1;
+    /* No bottom padding: the divider is the last thing in the section and has to sit
+       flush on its edge. The gap above it is the divider's own top margin. */
+    padding-block-start: 64px;
+    /* The purple wash at the top-left and the blue at the bottom-right keep the
+       Code/Build split the puzzle pieces make, without darkening either corner. */
+    background:
+        radial-gradient(90% 60% at 15% 0%, rgba(168, 85, 247, 0.16) 0%, rgba(168, 85, 247, 0) 60%),
+        radial-gradient(80% 70% at 90% 100%, rgba(191, 215, 254, 0.42) 0%, rgba(191, 215, 254, 0) 62%),
+        linear-gradient(180deg, #fffdf8 0%, #fdf6ec 100%);
+}
+
+.inner {
+    max-width: 1100px;
+    margin-inline: auto;
+    padding-inline: 5%;
+    text-align: center;
+}
+
+.eyebrow {
+    display: inline-block;
+    font-family: var(--font-handwritten);
+    font-weight: 700;
+    font-size: 27px;
+    color: var(--color-purple-600);
+    transform: rotate(-2deg);
+    margin-block-end: 2px;
+}
+
+.heading {
+    font-size: 34px;
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--color-gray-800);
+    margin-block-end: 12px;
+    text-wrap: balance;
+}
+
+.intro {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--color-gray-600);
+    max-width: 700px;
+    margin-inline: auto;
+    text-wrap: balance;
+}
+
+/* Stated rather than left to the base-layer default, so the emphasis survives
+   any change to that default. */
+.intro strong {
+    font-weight: 600;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-block-start: 40px;
+    margin-block-end: 44px;
+}
+
+.col {
+    flex: 1;
+    max-width: 340px;
+    text-align: start;
+}
+
+.col.right {
+    text-align: end;
+}
+
+.col h3 {
+    font-size: 23px;
+    font-weight: 700;
+    color: var(--color-gray-800);
+    margin-block-end: 8px;
+}
+
+.col p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-gray-600);
+    text-wrap: balance;
+}
+
+.codeWord {
+    color: var(--color-purple-600);
+    font-weight: 800;
+}
+
+.buildWord {
+    color: var(--color-blue-600);
+    font-weight: 800;
+}
+
+/* Closes the section off from the one below it, running the full width. */
+.divider {
+    border: 0;
+    border-block-start: 4px dotted var(--color-purple-200);
+    width: 100%;
+    margin-block-start: 56px;
+}
+
+@media (max-width: 767px) {
+    .heading {
+        font-size: 27px;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    /* Stacked, both columns read left-to-right; the mirrored alignment only makes sense
+       when they sit either side of the pieces. */
+    .col,
+    .col.right {
+        max-width: 420px;
+        text-align: center;
+    }
+}

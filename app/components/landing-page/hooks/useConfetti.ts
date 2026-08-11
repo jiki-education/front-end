@@ -23,12 +23,18 @@ export function useConfetti() {
     document.body.appendChild(confettiCanvas);
     const myConfetti = confetti.create(confettiCanvas, { resize: true });
 
-    const observer = new IntersectionObserver(([entry], obs) => {
-      if (entry.isIntersecting) {
-        launchConfetti(myConfetti);
-        obs.disconnect();
-      }
-    });
+    const observer = new IntersectionObserver(
+      ([entry], obs) => {
+        if (entry.isIntersecting) {
+          launchConfetti(myConfetti);
+          obs.disconnect();
+        }
+      },
+      // Pulls the trigger line 200px up from the viewport's bottom edge, so the
+      // heading has to be properly on screen before it fires rather than setting
+      // it off the instant it appears.
+      { rootMargin: "0px 0px -200px 0px" }
+    );
 
     observer.observe(el);
 

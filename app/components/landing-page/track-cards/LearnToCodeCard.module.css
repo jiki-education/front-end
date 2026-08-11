@@ -1,0 +1,48 @@
+/* Full width by virtue of the section not constraining it, rather than the usual
+   100vw/translateX full-bleed trick, which overflows whenever a scrollbar is present. */
+.card {
+    width: 100%;
+    margin-block-end: 72px;
+    background: linear-gradient(180deg, var(--color-gray-100), #fff 40%);
+    padding-block: 32px;
+
+    @media (min-width: 768px) {
+        padding-block: 48px;
+    }
+}
+
+.inner {
+    max-width: 1300px;
+    margin-inline: auto;
+    padding-inline: 5%;
+    text-align: center;
+}
+
+.heading {
+    font-size: 44px;
+    line-height: 1.05;
+    font-weight: 600;
+    color: var(--color-gray-900);
+    margin-block: 40px 20px;
+
+    @media (min-width: 640px) {
+        font-size: 48px;
+        line-height: 1.15;
+    }
+}
+
+.codeWord {
+    color: var(--color-purple-600);
+    font-weight: 800;
+}
+
+.intro {
+    font-size: 22px;
+    line-height: 1.6;
+    color: var(--color-gray-700);
+    max-width: 810px;
+    margin-inline: auto;
+    /* More air than the shared 24px so the demo below isn't sat right under the copy. */
+    margin-block-end: 54px;
+    text-wrap: balance;
+}

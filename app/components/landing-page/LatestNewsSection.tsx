@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import type { BlogPostMeta } from "@/lib/content/types";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
-import BlogPostCard from "@/components/blog/BlogPostCard";
+import { LatestNewsCard } from "./latest-news/LatestNewsCard";
 import styles from "./LatestNewsSection.module.css";
 
 interface LatestNewsSectionProps {
@@ -31,7 +31,7 @@ export function LatestNewsSection({ posts }: LatestNewsSectionProps) {
         </p>
         <div className={styles.grid}>
           {posts.map((post) => (
-            <BlogPostCard key={post.slug} post={post} styles={styles} headingLevel="h3" />
+            <LatestNewsCard key={post.slug} post={post} />
           ))}
         </div>
       </div>

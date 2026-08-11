@@ -1,0 +1,39 @@
+.strip {
+    position: relative;
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+    margin-block-end: 12px;
+    padding-block: 46px 10px;
+    text-align: center;
+}
+
+/* Matches the two-halves section heading, so the page's section headings read as a set. */
+.heading {
+    position: relative;
+    overflow: visible;
+    font-size: 34px;
+    font-weight: 800;
+    color: var(--color-gray-800);
+    text-wrap: balance;
+}
+
+.sub {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--color-gray-600);
+    line-height: 1.85;
+    text-wrap: balance;
+}
+
+/* Underlined by default: mid-sentence, weight alone is a weak signal that it is a link.
+   The thickness and offset keep it clear of the descenders. */
+.link {
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+
+    &:hover {
+        color: var(--color-blue-600);
+    }
+}

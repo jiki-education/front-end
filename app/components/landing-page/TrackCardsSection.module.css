@@ -1,0 +1,29 @@
+/* Deliberately unconstrained: the bands inside are full-bleed and hold their own
+   measure, so the width is theirs to set rather than something they have to escape.
+   Widening this to 100vw and pulling it back with a transform, as full-bleed usually
+   does, overflows the page whenever a scrollbar is present.
+
+   Each band carries its own bottom margin (in its own module); the last carries
+   none, so the run ends on this section's padding. */
+.section {
+    background: #fff;
+    padding-block-end: 40px;
+}
+
+.seam {
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+    margin-block-end: 20px;
+}
+
+.seamArrow {
+    width: 160px;
+    height: auto;
+    color: var(--color-gray-400);
+    opacity: 0.55;
+
+    @media (max-width: 900px) {
+        width: 110px;
+    }
+}

@@ -11,6 +11,8 @@
     --font-mono:
         var(--font-source-code-pro), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
         monospace;
+    /* Handwritten face, used for marketing asides and section eyebrows. */
+    --font-handwritten: var(--font-caveat), ui-rounded, "Comic Sans MS", cursive;
 }
 
 body {
@@ -21,6 +23,9 @@ body {
     --font-mono:
         var(--font-source-code-pro), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
         monospace;
+    /* Redeclared here as well as on :root because next/font sets --font-caveat on <body>,
+       which the :root declaration sits above and so cannot resolve. */
+    --font-handwritten: var(--font-caveat), ui-rounded, "Comic Sans MS", cursive;
 }
 
 :root {

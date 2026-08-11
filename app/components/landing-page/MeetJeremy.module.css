@@ -1,0 +1,112 @@
+/* Marker settings for every RoughHighlight in this section (prose and pull quote): a
+   purple band sitting low under the words, rather than the amber wash the track cards
+   use across a headline. */
+.section {
+    --rough-highlight-color: var(--color-purple-300);
+    --rough-highlight-from: 90%;
+
+    background: linear-gradient(180deg, #fff 0%, var(--color-gray-100) 100%);
+    padding-block: 72px;
+}
+
+.inner {
+    /* Matches the reference's measure, which leaves a wide enough column beside the
+       240px portrait to keep the three badges on one row.
+
+       The gutter is a fixed length, not a percentage: percentage padding resolves
+       against the containing block, so 5% here took 5% of the viewport rather than of
+       this column, and the measure shrank as the window grew wider. */
+    max-width: 1060px;
+    margin-inline: auto;
+    padding-inline: 34px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 48px;
+    align-items: start;
+}
+
+.portraitColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.portrait {
+    width: 220px;
+    border-radius: 20px;
+    margin-block-end: 20px;
+}
+
+/* Two concentric bands: a tight purple-500 border, then a wider purple-300 ring
+   carried as a spread-only shadow. A shadow rather than a second element because
+   it follows the border radius on its own and takes no layout space, so the photo
+   still measures 220px to the grid. */
+.portrait img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border: 3px solid var(--color-purple-500);
+    border-radius: 20px;
+    box-shadow:
+        0 0 0 9px var(--color-purple-300),
+        0 10px 24px -6px rgba(15, 23, 42, 0.18);
+}
+
+.intro {
+    font-size: 29px;
+    font-weight: 300;
+    line-height: 1.28;
+    color: var(--color-gray-800);
+    margin-block-end: 16px;
+}
+
+.intro strong {
+    font-weight: 600;
+}
+
+/* Keeps "millions of people" on one line, so the claim is not split mid-phrase. */
+.noWrap {
+    white-space: nowrap;
+}
+
+.body {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--color-gray-600);
+    margin-block-end: 14px;
+}
+
+/* Stated rather than inherited from the base layer: against the 300 around it, the
+   emphasis is doing real work and shouldn't move if that default ever changes. A step
+   of weight and a step of colour, so it lifts without breaking the run of prose. */
+.body strong {
+    font-weight: 500;
+    color: var(--color-gray-700);
+}
+
+.signature {
+    display: inline-block;
+    font-family: var(--font-handwritten);
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1;
+    color: var(--color-gray-700);
+    transform: rotate(-2deg);
+}
+
+@media (max-width: 767px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .intro {
+        font-size: 24px;
+    }
+}

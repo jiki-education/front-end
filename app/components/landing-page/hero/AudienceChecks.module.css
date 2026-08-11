@@ -1,0 +1,44 @@
+.checks {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+.check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 17px;
+    color: var(--color-gray-200);
+}
+
+.icon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    color: var(--color-green-500);
+}
+
+/* The qualifying clause sits at the body weight; only the audience name is emphasised. */
+.text {
+    font-weight: 400;
+}
+
+/* White against the row's grey, so the audience reads first and the clause qualifying
+   it sits back. */
+.name {
+    font-weight: 600;
+    color: #fff;
+}
+
+@media (max-width: 1023px) {
+    .checks {
+        align-items: center;
+    }
+
+    .check {
+        text-align: start;
+    }
+}

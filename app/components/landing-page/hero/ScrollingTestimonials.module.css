@@ -1,0 +1,48 @@
+.scrollingTestimonials {
+    display: flex;
+    margin-top: auto;
+    position: relative;
+}
+
+.hamster {
+    position: absolute;
+    inset-inline-end: 30px;
+    top: -72px;
+    width: 80px;
+    height: 80px;
+
+    @media (min-width: 768px) {
+        height: 100px;
+        width: 100px;
+        top: -92px;
+    }
+}
+
+.inner {
+    background: var(--color-gray-900);
+    min-width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    display: flex;
+    flex-shrink: 0;
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+
+    ul {
+        font-size: 19px;
+        font-weight: 600;
+        color: #fff;
+        line-height: 150%;
+        display: flex;
+        white-space: nowrap;
+        will-change: transform;
+
+        li {
+            background: url("/static/images/landing-page/stars-0b091.svg") right center / 76px auto no-repeat;
+            padding-inline-end: 95px;
+            margin-inline-end: 20px;
+        }
+    }
+}
