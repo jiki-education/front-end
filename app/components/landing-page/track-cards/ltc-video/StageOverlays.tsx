@@ -104,18 +104,24 @@ export function Cursor({ state }: { state: VideoState }) {
 
   const { dx, dy } = hotspotOffset(hotspot);
 
+  // The positioned wrapper is one stable element for the whole video: only the glyph inside it
+  // swaps. Putting the transition on a node that never remounts is what lets the pointer actually
+  // travel to the scrubber and the Jiki tab — earlier the arrow⇄hand swap replaced the element, so
+  // the fresh node had no prior transform to ease from and simply appeared at its destination.
+  //
+  // The wrapper carries only the anchor, which transitions; the glyph carries only its own
+  // hotspot offset, which is instant. That shift is a dozen units and only ever changes on arrival,
+  // as the pointer settles into a grab or a click, so it reads as the hand closing, not a jump.
   return (
-    <Icon
+    <div
       className={`${styles.cursor} ${grabbing ? styles.cursorScrubbing : ""} ${
         state.cursorVisible ? "" : styles.cursorHidden
       }`}
       aria-hidden="true"
-      // The anchor is where the click lands; shift the element so the icon's hotspot — not its
-      // top-left corner — sits on it.
-      style={
-        { transform: `translate3d(${x + dx}px, ${y + dy}px, 0)`, "--step": `${STEP / SPEED}ms` } as React.CSSProperties
-      }
-    />
+      style={{ transform: `translate3d(${x}px, ${y}px, 0)`, "--step": `${STEP / SPEED}ms` } as React.CSSProperties}
+    >
+      <Icon className={styles.cursorGlyph} style={{ transform: `translate(${dx}px, ${dy}px)` }} />
+    </div>
   );
 }
 
