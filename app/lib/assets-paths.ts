@@ -192,15 +192,14 @@ export function interpreterMessagesPointerPath(language: string, locale: string)
 }
 
 /**
- * Post metadata is THREE artifacts, split by what each part is.
+ * Post metadata is TWO artifacts, split by what each part is.
  *
  * Structure is locale-invariant (date, author, cover image, flags, all from
- * English config, plus the projects' structure), so the front-end publishes one
- * object for every language. Copy is translated (title, excerpt, seo, tags,
- * reading time, content hash), so the i18n repo publishes it per locale. The
- * third holds testimonials, which are per-locale but authored as JSON rather
- * than as Markdown, so they are not in the corpus i18n mirrors and stay
- * front-end published. Project copy is a fourth, at `projectCopyPath` above.
+ * English config, plus the projects' structure and the testimonials'), so the
+ * front-end publishes one object for every language. Copy is translated (title,
+ * excerpt, seo, tags, reading time, content hash), so the i18n repo publishes it
+ * per locale. Project copy is a third, at `projectCopyPath` above, and
+ * testimonial copy a fourth, at `testimonialsCopyPath` below.
  */
 export function contentStructurePath(hash: string): string {
   return `/static/content/structure-${hash}.json`;
@@ -214,12 +213,22 @@ export function contentCopyPointerPath(locale: string): string {
   return `/static/content/copy/${locale}/current.json`;
 }
 
-/** Per-locale testimonials. Front-end published; see above. */
-export function contentMetaPath(locale: string, hash: string): string {
-  return `/static/content/meta/${locale}/index-${hash}.json`;
+/**
+ * One locale's testimonial copy catalog: `{ heading, subheading, roles, quotes, marquee }`.
+ *
+ * Testimonials split like everything else. Who said it (name, avatar filename)
+ * and where it is shown are locale-invariant and ride in the structure artifact
+ * above; the words are a catalog, English authored in
+ * content/src/testimonials/messages.json and every other locale published here
+ * by the i18n repo. Quotes are keyed by slug, so the landing grid and the
+ * /testimonials page name the entries they show rather than indexing into an
+ * array whose order would then be load-bearing across a translation.
+ */
+export function testimonialsCopyPath(locale: string, hash: string): string {
+  return `/static/content/testimonials/${locale}/meta-${hash}.json`;
 }
 
-/** The mutable pointer for a locale's content metadata index. */
-export function contentMetaPointerPath(locale: string): string {
-  return `/static/content/meta/${locale}/current.json`;
+/** The mutable pointer for a locale's testimonial copy catalog. The i18n repo owns it. */
+export function testimonialsCopyPointerPath(locale: string): string {
+  return `/static/content/testimonials/${locale}/current.json`;
 }

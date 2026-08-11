@@ -31,11 +31,11 @@ export { getProject } from "./getProject";
 export type { ProjectWithEpisodes } from "./getProject";
 export { getProjectEpisode } from "./getProjectEpisode";
 
-// Testimonials (landing page)
+// Testimonials (landing page + /testimonials)
 export { getTestimonials } from "./getTestimonials";
 
 // Utilities
-export { getContentMeta } from "./contentMeta";
+export { getContentMeta, assembleTestimonials } from "./contentMeta";
 export type { ContentMeta } from "./contentMeta";
 
 // Types
@@ -55,7 +55,6 @@ export type {
   ProcessedEpisode,
   VideoProvider,
   Testimonial,
-  PrimaryTestimonial,
   TestimonialsData
 } from "./types";
 export { ARTICLE_TAG_SLUGS } from "./types";

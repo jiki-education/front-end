@@ -18,8 +18,9 @@ content/
 │   ├── loader.ts             # Content loading and parsing
 │   ├── validator.ts          # Frontmatter validation
 │   ├── authors.json          # Author registry
-│   ├── testimonials/         # Landing-page testimonials (structured editorial data)
-│   │   └── en.json
+│   ├── testimonials/         # Testimonials (structured editorial data)
+│   │   ├── structure.json    # Locale-invariant (never translated)
+│   │   └── messages.json     # English copy catalog
 │   └── posts/
 │       ├── blog/             # Blog posts (time-based)
 │       │   └── [slug]/

@@ -149,27 +149,24 @@ export interface AuthorRegistry {
   [key: string]: Author;
 }
 
-// Landing-page testimonials. Editorial content (student quotes + marquee blurbs),
-// authored per-locale in the content package (content/src/testimonials/{locale}.json)
-// and baked into content-meta-server.json for synchronous SSR delivery.
+// Testimonials, as the app reads them: one join of the locale-invariant
+// structure (who said it, which avatar, in what order, on which page) with that
+// locale's copy catalog (the headings, the roles, the words, the marquee).
 //
-// `image` is a filename only (e.g. "fred.webp"); the presentational avatar assets
-// live with the landing-page component, which maps the filename to a bundled
-// StaticImageData. `html` is trusted, hand-authored markup (only <strong> is used)
-// rendered via dangerouslySetInnerHTML.
+// `image` is a filename only (e.g. "fred.webp"); the presentational avatar
+// assets live with the components, which map the filename to a bundled
+// StaticImageData. `text` is a restricted Markdown subset — `**bold**` and
+// blank-line paragraph breaks, nothing else — rendered element by element and
+// never as HTML. It used to be `<strong>` markup passed to
+// dangerouslySetInnerHTML; a string a translator writes is not a string to hand
+// to innerHTML.
 export interface Testimonial {
+  /** The copy key, e.g. "fred" or "thom-short". Unique within a list. */
   slug: string;
   name: string;
   role: string;
   image: string;
-  html: string;
-}
-
-export interface PrimaryTestimonial {
-  quote: string;
-  name: string;
-  role: string;
-  image: string;
+  text: string;
 }
 
 export interface TestimonialsData {
@@ -177,8 +174,12 @@ export interface TestimonialsData {
   // Sentence containing a single <link>…</link> span linking to the full
   // testimonials page. Rendered by splitting on the <link> tag.
   subheading: string;
-  primary: PrimaryTestimonial;
+  /** The single large quote at the top of the landing-page section. */
+  primary: Testimonial;
+  /** The landing-page grid, in the order the structure lists it. */
   quotes: Testimonial[];
+  /** The full /testimonials page, in the order the structure lists it. */
+  page: Testimonial[];
   // Short attribution-free blurbs for the hero marquee.
   marquee: string[];
 }

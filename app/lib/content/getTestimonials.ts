@@ -1,23 +1,21 @@
 import { getContentMeta } from "./contentMeta";
-import { DEFAULT_LOCALE } from "@/lib/locales";
 import type { TestimonialsData } from "./types";
 
 /**
- * Get the landing-page testimonials for a locale (heading, primary quote, the
- * grid of student quotes, and the hero marquee blurbs).
+ * Get a locale's testimonials: the headings, the primary quote, the landing
+ * grid, the full /testimonials page, and the hero marquee blurbs.
  *
- * This is the ONE deliberate English fallback in the content layer. Testimonials
- * are marketing copy on the landing page and the section cannot render empty, so
- * an untranslated locale shows the English quotes rather than a hole. Everywhere
- * else a miss stays a miss, so a gap is visible rather than silently English.
+ * There is NO English fallback here, and there must never be one. A locale that
+ * has not translated its testimonials returns null and renders none: the
+ * landing section disappears and the /testimonials page shows an empty list.
+ * Showing English marketing copy to a reader who asked for another language is
+ * the failure the whole structure/copy split exists to make impossible, and
+ * "the section cannot render empty" is not an exception to it. It renders empty.
  *
- * Returns null only when even English is unavailable, which is a broken deploy
- * rather than a missing translation; the caller renders nothing.
+ * Null therefore means one of two things, and the caller cannot tell them apart
+ * because it does not need to: this locale has no testimonial catalog, or the
+ * deploy is broken. Both render nothing.
  */
 export async function getTestimonials(locale: string): Promise<TestimonialsData | null> {
-  const meta = await getContentMeta(locale);
-  if (meta.testimonials) {
-    return meta.testimonials;
-  }
-  return (await getContentMeta(DEFAULT_LOCALE)).testimonials;
+  return (await getContentMeta(locale)).testimonials;
 }

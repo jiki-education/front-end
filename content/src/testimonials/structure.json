@@ -1,0 +1,248 @@
+{
+  "people": {
+    "abhinav": {
+      "name": "@abhinav",
+      "image": "abhinav.webp"
+    },
+    "artigiani": {
+      "name": "@m_artigiani",
+      "image": "m_artigiani.webp"
+    },
+    "chris": {
+      "name": "Chris",
+      "image": "sharpiemath.webp"
+    },
+    "drac": {
+      "name": "Cpt Drac",
+      "image": "drac.webp"
+    },
+    "fred": {
+      "name": "Fred",
+      "image": "fred.webp"
+    },
+    "jj": {
+      "name": "@JJ",
+      "image": "jj.webp"
+    },
+    "karen": {
+      "name": "Karen",
+      "image": "github.webp"
+    },
+    "kazzybits": {
+      "name": "@Kazzybits",
+      "image": "kazzybits.webp"
+    },
+    "kcash": {
+      "name": "@kcash",
+      "image": "kcash.webp"
+    },
+    "laura": {
+      "name": "Laura",
+      "image": "laura.webp"
+    },
+    "lucas": {
+      "name": "Lucas",
+      "image": "lukas.webp"
+    },
+    "matt": {
+      "name": "Matt",
+      "image": "github.webp"
+    },
+    "nanouss": {
+      "name": "@nanouss01",
+      "image": "nanouss01.webp"
+    },
+    "nilophars": {
+      "name": "@nilophars",
+      "image": "github.webp"
+    },
+    "nolan": {
+      "name": "Nolan Lounsbery",
+      "image": "giantlemur.webp"
+    },
+    "oleksandra": {
+      "name": "Oleksandra",
+      "image": "oleksandra.webp"
+    },
+    "oleksandra2": {
+      "name": "Oleksandra",
+      "image": "github.webp"
+    },
+    "redrobio": {
+      "name": "@RedRobio",
+      "image": "redrobio.webp"
+    },
+    "rick": {
+      "name": "Rick",
+      "image": "ricksn.webp"
+    },
+    "robert": {
+      "name": "Robert",
+      "image": "rob.webp"
+    },
+    "roger": {
+      "name": "Roger",
+      "image": "github.webp"
+    },
+    "shaun": {
+      "name": "Shaun",
+      "image": "shaun.webp"
+    },
+    "thom": {
+      "name": "Thom Chittom",
+      "image": "thom.webp"
+    },
+    "veronika": {
+      "name": "Veronika",
+      "image": "github.webp"
+    },
+    "vignesh": {
+      "name": "Vignesh",
+      "image": "vignesh.webp"
+    }
+  },
+  "quotes": {
+    "abhinav": {
+      "person": "abhinav"
+    },
+    "artigiani": {
+      "person": "artigiani"
+    },
+    "artigiani-short": {
+      "person": "artigiani"
+    },
+    "chris": {
+      "person": "chris"
+    },
+    "drac": {
+      "person": "drac"
+    },
+    "fred": {
+      "person": "fred"
+    },
+    "jj": {
+      "person": "jj"
+    },
+    "karen": {
+      "person": "karen"
+    },
+    "kazzybits": {
+      "person": "kazzybits"
+    },
+    "kcash": {
+      "person": "kcash"
+    },
+    "laura": {
+      "person": "laura"
+    },
+    "laura-short": {
+      "person": "laura"
+    },
+    "lucas": {
+      "person": "lucas"
+    },
+    "matt": {
+      "person": "matt"
+    },
+    "nanouss": {
+      "person": "nanouss"
+    },
+    "nanouss-short": {
+      "person": "nanouss"
+    },
+    "nilophars": {
+      "person": "nilophars"
+    },
+    "nolan": {
+      "person": "nolan"
+    },
+    "oleksandra": {
+      "person": "oleksandra"
+    },
+    "oleksandra2": {
+      "person": "oleksandra2"
+    },
+    "redrobio": {
+      "person": "redrobio"
+    },
+    "rick": {
+      "person": "rick"
+    },
+    "rick-short": {
+      "person": "rick"
+    },
+    "robert": {
+      "person": "robert"
+    },
+    "roger": {
+      "person": "roger"
+    },
+    "shaun": {
+      "person": "shaun"
+    },
+    "thom": {
+      "person": "thom"
+    },
+    "thom-short": {
+      "person": "thom"
+    },
+    "veronika": {
+      "person": "veronika"
+    },
+    "vignesh": {
+      "person": "vignesh"
+    }
+  },
+  "landing": {
+    "primary": "oleksandra",
+    "quotes": [
+      "fred",
+      "shaun",
+      "lucas",
+      "nolan",
+      "redrobio",
+      "matt",
+      "abhinav",
+      "laura-short",
+      "oleksandra2",
+      "kazzybits",
+      "vignesh",
+      "rick-short",
+      "artigiani-short",
+      "robert",
+      "karen",
+      "kcash",
+      "drac",
+      "jj",
+      "nanouss-short",
+      "thom-short",
+      "chris"
+    ]
+  },
+  "page": [
+    "fred",
+    "shaun",
+    "lucas",
+    "nolan",
+    "redrobio",
+    "veronika",
+    "abhinav",
+    "oleksandra2",
+    "roger",
+    "laura",
+    "matt",
+    "thom",
+    "kazzybits",
+    "vignesh",
+    "rick",
+    "robert",
+    "karen",
+    "kcash",
+    "drac",
+    "jj",
+    "nanouss",
+    "chris",
+    "artigiani",
+    "nilophars"
+  ]
+}

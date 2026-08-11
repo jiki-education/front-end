@@ -79,8 +79,9 @@ content/
 │   └── validation.md        # Validation rules
 ├── src/
 │   ├── authors.json          # Author registry
-│   ├── testimonials/         # Landing-page testimonials (structured editorial data)
-│   │   └── en.json           # English (required)
+│   ├── testimonials/         # Testimonials (structured editorial data)
+│   │   ├── structure.json    # Locale-invariant: people, quote ownership, orderings
+│   │   └── messages.json     # English copy: heading, subheading, roles, quotes, marquee
 │   └── posts/
 │       ├── blog/             # Blog posts
 │       │   └── [slug]/
@@ -219,15 +220,34 @@ URLs: the hub is `/build`; projects are `/projects/{slug}`; episodes are `/proje
 
 ### Testimonials
 
-**Testimonials** are the landing-page student quotes and hero marquee blurbs. Unlike posts, they are
-**structured editorial data**, not markdown, so they live in `src/testimonials/` as `en.json`
-rather than in a slug directory. Each file holds a `heading`, a
-`subheading` (with one `<link>…</link>` span), a `primary` featured quote, a `quotes` array
-(`{ slug, name, role, image, html }`), and a `marquee` array of short blurbs. Quote `html` is trusted
-markup (only `<strong>`); `image` is a filename only (avatar assets live with the app's landing-page
-component). The app bakes these into its server metadata at build time and serves them synchronously
-for SSR. Validation (shape, required fields, `<link>` span, unique quote slugs) runs in the app's
-`tests/unit/content/`.
+**Testimonials** are the student quotes shown on the landing page, the hero marquee blurbs, and the
+full `/testimonials` page. Unlike posts they are **structured editorial data**, not markdown, so they
+live in `src/testimonials/` rather than in a slug directory, and they are split into two files along
+the line that decides who publishes what:
+
+- **`structure.json`** is locale-invariant. It is never translated and never mirrored into the `i18n`
+  repo, because none of it is words a reader sees in their own language: `people` (each person's
+  display name and avatar filename), `quotes` (which person each quote key belongs to), `landing`
+  (the `primary` quote key plus the ordered grid keys) and `page` (the ordered keys the
+  `/testimonials` page shows). Both surfaces name the entries they show, so reordering one never
+  disturbs the other.
+- **`messages.json`** is the English copy catalog: `heading`, `subheading` (carrying one
+  `<link>…</link>` span), `roles` keyed by person, `quotes` keyed by quote key, and a `marquee` array
+  of short blurbs. English is authored here and **every other locale's catalog is published by the
+  `i18n` repo**, exactly as project copy is. No `<lang>.json` is ever added here.
+
+A quote key is a person's slug, or that slug plus `-short` where the landing grid shows a trimmed
+form of the same testimonial the `/testimonials` page shows in full. That is why ownership lives in
+`structure.json`: two keys can share one person, one name and one avatar.
+
+Quote text is a restricted Markdown subset, `**bold**` plus blank-line paragraph breaks, and nothing
+else. It is rendered element by element by the app rather than injected as HTML, so a translator
+never has to reproduce markup correctly for the page to be safe. Avatar `image` values are filenames
+only: the assets stay with the app's landing-page component, which maps a filename to an optimized
+image.
+
+Validation (shape, required fields, the `<link>` span, every quote key resolving to a known person,
+every ordering naming a known quote) runs in the app's `tests/unit/content/`.
 
 ### Validation Strategy
 

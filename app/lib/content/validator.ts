@@ -450,70 +450,122 @@ export function validateEpisodeSummary(slug: string, summary: unknown): void {
 }
 
 /**
- * Validate a landing-page testimonials file (content/src/testimonials/{locale}.json).
+ * Validate the testimonials' two halves against each other.
  *
- * Testimonials are structured editorial data (not markdown), authored as one JSON
- * file per locale. This enforces the shape the app and the generation script rely
- * on: heading/subheading strings, a primary quote, a non-empty list of student
- * quotes, and a non-empty marquee.
+ * `structure` is content/src/testimonials/structure.json, which is
+ * locale-invariant: who said each quote, which avatar file is theirs, and the
+ * order the landing section and the /testimonials page show them in. `copy` is
+ * content/src/testimonials/messages.json, the ENGLISH catalog; every other
+ * locale's is published by the i18n repo and validated over there.
+ *
+ * The checks that matter are the JOIN: every key an ordered list names must be a
+ * real quote, every quote must belong to a real person, and English must have
+ * words for all of them. A dangling key is the failure this split can introduce
+ * and the one thing neither half can catch alone. Roles are deliberately NOT
+ * required: two people genuinely have none.
  */
-export function validateTestimonials(locale: string, data: unknown): void {
-  if (data === null || typeof data !== "object" || Array.isArray(data)) {
-    throw new ValidationError(`Testimonials '${locale}.json' must be an object`);
+export function validateTestimonials(structure: unknown, copy: unknown): void {
+  if (structure === null || typeof structure !== "object" || Array.isArray(structure)) {
+    throw new ValidationError("Testimonials structure.json must be an object");
+  }
+  if (copy === null || typeof copy !== "object" || Array.isArray(copy)) {
+    throw new ValidationError("Testimonials messages.json must be an object");
   }
 
-  const d = data as Record<string, unknown>;
+  const s = structure as Record<string, unknown>;
+  const c = copy as Record<string, unknown>;
 
   for (const field of ["heading", "subheading"] as const) {
-    if (typeof d[field] !== "string" || d[field].trim() === "") {
-      throw new ValidationError(`Testimonials '${locale}.json' has invalid ${field}: must be a non-empty string`);
+    const value = c[field];
+    if (typeof value !== "string" || value.trim() === "") {
+      throw new ValidationError(`Testimonials messages.json has invalid ${field}: must be a non-empty string`);
     }
   }
 
-  if (!(d.subheading as string).includes("<link>") || !(d.subheading as string).includes("</link>")) {
-    throw new ValidationError(`Testimonials '${locale}.json' subheading must contain a <link>…</link> span`);
+  const subheading = c.subheading as string;
+  if (!subheading.includes("<link>") || !subheading.includes("</link>")) {
+    throw new ValidationError("Testimonials messages.json subheading must contain a <link>…</link> span");
   }
 
-  const primary = d.primary;
-  if (primary === null || typeof primary !== "object" || Array.isArray(primary)) {
-    throw new ValidationError(`Testimonials '${locale}.json' primary must be an object`);
-  }
-  for (const field of ["quote", "name", "role", "image"] as const) {
-    if (typeof (primary as Record<string, unknown>)[field] !== "string") {
-      throw new ValidationError(`Testimonials '${locale}.json' primary.${field} must be a string`);
+  const asRecord = (value: unknown, what: string): Record<string, unknown> => {
+    if (value === null || typeof value !== "object" || Array.isArray(value)) {
+      throw new ValidationError(`Testimonials ${what} must be an object`);
     }
-  }
+    return value as Record<string, unknown>;
+  };
 
-  if (!Array.isArray(d.quotes) || d.quotes.length === 0) {
-    throw new ValidationError(`Testimonials '${locale}.json' quotes must be a non-empty array`);
-  }
-  const seenSlugs = new Set<string>();
-  for (const quote of d.quotes as unknown[]) {
-    if (quote === null || typeof quote !== "object" || Array.isArray(quote)) {
-      throw new ValidationError(`Testimonials '${locale}.json' has an invalid quote (not an object)`);
-    }
-    const q = quote as Record<string, unknown>;
-    for (const field of ["slug", "name", "image", "html"] as const) {
-      if (typeof q[field] !== "string" || q[field].trim() === "") {
-        throw new ValidationError(`Testimonials '${locale}.json' quote is missing a valid ${field}`);
+  const people = asRecord(s.people, "structure.json people");
+  for (const [slug, person] of Object.entries(people)) {
+    const p = asRecord(person, `structure.json people.${slug}`);
+    for (const field of ["name", "image"] as const) {
+      const value = p[field];
+      if (typeof value !== "string" || value.trim() === "") {
+        throw new ValidationError(`Testimonials person '${slug}' has an invalid ${field}`);
       }
     }
-    // role may be an empty string (some quotes have no role), but must be present.
-    if (typeof q.role !== "string") {
-      throw new ValidationError(`Testimonials '${locale}.json' quote '${q.slug}' role must be a string`);
-    }
-    if (seenSlugs.has(q.slug as string)) {
-      throw new ValidationError(`Testimonials '${locale}.json' has a duplicate quote slug: '${q.slug as string}'`);
-    }
-    seenSlugs.add(q.slug as string);
   }
 
-  if (!Array.isArray(d.marquee) || d.marquee.length === 0) {
-    throw new ValidationError(`Testimonials '${locale}.json' marquee must be a non-empty array`);
+  const quotes = asRecord(s.quotes, "structure.json quotes");
+  const words = asRecord(c.quotes, "messages.json quotes");
+
+  for (const [key, meta] of Object.entries(quotes)) {
+    const person = asRecord(meta, `structure.json quotes.${key}`).person;
+    if (typeof person !== "string" || !(person in people)) {
+      throw new ValidationError(`Testimonials quote '${key}' names an unknown person: '${String(person)}'`);
+    }
+    const text: unknown = words[key];
+    if (typeof text !== "string" || text.trim() === "") {
+      throw new ValidationError(`Testimonials quote '${key}' has no English text in messages.json`);
+    }
   }
-  for (const blurb of d.marquee as unknown[]) {
+
+  for (const key of Object.keys(words)) {
+    if (!(key in quotes)) {
+      throw new ValidationError(
+        `Testimonials messages.json has text for '${key}', which structure.json does not define`
+      );
+    }
+  }
+
+  const roles = asRecord(c.roles ?? {}, "messages.json roles");
+  for (const slug of Object.keys(roles)) {
+    if (!(slug in people)) {
+      throw new ValidationError(`Testimonials messages.json has a role for unknown person '${slug}'`);
+    }
+  }
+
+  const landing = asRecord(s.landing, "structure.json landing");
+  const named = (key: unknown, where: string) => {
+    if (typeof key !== "string" || !(key in quotes)) {
+      throw new ValidationError(`Testimonials ${where} names an unknown quote: '${String(key)}'`);
+    }
+  };
+
+  named(landing.primary, "landing.primary");
+
+  for (const [where, list] of [
+    ["landing.quotes", landing.quotes],
+    ["page", s.page]
+  ] as const) {
+    if (!Array.isArray(list) || list.length === 0) {
+      throw new ValidationError(`Testimonials structure.json ${where} must be a non-empty array`);
+    }
+    const seen = new Set<string>();
+    for (const key of list) {
+      named(key, where);
+      if (seen.has(key as string)) {
+        throw new ValidationError(`Testimonials structure.json ${where} lists '${String(key)}' twice`);
+      }
+      seen.add(key as string);
+    }
+  }
+
+  if (!Array.isArray(c.marquee) || c.marquee.length === 0) {
+    throw new ValidationError("Testimonials messages.json marquee must be a non-empty array");
+  }
+  for (const blurb of c.marquee) {
     if (typeof blurb !== "string" || blurb.trim() === "") {
-      throw new ValidationError(`Testimonials '${locale}.json' marquee entries must be non-empty strings`);
+      throw new ValidationError("Testimonials messages.json marquee entries must be non-empty strings");
     }
   }
 }

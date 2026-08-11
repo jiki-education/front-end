@@ -52,31 +52,52 @@ The "Build with Jeremy" section. All routes are locale-routed like blog/help.
 
 Content is authored in `content/src/posts/projects/` (see `content/AGENTS.md`). Loaders: `getAllProjects`, `getProject`, `getProjectEpisode` in `lib/content/`. Types: `ProjectMeta`, `EpisodeMeta`, `ProcessedEpisode`.
 
-## Landing-Page Testimonials
+## Testimonials
 
-The landing page's student testimonials and hero marquee blurbs are **editorial content**, not UI
-chrome, so they live in the content package rather than the i18n catalog. Unlike blog/article/guide
-bodies (markdown fetched from R2 at runtime), testimonials are small structured data authored as one
-JSON file per locale:
+Student testimonials feed two surfaces: the landing page (a featured quote, a grid of trimmed
+quotes, and the hero marquee blurbs) and the full `/testimonials` page. They are **editorial
+content**, not UI chrome, so they live in the content package rather than the i18n message catalog.
+Unlike blog/article/guide bodies they are not markdown documents but small structured data, and they
+are authored as two files split along the line that decides who publishes what:
 
 ```
-content/src/testimonials/en.json   # canonical English
-content/src/testimonials/hu.json   # per-locale variant (English verbatim until translated)
+content/src/testimonials/structure.json   # locale-invariant, never translated
+content/src/testimonials/messages.json    # the English copy catalog
 ```
 
-Each file has the `TestimonialsData` shape: `heading`, `subheading` (a single sentence carrying one
-`<link>…</link>` span linking to the full testimonials page), a `primary` featured quote, a `quotes`
-array (each `{ slug, name, role, image, html }`), and a `marquee` array of short blurbs. Quote `html`
-is trusted hand-authored markup (only `<strong>`) rendered via `dangerouslySetInnerHTML`. The `image`
-field is a **filename only** — the presentational avatar assets stay bundled with the landing-page
-component (`components/landing-page/assets/testimonials/`), which maps the filename to a
-`StaticImageData`. This keeps the optimized `next/image` output identical while the copy lives in
+`structure.json` holds everything that is the same in every language: `people` (each person's display
+name and avatar filename), `quotes` (which person each quote key belongs to), `landing` (the
+`primary` quote key plus the ordered grid keys) and `page` (the ordered keys the `/testimonials` page
+shows). It rides inside the locale-invariant `/static/content/structure-{hash}.json` artifact under a
+`testimonials` key, alongside the structural half of posts and projects.
+
+`messages.json` holds the copy: `heading`, `subheading` (a single sentence carrying one
+`<link>…</link>` span linking to the full testimonials page), `roles` keyed by person, `quotes` keyed
+by quote key, and a `marquee` array of short blurbs. English is published to
+`/static/content/testimonials/en/meta-{hash}.json` by `scripts/generate-content-cache.js`; **every
+other locale's catalog is published by the `i18n` repo** to the same path shape, with a mutable
+pointer at `/static/content/testimonials/{locale}/current.json` that the i18n repo owns. This is the
+same split and the same mechanism project copy uses (`projectCopyPath` / `projectCopyPointerPath`,
+mirrored by `testimonialsCopyPath` / `testimonialsCopyPointerPath` in `lib/assets-paths.ts`).
+
+A quote key is a person's slug, or that slug plus `-short` where the landing grid shows a trimmed
+form of the same testimonial the `/testimonials` page shows in full. Ownership therefore has to live
+in `structure.json`: two keys can resolve to one person, one name and one avatar, and neither surface
+should have to know that.
+
+Quote text is a **restricted Markdown subset** (`**bold**` and blank-line paragraph breaks, nothing
+else), rendered element by element by `components/testimonials/text.tsx`. No testimonial string is
+ever injected as HTML, so a translator producing ordinary text can never break the page or inject
+markup. The avatar `image` field is a **filename only**: the presentational assets stay bundled with
+the landing-page component (`components/landing-page/assets/testimonials/`), which maps the filename
+to a `StaticImageData`, keeping the optimized `next/image` output identical while the copy lives in
 content.
 
-`scripts/generate-content-cache.js` reads these files and bakes them into
-`lib/generated/content-meta-server.json` under `testimonials`. `getTestimonials(locale)` (from
-`@/lib/content`) reads them **synchronously** (no fetch), so the landing page renders server-side and
-stays cacheable. It falls back to English when a locale has no testimonials. Validation lives in
+`getTestimonials(locale)` (from `@/lib/content`) fetches the locale's copy catalog and assembles it
+against the structure. **There is no English fallback.** A locale with no testimonial catalog gets
+`null`: the landing section disappears and the `/testimonials` page renders an empty list. Showing
+English marketing copy to a reader who asked for another language is the exact failure the split
+exists to prevent, and it would hide the gap from everyone who could fix it. Validation lives in
 `lib/content/validator.ts` (`validateTestimonials`) and runs in `tests/unit/content/`.
 
 ## Using Content Functions

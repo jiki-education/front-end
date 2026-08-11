@@ -177,9 +177,11 @@ Order by ROI (small/high-visibility first, hardest last):
 
 - `app/dev/*` and `app/test/*` — dev/test scaffolding, blocked in prod by middleware.
 - **Content/curriculum text** — exercise instructions, hints, solutions, concept prose, blog &
-  article bodies. These come from sibling packages (`@jiki/curriculum`, `../content/`) via
-  generated per-locale caches and already have their own localization path. Only the app _chrome_
-  around them (e.g. "Hints", "Run code", breadcrumbs, "read more") is in scope.
+  article bodies, and the testimonial quotes, roles, headings and marquee blurbs. These come from
+  sibling packages (`@jiki/curriculum`, `../content/`) via content-hashed per-locale artifacts and
+  already have their own localization path: English is authored beside the code and every other
+  locale is published by the `i18n` repo. Only the app _chrome_ around them (e.g. "Hints", "Run
+  code", breadcrumbs, "read more", the `/testimonials` page title) is in scope.
 - The existing blog/articles `[locale]` routing — leave until the routing decision lands.
 
 ---

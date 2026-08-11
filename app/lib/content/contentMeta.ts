@@ -6,13 +6,21 @@ import {
   contentStructurePath,
   contentCopyPath,
   contentCopyPointerPath,
-  contentMetaPath,
-  contentMetaPointerPath,
   projectCopyPath,
-  projectCopyPointerPath
+  projectCopyPointerPath,
+  testimonialsCopyPath,
+  testimonialsCopyPointerPath
 } from "@/lib/assets-paths";
 import { createHashResolver } from "@/lib/i18n/catalogPointer";
-import type { ArticleMeta, BlogPostMeta, EpisodeMeta, GuideMeta, ProjectMeta, TestimonialsData } from "./types";
+import type {
+  ArticleMeta,
+  BlogPostMeta,
+  EpisodeMeta,
+  GuideMeta,
+  ProjectMeta,
+  Testimonial,
+  TestimonialsData
+} from "./types";
 
 /**
  * One locale's content metadata: everything the listing pages, the landing page
@@ -68,10 +76,10 @@ const resolveCopyHash = createHashResolver({
   readPointer: readArtifactJson
 });
 
-const resolveLocalHash = createHashResolver({
-  label: "content metadata index",
-  compiledHashes: () => contentIndexHashes.meta,
-  pointerPath: (locale) => contentMetaPointerPath(locale),
+const resolveTestimonialsHash = createHashResolver({
+  label: "testimonial copy catalog",
+  compiledHashes: () => contentIndexHashes.testimonials,
+  pointerPath: (locale) => testimonialsCopyPointerPath(locale),
   resolveUrl: assetsUrl,
   readPointer: readArtifactJson
 });
@@ -201,6 +209,86 @@ function assembleEpisodes(structure: Structural, copy: Copy, locale: string): Ep
   return episodes.sort((a, b) => a.order - b.order);
 }
 
+/** The locale-invariant half of the testimonials, as the front-end publishes it. */
+interface TestimonialsStructure {
+  // `Partial` rather than a plain Record throughout: these are FETCHED
+  // artifacts, possibly written by a different publisher or an older deploy, so
+  // a key being absent is an ordinary runtime state and the types say so.
+  people?: Partial<Record<string, { name?: string; image?: string }>>;
+  quotes?: Partial<Record<string, { person?: string }>>;
+  landing?: { primary?: string; quotes?: string[] };
+  page?: string[];
+}
+
+/** The translated half, published per locale by the i18n repo. */
+interface TestimonialsCopy {
+  heading?: string;
+  subheading?: string;
+  roles?: Partial<Record<string, string>>;
+  quotes?: Partial<Record<string, string>>;
+  marquee?: string[];
+}
+
+/**
+ * Merge the testimonials' structure with a locale's copy.
+ *
+ * A quote the locale has not translated is DROPPED, exactly as a post or a
+ * project is: the grid shows fewer cards rather than one English card among
+ * translated ones. If the whole catalog is missing the result is null and the
+ * landing section and the /testimonials page render nothing at all. Neither
+ * outcome ever reaches for English, which is the entire point.
+ *
+ * The join is by KEY, in the order the structure lists, so a translator moving
+ * an entry in their catalog cannot reorder the page and a translation missing
+ * one entry cannot silently shift every attribution by one.
+ */
+export function assembleTestimonials(
+  structure: TestimonialsStructure | undefined,
+  copy: TestimonialsCopy | null
+): TestimonialsData | null {
+  if (!structure || !copy || !copy.heading || !copy.subheading) {
+    return null;
+  }
+
+  const people = structure.people ?? {};
+  const quoteMeta = structure.quotes ?? {};
+  const roles = copy.roles ?? {};
+  const words = copy.quotes ?? {};
+
+  const build = (key: string): Testimonial | null => {
+    const text = words[key];
+    const personSlug = quoteMeta[key]?.person ?? "";
+    const person = people[personSlug];
+    if (typeof text !== "string" || text === "" || !person) {
+      return null;
+    }
+    return {
+      slug: key,
+      name: person.name ?? "",
+      role: roles[personSlug] ?? "",
+      image: person.image ?? "",
+      text
+    };
+  };
+
+  const primary = build(structure.landing?.primary ?? "");
+  if (!primary) {
+    return null;
+  }
+
+  const collect = (keys: string[] | undefined) =>
+    (keys ?? []).map(build).filter((entry): entry is Testimonial => entry !== null);
+
+  return {
+    heading: copy.heading,
+    subheading: copy.subheading,
+    primary,
+    quotes: collect(structure.landing?.quotes),
+    page: collect(structure.page),
+    marquee: copy.marquee ?? []
+  };
+}
+
 /**
  * One locale's metadata, or an empty set when the locale has none.
  *
@@ -210,33 +298,37 @@ function assembleEpisodes(structure: Structural, copy: Copy, locale: string): Ep
  * A miss resolves to empty rather than to English. There is no English fallback
  * anywhere here: silently showing English to a reader who asked for another
  * language is the failure this whole split exists to make impossible, and a
- * locale is complete before it is served or it is not served at all.
- * `getTestimonials` is the one remaining exception, and it says so where it is
- * built.
+ * locale is complete before it is served or it is not served at all. There are
+ * no exceptions and no place left to add one.
  */
 export const getContentMeta = cache(async (locale: string): Promise<ContentMeta> => {
-  const [copyHash, localHash, projectCopyHash] = await Promise.all([
+  const [copyHash, projectCopyHash, testimonialsHash] = await Promise.all([
     resolveCopyHash(locale).catch(() => null),
-    resolveLocalHash(locale).catch(() => null),
-    resolveProjectCopyHash(locale).catch(() => null)
+    resolveProjectCopyHash(locale).catch(() => null),
+    resolveTestimonialsHash(locale).catch(() => null)
   ]);
 
   // Every artifact in flight at once, so the whole set costs one round trip of
   // depth however many artifacts it grows to.
-  const [structure, copy, local, projectCopy] = await Promise.all([
+  const [structure, copy, projectCopy, testimonialsCopy] = await Promise.all([
     fetchJson<Structural>(contentStructurePath(contentStructureHash)),
     copyHash ? fetchJson<Copy>(contentCopyPath(locale, copyHash)) : Promise.resolve(null),
-    localHash
-      ? fetchJson<{ testimonials: TestimonialsData | null }>(contentMetaPath(locale, localHash))
-      : Promise.resolve(null),
     projectCopyHash
       ? fetchJson<Record<string, ProjectCopy>>(projectCopyPath(locale, projectCopyHash))
+      : Promise.resolve(null),
+    testimonialsHash
+      ? fetchJson<TestimonialsCopy>(testimonialsCopyPath(locale, testimonialsHash))
       : Promise.resolve(null)
   ]);
 
   if (!structure) {
-    return { ...EMPTY, testimonials: local?.testimonials ?? null };
+    return EMPTY;
   }
+
+  const testimonials = assembleTestimonials(
+    (structure as { testimonials?: TestimonialsStructure }).testimonials,
+    testimonialsCopy
+  );
 
   // Episodes are assembled before projects, because a project's episode count is
   // the length of its share of this list.
@@ -246,7 +338,7 @@ export const getContentMeta = cache(async (locale: string): Promise<ContentMeta>
   const projects = assembleProjects(projectStructure, projectCopy, episodes, locale);
 
   if (!copy) {
-    return { ...EMPTY, projects, testimonials: local?.testimonials ?? null };
+    return { ...EMPTY, projects, testimonials };
   }
 
   const blog = assemble(structure, copy, "blog", locale) as BlogPostMeta[];
@@ -259,6 +351,6 @@ export const getContentMeta = cache(async (locale: string): Promise<ContentMeta>
     guides,
     projects,
     episodes,
-    testimonials: local?.testimonials ?? null
+    testimonials
   };
 });
