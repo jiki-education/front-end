@@ -6,7 +6,8 @@ import Link from "next/link";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import CrossIcon from "@/icons/cross.svg";
 import HamburgerIcon from "@/icons/hamburger.svg";
-import { LanguageSwitcher } from "./LanguageSwitcher";
+// Hidden for now — see the commented-out <LanguageSwitcher /> below.
+// import { LanguageSwitcher } from "./LanguageSwitcher";
 import styles from "./external.module.css";
 
 export default function ExternalButtons() {
@@ -28,7 +29,9 @@ export default function ExternalButtons() {
       </div>
 
       <div className={styles.authButtons}>
-        <LanguageSwitcher />
+        {/* Hidden until the locale sync is ready — the switcher advertises languages
+            the app cannot serve yet. Restore this line to bring it back. */}
+        {/* <LanguageSwitcher /> */}
 
         <Link href={routes.authLogin()} className="ui-btn ui-btn-small ui-btn-secondary">
           {t("login")}

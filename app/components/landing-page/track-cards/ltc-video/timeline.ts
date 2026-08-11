@@ -108,7 +108,8 @@ function buildTimeline(): Timeline {
   t = 700;
 
   // ---------- beat 1: a moment to read the code before it runs ----------
-  t += 900;
+  // Long enough to read the opening callout through before the pointer sets off.
+  t += 1900;
 
   // ---------- beat 2: press Run ----------
   push(t, { type: "cursor", target: { kind: "runButton" } });
@@ -134,7 +135,8 @@ function buildTimeline(): Timeline {
   push(t, { type: "errorLine", show: true });
   push(t, { type: "outcome", outcome: "fail" });
   push(t, { type: "callout", id: "errors" });
-  t += 2600;
+  // Holds on the error and its callout before the scrub starts pulling the eye away.
+  t += 3400;
 
   // ---------- beat 4b: scrub back through the run, so the cannon retraces its steps ----------
   const lastCol = COLS;
