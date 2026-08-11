@@ -37,10 +37,12 @@ export default function LtcVideoDevPage() {
   useEffect(() => {
     const measure = () => {
       const wrap = wrapRef.current;
-      // The cursor's own parent *is* the stage, which beats matching on a class name — this page's
-      // wrapper is called `stageWrap`, so a `[class*='stage']` lookup matches it first and every
-      // measurement comes back in the wrong space.
-      const stage = wrap?.querySelector<HTMLElement>("svg[class*='cursor']")?.parentElement;
+      // The cursor wrapper's own parent *is* the stage, which beats matching on a class name — this
+      // page's wrapper is called `stageWrap`, so a `[class*='stage']` lookup matches it first and
+      // every measurement comes back in the wrong space. Match the cursor's positioned `div` (whose
+      // parent is the stage), not the glyph `svg` inside it — that svg's class also contains
+      // "cursor", but its parent is the wrapper, which would measure a 38px box as the whole stage.
+      const stage = wrap?.querySelector<HTMLElement>("div[class*='cursor']")?.parentElement;
       if (!wrap || !stage) return;
       const wrapBox = wrap.getBoundingClientRect();
       const box = stage.getBoundingClientRect();

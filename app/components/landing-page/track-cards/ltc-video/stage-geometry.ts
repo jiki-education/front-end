@@ -33,10 +33,11 @@ const TRACK_Y = 730;
 const ANCHORS: Record<Exclude<CursorTarget["kind"], "track">, { x: number; y: number }> = {
   runButton: { x: 575, y: 363 },
   jikiTab: { x: 842, y: 34 },
+  instructionsTab: { x: 730, y: 34 },
   chatBox: { x: 735, y: 690 },
   chatSend: { x: 1005, y: 715 },
-  editLine: { x: 300, y: 196 },
-  editLineEnd: { x: 340, y: 196 }
+  editLine: { x: 273, y: 166 },
+  editLineEnd: { x: 202, y: 163 }
 };
 
 /** Where the cursor should sit for a given target. */

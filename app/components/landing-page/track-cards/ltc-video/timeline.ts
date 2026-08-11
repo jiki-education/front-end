@@ -27,6 +27,15 @@ export const SHOT_MS = 110;
  */
 export const SPEED = 1.15;
 
+/**
+ * How long to let the pointer travel before the action it reached for fires — a click, a caret, the
+ * first keystroke. The cursor's CSS transition is a fixed 500ms, and beats are scheduled at
+ * `at / SPEED`, so a timeline gap of `500 × SPEED` is the point of arrival; this adds a little settle
+ * on top so the pointer visibly lands before it acts, rather than clicking on the approach. Used
+ * everywhere a reach precedes an action so they all pace the same.
+ */
+const REACH = Math.round(500 * SPEED) + 60;
+
 /** The closing frame holds every card lit for this long before they settle. */
 const ALL_GLOW_MS = 1500;
 
@@ -39,12 +48,16 @@ const CALLOUT_FADE_MS = 450;
 /** How long the finished frame holds before the loop restarts. */
 const HOLD_MS = 4000;
 
+/** How long the click glyph holds — matches the Run/Send press, so every click reads the same. */
+const CLICK_MS = 200;
+
 export type CalloutId = "see" | "rewind" | "tested" | "errors" | "help" | "next";
 export type Outcome = "pending" | "fail" | "pass";
 export type Tab = "instructions" | "jiki";
 export type CursorTarget =
   | { kind: "runButton" }
   | { kind: "jikiTab" }
+  | { kind: "instructionsTab" }
   | { kind: "chatBox" }
   | { kind: "chatSend" }
   | { kind: "editLine" }
@@ -66,9 +79,21 @@ export type Action =
   | { type: "settleCallouts" }
   | { type: "cursor"; target: CursorTarget }
   | { type: "cursorVisible"; visible: boolean }
+  /**
+   * Whether the pointer shows the open hand. Kept separate from the `track` position so the arrow
+   * can travel to the thumb and only become a hand as it arrives, rather than the moment it sets
+   * off — the glyph was flipping a full move early otherwise.
+   */
+  | { type: "grip"; gripping: boolean }
   | { type: "scrubbing"; scrubbing: boolean }
   | { type: "pressRun"; pressed: boolean }
   | { type: "pressSend"; pressed: boolean }
+  /**
+   * A generic click flash for the targets that have no press state of their own — the tabs and the
+   * caret placement. Flips the pointer to its click glyph for the brief press, the same tell the
+   * Run and Send buttons give.
+   */
+  | { type: "click"; pressed: boolean }
   | { type: "laser"; col: number }
   | { type: "laserOffEdge" }
   | { type: "shoot"; col: number; target: number }
@@ -125,7 +150,7 @@ function buildTimeline(): Timeline {
 
   // ---------- beat 2: press Run ----------
   push(t, { type: "cursor", target: { kind: "runButton" } });
-  t += 650;
+  t += REACH;
   push(t, { type: "pressRun", pressed: true });
   push(t + 200, { type: "pressRun", pressed: false });
   t += 430;
@@ -163,7 +188,8 @@ function buildTimeline(): Timeline {
 
   push(t, { type: "callout", id: "rewind" });
   push(t, { type: "laser", col: lastCol }); // back off the edge, onto the last column
-  push(t, { type: "cursor", target: { kind: "track", pct: 1 } }); // reach for the thumb
+  push(t, { type: "cursor", target: { kind: "track", pct: 1 } }); // reach for the thumb, still an arrow
+  push(t + 450, { type: "grip", gripping: true }); // become a hand only as it lands, not on setting off
   t += 600;
   push(t, { type: "scrubbing", scrubbing: true });
   for (let col = lastCol - 1; col >= backTo; col--) {
@@ -176,13 +202,15 @@ function buildTimeline(): Timeline {
     t += STEP;
   }
   push(t, { type: "scrubbing", scrubbing: false });
+  push(t, { type: "grip", gripping: false }); // lifts off the thumb as an arrow again
   push(t, { type: "laserOffEdge" }); // back to where it broke
   push(t, { type: "track", pct: 1, ms: STEP });
   t += 1100;
 
   // ---------- beat 5: over to Ask Jiki ----------
   push(t, { type: "cursor", target: { kind: "jikiTab" } });
-  t += 650;
+  t += REACH; // land on the tab before it switches
+  pushClick(push, t); // click the tab
   push(t, { type: "errorLine", show: false });
   push(t, { type: "tab", tab: "jiki" });
   push(t, { type: "callout", id: "help" });
@@ -197,11 +225,16 @@ function buildTimeline(): Timeline {
   push(t, { type: "showMessage", n: 5 }); // Jiki confirms the fix
   t += 800;
 
-  // ---------- beat 6: edit that one value in place ----------
-  push(t, { type: "tab", tab: "instructions" });
+  // ---------- beat 6: back to the instructions, then edit that one value in place ----------
   push(t, { type: "callout", id: null });
+  push(t, { type: "cursor", target: { kind: "instructionsTab" } }); // reach the tab...
+  t += REACH;
+  pushClick(push, t); // ...click it...
+  push(t, { type: "tab", tab: "instructions" }); // ...and it switches back
+  t += 300;
   push(t, { type: "cursor", target: { kind: "editLineEnd" } });
-  t += 520;
+  t += REACH; // let the pointer reach the line before the caret drops in
+  pushClick(push, t); // click into the line to place the caret
   // Put the caret just after the boundary value
   push(t, { type: "editValue", value: BAD, caret: true });
   t += 280;
@@ -218,11 +251,14 @@ function buildTimeline(): Timeline {
   }
   t += 250;
   push(t, { type: "flashEditLine" });
-  t += 1300;
+  // Long enough for the green flash to read as "that's the fix", short enough that the pointer
+  // heads for Run while it's still fading rather than after a dead pause. The flash keyframe
+  // (1.6s) outlives this and fades out on its own as the cursor moves.
+  t += 550;
 
   // ---------- beat 7: rerun, and this time it wins ----------
   push(t, { type: "cursor", target: { kind: "runButton" } });
-  t += 620;
+  t += REACH;
   push(t, { type: "pressRun", pressed: true });
   push(t + 200, { type: "pressRun", pressed: false });
   push(t + 200, { type: "resetGame" });
@@ -288,7 +324,7 @@ function pushTyping(push: Push, from: number) {
   const ticks = 11;
 
   push(from, { type: "cursor", target: { kind: "chatBox" } }); // reach for the box first...
-  const startsAt = from + 520; // ...and let the cursor land
+  const startsAt = from + REACH; // ...and let the cursor land before a key is pressed
   push(startsAt, { type: "typeBox", key: "chat4", fraction: 0 });
   for (let i = 1; i <= ticks; i++) {
     push(startsAt + i * TICK, { type: "typeBox", key: "chat4", fraction: i / ticks });
@@ -296,14 +332,20 @@ function pushTyping(push: Push, from: number) {
   return startsAt + ticks * TICK;
 }
 
+/** Flash the click glyph at `at`, the tell shared with the Run and Send buttons. */
+function pushClick(push: Push, at: number) {
+  push(at, { type: "click", pressed: true });
+  push(at + CLICK_MS, { type: "click", pressed: false });
+}
+
 /** Press send: the box empties and the message is posted. */
 function pushSend(push: Push, from: number, messageNumber: number) {
   push(from, { type: "cursor", target: { kind: "chatSend" } });
-  push(from + 420, { type: "pressSend", pressed: true });
-  push(from + 620, { type: "pressSend", pressed: false });
-  push(from + 620, { type: "typeBox", key: null, fraction: 0 });
-  push(from + 620, { type: "showMessage", n: messageNumber });
-  return from + 620;
+  push(from + REACH, { type: "pressSend", pressed: true }); // press only once the pointer is on the button
+  push(from + REACH + 200, { type: "pressSend", pressed: false });
+  push(from + REACH + 200, { type: "typeBox", key: null, fraction: 0 });
+  push(from + REACH + 200, { type: "showMessage", n: messageNumber });
+  return from + REACH + 200;
 }
 
 /** Built once: the timeline is pure, so every loop replays the same array. */

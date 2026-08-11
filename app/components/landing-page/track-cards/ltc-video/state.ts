@@ -34,9 +34,14 @@ export interface VideoState {
   emphasis: "none" | "glow" | "lit";
   cursor: CursorTarget;
   cursorVisible: boolean;
+  /** Whether the pointer shows the open hand. Decoupled from the track position so the glyph can
+   *  flip on arrival rather than at the start of the reach — see the `grip` action. */
+  gripping: boolean;
   scrubbing: boolean;
   runPressed: boolean;
   sendPressed: boolean;
+  /** A brief click flash for targets without their own press state — the tabs and the caret. */
+  clicked: boolean;
   laserCol: number;
   laserOffEdge: boolean;
   shots: Shot[];
@@ -70,9 +75,11 @@ export const INITIAL_STATE: VideoState = {
   // Resting by the code, so the opening frame already has a pointer rather than one appearing
   // from nowhere the moment it first moves.
   cursorVisible: true,
+  gripping: false,
   scrubbing: false,
   runPressed: false,
   sendPressed: false,
+  clicked: false,
   laserCol: 1,
   laserOffEdge: false,
   shots: [],
@@ -151,6 +158,9 @@ export function reducer(state: VideoState, action: Action): VideoState {
     case "cursorVisible":
       return { ...state, cursorVisible: action.visible };
 
+    case "grip":
+      return { ...state, gripping: action.gripping };
+
     case "scrubbing":
       return { ...state, scrubbing: action.scrubbing };
 
@@ -159,6 +169,9 @@ export function reducer(state: VideoState, action: Action): VideoState {
 
     case "pressSend":
       return { ...state, sendPressed: action.pressed };
+
+    case "click":
+      return { ...state, clicked: action.pressed };
 
     case "laser":
       return { ...state, laserCol: action.col, laserOffEdge: false };

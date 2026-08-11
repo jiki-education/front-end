@@ -84,18 +84,19 @@ export function Confetti({ firing }: { firing: boolean }) {
 export function Cursor({ state }: { state: VideoState }) {
   const { x, y } = cursorOffset(state.cursor);
   const grabbing = state.scrubbing;
-  // Over the scrubber the pointer becomes a hand: open while reaching for the thumb, closed while
-  // dragging it. Pressing a button flips the arrow to its click form. Everywhere else it's the
-  // plain arrow.
-  const overTrack = state.cursor.kind === "track";
-  const clicking = state.runPressed || state.sendPressed;
+  // The pointer becomes an open hand only once it has reached the thumb (`gripping`), and a closed
+  // hand while dragging it. Driving this off `gripping` rather than the track position is what keeps
+  // the arrow travelling all the way to the thumb before the glyph turns — it used to flip the
+  // instant the move began. Pressing a button flips the arrow to its click form; everywhere else
+  // it's the plain arrow.
+  const clicking = state.runPressed || state.sendPressed || state.clicked;
 
   let Icon = CursorArrowIcon;
   let hotspot = ARROW_HOTSPOT;
   if (grabbing) {
     Icon = HandGrabbingIcon;
     hotspot = HAND_HOTSPOT;
-  } else if (overTrack) {
+  } else if (state.gripping) {
     Icon = HandIcon;
     hotspot = HAND_HOTSPOT;
   } else if (clicking) {
