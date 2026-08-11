@@ -5,10 +5,7 @@ import type { VideoState } from "./state";
 import { SPEED } from "./timeline";
 import styles from "./LtcVideo.module.css";
 
-/**
- * The lower-left card: the scenario's copy and verdict, the game canvas, and the scrubber
- * underneath.
- */
+/** The lower-left card: scenario copy and verdict, the game canvas, and the scrubber underneath. */
 export function ExercisePane({ state, onShotEnd }: { state: VideoState; onShotEnd: (id: number) => void }) {
   return (
     <div className={`${styles.card} ${styles.exercise}`}>
@@ -41,10 +38,7 @@ function Scenario({ outcome }: { outcome: VideoState["outcome"] }) {
   );
 }
 
-/**
- * The scrubber strip. The fill and thumb move on `transform`, so a run's two-to-three-second
- * sweep composites instead of laying out the strip on every frame.
- */
+/** The scrubber strip. Fill and thumb move on `transform`, so the sweep composites rather than laying out. */
 function Scrubber({ state }: { state: VideoState }) {
   return (
     <div className={styles.scrubber}>

@@ -1,10 +1,4 @@
-/**
- * The program on screen, and its syntax colouring.
- *
- * The listing is data rather than markup so the one line the learner edits can be rendered in
- * three pieces — prefix, value, suffix — letting the caret sit mid-line and the value be
- * deleted and retyped without the rest of the line moving.
- */
+// The program on screen and its syntax colouring, as data so the edited line renders in three pieces.
 
 const KEYWORDS = ["repeat_until_game_over", "set", "to", "if", "do", "else", "end", "change"];
 const FUNCS = ["is_alien_above", "move_right", "move_left", "shoot"];
@@ -40,17 +34,10 @@ export interface Token {
   kind: "kw" | "fn" | "nm" | "plain";
 }
 
-/**
- * Split a line into coloured tokens.
- *
- * The design prototype did this with chained regex replaces straight into `innerHTML`, rebuilt
- * on every simulated keystroke. Tokenising to data instead lets React render spans, so a
- * keystroke reconciles a couple of text nodes rather than re-parsing the whole listing.
- */
+/** Split a line into coloured tokens so React can render spans. */
 export function tokenize(line: string): Token[] {
   const tokens: Token[] = [];
-  // One pass over words, numbers and everything between, so a name immediately followed by
-  // `(` can be classified as a function call rather than a keyword.
+  // One pass over words, numbers and the gaps between, so a name before `(` reads as a function call.
   const pattern = /([a-z_]+)(\()|\b(\d+)\b|([a-z_]+)/g;
   let last = 0;
   let match: RegExpExecArray | null;
@@ -60,8 +47,7 @@ export function tokenize(line: string): Token[] {
       tokens.push({ text: line.slice(last, match.index), kind: "plain" });
     }
 
-    // Indexed rather than destructured: only one alternative of the pattern matches at a time,
-    // so the other groups are genuinely absent even though the type says otherwise.
+    // Indexed rather than destructured: only one alternative matches at a time, so the others are absent.
     const fnName = match[1] as string | undefined;
     const num = match[3] as string | undefined;
     const word = match[4] as string | undefined;
@@ -82,13 +68,7 @@ export function tokenize(line: string): Token[] {
   return tokens;
 }
 
-/**
- * The listing, tokenised once at module load.
- *
- * Eleven of the twelve lines never change, so re-tokenising them on every render is pure waste —
- * and the video renders on the order of 500 times a loop. Only the edited line varies, and it is
- * tokenised per keystroke from the live edit state. `null` marks its slot, as in `CODE`.
- */
+/** The listing, tokenised once at module load; only the edited line (marked `null`) varies per keystroke. */
 export const CODE_TOKENS: (Token[] | null)[] = CODE.map((line) => (line === null ? null : tokenize(line)));
 
 /** The static halves of the edited line, either side of the value being typed. */

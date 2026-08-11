@@ -15,18 +15,13 @@ const MESSAGES = [
   { n: 5, from: "jiki", key: "chat5" }
 ] as const;
 
-/**
- * The right-hand panel: the instructions the exercise ships with, and the Ask Jiki thread the
- * learner opens when the code breaks. Only one is visible; they crossfade.
- */
+/** The right-hand panel: the exercise instructions and the Ask Jiki thread, crossfading between them. */
 export function PanelTabs({ state }: { state: VideoState }) {
   const t = useTranslations("landing.learnToCode.demo");
 
   return (
     <div className={`${styles.card} ${styles.panel}`}>
-      {/* No `tablist`/`tab` roles: these are drawn tabs, not operable ones — no focus, no
-          `tabpanel`, no keyboard behaviour — so the roles would describe a widget that isn't
-          there. The selected tab is styled off a data attribute instead. */}
+      {/* No `tablist`/`tab` roles: these are drawn tabs, not operable ones. */}
       <div className={styles.tabs}>
         <Tab label={t("tabInstructions")} selected={state.tab === "instructions"} icon={<LinesIcon />} />
         <Tab label={t("tabJiki")} selected={state.tab === "jiki"} icon={<ChatIcon />} />
@@ -64,8 +59,7 @@ export function PanelTabs({ state }: { state: VideoState }) {
 function AskJiki({ state }: { state: VideoState }) {
   const t = useTranslations("landing.learnToCode.demo");
 
-  // The reply is sliced by fraction rather than per character, so every translation finishes
-  // typing at the same moment however long it is.
+  // Sliced by fraction rather than per character, so every translation finishes typing at the same moment.
   const typed = state.typingKey ? t(state.typingKey) : "";
   const shownText = typed.slice(0, Math.ceil(typed.length * state.typingFraction));
   const isTyping = state.typingKey !== null && state.typingFraction > 0;

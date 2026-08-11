@@ -2,13 +2,7 @@ import { CODE_TOKENS, EDIT_LINE, EDIT_PREFIX_TOKENS, EDIT_SUFFIX_TOKENS, tokeniz
 import type { VideoState } from "./state";
 import styles from "./LtcVideo.module.css";
 
-/**
- * The code editor pane.
- *
- * Rendered from tokens rather than an `innerHTML` string: the prototype rebuilt the whole
- * twelve-line listing on every simulated keystroke, so a two-character edit re-parsed the file
- * seven times. Here a keystroke reconciles one text node.
- */
+/** The code editor pane, rendered from tokens so a keystroke reconciles one text node. */
 export function CodeEditor({ state }: { state: VideoState }) {
   return (
     <div className={styles.editor}>
@@ -24,8 +18,7 @@ export function CodeEditor({ state }: { state: VideoState }) {
 
         return (
           <div
-            // The edited line's key carries the flash counter, so it remounts and the flash
-            // keyframe restarts on each loop rather than running once and never again.
+            // The edited line's key carries the flash counter, so its flash keyframe restarts each loop.
             key={isEditLine ? `edit-${state.flashKey}` : i}
             className={`${classes} ${isEditLine && state.flashKey > 0 ? styles.codeLineAdded : ""}`}
           >
@@ -40,16 +33,12 @@ export function CodeEditor({ state }: { state: VideoState }) {
   );
 }
 
-/**
- * The one line the learner edits, in three pieces so the caret can sit mid-line and the value
- * can be deleted and retyped without the rest of the line shifting.
- */
+/** The one edited line, in three pieces so the caret can sit mid-line and the value be retyped in place. */
 function EditedLine({ state }: { state: VideoState }) {
   return (
     <>
       <Tokens tokens={EDIT_PREFIX_TOKENS} />
-      {/* The only part of the listing that is tokenised at render time, because it is the only
-          part that changes. */}
+      {/* The only part tokenised at render time, because it is the only part that changes. */}
       <Tokens tokens={tokenize(state.editValue)} />
       {state.caret && <span className={styles.caret} />}
       <Tokens tokens={EDIT_SUFFIX_TOKENS} />

@@ -1,10 +1,4 @@
-/**
- * The demo's inline icons and sprites.
- *
- * Inline rather than files in `app/icons/`: these are part of a simulated screenshot of the app,
- * not real UI icons, and several are drawn at sizes the shared icon set doesn't carry. Keeping
- * them here means the stage stays one self-contained piece of scenery.
- */
+// The demo's inline icons and sprites — scenery in the simulated screenshot, not real UI icons.
 
 export function ResetIcon() {
   return (
@@ -154,17 +148,8 @@ export function TickIcon({ className }: { className: string }) {
 }
 
 /**
- * Cursor hotspots — the one pixel of each pointer that must sit on the click point.
- *
- * Every pointer icon is a Phosphor glyph drawn in the same 256×256 box. Rather than crop each one
- * with a bespoke viewBox (fragile: a wrong min-x/min-y silently drags the whole icon off its
- * anchor, and cropping clips the artwork), each icon is rendered whole and declares where its
- * hotspot lives in that 256-space. `Cursor` then offsets the element so that point lands on the
- * anchor from `stage-geometry.ts`. One number pair per icon, measured off the artwork:
- *
- *   arrow / arrow-click : the tip, the sharp top-left corner of the arrowhead
- *   hand / hand-grabbing : the grip, the point on the palm that holds the thing being dragged
- *
+ * Cursor hotspots — the one pixel of each pointer that must sit on the click point, in the 256-space
+ * every pointer glyph is drawn in. `Cursor` offsets the element so that point lands on the anchor.
  * The two hands share a grip so the pointer doesn't jump when the open hand closes onto the thumb.
  */
 export interface Hotspot {
@@ -181,13 +166,7 @@ export const CURSOR_VIEWBOX = 256;
 /** The rendered side of the pointer, in stage units. Must match `width`/`height` of `.cursor`. */
 export const CURSOR_SIZE = 38;
 
-/**
- * Reassembled from the four quadrant SVGs in
- * `curriculum/images/exercise-assets/space-invaders/`, drawn white rather than inverted.
- *
- * Inlined per instance rather than referenced through one `<symbol>` + `<use>`: `use` resolves
- * against the document, which makes it fragile under a component that may mount more than once.
- */
+/** Reassembled from the quadrant SVGs in `curriculum/images/exercise-assets/space-invaders/`, drawn white. */
 export function AlienSprite() {
   return (
     <svg viewBox="0 0 200 160" aria-hidden="true">

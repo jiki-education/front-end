@@ -3,12 +3,7 @@ import { ALIENS, ROW_TOP, colX } from "./simulation";
 import type { Shot, VideoState } from "./state";
 import styles from "./LtcVideo.module.css";
 
-/**
- * The space-invaders canvas: six aliens, the cannon, and the shots between them.
- *
- * The cannon moves on `transform`, so its glide runs on the compositor instead of laying out the
- * playfield on every frame.
- */
+/** The space-invaders canvas: six aliens, the cannon, and the shots between them. */
 export function GameCanvas({ state, onShotEnd }: { state: VideoState; onShotEnd: (id: number) => void }) {
   return (
     <div className={styles.game}>
@@ -34,13 +29,8 @@ export function GameCanvas({ state, onShotEnd }: { state: VideoState; onShotEnd:
 }
 
 /**
- * The cannon. Its column is a translate across the playfield, so consecutive moves join into one
- * continuous glide.
- *
- * A percentage in `translateX` resolves against the element's own width, not its container, so
- * the cannon rides a full-width rail and the sprite is centred on that rail's leading edge.
- * Overshooting the right edge is the error the learner has to fix, so that state deliberately
- * translates past 100% and lets the canvas clip it.
+ * The cannon, translated across a full-width rail so consecutive moves join into one glide. The
+ * overshoot past the right edge (the error the learner fixes) translates past 100% and gets clipped.
  */
 function Cannon({ state }: { state: VideoState }) {
   const offEdge = state.laserOffEdge;
@@ -56,13 +46,7 @@ function Cannon({ state }: { state: VideoState }) {
   );
 }
 
-/**
- * A white streak from the cannon up to the alien it kills.
- *
- * The prototype measured both endpoints off the live DOM and removed the node on a timer. The
- * geometry is knowable from the board layout, so it is expressed as percentages of a full-height
- * rail and the node retires on its own `animationend` — no forced layout, no untracked timer.
- */
+/** A white streak from the cannon to the alien it kills, sized from the board layout and retired on `animationend`. */
 function ShotStreak({ shot, onEnd }: { shot: Shot; onEnd: (id: number) => void }) {
   const target = ALIENS[shot.target];
   // The cannon's nose, and the middle of the alien it is aimed at.

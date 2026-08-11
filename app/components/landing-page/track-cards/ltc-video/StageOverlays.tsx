@@ -31,8 +31,7 @@ export function SuccessModal({ shown }: { shown: boolean }) {
     <div className={`${styles.modalWrap} ${shown ? styles.modalWrapShown : ""}`}>
       <div className={styles.modal}>
         <TickIcon className={styles.tick} />
-        {/* A drawn heading, not a real one: it is scenery inside the stage, so keeping it out of
-            the document outline matters even though the stage is already `aria-hidden`. */}
+        {/* A drawn heading, not a real one — scenery, kept out of the document outline. */}
         <div className={styles.modalTitle}>{t("successTitle")}</div>
         <p>{t("successBody")}</p>
         <span className={styles.go}>{t("successBtn")}</span>
@@ -41,11 +40,7 @@ export function SuccessModal({ shown }: { shown: boolean }) {
   );
 }
 
-/**
- * Confetti from both bottom corners, in the brand colours from `lib/confetti.ts`. The spread is
- * deterministic so the burst is identical on every loop, and the particles only exist while
- * firing so the keyframes restart cleanly.
- */
+/** Confetti from both bottom corners. Particles only exist while firing so the keyframes restart cleanly. */
 export function Confetti({ firing }: { firing: boolean }) {
   return (
     <div className={`${styles.confetti} ${firing ? styles.confettiFiring : ""}`} aria-hidden="true">
@@ -70,25 +65,14 @@ export function Confetti({ firing }: { firing: boolean }) {
 }
 
 /**
- * The fake mouse pointer.
- *
- * Its target is a named region rather than a measured rect: the stage is a fixed 1040px drawn
- * through one `scale()`, so every anchor is knowable as a constant. That removes the prototype's
- * per-move `getBoundingClientRect` + `offsetWidth` reads, which forced layout on every one of
- * the eight scrub steps.
- *
- * Whichever glyph is showing, its hotspot — the arrow's tip, the hand's grip — is placed on the
- * anchor by `hotspotOffset` below, so the anchors in `stage-geometry.ts` always mean the click
- * point regardless of where in its own 256-box a given icon happens to draw that point.
+ * The fake mouse pointer, aimed at a named region rather than a measured rect (the stage is a fixed
+ * scaled box, so every anchor is a constant). Its hotspot is placed on the anchor by `hotspotOffset`.
  */
 export function Cursor({ state }: { state: VideoState }) {
   const { x, y } = cursorOffset(state.cursor);
   const grabbing = state.scrubbing;
-  // The pointer becomes an open hand only once it has reached the thumb (`gripping`), and a closed
-  // hand while dragging it. Driving this off `gripping` rather than the track position is what keeps
-  // the arrow travelling all the way to the thumb before the glyph turns — it used to flip the
-  // instant the move began. Pressing a button flips the arrow to its click form; everywhere else
-  // it's the plain arrow.
+  // Open hand once the pointer reaches the thumb (`gripping`), closed while dragging; a button press
+  // shows the click glyph, otherwise the plain arrow.
   const clicking = state.runPressed || state.sendPressed || state.clicked;
 
   let Icon = CursorArrowIcon;
@@ -105,14 +89,8 @@ export function Cursor({ state }: { state: VideoState }) {
 
   const { dx, dy } = hotspotOffset(hotspot);
 
-  // The positioned wrapper is one stable element for the whole video: only the glyph inside it
-  // swaps. Putting the transition on a node that never remounts is what lets the pointer actually
-  // travel to the scrubber and the Jiki tab — earlier the arrow⇄hand swap replaced the element, so
-  // the fresh node had no prior transform to ease from and simply appeared at its destination.
-  //
-  // The wrapper carries only the anchor, which transitions; the glyph carries only its own
-  // hotspot offset, which is instant. That shift is a dozen units and only ever changes on arrival,
-  // as the pointer settles into a grab or a click, so it reads as the hand closing, not a jump.
+  // The wrapper is one stable element carrying the anchor that transitions, so the pointer travels
+  // instead of jumping; only the glyph inside swaps, carrying its own instant hotspot offset.
   return (
     <div
       className={`${styles.cursor} ${grabbing ? styles.cursorScrubbing : ""} ${
@@ -126,13 +104,7 @@ export function Cursor({ state }: { state: VideoState }) {
   );
 }
 
-/**
- * How far to shift the pointer element so a hotspot given in 256-space lands on the anchor.
- *
- * The element is `CURSOR_SIZE` wide showing the whole `CURSOR_VIEWBOX` box, so one viewBox unit is
- * `CURSOR_SIZE / CURSOR_VIEWBOX` rendered units; the hotspot sits that far from the element's
- * top-left, and the translate pulls it back onto the anchor.
- */
+/** How far to shift the pointer element so a hotspot given in 256-space lands on the anchor. */
 function hotspotOffset(hotspot: Hotspot): { dx: number; dy: number } {
   const unit = CURSOR_SIZE / CURSOR_VIEWBOX;
   return { dx: -hotspot.x * unit, dy: -hotspot.y * unit };

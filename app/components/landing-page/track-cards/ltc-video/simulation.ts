@@ -1,12 +1,4 @@
-/**
- * The fake program the demo runs, and an interpreter for it.
- *
- * The demo is not a screencast: the landing page ships in 50+ locales and one capture per
- * locale is not viable, so the editor and game are drawn in DOM. That means the game has to
- * actually be simulated rather than hand-keyframed — walk the program, track the cannon, and
- * emit the actions that play out on screen. Change the boundary value and the run changes with
- * it, which is the whole point of the beat where the learner fixes the bug.
- */
+// The fake program the demo runs, and an interpreter that emits the actions that play out on screen.
 
 /** The board: 11 columns, 3 rows, with row 0 at the bottom. */
 export const COLS = 11;
@@ -36,12 +28,8 @@ export type GameAction =
   | { type: "win" };
 
 /**
- * Run the program with a given turn-around boundary and record what happens.
- *
- * With the buggy boundary (20) `position` never reaches it, so the cannon only ever moves
- * right and walks off the edge — that overshoot is the error the learner has to fix. With the
- * correct boundary (11) it turns at the last column, comes back, and clears the stack in
- * column 6 on the return pass.
+ * Run the program with a given turn-around boundary and record what happens. The buggy 20 walks the
+ * cannon off the edge (the error to fix); the correct 11 turns at the last column and clears the board.
  */
 export function simulate(bound: number): GameAction[] {
   const actions: GameAction[] = [];
@@ -49,8 +37,7 @@ export function simulate(bound: number): GameAction[] {
   let col = 1;
   let pos = 1;
 
-  // Bounded rather than `while (true)`: a boundary that never turns the cannon around would
-  // otherwise spin forever. The cannon leaves the board long before this, so it never bites.
+  // Bounded rather than `while (true)` so a non-turning boundary can't spin forever; never bites in practice.
   for (let guard = 0; guard < 60; guard++) {
     const target = lowestAliveIn(col, live);
     if (target !== -1) {
@@ -79,10 +66,7 @@ export function simulate(bound: number): GameAction[] {
   return actions;
 }
 
-/**
- * The alien a shot from this column would hit: the lowest one still alive, since the shot
- * stops at the first thing it meets on the way up.
- */
+/** The alien a shot from this column would hit: the lowest one still alive. */
 export function lowestAliveIn(col: number, live: readonly boolean[]) {
   let best = -1;
   let bestRow = Infinity;

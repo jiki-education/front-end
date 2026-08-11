@@ -14,20 +14,12 @@ import { useVideoTimeline } from "./useVideoTimeline";
 import styles from "./LtcVideo.module.css";
 
 /**
- * The "Learn to Code" walkthrough.
- *
- * It is not a video: the landing page ships in 50+ locales and one screencast per locale is not
- * viable, so the app is drawn in DOM and animated on a scripted timeline. Everything the learner
- * reads is live text, which is what makes it translatable.
- *
- * The timeline is a prebuilt array of `{ at, action }` dispatched into a reducer; CSS owns every
- * transition. That keeps the main thread doing one dispatch every ~145ms during the busiest
- * stretch, with the motion itself on the compositor.
+ * The "Learn to Code" walkthrough — not a video but the app drawn in DOM and animated on a scripted
+ * timeline, so it translates across 50+ locales where one screencast per locale wouldn't be viable.
  */
 export function LtcVideo({ frozenState }: { frozenState?: VideoState } = {}) {
   const t = useTranslations("landing.learnToCode.demo");
-  // `/dev/ltc-video` scrubs the timeline by handing a state in directly, which also stops the
-  // scheduler so nothing is competing to drive the frame.
+  // `/dev/ltc-video` scrubs by handing a state in directly, which also pauses the scheduler.
   const timeline = useVideoTimeline({ paused: frozenState !== undefined });
   const { rootRef, reducedMotion, loopKey, dispatch } = timeline;
   const state = frozenState ?? timeline.state;
@@ -56,10 +48,7 @@ export function LtcVideo({ frozenState }: { frozenState?: VideoState } = {}) {
         </div>
 
         <div className={styles.videoWrap}>
-          {/* A picture of the app, not the app: nothing in here is operable, and read aloud it is
-              a stream of interface chrome with no thread to follow. It is hidden from assistive
-              tech and described once instead — the callout rails either side carry the same story
-              as real content. `lang`/`dir` still matter for the sighted reading of the code. */}
+          {/* A picture of the app, not the app: hidden from assistive tech and described once here instead; the callout rails carry the same story as real content. */}
           <p className="sr-only">{t("stageDescription")}</p>
           <div className={styles.stage} lang="en" dir="ltr" aria-hidden="true">
             <div className={styles.left}>
@@ -93,8 +82,7 @@ export function LtcVideo({ frozenState }: { frozenState?: VideoState } = {}) {
           {/* Progress through the video itself: page furniture, not part of the app. */}
           <div className={styles.videoProgress}>
             <i
-              // Keyed on the loop so the fill restarts from zero each time round rather than
-              // needing a forced reflow to interrupt the animation.
+              // Keyed on the loop so the fill restarts from zero each time round, no forced reflow.
               key={loopKey}
               className={reducedMotion ? styles.videoProgressFull : styles.videoProgressRunning}
               style={reducedMotion ? undefined : { animationDuration: `${TIMELINE.duration / SPEED}ms` }}
