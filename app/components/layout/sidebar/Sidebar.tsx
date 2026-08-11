@@ -17,7 +17,8 @@ import type { ComponentType } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { YOUTUBE_URL, FORUM_URL } from "@/lib/constants/social";
+import { YOUTUBE_URL } from "@/lib/constants/social";
+import { forumUrl } from "@/lib/i18n/externalLinks";
 import { localePath } from "@/lib/i18n/routes";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { tierIncludes } from "@/lib/pricing";
@@ -70,7 +71,7 @@ const navigationGroups: Array<{
     items: [
       { id: "videos", href: YOUTUBE_URL, icon: VideoLibIcon, external: true },
       { id: "blog", href: "/blog", icon: RssIcon },
-      { id: "forum", href: FORUM_URL, icon: ChatBubbleIcon, external: true }
+      { id: "forum", href: "forum", icon: ChatBubbleIcon, external: true }
     ]
   },
   {
@@ -104,7 +105,7 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
       id={item.id}
       label={t(`nav.${item.id}`)}
       isActive={activeItem === item.id}
-      href={item.external ? item.href : localePath(item.href, locale)}
+      href={item.id === "forum" ? forumUrl(locale) : item.external ? item.href : localePath(item.href, locale)}
       external={item.external}
       icon={item.icon}
       showPremiumPill={item.showPremiumPill}

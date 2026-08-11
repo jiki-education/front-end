@@ -15,7 +15,7 @@ export default function ExternalButtons() {
   return (
     <>
       <div className={styles.navLinks}>
-        <Link href="https://jiki.io/blog/the-backstory-of-jiki" className={styles.navLink}>
+        <Link href={routes.blogPost("the-backstory-of-jiki")} className={styles.navLink}>
           {t("aboutJiki")}
         </Link>
         <Link href={routes.premium()} className={styles.navLink}>
@@ -88,7 +88,7 @@ function MobileMenu() {
 
       {isOpen && (
         <div className={styles.menuDropdown} role="menu">
-          <Link href="https://jiki.io/blog/the-backstory-of-jiki" className={styles.menuLink} onClick={close}>
+          <Link href={routes.blogPost("the-backstory-of-jiki")} className={styles.menuLink} onClick={close}>
             {t("aboutJiki")}
           </Link>
           <Link href={routes.premium()} className={styles.menuLink} onClick={close}>
