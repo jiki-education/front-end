@@ -23,7 +23,7 @@
     line-height: 1.05;
     font-weight: 600;
     color: var(--color-gray-900);
-    margin-block: 40px 20px;
+    margin-block: 40px 10px;
 
     @media (min-width: 640px) {
         font-size: 48px;

@@ -84,18 +84,6 @@
     flex-grow: 1;
 }
 
-.postAuthor {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px solid var(--color-gray-100);
-    font-size: 14px;
-    color: var(--color-gray-500);
-    font-weight: 500;
-}
-
 @media (max-width: 1024px) {
     .blogPostsGrid {
         grid-template-columns: repeat(2, 1fr);
