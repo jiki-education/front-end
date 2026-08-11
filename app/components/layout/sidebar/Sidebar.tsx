@@ -19,7 +19,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { YOUTUBE_URL } from "@/lib/constants/social";
 import { forumUrl } from "@/lib/i18n/externalLinks";
-import { localePath } from "@/lib/i18n/routes";
+import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { tierIncludes } from "@/lib/pricing";
 import { NavigationItem } from "./NavigationItem";
@@ -47,46 +47,10 @@ interface NavItem {
   external?: boolean;
 }
 
-const navigationGroups: Array<{
-  id: "learnToCode" | "learnToBuild" | "community" | "more";
-  items: NavItem[];
-}> = [
-  {
-    id: "learnToCode",
-    items: [
-      { id: "learn", href: "/dashboard", icon: BrainLightningIcon },
-      { id: "challenges", href: "/challenges", icon: ChallengesIcon },
-      { id: "concepts", href: "/concepts", icon: FolderIcon }
-    ]
-  },
-  {
-    id: "learnToBuild",
-    items: [
-      { id: "build", href: "/build", icon: LearningComputerIcon },
-      { id: "guides", href: "/guides", icon: StudyBookIcon }
-    ]
-  },
-  {
-    id: "community",
-    items: [
-      { id: "videos", href: YOUTUBE_URL, icon: VideoLibIcon, external: true },
-      { id: "blog", href: "/blog", icon: RssIcon },
-      { id: "forum", href: "forum", icon: ChatBubbleIcon, external: true }
-    ]
-  },
-  {
-    id: "more",
-    items: [
-      { id: "achievements", href: "/achievements", icon: MedalIcon },
-      { id: "settings", href: "/settings", icon: SettingsIcon },
-      { id: "help", href: "/help", icon: HelpIcon }
-    ]
-  }
-];
-
 export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
   const t = useTranslations("layout.sidebar");
   const locale = useLocale();
+  const routes = useLocaleRoutes();
   const router = useRouter();
   const logout = useAuthStore((state) => state.logout);
   const user = useAuthStore((state) => state.user);
@@ -95,9 +59,46 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
   const handleLogout = async () => {
     const result = await logout();
     if (result.success) {
-      router.push(localePath("/", locale));
+      router.push(routes.home());
     }
   };
+
+  const navigationGroups: Array<{
+    id: "learnToCode" | "learnToBuild" | "community" | "more";
+    items: NavItem[];
+  }> = [
+    {
+      id: "learnToCode",
+      items: [
+        { id: "learn", href: routes.dashboard(), icon: BrainLightningIcon },
+        { id: "challenges", href: routes.challenges(), icon: ChallengesIcon },
+        { id: "concepts", href: routes.concepts(), icon: FolderIcon }
+      ]
+    },
+    {
+      id: "learnToBuild",
+      items: [
+        { id: "build", href: routes.build(), icon: LearningComputerIcon },
+        { id: "guides", href: routes.guides(), icon: StudyBookIcon }
+      ]
+    },
+    {
+      id: "community",
+      items: [
+        { id: "videos", href: YOUTUBE_URL, icon: VideoLibIcon, external: true },
+        { id: "blog", href: routes.blog(), icon: RssIcon },
+        { id: "forum", href: forumUrl(locale), icon: ChatBubbleIcon, external: true }
+      ]
+    },
+    {
+      id: "more",
+      items: [
+        { id: "achievements", href: routes.achievements(), icon: MedalIcon },
+        { id: "settings", href: routes.settings(), icon: SettingsIcon },
+        { id: "help", href: routes.articles(), icon: HelpIcon }
+      ]
+    }
+  ];
 
   const renderItem = (item: NavItem) => (
     <NavigationItem
@@ -105,7 +106,7 @@ export default function Sidebar({ activeItem = "blog" }: SidebarProps) {
       id={item.id}
       label={t(`nav.${item.id}`)}
       isActive={activeItem === item.id}
-      href={item.id === "forum" ? forumUrl(locale) : item.external ? item.href : localePath(item.href, locale)}
+      href={item.href}
       external={item.external}
       icon={item.icon}
       showPremiumPill={item.showPremiumPill}

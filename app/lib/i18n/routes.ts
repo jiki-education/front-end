@@ -81,10 +81,13 @@ export function makeRoutes(locale: Locale) {
     guide: (slug: string) => path(`/guides/${slug}`),
     concepts: () => path("/concepts"),
     concept: (slug: string) => path(`/concepts/${slug}`),
+    build: () => path("/build"),
 
     // Auth-gated app routes (no [locale] tree -> always naked; locale ignored)
     dashboard: () => path("/dashboard"),
-    settings: () => path("/settings")
+    settings: () => path("/settings"),
+    challenges: () => path("/challenges"),
+    achievements: () => path("/achievements")
   };
 }
 
