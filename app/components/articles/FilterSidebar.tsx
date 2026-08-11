@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ArticleTagSlug } from "@/lib/content/types";
-import { FORUM_URL } from "@/lib/constants/social";
+import { useForumUrl } from "@/lib/i18n/externalLinks";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./FilterSidebar.module.css";
 
@@ -18,6 +18,7 @@ export default function FilterSidebar({ tagSlugs, selectedTag }: FilterSidebarPr
   const tTags = useTranslations("articles.tags");
   const pathname = usePathname();
   const routes = useLocaleRoutes();
+  const forumUrl = useForumUrl();
 
   const buildTagUrl = (tag: ArticleTagSlug | null) => {
     if (tag === null) {
@@ -50,7 +51,7 @@ export default function FilterSidebar({ tagSlugs, selectedTag }: FilterSidebarPr
             faqs: (chunks) => <Link href={routes.article("faqs")}>{chunks}</Link>,
             support: (chunks) => <Link href={routes.article("support")}>{chunks}</Link>,
             community: (chunks) => (
-              <a href={FORUM_URL} target="_blank" rel="noopener noreferrer">
+              <a href={forumUrl} target="_blank" rel="noopener noreferrer">
                 {chunks}
               </a>
             )
