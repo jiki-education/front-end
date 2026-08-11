@@ -1,5 +1,5 @@
 ---
-title: "The \`break\` Keyword"
+title: "The `break` Keyword"
 description: "Using the `break` keyword inside a loop body to exit the loop immediately and move on to code that comes after it."
 ---
 

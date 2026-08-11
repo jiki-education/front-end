@@ -1,5 +1,5 @@
 ---
-title: "Understanding \`if\` Statements"
+title: "Understanding `if` Statements"
 description: "Using the `if` keyword to run a block of code only when some condition is true, like a bouncer letting people through."
 ---
 
