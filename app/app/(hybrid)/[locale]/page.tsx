@@ -18,7 +18,11 @@ export default async function RootPage({ params }: { params: Promise<{ locale: s
     return redirect("/dashboard");
   }
 
-  const [posts, testimonials] = await Promise.all([getAllBlogPosts("en"), getTestimonials(locale)]);
+  // Both read THIS locale, never English. A locale with no translated posts
+  // shows no post cards, and one with no testimonial catalog shows no
+  // testimonials: three English cards on a translated landing page look like a
+  // working page and are not.
+  const [posts, testimonials] = await Promise.all([getAllBlogPosts(locale), getTestimonials(locale)]);
 
   return <LandingPage latestPosts={posts.slice(0, 3)} testimonials={testimonials} />;
 }

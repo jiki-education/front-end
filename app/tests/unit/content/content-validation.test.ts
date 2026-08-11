@@ -309,18 +309,27 @@ describe("Content Validation", () => {
 
   describe("Testimonials", () => {
     const testimonialsDir = path.join(__dirname, "..", "..", "..", "..", "content", "src", "testimonials");
+    const structurePath = path.join(testimonialsDir, "structure.json");
+    const copyPath = path.join(testimonialsDir, "messages.json");
 
-    describe("en.json", () => {
-      const filePath = path.join(testimonialsDir, "en.json");
+    it("should have both halves", () => {
+      expect(fs.existsSync(structurePath)).toBe(true);
+      expect(fs.existsSync(copyPath)).toBe(true);
+    });
 
-      it("should exist", () => {
-        expect(fs.existsSync(filePath)).toBe(true);
-      });
+    it("should hold no locale but English", () => {
+      // Every other locale's testimonial copy lives in the i18n repo. A second
+      // file here is a second home for translated content.
+      const stray = fs
+        .readdirSync(testimonialsDir)
+        .filter((name) => name.endsWith(".json") && name !== "structure.json" && name !== "messages.json");
+      expect(stray).toEqual([]);
+    });
 
-      it("should be valid", () => {
-        const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-        expect(() => validateTestimonials("en", data)).not.toThrow();
-      });
+    it("should be valid", () => {
+      const structure = JSON.parse(fs.readFileSync(structurePath, "utf-8"));
+      const copy = JSON.parse(fs.readFileSync(copyPath, "utf-8"));
+      expect(() => validateTestimonials(structure, copy)).not.toThrow();
     });
   });
 });

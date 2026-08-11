@@ -209,59 +209,92 @@ describe("validateNoDuplicateSlugs", () => {
 });
 
 describe("validateTestimonials", () => {
-  const validTestimonials = {
+  const structure = {
+    people: {
+      fred: { name: "Fred", image: "fred.webp" },
+      artigiani: { name: "@m_artigiani", image: "m_artigiani.webp" },
+      oleksandra: { name: "Oleksandra", image: "oleksandra.webp" }
+    },
+    quotes: {
+      fred: { person: "fred" },
+      "fred-short": { person: "fred" },
+      artigiani: { person: "artigiani" },
+      oleksandra: { person: "oleksandra" }
+    },
+    landing: { primary: "oleksandra", quotes: ["fred-short", "artigiani"] },
+    page: ["fred", "artigiani"]
+  };
+
+  const copy = {
     heading: "What do our students think?",
     subheading: "Some extracts. <link>Read the full versions here!</link>",
-    primary: { quote: "A great quote", name: "Oleksandra", role: "Coding Newbie", image: "oleksandra.webp" },
-    quotes: [
-      { slug: "fred", name: "Fred", role: "Total Beginner", image: "fred.webp", html: "Great <strong>course</strong>" },
-      { slug: "artigiani", name: "@m_artigiani", role: "", image: "m_artigiani.webp", html: "A game-changer" }
-    ],
+    // artigiani intentionally has no role: a role is optional, and a person
+    // without one must not be forced to invent one in every language.
+    roles: { fred: "Total Beginner", oleksandra: "Coding Newbie" },
+    quotes: {
+      fred: "Great **course**, at length",
+      "fred-short": "Great **course**",
+      artigiani: "A game-changer",
+      oleksandra: "A great quote"
+    },
     marquee: ['"Amazing value"', '"Incredibly Fun!"']
   };
 
-  it("should accept valid testimonials", () => {
-    expect(() => validateTestimonials("en", validTestimonials)).not.toThrow();
-  });
-
-  it("should accept a quote with an empty role", () => {
-    // artigiani intentionally has no role — an empty string must be allowed.
-    expect(() => validateTestimonials("en", validTestimonials)).not.toThrow();
+  it("should accept a valid structure and copy", () => {
+    expect(() => validateTestimonials(structure, copy)).not.toThrow();
   });
 
   it("should reject a non-object", () => {
-    expect(() => validateTestimonials("en", [])).toThrow(ValidationError);
+    expect(() => validateTestimonials([], copy)).toThrow(ValidationError);
+    expect(() => validateTestimonials(structure, [])).toThrow(ValidationError);
   });
 
   it("should reject a missing heading", () => {
-    const { heading: _heading, ...invalid } = validTestimonials;
-    expect(() => validateTestimonials("en", invalid)).toThrow(/heading/);
+    const { heading: _heading, ...invalid } = copy;
+    expect(() => validateTestimonials(structure, invalid)).toThrow(/heading/);
   });
 
   it("should reject a subheading without a <link> span", () => {
-    const invalid = { ...validTestimonials, subheading: "No link here" };
-    expect(() => validateTestimonials("en", invalid)).toThrow(/<link>/);
+    expect(() => validateTestimonials(structure, { ...copy, subheading: "No link here" })).toThrow(/<link>/);
   });
 
-  it("should reject a quote missing html", () => {
-    const invalid = {
-      ...validTestimonials,
-      quotes: [{ slug: "fred", name: "Fred", role: "Beginner", image: "fred.webp" }]
-    };
-    expect(() => validateTestimonials("en", invalid)).toThrow(/html/);
+  it("should reject a quote whose person does not exist", () => {
+    const invalid = { ...structure, quotes: { ...structure.quotes, ghost: { person: "nobody" } } };
+    expect(() => validateTestimonials(invalid, copy)).toThrow(/unknown person/);
   });
 
-  it("should reject duplicate quote slugs", () => {
-    const invalid = {
-      ...validTestimonials,
-      quotes: [validTestimonials.quotes[0], { ...validTestimonials.quotes[0] }]
-    };
-    expect(() => validateTestimonials("en", invalid)).toThrow(/duplicate/);
+  it("should reject a quote with no English text", () => {
+    const { fred: _fred, ...quotes } = copy.quotes;
+    expect(() => validateTestimonials(structure, { ...copy, quotes })).toThrow(/no English text/);
+  });
+
+  it("should reject copy for a quote the structure does not define", () => {
+    const quotes = { ...copy.quotes, stranger: "Who?" };
+    expect(() => validateTestimonials(structure, { ...copy, quotes })).toThrow(/structure.json does not define/);
+  });
+
+  it("should reject a role for an unknown person", () => {
+    const roles = { ...copy.roles, nobody: "Beginner" };
+    expect(() => validateTestimonials(structure, { ...copy, roles })).toThrow(/unknown person/);
+  });
+
+  it("should reject an ordered list naming an unknown quote", () => {
+    const invalid = { ...structure, page: ["fred", "missing"] };
+    expect(() => validateTestimonials(invalid, copy)).toThrow(/unknown quote/);
+  });
+
+  it("should reject a primary that names an unknown quote", () => {
+    const invalid = { ...structure, landing: { ...structure.landing, primary: "missing" } };
+    expect(() => validateTestimonials(invalid, copy)).toThrow(/unknown quote/);
+  });
+
+  it("should reject the same quote listed twice on one page", () => {
+    const invalid = { ...structure, page: ["fred", "fred"] };
+    expect(() => validateTestimonials(invalid, copy)).toThrow(/twice/);
   });
 
   it("should reject an empty marquee", () => {
-    const invalid = { ...validTestimonials, marquee: [] };
-    expect(() => validateTestimonials("en", invalid)).toThrow(/marquee/);
+    expect(() => validateTestimonials(structure, { ...copy, marquee: [] })).toThrow(/marquee/);
   });
 });
 

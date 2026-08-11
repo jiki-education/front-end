@@ -21,9 +21,11 @@
  *   public/static/content/structure-{hash}.json
  *     - Locale-invariant post metadata: date, author, cover image, and the
  *       featured/listed/premium/order flags, all from English config, plus the
- *       projects' structure (order, image, livestream, upcoming streams) and
- *       every episode's (uuid, slug, project, order, date, author, video,
- *       duration, premium, image, guides), keyed by "{project}/{uuid}"
+ *       projects' structure (order, image, livestream, upcoming streams), every
+ *       episode's (uuid, slug, project, order, date, author, video, duration,
+ *       premium, image, guides) keyed by "{project}/{uuid}", and the
+ *       testimonials' (who said each quote, which avatar, and the order the
+ *       landing grid and the /testimonials page show them in)
  *
  *   public/static/content/copy/{locale}/copy-{hash}.json
  *     - Translated post and episode metadata: title, excerpt, seo, tags, reading
@@ -36,13 +38,16 @@
  *       is written here (from projects/messages.json); the i18n repo publishes
  *       every other locale to the same path shape.
  *
- *   public/static/content/meta/{locale}/index-{hash}.json
- *     - Testimonials, which are per-locale but are not Markdown and so stay
- *       front-end published
+ *   public/static/content/testimonials/{locale}/meta-{hash}.json
+ *     - Translated testimonial copy: headings, roles, quote text, marquee lines,
+ *       keyed by slug. Only the English one is written here (from
+ *       testimonials/messages.json); the i18n repo publishes every other locale
+ *       to the same path shape.
  *
  *   lib/generated/content-hashes.ts
- *     - Hash manifests for the search indexes, the per-locale metadata, the
- *       English project copy catalog and the locale-invariant structure
+ *     - Hash manifests for the search indexes, the per-locale post copy, the
+ *       English project and testimonial copy catalogs, and the locale-invariant
+ *       structure
  *
  * Used by:
  * - Server-side content functions (lib/content/)
@@ -741,16 +746,15 @@ function generateSearchIndexes(type, byLocale, filterFn) {
 /**
  * Write the TypeScript hash manifest.
  *
- * Four kinds of hash: the search indexes, the per-locale metadata
- * (testimonials, plus the translated post copy this repo writes for local dev),
- * the English project copy catalog, and the one locale-invariant structure hash.
- * Only the default locale is ever read from the per-locale maps at runtime; the
- * rest resolve through their pointers.
+ * Four kinds of hash: the search indexes, the per-locale post copy this repo
+ * writes for local dev, the English project and testimonial copy catalogs, and
+ * the one locale-invariant structure hash. Only the default locale is ever read
+ * from the per-locale maps at runtime; the rest resolve through their pointers.
  */
 function writeHashManifest(
   searchHashes,
   guideSearchHashes,
-  { copyHashes, localHashes, structureHash, projectCopyHash }
+  { copyHashes, structureHash, projectCopyHash, testimonialsCopyHash }
 ) {
   function formatEntries(hashes) {
     return Object.entries(hashes)
@@ -767,9 +771,9 @@ function writeHashManifest(
 // entries are kept because they are what a local build without R2 runs on.
 export const contentIndexHashes: {
   search: { articles: Record<string, string>; guides: Record<string, string> };
-  meta: Record<string, string>;
   copy: Record<string, string>;
   projects: Record<string, string>;
+  testimonials: Record<string, string>;
 } = {
   search: {
     articles: {
@@ -779,19 +783,20 @@ ${formatEntries(searchHashes)},
 ${formatEntries(guideSearchHashes)},
     },
   },
-  meta: {
-${formatEntries(localHashes)},
-  },
   copy: {
 ${formatEntries(copyHashes)},
   },
   projects: {
 ${formatEntries(projectCopyHash ? { [DEFAULT_LOCALE]: projectCopyHash } : {})},
   },
+  testimonials: {
+${formatEntries({ [DEFAULT_LOCALE]: testimonialsCopyHash })},
+  },
 };
 
 // Locale-invariant: every post's date, author, cover image and flags come from
-// English config, so one object serves every language and ships with the deploy.
+// English config, as do the testimonials' names, avatars and ordering, so one
+// object serves every language and ships with the deploy.
 export const contentStructureHash = ${JSON.stringify(structureHash)};
 `;
 
@@ -803,40 +808,43 @@ export const contentStructureHash = ${JSON.stringify(structureHash)};
  * Contains full metadata for all blog posts and articles (no HTML content)
  */
 /**
- * Process landing-page testimonials.
+ * Process testimonials, and split what they carry.
  *
- * Structure:
- *   testimonials/
- *     {locale}.json   — full testimonials data (heading, primary, quotes, marquee)
+ * Two files, and the split between them is the whole point:
  *
- * Testimonials are structured editorial data (not markdown), so they are not in
- * the corpus the i18n repo mirrors and stay front-end published, in the
- * per-locale metadata artifact. Images are referenced by filename only; the
- * presentational avatar assets live with the landing-page component.
+ *   content/src/testimonials/structure.json — LOCALE-INVARIANT. Who said each
+ *     quote (`people`: name and avatar filename), which person each quote key
+ *     belongs to (`quotes`), and the order the landing section (`landing`) and
+ *     the /testimonials page (`page`) show them in. A name is not copy, an
+ *     image filename is not copy, and an ordering is not copy, so none of it is
+ *     in a translator's catalog and none of it lives in the i18n repo.
  *
- * Returns: { [locale]: testimonialsData }
+ *   content/src/testimonials/messages.json — the English COPY catalog: heading,
+ *     subheading, `roles` keyed by person, `quotes` keyed by quote key, and the
+ *     marquee lines. Every other locale's is published by the i18n repo to the
+ *     same R2 path shape, exactly as project copy is.
+ *
+ * A quote key is a person's slug, or that slug with a `-short` suffix where the
+ * landing grid shows a trimmed form of the same testimonial the /testimonials
+ * page shows in full. Keying by slug rather than by array position is what stops
+ * a translated catalog's ordering from being load-bearing.
+ *
+ * Returns: { structure, copy }.
  */
 function processTestimonials() {
-  const result = {};
-  if (!fs.existsSync(TESTIMONIALS_DIR)) {
-    return result;
-  }
-
-  const files = fs
-    .readdirSync(TESTIMONIALS_DIR, { withFileTypes: true })
-    .filter((f) => f.isFile() && f.name.endsWith(".json"));
-
-  for (const file of files) {
-    const locale = path.basename(file.name, ".json");
-    const filePath = path.join(TESTIMONIALS_DIR, file.name);
+  const read = (name) => {
+    const filePath = path.join(TESTIMONIALS_DIR, name);
     try {
-      result[locale] = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+      return JSON.parse(fs.readFileSync(filePath, "utf-8"));
     } catch (error) {
-      throw new Error(`Invalid JSON in ${filePath}: ${error.message}`);
+      throw new Error(`Failed to read ${filePath}: ${error.message}`);
     }
-  }
+  };
 
-  return result;
+  const structure = read("structure.json");
+  const copy = read("messages.json");
+
+  return { structure, copy };
 }
 
 /**
@@ -861,7 +869,7 @@ function writeContentMeta(
   articlesByLocale,
   guidesByLocale,
   { projectsStructure, episodeStructure, episodeCopyByLocale },
-  testimonialsByLocale
+  testimonials
 ) {
   // Post metadata splits three ways, along what each part actually is.
   //
@@ -876,13 +884,18 @@ function writeContentMeta(
   //      publishes them and a locale it adds needs no front-end build to appear
   //      in a listing. Projects themselves have their own copy catalog, at its
   //      own path; see buildProjectStaticFiles.
-  //   3. LOCAL, per locale, front-end owned. Testimonials only. See below.
+  //
+  // Testimonials split the same way and are in the same two halves: their
+  // structure rides here, their copy is a per-locale catalog the i18n repo
+  // publishes, and the English one is written beside this in
+  // writeTestimonialCopy.
   const structure = {
     blog: {},
     articles: {},
     guides: {},
     projects: projectsStructure,
-    "project-episodes": episodeStructure
+    "project-episodes": episodeStructure,
+    testimonials
   };
   const emptyCopy = () => ({ blog: {}, articles: {}, guides: {}, "project-episodes": {} });
   const copyByLocale = {};
@@ -926,18 +939,19 @@ function writeContentMeta(
         .sort()
         .map((k) => [k, obj[k]])
     );
-  for (const type of Object.keys(structure)) structure[type] = sortKeys(structure[type]);
+  // `testimonials` is authored sorted and carries ORDERED lists, so it is the
+  // one member that must not be key-sorted.
+  for (const type of Object.keys(structure)) {
+    if (type !== "testimonials") structure[type] = sortKeys(structure[type]);
+  }
 
   const structureContent = JSON.stringify(structure);
   const structureHash = computeHash(structureContent);
   writeFile(path.join(STATIC_DIR, `structure-${structureHash}.json`), structureContent);
 
   const copyHashes = {};
-  const localHashes = {};
 
-  const locales = new Set([...Object.keys(copyByLocale), ...Object.keys(testimonialsByLocale)]);
-
-  for (const locale of [...locales].sort()) {
+  for (const locale of Object.keys(copyByLocale).sort()) {
     const copy = copyByLocale[locale] ?? emptyCopy();
     for (const type of Object.keys(copy)) copy[type] = sortKeys(copy[type]);
 
@@ -946,36 +960,31 @@ function writeContentMeta(
     copyHashes[locale] = copyHash;
     writeFile(path.join(STATIC_DIR, "copy", locale, `copy-${copyHash}.json`), copyContent);
 
-    // Testimonials stay FRONT-END published, per locale: they are a per-locale
-    // JSON file in the content package, not Markdown, so they are not in the
-    // corpus the i18n repo mirrors.
-    //
-    // Projects do NOT belong here: they split like posts, into the
-    // locale-invariant structure above and a copy catalog the i18n repo
-    // publishes per locale (English authored in projects/messages.json).
-    // Writing their title, description or tags into this per-locale blob, or
-    // into locale MAPS in each project's config.json, makes this repo a second
-    // home for translated content and derives a locale set from copy this repo
-    // only ever authors in `en`.
-    const local = {
-      testimonials: testimonialsByLocale[locale] ?? null
-    };
-    const localContent = JSON.stringify(local);
-    const localHash = computeHash(localContent);
-    localHashes[locale] = localHash;
-    writeFile(path.join(STATIC_DIR, "meta", locale, `index-${localHash}.json`), localContent);
-
-    // Dev pointers, so `pnpm dev` serves translated listings with no i18n
-    // checkout. The COPY pointer is excluded from static:upload (the i18n repo
-    // is its single writer on R2); the LOCAL one is uploaded, because this repo
-    // is its only writer anywhere.
+    // Dev pointer, so `pnpm dev` serves translated listings with no i18n
+    // checkout. It is excluded from static:upload, because on R2 the i18n repo
+    // is this pointer's single writer.
     if (locale !== DEFAULT_LOCALE) {
       writeFile(path.join(STATIC_DIR, "copy", locale, "current.json"), `${JSON.stringify({ hash: copyHash })}\n`);
-      writeFile(path.join(STATIC_DIR, "meta", locale, "current.json"), `${JSON.stringify({ hash: localHash })}\n`);
     }
   }
 
-  return { copyHashes, localHashes, structureHash };
+  return { copyHashes, structureHash };
+}
+
+/**
+ * Write the ENGLISH testimonial copy catalog, to the same R2 path shape the
+ * i18n repo publishes every other locale to.
+ *
+ * English ships with the deploy and its hash is compiled in, so it needs no
+ * pointer; see lib/i18n/catalogPointer.ts. No other locale is written here at
+ * all: this repo authors English testimonials and translates nothing, and a
+ * locale with no catalog renders no testimonials rather than English ones.
+ */
+function writeTestimonialCopy(copy) {
+  const json = JSON.stringify(copy);
+  const hash = computeHash(json);
+  writeFile(path.join(STATIC_DIR, "testimonials", DEFAULT_LOCALE, `meta-${hash}.json`), json);
+  return hash;
 }
 
 /**
@@ -1012,8 +1021,8 @@ function generateContentCache() {
   // Process projects + episodes
   const projectsProcessed = processProjects();
 
-  // Process landing-page testimonials (structured editorial data)
-  const testimonialsByLocale = processTestimonials();
+  // Process testimonials (locale-invariant structure + the English copy catalog)
+  const testimonials = processTestimonials();
 
   // Build static files
   const { byLocale: blogByLocale } = buildStaticFiles("blog", blog);
@@ -1032,9 +1041,14 @@ function generateContentCache() {
     articlesByLocale,
     guidesByLocale,
     projectArtifacts,
-    testimonialsByLocale
+    testimonials.structure
   );
-  writeHashManifest(searchHashes, guideSearchHashes, { ...contentMeta, projectCopyHash });
+  const testimonialsCopyHash = writeTestimonialCopy(testimonials.copy);
+  writeHashManifest(searchHashes, guideSearchHashes, {
+    ...contentMeta,
+    projectCopyHash,
+    testimonialsCopyHash
+  });
 
   // Count totals
   let contentFileCount = 0;
@@ -1058,7 +1072,7 @@ function generateContentCache() {
   console.log(`   Articles: ${Object.keys(articles).length} slugs`);
   console.log(`   Guides: ${Object.keys(guides).length} slugs`);
   console.log(`   Projects: ${projectCount}`);
-  console.log(`   Testimonials: ${Object.keys(testimonialsByLocale).length} locales`);
+  console.log(`   Testimonials: ${Object.keys(testimonials.copy.quotes).length} quotes (en)`);
   console.log(`   Project episodes: ${episodeCount} (locale-files)`);
   console.log(`   Content files: ${contentFileCount}`);
   console.log(
