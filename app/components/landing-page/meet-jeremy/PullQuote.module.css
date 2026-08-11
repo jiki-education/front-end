@@ -23,9 +23,10 @@
     max-width: 560px;
 }
 
+/* The band is drawn by RoughHighlight, which sweeps it in and takes its colour and
+   depth from the section. */
 .quote blockquote strong {
     font-weight: 600;
-    background: linear-gradient(transparent 62%, var(--color-amber-200) 62%);
 }
 
 .who {

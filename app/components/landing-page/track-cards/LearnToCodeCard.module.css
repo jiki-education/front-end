@@ -2,6 +2,7 @@
    100vw/translateX full-bleed trick, which overflows whenever a scrollbar is present. */
 .card {
     width: 100%;
+    margin-block-end: 72px;
     background: linear-gradient(180deg, var(--color-gray-100), #fff 40%);
     padding-block: 32px;
 

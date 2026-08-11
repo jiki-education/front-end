@@ -17,7 +17,7 @@ export function TwoHalves() {
       <div className={styles.inner}>
         <span className={styles.eyebrow}>{t("eyebrow")}</span>
         <h2 className={styles.heading}>{t("heading")}</h2>
-        <p className={styles.intro}>{t("intro")}</p>
+        <p className={styles.intro}>{t.rich("intro", { strong: (chunks) => <strong>{chunks}</strong> })}</p>
 
         <div className={styles.row} ref={ref}>
           <div className={`${styles.col} ${styles.right}`}>

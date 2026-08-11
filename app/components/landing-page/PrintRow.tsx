@@ -15,7 +15,7 @@ const PRINTS = [
   { key: "maze", file: "maze-59a6d.mp4", pixel: false }
 ] as const;
 
-const OUTCOMES = ["free", "projects", "unstuck"] as const;
+const OUTCOMES = ["projects", "free", "unstuck"] as const;
 
 export function PrintRow() {
   const t = useTranslations("landing.printRow");

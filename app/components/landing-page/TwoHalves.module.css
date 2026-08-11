@@ -47,6 +47,12 @@
     text-wrap: balance;
 }
 
+/* Stated rather than left to the base-layer default, so the emphasis survives
+   any change to that default. */
+.intro strong {
+    font-weight: 600;
+}
+
 .row {
     display: flex;
     align-items: center;

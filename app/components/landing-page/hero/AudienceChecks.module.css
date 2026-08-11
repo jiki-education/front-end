@@ -11,7 +11,7 @@
     align-items: center;
     gap: 8px;
     font-size: 17px;
-    color: #fff;
+    color: var(--color-gray-200);
 }
 
 .icon {
@@ -26,8 +26,11 @@
     font-weight: 400;
 }
 
+/* White against the row's grey, so the audience reads first and the clause qualifying
+   it sits back. */
 .name {
     font-weight: 600;
+    color: #fff;
 }
 
 @media (max-width: 1023px) {

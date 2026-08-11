@@ -9,7 +9,7 @@ import { FunPrints } from "./track-cards/FunPrints";
 export function TrackCardsSection() {
   return (
     <section className={styles.section}>
-      <div className={styles.grid}>
+      <div>
         <LearnToCodeCard />
         <FunPrints />
         {/* Carries the eye across the seam into the Build track. A real element between

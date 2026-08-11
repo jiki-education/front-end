@@ -3,6 +3,7 @@
        rather than exactly. */
     overflow: clip;
     overflow-clip-margin: 420px;
+    margin-block-end: 72px;
 }
 
 .inner {

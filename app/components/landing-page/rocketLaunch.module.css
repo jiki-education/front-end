@@ -24,6 +24,20 @@
     }
 }
 
+/* The resting idle: the same shape as rocket-bounce but half the travel over more than
+   twice the time, so the rocket looks alive on the pad without pulling the eye. */
+@keyframes rocket-idle {
+    0% {
+        transform: translate(0, 0);
+    }
+    40% {
+        transform: translate(1px, -1.5px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+
 @keyframes rocket-bounce {
     0% {
         transform: translate(0, 0);
@@ -76,6 +90,10 @@
     position: relative;
     z-index: 1;
     display: inline-block;
+    /* Runs at rest. Both rules below are (0,0,3,0) against this rule's (0,0,1,0), so
+       hovering and launching each take the animation over without needing to cancel
+       this one. */
+    animation: rocket-idle 1s ease-in-out infinite;
 }
 
 /* Opt-in hover-bounce: any consumer that adds .bounceOnHover to an ancestor
@@ -93,6 +111,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .rocket,
     .rocketWrapper.launching::before,
     .bounceOnHover:hover .rocket,
     .rocketWrapper.launching .rocket {

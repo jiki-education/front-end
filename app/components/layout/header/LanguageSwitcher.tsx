@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { localePath } from "@/lib/i18n/routes";
 import { getGroupedLanguages, getLanguageNames, type Language } from "@/lib/i18n/languages";
@@ -70,7 +69,11 @@ export function LanguageSwitcher() {
           <ul className={styles.group}>
             {live.map((language) => (
               <li key={language.code}>
-                <Link
+                {/* A plain anchor, not <Link>: a client-side navigation keeps the
+                    already-mounted tree, so links built from the old locale stay on
+                    the page. A full document load re-resolves everything against the
+                    new URL. */}
+                <a
                   href={localePath(pathname, language.code)}
                   className={styles.item}
                   hrefLang={language.code}
@@ -78,7 +81,7 @@ export function LanguageSwitcher() {
                   onClick={() => setIsOpen(false)}
                 >
                   <LanguageLabel language={language} englishNames={englishNames} />
-                </Link>
+                </a>
               </li>
             ))}
           </ul>

@@ -9,6 +9,12 @@
     position: relative;
 }
 
+/* Inset so a face straddles the edge instead of being centred on it. */
+.rails {
+    position: absolute;
+    inset: 8px;
+}
+
 .image {
     width: 100%;
     height: auto;
@@ -22,8 +28,8 @@
     max-width: 511px;
     margin-inline: auto;
     /* Clearance for faces overhanging the photo's bottom edge, and for their bubbles,
-       which open upwards from there. A face hangs 26px below the photo. */
-    margin-block-start: 56px;
+       which open upwards from there. */
+    margin-block-start: 16px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;

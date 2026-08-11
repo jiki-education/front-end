@@ -1,4 +1,10 @@
+/* Marker settings for every RoughHighlight in this section (prose and pull quote): a
+   purple band sitting low under the words, rather than the amber wash the track cards
+   use across a headline. */
 .section {
+    --rough-highlight-color: var(--color-purple-300);
+    --rough-highlight-from: 90%;
+
     background: linear-gradient(180deg, #fff 0%, var(--color-gray-100) 100%);
     padding-block: 72px;
 }
@@ -74,6 +80,14 @@
     line-height: 1.65;
     color: var(--color-gray-600);
     margin-block-end: 14px;
+}
+
+/* Stated rather than inherited from the base layer: against the 300 around it, the
+   emphasis is doing real work and shouldn't move if that default ever changes. A step
+   of weight and a step of colour, so it lifts without breaking the run of prose. */
+.body strong {
+    font-weight: 500;
+    color: var(--color-gray-700);
 }
 
 .signature {

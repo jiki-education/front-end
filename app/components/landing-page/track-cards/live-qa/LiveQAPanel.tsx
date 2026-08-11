@@ -184,19 +184,25 @@ export function LiveQAPanel() {
           sizes="(max-width: 900px) 100vw, 511px"
         />
 
-        {/* Client-only: positions and emoji are randomised, so rendering them on the
+        {/* The rails the faces sit on, inset from the photo so a face straddles the
+            edge rather than being centred exactly on it. Insetting the context moves
+            every edge in at once, leaving the 0-100% positions untouched.
+
+            Client-only: positions and emoji are randomised, so rendering them on the
             server would not match what the client then draws. */}
-        {pops.map((pop) => (
-          <Pop
-            key={pop.id}
-            face={pop.person.face}
-            name={pop.person.name}
-            message={pop.message}
-            position={pop.position}
-            seed={pop.id}
-            lifetime={pop.lifetime}
-          />
-        ))}
+        <div className={styles.rails}>
+          {pops.map((pop) => (
+            <Pop
+              key={pop.id}
+              face={pop.person.face}
+              name={pop.person.name}
+              message={pop.message}
+              position={pop.position}
+              seed={pop.id}
+              lifetime={pop.lifetime}
+            />
+          ))}
+        </div>
       </div>
 
       <ul className={styles.checks}>

@@ -37,7 +37,10 @@ export function CodeVisual() {
       <span className={styles.anno}>{t.rich("codeNote", { em: (chunks) => <em>{chunks}</em> })}</span>
       <svg className={styles.arrow} viewBox="0 0 72 24" aria-hidden="true">
         <path d="M70 4C52 4 30 6 4 18" />
-        <path d="M4 18l10-2M4 18l7 6" />
+        {/* Barbs are set symmetrically about the curve's tangent at the tip (-24.8deg),
+            not about the horizontal - squared off to the horizontal they read as a bent
+            tick rather than an arrowhead. */}
+        <path d="M4 18l9 0.2M4 18l5.7-7" />
       </svg>
     </>
   );
