@@ -1,10 +1,9 @@
 import Image from "next/image";
 import type { TestimonialsData } from "@/lib/content/types";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
-import { avatars } from "../testimonials/avatars";
+import { TestimonialWall } from "../testimonials/TestimonialWall";
 import headingArrow from "./assets/heading-arrow-loop.png";
 import styles from "./TestimonialsSection.module.css";
-import { StickyNote } from "./testimonials/StickyNote";
 import { TestimonialsHeading } from "./testimonials/TestimonialsHeading";
 
 /**
@@ -19,16 +18,8 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
   const routes = useLocaleRoutes();
 
   // The lead testimonial is just the first note on the wall now, rather than a
-  // separately-styled block above it. Normalised to one shape so the wall does not have
-  // to care which kind of testimonial it is holding.
-  const notes = [
-    { key: `primary-${testimonials.primary.slug}`, ...testimonials.primary },
-    ...testimonials.quotes.map((quote) => ({ key: quote.slug, ...quote }))
-  ];
-
-  // Two explicit columns rather than CSS multi-column: multicol leaves each note's
-  // absolutely-positioned tape behind when it reflows a note into the next column.
-  const columns = [notes.filter((_, i) => i % 2 === 0), notes.filter((_, i) => i % 2 === 1)];
+  // separately-styled block above it.
+  const notes = [testimonials.primary, ...testimonials.quotes];
 
   return (
     <section className={styles["testimonial-section"]}>
@@ -40,22 +31,7 @@ export function TestimonialsSection({ testimonials }: { testimonials: Testimonia
         href={routes.testimonials()}
       />
 
-      <div className={styles.wall}>
-        {columns.map((column, columnIndex) => (
-          <div key={columnIndex} className={styles.column}>
-            {column.map((note, i) => (
-              <StickyNote
-                key={note.key}
-                text={note.text}
-                name={note.name}
-                role={note.role}
-                avatar={avatars[note.image]}
-                index={i * 2 + columnIndex}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
+      <TestimonialWall notes={notes} />
     </section>
   );
 }

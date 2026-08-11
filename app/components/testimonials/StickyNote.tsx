@@ -1,5 +1,5 @@
 import Image, { type StaticImageData } from "next/image";
-import { renderTestimonialText } from "../../testimonials/text";
+import { renderTestimonialText } from "./text";
 import styles from "./StickyNote.module.css";
 
 // Four ring colours cycle down the wall so no two adjacent notes match. The angles do

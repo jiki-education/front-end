@@ -1,163 +1,39 @@
-.personRow {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 8px;
-}
-
+/* The same ground as the landing section's wall, so the notes are pinned to one
+   surface across both pages. */
 .page {
-    padding-top: 56px;
-    padding-bottom: 80px;
-    background-repeat: repeat;
-    background-color: var(--light-blue);
-    background-image: url("../landing-page/assets/testimonial-bg.png");
-    background-size: 300px;
+    background-color: #fff;
+    background-image: radial-gradient(var(--color-gray-200) 1px, transparent 1px);
+    background-size: 20px 20px;
     min-height: 100vh;
 }
 
+/* Its own heading, not the landing section's taped strip: this is a page title, and
+   the strip belongs to a section sitting inside a longer page. The type follows the
+   landing heading so the two read as a set. */
 .header {
+    max-width: 700px;
+    margin-inline: auto;
+    padding-inline: 5%;
+    padding-block: 64px 0;
     text-align: center;
-    margin-bottom: 48px;
-
-    h1 {
-        color: var(--color-gray-900);
-        margin-bottom: 16px;
-        font-size: max(34px, min(7vw, 52px));
-        font-weight: 700;
-        line-height: 1.15;
-    }
-
-    .subtitle {
-        max-width: 650px;
-        margin: 0 auto;
-        font-size: clamp(16px, 2.2vw, 20px);
-        line-height: 1.6;
-        color: var(--color-gray-500);
-    }
 }
 
-.quotes {
-    display: grid;
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    gap: 24px;
-
-    @media (min-width: 768px) {
-        display: block;
-        columns: 2;
-        gap: 32px;
-    }
+.title {
+    /* Larger than the landing section's 34px, being a page title rather than one
+       heading among several, but the same weight and colour. */
+    font-size: clamp(34px, 5vw, 44px);
+    font-weight: 800;
+    color: var(--color-gray-800);
+    line-height: 1.15;
+    margin-block-end: 28px;
+    text-wrap: balance;
 }
 
-.quote {
-    background-color: #fff;
-    position: relative;
-    padding-bottom: 32px;
-    margin-bottom: 96px;
-    break-inside: avoid;
-    display: inline-block;
-    width: 100%;
-    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.1));
-    border-radius: 20px;
-    padding-inline-start: 24px;
-    padding-inline-end: 24px;
-    padding-top: 24px;
-
-    .words {
-        font-size: 18px;
-        font-weight: 400;
-        margin-bottom: 16px;
-        display: flex;
-        flex-direction: row;
-        gap: 12px;
-
-        p {
-            display: inline;
-            margin-bottom: 8px;
-
-            strong {
-                font-weight: 600;
-            }
-        }
-
-        p + p {
-            display: block;
-            margin-top: 12px;
-        }
-
-        .mark {
-            height: 12px;
-            width: 16px;
-            filter: grayscale(100%);
-            opacity: 0.7;
-        }
-
-        .left-mark {
-            align-self: flex-start;
-            margin-top: 8px;
-        }
-
-        .right-mark {
-            transform: scaleX(-1);
-            display: inline;
-            margin-inline-start: 6px;
-        }
-    }
-
-    .stars {
-        height: 21px;
-        width: 110px;
-        margin-bottom: 8px;
-        background-image: url("/static/images/landing-page/stars-0b091.svg");
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: 100px;
-        margin-inline-start: auto;
-        background-color: #fff;
-        border-radius: 20px;
-        inset-inline-start: 16px;
-    }
-
-    .person {
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        background-color: #fff;
-        border-radius: 20px;
-        padding-inline-start: 20px;
-        padding-inline-end: 20px;
-        padding-top: 12px;
-        padding-bottom: 12px;
-        inset-inline-end: 16px;
-        filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.1));
-
-        img {
-            width: 40px;
-            height: 40px;
-            border-radius: 100%;
-        }
-
-        .text {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-
-        .name {
-            font-size: 16px;
-            line-height: 100%;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .description {
-            font-size: 14px;
-            line-height: 100%;
-            font-weight: 400;
-
-            @media (min-width: 768px) {
-                font-size: 16px;
-            }
-        }
-    }
+.subtitle {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--color-gray-600);
+    line-height: 1.4;
+    margin-block-end: 4px;
+    text-wrap: balance;
 }
