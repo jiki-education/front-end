@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { RoughHighlight } from "../RoughHighlight";
-import { SectionPlaceholder } from "../SectionPlaceholder";
+import { LtcVideo } from "./ltc-video/LtcVideo";
 import styles from "./LearnToCodeCard.module.css";
 
 export function LearnToCodeCard() {
@@ -20,10 +20,11 @@ export function LearnToCodeCard() {
             highlight: (chunks) => <RoughHighlight>{chunks}</RoughHighlight>
           })}
         </p>
-
-        {/* The simulated exercise walkthrough is being built separately. */}
-        <SectionPlaceholder label="Exercise walkthrough" height="520px" />
       </div>
+
+      {/* Outside .inner: the app plus its two callout rails needs more width than the measure
+          the body copy is set at. */}
+      <LtcVideo />
     </div>
   );
 }
