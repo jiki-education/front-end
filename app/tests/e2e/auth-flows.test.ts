@@ -104,7 +104,7 @@ test.describe("Authentication Flows", () => {
     await waitForLoadingToComplete(page);
     await page.locator("h1").waitFor();
     const heading = await page.locator("h1").textContent();
-    expect(heading).toContain("Learn to code and build");
+    expect(heading).toContain("The modern way to learn to code & build");
   }
 
   async function assertSignUpButton(page: Page) {
