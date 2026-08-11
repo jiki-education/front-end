@@ -31,6 +31,21 @@
  * clear their output directories on the way in, so running in parallel would
  * race them and delete the locales this had just written.
  *
+ * ## Scope
+ *
+ * With no argument it publishes every locale, which is what a cold `pnpm dev`
+ * wants. The watcher passes the path that changed, and then only that path's
+ * locale is republished: a full run is ~2.2s and 7,800 files, one locale is
+ * ~0.4s and ~550, and someone mid-translation triggers this on every save.
+ *
+ * Per-locale is as narrow as it can safely go. Each locale's output includes
+ * indexes assembled from its whole corpus (the curriculum catalog, the exercise
+ * prose index, the concept and post copy indexes, the search indexes), and they
+ * embed the content hashes of the files they point at. Publishing one file
+ * without rebuilding those would leave an index naming an artifact that no
+ * longer exists. Rebuilding them costs ~60ms once node is up, so there is
+ * nothing to win by going finer.
+ *
  * ## When there is no i18n checkout
  *
  * It says so once and exits 0. Most work in this repo needs no translations,
@@ -62,9 +77,30 @@ if (!fs.existsSync(publisher)) {
   process.exit(0);
 }
 
-console.log(`Generating translated content from ${i18nRepo}...\n`);
+// The locale a changed path belongs to, or null for anything unrecognised. The
+// locale is always the first segment under `locales/`. Unparseable input falls
+// back to a full publish rather than guessing: the publisher hard-fails on a
+// locale it does not know, and a slow refresh beats a dead watcher.
+function localeFromChangedPath(changed) {
+  if (!changed) return null;
 
-const result = spawnSync("node", [publisher, "all", `--out-dir=${PUBLIC_DIR}`], {
+  const relative = path.relative(path.join(i18nRepo, "locales"), path.resolve(changed));
+  if (!relative || relative.startsWith("..") || path.isAbsolute(relative)) return null;
+
+  const [locale] = relative.split(path.sep);
+  const { targets } = JSON.parse(fs.readFileSync(path.join(i18nRepo, "locales.json"), "utf8"));
+  return targets.includes(locale) ? locale : null;
+}
+
+const target = localeFromChangedPath(process.argv[2]) ?? "all";
+
+console.log(
+  target === "all"
+    ? `Generating translated content from ${i18nRepo}...\n`
+    : `Generating ${target} content from ${i18nRepo}...\n`
+);
+
+const result = spawnSync("node", [publisher, target, `--out-dir=${PUBLIC_DIR}`], {
   cwd: i18nRepo,
   stdio: "inherit"
 });

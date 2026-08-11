@@ -176,7 +176,7 @@ Exercise content is served as static files, separate from the exercise modules i
 
 ### Translated Content in Development
 
-Translations live in the separate `i18n` repo and reach production via R2, not via this repo's build. To see them locally, clone `i18n` beside the front-end (or set `JIKI_I18N_REPO`); `pnpm dev` then runs `i18n-content:generate` and watches `../../i18n/locales/**`.
+Translations live in the separate `i18n` repo and reach production via R2, not via this repo's build. To see them locally, clone `i18n` beside the front-end (or set `JIKI_I18N_REPO`); `pnpm dev` then runs `i18n-content:generate` and watches `../../i18n/locales/**`. The watcher republishes only the locale whose file changed (the first segment under `locales/`), falling back to a full publish for anything it cannot place: one locale is ~0.4s and ~550 files against ~2.2s and ~7,800 for all of them, which matters when every save during a translation pass triggers it. Per-locale is as narrow as it can safely go, since a locale's indexes are assembled from its whole corpus and embed the content hashes of the files they point at.
 
 That script runs the **i18n repo's own publisher** with `--out-dir`, so the local tree is the same bytes at the same paths the R2 objects would be, produced by the same code. With no `i18n` checkout it prints one line and exits 0, so nothing is required of anyone who does not need translations. It is deliberately **not** part of `build`: a production build gets non-English content from R2 on the i18n repo's cadence, and baking a snapshot in would pin every locale to whatever was on disk at build time.
 
