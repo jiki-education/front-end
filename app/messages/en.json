@@ -576,11 +576,11 @@
       "callouts": {
         "tested": {
           "title": "Every exercise is a real program",
-          "body": "Loops, conditionals, variables, all doing <hl>something you can watch play out</hl> on screen."
+          "body": "Loops, conditionals, variables, all the <hl>techniques you'll use in every program</hl> you ever make."
         },
         "see": {
-          "title": "See what your code did",
-          "body": "Your instructions, playing out in front of you. <hl>No guessing</hl> what the computer heard."
+          "title": "Solve interesting, fun exercises",
+          "body": "No boring text-based exercises here. <hl>Build games. solve puzzles. Have fun!</hl>"
         },
         "rewind": {
           "title": "Rewind your own code",
@@ -588,15 +588,15 @@
         },
         "errors": {
           "title": "Errors in plain English",
-          "body": "When something breaks, <hl>Jiki tells you what went wrong</hl> in normal English, not technical jargon."
+          "body": "When something breaks, we'll tell you what went wrong <hl>in normal language, not technical jargon.</hl>"
         },
         "help": {
-          "title": "Help, not answers",
-          "body": "Ask Jiki anything and <hl>get help working it out</hl>, rather than the solution pasted in."
+          "title": "Get help, not answers",
+          "body": "Work with Jiki to get unstuck. <hl>Learn how to think</hl>, not just how to pass the exercise.."
         },
         "next": {
           "title": "Always one step up",
-          "body": "Each exercise asks for a little more than the last. The <hl>next step is always within reach</hl>."
+          "body": "Each exercise pushes you just a little further than the last. The <hl>next step is always within reach</hl>."
         }
       }
     },
