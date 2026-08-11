@@ -115,14 +115,24 @@ app.post("/chat", async (c) => {
 
     // 2. Parse request
     const body = await c.req.json<ChatRequest>();
-    const { exerciseSlug, code, question, history = [], nextTaskId, language, contentHash, locale = "en" } = body;
+    const {
+      exerciseSlug,
+      code,
+      question,
+      history = [],
+      nextTaskId,
+      language,
+      proseHash,
+      codeHash,
+      locale = "en"
+    } = body;
 
     if (exerciseSlug === undefined || code === undefined || question === undefined || language === undefined) {
       return c.json({ error: "Missing required fields: exerciseSlug, code, question, language" }, 400);
     }
 
-    if (!contentHash) {
-      return c.json({ error: "Missing required field: contentHash" }, 400);
+    if (!proseHash || !codeHash) {
+      return c.json({ error: "Missing required fields: proseHash, codeHash" }, 400);
     }
 
     // 2b. Validate exerciseSlug in request matches JWT claim
@@ -139,8 +149,9 @@ app.post("/chat", async (c) => {
 
     // 2c. Validate locale/hash shape. Both are interpolated into the content URL,
     // so reject anything that could smuggle in path segments or query strings.
-    if (!/^[a-z0-9-]{2,20}$/i.test(locale) || !/^[a-f0-9]{6,64}$/i.test(contentHash)) {
-      return c.json({ error: "Invalid locale or contentHash" }, 400);
+    const isHash = (value: string) => /^[a-f0-9]{6,64}$/i.test(value);
+    if (!/^[a-z0-9-]{2,20}$/i.test(locale) || !isHash(proseHash) || !isHash(codeHash)) {
+      return c.json({ error: "Invalid locale or content hash" }, 400);
     }
 
     // 3. Fetch exercise content from the assets cache tree and build prompt.
@@ -155,7 +166,8 @@ app.post("/chat", async (c) => {
     // serves the same paths relatively from public/.
     const isDev = process.env.NODE_ENV === "development";
     const origin = isDev ? c.req.header("Origin") || "https://assets.jiki.io" : "https://assets.jiki.io";
-    const contentUrl = `${origin}/static/exercises/${exerciseSlug}/${locale}/${language}/content-${contentHash}.json`;
+    const proseUrl = `${origin}/static/exercises/${exerciseSlug}/${locale}/prose-${proseHash}.json`;
+    const codeUrl = `${origin}/static/exercises/${exerciseSlug}/code/${language}/code-${codeHash}.json`;
 
     const { systemInstruction, prompt } = await buildPrompt({
       exerciseSlug,
@@ -164,7 +176,8 @@ app.post("/chat", async (c) => {
       history,
       nextTaskId,
       language,
-      contentUrl
+      proseUrl,
+      codeUrl
     });
 
     // 4. Stream from Gemini and collect the full response. The stream is opened

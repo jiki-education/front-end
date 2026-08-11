@@ -19,7 +19,7 @@
 }
 
 .heading[data-tone="orange"] {
-    /* No orange-700 in palette (only --color-orange-30); Tailwind orange-700 literal */
+    /* No orange-700 in palette (only --color-orange-30); literal hex value */
     color: #c2410c;
 }
 

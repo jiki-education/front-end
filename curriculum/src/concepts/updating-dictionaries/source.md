@@ -1,5 +1,5 @@
 ---
-title: "Changing Dictionaries"
+title: "Updating Dictionaries"
 description: "Using `dict[key] = value` to update existing entries or add new ones, plus the `has` method for checking keys."
 ---
 

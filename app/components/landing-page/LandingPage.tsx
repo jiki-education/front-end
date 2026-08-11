@@ -1,6 +1,4 @@
-import { useLocale } from "next-intl";
-import type { BlogPostMeta } from "@/lib/content/types";
-import { getTestimonials } from "@/lib/content/getTestimonials";
+import type { BlogPostMeta, TestimonialsData } from "@/lib/content/types";
 import HeaderLayout from "../layout/HeaderLayout";
 import { Exercism } from "./Exercism";
 import { FAQs } from "./FAQs";
@@ -16,13 +14,18 @@ import { TwoHalves } from "./TwoHalves";
 
 interface LandingPageProps {
   latestPosts?: BlogPostMeta[];
+  /**
+   * Fetched by the page that renders this, not read here: testimonials are a
+   * per-locale artifact now rather than bundled data, and this component uses
+   * hooks, so it cannot be async.
+   */
+  testimonials: TestimonialsData | null;
 }
 
-export function LandingPage({ latestPosts = [] }: LandingPageProps) {
-  // Resolve testimonials server-side (synchronous, from the bundled content meta)
-  // and hand the marquee blurbs to the client-rendered Hero as a serialized prop,
-  // so the content data never ships in the client bundle.
-  const { marquee } = getTestimonials(useLocale());
+export function LandingPage({ latestPosts = [], testimonials }: LandingPageProps) {
+  // The marquee blurbs go to the client-rendered Hero as a serialized prop, so
+  // the content data never ships in the client bundle.
+  const marquee = testimonials?.marquee ?? [];
 
   return (
     <div className={styles.page}>
@@ -32,7 +35,8 @@ export function LandingPage({ latestPosts = [] }: LandingPageProps) {
         <TrackCardsSection />
         <OutcomesSection />
         <MeetJeremy />
-        <TestimonialsSection />
+        {/* A locale with no testimonial catalog renders none, by design (see getTestimonials). */}
+        {testimonials ? <TestimonialsSection testimonials={testimonials} /> : null}
         <PrintRow />
         <Exercism />
         <FAQs />

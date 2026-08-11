@@ -28,7 +28,7 @@ You can read these files at **any point during your work** - even in the middle 
 | `commands.md`     | **Always read** - running dev server, tests, builds, linting |
 | `testing.md`      | Writing or editing tests                                     |
 | `eslint.md`       | Fixing lint errors, adding lint exceptions                   |
-| `css-styles.md`   | CSS styling (CSS Modules + UI Kit; no Tailwind)              |
+| `css-styles.md`   | CSS styling (CSS Modules + UI Kit)                           |
 | `images.md`       | Working with icons, SVGs, or images                          |
 | `architecture.md` | Understanding project structure                              |
 | `tech-stack.md`   | Technologies, frameworks, dependencies                       |
@@ -83,7 +83,7 @@ This is the frontend for Jiki, a learn-to-code platform.
 
 - **Framework**: Next.js 15 with App Router, TypeScript
 - **UI Library**: React 19 with React Compiler (automatic optimization)
-- **Styling**: CSS Modules + hand-written UI Kit. Tailwind is not used (fully removed) — an ESLint rule blocks Tailwind classes in `className`. See `.context/css-styles.md`.
+- **Styling**: CSS Modules + a hand-written UI Kit. An ESLint rule blocks ad-hoc utility-style classes in `className`. See `.context/css-styles.md`.
 - **Deployment**: Cloudflare Workers (Edge Runtime)
 - **Package Manager**: pnpm
 
@@ -160,16 +160,25 @@ If you need an arbitrary color, always confirm with the user first, explaining w
 
 ### Exercise Content Cache
 
-Exercise content (title, description, instructions, stubs, solutions) is served as static JSON files, separate from the exercise modules in `@jiki/curriculum`.
+Exercise content is served as static files, separate from the exercise modules in `@jiki/curriculum`. **Prose and code are separate artifacts**, split along the axis each actually varies on: instructions are translated (they vary by locale), while stubs and solutions are code (they vary by programming language and never by locale). Sharing one artifact made translated instructions impossible to publish from the `i18n` repo, which holds no code. See `.context/i18n.md` § "The Exercise Cache".
 
 - **Build script**: `scripts/generate-exercise-cache.js` reads curriculum source files and produces:
-  - `public/static/exercises/{locale}/index-{hash}.json` — metadata index (all exercises, slug/title/description/contentHashes)
-  - `public/static/exercises/{slug}/{locale}/{language}/content-{hash}.json` — content files (instructions, stub, solution)
-  - `lib/generated/exercise-hashes.ts` — hash manifest for the app to construct index URLs
-- **Client API**: `lib/api/exercise-meta.ts` provides `getExerciseMeta()`, `getExerciseMetaBySlugs()`, and `fetchExerciseContent()` with module-level caching
+  - `public/static/exercises/{locale}/index-{hash}.json` — prose index (slug/title/description/proseHash)
+  - `public/static/exercises/{slug}/{locale}/prose-{hash}.json` — instructions
+  - `public/static/exercises/code/{language}/index-{hash}.json` — code index (slug -> hash)
+  - `public/static/exercises/{slug}/code/{language}/code-{hash}.json` — stub + solution
+  - `public/static/exercises/{locale}/current.json` — local dev pointer for non-English locales, never uploaded (on R2 the `i18n` repo is the single writer of these)
+  - `lib/generated/exercise-hashes.ts` — hash manifests for both index kinds
+- **Client API**: `lib/api/exercise-meta.ts` provides `getExerciseMetaBySlugs()` and `fetchExerciseContent()`, which fetches the two indexes concurrently and then prose and code concurrently, so the split adds no round trip
 - **Exercise loading**: `useExerciseLoader` loads the exercise module (ExerciseCore) and static content in parallel, then assembles into `ExerciseDefinition`
 - **Dev/build commands**: `exercise-cache:generate` and `exercise-cache:watch` (wired into `dev` and `build`)
 - **Generated files are gitignored**: `public/static/exercises/` and `lib/generated/`
+
+### Translated Content in Development
+
+Translations live in the separate `i18n` repo and reach production via R2, not via this repo's build. To see them locally, clone `i18n` beside the front-end (or set `JIKI_I18N_REPO`); `pnpm dev` then runs `i18n-content:generate` and watches `../../i18n/locales/**`.
+
+That script runs the **i18n repo's own publisher** with `--out-dir`, so the local tree is the same bytes at the same paths the R2 objects would be, produced by the same code. With no `i18n` checkout it prints one line and exits 0, so nothing is required of anyone who does not need translations. It is deliberately **not** part of `build`: a production build gets non-English content from R2 on the i18n repo's cadence, and baking a snapshot in would pin every locale to whatever was on disk at build time.
 
 ### Static Assets Organization
 
@@ -197,7 +206,7 @@ SVG icons are stored in `app/icons/` and imported as React components via SVGR. 
 ```typescript
 import SettingsIcon from "@/icons/settings.svg";
 
-<SettingsIcon className="w-6 h-6" />
+<SettingsIcon className={styles.icon} />
 ```
 
 See `.context/images.md` for detailed icon usage guidelines.

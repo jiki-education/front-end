@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function BuildPage({ params }: Props) {
   const { locale } = await params;
-  const projects = getAllProjects(locale);
+  const projects = await getAllProjects(locale);
 
   return (
     <SidebarLayout activeItem="build">

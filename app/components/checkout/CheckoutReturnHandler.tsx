@@ -42,13 +42,13 @@ export function CheckoutReturnHandler() {
     // then failed (payment_state "failed") — is an expected outcome, not a bug. Reopen
     // checkout in place with the decline shown and the original plan selected, without
     // reporting it. The confirming modal stays up until handleSubscribe swaps in checkout.
-    const reopenCheckout = async (interval: BillingInterval, declineReason: string | null) => {
+    const reopenCheckout = async (interval: BillingInterval, declineCode: string | null) => {
       try {
         await refreshUser();
         await handleSubscribe({
           interval,
           userEmail: user?.email,
-          priorError: declineReason ?? t("declineDefault")
+          priorError: declineMessage(t, declineCode)
         });
       } catch {
         // handleSubscribe already toasted + logged; fall back to the failure modal so
@@ -64,7 +64,7 @@ export function CheckoutReturnHandler() {
     void verifyCheckoutSession(sessionId)
       .then((result) => {
         if (result.payment_state === "failed") {
-          void reopenCheckout(result.interval, result.decline_reason ?? null);
+          void reopenCheckout(result.interval, result.decline_code ?? null);
           return;
         }
         if (result.payment_state === "paid") {
@@ -76,7 +76,7 @@ export function CheckoutReturnHandler() {
       })
       .catch((error) => {
         if (error instanceof CheckoutIncompleteError) {
-          void reopenCheckout(error.interval, error.declineReason);
+          void reopenCheckout(error.interval, error.declineCode);
           return;
         }
         // Genuine /internal failures are reported centrally by the API client;
@@ -86,4 +86,20 @@ export function CheckoutReturnHandler() {
   }, [hasCheckedAuth, isAuthenticated, refreshUser, user, t]);
 
   return null;
+}
+
+/**
+ * Stripe sends a stable `decline_code`, not prose, so the banner copy comes from
+ * the catalog. A code with no entry falls back to the generic line. That covers a
+ * code Stripe adds later, and deliberately covers the fraud-signalling codes
+ * (`fraudulent`, `lost_card`, `stolen_card`, `pickup_card`, `merchant_blacklist`,
+ * `security_violation`), which Stripe advises never telling the cardholder apart
+ * from a plain decline.
+ */
+function declineMessage(t: ReturnType<typeof useTranslations<"checkout">>, code: string | null): string {
+  if (!code) {
+    return t("declineDefault");
+  }
+  const key = `declineCodes.${code}`;
+  return t.has(key as Parameters<typeof t.has>[0]) ? t(key as Parameters<typeof t>[0]) : t("declineDefault");
 }

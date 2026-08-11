@@ -1,19 +1,21 @@
-import contentMeta from "@/lib/generated/content-meta-server.json";
+import { getContentMeta } from "./contentMeta";
 import type { TestimonialsData } from "./types";
 
 /**
- * Get the landing-page testimonials for a locale (heading, primary quote, the
- * grid of student quotes, and the hero marquee blurbs).
+ * Get a locale's testimonials: the headings, the primary quote, the landing
+ * grid, the full /testimonials page, and the hero marquee blurbs.
  *
- * Reads synchronously from the bundled content-meta-server.json (generated at
- * build time from content/src/testimonials/{locale}.json), so it is safe for
- * server-side rendering on cacheable public pages — no fetch, no async.
+ * There is NO English fallback here, and there must never be one. A locale that
+ * has not translated its testimonials returns null and renders none: the
+ * landing section disappears and the /testimonials page shows an empty list.
+ * Showing English marketing copy to a reader who asked for another language is
+ * the failure the whole structure/copy split exists to make impossible, and
+ * "the section cannot render empty" is not an exception to it. It renders empty.
  *
- * Falls back to English when the requested locale has no testimonials authored.
+ * Null therefore means one of two things, and the caller cannot tell them apart
+ * because it does not need to: this locale has no testimonial catalog, or the
+ * deploy is broken. Both render nothing.
  */
-export function getTestimonials(locale: string): TestimonialsData {
-  const meta = contentMeta as {
-    testimonials: { en: TestimonialsData; [locale: string]: TestimonialsData | undefined };
-  };
-  return meta.testimonials[locale] ?? meta.testimonials.en;
+export async function getTestimonials(locale: string): Promise<TestimonialsData | null> {
+  return (await getContentMeta(locale)).testimonials;
 }

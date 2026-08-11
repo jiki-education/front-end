@@ -19,12 +19,12 @@ Built this round — do not change without reason:
 | ---------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | Library                | `next-intl@4` (in `package.json`)                                                      | App Router i18n                                                                  |
 | Plugin                 | `next.config.ts` → `createNextIntlPlugin("./lib/i18n/request.ts")`                     | wires request config                                                             |
-| Request config         | `lib/i18n/request.ts`                                                                  | loads `messages/{locale}.json` per request                                       |
+| Request config         | `lib/i18n/request.ts`                                                                  | loads the resolved locale's catalog per request                                  |
 | Locale resolution      | `lib/i18n/resolveLocale.ts`                                                            | reads `NEXT_LOCALE` cookie → falls back to `DEFAULT_LOCALE`                      |
 | Config/helpers         | `lib/i18n/config.ts`                                                                   | re-exports locales, `LOCALE_COOKIE_NAME`, `isSupportedLocale`, `normalizeLocale` |
 | Cookie writer          | `lib/i18n/localeCookie.ts`                                                             | `setLocaleCookie()` — mirrors chosen locale into cookie for SSR                  |
 | Provider               | `app/layout.tsx` → `NextIntlClientProvider` + `<html lang={locale}>`                   | messages to client components, dynamic lang                                      |
-| Catalog                | `messages/en.json`, `messages/hu.json`                                                 | message dictionaries (`hu` starts as a copy of `en`)                             |
+| Catalog                | `messages.json`                                                                        | the English message dictionary (translations live in the `i18n` repo)            |
 | Key typing             | `global.d.ts` (augments `next-intl` `AppConfig.Messages`)                              | compile-time autocomplete + validation of keys                                   |
 | Locale source of truth | Rails (`settingsApi.updateLocale`), mirrored to cookie in `settingsStore.updateLocale` |                                                                                  |
 
@@ -142,11 +142,10 @@ Rules:
 - Leaf keys describe the _role_ (`emailPlaceholder`, `submit`, `heading`), not the English text.
 - Reuse shared/generic strings under a `common.*` namespace (`common.cancel`, `common.save`,
   `common.loading`) — check `common.*` before adding a duplicate.
-- Keep `en.json` keys **sorted/grouped** the same way across areas for reviewability.
+- Keep `messages.json` keys **sorted/grouped** the same way across areas for reviewability.
 
-After adding keys to `en.json`, **copy the same keys into `hu.json`** with the English value
-(translation comes later; the copy keeps both catalogs structurally identical and typechecking
-happy). A follow-up script can automate en→hu key sync; for now do it by hand per area.
+Only English is authored here. Translations of these keys are authored in the `i18n` repo and
+published from there, so there is no sibling catalog to mirror into.
 
 ---
 
@@ -178,9 +177,11 @@ Order by ROI (small/high-visibility first, hardest last):
 
 - `app/dev/*` and `app/test/*` — dev/test scaffolding, blocked in prod by middleware.
 - **Content/curriculum text** — exercise instructions, hints, solutions, concept prose, blog &
-  article bodies. These come from sibling packages (`@jiki/curriculum`, `../content/`) via
-  generated per-locale caches and already have their own localization path. Only the app _chrome_
-  around them (e.g. "Hints", "Run code", breadcrumbs, "read more") is in scope.
+  article bodies, and the testimonial quotes, roles, headings and marquee blurbs. These come from
+  sibling packages (`@jiki/curriculum`, `../content/`) via content-hashed per-locale artifacts and
+  already have their own localization path: English is authored beside the code and every other
+  locale is published by the `i18n` repo. Only the app _chrome_ around them (e.g. "Hints", "Run
+  code", breadcrumbs, "read more", the `/testimonials` page title) is in scope.
 - The existing blog/articles `[locale]` routing — leave until the routing decision lands.
 
 ---
@@ -193,7 +194,7 @@ Order by ROI (small/high-visibility first, hardest last):
    - String props: `placeholder=`, `label=`, `title=`, `alt=`, `aria-label=`, `heading=`,
      `subtitle=`, `description=`
    - `.ts`: `toast.`, `new Error(`, string literals in returned/config objects
-3. Add keys to `messages/en.json` under the area namespace (§3). Mirror into `messages/hu.json`.
+3. Add keys to `messages.json` under the area namespace (§3).
 4. Replace literals with `t("...")` / `t.rich(...)` per §2. Make server components `async` as needed.
 5. Typecheck (key typing will catch typos): `cd app && npx tsc --noEmit`.
 6. Lint touched files: `cd app && npx eslint <files>`.
@@ -202,7 +203,7 @@ Order by ROI (small/high-visibility first, hardest last):
 
 ### Tests
 
-`next-intl` is **globally mocked in `jest.setup.js`** — the mock reads `messages/en.json` and
+`next-intl` is **globally mocked in `jest.setup.js`** — the mock reads `messages.json` and
 returns the real English strings (supports namespaces, dotted keys, `{var}` interpolation, and
 `t.rich`). So components using `useTranslations`/`t.rich` render their English text in tests with
 **no per-test provider needed**, and existing assertions that match visible English keep passing.
@@ -250,9 +251,7 @@ Implications for the sweep:
 - **Live locale switch re-render**: changing locale writes the cookie + Rails preference; a
   `router.refresh()` (or navigation) is needed to re-render in the new locale. Wire this into the
   settings locale selector once routing is decided.
-- **`hu` translations**: actual Hungarian copy. Infra ships `en` behind the `?? en` fallback;
-  translation is a separate content task.
-- **en→hu key-sync script**: automate keeping `hu.json` structurally in sync with `en.json`.
+- **Translations**: actual translated copy, authored and published from the `i18n` repo.
 - **Plain-`.ts` toast/error strings** not reachable from a component (see §2) — collect into a
   list and decide a pattern (pass-in vs. a small client-side message accessor).
 

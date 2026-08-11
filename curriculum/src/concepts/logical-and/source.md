@@ -1,5 +1,5 @@
 ---
-title: "The `and` keyword"
+title: "The `&&` (And) Operator"
 description: "Combining two conditions with `&&` so the whole condition is only true when both parts are true."
 ---
 

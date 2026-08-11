@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import React from "react";
 // `mock`-prefixed so jest's mock-factory hoisting allows referencing it below.
-import mockEnMessages from "./messages/en.json";
+import mockEnMessages from "./messages.json";
 
 // Polyfill Web APIs for testing (Request, Response, etc.)
 // These are available in Workers/browsers but not in Node.js Jest environment
@@ -78,7 +78,7 @@ if (typeof global.ResizeObserver === "undefined") {
 }
 
 // Mock next-intl so components using translations render real English strings
-// (read from messages/en.json) without needing a NextIntlClientProvider in each
+// (read from messages.json) without needing a NextIntlClientProvider in each
 // test. Supports namespaces, dotted keys, {var} interpolation, simple ICU
 // plurals ({count, plural, one {...} other {...}}), and t.rich with nested tags.
 jest.mock("next-intl", () => {

@@ -61,7 +61,7 @@ export async function verifyCheckoutSession(sessionId: string): Promise<VerifyCh
     // unauthorized, verification_failed, 5xx, …) propagates unchanged.
     if (error instanceof ApiError) {
       const body = error.data as
-        | { error?: { type?: string; decline_reason?: string | null; interval?: BillingInterval } }
+        | { error?: { type?: string; decline_code?: string | null; interval?: BillingInterval } }
         | undefined;
       if (body?.error?.type === "checkout_payment_incomplete") {
         // `interval` is absent only for the pre-deploy migration tail; default it so the
@@ -69,7 +69,7 @@ export async function verifyCheckoutSession(sessionId: string): Promise<VerifyCh
         throw new CheckoutIncompleteError(
           error.statusText,
           error.data,
-          body.error.decline_reason ?? null,
+          body.error.decline_code ?? null,
           body.error.interval ?? "annual"
         );
       }

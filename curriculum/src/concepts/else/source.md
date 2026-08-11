@@ -1,5 +1,5 @@
 ---
-title: "Else"
+title: "The `else` Keyword"
 description: "Adding an `else` clause after an `if` so a different block of code runs when the condition turns out to be false."
 ---
 

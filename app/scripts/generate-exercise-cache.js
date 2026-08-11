@@ -4,19 +4,48 @@
 /**
  * Exercise Cache Generation Script
  *
- * Reads exercise source files from curriculum and produces:
+ * ## Prose and code are separate artifacts
+ *
+ * An exercise has two kinds of cached content and they vary along DIFFERENT
+ * axes. Instructions are translated prose, so they vary by locale and not at all
+ * by programming language. Stubs and solutions are code, so they vary by
+ * language and not at all by locale: there is exactly one `stub.javascript` per
+ * exercise, and the corpus contains no per-locale variant of any code file.
+ *
+ * They used to share one artifact keyed by (slug, locale, language), which had
+ * two consequences. It duplicated identical stub and solution bytes into every
+ * locale, and, far more importantly, it made translated instructions
+ * unpublishable on their own: the i18n repo cannot emit an artifact that must
+ * also contain code it does not hold. Splitting them along their real keys is
+ * what lets the largest translated content type publish independently.
+ *
+ * Produces:
  *
  *   public/static/exercises/{locale}/index-{hash}.json
- *     - Metadata index: all exercises with title, description, contentHashes
+ *     - PROSE index: [{ slug, title, description, proseHash }]. One per locale.
+ *       The i18n repo publishes this for every non-English locale, alongside a
+ *       mutable current.json pointer, so a translation goes live with no
+ *       front-end deploy. It deliberately carries NO code hashes: an artifact
+ *       the i18n repo owns cannot contain a fact only the front-end knows.
  *
- *   public/static/exercises/{slug}/{locale}/{language}/content-{hash}.json
- *     - Content files: instructions, stub, solution per exercise/locale/language
+ *   public/static/exercises/{slug}/{locale}/prose-{hash}.json
+ *     - PROSE: { instructions }. Owned by the front-end for English, by the
+ *       i18n repo for every other locale.
+ *
+ *   public/static/exercises/code/{language}/index-{hash}.json
+ *     - CODE index: { [slug]: hash }. One per programming language, front-end
+ *       owned, its hash compiled into the worker. `code` is a reserved segment
+ *       here and can never be a locale.
+ *
+ *   public/static/exercises/{slug}/code/{language}/code-{hash}.json
+ *     - CODE: { stub, solution }. Front-end owned, written once per language
+ *       instead of once per (locale, language).
  *
  *   public/static/i18n/exercises/{slug}/{locale}/messages-{hash}.json
  *     - Curriculum-owned i18n message dicts (runtime logic-error/errorHtml strings)
  *
  *   lib/generated/exercise-hashes.ts
- *     - Hash manifest mapping locale -> metadata index hash
+ *     - Hash manifests: locale -> prose index hash, language -> code index hash
  *
  *   lib/generated/exercise-message-hashes.ts
  *     - Hash manifest mapping slug -> locale -> messages hash
@@ -29,8 +58,8 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import matter from "gray-matter";
 import { computeHash, writeFile } from "./lib/cache-utils.js";
+import { parseFrontmatter, prepareInstructions } from "@jiki.io/content-renderer";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const EXERCISES_DIR = path.join(__dirname, "../../curriculum/src/exercises");
@@ -47,6 +76,10 @@ const LANGUAGE_EXTENSIONS = {
 };
 
 const LANGUAGES = Object.keys(LANGUAGE_EXTENSIONS);
+
+// English. Its index hash is compiled into the worker and its artifacts ship
+// with the deploy, so it has no pointer and never needs one.
+const DEFAULT_LOCALE = "en";
 
 /**
  * Read a file, returning null if it doesn't exist
@@ -108,11 +141,16 @@ function deriveFamily(exercisePath) {
 
 /**
  * Load per-family base catalogs (curriculum-owned shared strings, e.g. a base
- * class's logicError messages) authored once under
- * `exercise-categories/<family>/locales/<locale>/translation.json`. Merged into
- * each family member's emitted pack at build time, so the shared strings are
- * authored/translated once but every member's runtime dict is self-contained.
- * Returns { [family]: { [locale]: dict } }.
+ * class's logicError messages) authored once in
+ * `exercise-categories/<family>/messages.json`. Merged into each family member's
+ * emitted pack at build time, so the shared strings are authored once but every
+ * member's runtime dict is self-contained.
+ *
+ * The curriculum holds English and nothing else — every other locale is authored
+ * in the i18n repo and published from there — so there is one catalog per family
+ * and it is the default locale's. Returns { [family]: { [locale]: dict } },
+ * keyed by locale still, because that is the shape the merge below consumes and
+ * the emitted artifacts are addressed by.
  */
 function loadBaseCatalogs() {
   const bases = {};
@@ -123,26 +161,17 @@ function loadBaseCatalogs() {
     if (!familyDir.isDirectory()) {
       continue;
     }
-    const localesDir = path.join(EXERCISE_CATEGORIES_DIR, familyDir.name, "locales");
-    if (!fs.existsSync(localesDir)) {
+    // Families with no shared strings ship no catalog at all, which is not an error.
+    const catalogPath = path.join(EXERCISE_CATEGORIES_DIR, familyDir.name, "messages.json");
+    const raw = readFileOrNull(catalogPath);
+    if (raw === null) {
       continue;
     }
-    const perLocale = {};
-    for (const localeDir of fs.readdirSync(localesDir, { withFileTypes: true })) {
-      if (!localeDir.isDirectory()) {
-        continue;
-      }
-      const raw = readFileOrNull(path.join(localesDir, localeDir.name, "translation.json"));
-      if (raw === null) {
-        continue;
-      }
-      try {
-        perLocale[localeDir.name] = JSON.parse(raw);
-      } catch (error) {
-        throw new Error(`Invalid JSON in base catalog ${familyDir.name}/${localeDir.name}: ${error.message}`);
-      }
+    try {
+      bases[familyDir.name] = { [DEFAULT_LOCALE]: JSON.parse(raw) };
+    } catch (error) {
+      throw new Error(`Invalid JSON in base catalog ${catalogPath}: ${error.message}`);
     }
-    bases[familyDir.name] = perLocale;
   }
   return bases;
 }
@@ -180,47 +209,36 @@ function processExercises() {
       throw new Error(`Invalid JSON in ${metadataPath}: ${error.message}`);
     }
 
-    // Read instruction files per locale
-    const instructionsDir = path.join(exercisePath, "instructions");
+    // Read the authored instructions. The curriculum holds English only; every
+    // translation is authored in the i18n repo and published from there, so this
+    // is one file, not a directory to enumerate. The result stays keyed by locale
+    // because the emitted artifacts and index are addressed by locale.
+    const instructionsPath = path.join(exercisePath, "instructions.md");
     const locales = {};
+    const instructionsRaw = readFileOrNull(instructionsPath);
 
-    if (fs.existsSync(instructionsDir)) {
-      const mdFiles = fs
-        .readdirSync(instructionsDir, { withFileTypes: true })
-        .filter((f) => f.isFile() && f.name.endsWith(".md"));
-
-      for (const file of mdFiles) {
-        // English is authored in source.md (the source of truth); map that file to
-        // the "en" locale. Every other file is named <locale>.md (e.g. hu.md).
-        const baseName = path.basename(file.name, ".md");
-        const locale = baseName === "source" ? "en" : baseName;
-        const filePath = path.join(instructionsDir, file.name);
-        const fileContent = fs.readFileSync(filePath, "utf-8");
-        const parsed = matter(fileContent);
-
-        if (!parsed.data.title) {
-          throw new Error(`Missing title in frontmatter of ${filePath}`);
-        }
-
-        // Exercise instructions are stored as raw markdown and rendered by marked
-        // at runtime (InstructionsContent.tsx), so there is no build-time marked
-        // hook to strip the custom <define>/<literal> tags the English source.md
-        // may carry. Strip them here (keeping inner text) before caching; a no-op
-        // for the already tag-free translated files.
-        const instructions = parsed.content.trim().replace(/<\/?(?:define|literal)(?:\s[^>]*)?>/gi, "");
-
-        locales[locale] = {
-          title: parsed.data.title,
-          description: parsed.data.description || "",
-          instructions
-        };
-      }
-    }
-
-    if (Object.keys(locales).length === 0) {
-      console.warn(`   Warning: exercise "${slug}" has no instruction files — skipping`);
+    if (instructionsRaw === null) {
+      console.warn(`   Warning: exercise "${slug}" has no instructions.md — skipping`);
       continue;
     }
+
+    const parsed = parseFrontmatter(instructionsRaw);
+
+    if (!parsed.data.title) {
+      throw new Error(`Missing title in frontmatter of ${instructionsPath}`);
+    }
+
+    // Exercise instructions are stored as raw markdown and rendered by marked
+    // at runtime (InstructionsContent.tsx), so there is no build-time marked
+    // hook to strip the custom <define>/<literal> tags the English instructions
+    // may carry. prepareInstructions does the trim and the strip, and lives in
+    // @jiki.io/content-renderer beside the concept renderer, because both
+    // repos that publish instructions must agree on these bytes.
+    locales[DEFAULT_LOCALE] = {
+      title: parsed.data.title,
+      description: parsed.data.description || "",
+      instructions: prepareInstructions(parsed.body)
+    };
 
     // Read stubs and solutions per language
     const stubs = {};
@@ -238,26 +256,20 @@ function processExercises() {
       }
     }
 
-    // Read per-locale message catalogs (curriculum-owned i18n dicts). These are
-    // decoupled from instruction locales: an exercise can ship a `hu` message
-    // dict for its runtime logic-error strings without a `hu` instructions file.
+    // Read the exercise's message catalog (curriculum-owned i18n dict: runtime
+    // logic-error and errorHtml strings). English only, for the same reason the
+    // instructions are; translated catalogs are published by the i18n repo.
     // Each catalog is emitted as a standalone artifact and fetched by the ACTIVE
-    // UI locale at runtime, independent of the (content) instruction locale.
+    // UI locale at runtime, independent of the (content) instruction locale,
+    // which is why the map stays keyed by locale here.
     const messages = {};
-    const localesDir = path.join(exercisePath, "locales");
-    if (fs.existsSync(localesDir)) {
-      const localeDirs = fs.readdirSync(localesDir, { withFileTypes: true }).filter((d) => d.isDirectory());
-      for (const localeDir of localeDirs) {
-        const translationPath = path.join(localesDir, localeDir.name, "translation.json");
-        const raw = readFileOrNull(translationPath);
-        if (raw === null) {
-          continue;
-        }
-        try {
-          messages[localeDir.name] = JSON.parse(raw);
-        } catch (error) {
-          throw new Error(`Invalid JSON in ${translationPath}: ${error.message}`);
-        }
+    const messagesPath = path.join(exercisePath, "messages.json");
+    const messagesRaw = readFileOrNull(messagesPath);
+    if (messagesRaw !== null) {
+      try {
+        messages[DEFAULT_LOCALE] = JSON.parse(messagesRaw);
+      } catch (error) {
+        throw new Error(`Invalid JSON in ${messagesPath}: ${error.message}`);
       }
     }
 
@@ -280,8 +292,9 @@ function processExercises() {
 }
 
 /**
- * Build metadata indexes (per locale), content files (per exercise/locale/language),
- * and i18n message dicts (per exercise/locale). Returns { indexHashes, messageHashes }.
+ * Build the prose indexes (per locale), the code indexes (per language), the
+ * prose and code artifacts, and the i18n message dicts (per exercise/locale).
+ * Returns { indexHashes, codeIndexHashes, messageHashes }.
  */
 function buildStaticFiles(exercises) {
   // Emit per-exercise per-locale message dicts as standalone, content-hashed
@@ -302,55 +315,61 @@ function buildStaticFiles(exercises) {
     }
   }
 
-  // Group exercises by locale for metadata indexes
+  // --- code: one artifact per (slug, language), no locale anywhere ------------
+  //
+  // codeBy[language][slug] = hash. A language an exercise ships neither a stub
+  // nor a solution for is absent rather than empty, so the code index says which
+  // languages an exercise actually supports.
+  const codeBy = {};
+
+  for (const [slug, exercise] of Object.entries(exercises)) {
+    for (const language of LANGUAGES) {
+      const stub = exercise.stubs[language];
+      const solution = exercise.solutions[language];
+
+      if (stub === undefined && solution === undefined) {
+        continue;
+      }
+
+      const codeFile = JSON.stringify({ stub: stub || "", solution: solution || "" });
+      const codeHash = computeHash(codeFile);
+      writeFile(path.join(STATIC_DIR, slug, "code", language, `code-${codeHash}.json`), codeFile);
+
+      if (!codeBy[language]) {
+        codeBy[language] = {};
+      }
+      codeBy[language][slug] = codeHash;
+    }
+  }
+
+  // --- prose: one artifact per (slug, locale), no language anywhere -----------
   const byLocale = {};
 
   for (const [slug, exercise] of Object.entries(exercises)) {
-    for (const locale of Object.keys(exercise.locales)) {
+    for (const [locale, localeData] of Object.entries(exercise.locales)) {
       if (!byLocale[locale]) {
         byLocale[locale] = [];
       }
 
-      // Build content files for each language in this locale and collect hashes
-      const contentHashes = {};
-
-      for (const language of LANGUAGES) {
-        const stub = exercise.stubs[language];
-        const solution = exercise.solutions[language];
-
-        if (stub === undefined && solution === undefined) {
-          continue; // Skip languages with no stub or solution
-        }
-
-        const localeData = exercise.locales[locale];
-        const contentFile = JSON.stringify({
-          instructions: localeData.instructions,
-          stub: stub || "",
-          solution: solution || ""
-        });
-
-        const contentHash = computeHash(contentFile);
-        contentHashes[language] = contentHash;
-
-        const contentPath = path.join(STATIC_DIR, slug, locale, language, `content-${contentHash}.json`);
-        writeFile(contentPath, contentFile);
-      }
+      const proseFile = JSON.stringify({ instructions: localeData.instructions });
+      const proseHash = computeHash(proseFile);
+      writeFile(path.join(STATIC_DIR, slug, locale, `prose-${proseHash}.json`), proseFile);
 
       byLocale[locale].push({
         slug,
-        title: exercise.locales[locale].title,
-        description: exercise.locales[locale].description,
-        contentHashes
+        title: localeData.title,
+        description: localeData.description,
+        proseHash
       });
     }
   }
 
   // Sort each locale's exercises by slug for deterministic output
-  for (const exercises of Object.values(byLocale)) {
-    exercises.sort((a, b) => a.slug.localeCompare(b.slug));
+  for (const entries of Object.values(byLocale)) {
+    entries.sort((a, b) => a.slug.localeCompare(b.slug));
   }
 
-  // Write metadata indexes and collect index hashes
+  // Write the prose indexes and collect their hashes
   const indexHashes = {};
 
   for (const [locale, entries] of Object.entries(byLocale)) {
@@ -358,25 +377,70 @@ function buildStaticFiles(exercises) {
     const indexHash = computeHash(indexContent);
     indexHashes[locale] = indexHash;
 
-    const indexPath = path.join(STATIC_DIR, locale, `index-${indexHash}.json`);
-    writeFile(indexPath, indexContent);
+    writeFile(path.join(STATIC_DIR, locale, `index-${indexHash}.json`), indexContent);
+
+    // A LOCAL pointer for every non-default locale, so `pnpm dev` can serve
+    // translated exercises with no i18n checkout: the client resolves a
+    // non-English index hash from a pointer and never from the compiled
+    // manifest, so without one there is nothing for it to read.
+    //
+    // These are never uploaded. `static:upload` excludes them, because on R2 the
+    // i18n repo is the single writer of every non-English pointer and two
+    // writers of one mutable object is exactly the race the pointer design
+    // exists to avoid. Locally there is only ever one writer too: whichever of
+    // the two most recently wrote this tree.
+    if (locale !== DEFAULT_LOCALE) {
+      writeFile(path.join(STATIC_DIR, locale, "current.json"), `${JSON.stringify({ hash: indexHash })}\n`);
+    }
   }
 
-  return { indexHashes, messageHashes };
+  // Write the code indexes and collect their hashes. Keys are emitted in sorted
+  // order because a JSON object's key order is part of its bytes, and its bytes
+  // are its filename.
+  const codeIndexHashes = {};
+
+  for (const [language, slugHashes] of Object.entries(codeBy)) {
+    const ordered = {};
+    for (const slug of Object.keys(slugHashes).sort()) {
+      ordered[slug] = slugHashes[slug];
+    }
+    const indexContent = JSON.stringify(ordered);
+    const indexHash = computeHash(indexContent);
+    codeIndexHashes[language] = indexHash;
+
+    writeFile(path.join(STATIC_DIR, "code", language, `index-${indexHash}.json`), indexContent);
+  }
+
+  return { indexHashes, codeIndexHashes, messageHashes };
 }
 
 /**
- * Write the metadata-index hash manifest (locale -> index hash).
+ * Write the index hash manifests.
+ *
+ * `exerciseIndexHashes` (locale -> prose index hash) is read for the DEFAULT
+ * locale only: every other locale resolves its hash at runtime from the pointer
+ * the i18n repo rewrites on publish. The non-default entries are still written,
+ * because they are what a local build without R2 runs on and what makes the
+ * English and translated paths comparable in dev.
+ *
+ * `exerciseCodeIndexHashes` (language -> code index hash) has no pointer and
+ * never will. Code is front-end owned and ships with the deploy, so its hash is
+ * compiled in and is correct by construction.
  */
-function writeHashManifest(indexHashes) {
-  const entries = Object.entries(indexHashes)
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([locale, hash]) => `  ${JSON.stringify(locale)}: ${JSON.stringify(hash)}`)
-    .join(",\n");
+function writeHashManifest(indexHashes, codeIndexHashes) {
+  const format = (hashes) =>
+    Object.entries(hashes)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([key, hash]) => `  ${JSON.stringify(key)}: ${JSON.stringify(hash)}`)
+      .join(",\n");
 
   const content = `// Auto-generated by scripts/generate-exercise-cache.js — DO NOT EDIT
 export const exerciseIndexHashes: Record<string, string> = {
-${entries},
+${format(indexHashes)},
+};
+
+export const exerciseCodeIndexHashes: Record<string, string> = {
+${format(codeIndexHashes)},
 };
 `;
 
@@ -428,25 +492,27 @@ function generateExerciseCache() {
   const exercises = processExercises();
 
   // Build static files
-  const { indexHashes, messageHashes } = buildStaticFiles(exercises);
+  const { indexHashes, codeIndexHashes, messageHashes } = buildStaticFiles(exercises);
 
   // Write hash manifests
-  writeHashManifest(indexHashes);
+  writeHashManifest(indexHashes, codeIndexHashes);
   writeMessageHashManifest(messageHashes);
 
   // Count totals
   const exerciseCount = Object.keys(exercises).length;
-  let contentFileCount = 0;
+  let proseFileCount = 0;
+  let codeFileCount = 0;
   for (const exercise of Object.values(exercises)) {
-    const localeCount = Object.keys(exercise.locales).length;
-    const langCount = Object.keys(exercise.stubs).length;
-    contentFileCount += localeCount * langCount;
+    proseFileCount += Object.keys(exercise.locales).length;
+    codeFileCount += new Set([...Object.keys(exercise.stubs), ...Object.keys(exercise.solutions)]).size;
   }
 
   console.log("Exercise cache generated successfully:\n");
   console.log(`   Exercises: ${exerciseCount}`);
   console.log(`   Locales: ${Object.keys(indexHashes).join(", ")}`);
-  console.log(`   Content files: ${contentFileCount}`);
+  console.log(`   Languages: ${Object.keys(codeIndexHashes).join(", ")}`);
+  console.log(`   Prose files: ${proseFileCount}`);
+  console.log(`   Code files: ${codeFileCount}`);
   console.log(`   Output: ${STATIC_DIR}\n`);
 }
 

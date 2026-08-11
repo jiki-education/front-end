@@ -14,7 +14,7 @@ jest.mock("@/components/i18n/LocaleBanner", () => ({
 
 describe("Home Page (Landing Page)", () => {
   it("renders the marketing landing page", async () => {
-    render(await RootPage());
+    render(await RootPage({ params: Promise.resolve({ locale: "en" }) }));
 
     // Anchored on the page's own top-level heading and one late section, so this stays a
     // check that the marketing page rendered end to end rather than a copy assertion.
@@ -23,7 +23,7 @@ describe("Home Page (Landing Page)", () => {
   });
 
   it("has Log In and Sign Up links in the header", async () => {
-    render(await RootPage());
+    render(await RootPage({ params: Promise.resolve({ locale: "en" }) }));
 
     const loginLink = screen.getByRole("link", { name: /Log ?in/i });
     expect(loginLink).toHaveAttribute("href", "/auth/login");

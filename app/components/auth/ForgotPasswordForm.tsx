@@ -1,6 +1,6 @@
 "use client";
 
-import { ApiError } from "@/lib/api/client";
+import { ApiError, getApiErrorType } from "@/lib/api/client";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import { useTurnstile } from "@/lib/turnstile/useTurnstile";
@@ -66,11 +66,7 @@ export function ForgotPasswordForm() {
     } catch (err) {
       setVerifying(false);
       console.error("Password reset request failed:", err);
-      if (
-        err instanceof ApiError &&
-        err.status === 403 &&
-        (err.data as { error?: { type?: string } } | undefined)?.error?.type === "invalid_captcha"
-      ) {
+      if (err instanceof ApiError && err.status === 403 && getApiErrorType(err) === "invalid_captcha") {
         setCaptchaError(true);
       }
     }

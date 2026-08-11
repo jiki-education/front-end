@@ -1,7 +1,6 @@
 "use client";
 import { createMockExercise } from "@/tests/mocks/exercise";
 import { useRef } from "react";
-import { useTranslations } from "next-intl";
 import Orchestrator from "../../../lib/Orchestrator";
 import OrchestratorProvider from "../../../lib/OrchestratorProvider";
 import { CodeMirror } from "../CodeMirror";
@@ -20,7 +19,6 @@ interface TestingPageProps {
 export default function TestingPage({
   initialCode = "// Test CodeMirror extensions\nfunction hello() {\n  console.log('Hello, World!');\n}\n\nhello();"
 }: TestingPageProps) {
-  const t = useTranslations("codingExercise");
   const exercise = createMockExercise({
     slug: "testing-ui",
     stubs: { javascript: initialCode, python: initialCode, jikiscript: initialCode }
@@ -32,8 +30,8 @@ export default function TestingPage({
       context: { type: "lesson", slug: "maze-solve-basic" },
       interpreterLocaleMessages: {},
       exerciseLocaleMessages: {},
-      t: t,
-      contentHash: "",
+      proseHash: "",
+      codeHash: "",
       onGoToDashboard: () => {},
       levelTitle: "",
       isCompleted: false

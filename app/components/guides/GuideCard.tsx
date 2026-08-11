@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { localePath } from "@/lib/i18n/routes";
 import LockIcon from "@/icons/lock.svg";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
-import { getGuideTagLabel, type GuideMeta, type GuideTagSlug } from "@/lib/content/types";
+import type { GuideMeta, GuideTagSlug } from "@/lib/content/types";
 import styles from "./GuideCard.module.css";
 
 interface GuideCardProps {
@@ -18,8 +18,9 @@ interface GuideCardProps {
 
 export default function GuideCard({ guide, locale, premiumLocked = false, compact = false }: GuideCardProps) {
   const t = useTranslations("guides.guideCard");
+  const tTags = useTranslations("guides.tags");
   const firstTag = guide.tags[0] as GuideTagSlug | undefined;
-  const tagLabel = firstTag ? getGuideTagLabel(firstTag, locale) : null;
+  const tagLabel = firstTag ? tTags(firstTag) : null;
 
   const inner = (
     <>

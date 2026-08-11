@@ -11,8 +11,14 @@ const ASSETS_HOST = "https://assets.jiki.io";
  * Resolve a `/static/...` cache-tree path to the URL it should be fetched from:
  * the R2 asset host in production, the same relative path in development.
  *
- * Client-only (synchronous). Server Components can't use relative URLs — they use
+ * Client-only (synchronous). Server Components can't use relative URLs, and use
  * the async `assetsUrl` in `lib/server/origin.ts` instead.
+ *
+ * This builds a URL; it does not fetch. That distinction matters during the
+ * build, where generating a URL for an `<img src>` is fine but FETCHING a
+ * cache-tree artifact is not: the object is content-hashed and this build has
+ * not uploaded it yet, so the request cannot succeed. Server code reads
+ * artifacts from disk through `lib/server/artifacts.ts` for exactly that reason.
  */
 export function assetsUrl(path: string): string {
   return process.env.NODE_ENV === "production" ? `${ASSETS_HOST}${path}` : path;

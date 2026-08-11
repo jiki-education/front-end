@@ -7,7 +7,10 @@ export interface ChatRequest {
   history?: ChatMessage[];
   nextTaskId?: string;
   language: Language;
-  contentHash: string; // Hash for fetching exercise content from the assets cache tree
+  // Exercise content is two artifacts, so it takes two hashes to name it:
+  // prose (instructions, per locale) and code (stub/solution, per language).
+  proseHash: string;
+  codeHash: string;
   locale?: string; // Locale segment of the content path; defaults to "en" for older clients
 }
 

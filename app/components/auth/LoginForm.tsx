@@ -1,6 +1,6 @@
 "use client";
 
-import { ApiError, AuthenticationError } from "@/lib/api/client";
+import { ApiError, AuthenticationError, getApiErrorType } from "@/lib/api/client";
 import { useAuthStore } from "@/lib/auth/authStore";
 import { buildUrlWithReturnTo } from "@/lib/auth/return-to";
 import { useAuth } from "@/lib/auth/useAuth";
@@ -79,11 +79,7 @@ export function LoginForm() {
     } catch (err) {
       setVerifying(false);
       console.error("Login failed:", err);
-      if (
-        err instanceof ApiError &&
-        err.status === 403 &&
-        (err.data as { error?: { type?: string } } | undefined)?.error?.type === "invalid_captcha"
-      ) {
+      if (err instanceof ApiError && err.status === 403 && getApiErrorType(err) === "invalid_captcha") {
         setCaptchaError(true);
         return;
       }

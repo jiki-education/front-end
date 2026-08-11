@@ -14,7 +14,6 @@ function project(overrides: Partial<ProjectMeta> = {}): ProjectMeta {
     livestream: true,
     upcomingStreams: [],
     episodeCount: 2,
-    episodesIndexHash: "hash",
     locale: "en",
     ...overrides
   };

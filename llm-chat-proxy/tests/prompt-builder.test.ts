@@ -1,24 +1,36 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { buildPrompt, INPUT_LIMITS } from "../src/prompt-builder";
 
-// Mock exercise content returned by fetch
-const mockContent = {
-  instructions: "Solve the maze by moving Jiki to the exit.",
+// Mock exercise content. Prose and code are separate artifacts served at
+// separate URLs, so the mocks are separate too: the prose file carries the
+// instructions, the code file the stub and solution.
+const mockProse = {
+  instructions: "Solve the maze by moving Jiki to the exit."
+};
+
+const mockCode = {
   stub: "// Write your code here",
   solution: "move_right()\nmove_down()\nmove_right()"
 };
 
-const CONTENT_URL = "https://assets.jiki.io/static/exercises/maze-solve-basic/en/jikiscript/content-abc123def456.json";
+const PROSE_URL = "https://assets.jiki.io/static/exercises/maze-solve-basic/en/prose-abc123def456.json";
+const CODE_URL = "https://assets.jiki.io/static/exercises/maze-solve-basic/code/jikiscript/code-def456abc123.json";
 
-// Mock global fetch for content URL requests
-beforeEach(() => {
+// Mock global fetch, routing each content URL to the artifact it serves.
+function stubContentFetch(instructions: string = mockProse.instructions) {
   vi.stubGlobal(
     "fetch",
-    vi.fn().mockResolvedValue({
-      ok: true,
-      json: () => Promise.resolve(mockContent)
-    })
+    vi.fn().mockImplementation((url: string) =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(url === PROSE_URL ? { instructions } : mockCode)
+      })
+    )
   );
+}
+
+beforeEach(() => {
+  stubContentFetch();
 });
 
 function defaultOpts(overrides: Record<string, unknown> = {}) {
@@ -28,7 +40,8 @@ function defaultOpts(overrides: Record<string, unknown> = {}) {
     question: "test",
     history: [],
     language: "jikiscript" as const,
-    contentUrl: CONTENT_URL,
+    proseUrl: PROSE_URL,
+    codeUrl: CODE_URL,
     ...overrides
   };
 }
@@ -238,18 +251,12 @@ describe("Prompt Builder", () => {
     const prompt = await buildText(defaultOpts());
 
     expect(prompt).toContain("## Student's Instructions");
-    expect(prompt).toContain(mockContent.instructions);
+    expect(prompt).toContain(mockProse.instructions);
   });
 
   it("should blockquote the exercise instructions content", async () => {
     const multiline = "## Your Tasks\n\nDo the thing.";
-    vi.stubGlobal(
-      "fetch",
-      vi.fn().mockResolvedValue({
-        ok: true,
-        json: () => Promise.resolve({ ...mockContent, instructions: multiline })
-      })
-    );
+    stubContentFetch(multiline);
 
     const prompt = await buildText(defaultOpts());
 
@@ -260,13 +267,7 @@ describe("Prompt Builder", () => {
 
   it("should keep the frontmatter title as an H1 and drop the description", async () => {
     const withFrontmatter = `---\ntitle: "Space Invaders: Repeat"\ndescription: "Destroy a wave of aliens."\n---\n\nThe aliens are back.`;
-    vi.stubGlobal(
-      "fetch",
-      vi.fn().mockResolvedValue({
-        ok: true,
-        json: () => Promise.resolve({ ...mockContent, instructions: withFrontmatter })
-      })
-    );
+    stubContentFetch(withFrontmatter);
 
     const prompt = await buildText(defaultOpts());
 
@@ -287,14 +288,15 @@ describe("Prompt Builder", () => {
     const prompt = await buildText(defaultOpts());
 
     expect(prompt).toContain("## Initial Code");
-    expect(prompt).toContain(mockContent.stub);
+    expect(prompt).toContain(mockCode.stub);
     expect(prompt).toContain("## Target Code");
-    expect(prompt).toContain(mockContent.solution);
+    expect(prompt).toContain(mockCode.solution);
   });
 
-  it("should fetch content from the provided URL", async () => {
+  it("should fetch prose and code from the provided URLs", async () => {
     await buildPrompt(defaultOpts());
-    expect(fetch).toHaveBeenCalledWith(CONTENT_URL);
+    expect(fetch).toHaveBeenCalledWith(PROSE_URL);
+    expect(fetch).toHaveBeenCalledWith(CODE_URL);
   });
 });
 

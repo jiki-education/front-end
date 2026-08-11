@@ -1,5 +1,5 @@
 ---
-title: "Repeat Without Count"
+title: "Using `repeat` Without a Count"
 description: "Leaving the brackets of a repeat loop empty so Jiki keeps going until something else tells him to stop."
 ---
 

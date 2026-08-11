@@ -8,11 +8,11 @@ import {
   validateFrontmatter,
   validateAuthors,
   validateNoDuplicateSlugs,
-  validateRequiredLocales,
-  validateProjectRequiredLocales,
-  validateEpisodeSummaryParity,
-  validateTestimonials,
-  REQUIRED_LOCALES
+  validateEnglishSource,
+  validateProjectConfigIsStructural,
+  validateProjectCopyCatalog,
+  validateEpisodeSummary,
+  validateTestimonials
 } from "@/lib/content/validator";
 import authorsData from "../../../../content/src/authors.json";
 import type { AuthorRegistry } from "@/lib/content/types";
@@ -22,7 +22,7 @@ const IMAGES_DIR = path.join(__dirname, "..", "..", "..", "..", "content", "imag
 const authors = authorsData as AuthorRegistry;
 
 // English content is authored in source.md (the source of truth); map that
-// filename to the "en" locale. Every other file is named <locale>.md (e.g. hu.md).
+// filename to the "en" locale. Any other file is named <locale>.md.
 function localeFromMdFile(file: string): string {
   const base = path.basename(file, ".md");
   return base === "source" ? "en" : base;
@@ -67,9 +67,9 @@ describe("Content Validation", () => {
           const mdFiles = fs.readdirSync(postDir).filter((f) => f.endsWith(".md"));
           const existingLocales = mdFiles.map((f) => localeFromMdFile(f));
 
-          it("should have all required locale files", () => {
+          it("should have an English source file", () => {
             expect(() => {
-              validateRequiredLocales("blog", slug, postDir, existingLocales);
+              validateEnglishSource("blog", slug, postDir, existingLocales);
             }).not.toThrow();
           });
 
@@ -121,9 +121,9 @@ describe("Content Validation", () => {
           const mdFiles = fs.readdirSync(postDir).filter((f) => f.endsWith(".md"));
           const existingLocales = mdFiles.map((f) => localeFromMdFile(f));
 
-          it("should have all required locale files", () => {
+          it("should have an English source file", () => {
             expect(() => {
-              validateRequiredLocales("article", slug, postDir, existingLocales);
+              validateEnglishSource("article", slug, postDir, existingLocales);
             }).not.toThrow();
           });
 
@@ -175,9 +175,9 @@ describe("Content Validation", () => {
           const mdFiles = fs.readdirSync(postDir).filter((f) => f.endsWith(".md"));
           const existingLocales = mdFiles.map((f) => localeFromMdFile(f));
 
-          it("should have all required locale files", () => {
+          it("should have an English source file", () => {
             expect(() => {
-              validateRequiredLocales("guide", slug, postDir, existingLocales);
+              validateEnglishSource("guide", slug, postDir, existingLocales);
             }).not.toThrow();
           });
 
@@ -207,6 +207,18 @@ describe("Content Validation", () => {
         return fs.statSync(path.join(projectsDir, item)).isDirectory();
       });
 
+      // Learner-facing project copy is a catalog, not per-project config: English
+      // here, every other locale published by the i18n repo.
+      it("should have a valid English copy catalog", () => {
+        const listedSlugs = JSON.parse(fs.readFileSync(path.join(projectsDir, "config.json"), "utf-8"))
+          .projects as string[];
+        const catalog = JSON.parse(fs.readFileSync(path.join(projectsDir, "messages.json"), "utf-8"));
+
+        expect(() => {
+          validateProjectCopyCatalog(catalog, listedSlugs);
+        }).not.toThrow();
+      });
+
       projectSlugs.forEach((slug) => {
         describe(`Project: ${slug}`, () => {
           const projectDir = path.join(projectsDir, slug);
@@ -216,12 +228,12 @@ describe("Content Validation", () => {
             expect(fs.existsSync(configFile)).toBe(true);
           });
 
-          it("should have all required locale keys in config.json", () => {
+          it("should have a config.json holding structure only", () => {
             const configFile = path.join(projectDir, "config.json");
             const config = JSON.parse(fs.readFileSync(configFile, "utf-8"));
 
             expect(() => {
-              validateProjectRequiredLocales(slug, config);
+              validateProjectConfigIsStructural(slug, config);
             }).not.toThrow();
           });
 
@@ -237,22 +249,18 @@ describe("Content Validation", () => {
               const mdFiles = fs.readdirSync(episodeDir).filter((f) => f.endsWith(".md"));
               const existingLocales = mdFiles.map((f) => localeFromMdFile(f));
 
-              it("should have all required locale files", () => {
+              it("should have an English source file", () => {
                 expect(() => {
-                  validateRequiredLocales("episode", episodeId, episodeDir, existingLocales);
+                  validateEnglishSource("episode", episodeId, episodeDir, existingLocales);
                 }).not.toThrow();
               });
 
-              it("should have a summary block in every locale if source.md has one", () => {
-                const localeSummaries: Record<string, unknown> = {};
-                for (const mdFile of mdFiles) {
-                  const locale = localeFromMdFile(mdFile);
-                  const parsed = matter(fs.readFileSync(path.join(episodeDir, mdFile), "utf-8"));
-                  localeSummaries[locale] = (parsed.data as Record<string, unknown>).summary;
-                }
+              it("should have a well-formed summary block if source.md has one", () => {
+                const parsed = matter(fs.readFileSync(path.join(episodeDir, "source.md"), "utf-8"));
+                const summary = (parsed.data as Record<string, unknown>).summary;
 
                 expect(() => {
-                  validateEpisodeSummaryParity(episodeId, localeSummaries);
+                  validateEpisodeSummary(episodeId, summary);
                 }).not.toThrow();
               });
             });
@@ -301,30 +309,27 @@ describe("Content Validation", () => {
 
   describe("Testimonials", () => {
     const testimonialsDir = path.join(__dirname, "..", "..", "..", "..", "content", "src", "testimonials");
+    const structurePath = path.join(testimonialsDir, "structure.json");
+    const copyPath = path.join(testimonialsDir, "messages.json");
 
-    for (const locale of REQUIRED_LOCALES) {
-      describe(`${locale}.json`, () => {
-        const filePath = path.join(testimonialsDir, `${locale}.json`);
+    it("should have both halves", () => {
+      expect(fs.existsSync(structurePath)).toBe(true);
+      expect(fs.existsSync(copyPath)).toBe(true);
+    });
 
-        it("should exist", () => {
-          expect(fs.existsSync(filePath)).toBe(true);
-        });
+    it("should hold no locale but English", () => {
+      // Every other locale's testimonial copy lives in the i18n repo. A second
+      // file here is a second home for translated content.
+      const stray = fs
+        .readdirSync(testimonialsDir)
+        .filter((name) => name.endsWith(".json") && name !== "structure.json" && name !== "messages.json");
+      expect(stray).toEqual([]);
+    });
 
-        it("should be valid", () => {
-          const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-          expect(() => validateTestimonials(locale, data)).not.toThrow();
-        });
-      });
-    }
-
-    it("should have identical quote slugs across all locales", () => {
-      const slugsByLocale = REQUIRED_LOCALES.map((locale) => {
-        const data = JSON.parse(fs.readFileSync(path.join(testimonialsDir, `${locale}.json`), "utf-8"));
-        return (data.quotes as Array<{ slug: string }>).map((q) => q.slug);
-      });
-      for (const slugs of slugsByLocale) {
-        expect(slugs).toEqual(slugsByLocale[0]);
-      }
+    it("should be valid", () => {
+      const structure = JSON.parse(fs.readFileSync(structurePath, "utf-8"));
+      const copy = JSON.parse(fs.readFileSync(copyPath, "utf-8"));
+      expect(() => validateTestimonials(structure, copy)).not.toThrow();
     });
   });
 });

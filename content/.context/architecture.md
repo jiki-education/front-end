@@ -18,18 +18,16 @@ content/
 │   ├── loader.ts             # Content loading and parsing
 │   ├── validator.ts          # Frontmatter validation
 │   ├── authors.json          # Author registry
-│   ├── testimonials/         # Landing-page testimonials (structured, one JSON per locale)
-│   │   ├── en.json
-│   │   └── xx.json
+│   ├── testimonials/         # Testimonials (structured editorial data)
+│   │   ├── structure.json    # Locale-invariant (never translated)
+│   │   └── messages.json     # English copy catalog
 │   └── posts/
 │       ├── blog/             # Blog posts (time-based)
 │       │   └── [slug]/
-│       │       ├── source.md # English version (required)
-│       │       └── xx.md     # Translation (optional, where xx is locale code)
+│       │       └── source.md # English source (required)
 │       └── articles/         # Articles (evergreen)
 │           └── [slug]/
-│               ├── source.md
-│               └── xx.md     # Translation (optional)
+│               └── source.md
 ├── images/
 │   ├── blog/                 # Blog post images
 │   ├── articles/             # Article images
@@ -48,17 +46,15 @@ content/
 
 ### Slug-First Structure
 
-Content is organized by slug (post identifier), not by language. Each post lives in its own directory with locale-specific markdown files:
+Content is organized by slug (post identifier). Each post lives in its own directory:
 
 ```
 posts/blog/jiki-is-born/
-├── source.md # Required (authored English source)
-└── xx.md     # Optional (where xx is locale code like hu, de, ja, etc.)
+└── source.md # Required (authored English source)
 ```
 
-This makes it easy to:
+Translations live in the `i18n` repo under the same slugs. This makes it easy to:
 
-- See all translations for a post
 - Add new languages without restructuring
 - Ensure slug consistency across locales
 

@@ -1,6 +1,9 @@
 import { runIOScenario } from "@/components/coding-exercise/lib/test-runner/runIOScenario";
 import type { IOExercise, IOScenario, CodeCheck } from "@jiki/curriculum";
 import type { Interpreter } from "@/components/coding-exercise/lib/test-runner/getInterpreter";
+import { seedEditorMessages } from "@/tests/test-utils/seedEditorMessages";
+
+seedEditorMessages();
 
 function createMockInterpreter(overrides?: Partial<Interpreter>): Interpreter {
   return {

@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { getApiErrorType } from "@/lib/api/client";
+import { useApiErrorMessage } from "@/lib/api/apiErrors";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import styles from "./EditableField.module.css";
 
@@ -28,6 +30,7 @@ export default function EditableField({
 }: EditableFieldProps) {
   const t = useTranslations("settings.editableField");
   const tCommon = useTranslations("common");
+  const apiErrorMessage = useApiErrorMessage();
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(value);
   const [isSaving, setIsSaving] = useState(false);
@@ -61,7 +64,7 @@ export default function EditableField({
       await onSave(editValue);
       setIsEditing(false);
     } catch (err) {
-      setError(err instanceof Error ? err.message : t("saveFailed"));
+      setError(getApiErrorType(err) ? apiErrorMessage(err) : t("saveFailed"));
     } finally {
       setIsSaving(false);
     }

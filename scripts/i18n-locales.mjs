@@ -1,8 +1,26 @@
-// Shared locale resolver for the i18n key-audit scripts across the monorepo
-// (app, curriculum, interpreters). Single source of truth for "which locales
-// should an audit check": the production set defined by SUPPORTED_LOCALES in
-// app/lib/locales.ts, evaluated as production, with a --locales CLI override
-// for local dev.
+// Locale resolver for the i18n key audits that still have a locale dimension.
+// Single source of truth for "which locales should an audit check":
+// PRODUCTION_LOCALES in app/lib/locales.ts, with a --locales CLI override for
+// local dev.
+//
+// Only the interpreters audit uses it. The app and curriculum audits each guard
+// a single authored catalog — English is the only locale either package holds,
+// and every translation of those catalogs is guarded in the i18n repo against
+// them — so they have no locale set to resolve. The interpreter tree really does
+// hold two catalogs per language, `en` and the machine-readable `system`.
+//
+// ## Why PRODUCTION_LOCALES and not SUPPORTED_LOCALES
+//
+// This used to infer the set from the production branch of the SUPPORTED_LOCALES
+// ternary. That worked only because the expression happened to have a shape a
+// regex could read, and it broke the moment the expression changed: a
+// three-tier version whose first branch is ALL_LOCALES parsed as "audit
+// everything", which demanded Hungarian catalogs from packages that have none.
+//
+// PRODUCTION_LOCALES exists precisely to name the set that must be complete, and
+// it is a plain literal array. Reading a constant that is declared for this
+// purpose is a contract; inferring one from the shape of a conditional was an
+// accident that held for a while.
 //
 // Usage from a package audit script:
 //   import { resolveAuditLocales } from "../../scripts/i18n-locales.mjs";
@@ -15,7 +33,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const LOCALES_TS = join(HERE, "..", "app", "lib", "locales.ts");
+const PRODUCTION_LOCALES_JSON = join(HERE, "..", "app", "lib", "production-locales.json");
 
 // Parse the `--locales=a,b` / `--locales a,b` flag out of an argv slice.
 function parseLocalesFlag(argv) {
@@ -38,45 +56,55 @@ function splitList(value) {
     .filter(Boolean);
 }
 
-// Extract the array of string literals that follows a `const NAME = [ ... ]`
-// (or the production branch of the SUPPORTED_LOCALES ternary) in locales.ts.
-function extractArrayLiterals(segment) {
-  const match = segment.match(/\[([^\]]*)\]/);
-  if (!match) return null;
-  const items = [...match[1].matchAll(/["'`]([^"'`]+)["'`]/g)].map((m) => m[1]);
-  return items.length ? items : null;
+/** Every failure here is fatal. See resolveProductionLocales. */
+function fail(reason) {
+  throw new Error(
+    `Cannot determine the production locale set: ${reason}.\n` +
+      `Expected a literal \`export const PRODUCTION_LOCALES: readonly Locale[] = ["en", ...]\` in\n` +
+      `  ${LOCALES_TS}\n` +
+      `Pass --locales=en,hu to override for a local run.`
+  );
 }
 
-// Resolve the production locale set from app/lib/locales.ts. We read
-// ALL_LOCALES and the production branch of the SUPPORTED_LOCALES ternary
-// (`process.env.NODE_ENV === "production" ? [...] : ALL_LOCALES`). If that
-// branch is a literal array we use it; if it references ALL_LOCALES we use
-// the full set.
+/**
+ * The production locale set, read from PRODUCTION_LOCALES in app/lib/locales.ts.
+ *
+ * THROWS rather than guessing. The previous version fell back to English-only,
+ * or to ALL_LOCALES, whenever the parse failed, and the direction of a wrong
+ * guess is what makes that unacceptable. Guessing too WIDE is survivable and
+ * loud: the audit demands catalogs a package does not have and someone
+ * investigates. Guessing too NARROW is silent: the audit passes while never
+ * looking at a locale that is actually shipping, which is precisely the gap it
+ * exists to find.
+ *
+ * A resolver that cannot read its own source of truth knows nothing, and the
+ * only safe thing to report is that it knows nothing.
+ */
 export function resolveProductionLocales() {
-  let src;
+  // The same file app/lib/locales.ts imports. This used to parse the array out of
+  // locales.ts, which meant a source edit could quietly change what a blocking
+  // check gates on: an unanchored match could run from a mention of the name in a
+  // comment to whatever the next array happened to be, which is a wrong answer
+  // wearing the shape of a right one. There is nothing to parse now.
+  let raw;
   try {
-    src = readFileSync(LOCALES_TS, "utf8");
-  } catch {
-    // If we cannot find the source of truth, fail safe to English-only.
-    return ["en"];
+    raw = readFileSync(PRODUCTION_LOCALES_JSON, "utf8");
+  } catch (error) {
+    fail(`cannot read ${PRODUCTION_LOCALES_JSON} (${error.code ?? error.message})`);
   }
 
-  const allLine = src.match(/ALL_LOCALES\s*=\s*(\[[^\]]*\])/);
-  const allLocales = allLine ? extractArrayLiterals(allLine[1]) : null;
-
-  const supported = src.match(/SUPPORTED_LOCALES[^=]*=\s*([^;]+);/);
-  if (supported) {
-    const expr = supported[1];
-    const ternary = expr.match(/\?([^:]+):(.+)/);
-    const prodBranch = ternary ? ternary[1] : expr;
-    if (/ALL_LOCALES/.test(prodBranch)) {
-      return allLocales ?? ["en"];
-    }
-    const literals = extractArrayLiterals(prodBranch);
-    if (literals) return literals;
+  let locales;
+  try {
+    locales = JSON.parse(raw);
+  } catch (error) {
+    fail(`${PRODUCTION_LOCALES_JSON} is not valid JSON (${error.message})`);
   }
 
-  return allLocales ?? ["en"];
+  if (!Array.isArray(locales) || locales.length === 0 || !locales.every((l) => typeof l === "string" && l)) {
+    fail(`${PRODUCTION_LOCALES_JSON} must be a non-empty array of locale strings`);
+  }
+
+  return locales;
 }
 
 // Public entry point: honour a --locales flag (dev), otherwise the production set.

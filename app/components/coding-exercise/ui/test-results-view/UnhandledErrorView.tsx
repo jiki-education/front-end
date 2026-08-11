@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { CopyToClipboardButton } from "@/components/ui-kit/CopyToClipboardButton";
-import { FORUM_URL } from "@/lib/constants/social";
+import { useForumUrl } from "@/lib/i18n/externalLinks";
 import { useOrchestratorStore } from "../../lib/Orchestrator";
 import { useOrchestrator } from "../../lib/OrchestratorContext";
 import RunButton from "../RunButton";
@@ -11,6 +11,7 @@ export function UnhandledErrorView() {
   const t = useTranslations("codingExercise.unhandledError");
   const orchestrator = useOrchestrator();
   const { unhandledErrorBase64 } = useOrchestratorStore(orchestrator);
+  const forumUrl = useForumUrl();
 
   return (
     <div className={styles.container}>
@@ -33,7 +34,7 @@ export function UnhandledErrorView() {
           {t.rich("message", {
             strong: (chunks) => <strong className={unhandledStyles.bodyStrong}>{chunks}</strong>,
             link: (chunks) => (
-              <a href={FORUM_URL} target="_blank" rel="noopener noreferrer">
+              <a href={forumUrl} target="_blank" rel="noopener noreferrer">
                 {chunks}
               </a>
             )

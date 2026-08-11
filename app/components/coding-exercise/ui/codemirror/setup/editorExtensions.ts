@@ -23,7 +23,6 @@ import { readonlyCompartment, languageCompartment } from "./editorCompartments";
 
 import type { Extension } from "@codemirror/state";
 import type { Language } from "@jiki/curriculum";
-import type { CodingExerciseTranslator } from "../../../lib/test-results-types";
 
 // Get language extension based on language string
 export function getLanguageExtension(language: Language): Extension {
@@ -47,9 +46,6 @@ export interface EditorExtensionsConfig {
   onFoldChange: Extension;
   onEditorChange: Extension;
   onCloseInfoWidget: () => void;
-  // Translator for the `codingExercise` namespace. CodeMirror extensions are built
-  // outside the React tree, so it is injected here rather than read from a hook.
-  t: CodingExerciseTranslator;
   isDarkTheme?: boolean;
 }
 
@@ -61,7 +57,6 @@ export function createEditorExtensions({
   onFoldChange,
   onEditorChange,
   onCloseInfoWidget,
-  t,
   isDarkTheme = false
 }: EditorExtensionsConfig) {
   return [
@@ -82,7 +77,7 @@ export function createEditorExtensions({
     crosshairCursor(),
 
     // Custom extensions
-    Ext.breakpointGutter(t),
+    Ext.breakpointGutter,
     Ext.foldGutter,
     Ext.underlineExtension(),
     Ext.readOnlyRangeDecoration(),
@@ -94,8 +89,7 @@ export function createEditorExtensions({
     Ext.showInfoWidgetField,
     Ext.informationWidgetDataField,
     Ext.lineInformationExtension({
-      onClose: onCloseInfoWidget,
-      t
+      onClose: onCloseInfoWidget
     }),
     Ext.multiHighlightLine([]),
     Ext.cursorTooltip(),

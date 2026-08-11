@@ -1,16 +1,14 @@
-import contentMeta from "@/lib/generated/content-meta-server.json";
+import { getContentMeta } from "./contentMeta";
 import type { ProjectMeta } from "./types";
 
 /**
  * Get all project metadata for a locale, sorted by `order`.
- * No English fallback: a locale with no projects returns an empty list (never
- * silently shows English).
+ *
+ * A project the locale has no copy for is not in this list. See
+ * `assembleProjects` in contentMeta.ts: there is no English fallback, because a
+ * locale is complete before it is served.
  */
-export function getAllProjects(locale: string): ProjectMeta[] {
-  const meta = contentMeta as {
-    projects?: { [locale: string]: ProjectMeta[] | undefined };
-  };
-  const byLocale = meta.projects ?? {};
-  const projects = byLocale[locale] ?? [];
+export async function getAllProjects(locale: string): Promise<ProjectMeta[]> {
+  const projects = (await getContentMeta(locale)).projects;
   return [...projects].sort((a, b) => a.order - b.order);
 }

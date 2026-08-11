@@ -3,21 +3,22 @@
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { type ArticleTagSlug, getArticleTagLabel } from "@/lib/content/types";
-import { FORUM_URL } from "@/lib/constants/social";
+import type { ArticleTagSlug } from "@/lib/content/types";
+import { useForumUrl } from "@/lib/i18n/externalLinks";
 import { useLocaleRoutes } from "@/lib/i18n/useLocaleRoutes";
 import styles from "./FilterSidebar.module.css";
 
 interface FilterSidebarProps {
   tagSlugs: readonly ArticleTagSlug[];
   selectedTag: ArticleTagSlug | null;
-  locale: string;
 }
 
-export default function FilterSidebar({ tagSlugs, selectedTag, locale }: FilterSidebarProps) {
+export default function FilterSidebar({ tagSlugs, selectedTag }: FilterSidebarProps) {
   const t = useTranslations("articles.filterSidebar");
+  const tTags = useTranslations("articles.tags");
   const pathname = usePathname();
   const routes = useLocaleRoutes();
+  const forumUrl = useForumUrl();
 
   const buildTagUrl = (tag: ArticleTagSlug | null) => {
     if (tag === null) {
@@ -39,7 +40,7 @@ export default function FilterSidebar({ tagSlugs, selectedTag, locale }: FilterS
             href={buildTagUrl(slug)}
             className={`${styles.filterTag} ${selectedTag === slug ? styles.active : ""}`}
           >
-            {getArticleTagLabel(slug, locale)}
+            {tTags(slug)}
           </Link>
         ))}
       </div>
@@ -50,7 +51,7 @@ export default function FilterSidebar({ tagSlugs, selectedTag, locale }: FilterS
             faqs: (chunks) => <Link href={routes.article("faqs")}>{chunks}</Link>,
             support: (chunks) => <Link href={routes.article("support")}>{chunks}</Link>,
             community: (chunks) => (
-              <a href={FORUM_URL} target="_blank" rel="noopener noreferrer">
+              <a href={forumUrl} target="_blank" rel="noopener noreferrer">
                 {chunks}
               </a>
             )

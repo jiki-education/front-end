@@ -160,9 +160,15 @@
   "phrases": {
     "slotCount_zero": "no input slots",
     "slotCount_one": "one input slot",
+    "slotCount_two": "∅",
+    "slotCount_few": "∅",
+    "slotCount_many": "∅",
     "slotCount_other": "{{count}} input slots",
     "inputCount_zero": "no inputs",
     "inputCount_one": "an input",
+    "inputCount_two": "∅",
+    "inputCount_few": "∅",
+    "inputCount_many": "∅",
     "inputCount_other": "{{count}} inputs"
   },
   "description": {
@@ -201,14 +207,22 @@
     },
     "forInStatement": {
       "result_empty": "The object was empty so this line did nothing.",
-      "result_iteration": "This line started the {{ordinal}} iteration with the {{name}} variable set to {{value}}.",
+      "result_iteration_ordinal_one": "This line started the {{count}}st iteration with the {{name}} variable set to {{value}}.",
+      "result_iteration_ordinal_two": "This line started the {{count}}nd iteration with the {{name}} variable set to {{value}}.",
+      "result_iteration_ordinal_few": "This line started the {{count}}rd iteration with the {{name}} variable set to {{value}}.",
+      "result_iteration_ordinal_many": "∅",
+      "result_iteration_ordinal_other": "This line started the {{count}}th iteration with the {{name}} variable set to {{value}}.",
       "step_create": "Jiki created a new box called {{name}}.",
       "step_empty": "Jiki checked the object, saw it was empty, and decided not to do anything further on this line.",
       "step_put": "Jiki put {{value}} in the box, and put it on the shelf, ready to use in the code block."
     },
     "forOfStatement": {
       "result_empty": "The {{type}} was empty so this line did nothing.",
-      "result_iteration": "This line started the {{ordinal}} iteration with the {{name}} variable set to {{value}}.",
+      "result_iteration_ordinal_one": "This line started the {{count}}st iteration with the {{name}} variable set to {{value}}.",
+      "result_iteration_ordinal_two": "This line started the {{count}}nd iteration with the {{name}} variable set to {{value}}.",
+      "result_iteration_ordinal_few": "This line started the {{count}}rd iteration with the {{name}} variable set to {{value}}.",
+      "result_iteration_ordinal_many": "∅",
+      "result_iteration_ordinal_other": "This line started the {{count}}th iteration with the {{name}} variable set to {{value}}.",
       "step_create": "Jiki created a new box called {{name}}.",
       "step_empty": "Jiki checked the {{type}}, saw it was empty, and decided not to do anything further on this line.",
       "step_put": "Jiki put {{value}} in the box, and put it on the shelf, ready to use in the code block."
@@ -233,9 +247,21 @@
       "string": "Jiki got the character at index {{index}} in the string and determined it was {{value}}."
     },
     "repeatStatement": {
-      "foreverResult": "This line started the {{ordinal}} iteration of this repeat block.",
-      "foreverStep": "Jiki started the {{ordinal}} iteration of the repeat loop.",
-      "repeatResult": "This line started the {{ordinal}} iteration of this repeat block.",
+      "foreverResult_ordinal_one": "This line started the {{count}}st iteration of this repeat block.",
+      "foreverResult_ordinal_two": "This line started the {{count}}nd iteration of this repeat block.",
+      "foreverResult_ordinal_few": "This line started the {{count}}rd iteration of this repeat block.",
+      "foreverResult_ordinal_many": "∅",
+      "foreverResult_ordinal_other": "This line started the {{count}}th iteration of this repeat block.",
+      "foreverStep_ordinal_one": "Jiki started the {{count}}st iteration of the repeat loop.",
+      "foreverStep_ordinal_two": "Jiki started the {{count}}nd iteration of the repeat loop.",
+      "foreverStep_ordinal_few": "Jiki started the {{count}}rd iteration of the repeat loop.",
+      "foreverStep_ordinal_many": "∅",
+      "foreverStep_ordinal_other": "Jiki started the {{count}}th iteration of the repeat loop.",
+      "repeatResult_ordinal_one": "This line started the {{count}}st iteration of this repeat block.",
+      "repeatResult_ordinal_two": "This line started the {{count}}nd iteration of this repeat block.",
+      "repeatResult_ordinal_few": "This line started the {{count}}rd iteration of this repeat block.",
+      "repeatResult_ordinal_many": "∅",
+      "repeatResult_ordinal_other": "This line started the {{count}}th iteration of this repeat block.",
       "repeatStep": "Jiki increased his internal counter for this loop to <code>{{iteration}}</code>, checked <code>{{iteration}} &le; {{countValue}}</code>, and decided to run the code block.",
       "zeroResult": "The repeat block was asked to run <code>0</code> times so this line did nothing.",
       "zeroStep": "Jiki saw that the loop should be run <code>0</code> times and so decided not to do anything further on this line."

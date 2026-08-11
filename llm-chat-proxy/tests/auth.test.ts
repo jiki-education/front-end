@@ -200,7 +200,8 @@ describe("Chat Endpoint Authentication", () => {
           code: "test",
           question: "test",
           language: "jikiscript",
-          contentHash: "test-hash"
+          proseHash: "abc123",
+          codeHash: "def456"
         })
       },
       mockEnv
@@ -228,7 +229,8 @@ describe("Chat Endpoint Authentication", () => {
           code: "test",
           question: "test",
           language: "jikiscript",
-          contentHash: "test-hash"
+          proseHash: "abc123",
+          codeHash: "def456"
         })
       },
       mockEnv
@@ -256,7 +258,8 @@ describe("Chat Endpoint Authentication", () => {
           code: "test",
           question: "test",
           language: "jikiscript",
-          contentHash: "test-hash"
+          proseHash: "abc123",
+          codeHash: "def456"
         })
       },
       mockEnv
@@ -281,7 +284,8 @@ describe("Chat Endpoint Authentication", () => {
           code: "test",
           question: "test",
           language: "jikiscript",
-          contentHash: "test-hash"
+          proseHash: "abc123",
+          codeHash: "def456"
         })
       },
       mockEnv
@@ -309,7 +313,8 @@ describe("Chat Endpoint Authentication", () => {
           code: "test",
           question: "test",
           language: "jikiscript",
-          contentHash: "test-hash"
+          proseHash: "abc123",
+          codeHash: "def456"
         })
       },
       mockEnv

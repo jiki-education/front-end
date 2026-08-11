@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { conceptIndexHashes } from "@/lib/generated/concept-hashes";
+import { conceptCopyHashes, conceptStructureHash } from "@/lib/generated/concept-hashes";
 import {
   selectTopLevelConcepts,
   selectConcept,
@@ -9,7 +9,10 @@ import {
 } from "@/lib/concepts/select";
 import { getExerciseMetaBySlugsServer } from "@/lib/api/exercise-meta-server";
 import { assetsUrl } from "@/lib/server/origin";
-import { conceptIndexPath, conceptContentPath } from "@/lib/assets-paths";
+import { readArtifact, readArtifactJson } from "@/lib/server/artifacts";
+import { conceptStructurePath, conceptCopyPath, conceptIndexPointerPath, conceptContentPath } from "@/lib/assets-paths";
+import { assembleConcepts, type ConceptCopyCatalog, type ConceptStructure } from "./assemble";
+import { createHashResolver } from "@/lib/i18n/catalogPointer";
 import { fetchStaticContent } from "@/lib/content/fetchStaticContent";
 import { getApiUrl } from "@/lib/api/config";
 import type { ConceptMeta, ConceptAncestor, ExerciseInfo } from "@/types/concepts";
@@ -26,21 +29,45 @@ import type { VideoSource } from "@/types/lesson";
  * Wrapped in React's cache() so the several helpers a single page calls share one
  * fetch+parse per request.
  */
+// Non-English hashes resolve at runtime from the pointer, exactly as on the
+// client, so a locale the i18n repo published after this build still renders.
+const resolveHash = createHashResolver({
+  label: "concept copy catalog",
+  compiledHashes: () => conceptCopyHashes,
+  pointerPath: (locale) => conceptIndexPointerPath(locale),
+  resolveUrl: assetsUrl,
+  readPointer: readArtifactJson
+});
+
 const fetchConceptIndex = cache(async (locale: string): Promise<ConceptMeta[]> => {
   // No English fallback: a locale with no concept index resolves to an empty
   // list rather than silently serving English concepts.
-  const hash = conceptIndexHashes[locale];
-  if (!hash) {
+  let hash: string;
+  try {
+    hash = await resolveHash(locale);
+  } catch {
     return [];
   }
 
-  const url = await assetsUrl(conceptIndexPath(locale, hash));
-  const res = await fetch(url);
-  if (!res.ok) {
-    throw new Error(`Failed to fetch concepts index: ${url} (${res.status})`);
+  // Structure and copy in parallel: two artifacts, one round trip of depth.
+  const structurePath = conceptStructurePath(conceptStructureHash);
+  const [structureRes, copyRes] = await Promise.all([
+    readArtifact(structurePath),
+    readArtifact(conceptCopyPath(locale, hash))
+  ]);
+  if (!structureRes.ok) {
+    throw new Error(`Failed to read concept structure: ${structurePath} (${structureRes.status})`);
   }
-  return res.json() as Promise<ConceptMeta[]>;
+  if (!copyRes.ok) {
+    return [];
+  }
+  return assembleConcepts(await structureRes.json<ConceptStructure[]>(), await copyRes.json<ConceptCopyCatalog>());
 });
+
+/** Every concept in a locale's index. The sitemap enumerates slugs from this. */
+export async function getAllConceptsServer(locale: string): Promise<ConceptMeta[]> {
+  return fetchConceptIndex(locale);
+}
 
 /** Top-level concepts for server-rendering the concepts list (logged-out SSR). */
 export async function getTopLevelConceptsServer(locale: string): Promise<ConceptMeta[]> {

@@ -79,29 +79,27 @@ content/
 │   └── validation.md        # Validation rules
 ├── src/
 │   ├── authors.json          # Author registry
-│   ├── testimonials/         # Landing-page testimonials (structured, per-locale)
-│   │   ├── en.json           # English (required)
-│   │   └── hu.json           # Hungarian (English verbatim until translated)
+│   ├── testimonials/         # Testimonials (structured editorial data)
+│   │   ├── structure.json    # Locale-invariant: people, quote ownership, orderings
+│   │   └── messages.json     # English copy: heading, subheading, roles, quotes, marquee
 │   └── posts/
 │       ├── blog/             # Blog posts
 │       │   └── [slug]/
 │       │       ├── config.json  # Structural metadata (required)
-│       │       ├── source.md     # English source (required)
-│       │       └── hu.md        # Hungarian (optional)
+│       │       └── source.md     # English source (required)
 │       ├── articles/         # Evergreen articles
 │       │   └── [slug]/
 │       │       ├── config.json  # Structural metadata (required)
-│       │       ├── source.md
-│       │       └── hu.md
+│       │       └── source.md
 │       ├── guides/           # Guides (see Guides section)
 │       │   └── [slug]/
 │       │       ├── config.json
-│       │       ├── source.md
-│       │       └── hu.md
+│       │       └── source.md
 │       └── projects/         # Build with Jeremy projects + episodes
 │           ├── config.json   # { "projects": [ordered slugs] }
+│           ├── messages.json # English copy: { slug: { title, description, tags } }
 │           └── [project-slug]/
-│               ├── config.json  # Project details + episodes: [uuid, ...] (ordered)
+│               ├── config.json  # Project structure + episodes: [uuid, ...] (ordered)
 │               └── [episode-uuid]/
 │                   ├── config.json  # Episode metadata (video, premium, guides)
 │                   └── source.md    # Frontmatter + transcript body (English source)
@@ -122,14 +120,16 @@ For detailed documentation on each concept, see the `.context/` directory files 
 
 ### Content Organization
 
-Content is organized **slug-first**, not language-first:
+Content is organized **slug-first**:
 
 ```
 posts/blog/jiki-is-born/
 ├── config.json  # Structural metadata
-├── source.md    # English content (required, the authored source)
-└── hu.md        # Hungarian content (optional)
+└── source.md    # English content (required, the authored source)
 ```
+
+This package holds English only. Translations live in the `i18n` repo, keyed by the
+same slugs, and the app pulls them from there.
 
 This structure:
 
@@ -209,8 +209,9 @@ For guides that explain how to install a piece of software, follow this conventi
 
 ### Projects
 
-**Projects** ("Build with Jeremy") live in `src/posts/projects/` and have a two-level structure: a top-level `config.json` lists project slugs in display order, each project directory has a `config.json` (localized `title`/`description`/`audience`/`cadence` maps, `image`, `livestream`, `upcoming_streams`, and an ordered `episodes` array of UUIDs), and each episode lives in a UUID-named directory.
+**Projects** ("Build with Jeremy") live in `src/posts/projects/` and have a two-level structure: a top-level `config.json` lists project slugs in display order, a top-level `messages.json` holds every project's English copy, each project directory has a `config.json` (`image`, `livestream`, `upcoming_streams`, and an ordered `episodes` array of UUIDs), and each episode lives in a UUID-named directory.
 
+- **Learner-facing project copy lives in `projects/messages.json`, never in a project's `config.json`.** It is a catalog keyed by project slug, each entry holding `title`, `description` and `tags`. English is authored here; every translation is published by the `i18n` repo. A `title`/`description`/`tags` key left in a project's `config.json` is a build error, because it would read as the place to translate and nothing would consume it.
 - A project with an **empty `episodes` array is "coming soon"**: it renders as a non-clickable teaser and has no detail page. There is no explicit status field.
 - Episode **config.json** holds structural metadata: `slug` (used in the URL), `date`, `author`, `videoProvider` (`youtube` or `mux`), `videoKey`, `durationSeconds`, `premium`, `image`, and `guides` (an array of guide slugs shown as a sidebar on the episode page).
 - Episode **markdown** frontmatter has `title`, `excerpt`, `seo`, and an optional `summary` block (`from`, `to`, `keyConcepts` — freeform prose describing the episode's journey). The markdown body is the episode's **transcript**, rendered below the video.
@@ -219,15 +220,34 @@ URLs: the hub is `/build`; projects are `/projects/{slug}`; episodes are `/proje
 
 ### Testimonials
 
-**Testimonials** are the landing-page student quotes and hero marquee blurbs. Unlike posts, they are
-**structured editorial data**, not markdown, so they live in `src/testimonials/` as one JSON file per
-locale (`en.json`, `hu.json`) rather than in a slug directory. Each file holds a `heading`, a
-`subheading` (with one `<link>…</link>` span), a `primary` featured quote, a `quotes` array
-(`{ slug, name, role, image, html }`), and a `marquee` array of short blurbs. Quote `html` is trusted
-markup (only `<strong>`); `image` is a filename only (avatar assets live with the app's landing-page
-component). The app bakes these into its server metadata at build time and serves them synchronously
-for SSR. Validation (shape, required fields, `<link>` span, unique quote slugs) runs in the app's
-`tests/unit/content/`.
+**Testimonials** are the student quotes shown on the landing page, the hero marquee blurbs, and the
+full `/testimonials` page. Unlike posts they are **structured editorial data**, not markdown, so they
+live in `src/testimonials/` rather than in a slug directory, and they are split into two files along
+the line that decides who publishes what:
+
+- **`structure.json`** is locale-invariant. It is never translated and never mirrored into the `i18n`
+  repo, because none of it is words a reader sees in their own language: `people` (each person's
+  display name and avatar filename), `quotes` (which person each quote key belongs to), `landing`
+  (the `primary` quote key plus the ordered grid keys) and `page` (the ordered keys the
+  `/testimonials` page shows). Both surfaces name the entries they show, so reordering one never
+  disturbs the other.
+- **`messages.json`** is the English copy catalog: `heading`, `subheading` (carrying one
+  `<link>…</link>` span), `roles` keyed by person, `quotes` keyed by quote key, and a `marquee` array
+  of short blurbs. English is authored here and **every other locale's catalog is published by the
+  `i18n` repo**, exactly as project copy is. No `<lang>.json` is ever added here.
+
+A quote key is a person's slug, or that slug plus `-short` where the landing grid shows a trimmed
+form of the same testimonial the `/testimonials` page shows in full. That is why ownership lives in
+`structure.json`: two keys can share one person, one name and one avatar.
+
+Quote text is a restricted Markdown subset, `**bold**` plus blank-line paragraph breaks, and nothing
+else. It is rendered element by element by the app rather than injected as HTML, so a translator
+never has to reproduce markup correctly for the page to be safe. Avatar `image` values are filenames
+only: the assets stay with the app's landing-page component, which maps a filename to an optimized
+image.
+
+Validation (shape, required fields, the `<link>` span, every quote key resolving to a known person,
+every ordering naming a known quote) runs in the app's `tests/unit/content/`.
 
 ### Validation Strategy
 
@@ -277,10 +297,9 @@ pnpm run format:check      # Check formatting
 1. **Create post directory**: `src/posts/blog/[slug]/`
 2. **Create config.json**: Add structural metadata (date, author, featured, coverImage)
 3. **Add English version**: `source.md` with translatable frontmatter (title, excerpt, tags, seo)
-4. **Optionally add translations**: `hu.md`, `ja.md`, etc. with translated content
-5. **Add cover image**: Place in `images/blog/`
-6. **Generate content**: `cd ../app && pnpm run generate:content`
-7. **Run tests**: `pnpm test -- content` to validate
+4. **Add cover image**: Place in `images/blog/`
+5. **Generate content**: `cd ../app && pnpm run generate:content`
+6. **Run tests**: `pnpm test -- content` to validate
 
 ### Adding a New Article
 
@@ -288,7 +307,8 @@ Same process as blog post, but in `src/posts/articles/[slug]/`
 
 **Note**: Articles are **auto-discovered** from the directory structure. No manual registration in a config file is needed - the app's `generate:content` script automatically finds all article directories.
 
-**Required locales**: Both `source.md` (English) and `hu.md` are required for all articles and blog posts.
+**Required files**: `source.md` (English) is required for every article and blog post. No other
+locale is authored here.
 
 ### Adding a New Author
 
@@ -304,12 +324,11 @@ Same process as blog post, but in `src/posts/articles/[slug]/`
 2. **Add avatar image**: `images/avatars/author-key.jpg`
 3. **Regenerate content**: App's validation will check avatar exists
 
-### Adding a New Language
+### Translations
 
-1. **Add locale file**: `src/posts/blog/[slug]/xx.md` (where xx is locale code)
-2. **Translate frontmatter and content**: Only translatable fields (title, excerpt, tags, seo)
-3. **No need to duplicate structural metadata**: config.json is shared across all languages
-4. **Regenerate content**: App will pick up new language
+Translations are not authored in this repo. They live in the `i18n` repo, one directory per
+locale, mirroring these slugs, and `config.json` stays here because structural metadata is
+shared across every language.
 
 ## Type Architecture
 

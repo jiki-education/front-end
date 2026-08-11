@@ -10,16 +10,16 @@ import SpaceInvadersRepeatExercise from "../../src/exercises/space-invaders-repe
 import SpaceInvadersSolveBasicExercise from "../../src/exercises/space-invaders-solve-basic/Exercise";
 import ScrollAndShootExercise from "../../src/exercises/scroll-and-shoot/ScrollAndShootExercise";
 
-import mazeBaseEn from "../../src/exercise-categories/maze/locales/en/translation.json";
-import emojiEn from "../../src/exercises/emoji-collector/locales/en/translation.json";
-import dndEn from "../../src/exercises/dnd-roll/locales/en/translation.json";
-import spaceInvadersBaseEn from "../../src/exercise-categories/space-invaders/locales/en/translation.json";
-import alienDetectorEn from "../../src/exercises/alien-detector/locales/en/translation.json";
-import battleProceduresEn from "../../src/exercises/battle-procedures/locales/en/translation.json";
-import spaceInvadersConditionalEn from "../../src/exercises/space-invaders-conditional/locales/en/translation.json";
-import spaceInvadersNestedRepeatEn from "../../src/exercises/space-invaders-nested-repeat/locales/en/translation.json";
-import spaceInvadersRepeatEn from "../../src/exercises/space-invaders-repeat/locales/en/translation.json";
-import spaceInvadersSolveBasicEn from "../../src/exercises/space-invaders-solve-basic/locales/en/translation.json";
+import mazeBaseEn from "../../src/exercise-categories/maze/messages.json";
+import emojiEn from "../../src/exercises/emoji-collector/messages.json";
+import dndEn from "../../src/exercises/dnd-roll/messages.json";
+import spaceInvadersBaseEn from "../../src/exercise-categories/space-invaders/messages.json";
+import alienDetectorEn from "../../src/exercises/alien-detector/messages.json";
+import battleProceduresEn from "../../src/exercises/battle-procedures/messages.json";
+import spaceInvadersConditionalEn from "../../src/exercises/space-invaders-conditional/messages.json";
+import spaceInvadersNestedRepeatEn from "../../src/exercises/space-invaders-nested-repeat/messages.json";
+import spaceInvadersRepeatEn from "../../src/exercises/space-invaders-repeat/messages.json";
+import spaceInvadersSolveBasicEn from "../../src/exercises/space-invaders-solve-basic/messages.json";
 
 /**
  * Proves the `availableFunctions[].descriptionKey` seam is lossless: each keyed

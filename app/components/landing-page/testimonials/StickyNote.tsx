@@ -1,4 +1,5 @@
 import Image, { type StaticImageData } from "next/image";
+import { renderTestimonialText } from "../../testimonials/text";
 import styles from "./StickyNote.module.css";
 
 // Four ring colours cycle down the wall so no two adjacent notes match. The angles do
@@ -7,22 +8,23 @@ const RING_VARIANTS = [styles.ringPurple, styles.ringAmber, styles.ringBlue, sty
 const ANGLES = [-1.1, 0.7, -0.6, 1.2, -1.4, 0.5];
 
 interface StickyNoteProps {
-  html: string;
+  text: string;
   name: string;
   role: string;
   avatar: StaticImageData;
   index: number;
 }
 
-export function StickyNote({ html, name, role, avatar, index }: StickyNoteProps) {
+export function StickyNote({ text, name, role, avatar, index }: StickyNoteProps) {
   return (
     <div
       className={`${styles.note} ${RING_VARIANTS[index % RING_VARIANTS.length]}`}
       style={{ "--angle": `${ANGLES[index % ANGLES.length]}deg` } as React.CSSProperties}
     >
       <span className={styles.tape} aria-hidden="true" />
-      {/* Quote copy is authored HTML, limited to <strong>. */}
-      <p dangerouslySetInnerHTML={{ __html: html }} />
+      {/* A tiny Markdown subset rendered element by element, never through innerHTML:
+          these strings come out of a translation catalog, so they are data. */}
+      {renderTestimonialText(text)}
       <div className={styles.footer}>
         <Image src={avatar} alt={name} className={styles.avatar} sizes="52px" />
         <div className={styles.who}>

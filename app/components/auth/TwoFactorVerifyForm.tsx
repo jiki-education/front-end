@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { useAuthStore } from "@/lib/auth/authStore";
-import { ApiError } from "@/lib/api/client";
+import { getApiErrorType } from "@/lib/api/client";
+import { useApiErrorMessage } from "@/lib/api/apiErrors";
 import { OTPInput } from "@/components/ui/OTPInput";
 import { useTranslations } from "next-intl";
 import authStyles from "./AuthForm.module.css";
@@ -18,6 +19,7 @@ export function TwoFactorVerifyForm({ onSuccess, onCancel, onSessionExpired }: T
   const t = useTranslations("auth.twoFactorVerify");
   const tCommon = useTranslations("common");
   const tShared = useTranslations("auth.twoFactor");
+  const apiErrorMessage = useApiErrorMessage();
   const { verify2FA, isLoading } = useAuthStore();
   const [otpCode, setOtpCode] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -33,13 +35,13 @@ export function TwoFactorVerifyForm({ onSuccess, onCancel, onSessionExpired }: T
       onSuccess();
     } catch (err) {
       console.error("2FA verification failed:", err);
-      if (err instanceof ApiError) {
-        const errorData = err.data as { error?: { type?: string; message?: string } } | undefined;
-        if (errorData?.error?.type === "session_expired") {
+      const type = getApiErrorType(err);
+      if (type) {
+        if (type === "session_expired") {
           onSessionExpired();
           return;
         }
-        setError(errorData?.error?.message || tShared("invalidCode"));
+        setError(apiErrorMessage(err));
       } else {
         setError(tShared("verificationFailed"));
       }

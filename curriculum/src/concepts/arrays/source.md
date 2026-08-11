@@ -21,7 +21,7 @@ He can put it into an input slot of a machine. He can pull it out of a return ch
 
 Now, in code, an array looks a little bit like a chain, too. It has a square bracket on each end and then lots of items that are chained together, separated by commas.
 
-So for example, if we wanted to create an array with the names of some of our bootcamp members, we could put together a box called <define>`mentors`</define> and put that chain inside of it.
+So for example, if we wanted to create an array with the names of some of our mentors, we could put together a box called <define>`mentors`</define> and put that chain inside of it.
 
 We would write `let mentors =`, exactly the same as we do with any other box, and then we'd have an opening square bracket, lots of elements, their names separated by commas, and then a closing square bracket. When Jiki sees this, he goes and gets four pieces of paper, one for each name, then gets a new chain and chains them all together, and then he puts that chain in the `mentors` box.
 

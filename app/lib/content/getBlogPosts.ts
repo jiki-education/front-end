@@ -19,10 +19,10 @@ export interface GetBlogPostsResult {
  * Get blog posts with pagination
  * Returns posts sorted by date (newest first)
  */
-export function getBlogPosts(options: GetBlogPostsOptions): GetBlogPostsResult {
+export async function getBlogPosts(options: GetBlogPostsOptions): Promise<GetBlogPostsResult> {
   const { locale, page = 1 } = options;
 
-  const allPosts = getAllBlogPosts(locale);
+  const allPosts = await getAllBlogPosts(locale);
 
   const totalCount = allPosts.length;
   const totalPages = Math.ceil(totalCount / BLOG_POSTS_PAGE_SIZE);

@@ -2,33 +2,9 @@
 export const ARTICLE_TAG_SLUGS = ["legal", "premium", "exercises", "videos"] as const;
 export type ArticleTagSlug = (typeof ARTICLE_TAG_SLUGS)[number];
 
-// Tag labels for each locale
-export const ARTICLE_TAG_LABELS: Record<ArticleTagSlug, Record<string, string>> = {
-  legal: { en: "Legal", hu: "Jogi" },
-  premium: { en: "Premium", hu: "Prémium" },
-  exercises: { en: "Exercises", hu: "Gyakorlatok" },
-  videos: { en: "Videos", hu: "Videók" }
-};
-
-export function getArticleTagLabel(slug: ArticleTagSlug, locale: string): string {
-  return ARTICLE_TAG_LABELS[slug][locale] || ARTICLE_TAG_LABELS[slug].en;
-}
-
 // Guide tag slugs - used in URLs and frontmatter
 export const GUIDE_TAG_SLUGS = ["editors", "installation", "agentic-coding", "front-end-basics"] as const;
 export type GuideTagSlug = (typeof GUIDE_TAG_SLUGS)[number];
-
-// Tag labels for each locale
-export const GUIDE_TAG_LABELS: Record<GuideTagSlug, Record<string, string>> = {
-  editors: { en: "Editors", hu: "Szerkesztők" },
-  installation: { en: "Installation", hu: "Telepítés" },
-  "agentic-coding": { en: "Agentic Coding", hu: "Agentikus kódolás" },
-  "front-end-basics": { en: "Front-End Basics", hu: "Front-end alapok" }
-};
-
-export function getGuideTagLabel(slug: GuideTagSlug, locale: string): string {
-  return GUIDE_TAG_LABELS[slug][locale] || GUIDE_TAG_LABELS[slug].en;
-}
 
 export interface Frontmatter {
   title: string;
@@ -126,8 +102,8 @@ export interface ProjectMeta {
   image: string;
   livestream: boolean;
   upcomingStreams: string[];
+  /** How many episodes this locale has, counted from the assembled list. */
   episodeCount: number;
-  episodesIndexHash: string;
   locale: string;
 }
 
@@ -154,10 +130,12 @@ export interface EpisodeMeta {
   image: string;
   guides: string[];
   summary: EpisodeSummary | null;
+  tags: string[];
   seo: {
     description: string;
     keywords: string[];
   };
+  readingTime: number;
   contentHash: string;
   locale: string;
 }
@@ -171,28 +149,24 @@ export interface AuthorRegistry {
   [key: string]: Author;
 }
 
-// Landing-page testimonials. Editorial content (student quotes + marquee blurbs),
-// authored per-locale in the content package (content/src/testimonials/{locale}.json)
-// and baked into content-meta-server.json for synchronous SSR delivery.
+// Testimonials, as the app reads them: one join of the locale-invariant
+// structure (who said it, which avatar, in what order, on which page) with that
+// locale's copy catalog (the headings, the roles, the words, the marquee).
 //
-// `image` is a filename only (e.g. "fred.webp"); the presentational avatar assets
-// live with the landing-page component, which maps the filename to a bundled
-// StaticImageData. `html` is trusted, hand-authored markup (only <strong> is used)
-// rendered via dangerouslySetInnerHTML.
+// `image` is a filename only (e.g. "fred.webp"); the presentational avatar
+// assets live with the components, which map the filename to a bundled
+// StaticImageData. `text` is a restricted Markdown subset — `**bold**` and
+// blank-line paragraph breaks, nothing else — rendered element by element and
+// never as HTML. It used to be `<strong>` markup passed to
+// dangerouslySetInnerHTML; a string a translator writes is not a string to hand
+// to innerHTML.
 export interface Testimonial {
+  /** The copy key, e.g. "fred" or "thom-short". Unique within a list. */
   slug: string;
   name: string;
   role: string;
   image: string;
-  html: string;
-}
-
-export interface PrimaryTestimonial {
-  // Authored rich text, limited to <strong>, same as the other testimonials.
-  html: string;
-  name: string;
-  role: string;
-  image: string;
+  text: string;
 }
 
 export interface TestimonialsData {
@@ -200,8 +174,12 @@ export interface TestimonialsData {
   // Sentence containing a single <link>…</link> span linking to the full
   // testimonials page. Rendered by splitting on the <link> tag.
   subheading: string;
-  primary: PrimaryTestimonial;
+  /** The single large quote at the top of the landing-page section. */
+  primary: Testimonial;
+  /** The landing-page grid, in the order the structure lists it. */
   quotes: Testimonial[];
+  /** The full /testimonials page, in the order the structure lists it. */
+  page: Testimonial[];
   // Short attribution-free blurbs for the hero marquee.
   marquee: string[];
 }

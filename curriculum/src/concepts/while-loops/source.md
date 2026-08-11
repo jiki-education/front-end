@@ -1,5 +1,5 @@
 ---
-title: "While Loops"
+title: "Understanding `while` Loops"
 description: "A loop that keeps running while some condition stays true."
 ---
 

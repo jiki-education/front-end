@@ -4,23 +4,31 @@
 /**
  * App UI Message Catalog Cache Generation Script
  *
- * The app OWNS and authors its UI-string catalogs (`messages/{locale}.json`,
- * next-intl), but must not bundle the whole locale set into the Cloudflare
- * Worker — at ~50 locales every catalog compiling into the worker is megabytes
- * of dead weight (only the active locale is ever evaluated). This script exports
- * each locale's catalog so the app can FETCH the active locale's catalog at
- * runtime (via `lib/i18n/request.ts` at SSR and `ClientLocaleProvider` on a
- * client-side locale swap) instead of importing it.
+ * The app AUTHORS its English UI-string catalog (`messages.json`, next-intl) and
+ * nothing else: every translation of it is authored in the i18n repo and
+ * published from there straight to R2. English must not be bundled into the
+ * Cloudflare Worker either, so this exports it as a fetchable artifact and the
+ * app FETCHES the active locale's catalog at runtime (via `lib/i18n/request.ts`
+ * at SSR and `ClientLocaleProvider` on a client-side locale swap) rather than
+ * importing it, and the English path is the same path as every other locale's.
  *
- * Reads `messages/{locale}.json` and produces:
+ * Reads `messages.json` and produces:
  *
  *   public/static/i18n/app/{locale}/messages-{hash}.json
  *     - One UI-string catalog for one locale
  *
- *   lib/generated/messages-hashes.ts
- *     - Hash manifest: locale -> messages hash
+ * No `current.json` pointer is written. A pointer is how a NON-default locale is
+ * resolved at runtime, and this emits only the default locale; every other
+ * locale's catalog and pointer are written by the i18n repo, to R2 in production
+ * and into `public/` locally by `i18n-content:generate`.
  *
- * Uploaded to R2 immutably by `static:upload` (every file is hashed).
+ *   lib/generated/messages-hashes.ts
+ *     - Hash manifest: locale -> messages hash. Only the DEFAULT locale's entry
+ *       is read at runtime (lib/i18n/catalogPointer.ts); English is the one
+ *       locale whose hash is compiled in, so the English render path performs no
+ *       runtime lookup.
+ *
+ * The hashed catalogs are uploaded to R2 immutably by `static:upload`.
  */
 
 import fs from "fs";
@@ -29,40 +37,41 @@ import { fileURLToPath } from "url";
 import { computeHash, writeFile } from "./lib/cache-utils.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const MESSAGES_DIR = path.join(__dirname, "../messages");
+const MESSAGES_FILE = path.join(__dirname, "../messages.json");
 const STATIC_DIR = path.join(__dirname, "../public/static/i18n/app");
 const GENERATED_DIR = path.join(__dirname, "../lib/generated");
 
+// Mirrors DEFAULT_LOCALE in lib/locales.ts. The one locale whose hash is
+// compiled into the worker rather than resolved from a pointer at runtime.
+const DEFAULT_LOCALE = "en";
+
 /**
- * Build catalog files (per locale). Returns the hash manifest: { [locale]: hash }.
+ * Build the default locale's catalog file. Returns the hash manifest:
+ * { [locale]: hash }, still keyed by locale because that is what the runtime
+ * manifest is and what the R2 key carries.
  */
 function buildMessageFiles() {
-  const hashes = {};
-
-  const localeFiles = fs.readdirSync(MESSAGES_DIR).filter((name) => name.endsWith(".json"));
-
-  for (const file of localeFiles) {
-    const locale = path.basename(file, ".json");
-    const messagesPath = path.join(MESSAGES_DIR, file);
-
-    // Parse + re-stringify to a normalized, compact form so the hash is stable
-    // regardless of source formatting.
-    let messages;
-    try {
-      messages = JSON.parse(fs.readFileSync(messagesPath, "utf-8"));
-    } catch (error) {
-      throw new Error(`Invalid JSON in ${messagesPath}: ${error.message}`);
-    }
-
-    const content = JSON.stringify(messages);
-    const hash = computeHash(content);
-
-    hashes[locale] = hash;
-
-    writeFile(path.join(STATIC_DIR, locale, `messages-${hash}.json`), content);
+  // A missing catalog is fatal, never an empty manifest: the compiled English
+  // hash is the one thing the runtime cannot recover without.
+  if (!fs.existsSync(MESSAGES_FILE)) {
+    throw new Error(`No catalog at ${MESSAGES_FILE}. The default locale's catalog is required.`);
   }
 
-  return hashes;
+  // Parse + re-stringify to a normalized, compact form so the hash is stable
+  // regardless of source formatting.
+  let messages;
+  try {
+    messages = JSON.parse(fs.readFileSync(MESSAGES_FILE, "utf-8"));
+  } catch (error) {
+    throw new Error(`Invalid JSON in ${MESSAGES_FILE}: ${error.message}`);
+  }
+
+  const content = JSON.stringify(messages);
+  const hash = computeHash(content);
+
+  writeFile(path.join(STATIC_DIR, DEFAULT_LOCALE, `messages-${hash}.json`), content);
+
+  return { [DEFAULT_LOCALE]: hash };
 }
 
 /**
