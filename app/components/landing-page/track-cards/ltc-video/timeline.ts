@@ -13,6 +13,15 @@ import { COLS, simulate } from "./simulation";
 export const STEP = 145;
 
 /**
+ * How long a shot is in flight, mirroring the `shot` animation in `LtcVideo.module.css`.
+ *
+ * In the running video a shot clears itself when its own animation ends. A seeked frame has no
+ * animations to end, so `stateAt` uses this to work out which shots would still be mid-flight at
+ * that moment — see the note there.
+ */
+export const SHOT_MS = 110;
+
+/**
  * One knob for the whole thing: every beat and every CSS duration the timeline sets is divided
  * by this, so the video runs faster without any beat drifting out of step with its animation.
  */

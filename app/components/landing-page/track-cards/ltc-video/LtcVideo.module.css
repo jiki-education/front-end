@@ -90,25 +90,62 @@
     text-wrap-style: auto;
 }
 
-/* Marker sweep: one continuous fill across the whole phrase, held 0.55s so it reads as a pen
-   stroke rather than a flash. `box-decoration-break: clone` keeps the fill unbroken where the
-   phrase wraps onto a second line. */
+/* Marker sweep: a pen stroke reading top line to bottom line, so a wrapped phrase fills in the
+   order it is read rather than every line at once. Each visual line is its own element carrying
+   its line index in `--line`, which offsets its start from the one authored duration/lead-in
+   below. `--sweep-span` is the fraction of the duration each line takes, so the lines overlap
+   slightly and the stroke stays continuous instead of stopping at every wrap. */
 .highlight {
+    --sweep-dur: 0.55s;
+    --sweep-lead: 0.3s;
+    --sweep-span: 0.72;
+}
+
+.highlightLine {
     background-image: linear-gradient(105deg, var(--color-amber-300) 0%, var(--color-amber-300) 100%);
     background-repeat: no-repeat;
     background-position: 0 50%;
     background-size: 0% 100%;
     padding: 0.05em 0.1em;
     margin: 0 -0.1em;
-    transition:
-        background-size 0.55s ease-out 0.3s,
-        color 0.55s ease-out 0.3s;
     box-decoration-break: clone;
+
+    /* Each line starts where the previous one is finishing. */
+    --sweep-step: calc(var(--sweep-dur) * (1 - var(--sweep-span)));
+    --sweep-delay: calc(var(--sweep-lead) + var(--line, 0) * var(--sweep-step));
 }
 
-.highlightSwept {
-    background-size: 100% 100%;
-    color: var(--color-gray-900);
+/* An animation rather than a transition: the split spans are created after the phrase is
+   measured, so on the closing frames they can first mount with the card already shown. A
+   transition has no earlier value to leave from there and lands fully drawn; an animation always
+   runs from its own `from`, so the stroke plays whenever the card comes up. */
+.highlightSwept .highlightLine {
+    animation: markerSweep calc(var(--sweep-dur) * var(--sweep-span)) ease-out var(--sweep-delay) both;
+}
+
+@keyframes markerSweep {
+    from {
+        background-size: 0% 100%;
+        color: inherit;
+    }
+
+    to {
+        background-size: 100% 100%;
+        color: var(--color-gray-900);
+    }
+}
+
+/* Before the lines are measured the phrase renders as one run, so it is never mid-sweep at a
+   stale width — it simply has no marker yet. */
+.highlightUnmeasured .highlightLine {
+    animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .highlightSwept .highlightLine {
+        animation-duration: 1ms;
+        animation-delay: 0s;
+    }
 }
 
 /* Leader: one element carrying both the rule and the dot at its far end, so the whole thing
@@ -255,10 +292,10 @@
 
 /* The closing frame is a summary, not an annotation, so the marker comes off and the phrase
    reads as ordinary body copy. */
-.finale .highlight {
+.finale .highlightLine {
     background-image: none;
     color: var(--color-gray-700);
-    transition: none;
+    animation: none;
 }
 
 .finale .callout_rewind::after {
@@ -696,7 +733,9 @@
     background: #fff;
     border-radius: 2px;
     transform: translateX(-50%);
-    animation: shot 0.11s linear forwards;
+    /* Kept in step with SHOT_MS in timeline.ts, which `stateAt` uses to decide which shots are
+       still in flight on a seeked frame. */
+    animation: shot 110ms linear forwards;
 }
 
 /* `top` rather than a transform: the endpoints are percentages of the playfield, which only
@@ -1276,11 +1315,14 @@
 
 /* ===== Fake mouse cursor ===== */
 
+/* The icons fill from their own `currentColor`, so the only paint CSS sets here is `color`; the
+   shadow just lifts the pointer off whatever it is over. */
 .cursor {
     position: absolute;
     z-index: 10;
     width: 38px;
     height: 38px;
+    color: var(--color-purple-600);
     transition:
         transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
         opacity 0.2s ease;

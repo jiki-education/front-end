@@ -20,11 +20,17 @@ import styles from "./page.module.css";
  */
 export default function LtcVideoDevPage() {
   const [ms, setMs] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const [loop, setLoop] = useState(false);
   const [probe, setProbe] = useState<{ x: number; y: number } | null>(null);
   const [showAnchors, setShowAnchors] = useState(true);
   const wrapRef = useRef<HTMLDivElement>(null);
-  /** The drawn stage, relative to the wrapper — the box the overlay has to sit exactly on top of. */
-  const [stageBox, setStageBox] = useState({ left: 0, top: 0, width: 0 });
+  /**
+   * The stage's border-box top-left relative to the wrapper, and the scale it is drawn at — the
+   * exact mapping the pointer uses (`screen = topLeft + anchor × scale`), so the overlay sits on
+   * the pointer. `scale` is rendered px per stage unit.
+   */
+  const [stageBox, setStageBox] = useState({ left: 0, top: 0, scale: 0 });
 
   // Measured rather than derived: the stage's scale and its position within the three-column
   // layout both move with the breakpoint, and this page only has to be right, not fast.
@@ -38,20 +44,75 @@ export default function LtcVideoDevPage() {
       if (!wrap || !stage) return;
       const wrapBox = wrap.getBoundingClientRect();
       const box = stage.getBoundingClientRect();
-      // The cursor is `inset: 0` inside the stage, so its origin is the stage's padding box — one
-      // scaled border-width in from the border box `getBoundingClientRect` reports. Small, but it
-      // is the difference between the crosshair agreeing with the pointer and sitting beside it.
-      const border = parseFloat(getComputedStyle(stage).borderTopWidth) * (box.width / STAGE_WIDTH);
+      // The cursor is translated in the stage's own unscaled coordinates from its border-box
+      // top-left, then the whole stage is scaled as one piece. So the anchor→screen mapping the
+      // crosshair must match is exactly: border-box top-left + anchor × (that scale). Deriving the
+      // scale from the transform (`renderedWidth / offsetWidth`) rather than `renderedWidth /
+      // 1040` is what keeps the crosshair on the pointer: the latter divides by the content width
+      // and so runs ~1.6% fast, drifting further from the pointer the larger the anchor.
       setStageBox({
-        left: box.left - wrapBox.left + border,
-        top: box.top - wrapBox.top + border,
-        width: box.width
+        left: box.left - wrapBox.left,
+        top: box.top - wrapBox.top,
+        scale: box.width / stage.offsetWidth
       });
     };
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
   }, []);
+
+  // Read through refs so toggling loop, or resuming after a scrub, doesn't restart the clock.
+  const loopRef = useRef(loop);
+  loopRef.current = loop;
+  const msRef = useRef(ms);
+  msRef.current = ms;
+
+  // Playback advances the same `ms` the slider writes, so playing and scrubbing stay one control
+  // rather than two clocks that can disagree. Timed off the frame clock rather than a fixed
+  // interval, so a slow frame doesn't make the run drift away from real playback speed.
+  useEffect(() => {
+    if (!playing) return;
+
+    let frame = 0;
+    let previous: number | null = null;
+
+    // The running position lives here rather than being read back from state, so the clock never
+    // depends on a render having landed between frames.
+    let position = msRef.current;
+
+    const tick = (now: number) => {
+      const delta = previous === null ? 0 : now - previous;
+      previous = now;
+      position += delta * SPEED;
+
+      if (position >= TIMELINE.duration) {
+        if (!loopRef.current) {
+          setMs(TIMELINE.duration);
+          setPlaying(false);
+          return;
+        }
+        // Wrapping by the overshoot rather than resetting to 0 keeps a looped run from losing a
+        // few ms at every pass.
+        position %= TIMELINE.duration;
+      }
+
+      setMs(position);
+      frame = requestAnimationFrame(tick);
+    };
+
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [playing]);
+
+  const play = () => {
+    // Replaying from the end restarts rather than sitting finished. The ref is written alongside
+    // the state because the clock effect reads it before the render carrying the reset lands.
+    if (ms >= TIMELINE.duration) {
+      msRef.current = 0;
+      setMs(0);
+    }
+    setPlaying(true);
+  };
 
   const state = useMemo(() => stateAt(ms), [ms]);
   const target = state.cursor;
@@ -65,23 +126,24 @@ export default function LtcVideoDevPage() {
       direction === 1
         ? cursorBeats.find((beat) => beat.at > ms)
         : [...cursorBeats].reverse().find((beat) => beat.at < ms);
-    if (next) setMs(next.at);
+    if (next) {
+      setPlaying(false);
+      setMs(next.at);
+    }
   };
 
   /**
-   * Clicks arrive in CSS pixels on the scaled stage; dividing by its rendered width recovers the
-   * fraction, and multiplying by the internal width gives stage units — the space `ANCHORS` is
-   * written in. Deriving the scale from the measured box rather than hardcoding 0.55 keeps the
-   * numbers correct at any breakpoint.
+   * Clicks arrive in CSS pixels on the scaled stage; dividing by the stage's scale converts the
+   * offset from its top-left back into stage units — the space `ANCHORS` is written in. Deriving
+   * the scale from the transform keeps the numbers correct at any breakpoint.
    */
   const readCoords = (event: React.MouseEvent<HTMLDivElement>) => {
     const wrap = wrapRef.current;
-    if (!wrap || !stageBox.width) return;
+    if (!wrap || !stageBox.scale) return;
     const wrapBox = wrap.getBoundingClientRect();
-    const unitsPerPx = STAGE_WIDTH / stageBox.width;
     setProbe({
-      x: Math.round((event.clientX - wrapBox.left - stageBox.left) * unitsPerPx),
-      y: Math.round((event.clientY - wrapBox.top - stageBox.top) * unitsPerPx)
+      x: Math.round((event.clientX - wrapBox.left - stageBox.left) / stageBox.scale),
+      y: Math.round((event.clientY - wrapBox.top - stageBox.top) / stageBox.scale)
     });
   };
 
@@ -103,12 +165,15 @@ export default function LtcVideoDevPage() {
             min={0}
             max={TIMELINE.duration}
             step={10}
-            value={ms}
-            onChange={(event) => setMs(Number(event.target.value))}
+            value={Math.round(ms)}
+            onChange={(event) => {
+              setPlaying(false);
+              setMs(Number(event.target.value));
+            }}
             aria-label="Timeline position"
           />
           <span className={styles.time}>
-            {ms}ms <span className={styles.dim}>/ {TIMELINE.duration}ms</span>
+            {Math.round(ms)}ms <span className={styles.dim}>/ {TIMELINE.duration}ms</span>
           </span>
         </div>
 
@@ -118,9 +183,12 @@ export default function LtcVideoDevPage() {
             <button
               key={i}
               type="button"
-              className={`${styles.marker} ${beat.at === ms ? styles.markerActive : ""}`}
+              className={`${styles.marker} ${beat.at === Math.round(ms) ? styles.markerActive : ""}`}
               style={{ insetInlineStart: `${(beat.at / TIMELINE.duration) * 100}%` }}
-              onClick={() => setMs(beat.at)}
+              onClick={() => {
+                setPlaying(false);
+                setMs(beat.at);
+              }}
               title={`${beat.at}ms — ${describeTarget(beat.action)}`}
               aria-label={`Jump to ${beat.at}ms`}
             />
@@ -128,6 +196,20 @@ export default function LtcVideoDevPage() {
         </div>
 
         <div className={styles.buttons}>
+          <button
+            type="button"
+            className={`${styles.button} ${styles.playButton}`}
+            onClick={() => (playing ? setPlaying(false) : play())}
+          >
+            {playing ? "❚❚ pause" : "▶ play"}
+          </button>
+          <button type="button" className={styles.button} onClick={() => setMs(0)}>
+            ↺ restart
+          </button>
+          <label className={styles.toggle}>
+            <input type="checkbox" checked={loop} onChange={(e) => setLoop(e.target.checked)} />
+            loop
+          </label>
           <button type="button" className={styles.button} onClick={() => step(-1)}>
             ← prev cursor beat
           </button>
@@ -174,14 +256,11 @@ export default function LtcVideoDevPage() {
           the stage's own layout or scaling. */}
       <div className={styles.stageWrap} onClick={readCoords} ref={wrapRef}>
         <LtcVideo frozenState={state} />
-        {showAnchors && stageBox.width > 0 && <AnchorOverlay probe={probe} tip={tip} stageBox={stageBox} />}
+        {showAnchors && stageBox.scale > 0 && <AnchorOverlay probe={probe} tip={tip} stageBox={stageBox} />}
       </div>
     </div>
   );
 }
-
-/** The stage's internal coordinate width, mirrored from `--stage-w`. */
-const STAGE_WIDTH = 1040;
 
 /**
  * Crosshairs for the cursor's current tip and the last click.
@@ -198,12 +277,11 @@ function AnchorOverlay({
 }: {
   probe: { x: number; y: number } | null;
   tip: { x: number; y: number };
-  stageBox: { left: number; top: number; width: number };
+  stageBox: { left: number; top: number; scale: number };
 }) {
-  const scale = stageBox.width / STAGE_WIDTH;
   const place = (point: { x: number; y: number }) => ({
-    insetInlineStart: `${stageBox.left + point.x * scale}px`,
-    insetBlockStart: `${stageBox.top + point.y * scale}px`
+    insetInlineStart: `${stageBox.left + point.x * stageBox.scale}px`,
+    insetBlockStart: `${stageBox.top + point.y * stageBox.scale}px`
   });
 
   return (

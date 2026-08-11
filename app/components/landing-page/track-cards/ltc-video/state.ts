@@ -9,7 +9,7 @@
 
 import { ALIENS, simulate } from "./simulation";
 import { BAD, GOOD } from "./code-listing";
-import { TIMELINE } from "./timeline";
+import { SHOT_MS, TIMELINE } from "./timeline";
 import type { Action, CalloutId, CursorTarget, Outcome, Tab } from "./timeline";
 
 /** A shot in flight: keyed so React can animate each one and drop it when it expires. */
@@ -225,12 +225,33 @@ export function reducer(state: VideoState, action: Action): VideoState {
  * seekable at all — see `/dev/ltc-video`, which uses this to scrub while tuning the cursor
  * anchors in `stage-geometry.ts`.
  *
- * Two beats can't be replayed faithfully, and both are cosmetic: `expireShot` is dispatched by a
- * shot's own animation ending rather than by the timeline, so shots accumulate instead of
- * clearing, and `flashEditLine` is a keyframe retrigger with nothing to retrigger when frozen.
+ * `flashEditLine` can't be replayed faithfully — it is a keyframe retrigger with nothing to
+ * retrigger when frozen — but it is purely cosmetic.
+ *
+ * Shots need help, though. In the running video each one clears itself when its own animation
+ * ends (`onShotEnd` → `expireShot`); a seeked frame runs no animations, so nothing would ever
+ * expire and every shot of the run would be drawn stacked on the board at once. Replaying the
+ * beats and then keeping only those fired within the last `SHOT_MS` reproduces what is actually
+ * in flight at that moment, without the reducer needing to know about time.
  */
 export function stateAt(ms: number): VideoState {
-  return TIMELINE.beats.reduce((state, beat) => (beat.at <= ms ? reducer(state, beat.action) : state), INITIAL_STATE);
+  // When each shot was fired, by the id the reducer gave it. Recorded during the replay rather
+  // than matched up afterwards, so beats that clear the board (`resetGame`) can't put the shots
+  // and their firing times out of step.
+  const firedAt = new Map<number, number>();
+
+  const state = TIMELINE.beats.reduce((acc, beat) => {
+    if (beat.at > ms) return acc;
+    const next = reducer(acc, beat.action);
+    // A `shoot` beat always appends exactly one shot, so the last one is the shot it just made.
+    if (beat.action.type === "shoot") {
+      firedAt.set(next.shots[next.shots.length - 1].id, beat.at);
+    }
+    return next;
+  }, INITIAL_STATE);
+
+  const inFlight = state.shots.filter((shot) => ms - (firedAt.get(shot.id) ?? 0) < SHOT_MS);
+  return inFlight.length === state.shots.length ? state : { ...state, shots: inFlight };
 }
 
 /**

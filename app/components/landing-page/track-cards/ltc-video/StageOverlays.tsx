@@ -1,5 +1,10 @@
 import { useTranslations } from "next-intl";
-import { ARROW_VIEWBOX, CursorIcon, GRAB_VIEWBOX, GrabCursorIcon, TickIcon, WarningIcon } from "./icons";
+import CursorArrowIcon from "@/icons/cursor.svg";
+import CursorClickIcon from "@/icons/cursor-click.svg";
+import HandIcon from "@/icons/hand.svg";
+import HandGrabbingIcon from "@/icons/hand-grabbing.svg";
+import { ARROW_HOTSPOT, CURSOR_SIZE, CURSOR_VIEWBOX, HAND_HOTSPOT, TickIcon, WarningIcon } from "./icons";
+import type { Hotspot } from "./icons";
 import { CONFETTI, cursorOffset } from "./stage-geometry";
 import type { VideoState } from "./state";
 import { SPEED, STEP } from "./timeline";
@@ -72,31 +77,56 @@ export function Confetti({ firing }: { firing: boolean }) {
  * per-move `getBoundingClientRect` + `offsetWidth` reads, which forced layout on every one of
  * the eight scrub steps.
  *
- * Both pointers put their hotspot on the element's origin by offsetting their viewBox onto it —
- * the arrow's tip, the hand's grip — so the anchors in `stage-geometry.ts` mean the same thing
- * whichever is showing. Never translate the artwork instead: the element is 38px across a 24-unit
- * viewBox, so an inner `translate` is magnified ~1.58× and overshoots.
+ * Whichever glyph is showing, its hotspot — the arrow's tip, the hand's grip — is placed on the
+ * anchor by `hotspotOffset` below, so the anchors in `stage-geometry.ts` always mean the click
+ * point regardless of where in its own 256-box a given icon happens to draw that point.
  */
 export function Cursor({ state }: { state: VideoState }) {
   const { x, y } = cursorOffset(state.cursor);
   const grabbing = state.scrubbing;
+  // Over the scrubber the pointer becomes a hand: open while reaching for the thumb, closed while
+  // dragging it. Pressing a button flips the arrow to its click form. Everywhere else it's the
+  // plain arrow.
+  const overTrack = state.cursor.kind === "track";
+  const clicking = state.runPressed || state.sendPressed;
+
+  let Icon = CursorArrowIcon;
+  let hotspot = ARROW_HOTSPOT;
+  if (grabbing) {
+    Icon = HandGrabbingIcon;
+    hotspot = HAND_HOTSPOT;
+  } else if (overTrack) {
+    Icon = HandIcon;
+    hotspot = HAND_HOTSPOT;
+  } else if (clicking) {
+    Icon = CursorClickIcon;
+  }
+
+  const { dx, dy } = hotspotOffset(hotspot);
 
   return (
-    <svg
+    <Icon
       className={`${styles.cursor} ${grabbing ? styles.cursorScrubbing : ""} ${
         state.cursorVisible ? "" : styles.cursorHidden
       }`}
-      viewBox={grabbing ? GRAB_VIEWBOX : ARROW_VIEWBOX}
-      fill={grabbing ? "none" : "#fff"}
-      stroke="var(--color-gray-800)"
-      strokeWidth={grabbing ? 1.7 : 1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
       aria-hidden="true"
-      style={{ transform: `translate3d(${x}px, ${y}px, 0)`, "--step": `${STEP / SPEED}ms` } as React.CSSProperties}
-    >
-      {/* A grabbing hand while dragging the scrubber, an arrow the rest of the time. */}
-      {grabbing ? <GrabCursorIcon /> : <CursorIcon />}
-    </svg>
+      // The anchor is where the click lands; shift the element so the icon's hotspot — not its
+      // top-left corner — sits on it.
+      style={
+        { transform: `translate3d(${x + dx}px, ${y + dy}px, 0)`, "--step": `${STEP / SPEED}ms` } as React.CSSProperties
+      }
+    />
   );
+}
+
+/**
+ * How far to shift the pointer element so a hotspot given in 256-space lands on the anchor.
+ *
+ * The element is `CURSOR_SIZE` wide showing the whole `CURSOR_VIEWBOX` box, so one viewBox unit is
+ * `CURSOR_SIZE / CURSOR_VIEWBOX` rendered units; the hotspot sits that far from the element's
+ * top-left, and the translate pulls it back onto the anchor.
+ */
+function hotspotOffset(hotspot: Hotspot): { dx: number; dy: number } {
+  const unit = CURSOR_SIZE / CURSOR_VIEWBOX;
+  return { dx: -hotspot.x * unit, dy: -hotspot.y * unit };
 }

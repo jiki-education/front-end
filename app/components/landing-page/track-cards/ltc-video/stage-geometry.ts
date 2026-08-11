@@ -22,7 +22,7 @@ import type { CursorTarget } from "./timeline";
 /** The scrubber track: where it starts, how wide it runs, and the thumb's centre line. */
 const TRACK_LEFT = 62;
 const TRACK_WIDTH = 485;
-const TRACK_Y = 717;
+const TRACK_Y = 730;
 
 /**
  * Where the cursor's tip lands for each thing it reaches for.
@@ -31,10 +31,10 @@ const TRACK_Y = 717;
  * pointer never covers the code being typed.
  */
 const ANCHORS: Record<Exclude<CursorTarget["kind"], "track">, { x: number; y: number }> = {
-  runButton: { x: 562, y: 356 },
-  jikiTab: { x: 817, y: 36 },
-  chatBox: { x: 760, y: 672 },
-  chatSend: { x: 990, y: 702 },
+  runButton: { x: 575, y: 363 },
+  jikiTab: { x: 842, y: 34 },
+  chatBox: { x: 735, y: 690 },
+  chatSend: { x: 1005, y: 715 },
   editLine: { x: 300, y: 196 },
   editLineEnd: { x: 340, y: 196 }
 };
