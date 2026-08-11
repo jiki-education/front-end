@@ -17,20 +17,20 @@ export function CodeVisual() {
           <i />
         </div>
         <pre>
-          <span className={styles.cmt}># code you&apos;ve never seen</span>
+          <span className={styles.kw}>for</span> (<span className={styles.kw}>let</span> idx ={" "}
+          <span className={styles.str}>1</span>; idx &lt;= <span className={styles.str}>6</span>; idx++) {"{\n"}
+          {"  "}
+          <span className={styles.kw}>const</span> guess = <span className={styles.fn}>chooseWord</span>(knowledge)
           {"\n"}
-          <span className={styles.kw}>def</span> <span className={styles.fn}>find_path</span>(maze, start):{"\n"}
-          {"  queue = [start]\n"}
+          {"  knowledge = "}
+          <span className={styles.fn}>process</span>(knowledge, idx, guess){"\n"}
           <span className={styles.hit}>
             {"  "}
-            <span className={styles.kw}>while</span> queue:
+            <span className={styles.kw}>if</span> (knowledge[<span className={styles.str}>&quot;won&quot;</span>]) {"{"}
           </span>
-          {"    cell = queue."}
-          <span className={styles.fn}>pop</span>(<span className={styles.str}>0</span>){"\n"}
           {"    "}
-          <span className={styles.kw}>if</span> maze.<span className={styles.fn}>is_exit</span>(cell):{"\n"}
-          {"      "}
-          <span className={styles.kw}>return</span> cell
+          <span className={styles.kw}>break</span>
+          {"\n  }\n}"}
         </pre>
       </div>
 

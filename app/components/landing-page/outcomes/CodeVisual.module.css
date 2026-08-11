@@ -34,7 +34,7 @@
     color: var(--color-gray-300);
     padding-block: 11px 14px;
     padding-inline: 14px;
-    overflow-x: auto;
+    overflow: hidden;
 }
 
 .kw {
@@ -61,7 +61,7 @@
 
 .anno {
     position: absolute;
-    inset-block-end: -9px;
+    inset-block-end: 32px;
     inset-inline-end: 0;
     text-align: end;
     font-family: var(--font-handwritten);
@@ -69,7 +69,7 @@
     font-size: 19px;
     line-height: 1.15;
     color: var(--color-amber-300);
-    max-width: 132px;
+    max-width: 190px;
     text-wrap: balance;
     z-index: 5;
 
@@ -80,8 +80,10 @@
 
 .arrow {
     position: absolute;
-    inset-block-end: 27px;
-    inset-inline-end: 112px;
+    inset-block-end: 70px;
+    inset-inline-end: 122px;
+    /* Flipped and tilted so the curve sweeps up into the note rather than down. */
+    transform: rotateX(180deg) rotateZ(-15deg);
     width: 72px;
     height: 24px;
     color: var(--color-amber-300);
