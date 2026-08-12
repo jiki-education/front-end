@@ -67,10 +67,7 @@
     }
 }
 
-/* The pill and its burst hang off the certificate's bottom-right corner, which works while
-   there is margin beside the visual to hang into. On a phone there is none, so they tuck onto
-   the artwork instead of being clipped by the section — the pill says the credential is
-   verifiable, so it has to stay whole. */
+/* No margin to hang into on a phone, and the pill carries meaning, so it tucks onto the art. */
 @media (max-width: 639.98px) {
     .verify {
         inset-inline-end: 0;

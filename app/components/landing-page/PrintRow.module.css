@@ -7,8 +7,7 @@
     padding-block: 60px 64px;
     padding-inline: 24px;
     text-align: center;
-    /* The join doodle hangs into the left margin by design. Just above the 870px cutoff there
-       is not quite enough room for it, and a decorative overhang must not scroll the page. */
+    /* Clips the join doodle's overhang; `clip` so no scroll container is created. */
     overflow-x: clip;
     background:
         radial-gradient(90% 60% at 15% 0%, rgba(168, 85, 247, 0.16) 0%, rgba(168, 85, 247, 0) 60%),
@@ -57,9 +56,7 @@
     container-type: inline-size;
     position: relative;
     flex-shrink: 0;
-    /* Three overlapping prints need ~472px plus the section's gutters, which is wider than a
-       phone. Below that the row scales with the viewport instead of pushing the page sideways:
-       the caption is sized in cqw, so everything inside follows the width down. */
+    /* The three prints need ~472px, wider than a phone, so below that they scale with it. */
     width: min(162px, 34vw);
     padding: 11px 11px 57px;
     border-radius: 2px;
@@ -69,8 +66,7 @@
         0 12px 24px -8px rgba(30, 20, 10, 0.22);
 }
 
-/* The prints overlap slightly, like a stack laid out by hand. Scales with the prints so the
-   stack keeps its shape rather than gaping apart as they shrink. */
+/* The prints overlap slightly, like a stack laid out by hand. */
 .print + .print {
     margin-inline-start: max(-24px, -5vw);
 }
@@ -260,8 +256,7 @@
     }
 }
 
-/* Goes once the viewport is too narrow for it to sit clear of the prints. Not on the shared
-   scale: this is where the doodle's own fluid offset runs out of margin to sit in. */
+/* Goes once the viewport is too narrow for it to sit clear of the prints. */
 @media (max-width: 899.98px) {
     .join {
         display: none;

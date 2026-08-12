@@ -2,10 +2,7 @@
     background: linear-gradient(135deg, var(--color-gray-950), var(--color-purple-900));
     padding-block: 80px 100px;
     padding-inline: 48px;
-    /* The visuals hang ornaments past their own edges (the certificate's burst, the emoji
-       pops). They are decoration, so on narrow screens they are clipped rather than allowed
-       to scroll the page. `clip` instead of `hidden`: no scroll container, so nothing inside
-       that relies on sticky or overflowing vertically changes behaviour. */
+    /* Clips the visuals' decorative overhang; `clip` so no scroll container is created. */
     overflow-x: clip;
 }
 
@@ -191,17 +188,10 @@
     }
 }
 
-/* The three visuals are drawn at fixed natural sizes and hang decorations outside their own
-   box (the certificate's verified pill and the burst off it). Once the column is narrower than
-   the widest of them, each scales down as one piece rather than being cropped, so nothing that
-   carries meaning is lost. `.viz` is already a fixed-height centred box, so the scaled child
-   stays centred and only the height has to follow. */
+/* The visuals are drawn at fixed sizes, so they scale as one piece rather than being cropped. */
 @media (max-width: 639.98px) {
     .viz {
-        /* Length ÷ length is what makes this a plain number; the divisor keeps its px unit.
-           Measured against the widest visual's own artwork (340px) rather than its ornaments,
-           which the section clips: reserving room for the pill shrank all three enough to make
-           the certificate's body text unreadable. */
+        /* Measured against the widest artwork (340px), not its ornaments, which the section clips. */
         --viz-scale: min(1, calc((100vw - 48px) / 340px));
 
         height: calc(250px * var(--viz-scale));

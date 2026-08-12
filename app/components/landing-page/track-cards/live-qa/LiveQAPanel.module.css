@@ -2,9 +2,7 @@
     max-width: 511px;
     margin-inline: auto;
     margin-block-start: 12px;
-    /* The faces straddle the photo's edges and their emoji drift further out still. On a
-       narrow phone that reaches past the viewport, so the overhang is clipped horizontally.
-       `clip` keeps the bubbles free to open upwards out of the frame. */
+    /* Clips the faces and drifting emoji; `clip` leaves the bubbles free to open upwards. */
     overflow-x: clip;
 }
 

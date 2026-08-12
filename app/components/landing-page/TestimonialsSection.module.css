@@ -20,8 +20,7 @@
     pointer-events: none;
 }
 
-/* Not on the shared scale: this is the width at which the arrow stops clearing the wall of
-   notes beside it, which is a property of the artwork rather than of the layout. */
+/* Artwork-driven, not on the shared scale: where the arrow stops clearing the wall. */
 @media (max-width: 1400px) {
     .stitchArrow {
         display: none;
