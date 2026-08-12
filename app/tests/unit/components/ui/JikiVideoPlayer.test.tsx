@@ -7,6 +7,14 @@ import JikiVideoPlayer, { type JikiVideoPlayerHandle } from "@/components/ui/Jik
 // subscribes for change notifications, and calls seek/play/pause on the handle,
 // so the fake exposes those plus a `set()` helper that mutates state and fires
 // the subscriber the way the real store does after a state transition.
+interface FakeTextTrack {
+  id?: string;
+  kind: string;
+  label: string;
+  language: string;
+  mode: string;
+}
+
 interface FakeState {
   currentTime: number;
   duration: number;
@@ -16,6 +24,8 @@ interface FakeState {
   ended: boolean;
   canPlay: boolean;
   error: unknown;
+  textTrackList: FakeTextTrack[];
+  subtitlesShowing: boolean;
 }
 
 function createFakeStore() {
@@ -27,7 +37,9 @@ function createFakeStore() {
     waiting: false,
     ended: false,
     canPlay: false,
-    error: null
+    error: null,
+    textTrackList: [],
+    subtitlesShowing: false
   };
   const listeners = new Set<() => void>();
   return {
@@ -46,9 +58,17 @@ function createFakeStore() {
       return Promise.resolve(value);
     }),
     play: jest.fn(() => Promise.resolve()),
-    pause: jest.fn()
+    pause: jest.fn(),
+    selectSubtitlesTrack: jest.fn()
   };
 }
+
+// jest.setup.js pins useLocale to "en"; override so non-default-locale paths are reachable.
+let mockLocale = "en";
+jest.mock("next-intl", () => ({
+  ...jest.requireActual<Record<string, unknown>>("next-intl"),
+  useLocale: () => mockLocale
+}));
 
 // The module builds `const Player = createPlayer(...)` at load time, so the mock
 // must hand back a stable usePlayer that returns our shared fake store. Provider,
@@ -88,14 +108,18 @@ function resetStore() {
     waiting: false,
     ended: false,
     canPlay: false,
-    error: null
+    error: null,
+    textTrackList: [],
+    subtitlesShowing: false
   });
   fakeStore.seek.mockClear();
   fakeStore.play.mockClear();
   fakeStore.pause.mockClear();
+  fakeStore.selectSubtitlesTrack.mockClear();
 }
 
 beforeEach(() => {
+  mockLocale = "en";
   resetStore();
 });
 
@@ -202,6 +226,48 @@ describe("JikiVideoPlayer PlayerBridge subscription", () => {
     act(() => fakeStore.set({ error: { code: 1, message: "Playback aborted.", data: { muxCode: 2400000 } } }));
     expect(onError).toHaveBeenCalledTimes(1);
     expect((onError.mock.calls[0][0] as Error).message).toContain("code 1");
+  });
+});
+
+describe("JikiVideoPlayer caption auto-enable", () => {
+  const EN = {
+    id: "track:0:subtitles:en:English",
+    kind: "subtitles",
+    label: "English",
+    language: "en",
+    mode: "disabled"
+  };
+  const HU = {
+    id: "track:1:subtitles:hu:Hungarian",
+    kind: "subtitles",
+    label: "Hungarian",
+    language: "hu",
+    mode: "disabled"
+  };
+
+  it("turns on the reader's language when tracks arrive for a non-default locale", () => {
+    mockLocale = "hu";
+    render(<JikiVideoPlayer playbackId="abc" />);
+
+    // Tracks arrive only once hls.js has parsed the manifest.
+    act(() => fakeStore.set({ textTrackList: [EN, HU] }));
+    expect(fakeStore.selectSubtitlesTrack).toHaveBeenCalledWith(HU.id);
+  });
+
+  it("leaves captions off for a default-locale reader", () => {
+    render(<JikiVideoPlayer playbackId="abc" />);
+
+    act(() => fakeStore.set({ textTrackList: [EN, HU] }));
+    expect(fakeStore.selectSubtitlesTrack).not.toHaveBeenCalled();
+  });
+
+  it("leaves captions off when the asset has none in the reader's language", () => {
+    mockLocale = "hu";
+    render(<JikiVideoPlayer playbackId="abc" />);
+
+    // No fallback to English, which the reader may not know.
+    act(() => fakeStore.set({ textTrackList: [EN] }));
+    expect(fakeStore.selectSubtitlesTrack).not.toHaveBeenCalled();
   });
 });
 
