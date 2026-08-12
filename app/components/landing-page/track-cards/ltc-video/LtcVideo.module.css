@@ -270,7 +270,9 @@
     inset: auto;
     max-width: 255px;
     background: #fff;
-    border-color: var(--color-purple-400);
+    /* One grey for the whole closing frame: the cards fade in, hold and fade out without the border
+       ever changing colour, so the fade is the only thing the eye follows. */
+    border-color: var(--color-gray-200);
     box-shadow:
         0 14px 28px -14px rgb(15 23 42 / 35%),
         0 4px 10px -6px rgb(15 23 42 / 20%);
@@ -311,16 +313,6 @@
 
 .finale .railRight .callout {
     margin-inline-start: 15px;
-}
-
-/* The whole set lands on full-strength purple... */
-.allGlow .calloutShown {
-    border-color: var(--color-purple-600);
-}
-
-/* ...then settles, borders quietening off. */
-.allLit .calloutShown {
-    border-color: var(--color-gray-200);
 }
 
 /* ===== Progress through the video itself, above the frame ===== */
@@ -1320,6 +1312,8 @@
 .cursor {
     position: absolute;
     top: 0;
+    /* A zero-origin for the JS transform, not a layout edge; must not mirror. */
+    /* stylelint-disable-next-line property-disallowed-list */
     left: 0;
     z-index: 10;
     color: var(--color-purple-600);

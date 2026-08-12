@@ -1,7 +1,7 @@
 // The "video" as data: one sorted array of `{ at, action }`, built once at module load and replayed.
 
 import { BAD, GOOD } from "./code-listing";
-import { COLS, simulate } from "./simulation";
+import { simulate } from "./simulation";
 
 /** ms per game action. Also drives the CSS transition durations, so the two stay in step. */
 export const STEP = 145;
@@ -155,7 +155,8 @@ function buildTimeline(): Timeline {
   };
 
   push(t, { type: "callout", id: "rewind" });
-  push(t, { type: "laser", col: COLS }); // back off the edge, onto the last column
+  // Nothing pulls the cannon back on-board here: it holds the off-edge error pose until the first
+  // seek undoes the error itself, so the rewind is what moves it rather than an unexplained twitch.
   push(t, { type: "cursor", target: { kind: "track", pct: 1 } }); // reach for the thumb, still an arrow
   push(t + 450, { type: "grip", gripping: true }); // become a hand only as it lands, not on setting off
   t += 600;
