@@ -312,14 +312,20 @@
     bottom: auto;
 }
 
-/* Held 15px clear of the frame, so the dots stop short of the edge rather than sitting on it. */
-.finale .railLeft .callout {
-    margin-inline-start: auto;
-    margin-inline-end: 15px;
-}
+/* Held 15px clear of the frame, so the dots stop short of the edge rather than sitting on it. Only
+   while the rails flank the video: stacked beneath it there is no frame to clear, and the opposing
+   insets would just knock the two rails out of line with each other. Scoped by a min-width rather
+   than reset below it because the logical margins lower to a `:not(:lang(…))` LTR guard, whose extra
+   pseudo-class outweighs any same-selector override. */
+@media (min-width: 1181px) and (prefers-reduced-motion: no-preference) {
+    .finale .railLeft .callout {
+        margin-inline-start: auto;
+        margin-inline-end: 15px;
+    }
 
-.finale .railRight .callout {
-    margin-inline-start: 15px;
+    .finale .railRight .callout {
+        margin-inline-start: 15px;
+    }
 }
 
 /* ===== Progress through the video itself, above the frame ===== */
