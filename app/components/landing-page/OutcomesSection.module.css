@@ -71,6 +71,13 @@
     gap: 36px;
 }
 
+/* A grid item's `min-width: auto` floor is its content, and the visuals are drawn at a fixed
+   natural width that `transform: scale()` never shrinks. Without this the track is forced
+   wider than the section and the copy is dragged past the padding. */
+.col {
+    min-width: 0;
+}
+
 /* The three visuals are different natural heights, so each is centred in the same fixed
    box and they sit on a shared middle line rather than a shared top edge. */
 .viz {
@@ -191,8 +198,11 @@
 /* The visuals are drawn at fixed sizes, so they scale as one piece rather than being cropped. */
 @media (max-width: 639.98px) {
     .viz {
-        /* Measured against the widest artwork (340px), not its ornaments, which the section clips. */
-        --viz-scale: min(1, calc((100vw - 48px) / 340px));
+        /* A backstop for the artwork's own intrinsic width: the column caps each visual, so
+           this only bites where one is still wider than the space left by the section's 48px
+           of inline padding. Measured against the widest (the certificate, 332px at its
+           natural height), not its ornaments, which the section clips. */
+        --viz-scale: min(1, calc((100vw - 48px) / 332px));
 
         height: calc(250px * var(--viz-scale));
     }

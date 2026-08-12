@@ -17,14 +17,24 @@
     --confetti-5: #beeeab;
 
     --stage-w: 1040px;
+    /* What the stage actually occupies: it is content-box, so its 8px padding and 1px border
+       on each side sit outside --stage-w. Scaling against the content width alone drew the
+       box ~2% too wide and pushed it past the gutter on a phone. */
+    --stage-frame: calc((8px + 1px) * 2);
+    --stage-box-w: calc(var(--stage-w) + var(--stage-frame));
     /* The gutter the stage lives inside; narrower on a phone, where the text is barely legible. */
     --ltc-gutter: 12px;
 
     @media (min-width: 640px) {
         --ltc-gutter: 24px;
     }
-    /* The divisor must keep its px unit: length / number is invalid and renders unscaled. */
-    --ltc-scale: min(0.55, calc((100vw - var(--ltc-gutter) * 2) / var(--stage-w)));
+    /* The divisor must keep its px unit: length / number is invalid and renders unscaled.
+       The width comes from the container rather than 100vw, which counts the classic scrollbar
+       the layout never gets and drew the stage a scrollbar-width too large, bleeding it into
+       the gutter. 100cqw is this element's own content box, so the gutter is already excluded
+       and must not be subtracted again. */
+    container-type: inline-size;
+    --ltc-scale: min(0.55, calc(100cqw / var(--stage-box-w)));
     /* Anchors below are authored against the 0.55 scale, so they follow it if it ever changes. */
     --ltc-k: calc(var(--ltc-scale) / 0.55);
 
@@ -332,6 +342,10 @@
 
 .videoWrap {
     position: relative;
+    /* A grid item's `min-width: auto` floor is its unscaled content, and the stage is drawn at
+       1040px however far it is scaled down. Without this the wrapper is forced wider than its
+       track and the stage bleeds into the gutter. */
+    min-width: 0;
 }
 
 .videoProgress {
@@ -386,9 +400,10 @@
     transform: scale(var(--ltc-scale));
     transform-origin: top left;
     /* The scaled box still occupies its full unscaled size in layout, so the wrapper is sized
-       down to what is actually drawn. */
-    margin-inline-end: calc(var(--stage-w) * (var(--ltc-scale) - 1));
-    margin-block-end: calc(var(--stage-h) * (var(--ltc-scale) - 1));
+       down to what is actually drawn. Both pull-backs use the border-box size, since that is
+       what was laid out. */
+    margin-inline-end: calc(var(--stage-box-w) * (var(--ltc-scale) - 1));
+    margin-block-end: calc((var(--stage-h) + var(--stage-frame)) * (var(--ltc-scale) - 1));
     --stage-h: calc(var(--stage-w) * 11.4 / 16);
 
     box-sizing: content-box;
