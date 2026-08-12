@@ -48,3 +48,6 @@ app/public/static/search/
 
 # graphify knowledge-graph output (local only)
 graphify-out/
+
+# impeccable design-skill state (local only)
+.impeccable/
