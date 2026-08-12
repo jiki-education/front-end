@@ -1,12 +1,19 @@
-// Every locale the codebase knows about: types, message catalogs (messages/*.json)
-// and localized content are all authored against this full set, regardless of
-// which locales a given environment actually serves. `Locale` is derived from
-// this, so hu types/content stay valid even when hu isn't served.
+// The locale sets the app runs on. All three are DERIVED from the language
+// roster in lib/i18n/language-registry.ts, which is the one place a locale's
+// lifecycle is recorded; nothing here is a second list to keep in step.
+//
+// Every locale the codebase knows about (`ALL_LOCALES`) is the roster's `known`
+// and `production` rungs. Types, message catalogs (messages.json) and localized
+// content are authored against that full set regardless of which locales a given
+// environment actually serves, so a locale's types and content stay valid while
+// it is still only on staging.
 import { BUILD_DEPLOY_ENV } from "./env";
+import { KNOWN_LOCALES, ROSTER_PRODUCTION_LOCALES, type Locale } from "./i18n/language-registry";
 import productionLocales from "./production-locales.json";
 
-export const ALL_LOCALES = ["en", "hu"] as const;
-export type Locale = (typeof ALL_LOCALES)[number];
+export type { Locale };
+
+export const ALL_LOCALES: readonly Locale[] = KNOWN_LOCALES;
 
 export const DEFAULT_LOCALE: Locale = "en";
 
@@ -18,29 +25,37 @@ export const DEFAULT_LOCALE: Locale = "en";
 // be reviewed, and this is what stops a half-translated locale being served to a
 // reader who has no way to tell.
 //
-// It lives in JSON so the deploy gate can read the same bytes this module does.
-// That gate runs as a plain node script before the build, so it cannot import
-// from here without pulling in a TypeScript module graph, and it used to find
-// this list by matching a regex against this file. That regex could start at a
-// mention of the name in a comment and run on to the next array, which made it
-// read ALL_LOCALES while believing it had read this. One file, two readers, no
-// parsing.
+// The VALUES come from the roster, like everything else here.
+// `production-locales.json` still exists, but it is now GENERATED from the
+// roster by `pnpm locales:generate` and checked in, so the deploy gate can read
+// the same set this module derives. That gate runs as a plain node script before
+// the build, so it cannot import from here without pulling in a TypeScript
+// module graph, and it used to find this list by matching a regex against this
+// file. That regex could start at a mention of the name in a comment and run on
+// to the next array, which made it read ALL_LOCALES while believing it had read
+// this. One roster, two readers, no parsing on the reading side.
 //
-// ALL_LOCALES stays in TypeScript because `Locale` is derived from it, and a JSON
+// The roster stays in TypeScript because `Locale` is derived from it, and a JSON
 // import is `string[]` rather than a literal union.
-export const PRODUCTION_LOCALES: readonly Locale[] = productionLocales as readonly Locale[];
+export const PRODUCTION_LOCALES: readonly Locale[] = ROSTER_PRODUCTION_LOCALES;
 
-// A production locale the codebase does not know is not a locale: no `Locale`
-// type, no route, no catalog. The array type cannot enforce that once the values
-// come from JSON, so it is asserted here, at import, which fails the build rather
-// than a request. The failure this prevents is silent: a stray space or the wrong
-// casing (`pt-pt` for `pt-PT`) yields an entry that is in the production list and
-// serves nothing.
-const unknownProductionLocales = productionLocales.filter((locale) => !ALL_LOCALES.includes(locale as Locale));
-if (unknownProductionLocales.length > 0) {
+// The generated JSON must still say what the roster says.
+//
+// It is generated, so it cannot list a locale the codebase does not know the way
+// a hand-edited file could. What it CAN be is stale: regenerated output that was
+// never re-run after the roster changed, leaving the deploy gate checking a
+// different set from the one the app serves. `pnpm locale:check` is the primary
+// guard (it reports this alongside every other locale problem, in one message);
+// this assertion is the backstop, and it fires at import so it fails the build
+// rather than a request.
+const generated = productionLocales as readonly string[];
+const drifted =
+  generated.length !== PRODUCTION_LOCALES.length ||
+  PRODUCTION_LOCALES.some((locale, index) => generated[index] !== locale);
+if (drifted) {
   throw new Error(
-    `production-locales.json lists locales the codebase does not know: ${unknownProductionLocales.join(", ")}. ` +
-      `Add them to ALL_LOCALES first, or correct the spelling.`
+    `lib/production-locales.json is out of date: it says [${generated.join(", ")}] where the language ` +
+      `roster says [${PRODUCTION_LOCALES.join(", ")}]. Run \`pnpm locales:generate\` and commit the result.`
   );
 }
 
@@ -60,9 +75,9 @@ if (unknownProductionLocales.length > 0) {
 export const SUPPORTED_LOCALES: readonly Locale[] =
   process.env.NODE_ENV !== "production" || BUILD_DEPLOY_ENV === "staging" ? ALL_LOCALES : PRODUCTION_LOCALES;
 
-// Locales that read right-to-left. Empty today: both en and hu are LTR. When an
-// RTL locale (e.g. Arabic "ar", Hebrew "he") is added to ALL_LOCALES, add it
-// here too so `<html dir>` flips to "rtl" for it.
+// Locales that read right-to-left. Empty today: en, hu and it are all LTR. When
+// an RTL locale (e.g. Arabic "ar", Hebrew "he") reaches the roster's `known`
+// rung, add it here too so `<html dir>` flips to "rtl" for it.
 export const RTL_LOCALES: ReadonlySet<Locale> = new Set([]);
 
 // Text direction for a locale: "rtl" for locales in RTL_LOCALES, "ltr" otherwise

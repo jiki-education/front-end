@@ -16,6 +16,7 @@ import path from "path";
 
 const APP_DIR = path.join(__dirname, "..", "..", "..", "..");
 const GENERATED_DIR = path.join(APP_DIR, "lib", "generated");
+const GLOBAL_ERROR_COPY = path.join(APP_DIR, "lib", "i18n", "generated", "global-error-copy.ts");
 const SOURCE_DIRS = ["app", "components", "lib", "hooks", "types", "middleware.ts"];
 
 function sourceFiles(): string[] {
@@ -90,6 +91,30 @@ describe("nothing locale-varying is bundled", () => {
     const unexpected = actual.filter((name) => !ALLOWED.has(name));
 
     expect(unexpected).toEqual([]);
+  });
+
+  /**
+   * The ONE documented exception, held to being exactly one.
+   *
+   * `app/global-error.tsx` renders when the app has already failed, possibly
+   * BECAUSE catalog loading failed, so it cannot await a pointer or a fetch. Its
+   * three strings are therefore inlined for every locale into
+   * lib/i18n/generated/global-error-copy.ts and committed, since no build has an
+   * i18n checkout.
+   *
+   * That is a real exception to everything above, so it is written down here
+   * rather than left to be noticed: exactly one module may read it, and it is the
+   * accessor that exists to be that module. Anything else importing it is a
+   * second build-time locale binding, which is what this file exists to prevent.
+   */
+  it("has exactly one reader of the inlined crash-page copy", () => {
+    expect(fs.existsSync(GLOBAL_ERROR_COPY)).toBe(true);
+
+    const importers = sourceFiles().filter((file) =>
+      /from\s+["'][^"']*generated\/global-error-copy["']/.test(fs.readFileSync(file, "utf8"))
+    );
+
+    expect(importers.map((f) => path.relative(APP_DIR, f))).toEqual(["lib/i18n/globalErrorCopy.ts"]);
   });
 
   /**

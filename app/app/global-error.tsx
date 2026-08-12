@@ -7,33 +7,19 @@ import { ErrorPageContent } from "../components/error-page/ErrorPage";
 import "./globals.css";
 import styles from "../components/error-page/ErrorPage.module.css";
 import { DEFAULT_LOCALE, LOCALE_COOKIE_NAME, isSupportedLocale, type Locale } from "@/lib/i18n/config";
+import { getGlobalErrorCopy } from "@/lib/i18n/globalErrorCopy";
 
 // This page replaces the entire HTML tree when the app crashes hard, so it must
-// render with ZERO loadable dependencies: no NextIntlClientProvider, no message
-// catalog, no fetch. Its strings are therefore DELIBERATELY kept out of
-// messages/*.json and live in the inline COPY dictionary below.
+// render with ZERO loadable dependencies: no NextIntlClientProvider, no catalog
+// fetch, no await. Its copy is therefore INLINED at generation time into
+// lib/i18n/generated/global-error-copy.ts and imported synchronously here.
 //
-// IMPORTANT: because this bypasses the catalog, every new locale must be added
-// here BY HAND. The translation repo knows about this deliberate exception.
-// New locales' entries start as the English copy verbatim (never machine-translated).
-interface GlobalErrorCopy {
-  title: string;
-  message: string;
-  actionLabel: string;
-}
-
-const COPY: Record<Locale, GlobalErrorCopy> = {
-  en: {
-    title: "Something went wrong",
-    message: "We encountered an unexpected error. Sorry about that!",
-    actionLabel: "Try again"
-  },
-  hu: {
-    title: "Valami hiba történt",
-    message: "Váratlan hiba lépett fel. Elnézést kérünk emiatt!",
-    actionLabel: "Próbáld újra"
-  }
-};
+// That is a constraint on delivery only. The strings themselves are authored in
+// the app UI catalogs like every other string (English under `globalError` in
+// messages.json, every other locale in the i18n repo), so adding a locale needs
+// no edit to this file at all: translate the catalog, run
+// `pnpm global-error-copy:generate`, commit. `pnpm locale:check` reports any
+// locale still missing it.
 
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
@@ -89,13 +75,6 @@ export function resolveGlobalErrorLocale(): Locale {
   }
 
   return DEFAULT_LOCALE;
-}
-
-// Selects the inline copy for a locale, falling back to English for any locale
-// not present in the dictionary.
-export function getGlobalErrorCopy(locale: string): GlobalErrorCopy {
-  const dictionary: Record<string, GlobalErrorCopy | undefined> = COPY;
-  return dictionary[locale] ?? COPY[DEFAULT_LOCALE];
 }
 
 function readCookie(name: string): string | undefined {

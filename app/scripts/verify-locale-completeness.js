@@ -61,6 +61,11 @@ const COMPLETENESS_URL = "https://assets.jiki.io/static/i18n/completeness.json";
 // that file, which could start at a mention of the name in a comment and run on
 // to the next array: on a branch carrying 33 locales it read ALL_LOCALES and
 // demanded completeness for every one of them. One file, two readers, no parsing.
+//
+// The file is now GENERATED from the language roster (lib/i18n/language-registry.ts)
+// by `pnpm locales:generate`, and committed, so these are still plain JSON bytes
+// with no TypeScript anywhere near them. `pnpm locale:check` is what stops the
+// committed copy drifting from the roster.
 const PRODUCTION_LOCALES_FILE = path.join(
   path.dirname(fileURLToPath(import.meta.url)),
   "..",
@@ -162,7 +167,8 @@ if (failures.length > 0) {
   // cannot tell, and it can be put back the moment the translation lands.
   console.error(
     `\nTwo ways out:\n` +
-      `  1. RECOMMENDED: remove ${names} from PRODUCTION_LOCALES in app/lib/locales.ts and deploy.\n` +
+      `  1. RECOMMENDED: drop ${names} back to "known" in app/lib/i18n/language-registry.ts, run\n` +
+      `     \`pnpm locales:generate\`, commit both, and deploy.\n` +
       `     Production keeps serving only complete locales, which is correct rather than\n` +
       `     knowingly wrong, and the locale goes back the moment the translation lands.\n` +
       `     Staging is unaffected either way: it serves every locale so the work stays reviewable.\n` +

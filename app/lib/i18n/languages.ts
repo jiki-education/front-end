@@ -1,74 +1,21 @@
 import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from "./config";
+import { LANGUAGES, type LanguageEntry } from "./language-registry";
 
 /**
- * Every language Jiki is being translated into, mirroring the i18n categories on
- * the forum (forum.jiki.io/c/i18n) — which is also where the flag choices come
- * from. Codes match `translator/languages/names.json`.
+ * The switcher's view of the language roster.
  *
- * Deliberately NOT typed as `Locale`: all but a couple of these have no message
- * catalog and no `[locale]` route yet. `Locale` stays the set the app can
- * actually serve (`lib/locales.ts`); this is the wider set the switcher advertises.
+ * The roster itself (every language Jiki is being translated into, mirroring the
+ * i18n categories on the forum, forum.jiki.io/c/i18n) lives in
+ * `language-registry.ts`, together with each language's lifecycle status. This
+ * module is only the presentation layer over it: display names, ordering, and
+ * the split into "live here" and "coming soon".
+ *
+ * `Language` is deliberately NOT `Locale`: most of the roster is `advertised`,
+ * with no message catalog and no `[locale]` route. `Locale` stays the set the
+ * app can actually serve (`lib/locales.ts`, derived from the same roster);
  * `isLive()` is the join between the two.
  */
-export interface Language {
-  /** Locale/URL code, e.g. "pt-BR". */
-  code: string;
-  /**
-   * Basename in `public/static/images/flags`, named by **country** not language:
-   * several languages share a flag, and two share the globe.
-   *
-   * The set is [country-flag-icons](https://github.com/catamphetamine/country-flag-icons)
-   * (MIT) `3x2`, chosen over flag-icons because its coat-of-arms flags are two
-   * orders of magnitude smaller (Serbia 180KB -> 861B) and the detail they drop is
-   * invisible at the 21px these render at. `world.svg` is Wikimedia's World Flag
-   * (2004), for the languages too widely spoken for one country's flag to be honest.
-   */
-  flag: string;
-  /**
-   * Code used only for the display name, when it differs from the routing code.
-   * "zh-CN" reads as "Chinese (China)", where "zh-Hans" reads "Simplified
-   * Chinese" — the label the forum uses and the one that means something to a
-   * reader choosing a language.
-   */
-  displayCode?: string;
-}
-
-const LANGUAGES: readonly Language[] = [
-  { code: "en", flag: "gb" },
-  { code: "ar", flag: "world" },
-  { code: "bn", flag: "bd" },
-  { code: "ca", flag: "ad" },
-  { code: "de", flag: "de" },
-  { code: "el", flag: "gr" },
-  { code: "es-419", flag: "world" },
-  { code: "es-ES", flag: "es" },
-  { code: "fa", flag: "ir" },
-  { code: "fi", flag: "fi" },
-  { code: "fr", flag: "fr" },
-  { code: "he", flag: "il" },
-  { code: "hi", flag: "in" },
-  { code: "hu", flag: "hu" },
-  { code: "id", flag: "id" },
-  { code: "it", flag: "it" },
-  { code: "ja", flag: "jp" },
-  { code: "ko", flag: "kr" },
-  { code: "nl", flag: "nl" },
-  { code: "pl", flag: "pl" },
-  { code: "pt-BR", flag: "br" },
-  { code: "pt-PT", flag: "pt" },
-  { code: "ro", flag: "ro" },
-  { code: "ru", flag: "ru" },
-  { code: "sr", flag: "rs" },
-  { code: "sv", flag: "se" },
-  { code: "sw", flag: "tz" },
-  { code: "th", flag: "th" },
-  { code: "tr", flag: "tr" },
-  { code: "uk", flag: "ua" },
-  { code: "ur", flag: "pk" },
-  { code: "vi", flag: "vn" },
-  { code: "zh-CN", flag: "cn", displayCode: "zh-Hans" },
-  { code: "zh-TW", flag: "tw", displayCode: "zh-Hant" }
-];
+export type Language = LanguageEntry;
 
 /** Whether this environment actually serves the language (see SUPPORTED_LOCALES). */
 export function isLive(code: string): boolean {

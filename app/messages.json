@@ -2170,5 +2170,10 @@
       "try_again_later": "Your card was declined. Please try again in a few minutes.",
       "withdrawal_count_limit_exceeded": "Your card has hit its limit. Please try a different card, or contact your card issuer."
     }
+  },
+  "globalError": {
+    "title": "Something went wrong",
+    "message": "We encountered an unexpected error. Sorry about that!",
+    "actionLabel": "Try again"
   }
 }

@@ -1,6 +1,6 @@
 name: i18n
 
-# Two checks, both about the locales production actually serves.
+# Three checks, all about the locales production actually serves.
 #
 # audit-keys verifies that every translation key referenced in code exists in the
 # catalog it is resolved from. None of the three audits has a locale dimension,
@@ -12,9 +12,11 @@ name: i18n
 # the header of interpreters/scripts/audit-i18n-keys.mjs. Each package has its own
 # audit script under <pkg>/scripts/audit-i18n-keys.mjs.
 #
-# The division of labour between the two jobs is therefore: audit-keys guards the
-# ENGLISH catalogs this repo authors, and locale-completeness guards every other
-# locale by asking the repo that owns them.
+# The division of labour is therefore: audit-keys guards the ENGLISH catalogs this
+# repo authors, locale-completeness guards every other locale by asking the repo
+# that owns them, and locale-check guards this repo's own account of which locales
+# exist — that the language roster, the generated production list the deploy gate
+# reads, and the inlined crash-page copy all still agree.
 #
 # locale-completeness verifies that each of those locales is one the i18n repo
 # reports as fully translated. That repo publishes whatever is on its main so
@@ -56,6 +58,45 @@ jobs:
       - name: Verify every production locale is complete
         working-directory: app
         run: node scripts/verify-locale-completeness.js
+
+  # Everything a locale's existence implies inside this repo, asserted in one run.
+  #
+  # The roster (app/lib/i18n/language-registry.ts) is the single source of truth
+  # and everything else is derived from it, but two of those derivations are
+  # GENERATED FILES that have to be committed (the deploy gate and the production
+  # build both read them without running any generator). A committed generated
+  # file can be stale, so this regenerates and fails on any difference.
+  #
+  # It needs an install, unlike locale-completeness: it reads the roster by handing
+  # it to the TypeScript compiler rather than by matching a regex against it, which
+  # is the whole reason it can be trusted.
+  #
+  # There is no i18n checkout here, so the catalog-sourced checks run against the
+  # committed generated copy and say so. A developer with the checkout gets the
+  # stronger form of the same check.
+  locale-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check every locale definition agrees
+        working-directory: app
+        run: pnpm run locale:check
 
   audit-keys:
     runs-on: ubuntu-latest

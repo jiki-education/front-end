@@ -17,6 +17,8 @@
     "dev:app": "pnpm --filter @jiki/app dev",
     "dev:llm-chat-proxy": "pnpm --filter @jiki/llm-chat-proxy dev",
     "build:app": "pnpm --filter @jiki/app build",
+    "locale:check": "pnpm --filter @jiki/app locale:check",
+    "locales:generate": "pnpm --filter @jiki/app locales:generate",
     "prepare": "husky"
   },
   "keywords": [
