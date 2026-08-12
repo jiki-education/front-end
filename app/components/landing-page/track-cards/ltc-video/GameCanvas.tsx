@@ -46,12 +46,16 @@ function Cannon({ state }: { state: VideoState }) {
   );
 }
 
-/** A white streak from the cannon to the alien it kills, sized from the board layout and retired on `animationend`. */
+/**
+ * A white streak between the cannon and the alien it kills, sized from the board layout and retired
+ * on `animationend`. A rewound kill runs the same streak the other way, back down into the cannon.
+ */
 function ShotStreak({ shot, onEnd }: { shot: Shot; onEnd: (id: number) => void }) {
   const target = ALIENS[shot.target];
   // The cannon's nose, and the middle of the alien it is aimed at.
-  const from = 88;
-  const to = ROW_TOP[target.row] + 4;
+  const nose = 88;
+  const alien = ROW_TOP[target.row] + 4;
+  const [from, to] = shot.dir === "down" ? [alien, nose] : [nose, alien];
 
   return (
     <div className={styles.shotRail} style={{ left: `${colX(shot.col)}%` }}>

@@ -4,7 +4,10 @@
     max-width: 100%;
     margin-inline: auto;
     margin-block-end: 12px;
+    /* `fit-content` grows to the full width once the text wraps, so the gutter has to come
+       from padding here rather than from the width; without it the copy touches both edges. */
     padding-block: 46px 10px;
+    padding-inline: 24px;
     text-align: center;
 }
 

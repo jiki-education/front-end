@@ -104,7 +104,8 @@
     }
 }
 
-@media (min-width: 1024px) and (max-width: 1189px) {
+/* The copy column is at its narrowest in this band. */
+@media (min-width: 1024px) and (max-width: 1179.98px) {
     .tagline {
         font-size: 18px;
     }

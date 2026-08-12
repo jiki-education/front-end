@@ -2,6 +2,8 @@
     max-width: 511px;
     margin-inline: auto;
     margin-block-start: 12px;
+    /* Clips the faces and drifting emoji; `clip` leaves the bubbles free to open upwards. */
+    overflow-x: clip;
 }
 
 /* The positioning context for the faces: just the photo, nothing else. */

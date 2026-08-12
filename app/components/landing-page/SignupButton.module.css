@@ -33,7 +33,7 @@
     font-weight: 500;
     font-size: 16px;
 
-    @media (max-width: 767px) {
+    @media (max-width: 767.98px) {
         display: none;
     }
 }

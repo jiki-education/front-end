@@ -66,6 +66,30 @@ export function simulate(bound: number): GameAction[] {
   return actions;
 }
 
+/** The board mid-run: what is on screen once the first `step` actions of a run have played. */
+export interface Board {
+  deadAliens: boolean[];
+  col: number;
+  offEdge: boolean;
+}
+
+/**
+ * Replay the first `step` actions of a run and report the board they leave. Deriving the board from
+ * the run rather than accumulating it is what lets the scrubber go backwards: seeking to an earlier
+ * step brings the aliens killed after it back to life.
+ */
+export function boardAt(actions: readonly GameAction[], step: number): Board {
+  const board: Board = { deadAliens: ALIENS.map(() => false), col: 1, offEdge: false };
+
+  actions.slice(0, step).forEach((act) => {
+    if (act.type === "move") board.col = act.col;
+    if (act.type === "shoot") board.deadAliens[act.target] = true;
+    if (act.type === "error") board.offEdge = true;
+  });
+
+  return board;
+}
+
 /** The alien a shot from this column would hit: the lowest one still alive. */
 export function lowestAliveIn(col: number, live: readonly boolean[]) {
   let best = -1;

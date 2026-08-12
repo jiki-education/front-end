@@ -67,6 +67,17 @@
     }
 }
 
+/* No margin to hang into on a phone, and the pill carries meaning, so it tucks onto the art. */
+@media (max-width: 639.98px) {
+    .verify {
+        inset-inline-end: 0;
+    }
+
+    .splash {
+        display: none;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .splash {
         animation: none;

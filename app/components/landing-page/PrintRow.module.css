@@ -7,6 +7,8 @@
     padding-block: 60px 64px;
     padding-inline: 24px;
     text-align: center;
+    /* Clips the join doodle's overhang; `clip` so no scroll container is created. */
+    overflow-x: clip;
     background:
         radial-gradient(90% 60% at 15% 0%, rgba(168, 85, 247, 0.16) 0%, rgba(168, 85, 247, 0) 60%),
         radial-gradient(80% 70% at 90% 100%, rgba(191, 215, 254, 0.42) 0%, rgba(191, 215, 254, 0) 62%),
@@ -54,7 +56,8 @@
     container-type: inline-size;
     position: relative;
     flex-shrink: 0;
-    width: 162px;
+    /* The three prints need ~472px, wider than a phone, so below that they scale with it. */
+    width: min(162px, 34vw);
     padding: 11px 11px 57px;
     border-radius: 2px;
     background: radial-gradient(120% 100% at 50% 0%, #fffefd 40%, #faf7f2 100%);
@@ -65,7 +68,7 @@
 
 /* The prints overlap slightly, like a stack laid out by hand. */
 .print + .print {
-    margin-inline-start: -24px;
+    margin-inline-start: max(-24px, -5vw);
 }
 
 .print::before {
@@ -86,7 +89,7 @@
 
 /* The middle print is the hero of the row: bigger, on top, and quietly breathing. */
 .print:nth-child(2) {
-    width: 196px;
+    width: min(196px, 41vw);
     z-index: 3;
     animation: first-glow 3.2s ease-in-out infinite;
 }
@@ -254,7 +257,7 @@
 }
 
 /* Goes once the viewport is too narrow for it to sit clear of the prints. */
-@media (max-width: 870px) {
+@media (max-width: 899.98px) {
     .join {
         display: none;
     }

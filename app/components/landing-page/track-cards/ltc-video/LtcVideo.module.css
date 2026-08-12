@@ -16,14 +16,31 @@
     --confetti-4: #e9de3f;
     --confetti-5: #beeeab;
 
-    --ltc-scale: 0.55;
     --stage-w: 1040px;
+    /* What the stage actually occupies: it is content-box, so its 8px padding and 1px border
+       on each side sit outside --stage-w. Scaling against the content width alone drew the
+       box ~2% too wide and pushed it past the gutter on a phone. */
+    --stage-frame: calc((8px + 1px) * 2);
+    --stage-box-w: calc(var(--stage-w) + var(--stage-frame));
+    /* The gutter the stage lives inside; narrower on a phone, where the text is barely legible. */
+    --ltc-gutter: 12px;
+
+    @media (min-width: 640px) {
+        --ltc-gutter: 24px;
+    }
+    /* The divisor must keep its px unit: length / number is invalid and renders unscaled.
+       The width comes from the container rather than 100vw, which counts the classic scrollbar
+       the layout never gets and drew the stage a scrollbar-width too large, bleeding it into
+       the gutter. 100cqw is this element's own content box, so the gutter is already excluded
+       and must not be subtracted again. */
+    container-type: inline-size;
+    --ltc-scale: min(0.55, calc(100cqw / var(--stage-box-w)));
     /* Anchors below are authored against the 0.55 scale, so they follow it if it ever changes. */
     --ltc-k: calc(var(--ltc-scale) / 0.55);
 
     position: relative;
     z-index: 1;
-    padding-inline: 24px;
+    padding-inline: var(--ltc-gutter);
 }
 
 /* Three columns: the callout rails sit beside the stage rather than being pushed off it. The
@@ -270,7 +287,9 @@
     inset: auto;
     max-width: 255px;
     background: #fff;
-    border-color: var(--color-purple-400);
+    /* One grey for the whole closing frame: the cards fade in, hold and fade out without the border
+       ever changing colour, so the fade is the only thing the eye follows. */
+    border-color: var(--color-gray-200);
     box-shadow:
         0 14px 28px -14px rgb(15 23 42 / 35%),
         0 4px 10px -6px rgb(15 23 42 / 20%);
@@ -303,30 +322,30 @@
     bottom: auto;
 }
 
-/* Held 15px clear of the frame, so the dots stop short of the edge rather than sitting on it. */
-.finale .railLeft .callout {
-    margin-inline-start: auto;
-    margin-inline-end: 15px;
-}
+/* Held 15px clear of the frame, so the dots stop short of the edge rather than sitting on it. Only
+   while the rails flank the video: stacked beneath it there is no frame to clear, and the opposing
+   insets would just knock the two rails out of line with each other. Scoped by a min-width rather
+   than reset below it because the logical margins lower to a `:not(:lang(…))` LTR guard, whose extra
+   pseudo-class outweighs any same-selector override. */
+@media (min-width: 1181px) and (prefers-reduced-motion: no-preference) {
+    .finale .railLeft .callout {
+        margin-inline-start: auto;
+        margin-inline-end: 15px;
+    }
 
-.finale .railRight .callout {
-    margin-inline-start: 15px;
-}
-
-/* The whole set lands on full-strength purple... */
-.allGlow .calloutShown {
-    border-color: var(--color-purple-600);
-}
-
-/* ...then settles, borders quietening off. */
-.allLit .calloutShown {
-    border-color: var(--color-gray-200);
+    .finale .railRight .callout {
+        margin-inline-start: 15px;
+    }
 }
 
 /* ===== Progress through the video itself, above the frame ===== */
 
 .videoWrap {
     position: relative;
+    /* A grid item's `min-width: auto` floor is its unscaled content, and the stage is drawn at
+       1040px however far it is scaled down. Without this the wrapper is forced wider than its
+       track and the stage bleeds into the gutter. */
+    min-width: 0;
 }
 
 .videoProgress {
@@ -381,9 +400,10 @@
     transform: scale(var(--ltc-scale));
     transform-origin: top left;
     /* The scaled box still occupies its full unscaled size in layout, so the wrapper is sized
-       down to what is actually drawn. */
-    margin-inline-end: calc(var(--stage-w) * (var(--ltc-scale) - 1));
-    margin-block-end: calc(var(--stage-h) * (var(--ltc-scale) - 1));
+       down to what is actually drawn. Both pull-backs use the border-box size, since that is
+       what was laid out. */
+    margin-inline-end: calc(var(--stage-box-w) * (var(--ltc-scale) - 1));
+    margin-block-end: calc((var(--stage-h) + var(--stage-frame)) * (var(--ltc-scale) - 1));
     --stage-h: calc(var(--stage-w) * 11.4 / 16);
 
     box-sizing: content-box;
@@ -1320,6 +1340,8 @@
 .cursor {
     position: absolute;
     top: 0;
+    /* A zero-origin for the JS transform, not a layout edge; must not mirror. */
+    /* stylelint-disable-next-line property-disallowed-list */
     left: 0;
     z-index: 10;
     color: var(--color-purple-600);
