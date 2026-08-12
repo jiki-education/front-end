@@ -1,6 +1,6 @@
 // All of the video's visual state in one object, and the reducer the scheduler dispatches into.
 
-import { ALIENS, simulate } from "./simulation";
+import { ALIENS, boardAt, simulate } from "./simulation";
 import { BAD, GOOD } from "./code-listing";
 import { SHOT_MS, TIMELINE } from "./timeline";
 import type { Action, CalloutId, CursorTarget, Outcome, Tab } from "./timeline";
@@ -10,6 +10,8 @@ export interface Shot {
   id: number;
   col: number;
   target: number;
+  /** `down` is a kill being rewound: the streak falls from the alien back into the cannon. */
+  dir: "up" | "down";
 }
 
 export interface VideoState {
@@ -51,6 +53,9 @@ export interface VideoState {
 }
 
 const NO_DEAD = ALIENS.map(() => false);
+
+/** The failing run, the only one the video scrubs through. Shared with the timeline that schedules the seeks. */
+const FAILING_RUN = simulate(Number(BAD));
 
 /** The video's opening state. Callouts are left out so the closing frame can rewind beneath them. */
 export const INITIAL_STATE: VideoState = {
@@ -163,9 +168,26 @@ export function reducer(state: VideoState, action: Action): VideoState {
       const deadAliens = state.deadAliens.map((dead, i) => dead || i === action.target);
       return {
         ...state,
-        shots: [...state.shots, { id: nextShotId++, col: action.col, target: action.target }],
+        shots: [...state.shots, { id: nextShotId++, col: action.col, target: action.target, dir: "up" }],
         deadAliens
       };
+    }
+
+    // The board is rebuilt from the run at every step, so scrubbing back revives the aliens killed
+    // after it. Crossing a `shoot` replays that kill's streak, downwards when travelling backwards.
+    case "seek": {
+      const board = boardAt(FAILING_RUN, action.step);
+      // Going back, the step landed on is the one being undone; going forward, it is the one just applied.
+      const crossed = FAILING_RUN[action.dir === "back" ? action.step : action.step - 1];
+      const dir: Shot["dir"] = action.dir === "back" ? "down" : "up";
+      const shots =
+        // The ends of the scrub index past the run, where this lookup is genuinely undefined.
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        crossed?.type === "shoot"
+          ? [...state.shots, { id: nextShotId++, col: crossed.col, target: crossed.target, dir }]
+          : state.shots;
+
+      return { ...state, deadAliens: board.deadAliens, laserCol: board.col, laserOffEdge: board.offEdge, shots };
     }
 
     case "expireShot":
@@ -223,8 +245,9 @@ export function stateAt(ms: number): VideoState {
   const state = TIMELINE.beats.reduce((acc, beat) => {
     if (beat.at > ms) return acc;
     const next = reducer(acc, beat.action);
-    // A `shoot` beat always appends exactly one shot, so the last one is the shot it just made.
-    if (beat.action.type === "shoot") {
+    // Both `shoot` and a `seek` across a kill append exactly one shot, so a longer list means the
+    // last entry is the streak this beat just made.
+    if (next.shots.length > acc.shots.length) {
       firedAt.set(next.shots[next.shots.length - 1].id, beat.at);
     }
     return next;

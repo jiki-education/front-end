@@ -5,9 +5,9 @@ import {
   GOOD,
   tokenize
 } from "@/components/landing-page/track-cards/ltc-video/code-listing";
-import { ALIENS, COLS, simulate } from "@/components/landing-page/track-cards/ltc-video/simulation";
-import { INITIAL_STATE, reducer } from "@/components/landing-page/track-cards/ltc-video/state";
-import { STEP, TIMELINE } from "@/components/landing-page/track-cards/ltc-video/timeline";
+import { ALIENS, COLS, boardAt, simulate } from "@/components/landing-page/track-cards/ltc-video/simulation";
+import { INITIAL_STATE, reducer, stateAt } from "@/components/landing-page/track-cards/ltc-video/state";
+import { SHOT_MS, STEP, TIMELINE } from "@/components/landing-page/track-cards/ltc-video/timeline";
 
 describe("simulation", () => {
   it("walks off the right edge with the buggy boundary", () => {
@@ -139,6 +139,88 @@ describe("reducer", () => {
     expect(landed.shots).toHaveLength(0);
     // The alien stays dead once the streak has gone.
     expect(landed.deadAliens[0]).toBe(true);
+  });
+});
+
+describe("scrubbing back through the failing run", () => {
+  const RUN = simulate(20);
+  /** The run replayed up to `at`, the way the scheduler would have played it. */
+  const play = (at: number) =>
+    TIMELINE.beats.filter((b) => b.at <= at).reduce((s, b) => reducer(s, b.action), INITIAL_STATE);
+  const seeks = TIMELINE.beats.filter((b) => b.action.type === "seek");
+
+  it("scrubs backwards through the run and then forwards again", () => {
+    const steps = seeks.map((b) => (b.action as { step: number }).step);
+    const lowest = Math.min(...steps);
+    const turn = steps.indexOf(lowest);
+
+    // Down to the turning point, then back up to where the run broke.
+    expect(steps.slice(0, turn + 1)).toEqual([...steps.slice(0, turn + 1)].sort((a, b) => b - a));
+    expect(steps.slice(turn)).toEqual([...steps.slice(turn)].sort((a, b) => a - b));
+    // A step is a frame between actions, so the run's last frame is one past its final action.
+    expect(steps[steps.length - 1]).toBe(RUN.length);
+  });
+
+  it("brings the aliens killed after the scrub point back to life", () => {
+    const deadAt = (at: number) => play(at).deadAliens.filter(Boolean).length;
+
+    const beforeScrub = seeks[0].at - 1;
+    const turningPoint = seeks.reduce((low, b) =>
+      (b.action as { step: number }).step < (low.action as { step: number }).step ? b : low
+    );
+    const afterScrub = seeks[seeks.length - 1].at;
+
+    // All five kills of the failing run are on the board, some come back, then all five return.
+    expect(deadAt(beforeScrub)).toBe(5);
+    expect(deadAt(turningPoint.at)).toBeLessThan(5);
+    expect(deadAt(afterScrub)).toBe(5);
+  });
+
+  it("replays each crossed kill as a streak, downwards on the way back", () => {
+    const shotsBySeek = seeks.map((beat) => {
+      const before = play(beat.at - 1).shots;
+      const after = play(beat.at).shots;
+      return { dir: (beat.action as { dir: string }).dir, added: after.slice(before.length) };
+    });
+
+    const backwards = shotsBySeek.filter((s) => s.dir === "back").flatMap((s) => s.added);
+    const forwards = shotsBySeek.filter((s) => s.dir === "forward").flatMap((s) => s.added);
+
+    // Two kills sit between the scrub's endpoints, so each pass replays both.
+    expect(backwards).toHaveLength(2);
+    expect(forwards).toHaveLength(2);
+    expect(backwards.every((shot) => shot.dir === "down")).toBe(true);
+    expect(forwards.every((shot) => shot.dir === "up")).toBe(true);
+    // The same two aliens, undone on the way back and killed again on the way forward.
+    expect(backwards.map((s) => s.target).sort()).toEqual(forwards.map((s) => s.target).sort());
+  });
+
+  it("shows a rewound streak on a seeked frame, and drops it once it has landed", () => {
+    // The dev scrubber rebuilds a frame from scratch, so it has to age the scrub's streaks too.
+    const crossing = seeks.find((beat) => {
+      const before = play(beat.at - 1).shots.length;
+      return play(beat.at).shots.length > before;
+    })!;
+
+    expect(stateAt(crossing.at).shots).toHaveLength(1);
+    expect(stateAt(crossing.at + SHOT_MS).shots).toHaveLength(0);
+  });
+
+  it("leaves the cannon back off the edge where the run broke", () => {
+    const ended = play(seeks[seeks.length - 1].at);
+    expect(ended.laserOffEdge).toBe(true);
+    expect(ended.deadAliens.every(Boolean)).toBe(false);
+  });
+
+  it("seeks to the same board the run itself reached", () => {
+    // A seek is only honest if it matches what playing the run forwards would have produced.
+    [...RUN, null].forEach((_, step) => {
+      const board = boardAt(RUN, step);
+      const seeked = reducer(INITIAL_STATE, { type: "seek", step, dir: "forward" });
+      expect(seeked.deadAliens).toEqual(board.deadAliens);
+      expect(seeked.laserCol).toBe(board.col);
+      expect(seeked.laserOffEdge).toBe(board.offEdge);
+    });
   });
 });
 
