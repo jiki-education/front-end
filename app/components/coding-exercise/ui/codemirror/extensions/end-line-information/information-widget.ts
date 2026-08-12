@@ -196,33 +196,26 @@ export class InformationWidget extends WidgetType {
 
     this.cleanupDuplicateTooltips();
 
-    // The tooltip is appended to <body>, so it follows the document direction (the
-    // editor itself is a forced dir="ltr" island). Under RTL the whole layout is
-    // mirrored, so the tooltip must sit on the opposite side of its anchor or it
-    // lands off-screen past the right edge.
-    const isRTL = getComputedStyle(document.documentElement).direction === "rtl";
-
+    // The exercise's LHS/RHS split is pinned physical in every locale (see the
+    // `direction: ltr` note in CodingExercise.module.css), so the editor is always
+    // the left pane and the tooltip always belongs to its right.
     void computePosition(this.referenceElement, this.tooltip, {
-      placement: isRTL ? "left" : "right",
+      placement: "right",
       middleware: [
         offset(0),
         shift({ padding: 0, boundary: (editor as Boundary) ?? undefined }),
         arrow({ element: this.arrowElement })
       ]
     }).then(({ y, middlewareData }) => {
-      // Align the tooltip with the vertical divider: just past its inner edge (the
-      // edge facing the reading flow) — right of it under LTR, left of it under RTL.
+      // Align the tooltip just past the vertical divider's right edge.
       const verticalDivider = document.querySelector(".verticalDivider") as HTMLElement;
-      const tooltipWidth = this.tooltip?.offsetWidth ?? 0;
       let x: number;
 
       if (verticalDivider) {
-        const dividerRect = verticalDivider.getBoundingClientRect();
-        x = isRTL ? dividerRect.left - tooltipWidth - 10 : dividerRect.right + 10;
+        x = verticalDivider.getBoundingClientRect().right + 10;
       } else {
         // Fallback to the editor's inner edge if the divider isn't found
-        const editorRect = editor.getBoundingClientRect();
-        x = isRTL ? editorRect.left - tooltipWidth - 10 : editorRect.right + 10;
+        x = editor.getBoundingClientRect().right + 10;
       }
 
       const { arrow } = middlewareData;

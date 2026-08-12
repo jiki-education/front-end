@@ -104,35 +104,27 @@
     margin-bottom: 4px;
 }
 
+/* The tooltip is always placed to the RIGHT of its anchor, in every locale: the
+   exercise's LHS/RHS split is pinned physical (see the `direction: ltr` note in
+   CodingExercise.module.css), so the editor is always the left pane. The arrow
+   therefore always sits on the tooltip's physical left edge, pointing left at the
+   anchor — a square showing its left+bottom borders, rotated 45°.
+
+   Physical props by necessity: logical ones would flip the arrow to the right edge
+   under RTL, and Lightning CSS (via Turbopack) lowers them to a `:is(:lang(ar), ...)`
+   list that tracks `lang` rather than `dir` anyway. Do not "modernise" these. */
+/* stylelint-disable property-disallowed-list */
 .tooltipArrow {
     width: 12px;
     height: 12px;
     background-color: var(--color-surface-elevated);
-    border-inline-start: 2px solid;
+    border-left: 2px solid;
     border-bottom: 2px solid;
     position: absolute;
-    inset-inline-start: -8px;
+    left: -8px;
     transform: rotate(45deg);
     z-index: 1; /* sit on top of the tooltip border/background */
     /* top is set dynamically via JS */
-}
-
-/* Under RTL the widget is placed to the LEFT of its anchor (see information-widget.ts),
-   so the arrow moves to the tooltip's right edge and points right. The base arrow is a
-   square showing its left+bottom borders, rotated 45° to point left; the mirror is the
-   right+top borders, so we clear the base borders and set the opposite pair. Keyed on
-   [dir] to match the JS placement (which reads `dir`; logical props / :lang() would miss
-   a dir-only RTL). stylelint-disable: physical props are required to override the base. */
-/* stylelint-disable property-disallowed-list */
-:global([dir="rtl"]) .tooltipArrow {
-    inset-inline-start: auto;
-    left: auto;
-    right: -8px;
-    border-inline-start: 0;
-    border-bottom: 0;
-    border-right: 2px solid;
-    border-top: 2px solid;
-    transform: rotate(45deg);
 }
 /* stylelint-enable property-disallowed-list */
 
