@@ -3,21 +3,79 @@
  * audit-i18n-keys.mjs
  *
  * Audits translation-key consistency for each interpreter language
- * (javascript / python / jikiscript) against EVERY production locale.
+ * (javascript / python / jikiscript) against the catalogs THIS REPO AUTHORS.
  *
  * GOAL: every translation key the code can reference at runtime must have an
- * entry in each production locale's dict
- * (`src/<lang>/locales/<locale>/translation.json`). A key present in `en` but
- * missing from another production locale (e.g. `hu`) is a failure — there is no
- * runtime fallback in the inject-the-dict model, so a missing key surfaces to
- * the student as the raw key. Secondary (info, non-failing): dict keys never
- * referenced in code.
+ * entry in the authored English dict (`src/<lang>/locales/en/translation.json`).
+ * A key the code can produce with no entry there can never be translated by
+ * anyone, and surfaces to the student as the raw key: there is no runtime
+ * fallback in the inject-the-dict model. Secondary (info, non-failing): dict
+ * keys never referenced in code.
  *
- * WHICH LOCALES ARE CHECKED
- * -------------------------
- * The production locale set comes from the shared resolver
- * (`front-end/scripts/i18n-locales.mjs`, parsed from app/lib/locales.ts
- * SUPPORTED_LOCALES). Override for dev with `--locales=en,hu`.
+ * WHY THERE IS NO LOCALE DIMENSION HERE ANY MORE
+ * ----------------------------------------------
+ * This audit used to iterate PRODUCTION_LOCALES and require
+ * `src/<lang>/locales/<locale>/translation.json` for each one. That check could
+ * never pass for any locale but English, however completely that locale was
+ * translated, because a translated interpreter catalog is never a file in this
+ * repo:
+ *
+ *   - `locales/` here holds exactly two authored catalogs per language, `en` and
+ *     the `system` pseudo-locale, and nothing materialises a third. The build
+ *     step over this tree (`app/scripts/generate-interpreter-i18n-cache.js`)
+ *     publishes what is on disk; it does not fetch anything.
+ *   - Every TRANSLATED catalog is authored in the `i18n` repo
+ *     (`locales/<locale>/interpreters/<language>/messages.json`) and published
+ *     by that repo straight to R2 as
+ *     `/static/i18n/interpreter/<language>/<locale>/messages-<hash>.json`. The
+ *     app fetches it at runtime through the locale's pointer and injects it as
+ *     `EvaluationContext.localeMessages` (`app/lib/api/exercise-meta.ts`,
+ *     `fetchInterpreterMessages`). See the publisher table in
+ *     `app/.context/i18n.md`.
+ *
+ * So adding `hu` to PRODUCTION_LOCALES turned this red for a reason that had
+ * nothing to do with Hungarian: the audit was looking on a disk that structurally
+ * cannot hold the answer. Widening the check further, or pointing it at R2, would
+ * both be wrong; the honest boundary is that this repo can only verify the
+ * catalogs it authors.
+ *
+ * WHAT STILL GUARDS A TARGET LOCALE, AND WHERE
+ * -------------------------------------------
+ * The invariant "every key the code can reference resolves in `hu`" is still
+ * enforced, as the composition of two checks that each run where their data
+ * actually lives:
+ *
+ *   1. HERE: code references ⊆ authored English catalog (this script).
+ *   2. IN `i18n`: translated catalog ⊇ English catalog, per key, by that repo's
+ *      own `scripts/validate.mjs`; and no locale reaches PRODUCTION_LOCALES
+ *      until `i18n` reports it complete, which the sibling `locale-completeness`
+ *      job in `.github/workflows/i18n.yml` enforces by reading the completeness
+ *      record `i18n` publishes.
+ *
+ * Together those give the same guarantee the old locale loop was trying to give,
+ * and unlike the old loop they are both satisfiable. This leaves the interpreters
+ * audit shaped exactly like the app and curriculum ones: one authored English
+ * catalog, guarded against the code that reads it.
+ *
+ * ONLY JAVASCRIPT IS TRANSLATED, AND THAT IS NOT THIS SCRIPT'S BUSINESS
+ * --------------------------------------------------------------------
+ * `javascript` is the only interpreter any locale has a translated catalog for;
+ * python and jikiscript are English-only everywhere, by decision, and must never
+ * block a production locale. With no locale dimension left they cannot: all three
+ * languages are audited against their own English catalog, which is worth keeping
+ * for all three (it is the check that a key the code throws is authored at all)
+ * and says nothing about any locale. If python or jikiscript is translated later,
+ * the guarantee for it arrives through (2) above, with no change needed here.
+ *
+ * THE `system` PSEUDO-LOCALE (reported, deliberately not blocking)
+ * ---------------------------------------------------------------
+ * `system` is the other catalog this repo authors: the structured canary each
+ * interpreter bundles so a forgotten injection screams instead of silently
+ * reading as English (see `src/<lang>/translator.ts`). A key missing from it
+ * degrades that canary to a raw key, so it is worth reporting, and this repo can
+ * honestly verify it. It is a WARN rather than an ERROR only because jikiscript
+ * has two known gaps today (listed in the output); filling those and promoting
+ * this to a failure is a deliberate one-line change, not a rewrite.
  *
  * HOW KEYS ARE REFERENCED IN CODE
  * --------------------------------
@@ -54,18 +112,25 @@
  *   - Python raw-English literal keys, e.g. translate("Unexpected character.").
  *     Not error.* keys; with no dict entry they resolve to themselves.
  *
- * Usage:   node scripts/audit-i18n-keys.mjs [--locales=en,hu]
- * Exit 1 if any referenced key is missing from ANY production locale (or a
- * language is missing a catalog dir for a production locale).
+ * Usage:   node scripts/audit-i18n-keys.mjs
+ * Exit 1 if any referenced key is missing from an authored English catalog (or a
+ * language has no English catalog at all). Takes no locale argument: there is no
+ * locale set to choose from.
  */
 
 import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join, dirname, relative } from "node:path";
 import { fileURLToPath } from "node:url";
-import { resolveAuditLocales } from "../../scripts/i18n-locales.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const LANGS = ["javascript", "python", "jikiscript"];
+
+// The two catalogs authored in this repo. `en` is what every translation is made
+// from, so a gap in it is a failure; `system` is the no-injection canary, so a
+// gap in it is reported and does not block. Nothing else can appear here: see
+// "WHY THERE IS NO LOCALE DIMENSION HERE ANY MORE" above.
+const SOURCE_LOCALE = "en";
+const CANARY_LOCALE = "system";
 
 // i18next encodes plural/context/ordinal variants as key suffixes. Strip them
 // so `InvalidNumberOfArguments_exact` matches the `InvalidNumberOfArguments`
@@ -240,16 +305,34 @@ function analyseLanguage(lang) {
 
 // -------------------------------------------------------------------------
 
-const argv = process.argv.slice(2);
-const locales = resolveAuditLocales(argv);
-const overriding = argv.some(a => a === "--locales" || a.startsWith("--locales="));
-
 console.log(`${"=".repeat(72)}`);
 console.log(`i18n key audit — interpreters`);
-console.log(`${overriding ? "override" : "production"} locales checked: ${locales.join(", ")}`);
+console.log(`authored catalogs checked: ${SOURCE_LOCALE} (blocking), ${CANARY_LOCALE} (reported)`);
+console.log(`translated catalogs live in the i18n repo and are guarded there — see header`);
 console.log("=".repeat(72));
 
 let totalFailures = 0;
+let totalWarnings = 0;
+
+/** Report the keys `usedKeys` references that one catalog does not hold. */
+function reportMissing(a, lang, locale, missing, level) {
+  const byNs = new Map();
+  for (const k of missing) {
+    const ns = k.split(".").slice(0, 2).join(".");
+    if (!byNs.has(ns)) byNs.set(ns, []);
+    byNs.get(ns).push(k);
+  }
+  console.log(
+    `\n[${level}] catalog "${locale}": ${missing.length} referenced key(s) MISSING from ${lang}/locales/${locale}/translation.json`
+  );
+  for (const [ns, keys] of [...byNs].sort()) {
+    console.log(`   ${ns}.*`);
+    for (const k of keys) {
+      console.log(`      - ${k}`);
+      console.log(`        source: ${a.provenance.get(k)}`);
+    }
+  }
+}
 
 for (const lang of LANGS) {
   const a = analyseLanguage(lang);
@@ -264,44 +347,41 @@ for (const lang of LANGS) {
   );
   console.log(`referenced (required) keys: ${a.usedKeys.size}`);
 
-  for (const locale of locales) {
-    const loc = loadLocale(a.langDir, locale);
-    if (!loc.ok) {
-      totalFailures++;
-      console.log(`\n[CRITICAL] locale "${locale}": ${loc.error}`);
-      console.log(`   -> all ${a.usedKeys.size} referenced keys are unresolvable for this locale.`);
-      continue;
-    }
-
-    const missing = [...a.usedKeys].filter(k => !loc.dictKeys.has(k) && !loc.dictBaseKeys.has(k)).sort();
-
+  // Blocking: the authored English catalog. A key with no entry here is a key no
+  // locale can ever have, because every translation is made from this file.
+  const source = loadLocale(a.langDir, SOURCE_LOCALE);
+  if (!source.ok) {
+    totalFailures++;
+    console.log(`\n[CRITICAL] catalog "${SOURCE_LOCALE}": ${source.error}`);
+    console.log(`   -> all ${a.usedKeys.size} referenced keys are unresolvable.`);
+  } else {
+    const missing = [...a.usedKeys].filter(k => !source.dictKeys.has(k) && !source.dictBaseKeys.has(k)).sort();
     if (missing.length === 0) {
-      console.log(`\n[ok] locale "${locale}": all ${a.usedKeys.size} referenced keys present.`);
-      continue;
+      console.log(`\n[ok] catalog "${SOURCE_LOCALE}": all ${a.usedKeys.size} referenced keys present.`);
+    } else {
+      totalFailures += missing.length;
+      reportMissing(a, lang, SOURCE_LOCALE, missing, "CRITICAL");
     }
+  }
 
-    totalFailures += missing.length;
-    // Group by namespace for actionability.
-    const byNs = new Map();
-    for (const k of missing) {
-      const ns = k.split(".").slice(0, 2).join(".");
-      if (!byNs.has(ns)) byNs.set(ns, []);
-      byNs.get(ns).push(k);
-    }
-    console.log(
-      `\n[CRITICAL] locale "${locale}": ${missing.length} referenced key(s) MISSING from ${lang}/locales/${locale}/translation.json`
-    );
-    for (const [ns, keys] of [...byNs].sort()) {
-      console.log(`   ${ns}.*`);
-      for (const k of keys) {
-        console.log(`      - ${k}`);
-        console.log(`        source: ${a.provenance.get(k)}`);
-      }
+  // Reported, not blocking: the `system` canary catalog. See the header.
+  const canary = loadLocale(a.langDir, CANARY_LOCALE);
+  if (!canary.ok) {
+    totalWarnings++;
+    console.log(`\n[WARN] catalog "${CANARY_LOCALE}": ${canary.error}`);
+  } else {
+    const missing = [...a.usedKeys].filter(k => !canary.dictKeys.has(k) && !canary.dictBaseKeys.has(k)).sort();
+    if (missing.length === 0) {
+      console.log(`[ok] catalog "${CANARY_LOCALE}": all ${a.usedKeys.size} referenced keys present.`);
+    } else {
+      totalWarnings += missing.length;
+      reportMissing(a, lang, CANARY_LOCALE, missing, "WARN");
+      console.log(`   -> these degrade the no-injection canary to a raw key; not blocking (see header).`);
     }
   }
 
   // Info: dict keys never referenced (computed against en as the authored base).
-  const en = loadLocale(a.langDir, "en");
+  const en = source;
   if (en.ok) {
     const staticCategories = new Set(Object.values(UNION_CATEGORY));
     const usedBase = new Set([...a.usedKeys].map(k => k.replace(SUFFIX, "")));
@@ -331,9 +411,12 @@ for (const lang of LANGS) {
 console.log(`\n${"=".repeat(72)}`);
 console.log(
   totalFailures === 0
-    ? `RESULT: OK — every referenced key resolves in all production locales (${locales.join(", ")}).`
-    : `RESULT: ${totalFailures} failure(s) across locales ${locales.join(", ")} — see [CRITICAL] sections above.`
+    ? `RESULT: OK — every referenced key is authored in "${SOURCE_LOCALE}" for all three interpreters.`
+    : `RESULT: ${totalFailures} failure(s) in the authored "${SOURCE_LOCALE}" catalogs — see [CRITICAL] sections above.`
 );
+if (totalWarnings > 0) {
+  console.log(`         ${totalWarnings} "${CANARY_LOCALE}" canary gap(s) reported above (not blocking).`);
+}
 console.log("=".repeat(72));
 
 process.exit(totalFailures === 0 ? 0 : 1);

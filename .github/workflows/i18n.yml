@@ -3,12 +3,18 @@ name: i18n
 # Two checks, both about the locales production actually serves.
 #
 # audit-keys verifies that every translation key referenced in code exists in the
-# catalog it is resolved from. The app and curriculum each author one catalog per
-# item, English, so their audits have no locale dimension; the interpreters hold
-# a catalog per locale and theirs is checked against every locale in
-# PRODUCTION_LOCALES (app/lib/locales.ts, currently en), via the resolver in
-# scripts/i18n-locales.mjs. Each package has its own audit script under
-# <pkg>/scripts/audit-i18n-keys.mjs.
+# catalog it is resolved from. None of the three audits has a locale dimension,
+# because every package here authors English and English only: each translated
+# catalog is authored in the i18n repo, published from there to R2, and fetched at
+# runtime, so no locale but `en` (plus the interpreters' `system` canary) is ever a
+# file in this tree to check. That is why the interpreters audit no longer iterates
+# PRODUCTION_LOCALES; the reasoning, and what guards a target locale instead, is in
+# the header of interpreters/scripts/audit-i18n-keys.mjs. Each package has its own
+# audit script under <pkg>/scripts/audit-i18n-keys.mjs.
+#
+# The division of labour between the two jobs is therefore: audit-keys guards the
+# ENGLISH catalogs this repo authors, and locale-completeness guards every other
+# locale by asking the repo that owns them.
 #
 # locale-completeness verifies that each of those locales is one the i18n repo
 # reports as fully translated. That repo publishes whatever is on its main so
@@ -23,7 +29,6 @@ on:
       - "app/**"
       - "curriculum/**"
       - "interpreters/**"
-      - "scripts/i18n-locales.mjs"
       - ".github/workflows/i18n.yml"
   pull_request:
     branches: [main]
@@ -31,7 +36,6 @@ on:
       - "app/**"
       - "curriculum/**"
       - "interpreters/**"
-      - "scripts/i18n-locales.mjs"
       - ".github/workflows/i18n.yml"
 
 jobs:
