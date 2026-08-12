@@ -6,7 +6,10 @@ import { MuxVideo } from "@videojs/react/media/mux-video";
 import { MuxData } from "@videojs/react/media/mux-data";
 import "@videojs/react/video/skin.css";
 import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
+import { useLocale } from "next-intl";
+import { DEFAULT_LOCALE } from "@/lib/i18n/config";
 import { handleVideoPlayerError } from "./videoPlayerError";
+import { useCaptionAutoEnable } from "./useCaptionAutoEnable";
 import styles from "./JikiVideoPlayer.module.css";
 
 // Mux Data environment key. Optional for Mux-hosted playback: the beacon reports
@@ -97,6 +100,13 @@ type PlayerBridgeProps = Pick<
 
 const PlayerBridge = forwardRef<JikiVideoPlayerHandle, PlayerBridgeProps>(function PlayerBridge(callbacks, ref) {
   const store = Player.usePlayer();
+
+  // Readers whose UI is not in the video's spoken language get captions in their
+  // own language, if the asset carries them. Scoped to the player instance: a
+  // reader who dismisses them is obeyed for this video, and the next video asks
+  // again. Skipped for DEFAULT_LOCALE, whose readers already understand the audio.
+  const locale = useLocale();
+  useCaptionAutoEnable(store, locale, locale !== DEFAULT_LOCALE);
 
   // Keep the latest callbacks in a ref so the subscription effect doesn't
   // resubscribe on every render (callbacks are usually fresh each render).

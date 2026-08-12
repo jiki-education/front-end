@@ -142,6 +142,14 @@ export default function DevPage() {
                 - All videos from api&apos;s curriculum.json, grouped by level
               </span>
             </li>
+            <li>
+              <Link href="/dev/video-captions" className={styles.link}>
+                Video Captions
+              </Link>
+              <span className={styles.linkDescription}>
+                - Locale-based caption auto-enable, driven by the i18n repo&apos;s translated .vtt files
+              </span>
+            </li>
           </ul>
         </div>
 

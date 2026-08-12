@@ -1,0 +1,70 @@
+.page {
+    min-height: 100vh;
+    background: var(--color-gray-100);
+    padding: 24px 16px 60px;
+}
+
+.container {
+    max-width: 900px;
+    margin-inline: auto;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.note {
+    color: var(--color-gray-600);
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.note code {
+    background: var(--color-gray-200);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 12px;
+}
+
+.controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    background: #fff;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 220px;
+}
+
+.fieldLabel {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.select {
+    border: 1px solid var(--color-gray-300);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 14px;
+    background: #fff;
+}
+
+.playerCard {
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
