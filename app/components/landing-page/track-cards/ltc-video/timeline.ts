@@ -65,6 +65,11 @@ export type Action =
   | { type: "laser"; col: number }
   | { type: "laserOffEdge" }
   | { type: "shoot"; col: number; target: number }
+  /**
+   * Move the scrubber to a step of the failing run, rebuilding the board from the run rather than
+   * accumulating it — the one action that can travel backwards, reviving aliens as it goes.
+   */
+  | { type: "seek"; step: number; dir: "back" | "forward" }
   /** Dispatched by the shot's own animation ending, not by the timeline. */
   | { type: "expireShot"; id: number }
   | { type: "track"; pct: number; ms: number }
@@ -138,34 +143,36 @@ function buildTimeline(): Timeline {
   // Holds on the error and its callout before the scrub starts pulling the eye away.
   t += 3400;
 
-  // ---------- beat 4b: scrub back through the run, so the cannon retraces its steps ----------
-  const lastCol = COLS;
-  const backTo = 7;
-  const scrubTo = (at: number, col: number) => {
-    const pct = (col - 1) / (lastCol - 1);
-    push(at, { type: "laser", col });
+  // ---------- beat 4b: scrub back through the run, replaying it in reverse ----------
+  // Stepping by run action rather than by column, so the two kills the scrub crosses are undone on
+  // the way back and replayed on the way forward — the board rewinds, not just the cannon.
+  // A step is a frame *between* actions, so the run's final frame is one past its last action.
+  const lastStep = runA.length;
+  const backTo = 9; // far enough back to revive the aliens in columns 10 and 8
+  const scrubTo = (at: number, step: number, dir: "back" | "forward") => {
+    const pct = step / lastStep;
+    push(at, { type: "seek", step, dir });
     push(at, { type: "track", pct, ms: STEP });
     push(at, { type: "cursor", target: { kind: "track", pct } });
   };
 
   push(t, { type: "callout", id: "rewind" });
-  push(t, { type: "laser", col: lastCol }); // back off the edge, onto the last column
+  push(t, { type: "laser", col: COLS }); // back off the edge, onto the last column
   push(t, { type: "cursor", target: { kind: "track", pct: 1 } }); // reach for the thumb, still an arrow
   push(t + 450, { type: "grip", gripping: true }); // become a hand only as it lands, not on setting off
   t += 600;
   push(t, { type: "scrubbing", scrubbing: true });
-  for (let col = lastCol - 1; col >= backTo; col--) {
-    scrubTo(t, col);
+  for (let step = lastStep - 1; step >= backTo; step--) {
+    scrubTo(t, step, "back");
     t += STEP;
   }
   t += 450;
-  for (let col = backTo + 1; col <= lastCol; col++) {
-    scrubTo(t, col);
+  for (let step = backTo + 1; step <= lastStep; step++) {
+    scrubTo(t, step, "forward");
     t += STEP;
   }
   push(t, { type: "scrubbing", scrubbing: false });
   push(t, { type: "grip", gripping: false }); // lifts off the thumb as an arrow again
-  push(t, { type: "laserOffEdge" }); // back to where it broke
   push(t, { type: "track", pct: 1, ms: STEP });
   t += 1100;
 
