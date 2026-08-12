@@ -10,6 +10,7 @@ import "highlight.js/styles/default.min.css";
 import { addHighlight, removeAllHighlightEffect } from "../edit-editor/highlightRange";
 import { cleanupAllInformationTooltips } from "./cleanup";
 import closeButtonStyles from "@/components/ui-kit/CloseButton/CloseButton.module.css";
+import exerciseStyles from "../../../../CodingExercise.module.css";
 import tooltipStyles from "./informationTooltip.module.css";
 import { editorMessage } from "../../../../lib/i18n/editorMessages";
 
@@ -208,7 +209,11 @@ export class InformationWidget extends WidgetType {
       ]
     }).then(({ y, middlewareData }) => {
       // Align the tooltip just past the vertical divider's right edge.
-      const verticalDivider = document.querySelector(".verticalDivider") as HTMLElement;
+      // Scoped to this editor's container: a document-wide lookup would find the
+      // first editor's divider when several are on one page.
+      const verticalDivider = editor
+        .closest(`.${exerciseStyles.exerciseContainer}`)
+        ?.querySelector<HTMLElement>(`.${exerciseStyles.verticalDivider}`);
       let x: number;
 
       if (verticalDivider) {

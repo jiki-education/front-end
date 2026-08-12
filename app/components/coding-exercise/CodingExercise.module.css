@@ -1061,25 +1061,15 @@
 
 /* The panes keep the reader's direction (so their prose reads RTL), but they sit
    in a container pinned to LTR, so their own outer edges must be pinned too: the
-   RHS divider border and the panel gutters belong to the physical side facing the
-   split, not the inline-start side. Physical props by necessity — see the divider
-   note above. */
+   RHS divider border belongs to the physical side facing the split, not the
+   inline-start side. Physical props by necessity — see the divider note above.
+   The LHS panes need no such override: their base margins are already physical. */
 /* stylelint-disable property-disallowed-list */
 :global([dir="rtl"]) .rightColumn {
     border-right: none;
     border-left: 1px solid var(--color-gray-200);
     margin-right: 0;
     margin-left: 4px;
-}
-
-:global([dir="rtl"]) .codeEditor {
-    margin-left: 8px;
-    margin-right: 4px;
-}
-
-:global([dir="rtl"]) .testResultsArea {
-    margin-left: 8px;
-    margin-right: 4px;
 }
 /* stylelint-enable property-disallowed-list */
 
