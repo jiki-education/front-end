@@ -33,8 +33,10 @@ describe("TestimonialsSection", () => {
   });
 
   it("renders the primary quote and attribution", () => {
-    render(<TestimonialsSection testimonials={data} />);
-    expect(screen.getByText(data.primary.text)).toBeInTheDocument();
+    const { container } = render(<TestimonialsSection testimonials={data} />);
+    // The quote's **bold** spans become separate <strong> elements, so the text is
+    // split across nodes and only reassembles at the container level.
+    expect(container.textContent).toContain(data.primary.text.replace(/\*\*/g, ""));
     expect(screen.getAllByText(data.primary.name).length).toBeGreaterThan(0);
     expect(screen.getByText(data.primary.role)).toBeInTheDocument();
   });

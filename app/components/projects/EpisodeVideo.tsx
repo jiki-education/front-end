@@ -4,7 +4,7 @@ import { useAuthStore } from "@/lib/auth/authStore";
 import type { VideoProvider } from "@/lib/content/types";
 import { showPremiumUpgradeModal } from "@/lib/modal/app";
 import { tierIncludes } from "@/lib/pricing";
-import MuxPlayer from "@/components/ui/JikiMuxPlayer";
+import VideoPlayer from "@/components/ui/JikiVideoPlayer";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import YouTube from "react-youtube";
@@ -63,7 +63,7 @@ export default function EpisodeVideo({ uuid, projectPath, videoProvider, videoKe
   return (
     <div className={styles.videoContainer}>
       {videoProvider === "mux" ? (
-        <MuxPlayer
+        <VideoPlayer
           ref={muxPlayerRef}
           playbackId={videoKey}
           autoPlay={false}

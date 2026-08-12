@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import type { Lesson, VideoSource } from "@/types/lesson";
 import type { ProgrammingLanguage } from "@/types/course";
-import MuxPlayer, { type MuxPlayerRefAttributes } from "@/components/ui/JikiMuxPlayer";
+import VideoPlayer, { type JikiVideoPlayerHandle } from "@/components/ui/JikiVideoPlayer";
 import { useTranslations } from "next-intl";
 import styles from "../ChooseLanguage.module.css";
 
@@ -27,7 +27,7 @@ export function VideoStep({ lessonData, onReady, onProceedToSelector, hasVisited
   const videoSource = lessonData.data.sources[0] as VideoSource | undefined;
   const playbackId = videoSource?.id ?? "";
 
-  const playerRef = useRef<MuxPlayerRefAttributes>(null);
+  const playerRef = useRef<JikiVideoPlayerHandle>(null);
   const [isVideoVisible, setIsVideoVisible] = useState(false);
   const hasAutoPlayedRef = useRef(false);
 
@@ -67,7 +67,7 @@ export function VideoStep({ lessonData, onReady, onProceedToSelector, hasVisited
       <div className={styles.videoContainer}>
         <div className={styles.videoAspectRatio}>
           {playbackId ? (
-            <MuxPlayer
+            <VideoPlayer
               ref={playerRef}
               playbackId={playbackId}
               autoPlay={true}

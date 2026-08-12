@@ -1,0 +1,14 @@
+/* Square off the player. v10's default skin rounds the root (and the video
+   inherits it) via `border-radius: var(--media-border-radius, 2rem)`; the Mux
+   Player build had square corners, so we reset the var to keep that look. */
+.videoPlayer {
+    --media-border-radius: 0;
+}
+
+/* Hide the skin's skip-forward/back buttons (e.g. the landing Hero, which the
+   Mux Player build hid via --seek-*-button CSS vars). v10's SeekButton marks its
+   direction with data-direction, so we hide both directions within the wrapper. */
+.hideSeekButtons :global([data-direction="forward"]),
+.hideSeekButtons :global([data-direction="backward"]) {
+    display: none;
+}

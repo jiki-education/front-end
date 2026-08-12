@@ -2,7 +2,7 @@
 
 import { LessonQuitButton } from "@/components/lesson/LessonQuitButton";
 import type { Lesson, VideoSource } from "@/types/lesson";
-import MuxPlayer from "@/components/ui/JikiMuxPlayer";
+import VideoPlayer from "@/components/ui/JikiVideoPlayer";
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 import LockIcon from "@/icons/lock.svg";
@@ -59,7 +59,7 @@ export default function VideoExercise({
       <div className={styles.videoContainer}>
         <div className={styles.videoAspectRatio}>
           {playbackId ? (
-            <MuxPlayer
+            <VideoPlayer
               ref={playerRef}
               playbackId={playbackId}
               className={`${videoWatched ? styles.muxPlayerCompleted : styles.muxPlayer} ${isVideoVisible ? styles.muxPlayerVisible : styles.muxPlayerHidden}`}

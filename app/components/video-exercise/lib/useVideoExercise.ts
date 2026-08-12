@@ -1,7 +1,7 @@
 import { markLessonComplete, fetchUserLesson } from "@/lib/api/lessons";
 import { reportError } from "@/lib/reportError";
 import { showLessonSaveErrorToast } from "@/lib/toasts/lessonSaveError";
-import type { MuxPlayerRefAttributes } from "@mux/mux-player-react";
+import type { JikiVideoPlayerHandle } from "@/components/ui/JikiVideoPlayer";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
@@ -24,7 +24,7 @@ export function useVideoExercise(lessonSlug: string) {
   const [showSkipHint, setShowSkipHint] = useState(false);
   const maxWatchedRef = useRef(0);
   const skipHintTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const playerRef = useRef<MuxPlayerRefAttributes>(null);
+  const playerRef = useRef<JikiVideoPlayerHandle>(null);
   const hasAutoPlayedRef = useRef(false);
 
   useEffect(() => {
@@ -95,7 +95,7 @@ export function useVideoExercise(lessonSlug: string) {
     skipHintTimeoutRef.current = setTimeout(() => setShowSkipHint(false), SKIP_HINT_DURATION_MS);
   };
 
-  // On a first watch, clamp forward seeks to the furthest-watched point synchronously inside `seeking` so the handle snaps back before the player commits, and flash a hint to explain it.
+  // On a first watch, clamp forward seeks to the furthest-watched point and flash a hint to explain it. The snap-back is corrective, not preventive: v10's `seek()` commits asynchronously, so the scrubbed-to position is briefly live. What keeps it from counting as watched is the bridge firing `onSeeking` before `onTimeUpdate` and suppressing `onTimeUpdate` mid-seek.
   const handleSeeking = () => {
     if (isAlreadyCompleted || videoWatched || !playerRef.current) {
       return;

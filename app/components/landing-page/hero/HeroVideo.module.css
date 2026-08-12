@@ -78,7 +78,7 @@
     }
 }
 
-.muxOverlay {
+.videoOverlay {
     position: absolute;
     inset: 5px;
     border-radius: 4px;
