@@ -4,6 +4,7 @@ import { AUTHENTICATION_COOKIE_NAME } from "./lib/auth/cookie-config";
 import { isStaging } from "./lib/env";
 import { PATHNAME_HEADER, URL_LOCALE_HEADER, isSupportedLocale } from "./lib/i18n/config";
 import { resolveLocaleRouting } from "./lib/i18n/localeRouting";
+import { redirectToCorrectLocale } from "./lib/i18n/localeRedirect";
 import { isCacheableRoute } from "./lib/cache/cacheable-routes";
 import { setInternalNavigationCookie } from "./lib/middleware/internal-navigation";
 
@@ -49,6 +50,17 @@ export function middleware(request: NextRequest) {
   const isDevelopment = process.env.NODE_ENV === "development" || process.env.VERCEL_ENV === "development";
   if (isTestRoute && !isDevelopment) {
     return new NextResponse(null, { status: 404 });
+  }
+
+  //
+  // Send the visitor to the locale they've chosen, or (failing that) the one
+  // their browser asks for. On Cloudflare this has already run ahead of the edge
+  // cache (worker-wrapper.js) and returns null here; the call is what makes
+  // `next dev` — which has no worker in front of it — behave the same way.
+  //
+  const localeRedirect = redirectToCorrectLocale(request);
+  if (localeRedirect) {
+    return localeRedirect;
   }
 
   //

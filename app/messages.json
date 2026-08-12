@@ -396,6 +396,12 @@
       "emailNotConfirmed": "Your email address is not confirmed.",
       "confirmationPending": "Confirmation pending for: <strong>{email}</strong>"
     },
+    "language": {
+      "label": "Language",
+      "comingSoon": "Coming soon",
+      "comingSoonBadge": "Soon",
+      "saveFailed": "We couldn't change your language. Please try again."
+    },
     "subscriptionSection": {
       "loadingCardTitle": "Subscription",
       "loadingCardDescription": "Manage your subscription plan and billing details",

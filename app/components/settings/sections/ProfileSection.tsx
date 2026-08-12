@@ -3,6 +3,7 @@
 import type { UserSettings } from "@/lib/api/types/settings";
 import { useTranslations } from "next-intl";
 import EditableField from "../ui/EditableField";
+import LanguageField from "../ui/LanguageField";
 import StatusNotification from "../ui/StatusNotification";
 import styles from "../Settings.module.css";
 
@@ -11,9 +12,16 @@ interface ProfileSectionProps {
   updateName: (name: string) => Promise<void>;
   updateHandle: (handle: string) => Promise<void>;
   updateEmail: (email: string) => Promise<void>;
+  updateLocale: (locale: string) => Promise<void>;
 }
 
-export default function ProfileSection({ settings, updateName, updateHandle, updateEmail }: ProfileSectionProps) {
+export default function ProfileSection({
+  settings,
+  updateName,
+  updateHandle,
+  updateEmail,
+  updateLocale
+}: ProfileSectionProps) {
   const t = useTranslations("settings.profile");
   const tCommon = useTranslations("common");
 
@@ -76,6 +84,10 @@ export default function ProfileSection({ settings, updateName, updateHandle, upd
           validation={validateHandle}
           updateButtonText={t("updateHandle")}
         />
+      </div>
+
+      <div className={styles.settingsField}>
+        <LanguageField value={settings.locale} onSave={updateLocale} />
       </div>
 
       <div className={styles.settingsField}>

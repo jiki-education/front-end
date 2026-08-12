@@ -9,6 +9,16 @@ export type { Locale };
 // to the edge runtime on every request.
 export const LOCALE_COOKIE_NAME = "NEXT_LOCALE";
 
+// Cookie recording a locale the visitor *chose* (language switcher, locale
+// banner), as opposed to one we inferred from Accept-Language. It exists only
+// once the user has acted, so its presence is the signal that a guess must not
+// override them; see resolveLocaleRedirect for the precedence it buys.
+//
+// Deliberately separate from LOCALE_COOKIE_NAME: that one mirrors the logged-in
+// account preference, so folding the two together would make an anonymous click
+// indistinguishable from a stored account setting.
+export const LOCALE_PREF_COOKIE_NAME = "jiki_locale_pref";
+
 // Fixed time zone next-intl formats dates in, on both the server (UTC on the
 // Cloudflare Worker) and the client. Pinning it avoids hydration mismatches and
 // the ENVIRONMENT_FALLBACK warning. Shared by the server request config

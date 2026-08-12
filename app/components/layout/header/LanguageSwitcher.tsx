@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { localePath } from "@/lib/i18n/routes";
+import { setLocalePrefCookie } from "@/lib/i18n/localeCookie";
 import { getGroupedLanguages, getLanguageNames, type Language } from "@/lib/i18n/languages";
 import { staticAsset } from "@/lib/static-asset";
 import ChevronIcon from "@/icons/chevron-down.svg";
@@ -78,7 +79,13 @@ export function LanguageSwitcher() {
                   className={styles.item}
                   hrefLang={language.code}
                   aria-current={language.code === locale ? "true" : undefined}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    // Before the navigation, not after it: the edge decides the
+                    // locale ahead of its cache, so the cookie has to be on the
+                    // very request this click makes. See setLocalePrefCookie.
+                    setLocalePrefCookie(language.code);
+                    setIsOpen(false);
+                  }}
                 >
                   <LanguageLabel language={language} englishNames={englishNames} />
                 </a>
