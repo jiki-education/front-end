@@ -1,0 +1,112 @@
+/* View state: the flag sits on the value line beside the language name, so the
+   row reads the same as the other settings fields with one extra glyph. */
+.currentValue {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Edit state */
+.editing {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Inline panel, not the header's floating dropdown (see LanguageField.tsx).
+   It still scrolls: 33 entries is taller than most viewports, and the page
+   should not grow a screen-and-a-half when this opens. */
+.picker {
+    max-height: min(420px, calc(100vh - 240px));
+    overflow-y: auto;
+    padding: 6px;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 12px;
+}
+
+.group {
+    list-style: none;
+}
+
+.groupHeading {
+    padding: 10px 10px 6px;
+    margin-block-start: 4px;
+    border-block-start: 1px solid var(--color-gray-100);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-gray-400);
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 7px 10px;
+    border-radius: 8px;
+    text-align: start;
+    color: var(--color-gray-700);
+    transition: background-color 0.15s ease;
+}
+
+button.item:hover:not(:disabled) {
+    background: var(--color-gray-50);
+}
+
+button.item:disabled {
+    cursor: default;
+}
+
+.item[aria-current] {
+    background: var(--color-purple-50);
+    color: var(--color-purple-700);
+}
+
+.itemDisabled {
+    opacity: 0.7;
+    cursor: default;
+}
+
+/* Flags come from two aspect ratios (the country set is 3:2, the world flag 5:3),
+   so they are sized into one box and cropped rather than each finding its own
+   width - a rail of flags that all start and end in the same place. */
+.flag {
+    width: 24px;
+    height: 17px;
+    flex-shrink: 0;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.names {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.25;
+}
+
+.primary {
+    font-size: 15px;
+    font-weight: 600;
+    margin-block-end: 2px;
+}
+
+.secondary {
+    font-size: 13px;
+    color: var(--color-gray-500);
+}
+
+.badge {
+    margin-inline-start: auto;
+    flex-shrink: 0;
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: var(--color-gray-100);
+    color: var(--color-gray-500);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}

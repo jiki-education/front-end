@@ -11,7 +11,7 @@ import styles from "../Settings.module.css";
 
 export default function AccountTab() {
   const { user } = useAuthStore();
-  const { settings, loading, fetchSettings, updateName, updateHandle, updateEmail, updatePassword } =
+  const { settings, loading, fetchSettings, updateName, updateHandle, updateEmail, updateLocale, updatePassword } =
     useSettingsStore();
 
   // Fetch settings on mount
@@ -38,6 +38,7 @@ export default function AccountTab() {
         updateName={updateName}
         updateHandle={updateHandle}
         updateEmail={updateEmail}
+        updateLocale={updateLocale}
       />
 
       <SecuritySection updatePassword={updatePassword} />
