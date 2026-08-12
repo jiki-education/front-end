@@ -1,0 +1,21 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": ["components/landing-page/track-cards/ltc-video/LtcVideo.module.css"],
+        "createdAt": "2026-08-12T09:16:22.352Z",
+        "reason": "False positive: matches the words '<img>' and 'placeholder' inside a CSS comment at L1102 explaining why .who uses a background image instead of an <img> tag. No img elements exist in this CSS module."
+      },
+      {
+        "rule": "bounce-easing",
+        "value": "cubic-bezier(0.34, 1.4, 0.64, 1)",
+        "createdAt": "2026-08-12T09:21:49.009Z",
+        "reason": "user confirmed: intentional overshoot on the LTC video success-modal pop and tick draw; the slight overshoot is the deliberate punctuation on the win celebration"
+      }
+    ]
+  }
+}
