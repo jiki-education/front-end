@@ -15,7 +15,13 @@ import { DEFAULT_LOCALE, LOCALE_COOKIE_NAME, isSupportedLocale, type Locale } fr
 //
 // IMPORTANT: because this bypasses the catalog, every new locale must be added
 // here BY HAND. The translation repo knows about this deliberate exception.
-// New locales' entries start as the English copy verbatim (never machine-translated).
+//
+// These three strings are the one place Jiki's copy is not translated by the
+// normal pass, so they do not reach a reviewer the way catalog copy does. Each
+// follows its language's guide on formality (all four of el/fr/it/uk are
+// informal singular; uk uses the plain imperative its guide allows for a
+// discrete action, since its usual inclusive "ми" cannot address a button).
+// They are worth a native speaker's eye on the next review pass.
 interface GlobalErrorCopy {
   title: string;
   message: string;
@@ -32,6 +38,26 @@ const COPY: Record<Locale, GlobalErrorCopy> = {
     title: "Valami hiba történt",
     message: "Váratlan hiba lépett fel. Elnézést kérünk emiatt!",
     actionLabel: "Próbáld újra"
+  },
+  el: {
+    title: "Κάτι πήγε στραβά",
+    message: "Παρουσιάστηκε ένα απροσδόκητο σφάλμα. Λυπόμαστε!",
+    actionLabel: "Δοκίμασε ξανά"
+  },
+  fr: {
+    title: "Une erreur s'est produite",
+    message: "Nous avons rencontré une erreur inattendue. Désolé !",
+    actionLabel: "Réessaie"
+  },
+  it: {
+    title: "Qualcosa è andato storto",
+    message: "Si è verificato un errore imprevisto. Ci dispiace!",
+    actionLabel: "Riprova"
+  },
+  uk: {
+    title: "Щось пішло не так",
+    message: "Сталася неочікувана помилка. Перепрошуємо!",
+    actionLabel: "Спробуйте ще раз"
   }
 };
 

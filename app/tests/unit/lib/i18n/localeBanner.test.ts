@@ -26,7 +26,7 @@ describe("resolveBannerOffer", () => {
     });
 
     it("falls back to English on a non-English page when none of their languages are supported", () => {
-      expect(resolveBannerOffer({ ...anon, pathname: "/hu/blog/x", acceptLanguage: "de,fr;q=0.9" })).toEqual({
+      expect(resolveBannerOffer({ ...anon, pathname: "/hu/blog/x", acceptLanguage: "xx,zz;q=0.9" })).toEqual({
         offered: "en",
         current: "hu",
         href: "/blog/x"
@@ -73,8 +73,11 @@ describe("firstSupportedLanguage", () => {
     expect(firstSupportedLanguage("hu-hu")).toBe("hu");
   });
 
+  // "xx"/"zz" rather than a real language tag: these assert the NO-MATCH path, so a
+  // real tag here is a test that passes until that language launches and then fails
+  // for no reason connected to what it is testing. "fr" sat here until fr launched.
   it("returns undefined when nothing is supported", () => {
-    expect(firstSupportedLanguage("de,fr,pt-BR")).toBeUndefined();
+    expect(firstSupportedLanguage("xx,zz-ZZ")).toBeUndefined();
   });
 });
 
@@ -89,7 +92,7 @@ describe("localeCacheBucket", () => {
   });
 
   it("falls back to the default locale when nothing is supported", () => {
-    expect(localeCacheBucket("fr-FR,fr;q=0.9")).toBe("en");
+    expect(localeCacheBucket("xx-XX,xx;q=0.9")).toBe("en");
   });
 });
 
