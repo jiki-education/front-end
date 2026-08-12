@@ -16,14 +16,29 @@
     --confetti-4: #e9de3f;
     --confetti-5: #beeeab;
 
-    --ltc-scale: 0.55;
     --stage-w: 1040px;
+    /* The gutter the stage has to live inside; also the section's own inline padding. Narrower
+       on a phone, where every pixel taken from the margin goes into the stage and the text
+       inside it is already at the edge of readable. */
+    --ltc-gutter: 12px;
+
+    @media (min-width: 640px) {
+        --ltc-gutter: 24px;
+    }
+    /* Fits the stage to the viewport rather than holding one scale at every width: below
+       roughly 1090px the 0.55 rendering (572px) is wider than the space available, so the
+       scale becomes the ratio that fits and the stage shrinks with the screen instead of
+       overflowing it. Everything inside is scaled as one piece, so nothing needs its own
+       breakpoint. */
+    /* Dividing a length by a length is what yields a plain number here; the divisor has to
+       carry its px unit or the whole declaration is invalid and the stage renders unscaled. */
+    --ltc-scale: min(0.55, calc((100vw - var(--ltc-gutter) * 2) / var(--stage-w)));
     /* Anchors below are authored against the 0.55 scale, so they follow it if it ever changes. */
     --ltc-k: calc(var(--ltc-scale) / 0.55);
 
     position: relative;
     z-index: 1;
-    padding-inline: 24px;
+    padding-inline: var(--ltc-gutter);
 }
 
 /* Three columns: the callout rails sit beside the stage rather than being pushed off it. The

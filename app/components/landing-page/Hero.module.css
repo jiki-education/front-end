@@ -104,7 +104,9 @@
     }
 }
 
-@media (min-width: 1024px) and (max-width: 1189px) {
+/* The band between the hero going side-by-side and the walkthrough's rails appearing: the
+   copy column is at its narrowest here, so the tagline steps back down. */
+@media (min-width: 1024px) and (max-width: 1179.98px) {
     .tagline {
         font-size: 18px;
     }

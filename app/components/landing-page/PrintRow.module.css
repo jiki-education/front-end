@@ -7,6 +7,9 @@
     padding-block: 60px 64px;
     padding-inline: 24px;
     text-align: center;
+    /* The join doodle hangs into the left margin by design. Just above the 870px cutoff there
+       is not quite enough room for it, and a decorative overhang must not scroll the page. */
+    overflow-x: clip;
     background:
         radial-gradient(90% 60% at 15% 0%, rgba(168, 85, 247, 0.16) 0%, rgba(168, 85, 247, 0) 60%),
         radial-gradient(80% 70% at 90% 100%, rgba(191, 215, 254, 0.42) 0%, rgba(191, 215, 254, 0) 62%),
@@ -54,7 +57,10 @@
     container-type: inline-size;
     position: relative;
     flex-shrink: 0;
-    width: 162px;
+    /* Three overlapping prints need ~472px plus the section's gutters, which is wider than a
+       phone. Below that the row scales with the viewport instead of pushing the page sideways:
+       the caption is sized in cqw, so everything inside follows the width down. */
+    width: min(162px, 34vw);
     padding: 11px 11px 57px;
     border-radius: 2px;
     background: radial-gradient(120% 100% at 50% 0%, #fffefd 40%, #faf7f2 100%);
@@ -63,9 +69,10 @@
         0 12px 24px -8px rgba(30, 20, 10, 0.22);
 }
 
-/* The prints overlap slightly, like a stack laid out by hand. */
+/* The prints overlap slightly, like a stack laid out by hand. Scales with the prints so the
+   stack keeps its shape rather than gaping apart as they shrink. */
 .print + .print {
-    margin-inline-start: -24px;
+    margin-inline-start: max(-24px, -5vw);
 }
 
 .print::before {
@@ -86,7 +93,7 @@
 
 /* The middle print is the hero of the row: bigger, on top, and quietly breathing. */
 .print:nth-child(2) {
-    width: 196px;
+    width: min(196px, 41vw);
     z-index: 3;
     animation: first-glow 3.2s ease-in-out infinite;
 }
@@ -253,8 +260,9 @@
     }
 }
 
-/* Goes once the viewport is too narrow for it to sit clear of the prints. */
-@media (max-width: 870px) {
+/* Goes once the viewport is too narrow for it to sit clear of the prints. Not on the shared
+   scale: this is where the doodle's own fluid offset runs out of margin to sit in. */
+@media (max-width: 899.98px) {
     .join {
         display: none;
     }

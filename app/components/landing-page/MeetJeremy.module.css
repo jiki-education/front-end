@@ -100,7 +100,7 @@
     transform: rotate(-2deg);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 767.98px) {
     .grid {
         grid-template-columns: 1fr;
         gap: 28px;
